@@ -19,7 +19,6 @@ namespace Rivet {
     }
     //@}
 
-
   public:
 
     /// @name Analysis methods
@@ -39,7 +38,6 @@ namespace Rivet {
       // Declare correlator projections.
       declare(Correlators(pp, max.first, max.second),"CRS");
     }
-
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       ec22->fill(apply<ChargedFinalState>(event,"CFS").particles().size(), 
@@ -47,8 +45,6 @@ namespace Rivet {
       ec23->fill(apply<ChargedFinalState>(event,"CFS").particles().size(), 
         apply<Correlators>(event,"CRS"), event.weight());
     }
-
-
     /// Normalise histograms etc., after the run
     void finalize() {
       CumulantAnalysis::finalize();
@@ -57,18 +53,16 @@ namespace Rivet {
 
 
     //@}
+  private:
 
-	  private:
 
     /// @name Histograms
     //@{
-
     Scatter2DPtr h_c22;
     ECorrPtr ec22;
     Scatter2DPtr h_c23;
     ECorrPtr ec23;
     //@}
-
 
   };
 

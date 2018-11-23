@@ -190,24 +190,13 @@ namespace Rivet {
 
   CounterPtr Analysis::bookCounter(const string& cname,
                                    const string& title) {
-                                   // const string& xtitle,
-                                   // const string& ytitle) {
-    const string path = histoPath(cname);
-    CounterPtr ctr = make_shared<Counter>(path, title);
-    addAnalysisObject(ctr);
-    MSG_TRACE("Made counter " << cname << " for " << name());
-    // hist->setAnnotation("XLabel", xtitle);
-    // hist->setAnnotation("YLabel", ytitle);
-    return ctr;
+    return addOrGetCompatAO(make_shared<Counter>(histoPath(cname), title));
   }
 
 
   CounterPtr Analysis::bookCounter(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
                                    const string& title) {
-                                   // const string& xtitle,
-                                   // const string& ytitle) {
-    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
-    return bookCounter(axisCode, title);
+    return bookCounter(mkAxisCode(datasetId, xAxisId, yAxisId), title);
   }
 
 
@@ -217,24 +206,10 @@ namespace Rivet {
                                    const string& xtitle,
                                    const string& ytitle) {
     Histo1DPtr hist = make_shared<Histo1D>(nbins, lower, upper, histoPath(hname), title);
-    try { // try to bind to pre-existing
-      if ( !getHisto1D(hname)->sameBinning(*hist) ) {
-        throw Exception("Histogram " + hname + " already exists with a different binning");
-      }
-      // AnalysisObjectPtr ao = getAnalysisObject(path);
-      // hist = dynamic_pointer_cast<Histo1D>(ao);
-      hist = getHisto1D(hname);
-      /// @todo Test that cast worked
-      /// @todo Also test that binning is as expected?
-      MSG_TRACE("Bound pre-existing histogram " << hname <<  " for " << name());
-    } catch (LookupError) { // binding failed; make it from scratch 
-      addAnalysisObject(hist);
-      MSG_TRACE("Made histogram " << hname <<  " for " << name());
-    }
     hist->setTitle(title);
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
-    return hist;
+    return addOrGetCompatAO(hist);
   }
 
 
@@ -244,24 +219,10 @@ namespace Rivet {
                                    const string& xtitle,
                                    const string& ytitle) {
     Histo1DPtr hist = make_shared<Histo1D>(binedges, histoPath(hname), title);
-    try { // try to bind to pre-existing
-      if ( !getHisto1D(hname)->sameBinning(*hist) ) {
-        throw Exception("Histogram " + hname + " already exists with a different binning");
-      }
-      // AnalysisObjectPtr ao = getAnalysisObject(path);
-      // hist = dynamic_pointer_cast<Histo1D>(ao);
-      hist = getHisto1D(hname);
-      /// @todo Test that cast worked
-      /// @todo Also test that binning is as expected?
-      MSG_TRACE("Bound pre-existing histogram " << hname <<  " for " << name());
-    } catch (LookupError) { // binding failed; make it from scratch 
-      addAnalysisObject(hist);
-      MSG_TRACE("Made histogram " << hname <<  " for " << name());
-    }
     hist->setTitle(title);
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
-    return hist;
+    return addOrGetCompatAO(hist);
   }
 
 
@@ -280,24 +241,10 @@ namespace Rivet {
                                    const string& xtitle,
                                    const string& ytitle) {
     Histo1DPtr hist = make_shared<Histo1D>(refscatter, histoPath(hname));
-    try { // try to bind to pre-existing
-      if ( !getHisto1D(hname)->sameBinning(*hist) ) {
-        throw Exception("Histogram " + hname + " already exists with a different binning");
-      }
-      // AnalysisObjectPtr ao = getAnalysisObject(path);
-      // hist = dynamic_pointer_cast<Histo1D>(ao);
-      hist = getHisto1D(hname);
-      /// @todo Test that cast worked
-      /// @todo Also test that binning is as expected?
-      MSG_TRACE("Bound pre-existing histogram " << hname <<  " for " << name());
-    } catch (LookupError) { // binding failed; make it from scratch 
-      addAnalysisObject(hist);
-      MSG_TRACE("Made histogram " << hname <<  " for " << name());
-    }
     hist->setTitle(title);
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
-    return hist;
+    return addOrGetCompatAO(hist);
   }
 
 
@@ -335,12 +282,10 @@ namespace Rivet {
   {
     const string path = histoPath(hname);
     Histo2DPtr hist = make_shared<Histo2D>(nxbins, xlower, xupper, nybins, ylower, yupper, path, title);
-    addAnalysisObject(hist);
-    MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
     hist->setAnnotation("ZLabel", ztitle);
-    return hist;
+    return addOrGetCompatAO(hist);
   }
 
 
@@ -354,12 +299,10 @@ namespace Rivet {
   {
     const string path = histoPath(hname);
     Histo2DPtr hist = make_shared<Histo2D>(xbinedges, ybinedges, path, title);
-    addAnalysisObject(hist);
-    MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
     hist->setAnnotation("ZLabel", ztitle);
-    return hist;
+    return addOrGetCompatAO(hist);
   }
 
 
@@ -384,14 +327,12 @@ namespace Rivet {
                                    const string& ztitle) {
     const string path = histoPath(hname);
     Histo2DPtr hist( new Histo2D(refscatter, path) );
-    addAnalysisObject(hist);
-    MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
     if (hist->hasAnnotation("IsRef")) hist->rmAnnotation("IsRef");
     hist->setTitle(title);
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
     hist->setAnnotation("ZLabel", ztitle);
-    return hist;
+    return addOrGetCompatAO(hist);
   }
 
 
@@ -425,11 +366,9 @@ namespace Rivet {
                                        const string& ytitle) {
     const string path = histoPath(hname);
     Profile1DPtr prof = make_shared<Profile1D>(nbins, lower, upper, path, title);
-    addAnalysisObject(prof);
-    MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
-    return prof;
+    return addOrGetCompatAO(prof);
   }
 
 
@@ -440,11 +379,9 @@ namespace Rivet {
                                        const string& ytitle) {
     const string path = histoPath(hname);
     Profile1DPtr prof = make_shared<Profile1D>(binedges, path, title);
-    addAnalysisObject(prof);
-    MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
-    return prof;
+    return addOrGetCompatAO(prof);
   }
 
 
@@ -465,13 +402,11 @@ namespace Rivet {
                                        const string& ytitle) {
     const string path = histoPath(hname);
     Profile1DPtr prof = make_shared<Profile1D>(refscatter, path);
-    addAnalysisObject(prof);
-    MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     if (prof->hasAnnotation("IsRef")) prof->rmAnnotation("IsRef");
     prof->setTitle(title);
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
-    return prof;
+    return addOrGetCompatAO(prof);
   }
 
 
@@ -507,12 +442,10 @@ namespace Rivet {
   {
     const string path = histoPath(hname);
     Profile2DPtr prof = make_shared<Profile2D>(nxbins, xlower, xupper, nybins, ylower, yupper, path, title);
-    addAnalysisObject(prof);
-    MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
     prof->setAnnotation("ZLabel", ztitle);
-    return prof;
+    return addOrGetCompatAO(prof);
   }
 
 
@@ -526,12 +459,10 @@ namespace Rivet {
   {
     const string path = histoPath(hname);
     Profile2DPtr prof = make_shared<Profile2D>(xbinedges, ybinedges, path, title);
-    addAnalysisObject(prof);
-    MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
     prof->setAnnotation("ZLabel", ztitle);
-    return prof;
+    return addOrGetCompatAO(prof);
   }
 
 
@@ -556,14 +487,12 @@ namespace Rivet {
                                        const string& ztitle) {
     const string path = histoPath(hname);
     Profile2DPtr prof( new Profile2D(refscatter, path) );
-    addAnalysisObject(prof);
-    MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
     if (prof->hasAnnotation("IsRef")) prof->rmAnnotation("IsRef");
     prof->setTitle(title);
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
     prof->setAnnotation("ZLabel", ztitle);
-    return prof;
+    return addOrGetCompatAO(prof);
   }
 
 
@@ -614,13 +543,11 @@ namespace Rivet {
     } else {
       s = make_shared<Scatter2D>(path);
     }
-    addAnalysisObject(s);
-    MSG_TRACE("Made scatter " << hname <<  " for " << name());
     if (s->hasAnnotation("IsRef")) s->rmAnnotation("IsRef");
     s->setTitle(title);
     s->setAnnotation("XLabel", xtitle);
     s->setAnnotation("YLabel", ytitle);
-    return s;
+    return addOrGetCompatAO(s);
   }
 
 
@@ -629,26 +556,17 @@ namespace Rivet {
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
-    Scatter2DPtr s;
     const string path = histoPath(hname);
-    try { // try to bind to pre-existing
-      s = getAnalysisObject<Scatter2D>(hname);
-      /// @todo Also test that binning is as expected?
-      MSG_TRACE("Bound pre-existing scatter " << path <<  " for " << name());
-    } catch (...) { // binding failed; make it from scratch
-      s = make_shared<Scatter2D>(path);
-      const double binwidth = (upper-lower)/npts;
-      for (size_t pt = 0; pt < npts; ++pt) {
-        const double bincentre = lower + (pt + 0.5) * binwidth;
-        s->addPoint(bincentre, 0, binwidth/2.0, 0);
-      }
-      addAnalysisObject(s);
-      MSG_TRACE("Made scatter " << hname <<  " for " << name());
+    Scatter2DPtr s = make_shared<Scatter2D>(path);
+    const double binwidth = (upper-lower)/npts;
+    for (size_t pt = 0; pt < npts; ++pt) {
+      const double bincentre = lower + (pt + 0.5) * binwidth;
+      s->addPoint(bincentre, 0, binwidth/2.0, 0);
     }
     s->setTitle(title);
     s->setAnnotation("XLabel", xtitle);
     s->setAnnotation("YLabel", ytitle);
-    return s;
+    return addOrGetCompatAO(s);
   }
 
 
@@ -664,12 +582,10 @@ namespace Rivet {
       const double binwidth = binedges[pt+1] - binedges[pt];
       s->addPoint(bincentre, 0, binwidth/2.0, 0);
     }
-    addAnalysisObject(s);
-    MSG_TRACE("Made scatter " << hname <<  " for " << name());
     s->setTitle(title);
     s->setAnnotation("XLabel", xtitle);
     s->setAnnotation("YLabel", ytitle);
-    return s;
+    return addOrGetCompatAO(s);
   }
 
 

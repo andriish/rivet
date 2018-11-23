@@ -182,6 +182,8 @@ namespace Rivet {
     for ( auto ao : getData() )
       _finalizedAOs.push_back(AnalysisObjectPtr(ao->newclone()));
     for ( auto ao : getData(false, true) ) {
+      // TODO: This should be possible to do in a nicer way, with a flag etc.
+      if (ao->path().find("/CORR") != std::string::npos) continue;
       auto aoit = backupAOs.find(ao->path());
       if ( aoit == backupAOs.end() ) {
         AnaHandle ana = analysis(split(ao->path(), "/")[0]);
@@ -304,8 +306,23 @@ namespace Rivet {
     }
   }
 
+  void AnalysisHandler::stripOptions(AnalysisObjectPtr ao,
+                                     const vector<string> & delopts) const {
+    string path = ao->path();
+    string ananame = split(path, "/")[0];
+    vector<string> anaopts = split(ananame, ":");
+    for ( int i = 1, N = anaopts.size(); i < N; ++i )
+      for ( auto opt : delopts )
+        if ( opt == "*" || anaopts[i].find(opt + "=") == 0 )
+          path.replace(path.find(":" + anaopts[i]), (":" + anaopts[i]).length(), "");
+    ao->setPath(path);
+  }
+   
+
+
+
   void AnalysisHandler::
-  mergeYodas(const vector<string> & aofiles, bool equiv) {
+  mergeYodas(const vector<string> & aofiles, const vector<string> & delopts, bool equiv) {
     vector< vector<AnalysisObjectPtr> > aosv;
     vector<double> xsecs;
     vector<double> xsecerrs;
@@ -335,11 +352,8 @@ namespace Rivet {
           else if ( ao->path() == "/_EVTCOUNT" )
             sow = dynamic_pointer_cast<Counter>(ao);
           else {
+            stripOptions(ao, delopts);
             string ananame = split(ao->path(), "/")[0];
-            // HERE we shoud handle merged options, if any.
-            // vector<string> anaopts = split(ananame, ":");
-            // ananame = anaopts[0];
-            // for (int i = 1, N = anaopts.size(); i < N; ++i )
             if ( ananames.insert(ananame).second ) addAnalysis(ananame);
             aos.push_back(ao);
           }
@@ -350,16 +364,9 @@ namespace Rivet {
           exit(1);
         }
         xsecs.push_back(xsec->point(0).x());
-        xsecerrs.push_back(sqr(xsec->point(0).xErrAvg()));
-        std::cerr << _eventcounter.numEntries() << std::endl;
-        std::cerr << _eventcounter.effNumEntries() << std::endl;
-        std::cerr << _eventcounter.sumW() << std::endl;
-        std::cerr << _eventcounter.sumW2() << std::endl;
+        sows.push_back(sow);
+	xsecerrs.push_back(sqr(xsec->point(0).xErrAvg()));
         _eventcounter += *sow;
-        std::cerr << _eventcounter.numEntries() << std::endl;
-        std::cerr << _eventcounter.effNumEntries() << std::endl;
-        std::cerr << _eventcounter.sumW() << std::endl;
-        std::cerr << _eventcounter.sumW2() << std::endl;
         sows.push_back(sow);
         aosv.push_back(aos);
       } catch (...) { //< YODA::ReadError&
@@ -395,6 +402,7 @@ namespace Rivet {
       try {
         // Allow projection registration in the init phase onwards
         a->_allowProjReg = true;
+        cerr << "sqrtS " << sqrtS() << endl;
         a->init();
         //MSG_DEBUG("Checking consistency of analysis: " << a->name());
         //a->checkConsistency();
@@ -413,7 +421,7 @@ namespace Rivet {
     for ( int i = 0, N = aosv.size(); i < N; ++i)
       for ( auto ao : aosv[i] ) {
         if ( ao->path() == "/_XSEC" || ao->path() == "_EVTCOUNT" ) continue;
-        auto aoit = current.find(ao->path());
+	auto aoit = current.find(ao->path());
         if ( aoit == current.end() ) {
           MSG_WARNING("" << ao->path() << " was not properly booked.");
           continue;
@@ -479,7 +487,7 @@ namespace Rivet {
       ao->setPath("/RAW" + ao->path());
       out.push_back(ao);
     }
-    
+   
     try {
       YODA::write(filename, out.begin(), out.end());
     } catch (...) { //< YODA::WriteError&

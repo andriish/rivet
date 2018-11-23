@@ -236,7 +236,8 @@ namespace Rivet {
   /// @brief Base class for correlator bins.
   class CorBinBase {
   public:
-    virtual ~CorBinBase() = 0;
+    CorBinBase() {}
+    virtual ~CorBinBase() {};
     // Derived class should have fill and mean defined.
     virtual void fill(const pair<double, double>& cor, const double& weight) = 0;
     virtual const double mean() const = 0;
@@ -290,6 +291,13 @@ namespace Rivet {
       return _numEntries;
     }
     
+    void addContent(double ne, double sw, double sw2, double swx) {
+      _numEntries += ne;
+      _sumW += sw;
+      _sumW2 += sw2;
+      _sumWX += swx;
+    }
+
   private:
     double _sumWX, _sumW, _sumW2, _numEntries;
   
@@ -306,6 +314,7 @@ namespace Rivet {
     CorBin() : binIndex(0), nBins(BOOT_BINS) {
       for(size_t i = 0; i < nBins; ++i) bins.push_back(CorSingleBin()); 
     }
+    // Destructor must be implemented.
 
     ~CorBin() {}
     // @brief Fill the correct underlying bin and take a step.
@@ -488,7 +497,19 @@ namespace Rivet {
     /// need to call it yourself.
     void setProfs(list<Profile1DPtr> prIn) {
       profs = prIn;
-      cout << "TEST: " << (*prIn.begin())->effNumEntries() << endl;
+    }
+
+    /// @brief Fill bins with content from preloaded histograms.
+    void fillFromProfs() {
+      list<Profile1DPtr>::iterator hItr = profs.begin();
+      for (size_t i = 0; i < profs.size(); ++i, ++hItr) {
+	for (size_t j = 0; j < binX.size() - 1; ++j) {
+	  const YODA::ProfileBin1D& pBin = (*hItr)->binAt(binX[j]);
+	  auto tmp  = binContent[j].getBinPtrs<CorSingleBin>();
+	  tmp[i]->addContent(pBin.numEntries(), pBin.sumW(), pBin.sumW2(), pBin.sumWY());
+	}
+      } // End loop of bootstrapped correlators.
+    
     }
 
     /// @brief begin() iterator for the list of associated profile histograms.
@@ -556,8 +577,12 @@ namespace Rivet {
     binIn.push_back(hIn->points().back().xMax());
     ECorrPtr ecPtr = ECorrPtr(new ECorrelator(h, binIn));
     list<Profile1DPtr> eCorrProfs;
-    for (int i = 0; i < BOOT_BINS; ++i)
-      eCorrProfs.push_back(bookProfile1D(name+"-e"+to_string(i),*hIn));
+    for (int i = 0; i < BOOT_BINS; ++i) {
+      Profile1DPtr tmp = bookProfile1D(name+"-"+to_string(i),*hIn);
+      tmp->setPath(this->name()+"/CORR/" + name+"-"+to_string(i));
+      //tmp->setPath(tmp->path()+"CORR");
+      eCorrProfs.push_back(tmp);
+    }
     ecPtr->setProfs(eCorrProfs);
     eCorrPtrs.push_back(ecPtr);
     return ecPtr;
@@ -571,8 +596,12 @@ namespace Rivet {
     binIn.push_back(hIn->points().back().xMax());
     ECorrPtr ecPtr = ECorrPtr(new ECorrelator(h1, h2, binIn));
     list<Profile1DPtr> eCorrProfs;
-    for (int i = 0; i < BOOT_BINS; ++i)
-      eCorrProfs.push_back(bookProfile1D(name+"-e"+to_string(i),*hIn));
+    for (int i = 0; i < BOOT_BINS; ++i) {
+      Profile1DPtr tmp = bookProfile1D(name+"-"+to_string(i),*hIn);
+      tmp->setPath(this->name()+"/CORR/" + name+"-"+to_string(i));
+      //tmp->setPath(tmp->path()+"CORR");
+      eCorrProfs.push_back(tmp);
+    }
     ecPtr->setProfs(eCorrProfs);
     eCorrPtrs.push_back(ecPtr);
     return ecPtr;
@@ -586,6 +615,7 @@ namespace Rivet {
     const vector<int> h2(h.begin() + h.size() / 2, h.end());
     return bookECorrelator(name, h1, h2, hIn);
   }
+
 
   // @brief Templated version of correlator booking which takes
   // @parm N desired harmonic and @parm M number of particles.
@@ -602,13 +632,15 @@ namespace Rivet {
   }
   
   // @brief Finalize MUST be explicitly called for this base class with a 
-  // CumulantsAnalysis::finalize() call as the first thing in each analysis,
-  // in order to stream the contents of ECorrelators to a yoda file for 
-  // reentrant finalize.
+  // CumulantsAnalysis::finalize() call as the first thing in each analysis'
+  // finalize step, in order to stream the contents of ECorrelators to a yoda
+  // file for reentrant finalize.
   void finalize() {
-    for (auto ecItr = eCorrPtrs.begin(); ecItr != eCorrPtrs.end(); ++ecItr)
+    for (auto ecItr = eCorrPtrs.begin(); ecItr != eCorrPtrs.end(); ++ecItr){
+      (*ecItr)->fillFromProfs();
       corrPlot(list<Profile1DPtr>((*ecItr)->profBegin(),
         (*ecItr)->profEnd()), *ecItr);
+    }
   }
   private:
   
@@ -840,6 +872,8 @@ namespace Rivet {
       // Loop over the boostrapped correlators.
       for (size_t i = 0; i < profs.size(); ++i, ++hItr) {
         vector<YODA::ProfileBin1D> profBins;
+	// Numbers for the summary distribution
+	double ne = 0., sow = 0., sow2 = 0.;
 	for (size_t j = 0, N = binx.size() - 1; j < N; ++j) {
 	  vector<CorSingleBin*> binPtrs = 
 	    corBins[j].getBinPtrs<CorSingleBin>();
@@ -849,11 +883,16 @@ namespace Rivet {
           profBins.push_back( YODA::ProfileBin1D((*hItr)->bin(j).xEdges(),
 	    YODA::Dbn2D( binPtrs[i]->numEntries(), binPtrs[i]->sumW(), 
 	    binPtrs[i]->sumW2(), 0., 0., binPtrs[i]->sumWX(), 0, 0)));
+	  ne += binPtrs[i]->numEntries();
+	  sow += binPtrs[i]->sumW();
+	  sow2 += binPtrs[i]->sumW2();
         }
 	// Reset the bins of the profiles.
 	(*hItr)->reset();
 	(*hItr)->bins().clear();
 	// Add our new bins.
+	(*hItr)->setTotalDbn(YODA::Dbn2D(ne,sow,sow2,0.,0.,0.,0.,0.));
+
 	for (int j = 0, N = profBins.size(); j < N; ++j) {
 	  (*hItr)->addBin(profBins[j]);
 	}
