@@ -183,7 +183,7 @@ namespace Rivet {
       _finalizedAOs.push_back(AnalysisObjectPtr(ao->newclone()));
     for ( auto ao : getData(false, true) ) {
       // TODO: This should be possible to do in a nicer way, with a flag etc.
-      if (ao->path().find("/CORR") != std::string::npos) continue;
+      if (ao->path().find("/FINAL") != std::string::npos) continue;
       auto aoit = backupAOs.find(ao->path());
       if ( aoit == backupAOs.end() ) {
         AnaHandle ana = analysis(split(ao->path(), "/")[0]);

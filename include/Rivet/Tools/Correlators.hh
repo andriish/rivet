@@ -257,7 +257,6 @@ namespace Rivet {
     /// @brief Fill a correlator bin with the return type from a 
     /// Correlator (a pair giving numerator and denominator of <M>_event).
     void fill(const pair<double, double>& cor, const double& weight) {
-      _numEntries += 1.;
       // Test if denominator for the single event average is zero.
       if (cor.second < 1e-10) return;
       // The single event average <M> is then cor.first / cor.second.
@@ -265,6 +264,7 @@ namespace Rivet {
       _sumWX += cor.first * weight;
       _sumW += weight * cor.second;
       _sumW2 += weight * weight * cor.second * cor.second;
+      _numEntries += 1.;
     }
 
     const double mean() const {
@@ -502,12 +502,18 @@ namespace Rivet {
     /// @brief Fill bins with content from preloaded histograms.
     void fillFromProfs() {
       list<Profile1DPtr>::iterator hItr = profs.begin();
+      auto refs = reference.getBinPtrs<CorSingleBin>();
       for (size_t i = 0; i < profs.size(); ++i, ++hItr) {
 	for (size_t j = 0; j < binX.size() - 1; ++j) {
 	  const YODA::ProfileBin1D& pBin = (*hItr)->binAt(binX[j]);
 	  auto tmp  = binContent[j].getBinPtrs<CorSingleBin>();
-	  tmp[i]->addContent(pBin.numEntries(), pBin.sumW(), pBin.sumW2(), pBin.sumWY());
+	  tmp[i]->addContent(pBin.numEntries(), pBin.sumW(), pBin.sumW2(),
+	    pBin.sumWY());
 	}
+	// Get the reference flow from the underflow bin of the histogram.
+	const YODA::Dbn2D& uBin = (*hItr)->underflow();
+	refs[i]->addContent(uBin.numEntries(), uBin.sumW(), uBin.sumW2(),
+	  uBin.sumWY());
       } // End loop of bootstrapped correlators.
     
     }
@@ -579,8 +585,8 @@ namespace Rivet {
     list<Profile1DPtr> eCorrProfs;
     for (int i = 0; i < BOOT_BINS; ++i) {
       Profile1DPtr tmp = bookProfile1D(name+"-"+to_string(i),*hIn);
-      tmp->setPath(this->name()+"/CORR/" + name+"-"+to_string(i));
-      //tmp->setPath(tmp->path()+"CORR");
+      tmp->setPath(this->name()+"/FINAL/" + name+"-"+to_string(i));
+      //tmp->setPath(tmp->path()+"FINAL");
       eCorrProfs.push_back(tmp);
     }
     ecPtr->setProfs(eCorrProfs);
@@ -598,8 +604,8 @@ namespace Rivet {
     list<Profile1DPtr> eCorrProfs;
     for (int i = 0; i < BOOT_BINS; ++i) {
       Profile1DPtr tmp = bookProfile1D(name+"-"+to_string(i),*hIn);
-      tmp->setPath(this->name()+"/CORR/" + name+"-"+to_string(i));
-      //tmp->setPath(tmp->path()+"CORR");
+      tmp->setPath(this->name()+"/FINAL/" + name+"-"+to_string(i));
+      //tmp->setPath(tmp->path()+"FINAL");
       eCorrProfs.push_back(tmp);
     }
     ecPtr->setProfs(eCorrProfs);
@@ -631,11 +637,10 @@ namespace Rivet {
     return bookECorrelatorGap(name, Correlators::hVec(N, M), hIn);
   }
   
-  // @brief Finalize MUST be explicitly called for this base class with a 
-  // CumulantsAnalysis::finalize() call as the first thing in each analysis'
-  // finalize step, in order to stream the contents of ECorrelators to a yoda
-  // file for reentrant finalize.
-  void finalize() {
+  // @brief The stream method MUST be called in finalize() if one wants to stream 
+  // correlators to the yoda file, in order to do reentrant finalize
+  // (ie. multi-histogram merging) for the analysis.
+  void stream() {
     for (auto ecItr = eCorrPtrs.begin(); ecItr != eCorrPtrs.end(); ++ecItr){
       (*ecItr)->fillFromProfs();
       corrPlot(list<Profile1DPtr>((*ecItr)->profBegin(),
@@ -651,7 +656,7 @@ namespace Rivet {
   
     // @brief Constructor. Use CumulantAnalysis as base class for the
     // analysis to have access to functionality.
-    CumulantAnalysis (string n) : Analysis(n), errorMethod(ENVELOPE) {};
+    CumulantAnalysis (string n) : Analysis(n), errorMethod(VARIANCE) {};
     // @brief Helper method for turning correlators into Scatter2Ds.
     // Takes @parm h a pointer to the resulting Scatter2D, @parm binx
     // the x-bins and a function @parm func defining the transformation.
@@ -863,6 +868,8 @@ namespace Rivet {
     const void corrPlot(list<Profile1DPtr> profs, ECorrPtr e) const {
       vector<CorBin> corBins = e->getBins();
       vector<double> binx = e->getBinX();
+      auto ref = e->getReference();
+      auto refBins = ref.getBinPtrs<CorSingleBin>();
       // Assert bin size.
       if (binx.size() - 1 != corBins.size()){
         cout << "corrPlot: Bin size (x,y) differs!" << endl;
@@ -891,14 +898,17 @@ namespace Rivet {
 	(*hItr)->reset();
 	(*hItr)->bins().clear();
 	// Add our new bins.
+	// The total distribution
 	(*hItr)->setTotalDbn(YODA::Dbn2D(ne,sow,sow2,0.,0.,0.,0.,0.));
-
-	for (int j = 0, N = profBins.size(); j < N; ++j) {
+        // The bins.
+	for (int j = 0, N = profBins.size(); j < N; ++j)
 	  (*hItr)->addBin(profBins[j]);
-	}
+	// The reference flow in the underflow bin.
+	(*hItr)->setUnderflow(YODA::Dbn2D(refBins[i]->numEntries(),
+	  refBins[i]->sumW(), refBins[i]->sumW2(), 0., 0.,
+	  refBins[i]->sumWX(), 0., 0.));
       } // End loop of bootstrapped correlators.
     }
-
     // @brief Four particle integrated cn.
     const void cnFourInt(Scatter2DPtr h, ECorrPtr e2, ECorrPtr e4) const {
       auto e2bins = e2->getBins();

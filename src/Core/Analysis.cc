@@ -569,7 +569,6 @@ namespace Rivet {
     return addOrGetCompatAO(s);
   }
 
-
   Scatter2DPtr Analysis::bookScatter2D(const string& hname,
                                        const vector<double>& binedges,
                                        const string& title,
@@ -588,6 +587,18 @@ namespace Rivet {
     return addOrGetCompatAO(s);
   }
 
+  Scatter2DPtr Analysis::bookScatter2D(const Scatter2DPtr scPtr, 
+    const std::string& path, const std::string& title, 
+    const std::string& xtitle, const std::string& ytitle ) {
+    
+    Scatter2DPtr s = make_shared<Scatter2D>(*scPtr);
+    s->setPath(path);
+    s->setTitle(title);
+    s->setAnnotation("XLabel",xtitle);
+    s->setAnnotation("YLabel",ytitle);
+    return addOrGetCompatAO(s);
+  
+  }
 
   /////////////////////
 
