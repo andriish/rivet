@@ -1,12 +1,12 @@
 Name: BRAHMS_2004_I647076
 Year: 2004
-Summary: Charged meson spectra for various rapiditues in central AuAu collisions
+Summary: Charged meson pT spectra for various rapidities in central Au--Au collisions at 200 GeV.
 Experiment: BRAHMS
 Collider: RHIC
 InspireID: 647076
 Status: UNVALIDATED
 Authors:
- - Christian Bierlich <christian.bierlich@thep.lu.se
+ - Christian Bierlich <christian.bierlich@thep.lu.se>
 References:
 - 'Phys.Rev.Lett. 94 (2005) 162301'
 - '10.1103/PhysRevLett.94.162301'
@@ -19,10 +19,10 @@ Beams: [1000791970, 1000791970]
 # This is _total_ energy of beams, so this becomes 197*200=39400
 Energies: [39400]
 Description:
-  'Measurements of invariant pT spectra for pions and kaons in AuAu collisions, over a 
-   broad rapidity range $-0.1 < y < 3.5$. The paper quotes several interesting derived 
-   quantities, like total dN/dy and <pT>, which can be fitted from the spectra produced in
-   this analysis'
+  'Measurements of invariant $p_\perp$ spectra for pions and kaons in the 5% most central Au--Au collisions
+   at $\sqrt{s_{NN}} = 200$ GeV, over a broad rapidity range $-0.1 < y < 3.5$. The paper quotes several derived 
+   quantities, like total $dN/dy$ and $\langle p_\perp \rangle$, which can be fitted from the spectra produced in
+   this analysis.'
 Keywords: []
 BibKey: Bearden:2004yx
 BibTeX: '@article{Bearden:2004yx,
