@@ -585,7 +585,7 @@ namespace Rivet {
     list<Profile1DPtr> eCorrProfs;
     for (int i = 0; i < BOOT_BINS; ++i) {
       Profile1DPtr tmp = bookProfile1D(name+"-"+to_string(i),*hIn);
-      tmp->setPath("/TMP/"+this->name()+"/FINAL/" + name+"-"+to_string(i));
+      tmp->setPath(this->name()+"/FINAL/" + name+"-"+to_string(i));
       //tmp->setPath(tmp->path()+"FINAL");
       eCorrProfs.push_back(tmp);
     }
@@ -604,7 +604,7 @@ namespace Rivet {
     list<Profile1DPtr> eCorrProfs;
     for (int i = 0; i < BOOT_BINS; ++i) {
       Profile1DPtr tmp = bookProfile1D(name+"-"+to_string(i),*hIn);
-      tmp->setPath("/TMP/"+this->name()+"/FINAL/" + name+"-"+to_string(i));
+      tmp->setPath(this->name()+"/FINAL/" + name+"-"+to_string(i));
       //tmp->setPath(tmp->path()+"FINAL");
       eCorrProfs.push_back(tmp);
     }

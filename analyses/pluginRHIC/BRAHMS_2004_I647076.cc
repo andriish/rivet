@@ -113,7 +113,7 @@ namespace Rivet {
       // Centrality Projection.
       declareCentrality(BRAHMSCentrality(), "BRAHMS_2004_CENTRALITY","mult","BCEN");
       // TODO: Feed down correction is unclear.
-      declare(UnstableFinalState(Cuts::abseta < 5 && Cuts::pT > 100*MeV), "FS");
+      declare(FinalState(Cuts::rap < 4 && Cuts::rap > -0.1 && Cuts::pT > 100*MeV), "FS");
       // The measured rapidity intervals for pions.
       rapIntervalsPi = {{-0.1,0.},{0.,0.1},{0.4,0.6},{0.6,0.8},{0.8,1.0},
         {1.0,1.2},{1.2,1.4},{2.1,2.3},{2.4,2.6},{3.0,3.1},{3.1,3.2},{3.2,3.3},
@@ -145,7 +145,7 @@ namespace Rivet {
       if(apply<CentralityProjection>(event,"BCEN")() > 5.0) return;
       // Keep track of sum of weights.
       centSow->fill(w);
-      const UnstableFinalState& fs = apply<UnstableFinalState>(event,"FS");
+      const FinalState& fs = apply<FinalState>(event,"FS");
       // Loop over particles.
       for (const auto& p : fs.particles()) {
         const double y = p.rapidity();

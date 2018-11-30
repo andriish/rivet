@@ -46,6 +46,41 @@ protected:
 
 };
     
+/// Centrality projection for PbPb collisions (two sided)
+class SumET_PBPB_Centrality: public SingleValueProjection {
+
+public:
+
+  /// Constructor.
+    SumET_PBPB_Centrality() {
+    declare(FinalState(Cuts::abseta > 3.2 && Cuts::abseta < 4.9 && Cuts::pT > 0.1*GeV),
+	    "SumET_PBPB_Centrality");
+  }
+
+    /// Clone on the heap.
+    DEFAULT_RIVET_PROJ_CLONE(SumET_PBPB_Centrality);
+
+protected:
+
+  /// Perform the projection on the Event
+  void project(const Event& e) {
+    clear();
+    const FinalState & fsfwd =
+      apply<FinalState>(e, "SumET_PBPB_Centrality");
+    double estimate = 0.0;
+    for ( const Particle & p : fsfwd.particles() ) {
+      estimate += p.Et();
+    }
+    set(estimate);
+  }
+  
+  /// Compare projections
+  int compare(const Projection& p) const {
+    return mkNamedPCmp(p, "SumET_PBPB_Centrality");
+  }
+
+};
+    
 /// ATLAS min bias trigger conditions.
 class MinBiasTrigger: public TriggerProjection {
 
