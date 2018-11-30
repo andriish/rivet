@@ -2,36 +2,36 @@ Name: ATLAS_PBPB_CENTRALITY
 Summary: 
 Status: UNVALIDATED
 Authors:
- - Leif Lönnblad <leif.lonnblad@thep.lu.se>
  - Christian Bierlich <christian.bierlich@thep.lu.se>
 NumEvents: 50000
 References:
- - arXiv:1508.00848 [hep-ex], Eur.Phys.J. C76 (2016) no.4, 199
+ - arXiv:1108.6018 [hep-ex], 
+ - Phys.Lett. B707 (2012) 330-348
 RunInfo: Any!
 Description:
-   'Calibration analysis for ATLAS pPb centrality. The centrality measure
-   is $\sum E_\perp$ in the lead direction. The reference YODA file
-   contains the experimental centrality calibration, but extracted
-   from the plot in the paper. Note that this has not been unfolded
-   for detector effects.'
+   'Calibration analysis for ATLAS Pb--Pb centrality. The centrality measure
+   is $\sum E_\perp$ in the forward and backward directions.
+   The reference YODA file contains the experimental 
+   centrality calibration, but extracted from the plot in the paper.
+   Note that this has not been unfolded for detector effects.'
 
-BibKey: Aad:2015zza
-BibTeX: '@article{Aad:2015zza,
+BibKey: ATLAS:2001ah
+BibTeX: '@article{ATLAS:2011ah,
       author         = "Aad, Georges and others",
-      title          = "{Measurement of the centrality dependence of the
-                        charged-particle pseudorapidity distribution in
-                        proton–lead collisions at $\sqrt{s_{_\text {NN}}} =
-                        5.02$  TeV with the ATLAS detector}",
+      title          = "{Measurement of the pseudorapidity and transverse
+                        momentum dependence of the elliptic flow of charged
+                        particles in lead-lead collisions at $\sqrt{s_{NN}}=2.76$
+                        TeV with the ATLAS detector}",
       collaboration  = "ATLAS",
-      journal        = "Eur. Phys. J.",
-      volume         = "C76",
-      year           = "2016",
-      number         = "4",
-      pages          = "199",
-      doi            = "10.1140/epjc/s10052-016-4002-3",
-      eprint         = "1508.00848",
+      journal        = "Phys. Lett.",
+      volume         = "B707",
+      year           = "2012",
+      pages          = "330-348",
+      doi            = "10.1016/j.physletb.2011.12.056",
+      eprint         = "1108.6018",
       archivePrefix  = "arXiv",
       primaryClass   = "hep-ex",
-      reportNumber   = "CERN-PH-EP-2015-160",
-      SLACcitation   = "%%CITATION = ARXIV:1508.00848;%%"
+      reportNumber   = "CERN-PH-EP-2011-124",
+      SLACcitation   = "%%CITATION = ARXIV:1108.6018;%%"
 }'
+
