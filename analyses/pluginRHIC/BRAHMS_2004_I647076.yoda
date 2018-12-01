@@ -1,7 +1,8 @@
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y01
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y01
-Title: ~ 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -26,6 +27,7 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y02
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y02
 Title: ~
@@ -53,9 +55,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y03
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y03
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -79,9 +82,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y04
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y04
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -103,9 +107,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y05
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y05
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -125,9 +130,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y06
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y06
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -145,9 +151,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y07
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y07
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -164,9 +171,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y08
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y08
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -196,9 +204,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y09
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y09
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -220,9 +229,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y10
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y10
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -246,9 +256,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y11
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y11
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -267,9 +278,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y12
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y12
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -286,9 +298,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y13
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y13
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -308,9 +321,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y14
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y14
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -325,9 +339,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y15
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y15
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -352,9 +367,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y16
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y16
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -379,9 +395,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y17
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y17
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -405,9 +422,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y18
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y18
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -429,9 +447,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y19
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y19
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -451,9 +470,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y20
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y20
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -471,9 +491,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y21
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y21
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -490,9 +511,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y22
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y22
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -520,9 +542,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y23
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y23
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -544,9 +567,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y24
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y24
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -570,9 +594,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y25
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y25
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -591,9 +616,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y26
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y26
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -610,9 +636,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y27
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d01-x01-y27
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -630,10 +657,29 @@ Type: Scatter2D
 1.350000e+00	5.000000e-02	5.000000e-02	4.019260e-01	8.569100e-02	8.569100e-02
 1.450000e+00	5.000000e-02	5.000000e-02	2.003180e-01	8.958500e-02	8.958500e-02
 END YODA_SCATTER2D_V2
+
+BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d01-x01-y28
+Variations: [""]
+IsRef: 1
+Path: /REF/BRAHMS_2004_I647076/d01-x01-y28
+Title: ~
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+3.500000e-01	5.000000e-02	5.000000e-02	7.007270e+01	2.231570e+00	2.231570e+00
+4.500000e-01	5.000000e-02	5.000000e-02	3.611770e+01	8.553500e-01	8.553500e-01
+5.500000e-01	5.000000e-02	5.000000e-02	2.569250e+01	5.356000e-01	5.356000e-01
+6.500000e-01	5.000000e-02	5.000000e-02	1.451510e+01	3.463800e-01	3.463800e-01
+7.500000e-01	5.000000e-02	5.000000e-02	9.398100e+00	2.979400e-01	2.979400e-01
+8.500000e-01	5.000000e-02	5.000000e-02	5.123400e+00	2.692800e-01	2.692800e-01
+9.500000e-01	5.000000e-02	5.000000e-02	2.483800e+00	2.694100e-01	2.694100e-01
+1.050000e+00	5.000000e-02	5.000000e-02	2.795700e+00	9.884400e-01	9.884400e-01
+END YODA_SCATTER2D_V2
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y01
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y01
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -658,9 +704,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y02
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y02
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -685,9 +732,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y03
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y03
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -711,9 +759,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y04
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y04
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -733,9 +782,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y05
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y05
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -754,9 +804,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y06
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y06
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -772,9 +823,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y07
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y07
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -792,9 +844,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y08
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y08
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -807,9 +860,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y09
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y09
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -829,9 +883,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y10
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y10
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -849,9 +904,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y11
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y11
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -871,9 +927,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y12
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y12
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -892,9 +949,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y13
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y13
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -919,9 +977,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y14
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y14
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -946,9 +1005,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y15
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y15
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -972,9 +1032,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y16
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y16
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -994,9 +1055,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y17
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y17
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -1015,9 +1077,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y18
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y18
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -1033,9 +1096,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y19
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y19
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -1056,9 +1120,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y20
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y20
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -1073,9 +1138,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y21
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y21
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -1095,9 +1161,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y22
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y22
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -1115,9 +1182,10 @@ Type: Scatter2D
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y23
+Variations: [""]
 IsRef: 1
 Path: /REF/BRAHMS_2004_I647076/d02-x01-y23
-Title: 
+Title: ~
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -1133,4 +1201,26 @@ Type: Scatter2D
 1.550000e+00	5.000000e-02	5.000000e-02	6.205000e-02	1.962200e-02	1.962200e-02
 1.650000e+00	5.000000e-02	5.000000e-02	7.496000e-02	2.260000e-02	2.260000e-02
 1.750000e+00	5.000000e-02	5.000000e-02	2.987000e-02	1.493600e-02	1.493600e-02
+END YODA_SCATTER2D_V2
+
+BEGIN YODA_SCATTER2D_V2 /REF/BRAHMS_2004_I647076/d02-x01-y24
+Variations: [""]
+IsRef: 1
+Path: /REF/BRAHMS_2004_I647076/d02-x01-y24
+Title: ~
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+5.500000e-01	5.000000e-02	5.000000e-02	3.835580e+00	2.739700e-01	2.739700e-01
+6.500000e-01	5.000000e-02	5.000000e-02	2.606860e+00	1.528170e-01	1.528170e-01
+7.500000e-01	5.000000e-02	5.000000e-02	1.840450e+00	1.126330e-01	1.126330e-01
+8.500000e-01	5.000000e-02	5.000000e-02	1.343360e+00	9.098300e-02	9.098300e-02
+9.500000e-01	5.000000e-02	5.000000e-02	8.608900e-01	7.550500e-02	7.550500e-02
+1.050000e+00	5.000000e-02	5.000000e-02	7.215200e-01	7.605400e-02	7.605400e-02
+1.150000e+00	5.000000e-02	5.000000e-02	3.779500e-01	5.763700e-02	5.763700e-02
+1.250000e+00	5.000000e-02	5.000000e-02	3.031300e-01	5.749500e-02	5.749500e-02
+1.350000e+00	5.000000e-02	5.000000e-02	2.117500e-01	5.227600e-02	5.227600e-02
+1.450000e+00	5.000000e-02	5.000000e-02	1.631200e-01	4.799600e-02	4.799600e-02
+1.550000e+00	5.000000e-02	5.000000e-02	4.723000e-02	1.559600e-02	1.559600e-02
+1.650000e+00	5.000000e-02	5.000000e-02	6.040000e-02	3.486700e-02	3.486700e-02
 END YODA_SCATTER2D_V2
