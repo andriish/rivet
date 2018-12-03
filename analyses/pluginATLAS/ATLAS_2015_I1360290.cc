@@ -80,7 +80,7 @@ namespace Rivet {
 	else if (pT > 6.7 && pT < 7.7) hItr2->second->fill(eta, weight/2.0);
 	else if (pT > 19.9 && pT < 22.8) hItr3->second->fill(eta, weight/2.0);
 	else if (pT > 59.8 && pT < 94.8) hItr4->second->fill(eta, weight/2.0);
-	if (eta < 2) hpTItr->second->fill(pT, weight/2./M_PI/4.);
+	if (eta < 2) hpTItr->second->fill(pT, weight/2./M_PI/pT/4.);
       
       }
 
