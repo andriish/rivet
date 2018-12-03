@@ -28,6 +28,9 @@ Luminosity_fb: 20.3
 Beams: [p+, p+]
 Energies: [8000]
 PtCuts: [25,25,15]
+NeedCrossSection: True
+Options:
+ - LMODE=EL,MU,NU,LL
 Description:
   'The production of $Z$ bosons with one or two isolated high-energy photons is studied using pp collisions at $\sqrt{s}=8$ TeV.
   The analyses use a data sample with an integrated luminosity of 20.3 fb${}^{-1}$ collected by the ATLAS detector during the
@@ -41,7 +44,10 @@ Description:
   $\ell^+\ell^-\gamma\gamma$ events and with $m_{\gamma\gamma}>300$ GeV from $\nu\bar{\nu}\gamma\gamma$ events are used to search
   for anomalous quartic gauge-boson couplings $ZZ\gamma\gamma$ and $Z\gamma\gamma\gamma$. No deviations from Standard Model predictions
   are observed and limits are placed on parameters used to describe anomalous triple and quartic gauge-boson couplings.
-  The lepton channel can be specified by using the relevant plugins (_EL, _MU, _NU). The default plugin uses the electron channel.'
+  The lepton channel can be specified by using the relevant LMODE (EL, MU, NU, LL). The default plugin will fill all of them
+  with any events passing the cuts. NU will do only the MET channels, EL & MU will do only the electron or muon and will
+  populate the combined plots assuming charged lepton universality. LL with do on the electron and muon but will populate
+  the combined plots with the average of the two.'
 BibKey: Aad:2016sau
 BibTeX: '@article{Aad:2016sau,
       author         = "Aad, Georges and others",
