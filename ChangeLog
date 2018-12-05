@@ -1,5 +1,7 @@
 2018-12-05  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Rework doc directory no-build by default to be compatible with 'make dist' packaging.
+
 	* Add fjcontrib RecursiveTools to Rivet/Tools/fjcontrib set.
 
 2018-11-21  Andy Buckley  <andy.buckley@cern.ch>

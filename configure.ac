@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[2.6.1],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[2.6.2],[rivet@projects.hepforge.org],[Rivet])
 
 ## Check and block installation into the src/build dir
 if test "$prefix" = "$PWD"; then
@@ -173,13 +173,14 @@ AM_CONDITIONAL(ENABLE_ANALYSES, [test x$enable_analyses = xyes])
 AC_PATH_PROG(PDFLATEX, pdflatex)
 AM_CONDITIONAL(WITH_PDFLATEX, [test x$PDFLATEX != x])
 ## ... unless told otherwise!
+dnl TODO: REMOVE
 AC_ARG_ENABLE([pdfmanual],
-  [AC_HELP_STRING(--enable-pdfmanual, [build and install the manual])],
+  [AC_HELP_STRING(--enable-pdfmanual, [DEPRECATED, DO NOT USE])],
   [], [enable_pdfmanual=no])
-if test x$enable_pdfmanual = xyes; then
-   AC_MSG_WARN([Building Rivet manual, by request])
-fi
-AM_CONDITIONAL(ENABLE_PDFMANUAL, [test x$enable_pdfmanual = xyes])
+dnl if test x$enable_pdfmanual = xyes; then
+dnl    AC_MSG_WARN([Building Rivet manual, by request])
+dnl fi
+dnl AM_CONDITIONAL(ENABLE_PDFMANUAL, [test x$enable_pdfmanual = xyes])
 
 ## Build Doxygen documentation if possible
 AC_ARG_ENABLE([doxygen],

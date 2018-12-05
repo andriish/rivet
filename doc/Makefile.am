@@ -64,7 +64,6 @@ make-plots.html: make-plots.txt
 endif
 
 
-if ENABLE_PDFMANUAL
 if WITH_PDFLATEX
 DOCS += rivet-manual.pdf
 
@@ -101,10 +100,13 @@ paper.pdf : paper.tex $(LATEXSUBSOURCES) analyses.tex refs.bib analyses.bib
 	rm -f paper.toc.bak; true
 
 endif
-endif
 
 
 ################
+
+
+RSH = rsync
+DEST = login.hepforge.org:rivet/public_html/
 
 
 .PHONY = doc upload arxivtar
@@ -112,8 +114,6 @@ endif
 doc: $(DOCS)
 	@true
 
-RSH = rsync
-DEST = login.hepforge.org:rivet/public_html/
 upload: $(DOCS) $(DOCDIRS)
 	$(RSH) -r $? $(DEST)
 
@@ -126,16 +126,13 @@ bend.eps cone.eps thinker.eps slip.eps \
 h-physrev3.bst JHEP3.cls JHEP.bst
 
 
-## Install!
-pkgdata_DATA = $(DOCS)
+all-local:
+	@echo "No default target in doc: run 'make doc' to build documentation"
+	@true
 
-install-data-local: doc
-	@$(NORMAL_INSTALL)
-	test "$(DOCDIRS)" && cp -r $(DOCDIRS) $(DESTDIR)$(pkgdatadir)/
-
-uninstall-local:
-	@$(NORMAL_UNINSTALL)
-	rm -rf $(DESTDIR)$(pkgdatadir)/analyses
+install-data-local:
+	@echo "No local docs installation: copy the documentation to wherever you require"
+	@true
 
 
 mostlyclean-local:
