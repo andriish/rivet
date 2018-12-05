@@ -5,7 +5,6 @@
 #include "Rivet/Projections/SingleValueProjection.hh"
 #include "Rivet/Tools/AliceCommon.hh"
 #include "Rivet/Projections/AliceCommon.hh"
-//#include "Rivet/Tools/Percentile.hh"
 #include <fstream>
 
 #define _USE_MATH_DEFINES
@@ -25,7 +24,8 @@ namespace Rivet {
     void init() {
       
       // Declare centrality projection
-      declareCentrality(ALICE::V0MMultiplicity(), "ALICE_2015_PBPBCentrality", "V0M", "V0M");
+      declareCentrality(ALICE::V0MMultiplicity(),
+        "ALICE_2015_PBPBCentrality", "V0M", "V0M");
       
       // Charged final states with |eta| < 0.5 and pT > 50 MeV
       const Cut& cut = Cuts::abseta < 0.5 && Cuts::pT > 50*MeV;
@@ -34,21 +34,28 @@ namespace Rivet {
       
       // Histograms and variables initialization
       _histNchVsCentr = bookProfile1D(1, 1, 1);      
+      _histNpartVsCentr = bookProfile1D(1, 1, 2);      
       
     }
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       
-      const ChargedFinalState& charged = applyProjection<ChargedFinalState>(event, "CFS");
+      const ChargedFinalState& charged = apply<ChargedFinalState>(event, "CFS");
       
-      const CentralityProjection& centrProj = apply<CentralityProjection>(event, "V0M");
+      const CentralityProjection& centrProj = 
+        apply<CentralityProjection>(event, "V0M");
       double centr = centrProj();
-      if ((centr < 0.) || (centr > 80.))
+      double nch = charged.particles().size();
+      if (centr > 80.)
         vetoEvent;
-      
-      _histNchVsCentr->fill(centr, charged.particles().size(), event.weight());
-      
+      _histNchVsCentr->fill(centr, nch, event.weight());
+      // Attempt to extract Npart form GenEvent. TODO: Unclear how to handle this
+      // in HepMC3
+      const HepMC::HeavyIon* hi = event.genEvent()->heavy_ion();
+      if (hi && hi->is_valid()) 
+        _histNpartVsCentr->fill(centr, hi->Npart_proj() + hi->Npart_targ(),
+	  event.weight());
     }
     
     /// Normalise histograms etc., after the run
@@ -59,6 +66,7 @@ namespace Rivet {
   private:
     
     Profile1DPtr _histNchVsCentr;
+    Profile1DPtr _histNpartVsCentr;
   
   };
 
