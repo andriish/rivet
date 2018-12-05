@@ -3,8 +3,7 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "fastjet/contrib/SoftDrop.hh"
-#include "Rivet/Math/MathUtils.hh"
+#include "Rivet/Tools/fjcontrib/SoftDrop.hh"
 
 namespace Rivet {
 
@@ -18,7 +17,7 @@ namespace Rivet {
     /// Constructor
     CMS_2018_I1682495()
       : Analysis("CMS_2018_I1682495"),
-        _softdrop(fastjet::contrib::SoftDrop(0, 0.1, 0.8) ) // parameters are beta, zcut, R0
+        _softdrop(fjcontrib::SoftDrop(0, 0.1, 0.8) ) // parameters are beta, zcut, R0
     {    }
 
     //@}
@@ -117,7 +116,7 @@ namespace Rivet {
 
     /// @name FastJet grooming tools (configured in constructor init list)
     //@{
-    const fastjet::contrib::SoftDrop _softdrop;
+    const fjcontrib::SoftDrop _softdrop;
     //@}
 
 

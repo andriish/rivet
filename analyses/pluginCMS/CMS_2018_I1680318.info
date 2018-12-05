@@ -6,9 +6,9 @@ Collider: LHC
 InspireID: 1680318
 Status: VALIDATED
 Authors:
- - Juan Manuel Grados Luyando <juan.grados.luyando@desy.de>
- - Pieters Maxim <Maxim.Pieters@uantwerpen.be>
- References:
+  - Juan Manuel Grados Luyando <juan.grados.luyando@desy.de>
+  - Pieters Maxim <Maxim.Pieters@uantwerpen.be>
+References:
   - arXiv:1806.11245
   - CMS-FSQ-16-011
   - Eur.Phys.J. C78 (2018) no.9, 697

@@ -1,3 +1,7 @@
+2018-12-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add fjcontrib RecursiveTools to Rivet/Tools/fjcontrib set.
+
 2018-11-21  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add CMS_2018_I1653948, CMS_2018_I1653948, CMS_2018_I1682495, and CMS_2018_I1690148 analyses.

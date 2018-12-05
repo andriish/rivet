@@ -1,1 +1,1 @@
-SUBDIRS = EnergyCorrelator Nsubjettiness
+SUBDIRS = EnergyCorrelator Nsubjettiness RecursiveTools

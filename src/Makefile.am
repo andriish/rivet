@@ -10,8 +10,6 @@ libRivet_la_LIBADD = \
 Core/libRivetCore.la \
 Projections/libRivetProjections.la \
 Tools/libRivetTools.la \
-Tools/fjcontrib/EnergyCorrelator/libRivetEnergyCorrelator.la \
-Tools/fjcontrib/Nsubjettiness/libRivetNsubjettiness.la \
 AnalysisTools/libRivetAnalysisTools.la \
 -lYODA -lHepMC -ldl -lm  \
 $(FASTJETCONFIGLIBADD) \
