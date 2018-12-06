@@ -1,6 +1,7 @@
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/AnalysisLoader.hh"
-#include "HepMC/IO_GenEvent.h"
+//#include "HepMC/IO_GenEvent.h"
+#include "HepMCContrib/ReaderFactory.h"
 
 using namespace std;
 
@@ -18,15 +19,16 @@ int main(int argc, char** argv) {
     ah.addAnalysis(argv[i]);
   }
 
-  std::ifstream file(argv[1]);
-  HepMC::IO_GenEvent hepmcio(file);
-  HepMC::GenEvent* evt = hepmcio.read_next_event();
-  while (evt) {
-    ah.analyze(*evt);
-    delete evt; evt = 0;
-    hepmcio >> evt;
+  std::shared_ptr<HepMC::Reader> reader = HepMC::make_reader(argv[1]);
+  
+  while(!reader->failed()){
+    
+    HepMC::GenEvent evt;
+    reader->read_event(evt);
+    ah.analyze(evt);
   }
-  file.close();
+  
+  reader->close();
 
   ah.setCrossSection(1.0);
   ah.finalize();

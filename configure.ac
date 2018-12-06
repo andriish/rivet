@@ -107,6 +107,7 @@ fi
 rm -f conftest conftest.cpp conftest.cc conftest.C
 HEPMC_VERSION=$hepmc_major$hepmc_minor
 AC_MSG_NOTICE([HepMC version is $hepmc_version -> $HEPMC_VERSION])
+AM_CONDITIONAL([ENABLE_HEPMC_3], [test x$hepmc_major = x3])
 AC_SUBST(HEPMC_VERSION)
 CPPFLAGS=$oldCPPFLAGS
 

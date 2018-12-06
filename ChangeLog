@@ -1,3 +1,12 @@
+2018-12-06  James Monk  <jwmonk@protonmail.com>
+  * RivetHepMC.hh: Much simplified.  Use only Const version of GenParticlePtr
+    Only func delarations - two separate  implementation files for HepMC2 or 3
+  * configure.ac: HepMC version dependence for building RivetHepMC_2.cc or RivetHepMC_3.cc
+  * src/Makefile.am: HepMC version dependence
+  * src/Tools/RivetHepMC_3.cc: implementations of funs for HepMC v3
+  * bin/rivet-nopy.cc: re-implement using HepMC3 reader interface (may need separate implementation for HepMC2)
+  * Particle.hh, Event.cc, Jet.cc: const GenParticle replaced by ConstGenParticle
+
 2017-06-28  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Split the smearing functions into separate header files for

@@ -12,6 +12,8 @@
 
 #if HEPMC_VERSION_CODE >= 3000000
 #include "HepMC/HepMC.h"
+/// @todo Will this be included in the HepMC/HepMC.h header eventually?
+#include "HepMC/Relatives.h"
 #else
 #include "HepMC/GenRanges.h"
 #endif
@@ -22,29 +24,36 @@ namespace Rivet {
   /// @todo Use mcutils?
 
   using HepMC::GenEvent;
+  /// @todo should we ever refer to a GenParticle other than by ptr?  Who will own the gp?
   using HepMC::GenParticle;
-  using HepMC::GenVertex;
+  /// @todo should we ever refer to a GenVertex other than by ptr?  Who will own the gv?
+  //using HepMC::GenVertex;
 
   #if HEPMC_VERSION_CODE >= 3000000
-  using HepMC::GenParticlePtr;
+  //using HepMC::GenParticlePtr;
   using HepMC::ConstGenParticlePtr;
-  using HepMC::GenVertexPtr;
+  //using HepMC::GenVertexPtr;
+  using HepMC::ConstGenVertexPtr;
+  using HepMC::Relatives;
   #elif HEPMC_VERSION_CODE >= 2007000
   // HepMC 2.07 provides its own #defines
   #else
-  #define GenParticlePtr GenParticle*
-  #define GenVertexPtr GenVertex*
+  #define ConstGenParticlePtr const GenParticle*
+  #define ConstGenVertexPtr const GenVertex*
+  #define Relatives HepMC::IteratorRange
   #endif
 
-
-
+  std::vector<ConstGenParticlePtr> particles(const GenEvent *ge);
+  std::vector<ConstGenVertexPtr> vertices(const GenEvent *ge);
+  std::vector<ConstGenParticlePtr> particles(ConstGenVertexPtr gv, const Relatives &relo);
+  std::vector<ConstGenParticlePtr> particles(ConstGenParticlePtr gp, const Relatives &relo);
 
 
   #if HEPMC_VERSION_CODE >= 3000000
 
   /// @name Accessors from GenEvent
   //@{
-
+/*
   inline std::vector<GenParticlePtr> particles(const GenEvent* ge) {
     assert(ge);
     return ge->particles();
@@ -60,7 +69,7 @@ namespace Rivet {
     // for (const GenVertexPtr v : ge->vertices()) rtn.push_back(v);
     // return rtn;
   }
-
+*/
   //@}
 
 
@@ -68,16 +77,16 @@ namespace Rivet {
   //@{
 
   /// @todo are these really necessary? Why not call GenVertex::particles_[in, out] directly?
-  inline const vector<GenParticlePtr>& particles_in(const GenVertexPtr& gv) { return gv->particles_in(); }
+  //inline const vector<GenParticlePtr>& particles_in(const GenVertexPtr& gv) { return gv->particles_in(); }
   // inline vector<GenParticlePtr>& particles_in(GenVertexPtr& gv) { return gv->particles_in(); }
 
-  inline const vector<GenParticlePtr>& particles_out(const GenVertexPtr& gv) { return gv->particles_out(); }
+  //inline const vector<GenParticlePtr>& particles_out(const GenVertexPtr& gv) { return gv->particles_out(); }
   // inline vector<GenParticlePtr>& particles_out(GenVertexPtr& gv) { return gv->particles_out(); }
-
+/*
   inline std::vector<GenParticlePtr> particles(const GenVertexPtr& gv, HepMC::IteratorRange range) {
     return HepMC::FindParticles(gv, range).results();
   }
-
+*/
   // /// Get the direct parents or all-ancestors of GenParticle @a gp
   // inline std::vector<GenParticlePtr> particles_in(GenParticlePtr gp, HepMC::IteratorRange range=HepMC::ancestors) {
   //   assert(gp);
@@ -100,9 +109,10 @@ namespace Rivet {
   //@{
 
   /// Get any relatives of GenParticle @a gp
+  /*
   inline std::vector<GenParticlePtr> particles(GenParticlePtr gp, HepMC::IteratorRange range) {
     return HepMC::FindParticles(gp, range).results();
-  }
+  }*/
   //@}
 
 

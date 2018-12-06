@@ -41,7 +41,7 @@ namespace Rivet {
     HepMC::ConstGenVertexPtr gv = genParticle()->production_vertex();
     if (gv == NULL) return rtn;
     
-    vector<HepMC::GenParticlePtr> ancestors = genParticle()->ancestors();
+    vector<ConstGenParticlePtr> ancestors = genParticle()->ancestors();
     
     for(const auto &a: ancestors){
       if(physical_only && a->status() != 1 && a->status() != 2) continue;
@@ -57,7 +57,7 @@ namespace Rivet {
   vector<Particle> Particle::parents(const Cut& c) const {
     vector<Particle> rtn;
     #if HEPMC_VERSION_CODE >= 3000000
-    for (const GenParticlePtr gp : genParticle()->parents()) {
+    for (ConstGenParticlePtr gp : genParticle()->parents()) {
     const Particle p(gp);
     if (c != Cuts::OPEN && !c->accept(p)) continue;
       rtn += p;
@@ -79,7 +79,7 @@ namespace Rivet {
     vector<Particle> rtn;
     if (isStable()) return rtn;
     #if HEPMC_VERSION_CODE >= 3000000
-    for (const GenParticlePtr gp : genParticle()->children()) {
+    for (ConstGenParticlePtr gp : genParticle()->children()) {
       const Particle p(gp);
       if (c != Cuts::OPEN && !c->accept(p)) continue;
       rtn += p;
@@ -106,12 +106,12 @@ namespace Rivet {
     vector<Particle> rtn;
     if (isStable()) return rtn;
     #if HEPMC_VERSION_CODE >= 3000000
-    for (const GenParticlePtr gp : genParticle()->descendants()) {
+    for (ConstGenParticlePtr gp : genParticle()->descendants()) {
       const Particle p(gp);
       if (c != Cuts::OPEN && !c->accept(p)) continue;
       if (remove_duplicates) {
         bool dup = false;
-        for (const GenParticlePtr gp2 : gp->children()) {
+        for (ConstGenParticlePtr gp2 : gp->children()) {
           if (gp->pid() == gp2->pid()) { dup = true; break; }
         }
         if (dup) continue;
@@ -242,12 +242,12 @@ namespace Rivet {
 
   bool Particle::isDirect(bool allow_from_direct_tau, bool allow_from_direct_mu) const {
     if (genParticle() == NULL) return false; // no HepMC connection, give up! Throw UserError exception?
-    const GenVertexPtr prodVtx = genParticle()->production_vertex();
+    ConstGenVertexPtr prodVtx = genParticle()->production_vertex();
     if (prodVtx == NULL) return false; // orphaned particle, has to be assume false
-    const pair<GenParticlePtr, GenParticlePtr> beams = prodVtx->parent_event()->beam_particles();
+    const pair<ConstGenParticlePtr, ConstGenParticlePtr> beams = prodVtx->parent_event()->beam_particles();
 
     /// @todo Would be nicer to be able to write this recursively up the chain, exiting as soon as a parton or string/cluster is seen
-    for (const GenParticlePtr ancestor : Rivet::particles(prodVtx, HepMC::ancestors)) {
+    for (ConstGenParticlePtr ancestor : Rivet::particles(prodVtx, Relatives::ANCESTORS)) {
       const PdgId pid = ancestor->pdg_id();
       if (ancestor->status() != 2) continue; // no non-standard statuses or beams to be used in decision making
       if (ancestor == beams.first || ancestor == beams.second) continue; // PYTHIA6 uses status 2 for beams, I think... (sigh)

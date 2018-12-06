@@ -40,7 +40,7 @@ namespace Rivet {
         _original(gp), _id(gp->pdg_id()),
         _momentum(gp->momentum())
     {
-      const GenVertexPtr vprod = gp->production_vertex();
+      ConstGenVertexPtr vprod = gp->production_vertex();
       if (vprod != nullptr) {
         setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
       }
@@ -49,10 +49,10 @@ namespace Rivet {
     /// Constructor from a HepMC GenParticle.
     Particle(const GenParticle& gp)
       : ParticleBase(),
-        _original(&gp), _id(gp.pdg_id()),
+        _original(std::make_shared<const GenParticle>(gp)), _id(gp.pdg_id()),
         _momentum(gp.momentum())
     {
-      const GenVertexPtr vprod = gp.production_vertex();
+      ConstGenVertexPtr vprod = gp.production_vertex();
       if (vprod != nullptr) {
         setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
       }
