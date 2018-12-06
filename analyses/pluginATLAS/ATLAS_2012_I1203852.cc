@@ -182,10 +182,10 @@ namespace Rivet {
       ////////////////////////////////////////////////////////////////////
       // OVERLAP removal dR(l,l)>0.2
       ////////////////////////////////////////////////////////////////////
-      foreach ( const DressedLepton& l1, leptonsFS_sel4l) {
+      for( const DressedLepton& l1: leptonsFS_sel4l) {
         bool isolated = true;
-        foreach (DressedLepton& l2, leptonsFS_sel4l) {
-          const double dR = deltaR(l1, l2);
+        for(const DressedLepton& l2: leptonsFS_sel4l) {
+          double dR = deltaR(l1, l2);
           if (dR < 0.2 && l1 != l2) { isolated = false; break; }
         }
         if (isolated) leptons_sel4l.push_back(l1);

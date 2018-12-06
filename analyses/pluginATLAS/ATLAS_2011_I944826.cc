@@ -72,12 +72,12 @@ namespace Rivet {
 
     // This function is required to impose the flight time cuts on Kaons and Lambdas
     double getPerpFlightDistance(const Rivet::Particle& p) {
-      const HepMC::GenParticlePtr genp = p.genParticle();
-      const HepMC::GenVertexPtr prodV = genp->production_vertex();
-      const HepMC::GenVertexPtr decV  = genp->end_vertex();
-      const HepMC::ThreeVector prodPos = prodV->point3d();
+      HepMC::ConstGenParticlePtr genp = p.genParticle();
+      HepMC::ConstGenVertexPtr prodV = genp->production_vertex();
+      HepMC::ConstGenVertexPtr decV  = genp->end_vertex();
+      HepMC::FourVector prodPos = prodV->position();
       if (decV) {
-        const HepMC::ThreeVector decPos = decV->point3d();
+        const HepMC::FourVector decPos = decV->position();
         double dy = prodPos.y() - decPos.y();
         double dx = prodPos.x() - decPos.x();
         return add_quad(dx, dy);
@@ -89,8 +89,8 @@ namespace Rivet {
     bool daughtersSurviveCuts(const Rivet::Particle& p) {
       // We require the Kshort or Lambda to decay into two charged
       // particles with at least pT = 100 MeV inside acceptance region
-      const HepMC::GenParticlePtr genp = p.genParticle();
-      const HepMC::GenVertexPtr decV  = genp->end_vertex();
+      HepMC::ConstGenParticlePtr genp = p.genParticle();
+      HepMC::ConstGenVertexPtr decV  = genp->end_vertex();
       bool decision = true;
 
       if (!decV) return false;
@@ -98,7 +98,7 @@ namespace Rivet {
         std::vector<double> pTs;
         std::vector<int> charges;
         std::vector<double> etas;
-        foreach (const HepMC::GenParticlePtr gp, particles(decV, HepMC::children)) {
+        for(HepMC::ConstGenParticlePtr gp: particles(decV, Relatives::CHILDREN)) {
           pTs.push_back(gp->momentum().perp());
           etas.push_back(fabs(gp->momentum().eta()));
           charges.push_back( Rivet::PID::threeCharge(gp->pdg_id()) );

@@ -45,10 +45,10 @@ namespace Rivet {
       vector<FourMomentum> leadjets;
 
       //get b/c-hadrons
-      vector<GenParticle const *> B_hadrons, C_hadrons;
-      vector<GenParticle const *> allParticles = particles(event.genEvent());
+      vector<ConstGenParticlePtr> B_hadrons, C_hadrons;
+      vector<ConstGenParticlePtr> allParticles = particles(event.genEvent());
       for (size_t i = 0; i < allParticles.size(); i++) {
-        const GenParticlePtr p = allParticles.at(i);
+        ConstGenParticlePtr p = allParticles.at(i);
         if(p->momentum().perp()*GeV < 5) continue;
         if ( (Rivet::PID::isHadron ( p->pdg_id() ) &&
               Rivet::PID::hasBottom( p->pdg_id() )    ) ) {
@@ -61,7 +61,7 @@ namespace Rivet {
       }
 
       //select dijet
-      foreach (const Jet& jet, jetAr) {
+      for(const Jet& jet: jetAr) {
 
         const double pT   = jet.pT();
         const double absy = jet.absrap();
