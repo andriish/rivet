@@ -6,6 +6,7 @@
   * src/Tools/RivetHepMC_3.cc: implementations of funs for HepMC v3
   * bin/rivet-nopy.cc: re-implement using HepMC3 reader interface (may need separate implementation for HepMC2)
   * Particle.hh, Event.cc, Jet.cc: const GenParticle replaced by ConstGenParticle
+  * Projections Beam, DISLepton, FinalPartons, FinalState, HeavyHadrons, InitialQuarks, MergedFinalState, PrimaryHadrons, UnstableFinalState, VetoedFinalState: Use ConstGenParticlePtr and vector<ConstGenParticlePtr> consistently
 
 2017-06-28  Andy Buckley  <andy.buckley@cern.ch>
 

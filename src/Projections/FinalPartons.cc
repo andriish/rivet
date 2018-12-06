@@ -40,7 +40,7 @@ namespace Rivet {
   void FinalPartons::project(const Event& e) {
     _theParticles.clear();
 
-    for (const GenParticlePtr gp : Rivet::particles(e.genEvent())) {
+    for (ConstGenParticlePtr gp : Rivet::particles(e.genEvent())) {
       if (!gp) continue;
       const Particle p(gp);
       if (accept(p)) _theParticles.push_back(p);

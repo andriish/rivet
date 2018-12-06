@@ -107,7 +107,7 @@ namespace Rivet {
     for (PdgId vetoid : _parentVetoes)
       ifilter_discard(_theParticles, [&](const Particle& p) {
           // Loop over parents and test their IDs
-          for (const GenParticlePtr parent : Rivet::particles(p.genParticle(), HepMC::ancestors))
+          for (ConstGenParticlePtr parent : Rivet::particles(p.genParticle(), Relatives::ANCESTORS))
             if (parent->pdg_id() == vetoid) return true;
           return false; });
 

@@ -18,10 +18,10 @@ namespace Rivet {
       _theParticles.push_back(pa);
     }
     for (const Particle& pb : fsb.particles()){
-      const GenParticlePtr originalb = pb.genParticle();
+      ConstGenParticlePtr originalb = pb.genParticle();
       bool notfound = true;
       for (const Particle& pa : fsa.particles()){
-        const GenParticlePtr originala = pa.genParticle();
+        ConstGenParticlePtr originala = pa.genParticle();
         if (originala == originalb) {
           notfound = false;
           break;

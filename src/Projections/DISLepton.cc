@@ -30,9 +30,9 @@ namespace Rivet {
     while (found_next_vertex) {
         found_next_vertex = false;
         if (!current_l->end_vertex()) break;
-        std::vector<const GenParticle*> out_n;
-        std::vector<const GenParticle*> out_c;
-        for (const GenParticle* pp : particles_out(current_l, HepMC::children)) {
+        std::vector<ConstGenParticlePtr> out_n;
+        std::vector<ConstGenParticlePtr> out_c;
+        for (ConstGenParticlePtr pp : particles(current_l, Relatives::CHILDREN)){
             if (current_l->pdg_id() == pp->pdg_id()) out_n.push_back(pp);
             //+-1 should allow neutrino to electron and electron to neutrino
             if (std::abs(std::abs(current_l->pdg_id()) - std::abs(pp->pdg_id())) == 1) out_c.push_back(pp);

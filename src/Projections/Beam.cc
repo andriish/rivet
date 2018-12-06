@@ -11,7 +11,7 @@ namespace Rivet {
 
     // First try the official way: ask the GenEvent for the beam pointers
     assert(e.genEvent()->particles().size() >= 2);
-    const vector<GenParticlePtr> beams = e.genEvent()->beams();
+    vector<ConstGenParticlePtr> beams = e.genEvent()->beams();
     if (beams.size() == 2 && beams[0] && beams[1]) {
       return ParticlePair{beams[0], beams[1]};
     }

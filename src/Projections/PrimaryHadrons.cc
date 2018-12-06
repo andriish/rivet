@@ -18,9 +18,9 @@ namespace Rivet {
         continue;
       }
       // There are ancestors -- check them for status=2 hadronic content
-      const vector<GenParticlePtr> ancestors = Rivet::particles(p.genParticle(), HepMC::ancestors);
+      vector<ConstGenParticlePtr> ancestors = Rivet::particles(p.genParticle(), Relatives::ANCESTORS);
       bool has_hadron_parent = false;
-      for (const GenParticlePtr pa : ancestors) {
+      for (ConstGenParticlePtr pa : ancestors) {
         if (pa->status() != 2) continue;
         /// @todo Are hadrons from tau decays "primary hadrons"? I guess not
         if (PID::isHadron(pa->pdg_id()) || abs(pa->pdg_id()) == PID::TAU) {

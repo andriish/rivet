@@ -27,10 +27,10 @@ namespace Rivet {
       }
       // There are descendants -- check them for b or c content
       /// @todo What about charm hadrons coming from bottom hadron decays?
-      const vector<GenParticlePtr> children = Rivet::particles(p.genParticle(), HepMC::children);
+      vector<ConstGenParticlePtr> children = Rivet::particles(p.genParticle(), Relatives::CHILDREN);
       if (hasBottom(p)) {
         bool has_b_child = false;
-        for (const GenParticlePtr p2 : children) {
+        for (ConstGenParticlePtr p2 : children) {
           if (PID::hasBottom(p2->pdg_id())) {
             has_b_child = true;
             break;
@@ -42,7 +42,7 @@ namespace Rivet {
         }
       } else if (hasCharm(p)) {
         bool has_c_child = false;
-        for (const GenParticlePtr p2 : children) {
+        for (ConstGenParticlePtr p2 : children) {
           if (PID::hasCharm(p2->pdg_id())) {
             has_c_child = true;
             break;
