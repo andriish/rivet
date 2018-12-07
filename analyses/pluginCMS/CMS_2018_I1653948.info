@@ -6,13 +6,17 @@ Collider: LHC
 InspireID: 1653948
 Status: VALIDATED
 Authors:
+ - cms-pag-conveners-smp@cern.ch
  - Sercan Sen <Sercan.Sen@cern.ch>
  - Pierre Van Mechelen <pierre.vanmechelen@uantwerpen.be>
  - Hans Van Haevermaet <hans.vanhaevermaet@uantwerpen.be>
 References:
+ - JHEP 07 (2018) 161
+ - DOI 10.1007/JHEP07(2018)161
  - CMS-FSQ-15-005
+ - arXiv:1802.02613 [hep-ex]
  - CERN-EP-2018-004
- - ARXIV:1802.02613 [hep-ex]
+ - http://cms-results.web.cern.ch/cms-results/public-results/publications/FSQ-15-005/
 RunInfo:
    Inelastic events (non-diffractive and inelastic diffractive).
 NumEvents: 1M
