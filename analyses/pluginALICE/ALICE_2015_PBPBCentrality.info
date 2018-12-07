@@ -12,7 +12,7 @@ NumEvents: 1000000
 NeedCrossSection: no
 Beams: [1000822080, 1000822080]
 # This _total_ energy of beams, so this becomes 208*5023=1044784
-Energies: [1044784]
+Energies: [574080,1044784]
 Description:
   'Dummy analysis to bring in the centrality calibration for Pb-Pb at 5.02TeV'
 ToDo:

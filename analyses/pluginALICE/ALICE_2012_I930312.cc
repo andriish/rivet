@@ -148,27 +148,29 @@ namespace Rivet {
     void finalize() {
       
       // Check for the reentrant finalize
-      reentrant_flag = true;
+      bool pp_available = false, PbPb_available = false;
+      reentrant_flag = false;
       // For each event type
       for (int itype = 0; itype < EVENT_TYPES; itype++) {
 	// For each pT range
 	for (int ipt = 0; ipt < PT_BINS; ipt++) {
-	  if (_histYield[itype][ipt]->numEntries() <= 0)
-	    reentrant_flag = false;
+	  if (_histYield[itype][ipt]->numEntries() > 0)
+	    itype == 0 ? pp_available = true : PbPb_available = true;
 	}
       }
+      reentrant_flag = (pp_available && PbPb_available);
       
       // Postprocessing of the histograms
       if (reentrant_flag == true) {
 	
         // Initialize IAA and ICP histograms
-        _histIAA[0] = bookScatter2D(1, 1, 1, true);
-        _histIAA[1] = bookScatter2D(2, 1, 1, true);
-        _histIAA[2] = bookScatter2D(5, 1, 1, true);
+        _histIAA[0] = bookScatter2D(1, 1, 1);
+        _histIAA[1] = bookScatter2D(2, 1, 1);
+        _histIAA[2] = bookScatter2D(5, 1, 1);
 
-        _histIAA[3] = bookScatter2D(3, 1, 1, true);
-        _histIAA[4] = bookScatter2D(4, 1, 1, true);
-        _histIAA[5] = bookScatter2D(6, 1, 1, true);
+        _histIAA[3] = bookScatter2D(3, 1, 1);
+        _histIAA[4] = bookScatter2D(4, 1, 1);
+        _histIAA[5] = bookScatter2D(6, 1, 1);
 	// Variables for near and away side peak calculation
 	double nearSide[EVENT_TYPES][PT_BINS] = { {0.0} };
 	double awaySide[EVENT_TYPES][PT_BINS] = { {0.0} };
