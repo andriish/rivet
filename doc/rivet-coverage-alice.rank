@@ -204,7 +204,7 @@
 1664538 . Azimuthally-differential pion femtoscopy relative to the third harmonic event plane in Pb-Pb collisions at $\mathbf{\sqrt{\textit{s}_{_{\rm NN}}}}$ = 2.76 TeV
 1666817 . Energy dependence and fluctuations of anisotropic flow in Pb-Pb collisions at $ \sqrt{s_{\mathrm{NN}}}=5.02 $ and 2.76 TeV
 1669805 . $\phi$ meson production at forward rapidity in Pb-Pb collisions at $\sqrt{s_\mathrm{NN}}=2.76$ TeV
-1669819 ! Measurement of D$^0$, D$^+$, D$^{*+}$ and D$^+_{\rm s}$ production in Pb-Pb collisions at $\mathbf{\sqrt{s_{\rm NN}}}= 5.02$ TeV
+1669819 ! Measurement of D$^{0}$, D$^{+}$, D$^{*+}$ and D$_{s}^{+}$ production in Pb-Pb collisions at $ \sqrt{{\mathrm{s}}_{\mathrm{NN}}}=5.02 $ TeV
 1671792 . Anisotropic flow in Xe-Xe collisions at $\mathbf{\sqrt{s_{\rm{NN}}} = 5.44}$ TeV
 1672756 ! Centrality and pseudorapidity dependence of the charged-particle multiplicity density in Xe-Xe collisions at $\sqrt{s_{\rm NN}}$ = 5.44 TeV
 1672765 . Two particle differential transverse momentum and number density correlations in p-Pb and Pb-Pb at the LHC
@@ -217,7 +217,7 @@
 1672801 . Measurement of the inclusive J/ $\psi $ polarization at forward rapidity in pp collisions at $\mathbf {\sqrt{s} = 8}$  TeV
 1672806 . Suppression of $\Lambda(1520)$ resonance production in central Pb-Pb collisions at $\sqrt{s_{\rm NN}}$ = 2.76 TeV
 1672807 . Inclusive J/$\psi$ production at forward and backward rapidity in p-Pb collisions at $\sqrt{s_{\rm NN}}$ = 8.16 TeV
-1672811 . Measurements of low-$p_{\rm T}$ electrons from semileptonic heavy-flavour hadron decays at mid-rapidity in pp and Pb-Pb collisions at $\mathbf{\sqrt{{\it s}_\mathrm{NN}}}$ = 2.76 TeV
+1672811 . Measurements of low-p$_{T}$ electrons from semileptonic heavy-flavour hadron decays at mid-rapidity in pp and Pb-Pb collisions at $ \sqrt{s_{\mathrm{NN}}}=2.76 $ TeV
 1672812 . Azimuthal anisotropy of heavy-flavour decay electrons in p-Pb collisions at $ \sqrt{s_{\rm NN}}$ = 5.02 TeV
 1672822 ! Anisotropic flow of identified particles in Pb-Pb collisions at $ {\sqrt{s}}_{\mathrm{NN}}=5.02 $ TeV
 1672860 . Production of the $\rho$(770)${^{0}}$ meson in pp and Pb-Pb collisions at $\sqrt{s_{\rm NN}}$ = 2.76 TeV
@@ -232,3 +232,6 @@
 1695028 . Measuring K$^0_{\rm S}$K$^{\rm{\pm}}$ interactions using pp collisions at $\sqrt{s}=7$ TeV
 1695334 . Event-shape engineering for the D-meson elliptic flow in mid-central Pb-Pb collisions at $\sqrt{s_{\rm NN}} =5.02$ TeV
 1696315 . $\Lambda_\mathrm{c}^+$ production in Pb-Pb collisions at $\sqrt{s_{\rm NN}} = 5.02$ TeV
+1704923 . Jet fragmentation transverse momentum measurements from di-hadron correlations in $\sqrt{s}$ = 7 TeV pp and $\sqrt{s_{\rm{NN}}}$ = 5.02 TeV p-Pb collisions
+1706006 . Study of J/$\psi$ azimuthal anisotropy at forward rapidity in Pb-Pb collisions at $\sqrt{{\textit s}_{\rm NN}}$ = 5.02 TeV
+1706753 . Charged-particle pseudorapidity density at mid-rapidity in p-Pb collisions at $\sqrt{s_{\rm{NN}}}$ = 8.16 TeV
