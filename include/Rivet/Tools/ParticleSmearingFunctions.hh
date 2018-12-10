@@ -13,10 +13,10 @@ namespace Rivet {
   //@{
 
   /// @name Typedef for Particle smearing functions/functors
-  typedef std::function<Particle(const Particle&)> ParticleSmearFn;
+  typedef function<Particle(const Particle&)> ParticleSmearFn;
 
   /// @name Typedef for Particle efficiency functions/functors
-  typedef std::function<double(const Particle&)> ParticleEffFn;
+  typedef function<double(const Particle&)> ParticleEffFn;
 
 
   /// Take a Particle and return 0
@@ -39,6 +39,8 @@ namespace Rivet {
 
   /// Take a Particle and return it unmodified
   inline Particle PARTICLE_SMEAR_IDENTITY(const Particle& p) { return p; }
+  /// Alias for PARTICLE_SMEAR_IDENTITY
+  inline Particle PARTICLE_SMEAR_PERFECT(const Particle& p) { return p; }
 
 
   /// @brief Functor for simultaneous efficiency-filtering and smearing of Particles
@@ -98,7 +100,7 @@ namespace Rivet {
     ParticleEffFilter(double eff) : ParticleEffFilter( [&](const Particle& p){return eff;} ) {}
     bool operator () (const Particle& p)  const { return efffilt(p, _feff); }
   private:
-    const std::function<bool(const Particle&)> _feff;
+    const ParticleEffFn _feff;
   };
   using particleEffFilter = ParticleEffFilter;
 

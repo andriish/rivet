@@ -119,17 +119,16 @@
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
-#include "Rivet/Projections/ZFinder.hh"
 #include "Rivet/Projections/WFinder.hh"
 #include "Rivet/Projections/FastJets.hh"
-
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 
 namespace Rivet {
 
-  class ATLAS_2014_I1282447 : public Analysis {
 
+
+  class ATLAS_2014_I1282447 : public Analysis {
   public:
 
     /// Constructor
@@ -138,7 +137,6 @@ namespace Rivet {
       setNeedsCrossSection(true);
     }
 
-  public:
 
     /// @name Analysis methods
     //@{
@@ -246,7 +244,7 @@ namespace Rivet {
       const WFinder& wfinder_born_el = apply<WFinder>(event, "WFinder_born_el");
       const WFinder& wfinder_born_mu = apply<WFinder>(event, "WFinder_born_mu");
 
-      if(wfinder_born_el.empty() && wfinder_born_mu.empty() ) {
+      if (wfinder_born_el.empty() && wfinder_born_mu.empty()) {
         MSG_DEBUG("No W bosons found");
         vetoEvent;
       }
@@ -254,9 +252,9 @@ namespace Rivet {
       bool keepevent = false;
 
       //check electrons
-      if(!wfinder_born_el.empty()) {
-        const FourMomentum& nu = wfinder_born_el.constituentNeutrinos()[0].momentum();
-        if(wfinder_born_el.mT() > 40*GeV && nu.pT() > 25*GeV) {
+      if (!wfinder_born_el.empty()) {
+        const FourMomentum nu = wfinder_born_el.constituentNeutrinos()[0];
+        if (wfinder_born_el.mT() > 40*GeV && nu.pT() > 25*GeV) {
           keepevent = true;
           lepton_charge = wfinder_born_el.constituentLeptons()[0].charge();
           lepton_eta = fabs(wfinder_born_el.constituentLeptons()[0].pseudorapidity());
@@ -264,17 +262,17 @@ namespace Rivet {
       }
 
       //check muons
-      if(!wfinder_born_mu.empty()) {
-        const FourMomentum& nu = wfinder_born_mu.constituentNeutrinos()[0].momentum();
-        if(wfinder_born_mu.mT() > 40*GeV && nu.pT() > 25*GeV) {
+      if (!wfinder_born_mu.empty()) {
+        const FourMomentum nu = wfinder_born_mu.constituentNeutrinos()[0];
+        if (wfinder_born_mu.mT() > 40*GeV && nu.pT() > 25*GeV) {
           keepevent = true;
           lepton_charge = wfinder_born_mu.constituentLeptons()[0].charge();
           lepton_eta = fabs(wfinder_born_mu.constituentLeptons()[0].pseudorapidity());
         }
       }
 
-      if(!keepevent) {
-        MSG_DEBUG("event does not pass mT and MET cuts");
+      if (!keepevent) {
+        MSG_DEBUG("Event does not pass mT and MET cuts");
         vetoEvent;
       }
 
@@ -309,34 +307,35 @@ namespace Rivet {
       bool   mat_jet = false;
 
       double ptcharm = 0;
-
-      if(matched_charmHadron > -1) {
-        foreach(const Jet& j, jets) {
+      if (matched_charmHadron > -1) {
+        for (const Jet& j : jets) {
           mat_jet = false;
-          njets++;
-          foreach(const Particle& p, fs.particles()) {
-            const GenParticlePtr part = p.genParticle();
-            if(p.hasCharm()) {
+
+          njets += 1;
+          for (const Particle& p : fs.particles()) {
+            /// @todo Avoid touching HepMC!
+            ConstGenParticlePtr part = p.genParticle();
+            if (p.hasCharm()) {
               //if(isFromBDecay(p)) continue;
-              if(p.fromBottom()) continue;
-              if(p.pT() < 5*GeV ) continue;
-              if(hasCharmedChildren(part)) continue;
-              if(deltaR(p, j) < 0.3) {
+              if (p.fromBottom()) continue;
+              if (p.pT() < 5*GeV ) continue;
+              if (hasCharmedChildren(part)) continue;
+              if (deltaR(p, j) < 0.3) {
                 mat_jet = true;
-                if(p.pT() > ptcharm) {
+                if (p.pT() > ptcharm) {
                   charm_charge = part->pdg_id();
                   ptcharm = p.pT();
                 }
               }
             }
           }
-          if(mat_jet) nj++;
+          if (mat_jet) nj++;
         }
 
         if (charm_charge * lepton_charge > 0)  charge_weight = -1;
         else charge_weight = +1;
 
-        if(nj == 1)  {
+        if (nj == 1)  {
           if (lepton_charge > 0) {
             _hist_wcjet_charge        ->fill(         1, weight*charge_weight);
             _hist_wcjet_plus          ->fill(         0, weight*charge_weight);
@@ -356,16 +355,17 @@ namespace Rivet {
 
       // // 1/2: w+d(*) meson
 
-      foreach(const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
 
-        const GenParticlePtr part = p.genParticle();
-        if(p.pT() < 8*GeV)       continue;
-        if(fabs(p.eta()) > 2.2)  continue;
+        /// @todo Avoid touching HepMC!
+        ConstGenParticlePtr part = p.genParticle();
+        if (p.pT() < 8*GeV)       continue;
+        if (fabs(p.eta()) > 2.2)  continue;
 
         // W+D
-        if(abs(part->pdg_id()) == 411) {
-          if(lepton_charge * part->pdg_id() > 0)  charge_weight = -1;
-          else                                    charge_weight = +1;
+        if (abs(part->pdg_id()) == 411) {
+          if (lepton_charge * part->pdg_id() > 0)  charge_weight = -1;
+          else                                     charge_weight = +1;
 
           // fill histos
           if (lepton_charge > 0) {
@@ -383,7 +383,7 @@ namespace Rivet {
         }
 
         // W+Dstar
-        if( abs(part->pdg_id()) == 413 ) {
+        if ( abs(part->pdg_id()) == 413 ) {
           if (lepton_charge*part->pdg_id() > 0) charge_weight = -1;
           else charge_weight = +1;
 
@@ -401,14 +401,14 @@ namespace Rivet {
           }
         }
       }
-    }// end of analyse function
+
+    }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
 
-      /// @todo Normalise, scale and otherwise manipulate histograms here
-      const double sf( crossSection() / sumOfWeights() );
+      const double sf = crossSection() / sumOfWeights();
 
       // norm to cross section
       // d01
@@ -473,54 +473,57 @@ namespace Rivet {
     // Data members like post-cuts event weight counters go here
 
     // Check whether particle comes from b-decay
+    /// @todo Use built-in method and avoid HepMC
     bool isFromBDecay(const Particle& p) {
 
       bool isfromB = false;
 
-      if(p.genParticle() == NULL)  return false;
+      if (p.genParticle() == nullptr)  return false;
 
-      const GenParticlePtr part = p.genParticle();
-      const GenVertexPtr ivtx = const_cast<const GenVertexPtr>(part->production_vertex());
-      while(ivtx) {
-        if(ivtx->particles_in_size() < 1) {
+      ConstGenParticlePtr part = p.genParticle();
+      ConstGenVertexPtr ivtx = const_cast<const GenVertex*>(part->production_vertex());
+      while (ivtx) {
+        if (ivtx->particles_in_size() < 1) {
           isfromB = false;
           break;
         }
         const HepMC::GenVertex::particles_in_const_iterator iPart_invtx = ivtx->particles_in_const_begin();
         part = (*iPart_invtx);
-        if(!part) {
+        if (!part) {
           isfromB = false;
           break;
         }
         isfromB = PID::hasBottom(part->pdg_id());
-        if(isfromB == true)  break;
-        ivtx = const_cast<const GenVertexPtr>(part->production_vertex());
-        if( part->pdg_id() == 2212 || !ivtx )  break; // reached beam
+
+        if (isfromB == true)  break;
+        ivtx = part->production_vertex();
+        if ( part->pdg_id() == 2212 || !ivtx )  break; // reached beam
       }
       return isfromB;
     }
 
 
     // Check whether particle has charmed children
-    bool hasCharmedChildren(const GenParticle *part) {
+    /// @todo Use built-in method and avoid HepMC!
+    bool hasCharmedChildren(ConstGenParticlePtr part) {
 
       bool hasCharmedChild = false;
-      if(part == NULL)  return false;
+      if (part == nullptr)  return false;
 
-      const GenVertexPtr ivtx = const_cast<const GenVertexPtr>(part->end_vertex());
-      if(ivtx == NULL)  return false;
+      ConstGenVertexPtr ivtx = part->end_vertex();
+      if (ivtx == nullptr)  return false;
 
       // if (ivtx->particles_out_size() < 2) return false;
       HepMC::GenVertex::particles_out_const_iterator iPart_invtx = ivtx->particles_out_const_begin();
       HepMC::GenVertex::particles_out_const_iterator end_invtx = ivtx->particles_out_const_end();
 
-      for( ; iPart_invtx != end_invtx; iPart_invtx++ ) {
-        const GenParticlePtr p2 = (*iPart_invtx);
-        if( p2 == part)  continue;
+      for ( ; iPart_invtx != end_invtx; iPart_invtx++ ) {
+        ConstGenParticlePtr p2 = (*iPart_invtx);
+        if (p2 == part)  continue;
         hasCharmedChild = PID::hasCharm(p2->pdg_id());
-        if(hasCharmedChild == true)  break;
+        if (hasCharmedChild == true)  break;
         hasCharmedChild = hasCharmedChildren(p2);
-        if(hasCharmedChild == true)  break;
+        if (hasCharmedChild == true)  break;
       }
       return hasCharmedChild;
     }

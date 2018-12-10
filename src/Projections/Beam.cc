@@ -34,9 +34,9 @@ namespace Rivet {
     // First try the official way: ask the GenEvent for the beam pointers
     assert(e.genEvent()->particles_size() >= 2);
     if (e.genEvent()->valid_beam_particles()) {
-      pair<HepMC::GenParticle*, HepMC::GenParticle*> beams = e.genEvent()->beam_particles();
-      assert(beams.first && beams.second);
-      return ParticlePair{beams.first, beams.second};
+      vector<ConstGenParticlePtr> beams = e.genEvent()->beam_particles();
+      assert(beams.size()==2 && beams.at(0) && beams.at(1));
+      return ParticlePair{beams.at(0), beams.at(1)};
     }
     // Ok, that failed: let's find the status = 4 particles by hand
     const vector<Particle> pstat4s = e.allParticles([](const Particle& p){ return p.genParticle()->status() == 4; });

@@ -30,6 +30,7 @@ namespace Rivet {
       vector<ConstGenParticlePtr> children = Rivet::particles(p.genParticle(), Relatives::CHILDREN);
       if (hasBottom(p)) {
         bool has_b_child = false;
+        
         for (ConstGenParticlePtr p2 : children) {
           if (PID::hasBottom(p2->pdg_id())) {
             has_b_child = true;
@@ -42,6 +43,7 @@ namespace Rivet {
         }
       } else if (hasCharm(p)) {
         bool has_c_child = false;
+
         for (ConstGenParticlePtr p2 : children) {
           if (PID::hasCharm(p2->pdg_id())) {
             has_c_child = true;

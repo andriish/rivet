@@ -3,7 +3,12 @@
 import argparse
 ap = argparse.ArgumentParser()
 ap.add_argument("DATFILE", metavar="file", default="nanas.dat", help="release/count data file to read")
+ap.add_argument("OUTFILE", nargs="?", metavar="file", default=None, help="image file to write")
 args = ap.parse_args()
+
+if not args.OUTFILE:
+    import os
+    args.OUTFILE = os.path.splitext(os.path.basename(args.DATFILE))[0] + ".pdf"
 
 import datetime
 import numpy as np
@@ -23,5 +28,5 @@ with open(args.DATFILE) as f:
 plt.plot(dates, nanas)
 plt.xlabel("Year")
 plt.ylabel("# analyses")
-plt.savefig(args.DATFILE.replace(".dat", ".pdf"))
+plt.savefig(args.OUTFILE)
 # plt.show()

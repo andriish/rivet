@@ -40,7 +40,7 @@ namespace Rivet {
 
       IdentifiedFinalState bareleptons(fs);
       bareleptons.acceptIdPair(_mode? PID::ELECTRON : PID::MUON);
-      const DressedLeptons leptons(fs, bareleptons, 0.1, cuts, true, true);
+      const DressedLeptons leptons(fs, bareleptons, 0.1, cuts, true);
       declare(leptons, "leptons");
 
       const ChargedFinalState cfs(Cuts::abseta < 2.5 && Cuts::pT > 0.4*GeV);

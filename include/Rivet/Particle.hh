@@ -25,7 +25,7 @@ namespace Rivet {
     /// @note A particle without info is useless. This only exists to keep STL containers happy.
     Particle()
       : ParticleBase(),
-        _original((GenParticle*) nullptr), _id(PID::ANY)
+        _original((HepMC::GenParticle*) nullptr), _id(PID::ANY)
     { }
 
     /// Constructor without GenParticle.
@@ -47,9 +47,9 @@ namespace Rivet {
     }
 
     /// Constructor from a HepMC GenParticle.
-    Particle(const GenParticle& gp)
+    Particle(const HepMC::GenParticle& gp)
       : ParticleBase(),
-        _original(std::make_shared<const GenParticle>(gp)), _id(gp.pdg_id()),
+        _original(std::make_shared<const HepMC::GenParticle>(gp)), _id(gp.pdg_id()),
         _momentum(gp.momentum())
     {
       ConstGenVertexPtr vprod = gp.production_vertex();
@@ -59,30 +59,6 @@ namespace Rivet {
     }
 
     //@}
-
-
-    /// @name Other representations and implicit casts
-    //@{
-
-    /// Converter to FastJet3 PseudoJet
-    virtual fastjet::PseudoJet pseudojet() const {
-      return fastjet::PseudoJet(mom().px(), mom().py(), mom().pz(), mom().E());
-    }
-
-    /// Cast operator to FastJet3 PseudoJet
-    operator PseudoJet () const { return pseudojet(); }
-
-
-    /// Get a const pointer to the original GenParticle.
-    ConstGenParticlePtr genParticle() const {
-      return _original;
-    }
-
-    /// Cast operator for conversion to GenParticle*
-    operator ConstGenParticlePtr () const { return genParticle(); }
-
-    //@}
-
 
     /// @name Kinematic properties
     //@{
@@ -131,6 +107,29 @@ namespace Rivet {
     //@}
 
 
+    /// @name Other representations and implicit casts to momentum-like objects
+    //@{
+
+    /// Converter to FastJet3 PseudoJet
+    virtual fastjet::PseudoJet pseudojet() const {
+      return fastjet::PseudoJet(mom().px(), mom().py(), mom().pz(), mom().E());
+    }
+
+    /// Cast operator to FastJet3 PseudoJet
+    operator PseudoJet () const { return pseudojet(); }
+
+
+    /// Get a const pointer to the original GenParticle
+    ConstGenParticlePtr genParticle() const {
+      return _original;
+    }
+
+    /// Cast operator for conversion to GenParticle*
+    operator ConstGenParticlePtr () const { return genParticle(); }
+
+    //@}
+
+
     /// @name Particle ID code accessors
     //@{
 
@@ -145,7 +144,7 @@ namespace Rivet {
     //@}
 
 
-    /// @name Particle species properties
+    /// @name Charge
     //@{
 
     /// The charge of this Particle.
@@ -164,6 +163,15 @@ namespace Rivet {
     /// Three times the absolute charge of this Particle (i.e. integer multiple of smallest quark charge).
     int abscharge3() const { return PID::abscharge3(pid()); }
 
+    /// Is this Particle charged?
+    bool isCharged() const { return charge3() != 0; }
+
+    //@}
+
+
+    /// @name Particle species
+    //@{
+
     /// Is this a hadron?
     bool isHadron() const { return PID::isHadron(pid()); }
 
@@ -175,6 +183,9 @@ namespace Rivet {
 
     /// Is this a lepton?
     bool isLepton() const { return PID::isLepton(pid()); }
+
+    /// Is this a charged lepton?
+    bool isChargedLepton() const { return PID::isChargedLepton(pid()); }
 
     /// Is this a neutrino?
     bool isNeutrino() const { return PID::isNeutrino(pid()); }
@@ -194,7 +205,98 @@ namespace Rivet {
     //@}
 
 
-    /// @name Ancestry properties
+    /// @name Constituents (for composite particles)
+    //@{
+
+    /// Set direct constituents of this particle
+    virtual void setConstituents(const vector<Particle>& cs, bool setmom=false);
+
+    /// Add a single direct constituent to this particle
+    virtual void addConstituent(const Particle& c, bool addmom=false);
+
+    /// Add direct constituents to this particle
+    virtual void addConstituents(const vector<Particle>& cs, bool addmom=false);
+
+
+    /// Determine if this Particle is a composite of other Rivet Particles
+    bool isComposite() const { return !constituents().empty(); }
+
+
+    /// @brief Direct constituents of this particle, returned by reference
+    ///
+    /// The returned vector will be empty if this particle is non-composite,
+    /// and its entries may themselves be composites.
+    const vector<Particle>& constituents() const { return _constituents; }
+
+    /// @brief Direct constituents of this particle, sorted by a functor
+    /// @note Returns a copy, thanks to the sorting
+    const vector<Particle> constituents(const ParticleSorter& sorter) const {
+      return sortBy(constituents(), sorter);
+    }
+
+    /// @brief Direct constituents of this particle, filtered by a Cut
+    /// @note Returns a copy, thanks to the filtering
+    const vector<Particle> constituents(const Cut& c) const {
+      return filter_select(constituents(), c);
+    }
+
+    /// @brief Direct constituents of this particle, sorted by a functor
+    /// @note Returns a copy, thanks to the filtering and sorting
+    const vector<Particle> constituents(const Cut& c, const ParticleSorter& sorter) const {
+      return sortBy(constituents(c), sorter);
+    }
+
+    /// @brief Direct constituents of this particle, filtered by a selection functor
+    /// @note Returns a copy, thanks to the filtering
+    const vector<Particle> constituents(const ParticleSelector& selector) const {
+      return filter_select(constituents(), selector);
+    }
+
+    /// @brief Direct constituents of this particle, filtered and sorted by functors
+    /// @note Returns a copy, thanks to the filtering and sorting
+    const vector<Particle> constituents(const ParticleSelector& selector, const ParticleSorter& sorter) const {
+      return sortBy(constituents(selector), sorter);
+    }
+
+
+    /// @brief Fundamental constituents of this particle
+    /// @note Returns {{*this}} if this particle is non-composite.
+    vector<Particle> rawConstituents() const;
+
+    /// @brief Fundamental constituents of this particle, sorted by a functor
+    /// @note Returns a copy, thanks to the sorting
+    const vector<Particle> rawConstituents(const ParticleSorter& sorter) const {
+      return sortBy(rawConstituents(), sorter);
+    }
+
+    /// @brief Fundamental constituents of this particle, filtered by a Cut
+    /// @note Returns a copy, thanks to the filtering
+    const vector<Particle> rawConstituents(const Cut& c) const {
+      return filter_select(rawConstituents(), c);
+    }
+
+    /// @brief Fundamental constituents of this particle, sorted by a functor
+    /// @note Returns a copy, thanks to the filtering and sorting
+    const vector<Particle> rawConstituents(const Cut& c, const ParticleSorter& sorter) const {
+      return sortBy(rawConstituents(c), sorter);
+    }
+
+    /// @brief Fundamental constituents of this particle, filtered by a selection functor
+    /// @note Returns a copy, thanks to the filtering
+    const vector<Particle> rawConstituents(const ParticleSelector& selector) const {
+      return filter_select(rawConstituents(), selector);
+    }
+
+    /// @brief Fundamental constituents of this particle, filtered and sorted by functors
+    /// @note Returns a copy, thanks to the filtering and sorting
+    const vector<Particle> rawConstituents(const ParticleSelector& selector, const ParticleSorter& sorter) const {
+      return sortBy(rawConstituents(selector), sorter);
+    }
+
+    //@}
+
+
+    /// @name Ancestry (for fundamental particles with a HepMC link)
     //@{
 
     /// Get a list of the direct parents of the current particle (with optional selection Cut)
@@ -571,6 +673,9 @@ namespace Rivet {
     /// A pointer to the original GenParticle from which this Particle is projected.
     ConstGenParticlePtr _original;
 
+    /// Constituent particles if this is a composite (may be empty)
+    std::vector<Particle> _constituents;
+
     /// The PDG ID code for this Particle.
     PdgId _id;
 
@@ -586,24 +691,11 @@ namespace Rivet {
   /// @name String representation and streaming support
   //@{
 
-  /// Represent a Particle as a string.
-  std::string to_str(const Particle& p);
-
   /// Allow a Particle to be passed to an ostream.
-  inline std::ostream& operator<<(std::ostream& os, const Particle& p) {
-    os << to_str(p);
-    return os;
-  }
-
-
-  /// Represent a ParticlePair as a string.
-  std::string to_str(const ParticlePair& pair);
+  std::ostream& operator << (std::ostream& os, const Particle& p);
 
   /// Allow ParticlePair to be passed to an ostream.
-  inline std::ostream& operator<<(std::ostream& os, const ParticlePair& pp) {
-    os << to_str(pp);
-    return os;
-  }
+  std::ostream& operator << (std::ostream& os, const ParticlePair& pp);
 
   //@}
 

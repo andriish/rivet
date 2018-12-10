@@ -3,6 +3,7 @@
 
 namespace Rivet {
 
+
   FParameter::FParameter(const FinalState& fsp) {
     setName("FParameter");
     addProjection(fsp, "FS");
@@ -28,7 +29,7 @@ namespace Rivet {
   void FParameter::calc(const vector<Particle>& fsparticles) {
     vector<Vector3> threeMomenta;
     threeMomenta.reserve(fsparticles.size());
-    foreach (const Particle& p, fsparticles) {
+    for (const Particle& p : fsparticles) {
       const Vector3 p3 = p.momentum().vector3();
       threeMomenta.push_back(p3);
     }
@@ -38,7 +39,7 @@ namespace Rivet {
   void FParameter::calc(const vector<FourMomentum>& fsmomenta) {
     vector<Vector3> threeMomenta;
     threeMomenta.reserve(fsmomenta.size());
-    foreach (const FourMomentum& v, fsmomenta) {
+    for (const FourMomentum& v : fsmomenta) {
       threeMomenta.push_back(v.vector3());
     }
     _calcFParameter(threeMomenta);
@@ -60,14 +61,14 @@ namespace Rivet {
 
     // A small iteration over full momenta but set z-coord. to 0.0 to get transverse momenta
     vector <Vector3> fsperpmomenta;
-    foreach (const Vector3& p, fsmomenta) {
+    for (const Vector3& p : fsmomenta) {
       fsperpmomenta.push_back(Vector3(p.x(), p.y(), 0.0));
     }
 
     // Iterate over all the final state particles.
     Matrix<2> mMom;
     MSG_DEBUG("Number of particles = " << fsperpmomenta.size());
-    foreach (const Vector3& p3, fsperpmomenta) {
+    for (const Vector3& p3 : fsperpmomenta) {
 
       double prefactor = 1.0/p3.mod();
 

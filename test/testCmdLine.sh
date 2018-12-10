@@ -2,14 +2,10 @@
 
 #set -x
 
-if [[ -z "$PYTHON_BUILD_DIR" ]]; then
-    echo "\$PYTHON_BUILD_DIR must be defined" 1>&2
-    exit 1
-fi
-export PYTHONPATH=$(ls -d $PYTHON_BUILD_DIR/lib.*):$PYTHONPATH
+export LD_LIBRARY_PATH=$LIBLOCATION:$LD_LIBRARY_PATH
+export DYLD_LIBRARY_PATH=$LIBLOCATION:$DYLD_LIBRARY_PATH
 
 echo PYTHONPATH=$PYTHONPATH
-echo PYTHON_BUILD_DIR=$PYTHON_BUILD_DIR
 echo LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 echo PATH=$PATH
 echo
@@ -17,6 +13,8 @@ echo RIVET_ANALYSIS_PATH=$RIVET_ANALYSIS_PATH
 echo RIVET_DATA_PATH=$RIVET_DATA_PATH
 echo RIVET_REF_PATH=$RIVET_REF_PATH
 echo RIVET_INFO_PATH=$RIVET_INFO_PATH
+echo
+echo PYTHON=$PYTHON
 
 function _clean() {
     rm -f fifo.hepmc
@@ -36,12 +34,18 @@ function _check() {
         _exit $CODE
     fi
 }
-
+echo "trying to load rivet python module"
+$PYTHON -c 'import rivet'  || exit $?
+echo "Success"
 
 _setup
 
 echo
 rivet --list-analyses > log || exit $?
+
+# this analysis has greek chars in the name
+echo
+rivet --show-analysis SLD_1999_S37439 > log || exit $?
 
 echo
 rivet -a D0_2008_S7554427 ${RIVET_TESTS_SRC}/testApi.hepmc file2.hepmc > log || exit $?

@@ -1,13 +1,11 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Tools/BinnedHistogram.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/VisibleFinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Tools/RivetMT2.hh"
 
 namespace Rivet {
 
@@ -164,7 +162,7 @@ namespace Rivet {
       if(leptons[0].pid()*leptons[1].pid()>0) vetoEvent;
 
       // and invariant mass > 20
-      double mll = (leptons[0].momentum()+leptons[1].momentum()).mass();
+      double mll = (leptons[0].momentum() + leptons[1].momentum()).mass();
       if(mll<20.) vetoEvent;
 
       // two jets 1st pT > 50 and second pT> 25
@@ -172,8 +170,7 @@ namespace Rivet {
 	 recon_jets[1].perp()<25.) vetoEvent;
 
       // calculate mT2
-      double m_T2 = mT2::mT2( leptons[0].momentum(),leptons[1].momentum(),
-			      pTmiss,0.0 ); // zero mass invisibles
+      double m_T2 = mT2( leptons[0], leptons[1], pTmiss,0.0 ); // zero mass invisibles
 
       // same flavour region
       if(leptons[0].pid()==-leptons[1].pid()) {

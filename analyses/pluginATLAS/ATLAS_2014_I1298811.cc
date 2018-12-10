@@ -32,8 +32,6 @@ namespace Rivet {
         _p_etsum48_vs_ptlead_trans[itopo] = bookProfile1D(8, 1, itopo+1);
         _p_chratio_vs_ptlead_trans[itopo] = bookProfile1D(9, 1, itopo+1);
         _p_ptmeanch_vs_ptlead_trans[itopo] = bookProfile1D(10, 1, itopo+1);
-        _p_ptmeanch_vs_nch_trans[0] = bookProfile1D(11, 1, 1);
-        _p_ptmeanch_vs_nch_trans[1] = bookProfile1D(12, 1, 1);
         // 1D histos
         for (size_t iregion = 0; iregion < 3; ++iregion) {
           for (size_t ipt = 0; ipt < 4; ++ipt) {
@@ -42,6 +40,8 @@ namespace Rivet {
           }
         }
       }
+      _p_ptmeanch_vs_nch_trans[0] = bookProfile1D(11, 1, 1);
+      _p_ptmeanch_vs_nch_trans[1] = bookProfile1D(12, 1, 1);
 
     }
 

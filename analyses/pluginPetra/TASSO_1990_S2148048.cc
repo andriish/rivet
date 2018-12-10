@@ -1,10 +1,8 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-//#include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/Thrust.hh"
 #include "Rivet/Projections/Sphericity.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-/// @todo Include more projections as required, e.g. ChargedFinalState, FastJets, ZFinder...
 
 namespace Rivet {
 
@@ -12,21 +10,9 @@ namespace Rivet {
   class TASSO_1990_S2148048 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
-    TASSO_1990_S2148048()
-      : Analysis("TASSO_1990_S2148048")
-    {
-      /// @todo Set whether your finalize method needs the generator cross section
-      //_sumWPassed = 0;
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(TASSO_1990_S2148048);
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{
@@ -36,13 +22,8 @@ namespace Rivet {
       const ChargedFinalState cfs(-MAXDOUBLE, MAXDOUBLE, 0.1/GeV);
       declare(cfs, "CFS");
 
-      //// Beams -- needed for x_p calculation
-      //declare(Beam(), "Beams");
-
-      // Thrust
+      // Thrust and sphericity
       declare(Thrust(cfs), "Thrust");
-
-      // For Sphericity and the like
       declare(Sphericity(cfs), "Sphericity");
 
       // Histos
@@ -68,7 +49,6 @@ namespace Rivet {
     }
 
 
-
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
@@ -90,7 +70,7 @@ namespace Rivet {
       // Condition 2) ---
       // Condition 5) --- scalar momentum (not pT!!!) sum >= 0.265*s
       double momsum = 0.0;
-      foreach (const Particle& p, cfs.particles()) {
+      for (const Particle& p : cfs.particles()) {
         const double mom = p.p3().mod();
         momsum += mom;
       }
@@ -141,18 +121,9 @@ namespace Rivet {
 
   private:
 
-    // Data members like post-cuts event weight counters go here
-
-    //double _sumWPassed;
-
-  private:
-
     /// @name Histograms
     //@{
-    Histo1DPtr _h_xp        ;
-    Histo1DPtr _h_sphericity;
-    Histo1DPtr _h_aplanarity;
-    Histo1DPtr _h_thrust    ;
+    Histo1DPtr _h_xp, _h_sphericity, _h_aplanarity, _h_thrust;
     //@}
 
 

@@ -53,9 +53,17 @@ namespace Rivet {
       _theParticles.push_back(*id_p.second);
     }
 
-    if (_leading_only && !_theParticles.empty()) {
-      sortByPt(_theParticles);
-      const Particle pmax = _theParticles.front();
+    if (_leading_only) {
+      double ptmax=0.0;
+      Particle pmax;
+
+      for (const Particle& p : _theParticles) {
+        if (p.pT() > ptmax) {
+          ptmax = p.pT();
+          pmax = p;
+        }
+      }
+
       _theParticles.clear();
       _theParticles.push_back(pmax);
     }

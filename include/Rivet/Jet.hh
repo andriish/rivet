@@ -251,14 +251,8 @@ namespace Rivet {
   /// @name String representation and streaming support
   //@{
 
-  /// Represent a Jet as a string.
-  std::string to_str(const Jet& j);
-
   /// Allow a Jet to be passed to an ostream.
-  inline std::ostream& operator<<(std::ostream& os, const Jet& j) {
-    os << to_str(j);
-    return os;
-  }
+  std::ostream& operator << (std::ostream& os, const Jet& j);
 
   //@}
 

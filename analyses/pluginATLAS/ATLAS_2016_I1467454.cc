@@ -48,9 +48,10 @@ namespace Rivet {
       const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.bosons().size() != 1)  vetoEvent;
 
-      const Particle& z0  = zfinder.bosons()[0];
-      const Particle& el1 = zfinder.particles()[0];
-      const Particle& el2 = zfinder.particles()[1];
+      const Particle z0  = zfinder.bosons()[0];
+      /// @todo Could use z0.constituents()
+      const Particle el1 = zfinder.constituentLeptons()[0];
+      const Particle el2 = zfinder.constituentLeptons()[1];
 
       if (el1.pT() > 40*GeV || el2.pT() > 40*GeV) {
         const double mass = z0.mass();

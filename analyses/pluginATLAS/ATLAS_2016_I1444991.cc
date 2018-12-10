@@ -35,14 +35,14 @@ namespace Rivet {
       el_id.acceptIdPair(PID::ELECTRON);
       PromptFinalState el_bare(el_id);
       Cut cuts = (Cuts::abseta < 2.47) && ( (Cuts::abseta <= 1.37) || (Cuts::abseta >= 1.52) ) && (Cuts::pT > 15*GeV);
-      DressedLeptons el_dressed_FS(photon_id, el_bare, 0.1, cuts, true, true);
+      DressedLeptons el_dressed_FS(photon_id, el_bare, 0.1, cuts, true);
       declare(el_dressed_FS,"EL_DRESSED_FS");
 
       // Project dressed muons with pT > 15 GeV and |eta| < 2.5
       IdentifiedFinalState mu_id(FS);
       mu_id.acceptIdPair(PID::MUON);
       PromptFinalState mu_bare(mu_id);
-      DressedLeptons mu_dressed_FS(photon_id, mu_bare, 0.1, Cuts::abseta < 2.5 && Cuts::pT > 15*GeV, true, true);
+      DressedLeptons mu_dressed_FS(photon_id, mu_bare, 0.1, Cuts::abseta < 2.5 && Cuts::pT > 15*GeV, true);
       declare(mu_dressed_FS,"MU_DRESSED_FS");
 
       // get MET from generic invisibles
@@ -66,7 +66,7 @@ namespace Rivet {
       _h_Yll_norm     = bookHisto1D( 8,1,1);
       _h_PtLead_norm  = bookHisto1D( 9,1,1);
       _h_JetVeto      = bookScatter2D(10, 1, 1, true);
-      
+
       //histos for jetveto
       std::vector<double> ptlead25_bins = { 0., 25., 300. };
       std::vector<double> ptlead40_bins = { 0., 40., 300. };
@@ -77,10 +77,10 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-  
+
       const double weight = event.weight();
 
-      // Get final state particles 
+      // Get final state particles
       const FinalState& ifs = applyProjection<FinalState>(event, "InvisibleFS");
       const vector<DressedLepton>& good_mu = applyProjection<DressedLeptons>(event, "MU_DRESSED_FS").dressedLeptons();
       const vector<DressedLepton>& el_dressed = applyProjection<DressedLeptons>(event, "EL_DRESSED_FS").dressedLeptons();
@@ -88,9 +88,9 @@ namespace Rivet {
 
       //find good electrons
       vector<DressedLepton> good_el;
-      foreach(const DressedLepton& el, el_dressed){
+      for (const DressedLepton& el : el_dressed){
         bool keep = true;
-        foreach(const DressedLepton &mu, good_mu) {
+        for (const DressedLepton& mu : good_mu) {
           keep &= deltaR(el, mu) >= 0.1;
         }
         if (keep)  good_el += el;
@@ -109,11 +109,11 @@ namespace Rivet {
       //get MET
       FourMomentum met;
       foreach (const Particle& p, ifs.particles())  met += p.momentum();
-      
+
       // do a few cuts before looking at jets
       if (pTl1 <= 22. || DPhill >= 1.8 || met.pT() <= 20.)  vetoEvent;
       if (Mll <= 10. || Mll >= 55.)  vetoEvent;
- 
+
       Jets jets_selected;
       foreach (const Jet &j, jets) {
         if( j.abseta() > 2.4 && j.pT()<=30*GeV ) continue;
@@ -124,7 +124,7 @@ namespace Rivet {
         if (keep)  jets_selected += j;
       }
 
-      double PtllMET = (met + good_el[0].momentum() + good_mu[0].momentum()).pT(); 
+      double PtllMET = (met + good_el[0].momentum() + good_mu[0].momentum()).pT();
 
       double Njets = jets_selected.size() > 2 ? 2 : jets_selected.size();
       double pTj1 = jets_selected.size()? jets_selected[0].pT() : 0.1;

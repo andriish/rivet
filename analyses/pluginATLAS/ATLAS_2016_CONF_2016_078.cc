@@ -130,7 +130,7 @@ namespace Rivet {
       if (!muons.empty()) vetoEvent;
 
       // Passed presel & MET
-      _flows.fill(0, true);
+      _flows.fill(1);
 
       // Get jets and their pTs
       const Jets jets20 = jets;

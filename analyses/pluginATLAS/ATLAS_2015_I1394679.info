@@ -18,7 +18,7 @@ NeedCrossSection: True
 Description:
   Differential cross sections for the production of at least four jets have been measured in proton-proton collisions at
   $\sqrt{s}=8$\,TeV at the Large Hadron Collider using the ATLAS detector. The dataset corresponds to an integrated luminosity
-  of 20.3\,fb^{−1}. The cross sections are corrected for detector effects and presented as a function of the jet momenta,
+  of 20.3\,fb^{-1}. The cross sections are corrected for detector effects and presented as a function of the jet momenta,
   invariant masses, minimum and maximum opening angles and other kinematic variables.
 BibKey: Aad:2015nda
 BibTeX: '@article{Aad:2015nda,

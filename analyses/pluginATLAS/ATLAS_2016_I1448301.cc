@@ -39,7 +39,7 @@ namespace Rivet {
       // Dressed leptons
       const IdentifiedFinalState allphoton_fs(PID::PHOTON); // photons used for lepton dressing
       const Cut leptoncut = Cuts::pT > 25*GeV && Cuts::abseta < 2.47;
-      const DressedLeptons dressedlepton_fs(allphoton_fs, barelepton_fs, 0.1, leptoncut, true, true); //use all the photons for lepton dressing
+      const DressedLeptons dressedlepton_fs(allphoton_fs, barelepton_fs, 0.1, leptoncut, true); // use *all* photons for lepton dressing
       declare(dressedlepton_fs, "Leptons");
 
       // MET (prompt neutrinos)

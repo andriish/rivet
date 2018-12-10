@@ -13,21 +13,13 @@ namespace Rivet {
       return false;
 
     // Accept partons if they end on a standard hadronization vertex
-    #if HEPMC_VERSION_CODE >= 2007000
-    if (p.genParticle()->end_vertex() != NULL &&
-        p.genParticle()->end_vertex()->id() == 5)
+    if (p.genParticle()->end_vertex() != nullptr && p.genParticle()->end_vertex()->id() == 5)
       return true;
-    #else
-    if (p.genParticle()->end_vertex() != NULL &&
-        p.genParticle()->end_vertex()->id() == 5)
-      return true;
-    #endif
 
     // Reject if p has a parton child.
-    for (const Particle& c : p.children()) {
+    for (const Particle& c : p.children())
       if (isParton(c))
         return false;
-    }
 
     // Reject if from a hadron or tau decay.
     if (p.fromDecay())
@@ -39,7 +31,6 @@ namespace Rivet {
 
   void FinalPartons::project(const Event& e) {
     _theParticles.clear();
-
     for (ConstGenParticlePtr gp : Rivet::particles(e.genEvent())) {
       if (!gp) continue;
       const Particle p(gp);

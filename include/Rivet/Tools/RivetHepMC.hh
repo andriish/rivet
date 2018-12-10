@@ -25,7 +25,7 @@ namespace Rivet {
 
   using HepMC::GenEvent;
   /// @todo should we ever refer to a GenParticle other than by ptr?  Who will own the gp?
-  using HepMC::GenParticle;
+  //using HepMC::GenParticle;
   /// @todo should we ever refer to a GenVertex other than by ptr?  Who will own the gv?
   //using HepMC::GenVertex;
 

@@ -15,13 +15,14 @@ namespace Rivet {
     vetoIds += 22; // status 2 photons don't count!
     vetoIds += 110; vetoIds += 990; vetoIds += 9990; // Reggeons
     //vetoIds += 9902210; // something weird from PYTHIA6
+
     for (ConstGenParticlePtr p : Rivet::particles(e.genEvent())) {
       const int st = p->status();
       bool passed =
         (st == 1 || (st == 2 && !contains(vetoIds, abs(p->pdg_id())))) &&
         !PID::isParton(p->pdg_id()) && ///< Always veto partons
-        p != e.beams().first.genParticle() && p != e.beams().second.genParticle() && // Filter beam particles
-        _cuts->accept(p);
+        p->status() !=4 && // Filter beam particles
+        _cuts->accept(p->momentum());
 
       // Avoid double counting by re-marking as unpassed if ID == (any) parent ID
       ConstGenVertexPtr pv = p->production_vertex();

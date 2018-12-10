@@ -3,6 +3,7 @@
 #include "Rivet/Projections/ZFinder.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
+#include "Rivet/Projections/PromptFinalState.hh"
 
 namespace Rivet {
 
@@ -28,16 +29,16 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      // Determine the e/mu decay channels used
+      // Determine the e/mu decay channels used (NB Prompt leptons only).
       /// @todo Note that Zs are accepted with any rapidity: the cuts are on the e/mu: is this correct?
-	  Cut pt20 = Cuts::pT >= 20.0*GeV;
+      Cut pt20 = Cuts::pT >= 20.0*GeV;
       if (_mode == 1) {
         // Combined
-        ZFinder zfinder(FinalState(-2.5, 2.5), pt20, PID::ELECTRON, 66*GeV, 116*GeV);
+        ZFinder zfinder(FinalState(Cuts::abseta < 2.5), pt20, PID::ELECTRON, 66*GeV, 116*GeV);
         declare(zfinder, "zfinder");
       } else if (_mode == 2) {
         // Electron
-	    Cut eta_e = Cuts::abseta < 1.37 || Cuts::absetaIn(1.52, 2.47);
+	    const Cut eta_e = Cuts::abseta < 1.37 || Cuts::absetaIn(1.52, 2.47);
         ZFinder zfinder(FinalState(eta_e), pt20, PID::ELECTRON, 66*GeV, 116*GeV);
         declare(zfinder, "zfinder");
       } else if (_mode == 3) {
@@ -90,21 +91,17 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       const ZFinder& zfinder = apply<ZFinder>(event, "zfinder");
-      if (zfinder.constituents().size()!=2) vetoEvent;
+      MSG_DEBUG("# Z constituents = " << zfinder.constituents().size());
+      if (zfinder.constituents().size() != 2) vetoEvent;
 
-      FourMomentum z = zfinder.bosons()[0].momentum();
+      FourMomentum z = zfinder.boson().momentum();
       FourMomentum lp = zfinder.constituents()[0].momentum();
       FourMomentum lm = zfinder.constituents()[1].momentum();
-      if (deltaR(lp, lm)<0.2) vetoEvent;
+      if (deltaR(lp, lm) < 0.2) vetoEvent;
 
-      Jets jets;
-      /// @todo Replace with a Cut passed to jetsByPt
-      foreach(const Jet& jet, apply<FastJets>(event, "jets").jetsByPt(30*GeV)) {
-        FourMomentum jmom = jet.momentum();
-        if (jmom.absrap() < 4.4 && deltaR(lp, jmom) > 0.5  && deltaR(lm, jmom) > 0.5) {
-          jets.push_back(jet);
-        }
-      }
+      Jets jets = apply<FastJets>(event, "jets").jetsByPt(Cuts::pT > 30*GeV && Cuts::absrap < 4.4);
+      ifilter_discard(jets, deltaRLess(lp, 0.5));
+      ifilter_discard(jets, deltaRLess(lm, 0.5));
 
       const double weight = event.weight();
 
@@ -127,11 +124,11 @@ namespace Rivet {
         if (ptlead > 150)  _h_njet_excl_pt150->fill(jets.size(), weight);
 
         // Loop over selected jets, fill inclusive distributions
-        double st=0;
-        double ht=lp.pT()/GeV+lm.pT()/GeV;
+        double st = 0;
+        double ht = lp.pT()/GeV + lm.pT()/GeV;
         for (size_t ijet = 0; ijet < jets.size(); ++ijet) {
-          ht+=jets[ijet].pT()/GeV;
-          st+=jets[ijet].pT()/GeV;
+          ht += jets[ijet].pT()/GeV;
+          st += jets[ijet].pT()/GeV;
         }
         _h_ht->fill(ht, weight);
         _h_st->fill(st, weight);
@@ -200,7 +197,7 @@ namespace Rivet {
 
     /// Calculate the efficiency error, being careful about div-by-zero
     double err_incl(const HistoBin1D &M, const HistoBin1D &N, bool hasWeights) {
-      double r = safediv(M.sumW(), N.sumW()); 
+      double r = safediv(M.sumW(), N.sumW());
       if (hasWeights) { // use F. James's approximation for weighted events
         return sqrt( safediv((1 - 2 * r) * M.sumW2() + r * r * N.sumW2(), N.sumW() * N.sumW()) );
       }
@@ -209,14 +206,14 @@ namespace Rivet {
 
     /// Calculate the ratio error, being careful about div-by-zero
     double err_excl(const HistoBin1D &A, const HistoBin1D &B) {
-      double r = safediv(A.sumW(), B.sumW()); 
+      double r = safediv(A.sumW(), B.sumW());
       double dAsquared = safediv(A.sumW2(), A.sumW() * A.sumW()); // squared relative error of A
       double dBsquared = safediv(B.sumW2(), B.sumW() * B.sumW()); // squared relative error of B
       return r * sqrt(dAsquared + dBsquared);
     }
-    
 
     //@}
+
 
     void finalize() {
       bool hasWeights = _h_njet_incl->effNumEntries() != _h_njet_incl->numEntries();
@@ -236,30 +233,13 @@ namespace Rivet {
       }
 
       const double xs = crossSectionPerEvent()/picobarn;
-      scale(_h_njet_incl      , xs);
-      scale(_h_njet_excl      , xs);
-      scale(_h_njet_excl_pt150, xs);
-      scale(_h_njet_excl_vbf  , xs);
-      scale(_h_ptlead         , xs);
-      scale(_h_ptseclead      , xs);
-      scale(_h_ptthirdlead    , xs);
-      scale(_h_ptfourthlead   , xs);
-      scale(_h_ptlead_excl    , xs);
-      scale(_h_pt_ratio       , xs);
-      scale(_h_pt_z           , xs);
-      scale(_h_pt_z_excl      , xs);
-      scale(_h_ylead          , xs);
-      scale(_h_yseclead       , xs);
-      scale(_h_ythirdlead     , xs);
-      scale(_h_yfourthlead    , xs);
-      scale(_h_deltay         , xs);
-      scale(_h_mass           , xs);
-      scale(_h_deltaphi       , xs);
-      scale(_h_deltaR         , xs);
-      scale(_h_ptthirdlead_vbf, xs);
-      scale(_h_ythirdlead_vbf , xs);
-      scale(_h_ht             , xs);
-      scale(_h_st             , xs);
+      scale({_h_njet_incl, _h_njet_excl, _h_njet_excl_pt150, _h_njet_excl_vbf}, xs);
+      scale({_h_ptlead, _h_ptseclead, _h_ptthirdlead, _h_ptfourthlead, _h_ptlead_excl}, xs);
+      scale({_h_pt_ratio, _h_pt_z, _h_pt_z_excl}, xs);
+      scale({_h_ylead, _h_yseclead, _h_ythirdlead, _h_yfourthlead}, xs);
+      scale({_h_deltay, _h_mass, _h_deltaphi, _h_deltaR}, xs);
+      scale({_h_ptthirdlead_vbf, _h_ythirdlead_vbf}, xs);
+      scale({_h_ht, _h_st}, xs);
     }
 
     //@}

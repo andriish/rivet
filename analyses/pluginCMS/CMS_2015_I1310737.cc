@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/PromptFinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/VisibleFinalState.hh"
@@ -22,11 +23,13 @@ namespace Rivet {
 
       FinalState fs; ///< @todo No cuts?
       VisibleFinalState visfs(fs);
+      // Prompt leptons only
+      PromptFinalState pfs(fs);
 
-      ZFinder zeeFinder(fs, Cuts::abseta < 2.4 && Cuts::pT > 20*GeV, PID::ELECTRON, 71.0*GeV, 111.0*GeV);
+      ZFinder zeeFinder(pfs, Cuts::abseta < 2.4 && Cuts::pT > 20*GeV, PID::ELECTRON, 71.0*GeV, 111.0*GeV);
       declare(zeeFinder, "ZeeFinder");
 
-      ZFinder zmumuFinder(fs, Cuts::abseta < 2.4 && Cuts::pT > 20*GeV, PID::MUON, 71.0*GeV, 111.0*GeV);
+      ZFinder zmumuFinder(pfs, Cuts::abseta < 2.4 && Cuts::pT > 20*GeV, PID::MUON, 71.0*GeV, 111.0*GeV);
       declare(zmumuFinder, "ZmumuFinder");
 
       VetoedFinalState jetConstits(visfs);

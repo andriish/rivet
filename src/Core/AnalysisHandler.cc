@@ -6,21 +6,21 @@
 #include "Rivet/Tools/BeamConstraint.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
-#include "YODA/ReaderYODA.h"
-#include "YODA/WriterYODA.h"
+#include "YODA/IO.h"
 
 namespace Rivet {
 
 
   AnalysisHandler::AnalysisHandler(const string& runname)
-    : _runname(runname), _numEvents(0),
-      _sumOfWeights(0.0), _xs(NAN),
+    : _runname(runname),
+      _eventcounter("/_EVTCOUNT"),
+      _xs(NAN), _xserr(NAN),
       _initialised(false), _ignoreBeams(false)
-  {}
+  {  }
 
 
   AnalysisHandler::~AnalysisHandler()
-  {}
+  {  }
 
 
   Log& AnalysisHandler::getLog() const {
@@ -34,9 +34,7 @@ namespace Rivet {
 
     setRunBeams(Rivet::beams(ge));
     MSG_DEBUG("Initialising the analysis handler");
-    _numEvents = 0;
-    _sumOfWeights = 0.0;
-    _sumOfWeightsSq = 0.0;
+    _eventcounter.reset();
 
     // Check that analyses are beam-compatible, and remove those that aren't
     const size_t num_anas_requested = analysisNames().size();
@@ -112,10 +110,8 @@ namespace Rivet {
 
     // Weights
     /// @todo Drop this / just report first weight when we support multiweight events
-    _numEvents += 1;
-    _sumOfWeights += event.weight();
-    _sumOfWeightsSq += sqr(event.weight());
-    MSG_DEBUG("Event #" << _numEvents << " weight = " << event.weight());
+    _eventcounter.fill(event.weight());
+    MSG_DEBUG("Event #" << _eventcounter.numEntries() << " weight = " << event.weight());
 
     // Cross-section
     #ifdef HEPMC_HAS_CROSS_SECTION
@@ -145,7 +141,7 @@ namespace Rivet {
 
 
   void AnalysisHandler::analyze(const GenEvent* ge) {
-    if (ge == NULL) {
+    if (ge == nullptr) {
       MSG_ERROR("AnalysisHandler received null pointer to GenEvent");
       //throw Error("AnalysisHandler received null pointer to GenEvent");
     }
@@ -167,7 +163,8 @@ namespace Rivet {
     }
 
     // Print out number of events processed
-    MSG_INFO("Processed " << _numEvents << " event" << (_numEvents == 1 ? "" : "s"));
+    const int nevts = _eventcounter.numEntries();
+    MSG_INFO("Processed " << nevts << " event" << (nevts != 1 ? "s" : ""));
 
     // // Delete analyses
     // MSG_DEBUG("Deleting analyses");
@@ -244,7 +241,7 @@ namespace Rivet {
     try {
       /// @todo Use new YODA SFINAE to fill the smart ptr vector directly
       vector<YODA::AnalysisObject*> aos_raw;
-      YODA::ReaderYODA::read(filename, aos_raw);
+      YODA::read(filename, aos_raw);
       for (AnalysisObject* aor : aos_raw) aos.push_back(AnalysisObjectPtr(aor));
     } catch (...) { //< YODA::ReadError&
       throw UserError("Unexpected error in reading file: " + filename);
@@ -256,7 +253,7 @@ namespace Rivet {
   vector<AnalysisObjectPtr> AnalysisHandler::getData() const {
     vector<AnalysisObjectPtr> rtn;
     // Event counter
-    rtn.push_back( make_shared<Counter>(YODA::Dbn0D(_numEvents, _sumOfWeights, _sumOfWeightsSq), "/_EVTCOUNT") );
+    rtn.push_back( make_shared<Counter>(_eventcounter) );
     // Cross-section + err as scatter
     YODA::Scatter1D::Points pts; pts.insert(YODA::Point1D(_xs, _xserr));
     rtn.push_back( make_shared<Scatter1D>(pts, "/_XSEC") );
@@ -280,20 +277,10 @@ namespace Rivet {
   void AnalysisHandler::writeData(const string& filename) const {
     const vector<AnalysisObjectPtr> aos = getData();
     try {
-      YODA::WriterYODA::write(filename, aos.begin(), aos.end());
+      YODA::write(filename, aos.begin(), aos.end());
     } catch (...) { //< YODA::WriteError&
       throw UserError("Unexpected error in writing file: " + filename);
     }
-  }
-
-
-  string AnalysisHandler::runName() const { return _runname; }
-  size_t AnalysisHandler::numEvents() const { return _numEvents; }
-  double AnalysisHandler::sumOfWeights() const { return _sumOfWeights; }
-
-
-  void AnalysisHandler::setSumOfWeights(const double& sum) {
-    _sumOfWeights=sum;
   }
 
 

@@ -74,7 +74,7 @@ namespace Rivet {
     void fillPlots1D(const WFinder& wfinder, Histo1DPtr hist_plus, Histo1DPtr hist_minus, double weight) {
       if (wfinder.bosons().size() != 1) return;
       const Particle l = wfinder.constituentLeptons()[0];
-      const FourMomentum& miss = wfinder.constituentNeutrinos()[0].momentum();
+      const FourMomentum miss = wfinder.constituentNeutrinos()[0];
       if (l.pT() > 20*GeV && miss.Et() > 25*GeV && wfinder.mT() > 40*GeV)
         (l.charge3() > 0 ? hist_plus : hist_minus)->fill(l.abseta(), weight);
     }

@@ -38,14 +38,14 @@ namespace Rivet {
     SmearedParticles(const ParticleFinder& pf,
                      double eff,
                      const Cut& c=Cuts::open())
-      : SmearedParticles(pf, {eff}, c)
+      : SmearedParticles(pf, {{eff}}, c)
     {    }
 
     /// @brief Constructor with an efficiency function
     SmearedParticles(const ParticleFinder& pf,
                      const ParticleEffFn& effFn,
                      const Cut& c=Cuts::open())
-      : SmearedParticles(pf, {effFn}, c)
+      : SmearedParticles(pf, {{effFn}}, c)
     {    }
 
     /// @brief Constructor with const efficiency followed by a smearing function
@@ -146,7 +146,10 @@ namespace Rivet {
           if (peff <= 0) { keep = false; break; } //< no need to roll expensive dice (and we deal with -ve probabilities, just in case)
           if (peff < 1 && rand01() > peff)  { keep = false; break; } //< roll dice (and deal with >1 probabilities, just in case)
         }
-        if (keep) _theParticles.push_back(pdet);
+        if (keep) {
+          pdet.addConstituent(p); //< record where the smearing was built from
+          _theParticles.push_back(pdet);
+        }
       }
     }
 

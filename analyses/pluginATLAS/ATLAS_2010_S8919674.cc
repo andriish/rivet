@@ -65,11 +65,11 @@ namespace Rivet {
 
       const WFinder& We = apply<WFinder>(event, "W_e");
       if (We.bosons().size() == 1) {
-        const FourMomentum& p_miss = We.constituentNeutrinos()[0].momentum();
-        const FourMomentum& p_lept = We.constituentLeptons()[0].momentum();
+        const FourMomentum p_miss = We.constituentNeutrinos()[0];
+        const FourMomentum p_lept = We.constituentLeptons()[0];
         if (p_miss.Et() > 25*GeV && We.mT() > 40*GeV) {
           Jets js;
-          foreach (const Jet& j, jets) {
+          for (const Jet& j : jets) {
             if (j.abseta() < 2.8 && deltaR(p_lept, j.momentum()) > 0.5)
               js.push_back(j);
           }
@@ -90,11 +90,11 @@ namespace Rivet {
 
       const WFinder& Wm = apply<WFinder>(event, "W_mu");
       if (Wm.bosons().size() == 1) {
-        const FourMomentum& p_miss = Wm.constituentNeutrinos()[0].momentum();
-        const FourMomentum& p_lept = Wm.constituentLeptons()[0].momentum();
+        const FourMomentum p_miss = Wm.constituentNeutrinos()[0];
+        const FourMomentum p_lept = Wm.constituentLeptons()[0];
         if (p_miss.Et() > 25*GeV && Wm.mT() > 40*GeV) {
           Jets js;
-          foreach (const Jet& j, jets) {
+          for (const Jet& j : jets) {
             if (j.abseta() < 2.8 && deltaR(p_lept, j.momentum()) > 0.5)
               js.push_back(j);
           }

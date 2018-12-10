@@ -318,6 +318,7 @@ namespace Rivet {
       switch ( qty ) {
       case Cuts::pT:         return p_.pT();
       case Cuts::Et:         return p_.Et();
+      case Cuts::E:          return p_.E();
       case Cuts::mass:       return p_.mass();
       case Cuts::rap:        return p_.rap();
       case Cuts::absrap:     return p_.absrap();
@@ -350,6 +351,7 @@ namespace Rivet {
       switch ( qty ) {
       case Cuts::pT:     return fm_.pT();
       case Cuts::Et:     return fm_.Et();
+      case Cuts::E:      return fm_.E();
       case Cuts::mass:   return fm_.mass();
       case Cuts::rap:    return fm_.rap();
       case Cuts::absrap: return fm_.absrap();
@@ -374,14 +376,15 @@ namespace Rivet {
     Cuttable(const Jet& jet) : jet_(jet) {}
     double getValue(Cuts::Quantity qty) const {
       switch ( qty ) {
-      case Cuts::pT:     return jet_.momentum().pT();
-      case Cuts::Et:     return jet_.momentum().Et();
-      case Cuts::mass:   return jet_.momentum().mass();
-      case Cuts::rap:    return jet_.momentum().rapidity();
-      case Cuts::absrap: return std::abs(jet_.momentum().rapidity());
-      case Cuts::eta:    return jet_.momentum().pseudorapidity();
-      case Cuts::abseta: return std::abs(jet_.momentum().pseudorapidity());
-      case Cuts::phi:    return jet_.momentum().phi();
+      case Cuts::pT:     return jet_.pT();
+      case Cuts::Et:     return jet_.Et();
+      case Cuts::E:      return jet_.E();
+      case Cuts::mass:   return jet_.mass();
+      case Cuts::rap:    return jet_.rapidity();
+      case Cuts::absrap: return std::abs(jet_.rapidity());
+      case Cuts::eta:    return jet_.pseudorapidity();
+      case Cuts::abseta: return std::abs(jet_.pseudorapidity());
+      case Cuts::phi:    return jet_.phi();
       default: qty_not_found();
       }
       return -999.;
@@ -427,7 +430,8 @@ namespace Rivet {
     double getValue(Cuts::Quantity qty) const {
       switch ( qty ) {
       case Cuts::pT:     return vec_.perp();
-        /// @todo case Cuts::Et:     return vec_.perp();
+      case Cuts::E:      return vec_.e();
+      case Cuts::Et:     return vec_.e() * sin(vec_.theta());
       case Cuts::mass:   return vec_.m();
       case Cuts::rap:    return 0.5*std::log((vec_.t()+vec_.z())/(vec_.t()-vec_.z()));
       case Cuts::absrap: return std::abs(getValue(Cuts::rap));

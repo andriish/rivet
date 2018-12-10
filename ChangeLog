@@ -1,3 +1,6 @@
+2018-12-10  James Monk  <jwmonk@protonmail.com>
+  * Merge from default
+
 2018-12-06  James Monk  <jwmonk@protonmail.com>
   * RivetHepMC.hh: Much simplified.  Use only Const version of GenParticlePtr
     Only func delarations - two separate  implementation files for HepMC2 or 3
@@ -8,6 +11,144 @@
   * Particle.hh, Event.cc, Jet.cc: const GenParticle replaced by ConstGenParticle
   * Projections Beam, DISLepton, FinalPartons, FinalState, HeavyHadrons, InitialQuarks, MergedFinalState, PrimaryHadrons, UnstableFinalState, VetoedFinalState: Use ConstGenParticlePtr and vector<ConstGenParticlePtr> consistently
   * pluginATLAS: Start to fix some uses of const GenParticlePtr
+
+2018-01-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add highlighted source to HTML analysis metadata listings.
+
+2017-12-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Version 2.6.0 release.
+
+2017-12-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Typo fix in TOTEM_2012_I1220862 data -- thanks to Anton Karneyeu.
+
+2017-12-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding contributed analyses: 1 ALICE, 6 ATLAS, 1 CMS.
+
+	* Fix bugged PID codes in MC_PRINTEVENT.
+
+2017-12-13  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Protect Run methods and rivet script against being told to run from a missing or unreadable file.
+
+2017-12-11  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Replace manual event count & weight handling with a YODA Counter object.
+
+2017-11-28  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Providing neater & more YODA-consistent sumW and sumW2 methods on AnalysisHandler and Analysis.
+
+	* Fix to Python version check for >= 2.7.10 (patch submitted to GNU)
+
+2017-11-17  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Various improvements to DISKinematics, DISLepton, and the ZEUS 2001 analysis.
+
+2017-11-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Extend AOPath regex to allow dots and underscores in weight names.
+
+2017-10-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add energy to the list of cuts (both as Cuts::E and Cuts::energy)
+
+	* Add missing pT (rather than Et) functions to SmearedMET,
+	although they are just copies of the MET functions for now.
+
+2017-10-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Embed zstr and enable transparent reading of gzipped HepMC streams.
+
+2017-10-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use Lester MT2 bisection header, and expose a few more mT2 function signatures.
+
+2017-09-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use generic YODA read and write functions -- enables zipped yoda.gz output.
+
+	* Add ChargedLeptons enum and mode argument to ZFinder and WFinder
+	constructors, to allow control over whether the selected charged
+	leptons are prompt. This is mostly cosmetic/for symmetry in the
+	case of ZFinder, since the same can be achieved by passing a
+	PromptFinalState as the fs argument, but for WFinder it's
+	essential since passing a prompt final state screws up the MET
+	calculation. Both are slightly different in the treatment of the
+	lepton dressing, although conventionally this is an area where
+	only prompt photons are used.
+
+2017-09-25  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add deltaR2 functions for squared distances.
+
+2017-09-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add white backgrounds to make-plots main and ratio plot frames.
+
+2017-09-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add CMS_2016_PAS_TOP_15_006 jet multiplicity in lepton+jets ttbar at 8 TeV analysis.
+
+	* Add CMS_2017_I1467451 Higgs -> WW -> emu + MET in 8 TeV pp analysis.
+
+	* Add ATLAS_2017_I1609448 Z->ll + pTmiss analysis.
+
+	* Add vectorMissingEt/Pt and vectorMET/MPT convenience methods to MissingMomentum.
+
+	* Add ATLAS_2017_I1598613 J/psi + mu analysis.
+
+	* Add CMS SUSY 0-lepton search CMS_2017_I1594909 (unofficial implementation, validated vs. published cutflows)
+
+2017-09-04  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Change license explicitly to GPLv3, cf. MCnet3 agreement.
+
+	* Add a better jet smearing resolution parametrisation, based on GAMBIT code from Matthias Danninger.
+
+2017-08-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Protect make-plots against NaNs in error band values (patch from Dmitry Kalinkin).
+
+2017-07-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add sumPt, sumP4, sumP3 utility functions.
+
+	* Record truth particles as constituents of SmearedParticles output.
+
+	* Rename UnstableFinalState -> UnstableParticles, and convert
+	ZFinder to be a general ParticleFinder rather than FinalState.
+
+2017-07-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add implicit cast from FourVector & FourMomentum to Vector3, and tweak mT implementation.
+
+	* Add rawParticles() to ParticleFinder, and update DressedLeptons, WFinder, ZFinder and VetoedFinalState to cope.
+
+	* Add isCharged() and isChargedLepton() to Particle.
+
+	* Add constituents() and rawConstituents() to Particle.
+
+	* Add support for specifying bin edges as braced initializer lists rather than explicit vector<double>.
+
+2017-07-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Enable methods for booking of Histo2D and Profile2D from Scatter3D reference data.
+
+	* Remove IsRef annotation from autobooked histogram objects.
+
+2017-07-17  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add pair-smearing to SmearedJets.
+
+2017-07-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add Event::centrality(), for non-HepMC access to the generator
+	value if one has been recorded -- otherwise -1.
+>>>>>>> merge rev
 
 2017-06-28  Andy Buckley  <andy.buckley@cern.ch>
 
@@ -77,7 +218,7 @@
 
 2016-06-18  Holger Schulz  <holger.schulz@durham.ac.uk>
 
-        * Version 2.5.4
+        * Version 2.5.4 release!
 
 2016-06-17  Holger Schulz  <holger.schulz@durham.ac.uk>
 
@@ -210,14 +351,6 @@
 	out-of-source builds. Thanks to Christian Holm Christensen.
 
 	* Improve DISLepton for HERA analyses: thanks to Andrii Verbytskyi for the patch!
-
-2017-05-02  Andy Buckley  <andy.buckley@cern.ch>
-
-	* Add binding to a pre-loaded analysis object if possible in Analysis::bookHisto1D() methods.
-
-	* Add AnalysisHandler::addData and readData methods for histo preloading.
-
-	* Extend and improve string functions for path handling.
 
 2017-03-30  Andy Buckley  <andy.buckley@cern.ch>
 
