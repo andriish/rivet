@@ -1,3 +1,9 @@
+2018-12-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Release 2.6.2
+
+	* Update references in three CMS analysis .info files.
+
 2018-12-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Rework doc directory no-build by default to be compatible with 'make dist' packaging.
