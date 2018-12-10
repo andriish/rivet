@@ -6,8 +6,11 @@ Collider: LHC
 SpiresID: 1682495
 Status: VALIDATED
 Authors:
+ - cms-pag-conveners-smp@cern.ch
  - Salvatore Rappoccio <salvatore.rappoccio@cern.ch>
 References:
+ - JHEP 11 (2018) 113
+ - DOI 10.1007/JHEP11(2018)113
  - hep-ex arXiv:1807.05974
  - inspirehep 1682495
  - http://cms-results.web.cern.ch/cms-results/public-results/publications/SMP-16-010/index.html
