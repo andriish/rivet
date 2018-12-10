@@ -15,10 +15,12 @@ References:
 RunInfo: Inclusive production cross section of neutral pion in p-p and p-Pb collisions in the very forward region expressed as a function of transverse and longitudinal momentum
 NumEvents: 1000000
 NeedCrossSection: no
-Beams: [[p+, p+], [p+, p+], [p+, Pb+]] #How to specify Lead Ion?
-Energies: [[3500, 3500], [1380, 1380], [4000, 327999.984]] 
+#The following lines are commented because otherwise the software is not able to find the Pb nucleus
+#Pb nucleus energy is the total energy, amounting to an energy per nucleon of 328000/208=1576.9231 GeV
+#Beams: [[p+, p+], [p+, p+], [p+, Pb+]]
+#Energies: [[3500, 3500], [1380, 1380], [4000, 328000]] 
 Description:
-  'The differential cross sections for inclusive neutral pions as a function of transverse and longitudinal momentum in the very forward-rapidity region have been measured at the LHC with the LHC forward detector in proton-proton collisions at $s=2.76$ and $7\,$TeV and in proton-lead collisions at nucleon-nucleon center-of-mass energies of $s_{\rm NN}=5.02\,$TeV. Such differential cross sections in proton-proton collisions are compatible with the hypotheses of limiting fragmentation and Feynman scaling. Comparing proton-proton with proton-lead collisions, we find a sizable suppression of the production of neutral pions in the differential cross sections after subtraction of ultraperipheral proton-lead collisions. This suppression corresponds to the nuclear modification factor value of about $0.1-0.3$. The experimental measurements presented in this paper provide a benchmark for the hadronic interaction Monte Carlo simulation codes that are used for the simulation of cosmic ray air showers.'
+  'The differential cross sections for inclusive neutral pions as a function of transverse and longitudinal momentum in the very forward-rapidity region have been measured at the LHC with the LHC forward detector in proton-proton collisions at $\sqrt{s}=2.76$ and $7\,$TeV and in proton-lead collisions at nucleon-nucleon center-of-mass energies of $\sqrt{s_{\rm NN}}=5.02\,$TeV. Such differential cross sections in proton-proton collisions are compatible with the hypotheses of limiting fragmentation and Feynman scaling. Comparing proton-proton with proton-lead collisions, we find a sizable suppression of the production of neutral pions in the differential cross sections after subtraction of ultraperipheral proton-lead collisions. This suppression corresponds to the nuclear modification factor value of about $0.1-0.3$. The experimental measurements presented in this paper provide a benchmark for the hadronic interaction Monte Carlo simulation codes that are used for the simulation of cosmic ray air showers.'
 BibKey: PhysRevD.94.032007
 BibTeX: '@article{PhysRevD.94.032007,
       author         = "Adriani, O. and others",
