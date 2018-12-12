@@ -146,6 +146,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
+      cout << "finalize" << endl;
       
       // Check for the reentrant finalize
       bool pp_available = false, PbPb_available = false;
@@ -158,10 +159,11 @@ namespace Rivet {
 	    itype == 0 ? pp_available = true : PbPb_available = true;
 	}
       }
+      cout << pp_available << " " << PbPb_available << endl;
       reentrant_flag = (pp_available && PbPb_available);
-      
       // Postprocessing of the histograms
       if (reentrant_flag == true) {
+	 cout << "reenter!" << endl;
 	
         // Initialize IAA and ICP histograms
         _histIAA[0] = bookScatter2D(1, 1, 1);
