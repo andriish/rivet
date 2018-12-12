@@ -68,7 +68,7 @@
 917583 . A search for excited leptons in $pp$ Collisions at $\sqrt{s}=$ 7 TeV
 917588 . Search for supersymmetry in $pp$ collisions at $\sqrt{s}=7$ TeV in events with a single lepton, jets, and missing transverse momentum
 918745 . Search for Three-Jet Resonances in $pp$ Collisions at $\sqrt{s}=7$ TeV
-919443 . Determination of Jet Energy Calibration and Transverse Momentum Resolution in CMS
+919443 X Determination of Jet Energy Calibration and Transverse Momentum Resolution in CMS
 919733 . Dependence on pseudorapidity and centrality of charged hadron production in PbPb collisions at a nucleon-nucleon centre-of-mass energy of 2.76 TeV
 919737 ? Measurement of the Inclusive $W$ and $Z$ Production Cross Sections in $pp$ Collisions at $\sqrt{s}=7$ TeV
 919742 ? Search for Resonances in the Dijet Mass Spectrum from 7 TeV pp Collisions at CMS
@@ -360,7 +360,7 @@
 1323630 X Constraints on parton distribution functions and extraction of the strong coupling constant from the inclusive jet cross section in pp collisions at $\sqrt{s} = 7$ $\,\text {TeV}$
 1325549 X Search for new phenomena in monophoton final states in proton-proton collisions at $\sqrt s =$ 8 TeV
 1325798 X Performance of the CMS missing transverse momentum reconstruction in pp data at $\sqrt{s}$ = 8 TeV
-1326189 . CMS RPC commissioning of the existing detector during the long shutdown
+1326189 X CMS RPC commissioning of the existing detector during the long shutdown
 1327224 . Search for quark contact interactions and extra spatial dimensions using dijet angular distributions in proton–proton collisions at $\sqrt s =$ 8 TeV
 1327726 X Constraints on the spin-parity and anomalous HVV couplings of the Higgs boson in proton collisions at 7 and 8 TeV
 1328493 X Observation of the rare $B^0_s\to\mu^+\mu^-$ decay from the combined analysis of CMS and LHCb data
@@ -714,7 +714,7 @@
 1645246 ? Electroweak production of two jets in association with a Z boson in proton–proton collisions at $\sqrt{s}= $ 13 $\,\text {TeV}$
 1645630 ? Search for decays of stopped exotic long-lived particles produced in proton-proton collisions at $\sqrt{s}=$ 13 TeV
 1646260 . Search for new physics in events with two soft oppositely charged leptons and missing transverse momentum in proton-proton collisions at $\sqrt{s}=$ 13 TeV
-1646584 . Radioactive source calibration test of the CMS Hadron Endcap Calorimeter test wedge with Phase I upgrade electronics
+1646584 X Radioactive source calibration test of the CMS Hadron Endcap Calorimeter test wedge with Phase I upgrade electronics
 1647562 . Measurement of the $\mathrm{Z}\gamma^{*} \to \tau\tau$ cross section in pp collisions at $\sqrt{s} = $ 13 TeV and validation of $\tau$ lepton analysis techniques
 1647947 ! Combined search for electroweak production of charginos and neutralinos in proton-proton collisions at $\sqrt{s} =$ 13 TeV
 1648162 ! Observation of medium induced modifications of jet fragmentation in PbPb collisions using isolated-photon-tagged jets
