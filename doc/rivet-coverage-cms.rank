@@ -1,8 +1,8 @@
-845323 . Transverse momentum and pseudorapidity distributions of charged hadrons in pp collisions at $\sqrt{s} = 0.9$ and 2.36 TeV
-855299 . Transverse-momentum and pseudorapidity distributions of charged hadrons in $pp$ collisions at $\sqrt{s}=7$ TeV
-855303 . First Measurement of Bose-Einstein Correlations in proton-proton Collisions at $\sqrt{s}$ =0.9 and 2.36 TeV at the LHC
-856534 . Measurement of the charge ratio of atmospheric muons with the CMS detector
-857644 . First Measurement of the Underlying Event Activity at the LHC with $\sqrt{s} = 0.9$ TeV
+845323 ! Transverse momentum and pseudorapidity distributions of charged hadrons in pp collisions at $\sqrt{s} = 0.9$ and 2.36 TeV
+855299 ! Transverse-momentum and pseudorapidity distributions of charged hadrons in $pp$ collisions at $\sqrt{s}=7$ TeV
+855303 ? First Measurement of Bose-Einstein Correlations in proton-proton Collisions at $\sqrt{s}$ =0.9 and 2.36 TeV at the LHC
+856534 X Measurement of the charge ratio of atmospheric muons with the CMS detector
+857644 ! First Measurement of the Underlying Event Activity at the LHC with $\sqrt{s} = 0.9$ TeV
 861153 X CMS Tracking Performance Results from early LHC Operation
 870473 ! Observation of Long-Range Near-Side Angular Correlations in Proton-Proton Collisions at the LHC
 871540 ? Search for Dijet Resonances in 7 TeV pp Collisions at CMS
@@ -16,13 +16,13 @@
 881434 ? Search for Microscopic Black Hole Signatures at the Large Hadron Collider
 881885 ? Search for Pair Production of Second-Generation Scalar Leptoquarks in $pp$ Collisions at $\sqrt{s}=7$ TeV
 881886 ? Search for Pair Production of First-Generation Scalar Leptoquarks in $pp$ Collisions at $\sqrt{s}=7$ TeV
-882871 . Upsilon Production Cross-Section in pp Collisions at $sqrt{s}=7$ TeV
+882871 ? Upsilon Production Cross-Section in pp Collisions at $sqrt{s}=7$ TeV
 882963 ? Search for a heavy gauge boson $W$ ' in the final state with an electron and large missing transverse energy in $pp$ collisions at $\sqrt{s}=7$ TeV
-883318 . Measurement of the $B^+$ Production Cross Section in pp Collisions at $\sqrt{s} = 7$~TeV
+883318 ? Measurement of the $B^+$ Production Cross Section in pp Collisions at $\sqrt{s} = 7$~TeV
 883765 ? Search for Heavy Stable Charged Particles in $pp$ collisions at $\sqrt{s}=7$ TeV
 883771 ? Search for Supersymmetry in pp Collisions at 7 TeV in Events with Jets and Missing Transverse Energy
 884808 . Measurement of Bose-Einstein Correlations in $pp$ Collisions at $\sqrt{s}=0.9$ and 7 TeV
-884811 . Inclusive b-hadron production cross section with muons in $pp$ collisions at $\sqrt{s} = 7$ TeV
+884811 ? Inclusive b-hadron production cross section with muons in $pp$ collisions at $\sqrt{s} = 7$ TeV
 885663 . Dijet Azimuthal Decorrelations in $pp$ Collisions at $\sqrt{s} = 7$~TeV
 886332 . First Measurement of Hadronic Event Shapes in $pp$ Collisions at $\sqrt {s}=7$ TeV
 889010 ! Observation and studies of jet quenching in PbPb collisions at nucleon-nucleon center-of-mass energy = 2.76 TeV
@@ -39,9 +39,9 @@
 892975 . Measurement of the lepton charge asymmetry in inclusive $W$ production in pp collisions at $\sqrt{s} = 7$ TeV
 893512 ? Search for Large Extra Dimensions in the Diphoton Final State at the Large Hadron Collider
 895579 ? Search for Neutral MSSM Higgs Bosons Decaying to Tau Pairs in $pp$ Collisions at $\sqrt{s}=7$ TeV
-895581 . Measurement of the Inclusive Z Cross Section via Decays to Tau Pairs in $pp$ Collisions at $\sqrt{s}=7$ TeV
+895581 ? Measurement of the Inclusive Z Cross Section via Decays to Tau Pairs in $pp$ Collisions at $\sqrt{s}=7$ TeV
 895742 ! Measurement of the differential dijet production cross section in proton-proton collisions at $\sqrt{s}=7$ TeV
-896211 . Measurement of the $B^0$ production cross section in $pp$ Collisions at $\sqrt{s}=7$ TeV
+896211 ? Measurement of the $B^0$ production cross section in $pp$ Collisions at $\sqrt{s}=7$ TeV
 896527 ? Search for new physics with same-sign isolated dilepton events with jets and missing transverse energy at the LHC
 896585 . Measurement of the Polarization of W Bosons with Large Transverse Momenta in W+Jets Events at the LHC
 896764 X Charged particle transverse momentum spectra in $pp$ collisions at $\sqrt{s} = 0.9$ and 7 TeV
@@ -59,10 +59,10 @@
 913455 ? Search for Light Resonances Decaying into Pairs of Muons as a Signal of New Physics
 913689 . Measurement of the $t$-channel single top quark production cross section in $pp$ collisions at $\sqrt{s}=7$ TeV
 913831 . Search for Supersymmetry in Events with b Jets and Missing Transverse Momentum at the LHC
-914325 . Measurement of the Strange $B$ Meson Production Cross Section with J/Psi $\phi$ Decays in $pp$ Collisions at $\sqrt{s}=7$ TeV
+914325 ? Measurement of the Strange $B$ Meson Production Cross Section with J/Psi $\phi$ Decays in $pp$ Collisions at $\sqrt{s}=7$ TeV
 914487 . Search for New Physics with Jets and Missing Transverse Momentum in $pp$ collisions at $\sqrt{s}=7$ TeV
 914953 . Search for New Physics with a Mono-Jet and Missing Transverse Energy in $pp$ Collisions at $\sqrt{s} = 7$ TeV
-915810 . Missing transverse energy performance of the CMS detector
+915810 X Missing transverse energy performance of the CMS detector
 916908 . Measurement of the Underlying Event Activity at the LHC with $\sqrt{s}= 7$ TeV and Comparison with $\sqrt{s} = 0.9$ TeV
 917436 ? Inclusive search for squarks and gluinos in $pp$ collisions at $\sqrt{s}=7$ TeV
 917583 . A search for excited leptons in $pp$ Collisions at $\sqrt{s}=$ 7 TeV
@@ -81,7 +81,7 @@
 929904 X Performance of tau-lepton reconstruction and identification in CMS
 930318 . Forward Energy Flow, Central Charged-Particle Multiplicities, and Pseudorapidity Gaps in W and Z Boson Events from pp Collisions at $\sqrt{s}$ = 7 TeV
 930319 . Measurement of energy flow at large pseudorapidities in $pp$ collisions at $\sqrt{s} = 0.9$ and 7 TeV
-939559 . Measurement of the weak mixing angle with the Drell-Yan process in proton-proton collisions at the LHC
+939559 X Measurement of the weak mixing angle with the Drell-Yan process in proton-proton collisions at the LHC
 940012 X Jet Production Rates in Association with $W$ and $Z$ Bosons in $pp$ Collisions at $\sqrt{s}=7$ TeV
 941555 . Measurement of the Rapidity and Transverse Momentum Distributions of $Z$ Bosons in $pp$ Collisions at $\sqrt{s}=7$ TeV
 943720 . Measurement of the Production Cross Section for Pairs of Isolated Photons in $pp$ collisions at $\sqrt{s}=7$ TeV
@@ -120,12 +120,12 @@
 1107730 . Measurement of the Z/$\gamma$*+b-jet cross section in pp collisions at $\sqrt{s}$ = 7 TeV
 1107735 . Azimuthal anisotropy of charged particles at high transverse momenta in PbPb collisions at $\sqrt{s_{NN}}=2.76$ TeV
 1108144 . Search for Anomalous $t\bar{t}$ Production in the Highly-Boosted All-Hadronic Final State
-1110691 . Measurement of the mass difference between top and antitop quarks
+1110691 X Measurement of the mass difference between top and antitop quarks
 1111014 . Shape, Transverse Size, and Charged Hadron Multiplicity of Jets in pp Collisions at 7 TeV
 1111141 . Search for physics beyond the standard model in events with a $Z$ boson, jets, and missing transverse energy in $pp$ collisions at $\sqrt{s}=7$ TeV
 1111995 . Search for leptonic decays of $W$ ' bosons in $pp$ collisions at $\sqrt{s}=7$ TeV
 1112169 . Search for anomalous production of multilepton events in $pp$ collisions at $\sqrt{s}=7$ TeV
-1112562 . Observation of a new Xi(b) baryon
+1112562 X Observation of a new Xi(b) baryon
 1112986 . Studies of jet quenching using isolated-photon+jet correlations in PbPb and $pp$ collisions at $\sqrt{s_{NN}}=2.76$ TeV
 1113310 . Search for heavy long-lived charged particles in $pp$ collisions at $\sqrt{s}=7$ TeV
 1113442 . Measurement of the $\Lambda_b$ cross section and the $_{\bar{\Lambda}_b}$ to $\Lambda_b$ ratio with $J/\Psi \Lambda$ decays in $pp$ collisions at $\sqrt{s}=7$ TeV
@@ -141,7 +141,7 @@
 1118047 . Measurement of the electron charge asymmetry in inclusive $W$ production in $pp$ collisions at $\sqrt{s}=7$ TeV
 1118577 . Search for charge-asymmetric production of W$′$ bosons in $t\bar{t} +$ jet events from pp collisions at $\sqrt{s} =$ 7 TeV
 1118578 . Search for new physics in events with opposite-sign leptons, jets, and missing transverse energy in $pp$ collisions at $\sqrt{s}=7$ TeV
-1118729 . Performance of CMS muon reconstruction in $pp$ collision events at $\sqrt{s}=7$ TeV
+1118729 X Performance of CMS muon reconstruction in $pp$ collision events at $\sqrt{s}=7$ TeV
 1119567 . Search for dark matter and large extra dimensions in monojet events in $pp$ collisions at $\sqrt{s}=7$ TeV
 1120142 . Search for a light pseudoscalar Higgs boson in the dimuon decay channel in $pp$ collisions at $\sqrt{s}=7$ TeV
 1120732 ! Inclusive and differential measurements of the $t \bar{t}$ charge asymmetry in proton-proton collisions at $\sqrt{s} =$ 7 TeV
@@ -150,7 +150,7 @@
 1121375 . Search for a fermiophobic Higgs boson in $pp$ collisions at $\sqrt{s}=7$ TeV
 1121700 . Search for supersymmetry in hadronic final states using MT2 in $pp$ collisions at $\sqrt{s} = 7$ TeV
 1121703 . Search for new physics in the multijet and missing transverse momentum final state in proton-proton collisions at $\sqrt{s} = 7$ TeV
-1121876 . Measurement of the underlying event activity in $pp$ collisions at $\sqrt{s} = 0.9$ and 7 TeV with the novel jet-area/median approach
+1121876 ! Measurement of the underlying event activity in $pp$ collisions at $\sqrt{s} = 0.9$ and 7 TeV with the novel jet-area/median approach
 1122035 . A search for a doubly-charged Higgs boson in $pp$ collisions at $\sqrt{s}=7$ TeV
 1122847 . Forward-backward asymmetry of Drell-Yan lepton pairs in $pp$ collisions at $\sqrt{s} = 7$ TeV
 1123117 . Study of the inclusive production of charged pions, kaons, and protons in $pp$ collisions at $\sqrt{s}=0.9$, 2.76, and 7 TeV
@@ -168,9 +168,9 @@
 1184341 X Search for pair produced fourth-generation up-type quarks in $pp$ collisions at $\sqrt{s}=7$ TeV with a lepton in the final state
 1184487 . Combined search for the quarks of a sequential fourth generation
 1184938 . Search for exclusive or semi-exclusive photon pair production and observation of exclusive and semi-exclusive electron pair production in $pp$ collisions at $\sqrt{s}=7$ TeV
-1184941 . Observation of a diffractive contribution to dijet production in proton-proton collisions at $\sqrt{s}=7$ TeV
-1185101 . Measurement of the top-quark mass in $t\bar{t}$ events with lepton+jets final states in $pp$ collisions at $\sqrt{s}=7$ TeV
-1185104 . Measurement of the top-quark mass in $t\bar{t}$ events with dilepton final states in $pp$ collisions at $\sqrt{s}=7$ TeV
+1184941 ? Observation of a diffractive contribution to dijet production in proton-proton collisions at $\sqrt{s}=7$ TeV
+1185101 X Measurement of the top-quark mass in $t\bar{t}$ events with lepton+jets final states in $pp$ collisions at $\sqrt{s}=7$ TeV
+1185104 X Measurement of the top-quark mass in $t\bar{t}$ events with dilepton final states in $pp$ collisions at $\sqrt{s}=7$ TeV
 1185414 . Measurement of the $Y(1S), Y(2S)$ and $Y(3S)$ polarizations in $pp$ collisions at $\sqrt{s}=7$ TeV
 1185781 . Evidence for associated production of a single top quark and W boson in $pp$ collisions at $\sqrt{s}$ = 7 TeV
 1186381 . Search for a narrow spin-2 resonance decaying to a pair of Z vector bosons in the semileptonic final state
@@ -244,8 +244,8 @@
 1231945 . Multiplicity and transverse momentum dependence of two- and four-particle correlations in pPb and PbPb collisions
 1232968 X Search for gluino mediated bottom- and top-squark production in multijet final states in pp collisions at 8 TeV
 1235421 X Study of exclusive two-photon production of $W^+W^-$ in $pp$ collisions at $\sqrt{s} = 7$ TeV and constraints on anomalous quartic gauge couplings
-1235536 . Measurement of neutral strange particle production in the underlying event in proton-proton collisions at sqrt(s) = 7 TeV
-1236361 . Measurement of the hadronic activity in events with a Z and two jets and extraction of the cross section for the electroweak production of a Z with two jets in pp collisions at $\sqrt{s}$ = 7 TeV
+1235536 ! Measurement of neutral strange particle production in the underlying event in proton-proton collisions at sqrt(s) = 7 TeV
+1236361 ! Measurement of the hadronic activity in events with a Z and two jets and extraction of the cross section for the electroweak production of a Z with two jets in pp collisions at $\sqrt{s}$ = 7 TeV
 1237104 ? Measurement of the $W^+W^-$ Cross section in $pp$ Collisions at $\sqrt{s} = 7$ TeV and Limits on Anomalous $WW\gamma$ and $WWZ$ couplings
 1237915 X Energy Calibration and Resolution of the CMS Electromagnetic Calorimeter in $pp$ Collisions at $\sqrt{s} = 7$ TeV
 1240497 X Search for top squarks in $R$-parity-violating supersymmetry using three or more leptons and b-tagged jets
@@ -263,7 +263,7 @@
 1252068 X Search for a new bottomonium state decaying to $\Upsilon(1S)\pi^+\pi^-$ in pp collisions at $\sqrt{s}$ = 8 TeV
 1252719 . Measurement of the production cross section for $Z\gamma \to \nu\bar{\nu}\gamma$ in pp collisions at $\sqrt{s} =$ 7 TeV and limits on $ZZ\gamma$ and $Z\gamma\gamma$ triple gauge boson couplings
 1253367 X Searches for new physics using the $t\bar{t}$ invariant mass distribution in pp collisions at $\sqrt{s}$=8  TeV
-1255647 . Observation of a peaking structure in the $J/\psi \phi$ mass spectrum from $B^{\pm} \to J/\psi \phi K^{\pm}$ decays
+1255647 X Observation of a peaking structure in the $J/\psi \phi$ mass spectrum from $B^{\pm} \to J/\psi \phi K^{\pm}$ decays
 1256590 ! Modification of jet shapes in PbPb collisions at $\sqrt {s_{NN}} = 2.76$ TeV
 1256938 . Measurement of associated W + charm production in pp collisions at $\sqrt{s}$ = 7 TeV
 1256943 . Measurement of the cross section and angular correlations for associated production of a Z boson with b hadrons in pp collisions at $\sqrt{s} =$ 7 TeV
@@ -325,10 +325,10 @@
 1298810 ! Measurement of the ratio of inclusive jet cross sections using the anti-$k_T$ algorithm with radius parameters R=0.5 and 0.7 in pp collisions at $\sqrt{s}=7$  TeV
 1298812 . Measurement of prompt $J/\psi$ pair production in pp collisions at $ \sqrt{s} $ = 7 Tev
 1299142 . Measurement of jet fragmentation in PbPb and pp collisions at $\sqrt{s_{NN}}=2.76$ TeV
-1300149 . Radiation background with the CMS RPCs at the LHC
+1300149 X Radiation background with the CMS RPCs at the LHC
 1301560 X Search for excited quarks in the $\gamma +$jet final state in proton–proton collisions at $\sqrt s=8$ TeV
 1303894 . Differential cross section measurements for the production of a W boson in association with jets in proton–proton collisions at $\sqrt s=7$ TeV
-1303895 . CMS RPC muon detector performance with 2010-2012 LHC data
+1303895 X CMS RPC muon detector performance with 2010-2012 LHC data
 1303904 . Measurement of top quark-antiquark pair production in association with a W or Z boson in pp collisions at $\sqrt{s} = 8$ $\,\text {TeV}$
 1304454 X Observation of the diphoton decay of the Higgs boson and measurement of its properties
 1305624 . Study of hadronic event-shape variables in multijet final states in pp collisions at sqrt(s) = 7 TeV
@@ -354,7 +354,7 @@
 1322563 X Identification techniques for highly boosted W bosons that decay into hadrons
 1322726 ? Study of Z production in PbPb and pp collisions at $ \sqrt{s_{\mathrm{NN}}}=2.76 $ TeV in the dimuon and dielectron decay channels
 1323075 X Measurement of the ratio of the production cross sections times branching fractions of $B_{c}^{\pm} \to J/\psi \pi^{\pm}$ and $B^{\pm} \to J/\psi K^{\pm}$ and $\mathcal{B}(B_{c}^{\pm} \to J/\psi \pi^{\pm}\pi^{\pm}\pi^{\mp})/\mathcal{B}(B_{c}^{\pm} \to J/\psi \pi^{\pm})$ in pp collisions at $\sqrt{s} =$ 7 TeV
-1323393 . CMS RPC tracker muon reconstruction
+1323393 X CMS RPC tracker muon reconstruction
 1323444 X Study of vector boson scattering and search for new physics in events with two same-sign leptons and two jets
 1323624 X Search for a standard model-like Higgs boson in the $μ^+μ^−$ and $e^+e^−$ decay channels at the LHC
 1323630 X Constraints on parton distribution functions and extraction of the strong coupling constant from the inclusive jet cross section in pp collisions at $\sqrt{s} = 7$ $\,\text {TeV}$
@@ -406,10 +406,10 @@
 1357982 X Search for a Higgs boson in the mass range from 145 to 1000 GeV decaying to a pair of W or Z bosons
 1359293 ? Search for the production of dark matter in association with top-quark pairs in the single-lepton final state in proton-proton collisions at sqrt(s) = 8 TeV
 1359450 ! Measurement of the Z boson differential cross section in transverse momentum and rapidity in proton–proton collisions at 8 TeV
-1359451 . Angular coefficients of Z bosons produced in pp collisions at $\sqrt{s}$ = 8 TeV and decaying to $\mu^+ \mu^-$ as a function of transverse momentum and rapidity
+1359451 ? Angular coefficients of Z bosons produced in pp collisions at $\sqrt{s}$ = 8 TeV and decaying to $\mu^+ \mu^-$ as a function of transverse momentum and rapidity
 1362177 X Search for a pseudoscalar boson decaying into a Z boson and the 125 GeV Higgs boson in $ℓ^+ℓ^−b\overline{b}$ final states
-1367339 . Trapping in proton irradiated p$^+$-n-n$^+$ silicon sensors at fluences anticipated at the HL-LHC outer tracker
-1369161 . Impact of low-dose electron irradiation on $n^{+}p$ silicon strip sensors
+1367339 X Trapping in proton irradiated p$^+$-n-n$^+$ silicon sensors at fluences anticipated at the HL-LHC outer tracker
+1369161 X Impact of low-dose electron irradiation on $n^{+}p$ silicon strip sensors
 1370682 . Measurement of the differential cross section for top quark pair production in pp collisions at $\sqrt{s} = 8\,\text {TeV} $
 1372730 ? Comparison of the Z/$\gamma$$^{∗}$ + jets to $\gamma$ + jets cross sections in pp collisions at $ \sqrt{s}=8 $ TeV
 1373745 X Search for neutral color-octet weak-triplet scalar particles in proton-proton collisions at $ \sqrt{s}=8 $ TeV
@@ -494,7 +494,7 @@
 1426828 . $\Upsilon(\mathrm{nS})$ polarizations versus particle multiplicity in pp collisions at $\sqrt{s} =$ 7 TeV
 1426832 ? Search for neutral resonances decaying into a Z boson and a pair of b jets or $\tau$ leptons
 1427411 ? Search for new physics with the M$_{T2}$ variable in all-jets final states produced in pp collisions at $ \sqrt{s}=13 $ TeV
-1430578 . Physics motivations and expected performance of the CMS muon system upgrade with triple-GEM detectors
+1430578 X Physics motivations and expected performance of the CMS muon system upgrade with triple-GEM detectors
 1430892 . Measurements of $t \bar t$ charge asymmetry using dilepton final states in pp collisions at $\sqrt s=8$ TeV
 1430902 X Measurement of the top quark mass using charged particles in pp collisions at $\sqrt s =$ 8 TeV
 1431986 ? Search for two Higgs bosons in final states containing two photons and two bottom quarks in proton-proton collisions at 8 TeV
@@ -513,7 +513,7 @@
 1466293 ? Search for top squark pair production in compressed-mass-spectrum scenarios in proton-proton collisions at $\sqrt{s}$ = 8 TeV using the $\alpha_T$ variable
 1466294 . Measurement of the W boson helicity fractions in the decays of top quark pairs to lepton $+$ jets final states produced in pp collisions at $\sqrt s=$ 8TeV
 1466301 ? Search for Dark Matter and Supersymmetry with a Compressed Mass Spectrum in the Vector Boson Fusion Topology in Proton-Proton Collisions at $\sqrt{s} =$ 8  TeV
-1467450 . High rate, fast timing Glass RPC for the high $\eta$ CMS muon detectors
+1467450 X High rate, fast timing Glass RPC for the high $\eta$ CMS muon detectors
 1467451 . Measurement of the transverse momentum spectrum of the Higgs boson produced in pp collisions at $ \sqrt{s}=8 $ TeV using $H \to WW$ decays
 1469062 X Phenomenological MSSM interpretation of CMS searches in pp collisions at sqrt(s) = 7 and 8 TeV
 1469073 ? Search for Resonant Production of High-Mass Photon Pairs in Proton-Proton Collisions at $\sqrt s$ =8 and 13 TeV
@@ -531,7 +531,7 @@
 1478600 X Measurement of the ZZ production cross section and Z $\to \ell^+\ell^-\ell'^+\ell'^-$ branching fraction in pp collisions at $\sqrt s$=13 TeV
 1479163 ? Search for new phenomena in events with high jet multiplicity and low missing transverse momentum in proton–proton collisions at $\sqrt{s}=8$ TeV
 1480862 X Measurement of the mass of the top quark in decays with a $J/\psi$ meson in pp collisions at 8 TeV
-1483165 . Dose rate effects in the radiation damage of the plastic scintillators of the CMS Hadron Endcap Calorimeter
+1483165 X Dose rate effects in the radiation damage of the plastic scintillators of the CMS Hadron Endcap Calorimeter
 1484162 ! Measurement of the production cross section of a W boson in association with two b jets in pp collisions at $\sqrt{s} = 8{\,\mathrm{{TeV}}} $
 1485195 ! Measurement of the total and differential inclusive $B^+$ hadron cross sections in pp collisions at $\sqrt{s}$ = 13 TeV
 1485699 X The CMS trigger system
@@ -594,7 +594,7 @@
 1512295 . Search for associated production of a Z boson with a single top quark and for tZ flavour-changing interactions in pp collisions at $ \sqrt{s}=8 $ TeV
 1512296 ? Measurement of prompt and nonprompt $\mathrm{J}/{\psi }$ production in $\mathrm {p}\mathrm {p}$ and $\mathrm {p}\mathrm {Pb}$ collisions at $\sqrt{s_{\mathrm {NN}}} =5.02\,\text {TeV} $
 1512924 ? Measurement of the cross section for electroweak production of Z$\gamma$ in association with two jets and constraints on anomalous quartic gauge couplings in proton–proton collisions at $\sqrt{s} = 8$ TeV
-1513926 . The Triple GEM Detector Control System for CMS forward muon spectrometer upgrade
+1513926 X The Triple GEM Detector Control System for CMS forward muon spectrometer upgrade
 1514542 X Search for standard model production of four top quarks in proton-proton collisions at $\sqrt{s}$ = 13 TeV
 1516191 ! Measurement of double-differential cross sections for top quark pair production in pp collisions at $\sqrt{s} = 8$ $\,\text {TeV}$ and impact on parton distribution functions  <neil.warrack@cern.ch>
 1516193 ? Search for dark matter produced with an energetic jet or a hadronically decaying W or Z boson at $ \sqrt{s}=13 $ TeV
@@ -602,7 +602,7 @@
 1517191 ? Search for third-generation scalar leptoquarks and heavy right-handed neutrinos in final states with two tau leptons and two jets in proton-proton collisions at $ \sqrt{s}=13 $ TeV
 1517496 ? Search for associated production of dark matter with a Higgs boson decaying to $ \mathrm{b}\overline{\mathrm{b}} $ or $\gamma \gamma$ at $ \sqrt{s}=13$ TeV
 1518145 X Search for anomalous couplings in boosted $\mathrm{ WW/WZ }\to\ell\nu\mathrm{ q \bar{q} }$ production in proton-proton collisions at $\sqrt{s} =$ 8 TeV
-1518399 . Measurement of the jet mass in highly boosted ${\mathrm{t}}\overline{\mathrm{t}}$ events from pp collisions at $\sqrt{s}=8$ $\,\text {TeV}$
+1518399 ! Measurement of the jet mass in highly boosted ${\mathrm{t}}\overline{\mathrm{t}}$ events from pp collisions at $\sqrt{s}=8$ $\,\text {TeV}$
 1518400 ? Search for a heavy resonance decaying to a top quark and a vector-like top quark at $ \sqrt{s}=13 $ TeV
 1519995 . Search for new physics with dijet angular distributions in proton-proton collisions at $ \sqrt{s}=13 $ TeV
 1589287 ? Measurements of the pp $\to W\gamma\gamma$ and pp $\to Z\gamma\gamma$ cross sections and limits on anomalous quartic gauge couplings at $ \sqrt{s}=8 $ TeV
@@ -626,28 +626,28 @@
 1605124 ? Searches for W′ bosons decaying to a top quark and a bottom quark in proton-proton collisions at 13 TeV
 1605128 ? Search for top squark pair production in pp collisions at $ \sqrt{s}=13 $ TeV using single lepton events
 1605397 X Particle-flow reconstruction and global event description with the CMS detector
-1605749 . Measurements of jet charge with dijet events in pp collisions at $\sqrt{s}=8$ TeV
+1605749 ! Measurements of jet charge with dijet events in pp collisions at $\sqrt{s}=8$ TeV
 1605750 ? Suppression of Excited $\Upsilon$ States Relative to the Ground State in Pb-Pb Collisions at $\sqrt{s_\mathrm{NN}}$=5.02 TeV
 1607560 ? Measurement of the semileptonic $ \mathrm{t}\overline{\mathrm{t}} $ + γ production cross section in pp collisions at $ \sqrt{s}=8 $ TeV  <neil.warrack@cern.ch>
 1607561 . Exclusive and semi-exclusive pi+pi- production in proton-proton collisions at sqrt(s) = 7 TeV
 1607793 ? Search for a heavy composite Majorana neutrino in the final state with two leptons and two quarks at $\sqrt{s}=13$ TeV
 1608161 ? Search for electroweak production of charginos and neutralinos in WH events in proton-proton collisions at $ \sqrt{s}=13 $ TeV
 1608162 X Measurements of properties of the Higgs boson decaying into the four-lepton final state in pp collisions at $ \sqrt{s}=13 $ TeV
-1608166 . Measurement of charged pion, kaon, and proton production in proton-proton collisions at $\sqrt{s}=13$ TeV
+1608166 ! Measurement of charged pion, kaon, and proton production in proton-proton collisions at $\sqrt{s}=13$ TeV
 1608383 X Search for Higgs boson pair production in the $bb\tau\tau$ final state in proton-proton collisions at $\sqrt{(}s)=8\text{ }\text{ }\mathrm{TeV}$
 1608386 X Constraints on anomalous Higgs boson couplings using production and decay information in the four-lepton final state
-1608556 . P-Type Silicon Strip Sensors for the new CMS Tracker at HL-LHC
+1608556 X P-Type Silicon Strip Sensors for the new CMS Tracker at HL-LHC
 1608774 ? Search for heavy resonances that decay into a vector boson and a Higgs boson in hadronic final states at $\sqrt{s} = 13$ $\,\text {TeV}$
 1609262 ? Search for Higgs boson pair production in events with two bottom quarks and two tau leptons in proton–proton collisions at $\sqrt s$ =13TeV
 1609449 ? Search for direct production of supersymmetric partners of the top quark in the all-jets final state in proton-proton collisions at $ \sqrt{s}=13 $ TeV
 1609450 ? Search for natural supersymmetry in events with top quark pairs and photons in pp collisions at $\sqrt{s} =$ 8 TeV
-1610623 . Measurement of the differential cross sections for the associated production of a $W$ boson and jets in proton-proton collisions at $\sqrt{s}=13$ TeV
+1610623 ! Measurement of the differential cross sections for the associated production of a $W$ boson and jets in proton-proton collisions at $\sqrt{s}=13$ TeV
 1610629 ? Search for supersymmetry in events with at least one photon, missing transverse momentum, and large transverse event activity in proton-proton collisions at $ \sqrt{s}=13 $ TeV
 1611299 ? Search for the pair production of third-generation squarks with two-body decays to a bottom or charm quark and a neutralino in proton–proton collisions at $\sqrt{s}$ = 13 TeV
 1611300 X Search for a light pseudoscalar Higgs boson produced in association with bottom quarks in pp collisions at $ \sqrt{s}=8 $ TeV
 1613900 X Observation of the Higgs boson decay to a pair of $\tau$ leptons with the CMS detector
 1614320 ? Search for single production of a vector-like T quark decaying to a Z boson and a top quark in proton-proton collisions at $\sqrt s$ = 13 TeV
-1614482 . Constraints on the chiral magnetic effect using charge-dependent azimuthal correlations in $p\mathrm{Pb}$ and PbPb collisions at the CERN Large Hadron Collider
+1614482 X Constraints on the chiral magnetic effect using charge-dependent azimuthal correlations in $p\mathrm{Pb}$ and PbPb collisions at the CERN Large Hadron Collider
 1614779 ? Search for vectorlike light-flavor quark partners in proton-proton collisions at $\sqrt s$ =8  TeV
 1615207 ? Measurement of vector boson scattering and constraints on anomalous quartic couplings from events with four leptons and two jets in proton–proton collisions at $\sqrt{s}=$ 13 TeV
 1615780 . Measurement of prompt $D^0$ meson azimuthal anisotropy in Pb-Pb collisions at $\sqrt{{s}_{NN}}$ = 5.02 TeV
@@ -669,7 +669,7 @@
 1625108 X Evidence for the Higgs boson decay to a bottom quark–antiquark pair
 1625296 ? Measurements of the $\mathrm {p}\mathrm {p}\rightarrow \mathrm{Z}\mathrm{Z}$ production cross section and the $\mathrm{Z}\rightarrow 4\ell $ branching fraction, and constraints on anomalous triple gauge couplings at $\sqrt{s} = 13\,\text {TeV} $
 1625745 ! Search for new phenomena in final states with two opposite-charge, same-flavor leptons, jets, and missing transverse momentum in pp collisions at $ \sqrt{s}=13 $ TeV
-1625783 . Brightness and uniformity measurements of plastic scintillator tiles at the CERN H2 test beam
+1625783 X Brightness and uniformity measurements of plastic scintillator tiles at the CERN H2 test beam
 1626103 ? Observation of Correlated Azimuthal Anisotropy Fourier Harmonics in $pp$ and $p+Pb$ Collisions at the LHC
 1627612 ? Search for supersymmetry in events with one lepton and multiple jets exploiting the angular correlation between the lepton and the missing transverse momentum in proton-proton collisions at $\sqrt{s} = $ 13 TeV
 1628094 ? Search for low mass vector resonances decaying into quark-antiquark pairs in proton-proton collisions at $ \sqrt{s}=13 $ TeV
@@ -703,7 +703,7 @@
 1641763 ? Search for the flavor-changing neutral current interactions of the top quark and the Higgs boson which decays into a pair of b quarks at $\sqrt{s}=$ 13 TeV
 1642230 ? Measurement of the associated production of a single top quark and a Z boson in pp collisions at $\sqrt{s} =$ TeV
 1642233 ? Search for Z$\gamma$ resonances using leptonic and hadronic final states in proton-proton collisions at $\sqrt{s}=$ 13 TeV
-1643640 . Azimuthal correlations for inclusive 2-jet, 3-jet, and 4-jet events in pp collisions at $\sqrt{s}= $ 13 TeV
+1643640 ! Azimuthal correlations for inclusive 2-jet, 3-jet, and 4-jet events in pp collisions at $\sqrt{s}= $ 13 TeV
 1643829 X Search for the X(5568) state decaying into $\mathrm{B}^{0}_{\mathrm{s}}\pi^{\pm}$ in proton-proton collisions at $\sqrt{s} = $ 8 TeV
 1644362 X Identification of heavy-flavour jets with the CMS detector in pp collisions at 13 TeV
 1644363 ? Search for lepton flavour violating decays of the Higgs boson to $\mu\tau$ and e$\tau$ in proton-proton collisions at $\sqrt{s}=$ 13 TeV
@@ -727,14 +727,14 @@
 1653954 . Search for heavy neutral leptons in events with three charged leptons in proton-proton collisions at $\sqrt{s} =$ 13 TeV
 1654926 ? Measurement of the $\Lambda_b$ polarization and angular parameters in $\Lambda_b\to J/\psi\, \Lambda$ decays from pp collisions at $\sqrt{s}=$ 7 and 8 TeV
 1655968 . Search for narrow resonances in the b-tagged dijet mass spectrum in proton-proton collisions at $\sqrt{s} =$ 8 TeV
-1656983 . Quality control for the first large areas of triple-GEM chambers for the CMS endcaps
+1656983 X Quality control for the first large areas of triple-GEM chambers for the CMS endcaps
 1657397 . Search for a heavy resonance decaying to a pair of vector bosons in the lepton plus merged jet final state at $ \sqrt{s}=13 $ TeV
 1658057 . Jet properties in PbPb and pp collisions at $ \sqrt{s_{\mathrm{N}\;\mathrm{N}}}=5.02 $ TeV
 1659106 . Search for third-generation scalar leptoquarks decaying to a top quark and a $\tau$ lepton at $\sqrt{s}=$ 13 TeV
-1662008 . Test beam demonstration of silicon microstrip modules with transverse momentum discrimination for the future CMS tracking detector
+1662008 X Test beam demonstration of silicon microstrip modules with transverse momentum discrimination for the future CMS tracking detector
 1662081 . Measurements of differential cross sections of top quark pair production as a function of kinematic event variables in proton-proton collisions at $ \sqrt{s}=13 $ TeV
 1662083 . Search for a heavy resonance decaying into a Z boson and a vector boson in the $ \nu \overline{\nu}\mathrm{q}\overline{\mathrm{q}} $ final state
-1662293 . Observation of proton-tagged, central (semi)exclusive production of high-mass lepton pairs in pp collisions at 13 TeV with the CMS-TOTEM precision proton spectrometer
+1662293 X Observation of proton-tagged, central (semi)exclusive production of high-mass lepton pairs in pp collisions at 13 TeV with the CMS-TOTEM precision proton spectrometer
 1662661 X Evidence for associated production of a Higgs boson with a top quark pair in final states with electrons, muons, and hadronically decaying $\tau$ leptons at $\sqrt{s} =$ 13 TeV
 1662926 ! Search for high-mass resonances in dilepton final states in proton-proton collisions at $\sqrt{s}=$ 13 TeV
 1663234 ? Search for additional neutral MSSM Higgs bosons in the $\tau\tau$ final state in proton-proton collisions at $\sqrt{s}=$ 13 TeV
@@ -763,7 +763,7 @@
 1674077 ? Measurement of the production cross section for single top quarks in association with W bosons in proton-proton collisions at $ \sqrt{s}=13 $ TeV
 1674529 . Measurement of nuclear modification factors of $\Upsilon$(1S), $\Upsilon$(2S), and $\Upsilon$(3S) mesons in PbPb collisions at $\sqrt{s_{_\mathrm{NN}}} =$ 5.02 TeV
 1674926 . Search for an exotic decay of the Higgs boson to a pair of light pseudoscalars in the final state with two b quarks and two $\tau$ leptons in proton-proton collisions at $\sqrt{s}=$ 13 TeV
-1674927 . Constraints on models of scalar and vector leptoquarks decaying to a quark and a neutrino at $\sqrt{s}=$ 13 TeV
+1674927 X Constraints on models of scalar and vector leptoquarks decaying to a quark and a neutrino at $\sqrt{s}=$ 13 TeV
 1675256 X Observation of the $\chi_\mathrm{b1}$(3P) and $\chi_\mathrm{b2}$(3P) and measurement of their masses
 1675818 ? Search for beyond the standard model Higgs bosons decaying into a $\mathrm{b\overline{b}}$ pair in pp collisions at $\sqrt{s} =$ 13 TeV
 1676092 ? Search for Higgs boson pair production in the $\gamma\gamma\mathrm{b\overline{b}}$ final state in pp collisions at $\sqrt{s}=$ 13 TeV
@@ -780,9 +780,9 @@
 1678088 . Search for the decay of a Higgs boson in the $\ell\ell\gamma$ channel in proton-proton collisions at $\sqrt{s} =$ 13 TeV
 1680021 . Search for heavy Majorana neutrinos in same-sign dilepton channels in proton-proton collisions at $\sqrt{s} =$ 13 TeV
 1680022 ! Measurement of differential cross sections for Z boson pair production in association with jets at $\sqrt{s}=$ 8 and 13 TeV
-1680298 . RPC upgrade project for CMS Phase II
+1680298 X RPC upgrade project for CMS Phase II
 1680318 . Measurement of charged particle spectra in minimum-bias events from proton–proton collisions at $\sqrt{s}=13\,\text {TeV} $
-1680459 . Measurement of differential cross sections for inclusive isolated-photon and photon+jets production in proton-proton collisions at $\sqrt{s} =$ 13 TeV
+1680459 ! Measurement of differential cross sections for inclusive isolated-photon and photon+jets production in proton-proton collisions at $\sqrt{s} =$ 13 TeV
 1681016 . Search for supersymmetry in events with a $\tau$ lepton pair and missing transverse momentum in proton-proton collisions at $\sqrt{s} =$ 13 TeV
 1681435 ! Study of the underlying event in top quark pair production in pp collisions at 13 TeV
 1681436 . Search for heavy resonances decaying into a vector boson and a Higgs boson in final states with charged leptons, neutrinos and b quarks at $\sqrt{s}=$ 13 TeV
@@ -799,13 +799,13 @@
 1685235 . Search for heavy resonances decaying into two Higgs bosons or into a Higgs boson and a W or Z boson in proton-proton collisions at 13 TeV
 1685989 . Search for pair-produced resonances decaying to quark pairs in proton-proton collisions at $\sqrt{s}=$ 13 TeV
 1685992 . Search for long-lived particles with displaced vertices in multijet events in proton-proton collisions at $\sqrt{s}= $13 TeV
-1686000 ! Evidence for the associated production of a single top quark and a photon in proton-proton collisions at $\sqrt{s}=$ 13 TeV
+1686000 ! Evidence for the associated production of a single top quark and a photon in proton-proton collisions at $\sqrt{s}=$ 13 TeV <andy.buckley@cern.ch>
 1686833 . Search for an $L_{\mu}-L_{\tau}$ gauge boson using Z$\to4\mu$ events in proton-proton collisions at $\sqrt{s} =$ 13 TeV
 1687544 . Search for pair production of second-generation leptoquarks at $\sqrt{s}=$ 13 TeV
 1688938 . Search for a charged Higgs boson decaying to charm and bottom quarks in proton-proton collisions at $ \sqrt{s}=8 $ TeV
-1690148 . Measurement of jet substructure observables in $\mathrm{t\overline{t}}$ events from proton-proton collisions at $\sqrt{s}=$ 13TeV
+1690148 ! Measurement of jet substructure observables in $\mathrm{t\overline{t}}$ events from proton-proton collisions at $\sqrt{s}=$ 13TeV
 1691854 X Observation of Higgs boson decay to bottom quarks
-1692558 . Charged-particle nuclear modification factors in XeXe collisions at $ \sqrt{s_{\mathrm{NN}}} = 5.44 $ TeV
+1692558 ? Charged-particle nuclear modification factors in XeXe collisions at $ \sqrt{s_{\mathrm{NN}}} = 5.44 $ TeV
 1692559 . Search for physics beyond the standard model in high-mass diphoton events from proton-proton collisions at $\sqrt{s} =$ 13 TeV
 1693412 X Performance of reconstruction and identification of $\tau$ leptons decaying to hadrons and $\nu_\tau$ in pp collisions at $\sqrt{s}=$ 13 TeV
 1693614 X Studies of ${\mathrm {B}} ^{*{\mathrm {s}}2}(5840)^0 $ and ${\mathrm {B}} _{{\mathrm {s}}1}(5830)^0 $ mesons including the observation of the ${\mathrm {B}} ^{*{\mathrm {s}}2}(5840)^0 \rightarrow {\mathrm {B}} ^0 \mathrm {K} ^0_{\mathrm {S}} $ decay in proton-proton collisions at $\sqrt{s}=8\,\text {TeV} $
@@ -815,7 +815,7 @@
 1695278 . Jet shapes of isolated photon-tagged jets in PbPb and pp collisions at $\sqrt{s_\mathrm{NN}} =$ 5.02 TeV
 1695301 . Search for single production of vector-like quarks decaying to a top quark and a W boson in proton-proton collisions at $\sqrt{s} =$ 13 TeV
 1696325 . Measurement of exclusive $\Upsilon$ photoproduction from protons in pPb collisions at $\sqrt{s_\mathrm{NN}} =$ 5.02 TeV
-1696402 . Fast timing measurement for CMS RPC Phase-II upgrade
+1696402 X Fast timing measurement for CMS RPC Phase-II upgrade
 1696607 X Combined measurements of Higgs boson couplings in proton-proton collisions at $\sqrt{s}=$ 13 TeV
 1696608 ! Search for new physics in final states with a single photon and missing transverse momentum in proton-proton collisions at $\sqrt{s} =$ 13 TeV
 1696868 . Observation of prompt J/$\psi$ meson elliptic flow in high-multiplicity pPb collisions at $\sqrt{s_\mathrm{NN}} =$ 8.16 TeV
