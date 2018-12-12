@@ -132,10 +132,11 @@ for ins, rec in records.items():
         code = "hot"
 
     ## Tags
+    import re
     title = rec[0] or ""
     if "search" in title.lower():
         code += " search"
-    if "Pb" in title or "Xe" in title:
+    if any(re.search(x, title) is not None for x in ["Pb", "Xe", "lead[ ,$]", "heavy[- ]ion"]):
         code += " heavyion"
 
     rm = False
