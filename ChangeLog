@@ -1,3 +1,7 @@
+2018-12-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a FastJet clustering mode for DressedLeptons.
+
 2018-12-10  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Release 2.6.2
