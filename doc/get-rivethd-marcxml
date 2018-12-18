@@ -11,6 +11,8 @@ import argparse
 ap = argparse.ArgumentParser(usage=__doc__)
 ap.add_argument("XMLFILES", metavar='file', nargs="+", help="Inspire-exported MARC XML file to read")
 args = ap.parse_args()
+if not args.XMLFILES:
+    exit(1)
 
 import rivet
 anas = {}

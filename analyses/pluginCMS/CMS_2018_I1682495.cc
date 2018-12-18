@@ -8,6 +8,8 @@
 namespace Rivet {
 
 
+
+  // Soft-drop and ungroomed jet mass measurement
   class CMS_2018_I1682495 : public Analysis {
   public:
 
