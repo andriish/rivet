@@ -83,8 +83,8 @@ for ifile, xmlfile in enumerate(args.XMLFILES):
 
         rivetanas = anas.get(ins)
 
-        nums = rn.xpath("./mx:datafield[@tag='037']/mx:subfield[(@code='9') and (text()='arXiv:reportnumber')]/../mx:subfield[@code='a']", namespaces=nsm)
-        reportnums = [num.text for num in nums]
+        nums = rn.xpath("./mx:datafield[@tag='037']/mx:subfield[@code='a']", namespaces=nsm)
+        reportnums = [num.text for num in nums if not 'arXiv' in num.text]
         print("Nums:", reportnums)
 
         OUT[ins] = [summ, expt, doi, cds, arx, hd, rivetanas, reportnums]
