@@ -10,7 +10,7 @@ RUN cd /code && \
     make -j5 && make install
 
 RUN cd /code && \
-    wget http://home.thep.lu.se/~torbjorn/pythia8/pythia8235.tgz -O- | tar xz && \
+    wget http://home.thep.lu.se/~torbjorn/pythia8/pythia8240.tgz -O- | tar xz && \
     cd pythia*/ && ./configure --enable-shared --{prefix,with-{hepmc2,lhapdf6}}=/usr/local && \
     make -j5 && make install
 
