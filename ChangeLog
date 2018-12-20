@@ -1,5 +1,7 @@
 2018-12-20  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Rework VetoedFinalState to be based on Cuts, and to be constructible from Cut arguments.
+
 	* Pre-emptively exclude all hadrons and partons from returning true in isDirect computations.
 
 	* Cache the results of isDirect calculations on Particle (a bit awkwardly... roll on C++17).
