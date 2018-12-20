@@ -689,6 +689,12 @@ namespace Rivet {
     /// @todo Replace this awkward caching with C++17 std::optional
     mutable std::pair<bool,bool> _isDirect;
 
+
+  private:
+
+    /// Hide the comparison operator
+    bool operator == (const Particle&);
+
   };
 
 
