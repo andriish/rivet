@@ -70,16 +70,34 @@ namespace Rivet {
                    bool useDecayPhotons=false,
                    bool useJetClustering=false);
 
+    /// @brief Constructor with default input FinalState
+    ///
+    /// DressedLepton construction from a default-constructed FinalState.
+    /// Provide a photon-clustering delta(R) cone size around each bare
+    /// lepton, and an optional cut on the _dressed_ leptons (i.e. the momenta
+    /// after clustering).  The final arguments control whether non-prompt
+    /// photons are to be included, and whether the matching of photons to
+    /// leptons is to be done via dR matching to the bare lepton or by a jet
+    /// clustering algorithm.  Set the clustering radius to 0 or negative to
+    /// disable clustering.
+    DressedLeptons(double dRmax, const Cut& cut=Cuts::open(),
+                   bool useDecayPhotons=false,
+                   bool useJetClustering=false)
+      : DressedLeptons(FinalState(), dRmax, cut, useDecayPhotons, useJetClustering)
+    {   }
+
     /// @brief Constructor with distinct photon and lepton finders
     ///
     /// Provide final state projections used to select the photons and bare
-    /// leptons (wish we had put the first two args the other way around...), a
+    /// leptons, a
     /// clustering delta(R) cone size around each bare lepton, and an optional
     /// cut on the _dressed_ leptons (i.e. the momenta after clustering.)  The
     /// final arguments control whether non-prompt photons are to be included,
     /// and whether the matching of photons to leptons is to be done via dR
     /// matching to the bare lepton or by a jet clustering algorithm.  Set the
     /// clustering radius to 0 or negative to disable clustering.
+    ///
+    /// @note Wish we had put the first two args the other way around...
     ///
     /// @todo Convert second arg to a general ParticleFinder rather than an FS, to
     /// allow clustering on to unstables, e.g. taus via TauFinder.

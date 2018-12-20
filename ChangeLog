@@ -1,3 +1,7 @@
+2018-12-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a default-FinalState version of the DressedLeptons constructor.
+
 2018-12-19  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add a FIRST/LAST enum switch for PartonicTops, to choose which top quark clone to use.
