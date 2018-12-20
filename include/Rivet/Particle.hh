@@ -25,20 +25,23 @@ namespace Rivet {
     /// @note A particle without info is useless. This only exists to keep STL containers happy.
     Particle()
       : ParticleBase(),
-        _original(nullptr), _id(PID::ANY)
-    { }
+        _original(nullptr), _id(PID::ANY), _isDirect{false,false}
+    {   }
 
     /// Constructor without GenParticle.
     Particle(PdgId pid, const FourMomentum& mom, const FourVector& pos=FourVector())
       : ParticleBase(),
-        _original(nullptr), _id(pid), _momentum(mom), _origin(pos)
-    { }
+        _original(nullptr), _id(pid),
+        _momentum(mom), _origin(pos),
+        _isDirect{false,false}
+    {   }
 
     /// Constructor from a HepMC GenParticle pointer.
     Particle(const GenParticle* gp)
       : ParticleBase(),
         _original(gp), _id(gp->pdg_id()),
-        _momentum(gp->momentum())
+        _momentum(gp->momentum()),
+        _isDirect{false,false}
     {
       const GenVertex* vprod = gp->production_vertex();
       if (vprod != nullptr) {
@@ -46,17 +49,10 @@ namespace Rivet {
       }
     }
 
-    /// Constructor from a HepMC GenParticle.
+    /// Constructor from a HepMC GenParticle reference.
     Particle(const GenParticle& gp)
-      : ParticleBase(),
-        _original(&gp), _id(gp.pdg_id()),
-        _momentum(gp.momentum())
-    {
-      const GenVertex* vprod = gp.production_vertex();
-      if (vprod != nullptr) {
-        setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
-      }
-    }
+      : Particle(&gp)
+    {   }
 
     //@}
 
@@ -202,6 +198,9 @@ namespace Rivet {
 
     /// Is this particle potentially visible in a detector?
     bool isVisible() const;
+
+    /// Is this a parton? (Hopefully not very often... fiducial FTW)
+    bool isParton() const { return PID::isParton(pid()); }
 
     //@}
 
@@ -685,6 +684,10 @@ namespace Rivet {
 
     /// The creation position of this particle.
     FourVector _origin;
+
+    /// Cached computation of directness, via ancestry. Second element is cache status
+    /// @todo Replace this awkward caching with C++17 std::optional
+    mutable std::pair<bool,bool> _isDirect;
 
   };
 

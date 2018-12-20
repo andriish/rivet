@@ -1,5 +1,9 @@
 2018-12-20  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Pre-emptively exclude all hadrons and partons from returning true in isDirect computations.
+
+	* Cache the results of isDirect calculations on Particle (a bit awkwardly... roll on C++17).
+
 	* Add a default-FinalState version of the DressedLeptons constructor.
 
 2018-12-19  Andy Buckley  <andy.buckley@cern.ch>
