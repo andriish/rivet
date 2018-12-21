@@ -1,3 +1,7 @@
+2018-12-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add hasNoTag jet-classification functor, to complement hasBTag and hasCTag.
+
 2018-12-20  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Rework VetoedFinalState to be based on Cuts, and to be constructible from Cut arguments.
