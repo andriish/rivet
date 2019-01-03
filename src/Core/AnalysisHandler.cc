@@ -322,8 +322,9 @@ namespace Rivet {
   }
 
 
-  AnalysisHandler& AnalysisHandler::setCrossSection(double xs) {
+  AnalysisHandler& AnalysisHandler::setCrossSection(double xs, double xserr) {
     _xs = xs;
+    _xserr = xserr;
     return *this;
   }
 

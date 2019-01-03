@@ -1,3 +1,7 @@
+2019-01-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add setting of cross-section error in AnalysisHandler and Run.
+
 2018-12-21  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add hasNoTag jet-classification functor, to complement hasBTag and hasCTag.
