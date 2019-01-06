@@ -47,7 +47,6 @@ nobase_pkginclude_HEADERS += \
   Projections/DressedLeptons.hh \
   Projections/FastJets.hh \
   Projections/PxConePlugin.hh \
-  Projections/pxcone.h \
   Projections/FinalPartons.hh \
   Projections/FinalState.hh \
   Projections/FoxWolframMoments.hh \
