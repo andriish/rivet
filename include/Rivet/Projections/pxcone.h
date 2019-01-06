@@ -12,20 +12,20 @@ extern "C" {
   void          pxcone_
 #endif
   (
-    int             mode   ,    // 1=>e+e-, 2=>hadron-hadron
-    int             ntrak  ,    // Number of particles
-    int             itkdm  ,    // First dimension of PTRAK array: 
+          int       mode   ,    // 1=>e+e-, 2=>hadron-hadron
+          int       ntrak  ,    // Number of particles
+          int       itkdm  ,    // First dimension of PTRAK array: 
     const double *  ptrak  ,    // Array of particle 4-momenta (Px,Py,Pz,E)
-    double          coner  ,    // Cone size (half angle) in radians
-    const double &  epslon ,    // Minimum Jet energy (GeV)
-    const double &  ovlim  ,    // Maximum fraction of overlap energy in a jet
-    const int    &  mxjet  ,    // Maximum possible number of jets
+          double    coner  ,    // Cone size (half angle) in radians
+          double    epslon ,    // Minimum Jet energy (GeV)
+          double    ovlim  ,    // Maximum fraction of overlap energy in a jet
+          int       mxjet  ,    // Maximum possible number of jets
           int    &  njet   ,    // Number of jets found
           double *  pjet,  // 5-vectors of jets
           int    *  ipass,    // Particle k belongs to jet number IPASS(k)-1
                                 // IPASS = -1 if not assosciated to a jet
           int    *  ijmul,    // Jet i contains IJMUL[i] particles
-          int    &  ierr        // = 0 if all is OK ;   = -1 otherwise
+          int    *  ierr        // = 0 if all is OK ;   = -1 otherwise
     );
 }
 

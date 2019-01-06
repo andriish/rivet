@@ -5,7 +5,7 @@
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
-// #include "Rivet/Projections/pxcone.h"
+#include "Rivet/Projections/pxcone.h"
 using namespace std;
 
 #ifdef __cplusplus
@@ -16,7 +16,6 @@ extern "C" {
    to be used as fortran arguments. */
 static int MAXV = 20000;
 static int VDIM = 3;
-static double twopi = 6.283185307;
 
 // The standard fortran SIGN function for doubles.
 double d_sign(double a, double b) {
@@ -24,14 +23,14 @@ double d_sign(double a, double b) {
 }
 
 // The standard fortran MOD function for doubles.
-double d_mod(double * a, double * p) {
-  return (*a) - int((*a)/(*p))*(*p);
+double d_mod(double a, double p) {
+  return a - int(a/p)*p;
 }
 
 // The main PXCONE function.
 void pxcone_(int mode, int ntrak, int itkdm, 
-	const double *ptrak, double coner, double *epslon, double *
-	ovlim, int *mxjet, int *njet, double *pjet, int *
+	const double *ptrak, double coner, double epslon, double
+	ovlim, int mxjet, int & njet, double *pjet, int *
 	ipass, int *ijmul, int *ierr)
 {
     /* Initialized data */
@@ -51,7 +50,7 @@ void pxcone_(int mode, int ntrak, int itkdm,
     static int i__, j, n;
     static double vseed[3];
     static int iterr;
-    extern /* Subroutine */ int pxord_(double *, int *, int, 
+    extern /* Subroutine */ int pxord_(double, int &, int, 
 	    int *, double *);
     static int n1, n2;
     static double pj[20000]	/* was [4][5000] */, pp[20000]	/* was [4][
@@ -61,14 +60,14 @@ void pxcone_(int mode, int ntrak, int itkdm,
     extern /* Subroutine */ int pxaddv_(int *, double *, double *,
 	     double *, int *);
     static int jetlis[25000000]	/* was [5000][5000] */;
-    extern double pxmdpi_(double *);
+    extern double pxmdpi_(double);
     extern /* Subroutine */ int pxsear_(int, double *, int, 
-	    double *, double *, double *, int *, int *, 
-	    double *, int *, int *), pxolap_(int, int *,
-	     int, int *, double *, double *, double *);
+	    double *, double *, double *, int &, int *, 
+	    double *, int *, int *), pxolap_(int, int,
+	     int, int *, double *, double *, double);
     static int unstbl;
     extern /* Subroutine */ int pxuvec_(int, double *, double *,
-	     int *), pxzeri_(int *, int *), pxnorv_(int *, 
+	     int *), pxzeri_(int, int *), pxnorv_(int *, 
 	    double *, double *, int *), pxzerv_(int *, 
 	    double *);
     static double vec1[3], vec2[3];
@@ -182,7 +181,7 @@ void pxcone_(int mode, int ntrak, int itkdm,
     ++ncall;
 
 /* ** Print welcome and Jetfinder parameters */
-    if ((coner != rold || *epslon != epsold || *ovlim != ovold) && nprint <= 
+    if ((coner != rold || epslon != epsold || ovlim != ovold) && nprint <= 
 	    10) {
       printf("%s\n", " *********** PXCONE: Cone Jet-finder ***********");
       printf("%s\n", "    Written by Luis Del Pozo of OPAL");
@@ -190,8 +189,8 @@ void pxcone_(int mode, int ntrak, int itkdm,
       printf("%s\n", "    Includes bug fixes by Wobisch, Salam");
       printf("%s\n", "    Translated to c(++) by Leif Lonnblad");
       printf("%s%5.2f%s\n", "    Cone Size R = ",coner," Radians");
-      printf("%s%5.2f%s\n", "    Min Jet energy Epsilon = ",*epslon," GeV");
-      printf("%s%5.2f\n", "   Overlap fraction parameter = ",*ovlim);
+      printf("%s%5.2f%s\n", "    Min Jet energy Epsilon = ",epslon," GeV");
+      printf("%s%5.2f\n", "   Overlap fraction parameter = ",ovlim);
       printf("%s\n", "    PXCONE is not a supported product and is");
       printf("%s\n", "    is provided for comparative purposes only");
       printf("%s\n", " ***********************************************");
@@ -243,8 +242,8 @@ void pxcone_(int mode, int ntrak, int itkdm,
 /* 1002     FORMAT(A33,F5.2) */
 	++nprint;
 	rold = coner;
-	epsold = *epslon;
-	ovold = *ovlim;
+	epsold = epslon;
+	ovold = ovlim;
     }
 
 /* ** Copy calling array PTRAK  to internal array PP(4,NTRAK) */
@@ -303,7 +302,7 @@ void pxcone_(int mode, int ntrak, int itkdm,
 
 /* ** Zero output variables */
 
-    *njet = 0;
+    njet = 0;
     i__1 = ntrak;
     for (i__ = 1; i__ <= i__1; ++i__) {
 	for (j = 1; j <= 5000; ++j) {
@@ -356,7 +355,7 @@ void pxcone_(int mode, int ntrak, int itkdm,
 /* ** Now look between all pairs of jets as seed axes. */
 /*      NJTORG = NJET           ! GPS -- to get consistent behaviour (2-way midpnts) */
 /*      DO 140 N1 = 1,NJTORG-1  ! GPS -- to get consistent behaviour (2-way midpnts) */
-    i__1 = *njet - 1;
+    i__1 = njet - 1;
     for (n1 = 1; n1 <= i__1; ++n1) {
 	vec1[0] = pj[(n1 << 2) - 4];
 	vec1[1] = pj[(n1 << 2) - 3];
@@ -365,7 +364,7 @@ void pxcone_(int mode, int ntrak, int itkdm,
 	    pxnorv_(&VDIM, vec1, vec1, &iterr);
 	}
 /*         DO 150 N2 = N1+1,NJTORG ! GPS -- to get consistent behaviour */
-	i__2 = *njet;
+	i__2 = njet;
 	for (n2 = n1 + 1; n2 <= i__2; ++n2) {
 	    vec2[0] = pj[(n2 << 2) - 4];
 	    vec2[1] = pj[(n2 << 2) - 3];
@@ -381,8 +380,8 @@ void pxcone_(int mode, int ntrak, int itkdm,
 /* VSEED(2)=VSEED(2)/2 */
 /* GPS 25/02/07 */
 		d__2 = vec2[1] - vec1[1];
-		d__1 = vec1[1] + pxmdpi_(&d__2) * .5;
-		vseed[1] = pxmdpi_(&d__1);
+		d__1 = vec1[1] + pxmdpi_(d__2) * .5;
+		vseed[1] = pxmdpi_(d__1);
 	    }
 /* ---ONLY BOTHER IF THEY ARE BETWEEN 1 AND 2 CONE RADII APART */
 	    if (mode != 2) {
@@ -396,7 +395,7 @@ void pxcone_(int mode, int ntrak, int itkdm,
 		    d__1 = vec1[0] - vec2[0];
 		    d__3 = vec1[1] - vec2[1];
 /* Computing 2nd power */
-		    d__2 = pxmdpi_(&d__3);
+		    d__2 = pxmdpi_(d__3);
 		    cosval = 1 - (d__1 * d__1 + d__2 * d__2);
 		}
 	    }
@@ -431,14 +430,14 @@ void pxcone_(int mode, int ntrak, int itkdm,
     pxord_(epslon, njet, ntrak, jetlis, pj);
 
 /* ** All done!, Copy output into output arrays */
-    if (*njet > *mxjet) {
+    if (njet > mxjet) {
 /*         WRITE (6,*) ' PXCONE:  Found more than MXJET jets' */
       printf(" PXCONE:  Found more than MXJET jets\n");
 	*ierr = -1;
 	goto L99;
     }
     if (mode != 2) {
-	i__1 = *njet;
+	i__1 = njet;
 	for (i__ = 1; i__ <= i__1; ++i__) {
 	    for (j = 1; j <= 4; ++j) {
 		pjet[j + i__ * 5] = pj[j + (i__ << 2) - 5];
@@ -447,7 +446,7 @@ void pxcone_(int mode, int ntrak, int itkdm,
 /* L300: */
 	}
     } else {
-	i__1 = *njet;
+	i__1 = njet;
 	for (i__ = 1; i__ <= i__1; ++i__) {
 	    pjet[i__ * 5 + 1] = pj[(i__ << 2) - 1] * cos(pj[(i__ << 2) - 3]);
 	    pjet[i__ * 5 + 2] = pj[(i__ << 2) - 1] * sin(pj[(i__ << 2) - 3]);
@@ -459,7 +458,7 @@ void pxcone_(int mode, int ntrak, int itkdm,
     i__1 = ntrak;
     for (i__ = 1; i__ <= i__1; ++i__) {
 	ipass[i__] = -1;
-	i__2 = *njet;
+	i__2 = njet;
 	for (j = 1; j <= i__2; ++j) {
 	    if (jetlis[j + i__ * 5000 - 5001]) {
 		++ijmul[j];
@@ -520,8 +519,8 @@ L99:
 /* -- Author : */
 
 /* +DECK,PXOLAP. */
-/* Subroutine */ int pxolap_(int mode, int *njet, int ntrak, 
-	int *jetlis, double *pj, double *pp, double *ovlim)
+/* Subroutine */ int pxolap_(int mode, int njet, int ntrak, 
+	int *jetlis, double *pj, double *pp, double ovlim)
 {
     /* Initialized data */
 
@@ -541,7 +540,7 @@ L99:
 	    double *, double *, int *);
     static int nj, mu;
     static int ovelap;
-    extern double pxmdpi_(double *);
+    extern double pxmdpi_(double);
     static double vec1[3], vec2[3];
 
 
@@ -557,11 +556,11 @@ L99:
 
     /* Function Body */
 
-    if (*njet <= 1) {
+    if (njet <= 1) {
 	return 0;
     }
 /* ** Look for jets with large overlaps with higher energy jets. */
-    i__1 = *njet;
+    i__1 = njet;
     for (i__ = 2; i__ <= i__1; ++i__) {
 /* ** Find overlap energy between jets I and all higher energy jets. */
 	eover = (float)0.;
@@ -581,7 +580,7 @@ L99:
 /* L110: */
 	}
 /* ** Is the fraction of energy shared larger than OVLIM? */
-	if (eover > *ovlim * pj[(i__ << 2) + 4]) {
+	if (eover > ovlim * pj[(i__ << 2) + 4]) {
 /* ** De-assign all particles from Jet I */
 	    i__2 = ntrak;
 	    for (n = 1; n <= i__2; ++n) {
@@ -598,7 +597,7 @@ L99:
     i__1 = ntrak;
     for (i__ = 1; i__ <= i__1; ++i__) {
 	nj = 0;
-	i__2 = *njet;
+	i__2 = njet;
 	for (j = 1; j <= i__2; ++j) {
 	    if (jetlis[j + i__ * 5000]) {
 		++nj;
@@ -624,7 +623,7 @@ L99:
 		    d__1 = vec1[0] - vec2[0];
 		    d__3 = vec1[1] - vec2[1];
 /* Computing 2nd power */
-		    d__2 = pxmdpi_(&d__3);
+		    d__2 = pxmdpi_(d__3);
 		    thet = d__1 * d__1 + d__2 * d__2;
 		}
 		if (j == 1) {
@@ -637,7 +636,7 @@ L99:
 /* L160: */
 	    }
 /* ** Assign track to IJMIN */
-	    i__2 = *njet;
+	    i__2 = njet;
 	    for (j = 1; j <= i__2; ++j) {
 		jetlis[j + i__ * 5000] = false;
 /* L170: */
@@ -647,7 +646,7 @@ L99:
 /* L140: */
     }
 /* ** Recompute PJ */
-    i__1 = *njet;
+    i__1 = njet;
     for (i__ = 1; i__ <= i__1; ++i__) {
 	for (mu = 1; mu <= 4; ++mu) {
 	    pj[mu + (i__ << 2)] = (float)0.;
@@ -668,8 +667,8 @@ L99:
 /* GPS 25/02/07 */
 		    d__2 = pp[(n << 2) + 2] - pj[(i__ << 2) + 2];
 		    d__1 = pj[(i__ << 2) + 2] + pp[(n << 2) + 4] / (pp[(n << 
-			    2) + 4] + pj[(i__ << 2) + 4]) * pxmdpi_(&d__2);
-		    pj[(i__ << 2) + 2] = pxmdpi_(&d__1);
+			    2) + 4] + pj[(i__ << 2) + 4]) * pxmdpi_(d__2);
+		    pj[(i__ << 2) + 2] = pxmdpi_(d__1);
 /*                PJ(2,I)=PJ(2,I) */
 /*     +               + PP(4,N)/(PP(4,N)+PJ(4,I))*PXMDPI(PP(2,N)-PJ(2,I)) */
 		    pj[(i__ << 2) + 4] += pp[(n << 2) + 4];
@@ -687,7 +686,7 @@ L99:
 /* -- Author : */
 
 /* +DECK,PXORD. */
-/* Subroutine */ int pxord_(double *epslon, int *njet, int ntrak,
+/* Subroutine */ int pxord_(double epslon, int & njet, int ntrak,
 	 int *jetlis, double *pj)
 {
     /* System generated locals */
@@ -697,7 +696,7 @@ L99:
     static int i__, j, index[5000];
     static double elist[5000], ptemp[20000]	/* was [4][5000] */;
     static int logtmp[25000000]	/* was [5000][5000] */;
-    extern /* Subroutine */ int pxsorv_(int *, double *, int *, 
+    extern /* Subroutine */ int pxsorv_(int, double *, int *, 
 	    char);
 
 
@@ -712,7 +711,7 @@ L99:
     jetlis -= 5001;
 
     /* Function Body */
-    i__1 = *njet;
+    i__1 = njet;
     for (i__ = 1; i__ <= i__1; ++i__) {
 	for (j = 1; j <= 4; ++j) {
 	    ptemp[j + (i__ << 2) - 5] = pj[j + (i__ << 2)];
@@ -725,7 +724,7 @@ L99:
 	}
 /* L100: */
     }
-    i__1 = *njet;
+    i__1 = njet;
     for (i__ = 1; i__ <= i__1; ++i__) {
 	elist[i__ - 1] = pj[(i__ << 2) + 4];
 /* L150: */
@@ -733,16 +732,16 @@ L99:
 /* ** Sort the energies... */
     pxsorv_(njet, elist, index, 'I');
 /* ** Fill PJ and JETLIS according to sort ( sort is in ascending order!!) */
-    i__1 = *njet;
+    i__1 = njet;
     for (i__ = 1; i__ <= i__1; ++i__) {
 	for (j = 1; j <= 4; ++j) {
-	    pj[j + (i__ << 2)] = ptemp[j + (index[*njet + 1 - i__ - 1] << 2) 
+	    pj[j + (i__ << 2)] = ptemp[j + (index[njet + 1 - i__ - 1] << 2) 
 		    - 5];
 /* L210: */
 	}
 	i__2 = ntrak;
 	for (j = 1; j <= i__2; ++j) {
-	    jetlis[i__ + j * 5000] = logtmp[index[*njet + 1 - i__ - 1] + j * 
+	    jetlis[i__ + j * 5000] = logtmp[index[njet + 1 - i__ - 1] + j * 
 		    5000 - 5001];
 /* L220: */
 	}
@@ -750,10 +749,10 @@ L99:
     }
 /* * Jets are now in order */
 /* ** Now eliminate jets with less than Epsilon energy */
-    i__1 = *njet;
+    i__1 = njet;
     for (i__ = 1; i__ <= i__1; ++i__) {
-	if (pj[(i__ << 2) + 4] < *epslon) {
-	    --(*njet);
+	if (pj[(i__ << 2) + 4] < epslon) {
+	    --njet;
 	    pj[(i__ << 2) + 4] = (float)0.;
 	}
 /* L300: */
@@ -767,7 +766,7 @@ L99:
 /* -- Author : */
 /* +DECK,PXSEAR. */
 /* Subroutine */ int pxsear_(int mode, double *cosr, int ntrak, 
-	double *pu, double *pp, double *vseed, int *njet, 
+	double *pu, double *pp, double *vseed, int & njet, 
 	int *jetlis, double *pj, int *unstbl, int *ierr)
 {
     /* System generated locals */
@@ -778,7 +777,7 @@ L99:
     static double pnew[4];
     static int n;
     static double naxis[3], oaxis[3];
-    extern int pxnew_(int *, int *, int, int *);
+    extern int pxnew_(int *, int *, int, int);
     extern /* Subroutine */ int pxtry_(int, double *, int, 
 	    double *, double *, double *, double *, 
 	    double *, int *, int *);
@@ -824,20 +823,20 @@ L99:
 	    if (pxnew_(newlis, &jetlis[5001], ntrak, njet)) {
 /* ** And the jet is a new one. So add it to our arrays. */
 /* ** Check arrays are big anough... */
-		if (*njet == 5000) {
+		if (njet == 5000) {
 /*             WRITE (6,*) ' PXCONE:  Found more than MXPROT proto-jets' */
                   printf(" PXCONE:  Found more than MXPROT proto-jets\n");
 		    *ierr = -1;
 		    return 0;
 		}
-		++(*njet);
+		++njet;
 		i__1 = ntrak;
 		for (n = 1; n <= i__1; ++n) {
-		    jetlis[*njet + n * 5000] = newlis[n - 1];
+		    jetlis[njet + n * 5000] = newlis[n - 1];
 /* L130: */
 		}
 		for (mu = 1; mu <= 4; ++mu) {
-		    pj[mu + (*njet << 2)] = pnew[mu - 1];
+		    pj[mu + (njet << 2)] = pnew[mu - 1];
 /* L140: */
 		}
 	    }
@@ -862,7 +861,7 @@ L99:
 /* CMZ :  1.06/00 28/02/94  15.44.44  by  P. Schleper */
 /* -- Author : */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int pxsorv_(int *n, double *a, int *k, char opt)
+/* Subroutine */ int pxsorv_(int n, double *a, int *k, char opt)
 {
     /* System generated locals */
     int i__1;
@@ -889,14 +888,14 @@ L99:
     --a;
 
     /* Function Body */
-    if (*n > 5000) {
+    if (n > 5000) {
       // WRITE	s_stop("Sorry, not enough room in Mike's PXSORV", (ftnlen)39);
       printf("Sorry, not enough room in Mike's PXSORV\n");
       abort();
     }
     il[0] = 0;
     ir[0] = 0;
-    i__1 = *n;
+    i__1 = n;
     for (i__ = 2; i__ <= i__1; ++i__) {
 	il[i__ - 1] = 0;
 	ir[i__ - 1] = 0;
@@ -957,7 +956,7 @@ L30:
     if ( opt == 'I') {
 	return 0;
     }
-    i__1 = *n;
+    i__1 = n;
     for (i__ = 1; i__ <= i__1; ++i__) {
 /* L31: */
 	a[i__] = b[i__ - 1];
@@ -987,7 +986,7 @@ L30:
     static double norm;
     static int n, mu;
     static double cosval;
-    extern double pxmdpi_(double *);
+    extern double pxmdpi_(double);
     static double normsq;
     static int npp, npu;
 
@@ -1034,7 +1033,7 @@ L30:
 		d__1 = oaxis[1] - pu[npu + 1];
 		d__3 = oaxis[2] - pu[npu + 2];
 /* Computing 2nd power */
-		d__2 = pxmdpi_(&d__3);
+		d__2 = pxmdpi_(d__3);
 		cosval = 1 - (d__1 * d__1 + d__2 * d__2);
 	    }
 	}
@@ -1055,8 +1054,8 @@ L30:
 /* GPS 25/02/07 */
 		d__2 = pp[npp + 2] - pnew[2];
 		d__1 = pnew[2] + pp[npp + 4] / (pp[npp + 4] + pnew[4]) * 
-			pxmdpi_(&d__2);
-		pnew[2] = pxmdpi_(&d__1);
+			pxmdpi_(d__2);
+		pnew[2] = pxmdpi_(d__1);
 		pnew[4] += pp[npp + 4];
 	    }
 	} else {
@@ -1142,7 +1141,7 @@ L30:
 /* CMZ :  1.06/00 28/02/94  15.44.44  by  P. Schleper */
 /* -- Author : */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int pxzeri_(int *n, int *a)
+/* Subroutine */ int pxzeri_(int n, int *a)
 {
     /* System generated locals */
     int i__1;
@@ -1154,7 +1153,7 @@ L30:
     --a;
 
     /* Function Body */
-    i__1 = *n;
+    i__1 = n;
     for (i__ = 1; i__ <= i__1; ++i__) {
 	a[i__] = 0;
 /* L10: */
@@ -1265,8 +1264,7 @@ L30:
 
 /* CMZ :  1.06/00 14/03/94  15.41.57  by  P. Schleper */
 /* -- Author :    P. Schleper   28/02/94 */
-int pxnew_(int *tstlis, int *jetlis, int ntrak, int *
-	njet)
+int pxnew_(int *tstlis, int *jetlis, int ntrak, int njet)
 {
     /* System generated locals */
     int i__1, i__2;
@@ -1289,7 +1287,7 @@ int pxnew_(int *tstlis, int *jetlis, int ntrak, int *
 
     /* Function Body */
     ret_val = true;
-    i__1 = *njet;
+    i__1 = njet;
     for (i__ = 1; i__ <= i__1; ++i__) {
 	match = true;
 	in = i__ - 5000;
@@ -1344,38 +1342,26 @@ int pxsame_(int *list1, int *list2, int n)
     return ret_val;
 } /* pxsame_ */
 
-/* CMZ :  1.06/00 28/02/94  15.44.44  by  P. Schleper */
-/* -- Author : */
-/* ----------------------------------------------------------------------- */
-double pxmdpi_(double *phi)
-{
-    /* System generated locals */
-    double ret_val, d__1;
-
-
 /* ---RETURNS PHI, MOVED ONTO THE RANGE [-PI,PI) */
-    ret_val = *phi;
-    if (ret_val <= 3.141592654) {
-	if (ret_val > -3.141592654) {
-	    goto L100;
-	} else if (ret_val > -9.424777961) {
-	    ret_val += 6.283185307;
-	} else {
-	    d__1 = 3.141592654 - ret_val;
-	    ret_val = -d_mod(&d__1, &twopi) + 3.141592654;
-	}
-    } else if (ret_val <= 9.424777961) {
-	ret_val += -6.283185307;
-    } else {
-	d__1 = ret_val + 3.141592654;
-	ret_val = d_mod(&d__1, &twopi) - 3.141592654;
-    }
-L100:
-    if (abs(ret_val) < 1e-15) {
-	ret_val = 0.;
-    }
-    return ret_val;
-} /* pxmdpi_ */
+double pxmdpi_(double phi) {
+
+  if (phi <= M_PI) {
+    if (phi > -M_PI)
+      return abs(phi) < 1e-15? 0.0: phi;
+    else if (phi > -3*M_PI)
+      phi += 2*M_PI;
+    else
+      phi = -d_mod(M_PI - phi, 2*M_PI) + M_PI;
+  } else if (phi <= 3.0*M_PI) {
+    phi -= 2*M_PI;
+  } else {
+    phi = d_mod(phi + M_PI, 2*M_PI) - M_PI;
+  }
+
+  return abs(phi) < 1e-15? 0.0: phi;
+
+}
+
 
 #ifdef __cplusplus
 	}
