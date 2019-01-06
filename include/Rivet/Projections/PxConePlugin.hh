@@ -139,7 +139,6 @@ private:
   void _print_banner(std::ostream *ostr) const;
 };
 
-//FASTJET_END_NAMESPACE      // defined in fastjet/internal/base.hh
 
 
 // actual physical parameters:
@@ -148,7 +147,6 @@ private:
 // epsilon
 // ovlim
 
-// extern "C" {
   void          pxcone_
   (
           int       mode   ,    // 1=>e+e-, 2=>hadron-hadron
@@ -167,6 +165,7 @@ private:
           int    *  ierr        // = 0 if all is OK ;   = -1 otherwise
     );
 
+//FASTJET_END_NAMESPACE      // defined in fastjet/internal/base.hh
 }
 
 #endif
