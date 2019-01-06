@@ -12,11 +12,11 @@ extern "C" {
   void          pxcone_
 #endif
   (
-    const int    &  mode   ,    // 1=>e+e-, 2=>hadron-hadron
-    const int    &  ntrak  ,    // Number of particles
-    const int    &  itkdm  ,    // First dimension of PTRAK array: 
+    int             mode   ,    // 1=>e+e-, 2=>hadron-hadron
+    int             ntrak  ,    // Number of particles
+    int             itkdm  ,    // First dimension of PTRAK array: 
     const double *  ptrak  ,    // Array of particle 4-momenta (Px,Py,Pz,E)
-    const double &  coner  ,    // Cone size (half angle) in radians
+    double          coner  ,    // Cone size (half angle) in radians
     const double &  epslon ,    // Minimum Jet energy (GeV)
     const double &  ovlim  ,    // Maximum fraction of overlap energy in a jet
     const int    &  mxjet  ,    // Maximum possible number of jets

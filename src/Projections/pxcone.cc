@@ -5,13 +5,12 @@
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
-//#include "Rivet/Projections/pxcone.h"
+// #include "Rivet/Projections/pxcone.h"
 using namespace std;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include "f2c.h"
 
 /* Table of constant values, which are actually non const to be able
    to be used as fortran arguments. */
@@ -20,8 +19,8 @@ static int VDIM = 3;
 static double twopi = 6.283185307;
 
 // The standard fortran SIGN function for doubles.
-double d_sign(double *a, double * b) {
-  return *b < 0.0? -fabs(*a): fabs(*a);
+double d_sign(double a, double b) {
+  return b < 0.0? -fabs(a): fabs(a);
 }
 
 // The standard fortran MOD function for doubles.
@@ -30,8 +29,8 @@ double d_mod(double * a, double * p) {
 }
 
 // The main PXCONE function.
-void pxcone_(int *mode, int *ntrak, int *itkdm, 
-	double *ptrak, double *coner, double *epslon, double *
+void pxcone_(int mode, int ntrak, int itkdm, 
+	const double *ptrak, double coner, double *epslon, double *
 	ovlim, int *mxjet, int *njet, double *pjet, int *
 	ipass, int *ijmul, int *ierr)
 {
@@ -52,7 +51,7 @@ void pxcone_(int *mode, int *ntrak, int *itkdm,
     static int i__, j, n;
     static double vseed[3];
     static int iterr;
-    extern /* Subroutine */ int pxord_(double *, int *, int *, 
+    extern /* Subroutine */ int pxord_(double *, int *, int, 
 	    int *, double *);
     static int n1, n2;
     static double pj[20000]	/* was [4][5000] */, pp[20000]	/* was [4][
@@ -63,12 +62,12 @@ void pxcone_(int *mode, int *ntrak, int *itkdm,
 	     double *, int *);
     static int jetlis[25000000]	/* was [5000][5000] */;
     extern double pxmdpi_(double *);
-    extern /* Subroutine */ int pxsear_(int *, double *, int *, 
+    extern /* Subroutine */ int pxsear_(int, double *, int, 
 	    double *, double *, double *, int *, int *, 
-	    double *, int *, int *), pxolap_(int *, int *,
-	     int *, int *, double *, double *, double *);
+	    double *, int *, int *), pxolap_(int, int *,
+	     int, int *, double *, double *, double *);
     static int unstbl;
-    extern /* Subroutine */ int pxuvec_(int *, double *, double *,
+    extern /* Subroutine */ int pxuvec_(int, double *, double *,
 	     int *), pxzeri_(int *, int *), pxnorv_(int *, 
 	    double *, double *, int *), pxzerv_(int *, 
 	    double *);
@@ -160,7 +159,7 @@ void pxcone_(int *mode, int *ntrak, int *itkdm,
 /* MWobisch */
     /* Parameter adjustments */
     --ipass;
-    ptrak_dim1 = *itkdm;
+    ptrak_dim1 = itkdm;
     ptrak_offset = 1 + ptrak_dim1 * 1;
     ptrak -= ptrak_offset;
     --ijmul;
@@ -183,14 +182,14 @@ void pxcone_(int *mode, int *ntrak, int *itkdm,
     ++ncall;
 
 /* ** Print welcome and Jetfinder parameters */
-    if ((*coner != rold || *epslon != epsold || *ovlim != ovold) && nprint <= 
+    if ((coner != rold || *epslon != epsold || *ovlim != ovold) && nprint <= 
 	    10) {
       printf("%s\n", " *********** PXCONE: Cone Jet-finder ***********");
       printf("%s\n", "    Written by Luis Del Pozo of OPAL");
       printf("%s\n", "    Modified for eta-phi by Mike Seymour");
       printf("%s\n", "    Includes bug fixes by Wobisch, Salam");
       printf("%s\n", "    Translated to c(++) by Leif Lonnblad");
-      printf("%s%5.2f%s\n", "    Cone Size R = ",*coner," Radians");
+      printf("%s%5.2f%s\n", "    Cone Size R = ",coner," Radians");
       printf("%s%5.2f%s\n", "    Min Jet energy Epsilon = ",*epslon," GeV");
       printf("%s%5.2f\n", "   Overlap fraction parameter = ",*ovlim);
       printf("%s\n", "    PXCONE is not a supported product and is");
@@ -243,21 +242,21 @@ void pxcone_(int *mode, int *ntrak, int *itkdm,
 /* 1001     FORMAT(A29,F5.2,A5) */
 /* 1002     FORMAT(A33,F5.2) */
 	++nprint;
-	rold = *coner;
+	rold = coner;
 	epsold = *epslon;
 	ovold = *ovlim;
     }
 
 /* ** Copy calling array PTRAK  to internal array PP(4,NTRAK) */
 
-    if (*ntrak > 5000) {
+    if (ntrak > 5000) {
 /*         WRITE (6,*) ' PXCONE: Ntrak too large: ',NTRAK */
-      printf("%s%d\n", " PXCONE: Ntrak too large: ", *ntrak);
+      printf("%s%d\n", " PXCONE: Ntrak too large: ", ntrak);
 	*ierr = -1;
 	return;
     }
-    if (*mode != 2) {
-	i__1 = *ntrak;
+    if (mode != 2) {
+	i__1 = ntrak;
 	for (i__ = 1; i__ <= i__1; ++i__) {
 	    for (j = 1; j <= 4; ++j) {
 		pp[j + (i__ << 2) - 5] = ptrak[j + i__ * ptrak_dim1];
@@ -267,7 +266,7 @@ void pxcone_(int *mode, int *ntrak, int *itkdm,
 	}
     } else {
 /* ** Converting to eta,phi,pt if necessary */
-	i__1 = *ntrak;
+	i__1 = ntrak;
 	for (i__ = 1; i__ <= i__1; ++i__) {
 /* Computing 2nd power */
 	    d__1 = ptrak[i__ * ptrak_dim1 + 1];
@@ -285,7 +284,7 @@ void pxcone_(int *mode, int *ntrak, int *itkdm,
 	    } else {
 		pp[(i__ << 2) - 4] = log(ppsq / ptsq) * (float).5;
 	    }
-	    pp[(i__ << 2) - 4] = d_sign(&pp[(i__ << 2) - 4], &ptrak[i__ * 
+	    pp[(i__ << 2) - 4] = d_sign(pp[(i__ << 2) - 4], ptrak[i__ * 
 		    ptrak_dim1 + 3]);
 	    if (ptsq == 0.) {
 		pp[(i__ << 2) - 3] = 0.;
@@ -305,7 +304,7 @@ void pxcone_(int *mode, int *ntrak, int *itkdm,
 /* ** Zero output variables */
 
     *njet = 0;
-    i__1 = *ntrak;
+    i__1 = ntrak;
     for (i__ = 1; i__ <= i__1; ++i__) {
 	for (j = 1; j <= 5000; ++j) {
 	    jetlis[j + i__ * 5000 - 5001] = false;
@@ -316,22 +315,22 @@ void pxcone_(int *mode, int *ntrak, int *itkdm,
     pxzerv_(&MAXV, pj);
     pxzeri_(mxjet, &ijmul[1]);
 
-    if (*mode != 2) {
-	cosr = cos(*coner);
-	cos2r = cos(*coner);
+    if (mode != 2) {
+	cosr = cos(coner);
+	cos2r = cos(coner);
     } else {
 /* ** Purely for convenience, work in terms of 1-R**2 */
 /* Computing 2nd power */
-	d__1 = *coner;
+	d__1 = coner;
 	cosr = 1 - d__1 * d__1;
 /* MW -- select Rsep: 1-(Rsep*CONER)**2 */
 /* Computing 2nd power */
-	d__1 = rsep * *coner;
+	d__1 = rsep * coner;
 	cos2r = 1 - d__1 * d__1;
 /* ORIGINAL         COS2R =  1-(2*CONER)**2 */
     }
     unstbl = false;
-    if (*mode != 2) {
+    if (mode != 2) {
 	pxuvec_(ntrak, pp, pu, ierr);
 	if (*ierr != 0) {
 	    return;
@@ -339,7 +338,7 @@ void pxcone_(int *mode, int *ntrak, int *itkdm,
     }
 /* ** Look for jets using particle diretions as seed axes */
 
-    i__1 = *ntrak;
+    i__1 = ntrak;
     for (n = 1; n <= i__1; ++n) {
 	for (mu = 1; mu <= 3; ++mu) {
 	    vseed[mu - 1] = pu[mu + n * 3 - 4];
@@ -362,7 +361,7 @@ void pxcone_(int *mode, int *ntrak, int *itkdm,
 	vec1[0] = pj[(n1 << 2) - 4];
 	vec1[1] = pj[(n1 << 2) - 3];
 	vec1[2] = pj[(n1 << 2) - 2];
-	if (*mode != 2) {
+	if (mode != 2) {
 	    pxnorv_(&VDIM, vec1, vec1, &iterr);
 	}
 /*         DO 150 N2 = N1+1,NJTORG ! GPS -- to get consistent behaviour */
@@ -371,11 +370,11 @@ void pxcone_(int *mode, int *ntrak, int *itkdm,
 	    vec2[0] = pj[(n2 << 2) - 4];
 	    vec2[1] = pj[(n2 << 2) - 3];
 	    vec2[2] = pj[(n2 << 2) - 2];
-	    if (*mode != 2) {
+	    if (mode != 2) {
 		pxnorv_(&VDIM, vec2, vec2, &iterr);
 	    }
 	    pxaddv_(&VDIM, vec1, vec2, vseed, &iterr);
-	    if (*mode != 2) {
+	    if (mode != 2) {
 		pxnorv_(&VDIM, vseed, vseed, &iterr);
 	    } else {
 		vseed[0] /= 2;
@@ -386,7 +385,7 @@ void pxcone_(int *mode, int *ntrak, int *itkdm,
 		vseed[1] = pxmdpi_(&d__1);
 	    }
 /* ---ONLY BOTHER IF THEY ARE BETWEEN 1 AND 2 CONE RADII APART */
-	    if (*mode != 2) {
+	    if (mode != 2) {
 		cosval = vec1[0] * vec2[0] + vec1[1] * vec2[1] + vec1[2] * 
 			vec2[2];
 	    } else {
@@ -438,7 +437,7 @@ void pxcone_(int *mode, int *ntrak, int *itkdm,
 	*ierr = -1;
 	goto L99;
     }
-    if (*mode != 2) {
+    if (mode != 2) {
 	i__1 = *njet;
 	for (i__ = 1; i__ <= i__1; ++i__) {
 	    for (j = 1; j <= 4; ++j) {
@@ -457,7 +456,7 @@ void pxcone_(int *mode, int *ntrak, int *itkdm,
 /* L315: */
 	}
     }
-    i__1 = *ntrak;
+    i__1 = ntrak;
     for (i__ = 1; i__ <= i__1; ++i__) {
 	ipass[i__] = -1;
 	i__2 = *njet;
@@ -521,7 +520,7 @@ L99:
 /* -- Author : */
 
 /* +DECK,PXOLAP. */
-/* Subroutine */ int pxolap_(int *mode, int *njet, int *ntrak, 
+/* Subroutine */ int pxolap_(int mode, int *njet, int ntrak, 
 	int *jetlis, double *pj, double *pp, double *ovlim)
 {
     /* Initialized data */
@@ -566,7 +565,7 @@ L99:
     for (i__ = 2; i__ <= i__1; ++i__) {
 /* ** Find overlap energy between jets I and all higher energy jets. */
 	eover = (float)0.;
-	i__2 = *ntrak;
+	i__2 = ntrak;
 	for (n = 1; n <= i__2; ++n) {
 	    ovelap = false;
 	    i__3 = i__ - 1;
@@ -584,7 +583,7 @@ L99:
 /* ** Is the fraction of energy shared larger than OVLIM? */
 	if (eover > *ovlim * pj[(i__ << 2) + 4]) {
 /* ** De-assign all particles from Jet I */
-	    i__2 = *ntrak;
+	    i__2 = ntrak;
 	    for (n = 1; n <= i__2; ++n) {
 		jetlis[i__ + n * 5000] = false;
 /* L130: */
@@ -596,7 +595,7 @@ L99:
 /* ** more than 1 jet to the closet jet. */
 /* ** Any particles now in more than 1 jet are assigned to the CLOSET */
 /* ** jet (in angle). */
-    i__1 = *ntrak;
+    i__1 = ntrak;
     for (i__ = 1; i__ <= i__1; ++i__) {
 	nj = 0;
 	i__2 = *njet;
@@ -618,7 +617,7 @@ L99:
 		vec2[0] = pj[(ijet[j - 1] << 2) + 1];
 		vec2[1] = pj[(ijet[j - 1] << 2) + 2];
 		vec2[2] = pj[(ijet[j - 1] << 2) + 3];
-		if (*mode != 2) {
+		if (mode != 2) {
 		    pxang3_(vec1, vec2, &cost, &thet, &iterr);
 		} else {
 /* Computing 2nd power */
@@ -654,10 +653,10 @@ L99:
 	    pj[mu + (i__ << 2)] = (float)0.;
 /* L210: */
 	}
-	i__2 = *ntrak;
+	i__2 = ntrak;
 	for (n = 1; n <= i__2; ++n) {
 	    if (jetlis[i__ + n * 5000]) {
-		if (*mode != 2) {
+		if (mode != 2) {
 		    for (mu = 1; mu <= 4; ++mu) {
 			pj[mu + (i__ << 2)] += pp[mu + (n << 2)];
 /* L230: */
@@ -688,7 +687,7 @@ L99:
 /* -- Author : */
 
 /* +DECK,PXORD. */
-/* Subroutine */ int pxord_(double *epslon, int *njet, int *ntrak,
+/* Subroutine */ int pxord_(double *epslon, int *njet, int ntrak,
 	 int *jetlis, double *pj)
 {
     /* System generated locals */
@@ -719,7 +718,7 @@ L99:
 	    ptemp[j + (i__ << 2) - 5] = pj[j + (i__ << 2)];
 /* L110: */
 	}
-	i__2 = *ntrak;
+	i__2 = ntrak;
 	for (j = 1; j <= i__2; ++j) {
 	    logtmp[i__ + j * 5000 - 5001] = jetlis[i__ + j * 5000];
 /* L120: */
@@ -741,7 +740,7 @@ L99:
 		    - 5];
 /* L210: */
 	}
-	i__2 = *ntrak;
+	i__2 = ntrak;
 	for (j = 1; j <= i__2; ++j) {
 	    jetlis[i__ + j * 5000] = logtmp[index[*njet + 1 - i__ - 1] + j * 
 		    5000 - 5001];
@@ -767,7 +766,7 @@ L99:
 /* CMZ :  1.06/00 14/03/94  15.37.44  by  P. Schleper */
 /* -- Author : */
 /* +DECK,PXSEAR. */
-/* Subroutine */ int pxsear_(int *mode, double *cosr, int *ntrak, 
+/* Subroutine */ int pxsear_(int mode, double *cosr, int ntrak, 
 	double *pu, double *pp, double *vseed, int *njet, 
 	int *jetlis, double *pj, int *unstbl, int *ierr)
 {
@@ -779,14 +778,14 @@ L99:
     static double pnew[4];
     static int n;
     static double naxis[3], oaxis[3];
-    extern int pxnew_(int *, int *, int *, int *);
-    extern /* Subroutine */ int pxtry_(int *, double *, int *, 
+    extern int pxnew_(int *, int *, int, int *);
+    extern /* Subroutine */ int pxtry_(int, double *, int, 
 	    double *, double *, double *, double *, 
 	    double *, int *, int *);
     static int ok;
     static int mu;
     static int oldlis[5000];
-    extern int pxsame_(int *, int *, int *);
+    extern int pxsame_(int *, int *, int);
     static int newlis[5000];
 
 
@@ -808,7 +807,7 @@ L99:
 	oaxis[mu - 1] = vseed[mu];
 /* L100: */
     }
-    i__1 = *ntrak;
+    i__1 = ntrak;
     for (n = 1; n <= i__1; ++n) {
 	oldlis[n - 1] = false;
 /* L110: */
@@ -832,7 +831,7 @@ L99:
 		    return 0;
 		}
 		++(*njet);
-		i__1 = *ntrak;
+		i__1 = ntrak;
 		for (n = 1; n <= i__1; ++n) {
 		    jetlis[*njet + n * 5000] = newlis[n - 1];
 /* L130: */
@@ -845,7 +844,7 @@ L99:
 	    return 0;
 	}
 /* ** The jet was not stable, so we iterate again */
-	i__1 = *ntrak;
+	i__1 = ntrak;
 	for (n = 1; n <= i__1; ++n) {
 	    oldlis[n - 1] = newlis[n - 1];
 /* L150: */
@@ -973,7 +972,7 @@ L30:
 /* -- Author : */
 
 /* +DECK,PXTRY. */
-/* Subroutine */ int pxtry_(int *mode, double *cosr, int *ntrak, 
+/* Subroutine */ int pxtry_(int mode, double *cosr, int ntrak, 
 	double *pu, double *pp, double *oaxis, double *naxis, 
 	double *pnew, int *newlis, int *ok)
 {
@@ -1016,11 +1015,11 @@ L30:
     }
     npu = -3;
     npp = -4;
-    i__1 = *ntrak;
+    i__1 = ntrak;
     for (n = 1; n <= i__1; ++n) {
 	npu += 3;
 	npp += 4;
-	if (*mode != 2) {
+	if (mode != 2) {
 	    cosval = (float)0.;
 	    for (mu = 1; mu <= 3; ++mu) {
 		cosval += oaxis[mu] * pu[mu + npu];
@@ -1042,7 +1041,7 @@ L30:
 	if (cosval >= *cosr) {
 	    newlis[n] = true;
 	    *ok = true;
-	    if (*mode != 2) {
+	    if (mode != 2) {
 		for (mu = 1; mu <= 4; ++mu) {
 		    pnew[mu] += pp[mu + npp];
 /* L130: */
@@ -1067,7 +1066,7 @@ L30:
     }
 /* ** If there are particles in the cone, calc new jet axis */
     if (*ok) {
-	if (*mode != 2) {
+	if (mode != 2) {
 	    normsq = (float)0.;
 	    for (mu = 1; mu <= 3; ++mu) {
 /* Computing 2nd power */
@@ -1093,7 +1092,7 @@ L30:
 /* -- Author : */
 /* +DECK,PXUVEC. */
 
-/* Subroutine */ int pxuvec_(int *ntrak, double *pp, double *pu, 
+/* Subroutine */ int pxuvec_(int ntrak, double *pp, double *pu, 
 	int *ierr)
 {
     /* System generated locals */
@@ -1115,7 +1114,7 @@ L30:
     pp -= 5;
 
     /* Function Body */
-    i__1 = *ntrak;
+    i__1 = ntrak;
     for (n = 1; n <= i__1; ++n) {
 	mag = (float)0.;
 	for (mu = 1; mu <= 3; ++mu) {
@@ -1266,7 +1265,7 @@ L30:
 
 /* CMZ :  1.06/00 14/03/94  15.41.57  by  P. Schleper */
 /* -- Author :    P. Schleper   28/02/94 */
-int pxnew_(int *tstlis, int *jetlis, int *ntrak, int *
+int pxnew_(int *tstlis, int *jetlis, int ntrak, int *
 	njet)
 {
     /* System generated locals */
@@ -1294,7 +1293,7 @@ int pxnew_(int *tstlis, int *jetlis, int *ntrak, int *
     for (i__ = 1; i__ <= i__1; ++i__) {
 	match = true;
 	in = i__ - 5000;
-	i__2 = *ntrak;
+	i__2 = ntrak;
 	for (n = 1; n <= i__2; ++n) {
 	    in += 5000;
 	    if (tstlis[n] != jetlis[in]) {
@@ -1315,7 +1314,7 @@ L100:
 
 /* CMZ :  1.06/00 14/03/94  15.41.57  by  P. Schleper */
 /* -- Author :    P. Schleper   28/02/94 */
-int pxsame_(int *list1, int *list2, int *n)
+int pxsame_(int *list1, int *list2, int n)
 {
     /* System generated locals */
     int i__1;
@@ -1334,7 +1333,7 @@ int pxsame_(int *list1, int *list2, int *n)
 
     /* Function Body */
     ret_val = true;
-    i__1 = *n;
+    i__1 = n;
     for (i__ = 1; i__ <= i__1; ++i__) {
 	if (list1[i__] != list2[i__]) {
 	    ret_val = false;
@@ -1378,28 +1377,6 @@ L100:
     return ret_val;
 } /* pxmdpi_ */
 
-#ifdef __cplusplus
-//	}
-#endif
-
-int main() {
-  int mode = 0;
-  int ntrak = 0;
-  int itkdm = 0;
-  int mxjet = 0;
-  int njet = 0;
-  int ipass = 0;
-  int ijmul = 0;
-  int ierr = 0;
-  double ptrak = 0.0;
-  double coner = 0.0;
-  double epslon = 0.0;
-  double ovlim = 0.0;
-  double pjet = 0.0;
-
-  pxcone_(&mode, &ntrak, &itkdm, &ptrak, &coner, &epslon, &ovlim,
-          &mxjet, &njet, &pjet, &ipass, &ijmul, &ierr);
-}
 #ifdef __cplusplus
 	}
 #endif
