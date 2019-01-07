@@ -159,7 +159,7 @@ namespace Rivet {
 	  for (int i = 0, N = rapIntervalsPi.size(); i < N; ++i) {
 	    if (y > rapIntervalsPi[i].first && y <= rapIntervalsPi[i].second) {
 	      const double dy = rapIntervalsPi[i].second - rapIntervalsPi[i].first;
-	      const double nWeight = w / ( 2*M_PI*pT*dy);
+	      const double nWeight = w / ( 2.*M_PI*pT*dy);
 	      if (id == 211) piPlus[i]->fill(pT, nWeight);
 	      else piMinus[i]->fill(pT, nWeight);
 	      break;
@@ -171,7 +171,7 @@ namespace Rivet {
 	  for (int i = 0, N = rapIntervalsK.size(); i < N; ++i) {
 	    if (y > rapIntervalsK[i].first && y <= rapIntervalsK[i].second) {
 	      const double dy = rapIntervalsK[i].second - rapIntervalsK[i].first;
-	      const double nWeight = w / ( 2*M_PI*pT*dy);
+	      const double nWeight = w / ( 2.*M_PI*pT*dy);
 	      if (id == 321) kPlus[i]->fill(pT, nWeight);
 	      else kMinus[i]->fill(pT, nWeight);
 	      break;
