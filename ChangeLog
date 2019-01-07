@@ -1,3 +1,33 @@
+2019-01-07  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* Reintroduced the PXCONE option in FastJets using a local version
+	of the Fortran based pxcone algorithm converted to c++ with f2c
+	and slightly hacked to avoid dependency on Fortran runtime libraries.
+
+	* Introduced rivet-merge for statistically correct merging of YODA
+	files produced by Rivet. Only works on analysis with reentrant
+	finalize.
+
+	* Introduced --dump flag to the rivet script to periodically run
+	finalize and write out the YODA file for anayses with reentrant
+	finalize.
+
+	* Introduced reentrant finalize. Rivet now produces YODA files
+	where all analysis objects are stored in two version. One is
+	prefixed by "/RAW" and gives the state of the object before
+	finalize was run, and the other is the properly finalized object.
+	Analyses must be flagged "Reentrant: True" in the .info file to
+	properly use this feature.
+
+	* Added an option system. Analyses can now be added to rivet with
+	options. Adding eg. "MyAnalysis:Opt1=val1:Opt2=val2" will create
+	and add a MyAnalysis object making the options available through
+	the Analysis::getOption() function. Several objects of MyAnalysis
+	with different options can be added in the same run. Allowed
+	options must be specified in the MyAnalysis.info file.
+
+	* Added several utilities for heavy ions.
+
 2018-09-20  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Use updated ATLAS R2 muon efficiencies.
