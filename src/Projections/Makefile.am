@@ -10,6 +10,7 @@ libRivetProjections_la_SOURCES = \
   DISLepton.cc \
   DressedLeptons.cc \
   FastJets.cc \
+  PxConePlugin.cc \
   FinalPartons.cc \
   FinalState.cc \
   FParameter.cc \
