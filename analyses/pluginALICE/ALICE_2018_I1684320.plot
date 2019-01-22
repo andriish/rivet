@@ -40,13 +40,13 @@ XLabel=$\langle \frac{dN}{d\eta} \rangle_{|\eta| = 0}$
 YLabel=$\langle p_\perp \rangle$
 LogY=0
 # END PLOT
-# BEGIN PLOT /ALICE_2018_I1684320/d07-x01-y01
+# BEGIN PLOT /ALICE_2018_I1684320/d08-x01-y01
 Title=Average $p_\perp(N_{ch})$ for $\Xi^- + \bar{\Xi}^+$
 XLabel=$\langle \frac{dN}{d\eta} \rangle_{|\eta| = 0}$
 YLabel=$\langle p_\perp \rangle$
 LogY=0
 # END PLOT
-# BEGIN PLOT /ALICE_2018_I1684320/d08-x01-y01
+# BEGIN PLOT /ALICE_2018_I1684320/d09-x01-y01
 Title=Average $p_\perp(N_{ch})$ for $\Omega^- + \bar{\Omega}^+$
 XLabel=$\langle \frac{dN}{d\eta} \rangle_{|\eta| = 0}$
 YLabel=$\langle p_\perp \rangle$
@@ -64,6 +64,11 @@ YLabel=$dN/dy$
 # END PLOT
 # BEGIN PLOT /ALICE_2018_I1684320/d03-x02-y01
 Title=$K^*(892) + \bar{K}^*(892)$ integrated yield
+XLabel=$\langle \frac{dN}{d\eta} \rangle_{|\eta| = 0}$
+YLabel=$dN/dy$
+# END PLOT
+# BEGIN PLOT /ALICE_2018_I1684320/d04-x02-y01
+Title=$\phi$ integrated yield
 XLabel=$\langle \frac{dN}{d\eta} \rangle_{|\eta| = 0}$
 YLabel=$dN/dy$
 # END PLOT

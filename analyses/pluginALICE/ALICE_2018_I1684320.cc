@@ -13,9 +13,7 @@ namespace Rivet {
 	: Rivet::PrimaryParticles({},c) {}
       
       virtual int compare(const Projection& p) const {
-	const PrimaryResonances* o = dynamic_cast<const PrimaryResonances*>(&p);
-	if (_cuts != o->_cuts) return UNDEFINED;
-	return mkPCmp(*o,"PrimaryResonances");
+	return UNDEFINED;
       }
       
       virtual std::unique_ptr<Rivet::Projection> clone() const {
@@ -103,10 +101,12 @@ namespace Rivet {
       phiYield = bookProfile1D(4,2,1);
       piRebinnedK = shared_ptr<YODA::Profile1D>(kstarYield->newclone());
       piRebinnedK->setTitle("piRebinnedK");
+      piRebinnedK->setPath("/" + name() + "/piRebinnedK");
       addAnalysisObject(piRebinnedK);
 
       piRebinnedP = shared_ptr<YODA::Profile1D>(phiYield->newclone());
       piRebinnedP->setTitle("piRebinnedP");
+      piRebinnedP->setPath("/" + name() + "/piRebinnedP");
       addAnalysisObject(piRebinnedP);
     }
 
@@ -160,12 +160,12 @@ namespace Rivet {
 	}
       }
       // Fill the profiles of yields.
-      piYield->fillBin(index, double(npi), weight);
-      kpmYield->fillBin(index, double(nkpm), weight);
-      kstarYield->fillBin(indexPhi, double(nkstar), weight);
-      phiYield->fillBin(indexPhi, double(nphi), weight);
-      piRebinnedK->fillBin(indexPhi,double(npi),weight);
-      piRebinnedP->fillBin(indexPhi,double(npi),weight);
+      piYield->fillBin(index, double(npi)/2., weight);
+      kpmYield->fillBin(index, double(nkpm)/2., weight);
+      kstarYield->fillBin(indexPhi, double(nkstar)/2., weight);
+      phiYield->fillBin(indexPhi, 2.*double(nphi), weight);
+      piRebinnedK->fillBin(indexPhi,double(npi)/2.,weight);
+      piRebinnedP->fillBin(indexPhi,double(npi)/2.,weight);
     
     }
 
