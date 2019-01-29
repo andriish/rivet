@@ -22,7 +22,8 @@ Description:
    protons and pions (yields only) in forward multiplicity classes at 7 TeV.
    Ratios of yields to pion yields are constructed. The analysis takes care
    of particle reconstruction as the experiment does, so no finite lifetime
-   should be imposed on generator level.'
+   should be imposed on generator level. Experimental results are scaled to
+   inelastic cross section, and generator setup should be adjusted accordingly.'
 Keywords: [QCD, Minimum bias, collectivity, small systems]
 BibKey: ALICE:2017jyt
 BibTeX: '@article{ALICE:2017jyt,

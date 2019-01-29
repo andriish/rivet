@@ -1,12 +1,13 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/CentralityProjection.hh"
 #include "Rivet/Projections/AliceCommon.hh"
 #include "Rivet/Tools/AliceCommon.hh"
 namespace Rivet {
 
 
-  /// @brief Strangeness enhancement in pp 7 TeV
+  /// @brief Strangeness enhancement in pp 7 TeV by ALICE.
   class ALICE_2016_I1471838 : public Analysis {
   public:
 
@@ -31,7 +32,7 @@ namespace Rivet {
       declareCentrality(ALICE::V0MMultiplicity(), 
         "ALICE_2015_PPCentrality","V0M","V0M");
       // Central primary particles
-      declare(ALICE::PrimaryParticles(Cuts::abseta < 0.5),"PP");
+      declare(ChargedFinalState(Cuts::abseta < 1.0),"PP");
       declare(ALICE::PrimaryParticles(Cuts::absrap < 0.5),"PPy");
       centralityBins = {1.,5.,10.,15.,20., 30., 40., 50., 70., 100.};
       centralityBinsOmega = {5.,15.,30.,50.,100.};
@@ -62,7 +63,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      if (apply<ALICE::PrimaryParticles>(event,"PP").particles().size() < 1) vetoEvent;
+      if (apply<ChargedFinalState>(event,"PP").particles().size() < 1) vetoEvent;
       const ALICE::PrimaryParticles& prim = apply<ALICE::PrimaryParticles>(event,"PPy");
       const double weight = event.weight();
       const CentralityProjection& cent = apply<CentralityProjection>(event,"V0M");
@@ -130,7 +131,7 @@ namespace Rivet {
         LambdapT[centralityBins[i]]->scaleW(1./sow[centralityBins[i]]->sumW());
       }
       for (int i = 0; i < 5; ++i) {
-	OmegapT[centralityBinsOmega[i]]->scaleW(1./sow[centralityBinsOmega[i]]->sumW());
+	OmegapT[centralityBinsOmega[i]]->scaleW(1./sowOmega[centralityBinsOmega[i]]->sumW());
       }
       // Make the ratios
       kpi = bookScatter2D(36, 1, 1, true);
