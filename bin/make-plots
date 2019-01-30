@@ -1520,7 +1520,8 @@ class ColorScale(Described):
         zcustommajortickmarks = self.attr_int('ZMajorTickMarks', -1)
         zcustomminortickmarks = self.attr_int('ZMinorTickMarks', -1)
 
-        zcustommajorticks = zcustomminorticks = None
+        zcustommajorticks = []
+        zcustomminorticks = []
         if self.attr('ZCustomMajorTicks'):
             zcustommajorticks = []
             z_label_pairs = self.attr('ZCustomMajorTicks').strip().split() #'\t')
@@ -3083,14 +3084,14 @@ class YTicks(Ticks):
 class ZTicks(Ticks):
 
     def __init__(self, description, coors):
+        self.description = description
         self.majorticklinewidth = '0.3pt'
         self.minorticklinewidth = '0.3pt'
         self.majorticklength    = '6pt'
         self.minorticklength    = '2.6pt'
-        self.description = description
         self.coors = coors
 
-    def draw(self, custommajorticks=None, customminorticks=None, custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True):
+    def draw(self, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True):
         out = ""
         out += ('\n%\n% Z-Ticks\n%\n')
         out += ('\\def\\majortickmarkz{\\psline[linewidth='+self.majorticklinewidth+',linecolor='+self.majorticklinecolor+'](0,0)('+self.majorticklength+',0)}%\n')
