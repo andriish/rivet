@@ -9,12 +9,6 @@
 
 namespace Rivet {
   /// @brief Centrality projection for STAR AuAu.
-  /// Should be but in a different file, and a separate analysis along with
-  /// it when finished, just as the pPb multiplicity analysis.
-  /// A skeleton is written below, but without any data to compare to. 
-  /// There should be a BES multiplicity paper somewhere, that this could
-  /// be validated against.
-
   class CentralMultiplicityCentrality : public SingleValueProjection {
   
   public:
@@ -154,16 +148,16 @@ private:
       if (particles.size() < 2) return;
       // The centrality projection
       const CentralityProjection& cent = apply<CentralityProjection>(event,"CMULT");
-      double c = cent();
+      const double c = cent();
       // Find the correct histogram to fill.
       auto hItr = h_v32.upper_bound(c);
       if (hItr == h_v32.end()) return;
       for(int i = 0, N = particles.size(); i < N; ++i){
         for(int j = i + 1; j < N; ++j){
-          double eta1 = particles[i].eta();
-	  double eta2 = particles[j].eta();
+          const double eta1 = particles[i].eta();
+	  const double eta2 = particles[j].eta();
 	  if(eta1 * eta2 < 0){
-            double deltaPhi = abs(particles[i].phi() - particles[j].phi());
+            const double deltaPhi = abs(particles[i].phi() - particles[j].phi());
             // Fill profile with v_2(2)^2 from eq. (1) in the paper.
 	    hItr->second->fill(abs(eta1 - eta2), cos(3.*deltaPhi),  weight);
           }
