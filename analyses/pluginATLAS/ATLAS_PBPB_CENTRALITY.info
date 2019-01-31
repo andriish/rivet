@@ -1,5 +1,5 @@
 Name: ATLAS_PBPB_CENTRALITY
-Summary: 
+Summary: Centrality calibration / forward energy flow Pb--Pb.
 Status: UNVALIDATED
 Authors:
  - Christian Bierlich <christian.bierlich@thep.lu.se>
@@ -13,6 +13,8 @@ Description:
    is $\sum E_\perp$ in the forward and backward directions.
    The reference YODA file contains the experimental 
    centrality calibration, but extracted from the plot in the paper.
+   Analysis can be run for all energies to provide generator calibration
+   curves, but only holds data for 2.76 TeV/nn.
    Note that this has not been unfolded for detector effects.'
 
 BibKey: ATLAS:2001ah

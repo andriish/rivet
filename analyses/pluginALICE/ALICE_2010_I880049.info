@@ -5,7 +5,7 @@ Experiment: ALICE
 Collider: LHC
 SpireID: 032301
 InspireID: 880049
-Status: NEW
+Status: UNVALIDATED
 Authors:
 References:
  - arXiv:1012.1657 [nucl-ex]

@@ -4,7 +4,7 @@ Year: 2018
 Summary: ALICE centrality calibration for Pb-Pb at 5.02TeV
 Experiment: ALICE
 Collider: LHC
-Status: NEW
+Status: UNVALIDATED
 Authors:
  - Christian Holm Christensen <cholm@nbi.dk>
 RunInfo: Pb-Pb at sqrt(sNN)=5.02TeV
