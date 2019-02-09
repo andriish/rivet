@@ -106,277 +106,282 @@ YLabel=$\frac{1}{N_{\rm ev}}\frac{1}{2\pi p_{\rm T}}\frac{{\rm d}^2N}{{\rm d}p_{
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d06-x01-y01
-Title=$K_{\rm S}^0$ pT-differential yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 40-60\%
+Title=$K_{\rm S}^0 p_\perp$, p-Pb,$\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$ mult. class 40-60\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\frac{1}{N_{\rm ev}}\frac{1}{2\pi p_{\rm T}}\frac{{\rm d}^2N}{{\rm d}p_{\rm T}{\rm d}y} $ [(GeV/$c$)$^{-2}$]
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d06-x01-y02
-Title=$K_{\rm S}^0$ pT-differential yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 60-80\%
+Title=$K_{\rm S}^0 p_\perp$, p-Pb,$\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$ mult. class 60-80\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\frac{1}{N_{\rm ev}}\frac{1}{2\pi p_{\rm T}}\frac{{\rm d}^2N}{{\rm d}p_{\rm T}{\rm d}y} $ [(GeV/$c$)$^{-2}$]
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d06-x01-y03
-Title=$K_{\rm S}^0$ pT-differential yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 80-100\%
+Title=$K_{\rm S}^0 p_\perp$, p-Pb,$\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$ mult. class 80-100\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\frac{1}{N_{\rm ev}}\frac{1}{2\pi p_{\rm T}}\frac{{\rm d}^2N}{{\rm d}p_{\rm T}{\rm d}y} $ [(GeV/$c$)$^{-2}$]
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d07-x01-y01
-Title=$p+\bar{p}$ pT-differential yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 0-5\%
+Title=$p+\bar{p} p_\perp$, p-Pb,$\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$ mult. class 0-5\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\frac{1}{N_{\rm ev}}\frac{1}{2\pi p_{\rm T}}\frac{{\rm d}^2N}{{\rm d}p_{\rm T}{\rm d}y} $ [(GeV/$c$)$^{-2}$]
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d07-x01-y02
-Title=$p+\bar{p}$ pT-differential yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 5-10\%
+Title=$p+\bar{p} p_\perp$, p-Pb,$\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$ mult. class 5-10\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\frac{1}{N_{\rm ev}}\frac{1}{2\pi p_{\rm T}}\frac{{\rm d}^2N}{{\rm d}p_{\rm T}{\rm d}y} $ [(GeV/$c$)$^{-2}$]
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d07-x01-y03
-Title=$p+\bar{p}$ pT-differential yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 10-20\%
+Title=$p+\bar{p} p_\perp$, p-Pb,$\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$ mult. class 10-20\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\frac{1}{N_{\rm ev}}\frac{1}{2\pi p_{\rm T}}\frac{{\rm d}^2N}{{\rm d}p_{\rm T}{\rm d}y} $ [(GeV/$c$)$^{-2}$]
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d07-x01-y04
-Title=$p+\bar{p}$ pT-differential yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 20-40\%
+Title=$p+\bar{p} p_\perp$, p-Pb,$\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$ mult. class 20-40\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\frac{1}{N_{\rm ev}}\frac{1}{2\pi p_{\rm T}}\frac{{\rm d}^2N}{{\rm d}p_{\rm T}{\rm d}y} $ [(GeV/$c$)$^{-2}$]
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d08-x01-y01
-Title=$p+\bar{p}$ pT-differential yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 40-60\%
+Title=$p+\bar{p} p_\perp$, p-Pb,$\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$ mult. class 40-60\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\frac{1}{N_{\rm ev}}\frac{1}{2\pi p_{\rm T}}\frac{{\rm d}^2N}{{\rm d}p_{\rm T}{\rm d}y} $ [(GeV/$c$)$^{-2}$]
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d08-x01-y02
-Title=$p+\bar{p}$ pT-differential yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 60-80\%
+Title=$p+\bar{p} p_\perp$, p-Pb,$\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$ mult. class 60-80\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\frac{1}{N_{\rm ev}}\frac{1}{2\pi p_{\rm T}}\frac{{\rm d}^2N}{{\rm d}p_{\rm T}{\rm d}y} $ [(GeV/$c$)$^{-2}$]
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d08-x01-y03
-Title=$p+\bar{p}$ pT-differential yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 80-100\%
+Title=$p+\bar{p} p_\perp$, p-Pb,$\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$ mult. class 80-100\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\frac{1}{N_{\rm ev}}\frac{1}{2\pi p_{\rm T}}\frac{{\rm d}^2N}{{\rm d}p_{\rm T}{\rm d}y} $ [(GeV/$c$)$^{-2}$]
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d09-x01-y01
-Title=$\Lambda+\bar{\Lambda}$ pT-differential yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 0-5\%
+Title=$\Lambda+\bar{\Lambda} p_\perp$, p-Pb,$\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$ mult. class 0-5\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\frac{1}{N_{\rm ev}}\frac{1}{2\pi p_{\rm T}}\frac{{\rm d}^2N}{{\rm d}p_{\rm T}{\rm d}y} $ [(GeV/$c$)$^{-2}$]
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d09-x01-y02
-Title=$\Lambda+\bar{\Lambda}$ pT-differential yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 5-10\%
+Title=$\Lambda+\bar{\Lambda} p_\perp$, p-Pb,$\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$ mult. class 5-10\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\frac{1}{N_{\rm ev}}\frac{1}{2\pi p_{\rm T}}\frac{{\rm d}^2N}{{\rm d}p_{\rm T}{\rm d}y} $ [(GeV/$c$)$^{-2}$]
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d09-x01-y03
-Title=$\Lambda+\bar{\Lambda}$ pT-differential yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 10-20\%
+Title=$\Lambda+\bar{\Lambda} p_\perp$, p-Pb,$\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$ mult. class 10-20\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\frac{1}{N_{\rm ev}}\frac{1}{2\pi p_{\rm T}}\frac{{\rm d}^2N}{{\rm d}p_{\rm T}{\rm d}y} $ [(GeV/$c$)$^{-2}$]
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d09-x01-y04
-Title=$\Lambda+\bar{\Lambda}$ pT-differential yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 20-40\%
+Title=$\Lambda+\bar{\Lambda} p_\perp$, p-Pb,$\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$ mult. class 20-40\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\frac{1}{N_{\rm ev}}\frac{1}{2\pi p_{\rm T}}\frac{{\rm d}^2N}{{\rm d}p_{\rm T}{\rm d}y} $ [(GeV/$c$)$^{-2}$]
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d10-x01-y01
-Title=$\Lambda+\bar{\Lambda}$ pT-differential yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 40-60\%
+Title=$\Lambda+\bar{\Lambda} p_\perp$, p-Pb,$\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$ mult. class 40-60\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\frac{1}{N_{\rm ev}}\frac{1}{2\pi p_{\rm T}}\frac{{\rm d}^2N}{{\rm d}p_{\rm T}{\rm d}y} $ [(GeV/$c$)$^{-2}$]
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d10-x01-y02
-Title=$\Lambda+\bar{\Lambda}$ pT-differential yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 60-80\%
+Title=$\Lambda+\bar{\Lambda} p_\perp$, p-Pb,$\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$ mult. class 60-80\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\frac{1}{N_{\rm ev}}\frac{1}{2\pi p_{\rm T}}\frac{{\rm d}^2N}{{\rm d}p_{\rm T}{\rm d}y} $ [(GeV/$c$)$^{-2}$]
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d10-x01-y03
-Title=$\Lambda+\bar{\Lambda}$ pT-differential yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 80-100\%
+Title=$\Lambda+\bar{\Lambda} p_\perp$, p-Pb,$\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$ mult. class 80-100\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\frac{1}{N_{\rm ev}}\frac{1}{2\pi p_{\rm T}}\frac{{\rm d}^2N}{{\rm d}p_{\rm T}{\rm d}y} $ [(GeV/$c$)$^{-2}$]
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d11-x01-y01
-Title=$K/\pi$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 0-5\%
+Title=$K/\pi p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 0-5\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$(K^+ + K^-)/(\pi^+ + \pi^-)$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d11-x01-y02
-Title=$K/\pi$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 5-10\%
+Title=$K/\pi p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 5-10\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$(K^+ + K^-)/(\pi^+ + \pi^-)$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d11-x01-y03
-Title=$K/\pi$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 10-20\%
+Title=$K/\pi p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 10-20\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$(K^+ + K^-)/(\pi^+ + \pi^-)$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d11-x01-y04
-Title=$K/\pi$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 20-40\%
+Title=$K/\pi p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 20-40\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$(K^+ + K^-)/(\pi^+ + \pi^-)$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d12-x01-y01
-Title=$K/\pi$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 40-60\%
+Title=$K/\pi p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 40-60\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$(K^+ + K^-)/(\pi^+ + \pi^-)$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d12-x01-y02
-Title=$K/\pi$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 60-80\%
+Title=$K/\pi p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 60-80\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$(K^+ + K^-)/(\pi^+ + \pi^-)$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d12-x01-y03
-Title=$K/\pi$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 80-100\%
+Title=$K/\pi p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 80-100\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$(K^+ + K^-)/(\pi^+ + \pi^-)$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d13-x01-y01
-Title=$p/\pi$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 0-5\%
+Title=$p/\pi p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 0-5\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$(p + \bar{p})/(\pi^+ + \pi^-)$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d13-x01-y02
-Title=$p/\pi$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 5-10\%
+Title=$p/\pi p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 5-10\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$(p + \bar{p})/(\pi^+ + \pi^-)$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d13-x01-y03
-Title=$p/\pi$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 10-20\%
+Title=$p/\pi p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 10-20\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$(p + \bar{p})/(\pi^+ + \pi^-)$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d13-x01-y04
-Title=$p/\pi$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 20-40\%
+Title=$p/\pi p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 20-40\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$(p + \bar{p})/(\pi^+ + \pi^-)$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d14-x01-y01
-Title=$p/\pi$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 40-60\%
+Title=$p/\pi p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 40-60\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$(p + \bar{p})/(\pi^+ + \pi^-)$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d14-x01-y02
-Title=$p/\pi$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 60-80\%
+Title=$p/\pi p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 60-80\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$(p + \bar{p})/(\pi^+ + \pi^-)$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d14-x01-y03
-Title=$p/\pi$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 80-100\%
+Title=$p/\pi p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 80-100\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$(p + \bar{p})/(\pi^+ + \pi^-)$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d15-x01-y01
-Title=$\Lambda/K_{\rm S}^0$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 0-5\%
+Title=$\Lambda/K_{\rm S}^0 p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 0-5\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\Lambda/K_{\rm S}^0$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d15-x01-y02
-Title=$\Lambda/K_{\rm S}^0$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 5-10\%
+Title=$\Lambda/K_{\rm S}^0 p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 5-10\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\Lambda/K_{\rm S}^0$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d15-x01-y03
-Title=$\Lambda/K_{\rm S}^0$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 10-20\%
+Title=$\Lambda/K_{\rm S}^0 p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 10-20\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\Lambda/K_{\rm S}^0$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d15-x01-y04
-Title=$\Lambda/K_{\rm S}^0$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 20-40\%
+Title=$\Lambda/K_{\rm S}^0 p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 20-40\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\Lambda/K_{\rm S}^0$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d16-x01-y01
-Title=$\Lambda/K_{\rm S}^0$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 40-60\%
+Title=$\Lambda/K_{\rm S}^0 p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 40-60\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\Lambda/K_{\rm S}^0$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d16-x01-y02
-Title=$\Lambda/K_{\rm S}^0$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 60-80\%
+Title=$\Lambda/K_{\rm S}^0 p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 60-80\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\Lambda/K_{\rm S}^0$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d16-x01-y03
-Title=$\Lambda/K_{\rm S}^0$ ratio yield in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$ in multiplicity class 80-100\%
+Title=$\Lambda/K_{\rm S}^0 p_\perp$ ratio, p-Pb, $\sqrt{s} =  5.02$~TeV, $|y_{\rm CMS}| < 0.5$, mult. class 80-100\%
 XLabel=$p_{\rm T}$ (GeV/$c$)
 YLabel=$\Lambda/K_{\rm S}^0$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d17-x01-y01
-Title=Mean $p_{\rm T}$ of $\Lambda$ in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$
-XLabel=$\langle{\rm d}N_{\rm ch}/{\rm d}\eta_{\rm lab}\rangle_{|\eta_{rm lab} < 0.5} $
+Title=$\langle p_{\rm T} \rangle$ of $\Lambda$, p-Pb, $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$
+XLabel=Event class (\%)
 YLabel=$\langle p_{\rm T}\rangle$ (GeV/$c$)
+LogY=0
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d18-x01-y01
-Title=Mean $p_{\rm T}$ of $p$ in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$
-XLabel=$\langle{\rm d}N_{\rm ch}/{\rm d}\eta_{\rm lab}\rangle_{|\eta_{rm lab} < 0.5} $
+Title=$\langle p_{\rm T} \rangle$ of $p$, p-Pb, $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$
+XLabel=Event class (\%)
 YLabel=$\langle p_{\rm T}\rangle$ (GeV/$c$)
+LogY=0
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d19-x01-y01
-Title=Mean $p_{\rm T}$ of $K_{\rm S}^0$ in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$
-XLabel=$\langle{\rm d}N_{\rm ch}/{\rm d}\eta_{\rm lab}\rangle_{|\eta_{rm lab} < 0.5} $
+Title=$\langle p_{\rm T} \rangle$ of $K_{\rm S}^0$, p-Pb, $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$
+XLabel=Event class (\%)
 YLabel=$\langle p_{\rm T}\rangle$ (GeV/$c$)
+LogY=0
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d20-x01-y01
-Title=Mean $p_{\rm T}$ of $K^{\pm}$ in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$
-XLabel=$\langle{\rm d}N_{\rm ch}/{\rm d}\eta_{\rm lab}\rangle_{|\eta_{rm lab} < 0.5} $
+Title=$\langle p_{\rm T} \rangle$ of $K^{\pm}$, p-Pb, $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$
+XLabel=Event class (\%)
 YLabel=$\langle p_{\rm T}\rangle$ (GeV/$c$)
+LogY=0
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d21-x01-y01
-Title=Mean $p_{\rm T}$ of $\pi^{\pm}$ in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$
-XLabel=$\langle{\rm d}N_{\rm ch}/{\rm d}\eta_{\rm lab}\rangle_{|\eta_{rm lab} < 0.5} $
+Title=$\langle p_{\rm T} \rangle$ of $\pi^{\pm}$, p-Pb $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$
+XLabel=Event class (\%)
 YLabel=$\langle p_{\rm T}\rangle$ (GeV/$c$)
+LogY=0
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d22-x01-y01
-Title=Integrated production ratio for $K/\pi$ in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$
+Title=Integrated yield ratio $K/\pi$, p-Pb, $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$
 XLabel=Event class (\%)
 YLabel=$K/\pi$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d22-x01-y02
-Title=Integrated production ratio for $p/\pi$ in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$
+Title=Integrated yield ratio $p/\pi$, p-Pb, $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$
 XLabel=Event class (\%)
 YLabel=$p/\pi$
 END PLOT
 
 BEGIN PLOT /ALICE_2014_I1244523/d22-x01-y03
-Title=Integrated production ratio for $\Lambda/\pi$ in p-Pb collisions at $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$
+Title=Integrated yield ratio, $\Lambda/\pi$, p-Pb, $\sqrt{s} =  5.02$~TeV in $|y_{\rm CMS}| < 0.5$
 XLabel=Event class (\%)
 YLabel=$\Lambda/K_{\rm S}^0$
 END PLOT

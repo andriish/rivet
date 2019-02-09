@@ -22,10 +22,12 @@ Options:
 Beams: [2212,1000822080]
 Energies: [[4000,326560]]
 Description:
-  'This is an ALICE analysis where charged particle species have been measured
-   and plotted against the multiplicity of the corresponding proton-lead event.'
+  'Identified baryons and mesons plotted in invariant pT spectra as well as average pT and yield ratios.
+   The measurements are done in centrality classes, and one must apply centrality selection by
+   first running the ALICE pB centrality calibration analysis and preloading the produced histograms.
+   No generator level cut on particle life time should be applied.'
 BibKey:
-BibTeX: '@article{Abelev:2013haa,
+BibTeX: '@article{Abelev:2013haa, 
       author         = "Abelev, Betty Bezverkhny and others",
       title          = "{Multiplicity Dependence of Pion, Kaon, Proton and Lambda
                         Production in p-Pb Collisions at $\sqrt{s_{NN}}$ = 5.02
