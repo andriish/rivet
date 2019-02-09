@@ -138,10 +138,11 @@ public:
   /// @brief initialize for a new event. Select which AnalysisObjects
   /// should be filled for this event. Keeps track of the number of
   /// events seen for each centrality bin and AnalysisAbject.
-  void init(const Event & event) { 
+  bool init(const Event & event) { 
     selectBins(event);
     for (const auto bin : _activeBins)
       _histos[bin].second->fill(event.weight());
+    return !_activeBins.empty();
   }
 
   /// @brief Normalize each AnalysisObject
