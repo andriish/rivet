@@ -1,3 +1,7 @@
+2019-01-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add real CMS Run 1 and Run 2 MET resolution smearing functions, based on 8 TeV paper and 13 TeV PAS.
+
 2019-01-07  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* Reintroduced the PXCONE option in FastJets using a local version
@@ -27,6 +31,66 @@
 	options must be specified in the MyAnalysis.info file.
 
 	* Added several utilities for heavy ions.
+
+2019-01-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add setting of cross-section error in AnalysisHandler and Run.
+
+2018-12-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add hasNoTag jet-classification functor, to complement hasBTag and hasCTag.
+
+2018-12-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Rework VetoedFinalState to be based on Cuts, and to be constructible from Cut arguments.
+
+	* Pre-emptively exclude all hadrons and partons from returning true in isDirect computations.
+
+	* Cache the results of isDirect calculations on Particle (a bit awkwardly... roll on C++17).
+
+	* Add a default-FinalState version of the DressedLeptons constructor.
+
+2018-12-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a FIRST/LAST enum switch for PartonicTops, to choose which top quark clone to use.
+
+2018-12-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a FastJet clustering mode for DressedLeptons.
+
+2018-12-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Release 2.6.2
+
+	* Info file bugfixes for LHCF_2016_I1385877, from Eugenio Berti.
+
+	* Update references in three CMS analysis .info files.
+
+2018-12-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Rework doc directory no-build by default to be compatible with 'make dist' packaging.
+
+	* Add fjcontrib RecursiveTools to Rivet/Tools/fjcontrib set.
+
+2018-11-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add CMS_2018_I1653948, CMS_2018_I1653948, CMS_2018_I1682495, and CMS_2018_I1690148 analyses.
+
+	* Add FastJet EnergyCorrelator and rejig the internal fjcontrib bundle a little.
+
+2018-11-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Merge ATLAS_2017_I1517194_MU and ATLAS_2018_I1656578.
+
+	* Add signed calculation optional bool argument on all deltaPhi functions.
+
+2018-11-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix CMS_2012_I1102908 efficiency calculation. Thanks to Anton Karneyeu!
+
+2018-11-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Remove doc dir from default top-level make
 
 2018-09-20  Andy Buckley  <andy.buckley@cern.ch>
 

@@ -103,8 +103,7 @@ namespace Rivet {
     double crossSection() const { return _xs; }
 
     /// Set the cross-section for the process being generated.
-    /// @todo What about the xsec uncertainty? Add a second, optional argument?
-    AnalysisHandler& setCrossSection(double xs);
+    AnalysisHandler& setCrossSection(double xs, double xserr=0);
 
 
     /// Set the beam particles for this run

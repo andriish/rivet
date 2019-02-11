@@ -1,4 +1,4 @@
-FROM hepstore/rivet:2.6.1
+FROM hepstore/rivet:2.6.2
 MAINTAINER Andy Buckley <andy.buckley@cern.ch>
 
 RUN dnf install -y boost-devel
@@ -17,12 +17,12 @@ RUN cd /usr/local/share/LHAPDF/ && \
     done
 
 RUN cd /code && \
-    wget https://www.hepforge.org/archive/thepeg/ThePEG-2.1.3.tar.bz2 -O- | tar xj && \
+    wget https://www.hepforge.org/archive/thepeg/ThePEG-2.1.4.tar.bz2 -O- | tar xj && \
     cd ThePEG-*/ && ./configure --enable-shared --{prefix,with-{fastjet,hepmc,lhapdf,rivet}}=/usr/local && \
     make -j5 && make install
 
 RUN cd code/ && \
-    wget https://www.hepforge.org/archive/herwig/Herwig-7.1.3.tar.bz2 -O- | tar xj && \
+    wget https://www.hepforge.org/archive/herwig/Herwig-7.1.4.tar.bz2 -O- | tar xj && \
     cd Herwig-*/ && \
     ./configure --{prefix,with-{thepeg,fastjet}}=/usr/local && \
     make -j5 && make install
