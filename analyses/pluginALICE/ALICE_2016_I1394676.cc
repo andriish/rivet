@@ -36,7 +36,6 @@ namespace Rivet {
       
       // The centrality bins and the corresponding histograms and sow counters.
       centralityBins = { 40, 50, 60, 70, 80, 90 };
-      vector< std::tuple<int, int, int> > refData;
       for (int i = 0, N = centralityBins.size(); i < N; ++i) {
         histEta[centralityBins[i]] = bookHisto1D(1, 1, i + 1);
 	sow[centralityBins[i]] = bookCounter("sow_" + toString(i));
