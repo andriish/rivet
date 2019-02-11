@@ -12,10 +12,11 @@ namespace Rivet {
   public:
     
     /// Constructor
-    ATLAS_2017_I1514251(string name="ATLAS_2017_I1514251")
-      : Analysis(name)  {
+    ATLAS_2017_I1514251(const string name="ATLAS_2017_I1514251", size_t channel = 0,
+                        const string ref_data="ATLAS_2017_I1514251") : Analysis(name)  {
       // This class uses the combined e+mu mode
-      _mode = 0;
+      _mode = channel;
+      setRefDataName(ref_data);
     }
     
     /// Book histograms and initialise projections before the run
@@ -38,19 +39,19 @@ namespace Rivet {
       declare(jets, "jets");
       
       // individual channels
-      _h_Njets       = bookHisto1D(1, 1, _mode + 1);
-      _h_Njets_Ratio = bookScatter2D(1, 2, _mode + 1, true);
-      _h_Njets_excl  = bookHisto1D(1, 3, _mode + 1);
+      _h_Njets_excl  = bookHisto1D(  _mode + 1, 1, 1);
+      _h_Njets       = bookHisto1D(  _mode + 4, 1, 1);
+      _h_Njets_Ratio = bookScatter2D(_mode + 7, 1, 1, true);
 
-      _h_HT                    = bookHisto1D(1, 4, _mode + 1);
-      _h_leading_jet_rap       = bookHisto1D(1, 5, _mode + 1);
-      _h_leading_jet_pT_eq1jet = bookHisto1D(1, 6, _mode + 1);
-      _h_leading_jet_pT        = bookHisto1D(1, 7, _mode + 1);
-      _h_leading_jet_pT_2jet   = bookHisto1D(1, 8, _mode + 1);
-      _h_leading_jet_pT_3jet   = bookHisto1D(1, 9, _mode + 1);
-      _h_leading_jet_pT_4jet   = bookHisto1D(1, 10, _mode + 1);
-      _h_jet_dphi              = bookHisto1D(1, 11, _mode + 1);
-      _h_jet_mass              = bookHisto1D(1, 12, _mode + 1);
+      _h_leading_jet_pT_eq1jet = bookHisto1D(_mode + 10, 1, 1);
+      _h_leading_jet_pT        = bookHisto1D(_mode + 13, 1, 1);
+      _h_leading_jet_pT_2jet   = bookHisto1D(_mode + 16, 1, 1);
+      _h_leading_jet_pT_3jet   = bookHisto1D(_mode + 19, 1, 1);
+      _h_leading_jet_pT_4jet   = bookHisto1D(_mode + 22, 1, 1);
+      _h_leading_jet_rap       = bookHisto1D(_mode + 25, 1, 1);
+      _h_HT                    = bookHisto1D(_mode + 28, 1, 1);
+      _h_jet_dphi              = bookHisto1D(_mode + 31, 1, 1);
+      _h_jet_mass              = bookHisto1D(_mode + 34, 1, 1);
 
     }
     
@@ -175,24 +176,15 @@ namespace Rivet {
 
   class ATLAS_2017_I1514251_EL : public ATLAS_2017_I1514251 {
   public:
-    ATLAS_2017_I1514251_EL()
-      : ATLAS_2017_I1514251("ATLAS_2017_I1514251_EL")
-    {
-      _mode = 1;
-    }
+    ATLAS_2017_I1514251_EL() : ATLAS_2017_I1514251("ATLAS_2017_I1514251_EL", 1) { }
   };
 
 
 
   class ATLAS_2017_I1514251_MU : public ATLAS_2017_I1514251 {
   public:
-    ATLAS_2017_I1514251_MU()
-      : ATLAS_2017_I1514251("ATLAS_2017_I1514251_MU")
-    {
-      _mode = 2;
-    }
+    ATLAS_2017_I1514251_MU() : ATLAS_2017_I1514251("ATLAS_2017_I1514251_MU", 2) { }
   };
-
 
 
   DECLARE_RIVET_PLUGIN(ATLAS_2017_I1514251);

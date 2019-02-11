@@ -1,0 +1,48 @@
+Name: ALICE_2016_I1507157
+Year: 2016
+Summary: <Insert short ALICE_2016_I1507157 description>
+Experiment: ALICE
+Collider: LHC
+InspireID: 1507157
+Status: UNVALIDATED
+Authors:
+ - Your Name <your@email.address>
+#References:
+#- '<Example: Eur.Phys.J. C76 (2016) no.7, 392>'
+#- '<Example: DOI:10.1140/epjc/s10052-016-4184-8>'
+#- '<Example: arXiv:1605.03814>'
+RunInfo: <Describe event types, cuts, and other general generator config tips.>
+NeedCrossSection: no
+#Beams: <Insert beam pair(s), e.g. [p+, p+] or [[p-, e-], [p-, e+]]>
+#Energies: <Run energies or beam energy pairs in GeV, e.g. [13000] or [[8.0, 3.5]] or [630, 1800]. Order pairs to match "Beams">
+#Luminosity_fb: <Insert integrated luminosity, in inverse fb>
+Description:
+  '<A fairly long description, including what is measured
+  and if possible what it is useful for in terms of MC validation
+  and tuning. Use LaTeX for maths like $\pT > 50\;\GeV$.>'
+Keywords: []
+BibKey: Adam:2016iwf
+BibTeX: '%%% contains utf-8, see: http://inspirehep.net/info/faq/general#utf8
+%%% add \usepackage[utf8]{inputenc} to your latex preamble
+
+@article{Adam:2016iwf,
+      author         = "Adam, Jaroslav and others",
+      title          = "{Insight into particle production mechanisms via angular
+                        correlations of identified particles in pp collisions at
+                        $\sqrt{\mathrm{s}}=7$  TeV}",
+      collaboration  = "ALICE",
+      journal        = "Eur. Phys. J.",
+      volume         = "C77",
+      year           = "2017",
+      number         = "8",
+      pages          = "569",
+      doi            = "10.1140/epjc/s10052-017-5129-6",
+      eprint         = "1612.08975",
+      archivePrefix  = "arXiv",
+      primaryClass   = "nucl-ex",
+      reportNumber   = "CERN-EP-2016-322",
+      SLACcitation   = "%%CITATION = ARXIV:1612.08975;%%"
+}'
+ToDo:
+ - Implement the analysis, test it, remove this ToDo, and mark as VALIDATED :-)
+
