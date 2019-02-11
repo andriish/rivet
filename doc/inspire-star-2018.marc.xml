@@ -1,8 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 10 -->
+<!-- Search-Engine-Total-Number-Of-Results: 11 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record>
+  <controlfield tag="001">1700232</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2018qev</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1810.10159</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D18-kj45a</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1810.10159</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Measurements of Dielectron Production in Au$+$Au Collisions at $\sqrt{s_{NN}}$= 27, 39, and 62.4 GeV from the STAR Experiment</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
   <controlfield tag="001">1691271</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevD.98.091103</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Adam:2018wce</subfield>
@@ -21,7 +52,7 @@
     <subfield code="c">hep-ex</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
+    <subfield code="9">APS</subfield>
     <subfield code="a">Transverse spin transfer to $\Lambda$ and $\bar{\Lambda}$ hyperons in polarized proton-proton collisions at $\sqrt{s}=200\,\mathrm{GeV}$</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
@@ -108,7 +139,7 @@
     <subfield code="c">hep-ex</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
+    <subfield code="9">APS</subfield>
     <subfield code="a">Low-$p_T$ $e^{+}e^{-}$ pair production in Au$+$Au collisions at $\sqrt{s_{NN}}$ = 200 GeV and U$+$U collisions at $\sqrt{s_{NN}}$ = 193 GeV at STAR</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">

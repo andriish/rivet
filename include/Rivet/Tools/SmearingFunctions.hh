@@ -620,10 +620,11 @@ namespace Rivet {
   ///
   /// Based on https://arxiv.org/pdf/1108.5602v2.pdf, Figs 14 and 15
   inline Vector3 MET_SMEAR_ATLAS_RUN1(const Vector3& met, double set) {
-    // Linearity offset (Fig 14)
     Vector3 smeared_met = met;
-    if (met.mod()/GeV < 25*GeV) smeared_met *= 1.05;
-    else if (met.mod()/GeV < 40*GeV) smeared_met *= (1.05 - (0.04/15)*(met.mod()/GeV - 25)); //< linear decrease
+
+    // Linearity offset (Fig 14)
+    if (met.mod() < 25*GeV) smeared_met *= 1.05;
+    else if (met.mod() < 40*GeV) smeared_met *= (1.05 - (0.04/15)*(met.mod()/GeV - 25)); //< linear decrease
     else smeared_met *= 1.01;
 
     // Smear by a Gaussian with width given by the resolution(sumEt) ~ 0.45 sqrt(sumEt) GeV
@@ -641,15 +642,37 @@ namespace Rivet {
   }
 
   /// CMS Run 1 ETmiss smearing
-  /// @todo Just a copy of the ATLAS one: improve!!
+  /// From https://arxiv.org/pdf/1411.0511.pdf Table 2, p16 (Z channels)
   inline Vector3 MET_SMEAR_CMS_RUN1(const Vector3& met, double set) {
-    return MET_SMEAR_ATLAS_RUN1(met, set);
+    Vector3 smeared_met = met;
+
+    // Calculate parallel and perpendicular resolutions and combine in quadrature (?)
+    const double resolution_x = (1.1 + 0.6*sqrt(set/GeV)) * GeV;
+    const double resolution_y = (1.4 + 0.6*sqrt(set/GeV)) * GeV;
+    const double resolution = sqrt(sqr(resolution_x) + sqr(resolution_y));
+
+    // Smear by a Gaussian with width given by the resolution
+    const double metsmear = max(randnorm(smeared_met.mod(), resolution), 0.);
+    smeared_met = metsmear * smeared_met.unit();
+
+    return smeared_met;
   }
 
   /// CMS Run 2 ETmiss smearing
-  /// @todo Just a copy of the ATLAS one: improve!!
+  /// From http://inspirehep.net/record/1681214/files/JME-17-001-pas.pdf Table 3, p20
   inline Vector3 MET_SMEAR_CMS_RUN2(const Vector3& met, double set) {
-    return MET_SMEAR_ATLAS_RUN2(met, set);
+    Vector3 smeared_met = met;
+
+    // Calculate parallel and perpendicular resolutions and combine in quadrature (?)
+    const double resolution_para = ( 2.0 + 0.64*sqrt(set/GeV)) * GeV;
+    const double resolution_perp = (-1.5 + 0.68*sqrt(set/GeV)) * GeV;
+    const double resolution = sqrt(sqr(resolution_para) + sqr(resolution_perp));
+
+    // Smear by a Gaussian with width given by the resolution
+    const double metsmear = max(randnorm(smeared_met.mod(), resolution), 0.);
+    smeared_met = metsmear * smeared_met.unit();
+
+    return smeared_met;
   }
 
   //@}

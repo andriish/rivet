@@ -1,4 +1,4 @@
-SUBDIRS = Nsubjettiness
+SUBDIRS = fjcontrib
 
 noinst_LTLIBRARIES = libRivetTools.la
 
@@ -21,3 +21,8 @@ libRivetTools_la_SOURCES = \
 dist_noinst_HEADERS = binreloc.h lester_mt2_bisect.hh
 
 libRivetTools_la_CPPFLAGS = $(AM_CPPFLAGS) -DENABLE_BINRELOC -DDEFAULTDATADIR=\"$(datadir)\" -DDEFAULTLIBDIR=\"$(libdir)\"
+
+libRivetTools_la_LIBADD = \
+  fjcontrib/EnergyCorrelator/libRivetEnergyCorrelator.la \
+  fjcontrib/Nsubjettiness/libRivetNsubjettiness.la \
+  fjcontrib/RecursiveTools/libRivetRecursiveTools.la

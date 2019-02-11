@@ -1,6 +1,181 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 23 -->
+<!-- Search-Engine-Total-Number-Of-Results: 28 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <controlfield tag="001">1705069</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Li:2018qak</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1811.09738</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1811.09738</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">Belle Preprint # 2018-25</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">KEK Preprint #: 2018-76</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">First measurements of absolute branching fractions of $\Xi_c^0$ at Belle</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">Belle</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1701180</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Gelb:2018end</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1810.12976</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-01922050</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D18-kj45o</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1810.12976</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Search for the rare decay of $B^+ \to \ell^{\,+} \nu_{\ell} \gamma$ with improved hadronic tagging</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">Belle</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1700174</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevD.98.092015</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Jia:2018xsy</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1810.10291</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-01914509</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D18-kj44w</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1810.10291</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">Belle Preprint # 2018-22</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">KEK Preprint # 2018-55</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">APS</subfield>
+    <subfield code="a">Observation of $e^+e^- \to \gamma \chi_{c1}$ and search for $e^+e^- \to \gamma \chi_{c0}, \gamma \chi_{c2},$ and $\gamma\eta_c$ at $\sqrt{s}$ near 10.6 GeV at Belle</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">Belle</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1698419</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Kim:2018mtf</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1810.06457</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-01909239</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D18-kj43u</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1810.06457</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">Belle Preprint 2018-23</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">KEK Preprint 2018-66</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Search for $CP$ violation with Kinematic Asymmetries in the $D^{0}\rightarrow K^{+}K^{-}\pi^{+}\pi^{-}$ Decay</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">Belle</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1698390</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1810.06181</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Sumihama:2018moz</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-01909236</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D18-kj43u</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1810.06181</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Observation of $\Xi(1620)^0$ and evidence for $\Xi(1690)^0$ in $\Xi_c^+ \rightarrow \Xi^-\pi^+\pi^+$ decays</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">Belle</subfield>
+  </datafield>
+</record>
 <record>
   <controlfield tag="001">1697367</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -8,8 +183,16 @@
     <subfield code="a">oai:arXiv.org:1810.03336</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Yusa:2018hmz</subfield>
     <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Yusa:2018hmz</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-01902945</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D18-kj42o</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -31,8 +214,12 @@
     <subfield code="a">oai:arXiv.org:1810.01356</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Pal:2018olx</subfield>
     <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Pal:2018olx</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D18-kj41t</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -73,6 +260,10 @@
     <subfield code="a">hal-01886168</subfield>
     <subfield code="9">HAL</subfield>
   </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D18-kj43u</subfield>
+  </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
     <subfield code="a">arXiv:1809.05222</subfield>
@@ -105,8 +296,8 @@
     <subfield code="a">oai:arXiv.org:1809.03290</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">hal-01880835</subfield>
     <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-01880835</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">DESY</subfield>
@@ -138,6 +329,14 @@
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">DESY</subfield>
     <subfield code="z">D18-kj37q</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2644278</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-01902963</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -189,6 +388,10 @@
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="a">hal-01863145</subfield>
     <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D18-kj35f</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -253,8 +456,8 @@
     <subfield code="z">D18-kj32j</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">hal-01881040</subfield>
     <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-01881040</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -310,6 +513,12 @@
 </record>
 <record>
   <controlfield tag="001">1681440</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevD.98.071101</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Sandilya:2018pop</subfield>
@@ -319,12 +528,30 @@
     <subfield code="a">oai:arXiv.org:1807.03267</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">hal-01846610</subfield>
-    <subfield code="9">HAL</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">DESY</subfield>
     <subfield code="z">D18-kj29p</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-01846610</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1807.03267</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">Belle Preprint 2018-11</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">KEK Preprint 2018-17</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">University of
+  Cincinnati preprint number UCHEP-18-03</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="a">BELLE-PREPRINT-2018-11</subfield>
@@ -336,16 +563,11 @@
     <subfield code="a">UCHEP-18-03</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">arXiv:1807.03267</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="a">UNIVERSITY-OF --CINCINNATI-PREPRINT-NUMBER-UCHEP-18-03</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">Search for the Lepton-Flavor-Violating Decay $B^{0}\to K^{\ast 0} \mu^{\pm} e^{\mp}$</subfield>
+    <subfield code="9">APS</subfield>
+    <subfield code="a">Search for the lepton-flavor-violating decay $B^{0}\to K^{\ast 0} \mu^{\pm} e^{\mp}$</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">Belle</subfield>
@@ -353,6 +575,11 @@
 </record>
 <record>
   <controlfield tag="001">1680647</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.1103/PhysRevLett.121.232001</subfield>
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Fulsom:2018hpf</subfield>
@@ -393,6 +620,12 @@
 </record>
 <record>
   <controlfield tag="001">1679584</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1140/epjc/s10052-018-6425-5</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Li:2018fmq</subfield>
@@ -402,17 +635,21 @@
     <subfield code="a">oai:arXiv.org:1806.09182</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">hal-01833787</subfield>
-    <subfield code="9">HAL</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">DESY</subfield>
     <subfield code="z">D18-kj27p</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-01833787</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
     <subfield code="a">arXiv:1806.09182</subfield>
     <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">Belle Preprint # 2018-10; KEK Preprint # 2018-16</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="a">BELLE-PREPRINT-2018-10</subfield>
@@ -421,8 +658,8 @@
     <subfield code="a">KEK-PREPRINT-2018-16</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">Evidence of charged $\Xi_{c}(2930)$ and updated measurement of $B^{0} \to K^{0} \Lambda_{c}^{+} \bar{\Lambda}_{c}^{-}$ at Belle</subfield>
+    <subfield code="9">Springer</subfield>
+    <subfield code="a">Evidence of a structure in $\bar{K}^{0} \Lambda _{c}^{+}$ consistent with a charged $\Xi _c(2930)^{+}$ , and updated measurement of $\bar{B}^{0} \rightarrow \bar{K}^{0} \Lambda _{c}^{+} \bar{\Lambda }_{c}^{-}$ at Belle</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">Belle</subfield>
@@ -430,6 +667,16 @@
 </record>
 <record>
   <controlfield tag="001">1678261</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevD.98.091102</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevD.98.091102</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Yin:2018ojs</subfield>
@@ -439,12 +686,12 @@
     <subfield code="a">oai:arXiv.org:1806.06203</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">hal-01833721</subfield>
-    <subfield code="9">HAL</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">DESY</subfield>
     <subfield code="z">D18-kj26s</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-01833721</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -452,8 +699,8 @@
     <subfield code="c">hep-ex</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">Observation of $e^+e^-\to\pi^+\pi^-\pi^0\chi_{b1,2}(1P)$ and search for $e^+e^-\to\phi\chi_{b1,2}(1P)$ at $\sqrt{s}=$10.96---11.05 GeV</subfield>
+    <subfield code="9">APS</subfield>
+    <subfield code="a">Observation of $e^+e^-\to\pi^+\pi^-\pi^0\chi_{b1,2}(1P)$ and search for $e^+e^-\to\phi\chi_{b1,2}(1P)$ at $\sqrt{s}=$ 10.96—11.05  GeV</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">Belle</subfield>
@@ -519,6 +766,12 @@
   <datafield tag="024" ind1="7" ind2=" ">
     <subfield code="2">DOI</subfield>
     <subfield code="a">10.1103/PhysRevD.98.072001</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevD.98.072001</subfield>
+    <subfield code="q">publication</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
