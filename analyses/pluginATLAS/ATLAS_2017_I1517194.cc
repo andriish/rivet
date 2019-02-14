@@ -15,19 +15,18 @@ namespace Rivet {
 
     /// Constructor
     ///@brief: Electroweak Wjj production at 8 TeV
-    ATLAS_2017_I1517194(string name="ATLAS_2017_I1517194", size_t mode = 0,
-                        string ref_data="ATLAS_2017_I1517194") : Analysis(name) {
-      _mode = mode; // default is electron channel
-      //setRefDataName(ref_data);
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2017_I1517194);
     //@}
-
-
 
     /// @name Analysis methods
     //@{
     /// Book histograms and initialise projections before the run
     void init() {
+
+      // Get options from the new option system
+      _mode = 0;
+      if ( getOption("LMODE") == "EL" ) _mode = 0;
+      if ( getOption("LMODE") == "MU" ) _mode = 1;
 
       const FinalState fs;
       // W Selection
@@ -224,19 +223,8 @@ namespace Rivet {
   };
 
 
-  struct ATLAS_2017_I1517194_EL : public ATLAS_2017_I1517194 {
-    ATLAS_2017_I1517194_EL() : ATLAS_2017_I1517194("ATLAS_2017_I1517194_EL", 0) { }
-  };
-
-  struct ATLAS_2017_I1517194_MU : public ATLAS_2017_I1517194 {
-    ATLAS_2017_I1517194_MU() : ATLAS_2017_I1517194("ATLAS_2017_I1517194_MU", 1) { }
-  };
-
-
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2017_I1517194);
-  DECLARE_RIVET_PLUGIN(ATLAS_2017_I1517194_EL);
-  DECLARE_RIVET_PLUGIN(ATLAS_2017_I1517194_MU);
 
 
 }
