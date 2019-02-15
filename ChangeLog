@@ -1,3 +1,7 @@
+2019-02-15  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* Release 2.7.0
+
 2019-02-12  Christian Bierlich  <christian.bierlich@thep.lu.se>
 
 	* Introduced CentralityProjection, allowing an analysis to cut
@@ -6,7 +10,7 @@
 	used for the centrality definition in heavy ion analyses.
 	User specifies the centrality definition as a special analysis
 	option called cent, eg: "MyAnalysis:cent=GEN".
-	Example usage: Calibration analysis: MC_Cent_pPb_Calib, 
+	Example usage: Calibration analysis: MC_Cent_pPb_Calib,
 	Analysis using that calibration: MC_Cent_pPb_Eta.
 
 	* Introduced EventMixingFinalState to provide simple event mixing
@@ -31,8 +35,8 @@
 	ALICE_2010_I880049: Multiplicity at mid-rapidity, PbPb @ 2.76 TeV/nn.
 	ALICE_2012_I1127497: Nuclear modification factor, PbPb @ 2.76 TeV/nn.
 	ALICE_2012_I930312: Di-hadron correlations, PbPb @ 2.76 TeV/nn.
-	
-	* Contributed, unvalidated analyses using above features: 
+
+	* Contributed, unvalidated analyses using above features:
 	BRAHMS_2004_I647076: pi, K, p spectra as function of rapidity,
 	AuAu @ 200 GeV/nn
 	ALICE_2012_I1126966: pi, K, p spectra, PbPb @ 2.76 TeV/nn.
@@ -41,7 +45,7 @@
 	ALICE_2014_I1244523: Multi-strange baryons, pPb @ 5.02 TeV/nn.
 	ALICE_2015_PBPBCentrality: Centrality calibration for PbPb. Note
 	that the included 5.02 TeV/nn data is not well defined at particle
-	level, and cannot be compared to experiment without full detector 
+	level, and cannot be compared to experiment without full detector
 	simulation.
 	ALICE_2016_I1394676: Charged multiplicity, PbPb @ 2.76 TeV/nn.
 	ALICE_2016_I1419244: Multiparticle correlations (flow) using generic
@@ -69,7 +73,7 @@
 	STAR_BES_CALIB: STAR centrality calibration.
 	MC_Cent_pPb_Calib: Example analysis, centrality calibration.
 	MC_Cent_pPb_Eta: Example analysis, centrality usage.
-	
+
 2019-01-29  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add real CMS Run 1 and Run 2 MET resolution smearing functions, based on 8 TeV paper and 13 TeV PAS.
