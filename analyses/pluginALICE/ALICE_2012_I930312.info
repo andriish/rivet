@@ -5,8 +5,11 @@ Experiment: ALICE
 Collider: LHC
 SpireID: 
 InspireID: 930312
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
+ - Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
+ - Jan Fiete Grosse-Oetringhaus <Jan.Fiete.Grosse-Oetringhaus@cern.ch>
+ - Jochen Klein <Jochen.Klein@cern.ch>
 References:
  - arXiv:1110.0121 [nucl-ex]
 RunInfo:
@@ -17,7 +20,7 @@ Beams: [[p, p], [1000822080, 1000822080]]
 # This is _total_ energy of beams, so this becomes 208*2760=574080
 Energies: [2760, 574080]
 Description:
-  'The yield of charged particles associated with high-pT trigger particles ($8 < p_{\perp} < 15$ GeV/c) is measured with the ALICE detector in Pb-Pb collisions at $\sqrt{s_{NN}} = 2.76$ TeV relative to proton-proton collisions at the same energy. The conditional per-trigger yields are extracted from the narrow jet-like correlation peaks in azimuthal di-hadron correlations. In the 5% most central collisions, we observe that the yield of associated charged particles with transverse momenta $p_\perp > 3$ GeV/c on the away-side drops to about 60% of that observed in pp collisions, while on the near-side a moderate enhancement of 20-30% is found.'
+  'The yield of charged particles associated with high-pT trigger particles ($8 < p_{\perp} < 15$ GeV/c) is measured with the ALICE detector in Pb-Pb collisions at $\sqrt{s_{NN}} = 2.76$ TeV relative to proton-proton collisions at the same energy. The conditional per-trigger yields are extracted from the narrow jet-like correlation peaks in azimuthal di-hadron correlations. In the 5\% most central collisions, we observe that the yield of associated charged particles with transverse momenta $p_\perp > 3$ GeV/c on the away-side drops to about 60\% of that observed in pp collisions, while on the near-side a moderate enhancement of 20-30\% is found.'
 BibKey: Aamodt:2011vg
 BibTeX: '@article{Aamodt:2011vg,
       author         = "Aamodt, K. and others",
