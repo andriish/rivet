@@ -23,6 +23,8 @@ NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [8000]
 PtCuts: [30.,30.,25.]
+Options:
+ - LMODE=EL,MU
 Description:
   'Measurements of the electroweak production of a $W$ boson in association with two jets at high dijet invariant mass
   are performed using $\sqrt{s} = 7$ and 8 TeV proton-proton collision data produced by the Large Hadron Collider,

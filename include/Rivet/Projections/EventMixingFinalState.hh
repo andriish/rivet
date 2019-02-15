@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_MixedFinalState_HH
-#define RIVET_MixedFinalState_HH
+#ifndef RIVET_EventMixingFinalState_HH
+#define RIVET_EventMixingFinalState_HH
 
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/ParticleFinder.hh"
@@ -27,14 +27,16 @@ namespace Rivet {
   // @author Christian Bierlich <christian.bierlich@thep.lu.se>
 
   typedef map<double, deque<Particles> > MixMap;	
-  class MixedFinalState : public Projection {
+  class EventMixingFinalState : public Projection {
   public:
     // Constructor
-    MixedFinalState(const ParticleFinder& fsp, const ParticleFinder& mix, size_t nMixIn,
+    EventMixingFinalState(const ParticleFinder& fsp, const ParticleFinder& mix, size_t nMixIn,
 	      double oMin, double oMax, double deltao ) : nMix(nMixIn){
-    	setName("MixedFinalState");
+    	setName("EventMixingFinalState");
 	addProjection(fsp,"FS");
 	addProjection(mix,"MIX");
+	MSG_WARNING("EventMixingFinalState is a naive implementation, not currently " <<
+		    "validated. Use with caution.");
 
 	// Set up the map for mixing events
 	for(double o = oMin; o < oMax; o+=deltao )
@@ -42,7 +44,7 @@ namespace Rivet {
 	
     }
     // Clone on the heap
-    DEFAULT_RIVET_PROJ_CLONE(MixedFinalState);
+    DEFAULT_RIVET_PROJ_CLONE(EventMixingFinalState);
 
 
     // Return a vector of mixing events.

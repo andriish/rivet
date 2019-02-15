@@ -18,6 +18,8 @@ Beams: [p+, p+]
 Energies: [7000]
 PtCuts: [25,30]
 NeedCrossSection: True
+Options:
+ - LMODE=EL,MU
 Description:
   Measurements of cross sections for the production of a $W$ boson in association with jets in proton-proton collisions at
   $\sqrt{s} = 7$~TeV with the ATLAS experiment at the Large Hadron Collider. With an integrated luminosity of 4.6~$\text{fb}^{-1}$,

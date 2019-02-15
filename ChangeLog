@@ -1,3 +1,75 @@
+2019-02-12  Christian Bierlich  <christian.bierlich@thep.lu.se>
+
+	* Introduced CentralityProjection, allowing an analysis to cut
+	on percentiles of single event quantities, preloaded from a
+	user generated or supplied (by experiment) histogram. Notably
+	used for the centrality definition in heavy ion analyses.
+	User specifies the centrality definition as a special analysis
+	option called cent, eg: "MyAnalysis:cent=GEN".
+	Example usage: Calibration analysis: MC_Cent_pPb_Calib, 
+	Analysis using that calibration: MC_Cent_pPb_Eta.
+
+	* Introduced EventMixingFinalState to provide simple event mixing
+	functionality. Currently only works with unit event weights.
+	Example usage: ALICE_2016_I1507157.
+
+	* Introduced Correlators, a framework for calculating single event
+	correlators based on the generic framework (arXiv: 1010.0233 and
+	arXiv: 1312.3572), and perfoming all event averages giving flow
+	coefficents. Implemented as new analysis base class.
+	Example usage: ALICE_2016_I1419244.
+
+	* Introduced a PrimaryParticle projection, replicating experimental
+	definitions of stable particles through decay chains. Recommended for
+	analyses which would otherwise have to require stable particles
+	at generator level.
+
+	* Introduced AliceCommon and AtlasCommon convenience tools, defining
+	several triggers, primary particle definitions and acceptances.
+
+	* Contributed, validated analyses using above features:
+	ALICE_2010_I880049: Multiplicity at mid-rapidity, PbPb @ 2.76 TeV/nn.
+	ALICE_2012_I1127497: Nuclear modification factor, PbPb @ 2.76 TeV/nn.
+	ALICE_2012_I930312: Di-hadron correlations, PbPb @ 2.76 TeV/nn.
+	
+	* Contributed, unvalidated analyses using above features: 
+	BRAHMS_2004_I647076: pi, K, p spectra as function of rapidity,
+	AuAu @ 200 GeV/nn
+	ALICE_2012_I1126966: pi, K, p spectra, PbPb @ 2.76 TeV/nn.
+	ALICE_2013_I1225979: Charged multiplicity, PbPb @ 2.76 TeV/nn.
+	ALICE_2014_I1243865: Multi-strange baryons, PbPb @ 2.76 TeV/nn.
+	ALICE_2014_I1244523: Multi-strange baryons, pPb @ 5.02 TeV/nn.
+	ALICE_2015_PBPBCentrality: Centrality calibration for PbPb. Note
+	that the included 5.02 TeV/nn data is not well defined at particle
+	level, and cannot be compared to experiment without full detector 
+	simulation.
+	ALICE_2016_I1394676: Charged multiplicity, PbPb @ 2.76 TeV/nn.
+	ALICE_2016_I1419244: Multiparticle correlations (flow) using generic
+	framework, PbPb @ 5.02 TeV/nn.
+	ALICE_2016_I1471838: Multi-strange baryons, pp @ 7 TeV.
+	ALICE_2016_I1507090: Charged multiplicity, PbPb @ 5.02 TeV/nn.
+	ALICE_2016_I1507157: Angular correlations, pp @ 7 TeV.
+	ATLAS_2015_I1386475: Charged multiplicity, pPb @ 5.02 TeV/nn.
+	ATLAS_PBPB_CENTRALITY: Forward energy flow + centrality calibration,
+	data not unfolded, but well defined at particle level, PbPb @ 2.76
+	TeV/nn.
+	ATLAS_2015_I1360290: Charged multiplicity + spectra, PbPb @ 2.76
+	TeV/nn.
+	ATLAS_pPb_Calib: Forward energy flow + centrality calibration,
+	data not unfolded, but well defined at particle level, pPb @ 5.02
+	TeV/nn.
+	STAR_2016_I1414638: Di-hadron correlations, AuAu @ 200 GeV/nn.
+	CMS_2017_I1471287: Multiparticle correlations (flow) using generic
+	framework, pp @ 7 TeV.
+
+	* Contributed analyses without data:
+	ALICE_2015_PPCentrality: ALICE pp centrality (multiplicity classes)
+	calibration.
+	BRAHMS_2004_CENTRALITY: BRAHMS centrality calibration.
+	STAR_BES_CALIB: STAR centrality calibration.
+	MC_Cent_pPb_Calib: Example analysis, centrality calibration.
+	MC_Cent_pPb_Eta: Example analysis, centrality usage.
+	
 2019-01-29  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add real CMS Run 1 and Run 2 MET resolution smearing functions, based on 8 TeV paper and 13 TeV PAS.

@@ -45,6 +45,7 @@ nobase_pkginclude_HEADERS += \
   Projections/DISKinematics.hh \
   Projections/DISLepton.hh \
   Projections/DressedLeptons.hh \
+  Projections/EventMixingFinalState.hh \
   Projections/FastJets.hh \
   Projections/PxConePlugin.hh \
   Projections/FinalPartons.hh \
@@ -66,7 +67,6 @@ nobase_pkginclude_HEADERS += \
   Projections/LossyFinalState.hh \
   Projections/MergedFinalState.hh \
   Projections/MissingMomentum.hh \
-  Projections/MixedFinalState.hh \
   Projections/NeutralFinalState.hh \
   Projections/NonHadronicFinalState.hh \
   Projections/NonPromptFinalState.hh \

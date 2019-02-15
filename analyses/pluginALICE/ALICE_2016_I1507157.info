@@ -1,25 +1,28 @@
 Name: ALICE_2016_I1507157
 Year: 2016
-Summary: <Insert short ALICE_2016_I1507157 description>
+Summary: Angular correlations of identified particles at 7 TeV.
 Experiment: ALICE
 Collider: LHC
 InspireID: 1507157
 Status: UNVALIDATED
 Authors:
- - Your Name <your@email.address>
-#References:
-#- '<Example: Eur.Phys.J. C76 (2016) no.7, 392>'
-#- '<Example: DOI:10.1140/epjc/s10052-016-4184-8>'
-#- '<Example: arXiv:1605.03814>'
-RunInfo: <Describe event types, cuts, and other general generator config tips.>
+ - Christian Bierlich <christian.bierlich@thep.lu.se>
+References:
+- 'Eur.Phys.J.C77(2017)no.8,569'
+- 'DOI:10.1140/epjc/s10052-017-5129-6'
+- 'arXiv:1612.08975'
+RunInfo: Proton-proton minium bias events at 7 TeV.
 NeedCrossSection: no
-#Beams: <Insert beam pair(s), e.g. [p+, p+] or [[p-, e-], [p-, e+]]>
-#Energies: <Run energies or beam energy pairs in GeV, e.g. [13000] or [[8.0, 3.5]] or [630, 1800]. Order pairs to match "Beams">
+Beams: [p+,p+]
+Energies: [7000]
 #Luminosity_fb: <Insert integrated luminosity, in inverse fb>
 Description:
-  '<A fairly long description, including what is measured
-  and if possible what it is useful for in terms of MC validation
-  and tuning. Use LaTeX for maths like $\pT > 50\;\GeV$.>'
+  'Angular correlations between like-sign and opposite-sign identified particles,
+   integrated over $\Delta \eta < 1.3$. The analysis makes use of event mixing
+   to remove background. The current implementation of the event micing is not 
+   validated by experiment, and should be used with caution. Note in particular
+   that for the event mixing to behave sensibly, event weights are assumed to be
+   unity. Do not run this analysis with weighted events'
 Keywords: []
 BibKey: Adam:2016iwf
 BibTeX: '%%% contains utf-8, see: http://inspirehep.net/info/faq/general#utf8
