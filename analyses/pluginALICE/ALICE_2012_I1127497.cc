@@ -22,7 +22,14 @@ namespace Rivet {
     void init() {
       
       // Declare centrality projection
-      declareCentrality(ALICE::V0MMultiplicity(), "ALICE_2015_PBPBCentrality", "V0M", "V0M");
+      if (getOption("cent") == "REF") {
+	_mode = 1;
+	declareCentrality(ALICE::V0MMultiplicity(), "ALICE_2015_PBPBCentrality", "V0M", "V0M");
+      }
+      else if (getOption("cent") == "IMP") {
+	_mode = 2;
+	declareCentrality(ALICE::V0MMultiplicity(), "ALICE_2015_PBPBCentrality", "V0M", "V0M_IMP");
+      }
       
       // Charged final states with |eta| < 0.5 and pT > 150 MeV
       const Cut& cut = Cuts::abseta < 0.5 && Cuts::pT > 150*MeV;
@@ -33,28 +40,34 @@ namespace Rivet {
       for (size_t ihist = 0; ihist < NHISTOS; ++ihist) {
 	
 	// Initialize PbPb objects
-	_histNch[1][ihist] = bookHisto1D(ihist+1, 1, 1);
-	_sumOfWeights[1][ihist] = 0;
+	_histNch[PBPB][ihist] = bookHisto1D(ihist+1, 1, 1);
 	
-	// Initialize pp objects. In principle, only one pp histogram would be needed since centrality does not 
-	// make any difference here. However, in some cases in this analysis the binning differ from each other, 
-	// so this is easy-to-implement way to account for that.
-	std::string namePbPb = _histNch[1][ihist]->name();
-	std::string namePP = namePbPb + "-pp";
-	_histNch[0][ihist] = bookHisto1D( namePP, refData(ihist+1, 1, 1) ); // binning taken from ref data
-	_sumOfWeights[0][ihist] = 0;
+	std::string nameCounterPbPb = "Counter_PbPb_" + std::to_string(ihist);
+	_counterSOW[PBPB][ihist] = bookCounter(nameCounterPbPb, "Sum of weights counter for PbPb");
 	
-	// Initialize R_AA histograms
-	_histRAA[ihist] = bookScatter2D(ihist+16, 1, 1);
+	std::string nameCounterNcoll = "Counter_Ncoll_" + std::to_string(ihist);
+	_counterNcoll[ihist] = bookCounter(nameCounterNcoll, "Ncoll counter for PbPb");
+	
+	// Initialize pp objects. In principle, only one pp histogram would be needed since 
+	// centrality does not make any difference here. However, in some cases in this analysis 
+	// the binning differ from each other, so this is easy-to-implement way to account for that.
+	std::string namePP = _histNch[PBPB][ihist]->name() + "-pp";
+	_histNch[PP][ihist] = bookHisto1D(namePP, refData(ihist+1, 1, 1)); // binning taken from ref data
+	
+	std::string nameCounterpp = "Counter_pp_" + std::to_string(ihist);
+	_counterSOW[PP][ihist] = bookCounter(nameCounterpp, "Sum of weights counter for pp");
 	
       }
       
-      // Centrality regions, 2 following numbers are boundaries for a certain region. Note, that some
-      // regions overlap with other regions.
+      // Centrality regions keeping boundaries for a certain region. 
+      // Note, that some regions overlap with other regions.
       _centrRegions.clear();
-      _centrRegions += {{0., 5., 5., 10., 10., 20., 20., 30., 30., 40., 40., 50., 50., 60., 60., 70., 70., 80., 0., 10., 0., 20., 20., 40., 40., 60., 40., 80., 60., 80.}};
+      _centrRegions = {{0., 5.},   {5., 10.},  {10., 20.},
+		       {20., 30.}, {30., 40.}, {40., 50.},
+		       {50., 60.}, {60., 70.}, {70., 80.},
+		       {0., 10.},  {0., 20.},  {20., 40.},
+		       {40., 60.}, {40., 80.}, {60., 80.}};
       
-
     }
 
     /// Perform the per-event analysis
@@ -66,13 +79,6 @@ namespace Rivet {
       const ChargedFinalState& charged = applyProjection<ChargedFinalState>(event, "CFS");
       Particles chargedParticles = charged.particlesByPt();
       
-      // Flag to select which histograms to fill
-      size_t pp_AA;
-      
-      // Vector of indices to fill the histograms with right centrality
-      vector<size_t> indices;
-      indices.clear();
-      
       // Check type of event. This may be not the perfect way to check for the type of event as 
       // there might be some weird conditions hidden inside. For example some HepMC versions check 
       // if number of hard collisions is equal to 0 and assign 'false' in that case, which is usually wrong.
@@ -80,44 +86,42 @@ namespace Rivet {
       if (event.genEvent()->heavy_ion()) {
 	
 	// Prepare centrality projection and value
-	const CentralityProjection& centrProj = apply<CentralityProjection>(event, "V0M");
+	const CentralityProjection& centrProj = apply<CentralityProjection>(event, (_mode == 1 ? "V0M" : "V0M_IMP"));
 	double centr = centrProj();
 	// Veto event for too large centralities since those are not used in the analysis at all
 	if ((centr < 0.) || (centr > 80.))
 	  vetoEvent;
 	
-	// Flag as PbPb event
-	pp_AA = 1;
-	
-	// Select indices
-        for (size_t ihist = 0; ihist < NHISTOS; ++ihist) {
-          // Check centrality bins and push corresponding indices of AA histograms.
-          if (inRange(centr, _centrRegions[2*ihist], _centrRegions[2*ihist+1])) {
-            indices.push_back(ihist);
-          }
-        }
+	// Fill the right PbPb histograms and add weights based on centrality value
+	for (size_t ihist = 0; ihist < NHISTOS; ++ihist) {
+          if (inRange(centr, _centrRegions[ihist].first, _centrRegions[ihist].second)) {
+	    _counterSOW[PBPB][ihist]->fill(weight);
+	    _counterNcoll[ihist]->fill(event.genEvent()->heavy_ion()->Ncoll(), weight);
+	    foreach (const Particle& p, chargedParticles) {
+	      float pT = p.pT()/GeV;
+	      if (pT < 50.) {
+		double pTAtBinCenter = _histNch[PBPB][ihist]->binAt(pT).xMid();
+		_histNch[PBPB][ihist]->fill(pT, weight/pTAtBinCenter);
+	      }
+	    }
+	  }
+	}
 	
       }
       else {
 	
-	// Flag as pp event
-	pp_AA = 0;
+	// Fill all pp histograms and add weights
+	for (size_t ihist = 0; ihist < NHISTOS; ++ihist) {
+	  _counterSOW[PP][ihist]->fill(weight);
+	  foreach (const Particle& p, chargedParticles) {
+	    float pT = p.pT()/GeV;
+	    if (pT < 50.) {
+	      double pTAtBinCenter = _histNch[PP][ihist]->binAt(pT).xMid();
+	      _histNch[PP][ihist]->fill(pT, weight/pTAtBinCenter);
+	    }
+	  }
+	}
 	
-	// Select indices (push all indices in case of pp histograms)
-        for(size_t ihist = 0; ihist < NHISTOS; ++ihist)
-          indices.push_back(ihist);
-
-      }
-
-      // Fill the right histograms and add weights based on the pp_AA flag and vector of indices
-      for (size_t iindex = 0; iindex < indices.size(); ++iindex) {
-        _sumOfWeights[pp_AA][indices.at(iindex)] += weight;
-        foreach (const Particle& p, chargedParticles) {
-          float pT = p.pT()/GeV;
-          if (pT < 50.) {
-	    _histNch[pp_AA][indices.at(iindex)]->fill(pT, weight*(1/pT));
-          }
-        }
       }
       
     }
@@ -125,51 +129,47 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       
-      // Check for the reentrant finalize
-      reentrant_flag = true;
-      // For each event type
-      for (int itype = 0; itype < 2; itype++) {
-	// For each centrality range
-	for (int ihist = 0; ihist < NHISTOS; ihist++) {
-	  if (_histNch[itype][ihist]->numEntries() <= 0)
-	    reentrant_flag = false;
+      // Right scaling of the histograms with their individual weights.
+      for (size_t itype = 0; itype < EVENT_TYPES; ++itype ) {
+	for (size_t ihist = 0; ihist < NHISTOS; ++ihist) {
+	  if (_counterSOW[itype][ihist]->sumW() > 0.) {
+	    scale(_histNch[itype][ihist], (1./_counterSOW[itype][ihist]->sumW() / 2. / M_PI));
+	  }
+	}
+      }
+	
+      // Postprocessing of the histograms
+      for (size_t ihist = 0; ihist < NHISTOS; ++ihist) {
+	// If there are entires in histograms for both beam types
+	if (_histNch[PP][ihist]->numEntries() > 0 && _histNch[PBPB][ihist]->numEntries() > 0) {
+	  // Initialize and fill R_AA histograms
+	  _histRAA[ihist] = bookScatter2D(ihist+16, 1, 1);
+	  divide(_histNch[PBPB][ihist], _histNch[PP][ihist], _histRAA[ihist]);
+	  // Scale by Ncoll. Unfortunately some generators does not provide Ncoll (eg. JEWEL), 
+	  // so the following scaling will be done only if there are entries in the counters
+	  if (_counterNcoll[ihist]->sumW() > 1e-6 && _counterSOW[PBPB][ihist]->sumW() > 1e-6) {
+	    _histRAA[ihist]->scaleY(1. / (_counterNcoll[ihist]->sumW() / _counterSOW[PBPB][ihist]->sumW()));
+	  }
 	}
       }
       
-      // Normal finalize
-      if (reentrant_flag == false) {
-	
-	// Right scaling of the histograms with their individual weights.
-	for (size_t pp_AA = 0; pp_AA < 2; ++pp_AA ) {
-	  for (size_t ihist = 0; ihist < NHISTOS; ++ihist) {
-	    if (_sumOfWeights[pp_AA][ihist] > 0.)
-	      scale(_histNch[pp_AA][ihist], ( 1./_sumOfWeights[pp_AA][ihist] / 2. /  M_PI / 1.6 ) );
-	  }
-	  
-	}
-	
-      }
-      // Postprocessing of the histograms
-      else if (reentrant_flag == true) {
-	
-	for( size_t i = 0; i < NHISTOS; ++i) {
-	  divide( _histNch[1][i], _histNch[0][i], _histRAA[i] );
-	}
-	
-      }
     }
     
   private:
     
     static const int NHISTOS = 15;
+    static const int EVENT_TYPES = 2;
+    static const int PP = 0;
+    static const int PBPB = 1;
     
-    Histo1DPtr _histNch[2][NHISTOS];
-    double _sumOfWeights[2][NHISTOS];
+    Histo1DPtr _histNch[EVENT_TYPES][NHISTOS];
+    CounterPtr _counterSOW[EVENT_TYPES][NHISTOS];
+    CounterPtr _counterNcoll[NHISTOS];
     
     Scatter2DPtr _histRAA[NHISTOS];
-    std::vector<float> _centrRegions;
+    std::vector<std::pair<double, double>> _centrRegions;
     
-    bool reentrant_flag;
+    int _mode;
     
   };
 

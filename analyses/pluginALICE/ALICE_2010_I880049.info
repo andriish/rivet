@@ -5,8 +5,11 @@ Experiment: ALICE
 Collider: LHC
 SpireID: 032301
 InspireID: 880049
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
+ - Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
+ - Jan Fiete Grosse-Oetringhaus <Jan.Fiete.Grosse-Oetringhaus@cern.ch>
+ - Jochen Klein <Jochen.Klein@cern.ch>
 References:
  - arXiv:1012.1657 [nucl-ex]
 RunInfo:
