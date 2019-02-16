@@ -7,4 +7,4 @@ WORKDIR /work
 
 ADD . /work
 
-RUN yum install -y nano
+#RUN yum install -y nano
