@@ -1,3 +1,8 @@
+2019-02-17  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Convert ATLAS_2013_I1217863 analysis variants to use the LMODE
+	analysis option (from Jon Butterworth).
+
 2019-02-15  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* Release 2.7.0
