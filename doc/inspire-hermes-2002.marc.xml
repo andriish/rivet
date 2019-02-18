@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Search-Engine-Total-Number-Of-Results: 5 -->
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <controlfield tag="001">604660</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.1016/S0370-2693(03)00566-5</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">oai:arXiv.org:hep-ex/0212039</subfield>
+    <subfield code="z">oai:arXiv.org:hep-ex/0212039</subfield>
+    <subfield code="9">arXiv</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D03-04346</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Airapetian:2002mf</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">ADS</subfield>
+    <subfield code="a">2003PhLB..562..182H</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">hep-ex/0212039</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">DESY-02-226</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Measurement of single spin azimuthal asymmetries in semiinclusive electroproduction of pions and kaons on a longitudinally polarized deuterium target</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">HERMES</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">600098</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1140/epjc/s2002-01118-x</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:hep-ex/0210047</subfield>
+    <subfield code="z">oai:arXiv.org:hep-ex/0210047</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D03-00358</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">SPIRESTeX</subfield>
+    <subfield code="a">Airapetian:2002wd</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">ADS</subfield>
+    <subfield code="a">2003EPJC...26..527H</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">ins600098</subfield>
+    <subfield code="9">HEPDATA</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">hep-ex/0210047</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">DESY-02-172</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">The Q**2 dependence of the generalized Gerasimov-Drell-Hearn integral for the deuteron, proton and neutron</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">HERMES</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">597023</controlfield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">HERMES</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">hep-ex/0209072</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">DESY-02-152</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">The Q**2 dependence of nuclear transparency for exclusive rho0 production</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.1103/PhysRevLett.90.052501</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">oai:arXiv.org:hep-ex/0209072</subfield>
+    <subfield code="z">oai:arXiv.org:hep-ex/0209072</subfield>
+    <subfield code="9">arXiv</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D03-00448</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Airapetian:2002eh</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">ADS</subfield>
+    <subfield code="a">2003PhRvL..90e2501A</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">594689</controlfield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">HERMES</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">hep-ex/0209018</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">DESY-02-137</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Evidence for quark hadron duality in the proton spin asymmetry A(1)</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.1103/PhysRevLett.90.092002</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">oai:arXiv.org:hep-ex/0209018</subfield>
+    <subfield code="z">oai:arXiv.org:hep-ex/0209018</subfield>
+    <subfield code="9">arXiv</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D02-21169</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Airapetian:2002rw</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">ADS</subfield>
+    <subfield code="a">2003PhRvL..90i2002A</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">590665</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D03-02014</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">2348297</subfield>
+    <subfield code="9">CERNKEY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Airapetian:2002fx</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:hep-ex/0210068</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">DESY-02-091</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">hep-ex/0210068</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Measurement of R = sigma(L) / sigma(T) in deep inelastic scattering on nuclei</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">HERMES</subfield>
+  </datafield>
+</record>
+
+</collection>
