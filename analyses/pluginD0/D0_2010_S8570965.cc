@@ -60,7 +60,7 @@ namespace Rivet {
         double phi_P = photon.phi();
         double Etsum=0.0;
         foreach (const Particle& p, fs) {
-          if (p.genParticle()->barcode() != photon.genParticle()->barcode() &&
+          if (p.genParticle()->id() != photon.genParticle()->id() &&
               deltaR(eta_P, phi_P, p.eta(), p.phi()) < 0.4) {
             Etsum += p.Et();
           }

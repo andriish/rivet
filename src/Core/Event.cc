@@ -2,7 +2,6 @@
 #include "Rivet/Event.hh"
 #include "Rivet/Tools/BeamConstraint.hh"
 #include "Rivet/Projections/Beam.hh"
-#include "HepMC/GenEvent.h"
 
 namespace Rivet {
 
@@ -10,6 +9,7 @@ namespace Rivet {
     return genEvent()->weights().empty() ? 1.0 : _genevent.weights()[0];
   }
 
+  /*
   double Event::centrality() const {
     /// @todo Use direct "centrality" property if using HepMC3
     
@@ -19,7 +19,7 @@ namespace Rivet {
     return genEvent()->heavy_ion() ? genEvent()->heavy_ion()->impact_parameter() : -1;
     #endif
   }
-
+*/
   ParticlePair Event::beams() const { return Rivet::beams(*this); }
 
   double Event::sqrtS() const { return Rivet::sqrtS(beams()); }

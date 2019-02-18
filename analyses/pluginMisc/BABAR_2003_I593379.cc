@@ -27,19 +27,19 @@ namespace Rivet {
         if (p.pid() == 300553) upsilons.push_back(p);
       // Then in whole event if fails
       if (upsilons.empty()) {
-        foreach (const GenParticlePtr p, Rivet::particles(e.genEvent())) {
+        for(ConstGenParticlePtr p: Rivet::particles(e.genEvent())) {
           if (p->pdg_id() != 300553) continue;
-          const GenVertexPtr pv = p->production_vertex();
+          ConstGenVertexPtr pv = p->production_vertex();
           bool passed = true;
           if (pv) {
-            foreach (const GenParticlePtr pp, particles_in(pv)) {
+            for(ConstGenParticlePtr pp: pv->particles_in()) {
               if ( p->pdg_id() == pp->pdg_id() ) {
                 passed = false;
                 break;
               }
             }
           }
-          if (passed) upsilons.push_back(Particle(*p));
+          if (passed) upsilons.push_back(Particle(p));
         }
       }
 
@@ -48,7 +48,7 @@ namespace Rivet {
         _weightSum += weight;
         // Find the charmonium resonances
         /// @todo Use Rivet::Particles
-        vector<const GenParticlePtr> allJpsi, primaryJpsi, Psiprime, all_chi_c1, all_chi_c2, primary_chi_c1, primary_chi_c2;
+        vector<ConstGenParticlePtr> allJpsi, primaryJpsi, Psiprime, all_chi_c1, all_chi_c2, primary_chi_c1, primary_chi_c2;
         findDecayProducts(p.genParticle(), allJpsi, primaryJpsi, Psiprime,
                           all_chi_c1, all_chi_c2, primary_chi_c1, primary_chi_c2);
         const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.mom().betaVec());
@@ -137,42 +137,42 @@ namespace Rivet {
     Histo1DPtr _mult_Psi2S;
     //@}
 
-    void findDecayProducts(const GenParticlePtr p,
-                           vector<const GenParticlePtr>& allJpsi,
-                           vector<const GenParticlePtr>& primaryJpsi,
-                           vector<const GenParticlePtr>& Psiprime,
-                           vector<const GenParticlePtr>& all_chi_c1, vector<const GenParticle*>& all_chi_c2,
-                           vector<const GenParticlePtr>& primary_chi_c1, vector<const GenParticle*>& primary_chi_c2) {
-      const GenVertexPtr dv = p->end_vertex();
+    void findDecayProducts(ConstGenParticlePtr p,
+                           vector<ConstGenParticlePtr>& allJpsi,
+                           vector<ConstGenParticlePtr>& primaryJpsi,
+                           vector<ConstGenParticlePtr>& Psiprime,
+                           vector<ConstGenParticlePtr>& all_chi_c1, vector<ConstGenParticlePtr>& all_chi_c2,
+                           vector<ConstGenParticlePtr>& primary_chi_c1, vector<ConstGenParticlePtr>& primary_chi_c2) {
+      ConstGenVertexPtr dv = p->end_vertex();
       bool isOnium = false;
       /// @todo Use better looping
-      for (GenVertex::particles_in_const_iterator pp = dv->particles_in_const_begin() ; pp != dv->particles_in_const_end() ; ++pp) {
-        int id = (*pp)->pdg_id();
+      for (ConstGenParticlePtr pp: dv->particles_in()){
+        int id = pp->pdg_id();
         id = id%1000;
         id -= id%10;
         id /= 10;
         if (id==44) isOnium = true;
       }
       /// @todo Use better looping
-      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
-        int id = (*pp)->pdg_id();
+      for (ConstGenParticlePtr pp: dv->particles_out()){
+        int id = pp->pdg_id();
         if (id==100443) {
-          Psiprime.push_back(*pp);
+          Psiprime.push_back(pp);
         }
         else if (id==20443) {
-          all_chi_c1.push_back(*pp);
-          if (!isOnium) primary_chi_c1.push_back(*pp);
+          all_chi_c1.push_back(pp);
+          if (!isOnium) primary_chi_c1.push_back(pp);
         }
         else if (id==445) {
-          all_chi_c2.push_back(*pp);
-          if (!isOnium) primary_chi_c2.push_back(*pp);
+          all_chi_c2.push_back(pp);
+          if (!isOnium) primary_chi_c2.push_back(pp);
         }
         else if (id==443) {
-          allJpsi.push_back(*pp);
-          if (!isOnium) primaryJpsi.push_back(*pp);
+          allJpsi.push_back(pp);
+          if (!isOnium) primaryJpsi.push_back(pp);
         }
-        if ((*pp)->end_vertex()) {
-          findDecayProducts(*pp, allJpsi, primaryJpsi, Psiprime, all_chi_c1, all_chi_c2, primary_chi_c1, primary_chi_c2);
+        if (pp->end_vertex()) {
+          findDecayProducts(pp, allJpsi, primaryJpsi, Psiprime, all_chi_c1, all_chi_c2, primary_chi_c1, primary_chi_c2);
         }
       }
     }

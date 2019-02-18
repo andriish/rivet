@@ -637,7 +637,7 @@ namespace Rivet {
     /// Function calculating the prong number of taus
     /// @todo Move to TauFinder and make less HepMC-ish
     void get_prong_number(ConstGenParticlePtr p, unsigned int& nprong, bool& lep_decaying_tau) {
-      assert(p != NULL);
+      assert(p != nullptr);
       //const int tau_barcode = p->barcode();
       ConstGenVertexPtr dv = p->end_vertex();
       assert(dv != nullptr);

@@ -43,13 +43,13 @@ namespace Rivet {
       // Then in whole event if fails
       if (upsilons.empty()) {
         /// @todo Replace HepMC digging with Particle::descendents etc. calls
-        foreach (const GenParticlePtr p, Rivet::particles(e.genEvent())) {
+        for(ConstGenParticlePtr p: Rivet::particles(e.genEvent())) {
           if ( p->pdg_id() != 553 && p->pdg_id() != 100553 ) continue;
           // Discard it if its parent has the same PDG ID code (avoid duplicates)
-          const GenVertexPtr pv = p->production_vertex();
+          ConstGenVertexPtr pv = p->production_vertex();
           bool passed = true;
           if (pv) {
-            foreach (const GenParticlePtr pp, particles_in(pv)) {
+            for(ConstGenParticlePtr pp: pv->particles_in()) {
               if ( p->pdg_id() == pp->pdg_id() ) {
                 passed = false;
                 break;
@@ -172,13 +172,12 @@ namespace Rivet {
 
 
     /// Recursively walk the HepMC tree to find decay products of @a p
-    void findDecayProducts(const GenParticlePtr p, Particles& unstable) {
-      const GenVertexPtr dv = p->end_vertex();
-      /// @todo Use better looping
-      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
-        const int id = abs((*pp)->pdg_id());
-        if (id == 331 || id == 9010221) unstable.push_back(Particle(*pp));
-        else if ((*pp)->end_vertex()) findDecayProducts(*pp, unstable);
+    void findDecayProducts(ConstGenParticlePtr p, Particles& unstable) {
+      ConstGenVertexPtr dv = p->end_vertex();
+      for (ConstGenParticlePtr pp: dv->particles_out()){
+        const int id = abs(pp->pdg_id());
+        if (id == 331 || id == 9010221) unstable.push_back(Particle(pp));
+        else if (pp->end_vertex()) findDecayProducts(pp, unstable);
       }
     }
 

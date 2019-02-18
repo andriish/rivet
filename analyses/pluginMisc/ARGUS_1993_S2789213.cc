@@ -65,12 +65,12 @@ namespace Rivet {
         if (p.pid() == 300553 || p.pid() == 553) upsilons.push_back(p);
       // Then in whole event if that failed
       if (upsilons.empty()) {
-        foreach (const GenParticlePtr p, Rivet::particles(e.genEvent())) {
+        for(ConstGenParticlePtr p: Rivet::particles(e.genEvent())) {
           if (p->pdg_id() != 300553 && p->pdg_id() != 553) continue;
-          const GenVertexPtr pv = p->production_vertex();
+          ConstGenVertexPtr pv = p->production_vertex();
           bool passed = true;
           if (pv) {
-            foreach (const GenParticlePtr pp, particles_in(pv)) {
+            for(ConstGenParticlePtr pp: pv->particles_in()) {
               if ( p->pdg_id() == pp->pdg_id() ) {
                 passed = false;
                 break;
@@ -232,17 +232,17 @@ namespace Rivet {
     //@}
 
 
-    void findDecayProducts(const GenParticlePtr p, Particles& unstable) {
-      const GenVertexPtr dv = p->end_vertex();
+    void findDecayProducts(ConstGenParticlePtr p, Particles& unstable) {
+      ConstGenVertexPtr dv = p->end_vertex();
       /// @todo Use better looping
-      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
-        int id = abs((*pp)->pdg_id());
+      for (ConstGenParticlePtr pp: dv->particles_out()){
+        int id = abs(pp->pdg_id());
         if (id == 113 || id == 313 || id == 323 ||
             id == 333 || id == 223 ) {
-          unstable.push_back(Particle(*pp));
+          unstable.push_back(Particle(pp));
         }
-        else if ((*pp)->end_vertex())
-          findDecayProducts(*pp, unstable);
+        else if (pp->end_vertex())
+          findDecayProducts(pp, unstable);
       }
     }
 

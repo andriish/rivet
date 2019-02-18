@@ -369,7 +369,7 @@ namespace Rivet {
       Particles pForLep, pForJet;
       Particles neutrinos; // Prompt neutrinos
       /// @todo Avoid this unsafe jump into HepMC -- all this can be done properly via VisibleFS and HeavyHadrons projections
-      for (const GenParticlePtr p : Rivet::particles(e.genEvent())) {
+      for (ConstGenParticlePtr p : Rivet::particles(e.genEvent())) {//
         const int status = p->status();
         const int pdgId = p->pdg_id();
         if (status == 1) {
@@ -394,7 +394,7 @@ namespace Rivet {
           // Do unstable particles, to be used in the ghost B clustering
           // Use last B hadrons only
           bool isLast = true;
-          for (const GenParticlePtr pp : Rivet::particles(p->end_vertex(), HepMC::children)) {
+          for (ConstGenParticlePtr pp : Rivet::particles(p->end_vertex(), Relatives::CHILDREN)) {
             if (PID::hasBottom(pp->pdg_id())) {
               isLast = false;
               break;
@@ -402,11 +402,13 @@ namespace Rivet {
           }
           if (!isLast) continue;
 
+          Particle ghost(pdgId, FourMomentum(p->momentum()));
           // Rescale momentum by 10^-20
-          Particle ghost(pdgId, FourMomentum(p->momentum())*1e-20/p->momentum().rho());
+          ghost.setMomentum(ghost.momentum()*1.e-20 / ghost.momentum().rho());
+          //Particle ghost(pdgId, FourMomentum(p->momentum())*1e-20/p->momentum().rho());
           pForJet.push_back(ghost);
         }
-      }
+      }//
 
       // Start object building from trivial thing - prompt neutrinos
       sortByPt(neutrinos);
@@ -424,7 +426,7 @@ namespace Rivet {
         int leptonId = 0;
         for (const Particle& p : lep.particles()) {
           /// @warning Barcodes aren't future-proof in HepMC
-          dressedIdxs.insert(p.genParticle()->barcode());
+          dressedIdxs.insert(p.genParticle()->id());
           if (p.isLepton() && p.pT() > leadingPt) {
             leadingPt = p.pT();
             leptonId = p.pid();
@@ -437,8 +439,7 @@ namespace Rivet {
 
       // Re-use particles not used in lepton dressing
       for (const Particle& rp : pForLep) {
-        /// @warning Barcodes aren't future-proof in HepMC
-        const int barcode = rp.genParticle()->barcode();
+        const int barcode = rp.genParticle()->id();
         // Skip if the particle is used in dressing
         if (dressedIdxs.find(barcode) != dressedIdxs.end()) continue;
         // Put back to be used in jet clustering

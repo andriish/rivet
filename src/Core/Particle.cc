@@ -76,7 +76,7 @@ namespace Rivet {
 
     if (gv == nullptr) return rtn;
     
-    vector<ConstGenParticlePtr> ancestors = genParticle()->ancestors();
+    vector<ConstGenParticlePtr> ancestors = Rivet::particles(genParticle(), Relatives::ANCESTORS);
     
     for(const auto &a: ancestors){
       if(physical_only && a->status() != 1 && a->status() != 2) continue;
@@ -98,10 +98,10 @@ namespace Rivet {
       rtn += p;
     }
     #else
-    GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->production_vertex() );
-    if (gv == NULL) return rtn;
-    for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::parents); it != gv->particles_end(HepMC::parents); ++it) {
-    const Particle p(*it);
+    ConstGenVertexPtr gv = genParticle()->production_vertex();
+    if (gv == nullptr) return rtn;
+    for(ConstGenParticlePtr it: particles(gv, RivetHepMC::Relatives::PARENTS)){
+    const Particle p(it);
       if (c != Cuts::OPEN && !c->accept(p)) continue;
       rtn += p;
     }
@@ -120,13 +120,13 @@ namespace Rivet {
       rtn += p;
     }
     #else
-    GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
-    if (gv == NULL) return rtn;
+    ConstGenVertexPtr gv = genParticle()->end_vertex();
+    if (gv == nullptr) return rtn;
     /// @todo Would like to do this, but the range objects are broken
     // foreach (const GenParticlePtr gp, gv->particles(HepMC::children))
     //   rtn += Particle(gp);
-    for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::children); it != gv->particles_end(HepMC::children); ++it) {
-      const Particle p(*it);
+    for(ConstGenParticlePtr it: particles(gv, RivetHepMC::Relatives::CHILDREN)){
+      const Particle p(it);
       if (c != Cuts::OPEN && !c->accept(p)) continue;
       rtn += p;
     }
@@ -141,7 +141,7 @@ namespace Rivet {
     vector<Particle> rtn;
     if (isStable()) return rtn;
     #if HEPMC_VERSION_CODE >= 3000000
-    for (ConstGenParticlePtr gp : genParticle()->descendants()) {
+    for (ConstGenParticlePtr gp : Rivet::particles(genParticle(), Relatives::DESCENDANTS)){
       const Particle p(gp);
       if (c != Cuts::OPEN && !c->accept(p)) continue;
       if (remove_duplicates) {
@@ -154,20 +154,20 @@ namespace Rivet {
       rtn += p;
     }
     #else
-    GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
-    if (gv == NULL) return rtn;
+    ConstGenVertexPtr gv = genParticle()->end_vertex();
+    if (gv == nullptr) return rtn;
     /// @todo Would like to do this, but the range objects are broken
     // foreach (const GenParticlePtr gp, gv->particles(HepMC::descendants))
-    for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it) {
-      const Particle p(*it);
+    for(ConstGenParticlePtr it: particles(gv, RivetHepMC::Relatives::DESCENDANTS)){
+      const Particle p(it);
       if (c != Cuts::OPEN && !c->accept(p)) continue;
-      if (remove_duplicates && (*it)->end_vertex() != NULL) {
+      if (remove_duplicates && it->end_vertex() != NULL) {
         // size_t n = 0; ///< @todo Only remove 1-to-1 duplicates?
         bool dup = false;
         /// @todo Yuck, HepMC
-        for (GenVertex::particle_iterator it2 = (*it)->end_vertex()->particles_begin(HepMC::children); it2 != (*it)->end_vertex()->particles_end(HepMC::children); ++it2) {
+        for(ConstGenParticlePtr it2: particles(it->end_vertex(), RivetHepMC::Relatives::CHILDREN)){
           // n += 1; if (n > 1) break;
-          if ((*it)->pdg_id() == (*it2)->pdg_id()) { dup = true; break; }
+          if (it->pdg_id() == it2->pdg_id()) { dup = true; break; }
         }
         if (dup) continue;
       }
@@ -181,12 +181,12 @@ namespace Rivet {
   vector<Particle> Particle::stableDescendants(const Cut& c) const {
     vector<Particle> rtn;
     if (isStable()) return rtn;
-    /// @todo Remove this const mess crap when HepMC doesn't suck
-    GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
-    if (gv == NULL) return rtn;
+    ConstGenVertexPtr gv = genParticle()->end_vertex();
+    if (gv == nullptr) return rtn;
     /// @todo Would like to do this, but the range objects are broken
     // foreach (const GenParticlePtr gp, gv->particles(HepMC::descendants))
-    for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it) {
+    for(ConstGenParticlePtr it: particles(gv, RivetHepMC::Relatives::DESCENDANTS)){
+    //for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it) {
       // if ((*it)->status() != 1 || (*it)->end_vertex() != NULL) continue;
       const Particle p(*it);
       if (!p.isStable()) continue;
@@ -202,8 +202,8 @@ namespace Rivet {
     if (isStable()) return -1;
     if (genParticle() == NULL) return 0;
     if (genParticle()->production_vertex() == NULL) return 0;
-    const HepMC::FourVector v1 = genParticle()->production_vertex()->position();
-    const HepMC::FourVector v2 = genParticle()->end_vertex()->position();
+    const RivetHepMC::FourVector v1 = genParticle()->production_vertex()->position();
+    const RivetHepMC::FourVector v2 = genParticle()->end_vertex()->position();
     return sqrt(sqr(v2.x()-v1.x()) + sqr(v2.y()-v1.y()) + sqr(v2.z()-v1.z()));
   }
 
@@ -276,16 +276,22 @@ namespace Rivet {
 
 
   bool Particle::isDirect(bool allow_from_direct_tau, bool allow_from_direct_mu) const {
-    if (genParticle() == NULL) return false; // no HepMC connection, give up! Throw UserError exception?
+    if (genParticle() == nullptr) return false; // no HepMC connection, give up! Throw UserError exception?
     ConstGenVertexPtr prodVtx = genParticle()->production_vertex();
-    if (prodVtx == NULL) return false; // orphaned particle, has to be assume false
-    const pair<ConstGenParticlePtr, ConstGenParticlePtr> beams = prodVtx->parent_event()->beam_particles();
+    if (prodVtx == nullptr) return false; // orphaned particle, has to be assume false
 
     /// @todo Would be nicer to be able to write this recursively up the chain, exiting as soon as a parton or string/cluster is seen
     for (ConstGenParticlePtr ancestor : Rivet::particles(prodVtx, Relatives::ANCESTORS)) {
       const PdgId pid = ancestor->pdg_id();
       if (ancestor->status() != 2) continue; // no non-standard statuses or beams to be used in decision making
-      if (ancestor == beams.first || ancestor == beams.second) continue; // PYTHIA6 uses status 2 for beams, I think... (sigh)
+      bool isBeam = false;
+      for(ConstGenParticlePtr b: Rivet::beams(prodVtx->parent_event())){
+        if(ancestor == b){
+          isBeam = true;
+          break;
+        }
+      }
+      if(isBeam) continue; // PYTHIA6 uses status 2 for beams, I think... (sigh)
       if (PID::isParton(pid)) continue; // PYTHIA6 also uses status 2 for some partons, I think... (sigh)
       if (PID::isHadron(pid)) return false; // direct particles can't be from hadron decays
       if (abs(pid) == PID::TAU && abspid() != PID::TAU && !allow_from_direct_tau) return false; // allow or ban particles from tau decays (permitting tau copies)

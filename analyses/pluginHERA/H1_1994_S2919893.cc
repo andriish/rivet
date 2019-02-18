@@ -73,9 +73,9 @@ namespace Rivet {
       const FinalState& fs = apply<FinalState>(event, "FS");
       Particles particles;
       particles.reserve(fs.particles().size());
-      const GenParticlePtr dislepGP = dl.out().genParticle();
-      foreach (const Particle& p, fs.particles()) {
-        const GenParticlePtr loopGP = p.genParticle();
+      ConstGenParticlePtr dislepGP = dl.out().genParticle();
+      for(const Particle& p: fs.particles()) {
+        ConstGenParticlePtr loopGP = p.genParticle();
         if (loopGP == dislepGP) continue;
         particles.push_back(p);
       }

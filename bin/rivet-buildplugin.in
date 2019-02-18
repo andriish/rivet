@@ -163,8 +163,10 @@ else
     irivet="@includedir@"
 fi
 test -n "$irivet" && mycppflags="$mycppflags -I${irivet}"
-ihepmc="@HEPMCINCPATH@"
-test -n "$ihepmc" && mycppflags="$mycppflags -I${ihepmc}"
+@ENABLE_HEPMC_3_TRUE@ihepmc_1="@HEPMC3INCPATH@ @CPPFLAGS@"
+@ENABLE_HEPMC_3_FALSE@ihepmc_2="@HEPMC3INCPATH@"
+test -n "$ihepmc_1" && mycppflags="$mycppflags -I${ihepmc_1}"
+test -n "$ihepmc_2" && mycppflags="$mycppflags -I${ihepmc_2}"
 iyoda="@YODAINCPATH@"
 test -n "$iyoda" && mycppflags="$mycppflags -I${iyoda}"
 ifastjet="@FASTJETINCPATH@"

@@ -46,11 +46,18 @@ protected:
   /// Perform the projection on the Event
   void project(const Event& e) {
     _estimate = -1.0;
-    const HepMC::HeavyIon * hi = e.genEvent()->heavy_ion();
-    if ( hi ) _estimate = hi->impact_parameter() > 0.0?
-                1.0/hi->impact_parameter(): numeric_limits<double>::max();
+    HepMC::ConstGenHeavyIonPtr hi = e.genEvent()->heavy_ion();
+    
+    if(hi){
+    
+#if HEPMC_VERSION_CODE >= 3000000
+    _estimate = hi->impact_parameter > 0.0 ? 1.0/hi->impact_parameter: numeric_limits<double>::max();
+#else
+    _estimate = hi->impact_parameter() > 0.0 ? 1.0/hi->impact_parameter(): numeric_limits<double>::max();
+#endif
+    }
   }
-
+    
   /// Compare projections
   int compare(const Projection& p) const {
     return mkNamedPCmp(p, "CentEst");
@@ -808,7 +815,7 @@ protected:
   void project(const Event& e) {
     _estimate = -1.0;
 #if HEPMC_VERSION_CODE >= 3000000
-    const HepMC::HeavyIon * hi = e.genEvent()->heavy_ion();
+    HepMC::ConstGenHeavyIonPtr hi = e.genEvent()->heavy_ion();
     if ( hi ) _estimate = 100.0 - hi->centrality; // @TODO We don't really know how to interpret this number!
 #endif
   }

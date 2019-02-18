@@ -29,6 +29,12 @@ endif
 ## No-Python Rivet program
 noinst_PROGRAMS = rivet-nopy
 rivet_nopy_SOURCES = rivet-nopy.cc
-rivet_nopy_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS)
+rivet_nopy_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS) $(CPPFLAGS)
+rivet_nopy_LDADD = $(top_builddir)/src/libRivet.la
+if ENABLE_HEPMC_3
+rivet_nopy_LDFLAGS = -L$(HEPMC3LIBPATH)
+rivet_nopy_LDADD += -lHepMC3
+else
 rivet_nopy_LDFLAGS = -L$(HEPMCLIBPATH)
-rivet_nopy_LDADD = $(top_builddir)/src/libRivet.la -lHepMC
+rivet_nopy_LDADD += -lHepMC
+endif

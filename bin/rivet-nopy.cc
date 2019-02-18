@@ -1,7 +1,7 @@
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/AnalysisLoader.hh"
 //#include "HepMC/IO_GenEvent.h"
-#include "HepMCContrib/ReaderFactory.h"
+#include "Rivet/Tools/RivetHepMC.hh"
 
 using namespace std;
 
@@ -19,11 +19,11 @@ int main(int argc, char** argv) {
     ah.addAnalysis(argv[i]);
   }
 
-  std::shared_ptr<HepMC::Reader> reader = HepMC::make_reader(argv[1]);
+  std::shared_ptr<Rivet::RivetHepMC::Reader> reader = Rivet::RivetHepMC::deduce_reader(argv[1]);
   
   while(!reader->failed()){
     
-    HepMC::GenEvent evt;
+    Rivet::RivetHepMC::GenEvent evt;
     reader->read_event(evt);
     ah.analyze(evt);
   }

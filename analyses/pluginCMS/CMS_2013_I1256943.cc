@@ -74,14 +74,14 @@ namespace Rivet {
         if (PID::hasBottom(pid)) {
 
           bool good_B = false;
-          const GenParticlePtr pgen = p.genParticle();
-          const GenVertexPtr vgen = pgen -> end_vertex();
+          ConstGenParticlePtr pgen = p.genParticle();
+          ConstGenVertexPtr vgen = pgen -> end_vertex();
 
           // Loop over the decay products of each unstable particle, looking for a b-hadron pair
           /// @todo Avoid HepMC API
-          for (GenVertex::particles_out_const_iterator it = vgen->particles_out_const_begin(); it !=  vgen->particles_out_const_end(); ++it) {
+          for (ConstGenParticlePtr it: vgen->particles_out()){
             // If the particle produced has a bottom quark do not count it and go to the next loop cycle.
-            if (!( PID::hasBottom( (*it)->pdg_id() ) ) ) {
+            if (!( PID::hasBottom( it->pdg_id() ) ) ) {
               good_B = true;
               continue;
             } else {

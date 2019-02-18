@@ -66,7 +66,7 @@ namespace Rivet {
     double asqrtS() const;
 
     /// Get the generator centrality (impact-parameter quantile in [0,1]; or -1 if undefined (usual for non-HI generators))
-    double centrality() const;
+    //double centrality() const;
 
     // /// Get the boost to the beam centre-of-mass
     // Vector3 beamCMSBoost() const;

@@ -61,17 +61,17 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
 
-      for (const GenParticle* p : particles(e.genEvent())) {
-        const GenVertex* pv = p->production_vertex();
-        const GenVertex* dv = p->end_vertex();
+      for(ConstGenParticlePtr p : particles(e.genEvent())) {
+        ConstGenVertexPtr pv = p->production_vertex();
+        ConstGenVertexPtr dv = p->end_vertex();
         if (PID::isBottomHadron(p->pdg_id())) {
           const double xp = p->momentum().e()/meanBeamMom;
 
           // If the B-hadron has a parton as parent, call it primary B-hadron:
           if (pv) {
             bool is_primary = false;
-            for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin(); pp != pv->particles_in_const_end() ; ++pp) {
-              if (isParton((*pp)->pdg_id())) is_primary = true;
+            for (ConstGenParticlePtr pp: pv->particles_in()){
+              if (isParton(pp->pdg_id())) is_primary = true;
             }
             if (is_primary) {
               _histXbprim->fill(xp, weight);
@@ -82,9 +82,8 @@ namespace Rivet {
           // If the B-hadron has no B-hadron as a child, it decayed weakly:
           if (dv) {
             bool is_weak = true;
-            for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin() ;
-                 pp != dv->particles_out_const_end() ; ++pp) {
-              if (PID::isBottomHadron((*pp)->pdg_id())) {
+            for (ConstGenParticlePtr pp: dv->particles_out()){
+              if (PID::isBottomHadron(pp->pdg_id())) {
                 is_weak = false;
               }
             }

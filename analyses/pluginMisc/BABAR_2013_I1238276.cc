@@ -43,13 +43,14 @@ namespace Rivet {
 
       foreach (const Particle& p, fs.particles()) {
         // check if prompt or not
-        const GenParticlePtr pmother = p.genParticle();
-        const GenVertexPtr ivertex = pmother->production_vertex();
+        ConstGenParticlePtr pmother = p.genParticle();
+        ConstGenVertexPtr ivertex = pmother->production_vertex();
         bool prompt = true;
         while (ivertex) {
-          int n_inparts = ivertex->particles_in_size();
+          vector<ConstGenParticlePtr> inparts = ivertex->particles_in();
+          int n_inparts = inparts.size();
           if (n_inparts < 1) break;
-          pmother = particles(ivertex, HepMC::parents)[0]; // first mother particle
+          pmother = inparts[0]; // first mother particle
           int mother_pid = abs(pmother->pdg_id());
           if (mother_pid==PID::K0S || mother_pid==PID::LAMBDA) {
             prompt = false;

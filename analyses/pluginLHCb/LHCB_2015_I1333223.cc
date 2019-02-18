@@ -75,7 +75,7 @@ namespace Rivet {
     /// Compute distance of closest approach in z range for one particle.
     /// Returns -1 if unable to compute the DCA to PV.
     double getPVDCA(const Particle& p) {
-      const GenVertexPtr vtx = p.genParticle()->production_vertex();
+      ConstGenVertexPtr vtx = p.genParticle()->production_vertex();
       if ( 0 == vtx ) return -1.;
 
       // Unit vector of particle's MOMENTUM three vector

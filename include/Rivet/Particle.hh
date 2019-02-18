@@ -25,7 +25,7 @@ namespace Rivet {
     /// @note A particle without info is useless. This only exists to keep STL containers happy.
     Particle()
       : ParticleBase(),
-        _original((HepMC::GenParticle*) nullptr), _id(PID::ANY)
+        _original(nullptr), _id(PID::ANY)
     { }
 
     /// Constructor without GenParticle.
@@ -47,9 +47,11 @@ namespace Rivet {
     }
 
     /// Constructor from a HepMC GenParticle.
-    Particle(const HepMC::GenParticle& gp)
+    Particle(const RivetHepMC::GenParticle& gp)
       : ParticleBase(),
-        _original(std::make_shared<const HepMC::GenParticle>(gp)), _id(gp.pdg_id()),
+        _original(new RivetHepMC::GenParticle(gp)),
+        //_original(std::make_shared<RivetHepMC::GenParticle>(gp)),
+        _id(gp.pdg_id()),
         _momentum(gp.momentum())
     {
       ConstGenVertexPtr vprod = gp.production_vertex();

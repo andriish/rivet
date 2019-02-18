@@ -113,7 +113,7 @@ namespace Rivet {
       /// @todo Use built-in b-tagging (dR < 0.3 defn), avoid HepMC
       const double nominalW = 80.4*GeV;
       double deltaM = 500*GeV;
-      const Jet* light1 = NULL; const Jet* light2 = NULL; // NB: const Jets, not const pointers!
+      const Jet* light1 = nullptr; const Jet* light2 = nullptr; // NB: const Jets, not const pointers!
       for (const Jet& i : good_jets) {
         const bool isbJet1 = any(b_hadrons, deltaRLess(i, 0.3));
         if (isbJet1) continue;
@@ -132,7 +132,7 @@ namespace Rivet {
 
       // Check that both jets are not overlapped, and populate the light jets list
       Jets light_jets;
-      const bool hasGoodLight = light1 != NULL && light2 != NULL && light1 != light2;
+      const bool hasGoodLight = light1 != nullptr && light2 != nullptr && light1 != light2;
       if (hasGoodLight) {
         bool isOverlap1 = false, isOverlap2 = false;
         for (const Jet& j : allJets) {

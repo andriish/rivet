@@ -701,31 +701,31 @@ namespace Rivet {
     /// Function returning 4-momentum of daughter-particle if it is a tau neutrino
     FourMomentum get_tau_neutrino_momentum(const Particle& p)  {
       assert(p.abspid() == PID::TAU);
-      const GenVertexPtr dv = p.genParticle()->end_vertex();
-      assert(dv != NULL);
+      ConstGenVertexPtr dv = p.genParticle()->end_vertex();
+      assert(dv != nullptr);
       // Loop over all daughter particles
-      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
-        if (abs((*pp)->pdg_id()) == PID::NU_TAU) return FourMomentum((*pp)->momentum());
+      for(ConstGenParticlePtr pp: dv->particles_out()){
+        if (abs(pp->pdg_id()) == PID::NU_TAU) return FourMomentum(pp->momentum());
       }
       return FourMomentum();
     }
 
     /// Function calculating the prong number of taus
-    void get_prong_number(const GenParticlePtr p, unsigned int& nprong, bool& lep_decaying_tau)  {
-      assert(p != NULL);
-      const GenVertexPtr dv = p->end_vertex();
-      assert(dv != NULL);
-      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
+    void get_prong_number(ConstGenParticlePtr p, unsigned int& nprong, bool& lep_decaying_tau)  {
+      assert(p != nullptr);
+      ConstGenVertexPtr dv = p->end_vertex();
+      assert(dv != nullptr);
+      for(ConstGenParticlePtr pp: dv->particles_out()){
         // If they have status 1 and are charged they will produce a track and the prong number is +1
-        if ((*pp)->status() == 1 )  {
-          const int id = (*pp)->pdg_id();
+        if (pp->status() == 1 )  {
+          const int id = pp->pdg_id();
           if (Rivet::PID::charge(id) != 0 ) ++nprong;
           // Check if tau decays leptonically
           if (( abs(id) == PID::ELECTRON || abs(id) == PID::MUON || abs(id) == PID::TAU ) && abs(p->pdg_id()) == PID::TAU) lep_decaying_tau = true;
         }
         // If the status of the daughter particle is 2 it is unstable and the further decays are checked
-        else if ((*pp)->status() == 2 )  {
-          get_prong_number((*pp),nprong,lep_decaying_tau);
+        else if (pp->status() == 2 )  {
+          get_prong_number(pp,nprong,lep_decaying_tau);
         }
       }
     }

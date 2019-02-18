@@ -41,9 +41,16 @@ namespace Rivet {
       _h_pmXS->fill(0.5*(event.weight() > 0 ? 1. : -1), abs(event.weight()));
       _h_pmN ->fill(0.5*(event.weight() > 0 ? 1. : -1), 1.);
       #ifdef HEPMC_HAS_CROSS_SECTION
+      
+      #if HEPMC_VERSION_CODE >= 3000000
+      _mc_xs    = event.genEvent()->cross_section()->cross_section;
+      _mc_error = event.genEvent()->cross_section()->cross_section_error;
+      #else
       _mc_xs    = event.genEvent()->cross_section()->cross_section();
       _mc_error = event.genEvent()->cross_section()->cross_section_error();
-      #endif
+      #endif // VERSION_CODE >= 3000000
+      
+      #endif // HAS_CROSS_SECTION
     }
 
 

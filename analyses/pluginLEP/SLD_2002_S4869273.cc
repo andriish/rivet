@@ -60,17 +60,16 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
 
-      for (const GenParticle* p : particles(e.genEvent())) {
-        const GenVertex* dv = p->end_vertex();
+      for(ConstGenParticlePtr p : particles(e.genEvent())) {
+        ConstGenVertexPtr dv = p->end_vertex();
         if (PID::isBottomHadron(p->pdg_id())) {
           const double xp = p->momentum().e()/meanBeamMom;
 
           // If the B-hadron has no B-hadron as a child, it decayed weakly:
           if (dv) {
             bool is_weak = true;
-            for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin() ;
-                 pp != dv->particles_out_const_end() ; ++pp) {
-              if (PID::isBottomHadron((*pp)->pdg_id())) {
+            for (ConstGenParticlePtr pp: dv->particles_out()){
+              if (PID::isBottomHadron(pp->pdg_id())) {
                 is_weak = false;
               }
             }

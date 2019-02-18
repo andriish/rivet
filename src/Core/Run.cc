@@ -1,10 +1,11 @@
 // -*- C++ -*-
 #include "Rivet/Run.hh"
 #include "Rivet/AnalysisHandler.hh"
-#include "HepMC/IO_GenEvent.h"
+//#include "HepMC/IO_GenEvent.h"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Tools/RivetPaths.hh"
-#include "zstr/zstr.hpp"
+/// @todo reinstate zlib once HepMC3 stream reading is ok
+//#include "zstr/zstr.hpp"
 #include <limits>
 
 namespace Rivet {
@@ -39,7 +40,8 @@ namespace Rivet {
   bool Run::readEvent() {
     /// @todo Clear rather than new the GenEvent object per-event?
     _evt.reset(new GenEvent());
-    if (_io->rdstate() != 0 || !_io->fill_next_event(_evt.get()) ) {
+    _hepmcReader->read_event(*_evt);
+    if(_hepmcReader->failed()){
       Log::getLog("Rivet.Run") << Log::DEBUG << "Read failed. End of file?" << endl;
       return false;
     }
@@ -52,6 +54,7 @@ namespace Rivet {
     return true;
   }
 
+  /*
   // Fill event and check for a bad read state --- to skip, maybe HEPMC3 will have a better way
   bool Run::skipEvent() {
     if (_io->rdstate() != 0 || !_io->fill_next_event(_evt.get()) ) {
@@ -60,7 +63,7 @@ namespace Rivet {
     }
     return true;
   }
-
+*/
 
   bool Run::openFile(const std::string& evtfile, double weight) {
     // Set current weight-scaling member
@@ -68,8 +71,11 @@ namespace Rivet {
 
     // Set up HepMC input reader objects
     if (evtfile == "-") {
-      _io.reset(new HepMC::IO_GenEvent(std::cin));
+      /// @todo No way of knowing with stdin whether the stream is HepMC2 or HepMC3. Assume HepMC2 for now?
+      _hepmcReader = std::make_shared<RivetHepMC::ReaderAsciiHepMC2>(std::cin);
     } else {
+      _hepmcReader = RivetHepMC::ReaderFactory::make_reader(evtfile);
+      /*
       if (!fileexists(evtfile)) throw Error("Event file '" + evtfile + "' not found");
       #ifdef HAVE_LIBZ
       // NB. zstr auto-detects if file is deflated or plain-text
@@ -78,8 +84,9 @@ namespace Rivet {
       _istr.reset(new std::fstream(evtfile.c_str(), std::ios::in));
       #endif
       _io.reset(new HepMC::IO_GenEvent(*_istr));
+       */
     }
-    if (_io->rdstate() != 0) {
+    if (_hepmcReader->failed()) {
       Log::getLog("Rivet.Run") << Log::ERROR << "Read error on file " << evtfile << endl;
       return false;
     }
@@ -93,11 +100,14 @@ namespace Rivet {
     // Read first event to define run conditions
     bool ok = readEvent();
     if (!ok) return false;
+    if(particles(_evt).size() == 0){
+      
+    /*
     #if HEPMC_VERSION_CODE >= 3000000
     if (_evt->particles().empty()) {
     #else
     if (_evt->particles_size() == 0) {
-    #endif
+    #endif */
       Log::getLog("Rivet.Run") << Log::ERROR << "Empty first event." << endl;
       return false;
     }
@@ -155,8 +165,8 @@ namespace Rivet {
 
   bool Run::finalize() {
     _evt.reset();
-    _istr.reset();
-    _io.reset();
+    /// @todo reinstate for HepMC3
+    //_istr.reset();
 
     if (!std::isnan(_xs)) _ah.setCrossSection(_xs);
     _ah.finalize();

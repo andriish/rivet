@@ -2,53 +2,57 @@
 #ifndef RIVET_RivetHepMC_HH
 #define RIVET_RivetHepMC_HH
 
+#ifdef ENABLE_HEPMC_3
+#include "HepMC3/HepMC3.h"
+#include "HepMC3/Relatives.h"
+#include "HepMC3/ReaderFactory.h"
+
+namespace Rivet{
+  namespace RivetHepMC = HepMC3;
+  using RivetHepMC::ConstGenParticlePtr;
+  using RivetHepMC::ConstGenVertexPtr;
+  using RivetHepMC::Relatives;
+}
+
+#else
 #include "HepMC/GenEvent.h"
 #include "HepMC/GenParticle.h"
 #include "HepMC/GenVertex.h"
 #include "HepMC/Version.h"
-#include "HepMC/IO_GenEvent.h"
+#include "HepMC/GenRanges.h"
+
+
+namespace Rivet{
+  namespace RivetHepMC = HepMC;
+  
+  // HepMC 2.07 provides its own #defines
+#define ConstGenParticlePtr const HepMC::GenParticle*
+#define ConstGenVertexPtr const HepMC::GenVertex*
+#define Relatives HepMC::IteratorRange
+}
+  
+#endif
+
 #include "Rivet/Tools/RivetSTL.hh"
 #include "Rivet/Tools/Exceptions.hh"
 
-#if HEPMC_VERSION_CODE >= 3000000
-#include "HepMC/HepMC.h"
-/// @todo Will this be included in the HepMC/HepMC.h header eventually?
-#include "HepMC/Relatives.h"
-#else
-#include "HepMC/GenRanges.h"
-#endif
 
 namespace Rivet {
 
-
+  using RivetHepMC::GenEvent;
+  using ConstGenEventPtr = std::shared_ptr<const GenEvent>;
   /// @todo Use mcutils?
 
-  using HepMC::GenEvent;
-  /// @todo should we ever refer to a GenParticle other than by ptr?  Who will own the gp?
-  //using HepMC::GenParticle;
-  /// @todo should we ever refer to a GenVertex other than by ptr?  Who will own the gv?
-  //using HepMC::GenVertex;
-
-  #if HEPMC_VERSION_CODE >= 3000000
-  //using HepMC::GenParticlePtr;
-  using HepMC::ConstGenParticlePtr;
-  //using HepMC::GenVertexPtr;
-  using HepMC::ConstGenVertexPtr;
-  using HepMC::Relatives;
-  #elif HEPMC_VERSION_CODE >= 2007000
-  // HepMC 2.07 provides its own #defines
-  #else
-  #define ConstGenParticlePtr const GenParticle*
-  #define ConstGenVertexPtr const GenVertex*
-  #define Relatives HepMC::IteratorRange
-  #endif
-
+  std::vector<ConstGenParticlePtr> particles(ConstGenEventPtr ge);
   std::vector<ConstGenParticlePtr> particles(const GenEvent *ge);
-  std::vector<ConstGenVertexPtr> vertices(const GenEvent *ge);
+  std::vector<ConstGenVertexPtr>   vertices(ConstGenEventPtr ge);
+  std::vector<ConstGenVertexPtr>   vertices(const GenEvent *ge);
   std::vector<ConstGenParticlePtr> particles(ConstGenVertexPtr gv, const Relatives &relo);
   std::vector<ConstGenParticlePtr> particles(ConstGenParticlePtr gp, const Relatives &relo);
-
-
+  int uniqueId(ConstGenParticlePtr gp);
+  std::vector<ConstGenParticlePtr> beams(const GenEvent *ge);
+  
+/*
   #if HEPMC_VERSION_CODE >= 3000000
 
   /// @name Accessors from GenEvent
@@ -115,7 +119,7 @@ namespace Rivet {
   }*/
   //@}
 
-
+/*
   #else
 
 
@@ -314,7 +318,7 @@ namespace Rivet {
 
   #endif
 
-
+*/
 }
 
 #endif

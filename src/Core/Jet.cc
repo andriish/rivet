@@ -65,9 +65,9 @@ namespace Rivet {
       if (p.genParticle()->id() == idcode) return true;
     }
     #else
-    const int barcode = particle.genParticle()->barcode();
+    const int barcode = uniqueId(particle.genParticle());
     for (const Particle& p : particles()) {
-      if (p.genParticle()->barcode() == barcode) return true;
+      if (uniqueId(p.genParticle()) == barcode) return true;
     }
     #endif
     return false;

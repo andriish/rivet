@@ -1,3 +1,10 @@
+2019-02-17  James Monk  <jwmonk@protonmail.com>
+  * Update many build paths to cope with new HepMC3 include and lib paths :(
+  * Use RivetHepMC namespace in place of HepMC:: RivetHepMC.hh should take care of it
+  * configure.ac addes appropriate define to CPPFLAGS
+  * wrangle rivet-buildplugin to cope with HePMC3 paths
+  * HepMC::Reader is still a bit fubar :(
+
 2018-12-10  James Monk  <jwmonk@protonmail.com>
   * Merge from default
 

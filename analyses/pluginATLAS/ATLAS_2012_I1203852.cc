@@ -127,7 +127,7 @@ namespace Rivet {
         bool isolated = true;
         for(const DressedLepton& l2: leptonsFS_sel4l) {
           double dR = deltaR(l1, l2);
-          if (dR < 0.2 && l1 != l2) { isolated = false; break; }
+          if (dR < 0.2 && (&l1 != &l2)) { isolated = false; break; }
         }
         if (isolated) leptons_sel4l.push_back(l1);
       }

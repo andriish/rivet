@@ -7,7 +7,7 @@ namespace Rivet {
 
 
   ParticlePair beams(const Event& e) {
-    #if HEPMC_VERSION_CODE >= 3000000
+    #ifdef ENABLE_HEPMC_3
 
     // First try the official way: ask the GenEvent for the beam pointers
     assert(e.genEvent()->particles().size() >= 2);
@@ -150,7 +150,7 @@ namespace Rivet {
 
 
   FourVector Beam::pv() const {
-    HepMC::FourVector v1, v2;
+    RivetHepMC::FourVector v1, v2;
     const ParticlePair bpair = beams();
     if (bpair.first.genParticle() && bpair.first.genParticle()->end_vertex())
       v1 = bpair.first.genParticle()->end_vertex()->position();

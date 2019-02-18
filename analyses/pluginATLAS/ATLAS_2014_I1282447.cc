@@ -473,17 +473,20 @@ namespace Rivet {
     // Data members like post-cuts event weight counters go here
 
     // Check whether particle comes from b-decay
-    /// @todo Use built-in method and avoid HepMC
     bool isFromBDecay(const Particle& p) {
-
+      
+      /// @todo I think we can just replicated the original behaviour with this call
+      /// Note slight difference to Rivet's native Particle::fromBottom method!
+      return p.hasAncestorWith([](const Particle &p)->bool{return p.hasBottom();});
+      /*
       bool isfromB = false;
 
       if (p.genParticle() == nullptr)  return false;
 
       ConstGenParticlePtr part = p.genParticle();
-      ConstGenVertexPtr ivtx = const_cast<const GenVertex*>(part->production_vertex());
+      ConstGenVertexPtr ivtx = part->production_vertex();
       while (ivtx) {
-        if (ivtx->particles_in_size() < 1) {
+        if (ivtx->particles_in().size() < 1) {
           isfromB = false;
           break;
         }
@@ -500,6 +503,7 @@ namespace Rivet {
         if ( part->pdg_id() == 2212 || !ivtx )  break; // reached beam
       }
       return isfromB;
+       */
     }
 
 

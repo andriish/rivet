@@ -68,26 +68,26 @@ namespace Rivet {
 
     //@}
 
-    void findDecayProducts(const GenParticlePtr p,
+    void findDecayProducts(ConstGenParticlePtr p,
                            unsigned int & nstable,
                            Particles& pip, Particles& pim,
                            Particles& pi0) {
-      const GenVertexPtr dv = p->end_vertex();
+      ConstGenVertexPtr dv = p->end_vertex();
       /// @todo Use better looping
-      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
-        int id = (*pp)->pdg_id();
+      for (ConstGenParticlePtr pp: dv->particles_out()){
+        int id = pp->pdg_id();
         if (id == PID::PI0 ) {
-          pi0.push_back(Particle(**pp));
+          pi0.push_back(Particle(*pp));
           ++nstable;
 	}
         else if (id == PID::K0S)
           ++nstable;
         else if (id == PID::PIPLUS) {
-          pip.push_back(Particle(**pp));
+          pip.push_back(Particle(*pp));
           ++nstable;
         }
         else if (id == PID::PIMINUS) {
-          pim.push_back(Particle(**pp));
+          pim.push_back(Particle(*pp));
           ++nstable;
         }
         else if (id == PID::KPLUS) {
@@ -96,8 +96,8 @@ namespace Rivet {
         else if (id == PID::KMINUS) {
           ++nstable;
         }
-        else if ((*pp)->end_vertex()) {
-          findDecayProducts(*pp, nstable, pip, pim, pi0);
+        else if (pp->end_vertex()) {
+          findDecayProducts(pp, nstable, pip, pim, pi0);
         }
         else
           ++nstable;

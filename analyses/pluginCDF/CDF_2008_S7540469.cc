@@ -96,8 +96,8 @@ namespace Rivet {
           if (deltaR(p_e0, p_P) < 0.2) copy = false;
           if (deltaR(p_e1, p_P) < 0.2) copy = false;
         } else {
-          if (p.genParticle()->barcode() == Z_candidates[0].first.genParticle()->barcode()) copy = false;
-          if (p.genParticle()->barcode() == Z_candidates[0].second.genParticle()->barcode()) copy = false;
+          if (p.genParticle()->id() == Z_candidates[0].first.genParticle()->id()) copy = false;
+          if (p.genParticle()->id() == Z_candidates[0].second.genParticle()->id()) copy = false;
         }
         if (copy) jetparts.push_back(p);
       }
