@@ -1,13 +1,13 @@
-373239 . Letter of intent for a study of CP violation in B meson decays
-374247 . Letter of Intent for the Study of CP Violation and Heavy Flavor Physics at PEP-II
-394377 . A Study of CP violation in B meson decays: Technical design report
-394593 . BaBar technical design report
-419146 . BELLE progress report: April 1995 - March 1996
-470398 . The BaBar Drift Chamber
-479871 . The BABAR physics book: Physics at an asymmetric $B$ factory
-512971 . The BaBar silicon vertex tracker
-515834 . The design and construction of the BaBar silicon vertex tracker
-525677 . The BaBar silicon vertex tracker
+373239 X Letter of intent for a study of CP violation in B meson decays
+374247 X Letter of Intent for the Study of CP Violation and Heavy Flavor Physics at PEP-II
+394377 X A Study of CP violation in B meson decays: Technical design report
+394593 X BaBar technical design report
+419146 X BELLE progress report: April 1995 - March 1996
+470398 X The BaBar Drift Chamber
+479871 X The BABAR physics book: Physics at an asymmetric $B$ factory
+512971 X The BaBar silicon vertex tracker
+515834 X The design and construction of the BaBar silicon vertex tracker
+525677 X The BaBar silicon vertex tracker
 532337 . A Study of time dependent CP violating asymmetries in $B^0 \to J/\psi K^0_{s}$ and $B^0 \to \psi_{2S} K^0_{s}$ decays
 532338 . Measurement of inclusive production of charmonium states in B meson decays
 532339 . Exclusive B decays to charmonium final states
@@ -41,14 +41,14 @@
 543473 . Search for CP violation in tau semi-leptonic decay tau+- --> pi+- pi0 nu/tau
 552936 . Measurement of the CP violation parameter $\sin 2 \phi_{1}$ in $B^0_{d}$ meson decays
 553002 . Measurement of CP violating asymmetries in $B^0$ decays to CP eigenstates
-553395 . The BaBar silicon vertex tracker
+553395 X The BaBar silicon vertex tracker
 554520 . Measurement of inclusive production of neutral pions from Upsilon(4S) decays
 554521 . A Measurement of the branching fraction for the inclusive B ---> X(s) gamma decays with BELLE
 555527 . Measurement of branching fractions for B ---> pi pi, K pi and K K decays
 555979 . Observation of Cabibbo suppressed B ---> D(*)K- decays at BELLE
 556049 . Measurement of the decays $B \to \phi K$ and $B \to \phi K^*$
 556367 . Observation of B ---> J / psi K(1)(1270)
-556767 . The BaBar detector
+556767 X The BaBar detector
 557007 . Measurement of branching fractions and search for CP-violating charge asymmetries in charmless two-body $B$ decays into pions and kaons
 558091 . Measurement of $J/\psi$ production in continuum $e^+e^-$ annihilations near $\sqrt{s}=10.6$ GeV
 559129 . Search for direct CP violation in B ---> K pi decays
@@ -350,7 +350,7 @@
 653245 . Observation of the decays B0 ---> K+ pi- pi0 and B0 ---> rho- K+
 653598 . Measurement of branching fractions, and CP and isospin asymmetries, for $B \to K^* \gamma$
 653673 . Study of double charmonium production in e+ e- annihilation at s**(1/2) ~ 10.6-GeV
-653880 . The DIRC particle identification system for the BaBar experiment
+653880 X The DIRC particle identification system for the BaBar experiment
 653930 . Search for B-meson decays to two-body final states with $a0(980)$ mesons
 654442 . Improved measurements of partial rate asymmetry in B -- h h decays
 654913 . Search for the rare leptonic decay $B^- \to \tau^- \bar{\nu}_\tau$
@@ -453,11 +453,11 @@
 659024 . Search for lepton-flavor violation in the decay $\tau^{-} \to \ell^\mp$ h+- h-
 660051 . Measurement of $B \to D^{*+}$ form-factors in the semileptonic decay $\bar{B}^0 \to D^{*+} \ell^{-}$ anti-neutrino
 660188 . New measurements of time-dependent CP-violating asymmetries in b ---> s transitions at Belle
-660238 . Readout, First- and Second-Level Triggers of the new Belle Silicon Vertex Detector
+660238 X Readout, First- and Second-Level Triggers of the new Belle Silicon Vertex Detector
 660759 . Measurement of masses and branching ratios of Xi+(c) and Xi0(c) baryons
 660967 . Measurement of the differential q**2 spectrum and forward-backward asymmetry for B ---> K* l+ l-
 663194 . Observation of the D(1)(2420) ---> D pi+ pi- decays
-663292 . Search for pentaquarks at Belle
+663292 X Search for pentaquarks at Belle
 663432 . Ambiguity-free measurement of $\cos(2\beta)$: Time-integrated and time-dependent angular analyses of $B \to J/\psi K \pi$
 664501 . Measurement of phi(3) with Dalitz plot analysis of B+- ---> D(*) K+- decay at Belle
 664717 . Measurements of $B$ meson decays to $\omega K^*$ and $\omega \rho$
@@ -1183,7 +1183,7 @@
 871959 . Measurement of the $B^0 \to \pi^\ell \ell^+ \nu$ and $B^+ \to \eta^{(')} \ell^+ \nu$ Branching Fractions, the $B^0 \to \pi^- \ell^+ \nu$ and $B^+ \to \eta \ell^+ \nu$ Form-Factor Shapes, and Determination of $|V_{ub}|$
 872494 . Search for the Decay $B^{0} \to \gamma \gamma$
 874639 . Measurement of the form factors of the decay B0 -> D*- ell+ nu and determination of the CKM matrix element |Vcb|
-875348 . Belle II Technical Design Report
+875348 X Belle II Technical Design Report
 876788 . First Measurement of Inclusive B -> X_s eta Decays
 877816 . Measurement of the B ---> D-bar(*)D(*)K branching fractions
 877820 . Studies of tau- ---> eta K-nu and tau- ---> eta pi- nu(tau) at BaBar and a search for a second-class current
@@ -1301,7 +1301,7 @@
 1208997 . Measurement of the inclusive semileptonic branching fraction $\mathcal{B}(B_s^0 \to X^- \ell^+ \nu_{\ell})$ at Belle
 1209559 . Observation of direct CP violation in the measurement of the Cabibbo-Kobayashi-Maskawa angle gamma with $B^\pm\to D^{(*)}K^{(*)\pm}$ decays
 1209562 . Search for heavy neutrinos at Belle
-1210649 . Time-Integrated Luminosity Recorded by the BABAR Detector at the PEP-II $e^+ e^-$ Collider
+1210649 X Time-Integrated Luminosity Recorded by the BABAR Detector at the PEP-II $e^+ e^-$ Collider
 1216515 . Precision Measurement of Charged Pion and Kaon Differential Cross Sections in e+e- Annihilation at s=10.52  GeV
 1217421 . Study of $e^+e^- \to p \bar{p}$ via initial-state radiation at BABAR
 1217425 . Study of the decay $\bar{B}^{0}\rightarrow\Lambda_{c}^{+}\bar{p}\pi^{+}\pi^{-}$ and its intermediate states
@@ -1319,7 +1319,7 @@
 1229331 . Measurement of the $D*(2010)^+$ meson width and the $D*(2010)^+ - D^0$ mass difference
 1230342 . Evidence for $\bar{B}_s^0 \to \Lambda_c^+ \bar{\Lambda} \pi^-$
 1232210 . Search for $CP$ Violation in $B^0$-$\bar{B}^0$ Mixing using Partial Reconstruction of $B^0 \to D^{*-}X\ell^+ \nu_\ell$ and a Kaon Tag
-1233527 . The BABAR Detector: Upgrades, Operation and Performance
+1233527 X The BABAR Detector: Upgrades, Operation and Performance
 1234230 . Study of the $K^+ K^-$ invariant-mass dependence of CP asymmetry in $B^+ \rightarrow K^+ K^- K^+$ decays
 1235533 . Measurement of exclusive $\Upsilon(1S)$ and $\Upsilon(2S)$ decays into Vector-Pseudoscalar final states
 1238273 . Study of Exclusive $B \to X_u \ell \nu$ Decays and Extraction of $\|V_{ub}\|$ using Full Reconstruction Tagging at the Belle Experiment
@@ -1420,7 +1420,7 @@
 1389855 . Energy scan of the $e^+e^- \to h_b(nP)\pi^+\pi^-$ $(n=1,2)$ cross sections and evidence for $\Upsilon(11020)$ decays into charged bottomonium-like states
 1390112 . Study of $\pi^0$ pair production in single-tag two-photon collisions
 1391152 . Measurement of angular asymmetries in the decays $B \to K^*ℓ^+ℓ^-$
-1391505 . Inclusive cross sections for pairs of identified light charged hadrons and for single protons in $e^+e^-$ at $\sqrt{s}=$ 10.58 GeV
+1391505 ! Inclusive cross sections for pairs of identified light charged hadrons and for single protons in $e^+e^-$ at $\sqrt{s}=$ 10.58 GeV
 1391645 . First model-independent Dalitz analysis of $B^0 \to DK^{*0}$, $D\to K_S^0\pi^+\pi^-$ decay
 1392799 . Observation of $B^{0} \rightarrow p\bar{\Lambda} D^{(*)-}$
 1394389 . Search for $B^0 \to \pi^- \tau^+ \nu_\tau$ with hadronic tagging at Belle
@@ -1470,7 +1470,7 @@
 1520716 . Measurement of the decays $\boldsymbol{B\to\eta\ell\nu_\ell}$ and $\boldsymbol{B\to\eta^\prime\ell\nu_\ell}$ in fully reconstructed events at Belle
 1590028 . Observation of an alternative $\chi_{c0}(2P)$ candidate in $e^+ e^- \rightarrow J/\psi D \bar{D}$
 1591716 . Measurement of the $e^+e^-\to K^0_{\scriptscriptstyle S}K^\pm\pi^{\mp}\pi^0$ and $K^0_{\scriptscriptstyle S}K^\pm\pi^\mp\eta$ cross sections using initial-state radiation
-1596830 . The Silicon Vertex Detector of the Belle II Experiment
+1596830 X The Silicon Vertex Detector of the Belle II Experiment
 1598261 . Measurement of the branching fraction and $CP$ asymmetry in $B^{0} \to \pi^{0}\pi^{0}$ decays, and an improved constraint on $\phi_{2}$
 1598461 . Measurement of branching fraction and direct $CP$ asymmetry in charmless $B^+ \to K^+K^- \pi^+$ decays at Belle
 1606201 . Production cross sections of hyperons and charmed baryons from $e^+e^-$ annihilation near $\sqrt{s} = 10.52$~GeV
@@ -1480,10 +1480,10 @@
 1610301 . Study of $\eta$ and dipion transitions in $\Upsilon(4S)$ decays to lower bottomonia
 1613517 . Angular analysis of the $e^+ e^- \to D^{(*) \pm} D^{* \mp}$ process near the open charm threshold using initial-state radiation
 1613519 . Measurement of the ${D}^{*}(2010{)}^{+}\text{-}{D}^{+}$ Mass Difference
-1615382 . The Belle II SVD detector
-1615383 . The Monitoring System of the Belle II Vertex Detector
-1615384 . Performance studies of the Belle II Silicon Vertex Detector with data taken at the DESY test beam in April 2016
-1615385 . The Software Framework of the Belle II Silicon Vertex Detector and its Development for the 2016 Test-Beam at DESY
+1615382 X The Belle II SVD detector
+1615383 X The Monitoring System of the Belle II Vertex Detector
+1615384 X Performance studies of the Belle II Silicon Vertex Detector with data taken at the DESY test beam in April 2016
+1615385 X The Software Framework of the Belle II Silicon Vertex Detector and its Development for the 2016 Test-Beam at DESY
 1621272 . Measurement of the $\tau$ lepton polarization and $R(D^*)$ in the decay $\bar{B} \rightarrow D^* \tau^- \bar{\nu}_\tau$ with one-prong hadronic $\tau$ decays at Belle
 1621593 . Measurement of the ${e}^{+}{e}^{{-}}{\rightarrow}{{\pi}}^{+}{{\pi}}^{{-}}{{\pi}}^{0}{{\pi}}^{0}$ cross section using initial-state radiation at BABAR
 1624416 . Measurements of the absolute branching fractions of $B^{+} \to X_{c\bar{c}} K^{+}$ and $B^{+} \to \bar{D}^{(\ast) 0} \pi^{+} $ at Belle
@@ -1502,7 +1502,7 @@
 1663447 . Measurement of time-dependent $CP$ asymmetries in $B^{0}\to K_S^0 \eta \gamma$ decays
 1664541 . Observation of $\Upsilon(4S)\to \eta' \Upsilon(1S)$
 1664542 . Search for the decay mode $B^0\rightarrow p p \bar{p} \bar{p}$
-1665080 . Electronics and Firmware of the Belle II Silicon Vertex Detector Readout System
+1665080 X Electronics and Firmware of the Belle II Silicon Vertex Detector Readout System
 1667191 . Study of $\Upsilon(1S)$ radiative decays to $\gamma \pi^+ \pi^-$ and $\gamma K^+ K^-$
 1668122 . First evidence for $\cos 2\beta>0$ and resolution of the CKM Unitarity Triangle ambiguity by a time-dependent Dalitz plot analysis of $B^{0} \to D^{(*)} h^{0}$ with $D \to K_{S}^{0} \pi^{+} \pi^{-}$ decays
 1668123 . Measurement of $\cos{2\beta}$ in $B^{0} \to D^{(*)} h^{0}$ with $D \to K_{S}^{0} \pi^{+} \pi^{-}$ decays by a combined time-dependent Dalitz plot analysis of BaBar and Belle data
@@ -1522,7 +1522,7 @@
 1687566 . Observation of Transverse $\Lambda/\bar{\Lambda}$ Hyperon Polarization in $e^+e^-$ Annihilation at Belle
 1691222 . Measurement of the $\gamma^{\star}\gamma^{\star} \to \eta'$ transition form factor
 1691954 . Observation of the decay $D^0\rightarrow K^-\pi^+e^+e^-$
-1692393 . The Belle II Physics Book
+1692393 X The Belle II Physics Book
 1693396 . Measurement of CKM Matrix Element $|V_{cb}|$ from $\bar{B} \to D^{*+} \ell^{-} \bar{\nu}_\ell$
 1694309 . Search for a light CP-odd Higgs boson and low-mass dark matter at the Belle experiment
 1696692 . Measurement of the branching fraction and time-dependent $CP$ asymmetry for $B^0\to J/\psi\pi^0$ decays
@@ -1534,4 +1534,4 @@
 1701180 . Search for the rare decay of $B^+ \to \ell^{\,+} \nu_{\ell} \gamma$ with improved hadronic tagging
 1705069 . First measurements of absolute branching fractions of $\Xi_c^0$ at Belle
 1716258 . Search for the $B \to Y(4260) K, ~Y(4260) \to J/\psi \pi^+\pi^-$ decays
-1718551 . Transverse momentum dependent production cross sections of charged pions, kaons and protons produced in inclusive $e^+e^-$ annihilation at $\sqrt{s}=$ 10.58 GeV
+1718551 ! Transverse momentum dependent production cross sections of charged pions, kaons and protons produced in inclusive $e^+e^-$ annihilation at $\sqrt{s}=$ 10.58 GeV
