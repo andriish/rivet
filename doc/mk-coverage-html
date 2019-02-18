@@ -187,8 +187,6 @@ for iex, ex in enumerate(EXPTS):
         syms = { "default" : ".", "rivet" : ".", "grey" : "?", "black" : "X", "hot" : "!" }
         with open(rfname, "w") as rf:
             for ins, rec in sorted(ex_records[ex].items()):
-                if ins == 885104:
-                    print(ins, rec, rec[-1])
                 rankcode = rec[-1].split()[0]
                 # line = u"{} {} {}\n".format(ins.encode("UTF-8"), syms[code], rec[3].encode("UTF-8"))
                 line = u"{} {} {}".format(ins, syms[rankcode], rec[0])
