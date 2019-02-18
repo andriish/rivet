@@ -1,3 +1,7 @@
+480267 X LHCb technical proposal
+571461 X LHCb online system technical design report: Data acquisition and experiment control
+796248 X The LHCb Detector at the LHC
+840887 X Roadmap for selected key measurements of LHCb
 865584 . Prompt $K^0_s$ production in $pp$ collisions at $\sqrt{s}=0.9~\rm{TeV}$
 867355 . Measurement of $\sigma(pp \to b \bar{b} X)$ at $\sqrt{s}=7~\rm{TeV}$ in the forward region
 886284 ? First observation of $B^0_s \to J/\psi f_0(980)$ decays
@@ -445,14 +449,21 @@
 1682900 . Search for $C\!P$ violation in $\Lambda^0_b \to p K^-$ and $\Lambda^0_b \to p \pi^-$ decays
 1684260 . Measurement of the relative $B^{-} \!\rightarrow D^{0} / D^{*0} / D^{**0} \mu^{-} \overline{\nu}_\mu$ branching fractions using $B^{-}$ mesons from $\overline{B}{}_{s2}^{*0}$ decays
 1684712 . Angular moments of the decay $\Lambda_b^0 \rightarrow \Lambda \mu^{+} \mu^{-}$ at low hadronic recoil
-1688924 . Measurement of antiproton production in ${\rm p He}$ collisions at $\sqrt{s_{NN}}=110$ GeV
+1688924 . Measurement of Antiproton Production in ${\rm p He}$ Collisions at $\sqrt{s_{NN}}=110$ GeV
 1690146 . Search for lepton-flavour-violating decays of Higgs-like bosons
-1691586 . Physics case for an LHCb Upgrade II - Opportunities in flavour physics, and beyond, in the HL-LHC era
+1691586 X Physics case for an LHCb Upgrade II - Opportunities in flavour physics, and beyond, in the HL-LHC era
 1692810 . Prompt $\Lambda^+_c$ production in $p\mathrm{Pb}$ collisions at $\sqrt{s_{NN}} = 5.02$ TeV
-1694807 . Observation of two resonances in the $\Lambda_b^0 \pi^\pm$ systems and precise measurement of $\Sigma_b^\pm$ and $\Sigma_b^{*\pm}$ properties
-1694990 . Evidence for an $\eta_c(1S) \pi^-$ resonance in $B^0 \to \eta_c(1S) K^+\pi^-$ decays
+1694807 ? Observation of Two Resonances in the $\Lambda_b^0 \pi^\pm$ Systems and Precise Measurement of $\Sigma_b^\pm$ and $\Sigma_b^{*\pm}$ properties
+1694990 ? Evidence for an $\eta _c(1S) \pi ^-$ resonance in $B^0 \rightarrow \eta _c(1S) K^+\pi ^-$ decays
 1697372 . Measurement of the branching fractions of the decays $D^+\rightarrow K^-K ^+K^+$, $D^+\rightarrow \pi^-\pi^+K^+$ and $D^+_s\rightarrow \pi^-K^+K^+$
-1698962 . Measurement of the charm-mixing parameter $y_{CP}$
+1698962 . Measurement of the Charm-Mixing Parameter $y_{CP}$
 1699106 . Study of $\Upsilon$ production in $p$Pb collisions at $\sqrt{s_{NN}}=8.16$ TeV
 1699199 . First measurement of charm production in fixed-target configuration at the LHC
-1704426 . Search for $CP$ violation through an amplitude analysis of $D^0 \rightarrow K^+ K^- \pi^+ \pi^-$ decays
+1704426 X Search for $CP$ violation through an amplitude analysis of $D^0 \rightarrow K^+ K^- \pi^+ \pi^-$ decays
+1709439 . Search for the rare decay $B^{+} \rightarrow {\mu}^{+}{\mu}^{-}{\mu}^{+}{\nu}_{{\mu}}$
+1709948 X Measurement of the branching fraction and $C\!P$ asymmetry in $B^{+}\rightarrow J/\psi \rho^{+}$ decays
+1709949 . Study of the $B^0\to \rho(770)^0 K^*(892)^0$ decay with an amplitude analysis of $B^0\to (\pi^+\pi^-) (K^+\pi^-)$ decays
+1714780 . Model-independent observation of exotic contributions to $B^0\to J/\psi K^+\pi^-$ decays
+1714986 . Observation of the doubly Cabibbo-suppressed decay $\Xi_{c}^{+}\to p\phi$
+1716259 X Measurement of the mass and production rate of $\Xi_b^-$ baryons
+1718851 . Measurement of the ratio of branching fractions of the decays $\Lambda^0_b\!\to\psi(2S) \Lambda$ and $\Lambda^0_b\!\to J/\psi \Lambda$
