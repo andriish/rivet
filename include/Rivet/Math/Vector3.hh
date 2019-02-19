@@ -94,7 +94,7 @@ namespace Rivet {
     }
 
 
-    /// Unit-normalized version of this vector
+    /// Unit-normalized version of this vector.
     Vector3 unitVec() const {
       double md = mod();
       if ( md <= 0.0 ) return Vector3();
