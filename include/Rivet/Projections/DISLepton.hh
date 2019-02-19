@@ -4,6 +4,8 @@
 
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/PromptFinalState.hh"
+#include "Rivet/Projections/HadronicFinalState.hh"
+#include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 
@@ -17,12 +19,42 @@ namespace Rivet {
     /// @name Constructors.
     //@{
 
-    DISLepton(){
+    /// Default constructor taking general options.
+    DISLepton(const std::map<std::string,std::string> & opts =
+              std::map<std::string,std::string>()): _isolDR(0.0) {
       setName("DISLepton");
       addProjection(Beam(), "Beam");
-      addProjection(PromptFinalState(), "FS");
+      addProjection(HadronicFinalState(), "IFS");
+
+      auto isol = opts.find("IsolDR");
+      if ( isol != opts.end() ) _isolDR = std::stod(isol->second);
+
+      double dressdr = 0.0;
+      auto dress = opts.find("DressDR");
+      if ( dress != opts.end() )
+        dressdr = std::stod(dress->second);
+
+      auto lmode = opts.find("LMODE");
+      if ( lmode != opts.end() && lmode->second == "any" )
+        addProjection(FinalState(), "LFS");
+      else if ( lmode != opts.end() && lmode->second == "dressed" )
+        addProjection(DressedLeptons(dressdr), "LFS");
+      else
+        addProjection(PromptFinalState(), "LFS");
     }
 
+    /// Constructor taking specific arguments
+    DISLepton(const FinalState & leptoncandidates,
+              const Beam &  beamproj = Beam(),
+              const FinalState & isolationfs = FinalState(),
+              double isolationcut = 0.0): _isolDR(isolationcut) {
+      addProjection(leptoncandidates, "LFS");
+      addProjection(isolationfs, "IFS");
+      addProjection(beamproj, "Beam");
+    }
+
+
+    
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(DISLepton);
 
@@ -58,8 +90,8 @@ namespace Rivet {
     /// The outgoing lepton
     Particle _outgoing;
 
-    // /// The charge sign of the DIS current
-    // double _charge;
+    /// If larger than zerp an isolation cut around the lepton is required.
+    double _isolDR;
 
   };
 

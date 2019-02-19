@@ -96,9 +96,9 @@ namespace Rivet {
 
     /// Unit-normalized version of this vector
     Vector3 unitVec() const {
-      /// @todo What to do in this situation?
-      if (isZero()) return *this;
-      else return *this * 1.0/this->mod();
+      double md = mod();
+      if ( md <= 0.0 ) return Vector3();
+      else return *this * 1.0/md;
     }
 
     /// Synonym for unitVec
