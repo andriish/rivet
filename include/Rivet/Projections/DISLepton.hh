@@ -19,7 +19,12 @@ namespace Rivet {
     /// @name Constructors.
     //@{
 
-    /// Default constructor taking general options.
+    /// Default constructor taking general options. The recognised
+    /// options are: LMODE, taking the options "prompt", "any" and
+    /// "dressed"; DressedDR giving a delta-R cone radius where photon
+    /// momenta are added to the lepton candidates for LMODE=dresses;
+    /// and IsolDR giving a cone in delta-R where no hadrons are
+    /// allowed around a lepton candidate.
     DISLepton(const std::map<std::string,std::string> & opts =
               std::map<std::string,std::string>()): _isolDR(0.0) {
       setName("DISLepton");
@@ -43,7 +48,12 @@ namespace Rivet {
         addProjection(PromptFinalState(), "LFS");
     }
 
-    /// Constructor taking specific arguments
+    /// Constructor taking the following arguments: a final state
+    /// projection defining which lepton candidates to consider; a
+    /// beam projection detining the momenta of the incoming lepton
+    /// beam, and a final state projection defining the particles not
+    /// allowed witin a delta-R of @a isolationcut of a lepton
+    /// candidate.
     DISLepton(const FinalState & leptoncandidates,
               const Beam &  beamproj = Beam(),
               const FinalState & isolationfs = FinalState(),
