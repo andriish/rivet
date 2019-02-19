@@ -3055,28 +3055,28 @@ class YTicks(Ticks):
         return out
 
     def getMajorTickLineWidth(self):
-        if self.description.has_key('XMajorTickLineWidth'):
-            return self.description['XMajorTickLineWidth']
+        if self.description.has_key('YMajorTickLineWidth'):
+            return self.description['YMajorTickLineWidth']
         return '0.3pt'
 
     def getMinorTickLineWidth(self):
-        if self.description.has_key('XMinorTickLineWidth'):
-            return self.description['XMinorTickLineWidth']
+        if self.description.has_key('YMinorTickLineWidth'):
+            return self.description['YMinorTickLineWidth']
         return '0.3pt'
 
     def getMajorTickLineColor(self):
-        if self.description.has_key('XMajorTickLineColor'):
-            return self.description['XMajorTickLineColor']
+        if self.description.has_key('YMajorTickLineColor'):
+            return self.description['YMajorTickLineColor']
         return 'black'
 
     def getMinorTickLineColor(self):
-        if self.description.has_key('XMinorTickLineColor'):
-            return self.description['XMinorTickLineColor']
+        if self.description.has_key('YMinorTickLineColor'):
+            return self.description['YMinorTickLineColor']
         return 'black'
 
     def getMajorTickLabelColor(self):
-        if self.description.has_key('XMajorTickLabelColor'):
-            return self.description['XMajorTickLabelColor']
+        if self.description.has_key('YMajorTickLabelColor'):
+            return self.description['YMajorTickLabelColor']
         return 'black'
 
 
@@ -3085,11 +3085,17 @@ class ZTicks(Ticks):
 
     def __init__(self, description, coors):
         self.description = description
-        self.majorticklinewidth = '0.3pt'
-        self.minorticklinewidth = '0.3pt'
+        self.majorticklinewidth = self.getMajorTickLineWidth()
+        self.minorticklinewidth = self.getMinorTickLineWidth()
+        self.majorticklinecolor = self.getMajorTickLineColor()
+        self.minorticklinecolor = self.getMinorTickLineColor()
         self.majorticklength    = '6pt'
         self.minorticklength    = '2.6pt'
+        self.majorticklabelcolor = self.getMajorTickLabelColor()
         self.coors = coors
+        self.decimal            = 0
+        self.framelinewidth     = '0.3pt'
+        self.framelinecolor     = 'black'
 
     def draw(self, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True):
         out = ""

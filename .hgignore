@@ -70,3 +70,4 @@ Doxyfile$
 ^local/.*$
 ^(for|analyses)\d\d\d$
 ^analyses/data$
+^doxy/.*$
