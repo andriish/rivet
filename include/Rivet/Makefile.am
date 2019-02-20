@@ -41,9 +41,11 @@ nobase_pkginclude_HEADERS += \
   Projections/ChargedLeptons.hh \
   Projections/ConstLossyFinalState.hh \
   Projections/DirectFinalState.hh \
-  Projections/DISFinalState.hh \
+  Projections/DISDiffHadron.hh \
   Projections/DISKinematics.hh \
+  Projections/DISFinalState.hh \
   Projections/DISLepton.hh \
+  Projections/DISRapidityGap.hh \
   Projections/DressedLeptons.hh \
   Projections/EventMixingFinalState.hh \
   Projections/FastJets.hh \

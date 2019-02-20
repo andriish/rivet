@@ -5,9 +5,11 @@ libRivetProjections_la_SOURCES = \
   ChargedFinalState.cc \
   ChargedLeptons.cc \
   CentralEtHCM.cc \
+  DISDiffHadron.cc \
   DISFinalState.cc \
   DISKinematics.cc \
   DISLepton.cc \
+  DISRapidityGap.cc \
   DressedLeptons.cc \
   FastJets.cc \
   PxConePlugin.cc \

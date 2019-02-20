@@ -17,6 +17,10 @@ namespace Rivet {
   class DISLepton : public Projection {
   public:
 
+    /// Enum to enable different orderings for selecting scattered
+    /// leptons in case several were found.
+    enum SortOrder { ENERGY, ETA, ET };
+    
     /// @name Constructors.
     //@{
 
@@ -30,9 +34,16 @@ namespace Rivet {
     /// initial state rafiation for which the momentum is subtracted
     /// from the beam momentum.
     DISLepton(const std::map<std::string,std::string> & opts =
-              std::map<std::string,std::string>()): _isolDR(0.0) {
+              std::map<std::string,std::string>())
+      : _isolDR(0.0), _sort(ENERGY) {
       setName("DISLepton");
       addProjection(HadronicFinalState(), "IFS");
+
+      auto sorting = opts.find("LSort");
+      if ( sorting != opts.end() && sorting->second == "ETA" )
+        _sort = ETA;
+      else if ( sorting != opts.end() && sorting->second == "ET" )
+        _sort = ET;
 
       double undresstheta = 0.0;
       auto undress = opts.find("Undress");
@@ -51,7 +62,7 @@ namespace Rivet {
       if ( dress != opts.end() )
         dressdr = std::stod(dress->second);
 
-      auto lmode = opts.find("LMODE");
+      auto lmode = opts.find("LMode");
       if ( lmode != opts.end() && lmode->second == "any" )
         addProjection(FinalState(), "LFS");
       else if ( lmode != opts.end() && lmode->second == "dressed" )
@@ -69,7 +80,8 @@ namespace Rivet {
     DISLepton(const FinalState & leptoncandidates,
               const Beam &  beamproj = Beam(),
               const FinalState & isolationfs = FinalState(),
-              double isolationcut = 0.0): _isolDR(isolationcut) {
+              double isolationcut = 0.0, SortOrder sorting = ENERGY)
+      : _isolDR(isolationcut), _sort(sorting) {
       addProjection(leptoncandidates, "LFS");
       addProjection(isolationfs, "IFS");
       addProjection(beamproj, "Beam");
@@ -114,6 +126,9 @@ namespace Rivet {
 
     /// If larger than zerp an isolation cut around the lepton is required.
     double _isolDR;
+
+    /// How to sort leptons
+    SortOrder _sort;
 
   };
 
