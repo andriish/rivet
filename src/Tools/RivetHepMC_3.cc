@@ -71,10 +71,10 @@ namespace Rivet{
       // Looks like the new HepMC 3 format!
       if(line2.find("HepMC::Asciiv3") != std::string::npos){
         result = make_shared<RivetHepMC::ReaderAscii>(istr);
+      }else{
+        // assume old HepMC 2 format from here
+        result = make_shared<RivetHepMC::ReaderAsciiHepMC2>(istr);
       }
-      
-      // assume old HepMC 2 format from here
-      result = make_shared<RivetHepMC::ReaderAsciiHepMC2>(istr);
       
       if(result->failed()) result.reset((RivetHepMC::Reader*)nullptr);
       return result;
