@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -20,7 +20,7 @@ namespace Rivet {
     void init() {
 
       // Initialise and register projections
-      declare(UnstableFinalState(), "UFS");
+      declare(UnstableParticles(), "UFS");
 
       // Book histograms
       _h_pip0  = bookHisto1D(1, 1, 1);
@@ -74,7 +74,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Loop over taus
-      for(const Particle& tau : apply<UnstableFinalState>(event, "UFS").particles(Cuts::abspid==PID::TAU)) {
+      for(const Particle& tau : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==PID::TAU)) {
         // tau -> pi pi0 nu_tau (both charges)
         if (isSpecificDecay(tau,  {PID::PIPLUS, PID::PI0, PID::NU_TAUBAR}) ||  
             isSpecificDecay(tau,  {PID::PIMINUS, PID::PI0, PID::NU_TAU}) ) {

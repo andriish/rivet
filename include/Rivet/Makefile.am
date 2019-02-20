@@ -90,6 +90,7 @@ nobase_pkginclude_HEADERS += \
   Projections/TriggerProjection.hh \
   Projections/TriggerUA5.hh \
   Projections/UnstableFinalState.hh \
+  Projections/UnstableParticles.hh \
   Projections/UserCentEstimate.hh \
   Projections/VetoedFinalState.hh \
   Projections/VisibleFinalState.hh \
