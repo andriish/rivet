@@ -1,5 +1,8 @@
 2019-02-20  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Move UnstableParticles to a consistently-named header, with
+	UnstableFinalState.hh retained for backward compatibility.
+
 	* Improve/fix UnstableParticles projection's Cut constructor
 	argument to apply the cut on a Rivet::Particle rather than a
 	HepMC::FourVector, meaning that PID cuts can now be used.
