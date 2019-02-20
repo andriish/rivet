@@ -41,9 +41,9 @@ namespace Rivet {
 
       // This analysis needs a valid HepMC PDF info object to do anything
       if (event.genEvent()->pdf_info() == 0) vetoEvent;
-      HepMC::PdfInfo pdfi = *(event.genEvent()->pdf_info());
+      PdfInfo pdfi = *(event.genEvent()->pdf_info());
 
-#if HEPMC_VERSION_CODE >= 3000000
+#ifdef ENABLE_HEPMC_3
       MSG_DEBUG("PDF Q = " << pdfi.scale<< " for (id, x) = "
                 << "(" << pdfi.pdf_id[0] << ", " << pdfi.x[0] << ") "
                 << "(" << pdfi.pdf_id[1] << ", " << pdfi.x[1] << ")");

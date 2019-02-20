@@ -59,17 +59,10 @@ namespace Rivet {
 
 
   bool Jet::containsParticle(const Particle& particle) const {
-    #if HEPMC_VERSION_CODE >= 3000000
-    const int idcode = particle.genParticle()->id();
+    const int barcode = HepMCUtils::uniqueId(particle.genParticle());
     for (const Particle& p : particles()) {
-      if (p.genParticle()->id() == idcode) return true;
+      if (HepMCUtils::uniqueId(p.genParticle()) == barcode) return true;
     }
-    #else
-    const int barcode = uniqueId(particle.genParticle());
-    for (const Particle& p : particles()) {
-      if (uniqueId(p.genParticle()) == barcode) return true;
-    }
-    #endif
     return false;
   }
 
@@ -129,7 +122,7 @@ namespace Rivet {
       if (include_decay_products) {
         ConstGenVertexPtr gv = p.genParticle()->production_vertex();
         if (gv) {
-          for (ConstGenParticlePtr pi : Rivet::particles(gv, Relatives::ANCESTORS)) {
+          for (ConstGenParticlePtr pi : HepMCUtils::particles(gv, Relatives::ANCESTORS)) {
             const PdgId pid2 = pi->pdg_id();
             if (PID::isHadron(pid2) && PID::hasCharm(pid2)) return true;
           }
@@ -147,7 +140,7 @@ namespace Rivet {
       if (include_decay_products) {
         ConstGenVertexPtr gv = p.genParticle()->production_vertex();
         if (gv) {
-          for (ConstGenParticlePtr pi : Rivet::particles(gv, Relatives::ANCESTORS)) {
+          for (ConstGenParticlePtr pi : HepMCUtils::particles(gv, Relatives::ANCESTORS)) {
             const PdgId pid2 = pi->pdg_id();
             if (PID::isHadron(pid2) && PID::hasBottom(pid2)) return true;
           }

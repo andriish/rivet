@@ -34,12 +34,12 @@ namespace Rivet {
         if (p.pid()==300553) upsilons.push_back(p);
       // Then in whole event if fails
       if (upsilons.empty()) {
-        for(ConstGenParticlePtr p: Rivet::particles(e.genEvent())) {
+        for(ConstGenParticlePtr p: HepMCUtils::particles(e.genEvent())) {
           if (p->pdg_id() != 300553) continue;
           ConstGenVertexPtr pv = p->production_vertex();
           bool passed = true;
           if (pv) {
-            for (ConstGenParticlePtr pp: pv->particles_in()){
+            for (ConstGenParticlePtr pp: HepMCUtils::particles(pv, Relatives::PARENTS)){
               if ( p->pdg_id() == pp->pdg_id() ) {
                 passed = false;
                 break;
@@ -85,7 +85,7 @@ namespace Rivet {
 
     void findDecayProducts(ConstGenParticlePtr p, vector<ConstGenParticlePtr>& pions) {
       ConstGenVertexPtr dv = p->end_vertex();
-      for (ConstGenParticlePtr pp: dv->particles_out()){
+      for (ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
         const int id = pp->pdg_id();
         if (id == 111) {
           pions.push_back(pp);

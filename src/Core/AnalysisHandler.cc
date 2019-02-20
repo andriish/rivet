@@ -114,15 +114,18 @@ namespace Rivet {
     MSG_DEBUG("Event #" << _eventcounter.numEntries() << " weight = " << event.weight());
 
     // Cross-section
-    #ifdef HEPMC_HAS_CROSS_SECTION
+    
+    #if defined ENABLE_HEPMC_3
     if (ge.cross_section()) {
-      #if HEPMC_VERSION_CODE >= 3000000
-      _xs = ge.cross_section()->cross_section;
-      _xserr = ge.cross_section()->cross_section_error;
-      #else
+      //@todo HepMC3::GenCrossSection methods aren't const accessible :(
+      RivetHepMC::GenCrossSection gcs = *(event.genEvent()->cross_section());
+      _xs = gcs.xsec();
+      _xserr = gcs.xsec_err();
+    }
+    #elif defined HEPMC_HAS_CROSS_SECTION
+    if (ge.cross_section()) {
       _xs = ge.cross_section()->cross_section();
       _xserr = ge.cross_section()->cross_section_error();
-      #endif
     }
     #endif
 

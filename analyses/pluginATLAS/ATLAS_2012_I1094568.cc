@@ -168,7 +168,7 @@ namespace Rivet {
       // Get b hadrons with pT > 5 GeV
       /// @todo This is a hack -- replace with UnstableFinalState
       vector<ConstGenParticlePtr> B_hadrons;
-      vector<ConstGenParticlePtr> allParticles = particles(event.genEvent());
+      vector<ConstGenParticlePtr> allParticles = HepMCUtils::particles(event.genEvent());
       for (size_t i = 0; i < allParticles.size(); i++) {
         ConstGenParticlePtr p = allParticles[i];
         if (!PID::isHadron(p->pdg_id()) || !PID::hasBottom(p->pdg_id())) continue;

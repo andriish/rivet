@@ -51,12 +51,12 @@ namespace Rivet {
       const double weight = event.weight();
       // find the initial quarks/gluons
       ParticleVector initial;
-      for (ConstGenParticlePtr p : Rivet::particles(event.genEvent())) {
+      for (ConstGenParticlePtr p : HepMCUtils::particles(event.genEvent())) {
         ConstGenVertexPtr pv = p->production_vertex();
         const PdgId pid = abs(p->pdg_id());
         if(!( (pid>=1&&pid<=5) || pid ==21) ) continue;
         bool passed = false;
-        for (ConstGenParticlePtr pp : pv->particles_in()) {
+        for (ConstGenParticlePtr pp : HepMCUtils::particles(pv, Relatives::PARENTS)) {
           const PdgId ppid = abs(pp->pdg_id());
           passed = (ppid == PID::ELECTRON || ppid == PID::HIGGS ||
                     ppid == PID::ZBOSON   || ppid == PID::GAMMA);

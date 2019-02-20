@@ -16,7 +16,7 @@ namespace Rivet {
     vetoIds += 110; vetoIds += 990; vetoIds += 9990; // Reggeons
     //vetoIds += 9902210; // something weird from PYTHIA6
 
-    for (ConstGenParticlePtr p : Rivet::particles(e.genEvent())) {
+    for (ConstGenParticlePtr p : HepMCUtils::particles(e.genEvent())) {
       const int st = p->status();
       bool passed =
         (st == 1 || (st == 2 && !contains(vetoIds, abs(p->pdg_id())))) &&
@@ -29,7 +29,7 @@ namespace Rivet {
       // Avoid double counting by re-marking as unpassed if ID == any child ID
       ConstGenVertexPtr dv = p->end_vertex();
       if (passed && dv) {
-        for (ConstGenParticlePtr pp : ::Rivet::particles(dv, Relatives::CHILDREN)) {
+        for (ConstGenParticlePtr pp : HepMCUtils::particles(dv, Relatives::CHILDREN)) {
           if (p->pdg_id() == pp->pdg_id() && pp->status() == 2) {
             passed = false;
             break;
@@ -48,11 +48,11 @@ namespace Rivet {
                   << ", eta = " << p->momentum().eta()
                   << ": result = " << std::boolalpha << passed);
         if (pv) {
-          for (ConstGenParticlePtr pp : ::Rivet::particles(pv, Relatives::PARENTS))
+          for (ConstGenParticlePtr pp : HepMCUtils::particles(pv, Relatives::PARENTS))
             MSG_TRACE("  parent ID = " << pp->pdg_id());
         }
         if (dv) {
-          for (ConstGenParticlePtr pp : Rivet::particles(dv, Relatives::CHILDREN))
+          for (ConstGenParticlePtr pp : HepMCUtils::particles(dv, Relatives::CHILDREN))
             MSG_TRACE("  child ID  = " << pp->pdg_id());
         }
       }

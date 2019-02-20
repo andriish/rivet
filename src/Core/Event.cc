@@ -9,17 +9,6 @@ namespace Rivet {
     return genEvent()->weights().empty() ? 1.0 : _genevent.weights()[0];
   }
 
-  /*
-  double Event::centrality() const {
-    /// @todo Use direct "centrality" property if using HepMC3
-    
-    #if HEPMC_VERSION_CODE >= 3000000
-    return genEvent()->heavy_ion() ? genEvent()->heavy_ion()->centrality: -1;
-    #else
-    return genEvent()->heavy_ion() ? genEvent()->heavy_ion()->impact_parameter() : -1;
-    #endif
-  }
-*/
   ParticlePair Event::beams() const { return Rivet::beams(*this); }
 
   double Event::sqrtS() const { return Rivet::sqrtS(beams()); }
@@ -38,7 +27,7 @@ namespace Rivet {
 
   const Particles& Event::allParticles() const {
     if (_particles.empty()) { //< assume that empty means no attempt yet made
-      for (ConstGenParticlePtr gp : particles(genEvent())) {
+      for (ConstGenParticlePtr gp : HepMCUtils::particles(genEvent())) {
         _particles += Particle(gp);
       }
     }

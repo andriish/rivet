@@ -18,7 +18,7 @@ namespace Rivet {
         continue;
       }
       // There are ancestors -- check them for status=2 hadronic content
-      vector<ConstGenParticlePtr> ancestors = Rivet::particles(p.genParticle(), Relatives::ANCESTORS);
+      vector<ConstGenParticlePtr> ancestors = HepMCUtils::particles(p.genParticle(), Relatives::ANCESTORS);
       bool has_hadron_parent = false;
 
       for (ConstGenParticlePtr pa : ancestors) {

@@ -374,7 +374,7 @@ namespace Rivet {
       if (p.genParticle() == nullptr) return false;
       ConstGenVertexPtr prodVtx = p.genParticle()->production_vertex();
       if (prodVtx == nullptr) return false;
-      for(ConstGenParticlePtr ancestor: particles(prodVtx, Relatives::ANCESTORS)) {
+      for(ConstGenParticlePtr ancestor: HepMCUtils::particles(prodVtx, Relatives::ANCESTORS)) {
         const PdgId pid = ancestor->pdg_id();
         if (ancestor->status() == 2 && PID::isHadron(pid)) return true;
         if (ancestor->status() == 2 && (abs(pid) == PID::TAU && fromHadronDecay(ancestor))) return true;

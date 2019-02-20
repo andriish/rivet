@@ -49,7 +49,7 @@ namespace Rivet {
       // Initial quarks
       /// @note Quark-level tagging...
       Particles bquarks;
-      for (ConstGenParticlePtr p : particles(event.genEvent())) {
+      for (ConstGenParticlePtr p : HepMCUtils::particles(event.genEvent())) {
         if (abs(p->pdg_id()) == PID::BQUARK) bquarks += Particle(p);
       }
       Jets bjets, ljets;

@@ -704,7 +704,7 @@ namespace Rivet {
       ConstGenVertexPtr dv = p.genParticle()->end_vertex();
       assert(dv != nullptr);
       // Loop over all daughter particles
-      for(ConstGenParticlePtr pp: dv->particles_out()){
+      for(ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
         if (abs(pp->pdg_id()) == PID::NU_TAU) return FourMomentum(pp->momentum());
       }
       return FourMomentum();
@@ -715,7 +715,7 @@ namespace Rivet {
       assert(p != nullptr);
       ConstGenVertexPtr dv = p->end_vertex();
       assert(dv != nullptr);
-      for(ConstGenParticlePtr pp: dv->particles_out()){
+      for(ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
         // If they have status 1 and are charged they will produce a track and the prong number is +1
         if (pp->status() == 1 )  {
           const int id = pp->pdg_id();

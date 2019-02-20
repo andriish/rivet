@@ -1,11 +1,10 @@
 // -*- C++ -*-
 #include "Rivet/Run.hh"
 #include "Rivet/AnalysisHandler.hh"
-//#include "HepMC/IO_GenEvent.h"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Tools/RivetPaths.hh"
 /// @todo reinstate zlib once HepMC3 stream reading is ok
-//#include "zstr/zstr.hpp"
+#include "zstr/zstr.hpp"
 #include <limits>
 
 namespace Rivet {
@@ -40,8 +39,7 @@ namespace Rivet {
   bool Run::readEvent() {
     /// @todo Clear rather than new the GenEvent object per-event?
     _evt.reset(new GenEvent());
-    _hepmcReader->read_event(*_evt);
-    if(_hepmcReader->failed()){
+    if(!HepMCUtils::readEvent(_hepmcReader, _evt)){
       Log::getLog("Rivet.Run") << Log::DEBUG << "Read failed. End of file?" << endl;
       return false;
     }
@@ -71,11 +69,8 @@ namespace Rivet {
 
     // Set up HepMC input reader objects
     if (evtfile == "-") {
-      /// @todo No way of knowing with stdin whether the stream is HepMC2 or HepMC3. Assume HepMC2 for now?
-      _hepmcReader = std::make_shared<RivetHepMC::ReaderAsciiHepMC2>(std::cin);
+      _hepmcReader = HepMCUtils::makeReader(std::cin);
     } else {
-      _hepmcReader = RivetHepMC::ReaderFactory::make_reader(evtfile);
-      /*
       if (!fileexists(evtfile)) throw Error("Event file '" + evtfile + "' not found");
       #ifdef HAVE_LIBZ
       // NB. zstr auto-detects if file is deflated or plain-text
@@ -83,10 +78,10 @@ namespace Rivet {
       #else
       _istr.reset(new std::fstream(evtfile.c_str(), std::ios::in));
       #endif
-      _io.reset(new HepMC::IO_GenEvent(*_istr));
-       */
+      _hepmcReader = HepMCUtils::makeReader(*_istr);
+       
     }
-    if (_hepmcReader->failed()) {
+    if (_hepmcReader == nullptr) {
       Log::getLog("Rivet.Run") << Log::ERROR << "Read error on file " << evtfile << endl;
       return false;
     }
@@ -100,14 +95,7 @@ namespace Rivet {
     // Read first event to define run conditions
     bool ok = readEvent();
     if (!ok) return false;
-    if(particles(_evt).size() == 0){
-      
-    /*
-    #if HEPMC_VERSION_CODE >= 3000000
-    if (_evt->particles().empty()) {
-    #else
-    if (_evt->particles_size() == 0) {
-    #endif */
+    if(HepMCUtils::particles(_evt).size() == 0){
       Log::getLog("Rivet.Run") << Log::ERROR << "Empty first event." << endl;
       return false;
     }
@@ -135,18 +123,23 @@ namespace Rivet {
 
   bool Run::processEvent() {
     // Set cross-section if found in event and not from command line
-    #ifdef HEPMC_HAS_CROSS_SECTION
+    
+    #if defined ENABLE_HEPMC_3
     if (std::isnan(_xs) && _evt->cross_section()) {
-    #if HEPMC_VERSION_CODE >= 3000000
-      const double xs = _evt->cross_section()->cross_section; ///< in pb
-      #else
-      const double xs = _evt->cross_section()->cross_section(); ///< in pb
-      #endif
+      const double xs = _evt->cross_section()->xsec(); ///< in pb
       Log::getLog("Rivet.Run")
-        << Log::DEBUG << "Setting cross-section = " << xs << " pb" << endl;
+      << Log::DEBUG << "Setting cross-section = " << xs << " pb" << endl;
+      _ah.setCrossSection(xs);
+    }
+    #elif defined HEPMC_HAS_CROSS_SECTION
+    if (std::isnan(_xs) && _evt->cross_section()) {
+      const double xs = _evt->cross_section()->cross_section(); ///< in pb
+      Log::getLog("Rivet.Run")
+      << Log::DEBUG << "Setting cross-section = " << xs << " pb" << endl;
       _ah.setCrossSection(xs);
     }
     #endif
+    
     // Complain about absence of cross-section if required!
     if (_ah.needCrossSection() && !_ah.hasCrossSection()) {
       Log::getLog("Rivet.Run")

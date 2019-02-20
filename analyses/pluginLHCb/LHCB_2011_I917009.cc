@@ -161,7 +161,7 @@ namespace Rivet {
       ConstGenVertexPtr ivtx = part->production_vertex();
       while (ivtx) {
         
-          vector<ConstGenParticlePtr> part_in = ivtx->particles_in();
+          vector<ConstGenParticlePtr> part_in = HepMCUtils::particles(ivtx, Relatives::PARENTS);
         
           if (part_in.size() < 1) { lftSum = -1.; break; };
           ConstGenParticlePtr part = part_in.at(0);//(*iPart_invtx);

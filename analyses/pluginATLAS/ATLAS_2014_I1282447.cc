@@ -518,11 +518,10 @@ namespace Rivet {
       if (ivtx == nullptr)  return false;
 
       // if (ivtx->particles_out_size() < 2) return false;
-      HepMC::GenVertex::particles_out_const_iterator iPart_invtx = ivtx->particles_out_const_begin();
-      HepMC::GenVertex::particles_out_const_iterator end_invtx = ivtx->particles_out_const_end();
+      //HepMC::GenVertex::particles_out_const_iterator iPart_invtx = ivtx->particles_out_const_begin();
+      //HepMC::GenVertex::particles_out_const_iterator end_invtx = ivtx->particles_out_const_end();
 
-      for ( ; iPart_invtx != end_invtx; iPart_invtx++ ) {
-        ConstGenParticlePtr p2 = (*iPart_invtx);
+      for(ConstGenParticlePtr p2: HepMCUtils::particles(ivtx, Relatives::CHILDREN)){
         if (p2 == part)  continue;
         hasCharmedChild = PID::hasCharm(p2->pdg_id());
         if (hasCharmedChild == true)  break;

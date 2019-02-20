@@ -1,3 +1,12 @@
+2019-02-20  James Monk  <jwmonk@protonmail.com>
+  * src/Tools/RivetHepMC_2.cc: implementation of HepMC helper funcs for HepMC2
+  * Add HepMCUtils namespace for helper funcs
+  * Relatives class spoofs HepMC3::Relatives interface using HepMC2 iterator_ranges
+  * Replace calls to particles_in() and particles_out() by HepMCUtils::particles
+  * Fix pyext/setup.py.in for both HepMC2 and HepMC3
+  * Configures with either --with-hepmc=/blah or --with-hepmc3=/blah
+  * Compiles for either HepMC2 or HepMC3 (3.1 or higher)
+
 2019-02-17  James Monk  <jwmonk@protonmail.com>
   * Update many build paths to cope with new HepMC3 include and lib paths :(
   * Use RivetHepMC namespace in place of HepMC:: RivetHepMC.hh should take care of it

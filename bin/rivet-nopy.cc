@@ -19,16 +19,18 @@ int main(int argc, char** argv) {
     ah.addAnalysis(argv[i]);
   }
 
-  std::shared_ptr<Rivet::RivetHepMC::Reader> reader = Rivet::RivetHepMC::deduce_reader(argv[1]);
+  std::ifstream istr(argv[1], std::ios::in);
   
-  while(!reader->failed()){
-    
-    Rivet::RivetHepMC::GenEvent evt;
-    reader->read_event(evt);
-    ah.analyze(evt);
+  std::shared_ptr<Rivet::HepMC_IO_type> reader = Rivet::HepMCUtils::makeReader(istr);
+  
+  std::shared_ptr<Rivet::RivetHepMC::GenEvent> evt = make_shared<Rivet::RivetHepMC::GenEvent>();
+  
+  while(reader && Rivet::HepMCUtils::readEvent(reader, evt)){
+    ah.analyze(evt.get());
+    evt.reset(new Rivet::RivetHepMC::GenEvent());
   }
   
-  reader->close();
+  istr.close();
 
   ah.setCrossSection(1.0);
   ah.finalize();

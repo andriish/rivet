@@ -96,11 +96,10 @@ namespace Rivet {
     std::shared_ptr<GenEvent> _evt;
 
     /// Output stream for HepMC writer
-    /// @todo reinstate once works with HepMC3 streams
-    //std::shared_ptr<std::istream> _istr;
+    std::shared_ptr<std::istream> _istr;
 
     /// HepMC reader
-    std::shared_ptr<RivetHepMC::Reader> _hepmcReader;
+    std::shared_ptr<HepMC_IO_type> _hepmcReader;
 
     //@}
 

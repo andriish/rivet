@@ -47,7 +47,7 @@ namespace Rivet {
         ConstGenVertexPtr ivertex = pmother->production_vertex();
         bool prompt = true;
         while (ivertex) {
-          vector<ConstGenParticlePtr> inparts = ivertex->particles_in();
+          vector<ConstGenParticlePtr> inparts = HepMCUtils::particles(ivertex, Relatives::PARENTS);
           int n_inparts = inparts.size();
           if (n_inparts < 1) break;
           pmother = inparts[0]; // first mother particle

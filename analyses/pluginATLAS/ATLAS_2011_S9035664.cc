@@ -52,7 +52,7 @@ namespace Rivet {
         ConstGenVertexPtr gv = p.genParticle()->production_vertex();
         bool nonPrompt = false;
         if (gv) {
-          for (ConstGenParticlePtr pi: Rivet::particles(gv, Relatives::ANCESTORS)) {
+          for (ConstGenParticlePtr pi: HepMCUtils::particles(gv, Relatives::ANCESTORS)) {
             const PdgId pid2 = pi->pdg_id();
             if (PID::isHadron(pid2) && PID::hasBottom(pid2)) {
               nonPrompt = true;

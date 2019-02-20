@@ -72,12 +72,12 @@ namespace Rivet {
 
     // This function is required to impose the flight time cuts on Kaons and Lambdas
     double getPerpFlightDistance(const Rivet::Particle& p) {
-      HepMC::ConstGenParticlePtr genp = p.genParticle();
-      HepMC::ConstGenVertexPtr prodV = genp->production_vertex();
-      HepMC::ConstGenVertexPtr decV  = genp->end_vertex();
-      HepMC::FourVector prodPos = prodV->position();
+      ConstGenParticlePtr genp = p.genParticle();
+      ConstGenVertexPtr prodV = genp->production_vertex();
+      ConstGenVertexPtr decV  = genp->end_vertex();
+      RivetHepMC::FourVector prodPos = prodV->position();
       if (decV) {
-        const HepMC::FourVector decPos = decV->position();
+        const RivetHepMC::FourVector decPos = decV->position();
         double dy = prodPos.y() - decPos.y();
         double dx = prodPos.x() - decPos.x();
         return add_quad(dx, dy);
@@ -89,16 +89,16 @@ namespace Rivet {
     bool daughtersSurviveCuts(const Rivet::Particle& p) {
       // We require the Kshort or Lambda to decay into two charged
       // particles with at least pT = 100 MeV inside acceptance region
-      HepMC::ConstGenParticlePtr genp = p.genParticle();
-      HepMC::ConstGenVertexPtr decV  = genp->end_vertex();
+      ConstGenParticlePtr genp = p.genParticle();
+      ConstGenVertexPtr decV  = genp->end_vertex();
       bool decision = true;
 
       if (!decV) return false;
-      if (decV->particles_out_size() == 2) {
+      if (HepMCUtils::particles(decV, Relatives::CHILDREN).size() == 2) {
         std::vector<double> pTs;
         std::vector<int> charges;
         std::vector<double> etas;
-        for(HepMC::ConstGenParticlePtr gp: particles(decV, Relatives::CHILDREN)) {
+        for(ConstGenParticlePtr gp: HepMCUtils::particles(decV, Relatives::CHILDREN)) {
           pTs.push_back(gp->momentum().perp());
           etas.push_back(fabs(gp->momentum().eta()));
           charges.push_back( Rivet::PID::threeCharge(gp->pdg_id()) );
@@ -119,7 +119,7 @@ namespace Rivet {
       }
       else {
         decision = false;
-        MSG_DEBUG("Failed nDaughters cut: " << decV->particles_out_size());
+        MSG_DEBUG("Failed nDaughters cut: " << HepMCUtils::particles(decV, Relatives::CHILDREN).size());
       }
 
       return decision;

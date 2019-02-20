@@ -79,7 +79,7 @@ namespace Rivet {
 
           // Loop over the decay products of each unstable particle, looking for a b-hadron pair
           /// @todo Avoid HepMC API
-          for (ConstGenParticlePtr it: vgen->particles_out()){
+          for (ConstGenParticlePtr it: HepMCUtils::particles(vgen, Relatives::CHILDREN)){
             // If the particle produced has a bottom quark do not count it and go to the next loop cycle.
             if (!( PID::hasBottom( it->pdg_id() ) ) ) {
               good_B = true;

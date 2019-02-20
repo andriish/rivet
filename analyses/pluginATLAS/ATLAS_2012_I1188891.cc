@@ -46,7 +46,7 @@ namespace Rivet {
 
       //get b/c-hadrons
       vector<ConstGenParticlePtr> B_hadrons, C_hadrons;
-      vector<ConstGenParticlePtr> allParticles = particles(event.genEvent());
+      vector<ConstGenParticlePtr> allParticles = HepMCUtils::particles(event.genEvent());
       for (size_t i = 0; i < allParticles.size(); i++) {
         ConstGenParticlePtr p = allParticles.at(i);
         if(p->momentum().perp()*GeV < 5) continue;

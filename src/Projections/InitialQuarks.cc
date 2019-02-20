@@ -12,14 +12,14 @@ namespace Rivet {
   void InitialQuarks::project(const Event& e) {
     _theParticles.clear();
 
-    for (ConstGenParticlePtr p : Rivet::particles(e.genEvent())) {
+    for (ConstGenParticlePtr p : HepMCUtils::particles(e.genEvent())) {
       ConstGenVertexPtr pv = p->production_vertex();
       ConstGenVertexPtr dv = p->end_vertex();
       const PdgId pid = abs(p->pdg_id());
       bool passed = inRange((long)pid, 1, 6);
       if (passed) {
         if (pv != 0) {
-          for (ConstGenParticlePtr pp : ::Rivet::particles(pv, Relatives::PARENTS)){
+          for (ConstGenParticlePtr pp : HepMCUtils::particles(pv, Relatives::PARENTS)){
             // Only accept if parent is electron or Z0
             const PdgId pid = abs(pp->pdg_id());
             passed = (pid == PID::ELECTRON || abs(pp->pdg_id()) == PID::ZBOSON || abs(pp->pdg_id()) == PID::GAMMA);
@@ -37,12 +37,12 @@ namespace Rivet {
                   << "ID = " << p->pdg_id() << ", status = " << st << ", pT = " << pT
                   << ", eta = " << eta << ": result = " << passed);
         if (pv != 0) {
-          for (ConstGenParticlePtr pp : ::Rivet::particles(pv, Relatives::PARENTS)) {
+          for (ConstGenParticlePtr pp : HepMCUtils::particles(pv, Relatives::PARENTS)) {
             MSG_TRACE(std::boolalpha << " parent ID = " << pp->pdg_id());
           }
         }
         if (dv != 0) {
-          for (ConstGenParticlePtr pp : ::Rivet::particles(dv, Relatives::CHILDREN)) {
+          for (ConstGenParticlePtr pp : HepMCUtils::particles(dv, Relatives::CHILDREN)) {
             MSG_TRACE(std::boolalpha << " child ID  = " << pp->pdg_id());
           }
         }

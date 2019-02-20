@@ -141,7 +141,7 @@ namespace Rivet {
                            Particles& Kp, Particles& Km) {
       ConstGenVertexPtr dv = p->end_vertex();
       /// @todo Use better looping
-      for (ConstGenParticlePtr pp: dv->particles_out()){
+      for (ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
         int id = pp->pdg_id();
         if (id == PID::PI0 )
           ++nstable;

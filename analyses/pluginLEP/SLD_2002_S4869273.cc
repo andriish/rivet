@@ -60,7 +60,7 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
 
-      for(ConstGenParticlePtr p : particles(e.genEvent())) {
+      for(ConstGenParticlePtr p : HepMCUtils::particles(e.genEvent())) {
         ConstGenVertexPtr dv = p->end_vertex();
         if (PID::isBottomHadron(p->pdg_id())) {
           const double xp = p->momentum().e()/meanBeamMom;
@@ -68,7 +68,7 @@ namespace Rivet {
           // If the B-hadron has no B-hadron as a child, it decayed weakly:
           if (dv) {
             bool is_weak = true;
-            for (ConstGenParticlePtr pp: dv->particles_out()){
+            for (ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
               if (PID::isBottomHadron(pp->pdg_id())) {
                 is_weak = false;
               }

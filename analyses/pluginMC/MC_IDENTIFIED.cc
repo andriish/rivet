@@ -49,7 +49,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Unphysical (debug) plotting of all PIDs in the event, physical or otherwise
-      for(ConstGenParticlePtr gp: particles(event.genEvent())) {
+      for(ConstGenParticlePtr gp: HepMCUtils::particles(event.genEvent())) {
         _histAllPIDs->fill(abs(gp->pdg_id()), weight);
       }
 

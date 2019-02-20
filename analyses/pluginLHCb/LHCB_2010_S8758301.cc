@@ -3,10 +3,6 @@
 #include "Rivet/Projections/UnstableFinalState.hh"
 #include "Rivet/Math/Constants.hh"
 #include "Rivet/Math/Units.hh"
-#include "HepMC/GenEvent.h"
-#include "HepMC/GenParticle.h"
-#include "HepMC/GenVertex.h"
-#include "HepMC/SimpleVector.h"
 
 namespace Rivet {
 
@@ -176,7 +172,7 @@ using namespace std;
       ConstGenVertexPtr ivertex = pmother->production_vertex();
       while (ivertex) {
         
-        vector<ConstGenParticlePtr> inparts = ivertex->particles_in();
+        vector<ConstGenParticlePtr> inparts = HepMCUtils::particles(ivertex, Relatives::PARENTS);
         
         if (inparts.size() < 1) {ret = nullptr; break;}    // error: should never happen!
         pmother = inparts.at(0);                   // first mother particle

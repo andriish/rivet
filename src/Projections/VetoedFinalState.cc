@@ -114,7 +114,7 @@ namespace Rivet {
         if (startVtx == NULL) continue;
         // Loop over parents and test their IDs
         /// @todo Could use any() here?
-        for (ConstGenParticlePtr parent : Rivet::particles(startVtx, Relatives::ANCESTORS)) {
+        for (ConstGenParticlePtr parent : HepMCUtils::particles(startVtx, Relatives::ANCESTORS)) {
           if (vetoid == parent->pdg_id()) {
             ip = _theParticles.erase(ip); --ip; //< Erase this _theParticles entry
             break;

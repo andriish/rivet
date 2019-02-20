@@ -7,11 +7,10 @@ namespace Rivet {
 
 
   ParticlePair beams(const Event& e) {
-    #ifdef ENABLE_HEPMC_3
 
     // First try the official way: ask the GenEvent for the beam pointers
-    assert(e.genEvent()->particles().size() >= 2);
-    vector<ConstGenParticlePtr> beams = e.genEvent()->beams();
+    assert(HepMCUtils::particles_size(e.genEvent()) >= 2);
+    vector<ConstGenParticlePtr> beams = HepMCUtils::beams(e.genEvent());
     if (beams.size() == 2 && beams[0] && beams[1]) {
       return ParticlePair{beams[0], beams[1]};
     }
@@ -23,26 +22,8 @@ namespace Rivet {
     
     /// There are no barcodes in HepMC3
     /// @todo implement some other fallback rubric?
-    /*
-    // Hmm, this sucks. Last guess is that barcodes 1 and 2 are the beams
-    if (e.genEvent()->barcode_to_particle(1) && e.genEvent()->barcode_to_particle(2)) {
-      return ParticlePair{e.genEvent()->barcode_to_particle(1), e.genEvent()->barcode_to_particle(2)};
-    }
-     */
-    #else
-
-    // First try the official way: ask the GenEvent for the beam pointers
-    assert(e.genEvent()->particles_size() >= 2);
-    if (e.genEvent()->valid_beam_particles()) {
-      vector<ConstGenParticlePtr> beams = e.genEvent()->beam_particles();
-      assert(beams.size()==2 && beams.at(0) && beams.at(1));
-      return ParticlePair{beams.at(0), beams.at(1)};
-    }
-    // Ok, that failed: let's find the status = 4 particles by hand
-    const vector<Particle> pstat4s = e.allParticles([](const Particle& p){ return p.genParticle()->status() == 4; });
-    if (pstat4s.size() >= 2) {
-      return ParticlePair{pstat4s[0], pstat4s[1]};
-    }
+    #ifndef ENABLE_HEPMC_3
+    
     // Hmm, this sucks. Last guess is that barcodes 1 and 2 are the beams
     if (e.genEvent()->barcode_to_particle(1) && e.genEvent()->barcode_to_particle(2)) {
       return ParticlePair{e.genEvent()->barcode_to_particle(1), e.genEvent()->barcode_to_particle(2)};

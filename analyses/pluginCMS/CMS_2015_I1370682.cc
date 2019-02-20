@@ -369,7 +369,7 @@ namespace Rivet {
       Particles pForLep, pForJet;
       Particles neutrinos; // Prompt neutrinos
       /// @todo Avoid this unsafe jump into HepMC -- all this can be done properly via VisibleFS and HeavyHadrons projections
-      for (ConstGenParticlePtr p : Rivet::particles(e.genEvent())) {//
+      for (ConstGenParticlePtr p : HepMCUtils::particles(e.genEvent())) {//
         const int status = p->status();
         const int pdgId = p->pdg_id();
         if (status == 1) {
@@ -394,7 +394,7 @@ namespace Rivet {
           // Do unstable particles, to be used in the ghost B clustering
           // Use last B hadrons only
           bool isLast = true;
-          for (ConstGenParticlePtr pp : Rivet::particles(p->end_vertex(), Relatives::CHILDREN)) {
+          for (ConstGenParticlePtr pp : HepMCUtils::particles(p->end_vertex(), Relatives::CHILDREN)) {
             if (PID::hasBottom(pp->pdg_id())) {
               isLast = false;
               break;
@@ -426,7 +426,7 @@ namespace Rivet {
         int leptonId = 0;
         for (const Particle& p : lep.particles()) {
           /// @warning Barcodes aren't future-proof in HepMC
-          dressedIdxs.insert(p.genParticle()->id());
+          dressedIdxs.insert(HepMCUtils::uniqueId(p.genParticle()));
           if (p.isLepton() && p.pT() > leadingPt) {
             leadingPt = p.pT();
             leptonId = p.pid();
@@ -439,7 +439,7 @@ namespace Rivet {
 
       // Re-use particles not used in lepton dressing
       for (const Particle& rp : pForLep) {
-        const int barcode = rp.genParticle()->id();
+        const int barcode = HepMCUtils::uniqueId(rp.genParticle());
         // Skip if the particle is used in dressing
         if (dressedIdxs.find(barcode) != dressedIdxs.end()) continue;
         // Put back to be used in jet clustering

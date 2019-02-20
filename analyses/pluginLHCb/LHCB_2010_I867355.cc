@@ -26,7 +26,7 @@ namespace Rivet {
       double weight = event.weight();
 
       Particles bhadrons;
-      for(ConstGenParticlePtr p: particles(event.genEvent())) {
+      for(ConstGenParticlePtr p: HepMCUtils::particles(event.genEvent())) {
         if (!( PID::isHadron( p->pdg_id() ) && PID::hasBottom( p->pdg_id() )) ) continue;
 
         ConstGenVertexPtr dv = p->end_vertex();
@@ -34,7 +34,7 @@ namespace Rivet {
         bool hasBdaughter = false;
         if ( PID::isHadron( p->pdg_id() ) && PID::hasBottom( p->pdg_id() )) { // selecting b-hadrons
           if (dv) {
-            for (ConstGenParticlePtr pp: dv->particles_out()){
+            for (ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
               if (PID::isHadron(pp->pdg_id() ) && PID::hasBottom(pp->pdg_id() )) {
                 hasBdaughter = true;
               }

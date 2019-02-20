@@ -147,10 +147,10 @@ namespace Rivet {
       /// @todo Wouldn't this be nice... if HepMC::IO_AsciiParticles was sane :-/
       // printEvent(event.genEvent());
 
-      #if HEPMC_VERSION_CODE >= 3000000
+      #ifdef ENABLE_HEPMC_3
       
       /// @todo gonna try this instead of replicating everything below
-      HepMC::Print::content(*(event.genEvent()));
+      RivetHepMC::Print::content(*(event.genEvent()));
       
       #else
       
