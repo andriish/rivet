@@ -22,7 +22,8 @@ namespace Rivet {
     } else if (!firstIsLepton && secondIsLepton) {
       _incoming = inc.second;
     } else {
-      throw Error("DISLepton could not find the correct beam");
+      fail();
+      return;
     }
 
     // If no graph-connected scattered lepton, use the hardest
@@ -60,7 +61,7 @@ namespace Rivet {
     if ( !sfleptons.empty() ) {
       _outgoing = sfleptons.front();
     } else {
-      throw Error("Could not find the scattered lepton");
+      fail();
     }
 
   }

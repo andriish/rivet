@@ -41,6 +41,7 @@ libRivetProjections_la_SOURCES = \
   TriggerCDFRun2.cc \
   TriggerUA5.cc \
   UnstableFinalState.cc \
+  UndressBeamLeptons.cc \
   VetoedFinalState.cc \
   VisibleFinalState.cc \
   WFinder.cc \

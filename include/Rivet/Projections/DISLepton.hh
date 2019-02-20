@@ -6,6 +6,7 @@
 #include "Rivet/Projections/PromptFinalState.hh"
 #include "Rivet/Projections/HadronicFinalState.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
+#include "Rivet/Projections/UndressBeamLeptons.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 
@@ -23,13 +24,24 @@ namespace Rivet {
     /// options are: LMODE, taking the options "prompt", "any" and
     /// "dressed"; DressedDR giving a delta-R cone radius where photon
     /// momenta are added to the lepton candidates for LMODE=dresses;
-    /// and IsolDR giving a cone in delta-R where no hadrons are
-    /// allowed around a lepton candidate.
+    /// IsolDR giving a cone in delta-R where no hadrons are allowed
+    /// around a lepton candidate; and Undress giving a cone around
+    /// the incoming incoming beam in which photons are considered
+    /// initial state rafiation for which the momentum is subtracted
+    /// from the beam momentum.
     DISLepton(const std::map<std::string,std::string> & opts =
               std::map<std::string,std::string>()): _isolDR(0.0) {
       setName("DISLepton");
-      addProjection(Beam(), "Beam");
       addProjection(HadronicFinalState(), "IFS");
+
+      double undresstheta = 0.0;
+      auto undress = opts.find("Undress");
+      if ( undress != opts.end() )
+        undresstheta = std::stod(undress->second);
+      if ( undresstheta > 0.0 )
+        addProjection(UndressBeamLeptons(undresstheta), "Beam");
+      else
+        addProjection(Beam(), "Beam");
 
       auto isol = opts.find("IsolDR");
       if ( isol != opts.end() ) _isolDR = std::stod(isol->second);

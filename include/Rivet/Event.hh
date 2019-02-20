@@ -126,6 +126,7 @@ namespace Rivet {
       // If this one hasn't been run yet on this event, run it and add to the list
       log << Log::TRACE << "No equivalent projection in the already-run list -> projecting now" << endl;
       Projection* pp = const_cast<Projection*>(cpp);
+      pp->_isValid = true;
       pp->project(*this);
       _projections.insert(pp);
       return p;
