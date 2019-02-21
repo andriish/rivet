@@ -73,6 +73,7 @@ namespace Rivet {
 
       // Determine kinematics, including event orientation since ZEUS coord system is for +z = proton direction
       const DISKinematics& kin = apply<DISKinematics>(event, "Kinematics");
+      if ( kin.failed() ) vetoEvent;
       const int orientation = kin.orientation();
 
       // Q2 and inelasticity cuts

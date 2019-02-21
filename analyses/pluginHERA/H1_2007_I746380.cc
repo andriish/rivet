@@ -73,6 +73,10 @@ namespace Rivet {
     
     virtual void project(const Event& e){
       const DISKinematics& dk = apply<DISKinematics>(e, "DISKIN");
+      if ( dk.failed() ) {
+        fail();
+        return;
+      }
       const Particles& p      = apply<DISFinalState>(e, "DISFS").particles(cmpMomByEta);
       findgap(p, dk);
     }
@@ -316,6 +320,7 @@ namespace Rivet {
     void project(const Event& e){
 
       const RapidityGap& rg = apply<RapidityGap>(e, "RAPGAP");
+      if ( rg.failed() ) vetoEvent;
 
       // Total momentum of the system X.
       const FourMomentum pX = rg.pX(RapidityGap::HCM);
@@ -414,7 +419,9 @@ namespace Rivet {
       
       // Projections - special handling of events where no proton found:
       const RapidityGap&    rg = apply<RapidityGap>(event, "RapidityGap");
+      if ( rg.failed() ) vetoEvent;
       const DISKinematics& kin = apply<DISKinematics>(event, "Kinematics");
+      if ( kin.failed() ) vetoEvent;
       const BoostedXSystem& disfsXcm = apply<BoostedXSystem>( event, "BoostedXFS");
       
       // Determine kinematics: H1 has +z = proton direction

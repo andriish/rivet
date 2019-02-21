@@ -7,7 +7,7 @@ namespace Rivet {
   int DISLepton::compare(const Projection& p) const {
     const DISLepton& other = pcast<DISLepton>(p);
     return mkNamedPCmp(other, "Beam") || mkNamedPCmp(other, "LFS") ||
-      mkNamedPCmp(other, "IFS");
+      mkNamedPCmp(other, "IFS") || cmp(_sort, other._sort);
   }
 
 
@@ -22,14 +22,23 @@ namespace Rivet {
     } else if (!firstIsLepton && secondIsLepton) {
       _incoming = inc.second;
     } else {
-      throw Error("DISLepton could not find the correct beam");
+      fail();
+      return;
     }
 
     // If no graph-connected scattered lepton, use the hardest
     // (preferably same-flavour) prompt FS lepton in the event.
-
-    const Particles fsleptons =
-      applyProjection<FinalState>(e, "LFS").particles(isLepton, cmpMomByE);
+    const FinalState & fs = applyProjection<FinalState>(e, "LFS");
+    Particles fsleptons;
+    if ( _sort == ET )
+      fsleptons = fs.particles(isLepton, cmpMomByEt);
+    else if ( _sort == ETA && _incoming.momentum().pz() >= 0.0 )
+      fsleptons = fs.particles(isLepton, cmpMomByDescEta);
+    else if ( _sort == ETA && _incoming.momentum().pz() < 0.0 )
+      fsleptons = fs.particles(isLepton, cmpMomByEta);
+    else
+      fsleptons = fs.particles(isLepton, cmpMomByE);
+      
     Particles sfleptons =
       filter_select(fsleptons, Cuts::pid == _incoming.pid());
     MSG_DEBUG("SF leptons = " << sfleptons.size() << ", all leptons = "
@@ -60,7 +69,7 @@ namespace Rivet {
     if ( !sfleptons.empty() ) {
       _outgoing = sfleptons.front();
     } else {
-      throw Error("Could not find the scattered lepton");
+      fail();
     }
 
   }
