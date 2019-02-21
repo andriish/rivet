@@ -82,8 +82,17 @@ AC_SUBST(YODA_PYTHONPATH)
 
 ## HepMC event record library
 #AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
-AC_CEDAR_LIBRARYANDHEADERS([HepMC], , [use_hepmc2=yes], [use_hepmc2=no])
 AC_CEDAR_LIBRARYANDHEADERS([HepMC3], , [use_hepmc3=yes], [use_hepmc3=no])
+if test x$use_hepmc3 = xno ; then
+  AC_CEDAR_LIBRARYANDHEADERS([HepMC], , [use_hepmc2=yes], [use_hepmc2=no])
+else
+  AM_CONDITIONAL(WITH_HEPMC,false)
+  AM_CONDITIONAL(WITH_HEPMCINC,false)
+  AM_CONDITIONAL(WITH_HEPMCLIB,false)
+  AM_CONDITIONAL(WITHOUT_HEPMC,true)
+  AM_CONDITIONAL(WITHOUT_HEPMCINC,true)
+  AM_CONDITIONAL(WITHOUT_HEPMCLIB,true)
+fi
 if test x$use_hepmc2 = xno && test x$use_hepmc3 = xno ; then
   AC_MSG_ERROR([HepMC2 or HepMC3 is required])
 fi

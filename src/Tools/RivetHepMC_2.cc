@@ -101,7 +101,7 @@ namespace Rivet{
       pair<HepMC::GenParticle*, HepMC::GenParticle*> beams = ge->beam_particles();
       return std::vector<ConstGenParticlePtr>{beams.first, beams.second};
     }
-    
+
     std::shared_ptr<HepMC::IO_GenEvent> makeReader(std::istream &istr,
                                                    std::string *) {
       return make_shared<HepMC::IO_GenEvent>(istr);
