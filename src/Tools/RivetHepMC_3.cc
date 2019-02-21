@@ -34,6 +34,14 @@ namespace Rivet{
       return relo(gp);
     }
     
+    int particles_size(ConstGenEventPtr ge){
+      return particles(ge).size();
+    }
+
+    int particles_size(const GenEvent *ge){
+      return particles(ge).size();
+    }
+    
     int uniqueId(ConstGenParticlePtr gp){
       return gp->id();
     }

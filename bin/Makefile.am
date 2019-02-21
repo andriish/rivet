@@ -33,7 +33,7 @@ rivet_nopy_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS) $(CPPFLAGS)
 rivet_nopy_LDADD = $(top_builddir)/src/libRivet.la
 if ENABLE_HEPMC_3
 rivet_nopy_LDFLAGS = -L$(HEPMC3LIBPATH)
-rivet_nopy_LDADD += -lHepMC3
+rivet_nopy_LDADD += -lHepMC3 -lHepMC3search
 else
 rivet_nopy_LDFLAGS = -L$(HEPMCLIBPATH)
 rivet_nopy_LDADD += -lHepMC
