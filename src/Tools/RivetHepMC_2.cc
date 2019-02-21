@@ -102,7 +102,8 @@ namespace Rivet{
       return std::vector<ConstGenParticlePtr>{beams.first, beams.second};
     }
     
-    std::shared_ptr<HepMC::IO_GenEvent> makeReader(std::istream &istr){
+    std::shared_ptr<HepMC::IO_GenEvent> makeReader(std::istream &istr,
+                                                   std::string *) {
       return make_shared<HepMC::IO_GenEvent>(istr);
     }
    

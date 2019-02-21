@@ -52,37 +52,40 @@ namespace Rivet {
     return true;
   }
 
-  /*
-  // Fill event and check for a bad read state --- to skip, maybe HEPMC3 will have a better way
-  bool Run::skipEvent() {
-    if (_io->rdstate() != 0 || !_io->fill_next_event(_evt.get()) ) {
-      Log::getLog("Rivet.Run") << Log::DEBUG << "Read failed. End of file?" << endl;
-      return false;
-    }
-    return true;
-  }
-*/
+
 
   bool Run::openFile(const std::string& evtfile, double weight) {
     // Set current weight-scaling member
     _fileweight = weight;
 
+    // In case makeReader fails.
+    std::string errormessage;
+    
     // Set up HepMC input reader objects
     if (evtfile == "-") {
-      _hepmcReader = HepMCUtils::makeReader(std::cin);
+#ifdef HAVE_LIBZ
+      _istr = make_shared<zstr::istream>(std::cin);
+      _hepmcReader = HepMCUtils::makeReader(*_istr, &errormessage);
+#else
+      _hepmcReader = HepMCUtils::makeReader(std::cin, &errormessage);
+#endif
     } else {
-      if (!fileexists(evtfile)) throw Error("Event file '" + evtfile + "' not found");
-      #ifdef HAVE_LIBZ
+      if ( !fileexists(evtfile) )
+        throw Error("Event file '" + evtfile + "' not found");
+#ifdef HAVE_LIBZ
       // NB. zstr auto-detects if file is deflated or plain-text
-      _istr.reset(new zstr::ifstream(evtfile.c_str()));
-      #else
-      _istr.reset(new std::fstream(evtfile.c_str(), std::ios::in));
-      #endif
-      _hepmcReader = HepMCUtils::makeReader(*_istr);
-       
+      _istr = make_shared<zstr::ifstream>(evtfile.c_str());
+#else
+      _istr = make_shared<std::ifstream>(evtfile.c_str());
+#endif
+      _hepmcReader = HepMCUtils::makeReader(*_istr, &errormessage);
+      
     }
+
     if (_hepmcReader == nullptr) {
-      Log::getLog("Rivet.Run") << Log::ERROR << "Read error on file " << evtfile << endl;
+      Log::getLog("Rivet.Run")
+        << Log::ERROR << "Read error on file '" << evtfile << "' "
+        << errormessage << endl;
       return false;
     }
     return true;

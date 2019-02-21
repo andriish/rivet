@@ -55,37 +55,52 @@ namespace Rivet{
       return !io->failed();
     }
     
-    shared_ptr<HepMC_IO_type> makeReader(std::istream &istr){
-      if(&istr == &std::cin) return make_shared<RivetHepMC::ReaderAsciiHepMC2>(istr);
+    shared_ptr<HepMC_IO_type> makeReader(std::istream & istr,
+                                         std::string * errm) {
+      shared_ptr<HepMC_IO_type> ret;
       
-      istr.seekg(istr.beg);
-      std::string line1, line2;
-      
-      while(line1.empty()){
-        std::getline(istr, line1);
+      // First scan forward and check if there is some hint as to what
+      // kind of file we are looking att.
+      int nchar = 256;
+      std::string header;
+      while ( nchar-- && !istr.eof() )
+        header += char(istr.get());
+      // If this stream was too short to contain any reasonable number
+      // of events, just give up.
+      if ( !istr ) {
+        if ( errm ) *errm = "Could not find HepMC header information";
+        return shared_ptr<HepMC_IO_type>();
       }
-      
-      while(line2.empty()){
-        std::getline(istr, line2);
+
+      // Now reset the stream to its original state ...
+      for ( int i = header.length() - 1; i >= 0; --i )
+        istr.putback(header[i]);
+
+      // ... and check which kind of format it was and create the
+      // corresponding reader. First try the HepM3 ascii format.
+      if ( header.find("HepMC::Asciiv3-START_EVENT_LISTING") !=
+           std::string::npos )
+        ret = make_shared<RivetHepMC::ReaderAscii>(istr);
+
+      // Check if the file is written by WriterRoot or WriterRootTree.
+      else if ( header.substr(0, 4) == "root" ) {
+        if ( errm ) *errm = "Rivet cancurrently not read HepMC root files.";
+        return ret;
       }
-      
-      istr.seekg(istr.beg);
-      
-      // if this is absent it doesn't appear to be a HepMC file :(
-      if(line1.find("HepMC::Version") == std::string::npos) return nullptr;
-      
-      shared_ptr<HepMC_IO_type> result;
-      
-      // Looks like the new HepMC 3 format!
-      if(line2.find("HepMC::Asciiv3") != std::string::npos){
-        result = make_shared<RivetHepMC::ReaderAscii>(istr);
-      }else{
-        // assume old HepMC 2 format from here
-        result = make_shared<RivetHepMC::ReaderAsciiHepMC2>(istr);
+
+      // The default is to assume it is a good old HepMC2 ascii file.
+      else {
+        ret = make_shared<RivetHepMC::ReaderAsciiHepMC2>(istr);
       }
-      
-      if(result->failed()) result.reset((RivetHepMC::Reader*)nullptr);
-      return result;
+
+      // Check that everything was ok.
+      if ( ret->failed() ) {
+        if ( errm ) *errm = "Problems reading from HepMC file.";
+        ret = shared_ptr<HepMC_IO_type>();
+      }
+
+      return ret;
     }
+
   }
 }
