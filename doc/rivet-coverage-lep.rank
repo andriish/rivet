@@ -1,7 +1,7 @@
 19342 X ALEPH: Technical Report 1983
 39718 . Comparison of a new calculation of energy-energy correlations with e+ e- ---> hadrons data at the Z0 resonance
-179973 . SLD: LETTER OF INTENT
-266431 . A Status Report on the Sld Data Acquisition System
+179973 X SLD: LETTER OF INTENT
+266431 X A Status Report on the Sld Data Acquisition System
 282041 . A Determination of the Properties of the Neutral Intermediate Vector Boson $Z^0$
 282645 . Mass Limits for Scalar Muons, Scalar Electrons and Winos from e+ e- Collisions near S**(1/2) = 91 GeV
 282821 . Measurement of the $Z^0$ Mass and Width with the OPAL Detector at LEP
@@ -211,7 +211,7 @@
 339094 . Evidence for the existence of the strange $b$ flavored meson $B_s^0$ in $Z^0$ decays
 339967 . A Measurement of the b baryon lifetime
 340583 . Measurements of mean lifetime and branching fractions of b hadrons decaying to J / psi
-340855 . QCD studies of hadronic decays of Z$^0$ bosons by SLD
+340855 ! QCD studies of hadronic decays of Z$^0$ bosons by SLD
 340878 . Searches for nonminimal Higgs bosons in Z0 decays
 340879 . Search for isosinglet neutral heavy leptons in Z0 decays
 340880 . High mass photon pairs in lepton+ lepton- gamma gamma events at LEP
@@ -235,7 +235,7 @@
 343700 . Search for particles with unexpected mass and charge in Z decays
 344328 . Search for anomalous production of single photon events in e+ e- annihilations at the Z resonance
 344329 . Determination of quark electroweak couplings from direct photon production in hadronic Z decays
-344556 . A Preliminary measurement of R(b) = Gamma (Z0 ---> b anti-b) / Gamma (Z0 ---> hadrons) at SLD
+344556 ? A Preliminary measurement of R(b) = Gamma (Z0 ---> b anti-b) / Gamma (Z0 ---> hadrons) at SLD
 352667 . First measurement of the left-right cross-section asymmetry in Z boson production by e+ e- collisions
 352696 . Precision measurements of the neutral current from hadron and lepton production at LEP
 352789 . A Study of differences between quark and gluon jets using vertex tagging of quark jets
@@ -368,17 +368,17 @@
 377489 . Measurement of the Gamma (b anti-b) / Gamma (hadron) branching ratio of the Z by double hemisphere tagging
 377490 . Measurement of time dependent B(d)0 - anti-B(d)0 mixing
 378295 X The L3 silicon microvertex detector
-378339 . A Preliminary, precise measurement of the average B hadron lifetime
+378339 ? A Preliminary, precise measurement of the average B hadron lifetime
 378340 . Measurement of the average lifetime of B hadrons at SLD
 378342 . Measurement of A(b) and A(c) from the left-right forward - backward asymmetry of leptons in hadronic events at the Z0 resonance
 378343 . A Search for jet handedness in hadronic Z0 decays
 378344 . Measurement of A(b) from the left-right forward - backward asymmetry of b quark production in Z0 decays using a momentum weighted track charge technique
 378545 . Measurement of alpha-s (M(Z)**2) from hadronic event observables at the Z0 resonance
 379212 . Determination of event shape distributions and alpha-s(b) from Z0 ---> b anti-b events at LEP
-379691 . A Preliminary measurement of the average B hadron lifetime
+379691 ? A Preliminary measurement of the average B hadron lifetime
 379692 . Electroweak coupling measurements from polarized Bhabha scattering at SLD
 379694 . Precision standard model tests with polarized $e^+ e^-$ beams
-379696 . Heavy quark physics at SLD (preliminary results)
+379696 ? Heavy quark physics at SLD (preliminary results)
 380423 . Measurement of the b ---> tau- anti-tau-neutrino X branching ratio and an upper limit on B- ---> tau- anti-tau-neutrino
 380424 . Study of the four fermion final state at the Z resonance
 380425 . A Study of K(s), Lambda and anti-Lambda production in hadronic Z0 decays
@@ -492,7 +492,7 @@
 402895 . Measurement of Lambda(b) polarization in Z decays
 403254 . Energy dependence of the differences between the quark and gluon jet fragmentation
 404106 . Measurement of the heavy quark forward - backward asymmetries and average $B$ mixing using leptons in multi - hadronic events
-404166 . Preliminary measurements of B0 and B+ lifetimes at SLD
+404166 ? Preliminary measurements of B0 and B+ lifetimes at SLD
 404272 . Measurement of the left-right forward - backward asymmetry for charm quarks with D*+ and D+ mesons
 404562 . Quark and gluon jet properties in symmetric three jet events
 404602 . Measurement of eta production in two and three jet events from hadronic Z decays at LEP
@@ -587,10 +587,10 @@
 421994 . Search for neutralinos, scalar leptons and scalar quarks in e+ e- interactions at s**(1/2) = 130-GeV and 136-GeV.
 421995 . A Measurement of the charm and bottom forward - backward asymmetries using D mesons at LEP
 421997 . Test of the four fermion contact interaction in e+ e- collisions at 130-GeV - 140-GeV
-422168 . Preliminary measurement of the charged multiplicities in b, c and light quark events from Z0 decays
-422169 . Preliminary measurement of leading particle effects in hadronic Z0 decays
-422170 . A Preliminary measurement of the b quark fragmentation function in hadronic Z0 decays
-422171 . Preliminary measurements of production of pi+-, K+-, p, K0 and Lambda0 in hadronic Z0 decays
+422168 ? Preliminary measurement of the charged multiplicities in b, c and light quark events from Z0 decays
+422169 ? Preliminary measurement of leading particle effects in hadronic Z0 decays
+422170 ? A Preliminary measurement of the b quark fragmentation function in hadronic Z0 decays
+422171 ? Preliminary measurements of production of pi+-, K+-, p, K0 and Lambda0 in hadronic Z0 decays
 422172 . Measurement of the charged multiplicities in b, c and light quark events from Z0 decays
 422652 . Measurement of A(b) and A(c) at the Z0 resonance using a lepton tag
 423034 . Observation of charmless hadronic b decays
@@ -614,7 +614,7 @@
 425867 . Search for exclusive $B$ decays to $J/\psi$ and $\eta$ or $\pi^0$ with the L3 detector
 425868 . Search for neutral $B$ meson decays to two charged leptons
 425928 . Updated measurement of the tau lifetime at SLD
-425929 . Preliminary measurement of time dependent B(d)0 - anti-B(d)0 mixing using topology and charge selected semileptonic B decays
+425929 ? Preliminary measurement of time dependent B(d)0 - anti-B(d)0 mixing using topology and charge selected semileptonic B decays
 425943 . Measurements of |V(cb)|, form-factors and branching fractions in the decays anti-B0 ---> D*+ lepton- anti-lepton-neutrino and anti-B0 ---> D+ lepton- anti-lepton-neutrino
 426122 . An improved measurement of the left-right $Z^0$ cross-section asymmetry
 426207 . Measurement of the QED longitudinal structure function of the photon using azimuthal correlations at LEP
@@ -644,7 +644,7 @@
 428492 . Search for CP violation in Z0 ---> tau+ tau- and an upper limit on the weak dipole moment of the tau lepton
 428493 . B* production in Z0 decays
 429039 . Measurement of the Z0 - lepton coupling asymmetries A(lepton)
-429856 . Preliminary measurement of D* / D production and D* spin alignment at the Z0 resonance
+429856 ? Preliminary measurement of D* / D production and D* spin alignment at the Z0 resonance
 439797 . The Topology dependence of charged particle multiplicities in three jet events
 439997 . Measurement of the tau-neutrino helicity and the Michel parameters in polarized e+ e- collisions
 440040 . Measurement of the $B^{+}$ and $B^0$ lifetimes from semileptonic decays
@@ -701,9 +701,9 @@
 445331 . Search for the neutral Higgs bosons of the MSSM in e+ e- collisions at s**(1/2) from 130-GeV to 172-GeV
 445644 . Symmetry tests in polarized Z0 decays to b anti-b g
 445645 . Production of pi+-, K+-, K0, K*0, phi, p and Lambda0 in hadronic Z0 decays
-445646 . A Preliminary study of the structure of b anti-b g events using Z0 decays
-445647 . A Preliminary improved test of the flavor independence of strong interactions
-445648 . Preliminary measurement of prompt D+- and D*+- meson production and D*+- spin alignment in hadronic Z0 decays
+445646 ? A Preliminary study of the structure of b anti-b g events using Z0 decays
+445647 ? A Preliminary improved test of the flavor independence of strong interactions
+445648 ? Preliminary measurement of prompt D+- and D*+- meson production and D*+- spin alignment in hadronic Z0 decays
 445998 . Study of hadronic events and measurements of alpha-s between 30-GeV and 91-GeV
 445999 . Search for heavy neutral and charged leptons in e+ e- annihilation at s**(1/2) = 161-GeV and s**(1/2) = 172-GeV
 446000 . Single and multiphoton events with missing energy in e+ e- collisions at 161-GeV < s**(1/2) < 172-GeV
@@ -716,7 +716,7 @@
 446673 . Measurement of the Q**2 evolution of the photon structure function F2(gamma)
 446719 . Searches for scalar top and scalar bottom quarks at LEP-2
 446783 . Missing mass spectra in hadronic events from e+ e- collisions at s**(1/2) = 161-GeV - 172-GeV and limits on invisible Higgs decay
-446881 . A Preliminary measurement of R(b) using the upgrade SLD vertex detector
+446881 ? A Preliminary measurement of R(b) using the upgrade SLD vertex detector
 446939 . Updated measurement of the tau lepton lifetime
 446940 . Measurement of the W pair cross-section in e+ e- collisions at 172-GeV
 447145 . Measurement of f(c ---> D*+ X), f(b ---> D*+ X) and Gamma (c anti-c) / Gamma (hadronic) using D*+- mesons
@@ -739,7 +739,7 @@
 448154 . Measurement of the $B$ baryon lifetime and branching fractions in $Z$ decays
 448370 . Measurement of the quark and gluon fragmentation functions in Z0 hadronic decays
 448436 . Measurement of the triple gluon vertex from double quark tagged four jet events
-448507 . QCD Studies at SLD: Identified hadron production in jets of different flavors
+448507 ! QCD Studies at SLD: Identified hadron production in jets of different flavors
 448664 . Search for a massive di-photon resonance at S**(1/2) = 91-GeV - 172-GeV
 448725 . Measurement of triple gauge boson couplings from $W^{+} W^{-}$ production at $S^{(1/2)}$ = 172-GeV
 448729 . Search for unstable heavy and excited leptons in e+ e- collisions at S**(1/2) = 170-GeV - 172-GeV
@@ -753,9 +753,9 @@
 449679 . Measurement of the B+ and B0 lifetimes using topological vertexing at SLD
 449704 . Measurement of the $B^{+}$ and $B^0$ lifetimes using topological reconstruction of inclusive and semileptonic decays
 449730 . Searches for charginos and neutralinos in $e^{+} e^{-}$ collisions at $\sqrt{s}$ = 161-GeV and 172-GeV
-449925 . A Preliminary measurement of R(c) using the SLD detector
+449925 ? A Preliminary measurement of R(c) using the SLD detector
 449928 . Properties of the b anti-b g vertex
-450154 . A Preliminary inclusive measurement of A(c) using the SLD detectors
+450154 ? A Preliminary inclusive measurement of A(c) using the SLD detectors
 450686 . Direct measurement of A(b) and A(c) at the Z0 pole using a lepton tag
 450757 . Search for anomalous production of photonic events with missing energy in e+ e- collisions at s**(1/2) = 130-GeV to 172-GeV
 450758 . An Upper limit on the tau-neutrino mass from three-prong and five-prong tau decays
@@ -852,13 +852,13 @@
 474011 . Study of D0 anti-D0 mixing and D0 doubly Cabibbo suppressed decays
 474012 . Measurement of the average polarization of b baryons in hadronic Z0 decays
 474013 . First measurement of Z / gamma* production in Compton scattering of quasireal photons
-474070 . Time dependent B0(s) - anti-B0(s) mixing using inclusive and semileptonic B decays at SLD
+474070 ? Time dependent B0(s) - anti-B0(s) mixing using inclusive and semileptonic B decays at SLD
 474071 . Measurement of the $B^{+}$ and $B^0$ lifetimes using topological vertexing at SLD
-474241 . A Preliminary study of the structure of b anti-b g events using Z0 decays
+474241 ? A Preliminary study of the structure of b anti-b g events using Z0 decays
 474243 . Symmetry tests in polarized Z0 decays to b anti-b g
 474244 . A Study of correlations between identified charged hadrons in hadronic Z0 decays
-474245 . A Preliminary direct measurement of the parity violating coupling of the Z0 to strange quarks, A(s)
-474247 . A Preliminary improved measurement of the B hadron energy distribution in Z0 decays
+474245 ? A Preliminary direct measurement of the parity violating coupling of the Z0 to strange quarks, A(s)
+474247 ? A Preliminary improved measurement of the B hadron energy distribution in Z0 decays
 474662 . Measurement of |V(cs)| using W decays at LEP-2
 474663 . Measurement of $W$ pair cross-sections in $e^{+} e^{-}$ interactions at $S^{(1/2)}$ = 183-GeV and $W$ decay branching fractions
 474664 . Search for acoplanar lepton pair events in e+ e- collisions at S**(1/2) = 161-GeV, 172-GeV and 183-GeV
@@ -906,14 +906,14 @@
 482170 . Measurement of the $B^{+}$ and $B^0$ lifetimes and search for CP($T$) violation using reconstructed secondary vertices
 482314 . Color reconnection studies in e+ e- ---> W+ W- at S**(1/2) = 183-GeV
 482345 . Measurement of the $W$ mass and width in $e^{+} e^{-}$ collisions at 183-GeV
-482462 . Physics results from SLD using the CRID
+482462 ? Physics results from SLD using the CRID
 482477 . Study of neutral current four fermion and Z Z production in e+ e- collisions at S**(1/2) = 183-GeV
 482478 . Measurement of the cross-section for the process gamma* gamma* ---> hadrons at LEP
 482479 . Heavy quarkonium production in $Z$ decays
 482521 . Searches for R-parity violating decays of gauginos at 183-GeV at LEP
 482650 . Study of the four-jet anomaly observed at LEP center-of-mass energies of 130-GeV and 136-GeV
 482816 . Measurement of inclusive rho0, f(0)(980), f(2)(1270), K*0(2)(1430) and f-prime(2)(1525) production in Z0 decays
-483184 . Heavy flavor fragmentation and decay at SLD
+483184 ! Heavy flavor fragmentation and decay at SLD
 484833 . Direct measurement of A(b) in Z0 decays using charged kaon tagging
 495313 . Intermittency and correlations in hadronic Z0 decays
 495378 . Measurements of the QED structure of the photon
@@ -925,7 +925,7 @@
 495464 . Measurement of the forward backward asymmetry of c and b quarks at the Z pole using reconstructed D mesons
 495805 . Search for charginos and neutralinos in $e^{+} e^{-}$ collisions at center-of-mass energies near 183-GeV and constraints on the MSSM parameter space
 495806 . Measurement of mass and width of the $W$ boson at LEP
-496237 . A Preliminary direct measurement of the parity violating coupling of the Z0 to strange quarks, A(s)
+496237 ? A Preliminary direct measurement of the parity violating coupling of the Z0 to strange quarks, A(s)
 496238 . First study of the structure of e+ e- ---> b anti-b g events and limits on the anomalous chromomagnetic coupling of the b quark
 496399 . Search for scalar leptons in e+ e- collisions at S**(1/2) = 183-GeV
 496400 . Search for R-parity violating chargino and neutralino decays in e+ e- collisions up to S**(1/2) = 183-GeV
@@ -941,7 +941,7 @@
 498246 . Test of the flavor independence of alpha(s) using next-to-leading order calculations for heavy quarks
 498282 . Measurement of the lifetime of $b$ - baryons
 498297 . Search for R-parity violating decays of scalar fermions at LEP
-498726 . Light quark fragmentation and a measurement of $A_s$ at the SLD
+498726 ! Light quark fragmentation and a measurement of $A_s$ at the SLD
 499180 . Search for supersymmetry with R-parity violating L L anti-E couplings at S**(1/2) = 183-GeV
 499181 . W pair production cross-section and W branching fractions in e+ e- interactions at 183-GeV
 499182 . Measurements of the leptonic branching fractions of the tau
@@ -950,9 +950,9 @@
 499917 . Measurement of the hadronic photon structure function at LEP-1 for (Q**2) values between 9.9-GeV**2 and 284-GeV**2
 500042 . Multiplicity fluctuations in one-dimensional and two-dimensional angular intervals compared with analytic QCD calculations
 500457 . Measurement of Z0 to heavy quark couplings at SLD
-500546 . Tests of QCD using Heavy Flavors in $Z^0$ Decays at SLD
+500546 ! Tests of QCD using Heavy Flavors in $Z^0$ Decays at SLD
 500779 . An Improved measurement of the b quark fragmentation function in Z0 decays
-500782 . A Preliminary measurement of the gluon splitting rate into b anti-b pairs in hadronic Z0 decays
+500782 ? A Preliminary measurement of the gluon splitting rate into b anti-b pairs in hadronic Z0 decays
 501369 . Formation of the $eta_c$ in two photon collisions at LEP
 501453 . Energy dependence of inclusive spectra in e+ e- annihilation
 501454 . Search for the Higgs boson in events with isolated photons at LEP-2
@@ -970,7 +970,7 @@
 502750 . A Study of spin alignment of rho(770)+- and omega(782) mesons in hadronic Z0 decays
 503551 . A Study of single $W$ production in $e^{+} e^{-}$ collisions at $S^{(1/2)}$ = 161-GeV to 183-GeV
 503554 . Measurement of the b quark fragmentation function in Z0 decays
-503676 . A Preliminary direct measurement of the parity violating coupling of the Z0 to strange quarks, A(s)
+503676 ? A Preliminary direct measurement of the parity violating coupling of the Z0 to strange quarks, A(s)
 503753 . Study of the structure of e+ e- ---> b anti-b g events and improved limits on the anomalous chromomagnetic coupling of the b quark
 503754 . Symmetry tests in polarized Z0 decays to b anti-b g
 503909 . Measurement of the probability for gluon splitting into b anti-b in Z0 decays
@@ -1009,7 +1009,7 @@
 507737 . Measurement of R($b$) and Br($b \to$ lepton neutrino $X$) at LEP using double tag methods
 507738 . Search for charged Higgs bosons in $e^{+} e^{-}$ collisions at $\sqrt{s}$ = 189-GeV
 507739 . Study of $Z$ Boson Pair Production in $e^{+} e^{-}$ collisions at LEP at $S^{(1/2)}$ = 189-GeV
-507820 . Recent tests of QCD at SLD
+507820 ? Recent tests of QCD at SLD
 507867 . Search for chargino pair production in scenarios with gravitino LSP and stau NLSP at S**(1/2) approximately equal to 183-GeV at LEP
 507874 . Search for chargino and neutralino production at S**(1/2) = 189-GeV at LEP
 507875 . Search for anomalous production of acoplanar di-lepton events in e+ e- collisions at S**(1/2) = 183-GeV and 189-GeV
@@ -1020,10 +1020,10 @@
 508079 . Single and multiphoton events with missing energy in $e^{+} e^{-}$ collisions at $\sqrt{S}$ - 189-GeV
 508408 . Searches for scalar quarks in $e^{+} e^{-}$ interactions at $\sqrt{S}$ = 189-GeV
 508409 . Search for excited leptons at $\sqrt{S}$ = 189-GeV
-508478 . QCD with SLD
-509034 . Search for charmless hadronic decays of B mesons with the SLD detector
-509037 . Search for neutral Higgs bosons of the minimal supersymmetric standard model in $e^{+} e^{-}$ interactions at $\sqrt{S}$ = 189-GeV
-509099 . Search for extra dimensions in boson and fermion pair production in $e^{+} e^{-}$ interactions at LEP
+508478 ? QCD with SLD
+509034 ? Search for charmless hadronic decays of B mesons with the SLD detector
+509037 ? Search for neutral Higgs bosons of the minimal supersymmetric standard model in $e^{+} e^{-}$ interactions at $\sqrt{S}$ = 189-GeV
+509099 ? Search for extra dimensions in boson and fermion pair production in $e^{+} e^{-}$ interactions at LEP
 509241 . Measurement of the e+ e- ---> Z Z production cross-section at center-of-mass energies of 183-GeV and 189-GeV
 509391 . Precision luminosity for Z0 line shape measurements with a silicon tungsten calorimeter
 509394 . Measurement of the $W^{+} W^{-} \gamma$ cross-section and first direct limits on anomalous electroweak quartic gauge couplings
@@ -1108,7 +1108,7 @@
 531568 . Rapidity-rank structure of p anti-p pairs in hadronic Z0 decays
 531570 . Measurement of the $W^{+} W^{-} \gamma$ cross-section and direct limits on anomalous quartic gauge boson couplings at LEP
 531571 . Search for anomalous couplings in the Higgs sector at LEP
-531656 . Light quark fragmentation in polarized Z0 decays at SLD
+531656 ! Light quark fragmentation in polarized Z0 decays at SLD
 531668 . Measurement of Bose-Einstein correlations in $e^{+} e^{-} \to W^{+} W^{-}$ at $\sqrt{S}$ approximately = 189-GeV
 531741 . Direct measurement of A(b) using charged vertices
 531766 . Measurement of the $W$ pair production cross-section and $W$ decay branching fractions in $e^{+} e^{-}$ interactions at $\sqrt{S}$ = 189-GeV
@@ -1130,7 +1130,7 @@
 534257 . Determination of the e+ e- --> gamma gamma (gamma) cross-section at centre-of-mass energies ranging from 189-GeV to 202-GeV
 534258 . Limits on the masses of supersymmetric particles at s**(1/2) = 189-GeV
 534383 . Direct measurement of A(b) at the Z0 pole using a lepton tag
-534434 . Measurements of parity violation parameters at SLD
+534434 ? Measurements of parity violation parameters at SLD
 534435 . Study of $Z$ boson pair production in $e^{+} e^{-}$ interactions at $\sqrt{s}$ = 192-GeV - 202-GeV
 534657 . Measurement of the $B^0$ lifetime and oscillation frequency using $\bar{B}^0 \to D^{*+} \ell^{-}$ anti-neutrino decays
 534735 . An Improved direct measurement of leptonic coupling asymmetries with polarized Z bosons
@@ -1144,10 +1144,10 @@
 536071 . Studies of hadronic decays of Z0 bosons at SLD
 536138 . Search for R-parity violating decays of supersymmetric particles in $e^{+} e^{-}$ collisions at center-of-mass energies from 189-GeV to 202-GeV
 536266 . Charged multiplicities in Z decays into u, d, and s quarks
-536484 . B(s) mixing at SLD
+536484 ? B(s) mixing at SLD
 536690 . Light resonances in $K^0_{S} K^\pm \pi^\mp$ and $\eta \pi^{+} \pi^{-}$ final states in $\gamma \gamma$ collisions at LEP
 536692 . $K^0_{S} K^0_{S}$ final state in two photon collisions and implications for glueballs
-536814 . Time dependent B0(s) - anti-B0(s) oscillations using exclusively reconstructed D+(s) decays at SLD
+536814 ? Time dependent B0(s) - anti-B0(s) oscillations using exclusively reconstructed D+(s) decays at SLD
 536816 . Higgs candidates in $e^{+} e^{-}$ interactions at $\sqrt{s}$ = 206.6-GeV
 536864 . Search for R-parity violating decays of supersymmetric particles in $e^{+} e^{-}$ collisions at $\sqrt{s}$ = 189-GeV
 536865 . A search for invisible Higgs bosons produced in e+ e- interactions up to s**(1/2) = 189-GeV
@@ -1231,7 +1231,7 @@
 565988 . Study of the $W^{+} W^{-} \gamma$ process and limits on anomalous quartic gauge boson couplings at LEP
 566837 . Search for doubly charged Higgs bosons with the OPAL detector at LEP
 567155 . Fragmentation and hadronization in e+ e- collisions
-567400 . Recent tests of QCD at SLD
+567400 ? Recent tests of QCD at SLD
 567914 . Production of D**(s) mesons in hadronic Z decays
 567915 . Search for scalar leptons in e+ e- collisions at center-of-mass energies up to 209-GeV
 568505 . Search for leptoquarks in electron photon scattering at s($e e) ^{(1/2)}$ up to 209-GeV at LEP
