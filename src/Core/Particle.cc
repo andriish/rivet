@@ -254,14 +254,11 @@ namespace Rivet {
     for (ConstGenParticlePtr ancestor : HepMCUtils::particles(prodVtx, Relatives::ANCESTORS)) {
       const PdgId pid = ancestor->pdg_id();
       if (ancestor->status() != 2) continue; // no non-standard statuses or beams to be used in decision making
-      bool isBeam = false;
-      for(ConstGenParticlePtr b: HepMCUtils::beams(prodVtx->parent_event())){
-        if(ancestor == b){
-          isBeam = true;
-          break;
-        }
-      }
-      if(isBeam) continue; // PYTHIA6 uses status 2 for beams, I think... (sigh)
+
+      std::pair<ConstGenParticlePtr,ConstGenParticlePtr> thebeams = HepMCUtils::beams(prodVtx->parent_event());
+      // PYTHIA6 uses status 2 for beams, I think... (sigh)
+      if ( ancestor == thebeams.first || ancestor == thebeams.second ) continue;
+
       if (PID::isParton(pid)) continue; // PYTHIA6 also uses status 2 for some partons, I think... (sigh)
       if (PID::isHadron(pid)) return false; // direct particles can't be from hadron decays
       if (abs(pid) == PID::TAU && abspid() != PID::TAU && !allow_from_direct_tau) return false; // allow or ban particles from tau decays (permitting tau copies)

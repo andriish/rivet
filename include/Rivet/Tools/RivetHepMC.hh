@@ -85,7 +85,7 @@ namespace Rivet {
     int uniqueId(ConstGenParticlePtr gp);
     int particles_size(ConstGenEventPtr ge);
     int particles_size(const GenEvent *ge);
-    std::vector<ConstGenParticlePtr> beams(const GenEvent *ge);
+    std::pair<ConstGenParticlePtr,ConstGenParticlePtr> beams(const GenEvent *ge);
     std::shared_ptr<HepMC_IO_type> makeReader(std::istream &istr,
                                               std::string * errm = 0);
     bool readEvent(std::shared_ptr<HepMC_IO_type> io,

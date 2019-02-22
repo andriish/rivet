@@ -10,9 +10,9 @@ namespace Rivet {
 
     // First try the official way: ask the GenEvent for the beam pointers
     assert(HepMCUtils::particles_size(e.genEvent()) >= 2);
-    vector<ConstGenParticlePtr> beams = HepMCUtils::beams(e.genEvent());
-    if (beams.size() == 2 && beams[0] && beams[1]) {
-      return ParticlePair{beams[0], beams[1]};
+    std::pair<ConstGenParticlePtr,ConstGenParticlePtr> thebeams = HepMCUtils::beams(e.genEvent());
+    if ( thebeams.first && thebeams.second ) {
+      return ParticlePair{thebeams.first, thebeams.second};
     }
     // Ok, that failed: let's find the status = 4 particles by hand
     const vector<Particle> pstat4s = e.allParticles([](const Particle& p){ return p.genParticle()->status() == 4; });

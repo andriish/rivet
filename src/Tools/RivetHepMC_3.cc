@@ -46,8 +46,10 @@ namespace Rivet{
       return gp->id();
     }
     
-    std::vector<ConstGenParticlePtr> beams(const GenEvent *ge){
-      return ge->beams();
+    std::pair<ConstGenParticlePtr,ConstGenParticlePtr> beams(const GenEvent *ge) {
+      std::vector<ConstGenParticlePtr> beamlist = ge->beams();
+      if ( beamlist.size() < 2 ) return std::pair<ConstGenParticlePtr,ConstGenParticlePtr>();
+      return std::make_pair(beamlist[0], beamlist[1]);
     }
     
     bool readEvent(std::shared_ptr<HepMC_IO_type> io, std::shared_ptr<GenEvent> evt){
