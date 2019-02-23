@@ -26,16 +26,18 @@ namespace Rivet {
       // Projections
       /// @todo Acceptance
       FinalState fs;
-      declare(FastJets(fs, fastjet::JetAlgorithm::kt_algorithm, fastjet::RecombinationScheme::Et_scheme, 1.0), "Jets"); 
-      declare(FastJets(fs, fastjet::JetAlgorithm::antikt_algorithm, fastjet::RecombinationScheme::Et_scheme, 1.0), "Jets_akt"); 
+      double jet_radius = 1.0;
+      declare(FastJets(fs, fastjet::JetAlgorithm::kt_algorithm, fastjet::RecombinationScheme::Et_scheme, jet_radius), "Jets"); 
+      declare(FastJets(fs, fastjet::JetAlgorithm::antikt_algorithm, fastjet::RecombinationScheme::Et_scheme, jet_radius), "Jets_akt"); 
 
-      // @TODO need to check/fix the recombination scheme
+      // bit of messing about to use the correct recombnation scheme for SISCone.
+      double overlap_threshold = 0.75;
+      fastjet::SISConePlugin * plugin = new fastjet::SISConePlugin(jet_radius, overlap_threshold);
+      plugin->set_use_jet_def_recombiner(true);
+      JetDefinition siscone(plugin);
+      siscone.set_recombination_scheme(fastjet::RecombinationScheme::Et_scheme);
+      declare(FastJets(fs, siscone), "Jets_sis"); 
       //declare(FastJets(fs, FastJets::SISCONE, fastjet::RecombinationScheme::Et_scheme, 1.0), "Jets_sis"); 
-      //double overlap_threshold = 0.75;
-      //JetDefinition::Plugin * plugin = new fastjet::SISConePlugin(1.0, overlap_threshold);
-      //JetDefinition siscone(plugin);
-      //declare(FastJets(fs, fastjet::JetAlgorithm::plugin_algorithm, fastjet::RecombinationScheme::Et_scheme, 1.0), "Jets_sis"); 
-      declare(FastJets(fs, FastJets::SISCONE, 1.0), "Jets_sis"); 
       
       declare(DISKinematics(), "Kinematics");
       
@@ -55,10 +57,10 @@ namespace Rivet {
       
       // antiKT
       _h_etjet[6] = bookHisto1D(9, 1, 1);
-      _h_etajet[2] = bookHisto1D(10, 1, 1);
+      _h_etajet[2] = bookHisto1D(11, 1, 1);
       
       // SiSCone
-      _h_etjet[7] = bookHisto1D(11, 1, 1);
+      _h_etjet[7] = bookHisto1D(10, 1, 1);
       _h_etajet[3] = bookHisto1D(12, 1, 1);
       
     }

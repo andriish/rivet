@@ -1,3 +1,9 @@
+2019-02-23  Jon Butterworth <j.butterworth@ucl.ac.uk>
+
+	* Added first version of ZEUS_2012_I1116258 (dijet photoproduction). Currently works but unvalidated,
+	  need to check exact recombination scheme with ZEUS contacts. Note ZEUS_2001_S4815815 also needs the
+	  recombination scheme checking.
+
 2019-02-20  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Move UnstableParticles to a consistently-named header, with

@@ -32,6 +32,7 @@ namespace Rivet {
       // Projections
       /// @todo Acceptance
       FinalState fs;
+      // declare(FastJets(fs, fastjet::JetAlgorithm::kt_algorithm, fastjet::RecombinationScheme::Et_scheme, 1.0), "Jets"); // checking recomb scheme with A. Geiser
       declare(FastJets(fs, FastJets::KT, 1.0), "Jets"); //< R=1 checked with Matt Wing
       declare(DISKinematics(), "Kinematics");
 

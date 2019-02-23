@@ -18,7 +18,7 @@ RunInfo:
   Jet pseudorapidity $-1 < |\eta| < 2.5$
 NumEvents: 1000000
 Beams: [p+, e+]
-Energies: [[820, 27.5]]
+Energies: [[920, 27.5]]
 Description:
    Inclusive-jet cross sections have been measured in the reaction ep->e+jet+X for photon virtuality Q2 < 1 GeV2 and gamma-p 
    centre-of-mass energies in the region 142 < W(gamma-p) < 293 GeV with the ZEUS detector at HERA using an integrated 
