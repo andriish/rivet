@@ -1,3 +1,8 @@
+2019-02-24  Jon Butterworth  <j.butterworth@ucl.ac.uk>
+
+	* Fix multiple bugs in ATLAS_2017_I1514251 (Z+jets) including a
+	problem with REF data having zero bin widths
+
 2019-02-17  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Convert ATLAS_2013_I1217863 analysis variants to use the LMODE
