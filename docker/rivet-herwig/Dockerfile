@@ -5,6 +5,8 @@ RUN dnf install -y boost-devel
 
 RUN mkdir /code
 
+# TODO: combine RUN rules to avoid the large intermediate layers
+
 RUN cd /code && \
     wget https://www.hepforge.org/archive/lhapdf/LHAPDF-6.2.1.tar.gz -O- | tar xz && \
     cd LHAPDF-*/ && ./configure --prefix=/usr/local && \
@@ -21,10 +23,12 @@ RUN cd /code && \
     cd ThePEG-*/ && ./configure --enable-shared --{prefix,with-{fastjet,hepmc,lhapdf,rivet}}=/usr/local && \
     make -j5 && make install
 
-RUN cd code/ && \
+RUN cd /code && \
     wget https://www.hepforge.org/archive/herwig/Herwig-7.1.4.tar.bz2 -O- | tar xj && \
     cd Herwig-*/ && \
     ./configure --{prefix,with-{thepeg,fastjet}}=/usr/local && \
     make -j5 && make install
 
 RUN rm -rf /code
+
+WORKDIR /work

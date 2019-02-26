@@ -4,6 +4,8 @@ MAINTAINER Andy Buckley <andy.buckley@cern.ch>
 RUN dnf install -y rsync
 RUN mkdir /code
 
+# TODO: combine RUN rules to avoid the large intermediate layers
+
 RUN cd /code && \
     wget https://www.hepforge.org/archive/lhapdf/LHAPDF-6.2.1.tar.gz -O- | tar xz && \
     cd LHAPDF-*/ && ./configure --prefix=/usr/local && \
@@ -21,3 +23,5 @@ RUN cd code/ && \
     make -j5 && make install
 
 RUN rm -rf /code
+
+WORKDIR /work
