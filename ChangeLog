@@ -1,3 +1,8 @@
+2019-02-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* analyses/Makefile.am: Adopt a more make-friendly plugin building
+	rule. Thanks to Dima Konstantinov.
+
 2019-02-24  Jon Butterworth  <j.butterworth@ucl.ac.uk>
 
 	* Fix multiple bugs in ATLAS_2017_I1514251 (Z+jets) including a
