@@ -24,7 +24,8 @@ namespace Rivet {
     void init() {
 
       // Projections
-      /// @todo Acceptance
+
+      // Jet schemes checked with oringal code, M.Wing, A.Geiser
       FinalState fs;
       double jet_radius = 1.0;
       declare(FastJets(fs, fastjet::JetAlgorithm::kt_algorithm, fastjet::RecombinationScheme::Et_scheme, jet_radius), "Jets"); 
@@ -37,7 +38,7 @@ namespace Rivet {
       JetDefinition siscone(plugin);
       siscone.set_recombination_scheme(fastjet::RecombinationScheme::Et_scheme);
       declare(FastJets(fs, siscone), "Jets_sis"); 
-      //declare(FastJets(fs, FastJets::SISCONE, fastjet::RecombinationScheme::Et_scheme, 1.0), "Jets_sis"); 
+
       
       declare(DISKinematics(), "Kinematics");
       

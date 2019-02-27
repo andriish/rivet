@@ -2,7 +2,7 @@
 
 	* Added first version of ZEUS_2012_I1116258 (dijet photoproduction). Currently works but unvalidated,
 	  need to check exact recombination scheme with ZEUS contacts. Note ZEUS_2001_S4815815 also needs the
-	  recombination scheme checking.
+	  recombination scheme checking. (Now done; changed to Et scheme are checking original code, 27/2/19.)
 
 2019-02-20  Andy Buckley  <andy.buckley@cern.ch>
 
