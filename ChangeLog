@@ -1,5 +1,8 @@
 2019-02-27  Andy Buckley  <andy.buckley@cern.ch>
 
+	* bin/make-plots: Fix a few Py2/3 incompabilities in
+	make-plots. Thanks to Leif Gellersen for the tip-off
+
 	* analyses/Makefile.am: Adopt a more make-friendly plugin building
 	rule. Thanks to Dima Konstantinov.
 
