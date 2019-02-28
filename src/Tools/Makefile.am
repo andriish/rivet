@@ -16,7 +16,7 @@ libRivetTools_la_SOURCES = \
 #  mt2_bisect.cc
 
 if ENABLE_HEPMC_3
-libRivetTools_la_SOURCES += RivetHepMC_3.cc
+libRivetTools_la_SOURCES += RivetHepMC_3.cc ReaderCompressedAscii.cc WriterCompressedAscii.cc
 else
 libRivetTools_la_SOURCES += RivetHepMC_2.cc
 endif

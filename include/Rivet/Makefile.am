@@ -115,6 +115,7 @@ nobase_pkginclude_HEADERS += \
   Tools/ParticleUtils.hh \
   Tools/ParticleName.hh \
   Tools/PrettyPrint.hh \
+  Tools/ReaderCompressedAscii.hh \
   Tools/RivetPaths.hh \
   Tools/RivetSTL.hh \
   Tools/RivetFastJet.hh \
@@ -126,7 +127,8 @@ nobase_pkginclude_HEADERS += \
   Tools/ParticleSmearingFunctions.hh \
   Tools/JetSmearingFunctions.hh \
   Tools/TypeTraits.hh \
-  Tools/Utils.hh
+  Tools/Utils.hh \
+  Tools/WriterCompressedAscii.hh
 nobase_dist_noinst_HEADERS += \
   Tools/osdir.hh
 
