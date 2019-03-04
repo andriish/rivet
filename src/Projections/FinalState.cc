@@ -48,16 +48,18 @@ namespace Rivet {
       MSG_TRACE("Open FS processing: should only see this once per event (" << e.genEvent()->event_number() << ")");
       for (const GenParticle* p : Rivet::particles(e.genEvent())) {
         if (p->status() == 1) {
-          MSG_TRACE("FS GV = " << p->production_vertex());
+          //MSG_TRACE("FS GV = " << p->production_vertex());
           _theParticles.push_back(Particle(*p));
         }
       }
+      MSG_TRACE("Number of open-FS selected particles = " << _theParticles.size());
       return;
     }
 
     // Base the calculation on PrevFS if available, otherwise OpenFS
     /// @todo In general, we'd like to calculate a restrictive FS based on the most restricted superset FS.
     const Particles& allstable = applyProjection<FinalState>(e, (hasProjection("PrevFS") ? "PrevFS" : "OpenFS")).particles();
+    MSG_TRACE("Beginning Cuts selection");
     for (const Particle& p : allstable) {
       const bool passed = accept(p);
       MSG_TRACE("Choosing: ID = " << p.pid()
