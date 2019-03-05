@@ -92,19 +92,19 @@ namespace Rivet {
       book(_h_pT_yy_jj      ,21,1,1);
 
       // 2D distributions of cosTS_CS x pT_yy
-      book(_h_cosTS_pTyy_low  ,22,1,1);
-      book(_h_cosTS_pTyy_high ,22,1,2);
-      book(_h_cosTS_pTyy_rest ,22,1,3);
+      book(_h_cosTS_pTyy_low,  22,1,1);
+      book(_h_cosTS_pTyy_high, 22,1,2);
+      book(_h_cosTS_pTyy_rest, 22,1,3);
 
       // 2D distributions of Njets x pT_yy
-      book(_h_pTyy_Njets0 ,23,1,1);
-      book(_h_pTyy_Njets1 ,23,1,2);
-      book(_h_pTyy_Njets2 ,23,1,3);
+      book(_h_pTyy_Njets0, 23,1,1);
+      book(_h_pTyy_Njets1, 23,1,2);
+      book(_h_pTyy_Njets2, 23,1,3);
 
-      book(_h_pTj1_excl ,24,1,1);
+      book(_h_pTj1_excl, 24,1,1);
 
       // Fiducial regions
-      book(_h_fidXSecs ,29,1,1);
+      book(_h_fidXSecs, 30,1,1);
     }
 
     // Perform the per-event analysis
