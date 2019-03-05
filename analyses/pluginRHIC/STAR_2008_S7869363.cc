@@ -1,54 +1,17 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/LossyFinalState.hh"
+#include "Rivet/Projections/SmearedParticles.hh"
 
 namespace Rivet {
 
 
-  /// @todo Replace with SmearedParticles
-  class STARRandomFilter {
-  public:
-
-    // Return true to throw away a particle
-    bool operator()(const Particle& p) {
-      size_t idx = int(floor(p.pT()/MeV/50));
-      if (idx > 11) idx = 11;
-      return (rand01() > _trkeff[idx]);
-    }
-
-    CmpState compare(const STARRandomFilter& other) const {
-      return CmpState::EQ;
-    }
-
-  private:
-
-    const static double _trkeff[12];
-
-  };
-
-
-  // Here we have the track reconstruction efficiencies for tracks with pT from 0 to 600 MeV
-  // in steps of 50 MeV. The efficiency is assumed to be 0.88 for pT >= 600 MeV
-  const double STARRandomFilter::_trkeff[12] = {0,0,0.38,0.72,0.78,0.81,0.82,0.84,0.85,0.86,0.87,0.88};
-
-
-
+  /// Multiplicities and pT spectra from STAR for pp at 200 GeV
   class STAR_2008_S7869363 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
-    STAR_2008_S7869363()
-      : Analysis("STAR_2008_S7869363")
-    {    }
-
-    //@}
-
-
-  public:
+    DEFAULT_RIVET_ANALYSIS_CTOR(STAR_2008_S7869363);
 
     /// @name Analysis methods
     //@{
@@ -56,7 +19,13 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       const ChargedFinalState cfs(Cuts::abseta < 0.5 && Cuts::pT >  0.2*GeV);
-      const LossyFinalState<STARRandomFilter> lfs(cfs, STARRandomFilter());
+      const SmearedParticles lfs(cfs, [](const Particle& p) {
+          // Track reconstruction efficiencies for tracks with pT from 0 to 600 MeV
+          // in steps of 50 MeV. The efficiency is assumed to be 0.88 for pT >= 600 MeV
+          const static vector<double> TRKEFF = {0,0,0.38,0.72,0.78,0.81,0.82,0.84,0.85,0.86,0.87,0.88};
+          const size_t idx = size_t(min(floor(p.pT()/MeV/50), 11.));
+          return TRKEFF[idx];
+        });
       declare(lfs, "FS");
 
       book(_h_dNch           ,1, 1, 1);
