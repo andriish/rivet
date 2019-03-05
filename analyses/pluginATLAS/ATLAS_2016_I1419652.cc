@@ -42,11 +42,12 @@ namespace Rivet {
 
       for (int iT = 0; iT < kNPartTypes; ++iT)  {
         for (int iR = 0; iR < kNregions; ++iR)  {
-    	  book(_sumW[iT][iR], "_sumW" + to_str(iT) + to_str(iR));
-          book(_hist_nch  [iT][iR] , 1, iR + 1, iT + 1);
-          book(_hist_pt   [iT][iR] , 2, iR + 1, iT + 1);
-          book(_hist_eta  [iT][iR] , 3, iR + 1, iT + 1);
-          book(_hist_ptnch[iT][iR] , 4, iR + 1, iT + 1);
+          size_t offset = 4 * iR + 8 * iT;
+          book(_sumW[iT][iR], "_sumW" + to_str(iT) + to_str(iR));
+          book(_hist_nch  [iT][iR], offset + 3, 1, 1);
+          book(_hist_pt   [iT][iR], offset + 4, 1, 1);
+          book(_hist_eta  [iT][iR], offset + 5, 1, 1);
+          book(_hist_ptnch[iT][iR], offset + 6, 1, 1);
         }
       }
     }
