@@ -16,7 +16,7 @@ namespace Rivet {
     if (gens.find(nthread) == gens.end()) {
       // Make seeds for each thread, either via the standard seed generator or based on a fixed seed from the environment
       vector<uint32_t> seeds(nthread+1);
-      const uint32_t envseed = getEnvParam<uint32_t>("RIVET_RANDOM_SEED", -1);
+      const uint32_t envseed = getEnvParam<uint32_t>("RIVET_RANDOM_SEED", 0);
       if (envseed > 0) {
         std::iota(seeds.begin(), seeds.end(), envseed);
       } else {
