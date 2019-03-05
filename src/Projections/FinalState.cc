@@ -34,7 +34,7 @@ namespace Rivet {
     // Then check the extra cuts
     const bool cutcmp = _cuts == other._cuts;
     MSG_TRACE(_cuts << " VS " << other._cuts << " -> EQ == " << std::boolalpha << cutcmp);
-    if (!cutcmp) return CmpState::UNDEF;
+    if (!cutcmp) return CmpState::NEQ;
     // Checks all passed: these FSes are equivalent
     return CmpState::EQ;
   }

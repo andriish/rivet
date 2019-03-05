@@ -10,7 +10,7 @@ namespace Rivet {
   class Cmp;
 
   enum class CmpState {
-    UNDEF, LT, EQ, GT
+    UNDEF, LT, EQ, GT, NEQ
   };
 
 }

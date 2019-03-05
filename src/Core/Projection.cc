@@ -25,7 +25,9 @@ namespace Rivet {
     const std::type_info& thisid = typeid(*this);
     const std::type_info& otherid = typeid(p);
     if (thisid == otherid) {
-      const bool cmp = compare(p) == CmpState::LT;
+      const CmpState cmpst = compare(p);
+      // const bool cmp = (cmpst == CmpState::LT || cmpst == CmpState::NEQ || cmpst == CmpState::UNDEF);
+      const bool cmp = (cmpst != CmpState::GT);
       MSG_TRACE("Comparing projections of same RTTI type: " << this << " < " << &p << " = " << cmp);
       return cmp;
     } else {
