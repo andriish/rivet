@@ -254,8 +254,8 @@ namespace Rivet {
 
       _Njets30 = jets_30.size() > 3 ? 3 : jets_30.size();
       _Njets50 = jets_50.size() > 3 ? 3 : jets_50.size();
-      _h_Njets30->fill(_Njets30);
-      _h_Njets50->fill(_Njets50);
+      _h_Njets30->fill(_Njets30 + 1);
+      _h_Njets50->fill(_Njets50 + 1);
 
       _pT_j1 = jets_30.size() > 0 ? jets_30.at(0)->momentum().pT() : 0.;
       _pT_j2 = jets_30.size() > 1 ? jets_30.at(1)->momentum().pT() : 0.;
