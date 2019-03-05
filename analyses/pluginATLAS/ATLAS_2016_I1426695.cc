@@ -40,11 +40,11 @@ namespace Rivet {
       // Book histograms
       for (int iR=0; iR < kNregions; ++iR)  {
         if (iR == k_pt100_nch2 || iR == k_pt500_nch1) {
-          book(_hist_nch  [iR] ,1, iR + 1, 1);
-          book(_hist_ptnch[iR] ,4, iR + 1, 1);
+          book(_hist_nch  [iR],  2 + iR, 1, 1);
+          book(_hist_ptnch[iR], 14 + iR, 1, 1);
         }
-        book(_hist_pt [iR] ,2, iR + 1, 1);
-        book(_hist_eta[iR] ,3, iR + 1, 1);
+        book(_hist_pt [iR], 4 + iR, 1, 1);
+        book(_hist_eta[iR], 9 + iR, 1, 1);
       }
     }
 
@@ -61,7 +61,7 @@ namespace Rivet {
         _hist_nch[iRegion]->fill(nch);
       }
 
-      for (const Particle&p : particles) {
+      for (const Particle &p : particles) {
       // Loop over particles, fill pT, eta and ptnch
         const double pt  = p.pT()/GeV;
         const double eta = p.eta();
