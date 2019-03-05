@@ -44,9 +44,9 @@ namespace Rivet {
         for (int iR = 0; iR < kNregions; ++iR)  {
           size_t offset = 4 * iR + 8 * iT;
           book(_sumW[iT][iR], "_sumW" + to_str(iT) + to_str(iR));
-          book(_hist_nch  [iT][iR], offset + 3, 1, 1);
+          book(_hist_eta  [iT][iR], offset + 3, 1, 1);
           book(_hist_pt   [iT][iR], offset + 4, 1, 1);
-          book(_hist_eta  [iT][iR], offset + 5, 1, 1);
+          book(_hist_nch  [iT][iR], offset + 5, 1, 1);
           book(_hist_ptnch[iT][iR], offset + 6, 1, 1);
         }
       }
