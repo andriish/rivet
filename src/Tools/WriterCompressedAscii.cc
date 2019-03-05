@@ -69,6 +69,15 @@ void WriterCompressedAscii::write_event(const GenEvent &evt) {
   
   if ( !m_stripid.empty() ) {
     GenEvent e = evt;
+    cout << "#beams " << e.beams().size() << endl;
+    // for ( auto bp : evt.beams() ) {
+    //   GenParticlePtr nb = e.particles()[bp->id() - 1];
+    //   cout << "Beam: " << bp->id() << " " << bp->pid() << " "
+    //        << (bp->production_vertex()? bp->production_vertex()->id(): 999) << endl;
+    //   cout << "NewBeam: " << nb->id() << " " << nb->pid() << " "
+    //        << (nb->production_vertex()? nb->production_vertex()->id(): 999) << endl;
+    // }
+
     strip(e);
     set<long> saveid;
     swap(m_stripid, saveid);
@@ -145,7 +154,7 @@ void WriterCompressedAscii::write_event(const GenEvent &evt) {
 
     if ( !v ) cout << "WARMING particle " << p->id()
                    << " has no productions vertex!" << endl;
-    else if ( done.insert(v).second )
+    else if ( v->id() < 0 && done.insert(v).second )
       write_vertex(v);
     
     write_particle(p);
@@ -179,10 +188,16 @@ string WriterCompressedAscii::escape(const string& s)  const {
 
 void WriterCompressedAscii::write_vertex(ConstGenVertexPtr v) {
 
-  os << "V " << v->id() << " " << v->status();
+  os << "V " << v->id() << " " << v->status() << " ";
 
+  bool first = true;
+  for ( auto p : v->particles_in() ) {
+    os << (first? '[': ',') << p->id();
+    first = false;
+  }
+  os << "]";
+  
   const FourVector &pos = v->position();
-
   if ( !pos.is_zero() ) write_position(pos);
 
   os << endl;
@@ -228,11 +243,9 @@ void WriterCompressedAscii::
 write_particle(ConstGenParticlePtr p) {
 
   ConstGenVertexPtr vp = p->production_vertex();
-  ConstGenVertexPtr ve = p->end_vertex();
 
   os << "P " << p->id()
      << " "  << (vp? vp->id(): 0)
-     << " "  << (ve? ve->id(): 0)
      << " "  << p->pid();
   write_momentum(p->momentum());
   write_mass(p);

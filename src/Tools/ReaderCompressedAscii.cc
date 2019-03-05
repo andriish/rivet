@@ -65,8 +65,8 @@ bool ReaderCompressedAscii::read_event(GenEvent &evt) {
   m_masses.clear();
   m_vertices.clear();
   m_particles.clear();
-  m_pvx.clear();
-
+  m_ppvx.clear();
+  m_vpin.clear();
   //
   // Parse event, vertex and particle information
   //
@@ -135,29 +135,18 @@ bool ReaderCompressedAscii::read_event(GenEvent &evt) {
          ( m_stream->peek() == 'E' || m_stream->peek() == 'H') )break;
   }
 
-  m_vertices.erase(0);
-  for ( auto it : m_vertices ) {
-    if ( it.second ) m_evt->add_vertex(it.second);
-  }
+    // Set the production vertex for all particles.
+    for ( int ip = 0, Np = m_particles.size(); ip < Np; ++ip )
+      if ( m_ppvx[ip] && m_vertices[m_ppvx[ip]] )
+        m_vertices[m_ppvx[ip]]->add_particle_out(m_particles[ip]);
 
-  for ( int ip = 0, Np = m_particles.size(); ip < Np; ++ip ) {
-    GenParticlePtr p = m_particles[ip];
-    int ivp = m_pvx[ip].first;
-    GenVertexPtr vp = m_vertices[-ivp];
-    if ( ivp == 0 )
-      m_evt->add_beam_particle(p);
-    else if ( vp )
-      vp->add_particle_out(p);
-    else
-      cout << "WARNING did not find production vertex for particle "
-           << ip + 1 << endl;
+    // Add the incoming particles to all vertices
+    for ( auto iv : m_vertices )
+      for ( auto ip : m_vpin[iv.first] ) iv.second->add_particle_in(m_particles[ip - 1]);
 
-    int ive = m_pvx[ip].second;
-    GenVertexPtr ve = m_vertices[-ive];
-    if ( ve ) ve->add_particle_in(p);
-  }
-
-
+    // When all particles and vertices are connected we add all of them to the event.
+    for ( auto p : m_particles ) evt.add_particle(p);
+    for ( auto v : m_vertices ) evt.add_vertex(v.second);
 
   // Check if all particles and vertices were parsed
   if ((int)m_evt->particles().size() > vertices_and_particles.second ) {
@@ -256,9 +245,20 @@ bool ReaderCompressedAscii::parse_vertex_information() {
   if  ( !(is >> status) ) return false;
   data->set_status( status );
 
+  std::string incoming;
+  if ( !(is >> incoming) ) return false;
+  std::string::size_type i = std::string::npos;
+  while ( ( i = incoming.find_first_of("[,]") ) != std::string::npos )
+    incoming[i] = ' ';
+  std::istringstream isin(incoming);
+  int pin = 0;
+  vector<int> vpin;
+  while ( isin >> pin ) vpin.push_back(pin);
+
   if ( !read_position(data) ) return false;
 
   m_vertices[-id] = data;
+  m_vpin[-id] = vpin;
 
   return true;
 }
@@ -270,8 +270,8 @@ bool ReaderCompressedAscii::parse_particle_information() {
   int id = 0;
   if ( !(is >> id) ) return false;
 
-  int ivp = 0, ive = 0;
-  if ( !(is >> ivp >> ive) ) return false;
+  int ivp = 0;
+  if ( !(is >> ivp) ) return false;
 
   int pdgid = 0;
   if ( !(is >> pdgid) ) return false;
@@ -284,7 +284,7 @@ bool ReaderCompressedAscii::parse_particle_information() {
   data->set_status(status);
 
   m_particles.push_back(data);
-  m_pvx.push_back(make_pair(ivp, ive));
+  m_ppvx.push_back(-ivp);
 
   return true;
 }

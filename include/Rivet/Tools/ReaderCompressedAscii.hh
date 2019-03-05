@@ -148,9 +148,11 @@ private:
   /// Keep track of read particles
   vector<GenParticlePtr>  m_particles;
   /// Keep track of read particles
-  vector< pair<int,int> >  m_pvx;
+  vector<int>  m_ppvx;
   /// Keep track of read vertices
   map<int,GenVertexPtr> m_vertices;
+  /// Keep track of incoming particles to vertices
+  map<int, std::vector<int> > m_vpin;
 
   /** @brief Store attributes global to the run being written/read. */
   std::map< std::string, shared_ptr<HepMC3::Attribute> > m_global_attributes;
