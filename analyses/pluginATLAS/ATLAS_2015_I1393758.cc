@@ -17,20 +17,22 @@ namespace Rivet {
 
       declare(FastJets(FinalState(), FastJets::ANTIKT, 0.4), "Jets");
 
-      book(forward_kappa3 ,1, 1, 1);
-      book(forward_kappa5 ,2, 1, 1);
-      book(forward_kappa7 ,3, 1, 1);
+      book(forward_kappa3, 1, 1, 1);
+      book(forwardRMS_kappa3, "d02-x01-y01", true);
 
-      book(central_kappa3 ,4, 1, 1);
-      book(central_kappa5 ,5, 1, 1);
-      book(central_kappa7 ,6, 1, 1);
+      book(central_kappa3, 3, 1, 1);
+      book(centralRMS_kappa3, "d04-x01-y01", true);
 
-      book(forwardRMS_kappa3, "d07-x01-y01", true);
-      book(forwardRMS_kappa5, "d08-x01-y01", true);
-      book(forwardRMS_kappa7, "d09-x01-y01", true);
+      book(forward_kappa5, 5, 1, 1);
+      book(forwardRMS_kappa5, "d06-x01-y01", true);
 
-      book(centralRMS_kappa3, "d10-x01-y01", true);
-      book(centralRMS_kappa5, "d11-x01-y01", true);
+      book(central_kappa5, 7, 1, 1);
+      book(centralRMS_kappa5, "d08-x01-y01", true);
+
+      book(forward_kappa7, 9, 1, 1);
+      book(forwardRMS_kappa7, "d10-x01-y01", true);
+
+      book(central_kappa7, 11, 1, 1);
       book(centralRMS_kappa7, "d12-x01-y01", true);
 
     }
