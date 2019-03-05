@@ -50,6 +50,9 @@ namespace Rivet {
     /// The generated event obtained from an external event generator
     const GenEvent* genEvent() const { return &_genevent; }
 
+    /// The generated event obtained from an external event generator
+    const GenEvent* originalGenEvent() const { return _genevent_original; }
+
     /// @brief The generation weight associated with the event
     ///
     /// @todo This needs to be revisited when we finally add the mechanism to

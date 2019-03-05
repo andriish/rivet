@@ -48,7 +48,10 @@ namespace Rivet{
     
     std::pair<ConstGenParticlePtr,ConstGenParticlePtr> beams(const GenEvent *ge) {
       std::vector<ConstGenParticlePtr> beamlist = ge->beams();
-      if ( beamlist.size() < 2 ) return std::pair<ConstGenParticlePtr,ConstGenParticlePtr>();
+      if ( beamlist.size() < 2 ) {
+        std::cerr << "CANNOT FIND ANY BEAMS!" << std::endl;
+        return std::pair<ConstGenParticlePtr,ConstGenParticlePtr>();
+      }
       return std::make_pair(beamlist[0], beamlist[1]);
     }
     

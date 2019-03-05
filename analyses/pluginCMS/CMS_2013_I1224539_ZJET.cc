@@ -93,8 +93,14 @@ namespace Rivet {
       const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.bosons().size() != 1) vetoEvent;
       const Particle& z = zfinder.bosons()[0];
-      const Particle& l1 = zfinder.constituents()[0];
-      const Particle& l2 = zfinder.constituents()[1];
+      if ( zfinder.constituents().size() < 2 ) {
+        cerr << "ZFinder problems: #constinuents: "
+             << zfinder.constituents().size() << endl
+             << "                #Z-constituents: "
+             << z.constituents().size() << endl;
+      }
+      const Particle l1 = zfinder.constituents()[0];
+      const Particle l2 = zfinder.constituents()[1];
 
       // Require a high-pT Z (and constituents)
       if (l1.pT() < 30*GeV || l2.pT() < 30*GeV || z.pT() < 120*GeV) vetoEvent;

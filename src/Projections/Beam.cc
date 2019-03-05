@@ -10,7 +10,7 @@ namespace Rivet {
 
     // First try the official way: ask the GenEvent for the beam pointers
     assert(HepMCUtils::particles_size(e.genEvent()) >= 2);
-    std::pair<ConstGenParticlePtr,ConstGenParticlePtr> thebeams = HepMCUtils::beams(e.genEvent());
+    std::pair<ConstGenParticlePtr,ConstGenParticlePtr> thebeams = HepMCUtils::beams(e.originalGenEvent());
     if ( thebeams.first && thebeams.second ) {
       return ParticlePair{thebeams.first, thebeams.second};
     }

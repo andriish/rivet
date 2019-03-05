@@ -70,3 +70,11 @@ Doxyfile$
 ^local/.*$
 ^(for|analyses)\d\d\d$
 ^analyses/data$
+
+# added by aHg on Tue Mar  5 14:30:12 2019
+syntax: glob
+doc/rivet-manual.dvi
+
+# added by aHg on Tue Mar  5 14:30:21 2019
+syntax: glob
+doc/rivet-manual.ps
