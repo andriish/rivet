@@ -264,8 +264,8 @@ namespace Rivet {
       if (_hMap.find(hInd) != _hMap.end()) return _hMap[hInd];
 
       _hMap.insert( { hInd, Histo1DPtr() } );
-      if (histId == 0) book(_hMap[hInd], 1, thresholdId+1, 1);
-      else             book(_hMap[hInd], 2, histId,        1);
+      if (histId == 0) book(_hMap[hInd], thresholdId+1, 1, 1);
+      else             book(_hMap[hInd], 4+histId,      1, 1);
       return _hMap[hInd];
     }
 
