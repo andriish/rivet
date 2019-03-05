@@ -11,15 +11,8 @@ namespace Rivet {
   class CDF_1996_S3108457 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
-    CDF_1996_S3108457()
-      : Analysis("CDF_1996_S3108457")
-    {    }
-
-    //@}
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_1996_S3108457);
 
 
     /// @name Analysis methods
@@ -29,21 +22,21 @@ namespace Rivet {
     void init() {
 
       /// Initialise and register projections here
-      const FinalState fs((Cuts::etaIn(-4.2, 4.2)));
+      const FinalState fs(Cuts::abseta < 4.2);
 
       FastJets fj(fs, FastJets::CDFJETCLU, 0.7);
       declare(fj, "Jets");
 
-      // Smear Energy and mass with the 10% uncertainty quoted in the paper
+      // Smear energy and mass with the 10% uncertainty quoted in the paper
       SmearedJets sj_E(fj, [](const Jet& jet){ return P4_SMEAR_MASS_GAUSS(P4_SMEAR_E_GAUSS(jet, 0.1*jet.E()), 0.1*jet.mass()); });
       declare(sj_E, "SmearedJets_E");
 
 
       /// Book histograms here, e.g.:
       for (size_t i=0; i<5; ++i) {
-        book(_h_m[i] ,1+i, 1, 1);
-        book(_h_costheta[i] ,10+i, 1, 1);
-        book(_h_pT[i] ,15+i, 1, 1);
+        book(_h_m[i], 1+i, 1, 1);
+        book(_h_costheta[i], 10+i, 1, 1);
+        book(_h_pT[i], 15+i, 1, 1);
       }
       /// @todo Ratios of mass histograms left out: Binning doesn't work out
     }
@@ -59,7 +52,7 @@ namespace Rivet {
       double sumEt(0), sumE(0);
       FourMomentum JS(0,0,0,0);
 
-      for(const Jet& jet : SJets) {
+      for (const Jet& jet : SJets) {
         sumEt += jet.Et()*GeV;
         sumE  += jet.E()*GeV;
         JS+=jet.momentum();
@@ -73,14 +66,10 @@ namespace Rivet {
       FourMomentum jet0boosted(cms_boost.transform(SJets[0].momentum()));
       double costheta0 = fabs(cos(jet0boosted.theta()));
 
-      if (costheta0 < 2.0/3.0) {
-        _h_m[SJets.size()-2]->fill(mass);
-      }
+      if (costheta0 < 2.0/3.0) _h_m[SJets.size()-2]->fill(mass);      
       if (mass > 600.0*GeV) _h_costheta[JS.size()-2]->fill(costheta0);
       if (costheta0 < 2.0/3.0 && mass > 600.0*GeV) {
-        for (const Jet& jet : SJets) {
-          _h_pT[SJets.size()-2]->fill(jet.pT());
-        }
+        for (const Jet& jet : SJets) _h_pT[SJets.size()-2]->fill(jet.pT());
       }
     }
 

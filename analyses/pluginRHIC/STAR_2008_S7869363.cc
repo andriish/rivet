@@ -10,18 +10,15 @@ namespace Rivet {
   class STARRandomFilter {
   public:
 
-    STARRandomFilter() { }
-
     // Return true to throw away a particle
     bool operator()(const Particle& p) {
-      /// @todo Use a better RNG?
       size_t idx = int(floor(p.pT()/MeV/50));
       if (idx > 11) idx = 11;
-      return (rand()/static_cast<double>(RAND_MAX) > _trkeff[idx]);
+      return (rand01() > _trkeff[idx]);
     }
 
     CmpState compare(const STARRandomFilter& other) const {
-      return CmpState::GT; // @todo really?
+      return CmpState::EQ;
     }
 
   private:
@@ -58,7 +55,7 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      const ChargedFinalState cfs((Cuts::etaIn(-0.5, 0.5) && Cuts::pT >=  0.2*GeV));
+      const ChargedFinalState cfs(Cuts::abseta < 0.5 && Cuts::pT >  0.2*GeV);
       const LossyFinalState<STARRandomFilter> lfs(cfs, STARRandomFilter());
       declare(lfs, "FS");
 
