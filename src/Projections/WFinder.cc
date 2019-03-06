@@ -86,6 +86,9 @@ namespace Rivet {
     PCmp dlcmp = mkNamedPCmp(p, "DressedLeptons");
     if (dlcmp != CmpState::EQ) return dlcmp;
 
+    PCmp metcmp = mkNamedPCmp(p, "MissingET");
+    if (metcmp != CmpState::EQ) return metcmp;
+
     const WFinder& other = dynamic_cast<const WFinder&>(p);
     return (cmp(_minmass, other._minmass) ||
             cmp(_maxmass, other._maxmass) ||

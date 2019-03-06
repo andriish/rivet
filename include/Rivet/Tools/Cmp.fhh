@@ -13,6 +13,15 @@ namespace Rivet {
     UNDEF, LT, EQ, GT, NEQ
   };
 
+  /*std::ostream& operator << (std::ostream& os, const CmpState& obj) {
+    if (obj == CmpState::UNDEF)  os << "UNDEF";
+    if (obj == CmpState::LT)     os << "LT";
+    if (obj == CmpState::GT)     os << "GT";
+    if (obj == CmpState::NEQ)    os << "NEQ";
+   return os;
+  }*/
+
+
 }
 
 #endif
