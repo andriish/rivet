@@ -58,25 +58,20 @@ namespace Rivet {
     // bool get(const PdgId pid) const;
 
 
-  protected:
-
     /// Apply the projection on the supplied event.
     void project(const Event& e);
 
     /// Compare projections.
     int compare(const Projection& p) const;
 
-
   private:
-
-    /// Check if the particle's ID is in the list
-    bool _inList(const Particle& particle) const;
 
     /// IDs of the leading particles to be selected
     std::set<long>_ids;
     bool _leading_only;
 
   };
+
 
 }
 

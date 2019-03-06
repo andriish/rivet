@@ -4,6 +4,7 @@
 #include <tuple>
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Tools/RivetYODA.hh"
+#include "Rivet/Projections/HepMCHeavyIon.hh"
 
 namespace Rivet {
 
@@ -36,7 +37,10 @@ class CentralityEstimator : public Projection {
 public:
 
   /// Constructor.
-  CentralityEstimator(): _estimate(-1.0) {}
+  CentralityEstimator(): _estimate(-1.0) {
+    setName("CentralityEstimator");
+    declare(HepMCHeavyIon(), "HepMC");
+  }
 
   /// Clone on the heap.
   DEFAULT_RIVET_PROJ_CLONE(CentralityEstimator);
@@ -46,21 +50,14 @@ protected:
   /// Perform the projection on the Event
   void project(const Event& e) {
     _estimate = -1.0;
-    ConstGenHeavyIonPtr hi = e.genEvent()->heavy_ion();
-    
-    if(hi){
-    
-#ifdef ENABLE_HEPMC_3
-    _estimate = hi->impact_parameter > 0.0 ? 1.0/hi->impact_parameter: numeric_limits<double>::max();
-#else
-    _estimate = hi->impact_parameter() > 0.0 ? 1.0/hi->impact_parameter(): numeric_limits<double>::max();
-#endif
-    }
+    double imp = apply<HepMCHeavyIon>(e, "HepMC").impact_parameter();
+    if ( imp < 0.0 ) return;
+    _estimate = imp  > 0.0? 1.0/imp: numeric_limits<double>::max();
   }
     
   /// Compare projections
   int compare(const Projection& p) const {
-    return mkNamedPCmp(p, "CentEst");
+    return mkNamedPCmp(p, "HepMC");
   }
 
 

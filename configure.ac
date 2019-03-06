@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[2.7.0-pre],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[2.7.0],[rivet@projects.hepforge.org],[Rivet])
 
 ## Check and block installation into the src/build dir
 if test "$prefix" = "$PWD"; then
@@ -347,6 +347,10 @@ AC_CONFIG_FILES(include/Makefile include/Rivet/Makefile)
 AC_CONFIG_FILES(src/Makefile)
 AC_CONFIG_FILES(src/Core/Makefile src/Core/yamlcpp/Makefile)
 AC_CONFIG_FILES(src/Tools/Makefile)
+AC_CONFIG_FILES(src/Tools/fjcontrib/Makefile)
+AC_CONFIG_FILES(src/Tools/fjcontrib/EnergyCorrelator/Makefile)
+AC_CONFIG_FILES(src/Tools/fjcontrib/Nsubjettiness/Makefile)
+AC_CONFIG_FILES(src/Tools/fjcontrib/RecursiveTools/Makefile)
 AC_CONFIG_FILES(src/Projections/Makefile)
 AC_CONFIG_FILES(src/AnalysisTools/Makefile)
 AC_CONFIG_FILES(analyses/Makefile)

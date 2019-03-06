@@ -3,7 +3,6 @@
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Tools/RivetPaths.hh"
-/// @todo reinstate zlib once HepMC3 stream reading is ok
 #include "zstr/zstr.hpp"
 #include <limits>
 

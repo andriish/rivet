@@ -100,7 +100,10 @@ namespace Rivet {
   double Jet::neutralEnergy() const {
     double e_neutral = 0.0;
     for (const Particle& p : particles()) {
-      if (p.charge3() == 0) e_neutral += p.E();
+      const PdgId pid = p.pid();
+      if (PID::threeCharge(pid) == 0) {
+        e_neutral += p.E();
+      }
     }
     return e_neutral;
   }
@@ -109,7 +112,10 @@ namespace Rivet {
   double Jet::hadronicEnergy() const {
     double e_hadr = 0.0;
     for (const Particle& p : particles()) {
-      if (isHadron(p)) e_hadr += p.E();
+      const PdgId pid = p.pid();
+      if (PID::isHadron(pid)) {
+        e_hadr += p.E();
+      }
     }
     return e_hadr;
   }
@@ -140,7 +146,8 @@ namespace Rivet {
       if (include_decay_products) {
         ConstGenVertexPtr gv = p.genParticle()->production_vertex();
         if (gv) {
-          for (ConstGenParticlePtr pi : HepMCUtils::particles(gv, Relatives::ANCESTORS)) {
+          for (ConstGenParticlePtr pi :
+                 HepMCUtils::particles(gv, Relatives::ANCESTORS)) {
             const PdgId pid2 = pi->pdg_id();
             if (PID::isHadron(pid2) && PID::hasBottom(pid2)) return true;
           }
@@ -179,6 +186,33 @@ namespace Rivet {
     }
     return rtn;
   }
+
+
+  //////////////////////
+
+
+  // DISABLED UNTIL VANILLA CC7 COMPATIBILITY NOT NEEDED
+
+  // /// Jets copy constructor from vector<Jet>
+  // Jets::Jets(const std::vector<Jet>& vjs) : base(vjs) {}
+
+  // /// Jets -> FourMomenta cast/conversion operator
+  // Jets::operator FourMomenta () const {
+  //   // FourMomenta rtn(this->begin(), this->end());
+  //   FourMomenta rtn; rtn.reserve(this->size());
+  //   for (size_t i = 0; i < this->size(); ++i) rtn.push_back((*this)[i]);
+  //   return rtn;
+  // }
+
+  // /// Jets concatenation operator
+  // Jets operator + (const Jets& a, const Jets& b) {
+  //   Jets rtn(a);
+  //   rtn += b;
+  //   return rtn;
+  // }
+
+
+  //////////////////////
 
 
   /// Allow a Jet to be passed to an ostream.

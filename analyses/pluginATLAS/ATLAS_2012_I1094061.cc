@@ -67,7 +67,7 @@ namespace Rivet {
     /// Constructor
     ATLAS_2012_I1094061()
       : Analysis("ATLAS_2012_I1094061"),
-        _minpT(100.*MeV), _etaMax(2.5), _nVersions(5), _version(0),
+        _minpT(100.*MeV), _nVersions(5), _version(0),
         _etaCut(2.), _phiCut(0.5*M_PI),
         _historyInclusive(_nVersions, ParticleVector()), _historyN20(_nVersions, ParticleVector()),
         _historyInclusiveWgts(_nVersions, 0.), _historyN20Wgts(_nVersions, 0.),
@@ -242,7 +242,7 @@ namespace Rivet {
   private:
 
     /// Cut values
-    double _minpT, _etaMax;
+    double _minpT;
 
     /// History versions
     size_t _nVersions, _version;

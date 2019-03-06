@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  void Particle::setConstituents(const vector<Particle>& cs, bool setmom) {
+  void Particle::setConstituents(const Particles& cs, bool setmom) {
     _constituents = cs;
     if (setmom) _momentum = sum(cs, p4, FourMomentum());
   }
@@ -18,7 +18,7 @@ namespace Rivet {
   }
 
 
-  void Particle::addConstituents(const vector<Particle>& cs, bool addmom) {
+  void Particle::addConstituents(const Particles& cs, bool addmom) {
     _constituents += cs;
     if (addmom)
       for (const Particle& c : cs)
@@ -26,9 +26,9 @@ namespace Rivet {
   }
 
 
-  vector<Particle> Particle::rawConstituents() const {
+  Particles Particle::rawConstituents() const {
     if (!isComposite()) return Particles{*this};
-    vector<Particle> rtn;
+    Particles rtn;
     for (const Particle& p : constituents()) rtn += p.rawConstituents();
     return rtn;
   }
@@ -94,7 +94,7 @@ namespace Rivet {
     ConstGenVertexPtr gv = genParticle()->production_vertex();
     if (gv == nullptr) return rtn;
     for(ConstGenParticlePtr it: HepMCUtils::particles(gv, Relatives::PARENTS)){
-    const Particle p(it);
+      const Particle p(it);
       if (c != Cuts::OPEN && !c->accept(p)) continue;
       rtn += p;
     }
@@ -102,8 +102,10 @@ namespace Rivet {
   }
 
 
-  vector<Particle> Particle::children(const Cut& c) const {
-    vector<Particle> rtn;
+  Particles Particle::children(const Cut& c) const {
+    Particles rtn;
+    /// @todo Something going wrong with taus -> GenParticle nullptr?
+    if (genParticle() == nullptr) return rtn;
     if (isStable()) return rtn;
     ConstGenVertexPtr gv = genParticle()->end_vertex();
     if (gv == nullptr) return rtn;
@@ -121,8 +123,8 @@ namespace Rivet {
 
   /// @todo Insist that the current particle is post-hadronization, otherwise throw an exception?
   /// @todo Use recursion through replica-avoiding functions to avoid bookkeeping duplicates
-  vector<Particle> Particle::allDescendants(const Cut& c, bool remove_duplicates) const {
-    vector<Particle> rtn;
+  Particles Particle::allDescendants(const Cut& c, bool remove_duplicates) const {
+    Particles rtn;
     if (isStable()) return rtn;
 
     ConstGenVertexPtr gv = genParticle()->end_vertex();
@@ -149,8 +151,8 @@ namespace Rivet {
 
 
   /// @todo Insist that the current particle is post-hadronization, otherwise throw an exception?
-  vector<Particle> Particle::stableDescendants(const Cut& c) const {
-    vector<Particle> rtn;
+  Particles Particle::stableDescendants(const Cut& c) const {
+    Particles rtn;
     if (isStable()) return rtn;
     ConstGenVertexPtr gv = genParticle()->end_vertex();
     if (gv == nullptr) return rtn;
@@ -245,31 +247,70 @@ namespace Rivet {
 
 
 
-  bool Particle::isDirect(bool allow_from_direct_tau, bool allow_from_direct_mu) const {
-    if (genParticle() == nullptr) return false; // no HepMC connection, give up! Throw UserError exception?
-    ConstGenVertexPtr prodVtx = genParticle()->production_vertex();
-    if (prodVtx == nullptr) return false; // orphaned particle, has to be assume false
+bool Particle::isDirect(bool allow_from_direct_tau, bool allow_from_direct_mu) const {
+  while (!_isDirect.second) { ///< @todo Replace awkward caching with C++17 std::optional
+    // Immediate short-circuit: hadrons can't be direct, and for partons we can't tell
+    if (isHadron() || isParton()) {
+      _isDirect = std::make_pair(false, true); break;
+    }
 
-    /// @todo Would be nicer to be able to write this recursively up the chain, exiting as soon as a parton or string/cluster is seen
+    // Obtain links to parentage
+    if (genParticle() == nullptr) { _isDirect = std::make_pair(false, true); break; } // no HepMC connection, give up! Throw UserError exception?
+    ConstGenVertexPtr prodVtx = genParticle()->production_vertex();
+    if (prodVtx == nullptr) { _isDirect = std::make_pair(false, true); break; } // orphaned particle, has to be assume false
+    std::pair<ConstGenParticlePtr,ConstGenParticlePtr> thebeams =
+      HepMCUtils::beams(prodVtx->parent_event());
     for (ConstGenParticlePtr ancestor : HepMCUtils::particles(prodVtx, Relatives::ANCESTORS)) {
       const PdgId pid = ancestor->pdg_id();
-      if (ancestor->status() != 2) continue; // no non-standard statuses or beams to be used in decision making
-
-      std::pair<ConstGenParticlePtr,ConstGenParticlePtr> thebeams = HepMCUtils::beams(prodVtx->parent_event());
-      // PYTHIA6 uses status 2 for beams, I think... (sigh)
-      if ( ancestor == thebeams.first || ancestor == thebeams.second ) continue;
-
-      if (PID::isParton(pid)) continue; // PYTHIA6 also uses status 2 for some partons, I think... (sigh)
-      if (PID::isHadron(pid)) return false; // direct particles can't be from hadron decays
-      if (abs(pid) == PID::TAU && abspid() != PID::TAU && !allow_from_direct_tau) return false; // allow or ban particles from tau decays (permitting tau copies)
-      if (abs(pid) == PID::MUON && abspid() != PID::MUON && !allow_from_direct_mu) return false; // allow or ban particles from muon decays (permitting muon copies)
+      /// @todo Would be nicer to be able to write this recursively up
+      /// the chain, exiting as soon as a parton or string/cluster is
+      /// seen
+      if (ancestor->status() != 2) continue; // no non-standard
+                                             // statuses or beams to
+                                             // be used in decision
+                                             // making
+      if (PID::isHadron(pid)) {
+        _isDirect = std::make_pair(false, true); break;
+      } // direct particles can't be from hadron decays
+      if (abs(pid) == PID::TAU && abspid() != PID::TAU && !allow_from_direct_tau) {
+        _isDirect = std::make_pair(false, true); break;
+      } // allow or ban particles from tau decays (permitting tau copies)
+      if (abs(pid) == PID::MUON && abspid() != PID::MUON && !allow_from_direct_mu) {
+        _isDirect = std::make_pair(false, true); break;
+      } // allow or ban particles from muon decays (permitting muon copies)
     }
-    return true;
+    if (!_isDirect.second) _isDirect = std::make_pair(true, true); //< guarantee loop exit
   }
+  return _isDirect.first;
+}
 
 
 
   ///////////////////////
+
+
+  // DISABLED UNTIL VANILLA CC7 COMPATIBILITY NOT NEEDED
+
+  // /// Particles copy constructor from vector<Particle>
+  // Particles::Particles(const std::vector<Particle>& vps) : base(vps) {}
+
+  // /// Particles -> FourMomenta cast/conversion operator
+  // Particles::operator FourMomenta () const {
+  //   // FourMomenta rtn(this->begin(), this->end());
+  //   FourMomenta rtn; rtn.reserve(this->size());
+  //   for (size_t i = 0; i < this->size(); ++i) rtn.push_back((*this)[i]);
+  //   return rtn;
+  // }
+
+  // /// Particles concatenation operator
+  // Particles operator + (const Particles& a, const Particles& b) {
+  //   Particles rtn(a);
+  //   rtn += b;
+  //   return rtn;
+  // }
+
+
+  //////////////////////////////////
 
 
   /// Allow a Particle to be passed to an ostream.
