@@ -16,23 +16,19 @@ namespace Rivet {
   public:
 
     /// Constructor
-    STAR_2009_UE_HELEN()
-      : Analysis("STAR_2009_UE_HELEN")
-    {
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(STAR_2009_UE_HELEN);
 
 
     /// @name Analysis methods
     //@{
 
     void init() {
-      // Charged final state, |eta|<1, pT>0.2GeV
-      const Cut c = Cuts::etaIn(-1.0, 1.0) && Cuts::pT >= 0.2*GeV;
 
+      const Cut c = Cuts::abseta < 1.0 && Cuts::pT > 0.2*GeV;
+
+      // Charged and neutral final states
       const ChargedFinalState cfs(c);
       declare(cfs, "CFS");
-
-      // Neutral final state, |eta|<1, ET>0.2GeV (needed for the jets)
       const NeutralFinalState nfs(c);
       declare(nfs, "NFS");
 
@@ -61,10 +57,7 @@ namespace Rivet {
     // Do the analysis
     void analyze(const Event& e) {
       const FinalState& cfs = apply<ChargedFinalState>(e, "CFS");
-      if (cfs.particles().size() < 1) {
-        MSG_DEBUG("Failed multiplicity cut");
-        vetoEvent;
-      }
+      if (cfs.particles().empty()) vetoEvent;
 
       const Jets& alljets = apply<FastJets>(e, "AllJets").jetsByPt();
       MSG_DEBUG("Total jet multiplicity = " << alljets.size());
@@ -72,38 +65,27 @@ namespace Rivet {
       // The jet acceptance region is |eta|<(1-R)=0.3  (with R = jet radius)
       // Jets also must have a neutral energy fraction of < 0.7
       Jets jets;
-      for (const Jet & jet : alljets) {
-        if (jet.neutralEnergy()/jet.totalEnergy() < 0.7 &&
-	    jet.abseta() < 0.3)
-          jets.push_back(jet);
+      for (const Jet& jet : alljets) {
+        if (jet.abseta() < 0.3 && jet.neutralEnergy()/jet.totalEnergy() < 0.7) jets.push_back(jet);
       }
 
       // This analysis requires a di-jet like event.
-      // WARNING: There is more data in preparation, some of which
-      //          does _not_ have this constraint!
-      if (jets.size() != 2) {
-        MSG_DEBUG("Failed jet multiplicity cut");
-        vetoEvent;
-      }
+      // WARNING: There is more data in preparation, some of which does _not_ have this constraint!
+      if (jets.size() != 2) vetoEvent;
 
       // The di-jet constraints in this analysis are:
       // - 2 and only 2 jets in the acceptance region
       // - delta(Phi) between the jets is > 150 degrees
       // - Pt_awayjet/Pt_towards_jet > 0.7
-      if (deltaPhi(jets[0].phi(), jets[1].phi()) <= 5*PI/6 ||
-          jets[1].pT()/jets[0].pT() <= 0.7)
-      {
-        MSG_DEBUG("Failed di-jet criteria");
-        vetoEvent;
-      }
+      if (deltaPhi(jets[0].phi(), jets[1].phi()) <= 5*PI/6 || jets[1].pT()/jets[0].pT() <= 0.7) vetoEvent;
 
       // Now lets start ...
       const double jetphi = jets[0].phi();
       const double jetpT  = jets[0].pT();
 
-      size_t numTrans1(0), numTrans2(0), numAway(0);
 
       // Calculate all the charged stuff
+      size_t numTrans1(0), numTrans2(0), numAway(0);
       for (const Particle& p : cfs.particles()) {
         const double dPhi = deltaPhi(p.phi(), jetphi);
         const double pT = p.pT();
@@ -111,30 +93,18 @@ namespace Rivet {
         double rotatedphi = phi - jetphi;
         while (rotatedphi < 0) rotatedphi += 2*PI;
 
-        // @TODO: WARNING: The following lines are a hack to correct
-        //        for the STAR tracking efficiency. Once we have the
-        //        final numbers (corrected to hadron level), we need
-        //        to remove this!!!!
-        if (1.0*rand()/static_cast<double>(RAND_MAX) > 0.87834-exp(-1.48994-0.788432*pT)) {
-          continue;
-        }
-        // -------- end of efficiency hack -------
+        // WARNING: Hack to correct for the STAR tracking efficiency, in lieu of corrected data.
+        if (rand01() > 0.87834 - exp(-1.48994-0.788432*pT)) continue;
 
         if (dPhi < PI/3.0) {
           // toward
-        }
-        else if (dPhi < 2*PI/3.0) {
-          if (rotatedphi <= PI) {
-            ++numTrans1;
-          }
-          else {
-            ++numTrans2;
-          }
+        } else if (dPhi < 2*PI/3.0) {
+          (rotatedphi <= PI ? numTrans1 : numTrans2) += 1;
         }
         else {
-          ++numAway;
+          numAway += 1;
         }
-      } // end charged particle loop
+      }
 
       // Fill the histograms
       _hist_pmaxnchg->fill(jetpT, (numTrans1>numTrans2 ? numTrans1 : numTrans2)/(2*PI/3));
@@ -143,25 +113,15 @@ namespace Rivet {
 
     }
 
-
-    void finalize() {
-      //
-    }
-
     //@}
 
 
-  private:
-
-    Profile1DPtr _hist_pmaxnchg;
-    Profile1DPtr _hist_pminnchg;
-    Profile1DPtr _hist_anchg;
+    // Plots
+    Profile1DPtr _hist_pmaxnchg, _hist_pminnchg, _hist_anchg;
 
   };
 
 
-
-  // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(STAR_2009_UE_HELEN);
 
 }
