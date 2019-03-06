@@ -171,7 +171,7 @@ namespace Rivet {
   private:
 
     /// A pointer to the actual heavy ion object
-    RivetHepMC::ConstGenHeavyIonPtr _hi;
+    ConstGenHeavyIonPtr _hi;
 
   };
 }

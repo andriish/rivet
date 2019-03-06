@@ -22,6 +22,7 @@ namespace Rivet{
 #else
 #include "HepMC/GenEvent.h"
 #include "HepMC/GenParticle.h"
+#include "HepMC/HeavyIon.h"
 #include "HepMC/GenVertex.h"
 #include "HepMC/Version.h"
 #include "HepMC/GenRanges.h"
@@ -32,9 +33,12 @@ namespace Rivet{
   namespace RivetHepMC = HepMC;
   
   // HepMC 2.07 provides its own #defines
-  #define ConstGenParticlePtr const HepMC::GenParticle*
-  #define ConstGenVertexPtr const HepMC::GenVertex*
-  #define ConstGenHeavyIonPtr const HepMC::HeavyIon*
+  typedef const HepMC::GenParticle* ConstGenParticlePtr;
+  typedef const HepMC::GenVertex* ConstGenVertexPtr;
+  typedef const HepMC::HeavyIon* ConstGenHeavyIonPtr;
+// #define ConstGenParticlePtr RivetConstGenParticlePtr
+// #define ConstGenVertexPtr RivetConstGenVertexPtr
+// #define ConstGenHeavyIonPtr RivetConstGenHeavyIonPtr
   
   /// @brief Replicated the HepMC3 Relatives syntax using HepMC2 IteratorRanges
   /// This is necessary mainly because of capitalisation differences
