@@ -4,6 +4,7 @@
 #include "Rivet/Projections/SingleValueProjection.hh"
 #include "Rivet/Tools/AliceCommon.hh"
 #include "Rivet/Projections/AliceCommon.hh"
+#include "Rivet/Projections/HepMCHeavyIon.hh"
 #include <fstream>
 
 #define _USE_MATH_DEFINES
@@ -36,6 +37,9 @@ namespace Rivet {
       const ChargedFinalState cfs(cut);
       addProjection(cfs,"CFS");
       
+       // Access the HepMC heavy ion info
+      declare(HepMCHeavyIon(), "HepMC");
+
       // Loop over all histograms
       for (size_t ihist = 0; ihist < NHISTOS; ++ihist) {
 	
@@ -84,6 +88,7 @@ namespace Rivet {
       // if number of hard collisions is equal to 0 and assign 'false' in that case, which is usually wrong.
       // This might be changed in the future
       if (event.genEvent()->heavy_ion()) {
+        const HepMCHeavyIon & hi = apply<HepMCHeavyIon>(event, "HepMC");
 	
 	// Prepare centrality projection and value
 	const CentralityProjection& centrProj = apply<CentralityProjection>(event, (_mode == 1 ? "V0M" : "V0M_IMP"));
@@ -96,7 +101,7 @@ namespace Rivet {
 	for (size_t ihist = 0; ihist < NHISTOS; ++ihist) {
           if (inRange(centr, _centrRegions[ihist].first, _centrRegions[ihist].second)) {
 	    _counterSOW[PBPB][ihist]->fill(weight);
-	    _counterNcoll[ihist]->fill(event.genEvent()->heavy_ion()->Ncoll, weight);
+	    _counterNcoll[ihist]->fill(hi.Ncoll(), weight);
 	    foreach (const Particle& p, chargedParticles) {
 	      float pT = p.pT()/GeV;
 	      if (pT < 50.) {

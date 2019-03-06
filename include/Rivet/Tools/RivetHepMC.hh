@@ -75,7 +75,8 @@ namespace Rivet {
   /// @todo Use mcutils?
 
   namespace HepMCUtils{
-  
+
+    ConstGenParticlePtr              getParticlePtr(const RivetHepMC::GenParticle & gp);
     std::vector<ConstGenParticlePtr> particles(ConstGenEventPtr ge);
     std::vector<ConstGenParticlePtr> particles(const GenEvent *ge);
     std::vector<ConstGenVertexPtr>   vertices(ConstGenEventPtr ge);

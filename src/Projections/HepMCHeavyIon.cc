@@ -4,29 +4,29 @@
 #ifdef ENABLE_HEPMC_3
 #define IMPLEMENTATION(rettype, functionname, defret) \
 rettype HepMCHeavyIon::functionname() const { \
-  return hi? hi->functionname: defret;        \
+  return _hi? _hi->functionname: defret;        \
 }
 
 #define IMPLEMENTATION_ALT_HEPMC2(rettype, functionname, hepmc2name, defret) \
 rettype HepMCHeavyIon::functionname() const { \
-  return hi? hi->functionname: defret;        \
+  return _hi? _hi->functionname: defret;        \
 }
 
 #define IMPLEMENTATION_NO_HEPMC2(rettype, functionname, defret) \
 rettype HepMCHeavyIon::functionname() const { \
-  return hi? hi->functionname: defret;        \
+  return _hi? _hi->functionname: defret;        \
 }
 
 #else
 
 #define IMPLEMENTATION(rettype, functionname, defret) \
 rettype HepMCHeavyIon::functionname() const { \
-  return hi? hi->functionname(): defret;      \
+  return _hi? _hi->functionname(): defret;      \
 }
 
 #define IMPLEMENTATION_ALT_HEPMC2(rettype, functionname, hepmc2name, defret) \
 rettype HepMCHeavyIon::functionname() const { \
-  return hi? hi->, hepmc2name(): defret;      \
+  return _hi? _hi->, hepmc2name(): defret;      \
 }
 
 #define IMPLEMENTATION_NO_HEPMC2(rettype, functionname, defret) \
@@ -46,8 +46,8 @@ HepMCHeavyIon::HepMCHeavyIon() {
 }
 
 void HepMCHeavyIon::project(const Event& e) {
-  hi = e.genEvent()->heavy_ion();
-  if ( !hi )
+  _hi = e.genEvent()->heavy_ion();
+  if ( !_hi )
     MSG_WARNING("Could not find the HepMC HeavyIon object");
 }
 
@@ -85,7 +85,7 @@ IMPLEMENTATION_NO_HEPMC2(int, Nspec_targ_p, -1)
 
 map<int,double> HepMCHeavyIon::participant_plane_angles() const {
 #ifdef ENABLE_HEPMC_3
-  return hi? hi->participant_plane_angles: map<int,double>(); 
+  return _hi? _hi->participant_plane_angles: map<int,double>(); 
 #else
   MSG_WARNING("HeavyIon::participant_plane_angles is only avialable in HepMC3");
   return map<int,double>(); 
@@ -94,7 +94,7 @@ map<int,double> HepMCHeavyIon::participant_plane_angles() const {
 
 map<int,double> HepMCHeavyIon::eccentricities() const {
 #ifdef ENABLE_HEPMC_3
-  return hi? hi->eccentricities: map<int,double>(); 
+  return _hi? _hi->eccentricities: map<int,double>(); 
 #else
   MSG_WARNING("HeavyIon::eccentricities is only avialable in HepMC3");
   return map<int,double>(); 

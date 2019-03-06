@@ -8,7 +8,11 @@
 namespace Rivet{
   
   namespace HepMCUtils{
-    
+
+    ConstGenParticlePtr getParticlePtr(const RivetHepMC::GenParticle & gp) {
+      return gp.shared_from_this();
+    }
+
     std::vector<ConstGenParticlePtr> particles(ConstGenEventPtr ge){
       return ge->particles();
     }

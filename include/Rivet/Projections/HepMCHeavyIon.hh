@@ -38,6 +38,9 @@ namespace Rivet {
 
   public:
 
+    /// Check that there were at all any heavy ion info in HepMC
+    bool ok() const { return _hi != nullptr; }
+
     /// @brief the number of hard nucleon-nucleon collisions.
     ///
     /// Model-dependent. Usually the number of nucleon-nucleon
@@ -168,7 +171,7 @@ namespace Rivet {
   private:
 
     /// A pointer to the actual heavy ion object
-    RivetHepMC::ConstGenHeavyIonPtr hi;
+    RivetHepMC::ConstGenHeavyIonPtr _hi;
 
   };
 }

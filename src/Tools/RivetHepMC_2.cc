@@ -11,6 +11,9 @@ namespace Rivet{
   
   namespace HepMCUtils{
     
+    ConstGenParticlePtr getParticlePtr(const RivetHepMC::GenParticle & gp) {
+      return &gp;
+    }
     std::vector<ConstGenParticlePtr> particles(ConstGenEventPtr ge){
       std::vector<ConstGenParticlePtr> result;
       for(GenEvent::particle_const_iterator pi = ge->particles_begin(); pi != ge->particles_end(); ++pi){

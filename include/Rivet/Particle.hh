@@ -51,7 +51,7 @@ namespace Rivet {
 
     /// Constructor from a HepMC GenParticle reference.
     Particle(const RivetHepMC::GenParticle& gp)
-      : Particle(gp.shared_from_this())
+      : Particle(HepMCUtils::getParticlePtr(gp))
     {   }
 
     //@}
