@@ -9,18 +9,29 @@ namespace Rivet {
   template <typename T>
   class Cmp;
 
+
+  /// Enumeration of possible value-comparison states
   enum class CmpState {
     UNDEF, LT, EQ, GT, NEQ
   };
 
-  /*std::ostream& operator << (std::ostream& os, const CmpState& obj) {
-    if (obj == CmpState::UNDEF)  os << "UNDEF";
-    if (obj == CmpState::LT)     os << "LT";
-    if (obj == CmpState::GT)     os << "GT";
-    if (obj == CmpState::NEQ)    os << "NEQ";
-   return os;
-  }*/
+  /// Representation of a CmpState as a string
+  inline std::string toString(const CmpState& cmpst) {
+    switch (cmpst) {
+    case CmpState::UNDEF: return "Cmp: ??";
+    case CmpState::LT: return "Cmp: <";
+    case CmpState::EQ: return "Cmp: ==";
+    case CmpState::GT: return "Cmp: >";
+    case CmpState::NEQ: return "Cmp: !=";
+    }
+    throw Error("CmpState value not in enum list");
+  }
 
+  /// Stream a CmpState via its toString representation
+  inline std::ostream& operator << (std::ostream& os, const CmpState& obj) {
+    os << toString(obj);
+    return os;
+  }
 
 }
 

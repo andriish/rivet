@@ -74,6 +74,7 @@ namespace Rivet {
         else if ( l(*_objects.second, *_objects.first) ) _value = CmpState::GT;
         else _value = CmpState::EQ;
       }
+      /// @todo NEQ?
     }
 
     /// The state of this object.
