@@ -151,7 +151,11 @@ namespace Rivet {
         if (id1.before(id2)) _value = CmpState::LT;
         else if (id2.before(id1)) _value = CmpState::GT;
         else {
-          _value = _objects.first->compare(*_objects.second);
+          //_value = _objects.first->compare(*_objects.second);
+          CmpState cmps = _objects.first->compare(*_objects.second);
+          if (cmps == CmpState::UNDEF)  _value = CmpState::LT;
+          else if (cmps == CmpState::NEQ) _value = CmpState::GT;
+          else  _value = cmps;
         }
       }
     }
