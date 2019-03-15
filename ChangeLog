@@ -1,3 +1,8 @@
+2019-03-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* analyses/pluginCMS/CMS_2018_I1682495.cc: Fix normalisation of
+	final plots (patch from Sal Rappoccio, spot by Deepak Kar)
+
 2019-02-27  Andy Buckley  <andy.buckley@cern.ch>
 
 	* bin/make-plots: Fix a few Py2/3 incompabilities in
