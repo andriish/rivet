@@ -1,5 +1,7 @@
 2019-03-15  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Remove Particle -> GenParticle implicit cast.
+
 	* analyses/pluginCMS/CMS_2018_I1682495.cc: Fix normalisation of
 	final plots (patch from Sal Rappoccio, spot by Deepak Kar)
 
