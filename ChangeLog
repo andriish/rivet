@@ -1,5 +1,8 @@
 2019-03-15  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add CMS_2018_I1686000.cc single-top plus photon analysis (with
+	an info file warning about fiducial definition oddity)
+
 	* Remove Particle -> GenParticle implicit cast.
 
 	* analyses/pluginCMS/CMS_2018_I1682495.cc: Fix normalisation of
