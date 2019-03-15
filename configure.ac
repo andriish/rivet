@@ -87,20 +87,16 @@ if test "${with_hepmc+set}" = set; then
   fi
 fi
 
-if test "${with_hepmc+set}" = set; then
-  AC_CEDAR_LIBRARYANDHEADERS([HepMC], , [use_hepmc2=yes], [use_hepmc2=no])
-else
+if test "${with_hepmc3+set}" = set; then
+  AC_CEDAR_LIBRARYANDHEADERS([HepMC3], , [use_hepmc3=yes], [use_hepmc3=no])
   AM_CONDITIONAL(WITH_HEPMC,false)
   AM_CONDITIONAL(WITH_HEPMCINC,false)
   AM_CONDITIONAL(WITH_HEPMCLIB,false)
   AM_CONDITIONAL(WITHOUT_HEPMC,true)
   AM_CONDITIONAL(WITHOUT_HEPMCINC,true)
   AM_CONDITIONAL(WITHOUT_HEPMCLIB,true)
-fi
-
-if test "${with_hepmc3+set}" = set; then
-  AC_CEDAR_LIBRARYANDHEADERS([HepMC3], , [use_hepmc3=yes], [use_hepmc3=no])
 else
+  AC_CEDAR_LIBRARYANDHEADERS([HepMC], , [use_hepmc2=yes], [use_hepmc2=no])
   AM_CONDITIONAL(WITH_HEPMC3,false)
   AM_CONDITIONAL(WITH_HEPMC3INC,false)
   AM_CONDITIONAL(WITH_HEPMC3LIB,false)

@@ -1,3 +1,12 @@
+2019-03-15  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* src/Projections/Sphericity.cc: Skip zero-momentum particles.
+
+	* [Reader,Writer]CompressedAscii[cc,hh]: Introduced possibility to
+	wead and write HepMC (v3) files in a compressed and stripped
+	format. Also included a simple progra bin/rivet-hepmz to convert
+	between this new format and othe HepMC fortmats.
+
 2019-02-20  James Monk  <jwmonk@protonmail.com>
 	* src/Tools/RivetHepMC_2.cc: implementation of HepMC helper funcs
 	for HepMC2

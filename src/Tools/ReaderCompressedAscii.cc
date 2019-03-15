@@ -381,7 +381,7 @@ bool ReaderCompressedAscii::read_position(GenVertexPtr v) {
   double eta = double(ieta)*m_precision_eta;
   double phi = double(iphi)*m_precision_phi*M_PI;
   double pt = p3mod/cosh(eta);
-  FourVector pos(pt*cos(phi), pt*sin(phi), pt*sinh(eta), t);
+  FourVector pos(pt*cos(phi), pt*sin(phi), p3mod*tanh(eta), t);
 
   Units::convert(pos, Units::MM, m_evt->length_unit());
   v->set_position(pos);
@@ -407,7 +407,7 @@ bool ReaderCompressedAscii::read_momentum(GenParticlePtr p) {
     
   long iphi = 0;
   long ieta = 0;
-  long ie = 0;
+  double ie = 0;
   std::string sm;
   if ( !(is >> ie >> ieta >> iphi >> sm) ) return false;
 
@@ -423,8 +423,8 @@ bool ReaderCompressedAscii::read_momentum(GenParticlePtr p) {
   double p3mod = sqrt(max(e*e - m2, 0.0));
   double eta = double(ieta)*m_precision_eta;
   double phi = double(iphi)*m_precision_phi*M_PI;
-  double pt = p3mod/cosh(eta);
-  FourVector pp(pt*cos(phi), pt*sin(phi), pt*sinh(eta), e);
+  double pt = abs(eta) < 100.0? p3mod/cosh(eta): 0.0;
+  FourVector pp(pt*cos(phi), pt*sin(phi), p3mod*tanh(eta), e);
   
   if ( m_evt->momentum_unit() != Units::GEV ) {
     m *= 1000.0;

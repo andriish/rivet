@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
   else {
     auto compressed = make_shared<Rivet::WriterCompressedAscii>(output);
     if ( outputmode >= 2 ) compressed->use_integers();
-    if ( outputmode == 3 ) {
+    if ( abs(outputmode) == 3 ) {
       compressed->add_stripid(21);
       compressed->add_stripid(-1);
       compressed->add_stripid(1);
@@ -40,11 +40,14 @@ int main(int argc, char** argv) {
       compressed->add_stripid(-3);
       compressed->add_stripid(3);
     }
+    if ( abs(outputmode) == 4 ) {
+      compressed->add_stripid(-22);
+    }
     writer = compressed;
   }
 
   while(reader && Rivet::HepMCUtils::readEvent(reader, evt) ) {
-    cout << evt->event_number() << endl;
+    //    cout << evt->event_number() << endl;
     writer->write_event(*evt);
   }
   

@@ -26,11 +26,11 @@ WriterCompressedAscii::WriterCompressedAscii(const std::string &filename, shared
   : m_use_integers(false),
     m_file(filename),
     m_stream(&m_file),
-    m_precision_phi(0.001),
-    m_precision_eta(0.001),
+    m_precision_phi(0.0001),
+    m_precision_eta(0.0001),
     m_precision_e(0.001),
     m_precision_m(0.000001),
-    m_precision(16),
+    m_precision(5),
     m_current(0) {
   set_run_info(run);
   if ( !m_file.is_open() ) {
@@ -47,11 +47,11 @@ WriterCompressedAscii::WriterCompressedAscii(std::ostream &stream, shared_ptr<Ge
   : m_use_integers(false),
     m_file(),
     m_stream(&stream),
-    m_precision_phi(0.001),
-    m_precision_eta(0.001),
+    m_precision_phi(0.0001),
+    m_precision_eta(0.0001),
     m_precision_e(0.001),
     m_precision_m(0.000001),
-    m_precision(16),
+    m_precision(5),
     m_current(0) {
   set_run_info(run);
   (*m_stream) << "HepMC::Version " << version() << std::endl;
@@ -69,7 +69,7 @@ void WriterCompressedAscii::write_event(const GenEvent &evt) {
   
   if ( !m_stripid.empty() ) {
     GenEvent e = evt;
-    cout << "#beams " << e.beams().size() << endl;
+    // cout << "#beams " << e.beams().size() << endl;
     // for ( auto bp : evt.beams() ) {
     //   GenParticlePtr nb = e.particles()[bp->id() - 1];
     //   cout << "Beam: " << bp->id() << " " << bp->pid() << " "
@@ -264,6 +264,7 @@ double WriterCompressedAscii::psrap(const FourVector & p) const {
   static const double MAXETA = 100.0;
   static const double MAXLOG = exp(-MAXETA);
   double nom = p.p3mod() + abs(p.pz());
+  if ( nom <= 0.0 ) return 0.0;
   double den = max(p.perp(), nom*MAXLOG);
   return p.pz() > 0? log(nom/den): -log(nom/den);
 }
@@ -273,8 +274,13 @@ void WriterCompressedAscii::write_momentum(FourVector p) {
   Units::convert(p, m_current->momentum_unit(), Units::GEV);
   
   if ( m_use_integers ) {
-    os << " " << long(round(p.e()/precision_e()))
-       << " " << long(round(psrap(p)/precision_eta()))
+    long ie = long(round(p.e()/precision_e()));
+    // Avoid zero momentum particles
+    if ( ie == 0 && p.e() != 0.0 )
+      os << " " << p.e()/precision_e();
+    else
+      os << " " << ie;
+    os << " " << long(round(psrap(p)/precision_eta()))
        << " " << long(round(p.phi()/(M_PI*precision_phi())));
     return;
   }
@@ -332,7 +338,7 @@ void WriterCompressedAscii::write_position(FourVector pos) {
 }
 
 void WriterCompressedAscii::strip(GenEvent & e) {
-  std::cout << "Stripping event " << e.event_number() << std::endl;
+  //  std::cout << "Stripping event " << e.event_number() << std::endl;
   vector<GenParticlePtr> allparticles = e.particles();
   for ( auto & p : allparticles ) {
     if ( !p->production_vertex() || !p->end_vertex() ||
@@ -354,23 +360,22 @@ void WriterCompressedAscii::strip(GenEvent & e) {
           if ( pi == po ) loop = true;
       if ( loop ) continue;
     }
+    if ( vp->particles_in().size() == 1 &&
+         ( vp->particles_in()[0]->pid() > 21 && vp->particles_in()[0]->pid() < 30 ) )
+      continue;
+    
     vp->remove_particle_out(p);
     ve->remove_particle_in(p);
-    if ( vp->particles_out().empty() ) {
-      for ( auto pi : vp->particles_in() ) {
-        vp->remove_particle_in(pi);
-        ve->add_particle_in(pi);
-        //        std::cout << "Removing vertex " << vp->id() << std::endl;
-        e.remove_vertex(vp);
-      }
+    
+    if ( ve->particles_in().empty() ) {
+      auto prem = ve->particles_out();
+      for ( auto po : prem )  vp->add_particle_out(po);
+      e.remove_vertex(ve);
     }
-    else if ( ve->particles_in().empty() ) {
-      for ( auto po : ve->particles_out() ) {
-        ve->remove_particle_out(po);
-        vp->add_particle_out(po);
-        //        std::cout << "Removing vertex " << ve->id() << std::endl;
-        e.remove_vertex(ve);
-      }
+    else if ( vp->particles_out().empty() ) {
+      auto prem = vp->particles_in();
+      for ( auto pi : prem ) ve->add_particle_in(pi);
+      e.remove_vertex(vp);
     }
     e.remove_particle(p);
   }

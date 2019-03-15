@@ -90,3 +90,15 @@ doc/rivet-manual.dvi
 # added by aHg on Tue Mar  5 14:30:21 2019
 syntax: glob
 doc/rivet-manual.ps
+
+# added by aHg on Fri Mar 15 10:38:23 2019
+syntax: glob
+bin/rivet-hepmz
+
+# added by aHg on Fri Mar 15 10:38:43 2019
+syntax: glob
+bin/converall.log
+
+# added by aHg on Fri Mar 15 10:38:48 2019
+syntax: glob
+bin/converall.sh
