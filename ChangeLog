@@ -7,6 +7,24 @@
 	format. Also included a simple progra bin/rivet-hepmz to convert
 	between this new format and othe HepMC fortmats.
 
+2019-02-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* bin/make-plots: Fix a few Py2/3 incompabilities in
+	make-plots. Thanks to Leif Gellersen for the tip-off
+
+	* analyses/Makefile.am: Adopt a more make-friendly plugin building
+	rule. Thanks to Dima Konstantinov.
+
+2019-02-24  Jon Butterworth  <j.butterworth@ucl.ac.uk>
+
+	* Fix multiple bugs in ATLAS_2017_I1514251 (Z+jets) including a
+	problem with REF data having zero bin widths
+
+2019-02-17  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Convert ATLAS_2013_I1217863 analysis variants to use the LMODE
+	analysis option (from Jon Butterworth).
+
 2019-02-20  James Monk  <jwmonk@protonmail.com>
 	* src/Tools/RivetHepMC_2.cc: implementation of HepMC helper funcs
 	for HepMC2

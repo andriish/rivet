@@ -10,7 +10,7 @@
 
 namespace Rivet {
 
-  namespace { //< only visible in this compilation unit
+  namespace CMS_2016_PAS_TOP_15_006_INTERNAL { //< only visible in this compilation unit
 
 
     /// @brief Special dressed lepton finder
@@ -93,6 +93,7 @@ namespace Rivet {
     /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2016_PAS_TOP_15_006);
 
+    typedef CMS_2016_PAS_TOP_15_006_INTERNAL::SpecialDressedLeptons SpecialDressedLeptons;
 
     /// @name Analysis methods
     //@{

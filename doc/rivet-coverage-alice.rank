@@ -1,3 +1,19 @@
+355998 X Letter of Intent for A Large Ion Collider Experiment
+432654 X The forward muon spectrometer of ALICE
+483568 X ALICE technical design report: Detector for high momentum PID
+516635 X ALICE technical design report: Photon multiplicity detector (PMD)
+517332 X ALICE technical design report of the photon spectrometer (PHOS)
+517333 X ALICE technical design report of the zero degree calorimeter (ZDC)
+517334 X ALICE technical design report of the inner tracking system (ITS)
+541209 X ALICE: Technical design report of the time projection chamber
+541223 X ALICE technical design report of the time-of-flight system (TOF)
+599839 X ALICE: Addendum to the technical design report of the time of flight system (TOF)
+660490 X ALICE technical design report on forward detectors: FMD, T0 and V0
+666602 X ALICE: Physics performance report, volume I
+794183 X ALICE electromagnetic calorimeter technical design report
+796251 X The ALICE experiment at the CERN LHC
+838352 X First proton-proton collisions at the LHC as observed with the ALICE detector: Measurement of the charged particle pseudorapidity density at s**(1/2) = 900-GeV
+839506 X Performance of prototypes for the ALICE electromagnetic calorimeter
 841752 X Alignment of the ALICE Inner Tracking System with cosmic-ray tracks
 852264 . Charged-particle multiplicity measurement in proton-proton collisions at $\sqrt{s}=7$ TeV with ALICE at LHC
 852450 . Charged-particle multiplicity measurement in proton-proton collisions at $\sqrt{s}=0.9$ and 2.36 TeV with ALICE at LHC
@@ -12,7 +28,7 @@
 881474 . Strange particle production in proton-proton collisions at sqrt(s) = 0.9 TeV with ALICE at the LHC
 881884 . Two-pion Bose-Einstein correlations in central Pb-Pb collisions at $\sqrt{{s}_{NN}} =$ 2.76 TeV
 884741 . Femtoscopy of $pp$ collisions at $\sqrt{s}=0.9$ and 7 TeV at the LHC with two-pion Bose-Einstein correlations
-885104 ! Production of pions, kaons and protons in $pp$ collisions at $\sqrt{s}= 900$ GeV with ALICE at the LHC
+885104 . Production of pions, kaons and protons in $pp$ collisions at $\sqrt{s}= 900$ GeV with ALICE at the LHC
 897764 . Rapidity and transverse momentum dependence of inclusive J$/\psi$ production in $pp$ collisions at $\sqrt{s} = 7$ TeV
 900651 ! Higher harmonic anisotropic flow measurements of charged particles in Pb-Pb collisions at $\sqrt{s_{NN}}$=2.76 TeV
 927105 . Harmonic decomposition of two-particle angular correlations in Pb-Pb collisions at $\sqrt{s_{NN}}=$ 2.76 TeV
@@ -128,7 +144,7 @@
 1394580 . Transverse momentum dependence of D-meson production in Pb-Pb collisions at $ \sqrt{{\mathrm{s}}_{\mathrm{NN}}}=$ 2.76  TeV
 1394672 . Multiplicity and transverse momentum evolution of charge-dependent correlations in pp, p–Pb, and Pb–Pb collisions at the LHC
 1394675 . Measurement of D$_{s}^{+}$ production and nuclear modification factor in Pb-Pb collisions at $ \sqrt{{\mathrm{s}}_{\mathrm{NN}}}=$ 2.76 TeV
-1394676 ! Centrality evolution of the charged-particle pseudorapidity density over a broad pseudorapidity range in Pb-Pb collisions at $\sqrt{s_{\rm NN}} =$ 2.76 TeV
+1394676 . Centrality evolution of the charged-particle pseudorapidity density over a broad pseudorapidity range in Pb-Pb collisions at $\sqrt{s_{\rm NN}} =$ 2.76 TeV
 1394677 ! Direct photon production in Pb-Pb collisions at $\sqrt{s_\rm{NN}} =$ 2.76 TeV
 1394678 . Azimuthal anisotropy of charged jet production in $\sqrt{s_{\rm NN}}$ = 2.76 TeV Pb-Pb collisions
 1394682 . Measurement of electrons from heavy-flavour hadron decays in p-Pb collisions at $\sqrt{s_{\rm NN}} =$ 5.02 TeV
@@ -154,7 +170,7 @@
 1465513 ! $D$-meson production in $p$-Pb collisions at $\sqrt{s_{\rm NN}}=$5.02 TeV and in pp collisions at $\sqrt{s}=$7 TeV
 1466626 . Elliptic flow of electrons from heavy-flavour hadron decays at mid-rapidity in Pb-Pb collisions at $ \sqrt{{\mathrm{s}}_{\mathrm{NN}}}=2.76 $ TeV
 1471285 . Higher harmonic flow coefficients of identified hadrons in Pb-Pb collisions at $\sqrt{s_{\rm NN}}$ = 2.76 TeV
-1471838 ! Enhanced production of multi-strange hadrons in high-multiplicity proton-proton collisions
+1471838 . Enhanced production of multi-strange hadrons in high-multiplicity proton-proton collisions
 1472319 . J/$\psi$ suppression at forward rapidity in Pb-Pb collisions at $\mathbf{\sqrt{s_{{\rm NN}}} = 5.02}$ TeV
 1483164 . Jet-like correlations with neutral pion triggers in pp and central Pb–Pb collisions at 2.76 TeV
 1486391 . Measurement of electrons from beauty-hadron decays in p-Pb collisions at $ \sqrt{s_{\mathrm{NN}}}=5.02 $ TeV and Pb-Pb collisions at $ \sqrt{s_{\mathrm{NN}}}=2.76 $ TeV
@@ -163,8 +179,8 @@
 1487727 . Measurement of the production of high-$p_{\rm T}$ electrons from heavy-flavour hadron decays in Pb-Pb collisions at $\mathbf{\sqrt{\it s_{\rm{NN}}}}$ = 2.76 TeV
 1491202 . Determination of the event collision time with the ALICE detector at the LHC
 1496634 . W and Z boson production in p-Pb collisions at $\sqrt{s_{\rm NN}}$ = 5.02 TeV
-1507090 ! Centrality dependence of the pseudorapidity density distribution for charged particles in Pb-Pb collisions at $\sqrt{s_{\rm NN}}=5.02$ TeV
-1507157 ! Insight into particle production mechanisms via angular correlations of identified particles in pp collisions at $\sqrt{\mathrm{s}}=7$  TeV
+1507090 . Centrality dependence of the pseudorapidity density distribution for charged particles in Pb-Pb collisions at $\sqrt{s_{\rm NN}}=5.02$ TeV
+1507157 . Insight into particle production mechanisms via angular correlations of identified particles in pp collisions at $\sqrt{\mathrm{s}}=7$  TeV
 1510878 . Production of $\Sigma(1385)^{\pm}$ and $\Xi(1530)^{0}$ in p-Pb collisions at $\sqrt{s_{\rm NN}}=5.02$ TeV
 1511864 . K$^{*}(892)^{0}$ and $\phi(1020)$ meson production at high transverse momentum in pp and Pb-Pb collisions at $\sqrt{s_\mathrm{NN}}$ = 2.76 TeV
 1511865 . Energy dependence of forward-rapidity $\mathrm {J}/\psi $ and $\psi \mathrm {(2S)}$ production in pp collisions at the LHC
@@ -180,6 +196,7 @@
 1608612 . $D$-meson azimuthal anisotropy in midcentral Pb-Pb collisions at $\mathbf{\sqrt{s_{\rm NN}}=5.02}$ TeV
 1610453 . Searches for transverse momentum dependent flow vector fluctuations in Pb-Pb and p-Pb collisions at the LHC
 1611301 . Measurement of deuteron spectra and elliptic flow in Pb–Pb collisions at $\sqrt{s_{\mathrm {NN}}}$ = 2.76 TeV at the LHC
+1614069 X ALICE: Physics performance report, volume II
 1614477 ! Charged-particle multiplicity distributions over a wide pseudorapidity range in proton-proton collisions at $\sqrt{s}=$ 0.9, 7, and 8 TeV
 1620477 . $\pi ^{0}$ and $\eta $ meson production in proton-proton collisions at $\sqrt{s}=8$ TeV
 1621591 . Systematic studies of correlations between different order flow harmonics in Pb-Pb collisions at $\sqrt{s_{\rm NN}}$ = 2.76 TeV
@@ -206,9 +223,9 @@
 1669805 . $\phi$ meson production at forward rapidity in Pb-Pb collisions at $\sqrt{s_\mathrm{NN}}=2.76$ TeV
 1669819 ! Measurement of D$^{0}$, D$^{+}$, D$^{*+}$ and D$_{s}^{+}$ production in Pb-Pb collisions at $ \sqrt{{\mathrm{s}}_{\mathrm{NN}}}=5.02 $ TeV
 1671792 . Anisotropic flow in Xe-Xe collisions at $\mathbf{\sqrt{s_{\rm{NN}}} = 5.44}$ TeV
-1672756 ! Centrality and pseudorapidity dependence of the charged-particle multiplicity density in Xe-Xe collisions at $\sqrt{s_{\rm NN}}$ = 5.44 TeV
+1672756 ! Centrality and pseudorapidity dependence of the charged-particle multiplicity density in Xe–Xe collisions at $\sqrt{s_{\rm NN}}$ =5.44TeV
 1672765 . Two particle differential transverse momentum and number density correlations in p-Pb and Pb-Pb at the LHC
-1672788 ! Dielectron and heavy-quark production in inelastic and high-multiplicity proton-proton collisions at $\sqrt{s_{\rm NN}}$ = 13 TeV
+1672788 ! Dielectron and heavy-quark production in inelastic and high-multiplicity proton–proton collisions at $\sqrt {s_{NN}}=$ 13TeV
 1672789 ! Direct photon elliptic flow in Pb-Pb collisions at $\sqrt{s_{\rm NN}}$ = 2.76 TeV
 1672790 . Transverse momentum spectra and nuclear modification factors of charged particles in Xe-Xe collisions at $\sqrt{s_{\rm NN}}$ = 5.44 TeV
 1672792 ! Dielectron production in proton-proton collisions at $ \sqrt{s}=7 $ TeV
@@ -235,3 +252,6 @@
 1704923 ! Jet fragmentation transverse momentum measurements from di-hadron correlations in $\sqrt{s}$ = 7 TeV pp and $\sqrt{s_{\rm{NN}}}$ = 5.02 TeV p-Pb collisions
 1706006 . Study of J/$\psi$ azimuthal anisotropy at forward rapidity in Pb-Pb collisions at $\sqrt{{\textit s}_{\rm NN}}$ = 5.02 TeV
 1706753 . Charged-particle pseudorapidity density at mid-rapidity in p-Pb collisions at $\sqrt{s_{\rm{NN}}}$ = 8.16 TeV
+1710095 X Real-time data processing in the ALICE High Level Trigger at the LHC
+1714695 . Event-shape and multiplicity dependence of freeze-out radii in pp collisions at $\sqrt{{\textit s}}=7$ TeV
+1716440 . Measurement of ${\rm D^0}$, ${\rm D^+}$, ${\rm D^{*+}}$ and ${{\rm D^+_s}}$ production in pp collisions at $\mathbf{\sqrt{{\textit s}}~=~5.02~TeV}$ with ALICE

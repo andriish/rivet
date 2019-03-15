@@ -102,3 +102,4 @@ bin/converall.log
 # added by aHg on Fri Mar 15 10:38:48 2019
 syntax: glob
 bin/converall.sh
+^doxy/.*$

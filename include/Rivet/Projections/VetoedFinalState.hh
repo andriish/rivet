@@ -34,7 +34,7 @@ namespace Rivet {
 
     /// Constructor with a default FinalState and a single cut to veto
     VetoedFinalState(const Cut& cut)
-      : VetoedFinalState(FinalState(), {cut})
+      : VetoedFinalState(FinalState(), vector<Cut>{cut})
     {   }
 
     /// Constructor with a specific FinalState and a PID list to veto
@@ -47,7 +47,7 @@ namespace Rivet {
 
     /// Constructor with a specific FinalState and a PID to veto
     VetoedFinalState(const FinalState& fsp, PdgId vetopid)
-      : VetoedFinalState(fsp, {Cuts::pid == vetopid})
+      : VetoedFinalState(fsp, vector<Cut>{Cuts::pid == vetopid})
     {   }
 
     /// Constructor with a default FinalState and a PID list to veto
@@ -60,7 +60,7 @@ namespace Rivet {
 
     /// Constructor with a default FinalState and a PID to veto
     VetoedFinalState(PdgId vetopid)
-      : VetoedFinalState(FinalState(), {Cuts::pid == vetopid})
+      : VetoedFinalState(FinalState(), vector<Cut>{Cuts::pid == vetopid})
     {   }
 
     /// Constructor with specific FinalState but no cuts

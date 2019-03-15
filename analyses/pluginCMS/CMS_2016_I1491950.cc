@@ -12,7 +12,7 @@
 
 namespace Rivet
 {
-  namespace { //< only visible in this compilation unit
+  namespace CMS_2016_I1491950_INTERNAL { //< only visible in this compilation unit
 
     /// @brief Special dressed lepton finder
     ///
@@ -89,6 +89,8 @@ namespace Rivet
  class CMS_2016_I1491950 : public Analysis
  {
    public:
+
+   typedef CMS_2016_I1491950_INTERNAL::SpecialDressedLeptons SpecialDressedLeptons;
    /// Constructor
    CMS_2016_I1491950()
     : Analysis("CMS_2016_I1491950")
