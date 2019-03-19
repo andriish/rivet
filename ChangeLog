@@ -1,5 +1,7 @@
 2019-03-19  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Extend more deltaPhi(x,y) functions with an optional bool for signed dPhi.
+
 	* Add Particle::isSame and isSame(Particle, Particle) functions in
 	lieu of implicit (and wrong) Particle::operator==.
 
