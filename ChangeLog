@@ -1,3 +1,10 @@
+2019-03-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add Particle::isSame and isSame(Particle, Particle) functions in
+	lieu of implicit (and wrong) Particle::operator==.
+
+	* Reinstate Particle -> GenParticle as an explicit cast option.
+
 2019-03-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add CMS_2018_I1686000.cc single-top plus photon analysis (with

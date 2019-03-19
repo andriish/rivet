@@ -122,8 +122,8 @@ namespace Rivet {
     }
 
     /// Cast operator for conversion to GenParticle*
-    /// @todo This one's a bad idea since it enables accidental Particle comparisons
-    //operator const GenParticle* () const { return genParticle(); }
+    /// @note Not implicit since that would enable accidental Particl::operator== comparisons
+    explicit operator const GenParticle* () const { return genParticle(); }
 
     //@}
 
@@ -669,9 +669,26 @@ namespace Rivet {
     //@}
 
 
+    /// @name Comparison
+    //@{
+
+    /// Compare particles, based on "external" characteristics, with a little angular tolerance
+    ///
+    /// @note Not a deep comparison: GenParticle ptr and constituents are not used in the comparison
+    bool isSame(const Particle& other) const {
+      if (pid() != other.pid()) return false;
+      if (!isZero((mom() - other.mom()).mod())) return false;
+      if (!isZero((origin() - other.origin()).mod())) return false;
+      return true;
+    }
+
+    //@}
+
+
   protected:
 
     /// A pointer to the original GenParticle from which this Particle is projected (may be null)
+    /// @todo Make into shared ptr / combine with HepMC3 migration
     const GenParticle* _original;
 
     /// Constituent particles if this is a composite (may be empty)
@@ -703,7 +720,6 @@ namespace Rivet {
   std::ostream& operator << (std::ostream& os, const ParticlePair& pp);
 
   //@}
-
 
 }
 
