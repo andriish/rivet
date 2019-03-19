@@ -448,6 +448,7 @@ namespace Rivet {
       throw UserError("Unexpected error in reading file: " + filename);
     }
     if (!aos.empty()) addData(aos);
+    
   }
 
 
