@@ -1,17 +1,14 @@
 #include "Rivet/Analysis.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
-#include "Rivet/Tools/ParticleName.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
 
 namespace Rivet {
 
-  namespace CMS_2016_PAS_TOP_15_006_INTERNAL { //< only visible in this compilation unit
 
+  namespace { //< only visible in this compilation unit
 
     /// @brief Special dressed lepton finder
     ///
@@ -60,7 +57,7 @@ namespace Rivet {
 
           DressedLepton lepton = DressedLepton(lepCand);
           for (const Particle& cand : jet.particles()) {
-            if (cand == lepCand) continue;
+            if (isSame(cand, lepCand)) continue;
             lepton.addPhoton(cand, true);
           }
           allClusteredLeptons.push_back(lepton);
@@ -74,6 +71,7 @@ namespace Rivet {
           }
         }
       }
+
 
     private:
 
@@ -92,8 +90,6 @@ namespace Rivet {
 
     /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2016_PAS_TOP_15_006);
-
-    typedef CMS_2016_PAS_TOP_15_006_INTERNAL::SpecialDressedLeptons SpecialDressedLeptons;
 
     /// @name Analysis methods
     //@{
