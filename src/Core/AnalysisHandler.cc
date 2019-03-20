@@ -57,11 +57,11 @@ namespace Rivet {
 
     // Warn if any analysis' status is not unblemished
     for (const AnaHandle a : analyses()) {
-      if (toUpper(a->status()) == "PRELIMINARY") {
+      if ( a->info().preliminary() ) {
         MSG_WARNING("Analysis '" << a->name() << "' is preliminary: be careful, it may change and/or be renamed!");
-      } else if (toUpper(a->status()) == "OBSOLETE") {
+      } else if ( a->info().obsolete() ) {
         MSG_WARNING("Analysis '" << a->name() << "' is obsolete: please update!");
-      } else if (toUpper(a->status()).find("UNVALIDATED") != string::npos) {
+      } else if (( a->info().unvalidated() ) ) {
         MSG_WARNING("Analysis '" << a->name() << "' is unvalidated: be careful, it may be broken!");
       }
     }
