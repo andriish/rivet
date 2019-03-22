@@ -7,11 +7,11 @@ InspireID: 746380
 Status: UNVALIDATED
 Authors:
  - Christine O. Rasmussen <christine.rasmussen@thep.lu.se>
- - Ilkka Helenius <ilkka.helenius@uni-tuebingen.de>
+ - Ilkka Helenius <ilkka.m.helenius@jyu.fi>
 References:
 - Eur. Phys. J. C51 (2007) 549
 - arXiv:hep-ex/0703022
-RunInfo: 
+RunInfo:
   820 GeV protons colliding with 27.5 GeV positrons;
   Diffractive photoproduction of dijets;
   Jet $E_T > 4$ GeV;
@@ -20,9 +20,13 @@ Beams: [p+, e+]
 Energies: [[820, 27.5]]
 PtCuts: [0]
 Description:
-  H1 diffractive jets from proton--positron 
-  collisions at beam energies of 820~GeV on 27.5~GeV.
-BibKey: Andreev:2015cwa 
+  H1 diffractive jets from proton--positron collisions at beam energies of
+  820~GeV and 27.5~GeV. Measurements are presented of differential dijet cross
+  sections in diffractive photoproduction (Q2 < 0.01 GeV2) and deep-inelastic
+  scattering processes (DIS, 4 < Q2 < 80 GeV2). The event topology is given by
+  ep → eXY , in which the system X, containing at least two jets, is separated
+  from a leading low-mass proton remnant system Y by a large rapidity gap.
+BibKey: Aktas:2007hn
 BibTeX: '@article{Aktas:2007hn,
       author         = "Aktas, A. and others",
       title          = "{Tests of QCD factorisation in the diffractive production
@@ -40,4 +44,3 @@ BibTeX: '@article{Aktas:2007hn,
       reportNumber   = "DESY-07-018",
       SLACcitation   = "%%CITATION = HEP-EX/0703022;%%"
 }'
-

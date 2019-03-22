@@ -4,6 +4,7 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/DISKinematics.hh"
 #include "Rivet/Projections/DISFinalState.hh"
+#include "Rivet/Projections/DISDiffHadron.hh"
 #include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
@@ -279,14 +280,14 @@ namespace Rivet {
   /// @brief H1 diffractive dijets
   ///
   /// Diffractive dijets H1 with 920 GeV p and 27.5 GeV e
-  /// Note tagged protons!
+  /// Tagged protons & jets found in gamma*p rest frame.
   ///
   /// @author Christine O. Rasmussen
-  class H1_2007_I746380 : public Analysis {
+  class H1_2015_I1343110 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(H1_2007_I746380);
+    DEFAULT_RIVET_ANALYSIS_CTOR(H1_2015_I1343110);
 
     /// @name Analysis methods
     //@{
@@ -297,35 +298,46 @@ namespace Rivet {
       declare(DISKinematics(), "Kinematics");
       const DISFinalState& disfs = declare(DISFinalState(DISFinalState::HCM), "DISFS");
       const BoostedXSystem& disfsXcm = declare( BoostedXSystem(disfs), "BoostedXFS");
-      declare(FastJets(disfsXcm, fastjet::JetAlgorithm::kt_algorithm, fastjet::RecombinationScheme::pt_scheme, 1.0,
+      declare(FastJets(disfsXcm, fastjet::JetAlgorithm::kt_algorithm, fastjet::RecombinationScheme::pt_scheme, 1.0, 
         JetAlg::ALL_MUONS, JetAlg::NO_INVISIBLES, nullptr), "DISFSJets");
+      declare(DISDiffHadron(), "Hadron");
       declare(RapidityGap(), "RapidityGap");
 
       // Book histograms from REF data
-      _h_DIS_dsigdzPom     = bookHisto1D(1, 1, 1);
-      _h_DIS_dsigdlogXpom  = bookHisto1D(2, 1, 1);
-      _h_DIS_dsigdW        = bookHisto1D(3, 1, 1);
-      _h_DIS_dsigdQ2       = bookHisto1D(4, 1, 1);
-      _h_DIS_dsigdEtJet1   = bookHisto1D(5, 1, 1);
-      _h_DIS_dsigdAvgEta   = bookHisto1D(6, 1, 1);
-      _h_DIS_dsigdDeltaEta = bookHisto1D(7, 1, 1);
+      _h_PHO_sig_sqrts     = bookHisto1D(1, 1, 1);
+      _h_DIS_sig_sqrts     = bookHisto1D(2, 1, 1);
+      _h_PHODIS_sqrts      = bookScatter2D(3, 1, 1);
 
-      _h_PHO_dsigdzPom     = bookHisto1D(8, 1, 1);
-      _h_PHO_dsigdxGam     = bookHisto1D(9, 1, 1);
-      _h_PHO_dsigdlogXpom  = bookHisto1D(10, 1, 1);
-      _h_PHO_dsigdW        = bookHisto1D(11, 1, 1);
-      _h_PHO_dsigdEtJet1   = bookHisto1D(12, 1, 1);
-      _h_PHO_dsigdAvgEta   = bookHisto1D(13, 1, 1);
-      _h_PHO_dsigdDeltaEta = bookHisto1D(14, 1, 1);
-      _h_PHO_dsigdMjets    = bookHisto1D(15, 1, 1);
+      _h_DIS_dsigdz        = bookHisto1D(4, 1, 1);
+      _h_DIS_dsigdxPom     = bookHisto1D(5, 1, 1);
+      _h_DIS_dsigdy        = bookHisto1D(6, 1, 1);
+      _h_DIS_dsigdQ2       = bookHisto1D(7, 1, 1);
+      _h_DIS_dsigdEtj1     = bookHisto1D(8, 1, 1);
+      _h_DIS_dsigdMX       = bookHisto1D(9, 1, 1);
+      _h_DIS_dsigdDeltaEta = bookHisto1D(10, 1, 1);
+      _h_DIS_dsigdAvgEta   = bookHisto1D(11, 1, 1);
 
-      isDIS  = false;
-      nVeto0 = 0;
+      _h_PHO_dsigdz        = bookHisto1D(12, 1, 1);
+      _h_PHO_dsigdxPom     = bookHisto1D(13, 1, 1);
+      _h_PHO_dsigdy        = bookHisto1D(14, 1, 1);
+      _h_PHO_dsigdxGam     = bookHisto1D(15, 1, 1);
+      _h_PHO_dsigdEtj1     = bookHisto1D(16, 1, 1);
+      _h_PHO_dsigdMX       = bookHisto1D(17, 1, 1);
+      _h_PHO_dsigdDeltaEta = bookHisto1D(18, 1, 1);
+      _h_PHO_dsigdAvgEta   = bookHisto1D(19, 1, 1);
+
+      _h_PHODIS_deltaEta   = bookScatter2D(20, 1, 1);
+      _h_PHODIS_y          = bookScatter2D(21, 1, 1);
+      _h_PHODIS_z          = bookScatter2D(22, 1, 1);
+      _h_PHODIS_Etj1       = bookScatter2D(23, 1, 1);
+      
+      isPHO  = false;
       nVeto1 = 0;
       nVeto2 = 0;
       nVeto3 = 0;
       nVeto4 = 0;
       nVeto5 = 0;
+      nVeto6 = 0;
       nPHO   = 0;
       nDIS   = 0;
     }
@@ -334,77 +346,79 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Event weight
-      const double weight = event.weight();
-      isDIS  = false;
-
+      const double weight = event.weight(); 
+      isPHO  = false;
+      
       // Projections - special handling of events where no proton found:
       const RapidityGap&    rg = apply<RapidityGap>(event, "RapidityGap");
       const DISKinematics& kin = apply<DISKinematics>(event, "Kinematics");
       const BoostedXSystem& disfsXcm = apply<BoostedXSystem>( event, "BoostedXFS");
+      Particle hadronOut;
+      Particle hadronIn;   
+      try {
+      	const DISDiffHadron& diffhadr = apply<DISDiffHadron>(event, "Hadron");
+        hadronOut = diffhadr.out();
+        hadronIn  = diffhadr.in();
+      } catch (const Error& e){
+        vetoEvent;
+      }
 
       // Determine kinematics: H1 has +z = proton direction
       int dir   = kin.orientation();
-      double W2 = kin.W2();
-      double W  = sqrt(W2);
       double y  = kin.y();
       double Q2 = kin.Q2();
 
       // Separate into DIS and PHO regimes else veto
-      if (!inRange(W, 165.*GeV, 242.*GeV)) vetoEvent;
-      if (Q2 < 0.01*GeV2) {
-        isDIS = false;
+      if (Q2 < 2.*GeV2 && inRange(y, 0.2, 0.70)) {
+        isPHO = true;
         ++nPHO;
-      } else if (inRange(Q2, 4.0*GeV2, 80.*GeV2)) {
-        isDIS = true;
+      } else if (inRange(Q2, 4.0*GeV2, 80.*GeV2) && inRange(y, 0.2, 0.7)) {
+        isPHO = false;
         ++nDIS;
-      } else {
-        vetoEvent;
-      }
-      ++nVeto0;
+      } else vetoEvent;
+      ++nVeto1;
 
-      // Find diffractive variables as defined in paper.
-      const double M2Y  = rg.M2Y();
+      // Find diffractive variables as defined in paper. 
+      // Note tagged protons in VFPS => smaller allowed xPom range
+      // xPom = 1 - E'/E, M2X from hadrons, t = (P-P')^2
       const double M2X  = rg.M2X();
       const double abst = abs(rg.t());
-      const double xPom = (isDIS) ? (Q2 + M2X) / (Q2 + W2) :
-                          rg.EpPzX(RapidityGap::LAB) / (2. * kin.beamHadron().E());
-
+      const double xPom = 1. - hadronOut.energy() / hadronIn.energy();
+      
+    //cout << "\nhadout=" << hadronOut.energy() << ", hadin=" << hadronIn.energy() << endl;
+    //cout << "xPomH1=" << (Q2+M2X) / (y * sqr(sqrtS())) << endl;
+    //cout << "|t|=" << abst << ", xPom=" << xPom << endl;
       // Veto if outside allowed region
-      if (sqrt(M2Y) > 1.6*GeV)    vetoEvent;
-      ++nVeto1;
-      if (abst > 1.0*GeV2) vetoEvent;
+      if (abst > 0.6 * GeV2)              vetoEvent;
       ++nVeto2;
-      if (xPom > 0.03)     vetoEvent;
+      if (!inRange(xPom, 0.010, 0.024)) vetoEvent;
       ++nVeto3;
 
-      // Jet selection. Note jets are found in photon-proton (XCM)
-      // frame, but eta cut is applied in lab frame!
+      // Jet selection. Note jets are found in XCM frame, but 
+      // eta cut is applied in lab frame! 
       Cut jetcuts = Cuts::Et > 4.* GeV;
       Jets jets   = apply<FastJets>(event, "DISFSJets").jets(jetcuts, cmpMomByEt);
-      // Veto if not dijets and if Et_j1 < 5.0
-      if (jets.size() < 2)       vetoEvent;
-      if (jets[0].Et() < 5.*GeV) vetoEvent;
+      // Veto if not dijets and if Et_j1 < 5.5
+      if (jets.size() < 2)          vetoEvent;
+      if (jets[0].Et() < 5.5 * GeV) vetoEvent;
       ++nVeto4;
-      // Find Et_jet1 and deltaEta* in XCM frame
-      double EtJet1       = jets[0].Et() * GeV;
-      double etaXCMJet1   = jets[0].eta();
-      double etaXCMJet2   = jets[1].eta();
-      double deltaEtaJets = abs(etaXCMJet1 - etaXCMJet2);
-
+      // Find Et_jet1 in XCM frame
+      double EtJet1 = jets[0].Et() * GeV;
+      
+    //cout << "gamma*p frame:" << endl;
+    //cout << "Et1=" << jets[0].Et() << ", E1=" << jets[0].E() << ", pz1=" << jets[0].pz()  << ", m1=" << jets[0].mass() << endl;
+    //cout << "Et2=" << jets[1].Et() << ", E2=" << jets[1].E() << ", pz2=" << jets[1].pz()  << ", m2=" << jets[1].mass() << endl;
+      
       // Transform from XCM to HCM
       const LorentzTransform xcmboost = disfsXcm.boost();
       for (int i = 0; i < 2; ++i) jets[i].transformBy(xcmboost.inverse());
-      // Find mass of jets and EpPz, EmPz of jets
+      
+      // Find mass of jets and EpPz, EmPz of jets in HCM frame.
       FourMomentum momJets = jets[0].momentum() + jets[1].momentum();
-      double M2jets   = momJets.mass2();
-      double EpPzJets = 0.;
-      double EmPzJets = 0.;
-      // DIS variables are found in XCM frame, so boost back again
-      if (isDIS){
-        for (int i = 0; i < 2; ++i) jets[i].transformBy(xcmboost);
-      }
+      double M2jets        = momJets.mass2();
+      double EpPzJets      = 0.;
+      double EmPzJets      = 0.;
       // Note sign change wrt. H1 because photon is in +z direction
-      // Jets in HCM so no need to consider orientation.
       for (int i = 0; i < 2; ++i){
         EpPzJets += jets[i].E() - jets[i].pz(); // Sign: + => -
         EmPzJets += jets[i].E() + jets[i].pz(); // Sign: - => +
@@ -416,85 +430,113 @@ namespace Rivet {
       for (int i = 0; i < 2; ++i) jets[i].transformBy(hcmboost.inverse());
       double etaLabJet1 = dir * jets[0].eta();
       double etaLabJet2 = dir * jets[1].eta();
-      double etaMin     = (isDIS) ? -3. : -1.;
-      double etaMax     = (isDIS) ? 0. : 2.;
-      double eta1       = (isDIS) ? etaXCMJet1 : etaLabJet1;
-      double eta2       = (isDIS) ? etaXCMJet2 : etaLabJet2;
-      if (!inRange(eta1, etaMin, etaMax)) vetoEvent;
-      if (!inRange(eta2, etaMin, etaMax)) vetoEvent;
+      if (!inRange(etaLabJet1, -1., 2.5)) vetoEvent;
+      if (!inRange(etaLabJet2, -1., 2.5)) vetoEvent;
       ++nVeto5;
 
-      // Pseudorapidity distributions are examined in lab frame:
-      double avgEtaJets   = 0.5 * (etaLabJet1 + etaLabJet2);
-
-      // Derive xPom and xGam values from the jet kinematics.
-      double zPomJets, xGamJets;
-      if (isDIS) {
+      // Pseudorapidity distributions are examined in lab frame:      
+      double deltaEtaJets = abs(dir * jets[0].eta() - dir * jets[1].eta());
+      double avgEtaJets   = 0.5 * (dir * jets[0].eta() + dir * jets[1].eta());
+      
+      // Evaluate observables
+      double zPomJets, xGamJets = 0.;
+      if (isPHO){
+        zPomJets = EpPzJets / rg.EpPzX(RapidityGap::HCM);
+        xGamJets = EmPzJets / rg.EmPzX(RapidityGap::HCM);
+        //cout << "xGamJets=" << xGamJets << endl;
+      } else { 
         zPomJets = (Q2 + M2jets) / (Q2 + M2X);
-        xGamJets = EmPzJets / rg.EmPzX(RapidityGap::XCM);
-      } else {
-        // Boost E_p, E_e to HCM frame
-        FourMomentum lep = hcmboost.transform(kin.beamLepton().momentum());
-        FourMomentum had = hcmboost.transform(kin.beamHadron().momentum());
-        zPomJets = EpPzJets / (2. * xPom * had.E());
-        xGamJets = EmPzJets / (2. * y * lep.E());
       }
+
+    //cout << "lab frame:" << endl;     
+    //cout << "Et1=" << jets[0].Et() << ", E1=" << jets[0].E() << ", pz1=" << jets[0].pz() << ", m1=" << jets[0].mass() <<  endl;
+    //cout << "Et2=" << jets[1].Et() << ", E2=" << jets[1].E() << ", pz2=" << jets[1].pz() << ", m2=" << jets[1].mass() <<  endl;
+    //cout << "EpPzJets=" << EpPzJets << ", EmPzJets=" << EmPzJets << endl;
+    //cout << "Et*exp(eta)=" << jets[0].Et()*exp(etaLabJet1) + jets[1].Et()*exp(etaLabJet2) << endl;
+    //cout << "Et*exp(-eta)=" << jets[0].Et()*exp(-etaLabJet1) + jets[1].Et()*exp(-etaLabJet2) << endl;
+    //cout << "EpPz=" << rg.EpPzX(RapidityGap::HCM) << ", EmPz=" << rg.EmPzX(RapidityGap::HCM) << endl;
+    //cout << "2 xPom Ep=" << 2. * xPom * kin.beamHadron().E() << ", 2 y Ee=" << 2. * y * kin.beamLepton().E() << endl;
+    //cout << "xGam=" << xGamJets << ", zPom=" << zPomJets << endl;
+    //cout << "M12=" << M2jets << ", deltaEta=" << deltaEtaJets << ", avgEta=" << avgEtaJets << endl;
+      
+      // Veto events with zPom > 0.8
+      if (zPomJets > 0.8) vetoEvent;
+      ++nVeto6;
 
       // Now fill histograms
-      if (isDIS){
-        _h_DIS_dsigdzPom     ->fill(zPomJets,     weight);
-        _h_DIS_dsigdlogXpom  ->fill(log10(xPom),  weight);
-        _h_DIS_dsigdW        ->fill(W,            weight);
-        _h_DIS_dsigdQ2       ->fill(Q2,           weight);
-        _h_DIS_dsigdEtJet1   ->fill(EtJet1,       weight);
-        _h_DIS_dsigdAvgEta   ->fill(avgEtaJets,   weight);
-        _h_DIS_dsigdDeltaEta ->fill(deltaEtaJets, weight);
+      if (isPHO){
+        _h_PHO_sig_sqrts     ->fill(sqrtS()/GeV,   weight);
+        _h_PHO_dsigdz        ->fill(zPomJets,      weight);
+        _h_PHO_dsigdxPom     ->fill(xPom,          weight);
+        _h_PHO_dsigdy        ->fill(y,             weight);
+        _h_PHO_dsigdxGam     ->fill(xGamJets,      weight);
+        _h_PHO_dsigdEtj1     ->fill(EtJet1,        weight);
+        _h_PHO_dsigdMX       ->fill(sqrt(M2X)*GeV, weight);
+        _h_PHO_dsigdDeltaEta ->fill(deltaEtaJets,  weight);
+        _h_PHO_dsigdAvgEta   ->fill(avgEtaJets,    weight);
       } else {
-        _h_PHO_dsigdzPom     ->fill(zPomJets,     weight);
-        _h_PHO_dsigdxGam     ->fill(xGamJets,     weight);
-        _h_PHO_dsigdlogXpom  ->fill(log10(xPom),  weight);
-        _h_PHO_dsigdW        ->fill(W,            weight);
-        _h_PHO_dsigdEtJet1   ->fill(EtJet1,       weight);
-        _h_PHO_dsigdAvgEta   ->fill(avgEtaJets,   weight);
-        _h_PHO_dsigdDeltaEta ->fill(deltaEtaJets, weight);
-        _h_PHO_dsigdMjets    ->fill(sqrt(M2jets), weight);
-      }
-
+      	_h_DIS_sig_sqrts     ->fill(sqrtS()/GeV,   weight);
+        _h_DIS_dsigdz        ->fill(zPomJets,      weight);
+        _h_DIS_dsigdxPom     ->fill(xPom,          weight);
+        _h_DIS_dsigdy        ->fill(y,             weight);
+        _h_DIS_dsigdQ2       ->fill(Q2,            weight);
+        _h_DIS_dsigdEtj1     ->fill(EtJet1,        weight);
+        _h_DIS_dsigdMX       ->fill(sqrt(M2X)*GeV, weight);
+        _h_DIS_dsigdDeltaEta ->fill(deltaEtaJets,  weight);
+        _h_DIS_dsigdAvgEta   ->fill(avgEtaJets,    weight);
+      }                    
+      
     }
 
     // Finalize
     void finalize() {
       // Normalise to cross section
+      // Remember to manually scale the cross section afterwards with
+      // the number of rejected events.
       const double norm = crossSection()/picobarn/sumOfWeights();
+      
+      scale(_h_PHO_sig_sqrts,     norm); 
+      scale(_h_PHO_dsigdz,        norm); 
+      scale(_h_PHO_dsigdxPom,     norm); 
+      scale(_h_PHO_dsigdy,        norm); 
+      scale(_h_PHO_dsigdxGam,     norm); 
+      scale(_h_PHO_dsigdEtj1,     norm); 
+      scale(_h_PHO_dsigdMX,       norm); 
+      scale(_h_PHO_dsigdDeltaEta, norm); 
+      scale(_h_PHO_dsigdAvgEta,   norm); 
 
-      scale( _h_DIS_dsigdzPom    , norm);
-      scale( _h_DIS_dsigdlogXpom , norm);
-      scale( _h_DIS_dsigdW       , norm);
-      scale( _h_DIS_dsigdQ2      , norm);
-      scale( _h_DIS_dsigdEtJet1  , norm);
-      scale( _h_DIS_dsigdAvgEta  , norm);
-      scale( _h_DIS_dsigdDeltaEta, norm);
-
-      scale( _h_PHO_dsigdzPom    , norm);
-      scale( _h_PHO_dsigdxGam    , norm);
-      scale( _h_PHO_dsigdlogXpom , norm);
-      scale( _h_PHO_dsigdW       , norm);
-      scale( _h_PHO_dsigdEtJet1  , norm);
-      scale( _h_PHO_dsigdAvgEta  , norm);
-      scale( _h_PHO_dsigdDeltaEta, norm);
-      scale( _h_PHO_dsigdMjets   , norm);
+      scale(_h_DIS_sig_sqrts,     norm); 
+      scale(_h_DIS_dsigdz,        norm); 
+      scale(_h_DIS_dsigdxPom,     norm); 
+      scale(_h_DIS_dsigdy,        norm); 
+      scale(_h_DIS_dsigdQ2,       norm); 
+      scale(_h_DIS_dsigdEtj1,     norm); 
+      scale(_h_DIS_dsigdMX,       norm); 
+      scale(_h_DIS_dsigdDeltaEta, norm); 
+      scale(_h_DIS_dsigdAvgEta,   norm); 
+      
+      if (_h_DIS_sig_sqrts->numEntries() != 0)
+        divide(_h_PHO_sig_sqrts, _h_DIS_sig_sqrts, _h_PHODIS_sqrts); 
+      if (_h_DIS_dsigdDeltaEta->numEntries() != 0)
+        divide(_h_PHO_dsigdDeltaEta, _h_DIS_dsigdDeltaEta, _h_PHODIS_deltaEta); 
+      if (_h_DIS_dsigdy->numEntries() != 0)
+        divide(_h_PHO_dsigdy, _h_DIS_dsigdy, _h_PHODIS_y); 
+      if (_h_DIS_dsigdz->numEntries() != 0)
+        divide(_h_PHO_dsigdz, _h_DIS_dsigdz, _h_PHODIS_z); 
+      if (_h_DIS_dsigdEtj1->numEntries() != 0)
+        divide(_h_PHO_dsigdEtj1, _h_DIS_dsigdEtj1, _h_PHODIS_Etj1); 
 
       const double dPHO = nPHO;
-      MSG_INFO("H1_2007_I746380");
+      MSG_INFO("H1_2015_I1343110");
       MSG_INFO("Cross section = " << crossSection()/picobarn << " pb");
       MSG_INFO("Number of events = " << numEvents() << ", sumW = " << sumOfWeights());
       MSG_INFO("Number of PHO = " << nPHO << ", number of DIS = " << nDIS);
-      MSG_INFO("Events passing electron veto   = " << nVeto0 << " (" << nVeto0/dPHO * 100. << "%)" );
-      MSG_INFO("Events passing MY              = " << nVeto1 << " (" << nVeto1/dPHO * 100. << "%)" );
+      MSG_INFO("Events passing electron veto   = " << nVeto1 << " (" << nVeto1/dPHO * 100. << "%)" );
       MSG_INFO("Events passing t veto          = " << nVeto2 << " (" << nVeto2/dPHO * 100. << "%)" );
       MSG_INFO("Events passing xPom            = " << nVeto3 << " (" << nVeto3/dPHO * 100. << "%)" );
-      MSG_INFO("Events passing jet Et veto     = " << nVeto4 << " (" << nVeto4/dPHO * 100. << "%)" );
+      MSG_INFO("Events passing jet Et   veto   = " << nVeto4 << " (" << nVeto4/dPHO * 100. << "%)" );
       MSG_INFO("Events passing jet eta veto    = " << nVeto5 << " (" << nVeto5/dPHO * 100. << "%)" );
+      MSG_INFO("Events passing zPom veto       = " << nVeto6 << " (" << nVeto6/dPHO * 100. << "%)" );
 
     }
 
@@ -506,29 +548,39 @@ namespace Rivet {
     /// @name Histograms
     //@{
     // Book histograms from REF data
-    Histo1DPtr _h_DIS_dsigdzPom    ;
-    Histo1DPtr _h_DIS_dsigdlogXpom ;
-    Histo1DPtr _h_DIS_dsigdW       ;
-    Histo1DPtr _h_DIS_dsigdQ2      ;
-    Histo1DPtr _h_DIS_dsigdEtJet1  ;
-    Histo1DPtr _h_DIS_dsigdAvgEta  ;
+    Histo1DPtr _h_PHO_sig_sqrts;
+    Histo1DPtr _h_DIS_sig_sqrts;
+    Scatter2DPtr _h_PHODIS_sqrts;
+    
+    Histo1DPtr _h_DIS_dsigdz;
+    Histo1DPtr _h_DIS_dsigdxPom;
+    Histo1DPtr _h_DIS_dsigdy;
+    Histo1DPtr _h_DIS_dsigdQ2;
+    Histo1DPtr _h_DIS_dsigdEtj1;
+    Histo1DPtr _h_DIS_dsigdMX;
     Histo1DPtr _h_DIS_dsigdDeltaEta;
+    Histo1DPtr _h_DIS_dsigdAvgEta;
 
-    Histo1DPtr _h_PHO_dsigdzPom    ;
-    Histo1DPtr _h_PHO_dsigdxGam    ;
-    Histo1DPtr _h_PHO_dsigdlogXpom ;
-    Histo1DPtr _h_PHO_dsigdW       ;
-    Histo1DPtr _h_PHO_dsigdEtJet1  ;
-    Histo1DPtr _h_PHO_dsigdAvgEta  ;
+    Histo1DPtr _h_PHO_dsigdz;
+    Histo1DPtr _h_PHO_dsigdxPom;
+    Histo1DPtr _h_PHO_dsigdy;
+    Histo1DPtr _h_PHO_dsigdxGam;
+    Histo1DPtr _h_PHO_dsigdEtj1;
+    Histo1DPtr _h_PHO_dsigdMX;
     Histo1DPtr _h_PHO_dsigdDeltaEta;
-    Histo1DPtr _h_PHO_dsigdMjets   ;
+    Histo1DPtr _h_PHO_dsigdAvgEta;
+
+    Scatter2DPtr _h_PHODIS_deltaEta;
+    Scatter2DPtr _h_PHODIS_y;
+    Scatter2DPtr _h_PHODIS_z;
+    Scatter2DPtr _h_PHODIS_Etj1;
     //@}
 
-    bool isDIS;
-    int  nVeto0, nVeto1, nVeto2, nVeto3, nVeto4, nVeto5;
-    int nPHO, nDIS;
+    bool isPHO;
+    int  nVeto1, nVeto2, nVeto3, nVeto4, nVeto5, nVeto6;
+    int  nPHO, nDIS;
   };
 
-  DECLARE_RIVET_PLUGIN(H1_2007_I746380);
+  DECLARE_RIVET_PLUGIN(H1_2015_I1343110);
 
 }
