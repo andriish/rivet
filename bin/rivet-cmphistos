@@ -477,11 +477,15 @@ if __name__ == '__main__':
         if is2d:
             anaobjects = anaobjects[:1]
         ## Add final attrs to Plot
-        plot['DrawOnly'] = ' '.join(varlines + mainlines).strip()
-        plot['LegendOnly'] = ' '.join(mainlines).strip()
-        if showratio and len(varlines + mainlines) > 1:
+        if not plot.has_key('DrawOnly'):
+            plot['DrawOnly'] = ' '.join(varlines + mainlines).strip()
+        if not plot.has_key('LegendOnly'):
+            plot['LegendOnly'] = ' '.join(mainlines).strip()
+        if showratio and not plot.has_key('RatioPlot') and len(varlines + mainlines) > 1:
             plot['RatioPlot'] = '1'
-            plot['RatioPlotReference'] = ratioreference
+        if showratio and plot.has_key('RatioPlot') and plot['RatioPlot'] == '1' and len(varlines + mainlines) > 0:
+            if not plot.has_key('RatioPlotReference'):
+                plot['RatioPlotReference'] = ratioreference
             if not hasdataref and "RatioPlotYLabel" not in plot:
                 if plot.get('RatioPlotMode', '') == 'deviation':
                     plot['RatioPlotYLabel'] = 'Deviation' #r'$\text{MC}-\text{MC}_\text{ref}$'
