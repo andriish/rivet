@@ -121,7 +121,8 @@ namespace Rivet {
     }
 
     /// Cast operator for conversion to GenParticle*
-    operator ConstGenParticlePtr () const { return genParticle(); }
+    /// @note Not implicit since that would enable accidental Particl::operator== comparisons
+    explicit operator ConstGenParticlePtr () const { return genParticle(); }
 
     //@}
 
@@ -373,7 +374,7 @@ namespace Rivet {
     Particles ancestors(const ParticleSelector& f, bool only_physical=true) const {
       return filter_select(ancestors(Cuts::OPEN, only_physical), f);
     }
-    
+
     /// Check whether any particle in the particle's ancestor list has the requested property
     ///
     /// @note This question is valid in MC, but may not be answerable
@@ -667,6 +668,22 @@ namespace Rivet {
     //@}
 
 
+    /// @name Comparison
+    //@{
+
+    /// Compare particles, based on "external" characteristics, with a little angular tolerance
+    ///
+    /// @note Not a deep comparison: GenParticle ptr and constituents are not used in the comparison
+    bool isSame(const Particle& other) const {
+      if (pid() != other.pid()) return false;
+      if (!isZero((mom() - other.mom()).mod())) return false;
+      if (!isZero((origin() - other.origin()).mod())) return false;
+      return true;
+    }
+
+    //@}
+
+
   protected:
 
     /// A pointer to the original GenParticle from which this Particle is projected.
@@ -701,7 +718,6 @@ namespace Rivet {
   std::ostream& operator << (std::ostream& os, const ParticlePair& pp);
 
   //@}
-
 
 }
 

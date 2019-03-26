@@ -158,9 +158,10 @@ else
   if test x$hepmc_version != x; then
     let hepmc_major=`echo "$hepmc_version" | cut -d. -f1`
     let hepmc_minor=`echo "$hepmc_version" | cut -d. -f2`
+    let hepmc_third=`echo "$hepmc_version" | cut -d. -f3`
   fi
   rm -f conftest conftest.cpp conftest.cc conftest.C
-  HEPMC_VERSION=$hepmc_major$hepmc_minor
+  HEPMC_VERSION=$hepmc_major$hepmc_minor$hepmc_third
   AC_MSG_NOTICE([HepMC version is $hepmc_version -> $HEPMC_VERSION])
   AC_SUBST(HEPMC_VERSION)
   CPPFLAGS=$oldCPPFLAGS

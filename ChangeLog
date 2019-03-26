@@ -7,6 +7,25 @@
 	format. Also included a simple progra bin/rivet-hepmz to convert
 	between this new format and othe HepMC fortmats.
 
+2019-03-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Extend more deltaPhi(x,y) functions with an optional bool for signed dPhi.
+
+	* Add Particle::isSame and isSame(Particle, Particle) functions in
+	lieu of implicit (and wrong) Particle::operator==.
+
+	* Reinstate Particle -> GenParticle as an explicit cast option.
+
+2019-03-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add CMS_2018_I1686000.cc single-top plus photon analysis (with
+	an info file warning about fiducial definition oddity)
+
+	* Remove Particle -> GenParticle implicit cast.
+
+	* analyses/pluginCMS/CMS_2018_I1682495.cc: Fix normalisation of
+	final plots (patch from Sal Rappoccio, spot by Deepak Kar)
+
 2019-02-27  Andy Buckley  <andy.buckley@cern.ch>
 
 	* bin/make-plots: Fix a few Py2/3 incompabilities in
@@ -517,7 +536,6 @@
 
 	* Add Event::centrality(), for non-HepMC access to the generator
 	value if one has been recorded -- otherwise -1.
->>>>>>> merge rev
 
 2017-06-28  Andy Buckley  <andy.buckley@cern.ch>
 

@@ -768,6 +768,12 @@ namespace Rivet {
   using namespace Kin;
 
 
+  /// Check Particle equivalence
+  inline bool isSame(const Particle& a, const Particle& b) {
+    return a.isSame(b);
+  }
+
+
 }
 
 #endif

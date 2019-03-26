@@ -48,19 +48,19 @@ namespace Rivet {
         vector<DressedLepton> allClusteredLeptons;
         const Jets jets = applyProjection<FastJets>(e, "LeptonJets").jetsByPt(5*GeV);
         for (const Jet& jet : jets) {
-          const Particle* lepCand = 0;
+          Particle lepCand;
           for (const Particle& cand : jet.particles()) {
             const int absPdgId = cand.abspid();
             if (absPdgId == PID::ELECTRON || absPdgId == PID::MUON) {
-              if ( !lepCand || cand.pt() > lepCand->pt() ) lepCand = &cand;
+              if (cand.pt() > lepCand.pt()) lepCand = cand;
             }
           }
           // Central lepton must be the major component
-          if ((lepCand->pt() < jet.pt()/2.) || (lepCand->pdgId() == 0)) continue;
+          if ((lepCand.pt() < jet.pt()/2.) || (lepCand.pdgId() == 0)) continue;
 
-          DressedLepton lepton = DressedLepton(*lepCand);
+          DressedLepton lepton = DressedLepton(lepCand);
           for (const Particle& cand : jet.particles()) {
-            if (&cand == lepCand) continue;
+            if (isSame(cand, lepCand)) continue;
             lepton.addPhoton(cand, true);
           }
           allClusteredLeptons.push_back(lepton);

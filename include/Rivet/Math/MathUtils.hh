@@ -574,8 +574,9 @@ namespace Rivet {
   /// Calculate the abs difference between two pseudorapidities
   ///
   /// @note Just a cosmetic name for analysis code clarity.
-  inline double deltaEta(double eta1, double eta2) {
-    return fabs(eta1 - eta2);
+  inline double deltaEta(double eta1, double eta2, bool sign=false) {
+    const double x = eta1 - eta2;
+    return sign ? fabs(x) : x;
   }
 
   /// Calculate the abs difference between two rapidities
