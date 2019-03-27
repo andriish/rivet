@@ -9,10 +9,10 @@ Optional arguments to loop over a range of INSPIRE IDs (for testing) and to forc
 
 Examples:
  # Specify Rivet directory, HEPData and yodadiff output directories, and redirect output to a text file.
- rivet-diffhepdata --all -r ../Rivet/analyses -d HEPDataYoda -o YodaDiffOutput > rivet-diffhepdata-all.txt
+ rivet-diffhepdata-all -r ../Rivet/analyses -d HEPDataYoda -o YodaDiffOutput > rivet-diffhepdata-all.txt
 
  # Loop over only the first 10 INSPIRE IDs (sorted by Rivet analysis name) and force HEPData re-download.
- rivet-diffhepdata --all -l 1 -u 10 -f  # for Rivet .yoda files located in a subdirectory of current path
+ rivet-diffhepdata-all -l 1 -u 10 -f  # for Rivet .yoda files located in a subdirectory of current path
 """
 
 from __future__ import print_function
@@ -31,7 +31,6 @@ args = parser.parse_args()
 rivet_directory = args.rivet_directory[0]
 hepdata_directory = args.hepdata_directory[0]
 output_name = args.output_directory[0]
-do_all = args.all
 lower_count = args.lower_count[0]
 upper_count = args.upper_count[0]
 force_download = args.force_download
@@ -39,7 +38,6 @@ print('Arguments specified:')
 print('    rivet_directory={}'.format(rivet_directory))
 print('    hepdata_directory={}'.format(hepdata_directory))
 print('    output={}'.format(output_name))
-print('    all={}'.format(do_all))
 print('    lower_count={}'.format(lower_count))
 print('    upper_count={}'.format(upper_count))
 print('    force_download={}'.format(force_download))
