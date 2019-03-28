@@ -9,8 +9,8 @@ Make the comparison using the yodadiff script distributed with YODA (https://yod
 Optionally write the yodadiff output to a file OUTPUT instead of stdout.
 
 Examples:
- rivet-diffhepdata -r ATLAS_2017_I1614149.yoda -i 1614149
- rivet-diffhepdata -r ATLAS_2017_I1614149.yoda -d HEPData-ins1614149-v2-yoda.yoda
+ rivet-diffhepdata ATLAS_2017_I1614149.yoda -i 1614149
+ rivet-diffhepdata ATLAS_2017_I1614149.yoda -d HEPData-ins1614149-v2-yoda.yoda
 """
 
 from __future__ import print_function
@@ -25,7 +25,7 @@ group.add_argument('-i', '--inspire_id', nargs=1, default=[0], type=int, help='I
 group.add_argument('-d', '--yodafile_from_hepdata', nargs=1, default=[None], help='name of YODA file already downloaded from HEPData')
 parser.add_argument('-o', '--output', nargs=1, default=[None], help='name of output file to write yodadiff output')
 args = parser.parse_args()
-compatible = compare_hepdata(args.yodafile, args.inspire_id[0], args.yodafile_from_hepdata[0], args.output[0])
+compatible = hepdatautils.compare_with_hepdata(args.yodafile, args.inspire_id[0], args.yodafile_from_hepdata[0], args.output[0])
 if compatible:
     print('YODA reference data files from Rivet and HEPData are compatible!')
 else:
