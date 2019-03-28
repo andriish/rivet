@@ -22,7 +22,7 @@ from rivet import hepdatautils
 
 parser = argparse.ArgumentParser(description='Check compatibility of YODA reference data files with HEPData for all Rivet analyses')
 parser.add_argument('-r', '--rivet_directory', nargs=1, default=['.'], help='directory to search for Rivet .yoda files')
-parser.add_argument('-d', '--hepdata_input', nargs=1, default=['.'], help='directory to store downloaded HEPData .yoda files')
+parser.add_argument('-d', '--hepdata_directory', nargs=1, default=['.'], help='directory to store downloaded HEPData .yoda files')
 parser.add_argument('-o', '--output_directory', nargs=1, default=['.'], help='directory to write yodadiff output')
 parser.add_argument('-l', '--lower_count', nargs=1, type=int, default=[0], help='minimum count for loop over INSPIRE IDs')
 parser.add_argument('-u', '--upper_count', nargs=1, type=int, default=[0], help='maximum count for loop over INSPIRE IDs')
