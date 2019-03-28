@@ -135,7 +135,7 @@ namespace Rivet {
            PT_1100_1200_dj,
            PT_1200_1300_dj,
            PT_1300_Inf_dj,
-           N_PT_BINS_dj } BINS_dj;
+           N_PT_BINS_dj };
     static const int N_CATEGORIES=2;
     const double ptBins_dj[N_PT_BINS_dj+1]= { 200., 260., 350., 460., 550., 650., 760., 900., 1000., 1100., 1200., 1300., 13000.};
 
