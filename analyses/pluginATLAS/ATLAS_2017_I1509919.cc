@@ -18,27 +18,55 @@ namespace Rivet {
 
       declare(ChargedFinalState(Cuts::abseta < 2.5 && Cuts::pT > 500*MeV), "CFS500");
 
-      for (size_t iR = 0; iR < NREGIONS; ++iR) {
-        // Nch profiles vs. pT_lead
-        book(_hist_nch[iR], 1, 1 + iR, 1);
-        // pTsum profiles vs. pT_lead
-        book(_hist_ptsum[iR], 2, 1 + iR, 1);
-        // <pT> profiles vs pT_lead (not measured for trans diff)
-        if (iR != kTransDiff)  book(_hist_ptavg[iR], 3, 1 + iR, 1);
-        // <pT> profiles vs. Nch (not measured for trans diff)
-        if (iR != kTransDiff)  book(_hist_dn_dpt[iR], 4, 1 + iR, 1);
-        // Only measured for trans max/min
-        if ( (iR == kTransMax) || (iR == kTransMin) )  book(_hist_dn_dpt2[iR], 5, 1 + iR, 1);
-      }
+      // Nch profiles vs. pT_lead
+      book(_hist_nch[0], 22, 1, 1);
+      book(_hist_nch[1], 23, 1, 1);
+      book(_hist_nch[2], 21, 1, 1);
+      book(_hist_nch[3],  3, 1, 1);
+      book(_hist_nch[4],  2, 1, 1);
+      book(_hist_nch[5],  4, 1, 1);
+
+      // pTsum profiles vs. pT_lead
+      book(_hist_ptsum[0], 25, 1, 1);
+      book(_hist_ptsum[1], 26, 1, 1);
+      book(_hist_ptsum[2], 24, 1, 1);
+      book(_hist_ptsum[3],  6, 1, 1);
+      book(_hist_ptsum[4],  5, 1, 1);
+      book(_hist_ptsum[5],  7, 1, 1);
+
+      // <pT> profiles vs pT_lead (not measured for trans diff)
+      book(_hist_ptavg[0], 29, 1, 1);
+      book(_hist_ptavg[1], 30, 1, 1);
+      book(_hist_ptavg[2], 11, 1, 1);
+      book(_hist_ptavg[3], 13, 1, 1);
+      book(_hist_ptavg[4], 12, 1, 1);
+
+      // <pT> profiles vs. Nch (not measured for trans diff)
+      book(_hist_dn_dpt[0], 27, 1, 1);
+      book(_hist_dn_dpt[1], 28, 1, 1);
+      book(_hist_dn_dpt[2],  8, 1, 1);
+      book(_hist_dn_dpt[3], 10, 1, 1);
+      book(_hist_dn_dpt[4],  9, 1, 1);
+
+      // Only measured for trans max/min
+      book(_hist_dn_dpt2[3], 32, 1, 1);
+      book(_hist_dn_dpt2[4], 31, 1, 1);
+
+      // Nch vs. Delta(phi) profiles
+      book(_hist_N_vs_dPhi[0], 15, 1, 1);
+      book(_hist_N_vs_dPhi[1], 16, 1, 1);
+      book(_hist_N_vs_dPhi[2], 17, 1, 1);
+
+      // pT vs. Delta(phi) profiles
+      book(_hist_pT_vs_dPhi[0], 18, 1, 1);
+      book(_hist_pT_vs_dPhi[1], 19, 1, 1);
+      book(_hist_pT_vs_dPhi[2], 20, 1, 1);
+
+      //ptLead histos only for 1 and 5 GeV cuts
+      book(_hist_ptLead[0],  1, 1, 1);
+      book(_hist_ptLead[1], 14, 1, 1);
 
       for (size_t iC = 0; iC < NCUTS; ++iC) {
-        // Nch vs. Delta(phi) profiles
-        book(_hist_N_vs_dPhi[iC], 6, 1 + iC, 1);
-        // pT vs. Delta(phi) profiles
-        book(_hist_pT_vs_dPhi[iC], 7, 1 + iC, 1);
-        //ptLead histos only for 1 and 5 GeV cuts
-        if ( (iC == 0) || (iC == 1) )  book(_hist_ptLead[iC], 8, 1 + iC, 1);
-        //
         book(_counters[iC], "Ctr_cut_" + toString(iC));
       }
 
@@ -269,7 +297,6 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2017_I1509919);
 
 }

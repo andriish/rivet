@@ -28,8 +28,8 @@ namespace Rivet {
       kpms.acceptIdPair(PID::KPLUS);
       declare(kpms, "Kpms");
 
-      book(_h_phi_rapidity ,1,1,1);
-      book(_h_phi_pT       ,2,1,1);
+      book(_h_phi_pT       ,1,1,1);
+      book(_h_phi_rapidity ,2,1,1);
     }
 
 
@@ -85,7 +85,6 @@ namespace Rivet {
     Histo1DPtr _h_phi_rapidity, _h_phi_pT;
 
   };
-
 
 
   DECLARE_RIVET_PLUGIN(ATLAS_2014_I1282441);

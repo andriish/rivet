@@ -566,8 +566,9 @@ namespace Rivet {
   /// @brief Calculate the difference between two angles in radians
   ///
   /// Returns in the range [0, PI].
-  inline double deltaPhi(double phi1, double phi2) {
-    return mapAngle0ToPi(phi1 - phi2);
+  inline double deltaPhi(double phi1, double phi2, bool sign=false) {
+    const double x = mapAngleMPiToPi(phi1 - phi2);
+    return sign ? x : fabs(x);
   }
 
   /// Calculate the abs difference between two pseudorapidities

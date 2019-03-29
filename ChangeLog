@@ -1,4 +1,198 @@
-2018-08-30  Andy Buckley  <andy.buckley@cern.ch>
+2019-02-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* bin/make-plots: Fix a few Py2/3 incompabilities in
+	make-plots. Thanks to Leif Gellersen for the tip-off
+
+	* analyses/Makefile.am: Adopt a more make-friendly plugin building
+	rule. Thanks to Dima Konstantinov.
+
+2019-02-24  Jon Butterworth  <j.butterworth@ucl.ac.uk>
+
+	* Fix multiple bugs in ATLAS_2017_I1514251 (Z+jets) including a
+	problem with REF data having zero bin widths
+
+2019-02-17  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Convert ATLAS_2013_I1217863 analysis variants to use the LMODE
+	analysis option (from Jon Butterworth).
+
+2019-02-15  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* Release 2.7.0
+
+2019-02-12  Christian Bierlich  <christian.bierlich@thep.lu.se>
+
+	* Introduced CentralityProjection, allowing an analysis to cut
+	on percentiles of single event quantities, preloaded from a
+	user generated or supplied (by experiment) histogram. Notably
+	used for the centrality definition in heavy ion analyses.
+	User specifies the centrality definition as a special analysis
+	option called cent, eg: "MyAnalysis:cent=GEN".
+	Example usage: Calibration analysis: MC_Cent_pPb_Calib,
+	Analysis using that calibration: MC_Cent_pPb_Eta.
+
+	* Introduced EventMixingFinalState to provide simple event mixing
+	functionality. Currently only works with unit event weights.
+	Example usage: ALICE_2016_I1507157.
+
+	* Introduced Correlators, a framework for calculating single event
+	correlators based on the generic framework (arXiv: 1010.0233 and
+	arXiv: 1312.3572), and perfoming all event averages giving flow
+	coefficents. Implemented as new analysis base class.
+	Example usage: ALICE_2016_I1419244.
+
+	* Introduced a PrimaryParticle projection, replicating experimental
+	definitions of stable particles through decay chains. Recommended for
+	analyses which would otherwise have to require stable particles
+	at generator level.
+
+	* Introduced AliceCommon and AtlasCommon convenience tools, defining
+	several triggers, primary particle definitions and acceptances.
+
+	* Contributed, validated analyses using above features:
+	ALICE_2010_I880049: Multiplicity at mid-rapidity, PbPb @ 2.76 TeV/nn.
+	ALICE_2012_I1127497: Nuclear modification factor, PbPb @ 2.76 TeV/nn.
+	ALICE_2012_I930312: Di-hadron correlations, PbPb @ 2.76 TeV/nn.
+
+	* Contributed, unvalidated analyses using above features:
+	BRAHMS_2004_I647076: pi, K, p spectra as function of rapidity,
+	AuAu @ 200 GeV/nn
+	ALICE_2012_I1126966: pi, K, p spectra, PbPb @ 2.76 TeV/nn.
+	ALICE_2013_I1225979: Charged multiplicity, PbPb @ 2.76 TeV/nn.
+	ALICE_2014_I1243865: Multi-strange baryons, PbPb @ 2.76 TeV/nn.
+	ALICE_2014_I1244523: Multi-strange baryons, pPb @ 5.02 TeV/nn.
+	ALICE_2015_PBPBCentrality: Centrality calibration for PbPb. Note
+	that the included 5.02 TeV/nn data is not well defined at particle
+	level, and cannot be compared to experiment without full detector
+	simulation.
+	ALICE_2016_I1394676: Charged multiplicity, PbPb @ 2.76 TeV/nn.
+	ALICE_2016_I1419244: Multiparticle correlations (flow) using generic
+	framework, PbPb @ 5.02 TeV/nn.
+	ALICE_2016_I1471838: Multi-strange baryons, pp @ 7 TeV.
+	ALICE_2016_I1507090: Charged multiplicity, PbPb @ 5.02 TeV/nn.
+	ALICE_2016_I1507157: Angular correlations, pp @ 7 TeV.
+	ATLAS_2015_I1386475: Charged multiplicity, pPb @ 5.02 TeV/nn.
+	ATLAS_PBPB_CENTRALITY: Forward energy flow + centrality calibration,
+	data not unfolded, but well defined at particle level, PbPb @ 2.76
+	TeV/nn.
+	ATLAS_2015_I1360290: Charged multiplicity + spectra, PbPb @ 2.76
+	TeV/nn.
+	ATLAS_pPb_Calib: Forward energy flow + centrality calibration,
+	data not unfolded, but well defined at particle level, pPb @ 5.02
+	TeV/nn.
+	STAR_2016_I1414638: Di-hadron correlations, AuAu @ 200 GeV/nn.
+	CMS_2017_I1471287: Multiparticle correlations (flow) using generic
+	framework, pp @ 7 TeV.
+
+	* Contributed analyses without data:
+	ALICE_2015_PPCentrality: ALICE pp centrality (multiplicity classes)
+	calibration.
+	BRAHMS_2004_CENTRALITY: BRAHMS centrality calibration.
+	STAR_BES_CALIB: STAR centrality calibration.
+	MC_Cent_pPb_Calib: Example analysis, centrality calibration.
+	MC_Cent_pPb_Eta: Example analysis, centrality usage.
+
+2019-01-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add real CMS Run 1 and Run 2 MET resolution smearing functions, based on 8 TeV paper and 13 TeV PAS.
+
+2019-01-07  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* Reintroduced the PXCONE option in FastJets using a local version
+	of the Fortran based pxcone algorithm converted to c++ with f2c
+	and slightly hacked to avoid dependency on Fortran runtime libraries.
+
+	* Introduced rivet-merge for statistically correct merging of YODA
+	files produced by Rivet. Only works on analysis with reentrant
+	finalize.
+
+	* Introduced --dump flag to the rivet script to periodically run
+	finalize and write out the YODA file for anayses with reentrant
+	finalize.
+
+	* Introduced reentrant finalize. Rivet now produces YODA files
+	where all analysis objects are stored in two version. One is
+	prefixed by "/RAW" and gives the state of the object before
+	finalize was run, and the other is the properly finalized object.
+	Analyses must be flagged "Reentrant: True" in the .info file to
+	properly use this feature.
+
+	* Added an option system. Analyses can now be added to rivet with
+	options. Adding eg. "MyAnalysis:Opt1=val1:Opt2=val2" will create
+	and add a MyAnalysis object making the options available through
+	the Analysis::getOption() function. Several objects of MyAnalysis
+	with different options can be added in the same run. Allowed
+	options must be specified in the MyAnalysis.info file.
+
+	* Added several utilities for heavy ions.
+
+2019-01-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add setting of cross-section error in AnalysisHandler and Run.
+
+2018-12-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add hasNoTag jet-classification functor, to complement hasBTag and hasCTag.
+
+2018-12-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Rework VetoedFinalState to be based on Cuts, and to be constructible from Cut arguments.
+
+	* Pre-emptively exclude all hadrons and partons from returning true in isDirect computations.
+
+	* Cache the results of isDirect calculations on Particle (a bit awkwardly... roll on C++17).
+
+	* Add a default-FinalState version of the DressedLeptons constructor.
+
+2018-12-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a FIRST/LAST enum switch for PartonicTops, to choose which top quark clone to use.
+
+2018-12-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a FastJet clustering mode for DressedLeptons.
+
+2018-12-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Release 2.6.2
+
+	* Info file bugfixes for LHCF_2016_I1385877, from Eugenio Berti.
+
+	* Update references in three CMS analysis .info files.
+
+2018-12-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Rework doc directory no-build by default to be compatible with 'make dist' packaging.
+
+	* Add fjcontrib RecursiveTools to Rivet/Tools/fjcontrib set.
+
+2018-11-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add CMS_2018_I1653948, CMS_2018_I1653948, CMS_2018_I1682495, and CMS_2018_I1690148 analyses.
+
+	* Add FastJet EnergyCorrelator and rejig the internal fjcontrib bundle a little.
+
+2018-11-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Merge ATLAS_2017_I1517194_MU and ATLAS_2018_I1656578.
+
+	* Add signed calculation optional bool argument on all deltaPhi functions.
+
+2018-11-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix CMS_2012_I1102908 efficiency calculation. Thanks to Anton Karneyeu!
+
+2018-11-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Remove doc dir from default top-level make
+
+2018-09-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use updated ATLAS R2 muon efficiencies.
+
+	* Use proper ATLAS photon efficiency functions for Runs 1 and 2, from arXiv:1606.01813 and ATL-PHYS-PUB-2016-014.
+
+2018-08-31  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Update embedded yaml-cpp to v0.6.0.
 
@@ -162,11 +356,6 @@
 
 	* Add missing pT (rather than Et) functions to SmearedMET,
 	although they are just copies of the MET functions for now.
-
-2017-10-26  Chris Pollard  <cspollard@gmail.com>
-
-	* update the way crossSection() works; remove
-	setNeedsCrossSection()
 
 2017-10-09  Andy Buckley  <andy.buckley@cern.ch>
 

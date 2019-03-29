@@ -54,7 +54,6 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& e) {
-      vector<FourMomentum> Bmom;
 
       const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
       const ZFinder& zfindermu = apply<ZFinder>(e, "ZFinderMu");
@@ -67,6 +66,7 @@ namespace Rivet {
       const bool is_boosted = ( z[0].pT() > 50*GeV );
 
       // Loop over the unstable particles
+      vector<FourMomentum> Bmom;
       for (const Particle& p : ufs.particles()) {
         const PdgId pid = p.pid();
 
@@ -79,21 +79,22 @@ namespace Rivet {
 
           // Loop over the decay products of each unstable particle, looking for a b-hadron pair
           /// @todo Avoid HepMC API
-          for (GenVertex::particles_out_const_iterator it = vgen->particles_out_const_begin(); it !=  vgen->particles_out_const_end(); ++it) {
-            // If the particle produced has a bottom quark do not count it and go to the next loop cycle.
-            if (!( PID::hasBottom( (*it)->pdg_id() ) ) ) {
-              good_B = true;
-              continue;
-            } else {
-              good_B = false;
-              break;
-            }
-          }
-          if (good_B ) Bmom.push_back( p.momentum() );
-        }
-        else continue;
+	  if (vgen) {
+	    for (GenVertex::particles_out_const_iterator it = vgen->particles_out_const_begin(); it !=  vgen->particles_out_const_end(); ++it) {
+	      // If the particle produced has a bottom quark do not count it and go to the next loop cycle.
+	      if (!( PID::hasBottom( (*it)->pdg_id() ) ) ) {
+		good_B = true;
+		continue;
+	      } else {
+		good_B = false;
+		break;
+	      }
+	    }	    
+	    if (good_B ) Bmom.push_back( p.momentum() );
+	  }
+	  else continue;
+	}
       }
-
       // If there are more than two B's in the final state veto the event
       if (Bmom.size() != 2 ) vetoEvent;
 
@@ -177,7 +178,6 @@ namespace Rivet {
   };
 
 
-  // Hook for the plugin system
   DECLARE_RIVET_PLUGIN(CMS_2013_I1256943);
 
 }

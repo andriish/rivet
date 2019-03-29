@@ -38,7 +38,7 @@ namespace Rivet {
     /// @todo Clear rather than new the GenEvent object per-event?
     _evt.reset(new GenEvent());
     if (_io->rdstate() != 0 || !_io->fill_next_event(_evt.get()) ) {
-      Log::getLog("Rivet.Run") << Log::DEBUG << "Read failed. End of file?" << '\n';
+      Log::getLog("Rivet.Run") << Log::DEBUG << "Read failed. End of file?" << endl;
       return false;
     }
     // Rescale event weights by file-level weight, if scaling is non-trivial
@@ -53,7 +53,7 @@ namespace Rivet {
   // Fill event and check for a bad read state --- to skip, maybe HEPMC3 will have a better way
   bool Run::skipEvent() {
     if (_io->rdstate() != 0 || !_io->fill_next_event(_evt.get()) ) {
-      Log::getLog("Rivet.Run") << Log::DEBUG << "Read failed. End of file?" << '\n';
+      Log::getLog("Rivet.Run") << Log::DEBUG << "Read failed. End of file?" << endl;
       return false;
     }
     return true;
@@ -78,7 +78,7 @@ namespace Rivet {
       _io.reset(new HepMC::IO_GenEvent(*_istr));
     }
     if (_io->rdstate() != 0) {
-      Log::getLog("Rivet.Run") << Log::ERROR << "Read error on file " << evtfile << '\n';
+      Log::getLog("Rivet.Run") << Log::ERROR << "Read error on file " << evtfile << endl;
       return false;
     }
     return true;
@@ -92,7 +92,7 @@ namespace Rivet {
     bool ok = readEvent();
     if (!ok) return false;
     if (_evt->particles_size() == 0) {
-      Log::getLog("Rivet.Run") << Log::ERROR << "Empty first event." << '\n';
+      Log::getLog("Rivet.Run") << Log::ERROR << "Empty first event." << endl;
       return false;
     }
 
@@ -102,13 +102,14 @@ namespace Rivet {
     // Set cross-section from command line
     if (!std::isnan(_xs)) {
       Log::getLog("Rivet.Run")
-        << Log::DEBUG << "Will use user-set cross-section = " << _xs << " pb" << '\n';
+        << Log::DEBUG << "Setting user cross-section = " << _xs << " pb" << endl;
+      _ah.setCrossSection(_xs);
     }
 
     // List the chosen & compatible analyses if requested
     if (_listAnalyses) {
       for (const std::string& ana : _ah.analysisNames()) {
-        cout << ana << '\n';
+        cout << ana << endl;
       }
     }
 
@@ -117,6 +118,23 @@ namespace Rivet {
 
 
   bool Run::processEvent() {
+    // Set cross-section if found in event and not from command line
+    if (std::isnan(_xs) && _evt->cross_section()) {
+      const double xs = _evt->cross_section()->cross_section()*picobarn;
+      const double xserr = _evt->cross_section()->cross_section_error()*picobarn;
+      Log::getLog("Rivet.Run")
+        << Log::DEBUG << "Setting cross-section = " << xs << " +- " << xserr << " pb" << endl;
+      _ah.setCrossSection(xs, xserr);
+    }
+    // Complain about absence of cross-section if required!
+    if (_ah.needCrossSection() && !_ah.hasCrossSection()) {
+      Log::getLog("Rivet.Run")
+        << Log::ERROR
+        << "Total cross-section needed for at least one of the analyses. "
+        << "Please set it (on the command line with '-x' if using the 'rivet' program)" << endl;
+      return false;
+    }
+
     // Analyze event
     _ah.analyze(*_evt);
 
@@ -134,4 +152,6 @@ namespace Rivet {
 
     return true;
   }
+
+
 }

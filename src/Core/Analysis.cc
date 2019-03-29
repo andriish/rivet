@@ -4,11 +4,10 @@
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/AnalysisInfo.hh"
 #include "Rivet/Tools/BeamConstraint.hh"
-
-// #include "DummyConfig.hh"
-// #ifdef HAVE_EXECINFO_H
-// #include <execinfo.h>
-// #endif
+#include "Rivet/Projections/ImpactParameterProjection.hh"
+#include "Rivet/Projections/GeneratedPercentileProjection.hh"
+#include "Rivet/Projections/UserCentEstimate.hh"
+#include "Rivet/Projections/CentralityProjection.hh"
 
 namespace Rivet {
 
@@ -91,8 +90,12 @@ namespace Rivet {
     return handler().numEvents();
   }
 
-  double Analysis::sumOfWeights() const {
-    return handler().sumOfWeights();
+  double Analysis::sumW() const {
+    return handler().sumW();
+  }
+
+  double Analysis::sumW2() const {
+    return handler().sumW2();
   }
 
 
@@ -112,6 +115,37 @@ namespace Rivet {
   }
 
 
+  // bool Analysis::beamIDsCompatible(const PdgIdPair& beams) const {
+  //   bool beamIdsOk = false;
+  //   for (const PdgIdPair& bp : requiredBeams()) {
+  //     if (compatible(beams, bp)) {
+  //       beamIdsOk =  true;
+  //       break;
+  //     }
+  //   }
+  //   return beamIdsOk;
+  // }
+
+
+  // /// Check that the energies are compatible (within 1% or 1 GeV, whichever is larger, for a bit of UI forgiveness)
+  // bool Analysis::beamEnergiesCompatible(const pair<double,double>& energies) const {
+  //   /// @todo Use some sort of standard ordering to improve comparisons, esp. when the two beams are different particles
+  //   bool beamEnergiesOk = requiredEnergies().size() > 0 ? false : true;
+  //   typedef pair<double,double> DoublePair;
+  //   for (const DoublePair& ep : requiredEnergies()) {
+  //     if ((fuzzyEquals(ep.first, energies.first, 0.01) && fuzzyEquals(ep.second, energies.second, 0.01)) ||
+  //         (fuzzyEquals(ep.first, energies.second, 0.01) && fuzzyEquals(ep.second, energies.first, 0.01)) ||
+  //         (abs(ep.first - energies.first) < 1*GeV && abs(ep.second - energies.second) < 1*GeV) ||
+  //         (abs(ep.first - energies.second) < 1*GeV && abs(ep.second - energies.first) < 1*GeV)) {
+  //       beamEnergiesOk =  true;
+  //       break;
+  //     }
+  //   }
+  //   return beamEnergiesOk;
+  // }
+
+
+  // bool Analysis::beamsCompatible(const PdgIdPair& beams, const pair<double,double>& energies) const {
   bool Analysis::isCompatible(const PdgIdPair& beams, const pair<double,double>& energies) const {
     // First check the beam IDs
     bool beamIdsOk = false;
@@ -138,9 +172,6 @@ namespace Rivet {
       }
     }
     return beamEnergiesOk;
-
-    /// @todo Need to also check internal consistency of the analysis'
-    /// beam requirements with those of the projections it uses.
   }
 
 
@@ -156,7 +187,7 @@ namespace Rivet {
   }
 
   double Analysis::crossSectionPerEvent() const {
-    return crossSection()/sumOfWeights();
+    return crossSection()/sumW();
   }
 
 
@@ -168,10 +199,13 @@ namespace Rivet {
   void Analysis::_cacheRefData() const {
     if (_refdata.empty()) {
       MSG_TRACE("Getting refdata cache for paper " << name());
-      _refdata = getRefData(name());
+      _refdata = getRefData(getRefDataName());
     }
   }
 
+  vector<AnalysisObjectPtr> Analysis::getAllData(bool includeorphans) const{
+    return handler().getData(includeorphans);
+  }
 
   CounterPtr & Analysis::book(CounterPtr & ctr,
                       const string& cname,
@@ -181,6 +215,7 @@ namespace Rivet {
     addAnalysisObject(ctr);
     MSG_TRACE("Made counter " << cname << " for " << name());
     return ctr;
+    //return addOrGetCompatAO(make_shared<Counter>(histoPath(cname), title));
   }
 
 
@@ -210,6 +245,7 @@ namespace Rivet {
     addAnalysisObject(histo);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
     return histo;
+
 //    Histo1DPtr hist;
 //    try { // try to bind to pre-existing
 //      // AnalysisObjectPtr ao = getAnalysisObject(path);
@@ -223,6 +259,12 @@ namespace Rivet {
 //      addAnalysisObject(hist);
 //      MSG_TRACE("Made histogram " << hname <<  " for " << name());
 //    }
+
+    //Histo1DPtr hist = make_shared<Histo1D>(nbins, lower, upper, histoPath(hname), title);
+    //hist->setTitle(title);
+    //hist->setAnnotation("XLabel", xtitle);
+    //hist->setAnnotation("YLabel", ytitle);
+    //return addOrGetCompatAO(hist);
   }
 
   Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname,
@@ -263,10 +305,25 @@ namespace Rivet {
 
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
     return histo;
+
+    //Histo1DPtr hist = make_shared<Histo1D>(binedges, histoPath(hname), title);
+    //hist->setTitle(title);
+    //hist->setAnnotation("XLabel", xtitle);
+    //hist->setAnnotation("YLabel", ytitle);
+    //return addOrGetCompatAO(hist);
   }
 
 
-  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname,
+  Histo1DPtr Analysis::book(Histo1DPtr& histo, const string& hname,
+                                   const initializer_list<double>& binedges,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle) {
+    return book(histo, hname, vector<double>{binedges}, title, xtitle, ytitle);
+  }
+
+
+  Histo1DPtr Analysis::bookHisto1D(const string& hname,
                                    const Scatter2D& refscatter,
                                    const string& title,
                                    const string& xtitle,
@@ -286,6 +343,7 @@ namespace Rivet {
 //      addAnalysisObject(hist);
 //	MSG_TRACE("Made histogram " << hname <<  " for " << name());
 //    }
+
     Histo1D hist = Histo1D(refscatter, path);
 
     hist.setTitle(title);
@@ -297,6 +355,12 @@ namespace Rivet {
 
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
     return histo;
+
+    //Histo1DPtr hist = make_shared<Histo1D>(refscatter, histoPath(hname));
+    //hist->setTitle(title);
+    //hist->setAnnotation("XLabel", xtitle);
+    //hist->setAnnotation("YLabel", ytitle);
+    //return addOrGetCompatAO(hist);
   }
 
   Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname,
@@ -343,6 +407,12 @@ namespace Rivet {
 
     MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
     return h2d;
+
+    //Histo2DPtr hist = make_shared<Histo2D>(nxbins, xlower, xupper, nybins, ylower, yupper, path, title);
+    //hist->setAnnotation("XLabel", xtitle);
+    //hist->setAnnotation("YLabel", ytitle);
+    //hist->setAnnotation("ZLabel", ztitle);
+    //return addOrGetCompatAO(hist);
   }
 
 
@@ -377,7 +447,10 @@ namespace Rivet {
 
     MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
     return h2d;
+
+    //return addOrGetCompatAO(hist);
   }
+
 
   Histo2DPtr & Analysis::book(Histo2DPtr & histo, const string& hname,
                                    const Scatter3D& refscatter,
@@ -399,7 +472,10 @@ namespace Rivet {
 
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
     return histo;
+
+    //return addOrGetCompatAO(hist);
   }
+
 
   Histo2DPtr & Analysis::book(Histo2DPtr & histo, const string& hname,
                                    const string& title,
@@ -410,6 +486,7 @@ namespace Rivet {
     return book(histo, hname, refdata, title, xtitle, ytitle, ztitle);
   }
 
+
   Histo2DPtr & Analysis::book(Histo2DPtr & histo, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
                                    const string& title,
                                    const string& xtitle,
@@ -419,6 +496,8 @@ namespace Rivet {
     return book(histo, axisCode, title, xtitle, ytitle, ztitle);
   }
 
+
+  /////////////////
 
 
   Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname,
@@ -437,6 +516,8 @@ namespace Rivet {
 
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     return p1d;
+
+    //return addOrGetCompatAO(prof);
   }
 
 
@@ -463,10 +544,22 @@ namespace Rivet {
 
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     return p1d;
+
+    //return addOrGetCompatAO(prof);
   }
 
 
-  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname,
+  Profile1DPtr Analysis::book(Profile1DPtr & prof, const string& hname,
+                                       const initializer_list<double>& binedges,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle)
+  {
+    return book(prof, hname, vector<double>{binedges}, title, xtitle, ytitle);
+  }
+
+
+  Profile1DPtr Analysis::bookProfile1D(const string& hname,
                                        const Scatter2D& refscatter,
                                        const string& title,
                                        const string& xtitle,
@@ -482,7 +575,9 @@ namespace Rivet {
 
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     return p1d;
-//    if (prof.hasAnnotation("IsRef")) prof.rmAnnotation("IsRef");
+
+    // if (prof.hasAnnotation("IsRef")) prof.rmAnnotation("IsRef");
+    //return addOrGetCompatAO(prof);
   }
 
 
@@ -505,6 +600,9 @@ namespace Rivet {
   }
 
 
+  ///////////////////
+
+
   Profile2DPtr & Analysis::book(Profile2DPtr & p2d, const string& hname,
                                    size_t nxbins, double xlower, double xupper,
                                    size_t nybins, double ylower, double yupper,
@@ -524,6 +622,8 @@ namespace Rivet {
 
     MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
     return p2d;
+
+    //return addOrGetCompatAO(prof);
   }
 
 
@@ -537,6 +637,7 @@ namespace Rivet {
   {
   	return book(p2d, hname, vector<double>{xbinedges}, vector<double>{ybinedges}, title, xtitle, ytitle, ztitle);
   }
+
 
   Profile2DPtr & Analysis::book(Profile2DPtr & p2d, const string& hname,
                                    const vector<double>& xbinedges,
@@ -557,6 +658,52 @@ namespace Rivet {
 
     MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
     return p2d;
+
+    //return addOrGetCompatAO(prof);
+  }
+
+
+  Profile2DPtr Analysis::book(Profile2DPtr & prof, const string& hname,
+                                       const initializer_list<double>& xbinedges,
+                                       const initializer_list<double>& ybinedges,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle,
+                                       const string& ztitle)
+  {
+    return book(prof, hname, vector<double>{xbinedges}, vector<double>{ybinedges},
+                         title, xtitle, ytitle, ztitle);
+  }
+
+
+/* RE-ENABLE
+  Profile2DPtr Analysis::book(Profile2DPtr& prof,const string& hname,
+                                       const Scatter3D& refscatter,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle,
+                                       const string& ztitle) {
+    const string path = histoPath(hname);
+    Profile2DPtr prof( new Profile2D(refscatter, path) );
+    addAnalysisObject(prof);
+    MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
+    if (prof->hasAnnotation("IsRef")) prof->rmAnnotation("IsRef");
+    prof->setTitle(title);
+    prof->setAnnotation("XLabel", xtitle);
+    prof->setAnnotation("YLabel", ytitle);
+    prof->setAnnotation("ZLabel", ztitle);
+    return prof;
+  }
+*/
+
+
+  Profile2DPtr Analysis::book(Profile2DPtr& prof, const string& hname,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle,
+                                       const string& ztitle) {
+    const Scatter3D& refdata = refData<Scatter3D>(hname);
+    return bookProfile2D(prof, hname, refdata, title, xtitle, ytitle, ztitle);
   }
 
 
@@ -595,6 +742,8 @@ namespace Rivet {
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
 //    if (scat.hasAnnotation("IsRef")) scat.rmAnnotation("IsRef");
     return s2d;
+
+    //return addOrGetCompatAO(s);
   }
 
 
@@ -621,8 +770,9 @@ namespace Rivet {
 
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
     return s2d;
-  }
 
+    //return addOrGetCompatAO(s);
+  }
 
   Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname,
                                        const vector<double>& binedges,
@@ -647,7 +797,12 @@ namespace Rivet {
 
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
     return s2d;
+
+    //return addOrGetCompatAO(s);
   }
+
+
+  /////////////////////
 
 
   void Analysis::divide(CounterPtr c1, CounterPtr c2, Scatter1DPtr s) const {
@@ -887,7 +1042,6 @@ namespace Rivet {
         break;
       }
     }
-
   }
 
   void Analysis::removeAnalysisObject(const MultiweightAOPtr & ao) {
@@ -897,6 +1051,106 @@ namespace Rivet {
         break;
       }
     }
+ }
+
+const CentralityProjection &
+Analysis::declareCentrality(const SingleValueProjection &proj,
+                            string calAnaName, string calHistName,
+                            const string projName, bool increasing) {
+
+  CentralityProjection cproj;
+
+  // Select the centrality variable from option. Use REF as default.
+  // Other selections are "GEN", "IMP" and "USR" (USR only in HEPMC 3).
+  string sel = getOption<string>("cent","REF");
+  set<string> done;
+
+  if ( sel == "REF" ) {
+    Scatter2DPtr refscat;
+    auto refmap = getRefData(calAnaName);
+    if ( refmap.find(calHistName) != refmap.end() )
+      refscat =
+        dynamic_pointer_cast<Scatter2D>(refmap.find(calHistName)->second);
+
+    if ( !refscat ) {
+      MSG_WARNING("No reference calibration histogram for " <<
+                  "CentralityProjection " << projName << " found " <<
+                  "(requested histogram " << calHistName << " in " <<
+                  calAnaName << ")");
+    }
+    else {
+      MSG_INFO("Found calibration histogram " << sel << " " << refscat->path());
+      cproj.add(PercentileProjection(proj, refscat, increasing), sel);
+    }
   }
+  else if ( sel == "GEN" ) {
+    Histo1DPtr genhist;
+    string histpath = "/" + calAnaName + "/" + calHistName;
+    for ( AnalysisObjectPtr ao : handler().getData(true) ) {
+      if ( ao->path() == histpath )
+        genhist = dynamic_pointer_cast<Histo1D>(ao);
+    }
+    if ( !genhist || genhist->numEntries() <= 1 ) {
+      MSG_WARNING("No generated calibration histogram for " <<
+               "CentralityProjection " << projName << " found " <<
+               "(requested histogram " << calHistName << " in " <<
+               calAnaName << ")");
+    }
+    else {
+      MSG_INFO("Found calibration histogram " << sel << " " << genhist->path());
+      cproj.add(PercentileProjection(proj, genhist, increasing), sel);
+    }
+  }
+  else if ( sel == "IMP" ) {
+    Histo1DPtr imphist =
+      getAnalysisObject<Histo1D>(calAnaName, calHistName + "_IMP");
+    if ( !imphist || imphist->numEntries() <= 1 ) {
+      MSG_WARNING("No impact parameter calibration histogram for " <<
+               "CentralityProjection " << projName << " found " <<
+               "(requested histogram " << calHistName << "_IMP in " <<
+               calAnaName << ")");
+    }
+    else {
+      MSG_INFO("Found calibration histogram " << sel << " " << imphist->path());
+      cproj.add(PercentileProjection(ImpactParameterProjection(),
+                                     imphist, true), sel);
+    }
+  }
+  else if ( sel == "USR" ) {
+#if HEPMC_VERSION_CODE >= 3000000
+    Histo1DPtr usrhist =
+      getAnalysisObject<Histo1D>(calAnaName, calHistName + "_USR");
+    if ( !usrhist || usrhist->numEntries() <= 1 ) {
+      MSG_WARNING("No user-defined calibration histogram for " <<
+               "CentralityProjection " << projName << " found " <<
+               "(requested histogram " << calHistName << "_USR in " <<
+               calAnaName << ")");
+      continue;
+    }
+    else {
+      MSG_INFO("Found calibration histogram " << sel << " " << usrhist->path());
+      cproj.add((UserCentEstimate(), usrhist, true), sel);
+     }
+#else
+      MSG_WARNING("UserCentEstimate is only available with HepMC3.");
+#endif
+    }
+  else if ( sel == "RAW" ) {
+#if HEPMC_VERSION_CODE >= 3000000
+    cproj.add(GeneratedCentrality(), sel);
+#else
+    MSG_WARNING("GeneratedCentrality is only available with HepMC3.");
+#endif
+  }
+    else
+      MSG_WARNING("'" << sel << "' is not a valid PercentileProjection tag.");
+
+  if ( cproj.empty() )
+    MSG_WARNING("CentralityProjection " << projName
+                << " did not contain any valid PercentileProjections.");
+
+  return declare(cproj, projName);
+
+}
 
 }

@@ -36,13 +36,11 @@ namespace Rivet {
       declare(photonfs, "LeadingPhoton");
 
       // Book the dsigma/dEt (in eta bins) histograms
-      for (size_t i = 0; i < _eta_bins.size() - 1; i++) {
-        if (fuzzyEquals(_eta_bins[i], 1.37)) continue; // skip this bin
-        book(_h_Et_photon[i] ,1, 1, i+1);
-      }
+      book(_h_Et_photon[0], 1, 1, 1);
+      book(_h_Et_photon[2], 2, 1, 1);
 
       // Book the dsigma/d|eta| histogram
-      book(_h_eta_photon ,1,2,1);
+      book(_h_eta_photon, 3, 1, 1);
     }
 
 
@@ -103,8 +101,8 @@ namespace Rivet {
 
       // Fill histograms
       const size_t eta_bin = _getEtaBin(leadingPhoton.abseta(), false);
-      _h_Et_photon[eta_bin]->fill(leadingPhoton.Et(), 1.0);
-      _h_eta_photon->fill(leadingPhoton.abseta(), 1.0);
+      _h_Et_photon[eta_bin]->fill(leadingPhoton.Et());
+      _h_eta_photon->fill(leadingPhoton.abseta());
     }
 
 

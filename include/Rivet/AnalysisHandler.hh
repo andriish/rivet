@@ -61,28 +61,45 @@ namespace Rivet {
     /// steering code or analyses in the finalize phase.
     size_t numEvents() const;
 
-    /// Get the sum of the event weights seen - the weighted equivalent of the
-    /// number of events. Should only really be used by external steering code
-    /// or analyses in the finalize phase.
-    double sumOfWeights() const {
-        return _eventCounter->sumW();
-    }
+    /// @brief Access the sum of the event weights seen
+    ///
+    /// This is the weighted equivalent of the number of events. It should only
+    /// be used by external steering code or analyses in the finalize phase.
+    double sumW() const { return _eventCounter->sumW(); }
+    /// Access to the sum of squared-weights
+    double sumW2() const { return _eventCounter->sumW2(); }
 
+    /// Names of event weight categories
     const vector<string>& weightNames() const {
         return _weightNames;
     }
 
-    size_t numWeights() const {
-        return _weightNames.size();
+
+    /*
+    /// @brief Set the sum of weights
+    ///
+    /// This is useful if Rivet is steered externally and
+    /// the analyses are run for a sub-contribution of the events
+    /// (but of course have to be normalised to the total sum of weights)
+    ///
+    /// @todo What about the sumW2 term? That needs to be set coherently. Need a
+    /// new version, with all three N,sumW,sumW2 numbers (or a counter)
+    /// supplied.
+    ///
+    /// @deprecated Weight sums are no longer tracked this way...
+    void setSumOfWeights(const double& sum) {
+      //_sumOfWeights = sum;
+      throw Error("Can't set sum of weights independently, since it's now tracked by a Counter. "
+                  "Please contact the Rivet authors if you need this.");
     }
+    */
+
 
     /// Set the cross-section for the process being generated.
     AnalysisHandler& setCrossSection(double xs, double xserr);
 
     /// Get the cross-section known to the handler.
-    Scatter1DPtr crossSection() const {
-      return _xs;
-    }
+    Scatter1DPtr crossSection() const { return _xs; }
 
     double nominalCrossSection() const {
       _xs.get()->setActiveWeightIdx(_defaultWeightIdx);
@@ -146,6 +163,9 @@ namespace Rivet {
     /// no analysis is added (i.e. the null pointer is checked and discarded.
     AnalysisHandler& addAnalysis(const std::string& analysisname);
 
+    /// @brief Add an analysis with a map of analysis options.
+    AnalysisHandler& addAnalysis(const std::string& analysisname, std::map<string, string> pars);
+    
     /// @brief Add analyses to the run list using their names.
     ///
     /// The actual {@link Analysis}' to be used will be obtained via
@@ -199,19 +219,41 @@ namespace Rivet {
     void readData(const std::string& filename);
 
     /// Get all analyses' plots as a vector of analysis objects.
-    std::vector<YODA::AnalysisObjectPtr> getData() const;
-    std::vector<MultiweightAOPtr>        getRivetAOs() const;
-    std::vector<YODA::AnalysisObjectPtr> getYodaAOs() const;
-
-    /// Get all analyses' plots as a vector of analysis objects.
-    void setWeightNames(const GenEvent& ge);
-
-    /// Do we have named weights?
-    bool haveNamedWeights();
-
+    std::vector<AnalysisObjectPtr> getData() const;
 
     /// Write all analyses' plots (via getData) to the named file.
     void writeData(const std::string& filename) const;
+
+
+    /// Tell Rivet to dump intermediate result to a file named @a
+    /// dumpfile every @a period'th event. If @period is not positive,
+    /// no dumping will be done.
+    void dump(string dumpfile, int period) {
+      _dumpPeriod = period;
+      _dumpFile = dumpfile;
+    }
+
+    /// Take the vector of yoda files and merge them together using
+    /// the cross section and weight information provided in each
+    /// file. Each file in @a aofiles is assumed to have been produced
+    /// by Rivet. By default the files are assumed to contain
+    /// different processes (or the same processs but mutually
+    /// exclusive cuts), but if @a equiv if ture, the files are
+    /// assumed to contain output of completely equivalent (but
+    /// statistically independent) Rivet runs. The corresponding
+    /// analyses will be loaded and their analysis objects will be
+    /// filled with the merged result. finalize() will be run on each
+    /// relevant anslysis. The resulting YODA file can then be rwitten
+    /// out by writeData(). If delopts is non-empty, it is assumed to
+    /// contain names different options to be merged into the same
+    /// analysis objects.
+    void mergeYodas(const vector<string> & aofiles,
+                    const vector<string> & delopts = vector<string>(),
+                    bool equiv = false);
+
+    /// Helper function to strip specific options from data object paths.
+    void stripOptions(AnalysisObjectPtr ao,
+                      const vector<string> & delopts) const;
 
     //@}
 
@@ -222,12 +264,22 @@ namespace Rivet {
     /// Which stage are we in?
     Stage stage() const { return _stage; }
 
+
   private:
+
     /// Current handler stage
     Stage _stage = Stage::OTHER;
 
     /// The collection of Analysis objects to be used.
     set<AnaHandle, CmpAnaHandle> _analyses;
+
+    /// A vector of pre-loaded object which do not have a valid
+    /// Analysis plugged in.
+    vector<AnalysisObjectPtr> _orphanedPreloads;
+
+    /// A vector containing copies of analysis objects after
+    /// finalize() has been run.
+    vector<AnalysisObjectPtr> _finalizedAOs;
 
     /// @name Run properties
     //@{
@@ -240,7 +292,8 @@ namespace Rivet {
     /// Run name
     std::string _runname;
 
-    mutable CounterPtr _eventCounter;
+    /// Event counter
+    mutable Counter _eventCounter;
 
     /// Cross-section known to AH
     Scatter1DPtr _xs;
@@ -258,6 +311,18 @@ namespace Rivet {
     int _eventNumber;
 
     size_t _defaultWeightIdx;
+
+    /// Determines how often Rivet runs finalize() and writes the
+    /// result to a YODA file.
+    int _dumpPeriod;
+
+    /// The name of a YODA file to which Rivet periodically dumps
+    /// results.
+    string _dumpFile;
+
+    /// Flag to indicate periodic dumping is in progress
+    bool _dumping;
+
     //@}
 
 

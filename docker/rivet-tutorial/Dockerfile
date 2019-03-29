@@ -6,5 +6,3 @@ CMD /bin/bash
 WORKDIR /work
 
 ADD . /work
-
-RUN yum install -y nano

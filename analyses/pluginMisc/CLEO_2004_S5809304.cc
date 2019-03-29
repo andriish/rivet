@@ -11,9 +11,32 @@ namespace Rivet {
   class CLEO_2004_S5809304 : public Analysis {
   public:
 
-    CLEO_2004_S5809304()
-      : Analysis("CLEO_2004_S5809304")
-    { }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CLEO_2004_S5809304);
+
+    void init() {
+      declare(Beam(), "Beams");
+      declare(UnstableFinalState(), "UFS");
+
+      // continuum cross sections
+      book(_sigmaDPlus      ,1,1,1);
+      book(_sigmaD0A        ,1,1,2);
+      book(_sigmaD0B        ,1,1,3);
+      book(_sigmaDStarPlusA ,1,1,4);
+      book(_sigmaDStarPlusB ,1,1,5);
+      book(_sigmaDStar0A    ,1,1,6);
+      book(_sigmaDStar0B    ,1,1,7);
+
+       // histograms for continuum data
+      book(_histXpDplus      ,2, 1, 1);
+      book(_histXpD0A        ,3, 1, 1);
+      book(_histXpD0B        ,4, 1, 1);
+      book(_histXpDStarPlusA ,5, 1, 1);
+      book(_histXpDStarPlusB ,6, 1, 1);
+      book(_histXpDStar0A    ,7, 1, 1);
+      book(_histXpDStar0B    ,8, 1, 1);
+      book(_histXpTotal      ,9, 1, 1);
+
+    }
 
 
     void analyze(const Event& e) {
@@ -36,9 +59,9 @@ namespace Rivet {
         // 3-momentum in CMS frame
         const double mom = cms_boost.transform(p.momentum()).vector3().mod();
 
-        const int PdgId = p.abspid();
-        MSG_DEBUG("pdgID = " << PdgId << "  mom = " << mom);
-        switch (PdgId) {
+        const int pdgid = p.abspid();
+        MSG_DEBUG("pdgID = " << pdgid << "  mom = " << mom);
+        switch (pdgid) {
 
         case 421:
           MSG_DEBUG("D0 found");
@@ -50,6 +73,7 @@ namespace Rivet {
           _histXpD0B->fill(xp);
           _histXpTotal->fill(xp);
           break;
+
         case 411:
           MSG_DEBUG("D+ found");
           mH2 = 3.49547; // 1.86962^2
@@ -81,8 +105,9 @@ namespace Rivet {
           _histXpTotal->fill(xp);
           break;
         }
+
       }
-    } // analyze
+    }
 
 
     void finalize() {
@@ -103,33 +128,8 @@ namespace Rivet {
       scale(_histXpDStar0A   , crossSection()/picobarn/sumOfWeights());
       scale(_histXpDStar0B   , crossSection()/picobarn/sumOfWeights());
       scale(_histXpTotal     , crossSection()/picobarn/sumOfWeights()/4.);
-    } // finalize
+    }
 
-
-    void init() {
-      declare(Beam(), "Beams");
-      declare(UnstableFinalState(), "UFS");
-
-      // continuum cross sections
-      book(_sigmaDPlus      ,1,1,1);
-      book(_sigmaD0A        ,1,1,2);
-      book(_sigmaD0B        ,1,1,3);
-      book(_sigmaDStarPlusA ,1,1,4);
-      book(_sigmaDStarPlusB ,1,1,5);
-      book(_sigmaDStar0A    ,1,1,6);
-      book(_sigmaDStar0B    ,1,1,7);
-
-       // histograms for continuum data
-      book(_histXpDplus      ,2, 1, 1);
-      book(_histXpD0A        ,3, 1, 1);
-      book(_histXpD0B        ,4, 1, 1);
-      book(_histXpDStarPlusA ,5, 1, 1);
-      book(_histXpDStarPlusB ,6, 1, 1);
-      book(_histXpDStar0A    ,7, 1, 1);
-      book(_histXpDStar0B    ,8, 1, 1);
-      book(_histXpTotal      ,9, 1, 1);
-
-    } // init
 
   private:
 
@@ -156,7 +156,7 @@ namespace Rivet {
 
   };
 
-  // The hook for the plugin system
+
   DECLARE_RIVET_PLUGIN(CLEO_2004_S5809304);
 
 }

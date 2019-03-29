@@ -40,9 +40,9 @@ namespace Rivet {
       for (size_t alg = 0; alg < 2; ++alg) {
         for (size_t i = 0; i < 6; ++i) {
           Histo1DPtr tmp;
-          _pt[alg].add(ybins[i], ybins[i + 1], book(tmp, 1 + ptDsOffset, 1, i + 1));
+          _pt[alg].add(ybins[i], ybins[i + 1], book(tmp, 1 + ptDsOffset, 1, 1));
+          ptDsOffset += 1;
         }
-        ptDsOffset += 1;
       }
     }
 
@@ -60,10 +60,10 @@ namespace Rivet {
         for (const Jet& jet : jetAr[alg]) {
           const double absrap = jet.absrap();
           if (absrap < 3.0) {
-	          const double pt = jet.pT();
-	          if (pt/GeV > 100*GeV) {
-	            _pt[alg].fill(absrap, pt/GeV, 1.0);
-	          }
+            const double pt = jet.pT();
+            if (pt/GeV > 100*GeV) {
+              _pt[alg].fill(absrap, pt/GeV);
+            }
           }
         }
       }
@@ -72,7 +72,6 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
 
       /// Print summary info
       const double xs_pb( crossSection() / picobarn );
@@ -101,7 +100,6 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2014_I1325553);
 
 }

@@ -104,6 +104,7 @@ namespace Rivet {
 
     }
 
+
     void analyze(const Event& event) {
 
       // Get the selected objects, using the projections.
@@ -143,7 +144,6 @@ namespace Rivet {
         pbjet1 = bjets[1].momentum();
         pbjet2 = bjets[0].momentum();
       }
-
 
       double bestWmass = 1000.0*TeV;
       double mWPDG = 80.399*GeV;
@@ -208,6 +208,7 @@ namespace Rivet {
       _h["RWt_norm"]->fill(                  R_Wt);
 
     }
+
 
     void finalize() {
       // Normalize to cross-section

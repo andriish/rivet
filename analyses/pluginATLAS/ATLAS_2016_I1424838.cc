@@ -46,18 +46,19 @@ namespace Rivet {
       // Booking of ES histos
       for (size_t alg = 0; alg < 5; ++alg) {
         // Book the inclusive histograms
-        book(_h_Elec_Ntrk[alg]         ,_mkHistoName(1, 1, alg));
-        book(_h_Elec_SumPt[alg]        ,_mkHistoName(2, 1, alg));
-        book(_h_Elec_Beamthrust[alg]   ,_mkHistoName(3, 1, alg));
-        book(_h_Elec_Thrust[alg]       ,_mkHistoName(4, 1, alg));
-        book(_h_Elec_FParam[alg]       ,_mkHistoName(5, 1, alg));
-        book(_h_Elec_Spherocity[alg]   ,_mkHistoName(6, 1, alg));
-        book(_h_Muon_Ntrk[alg]         ,_mkHistoName(1, 2, alg));
-        book(_h_Muon_SumPt[alg]        ,_mkHistoName(2, 2, alg));
-        book(_h_Muon_Beamthrust[alg]   ,_mkHistoName(3, 2, alg));
-        book(_h_Muon_Thrust[alg]       ,_mkHistoName(4, 2, alg));
-        book(_h_Muon_FParam[alg]       ,_mkHistoName(5, 2, alg));
-        book(_h_Muon_Spherocity[alg]   ,_mkHistoName(6, 2, alg));
+        size_t offset = alg * 6;
+        book(_h_Elec_Ntrk[alg]         ,_mkHistoName(offset+1,  1, 1));
+        book(_h_Elec_SumPt[alg]        ,_mkHistoName(offset+2,  1, 1));
+        book(_h_Elec_Beamthrust[alg]   ,_mkHistoName(offset+3,  1, 1));
+        book(_h_Elec_Thrust[alg]       ,_mkHistoName(offset+4,  1, 1));
+        book(_h_Elec_FParam[alg]       ,_mkHistoName(offset+5,  1, 1));
+        book(_h_Elec_Spherocity[alg]   ,_mkHistoName(offset+6,  1, 1));
+        book(_h_Muon_Ntrk[alg]         ,_mkHistoName(offset+31, 1, 1));
+        book(_h_Muon_SumPt[alg]        ,_mkHistoName(offset+32, 1, 1));
+        book(_h_Muon_Beamthrust[alg]   ,_mkHistoName(offset+33, 1, 1));
+        book(_h_Muon_Thrust[alg]       ,_mkHistoName(offset+34, 1, 1));
+        book(_h_Muon_FParam[alg]       ,_mkHistoName(offset+35, 1, 1));
+        book(_h_Muon_Spherocity[alg]   ,_mkHistoName(offset+36, 1, 1));
       }
     }
 

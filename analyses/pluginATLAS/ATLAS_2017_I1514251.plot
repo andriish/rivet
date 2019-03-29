@@ -22,7 +22,7 @@ LegendYPos=0.3
 YLabel=$\sigma(Z + \geq N_\text{jets}+1) / \sigma(Z + \geq N_\text{jets})$
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2017_I1514251/d0[1-3
+# BEGIN PLOT /ATLAS_2017_I1514251/d0[1-3]
 XLabel=$N_\text{jets}$
 YLabel=$\sigma(Z + N_\text{jets})$ [pb]
 # END PLOT
@@ -95,3 +95,7 @@ YLabel=d$\sigma/$d$M$ [pb/GeV]
 XLabel=$M$(leading, second jet) [GeV]
 # END PLOT
 
+
+# BEGIN PLOT /ATLAS_2017_I1514251/d1
+Title=$Z \rightarrow e^+ e^-$, dressed level
+# END PLOT

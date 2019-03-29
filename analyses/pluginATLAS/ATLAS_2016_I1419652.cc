@@ -168,7 +168,6 @@ namespace Rivet {
   const int ATLAS_2016_I1419652::nchCut[] = {1, 1};
 
 
-  // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2016_I1419652);
 
 }

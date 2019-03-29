@@ -10,15 +10,12 @@ namespace Rivet {
   class ATLAS_2015_I1351916 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
-    /// Constructors
-    ATLAS_2015_I1351916(string name="ATLAS_2015_I1351916", size_t mode=0)
-      : Analysis(name), _mode(mode) // pick electron channel by default
-    { }
-
-    //@}
+    /// Constructor
+    ATLAS_2015_I1351916(const string name="ATLAS_2015_I1351916", size_t mode=0,
+                        const string ref_data="ATLAS_2015_I1351916") : Analysis(name) {
+      _mode = mode; // pick electron channel by default
+      setRefDataName(ref_data);
+    }
 
 
     /// @name Analysis methods
@@ -38,27 +35,17 @@ namespace Rivet {
 
 
       // Book dummy histograms for heterogeneous merging
-      /// @todo AB: Don't we have a nicer way to book dummy/tmp histos from ref?
-      string label = "NCC";
-      string hname = "d01-x01-y01";
-      const Scatter2D& ref = refData(hname);
-      hname = "d01-x01-y02";
-      book(_h[label + "_pos"] ,hname, ref);
-      hname = "d01-x01-y03";
-      book(_h[label + "_neg"] ,hname, ref);
-      if (_mode == 0) {
-        label = "NCF";
-        hname = "d01-x02-y01";
-        const Scatter2D& ref_cf = refData(hname);
-        hname = "d01-x02-y02";
-        book(_h[label + "_pos"] ,hname, ref_cf);
-        hname = "d01-x02-y03";
-        book(_h[label + "_neg"] ,hname, ref_cf);
-      }
+      const Scatter2D& ref = refData(_mode? 4 : 2, 1, 2);
+      book(_h["NCC_pos"], "_ncc_pos", ref);
+      book(_h["NCC_neg"], "_ncc_neg", ref);
+      book(_s["CC"], _mode ? 4 : 2, 1, 2, true);
 
-      // Book asymmetry scatter plots
-      book(_s["CC"], 1, 1, 1, true);
-      if (_mode == 0) book(_s["CF"], 1, 2, 1, true);
+      if (_mode == 0) { // electron-channel only
+        const Scatter2D& ref_cf = refData(3, 1, 2);
+        book(_h["NCF_pos"], "_ncf_pos", ref_cf);
+        book(_h["NCF_neg"], "_ncf_neg", ref_cf);
+        book(_s["CF"], 3, 1, 2, true);
+      }
     }
 
 

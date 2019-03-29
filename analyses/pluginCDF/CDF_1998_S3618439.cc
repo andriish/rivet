@@ -10,25 +10,16 @@ namespace Rivet {
   class CDF_1998_S3618439 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
-    CDF_1998_S3618439()
-      : Analysis("CDF_1998_S3618439")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_1998_S3618439);
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{
 
     /// Book histograms and initialise projections before the run
     void init() {
-      FinalState fs((Cuts::etaIn(-4.2, 4.2)));
+      FinalState fs(Cuts::abseta < 4.2);
       declare(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
 
       book(_h_sumET_20 ,1, 1, 1);
@@ -38,7 +29,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      Jets jets = apply<FastJets>(event, "Jets").jets(Cuts::Et > 20*GeV, cmpMomByEt);
+      const Jets jets = apply<FastJets>(event, "Jets").jets(Cuts::Et > 20*GeV, cmpMomByEt);
       double sumET_20(0.0), sumET_100(0.0);
       for (const Jet& jet : jets) {
         double ET = jet.Et()/GeV;

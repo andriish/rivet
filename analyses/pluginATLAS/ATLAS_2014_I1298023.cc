@@ -12,17 +12,9 @@ namespace Rivet {
   class ATLAS_2014_I1298023 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-    ATLAS_2014_I1298023()
-      : Analysis("ATLAS_2014_I1298023")
-    {
+    /// Constructor
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2014_I1298023);
 
-    }
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{
@@ -96,10 +88,10 @@ namespace Rivet {
       if ( dijet.mass() <= 500*GeV )  vetoEvent;
 
       // inclusive region
-      _hist->fill(0.5);
+      _hist->fill(1);
 
       // VBS region
-      if ( deltaRap(jets[0], jets[1]) > 2.4 )  _hist->fill(1.5);
+      if ( deltaRap(jets[0], jets[1]) > 2.4 )  _hist->fill(2);
     }
 
     /// Normalise histograms etc., after the run
@@ -120,7 +112,7 @@ namespace Rivet {
 
   };
 
-  // The hook for the plugin system
+
   DECLARE_RIVET_PLUGIN(ATLAS_2014_I1298023);
 
 }

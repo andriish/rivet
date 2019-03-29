@@ -3,13 +3,13 @@ Year: 2015
 Summary: Studies of the underlying event at 300, 900 and 1960 GeV with leading charged particles
 Experiment: CDF
 Collider: Tevatron
-InspireID:
+InspireID: 1388868
 Status: VALIDATED
 Authors:
  - Oreste Tumbarell Aranda
  - Hannes Jung (hannes.jung@cern.ch)
  - Paolo Gunnellini (paolo.gunnellini@desy.de)
- - Andy Buckley (cleaining/integration)
+ - Andy Buckley (cleaning/integration)
 References:
  - 'Phys. Rev. D 92, 092009 (2015)'
  - 'arXiv:1508.05340'

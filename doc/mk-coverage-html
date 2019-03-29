@@ -1,25 +1,23 @@
 #! /usr/bin/env python
 
-from __future__ import division
+from __future__ import division, print_function
 
 """\
 %prog <file.json> [<file.json> ...]
 
 TODO:
- - add experiment grouping (with JS tabbing?)
- - add dates/years
- - allow hiding "search" analyses; note, not orthogonal to grey/black
- - add JS sorting and filtering on experiment, date, priority, and keywords (HI, search, ...)
+ - do Rivet lookup in this script, not the JSON-maker
+ - get and write year of publication in table
 """
 
 import argparse
 ap = argparse.ArgumentParser(usage=__doc__)
 ap.add_argument("JSONFILES", metavar="file", nargs="+",
-                help="JSON CDS/HD/Inspire xref file to read")
-ap.add_argument("-r", "--ranking", dest="RANKFILES", metavar="file", action="append",
-                help="lists of CDS IDs to exclude, suppress, and highlight")
+                help="JSON Inspire xref file to read")
+ap.add_argument("-r", "--ranking", dest="RANKFILES", metavar="file", action="append", default=[],
+                help="lists of Inspire IDs to exclude, suppress, and highlight")
 ap.add_argument("-R", "--reverse", dest="REVERSE", action="store_true", default=False,
-                help="show list *reverse* ordered in CDS ID")
+                help="show list *reverse* ordered in Inspire ID")
 ap.add_argument("-s", "--only-searches", dest="ONLYSEARCHES", action="store_true", default=False,
                 help="only show search analyses")
 ap.add_argument("-S", "--no-searches", dest="NOSEARCHES", action="store_true", default=False,
@@ -34,13 +32,46 @@ ap.add_argument("--basename", dest="BASENAME", default="rivet-coverage",
                 help="the base name for output files [default=%(default)s]")
 ap.add_argument("--update-ranking", dest="UPDATERANK", action="store_true", default=False,
                 help="update the per-experiment ranking files")
+ap.add_argument("-v", "--verbose", dest="VERBOSE", action="store_true", default=False,
+                help="print debug info to the terminal")
 args = ap.parse_args()
 
 
 import datetime
 now = datetime.datetime.now()
 
-EXPTS = ["ALICE", "ATLAS", "CMS", "LHCb", "Unknown"]
+## Experiment (grouping) names and regex patterns
+import re
+EXPTS = ["ALICE", "ATLAS", "CMS", "LHCb", "B-factories", "HERA", "Other"]
+EXPT_PATTS = ["ALICE", "ATLAS", "CMS", "LHCb", "BABAR|BELLE", "H1|ZEUS"]
+EXPT_REOBJS = [re.compile(patt, re.I) for patt in EXPT_PATTS]
+
+## Add the rivet Python module build dir(s) to the Python module path, then import
+import os, sys
+pybuild = os.path.abspath(os.path.join(os.getcwd(), "..", "pyext", "build"))
+pydirs = [os.path.join(pybuild, d) for d in os.listdir(pybuild)
+          if re.match(r"lib\..*-.*-%d\.%d" % (sys.version_info[0], sys.version_info[1]), d)]
+sys.path = pydirs + sys.path
+import rivet
+
+## Add info file locations
+from glob import glob
+dirpatt = os.path.join(os.getcwd(), "..", "analyses", "plugin*")
+for d in glob(dirpatt):
+    #print(d)
+    rivet.addAnalysisDataPath(os.path.abspath(d))
+
+## Rivet analyses to cross-reference
+ranas = {}
+for aname in rivet.AnalysisLoader.analysisNames():
+    ana = rivet.AnalysisLoader.getAnalysis(aname)
+    # TODO: all anas *should* have an Inspire ID...
+    try:
+        # print(aname, ":", ana.inspireId(), ":")
+        ranas.setdefault(int(ana.inspireId()), []).append(ana.name())
+    except:
+        pass
+
 
 ## Read data from JSON files
 records = {}
@@ -48,70 +79,67 @@ import json
 for jsonfile in args.JSONFILES:
     with open(jsonfile) as jf:
         recs = json.load(jf)
+        if args.VERBOSE:
+            print("Reading {} records from {}".format(len(recs), jsonfile))
         records.update(recs)
+records = {int(k) : v for k, v in records.items()}
+if args.VERBOSE:
+    print("Read total of {} records".format(len(records)))
 
 
-## Read CDS IDs from ranking files
+## Read Inspire IDs from ranking files
 blacklist, greylist, hotlist = [], [], []
 assigned = {}
 for rankfilestr in args.RANKFILES:
     for rankfile in rankfilestr.split(" "):
         with open(rankfile) as rf:
+            if args.VERBOSE:
+                print("Reading rankings from {}".format(rankfile))
             for line in rf:
                 line = line.strip()
                 if not line or line.startswith("#"):
                     continue
                 tokens = line.split()
-                cds = unicode(tokens[0])
+                ins = int(tokens[0])
                 code = tokens[1]
                 if code == "X":
-                    blacklist.append(cds)
+                    blacklist.append(ins)
                 elif code == "?":
-                    greylist.append(cds)
+                    greylist.append(ins)
                 elif code == "!":
-                    hotlist.append(cds)
+                    hotlist.append(ins)
                 # Detect an optional assigned email address
                 last = tokens[-1]
                 if "@" in last:
                     if last.startswith("<") and last.endswith(">"):
                         last = last[1:-1]
-                    assigned[cds] = last
+                    assigned[ins] = last
+
 
 ## Add rankings/tags to the record
-for cds, rec in records.items():
-    title = rec[3]
+for ins, rec in records.items():
 
-    ## Experiment
-    expt = "UNKNOWN"
-    if len(rec) < 6:
-        rec.append("")
-    if rec[5]:
-        expt = rec[5].upper().replace("THE","").replace("COLLABORATION","").strip()
-    else:
-        for e in EXPTS[:-1]: #< skip the trailing "Unknown"
-            if e.lower() in title.lower():
-                expt = e
-                break
-            if rec[2] and e.lower() in " ".join(rec[2]).lower():
-                expt = e
-                break
-    rec[5] = expt
+    ## Sanitise title and experiment
+    rec[0] = (rec[0] or "[NO TITLE]").replace("\n", " ")
+    rec[1] = (rec[1] or "UNKNOWN").upper().split()[0].strip()
 
     ## Ranking
     code = "default"
-    if rec[2]:
+    if ins in ranas:
         code = "rivet"
-    elif cds in greylist or not rec[0]: #< something's wrong if there's a CDS but no Inspire entry!
+    elif ins in greylist:
         code = "grey"
-    elif cds in blacklist:
+    elif ins in blacklist:
         code = "black"
-    elif cds in hotlist:
+    elif ins in hotlist:
         code = "hot"
 
     ## Tags
+    import re
+    title = rec[0] or ""
     if "search" in title.lower():
         code += " search"
-    if "Pb" in title or "Xe" in title:
+    if any(re.search(x, title) is not None for x in ["Pb", "Xe", "Au", "U+U", "gold", "lead[ ,$]", "heavy[- ]ion"]):
         code += " heavyion"
 
     rm = False
@@ -121,44 +149,58 @@ for cds, rec in records.items():
     rm |= args.NOHEAVYION and "heavyion" in code
 
     if rm:
-        del records[cds]
+        del records[ins]
     else:
         rec.append(code)
 
-## Count numbers of records
+
+## Group and count records by experiment (and update rank file if requested)
+ex_records = {}
 ex_ntots, ex_ndefaults, ex_nurgents, ex_nwanteds, ex_ntargets, ex_nrivets = {}, {}, {}, {}, {}, {}
-for ex in EXPTS:
-    ex_records = {cds : rec for cds, rec in records.items() if rec[5].lower() == ex.lower()}
-    ex_ntots[ex] = len(ex_records)
-    ex_nrivets[ex] = len([cds for cds, rec in ex_records.items() if "rivet" in rec[6]])
-    ex_ndefaults[ex] = len([cds for cds, rec in ex_records.items() if "default" in rec[6]])
-    ex_nurgents[ex] = len([cds for cds, rec in ex_records.items() if "hot" in rec[6]])
+for iex, ex in enumerate(EXPTS):
+
+    ## Name matching
+    if ex != "Other":
+        ex_records[ex] = {ins : rec for ins, rec in records.items()
+                          if EXPT_REOBJS[iex].match(rec[1])}
+    else:
+        ex_records[ex] = {ins : rec for ins, rec in records.items()
+                          if not any(reobj.match(rec[1]) for reobj in EXPT_REOBJS)}
+
+    ## Count matches
+    ex_ntots[ex] = len(ex_records[ex])
+    ex_nrivets[ex] = len([ins for ins, rec in ex_records[ex].items() if "rivet" in rec[-1]])
+    ex_ndefaults[ex] = len([ins for ins, rec in ex_records[ex].items() if "default" in rec[-1]])
+    ex_nurgents[ex] = len([ins for ins, rec in ex_records[ex].items() if "hot" in rec[-1]])
     ex_nwanteds[ex] = ex_ndefaults[ex] + ex_nurgents[ex]
     ex_ntargets[ex] = ex_nwanteds[ex] + ex_nrivets[ex]
 
+    if args.VERBOSE:
+        print(ex, "#urgent/#wanted =", ex_nurgents[ex], "/", ex_nwanteds[ex])
+
     if args.UPDATERANK:
         if args.ONLYSEARCHES or args.NOSEARCHES or args.ONLYHEAVYION or args.NOHEAVYION:
-            print "Won't update rank lists while search/HI filtering is enabled"
+            print("Won't update rank lists while search/HI/experiment filtering is enabled")
             sys.exit(1)
         rfname = "{}-{}.rank".format(args.BASENAME, ex.lower())
-        print "Writing updated rank file to {}".format(rfname)
+        print("Writing updated rank file to {}".format(rfname))
         syms = { "default" : ".", "rivet" : ".", "grey" : "?", "black" : "X", "hot" : "!" }
         with open(rfname, "w") as rf:
-            for cds, rec in sorted(ex_records.items()):
-                code = rec[6].split()[0]
-                # line = u"{} {} {}\n".format(cds.encode("UTF-8"), syms[code], rec[3].encode("UTF-8"))
-                line = u"{} {} {}".format(cds, syms[code], rec[3])
-                # print assigned.get(cds)
-                if cds in assigned:
-                    #print cds, assigned[cds]
-                    line += "  <{}>".format(assigned[cds])
+            for ins, rec in sorted(ex_records[ex].items()):
+                rankcode = rec[-1].split()[0]
+                # line = u"{} {} {}\n".format(ins.encode("UTF-8"), syms[code], rec[3].encode("UTF-8"))
+                line = u"{} {} {}".format(ins, syms[rankcode], rec[0])
+                # print(assigned.get(ins))
+                if ins in assigned:
+                    #print(ins, rec[0], assigned[ins])
+                    line += "  <{}>".format(assigned[ins])
                 line += "\n"
                 rf.write(line.encode("UTF-8"))
 
 ntot = len(records)
-nrivet = len([cds for cds, rec in records.items() if "rivet" in rec[6]])
-ndefault = len([cds for cds, rec in records.items() if "default" in rec[6]])
-nurgent = len([cds for cds, rec in records.items() if "hot" in rec[6]])
+nrivet = len([ins for ins, rec in records.items() if "rivet" in rec[-1]])
+ndefault = len([ins for ins, rec in records.items() if "default" in rec[-1]])
+nurgent = len([ins for ins, rec in records.items() if "hot" in rec[-1]])
 nwanted = ndefault + nurgent
 ntarget = nwanted + nrivet
 
@@ -179,16 +221,18 @@ if args.NOHEAVYION:
 import html
 OUT = html.HTML("html")
 
-title = "Rivet LHC analysis coverage"
+title = "Rivet analysis coverage"
 exclstr = " ({})".format(", ".join(excls)) if excls else ""
 title += exclstr
 
 head = OUT.head(newlines=True)
 head.meta(charset="utf-8")
 head.title(title)
+head.link("", rel="stylesheet", href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css")
 head.script("MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]} });", type="text/x-mathjax-config")
 head.script("", type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", async="async")
-head.script("", type="text/javascript", src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+head.script("", type="text/javascript", src="https://code.jquery.com/jquery-3.3.1.js", integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=", crossorigin="anonymous")
+head.script("", type="text/javascript", src="https://code.jquery.com/ui/1.12.1/jquery-ui.js", integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=", crossorigin="anonymous")
 head.script("""
 $(document).ready( function(){
   $("#blacktoggle").click( function(){
@@ -201,6 +245,7 @@ $(document).ready( function(){
     b.text(t.indexOf("Show") != -1 ? t.replace("Show", "Hide") : t.replace("Hide", "Show") );
     $(".grey").toggle(100);
   });
+  $("#tabs").tabs();
 });
 """)
 
@@ -219,9 +264,10 @@ style += "button { margin: 1em; }"
 # style += ".row { margin: 1em 0 3em 0; }"
 # style += ".row:after { content: ''; display: table; clear: both; }"
 # style += ".col { float: left; width: 50%; }"
-style += "button { border: none; margin: 0 1em 0 0; border-radius: 1ex; color: #333; background: #ddf; padding: 1ex; }"
+style += "button { border: none; margin: 0 1em 1em 0; border-radius: 1ex; color: #333; background: #ddf; padding: 1ex; }"
 style += "button:hover { background: #cce; }"
 style += "button:active { color: white; }"
+style += "#tabs { border: 0; }"
 style += ".rivet { background: #cfc; }"
 style += ".hot { background: #fbb; }"
 style += ".default { background: #fee; }"
@@ -236,7 +282,7 @@ style += ".grey.assigned { background: repeating-linear-gradient(135deg, #ddd, #
 body = OUT.html.body(newlines=True)
 body.h1(title)
 body.p().b("Rivet analyses exist for {}/{} papers = {:.0f}%. {} priority analyses required.".format(nrivet, ntarget, 100*nrivet/ntarget, nurgent))
-body.p("Total number of CDS papers scanned = {}, at {}".format(ntot, now.strftime("%Y-%m-%d")))
+body.p("Total number of Inspire papers scanned = {}, at {}".format(ntot, now.strftime("%Y-%m-%d")))
 
 body.p("Breakdown by identified experiment (in development):")
 t = body.table(klass="list")
@@ -275,45 +321,70 @@ body.button("Show blacklist", id="blacktoggle")
 #body.input(klass="search", placeholder="Search")
 #body.button("Sort by name", klass="sort", data-sort="name")
 
-t = body.table(klass="list").tbody(newlines=True)
-for i, (cds, rec) in enumerate(sorted(records.items(), reverse=args.REVERSE)):
+tabs = body.div(id="tabs")
+u = tabs.ul()
+for ex in EXPTS:
+    u.li().a(ex, href="#{}expt".format(ex.lower()))
+for ex in EXPTS:
+    d = tabs.div(id="{}expt".format(ex.lower()))
+    t = d.table(klass="list").tbody(newlines=True)
+    for i, (ins, rec) in enumerate(sorted(ex_records[ex].items(), reverse=args.REVERSE)):
 
-    expt = rec[5]
-    code = rec[6]
-    if cds in assigned:
-        # codes = code.split()
-        # codes[0] += "_assigned"
-        # code = " ".join(codes)
-        code += " assigned"
-    cell = t.tr(klass=code+" ana", newlines=True).td(newlines=False)
-    summ = u""
-    summ += u"{}: {}".format(cds, rec[3])
-    if expt != "UNKNOWN":
-        #summ += "&nbsp;"
-        summ += " [{}]".format(expt)
-    cell.b(summ)
-    cell.br()
-    cell.a("CDS", href="https://cds.cern.ch/record/{}".format(cds))
-    cell += " "
-    if rec[0]: # Inspire
-        cell.a("Inspire", href="http://inspirehep.net/record/{}".format(rec[0]))
-        cell += " "
-    if rec[1]: # HepData
-        cell.a("HepData", href="https://hepdata.net/record/ins{}".format(rec[0]))
-        cell += " "
-    if rec[4]: # DOI
-        cell.a("DOI/journal", href="http://dx.doi.org/{}".format(rec[4]))
-        cell += " "
-    if rec[2]:
-        anas = u", ".join(rec[2]) if rec[2] else u""
-        cell.a(anas, href="https://rivet.hepforge.org/analyses/{}.html".format(rec[2][0]))
-    if cds in assigned:
-        cell.a("IN PROGRESS: assigned to {}".format(assigned[cds]), href="mailto:{}".format(assigned[cds]))
+        expt = rec[1]
+        code = rec[-1]
+        if ins in assigned:
+            code += " assigned"
+        if expt:
+            code += " {}expt".format(expt.lower())
+        cell = t.tr(klass=code+" ana", newlines=True).td(newlines=False)
+        # Title
+        summ = u""
+        summ += u"{}: {}".format(expt, rec[0])
+        cell.span().b(summ)
+
+        ## Inspire ID and report numbers
+        p = cell.p()
+        p.span("Inspire ID: {} ".format(ins))
+        if rec[4]:
+            p.span("arXiv ID: {} ".format(rec[4]))
+        if rec[7]:
+            p.span(u" Report IDs: " + u", ".join(rec[7]))
+
+        ## Links
+        p = cell.span("Links: ")
+        ## Inspire
+        p.a("Inspire", href="http://inspirehep.net/record/{}".format(ins)) # Inspire
+        p += " "
+        ## DOI
+        if rec[2]:
+            p.a("DOI/journal", href="http://dx.doi.org/{}".format(rec[2]))
+            p += " "
+        ## CDS
+        if rec[3]:
+            p.a("CDS", href="https://cds.cern.ch/record/{}".format(rec[3]))
+            p += " "
+        ## arXiv
+        if rec[4]:
+            p.a("arXiv", href="https://arxiv.org/abs/{}".format(rec[4]))
+            p += " "
+        ## HepData
+        if rec[5]:
+            p.a("HepData", href="https://hepdata.net/record/{}".format(rec[5]))
+            p += " "
+        ## Rivet
+        if ins in ranas:
+            anas = u", ".join(ranas[ins])
+            p += " "
+            p.a(anas, href="https://rivet.hepforge.org/analyses/{}.html".format(ranas[ins][0]))
+        ## In-progress/assignment
+        if ins in assigned:
+            p += " "
+            p.a("IN PROGRESS: assigned to {}".format(assigned[ins]), href="mailto:{}".format(assigned[ins]))
 
 
 ## Time-created footer
 body.p("Generated at {}".format(now.strftime("%c")))
-body.p("Generated from JSON files extracted from CDS ({} papers in total):".format(ntot))
+body.p("Generated from JSON files extracted from Inspire ({} papers in total):".format(ntot))
 body.p(", ".join(args.JSONFILES), style="font-family: monospace; font-size: smaller")
 
 
@@ -326,7 +397,7 @@ if not outfile:
         outfile += "-" + "-".join(exclparts)
 if not outfile.endswith(".html"):
     outfile += ".html"
-print "Writing output to {} {}".format(outfile, exclstr)
+print("Writing output to {} {}".format(outfile, exclstr))
 with open(outfile, "wb") as hf:
     a = unicode(OUT)
     hf.write(a.encode("UTF-8"))

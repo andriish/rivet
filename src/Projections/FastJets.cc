@@ -34,11 +34,12 @@ namespace Rivet {
       if (alg == SISCONE) {
         const double OVERLAP_THRESHOLD = 0.75;
         _plugin.reset(new fastjet::SISConePlugin(rparameter, OVERLAP_THRESHOLD));
-      // } else if (alg == PXCONE) {
-      //   string msg = "PxCone currently not supported, since FastJet doesn't install it by default. ";
-      //   msg += "Please notify the Rivet authors if this behaviour should be changed.";
-      //   throw Error(msg);
-      //  _plugin.reset(new fastjet::PxConePlugin(rparameter));
+      } else if (alg == PXCONE) {
+        string msg = "Using own c++ version of PxCone, since FastJet doesn't install it by default. ";
+        msg += "Please notify the Rivet authors if this behaviour should be changed.";
+        MSG_WARNING(msg);
+        //        _plugin.reset(new fastjet::PxConePlugin(rparameter));
+        _plugin.reset(new Rivet::PxConePlugin(rparameter));
       } else if (alg == ATLASCONE) {
         const double OVERLAP_THRESHOLD = 0.5;
         _plugin.reset(new fastjet::ATLASConePlugin(rparameter, seed_threshold, OVERLAP_THRESHOLD));

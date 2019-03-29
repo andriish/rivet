@@ -11,9 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ATLAS_2014_I1315949()
-      : Analysis("ATLAS_2014_I1315949")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2014_I1315949);
 
     void init() {
 
@@ -26,35 +24,39 @@ namespace Rivet {
       declare(cfs, "cfs");
 
 
-      book(_h_pTsum_tow    , 1, 1, 1);
-      book(_h_pTsum_trv    , 1, 1, 2);
-      book(_h_pTsum_away   , 1, 1, 3);
-      book(_h_pTsum_tmin   , 1, 1, 4);
-      book(_h_pTsum_tmax   , 1, 1, 5);
-      book(_h_pTsum_tdif   , 1, 1, 6);
+      book(_h_pTsum_tow    , 67, 1, 1);
+      book(_h_pTsum_trv    , 68, 1, 1);
+      book(_h_pTsum_away   , 69, 1, 1);
+      book(_h_pTsum_tmin   , 70, 1, 1);
+      book(_h_pTsum_tmax   , 71, 1, 1);
+      book(_h_pTsum_tdif   ,125, 1, 1);
 
-      book(_h_Nchg_tow     , 2, 1, 1);
-      book(_h_Nchg_trv     , 2, 1, 2);
-      book(_h_Nchg_away    , 2, 1, 3);
-      book(_h_Nchg_tmin    , 2, 1, 4);
-      book(_h_Nchg_tmax    , 2, 1, 5);
-      book(_h_Nchg_tdif    , 2, 1, 6);
+      book(_h_Nchg_tow     , 70, 1, 1);
+      book(_h_Nchg_trv     , 71, 1, 1);
+      book(_h_Nchg_away    , 72, 1, 1);
+      book(_h_Nchg_tmin    , 73, 1, 1);
+      book(_h_Nchg_tmax    , 82, 1, 1);
+      book(_h_Nchg_tdif    ,126, 1, 1);
 
-      book(_h_pTavg_tow    , 3, 1, 1);
-      book(_h_pTavg_trv    , 3, 1, 2);
-      book(_h_pTavg_away   , 3, 1, 3);
+      book(_h_pTavg_tow    ,113, 1, 1);
+      book(_h_pTavg_trv    ,114, 1, 1);
+      book(_h_pTavg_away   ,115, 1, 1);
 
-      book(_h_pTavgvsmult_tow    , 4, 1, 1);
-      book(_h_pTavgvsmult_trv    , 4, 1, 2);
-      book(_h_pTavgvsmult_away   , 4, 1, 3);
+      book(_h_pTavgvsmult_tow , 116, 1, 1);
+      book(_h_pTavgvsmult_trv , 117, 1, 1);
+      book(_h_pTavgvsmult_away, 118, 1, 1);
 
 
       // Book sumpt and nch histos
-      for (int i_reg = 0; i_reg < 4; i_reg++) {
-        for (int i_bin = 0; i_bin < 6.; i_bin++) {
-          book(_h_ptSum_1D[i_reg][i_bin], 5, i_reg+1 , i_bin+1);
-          book( _h_Nchg_1D[i_reg][i_bin], 6, i_reg+1 , i_bin+1);
-        }
+      for (size_t id = 0; id < 6.; ++id) {
+        book(_h_ptSum_1D[0][id], 89 + id, 1, 1);
+        book(_h_ptSum_1D[1][id],107 + id, 1, 1);
+        book(_h_ptSum_1D[2][id],119 + id, 1, 1);
+        book(_h_ptSum_1D[3][id],127 + id, 1, 1);
+        book(_h_Nchg_1D[0][id],  83 + id, 1, 1);
+        book(_h_Nchg_1D[1][id],  89 + id, 1, 1);
+        book(_h_Nchg_1D[2][id],  95 + id, 1, 1);
+        book(_h_Nchg_1D[3][id], 101 + id, 1, 1);
       }
     }
 
@@ -219,7 +221,7 @@ namespace Rivet {
 
   };
 
-  // This global object acts as a hook for the plugin system
+
   DECLARE_RIVET_PLUGIN(ATLAS_2014_I1315949);
 
 }

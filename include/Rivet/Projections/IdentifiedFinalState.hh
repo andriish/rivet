@@ -52,9 +52,7 @@ namespace Rivet {
 
     /// Add a set of accepted particle IDs.
     IdentifiedFinalState& acceptIds(const vector<PdgId>& pids) {
-      for (const PdgId pid : pids) {
-        _pids.insert(pid);
-      }
+      for (const PdgId pid : pids) _pids.insert(pid);
       return *this;
     }
 

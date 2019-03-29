@@ -70,8 +70,8 @@ if test -f "$YODACONFIG"; then
   YODA_VERSION2=[`echo $YODA_VERSION | cut -d. -f2 | sed -e 's/\([0-9]*\).*/\1/g'`]
   YODA_VERSION3=[`echo $YODA_VERSION | cut -d. -f3 | sed -e 's/\([0-9]*\).*/\1/g'`]
   let YODA_VERSION_INT=YODA_VERSION1*10000+YODA_VERSION2*100+YODA_VERSION3
-  if test $YODA_VERSION_INT -lt 10500; then
-    AC_MSG_ERROR([YODA version isn't sufficient: at least version 1.5.0 required])
+  if test $YODA_VERSION_INT -lt 10704; then
+    AC_MSG_ERROR([YODA version isn't sufficient: at least version 1.7.4 required])
   fi
   AC_MSG_CHECKING([YODA Python path using yoda-config])
   YODA_PYTHONPATH=`$YODACONFIG --pythonpath`
@@ -147,6 +147,15 @@ CPPFLAGS="$CPPFLAGS -I$FASTJETINCPATH"
 AC_CHECK_HEADER([fastjet/D0RunIIConePlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG])])
 AC_CHECK_HEADER([fastjet/TrackJetPlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG])])
 CPPFLAGS=$oldCPPFLAGS
+
+
+# ## GNU Scientific Library
+# AC_SEARCH_GSL
+# AC_CEDAR_HEADERS([gsl], , , [AC_MSG_ERROR([GSL (GNU Scientific Library) is required])])
+# oldCPPFLAGS=$CPPFLAGS
+# CPPFLAGS="$CPPFLAGS -I$GSLINCPATH"
+# AC_CHECK_HEADER([gsl/gsl_vector.h], [], [AC_MSG_ERROR([GSL vectors not found.])])
+# CPPFLAGS=$oldCPPFLAGS
 
 
 ## Disable build/install of standard analyses
@@ -286,7 +295,10 @@ AC_CONFIG_FILES(include/Makefile include/Rivet/Makefile)
 AC_CONFIG_FILES(src/Makefile)
 AC_CONFIG_FILES(src/Core/Makefile src/Core/yamlcpp/Makefile)
 AC_CONFIG_FILES(src/Tools/Makefile)
-AC_CONFIG_FILES(src/Tools/Nsubjettiness/Makefile)
+AC_CONFIG_FILES(src/Tools/fjcontrib/Makefile)
+AC_CONFIG_FILES(src/Tools/fjcontrib/EnergyCorrelator/Makefile)
+AC_CONFIG_FILES(src/Tools/fjcontrib/Nsubjettiness/Makefile)
+AC_CONFIG_FILES(src/Tools/fjcontrib/RecursiveTools/Makefile)
 AC_CONFIG_FILES(src/Projections/Makefile)
 AC_CONFIG_FILES(src/AnalysisTools/Makefile)
 AC_CONFIG_FILES(analyses/Makefile)

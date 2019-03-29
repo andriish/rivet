@@ -17,85 +17,93 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    ATLAS_2013_I1230812(string name="ATLAS_2013_I1230812")
-      : Analysis(name)
-    {
-      // This class uses the combined e+mu mode
-      _mode = 1;
-    }
-
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2013_I1230812);
     //@}
 
 
     /// Book histograms and initialise projections before the run
     void init() {
+
+      // Get options from the new option system
+      _mode = 0;
+      if ( getOption("LMODE") == "EL" ) _mode = 1;
+      if ( getOption("LMODE") == "MU" ) _mode = 2;
+
       // Determine the e/mu decay channels used (NB Prompt leptons only).
       /// @todo Note that Zs are accepted with any rapidity: the cuts are on the e/mu: is this correct?
-      Cut pt20 = Cuts::pT >= 20.0*GeV;
-      if (_mode == 1) {
-        // Combined
-        ZFinder zfinder(FinalState(Cuts::abseta < 2.5), pt20, PID::ELECTRON, 66*GeV, 116*GeV);
-        declare(zfinder, "zfinder");
-      } else if (_mode == 2) {
-        // Electron
-	    const Cut eta_e = Cuts::abseta < 1.37 || Cuts::absetaIn(1.52, 2.47);
-        ZFinder zfinder(FinalState(eta_e), pt20, PID::ELECTRON, 66*GeV, 116*GeV);
-        declare(zfinder, "zfinder");
-      } else if (_mode == 3) {
-        // Muon
-        ZFinder zfinder(FinalState(Cuts::abseta < 2.4), pt20, PID::MUON, 66*GeV, 116*GeV);
-        declare(zfinder, "zfinder");
-      } else {
-        MSG_ERROR("Unknown decay channel mode!!!");
-      }
+      Cut pt20 = Cuts::pT >= 20*GeV;
+      Cut eta_e = _mode? Cuts::abseta < 1.37 || Cuts::absetaIn(1.52, 2.47) : Cuts::abseta < 2.5;
+      Cut eta_m = _mode? Cuts::abseta < 2.4 : Cuts::abseta < 2.5;
+      ZFinder zfinder_el(FinalState(eta_e), pt20, PID::ELECTRON, 66*GeV, 116*GeV);
+      ZFinder zfinder_mu(FinalState(eta_m), pt20, PID::MUON, 66*GeV, 116*GeV);
+      declare(zfinder_el, "zfinder_el");
+      declare(zfinder_mu, "zfinder_mu");
 
       // Define veto FS in order to prevent Z-decay products entering the jet algorithm
       VetoedFinalState had_fs;
-      had_fs.addVetoOnThisFinalState(getProjection<ZFinder>("zfinder"));
-      FastJets jets(had_fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::ALL, JetAlg::Invisibles::DECAY);
+      had_fs.addVetoOnThisFinalState(getProjection<ZFinder>("zfinder_el"));
+      had_fs.addVetoOnThisFinalState(getProjection<ZFinder>("zfinder_mu"));
+      FastJets jets(had_fs, FastJets::ANTIKT, 0.4);
+      jets.useInvisibles(true);
       declare(jets, "jets");
 
-      book(_h_njet_incl              ,  1, 1, _mode);
-      book(_h_njet_incl_ratio        ,  2, 1, _mode, true);
-      book(_h_njet_excl              ,  3, 1, _mode);
-      book(_h_njet_excl_ratio        ,  4, 1, _mode, true);
-      book(_h_njet_excl_pt150        ,  5, 1, _mode);
-      book(_h_njet_excl_pt150_ratio  ,  6, 1, _mode, true);
-      book(_h_njet_excl_vbf          ,  7, 1, _mode);
-      book(_h_njet_excl_vbf_ratio    ,  8, 1, _mode, true);
-      book(_h_ptlead                 ,  9, 1, _mode);
-      book(_h_ptseclead              , 10, 1, _mode);
-      book(_h_ptthirdlead            , 11, 1, _mode);
-      book(_h_ptfourthlead           , 12, 1, _mode);
-      book(_h_ptlead_excl            , 13, 1, _mode);
-      book(_h_pt_ratio               , 14, 1, _mode);
-      book(_h_pt_z                   , 15, 1, _mode);
-      book(_h_pt_z_excl              , 16, 1, _mode);
-      book(_h_ylead                  , 17, 1, _mode);
-      book(_h_yseclead               , 18, 1, _mode);
-      book(_h_ythirdlead             , 19, 1, _mode);
-      book(_h_yfourthlead            , 20, 1, _mode);
-      book(_h_deltay                 , 21, 1, _mode);
-      book(_h_mass                   , 22, 1, _mode);
-      book(_h_deltaphi               , 23, 1, _mode);
-      book(_h_deltaR                 , 24, 1, _mode);
-      book(_h_ptthirdlead_vbf        , 25, 1, _mode);
-      book(_h_ythirdlead_vbf         , 26, 1, _mode);
-      book(_h_ht                     , 27, 1, _mode);
-      book(_h_st                     , 28, 1, _mode);
+      book(_h_njet_incl              ,  1, 1, _mode+1);
+      book(_h_njet_incl_ratio        ,  2, 1, _mode+1, true);
+      book(_h_njet_excl              ,  3, 1, _mode+1);
+      book(_h_njet_excl_ratio        ,  4, 1, _mode+1, true);
+      book(_h_njet_excl_pt150        ,  5, 1, _mode+1);
+      book(_h_njet_excl_pt150_ratio  ,  6, 1, _mode+1, true);
+      book(_h_njet_excl_vbf          ,  7, 1, _mode+1);
+      book(_h_njet_excl_vbf_ratio    ,  8, 1, _mode+1, true);
+      book(_h_ptlead                 ,  9, 1, _mode+1);
+      book(_h_ptseclead              , 10, 1, _mode+1);
+      book(_h_ptthirdlead            , 11, 1, _mode+1);
+      book(_h_ptfourthlead           , 12, 1, _mode+1);
+      book(_h_ptlead_excl            , 13, 1, _mode+1);
+      book(_h_pt_ratio               , 14, 1, _mode+1);
+      book(_h_pt_z                   , 15, 1, _mode+1);
+      book(_h_pt_z_excl              , 16, 1, _mode+1);
+      book(_h_ylead                  , 17, 1, _mode+1);
+      book(_h_yseclead               , 18, 1, _mode+1);
+      book(_h_ythirdlead             , 19, 1, _mode+1);
+      book(_h_yfourthlead            , 20, 1, _mode+1);
+      book(_h_deltay                 , 21, 1, _mode+1);
+      book(_h_mass                   , 22, 1, _mode+1);
+      book(_h_deltaphi               , 23, 1, _mode+1);
+      book(_h_deltaR                 , 24, 1, _mode+1);
+      book(_h_ptthirdlead_vbf        , 25, 1, _mode+1);
+      book(_h_ythirdlead_vbf         , 26, 1, _mode+1);
+      book(_h_ht                     , 27, 1, _mode+1);
+      book(_h_st                     , 28, 1, _mode+1);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const ZFinder& zfinder = apply<ZFinder>(event, "zfinder");
-      MSG_DEBUG("# Z constituents = " << zfinder.constituents().size());
-      if (zfinder.constituents().size() != 2) vetoEvent;
+      FourMomentum z, lp, lm;
+      const ZFinder& zfinder_el = apply<ZFinder>(event, "zfinder_el");
+      const ZFinder& zfinder_mu = apply<ZFinder>(event, "zfinder_mu");
 
-      FourMomentum z = zfinder.boson().momentum();
-      FourMomentum lp = zfinder.constituents()[0].momentum();
-      FourMomentum lm = zfinder.constituents()[1].momentum();
+      bool e_ok = zfinder_el.constituents().size() == 2 && zfinder_mu.constituents().size() ==0;
+      bool m_ok = zfinder_el.constituents().size() == 0 && zfinder_mu.constituents().size() ==2;
+
+      if (_mode == 0 &&  !e_ok && !m_ok ) vetoEvent;
+      if (_mode == 1 && !e_ok) vetoEvent;
+      if (_mode == 2 && !m_ok) vetoEvent;
+
+      if (zfinder_el.constituents().size() == 2) {
+        z = zfinder_el.boson().momentum();
+        lp = zfinder_el.constituents()[0].momentum();
+        lm = zfinder_el.constituents()[1].momentum();
+      }
+      else if (zfinder_mu.constituents().size() == 2) {
+        z = zfinder_mu.boson().momentum();
+        lp = zfinder_mu.constituents()[0].momentum();
+        lm = zfinder_mu.constituents()[1].momentum();
+      }
+      else  vetoEvent;
+
       if (deltaR(lp, lm) < 0.2) vetoEvent;
 
       Jets jets = apply<FastJets>(event, "jets").jetsByPt(Cuts::pT > 30*GeV && Cuts::absrap < 4.4);
@@ -229,7 +237,9 @@ namespace Rivet {
         }
       }
 
-      const double xs = crossSectionPerEvent()/picobarn;
+      double sf = _mode? 1.0 : 0.5;
+      const double xs = sf * crossSectionPerEvent()/picobarn;
+
       scale({_h_njet_incl, _h_njet_excl, _h_njet_excl_pt150, _h_njet_excl_vbf}, xs);
       scale({_h_ptlead, _h_ptseclead, _h_ptthirdlead, _h_ptfourthlead, _h_ptlead_excl}, xs);
       scale({_h_pt_ratio, _h_pt_z, _h_pt_z_excl}, xs);
@@ -280,30 +290,7 @@ namespace Rivet {
   };
 
 
-
-  class ATLAS_2013_I1230812_EL : public ATLAS_2013_I1230812 {
-  public:
-    ATLAS_2013_I1230812_EL()
-      : ATLAS_2013_I1230812("ATLAS_2013_I1230812_EL")
-    {
-      _mode = 2;
-    }
-  };
-
-
-
-  class ATLAS_2013_I1230812_MU : public ATLAS_2013_I1230812 {
-  public:
-    ATLAS_2013_I1230812_MU()
-      : ATLAS_2013_I1230812("ATLAS_2013_I1230812_MU")
-    {
-      _mode = 3;
-    }
-  };
-
-
-
   DECLARE_RIVET_PLUGIN(ATLAS_2013_I1230812);
-  DECLARE_RIVET_PLUGIN(ATLAS_2013_I1230812_EL);
-  DECLARE_RIVET_PLUGIN(ATLAS_2013_I1230812_MU);
+
 }
+

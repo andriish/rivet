@@ -5,13 +5,11 @@
 namespace Rivet {
 
   class ATLAS_2015_I1393758 : public Analysis {
-
   public:
 
     /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2015_I1393758);
-
-  public:
+  
 
     void init() {
 
@@ -36,6 +34,7 @@ namespace Rivet {
       book(centralRMS_kappa7, "d12-x01-y01", true);
 
     }
+
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
@@ -138,6 +137,7 @@ namespace Rivet {
 
   };
 
-  // The hook for the plugin system
+
   DECLARE_RIVET_PLUGIN(ATLAS_2015_I1393758);
+
 }

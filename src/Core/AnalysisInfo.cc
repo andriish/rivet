@@ -76,15 +76,19 @@ namespace Rivet {
     TRY_GETINFO_SEQ("References", references);
     TRY_GETINFO_SEQ("ToDo", todos);
     TRY_GETINFO_SEQ("Keywords", keywords);
+    TRY_GETINFO_SEQ("Options", options);
     #undef TRY_GETINFO_SEQ
 
+    // Build the option map
+    ai->buildOptionMap();
 
     // A boolean with some name flexibility
     try {
       if (doc["NeedsCrossSection"]) ai->_needsCrossSection = doc["NeedsCrossSection"].as<bool>();
       else if (doc["NeedCrossSection"]) ai->_needsCrossSection = doc["NeedCrossSection"].as<bool>();
+      if (doc["Reentrant"]) ai->_reentrant = doc["Reentrant"].as<bool>();
     } catch (...) {
-      THROW_INFOERR("NeedsCrossSection|NeedCrossSection");
+      THROW_INFOERR("NeedsCrossSection|NeedCrossSection|Reentrant");
     }
 
 
@@ -147,5 +151,33 @@ namespace Rivet {
     return ss.str();
   }
 
+void AnalysisInfo::buildOptionMap() {
+  _optionmap.clear();
+  for ( auto opttag : _options ) {
+    std::vector<std::string> optv = split(opttag, "=");
+    std::string optname = optv[0];
+    for ( auto opt : split(optv[1], ",") )
+      _optionmap[optname].insert(opt);
+  }
+}
+
+bool AnalysisInfo::validOption(std::string key, std::string val) const {
+  auto opt = _optionmap.find(key);
+  // The option is required to be defined in the .info file.
+  if ( opt == _optionmap.end() ) return false;
+  // If the selection option is among the range of given options,
+  // we are fine.
+  if ( opt->second.find(val) != opt->second.end() ) return true;
+  // Wild card selection option for value types is #.
+  if ( opt->second.size() == 1 && *opt->second.begin() == "#" ) {
+    std::istringstream ss(val);
+    double test;
+    if ( ss >> test ) return true;
+  }
+  // Wild card selection option for any type is *.
+  if ( opt->second.size() == 1 && *opt->second.begin() == "*" )
+    return true;
+  return false;
+}
 
 }

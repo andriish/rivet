@@ -3,10 +3,10 @@ Year: 2017
 Summary: Measurements of jet charge with dijet events in pp collisions at $\sqrt{s}=8$ TeV
 Experiment: CMS
 Collider: LHC
-SpiresID: 1605749
+InspireID: 1605749
 Status: VALIDATED
 Authors:
- - Debarati Roy <debarati.roy@cern.ch> 
+ - Debarati Roy <debarati.roy@cern.ch>
  - Andreas Hinzmann <andreas.hinzmann@cern.ch>
  - Nhan Viet Tran <nhan.viet.tran@cern.ch>
  - Sunanda Banerjee <Sunanda.Banerjee@cern.ch>

@@ -8,23 +8,15 @@
 
 namespace Rivet {
 
+
+
+  /// Electroweak Wjj production at 8 TeV
   class ATLAS_2014_I1306294 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
+    /// Constructor
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2014_I1306294);
 
-    /// Constructors
-    ATLAS_2014_I1306294(std::string name="ATLAS_2014_I1306294")
-      : Analysis(name)
-    {
-      _mode = 1;
-
-    }
-
-    //@}
-
-  public:
 
     /// @name Analysis methods
     //@{
@@ -32,14 +24,17 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
+      // Get options from the new option system
+      _mode = 1;
+      if ( getOption("LMODE") == "EL" ) _mode = 1;
+      if ( getOption("LMODE") == "MU" ) _mode = 2;
+
       FinalState fs;
+      Cut cuts = Cuts::abseta < 2.5 && Cuts::pT > 20*GeV;
 
-      Cut cuts = Cuts::etaIn(-2.5,2.5) & (Cuts::pT > 20.0*GeV);
-
-      ZFinder zfinder(fs, cuts, _mode==1? PID::ELECTRON : PID::MUON, 76.0*GeV, 106.0*GeV, 0.1, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::NO);
+      ZFinder zfinder(fs, cuts, _mode==1? PID::ELECTRON : PID::MUON, 76.0*GeV, 106.0*GeV, 0.1, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
       declare(zfinder, "ZFinder");
 
-      //FastJets jetpro1( getProjection<ZFinder>("ZFinder").remainingFinalState(), FastJets::ANTIKT, 0.4);
       VetoedFinalState jet_fs(fs);
       jet_fs.addVetoOnThisFinalState(getProjection<ZFinder>("ZFinder"));
       FastJets jetpro1(jet_fs, FastJets::ANTIKT, 0.4);
@@ -47,7 +42,7 @@ namespace Rivet {
       declare(jetpro1, "AntiKtJets04");
       declare(HeavyHadrons(), "BHadrons");
 
-      //Histograms with data binning
+      // Histograms with data binning
       book(_h_bjet_Pt      , 3, 1, 1);
       book(_h_bjet_Y       , 5, 1, 1);
       book(_h_bjet_Yboost  , 7, 1, 1);
@@ -62,68 +57,53 @@ namespace Rivet {
       book(_h_2bjet_ZY     ,27, 1, 1);
     }
 
-	  //==========================================================================================
-
 
     /// Perform the per-event analysis
     void analyze(const Event& e) {
 
-
-      //---------------------------
-      // -- check we have a Z:
+      // Check we have a Z:
       const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");
-
-      if(zfinder.bosons().size() != 1)  vetoEvent;
-
+      if (zfinder.bosons().size() != 1) vetoEvent;
+      
       const Particles boson_s =  zfinder.bosons();
-      const Particle       boson_f =  boson_s[0]      ;
+      const Particle boson_f =  boson_s[0];
       const Particles zleps   =  zfinder.constituents();
-      //---------------------------
 
+      // Stop processing the event if no true b-partons or hadrons are found
+      const Particles allBs = apply<HeavyHadrons>(e, "BHadrons").bHadrons(5.0*GeV);
+      Particles stableBs = filter_select(allBs, Cuts::abseta < 2.5);
+      if (stableBs.empty()) vetoEvent;
 
-      //---------------------------
-      //------------- stop processing the event if no true b-partons or hadrons are found
-      const Particles& allBs = apply<HeavyHadrons>(e, "BHadrons").bHadrons(5.0*GeV);
-      Particles stableBs;
-      for(Particle p : allBs) {
-        if(p.abseta() < 2.5)  stableBs += p;
-      }
-      if( stableBs.empty() )  vetoEvent;
-
-
-      //---------------------------
-      // -- get the b-jets:
+      // Get the b-jets
       const Jets& jets = apply<JetAlg>(e, "AntiKtJets04").jetsByPt(Cuts::pT >20.0*GeV && Cuts::abseta <2.4);
       Jets b_jets;
-      for(const Jet& jet : jets) {
+      for (const Jet& jet : jets) {
         //veto overlaps with Z leptons:
         bool veto = false;
-        for(const Particle& zlep : zleps) {
-          if(deltaR(jet, zlep) < 0.5)  veto = true;
+        for (const Particle& zlep : zleps) {
+          if (deltaR(jet, zlep) < 0.5) veto = true;
         }
-        if(veto) continue;
+        if (veto) continue;
 
-        for(const Particle& bhadron : stableBs) {
-          if( deltaR(jet, bhadron) <= 0.3 ) {
+        for (const Particle& bhadron : stableBs) {
+          if (deltaR(jet, bhadron) <= 0.3) {
             b_jets.push_back(jet);
             break; // match
           }
-	      } // end loop on b-hadrons
+	}
       }
 
-      //and make sure we have at least 1:
-      if(b_jets.empty())  vetoEvent;
+      // Make sure we have at least 1
+      if (b_jets.empty()) vetoEvent;
 
-      //---------------------------
-      // fill the plots:
+      // Fill the plots
       const double ZpT = boson_f.pT()/GeV;
       const double ZY  = boson_f.absrap();
 
       _h_bjet_ZPt->fill(ZpT);
       _h_bjet_ZY ->fill(ZY);
 
-      for(const Jet& jet : b_jets) {
-
+      for (const Jet& jet : b_jets) {
         _h_bjet_Pt->fill(jet.pT()/GeV);
         _h_bjet_Y ->fill(jet.absrap());
 
@@ -203,28 +183,7 @@ namespace Rivet {
   };
 
 
-  class ATLAS_2014_I1306294_EL : public ATLAS_2014_I1306294 {
-  public:
-    ATLAS_2014_I1306294_EL()
-      : ATLAS_2014_I1306294("ATLAS_2014_I1306294_EL")
-    {
-      _mode = 1;
-    }
-  };
-
-  class ATLAS_2014_I1306294_MU : public ATLAS_2014_I1306294 {
-  public:
-    ATLAS_2014_I1306294_MU()
-      : ATLAS_2014_I1306294("ATLAS_2014_I1306294_MU")
-    {
-      _mode = 2;
-    }
-  };
-
-
-  // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2014_I1306294);
-  DECLARE_RIVET_PLUGIN(ATLAS_2014_I1306294_MU);
-  DECLARE_RIVET_PLUGIN(ATLAS_2014_I1306294_EL);
 
 }
+
