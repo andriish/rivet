@@ -1,5 +1,9 @@
 2019-04-01  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Move inline projections *inside* analysis classes, since our
+	aggregated build mechanism means there's no longer a unique
+	unnamed namespace for each analysis .cc file.
+
 	* Adding analyses ATLAS_2018_I1677498 (WWbb), ATLAS_2018_I1711114
 	(g -> bb), and ATLAS_2019_I1720442 (4-lepton lineshape).
 
