@@ -255,7 +255,12 @@ namespace Rivet {
         }
         centreOfMassTrans.setBetaVec( -ttbar.boostVector() );
         FourMomentum t1_star = centreOfMassTrans.transform(t1);
-        double cosThetaStar = t1_star.pz()/t1_star.p3().mod();
+	double cosThetaStar;
+	if (t1_star.p3().mod2() >= 0){
+	  cosThetaStar = t1_star.pz()/t1_star.p3().mod();
+	} else {
+	  return -99;
+	}
         return cosThetaStar;
       }
 
