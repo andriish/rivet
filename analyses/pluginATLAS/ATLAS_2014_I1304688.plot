@@ -10,6 +10,8 @@ YMin=0.0075
 XLabel=$\mathrm{n}_{\mathrm{jets}} ( \mathrm{jet~p}_\mathrm{T} > 25~\mathrm{GeV} )$
 YLabel=$\mathrm{d}\sigma/\mathrm{dn}_{\mathrm{jets}}$ [pb]
 Title=t$\bar{\mathrm t}$ cross-section vs. jet multiplicity for jets above $25~\mathrm{GeV}$
+XCustomMajorTicks=1.0 $3$ 2.0 $4$ 3.0 $5$ 4.0 $6$ 5.0 $7$ 6.0 $\geq8$
+XMinorTickMarks=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1304688/d02
@@ -20,6 +22,7 @@ XLabel=$\mathrm{n}_{\mathrm{jets}} ( \mathrm{jet~p}_\mathrm{T} > 40~\mathrm{GeV}
 YLabel=$\mathrm{d}\sigma/\mathrm{dn}_{\mathrm{jets}}$ [pb]
 Title=t$\bar{\mathrm t}$ cross-section vs. jet multiplicity for jets above $40~\mathrm{GeV}$
 XCustomMajorTicks=1.0 $3$ 2.0 $4$ 3.0 $5$ 4.0 $6$ 5.0 $\geq7$
+XMinorTickMarks=0
 # END PLOT
 
 
@@ -31,6 +34,7 @@ XLabel=$\mathrm{n}_{\mathrm{jets}} ( \mathrm{jet~p}_\mathrm{T} > 60~\mathrm{GeV}
 YLabel=$\mathrm{d}\sigma/\mathrm{dn}_{\mathrm{jets}}$ [pb]
 Title=t$\bar{\mathrm t}$ cross-section vs. jet multiplicity for jets above $60~\mathrm{GeV}$
 XCustomMajorTicks=1.0 $3$ 2.0 $4$ 3.0 $5$ 4.0 $\geq6$
+XMinorTickMarks=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1304688/d04
@@ -41,6 +45,7 @@ XLabel=$\mathrm{n}_{\mathrm{jets}} ( \mathrm{jet~p}_\mathrm{T} > 80~\mathrm{GeV}
 YLabel=$\mathrm{d}\sigma/\mathrm{dn}_{\mathrm{jets}}$ [pb]
 Title=t$\bar{\mathrm t}$ cross-section vs. jet multiplicity for jets above $80~\mathrm{GeV}$
 XCustomMajorTicks=1.0 $3$ 2.0 $4$ 3.0 $\geq5$
+XMinorTickMarks=0
 # END PLOT
 
 
