@@ -213,7 +213,7 @@ namespace Rivet {
   }
 
   vector<AnalysisObjectPtr> Analysis::getAllData(bool includeorphans) const{
-    return handler().getData(includeorphans);
+    return handler().getData(includeorphans, false, false);
   }
 
   CounterPtr Analysis::bookCounter(const string& cname,
@@ -894,7 +894,7 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
   else if ( sel == "GEN" ) {
     Histo1DPtr genhist;
     string histpath = "/" + calAnaName + "/" + calHistName;
-    for ( AnalysisObjectPtr ao : handler().getData(true) ) {
+    for ( AnalysisObjectPtr ao : handler().getData(true, false, false) ) {
       if ( ao->path() == histpath )
         genhist = dynamic_pointer_cast<Histo1D>(ao);
     }

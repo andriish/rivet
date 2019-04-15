@@ -158,7 +158,7 @@ namespace Rivet {
 
     // First we make copies of all analysis objects.
     map<string,AnalysisObjectPtr> backupAOs;
-    for (auto ao : getData(false, true) )
+    for (auto ao : getData(false, true, false) )
       backupAOs[ao->path()] = AnalysisObjectPtr(ao->newclone());
 
     // Now we run the (re-entrant) finalize() functions for all analyses.
@@ -179,9 +179,9 @@ namespace Rivet {
     // Now we copy all analysis objects to the list of finalized
     // ones, and restore the value to their original ones.
     _finalizedAOs.clear();
-    for ( auto ao : getData() )
+    for ( auto ao : getData(false, false, false) )
       _finalizedAOs.push_back(AnalysisObjectPtr(ao->newclone()));
-    for ( auto ao : getData(false, true) ) {
+    for ( auto ao : getData(false, true, false) ) {
       // TODO: This should be possible to do in a nicer way, with a flag etc.
       if (ao->path().find("/FINAL") != std::string::npos) continue;
       auto aoit = backupAOs.find(ao->path());
@@ -415,7 +415,7 @@ namespace Rivet {
     _initialised = true;
     // Get a list of all anaysis objects to handle.
     map<string,AnalysisObjectPtr> current;
-    for ( auto ao : getData(false, true) ) current[ao->path()] = ao;
+    for ( auto ao : getData(false, true, false) ) current[ao->path()] = ao;
     // Go through all objects to be merged and add them to current
     // after appropriate scaling.
     for ( int i = 0, N = aosv.size(); i < N; ++i)
@@ -452,7 +452,7 @@ namespace Rivet {
 
 
   vector<AnalysisObjectPtr> AnalysisHandler::
-  getData(bool includeorphans, bool includetmps) const {
+  getData(bool includeorphans, bool includetmps, bool usefinalized) const {
     vector<AnalysisObjectPtr> rtn;
     // Event counter
     rtn.push_back( make_shared<Counter>(_eventcounter) );
@@ -460,15 +460,22 @@ namespace Rivet {
     YODA::Scatter1D::Points pts; pts.insert(YODA::Point1D(_xs, _xserr));
     rtn.push_back( make_shared<Scatter1D>(pts, "/_XSEC") );
     // Analysis histograms
-    for (const AnaHandle a : analyses()) {
-      vector<AnalysisObjectPtr> aos = a->analysisObjects();
-      // MSG_WARNING(a->name() << " " << aos.size());
-      for (const AnalysisObjectPtr ao : aos) {
-        // Exclude paths from final write-out if they contain a "TMP" layer (i.e. matching "/TMP/")
-        /// @todo This needs to be much more nuanced for re-entrant histogramming
-        if ( !includetmps && ao->path().find("/TMP/" ) != string::npos) continue;
-        rtn.push_back(ao);
+    vector<AnalysisObjectPtr> aos;
+    if (usefinalized)
+      aos = _finalizedAOs;
+    else {
+      for (const AnaHandle a : analyses()) {
+        // MSG_WARNING(a->name() << " " << aos.size());
+        for (const AnalysisObjectPtr ao : a->analysisObjects()) {
+          aos.push_back(ao);
+        }
       }
+    }
+    for (const AnalysisObjectPtr ao : aos) {
+      // Exclude paths from final write-out if they contain a "TMP" layer (i.e. matching "/TMP/")
+      /// @todo This needs to be much more nuanced for re-entrant histogramming
+      if ( !includetmps && ao->path().find("/TMP/" ) != string::npos) continue;
+      rtn.push_back(ao);
     }
     // Sort histograms alphanumerically by path before write-out
     sort(rtn.begin(), rtn.end(), [](AnalysisObjectPtr a, AnalysisObjectPtr b) {return a->path() < b->path();});
@@ -481,7 +488,7 @@ namespace Rivet {
   void AnalysisHandler::writeData(const string& filename) const {
     vector<AnalysisObjectPtr> out = _finalizedAOs;
     out.reserve(2*out.size());
-    vector<AnalysisObjectPtr> aos = getData(false, true);
+    vector<AnalysisObjectPtr> aos = getData(false, true, false);
     for ( auto ao : aos ) {
       ao = AnalysisObjectPtr(ao->newclone());
       ao->setPath("/RAW" + ao->path());
