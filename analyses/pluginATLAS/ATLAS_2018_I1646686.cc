@@ -135,7 +135,7 @@ namespace Rivet {
               fillParton("t2_pt", t2_parton.pT()/GeV, weight);
               fillParton("t2_y",  t2_parton.absrap(), weight);
               
-              fillParton("tt_m",  ttbar_parton.mass()/GeV, weight);
+              fillParton("tt_m",  ttbar_parton.mass()/TeV, weight);
               fillParton("tt_pt", ttbar_parton.pT()/GeV, weight);
               fillParton("tt_Ht", (t1_parton.pT() + t2_parton.pT())/GeV, weight);
               fillParton("tt_y",  ttbar_parton.absrap(), weight);
@@ -250,17 +250,17 @@ namespace Rivet {
         LorentzTransform centreOfMassTrans;
         ttbar.setX(0);
         ttbar.setY(0);
-	if (ttbar.betaVec().mod2() > 1){
-	  return -99;
+        if (ttbar.betaVec().mod2() > 1){
+          return -99;
         }
         centreOfMassTrans.setBetaVec( -ttbar.boostVector() );
         FourMomentum t1_star = centreOfMassTrans.transform(t1);
-	double cosThetaStar;
-	if (t1_star.p3().mod2() >= 0){
-	  cosThetaStar = t1_star.pz()/t1_star.p3().mod();
-	} else {
-	  return -99;
-	}
+        double cosThetaStar;
+        if (t1_star.p3().mod2() >= 0){
+          cosThetaStar = t1_star.pz()/t1_star.p3().mod();
+        } else {
+          return -99;
+        }
         return cosThetaStar;
       }
 
@@ -299,10 +299,10 @@ namespace Rivet {
           _h[name] = bookHisto1D(index, 1, 1 );
           _h[name + "_norm"] = bookHisto1D(index + 13, 1, 1 );
         }
-	if (_mode != 0) {
-	  _h[name + "_parton"] = bookHisto1D(index + 82, 1, 1 );
-	  _h[name + "_parton_norm"] = bookHisto1D(index + 97, 1, 1 );
-	}
+        if (_mode != 0) {
+          _h[name + "_parton"] = bookHisto1D(index + 82, 1, 1 );
+          _h[name + "_parton_norm"] = bookHisto1D(index + 97, 1, 1 );
+        }
       }
 
   };
