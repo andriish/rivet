@@ -146,7 +146,7 @@ namespace Rivet {
         else if (id == PID::K0S)
           ++nstable;
         else if (id == PID::PIPLUS) {
-          pip.push_back(p):
+          pip.push_back(p);
           ++nstable;
         }
         else if (id == PID::PIMINUS) {
@@ -161,7 +161,7 @@ namespace Rivet {
           Km.push_back(p);
           ++nstable;
         }
-        else if ( !p.children().empty() ) {
+        else if (!p.children().empty()) {
           findDecayProducts(p, nstable, pip, pim, Kp, Km);
         }
         else  ++nstable;
