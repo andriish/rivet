@@ -1,5 +1,9 @@
 2019-04-23  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add RIVET_CACHE_PROJECTIONS environment variable, for runtime
+	disabling of the caching mechanism (for debugging and
+	cross-checking).
+
 	* Add optional only_physical and remove_duplicates args (passed
 	through to the Particle methods) to hasParticleAncestorWith and
 	hasParticleDescendantWith functors.
