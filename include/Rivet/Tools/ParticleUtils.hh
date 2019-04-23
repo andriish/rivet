@@ -351,13 +351,13 @@ namespace Rivet {
 
 
   /// @brief Determine whether a particle has an ancestor which meets the function requirement
-  inline bool hasAncestorWith(const Particle& p, const ParticleSelector& f) {
-    return p.hasAncestorWith(f);
+  inline bool hasAncestorWith(const Particle& p, const ParticleSelector& f, bool only_physical=true) {
+    return p.hasAncestorWith(f, only_physical);
   }
 
   /// @brief Determine whether a particle has an ancestor which doesn't meet the function requirement
-  inline bool hasAncestorWithout(const Particle& p, const ParticleSelector& f) {
-    return p.hasAncestorWithout(f);
+  inline bool hasAncestorWithout(const Particle& p, const ParticleSelector& f, bool only_physical=true) {
+    return p.hasAncestorWithout(f, only_physical);
   }
 
 
@@ -384,14 +384,13 @@ namespace Rivet {
 
 
   /// @brief Determine whether a particle has a descendant which meets the function requirement
-  inline bool hasDescendantWith(const Particle& p, const ParticleSelector& f) {
-    return p.hasDescendantWith(f);
-    // return !p.allDescendants(f).empty();
+  inline bool hasDescendantWith(const Particle& p, const ParticleSelector& f, bool remove_duplicates=true) {
+    return p.hasDescendantWith(f, remove_duplicates);
   }
 
   /// @brief Determine whether a particle has a descendant which doesn't meet the function requirement
-  inline bool hasDescendantWithout(const Particle& p, const ParticleSelector& f) {
-    return p.hasDescendantWithout(f);
+  inline bool hasDescendantWithout(const Particle& p, const ParticleSelector& f, bool remove_duplicates=true) {
+    return p.hasDescendantWithout(f, remove_duplicates);
   }
 
 
