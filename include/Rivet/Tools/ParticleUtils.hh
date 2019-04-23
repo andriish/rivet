@@ -594,19 +594,21 @@ namespace Rivet {
 
   /// Determine whether a particle has an ancestor which meets the cut/function
   struct HasParticleAncestorWith : public BoolParticleFunctor {
-    HasParticleAncestorWith(const ParticleSelector& f) : fn(f) { }
-    HasParticleAncestorWith(const Cut& c);
-    bool operator()(const Particle& p) const { return hasAncestorWith(p, fn); }
+    HasParticleAncestorWith(const ParticleSelector& f, bool only_physical=true) : fn(f), onlyphysical(only_physical) { }
+    HasParticleAncestorWith(const Cut& c, bool only_physical=true);
+    bool operator()(const Particle& p) const { return hasAncestorWith(p, fn, onlyphysical); }
     ParticleSelector fn;
+    bool onlyphysical;
   };
   using hasParticleAncestorWith = HasParticleAncestorWith;
 
   /// Determine whether a particle has an ancestor which doesn't meet the cut/function
   struct HasParticleAncestorWithout : public BoolParticleFunctor {
-    HasParticleAncestorWithout(const ParticleSelector& f) : fn(f) { }
-    HasParticleAncestorWithout(const Cut& c);
-    bool operator()(const Particle& p) const { return hasAncestorWithout(p, fn); }
+    HasParticleAncestorWithout(const ParticleSelector& f, bool only_physical=true) : fn(f), onlyphysical(only_physical) { }
+    HasParticleAncestorWithout(const Cut& c, bool only_physical=true);
+    bool operator()(const Particle& p) const { return hasAncestorWithout(p, fn, onlyphysical); }
     ParticleSelector fn;
+    bool onlyphysical;
   };
   using hasParticleAncestorWithout = HasParticleAncestorWithout;
 
@@ -651,19 +653,21 @@ namespace Rivet {
 
   /// Determine whether a particle has a descendant which meets the cut/function
   struct HasParticleDescendantWith : public BoolParticleFunctor {
-    HasParticleDescendantWith(const ParticleSelector& f) : fn(f) { }
-    HasParticleDescendantWith(const Cut& c);
-    bool operator()(const Particle& p) const { return hasDescendantWith(p, fn); }
+    HasParticleDescendantWith(const ParticleSelector& f, bool remove_duplicates=true) : fn(f), rmduplicates(remove_duplicates) { }
+    HasParticleDescendantWith(const Cut& c, bool remove_duplicates=true);
+    bool operator()(const Particle& p) const { return hasDescendantWith(p, fn, rmduplicates); }
     ParticleSelector fn;
+    bool rmduplicates;
   };
   using hasParticleDescendantWith = HasParticleDescendantWith;
 
   /// Determine whether a particle has a descendant which doesn't meet the cut/function
   struct HasParticleDescendantWithout : public BoolParticleFunctor {
-    HasParticleDescendantWithout(const ParticleSelector& f) : fn(f) { }
-    HasParticleDescendantWithout(const Cut& c);
-    bool operator()(const Particle& p) const { return hasDescendantWithout(p, fn); }
+    HasParticleDescendantWithout(const ParticleSelector& f, bool remove_duplicates=true) : fn(f), rmduplicates(remove_duplicates) { }
+    HasParticleDescendantWithout(const Cut& c, bool remove_duplicates=true);
+    bool operator()(const Particle& p) const { return hasDescendantWithout(p, fn, rmduplicates); }
     ParticleSelector fn;
+    bool rmduplicates;
   };
   using hasParticleDescendantWithout = HasParticleDescendantWithout;
 
