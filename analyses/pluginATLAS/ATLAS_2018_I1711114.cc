@@ -86,7 +86,7 @@ namespace Rivet {
       const double fTR = deltaR(associated_trackjets[0], associated_trackjets[1], RapScheme::YRAP); //N.B. this uses y and not eta
       const FourMomentum dijet = associated_trackjets[0].mom() + associated_trackjets[1].mom();
       const double fTrho = log(dijet.mass() / dijet.pT());
-      const double fTphi = (plane1).angle(plane2);
+      const double fTphi = (plane1).angle(plane2)/M_PI;
 
       _h_R->fill(  fTR,   weight);
       _h_phi->fill(fTphi, weight);
@@ -97,10 +97,10 @@ namespace Rivet {
 
     /// Scale histos
     void finalize() {
-      normalize(_h_R);
-      normalize(_h_phi);
-      normalize(_h_z);
-      normalize(_h_rho);
+      _h_R->normalize(  1.0, false);
+      _h_phi->normalize(1.0, false);
+      _h_z->normalize(  1.0, false);
+      _h_rho->normalize(1.0, false);
     }
 
 
