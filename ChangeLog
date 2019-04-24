@@ -1,3 +1,9 @@
+2019-04-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add CMS_2016_I1487288 (CMS WZ differential cross-sections at 8
+	TeV) from Shehu AbdusSalam, refined and extended to jet
+	distributions by AB.
+
 2019-04-24  Jon Butterworth <j.butterworth@ucl.ac.uk>
 
 	* Fix logic of call the vetoedFinalState in ATLAS_2017_I1609448
