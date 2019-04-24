@@ -212,7 +212,8 @@ namespace Rivet {
 
     /// Get all analyses' plots as a vector of analysis objects.
     std::vector<AnalysisObjectPtr> getData(bool includeorphans = false,
-                                           bool includetmps = false) const;
+                                           bool includetmps = false,
+                                           bool usefinalized = true) const;
 
     /// Write all analyses' plots (via getData) to the named file.
     void writeData(const std::string& filename) const;

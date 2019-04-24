@@ -3,6 +3,47 @@
 	* Fix logic of call the vetoedFinalState in ATLAS_2017_I1609448
 	which was giving wrong met calculation.
 
+2019-04-23  Chris Gutschow  <chris.g@cern.ch>
+
+	* Apply suggested corrections from Peter Richardson to
+	ATLAS_2014_I1282441 (normalisation of second plot is in millibarn
+	not microbarn), ATLAS_2015_I1387176 and ATLAS_2015_I1397635
+	(Unicode issues in the .info), ATLAS_2016_I1419070 (need more than
+	1 entry for a variance not just 1), CMS_2010_PAS_QCD_10_024 and
+	CMS_2012_PAS_FSQ_12_020 (class names need to be consistent with
+	file names to find the .yoda ref data), CMS_2013_I1261026 (need to
+	ensure more than 1 entry in histos to avoid LowStats issues from
+	YODA), CMS_2014_I1298810, CMS_2016_I1421646, CMS_2016_I1454211
+	(the polymarker command in the yoda caused make-plots to fail if
+	there is more than 1 MC line), CMS_2017_I1467451 (cross sections
+	in fb), CMS_2017_I1605749 (data fixed in HepData so don't need to
+	divide by bin width anymore), ALEPH_1996_S3486095 (delete a lot of
+	unused variables), ALEPH_2014_I1267648 (only worked if the final
+	decay products were direct children of the tau, which is not the
+	case in Herwig or Pythia -- rewritten to search down the decay
+	tree), DELPHI_1996_S3430090, DELPHI_2000_S4328825,
+	OPAL_1998_S374990, ARGUS_1993_S2669951, ALEPH_1996_S3486095
+	(switch ' to ^\prime in plots as it wasn't working as it was),
+	ALEPH_2004_S5765862 (fix typo in plot label), BABAR_2003_I593379
+	and BELLE_2008_I786560 (switch to Rivet particle from
+	genParticle), and to add the 2D case to the Sphericity projection
+	so tranSphericity works.
+
+2019-04-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add RIVET_CACHE_PROJECTIONS environment variable, for runtime
+	disabling of the caching mechanism (for debugging and
+	cross-checking).
+
+	* Add optional only_physical and remove_duplicates args (passed
+	through to the Particle methods) to hasParticleAncestorWith and
+	hasParticleDescendantWith functors.
+
+2019-04-08  Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
+
+	* Restored behaviour of getData function to return finalized
+	plots by default
+
 2019-04-03  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Remove/protect against last Unicode .encode() calls that broke Python3 compatibility.

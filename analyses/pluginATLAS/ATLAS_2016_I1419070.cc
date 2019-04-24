@@ -99,9 +99,9 @@ namespace Rivet {
           ydiff2 -= forward_2GeV->bin(i).numEntries()?   forward_2GeV->bin(i).mean()   : 0.0;
           ydiff5 -= forward_5GeV->bin(i).numEntries()?   forward_5GeV->bin(i).mean()   : 0.0;
 
-          double yerr  = bsum.numEntries()?  bsum.stdErr()  : 0.0;
-          double yerr2 = bsum2.numEntries()? bsum2.stdErr() : 0.0;
-          double yerr5 = bsum5.numEntries()? bsum5.stdErr() : 0.0;
+          double yerr  = bsum.numEntries()>1?  bsum.stdErr()  : 0.0;
+          double yerr2 = bsum2.numEntries()>1? bsum2.stdErr() : 0.0;
+          double yerr5 = bsum5.numEntries()>1? bsum5.stdErr() : 0.0;
 
 	        diff_500MeV->point(i).setY(ydiff, yerr);
           diff_2GeV->point(i).setY(ydiff2, yerr2);

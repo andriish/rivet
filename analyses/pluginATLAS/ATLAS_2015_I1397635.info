@@ -19,11 +19,11 @@ PtCuts: [25,20]
 NeedCrossSection: True
 Description:
      Fiducial cross-section for $Wt+t\bar{t}$ production in events with two leptons and exactly one jet, using an integrated
-     luminosity of 20.3 fb${}^{-1}$ of proton-proton collisions at a centre-of-mass energy of 8~TeV at the Large Hadron Collider,
+     luminosity of 20.3 fb${}^{-1}$ of proton-proton collisions at a centre-of-mass energy of 8 TeV at the Large Hadron Collider,
      collected with the ATLAS detector. The cross-section for the production of a top quark and a $W$ boson is measured in a
-     fiducial acceptance requiring two leptons with $\pT > 25$~GeV and $|\eta| < 2.5$, one jet with $\pT > 20$~GeV
-     and $|\eta| < 2.5$, and $E^\text{miss}_\text{T}  > 20$~GeV, including both $Wt$ and top-quark pair events as signal.
-     The measured value of the fiducial cross-section is $0.85 \pm 0.01$ (stat.) $\pm 0.07$ (syst.) $\pm 0.03$ (lumi.)~pb.
+     fiducial acceptance requiring two leptons with $\pT > 25$ GeV and $|\eta| < 2.5$, one jet with $\pT > 20$ GeV
+     and $|\eta| < 2.5$, and $E^\text{miss}_\text{T} > 20$ GeV, including both $Wt$ and top-quark pair events as signal.
+     The measured value of the fiducial cross-section is $0.85 \pm 0.01$ (stat.) $\pm 0.07$ (syst.) $\pm 0.03$ (lumi.) pb.
 BibKey: Aad:2015eto
 BibTeX: '@article{Aad:2015eto,
       author         = "Aad, Georges and others",
