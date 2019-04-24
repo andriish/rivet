@@ -1,3 +1,10 @@
+2019-04-24 Christian Gutschow  <chris.g@cern.ch>
+	* Patch weird behaviour in ATLAS_2017_I1589844 and 
+	ATLAS_2017_I1609448 when Cut argument is passed to 
+	VetoedFinalState constructor. In version 2.6.2 or
+	prior, this would select the particles passing the cut, 
+	after that they are being vetoed.
+
 2019-04-24  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add CMS_2016_I1487288 (CMS WZ differential cross-sections at 8
