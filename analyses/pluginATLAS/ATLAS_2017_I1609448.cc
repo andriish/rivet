@@ -57,7 +57,7 @@ namespace Rivet {
       declare(veto_lep, "VetoLeptons");
 
       // MET
-      VetoedFinalState met_fs(!(Cuts::abseta > 2.5 && Cuts::abspid == PID::MUON));
+      VetoedFinalState met_fs(Cuts::abseta > 2.5 && Cuts::abspid == PID::MUON);
       if (_mode) met_fs.addVetoOnThisFinalState(dressed_leps);
       declare(MissingMomentum(met_fs), "MET");
 
