@@ -1,3 +1,7 @@
+2019-04-25 Christian Gutschow  <chris.g@cern.ch>
+	* fix mapping to ref data in STAR_2006_S6500200, 
+	put bin width manually into ref data file
+
 2019-04-24 Christian Gutschow  <chris.g@cern.ch>
 	* Patch weird behaviour in ATLAS_2017_I1589844 and 
 	ATLAS_2017_I1609448 when Cut argument is passed to 
