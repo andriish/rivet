@@ -44,7 +44,7 @@ YMin=0
 YMax=2
 # END PLOT
 
-# BEGIN PLOT /STAR_2006_S6500200/d25-x02-y02
+# BEGIN PLOT /STAR_2006_S6500200/d25-x01-y02
 Title=Ratio of $p / \pi^+$ as function of $p_\perp$
 XLabel=$p_\perp$ [GeV]
 YLabel=$p / \pi^+$
