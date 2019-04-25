@@ -33,15 +33,15 @@ namespace Rivet {
 
       _h_pT_piplus     = bookHisto1D(2, 1, 1); // full range pion binning
       _h_pT_piminus    = bookHisto1D(7, 1, 1); // full range pion binning
-      _tmp_pT_piplus   = bookHisto1D("TMP/pT_piplus",  refData(25, 1, 1)); // pi histo compatible with more restricted proton binning
-      _tmp_pT_piminus  = bookHisto1D("TMP/pT_piminus", refData(26, 1, 1)); // pi histo compatible with more restricted proton binning
+      _tmp_pT_piplus   = bookHisto1D("TMP/pT_piplus",  refData(25, 1, 2)); // pi histo compatible with more restricted proton binning
+      _tmp_pT_piminus  = bookHisto1D("TMP/pT_piminus", refData(26, 1, 2)); // pi histo compatible with more restricted proton binning
       _h_pT_proton     = bookHisto1D(12, 1, 1);
       _h_pT_antiproton = bookHisto1D(17, 1, 1);
 
-      _s_piminus_piplus = bookScatter2D(23, 1, 1);
-      _s_antipr_pr      = bookScatter2D(24, 1, 1);
-      _s_pr_piplus      = bookScatter2D(25, 1, 1);
-      _s_antipr_piminus = bookScatter2D(26, 1, 1);
+      _s_piminus_piplus = bookScatter2D(23, 1, 2);
+      _s_antipr_pr      = bookScatter2D(24, 1, 2);
+      _s_pr_piplus      = bookScatter2D(25, 1, 2);
+      _s_antipr_piminus = bookScatter2D(26, 1, 2);
     }
 
 
