@@ -1,3 +1,7 @@
+2019-04-26 Christian Gutschow  <chris.g@cern.ch>
+	* use jet size rather than 4-momentum size (?)
+	to fill in CDF_1996_S3108457
+
 2019-04-25 Christian Gutschow  <chris.g@cern.ch>
 	* fix mapping to ref data in STAR_2006_S6500200, 
 	put bin width manually into ref data file
