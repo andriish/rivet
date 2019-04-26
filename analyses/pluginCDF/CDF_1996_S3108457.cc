@@ -70,7 +70,7 @@ namespace Rivet {
       if (costheta0 < 2.0/3.0) {
         _h_m[SJets.size()-2]->fill(mass, weight);
       }
-      if (mass > 600.0*GeV) _h_costheta[JS.size()-2]->fill(costheta0, weight);
+      if (mass > 600.0*GeV) _h_costheta[SJets.size()-2]->fill(costheta0, weight);
       if (costheta0 < 2.0/3.0 && mass > 600.0*GeV) {
         foreach (const Jet& jet, SJets) {
           _h_pT[SJets.size()-2]->fill(jet.pT(), weight);
