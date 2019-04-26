@@ -38,10 +38,9 @@ namespace Rivet {
       WFinder wmuFinder(fs, Cuts::abseta < 2.4 && Cuts::pT > 20*GeV, PID::MUON, 60*GeV, 100*GeV, 30*GeV);
       declare(wmuFinder, "Wmu");
 
-      /// @todo Need HepData ref data
-      _h_ZpT = bookHisto1D("d01-x01-y01", {0., 20., 40., 60., 80., 100., 120., 140., 200., 300.});
-      _h_Njet = bookHisto1D("d02-x01-y01", {-0.5, 0.5, 1.5, 2.5, 3.5});
-      _h_JpT = bookHisto1D("d03-x01-y01", {30., 60., 100., 150., 250.});
+      _h_ZpT = bookHisto1D("d03-x01-y01");
+      _h_Njet = bookHisto1D("d04-x01-y01", {-0.5, 0.5, 1.5, 2.5, 3.5}); ///< @todo Ref data has null bin widths
+      _h_JpT = bookHisto1D("d05-x01-y01");
     }
 
 
