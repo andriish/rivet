@@ -124,10 +124,10 @@ namespace Rivet {
         nTrmin     = nRight;
       }
       else {
-	ptSumTrmax = ptSumRight;
-	ptSumTrmin = ptSumLeft;
-	nTrmax     = nRight;
-	nTrmin     = nLeft;
+        ptSumTrmax = ptSumRight;
+        ptSumTrmin = ptSumLeft;
+        nTrmax     = nRight;
+        nTrmin     = nLeft;
       }
 
       // min max regions have difference are than all other regions
