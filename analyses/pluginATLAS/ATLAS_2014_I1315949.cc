@@ -70,7 +70,7 @@ namespace Rivet {
       if (zfinder.bosons().size() != 1) vetoEvent;
 
       double  Zpt   = zfinder.bosons()[0].momentum().pT()/GeV;
-      double  Zphi  = zfinder.bosons()[0].momentum().phi();
+      double  Zphi  = zfinder.bosons()[0].momentum().phi(MINUSPI_PLUSPI);
       double  Zmass = zfinder.bosons()[0].momentum().mass()/GeV;
       if(Zmass < 66. || Zmass > 116.) vetoEvent;
 
@@ -85,7 +85,7 @@ namespace Rivet {
 
       // Loop over charged particles with pT>500 MeV and |eta|<2.5
       foreach(const Particle& p, particles) {
-        double dphi = p.momentum().phi() - Zphi,
+        double dphi = p.momentum().phi(MINUSPI_PLUSPI) - Zphi,
                pT   = p.momentum().pT();
 
         // Get multiples of 2pi right
