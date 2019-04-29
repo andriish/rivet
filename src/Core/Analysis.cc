@@ -269,6 +269,7 @@ namespace Rivet {
                                    const string& xtitle,
                                    const string& ytitle) {
     Histo1DPtr hist = make_shared<Histo1D>(refscatter, histoPath(hname));
+    if (hist->hasAnnotation("IsRef")) hist->rmAnnotation("IsRef");
     hist->setTitle(title);
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
