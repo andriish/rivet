@@ -1,5 +1,7 @@
 2019-04-29  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add tau mistag efficiency functions for jet smearing.
+
 	* Make RIVET_RANDOM_SEED have effect outside OpenMP builds, too.
 
 2019-04-29 Christian Gutschow  <chris.g@cern.ch>
