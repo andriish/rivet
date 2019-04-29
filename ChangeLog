@@ -1,3 +1,7 @@
+2019-04-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Make RIVET_RANDOM_SEED have effect outside OpenMP builds, too.
+
 2019-04-29 Christian Gutschow  <chris.g@cern.ch>
 	* remove IsRef from output Histo1D
 	* fix HEPData IDs in hist booking for ATLAS_2014_I1315949
@@ -7,14 +11,14 @@
 	to fill in CDF_1996_S3108457
 
 2019-04-25 Christian Gutschow  <chris.g@cern.ch>
-	* fix mapping to ref data in STAR_2006_S6500200, 
+	* fix mapping to ref data in STAR_2006_S6500200,
 	put bin width manually into ref data file
 
 2019-04-24 Christian Gutschow  <chris.g@cern.ch>
-	* Patch weird behaviour in ATLAS_2017_I1589844 and 
-	ATLAS_2017_I1609448 when Cut argument is passed to 
+	* Patch weird behaviour in ATLAS_2017_I1589844 and
+	ATLAS_2017_I1609448 when Cut argument is passed to
 	VetoedFinalState constructor. In version 2.6.2 or
-	prior, this would select the particles passing the cut, 
+	prior, this would select the particles passing the cut,
 	after that they are being vetoed.
 
 2019-04-24  Andy Buckley  <andy.buckley@cern.ch>
