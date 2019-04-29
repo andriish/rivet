@@ -1,5 +1,6 @@
 2019-04-29 Christian Gutschow  <chris.g@cern.ch>
 	* remove IsRef from output Histo1D
+	* fix HEPData IDs in hist booking for ATLAS_2014_I1315949
 
 2019-04-26 Christian Gutschow  <chris.g@cern.ch>
 	* use jet size rather than 4-momentum size (?)
