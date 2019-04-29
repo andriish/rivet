@@ -1,3 +1,6 @@
+2019-04-29 Christian Gutschow  <chris.g@cern.ch>
+	* remove IsRef from output Histo1D
+
 2019-04-26 Christian Gutschow  <chris.g@cern.ch>
 	* use jet size rather than 4-momentum size (?)
 	to fill in CDF_1996_S3108457
