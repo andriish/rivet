@@ -31,10 +31,10 @@ namespace Rivet {
       _h_pTsum_tmax   = bookProfile1D( 71, 1, 1);
       _h_pTsum_tdif   = bookProfile1D(125, 1, 1);
 
-      _h_Nchg_tow     = bookProfile1D( 70, 1, 1);
-      _h_Nchg_trv     = bookProfile1D( 71, 1, 1);
-      _h_Nchg_away    = bookProfile1D( 72, 1, 1);
-      _h_Nchg_tmin    = bookProfile1D( 73, 1, 1);
+      _h_Nchg_tow     = bookProfile1D( 72, 1, 1);
+      _h_Nchg_trv     = bookProfile1D( 73, 1, 1);
+      _h_Nchg_away    = bookProfile1D( 74, 1, 1);
+      _h_Nchg_tmin    = bookProfile1D( 75, 1, 1);
       _h_Nchg_tmax    = bookProfile1D( 82, 1, 1);
       _h_Nchg_tdif    = bookProfile1D(126, 1, 1);
 
