@@ -2371,7 +2371,7 @@ class Histogram(DrawableObject, Described):
                                     # TODO: Perhaps use a new dashed line to fill the gap?
                     start = False
 
-                    
+
                     if self.getSmoothLine():
                         out += ('(' + coors.strphys2frameX(0.5*(b.xmin+b.xmax)) + ', ' \
                                     + coors.strphys2frameY(b.val) + ')\n')
