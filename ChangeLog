@@ -1,6 +1,6 @@
 2019-04-30 Christian Gutschow  <chris.g@cern.ch>
 	* path sign behaviour in deltaEta (MathUtils.hh)
-	* fix HEPData IDs in hist booking for ATLAS_2014_I1315949
+	* Peter's make-plots patch for NaN at the end of the distribution
 
 2019-04-29  Andy Buckley  <andy.buckley@cern.ch>
 
