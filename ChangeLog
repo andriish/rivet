@@ -1,5 +1,9 @@
+2019-04-30  Peter Richardson  <peter.richardson@durham.ac.uk>
+
+	* Fix make-plots rendering when last point is NaN-valued.
+
 2019-04-30 Christian Gutschow  <chris.g@cern.ch>
-	* path sign behaviour in deltaEta (MathUtils.hh)
+	* patch sign behaviour in deltaEta (MathUtils.hh)
 	* fix HEPData IDs in hist booking for ATLAS_2014_I1315949
 
 2019-04-29  Andy Buckley  <andy.buckley@cern.ch>
