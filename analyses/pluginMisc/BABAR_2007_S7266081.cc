@@ -41,10 +41,6 @@ namespace Rivet {
         _weight_total += weight;
         Particles pip, pim, Kp, Km;
         unsigned int nstable = 0;
-        // Get the boost to the rest frame
-        LorentzTransform cms_boost;
-        if (p.p3().mod() > 1*MeV)
-          cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
         // Find the decay products we want
         findDecayProducts(p, nstable, pip, pim, Kp, Km);
         if (p.pid() < 0) {
