@@ -1,6 +1,8 @@
 2019-05-04 Christian Gutschow  <chris.g@cern.ch>
 	* default entry point of ATLAS_2014_I1319490 should 
 	  be average of muon and electron channel
+	* fix units in ATLAS_2014_I1319490 and apply 
+	  Peter Richardson's plot updates
 
 2019-05-04 Peter Richardson  <peter.richardson@durham.ac.uk>
 	* Fix plot selection and labels in ATLAS_2016_I1419652 (due yoda update from HepData)

@@ -114,9 +114,10 @@ namespace Rivet {
       MSG_INFO("Sum of weights  : " << sumw       );
       MSG_INFO("nEvents         : " << numEvents());
 
-      const double sf(xs_pb / sumw);
+      double sf(xs_pb / sumw);
 
       scale(_njet,     sf);
+      sf *=1000.;
       scale(_jet1_bPt, sf);
       scale(_jet2_bPt, sf);
     }
