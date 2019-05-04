@@ -38,8 +38,8 @@ namespace Rivet {
 
       // jets
       VetoedFinalState jet_fs(fs);
-      jet_fs.addVetoOnThisFinalState(wm_el);
-      jet_fs.addVetoOnThisFinalState(wm_mu);
+      jet_fs.addVetoOnThisFinalState(wf_el);
+      jet_fs.addVetoOnThisFinalState(wf_mu);
       FastJets fj(jet_fs, FastJets::ANTIKT, 0.4);
       fj.useInvisibles();
       declare(fj, "Jets");
