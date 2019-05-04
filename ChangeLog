@@ -1,3 +1,6 @@
+2019-05-04 Peter Richardson  <peter.richardson@durham.ac.uk>
+	* Fix to mode switch and plot labels in ATLAS_2014_I1319490
+
 2019-05-03 Peter Richardson  <peter.richardson@durham.ac.uk>
 	* Fix info text and plot labels in ATLAS_2013_I1217863
 	* Fix Zfinder test in ATLAS_2014_I1312627, size is now no of Z's not leptons
