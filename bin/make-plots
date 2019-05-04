@@ -1191,12 +1191,12 @@ class RatioPlot(Plot):
         xcustommajorticks=[]
         xcustomminorticks=[]
         if inputdata.description.get('XCustomMajorTicks', '')!='':
-            FOO=inputdata.description['XCustomMajorTicks'].strip().split('\t')
+            FOO=inputdata.description['XCustomMajorTicks'].strip().split() #'\t')
             if not len(FOO)%2:
                 for i in range(0,len(FOO),2):
                     xcustommajorticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
         if inputdata.description.get('XCustomMinorTicks', '')!='':
-            FOO=inputdata.description['XCustomMinorTicks'].strip().split('\t')
+            FOO=inputdata.description['XCustomMinorTicks'].strip().split() #'\t')
             for i in range(len(FOO)):
                 xcustomminorticks.append({'Value': float(FOO[i])})
         xticks = XTicks(inputdata.description, self.coors)
@@ -1517,7 +1517,7 @@ class ColorScale(Described):
             z_label_pairs = self.attr('ZCustomMajorTicks').strip().split() #'\t')
             if len(z_label_pairs) % 2 == 0:
                 for i in range(0, len(z_label_pairs), 2):
-                    zcustommajorticks.append({'Value': float(x_label_pairs[i]), 'Label': x_label_pairs[i+1]})
+                    zcustommajorticks.append({'Value': float(z_label_pairs[i]), 'Label': z_label_pairs[i+1]})
             else:
                 print("Warning: ZCustomMajorTicks requires an even number of alternating pos/label entries")
 
