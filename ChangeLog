@@ -19,6 +19,7 @@
 
 2019-04-30 Christian Gutschow  <chris.g@cern.ch>
 	* path sign behaviour in deltaEta (MathUtils.hh)
+	* add signed option for deltaRap
 
 2019-04-29  Andy Buckley  <andy.buckley@cern.ch>
 
