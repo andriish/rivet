@@ -1,3 +1,7 @@
+2019-05-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* First set of script conversions from optparse to argparse for Python3.
+
 2019-05-06 Peter Richardson  <peter.richardson@durham.ac.uk>
 	* Fix normalisation in ATLAS_2016_I1444991 after yoda update from HepData
 
