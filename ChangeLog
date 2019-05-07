@@ -1,3 +1,7 @@
+2019-05-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Remove GSL includes and single remaining method (for now).
+
 2019-05-06  Andy Buckley  <andy.buckley@cern.ch>
 
 	* First set of script conversions from optparse to argparse for Python3.
@@ -6,9 +10,9 @@
 	* Fix normalisation in ATLAS_2016_I1444991 after yoda update from HepData
 
 2019-05-04 Christian Gutschow  <chris.g@cern.ch>
-	* default entry point of ATLAS_2014_I1319490 should 
+	* default entry point of ATLAS_2014_I1319490 should
 	  be average of muon and electron channel
-	* fix units in ATLAS_2014_I1319490 and apply 
+	* fix units in ATLAS_2014_I1319490 and apply
 	  Peter Richardson's plot updates
 
 2019-05-04 Peter Richardson  <peter.richardson@durham.ac.uk>
