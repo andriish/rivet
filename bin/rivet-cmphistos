@@ -1,10 +1,10 @@
 #! /usr/bin/env python
 
 """\
-%prog - generate histogram comparison plots
+Generate histogram comparison plots
 
 USAGE:
- %prog [options] yodafile1[:'PlotOption1=Value':'PlotOption2=Value':...] [path/to/yodafile2 ...] [PLOT:Key1=Val1:...]
+ %(prog)s [options] yodafile1[:'PlotOption1=Value':'PlotOption2=Value':...] [path/to/yodafile2 ...] [PLOT:Key1=Val1:...]
 
 where the plot options are described in the make-plots manual in the HISTOGRAM
 section.
@@ -231,44 +231,44 @@ if __name__ == '__main__':
 
     parser.add_argument("ARGS")
     parser.add_argument('-o', '--outdir', dest='OUTDIR',
-                      default='.', help='write data files into this directory')
+                        default='.', help='write data files into this directory')
     parser.add_argument("--hier-out", action="store_true", dest="HIER_OUTPUT", default=False,
-                      help="write output dat files into a directory hierarchy which matches the analysis paths")
+                        help="write output dat files into a directory hierarchy which matches the analysis paths")
     parser.add_argument('--plotinfodir', dest='PLOTINFODIRS', action='append',
-                      default=['.'], help='directory which may contain plot header information (in addition '
-                      'to standard Rivet search paths)')
+                        default=['.'], help='directory which may contain plot header information (in addition '
+                        'to standard Rivet search paths)')
     parser.add_argument("--no-rivet-refs", dest="RIVETREFS", action="store_false",
-                      default=True, help="don't use Rivet reference data files")
+                        default=True, help="don't use Rivet reference data files")
     # parser.add_argument("--refid", dest="REF_ID",
     #                   default="REF", help="ID of reference data set (file path for non-REF data)")
     parser.add_argument("--reftitle", dest="REFTITLE",
                         default='Data', help="Reference data legend entry")
     parser.add_argument("--pwd", dest="PATH_PWD", action="store_true", default=False,
-                      help="append the current directory (pwd) to the analysis/data search paths (cf. $RIVET_ANALYSIS/DATA_PATH)")
-    parser.add_argument("-V", "--verbose", dest="VERBOSE", action="store_true", default=False,
-                      help="produce debug output to the terminal")
+                        help="append the current directory (pwd) to the analysis/data search paths (cf. $RIVET_ANALYSIS/DATA_PATH)")
+    parser.add_argument("-v", "--verbose", dest="VERBOSE", action="store_true", default=False,
+                        help="produce debug output to the terminal")
 
     stygroup = parser.add_argument_group("Plot style")
     stygroup.add_argument("--linear", action="store_true", dest="LINEAR",
-                        default=False, help="plot with linear scale")
+                          default=False, help="plot with linear scale")
     stygroup.add_argument("--errs", "--mcerrs", "--mc-errs", action="store_true", dest="MC_ERRS",
-                        default=False, help="show vertical error bars on the MC lines")
+                          default=False, help="show vertical error bars on the MC lines")
     stygroup.add_argument("--no-ratio", action="store_false", dest="RATIO",
-                        default=True, help="disable the ratio plot")
+                          default=True, help="disable the ratio plot")
     stygroup.add_argument("--rel-ratio", action="store_true", dest="RATIO_DEVIATION",
-                        default=False, help="show the ratio plots scaled to the ref error")
+                          default=False, help="show the ratio plots scaled to the ref error")
     stygroup.add_argument("--no-plottitle", action="store_true", dest="NOPLOTTITLE",
-                        default=False, help="don't show the plot title on the plot "
-                        "(useful when the plot description should only be given in a caption)")
+                          default=False, help="don't show the plot title on the plot "
+                          "(useful when the plot description should only be given in a caption)")
     stygroup.add_argument("--style", dest="STYLE", default="default",
-                        help="change plotting style: default|bw|talk")
+                          help="change plotting style: default|bw|talk")
     stygroup.add_argument("-c", "--config", dest="CONFIGFILES", action="append", default=["~/.make-plots"],
-                        help="additional plot config file(s). Settings will be included in the output configuration.")
+                          help="additional plot config file(s). Settings will be included in the output configuration.")
 
     selgroup = parser.add_argument_group("Selective plotting")
     # selgroup.add_argument("--show-single", dest="SHOW_SINGLE", choices=("no", "ref", "mc", "all"),
     #                     default="mc", help="control if a plot file is made if there is only one dataset to be plotted "
-    #                     "[default=%default]. If the value is 'no', single plots are always skipped, for 'ref' and 'mc', "
+    #                     "[default=%(default)s]. If the value is 'no', single plots are always skipped, for 'ref' and 'mc', "
     #                     "the plot will be written only if the single plot is a reference plot or an MC "
     #                     "plot respectively, and 'all' will always create single plot files.\n The 'ref' and 'all' values "
     #                     "should be used with great care, as they will also write out plot files for all reference "
@@ -281,12 +281,12 @@ if __name__ == '__main__':
     # #                     default=None, help="specify a file containing a list of histograms to plot, in the format "
     # #                     "/ANALYSIS_ID/histoname, one per line, e.g. '/DELPHI_1996_S3430090/d01-x01-y01'.")
     selgroup.add_argument("-m", "--match", action="append",
-                        help="only write out histograms whose $path/$name string matches these regexes. The argument "
-                        "may also be a text file.",
-                        dest="PATHPATTERNS")
+                          help="only write out histograms whose $path/$name string matches these regexes. The argument "
+                          "may also be a text file.",
+                          dest="PATHPATTERNS")
     selgroup.add_argument("-M", "--unmatch", action="append",
-                        help="exclude histograms whose $path/$name string matches these regexes",
-                        dest="PATHUNPATTERNS")
+                          help="exclude histograms whose $path/$name string matches these regexes",
+                          dest="PATHUNPATTERNS")
 
     args = parser.parse_args()
 

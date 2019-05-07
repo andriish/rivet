@@ -150,7 +150,7 @@ function _rivet_cmphistos() {
     opts="$opts --no-plottitle"
     opts="$opts --plotinfodir"
     opts="$opts --no-rmgapbins"
-    opts="$opts --quiet -q --verbose -V"
+    opts="$opts --quiet -q --verbose -v"
     if [[ ${cur} == -* ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
         if test -n "$COMPREPLY"; then
@@ -191,7 +191,7 @@ function _make_plots() {
     opts="$opts --ps --pdf --eps --png --pdfpng --pspng"
     opts="$opts --tex --no-cleanup --full-range"
     opts="$opts --config -c"
-    opts="$opts --quiet -q --verbose -V"
+    opts="$opts --quiet -q --verbose -v"
     if [[ ${cur} == -* ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
         if test -n "$COMPREPLY"; then
@@ -227,7 +227,7 @@ function _rivet_mkhtml() {
     opts="$opts --ignore-unvalidated -i"
     opts="$opts --match -m"
     opts="$opts --unmatch -M"
-    opts="$opts --verbose -V"
+    opts="$opts --verbose -v"
     if [[ ${cur} == -* ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
         if test -n "$COMPREPLY"; then

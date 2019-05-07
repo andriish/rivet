@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 """\
-%prog [options] <yodafile1> [<yodafile2> <yodafile3>...] [PLOT:Key1=Val1:...]
+%(prog)s [options] <yodafile1> [<yodafile2> <yodafile3>...] [PLOT:Key1=Val1:...]
 
 Make web pages from histogram files written out by Rivet.  You can specify
 multiple Monte Carlo YODA files to be compared in the same syntax as for
@@ -14,8 +14,7 @@ appropriately).
 Any existing output directory will be overwritten.
 
 ENVIRONMENT:
- * RIVET_ANALYSIS_PATH: list of paths to be searched for plugin
-     analysis libraries at runtime
+ * RIVET_ANALYSIS_PATH: list of paths to be searched for analysis plugin libraries
  * RIVET_DATA_PATH: list of paths to be searched for data files
 """
 
@@ -30,7 +29,7 @@ from subprocess import Popen,PIPE
 
 
 import argparse
-parser = argparse.ArgumentParser(description=__doc__)
+parser = argparse.ArgumentParser(usage=__doc__)
 parser.add_argument("YODAFILES", nargs="+", help="data files to compare")
 parser.add_argument("-o", "--outputdir", dest="OUTPUTDIR",
                     default="./rivet-plots", help="directory for Web page output")
@@ -99,7 +98,7 @@ selgroup.add_argument("--ana-unmatch", action="append", dest="ANAUNPATTERNS", de
                       help="exclude histograms from analyses whose name matches any of these regexes")
 
 vrbgroup = parser.add_argument_group("Verbosity control")
-vrbgroup.add_argument("-V", "--verbose", help="add extra debug messages", dest="VERBOSE",
+vrbgroup.add_argument("-v", "--verbose", help="add extra debug messages", dest="VERBOSE",
                       action="store_true", default=False)
 
 args = parser.parse_args()

@@ -30,7 +30,7 @@ function usage {
 		  -n | --cmd | --dry-run:
 		                    just print the generated commands, do not execute
 		  -k | --keep:      keep intermediate files
-		  -V | --verbose:   write out debug info
+		  -v | --verbose:   write out debug info
 
 	EOF
 }
@@ -51,7 +51,7 @@ do
 	   --with-root       ) args+=("-r");;
 	   --cmd | --dry-run ) args+=("-n");;
 	   --keep            ) args+=("-k");;
-	   --verbose         ) args+=("-V");;
+	   --verbose         ) args+=("-v");;
 	   # pass through anything else
 	   *                 ) args+=("$arg");;
 	esac

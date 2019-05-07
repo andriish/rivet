@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 """\
-rivet-diffhepdata-all [-h|--help] [-r|--rivet_directory RIVET_DIRECTORY] [-d|--hepdata_directory HEPDATA_DIRECTORY] [-o|--output_directory OUTPUT_DIRECTORY] [-l|--lower_count LOWER_COUNT]  [-u|--upper_count UPPER_COUNT] [-f|--force_download]
+%(prog)s [-h|--help] [-r|--rivet_directory RIVET_DIRECTORY] [-d|--hepdata_directory HEPDATA_DIRECTORY] [-o|--output_directory OUTPUT_DIRECTORY] [-l|--lower_count LOWER_COUNT]  [-u|--upper_count UPPER_COUNT] [-f|--force_download]
 
 Check compatibility of YODA reference data files, distributed with Rivet, with the YODA file downloaded from HEPData.
 Optional arguments to specify Rivet analyses directory and directories to store HEPData .yoda files and yodadiff output.
@@ -20,7 +20,7 @@ import os, imp, glob, requests, argparse
 
 from rivet import hepdatautils
 
-parser = argparse.ArgumentParser(description='Check compatibility of YODA reference data files with HEPData for all Rivet analyses')
+parser = argparse.ArgumentParser(usage='Check compatibility of YODA reference data files with HEPData for all Rivet analyses')
 parser.add_argument('-r', '--rivet_directory', nargs=1, default=['.'], help='directory to search for Rivet .yoda files')
 parser.add_argument('-d', '--hepdata_directory', nargs=1, default=['.'], help='directory to store downloaded HEPData .yoda files')
 parser.add_argument('-o', '--output_directory', nargs=1, default=['.'], help='directory to write yodadiff output')
@@ -103,7 +103,7 @@ for count, inspire_id in enumerate(sorted(analyses, key=analyses.get)):
         else:
             print('Missing YODA reference data file from Rivet for analysis {}.'.format(analysis))
             compatible = True
-    
+
     if compatible:
         print('YODA reference data files from Rivet and HEPData are compatible!')
         compatible_analyses.append(inspire_id)
@@ -120,4 +120,3 @@ print('Of {:d} Rivet analyses in {}, {:d} ({:.1f}%) were compatible and {:d} ({:
     len(analyses), rivet_directory,
     len(compatible_analyses), 100.*len(compatible_analyses)/len(analyses),
     len(incompatible_analyses), 100.*len(incompatible_analyses)/len(analyses)))
-

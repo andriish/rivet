@@ -1,9 +1,9 @@
 #! /usr/bin/env python
 
 """\
-%prog: make templates of analysis source files for Rivet
+%(prog)s: make templates of analysis source files for Rivet
 
-Usage: %prog [--help|-h] [--srcroot=<srcrootdir>] <analysisname>
+Usage: %(prog)s [--help|-h] [--srcroot=<srcrootdir>] <analysisname>
 
 Without the --srcroot flag, the analysis files will be created in the current
 directory.
@@ -23,7 +23,7 @@ parser.add_argument("--srcroot", metavar="DIR", dest="SRCROOT", default=None,
                     "at directory DIR) rather than just creating all in the current dir")
 parser.add_argument("-q", "--quiet", dest="LOGLEVEL", default=logging.INFO,
                     action="store_const", const=logging.WARNING, help="only write out warning and error messages")
-parser.add_argument("-V", "--verbose", dest="LOGLEVEL", default=logging.INFO,
+parser.add_argument("-v", "--verbose", dest="LOGLEVEL", default=logging.INFO,
                     action="store_const", const=logging.DEBUG, help="provide extra debugging messages")
 parser.add_argument("-i", "--inline-info", dest="INLINE", action="store_true",
                     default=False, help="Put analysis info into source file instead of separate data file.")

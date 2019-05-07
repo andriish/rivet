@@ -5,11 +5,10 @@ Merge together yoda files produced by Rivet.
 
 Examples:
 
-  %prog [options] <yodafile> [<yodafile2> ...]
+  %(prog)s [options] <yodafile> [<yodafile2> ...]
 
 ENVIRONMENT:
- * RIVET_ANALYSIS_PATH: list of paths to be searched for plugin
-     analysis libraries at runtime
+ * RIVET_ANALYSIS_PATH: list of paths to be searched for analysis plugin libraries
  * RIVET_DATA_PATH: list of paths to be searched for data files
 """
 
@@ -40,12 +39,12 @@ import time, datetime, logging, signal
 
 ## Parse command line options
 import argparse
-parser = argparse.ArgumentParser(description=__doc__, version="rivet v%s" % rivet.version())
+parser = argparse.ArgumentParser(description=__doc__)
 
 extragroup = parser.add_argument_group("Run settings")
 extragroup.add_argument("YODAFILES", nargs="+", help="data files to merge")
 extragroup.add_argument("-o", "--output-file", dest="OUTPUTFILE",
-                        default="Rivet.yoda", help="specify the output histo file path (default = %default)")
+                        default="Rivet.yoda", help="specify the output histo file path (default = %(default)s)")
 extragroup.add_argument("-e", "--equiv", dest="EQUIV", action="store_true", default=False,
                         help="assume that the yoda files are equivalent but statistically independent (default= assume that different files contains different processes)")
 extragroup.add_argument("-O", "--merge-option", dest="MERGEOPTIONS", action="append",

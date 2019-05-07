@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 """\
-rivet-diffhepdata [-h|--help] yodafile [-i|--inspire_id INSPIRE_ID] [-d|--yodafile_from_hepdata YODAFILE_FROM_HEPDATA] [-o|--output OUTPUT] 
+%(prog)s [-h|--help] yodafile [-i|--inspire_id INSPIRE_ID] [-d|--yodafile_from_hepdata YODAFILE_FROM_HEPDATA] [-o|--output OUTPUT]
 
 Check compatibility of a YODA reference data file, intended for inclusion in Rivet, with the YODA file downloaded from HEPData.
 Specify either the INSPIRE_ID (to download the YODA file from HEPData) or the already-downloaded YODAFILE_FROM_HEPDATA.
@@ -18,7 +18,7 @@ import os, imp, glob, requests, argparse
 
 from rivet import hepdatautils
 
-parser = argparse.ArgumentParser(description='Check compatibility of YODA reference data file with HEPData')
+parser = argparse.ArgumentParser(usage='Check compatibility of YODA reference data file with HEPData')
 parser.add_argument('yodafile', help='name of YODA reference data file (intended for inclusion in Rivet)')
 group = parser.add_mutually_exclusive_group()
 group.add_argument('-i', '--inspire_id', nargs=1, default=[0], type=int, help='INSPIRE ID (to download the YODA file from HEPData')
@@ -30,4 +30,3 @@ if compatible:
     print('YODA reference data files from Rivet and HEPData are compatible!')
 else:
     print('YODA reference data files from Rivet and HEPData are NOT compatible!')
-
