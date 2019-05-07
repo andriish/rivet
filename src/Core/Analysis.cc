@@ -270,6 +270,7 @@ namespace Rivet {
                                    const string& ytitle) {
     Histo1DPtr hist = make_shared<Histo1D>(refscatter, histoPath(hname));
     if (hist->hasAnnotation("IsRef")) hist->rmAnnotation("IsRef");
+    if (hist->hasAnnotation("ErrorBreakdown")) hist->rmAnnotation("ErrorBreakdown");
     hist->setTitle(title);
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
@@ -357,6 +358,7 @@ namespace Rivet {
     const string path = histoPath(hname);
     Histo2DPtr hist( new Histo2D(refscatter, path) );
     if (hist->hasAnnotation("IsRef")) hist->rmAnnotation("IsRef");
+    if (hist->hasAnnotation("ErrorBreakdown")) hist->rmAnnotation("ErrorBreakdown");
     hist->setTitle(title);
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
@@ -432,6 +434,7 @@ namespace Rivet {
     const string path = histoPath(hname);
     Profile1DPtr prof = make_shared<Profile1D>(refscatter, path);
     if (prof->hasAnnotation("IsRef")) prof->rmAnnotation("IsRef");
+    if (prof->hasAnnotation("ErrorBreakdown")) prof->rmAnnotation("ErrorBreakdown");
     prof->setTitle(title);
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
@@ -517,6 +520,7 @@ namespace Rivet {
     const string path = histoPath(hname);
     Profile2DPtr prof( new Profile2D(refscatter, path) );
     if (prof->hasAnnotation("IsRef")) prof->rmAnnotation("IsRef");
+    if (prof->hasAnnotation("ErrorBreakdown")) prof->rmAnnotation("ErrorBreakdown");
     prof->setTitle(title);
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
@@ -573,6 +577,7 @@ namespace Rivet {
       s = make_shared<Scatter2D>(path);
     }
     if (s->hasAnnotation("IsRef")) s->rmAnnotation("IsRef");
+    if (s->hasAnnotation("ErrorBreakdown")) s->rmAnnotation("ErrorBreakdown");
     s->setTitle(title);
     s->setAnnotation("XLabel", xtitle);
     s->setAnnotation("YLabel", ytitle);
