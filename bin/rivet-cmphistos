@@ -245,7 +245,7 @@ if __name__ == '__main__':
                         default='Data', help="Reference data legend entry")
     parser.add_argument("--pwd", dest="PATH_PWD", action="store_true", default=False,
                       help="append the current directory (pwd) to the analysis/data search paths (cf. $RIVET_ANALYSIS/DATA_PATH)")
-    parser.add_argument("-v", "--verbose", dest="VERBOSE", action="store_true", default=False,
+    parser.add_argument("-V", "--verbose", dest="VERBOSE", action="store_true", default=False,
                       help="produce debug output to the terminal")
 
     stygroup = parser.add_argument_group("Plot style")

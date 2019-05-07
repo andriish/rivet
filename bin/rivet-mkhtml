@@ -99,7 +99,7 @@ selgroup.add_argument("--ana-unmatch", action="append", dest="ANAUNPATTERNS", de
                       help="exclude histograms from analyses whose name matches any of these regexes")
 
 vrbgroup = parser.add_argument_group("Verbosity control")
-vrbgroup.add_argument("-v", "--verbose", help="add extra debug messages", dest="VERBOSE",
+vrbgroup.add_argument("-V", "--verbose", help="add extra debug messages", dest="VERBOSE",
                       action="store_true", default=False)
 
 args = parser.parse_args()
