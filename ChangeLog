@@ -1,5 +1,8 @@
 2019-05-07  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Modify LorentzTransform::setBetaVec to behave better for boost
+	along x, y, and z axes.
+
 	* Attach bare lepton GenParticle pointers to output of
 	DressedLeptons, to allow ancestry/decay navigation (request by
 	Markus Seidel).
