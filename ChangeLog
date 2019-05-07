@@ -1,5 +1,16 @@
 2019-05-07  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Attach bare lepton GenParticle pointers to output of
+	DressedLeptons, to allow ancestry/decay navigation (request by
+	Markus Seidel).
+
+	* Add Particle::setGenParticle method and manual Particle
+	constructors with the option to pass a GenParticle*.
+
+	* Improve DressedLeptons constructor to deconstruct incoming
+	particles into bare and dressing components (report by Markus
+	Seidel).
+
 	* Remove GSL includes and single remaining method (for now).
 
 2019-05-06  Andy Buckley  <andy.buckley@cern.ch>
