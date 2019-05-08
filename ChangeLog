@@ -1,3 +1,10 @@
+2019-05-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use an std::map rather than std::set to store analyses in
+	AnalysisHandler, hopefully therefore fixing the analysis
+	evaluation order and making multi-analysis runs with random
+	numbers repeatable.
+
 2019-05-07  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Modify LorentzTransform::setBetaVec to behave better for boost
