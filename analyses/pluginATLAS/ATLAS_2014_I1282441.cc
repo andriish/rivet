@@ -76,7 +76,7 @@ namespace Rivet {
 
 
     void finalize() {
-      scale(_h_phi_rapidity, crossSection()/microbarn/sumOfWeights());
+      scale(_h_phi_rapidity, crossSection()/millibarn/sumOfWeights());
       scale(_h_phi_pT, crossSection()/microbarn/sumOfWeights());
     }
 
