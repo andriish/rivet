@@ -271,6 +271,7 @@ namespace Rivet {
     Histo1DPtr hist = make_shared<Histo1D>(refscatter, histoPath(hname));
     if (hist->hasAnnotation("IsRef")) hist->rmAnnotation("IsRef");
     if (hist->hasAnnotation("ErrorBreakdown")) hist->rmAnnotation("ErrorBreakdown");
+    if (hist->hasAnnotation("Variations")) hist->rmAnnotation("Variations");
     hist->setTitle(title);
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
@@ -359,6 +360,7 @@ namespace Rivet {
     Histo2DPtr hist( new Histo2D(refscatter, path) );
     if (hist->hasAnnotation("IsRef")) hist->rmAnnotation("IsRef");
     if (hist->hasAnnotation("ErrorBreakdown")) hist->rmAnnotation("ErrorBreakdown");
+    if (hist->hasAnnotation("Variations")) hist->rmAnnotation("Variations");
     hist->setTitle(title);
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
@@ -435,6 +437,7 @@ namespace Rivet {
     Profile1DPtr prof = make_shared<Profile1D>(refscatter, path);
     if (prof->hasAnnotation("IsRef")) prof->rmAnnotation("IsRef");
     if (prof->hasAnnotation("ErrorBreakdown")) prof->rmAnnotation("ErrorBreakdown");
+    if (prof->hasAnnotation("Variations")) prof->rmAnnotation("Variations");
     prof->setTitle(title);
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
@@ -521,6 +524,7 @@ namespace Rivet {
     Profile2DPtr prof( new Profile2D(refscatter, path) );
     if (prof->hasAnnotation("IsRef")) prof->rmAnnotation("IsRef");
     if (prof->hasAnnotation("ErrorBreakdown")) prof->rmAnnotation("ErrorBreakdown");
+    if (prof->hasAnnotation("Variations")) prof->rmAnnotation("Variations");
     prof->setTitle(title);
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
@@ -578,6 +582,7 @@ namespace Rivet {
     }
     if (s->hasAnnotation("IsRef")) s->rmAnnotation("IsRef");
     if (s->hasAnnotation("ErrorBreakdown")) s->rmAnnotation("ErrorBreakdown");
+    if (s->hasAnnotation("Variations")) s->rmAnnotation("Variations");
     s->setTitle(title);
     s->setAnnotation("XLabel", xtitle);
     s->setAnnotation("YLabel", ytitle);
