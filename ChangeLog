@@ -1,3 +1,7 @@
+2019-05-09 Christian Gutschow  <chris.g@cern.ch>
+	* add correlation information for those analyses 
+	that are compatible with HEPData
+
 2019-05-08  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Use an std::map rather than std::set to store analyses in
