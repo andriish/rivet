@@ -28,12 +28,17 @@ namespace Rivet {
         _original(nullptr), _id(PID::ANY), _isDirect{false,false}
     {   }
 
-    /// Constructor without GenParticle.
-    Particle(PdgId pid, const FourMomentum& mom, const FourVector& pos=FourVector())
+    /// Constructor from PID and momentum.
+    Particle(PdgId pid, const FourMomentum& mom, const FourVector& pos=FourVector(), const GenParticle* gp=nullptr)
       : ParticleBase(),
-        _original(nullptr), _id(pid),
+        _original(gp), _id(pid),
         _momentum(mom), _origin(pos),
         _isDirect{false,false}
+    {   }
+
+    /// Constructor from PID, momentum, and a GenParticle for relational links.
+    Particle(PdgId pid, const FourMomentum& mom, const GenParticle* gp, const FourVector& pos=FourVector())
+      : Particle(pid, mom, pos, gp)
     {   }
 
     /// Constructor from a HepMC GenParticle pointer.
@@ -116,13 +121,19 @@ namespace Rivet {
     operator PseudoJet () const { return pseudojet(); }
 
 
+    /// Set a const pointer to the original GenParticle
+    Particle& setGenParticle(const GenParticle* gp) {
+      _original = gp;
+      return *this;
+    }
+
     /// Get a const pointer to the original GenParticle
     const GenParticle* genParticle() const {
       return _original;
     }
 
     /// Cast operator for conversion to GenParticle*
-    /// @note Not implicit since that would enable accidental Particl::operator== comparisons
+    /// @note Not implicit since that would enable accidental Particle::operator== comparisons
     explicit operator const GenParticle* () const { return genParticle(); }
 
     //@}

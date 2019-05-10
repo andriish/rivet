@@ -100,15 +100,21 @@ namespace Rivet {
 
     /// Set up an active Lorentz boost from the \f$ \vec\beta \f$ vector
     LorentzTransform& setBetaVec(const Vector3& vbeta) {
+      // Set to identity for null boosts
+      _boostMatrix = Matrix<4>::mkIdentity();
+      if (vbeta.mod2() == 0) return *this;
       assert(vbeta.mod2() < 1);
+      //
+      // It's along the x, y, or z axis if 2 Cartesian components are zero
+      const bool alongxyz = (int(isZero(vbeta.x())) + int(isZero(vbeta.y())) + int(isZero(vbeta.z())) == 2);
+      const int i = !isZero(vbeta.x()) ? 1 : !isZero(vbeta.y()) ? 2 : !isZero(vbeta.z()) ? 3 : 1;
       const double beta = vbeta.mod();
       const double gamma = beta2gamma(beta);
-      _boostMatrix = Matrix<4>::mkIdentity();
       _boostMatrix.set(0, 0, gamma);
-      _boostMatrix.set(1, 1, gamma);
-      _boostMatrix.set(0, 1, +beta*gamma); //< +ve coeff since active boost
-      _boostMatrix.set(1, 0, +beta*gamma); //< +ve coeff since active boost
-      if (beta > 0) _boostMatrix = rotate(Vector3::mkX(), vbeta)._boostMatrix;
+      _boostMatrix.set(i, i, gamma);
+      _boostMatrix.set(0, i, +beta*gamma); //< +ve coeff since active boost
+      _boostMatrix.set(i, 0, +beta*gamma); //< +ve coeff since active boost
+      if (!alongxyz) _boostMatrix = rotate(Vector3::mkX(), vbeta)._boostMatrix;
       return *this;
     }
 
