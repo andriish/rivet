@@ -96,9 +96,13 @@ extragroup.add_argument("--runname", dest="RUN_NAME", default=None, metavar="NAM
 extragroup.add_argument("--ignore-beams", dest="IGNORE_BEAMS", action="store_true", default=False,
                         help="ignore input event beams when checking analysis compatibility. "
                         "WARNING: analyses may not work correctly, or at all, with inappropriate beams")
-extragroup.add_argument("-d", "--dump", dest="DUMP_PERIOD", type=int,
-                        default=None, metavar="NUM",
-                        help="run finalize() and write out the resulting yoda-file at regular intervals")
+extragroup.add_argument("-d", "--dump", "--histo-interval", dest="DUMP_PERIOD", type=int,
+                        default=1000, metavar="NUM",
+                        help="specify the number of events between histogram file updates, "
+                        "default = %default. Set to 0 to only write out at the end of the run. "
+                        "Note that intermediate histograms will be those from the analyze step "
+                        "only, except for analyses explicitly declared Reentrant for which the "
+                        "finalize function is executed first.")
 
 timinggroup = parser.add_argument_group("Timeouts and periodic operations")
 timinggroup.add_argument("--event-timeout", dest="EVENT_TIMEOUT", type=int,
@@ -109,10 +113,6 @@ timinggroup.add_argument("--run-timeout", dest="RUN_TIMEOUT", type=int,
                          help="max time in whole seconds to wait for the run to finish. This can be useful on batch systems such "
                          "as the LCG Grid where tokens expire on a fixed wall-clock and can render long Rivet runs unable to write "
                          "out the final histogram file (default = unlimited)")
-timinggroup.add_argument("--histo-interval", dest="HISTO_WRITE_INTERVAL", type=int,
-                         default=1000, help="specify the number of events between histogram file updates, default = %(default)s. "
-                         "Set to 0 to only write out at the end of the run. Note that intermediate histograms will be those "
-                         "from the analyze step only: analysis finalizing is currently not executed until the end of the run.")
 
 verbgroup = parser.add_argument_group("Verbosity control")
 parser.add_argument("-l", dest="NATIVE_LOG_STRS", action="append",
@@ -655,12 +655,6 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
         except TimeoutException as te:
             logging.error("Timeout in reading event from '%s'... exiting" % hepmcfile)
             sys.exit(3)
-
-        ## Write a histo file snapshot if appropriate
-        if args.HISTO_WRITE_INTERVAL is not None and args.HISTO_WRITE_INTERVAL > 0:
-            if evtnum % args.HISTO_WRITE_INTERVAL == 0:
-                ah.writeData(args.HISTOFILE)
-
 
 ## Print end-of-loop messages
 loopendtime = datetime.datetime.now().replace(microsecond=0)

@@ -9,6 +9,7 @@
 
 namespace Rivet {
 
+namespace H1_2015_I1343110_PROJECTIONS {
   // Projection to find the largest gaps and the masses of the two
   // systems separated by the gap. Based on the HZTools gap-finding
   // method (hzhadgap.F). Note that gaps are found in the HCM frame.
@@ -277,6 +278,8 @@ namespace Rivet {
 
   };
 
+  }
+
   /// @brief H1 diffractive dijets
   ///
   /// Diffractive dijets H1 with 920 GeV p and 27.5 GeV e
@@ -288,6 +291,9 @@ namespace Rivet {
 
     /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(H1_2015_I1343110);
+
+    typedef H1_2015_I1343110_PROJECTIONS::RapidityGap RapidityGap;
+    typedef H1_2015_I1343110_PROJECTIONS::BoostedXSystem BoostedXSystem;
 
     /// @name Analysis methods
     //@{

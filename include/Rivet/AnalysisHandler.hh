@@ -306,7 +306,7 @@ namespace Rivet {
     string _dumpFile;
 
     /// Flag to indicate periodic dumping is in progress
-    bool _dumping;
+    int _dumping;
 
     //@}
 
