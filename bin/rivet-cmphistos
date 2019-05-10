@@ -42,7 +42,7 @@ def getHistos(filelist):
     refhistos, mchistos = {}, {}
     for infile in filelist:
         mchistos.setdefault(infile, {})
-        analysisobjects = yoda.read(infile, patterns=opts.PATHPATTERNS, unpatterns=opts.PATHUNPATTERNS)
+        analysisobjects = yoda.read(infile, patterns=args.PATHPATTERNS, unpatterns=args.PATHUNPATTERNS)
         #print(analysisobjects)
         for path, ao in analysisobjects.items():
             ## We can't plot non-histograms yet
@@ -94,7 +94,7 @@ def getRivetRefData(anas=None):
     for filelist in dirlist:
         # TODO: delegate to getHistos?
         for infile in filelist:
-            analysisobjects = yoda.read(infile, patterns=opts.PATHPATTERNS, unpatterns=opts.PATHUNPATTERNS)
+            analysisobjects = yoda.read(infile, patterns=args.PATHPATTERNS, unpatterns=args.PATHUNPATTERNS)
             for path, ao in analysisobjects.items():
                 aop = rivet.AOPath(ao.path)
                 if aop.isref():
@@ -137,9 +137,9 @@ def setStyle(ao, istyle, variation=False):
     LINECOLORS = ['red', 'blue', 'green', 'orange', 'lilac']
     LINESTYLES = ['solid', 'dashed', 'dashdotted', 'dotted']
 
-    if opts.STYLE == 'talk':
+    if args.STYLE == 'talk':
         ao.setAnnotation('LineWidth', '1pt')
-    if opts.STYLE == 'bw':
+    if args.STYLE == 'bw':
         LINECOLORS = ['black!90',
                       'black!50',
                       'black!30']
@@ -204,14 +204,14 @@ def mkOutput(hpath, aos, plot=None, special=None):
 
 def writeOutput(output, h):
     "Choose output file name and dir"
-    if opts.HIER_OUTPUT:
+    if args.HIER_OUTPUT:
         hparts = h.strip("/").split("/", 1)
         ana = "_".join(hparts[:-1]) if len(hparts) > 1 else "ANALYSIS"
-        outdir = os.path.join(opts.OUTDIR, ana)
+        outdir = os.path.join(args.OUTDIR, ana)
         outfile = '%s.dat' % hparts[-1].replace("/", "_")
     else:
         hparts = h.strip("/").split("/")
-        outdir = opts.OUTDIR
+        outdir = args.OUTDIR
         outfile = '%s.dat' % "_".join(hparts)
     mkoutdir(outdir)
     outfilepath = os.path.join(outdir, outfile)
@@ -229,7 +229,7 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
 
-    parser.add_argument("ARGS")
+    parser.add_argument("ARGS", nargs="*")
     parser.add_argument('-o', '--outdir', dest='OUTDIR',
                         default='.', help='write data files into this directory')
     parser.add_argument("--hier-out", action="store_true", dest="HIER_OUTPUT", default=False,
@@ -289,7 +289,6 @@ if __name__ == '__main__':
                           dest="PATHUNPATTERNS")
 
     args = parser.parse_args()
-
 
     ## Add pwd to search paths
     if args.PATH_PWD:
@@ -351,7 +350,7 @@ if __name__ == '__main__':
     ## Now loop over all MC histograms and plot them
     # TODO: factorize much of this into a rivet.utils mkplotfile(mchists, refhist, kwargs, is2d=False) function
     for hpath in hpaths:
-        #print('Currently looking at', h)
+        #print('Currently looking at', hpath)
 
         ## The analysis objects to be plotted
         anaobjects = []
