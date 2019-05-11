@@ -1,0 +1,46 @@
+Name: HERA_2015_I1353667
+Year: 2015
+Summary: <Insert short HERA_2015_I1353667 description>
+Experiment: HERA
+Collider: <Insert the collider name>
+InspireID: 1353667
+Status: UNVALIDATED
+Authors:
+ - Your Name <your@email.address>
+#References:
+#- '<Example: Eur.Phys.J. C76 (2016) no.7, 392>'
+#- '<Example: DOI:10.1140/epjc/s10052-016-4184-8>'
+#- '<Example: arXiv:1605.03814>'
+RunInfo: <Describe event types, cuts, and other general generator config tips.>
+NeedCrossSection: no
+#Beams: <Insert beam pair(s), e.g. [p+, p+] or [[p-, e-], [p-, e+]]>
+#Energies: <Run energies or beam energy pairs in GeV, e.g. [13000] or [[8.0, 3.5]] or [630, 1800]. Order pairs to match "Beams">
+#Luminosity_fb: <Insert integrated luminosity, in inverse fb>
+Description:
+  '<A fairly long description, including what is measured
+  and if possible what it is useful for in terms of MC validation
+  and tuning. Use LaTeX for maths like $\pT > 50\;\GeV$.>'
+Keywords: []
+BibKey: H1:2015dma
+BibTeX: '%%% contains utf-8, see: http://inspirehep.net/info/faq/general#utf8
+%%% add \usepackage[utf8]{inputenc} to your latex preamble
+
+@article{H1:2015dma,
+      author         = "Abramowicz, H. and others",
+      title          = "{Combination of differential D$^{∗\pm}$ cross-section
+                        measurements in deep-inelastic ep scattering at HERA}",
+      collaboration  = "H1, ZEUS",
+      journal        = "JHEP",
+      volume         = "09",
+      year           = "2015",
+      pages          = "149",
+      doi            = "10.1007/JHEP09(2015)149",
+      eprint         = "1503.06042",
+      archivePrefix  = "arXiv",
+      primaryClass   = "hep-ex",
+      reportNumber   = "DESY-15-037",
+      SLACcitation   = "%%CITATION = ARXIV:1503.06042;%%"
+}'
+ToDo:
+ - Implement the analysis, test it, remove this ToDo, and mark as VALIDATED :-)
+
