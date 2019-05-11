@@ -264,6 +264,8 @@ if __name__ == '__main__':
                           help="change plotting style: default|bw|talk")
     stygroup.add_argument("-c", "--config", dest="CONFIGFILES", action="append", default=["~/.make-plots"],
                           help="additional plot config file(s). Settings will be included in the output configuration.")
+    stygroup.add_argument("--remove-options", help="remove options label from legend", dest="REMOVE_OPTIONS",
+                          action="store_true", default=False)
 
     selgroup = parser.add_argument_group("Selective plotting")
     # selgroup.add_argument("--show-single", dest="SHOW_SINGLE", choices=("no", "ref", "mc", "all"),
@@ -380,6 +382,8 @@ if __name__ == '__main__':
                     opt_group = key_val.split("=", 2)
                     key, val = "=".join(opt_group[:2]), opt_group[2]
                 plot[key] = val
+        if args.REMOVE_OPTIONS:
+            plot['RemoveOptions'] = '1'
         if args.LINEAR:
             plot['LogY'] = '0'
         if args.NOPLOTTITLE:
