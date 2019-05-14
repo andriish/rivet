@@ -27,25 +27,34 @@ namespace Rivet {
   // @author Christian Bierlich <christian.bierlich@thep.lu.se>
 
   typedef map<double, deque<Particles> > MixMap;	
-  class EventMixingFinalState : public Projection {
+  // EventMixingBase is the base class for event mixing projections.
+  // Most methods are defined in this base class as they should.
+  // In order to use it, a derived class should be implemented where:
+  // - The constructor is reimplmented, giving the derived projection type
+  // from which the mixing observable is calculated. The constructor must also
+  // be declared public in the derived class.
+  // - The calculateMixingObs is implemented.
+  // To examples of such derived classes are given below,
+  // 1) EventMixingFinalState, where the mixing observable are calculated
+  // on a multiplicity of a charged final state, and:
+  // 2) EventMixingCentrality, where the mixing observable is centrality.
+
+  class EventMixingBase : public Projection {
   public:
     // Constructor
-    EventMixingFinalState(const ParticleFinder& fsp, const ParticleFinder& mix, size_t nMixIn,
+    EventMixingBase(const Projection* mixObsProjPtr, const ParticleFinder& mix, size_t nMixIn,
 	      double oMin, double oMax, double deltao ) : nMix(nMixIn){
-    	setName("EventMixingFinalState");
-	addProjection(fsp,"FS");
+    	setName("EventMixingBase");
+	addProjection(*mixObsProjPtr,"OBS");
 	addProjection(mix,"MIX");
-	MSG_WARNING("EventMixingFinalState is a naive implementation, not currently " <<
+	MSG_WARNING("EventMixing is a naive implementation, not currently " <<
 		    "validated. Use with caution.");
 
-	// Set up the map for mixing events
+	// Set up the map for mixing events.
 	for(double o = oMin; o < oMax; o+=deltao )
 		mixEvents[o] = deque<Particles>();
 	
     }
-    // Clone on the heap
-    DEFAULT_RIVET_PROJ_CLONE(EventMixingFinalState);
-
 
     // Return a vector of mixing events.
     vector<Particles> getMixingEvents() const {
@@ -59,16 +68,12 @@ namespace Rivet {
 
     // Calulate mixing observable.
     // Can be overloaded to define more elaborate observables.
-    virtual void calculateMixingObs(const Particles& parts){
-    	mObs = parts.size();
-    }
+    virtual void calculateMixingObs(const Projection* mProj) = 0;
     
     /// Perform the projection on the Event
     void project(const Event& e){
-	const Particles parts = applyProjection<ParticleFinder>(e, "FS").particles();
-
-	calculateMixingObs(parts);
-
+	const Projection* mixObsProjPtr = &applyProjection<Projection>(e, "OBS");
+	calculateMixingObs(mixObsProjPtr);
 	MixMap::iterator mixItr = mixEvents.lower_bound(mObs);
 	if(mixItr == mixEvents.end()){
 		// We are out of bounds.
@@ -76,7 +81,6 @@ namespace Rivet {
 		return;
 	}
 	const Particles mix = applyProjection<ParticleFinder>(e, "MIX").particles();
-	
 	mixItr->second.push_back(mix);
 	if(mixItr->second.size() > nMix + 1)
 		mixItr->second.pop_front();
@@ -84,16 +88,52 @@ namespace Rivet {
 
     /// Compare with other projections
     int compare(const Projection& p) const {
-	return mkNamedPCmp(p,"FS");
+	return mkNamedPCmp(p,"OBS");
     }
     
+  // The mixing observable of the current event
+    double mObs;
+  
   private:
     // The number of event to mix with
     size_t nMix;
-    // The mixing observable of the current event
-    double mObs;
     // The event map;
     MixMap mixEvents;
   };
+
+  // EventMixingFinalState has multiplicity in the mixing projection
+  // as the mixing observable.
+  class EventMixingFinalState : public EventMixingBase {
+   public:
+    EventMixingFinalState(const ParticleFinder* mixObsProjPtr, const ParticleFinder& mix, size_t nMixIn,
+	      double oMin, double oMax, double deltao ) : 
+      EventMixingBase(mixObsProjPtr, mix, nMixIn, oMin, oMax, deltao) {
+    	setName("EventMixingFinalState");
+      }
+
+
+    DEFAULT_RIVET_PROJ_CLONE(EventMixingFinalState);
+   protected:
+    // Calulate mixing observable.
+    virtual void calculateMixingObs(const Projection* mProj) {
+      mObs = ((ParticleFinder*) mProj)->particles().size();
+    }
+  };
+
+  // EventMixingCentrality has centrality as the mixing observable.
+  class EventMixingCentrality : public EventMixingBase {
+    public:
+      EventMixingCentrality(const CentralityProjection* mixObsProjPtr, const ParticleFinder& mix, size_t nMixIn,
+	      double oMin, double oMax, double deltao ) : 
+      EventMixingBase(mixObsProjPtr, mix, nMixIn, oMin, oMax, deltao) {
+    	setName("EventMixingCentrality");
+      }
+    
+      DEFAULT_RIVET_PROJ_CLONE(EventMixingCentrality);
+    protected:
+      virtual void calculateMixingObs(const Projection* mProj) {
+        mObs = (*((CentralityProjection*) mProj))();
+      }
+  }; 
 }
 #endif

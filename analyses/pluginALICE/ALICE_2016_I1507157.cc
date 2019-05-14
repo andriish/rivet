@@ -51,7 +51,7 @@ namespace Rivet {
       addProjection(pp,"APRIM");
 
       // The event mixing projection
-      declare(EventMixingFinalState(cfsMult, pp, 5, 0, 100, 10),"EVM");
+      declare(EventMixingFinalState(&cfsMult, pp, 5, 0, 100, 10),"EVM");
       // The particle pairs.
       pid = {{211, -211}, {321, -321}, {2212, -2212}, {3122, -3122}, {211, 211},
              {321, 321}, {2212, 2212}, {3122, 3122}, {2212, 3122}, {2212, -3122}};
