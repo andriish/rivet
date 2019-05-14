@@ -132,7 +132,7 @@ namespace Rivet {
       DEFAULT_RIVET_PROJ_CLONE(EventMixingCentrality);
     protected:
       virtual void calculateMixingObs(const Projection* mProj) {
-        mObs = (*((CentralityProjection*) mProj))();
+        mObs = ((CentralityProjection*) mProj)->operator()();
       }
   }; 
 }
