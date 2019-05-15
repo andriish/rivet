@@ -70,8 +70,8 @@ namespace Rivet {
     void _compare() const {
       if (_value == CmpState::UNDEF) {
         std::less<T> l;
-        if ( l(*_objects.first, *_objects.second) ) _value = CmpState::LT;
-        else if ( l(*_objects.second, *_objects.first) ) _value = CmpState::GT;
+        if ( l(*_objects.first, *_objects.second) )       _value = CmpState::NEQ;
+        else if ( l(*_objects.second, *_objects.first) )  _value = CmpState::NEQ;
         else _value = CmpState::EQ;
       }
       /// @todo NEQ?
@@ -148,14 +148,12 @@ namespace Rivet {
       if (_value == CmpState::UNDEF) {
         const std::type_info& id1 = typeid(*_objects.first);
         const std::type_info& id2 = typeid(*_objects.second);
-        if (id1.before(id2)) _value = CmpState::LT;
-        else if (id2.before(id1)) _value = CmpState::GT;
+        if (id1.before(id2))       _value = CmpState::NEQ;
+        else if (id2.before(id1))  _value = CmpState::NEQ;
         else {
-          //_value = _objects.first->compare(*_objects.second);
           CmpState cmps = _objects.first->compare(*_objects.second);
-          if (cmps == CmpState::UNDEF)  _value = CmpState::LT;
-          else if (cmps == CmpState::NEQ) _value = CmpState::GT;
-          else  _value = cmps;
+          if (cmps == CmpState::EQ)  _value = CmpState::EQ;
+          else                       _value = CmpState::NEQ;
         }
       }
     }
@@ -233,8 +231,7 @@ namespace Rivet {
     void _compare() const {
       if (_value == CmpState::UNDEF) {
         if (fuzzyEquals(_numA,_numB)) _value = CmpState::EQ;
-        else if (_numA < _numB) _value = CmpState::LT;
-        else _value = CmpState::GT;
+        else _value = CmpState::NEQ;
       }
     }
 

@@ -5,18 +5,6 @@
 
 using namespace std;
 
-ostream & operator<<(ostream & os, Rivet::CmpState c) {
-  string s;
-  switch (c) {
-    case Rivet::CmpState::UNDEF : s = "UNDEF"; break;
-    case Rivet::CmpState::LT : s = "LT"; break;
-    case Rivet::CmpState::EQ : s = "EQ"; break;
-    case Rivet::CmpState::GT : s = "GT"; break;
-  }
-  os << s;
-  return os;
-}
-
 int main() {
   using namespace Rivet;
 
@@ -24,7 +12,7 @@ int main() {
 
   cs = cmp(0.5, 0.6);
   cout << "cmp(0.5, 0.6) = " << cs << '\n';
-  assert(cs == CmpState::LT);
+  assert(cs == CmpState::NEQ);
 
   cs = cmp(0.5, 0.5);
   cout << "cmp(0.5, 0.5) = " << cs << '\n';
@@ -32,11 +20,11 @@ int main() {
 
   cs = cmp(0.6, 0.5);
   cout << "cmp(0.6, 0.5) = " << cs << '\n';
-  assert(cs == CmpState::GT);
+  assert(cs == CmpState::NEQ);
 
   cs = cmp(1.,1.) || cmp(0.6, 0.5);
   cout << "cmp(1.,1.) || cmp(0.6, 0.5) = " << cs << '\n';
-  assert(cs == CmpState::GT);
+  assert(cs == CmpState::NEQ);
 
   return EXIT_SUCCESS;
 }

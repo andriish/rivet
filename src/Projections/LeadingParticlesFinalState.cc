@@ -18,9 +18,8 @@ namespace Rivet {
     if (locmp != CmpState::EQ) return locmp;
 
     // Finally compare the IDs
-    if (_ids < other._ids) return CmpState::LT;
-    else if (other._ids < _ids) return CmpState::GT;
-    return CmpState::EQ;
+    if (_ids == other._ids)  return CmpState::EQ;
+    return CmpState::NEQ;
   }
 
 

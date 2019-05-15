@@ -12,17 +12,15 @@ namespace Rivet {
 
   /// Enumeration of possible value-comparison states
   enum class CmpState {
-    UNDEF, LT, EQ, GT, NEQ
+    UNDEF, EQ, NEQ
   };
 
   /// Representation of a CmpState as a string
   inline std::string toString(const CmpState& cmpst) {
     switch (cmpst) {
-    case CmpState::UNDEF: return "Cmp: ??";
-    case CmpState::LT: return "Cmp: <";
-    case CmpState::EQ: return "Cmp: ==";
-    case CmpState::GT: return "Cmp: >";
-    case CmpState::NEQ: return "Cmp: !=";
+      case CmpState::UNDEF: return "Cmp: ??";
+      case CmpState::EQ:    return "Cmp: ==";
+      case CmpState::NEQ:   return "Cmp: !=";
     }
     throw Error("CmpState value not in enum list");
   }
