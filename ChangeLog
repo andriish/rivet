@@ -1,3 +1,6 @@
+2019-05-16 Christian Gutschow  <chris.g@cern.ch>
+	* Introduce TTMODE options for MC_TTBAR to pick the decay mode
+
 2019-05-09 Christian Gutschow  <chris.g@cern.ch>
 	* Release version 2.7.1
 
