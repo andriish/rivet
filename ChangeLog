@@ -1,3 +1,13 @@
+2019-05-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Improve Vector3::azimuthalAngle() (also used by FourMomentum and
+	FourVector) to use exact rather than fuzzy is-zero check, to only
+	check the perpendicular components, and to note that IEEE floating
+	point implementations of atan2 should already be 'safe' unless we
+	decide that this function should throw or return NaN in case of
+	null or along-z vectors. Thanks to Louis Moureaux from CMS for the
+	report and diagnosis.
+
 2019-05-17  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Tools/Utils.h: Add isum() functions, and mark other container
