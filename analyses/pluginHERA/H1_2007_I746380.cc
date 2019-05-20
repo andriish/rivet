@@ -9,10 +9,12 @@
 namespace Rivet {
 
 namespace H1_2007_I746380_PROJECTIONS {
-  // Projection to find the largest gaps and the masses of the two
-  // systems separated by the gap. Based on the HZTools gap-finding
-  // method (hzhadgap.F). Note that gaps are found in the HCM frame.
-  // Author Christine O. Rasmussen.
+  
+  /// Projection to find the largest gaps and the masses of the two
+  /// systems separated by the gap. Based on the HZTools gap-finding
+  /// method (hzhadgap.F). Note that gaps are found in the HCM frame.
+  ///
+  /// @author Christine O. Rasmussen.
   class RapidityGap : public Projection {
 
   public:
@@ -128,7 +130,7 @@ namespace H1_2007_I746380_PROJECTIONS {
       // Note that HCM has photon along +z, as opposed to
       // H1 where proton is along +z. This results in a sign change
       // as compared to H1 papers!
-      
+
       // X - side
       FourMomentum momX;
       foreach (const Particle& jp, pX) {
@@ -139,7 +141,7 @@ namespace H1_2007_I746380_PROJECTIONS {
       _momX_HCM = momX;
       _pX_HCM   = pX;
       _M2X      = _momX_HCM.mass2();
-      
+
       // Y - side
       FourMomentum momY;
       foreach (const Particle& kp, pY) momY += kp.momentum();
@@ -162,9 +164,9 @@ namespace H1_2007_I746380_PROJECTIONS {
         _momX_XCM = xcmboost.transform(momX);
         _momY_XCM = xcmboost.transform(momY);
       }
-      
+
       foreach (const Particle& jp, pX) {
-        // Boost from HCM to LAB. 
+        // Boost from HCM to LAB.
         FourMomentum lab = hcminverse.transform(jp.momentum());
         _ePpzX_LAB += lab.E() + dir * lab.pz();
         _eMpzX_LAB += lab.E() - dir * lab.pz();
@@ -221,8 +223,9 @@ namespace H1_2007_I746380_PROJECTIONS {
 
   };
 
-  // Projection to boost system X (photon+Pomeron) particles into its rest frame.
-  // Author Ilkka Helenius
+  /// Projection to boost system X (photon+Pomeron) particles into its rest frame.
+  ///
+  /// @author Ilkka Helenius
   class BoostedXSystem : public FinalState {
   public:
 
@@ -278,6 +281,8 @@ namespace H1_2007_I746380_PROJECTIONS {
   };
 
   }
+
+
 
   /// @brief H1 diffractive dijets
   ///

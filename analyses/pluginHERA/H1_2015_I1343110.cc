@@ -10,10 +10,12 @@
 namespace Rivet {
 
 namespace H1_2015_I1343110_PROJECTIONS {
-  // Projection to find the largest gaps and the masses of the two
-  // systems separated by the gap. Based on the HZTools gap-finding
-  // method (hzhadgap.F). Note that gaps are found in the HCM frame.
-  // Author Christine O. Rasmussen.
+  
+  /// Projection to find the largest gaps and the masses of the two
+  /// systems separated by the gap. Based on the HZTools gap-finding
+  /// method (hzhadgap.F). Note that gaps are found in the HCM frame.
+  ///
+  /// @author Christine O. Rasmussen.
   class RapidityGap : public Projection {
 
   public:
@@ -222,8 +224,9 @@ namespace H1_2015_I1343110_PROJECTIONS {
 
   };
 
-  // Projection to boost system X (photon+Pomeron) particles into its rest frame.
-  // Author Ilkka Helenius
+  /// Projection to boost system X (photon+Pomeron) particles into its rest frame.
+  ///
+  /// @author Ilkka Helenius
   class BoostedXSystem : public FinalState {
   public:
 
