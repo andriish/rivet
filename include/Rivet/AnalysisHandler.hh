@@ -151,6 +151,8 @@ namespace Rivet {
 
     /// Get a registered analysis by name.
     AnaHandle analysis(const std::string& analysisname) {
+      if ( _analyses.find(analysisname) == _analyses.end() )
+        throw LookupError("No analysis named '" + analysisname + "' registered in AnalysisHandler");
       try {
         return _analyses[analysisname];
       } catch (...) {
@@ -306,7 +308,7 @@ namespace Rivet {
     string _dumpFile;
 
     /// Flag to indicate periodic dumping is in progress
-    bool _dumping;
+    int _dumping;
 
     //@}
 

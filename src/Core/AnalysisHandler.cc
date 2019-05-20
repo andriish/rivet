@@ -15,7 +15,7 @@ namespace Rivet {
     : _runname(runname),
       _eventcounter("/_EVTCOUNT"),
       _xs(NAN), _xserr(NAN),
-      _initialised(false), _ignoreBeams(false), _dumpPeriod(0), _dumping(false)
+      _initialised(false), _ignoreBeams(false), _dumpPeriod(0), _dumping(0)
   {  }
 
 
@@ -135,10 +135,10 @@ namespace Rivet {
 
     if ( _dumpPeriod > 0 && numEvents()%_dumpPeriod == 0 ) {
       MSG_INFO("Dumping intermediate results to " << _dumpFile << ".");
-      _dumping = true;
+      _dumping = numEvents()/_dumpPeriod;
       finalize();
-      _dumping = false;
       writeData(_dumpFile);
+      _dumping = 0;
     }
 
   }
@@ -167,8 +167,8 @@ namespace Rivet {
       a->setCrossSection(_xs);
       try {
         if ( !_dumping || a->info().reentrant() )  a->finalize();
-        else if ( _dumping )
-          MSG_INFO("Skipping periodic dump of " << a->name()
+        else if ( _dumping == 1 )
+          MSG_INFO("Skipping finalize in periodic dump of " << a->name()
                    << " as it is not declared reentrant.");
       } catch (const Error& err) {
         cerr << "Error in " << a->name() << "::finalize method: " << err.what() << endl;
@@ -364,7 +364,6 @@ namespace Rivet {
           exit(1);
         }
         xsecs.push_back(xsec->point(0).x());
-        sows.push_back(sow);
 	xsecerrs.push_back(sqr(xsec->point(0).xErrAvg()));
         _eventcounter += *sow;
         sows.push_back(sow);
@@ -487,8 +486,18 @@ namespace Rivet {
 
   void AnalysisHandler::writeData(const string& filename) const {
     vector<AnalysisObjectPtr> out = _finalizedAOs;
+    set<string> finalana;
+    for ( auto ao : out) finalana.insert(ao->path());
     out.reserve(2*out.size());
     vector<AnalysisObjectPtr> aos = getData(false, true, false);
+
+    if ( _dumping ) {
+      for ( auto ao : aos ) {
+        if ( finalana.find(ao->path()) == finalana.end() )
+          out.push_back(AnalysisObjectPtr(ao->newclone()));
+      }
+    }
+
     for ( auto ao : aos ) {
       ao = AnalysisObjectPtr(ao->newclone());
       ao->setPath("/RAW" + ao->path());
