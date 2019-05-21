@@ -18,7 +18,7 @@ NeedCrossSection: yes
 Beams: [[p+, e-], [p+, e+]]
 Energies: [318]
 Description:
-  'H1 and ZEUS combined differential cross-sections for inclusive $D^{*\pm}$
+   H1 and ZEUS combined differential cross-sections for inclusive $D^{*\pm}$
    production in deep-inelastic $ep$ scattering at HERA. The cross-sections
    are combined in the common visible phase-space region of photon virtuality
    $Q^2 > 5 \GeV^2$, electron inelasticity $0.02 < y < 0.7$, and the $D^{*\pm}$
