@@ -1,5 +1,7 @@
 2019-05-21  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Release version 2.7.2
+
 	* Fixes to CMS_2016_I1487288 jet selection and
 	normalisation. Thanks to Peter Richardson for highlighting the
 	issues.
@@ -24,12 +26,15 @@
 	* Add super-generic (i)discardIfAny(particlebases, particlebases, bool(pb,pb)) functions.
 
 2019-05-16 Christian Gutschow  <chris.g@cern.ch>
+
 	* Introduce TTMODE options for MC_TTBAR to pick the decay mode
 
 2019-05-09 Christian Gutschow  <chris.g@cern.ch>
+
 	* Release version 2.7.1
 
 2019-05-09 Christian Gutschow  <chris.g@cern.ch>
+
 	* add correlation information for those analyses
 	that are compatible with HEPData
 	* prevent Variations meta data from being copied
