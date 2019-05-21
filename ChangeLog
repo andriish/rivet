@@ -1,3 +1,9 @@
+2019-05-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fixes to CMS_2016_I1487288 jet selection and
+	normalisation. Thanks to Peter Richardson for highlighting the
+	issues.
+
 2019-05-20  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Improve Vector3::azimuthalAngle() (also used by FourMomentum and
