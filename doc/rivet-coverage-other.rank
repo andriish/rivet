@@ -621,6 +621,7 @@
 416354 . Search for chargino and neutralino production using the OPAL detector at s**(1/2) = 130-GEV - 136-GeV at LEP
 416357 . Determination of the average lifetime of b baryons
 416471 . Observation of an excited charmed baryon decaying into Xi(c)0 pi+
+416782 X COMPASS: A Proposal for a Common Muon and Proton Apparatus for Structure and Spectroscopy
 416741 . First measurement of f2-prime (1525) production in Z0 hadronic decays
 416744 . Measurement of muon pair production at 50-GeV < s**(1/2) < 86-GeV at LEP
 416745 . Measurement of cross-sections and asymmetries in e+ e- collisions at 130-GeV - 140-GeV center-of-mass energy
@@ -1748,13 +1749,16 @@
 674863 . Experimental and theoretical challenges in the search for the quark gluon plasma: The STAR Collaboration's critical assessment of the evidence from RHIC collisions
 675005 . Study of tau decays to four-hadron final states with kaons
 675307 . Distributions of charged hadrons associated with high transverse momentum particles in pp and Au + Au collisions at s(NN)**(1/2) = 200-GeV
+675838 . Measurement of the spin structure of the deuteron in the DIS region
 676004 . Mid-rapidity direct-photon production in $p^+ p$ collisions at $\sqrt{s}$ = 200-GeV
 676168 X Limits on neutral D mixing in semileptonic decays
 676188 . Multiplicity and pseudorapidity distributions of photons in Au + Au collisions at s(NN)**(1/2) = 62.4-GeV
 676189 . Measurement of single electron event anisotropy in Au+Au collisions at s(NN)**(1/2) = 200-GeV
+677550 . First measurement of the transverse spin asymmetries of the deuteron in semi-inclusive deep inelastic scattering
 678021 . Centrality dependence of direct photon production in s(NN)**(1/ 2) = 200-GeV Au + Au collisions
 678470 . Measurement of the branching fractions for J/psi ---> l+ l-
 678471 . Branching fractions for psi(2S) to J/psi transitions
+678751 ? Search for the Phi(1860) pentaquark at COMPASS
 678858 . Measurement of the shadowing of high-energy cosmic rays by the Moon: A Search for TeV-energy antiprotons
 679053 . Search for D0 - anti-D0 mixing in the Dalitz plot analysis of D0 ---> K0(S) pi+ pi-
 679349 . Searches for CP violation and pi pi S-wave in the Dalitz-Plot of D0 ---> pi+ pi- pi0
@@ -1809,6 +1813,7 @@
 695404 . Directed flow in Au+Au collisions at s(NN)**(1/2) = 62-GeV
 696676 . Proton - lambda correlations in central Au+Au collisions at S(NN)**(1/2) = 200-GeV
 697074 . Experimental study of chi(b)(2P) ---> pi pi chi(b)(1P)
+697590 . Gluon polarization in the nucleon from quasi-real photoproduction of high-p(T) hadron pairs
 697905 . Multiplicity and pseudorapidity distributions of charged particles and photons at forward pseudorapidity in Au + Au collisions at s(NN)**(1/2) = 62.4-GeV
 698663 . Measurement of the mass and the width of the $W$ boson at LEP
 698939 X Strangelet search at RHIC
@@ -1894,6 +1899,7 @@
 726101 . Rapidity and species dependence of particle production at large transverse momentum for d+Au collisions at s(NN)**(1/2) = 200-GeV
 726259 . Measurement of direct photon production in p + p collisions at s**(1/2) = 200-GeV
 726260 . Measurement of Single Muons at Forward Rapidity in p+p Collisions at s**(1/2) = 200-GeV and Implications for Charm Production
+726688 . The Deuteron Spin-dependent Structure Function g1(d) and its First Moment
 726689 . Precise determination of the spin structure function g(1) of the proton, deuteron and neutron
 727171 . Fermion pair production in $e^{+} e^{-}$ collisions at 189-209-GeV and constraints on physics beyond the standard model
 727262 . Study of inclusive strange-baryon production and search for pentaquarks in two-photon collisions at LEP
@@ -1902,6 +1908,7 @@
 728679 . Improved Measurement of the Branching Fraction and Energy Spectrum of eta-prime from Upsilon(1S) Decays
 728872 . Measurement of B(Upsilon(5S) ---> B(*)(s) anti-B(*)(s)) Using phi Mesons
 729387 . Search for invisibly decaying Higgs bosons with large decay width using the OPAL detector at LEP
+729695 . A New measurement of the Collins and Sivers asymmetries on a transversely polarised deuteron target
 729950 . Centrality dependence of pi0 and eta production at large transverse momentum in s(NN)**(1/2) = 200-GeV d+Au collisions
 731133 . High transverse momentum $\eta$ meson production in $p^+ p$, $d^+$ Au and Au+Au collisions at $S(NN) ^{(1/2)}$ = 200-GeV
 731134 . A Detailed Study of High-p(T) Neutral Pion Suppression and Azimuthal Anisotropy in Au+Au Collisions at s(NN)**(1/2) = 200-GeV
@@ -1920,6 +1927,7 @@
 737605 . Search for a fourth generation $b^\prime$-quark at LEP-II at $\sqrt{s}$ = 196-GeV - 209-GeV
 737606 . Investigation of colour reconnection in WW events with the DELPHI detector at LEP-2
 741917 . Mass, quark-number, and $\sqrt{s_{NN}}$ dependence of the second and fourth flow harmonics in ultra-relativistic nucleus-nucleus collisions
+742118 . Spin asymmetry A1(d) and the spin-dependent structure function g1(d) of the deuteron at low values of x and Q**2
 742120 . A Precision Determination of the D0 Mass
 742598 . Search for psi(2S) ---> eta(c) pi+ pi- pi0
 746166 . Charged particle distributions and nuclear modification at high rapidities in d + Au collisions at s(NN)**(1/2) = 200-GeV
@@ -1928,8 +1936,10 @@
 747272 . A Study of Exclusive Charmless Semileptonic B Decay and |V(ub)|
 747273 . A Study of Exclusive Charmless Semileptonic B Decays and Extraction of $|V_{ub}|$ at CLEO
 747299 . Energy dependence of pi+-, p and anti-p transverse momentum spectra for Au+Au collisions at s(NN)**(1/2) = 62.4 and 200-GeV
+747655 X The COMPASS experiment at CERN
 748511 . Measurement of $B(D_S^+) \to \ell^{+} \nu$ and the decay constant $f(D_S^+)$
 748517 . Measurement of the decay constant $f(D^+_S)$ using $D^+_{S} \to \ell^{+} \nu$
+748623 . Double spin asymmetry in exclusive rho0 muoproduction at COMPASS
 749012 . Comparison of particle production in quark and gluon fragmentation at s**(1/2) ~ 10-GeV
 749015 . Measurement of upper limits for Upsilon ---> gamma + R decays
 749066 . Measurement of density correlations in pseudorapidity via charged particle multiplicity fluctuations in Au+Au collisions at s(NN)**(1/2) = 200-GeV
@@ -1959,6 +1969,7 @@
 755533 . Measurement of Prominent eta Decay Branching Fractions
 755631 . Measurement of the eta-Meson Mass using psi(2S) ---> eta J/psi
 756352 . Dalitz plot analysis of the D+ ---> K- pi+ pi+ decay
+756797 . The Polarised Valence Quark Distribution from semi-inclusive DIS
 757240 . Suppressed Decays of D(s)+ Mesons to Two Pseudoscalar Mesons
 757421 . Search for Pentaquarks in the Hadronic Decays of the Z Boson with the DELPHI Detector at LEP
 757820 . Bose-Einstein study of position-momentum correlations of charged pions in hadronic Z0 decays
@@ -1992,10 +2003,12 @@
 778396 . Dihadron azimuthal correlations in Au+Au collisions at s(NN)**(1/2) = 200-GeV
 778403 . Onset of pi0 Suppression Studied in Cu+Cu Collisions at sNN=22.4, 62.4, and 200 GeV
 778611 . Dilepton mass spectra in p+p collisions at s**(1/2) = 200-GeV and the contribution from open charm
+779473 . Collins and Sivers asymmetries for pions and kaons in muon-deuteron DIS
 779522 . Determination of the Strong Phase in $D^0 \to K^{+} \pi^{-}$ Using Quantum-Correlated Measurements
 779525 . Determination of the $D^0 \to K^{+} \pi^{-}$ Relative Strong Phase Using Quantum-Correlated Measurements in $e^{+} e^{-} \to D^0 D^0$ bar at CLEO
 779610 . Measurement of Azimuthal Asymmetries With Respect To Both Beam Charge and Transverse Target Polarization in Exclusive Electroproduction of Real Photons
 779705 . Measurement of exclusive D meson decays to eta and eta-prime final states and SU(3) amplitude analysis
+779857 . Direct Measurement of the Gluon Polarisation in the Nucleon via Charmed Meson Production
 780363 . Dalitz plot analysis of the D+ ---> K- pi+ pi+ decay
 780368 . Observation of D+ ---> eta e+ nu(e)
 780807 . Absolute Branching Fractions of Cabibbo-Suppressed D ---> K anti-K Decays
@@ -2059,8 +2072,10 @@
 816486 . High-pT pi0 Production with Respect to the Reaction Plane in Au + Au Collisions at s(NN)**(1/2) = 200-GeV
 817120 . J/psi production at high transverse momentum in p+p and Cu+Cu collisions at s(NN)**1/2 = 200GeV
 817691 . System size dependence of associated yields in hadron-triggered jets
+818414 . Gluon polarisation in the nucleon and longitudinal double spin asymmetries from open charm muoproduction
 819318 . Growth of Long Range Forward-Backward Multiplicity Correlations with Centrality in Au+Au Collisions at s(NN)**(1/2) = 200-GeV
 819672 . Systematic Studies of Elliptic Flow Measurements in Au+Au Collisions at s**(1/2) = 200-GeV
+820721 . Flavour Separation of Helicity Distributions from Deep Inelastic Muon-Deuteron Scattering
 822997 . Center of mass energy and system-size dependence of photon production at forward rapidity at RHIC
 823107 . Transverse momentum broadening of hadrons produced in semi-inclusive deep-inelastic scattering on nuclei
 823313 . Improved measurements of D meson semileptonic decays to pi and K mesons
@@ -2068,6 +2083,7 @@
 824279 . Exclusive rho0 electroproduction on transversely polarized protons
 824322 . Inclusive single-particle production in two-photon collisions at LEP II with the DELPHI detector
 824816 . Measurement of Z-pair production in e+ e- collisions and constraints on anomalous neutral gauge couplings
+824774 . Measurement of the Longitudinal Spin Transfer to Lambda and Anti-Lambda Hyperons in Polarised Muon DIS
 825794 . Single-spin azimuthal asymmetry in exclusive electroproduction of pi+ mesons on transversely polarized protons
 825820 . Study of hadronic event shape in flavour tagged events in $e^+ e^-$ annihilation at < s**(1/2) > = 197-GeV
 825863 . Neutral Pion Production in Au+Au Collisions at s(NN)**(1/2) = 200-GeV
@@ -2082,6 +2098,7 @@
 833129 . Double-Helicity Dependence of Jet Properties from Dihadrons in Longitudinally Polarized $p+p$~Collisions at $\sqrt{s}$~=~200~GeV
 833375 . Search for psi(2S) ---> gamma eta(c) (2S) via fully reconstructed eta(c)(2S) decays
 833423 . Longitudinal Spin Transfer to Lambda and anti-Lambda Hyperons in Polarized Proton-Proton Collisions at s**(1/2) = 200-GeV
+835613 . Observation of a J**PC = 1-+ exotic resonance in diffractive dissociation of 190-GeV/c pi- into pi- pi- pi+
 835694 . Nuclear-mass dependence of azimuthal beam-helicity and beam-charge asymmetries in deeply virtual Compton scattering
 835697 . Measurement of azimuthal asymmetries associated with deeply virtual Compton scattering on an unpolarized deuterium target
 836952 . Longitudinal double-spin asymmetry and cross section for inclusive neutral pion production at midrapidity in polarized proton collisions at $\sqrt{s}=200$ GeV
@@ -2094,6 +2111,7 @@
 840766 . Inclusive $\pi^0$, $\eta$, and direct photon production at high transverse momentum in $p+p$ and $d+$Au collisions at $\sqrt{s_{NN}}=200$ GeV
 840812 . Three-particle coincidence of the long range pseudorapidity correlation in high energy nucleus-nucleus collisions
 842959 . $\Upsilon$ cross section in $p+p$ collisions at $\sqrt(s) = 200$ GeV
+843494 . The Spin-dependent Structure Function of the Proton g_1^p and a Test of the Bjorken Sum Rule
 843985 . Charged and strange hadron elliptic flow in Cu+Cu collisions at $\sqrt{s_{NN}}$ = 62.4 and 200 GeV
 844983 . Longitudinal scaling property of the charge balance function in Au + Au collisions at 200 GeV
 845169 . Trends in Yield and Azimuthal Shape Modification in Dihadron Correlations in Relativistic Heavy Ion Collisions
@@ -2113,12 +2131,15 @@
 855102 . Measurement of neutral mesons in p+p collisions at $\sqrt(s)$= 200 GeV and scaling properties of hadron production
 855746 . Balance Functions from Au$+$Au, $d+$Au, and $p+p$ Collisions at $\sqrt{s_{NN}}$ = 200 GeV
 856259 . Transverse momentum dependence of meson suppression $\eta$ suppression in Au+Au collisions at $\sqrt{s_{NN}}$ = 200 GeV
+856645 . Measurement of the Collins and Sivers asymmetries on transversely polarised protons
 857187 . High $p_T$ direct photon and $\pi^0$ triggered azimuthal jet correlations and measurement of $k_T$ for isolated direct photons in $p+p$ collisions at $sqrt{s}=200$ GeV
 857694 . $K^{*0}$ production in Cu+Cu and Au+Au collisions at $\sqrt{s_NN} = 62.4$ GeV and 200 GeV
 858845 . Azimuthal anisotropy of neutral pion production in Au+Au collisions at $\sqrt(s_NN)$ = 200 GeV: Path-length dependence of jet quenching and the role of initial geometry
 859154 . Effects of transversity in deep-inelastic scattering by polarized protons
 860571 . Measurement of the Bottom contribution to non-photonic electron production in $p+p$ collisions at $\sqrt{s} $=200 GeV
+861046 . Azimuthal asymmetries of charged hadrons produced by high-energy muons scattered off longitudinally polarised deuterons
 861351 . An Experimental Exploration of the QCD Phase Diagram: The Search for the Critical Point and the Onset of De-confinement
+862410 . Quark helicity distributions from longitudinal spin asymmetries in muon-proton and muon-deuteron scattering
 865572 . Scaling properties at freeze-out in relativistic heavy ion collisions
 866047 . Measurement of azimuthal asymmetries associated with deeply virtual Compton scattering on a longitudinally polarized deuterium target
 866922 . Cross Section and Parity Violating Spin Asymmetries of $W^\pm$ Boson Production in Polarized $p+p$ Collisions at $\sqrt{s}=500$ GeV
@@ -2157,10 +2178,13 @@
 930463 . Identified hadron compositions in p+p and Au+Au collisions at high transverse momenta at $\sqrt{s_{_{NN}}} = 200$ GeV
 943192 . System size and energy dependence of near-side di-hadron correlations
 955160 . Energy and system-size dependence of two- and four-particle $v_2$ measurements in heavy-ion collisions at RHIC and their implications on flow fluctuations and nonflow
+955170 . First Measurement of Chiral Dynamics in \pi^- \gamma -> \pi^- \pi^- \pi^+
 1081120 . Measurement of the $W \to e \nu$ and $Z/\gamma^* \to e^+e^-$ Production Cross Sections at Mid-rapidity in Proton-Proton Collisions at $\sqrt{s}$ = 500 GeV
 1081744 . Directed Flow of Identified Particles in Au + Au Collisions at $\sqrt{s{_NN}} = 200$ GeV at RHIC
 1082840 . Measurement of the virtual-photon asymmetry $A_2$ and the spin-structure function $g_2$ of the proton
 1089402 . Cross sections and double-helicity asymmetries of midrapidity inclusive charged hadrons in $p+p$ collisions at $\sqrt{s}=62.4$ GeV
+1089665 . Leading order determination of the gluon polarisation from DIS events with high-$p_T$ hadron pairs
+1090927 . Transverse spin effects in hadron-pair production from semi-inclusive deep inelastic scattering
 1093596 . Deviation from quark-number scaling of the anisotropy parameter $v_2$ of pions, kaons, and protons in Au+Au collisions at $\sqrt{s_{NN}} = 200$ GeV
 1093827 X The Herschel Multi-tiered Extragalactic Survey: HerMES
 1095241 . Beam-helicity and beam-charge asymmetries associated with deeply virtual Compton scattering on the unpolarised proton
@@ -2171,20 +2195,27 @@
 1111237 . Azimuthal distributions of charged hadrons, pions, and kaons produced in deep-inelastic scattering off unpolarized protons and deuterons
 1111571 . Measurements of $D^{0}$ and $D^{*}$ Production in $p+p$ Collisions at $\sqrt{s} = 200$ GeV
 1114529 . Longitudinal and transverse spin asymmetries for inclusive jet production at mid-rapidity in polarized $p+p$ collisions at $\sqrt{s}=200$ GeV
+1115720 . Experimental investigation of transverse spin asymmetries in muon-p SIDIS processes: Collins asymmetries
+1115721 . II – Experimental investigation of transverse spin asymmetries in μ -p SIDIS processes: Sivers asymmetries
 1115828 . Direct-Photon Production in $p+p$ Collisions at $\sqrt{s}=200$ GeV at Midrapidity
 1116179 . Measurement of Direct Photons in Au+Au Collisions at $\sqrt{s_{NN}} = 200$ GeV
 1116643 . Transverse Single-Spin Asymmetry and Cross-Section for $\pi^0$ and $\eta$ Mesons at Large Feynman-$x$ in Polarized $p+p$ Collisions at $\sqrt{s}=200$ GeV
 1117881 . Single Spin Asymmetry $A_N$ in Polarized Proton-Proton Elastic Scattering at $\sqrt{s}=200$ GeV
 1119568 . Beam-helicity asymmetry arising from deeply virtual Compton scattering measured with kinematically complete event reconstruction
 1119620 . Inclusive charged hadron elliptic flow in Au + Au collisions at $\sqrt{s_{NN}}$ = 7.7 - 39 GeV
+1121705 . Measurement of the cross section for high-pT hadron production in the scattering of 160-GeV/c muons off nucleons
+1122967 . Exclusive rho^0 muoproduction on transversely polarised protons and deuterons
 1126017 . Direct photon production in $d+$Au collisions at $\sqrt{s_{NN}}=200$ GeV
 1126162 . Cold-nuclear-matter effects on heavy-quark production in $d+$Au collisions at $\sqrt{s_{NN}}=200$ GeV
 1127261 . $J/\psi$ suppression at forward rapidity in Au+Au collisions at $\sqrt{s_{NN}}=39$ and 62.4 GeV
 1127262 . Neutral pion production with respect to centrality and reaction plane in Au$+$Au collisions at $\sqrt{s_{NN}}$=200 GeV
+1127460 X COMPASS-II Proposal
 1127499 . $J/\psi$ production at high transverse momenta in $p+p$ and Au+Au collisions at $\sqrt{s_{NN}} = 200$ GeV
 1185576 . Double Spin Asymmetry of Electrons from Heavy Flavor Decays in $p+p$ Collisions at $\sqrt{s}=200$ GeV
 1185577 . Inclusive cross section and single transverse spin asymmetry for very forward neutron production in polarized p+p collisions at s=200  GeV
+1199003 . D* and D Meson Production in Muon Nucleon Interactions at 160 GeV/c
 1203021 . $\upsilon(1S+2S+3S)$ production in $d+$Au and $p+p$ collisions at $\sqrt{s_{NN}}=200$ GeV and cold-nuclear matter effects
+1204782 . Leading and Next-to-Leading Order Gluon Polarization in the Nucleon and Longitudinal Double Spin Asymmetries from Open Charm Muoproduction
 1206352 . Experimental studies of di-jets in Au + Au collisions using angular correlations with respect to back-to-back leading hadrons
 1207322 . Measurement of $J/\psi$ Azimuthal Anisotropy in Au+Au Collisions at $\sqrt{s_{NN}}$ = 200 GeV
 1207323 . Medium modification of jet fragmentation in Au + Au collisions at $\sqrt{s_{NN}}= 200$ GeV measured in direct photon-hadron correlations
@@ -2200,12 +2231,15 @@
 1221099 . Jet-Hadron Correlations in $\sqrt{s_{NN}} = 200$ GeV $p+p$ and Central $Au+Au$ Collisions
 1222542 . Measurement of charge multiplicity asymmetry correlations in high-energy nucleus-nucleus collisions at $\sqrt{{s}_{NN}} =$ 200 GeV
 1222874 . Quadrupole Anisotropy in Dihadron Azimuthal Correlations in Central $d$$+$Au Collisions at $\sqrt{s_{_{NN}}}$=200 GeV
+1226812 . Study of $\Sigma(1385)$ and $\Xi(1321)$ hyperon and antihyperon production in deep inelastic muon scattering
 1227971 . Spectra and ratios of identified particles in Au+Au and $d$+Au collisions at $\sqrt{s_{NN}}=200$ GeV
 1235307 . Nuclear Modification of $ψ′, χ_c$, and J/ψ Production in d+Au Collisions at $\sqrt{s_{NN}}$=200  GeV
+1236358 . Hadron Transverse Momentum Distributions in Muon Deep Inelastic Scattering at 160 GeV/$c$
 1253360 . Neutral pion cross section and spin asymmetries at intermediate pseudorapidity in polarized proton collisions at < math display="inline" > < mrow > < msqrt > < mrow > < mi > s < /mi > < /mrow > < /msqrt > < mo $\ge$ < /mo > < mn > 200 < /mn > < mtext >   < /mtext > < mtext >   < /mtext > < mi > GeV < /mi > < /mrow > < /math >
 1254476 . Azimuthal anisotropy of $\pi^0$ and $\eta$ mesons in Au + Au collisions at $\sqrt{{s}_{NN}} =$ 200 GeV
 1255072 . Energy Dependence of Moments of Net-proton Multiplicity Distributions at RHIC
 1256626 . Cold-Nuclear-Matter Effects on Heavy-Quark Production at Forward and Backward Rapidity in d+Au Collisions at $\sqrt{s_{NN}}=200$  GeV
+1257385 . Transverse target spin asymmetries in exclusive $\rho^0$ muoproduction
 1258446 . $J/\psi$ production at low $p_T$ in Au + Au and Cu + Cu collisions at $\sqrt{s_{NN}}=200$ GeV with the STAR detector
 1261055 . Centrality categorization for R_{p(d)+A} in high-energy collisions
 1261274 . Transverse target single-spin asymmetry in inclusive electroproduction of charged pions and kaons
@@ -2219,11 +2253,14 @@
 1275332 . Reevaluation of the parton distribution of strange quarks in the nucleon
 1275614 . Dielectron Mass Spectra from Au+Au Collisions at $\sqrt{s_{\rm NN}}$ = 200 GeV
 1277069 . Beam-Energy Dependence of the Directed Flow of Protons, Antiprotons, and Pions in Au+Au Collisions
+1278730 . Measurement of azimuthal hadron asymmetries in semi-inclusive deep inelastic scattering off unpolarised nucleons
+1279598 . A high-statistics measurement of transverse spin effects in dihadron production from muon–proton semi-inclusive deep-inelastic scattering
 1279634 . Azimuthal-angle dependence of charged-pion-interferometry measurements with respect to second- and third-order event planes in Au$+$Au collisions at $\sqrt{s_{_{NN}}}=200$ GeV
 1280344 X Concept for an Electron Ion Collider (EIC) detector built around the BaBar solenoid
 1280557 . Beam energy dependence of moments of the net-charge multiplicity distributions in Au+Au collisions at RHIC
 1280745 . Dielectron azimuthal anisotropy at mid-rapidity in Au + Au collisions at $\sqrt{s_{_{NN}}} = 200$ GeV
 1282448 . Inclusive double-helicity asymmetries in neutral-pion and eta-meson production in $\vec{p}+\vec{p}$ collisions at $\sqrt{s}=200$ GeV
+1285361 . Measurement of radiative widths of $a_2(1320)$ and $\pi_2(1670)$
 1286656 . Beam-energy-dependent two-pion interferometry and the freeze-out eccentricity of pions measured in heavy ion collisions at the STAR detector
 1288534 . Event-plane-dependent dihadron correlations with harmonic $v_n$ subtraction in Au + Au collisions at $\sqrt{s_{NN}}=200$ GeV
 1288917 . Beam-energy dependence of charge separation along the magnetic field in Au+Au collisions at RHIC
@@ -2240,8 +2277,13 @@
 1296859 . Cross section for $b\bar{b}$ production via dielectrons in d$+$Au collisions at $\sqrt{s_{_{NN}}}=200$ GeV
 1297229 . Precision Measurement of the Longitudinal Double-spin Asymmetry for Inclusive Jet Production in Polarized Proton Collisions at $\sqrt{s}=200$ GeV
 1298024 . Elliptic flow of electrons from heavy-flavor hadron decays in Au + Au collisions at $\sqrt{s_{\rm NN}} = $ 200, 62.4, and 39 GeV
+1298025 . Spin alignment and violation of the OZI rule in exclusive $\omega$ and $\phi$ production in pp collisions
+1298026 . Measurement of the charged-pion polarizability
 1300355 . Transverse polarization of $\Lambda$ hyperons from quasireal photoproduction on nuclei
 1300542 . Cross section and transverse single-spin asymmetry of $\eta$ mesons in $p^{\uparrow}+p$ collisions at $\sqrt{s}=200$ GeV at forward rapidity
+1307417 . Search for exclusive photoproduction of Z$_c^{\pm}$(3900) at COMPASS
+1311486 . Odd and even partial waves of $ηπ^−$ and $η′π^−$ in $π^−p → η^{(′)}π^−p$ at 191 GeV/c
+1311491 . Collins and Sivers asymmetries in muonproduction of pions and kaons off transversely polarised protons
 1311513 . $\Lambda\Lambda$ Correlation Function in Au+Au collisions at $\sqrt{s_{NN}}=$ 200 GeV
 1311834 . Charged-to-neutral correlation at forward rapidity in Au+Au collisions at $\sqrt{s_{NN}}$=200 GeV
 1312293 . Studies of QCD in e+ e- ---> hadrons at E(cm) = 130-GeV and 136-GeV
@@ -2251,6 +2293,7 @@
 1313628 . Search for dark photons from neutral meson decays in $p + p$ and $d$ + Au collisions at $\sqrt{s_{NN}} =$ 200 GeV
 1315330 . Charged-pion cross sections and double-helicity asymmetries in polarized p+p collisions at $\sqrt{s}$=200  GeV
 1315466 . Isolation of Flow and Nonflow Correlations by Two- and Four-Particle Cumulant Measurements of Azimuthal Harmonics in $\sqrt{s_{_{\rm NN}}} =$ 200 GeV Au+Au Collisions
+1320774 X The COMPASS Setup for Physics with Hadron Beams
 1321413 . Beam-energy and system-size dependence of the space-time extent of the pion emission source produced in heavy ion collisions
 1322126 . Di-hadron correlations with identified leading hadrons in 200 GeV Au + Au and d + Au collisions at STAR
 1322965 . Energy Dependence of $K/\pi$, $p/\pi$, and $K/p$ Fluctuations in Au+Au Collisions from $\rm \sqrt{s_{NN}}$ = 7.7 to 200 GeV
@@ -2259,9 +2302,11 @@
 1335413 X Pentaquark $\Theta^+$ search at HERMES
 1335765 . Effect of event selection on jetlike correlation measurement in $d$+Au collisions at $\sqrt{s_{\rm{NN}}}=200$ GeV
 1340691 . Energy dependence of acceptance-corrected dielectron excess mass spectrum at mid-rapidity in Au$+$Au collisions at $\sqrt{s_{NN}} =$ 19.6  and 200 GeV
+1340854 . Observation of a New Narrow Axial-Vector Meson $a_1$(1420)
 1341090 . An Upgrade Proposal from the PHENIX Collaboration
 1346551 . Long-range pseudorapidity dihadron correlations in $d$+Au collisions at $\sqrt{s_{\rm NN}}=200$ GeV
 1352818 . The $\phi (1020)\rightarrow e^{+}e^{-}$ meson decay measured with the STAR experiment in Au+Au collisions at $\sqrt{s_{_{NN}}}$ = 200 GeV
+1357198 . The spin structure function $g_1^{\rm p}$ of the proton and a test of the Bjorken sum rule
 1357596 . Observation of Transverse Spin-Dependent Azimuthal Correlations of Charged Pion Pairs in $p^\uparrow+p$ at $\sqrt{s}=200$ GeV
 1357992 . Measurements of Dielectron Production in Au$+$Au Collisions at $\sqrt{s_{\rm NN}}$ = 200 GeV from the STAR Experiment
 1358666 . Observation of charge asymmetry dependence of pion elliptic flow and the possible chiral magnetic wave in heavy-ion collisions
@@ -2276,6 +2321,9 @@
 1383879 . Centrality and transverse momentum dependence of elliptic flow of multistrange hadrons and $\phi$ meson in Au+Au collisions at $\sqrt{s_{NN}}$ = 200 GeV
 1384274 . Measurements of elliptic and triangular flow in high-multiplicity $^{3}$He$+$Au collisions at $\sqrt{s_{_{NN}}}=200$ GeV
 1385105 . Measurement of Interaction between Antiprotons
+1385314 . Interplay among transversity induced asymmetries in hadron leptoproduction
+1391643 . Resonance Production and $\pi\pi$ S-wave in $\pi^- + p \rightarrow \pi^- \pi^- \pi^+ + p_{recoil}$ at 190 GeV$/c$
+1393061 . Longitudinal double spin asymmetries in single hadron quasi-real photoproduction at high $p_T$
 1393528 . Centrality-dependent modification of jet-production rates in deuteron-gold collisions at $\sqrt{s_{NN}}$=200 GeV
 1393529 . Single electron yields from semileptonic charm and bottom hadron decays in Au$+$Au collisions at $\sqrt{s_{NN}}=200$ GeV
 1393530 . Dielectron production in Au$+$Au collisions at $\sqrt{s_{NN}}$=200 GeV
@@ -2288,22 +2336,30 @@
 1395151 . Centrality dependence of identified particle elliptic flow in relativistic heavy ion collisions at $\sqrt{s_{NN}}$=7.7–62.4 GeV
 1396712 . Inclusive cross section and double-helicity asymmetry for $\pi^{0}$ production at midrapidity in $p$$+$$p$ collisions at $\sqrt{s}=510$ GeV
 1405433 . Measurement of the transverse single-spin asymmetry in $p^\uparrow+p \to W^{\pm}/Z^0$ at RHIC
+1409917 . Leading-order determination of the gluon polarisation from semi-inclusive deep inelastic scattering data
 1414638 . Beam Energy Dependence of the Third Harmonic of Azimuthal Correlations in Au+Au Collisions at RHIC
 1416992 . Measurement of elliptic flow of light nuclei at $\sqrt{s_{NN}}=$ 200, 62.4, 39, 27, 19.6, 11.5, and 7.7 GeV at the BNL Relativistic Heavy Ion Collider
 1420183 . $\rm{J}/\psi$ production at low transverse momentum in p+p and d+Au collisions at $\sqrt{s_{NN}}$ = 200 GeV
 1429700 . Near-side azimuthal and pseudorapidity correlations using neutral strange baryons and mesons in d+Au, Cu+Cu and Au+Au collisions at $\sqrt{s_{NN}}$ = 200 GeV
 1442357 . Jet-like Correlations with Direct-Photon and Neutral-Pion Triggers at $\sqrt{s_{_{NN}}} = 200$ GeV
+1444985 . Multiplicities of charged pions and charged hadrons from deep-inelastic scattering of muons off an isoscalar target
 1467456 . Measurements of double-helicity asymmetries in inclusive $J/\psi$ production in longitudinally polarized $p+p$ collisions at $\sqrt{s}=510$ GeV
+1469063 . Exclusive $\omega$ meson muoproduction on transversely polarised protons
 1474129 . Direct virtual photon production in Au+Au collisions at $\sqrt{s_{NN}}$ = 200 GeV
 1478040 . Energy dependence of $J/\psi$ production in Au+Au collisions at $\sqrt{s_{NN}} =$ 39, 62.4 and 200 GeV
 1481225 . Charge-dependent directed flow in Cu+Au collisions at $\sqrt{s_{_{NN}}}$ = 200 GeV
 1482939 . $\Upsilon$ production in U + U collisions at $\sqrt{{s}_{NN}}=$ 193 GeV measured with the STAR experiment
+1483098 . Multiplicities of charged kaons from deep-inelastic muon scattering off an isoscalar target
 1486427 . Dijet imbalance measurements in $Au+Au$ and $pp$ collisions at $\sqrt{s_{NN}} = 200$  GeV at STAR
 1486678 . Nonperturbative-transverse-momentum effects and evolution in dihadron and direct photon-hadron angular correlations in $p$$+$$p$ collisions at $\sqrt{s}$=510 GeV
+1487432 . Azimuthal asymmetries of charged hadrons produced in high-energy muon scattering off longitudinally polarised deuterons
 1487575 . Measurement of the relative yields of $\psi(2S)$ to $\psi(1S)$ mesons produced at forward and backward rapidity in $p$$+$$p$, $p$$+$Al, $p$$+$Au, and $^{3}$He$+$Au collisions at $\sqrt{s_{_{NN}}}=200$ GeV
+1487909 . Sivers asymmetry extracted in SIDIS at the hard scales of the Drell–Yan process at COMPASS
 1493842 . Measurement of the cross section and longitudinal double-spin asymmetry for di-jet production in polarized $pp$ collisions at $\sqrt{s}$ = 200 GeV
+1501480 . Final COMPASS results on the deuteron spin-dependent structure function $g_1^{\rm d}$ and the Bjorken sum rule
 1505176 . Angular decay coefficients of $J/\psi$ mesons at forward rapidity from $p+p$ collisions at $\sqrt{s}=510$ GeV
 1507891 . Measurements of $B \rightarrow J/\psi$ at forward rapidity in $p$+$p$ collisions at $\sqrt{s}=510$ GeV
+1508480 . First measurement of the Sivers asymmetry for gluons using SIDIS data
 1510298 . Measurement of $D^0$ Azimuthal Anisotropy at Midrapidity in Au+Au Collisions at $\sqrt{s_{NN}}$=200  GeV
 1510300 . Harmonic decomposition of three-particle azimuthal correlations at RHIC
 1510301 . Constraining the initial conditions and temperature dependent transport with three-particle correlations in Au+Au collisions
@@ -2315,14 +2371,19 @@
 1515028 . Coherent diffractive photoproduction of ρ0 mesons on gold nuclei at 200 GeV/nucleon-pair at the Relativistic Heavy Ion Collider
 1519828 . Cross section and transverse single-spin asymmetry of muons from open heavy-flavor decays in polarized $p$+$p$ collisions at $\sqrt{s}=200$ GeV
 1520869 . Nuclear Dependence of the Transverse-Single-Spin Asymmetry for Forward Neutron Production in Polarized $p+A$ Collisions at $\sqrt{{s}_{NN}}=200\text{ }\text{ }\mathrm{GeV}$
+1589290 . First measurement of transverse-spin-dependent azimuthal asymmetries in the Drell-Yan process
+1608884 . Search for muoproduction of $X (3872)$ at COMPASS and indication of a new state $\widetilde{X}(3872)$
 1609067 . Beam Energy Dependence of Jet-Quenching Effects in Au+Au Collisions at $\sqrt{s_{_{ \mathrm{NN}}}}$ = 7.7, 11.5, 14.5, 19.6, 27, 39, and 62.4 GeV
+1609260 . New analysis of $\eta\pi$ tensor resonances measured at the COMPASS experiment
 1610655 . Measurements of Multiparticle Correlations in $d+\mathrm{Au}$ Collisions at 200, 62.4, 39, and 19.6 GeV and $p+\mathrm{Au}$ Collisions at 200 GeV and Implications for Collective Behavior
 1618141 . Measurements of azimuthal anisotropy and charged-particle multiplicity in $d$$+$Au collisions at $\sqrt{s_{_{NN}}}=$200, 62.4, 39, and 19.6 GeV
 1618345 . Azimuthal transverse single-spin asymmetries of inclusive jets and charged pions within jets from polarized-proton collisions at $\sqrt{s} = 500$ GeV
 1618747 . Beam-Energy Dependence of Directed Flow of $\Lambda$, $\bar{\Lambda}$, $K^\pm$, $K^0_s$ and $\phi$ in Au+Au Collisions
 1621460 . Collision Energy Dependence of Moments of Net-Kaon Multiplicity Distributions at RHIC
 1624209 . Lévy-stable two-pion Bose-Einstein correlations in $\sqrt{s_{NN}}=200$ GeV Au$+$Au collisions
+1624692 . Transverse-momentum-dependent Multiplicities of Charged Hadrons in Muon-Deuteron Deep Inelastic Scattering
 1628155 . Measurement of the $^3_{\Lambda}$H lifetime in Au+Au collisions at the BNL Relativistic Heavy Ion Collider
+1628410 . Longitudinal double-spin asymmetry $A_1^{\rm p}$ and spin-dependent structure function $g_1^{\rm p}$ of the proton at small values of $x$ and $Q^2$
 1628651 . Measurement of $\phi$-meson production at forward rapidity in $p+p$ collisions at $\sqrt{s}=510\text{ }\text{ }\mathrm{GeV}$ and its energy dependence from $\sqrt{s}=200\text{ }\text{ }\mathrm{GeV}$ to 7 TeV
 1630825 . Multi-messenger Observations of a Binary Neutron Star Merger
 1632759 . Measurements of mass-dependent azimuthal anisotropy in central $p$$+$Au, $d$$+$Au, and $^3$He$+$Au collisions at $\sqrt{s_{_{NN}}}=200$ GeV
@@ -2332,6 +2393,9 @@
 1649168 . First Evidence and Measurement of $B_s^{(*)} barB_s^{(*)}$ Production at the $\Upsilon(5S)$
 1649622 . A Search for $\eta'_c$ Production in Photon-Photon Fusion at LEP
 1650066 . Measurement of $\sigma(e^+e^- \to \psi(3770) \to hadrons)$ at $E_{c.m.}$ = 3773 MeV
+1652831 . K$^−$ over K$^+$ multiplicity ratio for kaons produced in DIS with a large fraction of the virtual-photon energy
+1653939 . Transverse Extension of Partons in the Proton probed by Deeply Virtual Compton Scattering
+1655631 . Light isovector resonances in $\pi^- p \to \pi^-\pi^-\pi^+ p$ at 190 GeV/${\it c}$
 1658594 . Measurement of two-particle correlations with respect to second- and third-order event planes in Au$+$Au collisions at $\sqrt{s_{_{NN}}}=200$ GeV
 1659845 . Search for Supersymmetry with R-parity violating decays via  \lambda  couplings at  sqrt(s)  = 183 GeV
 1662057 . Correlation Measurements Between Flow Harmonics in Au+Au Collisions at RHIC
@@ -2355,6 +2419,7 @@
 1685527 . The Proton-$\Omega$ correlation function in Au+Au collisions at $\sqrt{s_{NN}}$=200 GeV
 1691152 . Improved measurement of the longitudinal spin transfer to $\Lambda$ and $\bar \Lambda$ hyperons in polarized proton-proton collisions at $\sqrt s$ = 200 GeV
 1691271 . Transverse spin transfer to $\Lambda$ and $\bar{\Lambda}$ hyperons in polarized proton-proton collisions at $\sqrt{s}=200\,\mathrm{GeV}$
+1693303 . Measurement of $P_T$-weighted Sivers asymmetries in leptoproduction of hadrons
 1695272 . Nonperturbative transverse momentum broadening in dihadron angular correlations in $\sqrt{s_{NN}}=200$ GeV proton-nucleus collisions
 1700232 . Measurements of Dielectron Production in Au$+$Au Collisions at $\sqrt{s_{NN}}$= 27, 39, and 62.4 GeV from the STAR Experiment
 1712047 . Collision Energy Dependence of $p_{\rm t}$ Correlations in Au+Au Collisions at RHIC
