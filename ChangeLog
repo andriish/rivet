@@ -1,3 +1,7 @@
+2019-05-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix Unicode and argparse bugs in bin/rivet. Thanks to Frank Siegert.
+
 2019-05-21  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Release version 2.7.2
