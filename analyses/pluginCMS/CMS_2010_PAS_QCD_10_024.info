@@ -9,8 +9,8 @@ Authors:
  - P. Katsas <panagiotis.katsas@cern.ch>
  - A. Knutsson <albert.knutsson@cern.ch>
 References:
-  - CMS-PAS-QCD-10-024
-  - https://cdsweb.cern.ch/record/1341853?ln=en
+ - CMS-PAS-QCD-10-024
+ - https://cdsweb.cern.ch/record/1341853?ln=en
 RunInfo:
   $pp$ collisions at 0.9 and 7\;TeV. Minimum bias events.
 NumEvents: 1000000

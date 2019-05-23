@@ -5,8 +5,8 @@ Experiment: CMS
 Collider: LHC
 Status: VALIDATED
 Authors:
- - Hannes Jung (hannes.jung@cern.ch)
- - Paolo Gunnellini (paolo.gunnellini@desy.de)
+ - Hannes Jung <hannes.jung@cern.ch>
+ - Paolo Gunnellini <paolo.gunnellini@desy.de>
 References:
  - CERN-PH-EP-2015-291
 RunInfo:

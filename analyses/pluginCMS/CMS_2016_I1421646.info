@@ -6,8 +6,11 @@ Collider: LHC
 InspireID: 1421646
 Status: VALIDATED
 Authors:
- - Giannis Flouris, Panos Kokkas, Evangelos Paradas
- - Klaus Rabbertz, Georg Sieber
+ - Giannis Flouris
+ - Panos Kokkas
+ - Evangelos Paradas
+ - Klaus Rabbertz
+ - Georg Sieber
 References:
  - arXiv:1602.04384  [hep-ex]
  - CERN-PH-EP-2016-013

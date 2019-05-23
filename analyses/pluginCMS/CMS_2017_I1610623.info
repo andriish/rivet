@@ -6,9 +6,9 @@ Collider: LHC
 InspireID: 1610623
 Status: VALIDATED
 Authors:
- - Emanuela.Barberis@cern.ch
- - apichart.hortiangtham@cern.ch
- - Kadir.Ocalan@cern.ch
+ - Emanuela Barberis <Emanuela.Barberis@cern.ch>
+ - Apichart Hortiangtham <apichart.hortiangtham@cern.ch>
+ - Kadir Ocalan <Kadir.Ocalan@cern.ch>
 References:
  - DOI:10.1103/PhysRevD.96.072005
  - arXiv:1707.05979

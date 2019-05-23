@@ -179,6 +179,14 @@ cdef class AnalysisLoader:
         return pyobj
 
 
+## Convenience versions in main rivet namespace
+def analysisNames():
+    return AnalysisLoader.analysisNames()
+def getAnalysis(name):
+    return AnalysisLoader.getAnalysis(name)
+
+
+## Path functions
 def getAnalysisLibPaths():
     ps = c.getAnalysisLibPaths()
     return [ p.decode('utf-8') for p in ps ]

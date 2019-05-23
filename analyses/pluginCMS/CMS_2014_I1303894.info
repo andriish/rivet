@@ -6,8 +6,8 @@ Collider: LHC
 InspireID: 1303894
 Status: VALIDATED
 Authors:
- - Darin Baumgartel (darinb@cern.ch)
- - Emanuela Barberis (barberis@fnal.gov)
+ - Darin Baumgartel <darinb@cern.ch>
+ - Emanuela Barberis <barberis@fnal.gov>
 References:
  - Phys. Lett. B741 (2014) 12-37
  - https://inspirehep.net/record/1303894

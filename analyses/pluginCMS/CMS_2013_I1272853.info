@@ -6,7 +6,7 @@ Collider: LHC
 InspireID: 1272853
 Status: VALIDATED
 Authors:
- - Sunil Bansal (sunil.bansal@cern.ch)
+ - Sunil Bansal <sunil.bansal@cern.ch>
 References:
   - CMS-FSQ-12-028
   - CERN-PH-EP-2013-224
