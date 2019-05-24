@@ -139,7 +139,7 @@ namespace Rivet {
           DressedLepton lepton = DressedLepton(lepCand);
           for (const Particle& cand : jet.particles()) {
             if (isSame(cand, lepCand)) continue;
-            lepton.addPhoton(cand, true);
+            lepton.addConstituent(cand, true);
           }
           allClusteredLeptons.push_back(lepton);
         }
