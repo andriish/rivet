@@ -16,6 +16,8 @@ EXTRA_DIST = $(PLUGIN_DIRS)
 
 RivetALICEAnalyses.so: $(filter-out $(srcdir)/pluginALICE/tmp*.cc, $(wildcard $(srcdir)/pluginALICE/*.cc))
 RivetATLASAnalyses.so: $(filter-out $(srcdir)/pluginATLAS/tmp*.cc, $(wildcard $(srcdir)/pluginATLAS/*.cc))
+RivetBABARAnalyses.so: $(filter-out $(srcdir)/pluginBABAR/tmp*.cc, $(wildcard $(srcdir)/pluginBABAR/*.cc))
+RivetBELLEAnalyses.so: $(filter-out $(srcdir)/pluginBELLE/tmp*.cc, $(wildcard $(srcdir)/pluginBELLE/*.cc))
 RivetCDFAnalyses.so: $(filter-out $(srcdir)/pluginCDF/tmp*.cc, $(wildcard $(srcdir)/pluginCDF/*.cc))
 RivetCMSAnalyses.so: $(filter-out $(srcdir)/pluginCMS/tmp*.cc, $(wildcard $(srcdir)/pluginCMS/*.cc))
 RivetD0Analyses.so: $(filter-out $(srcdir)/pluginD0/tmp*.cc, $(wildcard $(srcdir)/pluginD0/*.cc))
