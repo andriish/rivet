@@ -69,8 +69,8 @@ namespace Rivet {
 
     // Boost to Breit frame (use opposite convention for photon --- along *minus* z)
     tmp.preMult(Matrix3(Vector3::mkX(), PI));
-    const double bz = 1. - 2.*x();
-    _breit = LorentzTransform().setBetaZ(bz).combine(tmp);
+    const double bz = 1 - 2*x();
+    _breit = LorentzTransform::mkObjTransformFromBeta(Vector3::mkZ() * bz).combine(tmp);
     assert(isZero(angle(_breit.transform(pGamma).vector3(), -Vector3::mkZ()), 1e-3));
     assert(isZero(_breit.transform(pLepOut).azimuthalAngle(), 1e-3));
   }

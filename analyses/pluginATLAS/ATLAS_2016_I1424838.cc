@@ -173,15 +173,15 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       for (size_t alg = 0; alg < 5; ++alg) {
-        normalize(_h_Elec_Ntrk[alg],100.);
-        normalize(_h_Elec_SumPt[alg],100.);
-        normalize(_h_Elec_Beamthrust[alg],100.);
+        normalize(_h_Elec_Ntrk[alg]);
+        normalize(_h_Elec_SumPt[alg]);
+        normalize(_h_Elec_Beamthrust[alg]);
         normalize(_h_Elec_Thrust[alg]);
         normalize(_h_Elec_FParam[alg]);
         normalize(_h_Elec_Spherocity[alg]);
-        normalize(_h_Muon_Ntrk[alg],100.);
-        normalize(_h_Muon_SumPt[alg],100.);
-        normalize(_h_Muon_Beamthrust[alg],100.);
+        normalize(_h_Muon_Ntrk[alg]);
+        normalize(_h_Muon_SumPt[alg]);
+        normalize(_h_Muon_Beamthrust[alg]);
         normalize(_h_Muon_Thrust[alg]);
         normalize(_h_Muon_FParam[alg]);
         normalize(_h_Muon_Spherocity[alg]);

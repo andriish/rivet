@@ -132,18 +132,6 @@ namespace Rivet {
       return _setBoost(vbeta.unit(), beta, gamma);
     }
 
-    /// Set up an active Lorentz boost in the z direction
-    LorentzTransform& setBetaZ(const double & beta) {
-      assert(abs(beta) < 1);
-      const double gamma = beta2gamma(beta);
-      _boostMatrix = Matrix<4>::mkIdentity();
-      _boostMatrix.set(0, 0, gamma);
-      _boostMatrix.set(3, 3, gamma);
-      _boostMatrix.set(0, 3, +beta*gamma); //< +ve coeff since active boost
-      _boostMatrix.set(3, 0, +beta*gamma); //< +ve coeff since active boost
-      return *this;
-    }
-
     /// Get the \f$ \vec\beta \f$ vector for an active Lorentz boost
     Vector3 betaVec() const {
       FourMomentum boost(_boostMatrix.getColumn(0)); //< @todo WRONG?!
