@@ -332,10 +332,13 @@ if __name__ == '__main__':
             if type(firstaop) in (yoda.Histo2D, yoda.Profile2D) and ps not in h2ds:
                 h2ds.append(ps)
 
+    # Unique list of analyses
+    anas = list(set([x.split("/")[1] for x in hpaths]))
+
     ## Take reference data from the Rivet search paths, if there is not already
     if args.RIVETREFS:
         try:
-            refhistos2 = getRivetRefData()
+            refhistos2 = getRivetRefData(anas)
         except IOError as e:
             print("File reading error: ", e.strerror)
             exit(1)
