@@ -26,6 +26,7 @@ RivetLEPAnalyses.so: $(filter-out $(srcdir)/pluginLEP/tmp*.cc, $(wildcard $(srcd
 RivetLHCbAnalyses.so: $(filter-out $(srcdir)/pluginLHCb/tmp*.cc, $(wildcard $(srcdir)/pluginLHCb/*.cc))
 RivetLHCfAnalyses.so: $(filter-out $(srcdir)/pluginLHCf/tmp*.cc, $(wildcard $(srcdir)/pluginLHCf/*.cc))
 RivetMCAnalyses.so: $(filter-out $(srcdir)/pluginMC/tmp*.cc, $(wildcard $(srcdir)/pluginMC/*.cc))
+RivetNovosibirskAnalyses.so: $(filter-out $(srcdir)/pluginNovosibirsk/tmp*.cc, $(wildcard $(srcdir)/pluginNovosibirsk/*.cc))
 RivetMiscAnalyses.so: $(filter-out $(srcdir)/pluginMisc/tmp*.cc, $(wildcard $(srcdir)/pluginMisc/*.cc))
 RivetPetraAnalyses.so: $(filter-out $(srcdir)/pluginPetra/tmp*.cc, $(wildcard $(srcdir)/pluginPetra/*.cc))
 RivetRHICAnalyses.so: $(filter-out $(srcdir)/pluginRHIC/tmp*.cc, $(wildcard $(srcdir)/pluginRHIC/*.cc))
