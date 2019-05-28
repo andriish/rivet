@@ -71,3 +71,7 @@ Doxyfile$
 ^(for|analyses)\d\d\d$
 ^analyses/data$
 ^doxy/.*$
+
+# added by aHg on Tue May 28 11:20:16 2019
+syntax: glob
+bin/hepmc-compress
