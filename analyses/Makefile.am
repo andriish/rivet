@@ -34,6 +34,7 @@ RivetOrsayAnalyses.so: $(filter-out $(srcdir)/pluginOrsay/tmp*.cc, $(wildcard $(
 RivetMiscAnalyses.so: $(filter-out $(srcdir)/pluginMisc/tmp*.cc, $(wildcard $(srcdir)/pluginMisc/*.cc))
 RivetPetraAnalyses.so: $(filter-out $(srcdir)/pluginPetra/tmp*.cc, $(wildcard $(srcdir)/pluginPetra/*.cc))
 RivetRHICAnalyses.so: $(filter-out $(srcdir)/pluginRHIC/tmp*.cc, $(wildcard $(srcdir)/pluginRHIC/*.cc))
+RivetSLACAnalyses.so: $(filter-out $(srcdir)/pluginSLAC/tmp*.cc, $(wildcard $(srcdir)/pluginSLAC/*.cc))
 RivetSPSAnalyses.so: $(filter-out $(srcdir)/pluginSPS/tmp*.cc, $(wildcard $(srcdir)/pluginSPS/*.cc))
 RivetTOTEMAnalyses.so: $(filter-out $(srcdir)/pluginTOTEM/tmp*.cc, $(wildcard $(srcdir)/pluginTOTEM/*.cc))
 RivetTristanAnalyses.so: $(filter-out $(srcdir)/pluginTristan/tmp*.cc, $(wildcard $(srcdir)/pluginTristan/*.cc))
