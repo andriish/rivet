@@ -22,10 +22,6 @@ namespace Rivet {
       _histOnResonanceB = bookHisto1D(2,1,1);
       _histOffResonance = bookHisto1D(2,1,2);
       _sigma            = bookHisto1D(3,1,1);
-      _histOnResonanceA_norm = bookHisto1D(4,1,1);
-      _histOnResonanceB_norm = bookHisto1D(5,1,1);
-      _histOffResonance_norm = bookHisto1D(5,1,2);
-      
     }
 
     void analyze(const Event& e) {
@@ -48,13 +44,6 @@ namespace Rivet {
         const double mom = cms_boost.transform(p.momentum()).vector3().mod();
         // Only looking at Xi_c^0
         if (p.abspid() != 4132 ) continue;
-        if (onresonance) {
-          _histOnResonanceA_norm->fill(mom,weight);
-          _histOnResonanceB_norm->fill(mom,weight);
-        }
-        else {
-          _histOffResonance_norm->fill(mom,s/sqr(10.58)*weight);
-        }
         MSG_DEBUG("mom = " << mom);
         // off-resonance cross section
         if (checkDecay(p.genParticle())) {
@@ -64,7 +53,7 @@ namespace Rivet {
           }
           else {
             _histOffResonance->fill(mom,s/sqr(10.58)*weight);
-            _sigma->fill(10.6,weight);
+            _sigma->fill(10.58,weight);
           }
         }
       }
@@ -72,13 +61,10 @@ namespace Rivet {
 
 
     void finalize() {
-      scale(_histOnResonanceA, crossSection()/femtobarn/sumOfWeights());
-      scale(_histOnResonanceB, crossSection()/femtobarn/sumOfWeights());
-      scale(_histOffResonance, crossSection()/femtobarn/sumOfWeights());
+      scale(_histOnResonanceA, crossSection()/femtobarn/sumOfWeights()*0.2);
+      scale(_histOnResonanceB, crossSection()/femtobarn/sumOfWeights()*0.45);
+      scale(_histOffResonance, crossSection()/femtobarn/sumOfWeights()*0.45);
       scale(_sigma           , crossSection()/femtobarn/sumOfWeights());
-      normalize(_histOnResonanceA_norm);
-      normalize(_histOnResonanceB_norm);
-      normalize(_histOffResonance_norm);
     }
 
 
@@ -90,9 +76,6 @@ namespace Rivet {
     Histo1DPtr _histOnResonanceB;
     Histo1DPtr _histOffResonance;
     Histo1DPtr _sigma           ;
-    Histo1DPtr _histOnResonanceA_norm;
-    Histo1DPtr _histOnResonanceB_norm;
-    Histo1DPtr _histOffResonance_norm;
     //@}
 
     bool checkDecay(const GenParticle* p) {
