@@ -1,10 +1,13 @@
 BEGIN YODA_SCATTER2D_V2 /REF/BABAR_2015_I1383130/d01-x01-y01
+Variations: [""]
+ErrorBreakdown: {0: {stat: {dn: -9.0, up: 9.0}, sys: {dn: -2.0, up: 2.0}}, 1: {stat: {dn: -11.0, up: 11.0}, sys: {dn: -2.0, up: 2.0}}, 2: {stat: {dn: -13.0, up: 13.0}, sys: {dn: -2.0, up: 2.0}}, 3: {stat: {dn: -13.0, up: 13.0}, sys: {dn: -2.0, up: 2.0}}, 4: {stat: {dn: -22.0, up: 22.0}, sys: {dn: -3.0, up: 3.0}}, 5: {stat: {dn: -17.0, up: 17.0}, sys: {dn: -2.0, up: 2.0}}, 6: {stat: {dn: -16.0, up: 16.0}, sys: {dn: -2.0, up: 2.0}}, 7: {stat: {dn: -16.0, up: 16.0}, sys: {dn: -1.0, up: 1.0}}, 8: {stat: {dn: -13.0, up: 13.0}, sys: {dn: -1.0, up: 1.0}}, 9: {stat: {dn: -11.0, up: 11.0}, sys: {dn: -1.0, up: 1.0}}, 10: {stat: {dn: -9.0, up: 9.0}, sys: {dn: -1.0, up: 1.0}}, 11: {stat: {dn: -6.9, up: 6.9}, sys: {dn: -0.6, up: 0.6}}, 12: {stat: {dn: -6.6, up: 6.6}, sys: {dn: -0.3, up: 0.3}}, 13: {stat: {dn: -6.2, up: 6.2}, sys: {dn: -0.5, up: 0.5}}, 14: {stat: {dn: -5.3, up: 5.3}, sys: {dn: -0.3, up: 0.3}}, 15: {stat: {dn: -6.9, up: 6.9}, sys: {dn: -0.6, up: 0.6}}, 16: {stat: {dn: -6.6, up: 6.6}, sys: {dn: -0.7, up: 0.7}}, 17: {stat: {dn: -4.5, up: 4.5}, sys: {dn: -1.2, up: 1.2}}, 18: {stat: {dn: -5.3, up: 5.3}, sys: {dn: -0.7, up: 0.7}}, 19: {stat: {dn: -5.3, up: 5.3}, sys: {dn: -1.9, up: 1.9}}, 20: {stat: {dn: -6.9, up: 6.9}, sys: {dn: -2.0, up: 2.0}}}
+
 IsRef: 1
 Path: /REF/BABAR_2015_I1383130/d01-x01-y01
 Title: doi:10.17182/hepdata.73784.v1/t1
 Type: Scatter2D
 ---
-# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 2.650000e+00	5.000000e-02	5.000000e-02	7.500000e+01	9.219544e+00	9.219544e+00
 2.750000e+00	5.000000e-02	5.000000e-02	1.210000e+02	1.118034e+01	1.118034e+01
 2.850000e+00	5.000000e-02	5.000000e-02	1.570000e+02	1.315295e+01	1.315295e+01
@@ -28,12 +31,15 @@ Type: Scatter2D
 7.750000e+00	2.500000e-01	2.500000e-01	0.000000e+00	7.184010e+00	7.184010e+00
 END YODA_SCATTER2D_V2
 BEGIN YODA_SCATTER2D_V2 /REF/BABAR_2015_I1383130/d01-x01-y02
+Variations: [""]
+ErrorBreakdown: {}
+
 IsRef: 1
 Path: /REF/BABAR_2015_I1383130/d01-x01-y02
 Title: doi:10.17182/hepdata.73784.v1/t1
 Type: Scatter2D
 ---
-# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 2.650000e+00	5.000000e-02	5.000000e-02	9.600000e-01	0.000000e+00	0.000000e+00
 2.750000e+00	5.000000e-02	5.000000e-02	1.940000e+00	0.000000e+00	0.000000e+00
 2.850000e+00	5.000000e-02	5.000000e-02	3.030000e+00	0.000000e+00	0.000000e+00
@@ -57,12 +63,15 @@ Type: Scatter2D
 7.750000e+00	2.500000e-01	2.500000e-01	9.360000e+00	0.000000e+00	0.000000e+00
 END YODA_SCATTER2D_V2
 BEGIN YODA_SCATTER2D_V2 /REF/BABAR_2015_I1383130/d01-x01-y03
+Variations: [""]
+ErrorBreakdown: {}
+
 IsRef: 1
 Path: /REF/BABAR_2015_I1383130/d01-x01-y03
 Title: doi:10.17182/hepdata.73784.v1/t1
 Type: Scatter2D
 ---
-# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 2.650000e+00	5.000000e-02	5.000000e-02	1.130000e+02	0.000000e+00	0.000000e+00
 2.750000e+00	5.000000e-02	5.000000e-02	1.180000e+02	0.000000e+00	0.000000e+00
 2.850000e+00	5.000000e-02	5.000000e-02	1.220000e+02	0.000000e+00	0.000000e+00
@@ -86,12 +95,15 @@ Type: Scatter2D
 7.750000e+00	2.500000e-01	2.500000e-01	4.015000e+03	0.000000e+00	0.000000e+00
 END YODA_SCATTER2D_V2
 BEGIN YODA_SCATTER2D_V2 /REF/BABAR_2015_I1383130/d01-x01-y04
+Variations: [""]
+ErrorBreakdown: {0: {stat: {dn: -8.1, up: 8.1}, sys: {dn: -3.7, up: 3.7}}, 1: {stat: {dn: -4.9, up: 4.9}, sys: {dn: -2.4, up: 2.4}}, 2: {stat: {dn: -3.4, up: 3.4}, sys: {dn: -1.6, up: 1.6}}, 3: {stat: {dn: -2.7, up: 2.7}, sys: {dn: -1.2, up: 1.2}}, 4: {stat: {dn: -1.6, up: 1.6}, sys: {dn: -0.6, up: 0.6}}, 5: {stat: {dn: -0.9, up: 0.9}, sys: {dn: -0.4, up: 0.4}}, 6: {stat: {dn: -0.63, up: 0.63}, sys: {dn: -0.24, up: 0.24}}, 7: {stat: {dn: -0.51, up: 0.51}, sys: {dn: -0.16, up: 0.16}}, 8: {stat: {dn: -0.36, up: 0.36}, sys: {dn: -0.13, up: 0.13}}, 9: {stat: {dn: -0.25, up: 0.25}, sys: {dn: -0.08, up: 0.08}}, 10: {stat: {dn: -0.2, up: 0.2}, sys: {dn: -0.06, up: 0.06}}, 11: {stat: {dn: -0.13, up: 0.13}, sys: {dn: -0.03, up: 0.03}}, 12: {stat: {dn: -0.11, up: 0.11}, sys: {dn: -0.03, up: 0.03}}, 13: {stat: {dn: -0.09, up: 0.09}, sys: {dn: -0.02, up: 0.02}}, 14: {stat: {dn: -0.08, up: 0.08}, sys: {dn: -0.02, up: 0.02}}, 15: {stat: {dn: -0.05, up: 0.05}, sys: {dn: -0.01, up: 0.01}}, 16: {stat: {dn: -0.029, up: 0.029}, sys: {dn: -0.006, up: 0.006}}, 17: {stat: {dn: -0.021, up: 0.021}, sys: {dn: -0.006, up: 0.006}}, 18: {stat: {dn: -0.018, up: 0.018}, sys: {dn: -0.004, up: 0.004}}, 19: {stat: {dn: -0.014, up: 0.014}, sys: {dn: -0.004, up: 0.004}}}
+
 IsRef: 1
 Path: /REF/BABAR_2015_I1383130/d01-x01-y04
 Title: doi:10.17182/hepdata.73784.v1/t1
 Type: Scatter2D
 ---
-# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 2.650000e+00	5.000000e-02	5.000000e-02	6.930000e+01	8.905055e+00	8.905055e+00
 2.750000e+00	5.000000e-02	5.000000e-02	5.290000e+01	5.456189e+00	5.456189e+00
 2.850000e+00	5.000000e-02	5.000000e-02	4.200000e+01	3.757659e+00	3.757659e+00
@@ -114,12 +126,15 @@ Type: Scatter2D
 7.250000e+00	2.500000e-01	2.500000e-01	2.000000e-02	1.456022e-02	1.456022e-02
 END YODA_SCATTER2D_V2
 BEGIN YODA_SCATTER2D_V2 /REF/BABAR_2015_I1383130/d01-x01-y05
+Variations: [""]
+ErrorBreakdown: {0: {error: {dn: -1.1, up: 1.1}}, 1: {error: {dn: -0.8, up: 0.8}}, 2: {error: {dn: -0.6, up: 0.6}}, 3: {error: {dn: -0.6, up: 0.6}}, 4: {error: {dn: -0.4, up: 0.4}}, 5: {error: {dn: -0.3, up: 0.3}}, 6: {error: {dn: -0.3, up: 0.3}}, 7: {error: {dn: -0.3, up: 0.3}}, 8: {error: {dn: -0.3, up: 0.3}}, 9: {error: {dn: -0.25, up: 0.25}}, 10: {error: {dn: -0.25, up: 0.25}}, 11: {error: {dn: -0.23, up: 0.23}}, 12: {error: {dn: -0.23, up: 0.23}}, 13: {error: {dn: -0.22, up: 0.22}}, 14: {error: {dn: -0.22, up: 0.22}}, 15: {error: {dn: -0.18, up: 0.18}}, 16: {error: {dn: -0.15, up: 0.15}}, 17: {error: {dn: -0.22, up: 0.22}}, 18: {error: {dn: -0.2, up: 0.2}}, 19: {error: {dn: -0.36, up: 0.23}}}
+
 IsRef: 1
 Path: /REF/BABAR_2015_I1383130/d01-x01-y05
 Title: doi:10.17182/hepdata.73784.v1/t1
 Type: Scatter2D
 ---
-# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 2.650000e+00	5.000000e-02	5.000000e-02	1.670000e+01	1.100000e+00	1.100000e+00
 2.750000e+00	5.000000e-02	5.000000e-02	1.500000e+01	8.000000e-01	8.000000e-01
 2.850000e+00	5.000000e-02	5.000000e-02	1.370000e+01	6.000000e-01	6.000000e-01
