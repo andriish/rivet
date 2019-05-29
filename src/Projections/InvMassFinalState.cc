@@ -170,7 +170,7 @@ namespace Rivet {
     MSG_DEBUG("Selected " << _theParticles.size() << " particles " << "(" << _particlePairs.size() << " pairs)");
     if (getLog().isActive(Log::TRACE)) {
       for (const Particle& p : _theParticles) {
-        MSG_TRACE("ID: " << p.pid() << ", barcode: " << p.genParticle()->barcode());
+        MSG_TRACE("PDG ID: " << p.pid() << ", ID: " << HepMCUtils::uniqueId(p.genParticle())) ;
       }
     }
   }

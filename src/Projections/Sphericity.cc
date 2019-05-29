@@ -89,6 +89,7 @@ namespace Rivet {
     double totalMomentum = 0.0;
     MSG_DEBUG("Number of particles = " << momenta.size());
     for (const Vector3& p3 : momenta) {
+      if ( p3.mod() <= 0.0 ) continue;
       // Build the (regulated) normalising factor.
       totalMomentum += pow(p3.mod(), _regparam);
 

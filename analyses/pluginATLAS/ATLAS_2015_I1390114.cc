@@ -107,7 +107,7 @@ namespace Rivet {
         if (muons[0].charge() * electrons[0].charge() < 0.0)  _histo->fill(2, weight);
       }
 
-      DressedLepton *lep1 = NULL, *lep2 = NULL;
+      DressedLepton *lep1 = nullptr, *lep2 = nullptr;
       bool zveto = false;
       if (electrons.size() == 2 && muons.empty()) {
         lep1 = &electrons[0];

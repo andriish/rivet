@@ -57,11 +57,11 @@ namespace Rivet {
 
     // Warn if any analysis' status is not unblemished
     for (const AnaHandle a : analyses()) {
-      if (toUpper(a->status()) == "PRELIMINARY") {
+      if ( a->info().preliminary() ) {
         MSG_WARNING("Analysis '" << a->name() << "' is preliminary: be careful, it may change and/or be renamed!");
-      } else if (toUpper(a->status()) == "OBSOLETE") {
+      } else if ( a->info().obsolete() ) {
         MSG_WARNING("Analysis '" << a->name() << "' is obsolete: please update!");
-      } else if (toUpper(a->status()).find("UNVALIDATED") != string::npos) {
+      } else if (( a->info().unvalidated() ) ) {
         MSG_WARNING("Analysis '" << a->name() << "' is unvalidated: be careful, it may be broken!");
       }
     }
@@ -114,7 +114,15 @@ namespace Rivet {
     MSG_DEBUG("Event #" << _eventcounter.numEntries() << " weight = " << event.weight());
 
     // Cross-section
-    #ifdef HEPMC_HAS_CROSS_SECTION
+    
+    #if defined ENABLE_HEPMC_3
+    if (ge.cross_section()) {
+      //@todo HepMC3::GenCrossSection methods aren't const accessible :(
+      RivetHepMC::GenCrossSection gcs = *(event.genEvent()->cross_section());
+      _xs = gcs.xsec();
+      _xserr = gcs.xsec_err();
+    }
+    #elif defined HEPMC_HAS_CROSS_SECTION
     if (ge.cross_section()) {
       _xs = ge.cross_section()->cross_section();
       _xserr = ge.cross_section()->cross_section_error();

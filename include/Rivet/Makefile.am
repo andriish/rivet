@@ -58,6 +58,7 @@ nobase_pkginclude_HEADERS += \
   Projections/HadronicFinalState.hh \
   Projections/HeavyHadrons.hh \
   Projections/Hemispheres.hh \
+  Projections/HepMCHeavyIon.hh \
   Projections/IdentifiedFinalState.hh \
   Projections/ImpactParameterProjection.hh \
   Projections/IndirectFinalState.hh \
@@ -137,6 +138,7 @@ nobase_pkginclude_HEADERS += \
   Tools/ParticleName.hh \
   Tools/Percentile.hh \
   Tools/PrettyPrint.hh \
+  Tools/ReaderCompressedAscii.hh \
   Tools/RivetPaths.hh \
   Tools/RivetSTL.hh \
   Tools/RivetFastJet.hh \
@@ -148,6 +150,7 @@ nobase_pkginclude_HEADERS += \
   Tools/ParticleSmearingFunctions.hh \
   Tools/JetSmearingFunctions.hh \
   Tools/TypeTraits.hh \
+  Tools/WriterCompressedAscii.hh \
   Tools/Utils.hh \
   Tools/fjcontrib/AxesDefinition.hh \
   Tools/fjcontrib/BottomUpSoftDrop.hh \

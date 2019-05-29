@@ -54,6 +54,7 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& e) {
+      vector<FourMomentum> Bmom;
 
       const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
       const ZFinder& zfindermu = apply<ZFinder>(e, "ZFinderMu");
@@ -65,8 +66,6 @@ namespace Rivet {
       const Particles& z = !zfindermu.empty() ? zfindermu.bosons() : zfinderel.bosons();
       const bool is_boosted = ( z[0].pT() > 50*GeV );
 
-      vector<FourMomentum> Bmom;
-
       // Loop over the unstable particles
       for (const Particle& p : ufs.particles()) {
         const PdgId pid = p.pid();
@@ -75,34 +74,28 @@ namespace Rivet {
         if (PID::hasBottom(pid)) {
 
           bool good_B = false;
-          const GenParticle* pgen = p.genParticle();
-          const GenVertex* vgen = pgen -> end_vertex();
+          ConstGenParticlePtr pgen = p.genParticle();
+          ConstGenVertexPtr vgen = pgen -> end_vertex();
 
           // Loop over the decay products of each unstable particle, looking for a b-hadron pair
           /// @todo Avoid HepMC API
-	  if (vgen) {
-
-	    for (GenVertex::particles_out_const_iterator it = vgen->particles_out_const_begin(); it !=  vgen->particles_out_const_end(); ++it) {
-	      // If the particle produced has a bottom quark do not count it and go to the next loop cycle.
-	      if (!( PID::hasBottom( (*it)->pdg_id() ) ) ) {
-		good_B = true;
-		continue;
-	      } else {
-		good_B = false;
-		break;
-	      }
-	    }	    
-	    if (good_B ) Bmom.push_back( p.momentum() );
-	  }
-	  else continue;
-	}
+          for (ConstGenParticlePtr it: HepMCUtils::particles(vgen, Relatives::CHILDREN)){
+            // If the particle produced has a bottom quark do not count it and go to the next loop cycle.
+            if (!( PID::hasBottom( it->pdg_id() ) ) ) {
+              good_B = true;
+              continue;
+            } else {
+              good_B = false;
+              break;
+            }
+          }
+          if (good_B ) Bmom.push_back( p.momentum() );
+        }
+        else continue;
       }
+
       // If there are more than two B's in the final state veto the event
-      if (Bmom.size() != 2 ) {
-	Bmom.clear();
-	vetoEvent;
-      }
-
+      if (Bmom.size() != 2 ) vetoEvent;
 
       // Calculate the observables
       double dphiBB = deltaPhi(Bmom[0], Bmom[1]);
@@ -124,21 +117,21 @@ namespace Rivet {
       _h_A_ZBB->fill(AZBB, weight);
       _sumW += weight;
       _sumWpT += weight;
-      
+
       // Fill the histograms in the boosted region
       if (is_boosted) {
-	_sumW50 += weight;
-	_h_dphi_BB_boost->fill(dphiBB, weight);
-	_h_dR_BB_boost->fill(dRBB, weight);
-	_h_min_dR_ZB_boost->fill(mindR_ZB, weight);
-	_h_A_ZBB_boost->fill(AZBB, weight);
+        _sumW50 += weight;
+        _h_dphi_BB_boost->fill(dphiBB, weight);
+        _h_dR_BB_boost->fill(dRBB, weight);
+        _h_min_dR_ZB_boost->fill(mindR_ZB, weight);
+        _h_A_ZBB_boost->fill(AZBB, weight);
       }
 
       // Fill Z pT (cumulative) histogram
       _h_min_ZpT->fill(0, weight);
       if (pZ.pT() > 40*GeV ) {
-	_sumWpT += weight;
-	_h_min_ZpT->fill(40, weight);
+        _sumWpT += weight;
+        _h_min_ZpT->fill(40, weight);
       }
       if (pZ.pT() > 80*GeV ) {
         _sumWpT += weight;
@@ -150,7 +143,6 @@ namespace Rivet {
       }
 
       Bmom.clear();
-
     }
 
 

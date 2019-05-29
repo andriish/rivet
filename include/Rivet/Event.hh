@@ -27,8 +27,8 @@ namespace Rivet {
 
     /// Constructor from a HepMC GenEvent pointer
     Event(const GenEvent* ge)
-      : _genevent_original(ge), _genevent(*ge)
-    { assert(ge); _init(*ge); }
+      : _genevent_original(ge)
+    { assert(ge); _genevent = *ge; _init(*ge); }
 
     /// Constructor from a HepMC GenEvent reference
     /// @deprecated HepMC uses pointers, so we should talk to HepMC via pointers
@@ -50,6 +50,9 @@ namespace Rivet {
     /// The generated event obtained from an external event generator
     const GenEvent* genEvent() const { return &_genevent; }
 
+    /// The generated event obtained from an external event generator
+    const GenEvent* originalGenEvent() const { return _genevent_original; }
+
     /// @brief The generation weight associated with the event
     ///
     /// @todo This needs to be revisited when we finally add the mechanism to
@@ -66,7 +69,7 @@ namespace Rivet {
     double asqrtS() const;
 
     /// Get the generator centrality (impact-parameter quantile in [0,1]; or -1 if undefined (usual for non-HI generators))
-    double centrality() const;
+    //double centrality() const;
 
     // /// Get the boost to the beam centre-of-mass
     // Vector3 beamCMSBoost() const;

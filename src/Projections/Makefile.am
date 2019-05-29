@@ -19,6 +19,7 @@ libRivetProjections_la_SOURCES = \
   HadronicFinalState.cc \
   HeavyHadrons.cc \
   Hemispheres.cc \
+  HepMCHeavyIon.cc \
   IdentifiedFinalState.cc \
   InitialQuarks.cc \
   InvMassFinalState.cc \

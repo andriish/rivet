@@ -4,7 +4,6 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/Utils.hh"
 #include "Rivet/Projections/Beam.hh"
-#include "HepMC/GenEvent.h"
 
 namespace Rivet {
 
@@ -22,11 +21,6 @@ namespace Rivet {
     if (WEIGHT_INDEX == -1 || genEvent()->weights().empty()) return 1.0;
     // Otherwise return the appropriate weight index
     return _genevent.weights()[WEIGHT_INDEX];
-  }
-
-  double Event::centrality() const {
-    /// @todo Use direct "centrality" property if using HepMC3
-    return genEvent()->heavy_ion() ? genEvent()->heavy_ion()->impact_parameter() : -1;
   }
 
   ParticlePair Event::beams() const { return Rivet::beams(*this); }
@@ -47,7 +41,7 @@ namespace Rivet {
 
   const Particles& Event::allParticles() const {
     if (_particles.empty()) { //< assume that empty means no attempt yet made
-      for (const GenParticle* gp : particles(genEvent())) {
+      for (ConstGenParticlePtr gp : HepMCUtils::particles(genEvent())) {
         _particles += Particle(gp);
       }
     }

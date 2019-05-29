@@ -207,6 +207,8 @@ namespace Rivet {
     /// Build a map of options to facilitate checking.
     void buildOptionMap();
 
+    /// List a series of command lines to be used for valdation
+    const vector<string> & validation();
 
     /// Return true if this analysis needs to know the process cross-section.
     bool needsCrossSection() const { return _needsCrossSection; }
@@ -219,6 +221,32 @@ namespace Rivet {
 
     /// setReentrant
     void setReentrant(bool ree = true) { _reentrant = ree; }
+
+    /// Return true if validated
+    bool validated() const {
+      return _status.find("VALIDATED") != string::npos &&
+        _status.find("UNVALIDATED") == string::npos;
+    }
+
+    /// Return true if preliminary
+    bool preliminary() const {
+      return _status.find("PRELIMINARY") != string::npos;
+    }
+
+    /// Return true if obsolete
+    bool obsolete() const {
+      return _status.find("OBSOLETE") != string::npos;
+    }
+
+    /// Return true if unvalidated
+    bool unvalidated() const {
+      return _status.find("UNVALIDATED") != string::npos;
+    }
+
+    /// Return true if includes random variations
+    bool random() const {
+      return _status.find("RANDOM") != string::npos;
+    }
 
     //@}
 
@@ -249,6 +277,8 @@ namespace Rivet {
 
     std::vector<std::string> _options;
     std::map< std::string, std::set<std::string> > _optionmap;
+
+    std::vector<std::string> _validation;
     
     bool _reentrant;
     
@@ -277,6 +307,7 @@ namespace Rivet {
       _needsCrossSection = false;
       _options.clear();
       _optionmap.clear();
+      _validation.clear();
       _reentrant = false;
     }
 

@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/Beam.hh"
 
 namespace Rivet {
 
@@ -20,12 +21,15 @@ public:
 
 	/// @name Analysis methods
 
-	bool isParticleFromCollision(Particle p, vector<Particle> parents) {
+  bool isParticleFromCollision(Particle p, vector<Particle> parents, const Beam & beams) {
 		bool beam[nbeam]={false};
 
 		if(parents.size()==nbeam) {
-			for ( int ipar=0; ipar < nbeam; ++ipar )
-				beam[ipar] = parents[ipar].genParticle()->is_beam();
+                  for ( int ipar=0; ipar < nbeam; ++ipar ) {
+                    if ( parents[ipar].genParticle() == beams.beams().first.genParticle() ||
+                         parents[ipar].genParticle() == beams.beams().second.genParticle() )
+				beam[ipar] = true;
+                  }
 			if(beam[0] && beam[1])
 				return true;
 		}
@@ -41,7 +45,7 @@ public:
 	}
 
 	bool isDeviated(Particle p, Particle parent) { //Select/Remove particles decayed between IP and LHCf
-		const GenVertex* pv = p.genParticle()->production_vertex();
+		ConstGenVertexPtr pv = p.genParticle()->production_vertex();
 		assert(pv != NULL);
 
 		const double decay_vertex = pv->position().z()/mm;
@@ -93,7 +97,7 @@ public:
 
 	/// This method return a fake pseudorapidity to check id decayed particle is in LHCf acceptance
 	double RecomputeEta(Particle p) {
-		const GenVertex* pv = p.genParticle()->production_vertex();
+		ConstGenVertexPtr pv = p.genParticle()->production_vertex();
 
 		const double x0 = pv->position().x()/mm;
 		const double y0 = pv->position().y()/mm;
@@ -120,6 +124,7 @@ public:
 		// Initialise and register projections
 		//      declare(FinalState("FS");
 		addProjection(FinalState(), "FS");
+                addProjection(Beam(), "Beams");
 
 		// Book histograms
 		_h_n_en_eta1 = bookHisto1D(1, 1, 1);
@@ -135,6 +140,7 @@ public:
 
 		const FinalState &fs = applyProjection<FinalState> (event, "FS");
 		Particles fs_particles = fs.particles();
+                const Beam & beams = applyProjection<Beam> (event, "Beam");
 
 		vector<Particle> processed_parents;
 		processed_parents.clear();
@@ -153,14 +159,14 @@ public:
 
 				vector<Particle> parents = p.parents();
 
-				if(isParticleFromCollision(p, parents)) { //Particles directly produced in collisions
+				if(isParticleFromCollision(p, parents, beams)) { //Particles directly produced in collisions
 					if(!PID::isHadron(p.pid())) continue; //Remove non-hadron particles
 					if(PID::charge(p.pid()) != 0) continue; //Remove charged particles
 
 					eta = p.eta();
 					en = p.E()/GeV;
 				} else if(isParticleFromDecay(p, parents)) { //Particles produced from decay
-					const GenVertex* pv = p.genParticle()->production_vertex();
+					ConstGenVertexPtr pv = p.genParticle()->production_vertex();
 					assert(pv != NULL);
 
 					const double decay_vertex = pv->position().z()/mm;
@@ -196,7 +202,7 @@ public:
 
 							Particle ancestor = ancestors[0];
 
-							if(isParticleFromCollision(parent, ancestors)) { //if we found first particles produced in collisions we consider them
+							if(isParticleFromCollision(parent, ancestors, beams)) { //if we found first particles produced in collisions we consider them
 								isEnded=true;
 
 								if(!PID::isHadron(parent.pid())) isValid=false; //Remove non-hadron ancestors/parents
@@ -209,7 +215,7 @@ public:
 								eta = parent.eta();
 								en = parent.E()/GeV;
 							} else if (isParticleFromDecay(parent, ancestors)) { //if we found first particles produced entering LHCf we consider them
-								const GenVertex* pv_prev = parent.genParticle()->production_vertex();
+								ConstGenVertexPtr pv_prev = parent.genParticle()->production_vertex();
 								assert(pv_prev != NULL);
 
 								const double previous_decay_vertex = pv_prev->position().z()/mm;

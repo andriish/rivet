@@ -5,6 +5,7 @@
 #include "Rivet/Projections/SingleValueProjection.hh"
 #include "Rivet/Tools/AliceCommon.hh"
 #include "Rivet/Projections/AliceCommon.hh"
+#include "Rivet/Projections/HepMCHeavyIon.hh"
 #include <fstream>
 
 #define _USE_MATH_DEFINES
@@ -41,6 +42,9 @@ namespace Rivet {
       // Charged, primary particles with |eta| < 0.5 and pT > 50 MeV
       declare(ALICE::PrimaryParticles(Cuts::abseta < 0.5 &&
         Cuts::pT > 50*MeV && Cuts::abscharge > 0), "APRIM");
+
+      // Access the HepMC heavy ion info
+      declare(HepMCHeavyIon(), "HepMC");
 
       // Histograms and variables initialization
       _histNchVsCentr = bookProfile1D(1, 1, 1);
@@ -83,11 +87,10 @@ namespace Rivet {
       _histNchVsCentr->fill(centr, nch, weight);
 
       // Attempt to extract Npart form GenEvent.
-      // TODO: Unclear how to handle this in HepMC3
-      const HepMC::HeavyIon* hi = event.genEvent()->heavy_ion();
-      if (hi && hi->is_valid()) {
-        _histNpartVsCentr->fill(centr, hi->Npart_proj() + hi->Npart_targ(),
-          weight);
+      if (event.genEvent()->heavy_ion()) {
+        const HepMCHeavyIon & hi = apply<HepMCHeavyIon>(event, "HepMC");
+        _histNpartVsCentr->fill(centr, hi.Npart_proj() + hi.Npart_targ(),
+                                weight);
       }
     }
 

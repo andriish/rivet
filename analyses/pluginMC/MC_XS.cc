@@ -1,6 +1,9 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
+
+#ifndef ENABLE_HEPMC_3
 #include "HepMC/HepMCDefs.h"
+#endif
 
 namespace Rivet {
 
@@ -40,10 +43,17 @@ namespace Rivet {
       _h_N->fill(0.5,1.);
       _h_pmXS->fill(0.5*(event.weight() > 0 ? 1. : -1), abs(event.weight()));
       _h_pmN ->fill(0.5*(event.weight() > 0 ? 1. : -1), 1.);
-      #ifdef HEPMC_HAS_CROSS_SECTION
+      
+      #if defined ENABLE_HEPMC_3
+      //@todo HepMC3::GenCrossSection methods aren't const accessible :(
+      RivetHepMC::GenCrossSection gcs = *(event.genEvent()->cross_section());
+      _mc_xs    = gcs.xsec();
+      _mc_error = gcs.xsec_err();
+      #elif defined HEPMC_HAS_CROSS_SECTION
       _mc_xs    = event.genEvent()->cross_section()->cross_section();
       _mc_error = event.genEvent()->cross_section()->cross_section_error();
-      #endif
+      #endif // VERSION_CODE >= 3000000
+      
     }
 
 
