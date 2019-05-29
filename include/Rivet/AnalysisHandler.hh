@@ -221,7 +221,6 @@ namespace Rivet {
     /// Write all analyses' plots (via getData) to the named file.
     void writeData(const std::string& filename) const;
 
-
     /// Tell Rivet to dump intermediate result to a file named @a
     /// dumpfile every @a period'th event. If @period is not positive,
     /// no dumping will be done.
@@ -254,6 +253,22 @@ namespace Rivet {
 
     //@}
 
+
+    /// @name Event weight access
+    //@{
+
+    /// Are any of the weights non-numeric?
+    size_t numWeights() { return _weightNames.size(); }
+
+    /// Are any of the weights non-numeric?
+    bool haveNamedWeights();
+
+    /// Set the weight names from a GenEvent
+    void setWeightNames(const GenEvent& ge);
+
+    //@}
+
+
     /// Indicate which Rivet stage we're in.
     /// At the moment, only INIT is used to enable booking.
     enum class Stage { OTHER, INIT };
@@ -277,6 +292,7 @@ namespace Rivet {
     /// A vector containing copies of analysis objects after
     /// finalize() has been run.
     vector<YODA::AnalysisObjectPtr> _finalizedAOs;
+
 
     /// @name Run properties
     //@{

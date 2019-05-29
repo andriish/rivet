@@ -1064,7 +1064,7 @@ namespace Rivet {
 
         // If base-name matches, check compatibility
         // NB. This evil is because dynamic_ptr_cast can't work on rivet_shared_ptr directly
-        AO aoold = AO(dynamic_pointer_cast<typename AO::value_type::Inner>(ao.get())); //< OMG
+        AO aoold = AO(dynamic_pointer_cast<typename AO::value_type>(ao.get())); //< OMG
         if ( !aoold || !bookingCompatible(aonew, aoold) ) {
           MSG_WARNING("Found incompatible pre-existing data object with same base path "
                       << aonew->path() <<  " for " << name());
@@ -1109,14 +1109,15 @@ namespace Rivet {
 
     /// Get a Rivet data object from the histogram system
     template <typename AO=MultiweightAOPtr>
-    const AO getAnalysisObject(const std::string& name) const {
+    const AO getAnalysisObject(const std::string& aoname) const {
       for (const MultiweightAOPtr& ao : analysisObjects()) {
         ao.get()->setActiveWeightIdx(_defaultWeightIndex());
-        if (ao->path() == histoPath(name)) {
-          return dynamic_pointer_cast<AO>(ao);
+        if (ao->path() == histoPath(aoname)) {
+          // return dynamic_pointer_cast<AO>(ao);
+          return AO(dynamic_pointer_cast<typename AO::value_type>(ao.get()));
         }
       }
-      throw LookupError("Data object " + histoPath(name) + " not found");
+      throw LookupError("Data object " + histoPath(aoname) + " not found");
     }
 
 
@@ -1142,10 +1143,11 @@ namespace Rivet {
     /// Get a data object from another analysis (e.g. preloaded
     /// calibration histogram).
     template <typename AO=MultiweightAOPtr>
-    AO getAnalysisObject(const std::string & ananame,
-                         const std::string& name) {
-      MultiweightAOPtr ao = _getOtherAnalysisObject(ananame, name);
-      return dynamic_pointer_cast<AO>(ao);
+    AO getAnalysisObject(const std::string& ananame,
+                         const std::string& aoname) {
+      MultiweightAOPtr ao = _getOtherAnalysisObject(ananame, aoname);
+      // return dynamic_pointer_cast<AO>(ao);
+      return AO(dynamic_pointer_cast<typename AO::value_type>(ao.get()));
     }
 
 

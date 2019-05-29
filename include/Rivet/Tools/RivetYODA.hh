@@ -17,6 +17,16 @@
 
 namespace YODA {
   typedef std::shared_ptr<YODA::AnalysisObject> AnalysisObjectPtr;
+
+  typedef std::shared_ptr<YODA::Counter> CounterPtr;
+  typedef std::shared_ptr<YODA::Histo1D> Histo1DPtr;
+  typedef std::shared_ptr<YODA::Histo2D> Histo2DPtr;
+  typedef std::shared_ptr<YODA::Profile1D> Profile1DPtr;
+  typedef std::shared_ptr<YODA::Profile2D> Profile2DPtr;
+  typedef std::shared_ptr<YODA::Scatter1D> Scatter1DPtr;
+  typedef std::shared_ptr<YODA::Scatter2D> Scatter2DPtr;
+  typedef std::shared_ptr<YODA::Scatter3D> Scatter3DPtr;
+
 }
 
 
@@ -447,8 +457,10 @@ namespace Rivet {
     }
 
     shared_ptr<T> get() const { return _p; }
+
   private:
     shared_ptr<T> _p;
+
   };
 
 

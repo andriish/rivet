@@ -6,8 +6,7 @@
 #include "Rivet/Tools/BeamConstraint.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
-#include "YODA/ReaderYODA.h"
-#include "YODA/WriterYODA.h"
+#include "YODA/IO.h"
 #include <regex>
 #include <iostream>
 
@@ -49,8 +48,7 @@ namespace Rivet {
 
 
   /// http://stackoverflow.com/questions/4654636/how-to-determine-if-a-string-is-a-number-with-c
-  bool is_number(const std::string& s)
-  {
+  bool is_number(const std::string& s) {
     std::string::const_iterator it = s.begin();
     while (it != s.end() && std::isdigit(*it)) ++it;
     return !s.empty() && it == s.end();
@@ -195,27 +193,22 @@ namespace Rivet {
       }
     }
 
-
     // Create the Rivet event wrapper
     /// @todo Filter/normalize the event here
     Event event(ge);
 
-    // set the cross section based on what is reported by this event.
-    // if no cross section
-    MSG_TRACE("getting cross section.");
+    // Set the cross section based on what is reported by this event.
+    MSG_TRACE("Getting cross-section.");
     if (ge.cross_section()) {
-      MSG_TRACE("getting cross section from GenEvent.");
+      MSG_TRACE("Getting cross-section from GenEvent.");
       double xs = ge.cross_section()->cross_section();
       double xserr = ge.cross_section()->cross_section_error();
       setCrossSection(xs, xserr);
     }
-    #endif
 
-    // won't happen for first event because _eventNumber is set in
-    // init()
+    // Won't happen for first event because _eventNumber is set in init()
     if (_eventNumber != ge.event_number()) {
-        /// @todo
-        /// can we get away with not passing a matrix?
+        /// @todo Can we get away with not passing a matrix?
 
         MSG_TRACE("AnalysisHandler::analyze(): Pushing _eventCounter to persistent.");
         _eventCounter.get()->pushToPersistent(_subEventWeights);
@@ -296,9 +289,9 @@ namespace Rivet {
     }
 
     // First we make copies of all analysis objects.
-    map<string,AnalysisObjectPtr> backupAOs;
+    map<string,YODA::AnalysisObjectPtr> backupAOs;
     for (auto ao : getYodaAOs(false, true, false) )
-      backupAOs[ao->path()] = AnalysisObjectPtr(ao->newclone());
+      backupAOs[ao->path()] = YODA::AnalysisObjectPtr(ao->newclone());
 
     // Finalize all the histograms
     for (const AnaHandle& a : _analyses) {
@@ -328,7 +321,7 @@ namespace Rivet {
     // ones, and restore the value to their original ones.
     _finalizedAOs.clear();
     for ( auto ao : getYodaAOs(false, false, false) )
-      _finalizedAOs.push_back(AnalysisObjectPtr(ao->newclone()));
+      _finalizedAOs.push_back(YODA::AnalysisObjectPtr(ao->newclone()));
     for ( auto ao : getYodaAOs(false, true, false) ) {
       // TODO: This should be possible to do in a nicer way, with a flag etc.
       if (ao->path().find("/FINAL") != std::string::npos) continue;
@@ -441,8 +434,9 @@ namespace Rivet {
         try {
           const string ananame =  ::split(path, "/")[0];
           AnaHandle a = analysis(ananame);
+          /// @todo FIXXXXX
           //MultiweightAOPtr mao = ????; /// @todo generate right Multiweight object from ao
-          a->addAnalysisObject(mao); /// @todo Need to statistically merge...
+          //a->addAnalysisObject(mao); /// @todo Need to statistically merge...
         } catch (const Error& e) {
           MSG_TRACE("Adding analysis object " << path <<
                     " to the list of orphans.");
@@ -452,7 +446,8 @@ namespace Rivet {
     }
   }
 
-  void AnalysisHandler::stripOptions(AnalysisObjectPtr ao,
+
+  void AnalysisHandler::stripOptions(YODA::AnalysisObjectPtr ao,
                                      const vector<string> & delopts) const {
     string path = ao->path();
     string ananame = split(path, "/")[0];
@@ -465,32 +460,30 @@ namespace Rivet {
   }
 
 
-
-
   void AnalysisHandler::
   mergeYodas(const vector<string> & aofiles, const vector<string> & delopts, bool equiv) {
-    vector< vector<AnalysisObjectPtr> > aosv;
+    vector< vector<YODA::AnalysisObjectPtr> > aosv;
     vector<double> xsecs;
     vector<double> xsecerrs;
     vector<CounterPtr> sows;
     set<string> ananames;
-     _eventcounter.reset();
+    _eventCounter->reset();
 
     // First scan all files and extract analysis objects and add the
-    // corresponding anayses..
-    for ( auto file : aofiles ) {
+    // corresponding analyses..
+    for (const string& file : aofiles ) {
       Scatter1DPtr xsec;
       CounterPtr sow;
 
       // For each file make sure that cross section and sum-of-weights
       // objects are present and stor all RAW ones in a vector;
-      vector<AnalysisObjectPtr> aos;
+      vector<YODA::AnalysisObjectPtr> aos;
       try {
         /// @todo Use new YODA SFINAE to fill the smart ptr vector directly
         vector<YODA::AnalysisObject*> aos_raw;
         YODA::read(file, aos_raw);
-        for (AnalysisObject* aor : aos_raw) {
-          AnalysisObjectPtr ao = AnalysisObjectPtr(aor);
+        for (YODA::AnalysisObject* aor : aos_raw) {
+          YODA::AnalysisObjectPtr ao(aor);
           if ( ao->path().substr(0, 5) != "/RAW/" ) continue;
           ao->setPath(ao->path().substr(4));
           if ( ao->path() == "/_XSEC" )
@@ -511,8 +504,8 @@ namespace Rivet {
         }
         xsecs.push_back(xsec->point(0).x());
         sows.push_back(sow);
-	xsecerrs.push_back(sqr(xsec->point(0).xErrAvg()));
-        _eventcounter += *sow;
+        xsecerrs.push_back(sqr(xsec->point(0).xErrAvg()));
+        _eventCounter->operator+=(*sow); //< HAHAHAHAHA!
         sows.push_back(sow);
         aosv.push_back(aos);
       } catch (...) { //< YODA::ReadError&
@@ -531,12 +524,12 @@ namespace Rivet {
 
     vector<double> scales(sows.size(), 1.0);
     if ( equiv ) {
-      _xs /= _eventcounter.effNumEntries();
-      _xserr = sqrt(_xserr)/_eventcounter.effNumEntries();
+      _xs /= _eventCounter.effNumEntries();
+      _xserr = sqrt(_xserr)/_eventCounter.effNumEntries();
     } else {
       _xserr = sqrt(_xserr);
       for ( int i = 0, N = sows.size(); i < N; ++i )
-        scales[i] = (_eventcounter.sumW()/sows[i]->sumW())*(xsecs[i]/_xs);
+        scales[i] = (_eventCounter.sumW()/sows[i]->sumW())*(xsecs[i]/_xs);
     }
 
     // Initialize the analyses allowing them to book analysis objects.
@@ -567,7 +560,7 @@ namespace Rivet {
     for ( int i = 0, N = aosv.size(); i < N; ++i)
       for ( auto ao : aosv[i] ) {
         if ( ao->path() == "/_XSEC" || ao->path() == "_EVTCOUNT" ) continue;
-	auto aoit = current.find(ao->path());
+        auto aoit = current.find(ao->path());
         if ( aoit == current.end() ) {
           MSG_WARNING("" << ao->path() << " was not properly booked.");
           continue;
@@ -579,7 +572,6 @@ namespace Rivet {
     // Now we can simply finalize() the analysis, leaving the
     // controlling program to write it out some yoda-file.
     finalize();
-
   }
 
 

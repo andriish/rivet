@@ -877,17 +877,17 @@ namespace Rivet {
 
   //////////////////////////////////
 
-namespace {
-  void errormsg(std::string name) {
-// #ifdef HAVE_BACKTRACE
-//      void * buffer[4];
-//      backtrace(buffer, 4);
-//      backtrace_symbols_fd(buffer, 4 , 1);
-// #endif
-    std::cerr << name << ": Can't book objects outside of init().\n";
-    assert(false);
-  }
-}
+// namespace {
+//   void errormsg(std::string name) {
+//     // #ifdef HAVE_BACKTRACE
+//     //      void * buffer[4];
+//     //      backtrace(buffer, 4);
+//     //      backtrace_symbols_fd(buffer, 4 , 1);
+//     // #endif
+//     std::cerr << name << ": Can't book objects outside of init().\n";
+//     assert(false);
+//   }
+// }
 
 
 namespace Rivet {
@@ -935,11 +935,10 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
   set<string> done;
 
   if ( sel == "REF" ) {
-    Scatter2DPtr refscat;
+    YODA::Scatter2DPtr refscat;
     auto refmap = getRefData(calAnaName);
     if ( refmap.find(calHistName) != refmap.end() )
-      refscat =
-        dynamic_pointer_cast<Scatter2D>(refmap.find(calHistName)->second);
+      refscat = dynamic_pointer_cast<Scatter2D>(refmap.find(calHistName)->second);
 
     if ( !refscat ) {
       MSG_WARNING("No reference calibration histogram for " <<
@@ -949,47 +948,49 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
     }
     else {
       MSG_INFO("Found calibration histogram " << sel << " " << refscat->path());
-      cproj.add(PercentileProjection(proj, refscat, increasing), sel);
+      cproj.add(PercentileProjection(proj, *refscat, increasing), sel);
     }
   }
   else if ( sel == "GEN" ) {
-    Histo1DPtr genhist;
-    string histpath = "/" + calAnaName + "/" + calHistName;
-    for ( YODA::AnalysisObjectPtr ao : handler().getData(true) ) {
-      if ( ao->path() == histpath )
-        genhist = dynamic_pointer_cast<Histo1D>(ao);
-    }
-    if ( !genhist || genhist->numEntries() <= 1 ) {
+    Histo1DPtr genhists =
+      getAnalysisObject<Histo1DPtr>(calAnaName, calHistName + "_IMP");
+    // for ( YODA::AnalysisObjectPtr ao : handler().getData(true) ) {
+    //   if ( ao->path() == histpath )
+    //     genhist = dynamic_pointer_cast<Histo1D>(ao);
+    // }
+    if ( !genhists || genhists->numEntries() <= 1 ) {
       MSG_WARNING("No generated calibration histogram for " <<
                "CentralityProjection " << projName << " found " <<
                "(requested histogram " << calHistName << " in " <<
                calAnaName << ")");
     }
     else {
-      MSG_INFO("Found calibration histogram " << sel << " " << genhist->path());
-      cproj.add(PercentileProjection(proj, genhist, increasing), sel);
+      MSG_INFO("Found calibration histogram " << sel << " " << genhists->path());
+      genhists.get()->setActiveWeightIdx(_defaultWeightIndex());
+      cproj.add(PercentileProjection(proj, *genhists, increasing), sel);
     }
   }
   else if ( sel == "IMP" ) {
-    Histo1DPtr imphist =
+    Histo1DPtr imphists =
       getAnalysisObject<Histo1DPtr>(calAnaName, calHistName + "_IMP");
-    if ( !imphist || imphist->numEntries() <= 1 ) {
+    if ( !imphists || imphists->numEntries() <= 1 ) {
       MSG_WARNING("No impact parameter calibration histogram for " <<
                "CentralityProjection " << projName << " found " <<
                "(requested histogram " << calHistName << "_IMP in " <<
                calAnaName << ")");
     }
     else {
-      MSG_INFO("Found calibration histogram " << sel << " " << imphist->path());
+      MSG_INFO("Found calibration histogram " << sel << " " << imphists->path());
+      imphists.get()->setActiveWeightIdx(_defaultWeightIndex());
       cproj.add(PercentileProjection(ImpactParameterProjection(),
-                                     imphist, true), sel);
+                                     *imphists, true), sel);
     }
   }
   else if ( sel == "USR" ) {
 #if HEPMC_VERSION_CODE >= 3000000
-    Histo1DPtr usrhist =
+    Histo1DPtr usrhists =
       getAnalysisObject<Histo1DPtr>(calAnaName, calHistName + "_USR");
-    if ( !usrhist || usrhist->numEntries() <= 1 ) {
+    if ( !usrhists || usrhists->numEntries() <= 1 ) {
       MSG_WARNING("No user-defined calibration histogram for " <<
                "CentralityProjection " << projName << " found " <<
                "(requested histogram " << calHistName << "_USR in " <<
@@ -997,8 +998,9 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
       continue;
     }
     else {
-      MSG_INFO("Found calibration histogram " << sel << " " << usrhist->path());
-      cproj.add((UserCentEstimate(), usrhist, true), sel);
+      MSG_INFO("Found calibration histogram " << sel << " " << usrhists->path());
+      usrhists.get()->setActiveWeightIdx(_defaultWeightIndex());
+      cproj.add((UserCentEstimate(), usrhists*, true), sel);
      }
 #else
       MSG_WARNING("UserCentEstimate is only available with HepMC3.");
