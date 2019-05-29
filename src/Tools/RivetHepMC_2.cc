@@ -114,6 +114,10 @@ namespace Rivet{
       if(!io->fill_next_event(evt.get())) return false;
       return true;
     }
-    
+
+    // This functions could be filled with code doing the same stuff as
+    // in the HepMC3 version of This file.
+    void strip(GenEvent &, const set<long> &) {}
+
   }
 }

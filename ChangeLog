@@ -1,3 +1,13 @@
+2019-05-29  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* The GenEvents in rivet can now be stripped from (most) light
+	quarks and gluons to speed up searching.
+
+	* Status lines in info files can now contain words like
+	NOTREENTRY, NOHEPDATA, SINGLEWEIGHT, and UNPHYSICAL.
+
+	* Can now configured to use HepMC3 (3.1.1 or later).
+
 2019-05-23  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix Unicode and argparse bugs in bin/rivet. Thanks to Frank Siegert.
