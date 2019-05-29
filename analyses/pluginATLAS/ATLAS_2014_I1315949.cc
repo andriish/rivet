@@ -49,7 +49,7 @@ namespace Rivet {
 
       // Book sumpt and nch histos
       for (size_t id = 0; id < 6.; ++id) {
-        _h_ptSum_1D[0][id] = bookHisto1D( 89 + id, 1, 1);
+        _h_ptSum_1D[0][id] = bookHisto1D( 76 + id, 1, 1);
         _h_ptSum_1D[1][id] = bookHisto1D(107 + id, 1, 1);
         _h_ptSum_1D[2][id] = bookHisto1D(119 + id, 1, 1);
         _h_ptSum_1D[3][id] = bookHisto1D(127 + id, 1, 1);
