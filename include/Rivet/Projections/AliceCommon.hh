@@ -1,11 +1,3 @@
-/**
- * @file   AliceCommon.hh
- * @author Christian Holm Christensen <cholm@nbi.dk>
- * @date   Fri Aug 24 09:50:33 2018
- * 
- * @brief  Common AlICE specific projections 
- * @ingroup alice_rivet
- */
 #ifndef PROJECTIONS_ALICECOMMON_HH
 #define PROJECTIONS_ALICECOMMON_HH
 #include <Rivet/Tools/AliceCommon.hh>
@@ -18,23 +10,25 @@ namespace Rivet
 {
   namespace ALICE
   {
-    /** 
+
+
+    /**
      * Template for ALICE V0 multiplicity projection.  Which
-     * acceptance to look in depends on the template argument @a MODE: 
+     * acceptance to look in depends on the template argument @a MODE:
      *
      * - @c MODE=-1  Check the V0-C acceptance (@f$-3.7<\eta<-1.7@f$)
      * - @c MODE=+1  Check the V0-A acceptance (@f$+2.8<\eta<+5.1@f$)
      * - @c MODE=0   Check both V0-A and -C acceptances (sum)
-     * 
      *
      * @ingroup alice_rivet
+     * @author Christian Holm Christensen <cholm@nbi.dk>
      */
     template <int MODE>
     class V0Multiplicity : public SingleValueProjection
     {
     public:
-      /** 
-       * Constructor 
+      /**
+       * Constructor
        */
       V0Multiplicity()
 	: SingleValueProjection()
@@ -50,78 +44,78 @@ namespace Rivet
 	const FinalState fs(cut);
 	this->declare(fs, "FinalState");
       }
-      /** 
-       * Destructor 
+      /**
+       * Destructor
        */
       virtual ~V0Multiplicity() {}
-      /** 
+      /**
        * Do the projection.  Sums number of charged final state
        * particles within the acceptances of the specified V0
        * sub-detectors.
-       * 
-       * @param e Event to project from 
+       *
+       * @param e Event to project from
        */
       virtual void project(const Event& e)
       {
 	clear();
 	set(apply<FinalState>(e,"FinalState").particles().size());
       }
-      /** 
-       * Clone this projection 
-       * 
-       * @return New wrapped pointer to object of this class 
+      /**
+       * Clone this projection
+       *
+       * @return New wrapped pointer to object of this class
        */
       virtual std::unique_ptr<Rivet::Projection> clone() const
       {
 	return std::unique_ptr<Projection>(new V0Multiplicity<MODE>(*this));
       }
-      /** 
-       * Compare to another projection 
+      /**
+       * Compare to another projection
        *
-       * @param p Projection to compare against 
+       * @param p Projection to compare against
        */
-      virtual int compare(const Projection& p) const
+      virtual CmpState compare(const Projection& p) const
       {
 	return dynamic_cast<const V0Multiplicity<MODE>*>(&p) ?
-	  EQUIVALENT : UNDEFINED;
-      }	
+	  CmpState::EQ : CmpState::NEQ;
+      }
     };
     //----------------------------------------------------------------
-    /** 
-     * Convinience type definition 
+    /**
+     * Convenience type definition
      *
      * @ingroup alice_rivet
      */
     typedef V0Multiplicity<-1> V0AMultiplicity;
-    /** 
-     * Convinience type definition 
+    /**
+     * Convinience type definition
      *
      * @ingroup alice_rivet
      */
     typedef V0Multiplicity<+1> V0CMultiplicity;
-    /** 
-     * Convinience type definition 
+    /**
+     * Convinience type definition
      *
      * @ingroup alice_rivet
      */
     typedef V0Multiplicity<0> V0MMultiplicity;
     //----------------------------------------------------------------
-    /** 
+    /**
      * Template for ALICE CL multiplicity projection.  Which
-     * acceptance to look in depends on the template argument @a INNER: 
+     * acceptance to look in depends on the template argument @a INNER:
      *
      * - @c INNER=true Check the inner SPD layer
-     * - @c INNER=false  Check the outer SPD layer 
+     * - @c INNER=false  Check the outer SPD layer
      *
      * @ingroup alice_rivet
-     * 
+     *
      */
     template <bool INNER>
     class CLMultiplicity : public SingleValueProjection
     {
     public:
-      /** 
-       * Constructor 
+      /**
+       * Constructor
        */
       CLMultiplicity()
 	: SingleValueProjection()
@@ -136,59 +130,59 @@ namespace Rivet
 	const FinalState fs(cut);
 	this->declare(fs, "FinalState");
       }
-      /** 
-       * Destructor 
+      /**
+       * Destructor
        */
       virtual ~CLMultiplicity() {}
-      /** 
+      /**
        * Do the projection.  Sums number of charged final state
        * particles within the acceptances of the specified CL
        * sub-detectors.
-       * 
-       * @param e Event to project from 
+       *
+       * @param e Event to project from
        */
       virtual void project(const Event& e)
       {
 	clear();
 	set(apply<FinalState>(e,"FinalState").particles().size());
       }
-      /** 
-       * Clone this projection 
-       * 
-       * @return New wrapped pointer to object of this class 
+      /**
+       * Clone this projection
+       *
+       * @return New wrapped pointer to object of this class
        */
       virtual std::unique_ptr<Rivet::Projection> clone() const
       {
 	return std::unique_ptr<Projection>(new CLMultiplicity<INNER>(*this));
       }
-      /** 
-       * Compare to another projection 
+      /**
+       * Compare to another projection
        *
-       * @param p Projection to compare against 
+       * @param p Projection to compare against
        */
-      virtual int compare(const Projection& p) const
+      virtual CmpState compare(const Projection& p) const
       {
 	return dynamic_cast<const CLMultiplicity<INNER>*>(&p) ?
-	  EQUIVALENT : UNDEFINED;
-      }	
+	  CmpState::EQ : CmpState::NEQ;
+      }
     };
     //----------------------------------------------------------------
-    /** 
-     * Convinience type definition 
+    /**
+     * Convinience type definition
      *
      * @ingroup alice_rivet
      */
     typedef CLMultiplicity<true>  CL0Multiplicity;
-    /** 
-     * Convinience type definition 
+    /**
+     * Convinience type definition
      *
      * @ingroup alice_rivet
      */
     typedef CLMultiplicity<false> CL1Multiplicity;
     //================================================================
-    /** 
-     * A template of ALICE V0-based triggers.  
-     * 
+    /**
+     * A template of ALICE V0-based triggers.
+     *
      * - @c MODE=-1  Check in the V0-C acceptance (@f$-3.7<\eta<-1.7@f$)
      * - @c MODE=+1  Check in the V0-A acceptance (@f$+2.8<\eta<+5.1@f$)
      * - @c MODE=0   Check in both V0-A and -C acceptances (V0-OR)
@@ -199,8 +193,8 @@ namespace Rivet
     class V0Trigger : public TriggerProjection
     {
     public:
-      /** 
-       * Constructor 
+      /**
+       * Constructor
        */
       V0Trigger()
 	: TriggerProjection()
@@ -212,76 +206,76 @@ namespace Rivet
 	const V0Multiplicity<MODE> fs;
 	this->declare(fs, "FinalState");
       }
-      /** 
-       * Destructor 
+      /**
+       * Destructor
        */
       virtual ~V0Trigger() {}
-      /** 
+      /**
        * Do the projection.  Checks if the number of projected
        * particles is larger than 0
-       * 
-       * @param e Event to project from 
+       *
+       * @param e Event to project from
        */
       virtual void project(const Event& e)
       {
 	fail(); // Assume failure
 	if (apply<V0Multiplicity<MODE>>(e,"FinalState")() > 0) pass();
       }
-      /** 
-       * Clone this projection 
-       * 
-       * @return New wrapped pointer to object of this class 
+      /**
+       * Clone this projection
+       *
+       * @return New wrapped pointer to object of this class
        */
       virtual std::unique_ptr<Rivet::Projection> clone() const
       {
 	return std::unique_ptr<Projection>(new V0Trigger<MODE>(*this));
       }
-      /** 
-       * Compare to projections.  
-       * 
-       * @param p Projection to compare to. 
-       * 
+      /**
+       * Compare to projections.
+       *
+       * @param p Projection to compare to.
+       *
        * @return true (EQUIVALENT) if the projection @a p is of the same
        * type as this.
        */
-      virtual int compare(const Projection& p) const
+      virtual CmpState compare(const Projection& p) const
       {
 	return dynamic_cast<const V0Trigger<MODE>*>(&p) ?
-	  EQUIVALENT : UNDEFINED;
+	  CmpState::EQ : CmpState::NEQ;
       }
     };
     //----------------------------------------------------------------
-    /** 
-     * Convinience type definition 
+    /**
+     * Convinience type definition
      *
      * @ingroup alice_rivet
      */
     // typedef V0Trigger<-1> V0ATrigger;
     using V0ATrigger = V0Trigger<-1>;
-    /** 
-     * Convinience type definition 
+    /**
+     * Convinience type definition
      *
      * @ingroup alice_rivet
      */
     // typedef V0Trigger<+1> V0CTrigger;
     using V0CTrigger = V0Trigger<+1>;
-    /** 
-     * Convinience type definition 
+    /**
+     * Convinience type definition
      *
      * @ingroup alice_rivet
      */
     // typedef V0Trigger<0> V0OrTrigger;
     using V0OrTrigger = V0Trigger<0>;
     //----------------------------------------------------------------
-    /** 
+    /**
      * A trigger projetion for the ALICE V0-AND (a.k.a. CINT7)
      * requirement.
      */
     class V0AndTrigger : public TriggerProjection
     {
     public:
-      /** 
-       * Constructor 
+      /**
+       * Constructor
        */
       V0AndTrigger()
 	: TriggerProjection()
@@ -291,15 +285,15 @@ namespace Rivet
 	this->declare(v0a, "V0A");
 	this->declare(v0c, "V0C");
       }
-      /** 
-       * Destructor 
+      /**
+       * Destructor
        */
       virtual ~V0AndTrigger() {}
-      /** 
+      /**
        * Do the projection.  Checks if the numbers of projected
        * particles on both sides, are larger than 0
-       * 
-       * @param e Event to project from 
+       *
+       * @param e Event to project from
        */
       virtual void project(const Event& e)
       {
@@ -307,36 +301,36 @@ namespace Rivet
 	if (apply<V0ATrigger>(e,"V0A")() &&
 	    apply<V0CTrigger>(e,"V0C")()) pass();
       }
-      /** 
-       * Compare to projections.  
-       * 
-       * @param p Projection to compare to. 
-       * 
+      /**
+       * Compare to projections.
+       *
+       * @param p Projection to compare to.
+       *
        * @return true (EQUIVALENT) if the projection @a p is of the same
        * type as this.
        */
-      virtual int compare(const Projection& p) const
+      virtual CmpState compare(const Projection& p) const
       {
 	return dynamic_cast<const V0AndTrigger*>(&p) ?
-	  EQUIVALENT : UNDEFINED;
+	  CmpState::EQ : CmpState::NEQ;
       }
-      /** 
-       * Clone this projection 
-       * 
-       * @return New wrapped pointer to object of this class 
+      /**
+       * Clone this projection
+       *
+       * @return New wrapped pointer to object of this class
        */
       virtual std::unique_ptr<Rivet::Projection> clone() const
       {
 	return std::unique_ptr<Projection>(new V0AndTrigger(*this));
       }
     };
-	
-    
+
+
     //================================================================
-    /** 
-     * Standard ALICE primary particle definition.  
-     *  also 
-     * Primary particle definition according to public note 
+    /**
+     * Standard ALICE primary particle definition.
+     *  also
+     * Primary particle definition according to public note
      * <a href="https://cds.cern.ch/record/2270008">ALICE-PUBLIC-2017-005</a>
      *
      * @ingroup alice_rivet
@@ -347,32 +341,32 @@ namespace Rivet
       PrimaryParticles(const Cut& c=Cuts::open())
 	: Rivet::PrimaryParticles({},c)
       {}
-      /** 
-       * Compare to projections.  
-       * 
-       * @param p Projection to compare to. 
-       * 
+      /**
+       * Compare to projections.
+       *
+       * @param p Projection to compare to.
+       *
        * @return true (EQUIVALENT) if the projection @a p is of the same
        * type as this, if the cuts are equal, and that the list of PDG
        * IDs are the same.
        */
-      virtual int compare(const Projection& p) const
+      virtual CmpState compare(const Projection& p) const
       {
 	const PrimaryParticles* o = dynamic_cast<const PrimaryParticles*>(&p);
-	if (_cuts != o->_cuts) return UNDEFINED;
+	if (_cuts != o->_cuts) return CmpState::NEQ;
 	return mkPCmp(*o,"PrimaryParticles");
       }
-      /** 
-       * Clone this projection 
-       * 
-       * @return New wrapped pointer to object of this class 
+      /**
+       * Clone this projection
+       *
+       * @return New wrapped pointer to object of this class
        */
       virtual std::unique_ptr<Rivet::Projection> clone() const
       {
 	return std::unique_ptr<Projection>(new PrimaryParticles(*this));
       }
     protected:
-      /** 
+      /**
        * Check PDG ID of particle @a p is in the list of accepted
        * primaries.
        *
@@ -389,10 +383,10 @@ namespace Rivet
        */
       bool isPrimaryPID(const HepMC::GenParticle* p) const
       {
-	int pdg = PID::abspid(p->pdg_id());
-	// Check for nuclus 
+	int pdg = abs(p->pdg_id());
+	// Check for nuclus
 	if (pdg > 1000000000) return true;
-	
+
 	switch (pdg) {
 	case Rivet::PID::MUON:
 	case Rivet::PID::ELECTRON:
@@ -423,6 +417,3 @@ namespace Rivet
 //
 // EOF
 //
-
-      
-

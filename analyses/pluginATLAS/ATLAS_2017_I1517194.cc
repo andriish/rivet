@@ -39,7 +39,7 @@ namespace Rivet {
       declare(jets, "Jets_w");
 
       MissingMomentum missmom(FinalState(Cuts::eta < 5.0));
-      addProjection(missmom, "mm");
+      declare(missmom, "mm");
 
       const vector<string> phase_spaces = { "highmass15", "antiLC", "signal10",
                                             "highmass10", "inclusive", "highmass20",

@@ -76,7 +76,7 @@ namespace Rivet {
       vfs.addVetoOnThisFinalState(neutrinos);
       FastJets jets(vfs, FastJets::ANTIKT, 0.4);
       jets.useInvisibles(true);
-      addProjection(jets, "jets");
+      declare(jets, "jets");
 
       // Addition of the large-R jets
       VetoedFinalState vfs1(fs);
@@ -84,7 +84,7 @@ namespace Rivet {
       FastJets fjets(vfs1, FastJets::ANTIKT, 1.);
       fjets.useInvisibles(JetAlg::Invisibles::NONE);
       fjets.useMuons(JetAlg::Muons::NONE);
-      addProjection(fjets, "fjets");
+      declare(fjets, "fjets");
 
       bookHists("top_pt_res", 15);
       bookHists("top_absrap_res", 17);

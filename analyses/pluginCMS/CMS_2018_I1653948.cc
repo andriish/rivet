@@ -15,7 +15,7 @@ namespace Rivet {
 
     /// Book projections and histograms
     void init() {
-      addProjection(FinalState(),"FS");
+      declare(FinalState(),"FS");
       _h_xsec = bookHisto1D(1, 1, 1);
     }
 

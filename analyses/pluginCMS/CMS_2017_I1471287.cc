@@ -13,7 +13,7 @@ namespace Rivet {
 
     /// Constructor
     CMS_2017_I1471287() : CumulantAnalysis("CMS_2017_I1471287") {
-    
+
     };
 
 
@@ -25,44 +25,44 @@ namespace Rivet {
       // A projection for charged tracks to manage centrality, corresponding
       // to CMS offline tracks.
       ChargedFinalState cfsMult(Cuts::abseta < 2.4 && Cuts::pT > 0.4*GeV);
-      addProjection(cfsMult, "CFSMult");
-      
+      declare(cfsMult, "CFSMult");
+
       // The positive eta side used for rapidity gap, integrated.
-      const ChargedFinalState& cfsp = ChargedFinalState(Cuts::eta > 1.0 && 
+      const ChargedFinalState& cfsp = ChargedFinalState(Cuts::eta > 1.0 &&
         Cuts::eta < 2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 3.0*GeV);
       declare(cfsp, "CFSP");
       // ..negative ditto.
-      const ChargedFinalState& cfsn = ChargedFinalState(Cuts::eta < -1.0 && 
+      const ChargedFinalState& cfsn = ChargedFinalState(Cuts::eta < -1.0 &&
         Cuts::eta > -2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 3.0*GeV);
       declare(cfsn, "CFSN");
 
 
       // The positive eta side used for rapidity gap, differential, charged particles.
-      const ChargedFinalState& cfsppT = ChargedFinalState(Cuts::eta > 1.0 && 
+      const ChargedFinalState& cfsppT = ChargedFinalState(Cuts::eta > 1.0 &&
         Cuts::eta < 2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 6.0*GeV);
       declare(cfsppT, "CFSPPT");
       // ..negative ditto.
-      const ChargedFinalState& cfsnpT = ChargedFinalState(Cuts::eta < -1.0 && 
+      const ChargedFinalState& cfsnpT = ChargedFinalState(Cuts::eta < -1.0 &&
         Cuts::eta > -2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 6.0*GeV);
       declare(cfsnpT, "CFSNPT");
 
       // The positive eta side used for rapidity gap, differential, Kaons.
-      const PrimaryParticles& kfsppT = PrimaryParticles({310},Cuts::eta > 1.0 && 
+      const PrimaryParticles& kfsppT = PrimaryParticles({310},Cuts::eta > 1.0 &&
         Cuts::eta < 2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 6.0*GeV);
       declare(kfsppT, "KFSP");
       // ..negative ditto.
-      const PrimaryParticles& kfsnpT = PrimaryParticles({310},Cuts::eta < -1.0 && 
+      const PrimaryParticles& kfsnpT = PrimaryParticles({310},Cuts::eta < -1.0 &&
         Cuts::eta > -2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 6.0*GeV);
       declare(kfsnpT, "KFSN");
      // The positive eta side used for rapidity gap, differential, Lambda.
-      const PrimaryParticles& lfsppT = PrimaryParticles({3122},Cuts::eta > 1.0 && 
+      const PrimaryParticles& lfsppT = PrimaryParticles({3122},Cuts::eta > 1.0 &&
         Cuts::eta < 2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 6.0*GeV);
       declare(lfsppT, "LFSP");
       // ..negative ditto.
-      const PrimaryParticles& lfsnpT = PrimaryParticles({3122},Cuts::eta < -1.0 && 
+      const PrimaryParticles& lfsnpT = PrimaryParticles({3122},Cuts::eta < -1.0 &&
         Cuts::eta > -2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 6.0*GeV);
       declare(lfsnpT, "LFSN");
-      
+
       // v22 |delta eta| > 2 (fig 4a)
       h_v22 = bookScatter2D(1, 1, 1, true);
       // v32 |delta eta| > 2 (fig 4b)
@@ -97,8 +97,8 @@ namespace Rivet {
       ec22pTLc = bookECorrelatorGap<2,2>("ec22pTLc",h_v22pTLc);
 
       // Maximal N and P for the gapped.
-      pair<int, int> max = getMaxValues(); 
-      
+      pair<int, int> max = getMaxValues();
+
       // For the four particle cumulant.
       ec22_4 = bookECorrelator<2,2>("ec22_4",h_c24);
       ec24_4 = bookECorrelator<2,4>("ec24_4",h_c24);
@@ -126,23 +126,23 @@ namespace Rivet {
       // For pT differential, charged particles, high multiplicity.
       declare(Correlators(cfsppT, max.first, max.second, h_v22pT),"CPosHighPT");
       declare(Correlators(cfsnpT, max.first, max.second, h_v22pT),"CNegHighPT");
-      
+
       // For pT differential, kaons. low multiplicity.
       declare(Correlators(kfsppT, max.first, max.second, h_v22pTK),"CPosLowPTK");
       declare(Correlators(kfsnpT, max.first, max.second, h_v22pTK),"CNegLowPTK");
-     
+
       // For pT differential, kaons. high multiplicity.
       declare(Correlators(kfsppT, max.first, max.second, h_v22pTKc),"CPosHighPTK");
       declare(Correlators(kfsnpT, max.first, max.second, h_v22pTKc),"CNegHighPTK");
-      
+
       // For pT differential, lambda. low multiplicity.
       declare(Correlators(lfsppT, max.first, max.second, h_v22pTL),"CPosLowPTL");
       declare(Correlators(lfsnpT, max.first, max.second, h_v22pTL),"CNegLowPTL");
-      
+
       // For pT differential, lambda. high multiplicity.
       declare(Correlators(lfsppT, max.first, max.second, h_v22pTLc),"CPosHighPTL");
       declare(Correlators(lfsnpT, max.first, max.second, h_v22pTLc),"CNegHighPTL");
-      
+
 
     }
 
@@ -170,7 +170,7 @@ namespace Rivet {
 
       const Correlators& cpHighK = apply<Correlators>(event, "CPosHighPTK");
       const Correlators& cnHighK = apply<Correlators>(event, "CNegHighPTK");
-      
+
       const Correlators& cpLowL = apply<Correlators>(event, "CPosLowPTL");
       const Correlators& cnLowL = apply<Correlators>(event, "CNegLowPTL");
 
@@ -200,7 +200,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      // Correlators must be streamed 
+      // Correlators must be streamed
       // in order to run reentrant finalize.
       stream();
       cnTwoInt(h_v22, ec22);

@@ -2,8 +2,8 @@
  * @file   PrimaryParticles.cc
  * @author Christian Holm Christensen <cholm@nbi.dk>
  * @date   Mon Aug 27 09:06:03 2018
- * 
- * @brief  Primary particle definition based on PDG IDs. 
+ *
+ * @brief  Primary particle definition based on PDG IDs.
  */
 
 #include <Rivet/Projections/PrimaryParticles.hh>
@@ -16,12 +16,13 @@
 
 namespace Rivet {
 
+
   void PrimaryParticles::project(const Event& e)
   {
     _theParticles.clear(); // Clear cache
-    bool open = _cuts == Cuts::open(); 
+    bool open = _cuts == Cuts::open();
     for (auto p : Rivet::particles(e.genEvent())) {
-      if (isPrimary(p) && (open || _cuts->accept(Particle(p)))) 
+      if (isPrimary(p) && (open || _cuts->accept(Particle(p))))
 	_theParticles.push_back(Particle(*p));
     }
   }
@@ -31,7 +32,7 @@ namespace Rivet {
     if(isIgnored(p))  return false;
     if(!isPrimaryPID(p)) return false;
 
-    // Loop back over ancestors that are _not_ ignored 
+    // Loop back over ancestors that are _not_ ignored
     const HepMC::GenParticle* m = p;
     while ((m = ancestor(m,true))) {
       if (isBeam(m)) return true;
@@ -40,14 +41,15 @@ namespace Rivet {
     }
     return true;
   }
+
   bool PrimaryParticles::isIgnored(const HepMC::GenParticle* p) const
   {
     return (p->status()==0 || (p->status()>=11 && p->status()<=200));
   }
-    
+
   bool PrimaryParticles::isPrimaryPID(const HepMC::GenParticle* p) const
   {
-    int thisPID = PID::abspid(p->pdg_id());
+    int thisPID = abs(p->pdg_id());
     for(const auto pid : _pdgIds)
       if (thisPID == pid) return true;
     return false;
@@ -56,7 +58,7 @@ namespace Rivet {
   bool PrimaryParticles::isBeam(const HepMC::GenParticle* p) const
   {
     // Pythia6 uses 3 for initial state
-    return p && (p->status() == 3 || p->status() == 4); 
+    return p && (p->status() == 3 || p->status() == 4);
   }
 
   bool PrimaryParticles::hasDecayed(const HepMC::GenParticle* p) const
@@ -69,13 +71,13 @@ namespace Rivet {
   {
     const HepMC::GenVertex* vtx = p->production_vertex();
     if (!vtx) return 0;
-    
+
     HepMC::GenVertex::particles_in_const_iterator i =
       vtx->particles_in_const_begin();
     if (i == vtx->particles_in_const_end()) return 0;
     return *i;
   }
-  
+
   const HepMC::GenParticle*
   PrimaryParticles::ancestor(const HepMC::GenParticle* p, bool) const
   {

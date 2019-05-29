@@ -50,21 +50,21 @@ namespace Rivet {
     // Find photons -- specialising to prompt photons if decay photons are to be vetoed
     IdentifiedFinalState photonfs(photons, PID::PHOTON);
     if (_fromDecay) {
-      addProjection(photonfs, "Photons");
+      declare(photonfs, "Photons");
     } else {
-      addProjection(PromptFinalState(photonfs), "Photons");
+      declare(PromptFinalState(photonfs), "Photons");
     }
 
     // Find bare leptons
     IdentifiedFinalState leptonfs(bareleptons);
     leptonfs.acceptIdPairs({PID::ELECTRON, PID::MUON, PID::TAU}); //< hmm, no final-state taus, so is this useful?
-    addProjection(leptonfs, "Leptons");
+    declare(leptonfs, "Leptons");
 
     // Set up FJ clustering option
     if (_useJetClustering) {
       MergedFinalState mergedfs(photonfs, leptonfs);
       FastJets leptonjets(mergedfs, FastJets::ANTIKT, dRmax);
-      addProjection(leptonjets, "LeptonJets");
+      declare(leptonjets, "LeptonJets");
     }
   }
 
@@ -143,8 +143,8 @@ namespace Rivet {
         const FinalState& photons = applyProjection<FinalState>(e, "Photons");
         for (const Particle& photon : photons.particles()) {
           // Ignore photon if it's from a hadron/tau decay and we're avoiding those
-          /// @todo Can remove via the PromptFinalState conversion above?
-          if (!_fromDecay && photon.fromDecay()) continue;
+          /// @todo Already removed via the PromptFinalState conversion above?
+          if (!_fromDecay && !photon.isDirect()) continue;
           const FourMomentum& p_P = photon.momentum();
           double dRmin = _dRmax;
           int idx = -1;

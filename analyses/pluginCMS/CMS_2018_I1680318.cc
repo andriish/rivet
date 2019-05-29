@@ -26,10 +26,10 @@ namespace Rivet {
 
       // Initialise and register projections
       const FinalState fsa(-1.0*EtaForwardMax, EtaForwardMax, 0.0000*GeV);
-      addProjection(fsa, "FSA");
+      declare(fsa, "FSA");
 
       const ChargedFinalState cfs(-1.0*EtaCentralCut, EtaCentralCut, MinParticlePt*GeV);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
 
       // Event counters

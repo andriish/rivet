@@ -3,7 +3,6 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/AliceCommon.hh"
 
-
 namespace Rivet {
 
 
@@ -24,7 +23,7 @@ public:
     declare(ALICE::V0AndTrigger(), "Trigger");
 
     // The calibration histogram:
-    _calib = bookHisto1D("V0A", 100, 0.0, 500.0);
+    book(_calib, "V0A", 100, 0.0, 500.0);
 
     // If histogram was pre-loaded, the calibration is done.
     _done = ( _calib->numEntries() > 0 );
@@ -32,30 +31,28 @@ public:
     // The alternative histogram based on impact parameter. Note that
     // it MUST be named the same as the histogram for the experimental
     // observable with an added _IMP suffix.
-    _impcalib = bookHisto1D("V0A_IMP", 400, 0.0, 20.0);
-
+    book(_impcalib, "V0A_IMP", 400, 0.0, 20.0);
 
   }
-  
+
   /// Perform the per-event analysis
   void analyze(const Event& event) {
 
     if ( _done ) return;
-    
-    const double weight = event.weight();
 
     // The alternative centrality based on generated impact
     // parameter, assumes that the generator does not describe the
     // full final state, and should therefore be filled even if the
     // event is not triggered.
-    _impcalib->fill(apply<SingleValueProjection>(event, "IMP")(), weight);
+    _impcalib->fill(apply<SingleValueProjection>(event, "IMP")());
 
     if ( !apply<ALICE::V0AndTrigger>(event, "Trigger")() ) vetoEvent;
 
-    _calib->fill(apply<ALICE::V0AMultiplicity>(event, "V0A")(), weight);
+    _calib->fill(apply<ALICE::V0AMultiplicity>(event, "V0A")());
 
   }
-  
+
+
   /// Finalize
   void finalize() {
 

@@ -5,20 +5,20 @@
 #include "Rivet/Tools/Cuts.hh"
 
 namespace Rivet {
-  
-  
+
+
   /// Pion, Kaon, and Proton Production in 0-5%
   ///  central Pb--Pb Collisions at 2.76 TeV
   class ALICE_2012_I1126966 : public Analysis {
   public:
-    
+
     /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2012_I1126966);
-    
+
     /// Book histograms and initialise projections before the run
     void init() {
       // Particles of interest.
-      declare(ALICE::PrimaryParticles(Cuts::absrap < 0.5),"CFS"); 
+      declare(ALICE::PrimaryParticles(Cuts::absrap < 0.5),"CFS");
 
       // The event trigger.
       declare(ALICE::V0AndTrigger(), "V0-AND");
@@ -27,36 +27,33 @@ namespace Rivet {
            "ALICE_2015_PBPBCentrality", "V0M", "V0M");
 
       // Invariant pT distributions.
-      _histPtPi = bookHisto1D("d01-x01-y01"); //pi+
-      _histPtPibar = bookHisto1D("d01-x01-y02");// pi-
-      _histPtKaon = bookHisto1D("d02-x01-y01"); //K+
-      _histPtKaonbar = bookHisto1D("d02-x01-y02"); //K-
-      _histPtProton = bookHisto1D("d03-x01-y01"); //P+
-      _histPtProtonbar = bookHisto1D("d03-x01-y02"); //P-
+      book(_histPtPi, "d01-x01-y01"); //pi+
+      book(_histPtPibar, "d01-x01-y02");// pi-
+      book(_histPtKaon, "d02-x01-y01"); //K+
+      book(_histPtKaonbar, "d02-x01-y02"); //K-
+      book(_histPtProton, "d03-x01-y01"); //P+
+      book(_histPtProtonbar, "d03-x01-y02"); //P-
       // Yield histograms.
-      _histNpi = bookHisto1D("d04-x01-y01");
-      _histNpibar = bookHisto1D("d04-x01-y02");
-      _histNKaon = bookHisto1D("d04-x01-y03");
-      _histNKaonbar = bookHisto1D("d04-x01-y04");
-      _histNproton = bookHisto1D("d04-x01-y05");
-      _histNprotonbar =bookHisto1D("d04-x01-y06");
+      book(_histNpi, "d04-x01-y01");
+      book(_histNpibar, "d04-x01-y02");
+      book(_histNKaon, "d04-x01-y03");
+      book(_histNKaonbar, "d04-x01-y04");
+      book(_histNproton, "d04-x01-y05");
+      book(_histNprotonbar, "d04-x01-y06");
       // Sum of weights of triggered events.
-      sow = bookCounter("sow");
+      book(sow, "sow");
+    }
 
-  }
-    
-      /// Perform the per-event analysis
-    
+
+    /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // Event weight.
-      const double weight = event.weight();
       // Analysis only considers 0-5% central events
       if (apply<CentralityProjection>(event,"V0M")() > 5.0)
         vetoEvent;
       // Event trigger.
       if (!apply<ALICE::V0AndTrigger>(event, "V0-AND")() ) vetoEvent;
-      
-      sow->fill(weight);
+
+      sow->fill();
       // ID particles counters for this event.
       int Npi=0;
       int Npibar=0;
@@ -65,9 +62,9 @@ namespace Rivet {
       int Nproton=0;
       int Nprotonbar=0;
 
-      for (const auto& p : 
+      for (const auto& p :
 	apply<ALICE::PrimaryParticles>(event,"CFS").particles()) {
-          const double pWeight = weight / p.pT() / 2. / M_PI;	      
+          const double pWeight = 1 / p.pT() / 2. / M_PI;
           switch (p.pid()) {
             case 211: // pi+
 	      Npi++;
@@ -98,12 +95,12 @@ namespace Rivet {
 
       // Fill yield histograms.
 
-      _histNpi->fill(Npi, weight);
-      _histNpibar->fill(Npibar, weight);
-      _histNKaon->fill(NKaon, weight);
-      _histNKaonbar->fill(NKaonbar, weight);
-      _histNproton->fill(Nproton, weight);
-      _histNprotonbar->fill(Nprotonbar, weight);
+      _histNpi->fill(Npi);
+      _histNpibar->fill(Npibar);
+      _histNKaon->fill(NKaon);
+      _histNKaonbar->fill(NKaonbar);
+      _histNproton->fill(Nproton);
+      _histNprotonbar->fill(Nprotonbar);
     }
 
 
@@ -123,9 +120,9 @@ namespace Rivet {
        _histNprotonbar->scaleW(s);
 
 }
-    
+
   private:
-    
+
       // pT histograms
     Histo1DPtr _histPtPi;
     Histo1DPtr _histPtKaon;
@@ -142,10 +139,10 @@ namespace Rivet {
     CounterPtr sow;
 
   };
-  
-  
+
+
     // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ALICE_2012_I1126966);
-  
-  
+
+
 }

@@ -92,7 +92,10 @@ void Wrapper<T>::newSubEvent() {
     }
     return rtn;
   }
+
+
 }
+
 
 namespace {
 
@@ -209,7 +212,9 @@ namespace {
             // Note the scaling to one single fill
 
     }
+
   }
+
 
   template<>
   void commit<YODA::Histo2D>(vector<YODA::Histo2D::Ptr> & persistent,
@@ -233,35 +238,38 @@ namespace {
       return Rivet::sqr(get<0>(a) - get<0>(b)) + Rivet::sqr(get<1>(a) - get<1>(b));
     }
 
-
-  bool copyao(YODA::AnalysisObjectPtr src, YODA::AnalysisObjectPtr dst) {
-    for (const std::string& a : src->annotations())
-      dst->setAnnotation(a, src->annotation(a));
-    if ( aocopy<Counter>(src,dst) ) return true;
-    if ( aocopy<Histo1D>(src,dst) ) return true;
-    if ( aocopy<Histo2D>(src,dst) ) return true;
-    if ( aocopy<Profile1D>(src,dst) ) return true;
-    if ( aocopy<Profile2D>(src,dst) ) return true;
-    if ( aocopy<Scatter1D>(src,dst) ) return true;
-    if ( aocopy<Scatter2D>(src,dst) ) return true;
-    if ( aocopy<Scatter3D>(src,dst) ) return true;
-    return false;
-  }
-
-  bool addaos(YODA::AnalysisObjectPtr dst, YODA::AnalysisObjectPtr src, double scale) {
-    if ( aoadd<Counter>(dst,src,scale) ) return true;
-    if ( aoadd<Histo1D>(dst,src,scale) ) return true;
-    if ( aoadd<Histo2D>(dst,src,scale) ) return true;
-    if ( aoadd<Profile1D>(dst,src,scale) ) return true;
-    if ( aoadd<Profile2D>(dst,src,scale) ) return true;
-    return false;
   }
 
 
-}
+  namespace Rivet {
+
+    bool copyao(YODA::AnalysisObjectPtr src, YODA::AnalysisObjectPtr dst) {
+      for (const std::string& a : src->annotations())
+        dst->setAnnotation(a, src->annotation(a));
+      if ( aocopy<Counter>(src,dst) ) return true;
+      if ( aocopy<Histo1D>(src,dst) ) return true;
+      if ( aocopy<Histo2D>(src,dst) ) return true;
+      if ( aocopy<Profile1D>(src,dst) ) return true;
+      if ( aocopy<Profile2D>(src,dst) ) return true;
+      if ( aocopy<Scatter1D>(src,dst) ) return true;
+      if ( aocopy<Scatter2D>(src,dst) ) return true;
+      if ( aocopy<Scatter3D>(src,dst) ) return true;
+      return false;
+    }
+
+    bool addaos(YODA::AnalysisObjectPtr dst, YODA::AnalysisObjectPtr src, double scale) {
+      if ( aoadd<Counter>(dst,src,scale) ) return true;
+      if ( aoadd<Histo1D>(dst,src,scale) ) return true;
+      if ( aoadd<Histo2D>(dst,src,scale) ) return true;
+      if ( aoadd<Profile1D>(dst,src,scale) ) return true;
+      if ( aoadd<Profile2D>(dst,src,scale) ) return true;
+      return false;
+    }
+
+  }
 
 
-
+namespace {
 
 /// fills is a vector of sub-event with an ordered set of x-values of
 /// the fills in each sub-event. NOFILL should be an "impossible"
@@ -317,7 +325,7 @@ match_fills(const vector<typename TupleWrapper<T>::Ptr> & evgroup, const Fill<T>
   return result;
 }
 
-
+}
 
 
 

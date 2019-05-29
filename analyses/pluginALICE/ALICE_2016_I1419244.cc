@@ -4,16 +4,17 @@
 #include "Rivet/Tools/Correlators.hh"
 #include "Rivet/Tools/AliceCommon.hh"
 #include "Rivet/Projections/AliceCommon.hh"
-#include "YODA/Scatter2D.h"
 
 namespace Rivet {
+
 
   /// @brief Multiparticle azimuthal correlations PbPb 5TeV.
   class ALICE_2016_I1419244 : public CumulantAnalysis {
   public:
 
     /// Constructor
-    ALICE_2016_I1419244() : CumulantAnalysis("ALICE_2016_I1419244"){
+    ALICE_2016_I1419244()
+      : CumulantAnalysis("ALICE_2016_I1419244") {
     }
 
     /// @name Analysis methods
@@ -21,78 +22,77 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      
+
       // Initialise and register projections
       // Declare the trigger projection.
       declare<ALICE::V0AndTrigger>(ALICE::V0AndTrigger(),"V0-AND");
       // Centrality projection.
-      declareCentrality(ALICE::V0MMultiplicity(), "ALICE_2015_PBPBCentrality",
-        "V0M","V0M");
-      
+      declareCentrality(ALICE::V0MMultiplicity(), "ALICE_2015_PBPBCentrality", "V0M","V0M");
+
       // The full central charged final state.
       const ChargedFinalState& cfs = ChargedFinalState(Cuts::abseta < 0.8 &&
         Cuts::pT > 0.2*GeV && Cuts::pT < 5.0*GeV);
       declare(cfs, "CFS");
 
       // The positive eta side used for rapidity gap.
-      const ChargedFinalState& cfsp = ChargedFinalState(Cuts::eta > 0.5 && 
+      const ChargedFinalState& cfsp = ChargedFinalState(Cuts::eta > 0.5 &&
         Cuts::eta < 0.8 && Cuts::pT > 0.2*GeV && Cuts::pT < 5.0*GeV);
       declare(cfsp, "CFSP");
       // ..negative ditto.
-      const ChargedFinalState& cfsn = ChargedFinalState(Cuts::eta < -0.5 && 
+      const ChargedFinalState& cfsn = ChargedFinalState(Cuts::eta < -0.5 &&
         Cuts::eta > -0.8 && Cuts::pT > 0.2*GeV && Cuts::pT < 5.0*GeV);
       declare(cfsn, "CFSN");
 
 
-      // Book histograms before booking the correlators 
+      // Book histograms before booking the correlators
       // to have access to bin edges.
-      h_v22gap = bookScatter2D(1, 1, 1, true);
-      h_v24 = bookScatter2D(1, 1, 2, true);
-      h_v26 = bookScatter2D(1, 1, 3, true);
-      h_v28 = bookScatter2D(1, 1, 4, true);
-      h_v32gap = bookScatter2D(2, 1, 1, true);
-      h_v42gap = bookScatter2D(2, 1, 2, true);
-      h_v22gappT = bookScatter2D(8, 1, 1, true);
-      h_v32gappT = bookScatter2D(8, 1, 2, true);
-      h_v42gappT = bookScatter2D(8, 1, 3, true);
-      h_v24pT10 = bookScatter2D(9, 1, 1, true);
-      h_v24pT20 = bookScatter2D(9, 1, 2, true);
-      h_v24pT30 = bookScatter2D(9, 1, 3, true);
-     
-      h_c22gap = bookScatter2D(h_v22gap,"/" + name() + "/c22gap");
-      h_c24 = bookScatter2D(h_v24,"/" + name() + "/c24");
-      h_c26 = bookScatter2D(h_v26,"/" + name() + "/c26");
-      h_c28 = bookScatter2D(h_v28,"/" + name() + "/c28");
-      h_c32gap = bookScatter2D(h_v32gap,"/" + name() + "/c32gap");
-      h_c42gap = bookScatter2D(h_v42gap,"/" + name() + "/c42gap");
+      book(h_v22gap, 1, 1, 1, true);
+      book(h_v24, 1, 1, 2, true);
+      book(h_v26, 1, 1, 3, true);
+      book(h_v28, 1, 1, 4, true);
+      book(h_v32gap, 2, 1, 1, true);
+      book(h_v42gap, 2, 1, 2, true);
+      book(h_v22gappT, 8, 1, 1, true);
+      book(h_v32gappT, 8, 1, 2, true);
+      book(h_v42gappT, 8, 1, 3, true);
+      book(h_v24pT10, 9, 1, 1, true);
+      book(h_v24pT20, 9, 1, 2, true);
+      book(h_v24pT30, 9, 1, 3, true);
 
-      h_ec22gap = bookScatter2D(h_v22gap,"/" + name() + "/ec22gap");
-      h_ec22 = bookScatter2D(h_v24,"/" + name() + "/ec22");
-      h_ec24 = bookScatter2D(h_v24,"/" + name() + "/ec24");
-      h_ec26 = bookScatter2D(h_v26,"/" + name() + "/ec26");
-      h_ec28 = bookScatter2D(h_v28,"/" + name() + "/ec28");
+      book(h_c22gap, h_v22gap,"/" + name() + "/c22gap");
+      book(h_c24, h_v24,"/" + name() + "/c24");
+      book(h_c26, h_v26,"/" + name() + "/c26");
+      book(h_c28, h_v28,"/" + name() + "/c28");
+      book(h_c32gap, h_v32gap,"/" + name() + "/c32gap");
+      book(h_c42gap, h_v42gap,"/" + name() + "/c42gap");
 
-      
+      book(h_ec22gap, h_v22gap,"/" + name() + "/ec22gap");
+      book(h_ec22, h_v24,"/" + name() + "/ec22");
+      book(h_ec24, h_v24,"/" + name() + "/ec24");
+      book(h_ec26, h_v26,"/" + name() + "/ec26");
+      book(h_ec28, h_v28,"/" + name() + "/ec28");
+
+
       // Corresponding event averaged correlators.
       // Integrated, with gap.
       ec22gap = bookECorrelatorGap<2,2>("ec22gap",h_v22gap);
       ec32gap = bookECorrelatorGap<3,2>("ec32gap",h_v32gap);
       ec42gap = bookECorrelatorGap<4,2>("ec42gap",h_v42gap);
-    
+
 
       // Integrated, no gap.
       ec22 = bookECorrelator<2,2>("ec22",h_v24);
       ec24 = bookECorrelator<2,4>("ec24",h_v24);
       ec26 = bookECorrelator<2,6>("ec26",h_v26);
       ec28 = bookECorrelator<2,8>("ec28",h_v28);
-     
-      // pT differential, no gap, three centralities. 
+
+      // pT differential, no gap, three centralities.
       ec22pT10 = bookECorrelator<2,2>("ec22pT10",h_v24pT10);
       ec24pT10 = bookECorrelator<2,4>("ec24pT10",h_v24pT10);
 
       ec22pT20 = bookECorrelator<2,2>("ec22pT20",h_v24pT20);
       ec24pT20 = bookECorrelator<2,4>("ec24pT20",h_v24pT20);
-    
+
       ec22pT30 = bookECorrelator<2,2>("ec22pT30",h_v24pT30);
       ec24pT30 = bookECorrelator<2,4>("ec24pT30",h_v24pT30);
 
@@ -113,16 +113,15 @@ namespace Rivet {
 
     }
 
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
       // Event trigger.
       if (!apply<ALICE::V0AndTrigger>(event, "V0-AND")() ) vetoEvent;
 
-      const double w = event.weight();
-      
       // The centrality projection.
-      const CentralityProjection& centProj = 
+      const CentralityProjection& centProj =
         apply<CentralityProjection>(event,"V0M");
 
       // The centrality.
@@ -130,34 +129,34 @@ namespace Rivet {
 
       // The correlators projections.
       const Correlators& c = applyProjection<Correlators>(event,"Correlators");
-      const Correlators& cp = 
+      const Correlators& cp =
         applyProjection<Correlators>(event,"CorrelatorsPos");
-      const Correlators& cn = 
+      const Correlators& cn =
         applyProjection<Correlators>(event,"CorrelatorsNeg");
-     
-      ec22gap->fill(cent, cp, cn, w);
-      ec32gap->fill(cent, cp, cn, w); 
-      ec42gap->fill(cent, cp, cn, w); 
-      
-      ec22->fill(cent, c, w);
-      ec24->fill(cent, c, w);
-      ec26->fill(cent, c, w);
-      ec28->fill(cent, c, w);
 
-      if (cent < 10.) ec22pT10->fill(c, w), ec24pT10->fill(c, w);
-      else if (cent < 20.) ec22pT20->fill(c, w), ec24pT20->fill(c, w);
-      else if (cent < 30.) ec22pT30->fill(c, w), ec24pT30->fill(c, w);
+      ec22gap->fill(cent, cp, cn);
+      ec32gap->fill(cent, cp, cn);
+      ec42gap->fill(cent, cp, cn);
+
+      ec22->fill(cent, c);
+      ec24->fill(cent, c);
+      ec26->fill(cent, c);
+      ec28->fill(cent, c);
+
+      if (cent < 10.) ec22pT10->fill(c), ec24pT10->fill(c);
+      else if (cent < 20.) ec22pT20->fill(c), ec24pT20->fill(c);
+      else if (cent < 30.) ec22pT30->fill(c), ec24pT30->fill(c);
       else if (cent < 40.) {
-        ec22gappT->fill(cp, cn, w);
-        ec32gappT->fill(cp, cn, w);
-        ec42gappT->fill(cp, cn, w);	
+        ec22gappT->fill(cp, cn);
+        ec32gappT->fill(cp, cn);
+        ec42gappT->fill(cp, cn);
       }
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-       // Correlators must be streamed 
+       // Correlators must be streamed
        // in order to run reentrant finalize.
        stream();
        // Filling test histos.
@@ -184,7 +183,7 @@ namespace Rivet {
 
        vnTwoDiff(h_v22gappT, ec22gappT);
        vnTwoDiff(h_v32gappT, ec32gappT);
-       vnTwoDiff(h_v42gappT, ec42gappT); 
+       vnTwoDiff(h_v42gappT, ec42gappT);
 
        vnFourDiff(h_v24pT10, ec22pT10, ec24pT10);
        vnFourDiff(h_v24pT20, ec22pT20, ec24pT20);
@@ -243,7 +242,7 @@ namespace Rivet {
     ECorrPtr ec24;
     ECorrPtr ec26;
     ECorrPtr ec28;
-    
+
     // pT dependent, 2 particle, gapped, 30-40% centrality
     ECorrPtr ec22gappT;
     ECorrPtr ec32gappT;
@@ -255,7 +254,7 @@ namespace Rivet {
 
     ECorrPtr ec22pT20;
     ECorrPtr ec24pT20;
-    
+
     ECorrPtr ec22pT30;
     ECorrPtr ec24pT30;
 
