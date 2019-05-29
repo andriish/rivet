@@ -50,12 +50,11 @@ namespace Rivet {
 
   public:
 
-    /// @name Run properties
+    /// @name Run properties and weights
     //@{
 
     /// Get the name of this run.
     string runName() const;
-
 
     /// Get the number of events seen. Should only really be used by external
     /// steering code or analyses in the finalize phase.
@@ -70,22 +69,31 @@ namespace Rivet {
     double sumW2() const { return _eventCounter->sumW2(); }
 
     /// Names of event weight categories
-    const vector<string>& weightNames() const {
-        return _weightNames;
-    }
+    const vector<string>& weightNames() const { return _weightNames; }
 
+    /// Are any of the weights non-numeric?
+    size_t numWeights() const { return _weightNames.size(); }
+
+    /// Are any of the weights non-numeric?
+    bool haveNamedWeights() const;
+
+    /// Set the weight names from a GenEvent
+    void setWeightNames(const GenEvent& ge);
 
     /// Get the index of the nominal weight-stream
-    size_t defaultWeightIndex() const {
-      return _defaultWeightIdx;
-    }
+    size_t defaultWeightIndex() const { return _defaultWeightIdx; }
+
+    //@}
 
 
-    /// Set the cross-section for the process being generated.
-    AnalysisHandler& setCrossSection(double xs, double xserr);
+    /// @name Cross-sections
+    //@{
 
     /// Get the cross-section known to the handler.
     Scatter1DPtr crossSection() const { return _xs; }
+
+    /// Set the cross-section for the process being generated.
+    AnalysisHandler& setCrossSection(double xs, double xserr);
 
     /// Get the nominal cross-section
     double nominalCrossSection() const {
@@ -100,6 +108,11 @@ namespace Rivet {
       return xs;
     }
 
+    //@}
+
+
+    /// @name Beams
+    //@{
 
     /// Set the beam particles for this run
     AnalysisHandler& setRunBeams(const ParticlePair& beams) {
@@ -250,21 +263,6 @@ namespace Rivet {
     /// Helper function to strip specific options from data object paths.
     void stripOptions(YODA::AnalysisObjectPtr ao,
                       const vector<string> & delopts) const;
-
-    //@}
-
-
-    /// @name Event weight access
-    //@{
-
-    /// Are any of the weights non-numeric?
-    size_t numWeights() { return _weightNames.size(); }
-
-    /// Are any of the weights non-numeric?
-    bool haveNamedWeights();
-
-    /// Set the weight names from a GenEvent
-    void setWeightNames(const GenEvent& ge);
 
     //@}
 

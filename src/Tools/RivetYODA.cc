@@ -14,6 +14,7 @@ using namespace std;
 
 namespace Rivet {
 
+
 template <class T>
 Wrapper<T>::~Wrapper() {}
 

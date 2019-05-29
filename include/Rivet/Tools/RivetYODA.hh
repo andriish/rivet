@@ -16,6 +16,7 @@
 #include <valarray>
 
 namespace YODA {
+
   typedef std::shared_ptr<YODA::AnalysisObject> AnalysisObjectPtr;
 
   typedef std::shared_ptr<YODA::Counter> CounterPtr;

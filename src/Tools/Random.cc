@@ -7,6 +7,8 @@
 
 namespace Rivet {
 
+  using namespace std;
+
 
   // Return a thread-safe random number generator
   mt19937& rng() {

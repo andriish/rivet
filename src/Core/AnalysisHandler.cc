@@ -48,14 +48,16 @@ namespace Rivet {
 
 
   /// http://stackoverflow.com/questions/4654636/how-to-determine-if-a-string-is-a-number-with-c
-  bool is_number(const std::string& s) {
-    std::string::const_iterator it = s.begin();
-    while (it != s.end() && std::isdigit(*it)) ++it;
-    return !s.empty() && it == s.end();
+  namespace {
+    bool is_number(const std::string& s) {
+      std::string::const_iterator it = s.begin();
+      while (it != s.end() && std::isdigit(*it)) ++it;
+      return !s.empty() && it == s.end();
+    }
   }
 
   /// Check if any of the weightnames is not a number
-  bool AnalysisHandler::haveNamedWeights() {
+  bool AnalysisHandler::haveNamedWeights() const {
     bool dec=false;
     for (unsigned int i=0;i<_weightNames.size();++i) {
       string s = _weightNames[i];
@@ -460,119 +462,119 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::
-  mergeYodas(const vector<string> & aofiles, const vector<string> & delopts, bool equiv) {
-    vector< vector<YODA::AnalysisObjectPtr> > aosv;
-    vector<double> xsecs;
-    vector<double> xsecerrs;
-    vector<CounterPtr> sows;
-    set<string> ananames;
-    _eventCounter->reset();
+  // void AnalysisHandler::mergeYodas(const vector<string> & aofiles,
+  //                                  const vector<string> & delopts, bool equiv) {
+  //   vector< vector<YODA::AnalysisObjectPtr> > aosv;
+  //   vector<double> xsecs;
+  //   vector<double> xsecerrs;
+  //   vector<CounterPtr> sows;
+  //   set<string> ananames;
+  //   _eventCounter->reset();
 
-    // First scan all files and extract analysis objects and add the
-    // corresponding analyses..
-    for (const string& file : aofiles ) {
-      Scatter1DPtr xsec;
-      CounterPtr sow;
+  //   // First scan all files and extract analysis objects and add the
+  //   // corresponding analyses..
+  //   for (const string& file : aofiles ) {
+  //     Scatter1DPtr xsec;
+  //     CounterPtr sow;
 
-      // For each file make sure that cross section and sum-of-weights
-      // objects are present and stor all RAW ones in a vector;
-      vector<YODA::AnalysisObjectPtr> aos;
-      try {
-        /// @todo Use new YODA SFINAE to fill the smart ptr vector directly
-        vector<YODA::AnalysisObject*> aos_raw;
-        YODA::read(file, aos_raw);
-        for (YODA::AnalysisObject* aor : aos_raw) {
-          YODA::AnalysisObjectPtr ao(aor);
-          if ( ao->path().substr(0, 5) != "/RAW/" ) continue;
-          ao->setPath(ao->path().substr(4));
-          if ( ao->path() == "/_XSEC" )
-            xsec = dynamic_pointer_cast<Scatter1D>(ao);
-          else if ( ao->path() == "/_EVTCOUNT" )
-            sow = dynamic_pointer_cast<Counter>(ao);
-          else {
-            stripOptions(ao, delopts);
-            string ananame = split(ao->path(), "/")[0];
-            if ( ananames.insert(ananame).second ) addAnalysis(ananame);
-            aos.push_back(ao);
-          }
-        }
-        if ( !xsec || !sow ) {
-          MSG_ERROR( "Error in AnalysisHandler::mergeYodas: The file " << file
-                     << " did not contain weights and cross section info.");
-          exit(1);
-        }
-        xsecs.push_back(xsec->point(0).x());
-        sows.push_back(sow);
-        xsecerrs.push_back(sqr(xsec->point(0).xErrAvg()));
-        _eventCounter->operator+=(*sow); //< HAHAHAHAHA!
-        sows.push_back(sow);
-        aosv.push_back(aos);
-      } catch (...) { //< YODA::ReadError&
-        throw UserError("Unexpected error in reading file: " + file);
-      }
-    }
+  //     // For each file make sure that cross section and sum-of-weights
+  //     // objects are present and stor all RAW ones in a vector;
+  //     vector<YODA::AnalysisObjectPtr> aos;
+  //     try {
+  //       /// @todo Use new YODA SFINAE to fill the smart ptr vector directly
+  //       vector<YODA::AnalysisObject*> aos_raw;
+  //       YODA::read(file, aos_raw);
+  //       for (YODA::AnalysisObject* aor : aos_raw) {
+  //         YODA::AnalysisObjectPtr ao(aor);
+  //         if ( ao->path().substr(0, 5) != "/RAW/" ) continue;
+  //         ao->setPath(ao->path().substr(4));
+  //         if ( ao->path() == "/_XSEC" )
+  //           xsec = dynamic_pointer_cast<Scatter1D>(ao);
+  //         else if ( ao->path() == "/_EVTCOUNT" )
+  //           sow = dynamic_pointer_cast<Counter>(ao);
+  //         else {
+  //           stripOptions(ao, delopts);
+  //           string ananame = split(ao->path(), "/")[0];
+  //           if ( ananames.insert(ananame).second ) addAnalysis(ananame);
+  //           aos.push_back(ao);
+  //         }
+  //       }
+  //       if ( !xsec || !sow ) {
+  //         MSG_ERROR( "Error in AnalysisHandler::mergeYodas: The file " << file
+  //                    << " did not contain weights and cross section info.");
+  //         exit(1);
+  //       }
+  //       xsecs.push_back(xsec->point(0).x());
+  //       sows.push_back(sow);
+  //       xsecerrs.push_back(sqr(xsec->point(0).xErrAvg()));
+  //       _eventCounter->operator+=(*sow); //< HAHAHAHAHA!
+  //       sows.push_back(sow);
+  //       aosv.push_back(aos);
+  //     } catch (...) { //< YODA::ReadError&
+  //       throw UserError("Unexpected error in reading file: " + file);
+  //     }
+  //   }
 
-    // Now calculate the scale to be applied for all bins in a file
-    // and get the common cross section and sum of weights.
-    _xs = _xserr = 0.0;
-    for ( int i = 0, N = sows.size(); i < N; ++i ) {
-      double effnent = sows[i]->effNumEntries();
-      _xs += (equiv? effnent: 1.0)*xsecs[i];
-      _xserr += (equiv? sqr(effnent): 1.0)*xsecerrs[i];
-    }
+  //   // Now calculate the scale to be applied for all bins in a file
+  //   // and get the common cross section and sum of weights.
+  //   _xs = _xserr = 0.0;
+  //   for ( int i = 0, N = sows.size(); i < N; ++i ) {
+  //     double effnent = sows[i]->effNumEntries();
+  //     _xs += (equiv? effnent: 1.0)*xsecs[i];
+  //     _xserr += (equiv? sqr(effnent): 1.0)*xsecerrs[i];
+  //   }
 
-    vector<double> scales(sows.size(), 1.0);
-    if ( equiv ) {
-      _xs /= _eventCounter.effNumEntries();
-      _xserr = sqrt(_xserr)/_eventCounter.effNumEntries();
-    } else {
-      _xserr = sqrt(_xserr);
-      for ( int i = 0, N = sows.size(); i < N; ++i )
-        scales[i] = (_eventCounter.sumW()/sows[i]->sumW())*(xsecs[i]/_xs);
-    }
+  //   vector<double> scales(sows.size(), 1.0);
+  //   if ( equiv ) {
+  //     _xs /= _eventCounter.effNumEntries();
+  //     _xserr = sqrt(_xserr)/_eventCounter.effNumEntries();
+  //   } else {
+  //     _xserr = sqrt(_xserr);
+  //     for ( int i = 0, N = sows.size(); i < N; ++i )
+  //       scales[i] = (_eventCounter.sumW()/sows[i]->sumW())*(xsecs[i]/_xs);
+  //   }
 
-    // Initialize the analyses allowing them to book analysis objects.
-    for (AnaHandle a : _analyses) {
-      MSG_DEBUG("Initialising analysis: " << a->name());
-      if ( !a->info().reentrant() )
-        MSG_WARNING("Analysis " << a->name() << " has not been validated to have "
-                    << "a reentrant finalize method. The result is unpredictable.");
-      try {
-        // Allow projection registration in the init phase onwards
-        a->_allowProjReg = true;
-        cerr << "sqrtS " << sqrtS() << endl;
-        a->init();
-        //MSG_DEBUG("Checking consistency of analysis: " << a->name());
-        //a->checkConsistency();
-      } catch (const Error& err) {
-        cerr << "Error in " << a->name() << "::init method: " << err.what() << endl;
-        exit(1);
-      }
-      MSG_DEBUG("Done initialising analysis: " << a->name());
-    }
-    _initialised = true;
-    // Get a list of all anaysis objects to handle.
-    map<string,AnalysisObjectPtr> current;
-    for ( auto ao : getData(false, true) ) current[ao->path()] = ao;
-    // Go through all objects to be merged and add them to current
-    // after appropriate scaling.
-    for ( int i = 0, N = aosv.size(); i < N; ++i)
-      for ( auto ao : aosv[i] ) {
-        if ( ao->path() == "/_XSEC" || ao->path() == "_EVTCOUNT" ) continue;
-        auto aoit = current.find(ao->path());
-        if ( aoit == current.end() ) {
-          MSG_WARNING("" << ao->path() << " was not properly booked.");
-          continue;
-        }
-        if ( !addaos(aoit->second, ao, scales[i]) )
-          MSG_WARNING("Cannot merge objects with path " << ao->path()
-                      <<" of type " << ao->annotation("Type") );
-      }
-    // Now we can simply finalize() the analysis, leaving the
-    // controlling program to write it out some yoda-file.
-    finalize();
-  }
+  //   // Initialize the analyses allowing them to book analysis objects.
+  //   for (AnaHandle a : _analyses) {
+  //     MSG_DEBUG("Initialising analysis: " << a->name());
+  //     if ( !a->info().reentrant() )
+  //       MSG_WARNING("Analysis " << a->name() << " has not been validated to have "
+  //                   << "a reentrant finalize method. The result is unpredictable.");
+  //     try {
+  //       // Allow projection registration in the init phase onwards
+  //       a->_allowProjReg = true;
+  //       cerr << "sqrtS " << sqrtS() << endl;
+  //       a->init();
+  //       //MSG_DEBUG("Checking consistency of analysis: " << a->name());
+  //       //a->checkConsistency();
+  //     } catch (const Error& err) {
+  //       cerr << "Error in " << a->name() << "::init method: " << err.what() << endl;
+  //       exit(1);
+  //     }
+  //     MSG_DEBUG("Done initialising analysis: " << a->name());
+  //   }
+  //   _initialised = true;
+  //   // Get a list of all anaysis objects to handle.
+  //   map<string,AnalysisObjectPtr> current;
+  //   for ( auto ao : getData(false, true) ) current[ao->path()] = ao;
+  //   // Go through all objects to be merged and add them to current
+  //   // after appropriate scaling.
+  //   for ( int i = 0, N = aosv.size(); i < N; ++i)
+  //     for ( auto ao : aosv[i] ) {
+  //       if ( ao->path() == "/_XSEC" || ao->path() == "_EVTCOUNT" ) continue;
+  //       auto aoit = current.find(ao->path());
+  //       if ( aoit == current.end() ) {
+  //         MSG_WARNING("" << ao->path() << " was not properly booked.");
+  //         continue;
+  //       }
+  //       if ( !addaos(aoit->second, ao, scales[i]) )
+  //         MSG_WARNING("Cannot merge objects with path " << ao->path()
+  //                     <<" of type " << ao->annotation("Type") );
+  //     }
+  //   // Now we can simply finalize() the analysis, leaving the
+  //   // controlling program to write it out some yoda-file.
+  //   finalize();
+  // }
 
 
   void AnalysisHandler::readData(const string& filename) {
@@ -580,7 +582,7 @@ namespace Rivet {
     try {
       /// @todo Use new YODA SFINAE to fill the smart ptr vector directly
       vector<YODA::AnalysisObject*> aos_raw;
-      YODA::ReaderYODA::read(filename, aos_raw);
+      YODA::read(filename, aos_raw);
       for (YODA::AnalysisObject* aor : aos_raw) aos.push_back(YODA::AnalysisObjectPtr(aor));
     //} catch (const YODA::ReadError & e) {
     } catch (...) { //< YODA::ReadError&
@@ -655,7 +657,7 @@ namespace Rivet {
     if ( _dumping ) {
       for ( auto ao : aos ) {
         if ( finalana.find(ao->path()) == finalana.end() )
-          out.push_back(AnalysisObjectPtr(ao->newclone()));
+          out.push_back(YODA::AnalysisObjectPtr(ao->newclone()));
       }
     }
 
@@ -666,7 +668,7 @@ namespace Rivet {
     }
 
     try {
-      YODA::WriterYODA::write(filename, aos.begin(), aos.end());
+      YODA::write(filename, aos.begin(), aos.end());
     } catch (...) { //< YODA::WriteError&
       throw UserError("Unexpected error in writing file: " + filename);
     }
@@ -713,14 +715,14 @@ namespace Rivet {
   AnalysisHandler& AnalysisHandler::setCrossSection(double xs, double xserr) {
     _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
     _eventCounter.get()->setActiveWeightIdx(_defaultWeightIdx);
-    double nomwgt = sumOfWeights();
+    double nomwgt = sumW();
 
     // The cross section of each weight variation is the nominal cross section
-    // times the sumOfWeights(variation) / sumOfWeights(nominal).
+    // times the sumW(variation) / sumW(nominal).
     // This way the cross section will work correctly
     for (size_t iW = 0; iW < numWeights(); iW++) {
       _eventCounter.get()->setActiveWeightIdx(iW);
-      double s = sumOfWeights() / nomwgt;
+      double s = sumW() / nomwgt;
       _xs.get()->setActiveWeightIdx(iW);
       _xs->addPoint(xs*s, xserr*s);
     }
