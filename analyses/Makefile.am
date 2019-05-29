@@ -23,6 +23,7 @@ RivetCDFAnalyses.so: $(filter-out $(srcdir)/pluginCDF/tmp*.cc, $(wildcard $(srcd
 RivetCESRAnalyses.so: $(filter-out $(srcdir)/pluginCESR/tmp*.cc, $(wildcard $(srcdir)/pluginCESR/*.cc))
 RivetCMSAnalyses.so: $(filter-out $(srcdir)/pluginCMS/tmp*.cc, $(wildcard $(srcdir)/pluginCMS/*.cc))
 RivetD0Analyses.so: $(filter-out $(srcdir)/pluginD0/tmp*.cc, $(wildcard $(srcdir)/pluginD0/*.cc))
+RivetDORISAnalyses.so: $(filter-out $(srcdir)/pluginDORIS/tmp*.cc, $(wildcard $(srcdir)/pluginDORIS/*.cc))
 RivetFrascatiAnalyses.so: $(filter-out $(srcdir)/pluginFrascati/tmp*.cc, $(wildcard $(srcdir)/pluginFrascati/*.cc))
 RivetHERAAnalyses.so: $(filter-out $(srcdir)/pluginHERA/tmp*.cc, $(wildcard $(srcdir)/pluginHERA/*.cc))
 RivetLEPAnalyses.so: $(filter-out $(srcdir)/pluginLEP/tmp*.cc, $(wildcard $(srcdir)/pluginLEP/*.cc))
