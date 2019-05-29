@@ -114,6 +114,12 @@ namespace Rivet {
     /// to the previous equivalent projection is returned. If no previous
     /// Projection was found, the Projection::project(const Event&) of @a p is
     /// called and a reference to @a p is returned.
+    ///
+    /// @todo Can make this non-templated, since only cares about ptr to Projection base class
+    ///
+    /// @note Comparisons here are by direct pointer comparison, because
+    /// equivalence is guaranteed if pointers are equal, and inequivalence
+    /// guaranteed if they aren't, thanks to the ProjectionHandler registry
     template <typename PROJ>
     const PROJ& applyProjection(PROJ& p) const {
       Log& log = Log::getLog("Rivet.Event");
@@ -122,7 +128,12 @@ namespace Rivet {
         log << Log::TRACE << "Applying projection " << &p << " (" << p.name() << ") -> comparing to projections " << _projections << endl;
         // First search for this projection *or an equivalent* in the already-executed list
         const Projection* cpp(&p);
-        std::set<const Projection*>::const_iterator old = _projections.find(cpp);
+        /// @note Currently using reint cast to integer type to bypass operator==(Proj*, Proj*)
+        // std::set<const Projection*>::const_iterator old = _projections.find(cpp);
+        std::set<const Projection*>::const_iterator old = std::begin(_projections);
+        std::uintptr_t recpp = reinterpret_cast<std::uintptr_t>(cpp);
+        for (; old != _projections.end(); ++old)
+          if (reinterpret_cast<std::uintptr_t>(*old) == recpp) break;
         if (old != _projections.end()) {
           log << Log::TRACE << "Equivalent projection found -> returning already-run projection " << *old << endl;
           const Projection& pRef = **old;

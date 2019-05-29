@@ -1,3 +1,9 @@
+2019-05-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use integer rather than overloaded Projection comparison at the
+	apply stage. Improves Smeared* projection reproducibility and may
+	speed up the apply step. Thanks to Xiangyang Ju.
+
 2019-05-23  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix Unicode and argparse bugs in bin/rivet. Thanks to Frank Siegert.
