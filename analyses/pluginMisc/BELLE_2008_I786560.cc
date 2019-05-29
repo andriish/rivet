@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     void init() {
-      declare(UnstableFinalState(), "UFS");
+      declare(UnstableParticles(), "UFS");
       _hist_pipi = bookHisto1D( 1, 1, 1);
     }
 
@@ -26,18 +26,14 @@ namespace Rivet {
     void analyze(const Event& e) {
       // Find the taus
       Particles taus;
-      const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles()) {
         if (p.abspid() != PID::TAU) continue;
         _weight_total += 1.;
         Particles pip, pim, pi0;
         unsigned int nstable = 0;
-        // get the boost to the rest frame
-        LorentzTransform cms_boost;
-        if (p.p3().mod() > 1*MeV)
-          cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
         // find the decay products we want
-        findDecayProducts(p.genParticle(), nstable, pip, pim, pi0);
+        findDecayProducts(p, nstable, pip, pim, pi0);
         if (p.pid() < 0) {
           swap(pip, pim);
         }
@@ -68,26 +64,24 @@ namespace Rivet {
 
     //@}
 
-    void findDecayProducts(ConstGenParticlePtr p,
+    void findDecayProducts(const Particle &mother,
                            unsigned int & nstable,
                            Particles& pip, Particles& pim,
                            Particles& pi0) {
-      ConstGenVertexPtr dv = p->end_vertex();
-      /// @todo Use better looping
-      for (ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
-        int id = pp->pdg_id();
+      for (const Particle &p : mother.children()) {
+        long id = p.pdgId();
         if (id == PID::PI0 ) {
-          pi0.push_back(Particle(*pp));
+          pi0.push_back(p);
           ++nstable;
-	}
+       	}
         else if (id == PID::K0S)
           ++nstable;
         else if (id == PID::PIPLUS) {
-          pip.push_back(Particle(*pp));
+          pip.push_back(p);
           ++nstable;
         }
         else if (id == PID::PIMINUS) {
-          pim.push_back(Particle(*pp));
+          pim.push_back(p);
           ++nstable;
         }
         else if (id == PID::KPLUS) {
@@ -96,15 +90,13 @@ namespace Rivet {
         else if (id == PID::KMINUS) {
           ++nstable;
         }
-        else if (pp->end_vertex()) {
-          findDecayProducts(pp, nstable, pip, pim, pi0);
+        else if (!p.children().empty()) {
+          findDecayProducts(p, nstable, pip, pim, pi0);
         }
-        else
-          ++nstable;
+        else  ++nstable;
       }
     }
   };
-
 
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(BELLE_2008_I786560);

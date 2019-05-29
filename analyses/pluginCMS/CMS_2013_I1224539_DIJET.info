@@ -6,9 +6,9 @@ Collider: LHC
 InspireID: 1224539
 Status: VALIDATED
 Authors:
- - salvatore.rappoccio@cern.ch
- - ntran@fnal.gov
- - kalanand@fnal.gov
+ - Salvatore Rappoccio <salvatore.rappoccio@cern.ch>
+ - Nhan Tran <ntran@fnal.gov>
+ - Kalanand Mishra <kalanand@fnal.gov>
  - dlopes@mail.cern.ch
 RunInfo:
   7 TeV $pp$ collisions. Events are required to have at least 2 jets with

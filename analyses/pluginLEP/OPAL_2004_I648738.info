@@ -6,7 +6,7 @@ Collider: LEP
 InspireID: 648738
 Status: VALIDATED
 Authors:
- - Daniel Reichelt [d.reichelt@cern.ch]
+ - Daniel Reichelt <d.reichelt@cern.ch>
 References:
  - Eur.Phys.J. C37 (2004) no.1, 25-47
  - hep-ex/0404026

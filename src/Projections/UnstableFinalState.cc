@@ -1,22 +1,19 @@
 // -*- C++ -*-
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
 
-  /// @todo Add a FIRST/LAST/ANY enum to specify the mode for uniquifying replica chains (default = LAST)
-
-
-  void UnstableFinalState::project(const Event& e) {
+  void UnstableParticles::project(const Event& e) {
     _theParticles.clear();
 
     /// @todo Replace PID veto list with PID:: functions?
     vector<PdgId> vetoIds;
     vetoIds += 22; // status 2 photons don't count!
     vetoIds += 110; vetoIds += 990; vetoIds += 9990; // Reggeons
-    //vetoIds += 9902210; // something weird from PYTHIA6
 
     for (ConstGenParticlePtr p : HepMCUtils::particles(e.genEvent())) {
+      const Particle rp(p);
       const int st = p->status();
       bool passed =
         (st == 1 || (st == 2 && !contains(vetoIds, abs(p->pdg_id())))) &&
@@ -38,7 +35,7 @@ namespace Rivet {
       }
 
       // Add to output particles collection
-      if (passed) _theParticles.push_back(Particle(p));
+      if (passed) _theParticles.push_back(rp);
 
       // Log parents and children
       if (getLog().isActive(Log::TRACE)) {

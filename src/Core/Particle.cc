@@ -55,18 +55,14 @@ namespace Rivet {
 
 
   bool Particle::isStable() const {
-    return genParticle() != NULL &&
+    return genParticle() != nullptr &&
       genParticle()->status() == 1 &&
-      genParticle()->end_vertex() == NULL;
+      genParticle()->end_vertex() == nullptr;
   }
 
 
-  vector<Particle> Particle::ancestors(const Cut& c, bool physical_only) const {
-    
-    /// @todo: use HepMC FindParticles when it actually works properly for const objects
-    //HepMC::FindParticles searcher(genParticle(), HepMC::ANCESTORS, HepMC::STATUS==1);
-    
-    vector<Particle> rtn;
+  Particles Particle::ancestors(const Cut& c, bool physical_only) const {
+    Particles rtn;
 
     // this case needed protecting against (at least for the latest Herwig... not sure why
     // it didn't show up earlier
@@ -89,8 +85,8 @@ namespace Rivet {
   }
 
 
-  vector<Particle> Particle::parents(const Cut& c) const {
-    vector<Particle> rtn;
+  Particles Particle::parents(const Cut& c) const {
+    Particles rtn;
     ConstGenVertexPtr gv = genParticle()->production_vertex();
     if (gv == nullptr) return rtn;
     for(ConstGenParticlePtr it: HepMCUtils::particles(gv, Relatives::PARENTS)){
@@ -172,8 +168,8 @@ namespace Rivet {
 
   double Particle::flightLength() const {
     if (isStable()) return -1;
-    if (genParticle() == NULL) return 0;
-    if (genParticle()->production_vertex() == NULL) return 0;
+    if (genParticle() == nullptr) return 0;
+    if (genParticle()->production_vertex() == nullptr) return 0;
     const RivetHepMC::FourVector v1 = genParticle()->production_vertex()->position();
     const RivetHepMC::FourVector v2 = genParticle()->end_vertex()->position();
     return sqrt(sqr(v2.x()-v1.x()) + sqr(v2.y()-v1.y()) + sqr(v2.z()-v1.z()));

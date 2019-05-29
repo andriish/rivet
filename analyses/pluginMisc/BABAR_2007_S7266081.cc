@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include <iostream>
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     void init() {
-      declare(UnstableFinalState(), "UFS");
+      declare(UnstableParticles(), "UFS");
       _hist_pipipi_pipipi = bookHisto1D( 1, 1, 1);
       _hist_pipipi_pipi   = bookHisto1D( 2, 1, 1);
       _hist_Kpipi_Kpipi   = bookHisto1D( 3, 1, 1);
@@ -37,16 +37,12 @@ namespace Rivet {
       double weight = e.weight();
       // Find the taus
       Particles taus;
-      foreach(const Particle& p, apply<UnstableFinalState>(e, "UFS").particles(Cuts::pid==PID::TAU)) {
+      foreach(const Particle& p, apply<UnstableParticles>(e, "UFS").particles(Cuts::pid==PID::TAU)) {
         _weight_total += weight;
         Particles pip, pim, Kp, Km;
         unsigned int nstable = 0;
-        // Get the boost to the rest frame
-        LorentzTransform cms_boost;
-        if (p.p3().mod() > 1*MeV)
-          cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
         // Find the decay products we want
-        findDecayProducts(p.genParticle(), nstable, pip, pim, Kp, Km);
+        findDecayProducts(p, nstable, pip, pim, Kp, Km);
         if (p.pid() < 0) {
           swap(pip, pim);
           swap(Kp, Km );
@@ -135,39 +131,36 @@ namespace Rivet {
 
     //@}
 
-    void findDecayProducts(ConstGenParticlePtr p,
+    void findDecayProducts(const Particle &mother,
                            unsigned int & nstable,
                            Particles& pip, Particles& pim,
                            Particles& Kp, Particles& Km) {
-      ConstGenVertexPtr dv = p->end_vertex();
-      /// @todo Use better looping
-      for (ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
-        int id = pp->pdg_id();
+      for (const Particle &p : mother.children()) {
+        long id = p.pdgId();
         if (id == PID::PI0 )
           ++nstable;
         else if (id == PID::K0S)
           ++nstable;
         else if (id == PID::PIPLUS) {
-          pip.push_back(Particle(*pp));
+          pip.push_back(p);
           ++nstable;
         }
         else if (id == PID::PIMINUS) {
-          pim.push_back(Particle(*pp));
+          pim.push_back(p);
           ++nstable;
         }
         else if (id == PID::KPLUS) {
-          Kp.push_back(Particle(*pp));
+          Kp.push_back(p);
           ++nstable;
         }
         else if (id == PID::KMINUS) {
-          Km.push_back(Particle(*pp));
+          Km.push_back(p);
           ++nstable;
         }
-        else if (pp->end_vertex()) {
-          findDecayProducts(pp, nstable, pip, pim, Kp, Km);
+        else if (!p.children().empty()) {
+          findDecayProducts(p, nstable, pip, pim, Kp, Km);
         }
-        else
-          ++nstable;
+        else  ++nstable;
       }
     }
 
