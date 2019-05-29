@@ -11,6 +11,7 @@ namespace Rivet {
   namespace ALICE {
 
     /// @todo We should avoid experiment-specific projections and tools as much as possible...
+    /// Says Leif: on the contrary this is a good thing!
 
 
     /// Template for ALICE V0 multiplicity projection.   Which
@@ -304,7 +305,7 @@ namespace Rivet {
        /// anti-particles).  This means we do not use the base class
        /// list of particles.  Therefore, we also need to override the
        /// compare method.
-      bool isPrimaryPID(const HepMC::GenParticle* p) const {
+      bool isPrimaryPID(ConstGenParticlePtr p) const {
         const int pdg = PID::abspid(p->pdg_id());
         // Check for nucleus
         if (pdg > 1000000000) return true;

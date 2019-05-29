@@ -1,3 +1,7 @@
+2019-05-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix Unicode and argparse bugs in bin/rivet. Thanks to Frank Siegert.
+
 2019-05-21  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Release version 2.7.2
@@ -203,6 +207,15 @@
 
 	* Reinstate Particle -> GenParticle as an explicit cast option.
 
+2019-03-15  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* src/Projections/Sphericity.cc: Skip zero-momentum particles.
+
+	* [Reader,Writer]CompressedAscii[cc,hh]: Introduced possibility to
+	wead and write HepMC (v3) files in a compressed and stripped
+	format. Also included a simple progra bin/rivet-hepmz to convert
+	between this new format and othe HepMC fortmats.
+
 2019-03-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add CMS_2018_I1686000.cc single-top plus photon analysis (with
@@ -245,6 +258,63 @@
 
 	* Convert ATLAS_2013_I1217863 analysis variants to use the LMODE
 	analysis option (from Jon Butterworth).
+
+2019-02-20  James Monk  <jwmonk@protonmail.com>
+	* src/Tools/RivetHepMC_2.cc: implementation of HepMC helper funcs
+	for HepMC2
+
+	* Add HepMCUtils namespace for helper funcs
+
+	* Relatives class spoofs HepMC3::Relatives interface using HepMC2
+	iterator_ranges
+
+	* Replace calls to particles_in() and particles_out() by HepMCUtils::particles
+
+	* Fix pyext/setup.py.in for both HepMC2 and HepMC3
+
+	* Configures with either --with-hepmc=/blah or --with-hepmc3=/blah
+
+	* Compiles for either HepMC2 or HepMC3 (3.1 or higher)
+
+2019-02-17  James Monk  <jwmonk@protonmail.com>
+
+	* Update many build paths to cope with new HepMC3 include and lib paths :(
+
+	* Use RivetHepMC namespace in place of HepMC:: RivetHepMC.hh should take care of it
+
+	* configure.ac addes appropriate define to CPPFLAGS
+
+	* wrangle rivet-buildplugin to cope with HePMC3 paths
+
+	* HepMC::Reader is still a bit fubar :(
+
+2018-12-10  James Monk  <jwmonk@protonmail.com>
+
+	* Merge from default
+
+2018-12-06  James Monk  <jwmonk@protonmail.com>
+
+	* RivetHepMC.hh: Much simplified.  Use only Const version of
+	GenParticlePtr Only func delarations - two separate implementation
+	files for HepMC2 or 3
+
+	* configure.ac: HepMC version dependence for building RivetHepMC_2.cc or RivetHepMC_3.cc
+
+	* src/Makefile.am: HepMC version dependence
+
+	* src/Tools/RivetHepMC_3.cc: implementations of funs for HepMC v3
+
+	* bin/rivet-nopy.cc: re-implement using HepMC3 reader interface
+	(may need separate implementation for HepMC2)
+
+	* Particle.hh, Event.cc, Jet.cc: const GenParticle replaced by ConstGenParticle
+
+	* Projections Beam, DISLepton, FinalPartons, FinalState,
+	HeavyHadrons, InitialQuarks, MergedFinalState, PrimaryHadrons,
+	UnstableFinalState, VetoedFinalState: Use ConstGenParticlePtr and
+	vector<ConstGenParticlePtr> consistently
+
+	* pluginATLAS: Start to fix some uses of const GenParticlePtr
 
 2019-02-15  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
@@ -960,6 +1030,18 @@
 2017-02-05  Andy Buckley  <andy.buckley@cern.ch>
 
        * Add HasBTag and HasCTag jet functors, with lower-case aliases.
+
+2017-01-31  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Start making analyses HepMC3-compatible, including major tidying in ATLAS_2013_I1243871.
+
+	* Add Cut-arg variants to HeavyHadrons particle-retrieving methods.
+
+	* Convert core to be compatible with HepMC3.
+
+2017-01-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Removing lots of long-deprecated functions & methods.
 
 2017-01-18  Andy Buckley  <andy.buckley@cern.ch>
 

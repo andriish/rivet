@@ -68,32 +68,29 @@ namespace Rivet {
     // it didn't show up earlier
     if (genParticle() == nullptr) return rtn;
 
-    /// @todo Remove this const mess crap when HepMC doesn't suck
-    GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->production_vertex() );
+    ConstGenVertexPtr gv = genParticle()->production_vertex();
+
     if (gv == nullptr) return rtn;
-    /// @todo Would like to do this, but the range objects are broken
-    // foreach (const GenParticlePtr gp, gv->particles(HepMC::children))
-    //   rtn += Particle(gp);
-    for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::ancestors); it != gv->particles_end(HepMC::ancestors); ++it) {
-      if (physical_only && (*it)->status() != 1 && (*it)->status() != 2) continue;
-      const Particle p(*it);
-      if (c != Cuts::OPEN && !c->accept(p)) continue;
+    
+    vector<ConstGenParticlePtr> ancestors = HepMCUtils::particles(genParticle(), Relatives::ANCESTORS);
+    
+    for(const auto &a: ancestors){
+      if(physical_only && a->status() != 1 && a->status() != 2) continue;
+      const Particle p(a);
+      if(c != Cuts::OPEN && !c->accept(p)) continue;
       rtn += p;
     }
+
     return rtn;
   }
 
 
   Particles Particle::parents(const Cut& c) const {
     Particles rtn;
-    /// @todo Remove this const mess crap when HepMC doesn't suck
-    GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->production_vertex() );
+    ConstGenVertexPtr gv = genParticle()->production_vertex();
     if (gv == nullptr) return rtn;
-    /// @todo Would like to do this, but the range objects are broken
-    // foreach (const GenParticlePtr gp, gv->particles(HepMC::children))
-    //   rtn += Particle(gp);
-    for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::parents); it != gv->particles_end(HepMC::parents); ++it) {
-      const Particle p(*it);
+    for(ConstGenParticlePtr it: HepMCUtils::particles(gv, Relatives::PARENTS)){
+      const Particle p(it);
       if (c != Cuts::OPEN && !c->accept(p)) continue;
       rtn += p;
     }
@@ -106,15 +103,13 @@ namespace Rivet {
     /// @todo Something going wrong with taus -> GenParticle nullptr?
     if (genParticle() == nullptr) return rtn;
     if (isStable()) return rtn;
-    /// @todo Remove this const mess crap when HepMC doesn't suck
-    //cout << genParticle()->end_vertex() << endl;
-    GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
+    ConstGenVertexPtr gv = genParticle()->end_vertex();
     if (gv == nullptr) return rtn;
     /// @todo Would like to do this, but the range objects are broken
     // foreach (const GenParticlePtr gp, gv->particles(HepMC::children))
     //   rtn += Particle(gp);
-    for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::children); it != gv->particles_end(HepMC::children); ++it) {
-      const Particle p(*it);
+    for(ConstGenParticlePtr it: HepMCUtils::particles(gv, Relatives::CHILDREN)){
+      const Particle p(it);
       if (c != Cuts::OPEN && !c->accept(p)) continue;
       rtn += p;
     }
@@ -127,21 +122,21 @@ namespace Rivet {
   Particles Particle::allDescendants(const Cut& c, bool remove_duplicates) const {
     Particles rtn;
     if (isStable()) return rtn;
-    /// @todo Remove this const mess crap when HepMC doesn't suck
-    GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
+
+    ConstGenVertexPtr gv = genParticle()->end_vertex();
     if (gv == nullptr) return rtn;
     /// @todo Would like to do this, but the range objects are broken
     // foreach (const GenParticlePtr gp, gv->particles(HepMC::descendants))
-    for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it) {
-      const Particle p(*it);
+    for(ConstGenParticlePtr it: HepMCUtils::particles(gv, Relatives::DESCENDANTS)){
+      const Particle p(it);
       if (c != Cuts::OPEN && !c->accept(p)) continue;
-      if (remove_duplicates && (*it)->end_vertex() != nullptr) {
+      if (remove_duplicates && it->end_vertex() != NULL) {
         // size_t n = 0; ///< @todo Only remove 1-to-1 duplicates?
         bool dup = false;
         /// @todo Yuck, HepMC
-        for (GenVertex::particle_iterator it2 = (*it)->end_vertex()->particles_begin(HepMC::children); it2 != (*it)->end_vertex()->particles_end(HepMC::children); ++it2) {
+        for(ConstGenParticlePtr it2: HepMCUtils::particles(it->end_vertex(), Relatives::CHILDREN)){
           // n += 1; if (n > 1) break;
-          if ((*it)->pdg_id() == (*it2)->pdg_id()) { dup = true; break; }
+          if (it->pdg_id() == it2->pdg_id()) { dup = true; break; }
         }
         if (dup) continue;
       }
@@ -155,13 +150,13 @@ namespace Rivet {
   Particles Particle::stableDescendants(const Cut& c) const {
     Particles rtn;
     if (isStable()) return rtn;
-    /// @todo Remove this const mess crap when HepMC doesn't suck
-    GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
+    ConstGenVertexPtr gv = genParticle()->end_vertex();
     if (gv == nullptr) return rtn;
     /// @todo Would like to do this, but the range objects are broken
     // foreach (const GenParticlePtr gp, gv->particles(HepMC::descendants))
-    for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it) {
-      // if ((*it)->status() != 1 || (*it)->end_vertex() != nullptr) continue;
+    for(ConstGenParticlePtr it: HepMCUtils::particles(gv, Relatives::DESCENDANTS)){
+    //for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it) {
+      // if ((*it)->status() != 1 || (*it)->end_vertex() != NULL) continue;
       const Particle p(*it);
       if (!p.isStable()) continue;
       if (c != Cuts::OPEN && !c->accept(p)) continue;
@@ -175,8 +170,8 @@ namespace Rivet {
     if (isStable()) return -1;
     if (genParticle() == nullptr) return 0;
     if (genParticle()->production_vertex() == nullptr) return 0;
-    const HepMC::FourVector v1 = genParticle()->production_vertex()->position();
-    const HepMC::FourVector v2 = genParticle()->end_vertex()->position();
+    const RivetHepMC::FourVector v1 = genParticle()->production_vertex()->position();
+    const RivetHepMC::FourVector v2 = genParticle()->end_vertex()->position();
     return sqrt(sqr(v2.x()-v1.x()) + sqr(v2.y()-v1.y()) + sqr(v2.z()-v1.z()));
   }
 
@@ -246,33 +241,44 @@ namespace Rivet {
   }
 
 
-  bool Particle::isDirect(bool allow_from_direct_tau, bool allow_from_direct_mu) const {
-    while (!_isDirect.second) { ///< @todo Replace awkward caching with C++17 std::optional
-      // Immediate short-circuit: hadrons can't be direct, and for partons we can't tell
-      if (isHadron() || isParton()) {
-        _isDirect = std::make_pair(false, true); break;
-      }
 
-      // Obtain links to parentage
-      if (genParticle() == nullptr) { _isDirect = std::make_pair(false, true); break; } // no HepMC connection, give up! Throw UserError exception?
-      const GenVertexPtr prodVtx = genParticle()->production_vertex();
-      if (prodVtx == nullptr) { _isDirect = std::make_pair(false, true); break; } // orphaned particle, has to be assume false
-      const pair<GenParticlePtr, GenParticlePtr> beams = prodVtx->parent_event()->beam_particles();
 
-      /// @todo Would be nicer to be able to write this recursively up the chain, exiting as soon as a parton or string/cluster is seen
-      for (const GenParticlePtr ancestor : Rivet::particles(prodVtx, HepMC::ancestors)) {
-        const PdgId pid = ancestor->pdg_id();
-        if (ancestor->status() != 2) continue; // no non-standard statuses or beams to be used in decision making
-        if (ancestor == beams.first || ancestor == beams.second) continue; // PYTHIA6 uses status 2 for beams, I think... (sigh)
-        if (PID::isParton(pid)) continue; // PYTHIA6 also uses status 2 for some partons, I think... (sigh)
-        if (PID::isHadron(pid)) { _isDirect = std::make_pair(false, true); break; } // direct particles can't be from hadron decays
-        if (abs(pid) == PID::TAU && abspid() != PID::TAU && !allow_from_direct_tau) { _isDirect = std::make_pair(false, true); break; } // allow or ban particles from tau decays (permitting tau copies)
-        if (abs(pid) == PID::MUON && abspid() != PID::MUON && !allow_from_direct_mu) { _isDirect = std::make_pair(false, true); break; } // allow or ban particles from muon decays (permitting muon copies)
-      }
-      if (!_isDirect.second) _isDirect = std::make_pair(true, true); //< guarantee loop exit
+bool Particle::isDirect(bool allow_from_direct_tau, bool allow_from_direct_mu) const {
+  while (!_isDirect.second) { ///< @todo Replace awkward caching with C++17 std::optional
+    // Immediate short-circuit: hadrons can't be direct, and for partons we can't tell
+    if (isHadron() || isParton()) {
+      _isDirect = std::make_pair(false, true); break;
     }
-    return _isDirect.first;
+
+    // Obtain links to parentage
+    if (genParticle() == nullptr) { _isDirect = std::make_pair(false, true); break; } // no HepMC connection, give up! Throw UserError exception?
+    ConstGenVertexPtr prodVtx = genParticle()->production_vertex();
+    if (prodVtx == nullptr) { _isDirect = std::make_pair(false, true); break; } // orphaned particle, has to be assume false
+    std::pair<ConstGenParticlePtr,ConstGenParticlePtr> thebeams =
+      HepMCUtils::beams(prodVtx->parent_event());
+    for (ConstGenParticlePtr ancestor : HepMCUtils::particles(prodVtx, Relatives::ANCESTORS)) {
+      const PdgId pid = ancestor->pdg_id();
+      /// @todo Would be nicer to be able to write this recursively up
+      /// the chain, exiting as soon as a parton or string/cluster is
+      /// seen
+      if (ancestor->status() != 2) continue; // no non-standard
+                                             // statuses or beams to
+                                             // be used in decision
+                                             // making
+      if (PID::isHadron(pid)) {
+        _isDirect = std::make_pair(false, true); break;
+      } // direct particles can't be from hadron decays
+      if (abs(pid) == PID::TAU && abspid() != PID::TAU && !allow_from_direct_tau) {
+        _isDirect = std::make_pair(false, true); break;
+      } // allow or ban particles from tau decays (permitting tau copies)
+      if (abs(pid) == PID::MUON && abspid() != PID::MUON && !allow_from_direct_mu) {
+        _isDirect = std::make_pair(false, true); break;
+      } // allow or ban particles from muon decays (permitting muon copies)
+    }
+    if (!_isDirect.second) _isDirect = std::make_pair(true, true); //< guarantee loop exit
   }
+  return _isDirect.first;
+}
 
 
 

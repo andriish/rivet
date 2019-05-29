@@ -7,7 +7,7 @@ InspireID: 1511284
 Status: VALIDATED
 Authors:
  - cms-pag-conveners-fsq@cern.ch
- - sebastian.baur@cern.ch
+ - Sebastian Baur <sebastian.baur@cern.ch>
 RunInfo:
   Proton-proton beam, 13 TeV center-of-mass-energy, minimum-bias processes.
 NumEvents: 200000

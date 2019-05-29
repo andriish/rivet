@@ -34,14 +34,13 @@ namespace Rivet {
         if (p.pid()==300553) upsilons.push_back(p);
       // Then in whole event if fails
       if (upsilons.empty()) {
-        foreach (const GenParticle* p, Rivet::particles(e.genEvent())) {
+        for(ConstGenParticlePtr p: HepMCUtils::particles(e.genEvent())) {
           if (p->pdg_id() != 300553) continue;
-          const GenVertex* pv = p->production_vertex();
+          ConstGenVertexPtr pv = p->production_vertex();
           bool passed = true;
           if (pv) {
-            /// @todo Use better looping
-            for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ; pp != pv->particles_in_const_end() ; ++pp) {
-              if ( p->pdg_id() == (*pp)->pdg_id() ) {
+            for (ConstGenParticlePtr pp: HepMCUtils::particles(pv, Relatives::PARENTS)){
+              if ( p->pdg_id() == pp->pdg_id() ) {
                 passed = false;
                 break;
               }
@@ -55,7 +54,7 @@ namespace Rivet {
       foreach (const Particle& p, upsilons) {
         _weightSum += weight;
         // Find the neutral pions from the decay
-        vector<GenParticle *> pions;
+        vector<ConstGenParticlePtr> pions;
         findDecayProducts(p.genParticle(), pions);
         const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
         for (size_t ix=0; ix<pions.size(); ++ix) {
@@ -84,15 +83,14 @@ namespace Rivet {
     //@}
 
 
-    void findDecayProducts(const GenParticle* p, vector<GenParticle*>& pions) {
-      const GenVertex* dv = p->end_vertex();
-      /// @todo Use better looping
-      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
-        const int id = (*pp)->pdg_id();
+    void findDecayProducts(ConstGenParticlePtr p, vector<ConstGenParticlePtr>& pions) {
+      ConstGenVertexPtr dv = p->end_vertex();
+      for (ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
+        const int id = pp->pdg_id();
         if (id == 111) {
-          pions.push_back(*pp);
-        } else if ((*pp)->end_vertex())
-          findDecayProducts(*pp, pions);
+          pions.push_back(pp);
+        } else if (pp->end_vertex())
+          findDecayProducts(pp, pions);
       }
     }
 

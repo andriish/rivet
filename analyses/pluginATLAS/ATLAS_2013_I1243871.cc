@@ -69,7 +69,7 @@ namespace Rivet {
       /// @todo Why rewrite the jets collection as a vector of pointers?
       const Jets& jets = apply<FastJets>(event, "JETS").jetsByPt(7*GeV);
       vector<const Jet*> allJets;
-      foreach(const Jet& j, jets) allJets.push_back(&j);
+      for (const Jet& j : jets) allJets.push_back(&j);
 
       // Keep any jets that pass the pt cut
       vector<const Jet*> pt_jets;
@@ -111,10 +111,10 @@ namespace Rivet {
 
       // Select b-hadrons
       /// @todo Use built-in identification on Particle, avoid HepMC
-      vector<const GenParticle *> b_hadrons;
-      vector<const GenParticle *> allParticles = particles(event.genEvent());
+      vector<ConstGenParticlePtr> b_hadrons;
+      vector<ConstGenParticlePtr> allParticles = HepMCUtils::particles(event.genEvent());
       for (size_t i = 0; i < allParticles.size(); i++) {
-        const GenParticle* p = allParticles.at(i);
+        ConstGenParticlePtr p = allParticles.at(i);
         if ( !(PID::isHadron( p->pdg_id() ) && PID::hasBottom( p->pdg_id() )) ) continue;
         if (p->momentum().perp() < 5*GeV) continue;
         b_hadrons.push_back(p);
@@ -125,7 +125,7 @@ namespace Rivet {
       vector<const Jet*> b_jets;
       foreach (const Jet* j, good_jets) {
         bool isbJet = false;
-        foreach (const GenParticle* b, b_hadrons) {
+        foreach (ConstGenParticlePtr b, b_hadrons) {
           /// @todo Use direct momentum accessor / delta functions
           const FourMomentum hadron = b->momentum();
           const double hadron_jet_dR = deltaR(j->momentum(), hadron);
@@ -150,7 +150,7 @@ namespace Rivet {
       const Jet* light1 = NULL; const Jet* light2 = NULL; // NB: const Jets, not const pointers!
       foreach (const Jet* i, good_jets) {
         bool isbJet1 = false;
-        foreach (const GenParticle* b, b_hadrons) {
+        for (ConstGenParticlePtr b : b_hadrons) {
           /// @todo Use direct momentum accessor / delta functions
           const FourMomentum hadron = b->momentum();
           const double hadron_jet_dR = deltaR(i->momentum(), hadron);
@@ -159,7 +159,7 @@ namespace Rivet {
         if (isbJet1) continue;
         foreach (const Jet* j, good_jets) {
           bool isbJet2 = false;
-          foreach (const GenParticle* b, b_hadrons) {
+          foreach (ConstGenParticlePtr b, b_hadrons) {
             FourMomentum hadron = b->momentum();
             double hadron_jet_dR = deltaR(j->momentum(), hadron);
             if (hadron_jet_dR < 0.3) { isbJet2 = true; break; }

@@ -6,15 +6,15 @@ Collider: LEP
 InspireID: 631361
 Status: VALIDATED
 Authors:
- - Daniel Reichelt [d.reichelt@cern.ch]
+ - Daniel Reichelt <d.reichelt@cern.ch>
 References:
  - Phys. Rev. D69, 032002,2004
  - hep-ex/0310048
 RunInfo:
-  The fictonal $e^+e^-\to gg$ process is required.
+  The fictional $e^+e^-\to gg$ process is required.
 NumEvents: 100000
 NeedCrossSection: no
-Beams: [e+, e- ] 
+Beams: [e+, e- ]
 Energies: [10.50,11.96,13.96,16.86,21.84,28.48,35.44]
 NeedCrossSection: False
 Description:

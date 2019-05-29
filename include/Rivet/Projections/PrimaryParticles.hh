@@ -85,12 +85,12 @@ namespace Rivet
      *
      * @return true if the particle @a p is considered primary 
      */
-    virtual bool isPrimary(const HepMC::GenParticle* p) const;
+    virtual bool isPrimary(ConstGenParticlePtr p) const;
     /**
      * Check if the particle should be ignored by the status code of
      * the particle.
      */
-    virtual bool isIgnored(const HepMC::GenParticle* p) const;
+    virtual bool isIgnored(ConstGenParticlePtr p) const;
     /** 
      * Check PDG ID of particle @a p is in the list of accepted
      * primaries.
@@ -100,7 +100,7 @@ namespace Rivet
      * @return true if the particle PDG ID is in the list of known
      * primary PDG IDs.
      */
-    virtual bool isPrimaryPID(const HepMC::GenParticle* p) const;
+    virtual bool isPrimaryPID(ConstGenParticlePtr p) const;
     /*
      * Check if a particle @a p has decayed.
      *
@@ -109,7 +109,7 @@ namespace Rivet
      * @return true if the particle has decayed according to the
      * status flag of the particle @a p
      */
-    virtual bool hasDecayed(const HepMC::GenParticle* p) const;
+    virtual bool hasDecayed(ConstGenParticlePtr p) const;
     /**
      * Check if a particle is a beam (remnant) particle.
      *
@@ -117,7 +117,7 @@ namespace Rivet
      *
      * @return true if the particle @a p is a (remnant) beam particle 
      */
-    virtual bool isBeam(const HepMC::GenParticle* p) const;
+    virtual bool isBeam(ConstGenParticlePtr p) const;
     /*
      * Get the immediate ancestor of a particle.
      * 
@@ -125,7 +125,7 @@ namespace Rivet
      *
      * @return Pointer to immediate ancestor or null if there's no ancestor. 
      */
-    const HepMC::GenParticle* ancestor(const HepMC::GenParticle* p) const;
+    ConstGenParticlePtr ancestor(ConstGenParticlePtr p) const;
     /*
      * Get the immediate ancestor of a particle, which is @e not an
      * ignored particle.
@@ -134,7 +134,8 @@ namespace Rivet
      *
      * @return Pointer to immediate ancestor or null if there's no ancestor. 
      */
-    const HepMC::GenParticle* ancestor(const HepMC::GenParticle* p, bool) const;
+    ConstGenParticlePtr ancestor(ConstGenParticlePtr p, bool) const;
+
     /** Particle types to test for */
     std::vector<int> _pdgIds;
   };

@@ -54,17 +54,13 @@ int main() {
   rivet.addAnalysis("Test");
 
   std::ifstream file("testApi.hepmc");
-  HepMC::IO_GenEvent hepmcio(file);
-  HepMC::GenEvent* evt = hepmcio.read_next_event();
+  shared_ptr<Rivet::HepMC_IO_type> reader = Rivet::HepMCUtils::makeReader(file);
+  std::shared_ptr<Rivet::GenEvent> evt = make_shared<Rivet::GenEvent>();
   double sum_of_weights = 0.0;
-  while (evt) {
+  while ( Rivet::HepMCUtils::readEvent(reader, evt) ) {
     // Analyse current event
     rivet.analyze(*evt);
     sum_of_weights += evt->weights()[0];
-
-    // Clean up and get next event
-    delete evt; evt = 0;
-    hepmcio >> evt;
   }
   file.close();
 

@@ -81,8 +81,8 @@ cdef class Run:
     def readEvent(self):
         return self._ptr.readEvent()
 
-    def skipEvent(self):
-        return self._ptr.skipEvent()
+#    def skipEvent(self):
+#        return self._ptr.skipEvent()
 
     def processEvent(self):
         return self._ptr.processEvent()
@@ -179,6 +179,14 @@ cdef class AnalysisLoader:
         return pyobj
 
 
+## Convenience versions in main rivet namespace
+def analysisNames():
+    return AnalysisLoader.analysisNames()
+def getAnalysis(name):
+    return AnalysisLoader.getAnalysis(name)
+
+
+## Path functions
 def getAnalysisLibPaths():
     ps = c.getAnalysisLibPaths()
     return [ p.decode('utf-8') for p in ps ]

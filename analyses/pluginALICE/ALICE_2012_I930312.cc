@@ -57,6 +57,30 @@ namespace Rivet {
         }
       }
 
+      // Find out the beam type, also specified from option.
+      string beamOpt = getOption<string>("beam","NONE");
+      if (beamOpt != "NONE") {
+        MSG_WARNING("You are using a specified beam type, instead of using what"
+	"is provided by the generator. "
+	"Only do this if you are completely sure what you are doing.");
+	if (beamOpt=="PP") isHI = false;
+	else if (beamOpt=="HI") isHI = true;
+	else {
+	  MSG_ERROR("Beam error (option)!");
+	  return;
+      	}
+      }
+      else {
+        const ParticlePair& beam = beams();
+        if (beam.first.pid() == 2212 && beam.second.pid() == 2212) isHI = false;
+	else if (beam.first.pid() == 1000822080 && beam.second.pid() == 1000822080)
+	  isHI = true;
+	else {
+	  MSG_ERROR("Beam error (found)!");
+	  return;
+	}
+      }
+
     }
 
 
@@ -83,8 +107,7 @@ namespace Rivet {
       // is equal to 0 and assign 'false' in that case, which is usually wrong.
       // This might be changed in the future
       int ev_type = 0; // pp
-      const HepMC::HeavyIon* hi = event.genEvent()->heavy_ion();
-      if (hi && hi->is_valid()) {
+      if ( isHI ) {
         // Prepare centrality projection and value
         const CentralityProjection& centrProj =
           apply<CentralityProjection>(event, "V0M");
@@ -299,6 +322,7 @@ namespace Rivet {
 
   private:
 
+    bool isHI;
     static const int PT_BINS = 4;
     static const int EVENT_TYPES = 3;
     static const int NEAR = 0;
