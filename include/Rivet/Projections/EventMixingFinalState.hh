@@ -17,7 +17,7 @@ namespace Rivet {
   // Binning in the mixing observable is defined in the constructor,
   // as is the number of events one wants to mix with.
   // The method calculateMixingObs() must can be overloaded
-  // in derived classes, to provide the definition of the mixing observables,
+  // in derived classes, to provide the definition of the mixing observable,
   // on the provided projection, eg. centrality or something more elaborate.
   //
   // @author Christian Bierlich <christian.bierlich@thep.lu.se>
@@ -130,8 +130,8 @@ namespace Rivet {
 	  weights.begin(), weights.end(), rng());
 	Particles tmp = vector<Particle>(mixParticles.begin(), 
 	  mixParticles.begin() + size_t(ceil(mixParticles.size() / 2)));
+        return tmp;
       }
-      return mixParticles;
     }
  
   protected:
@@ -153,9 +153,9 @@ namespace Rivet {
       const Particles mix = applyProjection<ParticleFinder>(e, "MIX").particles();
       mixItr->second.push_back(make_pair(mix,e.weight()));
       // Assume unit weights until we see otherwise.
-      if (true && unitWeights && e.weight() != 1.0 ) {
+      if (unitWeights && e.weight() != 1.0 ) {
         unitWeights = false;
-	nMix *= 2.0;
+	nMix *= 2;
       }
       if(mixItr->second.size() > nMix + 1)
         mixItr->second.pop_front();
