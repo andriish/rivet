@@ -26,7 +26,7 @@ Wrapper<T>::Wrapper(const vector<string>& weightNames, const T & p)
 
     auto obj = _persistent.back();
     if (weightname != "")
-        obj->setPath(obj->path() + "[" + weightname + "]");
+      obj->setPath(obj->path() + "[" + weightname + "]");
   }
 }
 
@@ -233,7 +233,7 @@ namespace {
     }
 
 
-  bool copyao(AnalysisObjectPtr src, AnalysisObjectPtr dst) {
+  bool copyao(YODA::AnalysisObjectPtr src, YODA::AnalysisObjectPtr dst) {
     for (const std::string& a : src->annotations())
       dst->setAnnotation(a, src->annotation(a));
     if ( aocopy<Counter>(src,dst) ) return true;
@@ -247,7 +247,7 @@ namespace {
     return false;
   }
 
-  bool addaos(AnalysisObjectPtr dst, AnalysisObjectPtr src, double scale) {
+  bool addaos(YODA::AnalysisObjectPtr dst, YODA::AnalysisObjectPtr src, double scale) {
     if ( aoadd<Counter>(dst,src,scale) ) return true;
     if ( aoadd<Histo1D>(dst,src,scale) ) return true;
     if ( aoadd<Histo2D>(dst,src,scale) ) return true;

@@ -15,14 +15,16 @@ using std::cout;
 using std::cerr;
 
 namespace {
-    inline std::vector<std::string> split(const std::string& input, const std::string& regex) {
-        // passing -1 as the submatch index parameter performs splitting
-        std::regex re(regex);
-        std::sregex_token_iterator
-            first{input.begin(), input.end(), re, -1},
-            last;
-        return {first, last};
-    }
+
+  inline std::vector<std::string> split(const std::string& input, const std::string& regex) {
+    // passing -1 as the submatch index parameter performs splitting
+    std::regex re(regex);
+    std::sregex_token_iterator
+      first{input.begin(), input.end(), re, -1},
+      last;
+      return {first, last};
+  }
+
 }
 
 
@@ -72,8 +74,7 @@ namespace Rivet {
     if (_initialised)
       throw UserError("AnalysisHandler::init has already been called: cannot re-initialize!");
 
-     // TODO TODO
-     // should the rivet analysis objects know about weight names?
+    /// @todo Should the Rivet analysis objects know about weight names?
 
     setRunBeams(Rivet::beams(ge));
     MSG_DEBUG("Initialising the analysis handler");
@@ -87,10 +88,9 @@ namespace Rivet {
 
     _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
 
-    // set the cross section based on what is reported by this event.
-    // if no cross section
+    // Set the cross section based on what is reported by this event.
     if (ge.cross_section()) {
-      MSG_TRACE("getting cross section.");
+      MSG_TRACE("Getting cross section.");
       double xs = ge.cross_section()->cross_section();
       double xserr = ge.cross_section()->cross_section_error();
       setCrossSection(xs, xserr);
@@ -147,6 +147,7 @@ namespace Rivet {
     MSG_DEBUG("Analysis handler initialised");
   }
 
+
   void AnalysisHandler::setWeightNames(const GenEvent& ge) {
     /// reroute the print output to a std::stringstream and process
     /// The iteration is done over a map in hepmc2 so this is safe
@@ -156,8 +157,7 @@ namespace Rivet {
 
     std::regex re("(([^()]+))"); // Regex for stuff enclosed by parentheses ()
     size_t idx = 0;
-    for(std::sregex_iterator i = std::sregex_iterator(str.begin(), str.end(), re);
-                          i != std::sregex_iterator(); ++i ) {
+    for (std::sregex_iterator i = std::sregex_iterator(str.begin(), str.end(), re); i != std::sregex_iterator(); ++i ) {
       std::smatch m = *i;
       vector<string> temp = ::split(m.str(), "[,]");
       if (temp.size() ==2) {
@@ -284,56 +284,61 @@ namespace Rivet {
 
 
   void AnalysisHandler::finalize() {
-      if (!_initialised) return;
-      MSG_INFO("Finalising analyses");
+    if (!_initialised) return;
+    MSG_INFO("Finalising analyses");
 
-      MSG_TRACE("AnalysisHandler::finalize(): Pushing analysis objects to persistent.");
-      _eventCounter.get()->pushToPersistent(_subEventWeights);
-      for (const AnaHandle& a : _analyses) {
-          for (auto ao : a->analysisObjects())
-              ao.get()->pushToPersistent(_subEventWeights);
-      }
+    // First push all analyses' objects to persistent
+    MSG_TRACE("AnalysisHandler::finalize(): Pushing analysis objects to persistent.");
+    _eventCounter.get()->pushToPersistent(_subEventWeights);
+    for (const AnaHandle& a : _analyses) {
+      for (auto ao : a->analysisObjects())
+        ao.get()->pushToPersistent(_subEventWeights);
+    }
 
-      for (const AnaHandle& a : _analyses) {
-          for (size_t iW = 0; iW < numWeights(); iW++) {
-              _eventCounter.get()->setActiveWeightIdx(iW);
-              _xs.get()->setActiveWeightIdx(iW);
-              for (auto ao : a->analysisObjects())
-                  ao.get()->setActiveWeightIdx(iW);
-
-              MSG_TRACE("running " << a->name() << "::finalize() for weight " << iW << ".");
-
-              try {
-                  a->finalize();
-              } catch (const Error& err) {
-                  cerr << "Error in " << a->name() << "::finalize method: " << err.what() << '\n';
-                  exit(1);
-              }
-          }
-      }
-
-
-/* MERGE
     // First we make copies of all analysis objects.
     map<string,AnalysisObjectPtr> backupAOs;
-    for (auto ao : getData(false, true) )
+    for (auto ao : getYodaAOs(false, true, false) )
       backupAOs[ao->path()] = AnalysisObjectPtr(ao->newclone());
 
-    // Now we run the (re-entrant) finalize() functions for all analyses.
-    MSG_INFO("Finalising analyses");
-    for (AnaHandle a : _analyses) {
-      a->setCrossSection(_xs);
-      try {
-        if ( !_dumping || a->info().reentrant() )  a->finalize();
-        else if ( _dumping )
-          MSG_INFO("Skipping periodic dump of " << a->name()
-                   << " as it is not declared reentrant.");
-      } catch (const Error& err) {
-        cerr << "Error in " << a->name() << "::finalize method: " << err.what() << endl;
-        exit(1);
+    // Finalize all the histograms
+    for (const AnaHandle& a : _analyses) {
+      // a->setCrossSection(_xs);
+      for (size_t iW = 0; iW < numWeights(); iW++) {
+        _eventCounter.get()->setActiveWeightIdx(iW);
+        _xs.get()->setActiveWeightIdx(iW);
+        for (auto ao : a->analysisObjects())
+          ao.get()->setActiveWeightIdx(iW);
+
+        MSG_TRACE("Running " << a->name() << "::finalize() for weight " << iW << ".");
+
+        try {
+          if ( !_dumping || a->info().reentrant() )  a->finalize();
+          else if ( _dumping == 1 && iW == 0 )
+            MSG_INFO("Skipping periodic dump of " << a->name()
+                     << " as it is not declared reentrant.");
+        } catch (const Error& err) {
+          cerr << "Error in " << a->name() << "::finalize method: " << err.what() << endl;
+          exit(1);
+        }
+
       }
     }
-*/
+
+    // Now we copy all analysis objects to the list of finalized
+    // ones, and restore the value to their original ones.
+    _finalizedAOs.clear();
+    for ( auto ao : getYodaAOs(false, false, false) )
+      _finalizedAOs.push_back(AnalysisObjectPtr(ao->newclone()));
+    for ( auto ao : getYodaAOs(false, true, false) ) {
+      // TODO: This should be possible to do in a nicer way, with a flag etc.
+      if (ao->path().find("/FINAL") != std::string::npos) continue;
+      auto aoit = backupAOs.find(ao->path());
+      if ( aoit == backupAOs.end() ) {
+        AnaHandle ana = analysis(split(ao->path(), "/")[0]);
+        if ( ana ) ana->removeAnalysisObject(ao->path());
+      } else
+        copyao(aoit->second, ao);
+    }
 
     // Print out number of events processed
     const int nevts = numEvents();
@@ -608,22 +613,29 @@ namespace Rivet {
       return rtn;
   }
 
-  vector<YODA::AnalysisObjectPtr> AnalysisHandler::getYodaAOs() const {
+  vector<YODA::AnalysisObjectPtr> AnalysisHandler::getYodaAOs(bool includeorphans,
+                                                              bool includetmps,
+                                                              bool usefinalized) const {
       vector<YODA::AnalysisObjectPtr> rtn;
-
-      for (auto rao : getRivetAOs()) {
+      if (usefinalized)
+        rtn = _finalizedAOs;
+      else {
+        for (auto rao : getRivetAOs()) {
           // need to set the index
           // before we can search the PATH
           rao.get()->setActiveWeightIdx(_defaultWeightIdx);
-          if (rao->path().find("/TMP/") != string::npos)
-              continue;
+          // Exclude paths from final write-out if they contain a "TMP" layer (i.e. matching "/TMP/")
+          if (!includetmps && rao->path().find("/TMP/") != string::npos)
+            continue;
 
           for (size_t iW = 0; iW < numWeights(); iW++) {
-              rao.get()->setActiveWeightIdx(iW);
-              rtn.push_back(rao.get()->activeYODAPtr());
+            rao.get()->setActiveWeightIdx(iW);
+            rtn.push_back(rao.get()->activeYODAPtr());
           }
+        }
       }
 
+      // Sort histograms alphanumerically by path before write-out
       sort(rtn.begin(), rtn.end(),
            [](YODA::AnalysisObjectPtr a, YODA::AnalysisObjectPtr b) {
                 return a->path() < b->path();
@@ -633,42 +645,28 @@ namespace Rivet {
       return rtn;
   }
 
-  vector<YODA::AnalysisObjectPtr> AnalysisHandler::getData() const {
-      return getYodaAOs();
+
+  vector<YODA::AnalysisObjectPtr> AnalysisHandler::getData(bool includeorphans,
+                                                           bool includetmps,
+                                                           bool usefinalized) const {
+    return getYodaAOs(includeorphans, includetmps, usefinalized);
   }
 
-/* MERGE
-  vector<AnalysisObjectPtr> AnalysisHandler::
-  getData(bool includeorphans, bool includetmps) const {
-    vector<AnalysisObjectPtr> rtn;
-    // Event counter
-    rtn.push_back( make_shared<Counter>(_eventcounter) );
-    // Cross-section + err as scatter
-    YODA::Scatter1D::Points pts; pts.insert(YODA::Point1D(_xs, _xserr));
-    rtn.push_back( make_shared<Scatter1D>(pts, "/_XSEC") );
-    // Analysis histograms
-    for (const AnaHandle a : analyses()) {
-      vector<AnalysisObjectPtr> aos = a->analysisObjects();
-      // MSG_WARNING(a->name() << " " << aos.size());
-      for (const AnalysisObjectPtr ao : aos) {
-        // Exclude paths from final write-out if they contain a "TMP" layer (i.e. matching "/TMP/")
-        /// @todo This needs to be much more nuanced for re-entrant histogramming
-        if ( !includetmps && ao->path().find("/TMP/" ) != string::npos) continue;
-        rtn.push_back(ao);
-      }
-    }
-    // Sort histograms alphanumerically by path before write-out
-    sort(rtn.begin(), rtn.end(), [](AnalysisObjectPtr a, AnalysisObjectPtr b) {return a->path() < b->path();});
-    if ( includeorphans )
-      rtn.insert(rtn.end(), _orphanedPreloads.begin(), _orphanedPreloads.end());
-    return rtn;
-  }
-*/
 
   void AnalysisHandler::writeData(const string& filename) const {
     vector<YODA::AnalysisObjectPtr> out = _finalizedAOs;
+    set<string> finalana;
+    for ( auto ao : out) finalana.insert(ao->path());
     out.reserve(2*out.size());
-    vector<YODA::AnalysisObjectPtr> aos = getData(false, true);
+    vector<YODA::AnalysisObjectPtr> aos = getData(false, true, false);
+
+    if ( _dumping ) {
+      for ( auto ao : aos ) {
+        if ( finalana.find(ao->path()) == finalana.end() )
+          out.push_back(AnalysisObjectPtr(ao->newclone()));
+      }
+    }
+
     for ( auto ao : aos ) {
       ao = YODA::AnalysisObjectPtr(ao->newclone());
       ao->setPath("/RAW" + ao->path());

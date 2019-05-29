@@ -9,6 +9,7 @@
 #include <iostream>
 
 using std::cout;
+using std::endl;
 
 namespace Rivet {
 
@@ -99,11 +100,10 @@ namespace Rivet {
     // Initialise AnalysisHandler with beam information from first event
     _ah.init(*_evt);
 
-    // Set cross-section from command line
+    // Tell the user about using the cross-section from the command line
     if (!std::isnan(_xs)) {
-      Log::getLog("Rivet.Run")
-        << Log::DEBUG << "Setting user cross-section = " << _xs << " pb" << endl;
-      _ah.setCrossSection(_xs);
+      Log::getLog("Rivet.Run") << Log::DEBUG << "Setting user cross-section = " << _xs << " pb" << endl;
+      // Actually do the setting in finalize()
     }
 
     // List the chosen & compatible analyses if requested
@@ -118,26 +118,7 @@ namespace Rivet {
 
 
   bool Run::processEvent() {
-    // Set cross-section if found in event and not from command line
-    if (std::isnan(_xs) && _evt->cross_section()) {
-      const double xs = _evt->cross_section()->cross_section()*picobarn;
-      const double xserr = _evt->cross_section()->cross_section_error()*picobarn;
-      Log::getLog("Rivet.Run")
-        << Log::DEBUG << "Setting cross-section = " << xs << " +- " << xserr << " pb" << endl;
-      _ah.setCrossSection(xs, xserr);
-    }
-    // Complain about absence of cross-section if required!
-    if (_ah.needCrossSection() && !_ah.hasCrossSection()) {
-      Log::getLog("Rivet.Run")
-        << Log::ERROR
-        << "Total cross-section needed for at least one of the analyses. "
-        << "Please set it (on the command line with '-x' if using the 'rivet' program)" << endl;
-      return false;
-    }
-
-    // Analyze event
     _ah.analyze(*_evt);
-
     return true;
   }
 

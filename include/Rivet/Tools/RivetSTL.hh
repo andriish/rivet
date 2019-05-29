@@ -7,22 +7,18 @@
 #include <list>
 #include <set>
 #include <map>
-
 #include <memory>
 #include <functional>
-
-// #include <utility>
+#include <ostream>
+#include <sstream>
 // #include <tuple>
+// #include <utility>
 // #include <algorithm>
 // #include <cassert>
 // #include <typeinfo>
-
 // #include <iomanip>
 // #include <cmath>
 // #include <limits>
-
-#include <ostream>
-#include <sstream>
 
 namespace Rivet {
 

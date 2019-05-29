@@ -17,6 +17,7 @@
 #include "Rivet/Tools/RivetYODA.hh"
 #include "Rivet/Tools/Percentile.hh"
 #include "Rivet/Projections/CentralityProjection.hh"
+#include <tuple>
 
 
 /// @def vetoEvent
@@ -32,6 +33,7 @@ namespace Rivet {
   using std::cout;
   using std::cerr;
   using std::endl;
+  using std::tuple;
   using std::stringstream;
   using std::swap;
   using std::numeric_limits;
@@ -602,8 +604,10 @@ namespace Rivet {
                                const std::string& ytitle="",
                                const std::string& ztitle="");
 
-    /// Book a 2D profile histogram with binning from a reference scatter.
-    // Profile2DPtr bookProfile2D(const std::string& name,
+    /// @todo REINSTATE
+
+    // /// Book a 2D profile histogram with binning from a reference scatter.
+    // Profile2DPtr & book(const Profile2DPtr &, const std::string& name,
     //                            const Scatter3D& refscatter,
     //                            const std::string& title="",
     //                            const std::string& xtitle="",
@@ -611,7 +615,7 @@ namespace Rivet {
     //                            const std::string& ztitle="");
 
     // /// Book a 2D profile histogram, using the binnings in the reference data histogram.
-    // Profile2DPtr bookProfile2D(const std::string& name,
+    // Profile2DPtr & book(const Profile2DPtr &, const std::string& name,
     //                            const std::string& title="",
     //                            const std::string& xtitle="",
     //                            const std::string& ytitle="",
@@ -620,7 +624,7 @@ namespace Rivet {
     // /// Book a 2D profile histogram, using the binnings in the reference data histogram.
     // ///
     // /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    // Profile2DPtr bookProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+    // Profile2DPtr & book(const Profile2DPtr &, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
     //                            const std::string& title="",
     //                            const std::string& xtitle="",
     //                            const std::string& ytitle="",
@@ -683,10 +687,12 @@ namespace Rivet {
                                const std::string& ytitle);
 
     /// Book a 2-dimensional data point set with x-points from an existing scatter and a new path.
-    Scatter2DPtr book(Scatter2DPtr & s2d, const Scatter2DPtr & scPtr, 
-    const std::string& path, const std::string& title = "", 
-    const std::string& xtitle = "", const std::string& ytitle = "" );
-    
+    Scatter2DPtr book(Scatter2DPtr & s2d, const Scatter2DPtr & scPtr,
+                               const std::string& path,
+                               const std::string& title="",
+                               const std::string& xtitle="",
+                               const std::string& ytitle="");
+
     //@}
 
 
@@ -736,54 +742,90 @@ namespace Rivet {
                       string calAnaName, string calHistName,
                       const string projName, bool increasing = false);
 
-    /// @brief Book a Pecentile wrapper around AnalysisObjects.
+    /// @brief Book a Percentile wrapper around AnalysisObjects.
     ///
     /// Based on a previously registered CentralityProjection named @a
     /// projName book one AnalysisObject for each @a centralityBin and
     /// name them according to the corresponding code in the @a ref
     /// vector.
+    ///
+    /// @todo Convert to just be called book() cf. others
     template <class T>
     Percentile<T> bookPercentile(string projName,
                                  vector<pair<float, float> > centralityBins,
                                  vector<tuple<int, int, int> > ref) {
+
       typedef typename ReferenceTraits<T>::RefT RefT;
+      typedef rivet_shared_ptr<Wrapper<T>> WrapT;
+
       Percentile<T> pctl(this, projName);
 
       const int nCent = centralityBins.size();
       for (int iCent = 0; iCent < nCent; ++iCent) {
-        const string axisCode = makeAxisCode(std::get<0>(ref[iCent]),
-                                             std::get<1>(ref[iCent]),
-                                             std::get<2>(ref[iCent])); 
-	const RefT & refscatter = refData<RefT>(axisCode);
-        shared_ptr<T> ao = addOrGetCompatAO(make_shared<T>(refscatter, histoPath(axisCode)));
-        CounterPtr cnt =
-          addOrGetCompatAO(make_shared<Counter>(histoPath("TMP/COUNTER/" + axisCode)));
-        pctl.add(ao, cnt, centralityBins[iCent]);
+        const string axisCode = mkAxisCode(std::get<0>(ref[iCent]),
+                                           std::get<1>(ref[iCent]),
+                                           std::get<2>(ref[iCent]));
+        const RefT & refscatter = refData<RefT>(axisCode);
+
+        WrapT wtf(_weightNames(), T(refscatter, histoPath(axisCode)));
+        wtf = addAnalysisObject(wtf);
+
+        CounterPtr cnt(_weightNames(), Counter(histoPath("TMP/COUNTER/" + axisCode)));
+        cnt = addAnalysisObject(cnt);
+
+        pctl.add(wtf, cnt, centralityBins[iCent]);
       }
       return pctl;
     }
 
-    /// @brief Book Pecentile wrappers around AnalysisObjects.
-    ///
-    /// Based on a previously registered CentralityProjection named @a
-    /// projName book one (or several) AnalysisObject(s) named
-    /// according to @a ref where the x-axis will be filled according
-    /// to the percentile output(s) of the @projName.
-    template <class T>
-    PercentileXaxis<T> bookPercentileXaxis(string projName,
-                                           tuple<int, int, int> ref) {
-      typedef typename ReferenceTraits<T>::RefT RefT;
-      PercentileXaxis<T> pctl(this, projName);
+    // /// @brief Book Percentile wrappers around AnalysisObjects.
+    // ///
+    // /// Based on a previously registered CentralityProjection named @a
+    // /// projName book one (or several) AnalysisObject(s) named
+    // /// according to @a ref where the x-axis will be filled according
+    // /// to the percentile output(s) of the @projName.
+    // ///
+    // /// @todo Convert to just be called book() cf. others
+    // template <class T>
+    // PercentileXaxis<T> bookPercentileXaxis(string projName,
+    //                                        tuple<int, int, int> ref) {
 
-      const string axisCode = makeAxisCode(std::get<0>(ref),
-                                           std::get<1>(ref),
-                                           std::get<2>(ref)); 
-      const RefT & refscatter = refData<RefT>(axisCode);
-      shared_ptr<T> ao = addOrGetCompatAO(make_shared<T>(refscatter, histoPath(axisCode)));
-      pctl.add(proj, ao, make_shared<Counter>());
+    //   typedef typename ReferenceTraits<T>::RefT RefT;
+    //   typedef rivet_shared_ptr<Wrapper<T>> WrapT;
 
-      return pctl;
-    }
+    //   PercentileXaxis<T> pctl(this, projName);
+
+    //   const string axisCode = mkAxisCode(std::get<0>(ref),
+    //                                      std::get<1>(ref),
+    //                                      std::get<2>(ref));
+    //   const RefT & refscatter = refData<RefT>(axisCode);
+
+    //   WrapT wtf(_weightNames(), T(refscatter, histoPath(axisCode)));
+    //   wtf = addAnalysisObject(wtf);
+
+    //   CounterPtr cnt(_weightNames(), Counter());
+    //   cnt = addAnalysisObject(cnt);
+
+    //   pctl.add(wtf, cnt);
+    //   return pctl;
+    // }
+
+
+  private:
+
+    // Functions that have to be defined in the .cc file to avoid circular #includes
+
+    /// Get the list of weight names from the handler
+    vector<string> _weightNames() const;
+
+    /// Get the default/nominal weight index
+    size_t _defaultWeightIndex() const;
+
+    /// Get an AO from another analysis
+    MultiweightAOPtr _getOtherAnalysisObject(const std::string & ananame, const std::string& name);
+
+    /// Check that analysis objects aren't being booked/registered outside the init stage
+    void _checkBookInit() const;
 
 
   private:
@@ -1009,187 +1051,207 @@ namespace Rivet {
     //@{
 
     /// Register a data object in the histogram system
-    void addAnalysisObject(const MultiweightAOPtr & ao);
-    /*
-    void addAnalysisObject(AnalysisObjectPtr ao);
+    template <typename AO=MultiweightAOPtr>
+    AO addAnalysisObject(const AO & aonew) {
+      _checkBookInit();
 
-    /// Register a data object in the system and return its pointer,
-    /// or, if an object of the same path is already there, check if it
-    /// is compatible (eg. same type and same binning) and return that
-    /// object instead. Emits a warning if an incompatible object with
-    /// the same name is found and replcaces that with the given data
-    /// object.
-    template <typename AO=YODA::AnalysisObject>
-    std::shared_ptr<AO> addOrGetCompatAO(std::shared_ptr<AO> aonew) {
-      foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
-        if ( ao->path() == aonew->path() ) {
-           std::shared_ptr<AO> aoold = dynamic_pointer_cast<AO>(ao);
-           if ( aoold && bookingCompatible(aonew, aoold) ) {
-             MSG_TRACE("Bound pre-existing data object " << aonew->path()
-                       <<  " for " << name());
-             return aoold;
-           } else {
-             MSG_WARNING("Found incompatible pre-existing data object with same path " 
-                         << aonew->path() <<  " for " << name());
-           }
+      for (const MultiweightAOPtr& ao : analysisObjects()) {
+
+        // Check AO base-name first
+        ao.get()->setActiveWeightIdx(_defaultWeightIndex());
+        aonew.get()->setActiveWeightIdx(_defaultWeightIndex());
+        if (ao->path() != aonew->path()) continue;
+
+        // If base-name matches, check compatibility
+        // NB. This evil is because dynamic_ptr_cast can't work on rivet_shared_ptr directly
+        AO aoold = AO(dynamic_pointer_cast<typename AO::value_type::Inner>(ao.get())); //< OMG
+        if ( !aoold || !bookingCompatible(aonew, aoold) ) {
+          MSG_WARNING("Found incompatible pre-existing data object with same base path "
+                      << aonew->path() <<  " for " << name());
+          throw LookupError("Found incompatible pre-existing data object with same base path during AO booking");
         }
+
+        // Finally, check all weight variations
+        for (size_t weightIdx = 0; weightIdx < _weightNames().size(); ++weightIdx) {
+          aoold.get()->setActiveWeightIdx(weightIdx);
+          aonew.get()->setActiveWeightIdx(weightIdx);
+          if (aoold->path() != aonew->path()) {
+            MSG_WARNING("Found incompatible pre-existing data object with different weight-path "
+                        << aonew->path() <<  " for " << name());
+            throw LookupError("Found incompatible pre-existing data object with same weight-path during AO booking");
+          }
+        }
+
+        // They're fully compatible: bind and return
+        aoold.get()->unsetActiveWeight();
+        MSG_TRACE("Bound pre-existing data object " << aoold->path() <<  " for " << name());
+        return aoold;
       }
-      MSG_TRACE("Registered " << aonew->annotation("Type") << " " << aonew->path()
-                <<  " for " << name());
-      addAnalysisObject(aonew);
+
+      // No equivalent found
+      MSG_TRACE("Registered " << aonew->annotation("Type") << " " << aonew->path() <<  " for " << name());
+      aonew.get()->unsetActiveWeight();
+
+      _analysisobjects.push_back(aonew);
       return aonew;
     }
-
-    /// Get a data object from the histogram system
-    template <typename AO=YODA::AnalysisObject>
-    const std::shared_ptr<AO> getAnalysisObject(const std::string& name) const {
-      foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
-        if (ao->path() == histoPath(name)) return dynamic_pointer_cast<AO>(ao);
-      }
-      throw LookupError("Data object " + histoPath(name) + " not found");
-    }
-
-    /// Get a data object from the histogram system (non-const)
-    template <typename AO=YODA::AnalysisObject>
-    std::shared_ptr<AO> getAnalysisObject(const std::string& name) {
-      foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
-        if (ao->path() == histoPath(name)) return dynamic_pointer_cast<AO>(ao);
-      }
-      throw LookupError("Data object " + histoPath(name) + " not found");
-    }
-    */
 
     /// Unregister a data object from the histogram system (by name)
     void removeAnalysisObject(const std::string& path);
 
     /// Unregister a data object from the histogram system (by pointer)
     void removeAnalysisObject(const MultiweightAOPtr & ao);
-    /*
-    void removeAnalysisObject(AnalysisObjectPtr ao);
 
-    /// Get all data object from the AnalysisHandler.
-    vector<AnalysisObjectPtr> getAllData(bool includeorphans) const;
+    // /// Get all data objects, for all analyses, from the AnalysisHandler
+    // /// @todo Can we remove this? Why not call handler().getData()?
+    // vector<YODA::AnalysisObjectPtr> getAllData(bool includeorphans) const;
+
+
+    /// Get a Rivet data object from the histogram system
+    template <typename AO=MultiweightAOPtr>
+    const AO getAnalysisObject(const std::string& name) const {
+      for (const MultiweightAOPtr& ao : analysisObjects()) {
+        ao.get()->setActiveWeightIdx(_defaultWeightIndex());
+        if (ao->path() == histoPath(name)) {
+          return dynamic_pointer_cast<AO>(ao);
+        }
+      }
+      throw LookupError("Data object " + histoPath(name) + " not found");
+    }
+
+
+    // /// Get a data object from the histogram system
+    // template <typename AO=YODA::AnalysisObject>
+    // const std::shared_ptr<AO> getAnalysisObject(const std::string& name) const {
+    //   foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
+    //     if (ao->path() == histoPath(name)) return dynamic_pointer_cast<AO>(ao);
+    //   }
+    //   throw LookupError("Data object " + histoPath(name) + " not found");
+    // }
+
+    // /// Get a data object from the histogram system (non-const)
+    // template <typename AO=YODA::AnalysisObject>
+    // std::shared_ptr<AO> getAnalysisObject(const std::string& name) {
+    //   foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
+    //     if (ao->path() == histoPath(name)) return dynamic_pointer_cast<AO>(ao);
+    //   }
+    //   throw LookupError("Data object " + histoPath(name) + " not found");
+    // }
+
 
     /// Get a data object from another analysis (e.g. preloaded
     /// calibration histogram).
-    /// Get a data object from the histogram system (non-const)
-    template <typename AO=YODA::AnalysisObject>
-    std::shared_ptr<AO> getAnalysisObject(const std::string & ananame,
-                                          const std::string& name) {
-      std::string path = "/" + ananame + "/" + name;
-      for ( AnalysisObjectPtr ao : getAllData(true) ) {
-        if ( ao->path() == path )
-          return dynamic_pointer_cast<AO>(ao);
-      }
-      return std::shared_ptr<AO>();
-    }
-    */
-
-    /*
-    /// Get a named Histo1D object from the histogram system
-    const Histo1DPtr getHisto1D(const std::string& name) const {
-      return getAnalysisObject<Histo1D>(name);
-    }
-
-    /// Get a named Histo1D object from the histogram system (non-const)
-    Histo1DPtr getHisto1D(const std::string& name) {
-      return getAnalysisObject<Histo1D>(name);
-    }
-
-    /// Get a Histo1D object from the histogram system by axis ID codes (non-const)
-    const Histo1DPtr getHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-      return getAnalysisObject<Histo1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
-
-    /// Get a Histo1D object from the histogram system by axis ID codes (non-const)
-    Histo1DPtr getHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-      return getAnalysisObject<Histo1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    template <typename AO=MultiweightAOPtr>
+    AO getAnalysisObject(const std::string & ananame,
+                         const std::string& name) {
+      MultiweightAOPtr ao = _getOtherAnalysisObject(ananame, name);
+      return dynamic_pointer_cast<AO>(ao);
     }
 
 
-    /// Get a named Histo2D object from the histogram system
-    const Histo2DPtr getHisto2D(const std::string& name) const {
-      return getAnalysisObject<Histo2D>(name);
-    }
+    // /// Get a named Histo1D object from the histogram system
+    // const Histo1DPtr getHisto1D(const std::string& name) const {
+    //   return getAnalysisObject<Histo1D>(name);
+    // }
 
-    /// Get a named Histo2D object from the histogram system (non-const)
-    Histo2DPtr getHisto2D(const std::string& name) {
-      return getAnalysisObject<Histo2D>(name);
-    }
+    // /// Get a named Histo1D object from the histogram system (non-const)
+    // Histo1DPtr getHisto1D(const std::string& name) {
+    //   return getAnalysisObject<Histo1D>(name);
+    // }
 
-    /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
-    const Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-      return getAnalysisObject<Histo2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
+    // /// Get a Histo1D object from the histogram system by axis ID codes (non-const)
+    // const Histo1DPtr getHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+    //   return getAnalysisObject<Histo1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // }
 
-    /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
-    Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-      return getAnalysisObject<Histo2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
-
-
-    /// Get a named Profile1D object from the histogram system
-    const Profile1DPtr getProfile1D(const std::string& name) const {
-      return getAnalysisObject<Profile1D>(name);
-    }
-
-    /// Get a named Profile1D object from the histogram system (non-const)
-    Profile1DPtr getProfile1D(const std::string& name) {
-      return getAnalysisObject<Profile1D>(name);
-    }
-
-    /// Get a Profile1D object from the histogram system by axis ID codes (non-const)
-    const Profile1DPtr getProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-      return getAnalysisObject<Profile1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
-
-    /// Get a Profile1D object from the histogram system by axis ID codes (non-const)
-    Profile1DPtr getProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-      return getAnalysisObject<Profile1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
+    // /// Get a Histo1D object from the histogram system by axis ID codes (non-const)
+    // Histo1DPtr getHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+    //   return getAnalysisObject<Histo1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // }
 
 
-    /// Get a named Profile2D object from the histogram system
-    const Profile2DPtr getProfile2D(const std::string& name) const {
-      return getAnalysisObject<Profile2D>(name);
-    }
+    // /// Get a named Histo2D object from the histogram system
+    // const Histo2DPtr getHisto2D(const std::string& name) const {
+    //   return getAnalysisObject<Histo2D>(name);
+    // }
 
-    /// Get a named Profile2D object from the histogram system (non-const)
-    Profile2DPtr getProfile2D(const std::string& name) {
-      return getAnalysisObject<Profile2D>(name);
-    }
+    // /// Get a named Histo2D object from the histogram system (non-const)
+    // Histo2DPtr getHisto2D(const std::string& name) {
+    //   return getAnalysisObject<Histo2D>(name);
+    // }
 
-    /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
-    const Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-      return getAnalysisObject<Profile2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
+    // /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
+    // const Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+    //   return getAnalysisObject<Histo2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // }
 
-    /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
-    Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-      return getAnalysisObject<Profile2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
+    // /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
+    // Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+    //   return getAnalysisObject<Histo2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // }
 
 
-    /// Get a named Scatter2D object from the histogram system
-    const Scatter2DPtr getScatter2D(const std::string& name) const {
-      return getAnalysisObject<Scatter2D>(name);
-    }
+    // /// Get a named Profile1D object from the histogram system
+    // const Profile1DPtr getProfile1D(const std::string& name) const {
+    //   return getAnalysisObject<Profile1D>(name);
+    // }
 
-    /// Get a named Scatter2D object from the histogram system (non-const)
-    Scatter2DPtr getScatter2D(const std::string& name) {
-      return getAnalysisObject<Scatter2D>(name);
-    }
+    // /// Get a named Profile1D object from the histogram system (non-const)
+    // Profile1DPtr getProfile1D(const std::string& name) {
+    //   return getAnalysisObject<Profile1D>(name);
+    // }
 
-    /// Get a Scatter2D object from the histogram system by axis ID codes (non-const)
-    const Scatter2DPtr getScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-      return getAnalysisObject<Scatter2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
+    // /// Get a Profile1D object from the histogram system by axis ID codes (non-const)
+    // const Profile1DPtr getProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+    //   return getAnalysisObject<Profile1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // }
 
-    /// Get a Scatter2D object from the histogram system by axis ID codes (non-const)
-    Scatter2DPtr getScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-      return getAnalysisObject<Scatter2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
-    */
+    // /// Get a Profile1D object from the histogram system by axis ID codes (non-const)
+    // Profile1DPtr getProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+    //   return getAnalysisObject<Profile1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // }
+
+
+    // /// Get a named Profile2D object from the histogram system
+    // const Profile2DPtr getProfile2D(const std::string& name) const {
+    //   return getAnalysisObject<Profile2D>(name);
+    // }
+
+    // /// Get a named Profile2D object from the histogram system (non-const)
+    // Profile2DPtr getProfile2D(const std::string& name) {
+    //   return getAnalysisObject<Profile2D>(name);
+    // }
+
+    // /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
+    // const Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+    //   return getAnalysisObject<Profile2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // }
+
+    // /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
+    // Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+    //   return getAnalysisObject<Profile2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // }
+
+
+    // /// Get a named Scatter2D object from the histogram system
+    // const Scatter2DPtr getScatter2D(const std::string& name) const {
+    //   return getAnalysisObject<Scatter2D>(name);
+    // }
+
+    // /// Get a named Scatter2D object from the histogram system (non-const)
+    // Scatter2DPtr getScatter2D(const std::string& name) {
+    //   return getAnalysisObject<Scatter2D>(name);
+    // }
+
+    // /// Get a Scatter2D object from the histogram system by axis ID codes (non-const)
+    // const Scatter2DPtr getScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+    //   return getAnalysisObject<Scatter2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // }
+
+    // /// Get a Scatter2D object from the histogram system by axis ID codes (non-const)
+    // Scatter2DPtr getScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+    //   return getAnalysisObject<Scatter2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // }
 
     //@}
 

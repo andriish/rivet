@@ -75,24 +75,10 @@ namespace Rivet {
     }
 
 
-    /*
-    /// @brief Set the sum of weights
-    ///
-    /// This is useful if Rivet is steered externally and
-    /// the analyses are run for a sub-contribution of the events
-    /// (but of course have to be normalised to the total sum of weights)
-    ///
-    /// @todo What about the sumW2 term? That needs to be set coherently. Need a
-    /// new version, with all three N,sumW,sumW2 numbers (or a counter)
-    /// supplied.
-    ///
-    /// @deprecated Weight sums are no longer tracked this way...
-    void setSumOfWeights(const double& sum) {
-      //_sumOfWeights = sum;
-      throw Error("Can't set sum of weights independently, since it's now tracked by a Counter. "
-                  "Please contact the Rivet authors if you need this.");
+    /// Get the index of the nominal weight-stream
+    size_t defaultWeightIndex() const {
+      return _defaultWeightIdx;
     }
-    */
 
 
     /// Set the cross-section for the process being generated.
@@ -101,6 +87,7 @@ namespace Rivet {
     /// Get the cross-section known to the handler.
     Scatter1DPtr crossSection() const { return _xs; }
 
+    /// Get the nominal cross-section
     double nominalCrossSection() const {
       _xs.get()->setActiveWeightIdx(_defaultWeightIdx);
       const YODA::Scatter1D::Points& ps = _xs->points();
@@ -165,7 +152,7 @@ namespace Rivet {
 
     /// @brief Add an analysis with a map of analysis options.
     AnalysisHandler& addAnalysis(const std::string& analysisname, std::map<string, string> pars);
-    
+
     /// @brief Add analyses to the run list using their names.
     ///
     /// The actual {@link Analysis}' to be used will be obtained via
@@ -218,8 +205,18 @@ namespace Rivet {
     /// Read analysis plots into the histo collection (via addData) from the named file.
     void readData(const std::string& filename);
 
+    /// Get all multi-weight Rivet analysis object wrappers
+    vector<MultiweightAOPtr> getRivetAOs() const;
+
+    /// Get single-weight YODA analysis objects
+    vector<YODA::AnalysisObjectPtr> getYodaAOs(bool includeorphans,
+                                               bool includetmps,
+                                               bool usefinalized) const;
+
     /// Get all analyses' plots as a vector of analysis objects.
-    std::vector<AnalysisObjectPtr> getData() const;
+    std::vector<YODA::AnalysisObjectPtr> getData(bool includeorphans = false,
+                                                 bool includetmps = false,
+                                                 bool usefinalized = true) const;
 
     /// Write all analyses' plots (via getData) to the named file.
     void writeData(const std::string& filename) const;
@@ -243,7 +240,7 @@ namespace Rivet {
     /// statistically independent) Rivet runs. The corresponding
     /// analyses will be loaded and their analysis objects will be
     /// filled with the merged result. finalize() will be run on each
-    /// relevant anslysis. The resulting YODA file can then be rwitten
+    /// relevant analysis. The resulting YODA file can then be rwitten
     /// out by writeData(). If delopts is non-empty, it is assumed to
     /// contain names different options to be merged into the same
     /// analysis objects.
@@ -252,7 +249,7 @@ namespace Rivet {
                     bool equiv = false);
 
     /// Helper function to strip specific options from data object paths.
-    void stripOptions(AnalysisObjectPtr ao,
+    void stripOptions(YODA::AnalysisObjectPtr ao,
                       const vector<string> & delopts) const;
 
     //@}
@@ -275,11 +272,11 @@ namespace Rivet {
 
     /// A vector of pre-loaded object which do not have a valid
     /// Analysis plugged in.
-    vector<AnalysisObjectPtr> _orphanedPreloads;
+    vector<YODA::AnalysisObjectPtr> _orphanedPreloads;
 
     /// A vector containing copies of analysis objects after
     /// finalize() has been run.
-    vector<AnalysisObjectPtr> _finalizedAOs;
+    vector<YODA::AnalysisObjectPtr> _finalizedAOs;
 
     /// @name Run properties
     //@{
@@ -293,7 +290,7 @@ namespace Rivet {
     std::string _runname;
 
     /// Event counter
-    mutable Counter _eventCounter;
+    mutable CounterPtr _eventCounter;
 
     /// Cross-section known to AH
     Scatter1DPtr _xs;
@@ -310,6 +307,7 @@ namespace Rivet {
     /// Current event number
     int _eventNumber;
 
+    /// The index in the weight vector for the nominal weight stream
     size_t _defaultWeightIdx;
 
     /// Determines how often Rivet runs finalize() and writes the

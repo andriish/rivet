@@ -32,7 +32,7 @@ public:
     _calhist = calhist->path();
     int N = calhist->numBins();
     double sum = calhist->sumW();
-    
+
     if ( increasing ) {
       double acc = calhist->underflow().sumW();
       _table.insert(make_pair(calhist->bin(0).xEdges().first, 100.0*acc/sum));
@@ -47,7 +47,7 @@ public:
         acc += calhist->bin(i).sumW();
         _table.insert(make_pair(calhist->bin(i).xEdges().first, 100.0*acc/sum));
       }
-    }    
+    }
   }
 
   // Constructor taking a SingleValueProjection and a calibration
@@ -78,7 +78,7 @@ public:
         acc += calscat->point(i).y();
         _table.insert(make_pair(calscat->point(i).xMin(), 100.0*acc/sum));
       }
-    }    
+    }
   }
 
   DEFAULT_RIVET_PROJ_CLONE(PercentileProjection);
@@ -98,10 +98,10 @@ public:
 
 
   // Standard comparison function.
-  int compare(const Projection& p) const {
-    const PercentileProjection pp =
-      dynamic_cast<const PercentileProjection&>(p);
-    return mkNamedPCmp(p, "OBSERVABLE") ||  cmp(_increasing,pp._increasing) ||
+  CmpState compare(const Projection& p) const {
+    const PercentileProjection pp = dynamic_cast<const PercentileProjection&>(p);
+    return mkNamedPCmp(p, "OBSERVABLE") ||
+      cmp(_increasing, pp._increasing) ||
       cmp(_calhist, pp._calhist);
   }
 

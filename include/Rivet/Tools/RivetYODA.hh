@@ -384,6 +384,8 @@ namespace Rivet {
   template <typename T>
   class rivet_shared_ptr {
   public:
+    typedef T value_type;
+
     rivet_shared_ptr() = default;
 
     rivet_shared_ptr(decltype(nullptr)) : _p(nullptr) {}
@@ -508,7 +510,7 @@ namespace Rivet {
   /// contents of @a src into @a dst and return true. Otherwise return
   /// false.
   template <typename T>
-  inline bool aocopy(AnalysisObjectPtr src, AnalysisObjectPtr dst) {
+  inline bool aocopy(YODA::AnalysisObjectPtr src, YODA::AnalysisObjectPtr dst) {
     shared_ptr<T> tsrc = dynamic_pointer_cast<T>(src);
     if ( !tsrc ) return false;
     shared_ptr<T> tdst = dynamic_pointer_cast<T>(dst);
@@ -521,7 +523,7 @@ namespace Rivet {
   /// contents of @a src into @a dst and return true. Otherwise return
   /// false.
   template <typename T>
-  inline bool aoadd(AnalysisObjectPtr dst, AnalysisObjectPtr src, double scale) {
+  inline bool aoadd(YODA::AnalysisObjectPtr dst, YODA::AnalysisObjectPtr src, double scale) {
     shared_ptr<T> tsrc = dynamic_pointer_cast<T>(src);
     if ( !tsrc ) return false;
     shared_ptr<T> tdst = dynamic_pointer_cast<T>(dst);
@@ -533,18 +535,15 @@ namespace Rivet {
 
   /// If @a dst is the same subclass as @a src, copy the contents of @a
   /// src into @a dst and return true. Otherwise return false.
-  bool copyao(AnalysisObjectPtr src, AnalysisObjectPtr dst);
+  bool copyao(YODA::AnalysisObjectPtr src, YODA::AnalysisObjectPtr dst);
 
   /// If @a dst is the same subclass as @a src, scale the contents of
   /// @a src with @a scale and add it to @a dst and return true. Otherwise
   /// return false.
-  bool addaos(AnalysisObjectPtr dst, AnalysisObjectPtr src, double scale);
+  bool addaos(YODA::AnalysisObjectPtr dst, YODA::AnalysisObjectPtr src, double scale);
 
   /// Check if two analysis objects have the same binning or, if not
   /// binned, are in other ways compatible.
-  // inline bool bookingCompatible(CounterPtr, CounterPtr) {
-  //   return true;
-  // }
   template <typename TPtr>
   inline bool bookingCompatible(TPtr a, TPtr b) {
     return a->sameBinning(*b);

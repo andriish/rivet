@@ -10,7 +10,7 @@ namespace Rivet {
 class GeneratedPercentileProjection: public SingleValueProjection {
 
 public:
-  
+
   GeneratedPercentileProjection() {
     setName("GeneratedPercentileProjection");
   }
@@ -28,14 +28,13 @@ protected:
       set(hi->centrality*100.0);
 #endif
    }
-  
-  int compare(const Projection& p) const {
-    return 0;
+
+  CmpState compare(const Projection& p) const {
+    return CmpState::EQ;
   }
-  
+
 };
 
 }
 
 #endif
-

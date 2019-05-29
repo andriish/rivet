@@ -10,7 +10,7 @@ namespace Rivet {
 class ImpactParameterProjection: public SingleValueProjection {
 
 public:
-  
+
   ImpactParameterProjection() {
     setName("ImpactParameterProjection");
   }
@@ -26,14 +26,13 @@ protected:
     if ( hi && hi->impact_parameter() >= 0.0 )
       set(hi->impact_parameter());
   }
-  
-  int compare(const Projection& p) const {
-    return 0;
+
+  CmpState compare(const Projection& p) const {
+    return CmpState::EQ;
   }
-  
+
 };
 
 }
 
 #endif
-
