@@ -40,6 +40,7 @@ cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
         vector[string] authors()
         vector[string] references()
         vector[string] keywords()
+        vector[string] validation()
         string name()
         string bibTeX()
         string bibKey()

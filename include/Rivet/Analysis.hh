@@ -221,6 +221,11 @@ namespace Rivet {
       return info().todos();
     }
 
+    /// make-style commands for validating this analysis.
+    virtual std::vector<std::string> validation() const {
+      return info().validation();
+    }
+
 
     /// Return the allowed pairs of incoming beams required by this analysis.
     virtual const std::vector<PdgIdPair>& requiredBeams() const {

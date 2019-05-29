@@ -208,7 +208,9 @@ namespace Rivet {
     void buildOptionMap();
 
     /// List a series of command lines to be used for valdation
-    const vector<string> & validation();
+    const vector<string> & validation() const {
+      return _validation;
+    }
 
     /// Return true if this analysis needs to know the process cross-section.
     bool needsCrossSection() const { return _needsCrossSection; }
