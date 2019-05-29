@@ -120,7 +120,11 @@ namespace Rivet {
       log << Log::TRACE << "Applying projection " << &p << " (" << p.name() << ") -> comparing to projections " << _projections << '\n';
       // First search for this projection *or an equivalent* in the already-executed list
       const Projection* cpp(&p);
-      std::set<const Projection*>::const_iterator old = _projections.find(cpp);
+      //std::set<const Projection*>::const_iterator old = _projections.find(cpp);
+      std::set<const Projection*>::const_iterator old = std::begin(_projections);
+      std::uintptr_t recpp = reinterpret_cast<std::uintptr_t>(cpp);
+      for (; old != _projections.end(); ++old)
+        if (reinterpret_cast<std::uintptr_t>(*old) == recpp)  break;
       if (old != _projections.end()) {
         log << Log::TRACE << "Equivalent projection found -> returning already-run projection " << *old << '\n';
         const Projection& pRef = **old;
