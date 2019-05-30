@@ -107,8 +107,6 @@ namespace Rivet {
 
       void analyze(const Event& event) {
 
-        const double weight = event.weight();
-
 	if (_mode != 0){
 
 	  // Parton-level top quarks
@@ -159,7 +157,7 @@ namespace Rivet {
 	      fillParton("tt_Ht", (t1_parton.pT() + t2_parton.pT())/GeV);
 	      fillParton("tt_y",  ttbar_parton.absrap());
 
-	      fillParton("tt_yboost", 0.5 * abs(t1_parton.rapidity() + t2_parton.rapidity()), weight);
+	      fillParton("tt_yboost", 0.5 * abs(t1_parton.rapidity() + t2_parton.rapidity()));
 	      fillParton("tt_chi", chi_parton);
 	      fillParton("tt_cosThStar", cosThetaStar_parton);
 	      fillParton("tt_pout", pout_parton/GeV);

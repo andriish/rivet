@@ -28,7 +28,7 @@ namespace Rivet {
     // The centrality bins' upper edges.
     centralityBins = {90., 60., 40., 30., 20., 10., 5., 1.};
     for (int i = 0; i < 8; ++i) {
-      histEta[centralityBins[i]] = bookHisto1D(2, 1, i + 1);
+      book(histEta[centralityBins[i]], 2, 1, i + 1);
       sow[centralityBins[i]] = 0.;
     }
   }

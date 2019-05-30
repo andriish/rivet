@@ -18,7 +18,7 @@ namespace Rivet {
     /// Constructor
     ATLAS_2015_CONF_2015_041(const string name="ATLAS_2015_CONF_2015_041", size_t channel = 0,
                              const string ref_data="ATLAS_2015_CONF_2015_041")
-                             : Analysis(name), _weights(5, 0.0) {
+                             : Analysis(name) {
       _mode = channel; // This class uses the combined e+mu mode
       setRefDataName(ref_data);
     }
@@ -47,6 +47,7 @@ namespace Rivet {
       book(_hNjets_comb      ,1, 2, _mode + 1);
       book(_hNjetsRatio_comb ,2, 2, _mode + 1, true);
 
+      _weights.resize(5);
       for (size_t i = 0; i < 5; i++)
         book(_weights[i], "_weights" + to_str(i));
     }

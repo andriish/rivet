@@ -71,34 +71,34 @@ namespace Rivet {
 
       // MET
       if (_mode == 0 || _mode == 1){
-	book(_h["vvg"], 2, 1, 1);
-	book(_h["vvgg"], 4, 1, 1);
-	book(_h["pT"], 7, 1, 1);
-	book(_h["pT_0jet"], 8, 1, 1);
+        book(_h["vvg"], 2, 1, 1);
+        book(_h["vvgg"], 4, 1, 1);
+        book(_h["pT"], 7, 1, 1);
+        book(_h["pT_0jet"], 8, 1, 1);
       }
 	
       if (_mode == 0 || _mode == 2 || _mode == 4){
 	// electron
-	book(_h["eeg"], 1, 1, 1);
-	book(_h["eegg"], 3, 1, 1);
+        book(_h["eeg"], 1, 1, 1);
+        book(_h["eegg"], 3, 1, 1);
       }
 
 
       // muon
       if (_mode == 0 || _mode == 3 || _mode == 4){
-	book(_h["mmg"], 1, 1, 2);
-	book(_h["mmgg"], 3, 1, 2);
+        book(_h["mmg"], 1, 1, 2);
+        book(_h["mmgg"], 3, 1, 2);
       }
 
       // combined
       if (_mode != 1){
-	book(_h["llgg"], 3, 1, 3);
-	book(_h["llg"], 1, 1, 3);
-	book(_h["pT"], 5, 1, 1);
-	book(_h["pT_0jet"], 6, 1, 1);
-	book(_h["M"], 9, 1, 1);
-	book(_h["M_0jet"], 10, 1, 1);
-	book(_h["Njets"], 11, 1, 1);
+        book(_h["llgg"], 3, 1, 3);
+        book(_h["llg"], 1, 1, 3);
+        book(_h["pT"], 5, 1, 1);
+        book(_h["pT_0jet"], 6, 1, 1);
+        book(_h["M"], 9, 1, 1);
+        book(_h["M_0jet"], 10, 1, 1);
+        book(_h["Njets"], 11, 1, 1);
       }
     }
 
@@ -153,8 +153,8 @@ namespace Rivet {
 	  yy_veto |= photon1iso/photons[1].pT() > 0.5;
 	  
 	  if (!yy_veto) {
-	    _h["vvgg"]->fill(0.5, weight);
-	    if (!njets)  _h["vvgg"]->fill(1.5, weight);
+	    _h["vvgg"]->fill(0.5);
+	    if (!njets)  _h["vvgg"]->fill(1.5);
 	  }
 	} // end of nu nu y y section
       
@@ -304,7 +304,7 @@ namespace Rivet {
 	  
 	  _h["pT"]->fill(pTgamma);
 	  _h["M"]->fill(mllgamma);
-	  _h["Njets"]->fill(njets < 3? njets : 3, weight);
+	  _h["Njets"]->fill(njets < 3? njets : 3);
 	  
 	  _h["llg"]->fill(0.5);
 	  if (el) {
@@ -335,13 +335,13 @@ namespace Rivet {
       // if we are running both e and mu, the combined lepton histos
       // need to be divided by two to get the average
       if (_mode == 0 || _mode == 4){
-	scale(_h["llgg"], 0.5);
-	scale(_h["llg"], 0.5);
-	scale(_h["pT"], 0.5);
-	scale(_h["pT_0jet"], 0.5);
-	scale(_h["M"], 0.5);
-	scale(_h["M_0jet"], 0.5);
-	scale(_h["Njets"], 0.5);
+        scale(_h["llgg"], 0.5);
+        scale(_h["llg"], 0.5);
+        scale(_h["pT"], 0.5);
+        scale(_h["pT_0jet"], 0.5);
+        scale(_h["M"], 0.5);
+        scale(_h["M_0jet"], 0.5);
+        scale(_h["Njets"], 0.5);
       }
     }
 

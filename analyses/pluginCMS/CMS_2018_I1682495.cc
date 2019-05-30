@@ -38,10 +38,10 @@ namespace Rivet {
 
       // Histograms
       for (size_t i = 0; i < N_PT_BINS_dj; ++i ) {
-        _h_ungroomedJetMass_dj[i][0] = bookHisto1D(i+1+0*N_PT_BINS_dj, 1, 1); // Ungroomed mass, absolute
-        _h_sdJetMass_dj[i][0]        = bookHisto1D(i+1+1*N_PT_BINS_dj, 1, 1); // Groomed mass, absolute
-        _h_ungroomedJetMass_dj[i][1] = bookHisto1D(i+1+2*N_PT_BINS_dj, 1, 1); // Ungroomed mass, normalized
-        _h_sdJetMass_dj[i][1]        = bookHisto1D(i+1+3*N_PT_BINS_dj, 1, 1); // Groomed mass, normalized
+        book(_h_ungroomedJetMass_dj[i][0], i+1+0*N_PT_BINS_dj, 1, 1); // Ungroomed mass, absolute
+        book(_h_sdJetMass_dj[i][0],        i+1+1*N_PT_BINS_dj, 1, 1); // Groomed mass, absolute
+        book(_h_ungroomedJetMass_dj[i][1], i+1+2*N_PT_BINS_dj, 1, 1); // Ungroomed mass, normalized
+        book(_h_sdJetMass_dj[i][1],        i+1+3*N_PT_BINS_dj, 1, 1); // Groomed mass, normalized
       }
     }
 
@@ -59,7 +59,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
 
       // Look at events with >= 2 jets
       auto jetsAK8 = applyProjection<FastJets>(event, "JetsAK8").jetsByPt(Cuts::pT > 200*GeV and Cuts::abseta < 2.4);
@@ -80,8 +79,8 @@ namespace Rivet {
       const size_t njetBin1 = findPtBin(j1.pt()/GeV);
       if (njetBin0 < N_PT_BINS_dj && njetBin1 < N_PT_BINS_dj) {
         for ( size_t jbin = 0; jbin < N_CATEGORIES; jbin++ ){
-          _h_ungroomedJetMass_dj[njetBin0][jbin]->fill(j0.m()/GeV, weight);
-          _h_ungroomedJetMass_dj[njetBin1][jbin]->fill(j1.m()/GeV, weight);
+          _h_ungroomedJetMass_dj[njetBin0][jbin]->fill(j0.m()/GeV);
+          _h_ungroomedJetMass_dj[njetBin1][jbin]->fill(j1.m()/GeV);
         }
       }
 
@@ -91,8 +90,8 @@ namespace Rivet {
       // ... and repeat
       if (njetBin0 < N_PT_BINS_dj && njetBin1 < N_PT_BINS_dj) {
         for ( size_t jbin = 0; jbin < N_CATEGORIES; jbin++ ){
-          _h_sdJetMass_dj[njetBin0][jbin]->fill(sd0.m()/GeV, weight);
-          _h_sdJetMass_dj[njetBin1][jbin]->fill(sd1.m()/GeV, weight);
+          _h_sdJetMass_dj[njetBin0][jbin]->fill(sd0.m()/GeV);
+          _h_sdJetMass_dj[njetBin1][jbin]->fill(sd1.m()/GeV);
         }
       }
     }
@@ -136,7 +135,7 @@ namespace Rivet {
            PT_1100_1200_dj,
            PT_1200_1300_dj,
            PT_1300_Inf_dj,
-           N_PT_BINS_dj } BINS_dj;
+           N_PT_BINS_dj };
     static const int N_CATEGORIES=2;
 
     Histo1DPtr _h_ungroomedJet0pt, _h_ungroomedJet1pt;

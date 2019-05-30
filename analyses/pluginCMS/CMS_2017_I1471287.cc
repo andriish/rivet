@@ -64,25 +64,25 @@ namespace Rivet {
       declare(lfsnpT, "LFSN");
 
       // v22 |delta eta| > 2 (fig 4a)
-      h_v22 = bookScatter2D(1, 1, 1, true);
+      book(h_v22, 1, 1, 1, true);
       // v32 |delta eta| > 2 (fig 4b)
-      h_v32 = bookScatter2D(3, 1, 1, true);
+      book(h_v32, 3, 1, 1, true);
       // v22(pT) high mult., high pT (fig 6a)
-      h_v22pT = bookScatter2D(11, 1, 1, true);
+      book(h_v22pT, 11, 1, 1, true);
       // v22(pT) charged low mult. (fig. 7a)
-      h_v22pTh = bookScatter2D(17, 1, 1, true);
+      book(h_v22pTh, 17, 1, 1, true);
       // v22(pT) K0S low mult. (fig. 7a)
-      h_v22pTK = bookScatter2D(18, 1, 1, true);
+      book(h_v22pTK, 18, 1, 1, true);
       // v22(pT) Lambda low mult. (fig. 7a)
-      h_v22pTL = bookScatter2D(19, 1, 1, true);
+      book(h_v22pTL, 19, 1, 1, true);
       // v22(pT) K0S high mult. (fig. 7b)
-      h_v22pTKc = bookScatter2D(21, 1, 1, true);
+      book(h_v22pTKc, 21, 1, 1, true);
       // v22(pT) Lambda high mult. (fig. 7b)
-      h_v22pTLc = bookScatter2D(22, 1, 1, true);
+      book(h_v22pTLc, 22, 1, 1, true);
       // c24 (fig. 9a)
-      h_c24 = bookScatter2D(28, 1, 1, true);
+      book(h_c24, 28, 1, 1, true);
       // c26 (fig. 9b)
-      h_c26 = bookScatter2D(31, 1, 1, true);
+      book(h_c26, 31, 1, 1, true);
 
       // Corresponding event averaged correlators.
       ec22 = bookECorrelatorGap<2,2>("ec22",h_v22);
@@ -149,7 +149,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double w = event.weight();
       const double nTrk = apply<ChargedFinalState>(event, "CFSMult").particles().size();
       if (nTrk < 10) vetoEvent;
 
@@ -177,24 +176,24 @@ namespace Rivet {
       const Correlators& cpHighL = apply<Correlators>(event, "CPosHighPTL");
       const Correlators& cnHighL = apply<Correlators>(event, "CNegHighPTL");
 
-      ec22->fill(nTrk, cp, cn, w);
-      ec32->fill(nTrk, cp, cn, w);
+      ec22->fill(nTrk, cp, cn);
+      ec32->fill(nTrk, cp, cn);
 
-      ec22_4->fill(nTrk, ch, w);
-      ec24_4->fill(nTrk, ch, w);
-      ec22_6->fill(nTrk, ch, w);
-      ec24_6->fill(nTrk, ch, w);
-      ec26_6->fill(nTrk, ch, w);
+      ec22_4->fill(nTrk, ch);
+      ec24_4->fill(nTrk, ch);
+      ec22_6->fill(nTrk, ch);
+      ec24_6->fill(nTrk, ch);
+      ec26_6->fill(nTrk, ch);
 
       if (nTrk < 20) {
-        ec22pTh->fill(cpLow, cnLow, w);
-        ec22pTK->fill(cpLowK, cnLowK, w);
-        ec22pTL->fill(cpLowL, cnLowL, w);
+        ec22pTh->fill(cpLow, cnLow);
+        ec22pTK->fill(cpLowK, cnLowK);
+        ec22pTL->fill(cpLowL, cnLowL);
       }
       else if(nTrk >= 105 && nTrk < 150)
-        ec22pT->fill(cpHigh, cnHigh, w);
-        ec22pTKc->fill(cpHighK, cnHighK, w);
-        ec22pTLc->fill(cpHighL, cnHighL, w);
+        ec22pT->fill(cpHigh, cnHigh);
+        ec22pTKc->fill(cpHighK, cnHighK);
+        ec22pTLc->fill(cpHighL, cnHighL);
       }
 
 

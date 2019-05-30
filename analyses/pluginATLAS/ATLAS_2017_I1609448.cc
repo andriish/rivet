@@ -18,7 +18,6 @@ namespace Rivet {
     ATLAS_2017_I1609448(const string name="ATLAS_2017_I1609448", size_t channel = 0,
                         const string ref_data="ATLAS_2017_I1609448") : Analysis(name) {
       _mode = channel; // using Z -> nunu channel by default
-      setNeedsCrossSection(true);
       setRefDataName(ref_data);
     }
 

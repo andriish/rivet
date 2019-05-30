@@ -55,10 +55,10 @@ namespace Rivet {
 
       // Histograms
       if (_mode != 2){
-	_h_fiducial_3l = bookCounter("d01-x01-y01");
+	book(_h_fiducial_3l, "d01-x01-y01");
       }
       if (_mode != 1){
-	_h_2l2j = bookCounter("d01-x01-y02");
+	book(_h_2l2j, "d01-x01-y02");
       }
     }
 
@@ -134,7 +134,7 @@ namespace Rivet {
 	    }
 	    // Fill histo
 	    if (!setVeto) {
-	      _h_fiducial_3l->fill(event.weight());
+	      _h_fiducial_3l->fill();
 	    }
 	  }
 	}
@@ -202,7 +202,7 @@ namespace Rivet {
 	  if (met.vectorEt().mod() < 55*GeV && (leps[0].abspid() != PID::MUON || leps[1].abspid() != PID::MUON)) vetoEvent;
 
 	  // Fill counter
-	  _h_2l2j->fill(event.weight());
+	  _h_2l2j->fill();
 	}
       }
     }

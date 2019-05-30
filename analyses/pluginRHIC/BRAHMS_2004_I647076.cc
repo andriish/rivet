@@ -34,9 +34,9 @@ namespace Rivet {
     }
 
     // Compare to another projection.
-    virtual int compare(const Projection& p) const {
+    virtual CmpState compare(const Projection& p) const {
       // This projection is only used for the analysis below.
-      return UNDEFINED;
+      return CmpState::NEQ;
     }
 
   };
@@ -55,22 +55,22 @@ namespace Rivet {
        declare(ImpactParameterProjection(), "IMP");
        
        // The central multiplicity.
-       mult = bookHisto1D("mult",450,0,4500);
+       book(mult, "mult",450,0,4500);
        
        // Safeguard against filling preloaded histograms.
        done = (mult->numEntries() > 0);
 
        // The impact parameter.
-       imp = bookHisto1D("mult_IMP",100,0,20);
+       book(imp, "mult_IMP",100,0,20);
     }
 
     // Analyse a single event
     void analyze(const Event& event) {
       if (done) return;
       // Fill impact parameter.
-      imp->fill(apply<SingleValueProjection>(event,"IMP")(), event.weight());
+      imp->fill(apply<SingleValueProjection>(event,"IMP")());
       // Fill multiplicity.
-      mult->fill(apply<SingleValueProjection>(event,"Centrality")(), event.weight());
+      mult->fill(apply<SingleValueProjection>(event,"Centrality")());
     }
 
     // Finalize the analysis
@@ -122,29 +122,33 @@ namespace Rivet {
       rapIntervalsK = {{-0.1,0.},{0.,0.1},{0.4,0.6},{0.6,0.8},{0.8,1.0},
         {1.0,1.2},{2.0,2.2},{2.3,2.5},{2.9,3.0},{3.0,3.1},{3.1,3.2},{3.2,3.4}};
       // Book histograms
+      piPlus.resize(rapIntervalsPi.size());
+      piMinus.resize(rapIntervalsPi.size());
       for (int i = 1, N = rapIntervalsPi.size(); i <= N; ++i) {
-        piPlus.push_back(bookHisto1D(1, 1, i));
-        piMinus.push_back(bookHisto1D(1, 1, 14 + i));
+        book(piPlus[i], 1, 1, i);
+        book(piMinus[i], 1, 1, 14 + i);
       }
+
+      kPlus.resize(rapIntervalsK.size());
+      kMinus.resize(rapIntervalsK.size());
       for (int i = 1, N = rapIntervalsK.size(); i <= N; ++i) {
-        kPlus.push_back(bookHisto1D(2, 1, i));
-        kMinus.push_back(bookHisto1D(2, 1, 12 + i));
+        book(kPlus[i], 2, 1, i);
+        book(kMinus[i], 2, 1, 12 + i);
       }
       // Counter for accepted sum of weights (centrality cut).
-      centSow = bookCounter("centSow");
+      book(centSow, "centSow");
 
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double w = event.weight();
       // Reject all non-central events. The paper does not speak of 
       // any other event trigger, which in any case should matter
       // little for central events.
       if(apply<CentralityProjection>(event,"BCEN")() > 5.0) return;
       // Keep track of sum of weights.
-      centSow->fill(w);
+      centSow->fill();
       const FinalState& fs = apply<FinalState>(event,"FS");
       // Loop over particles.
       for (const auto& p : fs.particles()) {
@@ -159,7 +163,7 @@ namespace Rivet {
 	  for (int i = 0, N = rapIntervalsPi.size(); i < N; ++i) {
 	    if (y > rapIntervalsPi[i].first && y <= rapIntervalsPi[i].second) {
 	      const double dy = rapIntervalsPi[i].second - rapIntervalsPi[i].first;
-	      const double nWeight = w / ( 2.*M_PI*pT*dy);
+	      const double nWeight = 1.0 / ( 2.*M_PI*pT*dy);
 	      if (id == 211) piPlus[i]->fill(pT, nWeight);
 	      else piMinus[i]->fill(pT, nWeight);
 	      break;
@@ -171,7 +175,7 @@ namespace Rivet {
 	  for (int i = 0, N = rapIntervalsK.size(); i < N; ++i) {
 	    if (y > rapIntervalsK[i].first && y <= rapIntervalsK[i].second) {
 	      const double dy = rapIntervalsK[i].second - rapIntervalsK[i].first;
-	      const double nWeight = w / ( 2.*M_PI*pT*dy);
+	      const double nWeight = 1.0 / ( 2.*M_PI*pT*dy);
 	      if (id == 321) kPlus[i]->fill(pT, nWeight);
 	      else kMinus[i]->fill(pT, nWeight);
 	      break;

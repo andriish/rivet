@@ -29,20 +29,20 @@ namespace Rivet {
       if ( getOption("LMODE") == "EL" ) { _mode = 2;}
       if ( getOption("LMODE") == "MU" ) _mode = 3;
       if ( getOption("LMODE") == "ZEL" ) {
-	_mode = 2;
-	_doW  = false;
+        _mode = 2;
+        _doW  = false;
       }
       if ( getOption("LMODE") == "ZMU" ) {
-	_mode = 3;
-	_doW  = false;
+        _mode = 3;
+        _doW  = false;
       }
       if ( getOption("LMODE") == "WEL" ) {
-	_mode = 2;
-	_doZ  = false;
+        _mode = 2;
+        _doZ  = false;
       }
       if ( getOption("LMODE") == "WMU" ) {
-	_mode = 3;
-	_doZ  = false;
+        _mode = 3;
+        _doZ  = false;
       }
 
       FinalState fs;
@@ -52,15 +52,16 @@ namespace Rivet {
 
       // Z finder
       if (_doZ) {
-	ZFinder zf(fs, cuts, _mode==3? PID::MUON : PID::ELECTRON, 40.0*GeV, 1000.0*GeV, 0.1, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
-	declare(zf, "ZF");
+        ZFinder zf(fs, cuts, _mode==3? PID::MUON : PID::ELECTRON, 40.0*GeV, 1000.0*GeV, 0.1, 
+                   ZFinder::ChargedLeptons::PROMPT, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::NO);
+        declare(zf, "ZF");
       }
 
       if (_doW) {
-	// W finder for electrons and muons
-	WFinder wf(fs, cuts, _mode==3? PID::MUON : PID::ELECTRON, 0.0*GeV, 1000.0*GeV, 35.0*GeV, 0.1,
-                                     WFinder::CLUSTERNODECAY, WFinder::NOTRACK, WFinder::TRANSMASS);
-	declare(wf, "WF");
+        // W finder for electrons and muons
+        WFinder wf(fs, cuts, _mode==3? PID::MUON : PID::ELECTRON, 0.0*GeV, 1000.0*GeV, 35.0*GeV, 0.1,
+                   WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
+        declare(wf, "WF");
       }
 
       // leading photon
@@ -73,8 +74,7 @@ namespace Rivet {
       if (_doZ) { jet_fs.addVetoOnThisFinalState(getProjection<ZFinder>("ZF")); }
       if (_doW) { jet_fs.addVetoOnThisFinalState(getProjection<WFinder>("WF")); }
       jet_fs.addVetoOnThisFinalState(getProjection<LeadingParticlesFinalState>("LeadingPhoton"));
-      FastJets jets(jet_fs, FastJets::ANTIKT, 0.4);
-      jets.useInvisibles(true);
+      FastJets jets(jet_fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::ALL, JetAlg::Invisibles::NONE);
       declare(jets, "Jets");
 
       // FS excluding the leading photon
@@ -180,7 +180,7 @@ namespace Rivet {
 	  if ( (Zboson.mass() > 40.0*GeV) ) {
 	    
 	    // check charge of constituent leptons
-	    const ParticleVector& leptons = zf.constituents();
+	    const Particles& leptons = zf.constituents();
 	    if (leptons.size() == 2 && leptons[0].charge() * leptons[1].charge() < 0.) {
 	      
 	      bool lpass = true;
@@ -194,7 +194,7 @@ namespace Rivet {
 		const FastJets& jetfs = apply<FastJets>(event, "Jets");
 		Jets jets = jetfs.jets(cmpMomByEt);
 		int goodJets = 0;
-		foreach (const Jet& j, jets) {
+		for (const Jet& j : jets) {
 		  if ( !(j.Et() > 30.0*GeV) )  break;
 		  if ( (j.abseta() < 4.4) &&		    \
 		       (deltaR(leadingPhoton, j) > 0.3) &&  \

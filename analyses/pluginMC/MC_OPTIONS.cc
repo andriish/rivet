@@ -2,6 +2,9 @@
 #include "Rivet/Analysis.hh"
 
 namespace Rivet {
+  using std::istream;
+  using std::ostream;
+
   // Example analysis to show how to use options in an analysis
   // Example of a custom class to be read in from an option.
   class A {
@@ -49,7 +52,7 @@ namespace Rivet {
       cout << "bar = " << s << endl;
       cout << "baz = " << a << endl;
       value = f;
-      h = bookHisto1D("hist",10,0,10);
+      book(h, "hist",10,0,10);
     }
 
     // Perform the per-event analysis

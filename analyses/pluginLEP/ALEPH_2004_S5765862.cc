@@ -33,8 +33,7 @@ namespace Rivet {
       //       uncertainties and overly complicated to program, so we ignore it.
       const FinalState fs;
       declare(fs, "FS");
-      FastJets durhamjets(fs, FastJets::DURHAM, 0.7);
-      durhamjets.useInvisibles(true);
+      FastJets durhamjets(fs, FastJets::DURHAM, 0.7, JetAlg::Muons::ALL, JetAlg::Invisibles::ALL);
       declare(durhamjets, "DurhamJets");
 
       const Thrust thrust(fs);

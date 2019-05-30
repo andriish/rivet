@@ -32,7 +32,7 @@ namespace Rivet {
     }
 
     /// Compare projections.
-    int compare(const Projection& p) const {
+    CmpState compare(const Projection& p) const {
       return mkNamedPCmp(p, "FSCentralMultCent");
     }
   
@@ -54,7 +54,7 @@ namespace Rivet {
     declare(ImpactParameterProjection(), "IMP");
 
     // The calibration histogram:
-    _calib = bookHisto1D("CMULT", 100, 0.0, 2000.0);
+    book(_calib, "CMULT", 100, 0.0, 2000.0);
 
     // If histogram was pre-loaded, the calibration is done.
     _done = ( _calib->numEntries() > 0 );
@@ -63,7 +63,7 @@ namespace Rivet {
     // it MUST be named the same as the histogram for the experimental
     // observable with an added _IMP suffix for the Pecentile<>
     // binning to work properly.
-    _impcalib = bookHisto1D("CMULT_IMP", 400, 0.0, 20.0);
+    book(_impcalib, "CMULT_IMP", 400, 0.0, 20.0);
 
 
   }
@@ -73,15 +73,14 @@ namespace Rivet {
 
     if ( _done ) return;
     
-    const double weight = event.weight();
 
     // The alternative centrality based on generated impact
     // parameter, assumes that the generator does not describe the
     // full final state, and should therefore be filled even if the
     // event is not triggered.
-    _impcalib->fill(apply<SingleValueProjection>(event, "IMP")(), weight);
+    _impcalib->fill(apply<SingleValueProjection>(event, "IMP")());
 
-    _calib->fill(apply<SingleValueProjection>(event, "Centrality")(), weight);
+    _calib->fill(apply<SingleValueProjection>(event, "Centrality")());
 
   }
   
@@ -134,13 +133,12 @@ private:
 	}
 	if (energy == -1) MSG_ERROR("Incompatible beam energy!");
 	for (int i = 0; i < 9; ++i)
-	  h_v32[centralityBins[i]] = bookProfile1D(1 + i + 9 * energy, 1, 1);
+	  book(h_v32[centralityBins[i]], 1 + i + 9 * energy, 1, 1);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
       const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
       // Require at least two charged particles for the analysis to make sense.
       // No further triggers are described in the paper.
@@ -159,7 +157,7 @@ private:
 	  if(eta1 * eta2 < 0){
             const double deltaPhi = abs(particles[i].phi() - particles[j].phi());
             // Fill profile with v_2(2)^2 from eq. (1) in the paper.
-	    hItr->second->fill(abs(eta1 - eta2), cos(3.*deltaPhi),  weight);
+	    hItr->second->fill(abs(eta1 - eta2), cos(3.*deltaPhi));
           }
         }
        }

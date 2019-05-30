@@ -74,8 +74,7 @@ namespace Rivet {
       vfs.addVetoOnThisFinalState(ewdressedelectrons);
       vfs.addVetoOnThisFinalState(ewdressedmuons);
       vfs.addVetoOnThisFinalState(neutrinos);
-      FastJets jets(vfs, FastJets::ANTIKT, 0.4);
-      jets.useInvisibles(true);
+      FastJets jets(vfs, FastJets::ANTIKT, 0.4, JetAlg::Muons::ALL, JetAlg::Invisibles::ALL);
       declare(jets, "jets");
 
       // Addition of the large-R jets
@@ -295,7 +294,7 @@ namespace Rivet {
 
 
     void fillHists(std::string name, double value) {
-      _h[name]->fill(value, weight);
+      _h[name]->fill(value);
       _h[name + "_norm"]->fill(value);
     }
 

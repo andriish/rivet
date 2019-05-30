@@ -21,7 +21,7 @@ namespace Rivet {
 
       // Initialise and register projections
       declare(PartonicTops(PartonicTops::DecayMode::ALL), "AllTops");
-      declare(PartonicTops(PartonicTops::DecayMode::ALL, true, false, Cuts::OPEN, PartonicTops::FIRST), "AllTopsFirst"); ///< @todo API ick!
+      declare(PartonicTops(PartonicTops::DecayMode::ALL, true, false, Cuts::OPEN, PartonicTops::WhichTop::FIRST), "AllTopsFirst"); ///< @todo API ick!
       declare(PartonicTops(PartonicTops::DecayMode::E_MU), "LeptonicTops");
       declare(PartonicTops(PartonicTops::DecayMode::HADRONIC), "HadronicTops");
 
@@ -56,10 +56,10 @@ namespace Rivet {
       }
 
       const Particles& alltops_first = apply<PartonicTops>(event, "AllTopsFirst").particlesByPt();
-      _h_tall_n_first->fill(alltops_first.size(), event.weight());
+      _h_tall_n_first->fill(alltops_first.size());
       for (const Particle& t : alltops_first) {
-        _h_tall_pt_first->fill(t.pT()/GeV, event.weight());
-        _h_tall_y_first->fill(t.rap(), event.weight());
+        _h_tall_pt_first->fill(t.pT()/GeV);
+        _h_tall_y_first->fill(t.rap());
       }
 
       const Particles& leptops = apply<PartonicTops>(event, "LeptonicTops").particlesByPt();
