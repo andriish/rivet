@@ -58,11 +58,21 @@ args = parser.parse_args()
 
 
 ## Get all analysis names
-all_analyses = rivet.AnalysisLoader.analysisNames()
-for aname in all_analyses:
-    ana = rivet.AnalysisLoader.getAnalysis(aname)
-    if ana.validation():
-        print(ana.validation())
+#all_analyses = rivet.AnalysisLoader.analysisNames()
+#for aname in all_analyses:
+ananame = "MC_Cent_pPb_Eta"
+ana = rivet.AnalysisLoader.getAnalysis(ananame)
+for line in ana.validation():
+    line = line.replace("$A", ananame)
+    sublines = line.split(";");
+    targets = sublines[0].split(" ")
+    targetname = targets[0]
+    hepmcname = targets[1]
+    if len(sublines) == 1:
+        print(targetname + ".yoda: " + hepmcname + ".yoda " + " ".join(targets[2:]))    
+        print("\tyoda2yoda -m " + targetname + " " + hepmcname + ".yoda -o " + targetname + ".yoda")
+    else:
+        print(targetname + ".yoda: " + hepmcname + " " + " ".join(targets[2:]))    
+        for subline in sublines[1:]:
+            print("\t" + subline.strip())
 
-
- 

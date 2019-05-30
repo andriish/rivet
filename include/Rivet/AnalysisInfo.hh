@@ -208,7 +208,7 @@ namespace Rivet {
     void buildOptionMap();
 
     /// List a series of command lines to be used for valdation
-    const vector<string> & validation() const {
+    const std::vector<std::string> & validation() const {
       return _validation;
     }
 
