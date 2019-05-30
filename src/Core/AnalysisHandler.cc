@@ -80,10 +80,12 @@ namespace Rivet {
     _eventNumber = ge.event_number();
 
     setWeightNames(ge);
-    if (haveNamedWeights())
+    if (_skipWeights)
+        MSG_INFO("Only using nominal weight, variation weights will be ignored.");
+    else if (haveNamedWeights())
         MSG_INFO("Using named weights");
     else
-        MSG_INFO("NOT using named weights. Using first weight as nominal weight");
+        MSG_INFO("NOT using named weights. Using first weight as nominal weight.");
 
     _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
 
@@ -92,14 +94,10 @@ namespace Rivet {
     if (ge.cross_section()) {
       MSG_TRACE("getting cross section.");
       double xs = ge.cross_section()->cross_section();
-      MSG_INFO("get xserr");
       double xserr = ge.cross_section()->cross_section_error();
-      MSG_INFO("set xsec");
       setCrossSection(xs, xserr);
-      MSG_INFO("set xsec done");
     }
 
-      MSG_INFO("check anas size");
     // Check that analyses are beam-compatible, and remove those that aren't
     const size_t num_anas_requested = analysisNames().size();
     vector<string> anamestodelete;
@@ -481,29 +479,22 @@ namespace Rivet {
 
 
   AnalysisHandler& AnalysisHandler::setCrossSection(double xs, double xserr) {
-    MSG_TRACE("init _xs");
     _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
-    MSG_TRACE("init _evtC");
     _eventCounter.get()->setActiveWeightIdx(_defaultWeightIdx);
-    MSG_TRACE("get sow");
     double nomwgt = sumOfWeights();
 
     // The cross section of each weight variation is the nominal cross section
     // times the sumOfWeights(variation) / sumOfWeights(nominal).
     // This way the cross section will work correctly
-    MSG_TRACE("loop over weights");
     for (size_t iW = 0; iW < numWeights(); iW++) {
-      MSG_TRACE("... weight " << iW);
       _eventCounter.get()->setActiveWeightIdx(iW);
       double s = sumOfWeights() / nomwgt;
       _xs.get()->setActiveWeightIdx(iW);
       _xs->addPoint(xs*s, xserr*s);
     }
 
-    MSG_TRACE("unset");
     _eventCounter.get()->unsetActiveWeight();
     _xs.get()->unsetActiveWeight();
-    MSG_TRACE("done... return");
     return *this;
   }
 
