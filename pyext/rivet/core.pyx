@@ -107,6 +107,10 @@ cdef class Analysis:
         kws = deref(self._ptr).keywords()
         return [ k.decode('utf-8') for k in kws ]
 
+    def validation(self):
+        vld = deref(self._ptr).validation()
+        return [ k.decode('utf-8') for k in vld ]
+
     def authors(self):
         auths = deref(self._ptr).authors()
         return [ a.decode('utf-8') for a in auths ]
