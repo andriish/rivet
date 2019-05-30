@@ -1,3 +1,35 @@
+2019-05-29  Peter Richardson <peter.richardson@durham.ac.uk>
+	* Move BABAR and BELLE analyses to separate plugin and add new mainly radiative
+	return analyses
+
+	* new pluginNovosibirsk with analyses from SND, CMD, etc
+
+	* new pluginOrsay with analyses from DM1 and DM2
+
+	* new PETRA analyses, mainly for R
+
+	* move existing Tristan analyses to separate plugin and add new, mainy R
+	analyses
+
+	* new pluginFrascati with analyses from ADONE and DAPHNE
+
+	* move older SLAC e+e- analyses to separate plugin and add new analyses
+
+	* move DORIS analysis to separate plugin and add new ones
+
+	* move CLEO analyses to new CESR plugin and add more analyses
+
+	* new plugin with analyses from the BES experiment
+
+	* new MC analyses for hadron/tau decays based on Herwig internal ones
+
+	* sync BABAR_2007_I729388, BABAR_2013_I1238276, BABAR_2005_S6181155 and all those
+	where no difference with yodadiff, similarly for BELLE
+
+	* fix no of tracks plots in ATLAS_2016_I1424838, normalise to 100 not 1, agreed by Chris G
+
+	* merge two versions of OPAL_2004_I631361, now using new options feature instead.
+
 2019-05-29  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* The GenEvents in rivet can now be stripped from (most) light
@@ -7,7 +39,7 @@
 	NOTREENTRY, NOHEPDATA, SINGLEWEIGHT, and UNPHYSICAL.
 
 	* Can now configured to use HepMC3 (3.1.1 or later).
-
+	
 2019-05-23  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix Unicode and argparse bugs in bin/rivet. Thanks to Frank Siegert.
