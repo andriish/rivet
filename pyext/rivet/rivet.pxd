@@ -11,6 +11,7 @@ ctypedef pair[PdgId,PdgId] PdgIdPair
 cdef extern from "Rivet/AnalysisHandler.hh" namespace "Rivet":
     cdef cppclass AnalysisHandler:
         void setIgnoreBeams(bool)
+        void skipMultiWeights(bool)
         AnalysisHandler& addAnalysis(string)
         vector[string] analysisNames() const
         # Analysis* analysis(string)

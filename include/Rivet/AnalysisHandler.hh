@@ -118,6 +118,9 @@ namespace Rivet {
     /// Setter for _ignoreBeams
     void setIgnoreBeams(bool ignore=true);
 
+    /// Setter for _skipWeights
+    void skipMultiWeights(bool ignore=false);
+
     //@}
 
 
@@ -253,6 +256,9 @@ namespace Rivet {
 
     /// Flag whether input event beams should be ignored in compatibility check
     bool _ignoreBeams;
+
+    /// Flag to check if multiweights should be included
+    bool _skipWeights;
 
     /// Current event number
     int _eventNumber;

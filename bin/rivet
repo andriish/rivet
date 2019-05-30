@@ -92,6 +92,8 @@ extragroup.add_option("-n", "--nevts", dest="MAXEVTNUM", type="int",
 extragroup.add_option("--nskip", dest="EVTSKIPNUM", type="int",
                       default=0, metavar="NUM",
                       help="skip NUM events read from input before beginning processing")
+extragroup.add_option("--skip-weights", dest="SKIP_WEIGHTS", action="store_true",
+                      default=False, help="only run on the nominal weight")
 extragroup.add_option("--runname", dest="RUN_NAME", default=None, metavar="NAME",
                       help="give an optional run name, to be prepended as a 'top level directory' in histo paths")
 extragroup.add_option("--ignore-beams", dest="IGNORE_BEAMS", action="store_true", default=False,
@@ -501,6 +503,7 @@ if not os.access(histo_parentdir,os.W_OK):
 RUNNAME = opts.RUN_NAME or ""
 ah = rivet.AnalysisHandler(RUNNAME)
 ah.setIgnoreBeams(opts.IGNORE_BEAMS)
+ah.skipMultiWeights(opts.SKIP_WEIGHTS)
 
 for a in opts.ANALYSES:
     ## Print warning message and exit if not a valid analysis name
