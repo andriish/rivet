@@ -1,6 +1,7 @@
 2019-05-30 Christian Gutschow <chris.g@cern.ch>
 	* implement --skip-weights flag to ignore variation weights
 	* make ribet-mkanalysis more intuitive for new users
+	* interface change: remove title/axis-label options from book methods
 	* pull some Py3 script updates
 
 2019-05-29 Christian Gutschow <chris.g@cern.ch>

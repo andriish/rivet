@@ -112,10 +112,8 @@ namespace Rivet {
       declare(FastJets(fsForJets, FastJets::ANTIKT, 0.5), "Jets");
 
       // Booking of histograms
-      book(_normedElectronMuonHisto, "normedElectronMuonHisto", 7, 3.5, 10.5,
-                                             "Normalized differential cross section in lepton+jets channel", "Jet multiplicity", "Normed units");
-      book(_absXSElectronMuonHisto , "absXSElectronMuonHisto", 7, 3.5, 10.5,
-                                            "Differential cross section in lepton+jets channel", "Jet multiplicity", "pb");
+      book(_normedElectronMuonHisto, "normedElectronMuonHisto", 7, 3.5, 10.5);
+      book(_absXSElectronMuonHisto , "absXSElectronMuonHisto", 7, 3.5, 10.5);
     }
 
 

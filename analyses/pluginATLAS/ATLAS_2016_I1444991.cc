@@ -70,8 +70,8 @@ namespace Rivet {
       //histos for jetveto
       std::vector<double> ptlead25_bins = { 0., 25., 300. };
       std::vector<double> ptlead40_bins = { 0., 40., 300. };
-      book(_h_pTj1_sel25 , "pTj1_sel25", ptlead25_bins, "", "", "" );
-      book(_h_pTj1_sel40 , "pTj1_sel40", ptlead40_bins, "", "", "" );
+      book(_h_pTj1_sel25 , "pTj1_sel25", ptlead25_bins);
+      book(_h_pTj1_sel40 , "pTj1_sel40", ptlead40_bins);
     }
 
 
