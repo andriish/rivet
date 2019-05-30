@@ -7,6 +7,7 @@
  */
 #include <Rivet/Analysis.hh>
 #include <Rivet/Projections/AliceCommon.hh>
+#include "Rivet/Projections/HepMCHeavyIon.hh"
 
 namespace Rivet
 {
@@ -34,7 +35,10 @@ namespace Rivet
       ALICE::V0MMultiplicity v0m;
       declare<ALICE::V0MMultiplicity>(v0m,"V0M");
 
-      _v0m = bookHisto1D("V0M","Forward multiplicity","V0M","Events");
+       // Access the HepMC heavy ion info
+      declare(HepMCHeavyIon(), "HepMC");
+
+     _v0m = bookHisto1D("V0M","Forward multiplicity","V0M","Events");
       _imp = bookHisto1D("V0M_IMP",100,0,20,
 			 "Impact parameter","b (fm)","Events");
     }
@@ -47,10 +51,7 @@ namespace Rivet
     {
       // Get and fill in the impact parameter value if the information
       // is valid.
-      const HepMC::GenEvent* ge = event.genEvent();
-      const HepMC::HeavyIon* hi = ge->heavy_ion();
-      if (hi && hi->is_valid())
-	_imp->fill(hi->impact_parameter(), event.weight());
+      _imp->fill(apply<HepMCHeavyIon>(event, "HepMC").impact_parameter(), event.weight());
 	  
 
       // Check if we have any hit in either V0-A or -C.  If not, the

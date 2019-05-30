@@ -65,6 +65,8 @@ namespace Rivet {
     TRY_GETINFO("BibTeX", bibTeX);
     #undef TRY_GETINFO
 
+    ai->_status = toUpper(ai->_status);
+
     // Sequences (test the seq *and* each entry for nullness before casting)
     #define TRY_GETINFO_SEQ(KEY, VAR) try { \
         if (doc[KEY] && !doc[KEY].IsNull()) {                           \
@@ -77,6 +79,7 @@ namespace Rivet {
     TRY_GETINFO_SEQ("ToDo", todos);
     TRY_GETINFO_SEQ("Keywords", keywords);
     TRY_GETINFO_SEQ("Options", options);
+    TRY_GETINFO_SEQ("Validation", validation);
     #undef TRY_GETINFO_SEQ
 
     // Build the option map
@@ -86,11 +89,13 @@ namespace Rivet {
     try {
       if (doc["NeedsCrossSection"]) ai->_needsCrossSection = doc["NeedsCrossSection"].as<bool>();
       else if (doc["NeedCrossSection"]) ai->_needsCrossSection = doc["NeedCrossSection"].as<bool>();
-      if (doc["Reentrant"]) ai->_reentrant = doc["Reentrant"].as<bool>();
     } catch (...) {
-      THROW_INFOERR("NeedsCrossSection|NeedCrossSection|Reentrant");
+      THROW_INFOERR("NeedsCrossSection|NeedCrossSection");
     }
 
+    // Check if reentrant
+    if ( ai->statuscheck("REENTRANT") && !ai->statuscheck("NOTREENTRY") )
+      ai->_reentrant = true;
 
     // Beam particle identities
     try {

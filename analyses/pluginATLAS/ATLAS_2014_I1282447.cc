@@ -310,10 +310,11 @@ namespace Rivet {
       if (matched_charmHadron > -1) {
         for (const Jet& j : jets) {
           mat_jet = false;
+
           njets += 1;
           for (const Particle& p : fs.particles()) {
             /// @todo Avoid touching HepMC!
-            const GenParticle* part = p.genParticle();
+            ConstGenParticlePtr part = p.genParticle();
             if (p.hasCharm()) {
               //if(isFromBDecay(p)) continue;
               if (p.fromBottom()) continue;
@@ -357,7 +358,7 @@ namespace Rivet {
       for (const Particle& p : fs.particles()) {
 
         /// @todo Avoid touching HepMC!
-        const GenParticle* part = p.genParticle();
+        ConstGenParticlePtr part = p.genParticle();
         if (p.pT() < 8*GeV)       continue;
         if (fabs(p.eta()) > 2.2)  continue;
 
@@ -472,17 +473,20 @@ namespace Rivet {
     // Data members like post-cuts event weight counters go here
 
     // Check whether particle comes from b-decay
-    /// @todo Use built-in method and avoid HepMC
     bool isFromBDecay(const Particle& p) {
-
+      
+      /// @todo I think we can just replicated the original behaviour with this call
+      /// Note slight difference to Rivet's native Particle::fromBottom method!
+      return p.hasAncestorWith([](const Particle &p)->bool{return p.hasBottom();});
+      /*
       bool isfromB = false;
 
       if (p.genParticle() == nullptr)  return false;
 
-      const GenParticle* part = p.genParticle();
-      const GenVertex* ivtx = const_cast<const GenVertex*>(part->production_vertex());
+      ConstGenParticlePtr part = p.genParticle();
+      ConstGenVertexPtr ivtx = part->production_vertex();
       while (ivtx) {
-        if (ivtx->particles_in_size() < 1) {
+        if (ivtx->particles_in().size() < 1) {
           isfromB = false;
           break;
         }
@@ -493,30 +497,31 @@ namespace Rivet {
           break;
         }
         isfromB = PID::hasBottom(part->pdg_id());
+
         if (isfromB == true)  break;
-        ivtx = const_cast<const GenVertex*>(part->production_vertex());
+        ivtx = part->production_vertex();
         if ( part->pdg_id() == 2212 || !ivtx )  break; // reached beam
       }
       return isfromB;
+       */
     }
 
 
     // Check whether particle has charmed children
     /// @todo Use built-in method and avoid HepMC!
-    bool hasCharmedChildren(const GenParticle *part) {
+    bool hasCharmedChildren(ConstGenParticlePtr part) {
 
       bool hasCharmedChild = false;
       if (part == nullptr)  return false;
 
-      const GenVertex* ivtx = const_cast<const GenVertex*>(part->end_vertex());
+      ConstGenVertexPtr ivtx = part->end_vertex();
       if (ivtx == nullptr)  return false;
 
       // if (ivtx->particles_out_size() < 2) return false;
-      HepMC::GenVertex::particles_out_const_iterator iPart_invtx = ivtx->particles_out_const_begin();
-      HepMC::GenVertex::particles_out_const_iterator end_invtx = ivtx->particles_out_const_end();
+      //HepMC::GenVertex::particles_out_const_iterator iPart_invtx = ivtx->particles_out_const_begin();
+      //HepMC::GenVertex::particles_out_const_iterator end_invtx = ivtx->particles_out_const_end();
 
-      for ( ; iPart_invtx != end_invtx; iPart_invtx++ ) {
-        const GenParticle* p2 = (*iPart_invtx);
+      for(ConstGenParticlePtr p2: HepMCUtils::particles(ivtx, Relatives::CHILDREN)){
         if (p2 == part)  continue;
         hasCharmedChild = PID::hasCharm(p2->pdg_id());
         if (hasCharmedChild == true)  break;

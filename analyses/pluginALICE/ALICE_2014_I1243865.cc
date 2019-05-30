@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Projections/CentralityProjection.hh"
 #include "Rivet/Projections/AliceCommon.hh"
+#include "Rivet/Projections/HepMCHeavyIon.hh"
 #include "Rivet/Tools/AliceCommon.hh"
 #include "Rivet/Tools/Cuts.hh"
 
@@ -25,6 +26,9 @@ namespace Rivet {
       // The centrality projection.
       declareCentrality(ALICE::V0MMultiplicity(),
            "ALICE_2015_PBPBCentrality", "V0M", "V0M");
+
+      // Access the HepMC heavy ion info
+      declare(HepMCHeavyIon(), "HepMC");
 
       // Xi Baryons.
       for (string str : {"d01-","d02-","d03-","d04-","d05-"}){
@@ -96,9 +100,9 @@ namespace Rivet {
        }
        // Extract Npart form GenEvent. TODO: Unclear how to do
        // this in HepMC3
-       const HepMC::HeavyIon* hi = event.genEvent()->heavy_ion();
-       if (hi && nPions != 0){
-	 const double npart = hi->Npart_proj() + hi->Npart_targ();
+      const HepMCHeavyIon & hi = apply<HepMCHeavyIon>(event, "HepMC");
+       if ( nPions != 0){
+	 const double npart = hi.Npart_proj() + hi.Npart_targ();
          if (nXi != 0) 
            _histXitoPi->fill(npart, double(nXi) / double(nPions), weight);
          if (nOmega != 0) 

@@ -56,6 +56,7 @@ namespace Rivet {
             -0.5*M_PI, 1.5*M_PI, title, xtitle, ytitle);
         }
       }
+
       // Find out the beam type, also specified from option.
       string beamOpt = getOption<string>("beam","NONE");
       if (beamOpt != "NONE") {
@@ -100,9 +101,13 @@ namespace Rivet {
           applyProjection<ALICE::PrimaryParticles>(event,pname).particles();
       }
 
-      // Check type of event. 
+      // Check type of event. This may not be a perfect way to check for the
+      // type of event as there might be some weird conditions hidden inside.
+      // For example some HepMC versions check if number of hard collisions
+      // is equal to 0 and assign 'false' in that case, which is usually wrong.
+      // This might be changed in the future
       int ev_type = 0; // pp
-      if (isHI) {
+      if ( isHI ) {
         // Prepare centrality projection and value
         const CentralityProjection& centrProj =
           apply<CentralityProjection>(event, "V0M");

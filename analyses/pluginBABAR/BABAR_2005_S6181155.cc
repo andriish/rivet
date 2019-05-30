@@ -78,7 +78,7 @@ namespace Rivet {
     Histo1DPtr _sigma           ;
     //@}
 
-    bool checkDecay(const GenParticle* p) {
+    bool checkDecay(ConstGenParticlePtr p) {
       unsigned int nstable = 0, npip = 0, npim = 0;
       unsigned int nXim = 0, nXip = 0;
       findDecayProducts(p, nstable, npip, npim, nXip, nXim);
@@ -93,14 +93,14 @@ namespace Rivet {
       return false;
     }
 
-    void findDecayProducts(const GenParticle* p,
+    void findDecayProducts(ConstGenParticlePtr p,
                            unsigned int& nstable,
                            unsigned int& npip, unsigned int& npim,
                            unsigned int& nXip, unsigned int& nXim) {
-      const GenVertex* dv = p->end_vertex();
+      ConstGenVertexPtr dv = p->end_vertex();
       /// @todo Use better looping
-      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
-        int id = (*pp)->pdg_id();
+      for (ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
+        int id = pp->pdg_id();
         if (id==3312) {
           ++nXim;
           ++nstable;
@@ -109,8 +109,8 @@ namespace Rivet {
           ++nstable;
         } else if(id == 111 || id == 221) {
           ++nstable;
-        } else if ((*pp)->end_vertex()) {
-          findDecayProducts(*pp, nstable, npip, npim, nXip, nXim);
+        } else if (pp->end_vertex()) {
+          findDecayProducts(pp, nstable, npip, npim, nXip, nXim);
         } else {
           if     (id !=    22) ++nstable;
           if     (id ==   211) ++npip;

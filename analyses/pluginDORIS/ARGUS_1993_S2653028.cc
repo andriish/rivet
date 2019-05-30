@@ -28,12 +28,12 @@ namespace Rivet {
       }
       // Then in whole event if that failed
       if (upsilons.empty()) {
-        foreach (const GenParticle* p, particles(e.genEvent())) {
+        for(ConstGenParticlePtr p: HepMCUtils::particles(e.genEvent())) {
           if (p->pdg_id() != 300553) continue;
-          const GenVertex* pv = p->production_vertex();
+          ConstGenVertexPtr pv = p->production_vertex();
           bool passed = true;
           if (pv) {
-            foreach (const GenParticle* pp, particles_in(pv)) {
+            for(ConstGenParticlePtr pp: HepMCUtils::particles(pv, Relatives::PARENTS)){
               if ( p->pdg_id() == pp->pdg_id() ) {
                 passed = false;
                 break;
@@ -47,7 +47,7 @@ namespace Rivet {
       // Find an upsilon
       foreach (const Particle& p, upsilons) {
         _weightSum += weight;
-        vector<GenParticle *> pionsA,pionsB,protonsA,protonsB,kaons;
+        vector<ConstGenParticlePtr> pionsA,pionsB,protonsA,protonsB,kaons;
         // Find the decay products we want
         findDecayProducts(p.genParticle(), pionsA, pionsB, protonsA, protonsB, kaons);
         LorentzTransform cms_boost;
@@ -133,37 +133,37 @@ namespace Rivet {
     //@}
 
 
-    void findDecayProducts(const GenParticle* p,
-                           vector<GenParticle*>& pionsA, vector<GenParticle*>& pionsB,
-                           vector<GenParticle*>& protonsA, vector<GenParticle*>& protonsB,
-                           vector<GenParticle*>& kaons)
+    void findDecayProducts(ConstGenParticlePtr p,
+                           vector<ConstGenParticlePtr>& pionsA, vector<ConstGenParticlePtr>& pionsB,
+                           vector<ConstGenParticlePtr>& protonsA, vector<ConstGenParticlePtr>& protonsB,
+                           vector<ConstGenParticlePtr>& kaons)
     {
       int parentId = p->pdg_id();
-      const GenVertex* dv = p->end_vertex();
+      ConstGenVertexPtr dv = p->end_vertex();
       /// @todo Use better looping
-      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
-        int id = abs((*pp)->pdg_id());
+      for(ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
+        int id = abs(pp->pdg_id());
         if (id == PID::PIPLUS) {
           if (parentId != PID::LAMBDA && parentId != PID::K0S) {
-            pionsA.push_back(*pp);
-            pionsB.push_back(*pp);
+            pionsA.push_back(pp);
+            pionsB.push_back(pp);
           }
           else
-            pionsB.push_back(*pp);
+            pionsB.push_back(pp);
         }
         else if (id == PID::PROTON) {
           if (parentId != PID::LAMBDA && parentId != PID::K0S) {
-            protonsA.push_back(*pp);
-            protonsB.push_back(*pp);
+            protonsA.push_back(pp);
+            protonsB.push_back(pp);
           }
           else
-            protonsB.push_back(*pp);
+            protonsB.push_back(pp);
         }
         else if (id == PID::KPLUS) {
-          kaons.push_back(*pp);
+          kaons.push_back(pp);
         }
-        else if ((*pp)->end_vertex())
-          findDecayProducts(*pp, pionsA, pionsB, protonsA, protonsB, kaons);
+        else if (pp->end_vertex())
+          findDecayProducts(pp, pionsA, pionsB, protonsA, protonsB, kaons);
       }
     }
 

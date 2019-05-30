@@ -18,18 +18,18 @@ namespace Rivet {
       _theParticles.push_back(pa);
     }
     for (const Particle& pb : fsb.particles()){
-      const GenParticle* originalb = pb.genParticle();
+      ConstGenParticlePtr originalb = pb.genParticle();
       bool notfound = true;
       for (const Particle& pa : fsa.particles()){
-        const GenParticle* originala = pa.genParticle();
+        ConstGenParticlePtr originala = pa.genParticle();
+        
         if (originala == originalb) {
           notfound = false;
           break;
         }
       }
-      if (notfound) {
-        _theParticles.push_back(pb);
-      }
+      if (notfound) _theParticles.push_back(pb);
+
     }
     MSG_DEBUG("Number of particles in the two final states to be merged: = \n"
               << "   1st final state = " << fsa.particles().size() << "\n"

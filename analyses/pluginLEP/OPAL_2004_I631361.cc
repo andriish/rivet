@@ -108,7 +108,7 @@ namespace Rivet {
 	if(ih==3)
 	  _h_chFragFunc_gg = bookHisto1D(5,1,iy);
 	else
-	  _h_chFragFunc_gg = NULL;
+	  _h_chFragFunc_gg = nullptr;
       }
       else {
 	_h_chMult_qq.addHistogram(5.0, 5.5, bookHisto1D(1,1,1));
@@ -132,18 +132,18 @@ namespace Rivet {
       if(_mode==0) {
 	// find the initial gluons
 	ParticleVector initial;
-	for (const GenParticle* p : Rivet::particles(event.genEvent())) {
-	  const GenVertex* pv = p->production_vertex();
+	for (ConstGenParticlePtr p : HepMCUtils::particles(event.genEvent())) {
+	  ConstGenVertexPtr pv = p->production_vertex();
 	  const PdgId pid = p->pdg_id();
 	  if(pid!=21) continue;
 	  bool passed = false;
-	  for (const GenParticle* pp : particles_in(pv)) {
-	  const PdgId ppid = abs(pp->pdg_id());
-	  passed = (ppid == PID::ELECTRON || ppid == PID::HIGGS || 
-		    ppid == PID::ZBOSON   || ppid == PID::GAMMA);
-	  if(passed) break;
+	  for (ConstGenParticlePtr pp : HepMCUtils::particles(pv, Relatives::PARENTS)) {
+	    const PdgId ppid = abs(pp->pdg_id());
+	    passed = (ppid == PID::ELECTRON || ppid == PID::HIGGS ||
+		      ppid == PID::ZBOSON   || ppid == PID::GAMMA);
+	    if(passed) break;
 	  }
-	if(passed) initial.push_back(Particle(*p));
+	  if(passed) initial.push_back(Particle(*p));
 	}
 	if(initial.size()!=2) vetoEvent;
 	// use the direction for the event axis

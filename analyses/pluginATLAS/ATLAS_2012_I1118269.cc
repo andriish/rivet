@@ -20,18 +20,19 @@ namespace Rivet {
       double weight = event.weight();
 
       Particles bhadrons;
-      foreach (const GenParticle* p, particles(event.genEvent())) {
+      for(ConstGenParticlePtr p: HepMCUtils::particles(event.genEvent())) {
 
         if (!( PID::isHadron( p->pdg_id() ) && PID::hasBottom( p->pdg_id() )) ) continue;
 
-        const GenVertex* dv = p->end_vertex();
+        ConstGenVertexPtr dv = p->end_vertex();
 
         /// @todo In future, convert to use built-in 'last B hadron' function
         bool hasBdaughter = false;
         if ( PID::isHadron( p->pdg_id() ) && PID::hasBottom( p->pdg_id() )) { // b-hadron selection
           if (dv) {
-            for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin() ; pp != dv->particles_out_const_end() ; ++pp) {
-              if ( PID::isHadron( (*pp)->pdg_id() ) && PID::hasBottom( (*pp)->pdg_id()) ) {
+            /// @todo particles_out_const_iterator is deprecated in HepMC3
+            for(ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
+              if ( PID::isHadron( pp->pdg_id() ) && PID::hasBottom( pp->pdg_id()) ) {
                 hasBdaughter = true;
               }
             }

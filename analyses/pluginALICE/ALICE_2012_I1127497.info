@@ -5,7 +5,7 @@ Experiment: ALICE
 Collider: LHC
 SpireID: 
 InspireID: 1127497
-Status: VALIDATED
+Status: VALIDATED REENTRANT
 Authors:
  - Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
  - Jan Fiete Grosse-Oetringhaus <Jan.Fiete.Grosse-Oetringhaus@cern.ch>
@@ -40,4 +40,3 @@ BibTeX: '@article{Abelev:2012hxa,
       reportNumber   = "CERN-PH-EP-2012-233",
       SLACcitation   = "%%CITATION = ARXIV:1208.2711;%%"
 }'
-Reentrant: True

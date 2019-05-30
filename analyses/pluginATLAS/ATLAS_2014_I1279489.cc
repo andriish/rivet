@@ -220,7 +220,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Make sure that we have a Z-candidate:
-      const Particle *lep1 = NULL, *lep2 = NULL;
+      const Particle *lep1 = nullptr, *lep2 = nullptr;
       //
       const vector<DressedLepton>& muons = apply<DressedLeptons>(event, "DressedMuons").dressedLeptons();
       if (muons.size() == 2) {

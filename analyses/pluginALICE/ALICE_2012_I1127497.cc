@@ -5,6 +5,7 @@
 #include "Rivet/Projections/SingleValueProjection.hh"
 #include "Rivet/Tools/AliceCommon.hh"
 #include "Rivet/Projections/AliceCommon.hh"
+#include "Rivet/Projections/HepMCHeavyIon.hh"
 #include <fstream>
 
 #define _USE_MATH_DEFINES
@@ -25,6 +26,9 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
+
+      // Access the HepMC heavy ion info
+      declare(HepMCHeavyIon(), "HepMC");
 
       // Declare centrality projection
       declareCentrality(ALICE::V0MMultiplicity(),
@@ -94,9 +98,7 @@ namespace Rivet {
 	  return;
 	}
       }
-
     }
-
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
@@ -108,9 +110,11 @@ namespace Rivet {
       Particles chargedParticles =
         applyProjection<ALICE::PrimaryParticles>(event,"APRIM").particlesByPt();
 
-      
-      // Check type of event. 
-      if (isHI) {
+      // Check type of event.
+      if ( isHI ) {
+
+        const HepMCHeavyIon & hi = apply<HepMCHeavyIon>(event, "HepMC");
+
         // Prepare centrality projection and value
         const CentralityProjection& centrProj =
           apply<CentralityProjection>(event, "V0M");
@@ -124,9 +128,9 @@ namespace Rivet {
         for (size_t ihist = 0; ihist < NHISTOS; ++ihist) {
           if (inRange(centr, _centrRegions[ihist].first, _centrRegions[ihist].second)) {
             _counterSOW[PBPB][ihist]->fill(weight);
-            _counterNcoll[ihist]->fill(event.genEvent()->heavy_ion()->Ncoll(), weight);
+            _counterNcoll[ihist]->fill(hi.Ncoll(), weight);
             foreach (const Particle& p, chargedParticles) {
-              double pT = p.pT()/GeV;
+              float pT = p.pT()/GeV;
               if (pT < 50.) {
                 double pTAtBinCenter = _histNch[PBPB][ihist]->binAt(pT).xMid();
                 _histNch[PBPB][ihist]->fill(pT, weight/pTAtBinCenter);
@@ -137,6 +141,7 @@ namespace Rivet {
 
       }
       else {
+
         // Fill all pp histograms and add weights
         for (size_t ihist = 0; ihist < NHISTOS; ++ihist) {
           _counterSOW[PP][ihist]->fill(weight);

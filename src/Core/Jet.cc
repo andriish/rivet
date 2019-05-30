@@ -59,9 +59,9 @@ namespace Rivet {
 
 
   bool Jet::containsParticle(const Particle& particle) const {
-    const int barcode = particle.genParticle()->barcode();
+    const int barcode = HepMCUtils::uniqueId(particle.genParticle());
     for (const Particle& p : particles()) {
-      if (p.genParticle()->barcode() == barcode) return true;
+      if (HepMCUtils::uniqueId(p.genParticle()) == barcode) return true;
     }
     return false;
   }
@@ -123,13 +123,12 @@ namespace Rivet {
 
   bool Jet::containsCharm(bool include_decay_products) const {
     for (const Particle& p : particles()) {
-      const PdgId pid = p.pid();
-      if (abs(pid) == PID::CQUARK) return true;
-      if (PID::isHadron(pid) && PID::hasCharm(pid)) return true;
+      if (p.abspid() == PID::CQUARK) return true;
+      if (isHadron(p) && hasCharm(p)) return true;
       if (include_decay_products) {
-        const HepMC::GenVertex* gv = p.genParticle()->production_vertex();
+        ConstGenVertexPtr gv = p.genParticle()->production_vertex();
         if (gv) {
-          for (const GenParticle* pi : Rivet::particles(gv, HepMC::ancestors)) {
+          for (ConstGenParticlePtr pi : HepMCUtils::particles(gv, Relatives::ANCESTORS)) {
             const PdgId pid2 = pi->pdg_id();
             if (PID::isHadron(pid2) && PID::hasCharm(pid2)) return true;
           }
@@ -142,13 +141,13 @@ namespace Rivet {
 
   bool Jet::containsBottom(bool include_decay_products) const {
     for (const Particle& p : particles()) {
-      const PdgId pid = p.pid();
-      if (abs(pid) == PID::BQUARK) return true;
-      if (PID::isHadron(pid) && PID::hasBottom(pid)) return true;
+      if (p.abspid() == PID::BQUARK) return true;
+      if (isHadron(p) && hasBottom(p)) return true;
       if (include_decay_products) {
-        const HepMC::GenVertex* gv = p.genParticle()->production_vertex();
+        ConstGenVertexPtr gv = p.genParticle()->production_vertex();
         if (gv) {
-          for (const GenParticle* pi : Rivet::particles(gv, HepMC::ancestors)) {
+          for (ConstGenParticlePtr pi :
+                 HepMCUtils::particles(gv, Relatives::ANCESTORS)) {
             const PdgId pid2 = pi->pdg_id();
             if (PID::isHadron(pid2) && PID::hasBottom(pid2)) return true;
           }
