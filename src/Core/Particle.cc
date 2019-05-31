@@ -265,6 +265,7 @@ bool Particle::isDirect(bool allow_from_direct_tau, bool allow_from_direct_mu) c
                                              // statuses or beams to
                                              // be used in decision
                                              // making
+      if (ancestor == thebeams.first || ancestor == thebeams.second)  continue; // ignore beam particles
       if (PID::isHadron(pid)) {
         _isDirect = std::make_pair(false, true); break;
       } // direct particles can't be from hadron decays

@@ -1,3 +1,8 @@
+2019-05-31 Christian Gutschow  <chris.g@cern.ch>
+
+	* Skip beam particles when trying to determine promptness (thanks to Marek Schoenherr for pointing this out)
+
+
 2019-05-29  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Use integer rather than overloaded Projection comparison at the
