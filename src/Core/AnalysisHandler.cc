@@ -106,7 +106,8 @@ namespace Rivet {
 
     // Create the Rivet event wrapper
     /// @todo Filter/normalize the event here
-    Event event(ge);
+    bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
+    Event event(ge, strip);
 
     // Weights
     /// @todo Drop this / just report first weight when we support multiweight events

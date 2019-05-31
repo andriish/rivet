@@ -30,7 +30,6 @@ namespace Rivet {
   double Event::asqrtS() const { return Rivet::asqrtS(beams()); }
 
 
-
   void Event::_init(const GenEvent& ge) {
     // Use Rivet's preferred units if possible
     #ifdef HEPMC_HAS_UNITS
@@ -38,6 +37,9 @@ namespace Rivet {
     #endif
   }
 
+  void Event::_strip(GenEvent & ge) {
+    HepMCUtils::strip(ge);
+  }
 
   const Particles& Event::allParticles() const {
     if (_particles.empty()) { //< assume that empty means no attempt yet made

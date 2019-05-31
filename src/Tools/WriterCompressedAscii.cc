@@ -338,47 +338,7 @@ void WriterCompressedAscii::write_position(FourVector pos) {
 }
 
 void WriterCompressedAscii::strip(GenEvent & e) {
-  //  std::cout << "Stripping event " << e.event_number() << std::endl;
-  vector<GenParticlePtr> allparticles = e.particles();
-  for ( auto & p : allparticles ) {
-    if ( !p->production_vertex() || !p->end_vertex() ||
-         m_stripid.find(p->pid()) == m_stripid.end() ||
-         p->production_vertex()->id() == 0  ) continue;
-    // std::cout << "Removing particle " << p->id()
-    //           << " (" << p->pid() << ")" << std::endl;
-    HepMC3::GenVertexPtr vp = p->production_vertex();
-    HepMC3::GenVertexPtr ve = p->end_vertex();
-    if ( !vp || !ve ) continue;
-    if ( vp == ve ) continue;
-    // Check if the vertices would leave particles with the sam
-    // production as decay vertex - we don't want that.
-    if ( ( vp->particles_out().size() == 1 && vp->particles_out()[0] == p ) ||
-         ( ve->particles_in().size() == 1 && ve->particles_in()[0] == p ) ) {
-      bool loop = false;
-      for ( auto pi : vp->particles_in() )
-        for ( auto po : ve->particles_out() )
-          if ( pi == po ) loop = true;
-      if ( loop ) continue;
-    }
-    if ( vp->particles_in().size() == 1 &&
-         ( vp->particles_in()[0]->pid() > 21 && vp->particles_in()[0]->pid() < 30 ) )
-      continue;
-    
-    vp->remove_particle_out(p);
-    ve->remove_particle_in(p);
-    
-    if ( ve->particles_in().empty() ) {
-      auto prem = ve->particles_out();
-      for ( auto po : prem )  vp->add_particle_out(po);
-      e.remove_vertex(ve);
-    }
-    else if ( vp->particles_out().empty() ) {
-      auto prem = vp->particles_in();
-      for ( auto pi : prem ) ve->add_particle_in(pi);
-      e.remove_vertex(vp);
-    }
-    e.remove_particle(p);
-  }
+  HepMCUtils::strip(e, m_stripid);
 }
 
 }

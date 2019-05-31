@@ -1,0 +1,78 @@
+#! /usr/bin/env python
+
+"""\
+Build a directory with a Makefile for running a validation suit.
+
+Examples:
+
+  %(prog)s <dirname>
+
+ENVIRONMENT:
+ * RIVET_ANALYSIS_PATH: list of paths to be searched for analysis plugin libraries
+ * RIVET_DATA_PATH: list of paths to be searched for data files
+"""
+
+import os, sys
+
+## Load the rivet module
+try:
+    import rivet
+except:
+    ## If rivet loading failed, try to bootstrap the Python path!
+    try:
+        # TODO: Is this a good idea? Maybe just notify the user that their PYTHONPATH is wrong?
+        import commands
+        modname = sys.modules[__name__].__file__
+        binpath = os.path.dirname(modname)
+        rivetconfigpath = os.path.join(binpath, "rivet-config")
+        rivetpypath = commands.getoutput(rivetconfigpath + " --pythonpath")
+        sys.path.append(rivetpypath)
+        import rivet
+    except:
+        sys.stderr.write("The rivet Python module could not be loaded: is your PYTHONPATH set correctly?\n")
+        sys.exit(5)
+
+rivet.util.check_python_version()
+rivet.util.set_process_name("rivet-merge")
+
+import time, datetime, logging, signal
+
+## Parse command line options
+import argparse
+parser = argparse.ArgumentParser(description=__doc__)
+
+extragroup = parser.add_argument_group("Run settings")
+extragroup.add_argument("YODAFILES", nargs="+", help="data files to merge")
+extragroup.add_argument("-o", "--output-file", dest="OUTPUTFILE",
+                        default="Rivet.yoda", help="specify the output histo file path (default = %(default)s)")
+extragroup.add_argument("-e", "--equiv", dest="EQUIV", action="store_true", default=False,
+                        help="assume that the yoda files are equivalent but statistically independent (default= assume that different files contains different processes)")
+extragroup.add_argument("-O", "--merge-option", dest="MERGEOPTIONS", action="append",
+                        default=[], help="specify an analysis option name where different options should be merged into the default analysis.")
+
+args = parser.parse_args()
+
+
+############################
+## Actual analysis runs
+
+
+## Get all analysis names
+#all_analyses = rivet.AnalysisLoader.analysisNames()
+#for aname in all_analyses:
+ananame = "MC_Cent_pPb_Eta"
+ana = rivet.AnalysisLoader.getAnalysis(ananame)
+for line in ana.validation():
+    line = line.replace("$A", ananame)
+    sublines = line.split(";");
+    targets = sublines[0].split(" ")
+    targetname = targets[0]
+    hepmcname = targets[1]
+    if len(sublines) == 1:
+        print(targetname + ".yoda: " + hepmcname + ".yoda " + " ".join(targets[2:]))    
+        print("\tyoda2yoda -m " + targetname + " " + hepmcname + ".yoda -o " + targetname + ".yoda")
+    else:
+        print(targetname + ".yoda: " + hepmcname + " " + " ".join(targets[2:]))    
+        for subline in sublines[1:]:
+            print("\t" + subline.strip())
+

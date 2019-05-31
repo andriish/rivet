@@ -89,13 +89,13 @@ namespace Rivet {
     try {
       if (doc["NeedsCrossSection"]) ai->_needsCrossSection = doc["NeedsCrossSection"].as<bool>();
       else if (doc["NeedCrossSection"]) ai->_needsCrossSection = doc["NeedCrossSection"].as<bool>();
-      if (doc["Reentrant"]) ai->_reentrant = doc["Reentrant"].as<bool>();
     } catch (...) {
-      THROW_INFOERR("NeedsCrossSection|NeedCrossSection|Reentrant");
+      THROW_INFOERR("NeedsCrossSection|NeedCrossSection");
     }
 
     // Check if reentrant
-    if ( ai->_status.find("REENTRANT") != string::npos ) ai->_reentrant = true;
+    if ( ai->statuscheck("REENTRANT") && !ai->statuscheck("NOTREENTRY") )
+      ai->_reentrant = true;
 
     // Beam particle identities
     try {

@@ -208,7 +208,9 @@ namespace Rivet {
     void buildOptionMap();
 
     /// List a series of command lines to be used for valdation
-    const vector<string> & validation();
+    const std::vector<std::string> & validation() const {
+      return _validation;
+    }
 
     /// Return true if this analysis needs to know the process cross-section.
     bool needsCrossSection() const { return _needsCrossSection; }
@@ -224,30 +226,54 @@ namespace Rivet {
 
     /// Return true if validated
     bool validated() const {
-      return _status.find("VALIDATED") != string::npos &&
-        _status.find("UNVALIDATED") == string::npos;
+      return statuscheck("VALIDATED");
     }
 
     /// Return true if preliminary
     bool preliminary() const {
-      return _status.find("PRELIMINARY") != string::npos;
+      return statuscheck("PRELIMINARY");
     }
 
     /// Return true if obsolete
     bool obsolete() const {
-      return _status.find("OBSOLETE") != string::npos;
+      return statuscheck("OBSOLETE");
     }
 
     /// Return true if unvalidated
     bool unvalidated() const {
-      return _status.find("UNVALIDATED") != string::npos;
+      return statuscheck("UNVALIDATED");
     }
 
     /// Return true if includes random variations
     bool random() const {
-      return _status.find("RANDOM") != string::npos;
+      return statuscheck("RANDOM");
     }
 
+    /// Return true if the analysis uses generator-dependent
+    /// information.
+    bool unphysical() const {
+      return statuscheck("UNPHYSICAL");
+    }
+
+    /// Check if refdata comes automatically from Hepdata.
+    bool hepdata() const {
+      return !statuscheck("NOHEPDATA");
+    }
+
+    /// Check if This analysis can handle mulltiple weights.
+    bool multiweight() const {
+      return !statuscheck("SINGLEWEIGHT");
+    }
+    
+
+    bool statuscheck(string word) const {
+      auto pos =_status.find(word);
+      if ( pos == string::npos ) return false;
+      if ( pos > 0 && isalnum(_status[pos - 1]) ) return false;
+      if ( pos + word.length() < _status.length() &&
+           isalnum(_status[pos + word.length()]) ) return false;
+      return true;
+    }
     //@}
 
 

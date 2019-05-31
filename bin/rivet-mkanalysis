@@ -293,7 +293,7 @@ Summary: <Insert short %(ANANAME)s description>
 Experiment: %(ANAEXPT)s
 Collider: %(ANACOLLIDER)s
 %(ANAREFREPO)sID: %(ANAINSPIREID)s
-Status: UNVALIDATED
+Status: UNVALIDATED NOTREENTRY NOHEPDATA SINGLEWEIGHT UNPHYSICAL 
 Authors:
  - Your Name <your@email.address>
 #References:

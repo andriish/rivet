@@ -95,6 +95,8 @@ namespace Rivet {
                                               std::string * errm = 0);
     bool readEvent(std::shared_ptr<HepMC_IO_type> io,
                    std::shared_ptr<GenEvent> evt);
+    void strip(GenEvent & ge,
+               const set<long> & stripid = {1, -1, 2, -2, 3,-3, 21});
   }
 }
 
