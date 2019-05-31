@@ -1,6 +1,7 @@
 2019-05-31 Christian Gutschow  <chris.g@cern.ch>
 
 	* Skip beam particles when trying to determine promptness (thanks to Marek Schoenherr for pointing this out)
+	* Apple's CLANG compiler really doesn't like uninitialised variables ... sorry Peter!
 
 
 2019-05-29  Andy Buckley  <andy.buckley@cern.ch>

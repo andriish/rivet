@@ -54,7 +54,7 @@ namespace Rivet {
     void finalize() {
       for(unsigned int iy=1;iy<3;++iy) {
 	for(unsigned int ix=1;ix<5;++ix) {
-	  double sigma,error;
+	  double sigma = 0., error = 0.;
 	  if(ix==1) {
 	    sigma = _nKpKm->val();
 	    error = _nKpKm->err();

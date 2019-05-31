@@ -55,7 +55,7 @@ namespace Rivet {
     void finalize() {
       
       for(unsigned int ix=1;ix<4;++ix) {
-	double sigma,error;
+	double sigma = 0., error = 0.;
 	if(ix==1) {
 	  sigma =  _c2pip2pim->val();
 	  error =  _c2pip2pim->err();

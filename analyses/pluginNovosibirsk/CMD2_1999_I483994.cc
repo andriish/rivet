@@ -90,7 +90,7 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       for(unsigned int ix=1;ix<4;++ix) {
-	double sigma,error;
+	double sigma = 0., error = 0.;
 	if(ix==1) {
 	  sigma = _ncharged->val();
 	  error = _ncharged->err();
