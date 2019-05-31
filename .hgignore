@@ -28,6 +28,8 @@ Makefile$
 Makefile\.in$
 \.(pdf|toc|bbl|blg|sty|bib|html|tex)$
 Doxyfile$
+doxy/html/.*
+doxy/latex/.*
 \.libs$
 \.deps$
 #Rivet.yoda
