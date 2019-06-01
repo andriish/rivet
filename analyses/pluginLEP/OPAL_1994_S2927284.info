@@ -33,3 +33,7 @@ BibTeX: '@Article{Akers:1994ez,
      SLACcitation  = "%%CITATION = ZEPYA,C63,181;%%"
 }
 '
+
+Validation:
+ - $A LEP-91
+

@@ -37,3 +37,12 @@ BibTeX: '@Article{Abreu:2000nt,
      doi       = "10.1016/S0370-2693(00)00312-9",
      SLACcitation  = "%%CITATION = HEP-EX/0103022;%%"
 }'
+
+Validation:
+ - $A LEP-183
+ - $A-2 LEP-189
+ - $A-3 LEP-192
+ - $A-4 LEP-196
+ - $A-5 LEP-200
+ - $A-6 LEP-206
+

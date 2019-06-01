@@ -36,3 +36,7 @@ BibTeX: '@article{Abbiendi:2004gh,
       reportNumber   = "CERN-EP-2004-067",
       SLACcitation   = "%%CITATION = HEP-EX/0310048;%%"
 }'
+
+Validation:
+ - $A LEP-91
+

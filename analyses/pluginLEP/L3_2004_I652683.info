@@ -34,3 +34,7 @@ BibTeX: '@article{Achard:2004sv,
       reportNumber   = "CERN-PH-EP-2004-024, CERN-EP-PH-2004-024",
       SLACcitation   = "%%CITATION = HEP-EX/0406049;%%"
 }'
+
+Validation:
+ - $A LEP-91
+

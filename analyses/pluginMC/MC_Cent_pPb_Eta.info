@@ -41,7 +41,3 @@ BibTeX: '@article{Aad:2015zza,
       SLACcitation   = "%%CITATION = ARXIV:1508.00848;%%"
 }'
 
-Validation:
- - $A-GEN LHC-pPb-5-minbias MC_Cent_pPb_Calib.yoda;
-     rivet LHC-pPb-5-minbias -p MC_Cent_pPb_Calib.yoda -a $A:cent=GEN -o $A.yoda
-
