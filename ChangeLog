@@ -1,5 +1,7 @@
 2019-06-01 Peter Richardson <peter.richardson@durham.ac.uk>
 	* update yoda for ARGUS_1993_S2653028, improved y errors, still zero bin width issues
+	* update yoda for SND_2016_I1471515, ALEPH_1995_I382179, ALEPH_1999_S4193598
+	* add analysis CLEO_1991_I29927, B* production in e+e-
 
 2019-05-31 Christian Gutschow  <chris.g@cern.ch>
 
