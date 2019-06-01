@@ -107,9 +107,6 @@ out = commands.getstatusoutput("ln -s " + os.path.relpath(refdir, valdir) +
 #######################################
 ## Collect information from .info files
 
-valyodas = set()
-valanalyses = set()
-valhepmcs = set()
 valtargets = dict()
 hepmctargets = dict()
 
@@ -118,28 +115,32 @@ all_analyses = rivet.AnalysisLoader.analysisNames()
 for ananame in all_analyses:
     ana = rivet.AnalysisLoader.getAnalysis(ananame)
     for line in ana.validation():
-        valanalyses.add(ananame)
         line = line.replace("$A", ananame)
         sublines = line.split(";");
         targets = sublines[0].split(" ")
-        targetname = targets[0]
-        hepmcname = targets[1]
-        valyodas.add(targetname + ".yoda")
-        valhepmcs.add(hepmcname)
+        targetname = targets.pop(0)
+        hepmcname = targets.pop(0)
+        options = "";
+        if len(targets) > 0 :
+            options = targets[0].strip()
+        if len(options) > 0 and options[0] == ":":
+            targets.pop(0)
+        else:
+            options = ""
         if len(sublines) == 1:
             valtargets[targetname] = "tmp/" + hepmcname + ".yoda " + \
-                " ".join(targets[2:]) + "\n\t@echo extracting " + \
+                " ".join(targets) + "\n\t@echo extracting " + \
                 targetname + ".yoda\n\t@echo " + hepmcname + " > tmp/" + \
-                targetname + ".log\n\t@yoda2yoda -m /" + ananame + \
+                targetname + ".log\n\t@yoda2yoda -m /" + ananame + options + \
                 "/ tmp/" + hepmcname + ".yoda " + targetname + ".yoda >> tmp/" + \
                 targetname + ".log 2>&1\n"
             if not hepmctargets.has_key(hepmcname):
-                hepmctargets[hepmcname] = ananame
+                hepmctargets[hepmcname] = ananame + options
             else:
-                hepmctargets[hepmcname] += " " + ananame 
+                hepmctargets[hepmcname] += " " + ananame + options
         else:
             valtargets[targetname] = "HEPMC/" + hepmcname + ".hepmc.gz " +\
-                " ".join(targets[2:])
+                " ".join(targets)
             if len(sublines) > 1:
                 valtargets[targetname] += "\n\t@echo running " + \
                     targetname + ".yoda\n\t@echo " + hepmcname + " > tmp/" + \
@@ -181,20 +182,21 @@ mf.write("""#
 # The syntax for specifying a reference YODA in the .info file looks
 # as follows:
 #
-#  - YODA-name HEPMC-name [other dependencies] [[; commandline] ...]
+#  - YODA-name HEPMC-name [:option=val] [dependencies] [[; commandline] ...]
 #
 # the YODA-name should be given without the .yoda suffix and typically
 # is constructed from the analysis name with some number appended if
 # there are more than one reference YODA for an analysis. Note that
 # the sting "$A" can be used anywher and will be expanded to the
 # analysis name. HEPMC-name should given without the ".hepmc.gz"
-# suffix. "other dependencies" can eg. include the reference YODA from
+# suffix. "dependencies" can eg. include the reference YODA from
 # another analysis that are referenced in any of the
 # "commandline"s. If no commandline is given the analysis will be run
 # together with a bunch of other analyses and the YODA-name.yoda will
-# be extracted form the resulting yoda. The command lines will be used
-# as make recipes where the output YODA file can be given by $@ and the
-# HepMC file by $<
+# be extracted form the resulting yoda. In this case the analysis will
+# be run using the "options" if present. The command lines will be used
+# as "make" recipes where the output YODA file can be given by $@ and the
+# HepMC file by $< possible options must then be included by explicitly
 #
 # When submitting a new analysis to Rivet, the "Validation:" section
 # of the .info file must be present and all the corresponding YODA
@@ -208,7 +210,7 @@ all:
 	@head -7 $(firstword $(MAKEFILE_LIST))
 
 help:
-	@head -43 $(firstword $(MAKEFILE_LIST)) | grep -v "# For more information"
+	@head -44 $(firstword $(MAKEFILE_LIST)) | grep -v "# For more information"
 
 """)
 

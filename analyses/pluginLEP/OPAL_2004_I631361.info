@@ -51,4 +51,5 @@ Validation:
  - $A-6 LEP-28.48-gg
  - $A-7 LEP-35.44-gg
  - $A-8 LEP-91; rivet $< -a $A:PROCESS=QQ -o $@
+ - $A-9 LEP-91 :PROCESS=QQ
 
