@@ -59,7 +59,7 @@ namespace Rivet {
           for (int k = 1; k <= 10; ++k) {
             if (j > 3 && (k == 1 || k == 4)) continue;
             stringstream s; s << "count_" << (i+1); // << "_" << j << b << k;
-            book(_counts[make_tuple(j,b,k)], s.str());
+            book(_counts[std::make_tuple(j,b,k)], s.str());
             i += 1;
           }
         }
@@ -204,7 +204,7 @@ namespace Rivet {
 
       // Fill via 3-tuple index
       if (idx_j >= 0 && idx_b >= 0 && idx_k >= 0) {
-        const auto idx = make_tuple(idx_j+1,idx_b+1,idx_k);
+        const auto idx = std::make_tuple(idx_j+1,idx_b+1,idx_k);
         if (has_key(_counts, idx)) _counts[idx]->fill(w);
       }
 
