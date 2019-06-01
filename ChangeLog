@@ -1,14 +1,17 @@
 2019-05-30 Christian Gutschow <chris.g@cern.ch>
+
 	* implement --skip-weights flag to ignore variation weights
 	* make ribet-mkanalysis more intuitive for new users
 	* interface change: remove title/axis-label options from book methods
 	* pull some Py3 script updates
 
 2019-05-29 Christian Gutschow <chris.g@cern.ch>
+
 	* Bypass *proj == *proj using reinterpret_cast to uintptr_t
 	* remove ununsed variable from Spherocity
 
 2019-05-15 Christian Gutschow <chris.g@cern.ch>
+
 	* Clean up logic around CmpState 
 
 2018-08-30  Andy Buckley  <andy.buckley@cern.ch>
