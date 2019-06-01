@@ -86,8 +86,8 @@ namespace Rivet {
       double error = _nOmegaEtaPi->err();
       sigma *= crossSection()/ sumOfWeights() /nanobarn;
       error *= crossSection()/ sumOfWeights() /nanobarn; 
-      Scatter2D temphisto(refData(1, 1, 1));
-      Scatter2DPtr  mult = bookScatter2D(1, 1, 1);
+      Scatter2D temphisto(refData(1, 1, 6));
+      Scatter2DPtr  mult = bookScatter2D(1, 1, 6);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	const double x  = temphisto.point(b).x();
 	pair<double,double> ex = temphisto.point(b).xErrs();
