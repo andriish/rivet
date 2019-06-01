@@ -58,7 +58,7 @@ namespace Rivet {
     void finalize() {
 
       for(unsigned int ix=9;ix<13;++ix) {
-	double sigma,error;
+	double sigma = 0., error = 0.;
 	if(ix==9) {
 	  sigma =  _nKSKL->val();
 	  error =  _nKSKL->err();

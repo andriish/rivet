@@ -139,36 +139,36 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      for(unsigned int ix=1;ix<8;++ix) {
-	double sigma,error;
-	if(ix==1) {
-	  sigma = _cKpKmpippim->val();
-	  error = _cKpKmpippim->err();
-	}
-	else if(ix==2) {
-	  sigma = _cKstarKpi->val();
-	  error = _cKstarKpi->err();
-	}
-     	else if(ix==3) {
-	  sigma = _cphipippim->val();
-	  error = _cphipippim->err();
-	}
-     	else if(ix==4) {
-	  sigma = _cphif0->val();
-	  error = _cphif0->err();
-	}
-     	else if(ix==5) {
-	  sigma = _cKpKmpi0pi0->val();
-	  error = _cKpKmpi0pi0->err();
-	}
-     	else if(ix==6) {
-	  sigma = _cphif0pi0pi0->val();
-	  error = _cphif0pi0pi0->err();
-	}
-     	else if(ix==7) {
-	  sigma =  _c2Kp2Km->val();
-	  error =  _c2Kp2Km->err();
-	}
+      for(unsigned int ix=1; ix<8; ++ix) {
+        double sigma = 0., error = 0.;
+        if(ix==1) {
+          sigma = _cKpKmpippim->val();
+          error = _cKpKmpippim->err();
+        }
+        else if(ix==2) {
+          sigma = _cKstarKpi->val();
+          error = _cKstarKpi->err();
+        }
+        else if(ix==3) {
+          sigma = _cphipippim->val();
+          error = _cphipippim->err();
+        }
+        else if(ix==4) {
+          sigma = _cphif0->val();
+          error = _cphif0->err();
+        }
+        else if(ix==5) {
+          sigma = _cKpKmpi0pi0->val();
+          error = _cKpKmpi0pi0->err();
+        }
+        else if(ix==6) {
+          sigma = _cphif0pi0pi0->val();
+          error = _cphif0pi0pi0->err();
+        }
+        else if(ix==7) {
+          sigma =  _c2Kp2Km->val();
+          error =  _c2Kp2Km->err();
+        }
     	sigma *= crossSection()/ sumOfWeights() /nanobarn;
     	error *= crossSection()/ sumOfWeights() /nanobarn;
 
