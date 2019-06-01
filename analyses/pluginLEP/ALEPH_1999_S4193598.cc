@@ -61,7 +61,7 @@ namespace Rivet {
     void finalize() {
 
       // Normalize to data integral
-      normalize(_h_Xe_Ds, 0.00498);
+      normalize(_h_Xe_Ds, 4.98);
     }
 
   private:

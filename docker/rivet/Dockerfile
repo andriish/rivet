@@ -5,7 +5,7 @@ RUN dnf update -y \
     && dnf install -y \
       make gcc-c++ gcc-gfortran redhat-rpm-config \
       wget tar less bzip2 findutils which nano zlib-devel \
-      python python-devel file python-matplotlib gsl-devel \
+      python python-devel python-requests file python-matplotlib gsl-devel \
       texlive-latex-bin texlive-texconfig-bin texlive-pst-tools \
       ghostscript ImageMagick texlive-dvips texlive-relsize \
       texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended \

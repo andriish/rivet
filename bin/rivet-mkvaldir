@@ -130,8 +130,8 @@ for ananame in all_analyses:
             valtargets[targetname] = "tmp/" + hepmcname + ".yoda " + \
                 " ".join(targets[2:]) + "\n\t@echo extracting " + \
                 targetname + ".yoda\n\t@echo " + hepmcname + " > tmp/" + \
-                targetname + ".log\n\t@yoda2yoda -m " + ananame + \
-                " tmp/" + hepmcname + ".yoda " + targetname + ".yoda >> tmp/" + \
+                targetname + ".log\n\t@yoda2yoda -m /" + ananame + \
+                "/ tmp/" + hepmcname + ".yoda " + targetname + ".yoda >> tmp/" + \
                 targetname + ".log 2>&1\n"
             if not hepmctargets.has_key(hepmcname):
                 hepmctargets[hepmcname] = ananame
@@ -144,12 +144,12 @@ for ananame in all_analyses:
                 valtargets[targetname] += "\n\t@echo running " + \
                     targetname + ".yoda\n\t@echo " + hepmcname + " > tmp/" + \
                     targetname + ".log\n\t@" + sublines[1].strip() +\
-                    " > tmp/" + targetname + ".log 2>&1\n"
+                    " >> tmp/" + targetname + ".log 2>&1\n"
             for subline in sublines[2:]:
-                valtargets[targetname] += "\n\t" + subline.strip() + \
+                valtargets[targetname] += "\t" + subline.strip() + \
                     " >> tmp/" + targetname + ".log 2>&1\n"
             if len(sublines) > 1:
-                valtargets[targetname] += "\n\t@echo done " + \
+                valtargets[targetname] += "\t@echo done " + \
                     targetname + ".yoda\n"
                 
                 
@@ -192,7 +192,9 @@ mf.write("""#
 # another analysis that are referenced in any of the
 # "commandline"s. If no commandline is given the analysis will be run
 # together with a bunch of other analyses and the YODA-name.yoda will
-# be extracted formthe resulting yoda.
+# be extracted form the resulting yoda. The command lines will be used
+# as make recipes where the output YODA file can be given by $@ and the
+# HepMC file by $<
 #
 # When submitting a new analysis to Rivet, the "Validation:" section
 # of the .info file must be present and all the corresponding YODA
@@ -206,7 +208,7 @@ all:
 	@head -7 $(firstword $(MAKEFILE_LIST))
 
 help:
-	@head -41 $(firstword $(MAKEFILE_LIST)) | grep -v "# For more information"
+	@head -43 $(firstword $(MAKEFILE_LIST)) | grep -v "# For more information"
 
 """)
 
