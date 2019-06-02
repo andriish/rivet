@@ -1,3 +1,7 @@
+2019-06-01  Peter Richardson <peter.richardson@durham.ac.uk>
+	* add DELPHI_2000_I524694 for sigma- and lambdsa(1520) production at LEP
+	* clean up code in OPAL_1997_S3396100, fixed normalisation of sigma-(1385) distributions 
+
 2019-06-01 Peter Richardson <peter.richardson@durham.ac.uk>
 	* update yoda for ARGUS_1993_S2653028, improved y errors, still zero bin width issues
 	* update yoda for SND_2016_I1471515, ALEPH_1995_I382179, ALEPH_1999_S4193598
