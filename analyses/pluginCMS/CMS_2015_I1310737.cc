@@ -88,7 +88,7 @@ namespace Rivet {
         /// @todo Nice use-case for any() and a C++11 lambda
         bool overlap = false;
         for (const Particle& l : dressedLeptons) {
-          if (Rivet::deltaR(j, l) < 0.5) {
+          if (deltaR(j, l) < 0.5) {
             overlap = true;
             break;
           }

@@ -1,21 +1,13 @@
+// -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
-
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/WFinder.hh"
 
-#include "Rivet/AnalysisLoader.hh"
-#include "Rivet/AnalysisInfo.hh"
-#include "Rivet/Tools/RivetYODA.hh"
-
-#include <iostream>
-
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
   class CMS_2017_I1610623 : public Analysis {
   public:
 
@@ -78,7 +70,7 @@ namespace Rivet {
     }
 
     // define function used for filiing inc Njets histo
-    void Fill(Histo1DPtr& _histJetMult, std::vector<FourMomentum>& finaljet_list){
+    void _fill(Histo1DPtr& _histJetMult, std::vector<FourMomentum>& finaljet_list){
       _histJetMult->fill(0);
       for (size_t i=0 ; i<finaljet_list.size() ; ++i) {
         if (i==6) break;
@@ -135,7 +127,7 @@ namespace Rivet {
         _hist_Mult_exc->fill(finaljet_list.size());
 
         // Multiplicity inc plot.
-        Fill(_hist_inc_WJetMult, finaljet_list);
+        _fill(_hist_inc_WJetMult, finaljet_list);
 
         // dRmuj plot.
         double mindR(99999);

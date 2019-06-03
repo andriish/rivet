@@ -1,26 +1,22 @@
+// -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
-#include "Rivet/Tools/ParticleName.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
 
 namespace Rivet {
 
-  namespace { //< only visible in this compilation unit
 
-
-    /// @brief Special dressed lepton finder
+    /// @brief Special CMS dressed lepton finder
     ///
     /// Find dressed leptons by clustering all leptons and photons
-    class SpecialDressedLeptons : public FinalState {
+    class SpecialDressedLeptons_CMS_2016_PAS_TOP_15_006 : public FinalState {
     public:
 
       /// Constructor
-      SpecialDressedLeptons(const FinalState& fs, const Cut& cut)
+      SpecialDressedLeptons_CMS_2016_PAS_TOP_15_006(const FinalState& fs, const Cut& cut)
         : FinalState(cut)
       {
         setName("SpecialDressedLeptons");
@@ -34,7 +30,7 @@ namespace Rivet {
 
       /// Clone on the heap
       virtual unique_ptr<Projection> clone() const {
-        return unique_ptr<Projection>(new SpecialDressedLeptons(*this));
+        return unique_ptr<Projection>(new SpecialDressedLeptons_CMS_2016_PAS_TOP_15_006(*this));
       }
 
       /// Retrieve the dressed leptons
@@ -60,7 +56,9 @@ namespace Rivet {
 
           DressedLepton lepton = DressedLepton(lepCand);
           for (const Particle& cand : jet.particles()) {
+            //if (isSame(cand, lepCand)) continue;
             if (cand == lepCand) continue;
+            //if (cand.pid() != PID::PHOTON) continue;
             lepton.addPhoton(cand, true);
           }
           allClusteredLeptons.push_back(lepton);
@@ -82,8 +80,6 @@ namespace Rivet {
 
     };
 
-  }
-
 
 
   /// Jet multiplicity in lepton+jets ttbar at 8 TeV
@@ -103,7 +99,7 @@ namespace Rivet {
       // Complete final state
       FinalState fs;
       Cut superLooseLeptonCuts = Cuts::pt > 5*GeV;
-      SpecialDressedLeptons dressedleptons(fs, superLooseLeptonCuts);
+      SpecialDressedLeptons_CMS_2016_PAS_TOP_15_006 dressedleptons(fs, superLooseLeptonCuts);
       declare(dressedleptons, "DressedLeptons");
 
       // Projection for jets
@@ -122,7 +118,7 @@ namespace Rivet {
     /// Per-event analysis
     void analyze(const Event& event) {
       // Select ttbar -> lepton+jets
-      const SpecialDressedLeptons& dressedleptons = applyProjection<SpecialDressedLeptons>(event, "DressedLeptons");
+      const auto& dressedleptons = applyProjection<SpecialDressedLeptons_CMS_2016_PAS_TOP_15_006>(event, "DressedLeptons");
       vector<FourMomentum> selleptons;
       for (const DressedLepton& dressedlepton : dressedleptons.dressedLeptons()) {
         // Select good leptons
