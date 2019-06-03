@@ -1,12 +1,12 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 #include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
   class CLEO_1991_I29927 : public Analysis {
   public:
 
@@ -37,15 +37,15 @@ namespace Rivet {
       // Get Bottom hadrons
       const Particles bhads = filter_select(ufs.particles(), isBottomHadron);
       // find the Bstars
-      foreach (const Particle& p, bhads) {
-	if(abs(p.pdgId())==513 || abs(p.pdgId())==523) {
-	  if(!p.hasDescendantWith(Cuts::pid == p.pdgId())) ++nBstar;
-	}
+      for (const Particle& p : bhads) {
+        if(abs(p.pdgId())==513 || abs(p.pdgId())==523) {
+          if(!p.hasDescendantWith(Cuts::pid == p.pdgId())) ++nBstar;
+        }
       }
       if(!bhads.empty())
-	_c_B->fill(event.weight());
+        _c_B->fill(event.weight());
       if(nBstar!=0)
-	_c_Bstar->fill(nBstar*event.weight());
+        _c_Bstar->fill(nBstar*event.weight());
     }
 
 
@@ -53,30 +53,30 @@ namespace Rivet {
     void finalize() {
       double fact = crossSection()/ sumOfWeights() /picobarn;
       for(unsigned int ix=1;ix<3;++ix) {
-	double sig(0.),err(0.);
-	if(ix==1) {
-	  sig = _c_B->val()*fact;
-	  err = _c_B->err()*fact;
-	}
-	else {
-	  sig = _c_Bstar->val()*fact;
-	  err = _c_Bstar->err()*fact;
-	}
-	Scatter2D    temphisto(refData(ix, 1, 1));
-	Scatter2DPtr mult = bookScatter2D(ix, 1, 1);
-	for (size_t b = 0; b < temphisto.numPoints(); b++) {
-	  const double x  = temphisto.point(b).x();
-	  pair<double,double> ex = temphisto.point(b).xErrs();
-	  pair<double,double> ex2 = ex;
-	  if(ex2.first ==0.) ex2. first=0.0001;
-	  if(ex2.second==0.) ex2.second=0.0001;
-	  if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
-	    mult->addPoint(x, sig, ex, make_pair(err,err));
-	  }
-	  else {
-	    mult->addPoint(x, 0., ex, make_pair(0.,.0));
-	  }
-	}
+        double sig(0.),err(0.);
+        if(ix==1) {
+          sig = _c_B->val()*fact;
+          err = _c_B->err()*fact;
+        }
+        else {
+          sig = _c_Bstar->val()*fact;
+          err = _c_Bstar->err()*fact;
+        }
+        Scatter2D    temphisto(refData(ix, 1, 1));
+        Scatter2DPtr mult = bookScatter2D(ix, 1, 1);
+        for (size_t b = 0; b < temphisto.numPoints(); b++) {
+          const double x  = temphisto.point(b).x();
+          pair<double,double> ex = temphisto.point(b).xErrs();
+          pair<double,double> ex2 = ex;
+          if(ex2.first ==0.) ex2. first=0.0001;
+          if(ex2.second==0.) ex2.second=0.0001;
+          if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+            mult->addPoint(x, sig, ex, make_pair(err,err));
+          }
+          else {
+            mult->addPoint(x, 0., ex, make_pair(0.,.0));
+          }
+        }
       }
     }
 
