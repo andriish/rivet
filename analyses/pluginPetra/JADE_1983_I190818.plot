@@ -5,4 +5,7 @@ YLabel=$\bar{n}_\text{ch}$
 LogY=0
 LegendXPos=0.25
 LegendYPos=0.25
+XMin=10
+XMax=38
+ConnectGaps=1
 # END PLOT

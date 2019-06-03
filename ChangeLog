@@ -10,6 +10,8 @@
 	* switch to using counters in OPAL_2002_S5361494, errors now calculated, and allows yoda sync with HEPdata
 	* add DELPHI_2003_I620250 for event shapes below Z pole
 	* switch to using counters in DELPHI_2000_S4328825, errors now calculated, and allows partial yoda sync with HEPdata
+	* update PLUTO_1980_I154270.yoda for new hepdata error calc
+	* update JADE_1983_I190818 to handle zero bins widths and update the yoda from HEPData
 
 2019-06-02  Peter Richardson <peter.richardson@durham.ac.uk>
 	* add DELPHI_2000_I524694 for sigma- and lambdsa(1520) production at LEP
