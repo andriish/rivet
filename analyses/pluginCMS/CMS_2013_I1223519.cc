@@ -212,7 +212,8 @@ namespace Rivet {
 
     /// Sum the given values into two subsets according to the provided bitmask
     template <size_t N>
-    pair<double, double> partition_sum(const std::bitset<N>& mask, const vector<double>& vals) const {
+    pair<double, double> partition_sum(const std::bitset<N>& mask,
+                                       const vector<double>& vals) const {
       pair<double, double> rtn(0., 0.);
       for (size_t i = 0; i < vals.size(); ++i) {
         (!mask[vals.size()-1-i] ? rtn.first : rtn.second) += vals[i];

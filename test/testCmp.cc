@@ -8,10 +8,11 @@ using namespace std;
 ostream & operator<<(ostream & os, Rivet::CmpState c) {
   string s;
   switch (c) {
-    case Rivet::CmpState::UNDEF : s = "UNDEF"; break;
-    case Rivet::CmpState::LT : s = "LT"; break;
-    case Rivet::CmpState::EQ : s = "EQ"; break;
-    case Rivet::CmpState::GT : s = "GT"; break;
+  case Rivet::CmpState::UNDEF : s = "UNDEF"; break;
+  case Rivet::CmpState::LT : s = "LT"; break;
+  case Rivet::CmpState::EQ : s = "EQ"; break;
+  case Rivet::CmpState::GT : s = "GT"; break;
+  default: s = "OTHER"; break;
   }
   os << s;
   return os;
