@@ -14,7 +14,7 @@ References:
 - 'arXiv:1601.01999 '
 RunInfo: Minimum bias AuAu events at various collision energies.
 NeedCrossSection: no
-Beams: [1000791970, 1000791970]
+Beams: [Au, Au]
 Options:
  - cent=REF,GEN,IMP,USR
 # This is _total_ energy of beams, so this becomes 197*200=39400 etc.

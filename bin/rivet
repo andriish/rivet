@@ -315,6 +315,10 @@ if len(args.SHOW_ANALYSES) > 0:
                     return "p+"
                 elif pid == -2212:
                     return "p-"
+                elif pid == 1000822080:
+                    return "Pb"
+                elif pid == 1000791970:
+                    return "Au"
                 elif pid == 10000:
                     return "*"
                 else:
@@ -322,10 +326,10 @@ if len(args.SHOW_ANALYSES) > 0:
             beamstrs = []
             for bp in ana.requiredBeams():
                 beamstrs.append(pid_to_str(bp[0]) + " " + pid_to_str(bp[1]))
-            msg += "Beams:" + ", ".join(beamstrs) + "\n"
+            msg += "Beams: " + ", ".join(beamstrs) + "\n"
 
         if ana.requiredEnergies():
-            msg += "Beam energies:" + "; ".join(["(%0.1f, %0.1f) GeV\n" % (epair[0], epair[1]) for epair in ana.requiredEnergies()])
+            msg += "Beam energies: " + "; ".join(["(%0.1f, %0.1f) GeV\n" % (epair[0], epair[1]) for epair in ana.requiredEnergies()])
         else:
             msg += "Beam energies: ANY\n"
 

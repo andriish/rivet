@@ -16,7 +16,7 @@ RunInfo: p-Pb minimum bias events with $c\tau > 10 cm$ stable.
 NeedCrossSection: no
 Options:
  - cent=REF,GEN,IMP,USR
-Beams: [2212,1000822080]
+Beams: [p, Pb]
 Energies: [[4000,326560]]
 Description:
   'The centrality dependence of the mean charged-particle multiplicity as a function

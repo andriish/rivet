@@ -84,7 +84,7 @@ public:
 			}else{
 				MSG_INFO("p-p collisions : energy out of range!");
 			}
-		} else if (bm1.pid()==2212 && bm2.pid()==1000822080){ //p-Pb
+		} else if (bm1.pid()==PID::PROTON && bm2.pid()==PID::LEAD){ //p-Pb
 			_pp_Pb = false;
 			if( fuzzyEquals( _sqrts/sqrt(208.)/GeV, 5020., 1E-3) ) {
 				_p_pi0_rap_apT = bookProfile1D(1, 1, 3);
