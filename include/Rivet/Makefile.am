@@ -125,14 +125,23 @@ nobase_pkginclude_HEADERS += \
   Tools/JetSmearingFunctions.hh \
   Tools/TypeTraits.hh \
   Tools/Utils.hh \
-  Tools/Nsubjettiness/AxesDefinition.hh \
-  Tools/Nsubjettiness/ExtraRecombiners.hh \
-  Tools/Nsubjettiness/MeasureDefinition.hh \
-  Tools/Nsubjettiness/Njettiness.hh \
-  Tools/Nsubjettiness/NjettinessPlugin.hh \
-  Tools/Nsubjettiness/Nsubjettiness.hh \
-  Tools/Nsubjettiness/TauComponents.hh \
-  Tools/Nsubjettiness/XConePlugin.hh
+  Tools/fjcontrib/AxesDefinition.hh \
+  Tools/fjcontrib/BottomUpSoftDrop.hh \
+  Tools/fjcontrib/EnergyCorrelator.hh \
+  Tools/fjcontrib/ExtraRecombiners.hh \
+  Tools/fjcontrib/IteratedSoftDrop.hh \
+  Tools/fjcontrib/MeasureDefinition.hh \
+  Tools/fjcontrib/ModifiedMassDropTagger.hh \
+  Tools/fjcontrib/Njettiness.hh \
+  Tools/fjcontrib/NjettinessPlugin.hh \
+  Tools/fjcontrib/Nsubjettiness.hh \
+  Tools/fjcontrib/Recluster.hh \
+  Tools/fjcontrib/RecursiveSoftDrop.hh \
+  Tools/fjcontrib/RecursiveSymmetryCutBase.hh \
+  Tools/fjcontrib/SoftDrop.hh \
+  Tools/fjcontrib/TauComponents.hh \
+  Tools/fjcontrib/XConePlugin.hh
+
 nobase_dist_noinst_HEADERS += \
   Tools/osdir.hh \
   Math/eigen3/COPYING.GPL \
