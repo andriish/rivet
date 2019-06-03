@@ -1,6 +1,13 @@
-2019-06-01  Peter Richardson <peter.richardson@durham.ac.uk>
+2019-06-03  Peter Richardson <peter.richardson@durham.ac.uk>
+	* sync ALEPH_1996_S3196992.yoda with HEPdata, rounding issues in old version
+	* sync ALEPH_2001_S4656318.yoda, differences in histos not used in analysis
+	* sync DELPHI_2011_I890503.yoda, fixes y errors but still a zero width bin to deal with
+	* switch to using counters in OPAL_2002_S5361494, errors now calculated, and allows yoda sync with HEPdata
+	* add DELPHI_2003_I620250 for event shapes below Z pole
+
+2019-06-02  Peter Richardson <peter.richardson@durham.ac.uk>
 	* add DELPHI_2000_I524694 for sigma- and lambdsa(1520) production at LEP
-	* clean up code in OPAL_1997_S3396100, fixed normalisation of sigma-(1385) distributions 
+	* clean up code in OPAL_1997_S3396100, fixed normalisation of sigma-(1385) distributions
 
 2019-06-01 Peter Richardson <peter.richardson@durham.ac.uk>
 	* update yoda for ARGUS_1993_S2653028, improved y errors, still zero bin width issues
