@@ -1,26 +1,25 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/PromptFinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
-#include "Rivet/Tools/ParticleName.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
 
-namespace Rivet
-{
-  namespace { //< only visible in this compilation unit
+namespace Rivet {
 
-    /// @brief Special dressed lepton finder
+
+    /// @brief Special CMS dressed lepton finder
     ///
     /// Find dressed leptons by clustering all leptons and photons
-    class SpecialDressedLeptons : public FinalState {
-      public:
+    ///
+    /// @todo Merge functionality into main DressedLeptons, or avoid projection
+    class SpecialDressedLeptons_CMS_2016_I1491950 : public FinalState {
+    public:
+
         /// The default constructor. May specify cuts
-        SpecialDressedLeptons(const FinalState& fs, const Cut& cut)
+        SpecialDressedLeptons_CMS_2016_I1491950(const FinalState& fs, const Cut& cut)
           : FinalState(cut)
         {
           setName("SpecialDressedLeptons");
@@ -31,27 +30,27 @@ namespace Rivet
           declare(ifs, "IFS");
           declare(FastJets(ifs, FastJets::ANTIKT, 0.1), "LeptonJets");
         }
-        
+
         /// Clone on the heap.
         virtual unique_ptr<Projection> clone() const {
-          return unique_ptr<Projection>(new SpecialDressedLeptons(*this));
+          return unique_ptr<Projection>(new SpecialDressedLeptons_CMS_2016_I1491950(*this));
         }
-        
+
         /// Retrieve the dressed leptons
         const vector<DressedLepton>& dressedLeptons() const { return _clusteredLeptons; }
-        
+
       private:
         /// Container which stores the clustered lepton objects
         vector<DressedLepton> _clusteredLeptons;
-        
+
       public:
         void project(const Event& e) {
 
           _theParticles.clear();
           _clusteredLeptons.clear();
-          
+
           vector<DressedLepton> allClusteredLeptons;
-          
+
           const Jets jets = applyProjection<FastJets>(e, "LeptonJets").jetsByPt(5.*GeV);
           for (const Jet& jet : jets) {
             Particle lepCand;
@@ -64,17 +63,18 @@ namespace Rivet
 
             //Central lepton must be the major component
             if ((lepCand.pt() < jet.pt()/2.) || (lepCand.pid() == 0)) continue;
-            
+
             DressedLepton lepton = DressedLepton(lepCand);
-            
+
             for (const Particle& cand : jet.particles()) {
+              //if (isSame(cand, lepCand)) continue;
               if (cand == lepCand) continue;
-	      if (cand.pid() != PID::PHOTON) continue;
+              if (cand.pid() != PID::PHOTON) continue;
               lepton.addPhoton(cand, true);
             }
             allClusteredLeptons.push_back(lepton);
           }
-          
+
           for (const DressedLepton& lepton : allClusteredLeptons) {
             if (accept(lepton)) {
               _clusteredLeptons.push_back(lepton);
@@ -84,11 +84,10 @@ namespace Rivet
           }
         }
     };
-  }
 
- class CMS_2016_I1491950 : public Analysis
- {
-   public:
+
+ class CMS_2016_I1491950 : public Analysis {
+ public:
    /// Constructor
    CMS_2016_I1491950()
     : Analysis("CMS_2016_I1491950")
@@ -102,23 +101,23 @@ namespace Rivet
     PromptFinalState prompt_fs(fs);
     prompt_fs.acceptMuonDecays(true);
     prompt_fs.acceptTauDecays(true);
-    
+
     // Projection for dressed electrons and muons
     Cut leptonCuts = Cuts::abseta < 2.5 and Cuts::pt > 30.*GeV;
-    SpecialDressedLeptons dressedleptons(prompt_fs, leptonCuts);
+    SpecialDressedLeptons_CMS_2016_I1491950 dressedleptons(prompt_fs, leptonCuts);
     declare(dressedleptons, "DressedLeptons");
-    
+
     // Neutrinos
     IdentifiedFinalState neutrinos(prompt_fs);
     neutrinos.acceptNeutrinos();
     declare(neutrinos, "Neutrinos");
-    
+
     // Projection for jets
     VetoedFinalState fsForJets(fs);
     fsForJets.addVetoOnThisFinalState(dressedleptons);
     fsForJets.addVetoOnThisFinalState(neutrinos);
     declare(FastJets(fsForJets, FastJets::ANTIKT, 0.4, JetAlg::Muons::DECAY, JetAlg::Invisibles::DECAY), "Jets");
-    
+
     //book hists
     book(_hist_thadpt, "d01-x02-y01");
     book(_hist_thady, "d03-x02-y01");
@@ -181,38 +180,33 @@ namespace Rivet
 
 
    /// Perform the per-event analysis
-   void analyze(const Event& event)
-   {
+   void analyze(const Event& event) {
     // leptons
-    const SpecialDressedLeptons& dressedleptons_proj = applyProjection<SpecialDressedLeptons>(event, "DressedLeptons");
+    const auto& dressedleptons_proj = applyProjection<SpecialDressedLeptons_CMS_2016_I1491950>(event, "DressedLeptons");
     std::vector<DressedLepton> dressedLeptons = dressedleptons_proj.dressedLeptons();
-    
-    if(dressedLeptons.size() != 1) return;
-    
+    if (dressedLeptons.size() != 1) vetoEvent;
+
     // neutrinos
     const Particles neutrinos = applyProjection<FinalState>(event, "Neutrinos").particlesByPt();
     _nusum = FourMomentum(0., 0., 0., 0.);
-    for(const Particle& neutrino : neutrinos)
-    {
+    for (const Particle& neutrino : neutrinos)
       _nusum += neutrino.momentum();
-    }
     _wl = _nusum + dressedLeptons[0].momentum();
-    
+
     // jets
     Cut jet_cut = (Cuts::abseta < 2.5) and (Cuts::pT > 25.*GeV);
-
     const Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt(jet_cut);
     Jets allJets;
     for (const Jet& jet : jets) {
       allJets.push_back(jet);
-    }    
+    }
     Jets bJets;
     for (const Jet& jet : allJets) {
       if (jet.bTagged()) bJets.push_back(jet);
     }
 
     if(bJets.size() < 2 || allJets.size() < 4) return;
-    
+
     //construct top quark proxies
     double Kmin = numeric_limits<double>::max();
     for(const Jet& itaj : allJets)
@@ -243,11 +237,11 @@ namespace Rivet
       }
     }
 
-    _hist_thadpt->fill(_th.pt()); 
+    _hist_thadpt->fill(_th.pt());
     _hist_thady->fill(abs(_th.rapidity()) );
     _hist_tleppt->fill(_tl.pt() );
     _hist_tlepy->fill(abs(_tl.rapidity()) );
-    _histnorm_thadpt->fill(_th.pt()); 
+    _histnorm_thadpt->fill(_th.pt());
     _histnorm_thady->fill(abs(_th.rapidity()) );
     _histnorm_tleppt->fill(_tl.pt() );
     _histnorm_tlepy->fill(abs(_tl.rapidity()) );
@@ -486,8 +480,8 @@ namespace Rivet
    Histo1DPtr _histnorm_ttpt_ttm_1;
    Histo1DPtr _histnorm_ttpt_ttm_2;
    Histo1DPtr _histnorm_ttpt_ttm_3;
-   Histo1DPtr _histnorm_ttpt_ttm_4;   
-   
+   Histo1DPtr _histnorm_ttpt_ttm_4;
+
  };
 
 
@@ -497,4 +491,3 @@ namespace Rivet
 
 
 }
-
