@@ -24,7 +24,7 @@ namespace Rivet {
     // The particles to be analysed.
     declare(ChargedFinalState(Cuts::eta > -2.7 && Cuts::eta < 2.7 &&
                               Cuts::pT > 0.1*GeV), "CFS");
-    
+
     // The centrality bins' upper edges.
     centralityBins = {90., 60., 40., 30., 20., 10., 5., 1.};
     for (int i = 0; i < 8; ++i) {
@@ -35,13 +35,11 @@ namespace Rivet {
 
   /// Perform the per-event analysis
   void analyze(const Event& event) {
-    const double weight = event.weight();
-    
     // Apply event triggers.
     if ( !apply<ATLAS::MinBiasTrigger>(event, "Trigger")() ) vetoEvent;
 
     // We must have direct acces to the centrality projection.
-    const CentralityProjection& cent = 
+    const CentralityProjection& cent =
       apply<CentralityProjection>(event,"CENT");
     double c = cent();
     // Find the correct centrality histogram
@@ -50,16 +48,15 @@ namespace Rivet {
     // Find the correct sow.
     auto sItr = sow.upper_bound(c);
     if (sItr == sow.end()) return;
-    sItr->second += weight;
+    sItr->second += 1;
     for ( const auto &p : apply<ChargedFinalState>(event,"CFS").particles() )
-      hItr->second->fill(p.eta(), weight);
+      hItr->second->fill(p.eta());
   }
-    
+
   /// Finalize
   void finalize() {
 
-    // Scale by the inverse sum of event weights in each centrality
-    // bin.
+    // Scale by the inverse sum of event weights in each centrality bin
     for (int i = 0; i < 8; ++i)
       histEta[centralityBins[i]]->scaleW(1./sow[centralityBins[i]]);
 

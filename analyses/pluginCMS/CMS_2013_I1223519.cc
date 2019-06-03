@@ -155,7 +155,7 @@ namespace Rivet {
       double deltaht = -1;
       vector<double> jetets; transform(jets, jetets, Et);
       for (int i = 1; i < (1 << (jetets.size()-1)); ++i) { // count from 1 to 2**N-1, i.e. through all heterogeneous bitmasks with MSB(2**N)==0
-        const bitset<10> bits(i); /// @warning There'd better not be more than 10 jets...
+        const std::bitset<10> bits(i); /// @warning There'd better not be more than 10 jets...
         const double htdiff = partition_diff(bits, jetets);
         // MSG_INFO(bits.to_string() << " => " << htdiff);
         if (deltaht < 0 || htdiff < deltaht) deltaht = htdiff;
@@ -212,7 +212,7 @@ namespace Rivet {
 
     /// Sum the given values into two subsets according to the provided bitmask
     template <size_t N>
-    pair<double, double> partition_sum(const bitset<N>& mask, const vector<double>& vals) const {
+    pair<double, double> partition_sum(const std::bitset<N>& mask, const vector<double>& vals) const {
       pair<double, double> rtn(0., 0.);
       for (size_t i = 0; i < vals.size(); ++i) {
         (!mask[vals.size()-1-i] ? rtn.first : rtn.second) += vals[i];
@@ -222,7 +222,7 @@ namespace Rivet {
 
     /// Return the difference between summed subsets according to the provided bitmask
     template <size_t N>
-    double partition_diff(const bitset<N>& mask, const vector<double>& vals) const {
+    double partition_diff(const std::bitset<N>& mask, const vector<double>& vals) const {
       const pair<double, double> sums = partition_sum(mask, vals);
       const double diff = fabs(sums.first - sums.second);
       MSG_TRACE(mask.to_string() << ": " << sums.first << "/" << sums.second << " => " << diff);
