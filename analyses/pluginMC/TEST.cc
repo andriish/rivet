@@ -26,13 +26,13 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      ChargedFinalState cfs(-1.0, 1.0);
+      ChargedFinalState cfs(Cuts::abseta < 1.0);
       declare(cfs, "CFS");
       ChargedFinalState pp(Cuts::abseta < 2.0);
       declare(pp, "PP");
-      h_c22 = bookScatter2D("c22",120,0,120);
-      h_c23 = bookScatter2D("c23",120,0,120);
-      h_v22pT = bookScatter2D("v22pT",10,0,10);
+      book(h_c22, "c22",120,0,120);
+      book(h_c23, "c23",120,0,120);
+      book(h_v22pT, "v22pT",10,0,10);
       ec22 = bookECorrelator<2,2>("ec22",h_c22);
       ec23 = bookECorrelator<3,2>("ec32",h_c22);
       ec22pT = bookECorrelator<2,2>("ec22pT",h_v22pT);
@@ -43,11 +43,9 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const Correlators& c = apply<Correlators>(event,"CRS");
-      ec22->fill(apply<ChargedFinalState>(event,"CFS").particles().size(), 
-        c, event.weight());
-      ec23->fill(apply<ChargedFinalState>(event,"CFS").particles().size(), 
-        c, event.weight());
-      ec22pT->fill(c, event.weight());
+      ec22->fill(apply<ChargedFinalState>(event,"CFS").particles().size(), c);
+      ec23->fill(apply<ChargedFinalState>(event,"CFS").particles().size(), c);
+      ec22pT->fill(c);
     }
     /// Normalise histograms etc., after the run
     void finalize() {

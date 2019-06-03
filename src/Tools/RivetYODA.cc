@@ -24,10 +24,14 @@ Wrapper<T>::Wrapper(const vector<string>& weightNames, const T & p)
 {
   for (const string& weightname : weightNames) {
     _persistent.push_back(make_shared<T>(p));
+    _final.push_back(make_shared<T>(p));
 
     auto obj = _persistent.back();
-    if (weightname != "")
-      obj->setPath(obj->path() + "[" + weightname + "]");
+    auto final = _final.back();
+    if (weightname != "") {
+      obj->setPath("/RAW" + obj->path() + "[" + weightname + "]");
+      final->setPath(obj->path() + "[" + weightname + "]");
+    }
   }
 }
 
@@ -365,6 +369,15 @@ namespace Rivet {
       _evgroup.clear();
       _active.reset();
   }
+
+  template <class T>
+  void Wrapper<T>::pushToFinal(const vector<valarray<double> >& weight) {
+    for ( size_t m = 0; m < _persistent.size(); ++m ) {
+      copyao(_persistent.at(m), _final.at(m));
+    }
+  }
+
+
 
   template <>
   void Wrapper<YODA::Counter>::pushToPersistent(const vector<valarray<double> >& weight) {

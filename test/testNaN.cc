@@ -29,7 +29,7 @@ public:
      cout << "Inf fill" << '\n';
     try {
       _h_test->fill(numeric_limits<double>::infinity(), 1.);
-    } catch (YODA::RangeError e) {
+    } catch (YODA::RangeError & e) {
       cerr << e.what() << '\n';
       if ( string(e.what()) != string("X is Inf") ) throw;
     }
@@ -37,7 +37,7 @@ public:
     cout << "NaN fill" << '\n';
     try {
       _h_test->fill(numeric_limits<double>::quiet_NaN(), 1.);
-    } catch (YODA::RangeError e) {
+    } catch (YODA::RangeError & e) {
       cerr << e.what() << '\n';
       if ( string(e.what()) != string("X is NaN") ) throw;
     }

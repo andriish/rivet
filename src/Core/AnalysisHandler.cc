@@ -462,6 +462,8 @@ namespace Rivet {
   }
 
 
+  void AnalysisHandler::mergeYodas(const vector<string> & ,
+                                   const vector<string> & , bool ) {}
   // void AnalysisHandler::mergeYodas(const vector<string> & aofiles,
   //                                  const vector<string> & delopts, bool equiv) {
   //   vector< vector<YODA::AnalysisObjectPtr> > aosv;

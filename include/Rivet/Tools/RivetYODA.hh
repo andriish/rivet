@@ -45,6 +45,9 @@ namespace Rivet {
     /// @todo Rename to setActive(idx)
     virtual void setActiveWeightIdx(unsigned int iWeight) = 0;
 
+    /// @todo Set active object for finalize
+    virtual void setActiveFinalWeightIdx(unsigned int iWeight) = 0;
+
     bool operator ==(const AnalysisObjectWrapper& p) { return (this == &p); }
     bool operator !=(const AnalysisObjectWrapper& p) { return (this != &p); }
 
@@ -139,6 +142,7 @@ namespace Rivet {
     virtual void newSubEvent() = 0;
 
     virtual void pushToPersistent(const vector<std::valarray<double> >& weight) = 0;
+    virtual void pushToFinal(const vector<std::valarray<double> >& weight) = 0;
 
     virtual YODA::AnalysisObjectPtr activeYODAPtr() const = 0;
   };
@@ -358,6 +362,11 @@ namespace Rivet {
       _active = _persistent.at(iWeight);
     }
 
+    void setActiveFinalWeightIdx(unsigned int iWeight) {
+      _active = _final.at(iWeight);
+    }
+
+
     /* this is for dev only---we shouldn't need this in real runs. */
     void unsetActiveWeight() { _active.reset(); }
 
@@ -367,11 +376,18 @@ namespace Rivet {
 
     const vector<typename T::Ptr> & persistent() const { return _persistent; }
 
+    const vector<typename T::Ptr> & final() const { return _final; }
+
     /* to be implemented for each type */
     void pushToPersistent(const vector<std::valarray<double> >& weight);
+    void pushToFinal(const vector<std::valarray<double> >& weight);
+
 
     /* M of these, one for each weight */
     vector<typename T::Ptr> _persistent;
+
+    /* This is the copy of _persistent that will be passed to finalize(). */
+    vector<typename T::Ptr> _final;
 
     /* N of these, one for each event in evgroup */
     vector<typename TupleWrapper<T>::Ptr> _evgroup;

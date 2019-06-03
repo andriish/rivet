@@ -3,6 +3,7 @@
 #define RIVET_ConstLossyFinalState_HH
 
 #include "Rivet/Tools/Logging.hh"
+#include "Rivet/Tools/Random.hh"
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
