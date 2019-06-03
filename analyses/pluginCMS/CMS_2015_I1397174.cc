@@ -153,7 +153,7 @@ namespace Rivet {
         if (jet.pT() > 100*GeV) nJet100 += 1;
 
         const bool isBtagged = jet.bTagged();
-        const bool isBFromTop = any(jet.bTags(), hasParticleAncestorWith(Cuts::abspid == PID::TQUARK));
+        const bool isBFromTop = any(jet.bTags(), hasParticleAncestorWith(Cuts::abspid == PID::TQUARK, false));
 
         if (isBFromTop) {
           if (jet.pT() > 30*GeV) topBJets.push_back(jet);

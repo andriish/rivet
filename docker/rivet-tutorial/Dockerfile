@@ -6,3 +6,4 @@ CMD /bin/bash
 WORKDIR /work
 
 ADD . /work
+RUN rm /work/Dockerfile

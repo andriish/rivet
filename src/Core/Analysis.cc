@@ -13,7 +13,7 @@ namespace Rivet {
 
 
   Analysis::Analysis(const string& name)
-      : _analysishandler(NULL)
+      : _analysishandler(nullptr)
   {
     ProjectionApplier::_allowProjReg = false;
     _defaultname = name;
@@ -204,7 +204,7 @@ namespace Rivet {
   }
 
   // vector<YODA::AnalysisObjectPtr> Analysis::getAllData(bool includeorphans) const{
-  //   return handler().getData(includeorphans);
+  //   return handler().getData(includeorphans, false, false);
   // }
 
 

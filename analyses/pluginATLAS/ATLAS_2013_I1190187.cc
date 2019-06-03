@@ -90,7 +90,7 @@ namespace Rivet {
       for (DressedLepton& l1 : dressed_lepton) {
         bool l_isolated = true;
         for (DressedLepton& l2 : dressed_lepton) {
-          if (l1 != l2 && l2.constituentLepton().abspid() == PID::ELECTRON) {
+          if (!isSame(l1, l2) && l2.constituentLepton().abspid() == PID::ELECTRON) {
             double overlapControl_ll= deltaR(l1.constituentLepton(),l2.constituentLepton());
             if (overlapControl_ll < 0.1) {
               l_isolated = false;

@@ -28,34 +28,38 @@ namespace Rivet {
         _original(nullptr), _id(PID::ANY), _isDirect{false,false}
     {   }
 
-    /// Constructor without GenParticle.
-    Particle(PdgId pid, const FourMomentum& mom, const FourVector& pos=FourVector())
+    /// Constructor from PID and momentum.
+    Particle(PdgId pid, const FourMomentum& mom, const FourVector& pos=FourVector(), ConstGenParticlePtr gp=nullptr)
       : ParticleBase(),
-        _original(nullptr), _id(pid),
+        _original(gp), _id(pid),
         _momentum(mom), _origin(pos),
         _isDirect{false,false}
     {   }
 
+    /// Constructor from PID, momentum, and a GenParticle for relational links.
+    Particle(PdgId pid, const FourMomentum& mom, ConstGenParticlePtr gp, const FourVector& pos=FourVector())
+      : Particle(pid, mom, pos, gp)
+    {   }
+
     /// Constructor from a HepMC GenParticle pointer.
-    Particle(const GenParticle* gp)
+    Particle(ConstGenParticlePtr gp)
       : ParticleBase(),
         _original(gp), _id(gp->pdg_id()),
         _momentum(gp->momentum()),
         _isDirect{false,false}
     {
-      const GenVertex* vprod = gp->production_vertex();
+      ConstGenVertexPtr vprod = gp->production_vertex();
       if (vprod != nullptr) {
         setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
       }
     }
 
     /// Constructor from a HepMC GenParticle reference.
-    Particle(const GenParticle& gp)
-      : Particle(&gp)
+    Particle(const RivetHepMC::GenParticle& gp)
+      : Particle(HepMCUtils::getParticlePtr(gp))
     {   }
 
     //@}
-
 
     /// @name Kinematic properties
     //@{
@@ -116,14 +120,20 @@ namespace Rivet {
     operator PseudoJet () const { return pseudojet(); }
 
 
+    /// Set a const pointer to the original GenParticle
+    Particle& setGenParticle(ConstGenParticlePtr gp) {
+      _original = gp;
+      return *this;
+    }
+
     /// Get a const pointer to the original GenParticle
-    const GenParticle* genParticle() const {
+    ConstGenParticlePtr genParticle() const {
       return _original;
     }
 
     /// Cast operator for conversion to GenParticle*
-    /// @todo This one's a bad idea since it enables accidental Particle comparisons
-    operator const GenParticle* () const { return genParticle(); }
+    /// @note Not implicit since that would enable accidental Particl::operator== comparisons
+    explicit operator ConstGenParticlePtr () const { return genParticle(); }
 
     //@}
 
@@ -660,10 +670,26 @@ namespace Rivet {
     //@}
 
 
+    /// @name Comparison
+    //@{
+
+    /// Compare particles, based on "external" characteristics, with a little angular tolerance
+    ///
+    /// @note Not a deep comparison: GenParticle ptr and constituents are not used in the comparison
+    bool isSame(const Particle& other) const {
+      if (pid() != other.pid()) return false;
+      if (!isZero((mom() - other.mom()).mod())) return false;
+      if (!isZero((origin() - other.origin()).mod())) return false;
+      return true;
+    }
+
+    //@}
+
+
   protected:
 
-    /// A pointer to the original GenParticle from which this Particle is projected (may be null)
-    const GenParticle* _original;
+    /// A pointer to the original GenParticle from which this Particle is projected.
+    ConstGenParticlePtr _original;
 
     /// Constituent particles if this is a composite (may be empty)
     Particles _constituents;
@@ -694,7 +720,6 @@ namespace Rivet {
   std::ostream& operator << (std::ostream& os, const ParticlePair& pp);
 
   //@}
-
 
 }
 

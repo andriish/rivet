@@ -235,6 +235,11 @@ namespace Rivet {
       return info().todos();
     }
 
+    /// make-style commands for validating this analysis.
+    virtual std::vector<std::string> validation() const {
+      return info().validation();
+    }
+
 
     /// Return the allowed pairs of incoming beams required by this analysis.
     virtual const std::vector<PdgIdPair>& requiredBeams() const {
@@ -700,6 +705,11 @@ namespace Rivet {
 
     /// @name Accessing options for this Analysis instance.
     //@{
+
+    /// Return the map of all options given to this analysis.
+    const std::map<std::string,std::string> & options() {
+      return _options;
+    }
 
     /// Get an option for this analysis instance as a string.
     std::string getOption(std::string optname) {
@@ -1283,8 +1293,8 @@ namespace Rivet {
     /// reference data file should only be read once.
     mutable std::map<std::string, YODA::AnalysisObjectPtr> _refdata;
 
-     /// Options the (this instance of) the analysis
-     map<string, string> _options;
+    /// Options the (this instance of) the analysis
+    map<string, string> _options;
 
     /// The string of options.
     string _optstring;

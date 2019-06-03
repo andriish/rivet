@@ -89,7 +89,7 @@ namespace Rivet {
       // Put all b-quarks in a vector
       /// @todo Use a b-hadron search rather than b-quarks for tagging
       Particles bquarks;
-      for (const GenParticle* p : particles(event.genEvent())) {
+      for(ConstGenParticlePtr p: HepMCUtils::particles(event.genEvent())) {
         if (std::abs(p->pdg_id()) == PID::BQUARK) {
           bquarks += Particle(*p);
         }

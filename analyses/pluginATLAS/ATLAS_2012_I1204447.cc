@@ -5,7 +5,7 @@
 #include "Rivet/Projections/VisibleFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 #include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
@@ -51,7 +51,7 @@ namespace Rivet {
       declare(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
 
       // Final state including all unstable particles (including taus)
-      declare(UnstableFinalState(Cuts::abseta < 5.0 && Cuts::pT > 5*GeV), "UFS");
+      declare(UnstableParticles(Cuts::abseta < 5.0 && Cuts::pT > 5*GeV), "UFS");
 
       // Final state including all electrons
       IdentifiedFinalState elecs(Cuts::abseta < 2.47 && Cuts::pT > 10*GeV);
@@ -152,7 +152,7 @@ namespace Rivet {
       // Taus
       /// @todo This could benefit from a tau finder projection
       Particles tau_candidates;
-      for (const Particle& tau : apply<UnstableFinalState>(event, "UFS").particlesByPt()) {
+      for (const Particle& tau : apply<UnstableParticles>(event, "UFS").particlesByPt()) {
         // Only pick taus out of all unstable particles
         if (tau.abspid() != PID::TAU) continue;
 
@@ -445,38 +445,38 @@ namespace Rivet {
       double obs_UL_best_SR = getUpperLimit(best_signal_region, true);
 
       // Print out result
-      cout << "----------------------------------------------------------------------------------------" << '\n';
-      cout << "Best signal region: " << best_signal_region << '\n';
-      cout << "Normalized number of signal events in this best signal region (per fb-1): " << signal_events_best_SR << '\n';
-      cout << "Efficiency*Acceptance: " <<  _eventCountsPerSR[best_signal_region]->val()/sumOfWeights() << '\n';
-      cout << "Cross-section [fb]: " << crossSection()/femtobarn << '\n';
-      cout << "Expected visible cross-section (per fb-1): " << exp_UL_best_SR << '\n';
-      cout << "Ratio (signal events / expected visible cross-section): " << ratio_best_SR << '\n';
-      cout << "Observed visible cross-section (per fb-1): " << obs_UL_best_SR << '\n';
-      cout << "Ratio (signal events / observed visible cross-section): " <<  signal_events_best_SR/obs_UL_best_SR << '\n';
-      cout << "----------------------------------------------------------------------------------------" << '\n';
+      cout << "----------------------------------------------------------------------------------------" << endl;
+      cout << "Best signal region: " << best_signal_region << endl;
+      cout << "Normalized number of signal events in this best signal region (per fb-1): " << signal_events_best_SR << endl;
+      cout << "Efficiency*Acceptance: " <<  _eventCountsPerSR[best_signal_region]->val()/sumOfWeights() << endl;
+      cout << "Cross-section [fb]: " << crossSection()/femtobarn << endl;
+      cout << "Expected visible cross-section (per fb-1): " << exp_UL_best_SR << endl;
+      cout << "Ratio (signal events / expected visible cross-section): " << ratio_best_SR << endl;
+      cout << "Observed visible cross-section (per fb-1): " << obs_UL_best_SR << endl;
+      cout << "Ratio (signal events / observed visible cross-section): " <<  signal_events_best_SR/obs_UL_best_SR << endl;
+      cout << "----------------------------------------------------------------------------------------" << endl;
 
-      cout << "Using the EXPECTED limits (visible cross-section) of the analysis: " << '\n';
+      cout << "Using the EXPECTED limits (visible cross-section) of the analysis: " << endl;
       if (signal_events_best_SR > exp_UL_best_SR)  {
-        cout << "Since the number of signal events > the visible cross-section, this model/grid point is EXCLUDED with 95% CL." << '\n';
+        cout << "Since the number of signal events > the visible cross-section, this model/grid point is EXCLUDED with 95% CL." << endl;
         _h_excluded->fill(1);
       }
       else  {
-        cout << "Since the number of signal events < the visible cross-section, this model/grid point is NOT EXCLUDED." << '\n';
+        cout << "Since the number of signal events < the visible cross-section, this model/grid point is NOT EXCLUDED." << endl;
         _h_excluded->fill(0);
       }
-      cout << "----------------------------------------------------------------------------------------" << '\n';
+      cout << "----------------------------------------------------------------------------------------" << endl;
 
-      cout << "Using the OBSERVED limits (visible cross-section) of the analysis: " << '\n';
+      cout << "Using the OBSERVED limits (visible cross-section) of the analysis: " << endl;
       if (signal_events_best_SR > obs_UL_best_SR)  {
-        cout << "Since the number of signal events > the visible cross-section, this model/grid point is EXCLUDED with 95% CL." << '\n';
+        cout << "Since the number of signal events > the visible cross-section, this model/grid point is EXCLUDED with 95% CL." << endl;
         _h_excluded->fill(1);
       }
       else  {
-        cout << "Since the number of signal events < the visible cross-section, this model/grid point is NOT EXCLUDED." << '\n';
+        cout << "Since the number of signal events < the visible cross-section, this model/grid point is NOT EXCLUDED." << endl;
         _h_excluded->fill(0);
       }
-      cout << "----------------------------------------------------------------------------------------" << '\n';
+      cout << "----------------------------------------------------------------------------------------" << endl;
 
 
       // Normalize to cross section
@@ -620,10 +620,10 @@ namespace Rivet {
     /// @todo Move to TauFinder and make less HepMC-ish
     FourMomentum get_tau_neutrino_mom(const Particle& p)  {
       assert(p.abspid() == PID::TAU);
-      const GenVertex* dv = p.genParticle()->end_vertex();
-      assert(dv != NULL);
-      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
-        if (abs((*pp)->pdg_id()) == PID::NU_TAU) return FourMomentum((*pp)->momentum());
+      ConstGenVertexPtr dv = p.genParticle()->end_vertex();
+      assert(dv != nullptr);
+      for(ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
+        if (abs(pp->pdg_id()) == PID::NU_TAU) return FourMomentum(pp->momentum());
       }
       return FourMomentum();
     }
@@ -631,23 +631,23 @@ namespace Rivet {
 
     /// Function calculating the prong number of taus
     /// @todo Move to TauFinder and make less HepMC-ish
-    void get_prong_number(const GenParticle* p, unsigned int& nprong, bool& lep_decaying_tau) {
-      assert(p != NULL);
+    void get_prong_number(ConstGenParticlePtr p, unsigned int& nprong, bool& lep_decaying_tau) {
+      assert(p != nullptr);
       //const int tau_barcode = p->barcode();
-      const GenVertex* dv = p->end_vertex();
-      assert(dv != NULL);
-      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
+      ConstGenVertexPtr dv = p->end_vertex();
+      assert(dv != nullptr);
+      for(ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
         // If they have status 1 and are charged they will produce a track and the prong number is +1
-        if ((*pp)->status() == 1 )  {
-          const int id = (*pp)->pdg_id();
+        if (pp->status() == 1 )  {
+          const int id = pp->pdg_id();
           if (Rivet::PID::charge(id) != 0 ) ++nprong;
           // Check if tau decays leptonically
           // @todo Can a tau decay include a tau in its decay daughters?!
           if ((abs(id) == PID::ELECTRON || abs(id) == PID::MUON || abs(id) == PID::TAU) && abs(p->pdg_id()) == PID::TAU) lep_decaying_tau = true;
         }
         // If the status of the daughter particle is 2 it is unstable and the further decays are checked
-        else if ((*pp)->status() == 2 )  {
-          get_prong_number(*pp, nprong, lep_decaying_tau);
+        else if (pp->status() == 2 )  {
+          get_prong_number(pp, nprong, lep_decaying_tau);
         }
       }
     }
@@ -997,8 +997,8 @@ namespace Rivet {
       double best_mass_3 = 999.;
 
       // Loop over all 2 particle combinations to find invariant mass of OSSF pair closest to Z mass
-      for ( const Particle& p1 : particles  )  {
-        for ( const Particle& p2 : particles  )  {
+      foreach ( const Particle& p1, particles  )  {
+        foreach ( const Particle& p2, particles  )  {
           double mass_difference_2_old = fabs(91.0 - best_mass_2);
           double mass_difference_2_new = fabs(91.0 - (p1.momentum() + p2.momentum()).mass()/GeV);
 
@@ -1010,7 +1010,7 @@ namespace Rivet {
               best_mass_2 = (p1.momentum() + p2.momentum()).mass()/GeV;
 
             // In case there is an OSSF pair take also 3rd lepton into account (e.g. from FSR and photon to electron conversion)
-            for ( const Particle & p3 : particles  )  {
+            foreach ( const Particle & p3 , particles  )  {
               double mass_difference_3_old = fabs(91.0 - best_mass_3);
               double mass_difference_3_new = fabs(91.0 - (p1.momentum() + p2.momentum() + p3.momentum()).mass()/GeV);
               if (mass_difference_3_new < mass_difference_3_old)
@@ -1045,7 +1045,7 @@ namespace Rivet {
 
     /// List of signal regions and event counts per signal region
     vector<string> _signal_regions;
-    map<string, CounterPtr> _eventCountsPerSR;
+    map<string, double> _eventCountsPerSR;
 
   };
 

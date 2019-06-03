@@ -71,27 +71,22 @@ namespace Rivet {
 
       // MET
       if (_mode == 0 || _mode == 1){
-        book(_h["vvg"], 2, 1, 1);
-        book(_h["vvgg"], 4, 1, 1);
-        book(_h["pT"], 7, 1, 1);
+        book(_h["vvg"],     2, 1, 1);
+        book(_h["vvgg"],    4, 1, 1);
+        book(_h["pT"],      7, 1, 1);
         book(_h["pT_0jet"], 8, 1, 1);
       }
 	
-      if (_mode == 0 || _mode == 2 || _mode == 4){
-	// electron
-        book(_h["eeg"], 1, 1, 1);
-        book(_h["eegg"], 3, 1, 1);
-      }
-
-
-      // muon
-      if (_mode == 0 || _mode == 3 || _mode == 4){
-        book(_h["mmg"], 1, 1, 2);
-        book(_h["mmgg"], 3, 1, 2);
-      }
-
-      // combined
+      // always book e and mu in charged lepton modes; there are sometimes 4 leptons.
       if (_mode != 1){
+	// electron
+        book(_h["eeg"],  1, 1, 1);
+        book(_h["eegg"], 3, 1, 1);
+        // muon
+	book(_h["mmg"],  1, 1, 2);
+	book(_h["mmgg"], 3, 1, 2);
+
+        // combined
         book(_h["llgg"], 3, 1, 3);
         book(_h["llg"], 1, 1, 3);
         book(_h["pT"], 5, 1, 1);

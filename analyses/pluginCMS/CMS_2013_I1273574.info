@@ -6,8 +6,8 @@ Collider: LHC
 InspireID: 1273574
 Status: VALIDATED
 Authors:
- - P. Gunnellini
- - A. Buckley
+ - P. Gunnellini <paolo.gunnellini@desy.de>
+ - A. Buckley <andy.buckley@cern.ch>
 References:
  - CMS-FSQ-12-013
  - CERN-PH-EP-2013-229

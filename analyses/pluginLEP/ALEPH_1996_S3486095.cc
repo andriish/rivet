@@ -8,7 +8,7 @@
 #include "Rivet/Projections/Hemispheres.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -20,10 +20,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ALEPH_1996_S3486095()
-      : Analysis("ALEPH_1996_S3486095")
-    {}
-
+    DEFAULT_RIVET_ANALYSIS_CTOR(ALEPH_1996_S3486095);
 
     /// @name Analysis methods
     //@{
@@ -33,7 +30,7 @@ namespace Rivet {
       declare(Beam(), "Beams");
       const ChargedFinalState cfs;
       declare(cfs, "FS");
-      declare(UnstableFinalState(), "UFS");
+      declare(UnstableParticles(), "UFS");
       declare(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
       declare(Sphericity(cfs), "Sphericity");
       declare(ParisiTensor(cfs), "Parisi");
@@ -107,26 +104,25 @@ namespace Rivet {
       book(_histMeanMultiXi1530_0      ,44, 1, 15);
       book(_histMeanMultiOmegaOmegaBar ,44, 1, 16);
 
-    book(_weightedTotalPartNum, "weightedTotalPartNum");
-    book(_weightedTotalNumPiPlus, "weightedTotalNumPiPlus");
-    book(_weightedTotalNumKPlus, "weightedTotalNumKPlus");
-    book(_weightedTotalNumP, "weightedTotalNumP");
-    book(_weightedTotalNumPhoton, "weightedTotalNumPhoton");
-    book(_weightedTotalNumPi0, "weightedTotalNumPi0");
-    book(_weightedTotalNumEta, "weightedTotalNumEta");
-    book(_weightedTotalNumEtaPrime, "weightedTotalNumEtaPrime");
-    book(_weightedTotalNumK0, "weightedTotalNumK0");
-    book(_weightedTotalNumLambda0, "weightedTotalNumLambda0");
-    book(_weightedTotalNumXiMinus, "weightedTotalNumXiMinus");
-    book(_weightedTotalNumSigma1385Plus, "weightedTotalNumSigma1385Plus");
-    book(_weightedTotalNumXi1530_0, "weightedTotalNumXi1530_0");
-    book(_weightedTotalNumRho, "weightedTotalNumRho");
-    book(_weightedTotalNumOmega782, "weightedTotalNumOmega782");
-    book(_weightedTotalNumKStar892_0, "weightedTotalNumKStar892_0");
-    book(_weightedTotalNumPhi, "weightedTotalNumPhi");
-    book(_weightedTotalNumKStar892Plus, "weightedTotalNumKStar892Plus");
-    book(_numChParticles, "numChParticles");
-
+      book(_weightedTotalPartNum, "weightedTotalPartNum");
+      book(_weightedTotalNumPiPlus, "weightedTotalNumPiPlus");
+      book(_weightedTotalNumKPlus, "weightedTotalNumKPlus");
+      book(_weightedTotalNumP, "weightedTotalNumP");
+      book(_weightedTotalNumPhoton, "weightedTotalNumPhoton");
+      book(_weightedTotalNumPi0, "weightedTotalNumPi0");
+      book(_weightedTotalNumEta, "weightedTotalNumEta");
+      book(_weightedTotalNumEtaPrime, "weightedTotalNumEtaPrime");
+      book(_weightedTotalNumK0, "weightedTotalNumK0");
+      book(_weightedTotalNumLambda0, "weightedTotalNumLambda0");
+      book(_weightedTotalNumXiMinus, "weightedTotalNumXiMinus");
+      book(_weightedTotalNumSigma1385Plus, "weightedTotalNumSigma1385Plus");
+      book(_weightedTotalNumXi1530_0, "weightedTotalNumXi1530_0");
+      book(_weightedTotalNumRho, "weightedTotalNumRho");
+      book(_weightedTotalNumOmega782, "weightedTotalNumOmega782");
+      book(_weightedTotalNumKStar892_0, "weightedTotalNumKStar892_0");
+      book(_weightedTotalNumPhi, "weightedTotalNumPhi");
+      book(_weightedTotalNumKStar892Plus, "weightedTotalNumKStar892Plus");
+      book(_numChParticles, "numChParticles");
     }
 
 
@@ -187,7 +183,6 @@ namespace Rivet {
       double rapt10 = 0.;
       double rapt15 = 0.;
       double rapt20 = 0.;
-      //int numChParticles = 0;
       MSG_DEBUG("About to iterate over charged FS particles");
       for (const Particle& p : fs.particles()) {
         // Get momentum and energy of each particle.
@@ -238,7 +233,7 @@ namespace Rivet {
 
 
       //// Final state of unstable particles to get particle spectra
-      const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
       for (Particles::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
         const Vector3 mom3 = p->momentum().p3();
         int id = abs(p->pid());
@@ -249,80 +244,66 @@ namespace Rivet {
         switch (id) {
            case 22:
               _histMultiPhoton->fill(-1.*std::log(scaledMom));
-              _weightedTotalNumPhoton->fill();
               break;
            case -321:
            case 321:
-              _weightedTotalNumKPlus->fill();
               _histMultiKPlus->fill(scaledMom);
               break;
            case 211:
            case -211:
               _histMultiPiPlus->fill(scaledMom);
-              _weightedTotalNumPiPlus->fill();
               break;
            case 2212:
            case -2212:
               _histMultiP->fill(scaledMom);
-              _weightedTotalNumP->fill();
               break;
            case 111:
               _histMultiPi0->fill(scaledMom);
               _histMeanMultiPi0->fill(_histMeanMultiPi0->bin(0).xMid());
-              _weightedTotalNumPi0->fill();
               break;
            case 221:
               if (scaledMom >= 0.1) {
                 _histMultiEta->fill(scaledEnergy);
                 _histMeanMultiEta->fill(_histMeanMultiEta->bin(0).xMid());
-                _weightedTotalNumEta->fill();
               }
               break;
            case 331:
               if (scaledMom >= 0.1) {
                 _histMultiEtaPrime->fill(scaledEnergy);
                 _histMeanMultiEtaPrime->fill(_histMeanMultiEtaPrime->bin(0).xMid());
-                _weightedTotalNumEtaPrime->fill();
               }
               break;
            case 130: //klong
            case 310: //kshort
               _histMultiK0->fill(scaledMom);
               _histMeanMultiK0->fill(_histMeanMultiK0->bin(0).xMid());
-              _weightedTotalNumK0->fill();
               break;
            case 113:
               _histMultiRho->fill(scaledMom);
               _histMeanMultiRho->fill(_histMeanMultiRho->bin(0).xMid());
-              _weightedTotalNumRho->fill();
               break;
            case 223:
               _histMultiOmega782->fill(scaledMom);
               _histMeanMultiOmega782->fill(_histMeanMultiOmega782->bin(0).xMid());
-              _weightedTotalNumOmega782->fill();
               break;
            case 333:
               _histMultiPhi->fill(scaledMom);
               _histMeanMultiPhi->fill(_histMeanMultiPhi->bin(0).xMid());
-              _weightedTotalNumPhi->fill();
               break;
            case 313:
            case -313:
               _histMultiKStar892_0->fill(scaledMom);
               _histMeanMultiKStar892_0->fill(_histMeanMultiKStar892_0->bin(0).xMid());
-              _weightedTotalNumKStar892_0->fill();
               break;
            case 323:
            case -323:
               _histMultiKStar892Plus->fill(scaledEnergy);
               _histMeanMultiKStar892Plus->fill(_histMeanMultiKStar892Plus->bin(0).xMid());
-              _weightedTotalNumKStar892Plus->fill();
               break;
            case 3122:
            case -3122:
               _histMultiLambda0->fill(scaledMom);
               _histMeanMultiLambda0->fill(_histMeanMultiLambda0->bin(0).xMid());
-              _weightedTotalNumLambda0->fill();
               break;
            case 3212:
            case -3212:
@@ -332,7 +313,6 @@ namespace Rivet {
            case -3312:
               _histMultiXiMinus->fill(scaledEnergy);
               _histMeanMultiXiMinus->fill(_histMeanMultiXiMinus->bin(0).xMid());
-              _weightedTotalNumXiMinus->fill();
               break;
            case 3114:
            case -3114:
@@ -340,13 +320,11 @@ namespace Rivet {
            case -3224:
               _histMultiSigma1385Plus->fill(scaledEnergy);
               _histMeanMultiSigma1385Plus->fill(_histMeanMultiSigma1385Plus->bin(0).xMid());
-              _weightedTotalNumSigma1385Plus->fill();
               break;
            case 3324:
            case -3324:
               _histMultiXi1530_0->fill(scaledEnergy);
               _histMeanMultiXi1530_0->fill(_histMeanMultiXi1530_0->bin(0).xMid());
-              _weightedTotalNumXi1530_0->fill();
               break;
            case 3334:
               _histMeanMultiOmegaOmegaBar->fill(_histMeanMultiOmegaOmegaBar->bin(0).xMid());
@@ -393,24 +371,6 @@ namespace Rivet {
 
       scale(_histMultiKStar892Plus  ,1./sumOfWeights());
 
-      normalize(_histMultiPiPlus        ,dbl(*_weightedTotalNumPiPlus)/sumOfWeights());
-      normalize(_histMultiKPlus         ,dbl(*_weightedTotalNumKPlus)/sumOfWeights());
-      normalize(_histMultiP             ,dbl(*_weightedTotalNumP)/sumOfWeights());
-      normalize(_histMultiPhoton        ,dbl(*_weightedTotalNumPhoton)/sumOfWeights());
-      normalize(_histMultiPi0           ,dbl(*_weightedTotalNumPi0)/sumOfWeights());
-      normalize(_histMultiEta           ,dbl(*_weightedTotalNumEta)/sumOfWeights());
-      normalize(_histMultiEtaPrime      ,dbl(*_weightedTotalNumEtaPrime)/sumOfWeights());
-      normalize(_histMultiK0            ,dbl(*_weightedTotalNumK0)/sumOfWeights());
-      normalize(_histMultiLambda0       ,dbl(*_weightedTotalNumLambda0)/sumOfWeights());
-      normalize(_histMultiXiMinus       ,dbl(*_weightedTotalNumXiMinus)/sumOfWeights());
-      normalize(_histMultiSigma1385Plus ,dbl(*_weightedTotalNumSigma1385Plus)/sumOfWeights());
-      normalize(_histMultiXi1530_0      ,dbl(*_weightedTotalNumXi1530_0 )/sumOfWeights());
-      normalize(_histMultiRho           ,dbl(*_weightedTotalNumRho)/sumOfWeights());
-      normalize(_histMultiOmega782    ,dbl(*_weightedTotalNumOmega782)/sumOfWeights());
-      normalize(_histMultiKStar892_0    ,dbl(*_weightedTotalNumKStar892_0)/sumOfWeights());
-      normalize(_histMultiPhi           ,dbl(*_weightedTotalNumPhi)/sumOfWeights());
-      normalize(_histMultiKStar892Plus  ,dbl(*_weightedTotalNumKStar892Plus)/sumOfWeights());
-
       // event shape
       normalize(_hist1MinusT);
       normalize(_histTMinor);
@@ -456,24 +416,6 @@ namespace Rivet {
     /// particles - used to calculate average number of particles for the
     /// inclusive single particle distributions' normalisations.
     CounterPtr _weightedTotalPartNum;
-    CounterPtr _weightedTotalNumPiPlus;
-    CounterPtr _weightedTotalNumKPlus;
-    CounterPtr _weightedTotalNumP;
-    CounterPtr _weightedTotalNumPhoton;
-    CounterPtr _weightedTotalNumPi0;
-    CounterPtr _weightedTotalNumEta;
-    CounterPtr _weightedTotalNumEtaPrime;
-    CounterPtr _weightedTotalNumK0;
-    CounterPtr _weightedTotalNumLambda0;
-    CounterPtr _weightedTotalNumXiMinus;
-    CounterPtr _weightedTotalNumSigma1385Plus;
-    CounterPtr _weightedTotalNumXi1530_0;
-    CounterPtr _weightedTotalNumRho;
-    CounterPtr _weightedTotalNumOmega782;
-    CounterPtr _weightedTotalNumKStar892_0;
-    CounterPtr _weightedTotalNumPhi;
-    CounterPtr _weightedTotalNumKStar892Plus;
-    CounterPtr _numChParticles;
 
     /// @name Histograms
     //@{

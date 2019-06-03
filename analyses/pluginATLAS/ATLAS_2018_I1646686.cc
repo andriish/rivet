@@ -57,51 +57,32 @@ namespace Rivet {
         photons.acceptIdPair(PID::PHOTON);
 
         // Projection to find the electrons
-        IdentifiedFinalState el_id(fs);
-        el_id.acceptIdPair(PID::ELECTRON);
-        PromptFinalState electrons(el_id);
-        electrons.acceptTauDecays(true);
+        PromptFinalState electrons(Cuts::abspid == PID::ELECTRON, true);
         DressedLeptons dressedelectrons(photons, electrons, 0.1, dressed_lep);
         declare(dressedelectrons, "elecs");
         DressedLeptons ewdressedelectrons(photons, electrons, 0.1, eta_full);
 
         // Projection to find the muons
-        IdentifiedFinalState mu_id(fs);
-        mu_id.acceptIdPair(PID::MUON);
-        PromptFinalState muons(mu_id);
-        muons.acceptTauDecays(true);
+        PromptFinalState muons(Cuts::abspid == PID::MUON, true);
         DressedLeptons dressedmuons(photons, muons, 0.1, dressed_lep);
         declare(dressedmuons, "muons");
         DressedLeptons ewdressedmuons(photons, muons, 0.1, eta_full);
 
-        // Projection to find neutrinos for vetoing in jets
-        IdentifiedFinalState nu_id(fs);
-        nu_id.acceptNeutrinos();
-        PromptFinalState neutrinos(nu_id);
-        neutrinos.acceptTauDecays(true);
-
         // Jet clustering.
-        VetoedFinalState lvfs(fs);
-        lvfs.addVetoOnThisFinalState(mu_id);
-        lvfs.addVetoOnThisFinalState(nu_id);
-
         VetoedFinalState vfs;
         vfs.addVetoOnThisFinalState(ewdressedelectrons);
         vfs.addVetoOnThisFinalState(ewdressedmuons);
-        vfs.addVetoOnThisFinalState(neutrinos);
 
-        FastJets jets(vfs, FastJets::ANTIKT, 0.4);
-        jets.useInvisibles();
+        FastJets jets(vfs, FastJets::ANTIKT, 0.4, JetAlg::DECAY_MUONS, JetAlg::DECAY_INVISIBLES);
         declare(jets, "jets");
 
-        FastJets ljets(lvfs, FastJets::ANTIKT, 1.0);
-        ljets.useInvisibles();
+        FastJets ljets(fs, FastJets::ANTIKT, 1.0, JetAlg::NO_MUONS, JetAlg::NO_INVISIBLES);
         declare(ljets, "ljets" );
 
-	if (_mode != 0 ){
-	  PartonicTops partonTops;
-	  declare(partonTops, "partonicTops");
-	}
+        if (_mode != 0 ){
+          PartonicTops partonTops;
+          declare(partonTops, "partonicTops");
+        }
       }
 
 
@@ -109,20 +90,20 @@ namespace Rivet {
 
 	if (_mode != 0){
 
-	  // Parton-level top quarks
-	  const Particles partonicTops = apply<PartonicTops>( event, "partonicTops").particlesByPt();
-	  FourMomentum top, tbar;
-	  bool foundT = false, foundTBar = false;
-	  for (const Particle& ptop : partonicTops) {
-	    const int pid = ptop.pid();
-	    if (pid == PID::TQUARK) {
-	      top = ptop.momentum();
-	      foundT = true;
-	    } else if (pid == -PID::TQUARK) {
-	      tbar = ptop.momentum();
-	      foundTBar = true;
-	    }
-	  }
+          // Parton-level top quarks
+          const Particles partonicTops = apply<PartonicTops>( event, "partonicTops").particlesByPt();
+          FourMomentum top, tbar;
+          bool foundT = false, foundTBar = false;
+          for (const Particle& ptop : partonicTops) {
+            const int pid = ptop.pid();
+            if (pid == PID::TQUARK) {
+              top = ptop.momentum();
+              foundT = true;
+            } else if (pid == -PID::TQUARK) {
+              tbar = ptop.momentum();
+              foundTBar = true;
+            }
+          }
 
 	  FourMomentum t1_parton, t2_parton, ttbar_parton;
 	  if ( foundT && foundTBar ) {
@@ -152,7 +133,7 @@ namespace Rivet {
 	      fillParton("t2_pt", t2_parton.pT()/GeV);
 	      fillParton("t2_y",  t2_parton.absrap());
 	      
-	      fillParton("tt_m",  ttbar_parton.mass()/GeV);
+	      fillParton("tt_m",  ttbar_parton.mass()/TeV);
 	      fillParton("tt_pt", ttbar_parton.pT()/GeV);
 	      fillParton("tt_Ht", (t1_parton.pT() + t2_parton.pT())/GeV);
 	      fillParton("tt_y",  ttbar_parton.absrap());
@@ -270,7 +251,12 @@ namespace Rivet {
 	if (ttbar.betaVec().mod2() > 1) return -99;
         centreOfMassTrans.setBetaVec( -ttbar.betaVec() );
         FourMomentum t1_star = centreOfMassTrans.transform(t1);
-        double cosThetaStar = t1_star.pz()/t1_star.p3().mod();
+        double cosThetaStar;
+        if (t1_star.p3().mod2() >= 0){
+          cosThetaStar = t1_star.pz()/t1_star.p3().mod();
+        } else {
+          return -99;
+        }
         return cosThetaStar;
       }
 

@@ -1,7 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Run.hh"
 #include "Rivet/AnalysisHandler.hh"
-#include "HepMC/IO_GenEvent.h"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Tools/RivetPaths.hh"
 #include "zstr/zstr.hpp"
@@ -38,7 +37,7 @@ namespace Rivet {
   bool Run::readEvent() {
     /// @todo Clear rather than new the GenEvent object per-event?
     _evt.reset(new GenEvent());
-    if (_io->rdstate() != 0 || !_io->fill_next_event(_evt.get()) ) {
+    if(!HepMCUtils::readEvent(_hepmcReader, _evt)){
       Log::getLog("Rivet.Run") << Log::DEBUG << "Read failed. End of file?" << endl;
       return false;
     }
@@ -51,35 +50,40 @@ namespace Rivet {
     return true;
   }
 
-  // Fill event and check for a bad read state --- to skip, maybe HEPMC3 will have a better way
-  bool Run::skipEvent() {
-    if (_io->rdstate() != 0 || !_io->fill_next_event(_evt.get()) ) {
-      Log::getLog("Rivet.Run") << Log::DEBUG << "Read failed. End of file?" << endl;
-      return false;
-    }
-    return true;
-  }
 
 
   bool Run::openFile(const std::string& evtfile, double weight) {
     // Set current weight-scaling member
     _fileweight = weight;
 
+    // In case makeReader fails.
+    std::string errormessage;
+    
     // Set up HepMC input reader objects
     if (evtfile == "-") {
-      _io.reset(new HepMC::IO_GenEvent(std::cin));
+#ifdef HAVE_LIBZ
+      _istr = make_shared<zstr::istream>(std::cin);
+      _hepmcReader = HepMCUtils::makeReader(*_istr, &errormessage);
+#else
+      _hepmcReader = HepMCUtils::makeReader(std::cin, &errormessage);
+#endif
     } else {
-      if (!fileexists(evtfile)) throw Error("Event file '" + evtfile + "' not found");
-      #ifdef HAVE_LIBZ
+      if ( !fileexists(evtfile) )
+        throw Error("Event file '" + evtfile + "' not found");
+#ifdef HAVE_LIBZ
       // NB. zstr auto-detects if file is deflated or plain-text
-      _istr.reset(new zstr::ifstream(evtfile.c_str()));
-      #else
-      _istr.reset(new std::fstream(evtfile.c_str(), std::ios::in));
-      #endif
-      _io.reset(new HepMC::IO_GenEvent(*_istr));
+      _istr = make_shared<zstr::ifstream>(evtfile.c_str());
+#else
+      _istr = make_shared<std::ifstream>(evtfile.c_str());
+#endif
+      _hepmcReader = HepMCUtils::makeReader(*_istr, &errormessage);
+      
     }
-    if (_io->rdstate() != 0) {
-      Log::getLog("Rivet.Run") << Log::ERROR << "Read error on file " << evtfile << endl;
+
+    if (_hepmcReader == nullptr) {
+      Log::getLog("Rivet.Run")
+        << Log::ERROR << "Read error on file '" << evtfile << "' "
+        << errormessage << endl;
       return false;
     }
     return true;
@@ -92,7 +96,7 @@ namespace Rivet {
     // Read first event to define run conditions
     bool ok = readEvent();
     if (!ok) return false;
-    if (_evt->particles_size() == 0) {
+    if(HepMCUtils::particles(_evt).size() == 0){
       Log::getLog("Rivet.Run") << Log::ERROR << "Empty first event." << endl;
       return false;
     }
@@ -100,10 +104,11 @@ namespace Rivet {
     // Initialise AnalysisHandler with beam information from first event
     _ah.init(*_evt);
 
-    // Tell the user about using the cross-section from the command line
+    // Set cross-section from command line
     if (!std::isnan(_xs)) {
-      Log::getLog("Rivet.Run") << Log::DEBUG << "Setting user cross-section = " << _xs << " pb" << endl;
-      // Actually do the setting in finalize()
+      Log::getLog("Rivet.Run")
+        << Log::DEBUG << "Setting user cross-section = " << _xs << " pb" << endl;
+      _ah.setCrossSection(_xs);
     }
 
     // List the chosen & compatible analyses if requested
@@ -118,17 +123,46 @@ namespace Rivet {
 
 
   bool Run::processEvent() {
+    // Set cross-section if found in event and not from command line
+    
+    #if defined ENABLE_HEPMC_3
+    if (std::isnan(_xs) && _evt->cross_section()) {
+      const double xs = _evt->cross_section()->xsec(); ///< in pb
+      Log::getLog("Rivet.Run")
+      << Log::DEBUG << "Setting cross-section = " << xs << " pb" << endl;
+      _ah.setCrossSection(xs);
+    }
+    #elif defined HEPMC_HAS_CROSS_SECTION
+    if (std::isnan(_xs) && _evt->cross_section()) {
+      const double xs = _evt->cross_section()->cross_section(); ///< in pb
+      Log::getLog("Rivet.Run")
+      << Log::DEBUG << "Setting cross-section = " << xs << " pb" << endl;
+      _ah.setCrossSection(xs);
+    }
+    #endif
+    
+    // Complain about absence of cross-section if required!
+    if (_ah.needCrossSection() && !_ah.hasCrossSection()) {
+      Log::getLog("Rivet.Run")
+        << Log::ERROR
+        << "Total cross-section needed for at least one of the analyses. "
+        << "Please set it (on the command line with '-x' if using the 'rivet' program)" << endl;
+      return false;
+    }
+
+    // Analyze event
     _ah.analyze(*_evt);
+
     return true;
   }
 
 
   bool Run::finalize() {
     _evt.reset();
-    _istr.reset();
-    _io.reset();
+    /// @todo reinstate for HepMC3
+    //_istr.reset();
 
-    if (!std::isnan(_xs)) _ah.setCrossSection(_xs, 0);
+    if (!std::isnan(_xs)) _ah.setCrossSection(_xs);
     _ah.finalize();
 
     return true;

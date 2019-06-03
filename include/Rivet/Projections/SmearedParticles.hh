@@ -110,6 +110,9 @@ namespace Rivet {
 
 
     /// Compare to another SmearedParticles
+    ///
+    /// @note Comparing detector functions doesn't work for functors/lambdas,
+    /// hence are always treated as not equivalent
     CmpState compare(const Projection& p) const {
       const SmearedParticles& other = dynamic_cast<const SmearedParticles&>(p);
 
@@ -119,6 +122,7 @@ namespace Rivet {
 
       // Compare lists of detector functions
       const CmpState nfeq = cmp(_detFns.size(), other._detFns.size());
+      MSG_TRACE("Numbers of detector functions = " << _detFns.size() << " VS " << other._detFns.size());
       if (nfeq != CmpState::EQ) return nfeq;
       for (size_t i = 0; i < _detFns.size(); ++i) {
         const CmpState feq = _detFns[i].cmp(other._detFns[i]);
@@ -126,6 +130,7 @@ namespace Rivet {
       }
 
       // If we got this far, we're equal
+      MSG_DEBUG("Equivalent detected! " << p.name() << ", " << this->name());
       return CmpState::EQ;
     }
 

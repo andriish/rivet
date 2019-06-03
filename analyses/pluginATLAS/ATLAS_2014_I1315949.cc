@@ -31,10 +31,10 @@ namespace Rivet {
       book(_h_pTsum_tmax   , 71, 1, 1);
       book(_h_pTsum_tdif   ,125, 1, 1);
 
-      book(_h_Nchg_tow     , 70, 1, 1);
-      book(_h_Nchg_trv     , 71, 1, 1);
-      book(_h_Nchg_away    , 72, 1, 1);
-      book(_h_Nchg_tmin    , 73, 1, 1);
+      book(_h_Nchg_tow     , 72, 1, 1);
+      book(_h_Nchg_trv     , 73, 1, 1);
+      book(_h_Nchg_away    , 74, 1, 1);
+      book(_h_Nchg_tmin    , 75, 1, 1);
       book(_h_Nchg_tmax    , 82, 1, 1);
       book(_h_Nchg_tdif    ,126, 1, 1);
 
@@ -49,7 +49,7 @@ namespace Rivet {
 
       // Book sumpt and nch histos
       for (size_t id = 0; id < 6.; ++id) {
-        book(_h_ptSum_1D[0][id], 89 + id, 1, 1);
+        book(_h_ptSum_1D[0][id], 76 + id, 1, 1);
         book(_h_ptSum_1D[1][id],107 + id, 1, 1);
         book(_h_ptSum_1D[2][id],119 + id, 1, 1);
         book(_h_ptSum_1D[3][id],127 + id, 1, 1);
@@ -69,7 +69,7 @@ namespace Rivet {
       if (zfinder.bosons().size() != 1) vetoEvent;
 
       double  Zpt   = zfinder.bosons()[0].momentum().pT()/GeV;
-      double  Zphi  = zfinder.bosons()[0].momentum().phi();
+      double  Zphi  = zfinder.bosons()[0].momentum().phi(MINUSPI_PLUSPI);
       double  Zmass = zfinder.bosons()[0].momentum().mass()/GeV;
       if(Zmass < 66. || Zmass > 116.) vetoEvent;
 
@@ -83,9 +83,9 @@ namespace Rivet {
           Cuts::pT > 0.5*GeV && Cuts::abseta <2.5);
 
       // Loop over charged particles with pT>500 MeV and |eta|<2.5
-      for(const Particle& p : particles) {
-        double dphi = p.momentum().phi() - Zphi,
-               pT   = p.momentum().pT();
+      for (const Particle& p : particles) {
+        double dphi = p.momentum().phi(MINUSPI_PLUSPI) - Zphi;
+        double pT   = p.momentum().pT();
 
         // Get multiples of 2pi right
         for(; std::fabs(dphi) > M_PI; dphi += (dphi > 0. ? -2.*M_PI : 2.*M_PI) );

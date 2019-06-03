@@ -17,16 +17,16 @@ public:
   }
 
   void analyze(const Rivet::Event & e) {
-    cout << "Normal fill" << '\n';
+    cout << "Normal fill" << endl;
     _h_test->fill(90., 1.);
 
-    cout << "Underflow fill" << '\n';
+    cout << "Underflow fill" << endl;
     _h_test->fill(30.,1.);
 
-    cout << "Overflow fill" << '\n';
+    cout << "Overflow fill" << endl;
     _h_test->fill(130.,1.);
 
-     cout << "Inf fill" << '\n';
+     cout << "Inf fill" << endl;
     try {
       _h_test->fill(numeric_limits<double>::infinity(), 1.);
     } catch (YODA::RangeError e) {
@@ -34,7 +34,7 @@ public:
       if ( string(e.what()) != string("X is Inf") ) throw;
     }
 
-    cout << "NaN fill" << '\n';
+    cout << "NaN fill" << endl;
     try {
       _h_test->fill(numeric_limits<double>::quiet_NaN(), 1.);
     } catch (YODA::RangeError e) {
@@ -55,23 +55,14 @@ int main(int argc, char* argv[]) {
   Rivet::AnalysisHandler rivet;
   rivet.addAnalysis("Test");
 
-  std::ifstream file(argv[1]);
-  HepMC::IO_GenEvent hepmcio(file);
-  HepMC::GenEvent* evt = hepmcio.read_next_event();
+  std::ifstream file("testApi.hepmc");
+  shared_ptr<Rivet::HepMC_IO_type> reader = Rivet::HepMCUtils::makeReader(file);
+  std::shared_ptr<Rivet::GenEvent> evt = make_shared<Rivet::GenEvent>();
   double sum_of_weights = 0.0;
-  if (! evt) {
-  	cerr << "No events\n";
-  	return 1;
-  }
-
-  while (evt) {
+  while ( Rivet::HepMCUtils::readEvent(reader, evt) ) {
     // Analyse current event
     rivet.analyze(*evt);
     sum_of_weights += evt->weights()[0];
-
-    // Clean up and get next event
-    delete evt; evt = 0;
-    hepmcio >> evt;
   }
   file.close();
 

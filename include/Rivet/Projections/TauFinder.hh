@@ -2,7 +2,7 @@
 #define RIVET_TauFinder_HH
 
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -34,7 +34,7 @@ namespace Rivet {
       /// @todo What about directness/promptness?
       setName("TauFinder");
       _decmode = decaymode;
-      declare(UnstableFinalState(cut), "UFS");
+      declare(UnstableParticles(cut), "UFS");
     }
 
 

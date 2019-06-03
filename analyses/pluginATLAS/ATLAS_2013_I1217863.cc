@@ -2,6 +2,7 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/WFinder.hh"
 #include "Rivet/Projections/ZFinder.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"

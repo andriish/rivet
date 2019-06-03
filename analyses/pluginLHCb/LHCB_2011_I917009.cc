@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -64,13 +64,13 @@ namespace Rivet {
         dsId += 1;
       }
 
-      declare(UnstableFinalState(), "UFS");
+      declare(UnstableParticles(), "UFS");
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
       double ancestor_lftsum = 0.0;
       double y, pT;
       int id;
@@ -162,15 +162,17 @@ namespace Rivet {
 
     // Data members like post-cuts event weight counters go here
     const double getMotherLifeTimeSum(const Particle& p) {
-      if (p.genParticle() == NULL) return -1.;
+      if (p.genParticle() == nullptr) return -1.;
       double lftSum = 0.;
       double plft = 0.;
-      const GenParticle* part = p.genParticle();
-      const GenVertex* ivtx = part->production_vertex();
+      ConstGenParticlePtr part = p.genParticle();
+      ConstGenVertexPtr ivtx = part->production_vertex();
       while (ivtx) {
-          if (ivtx->particles_in_size() < 1) { lftSum = -1.; break; };
-          const GenVertex::particles_in_const_iterator iPart_invtx = ivtx->particles_in_const_begin();
-          part = (*iPart_invtx);
+        
+          vector<ConstGenParticlePtr> part_in = HepMCUtils::particles(ivtx, Relatives::PARENTS);
+        
+          if (part_in.size() < 1) { lftSum = -1.; break; };
+          ConstGenParticlePtr part = part_in.at(0);//(*iPart_invtx);
           if ( !(part) ) { lftSum = -1.; break; };
           ivtx = part->production_vertex();
           if ( (part->pdg_id() == 2212) || !(ivtx) ) break; //reached beam
@@ -330,4 +332,3 @@ namespace Rivet {
   DECLARE_RIVET_PLUGIN(LHCB_2011_I917009);
 
 }
-

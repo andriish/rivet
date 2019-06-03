@@ -1,0 +1,47 @@
+BEGIN YODA_SCATTER2D_V2 /DELPHI_2000_S4328825/d01-x01-y04
+Variations: [""]
+Path: /DELPHI_2000_S4328825/d01-x01-y04
+Title: ~
+Type: Scatter2D
+XLabel: ~
+YLabel: ~
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.922500e+02	1.750000e+00	1.750000e+00	3.362019e+00	0.000000e+00	0.000000e+00
+END YODA_SCATTER2D_V2
+
+BEGIN YODA_SCATTER2D_V2 /DELPHI_2000_S4328825/d01-x01-y03
+Variations: [""]
+Path: /DELPHI_2000_S4328825/d01-x01-y03
+Title: ~
+Type: Scatter2D
+XLabel: ~
+YLabel: ~
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.922500e+02	1.750000e+00	1.750000e+00	2.604738e+01	0.000000e+00	0.000000e+00
+END YODA_SCATTER2D_V2
+
+BEGIN YODA_SCATTER2D_V2 /DELPHI_2000_S4328825/d01-x01-y02
+Variations: [""]
+Path: /DELPHI_2000_S4328825/d01-x01-y02
+Title: ~
+Type: Scatter2D
+XLabel: ~
+YLabel: ~
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.922500e+02	1.750000e+00	1.750000e+00	2.766154e+01	0.000000e+00	0.000000e+00
+END YODA_SCATTER2D_V2
+
+BEGIN YODA_SCATTER2D_V2 /DELPHI_2000_S4328825/d01-x01-y01
+Variations: [""]
+Path: /DELPHI_2000_S4328825/d01-x01-y01
+Title: ~
+Type: Scatter2D
+XLabel: ~
+YLabel: ~
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.922500e+02	1.750000e+00	1.750000e+00	2.940940e+01	0.000000e+00	0.000000e+00
+END YODA_SCATTER2D_V2

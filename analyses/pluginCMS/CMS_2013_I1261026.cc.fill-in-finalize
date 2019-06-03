@@ -13,10 +13,7 @@ namespace Rivet {
   class CMS_2013_I1261026 : public Analysis {
   public:
 
-    CMS_2013_I1261026()
-      : Analysis("CMS_2013_I1261026")
-    {  }
-
+    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2013_I1261026);
 
     void init() {
       FastJets jetpro(ChargedFinalState(-2.4, 2.4, 0.25*GeV), FastJets::ANTIKT, 0.5);
@@ -51,10 +48,8 @@ namespace Rivet {
         book(_th_JetTrkSpectrum[ihist] , "TMP/JetTrkSpectrum"+to_str(ihist), 100, 0.0, 20.0);
         book(_th_JetLTrkSpectrum[ihist], "TMP/JetLTrkSpectrum"+to_str(ihist), 100, 0.0, 20.0);
 
-	book(_jetStructNorm[ihist], "TMP/jetStructNorm"+to_str(ihist));
         book(_jetCounter5GeV[ihist], "TMP/jetCounter5GeV"+to_str(ihist));
         book(_jetCounter30GeV[ihist], "TMP/jetCounter30GeV"+to_str(ihist));
-        book(_passedEv[ihist], "TMP/passedEv"+to_str(ihist));
       }
     }
 
@@ -78,62 +73,30 @@ namespace Rivet {
       int multbin[6] = { 10, 30, 50, 80, 110, 140 };
       for (int ibin = 0; ibin < 5; ++ibin) {
         if (mult > multbin[ibin] && mult <= multbin[ibin + 1]) {
-          _passedEv[ibin]->fill();
-          eventDecomp(event, ibin);
-
-          for (size_t ijets = 0; ijets < jets.size(); ijets++) {
+          eventDecomp(event, mult, ibin);
+          for (size_t ijets = 0; ijets < jets.size(); ++ijets) {
             if (jets[ijets].abseta() < 1.9) {
               _h_JetSpectrum[ibin]->fill(jets[ijets].pT()/GeV);
+              _h_MeanJetPt->fill(mult, jets[ijets].pT()/GeV);
               if (jets[ijets].pT() > 5*GeV) _jetCounter5GeV[ibin]->fill();
               if (jets[ijets].pT() > 30*GeV) _jetCounter30GeV[ibin]->fill();
             }
           }
         }
       }
-
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
       for (size_t i = 0; i < 5; ++i) {
-        // All trk mean pT vs Nch
-        _h_AllTrkMeanPt->fill(_multBinCent[i], _th_AllTrkSpectrum[i]->xMean(), getMeanError(_th_AllTrkSpectrum[i]));
-        // Soft trk mean pT vs Nch
-        _h_SoftTrkMeanPt->fill(_multBinCent[i], _th_SoftTrkSpectrum[i]->xMean(), getMeanError(_th_SoftTrkSpectrum[i]));
-        // Intrajet trk mean pT vs Nch
-        _h_IntrajetTrkMeanPt->fill(_multBinCent[i], _th_JetTrkSpectrum[i]->xMean(), getMeanError(_th_JetTrkSpectrum[i]));
-        // Intrajet leader trk mean pT vs Nch
-        _h_IntrajetLeaderTrkMeanPt->fill(_multBinCent[i], _th_JetLTrkSpectrum[i]->xMean(), getMeanError(_th_JetLTrkSpectrum[i]));
-        // Jet mean pT vs Nch
-        const double sem = (_h_JetSpectrum[i]->xStdDev())/(sqrt(_h_JetSpectrum[i]->sumW())) / _h_JetSpectrum[i]->xMean();
-        _h_MeanJetPt->fill(_multBinCent[i], _h_JetSpectrum[i]->xMean(), sem);
-        // Jet rates
-        if (_passedEv[i]->val() > 0) {
-	const double avJetRate5  = dbl(*_jetCounter5GeV[i]  / *_passedEv[i]);
-        const double avJetRate30 = dbl(*_jetCounter30GeV[i] / *_passedEv[i]);
-
-        const double sem5 = (_jetCounter5GeV[i]->val() != 0) ? 1 / sqrt(dbl(*_jetCounter5GeV[i])) : 0;
-        _h_JetRate5GeV->fill(_multBinCent[i], avJetRate5, sem5);
-
-        const double sem30 = (_jetCounter30GeV[i]->val() != 0) ?  1 / sqrt(dbl(*_jetCounter30GeV[i])) : 0;
-        _h_JetRate30GeV->fill(_multBinCent[i], avJetRate30, sem30);
-	}
-
-        scale(_h_JetSpectrum[i], 4.0 / *_jetCounter5GeV[i]);
-        scale(_h_JetStruct[i], 0.08 / *_jetStructNorm[i]);
+        normalize(_h_JetSpectrum[i],  4.0);
+        normalize(_h_JetStruct[i]  , 0.08);
       }
 
     }
 
-
-    double getMeanError(const Histo1DPtr & hist) {
-      double sem = hist->xStdErr(); // Standard error of the mean
-      return sem / hist->xMean(); // relative SEM
-    }
-
-
-    void eventDecomp(const Event& event, size_t ibin) {
+    void eventDecomp(const Event& event, int mult, size_t ibin) {
 
       struct TrkInJet { double pt; double eta; double phi; double R; };
       TrkInJet jetConstituents[100][100]; //1-st index - the number of the jet, 2-nd index - track in the jet
@@ -141,12 +104,12 @@ namespace Rivet {
       size_t j[100];
       size_t jCount = 0;
 
-      for (size_t i = 0; i < 100; i++) {
+      for (size_t i = 0; i < 100; ++i) {
         j[i] = 0;
         jetsEv[i].pt = 0;
         jetsEv[i].eta = 0;
         jetsEv[i].phi = 0;
-        for (size_t k = 0; k < 100; k++) {
+        for (size_t k = 0; k < 100; ++k) {
           jetConstituents[i][k].pt = 0;
           jetConstituents[i][k].phi = 0;
           jetConstituents[i][k].eta = 0;
@@ -159,18 +122,18 @@ namespace Rivet {
 
       // Start event decomp
 
-      for (size_t ijets = 0; ijets < jets.size(); ijets++) {
+      for (size_t ijets = 0; ijets < jets.size(); ++ijets) {
         jetsEv[ijets].pt = jets[ijets].pT();
         jetsEv[ijets].eta = jets[ijets].eta();
         jetsEv[ijets].phi = jets[ijets].phi();
-        jCount++;
+        jCount += 1;
       }
 
       const ChargedFinalState& cfsp = apply<ChargedFinalState>(event, "CFS250");
-      foreach (const Particle& p, cfsp.particles()) {
-        _th_AllTrkSpectrum[ibin]->fill(p.pT()/GeV);
+      for (const Particle& p : cfsp.particles()) {
+        _th_AllTrkSpectrum[ibin].fill(p.pT()/GeV);
         int flag = 0;
-        for (size_t i = 0; i < jCount; i++) {
+        for (size_t i = 0; i < jCount; ++i) {
           const double delta_phi = deltaPhi(jetsEv[i].phi, p.phi());
           const double delta_eta = jetsEv[i].eta - p.eta();
           const double R = sqrt(delta_phi * delta_phi + delta_eta * delta_eta);
@@ -181,19 +144,18 @@ namespace Rivet {
             j[i]++;
           }
         }
-        if (flag == 0) _th_SoftTrkSpectrum[ibin]->fill(p.pT()/GeV);
+        if (flag == 0) _h_SoftTrkMeanPt->fill(mult, p.pT()/GeV);
       }
 
-      for (size_t i = 0; i < jCount; i++) {
+      for (size_t i = 0; i < jCount; ++i) {
         double ptInjetLeader = 0;
         if (!inRange(jetsEv[i].eta, -1.9, 1.9)) continue; // only fully reconstructed jets for internal jet studies
-        for (size_t k = 0; k < j[i]; k++) {
-          _th_JetTrkSpectrum[ibin]->fill(jetConstituents[i][k].pt);
+        for (size_t k = 0; k < j[i]; ++k) {
+          _h_IntrajetTrkMeanPt->fill(mult, jetConstituents[i][k].pt);
           _h_JetStruct[ibin]->fill(jetConstituents[i][k].R, jetConstituents[i][k].pt/jetsEv[i].pt);
-          _jetStructNorm[ibin]->fill(jetConstituents[i][k].pt / jetsEv[i].pt);
           if (ptInjetLeader < jetConstituents[i][k].pt) ptInjetLeader = jetConstituents[i][k].pt;
         }
-        if (ptInjetLeader != 0) _th_JetLTrkSpectrum[ibin]->fill(ptInjetLeader);
+        if (ptInjetLeader != 0) _h_IntrajetLeaderTrkMeanPt->fill(mult, ptInjetLeader);
       }
 
     }
@@ -204,8 +166,7 @@ namespace Rivet {
     // Counters etc.
     const array<double,5> _multBinCent = {{20,40,65,95,125}};
 
-    array<CounterPtr,5> _jetStructNorm;
-    array<CounterPtr,5> _jetCounter5GeV, _jetCounter30GeV, _passedEv;
+    array<CounterPtr,5> _jetCounter5GeV, _jetCounter30GeV;
 
     Profile1DPtr _h_AllTrkMeanPt, _h_SoftTrkMeanPt;
     Profile1DPtr _h_IntrajetTrkMeanPt, _h_IntrajetLeaderTrkMeanPt;
@@ -214,12 +175,6 @@ namespace Rivet {
 
     array<Histo1DPtr,5> _h_JetSpectrum;
     array<Histo1DPtr,5> _h_JetStruct;
-
-    // Temp histograms
-    array<Histo1DPtr,5> _th_AllTrkSpectrum;
-    array<Histo1DPtr,5> _th_SoftTrkSpectrum;
-    array<Histo1DPtr,5> _th_JetTrkSpectrum;
-    array<Histo1DPtr,5> _th_JetLTrkSpectrum;
 
   };
 

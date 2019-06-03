@@ -2,7 +2,7 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -28,7 +28,7 @@ namespace Rivet {
       declare(bbc1, "BBC1");
       declare(bbc2, "BBC2");
 
-      UnstableFinalState ufs(Cuts::abseta < 2.5);
+      UnstableParticles ufs(Cuts::abseta < 2.5);
       declare(ufs, "UFS");
 
       book(_h_pT_k0s        ,1, 1, 1);
@@ -61,7 +61,7 @@ namespace Rivet {
         vetoEvent;
       }
 
-      const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles()) {
         if (p.absrap() < 0.5) {
           const PdgId pid = p.pid();

@@ -369,7 +369,7 @@ namespace Rivet {
       Particles pForLep, pForJet;
       Particles neutrinos; // Prompt neutrinos
       /// @todo Avoid this unsafe jump into HepMC -- all this can be done properly via VisibleFS and HeavyHadrons projections
-      for (const GenParticle* p : Rivet::particles(e.genEvent())) {
+      for (ConstGenParticlePtr p : HepMCUtils::particles(e.genEvent())) {//
         const int status = p->status();
         const int pid = p->pdg_id();
         if (status == 1) {
@@ -379,7 +379,7 @@ namespace Rivet {
             if (rp.isNeutrino()) {
               // Prompt neutrinos are kept in separate collection
               neutrinos.push_back(rp);
-            } else if (pid == 22 || rp.isLepton()) {
+            } else if (pid == PID::PHOTON || rp.isLepton()) {
               // Leptons and photons for the dressing
               pForLep.push_back(rp);
             }
@@ -394,7 +394,7 @@ namespace Rivet {
           // Do unstable particles, to be used in the ghost B clustering
           // Use last B hadrons only
           bool isLast = true;
-          for (const GenParticlePtr pp : Rivet::particles(p->end_vertex(), HepMC::children)) {
+          for (ConstGenParticlePtr pp : HepMCUtils::particles(p->end_vertex(), Relatives::CHILDREN)) {
             if (PID::hasBottom(pp->pdg_id())) {
               isLast = false;
               break;
@@ -403,7 +403,10 @@ namespace Rivet {
           if (!isLast) continue;
 
           // Rescale momentum by 10^-20
-          Particle ghost(pid, FourMomentum(p->momentum())*1e-20/p->momentum().rho());
+          /// @todo Why the factor of 1/rho() as well?
+          //Particle ghost(pdgId, FourMomentum(p->momentum())*1e-20/p->momentum().rho());
+          Particle ghost(pid, FourMomentum(p->momentum()));
+          ghost.setMomentum(ghost.momentum()*1.e-20 / ghost.momentum().rho());
           pForJet.push_back(ghost);
         }
       }
@@ -424,7 +427,7 @@ namespace Rivet {
         int leptonId = 0;
         for (const Particle& p : lep.particles()) {
           /// @warning Barcodes aren't future-proof in HepMC
-          dressedIdxs.insert(p.genParticle()->barcode());
+          dressedIdxs.insert(HepMCUtils::uniqueId(p.genParticle()));
           if (p.isLepton() && p.pT() > leadingPt) {
             leadingPt = p.pT();
             leptonId = p.pid();
@@ -437,8 +440,7 @@ namespace Rivet {
 
       // Re-use particles not used in lepton dressing
       for (const Particle& rp : pForLep) {
-        /// @warning Barcodes aren't future-proof in HepMC
-        const int barcode = rp.genParticle()->barcode();
+        const int barcode = HepMCUtils::uniqueId(rp.genParticle());
         // Skip if the particle is used in dressing
         if (dressedIdxs.find(barcode) != dressedIdxs.end()) continue;
         // Put back to be used in jet clustering

@@ -113,7 +113,7 @@ namespace Rivet {
       Jets all_jets = jetfs.jetsByPt(Cuts::pT > 30*GeV && Cuts::absrap < 4.4);
 
       // Apply boson cuts and fill histograms
-      if (zf.size() == 2) {
+      if (!zf.empty()) {
         const Particles& leptons = zf.constituents();
         if (oppSign(leptons[0], leptons[1]) && deltaR(leptons[0], leptons[1]) > 0.2)
           fillPlots(leptons, all_jets, 1);
@@ -208,7 +208,7 @@ namespace Rivet {
     void hInit(string label, string ident) {
       string pre = ident + "-x0";
       _plots[label].ref = pre;
-      book(_plots[label].ratio, pre + "1" + _suff, true);
+      _plots[label].ratio = bookScatter2D(pre + "1" + _suff, true);
     }
 
     //@}

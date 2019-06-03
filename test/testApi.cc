@@ -1,6 +1,6 @@
 #include "Rivet/AnalysisHandler.hh"
 #include "HepMC/GenEvent.h"
-#include "HepMC/IO_GenEvent.h"
+#include "Rivet/Tools/RivetHepMC.hh"
 
 using namespace std;
 
@@ -14,21 +14,14 @@ int main(int argc, char* argv[]) {
   ah.addAnalysis("EXAMPLE");
   ah.addAnalyses({{ "MC_JETS", "EXAMPLE_CUTS", "EXAMPLE_SMEAR" }});
 
-  std::ifstream file(argv[1]);
-  HepMC::IO_GenEvent hepmcio(file);
-  HepMC::GenEvent* evt = hepmcio.read_next_event();
-  if (! evt) {
-  	cerr << "No events\n";
-  	return 1;
-  }
-
-  while (evt) {
+  std::ifstream file("testApi.hepmc");
+  shared_ptr<Rivet::HepMC_IO_type> reader = Rivet::HepMCUtils::makeReader(file);
+  std::shared_ptr<Rivet::GenEvent> evt = make_shared<Rivet::GenEvent>();
+  double sum_of_weights = 0.0;
+  while ( Rivet::HepMCUtils::readEvent(reader, evt) ) {
     // Analyse current event
     ah.analyze(*evt);
-
-    // Clean up and get next event
-    delete evt; evt = nullptr;
-    hepmcio >> evt;
+    sum_of_weights += evt->weights()[0];
   }
   file.close();
 

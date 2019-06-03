@@ -4,6 +4,7 @@
 #include <tuple>
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Tools/RivetYODA.hh"
+#include "Rivet/Projections/HepMCHeavyIon.hh"
 
 namespace Rivet {
 
@@ -36,7 +37,10 @@ class CentralityEstimator : public Projection {
 public:
 
   /// Constructor.
-  CentralityEstimator(): _estimate(-1.0) {}
+  CentralityEstimator(): _estimate(-1.0) {
+    setName("CentralityEstimator");
+    declare(HepMCHeavyIon(), "HepMC");
+  }
 
   /// Clone on the heap.
   DEFAULT_RIVET_PROJ_CLONE(CentralityEstimator);
@@ -46,14 +50,14 @@ protected:
   /// Perform the projection on the Event
   void project(const Event& e) {
     _estimate = -1.0;
-    const HepMC::HeavyIon * hi = e.genEvent()->heavy_ion();
-    if ( hi ) _estimate = hi->impact_parameter() > 0.0?
-                1.0/hi->impact_parameter(): numeric_limits<double>::max();
+    double imp = apply<HepMCHeavyIon>(e, "HepMC").impact_parameter();
+    if ( imp < 0.0 ) return;
+    _estimate = imp  > 0.0? 1.0/imp: numeric_limits<double>::max();
   }
 
   /// Compare projections
   CmpState compare(const Projection& p) const {
-    return mkNamedPCmp(p, "CentEst");
+    return mkNamedPCmp(p, "HepMC");
   }
 
 
@@ -737,7 +741,7 @@ void CentralityBinner<T,MDist>::finalize() {
 
 template <typename T, typename MDist>
 void CentralityBinner<T,MDist>::fulldebug() {
-  cerr <<  '\n';
+  cerr <<  endl;
   double acc = 0.0;
   set<double>::iterator citn = _percentiles.begin();
   set<double>::iterator cit0 = citn++;
@@ -758,14 +762,14 @@ void CentralityBinner<T,MDist>::fulldebug() {
 	 << setw(8) << curr->_n
 	 << setw(8) << curr->_m
 	 << setw(12) << curr->_cestLo
-	 << setw(12) << curr->_cestHi << '\n';
+	 << setw(12) << curr->_cestHi << endl;
   }
-  cerr << "Number of sampler bins: " << _flexiBins.size() << '\n';
+  cerr << "Number of sampler bins: " << _flexiBins.size() << endl;
 }
 
 template <typename T, typename MDist>
 void CentralityBinner<T,MDist>::debug() {
-  cerr <<  '\n';
+  cerr <<  endl;
   double acc = 0.0;
   int i = 0;
   set<double>::iterator citn = _percentiles.begin();
@@ -783,11 +787,11 @@ void CentralityBinner<T,MDist>::debug() {
 	   << setw(8) << curr->_n
 	   << setw(8) << curr->_m
 	   << setw(12) << curr->_cestLo
-	   << setw(12) << curr->_cestHi << '\n';
+	   << setw(12) << curr->_cestHi << endl;
 
     }
   }
-  cerr << "Number of sampler bins: " << _flexiBins.size() << '\n';
+  cerr << "Number of sampler bins: " << _flexiBins.size() << endl;
 }
 
 /// Example of CentralityEstimator projection that the generated
@@ -807,8 +811,8 @@ protected:
   /// Perform the projection on the Event
   void project(const Event& e) {
     _estimate = -1.0;
-#if HEPMC_VERSION_CODE >= 3000000
-    const HepMC::HeavyIon * hi = e.genEvent()->heavy_ion();
+#ifdef ENABLE_HEPMC_3
+    RivetHepMC::ConstGenHeavyIonPtr hi = e.genEvent()->heavy_ion();
     if ( hi ) _estimate = 100.0 - hi->centrality; // @TODO We don't really know how to interpret this number!
 #endif
   }

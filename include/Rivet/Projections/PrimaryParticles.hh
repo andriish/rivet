@@ -76,18 +76,18 @@ namespace Rivet {
      * @name Internally used member functions
      */
     /**
-     * Check if the particle is a priamry.
+     * Check if the particle is a primary.
      *
      * @param p Pointer to a HepMC particle
      *
      * @return true if the particle @a p is considered primary
      */
-    virtual bool isPrimary(const HepMC::GenParticle* p) const;
+    virtual bool isPrimary(ConstGenParticlePtr p) const;
     /**
      * Check if the particle should be ignored by the status code of
      * the particle.
      */
-    virtual bool isIgnored(const HepMC::GenParticle* p) const;
+    virtual bool isIgnored(ConstGenParticlePtr p) const;
     /**
      * Check PDG ID of particle @a p is in the list of accepted
      * primaries.
@@ -97,41 +97,42 @@ namespace Rivet {
      * @return true if the particle PDG ID is in the list of known
      * primary PDG IDs.
      */
-    virtual bool isPrimaryPID(const HepMC::GenParticle* p) const;
+    virtual bool isPrimaryPID(ConstGenParticlePtr p) const;
     /*
      * Check if a particle @a p has decayed.
      *
-     * @param p Pointer to HepMC particle
+     * @param p Pointer to HepMC particle 
      *
      * @return true if the particle has decayed according to the
      * status flag of the particle @a p
      */
-    virtual bool hasDecayed(const HepMC::GenParticle* p) const;
+    virtual bool hasDecayed(ConstGenParticlePtr p) const;
     /**
      * Check if a particle is a beam (remnant) particle.
      *
-     * @param p Particle to check
+     * @param p Particle to check 
      *
-     * @return true if the particle @a p is a (remnant) beam particle
+     * @return true if the particle @a p is a (remnant) beam particle 
      */
-    virtual bool isBeam(const HepMC::GenParticle* p) const;
+    virtual bool isBeam(ConstGenParticlePtr p) const;
     /*
      * Get the immediate ancestor of a particle.
+     * 
+     * @param p Particle for which to get the immediate ancestor 
      *
-     * @param p Particle for which to get the immediate ancestor
-     *
-     * @return Pointer to immediate ancestor or null if there's no ancestor.
+     * @return Pointer to immediate ancestor or null if there's no ancestor. 
      */
-    const HepMC::GenParticle* ancestor(const HepMC::GenParticle* p) const;
+    ConstGenParticlePtr ancestor(ConstGenParticlePtr p) const;
     /*
      * Get the immediate ancestor of a particle, which is @e not an
      * ignored particle.
+     * 
+     * @param p Particle for which to get the immediate ancestor 
      *
-     * @param p Particle for which to get the immediate ancestor
-     *
-     * @return Pointer to immediate ancestor or null if there's no ancestor.
+     * @return Pointer to immediate ancestor or null if there's no ancestor. 
      */
-    const HepMC::GenParticle* ancestor(const HepMC::GenParticle* p, bool) const;
+    ConstGenParticlePtr ancestor(ConstGenParticlePtr p, bool) const;
+
     /** Particle types to test for */
     std::vector<int> _pdgIds;
   };

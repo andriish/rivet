@@ -59,9 +59,9 @@ namespace Rivet {
 
 
   bool Jet::containsParticle(const Particle& particle) const {
-    const int barcode = particle.genParticle()->barcode();
+    const int barcode = HepMCUtils::uniqueId(particle.genParticle());
     for (const Particle& p : particles()) {
-      if (p.genParticle()->barcode() == barcode) return true;
+      if (HepMCUtils::uniqueId(p.genParticle()) == barcode) return true;
     }
     return false;
   }
@@ -119,6 +119,46 @@ namespace Rivet {
     }
     return e_hadr;
   }
+
+
+  /*
+  bool Jet::containsCharm(bool include_decay_products) const {
+    for (const Particle& p : particles()) {
+      if (p.abspid() == PID::CQUARK) return true;
+      if (isHadron(p) && hasCharm(p)) return true;
+      if (include_decay_products) {
+        ConstGenVertexPtr gv = p.genParticle()->production_vertex();
+        if (gv) {
+          for (ConstGenParticlePtr pi : HepMCUtils::particles(gv, Relatives::ANCESTORS)) {
+            const PdgId pid2 = pi->pdg_id();
+            if (PID::isHadron(pid2) && PID::hasCharm(pid2)) return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+
+  bool Jet::containsBottom(bool include_decay_products) const {
+    for (const Particle& p : particles()) {
+      if (p.abspid() == PID::BQUARK) return true;
+      if (isHadron(p) && hasBottom(p)) return true;
+      if (include_decay_products) {
+        ConstGenVertexPtr gv = p.genParticle()->production_vertex();
+        if (gv) {
+          for (ConstGenParticlePtr pi :
+                 HepMCUtils::particles(gv, Relatives::ANCESTORS)) {
+            const PdgId pid2 = pi->pdg_id();
+            if (PID::isHadron(pid2) && PID::hasBottom(pid2)) return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+  */
+
 
   Particles Jet::tags(const Cut& c) const {
     return filter_select(tags(), c);

@@ -10,92 +10,16 @@
 namespace Rivet {
 
 
-    /// @brief Special CMS dressed lepton finder
-    ///
-    /// Find dressed leptons by clustering all leptons and photons
-    ///
-    /// @todo Merge functionality into main DressedLeptons, or avoid projection
-    class SpecialDressedLeptons_CMS_2016_I1491950 : public FinalState {
-    public:
+  class CMS_2016_I1491950 : public Analysis {
+  public:
 
-        /// The default constructor. May specify cuts
-        SpecialDressedLeptons_CMS_2016_I1491950(const FinalState& fs, const Cut& cut)
-          : FinalState(cut)
-        {
-          setName("SpecialDressedLeptons");
-          IdentifiedFinalState ifs(fs);
-          ifs.acceptIdPair(PID::PHOTON);
-          ifs.acceptIdPair(PID::ELECTRON);
-          ifs.acceptIdPair(PID::MUON);
-          declare(ifs, "IFS");
-          declare(FastJets(ifs, FastJets::ANTIKT, 0.1), "LeptonJets");
-        }
+    /// Constructor
+    CMS_2016_I1491950()
+      : Analysis("CMS_2016_I1491950")
+    {    }
 
-        /// Clone on the heap.
-        virtual unique_ptr<Projection> clone() const {
-          return unique_ptr<Projection>(new SpecialDressedLeptons_CMS_2016_I1491950(*this));
-        }
-
-        /// Retrieve the dressed leptons
-        const vector<DressedLepton>& dressedLeptons() const { return _clusteredLeptons; }
-
-      private:
-        /// Container which stores the clustered lepton objects
-        vector<DressedLepton> _clusteredLeptons;
-
-      public:
-        void project(const Event& e) {
-
-          _theParticles.clear();
-          _clusteredLeptons.clear();
-
-          vector<DressedLepton> allClusteredLeptons;
-
-          const Jets jets = applyProjection<FastJets>(e, "LeptonJets").jetsByPt(5.*GeV);
-          for (const Jet& jet : jets) {
-            Particle lepCand;
-            for (const Particle& cand : jet.particles()) {
-              const int absPdgId = abs(cand.pid());
-              if (absPdgId == PID::ELECTRON || absPdgId == PID::MUON) {
-                if (cand.pt() > lepCand.pt()) lepCand = cand;
-              }
-            }
-
-            //Central lepton must be the major component
-            if ((lepCand.pt() < jet.pt()/2.) || (lepCand.pid() == 0)) continue;
-
-            DressedLepton lepton = DressedLepton(lepCand);
-
-            for (const Particle& cand : jet.particles()) {
-              //if (isSame(cand, lepCand)) continue;
-              if (cand == lepCand) continue;
-              if (cand.pid() != PID::PHOTON) continue;
-              lepton.addPhoton(cand, true);
-            }
-            allClusteredLeptons.push_back(lepton);
-          }
-
-          for (const DressedLepton& lepton : allClusteredLeptons) {
-            if (accept(lepton)) {
-              _clusteredLeptons.push_back(lepton);
-              _theParticles.push_back(lepton.constituentLepton());
-              _theParticles += lepton.constituentPhotons();
-            }
-          }
-        }
-    };
-
-
- class CMS_2016_I1491950 : public Analysis {
- public:
-   /// Constructor
-   CMS_2016_I1491950()
-    : Analysis("CMS_2016_I1491950")
-   {    }
-
-   /// Book histograms and initialise projections before the run
-   void init()
-   {
+    /// Book histograms and initialise projections before the run
+    void init() {
 
     FinalState fs(Cuts::pT > 0. && Cuts::abseta < 6.);
     PromptFinalState prompt_fs(fs);
@@ -104,7 +28,7 @@ namespace Rivet {
 
     // Projection for dressed electrons and muons
     Cut leptonCuts = Cuts::abseta < 2.5 and Cuts::pt > 30.*GeV;
-    SpecialDressedLeptons_CMS_2016_I1491950 dressedleptons(prompt_fs, leptonCuts);
+    SpecialDressedLeptons dressedleptons(prompt_fs, leptonCuts);
     declare(dressedleptons, "DressedLeptons");
 
     // Neutrinos
@@ -179,63 +103,60 @@ namespace Rivet {
    }
 
 
-   /// Perform the per-event analysis
-   void analyze(const Event& event) {
-    // leptons
-    const auto& dressedleptons_proj = applyProjection<SpecialDressedLeptons_CMS_2016_I1491950>(event, "DressedLeptons");
-    std::vector<DressedLepton> dressedLeptons = dressedleptons_proj.dressedLeptons();
-    if (dressedLeptons.size() != 1) vetoEvent;
+    /// Perform the per-event analysis
+    void analyze(const Event& event) {
 
-    // neutrinos
-    const Particles neutrinos = applyProjection<FinalState>(event, "Neutrinos").particlesByPt();
-    _nusum = FourMomentum(0., 0., 0., 0.);
-    for (const Particle& neutrino : neutrinos)
-      _nusum += neutrino.momentum();
-    _wl = _nusum + dressedLeptons[0].momentum();
+      // leptons
+      const SpecialDressedLeptons& dressedleptons_proj = applyProjection<SpecialDressedLeptons>(event, "DressedLeptons");
+      std::vector<DressedLepton> dressedLeptons = dressedleptons_proj.dressedLeptons();
+      if(dressedLeptons.size() != 1) return;
 
-    // jets
-    Cut jet_cut = (Cuts::abseta < 2.5) and (Cuts::pT > 25.*GeV);
-    const Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt(jet_cut);
-    Jets allJets;
-    for (const Jet& jet : jets) {
-      allJets.push_back(jet);
-    }
-    Jets bJets;
-    for (const Jet& jet : allJets) {
-      if (jet.bTagged()) bJets.push_back(jet);
-    }
+      // neutrinos
+      const Particles neutrinos = apply<FinalState>(event, "Neutrinos").particlesByPt();
+      _nusum = FourMomentum(0., 0., 0., 0.);
+      for(const Particle& neutrino : neutrinos)
+          _nusum += neutrino.momentum();
+      _wl = _nusum + dressedLeptons[0].momentum();
 
-    if(bJets.size() < 2 || allJets.size() < 4) return;
-
-    //construct top quark proxies
-    double Kmin = numeric_limits<double>::max();
-    for(const Jet& itaj : allJets)
-    {
-      for(const Jet& itbj : allJets)
-      {
-        if (itaj.momentum() == itbj.momentum()) continue;
-        FourMomentum wh(itaj.momentum() + itbj.momentum());
-        for(const Jet& ithbj : bJets)
-        {
-          if(itaj.momentum() == ithbj.momentum() || itbj.momentum() == ithbj.momentum()) continue;
-          FourMomentum th(wh + ithbj.momentum());
-          for(const Jet& itlbj : bJets)
-          {
-            if(itaj.momentum() == itlbj.momentum() || itbj.momentum() == itlbj.momentum() || ithbj.momentum() == itlbj.momentum()) continue;
-            FourMomentum tl(_wl + itlbj.momentum());
-
-            double K = pow(wh.mass() - 80.4, 2) + pow(th.mass() - 172.5, 2) + pow(tl.mass() - 172.5, 2);
-            if(K < Kmin)
-            {
-              Kmin = K;
-              _tl = tl;
-              _th = th;
-              _wh = wh;
-            }
-          }
-        }
+      // jets
+      Cut jet_cut = (Cuts::abseta < 2.5) and (Cuts::pT > 25.*GeV);
+      const Jets jets = apply<FastJets>(event, "Jets").jetsByPt(jet_cut);
+      Jets allJets;
+      for (const Jet& jet : jets) {
+        allJets.push_back(jet);
       }
-    }
+      Jets bJets;
+      for (const Jet& jet : allJets) {
+        if (jet.bTagged()) bJets.push_back(jet);
+      }
+
+      if(bJets.size() < 2 || allJets.size() < 4) return;
+
+      //construct top quark proxies
+      double Kmin = numeric_limits<double>::max();
+      for(const Jet& itaj : allJets) {
+          for(const Jet& itbj : allJets) {
+              if (itaj.momentum() == itbj.momentum()) continue;
+              FourMomentum wh(itaj.momentum() + itbj.momentum());
+              for(const Jet& ithbj : bJets) {
+                  if(itaj.momentum() == ithbj.momentum() || itbj.momentum() == ithbj.momentum()) continue;
+                  FourMomentum th(wh + ithbj.momentum());
+                  for(const Jet& itlbj : bJets) {
+                      if(itaj.momentum() == itlbj.momentum() || itbj.momentum() == itlbj.momentum() || ithbj.momentum() == itlbj.momentum()) continue;
+                      FourMomentum tl(_wl + itlbj.momentum());
+
+                      double K = pow(wh.mass() - 80.4, 2) + pow(th.mass() - 172.5, 2) + pow(tl.mass() - 172.5, 2);
+                      if(K < Kmin)
+                        {
+                          Kmin = K;
+                          _tl = tl;
+                          _th = th;
+                          _wh = wh;
+                        }
+                    }
+                }
+            }
+        }
 
     _hist_thadpt->fill(_th.pt());
     _hist_thady->fill(abs(_th.rapidity()) );
@@ -304,49 +225,191 @@ namespace Rivet {
      _histnorm_thady_thadpt_4->fill(_th.pt());
     }
 
-    if(tt.mass() >= 300. && tt.mass() < 450.)
-    {
-     _hist_ttm_tty_1->fill(abs(tt.rapidity()));
-     _histnorm_ttm_tty_1->fill(abs(tt.rapidity()));
-    }
-    else if(tt.mass() >= 450. && tt.mass() < 625.)
-    {
-     _hist_ttm_tty_2->fill(abs(tt.rapidity()));
-     _histnorm_ttm_tty_2->fill(abs(tt.rapidity()));
-    }
-    else if(tt.mass() >= 625. && tt.mass() < 850.)
-    {
-     _hist_ttm_tty_3->fill(abs(tt.rapidity()));
-     _histnorm_ttm_tty_3->fill(abs(tt.rapidity()));
-    }
-    else if(tt.mass() >= 850. && tt.mass() < 2000.)
-    {
-     _hist_ttm_tty_4->fill(abs(tt.rapidity()));
-     _histnorm_ttm_tty_4->fill(abs(tt.rapidity()));
+      if(tt.mass() >= 300. && tt.mass() < 450.)
+        {
+          _hist_ttm_tty_1->fill(abs(tt.rapidity()));
+          _histnorm_ttm_tty_1->fill(abs(tt.rapidity()));
+        }
+      else if(tt.mass() >= 450. && tt.mass() < 625.)
+        {
+          _hist_ttm_tty_2->fill(abs(tt.rapidity()));
+          _histnorm_ttm_tty_2->fill(abs(tt.rapidity()));
+        }
+      else if(tt.mass() >= 625. && tt.mass() < 850.)
+        {
+          _hist_ttm_tty_3->fill(abs(tt.rapidity()));
+          _histnorm_ttm_tty_3->fill(abs(tt.rapidity()));
+        }
+      else if(tt.mass() >= 850. && tt.mass() < 2000.)
+        {
+          _hist_ttm_tty_4->fill(abs(tt.rapidity()));
+          _histnorm_ttm_tty_4->fill(abs(tt.rapidity()));
+        }
+
+      if(tt.pt() < 35.)
+        {
+          _hist_ttpt_ttm_1->fill(tt.mass());
+          _histnorm_ttpt_ttm_1->fill(tt.mass());
+        }
+      else if(tt.pt() < 80.)
+        {
+          _hist_ttpt_ttm_2->fill(tt.mass());
+          _histnorm_ttpt_ttm_2->fill(tt.mass());
+        }
+      else if(tt.pt() < 140.)
+        {
+          _hist_ttpt_ttm_3->fill(tt.mass());
+          _histnorm_ttpt_ttm_3->fill(tt.mass());
+        }
+      else if(tt.pt() < 500.)
+        {
+          _hist_ttpt_ttm_4->fill(tt.mass());
+          _histnorm_ttpt_ttm_4->fill(tt.mass());
+        }
+
     }
 
-    if(tt.pt() < 35.)
+
+    /// Normalise histograms etc., after the run
+    void finalize()
     {
-     _hist_ttpt_ttm_1->fill(tt.mass());
-     _histnorm_ttpt_ttm_1->fill(tt.mass());
-    }
-    else if(tt.pt() < 80.)
-    {
-     _hist_ttpt_ttm_2->fill(tt.mass());
-     _histnorm_ttpt_ttm_2->fill(tt.mass());
-    }
-    else if(tt.pt() < 140.)
-    {
-     _hist_ttpt_ttm_3->fill(tt.mass());
-     _histnorm_ttpt_ttm_3->fill(tt.mass());
-    }
-    else if(tt.pt() < 500.)
-    {
-     _hist_ttpt_ttm_4->fill(tt.mass());
-     _histnorm_ttpt_ttm_4->fill(tt.mass());
+      scale(_hist_thadpt, crossSection()/sumOfWeights());
+      scale(_hist_thady, crossSection()/sumOfWeights());
+      scale(_hist_tleppt, crossSection()/sumOfWeights());
+      scale(_hist_tlepy, crossSection()/sumOfWeights());
+      scale(_hist_ttpt, crossSection()/sumOfWeights());
+      scale(_hist_tty, crossSection()/sumOfWeights());
+      scale(_hist_ttm, crossSection()/sumOfWeights());
+      scale(_hist_njet, crossSection()/sumOfWeights());
+      scale(_hist_njets_thadpt_1, crossSection()/sumOfWeights());
+      scale(_hist_njets_thadpt_2, crossSection()/sumOfWeights());
+      scale(_hist_njets_thadpt_3, crossSection()/sumOfWeights());
+      scale(_hist_njets_thadpt_4, crossSection()/sumOfWeights());
+      scale(_hist_njets_ttpt_1, crossSection()/sumOfWeights());
+      scale(_hist_njets_ttpt_2, crossSection()/sumOfWeights());
+      scale(_hist_njets_ttpt_3, crossSection()/sumOfWeights());
+      scale(_hist_njets_ttpt_4, crossSection()/sumOfWeights());
+      scale(_hist_thady_thadpt_1, crossSection()/sumOfWeights()/0.5);
+      scale(_hist_thady_thadpt_2, crossSection()/sumOfWeights()/0.5);
+      scale(_hist_thady_thadpt_3, crossSection()/sumOfWeights()/0.5);
+      scale(_hist_thady_thadpt_4, crossSection()/sumOfWeights()/1.0);
+      scale(_hist_ttm_tty_1, crossSection()/sumOfWeights()/150.);
+      scale(_hist_ttm_tty_2, crossSection()/sumOfWeights()/175.);
+      scale(_hist_ttm_tty_3, crossSection()/sumOfWeights()/225.);
+      scale(_hist_ttm_tty_4, crossSection()/sumOfWeights()/1150.);
+      scale(_hist_ttpt_ttm_1, crossSection()/sumOfWeights()/35.);
+      scale(_hist_ttpt_ttm_2, crossSection()/sumOfWeights()/45.);
+      scale(_hist_ttpt_ttm_3, crossSection()/sumOfWeights()/60.);
+      scale(_hist_ttpt_ttm_4, crossSection()/sumOfWeights()/360.);
+
+      scale(_histnorm_thadpt, 1./_histnorm_thadpt->sumW(false));
+      scale(_histnorm_thady, 1./_histnorm_thady->sumW(false));
+      scale(_histnorm_tleppt, 1./_histnorm_tleppt->sumW(false));
+      scale(_histnorm_tlepy, 1./_histnorm_tlepy->sumW(false));
+      scale(_histnorm_ttpt, 1./_histnorm_ttpt->sumW(false));
+      scale(_histnorm_tty, 1./_histnorm_tty->sumW(false));
+      scale(_histnorm_ttm, 1./_histnorm_ttm->sumW(false));
+      scale(_histnorm_njet, 1./_histnorm_njet->sumW(false));
+      double sum_njets_thadpt = _histnorm_njets_thadpt_1->sumW(false) + _histnorm_njets_thadpt_2->sumW(false) + _histnorm_njets_thadpt_3->sumW(false) + _histnorm_njets_thadpt_4->sumW(false);
+      scale(_histnorm_njets_thadpt_1, 1./sum_njets_thadpt);
+      scale(_histnorm_njets_thadpt_2, 1./sum_njets_thadpt);
+      scale(_histnorm_njets_thadpt_3, 1./sum_njets_thadpt);
+      scale(_histnorm_njets_thadpt_4, 1./sum_njets_thadpt);
+      double sum_njets_ttpt = _histnorm_njets_ttpt_1->sumW(false) + _histnorm_njets_ttpt_2->sumW(false) + _histnorm_njets_ttpt_3->sumW(false) + _histnorm_njets_ttpt_4->sumW(false);
+      scale(_histnorm_njets_ttpt_1, 1./sum_njets_ttpt);
+      scale(_histnorm_njets_ttpt_2, 1./sum_njets_ttpt);
+      scale(_histnorm_njets_ttpt_3, 1./sum_njets_ttpt);
+      scale(_histnorm_njets_ttpt_4, 1./sum_njets_ttpt);
+      double sum_thady_thadpt = _histnorm_thady_thadpt_1->sumW(false) + _histnorm_thady_thadpt_2->sumW(false) + _histnorm_thady_thadpt_3->sumW(false) + _histnorm_thady_thadpt_4->sumW(false);
+      scale(_histnorm_thady_thadpt_1, 1./sum_thady_thadpt/0.5);
+      scale(_histnorm_thady_thadpt_2, 1./sum_thady_thadpt/0.5);
+      scale(_histnorm_thady_thadpt_3, 1./sum_thady_thadpt/0.5);
+      scale(_histnorm_thady_thadpt_4, 1./sum_thady_thadpt/1.0);
+      double sum_ttm_tty = _histnorm_ttm_tty_1->sumW(false) + _histnorm_ttm_tty_2->sumW(false) + _histnorm_ttm_tty_3->sumW(false) + _histnorm_ttm_tty_4->sumW(false);
+      scale(_histnorm_ttm_tty_1, 1./sum_ttm_tty/150.);
+      scale(_histnorm_ttm_tty_2, 1./sum_ttm_tty/175.);
+      scale(_histnorm_ttm_tty_3, 1./sum_ttm_tty/225.);
+      scale(_histnorm_ttm_tty_4, 1./sum_ttm_tty/1150.);
+      double sum_ttpt_ttm = _histnorm_ttpt_ttm_1->sumW(false) + _histnorm_ttpt_ttm_2->sumW(false) + _histnorm_ttpt_ttm_3->sumW(false) + _histnorm_ttpt_ttm_4->sumW(false);
+      scale(_histnorm_ttpt_ttm_1, 1./sum_ttpt_ttm/35.);
+      scale(_histnorm_ttpt_ttm_2, 1./sum_ttpt_ttm/45.);
+      scale(_histnorm_ttpt_ttm_3, 1./sum_ttpt_ttm/60.);
+      scale(_histnorm_ttpt_ttm_4, 1./sum_ttpt_ttm/360.);
+
     }
 
-   }
+
+    /// @brief Special dressed lepton finder
+    ///
+    /// Find dressed leptons by clustering all leptons and photons
+    class SpecialDressedLeptons : public FinalState {
+    public:
+      /// The default constructor. May specify cuts
+      SpecialDressedLeptons(const FinalState& fs, const Cut& cut)
+        : FinalState(cut)
+      {
+        setName("SpecialDressedLeptons");
+        IdentifiedFinalState ifs(fs);
+        ifs.acceptIdPair(PID::PHOTON);
+        ifs.acceptIdPair(PID::ELECTRON);
+        ifs.acceptIdPair(PID::MUON);
+        addProjection(ifs, "IFS");
+        addProjection(FastJets(ifs, FastJets::ANTIKT, 0.1), "LeptonJets");
+      }
+
+      /// Clone on the heap.
+      virtual unique_ptr<Projection> clone() const {
+        return unique_ptr<Projection>(new SpecialDressedLeptons(*this));
+      }
+
+      /// Retrieve the dressed leptons
+      const vector<DressedLepton>& dressedLeptons() const { return _clusteredLeptons; }
+
+    private:
+      /// Container which stores the clustered lepton objects
+      vector<DressedLepton> _clusteredLeptons;
+
+    public:
+      void project(const Event& e) {
+
+        _theParticles.clear();
+        _clusteredLeptons.clear();
+
+        vector<DressedLepton> allClusteredLeptons;
+
+        const Jets jets = applyProjection<FastJets>(e, "LeptonJets").jetsByPt(5.*GeV);
+        for (const Jet& jet : jets) {
+          Particle lepCand;
+          for (const Particle& cand : jet.particles()) {
+            const int absPdgId = abs(cand.pdgId());
+            if (absPdgId == PID::ELECTRON || absPdgId == PID::MUON) {
+              if (cand.pt() > lepCand.pt()) lepCand = cand;
+            }
+          }
+
+          //Central lepton must be the major component
+          if ((lepCand.pt() < jet.pt()/2.) || (lepCand.pdgId() == 0)) continue;
+
+          DressedLepton lepton(lepCand);
+          for (const Particle& cand : jet.particles()) {
+            if (isSame(cand, lepCand)) continue;
+            if (cand.pid() != PID::PHOTON) continue;
+            lepton.addConstituent(cand, true);
+          }
+          allClusteredLeptons.push_back(lepton);
+        }
+
+        for (const DressedLepton& lepton : allClusteredLeptons) {
+          if (accept(lepton)) {
+            _clusteredLeptons.push_back(lepton);
+            _theParticles.push_back(lepton.constituentLepton());
+            _theParticles += lepton.constituentPhotons();
+          }
+        }
+      }
+
+    };
+
 
 
    /// Normalise histograms etc., after the run
@@ -417,7 +480,9 @@ namespace Rivet {
 
    }
 
+
   private:
+
    FourMomentum _tl;
    FourMomentum _th;
    FourMomentum _wl;
@@ -480,8 +545,8 @@ namespace Rivet {
    Histo1DPtr _histnorm_ttpt_ttm_1;
    Histo1DPtr _histnorm_ttpt_ttm_2;
    Histo1DPtr _histnorm_ttpt_ttm_3;
-   Histo1DPtr _histnorm_ttpt_ttm_4;
-
+   Histo1DPtr _histnorm_ttpt_ttm_4;   
+   
  };
 
 
@@ -489,5 +554,5 @@ namespace Rivet {
  // The hook for the plugin system
  DECLARE_RIVET_PLUGIN(CMS_2016_I1491950);
 
-
 }
+

@@ -9,11 +9,13 @@
 namespace Rivet {
 
 
-  /// @brief lepton differential ttbar analysis at 8 TeV
+  /// @brief Lepton differential ttbar analysis at 8 TeV
   class ATLAS_2017_I1626105 : public Analysis {
   public:
 
+
     DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2017_I1626105);
+
 
     void init() {
 
@@ -65,16 +67,11 @@ namespace Rivet {
 
       // Check overlap of jets/leptons.
       for (const Jet& jet : jets) {
-        for (const DressedLepton& el : elecs) {
-          if (deltaR(jet, el) < 0.4) delete el;
-        }
-        for (const DressedLepton& mu : muons) {
-          if (deltaR(jet, mu) < 0.4) delete mu;
-        }
+        ifilter_discard(elecs, deltaRLess(jet, 0.4));
+        ifilter_discard(muons, deltaRLess(jet, 0.4));
       }
-      if (elecs.empty() || muons.empty())  vetoEvent;
-
-      if (elecs[0].charge() == muons[0].charge())  vetoEvent;
+      if (elecs.empty() || muons.empty()) vetoEvent;
+      if (elecs[0].charge() == muons[0].charge()) vetoEvent;
 
       FourMomentum el = elecs[0].momentum();
       FourMomentum mu = muons[0].momentum();
@@ -130,7 +127,6 @@ namespace Rivet {
   };
 
 
-  // Declare the class as a hook for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2017_I1626105);
 
 }

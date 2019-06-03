@@ -15,14 +15,6 @@ namespace Rivet {
   typedef std::shared_ptr<Analysis> AnaHandle;
 
 
-  // Needed to make smart pointers compare equivalent in the STL set
-  struct CmpAnaHandle {
-    bool operator() (const AnaHandle& a, const AnaHandle& b) const {
-      return a.get() < b.get();
-    }
-  };
-
-
   /// A class which handles a number of analysis objects to be applied to
   /// generated events. An {@link Analysis}' AnalysisHandler is also responsible
   /// for handling the final writing-out of histograms.
@@ -145,13 +137,28 @@ namespace Rivet {
     std::vector<std::string> analysisNames() const;
 
     /// Get the collection of currently registered analyses.
-    const std::set<AnaHandle, CmpAnaHandle>& analyses() const {
+    const std::map<std::string, AnaHandle>& analysesMap() const {
       return _analyses;
     }
 
-    /// Get a registered analysis by name.
-    const AnaHandle analysis(const std::string& analysisname) const;
+    /// Get the collection of currently registered analyses.
+    std::vector<AnaHandle> analyses() const {
+      std::vector<AnaHandle> rtn;
+      rtn.reserve(_analyses.size());
+      for (const auto& apair : _analyses) rtn.push_back(apair.second);
+      return rtn;
+    }
 
+    /// Get a registered analysis by name.
+    AnaHandle analysis(const std::string& analysisname) {
+      if ( _analyses.find(analysisname) == _analyses.end() )
+        throw LookupError("No analysis named '" + analysisname + "' registered in AnalysisHandler");
+      try {
+        return _analyses[analysisname];
+      } catch (...) {
+        throw LookupError("No analysis named '" + analysisname + "' registered in AnalysisHandler");
+      }
+    }
 
     /// Add an analysis to the run list by object
     AnalysisHandler& addAnalysis(Analysis* analysis);
@@ -281,7 +288,7 @@ namespace Rivet {
     Stage _stage = Stage::OTHER;
 
     /// The collection of Analysis objects to be used.
-    set<AnaHandle, CmpAnaHandle> _analyses;
+    std::map<std::string, AnaHandle> _analyses;
 
     /// A vector of pre-loaded object which do not have a valid
     /// Analysis plugged in.

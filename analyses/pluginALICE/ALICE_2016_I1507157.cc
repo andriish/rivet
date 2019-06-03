@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Tools/AliceCommon.hh"
+#include "Rivet/Projections/AliceCommon.hh"
 #include "Rivet/Projections/PrimaryParticles.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/EventMixingFinalState.hh"
@@ -28,6 +28,7 @@ namespace Rivet {
         dif -= 2*M_PI;
       return dif;
     }
+
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -80,34 +81,18 @@ namespace Rivet {
       // Triggering
       if (!apply<ALICE::V0AndTrigger>(event, "V0-AND")()) return;
       // The projections
-      const PrimaryParticles& pp = applyProjection<PrimaryParticles>(event,"APRIM");
-      const EventMixingFinalState& evm =
-        applyProjection<EventMixingFinalState>(event, "EVM");
+      const PrimaryParticles& pp = 
+        apply<PrimaryParticles>(event,"APRIM");
+      const EventMixingFinalState& evm = 
+        apply<EventMixingFinalState>(event, "EVM");
 
-      // Get all mixing events
-      vector<Particles> mixEvents = evm.getMixingEvents();
-
-      // If there are not enough events to mix, don't fill any histograms
-      if(mixEvents.size() == 0)
-        return;
-
-      // Make a vector of mixed event particles
-      vector<Particle> mixParticles;
-      size_t pSize = 0;
-      for(size_t i = 0; i < mixEvents.size(); ++i)
-        pSize+=mixEvents[i].size();
-      mixParticles.reserve(pSize);
-      for(size_t i = 0; i < mixEvents.size(); ++i)
-        mixParticles.insert(mixParticles.end(), mixEvents[i].begin(),
-	  mixEvents[i].end());
-
-      // Shuffle the particles in the mixing events
-      random_shuffle(mixParticles.begin(), mixParticles.end());
+      // Test if we have enough mixing events available to continue.
+      if (!evm.hasMixingEvents()) return;
 
       for(const Particle& p1 : pp.particles()) {
         // Start by doing the signal distributions
 	for(const Particle& p2 : pp.particles()) {
-	  if(p1 == p2)
+	  if(isSame(p1,p2))
 	    continue;
 	  double dEta = abs(p1.eta() - p2.eta());
 	  double dPhi = phaseDif(p1.phi(), p2.phi());
@@ -136,7 +121,7 @@ namespace Rivet {
 	  }
 	}
 	// Then do the background distribution
-	for(const Particle& pMix : mixParticles){
+	for(const Particle& pMix : evm.particles()){
 	  double dEta = abs(p1.eta() - pMix.eta());
 	  double dPhi = phaseDif(p1.phi(), pMix.phi());
 	  if(dEta < 1.3) {

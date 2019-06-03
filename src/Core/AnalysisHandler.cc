@@ -32,10 +32,11 @@ namespace Rivet {
 
   AnalysisHandler::AnalysisHandler(const string& runname)
     : _runname(runname),
-      _eventCounter(vector<string>(), Counter()), _xs(vector<string>(), Scatter1D()),
-      _initialised(false), _ignoreBeams(false),
+      _eventcounter("/_EVTCOUNT"),
+      _xs(NAN), _xserr(NAN),
+      _initialised(false), _ignoreBeams(false), _dumpPeriod(0), _dumping(false),
       _defaultWeightIdx(0)
-  {}
+  {  }
 
 
   AnalysisHandler::~AnalysisHandler()
@@ -99,7 +100,7 @@ namespace Rivet {
     // Check that analyses are beam-compatible, and remove those that aren't
     const size_t num_anas_requested = analysisNames().size();
     vector<string> anamestodelete;
-    for (const AnaHandle a : _analyses) {
+    for (const AnaHandle a : analyses()) {
       if (!_ignoreBeams && !a->isCompatible(beams())) {
         //MSG_DEBUG(a->name() << " requires beams " << a->requiredBeams() << " @ " << a->requiredEnergies() << " GeV");
         anamestodelete.push_back(a->name());
@@ -117,18 +118,18 @@ namespace Rivet {
 
     // Warn if any analysis' status is not unblemished
     for (const AnaHandle a : analyses()) {
-      if (toUpper(a->status()) == "PRELIMINARY") {
+      if ( a->info().preliminary() ) {
         MSG_WARNING("Analysis '" << a->name() << "' is preliminary: be careful, it may change and/or be renamed!");
-      } else if (toUpper(a->status()) == "OBSOLETE") {
+      } else if ( a->info().obsolete() ) {
         MSG_WARNING("Analysis '" << a->name() << "' is obsolete: please update!");
-      } else if (toUpper(a->status()).find("UNVALIDATED") != string::npos) {
+      } else if (( a->info().unvalidated() ) ) {
         MSG_WARNING("Analysis '" << a->name() << "' is unvalidated: be careful, it may be broken!");
       }
     }
 
     // Initialize the remaining analyses
     _stage = Stage::INIT;
-    for (AnaHandle a : _analyses) {
+    for (AnaHandle a : analyses()) {
       MSG_DEBUG("Initialising analysis: " << a->name());
       try {
         // Allow projection registration in the init phase onwards
@@ -145,36 +146,6 @@ namespace Rivet {
     _stage = Stage::OTHER;
     _initialised = true;
     MSG_DEBUG("Analysis handler initialised");
-  }
-
-
-  void AnalysisHandler::setWeightNames(const GenEvent& ge) {
-    /// reroute the print output to a std::stringstream and process
-    /// The iteration is done over a map in hepmc2 so this is safe
-    std::ostringstream stream;
-    ge.weights().print(stream);  // Super lame, I know
-    string str =  stream.str();
-
-    std::regex re("(([^()]+))"); // Regex for stuff enclosed by parentheses ()
-    size_t idx = 0;
-    for (std::sregex_iterator i = std::sregex_iterator(str.begin(), str.end(), re); i != std::sregex_iterator(); ++i ) {
-      std::smatch m = *i;
-      vector<string> temp = ::split(m.str(), "[,]");
-      if (temp.size() ==2) {
-        MSG_DEBUG("Name of weight #" << _weightNames.size() << ": " << temp[0]);
-
-        // store the default weight based on weight names
-        if (temp[0] == "Weight" || temp[0] == "0" || temp[0] == "Default") {
-          MSG_DEBUG(_weightNames.size() << " is being used as the nominal.");
-          _weightNames.push_back("");
-          _defaultWeightIdx = idx;
-        } else
-          _weightNames.push_back(temp[0]);
-
-
-        idx++;
-      }
-    }
   }
 
 
@@ -197,16 +168,28 @@ namespace Rivet {
 
     // Create the Rivet event wrapper
     /// @todo Filter/normalize the event here
-    Event event(ge);
+    bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
+    Event event(ge, strip);
 
-    // Set the cross section based on what is reported by this event.
-    MSG_TRACE("Getting cross-section.");
+    // Weights
+    /// @todo Drop this / just report first weight when we support multiweight events
+    _eventcounter.fill(event.weight());
+    MSG_DEBUG("Event #" << _eventcounter.numEntries() << " weight = " << event.weight());
+
+    // Cross-section
+    #if defined ENABLE_HEPMC_3
     if (ge.cross_section()) {
-      MSG_TRACE("Getting cross-section from GenEvent.");
-      double xs = ge.cross_section()->cross_section();
-      double xserr = ge.cross_section()->cross_section_error();
-      setCrossSection(xs, xserr);
+      //@todo HepMC3::GenCrossSection methods aren't const accessible :(
+      RivetHepMC::GenCrossSection gcs = *(event.genEvent()->cross_section());
+      _xs = gcs.xsec();
+      _xserr = gcs.xsec_err();
     }
+    #elif defined HEPMC_HAS_CROSS_SECTION
+    if (ge.cross_section()) {
+      _xs = ge.cross_section()->cross_section();
+      _xserr = ge.cross_section()->cross_section_error();
+    }
+    #endif
 
     // Won't happen for first event because _eventNumber is set in init()
     if (_eventNumber != ge.event_number()) {
@@ -247,7 +230,7 @@ namespace Rivet {
 
     _eventCounter->fill();
     // Run the analyses
-    for (AnaHandle a : _analyses) {
+    for (AnaHandle a : analyses()) {
       MSG_TRACE("About to run analysis " << a->name());
       try {
         a->analyze(event);
@@ -260,10 +243,10 @@ namespace Rivet {
 
     if ( _dumpPeriod > 0 && numEvents()%_dumpPeriod == 0 ) {
       MSG_INFO("Dumping intermediate results to " << _dumpFile << ".");
-      _dumping = true;
+      _dumping = numEvents()/_dumpPeriod;
       finalize();
-      _dumping = false;
       writeData(_dumpFile);
+      _dumping = 0;
     }
 
   }
@@ -291,31 +274,22 @@ namespace Rivet {
     }
 
     // First we make copies of all analysis objects.
-    map<string,YODA::AnalysisObjectPtr> backupAOs;
-    for (auto ao : getYodaAOs(false, true, false) )
-      backupAOs[ao->path()] = YODA::AnalysisObjectPtr(ao->newclone());
+    map<string,AnalysisObjectPtr> backupAOs;
+    for (auto ao : getData(false, true, false) )
+      backupAOs[ao->path()] = AnalysisObjectPtr(ao->newclone());
 
-    // Finalize all the histograms
-    for (const AnaHandle& a : _analyses) {
-      // a->setCrossSection(_xs);
-      for (size_t iW = 0; iW < numWeights(); iW++) {
-        _eventCounter.get()->setActiveWeightIdx(iW);
-        _xs.get()->setActiveWeightIdx(iW);
-        for (auto ao : a->analysisObjects())
-          ao.get()->setActiveWeightIdx(iW);
-
-        MSG_TRACE("Running " << a->name() << "::finalize() for weight " << iW << ".");
-
-        try {
-          if ( !_dumping || a->info().reentrant() )  a->finalize();
-          else if ( _dumping == 1 && iW == 0 )
-            MSG_INFO("Skipping periodic dump of " << a->name()
-                     << " as it is not declared reentrant.");
-        } catch (const Error& err) {
-          cerr << "Error in " << a->name() << "::finalize method: " << err.what() << endl;
-          exit(1);
-        }
-
+    // Now we run the (re-entrant) finalize() functions for all analyses.
+    MSG_INFO("Finalising analyses");
+    for (AnaHandle a : analyses()) {
+      a->setCrossSection(_xs);
+      try {
+        if ( !_dumping || a->info().reentrant() )  a->finalize();
+        else if ( _dumping == 1 )
+          MSG_INFO("Skipping finalize in periodic dump of " << a->name()
+                   << " as it is not declared reentrant.");
+      } catch (const Error& err) {
+        cerr << "Error in " << a->name() << "::finalize method: " << err.what() << endl;
+        exit(1);
       }
     }
 
@@ -344,10 +318,11 @@ namespace Rivet {
     // _analyses.clear();
 
     // Print out MCnet boilerplate
-    cout << '\n';
-    cout << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << '\n';
+    cout << endl;
+    cout << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl;
     cout << "Please acknowledge plots made with Rivet analyses, and cite arXiv:1003.0694 (http://arxiv.org/abs/1003.0694)" << endl;
   }
+
 
   AnalysisHandler& AnalysisHandler::addAnalysis(const string& analysisname, std::map<string, string> pars) {
      // Make an option handle.
@@ -357,8 +332,8 @@ namespace Rivet {
       parHandle += par->first + "=" + par->second;
     }
     return addAnalysis(analysisname + parHandle);
-
   }
+
 
   AnalysisHandler& AnalysisHandler::addAnalysis(const string& analysisname) {
     // Check for a duplicate analysis
@@ -374,8 +349,7 @@ namespace Rivet {
       for ( int i = 1, N = anaopt.size(); i < N; ++i ) {
         vector<string> opt = split(anaopt[i], "=");
         if ( opt.size() != 2 ) {
-          MSG_WARNING("Error in option specification. Skipping analysis "
-                      << analysisname);
+          MSG_WARNING("Error in option specification. Skipping analysis " << analysisname);
           return *this;
         }
         if ( !analysis->info().validOption(opt[0], opt[1]) ) {
@@ -389,14 +363,14 @@ namespace Rivet {
         analysis->_options[opt.first] = opt.second;
         analysis->_optstring += ":" + opt.first + "=" + opt.second;
       }
-      for (const AnaHandle& a : _analyses) {
+      for (const AnaHandle& a : analyses()) {
         if (a->name() == analysis->name() ) {
           MSG_WARNING("Analysis '" << analysisname << "' already registered: skipping duplicate");
           return *this;
         }
       }
       analysis->_analysishandler = this;
-      _analyses.insert(analysis);
+      _analyses[analysisname] = analysis;
     } else {
       MSG_WARNING("Analysis '" << analysisname << "' not found.");
     }
@@ -407,17 +381,9 @@ namespace Rivet {
 
 
   AnalysisHandler& AnalysisHandler::removeAnalysis(const string& analysisname) {
-    std::shared_ptr<Analysis> toremove;
-    for (const AnaHandle a : _analyses) {
-      if (a->name() == analysisname) {
-        toremove = a;
-        break;
-      }
-    }
-    if (toremove.get() != 0) {
-      MSG_DEBUG("Removing analysis '" << analysisname << "'");
-      _analyses.erase(toremove);
-    }
+    MSG_DEBUG("Removing analysis '" << analysisname << "'");
+    if (_analyses.find(analysisname) != _analyses.end()) _analyses.erase(analysisname);
+    // }
     return *this;
   }
 
@@ -652,15 +618,7 @@ namespace Rivet {
     set<string> finalana;
     for ( auto ao : out) finalana.insert(ao->path());
     out.reserve(2*out.size());
-    vector<YODA::AnalysisObjectPtr> aos = getData(false, true, false);
-
-    if ( _dumping ) {
-      for ( auto ao : aos ) {
-        if ( finalana.find(ao->path()) == finalana.end() )
-          out.push_back(YODA::AnalysisObjectPtr(ao->newclone()));
-      }
-    }
-
+    vector<AnalysisObjectPtr> aos = getData(false, true);
     for ( auto ao : aos ) {
       ao = YODA::AnalysisObjectPtr(ao->newclone());
       ao->setPath("/RAW" + ao->path());
@@ -681,17 +639,10 @@ namespace Rivet {
 
   std::vector<std::string> AnalysisHandler::analysisNames() const {
     std::vector<std::string> rtn;
-    for (AnaHandle a : _analyses) {
+    for (AnaHandle a : analyses()) {
       rtn.push_back(a->name());
     }
     return rtn;
-  }
-
-
-  const AnaHandle AnalysisHandler::analysis(const std::string& analysisname) const {
-    for (const AnaHandle a : analyses())
-      if (a->name() == analysisname) return a;
-    throw Error("No analysis named '" + analysisname + "' registered in AnalysisHandler");
   }
 
 
@@ -733,9 +684,15 @@ namespace Rivet {
   }
 
 
+  bool AnalysisHandler::hasCrossSection() const {
+    return (!std::isnan(crossSection()));
+  }
+
+
   AnalysisHandler& AnalysisHandler::addAnalysis(Analysis* analysis) {
     analysis->_analysishandler = this;
-    _analyses.insert(AnaHandle(analysis));
+    // _analyses.insert(AnaHandle(analysis));
+    _analyses[analysis->name()] = AnaHandle(analysis);
     return *this;
   }
 

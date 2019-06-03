@@ -1,20 +1,22 @@
 // -*- C++ -*-
+#include "Rivet/Analysis.hh"
 #include "Rivet/Projections/CentralityProjection.hh"
 #include "Rivet/Projections/AliceCommon.hh"
+#include "Rivet/Projections/HepMCHeavyIon.hh"
 #include "Rivet/Tools/AliceCommon.hh"
 #include "Rivet/Tools/Cuts.hh"
 
 namespace Rivet {
 
-
-  /// @brief Multi Strange Baryon production at mid rapidity in
-  /// 2.76 TeV Pb--Pb collisions for different centralities.
   class ALICE_2014_I1243865 : public Analysis {
+
+  // @brief Multi-strange baryon production at mid-rapidity in 2.76 TeV Pb--Pb collisions
   public:
 
     /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2014_I1243865);
 
+    
     // Book histograms and projections etc.
     void init() {
       // Particles of interest.
@@ -27,10 +29,13 @@ namespace Rivet {
       declareCentrality(ALICE::V0MMultiplicity(),
            "ALICE_2015_PBPBCentrality", "V0M", "V0M");
 
+      // Access the HepMC heavy ion info
+      declare(HepMCHeavyIon(), "HepMC");
+
       // Xi Baryons.
+      size_t ixi = 0;
       _histPtXi.resize(5);
       _histPtXi_bar.resize(5);
-      size_t ixi = 0;
       for (string str : {"d01-","d02-","d03-","d04-","d05-"}){
         book(_histPtXi[ixi], str+"x01-y01");
         book(_histPtXi_bar[ixi], str+"x01-y02");
@@ -78,8 +83,7 @@ namespace Rivet {
       int nPions = 0;
       int nXi = 0;
       int nOmega = 0;
-      for (const auto& p :
-        apply<ALICE::PrimaryParticles>(event,"CFS").particles()) {
+      for (const Particle& p : apply<ALICE::PrimaryParticles>(event,"CFS").particles()) {
         const double pT = p.pT() / GeV;
         switch (p.pid()){
 	  case 211:
@@ -105,18 +109,17 @@ namespace Rivet {
        }
        // Extract Npart form GenEvent. TODO: Unclear how to do
        // this in HepMC3
-       const HepMC::HeavyIon* hi = event.genEvent()->heavy_ion();
-       if (hi && nPions != 0){
-	 const double npart = hi->Npart_proj() + hi->Npart_targ();
-         if (nXi != 0)
+      const HepMCHeavyIon & hi = apply<HepMCHeavyIon>(event, "HepMC");
+       if ( nPions != 0){
+	 const double npart = hi.Npart_proj() + hi.Npart_targ();
+         if (nXi != 0) 
            _histXitoPi->fill(npart, double(nXi) / double(nPions));
-         if (nOmega != 0)
+         if (nOmega != 0) 
 	   _histOmegatoPi->fill(npart, double(nOmega) / double(nPions));
 	}
      }
 
     void finalize() {
-
       for (int i = 0, N = _histPtOmega.size(); i < N; ++i) {
         const double s = 1./sow[i]->sumW();
         _histPtXi[i]->scaleW(s);
@@ -126,7 +129,9 @@ namespace Rivet {
       }
    }
 
+
   private:
+
     vector<Histo1DPtr> _histPtXi;
     vector<Histo1DPtr> _histPtXi_bar;
     vector<Histo1DPtr> _histPtOmega;
@@ -134,8 +139,12 @@ namespace Rivet {
     vector<CounterPtr> sow;
     Profile1DPtr _histXitoPi;
     Profile1DPtr _histOmegatoPi;
-};
+
+  };
+
 
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ALICE_2014_I1243865);
+
 }
+

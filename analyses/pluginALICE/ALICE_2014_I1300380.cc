@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 namespace Rivet {
 
 
@@ -15,7 +15,7 @@ namespace Rivet {
   public:
 
     void init() {
-      const UnstableFinalState cfs(Cuts::absrap<0.5);
+      const UnstableParticles cfs(Cuts::absrap<0.5);
       declare(cfs, "CFS");
 
       // Plots from the paper
@@ -29,7 +29,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const UnstableFinalState& cfs = apply<UnstableFinalState>(event, "CFS");
+      const UnstableParticles& cfs = apply<UnstableFinalState>(event, "CFS");
       for (const Particle& p : cfs.particles()) {
 	// protections against mc generators decaying long-lived particles
 	if ( !(p.hasAncestor(310)  || p.hasAncestor(-310)   || // K0s
@@ -40,12 +40,13 @@ namespace Rivet {
 	       p.hasAncestor(3312) || p.hasAncestor(-3312)  ||     // Xi-/+
 	       p.hasAncestor(3334) || p.hasAncestor(-3334)  ))     // Omega-/+     
 	{   
-	  int aid = abs(p.pid());
+	  int aid = p.abspid();
 	  if (aid == 211  || // pi+ 
-          aid == 321  || // K+
-          aid == 313  || // K*(892)0
-          aid == 2212 || // proton
-          aid == 333  ) {  // phi(1020)
+            aid == 321  || // K+
+            aid == 313  || // K*(892)0
+            aid == 2212 || // proton
+            aid == 333  )  // phi(1020)
+          {
 	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV);
 	  }
 	} // end if "rejection of long-lived particles"
@@ -98,7 +99,7 @@ namespace Rivet {
       scale(_histPtSigmaStarPlusAnti,   1./sumOfWeights());
       scale(_histPtSigmaStarMinus,      1./sumOfWeights());
       scale(_histPtSigmaStarMinusAnti,  1./sumOfWeights());
-      scale(_histPtXiStar,              1./sumOfWeights()/ 2.); 
+      scale(_histPtXiStar,              1./sumOfWeights()/ 2.);
     }
 
 
@@ -113,7 +114,7 @@ namespace Rivet {
   };
 
 
-
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ALICE_2014_I1300380);
+
 }

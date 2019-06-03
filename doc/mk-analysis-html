@@ -179,6 +179,9 @@ for aname in sorted(list(all_analyses)):
 
     ## Source code
     anaccfiles = [cc for cc in ccfiles if os.path.basename(cc).startswith(aname)]
+    exactanaccfiles = [cc for cc in ccfiles if os.path.basename(cc) == aname+".cc"]
+    if exactanaccfiles:
+        anaccfiles = exactanaccfiles
     if anaccfiles:
         page += "<b>Source code:</b>\n"
         for cc in anaccfiles:

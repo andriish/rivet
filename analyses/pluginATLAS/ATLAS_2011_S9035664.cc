@@ -3,7 +3,7 @@
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -22,7 +22,7 @@ namespace Rivet {
     //@{
 
     void init() {
-      declare(UnstableFinalState(), "UFS");
+      declare(UnstableParticles(), "UFS");
       book(_nonPrRapHigh    , 14, 1, 1);
       book(_nonPrRapMedHigh , 13, 1, 1);
       book(_nonPrRapMedLow  , 12, 1, 1);
@@ -39,15 +39,16 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
-      // Final state of unstable particles to get particle spectra
-      const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
 
-      for (const Particle& p : ufs.particles()) {
+      // Final state of unstable particles to get particle spectra
+      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+
+      foreach (const Particle& p, ufs.particles()) {
         if (p.abspid() != 443) continue;
-        const GenVertex* gv = p.genParticle()->production_vertex();
+        ConstGenVertexPtr gv = p.genParticle()->production_vertex();
         bool nonPrompt = false;
         if (gv) {
-          for (const GenParticle* pi : Rivet::particles(gv, HepMC::ancestors)) {
+          for (ConstGenParticlePtr pi: HepMCUtils::particles(gv, Relatives::ANCESTORS)) {
             const PdgId pid2 = pi->pdg_id();
             if (PID::isHadron(pid2) && PID::hasBottom(pid2)) {
               nonPrompt = true;

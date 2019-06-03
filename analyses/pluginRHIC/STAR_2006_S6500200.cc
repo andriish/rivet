@@ -30,17 +30,17 @@ namespace Rivet {
       declare(pionfs, "PionFS");
       declare(protonfs, "ProtonFS");
 
-      book(_h_pT_piplus     ,1, 1, 1); // full range pion binning
-      book(_h_pT_piminus    ,1, 2, 1); // full range pion binning
-      book(_tmp_pT_piplus   ,"TMP/pT_piplus", refData(2, 3, 1)); // pi histo compatible with more restricted proton binning
-      book(_tmp_pT_piminus  ,"TMP/pT_piminus", refData(2, 4, 1)); // pi histo compatible with more restricted proton binning
-      book(_h_pT_proton     ,1, 3, 1);
-      book(_h_pT_antiproton ,1, 4, 1);
+      book(_h_pT_piplus     ,2, 1, 1); // full range pion binning
+      book(_h_pT_piminus    ,7, 1, 1); // full range pion binning
+      book(_tmp_pT_piplus   ,"TMP/pT_piplus", refData(25, 1, 2)); // pi histo compatible with more restricted proton binning
+      book(_tmp_pT_piminus  ,"TMP/pT_piminus", refData(26, 1, 2)); // pi histo compatible with more restricted proton binning
+      book(_h_pT_proton     ,12, 1, 1);
+      book(_h_pT_antiproton ,17, 1, 1);
 
-      book(_s_piminus_piplus, 2, 1, 1);
-      book(_s_antipr_pr     , 2, 2, 1);
-      book(_s_pr_piplus     , 2, 3, 1);
-      book(_s_antipr_piminus, 2, 4, 1);
+      book(_s_piminus_piplus, 23, 1, 2);
+      book(_s_antipr_pr     , 24, 2, 2);
+      book(_s_pr_piplus     , 25, 3, 2);
+      book(_s_antipr_piminus, 26, 4, 2);
 
       book(_sumWeightSelected, "sumWeightSelected");
     }

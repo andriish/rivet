@@ -147,9 +147,16 @@ namespace Rivet {
       /// @todo Wouldn't this be nice... if HepMC::IO_AsciiParticles was sane :-/
       // printEvent(event.genEvent());
 
+      #ifdef ENABLE_HEPMC_3
+      
+      /// @todo gonna try this instead of replicating everything below
+      RivetHepMC::Print::content(*(event.genEvent()));
+      
+      #else
+      
       const GenEvent* evt = event.genEvent();
 
-      cout << string(120, '=') << "\n" << '\n';
+      cout << string(120, '=') << "\n" << endl;
 
       // Weights
       cout << "Weights(" << evt->weights().size() << ")=";
@@ -159,7 +166,7 @@ namespace Rivet {
       cout << "\n"
            << "EventScale " << evt->event_scale()
            << " [energy] \t alphaQCD=" << evt->alphaQCD()
-           << "\t alphaQED=" << evt->alphaQED() << '\n';
+           << "\t alphaQED=" << evt->alphaQED() << endl;
 
       if (evt->pdf_info()) {
         cout << "PdfInfo: id1=" << evt->pdf_info()->id1()
@@ -169,7 +176,7 @@ namespace Rivet {
              << " q=" << evt->pdf_info()->scalePDF()
              << " xpdf1=" << evt->pdf_info()->pdf1()
              << " xpdf2=" << evt->pdf_info()->pdf2()
-             << '\n';
+             << endl;
       } else {
         cout << "PdfInfo: EMPTY";
       }
@@ -178,13 +185,13 @@ namespace Rivet {
       char particle_legend[120];
       sprintf( particle_legend,"     %9s %8s %-15s %4s %8s %8s   (%9s,%9s,%9s,%9s,%9s)",
                "Barcode","PDG ID","Name","Stat","ProdVtx","DecayVtx","Px","Py","Pz","E ","m");
-      cout << '\n';
+      cout << endl;
       cout << "                                       GenParticle Legend\n" << particle_legend << "\n";
       // if (m_vertexinfo) {
       //   sprintf( particle_legend," %60s (%9s,%9s,%9s,%9s)"," ","Vx","Vy","Vz","Vct ");
-      //   cout << particle_legend << '\n';
+      //   cout << particle_legend << endl;
       // }
-      // cout << string(120, '_') << '\n';
+      // cout << string(120, '_') << endl;
 
       // Print all particles
       // const HepPDT::ParticleDataTable* pdt = m_ppsvc->PDT();
@@ -234,7 +241,9 @@ namespace Rivet {
         // }
       }
 
-      cout << "\n" << '\n';
+      cout << "\n" << endl;
+      
+      #endif // VERSION_CODE >= 3000000
     }
 
 

@@ -20,27 +20,32 @@ namespace Rivet {
     void init() {
 
       // Initialise and register projections
-      declare(PartonicTops(PartonicTops::DecayMode::ALL), "AllTops");
-      declare(PartonicTops(PartonicTops::DecayMode::ALL, true, false, Cuts::OPEN, PartonicTops::WhichTop::FIRST), "AllTopsFirst"); ///< @todo API ick!
-      declare(PartonicTops(PartonicTops::DecayMode::E_MU), "LeptonicTops");
-      declare(PartonicTops(PartonicTops::DecayMode::HADRONIC), "HadronicTops");
+      declare(PartonicTops(PartonicTops::ALL), "AllTops");
+      declare(PartonicTops(PartonicTops::ALL, true, false, Cuts::OPEN, PartonicTops::FIRST), "AllTopsFirst"); ///< @todo API ick!
+      declare(PartonicTops(PartonicTops::E_MU), "LeptonicTops");
+      declare(PartonicTops(PartonicTops::HADRONIC), "HadronicTops");
 
       // Book histograms
-      book(_h_tall_n,  "t_all_n", linspace(5, -0.5, 4.5));
-      book(_h_tall_pt, "t_all_pT", logspace(50, 1, 500));
-      book(_h_tall_y,  "t_all_y", linspace(50, -5, 5));
+      _h_tall_n  = bookHisto1D("t_all_n", linspace(5, -0.5, 4.5));
+      _h_tall_pt = bookHisto1D("t_all_pT", logspace(50, 1, 500));
+      _h_tall_y  = bookHisto1D("t_all_y", linspace(50, -5, 5));
 
-      book(_h_tall_n_first,  "t_all_n_firsttop", linspace(5, -0.5, 4.5));
-      book(_h_tall_pt_first, "t_all_pT_firsttop", logspace(50, 1, 500));
-      book(_h_tall_y_first,  "t_all_y_firsttop", linspace(50, -5, 5));
+      _h_tall_n_first  = bookHisto1D("t_all_n_firsttop", linspace(5, -0.5, 4.5));
+      _h_tall_pt_first = bookHisto1D("t_all_pT_firsttop", logspace(50, 1, 500));
+      _h_tall_y_first  = bookHisto1D("t_all_y_firsttop", linspace(50, -5, 5));
 
-      book(_h_tlep_n,  "t_lep_n", linspace(5, -0.5, 4.5));
-      book(_h_tlep_pt, "t_lep_pT", logspace(50, 1, 500));
-      book(_h_tlep_y,  "t_lep_y", linspace(50, -5, 5));
+      _h_tall_pt_dfirstlast = bookHisto1D("t_all_pT_dfirstlast", linspace(100, -100, 100));
+      _p_tall_pt_dfirstlast = bookProfile1D("t_all_pT_dfirstlast_prof", logspace(50, 1, 500));
+      // _h_tall_y_dfirstlast  = bookHisto1D("t_all_y_dfirstlast", linspace(50, -2, 2));
+      // _p_tall_y_dfirstlast  = bookProfile1D("t_all_y_dfirstlast_prof", linspace(50, -5, 5));
 
-      book(_h_thad_n,  "t_had_n", linspace(5, -0.5, 4.5));
-      book(_h_thad_pt, "t_had_pT", logspace(50, 1, 500));
-      book(_h_thad_y,  "t_had_y", linspace(50, -5, 5));
+      _h_tlep_n  = bookHisto1D("t_lep_n", linspace(5, -0.5, 4.5));
+      _h_tlep_pt = bookHisto1D("t_lep_pT", logspace(50, 1, 500));
+      _h_tlep_y  = bookHisto1D("t_lep_y", linspace(50, -5, 5));
+
+      _h_thad_n  = bookHisto1D("t_had_n", linspace(5, -0.5, 4.5));
+      _h_thad_pt = bookHisto1D("t_had_pT", logspace(50, 1, 500));
+      _h_thad_y  = bookHisto1D("t_had_y", linspace(50, -5, 5));
 
     }
 
@@ -48,6 +53,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
+      // Last tops (standard)
       const Particles& alltops = apply<PartonicTops>(event, "AllTops").particlesByPt();
       _h_tall_n->fill(alltops.size());
       for (const Particle& t : alltops) {
@@ -55,6 +61,7 @@ namespace Rivet {
         _h_tall_y->fill(t.rap());
       }
 
+      // First tops
       const Particles& alltops_first = apply<PartonicTops>(event, "AllTopsFirst").particlesByPt();
       _h_tall_n_first->fill(alltops_first.size());
       for (const Particle& t : alltops_first) {
@@ -62,6 +69,18 @@ namespace Rivet {
         _h_tall_y_first->fill(t.rap());
       }
 
+      // Match first and last tops
+      for (const Particle& tf : alltops_first) {
+        for (const Particle& tl : alltops) {
+          //if (deltaR(tf, tl) > 1) continue;
+          if (tf.pid() != tl.pid()) continue;
+          const double dpt = tl.pT() - tf.pT(); //< defined as change due to PS
+          _h_tall_pt_dfirstlast->fill(dpt/GeV);
+          _p_tall_pt_dfirstlast->fill(tf.pT()/GeV, fabs(dpt)/GeV);
+        }
+      }
+
+      // Leptonic (last) tops
       const Particles& leptops = apply<PartonicTops>(event, "LeptonicTops").particlesByPt();
       _h_tlep_n->fill(leptops.size());
       for (const Particle& t : leptops) {
@@ -69,13 +88,13 @@ namespace Rivet {
         _h_tlep_y->fill(t.rap());
       }
 
+      // Hadronic (last) tops
       const Particles& hadtops = apply<PartonicTops>(event, "HadronicTops").particlesByPt();
       _h_thad_n->fill(hadtops.size());
       for (const Particle& t : hadtops) {
         _h_thad_pt->fill(t.pT()/GeV);
         _h_thad_y->fill(t.rap());
       }
-
 
     }
 
@@ -85,6 +104,7 @@ namespace Rivet {
       normalize({_h_tall_n,  _h_tall_n_first, _h_tlep_n, _h_thad_n});
       normalize({_h_tall_pt, _h_tall_pt_first, _h_tlep_pt, _h_thad_pt});
       normalize({_h_tall_y,  _h_tall_y_first, _h_tlep_y, _h_thad_y});
+      normalize(_h_tall_pt_dfirstlast);
     }
 
     //@}
@@ -95,6 +115,8 @@ namespace Rivet {
     Histo1DPtr _h_tall_n, _h_tall_n_first, _h_tlep_n, _h_thad_n;
     Histo1DPtr _h_tall_pt, _h_tall_pt_first, _h_tlep_pt, _h_thad_pt;
     Histo1DPtr _h_tall_y, _h_tall_y_first, _h_tlep_y, _h_thad_y;
+    Histo1DPtr _h_tall_pt_dfirstlast;
+    Profile1DPtr _p_tall_pt_dfirstlast;
     //@}
 
 

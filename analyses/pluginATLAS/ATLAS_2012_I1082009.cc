@@ -5,7 +5,7 @@
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -39,7 +39,7 @@ namespace Rivet {
       FastJets jets(veto, FastJets::ANTIKT, 0.6);
       declare(jets, "jets");
       // unstable final-state for D*
-      declare(UnstableFinalState(), "UFS");
+      declare(UnstableParticles(), "UFS");
 
       book(_weight25_30, "_weight_25_30");
       book(_weight30_40, "_weight_30_40");
@@ -65,7 +65,7 @@ namespace Rivet {
         if ( jet.abseta() < 2.5 ) jets.push_back(jet);
       }
       // get the D* mesons
-      const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
       Particles Dstar;
       for (const Particle& p : ufs.particles()) {
         const int id = p.abspid();

@@ -24,7 +24,6 @@ namespace Rivet {
       /// Initialise and register projections here
       const FinalState fs(Cuts::abseta < 4.2);
       FastJets fj(fs, FastJets::CDFJETCLU, 0.7);
-      declare(fj, "Jets");
 
       // Smear energy and mass with the 10% uncertainty quoted in the paper
       SmearedJets sj_E(fj, [](const Jet& jet){ return P4_SMEAR_MASS_GAUSS(P4_SMEAR_E_GAUSS(jet, 0.1*jet.E()), 0.1*jet.mass()); });
@@ -44,7 +43,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // Get the smeared jets
-      Jets SJets = apply<JetAlg>(event, "SmearedJets_E").jets(Cuts::Et > 20.0*GeV, cmpMomByEt);
+      const Jets SJets = apply<JetAlg>(event, "SmearedJets_E").jets(Cuts::Et > 20.0*GeV, cmpMomByEt);
       if (SJets.size() < 2 || SJets.size() > 6) vetoEvent;
 
       // Calculate Et, total jet 4 Momentum
@@ -52,14 +51,14 @@ namespace Rivet {
       FourMomentum JS(0,0,0,0);
 
       for (const Jet& jet : SJets) {
-        sumEt += jet.Et()*GeV;
-        sumE  += jet.E()*GeV;
+        sumEt += jet.Et()/GeV;
+        sumE  += jet.E()/GeV;
         JS+=jet.momentum();
       }
 
-      if (sumEt < 420*GeV || sumE > 2000*GeV) vetoEvent;
+      if (sumEt < 420. || sumE > 2000.) vetoEvent;
 
-      double mass = JS.mass();
+      double mass = JS.mass()/GeV;
 
       LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(JS.betaVec());
       FourMomentum jet0boosted(cms_boost.transform(SJets[0].momentum()));

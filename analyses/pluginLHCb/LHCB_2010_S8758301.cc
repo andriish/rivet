@@ -1,26 +1,22 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 #include "Rivet/Math/Constants.hh"
 #include "Rivet/Math/Units.hh"
-#include "HepMC/GenEvent.h"
-#include "HepMC/GenParticle.h"
-#include "HepMC/GenVertex.h"
-#include "HepMC/SimpleVector.h"
 
 namespace Rivet {
 
-using namespace HepMC;
-
-  // Lifetime cut: longest living ancestor ctau < 10^-11 [m]
-  namespace {
-    const double MAX_CTAU = 1.0E-11; // [m]
-    const double MIN_PT = 0.0001; // [GeV/c]
-  }
+  using namespace std;
 
 
   class LHCB_2010_S8758301 : public Analysis {
   public:
+
+    // Lifetime cut: longest living ancestor ctau < 10^-11 [m]
+    const double MAX_CTAU = 1.0E-11; // [m]
+    const double MIN_PT = 0.0001; // [GeV/c]
+
+
     /// @name Constructors etc.
     //@{
     /// Constructor
@@ -40,6 +36,9 @@ using namespace HepMC;
     void init() {
       MSG_DEBUG("Initializing analysis!");
       fillMap(partLftMap);
+
+      declare(UnstableParticles(), "UFS");
+
       book(_h_K0s_pt_30    ,1,1,1);
       book(_h_K0s_pt_35    ,1,1,2);
       book(_h_K0s_pt_40    ,1,1,3);
@@ -51,7 +50,6 @@ using namespace HepMC;
       book(sumKs0_30, "TMP/sumKs0_30");
       book(sumKs0_35, "TMP/sumKs0_35");
       book(sumKs0_40, "TMP/sumKs0_40");
-      declare(UnstableFinalState(), "UFS");
     }
 
 
@@ -59,14 +57,14 @@ using namespace HepMC;
     void analyze(const Event& event) {
       int id;
       double y, pT;
-      const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
       double ancestor_lftime;
       for (const Particle& p : ufs.particles()) {
         id = p.pid();
         if ((id != 310) && (id != -310)) continue;
         sumKs0_all ++;
         ancestor_lftime = 0.;
-        const GenParticle* long_ancestor = getLongestLivedAncestor(p, ancestor_lftime);
+        ConstGenParticlePtr long_ancestor = getLongestLivedAncestor(p, ancestor_lftime);
         if ( !(long_ancestor) ) {
           sumKs0_badnull ++;
           continue;
@@ -112,18 +110,18 @@ using namespace HepMC;
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      MSG_DEBUG("Total number Ks0: " << sumKs0_all << 'n'
-                << "Sum of weights: " << sumOfWeights() << 'n'
-                << "Weight Ks0 (2.5 < y < 3.0): " <<  sumKs0_30->val() << 'n'
-                << "Weight Ks0 (3.0 < y < 3.5): " << sumKs0_35->val() << 'n'
-                << "Weight Ks0 (3.5 < y < 4.0): " << sumKs0_40->val() << 'n'
-                << "Nb. unprompt Ks0 [null mother]: " << sumKs0_badnull << 'n'
-                << "Nb. unprompt Ks0 [mother lifetime exceeded]: " << sumKs0_badlft << 'n'
-                << "Nb. Ks0 (y > 4.0): " << sumKs0_outup << 'n'
-                << "Nb. Ks0 (y < 2.5): " << sumKs0_outdwn << 'n'
-                << "Nb. Ks0 (pT < " << (MIN_PT/MeV) << " MeV/c): " << sum_low_pt_loss << 'n'
-                << "Nb. Ks0 (pT > 1.6 GeV/c): " << sum_high_pt_loss << 'n'
-                << "Cross-section [mb]: " << crossSection()/millibarn << 'n'
+      MSG_DEBUG("Total number Ks0: " << sumKs0_all << endl
+                << "Sum of weights: " << sumOfWeights() << endl
+                << "Weight Ks0 (2.5 < y < 3.0): " <<  sumKs0_30 << endl
+                << "Weight Ks0 (3.0 < y < 3.5): " << sumKs0_35 << endl
+                << "Weight Ks0 (3.5 < y < 4.0): " << sumKs0_40 << endl
+                << "Nb. unprompt Ks0 [null mother]: " << sumKs0_badnull << endl
+                << "Nb. unprompt Ks0 [mother lifetime exceeded]: " << sumKs0_badlft << endl
+                << "Nb. Ks0 (y > 4.0): " << sumKs0_outup << endl
+                << "Nb. Ks0 (y < 2.5): " << sumKs0_outdwn << endl
+                << "Nb. Ks0 (pT < " << (MIN_PT/MeV) << " MeV/c): " << sum_low_pt_loss << endl
+                << "Nb. Ks0 (pT > 1.6 GeV/c): " << sum_high_pt_loss << endl
+                << "Cross-section [mb]: " << crossSection()/millibarn << endl
                 << "Nb. events: " << numEvents());
       // Compute cross-section; multiply by bin width for correct scaling
       // cross-section given by Rivet in pb
@@ -167,20 +165,21 @@ using namespace HepMC;
       return lft;
     }
 
-    const GenParticle* getLongestLivedAncestor(const Particle& p, double& lifeTime) {
-      const GenParticle* ret = nullptr;
+    ConstGenParticlePtr getLongestLivedAncestor(const Particle& p, double& lifeTime) {
+      ConstGenParticlePtr ret = nullptr;
       lifeTime = 1.;
       if (p.genParticle() == nullptr) return nullptr;
-      const GenParticle* pmother = p.genParticle();
+      ConstGenParticlePtr pmother = p.genParticle();
       double longest_ctau = 0.;
       double mother_ctau;
-      int mother_pid, n_inparts;
-      const GenVertex* ivertex = pmother->production_vertex();
+      int mother_pid;
+      ConstGenVertexPtr ivertex = pmother->production_vertex();
       while (ivertex) {
-        n_inparts = ivertex->particles_in_size();
-        if (n_inparts < 1) {ret = nullptr; break;}    // error: should never happen!
-        const auto iPart_invtx = ivertex->particles_in_const_begin();
-        pmother = (*iPart_invtx);                   // first mother particle
+        
+        vector<ConstGenParticlePtr> inparts = HepMCUtils::particles(ivertex, Relatives::PARENTS);
+        
+        if (inparts.size() < 1) {ret = nullptr; break;}    // error: should never happen!
+        pmother = inparts.at(0);                   // first mother particle
         mother_pid = pmother->pdg_id();
         ivertex = pmother->production_vertex();     // get next vertex
         if ( (mother_pid == 2212) || (mother_pid <= 100) ) {
@@ -545,7 +544,7 @@ using namespace HepMC;
     2000014, 2000015, 2000016, 3000111, 3000113, 3000211, 3000213, 3000221, 3000223,
     3000331, 3100021, 3100111, 3100113, 3200111, 3200113, 3300113, 3400113, 4000001,
     4000002, 4000011, 4000012, 5000039, 9000221, 9900012, 9900014, 9900016, 9900023,
-    9900024, 9900041, 9900042}};
+    9900024, 9900041, 9900042};
 
 
   // Hook for the plugin system

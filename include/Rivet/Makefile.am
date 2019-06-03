@@ -38,9 +38,11 @@ nobase_pkginclude_HEADERS += \
   Projections/ChargedLeptons.hh \
   Projections/ConstLossyFinalState.hh \
   Projections/DirectFinalState.hh \
+  Projections/DISDiffHadron.hh \
   Projections/DISFinalState.hh \
   Projections/DISKinematics.hh \
   Projections/DISLepton.hh \
+  Projections/DISRapidityGap.hh \
   Projections/DressedLeptons.hh \
   Projections/EventMixingFinalState.hh \
   Projections/FastJets.hh \
@@ -52,6 +54,7 @@ nobase_pkginclude_HEADERS += \
   Projections/HadronicFinalState.hh \
   Projections/HeavyHadrons.hh \
   Projections/Hemispheres.hh \
+  Projections/HepMCHeavyIon.hh \
   Projections/IdentifiedFinalState.hh \
   Projections/ImpactParameterProjection.hh \
   Projections/IndirectFinalState.hh \
@@ -86,6 +89,8 @@ nobase_pkginclude_HEADERS += \
   Projections/TriggerProjection.hh \
   Projections/TriggerUA5.hh \
   Projections/UnstableFinalState.hh \
+  Projections/UndressBeamLeptons.hh \
+  Projections/UnstableParticles.hh \
   Projections/UserCentEstimate.hh \
   Projections/VetoedFinalState.hh \
   Projections/VisibleFinalState.hh \
@@ -129,6 +134,7 @@ nobase_pkginclude_HEADERS += \
   Tools/ParticleName.hh \
   Tools/Percentile.hh \
   Tools/PrettyPrint.hh \
+  Tools/ReaderCompressedAscii.hh \
   Tools/RivetPaths.hh \
   Tools/RivetSTL.hh \
   Tools/RivetFastJet.hh \
@@ -140,6 +146,7 @@ nobase_pkginclude_HEADERS += \
   Tools/ParticleSmearingFunctions.hh \
   Tools/JetSmearingFunctions.hh \
   Tools/TypeTraits.hh \
+  Tools/WriterCompressedAscii.hh \
   Tools/Utils.hh \
   Tools/fjcontrib/AxesDefinition.hh \
   Tools/fjcontrib/BottomUpSoftDrop.hh \

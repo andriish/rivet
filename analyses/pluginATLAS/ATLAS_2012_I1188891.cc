@@ -44,10 +44,10 @@ namespace Rivet {
       vector<FourMomentum> leadjets;
 
       //get b/c-hadrons
-      vector<GenParticle const *> B_hadrons, C_hadrons;
-      vector<GenParticle const *> allParticles = particles(event.genEvent());
+      vector<ConstGenParticlePtr> B_hadrons, C_hadrons;
+      vector<ConstGenParticlePtr> allParticles = HepMCUtils::particles(event.genEvent());
       for (size_t i = 0; i < allParticles.size(); i++) {
-        const GenParticle* p = allParticles.at(i);
+        ConstGenParticlePtr p = allParticles.at(i);
         if(p->momentum().perp()*GeV < 5) continue;
         if ( (Rivet::PID::isHadron ( p->pdg_id() ) &&
               Rivet::PID::hasBottom( p->pdg_id() )    ) ) {

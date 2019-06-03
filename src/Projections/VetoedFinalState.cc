@@ -90,11 +90,11 @@ namespace Rivet {
     /// @todo There must be a nice way to do this -- an STL algorithm (or we provide a nicer wrapper)
     for (PdgId vetoid : _parentVetoes) {
       for (Particles::iterator ip = _theParticles.begin(); ip != _theParticles.end(); ++ip) {
-        const GenVertex* startVtx = ip->genParticle()->production_vertex();
+        ConstGenVertexPtr startVtx = ip->genParticle()->production_vertex();
         if (startVtx == NULL) continue;
         // Loop over parents and test their IDs
         /// @todo Could use any() here?
-        for (const GenParticle* parent : Rivet::particles(startVtx, HepMC::ancestors)) {
+        for (ConstGenParticlePtr parent : HepMCUtils::particles(startVtx, Relatives::ANCESTORS)) {
           if (vetoid == parent->pdg_id()) {
             ip = _theParticles.erase(ip); --ip; //< Erase this _theParticles entry
             break;

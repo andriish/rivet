@@ -46,10 +46,10 @@ namespace Rivet {
     // Handle "open FS" special case, which should not/cannot recurse
     if (_cuts == Cuts::OPEN) {
       MSG_TRACE("Open FS processing: should only see this once per event (" << e.genEvent()->event_number() << ")");
-      for (const GenParticle* p : Rivet::particles(e.genEvent())) {
+      for (ConstGenParticlePtr p : HepMCUtils::particles(e.genEvent())) {
         if (p->status() == 1) {
-          //MSG_TRACE("FS GV = " << p->production_vertex());
-          _theParticles.push_back(Particle(*p));
+          MSG_TRACE("FS GV = " << p->production_vertex()->position());
+          _theParticles.push_back(Particle(p));
         }
       }
       MSG_TRACE("Number of open-FS selected particles = " << _theParticles.size());

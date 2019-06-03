@@ -5,7 +5,6 @@
 namespace Rivet {
 
   class ATLAS_2016_I1419070 : public Analysis {
-
   public:
 
     /// Constructor
@@ -101,7 +100,7 @@ namespace Rivet {
           double yerr2 = bsum2.numEntries() > 1.0 ? bsum2.stdErr() : 0.0;
           double yerr5 = bsum5.numEntries() > 1.0 ? bsum5.stdErr() : 0.0;
 
-	      diff_500MeV->point(i).setY(ydiff, yerr);
+	  diff_500MeV->point(i).setY(ydiff, yerr);
           diff_2GeV->point(i).setY(ydiff2, yerr2);
           diff_5GeV->point(i).setY(ydiff5, yerr5);
 

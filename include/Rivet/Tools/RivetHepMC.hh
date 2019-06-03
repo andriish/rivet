@@ -2,135 +2,98 @@
 #ifndef RIVET_RivetHepMC_HH
 #define RIVET_RivetHepMC_HH
 
+#ifdef ENABLE_HEPMC_3
+#include "HepMC3/HepMC3.h"
+#include "HepMC3/Relatives.h"
+#include "HepMC3/Reader.h"
+
+namespace Rivet{
+  namespace RivetHepMC = HepMC3;
+  using RivetHepMC::ConstGenParticlePtr;
+  using RivetHepMC::ConstGenVertexPtr;
+  using RivetHepMC::Relatives;
+  using RivetHepMC::ConstGenHeavyIonPtr;
+  
+  using HepMC_IO_type = RivetHepMC::Reader;
+
+  using PdfInfo = RivetHepMC::GenPdfInfo;
+}
+
+#else
 #include "HepMC/GenEvent.h"
 #include "HepMC/GenParticle.h"
+#include "HepMC/HeavyIon.h"
 #include "HepMC/GenVertex.h"
+#include "HepMC/Version.h"
 #include "HepMC/GenRanges.h"
 #include "HepMC/IO_GenEvent.h"
+
+namespace Rivet{
+  namespace RivetHepMC = HepMC;
+
+  
+  // HepMC 2.07 provides its own #defines
+  typedef const HepMC::GenParticle* ConstGenParticlePtr;
+  typedef const HepMC::GenVertex* ConstGenVertexPtr;
+  typedef const HepMC::HeavyIon* ConstGenHeavyIonPtr;
+  
+  /// @brief Replicated the HepMC3 Relatives syntax using HepMC2 IteratorRanges
+  /// This is necessary mainly because of capitalisation differences
+  class Relatives{
+    
+    public:
+    
+    constexpr Relatives(HepMC::IteratorRange relo): _internal(relo){}
+    
+    constexpr HepMC::IteratorRange operator()() const {return _internal;}
+    operator HepMC::IteratorRange() const {return _internal;}
+    
+    const static Relatives PARENTS;
+    const static Relatives CHILDREN;
+    const static Relatives ANCESTORS;
+    const static Relatives DESCENDANTS;
+    
+    private:
+    const HepMC::IteratorRange _internal;
+    
+  };
+  
+  using HepMC_IO_type = HepMC::IO_GenEvent;
+  using PdfInfo = RivetHepMC::PdfInfo;
+
+}
+  
+#endif
+
 #include "Rivet/Tools/RivetSTL.hh"
 #include "Rivet/Tools/Exceptions.hh"
 
+
 namespace Rivet {
 
-
-  using HepMC::GenEvent;
-  using HepMC::GenParticle;
-  using HepMC::GenVertex;
-
-  #if HEPMC_VERSION_CODE >= 3000000
-  using HepMC::GenEventPtr;
-  using HepMC::GenParticlePtr;
-  using HepMC::GenVertexPtr;
-  #elif HEPMC_VERSION_CODE >= 2007000
-  // HepMC 2.07 provides its own #defines
-  #else
-  #define GenEventPtr GenEvent*
-  #define GenParticlePtr GenParticle*
-  #define GenVertexPtr GenVertex*
-  #endif
-
-
+  using RivetHepMC::GenEvent;
+  using ConstGenEventPtr = std::shared_ptr<const GenEvent>;
   /// @todo Use mcutils?
 
+  namespace HepMCUtils{
 
-  inline std::vector<GenParticle const *> particles(const GenEvent* ge) {
-    if ( !ge ) return {};
-    std::vector<const GenParticle*> rtn;
-    for (GenEvent::particle_const_iterator pi = ge->particles_begin(); pi != ge->particles_end(); ++pi)
-      rtn.push_back(*pi);
-    return rtn;
-  }
-
-  inline std::vector<GenParticlePtr> particles(GenEvent* ge) {
-    if ( !ge ) return {};
-    std::vector<GenParticle*> rtn;
-    for (GenEvent::particle_iterator pi = ge->particles_begin(); pi != ge->particles_end(); ++pi)
-      rtn.push_back(*pi);
-    return rtn;
-  }
-
-
-  inline std::vector<const GenVertex*> vertices(const GenEvent* ge) {
-    std::vector<GenVertex const *> rtn;
-    for (GenEvent::vertex_const_iterator vi = ge->vertices_begin(); vi != ge->vertices_end(); ++vi)
-      rtn.push_back(*vi);
-    return rtn;
-  }
-
-  inline std::vector<GenVertex*> vertices(GenEvent* ge) {
-    std::vector<GenVertex*> rtn;
-    for (GenEvent::vertex_iterator vi = ge->vertices_begin(); vi != ge->vertices_end(); ++vi)
-      rtn.push_back(*vi);
-    return rtn;
-  }
-
-
-  //////////////////////////
-
-
-  inline std::vector<const GenParticle*> particles(const GenVertex* gv, HepMC::IteratorRange range=HepMC::relatives) {
-    std::vector<GenParticle const *> rtn;
-    /// @todo A particle_const_iterator on GenVertex would be nice...
-    // Before HepMC 2.7.0 there were no GV::particles_const_iterators and constness consistency was all screwed up :-/
-    #if HEPMC_VERSION_CODE >= 2007000
-    // for (GenVertex::particle_iterator pi = gv->particles_const_begin(range); pi != gv->particles_const_end(range); ++pi)
-    for (GenVertex::particle_iterator pi = gv->particles_begin(range); pi != gv->particles_end(range); ++pi)
-      rtn.push_back(*pi);
-    #else
-    GenVertex* gv2 = const_cast<GenVertex*>(gv);
-    for (GenVertex::particle_iterator pi = gv2->particles_begin(range); pi != gv2->particles_end(range); ++pi)
-      rtn.push_back(const_cast<const GenParticle*>(*pi));
-    #endif
-    return rtn;
-  }
-
-  inline std::vector<GenParticle*> particles(GenVertex* gv, HepMC::IteratorRange range=HepMC::relatives) {
-    std::vector<GenParticle*> rtn;
-    for (GenVertex::particle_iterator pi = gv->particles_begin(range); pi != gv->particles_end(range); ++pi)
-      rtn.push_back(*pi);
-    return rtn;
-  }
-
-
-
-  // Get iterator ranges as wrapped begin/end pairs
-  /// @note GenVertex _in and _out iterators are actually, secretly the same types *sigh*
-  struct GenVertexIterRangeC {
-    typedef vector<GenParticle*>::const_iterator genvertex_particles_const_iterator;
-    GenVertexIterRangeC(const genvertex_particles_const_iterator& begin, const genvertex_particles_const_iterator& end)
-      : _begin(begin), _end(end) {  }
-    const genvertex_particles_const_iterator& begin() { return _begin; }
-    const genvertex_particles_const_iterator& end() { return _end; }
-  private:
-    const genvertex_particles_const_iterator _begin, _end;
-  };
-
-  inline GenVertexIterRangeC particles_in(const GenVertex* gv) {
-    return GenVertexIterRangeC(gv->particles_in_const_begin(), gv->particles_in_const_end());
-  }
-
-  inline GenVertexIterRangeC particles_out(const GenVertex* gv) {
-    return GenVertexIterRangeC(gv->particles_out_const_begin(), gv->particles_out_const_end());
-  }
-
-
-
-  #if HEPMC_VERSION_CODE >= 2007000
-
-  // Get iterator ranges as wrapped begin/end pairs
-  /// @note GenVertex _in and _out iterators are actually, secretly the same types *sigh*
-  struct GenVertexIterRange {
-    typedef vector<GenParticle*>::iterator genvertex_particles_iterator;
-    GenVertexIterRange(const genvertex_particles_iterator& begin, const genvertex_particles_iterator& end)
-      : _begin(begin), _end(end) {  }
-    const genvertex_particles_iterator& begin() { return _begin; }
-    const genvertex_particles_iterator& end() { return _end; }
-  private:
-    const genvertex_particles_iterator _begin, _end;
-  };
-
-  inline GenVertexIterRange particles_in(GenVertex* gv) {
-    return GenVertexIterRange(gv->particles_in_begin(), gv->particles_in_end());
+    ConstGenParticlePtr              getParticlePtr(const RivetHepMC::GenParticle & gp);
+    std::vector<ConstGenParticlePtr> particles(ConstGenEventPtr ge);
+    std::vector<ConstGenParticlePtr> particles(const GenEvent *ge);
+    std::vector<ConstGenVertexPtr>   vertices(ConstGenEventPtr ge);
+    std::vector<ConstGenVertexPtr>   vertices(const GenEvent *ge);
+    std::vector<ConstGenParticlePtr> particles(ConstGenVertexPtr gv, const Relatives &relo);
+    std::vector<ConstGenParticlePtr> particles(ConstGenParticlePtr gp, const Relatives &relo);
+    int uniqueId(ConstGenParticlePtr gp);
+    int particles_size(ConstGenEventPtr ge);
+    int particles_size(const GenEvent *ge);
+    std::pair<ConstGenParticlePtr,ConstGenParticlePtr> beams(const GenEvent *ge);
+    std::shared_ptr<HepMC_IO_type> makeReader(std::istream &istr,
+                                              std::string * errm = 0);
+    bool readEvent(std::shared_ptr<HepMC_IO_type> io,
+                   std::shared_ptr<GenEvent> evt);
+    void strip(GenEvent & ge,
+               const set<long> & stripid = {1, -1, 2, -2, 3,-3, 21});
   }
 
   inline GenVertexIterRange particles_out(GenVertex* gv) {
@@ -153,7 +116,7 @@ namespace Rivet {
     #else
     // Before HepMC 2.7.0 the constness consistency of methods and their return types was all screwed up :-/
     std::vector<const GenParticle*> rtn;
-    for (GenParticle* gp2 : particles(gp->production_vertex(), range))
+    foreach (GenParticle* gp2, particles(gp->production_vertex(), range))
       rtn.push_back( const_cast<const GenParticle*>(gp2) );
     return rtn;
     #endif
@@ -177,7 +140,7 @@ namespace Rivet {
     #else
     // Before HepMC 2.7.0 the constness consistency of methods and their return types was all screwed up :-/
     std::vector<const GenParticle*> rtn;
-    for (GenParticle* gp2 : particles(gp->end_vertex(), range))
+    foreach (GenParticle* gp2, particles(gp->end_vertex(), range))
       rtn.push_back( const_cast<const GenParticle*>(gp2) );
     return rtn;
     #endif

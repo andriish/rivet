@@ -1,12 +1,11 @@
 Name: MC_Cent_pPb_Eta
 Summary: Template analysis for ontaining eta distributions binned in centrality
-Status: UNVALIDATED
+Status: UNVALIDATED REENTRANT
 Authors:
  - Leif Lönnblad <leif.lonnblad@thep.lu.se>
 Options:
  - cent=REF,GEN,IMP
 NumEvents: 50000
-Reentrant: True
 References:
  - arXiv:1508.00848 [hep-ex], Eur.Phys.J. C76 (2016) no.4, 199
 RunInfo: Any!
@@ -41,3 +40,4 @@ BibTeX: '@article{Aad:2015zza,
       reportNumber   = "CERN-PH-EP-2015-160",
       SLACcitation   = "%%CITATION = ARXIV:1508.00848;%%"
 }'
+

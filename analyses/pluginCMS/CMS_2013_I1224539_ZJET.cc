@@ -10,8 +10,6 @@
 namespace Rivet {
 
 
-
-
   class CMS_2013_I1224539_ZJET : public Analysis {
   public:
 
@@ -102,9 +100,7 @@ namespace Rivet {
       assert(&l1 != &l2);
 
       // Require a high-pT Z (and constituents)
-      if (l1.pT() < 30*GeV ) vetoEvent;
-      if (l2.pT() < 30*GeV ) vetoEvent;
-      if (z.pT() < 120*GeV) vetoEvent;
+      if (l1.pT() < 30*GeV || l2.pT() < 30*GeV || z.pT() < 120*GeV) vetoEvent;
 
       // AK7 jets
       const PseudoJets& psjetsAK7_zj = apply<FastJets>(event, "JetsAK7_zj").pseudoJetsByPt(50.0*GeV);

@@ -16,13 +16,15 @@ namespace Rivet {
   public:
 
     /// The default constructor.
-    DISKinematics()
+    DISKinematics(const DISLepton & lepton = DISLepton(),
+                  const std::map<std::string,std::string> & opts =
+                  std::map<std::string,std::string>())
       : _theQ2(-1.0), _theW2(-1.0), _theX(-1.0), _theY(-1.0), _theS(-1.0)
     {
       setName("DISKinematics");
       //addPdgIdPair(ANY, hadid);
       declare(Beam(), "Beam");
-      declare(DISLepton(), "Lepton");
+      declare(lepton, "Lepton");
     }
 
     /// Clone on the heap.

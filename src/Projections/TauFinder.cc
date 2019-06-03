@@ -1,13 +1,12 @@
 // -*- C++ -*-
 #include "Rivet/Projections/TauFinder.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
 
 namespace Rivet {
 
 
   void TauFinder::project(const Event& e) {
     _theParticles.clear();
-    const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
+    const auto& ufs = applyProjection<UnstableParticles>(e, "UFS");
     for (const Particle& p : ufs.particles()) {
       if (p.abspid() != PID::TAU) continue;
       if (_decmode == DecayMode::ANY || (_decmode == DecayMode::LEPTONIC && isLeptonic(p)) || (_decmode == DecayMode::HADRONIC && isHadronic(p)) )

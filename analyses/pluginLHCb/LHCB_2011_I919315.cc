@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -26,7 +26,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      declare(UnstableFinalState(), "UFS");
+      declare(UnstableParticles(), "UFS");
 
       {Histo1DPtr tmp; _h_Phi_pT_y.add(  2.44, 2.62, book(tmp, 2, 1, 1));}
       {Histo1DPtr tmp; _h_Phi_pT_y.add(  2.62, 2.80, book(tmp, 2, 1, 2));}
@@ -44,8 +44,8 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze (const Event& event) {
-      const double weight = 1.0;
-      const UnstableFinalState& ufs = apply<UnstableFinalState> (event, "UFS");
+      const double weight = 1;
+      const UnstableParticles& ufs = apply<UnstableFinalState> (event, "UFS");
 
       for (const Particle& p : ufs.particles()) {
         const PdgId id = p.abspid();

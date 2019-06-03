@@ -86,10 +86,10 @@ namespace Rivet {
       // Put all b-quarks in a vector
       /// @todo Use jet contents rather than accessing quarks directly
       Particles bquarks;
-      /// @todo Use nicer looping
-      for (GenEvent::particle_const_iterator p = event.genEvent()->particles_begin(); p != event.genEvent()->particles_end(); ++p) {
-        if ( std::abs((*p)->pdg_id()) == PID::BQUARK ) {
-          bquarks.push_back(Particle(**p));
+      /// @todo is this HepMC wrangling necessary?
+      for(ConstGenParticlePtr p: HepMCUtils::particles(event.genEvent())){
+        if ( std::abs(p->pdg_id()) == PID::BQUARK ) {
+          bquarks.push_back(Particle(*p));
         }
       }
 

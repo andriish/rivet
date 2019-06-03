@@ -1,8 +1,8 @@
 //-*- C++ -*-
+#include "Rivet/Analysis.hh"
 #include "Rivet/Projections/CentralityProjection.hh"
 #include "Rivet/Projections/AliceCommon.hh"
 #include "Rivet/Tools/AliceCommon.hh"
-#include "Rivet/Tools/Cuts.hh"
 
 namespace Rivet {
 
@@ -62,9 +62,8 @@ namespace Rivet {
       int Nproton=0;
       int Nprotonbar=0;
 
-      for (const auto& p :
-	apply<ALICE::PrimaryParticles>(event,"CFS").particles()) {
-          const double pWeight = 1 / p.pT() / 2. / M_PI;
+      for (const Particle& p : apply<ALICE::PrimaryParticles>(event,"CFS").particles()) {
+          const double pWeight = weight / p.pT() / 2. / M_PI;
           switch (p.pid()) {
             case 211: // pi+
 	      Npi++;
@@ -94,13 +93,12 @@ namespace Rivet {
       } // Particle loop ends.
 
       // Fill yield histograms.
-
-      _histNpi->fill(Npi);
-      _histNpibar->fill(Npibar);
-      _histNKaon->fill(NKaon);
-      _histNKaonbar->fill(NKaonbar);
-      _histNproton->fill(Nproton);
-      _histNprotonbar->fill(Nprotonbar);
+      _histNpi->fill(0.0, Npi);
+      _histNpibar->fill(0.0, Npibar);
+      _histNKaon->fill(0.0, NKaon);
+      _histNKaonbar->fill(0.0, NKaonbar);
+      _histNproton->fill(0.0, Nproton);
+      _histNprotonbar->fill(0.0, Nprotonbar);
     }
 
 

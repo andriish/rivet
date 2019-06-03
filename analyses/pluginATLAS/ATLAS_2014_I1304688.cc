@@ -165,7 +165,7 @@ namespace Rivet {
         for (ithres = 0; ithres < threshLimit; ithres++) {
           if (jet_n[ithres] < 3) continue; // 3 or more jets for ljets
           // Fill
-          if (ihist == 0) _histogram(ihist, ithres)->fill(jet_n[ithres]); // njets
+          if (ihist == 0) _histogram(ihist, ithres)->fill(jet_n[ithres]-2); // njets
           else if (ihist == 1) _histogram(ihist, ithres)->fill(_jets[0].pT()); // leading jet pT
           else if (ihist == 2) _histogram(ihist, ithres)->fill(_jets[1].pT()); // 2nd jet pT
           else if (ihist == 3 && jet_n[ithres] >= 3) _histogram(ihist, ithres)->fill(_jets[2].pT()); // 3rd jet pT

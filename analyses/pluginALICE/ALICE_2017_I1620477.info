@@ -6,7 +6,7 @@ Collider: LHC
 InspireID: 1620477
 Status: VALIDATED
 Authors:
-  - Hendrik Poppenborg hendrik.poppenborg@cern.ch
+  - Hendrik Poppenborg <hendrik.poppenborg@cern.ch>
 References:
   - "Eur. Phys. J. C (2018) 78: 263"
   - 10.1140/epjc/s10052-018-5612-8

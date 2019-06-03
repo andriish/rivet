@@ -30,23 +30,23 @@ XLabel=$m^{Z\gamma}$ [GeV]
 YLabel=$1/\sigma_{Z\gamma} \times \text{d}\sigma_{Z\gamma} / \text{d} m^{Z\gamma}$
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d11-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d11-x01-y02
 Title=$N_\text{jet} \geq 0$, using electrons, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d12-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d12-x01-y02
 Title=$N_\text{jet} = 0$, using electrons, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d17-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d17-x01-y02
 Title=$E^\gamma_\text{T} \geq 15$ GeV, using electrons, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d18-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d18-x01-y02
 Title=$E^\gamma_\text{T} \geq 60$ GeV, using electrons, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d20-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d20-x01-y02
 Title=$E^\gamma_\text{T} > 40$ GeV, using electrons, dressed level
 # END PLOT
 
@@ -70,42 +70,42 @@ YLabel=$1/\sigma_{W\gamma} \times \text{d}\sigma_{W\gamma} / \text{d} N_\text{je
 Title=$N_\text{jet} \geq 0$, using electrons, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d08-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d08-x01-y02
 Title=$N_\text{jet} = 0$, using electrons, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d15-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d15-x01-y02
 Title=$E^\gamma_\text{T} \geq 15$ GeV, using electrons, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d16-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d16-x01-y02
 Title=$E^\gamma_\text{T} \geq 60$ GeV, using electrons, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d19-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d19-x01-y02
 Title=$E^\gamma_\text{T} > 40$ GeV, using electrons, dressed level
 # END PLOT
 
 
 # Z, muon
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d11-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d11-x01-y03
 Title=$N_\text{jet} \geq 0$, using muons, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d12-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d12-x01-y03
 Title=$N_\text{jet} = 0$, using muons, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d17-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d17-x01-y03
 Title=$E^\gamma_\text{T} \geq 15$ GeV, using muons, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d18-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d18-x01-y03
 Title=$E^\gamma_\text{T} \geq 60$ GeV, using muons, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d20-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d20-x01-y03
 Title=$E^\gamma_\text{T} > 40$ GeV, using muons, dressed level
 # END PLOT
 
@@ -117,23 +117,23 @@ XLabel=$m^{W\gamma}_\text{T}$ [GeV]
 YLabel=$1/\sigma_{W\gamma} \times \text{d}\sigma_{W\gamma} / \text{d} m^{W\gamma}_\text{T}$
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d07-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d07-x01-y03
 Title=$N_\text{jet} \geq 0$, using muons, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d08-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d08-x01-y03
 Title=$N_\text{jet} = 0$, using muons, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d15-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d15-x01-y03
 Title=$E^\gamma_\text{T} \geq 15$ GeV, using muons, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d16-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d16-x01-y03
 Title=$E^\gamma_\text{T} \geq 60$ GeV, using muons, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863/d19-x01-y01
+# BEGIN PLOT /ATLAS_2013_I1217863/d19-x01-y03
 Title=$E^\gamma_\text{T} > 40$ GeV, using muons, dressed level
 # END PLOT
 
