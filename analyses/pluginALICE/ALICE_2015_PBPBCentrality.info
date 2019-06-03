@@ -10,7 +10,7 @@ Authors:
 RunInfo: Pb-Pb at sqrt(sNN)=5.02TeV
 NumEvents: 1000000
 NeedCrossSection: no
-Beams: [[p, p], [1000822080, 1000822080]]
+Beams: [[p, p], [Pb, Pb]]
 # This _total_ energy of beams, so this becomes 208*5023=1044784
 Energies: [2760, 574080, 1044784]
 Description:

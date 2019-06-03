@@ -1,3 +1,8 @@
+2019-06-03  Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
+
+	* Adding new heavy-ion beam particles: GOLD, LEAD.
+	* Switching already existing heavy-ion analyses to use new beam types
+
 2019-06-03  Peter Richardson <peter.richardson@durham.ac.uk>
 	* sync ALEPH_1996_S3196992.yoda with HEPdata, rounding issues in old version
 	* sync ALEPH_2001_S4656318.yoda, differences in histos not used in analysis

@@ -16,7 +16,7 @@ References:
 RunInfo:
    Analysis of multi-strange baryon production at $\sqrt{s} = 2.76\;\mathrm{TeV}$ for Pb-Pb collisions.
 NeedCrossSection: no
-Beams: [1000822080,1000822080]
+Beams: [Pb, Pb]
 # This is _total_ energy of beams, so this becomes 208*2760=574080
 Energies: [574080]
 Options:
