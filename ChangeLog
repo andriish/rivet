@@ -1,3 +1,6 @@
+2019-06-04  Peter Richardson <peter.richardson@durham.ac.uk>
+	* sync yoda for BELLE_2015_I1397632, two hists change label + final bin
+
 2019-06-03  Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
 
 	* Adding new heavy-ion beam particles: GOLD, LEAD.
