@@ -117,8 +117,8 @@ public:
 
 		// Initialise and register projections
 		//      declare(FinalState("FS");
-		addProjection(FinalState(), "FS");
-                addProjection(Beam(), "Beams");
+		declare(FinalState(), "FS");
+                declare(Beam(), "Beams");
 
 		// Book histograms
 		book(_h_n_en_eta1, 1, 1, 1);

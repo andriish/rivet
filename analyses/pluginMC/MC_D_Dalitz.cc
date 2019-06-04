@@ -25,38 +25,38 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      _h_plus1    = bookHisto1D("h_plus1"   ,200,0.,3. );
-      _h_minus1   = bookHisto1D("h_minus1"  ,200,0.,3.2 );
-      _h_pipi1    = bookHisto1D("h_pipi1"   ,200,0.,2. );
-      _h_minus2   = bookHisto1D("h_minus2"  ,200,0.,3.2 );
-      _h_neutral2 = bookHisto1D("h_neutral2",200,0.,3.2 );
-      _h_pipi2    = bookHisto1D("h_pipi2"   ,200,0.,2. );
-      _h_Kpilow3   = bookHisto1D("h_Kpilow3"  ,200,0.,2. );
-      _h_Kpihigh3  = bookHisto1D("h_Kpihigh3" ,200,0.,3.2 );
-      _h_Kpiall3   = bookHisto1D("h_Kpiall3"  ,200,0.,3. );
-      _h_pipi3     = bookHisto1D("h_pipi3"    ,200,0.,2. );
-      _h_Kpip4    = bookHisto1D("h_Kpip4"   ,200,0.,3.2 );
-      _h_pipi4    = bookHisto1D("h_pipi4"   ,200,0.,2. );
-      _h_Kpi04    = bookHisto1D("h_Kpi04"   ,200,0.,3.2);
-      _h_kppim5    = bookHisto1D("h_kppim5"   ,200,0.,3. );
-      _h_kppip5    = bookHisto1D("h_kppip5"   ,200,0.,3.1 );
-      _h_pippim5   = bookHisto1D("h_pippim5"  ,200,0.,2. );
-      _h_kppim6    = bookHisto1D("h_kppim6"   ,200,0.,3.5);
-      _h_kppip6    = bookHisto1D("h_kppip6"   ,200,0.,3.5);
-      _h_pippim6   = bookHisto1D("h_pippim6"  ,200,0.,2.5);
-      _dalitz1     = bookHisto2D("dalitz1"    ,50,0.3,3.2,50,0.3,3.2);
-      _dalitz2     = bookHisto2D("dalitz2"    ,50,0.3,3. ,50,0.3,3. );
-      _dalitz3     = bookHisto2D("dalitz3"    ,50,0.3,2. ,50,0.07,2. );
-      _dalitz4     = bookHisto2D("dalitz4"    ,50,0.3,3.1 ,50,0.07,2. );
-      _dalitz5     = bookHisto2D("dalitz5"    ,50,0.,3. ,50,0.,2. );
-      _dalitz6     = bookHisto2D("dalitz6"    ,50,0.3,3.5,50,0.07,2.5);
+      book(_h_plus1, "h_plus1"   ,200,0.,3. );
+      book(_h_minus1, "h_minus1"  ,200,0.,3.2 );
+      book(_h_pipi1, "h_pipi1"   ,200,0.,2. );
+      book(_h_minus2, "h_minus2"  ,200,0.,3.2 );
+      book(_h_neutral2, "h_neutral2",200,0.,3.2 );
+      book(_h_pipi2, "h_pipi2"   ,200,0.,2. );
+      book(_h_Kpilow3, "h_Kpilow3"  ,200,0.,2. );
+      book(_h_Kpihigh3, "h_Kpihigh3" ,200,0.,3.2 );
+      book(_h_Kpiall3, "h_Kpiall3"  ,200,0.,3. );
+      book(_h_pipi3, "h_pipi3"    ,200,0.,2. );
+      book(_h_Kpip4, "h_Kpip4"   ,200,0.,3.2 );
+      book(_h_pipi4, "h_pipi4"   ,200,0.,2. );
+      book(_h_Kpi04, "h_Kpi04"   ,200,0.,3.2);
+      book(_h_kppim5, "h_kppim5"   ,200,0.,3. );
+      book(_h_kppip5, "h_kppip5"   ,200,0.,3.1 );
+      book(_h_pippim5, "h_pippim5"  ,200,0.,2. );
+      book(_h_kppim6, "h_kppim6"   ,200,0.,3.5);
+      book(_h_kppip6, "h_kppip6"   ,200,0.,3.5);
+      book(_h_pippim6, "h_pippim6"  ,200,0.,2.5);
+      book(_dalitz1, "dalitz1"    ,50,0.3,3.2,50,0.3,3.2);
+      book(_dalitz2, "dalitz2"    ,50,0.3,3. ,50,0.3,3. );
+      book(_dalitz3, "dalitz3"    ,50,0.3,2. ,50,0.07,2. );
+      book(_dalitz4, "dalitz4"    ,50,0.3,3.1 ,50,0.07,2. );
+      book(_dalitz5, "dalitz5"    ,50,0.,3. ,50,0.,2. );
+      book(_dalitz6, "dalitz6"    ,50,0.3,3.5,50,0.07,2.5);
     }
 
     void findDecayProducts(const Particle & mother, unsigned int & nstable,
 			   Particles & pip , Particles & pim , Particles & pi0  ,
 			   Particles & Kp  , Particles & Km  , Particles & K0) {
       for(const Particle & p : mother.children()) {
-        int id = p.pdgId();
+        int id = p.pid();
         if ( id == PID::KPLUS ) {
        	  Kp.push_back(p);
 	  ++nstable;
@@ -91,77 +91,76 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      double weight = event.weight();
       for(const Particle& meson : apply<UnstableParticles>(event, "UFS").
 	    particles(Cuts::abspid== 411 ||Cuts::abspid== 421 ||Cuts::abspid== 431 )) {
 	unsigned int nstable(0);
 	Particles pip, pim, pi0, Kp , Km, K0;
 	findDecayProducts(meson, nstable, pip, pim, pi0, Kp , Km, K0);
-	if(meson.pdgId()<0) {
+	if(meson.pid()<0) {
 	  swap(pim,pip);
 	  swap(Kp,Km);
 	}
-	if(abs(meson.pdgId())==421) {
+	if(abs(meson.pid())==421) {
 	  if(pim.size()==1&&pip.size()==1&&K0.size()==1) {
 	    double mminus = (pim[0].momentum()+K0[0].momentum() ).mass2();
 	    double mplus  = (pip[0].momentum()+K0[0].momentum() ).mass2();
 	    double mpipi  = (pip[0].momentum()+pim[0].momentum()).mass2();
-	    _h_plus1  ->fill(mplus,weight);
-	    _h_minus1 ->fill(mminus,weight);
-	    _h_pipi1  ->fill(mpipi,weight);
-	    _dalitz1   ->fill(mplus,mminus,weight);
+	    _h_plus1  ->fill(mplus);
+	    _h_minus1 ->fill(mminus);
+	    _h_pipi1  ->fill(mpipi);
+	    _dalitz1   ->fill(mplus,mminus);
 	  }
 	  else if (pip.size()==1&&Km.size()==1&&pi0.size()==1) {
 	    double mneut  = (Km[0].momentum()+pip[0].momentum()).mass2();
 	    double mminus = (Km[0].momentum()+pi0[0].momentum()).mass2();
 	    double mpipi  = (pip[0].momentum()+pi0[0].momentum()).mass2();
-	    _h_neutral2  ->fill(mneut,weight);
-	    _h_minus2 ->fill(mminus,weight);
-	    _h_pipi2  ->fill(mpipi,weight);
-	    _dalitz2->fill(mminus,mneut,weight);
+	    _h_neutral2  ->fill(mneut);
+	    _h_minus2 ->fill(mminus);
+	    _h_pipi2  ->fill(mpipi);
+	    _dalitz2->fill(mminus,mneut);
 	  }
 	}
-	else if(abs(meson.pdgId())==411) {
+	else if(abs(meson.pid())==411) {
 	  if(pip.size()==2&&Km.size()==1) {
 	    double mplus  = (Km[0].momentum() +pip[0].momentum()).mass2();
 	    double mminus = (Km[0].momentum() +pip[1].momentum()).mass2();
 	    double mpipi  = (pip[0].momentum()+pip[1].momentum()).mass2();
 	    if(mplus<mminus) swap(mplus,mminus);
-	    _h_Kpilow3 ->fill( mminus,weight);
-	    _h_Kpihigh3->fill( mplus,weight);
-	    _h_Kpiall3 ->fill( mminus,weight);
-	    _h_Kpiall3 ->fill( mplus,weight);
-	    _h_pipi3   ->fill( mpipi,weight);
-	    _dalitz3->fill(mminus,mpipi, weight);
+	    _h_Kpilow3 ->fill( mminus);
+	    _h_Kpihigh3->fill( mplus);
+	    _h_Kpiall3 ->fill( mminus);
+	    _h_Kpiall3 ->fill( mplus);
+	    _h_pipi3   ->fill( mpipi);
+	    _dalitz3->fill(mminus,mpipi);
 	  }
 	  else if (pip.size()==1&&pi0.size()==1&&K0.size()==1) {
 	    double mminus = (K0[0].momentum()+pip[0].momentum()).mass2();
 	    double mplus  = (K0[0].momentum()+pi0[0].momentum()).mass2();
 	    double mpipi  = (pip[0].momentum()+pi0[0].momentum()).mass2();
-	    _h_Kpip4 ->fill( mminus, weight);
-	    _h_pipi4 ->fill( mpipi , weight);
-	    _h_Kpi04 ->fill( mplus , weight);
-	    _dalitz4->fill(mplus,mpipi, weight);
+	    _h_Kpip4 ->fill( mminus);
+	    _h_pipi4 ->fill( mpipi );
+	    _h_Kpi04 ->fill( mplus );
+	    _dalitz4->fill(mplus,mpipi);
 	  }
 	  else if (pim.size()==1&&Kp.size()==1&&pip.size()==1) {
 	    double mplus  = (Kp [0].momentum()+pip[0].momentum()).mass2();
 	    double mminus = (Kp [0].momentum()+pim[0].momentum()).mass2();
 	    double mpipi  = (pip[0].momentum()+pim[0].momentum()).mass2();
-	    _h_kppim5 ->fill(mminus,weight);
-	    _h_kppip5 ->fill(mplus ,weight);
-	    _h_pippim5->fill(mpipi ,weight);
-	    _dalitz5->fill(mminus,mpipi, weight);
+	    _h_kppim5 ->fill(mminus);
+	    _h_kppip5 ->fill(mplus );
+	    _h_pippim5->fill(mpipi );
+	    _dalitz5->fill(mminus,mpipi);
 	  }
 	}
-	else if(abs(meson.pdgId())==431) {
+	else if(abs(meson.pid())==431) {
 	  if (pim.size()==1&&Kp.size()==1&&pip.size()==1) {
 	    double mplus  = (Kp [0].momentum()+pip[0].momentum()).mass2();
 	    double mminus = (Kp [0].momentum()+pim[0].momentum()).mass2();
 	    double mpipi  = (pip[0].momentum()+pim[0].momentum()).mass2();
-	    _h_kppim6 ->fill(mminus,weight);
-	    _h_kppip6 ->fill(mplus ,weight);
-	    _h_pippim6->fill(mpipi ,weight);
-	    _dalitz6->fill(mminus,mpipi, weight);
+	    _h_kppim6 ->fill(mminus);
+	    _h_kppip6 ->fill(mplus );
+	    _h_pippim6->fill(mpipi );
+	    _dalitz6->fill(mminus,mpipi);
 	  }
 	}
       }

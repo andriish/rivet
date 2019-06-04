@@ -112,9 +112,9 @@ namespace Rivet {
     void finalize() {
       MSG_DEBUG("Total number Ks0: " << sumKs0_all << endl
                 << "Sum of weights: " << sumOfWeights() << endl
-                << "Weight Ks0 (2.5 < y < 3.0): " <<  sumKs0_30 << endl
-                << "Weight Ks0 (3.0 < y < 3.5): " << sumKs0_35 << endl
-                << "Weight Ks0 (3.5 < y < 4.0): " << sumKs0_40 << endl
+                << "Weight Ks0 (2.5 < y < 3.0): " <<  sumKs0_30 ->sumW()<< endl
+                << "Weight Ks0 (3.0 < y < 3.5): " << sumKs0_35->sumW() << endl
+                << "Weight Ks0 (3.5 < y < 4.0): " << sumKs0_40->sumW() << endl
                 << "Nb. unprompt Ks0 [null mother]: " << sumKs0_badnull << endl
                 << "Nb. unprompt Ks0 [mother lifetime exceeded]: " << sumKs0_badlft << endl
                 << "Nb. Ks0 (y > 4.0): " << sumKs0_outup << endl
@@ -528,7 +528,7 @@ namespace Rivet {
 
 
   // Actual initialization according to ISO C++ requirements
-  const array<int,171> LHCB_2010_S8758301::stablePDGIds{{
+const array<int,171> LHCB_2010_S8758301::stablePDGIds = {
     311, 543, 545, 551, 555, 557, 1103, 2101, 2103, 2203, 3101, 3103, 3201, 3203, 3303,
     4101, 4103, 4124, 4201, 4203, 4301, 4303, 4312, 4314, 4322, 4324, 4334, 4403, 4414,
     4424, 4434, 4444, 5101, 5103, 5114, 5201, 5203, 5214, 5224, 5301, 5303, 5314, 5324,

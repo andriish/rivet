@@ -23,30 +23,30 @@ namespace Rivet {
       declare(UnstableParticles(),"UFS");
 
       // eta pi0 pi0 mode
-      _h_eta0_etapi0    = bookHisto1D("eta0_etapi0"   , 70, 0.66, 1.36);
-      _h_eta0_pi0pi0    = bookHisto1D("eta0_pi0pi0"   , 80, 0.2, 1.0);
-      _h_eta0_etapi0pi0 = bookHisto1D("eta0_etapi0pi0", 70, 1.0, 1.7);
+      book(_h_eta0_etapi0, "eta0_etapi0"   , 70, 0.66, 1.36);
+      book(_h_eta0_pi0pi0, "eta0_pi0pi0"   , 80, 0.2, 1.0);
+      book(_h_eta0_etapi0pi0, "eta0_etapi0pi0", 70, 1.0, 1.7);
       // eta pi+pi- mode
-      _h_eta1_etapip    = bookHisto1D("eta1_etapip"   , 70, 0.66, 1.36);
-      _h_eta1_etapim    = bookHisto1D("eta1_etapim"   , 70, 0.66, 1.36);
-      _h_eta1_pippim    = bookHisto1D("eta1_pippim"   , 80, 0.2, 1.0);
-      _h_eta1_etapippim = bookHisto1D("eta1_etapippim", 70, 1.0, 1.7);
+      book(_h_eta1_etapip, "eta1_etapip"   , 70, 0.66, 1.36);
+      book(_h_eta1_etapim, "eta1_etapim"   , 70, 0.66, 1.36);
+      book(_h_eta1_pippim, "eta1_pippim"   , 80, 0.2, 1.0);
+      book(_h_eta1_etapippim, "eta1_etapippim", 70, 1.0, 1.7);
       // pi+pi-2pi0
-      _h_4pi0_pi0pi0    = bookHisto1D("4pi0_pi0pi0"   , 80, 0.2, 1.0);
-      _h_4pi0_pippi0    = bookHisto1D("4pi0_pippi0"   , 80, 0.2, 1.0);
-      _h_4pi0_pimpi0    = bookHisto1D("4pi0_pimpi0"   , 80, 0.2, 1.0);
-      _h_4pi0_pippim    = bookHisto1D("4pi0_pippim"   , 80, 0.2, 1.0);
-      _h_4pi0_pippimpi0 = bookHisto1D("4pi0_pippimpi0",100, 0.4, 1.4);
-      _h_4pi0_pippi0pi0 = bookHisto1D("4pi0_pippi0pi0",100, 0.4, 1.4);
-      _h_4pi0_pimpi0pi0 = bookHisto1D("4pi0_pimpi0pi0",100, 0.4, 1.4);
-      _h_4pi0_4pi       = bookHisto1D("4pi0_4pi"      , 70, 1.0, 1.7);
+      book(_h_4pi0_pi0pi0, "4pi0_pi0pi0"   , 80, 0.2, 1.0);
+      book(_h_4pi0_pippi0, "4pi0_pippi0"   , 80, 0.2, 1.0);
+      book(_h_4pi0_pimpi0, "4pi0_pimpi0"   , 80, 0.2, 1.0);
+      book(_h_4pi0_pippim, "4pi0_pippim"   , 80, 0.2, 1.0);
+      book(_h_4pi0_pippimpi0, "4pi0_pippimpi0",100, 0.4, 1.4);
+      book(_h_4pi0_pippi0pi0, "4pi0_pippi0pi0",100, 0.4, 1.4);
+      book(_h_4pi0_pimpi0pi0, "4pi0_pimpi0pi0",100, 0.4, 1.4);
+      book(_h_4pi0_4pi, "4pi0_4pi"      , 70, 1.0, 1.7);
       // 2pi+ 2pi- mode 
-      _h_4pi1_pippip    = bookHisto1D("4pi1_pippip"   , 80, 0.2, 1.0);
-      _h_4pi1_pimpim    = bookHisto1D("4pi1_pimpim"   , 80, 0.2, 1.0);
-      _h_4pi1_pippim    = bookHisto1D("4pi1_pippim"   , 80, 0.2, 1.0);
-      _h_4pi1_pimpimpip = bookHisto1D("4pi1_pimpimpip",100, 0.4, 1.4);
-      _h_4pi1_pippippim = bookHisto1D("4pi1_pippippim",100, 0.4, 1.4);
-      _h_4pi1_4pi       = bookHisto1D("4pi1_4pi"      , 70, 1.0, 1.7);
+      book(_h_4pi1_pippip, "4pi1_pippip"   , 80, 0.2, 1.0);
+      book(_h_4pi1_pimpim, "4pi1_pimpim"   , 80, 0.2, 1.0);
+      book(_h_4pi1_pippim, "4pi1_pippim"   , 80, 0.2, 1.0);
+      book(_h_4pi1_pimpimpip, "4pi1_pimpimpip",100, 0.4, 1.4);
+      book(_h_4pi1_pippippim, "4pi1_pippippim",100, 0.4, 1.4);
+      book(_h_4pi1_4pi, "4pi1_4pi"      , 70, 1.0, 1.7);
     }
 
     void findDecayProducts(const Particle & mother,
@@ -54,7 +54,7 @@ namespace Rivet {
                            Particles& pip, Particles& pim,
 			   Particles& pi0, Particles& eta) {
       for(const Particle & p : mother.children()) {
-        int id = p.pdgId();
+        int id = p.pid();
         if ( id == PID::ETA ) {
 	  eta.push_back(p);
 	  ++nstable;

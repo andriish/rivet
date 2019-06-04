@@ -19,7 +19,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       declare(UnstableParticles(), "UFS");
-      _hist_pipi = bookHisto1D( 1, 1, 1);
+      book(_hist_pipi,  1, 1, 1);
     }
 
 
@@ -28,7 +28,7 @@ namespace Rivet {
       // Find the taus
       Particles taus;
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         if (p.abspid() != PID::TAU) continue;
         Particles pip, pim, pi0;
         unsigned int nstable = 0;
@@ -41,7 +41,7 @@ namespace Rivet {
         if (nstable != 3) continue;
         // pipi
         if (pim.size() == 1 && pi0.size() == 1)
-          _hist_pipi->fill((pi0[0].momentum()+pim[0].momentum()).mass(),event.weight());
+          _hist_pipi->fill((pi0[0].momentum()+pim[0].momentum()).mass());
       }
     }
 
@@ -50,7 +50,7 @@ namespace Rivet {
                            Particles& pip, Particles& pim,
                            Particles& pi0) {
       for(const Particle & p : mother.children()) {
-	long id = p.pdgId();
+	long id = p.pid();
         if (id == PID::PI0 ) {
           pi0.push_back(p);
           ++nstable;

@@ -20,15 +20,15 @@ namespace Rivet {
     void init() {
       // Initialise and register projections
       declare(FinalState(), "FS");
-      _n3pi  = bookCounter("TMP/n3pi");
-      _n4pi  = bookCounter("TMP/n4pi");
-      _n5pi  = bookCounter("TMP/n5pi");
-      _n6pi  = bookCounter("TMP/n6pi");
-      _n35pi = bookCounter("TMP/n35pi");
-      _n46pi = bookCounter("TMP/n46pi");
-      _nC2   = bookCounter("TMP/nC2");
-      _nC4   = bookCounter("TMP/nC4");
-      _nmu   = bookCounter("TMP/nmu");
+      book(_n3pi, "TMP/n3pi");
+      book(_n4pi, "TMP/n4pi");
+      book(_n5pi, "TMP/n5pi");
+      book(_n6pi, "TMP/n6pi");
+      book(_n35pi, "TMP/n35pi");
+      book(_n46pi, "TMP/n46pi");
+      book(_nC2, "TMP/nC2");
+      book(_nC4, "TMP/nC4");
+      book(_nmu, "TMP/nmu");
     }
 
 
@@ -38,38 +38,38 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       // mu+mu- + photons
       if(nCount[-13]==1 and nCount[13]==1 &&
 	 ntotal==2+nCount[22])
-	_nmu->fill(event.weight());
+	_nmu->fill();
       else {
 	if(ntotal==3 && nCount[211] == 1 && nCount[-211]==1 && nCount[111]==1 ) {
-	  _n3pi->fill(event.weight());
+	  _n3pi->fill();
 	}
 	if(ntotal==4 && nCount[211] == 1 && nCount[-211]==1 && nCount[111]==2 ) {
-	  _n4pi->fill(event.weight());
+	  _n4pi->fill();
 	}
 	if(ntotal==5 && nCount[211] == 2 && nCount[-211]==2 && nCount[111]==1 ) {
-	  _n5pi->fill(event.weight());
+	  _n5pi->fill();
 	}
 	if(ntotal==6 && nCount[211] == 2 && nCount[-211]==2 && nCount[111]==2 ) {
-	  _n6pi->fill(event.weight());
+	  _n6pi->fill();
 	}
 	if(nCount[211] == 1 && nCount[-211]==1 && ntotal == 2+nCount[111]) {
-	  _nC2->fill(event.weight());
+	  _nC2->fill();
 	}
 	if(nCount[211] == 2 && nCount[-211]==2 && ntotal == 4+nCount[111]) {
-	  _nC4->fill(event.weight());
+	  _nC4->fill();
 	}
 	if((nCount[211]+nCount[-211]+nCount[111])==ntotal ) {
 	  if(ntotal==3 || ntotal ==5)
-	    _n35pi->fill(event.weight());
+	    _n35pi->fill();
 	  else if(ntotal==4 || ntotal==6) 
-	    _n46pi ->fill(event.weight());
+	    _n46pi ->fill();
 	}
       }
     }
@@ -105,7 +105,8 @@ namespace Rivet {
 	  error = _n46pi->err()*fact;
 	} 
 	Scatter2D temphisto(refData(1, 1, ix));
-	Scatter2DPtr  mult = bookScatter2D(1, 1, ix);
+	Scatter2DPtr mult;
+	book(mult, 1, 1, ix);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();
@@ -129,15 +130,17 @@ namespace Rivet {
 	double sig_m = _nmu->val()*fact;
 	double err_m = _nmu->err()*fact;
 	Scatter2D temphisto(refData(2, 1, ix));
-	ostringstream title;
+	std::ostringstream title;
 	if(ix==1)
 	  title << "sigma_2pi";
 	else
 	  title << "sigma_4pi";
-	Scatter2DPtr hadrons  = bookScatter2D(title.str());
+	Scatter2DPtr hadrons;
+	book(hadrons, title.str());
 	Scatter2DPtr muons;
-	if(ix==1) muons = bookScatter2D("sigma_muons");
-	Scatter2DPtr     mult = bookScatter2D(2,1,ix);
+ book(muons, "sigma_muons");
+	Scatter2DPtr mult;
+	book(mult, 2,1,ix);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

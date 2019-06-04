@@ -23,27 +23,27 @@ namespace Rivet {
       // Initialise and register projections
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      _c_hadrons = bookCounter("/TMP/sigma_hadrons");
-      _c_muons   = bookCounter("/TMP/sigma_muons");
-      _c_D0D0    = bookCounter("/TMP/sigma_D0D0");
-      _c_DpDm    = bookCounter("/TMP/sigma_DpDm");
-      _c_DsDs    = bookCounter("/TMP/sigma_DsDs");
-      _c_D0D0S   = bookCounter("/TMP/sigma_D0D0S");
-      _c_DpDmS   = bookCounter("/TMP/sigma_DpDmS");
-      _c_DsDsS   = bookCounter("/TMP/sigma_DsDsS");
-      _c_D0SD0S  = bookCounter("/TMP/sigma_D0SD0S");
-      _c_DpSDmS  = bookCounter("/TMP/sigma_DpSDmS");
-      _c_DsSDsS  = bookCounter("/TMP/sigma_DsSDsS");
-      _c_DD      = bookCounter("/TMP/sigma_DD");
-      _c_DDX     = bookCounter("/TMP/sigma_DDX");
-      _c_DSDpi   = bookCounter("/TMP/sigma_DSDpi");
-      _c_DSDSpi  = bookCounter("/TMP/sigma_DSDSpi");
+      book(_c_hadrons, "/TMP/sigma_hadrons");
+      book(_c_muons, "/TMP/sigma_muons");
+      book(_c_D0D0, "/TMP/sigma_D0D0");
+      book(_c_DpDm, "/TMP/sigma_DpDm");
+      book(_c_DsDs, "/TMP/sigma_DsDs");
+      book(_c_D0D0S, "/TMP/sigma_D0D0S");
+      book(_c_DpDmS, "/TMP/sigma_DpDmS");
+      book(_c_DsDsS, "/TMP/sigma_DsDsS");
+      book(_c_D0SD0S, "/TMP/sigma_D0SD0S");
+      book(_c_DpSDmS, "/TMP/sigma_DpSDmS");
+      book(_c_DsSDsS, "/TMP/sigma_DsSDsS");
+      book(_c_DD, "/TMP/sigma_DD");
+      book(_c_DDX, "/TMP/sigma_DDX");
+      book(_c_DSDpi, "/TMP/sigma_DSDpi");
+      book(_c_DSDSpi, "/TMP/sigma_DSDSpi");
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for (const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  nRes[child.pdgId()]-=1;
+	  nRes[child.pid()]-=1;
 	  --ncount;
 	}
 	else
@@ -58,29 +58,29 @@ namespace Rivet {
       // total hadronic and muonic cross sections
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       // mu+mu- + photons
       if(nCount[-13]==1 and nCount[13]==1 &&
 	 ntotal==2+nCount[22])
-	_c_muons->fill(event.weight());
+	_c_muons->fill();
       // everything else
       else
-	_c_hadrons->fill(event.weight());
+	_c_hadrons->fill();
       // identified final state with D mesons
       const FinalState& ufs = apply<UnstableParticles>(event, "UFS");
       for(unsigned int ix=0;ix<ufs.particles().size();++ix) {
 	const Particle& p1 = ufs.particles()[ix];
-	int id1 = abs(p1.pdgId());
+	int id1 = abs(p1.pid());
 	if(id1 != 411 && id1 != 413 && id1 != 421 && id1 != 423 &&
 	   id1 != 431 && id1 != 433)
 	  continue;
 	// check fs
 	bool fs = true;
-	foreach(const Particle & child, p1.children()) {
-	  if(child.pdgId()==p1.pdgId()) {
+	for (const Particle & child : p1.children()) {
+	  if(child.pid()==p1.pid()) {
 	    fs = false;
 	    break;
 	  }
@@ -91,27 +91,27 @@ namespace Rivet {
 	int ncount = ntotal;
 	findChildren(p1,nRes,ncount);
 	bool matched=false;
-	int sign = p1.pdgId()/id1;
+	int sign = p1.pid()/id1;
 	// loop over the other fs particles
 	for(unsigned int iy=ix+1;iy<ufs.particles().size();++iy) {
 	  const Particle& p2 = ufs.particles()[iy];
 	  fs = true;
-	  foreach(const Particle & child, p2.children()) {
-	    if(child.pdgId()==p2.pdgId()) {
+	  for (const Particle & child : p2.children()) {
+	    if(child.pid()==p2.pid()) {
 	      fs = false;
 	      break;
 	    }
 	  }
 	  if(!fs) continue;
-	  if(p2.pdgId()/abs(p2.pdgId())==sign) continue;
-	  int id2 = abs(p2.pdgId());
+	  if(p2.pid()/abs(p2.pid())==sign) continue;
+	  int id2 = abs(p2.pid());
 	  if(id2 != 411 && id2 != 413 && id2 != 421 && id2 != 423 &&
 	     id2 != 431 && id2 != 433)
 	    continue;
-	  if(!p2.parents().empty() && p2.parents()[0].pdgId()==p1.pdgId())
+	  if(!p2.parents().empty() && p2.parents()[0].pid()==p1.pid())
 	    continue;
 	  if((id1==411 || id1==421 || id1==431) && (id2==411 || id2==421 || id2==431 ))
-	    _c_DDX->fill(event.weight());
+	    _c_DDX->fill();
 	  map<long,int> nRes2 = nRes;
 	  int ncount2 = ncount;
 	  findChildren(p2,nRes2,ncount2);
@@ -125,36 +125,36 @@ namespace Rivet {
 	    }
 	    if(matched) {
 	      if(id1==411 && id2==411) {
-		_c_DpDm->fill(event.weight());
-		_c_DD  ->fill(event.weight());
+		_c_DpDm->fill();
+		_c_DD  ->fill();
 	      }
 	      else if(id1==421&& id2==421) {
-		_c_D0D0->fill(event.weight());
-		_c_DD  ->fill(event.weight());
+		_c_D0D0->fill();
+		_c_DD  ->fill();
 	      }
 	      else if(id1==431&& id2==431) {
-		_c_DsDs->fill(event.weight());
+		_c_DsDs->fill();
 	      }
 	      else if(id1==413 && id2==413) {
-		_c_DpSDmS->fill(event.weight());
+		_c_DpSDmS->fill();
 	      }
 	      else if(id1==423&& id2==423) {
-		_c_D0SD0S->fill(event.weight());
+		_c_D0SD0S->fill();
 	      }
 	      else if(id1==433&& id2==433) {
-		_c_DsSDsS->fill(event.weight());
+		_c_DsSDsS->fill();
 	      }
 	      else if((id1==421 && id2==423) ||
 		      (id1==423 && id2==421)) {
-		_c_D0D0S->fill(event.weight());
+		_c_D0D0S->fill();
 	      }
 	      else if((id1==411 && id2==413) ||
 		      (id1==413 && id2==411)) {
-		_c_DpDmS->fill(event.weight());
+		_c_DpDmS->fill();
 	      }
 	      else if((id1==431 && id2==433) ||
 		      (id1==433 && id2==431)) {
-		_c_DsDsS->fill(event.weight());
+		_c_DsDsS->fill();
 	      }
 	    }
 	  }
@@ -181,7 +181,7 @@ namespace Rivet {
 	      Particle mother = p1;
 	      while (!mother.parents().empty()) {
 		mother = mother.parents()[0];
-		if(PID::isCharmMeson(mother.pdgId()) && mother.pdgId()!=p1.pdgId()) {
+		if(PID::isCharmMeson(mother.pid()) && mother.pid()!=p1.pid()) {
 		  Ddecay = true;
 		  break;
 		}
@@ -189,7 +189,7 @@ namespace Rivet {
 	      mother = p2;
 	      while (!mother.parents().empty()) {
 		mother = mother.parents()[0];
-		if(PID::isCharmMeson(mother.pdgId()) && mother.pdgId()!=p1.pdgId()) {
+		if(PID::isCharmMeson(mother.pid()) && mother.pid()!=p1.pid()) {
 		  Ddecay = true;
 		  break;
 		}
@@ -197,15 +197,15 @@ namespace Rivet {
 	      if(Ddecay) continue;
 	      if((id1==413 || id1==423 ) &&
 		 (id2==413 || id2==423 )) {
-		_c_DSDSpi->fill(event.weight());
+		_c_DSDSpi->fill();
 	      }
 	      else if((id1==411 || id1==421 ) &&
 		      (id2==413 || id2==423 )) {
-		_c_DSDpi->fill(event.weight());
+		_c_DSDpi->fill();
 	      }
 	      else if((id1==413 || id1==423 ) &&
 		      (id2==411 || id2==421 )) {
-		_c_DSDpi->fill(event.weight());
+		_c_DSDpi->fill();
 	      }
 	    }
 	  }
@@ -227,10 +227,14 @@ namespace Rivet {
       double sig_m = _c_muons  ->val()*fact;
       double err_m = _c_muons  ->err()*fact;
       Scatter2D temphisto(refData(6, 1, 2));
-      Scatter2DPtr charm    = bookScatter2D(6,1,1);
-      Scatter2DPtr hadrons  = bookScatter2D("sigma_hadrons");
-      Scatter2DPtr muons    = bookScatter2D("sigma_muons"  );
-      Scatter2DPtr     mult = bookScatter2D(6,1,2);
+      Scatter2DPtr charm;
+      book(charm, 6,1,1);
+      Scatter2DPtr hadrons;
+      book(hadrons, "sigma_hadrons");
+      Scatter2DPtr muons;
+      book(muons, "sigma_muons"  );
+      Scatter2DPtr mult;
+      book(mult, 6,1,2);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	const double x  = temphisto.point(b).x();
 	pair<double,double> ex = temphisto.point(b).xErrs();
@@ -321,7 +325,8 @@ namespace Rivet {
 	  sigma *= crossSection()/ sumOfWeights();
 	  error *= crossSection()/ sumOfWeights();
 	  Scatter2D temphisto(refData(ix, 1, iy));
-	  Scatter2DPtr     mult = bookScatter2D(ix,1,iy);
+	  Scatter2DPtr mult;
+	  book(mult, ix,1,iy);
 	  for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	    const double x  = temphisto.point(b).x();
 	    pair<double,double> ex = temphisto.point(b).xErrs();

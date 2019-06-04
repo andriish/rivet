@@ -11,14 +11,7 @@ namespace Rivet {
   public:
 
     ARGUS_1993_S2669951()
-      : Analysis("ARGUS_1993_S2669951"),
-        _count_etaPrime_highZ(2, 0.),
-        _count_etaPrime_allZ(3, 0.),
-        _count_f0(3, 0.),
-        _weightSum_cont(0.),
-        _weightSum_Ups1(0.),
-        _weightSum_Ups2(0.)
-    {   }
+      : Analysis("ARGUS_1993_S2669951") {   }
 
 
     void init() {
@@ -38,10 +31,6 @@ namespace Rivet {
       book(_hist_cont_f0 ,2, 1, 1);
       book(_hist_Ups1_f0 ,3, 1, 1);
       book(_hist_Ups2_f0 ,4, 1, 1);
-
-      book(s111, 1, 1, 1, true);
-      book(s112, 1, 1, 2, true);
-      book(s511, 5, 1, 1, true);
 
     }
 
@@ -142,12 +131,16 @@ namespace Rivet {
     void finalize() {
 
       // High-Z eta' multiplicity
+      Scatter2DPtr s111;
+      book(s111, 1, 1, 1, true);
       if (_weightSum_Ups1->val() > 0) // Point at 9.460
         s111->point(0).setY(_count_etaPrime_highZ[0]->val() / _weightSum_Ups1->val(), 0);
       if (_weightSum_cont->val() > 0) // Point at 9.905
         s111->point(1).setY(_count_etaPrime_highZ[1]->val() / _weightSum_cont->val(), 0);
 
       // All-Z eta' multiplicity
+      Scatter2DPtr s112;
+      book(s112, 1, 1, 2, true);
       if (_weightSum_Ups1->val() > 0) // Point at 9.460
         s112->point(0).setY(_count_etaPrime_allZ[0]->val() / _weightSum_Ups1->val(), 0);
       if (_weightSum_cont->val() > 0) // Point at 9.905
@@ -156,6 +149,8 @@ namespace Rivet {
         s112->point(2).setY(_count_etaPrime_allZ[1]->val() / _weightSum_Ups2->val(), 0);
 
       // f0 multiplicity
+      Scatter2DPtr s511;
+      book(s511, 5, 1, 1, true);
       if (_weightSum_Ups1->val() > 0) // Point at 9.46
         s511->point(0).setY(_count_f0[0]->val() / _weightSum_Ups1->val(), 0);
       if (_weightSum_Ups2->val() > 0) // Point at 10.02

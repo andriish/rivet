@@ -104,25 +104,6 @@ namespace Rivet {
       book(_histMeanMultiXi1530_0      ,44, 1, 15);
       book(_histMeanMultiOmegaOmegaBar ,44, 1, 16);
 
-      book(_weightedTotalPartNum, "weightedTotalPartNum");
-      book(_weightedTotalNumPiPlus, "weightedTotalNumPiPlus");
-      book(_weightedTotalNumKPlus, "weightedTotalNumKPlus");
-      book(_weightedTotalNumP, "weightedTotalNumP");
-      book(_weightedTotalNumPhoton, "weightedTotalNumPhoton");
-      book(_weightedTotalNumPi0, "weightedTotalNumPi0");
-      book(_weightedTotalNumEta, "weightedTotalNumEta");
-      book(_weightedTotalNumEtaPrime, "weightedTotalNumEtaPrime");
-      book(_weightedTotalNumK0, "weightedTotalNumK0");
-      book(_weightedTotalNumLambda0, "weightedTotalNumLambda0");
-      book(_weightedTotalNumXiMinus, "weightedTotalNumXiMinus");
-      book(_weightedTotalNumSigma1385Plus, "weightedTotalNumSigma1385Plus");
-      book(_weightedTotalNumXi1530_0, "weightedTotalNumXi1530_0");
-      book(_weightedTotalNumRho, "weightedTotalNumRho");
-      book(_weightedTotalNumOmega782, "weightedTotalNumOmega782");
-      book(_weightedTotalNumKStar892_0, "weightedTotalNumKStar892_0");
-      book(_weightedTotalNumPhi, "weightedTotalNumPhi");
-      book(_weightedTotalNumKStar892Plus, "weightedTotalNumKStar892Plus");
-      book(_numChParticles, "numChParticles");
     }
 
 
@@ -189,7 +170,6 @@ namespace Rivet {
         const Vector3 mom3 = p.p3();
         const double energy = p.E();
         Evis += energy;
-        _numChParticles->fill();
 
         // Scaled momenta.
         const double mom = mom3.mod();
@@ -340,7 +320,7 @@ namespace Rivet {
     void finalize() {
       // Normalize inclusive single particle distributions to the average number
       // of charged particles per event.
-      const double avgNumParts = dbl(*_weightedTotalPartNum) / sumOfWeights();
+      const double avgNumParts = _weightedTotalPartNum->sumW() / sumOfWeights();
 
       normalize(_histPtSIn, avgNumParts);
       normalize(_histPtSOut, avgNumParts);

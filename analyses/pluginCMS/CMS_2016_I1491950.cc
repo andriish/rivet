@@ -353,8 +353,8 @@ namespace Rivet {
         ifs.acceptIdPair(PID::PHOTON);
         ifs.acceptIdPair(PID::ELECTRON);
         ifs.acceptIdPair(PID::MUON);
-        addProjection(ifs, "IFS");
-        addProjection(FastJets(ifs, FastJets::ANTIKT, 0.1), "LeptonJets");
+        declare(ifs, "IFS");
+        declare(FastJets(ifs, FastJets::ANTIKT, 0.1), "LeptonJets");
       }
 
       /// Clone on the heap.
@@ -381,14 +381,14 @@ namespace Rivet {
         for (const Jet& jet : jets) {
           Particle lepCand;
           for (const Particle& cand : jet.particles()) {
-            const int absPdgId = abs(cand.pdgId());
+            const int absPdgId = abs(cand.pid());
             if (absPdgId == PID::ELECTRON || absPdgId == PID::MUON) {
               if (cand.pt() > lepCand.pt()) lepCand = cand;
             }
           }
 
           //Central lepton must be the major component
-          if ((lepCand.pt() < jet.pt()/2.) || (lepCand.pdgId() == 0)) continue;
+          if ((lepCand.pt() < jet.pt()/2.) || (lepCand.pid() == 0)) continue;
 
           DressedLepton lepton(lepCand);
           for (const Particle& cand : jet.particles()) {
@@ -409,76 +409,6 @@ namespace Rivet {
       }
 
     };
-
-
-
-   /// Normalise histograms etc., after the run
-   void finalize()
-   {
-    scale(_hist_thadpt, crossSection()/sumOfWeights());
-    scale(_hist_thady, crossSection()/sumOfWeights());
-    scale(_hist_tleppt, crossSection()/sumOfWeights());
-    scale(_hist_tlepy, crossSection()/sumOfWeights());
-    scale(_hist_ttpt, crossSection()/sumOfWeights());
-    scale(_hist_tty, crossSection()/sumOfWeights());
-    scale(_hist_ttm, crossSection()/sumOfWeights());
-    scale(_hist_njet, crossSection()/sumOfWeights());
-    scale(_hist_njets_thadpt_1, crossSection()/sumOfWeights());
-    scale(_hist_njets_thadpt_2, crossSection()/sumOfWeights());
-    scale(_hist_njets_thadpt_3, crossSection()/sumOfWeights());
-    scale(_hist_njets_thadpt_4, crossSection()/sumOfWeights());
-    scale(_hist_njets_ttpt_1, crossSection()/sumOfWeights());
-    scale(_hist_njets_ttpt_2, crossSection()/sumOfWeights());
-    scale(_hist_njets_ttpt_3, crossSection()/sumOfWeights());
-    scale(_hist_njets_ttpt_4, crossSection()/sumOfWeights());
-    scale(_hist_thady_thadpt_1, crossSection()/sumOfWeights()/0.5);
-    scale(_hist_thady_thadpt_2, crossSection()/sumOfWeights()/0.5);
-    scale(_hist_thady_thadpt_3, crossSection()/sumOfWeights()/0.5);
-    scale(_hist_thady_thadpt_4, crossSection()/sumOfWeights()/1.0);
-    scale(_hist_ttm_tty_1, crossSection()/sumOfWeights()/150.);
-    scale(_hist_ttm_tty_2, crossSection()/sumOfWeights()/175.);
-    scale(_hist_ttm_tty_3, crossSection()/sumOfWeights()/225.);
-    scale(_hist_ttm_tty_4, crossSection()/sumOfWeights()/1150.);
-    scale(_hist_ttpt_ttm_1, crossSection()/sumOfWeights()/35.);
-    scale(_hist_ttpt_ttm_2, crossSection()/sumOfWeights()/45.);
-    scale(_hist_ttpt_ttm_3, crossSection()/sumOfWeights()/60.);
-    scale(_hist_ttpt_ttm_4, crossSection()/sumOfWeights()/360.);
-
-    scale(_histnorm_thadpt, 1./_histnorm_thadpt->sumW(false));
-    scale(_histnorm_thady, 1./_histnorm_thady->sumW(false));
-    scale(_histnorm_tleppt, 1./_histnorm_tleppt->sumW(false));
-    scale(_histnorm_tlepy, 1./_histnorm_tlepy->sumW(false));
-    scale(_histnorm_ttpt, 1./_histnorm_ttpt->sumW(false));
-    scale(_histnorm_tty, 1./_histnorm_tty->sumW(false));
-    scale(_histnorm_ttm, 1./_histnorm_ttm->sumW(false));
-    scale(_histnorm_njet, 1./_histnorm_njet->sumW(false));
-    double sum_njets_thadpt = _histnorm_njets_thadpt_1->sumW(false) + _histnorm_njets_thadpt_2->sumW(false) + _histnorm_njets_thadpt_3->sumW(false) + _histnorm_njets_thadpt_4->sumW(false);
-    scale(_histnorm_njets_thadpt_1, 1./sum_njets_thadpt);
-    scale(_histnorm_njets_thadpt_2, 1./sum_njets_thadpt);
-    scale(_histnorm_njets_thadpt_3, 1./sum_njets_thadpt);
-    scale(_histnorm_njets_thadpt_4, 1./sum_njets_thadpt);
-    double sum_njets_ttpt = _histnorm_njets_ttpt_1->sumW(false) + _histnorm_njets_ttpt_2->sumW(false) + _histnorm_njets_ttpt_3->sumW(false) + _histnorm_njets_ttpt_4->sumW(false);
-    scale(_histnorm_njets_ttpt_1, 1./sum_njets_ttpt);
-    scale(_histnorm_njets_ttpt_2, 1./sum_njets_ttpt);
-    scale(_histnorm_njets_ttpt_3, 1./sum_njets_ttpt);
-    scale(_histnorm_njets_ttpt_4, 1./sum_njets_ttpt);
-    double sum_thady_thadpt = _histnorm_thady_thadpt_1->sumW(false) + _histnorm_thady_thadpt_2->sumW(false) + _histnorm_thady_thadpt_3->sumW(false) + _histnorm_thady_thadpt_4->sumW(false);
-    scale(_histnorm_thady_thadpt_1, 1./sum_thady_thadpt/0.5);
-    scale(_histnorm_thady_thadpt_2, 1./sum_thady_thadpt/0.5);
-    scale(_histnorm_thady_thadpt_3, 1./sum_thady_thadpt/0.5);
-    scale(_histnorm_thady_thadpt_4, 1./sum_thady_thadpt/1.0);
-    double sum_ttm_tty = _histnorm_ttm_tty_1->sumW(false) + _histnorm_ttm_tty_2->sumW(false) + _histnorm_ttm_tty_3->sumW(false) + _histnorm_ttm_tty_4->sumW(false);
-    scale(_histnorm_ttm_tty_1, 1./sum_ttm_tty/150.);
-    scale(_histnorm_ttm_tty_2, 1./sum_ttm_tty/175.);
-    scale(_histnorm_ttm_tty_3, 1./sum_ttm_tty/225.);
-    scale(_histnorm_ttm_tty_4, 1./sum_ttm_tty/1150.);
-    double sum_ttpt_ttm = _histnorm_ttpt_ttm_1->sumW(false) + _histnorm_ttpt_ttm_2->sumW(false) + _histnorm_ttpt_ttm_3->sumW(false) + _histnorm_ttpt_ttm_4->sumW(false);
-    scale(_histnorm_ttpt_ttm_1, 1./sum_ttpt_ttm/35.);
-    scale(_histnorm_ttpt_ttm_2, 1./sum_ttpt_ttm/45.);
-    scale(_histnorm_ttpt_ttm_3, 1./sum_ttpt_ttm/60.);
-    scale(_histnorm_ttpt_ttm_4, 1./sum_ttpt_ttm/360.);
-
-   }
 
 
   private:

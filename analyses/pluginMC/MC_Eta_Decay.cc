@@ -25,7 +25,7 @@ namespace Rivet {
       // Book histograms
       double meta[2]={547.45, 957.78};
       for(unsigned int ix=0;ix<2;++ix) {
-	ostringstream title; title << "_" << ix;
+	std::ostringstream title; title << "_" << ix;
 	_mgammagamma .push_back(bookHisto1D("mgammagamma" +title.str(),200,0.,meta[ix]) );
 	_mpi0gamma   .push_back(bookHisto1D("mpi0gamma"   +title.str(),200,0.,meta[ix])) ;
 	_mpipgamma   .push_back(bookHisto1D("mpipgamma"   +title.str(),200,0.,meta[ix]));

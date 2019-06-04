@@ -69,28 +69,28 @@ namespace Rivet {
         double xi = -log(xp);
         switch (id) {
         case 3312:
-          _histXpXiMinus->fill(xp, weight);
-          _histXiXiMinus->fill(xi, weight);
+          _histXpXiMinus->fill(xp);
+          _histXiXiMinus->fill(xi);
           break;
         case 3224:
-          _histXpSigma1385Plus->fill(xp, weight);
-          _histXiSigma1385Plus->fill(xi, weight);
+          _histXpSigma1385Plus->fill(xp);
+          _histXiSigma1385Plus->fill(xi);
           break;
         case 3114:
-          _histXpSigma1385Minus->fill(xp, weight);
-          _histXiSigma1385Minus->fill(xi, weight);
+          _histXpSigma1385Minus->fill(xp);
+          _histXiSigma1385Minus->fill(xi);
           break;
         case 3122:
-          _histXpLambda->fill(xp, weight);
-          _histXiLambda->fill(xi, weight);
+          _histXpLambda->fill(xp);
+          _histXiLambda->fill(xi);
           break;
         case 3324:
-          _histXpXi1530->fill(xp, weight);
-          _histXiXi1530->fill(xi, weight);
+          _histXpXi1530->fill(xp);
+          _histXiXi1530->fill(xi);
           break;
         case 3124:
-          _histXpLambda1520->fill(xp, weight);
-          _histXiLambda1520->fill(xi, weight);
+          _histXpLambda1520->fill(xp);
+          _histXiLambda1520->fill(xi);
           break;
         }
       }

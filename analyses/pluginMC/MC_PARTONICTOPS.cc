@@ -20,32 +20,30 @@ namespace Rivet {
     void init() {
 
       // Initialise and register projections
-      declare(PartonicTops(PartonicTops::ALL), "AllTops");
-      declare(PartonicTops(PartonicTops::ALL, true, false, Cuts::OPEN, PartonicTops::FIRST), "AllTopsFirst"); ///< @todo API ick!
-      declare(PartonicTops(PartonicTops::E_MU), "LeptonicTops");
-      declare(PartonicTops(PartonicTops::HADRONIC), "HadronicTops");
+      declare(PartonicTops(PartonicTops::DecayMode::ALL), "AllTops");
+      declare(PartonicTops(PartonicTops::DecayMode::ALL, true, false, Cuts::OPEN, PartonicTops::WhichTop::FIRST), "AllTopsFirst"); ///< @todo API ick!
+      declare(PartonicTops(PartonicTops::DecayMode::E_MU), "LeptonicTops");
+      declare(PartonicTops(PartonicTops::DecayMode::HADRONIC), "HadronicTops");
 
       // Book histograms
-      _h_tall_n  = bookHisto1D("t_all_n", linspace(5, -0.5, 4.5));
-      _h_tall_pt = bookHisto1D("t_all_pT", logspace(50, 1, 500));
-      _h_tall_y  = bookHisto1D("t_all_y", linspace(50, -5, 5));
+      book(_h_tall_n, "t_all_n", linspace(5, -0.5, 4.5));
+      book(_h_tall_pt, "t_all_pT", logspace(50, 1, 500));
+      book(_h_tall_y, "t_all_y", linspace(50, -5, 5));
 
-      _h_tall_n_first  = bookHisto1D("t_all_n_firsttop", linspace(5, -0.5, 4.5));
-      _h_tall_pt_first = bookHisto1D("t_all_pT_firsttop", logspace(50, 1, 500));
-      _h_tall_y_first  = bookHisto1D("t_all_y_firsttop", linspace(50, -5, 5));
+      book(_h_tall_n_first, "t_all_n_firsttop", linspace(5, -0.5, 4.5));
+      book(_h_tall_pt_first, "t_all_pT_firsttop", logspace(50, 1, 500));
+      book(_h_tall_y_first, "t_all_y_firsttop", linspace(50, -5, 5));
 
-      _h_tall_pt_dfirstlast = bookHisto1D("t_all_pT_dfirstlast", linspace(100, -100, 100));
-      _p_tall_pt_dfirstlast = bookProfile1D("t_all_pT_dfirstlast_prof", logspace(50, 1, 500));
-      // _h_tall_y_dfirstlast  = bookHisto1D("t_all_y_dfirstlast", linspace(50, -2, 2));
-      // _p_tall_y_dfirstlast  = bookProfile1D("t_all_y_dfirstlast_prof", linspace(50, -5, 5));
+      book(_h_tall_pt_dfirstlast, "t_all_pT_dfirstlast", linspace(100, -100, 100));
+      book(_p_tall_pt_dfirstlast, "t_all_pT_dfirstlast_prof", logspace(50, 1, 500));
 
-      _h_tlep_n  = bookHisto1D("t_lep_n", linspace(5, -0.5, 4.5));
-      _h_tlep_pt = bookHisto1D("t_lep_pT", logspace(50, 1, 500));
-      _h_tlep_y  = bookHisto1D("t_lep_y", linspace(50, -5, 5));
+      book(_h_tlep_n, "t_lep_n", linspace(5, -0.5, 4.5));
+      book(_h_tlep_pt, "t_lep_pT", logspace(50, 1, 500));
+      book(_h_tlep_y, "t_lep_y", linspace(50, -5, 5));
 
-      _h_thad_n  = bookHisto1D("t_had_n", linspace(5, -0.5, 4.5));
-      _h_thad_pt = bookHisto1D("t_had_pT", logspace(50, 1, 500));
-      _h_thad_y  = bookHisto1D("t_had_y", linspace(50, -5, 5));
+      book(_h_thad_n, "t_had_n", linspace(5, -0.5, 4.5));
+      book(_h_thad_pt, "t_had_pT", logspace(50, 1, 500));
+      book(_h_thad_y, "t_had_y", linspace(50, -5, 5));
 
     }
 

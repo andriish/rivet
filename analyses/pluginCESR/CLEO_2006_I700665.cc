@@ -19,7 +19,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       declare(FinalState(), "FS");
-      _c_hadrons = bookCounter("/TMP/sigma_hadrons");
+      book(_c_hadrons, "/TMP/sigma_hadrons");
     }
 
 
@@ -30,10 +30,10 @@ namespace Rivet {
       map<long,int> nCount;
       int ntotal(0);
       unsigned int nCharged(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
-	if(PID::isCharged(p.pdgId())) ++nCharged;
+	if(PID::isCharged(p.pid())) ++nCharged;
       }
       // mu+mu- + photons
       if(nCount[-13]==1 and nCount[13]==1 &&
@@ -41,7 +41,7 @@ namespace Rivet {
 	vetoEvent;
       // everything else
       else {
-	_c_hadrons->fill(event.weight());
+	_c_hadrons->fill();
       }
     }
 
@@ -52,7 +52,8 @@ namespace Rivet {
       double sig_h = _c_hadrons->val()*fact;
       double err_h = _c_hadrons->err()*fact;
       Scatter2D temphisto(refData(1, 1, 1));
-      Scatter2DPtr hadrons  = bookScatter2D(1, 1, 1);
+      Scatter2DPtr hadrons;
+      book(hadrons, 1, 1, 1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	const double x  = temphisto.point(b).x();
 	pair<double,double> ex = temphisto.point(b).xErrs();

@@ -36,57 +36,56 @@ namespace Rivet {
       else if (fuzzyEquals(sqrtS()/GeV, 76, 1E-3)) offset = 3;
       else    MSG_ERROR("Beam energy not supported!");
       // Book the histograms
-      _h_thrust           = bookHisto1D( 1, 1, offset);
-      _h_major            = bookHisto1D( 2, 1, offset);
-      _h_minor            = bookHisto1D( 3, 1, offset);
-      _h_sphericity       = bookHisto1D( 4, 1, offset);
-      _h_planarity        = bookHisto1D( 5, 1, offset);
-      _h_oblateness       = bookHisto1D( 6, 1, offset);
-      _h_heavy_jet_mass   = bookHisto1D( 7, 1, offset);
-      _h_light_jet_mass   = bookHisto1D( 9, 1, offset);
-      _h_diff_jet_mass    = bookHisto1D(10, 1, offset);
-      _h_total_jet_mass   = bookHisto1D(11, 1, offset);
-      _h_heavy_jet_mass_E = bookHisto1D( 8, 1, offset);
-      _h_total_jet_mass_E = bookHisto1D(12, 1, offset);
-      _h_wide_broading    = bookHisto1D(13, 1, offset);
-      _h_narrow_broading  = bookHisto1D(14, 1, offset);
-      _h_total_broading   = bookHisto1D(15, 1, offset);
-      _h_diff_broading    = bookHisto1D(16, 1, offset);
+      book(_h_thrust,  1, 1, offset);
+      book(_h_major,  2, 1, offset);
+      book(_h_minor,  3, 1, offset);
+      book(_h_sphericity,  4, 1, offset);
+      book(_h_planarity,  5, 1, offset);
+      book(_h_oblateness,  6, 1, offset);
+      book(_h_heavy_jet_mass,  7, 1, offset);
+      book(_h_light_jet_mass,  9, 1, offset);
+      book(_h_diff_jet_mass, 10, 1, offset);
+      book(_h_total_jet_mass, 11, 1, offset);
+      book(_h_heavy_jet_mass_E,  8, 1, offset);
+      book(_h_total_jet_mass_E, 12, 1, offset);
+      book(_h_wide_broading, 13, 1, offset);
+      book(_h_narrow_broading, 14, 1, offset);
+      book(_h_total_broading, 15, 1, offset);
+      book(_h_diff_broading, 16, 1, offset);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
 
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
       // thrust related observables
-      _h_thrust    ->fill(1.-thrust.thrust()  ,weight);
-      _h_major     ->fill(thrust.thrustMajor(),weight);
-      _h_minor     ->fill(thrust.thrustMinor(),weight);
-      _h_oblateness->fill(thrust.oblateness() ,weight);
+      _h_thrust    ->fill(1.-thrust.thrust()  );
+      _h_major     ->fill(thrust.thrustMajor());
+      _h_minor     ->fill(thrust.thrustMinor());
+      _h_oblateness->fill(thrust.oblateness() );
 
       // sphericity related
       const Sphericity& sphericity = apply<Sphericity>(event, "Sphericity");
-      _h_sphericity->fill(sphericity.sphericity(),weight);
-      _h_planarity ->fill(sphericity.planarity() ,weight);
+      _h_sphericity->fill(sphericity.sphericity());
+      _h_planarity ->fill(sphericity.planarity() );
       // hemisphere related
       const Hemispheres& hemi = apply<Hemispheres>(event, "Hemispheres");
       // standard jet masses
-      _h_heavy_jet_mass->fill(hemi.scaledM2high(),weight);
-      _h_light_jet_mass->fill(hemi.scaledM2low() ,weight);
-      _h_diff_jet_mass ->fill(hemi.scaledM2diff(),weight);
-      _h_total_jet_mass->fill(hemi.scaledM2low()+hemi.scaledM2high(),weight);
+      _h_heavy_jet_mass->fill(hemi.scaledM2high());
+      _h_light_jet_mass->fill(hemi.scaledM2low() );
+      _h_diff_jet_mass ->fill(hemi.scaledM2diff());
+      _h_total_jet_mass->fill(hemi.scaledM2low()+hemi.scaledM2high());
       // jet broadening
-      _h_wide_broading  ->fill(hemi.Bmax() ,weight);
-      _h_narrow_broading->fill(hemi.Bmin() ,weight);
-      _h_total_broading ->fill(hemi.Bsum() ,weight);
-      _h_diff_broading  ->fill(hemi.Bdiff(),weight);
+      _h_wide_broading  ->fill(hemi.Bmax() );
+      _h_narrow_broading->fill(hemi.Bmin() );
+      _h_total_broading ->fill(hemi.Bsum() );
+      _h_diff_broading  ->fill(hemi.Bdiff());
       // E scheme jet masses
       Vector3 axis = thrust.thrustAxis();
       FourMomentum p4With, p4Against;
       double Evis(0);
-      foreach(const Particle& p, apply<FinalState>(event, "FS").particles()) {
+      for (const Particle& p : apply<FinalState>(event, "FS").particles()) {
 	Vector3 p3 = p.momentum().vector3().unitVec();
 	const double   E = p.momentum().E();
 	Evis += E;
@@ -104,8 +103,8 @@ namespace Rivet {
       const double mass2With    = p4With.mass2()/sqr(Evis);
       const double mass2Against = p4Against.mass2()/sqr(Evis);
       // fill the histograms
-      _h_heavy_jet_mass_E->fill(max(mass2With,mass2Against),weight);
-      _h_total_jet_mass_E->fill(mass2With+mass2Against,weight);
+      _h_heavy_jet_mass_E->fill(max(mass2With,mass2Against));
+      _h_total_jet_mass_E->fill(mass2With+mass2Against);
     }
 
 

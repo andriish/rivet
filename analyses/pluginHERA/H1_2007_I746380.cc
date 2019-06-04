@@ -24,8 +24,8 @@ namespace H1_2007_I746380_PROJECTIONS {
 
     RapidityGap() {
       setName("RapidityGap");
-      addProjection(DISKinematics(), "DISKIN");
-      addProjection(DISFinalState(DISFinalState::HCM), "DISFS");
+      declare(DISKinematics(), "DISKIN");
+      declare(DISFinalState(DISFinalState::BoostFrame::HCM), "DISFS");
     }
 
     DEFAULT_RIVET_PROJ_CLONE(RapidityGap);
@@ -69,7 +69,7 @@ namespace H1_2007_I746380_PROJECTIONS {
 
   protected:
 
-    virtual int compare(const Projection& p) const {
+    virtual CmpState compare(const Projection& p) const {
       const RapidityGap& other = pcast<RapidityGap>(p);
       return mkNamedPCmp(other, "DISKIN") || mkNamedPCmp(other, "DISFS");
     }
@@ -117,7 +117,7 @@ namespace H1_2007_I746380_PROJECTIONS {
 
       // Define the two systems X and Y.
       Particles tmp_pX, tmp_pY;
-      foreach (const Particle& ip, particles) {
+      for (const Particle& ip : particles) {
         if (dir * ip.eta() > _gapLow) tmp_pX.push_back(ip);
         else tmp_pY.push_back(ip);
       }
@@ -133,7 +133,7 @@ namespace H1_2007_I746380_PROJECTIONS {
 
       // X - side
       FourMomentum momX;
-      foreach (const Particle& jp, pX) {
+      for (const Particle& jp : pX) {
         momX  += jp.momentum();
         _ePpzX_HCM += jp.E() - jp.pz(); // Sign + => -
         _eMpzX_HCM += jp.E() + jp.pz(); // Sign - => +
@@ -144,7 +144,7 @@ namespace H1_2007_I746380_PROJECTIONS {
 
       // Y - side
       FourMomentum momY;
-      foreach (const Particle& kp, pY) momY += kp.momentum();
+      for (const Particle& kp : pY) momY += kp.momentum();
       _momY_HCM = momY;
       _pY_HCM   = pY;
       _M2Y      = _momY_HCM.mass2();
@@ -165,7 +165,7 @@ namespace H1_2007_I746380_PROJECTIONS {
         _momY_XCM = xcmboost.transform(momY);
       }
 
-      foreach (const Particle& jp, pX) {
+      for (const Particle& jp : pX) {
         // Boost from HCM to LAB.
         FourMomentum lab = hcminverse.transform(jp.momentum());
         _ePpzX_LAB += lab.E() + dir * lab.pz();
@@ -187,7 +187,7 @@ namespace H1_2007_I746380_PROJECTIONS {
         }
       }
 
-      foreach (const Particle& jp, pY) {
+      for (const Particle& jp : pY) {
         // Boost from HCM to LAB
         FourMomentum lab = hcminverse.transform(jp.momentum());
         Particle plab = jp;
@@ -232,7 +232,7 @@ namespace H1_2007_I746380_PROJECTIONS {
     BoostedXSystem(const FinalState& fs) {
       setName("BoostedXSystem");
       declare(fs,"FS");
-      addProjection(RapidityGap(), "RAPGAP");
+      declare(RapidityGap(), "RAPGAP");
     }
 
     // Return the boost to XCM frame.
@@ -269,7 +269,7 @@ namespace H1_2007_I746380_PROJECTIONS {
     }
 
     // Compare projections.
-    int compare(const Projection& p) const {
+    CmpState compare(const Projection& p) const {
       const BoostedXSystem& other = pcast<BoostedXSystem>(p);
       return mkNamedPCmp(other, "RAPGAP") || mkNamedPCmp(other, "FS");
     }
@@ -306,29 +306,29 @@ namespace H1_2007_I746380_PROJECTIONS {
     void init() {
 
       declare(DISKinematics(), "Kinematics");
-      const DISFinalState& disfs = declare(DISFinalState(DISFinalState::HCM), "DISFS");
+      const DISFinalState& disfs = declare(DISFinalState(DISFinalState::BoostFrame::HCM), "DISFS");
       const BoostedXSystem& disfsXcm = declare( BoostedXSystem(disfs), "BoostedXFS");
       declare(FastJets(disfsXcm, fastjet::JetAlgorithm::kt_algorithm, fastjet::RecombinationScheme::pt_scheme, 1.0,
-        JetAlg::ALL_MUONS, JetAlg::NO_INVISIBLES, nullptr), "DISFSJets");
+                       JetAlg::Muons::ALL, JetAlg::Invisibles::NONE, nullptr), "DISFSJets");
       declare(RapidityGap(), "RapidityGap");
 
       // Book histograms from REF data
-      _h_DIS_dsigdzPom     = bookHisto1D(1, 1, 1);
-      _h_DIS_dsigdlogXpom  = bookHisto1D(2, 1, 1);
-      _h_DIS_dsigdW        = bookHisto1D(3, 1, 1);
-      _h_DIS_dsigdQ2       = bookHisto1D(4, 1, 1);
-      _h_DIS_dsigdEtJet1   = bookHisto1D(5, 1, 1);
-      _h_DIS_dsigdAvgEta   = bookHisto1D(6, 1, 1);
-      _h_DIS_dsigdDeltaEta = bookHisto1D(7, 1, 1);
+      book(_h_DIS_dsigdzPom, 1, 1, 1);
+      book(_h_DIS_dsigdlogXpom, 2, 1, 1);
+      book(_h_DIS_dsigdW, 3, 1, 1);
+      book(_h_DIS_dsigdQ2, 4, 1, 1);
+      book(_h_DIS_dsigdEtJet1, 5, 1, 1);
+      book(_h_DIS_dsigdAvgEta, 6, 1, 1);
+      book(_h_DIS_dsigdDeltaEta, 7, 1, 1);
 
-      _h_PHO_dsigdzPom     = bookHisto1D(8, 1, 1);
-      _h_PHO_dsigdxGam     = bookHisto1D(9, 1, 1);
-      _h_PHO_dsigdlogXpom  = bookHisto1D(10, 1, 1);
-      _h_PHO_dsigdW        = bookHisto1D(11, 1, 1);
-      _h_PHO_dsigdEtJet1   = bookHisto1D(12, 1, 1);
-      _h_PHO_dsigdAvgEta   = bookHisto1D(13, 1, 1);
-      _h_PHO_dsigdDeltaEta = bookHisto1D(14, 1, 1);
-      _h_PHO_dsigdMjets    = bookHisto1D(15, 1, 1);
+      book(_h_PHO_dsigdzPom, 8, 1, 1);
+      book(_h_PHO_dsigdxGam, 9, 1, 1);
+      book(_h_PHO_dsigdlogXpom, 10, 1, 1);
+      book(_h_PHO_dsigdW, 11, 1, 1);
+      book(_h_PHO_dsigdEtJet1, 12, 1, 1);
+      book(_h_PHO_dsigdAvgEta, 13, 1, 1);
+      book(_h_PHO_dsigdDeltaEta, 14, 1, 1);
+      book(_h_PHO_dsigdMjets, 15, 1, 1);
 
       isDIS  = false;
       nVeto0 = 0;
@@ -345,7 +345,6 @@ namespace H1_2007_I746380_PROJECTIONS {
     void analyze(const Event& event) {
 
       // Event weight
-      const double weight = event.weight();
       isDIS  = false;
 
       // Projections - special handling of events where no proton found:
@@ -453,22 +452,22 @@ namespace H1_2007_I746380_PROJECTIONS {
 
       // Now fill histograms
       if (isDIS){
-        _h_DIS_dsigdzPom     ->fill(zPomJets,     weight);
-        _h_DIS_dsigdlogXpom  ->fill(log10(xPom),  weight);
-        _h_DIS_dsigdW        ->fill(W,            weight);
-        _h_DIS_dsigdQ2       ->fill(Q2,           weight);
-        _h_DIS_dsigdEtJet1   ->fill(EtJet1,       weight);
-        _h_DIS_dsigdAvgEta   ->fill(avgEtaJets,   weight);
-        _h_DIS_dsigdDeltaEta ->fill(deltaEtaJets, weight);
+        _h_DIS_dsigdzPom     ->fill(zPomJets);
+        _h_DIS_dsigdlogXpom  ->fill(log10(xPom));
+        _h_DIS_dsigdW        ->fill(W);
+        _h_DIS_dsigdQ2       ->fill(Q2);
+        _h_DIS_dsigdEtJet1   ->fill(EtJet1);
+        _h_DIS_dsigdAvgEta   ->fill(avgEtaJets);
+        _h_DIS_dsigdDeltaEta ->fill(deltaEtaJets);
       } else {
-        _h_PHO_dsigdzPom     ->fill(zPomJets,     weight);
-        _h_PHO_dsigdxGam     ->fill(xGamJets,     weight);
-        _h_PHO_dsigdlogXpom  ->fill(log10(xPom),  weight);
-        _h_PHO_dsigdW        ->fill(W,            weight);
-        _h_PHO_dsigdEtJet1   ->fill(EtJet1,       weight);
-        _h_PHO_dsigdAvgEta   ->fill(avgEtaJets,   weight);
-        _h_PHO_dsigdDeltaEta ->fill(deltaEtaJets, weight);
-        _h_PHO_dsigdMjets    ->fill(sqrt(M2jets), weight);
+        _h_PHO_dsigdzPom     ->fill(zPomJets);
+        _h_PHO_dsigdxGam     ->fill(xGamJets);
+        _h_PHO_dsigdlogXpom  ->fill(log10(xPom));
+        _h_PHO_dsigdW        ->fill(W);
+        _h_PHO_dsigdEtJet1   ->fill(EtJet1);
+        _h_PHO_dsigdAvgEta   ->fill(avgEtaJets);
+        _h_PHO_dsigdDeltaEta ->fill(deltaEtaJets);
+        _h_PHO_dsigdMjets    ->fill(sqrt(M2jets));
       }
 
     }

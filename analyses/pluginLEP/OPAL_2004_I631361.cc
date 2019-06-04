@@ -4,7 +4,27 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/HadronicFinalState.hh"
+#include "Rivet/Tools/BinnedHistogram.hh"
 #include "fastjet/JetDefinition.hh"
+namespace fastjet {
+
+class P_scheme : public JetDefinition::Recombiner {
+ public:
+  std::string description() const {return "";}
+  void recombine(const PseudoJet & pa, const PseudoJet & pb,
+                         PseudoJet & pab) const {
+    PseudoJet tmp = pa + pb;
+    double E = sqrt(tmp.px()*tmp.px() + tmp.py()*tmp.py() + tmp.pz()*tmp.pz());
+    pab.reset_momentum(tmp.px(), tmp.py(), tmp.pz(), E);
+  }
+  void preprocess(PseudoJet & p) const {
+    double E = sqrt(p.px()*p.px() + p.py()*p.py() + p.pz()*p.pz());
+    p.reset_momentum(p.px(), p.py(), p.pz(), E);
+  }
+  ~P_scheme() { }
+};
+
+}
 
 namespace Rivet {
 
@@ -64,24 +84,33 @@ namespace Rivet {
 	  iy = 2;
         }
         assert(ih>0);
-        _h_chMult     = bookHisto1D(ih,1,iy);
+        book(_h_chMult_gg, ih,1,iy);
         if(ih==3)
-	  _h_chFragFunc = bookHisto1D(5,1,iy);
+	  book(_h_chFragFunc_gg, 5,1,iy);
         else
-	  _h_chFragFunc = nullptr;
-        }
+	  _h_chFragFunc_gg = nullptr;
       }
       else {
-	_h_chMult_qq.addHistogram(5.0, 5.5, bookHisto1D(1,1,1));
-	_h_chMult_qq.addHistogram(5.5, 6.5, bookHisto1D(1,1,2));
-	_h_chMult_qq.addHistogram(6.5, 7.5, bookHisto1D(1,1,3));
-	_h_chMult_qq.addHistogram(7.5, 9.5, bookHisto1D(2,1,1));
-	_h_chMult_qq.addHistogram(9.5, 13.0, bookHisto1D(2,1,2));
-	_h_chMult_qq.addHistogram(13.0, 16.0, bookHisto1D(3,1,1));
-	_h_chMult_qq.addHistogram(16.0, 20.0, bookHisto1D(3,1,2));
+        Histo1DPtr dummy;
+        book(dummy, 1,1,1);
+	_h_chMult_qq.add(5.0, 5.5, dummy);
+        book(dummy, 1,1,2);
+	_h_chMult_qq.add(5.5, 6.5, dummy);
+        book(dummy, 1,1,3);
+	_h_chMult_qq.add(6.5, 7.5, dummy);
+        book(dummy, 2,1,1);
+	_h_chMult_qq.add(7.5, 9.5, dummy);
+        book(dummy, 2,1,2);
+	_h_chMult_qq.add(9.5, 13.0, dummy);
+        book(dummy, 3,1,1);
+	_h_chMult_qq.add(13.0, 16.0, dummy);
+        book(dummy, 3,1,2);
+	_h_chMult_qq.add(16.0, 20.0, dummy);
 	
-	_h_chFragFunc_qq.addHistogram(13.0, 16.0, bookHisto1D(5,1,1));
-	_h_chFragFunc_qq.addHistogram(16.0, 20.0, bookHisto1D(5,1,2));
+        book(dummy, 5,1,1);
+	_h_chFragFunc_qq.add(13.0, 16.0, dummy);
+        book(dummy, 5,1,2);
+	_h_chFragFunc_qq.add(16.0, 20.0, dummy);
       }
     }
 
@@ -135,7 +164,7 @@ namespace Rivet {
 	const Particles& particles = applyProjection<FinalState>(event, "FS").particles();
 	fastjet::JetDefinition ee_kt_def(fastjet::ee_kt_algorithm, &p_scheme);
 	PseudoJets pParticles;
-	foreach(Particle p, particles) {
+	for (Particle p : particles) {
 	  PseudoJet temp = p.pseudojet();
 	  if(p.fromBottom()) {
 	    temp.set_user_index(5);
@@ -158,7 +187,7 @@ namespace Rivet {
 	    (sin(angle(dirs[i],dirs[(i+1)%3])) + sin(angle(dirs[i],dirs[(i+2)%3])) + sin(angle(dirs[(i+1)%3],dirs[(i+2)%3])));
 	  jets.push_back(FourMomentum(Ejet,Ejet*dirs[i].x(),Ejet*dirs[i].y(),Ejet*dirs[i].z()));
 	  bTagged[i] = false;
-	  foreach(PseudoJet particle, pJets[i].constituents()) {
+	  for (PseudoJet particle : pJets[i].constituents()) {
 	    if(particle.user_index() > 1 and !bTagged[i]) {
 	      bTagged[i] = true;
 	    }
@@ -230,7 +259,7 @@ namespace Rivet {
 	double cutAngle = angle(toSymmetric.transform(jets[QUARK2].momentum()), transGlue)/2;
 	
 	int nCh = 0;
-	foreach(const Particle& chP, chParticles ) {
+	for (const Particle& chP : chParticles ) {
 	  FourMomentum pSymmFrame = toSymmetric.transform(FourMomentum(chP.p3().mod(), chP.px(), chP.py(), chP.pz()));
 	  if(angle(pSymmFrame, transGlue) < cutAngle) {
 	    _h_chFragFunc_qq.fill(Eg, pSymmFrame.E()*sin(cutAngle)/Eg, weight);
@@ -249,12 +278,12 @@ namespace Rivet {
 	if(_h_chFragFunc_gg) scale(_h_chFragFunc_gg, 1./_sumW);
       }
       else {
-	for (Histo1DPtr hist : _h_chMult_qq.getHistograms()) {
+	for (Histo1DPtr hist : _h_chMult_qq.histos()) {
 	  normalize(hist);
 	}
 	for(int i=0; i<2; i++) {
 	  if(!isZero(_sumWEbin[i+5])) {
-	    scale(_h_chFragFunc_qq.getHistograms()[i], 1./_sumWEbin[i+5]);
+	    scale(_h_chFragFunc_qq.histos()[i], 1./_sumWEbin[i+5]);
 	  }
 	}
       }

@@ -74,8 +74,8 @@ namespace Rivet {
         if (PID::hasBottom(pid)) {
 
           bool good_B = false;
-          const GenParticle* pgen = p.genParticle();
-          const GenVertex* vgen = pgen -> end_vertex();
+          ConstGenParticlePtr pgen = p.genParticle();
+          ConstGenVertexPtr vgen = pgen -> end_vertex();
 
           // Loop over the decay products of each unstable particle, looking for a b-hadron pair
           /// @todo Avoid HepMC API

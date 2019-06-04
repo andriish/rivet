@@ -1,7 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 
 #define I_KNOW_THE_INITIAL_QUARKS_PROJECTION_IS_DODGY_BUT_NEED_TO_USE_IT
@@ -51,7 +50,7 @@ namespace Rivet {
       // Initial quarks
       /// @note Quark-level tagging...
       Particles bquarks;
-      for (const GenParticle* p : particles(event.genEvent())) {
+      for (ConstGenParticlePtr p : HepMCUtils::particles(event.genEvent())) {
         if (abs(p->pdg_id()) == PID::BQUARK) bquarks += Particle(p);
       }
       Jets bjets, ljets;

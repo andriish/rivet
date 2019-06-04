@@ -22,7 +22,7 @@ namespace Rivet {
     DISRapidityGap() {
       setName("DISRapidityGap");
       declare(DISKinematics(), "DISKIN");
-      declare(DISFinalState(DISFinalState::HCM), "DISFS");
+      declare(DISFinalState(DISFinalState::BoostFrame::HCM), "DISFS");
     }
 
     DEFAULT_RIVET_PROJ_CLONE(DISRapidityGap);

@@ -31,7 +31,7 @@ namespace Rivet {
 			   Particles& scalar,
 			   Particles& vector) {
       for(const Particle & p : mother.children()) {
-        int id = p.pdgId();
+        int id = p.pid();
 	if ( id == PID::EMINUS || id == PID::MUON ) {
        	  lm.push_back(p);
        	  ++nstable;
@@ -62,19 +62,19 @@ namespace Rivet {
       // loop over unstable particles
       for(const Particle& iMeson : apply<UnstableParticles>(event, "UFS").particles()) {
 	// only consider scalar/vector mesons
-	long pid = iMeson.pdgId();
+	long pid = iMeson.pid();
 	if(!PID::isMeson(pid)) continue;
 	if(abs(pid)%10!=3 and abs(pid)%10!=1 ) continue;
 	Particles lp,lm,scalar,vector;
 	unsigned int nstable(0);
 	findDecayProducts(iMeson,nstable,lp,lm,scalar,vector);
-	if(nstable!=3 || lp.size()!=1 || lm.size()!=1 || lp[0].pdgId()!=-lm[0].pdgId()) continue;
+	if(nstable!=3 || lp.size()!=1 || lm.size()!=1 || lp[0].pid()!=-lm[0].pid()) continue;
 	if(scalar.size()==1) {
 	  // check if we already have this decay
 	  unsigned int ix=0; bool found(false); 
 	  while(!found&&ix<_incomingV.size()) {
-	    if(_incomingV[ix]==pid && _outgoingP[ix]==scalar[0].pdgId() &&
-	       _outgoingf_V[ix]==lm[0].pdgId()) {
+	    if(_incomingV[ix]==pid && _outgoingP[ix]==scalar[0].pid() &&
+	       _outgoingf_V[ix]==lm[0].pid()) {
 	      found=true;
 	    }
 	    else {
@@ -85,31 +85,34 @@ namespace Rivet {
 	  if(!found) {
 	    ix=_incomingV.size();
 	    _incomingV.push_back(pid);
-	    _outgoingP.push_back(scalar[0].pdgId());
-	    _outgoingf_V.push_back(lm[0].pdgId());
-	    ostringstream title;
+	    _outgoingP.push_back(scalar[0].pid());
+	    _outgoingf_V.push_back(lm[0].pid());
+	    std::ostringstream title;
 	    title << "h_" << abs(pid);
 	    if(pid>0) title << "p";
 	    else      title << "m";
-	    title << "_" << abs(scalar[0].pdgId());
-	    if(scalar[0].pdgId()>0) title << "p";
+	    title << "_" << abs(scalar[0].pid());
+	    if(scalar[0].pid()>0) title << "p";
 	    else                    title << "m";
-	    title << "_" << lm[0].pdgId() << "_";
-	    _mff_V   .push_back(bookHisto1D(title.str()+"mff"   , 200, 0., iMeson.mass()));
-	    _mPf   .push_back(bookHisto1D(title.str()+"mPf"   , 200, 0., iMeson.mass()));
-	    _mPfbar.push_back(bookHisto1D(title.str()+"mPfbar", 200, 0., iMeson.mass()));
+	    title << "_" << lm[0].pid() << "_";
+	    _mff_V   .push_back(Histo1DPtr());
+            book(_mff_V.back(), title.str()+"mff"   , 200, 0., iMeson.mass());
+            _mPf   .push_back(Histo1DPtr());
+            book(_mPf.back(), title.str()+"mPf"   , 200, 0., iMeson.mass());
+            _mPfbar.push_back(Histo1DPtr());
+            book(_mPfbar.back(), title.str()+"mPfbar", 200, 0., iMeson.mass());
 	  }
 	  // add the results to the histogram
-	  _mff_V   [ix]->fill((lm    [0].momentum()+lp[0].momentum()).mass(),event.weight());
-	  _mPf   [ix]->fill((scalar[0].momentum()+lm[0].momentum()).mass(),event.weight());
-	  _mPfbar[ix]->fill((scalar[0].momentum()+lp[0].momentum()).mass(),event.weight());
+	  _mff_V   [ix]->fill((lm    [0].momentum()+lp[0].momentum()).mass());
+	  _mPf   [ix]->fill((scalar[0].momentum()+lm[0].momentum()).mass());
+	  _mPfbar[ix]->fill((scalar[0].momentum()+lp[0].momentum()).mass());
 	}
 	else if(vector.size()==1) {
 	  // check if we already have this decay
 	  unsigned int ix=0; bool found(false); 
 	  while(!found&&ix<_incoming_P.size()) {
-	    if(_incoming_P[ix]==pid && _outgoingV[ix]==vector[0].pdgId() &&
-	       _outgoingf_P[ix]==lm[0].pdgId()) {
+	    if(_incoming_P[ix]==pid && _outgoingV[ix]==vector[0].pid() &&
+	       _outgoingf_P[ix]==lm[0].pid()) {
 	      found=true;
 	    }
 	    else {
@@ -120,24 +123,27 @@ namespace Rivet {
 	  if(!found) {
 	    ix=_incoming_P.size();
 	    _incoming_P.push_back(pid);
-	    _outgoingV.push_back(vector[0].pdgId());
-	    _outgoingf_P.push_back(lm[0].pdgId());
-	    ostringstream title;
+	    _outgoingV.push_back(vector[0].pid());
+	    _outgoingf_P.push_back(lm[0].pid());
+	    std::ostringstream title;
 	    title << "h2_" << abs(pid);
 	    if(pid>0) title << "p";
 	    else      title << "m";
-	    title << "_" << abs(vector[0].pdgId());
-	    if(vector[0].pdgId()>0) title << "p";
+	    title << "_" << abs(vector[0].pid());
+	    if(vector[0].pid()>0) title << "p";
 	    else                    title << "m";
-	    title << "_" << lm[0].pdgId() << "_";
-	    _mff_P   .push_back(bookHisto1D(title.str()+"mff"   , 200, 0., iMeson.mass()));
-	    _mVf   .push_back(bookHisto1D(title.str()+"mVf"   , 200, 0., iMeson.mass()));
-	    _mVfbar.push_back(bookHisto1D(title.str()+"mVfbar", 200, 0., iMeson.mass()));
+	    title << "_" << lm[0].pid() << "_";
+	    _mff_V   .push_back(Histo1DPtr());
+            book(_mff_V.back(), title.str()+"mff"   , 200, 0., iMeson.mass());
+            _mPf   .push_back(Histo1DPtr());
+            book(_mPf.back(), title.str()+"mPf"   , 200, 0., iMeson.mass());
+            _mPfbar.push_back(Histo1DPtr());
+            book(_mPfbar.back(), title.str()+"mPfbar", 200, 0., iMeson.mass());
 	  }
 	  // add the results to the histogram
-	  _mff_P   [ix]->fill((lm    [0].momentum()+lp[0].momentum()).mass(),event.weight());
-	  _mVf   [ix]->fill((vector[0].momentum()+lm[0].momentum()).mass(),event.weight());
-	  _mVfbar[ix]->fill((vector[0].momentum()+lp[0].momentum()).mass(),event.weight());
+	  _mff_P   [ix]->fill((lm    [0].momentum()+lp[0].momentum()).mass());
+	  _mVf   [ix]->fill((vector[0].momentum()+lm[0].momentum()).mass());
+	  _mVfbar[ix]->fill((vector[0].momentum()+lp[0].momentum()).mass());
 	}
       }
     }

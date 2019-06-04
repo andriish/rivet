@@ -29,12 +29,12 @@ namespace Rivet {
       //Cuts::abspid == PID::DSTARPLUS
 
       // Book histograms
-      _h_pTD = bookHisto1D(1, 1, 1);
-      _h_etaD = bookHisto1D(2, 1, 1);
-      _h_zD = bookHisto1D(3, 1, 1);
-      _h_Q2 = bookHisto1D(4, 1, 1);
-      _h_y = bookHisto1D(5, 1, 1);
-      // _h_Q2y = bookHisto2D(6, 1, 1);
+      book(_h_pTD, 1, 1, 1);
+      book(_h_etaD, 2, 1, 1);
+      book(_h_zD, 3, 1, 1);
+      book(_h_Q2, 4, 1, 1);
+      book(_h_y, 5, 1, 1);
+ book(_h_Q2y, 6, 1, 1);
     }
 
 
@@ -61,15 +61,15 @@ namespace Rivet {
 
       // Single-differential histograms with higher low-Q2 cut
       if (kin.Q2() > 5*GeV2) {
-        _h_pTD->fill(dstar.pT()/GeV, event.weight());
-        _h_etaD->fill(dstar.eta(), event.weight());
-        _h_zD->fill(zD/GeV, event.weight());
-        _h_Q2->fill(kin.Q2()/GeV2, event.weight());
-        _h_y->fill(kin.y(), event.weight());
+        _h_pTD->fill(dstar.pT()/GeV);
+        _h_etaD->fill(dstar.eta());
+        _h_zD->fill(zD/GeV);
+        _h_Q2->fill(kin.Q2()/GeV2);
+        _h_y->fill(kin.y());
       }
 
       // // Double-differential (y,Q2) histograms
-      // _h_Q2y->fill(kin.Q2()/GeV2, kin.y(), event.weight());
+      // _h_Q2y->fill(kin.Q2()/GeV2, kin.y());
 
     }
 

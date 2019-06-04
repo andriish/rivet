@@ -23,48 +23,54 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
       // book histograms a_1
       // Histograms for a_10 -> pi0pi0pi0
-      _hist0    = bookHisto1D("hist0",200,0.2,1.5);
+      book(_hist0, "hist0",200,0.2,1.5);
       // // dalitz plot
-      _dalitz0  = bookHisto2D("dalitz0",50,0.2,1.5,50,0.2,1.5);
+      book(_dalitz0, "dalitz0",50,0.2,1.5,50,0.2,1.5);
       // Histograms for a_1+ -> pi0pi0pi+
       // Mass of the pi0pi0 pair 
-      _hist1A   = bookHisto1D("hist1A",200,0.2,1.5);
+      book(_hist1A, "hist1A",200,0.2,1.5);
       // Mass of the pi0pi+ pair
-      _hist1B   = bookHisto1D("hist1B",200,0.2,1.5);
+      book(_hist1B, "hist1B",200,0.2,1.5);
       // dalitz plot
-      _dalitz1  = bookHisto2D("dalitz1",50,0.2,1.5,50,0.2,1.5);
+      book(_dalitz1, "dalitz1",50,0.2,1.5,50,0.2,1.5);
       // Histograms for a_10 -> pi+pi-pi0
       // Mass of the pi+pi- pair 
-      _hist2A   = bookHisto1D("hist2A",200,0.2,1.5);
+      book(_hist2A, "hist2A",200,0.2,1.5);
       // Mass of the pi+pi0 pair
-      _hist2B   = bookHisto1D("hist2B",200,0.2,1.5);
+      book(_hist2B, "hist2B",200,0.2,1.5);
       // Mass of the pi-pi0 pair
-      _hist2C   = bookHisto1D("hist2C",200,0.2,1.5);
+      book(_hist2C, "hist2C",200,0.2,1.5);
       // dalitz plot
-      _dalitz2  = bookHisto2D("dalitz2",50,0.2,1.5,50,0.2,1.5);
+      book(_dalitz2, "dalitz2",50,0.2,1.5,50,0.2,1.5);
       //  Histograms for a_1+ -> pi+pi+pi-
       // Mass of the pi+pi+ pair
-      _hist3A   = bookHisto1D("hist3A",200,0.2,1.5);
+      book(_hist3A, "hist3A",200,0.2,1.5);
       // Mass of the pi+pi- pair
-      _hist3B   = bookHisto1D("hist3B",200,0.2,1.5);
+      book(_hist3B, "hist3B",200,0.2,1.5);
       // dalitz plot
-      _dalitz3  = bookHisto2D("dalitz3",50,0.2,1.5,50,0.2,1.5);
+      book(_dalitz3, "dalitz3",50,0.2,1.5,50,0.2,1.5);
       
       // Book histograms omega/phi
       for(unsigned int ix=0;ix<2;++ix) {
 	double mmax = ix==0 ? 0.8 : 1.0; 
-	ostringstream title1; title1 << "xhist_" << ix+1;
-	_h_xhist  .push_back(bookHisto1D(title1.str(),200,-300.,300. ));
-	ostringstream title2; title2 << "yhist_" << ix+1;
-	_h_yhist  .push_back(bookHisto1D(title2.str(),200,0.   ,400. ));
-	ostringstream title3; title3 << "mplus_" << ix+1;
-	_h_mplus  .push_back(bookHisto1D(title3.str(),200,200.,mmax*1000.));
-	ostringstream title4; title4 << "mminus_" << ix+1;
-	_h_mminus .push_back(bookHisto1D(title4.str(),200,200.,mmax*1000.));
-	ostringstream title5; title5 << "m0_" << ix+1;
-	_h_m0     .push_back(bookHisto1D(title5.str(),200,200.,mmax*1000.));
-	ostringstream title6; title6 << "dalitz_" << ix+1;
-	_h_dalitz.push_back(bookHisto2D(title6.str(),50,0.2,mmax,50,0.2,mmax));
+	std::ostringstream title1; title1 << "xhist_" << ix+1;
+	_h_xhist  .push_back(Histo1DPtr());
+        book(_h_xhist.back(), title1.str(),200,-300.,300. );
+	std::ostringstream title2; title2 << "yhist_" << ix+1;
+	_h_yhist  .push_back(Histo1DPtr());
+        book(_h_yhist.back(), title2.str(),200,0.   ,400. );
+	std::ostringstream title3; title3 << "mplus_" << ix+1;
+	_h_mplus  .push_back(Histo1DPtr());
+        book(_h_mplus.back(), title3.str(),200,200.,mmax*1000.);
+	std::ostringstream title4; title4 << "mminus_" << ix+1;
+	_h_mminus .push_back(Histo1DPtr());
+        book(_h_mminus.back(), title4.str(),200,200.,mmax*1000.);
+	std::ostringstream title5; title5 << "m0_" << ix+1;
+	_h_m0     .push_back(Histo1DPtr());
+        book(_h_m0.back(), title5.str(),200,200.,mmax*1000.);
+	std::ostringstream title6; title6 << "dalitz_" << ix+1;
+	_h_dalitz.push_back(Histo2DPtr());
+        book(_h_dalitz.back(), title6.str(),50,0.2,mmax,50,0.2,mmax);
       }
     }
 
@@ -72,7 +78,7 @@ namespace Rivet {
     void findDecayProducts(const Particle & mother, unsigned int & nstable,
 			   Particles & pip , Particles & pim , Particles & pi0) {
       for(const Particle & p : mother.children()) {
-	int id = p.pdgId();
+	int id = p.pid();
         if (id == PID::PIPLUS) {
 	  pip.push_back(p);
 	  ++nstable;
@@ -95,7 +101,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      double weight = event.weight();
       for(const Particle& meson :
 	    apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::PHI || Cuts::pid==PID::OMEGA ||
 							     Cuts::abspid==20213 || Cuts::pid==20113 )) {
@@ -103,61 +108,61 @@ namespace Rivet {
        	Particles pip, pim, pi0;
       	findDecayProducts(meson, nstable, pip, pim, pi0);
 	if(nstable !=3) continue;
-	if(meson.pdgId()<0) {
+	if(meson.pid()<0) {
 	  swap(pim,pip);
 	}
-	if(meson.pdgId()== PID::PHI || meson.pdgId()==PID::OMEGA) {
+	if(meson.pid()== PID::PHI || meson.pid()==PID::OMEGA) {
 	  if(pip.size()!=1 || pim.size()!=1 || pi0.size()!=1) continue;
-	  unsigned int iloc = meson.pdgId() == PID::OMEGA ? 0 : 1;
+	  unsigned int iloc = meson.pid() == PID::OMEGA ? 0 : 1;
 	  LorentzTransform boost = LorentzTransform::mkFrameTransformFromBeta(meson.momentum().betaVec());
 	  FourMomentum pp = boost.transform(pip[0].momentum());
 	  FourMomentum pm = boost.transform(pim[0].momentum());
 	  FourMomentum p0 = boost.transform(pi0[0].momentum());
 	  double mp = (pp+p0).mass(), mm  = (pm+pp).mass();
-	  _h_mplus [iloc]->fill(mp/MeV,weight);
-	  _h_mminus[iloc]->fill((pm+p0).mass()/MeV,weight);
-	  _h_m0    [iloc]->fill(mm/MeV,weight);
+	  _h_mplus [iloc]->fill(mp/MeV);
+	  _h_mminus[iloc]->fill((pm+p0).mass()/MeV);
+	  _h_m0    [iloc]->fill(mm/MeV);
 	  double x = pp.t()-pm.t();
 	  double y = p0.t()-p0.mass();
-	  _h_xhist[iloc]->fill(x/MeV,weight);
-	  _h_yhist[iloc]->fill(y/MeV,weight);
-	  _h_dalitz[iloc]->fill(mp,mm,weight);
+	  _h_xhist[iloc]->fill(x/MeV);
+	  _h_yhist[iloc]->fill(y/MeV);
+	  _h_dalitz[iloc]->fill(mp,mm);
 	}
 	else {
 	  // a_1+ -> pi+pi+pi-
 	  if(pip.size()==2&&pim.size()==1) {
-	    _hist3A->fill((pip[0].momentum()+pip[1].momentum()).mass(),weight);
-	    _hist3B->fill((pip[0].momentum()+pim[0].momentum()).mass(),weight);
-	    _hist3B->fill((pip[1].momentum()+pim[0].momentum()).mass(),weight);
-	    _dalitz3->fill((pip[0].momentum()+pim[0].momentum()).mass(),(pip[1].momentum()+pim[0].momentum()).mass(),weight);
-	    _dalitz3->fill((pip[1].momentum()+pim[0].momentum()).mass(),(pip[0].momentum()+pim[0].momentum()).mass(),weight);
+	    _hist3A->fill((pip[0].momentum()+pip[1].momentum()).mass());
+	    _hist3B->fill((pip[0].momentum()+pim[0].momentum()).mass());
+	    _hist3B->fill((pip[1].momentum()+pim[0].momentum()).mass());
+	    _dalitz3->fill((pip[0].momentum()+pim[0].momentum()).mass(),(pip[1].momentum()+pim[0].momentum()).mass());
+	    _dalitz3->fill((pip[1].momentum()+pim[0].momentum()).mass(),(pip[0].momentum()+pim[0].momentum()).mass());
 	  }
 	  // a_1+ -> pi0pi0pi+
 	  else if(pip.size()==1&&pi0.size()==2) {
-	    _hist1A->fill((pi0[0].momentum()+pi0[1].momentum()).mass(),weight);
-	    _hist1B->fill((pip[0].momentum()+pi0[0].momentum()).mass(),weight);
-	    _hist1B->fill((pip[0].momentum()+pi0[1].momentum()).mass(),weight);
-	    _dalitz1->fill((pip[0].momentum()+pi0[0].momentum()).mass(),(pip[0].momentum()+pi0[1].momentum()).mass(),weight);
-	    _dalitz1->fill((pip[0].momentum()+pi0[1].momentum()).mass(),(pip[0].momentum()+pi0[0].momentum()).mass(),weight);
+	    _hist1A->fill((pi0[0].momentum()+pi0[1].momentum()).mass());
+	    _hist1B->fill((pip[0].momentum()+pi0[0].momentum()).mass());
+	    _hist1B->fill((pip[0].momentum()+pi0[1].momentum()).mass());
+	    _dalitz1->fill((pip[0].momentum()+pi0[0].momentum()).mass(),(pip[0].momentum()+pi0[1].momentum()).mass());
+	    _dalitz1->fill((pip[0].momentum()+pi0[1].momentum()).mass(),(pip[0].momentum()+pi0[0].momentum()).mass());
 	  }
 	  // a_10 -> pi0pi0pi0
 	  else if(pi0.size()==3) { 
-	    _hist0->fill((pi0[0].momentum()+pi0[1].momentum()).mass(),weight);
-	    _hist0->fill((pi0[0].momentum()+pi0[2].momentum()).mass(),weight);
-	    _hist0->fill((pi0[1].momentum()+pi0[2].momentum()).mass(),weight);
-	    _dalitz0->fill((pi0[0].momentum()+pi0[1].momentum()).mass(),(pi0[0].momentum()+pi0[2].momentum()).mass(),weight);
-	    _dalitz0->fill((pi0[0].momentum()+pi0[1].momentum()).mass(),(pi0[1].momentum()+pi0[2].momentum()).mass(),weight);
-	    _dalitz0->fill((pi0[0].momentum()+pi0[2].momentum()).mass(),(pi0[1].momentum()+pi0[2].momentum()).mass(),weight);
-	    _dalitz0->fill((pi0[0].momentum()+pi0[2].momentum()).mass(),(pi0[0].momentum()+pi0[1].momentum()).mass(),weight);
-	    _dalitz0->fill((pi0[1].momentum()+pi0[2].momentum()).mass(),(pi0[0].momentum()+pi0[1].momentum()).mass(),weight);
-	    _dalitz0->fill((pi0[1].momentum()+pi0[2].momentum()).mass(),(pi0[0].momentum()+pi0[2].momentum()).mass(),weight);
+	    _hist0->fill((pi0[0].momentum()+pi0[1].momentum()).mass());
+	    _hist0->fill((pi0[0].momentum()+pi0[2].momentum()).mass());
+	    _hist0->fill((pi0[1].momentum()+pi0[2].momentum()).mass());
+	    _dalitz0->fill((pi0[0].momentum()+pi0[1].momentum()).mass(),(pi0[0].momentum()+pi0[2].momentum()).mass());
+	    _dalitz0->fill((pi0[0].momentum()+pi0[1].momentum()).mass(),(pi0[1].momentum()+pi0[2].momentum()).mass());
+	    _dalitz0->fill((pi0[0].momentum()+pi0[2].momentum()).mass(),(pi0[1].momentum()+pi0[2].momentum()).mass());
+	    _dalitz0->fill((pi0[0].momentum()+pi0[2].momentum()).mass(),(pi0[0].momentum()+pi0[1].momentum()).mass());
+	    _dalitz0->fill((pi0[1].momentum()+pi0[2].momentum()).mass(),(pi0[0].momentum()+pi0[1].momentum()).mass());
+	    _dalitz0->fill((pi0[1].momentum()+pi0[2].momentum()).mass(),(pi0[0].momentum()+pi0[2].momentum()).mass());
 	  }
 	  // a_10 -> pi+pi-pi0
 	  else if(pi0.size()==1&&pip.size()==1&&pim.size()==1) {
-	    _hist2A->fill((pim[0].momentum()+pip[0].momentum()).mass(),weight);
-	    _hist2B->fill((pip[0].momentum()+pi0[0].momentum()).mass(),weight);
-	    _hist2C->fill((pim[0].momentum()+pi0[0].momentum()).mass(),weight);
-	    _dalitz2->fill((pim[0].momentum()+pi0[0].momentum()).mass(),(pip[0].momentum()+pi0[0].momentum()).mass(),weight);
+	    _hist2A->fill((pim[0].momentum()+pip[0].momentum()).mass());
+	    _hist2B->fill((pip[0].momentum()+pi0[0].momentum()).mass());
+	    _hist2C->fill((pim[0].momentum()+pi0[0].momentum()).mass());
+	    _dalitz2->fill((pim[0].momentum()+pi0[0].momentum()).mass(),(pip[0].momentum()+pi0[0].momentum()).mass());
 	  }
 	}
       }

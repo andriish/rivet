@@ -25,8 +25,8 @@ namespace H1_2015_I1343110_PROJECTIONS {
 
     RapidityGap() {
       setName("RapidityGap");
-      addProjection(DISKinematics(), "DISKIN");
-      addProjection(DISFinalState(DISFinalState::HCM), "DISFS");
+      declare(DISKinematics(), "DISKIN");
+      declare(DISFinalState(DISFinalState::BoostFrame::HCM), "DISFS");
     }
 
     DEFAULT_RIVET_PROJ_CLONE(RapidityGap);
@@ -70,7 +70,7 @@ namespace H1_2015_I1343110_PROJECTIONS {
 
   protected:
 
-    virtual int compare(const Projection& p) const {
+    virtual CmpState compare(const Projection& p) const {
       const RapidityGap& other = pcast<RapidityGap>(p);
       return mkNamedPCmp(other, "DISKIN") || mkNamedPCmp(other, "DISFS");
     }
@@ -118,7 +118,7 @@ namespace H1_2015_I1343110_PROJECTIONS {
 
       // Define the two systems X and Y.
       Particles tmp_pX, tmp_pY;
-      foreach (const Particle& ip, particles) {
+      for (const Particle& ip : particles) {
         if (dir * ip.eta() > _gapLow) tmp_pX.push_back(ip);
         else tmp_pY.push_back(ip);
       }
@@ -134,7 +134,7 @@ namespace H1_2015_I1343110_PROJECTIONS {
       
       // X - side
       FourMomentum momX;
-      foreach (const Particle& jp, pX) {
+      for (const Particle& jp : pX) {
         momX  += jp.momentum();
         _ePpzX_HCM += jp.E() - jp.pz(); // Sign + => -
         _eMpzX_HCM += jp.E() + jp.pz(); // Sign - => +
@@ -145,7 +145,7 @@ namespace H1_2015_I1343110_PROJECTIONS {
       
       // Y - side
       FourMomentum momY;
-      foreach (const Particle& kp, pY) momY += kp.momentum();
+      for (const Particle& kp : pY) momY += kp.momentum();
       _momY_HCM = momY;
       _pY_HCM   = pY;
       _M2Y      = _momY_HCM.mass2();
@@ -166,7 +166,7 @@ namespace H1_2015_I1343110_PROJECTIONS {
         _momY_XCM = xcmboost.transform(momY);
       }
       
-      foreach (const Particle& jp, pX) {
+      for (const Particle& jp : pX) {
         // Boost from HCM to LAB. 
         FourMomentum lab = hcminverse.transform(jp.momentum());
         _ePpzX_LAB += lab.E() + dir * lab.pz();
@@ -188,7 +188,7 @@ namespace H1_2015_I1343110_PROJECTIONS {
         }
       }
 
-      foreach (const Particle& jp, pY) {
+      for (const Particle& jp : pY) {
         // Boost from HCM to LAB
         FourMomentum lab = hcminverse.transform(jp.momentum());
         Particle plab = jp;
@@ -233,7 +233,7 @@ namespace H1_2015_I1343110_PROJECTIONS {
     BoostedXSystem(const FinalState& fs) {
       setName("BoostedXSystem");
       declare(fs,"FS");
-      addProjection(RapidityGap(), "RAPGAP");
+      declare(RapidityGap(), "RAPGAP");
     }
 
     // Return the boost to XCM frame.
@@ -270,7 +270,7 @@ namespace H1_2015_I1343110_PROJECTIONS {
     }
 
     // Compare projections.
-    int compare(const Projection& p) const {
+    CmpState compare(const Projection& p) const {
       const BoostedXSystem& other = pcast<BoostedXSystem>(p);
       return mkNamedPCmp(other, "RAPGAP") || mkNamedPCmp(other, "FS");
     }
@@ -305,40 +305,40 @@ namespace H1_2015_I1343110_PROJECTIONS {
     void init() {
 
       declare(DISKinematics(), "Kinematics");
-      const DISFinalState& disfs = declare(DISFinalState(DISFinalState::HCM), "DISFS");
+      const DISFinalState& disfs = declare(DISFinalState(DISFinalState::BoostFrame::HCM), "DISFS");
       const BoostedXSystem& disfsXcm = declare( BoostedXSystem(disfs), "BoostedXFS");
       declare(FastJets(disfsXcm, fastjet::JetAlgorithm::kt_algorithm, fastjet::RecombinationScheme::pt_scheme, 1.0, 
-        JetAlg::ALL_MUONS, JetAlg::NO_INVISIBLES, nullptr), "DISFSJets");
+                       JetAlg::Muons::ALL, JetAlg::Invisibles::NONE, nullptr), "DISFSJets");
       declare(DISDiffHadron(), "Hadron");
       declare(RapidityGap(), "RapidityGap");
 
       // Book histograms from REF data
-      _h_PHO_sig_sqrts     = bookHisto1D(1, 1, 1);
-      _h_DIS_sig_sqrts     = bookHisto1D(2, 1, 1);
-      _h_PHODIS_sqrts      = bookScatter2D(3, 1, 1);
+      book(_h_PHO_sig_sqrts, 1, 1, 1);
+      book(_h_DIS_sig_sqrts, 2, 1, 1);
+      book(_h_PHODIS_sqrts, 3, 1, 1);
 
-      _h_DIS_dsigdz        = bookHisto1D(4, 1, 1);
-      _h_DIS_dsigdxPom     = bookHisto1D(5, 1, 1);
-      _h_DIS_dsigdy        = bookHisto1D(6, 1, 1);
-      _h_DIS_dsigdQ2       = bookHisto1D(7, 1, 1);
-      _h_DIS_dsigdEtj1     = bookHisto1D(8, 1, 1);
-      _h_DIS_dsigdMX       = bookHisto1D(9, 1, 1);
-      _h_DIS_dsigdDeltaEta = bookHisto1D(10, 1, 1);
-      _h_DIS_dsigdAvgEta   = bookHisto1D(11, 1, 1);
+      book(_h_DIS_dsigdz, 4, 1, 1);
+      book(_h_DIS_dsigdxPom, 5, 1, 1);
+      book(_h_DIS_dsigdy, 6, 1, 1);
+      book(_h_DIS_dsigdQ2, 7, 1, 1);
+      book(_h_DIS_dsigdEtj1, 8, 1, 1);
+      book(_h_DIS_dsigdMX, 9, 1, 1);
+      book(_h_DIS_dsigdDeltaEta, 10, 1, 1);
+      book(_h_DIS_dsigdAvgEta, 11, 1, 1);
 
-      _h_PHO_dsigdz        = bookHisto1D(12, 1, 1);
-      _h_PHO_dsigdxPom     = bookHisto1D(13, 1, 1);
-      _h_PHO_dsigdy        = bookHisto1D(14, 1, 1);
-      _h_PHO_dsigdxGam     = bookHisto1D(15, 1, 1);
-      _h_PHO_dsigdEtj1     = bookHisto1D(16, 1, 1);
-      _h_PHO_dsigdMX       = bookHisto1D(17, 1, 1);
-      _h_PHO_dsigdDeltaEta = bookHisto1D(18, 1, 1);
-      _h_PHO_dsigdAvgEta   = bookHisto1D(19, 1, 1);
+      book(_h_PHO_dsigdz, 12, 1, 1);
+      book(_h_PHO_dsigdxPom, 13, 1, 1);
+      book(_h_PHO_dsigdy, 14, 1, 1);
+      book(_h_PHO_dsigdxGam, 15, 1, 1);
+      book(_h_PHO_dsigdEtj1, 16, 1, 1);
+      book(_h_PHO_dsigdMX, 17, 1, 1);
+      book(_h_PHO_dsigdDeltaEta, 18, 1, 1);
+      book(_h_PHO_dsigdAvgEta, 19, 1, 1);
 
-      _h_PHODIS_deltaEta   = bookScatter2D(20, 1, 1);
-      _h_PHODIS_y          = bookScatter2D(21, 1, 1);
-      _h_PHODIS_z          = bookScatter2D(22, 1, 1);
-      _h_PHODIS_Etj1       = bookScatter2D(23, 1, 1);
+      book(_h_PHODIS_deltaEta, 20, 1, 1);
+      book(_h_PHODIS_y, 21, 1, 1);
+      book(_h_PHODIS_z, 22, 1, 1);
+      book(_h_PHODIS_Etj1, 23, 1, 1);
       
       isPHO  = false;
       nVeto1 = 0;
@@ -355,7 +355,6 @@ namespace H1_2015_I1343110_PROJECTIONS {
     void analyze(const Event& event) {
 
       // Event weight
-      const double weight = event.weight(); 
       isPHO  = false;
       
       // Projections - special handling of events where no proton found:
@@ -474,25 +473,25 @@ namespace H1_2015_I1343110_PROJECTIONS {
 
       // Now fill histograms
       if (isPHO){
-        _h_PHO_sig_sqrts     ->fill(sqrtS()/GeV,   weight);
-        _h_PHO_dsigdz        ->fill(zPomJets,      weight);
-        _h_PHO_dsigdxPom     ->fill(xPom,          weight);
-        _h_PHO_dsigdy        ->fill(y,             weight);
-        _h_PHO_dsigdxGam     ->fill(xGamJets,      weight);
-        _h_PHO_dsigdEtj1     ->fill(EtJet1,        weight);
-        _h_PHO_dsigdMX       ->fill(sqrt(M2X)*GeV, weight);
-        _h_PHO_dsigdDeltaEta ->fill(deltaEtaJets,  weight);
-        _h_PHO_dsigdAvgEta   ->fill(avgEtaJets,    weight);
+        _h_PHO_sig_sqrts     ->fill(sqrtS()/GeV);
+        _h_PHO_dsigdz        ->fill(zPomJets);
+        _h_PHO_dsigdxPom     ->fill(xPom);
+        _h_PHO_dsigdy        ->fill(y);
+        _h_PHO_dsigdxGam     ->fill(xGamJets);
+        _h_PHO_dsigdEtj1     ->fill(EtJet1);
+        _h_PHO_dsigdMX       ->fill(sqrt(M2X)/GeV);
+        _h_PHO_dsigdDeltaEta ->fill(deltaEtaJets);
+        _h_PHO_dsigdAvgEta   ->fill(avgEtaJets);
       } else {
-      	_h_DIS_sig_sqrts     ->fill(sqrtS()/GeV,   weight);
-        _h_DIS_dsigdz        ->fill(zPomJets,      weight);
-        _h_DIS_dsigdxPom     ->fill(xPom,          weight);
-        _h_DIS_dsigdy        ->fill(y,             weight);
-        _h_DIS_dsigdQ2       ->fill(Q2,            weight);
-        _h_DIS_dsigdEtj1     ->fill(EtJet1,        weight);
-        _h_DIS_dsigdMX       ->fill(sqrt(M2X)*GeV, weight);
-        _h_DIS_dsigdDeltaEta ->fill(deltaEtaJets,  weight);
-        _h_DIS_dsigdAvgEta   ->fill(avgEtaJets,    weight);
+      	_h_DIS_sig_sqrts     ->fill(sqrtS()/GeV);
+        _h_DIS_dsigdz        ->fill(zPomJets);
+        _h_DIS_dsigdxPom     ->fill(xPom);
+        _h_DIS_dsigdy        ->fill(y);
+        _h_DIS_dsigdQ2       ->fill(Q2);
+        _h_DIS_dsigdEtj1     ->fill(EtJet1);
+        _h_DIS_dsigdMX       ->fill(sqrt(M2X)/GeV);
+        _h_DIS_dsigdDeltaEta ->fill(deltaEtaJets);
+        _h_DIS_dsigdAvgEta   ->fill(avgEtaJets);
       }                    
       
     }

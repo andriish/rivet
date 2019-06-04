@@ -20,8 +20,8 @@ namespace Rivet {
     void init() {
       declare(Beam(), "Beams");
       declare(UnstableParticles(), "UFS");
-      _histXpSigma  = bookHisto1D( 1, 1, 1);
-      _histXpLambda = bookHisto1D( 3, 1, 1);
+      book(_histXpSigma,  1, 1, 1);
+      book(_histXpLambda,  3, 1, 1);
     }
 
 
@@ -30,7 +30,6 @@ namespace Rivet {
 
 
       // Get event weight for histo filling
-      const double weight = event.weight();
 
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
@@ -38,15 +37,15 @@ namespace Rivet {
                                    beams.second.p3().mod() ) / 2.0;
       
       const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         const int id = p.abspid();
         double xp = p.p3().mod()/meanBeamMom;
         switch (id) {
         case 3112:
-          _histXpSigma->fill(xp, weight);
+          _histXpSigma->fill(xp);
 	  break;
         case 3124:
-          _histXpLambda->fill(xp, weight);
+          _histXpLambda->fill(xp);
 	  break;
 	}
       }

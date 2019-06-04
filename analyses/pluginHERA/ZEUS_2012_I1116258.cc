@@ -43,26 +43,26 @@ namespace Rivet {
       declare(DISKinematics(), "Kinematics");
       
       // all eta
-      _h_etjet[0] = bookHisto1D(1, 1, 1);
+      book(_h_etjet[0], 1, 1, 1);
       
       // two ET cuts.
-      _h_etajet[0] = bookHisto1D(2, 1, 1);
-      _h_etajet[1] = bookHisto1D(3, 1, 1);
+      book(_h_etajet[0], 2, 1, 1);
+      book(_h_etajet[1], 3, 1, 1);
       
       // in eta regions
-      _h_etjet[1] = bookHisto1D(4, 1, 1);
-      _h_etjet[2] = bookHisto1D(5, 1, 1);
-      _h_etjet[3] = bookHisto1D(6, 1, 1);
-      _h_etjet[4] = bookHisto1D(7, 1, 1);
-      _h_etjet[5] = bookHisto1D(8, 1, 1);
+      book(_h_etjet[1], 4, 1, 1);
+      book(_h_etjet[2], 5, 1, 1);
+      book(_h_etjet[3], 6, 1, 1);
+      book(_h_etjet[4], 7, 1, 1);
+      book(_h_etjet[5], 8, 1, 1);
       
       // antiKT
-      _h_etjet[6] = bookHisto1D(9, 1, 1);
-      _h_etajet[2] = bookHisto1D(11, 1, 1);
+      book(_h_etjet[6], 9, 1, 1);
+      book(_h_etajet[2], 11, 1, 1);
       
       // SiSCone
-      _h_etjet[7] = bookHisto1D(10, 1, 1);
-      _h_etajet[3] = bookHisto1D(12, 1, 1);
+      book(_h_etjet[7], 10, 1, 1);
+      book(_h_etajet[3], 12, 1, 1);
       
     }
     
@@ -92,34 +92,32 @@ namespace Rivet {
 
 
       // Fill histograms
-      const double weight = event.weight();
-
       for (const Jet& jet : jets ){
-	_h_etjet[0]->fill(jet.pt(), weight);
-	_h_etajet[0]->fill(orientation*jet.eta(), weight);
+	_h_etjet[0]->fill(jet.pt());
+	_h_etajet[0]->fill(orientation*jet.eta());
 	if (jet.pt()>21*GeV) {
-	  _h_etajet[1]->fill(orientation*jet.eta(), weight);
+	  _h_etajet[1]->fill(orientation*jet.eta());
 	}
 	if (orientation*jet.eta() < 0) { 
-	  _h_etjet[1]->fill(jet.pt(), weight);
+	  _h_etjet[1]->fill(jet.pt());
 	} else if (orientation*jet.eta() < 1) { 
-	  _h_etjet[2]->fill(jet.pt(), weight);
+	  _h_etjet[2]->fill(jet.pt());
 	} else if (orientation*jet.eta() < 1.5) { 
-	  _h_etjet[3]->fill(jet.pt(), weight);
+	  _h_etjet[3]->fill(jet.pt());
 	} else if (orientation*jet.eta() < 2) { 
-	  _h_etjet[4]->fill(jet.pt(), weight);
+	  _h_etjet[4]->fill(jet.pt());
 	} else { 
-	  _h_etjet[5]->fill(jet.pt(), weight);
+	  _h_etjet[5]->fill(jet.pt());
 	}
       }
 
       for (const Jet& jet : jets_akt ){
-	_h_etjet[6]->fill(jet.pt(), weight);
-	_h_etajet[2]->fill(orientation*jet.eta(), weight);
+	_h_etjet[6]->fill(jet.pt());
+	_h_etajet[2]->fill(orientation*jet.eta());
       }
       for (const Jet& jet : jets_sis ){
-	_h_etjet[7]->fill(jet.pt(), weight);
-	_h_etajet[3]->fill(orientation*jet.eta(), weight);
+	_h_etjet[7]->fill(jet.pt());
+	_h_etajet[3]->fill(orientation*jet.eta());
       }
 
     }

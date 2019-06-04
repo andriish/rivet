@@ -22,11 +22,11 @@ namespace Rivet {
       declare(FinalState(), "FS");
 
       // Book histograms
-      _c_hadrons = bookCounter("/TMP/sigma_hadrons");
-      _c_muons   = bookCounter("/TMP/sigma_muons");
-      _c_charged = bookCounter("/TMP/Ncharged");
-      _c_neutral = bookCounter("/TMP/Nneutral");
-      _nHadrons = 0.;
+      book(_c_hadrons, "/TMP/sigma_hadrons");
+      book(_c_muons, "/TMP/sigma_muons");
+      book(_c_charged, "/TMP/Ncharged");
+      book(_c_neutral, "/TMP/Nneutral");
+      book(_nHadrons, "/TMP/NHadrons");
     }
 
 
@@ -36,10 +36,10 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0),ncharged(0),nneutral(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
-	if(PID::isCharged(p.pdgId()))
+	if(PID::isCharged(p.pid()))
 	  ncharged += 1;
 	else
 	  nneutral += 1;
@@ -47,14 +47,14 @@ namespace Rivet {
       // mu+mu- + photons
       if(nCount[-13]==1 and nCount[13]==1 &&
 	 ntotal==2+nCount[22])
-	_c_muons->fill(event.weight());
+	_c_muons->fill();
       // everything else
       else {
 	if(ntotal==2) vetoEvent;
-	_c_hadrons->fill(event.weight());
-	_c_charged->fill(ncharged*event.weight());
-	_c_neutral->fill(nneutral*event.weight());
-	_nHadrons += event.weight();
+	_c_hadrons->fill();
+	_c_charged->fill(ncharged);
+	_c_neutral->fill(nneutral);
+	_nHadrons->fill();
       }
     }
 
@@ -70,9 +70,12 @@ namespace Rivet {
       double sig_m = _c_muons  ->val()*fact;
       double err_m = _c_muons  ->err()*fact;
       Scatter2D temphisto(refData(1, 1, 1));
-      Scatter2DPtr hadrons  = bookScatter2D("sigma_hadrons");
-      Scatter2DPtr muons    = bookScatter2D("sigma_muons"  );
-      Scatter2DPtr     mult = bookScatter2D(1, 1, 1);
+      Scatter2DPtr hadrons;
+      book(hadrons, "sigma_hadrons");
+      Scatter2DPtr muons;
+      book(muons, "sigma_muons"  );
+      Scatter2DPtr mult;
+      book(mult, 1, 1, 1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	const double x  = temphisto.point(b).x();
 	pair<double,double> ex = temphisto.point(b).xErrs();
@@ -90,8 +93,8 @@ namespace Rivet {
 	  muons  ->addPoint(x, 0., ex, make_pair(0.,.0));
 	}
       }
-      scale(_c_charged, 1./_nHadrons);
-      scale(_c_neutral, 1./_nHadrons);
+      scale(_c_charged, 1./_nHadrons->sumW());
+      scale(_c_neutral, 1./_nHadrons->sumW());
       for(unsigned int iy=1; iy<3;++iy) {
 	double aver(0.),error(0.);
 	if(iy==1) {
@@ -103,7 +106,8 @@ namespace Rivet {
 	  error = _c_neutral->err();
 	}
 	Scatter2D temphisto(refData(2, 1, iy));
-	Scatter2DPtr     mult = bookScatter2D(2, 1, iy);
+	Scatter2DPtr mult;
+	book(mult, 2, 1, iy);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();
@@ -126,7 +130,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     CounterPtr _c_hadrons, _c_muons,_c_neutral,_c_charged;
-    double _nHadrons;
+    CounterPtr _nHadrons;
     //@}
 
 

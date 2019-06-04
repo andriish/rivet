@@ -30,7 +30,7 @@ namespace Rivet {
 			   Particles& nu, Particles& nub,
 			   Particles& out) {
       for(const Particle & p : mother.children()) {
-	int id = p.pdgId();
+	int id = p.pid();
      	if ( id == PID::EMINUS || id == PID::MUON ) {
       	  lm .push_back(p);
       	  ++nstable;
@@ -61,10 +61,9 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      double weight = event.weight();
       // loop over unstable particles
       for(const Particle& meson : apply<UnstableParticles>(event, "UFS").particles()) {
-	int id = meson.pdgId();
+	int id = meson.pid();
 	// spin 0 mesons
 	if(!PID::isMeson(id)) continue;
 	if(abs(id)%10!=1) continue;
@@ -76,15 +75,15 @@ namespace Rivet {
 	FourMomentum plep,pmnu=out[0].momentum();
 	double me2(0.);
 	if( lp.size()==1 && nu.size()==1 && out.size()==1 ) {
-	  if(nu[0].pdgId()  != -lp[0].pdgId()+1) continue;
-	  ilep =  lp[0].pdgId();
+	  if(nu[0].pid()  != -lp[0].pid()+1) continue;
+	  ilep =  lp[0].pid();
 	  plep = nu[0].momentum()+lp[0].momentum();
 	  pmnu += nu[0].momentum();
 	  me2 = lp[0].mass2();
 	}
 	else if( lm.size()==1 && nub.size()==1 && out.size()==1 ) {
-	  if(nub[0].pdgId() != -lm[0].pdgId()-1) continue;
-	  ilep =  lm[0].pdgId();
+	  if(nub[0].pid() != -lm[0].pid()-1) continue;
+	  ilep =  lm[0].pid();
 	  plep = nub[0].momentum()+lm[0].momentum();
 	  pmnu += nub[0].momentum();
 	  me2 = lm[0].mass2();
@@ -95,35 +94,37 @@ namespace Rivet {
 	unsigned int iloc=0; bool found(false);
 	while(!found&&iloc<_incoming.size()) {
 	  if(_incoming[iloc] == id  &&
-	     _outgoing[iloc] == out[0].pdgId() &&
+	     _outgoing[iloc] == out[0].pid() &&
 	     ilep==_outgoingL[iloc]) found=true; 
 	  else ++iloc;
 	}
 	if(!found) {
 	  iloc=_incoming.size();
 	  _incoming.push_back(id);
-	  _outgoing.push_back(out[0].pdgId());
+	  _outgoing.push_back(out[0].pid());
 	  _outgoingL.push_back(ilep);
-	  ostringstream title;
+	  std::ostringstream title;
 	  title << "h_" << abs(id);
 	  if(id>0) title << "p";
 	  else     title << "m";
-	  title << "_" << abs(out[0].pdgId());
-	  if(out[0].pdgId()>0) title << "p";
+	  title << "_" << abs(out[0].pid());
+	  if(out[0].pid()>0) title << "p";
 	  else                 title << "m";
 	  title << "_" << abs(ilep);
 	  if(ilep>0) title << "p";
 	  else       title << "m";
 	  title << "_";
-	  _energy.push_back(bookHisto1D(title.str()+"energy",
-					200,0.0,0.5*meson.mass()/MeV));
-	  _scale .push_back(bookHisto1D(title.str()+"scale",
-					200,0.0,meson.mass()/MeV));
+	  _energy.push_back(Histo1DPtr());
+          book(_energy.back(), title.str()+"energy",
+               200,0.0,0.5*meson.mass()/MeV);
+          _scale .push_back(Histo1DPtr());
+          book(_scale.back(), title.str()+"scale",
+               200,0.0,meson.mass()/MeV);
 	}
 	// add the results to the histogram
-	_scale[iloc]->fill(plep.mass()/MeV,weight);
+	_scale[iloc]->fill(plep.mass()/MeV);
 	double ee = 0.5/meson.mass()*(meson.mass2()-pmnu.mass2()+me2);
-	_energy[iloc]->fill(ee/MeV,weight);
+	_energy[iloc]->fill(ee/MeV);
       }
     }
 

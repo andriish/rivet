@@ -39,7 +39,7 @@ namespace Rivet {
 
 
       // Book xsec counter
-      _c_xsec_fid = bookCounter("xsec");
+      book(_c_xsec_fid, "xsec");
     }
 
 
@@ -82,7 +82,7 @@ namespace Rivet {
       if (photons.empty()) vetoEvent;
 
       // Fill counter
-      _c_xsec_fid->fill(event.weight());
+      _c_xsec_fid->fill();
     }
 
 

@@ -24,8 +24,8 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      _c_B     = bookCounter("/TMP/sigma_B");
-      _c_Bstar = bookCounter("/TMP/sigma_Bstar");
+      book(_c_B, "/TMP/sigma_B");
+      book(_c_Bstar, "/TMP/sigma_Bstar");
 
     }
 
@@ -38,14 +38,14 @@ namespace Rivet {
       const Particles bhads = filter_select(ufs.particles(), isBottomHadron);
       // find the Bstars
       for (const Particle& p : bhads) {
-        if(abs(p.pdgId())==513 || abs(p.pdgId())==523) {
-          if(!p.hasDescendantWith(Cuts::pid == p.pdgId())) ++nBstar;
+        if(abs(p.pid())==513 || abs(p.pid())==523) {
+          if(!p.hasDescendantWith(Cuts::pid == p.pid())) ++nBstar;
         }
       }
       if(!bhads.empty())
-        _c_B->fill(event.weight());
+        _c_B->fill();
       if(nBstar!=0)
-        _c_Bstar->fill(nBstar*event.weight());
+        _c_Bstar->fill(nBstar);
     }
 
 
@@ -63,7 +63,8 @@ namespace Rivet {
           err = _c_Bstar->err()*fact;
         }
         Scatter2D    temphisto(refData(ix, 1, 1));
-        Scatter2DPtr mult = bookScatter2D(ix, 1, 1);
+        Scatter2DPtr mult;
+        book(mult, ix, 1, 1);
         for (size_t b = 0; b < temphisto.numPoints(); b++) {
           const double x  = temphisto.point(b).x();
           pair<double,double> ex = temphisto.point(b).xErrs();

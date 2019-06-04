@@ -34,7 +34,7 @@ namespace Rivet {
     void findDecayProducts(const Particle &mother, unsigned int &nstable, unsigned int &npip,
                            unsigned int &npim, unsigned int &npi0, FourMomentum &ptot) {
       for (const Particle &p : mother.children()) {
-        int id = p.pdgId();
+        int id = p.pid();
         if (id == PID::KPLUS || id == PID::KMINUS) {
           ++nstable;
           ptot += p.momentum();

@@ -29,7 +29,7 @@ namespace Rivet {
 			   Particles& pip, Particles& pim,
 			   Particles& pi0, Particles & onium) {
       for(const Particle & p : mother.children()) {
-        int id = p.pdgId();
+        int id = p.pid();
       	if ( id == PID::PIMINUS) {
 	  pim.push_back(p);
 	  ++nstable;
@@ -56,10 +56,9 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      double weight = event.weight();
       // loop over unstable particles
       for(const Particle& vMeson : apply<UnstableParticles>(event, "UFS").particles()) {
-	int id = vMeson.pdgId();
+	int id = vMeson.pid();
 	if(id%1000!=443 && id%1000!=553) continue;
 	unsigned int nstable(0);
 	Particles pip, pim, pi0, onium;
@@ -71,7 +70,7 @@ namespace Rivet {
 	// check if histos already made
 	unsigned int iloc=0; bool found(false);
 	while(!found&&iloc<_incoming.size()) {
-	  if(_incoming[iloc]==vMeson.pdgId()&&_outgoing[iloc]==onium[0].pdgId()) found=true;
+	  if(_incoming[iloc]==vMeson.pid()&&_outgoing[iloc]==onium[0].pid()) found=true;
 	  else ++iloc;
 	}
 	// if histos not made, make them
@@ -79,14 +78,16 @@ namespace Rivet {
 	  double twompi = 0.378;
 	  double upp    = vMeson.mass()-onium[0].mass();
 	  iloc=_incoming.size();
-	  _incoming.push_back(vMeson.pdgId());
-	  _outgoing.push_back(onium[0].pdgId());
-	  ostringstream title;
-	  title << "h_" << vMeson.pdgId() << "_" << onium[0].pdgId() << "_";
-	  _mpipi.push_back(make_pair(bookHisto1D(title.str()+"mpippim",200,twompi/GeV,upp/GeV),
-				     bookHisto1D(title.str()+"mpi0pi0",200,twompi/GeV,upp/GeV)));
-	  _hel  .push_back(make_pair(bookHisto1D(title.str()+"hpippim",200,-1.,1.),
-				     bookHisto1D(title.str()+"hpi0pi0",200, 0.,1.)));
+	  _incoming.push_back(vMeson.pid());
+	  _outgoing.push_back(onium[0].pid());
+	  std::ostringstream title;
+	  title << "h_" << vMeson.pid() << "_" << onium[0].pid() << "_";
+          _mpipi.push_back(make_pair(Histo1DPtr(), Histo1DPtr()));
+          book(_mpipi.back().first, title.str()+"mpippim",200,twompi/GeV,upp/GeV);
+          book(_mpipi.back().second, title.str()+"mpi0pi0",200,twompi/GeV,upp/GeV);
+          _hel.push_back(make_pair(Histo1DPtr(), Histo1DPtr()));
+          book(_hel.back().first, title.str()+"hpippim",200,-1.,1.);
+          book(_hel.back().second, title.str()+"hpi0pi0",200, 0.,1.);
 	}
 	// boost to rest frame of the pion pair
 	FourMomentum q = vMeson.momentum()-onium[0].momentum();
@@ -97,12 +98,12 @@ namespace Rivet {
 	ppi = boost.transform(ppi);
 	double cX=-ppi.p3().unit().dot(qp.p3().unit());
 	if(pi0.size()==2) {
-	  _mpipi[iloc].second->fill(q.mass(),weight);
-	  _hel  [iloc].second->fill(abs(cX),weight);
+	  _mpipi[iloc].second->fill(q.mass());
+	  _hel  [iloc].second->fill(abs(cX));
 	}
 	else {
-	  _mpipi[iloc].first->fill(q.mass(),weight);
-	  _hel  [iloc].first->fill(cX,weight);
+	  _mpipi[iloc].first->fill(q.mass());
+	  _hel  [iloc].first->fill(cX);
 	}
       }
     }
