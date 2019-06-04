@@ -19,7 +19,7 @@ namespace Rivet {
     /// momentum.
     UndressBeamLeptons(double theta = 0.0): _thetamax(theta) {
       setName("UndressBeamLeptons");
-      addProjection(FinalState(), "FS");
+      declare(FinalState(), "FS");
     }
 
     /// Clone on the heap
@@ -33,7 +33,7 @@ namespace Rivet {
   private:
 
     /// Compare with other projections.
-    virtual int compare(const Projection & p) const;
+    virtual CmpState compare(const Projection & p) const;
 
     /// The beam particles in the current collision
     double _thetamax;

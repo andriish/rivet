@@ -23,14 +23,14 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      _h_m = bookHisto1D(1, 1, 3);
-      _netap = 0.;
+      book(_h_m, 1, 1, 3);
+      book(_netap, "TMP/netap");
     }
     
     void findDecayProducts(const Particle & mother, unsigned int & nstable, unsigned int & ngamma, 
                            unsigned int & nep, unsigned int & nem, FourMomentum & ptot) {
       for(const Particle & p : mother.children()) {
-        int id = p.pdgId();
+        int id = p.pid();
         if (id == PID::EMINUS ) {
 	  ++nem;
           ++nstable;
@@ -58,14 +58,14 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Loop over eta' mesons
-      foreach(const Particle& p, apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==331)) {
+      for (const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==331)) {
 	unsigned nstable(0),ngamma(0),nep(0),nem(0);
 	FourMomentum ptot;
 	findDecayProducts(p,nstable,ngamma,nep,nem,ptot);
 	if(nstable==3 && nem==1 && nem==1 && ngamma==1)
-	  _h_m->fill(ptot.mass(),event.weight());
+	  _h_m->fill(ptot.mass());
 	else if(nstable==2 &&ngamma==2)
-	  _netap+=event.weight();
+	  _netap->fill();
       }
     }
 
@@ -75,7 +75,7 @@ namespace Rivet {
 
       // divide by no so BR and mult by bin width
       // and 100 as in %
-      scale(_h_m,1./_netap*0.1*100.);
+      scale(_h_m,1./_netap->sumW()*0.1*100.);
 
     }
 
@@ -85,7 +85,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_m;
-    double _netap;
+    CounterPtr _netap;
     //@}
 
 

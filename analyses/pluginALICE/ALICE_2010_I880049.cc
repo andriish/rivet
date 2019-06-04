@@ -42,8 +42,8 @@ namespace Rivet {
       declare(HepMCHeavyIon(), "HepMC");
 
       // Histograms and variables initialization
-      _histNchVsCentr = bookProfile1D(1, 1, 1);
-      _histNpartVsCentr = bookProfile1D(1, 1, 2);
+      book(_histNchVsCentr, 1, 1, 1);
+      book(_histNpartVsCentr, 1, 1, 2);
 
     }
 

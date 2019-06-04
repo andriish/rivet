@@ -24,10 +24,10 @@ namespace Rivet {
       declare(FinalState(), "FS");
 
       // Book histograms
-      _nKSKL     = bookCounter("TMP/nKSKL");
-      _nKSKLpipi = bookCounter("TMP/nKSKLpipi");
-      _nKSKSpipi = bookCounter("TMP/nKSKSpipi");
-      _nKSKSKpKm = bookCounter("TMP/nKSKSKpKm");
+      book(_nKSKL    , "TMP/nKSKL");
+      book(_nKSKLpipi, "TMP/nKSKLpipi");
+      book(_nKSKSpipi, "TMP/nKSKSpipi");
+      book(_nKSKSKpKm, "TMP/nKSKSKpKm");
     }
 
 
@@ -37,19 +37,19 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       
       if(ntotal==2 && nCount[130]==1 && nCount[310]==1)
-	_nKSKL->fill(event.weight());
+	_nKSKL->fill();
       else if( ntotal==4 &&  nCount[130]==1 && nCount[310]==1 && nCount[211]==1 && nCount[-211]==1)
-	_nKSKLpipi->fill(event.weight());
+	_nKSKLpipi->fill();
       else if( ntotal==4 && nCount[310]==2 && nCount[211]==1 && nCount[-211]==1 )
-	_nKSKSpipi->fill(event.weight());
+	_nKSKSpipi->fill();
       else if( ntotal==4 && nCount[310]==2 && nCount[321]==1 && nCount[-321]==1)
-	_nKSKSKpKm->fill(event.weight());
+	_nKSKSKpKm->fill();
 
     }
 
@@ -78,7 +78,8 @@ namespace Rivet {
     	sigma *= crossSection()/ sumOfWeights() /nanobarn;
     	error *= crossSection()/ sumOfWeights() /nanobarn;
 	Scatter2D temphisto(refData(ix, 1, 1));
-	Scatter2DPtr  mult = bookScatter2D(ix, 1, 1);
+	Scatter2DPtr  mult;
+        book(mult, ix, 1, 1);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

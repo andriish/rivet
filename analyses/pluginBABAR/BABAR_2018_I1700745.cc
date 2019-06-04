@@ -24,17 +24,17 @@ namespace Rivet {
       // Initialise and register projections
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      _num5Pi        = bookCounter("TMP/5Pi");
-      _num2PiEta     = bookCounter("TMP/2PiEta");
-      _numOmegaPiPi  = bookCounter("TMP/OmegaPiPi");
-      _num4PiEta     = bookCounter("TMP/4PiEta");
-      _numOmegaPiEta = bookCounter("TMP/OmegaPiEta");
+      book(_num5Pi       , "TMP/5Pi");
+      book(_num2PiEta    , "TMP/2PiEta");
+      book(_numOmegaPiPi , "TMP/OmegaPiPi");
+      book(_num4PiEta    , "TMP/4PiEta");
+      book(_numOmegaPiEta, "TMP/OmegaPiEta");
     }
     
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for(const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  --nRes[child.pdgId()];
+	  --nRes[child.pid()];
 	  --ncount;
 	}
 	else
@@ -47,22 +47,22 @@ namespace Rivet {
       const FinalState& fs = apply<FinalState>(event, "FS");
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       if(ntotal==5 && nCount[211]==1 && nCount[-211]==1 && nCount[111]==3)
-	_num5Pi->fill(event.weight());
+	_num5Pi->fill();
       const FinalState& ufs = apply<FinalState>(event, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
      	if(p.children().empty()) continue;
 	// find eta/omegas
-      	if(p.pdgId()==221 || p.pdgId()==223 ) {
+      	if(p.pid()==221 || p.pid()==223 ) {
        	  map<long,int> nRes = nCount;
        	  int ncount = ntotal;
        	  findChildren(p,nRes,ncount);
 	  // eta
-	  if(p.pdgId()==221) {
+	  if(p.pid()==221) {
 	    // 2 pi eta
 	    if(ncount==2) {
 	      bool matched = true;
@@ -79,7 +79,7 @@ namespace Rivet {
 		}
 	      }
 	      if(matched)
-		_num2PiEta->fill(event.weight());
+		_num2PiEta->fill();
 	    }
 	    // 4 pi eta
 	    else if(ncount==4) {
@@ -103,11 +103,11 @@ namespace Rivet {
 		}
 	      }
 	      if(matched)
-		_num4PiEta->fill(event.weight());
+		_num4PiEta->fill();
 	    }
 	    // pi0 omega eta
-	    foreach (const Particle& p2, ufs.particles()) {
-	      if(p2.pdgId()!=223) continue;
+	    for (const Particle& p2 : ufs.particles()) {
+	      if(p2.pid()!=223) continue;
 	      map<long,int> nResB = nRes;
 	      int ncountB = ncount;
 	      findChildren(p2,nResB,ncountB);
@@ -126,7 +126,7 @@ namespace Rivet {
 		}
 	      }
 	      if(matched) {
-		_numOmegaPiEta->fill(event.weight());
+		_numOmegaPiEta->fill();
 		break;
 	      }
 	    }
@@ -147,7 +147,7 @@ namespace Rivet {
 	      }
 	    }
 	    if(matched)
-	      _numOmegaPiPi->fill(event.weight());
+	      _numOmegaPiPi->fill();
 	  }
 	}
       }
@@ -180,7 +180,8 @@ namespace Rivet {
 	sigma *= crossSection()/ sumOfWeights() /nanobarn;
 	error *= crossSection()/ sumOfWeights() /nanobarn; 
 	Scatter2D temphisto(refData(ix, 1, 1));
-	Scatter2DPtr  mult = bookScatter2D(ix, 1, 1);
+	Scatter2DPtr  mult;
+        book(mult, ix, 1, 1);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

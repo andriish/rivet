@@ -23,13 +23,13 @@ namespace Rivet {
       // Initialise and register projections
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      _nLambda = bookCounter("/TMP/nLambda");
+      book(_nLambda, "/TMP/nLambda");
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for (const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  nRes[child.pdgId()]-=1;
+	  nRes[child.pid()]-=1;
 	  --ncount;
 	}
 	else
@@ -43,15 +43,15 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
 
       for(unsigned int ix=0;ix<ufs.particles().size();++ix) {
 	const Particle& p1 = ufs.particles()[ix];
-	if(abs(p1.pdgId())!=4122) continue;
+	if(abs(p1.pid())!=4122) continue;
 	map<long,int> nRes = nCount;
 	int ncount = ntotal;
 	findChildren(p1,nRes,ncount);
@@ -59,7 +59,7 @@ namespace Rivet {
 	for(unsigned int iy=0;iy<ufs.particles().size();++iy) {
 	  if(ix==iy) continue;
 	  const Particle& p2 = ufs.particles()[iy];
-	  if(p2.pdgId() != -p1.pdgId()) continue;
+	  if(p2.pid() != -p1.pid()) continue;
 	  map<long,int> nRes2 = nRes;
 	  int ncount2 = ncount;
 	  findChildren(p2,nRes2,ncount2);
@@ -76,7 +76,7 @@ namespace Rivet {
 	  }
 	}
 	if(matched) {
-	  _nLambda->fill(event.weight());
+	  _nLambda->fill();
 	  break;
 	}
       }
@@ -91,7 +91,8 @@ namespace Rivet {
       sigma *= crossSection()/ sumOfWeights() /nanobarn;
       error *= crossSection()/ sumOfWeights() /nanobarn; 
       Scatter2D temphisto(refData(1, 1, 1));
-      Scatter2DPtr  mult = bookScatter2D(1, 1, 1);
+      Scatter2DPtr  mult;
+      book(mult, 1, 1, 1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	const double x  = temphisto.point(b).x();
 	pair<double,double> ex = temphisto.point(b).xErrs();

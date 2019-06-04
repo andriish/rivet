@@ -23,14 +23,14 @@ namespace Rivet {
       // Initialise and register projections
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      _nDSS = bookCounter("/TMP/nDSS");
-      _nDS = bookCounter("/TMP/nDS");
+      book(_nDSS, "/TMP/nDSS");
+      book(_nDS, "/TMP/nDS");
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for(const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  nRes[child.pdgId()]-=1;
+	  nRes[child.pid()]-=1;
 	  --ncount;
 	}
 	else
@@ -44,26 +44,26 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
 
       for(unsigned int ix=0;ix<ufs.particles().size();++ix) {
 	const Particle& p1 = ufs.particles()[ix];
-	if(abs(p1.pdgId())!=413) continue;
+	if(abs(p1.pid())!=413) continue;
 	map<long,int> nRes = nCount;
 	int ncount = ntotal;
 	findChildren(p1,nRes,ncount);
 	bool matched=false;
-	int sign = -p1.pdgId()/abs(p1.pdgId());
+	int sign = -p1.pid()/abs(p1.pid());
 	for(unsigned int iy=0;iy<ufs.particles().size();++iy) {
 	  if(ix==iy) continue;
 	  const Particle& p2 = ufs.particles()[iy];
-	  if(!p2.parents().empty() && p2.parents()[0].pdgId()==p1.pdgId())
+	  if(!p2.parents().empty() && p2.parents()[0].pid()==p1.pid())
 	    continue;
-	  if(p2.pdgId()!=sign*413 && p2.pdgId()!=sign*411) continue;
+	  if(p2.pid()!=sign*413 && p2.pid()!=sign*411) continue;
 	  map<long,int> nRes2 = nRes;
 	  int ncount2 = ncount;
 	  findChildren(p2,nRes2,ncount2);
@@ -76,15 +76,15 @@ namespace Rivet {
 	    }
 	  }
 	  if(matched) {
-	    sign = abs(p2.pdgId());
+	    sign = abs(p2.pid());
 	    break;
 	  }
 	}
 	if(matched) {
 	  if(sign==411)
-	    _nDS->fill(event.weight());
+	    _nDS->fill();
 	  else if(sign==413)
-	    _nDSS->fill(event.weight());
+	    _nDSS->fill();
 	}
       }
     }
@@ -105,7 +105,8 @@ namespace Rivet {
     	sigma *= crossSection()/ sumOfWeights() /nanobarn;
     	error *= crossSection()/ sumOfWeights() /nanobarn; 
 	Scatter2D temphisto(refData(ix, 1, 1));
-    	Scatter2DPtr  mult = bookScatter2D(ix, 1, 1);
+    	Scatter2DPtr  mult;
+        book(mult, ix, 1, 1);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

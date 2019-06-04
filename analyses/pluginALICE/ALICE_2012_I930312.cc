@@ -50,7 +50,7 @@ namespace Rivet {
       string ytitle =
         "$1 / N_{trig} {\\rm d}N_{assoc} / {\\rm d}\\Delta\\eta$ (rad$^-1$)";
       for (int itype = 0; itype < EVENT_TYPES; ++itype) {
-        _counterTrigger[itype] = bookCounter("counter." + toString(itype));
+        book(_counterTrigger[itype], "counter." + toString(itype));
         for (int ipt = 0; ipt < PT_BINS; ++ipt) {
           string name = "yield." + evString[itype] + ".pt" + toString(ipt);
           book(_histYield[itype][ipt], name, 36,
@@ -83,12 +83,12 @@ namespace Rivet {
       }
 
       // Initialize IAA and ICP histograms
-      _histIAA[0] = bookScatter2D(1, 1, 1);
-      _histIAA[1] = bookScatter2D(2, 1, 1);
-      _histIAA[2] = bookScatter2D(5, 1, 1);
-      _histIAA[3] = bookScatter2D(3, 1, 1);
-      _histIAA[4] = bookScatter2D(4, 1, 1);
-      _histIAA[5] = bookScatter2D(6, 1, 1);
+      book(_histIAA[0], 1, 1, 1);
+      book(_histIAA[1], 2, 1, 1);
+      book(_histIAA[2], 5, 1, 1);
+      book(_histIAA[3], 3, 1, 1);
+      book(_histIAA[4], 4, 1, 1);
+      book(_histIAA[5], 6, 1, 1);
 
       // Initialize background-subtracted yield histograms
       for (int itype = 0; itype < EVENT_TYPES; ++itype) {
@@ -96,10 +96,9 @@ namespace Rivet {
           string newname = _histYield[itype][ipt]->name() + ".nobkg";
           string newtitle = _histYield[itype][ipt]->title() +
             ", background subtracted";
-          _histYieldNoBkg[itype][ipt] =
-            bookHisto1D(newname, 36, -0.5*M_PI, 1.5*M_PI, newtitle,
-            _histYield[itype][ipt]->annotation("XLabel"),
-            _histYield[itype][ipt]->annotation("YLabel"));
+          book(_histYieldNoBkg[itype][ipt], newname, 36, -0.5*M_PI, 1.5*M_PI, newtitle,
+               _histYield[itype][ipt]->annotation("XLabel"),
+               _histYield[itype][ipt]->annotation("YLabel"));
         }
       }
 

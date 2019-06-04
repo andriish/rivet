@@ -24,17 +24,17 @@ namespace Rivet {
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
 
-      _nKKpi   = bookCounter("TMP/KKpi");
-      _nPhipi  = bookCounter("TMP/Phipi");
-      _nKKeta  = bookCounter("TMP/KKeta");
-      _nKKpipi = bookCounter("TMP/KKpipi");;
+      book(_nKKpi  , "TMP/KKpi");
+      book(_nPhipi , "TMP/Phipi");
+      book(_nKKeta , "TMP/KKeta");
+      book(_nKKpipi, "TMP/KKpipi");
 
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for(const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  nRes[child.pdgId()]-=1;
+	  nRes[child.pid()]-=1;
 	  --ncount;
 	}
 	else
@@ -47,27 +47,27 @@ namespace Rivet {
       const FinalState& fs = apply<FinalState>(event, "FS");
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       // stable histos
       if( ntotal == 3 && nCount[130] == 1 &&
 	  nCount[310] == 1 && nCount[111] == 1)
-	_nKKpi->fill(event.weight());
+	_nKKpi->fill();
       else if( ntotal == 4 && nCount[130] == 1 &&
 	       nCount[310] == 1 && nCount[111] == 2)
-	_nKKpipi->fill(event.weight());
+	_nKKpipi->fill();
       // unstable particles
       const FinalState& ufs = apply<FinalState>(event, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
-	if(p.pdgId()!=333 && p.pdgId()!=221) continue;
+	if(p.pid()!=333 && p.pid()!=221) continue;
 	map<long,int> nRes=nCount;
 	int ncount = ntotal;
 	findChildren(p,nRes,ncount);
 	bool matched  = true;
-	if(p.pdgId()==333 && ncount==1) {
+	if(p.pid()==333 && ncount==1) {
 	  for(auto const & val : nRes) {
 	    if(val.first==111) {
 	      if(val.second!=1) {
@@ -81,9 +81,9 @@ namespace Rivet {
 	    }
 	  }
 	  if(matched)
-	    _nPhipi->fill(event.weight());
+	    _nPhipi->fill();
 	}
-	else if(p.pdgId()==221 && ncount==2) {
+	else if(p.pid()==221 && ncount==2) {
 	  for(auto const & val : nRes) {
 	    if(val.first==130 || val.first==310) {
 	      if(val.second!=1) {
@@ -97,7 +97,7 @@ namespace Rivet {
 	    }
 	  }
 	  if(matched)
-	    _nKKeta->fill(event.weight());
+	    _nKKeta->fill();
 	}
       }
     }
@@ -128,7 +128,8 @@ namespace Rivet {
 	error *= crossSection()/ sumOfWeights() /nanobarn;
 	
 	Scatter2D temphisto(refData(ix, 1, 1));
-	Scatter2DPtr  mult = bookScatter2D(ix, 1, 1);
+	Scatter2DPtr  mult;
+        book(mult, ix, 1, 1);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

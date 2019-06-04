@@ -61,7 +61,7 @@ namespace Rivet {
           "Sum of weights counter for pp");
 
         // Book ratios, to be used in finalize
-        _histRAA[ihist] = bookScatter2D(ihist+16, 1, 1);
+        book(_histRAA[ihist], ihist+16, 1, 1);
       }
 
       // Centrality regions keeping boundaries for a certain region.

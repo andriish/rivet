@@ -26,7 +26,7 @@ namespace Rivet {
       for(unsigned int ix=1;ix<6;++ix) {
 	stringstream ss;
 	ss << "TMP/n" << ix;
-	_nMeson[ix]= bookCounter(ss.str());
+	book(_nMeson[ix], ss.str());
       }
     }
 
@@ -37,28 +37,28 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       if(nCount[111]!=2) vetoEvent;
 
       if(ntotal==4) {
 	if(nCount[211]==1 && nCount[-211]==1)
-	  _nMeson[1]->fill(event.weight());
+	  _nMeson[1]->fill();
 	else if(nCount[321]==1 && nCount[-321]==1)
-	  _nMeson[2]->fill(event.weight());
+	  _nMeson[2]->fill();
       }
       else if(ntotal==6) {
 	if(nCount[211]==2 && nCount[-211]==2)
-	  _nMeson[3]->fill(event.weight());
+	  _nMeson[3]->fill();
 	else if(nCount[321]==1 && nCount[-321]==1 &&
 		nCount[211]==1 && nCount[-211]==1)
-	  _nMeson[4]->fill(event.weight());
+	  _nMeson[4]->fill();
       }
       else if(ntotal==8) {
 	if(nCount[211]==3 && nCount[-211]==3)
-	  _nMeson[5]->fill(event.weight());
+	  _nMeson[5]->fill();
       }
       
     }
@@ -72,7 +72,8 @@ namespace Rivet {
     	sigma *= crossSection()/ sumOfWeights() /picobarn;
     	error *= crossSection()/ sumOfWeights() /picobarn; 
 	Scatter2D temphisto(refData(1, 1, ix));
-    	Scatter2DPtr  mult = bookScatter2D(1, 1, ix);
+    	Scatter2DPtr  mult;
+        book(mult, 1, 1, ix);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

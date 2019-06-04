@@ -162,12 +162,12 @@ namespace Rivet {
       // Find prompt, invisible particles for missing ET calculation
       // Based on VisibleFinalState projection
       FourMomentum invisible(0,0,0,0);
-      foreach (const Particle& p, FS_ptcls) {
+      for (const Particle& p : FS_ptcls) {
 
         // Veto non-prompt particles (from hadron or tau decay)
         if ( !p.isPrompt() ) continue;
         // Charged particles are visible
-        if ( PID::threeCharge( p.pid() ) != 0 ) continue;
+        if ( PID::charge3( p.pid() ) != 0 ) continue;
         // Neutral hadrons are visible
         if ( PID::isHadron( p.pid() ) ) continue;
         // Photons are visible
@@ -210,7 +210,7 @@ namespace Rivet {
       if ( jets_30.size() >= 1 ) _h_fidXSecs->fill(2);
       if ( jets_30.size() >= 2 ) _h_fidXSecs->fill(3);
       if ( jets_30.size() >= 3 ) _h_fidXSecs->fill(4);
-      if ( jets_30.size() >= 2 && passVBFCuts(y1 + y2, jets_30.at(0)->momentum(), jets_30.at(1)->momentum()) ) _h_fidXSecs->fill(5);
+      if ( jets_30.size() >= 2 && passVBFCuts(y1 + y2, jets_30.at(0).momentum(), jets_30.at(1).momentum()) ) _h_fidXSecs->fill(5);
       if ( (good_el.size() + good_mu.size()) > 0 ) _h_fidXSecs->fill(6);
       if ( MET > 80 ) _h_fidXSecs->fill(7);
 

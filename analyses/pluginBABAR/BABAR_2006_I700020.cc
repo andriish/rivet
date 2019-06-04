@@ -23,7 +23,7 @@ namespace Rivet {
       declare(FinalState(), "FS");
 
       // Book histograms
-      _nproton = bookCounter("TMP/proton");
+      book(_nproton, "TMP/proton");
     }
 
 
@@ -31,10 +31,10 @@ namespace Rivet {
     void analyze(const Event& event) {
       const FinalState& fs = apply<FinalState>(event, "FS");
       if(fs.particles().size()!=2) vetoEvent;
-      foreach (const Particle& p, fs.particles()) {
-	if(abs(p.pdgId())!=PID::PROTON) vetoEvent;
+      for (const Particle& p : fs.particles()) {
+	if(abs(p.pid())!=PID::PROTON) vetoEvent;
       }
-      _nproton->fill(event.weight());
+      _nproton->fill();
     }
 
 
@@ -47,7 +47,8 @@ namespace Rivet {
       error *= crossSection()/ sumOfWeights() /picobarn;
       for(unsigned int ix=1;ix<3;++ix) {
 	Scatter2D temphisto(refData(ix, 1, 1));
-	Scatter2DPtr  mult = bookScatter2D(ix, 1, 1);
+	Scatter2DPtr mult;
+        book(mult, ix, 1, 1);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

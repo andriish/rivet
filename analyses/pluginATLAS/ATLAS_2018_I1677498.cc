@@ -31,10 +31,10 @@ namespace Rivet {
       DressedLeptons muons(photons, bare_mu, 0.1, Cuts::pT > 6*GeV && Cuts::abseta < 2.5);
       declare(muons, "muons");
 
-      FastJets jets(fs, FastJets::ANTIKT, 0.4, JetAlg::NO_MUONS, JetAlg::NO_INVISIBLES);
+      FastJets jets(fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::NONE, JetAlg::Invisibles::NONE);
       declare(jets, "jets");
 
-      _h = bookHisto1D(3, 1, 1);
+      book(_h, 3, 1, 1);
     }
 
 
@@ -86,7 +86,7 @@ namespace Rivet {
       const double m01 = (leptons[0].mom() + bjets[1].mom()).mass();
       const double m11 = (leptons[1].mom() + bjets[1].mom()).mass();
       const double minimax = min( max(m00,m11), max(m10,m01) );
-      _h->fill(minimax/GeV, event.weight());
+      _h->fill(minimax/GeV);
     }
 
 

@@ -108,7 +108,8 @@ namespace Rivet {
     if (!std::isnan(_xs)) {
       Log::getLog("Rivet.Run")
         << Log::DEBUG << "Setting user cross-section = " << _xs << " pb" << endl;
-      _ah.setCrossSection(_xs);
+      _ah.setCrossSection(_xs, 0.0);
+      // *** LEIF *** check if second argument should be 0.
     }
 
     // List the chosen & compatible analyses if requested
@@ -137,18 +138,20 @@ namespace Rivet {
       const double xs = _evt->cross_section()->cross_section(); ///< in pb
       Log::getLog("Rivet.Run")
       << Log::DEBUG << "Setting cross-section = " << xs << " pb" << endl;
-      _ah.setCrossSection(xs);
+      _ah.setCrossSection(xs, 0.0);
+      // *** LEIF *** check if second argument should be 0.
     }
     #endif
-    
-    // Complain about absence of cross-section if required!
-    if (_ah.needCrossSection() && !_ah.hasCrossSection()) {
-      Log::getLog("Rivet.Run")
-        << Log::ERROR
-        << "Total cross-section needed for at least one of the analyses. "
-        << "Please set it (on the command line with '-x' if using the 'rivet' program)" << endl;
-      return false;
-    }
+
+    // *** LEIF *** temporarily removed this
+    // // Complain about absence of cross-section if required!
+    // if (_ah.needCrossSection() && !_ah.hasCrossSection()) {
+    //   Log::getLog("Rivet.Run")
+    //     << Log::ERROR
+    //     << "Total cross-section needed for at least one of the analyses. "
+    //     << "Please set it (on the command line with '-x' if using the 'rivet' program)" << endl;
+    //   return false;
+    // }
 
     // Analyze event
     _ah.analyze(*_evt);
@@ -162,7 +165,8 @@ namespace Rivet {
     /// @todo reinstate for HepMC3
     //_istr.reset();
 
-    if (!std::isnan(_xs)) _ah.setCrossSection(_xs);
+    // *** LEIF *** temporarily removed this
+    // if (!std::isnan(_xs)) _ah.setCrossSection(_xs);
     _ah.finalize();
 
     return true;

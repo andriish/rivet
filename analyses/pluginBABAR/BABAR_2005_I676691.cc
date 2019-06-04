@@ -22,9 +22,9 @@ namespace Rivet {
       // Initialise and register projections
       declare(FinalState(), "FS");
 
-      _c2pip2pim      = bookCounter("TMP/2pip2pim");
-      _cKpKmpippim  = bookCounter("TMP/KpKmpippim");
-      _c2Kp2Km      = bookCounter("TMP/2Kp2Km");
+      book(_c2pip2pim  , "TMP/2pip2pim");
+      book(_cKpKmpippim, "TMP/KpKmpippim");
+      book(_c2Kp2Km    , "TMP/2Kp2Km");
       
     }
 
@@ -35,19 +35,19 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
 
       if(ntotal!=4) vetoEvent;
       
       if( nCount[211]==2 && nCount[-211]==2)
-	_c2pip2pim->fill(event.weight());
+	_c2pip2pim->fill();
       else if(nCount[321]==1 && nCount[-321]==1 && nCount[211]==1 && nCount[-211]==1)
-	_cKpKmpippim->fill(event.weight());
+	_cKpKmpippim->fill();
       else if( nCount[321]==2 && nCount[-321]==2)
-	_c2Kp2Km->fill(event.weight());
+	_c2Kp2Km->fill();
     }
     
     
@@ -71,7 +71,8 @@ namespace Rivet {
     	sigma *= crossSection()/ sumOfWeights() /nanobarn;
     	error *= crossSection()/ sumOfWeights() /nanobarn;
 	Scatter2D temphisto(refData(ix, 1, 1));
-	Scatter2DPtr  mult = bookScatter2D(ix, 1, 1);
+	Scatter2DPtr  mult;
+        book(mult, ix, 1, 1);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

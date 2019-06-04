@@ -310,7 +310,7 @@ namespace Rivet {
        /// list of particles.  Therefore, we also need to override the
        /// compare method.
        bool isPrimaryPID(ConstGenParticlePtr p) const {
-        const int pdg = PID::abspid(p->pdg_id());
+        const int pdg = abs(p->pdg_id());
         // Check for nucleus
         if (pdg > 1000000000) return true;
 

@@ -23,14 +23,14 @@ namespace Rivet {
       // Initialise and register projections
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      _cphipippim   = bookCounter("TMP/phipippim");
-      _cphif0       = bookCounter("TMP/phif0");
+      book(_cphipippim, "TMP/phipippim");
+      book(_cphif0 ,    "TMP/phif0");
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for(const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  nRes[child.pdgId()]-=1;
+	  nRes[child.pid()]-=1;
 	  --ncount;
 	}
 	else
@@ -46,15 +46,15 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
 	// phi
-	if(p.pdgId()!=333) continue;
+	if(p.pid()!=333) continue;
 	map<long,int> nRes=nCount;
 	int ncount = ntotal;
 	findChildren(p,nRes,ncount);
@@ -74,10 +74,10 @@ namespace Rivet {
 	    }
 	  }
 	  if(matched)
-	    _cphipippim->fill(event.weight());
+	    _cphipippim->fill();
 	}
-	foreach (const Particle& p2, ufs.particles()) {
-	  if(p2.pdgId()!=9010221) continue;
+	for (const Particle& p2 : ufs.particles()) {
+	  if(p2.pid()!=9010221) continue;
 	  if(p2.parents()[0].isSame(p)) continue;
 	  map<long,int> nResB = nRes;
 	  int ncountB = ncount;
@@ -91,7 +91,7 @@ namespace Rivet {
 	    }
 	  }
 	  if(matched2) {
-	    _cphif0  ->fill(event.weight());
+	    _cphif0  ->fill();
 	  }
 	}
       }
@@ -113,7 +113,8 @@ namespace Rivet {
 	sigma *= crossSection()/ sumOfWeights() /nanobarn;
 	error *= crossSection()/ sumOfWeights() /nanobarn;
 	Scatter2D temphisto(refData(1, 1, ix));
-	Scatter2DPtr  mult = bookScatter2D(1, 1, ix);
+	Scatter2DPtr  mult;
+        book(mult, 1, 1, ix);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

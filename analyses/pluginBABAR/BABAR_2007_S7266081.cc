@@ -44,7 +44,6 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
-      double weight = e.weight();
       // Find the taus
       Particles taus;
       for(const Particle& p : apply<UnstableParticles>(e, "UFS").particles(Cuts::pid==PID::TAU)) {
@@ -146,7 +145,7 @@ namespace Rivet {
                            Particles& pip, Particles& pim,
                            Particles& Kp, Particles& Km) {
       for (const Particle &p : mother.children()) {
-        long id = p.pdgId();
+        long id = p.pid();
         if (id == PID::PI0 )
           ++nstable;
         else if (id == PID::K0S)

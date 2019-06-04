@@ -47,9 +47,10 @@ namespace Rivet {
 
 
       // book histograms
-      book(_njet     ,1, 1); // dSigma / dNjet
-      book(_jet1_bPt ,3, 1); // dSigma / dBjetPt for Njet = 1
-      book(_jet2_bPt ,8, 1); // dSigma / dBjetPt for Njet = 2
+      // *** LEIF *** where did the y02 histos go?
+      book(_njet     ,1, 1, 1); // dSigma / dNjet
+      book(_jet1_bPt ,3, 1, 1); // dSigma / dBjetPt for Njet = 1
+      book(_jet2_bPt ,8, 1, 1); // dSigma / dBjetPt for Njet = 2
 
     }
 

@@ -21,7 +21,9 @@ namespace Rivet {
 
 namespace {
   inline bool chargedParticleFilter(const Rivet::Particle& p) {
-    return Rivet::PID::threeCharge(p.pdgId()) == 0;
+    // *** LEIF *** temporarily changed this
+    // return Rivet::PID::threeCharge(p.pdgId()) == 0;
+    return Rivet::PID::charge3(p.pid()) == 0;
   }
 }
 

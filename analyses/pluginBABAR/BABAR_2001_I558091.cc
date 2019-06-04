@@ -19,7 +19,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       declare(UnstableParticles(), "UFS");
-      _c_jpsi = bookCounter("/TMP/jpsi");
+      book(_c_jpsi, "/TMP/jpsi");
     }
 
 
@@ -27,11 +27,11 @@ namespace Rivet {
     void analyze(const Event& event) {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       double nJsi=0.;
-      foreach (const Particle& p, ufs.particles()) {
-        if (p.pdgId()==443) {
+      for (const Particle& p : ufs.particles()) {
+        if (p.pid()==443) {
 	  bool fs = true;
-	  foreach (const Particle & child, p.children()) {
-	    if(child.pdgId()==443) {
+	  for (const Particle & child : p.children()) {
+	    if(child.pid()==443) {
 	      fs = false;
 	      break;
 	    }
@@ -39,7 +39,7 @@ namespace Rivet {
 	  if(fs) nJsi += 1.;
 	}
       }
-      _c_jpsi->fill(nJsi*event.weight());
+      _c_jpsi->fill(nJsi);
     }
 
 
@@ -49,7 +49,8 @@ namespace Rivet {
       double sigma = _c_jpsi->val()*fact;
       double error = _c_jpsi->err()*fact;
       Scatter2D temphisto(refData(1, 1, 1));
-      Scatter2DPtr mult = bookScatter2D(1, 1, 1);
+      Scatter2DPtr mult;
+      book(mult, 1, 1, 1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	const double x  = temphisto.point(b).x();
 	pair<double,double> ex = temphisto.point(b).xErrs();

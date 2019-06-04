@@ -34,8 +34,8 @@ namespace Rivet {
       else if(fuzzyEquals(sqrtS()/GeV, 4.8 , 1E-3))
 	iloc = 6;
       assert(iloc!=0);
-      _h_ln =  bookHisto1D( iloc   ,1,1);
-      _h_weight = 0.;
+      book(_h_ln, iloc   ,1,1);
+      book(_h_weight, "TMP/Weight");
     }
 
 
@@ -43,21 +43,21 @@ namespace Rivet {
     void analyze(const Event& event) {
       const ChargedFinalState& fs = apply<ChargedFinalState>(event, "FS");
       if(fs.particles().size()==2 &&
-	 abs(fs.particles()[0].pdgId())==13 &&
-	 abs(fs.particles()[1].pdgId())==13) vetoEvent;
-      foreach (const Particle& p, fs.particles()) {
+	 abs(fs.particles()[0].pid())==13 &&
+	 abs(fs.particles()[1].pid())==13) vetoEvent;
+      for (const Particle& p : fs.particles()) {
 	const Vector3 mom3 = p.p3();
 	double pp = mom3.mod();
 	double xi = -log(2.*pp/sqrtS());
-	_h_ln->fill(xi,event.weight());
+	_h_ln->fill(xi);
       }
-      _h_weight+= event.weight();
+      _h_weight->fill();
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale(_h_ln,1./_h_weight);
+      scale(_h_ln,1./_h_weight->sumW());
     }
 
     //@}
@@ -66,7 +66,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_ln;
-    double _h_weight;
+    CounterPtr _h_weight;
     //@}
 
 

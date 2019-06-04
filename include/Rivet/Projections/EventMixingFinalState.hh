@@ -65,13 +65,13 @@ namespace Rivet {
   class EventMixingBase : public Projection {
   protected:
     // Constructor
-    EventMixingBase(const Projection* mixObsProjPtr, const ParticleFinder& mix,
+    EventMixingBase(const Projection & mixObsProj, const ParticleFinder& mix,
       size_t nMixIn, double oMin, double oMax, double deltao) : nMix(nMixIn),
       unitWeights(true) {
       // The base class contructor should be called explicitly in derived classes
       // to add projections below.
       setName("EventMixingBase");
-      declare(*mixObsProjPtr,"OBS");
+      declare(mixObsProj,"OBS");
       declare(mix,"MIX");
       MSG_WARNING("EventMixing is not fully validated. Use with caution.");
 
@@ -191,10 +191,10 @@ namespace Rivet {
   // as the mixing observable.
   class EventMixingFinalState : public EventMixingBase {
    public:
-    EventMixingFinalState(const ParticleFinder* mixObsProjPtr, 
+    EventMixingFinalState(const ParticleFinder & mixObsProj, 
       const ParticleFinder& mix, size_t nMixIn, double oMin, double oMax,
       double deltao) : 
-      EventMixingBase(mixObsProjPtr, mix, nMixIn, oMin, oMax, deltao) {
+      EventMixingBase(mixObsProj, mix, nMixIn, oMin, oMax, deltao) {
     	setName("EventMixingFinalState");
       }
 
@@ -210,10 +210,10 @@ namespace Rivet {
   // EventMixingCentrality has centrality as the mixing observable.
   class EventMixingCentrality : public EventMixingBase {
     public:
-      EventMixingCentrality(const CentralityProjection* mixObsProjPtr,
+      EventMixingCentrality(const CentralityProjection& mixObsProj,
         const ParticleFinder& mix, size_t nMixIn, double oMin, double oMax,
        	double deltao) : 
-      EventMixingBase(mixObsProjPtr, mix, nMixIn, oMin, oMax, deltao) {
+      EventMixingBase(mixObsProj, mix, nMixIn, oMin, oMax, deltao) {
     	setName("EventMixingCentrality");
       }
     

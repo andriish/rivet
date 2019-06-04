@@ -24,8 +24,8 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      _h_spectrum = bookHisto1D(1, 1, 2);
-      _nBottom = 0.;
+      book(_h_spectrum, 1, 1, 2);
+      book(_nBottom, "TMP/BottomCounter");
     }
 
 
@@ -33,7 +33,7 @@ namespace Rivet {
 			   unsigned int & nKp, unsigned int & nKm,
 			   FourMomentum & ptot) {
       for(const Particle & p : mother.children()) {
-        int id = p.pdgId();
+        int id = p.pid();
         if ( id == PID::KPLUS ) {
 	  ++nKp;
 	  ptot += p.momentum();
@@ -62,22 +62,22 @@ namespace Rivet {
 
       // Loop over bottoms
       for(const Particle& bottom : apply<UnstableParticles>(event, "UFS").particles()) {
-	if(bottom.pdgId()!=-521 && bottom.pdgId()!=-511) continue;
+	if(bottom.pid()!=-521 && bottom.pid()!=-511) continue;
 	FourMomentum pgamma(0.,0.,0.,0.);
 	unsigned int ngamma = 0;
 	bool fs = true;
-	foreach(const Particle & child, bottom.children()) {
-	  if(child.pdgId()==bottom.pdgId()) {
+	for (const Particle & child : bottom.children()) {
+	  if(child.pid()==bottom.pid()) {
 	    fs = false;
 	    break;
 	  }
-	  else if(child.pdgId()==22) {
+	  else if(child.pid()==22) {
 	    ngamma += 1;
 	    pgamma += child.momentum();
 	  }
 	}
 	if(!fs) continue;
-	_nBottom += event.weight();
+	_nBottom->fill();
 	if(ngamma!=1) continue;
         unsigned int nK0(0),nKp(0),nKm(0);
       	FourMomentum p_tot(0,0,0,0);
@@ -85,7 +85,7 @@ namespace Rivet {
 	unsigned int nk = nKp-nKm+nK0;
 	if(nk%2==1) {
 	  p_tot -= pgamma;
-	  _h_spectrum->fill(p_tot.mass()/GeV,event.weight());
+	  _h_spectrum->fill(p_tot.mass()/GeV);
 	}
       }
 
@@ -94,7 +94,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale(_h_spectrum, 1e6/_nBottom);
+      scale(_h_spectrum, 1e6/_nBottom->sumW());
       // multiply by the bin width
       for (unsigned int ix=0;ix<_h_spectrum->numBins();++ix) {
       	_h_spectrum->bins()[ix].scaleW(_h_spectrum->bins()[ix].xWidth());
@@ -107,7 +107,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_spectrum;
-    double _nBottom;
+    CounterPtr _nBottom;
     //@}
   };
 

@@ -20,10 +20,10 @@ namespace Rivet {
     void init() {
 
       declare(UnstableParticles(), "UFS");
-      _h_3pi   = bookHisto1D( 1, 1, 1);
-      _h_Kpipi = bookHisto1D( 2, 1, 1);
-      _h_KKpi  = bookHisto1D( 3, 1, 1);
-      _h_3K    = bookHisto1D( 4, 1, 1);
+      book(_h_3pi,   1, 1, 1);
+      book(_h_Kpipi, 2, 1, 1);
+      book(_h_KKpi,  3, 1, 1);
+      book(_h_3K,    4, 1, 1);
 
     }
 
@@ -31,7 +31,7 @@ namespace Rivet {
                            unsigned int & npip, unsigned int & npim,
                            unsigned int & nKp, unsigned int & nKm, FourMomentum & ptot) {
       for(const Particle & p : mother.children()) {
-        int id = p.pdgId();
+        int id = p.pid();
         if ( id == PID::KPLUS ) {
 	  ++nKp;
           ++nstable;
@@ -71,19 +71,19 @@ namespace Rivet {
         unsigned int nstable(0),npip(0),npim(0),nKp(0),nKm(0);
       	FourMomentum p_tot(0,0,0,0);
         findDecayProducts(tau, nstable, npip, npim, nKp, nKm, p_tot);
-        if (tau.pdgId() < 0) {
+        if (tau.pid() < 0) {
       	  swap(npip, npim);
       	  swap(nKp,nKm);
       	}
        	if(nstable!=4) continue;
       	if(npim==2 && npip==1 )
-          _h_3pi->fill(p_tot.mass(), event.weight());
+          _h_3pi->fill(p_tot.mass());
       	else if(npim==1 && npip==1 && nKm==1)
-          _h_Kpipi->fill(p_tot.mass(), event.weight());
+          _h_Kpipi->fill(p_tot.mass());
       	else if(nKm==1 && nKp==1 && npim==1)
-          _h_KKpi->fill(p_tot.mass(), event.weight());
+          _h_KKpi->fill(p_tot.mass());
       	else if(nKm==2 && nKp==1 )
-          _h_3K->fill(p_tot.mass(), event.weight());
+          _h_3K->fill(p_tot.mass());
       }
     }
 

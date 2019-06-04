@@ -63,7 +63,7 @@ namespace Rivet {
       int Nprotonbar=0;
 
       for (const Particle& p : apply<ALICE::PrimaryParticles>(event,"CFS").particles()) {
-          const double pWeight = weight / p.pT() / 2. / M_PI;
+          const double pWeight = 1.0 / p.pT() / 2. / M_PI;
           switch (p.pid()) {
             case 211: // pi+
 	      Npi++;

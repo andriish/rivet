@@ -28,15 +28,15 @@ namespace Rivet {
       for(unsigned int ix=1;ix<6;++ix) {
 	stringstream ss;
 	ss << "TMP/n" << ix;
-	_nMeson[ix]= bookCounter(ss.str());
+	book(_nMeson[ix], ss.str());
       }
 
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for (const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  nRes[child.pdgId()]-=1;
+	  nRes[child.pid()]-=1;
 	  --ncount;
 	}
 	else
@@ -50,20 +50,20 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
-	if(p.pdgId()!=221 && p.pdgId()!=333) continue;
+	if(p.pid()!=221 && p.pid()!=333) continue;
 	map<long,int> nRes = nCount;
 	int ncount = ntotal;
 	findChildren(p,nRes,ncount);
 	  
-	if(p.pdgId()==221) {
+	if(p.pid()==221) {
 	  bool matchedKK = false;
 	  if(ncount==2) {
 	    matchedKK = true;
@@ -80,8 +80,8 @@ namespace Rivet {
 	      }
 	    }
 	  }
-	  foreach (const Particle& p2, ufs.particles()) {
-	    if(p2.pdgId()!=333) continue;
+	  for (const Particle& p2 : ufs.particles()) {
+	    if(p2.pid()!=333) continue;
 	    if(p2.parents()[0].isSame(p)) continue;
 	    map<long,int> nResB = nRes;
 	    int ncountB = ncount;
@@ -95,12 +95,12 @@ namespace Rivet {
 	      }
 	    }
 	    if(matched2)
-	      _nMeson[5]->fill(event.weight());
+	      _nMeson[5]->fill();
 	    else if(matchedKK)
-	      _nMeson[4]->fill(event.weight());
+	      _nMeson[4]->fill();
 	  }
 	}
-	else if(p.pdgId()==333) {
+	else if(p.pid()==333) {
 	  if(ncount!=1) continue;
 	  bool matched = true;
 	  for(auto const & val : nRes) {
@@ -116,7 +116,7 @@ namespace Rivet {
 	    }
 	  }
 	  if(matched)
-	    _nMeson[3]->fill(event.weight());
+	    _nMeson[3]->fill();
 	}
       }
 
@@ -124,10 +124,10 @@ namespace Rivet {
       if(ntotal==3 && nCount[310]==1 &&
 	 ((nCount[ 211]==1&&nCount[-321]==1)||
 	  (nCount[-211]==1&&nCount[ 321]==1)))
-	 _nMeson[1]->fill(event.weight());
+	 _nMeson[1]->fill();
       else if(ntotal==3 && nCount[321]==1 &&
 	      nCount[-321]==1 && nCount[111]==1)
-	 _nMeson[2]->fill(event.weight());
+	 _nMeson[2]->fill();
     }
 
 
@@ -139,7 +139,8 @@ namespace Rivet {
     	sigma *= crossSection()/ sumOfWeights() /nanobarn;
     	error *= crossSection()/ sumOfWeights() /nanobarn; 
 	Scatter2D temphisto(refData(ix, 1, 1));
-    	Scatter2DPtr  mult = bookScatter2D(ix, 1, 1);
+    	Scatter2DPtr  mult;
+        book(mult, ix, 1, 1);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

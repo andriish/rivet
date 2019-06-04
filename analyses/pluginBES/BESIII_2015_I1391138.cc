@@ -23,9 +23,9 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      _h_q2_K  = bookHisto1D(1, 1, 3);
-      _h_q2_pi = bookHisto1D(2, 1, 3);
-      nD0 = 0.;
+      book(_h_q2_K, 1, 1, 3);
+      book(_h_q2_pi, 2, 1, 3);
+      book(nD0, "TMP/DCounter");
     }
 
     // Calculate the Q2 using mother and daugher meson
@@ -47,13 +47,13 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Loop over D0 mesons
-      foreach(const Particle& p, apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::D0)) {
-	nD0 += event.weight();
+      for (const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::D0)) {
+	nD0->fill();
         if (isSemileptonicDecay(p, {PID::PIMINUS, PID::POSITRON, PID::NU_E})) {
-          _h_q2_pi->fill(q2(p, PID::PIMINUS), event.weight());
+          _h_q2_pi->fill(q2(p, PID::PIMINUS));
         }
 	else if(isSemileptonicDecay(p, {PID::KMINUS, PID::POSITRON, PID::NU_E})) {
-          _h_q2_K ->fill(q2(p, PID::KMINUS), event.weight());
+          _h_q2_K ->fill(q2(p, PID::KMINUS));
         }
       }
     }
@@ -62,8 +62,8 @@ namespace Rivet {
     void finalize() {
       // scale by D0 lifetime = 410.1e-6 ps (from PDG 2014 used in paper)
       // and bin width 0.1 K and 0.2 pi
-      scale(_h_q2_K , 1./nD0/410.1e-6*0.1);
-      scale(_h_q2_pi, 1./nD0/410.1e-6*0.2);
+      scale(_h_q2_K , 1./nD0->sumW()/410.1e-6*0.1);
+      scale(_h_q2_pi, 1./nD0->sumW()/410.1e-6*0.2);
     }
     //@}
 
@@ -71,7 +71,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_q2_K,_h_q2_pi;
-    double nD0;
+    CounterPtr nD0;
     //@}
 
 

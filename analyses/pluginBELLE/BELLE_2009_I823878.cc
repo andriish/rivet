@@ -24,16 +24,16 @@ namespace Rivet {
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
 
-      _nMeson[1] =  bookCounter("TMP/phieta");
-      _nMeson[2] =  bookCounter("TMP/phietaprime");
-      _nMeson[3] =  bookCounter("TMP/rhoeta");
-      _nMeson[4] =  bookCounter("TMP/rhoetaprime");
+      book(_nMeson[1], "TMP/phieta");
+      book(_nMeson[2], "TMP/phietaprime");
+      book(_nMeson[3], "TMP/rhoeta");
+      book(_nMeson[4], "TMP/rhoetaprime");
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for (const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  nRes[child.pdgId()]-=1;
+	  nRes[child.pid()]-=1;
 	  --ncount;
 	}
 	else
@@ -47,19 +47,19 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
-	if(p.pdgId()!=333 && p.pdgId()!=113) continue;
+	if(p.pid()!=333 && p.pid()!=113) continue;
 	map<long,int> nRes=nCount;
 	int ncount = ntotal;
 	findChildren(p,nRes,ncount);
-	foreach (const Particle& p2, ufs.particles()) {
-	  if(p2.pdgId()!=221 && p2.pdgId()!=331 ) continue;
+	for (const Particle& p2 : ufs.particles()) {
+	  if(p2.pid()!=221 && p2.pid()!=331 ) continue;
 	  if(p2.parents()[0].isSame(p)) continue;
 	  map<long,int> nResB = nRes;
 	  int ncountB = ncount;
@@ -74,9 +74,9 @@ namespace Rivet {
 	  }
 	  if(matched2) {
 	    unsigned int iloc=1;
-	    if(p.pdgId()==113 ) iloc+=2;
-	    if(p2.pdgId()==331) iloc+=1;
-	    _nMeson[iloc]->fill(event.weight());
+	    if(p.pid()==113 ) iloc+=2;
+	    if(p2.pid()==331) iloc+=1;
+	    _nMeson[iloc]->fill();
 	  }
 	}
       }
@@ -91,7 +91,8 @@ namespace Rivet {
     	error *= crossSection()/ sumOfWeights() /femtobarn;
 
 	Scatter2D temphisto(refData(1, 1, ix));
-	Scatter2DPtr  mult = bookScatter2D(1, 1, ix);
+	Scatter2DPtr  mult;
+        book(mult, 1, 1, ix);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

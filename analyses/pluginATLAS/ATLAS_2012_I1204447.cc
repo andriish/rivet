@@ -997,8 +997,8 @@ namespace Rivet {
       double best_mass_3 = 999.;
 
       // Loop over all 2 particle combinations to find invariant mass of OSSF pair closest to Z mass
-      foreach ( const Particle& p1, particles  )  {
-        foreach ( const Particle& p2, particles  )  {
+      for ( const Particle& p1 : particles  )  {
+        for ( const Particle& p2 : particles  )  {
           double mass_difference_2_old = fabs(91.0 - best_mass_2);
           double mass_difference_2_new = fabs(91.0 - (p1.momentum() + p2.momentum()).mass()/GeV);
 
@@ -1010,7 +1010,7 @@ namespace Rivet {
               best_mass_2 = (p1.momentum() + p2.momentum()).mass()/GeV;
 
             // In case there is an OSSF pair take also 3rd lepton into account (e.g. from FSR and photon to electron conversion)
-            foreach ( const Particle & p3 , particles  )  {
+            for ( const Particle & p3 : particles  )  {
               double mass_difference_3_old = fabs(91.0 - best_mass_3);
               double mass_difference_3_new = fabs(91.0 - (p1.momentum() + p2.momentum() + p3.momentum()).mass()/GeV);
               if (mass_difference_3_new < mass_difference_3_old)
@@ -1045,7 +1045,9 @@ namespace Rivet {
 
     /// List of signal regions and event counts per signal region
     vector<string> _signal_regions;
-    map<string, double> _eventCountsPerSR;
+
+    // *** LEIF *** i think this was intended
+    map<string, CounterPtr> _eventCountsPerSR;
 
   };
 

@@ -134,7 +134,7 @@ namespace Rivet {
       Log& log = Log::getLog("Rivet.Event");
       static bool docaching = getEnvParam("RIVET_CACHE_PROJECTIONS", true);
       if (docaching) {
-        log << Log::TRACE << "Applying projection " << &p << " (" << p.name() << ") -> comparing to projections " << _projections << endl;
+        log << Log::TRACE << "Applying projection " << &p << " (" << p.name() << ") -> comparing to projections " << _projections << std::endl;
         // First search for this projection *or an equivalent* in the already-executed list
         const Projection* cpp(&p);
         /// @note Currently using reint cast to integer type to bypass operator==(Proj*, Proj*)
@@ -144,13 +144,13 @@ namespace Rivet {
         for (; old != _projections.end(); ++old)
           if (reinterpret_cast<std::uintptr_t>(*old) == recpp) break;
         if (old != _projections.end()) {
-          log << Log::TRACE << "Equivalent projection found -> returning already-run projection " << *old << endl;
+          log << Log::TRACE << "Equivalent projection found -> returning already-run projection " << *old << std::endl;
           const Projection& pRef = **old;
           return pcast<PROJ>(pRef);
         }
-        log << Log::TRACE << "No equivalent projection in the already-run list -> projecting now" << endl;
+        log << Log::TRACE << "No equivalent projection in the already-run list -> projecting now" << std::endl;
       } else {
-        log << Log::TRACE << "Applying projection " << &p << " (" << p.name() << ") WITHOUT projection caching & comparison" << endl;
+        log << Log::TRACE << "Applying projection " << &p << " (" << p.name() << ") WITHOUT projection caching & comparison" << std::endl;
       }
       // If this one hasn't been run yet on this event, run it and add to the list
       Projection* pp = const_cast<Projection*>(&p);

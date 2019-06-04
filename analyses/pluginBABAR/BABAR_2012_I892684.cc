@@ -25,20 +25,20 @@ namespace Rivet {
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
 
-      _cKpKmpippim  = bookCounter("TMP/KpKmpippim");
-      _cKstarKpi    = bookCounter("TMP/KstarKpi");
-      _cphipippim   = bookCounter("TMP/phipippim");
-      _cphif0_980   = bookCounter("TMP/phif0_980");
-      _cphif0_600   = bookCounter("TMP/phif0_600");
-      _cKpKmpi0pi0  = bookCounter("TMP/KpKmpi0pi0");
-      _cphif0pi0pi0 = bookCounter("TMP/phif0pi0pi0");
-      _c2Kp2Km      = bookCounter("TMP/2Kp2Km");
+      book(_cKpKmpippim , "TMP/KpKmpippim");
+      book(_cKstarKpi   , "TMP/KstarKpi");
+      book(_cphipippim  , "TMP/phipippim");
+      book(_cphif0_980  , "TMP/phif0_980");
+      book(_cphif0_600  , "TMP/phif0_600");
+      book(_cKpKmpi0pi0 , "TMP/KpKmpi0pi0");
+      book(_cphif0pi0pi0, "TMP/phif0pi0pi0");
+      book(_c2Kp2Km     , "TMP/2Kp2Km");
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for (const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  nRes[child.pdgId()]-=1;
+	  nRes[child.pid()]-=1;
 	  --ncount;
 	}
 	else
@@ -53,15 +53,15 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
 	// K*0
-	if(abs(p.pdgId())==313) {
+	if(abs(p.pid())==313) {
 	  map<long,int> nRes=nCount;
 	  int ncount = ntotal;
 	  findChildren(p,nRes,ncount);
@@ -82,9 +82,9 @@ namespace Rivet {
 	      nCount[211] == 0 && nCount[-211] == 1) ||
 	     (nCount[321] == 0 && nCount[-321] ==1 &&
 	      nCount[211] == 1 && nCount[-211] == 0))
-	    _cKstarKpi->fill(event.weight());
+	    _cKstarKpi->fill();
 	}
-	else if(p.pdgId()==333) {
+	else if(p.pid()==333) {
 	  map<long,int> nRes=nCount;
 	  int ncount = ntotal;
 	  findChildren(p,nRes,ncount);
@@ -104,10 +104,10 @@ namespace Rivet {
 	      }
 	    }
 	    if(matched)
-	      _cphipippim->fill(event.weight());
+	      _cphipippim->fill();
 	  }
-	  foreach (const Particle& p2, ufs.particles()) {
-	    if(p2.pdgId()!=9010221&&p2.pdgId()!=9000221) continue;
+	  for (const Particle& p2 : ufs.particles()) {
+	    if(p2.pid()!=9010221&&p2.pid()!=9000221) continue;
 	    if(p2.parents()[0].isSame(p)) continue;
 	    map<long,int> nResB = nRes;
 	    int ncountB = ncount;
@@ -121,12 +121,12 @@ namespace Rivet {
 	      }
 	    }
 	    if(matched2) {
-	      if(p2.pdgId()==9010221) {
-		_cphif0pi0pi0->fill(event.weight());
-		_cphif0_980  ->fill(event.weight());
+	      if(p2.pid()==9010221) {
+		_cphif0pi0pi0->fill();
+		_cphif0_980  ->fill();
 	      }
 	      else {
-		_cphif0_600  ->fill(event.weight());
+		_cphif0_600  ->fill();
 	      }
 	    }
 	  }
@@ -134,11 +134,11 @@ namespace Rivet {
       }
       if(ntotal==4) {
 	if(nCount[321]==1 && nCount[-321]==1 && nCount[211]==1 && nCount[-211]==1)
-	  _cKpKmpippim->fill(event.weight());
+	  _cKpKmpippim->fill();
 	else if( nCount[321]==1 && nCount[-321]==1 && nCount[111]==2)
-	  _cKpKmpi0pi0->fill(event.weight());
+	  _cKpKmpi0pi0->fill();
 	else if( nCount[321]==2 && nCount[-321]==2)
-	  _c2Kp2Km->fill(event.weight());
+	  _c2Kp2Km->fill();
       }
     }
 
@@ -182,7 +182,8 @@ namespace Rivet {
     	sigma *= crossSection()/ sumOfWeights() /nanobarn;
     	error *= crossSection()/ sumOfWeights() /nanobarn;
 	Scatter2D temphisto(refData(ix, 1, 1));
-	Scatter2DPtr  mult = bookScatter2D(ix, 1, 1);
+	Scatter2DPtr  mult;
+        book(mult, ix, 1, 1);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

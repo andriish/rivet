@@ -21,8 +21,8 @@ namespace Rivet {
     /// Default constructor.
     DISDiffHadron() {
       setName("DISDiffHadron");
-      addProjection(Beam(), "Beam");
-      addProjection(FinalState(), "FS");
+      declare(Beam(), "Beam");
+      declare(FinalState(), "FS");
     }
 
     /// Clone on the heap.
@@ -37,7 +37,7 @@ namespace Rivet {
     virtual void project(const Event& e);
 
     /// Compare with other projections.
-    virtual int compare(const Projection& p) const;
+    virtual CmpState compare(const Projection& p) const;
 
 
   public:

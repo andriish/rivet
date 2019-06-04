@@ -21,13 +21,13 @@ namespace Rivet {
     void init() {
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      _nPsi = bookCounter("TMP/psi");
+      book(_nPsi, "TMP/psi");
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for (const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  --nRes[child.pdgId()];
+	  --nRes[child.pid()];
 	  --ncount;
 	}
 	else
@@ -40,15 +40,15 @@ namespace Rivet {
       const FinalState& fs = apply<FinalState>(event, "FS");
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p: fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
 	// find the psi
-	if(p.pdgId()==443) {
+	if(p.pid()==443) {
 	  map<long,int> nRes = nCount;
 	  int ncount = ntotal;
 	  findChildren(p,nRes,ncount);
@@ -68,7 +68,7 @@ namespace Rivet {
 	    }
 	  }
 	  if(matched) {
-	    _nPsi->fill(event.weight());
+	    _nPsi->fill();
 	    break;
 	  }
 	}
@@ -83,7 +83,8 @@ namespace Rivet {
       double error = _nPsi->err()*fact;
       for(unsigned int ix=1;ix<3;++ix) {
 	Scatter2D temphisto(refData(ix, 1, 1));
-	Scatter2DPtr  mult = bookScatter2D(ix, 1, 1);
+	Scatter2DPtr  mult;
+        book(mult, ix, 1, 1);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

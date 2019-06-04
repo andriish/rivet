@@ -20,7 +20,7 @@ namespace Rivet {
     void init() {
 
       declare(UnstableParticles(), "UFS");
-      _h_KK   = bookHisto1D( 1, 1, 1);
+      book(_h_KK, 1, 1, 1);
 
     }
 
@@ -28,7 +28,7 @@ namespace Rivet {
                            unsigned int & nK0, unsigned int & nKp,
 			   unsigned int & nKm, FourMomentum & ptot) {
       for(const Particle & p : mother.children()) {
-        int id = p.pdgId();
+        int id = p.pid();
         if ( id == PID::KPLUS ) {
 	  ++nKp;
           ++nstable;
@@ -63,12 +63,12 @@ namespace Rivet {
         unsigned int nstable(0),nK0(0),nKp(0),nKm(0);
       	FourMomentum p_tot(0,0,0,0);
         findDecayProducts(tau, nstable, nK0, nKp, nKm, p_tot);
-        if (tau.pdgId() < 0) {
+        if (tau.pid() < 0) {
       	  swap(nKp,nKm);
       	}
        	if(nstable!=3) continue;
       	if(nKm==1 && nK0==1 )
-          _h_KK->fill(p_tot.mass(), event.weight());
+          _h_KK->fill(p_tot.mass());
       }
 
 

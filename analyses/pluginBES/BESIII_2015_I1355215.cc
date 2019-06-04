@@ -21,13 +21,13 @@ namespace Rivet {
     void init() {
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      _nJPsi = bookCounter("TMP/jpsi");
+      book(_nJPsi, "TMP/jpsi");
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for (const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  --nRes[child.pdgId()];
+	  --nRes[child.pid()];
 	  --ncount;
 	}
 	else
@@ -40,24 +40,24 @@ namespace Rivet {
       const FinalState& fs = apply<FinalState>(event, "FS");
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
-      foreach (const Particle& p1, ufs.particles()) {
+      for (const Particle& p1 : ufs.particles()) {
 	if(p1.children().empty()) continue;
 	bool matched=false;
 	// find the j/psi
-	if(p1.pdgId()!=443) continue;
+	if(p1.pid()!=443) continue;
 	map<long,int> nRes = nCount;
 	int ncount = ntotal;
 	findChildren(p1,nRes,ncount);
 	
-	foreach (const Particle& p2, ufs.particles()) {
+	for (const Particle& p2 : ufs.particles()) {
 	  if(p2.children().empty()) continue;
 	  // find the j/psi
-	  if(p2.pdgId()!=331) continue;
+	  if(p2.pid()!=331) continue;
 	  map<long,int> nRes2 = nRes;
 	  int ncount2 = ncount;
 	  findChildren(p2,nRes2,ncount2);
@@ -70,7 +70,7 @@ namespace Rivet {
 	    }
 	  }
 	  if(matched) {
-	    _nJPsi->fill(event.weight());
+	    _nJPsi->fill();
 	    break;
 	  }
 	}
@@ -87,7 +87,8 @@ namespace Rivet {
       sigma *= crossSection()/ sumOfWeights() /picobarn;
       error *= crossSection()/ sumOfWeights() /picobarn; 
       Scatter2D temphisto(refData(1, 1, 10));
-      Scatter2DPtr  mult = bookScatter2D(1, 1, 10);
+      Scatter2DPtr  mult;
+      book(mult, 1, 1, 10);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	const double x  = temphisto.point(b).x();
 	pair<double,double> ex = temphisto.point(b).xErrs();

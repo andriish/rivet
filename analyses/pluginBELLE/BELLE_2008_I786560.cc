@@ -69,7 +69,7 @@ namespace Rivet {
                            Particles& pip, Particles& pim,
                            Particles& pi0) {
       for (const Particle &p : mother.children()) {
-        long id = p.pdgId();
+        long id = p.pid();
         if (id == PID::PI0 ) {
           pi0.push_back(p);
           ++nstable;

@@ -34,10 +34,10 @@ namespace Rivet {
       }
 
       // bosons
-      WFinder wfinder_mu(fs, cuts, PID::MUON, 40.0*GeV, MAXDOUBLE, 0.0*GeV, 0.1,
+      WFinder wfinder_mu(fs, cuts, PID::MUON, 40.0*GeV, YODA::MAXDOUBLE, 0.0*GeV, 0.1,
                       WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
       declare(wfinder_mu, "WFmu");
-      WFinder wfinder_el(fs, cuts, PID::ELECTRON, 40.0*GeV, MAXDOUBLE, 0.0*GeV, 0.1,
+      WFinder wfinder_el(fs, cuts, PID::ELECTRON, 40.0*GeV, YODA::MAXDOUBLE, 0.0*GeV, 0.1,
                       WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
       declare(wfinder_el, "WFel");
 

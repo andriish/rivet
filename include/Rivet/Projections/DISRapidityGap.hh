@@ -21,8 +21,8 @@ namespace Rivet {
 
     DISRapidityGap() {
       setName("DISRapidityGap");
-      addProjection(DISKinematics(), "DISKIN");
-      addProjection(DISFinalState(DISFinalState::HCM), "DISFS");
+      declare(DISKinematics(), "DISKIN");
+      declare(DISFinalState(DISFinalState::HCM), "DISFS");
     }
 
     DEFAULT_RIVET_PROJ_CLONE(DISRapidityGap);
@@ -66,7 +66,7 @@ namespace Rivet {
 
   protected:
 
-    virtual int compare(const Projection& p) const;
+    virtual CmpState compare(const Projection& p) const;
 
     virtual void project(const Event& e);
 

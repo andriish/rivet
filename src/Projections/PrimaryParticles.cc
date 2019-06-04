@@ -38,7 +38,7 @@ namespace Rivet {
     
   bool PrimaryParticles::isPrimaryPID(ConstGenParticlePtr p) const
   {
-    int thisPID = PID::abspid(p->pdg_id());
+    int thisPID = abs(p->pdg_id());
     for(const auto pid : _pdgIds)
       if (thisPID == pid) return true;
     return false;

@@ -73,10 +73,10 @@ namespace Rivet {
         vfs.addVetoOnThisFinalState(ewdressedelectrons);
         vfs.addVetoOnThisFinalState(ewdressedmuons);
 
-        FastJets jets(vfs, FastJets::ANTIKT, 0.4, JetAlg::DECAY_MUONS, JetAlg::DECAY_INVISIBLES);
+        FastJets jets(vfs, FastJets::ANTIKT, 0.4, JetAlg::Muons::DECAY, JetAlg::Invisibles::DECAY);
         declare(jets, "jets");
 
-        FastJets ljets(fs, FastJets::ANTIKT, 1.0, JetAlg::NO_MUONS, JetAlg::NO_INVISIBLES);
+        FastJets ljets(fs, FastJets::ANTIKT, 1.0, JetAlg::Muons::NONE, JetAlg::Invisibles::NONE);
         declare(ljets, "ljets" );
 
         if (_mode != 0 ){

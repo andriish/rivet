@@ -6,6 +6,7 @@
 #include <iostream>
 
 using std::cerr;
+using std::endl;
 
 namespace {
   // Get a logger.
@@ -141,7 +142,7 @@ namespace Rivet {
 
 
   string ProjectionHandler::_getStatus() const {
-    ostringstream msg;
+    std::ostringstream msg;
     msg << "Current projection hierarchy:" << endl;
     for (const NamedProjsMap::value_type& nps : _namedprojs) {
       //const string parentname = nps.first->name();

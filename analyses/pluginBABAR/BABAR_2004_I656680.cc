@@ -23,7 +23,7 @@ namespace Rivet {
       // Initialise and register projections
       declare(FinalState(), "FS");
 
-      _num3pi = bookCounter("TMP/num3");
+      book(_num3pi, "TMP/num3");
 
     }
 
@@ -34,13 +34,13 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       if(ntotal!=3) vetoEvent;
       if(nCount[-211]==1&&nCount[211]==1&&nCount[111]==1)
-	_num3pi->fill(event.weight());
+	_num3pi->fill();
 
     }
 
@@ -53,7 +53,8 @@ namespace Rivet {
       sigma *= crossSection()/ sumOfWeights() /nanobarn;
       error *= crossSection()/ sumOfWeights() /nanobarn;
       Scatter2D temphisto(refData(1, 1, 1));
-      Scatter2DPtr  mult = bookScatter2D(1, 1, 1);
+      Scatter2DPtr  mult;
+      book(mult, 1, 1, 1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	const double x  = temphisto.point(b).x();
 	pair<double,double> ex = temphisto.point(b).xErrs();

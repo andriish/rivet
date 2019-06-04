@@ -1,5 +1,6 @@
 #include <Rivet/Analysis.hh>
 #include <Rivet/Projections/AliceCommon.hh>
+#include <Rivet/Projections/HepMCHeavyIon.hh>
 
 namespace Rivet {
 
@@ -33,7 +34,7 @@ namespace Rivet {
     /// Analyse a single event.
     void analyze(const Event& event) {
       // Get and fill in the impact parameter value if the information is valid.
-      _imp->fill(apply<HepMCHeavyIon>(event, "HepMC").impact_parameter(), event.weight());
+      _imp->fill(apply<HepMCHeavyIon>(event, "HepMC").impact_parameter());
 	  
       // Check if we have any hit in either V0-A or -C.  If not, the
       // event is not selected and we get out.

@@ -28,15 +28,15 @@ namespace Rivet {
       for(unsigned int ix=1;ix<19;++ix) {
 	stringstream ss;
 	ss << "TMP/n" << ix;
-	_nMeson[ix]= bookCounter(ss.str());
+	book(_nMeson[ix], ss.str());
       }
 
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for (const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  nRes[child.pdgId()]-=1;
+	  nRes[child.pid()]-=1;
 	  --ncount;
 	}
 	else
@@ -50,20 +50,20 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
       	if(p.children().empty()) continue;
-      	if(p.pdgId()!=221 && p.pdgId()!=333) continue;
+      	if(p.pid()!=221 && p.pid()!=333) continue;
       	map<long,int> nRes = nCount;
       	int ncount = ntotal;
       	findChildren(p,nRes,ncount);
 	// eta
-      	if(p.pdgId()==221) {
+      	if(p.pid()==221) {
        	  if(ncount==4) {
       	    bool matched = true;
       	    for(auto const & val : nRes) {
@@ -78,10 +78,10 @@ namespace Rivet {
       		break;
       	      }
       	    }
-      	    if(matched) _nMeson[12]->fill(event.weight());
+      	    if(matched) _nMeson[12]->fill();
       	  }
 	}
-       	else if(p.pdgId()==333) {
+       	else if(p.pid()==333) {
        	  if(ncount!=1) continue;
        	  bool matched = true;
        	  for(auto const & val : nRes) {
@@ -97,44 +97,44 @@ namespace Rivet {
        	    }
        	  }
        	  if(matched)
-       	    _nMeson[7]->fill(event.weight());
+       	    _nMeson[7]->fill();
       	}
       }
       if(ntotal==3 &&  nCount[111]==1 &&
 	 nCount[-2212] == 1 && nCount[ 2212]==1)
-	_nMeson[16]->fill(event.weight());
+	_nMeson[16]->fill();
       else if(ntotal==4) {
 	if(nCount[-211] == 2 && nCount[ 211]==2)
-	  _nMeson[3]->fill(event.weight());
+	  _nMeson[3]->fill();
 	else if(nCount[-211] == 1 && nCount[ 211]==1 &&
 		nCount[-321] == 1 && nCount[ 321]==1)
-	  _nMeson[4]->fill(event.weight());
+	  _nMeson[4]->fill();
 	else if(nCount[-321] == 2 && nCount[ 321]==2)
-	  _nMeson[6]->fill(event.weight());
+	  _nMeson[6]->fill();
 	else if(nCount[-211 ] == 1 && nCount[ 211 ]==1 &&
 		nCount[-2212] == 1 && nCount[ 2212]==1)
-	  _nMeson[8]->fill(event.weight());
+	  _nMeson[8]->fill();
 	else if(nCount[-321 ] == 1 && nCount[ 321 ]==1 &&
 		nCount[-2212] == 1 && nCount[ 2212]==1)
-	  _nMeson[9]->fill(event.weight());
+	  _nMeson[9]->fill();
       }
       else if(ntotal==5 && nCount[111]==1) {
 	if(nCount[-211] == 2 && nCount[ 211]==2)
-	  _nMeson[13]->fill(event.weight());
+	  _nMeson[13]->fill();
 	else if(nCount[-211] == 1 && nCount[ 211]==1 &&
 		nCount[-321] == 1 && nCount[ 321]==1)
-	  _nMeson[14]->fill(event.weight());
+	  _nMeson[14]->fill();
 	else if(nCount[-321] == 2 && nCount[ 321]==2)
-	  _nMeson[15]->fill(event.weight());
+	  _nMeson[15]->fill();
 	else if(nCount[-211 ] == 1 && nCount[ 211 ]==1 &&
 		nCount[-2212] == 1 && nCount[ 2212]==1)
-	  _nMeson[17]->fill(event.weight());
+	  _nMeson[17]->fill();
       }
       else if(ntotal==6 && nCount[211]==3 && nCount[-211]==3)
-	_nMeson[11]->fill(event.weight());
+	_nMeson[11]->fill();
       else if(ntotal==7 && nCount[111]==1 &&
 	      nCount[211]==3 && nCount[-211]==3)
-	_nMeson[18]->fill(event.weight());
+	_nMeson[18]->fill();
     }
 
 
@@ -147,7 +147,8 @@ namespace Rivet {
     	sigma *= crossSection()/ sumOfWeights() /picobarn;
     	error *= crossSection()/ sumOfWeights() /picobarn; 
 	Scatter2D temphisto(refData(1, 1, ix));
-    	Scatter2DPtr  mult = bookScatter2D(1, 1, ix);
+    	Scatter2DPtr  mult;
+        book(mult, 1, 1, ix);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();
