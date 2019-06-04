@@ -1,5 +1,13 @@
 2019-06-04  Peter Richardson <peter.richardson@durham.ac.uk>
-	* sync yoda for BELLE_2015_I1397632, two hists change label + final bin
+	* sync yoda for BELLE_2015_I1397632, two hists change label + final binchangeset:   7157:2482c97f5ef8
+	* update BABAR_2007_S6895344.yoda with improved error calc
+	* sync yoda for H1_1994_S2919893.yoda, only difference handling of non-existance bins, better in new version
+	* sync yoda for OPAL_2000_S4418603.yoda, changes only in histos not used by rivet
+	* sync yoda for OPAL_1997_S3608263, missing histos in rivet copy
+	* sync yoda for OPAL_1997_S3396100, trival difference some asymmetric x bins in new output but bin limits same
+	* remove null bins from yoda to allow sync with hepdata in CLEO_2004_S5809304.yoda
+	* add OPAL_1997_I421977 for sigma +/- production
+
 
 2019-06-03  Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
 
