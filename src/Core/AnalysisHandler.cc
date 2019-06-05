@@ -275,7 +275,7 @@ namespace Rivet {
       MSG_TRACE("Finished running analysis " << a->name());
     }
 
-    if ( _dumpPeriod > 0 && numEvents()%_dumpPeriod == 0 ) {
+    if ( _dumpPeriod > 0 && numEvents() > 0 && numEvents()%_dumpPeriod == 0 ) {
       MSG_INFO("Dumping intermediate results to " << _dumpFile << ".");
       _dumping = numEvents()/_dumpPeriod;
       finalize();

@@ -23,13 +23,13 @@ namespace Rivet {
       // Initialise and register projections
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      _numOmegaPi = bookCounter("TMP/OmegaPi");
+      book(_numOmegaPi, "TMP/OmegaPi");
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for (const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  nRes[child.pdgId()]+=1;
+	  nRes[child.pid()]+=1;
 	  ++ncount;
 	}
 	else
@@ -44,17 +44,17 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       // three particles (pi0 pi0 gamma)
       if(ntotal!=3) vetoEvent;
       const FinalState& ufs = apply<FinalState>(event, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
 	// find the omega
-	if(p.pdgId()==223) {
+	if(p.pid()==223) {
 	  map<long,int> nRes;
 	  int ncount(0);
 	  findChildren(p,nRes,ncount);
@@ -63,7 +63,7 @@ namespace Rivet {
 	  if(nRes[111]!=1 || nRes[22]!=1) continue;
 	  // omega pi0
 	  if(nCount[111]-nRes[111]==1)
-	    _numOmegaPi->fill(event.weight());
+	    _numOmegaPi->fill();
 	}
       }
     }
@@ -77,7 +77,8 @@ namespace Rivet {
       sigma *= crossSection()/ sumOfWeights() /nanobarn;
       error *= crossSection()/ sumOfWeights() /nanobarn;
       Scatter2D temphisto(refData(1, 1, 1));
-      Scatter2DPtr  mult = bookScatter2D(1, 1, 1);
+      Scatter2DPtr mult;
+      book(mult, 1, 1, 1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	const double x  = temphisto.point(b).x();
 	pair<double,double> ex = temphisto.point(b).xErrs();

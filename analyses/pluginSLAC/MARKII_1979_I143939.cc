@@ -21,15 +21,15 @@ namespace Rivet {
     void init() {
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      _c_hadrons = bookCounter("/TMP/sigma_hadrons");
-      _c_muons   = bookCounter("/TMP/sigma_muons");
-      _c_DD      = bookCounter("/TMP/sigma_DD");
+      book(_c_hadrons, "/TMP/sigma_hadrons");
+      book(_c_muons, "/TMP/sigma_muons");
+      book(_c_DD, "/TMP/sigma_DD");
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for (const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  nRes[child.pdgId()]-=1;
+	  nRes[child.pid()]-=1;
 	  --ncount;
 	}
 	else
@@ -43,28 +43,28 @@ namespace Rivet {
       // total hadronic and muonic cross sections
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       // mu+mu- + photons
       if(nCount[-13]==1 and nCount[13]==1 &&
 	 ntotal==2+nCount[22])
-	_c_muons->fill(event.weight());
+	_c_muons->fill();
       // everything else
       else
-	_c_hadrons->fill(event.weight());
+	_c_hadrons->fill();
       // identified final state with D mesons
       const FinalState& ufs = apply<UnstableParticles>(event, "UFS");
       for(unsigned int ix=0;ix<ufs.particles().size();++ix) {
 	bool matched = false;
        	const Particle& p1 = ufs.particles()[ix];
-       	int id1 = abs(p1.pdgId());
+       	int id1 = abs(p1.pid());
        	if(id1 != 411 && id1 != 421) continue;
       	// check fs
       	bool fs = true;
-      	foreach(const Particle & child, p1.children()) {
-      	  if(child.pdgId()==p1.pdgId()) {
+      	for (const Particle & child : p1.children()) {
+      	  if(child.pid()==p1.pid()) {
       	    fs = false;
       	    break;
       	  }
@@ -78,17 +78,17 @@ namespace Rivet {
        	for(unsigned int iy=ix+1;iy<ufs.particles().size();++iy) {
        	  const Particle& p2 = ufs.particles()[iy];
        	  fs = true;
-       	  foreach(const Particle & child, p2.children()) {
-       	    if(child.pdgId()==p2.pdgId()) {
+       	  for (const Particle & child : p2.children()) {
+       	    if(child.pid()==p2.pid()) {
        	      fs = false;
        	      break;
        	    }
        	  }
        	  if(!fs) continue;
-       	  if(p2.pdgId()/abs(p2.pdgId())==p1.pdgId()/abs(p1.pdgId())) continue;
-       	  int id2 = abs(p2.pdgId());
+       	  if(p2.pid()/abs(p2.pid())==p1.pid()/abs(p1.pid())) continue;
+       	  int id2 = abs(p2.pid());
        	  if(id2 != 411 && id2 != 421) continue;
-      	  if(!p2.parents().empty() && p2.parents()[0].pdgId()==p1.pdgId())
+      	  if(!p2.parents().empty() && p2.parents()[0].pid()==p1.pid())
       	    continue;
       	  map<long,int> nRes2 = nRes;
       	  int ncount2 = ncount;
@@ -102,7 +102,7 @@ namespace Rivet {
 	    }
 	  }
 	  if(matched) {
-	    _c_DD  ->fill(event.weight());
+	    _c_DD  ->fill();
 	    break;
 	  }
 	}
@@ -122,9 +122,12 @@ namespace Rivet {
       double sig_m = _c_muons  ->val()*fact;
       double err_m = _c_muons  ->err()*fact;
       Scatter2D temphisto(refData(2, 1, 1));
-      Scatter2DPtr hadrons  = bookScatter2D("sigma_hadrons");
-      Scatter2DPtr muons    = bookScatter2D("sigma_muons"  );
-      Scatter2DPtr     mult = bookScatter2D(2,1,1);
+      Scatter2DPtr hadrons;
+      book(hadrons, "sigma_hadrons");
+      Scatter2DPtr muons;
+      book(muons, "sigma_muons"  );
+      Scatter2DPtr mult;
+      book(mult, 2,1,1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	const double x  = temphisto.point(b).x();
 	pair<double,double> ex = temphisto.point(b).xErrs();
@@ -145,7 +148,7 @@ namespace Rivet {
       double sigma = _c_DD->val()*fact;
       double error = _c_DD->err()*fact;
       Scatter2D temphisto2(refData(3, 1, 1));
-      mult = bookScatter2D(3,1,1);
+      book(mult, 3,1,1);
       for (size_t b = 0; b < temphisto2.numPoints(); b++) {
 	const double x  = temphisto2.point(b).x();
 	pair<double,double> ex = temphisto2.point(b).xErrs();

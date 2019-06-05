@@ -79,7 +79,7 @@ namespace Rivet {
     void finalize() {
       double fact = crossSection()/ sumOfWeights() /nanobarn;
       for(unsigned int ix=1;ix<7;++ix) {
-	double sigma,error;
+	double sigma = 0.0, error = 0.0;
 	if(ix==1) {
 	  sigma = _n3pi->val()*fact;
 	  error = _n3pi->err()*fact;

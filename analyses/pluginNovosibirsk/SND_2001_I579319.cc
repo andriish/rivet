@@ -23,8 +23,8 @@ namespace Rivet {
       declare(FinalState(), "FS");
 
       // Book histograms
-      _npion1 = bookCounter("TMP/pion1");
-      _npion2 = bookCounter("TMP/pion2");
+      book(_npion1, "TMP/pion1");
+      book(_npion2, "TMP/pion2");
     }
 
 
@@ -34,15 +34,15 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       if(ntotal!=4) vetoEvent;
       if(nCount[-211]==2&&nCount[211]==2)
-	_npion1->fill(event.weight());
+	_npion1->fill();
       else if(nCount[-211]==1&&nCount[211]==1&&nCount[111]==2)
-	_npion2->fill(event.weight());
+	_npion2->fill();
     }
 
 
@@ -61,7 +61,8 @@ namespace Rivet {
 	sigma *= crossSection()/ sumOfWeights() /nanobarn;
 	error *= crossSection()/ sumOfWeights() /nanobarn; 
 	Scatter2D temphisto(refData(ix, 1, 1));
-	Scatter2DPtr  mult = bookScatter2D(ix, 1, 1);
+	Scatter2DPtr mult;
+	book(mult, ix, 1, 1);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

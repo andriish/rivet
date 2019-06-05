@@ -24,9 +24,9 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      _c_hadrons = bookCounter("/TMP/sigma_hadrons");
-      _c_muons   = bookCounter("/TMP/sigma_muons");
-      _c_D_star  = bookCounter("/TMP/sigma_D_star");
+      book(_c_hadrons, "/TMP/sigma_hadrons");
+      book(_c_muons, "/TMP/sigma_muons");
+      book(_c_D_star, "/TMP/sigma_D_star");
     }
 
 
@@ -36,25 +36,25 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       // mu+mu- + photons
       if(nCount[-13]==1 and nCount[13]==1 &&
 	 ntotal==2+nCount[22])
-	_c_muons->fill(event.weight());
+	_c_muons->fill();
       // everything else
       else
-	_c_hadrons->fill(event.weight());
+	_c_hadrons->fill();
 
       const FinalState& ufs = apply<UnstableParticles>(event, "UFS");
       bool found = false;
-      foreach(const Particle & p, ufs.particles()) {
-	if(abs(p.pdgId())!=413 && abs(p.pdgId())!=423) continue;
+      for (const Particle & p : ufs.particles()) {
+	if(abs(p.pid())!=413 && abs(p.pid())!=423) continue;
 	bool fs = true;
-	foreach(const Particle & child, p.children()) {
-	  if(child.pdgId()==p.pdgId()) {
+	for (const Particle & child : p.children()) {
+	  if(child.pid()==p.pid()) {
 	    fs = false;
 	    break;
 	  }
@@ -65,7 +65,7 @@ namespace Rivet {
 	}
       }
       if(found) 
-	_c_D_star->fill(event.weight());
+	_c_D_star->fill();
     }
 
 
@@ -81,9 +81,12 @@ namespace Rivet {
       double sig_m = _c_muons  ->val()*fact;
       double err_m = _c_muons  ->err()*fact;
       Scatter2D temphisto(refData(1, 1, 1));
-      Scatter2DPtr hadrons  = bookScatter2D("sigma_hadrons");
-      Scatter2DPtr muons    = bookScatter2D("sigma_muons"  );
-      Scatter2DPtr     mult = bookScatter2D(1, 1, 1);
+      Scatter2DPtr hadrons;
+      book(hadrons, "sigma_hadrons");
+      Scatter2DPtr muons;
+      book(muons, "sigma_muons"  );
+      Scatter2DPtr mult;
+      book(mult, 1, 1, 1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	const double x  = temphisto.point(b).x();
 	pair<double,double> ex = temphisto.point(b).xErrs();
@@ -106,7 +109,8 @@ namespace Rivet {
       double sigma = _c_D_star->val()*fact;
       double error = _c_D_star->err()*fact;
       Scatter2D temphisto2(refData(2, 1, 1));
-      Scatter2DPtr     mult2 = bookScatter2D(2, 1, 1);
+      Scatter2DPtr mult2;
+      book(mult2, 2, 1, 1);
       for (size_t b = 0; b < temphisto2.numPoints(); b++) {
       	const double x  = temphisto2.point(b).x();
       	pair<double,double> ex = temphisto2.point(b).xErrs();

@@ -23,7 +23,7 @@ namespace Rivet {
       declare(FinalState(), "FS");
 
       // Book histograms
-      _nKSKL     = bookCounter("TMP/nKSKL");
+      book(_nKSKL, "TMP/nKSKL");
     }
 
 
@@ -33,13 +33,13 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       
       if(ntotal==2 && nCount[130]==1 && nCount[310]==1)
-	_nKSKL->fill(event.weight());
+	_nKSKL->fill();
     }
 
 
@@ -50,7 +50,8 @@ namespace Rivet {
       sigma *= crossSection()/ sumOfWeights() /nanobarn;
       error *= crossSection()/ sumOfWeights() /nanobarn;
       Scatter2D temphisto(refData(1, 1, 1));
-      Scatter2DPtr  mult = bookScatter2D(1, 1, 1);
+      Scatter2DPtr mult;
+      book(mult, 1, 1, 1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	const double x  = temphisto.point(b).x();
 	pair<double,double> ex = temphisto.point(b).xErrs();

@@ -122,7 +122,7 @@ namespace Rivet {
     void finalize() {
       double fact = crossSection()/ sumOfWeights()/nanobarn;
       for(unsigned int iy=1;iy<3;++iy) {
-	double sigma,error;
+	double sigma = 0.0, error = 0.0;
 	if(iy==1) {
 	  sigma = _c_DpDmS->val()*fact;
 	  error = _c_DpDmS->err()*fact;

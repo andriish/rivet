@@ -23,7 +23,7 @@ namespace Rivet {
       declare(ChargedFinalState(), "FS");
 
       // Book histograms
-      _nHadrons= bookCounter("TMP/hadrons");
+      book(_nHadrons, "TMP/hadrons");
 
     }
 
@@ -31,7 +31,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const ChargedFinalState& fs = apply<ChargedFinalState>(event, "FS");
-      _nHadrons->fill(fs.particles().size()*event.weight());
+      _nHadrons->fill(fs.particles().size());
     }
 
 
@@ -40,7 +40,8 @@ namespace Rivet {
       double sigma = _nHadrons->val()/sumOfWeights();
       double error = _nHadrons->err()/sumOfWeights();
       Scatter2D temphisto(refData(6, 1, 1));
-      Scatter2DPtr  mult = bookScatter2D(6, 1, 1);
+      Scatter2DPtr mult;
+      book(mult, 6, 1, 1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	const double x  = temphisto.point(b).x();
 	pair<double,double> ex = temphisto.point(b).xErrs();

@@ -163,8 +163,8 @@ int main() {
   cout << p1 << " -> " << p2 << endl;
   cout << p2 << " -> " << ltX.inverse().transform(p2) << endl;
   //cout << p1.boostVector() << endl;
-  cout << "LT(p1) = " << LorentzTransform::mkFrameTransformFromBeta(p1.boostVector()) << endl;
-  const FourMomentum p3 = LorentzTransform::mkFrameTransformFromBeta(p1.boostVector()).transform(p1);
+  cout << "LT(p1) = " << LorentzTransform::mkFrameTransformFromBeta(p1.betaVec()) << endl;
+  const FourMomentum p3 = LorentzTransform::mkFrameTransformFromBeta(p1.betaVec()).transform(p1);
   cout << p1 << " -> " << p3 << endl;
   assert(isZero(p3.x()));
   assert(isZero(p3.y()));

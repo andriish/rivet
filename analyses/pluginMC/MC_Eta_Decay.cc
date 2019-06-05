@@ -26,22 +26,34 @@ namespace Rivet {
       double meta[2]={547.45, 957.78};
       for(unsigned int ix=0;ix<2;++ix) {
 	std::ostringstream title; title << "_" << ix;
-	_mgammagamma .push_back(bookHisto1D("mgammagamma" +title.str(),200,0.,meta[ix]) );
-	_mpi0gamma   .push_back(bookHisto1D("mpi0gamma"   +title.str(),200,0.,meta[ix])) ;
-	_mpipgamma   .push_back(bookHisto1D("mpipgamma"   +title.str(),200,0.,meta[ix]));
-	_mpimgamma   .push_back(bookHisto1D("mpimgamma"   +title.str(),200,0.,meta[ix]));
-	_photonenergy.push_back(bookHisto1D("photonenergy"+title.str(),200,0.,meta[ix]));
-	_mpippim     .push_back(bookHisto1D("mpippim"     +title.str(),200,0.,meta[ix]));
-	_dpippim     .push_back(bookHisto1D("dpippim"     +title.str(),200,200.,meta[ix]));
-	_dpi0pi0     .push_back(bookHisto1D("dpi0pi0"     +title.str(),200,200.,meta[ix]));
-	_dpi0pip     .push_back(bookHisto1D("dpi0pip"     +title.str(),200,200.,meta[ix]));
-	_dpi0pim     .push_back(bookHisto1D("dpi0pim"     +title.str(),200,200.,meta[ix]));
+	_mgammagamma.push_back(Histo1DPtr());
+	book(_mgammagamma.back(), "mgammagamma" +title.str(),200,0.,meta[ix]);
+	_mpi0gamma.push_back(Histo1DPtr());
+	book(_mpi0gamma.back(), "mpi0gamma"   +title.str(),200,0.,meta[ix]);
+	_mpipgamma.push_back(Histo1DPtr());
+	book(_mpipgamma.back(), "mpipgamma"   +title.str(),200,0.,meta[ix]);
+	_mpimgamma.push_back(Histo1DPtr());
+	book(_mpimgamma.back(), "mpimgamma"   +title.str(),200,0.,meta[ix]);
+	_photonenergy.push_back(Histo1DPtr());
+	book(_photonenergy.back(), "photonenergy"+title.str(),200,0.,meta[ix]);
+	_mpippim.push_back(Histo1DPtr());
+	book(_mpippim.back(), "mpippim"     +title.str(),200,0.,meta[ix]);
+	_dpippim.push_back(Histo1DPtr());
+	book(_dpippim.back(), "dpippim"     +title.str(),200,200.,meta[ix]);
+	_dpi0pi0.push_back(Histo1DPtr());
+	book(_dpi0pi0.back(), "dpi0pi0"     +title.str(),200,200.,meta[ix]);
+	_dpi0pip.push_back(Histo1DPtr());
+	book(_dpi0pip.back(), "dpi0pip"     +title.str(),200,200.,meta[ix]);
+	_dpi0pim.push_back(Histo1DPtr());
+	book(_dpi0pim.back(), "dpi0pim"     +title.str(),200,200.,meta[ix]);
       }
-      _dpi0pi0.push_back(bookHisto1D("dpi0pi0_2",200,200.,500.   ));
-      _dpippim.push_back(bookHisto1D("dpippim_2",200,200.,500.   ));
-      _dpipeta=bookHisto1D("dpipeta",200,500.,meta[1]) ;
-      _dpimeta=bookHisto1D("dpimeta",200,500.,meta[1]) ;
-      _dpi0eta=bookHisto1D("dpi0eta",200,500.,meta[1]) ;
+      _dpi0pi0.push_back(Histo1DPtr());
+      book(_dpi0pi0.back(), "dpi0pi0_2",200,200.,500.   );
+      _dpippim.push_back(Histo1DPtr());
+      book(_dpippim.back(), "dpippim_2",200,200.,500.   );
+      book(_dpipeta, "dpipeta",200,500.,meta[1]) ;
+      book(_dpimeta, "dpimeta",200,500.,meta[1]) ;
+      book(_dpi0eta, "dpi0eta",200,500.,meta[1]) ;
     }
 
     void findDecayProducts(const Particle & mother,
@@ -50,7 +62,7 @@ namespace Rivet {
 			   Particles& pi0, Particles& eta,
 			   Particles& gamma) {
       for(const Particle & p : mother.children()) {
-	int id = p.pdgId();
+	int id = p.pid();
         if ( id == PID::ETA ) {
 	  eta.push_back(p);
 	  ++nstable;
@@ -84,48 +96,47 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      double weight = event.weight();
       // Loop over f_1 mesons
       for(const Particle& meson : apply<UnstableParticles>(event, "UFS").
 	    particles(Cuts::pid==221||Cuts::pid==331)) {
 	unsigned int nstable(0);
 	Particles pip, pim, pi0, eta, gamma;
 	findDecayProducts(meson,nstable,pip, pim, pi0, eta, gamma);
-	unsigned int imeson = meson.pdgId()==221 ? 0 : 1;
+	unsigned int imeson = meson.pid()==221 ? 0 : 1;
 	// pi0 gamma gamma
 	if(nstable==3 && pi0.size()==1 && gamma.size()==2) {
-	  _mgammagamma[imeson]->fill((gamma[0].momentum()+gamma[1].momentum()).mass()/MeV,weight);
-	  _mpi0gamma  [imeson]->fill((  pi0[0].momentum()+gamma[0].momentum()).mass()/MeV,weight);
-	  _mpi0gamma  [imeson]->fill((  pi0[0].momentum()+gamma[1].momentum()).mass()/MeV,weight);
+	  _mgammagamma[imeson]->fill((gamma[0].momentum()+gamma[1].momentum()).mass()/MeV);
+	  _mpi0gamma  [imeson]->fill((  pi0[0].momentum()+gamma[0].momentum()).mass()/MeV);
+	  _mpi0gamma  [imeson]->fill((  pi0[0].momentum()+gamma[1].momentum()).mass()/MeV);
 	}  // pi+pi-gamma analysis
 	else if(nstable==3 && pip.size()==1 && pim.size()==1 && gamma.size()==1) {
 	  FourMomentum ptemp = pip[0].momentum()+pim[0].momentum();
 	  double mpipi = ptemp.mass();
-	  _mpippim[imeson]->fill(mpipi/MeV,weight);
+	  _mpippim[imeson]->fill(mpipi/MeV);
 	  double egamma = 0.5*(meson.mass()*meson.mass()-mpipi*mpipi)/meson.mass();
-	  _photonenergy[imeson]->fill(egamma/MeV,weight);
-	  _mpipgamma[imeson]->fill((pip[0].momentum()+gamma[0].momentum()).mass()/MeV,weight);
-	  _mpimgamma[imeson]->fill((pim[0].momentum()+gamma[0].momentum()).mass()/MeV,weight);
+	  _photonenergy[imeson]->fill(egamma/MeV);
+	  _mpipgamma[imeson]->fill((pip[0].momentum()+gamma[0].momentum()).mass()/MeV);
+	  _mpimgamma[imeson]->fill((pim[0].momentum()+gamma[0].momentum()).mass()/MeV);
 	}
 	else if(nstable==3&& pi0.size()==3) {
-	  _dpi0pi0[imeson]->fill((pi0[0].momentum()+pi0[1].momentum()).mass()/MeV,weight);
-	  _dpi0pi0[imeson]->fill((pi0[0].momentum()+pi0[2].momentum()).mass()/MeV,weight);
-	  _dpi0pi0[imeson]->fill((pi0[1].momentum()+pi0[2].momentum()).mass()/MeV,weight);
+	  _dpi0pi0[imeson]->fill((pi0[0].momentum()+pi0[1].momentum()).mass()/MeV);
+	  _dpi0pi0[imeson]->fill((pi0[0].momentum()+pi0[2].momentum()).mass()/MeV);
+	  _dpi0pi0[imeson]->fill((pi0[1].momentum()+pi0[2].momentum()).mass()/MeV);
 	}
 	else if(nstable==3&& pip.size()==1&&pim.size()==1&&pi0.size()==1) {
-	  _dpi0pip[imeson]->fill((pi0[0].momentum()+pip[0].momentum()).mass()/MeV,weight);
-	  _dpi0pim[imeson]->fill((pi0[0].momentum()+pim[0].momentum()).mass()/MeV,weight);
-	  _dpippim[imeson]->fill((pip[0].momentum()+pim[0].momentum()).mass()/MeV,weight);
+	  _dpi0pip[imeson]->fill((pi0[0].momentum()+pip[0].momentum()).mass()/MeV);
+	  _dpi0pim[imeson]->fill((pi0[0].momentum()+pim[0].momentum()).mass()/MeV);
+	  _dpippim[imeson]->fill((pip[0].momentum()+pim[0].momentum()).mass()/MeV);
 	}
 	else if(nstable==3&& pi0.size()==2&&eta.size()==1) {
-	  _dpi0pi0[2]->fill((pi0[0].momentum()+pi0[1].momentum()).mass()/MeV,weight);
-	  _dpi0eta   ->fill((pi0[0].momentum()+eta[0].momentum()).mass()/MeV,weight);
-	  _dpi0eta   ->fill((pi0[1].momentum()+eta[0].momentum()).mass()/MeV,weight);
+	  _dpi0pi0[2]->fill((pi0[0].momentum()+pi0[1].momentum()).mass()/MeV);
+	  _dpi0eta   ->fill((pi0[0].momentum()+eta[0].momentum()).mass()/MeV);
+	  _dpi0eta   ->fill((pi0[1].momentum()+eta[0].momentum()).mass()/MeV);
 	}
 	else if(nstable==3&& pip.size()==1&&pim.size()==1&&eta.size()==1) {
-	  _dpippim[2]->fill((pip[0].momentum()+pim[0].momentum()).mass()/MeV,weight);
-	  _dpipeta   ->fill((pip[0].momentum()+eta[0].momentum()).mass()/MeV,weight);
-	  _dpimeta   ->fill((pim[0].momentum()+eta[0].momentum()).mass()/MeV,weight);
+	  _dpippim[2]->fill((pip[0].momentum()+pim[0].momentum()).mass()/MeV);
+	  _dpipeta   ->fill((pip[0].momentum()+eta[0].momentum()).mass()/MeV);
+	  _dpimeta   ->fill((pim[0].momentum()+eta[0].momentum()).mass()/MeV);
 	}
       }
     }

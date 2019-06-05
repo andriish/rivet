@@ -21,14 +21,14 @@ namespace Rivet {
 
       declare(FinalState(), "FS");
       // Book histograms
-      _c_hadrons = bookCounter("/TMP/sigma_hadrons");
-      _c_muons   = bookCounter("/TMP/sigma_muons");
-      // if(inRange(sqrtS()/GeV,2.999,3.001))
-      // 	_h_charged = bookHisto1D(3, 1, 1);
-      // else if(inRange(sqrtS()/GeV,4.799,4.801))
-      // 	_h_charged = bookHisto1D(3, 1, 2);
-      // else if(inRange(sqrtS()/GeV,7.399,7.401))
-      // 	_h_charged = bookHisto1D(3, 1, 3);
+      book(_c_hadrons, "/TMP/sigma_hadrons");
+      book(_c_muons, "/TMP/sigma_muons");
+    //   // if(inRange(sqrtS()/GeV,2.999,3.001))
+    //     book(_h_charged, 3, 1, 1);
+    //   // else if(inRange(sqrtS()/GeV,4.799,4.801))
+    //     book(_h_charged, 3, 1, 2);
+    //   // else if(inRange(sqrtS()/GeV,7.399,7.401))
+    //     book(_h_charged, 3, 1, 3);
     }
 
 
@@ -38,21 +38,21 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
-	// if(PID::isCharged(p.pdgId())&&_h_charged&&abs(p.pdgId())!=13) {
+	// if(PID::isCharged(p.pid())&&_h_charged&&abs(p.pid())!=13) {
 	//   double x = 2.*p.p3().mod()/sqrtS();
-	//   _h_charged->fill(x,event.weight());
+	//   _h_charged->fill(x);
 	// }
       }
       // mu+mu- + photons
       if(nCount[-13]==1 and nCount[13]==1 &&
 	 ntotal==2+nCount[22])
-	_c_muons->fill(event.weight());
+	_c_muons->fill();
       // everything else
       else
-	_c_hadrons->fill(event.weight());
+	_c_hadrons->fill();
     }
 
 
@@ -71,9 +71,12 @@ namespace Rivet {
       double sig_m = _c_muons  ->val()*fact;
       double err_m = _c_muons  ->err()*fact;
       Scatter2D temphisto(refData(1, 1, 1));
-      Scatter2DPtr hadrons  = bookScatter2D(1,1,1);
-      Scatter2DPtr muons    = bookScatter2D("sigma_muons"  );
-      Scatter2DPtr     mult = bookScatter2D(2,1,1);
+      Scatter2DPtr hadrons;
+      book(hadrons, 1,1,1);
+      Scatter2DPtr muons;
+      book(muons, "sigma_muons"  );
+      Scatter2DPtr mult;
+      book(mult, 2,1,1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	const double x  = temphisto.point(b).x();
 	pair<double,double> ex = temphisto.point(b).xErrs();

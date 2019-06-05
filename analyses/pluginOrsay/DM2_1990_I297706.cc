@@ -22,14 +22,14 @@ namespace Rivet {
       // Initialise and register projections
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      _nProton= bookCounter( "/TMP/nProton" );
-      _nLambda= bookCounter( "/TMP/nLambda" );
+      book(_nProton,  "/TMP/nProton" );
+      book(_nLambda,  "/TMP/nLambda" );
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for (const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  nRes[child.pdgId()]-=1;
+	  nRes[child.pid()]-=1;
 	  --ncount;
 	}
 	else
@@ -43,23 +43,23 @@ namespace Rivet {
       // total hadronic and muonic cross sections
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       if(ntotal==2 && nCount[2212]==1 && nCount[-2212]==1)
-	_nProton->fill(event.weight());
+	_nProton->fill();
       
       // find the Lambdas
       const FinalState& ufs = apply<UnstableParticles>(event, "UFS");
       for(unsigned int ix=0;ix<ufs.particles().size();++ix) {
 	const Particle& p1 = ufs.particles()[ix];
-	if(abs(p1.pdgId())!=3122) continue;
+	if(abs(p1.pid())!=3122) continue;
 	bool matched = false;
 	// check fs
 	bool fs = true;
-	foreach(const Particle & child, p1.children()) {
-	  if(child.pdgId()==p1.pdgId()) {
+	for (const Particle & child : p1.children()) {
+	  if(child.pid()==p1.pid()) {
 	    fs = false;
 	    break;
 	  }
@@ -71,11 +71,11 @@ namespace Rivet {
 	findChildren(p1,nRes,ncount);
 	for(unsigned int iy=ix+1;iy<ufs.particles().size();++iy) {
 	  const Particle& p2 = ufs.particles()[iy];
-	  if(abs(p2.pdgId())!=3122) continue;
+	  if(abs(p2.pid())!=3122) continue;
 	  // check fs
 	  bool fs = true;
-	  foreach(const Particle & child, p2.children()) {
-	    if(child.pdgId()==p2.pdgId()) {
+	  for (const Particle & child : p2.children()) {
+	    if(child.pid()==p2.pid()) {
 	      fs = false;
 	      break;
 	    }
@@ -93,7 +93,7 @@ namespace Rivet {
 	    }
 	  }
 	  if(matched) {
-	    _nLambda->fill(event.weight());
+	    _nLambda->fill();
 	    break;
 	  }
 	}
@@ -116,7 +116,8 @@ namespace Rivet {
 	  error = _nLambda->err()*fact;
 	}
 	Scatter2D temphisto(refData(ix, 1, 1));
-	Scatter2DPtr  mult = bookScatter2D(ix, 1, 1);
+	Scatter2DPtr mult;
+	book(mult, ix, 1, 1);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

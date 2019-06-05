@@ -89,7 +89,7 @@ namespace Rivet {
     void finalize() {
       double fact = crossSection()/ sumOfWeights() /picobarn;
       for(unsigned int ix=1;ix<5;++ix) {
-	double sigma,error;
+	double sigma = 0.0, error = 0.0;
 	if(ix==1) {
 	  sigma = _nUps1pipi->val()*fact;
 	  error = _nUps1pipi->err()*fact;
