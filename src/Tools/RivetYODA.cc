@@ -30,7 +30,7 @@ Wrapper<T>::Wrapper(const vector<string>& weightNames, const T & p)
     auto final = _final.back();
     if (weightname != "") {
       obj->setPath("/RAW" + obj->path() + "[" + weightname + "]");
-      final->setPath(obj->path() + "[" + weightname + "]");
+      final->setPath(final->path() + "[" + weightname + "]");
     }
   }
 }
@@ -371,7 +371,7 @@ namespace Rivet {
   }
 
   template <class T>
-  void Wrapper<T>::pushToFinal(const vector<valarray<double> >& weight) {
+  void Wrapper<T>::pushToFinal() {
     for ( size_t m = 0; m < _persistent.size(); ++m ) {
       copyao(_persistent.at(m), _final.at(m));
     }

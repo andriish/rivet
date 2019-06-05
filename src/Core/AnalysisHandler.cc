@@ -299,59 +299,46 @@ namespace Rivet {
     if (!_initialised) return;
     MSG_INFO("Finalising analyses");
 
-    // First push all analyses' objects to persistent
+    // First push all analyses' objects to persistent and final
     MSG_TRACE("AnalysisHandler::finalize(): Pushing analysis objects to persistent.");
     _eventCounter.get()->pushToPersistent(_subEventWeights);
+    _eventCounter.get()->pushToFinal();
+    _xs.get()->pushToFinal();
     for (const AnaHandle& a : analyses()) {
-      for (auto ao : a->analysisObjects())
+      for (auto ao : a->analysisObjects()) {
         ao.get()->pushToPersistent(_subEventWeights);
-    }
-
-    // First we make copies of all analysis objects.
-    map<string,YODA::AnalysisObjectPtr> backupAOs;
-    for (auto ao : getData(false, true, false) )
-      backupAOs[ao->path()] = YODA::AnalysisObjectPtr(ao->newclone());
-
-    // Now we run the (re-entrant) finalize() functions for all analyses.
-    MSG_INFO("Finalising analyses");
-    for (AnaHandle a : analyses()) {
-    // *** LEIF *** temporarily removed this
-      // a->setCrossSection(_xs);
-      try {
-        if ( !_dumping || a->info().reentrant() )  a->finalize();
-        else if ( _dumping == 1 )
-          MSG_INFO("Skipping finalize in periodic dump of " << a->name()
-                   << " as it is not declared reentrant.");
-      } catch (const Error& err) {
-        cerr << "Error in " << a->name() << "::finalize method: " << err.what() << endl;
-        exit(1);
+        ao.get()->pushToFinal();
       }
     }
 
-    // Now we copy all analysis objects to the list of finalized
-    // ones, and restore the value to their original ones.
-    _finalizedAOs.clear();
-    for ( auto ao : getYodaAOs(false, false, false) )
-      _finalizedAOs.push_back(YODA::AnalysisObjectPtr(ao->newclone()));
-    for ( auto ao : getYodaAOs(false, true, false) ) {
-      // TODO: This should be possible to do in a nicer way, with a flag etc.
-      if (ao->path().find("/FINAL") != std::string::npos) continue;
-      auto aoit = backupAOs.find(ao->path());
-      if ( aoit == backupAOs.end() ) {
-        AnaHandle ana = analysis(split(ao->path(), "/")[0]);
-        if ( ana ) ana->removeAnalysisObject(ao->path());
-      } else
-        copyao(aoit->second, ao);
+    for (AnaHandle a : analyses()) {
+      if ( _dumping && !a->info().reentrant() )  {
+        if ( _dumping == 1 )
+          MSG_INFO("Skipping finalize in periodic dump of " << a->name()
+                   << " as it is not declared reentrant.");
+        continue;
+      }
+      for (size_t iW = 0; iW < numWeights(); iW++) {
+        _eventCounter.get()->setActiveFinalWeightIdx(iW);
+        _xs.get()->setActiveFinalWeightIdx(iW);
+        for (auto ao : a->analysisObjects())
+          ao.get()->setActiveFinalWeightIdx(iW);
+        try {
+          MSG_TRACE("running " << a->name() << "::finalize() for weight " << iW << ".");
+          a->finalize();
+        } catch (const Error& err) {
+          cerr << "Error in " << a->name() << "::finalize method: " << err.what() << '\n';
+          exit(1);
+        }
+      }
     }
 
     // Print out number of events processed
     const int nevts = numEvents();
     MSG_INFO("Processed " << nevts << " event" << (nevts != 1 ? "s" : ""));
 
-    // // Delete analyses
-    // MSG_DEBUG("Deleting analyses");
-    // _analyses.clear();
-
+    if ( _dumping ) return;
+ 
     // Print out MCnet boilerplate
     cout << endl;
     cout << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl;
