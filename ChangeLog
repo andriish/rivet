@@ -1,6 +1,7 @@
 2019-06-05  Peter Richardson <peter.richardson@durham.ac.uk>
 	* L3_2004_I652683 add missing plots and sync yoda, still missing n charged as functiomn of CMS energy and jet plots
 	* PLUTO_1980_I154270 clean up to prepare for yoda sync
+	* CDF_2015_I1388868, changes to allow yoda sync, histograms renumbered and systematic error added to y values
 
 2019-06-04  Peter Richardson <peter.richardson@durham.ac.uk>
 	* sync yoda for BELLE_2015_I1397632, two hists change label + final binchangeset:   7157:2482c97f5ef8

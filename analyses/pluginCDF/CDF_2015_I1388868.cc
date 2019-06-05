@@ -21,13 +21,13 @@ namespace Rivet {
     void init() {
 
       // Energy selection
-      double isqrts = 0;
+      int isqrts = -1;
       if (fuzzyEquals(sqrtS()/GeV, 300, 1E-3)) {
-        isqrts = 3;
-      } else if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
         isqrts = 2;
-      } else if (fuzzyEquals(sqrtS()/GeV, 1960, 1E-3)) {
+      } else if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
         isqrts = 1;
+      } else if (fuzzyEquals(sqrtS()/GeV, 1960, 1E-3)) {
+        isqrts = 0;
       } else {
         throw UserError("Unexpected sqrtS ! Only 300, 900, 1960 GeV is supported by CDF_2015_I1388868");
       }
@@ -38,14 +38,14 @@ namespace Rivet {
       declare(cfs, "Tracks");
 
       // Book profile histos
-      _NchgPDFden1 = bookProfile1D(isqrts,1,1);
-      _NchgPMNden1 = bookProfile1D(isqrts,1,2);
-      _NchgPMXden1 = bookProfile1D(isqrts,1,3);
-      _NchgPden1   = bookProfile1D(isqrts,1,4);
-      _PTsumPDFden1 = bookProfile1D(isqrts,1,6);
-      _PTsumPMNden1 = bookProfile1D(isqrts,1,7);
-      _PTsumPMXden1 = bookProfile1D(isqrts,1,8);
-      _PTsumPden1   = bookProfile1D(isqrts,1,9);
+      _NchgPDFden1  = bookProfile1D(8*isqrts+4,1,1);
+      _NchgPMNden1  = bookProfile1D(8*isqrts+2,1,1);
+      _NchgPMXden1  = bookProfile1D(8*isqrts+1,1,1);
+      _NchgPden1    = bookProfile1D(8*isqrts+3,1,1);
+      _PTsumPDFden1 = bookProfile1D(8*isqrts+8,1,1);
+      _PTsumPMNden1 = bookProfile1D(8*isqrts+6,1,1);
+      _PTsumPMXden1 = bookProfile1D(8*isqrts+5,1,1);
+      _PTsumPden1   = bookProfile1D(8*isqrts+7,1,1);
 
     }
 
