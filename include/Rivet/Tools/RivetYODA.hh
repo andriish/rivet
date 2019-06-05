@@ -48,6 +48,8 @@ namespace Rivet {
     /// @todo Set active object for finalize
     virtual void setActiveFinalWeightIdx(unsigned int iWeight) = 0;
 
+    virtual void unsetActiveWeight() = 0;
+
     bool operator ==(const AnalysisObjectWrapper& p) { return (this == &p); }
     bool operator !=(const AnalysisObjectWrapper& p) { return (this != &p); }
 
@@ -587,6 +589,18 @@ namespace Rivet {
     return a->numPoints() == b->numPoints();
   }
   inline bool bookingCompatible(Scatter3DPtr a, Scatter3DPtr b) {
+    return a->numPoints() == b->numPoints();
+  }
+inline bool bookingCompatible(YODA::CounterPtr, YODA::CounterPtr) {
+    return true;
+  }
+  inline bool bookingCompatible(YODA::Scatter1DPtr a, YODA::Scatter1DPtr b) {
+    return a->numPoints() == b->numPoints();
+  }
+  inline bool bookingCompatible(YODA::Scatter2DPtr a, YODA::Scatter2DPtr b) {
+    return a->numPoints() == b->numPoints();
+  }
+  inline bool bookingCompatible(YODA::Scatter3DPtr a, YODA::Scatter3DPtr b) {
     return a->numPoints() == b->numPoints();
   }
 

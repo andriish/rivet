@@ -410,31 +410,31 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::addData(const std::vector<YODA::AnalysisObjectPtr>& aos) {
-    for (const YODA::AnalysisObjectPtr ao : aos) {
-      string path = ao->path();
-      if ( path.substr(0, 5) != "/RAW/" ) {
-        _orphanedPreloads.push_back(ao);
-        continue;
-      }
+  // void AnalysisHandler::addData(const std::vector<YODA::AnalysisObjectPtr>& aos) {
+  //   for (const YODA::AnalysisObjectPtr ao : aos) {
+  //     string path = ao->path();
+  //     if ( path.substr(0, 5) != "/RAW/" ) {
+  //       _orphanedPreloads.push_back(ao);
+  //       continue;
+  //     }
 
-      path = path.substr(4);
-      ao->setPath(path);
-      if (path.size() > 1) { // path > "/"
-        try {
-          const string ananame =  ::split(path, "/")[0];
-          AnaHandle a = analysis(ananame);
-          /// @todo FIXXXXX
-          //MultiweightAOPtr mao = ????; /// @todo generate right Multiweight object from ao
-          //a->addAnalysisObject(mao); /// @todo Need to statistically merge...
-        } catch (const Error& e) {
-          MSG_TRACE("Adding analysis object " << path <<
-                    " to the list of orphans.");
-          _orphanedPreloads.push_back(ao);
-        }
-      }
-    }
-  }
+  //     path = path.substr(4);
+  //     ao->setPath(path);
+  //     if (path.size() > 1) { // path > "/"
+  //       try {
+  //         const string ananame =  ::split(path, "/")[0];
+  //         AnaHandle a = analysis(ananame);
+  //         /// @todo FIXXXXX
+  //         //MultiweightAOPtr mao = ????; /// @todo generate right Multiweight object from ao
+  //         //a->addAnalysisObject(mao); /// @todo Need to statistically merge...
+  //       } catch (const Error& e) {
+  //         MSG_TRACE("Adding analysis object " << path <<
+  //                   " to the list of orphans.");
+  //         _orphanedPreloads.push_back(ao);
+  //       }
+  //     }
+  //   }
+  // }
 
 
   void AnalysisHandler::stripOptions(YODA::AnalysisObjectPtr ao,
@@ -568,19 +568,16 @@ namespace Rivet {
 
 
   void AnalysisHandler::readData(const string& filename) {
-    vector<YODA::AnalysisObjectPtr> aos;
     try {
       /// @todo Use new YODA SFINAE to fill the smart ptr vector directly
       vector<YODA::AnalysisObject*> aos_raw;
       YODA::read(filename, aos_raw);
-      for (YODA::AnalysisObject* aor : aos_raw) aos.push_back(YODA::AnalysisObjectPtr(aor));
-    //} catch (const YODA::ReadError & e) {
+      for (YODA::AnalysisObject* aor : aos_raw)
+        _preloads[aor->path()] = YODA::AnalysisObjectPtr(aor);
     } catch (...) { //< YODA::ReadError&
       throw UserError("Unexpected error in reading file: " + filename);
     }
-    if (!aos.empty()) addData(aos);
   }
-
 
   vector<MultiweightAOPtr> AnalysisHandler::getRivetAOs() const {
       vector<MultiweightAOPtr> rtn;
@@ -597,60 +594,75 @@ namespace Rivet {
       return rtn;
   }
 
-  vector<YODA::AnalysisObjectPtr> AnalysisHandler::getYodaAOs(bool includeorphans,
-                                                              bool includetmps,
-                                                              bool usefinalized) const {
-      vector<YODA::AnalysisObjectPtr> rtn;
-      if (usefinalized)
-        rtn = _finalizedAOs;
-      else {
-        for (auto rao : getRivetAOs()) {
-          // need to set the index
-          // before we can search the PATH
-          rao.get()->setActiveWeightIdx(_defaultWeightIdx);
-          // Exclude paths from final write-out if they contain a "TMP" layer (i.e. matching "/TMP/")
-          if (!includetmps && rao->path().find("/TMP/") != string::npos)
-            continue;
+// *** LEIF *** thinks This is not needed anymore
+  // vector<YODA::AnalysisObjectPtr> AnalysisHandler::getYodaAOs(bool includeorphans,
+  //                                                             bool includetmps,
+  //                                                             bool usefinalized) const {
+  //     vector<YODA::AnalysisObjectPtr> rtn;
+  //     if (usefinalized)
+  //       rtn = _finalizedAOs;
+  //     else {
+  //       for (auto rao : getRivetAOs()) {
+  //         // need to set the index
+  //         // before we can search the PATH
+  //         rao.get()->setActiveWeightIdx(_defaultWeightIdx);
+  //         // Exclude paths from final write-out if they contain a "TMP" layer (i.e. matching "/TMP/")
+  //         if (!includetmps && rao->path().find("/TMP/") != string::npos)
+  //           continue;
 
-          for (size_t iW = 0; iW < numWeights(); iW++) {
-            rao.get()->setActiveWeightIdx(iW);
-            rtn.push_back(rao.get()->activeYODAPtr());
-          }
-        }
-      }
+  //         for (size_t iW = 0; iW < numWeights(); iW++) {
+  //           rao.get()->setActiveWeightIdx(iW);
+  //           rtn.push_back(rao.get()->activeYODAPtr());
+  //         }
+  //       }
+  //     }
 
-      // Sort histograms alphanumerically by path before write-out
-      sort(rtn.begin(), rtn.end(),
-           [](YODA::AnalysisObjectPtr a, YODA::AnalysisObjectPtr b) {
-                return a->path() < b->path();
-            }
-          );
+  //     // Sort histograms alphanumerically by path before write-out
+  //     sort(rtn.begin(), rtn.end(),
+  //          [](YODA::AnalysisObjectPtr a, YODA::AnalysisObjectPtr b) {
+  //               return a->path() < b->path();
+  //           }
+  //         );
 
-      return rtn;
-  }
+  //     return rtn;
+  // }
 
 
-  vector<YODA::AnalysisObjectPtr> AnalysisHandler::getData(bool includeorphans,
-                                                           bool includetmps,
-                                                           bool usefinalized) const {
-    return getYodaAOs(includeorphans, includetmps, usefinalized);
-  }
+  // vector<YODA::AnalysisObjectPtr> AnalysisHandler::getData(bool includeorphans,
+  //                                                          bool includetmps,
+  //                                                          bool usefinalized) const {
+  //   return getYodaAOs(includeorphans, includetmps, usefinalized);
+  // }
 
 
   void AnalysisHandler::writeData(const string& filename) const {
-    vector<YODA::AnalysisObjectPtr> out = _finalizedAOs;
-    set<string> finalana;
-    for ( auto ao : out) finalana.insert(ao->path());
-    out.reserve(2*out.size());
-    vector<YODA::AnalysisObjectPtr> aos = getData(false, true);
-    for ( auto ao : aos ) {
-      ao = YODA::AnalysisObjectPtr(ao->newclone());
-      ao->setPath("/RAW" + ao->path());
-      out.push_back(ao);
+
+    // This is where we store the OAs to be written.
+    vector<YODA::AnalysisObjectPtr> output;
+
+    // First get all multiwight AOs
+    vector<MultiweightAOPtr> raos = getRivetAOs();
+    output.reserve(raos.size()*2);
+
+    // Then we go through all finalized AOs one weight at a time
+    for (size_t iW = 0; iW < numWeights(); iW++) {
+      for ( auto rao : raos ) {
+        rao.get()->setActiveFinalWeightIdx(iW);
+        if ( rao->path().find("/TMP/") != string::npos ) continue;
+        output.push_back(rao.get()->activeYODAPtr());
+      }
     }
 
+    // Finally the RAW objects.
+    for (size_t iW = 0; iW < numWeights(); iW++) {
+      for ( auto rao : raos ) {
+        rao.get()->setActiveFinalWeightIdx(iW);
+        output.push_back(rao.get()->activeYODAPtr());
+      }
+    }
+      
     try {
-      YODA::write(filename, aos.begin(), aos.end());
+      YODA::write(filename, output.begin(), output.end());
     } catch (...) { //< YODA::WriteError&
       throw UserError("Unexpected error in writing file: " + filename);
     }

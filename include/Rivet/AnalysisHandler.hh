@@ -188,6 +188,8 @@ namespace Rivet {
     /// Remove analyses from the run list using their names.
     AnalysisHandler& removeAnalyses(const std::vector<std::string>& analysisnames);
 
+    /// 
+
     //@}
 
 
@@ -220,7 +222,7 @@ namespace Rivet {
     //@{
 
     /// Add a vector of analysis objects to the current state.
-    void addData(const std::vector<YODA::AnalysisObjectPtr>& aos);
+    // *** LEIF *** removed void addData(const std::vector<YODA::AnalysisObjectPtr>& aos);
 
     /// Read analysis plots into the histo collection (via addData) from the named file.
     void readData(const std::string& filename);
@@ -228,15 +230,24 @@ namespace Rivet {
     /// Get all multi-weight Rivet analysis object wrappers
     vector<MultiweightAOPtr> getRivetAOs() const;
 
-    /// Get single-weight YODA analysis objects
-    vector<YODA::AnalysisObjectPtr> getYodaAOs(bool includeorphans,
-                                               bool includetmps,
-                                               bool usefinalized) const;
+    /// Get a pointer to a preloaded yoda object with the given path,
+    /// or null if path is not found.
+    const YODA::AnalysisObjectPtr getPreload(string path) const {
+      auto it = _preloads.find(path);
+      if ( it == _preloads.end() ) return nullptr;
+      return it->second;
+    }
 
-    /// Get all analyses' plots as a vector of analysis objects.
-    std::vector<YODA::AnalysisObjectPtr> getData(bool includeorphans = false,
-                                                 bool includetmps = false,
-                                                 bool usefinalized = true) const;
+    /// Get single-weight YODA analysis objects
+    // *** LEIF *** thinks This is not needed anymore
+    // vector<YODA::AnalysisObjectPtr> getYodaAOs(bool includeorphans,
+    //                                            bool includetmps,
+    //                                            bool usefinalized) const;
+
+    // /// Get all analyses' plots as a vector of analysis objects.
+    // std::vector<YODA::AnalysisObjectPtr> getData(bool includeorphans = false,
+    //                                              bool includetmps = false,
+    //                                              bool usefinalized = true) const;
 
     /// Write all analyses' plots (via getData) to the named file.
     void writeData(const std::string& filename) const;
@@ -292,7 +303,7 @@ namespace Rivet {
 
     /// A vector of pre-loaded object which do not have a valid
     /// Analysis plugged in.
-    vector<YODA::AnalysisObjectPtr> _orphanedPreloads;
+    map<string,YODA::AnalysisObjectPtr> _preloads;
 
     /// A vector containing copies of analysis objects after
     /// finalize() has been run.

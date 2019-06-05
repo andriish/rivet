@@ -209,12 +209,13 @@ namespace Rivet {
 
 
   CounterPtr & Analysis::book(CounterPtr & ctr,
-                      const string& cname,
-                      const string& title) {
-    const string path = histoPath(cname);
-    ctr = CounterPtr(handler().weightNames(), Counter(path, title));
-    ctr = addAnalysisObject(ctr);
-    return ctr;
+                              const string& cname,
+                              const string& title) {
+    // const string path = histoPath(cname);
+    // ctr = CounterPtr(handler().weightNames(), Counter(path, title));
+    // ctr = addAnalysisObject(ctr);
+    // return ctr;
+    return ctr = registerAO(Counter(histoPath(cname), title));
   }
 
 
@@ -238,9 +239,10 @@ namespace Rivet {
     hist.setAnnotation("XLabel", xtitle);
     hist.setAnnotation("YLabel", ytitle);
 
-    histo = Histo1DPtr(handler().weightNames(), hist);
-    histo = addAnalysisObject(histo);
-    return histo;
+    // histo = Histo1DPtr(handler().weightNames(), hist);
+    // histo = addAnalysisObject(histo);
+    // return histo;
+    return histo = registerAO(hist);
   }
 
   Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname,
@@ -262,9 +264,10 @@ namespace Rivet {
     hist.setAnnotation("XLabel", xtitle);
     hist.setAnnotation("YLabel", ytitle);
 
-    histo = Histo1DPtr(handler().weightNames(), hist);
-    histo = addAnalysisObject(histo);
-    return histo;
+    // histo = Histo1DPtr(handler().weightNames(), hist);
+    // histo = addAnalysisObject(histo);
+    // return histo;
+    return histo = registerAO(hist);
   }
 
   Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname,
@@ -298,9 +301,10 @@ namespace Rivet {
     hist.setAnnotation("YLabel", ytitle);
     if (hist.hasAnnotation("IsRef")) hist.rmAnnotation("IsRef");
 
-    histo = Histo1DPtr(handler().weightNames(), hist);
-    histo = addAnalysisObject(histo);
-    return histo;
+    // histo = Histo1DPtr(handler().weightNames(), hist);
+    // histo = addAnalysisObject(histo);
+    // return histo;
+    return histo = registerAO(hist);
   }
 
 
@@ -322,9 +326,10 @@ namespace Rivet {
     hist.setAnnotation("YLabel", ytitle);
     hist.setAnnotation("ZLabel", ztitle);
 
-    h2d = Histo2DPtr(handler().weightNames(), hist);
-    h2d = addAnalysisObject(h2d);
-    return h2d;
+    // h2d = Histo2DPtr(handler().weightNames(), hist);
+    // h2d = addAnalysisObject(h2d);
+    // return h2d;
+    return h2d = registerAO(hist);
   }
 
   Histo2DPtr & Analysis::book(Histo2DPtr & h2d,const string& hname,
@@ -353,9 +358,10 @@ namespace Rivet {
     hist.setAnnotation("YLabel", ytitle);
     hist.setAnnotation("ZLabel", ztitle);
 
-    h2d = Histo2DPtr(handler().weightNames(), hist);
-    h2d = addAnalysisObject(h2d);
-    return h2d;
+    // h2d = Histo2DPtr(handler().weightNames(), hist);
+    // h2d = addAnalysisObject(h2d);
+    // return h2d;
+    return h2d = registerAO(hist);
   }
 
 
@@ -374,9 +380,10 @@ namespace Rivet {
     hist.setAnnotation("ZLabel", ztitle);
     if (hist.hasAnnotation("IsRef")) hist.rmAnnotation("IsRef");
 
-    histo = Histo2DPtr(handler().weightNames(), hist);
-    histo = addAnalysisObject(histo);
-    return histo;
+    // histo = Histo2DPtr(handler().weightNames(), hist);
+    // histo = addAnalysisObject(histo);
+    // return histo;
+    return histo = registerAO(hist);
   }
 
 
@@ -414,9 +421,10 @@ namespace Rivet {
     prof.setAnnotation("XLabel", xtitle);
     prof.setAnnotation("YLabel", ytitle);
 
-    p1d = Profile1DPtr(handler().weightNames(), prof);
-    p1d = addAnalysisObject(p1d);
-    return p1d;
+    // p1d = Profile1DPtr(handler().weightNames(), prof);
+    // p1d = addAnalysisObject(p1d);
+    // return p1d;
+    return p1d = registerAO(prof);
   }
 
 
@@ -439,9 +447,10 @@ namespace Rivet {
     prof.setAnnotation("XLabel", xtitle);
     prof.setAnnotation("YLabel", ytitle);
 
-    p1d = Profile1DPtr(handler().weightNames(), prof);
-    p1d = addAnalysisObject(p1d);
-    return p1d;
+    // p1d = Profile1DPtr(handler().weightNames(), prof);
+    // p1d = addAnalysisObject(p1d);
+    // return p1d;
+    return p1d = registerAO(prof);
   }
 
   Profile1DPtr & Analysis::book(Profile1DPtr & p1d, const string& hname,
@@ -457,9 +466,10 @@ namespace Rivet {
     prof.setAnnotation("YLabel", ytitle);
     if (prof.hasAnnotation("IsRef")) prof.rmAnnotation("IsRef");
 
-    p1d = Profile1DPtr(handler().weightNames(), prof);
-    p1d = addAnalysisObject(p1d);
-    return p1d;
+    // p1d = Profile1DPtr(handler().weightNames(), prof);
+    // p1d = addAnalysisObject(p1d);
+    // return p1d;
+    return p1d = registerAO(prof);
   }
 
 
@@ -500,9 +510,10 @@ namespace Rivet {
     prof.setAnnotation("YLabel", ytitle);
     prof.setAnnotation("ZLabel", ztitle);
 
-    p2d = Profile2DPtr(handler().weightNames(), prof);
-    p2d = addAnalysisObject(p2d);
-    return p2d;
+    // p2d = Profile2DPtr(handler().weightNames(), prof);
+    // p2d = addAnalysisObject(p2d);
+    // return p2d;
+    return p2d = registerAO(prof);
   }
 
 
@@ -533,9 +544,10 @@ namespace Rivet {
     prof.setAnnotation("YLabel", ytitle);
     prof.setAnnotation("ZLabel", ztitle);
 
-    p2d = Profile2DPtr(handler().weightNames(), prof);
-    p2d = addAnalysisObject(p2d);
-    return p2d;
+    // p2d = Profile2DPtr(handler().weightNames(), prof);
+    // p2d = addAnalysisObject(p2d);
+    // return p2d;
+    return p2d = registerAO(prof);
   }
 
 
@@ -613,9 +625,10 @@ namespace Rivet {
     scat.setAnnotation("YLabel", ytitle);
     if (scat.hasAnnotation("IsRef")) scat.rmAnnotation("IsRef");
 
-    s2d = Scatter2DPtr(handler().weightNames(), scat);
-    s2d = addAnalysisObject(s2d);
-    return s2d;
+    // s2d = Scatter2DPtr(handler().weightNames(), scat);
+    // s2d = addAnalysisObject(s2d);
+    // return s2d;
+    return s2d = registerAO(scat);
   }
 
 
@@ -637,9 +650,10 @@ namespace Rivet {
     scat.setAnnotation("XLabel", xtitle);
     scat.setAnnotation("YLabel", ytitle);
 
-    s2d = Scatter2DPtr(handler().weightNames(), scat);
-    s2d = addAnalysisObject(s2d);
-    return s2d;
+    // s2d = Scatter2DPtr(handler().weightNames(), scat);
+    // s2d = addAnalysisObject(s2d);
+    // return s2d;
+    return s2d = registerAO(scat);
   }
 
   Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname,
@@ -660,9 +674,10 @@ namespace Rivet {
     scat.setAnnotation("XLabel", xtitle);
     scat.setAnnotation("YLabel", ytitle);
 
-    s2d = Scatter2DPtr(handler().weightNames(), scat);
-    s2d = addAnalysisObject(s2d);
-    return s2d;
+    // s2d = Scatter2DPtr(handler().weightNames(), scat);
+    // s2d = addAnalysisObject(s2d);
+    // return s2d;
+    return s2d = registerAO(scat);
   }
 
 
@@ -952,8 +967,8 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
     }
   }
   else if ( sel == "GEN" ) {
-    Histo1DPtr genhists =
-      getAnalysisObject<Histo1DPtr>(calAnaName, calHistName + "_IMP");
+    YODA::Histo1DPtr genhists =
+      getPreload<Histo1D>("/" + calAnaName + "/" + calHistName);
     // for ( YODA::AnalysisObjectPtr ao : handler().getData(true) ) {
     //   if ( ao->path() == histpath )
     //     genhist = dynamic_pointer_cast<Histo1D>(ao);
@@ -966,13 +981,12 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
     }
     else {
       MSG_INFO("Found calibration histogram " << sel << " " << genhists->path());
-      genhists.get()->setActiveWeightIdx(_defaultWeightIndex());
       cproj.add(PercentileProjection(proj, *genhists, increasing), sel);
     }
   }
   else if ( sel == "IMP" ) {
-    Histo1DPtr imphists =
-      getAnalysisObject<Histo1DPtr>(calAnaName, calHistName + "_IMP");
+    YODA::Histo1DPtr imphists =
+      getPreload<Histo1D>("/" + calAnaName + "/" + calHistName + "_IMP");
     if ( !imphists || imphists->numEntries() <= 1 ) {
       MSG_WARNING("No impact parameter calibration histogram for " <<
                "CentralityProjection " << projName << " found " <<
@@ -981,15 +995,14 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
     }
     else {
       MSG_INFO("Found calibration histogram " << sel << " " << imphists->path());
-      imphists.get()->setActiveWeightIdx(_defaultWeightIndex());
       cproj.add(PercentileProjection(ImpactParameterProjection(),
                                      *imphists, true), sel);
     }
   }
   else if ( sel == "USR" ) {
 #if HEPMC_VERSION_CODE >= 3000000
-    Histo1DPtr usrhists =
-      getAnalysisObject<Histo1DPtr>(calAnaName, calHistName + "_USR");
+    YODA::Histo1DPtr usrhists =
+      getPreload<Histo1D>("/" + calAnaName + "/" + calHistName + "_USR");
     if ( !usrhists || usrhists->numEntries() <= 1 ) {
       MSG_WARNING("No user-defined calibration histogram for " <<
                "CentralityProjection " << projName << " found " <<
@@ -999,7 +1012,6 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
     }
     else {
       MSG_INFO("Found calibration histogram " << sel << " " << usrhists->path());
-      usrhists.get()->setActiveWeightIdx(_defaultWeightIndex());
       cproj.add((UserCentEstimate(), usrhists*, true), sel);
      }
 #else
@@ -1027,6 +1039,10 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
 
   vector<string> Analysis::_weightNames() const {
     return handler().weightNames();
+  }
+
+  YODA::AnalysisObjectPtr Analysis::_getPreload(string path) const {
+    return handler().getPreload(path);
   }
 
   size_t Analysis::_defaultWeightIndex() const {

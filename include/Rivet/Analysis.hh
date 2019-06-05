@@ -828,6 +828,9 @@ namespace Rivet {
     /// Get the list of weight names from the handler
     vector<string> _weightNames() const;
 
+    /// Get the list of weight names from the handler
+    YODA::AnalysisObjectPtr _getPreload(string name) const;
+
     /// Get the default/nominal weight index
     size_t _defaultWeightIndex() const;
 
@@ -1059,6 +1062,82 @@ namespace Rivet {
 
     /// @name Data object registration, retrieval, and removal
     //@{
+
+    /// Get a preloaded YODA object.
+    template <typename YODAT>
+    shared_ptr<YODAT> getPreload(string path) const {
+      return dynamic_pointer_cast<YODAT>(_getPreload(path));
+    }
+
+    /// Register a new data object, optionally read in preloaded data.
+    template <typename YODAT>
+    rivet_shared_ptr< Wrapper<YODAT> > registerAO(const YODAT & yao) {
+      typedef Wrapper<YODAT> WrapperT;
+      typedef shared_ptr<YODAT> YODAPtrT;
+      typedef rivet_shared_ptr<WrapperT> RAOT;
+
+      shared_ptr<WrapperT> wao = make_shared<WrapperT>();
+      YODAPtrT yaop = make_shared<YODAT>(yao);
+
+      for (const string& weightname : _weightNames()) {
+        // Create two YODA objects for each weight. Copy from
+        // preloaded YODAs if present. First the finalized yoda:
+        string finalpath = yao.path();
+        if ( weightname != "" ) finalpath +=  "[" + weightname + "]";
+        YODAPtrT preload = getPreload<YODAT>(finalpath);
+        if ( preload ) {
+          if ( !bookingCompatible(preload, yaop) ) { 
+            MSG_WARNING("Found incompatible pre-existing data object with same base path "
+                        << finalpath <<  " for " << name());
+            preload = nullptr;
+          } else {
+            MSG_TRACE("Using preloaded " << finalpath << " in " <<name());
+            wao->_final.push_back(make_shared<YODAT>(*preload));
+          }
+        }
+        if ( !preload ) {
+          wao->_final.push_back(make_shared<YODAT>(yao));
+          wao->_final.back()->setPath(finalpath);
+        }
+
+        // Then the raw filling yodas.
+        string rawpath = "/RAW" + finalpath;
+        preload = getPreload<YODAT>(rawpath);
+        if ( preload ) {
+          if ( !bookingCompatible(preload, yaop) ) {
+            MSG_WARNING("Found incompatible pre-existing data object with same base path "
+                        << rawpath <<  " for " << name());
+            preload = nullptr;
+          } else {
+            MSG_TRACE("Using preloaded " << rawpath << " in " <<name());
+            wao->_persistent.push_back(make_shared<YODAT>(*preload));
+          }
+        }
+        if ( !preload ) {
+          wao->_persistent.push_back(make_shared<YODAT>(yao));
+          wao->_persistent.back()->setPath(rawpath);
+        }
+      }
+      rivet_shared_ptr<WrapperT> ret(wao);
+
+      // Now check that we haven't booked this before.
+      ret.get()->setActiveFinalWeightIdx(_defaultWeightIndex());
+      for (auto & waold : analysisObjects()) {
+        waold.get()->setActiveFinalWeightIdx(_defaultWeightIndex());
+        if ( ret->path() == waold->path() ) {
+          MSG_WARNING("Found double-booking of " << ret->path() << " in "
+                      << name() << ". Keeping previous booking");
+          waold.get()->unsetActiveWeight();
+          return RAOT(dynamic_pointer_cast<WrapperT>(waold.get()));
+        }
+        waold.get()->unsetActiveWeight();
+      }
+      ret.get()->unsetActiveWeight();
+      _analysisobjects.push_back(ret);
+
+      return ret;
+
+    }
 
     /// Register a data object in the histogram system
     template <typename AO=MultiweightAOPtr>
