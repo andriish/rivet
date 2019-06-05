@@ -1,3 +1,8 @@
+2019-06-05  Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
+
+	* Adding more heavy-ion beam particles: DEUTERON, ALUMINIUM,
+	COPPER, XENON, URANIUM
+
 2019-06-04  Peter Richardson <peter.richardson@durham.ac.uk>
 	* sync yoda for BELLE_2015_I1397632, two hists change label + final binchangeset:   7157:2482c97f5ef8
 	* update BABAR_2007_S6895344.yoda with improved error calc

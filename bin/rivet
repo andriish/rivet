@@ -315,10 +315,20 @@ if len(args.SHOW_ANALYSES) > 0:
                     return "p+"
                 elif pid == -2212:
                     return "p-"
-                elif pid == 1000822080:
-                    return "Pb"
+                elif pid == 1000010020:
+                    return "d"
+                elif pid == 1000130270:
+                    return "Al"
+                elif pid == 1000290630:
+                    return "Cu"
+                elif pid == 1000541290:
+                    return "Xe"
                 elif pid == 1000791970:
                     return "Au"
+                elif pid == 1000822080:
+                    return "Pb"
+                elif pid == 1000922380:
+                    return "U"
                 elif pid == 10000:
                     return "*"
                 else:
