@@ -47,18 +47,18 @@ namespace Rivet {
       for (size_t alg = 0; alg < 5; ++alg) {
         // Book the inclusive histograms
         size_t offset = alg * 6;
-        book(_h_Elec_Ntrk[alg]         ,_mkHistoName(offset+1,  1, 1));
-        book(_h_Elec_SumPt[alg]        ,_mkHistoName(offset+2,  1, 1));
-        book(_h_Elec_Beamthrust[alg]   ,_mkHistoName(offset+3,  1, 1));
-        book(_h_Elec_Thrust[alg]       ,_mkHistoName(offset+4,  1, 1));
-        book(_h_Elec_FParam[alg]       ,_mkHistoName(offset+5,  1, 1));
-        book(_h_Elec_Spherocity[alg]   ,_mkHistoName(offset+6,  1, 1));
-        book(_h_Muon_Ntrk[alg]         ,_mkHistoName(offset+31, 1, 1));
-        book(_h_Muon_SumPt[alg]        ,_mkHistoName(offset+32, 1, 1));
-        book(_h_Muon_Beamthrust[alg]   ,_mkHistoName(offset+33, 1, 1));
-        book(_h_Muon_Thrust[alg]       ,_mkHistoName(offset+34, 1, 1));
-        book(_h_Muon_FParam[alg]       ,_mkHistoName(offset+35, 1, 1));
-        book(_h_Muon_Spherocity[alg]   ,_mkHistoName(offset+36, 1, 1));
+        book(_h_Elec_Ntrk[alg]         , offset+1,  1, 1);
+        book(_h_Elec_SumPt[alg]        , offset+2,  1, 1);
+        book(_h_Elec_Beamthrust[alg]   , offset+3,  1, 1);
+        book(_h_Elec_Thrust[alg]       , offset+4,  1, 1);
+        book(_h_Elec_FParam[alg]       , offset+5,  1, 1);
+        book(_h_Elec_Spherocity[alg]   , offset+6,  1, 1);
+        book(_h_Muon_Ntrk[alg]         , offset+31, 1, 1);
+        book(_h_Muon_SumPt[alg]        , offset+32, 1, 1);
+        book(_h_Muon_Beamthrust[alg]   , offset+33, 1, 1);
+        book(_h_Muon_Thrust[alg]       , offset+34, 1, 1);
+        book(_h_Muon_FParam[alg]       , offset+35, 1, 1);
+        book(_h_Muon_Spherocity[alg]   , offset+36, 1, 1);
       }
     }
 
@@ -187,11 +187,6 @@ namespace Rivet {
 
 
   private:
-
-    // Convenience method for histogram booking
-    string _mkHistoName(int idDS, int channel, int i) {
-      return "d0" + toString(idDS) + "-x0" + toString(channel) + "-y0" + toString(i+1);
-    }
 
     Histo1DPtr _h_Elec_Ntrk[5];
     Histo1DPtr _h_Elec_SumPt[5];
