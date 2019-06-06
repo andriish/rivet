@@ -10,6 +10,9 @@
 #include <execinfo.h>
 #endif
 
+#include <regex>
+#include <sstream>
+
 using namespace std;
 
 namespace Rivet {
@@ -424,5 +427,78 @@ namespace Rivet {
   template class Wrapper<YODA::Scatter1D>;
   template class Wrapper<YODA::Scatter2D>;
   template class Wrapper<YODA::Scatter3D>;
+
+  AOPath::AOPath(string fullpath) {
+    // First checck if This is a global system path
+    _path = fullpath;
+    std::regex resys("^(/RAW)?/([^\\[/]+)(\\[(.+)\\])?$");
+    smatch m;
+    _valid = regex_search(fullpath, m, resys);
+    if ( _valid ) {
+      _raw = (m[1] == "/RAW");
+      _name = m[2];
+      _weight = m[4];
+      return;
+    }
+    // If not, assume it is a normal analysis path.
+    std::regex repath("^(/RAW)?(/REF)?/([^/:]+)(:[^/]+)?(/TMP)?/([^\\[]+)(\\[(.+)\\])?");
+    _valid = regex_search(fullpath, m, repath);
+    if ( !_valid ) return;     
+    _raw = (m[1] == "/RAW");
+    _ref = (m[2] == "/REF");
+    _analysis = m[3];
+    _optionstring = m[4];
+    _tmp = (m[5] == "/TMP");
+    _name = m[6];
+    _weight = m[8];
+    std::regex reopt(":([^=]+)=([^:]+)");
+    string s = _optionstring;
+    while ( regex_search(s, m, reopt) ) {
+      _options[m[1]] = m[2];
+      s = m.suffix();
+    }
+  }
+
+  void AOPath::fixOptionString() {
+    ostringstream oss;
+    for ( auto optval : _options )
+      oss << ":" << optval.first << "=" << optval.second;
+    _optionstring = oss.str();
+  }
+
+  string AOPath::mkPath() const {
+    ostringstream oss;
+    if ( isRaw() ) oss << "/RAW";
+    else if ( isRef() ) oss << "/REF";
+    if ( _analysis != "" ) oss << "/" << analysis();
+    for ( auto optval : _options )
+      oss << ":" << optval.first << "=" << optval.second;
+    if ( isTmp() ) oss << "/TMP";
+    oss << "/" << name();
+    if ( weight() != "" )
+      oss << "[" << weight() << "]";
+    return oss.str();
+  }
+
+  void AOPath::debug() const {
+    cout << "Full path:  " << _path << endl;
+    if ( !_valid ) {
+      cout << "This is not a valid analysis object path" << endl << endl;
+      return;
+    }
+    cout << "Check path: " << mkPath() << endl;
+    cout << "Analysis:   " << _analysis << endl;
+    cout << "Name:       " << _name << endl;
+    cout << "Weight:     " << _weight << endl;
+    cout << "Properties: ";
+    if ( _raw ) cout << "raw ";
+    if ( _tmp ) cout << "tmp ";
+    if ( _ref ) cout << "ref ";
+    cout << endl;
+    cout << "Options:    ";
+    for ( auto opt : _options )
+      cout << opt.first << "->" << opt.second << " ";
+    cout << endl << endl;
+  }
 
 }

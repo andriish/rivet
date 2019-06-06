@@ -450,122 +450,151 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::mergeYodas(const vector<string> & ,
-                                   const vector<string> & , bool ) {}
-  // void AnalysisHandler::mergeYodas(const vector<string> & aofiles,
-  //                                  const vector<string> & delopts, bool equiv) {
-  //   vector< vector<YODA::AnalysisObjectPtr> > aosv;
-  //   vector<double> xsecs;
-  //   vector<double> xsecerrs;
-  //   vector<CounterPtr> sows;
-  //   set<string> ananames;
-  //   _eventCounter->reset();
+  void AnalysisHandler::mergeYodas(const vector<string> & aofiles,
+                                   const vector<string> & delopts, bool equiv) {
 
-  //   // First scan all files and extract analysis objects and add the
-  //   // corresponding analyses..
-  //   for (const string& file : aofiles ) {
-  //     Scatter1DPtr xsec;
-  //     CounterPtr sow;
+    // Convenient typedef;
+    typedef multimap<string, YODA::AnalysisObjectPtr> AOMap;
 
-  //     // For each file make sure that cross section and sum-of-weights
-  //     // objects are present and stor all RAW ones in a vector;
-  //     vector<YODA::AnalysisObjectPtr> aos;
-  //     try {
-  //       /// @todo Use new YODA SFINAE to fill the smart ptr vector directly
-  //       vector<YODA::AnalysisObject*> aos_raw;
-  //       YODA::read(file, aos_raw);
-  //       for (YODA::AnalysisObject* aor : aos_raw) {
-  //         YODA::AnalysisObjectPtr ao(aor);
-  //         if ( ao->path().substr(0, 5) != "/RAW/" ) continue;
-  //         ao->setPath(ao->path().substr(4));
-  //         if ( ao->path() == "/_XSEC" )
-  //           xsec = dynamic_pointer_cast<Scatter1D>(ao);
-  //         else if ( ao->path() == "/_EVTCOUNT" )
-  //           sow = dynamic_pointer_cast<Counter>(ao);
-  //         else {
-  //           stripOptions(ao, delopts);
-  //           string ananame = split(ao->path(), "/")[0];
-  //           if ( ananames.insert(ananame).second ) addAnalysis(ananame);
-  //           aos.push_back(ao);
-  //         }
-  //       }
-  //       if ( !xsec || !sow ) {
-  //         MSG_ERROR( "Error in AnalysisHandler::mergeYodas: The file " << file
-  //                    << " did not contain weights and cross section info.");
-  //         exit(1);
-  //       }
-  //       xsecs.push_back(xsec->point(0).x());
-  //       sows.push_back(sow);
-  //       xsecerrs.push_back(sqr(xsec->point(0).xErrAvg()));
-  //       _eventCounter->operator+=(*sow); //< HAHAHAHAHA!
-  //       sows.push_back(sow);
-  //       aosv.push_back(aos);
-  //     } catch (...) { //< YODA::ReadError&
-  //       throw UserError("Unexpected error in reading file: " + file);
-  //     }
-  //   }
+    // Store all found weights here.
+    set<string> foundWeightNames;
 
-  //   // Now calculate the scale to be applied for all bins in a file
-  //   // and get the common cross section and sum of weights.
-  //   _xs = _xserr = 0.0;
-  //   for ( int i = 0, N = sows.size(); i < N; ++i ) {
-  //     double effnent = sows[i]->effNumEntries();
-  //     _xs += (equiv? effnent: 1.0)*xsecs[i];
-  //     _xserr += (equiv? sqr(effnent): 1.0)*xsecerrs[i];
-  //   }
+    // Stor all found analyses.
+    set<string> foundAnalyses;
 
-  //   vector<double> scales(sows.size(), 1.0);
-  //   if ( equiv ) {
-  //     _xs /= _eventCounter.effNumEntries();
-  //     _xserr = sqrt(_xserr)/_eventCounter.effNumEntries();
-  //   } else {
-  //     _xserr = sqrt(_xserr);
-  //     for ( int i = 0, N = sows.size(); i < N; ++i )
-  //       scales[i] = (_eventCounter.sumW()/sows[i]->sumW())*(xsecs[i]/_xs);
-  //   }
+    // Store all analysis objects here.
+    vector<AOMap> allaos;
 
-  //   // Initialize the analyses allowing them to book analysis objects.
-  //   for (AnaHandle a : _analyses) {
-  //     MSG_DEBUG("Initialising analysis: " << a->name());
-  //     if ( !a->info().reentrant() )
-  //       MSG_WARNING("Analysis " << a->name() << " has not been validated to have "
-  //                   << "a reentrant finalize method. The result is unpredictable.");
-  //     try {
-  //       // Allow projection registration in the init phase onwards
-  //       a->_allowProjReg = true;
-  //       cerr << "sqrtS " << sqrtS() << endl;
-  //       a->init();
-  //       //MSG_DEBUG("Checking consistency of analysis: " << a->name());
-  //       //a->checkConsistency();
-  //     } catch (const Error& err) {
-  //       cerr << "Error in " << a->name() << "::init method: " << err.what() << endl;
-  //       exit(1);
-  //     }
-  //     MSG_DEBUG("Done initialising analysis: " << a->name());
-  //   }
-  //   _initialised = true;
-  //   // Get a list of all anaysis objects to handle.
-  //   map<string,AnalysisObjectPtr> current;
-  //   for ( auto ao : getData(false, true) ) current[ao->path()] = ao;
-  //   // Go through all objects to be merged and add them to current
-  //   // after appropriate scaling.
-  //   for ( int i = 0, N = aosv.size(); i < N; ++i)
-  //     for ( auto ao : aosv[i] ) {
-  //       if ( ao->path() == "/_XSEC" || ao->path() == "_EVTCOUNT" ) continue;
-  //       auto aoit = current.find(ao->path());
-  //       if ( aoit == current.end() ) {
-  //         MSG_WARNING("" << ao->path() << " was not properly booked.");
-  //         continue;
-  //       }
-  //       if ( !addaos(aoit->second, ao, scales[i]) )
-  //         MSG_WARNING("Cannot merge objects with path " << ao->path()
-  //                     <<" of type " << ao->annotation("Type") );
-  //     }
-  //   // Now we can simply finalize() the analysis, leaving the
-  //   // controlling program to write it out some yoda-file.
-  //   finalize();
-  // }
+    // Go through all files and collect information.
+    for ( auto file : aofiles ) {
+      allaos.push_back(AOMap());
+      AOMap & aomap = allaos.back();
+      vector<YODA::AnalysisObject*> aos_raw;
+      try {
+        YODA::read(file, aos_raw);
+      }
+      catch (...) { //< YODA::ReadError&
+        throw UserError("Unexpected error in reading file: " + file);
+      }
+      for (YODA::AnalysisObject* aor : aos_raw) {
+        YODA::AnalysisObjectPtr ao(aor);
+        AOPath path(ao->path());
+        if ( !path ) 
+          throw UserError("Invalid path name in file: " + file);
+        if ( !path.isRaw() ) continue;
 
+        foundWeightNames.insert(path.weight());
+        // Now check if any options should be removed.
+        for ( string delopt : delopts )
+          if ( path.hasOption(delopt) ) path.removeOption(delopt);
+         path.setPath();
+         if ( path.analysisWithOptions() != "" )
+           foundAnalyses.insert(path.analysisWithOptions());
+         aomap.insert(make_pair(path.path(), ao));
+      }
+    }
+
+    // Now make analysis handler aware of the weight names present.
+    _weightNames.clear();
+    _weightNames.push_back("");
+    for ( string name : foundWeightNames ) _weightNames.push_back(name);
+
+    // Then we create and initialize all analyses
+    for ( string ananame : foundAnalyses ) addAnalysis(ananame);
+    for (AnaHandle a : analyses() ) {
+      MSG_TRACE("Initialising analysis: " << a->name());
+      if ( !a->info().reentrant() )
+        MSG_WARNING("Analysis " << a->name() << " has not been validated to have "
+                    << "a reentrant finalize method. The merged result is unpredictable.");
+      try {
+        // Allow projection registration in the init phase onwards
+        a->_allowProjReg = true;
+        a->init();
+      } catch (const Error& err) {
+        cerr << "Error in " << a->name() << "::init method: " << err.what() << endl;
+        exit(1);
+      }
+      MSG_TRACE("Done initialising analysis: " << a->name());
+    }
+
+    // Now get all booked analysis objects.
+    vector<MultiweightAOPtr> raos;
+    for (AnaHandle a : analyses()) {
+      for (const auto & ao : a->analysisObjects()) {
+        raos.push_back(ao);
+      }
+    }
+
+    // Collect global weights and xcoss sections and fix scaling for
+    // all files.
+    _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
+    _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
+    for (size_t iW = 0; iW < numWeights(); iW++) {
+      _eventCounter.get()->setActiveWeightIdx(iW);
+      _xs.get()->setActiveWeightIdx(iW);
+      YODA::Counter & sumw = *_eventCounter;
+      YODA::Scatter1D & xsec = *_xs;
+      vector<YODA::Scatter1DPtr> xsecs;
+      vector<YODA::CounterPtr> sows;
+      for ( auto & aomap : allaos ) {
+        auto xit = aomap.find(xsec.path());
+        if ( xit == aomap.end() )
+          xsecs.push_back(dynamic_pointer_cast<YODA::Scatter1D>(xit->second));
+        else
+          xsecs.push_back(YODA::Scatter1DPtr());
+        xit = aomap.find(sumw.path());
+        if ( xit == aomap.end() )
+          sows.push_back(dynamic_pointer_cast<YODA::Counter>(xit->second));
+        else
+          sows.push_back(YODA::CounterPtr());
+      }
+      double xs = 0.0, xserr = 0.0;
+      for ( int i = 0, N = sows.size(); i < N; ++i ) {
+        if ( !sows[i] || !xsecs[i] ) continue;
+        double xseci = xsecs[i]->point(0).x();
+        double xsecerri = sqr(xsecs[i]->point(0).xErrAvg());
+        sumw += *sows[i];
+        double effnent = sows[i]->effNumEntries();
+        xs += (equiv? effnent: 1.0)*xseci;
+        xserr += (equiv? sqr(effnent): 1.0)*xsecerri;
+      }
+      vector<double> scales(sows.size(), 1.0);
+      if ( equiv ) {
+        xs /= sumw.effNumEntries();
+        xserr = sqrt(xserr)/sumw.effNumEntries();
+      } else {
+        xserr = sqrt(xserr);
+        for ( int i = 0, N = sows.size(); i < N; ++i )
+          scales[i] = (sumw.sumW()/sows[i]->sumW())*
+           (xsecs[i]->point(0).x()/xs);
+      }
+      xsec.point(0) = Point1D(xs, xserr);
+
+      // Go through alla analyses and add stuff to their analysis objects;
+      for (AnaHandle a : analyses()) {
+        for (const auto & ao : a->analysisObjects()) {
+          ao.get()->setActiveWeightIdx(iW);
+          YODA::AnalysisObjectPtr yao = ao.get()->activeYODAPtr();
+          for ( int i = 0, N = sows.size(); i < N; ++i ) {
+            if ( !sows[i] || !xsecs[i] ) continue;
+            auto range = allaos[i].equal_range(yao->path());
+            for ( auto aoit = range.first; aoit != range.second; ++aoit )
+              if ( !addaos(yao, aoit->second, scales[i]) )
+                MSG_WARNING("Cannot merge objects with path " << yao->path()
+                            <<" of type " << yao->annotation("Type") );
+          }
+          ao.get()->unsetActiveWeight();
+        }
+      }
+      _eventCounter.get()->unsetActiveWeight();
+      _xs.get()->unsetActiveWeight();
+    }
+
+    // Finally we just have to finalize all analyses, leaving to the
+    // controlling program to write it out some yoda-file.
+    finalize();
+
+  }
 
   void AnalysisHandler::readData(const string& filename) {
     try {
@@ -642,7 +671,7 @@ namespace Rivet {
 
     // First get all multiwight AOs
     vector<MultiweightAOPtr> raos = getRivetAOs();
-    output.reserve(raos.size()*2);
+    output.reserve(raos.size()*2*numWeights());
 
     // Then we go through all finalized AOs one weight at a time
     for (size_t iW = 0; iW < numWeights(); iW++) {

@@ -591,7 +591,7 @@ namespace Rivet {
   inline bool bookingCompatible(Scatter3DPtr a, Scatter3DPtr b) {
     return a->numPoints() == b->numPoints();
   }
-inline bool bookingCompatible(YODA::CounterPtr, YODA::CounterPtr) {
+  inline bool bookingCompatible(YODA::CounterPtr, YODA::CounterPtr) {
     return true;
   }
   inline bool bookingCompatible(YODA::Scatter1DPtr a, YODA::Scatter1DPtr b) {
@@ -603,6 +603,94 @@ inline bool bookingCompatible(YODA::CounterPtr, YODA::CounterPtr) {
   inline bool bookingCompatible(YODA::Scatter3DPtr a, YODA::Scatter3DPtr b) {
     return a->numPoints() == b->numPoints();
   }
+
+  /// class representing a YODA path with all its components.
+  class AOPath {
+
+  public:
+
+    /// Constructor
+    AOPath(string fullpath);
+
+    /// The full path.
+    string path() const { return _path; }
+
+    /// The analysis name.
+    string analysis() const { return _analysis; }
+
+    /// The analysis name with options.
+    string analysisWithOptions() const { return _analysis + _optionstring; }
+
+    /// The base name of the analysis object.
+    string name() const { return _name; }
+
+    /// The weight name.
+    string weight() const { return _weight; }
+
+    /// Is This a RAW (filling) object?
+    bool   isRaw() const { return _raw; }
+
+    // Is This a temporary (filling) object?
+    bool   isTmp() const { return _tmp; }
+
+    /// Is This a reference object?
+    bool   isRef() const { return _ref; }
+
+    /// The string describing the options passed to the analysis.
+    string optionString() const { return _optionstring; }
+
+    /// Are there options passed to the analysis?
+    bool   hasOptions() const { return !_options.empty(); }
+
+    /// Don't pass This optionto the analysis
+    void   removeOption(string opt) { _options.erase(opt); fixOptionString(); }
+
+    /// Pass this option to the analysis.
+    void   setOption(string opt, string val) { _options[opt] = val; fixOptionString();}
+
+    /// Was This option passed to the analyisi.
+    bool   hasOption(string opt) const { return _options.find(opt) != _options.end(); }
+
+    /// Get the value of this option.
+    string getOption(string opt) const {
+      auto it = _options.find(opt);
+      if ( it != _options.end() ) return it->second;
+      return "";
+    }
+
+    /// Reset the option string after changes;
+    void fixOptionString();
+
+    /// Creat a full path (and set) for this.
+    string mkPath() const;
+    string setPath() { return _path = mkPath(); }
+
+    /// Print out information
+    void debug() const;
+
+    /// Make this class ordered.
+    bool operator<(const AOPath & other) const {
+      return _path < other._path;
+    }
+
+    /// Check if path is valid.
+    bool valid() const { return _valid; };
+    bool operator!() const { return !valid(); }
+
+  private:
+
+    bool _valid;
+    string _path;
+    string _analysis;
+    string _optionstring;
+    string _name;
+    string _weight;
+    bool _raw;
+    bool _tmp;
+    bool _ref;
+    map<string,string> _options;
+
+  };
 
 }
 
