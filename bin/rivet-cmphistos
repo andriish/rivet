@@ -445,7 +445,7 @@ if __name__ == '__main__':
                         ## Plot defaults from .plot files
                         histopts = plotparser.getHistogramOptions(hpath)
                         if histopts:
-                            for key, val in histargs.items():
+                            for key, val in histopts.items():
                                 hmc.setAnnotation(key, val)
                         ## Command line plot options
                         setOptions(hmc, plotoptions[infile])
