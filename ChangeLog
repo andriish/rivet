@@ -1,3 +1,11 @@
+2019-06-06 Christian Gutschow <chris.g@cern.ch>
+
+	* Ading Marek's opacity fix to make-plots
+	* removing if statement testing if type(u'') is (not) str when deciding whether to encode string in bin/rivet
+	* removing regex dependency in AnalysisHandler.hh as it's not compatible with GCC4.8
+	* remove cases of scale({h1, h2}, sf) and normalize({h1, h2}) as GCC4.8 doesn't like it :-(
+
+
 2019-05-30 Christian Gutschow <chris.g@cern.ch>
 
 	* implement --skip-weights flag to ignore variation weights

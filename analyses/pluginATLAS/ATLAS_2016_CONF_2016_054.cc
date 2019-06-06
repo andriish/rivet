@@ -188,8 +188,16 @@ namespace Rivet {
     void finalize() {
 
       const double sf = 14.8*crossSection()/femtobarn/sumOfWeights();
-      scale({_h_gg2j, _h_gg6j0, _h_gg6j1, _h_gg4j0, _h_gg4j1, _h_gg4j2}, sf);
-      scale({_h_ss4j0, _h_ss4j1, _h_ss5j0,_h_ss5j1}, sf);
+      scale(_h_gg2j, sf);
+      scale(_h_gg6j0,  sf);
+      scale(_h_gg6j1,  sf);
+      scale(_h_gg4j0,  sf);
+      scale(_h_gg4j1, sf);
+      scale(_h_gg4j2, sf);
+      scale(_h_ss4j0,  sf);
+      scale(_h_ss4j1,  sf);
+      scale(_h_ss5j0, sf);
+      scale(_h_ss5j1, sf);
 
     }
 

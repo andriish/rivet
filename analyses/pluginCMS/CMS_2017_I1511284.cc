@@ -67,7 +67,10 @@ namespace Rivet {
 
     /// Normalize histograms
     void finalize() {
-      scale({_h_totEnergy, _h_emEnergy, _h_hadEnergy}, crossSection()/microbarn/sumOfWeights());
+      const double sf = crossSection()/microbarn/sumOfWeights();
+      scale(_h_totEnergy, sf);
+      scale(_h_emEnergy, sf);
+      scale(_h_hadEnergy, sf);
     }
 
 

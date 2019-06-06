@@ -8,13 +8,13 @@
 #include "Rivet/Projections/Beam.hh"
 #include "YODA/ReaderYODA.h"
 #include "YODA/WriterYODA.h"
-#include <regex>
+//#include <regex>
 #include <iostream>
 
 using std::cout;
 using std::cerr;
 
-namespace {
+/*namespace {
     inline std::vector<std::string> split(const std::string& input, const std::string& regex) {
         // passing -1 as the submatch index parameter performs splitting
         std::regex re(regex);
@@ -23,7 +23,7 @@ namespace {
             last;
         return {first, last};
     }
-}
+}*/
 
 
 namespace Rivet {
@@ -152,10 +152,42 @@ namespace Rivet {
   void AnalysisHandler::setWeightNames(const GenEvent& ge) {
     /// reroute the print output to a std::stringstream and process
     /// The iteration is done over a map in hepmc2 so this is safe
-    std::ostringstream stream;
+
+    /// Obtaining weight names using regex probably neater, but regex
+    /// is not defined in GCC4.8, which is currently used by Lxplus.
+    /// Attempt an alternative solution based on stringstreams:
+    std::stringstream stream;
+    ge.weights().print(stream);
+    size_t idx = 0;
+    std::string pair; // placeholder for subtsring matches
+    while (std::getline(stream, pair, ' ')) {
+      pair.erase(pair.begin()); // removes the "(" on the LHS
+      pair.pop_back();          // removes the ")" on the RHS
+      if (pair.empty())  continue;
+      std::stringstream spair(pair);
+      vector<string> temp;
+      while (std::getline(spair, pair, ',')) {
+        temp.push_back(std::move(pair));
+      }
+      if (temp.size() == 2) {
+        MSG_DEBUG("Name of weight #" << _weightNames.size() << ": " << temp[0]);
+
+        // store the default weight based on weight names
+        if (temp[0] == "Weight" || temp[0] == "0" || temp[0] == "Default") {
+          MSG_DEBUG(_weightNames.size() << " is being used as the nominal.");
+          _weightNames.push_back("");
+          _defaultWeightIdx = _skipWeights? 0 : idx;
+        } else if (!_skipWeights) {
+          _weightNames.push_back(temp[0]);
+        }
+        idx++;
+      }
+    }
+
+    /// Possible future solution based on regex
+    /*std::ostringstream stream; 
     ge.weights().print(stream);  // Super lame, I know
     string str =  stream.str();
-
     std::regex re("(([^()]+))"); // Regex for stuff enclosed by parentheses ()
     size_t idx = 0;
     for(std::sregex_iterator i = std::sregex_iterator(str.begin(), str.end(), re);
@@ -173,11 +205,9 @@ namespace Rivet {
         } else if (!_skipWeights) {
           _weightNames.push_back(temp[0]);
         }
-
-
         idx++;
       }
-    }
+    }*/
   }
 
 
@@ -357,10 +387,16 @@ namespace Rivet {
 
   void AnalysisHandler::addData(const std::vector<YODA::AnalysisObjectPtr>& aos) {
     for (const YODA::AnalysisObjectPtr ao : aos) {
-      const string path = ao->path();
+      string path = string(ao->path());
       if (path.size() > 1) { // path > "/"
         try {
-          const string ananame =  ::split(path, "/")[0];
+          path.erase(path.begin()); // removes leading "/"
+          std::stringstream spath(path);
+          string ananame;
+          while (std::getline(spath, ananame, '/')) {
+            break;
+          }
+          //const string ananame =  ::split(path, "/")[0];*/
           AnaHandle a = analysis(ananame);
           //MultiweightAOPtr mao = ????; /// @todo generate right Multiweight object from ao
           //a->addAnalysisObject(mao); /// @todo Need to statistically merge...

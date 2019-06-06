@@ -105,17 +105,16 @@ namespace Rivet {
       // Normalizing to cross-section and mass
       // Additional factors represent the division by rapidity
       const double xsec = crossSectionPerEvent()/(picobarn);
-      const double chiScale1 = 1 / _chiCounter1 / 260.0;
-      const double chiScale2 = 1 / _chiCounter2 / 480.0;
-      const double phiScale  = 1 / _phiCounter;
+      const double chiScale1 = 1.0 / 260.0;
+      const double chiScale2 = 1.0 / 480.0;
 
-      _bjetpT_SV0.scale(xsec/2, this);
+      _bjetpT_SV0.scale(0.5*xsec, this);
       scale(_bjetpT_SV0_All, xsec);
       scale(_bjetpT_pTRel, xsec);
       scale(_dijet_mass, xsec);
-      scale(_dijet_phi, phiScale );
-      scale(_dijet_chi_110_370, chiScale1);
-      scale(_dijet_chi_370_850, chiScale2);
+      normalize(_dijet_phi, 1.0, true);
+      normalize(_dijet_chi_110_370, chiScale1, true); /// @TODO Should this really be divided by the mass range? 
+      normalize(_dijet_chi_370_850, chiScale2, true);
     }
 
 

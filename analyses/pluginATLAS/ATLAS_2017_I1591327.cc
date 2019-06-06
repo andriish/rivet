@@ -162,7 +162,12 @@ namespace Rivet {
     // Normalise histograms etc., after the run
     void finalize() {
       const double sf = crossSection()/femtobarn / sumOfWeights();
-      scale({_h_M, _h_pT, _h_dPhi, _h_costh, _h_phistar, _h_at}, sf);
+      scale(_h_M, sf);
+      scale(_h_pT, sf);
+      scale(_h_dPhi, sf);
+      scale(_h_costh, sf);
+      scale(_h_phistar, sf);
+      scale(_h_at, sf);
     }
 
 

@@ -45,8 +45,8 @@ namespace Rivet {
 
 
     void finalize() {
-      normalize({_h_met_incl, _h_set_incl});
-      normalize({_h_met_calo, _h_set_calo});
+      normalize(_h_met_incl); normalize(_h_set_incl);
+      normalize(_h_met_calo); normalize(_h_set_calo);
     }
 
 

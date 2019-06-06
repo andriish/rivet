@@ -68,9 +68,9 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      normalize({_h_tall_n, _h_tlep_n, _h_thad_n});
-      normalize({_h_tall_pt, _h_tlep_pt, _h_thad_pt});
-      normalize({_h_tall_y, _h_tlep_y, _h_thad_y});
+      normalize(_h_tall_n); normalize(_h_tlep_n); normalize(_h_thad_n);
+      normalize(_h_tall_pt); normalize(_h_tlep_pt); normalize(_h_thad_pt);
+      normalize(_h_tall_y); normalize(_h_tlep_y); normalize(_h_thad_y);
     }
 
     //@}

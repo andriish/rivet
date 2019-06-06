@@ -221,11 +221,17 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       const double sf(crossSection()/femtobarn/sumOfWeights());
-      scale({_hist_mm_fid_intxsec, _hist_ee_fid_intxsec, _hist_emme_fid_intxsec}, sf);
-      scale({_hist_emme_fid_ptlead, _hist_emme_fid_ptll, _hist_emme_fid_mll,
-            _hist_emme_fid_dphill, _hist_emme_fid_yll, _hist_emme_fid_costhetastarll}, sf);
-      normalize({_hist_emme_fid_ptleadnorm, _hist_emme_fid_ptllnorm, _hist_emme_fid_mllnorm,
-            _hist_emme_fid_dphillnorm, _hist_emme_fid_yllnorm, _hist_emme_fid_costhetastarllnorm});
+      scale(_hist_mm_fid_intxsec, sf);
+      scale(_hist_ee_fid_intxsec, sf);
+      scale(_hist_emme_fid_intxsec, sf);
+      scale(_hist_emme_fid_ptlead, sf);
+      scale(_hist_emme_fid_ptll, sf);
+      scale(_hist_emme_fid_mll, sf);
+      scale(_hist_emme_fid_dphill, sf);
+      scale(_hist_emme_fid_yll, sf);
+      scale(_hist_emme_fid_costhetastarll, sf);
+      normalize(_hist_emme_fid_ptleadnorm); normalize(_hist_emme_fid_ptllnorm); normalize(_hist_emme_fid_mllnorm);
+      normalize(_hist_emme_fid_dphillnorm); normalize(_hist_emme_fid_yllnorm); normalize(_hist_emme_fid_costhetastarllnorm);
     }
 
 
