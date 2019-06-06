@@ -37,10 +37,8 @@ namespace Rivet {
       _mc_xs = _mc_error = 0.;
     }
 
-
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // *** LEIF *** This doesn't really make sense any more.
       _h_N->fill(0.5);
       _h_pmXS->fill(0.5);
       _h_pmN ->fill(0.5);

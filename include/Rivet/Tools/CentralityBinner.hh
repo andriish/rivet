@@ -801,7 +801,9 @@ class GeneratedCentrality: public CentralityEstimator {
 public:
 
   /// Constructor.
-  GeneratedCentrality() {}
+  GeneratedCentrality() {
+    declare(HepMCHeavyIon(), "HI");
+  }
 
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(GeneratedCentrality);
@@ -810,11 +812,7 @@ protected:
 
   /// Perform the projection on the Event
   void project(const Event& e) {
-    _estimate = -1.0;
-#ifdef ENABLE_HEPMC_3
-    RivetHepMC::ConstGenHeavyIonPtr hi = e.genEvent()->heavy_ion();
-    if ( hi ) _estimate = 100.0 - hi->centrality; // @TODO We don't really know how to interpret this number!
-#endif
+    _estimate = apply<HepMCHeavyIon>(e, "HI").centrality();
   }
 
   /// Compare projections

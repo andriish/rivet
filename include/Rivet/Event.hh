@@ -68,15 +68,6 @@ namespace Rivet {
     /// Get the beam centre-of-mass energy per nucleon
     double asqrtS() const;
 
-    /// Get the generator centrality (impact-parameter quantile in [0,1]; or -1 if undefined (usual for non-HI generators))
-    //double centrality() const;
-
-    // /// Get the boost to the beam centre-of-mass
-    // Vector3 beamCMSBoost() const;
-
-    // /// Get the boost to the beam centre-of-mass
-    // LorentzTransform beamCMSTransform();
-
     //@}
 
 

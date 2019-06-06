@@ -1046,7 +1046,6 @@ namespace Rivet {
     /// List of signal regions and event counts per signal region
     vector<string> _signal_regions;
 
-    // *** LEIF *** i think this was intended
     map<string, CounterPtr> _eventCountsPerSR;
 
   };

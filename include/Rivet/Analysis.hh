@@ -840,7 +840,12 @@ namespace Rivet {
     /// Check that analysis objects aren't being booked/registered outside the init stage
     void _checkBookInit() const;
 
+    /// Check if we are in the init stage.
+    bool inInit() const;
 
+    /// Check if we are in the finalize stage.
+    bool inFinalize() const;
+    
   private:
 
     /// To be used in finalize context only:
@@ -1076,6 +1081,23 @@ namespace Rivet {
       typedef shared_ptr<YODAT> YODAPtrT;
       typedef rivet_shared_ptr<WrapperT> RAOT;
 
+      if ( !inInit() && !inFinalize() ) {
+        MSG_ERROR("Can't book objects outside of init()");
+        throw UserError(name() + ": Can't book objects outside of init() or finalize().");
+      }
+
+      // First check that we haven't booked this before. This is
+      // allowed when booking in finalze.
+      for (auto & waold : analysisObjects()) {
+        if ( yao.path() == waold.get()->basePath() ) {
+          if ( !inInit() )
+            MSG_WARNING("Found double-booking of " << yao.path() << " in "
+                        << name() << ". Keeping previous booking");
+          return RAOT(dynamic_pointer_cast<WrapperT>(waold.get()));
+        }
+      }
+
+
       shared_ptr<WrapperT> wao = make_shared<WrapperT>();
       YODAPtrT yaop = make_shared<YODAT>(yao);
 
@@ -1120,19 +1142,13 @@ namespace Rivet {
       }
       rivet_shared_ptr<WrapperT> ret(wao);
 
-      // Now check that we haven't booked this before.
-      ret.get()->setActiveFinalWeightIdx(_defaultWeightIndex());
-      for (auto & waold : analysisObjects()) {
-        waold.get()->setActiveFinalWeightIdx(_defaultWeightIndex());
-        if ( ret->path() == waold->path() ) {
-          MSG_WARNING("Found double-booking of " << ret->path() << " in "
-                      << name() << ". Keeping previous booking");
-          waold.get()->unsetActiveWeight();
-          return RAOT(dynamic_pointer_cast<WrapperT>(waold.get()));
-        }
-        waold.get()->unsetActiveWeight();
-      }
       ret.get()->unsetActiveWeight();
+      if ( inFinalize() ) {
+        // If booked in finalize() we assume it is the first time
+        // finalize is run.
+        ret.get()->pushToFinal();
+        ret.get()->setActiveFinalWeightIdx(0);
+      }
       _analysisobjects.push_back(ret);
 
       return ret;

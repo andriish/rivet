@@ -2,6 +2,8 @@
 #ifndef RIVET_RivetHepMC_HH
 #define RIVET_RivetHepMC_HH
 
+#include <valarray>
+
 #ifdef ENABLE_HEPMC_3
 #include "HepMC3/HepMC3.h"
 #include "HepMC3/Relatives.h"
@@ -94,6 +96,9 @@ namespace Rivet {
                    std::shared_ptr<GenEvent> evt);
     void strip(GenEvent & ge,
                const set<long> & stripid = {1, -1, 2, -2, 3,-3, 21});
+    vector<string> weightNames(const GenEvent & ge);
+    double crossSection(const GenEvent & ge);
+    std::valarray<double> weights(const GenEvent & ge);
   }
 }
 

@@ -147,6 +147,8 @@ namespace Rivet {
     virtual void pushToFinal() = 0;
 
     virtual YODA::AnalysisObjectPtr activeYODAPtr() const = 0;
+
+    virtual string basePath() const = 0;
   };
 
 
@@ -395,6 +397,10 @@ namespace Rivet {
     vector<typename TupleWrapper<T>::Ptr> _evgroup;
 
     typename T::Ptr _active;
+
+    string basePath() const { return _basePath; }
+
+    string _basePath;
 
     // do we need implicit cast?
     // operator typename T::Ptr () {

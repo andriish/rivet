@@ -221,9 +221,6 @@ namespace Rivet {
     /// @name Histogram / data object access
     //@{
 
-    /// Add a vector of analysis objects to the current state.
-    // *** LEIF *** removed void addData(const std::vector<YODA::AnalysisObjectPtr>& aos);
-
     /// Read analysis plots into the histo collection (via addData) from the named file.
     void readData(const std::string& filename);
 
@@ -237,17 +234,6 @@ namespace Rivet {
       if ( it == _preloads.end() ) return nullptr;
       return it->second;
     }
-
-    /// Get single-weight YODA analysis objects
-    // *** LEIF *** thinks This is not needed anymore
-    // vector<YODA::AnalysisObjectPtr> getYodaAOs(bool includeorphans,
-    //                                            bool includetmps,
-    //                                            bool usefinalized) const;
-
-    // /// Get all analyses' plots as a vector of analysis objects.
-    // std::vector<YODA::AnalysisObjectPtr> getData(bool includeorphans = false,
-    //                                              bool includetmps = false,
-    //                                              bool usefinalized = true) const;
 
     /// Write all analyses' plots (via getData) to the named file.
     void writeData(const std::string& filename) const;
@@ -287,7 +273,7 @@ namespace Rivet {
 
     /// Indicate which Rivet stage we're in.
     /// At the moment, only INIT is used to enable booking.
-    enum class Stage { OTHER, INIT };
+    enum class Stage { OTHER, INIT, FINALIZE };
 
     /// Which stage are we in?
     Stage stage() const { return _stage; }

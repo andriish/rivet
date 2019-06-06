@@ -32,9 +32,6 @@ namespace Rivet {
 
   AnalysisHandler::AnalysisHandler(const string& runname)
     : _runname(runname),
-      // *** LEIF *** temporarily removed this
-      // _eventcounter("/_EVTCOUNT"),
-      // _xs(NAN), _xserr(NAN),
       _initialised(false), _ignoreBeams(false),
       _defaultWeightIdx(0), _dumpPeriod(0), _dumping(false)
   {  }
@@ -149,37 +146,12 @@ namespace Rivet {
     MSG_DEBUG("Analysis handler initialised");
   }
 
-// *** LEIF *** Reinstated this.
   void AnalysisHandler::setWeightNames(const GenEvent& ge) {
-    /// reroute the print output to a std::stringstream and process
-    /// The iteration is done over a map in hepmc2 so this is safe
-    std::ostringstream stream;
-    ge.weights().print(stream);  // Super lame, I know
-    string str =  stream.str();
-
-    std::regex re("(([^()]+))"); // Regex for stuff enclosed by parentheses ()
-    size_t idx = 0;
-    for (std::sregex_iterator i = std::sregex_iterator(str.begin(), str.end(), re); i != std::sregex_iterator(); ++i ) {
-      std::smatch m = *i;
-      vector<string> temp = ::split(m.str(), "[,]");
-      if (temp.size() ==2) {
-        MSG_DEBUG("Name of weight #" << _weightNames.size() << ": " << temp[0]);
-
-        // store the default weight based on weight names
-        if (temp[0] == "Weight" || temp[0] == "0" || temp[0] == "Default") {
-          MSG_DEBUG(_weightNames.size() << " is being used as the nominal.");
-          _weightNames.push_back("");
-          _defaultWeightIdx = idx;
-        } else
-          _weightNames.push_back(temp[0]);
-
-
-        idx++;
-      }
-    }
+    _weightNames = HepMCUtils::weightNames(ge);
+    if ( _weightNames.empty() ) _weightNames.push_back("");
+    for ( int i = 0, N = _weightNames.size(); i < N; ++i )
+      if ( _weightNames[i] == "" ) _defaultWeightIdx = i;
   }
-
-
 
   void AnalysisHandler::analyze(const GenEvent& ge) {
     // Call init with event as template if not already initialised
@@ -202,28 +174,6 @@ namespace Rivet {
     /// @todo Filter/normalize the event here
     bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
     Event event(ge, strip);
-
-    // Weights
-    /// @todo Drop this / just report first weight when we support multiweight events
-    // *** LEIF *** temporarily removed this
-    // _eventcounter.fill(event.weight());
-    // MSG_DEBUG("Event #" << _eventcounter.numEntries() << " weight = " << event.weight());
-
-    // *** LEIF *** temporarily removed this
-    // // Cross-section
-    // #if defined ENABLE_HEPMC_3
-    // if (ge.cross_section()) {
-    //   //@todo HepMC3::GenCrossSection methods aren't const accessible :(
-    //   RivetHepMC::GenCrossSection gcs = *(event.genEvent()->cross_section());
-    //   _xs = gcs.xsec();
-    //   _xserr = gcs.xsec_err();
-    // }
-    // #elif defined HEPMC_HAS_CROSS_SECTION
-    // if (ge.cross_section()) {
-    //   _xs = ge.cross_section()->cross_section();
-    //   _xserr = ge.cross_section()->cross_section_error();
-    // }
-    // #endif
 
     // Won't happen for first event because _eventNumber is set in init()
     if (_eventNumber != ge.event_number()) {
@@ -299,6 +249,8 @@ namespace Rivet {
     if (!_initialised) return;
     MSG_INFO("Finalising analyses");
 
+    _stage = Stage::FINALIZE;
+    
     // First push all analyses' objects to persistent and final
     MSG_TRACE("AnalysisHandler::finalize(): Pushing analysis objects to persistent.");
     _eventCounter.get()->pushToPersistent(_subEventWeights);
@@ -336,6 +288,8 @@ namespace Rivet {
     // Print out number of events processed
     const int nevts = numEvents();
     MSG_INFO("Processed " << nevts << " event" << (nevts != 1 ? "s" : ""));
+
+    _stage = Stage::OTHER;
 
     if ( _dumping ) return;
  
@@ -487,16 +441,17 @@ namespace Rivet {
         // Now check if any options should be removed.
         for ( string delopt : delopts )
           if ( path.hasOption(delopt) ) path.removeOption(delopt);
-         path.setPath();
-         if ( path.analysisWithOptions() != "" )
-           foundAnalyses.insert(path.analysisWithOptions());
-         aomap.insert(make_pair(path.path(), ao));
+        path.setPath();
+        if ( path.analysisWithOptions() != "" )
+          foundAnalyses.insert(path.analysisWithOptions());
+        aomap.insert(make_pair(path.path(), ao));
       }
     }
 
     // Now make analysis handler aware of the weight names present.
     _weightNames.clear();
     _weightNames.push_back("");
+    _defaultWeightIdx = 0;
     for ( string name : foundWeightNames ) _weightNames.push_back(name);
 
     // Then we create and initialize all analyses
@@ -623,47 +578,6 @@ namespace Rivet {
       return rtn;
   }
 
-// *** LEIF *** thinks This is not needed anymore
-  // vector<YODA::AnalysisObjectPtr> AnalysisHandler::getYodaAOs(bool includeorphans,
-  //                                                             bool includetmps,
-  //                                                             bool usefinalized) const {
-  //     vector<YODA::AnalysisObjectPtr> rtn;
-  //     if (usefinalized)
-  //       rtn = _finalizedAOs;
-  //     else {
-  //       for (auto rao : getRivetAOs()) {
-  //         // need to set the index
-  //         // before we can search the PATH
-  //         rao.get()->setActiveWeightIdx(_defaultWeightIdx);
-  //         // Exclude paths from final write-out if they contain a "TMP" layer (i.e. matching "/TMP/")
-  //         if (!includetmps && rao->path().find("/TMP/") != string::npos)
-  //           continue;
-
-  //         for (size_t iW = 0; iW < numWeights(); iW++) {
-  //           rao.get()->setActiveWeightIdx(iW);
-  //           rtn.push_back(rao.get()->activeYODAPtr());
-  //         }
-  //       }
-  //     }
-
-  //     // Sort histograms alphanumerically by path before write-out
-  //     sort(rtn.begin(), rtn.end(),
-  //          [](YODA::AnalysisObjectPtr a, YODA::AnalysisObjectPtr b) {
-  //               return a->path() < b->path();
-  //           }
-  //         );
-
-  //     return rtn;
-  // }
-
-
-  // vector<YODA::AnalysisObjectPtr> AnalysisHandler::getData(bool includeorphans,
-  //                                                          bool includetmps,
-  //                                                          bool usefinalized) const {
-  //   return getYodaAOs(includeorphans, includetmps, usefinalized);
-  // }
-
-
   void AnalysisHandler::writeData(const string& filename) const {
 
     // This is where we store the OAs to be written.
@@ -748,20 +662,12 @@ namespace Rivet {
     return *this;
   }
 
-
-  // *** LEIF *** temporarily removed this
-  // bool AnalysisHandler::hasCrossSection() const {
-  //   return (!std::isnan(crossSection()));
-  // }
-
-
   AnalysisHandler& AnalysisHandler::addAnalysis(Analysis* analysis) {
     analysis->_analysishandler = this;
     // _analyses.insert(AnaHandle(analysis));
     _analyses[analysis->name()] = AnaHandle(analysis);
     return *this;
   }
-
 
   PdgIdPair AnalysisHandler::beamIds() const {
     return Rivet::beamIds(beams());

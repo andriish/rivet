@@ -1,6 +1,6 @@
 Name: MC_XS
 Summary: MC analysis for process total cross section
-Status: VALIDATED
+Status: UNVALIDATED
 Authors:
  - Marek Schoenherr <marek.schoenherr@tu-dresden.de>
 RunInfo: Suitable for any process.

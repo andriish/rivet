@@ -1,6 +1,9 @@
 // -*- C++ -*-
 
+#include <regex>
+#include "Rivet/Tools/Utils.hh"
 #include "Rivet/Tools/RivetHepMC.hh"
+#include "Rivet/Tools/Logging.hh"
 
 namespace Rivet{
   
@@ -119,5 +122,40 @@ namespace Rivet{
     // in the HepMC3 version of This file.
     void strip(GenEvent &, const set<long> &) {}
 
+    vector<string> weightNames(const GenEvent & ge) {
+      /// reroute the print output to a std::stringstream and process
+      /// The iteration is done over a map in hepmc2 so this is safe
+      vector<string> ret;
+      std::ostringstream stream;
+      ge.weights().print(stream);  // Super lame, I know
+      string str =  stream.str();
+
+      std::regex re("(([^()]+))"); // Regex for stuff enclosed by parentheses ()
+      for (std::sregex_iterator i = std::sregex_iterator(str.begin(), str.end(), re);
+           i != std::sregex_iterator(); ++i ) {
+        std::smatch m = *i;
+        vector<string> temp = Rivet::split(m.str(), "[,]");
+        if (temp.size() ==2) {
+          // store the default weight based on weight names
+          if (temp[0] == "Weight" || temp[0] == "0" || temp[0] == "Default") {
+            ret.push_back("");
+          } else
+            ret.push_back(temp[0]);
+        }
+      }
+      return ret;
+    }
+
+    double crossSection(const GenEvent & ge) {
+      return ge.cross_section()->cross_section();
+    }
+
+    std::valarray<double> weights(const GenEvent & ge) {
+      const size_t W = ge.weights().size();
+      std::valarray<double> wts(W);
+      for (unsigned int iw = 0; iw < W; ++iw)
+        wts[iw] = ge.weights()[iw];
+      return wts;
+    }
   }
 }
