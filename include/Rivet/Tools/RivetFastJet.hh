@@ -10,6 +10,10 @@
 #include "fastjet/PseudoJet.hh"
 #include "fastjet/tools/Filter.hh"
 
+namespace fastjet {
+  namespace contrib { }
+}
+
 namespace Rivet {
 
 
@@ -31,7 +35,9 @@ namespace Rivet {
     return FourMomentum(pj.E(), pj.px(), pj.py(), pj.pz());
   }
 
+  namespace fjcontrib = fastjet::contrib;
 
 }
+
 
 #endif

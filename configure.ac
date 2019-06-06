@@ -137,6 +137,7 @@ else
   FASTJETCONFIGLIBADD="$FASTJETCONFIGLIBADD -lCDFConesPlugin -lD0RunIIConePlugin -lNestedDefsPlugin"
   FASTJETCONFIGLIBADD="$FASTJETCONFIGLIBADD -lTrackJetPlugin -lATLASConePlugin -lCMSIterativeConePlugin"
   FASTJETCONFIGLIBADD="$FASTJETCONFIGLIBADD -lEECambridgePlugin -lJadePlugin"
+  FASTJETCONFIGLIBADD="$FASTJETCONFIGLIBADD -lfastjetcontribfragile"
 fi;
 AC_MSG_NOTICE([FastJet LIBADD = $FASTJETCONFIGLIBADD])
 AC_SUBST(FASTJETCONFIGLIBADD)
@@ -286,10 +287,6 @@ AC_CONFIG_FILES(include/Makefile include/Rivet/Makefile)
 AC_CONFIG_FILES(src/Makefile)
 AC_CONFIG_FILES(src/Core/Makefile src/Core/yamlcpp/Makefile)
 AC_CONFIG_FILES(src/Tools/Makefile)
-AC_CONFIG_FILES(src/Tools/fjcontrib/Makefile)
-AC_CONFIG_FILES(src/Tools/fjcontrib/EnergyCorrelator/Makefile)
-AC_CONFIG_FILES(src/Tools/fjcontrib/Nsubjettiness/Makefile)
-AC_CONFIG_FILES(src/Tools/fjcontrib/RecursiveTools/Makefile)
 AC_CONFIG_FILES(src/Projections/Makefile)
 AC_CONFIG_FILES(src/AnalysisTools/Makefile)
 AC_CONFIG_FILES(analyses/Makefile)
