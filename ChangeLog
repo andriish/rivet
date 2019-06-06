@@ -1,3 +1,8 @@
+2019-06-06 Christian Gutschow  <chris.g@cern.ch>
+
+	* Ading Marek's opacity fix to make-plots
+	* removing if statement testing if type(u'') is (not) str when deciding whether to encode string in bin/rivet
+
 2019-06-06  Peter Richardson <peter.richardson@durham.ac.uk>
 	* fix typo in rivet-cmphistos
 	* sync yoda for many D0 analyses
