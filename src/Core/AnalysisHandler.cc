@@ -13,20 +13,6 @@
 using std::cout;
 using std::cerr;
 
-namespace {
-
-  inline std::vector<std::string> split(const std::string& input, const std::string& regex) {
-    // passing -1 as the submatch index parameter performs splitting
-    std::regex re(regex);
-    std::sregex_token_iterator
-      first{input.begin(), input.end(), re, -1},
-      last;
-      return {first, last};
-  }
-
-}
-
-
 namespace Rivet {
 
 
@@ -174,6 +160,16 @@ namespace Rivet {
     /// @todo Filter/normalize the event here
     bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
     Event event(ge, strip);
+
+    // set the cross section based on what is reported by this event.
+    // if no cross section
+    MSG_TRACE("getting cross section.");
+    if (ge.cross_section()) {
+      MSG_TRACE("getting cross section from GenEvent.");
+      double xs = ge.cross_section()->cross_section();
+      double xserr = ge.cross_section()->cross_section_error();
+      setCrossSection(xs, xserr);
+    }
 
     // Won't happen for first event because _eventNumber is set in init()
     if (_eventNumber != ge.event_number()) {
@@ -587,8 +583,15 @@ namespace Rivet {
     vector<MultiweightAOPtr> raos = getRivetAOs();
     output.reserve(raos.size()*2*numWeights());
 
+    // Fix the oredering so that default weight is written out first.
+    vector<size_t> order;
+    if ( _defaultWeightIdx >= 0 && _defaultWeightIdx < numWeights() )
+      order.push_back(_defaultWeightIdx);
+    for ( size_t  i = 0; i < numWeights(); ++i )
+      if ( i != _defaultWeightIdx ) order.push_back(i);
+
     // Then we go through all finalized AOs one weight at a time
-    for (size_t iW = 0; iW < numWeights(); iW++) {
+    for (size_t iW : order ) {
       for ( auto rao : raos ) {
         rao.get()->setActiveFinalWeightIdx(iW);
         if ( rao->path().find("/TMP/") != string::npos ) continue;
@@ -597,9 +600,9 @@ namespace Rivet {
     }
 
     // Finally the RAW objects.
-    for (size_t iW = 0; iW < numWeights(); iW++) {
+    for (size_t iW : order ) {
       for ( auto rao : raos ) {
-        rao.get()->setActiveFinalWeightIdx(iW);
+        rao.get()->setActiveWeightIdx(iW);
         output.push_back(rao.get()->activeYODAPtr());
       }
     }

@@ -378,6 +378,8 @@ namespace Rivet {
   void Wrapper<T>::pushToFinal() {
     for ( size_t m = 0; m < _persistent.size(); ++m ) {
       copyao(_persistent.at(m), _final.at(m));
+      if ( _final[m]->path().substr(0,4) == "/RAW" )
+        _final[m]->setPath(_final[m]->path().substr(4));
     }
   }
 

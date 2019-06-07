@@ -5,6 +5,19 @@
 #include "Rivet/Tools/RivetHepMC.hh"
 #include "Rivet/Tools/Logging.hh"
 
+namespace {
+
+  inline std::vector<std::string> split(const std::string& input, const std::string& regex) {
+    // passing -1 as the submatch index parameter performs splitting
+    std::regex re(regex);
+    std::sregex_token_iterator
+      first{input.begin(), input.end(), re, -1},
+      last;
+      return {first, last};
+  }
+
+}
+
 namespace Rivet{
   
   const Relatives Relatives::PARENTS     = HepMC::parents;
@@ -134,7 +147,7 @@ namespace Rivet{
       for (std::sregex_iterator i = std::sregex_iterator(str.begin(), str.end(), re);
            i != std::sregex_iterator(); ++i ) {
         std::smatch m = *i;
-        vector<string> temp = Rivet::split(m.str(), "[,]");
+        vector<string> temp = ::split(m.str(), "[,]");
         if (temp.size() ==2) {
           // store the default weight based on weight names
           if (temp[0] == "Weight" || temp[0] == "0" || temp[0] == "Default") {
