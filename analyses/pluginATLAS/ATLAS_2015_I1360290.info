@@ -14,7 +14,7 @@ RunInfo: Pb--Pb minimum bias events. Centrality calibration from ATLAS_PBPB_CENT
 NeedCrossSection: no
 Options:
  - cent=REF,GEN,IMP,USR
-Beams: [1000822080, 1000822080]
+Beams: [Pb, Pb]
 # This is _total_ energy of beams, so this becomes 208*2760=574080
 Energies: [574080]
 Description:

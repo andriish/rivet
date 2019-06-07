@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Average multiplcity at a range of energies
   class JADE_1983_I190818 : public Analysis {
   public:
 
@@ -26,7 +26,7 @@ namespace Rivet {
         MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
                     << " doesn't match any available analysis energy .");
       }
-      book(_hist, 1, 1, 1);
+      book(_counter, "/TMP/MULT");
     }
 
 
@@ -34,18 +34,41 @@ namespace Rivet {
     void analyze(const Event& event) {
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       MSG_DEBUG("Total charged multiplicity = " << cfs.size());
-      _hist->fill(sqrtS(),cfs.size());
+      _counter->fill(cfs.size());
     }
 
 
     /// Normalise histograms etc., after the run
-    void finalize() {}
+    void finalize() {
+      scale(_counter,1./sumOfWeights());
+
+      double val = _counter->val();
+      double err = _counter->err();
+      
+      Scatter2D temphisto(refData(1, 1, 1));
+      Scatter2DPtr mult;
+      book(mult, 1, 1, 1);
+      
+      for (size_t b = 0; b < temphisto.numPoints(); b++) {
+	const double x  = temphisto.point(b).x();
+	pair<double,double> ex = temphisto.point(b).xErrs();
+	pair<double,double> ex2 = ex;
+	if(ex2.first ==0.) ex2. first=0.0001;
+	if(ex2.second==0.) ex2.second=0.0001;
+	if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+	  mult->addPoint(x, val, ex, make_pair(err,err));
+	}
+	else {
+	  mult->addPoint(x,  0., ex,   make_pair(0.,.0));
+	}
+      }
+    }
     //@}
 
   private:
 
     // Histogram
-    Profile1DPtr _hist;
+    CounterPtr _counter;
 
   };
 

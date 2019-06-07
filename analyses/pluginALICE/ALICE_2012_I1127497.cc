@@ -11,11 +11,11 @@ namespace Rivet {
 
   /// @brief ALICE PbPb at 2.76 TeV R_AA analysis.
   class ALICE_2012_I1127497 : public Analysis {
+
   public:
 
     /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2012_I1127497);
-
 
     /// @name Analysis methods
     //@{
@@ -89,7 +89,7 @@ namespace Rivet {
       else {
         const ParticlePair& beam = beams();
         if (beam.first.pid() == PID::PROTON && beam.second.pid() == PID::PROTON) isHI = false;
-	else if (beam.first.pid() == 1000822080 && beam.second.pid() == 1000822080)
+	else if (beam.first.pid() == PID::LEAD && beam.second.pid() == PID::LEAD)
 	  isHI = true;
 	else {
 	  MSG_ERROR("Beam error (found)!");

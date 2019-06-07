@@ -15,7 +15,7 @@ RunInfo: Au Au minimum bias events, only 5% most central events used in analysis
 NeedCrossSection: no
 Options:
  - cent=REF,GEN,IMP,USR
-Beams: [1000791970, 1000791970]
+Beams: [Au, Au]
 # This is _total_ energy of beams, so this becomes 197*200=39400
 Energies: [39400]
 Description:

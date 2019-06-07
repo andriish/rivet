@@ -73,8 +73,8 @@ namespace Rivet {
       }
       else {
         const ParticlePair& beam = beams();
-        if (beam.first.pid() == 2212 && beam.second.pid() == 2212) isHI = false;
-	else if (beam.first.pid() == 1000822080 && beam.second.pid() == 1000822080)
+        if (beam.first.pid() == PID::PROTON && beam.second.pid() == PID::PROTON) isHI = false;
+	else if (beam.first.pid() == PID::LEAD && beam.second.pid() == PID::LEAD)
 	  isHI = true;
 	else {
 	  MSG_ERROR("Beam error (found)!");

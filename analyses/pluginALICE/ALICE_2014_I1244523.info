@@ -19,7 +19,7 @@ RunInfo:
 NeedCrossSection: no
 Options:
  - cent=REF,GEN,IMP,USR
-Beams: [2212,1000822080]
+Beams: [p, Pb]
 Energies: [[4000,326560]]
 Description:
   'Identified baryons and mesons plotted in invariant pT spectra as well as average pT and yield ratios.

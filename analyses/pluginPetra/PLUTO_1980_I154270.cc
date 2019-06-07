@@ -21,19 +21,16 @@ namespace Rivet {
     void init() {
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
-      if(fuzzyEquals(sqrtS()/GeV,30.75)) {
-	book(_hist,1, 2, 1);
-      }
-      else if (fuzzyEquals(sqrtS()/GeV,9.4 ) ||
-	       fuzzyEquals(sqrtS()/GeV,12.0) ||
-	       fuzzyEquals(sqrtS()/GeV,13.0) ||
-	       fuzzyEquals(sqrtS()/GeV,17.0) ||
-	       fuzzyEquals(sqrtS()/GeV,22.0) ||
-	       fuzzyEquals(sqrtS()/GeV,27.6) ||
-	       fuzzyEquals(sqrtS()/GeV,30.2) ||
-	       fuzzyEquals(sqrtS()/GeV,30.7) ||
-	       fuzzyEquals(sqrtS()/GeV,31.3)) {
-	book(_hist,1, 1, 1);
+      if (fuzzyEquals(sqrtS()/GeV,9.4 ) ||
+	  fuzzyEquals(sqrtS()/GeV,12.0) ||
+	  fuzzyEquals(sqrtS()/GeV,13.0) ||
+	  fuzzyEquals(sqrtS()/GeV,17.0) ||
+	  fuzzyEquals(sqrtS()/GeV,22.0) ||
+	  fuzzyEquals(sqrtS()/GeV,27.6) ||
+	  fuzzyEquals(sqrtS()/GeV,30.2) ||
+	  fuzzyEquals(sqrtS()/GeV,30.7) ||
+	  fuzzyEquals(sqrtS()/GeV,31.3)) {
+	book(_c_mult, "/TMP/cmult");
       }
       else {
         MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
@@ -47,7 +44,7 @@ namespace Rivet {
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       MSG_DEBUG("Total charged multiplicity = " << cfs.size());
       unsigned int nPart(0);
-      for (const Particle& p : cfs.particles()) {
+      for(const Particle& p: cfs.particles()) {
         // check if prompt or not
         ConstGenParticlePtr pmother = p.genParticle();
         ConstGenVertexPtr ivertex = pmother->production_vertex();
@@ -69,20 +66,40 @@ namespace Rivet {
         }
 	if(prompt) ++nPart;
       }
-      _hist->fill(sqrtS(),nPart);
+      _c_mult->fill(nPart);
     }
 
 
     /// Normalise histograms etc., after the run
-    void finalize() { }
+    void finalize() {
+      double fact = 1./sumOfWeights();
+      double val = _c_mult->val()*fact;
+      double err = _c_mult->err()*fact;
+      Scatter2D temphisto(refData(1, 1, 1));
+      Scatter2DPtr mult;
+      book(mult, 1, 1, 1);
+      for (size_t b = 0; b < temphisto.numPoints(); b++) {
+        const double x  = temphisto.point(b).x();
+        pair<double,double> ex = temphisto.point(b).xErrs();
+        pair<double,double> ex2 = ex;
+        if(ex2.first ==0.) ex2. first=0.0001;
+        if(ex2.second==0.) ex2.second=0.0001;
+        if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+	  mult   ->addPoint(x, val, ex, make_pair(err,err));
+	}
+	else {
+	  mult   ->addPoint(x, 0., ex, make_pair(0.,.0));
+	}
+      }
+    }
 
     //@}
 
 
   private:
 
-    // Histogram
     Profile1DPtr _hist;
+    CounterPtr _c_mult;
 
   };
 

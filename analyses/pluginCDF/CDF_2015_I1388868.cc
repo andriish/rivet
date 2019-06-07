@@ -21,13 +21,13 @@ namespace Rivet {
     void init() {
 
       // Energy selection
-      double isqrts = 0;
+      int isqrts = -1;
       if (fuzzyEquals(sqrtS()/GeV, 300, 1E-3)) {
-        isqrts = 3;
-      } else if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
         isqrts = 2;
-      } else if (fuzzyEquals(sqrtS()/GeV, 1960, 1E-3)) {
+      } else if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
         isqrts = 1;
+      } else if (fuzzyEquals(sqrtS()/GeV, 1960, 1E-3)) {
+        isqrts = 0;
       } else {
         throw UserError("Unexpected sqrtS ! Only 300, 900, 1960 GeV is supported by CDF_2015_I1388868");
       }
@@ -38,14 +38,14 @@ namespace Rivet {
       declare(cfs, "Tracks");
 
       // Book profile histos
-      book(_NchgPDFden1 ,isqrts,1,1);
-      book(_NchgPMNden1 ,isqrts,1,2);
-      book(_NchgPMXden1 ,isqrts,1,3);
-      book(_NchgPden1   ,isqrts,1,4);
-      book(_PTsumPDFden1,isqrts,1,6);
-      book(_PTsumPMNden1,isqrts,1,7);
-      book(_PTsumPMXden1,isqrts,1,8);
-      book(_PTsumPden1  ,isqrts,1,9);
+      book(_NchgPDFden1 , 8*isqrts+4,1,1);
+      book(_NchgPMNden1 , 8*isqrts+2,1,1);
+      book(_NchgPMXden1 , 8*isqrts+1,1,1);
+      book(_NchgPden1   , 8*isqrts+3,1,1);
+      book(_PTsumPDFden1, 8*isqrts+8,1,1);
+      book(_PTsumPMNden1, 8*isqrts+6,1,1);
+      book(_PTsumPMXden1, 8*isqrts+5,1,1);
+      book(_PTsumPden1  , 8*isqrts+7,1,1);
 
     }
 

@@ -8,15 +8,12 @@
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/ParisiTensor.hh"
 #include "Rivet/Projections/Hemispheres.hh"
-#include <cmath>
-
-#define I_KNOW_THE_INITIAL_QUARKS_PROJECTION_IS_DODGY_BUT_NEED_TO_USE_IT
 #include "Rivet/Projections/InitialQuarks.hh"
 
 namespace Rivet {
 
 
-  /// @brief OPAL multiplicities at various energies
+  /// @brief DELPHI multiplicities at various energies
   /// @author Peter Richardson
   class DELPHI_2000_S4328825 : public Analysis {
   public:
@@ -35,17 +32,12 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "CFS");
       declare(InitialQuarks(), "IQF");
-      book(_weightedTotalChargedPartNumLight,"weight_totalch_light");
-      book(_weightedTotalChargedPartNumCharm,"weight_totalch_charm");
-      book(_weightedTotalChargedPartNumBottom,"weight_totalch_bottom");
+      book(_cLight , "/TMP/CLIGHT" );
+      book(_cCharm , "/TMP/CCHARM" );
+      book(_cBottom, "/TMP/CBOTTOM");
       book(_weightLight,"weight_light");
       book(_weightCharm,"weight_charm");
       book(_weightBottom,"weight_bottom");
-
-      book(h_bottom, 1, 1, 1);
-      book(h_charm, 1, 1, 2);
-      book(h_light, 1, 1, 3);
-      book(h_diff, 1, 1, 4);  // bottom minus light
 
     }
 
@@ -82,37 +74,61 @@ namespace Rivet {
       switch (flavour) {
       case 1: case 2: case 3:
         _weightLight->fill();
-        _weightedTotalChargedPartNumLight ->fill(numParticles);
+       _cLight->fill(numParticles);
         break;
       case 4:
         _weightCharm->fill();
-        _weightedTotalChargedPartNumCharm ->fill(numParticles);
+        _cCharm->fill(numParticles);
         break;
       case 5:
         _weightBottom->fill();
-        _weightedTotalChargedPartNumBottom->fill(numParticles);
+        _cBottom->fill(numParticles);
         break;
       }
-
     }
 
 
     void finalize() {
-      Histo1D temphisto(refData(1, 1, 1));
-
-      const double avgNumPartsBottom = dbl(*_weightedTotalChargedPartNumBottom / *_weightBottom);
-      const double avgNumPartsCharm  = dbl(*_weightedTotalChargedPartNumCharm  / *_weightCharm);
-      const double avgNumPartsLight  = dbl(*_weightedTotalChargedPartNumLight  / *_weightLight);
-      for (size_t b = 0; b < temphisto.numBins(); b++) {
-        const double x  = temphisto.bin(b).xMid();
-        const double ex = temphisto.bin(b).xWidth()/2.;
-        if (inRange(sqrtS()/GeV, x-ex, x+ex)) {
-          // @TODO: Fix y-error:
-          h_bottom->addPoint(x, avgNumPartsBottom, ex, 0.);
-          h_charm->addPoint(x, avgNumPartsCharm, ex, 0.);
-          h_light->addPoint(x, avgNumPartsLight, ex, 0.);
-          h_diff->addPoint(x, avgNumPartsBottom-avgNumPartsLight, ex, 0.);
-        }
+      // calculate the averages and diffs
+      if(_weightLight->sumW() !=0) scale( _cLight, 1./_weightLight->sumW());
+      if(_weightCharm->sumW() !=0) scale( _cCharm, 1./_weightCharm->sumW());
+      if(_weightBottom->sumW()!=0) scale(_cBottom,1./_weightBottom->sumW());
+      Counter _cDiff = *_cBottom - *_cLight;
+      // fill the histograms
+      for(unsigned int ix=1;ix<5;++ix) {
+	double val(0.), err(0.0);
+	if(ix==1) {
+	  val = _cBottom->val();
+	  err = _cBottom->err();
+	}
+	else if(ix==2) {
+	  val = _cCharm->val();
+	  err = _cCharm->err();
+	}
+	else if(ix==3) {
+	  val = _cLight->val();
+	  err = _cLight->err();
+	}
+	else if(ix==4) {
+	  val = _cDiff.val();
+	  err = _cDiff.err();
+	}
+	Scatter2D temphisto(refData(1, 1, ix));
+	Scatter2DPtr  mult;
+        book(mult, 1, 1, ix);
+	for (size_t b = 0; b < temphisto.numPoints(); b++) {
+	  const double x  = temphisto.point(b).x();
+	  pair<double,double> ex = temphisto.point(b).xErrs();
+	  pair<double,double> ex2 = ex;
+	  if(ex2.first ==0.) ex2. first=0.0001;
+	  if(ex2.second==0.) ex2.second=0.0001;
+	  if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+	    mult->addPoint(x, val, ex, make_pair(err,err));
+	  }
+	  else {
+	    mult->addPoint(x, 0., ex, make_pair(0.,.0));
+	  }
+	}
       }
     }
 
@@ -120,14 +136,12 @@ namespace Rivet {
 
 
   private:
-    Scatter2DPtr h_bottom, h_charm, h_light, h_diff;
-
 
     /// @name Multiplicities
     //@{
-    CounterPtr _weightedTotalChargedPartNumLight;
-    CounterPtr _weightedTotalChargedPartNumCharm;
-    CounterPtr _weightedTotalChargedPartNumBottom;
+    CounterPtr _cLight;
+    CounterPtr _cCharm;
+    CounterPtr _cBottom;
     //@}
 
     /// @name Weights

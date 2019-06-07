@@ -26,6 +26,13 @@ namespace Rivet {
         if (toUpper(pname) == "E+") return POSITRON;
         if (toUpper(pname) == "GAMMA") return PHOTON;
         if (toUpper(pname) == "N") return NEUTRON;
+        if (toUpper(pname) == "D") return DEUTERON;
+        if (toUpper(pname) == "AL") return ALUMINIUM;
+        if (toUpper(pname) == "CU") return COPPER;
+        if (toUpper(pname) == "XE") return XENON;
+        if (toUpper(pname) == "AU") return GOLD;
+        if (toUpper(pname) == "PB") return LEAD;
+        if (toUpper(pname) == "U") return URANIUM;
         try {
           PdgId rtn = lexical_cast<PdgId>(pname);
           return rtn;
