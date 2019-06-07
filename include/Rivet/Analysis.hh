@@ -1099,6 +1099,7 @@ namespace Rivet {
 
 
       shared_ptr<WrapperT> wao = make_shared<WrapperT>();
+      wao->_basePath = yao.path();
       YODAPtrT yaop = make_shared<YODAT>(yao);
 
       for (const string& weightname : _weightNames()) {

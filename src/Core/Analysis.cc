@@ -1063,11 +1063,11 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
   }
 
   bool Analysis::inInit() const {
-    return handler().stage() != AnalysisHandler::Stage::INIT;
+    return handler().stage() == AnalysisHandler::Stage::INIT;
   }
 
   bool Analysis::inFinalize() const {
-    return handler().stage() != AnalysisHandler::Stage::FINALIZE;
+    return handler().stage() == AnalysisHandler::Stage::FINALIZE;
   }
 
 }
