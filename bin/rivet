@@ -506,7 +506,7 @@ if not os.access(histo_parentdir,os.W_OK):
 RUNNAME = args.RUN_NAME or ""
 ah = rivet.AnalysisHandler(RUNNAME)
 ah.setIgnoreBeams(args.IGNORE_BEAMS)
-ah.skipMultiWeights(opts.SKIP_WEIGHTS)
+ah.skipMultiWeights(args.SKIP_WEIGHTS)
 
 for a in args.ANALYSES:
     ## Print warning message and exit if not a valid analysis name
