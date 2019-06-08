@@ -7,7 +7,6 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "YODA/IO.h"
-#include <regex>
 #include <iostream>
 
 using std::cout;
