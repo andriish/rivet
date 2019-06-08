@@ -66,7 +66,9 @@ namespace Rivet {
     _eventNumber = ge.event_number();
 
     setWeightNames(ge);
-    if (haveNamedWeights())
+    if (_skipWeights)
+        MSG_INFO("Only using nominal weight. Variation weights will be ignored.");
+    else if (haveNamedWeights())
         MSG_INFO("Using named weights");
     else
         MSG_INFO("NOT using named weights. Using first weight as nominal weight");
