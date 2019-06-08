@@ -91,7 +91,7 @@ extragroup.add_argument("-n", "--nevts", dest="MAXEVTNUM", type=int,
 extragroup.add_argument("--nskip", dest="EVTSKIPNUM", type=int,
                         default=0, metavar="NUM",
                         help="skip NUM events read from input before beginning processing")
-extragroup.add_option("--skip-weights", dest="SKIP_WEIGHTS", action="store_true",
+extragroup.add_argument("--skip-weights", dest="SKIP_WEIGHTS", action="store_true",
                       default=False, help="only run on the nominal weight")                        
 extragroup.add_argument("--runname", dest="RUN_NAME", default=None, metavar="NAME",
                         help="give an optional run name, to be prepended as a 'top level directory' in histo paths")
