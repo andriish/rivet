@@ -41,12 +41,10 @@ namespace Rivet {
         book(_histNch[PBPB][ihist], ihist+1, 1, 1);
 
         std::string nameCounterPbPb = "counter.pbpb." + std::to_string(ihist);
-        book(_counterSOW[PBPB][ihist], nameCounterPbPb,
-          "Sum of weights counter for PbPb");
+        book(_counterSOW[PBPB][ihist], nameCounterPbPb); // Sum of weights counter for PbPb
 
         std::string nameCounterNcoll = "counter.ncoll." + std::to_string(ihist);
-        book(_counterNcoll[ihist], nameCounterNcoll,
-          "Ncoll counter for PbPb");
+        book(_counterNcoll[ihist], nameCounterNcoll); // Ncoll counter for PbPb
 
         // Initialize pp objects. In principle, only one pp histogram would be
         // needed since centrality does not make any difference here. However,
@@ -57,8 +55,7 @@ namespace Rivet {
         book(_histNch[PP][ihist], namePP, refData(ihist+1, 1, 1));
 
         std::string nameCounterpp = "counter.pp." + std::to_string(ihist);
-        book(_counterSOW[PP][ihist], nameCounterpp,
-          "Sum of weights counter for pp");
+        book(_counterSOW[PP][ihist], nameCounterpp); // Sum of weights counter for pp
 
         // Book ratios, to be used in finalize
         book(_histRAA[ihist], ihist+16, 1, 1);

@@ -3,7 +3,8 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Tools/fjcontrib/SoftDrop.hh"
+
+#include "fastjet/contrib/SoftDrop.hh"
 
 namespace Rivet {
 

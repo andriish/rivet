@@ -189,6 +189,7 @@ if test -f "$FJCONFIG"; then
     AC_MSG_ERROR([FastJet version 3.0.0 or later is required])
   fi
   FASTJETCONFIGLIBADD="$($FJCONFIG --plugins --shared --libs)"
+  FASTJETCONFIGLIBADD="$FASTJETCONFIGLIBADD -lfastjetcontribfragile"
 else
   FASTJETCONFIGLIBADD="-L$FASTJETLIBPATH -l$FASTJETLIBNAME"
   FASTJETCONFIGLIBADD="$FASTJETCONFIGLIBADD -lSISConePlugin -lsiscone -lsiscone_spherical"
@@ -360,10 +361,6 @@ AC_CONFIG_FILES(include/Makefile include/Rivet/Makefile)
 AC_CONFIG_FILES(src/Makefile)
 AC_CONFIG_FILES(src/Core/Makefile src/Core/yamlcpp/Makefile)
 AC_CONFIG_FILES(src/Tools/Makefile)
-AC_CONFIG_FILES(src/Tools/fjcontrib/Makefile)
-AC_CONFIG_FILES(src/Tools/fjcontrib/EnergyCorrelator/Makefile)
-AC_CONFIG_FILES(src/Tools/fjcontrib/Nsubjettiness/Makefile)
-AC_CONFIG_FILES(src/Tools/fjcontrib/RecursiveTools/Makefile)
 AC_CONFIG_FILES(src/Projections/Makefile)
 AC_CONFIG_FILES(src/AnalysisTools/Makefile)
 AC_CONFIG_FILES(analyses/Makefile)

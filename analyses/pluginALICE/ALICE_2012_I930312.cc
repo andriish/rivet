@@ -22,8 +22,7 @@ namespace Rivet {
     void init() {
 
       // Declare centrality projection
-      declareCentrality(ALICE::V0MMultiplicity(),
-        "ALICE_2015_PBPBCentrality", "V0M", "V0M");
+      declareCentrality(ALICE::V0MMultiplicity(), "ALICE_2015_PBPBCentrality", "V0M", "V0M");
 
       // Projection for trigger particles: charged, primary particles
       // with |eta| < 1.0 and 8 < pT < 15 GeV/c
@@ -53,8 +52,7 @@ namespace Rivet {
         book(_counterTrigger[itype], "counter." + toString(itype));
         for (int ipt = 0; ipt < PT_BINS; ++ipt) {
           string name = "yield." + evString[itype] + ".pt" + toString(ipt);
-          book(_histYield[itype][ipt], name, 36,
-            -0.5*M_PI, 1.5*M_PI, title, xtitle, ytitle);
+          book(_histYield[itype][ipt], name, 36, -0.5*M_PI, 1.5*M_PI);
         }
       }
 
@@ -96,9 +94,7 @@ namespace Rivet {
           string newname = _histYield[itype][ipt]->name() + ".nobkg";
           string newtitle = _histYield[itype][ipt]->title() +
             ", background subtracted";
-          book(_histYieldNoBkg[itype][ipt], newname, 36, -0.5*M_PI, 1.5*M_PI, newtitle,
-               _histYield[itype][ipt]->annotation("XLabel"),
-               _histYield[itype][ipt]->annotation("YLabel"));
+          book(_histYieldNoBkg[itype][ipt], newname, 36, -0.5*M_PI, 1.5*M_PI);
         }
       }
 

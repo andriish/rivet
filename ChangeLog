@@ -7,6 +7,7 @@
 	* Make rivet-mkanalysis more intuitive
 	* Interface change: remove title/axis-label options from book methods
 	* fix Py2/Py3 encoding issue in bin/rivet
+	* making fjcontrib a dependency of Rivet
 
 2019-06-03  Peter Richardson <peter.richardson@durham.ac.uk>
 	* sync ALEPH_1996_S3196992.yoda with HEPdata, rounding issues in old version

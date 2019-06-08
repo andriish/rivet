@@ -66,8 +66,8 @@ namespace Rivet {
         // The ratio plots.
         book(ratio[i], refdata[i], true);
       // Signal and mixed background.
-        book(signal[i], "/TMP/" + refdata[i] + "-s", *ratio[i], refdata[i] + "-s");
-        book(background[i], "/TMP/" + refdata[i] + "-b", *ratio[i], refdata[i] + "-b");
+        book(signal[i], "/TMP/" + refdata[i] + "-s");
+        book(background[i], "/TMP/" + refdata[i] + "-b");
         // Number of signal and mixed pairs.
         nsp.push_back(0.);
         nmp.push_back(0.);
