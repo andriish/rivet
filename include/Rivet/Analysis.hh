@@ -404,16 +404,12 @@ namespace Rivet {
     //@{
 
     /// Book a counter.
-    CounterPtr & book(CounterPtr &, const std::string& name,
-                           const std::string& title="");
-                           // const std::string& valtitle=""
+    CounterPtr & book(CounterPtr &, const std::string& name);
 
     /// Book a counter, using a path generated from the dataset and axis ID codes
     ///
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    CounterPtr & book(CounterPtr &, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-                           const std::string& title="");
-                           // const std::string& valtitle=""
+    CounterPtr & book(CounterPtr &, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
     //@}
 
@@ -422,46 +418,24 @@ namespace Rivet {
     //@{
 
     /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
-    Histo1DPtr & book(Histo1DPtr &,const std::string& name,
-                           size_t nbins, double lower, double upper,
-                           const std::string& title="",
-                           const std::string& xtitle="",
-                           const std::string& ytitle="");
+    Histo1DPtr & book(Histo1DPtr &,const std::string& name, size_t nbins, double lower, double upper);
 
     /// Book a 1D histogram with non-uniform bins defined by the vector of bin edges @a binedges .
-    Histo1DPtr & book(Histo1DPtr &,const std::string& name,
-                           const std::vector<double>& binedges,
-                           const std::string& title="",
-                           const std::string& xtitle="",
-                           const std::string& ytitle="");
+    Histo1DPtr & book(Histo1DPtr &,const std::string& name, const std::vector<double>& binedges);
 
     /// Book a 1D histogram with non-uniform bins defined by the vector of bin edges @a binedges .
-    Histo1DPtr & book(Histo1DPtr &,const std::string& name,
-                           const std::initializer_list<double>& binedges,
-                           const std::string& title="",
-                           const std::string& xtitle="",
-                           const std::string& ytitle="");
+    Histo1DPtr & book(Histo1DPtr &,const std::string& name, const std::initializer_list<double>& binedges);
 
     /// Book a 1D histogram with binning from a reference scatter.
-    Histo1DPtr & book(Histo1DPtr &,const std::string& name,
-                           const Scatter2D& refscatter,
-                           const std::string& title="",
-                           const std::string& xtitle="",
-                           const std::string& ytitle="");
+    Histo1DPtr & book(Histo1DPtr &,const std::string& name, const Scatter2D& refscatter);
 
     /// Book a 1D histogram, using the binnings in the reference data histogram.
-    Histo1DPtr & book(Histo1DPtr &,const std::string& name,
-                           const std::string& title="",
-                           const std::string& xtitle="",
-                           const std::string& ytitle="");
+    Histo1DPtr & book(Histo1DPtr &,const std::string& name);
 
     /// Book a 1D histogram, using the binnings in the reference data histogram.
     ///
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    Histo1DPtr & book(Histo1DPtr &,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-                           const std::string& title="",
-                           const std::string& xtitle="",
-                           const std::string& ytitle="");
+    Histo1DPtr & book(Histo1DPtr &,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
     //@}
 
@@ -474,55 +448,31 @@ namespace Rivet {
     /// ylower - @a yupper respectively along the x- and y-axis.
     Histo2DPtr & book(Histo2DPtr &,const std::string& name,
                            size_t nxbins, double xlower, double xupper,
-                           size_t nybins, double ylower, double yupper,
-                           const std::string& title="",
-                           const std::string& xtitle="",
-                           const std::string& ytitle="",
-                           const std::string& ztitle="");
+                           size_t nybins, double ylower, double yupper);
 
     /// Book a 2D histogram with non-uniform bins defined by the
     /// vectors of bin edges @a xbinedges and @a ybinedges.
     Histo2DPtr & book(Histo2DPtr &,const std::string& name,
                            const std::vector<double>& xbinedges,
-                           const std::vector<double>& ybinedges,
-                           const std::string& title="",
-                           const std::string& xtitle="",
-                           const std::string& ytitle="",
-                           const std::string& ztitle="");
+                           const std::vector<double>& ybinedges);
 
     /// Book a 2D histogram with non-uniform bins defined by the
     /// vectors of bin edges @a xbinedges and @a ybinedges.
     Histo2DPtr & book(Histo2DPtr &,const std::string& name,
                            const std::initializer_list<double>& xbinedges,
-                           const std::initializer_list<double>& ybinedges,
-                           const std::string& title="",
-                           const std::string& xtitle="",
-                           const std::string& ytitle="",
-                           const std::string& ztitle="");
+                           const std::initializer_list<double>& ybinedges);
 
     /// Book a 2D histogram with binning from a reference scatter.
     Histo2DPtr & book(Histo2DPtr &,const std::string& name,
-                           const Scatter3D& refscatter,
-                           const std::string& title="",
-                           const std::string& xtitle="",
-                           const std::string& ytitle="",
-                           const std::string& ztitle="");
+                           const Scatter3D& refscatter);
 
     /// Book a 2D histogram, using the binnings in the reference data histogram.
-    Histo2DPtr & book(Histo2DPtr &,const std::string& name,
-                           const std::string& title="",
-                           const std::string& xtitle="",
-                           const std::string& ytitle="",
-                           const std::string& ztitle="");
+    Histo2DPtr & book(Histo2DPtr &,const std::string& name);
 
     /// Book a 2D histogram, using the binnings in the reference data histogram.
     ///
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    Histo2DPtr & book(Histo2DPtr &,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-                           const std::string& title="",
-                           const std::string& xtitle="",
-                           const std::string& ytitle="",
-                           const std::string& ztitle="");
+    Histo2DPtr & book(Histo2DPtr &,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
     //@}
 
@@ -531,46 +481,24 @@ namespace Rivet {
     //@{
 
     /// Book a 1D profile histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
-    Profile1DPtr & book(Profile1DPtr &,  const std::string& name,
-                               size_t nbins, double lower, double upper,
-                               const std::string& title="",
-                               const std::string& xtitle="",
-                               const std::string& ytitle="");
+    Profile1DPtr & book(Profile1DPtr &,  const std::string& name, size_t nbins, double lower, double upper);
 
     /// Book a 1D profile histogram with non-uniform bins defined by the vector of bin edges @a binedges .
-    Profile1DPtr & book(Profile1DPtr &,  const std::string& name,
-                               const std::vector<double>& binedges,
-                               const std::string& title="",
-                               const std::string& xtitle="",
-                               const std::string& ytitle="");
+    Profile1DPtr & book(Profile1DPtr &,  const std::string& name, const std::vector<double>& binedges);
 
     /// Book a 1D profile histogram with non-uniform bins defined by the vector of bin edges @a binedges .
-    Profile1DPtr & book(Profile1DPtr &,  const std::string& name,
-                               const std::initializer_list<double>& binedges,
-                               const std::string& title="",
-                               const std::string& xtitle="",
-                               const std::string& ytitle="");
+    Profile1DPtr & book(Profile1DPtr &,  const std::string& name, const std::initializer_list<double>& binedges);
 
     /// Book a 1D profile histogram with binning from a reference scatter.
-    Profile1DPtr & book(Profile1DPtr &,  const std::string& name,
-                               const Scatter2D& refscatter,
-                               const std::string& title="",
-                               const std::string& xtitle="",
-                               const std::string& ytitle="");
+    Profile1DPtr & book(Profile1DPtr &,  const std::string& name, const Scatter2D& refscatter);
 
     /// Book a 1D profile histogram, using the binnings in the reference data histogram.
-    Profile1DPtr & book(Profile1DPtr &,  const std::string& name,
-                               const std::string& title="",
-                               const std::string& xtitle="",
-                               const std::string& ytitle="");
+    Profile1DPtr & book(Profile1DPtr &,  const std::string& name);
 
     /// Book a 1D profile histogram, using the binnings in the reference data histogram.
     ///
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    Profile1DPtr & book(Profile1DPtr &,  unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-                               const std::string& title="",
-                               const std::string& xtitle="",
-                               const std::string& ytitle="");
+    Profile1DPtr & book(Profile1DPtr &,  unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
     //@}
 
@@ -583,57 +511,33 @@ namespace Rivet {
     /// yupper respectively along the x- and y-axis.
     Profile2DPtr & book(Profile2DPtr &,  const std::string& name,
                                size_t nxbins, double xlower, double xupper,
-                               size_t nybins, double ylower, double yupper,
-                               const std::string& title="",
-                               const std::string& xtitle="",
-                               const std::string& ytitle="",
-                               const std::string& ztitle="");
+                               size_t nybins, double ylower, double yupper);
 
     /// Book a 2D profile histogram with non-uniform bins defined by the vectorx
     /// of bin edges @a xbinedges and @a ybinedges.
     Profile2DPtr & book(Profile2DPtr &,  const std::string& name,
                                const std::vector<double>& xbinedges,
-                               const std::vector<double>& ybinedges,
-                               const std::string& title="",
-                               const std::string& xtitle="",
-                               const std::string& ytitle="",
-                               const std::string& ztitle="");
+                               const std::vector<double>& ybinedges);
 
     /// Book a 2D profile histogram with non-uniform bins defined by the vectorx
     /// of bin edges @a xbinedges and @a ybinedges.
     Profile2DPtr & book(Profile2DPtr &,  const std::string& name,
                                const std::initializer_list<double>& xbinedges,
-                               const std::initializer_list<double>& ybinedges,
-                               const std::string& title="",
-                               const std::string& xtitle="",
-                               const std::string& ytitle="",
-                               const std::string& ztitle="");
+                               const std::initializer_list<double>& ybinedges);
 
     /// @todo REINSTATE
 
     // /// Book a 2D profile histogram with binning from a reference scatter.
     // Profile2DPtr & book(const Profile2DPtr &, const std::string& name,
-    //                            const Scatter3D& refscatter,
-    //                            const std::string& title="",
-    //                            const std::string& xtitle="",
-    //                            const std::string& ytitle="",
-    //                            const std::string& ztitle="");
+    //                            const Scatter3D& refscatter);
 
     // /// Book a 2D profile histogram, using the binnings in the reference data histogram.
-    // Profile2DPtr & book(const Profile2DPtr &, const std::string& name,
-    //                            const std::string& title="",
-    //                            const std::string& xtitle="",
-    //                            const std::string& ytitle="",
-    //                            const std::string& ztitle="");
+    // Profile2DPtr & book(const Profile2DPtr &, const std::string& name);
 
     // /// Book a 2D profile histogram, using the binnings in the reference data histogram.
     // ///
     // /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    // Profile2DPtr & book(const Profile2DPtr &, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-    //                            const std::string& title="",
-    //                            const std::string& xtitle="",
-    //                            const std::string& ytitle="",
-    //                            const std::string& ztitle="");
+    // Profile2DPtr & book(const Profile2DPtr &, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
     //@}
 
@@ -651,11 +555,7 @@ namespace Rivet {
     /// data's x values and errors, but with the y values and errors zeroed...
     /// assuming that there is a reference histo with the same name: if there
     /// isn't, an exception will be thrown.
-    Scatter2DPtr & book(Scatter2DPtr & s2d, const string& hname,
-                               bool copy_pts=false,
-                               const std::string& title="",
-                               const std::string& xtitle="",
-                               const std::string& ytitle="");
+    Scatter2DPtr & book(Scatter2DPtr & s2d, const string& hname, bool copy_pts = false);
 
     /// @brief Book a 2-dimensional data point set, using the binnings in the reference data histogram.
     ///
@@ -667,36 +567,20 @@ namespace Rivet {
     /// meaningful and can't be extracted from the data, then set the @a
     /// copy_pts parameter to true. This creates points to match the reference
     /// data's x values and errors, but with the y values and errors zeroed.
-    Scatter2DPtr & book(Scatter2DPtr & s2d, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-                               bool copy_pts=false,
-                               const std::string& title="",
-                               const std::string& xtitle="",
-                               const std::string& ytitle="");
+    Scatter2DPtr & book(Scatter2DPtr & s2d, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId, bool copy_pts = false);
 
     /// @brief Book a 2-dimensional data point set with equally spaced x-points in a range.
     ///
     /// The y values and errors will be set to 0.
-    Scatter2DPtr & book(Scatter2DPtr & s2d, const string& hname,
-                               size_t npts, double lower, double upper,
-                               const std::string& title="",
-                               const std::string& xtitle="",
-                               const std::string& ytitle="");
+    Scatter2DPtr & book(Scatter2DPtr & s2d, const string& hname, size_t npts, double lower, double upper);
 
     /// @brief Book a 2-dimensional data point set based on provided contiguous "bin edges".
     ///
     /// The y values and errors will be set to 0.
-    Scatter2DPtr & book(Scatter2DPtr & s2d, const string& hname,
-                               const std::vector<double>& binedges,
-                               const std::string& title,
-                               const std::string& xtitle,
-                               const std::string& ytitle);
+    Scatter2DPtr & book(Scatter2DPtr & s2d, const string& hname, const std::vector<double>& binedges);
 
     /// Book a 2-dimensional data point set with x-points from an existing scatter and a new path.
-    Scatter2DPtr book(Scatter2DPtr & s2d, const Scatter2DPtr & scPtr,
-                               const std::string& path,
-                               const std::string& title="",
-                               const std::string& xtitle="",
-                               const std::string& ytitle="");
+    Scatter2DPtr book(Scatter2DPtr & s2d, const Scatter2DPtr & scPtr, const std::string& path);
 
     //@}
 

@@ -5,6 +5,7 @@
 	* Clean up logic around CmpState
 	* Implement skipWeights flag
 	* Make rivet-mkanalysis more intuitive
+	* nterface change: remove title/axis-label options from book methods
 
 2019-06-03  Peter Richardson <peter.richardson@durham.ac.uk>
 	* sync ALEPH_1996_S3196992.yoda with HEPdata, rounding issues in old version

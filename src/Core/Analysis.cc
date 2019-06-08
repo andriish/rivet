@@ -209,35 +209,27 @@ namespace Rivet {
 
 
   CounterPtr & Analysis::book(CounterPtr & ctr,
-                              const string& cname,
-                              const string& title) {
+                              const string& cname) {
     // const string path = histoPath(cname);
     // ctr = CounterPtr(handler().weightNames(), Counter(path, title));
     // ctr = addAnalysisObject(ctr);
     // return ctr;
-    return ctr = registerAO(Counter(histoPath(cname), title));
+    return ctr = registerAO( Counter(histoPath(cname)) );
   }
 
 
-  CounterPtr & Analysis::book(CounterPtr & ctr, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-                              const string& title) {
+  CounterPtr & Analysis::book(CounterPtr & ctr, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
-    return book(ctr, axisCode, title);
+    return book(ctr, axisCode);
   }
 
 
 
 
-  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname,
-                              size_t nbins, double lower, double upper,
-                              const string& title,
-                              const string& xtitle,
-                              const string& ytitle) {
+  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname, size_t nbins, double lower, double upper) {
     const string path = histoPath(hname);
 
-    Histo1D hist = Histo1D(nbins, lower, upper, path, title);
-    hist.setAnnotation("XLabel", xtitle);
-    hist.setAnnotation("YLabel", ytitle);
+    Histo1D hist = Histo1D(nbins, lower, upper, path);
 
     // histo = Histo1DPtr(handler().weightNames(), hist);
     // histo = addAnalysisObject(histo);
@@ -245,24 +237,14 @@ namespace Rivet {
     return histo = registerAO(hist);
   }
 
-  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname,
-                              const initializer_list<double>& binedges,
-                              const string& title,
-                              const string& xtitle,
-                              const string& ytitle) {
-  	return book(histo, hname, vector<double>{binedges}, title, xtitle, ytitle);
+  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname, const initializer_list<double>& binedges) {
+  	return book(histo, hname, vector<double>{binedges});
   }
 
-  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname,
-                              const vector<double>& binedges,
-                              const string& title,
-                              const string& xtitle,
-                              const string& ytitle) {
+  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname, const vector<double>& binedges) {
     const string path = histoPath(hname);
 
-    Histo1D hist = Histo1D(binedges, path, title);
-    hist.setAnnotation("XLabel", xtitle);
-    hist.setAnnotation("YLabel", ytitle);
+    Histo1D hist = Histo1D(binedges, path);
 
     // histo = Histo1DPtr(handler().weightNames(), hist);
     // histo = addAnalysisObject(histo);
@@ -270,35 +252,21 @@ namespace Rivet {
     return histo = registerAO(hist);
   }
 
-  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname,
-                              const string& title,
-                              const string& xtitle,
-                              const string& ytitle) {
+  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname) {
     const Scatter2D& refdata = refData(hname);
-    return book(histo, hname, refdata, title, xtitle, ytitle);
+    return book(histo, hname, refdata);
   }
 
 
-  Histo1DPtr & Analysis::book(Histo1DPtr & histo, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-                              const string& title,
-                              const string& xtitle,
-                              const string& ytitle) {
+  Histo1DPtr & Analysis::book(Histo1DPtr & histo, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
-    return book(histo, axisCode, title, xtitle, ytitle);
+    return book(histo, axisCode);
   }
 
-  Histo1DPtr & Analysis::book(Histo1DPtr& histo,
-                              const string& hname,
-                              const Scatter2D& refscatter,
-                              const string& title,
-                              const string& xtitle,
-                              const string& ytitle) {
+  Histo1DPtr & Analysis::book(Histo1DPtr& histo, const string& hname, const Scatter2D& refscatter) {
     const string path = histoPath(hname);
 
     Histo1D hist = Histo1D(refscatter, path);
-    hist.setTitle(title);
-    hist.setAnnotation("XLabel", xtitle);
-    hist.setAnnotation("YLabel", ytitle);
     if (hist.hasAnnotation("IsRef")) hist.rmAnnotation("IsRef");
 
     // histo = Histo1DPtr(handler().weightNames(), hist);
@@ -313,18 +281,10 @@ namespace Rivet {
 
   Histo2DPtr & Analysis::book(Histo2DPtr & h2d,const string& hname,
                                    size_t nxbins, double xlower, double xupper,
-                                   size_t nybins, double ylower, double yupper,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle)
-  {
+                                   size_t nybins, double ylower, double yupper) {
     const string path = histoPath(hname);
 
-    Histo2D hist(nxbins, xlower, xupper, nybins, ylower, yupper, path, title);
-    hist.setAnnotation("XLabel", xtitle);
-    hist.setAnnotation("YLabel", ytitle);
-    hist.setAnnotation("ZLabel", ztitle);
+    Histo2D hist(nxbins, xlower, xupper, nybins, ylower, yupper, path);
 
     // h2d = Histo2DPtr(handler().weightNames(), hist);
     // h2d = addAnalysisObject(h2d);
@@ -334,29 +294,16 @@ namespace Rivet {
 
   Histo2DPtr & Analysis::book(Histo2DPtr & h2d,const string& hname,
                                    const initializer_list<double>& xbinedges,
-                                   const initializer_list<double>& ybinedges,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle)
-  {
-  	return book(h2d, hname, vector<double>{xbinedges}, vector<double>{ybinedges}, title, xtitle, ytitle, ztitle);
+                                   const initializer_list<double>& ybinedges) {
+  	return book(h2d, hname, vector<double>{xbinedges}, vector<double>{ybinedges});
   }
 
   Histo2DPtr & Analysis::book(Histo2DPtr & h2d,const string& hname,
                                    const vector<double>& xbinedges,
-                                   const vector<double>& ybinedges,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle)
-  {
+                                   const vector<double>& ybinedges) {
     const string path = histoPath(hname);
 
-    Histo2D hist(xbinedges, ybinedges, path, title);
-    hist.setAnnotation("XLabel", xtitle);
-    hist.setAnnotation("YLabel", ytitle);
-    hist.setAnnotation("ZLabel", ztitle);
+    Histo2D hist(xbinedges, ybinedges, path);
 
     // h2d = Histo2DPtr(handler().weightNames(), hist);
     // h2d = addAnalysisObject(h2d);
@@ -365,19 +312,10 @@ namespace Rivet {
   }
 
 
-  Histo2DPtr & Analysis::book(Histo2DPtr & histo, const string& hname,
-                                   const Scatter3D& refscatter,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle) {
+  Histo2DPtr & Analysis::book(Histo2DPtr & histo, const string& hname, const Scatter3D& refscatter) {
     const string path = histoPath(hname);
 
     Histo2D hist = Histo2D(refscatter, path);
-    hist.setTitle(title);
-    hist.setAnnotation("XLabel", xtitle);
-    hist.setAnnotation("YLabel", ytitle);
-    hist.setAnnotation("ZLabel", ztitle);
     if (hist.hasAnnotation("IsRef")) hist.rmAnnotation("IsRef");
 
     // histo = Histo2DPtr(handler().weightNames(), hist);
@@ -387,39 +325,25 @@ namespace Rivet {
   }
 
 
-  Histo2DPtr & Analysis::book(Histo2DPtr & histo, const string& hname,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle) {
+  Histo2DPtr & Analysis::book(Histo2DPtr & histo, const string& hname) {
     const Scatter3D& refdata = refData<Scatter3D>(hname);
-    return book(histo, hname, refdata, title, xtitle, ytitle, ztitle);
+    return book(histo, hname, refdata);
   }
 
 
-  Histo2DPtr & Analysis::book(Histo2DPtr & histo, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle) {
+  Histo2DPtr & Analysis::book(Histo2DPtr & histo, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
-    return book(histo, axisCode, title, xtitle, ytitle, ztitle);
+    return book(histo, axisCode);
   }
 
 
   /////////////////
 
 
-  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname,
-                                       size_t nbins, double lower, double upper,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
+  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname, size_t nbins, double lower, double upper) {
     const string path = histoPath(hname);
 
-    Profile1D prof(nbins, lower, upper, path, title);
-    prof.setAnnotation("XLabel", xtitle);
-    prof.setAnnotation("YLabel", ytitle);
+    Profile1D prof(nbins, lower, upper, path);
 
     // p1d = Profile1DPtr(handler().weightNames(), prof);
     // p1d = addAnalysisObject(p1d);
@@ -428,24 +352,14 @@ namespace Rivet {
   }
 
 
-  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname,
-                                       const initializer_list<double>& binedges,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
-  	return book(p1d, hname, vector<double>{binedges}, title, xtitle, ytitle);
+  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname, const initializer_list<double>& binedges) {
+  	return book(p1d, hname, vector<double>{binedges});
   }
 
-  Profile1DPtr & Analysis::book(Profile1DPtr & p1d, const string& hname,
-                                       const vector<double>& binedges,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
+  Profile1DPtr & Analysis::book(Profile1DPtr & p1d, const string& hname, const vector<double>& binedges) {
     const string path = histoPath(hname);
 
-    Profile1D prof(binedges, path, title);
-    prof.setAnnotation("XLabel", xtitle);
-    prof.setAnnotation("YLabel", ytitle);
+    Profile1D prof(binedges, path);
 
     // p1d = Profile1DPtr(handler().weightNames(), prof);
     // p1d = addAnalysisObject(p1d);
@@ -453,17 +367,10 @@ namespace Rivet {
     return p1d = registerAO(prof);
   }
 
-  Profile1DPtr & Analysis::book(Profile1DPtr & p1d, const string& hname,
-                                       const Scatter2D& refscatter,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
+  Profile1DPtr & Analysis::book(Profile1DPtr & p1d, const string& hname, const Scatter2D& refscatter) {
     const string path = histoPath(hname);
 
     Profile1D prof(refscatter, path);
-    prof.setTitle(title);
-    prof.setAnnotation("XLabel", xtitle);
-    prof.setAnnotation("YLabel", ytitle);
     if (prof.hasAnnotation("IsRef")) prof.rmAnnotation("IsRef");
 
     // p1d = Profile1DPtr(handler().weightNames(), prof);
@@ -473,22 +380,16 @@ namespace Rivet {
   }
 
 
-  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
+  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname) {
     const Scatter2D& refdata = refData(hname);
-    book(p1d, hname, refdata, title, xtitle, ytitle);
+    book(p1d, hname, refdata);
     return p1d;
   }
 
 
-  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
+  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
-    return book(p1d, axisCode, title, xtitle, ytitle);
+    return book(p1d, axisCode);
   }
 
 
@@ -497,18 +398,10 @@ namespace Rivet {
 
   Profile2DPtr & Analysis::book(Profile2DPtr & p2d, const string& hname,
                                    size_t nxbins, double xlower, double xupper,
-                                   size_t nybins, double ylower, double yupper,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle)
-  {
+                                   size_t nybins, double ylower, double yupper) {
     const string path = histoPath(hname);
 
-    Profile2D prof(nxbins, xlower, xupper, nybins, ylower, yupper, path, title);
-    prof.setAnnotation("XLabel", xtitle);
-    prof.setAnnotation("YLabel", ytitle);
-    prof.setAnnotation("ZLabel", ztitle);
+    Profile2D prof(nxbins, xlower, xupper, nybins, ylower, yupper, path);
 
     // p2d = Profile2DPtr(handler().weightNames(), prof);
     // p2d = addAnalysisObject(p2d);
@@ -519,30 +412,17 @@ namespace Rivet {
 
   Profile2DPtr & Analysis::book(Profile2DPtr & p2d, const string& hname,
                                    const initializer_list<double>& xbinedges,
-                                   const initializer_list<double>& ybinedges,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle)
-  {
-  	return book(p2d, hname, vector<double>{xbinedges}, vector<double>{ybinedges}, title, xtitle, ytitle, ztitle);
+                                   const initializer_list<double>& ybinedges) {
+  	return book(p2d, hname, vector<double>{xbinedges}, vector<double>{ybinedges});
   }
 
 
   Profile2DPtr & Analysis::book(Profile2DPtr & p2d, const string& hname,
                                    const vector<double>& xbinedges,
-                                   const vector<double>& ybinedges,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle)
-  {
+                                   const vector<double>& ybinedges) {
     const string path = histoPath(hname);
 
-    Profile2D prof(xbinedges, ybinedges, path, title);
-    prof.setAnnotation("XLabel", xtitle);
-    prof.setAnnotation("YLabel", ytitle);
-    prof.setAnnotation("ZLabel", ztitle);
+    Profile2D prof(xbinedges, ybinedges, path);
 
     // p2d = Profile2DPtr(handler().weightNames(), prof);
     // p2d = addAnalysisObject(p2d);
@@ -554,19 +434,11 @@ namespace Rivet {
   /// @todo REINSTATE
 
   // Profile2DPtr Analysis::book(Profile2DPtr& prof,const string& hname,
-  //                                      const Scatter3D& refscatter,
-  //                                      const string& title,
-  //                                      const string& xtitle,
-  //                                      const string& ytitle,
-  //                                      const string& ztitle) {
+  //                                      const Scatter3D& refscatter) {
   //   const string path = histoPath(hname);
 
   //   /// @todo Add no-metadata argument to YODA copy constructors
   //   Profile2D prof(refscatter, path);
-  //   prof.setTitle(title);
-  //   prof.setAnnotation("XLabel", xtitle);
-  //   prof.setAnnotation("YLabel", ytitle);
-  //   prof.setAnnotation("ZLabel", ztitle);
   //   if (prof.hasAnnotation("IsRef")) prof.rmAnnotation("IsRef");
 
   //   p2d = Profile2DPtr(handler().weightNames(), prof);
@@ -575,13 +447,9 @@ namespace Rivet {
   // }
 
 
-  // Profile2DPtr Analysis::book(Profile2DPtr& prof, const string& hname,
-  //                                      const string& title,
-  //                                      const string& xtitle,
-  //                                      const string& ytitle,
-  //                                      const string& ztitle) {
+  // Profile2DPtr Analysis::book(Profile2DPtr& prof, const string& hname) {
   //   const Scatter3D& refdata = refData<Scatter3D>(hname);
-  //   return book(prof, hname, refdata, title, xtitle, ytitle, ztitle);
+  //   return book(prof, hname, refdata);
   // }
 
 
@@ -594,21 +462,14 @@ namespace Rivet {
   ///////////////
 
 
-  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-                                       bool copy_pts,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
+  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, unsigned int datasetId, 
+                                       unsigned int xAxisId, unsigned int yAxisId, bool copy_pts) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
-    return book(s2d, axisCode, copy_pts, title, xtitle, ytitle);
+    return book(s2d, axisCode, copy_pts);
   }
 
 
-  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname,
-                                       bool copy_pts,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
+  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname, bool copy_pts) {
     const string path = histoPath(hname);
 
     Scatter2D scat;
@@ -620,9 +481,6 @@ namespace Rivet {
       scat = Scatter2D(path);
     }
 
-    scat.setTitle(title);
-    scat.setAnnotation("XLabel", xtitle);
-    scat.setAnnotation("YLabel", ytitle);
     if (scat.hasAnnotation("IsRef")) scat.rmAnnotation("IsRef");
 
     // s2d = Scatter2DPtr(handler().weightNames(), scat);
@@ -632,11 +490,7 @@ namespace Rivet {
   }
 
 
-  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname,
-                                       size_t npts, double lower, double upper,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
+  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname, size_t npts, double lower, double upper) {
     const string path = histoPath(hname);
 
     Scatter2D scat;
@@ -646,21 +500,13 @@ namespace Rivet {
       scat.addPoint(bincentre, 0, binwidth/2.0, 0);
     }
 
-    scat.setTitle(title);
-    scat.setAnnotation("XLabel", xtitle);
-    scat.setAnnotation("YLabel", ytitle);
-
     // s2d = Scatter2DPtr(handler().weightNames(), scat);
     // s2d = addAnalysisObject(s2d);
     // return s2d;
     return s2d = registerAO(scat);
   }
 
-  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname,
-                                       const vector<double>& binedges,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
+  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname, const vector<double>& binedges) {
     const string path = histoPath(hname);
 
     Scatter2D scat;
@@ -669,10 +515,6 @@ namespace Rivet {
       const double binwidth = binedges[pt+1] - binedges[pt];
       scat.addPoint(bincentre, 0, binwidth/2.0, 0);
     }
-
-    scat.setTitle(title);
-    scat.setAnnotation("XLabel", xtitle);
-    scat.setAnnotation("YLabel", ytitle);
 
     // s2d = Scatter2DPtr(handler().weightNames(), scat);
     // s2d = addAnalysisObject(s2d);
