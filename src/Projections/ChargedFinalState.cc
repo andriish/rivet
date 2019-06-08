@@ -19,11 +19,11 @@ namespace Rivet {
   }
 }
 
-namespace {
+/*namespace {
   inline bool chargedParticleFilter(const Rivet::Particle& p) {
     return Rivet::PID::charge3(p.pid()) == 0;
   }
-}
+}*/
 
 namespace Rivet {
   void ChargedFinalState::project(const Event& e) {

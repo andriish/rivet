@@ -1,3 +1,8 @@
+2019-06-08 Christian Gutschow  <chris.g@cern.ch>
+
+	* Commenting out ununsed function in ChargedFinalState.cc
+	* removing unused member variable in Spherocity.hh
+
 2019-06-03  Peter Richardson <peter.richardson@durham.ac.uk>
 	* sync ALEPH_1996_S3196992.yoda with HEPdata, rounding issues in old version
 	* sync ALEPH_2001_S4656318.yoda, differences in histos not used in analysis
