@@ -2,7 +2,8 @@
 
 	* Commenting out ununsed function in ChargedFinalState.cc
 	* removing unused member variable in Spherocity.hh
-	* Clen up logic around CmpState
+	* Clean up logic around CmpState
+	* Implement skipWeights flag
 
 2019-06-03  Peter Richardson <peter.richardson@durham.ac.uk>
 	* sync ALEPH_1996_S3196992.yoda with HEPdata, rounding issues in old version

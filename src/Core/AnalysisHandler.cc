@@ -18,7 +18,7 @@ namespace Rivet {
 
   AnalysisHandler::AnalysisHandler(const string& runname)
     : _runname(runname),
-      _initialised(false), _ignoreBeams(false),
+      _initialised(false), _ignoreBeams(false), _skipWeights(false),
       _defaultWeightIdx(0), _dumpPeriod(0), _dumping(false)
   {  }
 
@@ -133,8 +133,8 @@ namespace Rivet {
   }
 
   void AnalysisHandler::setWeightNames(const GenEvent& ge) {
-    _weightNames = HepMCUtils::weightNames(ge);
-    if ( _weightNames.empty() ) _weightNames.push_back("");
+    if (!_skipWeights)  _weightNames = HepMCUtils::weightNames(ge);
+    if ( _weightNames.empty() )  _weightNames.push_back("");
     for ( int i = 0, N = _weightNames.size(); i < N; ++i )
       if ( _weightNames[i] == "" ) _defaultWeightIdx = i;
   }
@@ -683,6 +683,10 @@ namespace Rivet {
 
   void AnalysisHandler::setIgnoreBeams(bool ignore) {
     _ignoreBeams=ignore;
+  }
+
+  void AnalysisHandler::skipMultiWeights(bool ignore) {
+    _skipWeights=ignore;
   }
 
 
