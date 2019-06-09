@@ -267,7 +267,9 @@ namespace Rivet {
     const string path = histoPath(hname);
 
     Histo1D hist = Histo1D(refscatter, path);
-    if (hist.hasAnnotation("IsRef")) hist.rmAnnotation("IsRef");
+    for (const string& a : hist.annotations()) {
+      if (a != "Path")  hist.rmAnnotation(a);
+    }
 
     // histo = Histo1DPtr(handler().weightNames(), hist);
     // histo = addAnalysisObject(histo);
@@ -316,7 +318,9 @@ namespace Rivet {
     const string path = histoPath(hname);
 
     Histo2D hist = Histo2D(refscatter, path);
-    if (hist.hasAnnotation("IsRef")) hist.rmAnnotation("IsRef");
+    for (const string& a : hist.annotations()) {
+      if (a != "Path")  hist.rmAnnotation(a);
+    }
 
     // histo = Histo2DPtr(handler().weightNames(), hist);
     // histo = addAnalysisObject(histo);
@@ -371,7 +375,9 @@ namespace Rivet {
     const string path = histoPath(hname);
 
     Profile1D prof(refscatter, path);
-    if (prof.hasAnnotation("IsRef")) prof.rmAnnotation("IsRef");
+    for (const string& a : prof.annotations()) {
+      if (a != "Path")  prof.rmAnnotation(a);
+    }
 
     // p1d = Profile1DPtr(handler().weightNames(), prof);
     // p1d = addAnalysisObject(p1d);
@@ -382,8 +388,7 @@ namespace Rivet {
 
   Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname) {
     const Scatter2D& refdata = refData(hname);
-    book(p1d, hname, refdata);
-    return p1d;
+    return  book(p1d, hname, refdata);
   }
 
 
@@ -477,11 +482,12 @@ namespace Rivet {
       const Scatter2D& refdata = refData(hname);
       scat = Scatter2D(refdata, path);
       for (Point2D& p : scat.points()) p.setY(0, 0);
+      for (const string& a : scat.annotations()) {
+        if (a != "Path")  scat.rmAnnotation(a);
+      }
     } else {
       scat = Scatter2D(path);
     }
-
-    if (scat.hasAnnotation("IsRef")) scat.rmAnnotation("IsRef");
 
     // s2d = Scatter2DPtr(handler().weightNames(), scat);
     // s2d = addAnalysisObject(s2d);
