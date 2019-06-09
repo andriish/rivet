@@ -1,7 +1,8 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/Beam.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -25,7 +26,7 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      book(_h_plus, 1, 1, 1);
+      book(_h_plus,  1, 1, 1);
       book(_h_minus, 2, 1, 1);
     }
 
@@ -55,8 +56,8 @@ namespace Rivet {
       for (const Particle& p : ufs.particles()) {
         const int id = p.abspid();
         double xE = p.E()/meanBeamMom;
-	if(id==3222)      _h_plus ->fill(xE);
-	else if(id==3112) _h_minus->fill(xE);
+        if(id==3222)      _h_plus ->fill(xE);
+        else if(id==3112) _h_minus->fill(xE);
       }
     }
 

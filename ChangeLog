@@ -1,6 +1,6 @@
 2019-06-09 Christian Gutschow  <chris.g@cern.ch>
 
-	* Removing all annotations from histos when booked via ref data apart from Path
+	* multiweight-merge27 branch fully in sync with current release2-7-x branch and passes validation
 
 2019-06-08 Christian Gutschow  <chris.g@cern.ch>
 
@@ -13,6 +13,16 @@
 	* fix Py2/Py3 encoding issue in bin/rivet
 	* making fjcontrib a dependency of Rivet
 	* remove regex includes and re-write in terms of stringstream
+
+2019-06-06 Christian Gutschow  <chris.g@cern.ch>
+
+	* Ading Marek's opacity fix to make-plots
+	* removing if statement testing if type(u'') is (not) str when deciding whether to encode string in bin/rivet
+
+2019-06-06  Peter Richardson <peter.richardson@durham.ac.uk>
+	* fix typo in rivet-cmphistos
+	* sync yoda for many D0 analyses
+	* sync yoda for CDF_2008_S8093652 D0_2008_S7554427
 
 2019-06-05  Peter Richardson <peter.richardson@durham.ac.uk>
 	* L3_2004_I652683 add missing plots and sync yoda, still missing n charged as functiomn of CMS energy and jet plots

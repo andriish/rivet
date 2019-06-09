@@ -27,6 +27,7 @@ namespace Rivet {
                     << " doesn't match any available analysis energy .");
       }
       book(_counter, "/TMP/MULT");
+      book(_mult, 1, 1, 1);
     }
 
 
@@ -34,7 +35,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       MSG_DEBUG("Total charged multiplicity = " << cfs.size());
-      _counter->fill(cfs.size());
+      _counter->fill(sqrtS(), cfs.size());
     }
 
 
@@ -45,22 +46,20 @@ namespace Rivet {
       double val = _counter->val();
       double err = _counter->err();
       
-      Scatter2D temphisto(refData(1, 1, 1));
-      Scatter2DPtr mult;
-      book(mult, 1, 1, 1);
+      Scatter2D tempScat(refData(1, 1, 1));
       
-      for (size_t b = 0; b < temphisto.numPoints(); b++) {
-	const double x  = temphisto.point(b).x();
-	pair<double,double> ex = temphisto.point(b).xErrs();
-	pair<double,double> ex2 = ex;
-	if(ex2.first ==0.) ex2. first=0.0001;
-	if(ex2.second==0.) ex2.second=0.0001;
-	if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
-	  mult->addPoint(x, val, ex, make_pair(err,err));
-	}
-	else {
-	  mult->addPoint(x,  0., ex,   make_pair(0.,.0));
-	}
+      for (size_t b = 0; b < tempScat.numPoints(); b++) {
+        const double x  = tempScat.point(b).x();
+        pair<double,double> ex = tempScat.point(b).xErrs();
+        pair<double,double> ex2 = ex;
+        if(ex2.first ==0.) ex2. first=0.0001;
+        if(ex2.second==0.) ex2.second=0.0001;
+        if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+          _mult->addPoint(x, val, ex, make_pair(err,err));
+        }
+        else {
+          _mult->addPoint(x, 0., ex, make_pair(0.,.0));
+        }
       }
     }
     //@}
@@ -69,6 +68,7 @@ namespace Rivet {
 
     // Histogram
     CounterPtr _counter;
+    Scatter2DPtr _mult;
 
   };
 

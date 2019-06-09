@@ -38,14 +38,14 @@ namespace Rivet {
       declare(cfs, "Tracks");
 
       // Book profile histos
-      book(_NchgPDFden1 , 8*isqrts+4,1,1);
-      book(_NchgPMNden1 , 8*isqrts+2,1,1);
-      book(_NchgPMXden1 , 8*isqrts+1,1,1);
-      book(_NchgPden1   , 8*isqrts+3,1,1);
+      book(_NchgPDFden1,  8*isqrts+4,1,1);
+      book(_NchgPMNden1,  8*isqrts+2,1,1);
+      book(_NchgPMXden1,  8*isqrts+1,1,1);
+      book(_NchgPden1,    8*isqrts+3,1,1);
       book(_PTsumPDFden1, 8*isqrts+8,1,1);
       book(_PTsumPMNden1, 8*isqrts+6,1,1);
       book(_PTsumPMXden1, 8*isqrts+5,1,1);
-      book(_PTsumPden1  , 8*isqrts+7,1,1);
+      book(_PTsumPden1,   8*isqrts+7,1,1);
 
     }
 
