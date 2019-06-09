@@ -31,35 +31,32 @@ namespace Rivet {
       declare(DISKinematics(), "Kinematics");
       declare(FinalState(), "FS");
 
-      // Histos
-      Histo1DPtr h;
-
       // Histograms and weight vectors for low Q^2 a
+      _histETLowQa.resize(17);
       for (size_t ix = 0; ix < 17; ++ix) {
-        book(h ,ix+1, 1, 1);
-        _histETLowQa.push_back(h);
-        book(_weightETLowQa[ix], "TMP/ETLowQa");
+        book(_histETLowQa[ix], ix+1, 1, 1);
+        book(_weightETLowQa[ix], "TMP/ETLowQa" + to_string(ix));
       }
 
       // Histograms and weight vectors for high Q^2 a
+      _histETHighQa.resize(7);
       for (size_t ix = 0; ix < 7; ++ix) {
-        book(h ,ix+18, 1, 1);
-        _histETHighQa.push_back(h);
-        book(_weightETHighQa[ix], "TMP/ETHighQa");
+        book(_histETHighQa[ix], ix+18, 1, 1);
+        book(_weightETHighQa[ix], "TMP/ETHighQa" + to_string(ix));
       }
 
       // Histograms and weight vectors for low Q^2 b
+      _histETLowQb.resize(5);
       for (size_t ix = 0; ix < 5; ++ix) {
-        book(h ,ix+25, 1, 1);
-        _histETLowQb.push_back(h);
-        book(_weightETLowQb[ix], "TMP/ETLowQb");
+        book(_histETLowQb[ix], ix+25, 1, 1);
+        book(_weightETLowQb[ix], "TMP/ETLowQb" + to_string(ix));
       }
 
       // Histograms and weight vectors for high Q^2 b
+      _histETHighQb.resize(5);
       for (size_t ix = 0; ix < 3; ++ix) {
-        book(h ,30+ix, 1, 1);
-        _histETHighQb.push_back(h);
-        book(_weightETHighQb[ix], "TMP/ETHighQb");
+        book(_histETHighQb[ix], 30+ix, 1, 1);
+        book(_weightETHighQb[ix], "TMP/ETHighQb" + to_string(ix));
       }
 
       // Histograms for the averages
@@ -73,6 +70,7 @@ namespace Rivet {
 
       // DIS kinematics
       const DISKinematics& dk = apply<DISKinematics>(event, "Kinematics");
+      if ( dk.failed() ) vetoEvent;
       double q2  = dk.Q2();
       double x   = dk.x();
       double y   = dk.y();
@@ -80,6 +78,7 @@ namespace Rivet {
 
       // Kinematics of the scattered lepton
       const DISLepton& dl = apply<DISLepton>(event,"Lepton");
+      if ( dl.failed() ) vetoEvent;
       const FourMomentum leptonMom = dl.out();
       const double enel = leptonMom.E();
       const double thel = 180 - leptonMom.angle(dl.in().mom())/degree;
