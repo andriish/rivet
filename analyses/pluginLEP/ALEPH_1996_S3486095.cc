@@ -104,6 +104,7 @@ namespace Rivet {
       book(_histMeanMultiXi1530_0      ,44, 1, 15);
       book(_histMeanMultiOmegaOmegaBar ,44, 1, 16);
 
+      book(_weightedTotalPartNum, "/TMP/weightedTotalPartNum");
     }
 
 

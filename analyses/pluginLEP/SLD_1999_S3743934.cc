@@ -374,18 +374,18 @@ namespace Rivet {
       book(_s_Pr_PBar   , 33, 1, 1);
       book(_s_Lam_LBar  , 35, 1, 1);
 
-      book(_SumOfudsWeights, "SumOfudsWeights");
-      book(_SumOfcWeights, "SumOfcWeights");
-      book(_SumOfbWeights, "SumOfbWeights");
+      book(_SumOfudsWeights, "_SumOfudsWeights");
+      book(_SumOfcWeights, "_SumOfcWeights");
+      book(_SumOfbWeights, "_SumOfbWeights");
 
       for ( size_t i=0; i<4; ++i) {
-      	book(_multPiPlus[i], "multPiPlus_"+to_str(i));
-      	book(_multKPlus[i], "multKPlus_"+to_str(i));
-      	book(_multK0[i], "multK0_"+to_str(i));
-      	book(_multKStar0[i], "multKStar0_"+to_str(i));
-      	book(_multPhi[i], "multPhi_"+to_str(i));
-      	book(_multProton[i], "multProton_"+to_str(i));
-      	book(_multLambda[i], "multLambda_"+to_str(i));
+      	book(_multPiPlus[i], "_multPiPlus_"+to_str(i));
+      	book(_multKPlus[i], "_multKPlus_"+to_str(i));
+      	book(_multK0[i], "_multK0_"+to_str(i));
+      	book(_multKStar0[i], "_multKStar0_"+to_str(i));
+      	book(_multPhi[i], "_multPhi_"+to_str(i));
+      	book(_multProton[i], "_multProton_"+to_str(i));
+      	book(_multLambda[i], "_multLambda_"+to_str(i));
       }
 
       book(tmp1, 24, 1, 1, true);

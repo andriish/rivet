@@ -29,8 +29,8 @@ namespace Rivet {
 
       book(_histXpXiMinus       ,2, 1, 1);
       book(_histXpSigma1385Plus ,3, 1, 1);
-      book(_weightedTotalNumXiMinus, "weightedTotalNumXiMinus");
-      book(_weightedTotalNumSigma1385Plus, "weightedTotalNumSigma1385Plus");
+      book(_weightedTotalNumXiMinus, "_weightedTotalNumXiMinus");
+      book(_weightedTotalNumSigma1385Plus, "_weightedTotalNumSigma1385Plus");
     
     }
 

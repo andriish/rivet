@@ -134,11 +134,11 @@ namespace Rivet {
       book(_histMultiXi1530_0, 40, 1, 7);
       book(_histMultiLambdaB0, 40, 1, 8);
 
-      book(_weightedTotalPartNum,"TotalPartNum");
-      book(_passedCutWeightSum, "passedCutWeightSum");
-      book(_passedCut3WeightSum, "passedCut3WeightSum");
-      book(_passedCut4WeightSum, "passedCut4WeightSum");
-      book(_passedCut5WeightSum, "passedCut5WeightSum");
+      book(_weightedTotalPartNum,"_TotalPartNum");
+      book(_passedCutWeightSum, "_passedCutWeightSum");
+      book(_passedCut3WeightSum, "_passedCut3WeightSum");
+      book(_passedCut4WeightSum, "_passedCut4WeightSum");
+      book(_passedCut5WeightSum, "_passedCut5WeightSum");
 
     }
 

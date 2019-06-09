@@ -29,7 +29,7 @@ namespace Rivet {
       book(_histXpJPsi   , 1, 1, 1);
       book(_multJPsi     , 2, 1, 1);
       book(_multPsiPrime , 2, 1, 2);
-      book(_weightSum,"weightSum");
+      book(_weightSum,"_weightSum");
     }
 
 

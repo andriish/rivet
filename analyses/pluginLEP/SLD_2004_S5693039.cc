@@ -249,12 +249,12 @@ namespace Rivet {
       book(_s_KM_KP	 , 10, 1, 3);
       book(_s_Pr_PBar, 11, 1, 3);
 
-      book(_weightedTotalChargedPartNumLight, "weightedTotalChargedPartNumLight");
-      book(_weightedTotalChargedPartNumCharm, "weightedTotalChargedPartNumCharm");
-      book(_weightedTotalChargedPartNumBottom, "weightedTotalChargedPartNumBottom");
-      book(_weightLight, "weightLight");
-      book(_weightCharm, "weightCharm");
-      book(_weightBottom, "weightBottom");
+      book(_weightedTotalChargedPartNumLight, "_weightedTotalChargedPartNumLight");
+      book(_weightedTotalChargedPartNumCharm, "_weightedTotalChargedPartNumCharm");
+      book(_weightedTotalChargedPartNumBottom, "_weightedTotalChargedPartNumBottom");
+      book(_weightLight, "_weightLight");
+      book(_weightCharm, "_weightCharm");
+      book(_weightBottom, "_weightBottom");
 
       book(tmp1, 8, 2, 1, true);
       book(tmp2, 8, 2, 2, true);

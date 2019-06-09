@@ -98,8 +98,8 @@ namespace Rivet {
       book(_histHemiMassLMom[_isqrts]  ,25, 1, _isqrts+1);
       book(_histHemiBroadNMom[_isqrts] ,26, 1, _isqrts+1);
 
-      book(_sumWTrack2, "sumWTrack2");
-      book(_sumWJet3, "sumWJet3");
+      book(_sumWTrack2, "_sumWTrack2");
+      book(_sumWJet3, "_sumWJet3");
     }
 
 
