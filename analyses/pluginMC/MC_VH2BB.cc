@@ -225,7 +225,7 @@ namespace Rivet {
       const double angle1 = b1BOOSTED.angle(virtualVBMomentumBOOSTED);
       const double angle2 = b2BOOSTED.angle(virtualVBMomentumBOOSTED);
 
-      const double anglebb = b1BOOSTED.angle(b2BOOSTED);
+      const double anglebb = mapAngle0ToPi(b1BOOSTED.angle(b2BOOSTED));
 
       vector<double> rtn;
       rtn.push_back(angle1 < angle2 ? angle1 : angle2);
