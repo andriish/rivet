@@ -12,8 +12,7 @@ Projections/libRivetProjections.la \
 Tools/libRivetTools.la \
 AnalysisTools/libRivetAnalysisTools.la \
 -lYODA -ldl -lm  \
-$(FASTJETCONFIGLIBADD) \
-$(GSL_LDFLAGS)
+$(FASTJETCONFIGLIBADD)
 
 if ENABLE_HEPMC_3
 libRivet_la_LIBADD += -lHepMC3 -lHepMC3search

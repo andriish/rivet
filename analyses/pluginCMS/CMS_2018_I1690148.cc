@@ -9,8 +9,9 @@
 #include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Math/MatrixN.hh"
-#include "Rivet/Tools/fjcontrib/Nsubjettiness.hh"
-#include "Rivet/Tools/fjcontrib/EnergyCorrelator.hh"
+
+#include "fastjet/contrib/Nsubjettiness.hh"
+#include "fastjet/contrib/EnergyCorrelator.hh"
 
 namespace Rivet {
 
@@ -20,7 +21,14 @@ namespace Rivet {
   public:
 
     enum Reconstruction { CHARGED=0, ALL=1 };
-    enum Observable { MULT=0, PTDS=1, GA_LHA=2, GA_WIDTH=3, GA_THRUST=4, ECC=5, ZG=6, ZGDR=7, NSD=8, TAU21=9, TAU32=10, TAU43=11, C1_00=12, C1_02=13, C1_05=14, C1_10=15, C1_20=16, C2_00=17, C2_02=18, C2_05=19, C2_10=20, C2_20=21, C3_00=22, C3_02=23, C3_05=24, C3_10=25, C3_20=26, M2_B1=27, N2_B1=28, N3_B1=29, M2_B2=30, N2_B2=31, N3_B2=32 };
+    enum Observable { MULT=0, PTDS=1, GA_LHA=2, GA_WIDTH=3, 
+                      GA_THRUST=4, ECC=5, ZG=6, ZGDR=7, NSD=8, 
+                      TAU21=9, TAU32=10, TAU43=11, C1_00=12, 
+                      C1_02=13, C1_05=14, C1_10=15, C1_20=16, 
+                      C2_00=17, C2_02=18, C2_05=19, C2_10=20, 
+                      C2_20=21, C3_00=22, C3_02=23, C3_05=24, 
+                      C3_10=25, C3_20=26, M2_B1=27, N2_B1=28, 
+                      N3_B1=29, M2_B2=30, N2_B2=31, N3_B2=32 };
     enum Flavor { INCL=0, BOTTOM=1, QUARK=2, GLUON=3 };
 
 
@@ -380,8 +388,8 @@ namespace Rivet {
 
 
     double getTau(int N, int M, PseudoJet jet) {
-      fjcontrib::Nsubjettiness::NsubjettinessRatio tau_ratio(N, M, fjcontrib::Nsubjettiness::OnePass_WTA_KT_Axes(),
-                                                             fjcontrib::Nsubjettiness::NormalizedMeasure(1.0, 0.4));
+      fjcontrib::NsubjettinessRatio tau_ratio(N, M, fjcontrib::OnePass_WTA_KT_Axes(),
+                                              fjcontrib::NormalizedMeasure(1.0, 0.4));
       return tau_ratio(jet);
     }
 

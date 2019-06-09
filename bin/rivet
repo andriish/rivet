@@ -91,6 +91,8 @@ extragroup.add_argument("-n", "--nevts", dest="MAXEVTNUM", type=int,
 extragroup.add_argument("--nskip", dest="EVTSKIPNUM", type=int,
                         default=0, metavar="NUM",
                         help="skip NUM events read from input before beginning processing")
+extragroup.add_argument("--skip-weights", dest="SKIP_WEIGHTS", action="store_true",
+                      default=False, help="only run on the nominal weight")                        
 extragroup.add_argument("--runname", dest="RUN_NAME", default=None, metavar="NAME",
                         help="give an optional run name, to be prepended as a 'top level directory' in histo paths")
 extragroup.add_argument("--ignore-beams", dest="IGNORE_BEAMS", action="store_true", default=False,
@@ -226,8 +228,7 @@ if args.LIST_ANALYSES:
                         msg[-1] += u"  [ \int L = %s fb^{-1} ]" % a.luminosityfb()
     msg = rivet.util.detex(msg)
     retlist = '\n'.join([ u"%-25s   %s" % (a,m) for a,m in zip(names,msg) ])
-    if type(u'') is not str:
-        retlist = retlist.encode('utf-8')
+    retlist = retlist.encode('utf-8')
     print(retlist)
     sys.exit(0)
 
@@ -380,8 +381,7 @@ if len(args.SHOW_ANALYSES) > 0:
             import tempfile, subprocess
             tffd, tfpath = tempfile.mkstemp(prefix="rivet-show.")
             msgsum = u"\n\n".join(msgs)
-            if type(u'') is not str:
-                msgsum = msgsum.encode('utf-8')
+            msgsum = msgsum.encode('utf-8')
             os.write(tffd, msgsum)
             if sys.stdout.isatty():
                 pager = subprocess.Popen(["less", "-FX", tfpath]) #, stdin=subprocess.PIPE)
@@ -520,6 +520,7 @@ if not os.access(histo_parentdir,os.W_OK):
 RUNNAME = args.RUN_NAME or ""
 ah = rivet.AnalysisHandler(RUNNAME)
 ah.setIgnoreBeams(args.IGNORE_BEAMS)
+ah.skipMultiWeights(args.SKIP_WEIGHTS)
 
 for a in args.ANALYSES:
     ## Print warning message and exit if not a valid analysis name

@@ -33,12 +33,12 @@ namespace Rivet {
       Cut cuts = Cuts::abseta < 2.5 && Cuts::pT > 20*GeV;
 
       ZFinder zfinder(fs, cuts, _mode==1? PID::ELECTRON : PID::MUON, 76.0*GeV, 106.0*GeV, 0.1, 
-                      ZFinder::ChargedLeptons::PROMPT, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::NO);
+                      ZFinder::ChargedLeptons::ALL, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::NO);
       declare(zfinder, "ZFinder");
 
       VetoedFinalState jet_fs(fs);
       jet_fs.addVetoOnThisFinalState(getProjection<ZFinder>("ZFinder"));
-      FastJets jetpro1(jet_fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::ALL, JetAlg::Invisibles::NONE);
+      FastJets jetpro1(jet_fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::ALL, JetAlg::Invisibles::ALL);
       declare(jetpro1, "AntiKtJets04");
       declare(HeavyHadrons(), "BHadrons");
 

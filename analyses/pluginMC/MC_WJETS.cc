@@ -41,7 +41,6 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event & e) {
-      const double weight = 1.0;
 
       const WFinder& wfinder = apply<WFinder>(e, "WFinder");
       if (wfinder.bosons().size() != 1) {
@@ -51,8 +50,8 @@ namespace Rivet {
 
       const Jets& jets = apply<FastJets>(e, "Jets").jetsByPt(_jetptcut);
       if (jets.size() > 0) {
-        _h_W_jet1_deta->fill(wmom.eta()-jets[0].eta(), weight);
-        _h_W_jet1_dR->fill(deltaR(wmom, jets[0].momentum()), weight);
+        _h_W_jet1_deta->fill(wmom.eta()-jets[0].eta());
+        _h_W_jet1_dR->fill(deltaR(wmom, jets[0].momentum()));
       }
 
       MC_JetAnalysis::analyze(e);

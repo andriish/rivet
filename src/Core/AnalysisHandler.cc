@@ -7,7 +7,6 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "YODA/IO.h"
-#include <regex>
 #include <iostream>
 
 using std::cout;
@@ -18,7 +17,7 @@ namespace Rivet {
 
   AnalysisHandler::AnalysisHandler(const string& runname)
     : _runname(runname),
-      _initialised(false), _ignoreBeams(false),
+      _initialised(false), _ignoreBeams(false), _skipWeights(false),
       _defaultWeightIdx(0), _dumpPeriod(0), _dumping(false)
   {  }
 
@@ -66,7 +65,9 @@ namespace Rivet {
     _eventNumber = ge.event_number();
 
     setWeightNames(ge);
-    if (haveNamedWeights())
+    if (_skipWeights)
+        MSG_INFO("Only using nominal weight. Variation weights will be ignored.");
+    else if (haveNamedWeights())
         MSG_INFO("Using named weights");
     else
         MSG_INFO("NOT using named weights. Using first weight as nominal weight");
@@ -133,8 +134,8 @@ namespace Rivet {
   }
 
   void AnalysisHandler::setWeightNames(const GenEvent& ge) {
-    _weightNames = HepMCUtils::weightNames(ge);
-    if ( _weightNames.empty() ) _weightNames.push_back("");
+    if (!_skipWeights)  _weightNames = HepMCUtils::weightNames(ge);
+    if ( _weightNames.empty() )  _weightNames.push_back("");
     for ( int i = 0, N = _weightNames.size(); i < N; ++i )
       if ( _weightNames[i] == "" ) _defaultWeightIdx = i;
   }
@@ -685,6 +686,10 @@ namespace Rivet {
 
   void AnalysisHandler::setIgnoreBeams(bool ignore) {
     _ignoreBeams=ignore;
+  }
+
+  void AnalysisHandler::skipMultiWeights(bool ignore) {
+    _skipWeights=ignore;
   }
 
 

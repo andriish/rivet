@@ -128,7 +128,7 @@ namespace Rivet {
         book(_h_rapidityT ,36+offset, 1, 1);
         book(_h_rapidityS ,44+offset, 1, 1);
       }
-      book(_weightedTotalChargedPartNum, "weightedTotalChargedPartNum");
+      book(_weightedTotalChargedPartNum, "_weightedTotalChargedPartNum");
       if (!_initialisedSpectra && !_initialisedJets) {
         MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
                     << " doesn't match any available analysis energy .");

@@ -1,3 +1,19 @@
+2019-06-09 Christian Gutschow  <chris.g@cern.ch>
+
+	* Removing all annotations from histos when booked via ref data apart from Path
+
+2019-06-08 Christian Gutschow  <chris.g@cern.ch>
+
+	* Commenting out ununsed function in ChargedFinalState.cc
+	* removing unused member variable in Spherocity.hh
+	* Clean up logic around CmpState
+	* Implement skipWeights flag
+	* Make rivet-mkanalysis more intuitive
+	* Interface change: remove title/axis-label options from book methods
+	* fix Py2/Py3 encoding issue in bin/rivet
+	* making fjcontrib a dependency of Rivet
+	* remove regex includes and re-write in terms of stringstream
+
 2019-06-05  Peter Richardson <peter.richardson@durham.ac.uk>
 	* L3_2004_I652683 add missing plots and sync yoda, still missing n charged as functiomn of CMS energy and jet plots
 	* PLUTO_1980_I154270 clean up to prepare for yoda sync

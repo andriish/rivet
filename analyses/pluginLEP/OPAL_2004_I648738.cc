@@ -44,9 +44,9 @@ namespace Rivet {
       book(_histo_xE[0], ih+5,1,1);
       book(_histo_xE[1], ih+5,1,2);
       if(ih<5) book(_histo_xE[2] ,ih+5,1,3);
-      book(_sumW[0], "sumW_0");
-      book(_sumW[1], "sumW_1");
-      book(_sumW[2], "sumW_2");
+      book(_sumW[0], "_sumW_0");
+      book(_sumW[1], "_sumW_1");
+      book(_sumW[2], "_sumW_2");
     }
 
     /// Perform the per-event analysis

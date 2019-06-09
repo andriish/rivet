@@ -131,10 +131,10 @@ namespace Rivet {
       book(_histMultiChargedb   ,9, 1, 3);
       book(_histMultiChargedall ,9, 1, 4);
       // Counters
-      book(_weightedTotalPartNum, "TotalPartNum");
-      book(_SumOfudsWeights, "udsWeights");
-      book(_SumOfcWeights, "cWeights");
-      book(_SumOfbWeights, "bWeights");
+      book(_weightedTotalPartNum, "_TotalPartNum");
+      book(_SumOfudsWeights, "_udsWeights");
+      book(_SumOfcWeights, "_cWeights");
+      book(_SumOfbWeights, "_bWeights");
     }
 
 

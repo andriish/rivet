@@ -1,11 +1,11 @@
 // -*- C++ -*-
 
-#include <regex>
+//#include <regex>
 #include "Rivet/Tools/Utils.hh"
 #include "Rivet/Tools/RivetHepMC.hh"
 #include "Rivet/Tools/Logging.hh"
 
-namespace {
+/*namespace {
 
   inline std::vector<std::string> split(const std::string& input, const std::string& regex) {
     // passing -1 as the submatch index parameter performs splitting
@@ -16,7 +16,7 @@ namespace {
       return {first, last};
   }
 
-}
+}*/
 
 namespace Rivet{
   
@@ -139,7 +139,32 @@ namespace Rivet{
       /// reroute the print output to a std::stringstream and process
       /// The iteration is done over a map in hepmc2 so this is safe
       vector<string> ret;
-      std::ostringstream stream;
+
+      /// Obtaining weight names using regex probably neater, but regex
+      /// is not defined in GCC4.8, which is currently used by Lxplus.
+      /// Attempt an alternative solution based on stringstreams:
+      std::stringstream stream;
+      ge.weights().print(stream);
+      std::string pair; // placeholder for subtsring matches
+      while (std::getline(stream, pair, ' ')) {
+        pair.erase(pair.begin()); // removes the "(" on the LHS
+        pair.pop_back();          // removes the ")" on the RHS
+        if (pair.empty())  continue;
+        std::stringstream spair(pair);
+        vector<string> temp;
+        while (std::getline(spair, pair, ',')) {
+          temp.push_back(std::move(pair));
+        }
+        if (temp.size() == 2) {
+          // store the default weight based on weight names
+          if (temp[0] == "Weight" || temp[0] == "0" || temp[0] == "Default") {
+            ret.push_back("");
+          } 
+          else  ret.push_back(temp[0]);
+        }
+      }
+      /// Possible future solution based on regex
+      /*std::ostringstream stream;
       ge.weights().print(stream);  // Super lame, I know
       string str =  stream.str();
 
@@ -155,7 +180,7 @@ namespace Rivet{
           } else
             ret.push_back(temp[0]);
         }
-      }
+      }*/
       return ret;
     }
 

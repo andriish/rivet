@@ -20,6 +20,9 @@ cdef class AnalysisHandler:
     def setIgnoreBeams(self, ignore=True):
         self._ptr.setIgnoreBeams(ignore)
 
+    def skipMultiWeights(self, ignore=False):
+        self._ptr.skipMultiWeights(ignore)
+
     def addAnalysis(self, name):
         self._ptr.addAnalysis(name.encode('utf-8'))
         return self

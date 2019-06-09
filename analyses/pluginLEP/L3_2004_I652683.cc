@@ -154,11 +154,11 @@ namespace Rivet {
 	// }
       }
 
-      book(_sumW_udsc, "sumW_udsc");
-      book(_sumW_b, "sumW_b");
-      book(_sumW_ch, "sumW_ch");
-      book(_sumW_ch_udsc, "sumW_ch_udsc");
-      book(_sumW_ch_b, "sumW_ch_b");
+      book(_sumW_udsc, "_sumW_udsc");
+      book(_sumW_b, "_sumW_b");
+      book(_sumW_ch, "_sumW_ch");
+      book(_sumW_ch_udsc, "_sumW_ch_udsc");
+      book(_sumW_ch_b, "_sumW_ch_b");
 
     }
 

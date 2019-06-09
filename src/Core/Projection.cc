@@ -22,12 +22,12 @@ namespace Rivet {
 
 
   bool Projection::before(const Projection& p) const {
+    // actual ordering is irrelevant, return true if projections not equal
     const std::type_info& thisid = typeid(*this);
     const std::type_info& otherid = typeid(p);
     if (thisid == otherid) {
       const CmpState cmpst = compare(p);
-      // const bool cmp = (cmpst == CmpState::LT || cmpst == CmpState::NEQ || cmpst == CmpState::UNDEF);
-      const bool cmp = (cmpst != CmpState::GT);
+      const bool cmp = (cmpst != CmpState::EQ);
       MSG_TRACE("Comparing projections of same RTTI type: " << this << " < " << &p << " = " << cmp);
       return cmp;
     } else {

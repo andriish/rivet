@@ -26,8 +26,8 @@ namespace Rivet {
        // Access the HepMC heavy ion info
       declare(HepMCHeavyIon(), "HepMC");
 
-      book(_v0m, "V0M","Forward multiplicity","V0M","Events");
-      book(_imp, "V0M_IMP",100,0,20, "Impact parameter","b (fm)","Events");
+      book(_v0m, "V0M");
+      book(_imp, "V0M_IMP",100,0,20);
     }
 
 

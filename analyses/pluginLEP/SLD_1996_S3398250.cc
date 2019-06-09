@@ -40,9 +40,9 @@ namespace Rivet {
       book(_h_charm  ,2, 1, 1);
       book(_h_light  ,3, 1, 1);
 
-      book(_weightLight, "weightLight");
-      book(_weightCharm, "weightCharm");
-      book(_weightBottom, "weightBottom");
+      book(_weightLight, "_weightLight");
+      book(_weightCharm, "_weightCharm");
+      book(_weightBottom, "_weightBottom");
 
       book(scatter_c, 4,1,1);
       book(scatter_b, 5,1,1);

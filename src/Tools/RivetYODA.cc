@@ -432,7 +432,7 @@ namespace Rivet {
   template class Wrapper<YODA::Scatter3D>;
 
   AOPath::AOPath(string fullpath) {
-    // First checck if This is a global system path
+    // First check if this is a global system path
     _path = fullpath;
     std::regex resys("^(/RAW)?/([^\\[/]+)(\\[(.+)\\])?$");
     smatch m;
