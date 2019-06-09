@@ -1,3 +1,7 @@
+2019-06-09 Christian Gutschow  <chris.g@cern.ch>
+
+	* multiweight-merge27 branch fully in sync with current release2-7-x branch and passes validation
+
 2019-06-08 Christian Gutschow  <chris.g@cern.ch>
 
 	* Commenting out ununsed function in ChargedFinalState.cc
