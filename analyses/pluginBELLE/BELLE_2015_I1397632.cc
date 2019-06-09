@@ -24,10 +24,10 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      book(_h_B_Denu      ,1, 1, 1);
-      book(_h_B_Dmunu     ,1, 1, 2);
-      book(_h_B_Deplusnu  ,1, 1, 3);
-      book(_h_B_Dmuplusnu ,1, 1, 4);
+      book(_h_B_Denu,      1, 1, 1);
+      book(_h_B_Dmunu,     1, 1, 2);
+      book(_h_B_Deplusnu,  2, 1, 1);
+      book(_h_B_Dmuplusnu, 2, 1, 2);
     }
 
     // Check for explicit decay into pdgids
