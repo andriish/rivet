@@ -137,8 +137,10 @@ namespace Rivet {
     void finalize() {
 
       const double sf = 14.8*crossSection()/femtobarn/sumOfWeights();
-      scale({_h_08j40_0b, _h_09j40_0b, _h_10j40_0b, _h_08j40_3b, _h_09j40_3b, _h_10j40_3b}, sf);
-      scale({_h_08j60_0b, _h_09j60_0b, _h_10j60_0b, _h_08j60_3b, _h_09j60_3b, _h_10j60_3b}, sf);
+      scale(_h_08j40_0b, sf); scale(_h_09j40_0b, sf); scale(_h_10j40_0b, sf);
+      scale(_h_08j40_3b, sf); scale(_h_09j40_3b, sf); scale(_h_10j40_3b, sf);
+      scale(_h_08j60_0b, sf); scale(_h_09j60_0b, sf); scale(_h_10j60_0b, sf);
+      scale(_h_08j60_3b, sf); scale(_h_09j60_3b, sf); scale(_h_10j60_3b, sf);
 
     }
 

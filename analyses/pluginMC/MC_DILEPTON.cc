@@ -102,11 +102,11 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      normalize({_h_pt_l1, _h_pt_l2});
-      normalize({_h_ppara_com, _h_pperp_com, _h_costheta_com});
-      normalize({_h_ppara_com_l1, _h_ppara_com_l2, _h_costheta_com_l1, _h_costheta_com_l2});
-      normalize({_h_ppara_l1, _h_pperp_l1, _h_costheta_l1});
-      normalize({_h_ppara_l2, _h_pperp_l2, _h_costheta_l2});
+      normalize(_h_pt_l1); normalize(_h_pt_l2); normalize(_h_ppara_com); 
+      normalize(_h_pperp_com); normalize(_h_costheta_com); normalize(_h_ppara_com_l1); 
+      normalize(_h_ppara_com_l2); normalize(_h_costheta_com_l1); normalize(_h_costheta_com_l2);
+      normalize(_h_ppara_l1); normalize(_h_pperp_l1); normalize(_h_costheta_l1);
+      normalize(_h_ppara_l2); normalize(_h_pperp_l2); normalize(_h_costheta_l2);
     }
 
     //@}

@@ -50,7 +50,7 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      normalize({_histPt, _histMass});
+      normalize(_histPt); normalize(_histMass);
     }
 
     //@}

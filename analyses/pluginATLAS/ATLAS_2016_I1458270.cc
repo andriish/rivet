@@ -175,9 +175,9 @@ namespace Rivet {
     void finalize() {
 
       const double sf = 3.2*crossSection()/femtobarn/sumOfWeights();
-      scale({_h_2jl, _h_2jl, _h_2jl}, sf);
-      scale({_h_4jt, _h_5j}, sf);
-      scale({_h_6jm, _h_6jt}, sf);
+      scale(_h_2jl, sf); scale(_h_2jl, sf); scale(_h_2jl, sf);
+      scale(_h_4jt, sf); scale(_h_5j, sf);
+      scale(_h_6jm, sf); scale(_h_6jt, sf);
 
       MSG_INFO("CUTFLOWS:\n\n" << _flows);
 

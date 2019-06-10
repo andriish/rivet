@@ -176,7 +176,9 @@ namespace Rivet {
     void finalize() {
 
       const double sf = 13.2*crossSection()/femtobarn/sumOfWeights();
-      scale({_h_3l1, _h_3l2, _h_0b1, _h_0b2, _h_1b, _h_3b, _h_1bDD, _h_3bDD, _h_1bGG}, sf);
+      scale(_h_3l1, sf); scale(_h_3l2, sf); scale(_h_0b1, sf);
+      scale(_h_0b2, sf); scale(_h_1b, sf); scale(_h_3b, sf);
+      scale(_h_1bDD, sf); scale(_h_3bDD, sf); scale(_h_1bGG, sf);
 
     }
 

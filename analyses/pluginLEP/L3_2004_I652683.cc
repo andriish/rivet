@@ -3,10 +3,12 @@
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/InitialQuarks.hh"
 #include "Rivet/Projections/Thrust.hh"
 #include "Rivet/Projections/ParisiTensor.hh"
 #include "Rivet/Projections/Hemispheres.hh"
+
+#define I_KNOW_THE_INITIAL_QUARKS_PROJECTION_IS_DODGY_BUT_NEED_TO_USE_IT
+#include "Rivet/Projections/InitialQuarks.hh"
 
 namespace Rivet {
 
@@ -307,22 +309,28 @@ namespace Rivet {
     void finalize() {
       // Z pole plots
       if(_h_Thrust_udsc) {
-	scale({_h_Thrust_udsc, _h_heavyJetmass_udsc, _h_totalJetbroad_udsc,
-	      _h_wideJetbroad_udsc, _h_Cparameter_udsc, _h_Dparameter_udsc}, 1/_sumW_udsc->sumW());
-	scale({_h_Thrust_bottom, _h_heavyJetmass_bottom, _h_totalJetbroad_bottom,
-	      _h_wideJetbroad_bottom, _h_Cparameter_bottom, _h_Dparameter_bottom}, 1./_sumW_b->sumW());
-	scale(_h_Ncharged, 1./_sumW_ch->sumW());
-	scale(_h_Ncharged_udsc, 1./_sumW_ch_udsc->sumW());
-	scale(_h_Ncharged_bottom, 1./_sumW_ch_b->sumW());
-	convertHisto(59,1,1,_h_Ncharged       );
-	convertHisto(59,1,2,_h_Ncharged_udsc  );
-	convertHisto(59,1,3,_h_Ncharged_bottom);
+        scale(_h_Thrust_udsc,  1/_sumW_udsc->sumW());
+        scale(_h_heavyJetmass_udsc,  1/_sumW_udsc->sumW());
+        scale(_h_totalJetbroad_udsc, 1/_sumW_udsc->sumW());
+	      scale(_h_wideJetbroad_udsc, 1/_sumW_udsc->sumW());
+        scale(_h_Cparameter_udsc, 1/_sumW_udsc->sumW());
+        scale(_h_Dparameter_udsc, 1/_sumW_udsc->sumW());
+        scale(_h_Thrust_bottom, 1./_sumW_b->sumW());
+        scale(_h_heavyJetmass_bottom, 1./_sumW_b->sumW());
+        scale(_h_totalJetbroad_bottom, 1./_sumW_b->sumW());
+	      scale(_h_wideJetbroad_bottom, 1./_sumW_b->sumW());
+        scale(_h_Cparameter_bottom, 1./_sumW_b->sumW());
+        scale(_h_Dparameter_bottom, 1./_sumW_b->sumW());
+        scale(_h_Ncharged, 1./_sumW_ch->sumW());
+        scale(_h_Ncharged_udsc, 1./_sumW_ch_udsc->sumW());
+        scale(_h_Ncharged_bottom, 1./_sumW_ch_b->sumW());
+        convertHisto(59,1,1,_h_Ncharged       );
+        convertHisto(59,1,2,_h_Ncharged_udsc  );
+        convertHisto(59,1,3,_h_Ncharged_bottom);
 
-
-	
-	scale(_h_scaledMomentum, 1/_sumW_ch->sumW());
-	scale(_h_scaledMomentum_udsc, 1/_sumW_ch_udsc->sumW());
-	scale(_h_scaledMomentum_bottom, 1/_sumW_ch_b->sumW());
+        scale(_h_scaledMomentum, 1/_sumW_ch->sumW());
+        scale(_h_scaledMomentum_udsc, 1/_sumW_ch_udsc->sumW());
+        scale(_h_scaledMomentum_bottom, 1/_sumW_ch_b->sumW());
       }
       else {
 	if(_h_thrust) normalize(_h_thrust);

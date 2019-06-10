@@ -93,8 +93,10 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale( {_h_cpos_xF, _h_cpos_pT2,_h_cpos_eta, _h_cneg_xF, _h_cneg_eta, _h_cneg_pT2},
-             crossSection()/millibarn/sumOfWeights() );
+      const double sf = crossSection()/millibarn/sumOfWeights();
+      scale(_h_cpos_xF, sf); scale(_h_cpos_pT2, sf);
+      scale(_h_cpos_eta, sf); scale(_h_cneg_xF, sf);
+      scale(_h_cneg_eta, sf); scale(_h_cneg_pT2, sf);
     }
 
     //@}

@@ -104,8 +104,10 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      normalize({_histMult, _histEta, _histRapidity, _histPt, _histE, _histPhi});
-      normalize({_histMultCh, _histEtaCh, _histRapidityCh, _histPtCh, _histECh, _histPhiCh});
+      normalize(_histMult); normalize(_histEta); normalize(_histRapidity); 
+      normalize(_histPt); normalize(_histE); normalize(_histPhi);
+      normalize(_histMultCh); normalize(_histEtaCh); normalize(_histRapidityCh); 
+      normalize(_histPtCh); normalize(_histECh); normalize(_histPhiCh);
       divide(_tmphistEtaPlus, _tmphistEtaMinus, _histEtaPMRatio);
       divide(_tmphistEtaChPlus, _tmphistEtaChMinus, _histEtaChPMRatio);
       divide(_tmphistRapPlus, _tmphistRapMinus, _histRapidityPMRatio);

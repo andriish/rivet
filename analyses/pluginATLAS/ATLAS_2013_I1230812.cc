@@ -239,13 +239,14 @@ namespace Rivet {
       double sf = _mode? 1.0 : 0.5;
       const double xs = sf * crossSectionPerEvent()/picobarn;
 
-      scale({_h_njet_incl, _h_njet_excl, _h_njet_excl_pt150, _h_njet_excl_vbf}, xs);
-      scale({_h_ptlead, _h_ptseclead, _h_ptthirdlead, _h_ptfourthlead, _h_ptlead_excl}, xs);
-      scale({_h_pt_ratio, _h_pt_z, _h_pt_z_excl}, xs);
-      scale({_h_ylead, _h_yseclead, _h_ythirdlead, _h_yfourthlead}, xs);
-      scale({_h_deltay, _h_mass, _h_deltaphi, _h_deltaR}, xs);
-      scale({_h_ptthirdlead_vbf, _h_ythirdlead_vbf}, xs);
-      scale({_h_ht, _h_st}, xs);
+      scale(_h_njet_incl, xs); scale(_h_njet_excl, xs); scale(_h_njet_excl_pt150, xs); 
+      scale(_h_njet_excl_vbf, xs); scale(_h_ptlead, xs); scale(_h_ptseclead, xs); 
+      scale(_h_ptthirdlead, xs); scale(_h_ptfourthlead, xs); scale(_h_ptlead_excl, xs);
+      scale(_h_pt_ratio, xs); scale(_h_pt_z, xs); scale(_h_pt_z_excl, xs);
+      scale(_h_ylead, xs); scale(_h_yseclead, xs); scale(_h_ythirdlead, xs); 
+      scale(_h_yfourthlead, xs); scale(_h_deltay, xs); scale(_h_mass, xs); 
+      scale(_h_deltaphi, xs); scale(_h_deltaR, xs); scale(_h_ptthirdlead_vbf, xs); 
+      scale(_h_ythirdlead_vbf, xs); scale(_h_ht, xs); scale(_h_st, xs);
     }
 
     //@}

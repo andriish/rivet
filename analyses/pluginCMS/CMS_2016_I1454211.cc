@@ -232,24 +232,25 @@ namespace Rivet {
 
     void finalize() {
 
-      normalize({_hMu_topPt_parton_norm, _hMu_topY_parton_norm, _hEl_topPt_parton_norm,
-            _hEl_topY_parton_norm, _hComb_topPt_parton_norm, _hComb_topY_parton_norm}, 1.0, false);
-      normalize({_hMu_topPt_particle_norm, _hMu_topY_particle_norm, _hEl_topPt_particle_norm,
-            _hEl_topY_particle_norm, _hComb_topPt_particle_norm, _hComb_topY_particle_norm}, 1.0, false);
+      normalize(_hMu_topPt_parton_norm); normalize(_hMu_topY_parton_norm); normalize(_hEl_topPt_parton_norm);
+      normalize(_hEl_topY_parton_norm); normalize(_hComb_topPt_parton_norm); normalize(_hComb_topY_parton_norm, 1.0, false);
+      normalize(_hMu_topPt_particle_norm); normalize(_hMu_topY_particle_norm); normalize(_hEl_topPt_particle_norm);
+      normalize(_hEl_topY_particle_norm); normalize(_hComb_topPt_particle_norm); normalize(_hComb_topY_particle_norm, 1.0, false);
 
-      scale(_hMu_topPt_particle, crossSection()/femtobarn / sumOfWeights());
-      scale(_hEl_topPt_particle, crossSection()/femtobarn / sumOfWeights());
-      scale(_hMu_topY_particle, crossSection()/femtobarn / sumOfWeights());
-      scale(_hEl_topY_particle, crossSection()/femtobarn / sumOfWeights());
-      scale(_hComb_topPt_particle, crossSection()/femtobarn / sumOfWeights());
-      scale(_hComb_topY_particle, crossSection()/femtobarn / sumOfWeights());
+      const double sf = crossSection() / femtobarn / sumOfWeights();
+      scale(_hMu_topPt_particle, sf);
+      scale(_hEl_topPt_particle, sf);
+      scale(_hMu_topY_particle, sf);
+      scale(_hEl_topY_particle, sf);
+      scale(_hComb_topPt_particle, sf);
+      scale(_hComb_topY_particle, sf);
 
-      scale(_hMu_topPt_parton, crossSection()/femtobarn / sumOfWeights());
-      scale(_hEl_topPt_parton, crossSection()/femtobarn / sumOfWeights());
-      scale(_hMu_topY_parton, crossSection()/femtobarn / sumOfWeights());
-      scale(_hEl_topY_parton, crossSection()/femtobarn / sumOfWeights());
-      scale(_hComb_topPt_parton, crossSection()/femtobarn / sumOfWeights());
-      scale(_hComb_topY_parton, crossSection()/femtobarn / sumOfWeights());
+      scale(_hMu_topPt_parton, sf);
+      scale(_hEl_topPt_parton, sf);
+      scale(_hMu_topY_parton, sf);
+      scale(_hEl_topY_parton, sf);
+      scale(_hComb_topPt_parton, sf);
+      scale(_hComb_topY_parton, sf);
 
     }
 

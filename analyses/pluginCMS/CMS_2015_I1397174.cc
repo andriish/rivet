@@ -293,28 +293,35 @@ namespace Rivet {
       if (std::isnan(crossSectionPerEvent()))
         MSG_INFO("No valid cross-section given, using NNLO (arXiv:1303.6254; sqrt(s)=8 TeV, m_t=172.5 GeV): " << ttbarXS/picobarn << " pb");
 
-      normalize({_hVis_nJet30,_hVis_nJet60, _hVis_nJet100,
-            _hVis_addJet1Pt, _hVis_addJet1Eta, _hVis_addJet2Pt, _hVis_addJet2Eta,
-            _hVis_addJJMass, _hVis_addJJDR, _hVis_addJJHT,
-            _hFull_addJet1Pt, _hFull_addJet1Eta, _hFull_addJet2Pt, _hFull_addJet2Eta,
-            _hFull_addJJMass, _hFull_addJJDR, _hFull_addJJHT,
-            _hVis_addBJet1Pt, _hVis_addBJet1Eta, _hVis_addBJet2Pt, _hVis_addBJet2Eta,
-            _hVis_addBBMass, _hVis_addBBDR,
-            _hFull_addBJet1Pt, _hFull_addBJet1Eta, _hFull_addBJet2Pt, _hFull_addBJet2Eta,
-            _hFull_addBBMass, _hFull_addBBDR});
+        normalize(_hVis_nJet30); normalize(_hVis_nJet60); normalize(_hVis_nJet100);
+        normalize(_hVis_addJet1Pt); normalize(_hVis_addJet1Eta); normalize(_hVis_addJet2Pt); 
+        normalize(_hVis_addJet2Eta); normalize(_hVis_addJJMass); normalize(_hVis_addJJDR); 
+        normalize(_hVis_addJJHT); normalize(_hFull_addJet1Pt); normalize(_hFull_addJet1Eta); 
+        normalize(_hFull_addJet2Pt); normalize(_hFull_addJet2Eta); normalize(_hFull_addJJMass); 
+        normalize(_hFull_addJJDR); normalize(_hFull_addJJHT); normalize(_hVis_addBJet1Pt); 
+        normalize(_hVis_addBJet1Eta); normalize(_hVis_addBJet2Pt); normalize(_hVis_addBJet2Eta);
+        normalize(_hVis_addBBMass); normalize(_hVis_addBBDR); normalize(_hFull_addBJet1Pt); 
+        normalize(_hFull_addBJet1Eta); normalize(_hFull_addBJet2Pt); normalize(_hFull_addBJet2Eta);
+        normalize(_hFull_addBBMass); normalize(_hFull_addBBDR);
 
-      const double xsPerWeight = ttbarXS/picobarn / sumOfWeights();
-      scale({_hVis_nJet30_abs, _hVis_nJet60_abs, _hVis_nJet100_abs,
-            _hVis_addJet1Pt_abs, _hVis_addJet1Eta_abs, _hVis_addJet2Pt_abs, _hVis_addJet2Eta_abs,
-            _hVis_addJJMass_abs, _hVis_addJJDR_abs, _hVis_addJJHT_abs,
-            _hVis_addBJet1Pt_abs, _hVis_addBJet1Eta_abs, _hVis_addBJet2Pt_abs, _hVis_addBJet2Eta_abs,
-            _hVis_addBBMass_abs, _hVis_addBBDR_abs}, xsPerWeight);
+        const double xsPerWeight = ttbarXS/picobarn / sumOfWeights();
+        scale(_hVis_nJet30_abs,     xsPerWeight); scale(_hVis_nJet60_abs,      xsPerWeight); 
+        scale(_hVis_nJet100_abs,    xsPerWeight); scale(_hVis_addJet1Pt_abs,   xsPerWeight);
+        scale(_hVis_addJet1Eta_abs, xsPerWeight); scale(_hVis_addJet2Pt_abs,   xsPerWeight);
+        scale(_hVis_addJet2Eta_abs, xsPerWeight); scale(_hVis_addJJMass_abs,   xsPerWeight);
+        scale(_hVis_addJJDR_abs,    xsPerWeight); scale(_hVis_addJJHT_abs,     xsPerWeight);
+        scale(_hVis_addBJet1Pt_abs, xsPerWeight); scale(_hVis_addBJet1Eta_abs, xsPerWeight); 
+        scale(_hVis_addBJet2Pt_abs, xsPerWeight); scale(_hVis_addBJet2Eta_abs, xsPerWeight);
+        scale(_hVis_addBBMass_abs,  xsPerWeight); scale(_hVis_addBBDR_abs,     xsPerWeight);
 
-      const double sfull = xsPerWeight / 0.0454; //< correct for dilepton branching fraction
-      scale({_hFull_addJet1Pt_abs, _hFull_addJet1Eta_abs, _hFull_addJet2Pt_abs, _hFull_addJet2Eta_abs,
-            _hFull_addJJMass_abs, _hFull_addJJDR_abs, _hFull_addJJHT_abs,
-            _hFull_addBJet1Pt_abs, _hFull_addBJet1Eta_abs, _hFull_addBJet2Pt_abs, _hFull_addBJet2Eta_abs,
-            _hFull_addBBMass_abs, _hFull_addBBDR_abs}, sfull);
+        const double sfull = xsPerWeight / 0.0454; //< correct for dilepton branching fraction
+        scale(_hFull_addJet1Pt_abs, sfull); scale(_hFull_addJet1Eta_abs, sfull); 
+        scale(_hFull_addJet2Pt_abs, sfull); scale(_hFull_addJet2Eta_abs, sfull);
+        scale(_hFull_addJJMass_abs, sfull); scale(_hFull_addJJDR_abs, sfull); 
+        scale(_hFull_addJJHT_abs, sfull); scale(_hFull_addBJet1Pt_abs, sfull); 
+        scale(_hFull_addBJet1Eta_abs, sfull); scale(_hFull_addBJet2Pt_abs, sfull); 
+        scale(_hFull_addBJet2Eta_abs, sfull); scale(_hFull_addBBMass_abs, sfull); 
+        scale(_hFull_addBBDR_abs, sfull);
     }
 
     //@}
