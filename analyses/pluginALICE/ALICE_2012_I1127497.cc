@@ -11,11 +11,11 @@ namespace Rivet {
 
   /// @brief ALICE PbPb at 2.76 TeV R_AA analysis.
   class ALICE_2012_I1127497 : public Analysis {
+
   public:
 
     /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2012_I1127497);
-
 
     /// @name Analysis methods
     //@{
@@ -74,24 +74,24 @@ namespace Rivet {
       string beamOpt = getOption<string>("beam","NONE");
       if (beamOpt != "NONE") {
         MSG_WARNING("You are using a specified beam type, instead of using what"
-                    "is provided by the generator. "
-                    "Only do this if you are completely sure what you are doing.");
-        if (beamOpt=="PP") isHI = false;
-        else if (beamOpt=="HI") isHI = true;
-        else {
-          MSG_ERROR("Beam error (option)!");
-          return;
+	"is provided by the generator. "
+	"Only do this if you are completely sure what you are doing.");
+	if (beamOpt=="PP") isHI = false;
+	else if (beamOpt=="HI") isHI = true;
+	else {
+	  MSG_ERROR("Beam error (option)!");
+	  return;
       	}
       }
       else {
         const ParticlePair& beam = beams();
         if (beam.first.pid() == PID::PROTON && beam.second.pid() == PID::PROTON) isHI = false;
-        else if (beam.first.pid() == PID::LEAD && beam.second.pid() == PID::LEAD)
-          isHI = true;
-        else {
-          MSG_ERROR("Beam error (found)!");
-          return;
-        }
+	else if (beam.first.pid() == PID::LEAD && beam.second.pid() == PID::LEAD)
+	  isHI = true;
+	else {
+	  MSG_ERROR("Beam error (found)!");
+	  return;
+	}
       }
     }
 

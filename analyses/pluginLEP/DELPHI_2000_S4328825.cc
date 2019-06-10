@@ -16,7 +16,7 @@
 namespace Rivet {
 
 
-  /// @brief OPAL multiplicities at various energies
+  /// @brief DELPHI multiplicities at various energies
   /// @author Peter Richardson
   class DELPHI_2000_S4328825 : public Analysis {
   public:
