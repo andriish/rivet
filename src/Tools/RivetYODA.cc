@@ -10,7 +10,7 @@
 #include <execinfo.h>
 #endif
 
-#include <regex>
+// #include <regex>
 #include <sstream>
 
 using namespace std;
@@ -431,6 +431,9 @@ namespace Rivet {
   template class Wrapper<YODA::Scatter2D>;
   template class Wrapper<YODA::Scatter3D>;
 
+
+  /// Possible future solution based on regex
+  /*
   AOPath::AOPath(string fullpath) {
     // First check if this is a global system path
     _path = fullpath;
@@ -461,7 +464,67 @@ namespace Rivet {
       s = m.suffix();
     }
   }
+  */
 
+  bool AOPath::init(string fullpath) {
+    if ( fullpath.substr(0,5) == "/RAW/" ) {
+      _raw = true;
+      return init(fullpath.substr(4));
+    }
+    if ( fullpath.substr(0,5) == "/REF/" ) {
+      _ref = true;
+      return init(fullpath.substr(4));
+    }
+    if ( fullpath[0] != '/' ) return false;
+
+    fullpath = fullpath.substr(1);
+
+    if ( fullpath.size() < 2 ) return false;
+
+    if ( !chopweight(fullpath) ) return false;
+    
+    string::size_type p = fullpath.find("/");
+    if ( p == 0 ) return false;
+    if ( p == string::npos ) {
+      _name = fullpath;
+      return true;
+    }
+    _analysis = fullpath.substr(0, p);
+    _name = fullpath.substr(p + 1);
+
+    if ( _name.substr(0, 4) == "TMP/" ) {
+      _name = _name.substr(4);
+      _tmp = true;
+    }
+
+    if ( !chopoptions(_analysis) ) return false;
+
+    fixOptionString();
+
+    return true;
+  }
+
+  bool AOPath::chopweight(string & fullpath) {
+    if ( fullpath.back() != ']' ) return true;
+    string::size_type p = fullpath.rfind("[");
+    if ( p == string::npos ) return false;
+    _weight = fullpath.substr(p + 1);
+    _weight.pop_back();
+    fullpath = fullpath.substr(0, p);
+    return true;
+  }
+
+  bool AOPath::chopoptions(string & anal) {
+    string::size_type p = anal.rfind(":");
+    if ( p == string::npos ) return true;
+    string opts = anal.substr(p + 1);
+    string::size_type pp = opts.find("=");
+    if ( pp == string::npos ) return false;
+    _options[opts.substr(0, pp)] = opts.substr(pp + 1);
+    anal = anal.substr(0, p);
+    return chopoptions(anal);
+  }
+    
   void AOPath::fixOptionString() {
     ostringstream oss;
     for ( auto optval : _options )

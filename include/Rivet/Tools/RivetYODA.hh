@@ -611,12 +611,14 @@ namespace Rivet {
   }
 
   /// class representing a YODA path with all its components.
-  class AOPath {
+class AOPath {
 
   public:
 
     /// Constructor
-    AOPath(string fullpath);
+    AOPath(string fullpath) : _path(fullpath) {
+      _valid = init(fullpath);
+    }
 
     /// The full path.
     string path() const { return _path; }
@@ -684,6 +686,11 @@ namespace Rivet {
     bool operator!() const { return !valid(); }
 
   private:
+
+    /// Internal functions for disassembling a path name
+    bool init(string fullpath);
+    bool chopweight(string & fullpath);
+    bool chopoptions(string & anal);
 
     bool _valid;
     string _path;

@@ -147,6 +147,7 @@ namespace Rivet{
       ge.weights().print(stream);
       std::string pair; // placeholder for subtsring matches
       while (std::getline(stream, pair, ' ')) {
+        if ( pair.size() < 2 ) continue;
         pair.erase(pair.begin()); // removes the "(" on the LHS
         pair.pop_back();          // removes the ")" on the RHS
         if (pair.empty())  continue;
