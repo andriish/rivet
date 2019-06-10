@@ -17,7 +17,7 @@ Examples:
 """
 
 from __future__ import print_function
-import os, shutil, imp, glob, requests, argparse
+import os, shutil, imp, glob, requests, argparse, importlib
 
 from rivet import hepdatautils
 
@@ -86,7 +86,7 @@ for count, inspire_id in enumerate(sorted(analyses, key=analyses.get)):
         yodafile = find(analysis + '.yoda', rivet_directory)
         outfile = os.path.join(output_name, analysis + '.txt')
 
-        # Check if .yoda file has already been downloaded from HEPData, otherwise download.  Override if force_download.
+        # Check if .yoda file has already been downloaded from HEPData, otherwise download. Do anyway if force_download = True.
         matched_files = glob.glob(os.path.join(hepdata_directory, 'HEPData-ins' + inspire_id + '-v*-yoda.yoda'))
         if not matched_files or force_download:
             try:
@@ -100,6 +100,22 @@ for count, inspire_id in enumerate(sorted(analyses, key=analyses.get)):
                 print('Missing YODA reference data file from HEPData for Rivet analysis {}.'.format(analysis))
         else:
             yodafile_from_hepdata = sorted(matched_files)[-1] # sort in case of multiple versions (works for v1 up to v9)
+
+        # Check if ref data needs post-processing, e.g. to patch zero bin widths
+        # First check if a post-processed version already exists in HEPData directory:
+        hdPatchedVersions = glob.glob( os.path.join(hepdata_directory, '{}-post.yoda'.format(yodafile_from_hepdata[:-5])) )
+        if hdPatchedVersions and not force_download: # use the latest one
+            yodafile_from_hepdata = sorted(hdPatchedVersions)[-1]
+        else:  # check if a post-processing script has been provided at all
+            hd_sync_dir = '{}/HDsync/'.format(rivet_dir)
+            hdPatchScript = find('HEPDATA_{}.yoda'.format(analysis}, hd_sync_dir)
+            if hdPatchScript:
+                hd_patcher = importlib.import_module(hdPatchScript)
+                patchedContent = hd_patcher.patch(yodafile_from_hepdata) # apply post-processing
+                # save the post-processed content in the HEPData directory and use it instead
+                yodafile_from_hepdata = '%s-post.yoda' % yodafile_from_hepdata[-5]
+                with open(yodafile_from_hepdata, 'w') as patchedFile:
+                    yoda.writeYODA(patchedContent, patchedFile)
 
         # Run yodadiff between the .yoda files from Rivet and HEPData.
         if yodafile:
