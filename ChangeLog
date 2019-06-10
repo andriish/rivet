@@ -624,7 +624,13 @@
 
 2018-08-29  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add RIVET_WEIGHT_INDEX=-1 -> ignore event weights behaviour. Slow, but sometimes useful for debug.
 	* Change default plugin library installation to $prefix/lib/Rivet, since they're non-linkable.
+
+2018-08-29  Christian Gutschow  <chris.g@cern.ch>
+
+	* Allow reference data file name to be different from plugin name
+	via setRefDataName(fname) method, aiming to unify HepData records.
 
 2018-08-14  Andy Buckley  <andy.buckley@cern.ch>
 
