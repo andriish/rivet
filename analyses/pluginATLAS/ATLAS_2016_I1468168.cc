@@ -41,36 +41,40 @@ namespace Rivet {
       DressedLeptons dressedmuons(photons, muons, 0.1, lep_cuts, true);
       declare(dressedmuons, "DressedMuons");
 
-      /// @todo Make this a counter or Scatter1D?
-      book(_hist ,"Passed_events", 1, 0, 1);
+      book(_s , 2, 1 ,1);
+      book(_c , "_counter");
     }
 
 
     void analyze(const Event& event) {
 
       // Get the selected objects, using the projections.
-      const size_t num_es = applyProjection<DressedLeptons>(event, "DressedElectrons").dressedLeptons().size();
-      const size_t num_mus = applyProjection<DressedLeptons>(event, "DressedMuons").dressedLeptons().size();
+      const size_t num_es = apply<DressedLeptons>(event, "DressedElectrons").dressedLeptons().size();
+      const size_t num_mus = apply<DressedLeptons>(event, "DressedMuons").dressedLeptons().size();
 
       // Evaluate basic event selection
       const bool pass_emu = num_es == 1 && num_mus == 1;
       if (!pass_emu) vetoEvent;
 
       // Fill histogram to measure the event acceptance
-      _hist->fill(0.5);
+      _c->fill();
     }
 
 
     void finalize() {
       // Normalize to cross-section
-      const double sf(crossSection() / sumOfWeights());
-      scale(_hist, sf);
+      scale(_c, crossSection() / sumOfWeights());
+
+      double err = _c->err();
+      _s->addPoint(13*TeV, _c->val(), make_pair(0.5, 0.5), make_pair(err,err));
+
     }
 
 
    private:
 
-    Histo1DPtr _hist;
+    CounterPtr _c;
+    Scatter2DPtr _s;
 
   };
 
