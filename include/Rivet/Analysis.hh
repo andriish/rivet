@@ -580,7 +580,7 @@ namespace Rivet {
     Scatter2DPtr & book(Scatter2DPtr & s2d, const string& hname, const std::vector<double>& binedges);
 
     /// Book a 2-dimensional data point set with x-points from an existing scatter and a new path.
-    Scatter2DPtr book(Scatter2DPtr & s2d, const Scatter2DPtr & scPtr, const std::string& path);
+    Scatter2DPtr & book(Scatter2DPtr & s2d, const string& hname, const Scatter2D& refscatter);
 
     //@}
 

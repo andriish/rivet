@@ -1,3 +1,7 @@
+2019-06-11 Christian Gutschow  <chris.g@cern.ch>
+
+	* add booking method for a Scatter2DPtr from a ref Scatter2D needed by ALICE_2016_I1419244 (thanks to Frank Siegert!)
+
 2019-06-10 Christian Gutschow  <chris.g@cern.ch>
 
 	* remove instances of scale and normalize using initializer lists as gcc48 doesn't like them
