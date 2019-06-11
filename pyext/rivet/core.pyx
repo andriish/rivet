@@ -189,8 +189,9 @@ cdef class AnalysisLoader:
 ## Convenience versions in main rivet namespace
 def analysisNames():
     return AnalysisLoader.analysisNames()
+
 def getAnalysis(name):
-    return AnalysisLoader.getAnalysis(name)
+    return AnalysisLoader.getAnalysis(name.encode('utf-8'))
 
 
 ## Path functions
