@@ -59,18 +59,18 @@ namespace Rivet {
       book(h_v24pT20, 9, 1, 2, true);
       book(h_v24pT30, 9, 1, 3, true);
 
-      book(h_c22gap, h_v22gap,"/" + name() + "/c22gap");
-      book(h_c24, h_v24,"/" + name() + "/c24");
-      book(h_c26, h_v26,"/" + name() + "/c26");
-      book(h_c28, h_v28,"/" + name() + "/c28");
-      book(h_c32gap, h_v32gap,"/" + name() + "/c32gap");
-      book(h_c42gap, h_v42gap,"/" + name() + "/c42gap");
+      book(h_c22gap, "_c22gap", refData(1, 1, 1));
+      book(h_c24, "_c24", refData(1, 1, 2));
+      book(h_c26, "_c26", refData(1, 1, 3));
+      book(h_c28, "_c28", refData(1, 1, 4));
+      book(h_c32gap, "_c32gap", refData(8, 1, 2));
+      book(h_c42gap, "_c24gap", refData(8, 1, 3));
 
-      book(h_ec22gap, h_v22gap,"/" + name() + "/ec22gap");
-      book(h_ec22, h_v24,"/" + name() + "/ec22");
-      book(h_ec24, h_v24,"/" + name() + "/ec24");
-      book(h_ec26, h_v26,"/" + name() + "/ec26");
-      book(h_ec28, h_v28,"/" + name() + "/ec28");
+      book(h_ec22gap, "_ec22gap", refData(1, 1, 1));
+      book(h_ec22, "_ec22", refData(1, 1, 2));
+      book(h_ec24, "_ec24", refData(1, 1, 2));
+      book(h_ec26, "_ec26", refData(1, 1, 3));
+      book(h_ec28, "_ec28", refData(1, 1, 4));
 
 
       // Corresponding event averaged correlators.

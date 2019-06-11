@@ -51,8 +51,8 @@ cdef class AnalysisHandler:
     def finalize(self):
         self._ptr.finalize()
 
-    def dump(self, file, period):
-        self._ptr.dump(file, period)
+    def dump(self, name, period):
+        self._ptr.dump(name.encode('utf-8'), period)
 
     def mergeYodas(self, filelist, delopts, equiv):
         self._ptr.mergeYodas(filelist, delopts, equiv)
@@ -189,8 +189,9 @@ cdef class AnalysisLoader:
 ## Convenience versions in main rivet namespace
 def analysisNames():
     return AnalysisLoader.analysisNames()
+
 def getAnalysis(name):
-    return AnalysisLoader.getAnalysis(name)
+    return AnalysisLoader.getAnalysis(name.encode('utf-8'))
 
 
 ## Path functions
