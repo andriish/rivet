@@ -75,12 +75,7 @@ namespace Rivet {
     _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
 
     // Set the cross section based on what is reported by this event.
-    if (ge.cross_section()) {
-      MSG_TRACE("Getting cross section.");
-      double xs = ge.cross_section()->cross_section();
-      double xserr = ge.cross_section()->cross_section_error();
-      setCrossSection(xs, xserr);
-    }
+    if ( ge.cross_section() ) setCrossSection(HepMCUtils::crossSection(ge));
 
     // Check that analyses are beam-compatible, and remove those that aren't
     const size_t num_anas_requested = analysisNames().size();
@@ -164,36 +159,15 @@ namespace Rivet {
 
     // set the cross section based on what is reported by this event.
     // if no cross section
-    MSG_TRACE("getting cross section.");
-    if (ge.cross_section()) {
-      MSG_TRACE("getting cross section from GenEvent.");
-      double xs = ge.cross_section()->cross_section();
-      double xserr = ge.cross_section()->cross_section_error();
-      setCrossSection(xs, xserr);
-    }
+    if ( ge.cross_section() ) setCrossSection(HepMCUtils::crossSection(ge));
 
     // Won't happen for first event because _eventNumber is set in init()
     if (_eventNumber != ge.event_number()) {
-        /// @todo Can we get away with not passing a matrix?
 
-        MSG_TRACE("AnalysisHandler::analyze(): Pushing _eventCounter to persistent.");
-        _eventCounter.get()->pushToPersistent(_subEventWeights);
-        // if this is indeed a new event, push the temporary
-        // histograms and reset
-        for (const AnaHandle& a : analyses()) {
-            for (auto ao : a->analysisObjects()) {
-                MSG_TRACE("AnalysisHandler::analyze(): Pushing " << a->name() << "'s " << ao->name() << " to persistent.");
-                ao.get()->pushToPersistent(_subEventWeights);
-            }
-            MSG_TRACE("AnalysisHandler::analyze(): finished pushing " << a->name() << "'s objects to persistent.");
-        }
+      pushToPersistent();
 
-        _eventNumber = ge.event_number();
+      _eventNumber = ge.event_number();
 
-        MSG_DEBUG("nominal event # " << _eventCounter.get()->_persistent[0]->numEntries());
-        MSG_DEBUG("nominal sum of weights: " << _eventCounter.get()->_persistent[0]->sumW());
-        MSG_DEBUG("Event has " << _subEventWeights.size() << " sub events.");
-        _subEventWeights.clear();
     }
 
 
@@ -241,6 +215,21 @@ namespace Rivet {
     analyze(*ge);
   }
 
+  void AnalysisHandler::pushToPersistent() {
+    if ( _subEventWeights.empty() ) return;
+    MSG_TRACE("AnalysisHandler::analyze(): Pushing _eventCounter to persistent.");
+    _eventCounter.get()->pushToPersistent(_subEventWeights);
+    for (const AnaHandle& a : analyses()) {
+      for (auto ao : a->analysisObjects()) {
+        MSG_TRACE("AnalysisHandler::analyze(): Pushing " << a->name()
+                  << "'s " << ao->name() << " to persistent.");
+        ao.get()->pushToPersistent(_subEventWeights);
+      }
+      MSG_TRACE("AnalysisHandler::analyze(): finished pushing "
+                << a->name() << "'s objects to persistent.");
+    }
+    _subEventWeights.clear();
+  }
 
   void AnalysisHandler::finalize() {
     if (!_initialised) return;
@@ -250,15 +239,14 @@ namespace Rivet {
     
     // First push all analyses' objects to persistent and final
     MSG_TRACE("AnalysisHandler::finalize(): Pushing analysis objects to persistent.");
-    _eventCounter.get()->pushToPersistent(_subEventWeights);
+    pushToPersistent();
+
+    // Copy all histos to finalize versions.
     _eventCounter.get()->pushToFinal();
     _xs.get()->pushToFinal();
-    for (const AnaHandle& a : analyses()) {
-      for (auto ao : a->analysisObjects()) {
-        ao.get()->pushToPersistent(_subEventWeights);
+    for (const AnaHandle& a : analyses())
+      for (auto ao : a->analysisObjects())
         ao.get()->pushToFinal();
-      }
-    }
 
     for (AnaHandle a : analyses()) {
       if ( _dumping && !a->info().reentrant() )  {
@@ -648,7 +636,7 @@ namespace Rivet {
   }
 
 
-  AnalysisHandler& AnalysisHandler::setCrossSection(double xs, double xserr) {
+  void AnalysisHandler::setCrossSection(pair<double,double> xsec) {
     _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
     _eventCounter.get()->setActiveWeightIdx(_defaultWeightIdx);
     double nomwgt = sumW();
@@ -660,12 +648,12 @@ namespace Rivet {
       _eventCounter.get()->setActiveWeightIdx(iW);
       double s = sumW() / nomwgt;
       _xs.get()->setActiveWeightIdx(iW);
-      _xs->addPoint(xs*s, xserr*s);
+      _xs->addPoint(xsec.first*s, xsec.second*s);
     }
 
     _eventCounter.get()->unsetActiveWeight();
     _xs.get()->unsetActiveWeight();
-    return *this;
+    return;
   }
 
   AnalysisHandler& AnalysisHandler::addAnalysis(Analysis* analysis) {

@@ -4,6 +4,8 @@
 #include "Rivet/Tools/ReaderCompressedAscii.hh"
 #include "HepMC3/ReaderAscii.h"
 #include "HepMC3/ReaderAsciiHepMC2.h"
+#include "HepMC3/GenCrossSection.h"
+#include <cassert>
 
 namespace Rivet{
   
@@ -154,6 +156,24 @@ namespace Rivet{
       }
     }
 
+    pair<double,double> crossSection(const GenEvent & ge) {
+      // Work-around since access functions are not const.
+      HepMC3::GenCrossSection xs = *ge.cross_section();
+      return make_pair(xs.xsec(), xs.xsec_err());
+    }
+
+    vector<string> weightNames(const GenEvent & ge) {
+      try {
+        return ge.weight_names("");
+      } catch (HepMC3::WeightError & w) {
+        return vector<string>();
+      }
+    }
+
+    std::valarray<double> weights(const GenEvent & ge) {
+      return std::valarray<double>(&ge.weights()[0], ge.weights().size());
+
+    }
 
   }
 }

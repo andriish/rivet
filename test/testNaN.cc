@@ -4,6 +4,7 @@
 #include <limits>
 #include <cmath>
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -66,7 +67,7 @@ int main(int argc, char* argv[]) {
   }
   file.close();
 
-  rivet.setCrossSection(1.0, 0.1);
+  rivet.setCrossSection(make_pair(1.0, 0.1));
   rivet.finalize();
   rivet.writeData("NaN.aida");
 
