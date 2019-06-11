@@ -528,6 +528,16 @@ namespace Rivet {
     return s2d = registerAO(scat);
   }
 
+  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname, const Scatter2D& refscatter) {
+    const string path = histoPath(hname);
+
+    Scatter2D scat(refscatter, path);
+    for (const string& a : scat.annotations()) {
+      if (a != "Path")  scat.rmAnnotation(a);
+    }
+
+    return s2d = registerAO(scat);
+  }
 
   /// @todo Book Scatter3Ds?
 
