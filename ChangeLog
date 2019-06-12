@@ -1,3 +1,9 @@
+2019-06-12  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* Extended the MultiWeightWrapper class to keep a list of both
+	"/RAW" and final analysis object. AnalysisHandler::mergeYodas
+	rewritten to use these.
+
 2019-06-11 Christian Gutschow  <chris.g@cern.ch>
 
 	* add booking method for a Scatter2DPtr from a ref Scatter2D needed by ALICE_2016_I1419244 (thanks to Frank Siegert!)
