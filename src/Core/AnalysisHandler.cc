@@ -437,12 +437,12 @@ namespace Rivet {
 
     // Now make analysis handler aware of the weight names present.
     _weightNames.clear();
-    _weightNames.push_back("");
     _defaultWeightIdx = 0;
     for ( string name : foundWeightNames ) _weightNames.push_back(name);
 
     // Then we create and initialize all analyses
     for ( string ananame : foundAnalyses ) addAnalysis(ananame);
+    _stage = Stage::INIT;
     for (AnaHandle a : analyses() ) {
       MSG_TRACE("Initialising analysis: " << a->name());
       if ( !a->info().reentrant() )
@@ -458,6 +458,8 @@ namespace Rivet {
       }
       MSG_TRACE("Done initialising analysis: " << a->name());
     }
+    _stage = Stage::OTHER;
+    _initialised = true;
 
     // Now get all booked analysis objects.
     vector<MultiweightAOPtr> raos;
@@ -480,12 +482,12 @@ namespace Rivet {
       vector<YODA::CounterPtr> sows;
       for ( auto & aomap : allaos ) {
         auto xit = aomap.find(xsec.path());
-        if ( xit == aomap.end() )
+        if ( xit != aomap.end() )
           xsecs.push_back(dynamic_pointer_cast<YODA::Scatter1D>(xit->second));
         else
           xsecs.push_back(YODA::Scatter1DPtr());
         xit = aomap.find(sumw.path());
-        if ( xit == aomap.end() )
+        if ( xit != aomap.end() )
           sows.push_back(dynamic_pointer_cast<YODA::Counter>(xit->second));
         else
           sows.push_back(YODA::CounterPtr());
@@ -510,7 +512,8 @@ namespace Rivet {
           scales[i] = (sumw.sumW()/sows[i]->sumW())*
            (xsecs[i]->point(0).x()/xs);
       }
-      xsec.point(0) = Point1D(xs, xserr);
+      xsec.reset();
+      xsec.addPoint(Point1D(xs, xserr));
 
       // Go through alla analyses and add stuff to their analysis objects;
       for (AnaHandle a : analyses()) {

@@ -31,9 +31,10 @@ Wrapper<T>::Wrapper(const vector<string>& weightNames, const T & p)
     _final.push_back(make_shared<T>(p));
 
     auto obj = _persistent.back();
+    obj->setPath("/RAW" + obj->path());
     auto final = _final.back();
     if (weightname != "") {
-      obj->setPath("/RAW" + obj->path() + "[" + weightname + "]");
+      obj->setPath(obj->path() + "[" + weightname + "]");
       final->setPath(final->path() + "[" + weightname + "]");
     }
   }
