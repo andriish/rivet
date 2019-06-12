@@ -169,7 +169,7 @@ namespace Rivet{
       } catch (HepMC3::WeightError & w) {
         return vector<string>();
       }
-      for ( string w : ret )
+      for ( string & w : ret )
         if ( w == "Weight" || w == "0" || w == "Default" )
           w = "";
       return ret;
