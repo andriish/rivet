@@ -26,8 +26,8 @@ namespace Rivet {
       // Book histograms
       _h_B_Denu      = bookHisto1D(1, 1, 1);
       _h_B_Dmunu     = bookHisto1D(1, 1, 2);
-      _h_B_Deplusnu  = bookHisto1D(1, 1, 3);
-      _h_B_Dmuplusnu = bookHisto1D(1, 1, 4);
+      _h_B_Deplusnu  = bookHisto1D(2, 1, 1);
+      _h_B_Dmuplusnu = bookHisto1D(2, 1, 2);
     }
 
     // Check for explicit decay into pdgids

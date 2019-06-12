@@ -227,8 +227,7 @@ if args.LIST_ANALYSES:
                         msg[-1] += u"  [ \int L = %s fb^{-1} ]" % a.luminosityfb()
     msg = rivet.util.detex(msg)
     retlist = '\n'.join([ u"%-25s   %s" % (a,m) for a,m in zip(names,msg) ])
-    if type(u'') is not str:
-        retlist = retlist.encode('utf-8')
+    retlist = retlist.encode('utf-8')
     print(retlist)
     sys.exit(0)
 
@@ -315,10 +314,20 @@ if len(args.SHOW_ANALYSES) > 0:
                     return "p+"
                 elif pid == -2212:
                     return "p-"
-                elif pid == 1000822080:
-                    return "Pb"
+                elif pid == 1000010020:
+                    return "d"
+                elif pid == 1000130270:
+                    return "Al"
+                elif pid == 1000290630:
+                    return "Cu"
+                elif pid == 1000541290:
+                    return "Xe"
                 elif pid == 1000791970:
                     return "Au"
+                elif pid == 1000822080:
+                    return "Pb"
+                elif pid == 1000922380:
+                    return "U"
                 elif pid == 10000:
                     return "*"
                 else:
@@ -371,8 +380,7 @@ if len(args.SHOW_ANALYSES) > 0:
             import tempfile, subprocess
             tffd, tfpath = tempfile.mkstemp(prefix="rivet-show.")
             msgsum = u"\n\n".join(msgs)
-            if type(u'') is not str:
-                msgsum = msgsum.encode('utf-8')
+            msgsum = msgsum.encode('utf-8')
             os.write(tffd, msgsum)
             if sys.stdout.isatty():
                 pager = subprocess.Popen(["less", "-FX", tfpath]) #, stdin=subprocess.PIPE)

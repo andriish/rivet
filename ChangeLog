@@ -1,3 +1,35 @@
+2019-06-06 Christian Gutschow  <chris.g@cern.ch>
+
+	* Ading Marek's opacity fix to make-plots
+	* removing if statement testing if type(u'') is (not) str when deciding whether to encode string in bin/rivet
+
+2019-06-06  Peter Richardson <peter.richardson@durham.ac.uk>
+	* fix typo in rivet-cmphistos
+	* sync yoda for many D0 analyses
+	* sync yoda for CDF_2008_S8093652 D0_2008_S7554427
+
+2019-06-05  Peter Richardson <peter.richardson@durham.ac.uk>
+	* L3_2004_I652683 add missing plots and sync yoda, still missing n charged as functiomn of CMS energy and jet plots
+	* PLUTO_1980_I154270 clean up to prepare for yoda sync
+	* CDF_2015_I1388868, changes to allow yoda sync, histograms renumbered and systematic error added to y values
+	* sync yoda for CDF analysis where y errors changed due better calc in HEPData
+
+2019-06-05  Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
+
+	* Adding more heavy-ion beam particles: DEUTERON, ALUMINIUM,
+	COPPER, XENON, URANIUM
+
+2019-06-04  Peter Richardson <peter.richardson@durham.ac.uk>
+	* sync yoda for BELLE_2015_I1397632, two hists change label + final binchangeset:   7157:2482c97f5ef8
+	* update BABAR_2007_S6895344.yoda with improved error calc
+	* sync yoda for H1_1994_S2919893.yoda, only difference handling of non-existance bins, better in new version
+	* sync yoda for OPAL_2000_S4418603.yoda, changes only in histos not used by rivet
+	* sync yoda for OPAL_1997_S3608263, missing histos in rivet copy
+	* sync yoda for OPAL_1997_S3396100, trival difference some asymmetric x bins in new output but bin limits same
+	* remove null bins from yoda to allow sync with hepdata in CLEO_2004_S5809304.yoda
+	* add OPAL_1997_I421977 for sigma +/- production
+
+
 2019-06-03  Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
 
 	* Adding new heavy-ion beam particles: GOLD, LEAD.
@@ -10,6 +42,8 @@
 	* switch to using counters in OPAL_2002_S5361494, errors now calculated, and allows yoda sync with HEPdata
 	* add DELPHI_2003_I620250 for event shapes below Z pole
 	* switch to using counters in DELPHI_2000_S4328825, errors now calculated, and allows partial yoda sync with HEPdata
+	* update PLUTO_1980_I154270.yoda for new hepdata error calc
+	* update JADE_1983_I190818 to handle zero bins widths and update the yoda from HEPData
 
 2019-06-02  Peter Richardson <peter.richardson@durham.ac.uk>
 	* add DELPHI_2000_I524694 for sigma- and lambdsa(1520) production at LEP

@@ -210,9 +210,11 @@ namespace Rivet {
     // _analyses.clear();
 
     // Print out MCnet boilerplate
-    cout << endl;
-    cout << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl;
-    cout << "Please acknowledge plots made with Rivet analyses, and cite arXiv:1003.0694 (http://arxiv.org/abs/1003.0694)" << endl;
+    if (getLog().getLevel()<=20){
+      cout << endl;
+      cout << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl;
+      cout << "Please acknowledge plots made with Rivet analyses, and cite arXiv:1003.0694 (http://arxiv.org/abs/1003.0694)" << endl;
+    }
   }
 
 

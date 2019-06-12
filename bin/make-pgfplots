@@ -2624,7 +2624,7 @@ def process_datfile(datfile):
             dvcmd.append("-f")
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-            cnvproc = subprocess.Popen(["ps2pdf", "-"], stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
+            cnvproc = subprocess.Popen(["ps2pdf", "-dNOSAFER", "-"], stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
             f = open(os.path.join(tempdir, "%s.pdf" % filename), "wb")
             f.write(cnvproc.communicate()[0])
             f.close()

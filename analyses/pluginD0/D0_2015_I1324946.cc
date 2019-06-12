@@ -25,11 +25,11 @@ namespace Rivet {
       declare(zfinder_mm, "zfinder_mm");
 
       _h_phistar_mm_peak_central = bookHisto1D(1, 1, 1);
-      _h_phistar_mm_peak_forward = bookHisto1D(1, 1, 2);
-      _h_phistar_mm_low_central = bookHisto1D(2, 1, 1);
-      _h_phistar_mm_low_forward = bookHisto1D(2, 1, 2);
-      _h_phistar_mm_high1 = bookHisto1D(3, 1, 1);
-      _h_phistar_mm_high2 = bookHisto1D(4, 1, 1);
+      _h_phistar_mm_peak_forward = bookHisto1D(2, 1, 1);
+      _h_phistar_mm_low_central = bookHisto1D(3, 1, 1);
+      _h_phistar_mm_low_forward = bookHisto1D(4, 1, 1);
+      _h_phistar_mm_high1 = bookHisto1D(5, 1, 1);
+      _h_phistar_mm_high2 = bookHisto1D(6, 1, 1);
     }
 
 
