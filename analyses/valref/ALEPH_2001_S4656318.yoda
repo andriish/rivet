@@ -1,10 +1,7 @@
 BEGIN YODA_HISTO1D_V2 /RAW/ALEPH_2001_S4656318/d01-x01-y01
 Path: /RAW/ALEPH_2001_S4656318/d01-x01-y01
-ScaledBy: 2.48756218905472632e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 6.877117e-01
 # Area: 4.020000e+02
@@ -36,11 +33,8 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ALEPH_2001_S4656318/d01-x01-y02
 Path: /RAW/ALEPH_2001_S4656318/d01-x01-y02
-ScaledBy: 2.48756218905472632e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 7.153356e-01
 # Area: 4.020000e+02
@@ -74,8 +68,6 @@ BEGIN YODA_PROFILE1D_V2 /ALEPH_2001_S4656318/d07-x01-y01
 Path: /ALEPH_2001_S4656318/d07-x01-y01
 Title: ~
 Type: Profile1D
-XLabel: ~
-YLabel: ~
 ---
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 sumwy	 sumwy2	 numEntries
 Total   	Total   	4.020000e+02	4.020000e+02	3.658200e+04	3.328962e+06	2.764601e+02	2.055787e+02	4.020000e+02
@@ -89,8 +81,6 @@ BEGIN YODA_PROFILE1D_V2 /ALEPH_2001_S4656318/d07-x01-y02
 Path: /ALEPH_2001_S4656318/d07-x01-y02
 Title: ~
 Type: Profile1D
-XLabel: ~
-YLabel: ~
 ---
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 sumwy	 sumwy2	 numEntries
 Total   	Total   	4.020000e+02	4.020000e+02	3.658200e+04	3.328962e+06	2.875649e+02	2.222759e+02	4.020000e+02
@@ -105,8 +95,6 @@ Path: /ALEPH_2001_S4656318/d01-x01-y02
 ScaledBy: 2.48756218905472632e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 7.153357e-01
 # Area: 1.000000e+00
@@ -141,8 +129,6 @@ Path: /ALEPH_2001_S4656318/d01-x01-y01
 ScaledBy: 2.48756218905472632e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 6.877116e-01
 # Area: 1.000000e+00
@@ -176,8 +162,6 @@ BEGIN YODA_PROFILE1D_V2 /RAW/ALEPH_2001_S4656318/d07-x01-y02
 Path: /RAW/ALEPH_2001_S4656318/d07-x01-y02
 Title: ~
 Type: Profile1D
-XLabel: ~
-YLabel: ~
 ---
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 sumwy	 sumwy2	 numEntries
 Total   	Total   	4.020000e+02	4.020000e+02	3.658200e+04	3.328962e+06	2.875649e+02	2.222759e+02	4.020000e+02
@@ -191,8 +175,6 @@ BEGIN YODA_PROFILE1D_V2 /RAW/ALEPH_2001_S4656318/d07-x01-y01
 Path: /RAW/ALEPH_2001_S4656318/d07-x01-y01
 Title: ~
 Type: Profile1D
-XLabel: ~
-YLabel: ~
 ---
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 sumwy	 sumwy2	 numEntries
 Total   	Total   	4.020000e+02	4.020000e+02	3.658200e+04	3.328962e+06	2.764601e+02	2.055787e+02	4.020000e+02

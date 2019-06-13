@@ -2,8 +2,6 @@ BEGIN YODA_PROFILE1D_V2 /RAW/OPAL_2003_I599181/d02-x01-y01
 Path: /RAW/OPAL_2003_I599181/d02-x01-y01
 Title: ~
 Type: Profile1D
-XLabel: ~
-YLabel: ~
 ---
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 sumwy	 sumwy2	 numEntries
 Total   	Total   	6.460000e+02	6.460000e+02	7.913500e+01	9.694038e+00	4.482675e+02	3.361502e+02	6.460000e+02
@@ -15,11 +13,8 @@ END YODA_PROFILE1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/OPAL_2003_I599181/d01-x01-y01
 Path: /RAW/OPAL_2003_I599181/d01-x01-y01
-ScaledBy: 1.54798761609907130e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 6.939125e-01
 # Area: 6.460000e+02
@@ -54,8 +49,6 @@ BEGIN YODA_PROFILE1D_V2 /OPAL_2003_I599181/d02-x01-y01
 Path: /OPAL_2003_I599181/d02-x01-y01
 Title: ~
 Type: Profile1D
-XLabel: ~
-YLabel: ~
 ---
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 sumwy	 sumwy2	 numEntries
 Total   	Total   	6.460000e+02	6.460000e+02	7.913500e+01	9.694038e+00	4.482675e+02	3.361502e+02	6.460000e+02
@@ -70,8 +63,6 @@ Path: /OPAL_2003_I599181/d01-x01-y01
 ScaledBy: 1.54798761609907130e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 6.939125e-01
 # Area: 1.000000e+00

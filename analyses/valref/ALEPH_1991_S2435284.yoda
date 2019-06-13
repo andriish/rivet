@@ -1,10 +1,7 @@
 BEGIN YODA_HISTO1D_V2 /RAW/ALEPH_1991_S2435284/d02-x01-y01
 Path: /RAW/ALEPH_1991_S2435284/d02-x01-y01
-ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 9.125000e+01
 # Area: 2.050000e+04
@@ -21,8 +18,6 @@ Path: /ALEPH_1991_S2435284/d02-x01-y01
 ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 9.125000e+01
 # Area: 2.050000e+01
@@ -39,8 +34,6 @@ Path: /ALEPH_1991_S2435284/d01-x01-y01
 ScaledBy: 2.00000000000000004e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 2.050000e+01
 # Area: 2.000000e+00
@@ -78,11 +71,8 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ALEPH_1991_S2435284/d01-x01-y01
 Path: /RAW/ALEPH_1991_S2435284/d01-x01-y01
-ScaledBy: 2.00000000000000004e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 2.050000e+01
 # Area: 1.000000e+03

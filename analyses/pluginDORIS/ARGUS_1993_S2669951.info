@@ -32,3 +32,9 @@ BibTeX: '@article{Albrecht:1992nu,
       SLACcitation   = "%%CITATION = ZEPYA,C58,199;%%",
 }
 '
+
+Validation:
+ - $A BFactory-10.45
+ - $A-2 BFactory-Upsilon
+ - $A-3 BFactory-Upsilon2
+

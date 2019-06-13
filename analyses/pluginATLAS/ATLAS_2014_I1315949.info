@@ -45,3 +45,7 @@ BibTeX: '@article{Aad:2014jgf,
       SLACcitation   = "%%CITATION = ARXIV:1409.3433;%%",
 }'
 
+
+Validation:
+ - $A LHC-Z-mu
+

@@ -1,3 +1,15 @@
+2019-06-13  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* Introduced a new validation procedure: bin/rivet-mkvaldir will
+	now create a Makefile in the given directory based on the
+	"Validation:" section of all .info files. "make check" will
+	download all necessary HepMC files (if they have not already been
+	downloaded), produce the validation yodas and compare them to
+	reference ones in the {prefix}/share/Rivet/refyodas directory.  If
+	differences are found the corresponding plots will be produced
+	using rivet-mkhtml.  For more information do "make help" in the
+	created directory.
+
 2019-06-12  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* Extended the MultiWeightWrapper class to keep a list of both

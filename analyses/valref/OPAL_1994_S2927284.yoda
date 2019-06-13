@@ -3,8 +3,6 @@ Path: /OPAL_1994_S2927284/d03-x01-y01
 ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 5.195557e+00
 # Area: 9.710000e-01
@@ -54,11 +52,8 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/OPAL_1994_S2927284/d02-x01-y01
 Path: /RAW/OPAL_1994_S2927284/d02-x01-y01
-ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 4.806256e+00
 # Area: 2.043000e+03
@@ -107,8 +102,6 @@ Path: /OPAL_1994_S2927284/d02-x01-y01
 ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 4.806256e+00
 # Area: 2.043000e+00
@@ -157,8 +150,6 @@ Path: /OPAL_1994_S2927284/d01-x01-y01
 ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 2.329032e+00
 # Area: 1.699800e+01
@@ -222,11 +213,8 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/OPAL_1994_S2927284/d03-x01-y01
 Path: /RAW/OPAL_1994_S2927284/d03-x01-y01
-ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 5.195557e+00
 # Area: 9.710000e+02
@@ -276,11 +264,8 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/OPAL_1994_S2927284/d01-x01-y01
 Path: /RAW/OPAL_1994_S2927284/d01-x01-y01
-ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 2.329032e+00
 # Area: 1.699800e+04

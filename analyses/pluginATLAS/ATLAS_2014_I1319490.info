@@ -48,3 +48,7 @@ BibTeX: '@article{Aad:2014qxa,
       reportNumber   = "CERN-PH-EP-2014-199",
       SLACcitation   = "%%CITATION = ARXIV:1409.8639;%%",
 }'
+
+Validation:
+ - $A LHC-W-e
+

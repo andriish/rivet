@@ -47,3 +47,7 @@ BibTeX: '@Article{Andreev:2015cwa,
       reportNumber   = "DESY-14-242",
       SLACcitation   = "%%CITATION = ARXIV:1502.01683;%%"
 }'
+
+Validation:
+ - $A HERA-II-GammaP-Gap
+

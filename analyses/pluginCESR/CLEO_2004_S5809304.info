@@ -35,3 +35,7 @@ BibTeX: '@Article{Artuso:2004pj,
      doi       = "10.1103/PhysRevD.70.112001",
      SLACcitation  = "%%CITATION = HEP-EX/0402040;%%"
 }'
+
+Validation:
+ - $A BFactory-10.52-sym
+

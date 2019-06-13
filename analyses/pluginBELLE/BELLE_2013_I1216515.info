@@ -41,3 +41,7 @@ BibTeX: '@article{Leitgab:2013qh,
       reportNumber   = "BELLE-PREPRINT-2013-2, KEK-PREPRINT-2012-38",
       SLACcitation   = "%%CITATION = ARXIV:1301.6183;%%",
 }'
+
+Validation:
+ - $A BFactory-10.52
+

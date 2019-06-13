@@ -1,10 +1,7 @@
 BEGIN YODA_HISTO1D_V2 /RAW/OPAL_2004_I648738/d06-x01-y01
 Path: /RAW/OPAL_2004_I648738/d06-x01-y01
-ScaledBy: 5.42299349240780927e-04
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 1.331137e-01
 # Area: 8.636000e+03
@@ -26,11 +23,8 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/OPAL_2004_I648738/d06-x01-y02
 Path: /RAW/OPAL_2004_I648738/d06-x01-y02
-ScaledBy: 6.41025641025641003e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 1.013546e-01
 # Area: 1.000000e+03
@@ -54,8 +48,6 @@ BEGIN YODA_HISTO1D_V2 /RAW/OPAL_2004_I648738/d06-x01-y03
 Path: /RAW/OPAL_2004_I648738/d06-x01-y03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
 Total   	Total   	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
@@ -73,12 +65,64 @@ Overflow	Overflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+
 7.500000e-01	9.000000e-01	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
 END YODA_HISTO1D_V2
 
+BEGIN YODA_COUNTER_V2 /RAW/OPAL_2004_I648738/_sumW_1
+Path: /RAW/OPAL_2004_I648738/_sumW_1
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.560000e+02	3.120000e+02	7.800000e+01
+END YODA_COUNTER_V2
+
+BEGIN YODA_COUNTER_V2 /RAW/OPAL_2004_I648738/_sumW_2
+Path: /RAW/OPAL_2004_I648738/_sumW_2
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+0.000000e+00	0.000000e+00	0.000000e+00
+END YODA_COUNTER_V2
+
+BEGIN YODA_COUNTER_V2 /OPAL_2004_I648738/_sumW_2
+Path: /OPAL_2004_I648738/_sumW_2
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+0.000000e+00	0.000000e+00	0.000000e+00
+END YODA_COUNTER_V2
+
+BEGIN YODA_COUNTER_V2 /OPAL_2004_I648738/_sumW_1
+Path: /OPAL_2004_I648738/_sumW_1
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.560000e+02	3.120000e+02	7.800000e+01
+END YODA_COUNTER_V2
+
+BEGIN YODA_COUNTER_V2 /OPAL_2004_I648738/_sumW_0
+Path: /OPAL_2004_I648738/_sumW_0
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.844000e+03	3.688000e+03	9.220000e+02
+END YODA_COUNTER_V2
+
+BEGIN YODA_COUNTER_V2 /RAW/OPAL_2004_I648738/_sumW_0
+Path: /RAW/OPAL_2004_I648738/_sumW_0
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.844000e+03	3.688000e+03	9.220000e+02
+END YODA_COUNTER_V2
+
 BEGIN YODA_HISTO1D_V2 /OPAL_2004_I648738/d06-x01-y03
 Path: /OPAL_2004_I648738/d06-x01-y03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
 Total   	Total   	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
@@ -101,8 +145,6 @@ Path: /OPAL_2004_I648738/d06-x01-y02
 ScaledBy: 6.41025641025641003e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 1.013546e-01
 # Area: 6.410256e+00
@@ -127,8 +169,6 @@ Path: /OPAL_2004_I648738/d06-x01-y01
 ScaledBy: 5.42299349240780927e-04
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 1.331137e-01
 # Area: 4.683297e+00

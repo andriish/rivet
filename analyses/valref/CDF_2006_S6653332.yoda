@@ -1,0 +1,116 @@
+BEGIN YODA_HISTO1D_V2 /RAW/CDF_2006_S6653332/d03-x01-y01
+Path: /RAW/CDF_2006_S6653332/d03-x01-y01
+Title: ~
+Type: Histo1D
+---
+# Mean: # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+Total   	Total   	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+Underflow	Underflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+Overflow	Overflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+# xlow	 xhigh	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+1.959500e+03	1.960500e+03	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+END YODA_HISTO1D_V2
+
+BEGIN YODA_COUNTER_V2 /CDF_2006_S6653332/sumWeightsWithZ
+Path: /CDF_2006_S6653332/sumWeightsWithZ
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+3.640000e+02	3.640000e+02	3.640000e+02
+END YODA_COUNTER_V2
+
+BEGIN YODA_COUNTER_V2 /RAW/CDF_2006_S6653332/sumWeightsWithZJet
+Path: /RAW/CDF_2006_S6653332/sumWeightsWithZJet
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+5.500000e+01	5.500000e+01	5.500000e+01
+END YODA_COUNTER_V2
+
+BEGIN YODA_HISTO1D_V2 /RAW/CDF_2006_S6653332/d02-x01-y01
+Path: /RAW/CDF_2006_S6653332/d02-x01-y01
+Title: ~
+Type: Histo1D
+---
+# Mean: # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+Total   	Total   	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+Underflow	Underflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+Overflow	Overflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+# xlow	 xhigh	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+1.959500e+03	1.960500e+03	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+END YODA_HISTO1D_V2
+
+BEGIN YODA_HISTO1D_V2 /RAW/CDF_2006_S6653332/d01-x01-y01
+Path: /RAW/CDF_2006_S6653332/d01-x01-y01
+Title: ~
+Type: Histo1D
+---
+# Mean: # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+Total   	Total   	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+Underflow	Underflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+Overflow	Overflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+# xlow	 xhigh	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+1.959500e+03	1.960500e+03	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+END YODA_HISTO1D_V2
+
+BEGIN YODA_HISTO1D_V2 /CDF_2006_S6653332/d02-x01-y01
+Path: /CDF_2006_S6653332/d02-x01-y01
+ScaledBy: 2.74725274725274747e-03
+Title: ~
+Type: Histo1D
+---
+# Mean: # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+Total   	Total   	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+Underflow	Underflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+Overflow	Overflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+# xlow	 xhigh	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+1.959500e+03	1.960500e+03	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+END YODA_HISTO1D_V2
+
+BEGIN YODA_COUNTER_V2 /CDF_2006_S6653332/sumWeightsWithZJet
+Path: /CDF_2006_S6653332/sumWeightsWithZJet
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+5.500000e+01	5.500000e+01	5.500000e+01
+END YODA_COUNTER_V2
+
+BEGIN YODA_HISTO1D_V2 /CDF_2006_S6653332/d03-x01-y01
+Path: /CDF_2006_S6653332/d03-x01-y01
+ScaledBy: 1.81818181818181809e-02
+Title: ~
+Type: Histo1D
+---
+# Mean: # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+Total   	Total   	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+Underflow	Underflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+Overflow	Overflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+# xlow	 xhigh	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+1.959500e+03	1.960500e+03	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+END YODA_HISTO1D_V2
+
+BEGIN YODA_HISTO1D_V2 /CDF_2006_S6653332/d01-x01-y01
+Path: /CDF_2006_S6653332/d01-x01-y01
+ScaledBy: 3.23037838559327217e-01
+Title: ~
+Type: Histo1D
+---
+# Mean: # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+Total   	Total   	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+Underflow	Underflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+Overflow	Overflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+# xlow	 xhigh	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+1.959500e+03	1.960500e+03	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+END YODA_HISTO1D_V2
+
+BEGIN YODA_COUNTER_V2 /RAW/CDF_2006_S6653332/sumWeightsWithZ
+Path: /RAW/CDF_2006_S6653332/sumWeightsWithZ
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+3.640000e+02	3.640000e+02	3.640000e+02
+END YODA_COUNTER_V2

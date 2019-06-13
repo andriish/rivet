@@ -1,10 +1,7 @@
 BEGIN YODA_HISTO1D_V2 /RAW/ALEPH_1999_S4193598/d01-x01-y01
 Path: /RAW/ALEPH_1999_S4193598/d01-x01-y01
-ScaledBy: 2.82954545454545472e-02
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 3.573089e-01
 # Area: 1.760000e+02
@@ -38,8 +35,6 @@ Path: /ALEPH_1999_S4193598/d01-x01-y01
 ScaledBy: 2.82954545454545472e-02
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 3.573088e-01
 # Area: 4.980000e+00

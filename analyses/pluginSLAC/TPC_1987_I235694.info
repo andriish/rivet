@@ -34,3 +34,7 @@ BibTeX: '@article{Aihara:1986mv,
       reportNumber   = "JHU-HEP-86-105",
       SLACcitation   = "%%CITATION = PHLTA,B184,299;%%"
 }'
+
+Validation:
+ - $A LEP-29
+

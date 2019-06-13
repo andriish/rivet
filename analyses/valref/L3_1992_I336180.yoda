@@ -3,8 +3,6 @@ Path: /L3_1992_I336180/d01-x01-y01
 ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 8.541962e-02
 # Area: 9.140000e-01
@@ -26,8 +24,6 @@ Path: /L3_1992_I336180/d02-x01-y01
 ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 2.993883e+00
 # Area: 9.140000e-01
@@ -47,11 +43,8 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/L3_1992_I336180/d02-x01-y01
 Path: /RAW/L3_1992_I336180/d02-x01-y01
-ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 2.993883e+00
 # Area: 9.140000e+02
@@ -71,11 +64,8 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/L3_1992_I336180/d01-x01-y01
 Path: /RAW/L3_1992_I336180/d01-x01-y01
-ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 8.541962e-02
 # Area: 9.140000e+02

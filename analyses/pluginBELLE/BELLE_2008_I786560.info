@@ -37,3 +37,7 @@ BibTeX: '@article{Fujikawa:2008ma,
       reportNumber   = "BELLE-2008-16, KEK-2008-10",
       SLACcitation   = "%%CITATION = ARXIV:0805.3773;%%",
 }'
+
+Validation:
+ - $A BFactory-Tau
+

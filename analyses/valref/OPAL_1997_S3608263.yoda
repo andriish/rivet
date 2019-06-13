@@ -3,8 +3,6 @@ Path: /OPAL_1997_S3608263/d01-x01-y01
 ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 1.441418e-01
 # Area: 6.180000e-01
@@ -29,11 +27,8 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/OPAL_1997_S3608263/d01-x01-y01
 Path: /RAW/OPAL_1997_S3608263/d01-x01-y01
-ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 1.441418e-01
 # Area: 6.180000e+02

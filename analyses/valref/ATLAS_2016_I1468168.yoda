@@ -1,0 +1,30 @@
+BEGIN YODA_HISTO1D_V2 /ATLAS_2016_I1468168/Passed_events
+Path: /ATLAS_2016_I1468168/Passed_events
+ScaledBy: 3.87654601263059451e-01
+Title: ~
+Type: Histo1D
+---
+# Mean: 5.000000e-01
+# Area: 5.039510e+00
+# ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+Total   	Total   	5.039510e+00	1.953589e+00	2.519755e+00	1.259877e+00	1.300000e+01
+Underflow	Underflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+Overflow	Overflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+# xlow	 xhigh	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+0.000000e+00	1.000000e+00	5.039510e+00	1.953589e+00	2.519755e+00	1.259877e+00	1.300000e+01
+END YODA_HISTO1D_V2
+
+BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2016_I1468168/Passed_events
+Path: /RAW/ATLAS_2016_I1468168/Passed_events
+Title: ~
+Type: Histo1D
+---
+# Mean: 5.000000e-01
+# Area: 1.300000e+01
+# ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+Total   	Total   	1.300000e+01	1.300000e+01	6.500000e+00	3.250000e+00	1.300000e+01
+Underflow	Underflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+Overflow	Overflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+# xlow	 xhigh	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+0.000000e+00	1.000000e+00	1.300000e+01	1.300000e+01	6.500000e+00	3.250000e+00	1.300000e+01
+END YODA_HISTO1D_V2

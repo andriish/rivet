@@ -36,3 +36,7 @@ BibTeX: '@article{Aubert:2002hc,
       reportNumber   = "SLAC-PUB-9327, BABAR-PUB-02-04",
       SLACcitation   = "%%CITATION = HEP-EX/0207097;%%",
 }'
+
+Validation:
+ - $A BFactory-10.58-res
+

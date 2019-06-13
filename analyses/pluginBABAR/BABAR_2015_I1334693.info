@@ -35,3 +35,7 @@ BibTeX: '@article{Lees:2014ihu,
       reportNumber   = "BABAR-PUB-14-014, SLAC-PUB-16172",
       SLACcitation   = "%%CITATION = ARXIV:1412.5502;%%"
 }'
+
+Validation:
+ - $A BFactory-Upsilon4
+

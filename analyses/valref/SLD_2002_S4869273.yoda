@@ -1,10 +1,7 @@
 BEGIN YODA_HISTO1D_V2 /RAW/SLD_2002_S4869273/d01-x01-y01
 Path: /RAW/SLD_2002_S4869273/d01-x01-y01
-ScaledBy: 2.48756218905472632e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 6.877117e-01
 # Area: 4.020000e+02
@@ -42,8 +39,6 @@ Path: /SLD_2002_S4869273/d01-x01-y01
 ScaledBy: 2.48756218905472632e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 6.877116e-01
 # Area: 1.000000e+00

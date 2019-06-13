@@ -15,3 +15,7 @@ Description:
   differential jet rates 0->1, 1->2, 2->3, 3->4, and integrated 0--4
   jet rates.
 NeedCrossSection: yes
+
+Validation:
+ - $A LHC-Z-e
+

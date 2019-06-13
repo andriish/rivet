@@ -45,3 +45,8 @@ BibTeX: '@article{Chatrchyan:2013ala,
       primaryClass   = "hep-ex",
       reportNumber   = "CMS-FSQ-12-022, CERN-PH-EP-2013-195",
       SLACcitation   = "%%CITATION = ARXIV:1310.4554;%%",}'
+
+# Currently disabled
+# Validation:
+#  - $A LHC-7-Jets-0
+

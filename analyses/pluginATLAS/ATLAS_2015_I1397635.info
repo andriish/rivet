@@ -42,3 +42,7 @@ BibTeX: '@article{Aad:2015eto,
       reportNumber   = "CERN-PH-2015-230, CERN-PH-EP-2015-230",
       SLACcitation   = "%%CITATION = ARXIV:1510.03752;%%"
 }'
+
+Validation:
+ - $A LHC-8-Top-All
+

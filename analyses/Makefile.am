@@ -55,6 +55,8 @@ install-data-local: $(PLUGIN_DATAFILES)
 	@echo "Installing analysis data files..."
 	$(mkdir_p) $(DESTDIR)$(pkgdatadir)
 	rsync -aq $(abs_srcdir)/plugin*/*.{info,plot,yoda} $(DESTDIR)$(pkgdatadir)/ || cp $(abs_srcdir)/plugin*/*.{info,plot,yoda} $(DESTDIR)$(pkgdatadir)/
+	$(mkdir_p) $(DESTDIR)$(pkgdatadir)/refyodas
+	rsync -aq $(abs_srcdir)/valref/*.yoda $(DESTDIR)$(pkgdatadir)/refyodas/ || cp $(abs_srcdir)/valref/*.yoda $(DESTDIR)$(pkgdatadir)/refyodas
 
 uninstall-local:
 	cd $(DESTDIR)$(libdir) && rm -f $(PLUGIN_LIBS)

@@ -1,0 +1,30 @@
+BEGIN YODA_HISTO1D_V2 /RAW/CMS_2011_I954992/d01-x01-y01
+Path: /RAW/CMS_2011_I954992/d01-x01-y01
+Title: ~
+Type: Histo1D
+---
+# Mean: 7.000000e+03
+# Area: 1.150000e+02
+# ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+Total   	Total   	1.150000e+02	1.150000e+02	8.050000e+05	5.635000e+09	1.150000e+02
+Underflow	Underflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+Overflow	Overflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+# xlow	 xhigh	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+6.999500e+03	7.000500e+03	1.150000e+02	1.150000e+02	8.050000e+05	5.635000e+09	1.150000e+02
+END YODA_HISTO1D_V2
+
+BEGIN YODA_HISTO1D_V2 /CMS_2011_I954992/d01-x01-y01
+Path: /CMS_2011_I954992/d01-x01-y01
+ScaledBy: 3.21160162861034160e-02
+Title: ~
+Type: Histo1D
+---
+# Mean: 6.999999e+03
+# Area: 3.693342e+00
+# ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+Total   	Total   	3.693342e+00	1.186154e-01	2.585339e+04	1.809738e+08	1.150000e+02
+Underflow	Underflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+Overflow	Overflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
+# xlow	 xhigh	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
+6.999500e+03	7.000500e+03	3.693342e+00	1.186154e-01	2.585339e+04	1.809738e+08	1.150000e+02
+END YODA_HISTO1D_V2

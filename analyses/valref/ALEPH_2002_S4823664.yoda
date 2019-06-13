@@ -3,8 +3,6 @@ Path: /ALEPH_2002_S4823664/d03-x01-y02
 ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 1.003017e-01
 # Area: 1.119000e+00
@@ -23,11 +21,8 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ALEPH_2002_S4823664/d02-x01-y02
 Path: /RAW/ALEPH_2002_S4823664/d02-x01-y02
-ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 8.541962e-02
 # Area: 9.140000e+02
@@ -45,11 +40,8 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ALEPH_2002_S4823664/d03-x01-y02
 Path: /RAW/ALEPH_2002_S4823664/d03-x01-y02
-ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 1.003017e-01
 # Area: 1.119000e+03
@@ -71,8 +63,6 @@ Path: /ALEPH_2002_S4823664/d02-x01-y02
 ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 8.541962e-02
 # Area: 9.140000e-01

@@ -37,3 +37,13 @@ BibTeX: '@article{Chatrchyan:2012bf,
       reportNumber   = "CMS-EXO-11-017, CERN-PH-EP-2012-044",
       SLACcitation   = "%%CITATION = ARXIV:1202.5535;%%",
 }'
+
+Validation:
+ - $A LHC-7-DiJets-1-B
+ - $A-2 LHC-7-DiJets-2-B
+ - $A-3 LHC-7-DiJets-3-B
+ - $A-4 LHC-7-DiJets-4-B
+ - $A-5 LHC-7-DiJets-5-B
+ - $A-6 LHC-7-DiJets-6-B
+ - $A-7 LHC-7-DiJets-7-B
+
