@@ -274,6 +274,7 @@ check: $(VALDIFFS)
 clean:
 	rm -f $(VALYODAS)
 	rm -rf tmp
+	mkdir tmp
 	rm -rf $(VALDIFFS)
 	rm index.html
 
