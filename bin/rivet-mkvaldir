@@ -109,6 +109,7 @@ out = commands.getstatusoutput("ln -s " + os.path.relpath(refdir, valdir) +
 
 valtargets = dict()
 hepmctargets = dict()
+reentranttargets = set()
 
 ## Get all analysis names
 all_analyses = rivet.AnalysisLoader.analysisNames()
@@ -119,6 +120,8 @@ for ananame in all_analyses:
         sublines = line.split(";");
         targets = sublines[0].split(" ")
         targetname = targets.pop(0)
+        if ana.reentrant():
+            reentranttargets.add(targetname)
         hepmcname = targets.pop(0)
         options = "";
         if len(targets) > 0 :
@@ -131,8 +134,9 @@ for ananame in all_analyses:
             valtargets[targetname] = "tmp/" + hepmcname + ".yoda " + \
                 " ".join(targets) + "\n\t$(V)echo extracting " + \
                 targetname + ".yoda\n\t$(V)echo " + hepmcname + " > tmp/" + \
-                targetname + ".log\n\t$(V)yoda2yoda -m /" + ananame + options + \
-                "/ tmp/" + hepmcname + ".yoda " + targetname + ".yoda >> tmp/" + \
+                targetname + ".log\n\t$(V)yoda2yoda -m '/_XSEC|/_EVTCOUNT|/" +\
+                ananame + options + \
+                "/' tmp/" + hepmcname + ".yoda " + targetname + ".yoda >> tmp/" + \
                 targetname + ".log 2>&1\n"
             if not hepmctargets.has_key(hepmcname):
                 hepmctargets[hepmcname] = ananame + options
@@ -233,8 +237,22 @@ mf.write("""
 	  fi \\
 	else \\
 	  echo $< has no reference yoda; \\
-	  echo $< has no reference yoda > $@; \\
+	  echo "$< has no reference yoda.<br>" > $@; \\
 	fi
+
+%.reent: %.yoda
+	$(V)rm -rf $@
+	$(V)logfile=$<; logfile="tmp/$${logfile/.yoda/.log}"; \\
+	if rivet-merge $< -o $<.yoda >> $$logfile  2>&1; then\\
+	  if yodadiff -q $< $<.yoda ; then \\
+	    echo $< is reentrant; \\
+	    touch $@; \\
+	  else \\
+	    echo $< is NOT reentrant; \\
+	    echo "$< was declared reentrant but is not.<br>" > $@; \\
+	  fi \\
+	fi
+	$(V)rm -rf $<.yoda
 
 """)
 
@@ -245,11 +263,17 @@ for ana in valtargets:
 mf.write("\n\nVALDIFFS =")
 for ana in valtargets:
     mf.write(" " + ana + ".diff")
+mf.write("\n\nREENTRANTS =")
+for ana in reentranttargets:
+    mf.write(" " + ana + ".reent")
+mf.write("\n\nHEPMCYODAS =")
+for hepmc in hepmctargets:
+    mf.write(" tmp/" + hepmc + ".yoda")
 mf.write("""\n
 
-.PRECIOUS: $(VALYODAS)
+.PRECIOUS: $(VALYODAS) $(HEPMCYODAS)
 
-check: $(VALDIFFS)
+check: $(VALDIFFS) $(REENTRANTS)
 	$(V)echo "<h2>Problematic analyses in Rivet validation</h2>" > index.html
 	$(V)for dir in $^; do \\
 	  if [ -d $$dir ]; then \\
@@ -261,22 +285,22 @@ check: $(VALDIFFS)
 	      fi \\
 	    done \\
 	  elif [ -s $$dir ]; then \\
-	    echo "$${dir/.diff/}: no reference yoda<br>" >> index.html; \\
+	    cat $$dir >> index.html; \\
 	  fi \\
 	done
 	$(V)echo ""
-	$(V)if grep -q href index.html || grep -q 'no reference' index.html; then \\
+	$(V)if test `cat index.html | wc -l` -gt 1; then \\
 	  echo "Differences found, open index.html to inspect plots."; \\
 	else \\
 	  echo "No differences found!"; \\
 	fi
 
 clean:
-	rm -f $(VALYODAS)
+	rm -f $(VALYODAS) $(REENTRANTS)
 	rm -rf tmp
 	mkdir tmp
 	rm -rf $(VALDIFFS)
-	rm index.html
+	rm -f index.html
 
 
 %.recheck: %.yoda

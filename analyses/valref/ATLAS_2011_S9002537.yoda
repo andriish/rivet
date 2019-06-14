@@ -1,3 +1,13 @@
+BEGIN YODA_SCATTER1D_V2 /RAW/_XSEC
+Variations: [""]
+Path: /RAW/_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+7.656034e+03	1.048319e+02	1.048319e+02
+END YODA_SCATTER1D_V2
+
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2011_S9002537/TMP/plus
 Path: /RAW/ATLAS_2011_S9002537/TMP/plus
 Title: ~
@@ -31,6 +41,34 @@ Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	
 END YODA_SCATTER2D_V2
+
+BEGIN YODA_COUNTER_V2 /RAW/_EVTCOUNT
+Path: /RAW/_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.000000e+03	1.000000e+03	1.000000e+03
+END YODA_COUNTER_V2
+
+BEGIN YODA_COUNTER_V2 /_EVTCOUNT
+Path: /_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.000000e+03	1.000000e+03	1.000000e+03
+END YODA_COUNTER_V2
+
+BEGIN YODA_SCATTER1D_V2 /_XSEC
+Variations: [""]
+Path: /_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+7.656034e+03	1.048319e+02	1.048319e+02
+END YODA_SCATTER1D_V2
 
 BEGIN YODA_SCATTER2D_V2 /ATLAS_2011_S9002537/d01-x01-y01
 Variations: [""]

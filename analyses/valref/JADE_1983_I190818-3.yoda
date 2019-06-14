@@ -1,3 +1,32 @@
+BEGIN YODA_SCATTER1D_V2 /RAW/_XSEC
+Variations: [""]
+Path: /RAW/_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+2.790180e+02	1.690783e+00	1.690783e+00
+END YODA_SCATTER1D_V2
+
+BEGIN YODA_COUNTER_V2 /_EVTCOUNT
+Path: /_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.000000e+03	1.000000e+03	1.000000e+03
+END YODA_COUNTER_V2
+
+BEGIN YODA_SCATTER1D_V2 /_XSEC
+Variations: [""]
+Path: /_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+2.790180e+02	1.690783e+00	1.690783e+00
+END YODA_SCATTER1D_V2
+
 BEGIN YODA_COUNTER_V2 /RAW/JADE_1983_I190818//TMP/MULT
 Path: /RAW/JADE_1983_I190818//TMP/MULT
 Title: ~
@@ -5,6 +34,15 @@ Type: Counter
 ---
 # sumW	 sumW2	 numEntries
 3.500000e+04	1.225000e+06	1.000000e+03
+END YODA_COUNTER_V2
+
+BEGIN YODA_COUNTER_V2 /RAW/_EVTCOUNT
+Path: /RAW/_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.000000e+03	1.000000e+03	1.000000e+03
 END YODA_COUNTER_V2
 
 BEGIN YODA_SCATTER2D_V2 /RAW/JADE_1983_I190818/d01-x01-y01

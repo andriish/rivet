@@ -1,3 +1,22 @@
+BEGIN YODA_COUNTER_V2 /_EVTCOUNT
+Path: /_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+4.801481e+02	3.333805e+02	1.000000e+03
+END YODA_COUNTER_V2
+
+BEGIN YODA_SCATTER1D_V2 /RAW/_XSEC
+Variations: [""]
+Path: /RAW/_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+4.333392e+10	1.308046e+09	1.308046e+09
+END YODA_SCATTER1D_V2
+
 BEGIN YODA_COUNTER_V2 /UA5_1988_S1867512/sumW
 Path: /UA5_1988_S1867512/sumW
 Title: ~
@@ -15,6 +34,16 @@ Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	
 END YODA_SCATTER2D_V2
+
+BEGIN YODA_SCATTER1D_V2 /_XSEC
+Variations: [""]
+Path: /_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+4.333392e+10	1.308046e+09	1.308046e+09
+END YODA_SCATTER1D_V2
 
 BEGIN YODA_SCATTER2D_V2 /RAW/UA5_1988_S1867512/d03-x01-y01
 Variations: []
@@ -62,4 +91,13 @@ Type: Counter
 ---
 # sumW	 sumW2	 numEntries
 3.978003e+02	2.818740e+02	7.700000e+02
+END YODA_COUNTER_V2
+
+BEGIN YODA_COUNTER_V2 /RAW/_EVTCOUNT
+Path: /RAW/_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+4.801481e+02	3.333805e+02	1.000000e+03
 END YODA_COUNTER_V2

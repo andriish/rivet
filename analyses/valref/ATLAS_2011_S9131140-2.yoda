@@ -1,3 +1,31 @@
+BEGIN YODA_SCATTER1D_V2 /RAW/_XSEC
+Variations: [""]
+Path: /RAW/_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+1.210483e+03	1.692054e+01	1.692054e+01
+END YODA_SCATTER1D_V2
+
+BEGIN YODA_COUNTER_V2 /_EVTCOUNT
+Path: /_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.000000e+03	1.000000e+03	1.000000e+03
+END YODA_COUNTER_V2
+
+BEGIN YODA_COUNTER_V2 /RAW/_EVTCOUNT
+Path: /RAW/_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.000000e+03	1.000000e+03	1.000000e+03
+END YODA_COUNTER_V2
+
 BEGIN YODA_COUNTER_V2 /ATLAS_2011_S9131140/_sumw_el_dressed
 Path: /ATLAS_2011_S9131140/_sumw_el_dressed
 Title: ~
@@ -6,6 +34,16 @@ Type: Counter
 # sumW	 sumW2	 numEntries
 0.000000e+00	0.000000e+00	0.000000e+00
 END YODA_COUNTER_V2
+
+BEGIN YODA_SCATTER1D_V2 /_XSEC
+Variations: [""]
+Path: /_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+1.210483e+03	1.692054e+01	1.692054e+01
+END YODA_SCATTER1D_V2
 
 BEGIN YODA_COUNTER_V2 /ATLAS_2011_S9131140/_sumw_mu_dressed
 Path: /ATLAS_2011_S9131140/_sumw_mu_dressed

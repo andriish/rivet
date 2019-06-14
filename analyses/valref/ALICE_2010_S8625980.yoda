@@ -32,6 +32,25 @@ Type: Counter
 5.157776e+02	4.677849e+02	7.680000e+02
 END YODA_COUNTER_V2
 
+BEGIN YODA_COUNTER_V2 /_EVTCOUNT
+Path: /_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+6.248059e+02	5.470403e+02	1.000000e+03
+END YODA_COUNTER_V2
+
+BEGIN YODA_SCATTER1D_V2 /_XSEC
+Variations: [""]
+Path: /_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+6.194412e+10	1.787674e+09	1.787674e+09
+END YODA_SCATTER1D_V2
+
 BEGIN YODA_HISTO1D_V2 /RAW/ALICE_2010_S8625980/d05-x01-y01
 Path: /RAW/ALICE_2010_S8625980/d05-x01-y01
 Title: ~
@@ -63,4 +82,23 @@ Type: Counter
 ---
 # sumW	 sumW2	 numEntries
 5.157776e+02	4.677849e+02	7.680000e+02
+END YODA_COUNTER_V2
+
+BEGIN YODA_SCATTER1D_V2 /RAW/_XSEC
+Variations: [""]
+Path: /RAW/_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+6.194412e+10	1.787674e+09	1.787674e+09
+END YODA_SCATTER1D_V2
+
+BEGIN YODA_COUNTER_V2 /RAW/_EVTCOUNT
+Path: /RAW/_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+6.248059e+02	5.470403e+02	1.000000e+03
 END YODA_COUNTER_V2

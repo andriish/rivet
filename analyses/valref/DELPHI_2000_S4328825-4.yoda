@@ -7,6 +7,34 @@ Type: Scatter2D
 # xval	 xerr-	 xerr+	 yval	
 END YODA_SCATTER2D_V2
 
+BEGIN YODA_COUNTER_V2 /_EVTCOUNT
+Path: /_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.000000e+03	1.000000e+03	1.000000e+03
+END YODA_COUNTER_V2
+
+BEGIN YODA_COUNTER_V2 /RAW/_EVTCOUNT
+Path: /RAW/_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.000000e+03	1.000000e+03	1.000000e+03
+END YODA_COUNTER_V2
+
+BEGIN YODA_SCATTER1D_V2 /RAW/_XSEC
+Variations: [""]
+Path: /RAW/_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+2.051741e+01	1.898374e-01	1.898374e-01
+END YODA_SCATTER1D_V2
+
 BEGIN YODA_COUNTER_V2 /DELPHI_2000_S4328825/_weight_bottom
 Path: /DELPHI_2000_S4328825/_weight_bottom
 Title: ~
@@ -33,6 +61,16 @@ Type: Counter
 # sumW	 sumW2	 numEntries
 1.536400e+04	4.396880e+05	5.850000e+02
 END YODA_COUNTER_V2
+
+BEGIN YODA_SCATTER1D_V2 /_XSEC
+Variations: [""]
+Path: /_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+2.051741e+01	1.898374e-01	1.898374e-01
+END YODA_SCATTER1D_V2
 
 BEGIN YODA_COUNTER_V2 /RAW/DELPHI_2000_S4328825/_weight_charm
 Path: /RAW/DELPHI_2000_S4328825/_weight_charm

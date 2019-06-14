@@ -1,3 +1,12 @@
+BEGIN YODA_COUNTER_V2 /_EVTCOUNT
+Path: /_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.000000e+03	1.000000e+03	1.000000e+03
+END YODA_COUNTER_V2
+
 BEGIN YODA_SCATTER2D_V2 /RAW/PLUTO_1980_I154270/d01-x01-y01
 Variations: []
 Path: /RAW/PLUTO_1980_I154270/d01-x01-y01
@@ -6,6 +15,16 @@ Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	
 END YODA_SCATTER2D_V2
+
+BEGIN YODA_SCATTER1D_V2 /_XSEC
+Variations: [""]
+Path: /_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+2.331158e+03	1.193438e+01	1.193438e+01
+END YODA_SCATTER1D_V2
 
 BEGIN YODA_SCATTER2D_V2 /PLUTO_1980_I154270/d01-x01-y01
 Variations: [""]
@@ -25,6 +44,16 @@ Type: Scatter2D
 3.130000e+01	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00
 END YODA_SCATTER2D_V2
 
+BEGIN YODA_SCATTER1D_V2 /RAW/_XSEC
+Variations: [""]
+Path: /RAW/_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+2.331158e+03	1.193438e+01	1.193438e+01
+END YODA_SCATTER1D_V2
+
 BEGIN YODA_COUNTER_V2 /RAW/PLUTO_1980_I154270//TMP/cmult
 Path: /RAW/PLUTO_1980_I154270//TMP/cmult
 Title: ~
@@ -32,4 +61,13 @@ Type: Counter
 ---
 # sumW	 sumW2	 numEntries
 1.200000e+04	1.440000e+05	1.000000e+03
+END YODA_COUNTER_V2
+
+BEGIN YODA_COUNTER_V2 /RAW/_EVTCOUNT
+Path: /RAW/_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.000000e+03	1.000000e+03	1.000000e+03
 END YODA_COUNTER_V2

@@ -1,3 +1,13 @@
+BEGIN YODA_SCATTER1D_V2 /RAW/_XSEC
+Variations: [""]
+Path: /RAW/_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+5.949024e+10	1.616901e+09	1.616901e+09
+END YODA_SCATTER1D_V2
+
 BEGIN YODA_COUNTER_V2 /RAW/CDF_1990_S2089246/sumWTrig
 Path: /RAW/CDF_1990_S2089246/sumWTrig
 Title: ~
@@ -5,6 +15,15 @@ Type: Counter
 ---
 # sumW	 sumW2	 numEntries
 4.592047e+02	4.219800e+02	6.400000e+02
+END YODA_COUNTER_V2
+
+BEGIN YODA_COUNTER_V2 /_EVTCOUNT
+Path: /_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+6.601190e+02	5.935342e+02	1.000000e+03
 END YODA_COUNTER_V2
 
 BEGIN YODA_COUNTER_V2 /CDF_1990_S2089246/sumWTrig
@@ -15,6 +34,25 @@ Type: Counter
 # sumW	 sumW2	 numEntries
 4.592047e+02	4.219800e+02	6.400000e+02
 END YODA_COUNTER_V2
+
+BEGIN YODA_COUNTER_V2 /RAW/_EVTCOUNT
+Path: /RAW/_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+6.601190e+02	5.935342e+02	1.000000e+03
+END YODA_COUNTER_V2
+
+BEGIN YODA_SCATTER1D_V2 /_XSEC
+Variations: [""]
+Path: /_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+5.949024e+10	1.616901e+09	1.616901e+09
+END YODA_SCATTER1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/CDF_1990_S2089246/d03-x01-y01
 Path: /RAW/CDF_1990_S2089246/d03-x01-y01
