@@ -45,6 +45,9 @@ extragroup.add_argument("--ref-dir", dest="REFDIR",
                         default="",
                         help="specify the directory where the reference " + \
                         "yodas are located.")
+extragroup.add_argument("-u", "--update", dest="UPDATE", action="store_true",
+                        default=False,
+                        help="only update the Makefile, don't link dirs.")
 
 args = parser.parse_args()
 
@@ -55,52 +58,54 @@ args = parser.parse_args()
 valdir = str(args.VALDIR[0])
 hepmcdir = valdir + "/HEPMC"
 
-if not os.path.exists(valdir) and not os.path.realpath(valdir)==os.getcwd():
-    try:
-        os.makedirs(valdir)
-    except:
-        print("Error: failed to make new directory '%s'" % valdir)
-        sys.exit(1)
+if args.UPDATE == False:
 
-if not args.HEPMCDIR :
-    if not os.path.exists(hepmcdir):
+    if not os.path.exists(valdir) and not os.path.realpath(valdir)==os.getcwd():
         try:
-            os.makedirs(hepmcdir)
+            os.makedirs(valdir)
         except:
-            print("Error: failed to make new directory '%s'" % hepmcdir)
+            print("Error: failed to make new directory '%s'" % valdir)
             sys.exit(1)
-else:
-    if os.path.exists(hepmcdir) and os.path.islink(hepmcdir):
-        out = commands.getstatusoutput("rm -f " + hepmcdir)
-    if os.path.exists(hepmcdir):
-        print("Error: please remove directory '" + hepmcdir + \
-              "' before spicifying a new location for HepMC files")
-        sys.exit(1)
-    if not os.path.exists(args.HEPMCDIR):
-        try:
-            os.makedirs(args.HEPMCDIR)
-        except:
-            print("Error: failed to make new directory '%s'" % args.HEPMCDIR)
-        sys.exit(1)
 
-    out = commands.getstatusoutput("ln -sf " +
+    if not args.HEPMCDIR :
+        if not os.path.exists(hepmcdir):
+            try:
+                os.makedirs(hepmcdir)
+            except:
+                print("Error: failed to make new directory '%s'" % hepmcdir)
+                sys.exit(1)
+    else:
+        if os.path.exists(hepmcdir) and os.path.islink(hepmcdir):
+            out = commands.getstatusoutput("rm -f " + hepmcdir)
+        if os.path.exists(hepmcdir):
+            print("Error: please remove directory '" + hepmcdir + \
+                  "' before spicifying a new location for HepMC files")
+            sys.exit(1)
+        if not os.path.exists(args.HEPMCDIR):
+            try:
+                os.makedirs(args.HEPMCDIR)
+            except:
+                print("Error: failed to make new directory '%s'" % args.HEPMCDIR)
+                sys.exit(1)
+
+        out = commands.getstatusoutput("ln -sf " +
                                    os.path.relpath(args.HEPMCDIR, valdir) +
                                    " " + hepmcdir)
 
-if  os.path.exists(valdir + "/tmp"):
-    shutil.rmtree(valdir + "/tmp")
-try:
-    os.makedirs(valdir + "/tmp")
-except:
-    print("Error: failed to make tmo directory '%s'" % valdir + "/tmp")
-    sys.exit(1)
+    if  os.path.exists(valdir + "/tmp"):
+        shutil.rmtree(valdir + "/tmp")
+    try:
+        os.makedirs(valdir + "/tmp")
+    except:
+        print("Error: failed to make tmp directory '%s'" % valdir + "/tmp")
+        sys.exit(1)
 
-refdir = args.REFDIR
-if not refdir :
-    rivetdatapath = commands.getoutput("rivet-config --datadir")
-    refdir = rivetdatapath + "/refyodas"
-out = commands.getstatusoutput("rm -f " + valdir + "/refyodas")
-out = commands.getstatusoutput("ln -s " + os.path.relpath(refdir, valdir) +
+    refdir = args.REFDIR
+    if not refdir :
+        rivetdatapath = commands.getoutput("rivet-config --datadir")
+        refdir = rivetdatapath + "/refyodas"
+    out = commands.getstatusoutput("rm -f " + valdir + "/refyodas")
+    out = commands.getstatusoutput("ln -s " + os.path.relpath(refdir, valdir) +
                                " " + valdir + "/refyodas")
 
 
