@@ -9,9 +9,10 @@
 using namespace std;
 
 
-class Test : public Rivet::Analysis {
+class NanTest : public Rivet::Analysis {
 public:
-  Test() : Analysis("Test") {}
+
+  DEFAULT_RIVET_ANALYSIS_CTOR(NanTest);
 
   void init() {
     book(_h_test, "test", 50, 66.0, 116.0);
@@ -19,17 +20,17 @@ public:
 
   void analyze(const Rivet::Event & e) {
     cout << "Normal fill" << endl;
-    _h_test->fill(90., 1.);
+    _h_test->fill(90.);
 
     cout << "Underflow fill" << endl;
-    _h_test->fill(30.,1.);
+    _h_test->fill(30.);
 
     cout << "Overflow fill" << endl;
-    _h_test->fill(130.,1.);
+    _h_test->fill(130.);
 
      cout << "Inf fill" << endl;
     try {
-      _h_test->fill(numeric_limits<double>::infinity(), 1.);
+      _h_test->fill(numeric_limits<double>::infinity());
     } catch (YODA::RangeError & e) {
       cerr << e.what() << '\n';
       if ( string(e.what()) != string("X is Inf") ) throw;
@@ -37,7 +38,7 @@ public:
 
     cout << "NaN fill" << endl;
     try {
-      _h_test->fill(numeric_limits<double>::quiet_NaN(), 1.);
+      _h_test->fill(numeric_limits<double>::quiet_NaN());
     } catch (YODA::RangeError & e) {
       cerr << e.what() << '\n';
       if ( string(e.what()) != string("X is NaN") ) throw;
@@ -48,18 +49,19 @@ private:
   Rivet::Histo1DPtr _h_test;
 };
 
-DECLARE_RIVET_PLUGIN(Test);
+DECLARE_RIVET_PLUGIN(NanTest);
 
 int main(int argc, char* argv[]) {
   assert(argc > 1);
 
   Rivet::AnalysisHandler rivet;
-  rivet.addAnalysis("Test");
+  rivet.addAnalysis("NanTest");
 
   std::ifstream file("testApi.hepmc");
   shared_ptr<Rivet::HepMC_IO_type> reader = Rivet::HepMCUtils::makeReader(file);
   std::shared_ptr<Rivet::GenEvent> evt = make_shared<Rivet::GenEvent>();
   double sum_of_weights = 0.0;
+
   while ( Rivet::HepMCUtils::readEvent(reader, evt) ) {
     // Analyse current event
     rivet.analyze(*evt);
@@ -69,7 +71,7 @@ int main(int argc, char* argv[]) {
 
   rivet.setCrossSection(make_pair(1.0, 0.1));
   rivet.finalize();
-  rivet.writeData("NaN.aida");
+  rivet.writeData("NaN.yoda");
 
   return 0;
 }
