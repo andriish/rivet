@@ -2,6 +2,8 @@
 
 	* Release version 3.0.0! For real!
 
+	* Adding analysis ATLAS_2019_I1718132 (unfolded control regions in leptoquark search)
+
 2019-06-13  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* Introduced a new validation procedure: bin/rivet-mkvaldir will
