@@ -175,7 +175,7 @@ mf.write("""#
 # analysis .info files and parsed the "Validation:" section for
 # determining how to use the existing HepMC validation files to obtain
 # a set of reference YODA files that should be reproduced. The
-# direcorey where these reference files are stored is linked to
+# directory where these reference files are stored is linked to
 # ./refyodas . The HepMC files are stored in ./HEPMC and will be
 # automatically downloaded if missing. In the end of running 'make
 # check', the newly produced YODA files will be compared with the

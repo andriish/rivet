@@ -26,13 +26,13 @@ namespace Rivet {
       declare(fj06, "AntiKT06");
 
       // |y| and ystar bins
-      const int nybins          = 6;
-      double ybins[nybins+1]     = { 0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0};
+      const int nybins = 6;
+      double ybins[nybins+1] = { 0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0};
 
       // Book histograms
       // pT histograms
-      for(size_t i=0;i<nybins;++i){// loop over |y| bins
-	{Histo1DPtr tmp; _pThistograms6.add(ybins[i], ybins[i+1], book(tmp, i+1,1,1));}
+      for (size_t i = 0; i < nybins; ++i){ // loop over |y| bins
+        {Histo1DPtr tmp; _pThistograms6.add(ybins[i], ybins[i+1], book(tmp, i+1,1,1));}
         {Histo1DPtr tmp; _pThistograms4.add(ybins[i], ybins[i+1], book(tmp, i+7,1,1));}
       }
 
@@ -42,8 +42,8 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const Jets& kt4Jets = applyProjection<FastJets>(event, "AntiKT04").jetsByPt(Cuts::pT>70.0*GeV && Cuts::absrap <3.0);
-      const Jets& kt6Jets = applyProjection<FastJets>(event, "AntiKT06").jetsByPt(Cuts::pT>70.0*GeV && Cuts::absrap <3.0);
+      const Jets& kt4Jets = applyProjection<FastJets>(event, "AntiKT04").jetsByPt(Cuts::pT>70*GeV && Cuts::absrap < 3.0);
+      const Jets& kt6Jets = applyProjection<FastJets>(event, "AntiKT06").jetsByPt(Cuts::pT>70*GeV && Cuts::absrap < 3.0);
 
       int nJets4 = kt4Jets.size();
       int nJets6 = kt6Jets.size();
@@ -52,15 +52,15 @@ namespace Rivet {
       for(int ijet=0;ijet<nJets4;++ijet){ // loop over jets
         FourMomentum jet = kt4Jets[ijet].momentum();
         // pT selection
-	const double absy = jet.absrap();
-	_pThistograms4.fill(absy,jet.pt()/GeV);
+        const double absy = jet.absrap();
+        _pThistograms4.fill(absy,jet.pt()/GeV);
       }
 
       for(int ijet=0;ijet<nJets6;++ijet){ // loop over jets
         FourMomentum jet = kt6Jets[ijet].momentum();
         // pT selection
-	const double absy = jet.absrap();
-	_pThistograms6.fill(absy,jet.pt()/GeV);
+        const double absy = jet.absrap();
+        _pThistograms6.fill(absy,jet.pt()/GeV);
       }
 
 

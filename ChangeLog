@@ -4,6 +4,8 @@
 
 	* Protecting against zero-division in STAR_2006_S6860818
 
+	* Adding analysis ATLAS_2017_I1604271 (inclusive jets at 8 TeV)
+
 2019-06-17 Christian Gutschow  <chris.g@cern.ch>
 
 	* Adding analysis ATLAS_2019_I1718132 (unfolded control regions in leptoquark search)
