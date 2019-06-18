@@ -39,7 +39,7 @@ extragroup = parser.add_argument_group("Run settings")
 extragroup.add_argument("VALDIR", nargs=1, help="directory where the " + \
                         "Makefile for running the validation will be written")
 extragroup.add_argument("--hepmc-dir", dest="HEPMCDIR",
-                        default="", help="specify the HepMC files used for " + \
+                        default="", help="specify the directory where the HepMC files used for " + \
                         "the validation should be downloaded")
 extragroup.add_argument("--ref-dir", dest="REFDIR",
                         default="",

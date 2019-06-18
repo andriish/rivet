@@ -45,3 +45,7 @@ BibTeX: '@article{Aaboud:2019jcc,
       reportNumber   = "CERN-EP-2018-262",
       SLACcitation   = "%%CITATION = ARXIV:1902.00377;%%"
 }'
+
+Validation:
+ - $A LHC-13-Z-e
+
