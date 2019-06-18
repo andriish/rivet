@@ -325,7 +325,7 @@ for ana in valtargets:
     mf.write(ana + ".yoda: " + valtargets[ana] + "\n")
 mf.write("\n")
 
-## target for fetching the standard HepMC files fromcernbox
+## target for fetching the standard HepMC files from cernbox
 mf.write("HEPMC/%.hepmc.gz:\n")
 mf.write("\twget 'https://cernbox.cern.ch/index.php/s/6QD1dvXFt1FJ7Dy/download?path=%2F&x-access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkcm9wX29ubHkiOmZhbHNlLCJleHAiOiIyMDE5LTA1LTMxVDE0OjAwOjU3LjgzNzgzMzIwMSswMjowMCIsImV4cGlyZXMiOjAsImlkIjoiMTYzMTI1IiwiaXRlbV90eXBlIjoxLCJtdGltZSI6MTU0OTk2OTEwOCwib3duZXIiOiJhYnVja2xleSIsInBhdGgiOiJlb3Nob21lLWE6MTkwOTgzOTkiLCJwcm90ZWN0ZWQiOmZhbHNlLCJyZWFkX29ubHkiOnRydWUsInNoYXJlX25hbWUiOiJSaXZldCB2YWxpZGF0aW9uIEhlcE1DIiwidG9rZW4iOiI2UUQxZHZYRnQxRko3RHkifQ.lvLykwYq_NheD6ld2IidhogrKdQfVz43y8wOooYF6Kg&files=$(@F)' -O $@\n\n")
 
