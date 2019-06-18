@@ -69,7 +69,7 @@ if test -f "$YODACONFIG"; then
   YODA_VERSION1=[`echo $YODA_VERSION | cut -d. -f1 | sed -e 's/\([0-9]*\).*/\1/g'`]
   YODA_VERSION2=[`echo $YODA_VERSION | cut -d. -f2 | sed -e 's/\([0-9]*\).*/\1/g'`]
   YODA_VERSION3=[`echo $YODA_VERSION | cut -d. -f3 | sed -e 's/\([0-9]*\).*/\1/g'`]
-  let YODA_VERSION_INT=YODA_VERSION1*10000+YODA_VERSION2*100+YODA_VERSION3
+    let YODA_VERSION_INT=YODA_VERSION1*10000+YODA_VERSION2*100+YODA_VERSION3
   if test $YODA_VERSION_INT -lt 10704; then
     AC_MSG_ERROR([YODA version isn't sufficient: at least version 1.7.4 required])
   fi
@@ -166,7 +166,7 @@ else
   if test $HEPMC_VERSION -le 310; then
     AC_MSG_ERROR([HepMC3 version 3.1.1 or later is required.])
   fi
-  
+
   AC_SUBST(HEPMC_VERSION)
   CPPFLAGS=$oldCPPFLAGS
 
@@ -188,24 +188,45 @@ if test -f "$FJCONFIG"; then
   if test "$fjmajor" -lt 3; then
     AC_MSG_ERROR([FastJet version 3.0.0 or later is required])
   fi
-  FASTJETCONFIGLIBADD="$($FJCONFIG --plugins --shared --libs) -lfastjetcontribfragile"
+  FASTJETLIBADD="$($FJCONFIG --plugins --shared --libs) -lfastjetcontribfragile"
 else
-  FASTJETCONFIGLIBADD="-L$FASTJETLIBPATH -l$FASTJETLIBNAME"
-  FASTJETCONFIGLIBADD="$FASTJETCONFIGLIBADD -lSISConePlugin -lsiscone -lsiscone_spherical"
-  FASTJETCONFIGLIBADD="$FASTJETCONFIGLIBADD -lCDFConesPlugin -lD0RunIIConePlugin -lNestedDefsPlugin"
-  FASTJETCONFIGLIBADD="$FASTJETCONFIGLIBADD -lTrackJetPlugin -lATLASConePlugin -lCMSIterativeConePlugin"
-  FASTJETCONFIGLIBADD="$FASTJETCONFIGLIBADD -lEECambridgePlugin -lJadePlugin"
-  FASTJETCONFIGLIBADD="$FASTJETCONFIGLIBADD -lfastjetcontribfragile"
+  FASTJETLIBADD="-L$FASTJETLIBPATH -l$FASTJETLIBNAME"
+  FASTJETLIBADD="$FASTJETLIBADD -lSISConePlugin -lsiscone -lsiscone_spherical"
+  FASTJETLIBADD="$FASTJETLIBADD -lCDFConesPlugin -lD0RunIIConePlugin -lNestedDefsPlugin"
+  FASTJETLIBADD="$FASTJETLIBADD -lTrackJetPlugin -lATLASConePlugin -lCMSIterativeConePlugin"
+  FASTJETLIBADD="$FASTJETLIBADD -lEECambridgePlugin -lJadePlugin"
+  FASTJETLIBADD="$FASTJETLIBADD -lfastjetcontribfragile"
 fi;
-AC_MSG_NOTICE([FastJet LIBADD = $FASTJETCONFIGLIBADD])
-AC_SUBST(FASTJETCONFIGLIBADD)
+AC_MSG_NOTICE([FastJet LIBADD = $FASTJETLIBADD])
+AC_SUBST(FASTJETLIBADD)
 # Check for FastJet headers that require the --enable-all(cxx)plugins option
-FASTJET_ERRMSG="Required FastJet plugin headers were not found: did you build FastJet with the --enable-allcxxplugins option?"
 oldCPPFLAGS=$CPPFLAGS
 CPPFLAGS="$CPPFLAGS -I$FASTJETINCPATH"
+LDFLAGS="$CPPFLAGS -I$FASTJETINCPATH"
+FASTJET_ERRMSG="Required FastJet plugin headers were not found: did you build FastJet with the --enable-allcxxplugins option?"
 AC_CHECK_HEADER([fastjet/D0RunIIConePlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG])])
 AC_CHECK_HEADER([fastjet/TrackJetPlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG])])
+FASTJET_ERRMSG="Required FastJet Contrib headers were not found: did you install FastJet Contrib?"
+AC_CHECK_HEADER([fastjet/contrib/SoftDrop.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG])])
+AC_MSG_CHECKING([FastJet test program compilation])
+FASTJET_ERRMSG="Couldn't build FastJet test program: did you install FastJet Contrib with 'make fragile-shared-install'?"
+AC_COMPILE_IFELSE([AC_LANG_SOURCE([#include <vector>
+  #include "fastjet/contrib/SoftDrop.hh"
+  int main() {
+    std::vector<fastjet::PseudoJet> particles{{1,1,0,2}, {1,-1,0,2}};
+    fastjet::ClusterSequence cs(particles, fastjet::JetDefinition(fastjet::antikt_algorithm, 0.4));
+    fastjet::contrib::SoftDrop sd(0.5, 0.1);
+    for (const fastjet::PseudoJet& j : cs.inclusive_jets()) {
+      const fastjet::PseudoJet& jsd = sd(j);
+    }
+    return 0;
+  }
+  ])],
+  [AC_MSG_RESULT([successful])],
+  [AC_MSG_RESULT([failed])
+   AC_MSG_ERROR([$FASTJET_ERRMSG])])
 CPPFLAGS=$oldCPPFLAGS
+LDFLAGS=$oldLDFLAGS
 
 
 # ## GNU Scientific Library
