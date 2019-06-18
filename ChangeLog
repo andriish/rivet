@@ -2,6 +2,8 @@
 
 	* Fixing bad_cast error in STAR_2008_S7869363
 
+	* Protecting against zero-division in STAR_2006_S6860818
+
 
 2019-06-17 Christian Gutschow  <chris.g@cern.ch>
 

@@ -147,8 +147,11 @@ namespace Rivet {
         if (_nWeightedBaryon[i]->val()==0 || _nWeightedAntiBaryon[i]->val()==0) {
           points.push_back(Point2D(i,0,0.5,0));
         } else {
-          double y  = _nWeightedAntiBaryon[i]->val()/_nWeightedBaryon[i]->val();
-          double dy = sqrt( 1./_nAntiBaryon[i] + 1./_nBaryon[i] );
+          double y = 0., dy = 0.;
+          if (_nWeightedBaryon[i]->val() != 0.) {
+            y  = _nWeightedAntiBaryon[i]->val() / _nWeightedBaryon[i]->val();
+            dy = sqrt( 1./_nAntiBaryon[i] + 1./_nBaryon[i]);
+          }
           points.push_back(Point2D(i,y,0.5,y*dy));
         }
       }
