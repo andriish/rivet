@@ -47,6 +47,7 @@ BibTeX: '@article{Aaboud:2019jcc,
 }'
 
 Validation:
- - $A LHC-13-Z-e
- - $A-2 LHC-13-Z-mu
+ - $A LHC-13-Top-L
+ - $A-2 LHC-13-Z-el-jets :LMODE=ELEL
+ - $A-3 LHC-13-Z-mu-jets :LMODE=MUMU
 
