@@ -4,7 +4,6 @@
 
 	* Protecting against zero-division in STAR_2006_S6860818
 
-
 2019-06-17 Christian Gutschow  <chris.g@cern.ch>
 
 	* Adding analysis ATLAS_2019_I1718132 (unfolded control regions in leptoquark search)
