@@ -1,5 +1,7 @@
 2019-06-19 Christian Gutschow  <chris.g@cern.ch>
 
+	* Release version 3.0.0
+
 	* Adding valref for ATLAS_2018_I1634970 and tweaking info file
 
 	* Marking ATLAS_2016_CONF_2016_092 OBSOLETE (superseded by ATLAS_2018_I1634970)
