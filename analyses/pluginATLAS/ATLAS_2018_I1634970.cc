@@ -18,8 +18,7 @@ namespace Rivet {
 
       const FinalState fs;
       declare(fs,"FinalState");
-      FastJets fj04(fs, FastJets::ANTIKT, 0.4);
-      fj04.useInvisibles();
+      FastJets fj04(fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::ALL, JetAlg::Invisibles::ALL);
       declare(fj04, "AntiKT04");
 
       // |y| and ystar bins
@@ -43,7 +42,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const Jets& kt4Jets = applyProjection<FastJets>(event, "AntiKT04").jetsByPt(Cuts::pT>75.0*GeV && Cuts::absrap <3.0);
+      const Jets& kt4Jets = apply<FastJets>(event, "AntiKT04").jetsByPt(Cuts::pT > 75*GeV && Cuts::absrap < 3.0);
 
       int nJets = kt4Jets.size();
 
@@ -51,11 +50,11 @@ namespace Rivet {
       for(int ijet=0;ijet<nJets;++ijet){ // loop over jets
         FourMomentum jet = kt4Jets[ijet].momentum();
         // pT selection
-	if(jet.pt()>100.0*GeV){
+        if(jet.pt()>100.0*GeV){
           // Fill distribution
-	  const double absy = jet.absrap();
-	  _pThistograms.fill(absy,jet.pt()/GeV);
-	}
+          const double absy = jet.absrap();
+          _pThistograms.fill(absy,jet.pt()/GeV);
+        }
       }
 
       // Dijet selection

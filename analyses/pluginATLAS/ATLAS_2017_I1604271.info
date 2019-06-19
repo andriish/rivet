@@ -25,7 +25,7 @@ Description:
   to predictions of quantum chromodynamics, calculated at next-to-leading order in perturbation theory, and corrected for 
   non-perturbative and electroweak effects. The level of agreement with predictions, using a selection of different parton 
   distribution functions for the proton, is quantified. Tensions between the data and the theory predictions are observed.'
-BibKey: Aaboud:2017dvo,
+BibKey: Aaboud:2017dvo
 BibTeX: '@article{Aaboud:2017dvo,
       author         = "Aaboud, Morad and others",
       title          = "{Measurement of the inclusive jet cross-sections in

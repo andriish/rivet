@@ -1,3 +1,8 @@
+2019-06-19 Christian Gutschow  <chris.g@cern.ch>
+
+	* Adding valref for ATLAS_2018_I1634970 and tweaking info file
+
+
 2019-06-18 Christian Gutschow  <chris.g@cern.ch>
 
 	* Fixing bad_cast error in STAR_2008_S7869363
