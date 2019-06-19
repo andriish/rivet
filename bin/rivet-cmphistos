@@ -329,7 +329,7 @@ if __name__ == '__main__':
                 hpaths.append(ps)
             firstaop = aos[p][sorted(aos[p].keys())[0]]
             # TODO: Would be nicer to test via isHisto and dim or similar, or yoda.Scatter/Histo/Profile base classes
-            if type(firstaop) in (yoda.Histo2D, yoda.Profile2D) and ps not in h2ds:
+            if type(firstaop) in (yoda.Histo2D, yoda.Profile2D, yoda.Scatter3D) and ps not in h2ds:
                 h2ds.append(ps)
 
     # Unique list of analyses

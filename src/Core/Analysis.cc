@@ -639,6 +639,108 @@ namespace Rivet {
   
   }
 
+
+  Scatter3DPtr Analysis::bookScatter3D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId, unsigned int zAxisId,
+                                       bool copy_pts,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle,
+                                       const string& ztitle) {
+    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
+    return bookScatter3D(axisCode, copy_pts, title, xtitle, ytitle, ztitle);
+  }
+
+
+  Scatter3DPtr Analysis::bookScatter3D(const string& hname,
+                                       bool copy_pts,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle,
+                                       const string& ztitle) {
+    Scatter3DPtr s;
+    const string path = histoPath(hname);
+    if (copy_pts) {
+      const Scatter3D& refdata = refData<YODA::Scatter3D>(hname);
+      s = make_shared<Scatter3D>(refdata, path);
+      for (Point3D& p : s->points()) p.setZ(0, 0);
+    } else {
+      s = make_shared<Scatter3D>(path);
+    }
+    if (s->hasAnnotation("IsRef")) s->rmAnnotation("IsRef");
+    if (s->hasAnnotation("ErrorBreakdown")) s->rmAnnotation("ErrorBreakdown");
+    if (s->hasAnnotation("Variations")) s->rmAnnotation("Variations");
+    s->setTitle(title);
+    s->setAnnotation("XLabel", xtitle);
+    s->setAnnotation("YLabel", ytitle);
+    s->setAnnotation("ZLabel", ztitle);
+    return addOrGetCompatAO(s);
+  }
+
+
+  Scatter3DPtr Analysis::bookScatter3D(const string& hname,
+                                       size_t xnpts, double xlower, double xupper,
+                                       size_t ynpts, double ylower, double yupper,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle,
+                                       const string& ztitle) {
+    const string path = histoPath(hname);
+    Scatter3DPtr s = make_shared<Scatter3D>(path);
+    const double xbinwidth = (xupper-xlower)/xnpts;
+    const double ybinwidth = (yupper-ylower)/ynpts;
+    for (size_t xpt = 0; xpt < xnpts; ++xpt) {
+      const double xbincentre = xlower + (xpt + 0.5) * xbinwidth;
+      for (size_t ypt = 0; ypt < ynpts; ++ypt) {
+        const double ybincentre = ylower + (ypt + 0.5) * ybinwidth;
+        s->addPoint(xbincentre, ybincentre, 0, xbinwidth/2.0, ybinwidth/2.0, 0);
+      }
+    }
+    s->setTitle(title);
+    s->setAnnotation("XLabel", xtitle);
+    s->setAnnotation("YLabel", ytitle);
+    s->setAnnotation("ZLabel", ztitle);
+    return addOrGetCompatAO(s);
+  }
+
+  Scatter3DPtr Analysis::bookScatter3D(const string& hname,
+                                       const vector<double>& xbinedges,
+                                       const vector<double>& ybinedges,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle,
+                                       const string& ztitle) {
+    const string path = histoPath(hname);
+    Scatter3DPtr s = make_shared<Scatter3D>(path);
+    for (size_t xpt = 0; xpt < xbinedges.size()-1; ++xpt) {
+      const double xbincentre = (xbinedges[xpt] + xbinedges[xpt+1]) / 2.0;
+      const double xbinwidth = xbinedges[xpt+1] - xbinedges[xpt];
+      for (size_t ypt = 0; ypt < ybinedges.size()-1; ++ypt) {
+        const double ybincentre = (ybinedges[ypt] + ybinedges[ypt+1]) / 2.0;
+        const double ybinwidth = xbinedges[ypt+1] - xbinedges[ypt];
+        s->addPoint(xbincentre, ybincentre, 0, xbinwidth/2.0, ybinwidth/2.0, 0);
+      }
+    }
+    s->setTitle(title);
+    s->setAnnotation("XLabel", xtitle);
+    s->setAnnotation("YLabel", ytitle);
+    s->setAnnotation("ZLabel", ztitle);
+    return addOrGetCompatAO(s);
+  }
+
+  Scatter3DPtr Analysis::bookScatter3D(const Scatter3DPtr scPtr,
+    const std::string& path, const std::string& title,
+    const std::string& xtitle, const std::string& ytitle, const std::string& ztitle ) {
+
+    Scatter3DPtr s = make_shared<Scatter3D>(*scPtr);
+    s->setPath(path);
+    s->setTitle(title);
+    s->setAnnotation("XLabel",xtitle);
+    s->setAnnotation("YLabel",ytitle);
+    s->setAnnotation("ZLabel",ztitle);
+    return addOrGetCompatAO(s);
+
+  }
+
   /////////////////////
 
 
