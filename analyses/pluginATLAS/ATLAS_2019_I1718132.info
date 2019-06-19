@@ -17,8 +17,7 @@ Luminosity_fb: 36.1
 Beams: [p+, p+]
 Energies: [13000]
 Options:
-- LMODE=ELEL,MUMU,ELMU
-- STMODE=INCLUSIVE,STRICT
+ - LMODE=ELEL,MUMU,ELMU
 Description: 
   'Searches for scalar leptoquarks pair-produced in proton-proton collisions at $\sqrt{s} = 13$ TeV at the Large Hadron Collider 
   are performed by the ATLAS experiment. A data set corresponding to an integrated luminosity of 36.1 fb${}^{-1}$ is used. 
