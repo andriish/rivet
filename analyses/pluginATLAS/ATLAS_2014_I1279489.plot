@@ -78,7 +78,7 @@ LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1279489/d20-x01-y01
-Title=$\langle N_\text{jet}^{text{gap}\rangle$ vs. $m_{jj}$ in the high-$p_\text{T}$ region
+Title=$\langle N_\text{jet}^\text{gap}\rangle$ vs. $m_{jj}$ in the high-$p_\text{T}$ region
 XLabel=$m_{jj}$ [GeV]
 YLabel=$\langle N_\text{jet}^\text{gap}\rangle$
 LogY=0
