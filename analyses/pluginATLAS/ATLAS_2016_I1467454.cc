@@ -57,10 +57,9 @@ namespace Rivet {
 
       if (el1.pT() > 40*GeV || el2.pT() > 40*GeV) {
         const double mass = z0.mass();
-        const double weight = 1.0;
-        _hist_mll->fill(mass/GeV, weight);
-        _hist_rap. fill(mass/GeV, z0.absrap(), weight);
-        _hist_deta.fill(mass/GeV, deltaEta(el1,el2), weight);
+        _hist_mll->fill(mass/GeV);
+        _hist_rap. fill(mass/GeV, z0.absrap());
+        _hist_deta.fill(mass/GeV, deltaEta(el1,el2));
       }
     }
 
