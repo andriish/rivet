@@ -44,30 +44,31 @@ namespace Rivet {
         FastJets jets(fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::NONE);
         declare(jets, "jets");
 
-	size_t offset =0;
-	book(_h["JetPt_leading"],     1 + offset, 1, 1);
-	book(_h["JetPt_subleading"],  7 + offset, 1, 1); 
-	book(_h["minDeltaPhiJ0_L"],  13 + offset, 1, 1);
-	book(_h["minDeltaPhiJ1_L"],  19 + offset, 1, 1);
-	book(_h["DeltaEtaJJ"],       25 + offset, 1, 1);
-	book(_h["DeltaPhiJJ"],       31 + offset, 1, 1);
-	book(_h["DeltaPhiLL"],       37 + offset, 1, 1);
-	book(_h["DiJetMass"],        43 + offset, 1, 1);
-	book(_h["DiLepPt"],          49 + offset, 1, 1);
-	book(_h["Ht"],               55 + offset, 1, 1);
-	book(_h["St"],               61 + offset, 1, 1);
-	offset = 3;
-	book(_hST["JetPt_leading"],     1 + offset, 1, 1);
-	book(_hST["JetPt_subleading"],  7 + offset, 1, 1); 
-	book(_hST["minDeltaPhiJ0_L"],  13 + offset, 1, 1);
-	book(_hST["minDeltaPhiJ1_L"],  19 + offset, 1, 1);
-	book(_hST["DeltaEtaJJ"],       25 + offset, 1, 1);
-	book(_hST["DeltaPhiJJ"],       31 + offset, 1, 1);
-	book(_hST["DeltaPhiLL"],       37 + offset, 1, 1);
-	book(_hST["DiJetMass"],        43 + offset, 1, 1);
-	book(_hST["DiLepPt"],          49 + offset, 1, 1);
-	book(_hST["Ht"],               55 + offset, 1, 1);
-	book(_hST["St"],               61 + offset, 1, 1);
+        size_t offset = _mode;
+        book(_h["JetPt_leading"],     1 + offset, 1, 1);
+        book(_h["JetPt_subleading"],  7 + offset, 1, 1); 
+        book(_h["minDeltaPhiJ0_L"],  13 + offset, 1, 1);
+        book(_h["minDeltaPhiJ1_L"],  19 + offset, 1, 1);
+        book(_h["DeltaEtaJJ"],       25 + offset, 1, 1);
+        book(_h["DeltaPhiJJ"],       31 + offset, 1, 1);
+        book(_h["DeltaPhiLL"],       37 + offset, 1, 1);
+        book(_h["DiJetMass"],        43 + offset, 1, 1);
+        book(_h["DiLepPt"],          49 + offset, 1, 1);
+        book(_h["Ht"],               55 + offset, 1, 1);
+        book(_h["St"],               61 + offset, 1, 1);
+
+        offset = _mode + 3;
+        book(_hST["JetPt_leading"],     1 + offset, 1, 1);
+        book(_hST["JetPt_subleading"],  7 + offset, 1, 1); 
+        book(_hST["minDeltaPhiJ0_L"],  13 + offset, 1, 1);
+        book(_hST["minDeltaPhiJ1_L"],  19 + offset, 1, 1);
+        book(_hST["DeltaEtaJJ"],       25 + offset, 1, 1);
+        book(_hST["DeltaPhiJJ"],       31 + offset, 1, 1);
+        book(_hST["DeltaPhiLL"],       37 + offset, 1, 1);
+        book(_hST["DiJetMass"],        43 + offset, 1, 1);
+        book(_hST["DiLepPt"],          49 + offset, 1, 1);
+        book(_hST["Ht"],               55 + offset, 1, 1);
+        book(_hST["St"],               61 + offset, 1, 1);
 
       }
 
@@ -143,19 +144,19 @@ namespace Rivet {
 
         // "extreme" ST cut 
         if (st > 600.) {
-	  // fill output histos
-	  _hST["JetPt_leading"]->fill(jetpt_leading); 
-	  _hST["JetPt_subleading"]->fill(jetpt_subleading); 
-	  _hST["St"]->fill(st);
-	  _hST["Ht"]->fill(ht);
-	  _hST["DiJetMass"]->fill(dijetmass);
-	  _hST["DiLepPt"]->fill(dileppt);
-	  _hST["DeltaPhiJJ"]->fill(deltaphijj);
-	  _hST["DeltaEtaJJ"]->fill(deltaetajj);
-	  _hST["DeltaPhiLL"]->fill(deltaphill);
-	  _hST["minDeltaPhiJ0_L"]->fill(mindeltaphij0_l);
-	  _hST["minDeltaPhiJ1_L"]->fill(mindeltaphij1_l);
-	}
+          // fill output histos
+          _hST["JetPt_leading"]->fill(jetpt_leading); 
+          _hST["JetPt_subleading"]->fill(jetpt_subleading); 
+          _hST["St"]->fill(st);
+          _hST["Ht"]->fill(ht);
+          _hST["DiJetMass"]->fill(dijetmass);
+          _hST["DiLepPt"]->fill(dileppt);
+          _hST["DeltaPhiJJ"]->fill(deltaphijj);
+          _hST["DeltaEtaJJ"]->fill(deltaetajj);
+          _hST["DeltaPhiLL"]->fill(deltaphill);
+          _hST["minDeltaPhiJ0_L"]->fill(mindeltaphij0_l);
+          _hST["minDeltaPhiJ1_L"]->fill(mindeltaphij1_l);
+        }
 
       }
 
@@ -176,8 +177,7 @@ namespace Rivet {
 
     private:
 
-      map<string, Histo1DPtr> _h;
-      map<string, Histo1DPtr> _hST;
+      map<string, Histo1DPtr> _h, _hST;
 
     };
 
