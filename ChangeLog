@@ -6,6 +6,8 @@
 
 	* Reinstating ATLAS_2014_I1279489 and adding valref
 
+	* make ATLAS_2019_I1718132 less neat, because gcc4.8 doesn't like nice things
+
 2019-06-18 Christian Gutschow  <chris.g@cern.ch>
 
 	* Fixing bad_cast error in STAR_2008_S7869363

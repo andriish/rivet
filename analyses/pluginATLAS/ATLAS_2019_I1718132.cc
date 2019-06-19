@@ -82,15 +82,29 @@ namespace Rivet {
         Jets jets = apply<JetAlg>(event, "jets").jetsByPt(Cuts::pT > 60*GeV && Cuts::absrap < 2.5);
 
         // exclude jets which are actually electrons
-        idiscardIfAny(jets, leptons, [](const Jet& jet, const DressedLepton& lep) { 
+
+
+        // This would be super-sweet, but unfortunately lxplus default gcc4.8 doesn't like it :(
+        /*idiscardIfAny(jets, leptons, [](const Jet& jet, const DressedLepton& lep) { 
           return lep.abspid() == PID::ELECTRON and deltaR(jet, lep) < 0.2; 
-        });
+        });*/
+
+        for (const DressedLepton& lep : leptons) {
+          ifilter_discard(jets, [&](const Jet& jet) { 
+            return lep.abspid() == PID::ELECTRON and deltaR(jet, lep) < 0.2; 
+          });
+        }
 
         // remove cases where muons are too close to a jet 
         if (_mode == 3) { // el-mu case
-          idiscardIfAny(leptons, jets, [](const DressedLepton& lep, const Jet& jet) { 
+          /*idiscardIfAny(leptons, jets, [](const DressedLepton& lep, const Jet& jet) { 
             return lep.abspid() == PID::MUON and deltaR(jet, lep) < 0.4;
-          });
+          });*/
+          for (const DressedLepton& lep : leptons) {
+            ifilter_discard(jets, [&](const Jet& jet) { 
+              return lep.abspid() == PID::MUON and deltaR(jet, lep) < 0.4;
+            });
+          }
         }
 
         // make sure we have the right number of jets
