@@ -271,8 +271,10 @@ namespace Rivet {
     }
 
     // Print out number of events processed
-    const int nevts = numEvents();
-    MSG_INFO("Processed " << nevts << " event" << (nevts != 1 ? "s" : ""));
+    if (!_dumping) {
+      const int nevts = numEvents();
+      MSG_INFO("Processed " << nevts << " event" << (nevts != 1 ? "s" : ""));
+    }
 
     _stage = Stage::OTHER;
 
