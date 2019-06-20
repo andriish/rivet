@@ -588,6 +588,53 @@ namespace Rivet {
 
     //@}
 
+        /// @name 3D scatter booking
+    //@{
+
+    /// @brief Book a 3-dimensional data point set with the given name.
+    ///
+    /// @note Unlike histogram booking, scatter booking by default makes no
+    /// attempt to use reference data to pre-fill the data object. If you want
+    /// this, which is sometimes useful e.g. when the x-position is not really
+    /// meaningful and can't be extracted from the data, then set the @a
+    /// copy_pts parameter to true. This creates points to match the reference
+    /// data's x values and errors, but with the y values and errors zeroed...
+    /// assuming that there is a reference histo with the same name: if there
+    /// isn't, an exception will be thrown.
+    Scatter3DPtr & book(Scatter3DPtr & s3d, const std::string& hname, bool copy_pts=false);
+
+    /// @brief Book a 3-dimensional data point set, using the binnings in the reference data histogram.
+    ///
+    /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
+    ///
+    /// @note Unlike histogram booking, scatter booking by default makes no
+    /// attempt to use reference data to pre-fill the data object. If you want
+    /// this, which is sometimes useful e.g. when the x-position is not really
+    /// meaningful and can't be extracted from the data, then set the @a
+    /// copy_pts parameter to true. This creates points to match the reference
+    /// data's x values and errors, but with the y values and errors zeroed.
+    Scatter3DPtr & book(Scatter3DPtr & s3d, unsigned int datasetId, unsigned int xAxisId, 
+                        unsigned int yAxisId, unsigned int zAxisId, bool copy_pts=false);
+
+    /// @brief Book a 3-dimensional data point set with equally spaced x-points in a range.
+    ///
+    /// The y values and errors will be set to 0.
+    Scatter3DPtr & book(Scatter3DPtr & s3d, const std::string& hname,
+                               size_t xnpts, double xlower, double xupper,
+                               size_t ynpts, double ylower, double yupper);
+
+    /// @brief Book a 3-dimensional data point set based on provided contiguous "bin edges".
+    ///
+    /// The y values and errors will be set to 0.
+    Scatter3DPtr & book(Scatter3DPtr & s3d, const std::string& hname,
+                               const std::vector<double>& xbinedges,
+                               const std::vector<double>& ybinedges);
+
+    /// Book a 3-dimensional data point set with x-points from an existing scatter and a new path.
+    Scatter3DPtr & book(Scatter3DPtr & s3d, const std::string& hname, const Scatter3D& refscatter);
+
+    //@}
+
 
   public:
 

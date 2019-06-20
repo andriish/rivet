@@ -1,3 +1,8 @@
+2019-06-19  Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
+
+	* Adding bookScatter3D method
+
+
 2019-06-19 Christian Gutschow  <chris.g@cern.ch>
 
 	* Release version 3.0.0
