@@ -1,6 +1,22 @@
 // -*- C++ -*-
 
+//#include <regex>
+#include "Rivet/Tools/Utils.hh"
 #include "Rivet/Tools/RivetHepMC.hh"
+#include "Rivet/Tools/Logging.hh"
+
+/*namespace {
+
+  inline std::vector<std::string> split(const std::string& input, const std::string& regex) {
+    // passing -1 as the submatch index parameter performs splitting
+    std::regex re(regex);
+    std::sregex_token_iterator
+      first{input.begin(), input.end(), re, -1},
+      last;
+      return {first, last};
+  }
+
+}*/
 
 namespace Rivet{
   
@@ -114,6 +130,71 @@ namespace Rivet{
       if(!io->fill_next_event(evt.get())) return false;
       return true;
     }
-    
+
+    // This functions could be filled with code doing the same stuff as
+    // in the HepMC3 version of This file.
+    void strip(GenEvent &, const set<long> &) {}
+
+    vector<string> weightNames(const GenEvent & ge) {
+      /// reroute the print output to a std::stringstream and process
+      /// The iteration is done over a map in hepmc2 so this is safe
+      vector<string> ret;
+
+      /// Obtaining weight names using regex probably neater, but regex
+      /// is not defined in GCC4.8, which is currently used by Lxplus.
+      /// Attempt an alternative solution based on stringstreams:
+      std::stringstream stream;
+      ge.weights().print(stream);
+      std::string pair; // placeholder for subtsring matches
+      while (std::getline(stream, pair, ' ')) {
+        if ( pair.size() < 2 ) continue;
+        pair.erase(pair.begin()); // removes the "(" on the LHS
+        pair.pop_back();          // removes the ")" on the RHS
+        if (pair.empty())  continue;
+        std::stringstream spair(pair);
+        vector<string> temp;
+        while (std::getline(spair, pair, ',')) {
+          temp.push_back(std::move(pair));
+        }
+        if (temp.size() == 2) {
+          // store the default weight based on weight names
+          if (temp[0] == "Weight" || temp[0] == "0" || temp[0] == "Default") {
+            ret.push_back("");
+          } 
+          else  ret.push_back(temp[0]);
+        }
+      }
+      /// Possible future solution based on regex
+      /*std::ostringstream stream;
+      ge.weights().print(stream);  // Super lame, I know
+      string str =  stream.str();
+
+      std::regex re("(([^()]+))"); // Regex for stuff enclosed by parentheses ()
+      for (std::sregex_iterator i = std::sregex_iterator(str.begin(), str.end(), re);
+           i != std::sregex_iterator(); ++i ) {
+        std::smatch m = *i;
+        vector<string> temp = ::split(m.str(), "[,]");
+        if (temp.size() ==2) {
+          // store the default weight based on weight names
+          if (temp[0] == "Weight" || temp[0] == "0" || temp[0] == "Default") {
+            ret.push_back("");
+          } else
+            ret.push_back(temp[0]);
+        }
+      }*/
+      return ret;
+    }
+
+    double crossSection(const GenEvent & ge) {
+      return ge.cross_section()->cross_section();
+    }
+
+    std::valarray<double> weights(const GenEvent & ge) {
+      const size_t W = ge.weights().size();
+      std::valarray<double> wts(W);
+      for (unsigned int iw = 0; iw < W; ++iw)
+        wts[iw] = ge.weights()[iw];
+      return wts;
+    }
   }
 }
