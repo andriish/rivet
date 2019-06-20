@@ -1,10 +1,14 @@
-2019-06-05  Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
+2019-06-20 Christian Gutschow  <chris.g@cern.ch>
+
+	* Adding ATLAS_2011_I930220, ATLAS_2018_I1634970 and ATLAS_2019_I1718132
+
+2019-06-19  Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
 
 	* Adding bookScatter3D method
 
 2019-06-06 Christian Gutschow  <chris.g@cern.ch>
 
-	* Ading Marek's opacity fix to make-plots
+	* Adding Marek's opacity fix to make-plots
 	* removing if statement testing if type(u'') is (not) str when deciding whether to encode string in bin/rivet
 
 2019-06-06  Peter Richardson <peter.richardson@durham.ac.uk>

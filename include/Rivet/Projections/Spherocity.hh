@@ -35,7 +35,6 @@ namespace Rivet {
 
     /// Constructor.
     Spherocity(const FinalState& fsp)
-      : _calculatedSpherocity(false)
     {
       setName("Spherocity");
       addProjection(fsp, "FS");
@@ -117,9 +116,6 @@ namespace Rivet {
 
     /// The spherocity axes.
     vector<Vector3> _spherocityAxes;
-
-    /// Caching flag to avoid costly recalculations.
-    bool _calculatedSpherocity;
 
 
   private:
