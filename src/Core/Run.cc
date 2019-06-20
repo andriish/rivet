@@ -108,7 +108,8 @@ namespace Rivet {
     if (!std::isnan(_xs)) {
       Log::getLog("Rivet.Run")
         << Log::DEBUG << "Setting user cross-section = " << _xs << " pb" << endl;
-      _ah.setCrossSection(_xs, 0.0);
+      
+      _ah.setCrossSection(make_pair(_xs, 0.0));
     }
 
     // List the chosen & compatible analyses if requested

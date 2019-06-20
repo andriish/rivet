@@ -37,3 +37,13 @@ BibTeX: '@Article{Khachatryan:2011as,
      doi       = "10.1103/PhysRevLett.106.201804",
      SLACcitation  = "%%CITATION = 1102.2020;%%"
 }'
+
+Validation:
+ - $A LHC-7-DiJets-1-B
+ - $A-2 LHC-7-DiJets-2-B
+ - $A-3 LHC-7-DiJets-3-B
+ - $A-4 LHC-7-DiJets-4-B
+ - $A-5 LHC-7-DiJets-5-B
+ - $A-6 LHC-7-DiJets-6-B
+ - $A-7 LHC-7-DiJets-7-B
+

@@ -41,3 +41,14 @@ BibTeX: '@article{Aad:2015auj,
       reportNumber   = "CERN-PH-EP-2015-275",
       SLACcitation   = "%%CITATION = ARXIV:1512.02192;%%"
 }'
+
+Validation:
+ - $A LHC-8-Z-Mass1-e
+ - $A-2 LHC-8-Z-Mass1-mu
+ - $A-3 LHC-8-Z-Mass2-e
+ - $A-4 LHC-8-Z-Mass2-mu
+ - $A-5 LHC-8-Z-Mass3-e
+ - $A-6 LHC-8-Z-Mass3-mu
+ - $A-7 LHC-8-Z-Mass4-e
+ - $A-8 LHC-8-Z-Mass4-mu
+

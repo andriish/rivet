@@ -40,3 +40,7 @@ BibTeX: '@Article{Aubert:2007mh,
      doi       = "10.1103/PhysRevLett.100.011801",
      SLACcitation  = "%%CITATION = 0707.2981;%%"
 }'
+
+Validation:
+ - $A BFactory-Tau
+

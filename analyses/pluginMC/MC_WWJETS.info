@@ -14,3 +14,7 @@ Description:
   properties of the W bosons, properties of the leptons, correlations between
   the opposite charge leptons and correlations with jets.
 NeedCrossSection: yes
+
+Validation:
+ - $A LHC-WW-emu
+

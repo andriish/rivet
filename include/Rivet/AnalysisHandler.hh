@@ -85,7 +85,7 @@ namespace Rivet {
     Scatter1DPtr crossSection() const { return _xs; }
 
     /// Set the cross-section for the process being generated.
-    AnalysisHandler& setCrossSection(double xs, double xserr);
+    void setCrossSection(pair<double, double> xsec);
 
     /// Get the nominal cross-section
     double nominalCrossSection() const {
@@ -213,7 +213,7 @@ namespace Rivet {
     /// This function will call the AnalysisBase::analyze() function of all
     /// included analysis objects, after checking the event pointer validity.
     void analyze(const GenEvent* event);
-
+    
     /// Finalize a run. This function calls the AnalysisBase::finalize()
     /// functions of all included analysis objects.
     void finalize();
@@ -223,6 +223,10 @@ namespace Rivet {
 
     /// @name Histogram / data object access
     //@{
+
+    /// After all subevents in an event group has been processed push
+    /// all histo fills to the relevant histograms.
+    void pushToPersistent();
 
     /// Read analysis plots into the histo collection (via addData) from the named file.
     void readData(const std::string& filename);

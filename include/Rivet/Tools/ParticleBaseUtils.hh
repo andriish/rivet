@@ -490,6 +490,21 @@ namespace Rivet {
     return tmp;
   }
 
+  template<typename PBCONTAINER1, typename PBCONTAINER2>
+  void iselectIfAny(PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare,
+                    typename std::function<bool(const typename PBCONTAINER1::value_type&, const typename PBCONTAINER2::value_type&)> fn) {
+    for (const auto& pbcmp : tocompare)
+      ifilter_select(tofilter, [&](const typename PBCONTAINER1::value_type& pbfilt){ return fn(pbfilt, pbcmp); });
+  }
+
+  template<typename PBCONTAINER1, typename PBCONTAINER2>
+  PBCONTAINER1 selectIfAny(const PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare,
+                           typename std::function<bool(const typename PBCONTAINER1::value_type&, const typename PBCONTAINER2::value_type&)> fn) {
+    PBCONTAINER1 tmp{tofilter};
+    iselectIfAny(tmp, tocompare, fn);
+    return tmp;
+  }
+
   //@}
 
 

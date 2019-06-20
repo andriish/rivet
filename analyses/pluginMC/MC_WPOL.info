@@ -11,3 +11,7 @@ Description:
   'Observables sensitive to the polarisation of the W boson: A0, ... A7,
   fR, fL, f0, separately for W+ and W-.'
 NeedCrossSection: yes
+
+Validation:
+ - $A LHC-W-e
+

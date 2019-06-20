@@ -39,7 +39,7 @@ extragroup = parser.add_argument_group("Run settings")
 extragroup.add_argument("VALDIR", nargs=1, help="directory where the " + \
                         "Makefile for running the validation will be written")
 extragroup.add_argument("--hepmc-dir", dest="HEPMCDIR",
-                        default="", help="specify the HepMC files used for " + \
+                        default="", help="specify the directory where the HepMC files used for " + \
                         "the validation should be downloaded")
 extragroup.add_argument("--ref-dir", dest="REFDIR",
                         default="",
@@ -98,7 +98,7 @@ except:
 refdir = args.REFDIR
 if not refdir :
     rivetdatapath = commands.getoutput("rivet-config --datadir")
-    refdir = rivetdatapath + "/valref"
+    refdir = rivetdatapath + "/refyodas"
 out = commands.getstatusoutput("rm -f " + valdir + "/refyodas")
 out = commands.getstatusoutput("ln -s " + os.path.relpath(refdir, valdir) +
                                " " + valdir + "/refyodas")
@@ -109,6 +109,7 @@ out = commands.getstatusoutput("ln -s " + os.path.relpath(refdir, valdir) +
 
 valtargets = dict()
 hepmctargets = dict()
+reentranttargets = set()
 
 ## Get all analysis names
 all_analyses = rivet.AnalysisLoader.analysisNames()
@@ -119,6 +120,8 @@ for ananame in all_analyses:
         sublines = line.split(";");
         targets = sublines[0].split(" ")
         targetname = targets.pop(0)
+        if ana.reentrant():
+            reentranttargets.add(targetname)
         hepmcname = targets.pop(0)
         options = "";
         if len(targets) > 0 :
@@ -129,10 +132,11 @@ for ananame in all_analyses:
             options = ""
         if len(sublines) == 1:
             valtargets[targetname] = "tmp/" + hepmcname + ".yoda " + \
-                " ".join(targets) + "\n\t@echo extracting " + \
-                targetname + ".yoda\n\t@echo " + hepmcname + " > tmp/" + \
-                targetname + ".log\n\t@yoda2yoda -m /" + ananame + options + \
-                "/ tmp/" + hepmcname + ".yoda " + targetname + ".yoda >> tmp/" + \
+                " ".join(targets) + "\n\t$(V)echo extracting " + \
+                targetname + ".yoda\n\t$(V)echo " + hepmcname + " > tmp/" + \
+                targetname + ".log\n\t$(V)yoda2yoda -m '/_XSEC|/_EVTCOUNT|/" +\
+                ananame + options + \
+                "/' tmp/" + hepmcname + ".yoda " + targetname + ".yoda >> tmp/" + \
                 targetname + ".log 2>&1\n"
             if not hepmctargets.has_key(hepmcname):
                 hepmctargets[hepmcname] = ananame + options
@@ -142,15 +146,15 @@ for ananame in all_analyses:
             valtargets[targetname] = "HEPMC/" + hepmcname + ".hepmc.gz " +\
                 " ".join(targets)
             if len(sublines) > 1:
-                valtargets[targetname] += "\n\t@echo running " + \
-                    targetname + ".yoda\n\t@echo " + hepmcname + " > tmp/" + \
-                    targetname + ".log\n\t@" + sublines[1].strip() +\
+                valtargets[targetname] += "\n\t$(V)echo running " + \
+                    targetname + ".yoda\n\t$(V)echo " + hepmcname + " > tmp/" + \
+                    targetname + ".log\n\t$(V)" + sublines[1].strip() +\
                     " >> tmp/" + targetname + ".log 2>&1\n"
             for subline in sublines[2:]:
                 valtargets[targetname] += "\t" + subline.strip() + \
                     " >> tmp/" + targetname + ".log 2>&1\n"
             if len(sublines) > 1:
-                valtargets[targetname] += "\t@echo done " + \
+                valtargets[targetname] += "\t$(V)echo done " + \
                     targetname + ".yoda\n"
                 
                 
@@ -171,7 +175,7 @@ mf.write("""#
 # analysis .info files and parsed the "Validation:" section for
 # determining how to use the existing HepMC validation files to obtain
 # a set of reference YODA files that should be reproduced. The
-# direcorey where these reference files are stored is linked to
+# directory where these reference files are stored is linked to
 # ./refyodas . The HepMC files are stored in ./HEPMC and will be
 # automatically downloaded if missing. In the end of running 'make
 # check', the newly produced YODA files will be compared with the
@@ -205,20 +209,21 @@ mf.write("""#
 # this must be included as well.
 #
 
+V=@
 
 all:
-	@head -7 $(firstword $(MAKEFILE_LIST))
+	$(V)head -7 $(firstword $(MAKEFILE_LIST))
 
 help:
-	@head -44 $(firstword $(MAKEFILE_LIST)) | grep -v "# For more information"
+	$(V)head -44 $(firstword $(MAKEFILE_LIST)) | grep -v "# For more information"
 
 """)
 
 ## target for comparing the generated yodas with the reference ones
 mf.write("""
 %.diff: %.yoda
-	@rm -rf $@
-	@if [ -e refyodas/$< ]; then \\
+	$(V)rm -rf $@
+	$(V)if [ -e refyodas/$< ]; then \\
 	  if ! yodadiff $< refyodas/$< -t 1e-2 -q; then \\
 	    echo $< differs from reference yoda; \\
 	    only=""; \\
@@ -232,8 +237,22 @@ mf.write("""
 	  fi \\
 	else \\
 	  echo $< has no reference yoda; \\
-	  echo $< has no reference yoda > $@; \\
+	  echo "$< has no reference yoda.<br>" > $@; \\
 	fi
+
+%.reent: %.yoda
+	$(V)rm -rf $@
+	$(V)logfile=$<; logfile="tmp/$${logfile/.yoda/.log}"; \\
+	if rivet-merge $< -o $<.yoda >> $$logfile  2>&1; then\\
+	  if yodadiff -q $< $<.yoda ; then \\
+	    echo $< is reentrant; \\
+	    touch $@; \\
+	  else \\
+	    echo $< is NOT reentrant; \\
+	    echo "$< was declared reentrant but is not.<br>" > $@; \\
+	  fi \\
+	fi
+	$(V)rm -rf $<.yoda
 
 """)
 
@@ -244,13 +263,19 @@ for ana in valtargets:
 mf.write("\n\nVALDIFFS =")
 for ana in valtargets:
     mf.write(" " + ana + ".diff")
+mf.write("\n\nREENTRANTS =")
+for ana in reentranttargets:
+    mf.write(" " + ana + ".reent")
+mf.write("\n\nHEPMCYODAS =")
+for hepmc in hepmctargets:
+    mf.write(" tmp/" + hepmc + ".yoda")
 mf.write("""\n
 
-.PRECIOUS: $(VALYODAS)
+.PRECIOUS: $(VALYODAS) $(HEPMCYODAS)
 
-check: $(VALDIFFS)
-	@echo "<h2>Problematic analyses in Rivet validation</h2>" > index.html
-	@for dir in $^; do \\
+check: $(VALDIFFS) $(REENTRANTS)
+	$(V)echo "<h2>Problematic analyses in Rivet validation</h2>" > index.html
+	$(V)for dir in $^; do \\
 	  if [ -d $$dir ]; then \\
 	    for subdir in `ls $$dir`; do \\
 	      if [ -f $$dir/$$subdir/index.html ]; then\\
@@ -260,21 +285,22 @@ check: $(VALDIFFS)
 	      fi \\
 	    done \\
 	  elif [ -s $$dir ]; then \\
-	    echo "$${dir/.diff/}: no reference yoda<br>" >> index.html; \\
+	    cat $$dir >> index.html; \\
 	  fi \\
 	done
-	@echo ""
-	@if grep -q href index.html; then \\
+	$(V)echo ""
+	$(V)if test `cat index.html | wc -l` -gt 1; then \\
 	  echo "Differences found, open index.html to inspect plots."; \\
 	else \\
 	  echo "No differences found!"; \\
 	fi
 
 clean:
-	rm -f $(VALYODAS)
+	rm -f $(VALYODAS) $(REENTRANTS)
 	rm -rf tmp
+	mkdir tmp
 	rm -rf $(VALDIFFS)
-	rm index.html
+	rm -f index.html
 
 
 %.recheck: %.yoda
@@ -287,19 +313,19 @@ clean:
 ## targets for hepmc files with several analyses
 for hepmc in hepmctargets:
     mf.write("tmp/" + hepmc + ".yoda: HEPMC/" + hepmc + ".hepmc.gz\n")
-    mf.write("\t@echo running " + hepmc + "\n")
-    cmd = "\t@rivet HEPMC/" + hepmc + ".hepmc.gz -o tmp/" + hepmc + ".yoda"
+    mf.write("\t$(V)echo running " + hepmc + "\n")
+    cmd = "\t$(V)rivet HEPMC/" + hepmc + ".hepmc.gz -o tmp/" + hepmc + ".yoda"
     for ana in hepmctargets[hepmc].split(" "):
         cmd += " -a " + ana
     mf.write(cmd + " > tmp/" + hepmc + ".log 2>&1\n")
-    mf.write("\t@echo done " + hepmc + "\n\n")
+    mf.write("\t$(V)echo done " + hepmc + "\n\n")
 
 ## targets for the .yoda files to be compared to the reference ones
 for ana in valtargets:
     mf.write(ana + ".yoda: " + valtargets[ana] + "\n")
 mf.write("\n")
 
-## target for fetching the standard HepMC files fromcernbox
+## target for fetching the standard HepMC files from cernbox
 mf.write("HEPMC/%.hepmc.gz:\n")
 mf.write("\twget 'https://cernbox.cern.ch/index.php/s/6QD1dvXFt1FJ7Dy/download?path=%2F&x-access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkcm9wX29ubHkiOmZhbHNlLCJleHAiOiIyMDE5LTA1LTMxVDE0OjAwOjU3LjgzNzgzMzIwMSswMjowMCIsImV4cGlyZXMiOjAsImlkIjoiMTYzMTI1IiwiaXRlbV90eXBlIjoxLCJtdGltZSI6MTU0OTk2OTEwOCwib3duZXIiOiJhYnVja2xleSIsInBhdGgiOiJlb3Nob21lLWE6MTkwOTgzOTkiLCJwcm90ZWN0ZWQiOmZhbHNlLCJyZWFkX29ubHkiOnRydWUsInNoYXJlX25hbWUiOiJSaXZldCB2YWxpZGF0aW9uIEhlcE1DIiwidG9rZW4iOiI2UUQxZHZYRnQxRko3RHkifQ.lvLykwYq_NheD6ld2IidhogrKdQfVz43y8wOooYF6Kg&files=$(@F)' -O $@\n\n")
 

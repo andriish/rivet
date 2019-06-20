@@ -15,3 +15,7 @@ Description:
   This is a pure Monte Carlo study for $t\bar{t}$ production.
 Options:
 - TTMODE=ALLHAD,ONELEP,TWOLEP,ANYLEP
+
+Validation:
+ - $A LHC-7-Top-SL
+

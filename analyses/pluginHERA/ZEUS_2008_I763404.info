@@ -48,3 +48,7 @@ BibTeX: '@article{Chekanov:2007rh,
       reportNumber   = "DESY-07-161",
       SLACcitation   = "%%CITATION = ARXIV:0710.1498;%%"
 }'
+
+Validation:
+ - $A HERA-II-GammaP-Gap
+

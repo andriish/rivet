@@ -36,3 +36,7 @@ BibTeX: '@article{ATLAS:2015yaa,
       reportNumber   = "CERN-PH-EP-2015-177",
       SLACcitation   = "%%CITATION = ARXIV:1508.01579;%%"
 }'
+
+Validation:
+ - $A LHC-7-Jets-6
+

@@ -34,3 +34,10 @@ BibTex: '@article{Aad:2015lha,
       reportNumber   = "CERN-PH-EP-2015-048",
       SLACcitation   = "%%CITATION = ARXIV:1504.05833;%%",
 }'
+
+Validation:
+ - $A LHC-8-VBF
+ - $A-2 LHC-8-WH
+ - $A-3 LHC-8-ZH
+ - $A-4 LHC-8-ggH
+

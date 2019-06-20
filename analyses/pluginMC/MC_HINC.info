@@ -10,3 +10,7 @@ PtCuts: [0]
 Description:
   Monte Carlo validation observables for $h[\tau^+ \, \tau^-]$ production
 NeedCrossSection: yes
+
+Validation:
+ - $A LHC-ggH
+

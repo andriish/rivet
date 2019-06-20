@@ -40,3 +40,7 @@ BibTeX: '@article{Chatrchyan:2014qka,
       primaryClass   = "hep-ex",
       reportNumber   = "CMS-FSQ-12-026, CERN-PH-EP-TOTEM-2014-002,
                         CERN-PH-EP-2014-063"}'
+
+Validation:
+ - $A LHC-8-UE
+

@@ -36,3 +36,7 @@ BibTeX: '@article{Aamodt:2010pp,
       archivePrefix  = "arXiv",
       primaryClass   = "hep-ex",
 }'
+
+Validation:
+ - $A LHC-2360-UE
+

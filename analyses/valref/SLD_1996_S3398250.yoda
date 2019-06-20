@@ -1,10 +1,27 @@
+BEGIN YODA_SCATTER1D_V2 /RAW/_XSEC
+Variations: [""]
+Path: /RAW/_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+4.050300e+04	2.374320e+02	2.374320e+02
+END YODA_SCATTER1D_V2
+
+BEGIN YODA_COUNTER_V2 /SLD_1996_S3398250/_weightLight
+Path: /SLD_1996_S3398250/_weightLight
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+6.280000e+02	6.280000e+02	6.280000e+02
+END YODA_COUNTER_V2
+
 BEGIN YODA_HISTO1D_V2 /SLD_1996_S3398250/d03-x01-y01
 Path: /SLD_1996_S3398250/d03-x01-y01
 ScaledBy: 1.59235668789808925e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 9.120004e+01
 # Area: 1.934713e+01
@@ -16,13 +33,47 @@ Overflow	Overflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+
 9.070000e+01	9.170000e+01	1.934713e+01	6.572985e-01	1.764459e+03	1.609186e+05	6.280000e+02
 END YODA_HISTO1D_V2
 
+BEGIN YODA_COUNTER_V2 /_EVTCOUNT
+Path: /_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.000000e+03	1.000000e+03	1.000000e+03
+END YODA_COUNTER_V2
+
+BEGIN YODA_SCATTER2D_V2 /RAW/SLD_1996_S3398250/d04-x01-y01
+Variations: []
+Path: /RAW/SLD_1996_S3398250/d04-x01-y01
+Title: ~
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	
+END YODA_SCATTER2D_V2
+
+BEGIN YODA_COUNTER_V2 /SLD_1996_S3398250/_weightCharm
+Path: /SLD_1996_S3398250/_weightCharm
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.750000e+02	1.750000e+02	1.750000e+02
+END YODA_COUNTER_V2
+
+BEGIN YODA_SCATTER1D_V2 /_XSEC
+Variations: [""]
+Path: /_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+4.050300e+04	2.374320e+02	2.374320e+02
+END YODA_SCATTER1D_V2
+
 BEGIN YODA_HISTO1D_V2 /RAW/SLD_1996_S3398250/d02-x01-y01
 Path: /RAW/SLD_1996_S3398250/d02-x01-y01
-ScaledBy: 5.71428571428571428e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 9.120000e+01
 # Area: 3.772000e+03
@@ -39,8 +90,6 @@ Variations: [""]
 Path: /SLD_1996_S3398250/d05-x01-y01
 Title: ~
 Type: Scatter2D
-XLabel: ~
-YLabel: ~
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 9.120000e+01	5.000000e-01	5.000000e-01	3.891445e+00	1.896176e+00	1.896176e+00
@@ -48,11 +97,8 @@ END YODA_SCATTER2D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/SLD_1996_S3398250/d03-x01-y01
 Path: /RAW/SLD_1996_S3398250/d03-x01-y01
-ScaledBy: 1.59235668789808925e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 9.120000e+01
 # Area: 1.215000e+04
@@ -66,11 +112,8 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/SLD_1996_S3398250/d01-x01-y01
 Path: /RAW/SLD_1996_S3398250/d01-x01-y01
-ScaledBy: 5.07614213197969504e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 9.120000e+01
 # Area: 4.578000e+03
@@ -82,25 +125,56 @@ Overflow	Overflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+
 9.070000e+01	9.170000e+01	4.578000e+03	1.140280e+05	4.175136e+05	3.807724e+07	1.970000e+02
 END YODA_HISTO1D_V2
 
-BEGIN YODA_SCATTER2D_V2 /SLD_1996_S3398250/d04-x01-y01
-Variations: [""]
-Path: /SLD_1996_S3398250/d04-x01-y01
+BEGIN YODA_COUNTER_V2 /SLD_1996_S3398250/_weightBottom
+Path: /SLD_1996_S3398250/_weightBottom
 Title: ~
-Type: Scatter2D
-XLabel: ~
-YLabel: ~
+Type: Counter
 ---
-# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
-9.120000e+01	5.000000e-01	5.000000e-01	2.207152e+00	1.893851e+00	1.893851e+00
-END YODA_SCATTER2D_V2
+# sumW	 sumW2	 numEntries
+1.970000e+02	1.970000e+02	1.970000e+02
+END YODA_COUNTER_V2
+
+BEGIN YODA_COUNTER_V2 /RAW/_EVTCOUNT
+Path: /RAW/_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.000000e+03	1.000000e+03	1.000000e+03
+END YODA_COUNTER_V2
+
+BEGIN YODA_COUNTER_V2 /RAW/SLD_1996_S3398250/_weightLight
+Path: /RAW/SLD_1996_S3398250/_weightLight
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+6.280000e+02	6.280000e+02	6.280000e+02
+END YODA_COUNTER_V2
+
+BEGIN YODA_COUNTER_V2 /RAW/SLD_1996_S3398250/_weightBottom
+Path: /RAW/SLD_1996_S3398250/_weightBottom
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.970000e+02	1.970000e+02	1.970000e+02
+END YODA_COUNTER_V2
+
+BEGIN YODA_COUNTER_V2 /RAW/SLD_1996_S3398250/_weightCharm
+Path: /RAW/SLD_1996_S3398250/_weightCharm
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.750000e+02	1.750000e+02	1.750000e+02
+END YODA_COUNTER_V2
 
 BEGIN YODA_HISTO1D_V2 /SLD_1996_S3398250/d01-x01-y01
 Path: /SLD_1996_S3398250/d01-x01-y01
 ScaledBy: 5.07614213197969504e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 9.119998e+01
 # Area: 2.323858e+01
@@ -117,8 +191,6 @@ Path: /SLD_1996_S3398250/d02-x01-y01
 ScaledBy: 5.71428571428571428e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 9.119999e+01
 # Area: 2.155429e+01
@@ -129,3 +201,22 @@ Overflow	Overflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+
 # xlow	 xhigh	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
 9.070000e+01	9.170000e+01	2.155429e+01	2.929371e+00	1.965751e+03	1.792765e+05	1.750000e+02
 END YODA_HISTO1D_V2
+
+BEGIN YODA_SCATTER2D_V2 /SLD_1996_S3398250/d04-x01-y01
+Variations: [""]
+Path: /SLD_1996_S3398250/d04-x01-y01
+Title: ~
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+9.120000e+01	5.000000e-01	5.000000e-01	2.207152e+00	1.893851e+00	1.893851e+00
+END YODA_SCATTER2D_V2
+
+BEGIN YODA_SCATTER2D_V2 /RAW/SLD_1996_S3398250/d05-x01-y01
+Variations: []
+Path: /RAW/SLD_1996_S3398250/d05-x01-y01
+Title: ~
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	
+END YODA_SCATTER2D_V2

@@ -6,4 +6,4 @@ libRivetAnalysisTools_la_SOURCES = \
     MC_JetSplittings.cc
 
 libRivetAnalysisTools_la_LDFLAGS = $(AM_LDFLAGS) -L$(FASTJETLIBPATH)
-libRivetAnalysisTools_la_LIBS = $(FASTJETCONFIGLIBADD)
+libRivetAnalysisTools_la_LIBS = $(FASTJETLIBADD)

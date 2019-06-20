@@ -40,3 +40,8 @@ BibTeX: '@article{Aubert:2005cu,
       reportNumber   = "SLAC-PUB-11100, BABAR-PUB-05-008",
       SLACcitation   = "%%CITATION = HEP-EX/0504014;%%",
 }'
+
+Validation:
+ - $A BFactory-10.54
+ - $A-2 BFactory-10.58
+

@@ -32,3 +32,7 @@ BibTeX: '@article{Albrecht:1992qf,
       reportNumber   = "DESY-92-155",
       SLACcitation   = "%%CITATION = ZEPYA,C58,191;%%",
 }'
+
+Validation:
+ - $A BFactory-Upsilon4
+

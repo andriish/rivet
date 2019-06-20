@@ -240,6 +240,10 @@ namespace Rivet {
       return info().validation();
     }
 
+    /// Does this analysis have a reentrant finalize()?
+    virtual bool reentrant() const {
+      return info().reentrant();
+    }
 
     /// Return the allowed pairs of incoming beams required by this analysis.
     virtual const std::vector<PdgIdPair>& requiredBeams() const {

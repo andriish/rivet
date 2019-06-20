@@ -37,3 +37,7 @@ BibTeX: '@article{Chatrchyan:2013xxa,
       reportNumber   = "CMS-FSQ-12-028, CERN-PH-EP-2013-224",
       SLACcitation   = "%%CITATION = ARXIV:1312.5729;%%",
 }'
+
+Validation:
+ - $A LHC-W-mu
+

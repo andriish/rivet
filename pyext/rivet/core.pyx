@@ -114,6 +114,9 @@ cdef class Analysis:
         vld = deref(self._ptr).validation()
         return [ k.decode('utf-8') for k in vld ]
 
+    def reentrant(self):
+        return deref(self._ptr).reentrant()
+
     def authors(self):
         auths = deref(self._ptr).authors()
         return [ a.decode('utf-8') for a in auths ]

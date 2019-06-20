@@ -1,10 +1,37 @@
+BEGIN YODA_SCATTER1D_V2 /RAW/_XSEC
+Variations: [""]
+Path: /RAW/_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+4.050300e+04	2.374320e+02	2.374320e+02
+END YODA_SCATTER1D_V2
+
+BEGIN YODA_COUNTER_V2 /_EVTCOUNT
+Path: /_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.000000e+03	1.000000e+03	1.000000e+03
+END YODA_COUNTER_V2
+
+BEGIN YODA_SCATTER1D_V2 /_XSEC
+Variations: [""]
+Path: /_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+4.050300e+04	2.374320e+02	2.374320e+02
+END YODA_SCATTER1D_V2
+
 BEGIN YODA_HISTO1D_V2 /L3_1992_I336180/d01-x01-y01
 Path: /L3_1992_I336180/d01-x01-y01
 ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 8.541962e-02
 # Area: 9.140000e-01
@@ -26,8 +53,6 @@ Path: /L3_1992_I336180/d02-x01-y01
 ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 2.993883e+00
 # Area: 9.140000e-01
@@ -47,11 +72,8 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/L3_1992_I336180/d02-x01-y01
 Path: /RAW/L3_1992_I336180/d02-x01-y01
-ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 2.993883e+00
 # Area: 9.140000e+02
@@ -69,13 +91,19 @@ Overflow	Overflow	3.210000e+02	3.210000e+02	1.321103e+03	5.529985e+03	3.210000e+
 3.200000e+00	3.400000e+00	7.000000e+01	7.000000e+01	2.309181e+02	7.620123e+02	7.000000e+01
 END YODA_HISTO1D_V2
 
+BEGIN YODA_COUNTER_V2 /RAW/_EVTCOUNT
+Path: /RAW/_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.000000e+03	1.000000e+03	1.000000e+03
+END YODA_COUNTER_V2
+
 BEGIN YODA_HISTO1D_V2 /RAW/L3_1992_I336180/d01-x01-y01
 Path: /RAW/L3_1992_I336180/d01-x01-y01
-ScaledBy: 1.00000000000000002e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 8.541962e-02
 # Area: 9.140000e+02

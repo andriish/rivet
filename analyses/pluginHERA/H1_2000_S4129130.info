@@ -47,3 +47,8 @@ BibTeX: '@Article{Adloff:1999ws,
      doi       = "10.1007/s100520000287",
      SLACcitation  = "%%CITATION = HEP-EX/9907027;%%"
 }'
+
+Validation:
+ - $A DIS-e+-HighQ2
+ - $A-2 DIS-e+-LowQ2
+

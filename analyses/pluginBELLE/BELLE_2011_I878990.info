@@ -33,3 +33,7 @@ BibTeX: '@article{Ha:2010rf,
       reportNumber   = "BELLE-PREPRINT-2010-22, KEK-PREPRINT-2010-37",
       SLACcitation   = "%%CITATION = ARXIV:1012.0090;%%"
 }'
+
+Validation:
+ - $A BFactory-Upsilon4
+

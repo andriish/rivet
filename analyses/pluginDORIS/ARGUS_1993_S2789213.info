@@ -31,3 +31,9 @@ BibTeX: '@article{Albrecht:1993fs,
       reportNumber   = "DESY-93-084",
       SLACcitation   = "%%CITATION = ZEPYA,C61,1;%%",
 }'
+
+Validation:
+ - $A BFactory-10.45
+ - $A-2 BFactory-Upsilon
+ - $A-3 BFactory-Upsilon4
+

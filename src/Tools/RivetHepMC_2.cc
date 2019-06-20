@@ -185,8 +185,9 @@ namespace Rivet{
       return ret;
     }
 
-    double crossSection(const GenEvent & ge) {
-      return ge.cross_section()->cross_section();
+    pair<double,double> crossSection(const GenEvent & ge) {
+      return make_pair(ge.cross_section()->cross_section(),
+                       ge.cross_section()->cross_section_error());
     }
 
     std::valarray<double> weights(const GenEvent & ge) {

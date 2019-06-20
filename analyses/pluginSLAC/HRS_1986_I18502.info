@@ -35,3 +35,7 @@ BibTeX: '@article{Derrick:1986jx,
       reportNumber   = "ANL-HEP-PR-86-03, IUHEE-81, UM-HE-86-06, PU-86-560",
       SLACcitation   = "%%CITATION = PHRVA,D34,3304;%%"
 }'
+
+Validation:
+ - $A LEP-29
+

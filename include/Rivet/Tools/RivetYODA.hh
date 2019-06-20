@@ -616,7 +616,8 @@ class AOPath {
   public:
 
     /// Constructor
-    AOPath(string fullpath) : _path(fullpath) {
+    AOPath(string fullpath)
+      : _valid(false), _path(fullpath), _raw(false), _tmp(false), _ref(false) {
       _valid = init(fullpath);
     }
 

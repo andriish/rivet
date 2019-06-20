@@ -12,3 +12,7 @@ PtCuts: [0]
 Description:
   Monte Carlo validation observables for $Z[e^+ \, e^-]$ production
 NeedCrossSection: yes
+
+Validation:
+ - $A LHC-Z-e
+

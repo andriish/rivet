@@ -40,3 +40,7 @@ BibTeX: '@Article{Abazov:2001nta,
      doi       = "10.1016/S0370-2693(01)01020-6",
      SLACcitation  = "%%CITATION = HEP-EX/0107012;%%"
 }'
+
+Validation:
+ - $A TVT-Run-I-WZ
+

@@ -13,3 +13,8 @@ PtCuts: [0]
 Description:
   'Various plots for characterising the process $V H \to b\bar{b}$'
 NeedCrossSection: yes
+
+Validation:
+ - $A LHC-WH
+ - $A-2 LHC-ZH
+

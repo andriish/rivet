@@ -45,3 +45,10 @@ BibTeX: '@article{Aad:2014lwa,
       reportNumber   = "CERN-PH-EP-2014-148",
       SLACcitation   = "%%CITATION = ARXIV:1407.4222;%%",
 }'
+
+Validation:
+ - $A LHC-8-VBF-GammaGamma
+ - $A-2 LHC-8-WH-GammaGamma
+ - $A-3 LHC-8-ZH-GammaGamma
+ - $A-4 LHC-8-ggH-GammaGamma
+

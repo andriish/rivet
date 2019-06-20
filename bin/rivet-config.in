@@ -92,7 +92,7 @@ if test -n "$tmp"; then
     test -n "$lhepmc" && OUT="$OUT -L${lhepmc} -lHepMC"
     lyoda="@YODALIBPATH@"
     test -n "$lyoda" && OUT="$OUT -L${lyoda} -lYODA"
-    lfastjet="@FASTJETCONFIGLIBADD@"
+    lfastjet="@FASTJETLIBADD@"
     test -n "$lfastjet" && OUT="$OUT ${lfastjet}"
 fi
 

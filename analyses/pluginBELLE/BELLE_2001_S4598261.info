@@ -38,3 +38,7 @@ BibTeX: '@article{Abe:2001hj,
       reportNumber   = "KEK-PREPRINT-2001-2, BELLE-PREPRINT-2001-3",
       SLACcitation   = "%%CITATION = HEP-EX/0103041;%%",
 }'
+
+Validation:
+ - $A BFactory-10.58-res
+

@@ -1,10 +1,36 @@
+BEGIN YODA_SCATTER1D_V2 /RAW/_XSEC
+Variations: [""]
+Path: /RAW/_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+4.050300e+04	2.374320e+02	2.374320e+02
+END YODA_SCATTER1D_V2
+
+BEGIN YODA_COUNTER_V2 /_EVTCOUNT
+Path: /_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.000000e+03	1.000000e+03	1.000000e+03
+END YODA_COUNTER_V2
+
+BEGIN YODA_SCATTER1D_V2 /_XSEC
+Variations: [""]
+Path: /_XSEC
+Title: ~
+Type: Scatter1D
+---
+# xval	  xerr-	 xerr+	
+4.050300e+04	2.374320e+02	2.374320e+02
+END YODA_SCATTER1D_V2
+
 BEGIN YODA_HISTO1D_V2 /RAW/DELPHI_2011_I890503/d01-x01-y01
 Path: /RAW/DELPHI_2011_I890503/d01-x01-y01
-ScaledBy: 1.54798761609907130e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 6.939125e-01
 # Area: 6.460000e+02
@@ -29,8 +55,6 @@ Path: /DELPHI_2011_I890503/d01-x01-y01
 ScaledBy: 1.54798761609907130e-03
 Title: ~
 Type: Histo1D
-XLabel: ~
-YLabel: ~
 ---
 # Mean: 6.939125e-01
 # Area: 1.000000e+00
@@ -54,8 +78,6 @@ BEGIN YODA_PROFILE1D_V2 /DELPHI_2011_I890503/d02-x01-y01
 Path: /DELPHI_2011_I890503/d02-x01-y01
 Title: ~
 Type: Profile1D
-XLabel: ~
-YLabel: ~
 ---
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 sumwy	 sumwy2	 numEntries
 Total   	Total   	6.460000e+02	6.460000e+02	5.878600e+04	5.349526e+06	4.482675e+02	3.361502e+02	6.460000e+02
@@ -65,12 +87,19 @@ Overflow	Overflow	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+00	0.000000e+
 9.050000e+01	9.150000e+01	6.460000e+02	6.460000e+02	5.878600e+04	5.349526e+06	4.482675e+02	3.361502e+02	6.460000e+02
 END YODA_PROFILE1D_V2
 
+BEGIN YODA_COUNTER_V2 /RAW/_EVTCOUNT
+Path: /RAW/_EVTCOUNT
+Title: ~
+Type: Counter
+---
+# sumW	 sumW2	 numEntries
+1.000000e+03	1.000000e+03	1.000000e+03
+END YODA_COUNTER_V2
+
 BEGIN YODA_PROFILE1D_V2 /RAW/DELPHI_2011_I890503/d02-x01-y01
 Path: /RAW/DELPHI_2011_I890503/d02-x01-y01
 Title: ~
 Type: Profile1D
-XLabel: ~
-YLabel: ~
 ---
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 sumwy	 sumwy2	 numEntries
 Total   	Total   	6.460000e+02	6.460000e+02	5.878600e+04	5.349526e+06	4.482675e+02	3.361502e+02	6.460000e+02

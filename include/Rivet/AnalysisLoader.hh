@@ -38,7 +38,7 @@ namespace Rivet {
     friend class AnalysisBuilderBase;
 
     /// Register a new analysis builder
-    static void _registerBuilder(const AnalysisBuilderBase* a);
+    static void _registerBuilder(const AnalysisBuilderBase* ab);
 
     /// Load the available analyses at runtime.
     static void _loadAnalysisPlugins();

@@ -2,6 +2,7 @@
 #include "Rivet/AnalysisLoader.hh"
 //#include "HepMC/IO_GenEvent.h"
 #include "Rivet/Tools/RivetHepMC.hh"
+#include <fstream>
 
 using namespace std;
 
@@ -33,7 +34,7 @@ int main(int argc, char** argv) {
   
   istr.close();
 
-  ah.setCrossSection(1.0, 0.0);
+  ah.setCrossSection(make_pair(1.0, 0.0));
   ah.finalize();
   ah.writeData("Rivet.yoda");
 

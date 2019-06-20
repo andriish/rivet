@@ -7,9 +7,10 @@ PLUGIN_DIRS = $(shell ls -d $(srcdir)/plugin*)
 PLUGIN_NAMES = $(notdir $(subst plugin,,$(PLUGIN_DIRS)))
 PLUGIN_LIBS = $(patsubst %,Rivet%Analyses.so,$(PLUGIN_NAMES))
 PLUGIN_DATAFILES = $(shell ls $(abs_srcdir)/plugin*/*.{info,plot,yoda})
+VALREF_DIR = $(shell ls -d $(srcdir)/valref*)
 
 CLEANFILES = $(PLUGIN_LIBS)
-EXTRA_DIST = $(PLUGIN_DIRS)
+EXTRA_DIST = $(PLUGIN_DIRS) $(VALREF_DIR)
 
 %.so:
 	@+echo && RIVET_BUILDPLUGIN_BEFORE_INSTALL=1 bash $(top_builddir)/bin/rivet-buildplugin -j2 $@ $^ -I$(top_builddir)/include
@@ -55,6 +56,8 @@ install-data-local: $(PLUGIN_DATAFILES)
 	@echo "Installing analysis data files..."
 	$(mkdir_p) $(DESTDIR)$(pkgdatadir)
 	rsync -aq $(abs_srcdir)/plugin*/*.{info,plot,yoda} $(DESTDIR)$(pkgdatadir)/ || cp $(abs_srcdir)/plugin*/*.{info,plot,yoda} $(DESTDIR)$(pkgdatadir)/
+	$(mkdir_p) $(DESTDIR)$(pkgdatadir)/refyodas
+	rsync -aq $(abs_srcdir)/valref/*.yoda $(DESTDIR)$(pkgdatadir)/refyodas/ || cp $(abs_srcdir)/valref/*.yoda $(DESTDIR)$(pkgdatadir)/refyodas
 
 uninstall-local:
 	cd $(DESTDIR)$(libdir) && rm -f $(PLUGIN_LIBS)
