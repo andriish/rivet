@@ -188,21 +188,22 @@ if test -f "$FJCONFIG"; then
   if test "$fjmajor" -lt 3; then
     AC_MSG_ERROR([FastJet version 3.0.0 or later is required])
   fi
-  FASTJETLIBADD="$($FJCONFIG --plugins --shared --libs) -lfastjetcontribfragile"
+  FASTJETLIBADD="$($FJCONFIG --plugins --shared --libs)"
 else
   FASTJETLIBADD="-L$FASTJETLIBPATH -l$FASTJETLIBNAME"
   FASTJETLIBADD="$FASTJETLIBADD -lSISConePlugin -lsiscone -lsiscone_spherical"
   FASTJETLIBADD="$FASTJETLIBADD -lCDFConesPlugin -lD0RunIIConePlugin -lNestedDefsPlugin"
   FASTJETLIBADD="$FASTJETLIBADD -lTrackJetPlugin -lATLASConePlugin -lCMSIterativeConePlugin"
   FASTJETLIBADD="$FASTJETLIBADD -lEECambridgePlugin -lJadePlugin"
-  FASTJETLIBADD="$FASTJETLIBADD -lfastjetcontribfragile"
 fi;
+FASTJETLIBADD="$FASTJETLIBADD -lfastjetcontribfragile -lfastjettools"
 AC_MSG_NOTICE([FastJet LIBADD = $FASTJETLIBADD])
 AC_SUBST(FASTJETLIBADD)
 # Check for FastJet headers that require the --enable-all(cxx)plugins option
 oldCPPFLAGS=$CPPFLAGS
 CPPFLAGS="$CPPFLAGS -I$FASTJETINCPATH"
-LDFLAGS="$CPPFLAGS -I$FASTJETINCPATH"
+oldLIBS=$LIBS
+LIBS="$LIBS $FASTJETLIBADD"
 FASTJET_ERRMSG="Required FastJet plugin headers were not found: did you build FastJet with the --enable-allcxxplugins option?"
 AC_CHECK_HEADER([fastjet/D0RunIIConePlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG])])
 AC_CHECK_HEADER([fastjet/TrackJetPlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG])])
@@ -210,23 +211,25 @@ FASTJET_ERRMSG="Required FastJet Contrib headers were not found: did you install
 AC_CHECK_HEADER([fastjet/contrib/SoftDrop.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG])])
 AC_MSG_CHECKING([FastJet test program compilation])
 FASTJET_ERRMSG="Couldn't build FastJet test program: did you install FastJet Contrib with 'make fragile-shared-install'?"
-AC_COMPILE_IFELSE([AC_LANG_SOURCE([#include <vector>
-  #include "fastjet/contrib/SoftDrop.hh"
-  int main() {
-    std::vector<fastjet::PseudoJet> particles{{1,1,0,2}, {1,-1,0,2}};
-    fastjet::ClusterSequence cs(particles, fastjet::JetDefinition(fastjet::antikt_algorithm, 0.4));
-    fastjet::contrib::SoftDrop sd(0.5, 0.1);
-    for (const fastjet::PseudoJet& j : cs.inclusive_jets()) {
-      const fastjet::PseudoJet& jsd = sd(j);
-    }
-    return 0;
+AC_LINK_IFELSE([AC_LANG_SOURCE([#include <vector>
+#include "fastjet/PseudoJet.hh"
+#include "fastjet/ClusterSequence.hh"
+#include "fastjet/contrib/SoftDrop.hh"
+int main() {
+  std::vector<fastjet::PseudoJet> particles{{1,1,0,2}, {1,-1,0,2}};
+  fastjet::ClusterSequence cs(particles, fastjet::JetDefinition(fastjet::antikt_algorithm, 0.4));
+  fastjet::contrib::SoftDrop sd(0.5, 0.1);
+  for (const fastjet::PseudoJet& j : cs.inclusive_jets()) {
+    const fastjet::PseudoJet& jsd = sd(j);
   }
-  ])],
+  return 0;
+}
+])],
   [AC_MSG_RESULT([successful])],
   [AC_MSG_RESULT([failed])
    AC_MSG_ERROR([$FASTJET_ERRMSG])])
 CPPFLAGS=$oldCPPFLAGS
-LDFLAGS=$oldLDFLAGS
+LIBS=$oldLIBS
 
 
 # ## GNU Scientific Library
