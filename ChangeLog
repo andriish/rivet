@@ -1,11 +1,14 @@
+2019-06-20 Christian Gutschow  <chris.g@cern.ch>
+
+	* Release version 3.0.0
+
+
 2019-06-19  Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
 
 	* Adding bookScatter3D method
 
 
 2019-06-19 Christian Gutschow  <chris.g@cern.ch>
-
-	* Release version 3.0.0
 
 	* Adding valref for ATLAS_2018_I1634970 and tweaking info file
 
