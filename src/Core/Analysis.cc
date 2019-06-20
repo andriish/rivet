@@ -458,9 +458,6 @@ namespace Rivet {
   // }
 
 
-  ///////////////
-
-
   /// @todo Should be able to book Scatter1Ds
 
 
@@ -539,7 +536,95 @@ namespace Rivet {
     return s2d = registerAO(scat);
   }
 
-  /// @todo Book Scatter3Ds?
+
+  ///////////////
+
+
+  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, unsigned int datasetId, unsigned int xAxisId, 
+                                unsigned int yAxisId, unsigned int zAxisId, bool copy_pts) {
+    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
+    return book(s3d, axisCode, copy_pts);
+  }
+
+
+  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, const string& hname, bool copy_pts) {
+    const string path = histoPath(hname);
+
+    Scatter3D scat;
+    if (copy_pts) {
+      const Scatter3D& refdata = refData<Scatter3D>(hname);
+      scat = Scatter3D(refdata, path);
+      for (Point3D& p : scat.points()) p.setZ(0, 0);
+      for (const string& a : scat.annotations()) {
+        if (a != "Path")  scat.rmAnnotation(a);
+      }
+    } else {
+      scat = Scatter3D(path);
+    }
+
+    // s3d = Scatter3DPtr(handler().weightNames(), scat);
+    // s3d = addAnalysisObject(s3d);
+    // return s3d;
+    return s3d = registerAO(scat);
+  }
+
+
+  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, const string& hname,
+                                size_t xnpts, double xlower, double xupper,
+                                size_t ynpts, double ylower, double yupper) {
+    const string path = histoPath(hname);
+
+    Scatter3D scat;
+    const double xbinwidth = (xupper-xlower)/xnpts;
+    const double ybinwidth = (yupper-ylower)/ynpts;
+    for (size_t xpt = 0; xpt < xnpts; ++xpt) {
+      const double xbincentre = xlower + (xpt + 0.5) * xbinwidth;
+      for (size_t ypt = 0; ypt < ynpts; ++ypt) {
+        const double ybincentre = ylower + (ypt + 0.5) * ybinwidth;
+        scat.addPoint(xbincentre, ybincentre, 0, 0.5*xbinwidth, 0.5*ybinwidth, 0);
+      }
+    }
+
+    // s3d = Scatter3DPtr(handler().weightNames(), scat);
+    // s3d = addAnalysisObject(s3d);
+    // return s3d;
+    return s3d = registerAO(scat);
+  }
+
+  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, const string& hname, 
+                                const vector<double>& xbinedges, 
+                                const vector<double>& ybinedges) {
+    Scatter3D scat;
+    for (size_t xpt = 0; xpt < xbinedges.size()-1; ++xpt) {
+      const double xbincentre = (xbinedges[xpt] + xbinedges[xpt+1]) / 2.0;
+      const double xbinwidth = xbinedges[xpt+1] - xbinedges[xpt];
+      for (size_t ypt = 0; ypt < ybinedges.size()-1; ++ypt) {
+        const double ybincentre = (ybinedges[ypt] + ybinedges[ypt+1]) / 2.0;
+        const double ybinwidth = ybinedges[ypt+1] - ybinedges[ypt];
+        scat.addPoint(xbincentre, ybincentre, 0, 0.5*xbinwidth, 0.5*ybinwidth, 0);
+      }
+    }
+
+    // s3d = Scatter3DPtr(handler().weightNames(), scat);
+    // s3d = addAnalysisObject(s3d);
+    // return s3d;
+    return s3d = registerAO(scat);
+  }
+
+  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, const string& hname, const Scatter3D& refscatter) {
+    const string path = histoPath(hname);
+
+    Scatter3D scat(refscatter, path);
+    for (const string& a : scat.annotations()) {
+      if (a != "Path")  scat.rmAnnotation(a);
+    }
+
+    return s3d = registerAO(scat);
+  }
+
+
+  ///////////////
+
 
 
   /////////////////////
