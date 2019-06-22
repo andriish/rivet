@@ -537,6 +537,35 @@ namespace Rivet {
     return tmp;
   }
 
+  template<typename PBCONTAINER1, typename PBCONTAINER2>
+  void iselectIfAnyDeltaRLess(PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dR) {
+    for (const ParticleBase& pb : tocompare)
+      ifilter_select(tofilter, deltaRLess(pb, dR));
+  }
+
+  template<typename PBCONTAINER1, typename PBCONTAINER2>
+  PBCONTAINER1 selectIfAnyDeltaRLess(const PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dR) {
+    PBCONTAINER1 tmp{tofilter};
+    iselectIfAnyDeltaRLess(tmp, tocompare, dR);
+    return tmp;
+  }
+
+  template<typename PBCONTAINER1, typename PBCONTAINER2>
+  void iselectIfAnyDeltaPhiLess(PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dphi) {
+    for (const ParticleBase& pb : tocompare)
+      ifilter_select(tofilter, deltaPhiLess(pb, dphi));
+  }
+
+  template<typename PBCONTAINER1, typename PBCONTAINER2>
+  PBCONTAINER1 selectIfAnyDeltaPhiLess(const PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dphi) {
+    PBCONTAINER1 tmp{tofilter};
+    iselectIfAnyDeltaPhiLess(tmp, tocompare, dphi);
+    return tmp;
+  }
+
+  //@}
+
+
   //@}
 
 
