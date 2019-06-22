@@ -130,7 +130,7 @@ namespace Rivet {
       if (!muons.empty()) vetoEvent;
 
       // Passed presel & MET
-      _flows.fill();
+      _flows.fill(1);
 
       // Get jets and their pTs
       const Jets jets20 = jets;
@@ -234,11 +234,11 @@ namespace Rivet {
     void finalize() {
 
       const double sf = 13.3*crossSection()/femtobarn/sumOfWeights();
-      scale({_h_2j_0800, _h_2j_1200, _h_2j_1600, _h_2j_2000}, sf);
-      scale( _h_3j_1200, sf);
-      scale({_h_4j_1000, _h_4j_1400, _h_4j_1800, _h_4j_2200, _h_4j_2600}, sf);
-      scale( _h_5j_1400, sf);
-      scale({_h_6j_1800, _h_6j_2200}, sf);
+      scale(_h_2j_0800, sf); scale(_h_2j_1200, sf); scale(_h_2j_1600, sf);
+      scale(_h_2j_2000, sf); scale(_h_3j_1200, sf); scale(_h_4j_1000, sf);
+      scale(_h_4j_1400, sf); scale(_h_4j_1800, sf); scale(_h_4j_2200, sf);
+      scale(_h_4j_2600, sf); scale(_h_5j_1400, sf); scale(_h_6j_1800, sf);
+      scale(_h_6j_2200, sf);
 
       _flows.scale(sf);
       MSG_INFO("CUTFLOWS:\n\n" << _flows);
@@ -262,10 +262,6 @@ namespace Rivet {
 
   };
 
-
-
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2016_CONF_2016_078);
-
-
 }
