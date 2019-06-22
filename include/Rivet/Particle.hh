@@ -90,7 +90,7 @@ namespace Rivet {
     /// @name Positional properties
     //@{
 
-    /// The origin position.
+    /// The origin position (and time).
     const FourVector& origin() const {
       return _origin;
     }
@@ -103,6 +103,24 @@ namespace Rivet {
     Particle& setOrigin(double t, double x, double y, double z) {
       _origin = FourMomentum(t, x, y, z);
       return *this;
+    }
+
+    //@}
+
+
+    /// @name Displacement-projection properties
+    //@{
+
+    /// Find the point of closest approach to the primary vertex
+    Vector3 closestApproach() const {
+      const FourVector& v0 = origin();
+      /// @todo Check that this works with all angles
+      const double rho0 = origin().perp() / sin(this->phi() - origin().phi());
+      const double phi0 = M_PI/2 - this->phi();
+      const double x0 = rho0 * cos(phi0);
+      const double y0 = rho0 * sin(phi0);
+      const double z0 = origin().z() - v0.perp()/tan(this->theta());
+      return Vector3(x0, y0, z0);
     }
 
     //@}

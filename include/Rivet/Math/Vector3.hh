@@ -165,6 +165,11 @@ namespace Rivet {
       return azimuthalAngle(mapping);
     }
 
+    /// Tangent of the polar angle
+    double tanTheta() const {
+      return polarRadius()/z();
+    }
+
     /// Angle subtended by the vector and the z-axis.
     double polarAngle() const {
       // Get number beween [0,PI]
