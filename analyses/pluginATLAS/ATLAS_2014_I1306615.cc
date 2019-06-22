@@ -33,7 +33,7 @@ namespace Rivet {
       declare(FS,"FS");
 
       // Project photons with pT > 25 GeV and |eta| < 2.37
-      PromptFinalState ph_FS(Cuts::abseta<2.37 && Cuts::pT>25*GeV);
+      PromptFinalState ph_FS(Cuts::abseta<2.37 && Cuts::pT>25*GeV && Cuts::pid == PID::PHOTON);
       declare(ph_FS, "PH_FS");
 
       // Project photons for dressing
