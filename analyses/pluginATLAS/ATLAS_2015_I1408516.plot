@@ -209,7 +209,7 @@ YLabel=$\text{d}\sigma/\text{d} p_\text{T}^{\ell\ell}$ [pb GeV$^{-1}$]
 XMin=0.9
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2015_I1408516/d41
+# BEGIN PLOT /ATLAS_2015_I1408516/d41-x01-y02
 Title=$Z\rightarrow ee$, dressed level
 XLabel=$m_{\ell\ell}$ [GeV]
 YLabel=$\sigma$ [pb]
