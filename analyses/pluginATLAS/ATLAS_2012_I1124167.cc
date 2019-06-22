@@ -20,9 +20,8 @@ namespace Rivet {
     /// Initialization, called once before running
     void init() {
       // Projections
-      ChargedFinalState cfs(-2.5, 2.5, 0.5*GeV);
+      ChargedFinalState cfs(Cuts::abseta < 2.5 && Cuts::pT > 0.5*GeV);
       declare(cfs, "CFS");
-      declare(Sphericity(cfs), "Sphericity");
 
       // Book histograms
       book(_hist_T_05_25 ,1,1,1);
@@ -70,11 +69,10 @@ namespace Rivet {
       const double weight = 1.0;
 
       // CFS projection and particles
-      const ChargedFinalState& cfs500 = apply<ChargedFinalState>(event, "CFS");
-      ParticleVector particles500 = cfs500.particlesByPt();
+      const Particles& particles500 = apply<ChargedFinalState>(event, "CFS").particlesByPt();
 
       // Require at least 6 charged particles
-      if (cfs500.size() < 6) vetoEvent;
+      if (particles500.size() < 6) vetoEvent;
 
       // Preparation for Thrust calculation
       vector<Vector3> momenta;
@@ -86,7 +84,7 @@ namespace Rivet {
       double pTlead = particles500[0].pT()/GeV;
 
       // Loop over particles
-      foreach (const Particle& p, particles500) {
+      for (const Particle& p : particles500) {
         num500 += 1;
         ptSum500 += p.pT()/GeV;
 
@@ -111,7 +109,8 @@ namespace Rivet {
       Sphericity sphericity;
       sphericity.calc(momenta);
 
-      const double S = sphericity.transSphericity();
+      double S = sphericity.transSphericity();
+      if ( std::isnan(S) )  S = -1.0; // put this in the underflow bin
 
       // Fill histos, most inclusive first
 
