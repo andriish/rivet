@@ -45,8 +45,7 @@ BibTeX: '@article{Chatrchyan:2012dc,
       SLACcitation   = "%%CITATION = ARXIV:1207.3973;%%",
 }'
 
-# Currently disabled
-# Validation:
-#  - $A LHC-Z-e
-#  - $A-2 LHC-Z-mu
+Validation:
+ - $A LHC-Z-e
+ - $A-2 LHC-Z-mu
 

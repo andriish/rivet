@@ -10,22 +10,19 @@ namespace Rivet {
   public:
 
     /// Constructor
-    CMS_2013_I1122847()
-      : Analysis("CMS_2013_I1122847")  {}
+    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2013_I1122847);
 
 
     /// Book histograms and initialise projections before the run
     void init() {
-      FinalState fs;
+      const FinalState fs;
 
       Cut cuts_mu = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;
-      ZFinder zfinder_mu(fs, cuts_mu, PID::MUON, 40.0*GeV, MAXDOUBLE,
-                         0.0, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
+      ZFinder zfinder_mu(fs, cuts_mu, PID::MUON, 40*GeV, 7*TeV, 0.0);
       declare(zfinder_mu, "zfinder_mu");
 
       Cut cuts_el = (Cuts::pT >= 20*GeV && Cuts::abseta < 2.4 && !Cuts::absetaIn(1.447, 1.57));
-      ZFinder zfinder_el(fs, cuts_el, PID::ELECTRON, 40.0*GeV, MAXDOUBLE,
-                         0.0, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
+      ZFinder zfinder_el(fs, cuts_el, PID::ELECTRON, 40*GeV, 7*TeV, 0.0);
       declare(zfinder_el, "zfinder_el");
 
 
@@ -62,6 +59,19 @@ namespace Rivet {
       book(_hist_ll_125_den, "TMP/ll_125_den", refData(3, 1, 2));
       book(_hist_ll_150_den, "TMP/ll_150_den", refData(3, 1, 3));
       book(_hist_ll_240_den, "TMP/ll_240_den", refData(3, 1, 4));
+
+      book(_s_mm_100, 1, 1, 1);
+      book(_s_mm_125, 1, 1, 2);
+      book(_s_mm_150, 1, 1, 3);
+      book(_s_mm_240, 1, 1, 4);
+      book(_s_ee_100, 2, 1, 1);
+      book(_s_ee_125, 2, 1, 2);
+      book(_s_ee_150, 2, 1, 3);
+      book(_s_ee_240, 2, 1, 4);
+      book(_s_ll_100, 3, 1, 1);
+      book(_s_ll_125, 3, 1, 2);
+      book(_s_ll_150, 3, 1, 3);
+      book(_s_ll_240, 3, 1, 4);
     }
 
 
@@ -164,18 +174,18 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      {Scatter2DPtr s2d; divide(_hist_mm_100_num, _hist_mm_100_den, book(s2d, 1, 1, 1));}
-      {Scatter2DPtr s2d; divide(_hist_mm_125_num, _hist_mm_125_den, book(s2d, 1, 1, 2));}
-      {Scatter2DPtr s2d; divide(_hist_mm_150_num, _hist_mm_150_den, book(s2d, 1, 1, 3));}
-      {Scatter2DPtr s2d; divide(_hist_mm_240_num, _hist_mm_240_den, book(s2d, 1, 1, 4));}
-      {Scatter2DPtr s2d; divide(_hist_ee_100_num, _hist_ee_100_den, book(s2d, 2, 1, 1));}
-      {Scatter2DPtr s2d; divide(_hist_ee_125_num, _hist_ee_125_den, book(s2d, 2, 1, 2));}
-      {Scatter2DPtr s2d; divide(_hist_ee_150_num, _hist_ee_150_den, book(s2d, 2, 1, 3));}
-      {Scatter2DPtr s2d; divide(_hist_ee_240_num, _hist_ee_240_den, book(s2d, 2, 1, 4));}
-      {Scatter2DPtr s2d; divide(_hist_ll_100_num, _hist_ll_100_den, book(s2d, 3, 1, 1));}
-      {Scatter2DPtr s2d; divide(_hist_ll_125_num, _hist_ll_125_den, book(s2d, 3, 1, 2));}
-      {Scatter2DPtr s2d; divide(_hist_ll_150_num, _hist_ll_150_den, book(s2d, 3, 1, 3));}
-      {Scatter2DPtr s2d; divide(_hist_ll_240_num, _hist_ll_240_den, book(s2d, 3, 1, 4));}
+      divide(_hist_mm_100_num, _hist_mm_100_den, _s_mm_100);
+      divide(_hist_mm_125_num, _hist_mm_125_den, _s_mm_125);
+      divide(_hist_mm_150_num, _hist_mm_150_den, _s_mm_150);
+      divide(_hist_mm_240_num, _hist_mm_240_den, _s_mm_240);
+      divide(_hist_ee_100_num, _hist_ee_100_den, _s_ee_100);
+      divide(_hist_ee_125_num, _hist_ee_125_den, _s_ee_125);
+      divide(_hist_ee_150_num, _hist_ee_150_den, _s_ee_150);
+      divide(_hist_ee_240_num, _hist_ee_240_den, _s_ee_240);
+      divide(_hist_ll_100_num, _hist_ll_100_den, _s_ll_100);
+      divide(_hist_ll_125_num, _hist_ll_125_den, _s_ll_125);
+      divide(_hist_ll_150_num, _hist_ll_150_den, _s_ll_150);
+      divide(_hist_ll_240_num, _hist_ll_240_den, _s_ll_240);
     }
 
 
@@ -188,9 +198,11 @@ namespace Rivet {
     Histo1DPtr _hist_mm_100_den, _hist_mm_125_den, _hist_mm_150_den, _hist_mm_240_den;
     Histo1DPtr _hist_ll_100_num, _hist_ll_125_num, _hist_ll_150_num, _hist_ll_240_num;
     Histo1DPtr _hist_ll_100_den, _hist_ll_125_den, _hist_ll_150_den, _hist_ll_240_den;
+    Scatter2DPtr _s_ee_100, _s_ee_125, _s_ee_150, _s_ee_240;
+    Scatter2DPtr _s_mm_100, _s_mm_125, _s_mm_150, _s_mm_240;
+    Scatter2DPtr _s_ll_100, _s_ll_125, _s_ll_150, _s_ll_240;
 
   };
-
 
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(CMS_2013_I1122847);
