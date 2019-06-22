@@ -16,17 +16,17 @@ namespace Rivet {
     DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2013_I1261026);
 
     void init() {
-      FastJets jetpro(ChargedFinalState(-2.4, 2.4, 0.25*GeV), FastJets::ANTIKT, 0.5);
-      declare(jetpro, "Jets");
-
-      const ChargedFinalState cfs(-2.4, 2.4, 0.25*GeV);
+      const ChargedFinalState cfs(Cuts::abseta < 2.4 && Cuts::pT > 0.25*GeV);
       declare(cfs, "CFS250");
 
+      FastJets jetpro(cfs, FastJets::ANTIKT, 0.5);
+      declare(jetpro, "Jets");
+
       // For min bias trigger
-      const ChargedFinalState cfsBSCplus(3.23, 4.65, 500*MeV);
+      const ChargedFinalState cfsBSCplus(Cuts::etaIn(3.23, 4.65) && Cuts::pT > 500*MeV);
       declare(cfsBSCplus, "cfsBSCplus");
 
-      const ChargedFinalState cfsBSCminus(-4.65, -3.23, 500*MeV);
+      const ChargedFinalState cfsBSCminus(Cuts::etaIn(-4.65, -3.23) && Cuts::pT > 500*MeV);
       declare(cfsBSCminus, "cfsBSCminus");
 
       // Histograms:
@@ -41,15 +41,6 @@ namespace Rivet {
       for (int ihist = 0; ihist < 5; ++ihist) {
         book(_h_JetSpectrum[ihist] ,ihist+8, 1, 1);
         book(_h_JetStruct[ihist]   ,ihist+13, 1, 1);
-
-        // Temp histograms for distribution parameters and SEM calculation
-        book(_th_AllTrkSpectrum[ihist] , "TMP/AllTrkSpectrum"+to_str(ihist), 200, 0.0, 20.0);
-        book(_th_SoftTrkSpectrum[ihist], "TMP/SoftTrkSpectrum"+to_str(ihist), 100, 0.0, 15.0);
-        book(_th_JetTrkSpectrum[ihist] , "TMP/JetTrkSpectrum"+to_str(ihist), 100, 0.0, 20.0);
-        book(_th_JetLTrkSpectrum[ihist], "TMP/JetLTrkSpectrum"+to_str(ihist), 100, 0.0, 20.0);
-
-        book(_jetCounter5GeV[ihist], "TMP/jetCounter5GeV"+to_str(ihist));
-        book(_jetCounter30GeV[ihist], "TMP/jetCounter30GeV"+to_str(ihist));
       }
     }
 
@@ -74,14 +65,17 @@ namespace Rivet {
       for (int ibin = 0; ibin < 5; ++ibin) {
         if (mult > multbin[ibin] && mult <= multbin[ibin + 1]) {
           eventDecomp(event, mult, ibin);
+          unsigned int jetCounter5GeV(0), jetCounter30GeV(0);
           for (size_t ijets = 0; ijets < jets.size(); ++ijets) {
             if (jets[ijets].abseta() < 1.9) {
               _h_JetSpectrum[ibin]->fill(jets[ijets].pT()/GeV);
               _h_MeanJetPt->fill(mult, jets[ijets].pT()/GeV);
-              if (jets[ijets].pT() > 5*GeV) _jetCounter5GeV[ibin]->fill();
-              if (jets[ijets].pT() > 30*GeV) _jetCounter30GeV[ibin]->fill();
+              if (jets[ijets].pT() > 5*GeV)   ++jetCounter5GeV;
+              if (jets[ijets].pT() > 30*GeV)  ++jetCounter30GeV;
             }
           }
+          _h_JetRate5GeV->fill( mult,  jetCounter5GeV);
+          _h_JetRate30GeV->fill(mult, jetCounter30GeV);
         }
       }
     }
@@ -131,7 +125,7 @@ namespace Rivet {
 
       const ChargedFinalState& cfsp = apply<ChargedFinalState>(event, "CFS250");
       for (const Particle& p : cfsp.particles()) {
-        _th_AllTrkSpectrum[ibin].fill(p.pT()/GeV);
+        _h_AllTrkMeanPt->fill(mult, p.pT()/GeV);
         int flag = 0;
         for (size_t i = 0; i < jCount; ++i) {
           const double delta_phi = deltaPhi(jetsEv[i].phi, p.phi());
@@ -163,11 +157,6 @@ namespace Rivet {
 
   private:
 
-    // Counters etc.
-    const array<double,5> _multBinCent = {{20,40,65,95,125}};
-
-    array<CounterPtr,5> _jetCounter5GeV, _jetCounter30GeV;
-
     Profile1DPtr _h_AllTrkMeanPt, _h_SoftTrkMeanPt;
     Profile1DPtr _h_IntrajetTrkMeanPt, _h_IntrajetLeaderTrkMeanPt;
     Profile1DPtr _h_MeanJetPt;
@@ -177,7 +166,6 @@ namespace Rivet {
     array<Histo1DPtr,5> _h_JetStruct;
 
   };
-
 
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(CMS_2013_I1261026);
