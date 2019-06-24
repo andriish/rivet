@@ -49,28 +49,27 @@ namespace Rivet {
       }
 
       //Book the histograms:
-      _h["dR"]        = bookHandler( 1);
-      _h["highpT_dR"] = bookHandler( 4);
-      _h["lowpT_dR"]  = bookHandler( 7);
-      _h["dPhi"]      = bookHandler(10);
-      _h["dy"]        = bookHandler(13);
-      _h["MopT"]      = bookHandler(16);
-      _h["pToM"]      = bookHandler(19);
-      _h["pT"]        = bookHandler(22);
-      _h["M"]         = bookHandler(25);
-      _h["yboost"]    = bookHandler(29);
+      bookHandler(_h["dR"],         1);
+      bookHandler(_h["highpT_dR"],  4);
+      bookHandler(_h["lowpT_dR"],   7);
+      bookHandler(_h["dPhi"],      10);
+      bookHandler(_h["dy"],        13);
+      bookHandler(_h["MopT"],      16);
+      bookHandler(_h["pToM"],      19);
+      bookHandler(_h["pT"],        22);
+      bookHandler(_h["M"],         25);
+      bookHandler(_h["yboost"],    29);
     }
 
 
-    HistoHandler bookHandler(unsigned int id_xsec) {
-      HistoHandler dummy;
-      book(dummy.histo, id_xsec, 1, 1);
+    void bookHandler(HistoHandler& handler, unsigned int id_xsec) {
       if (_mode) {
-        book(dummy.scatter, id_xsec, 1, 1, true);
-        dummy.d = id_xsec + 1; // transfer function
-        dummy.x = 1; dummy.y = 1;
+        book(handler.histo, "_aux_hist" + toString(id_xsec), refData(id_xsec, 1, 1));
+        book(handler.scatter, id_xsec, 1, 1, true);
+        handler.d = id_xsec + 1; // transfer function
+        handler.x = 1; handler.y = 1;
       }
-      return dummy;
+      else  book(handler.histo, id_xsec, 1, 1);
     }
 
 
@@ -194,10 +193,7 @@ namespace Rivet {
     void finalize() {
       for (map<string, HistoHandler>::iterator hit = _h.begin(); hit != _h.end(); ++hit) {
         normalize(hit->second.histo);
-        if (_mode == 1) {
-          applyTransferFnAndNorm(hit->second);
-          removeAnalysisObject(hit->second.histo);
-        }
+        if (_mode == 1)  applyTransferFnAndNorm(hit->second);
       }
     }
 
