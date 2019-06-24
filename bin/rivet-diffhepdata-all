@@ -49,7 +49,7 @@ print('    sync={}'.format(perform_sync))
 def find(filename, path):
     """ Function to return first matching 'filename' by walking the directory tree top-down from 'path'. """
     for root, dirs, files in os.walk(path):
-        if filename in files:
+         if filename in files and 'plugin' in root:
             return os.path.join(root, filename)
 
 # Create output directories if they don't already exist.
