@@ -19,9 +19,9 @@ def extractOptionString(path):
         return ""
     opts = list(m.groups())
     for i in range(len(opts)):
-        opts[i] = opts[i].strip(':') 
+        opts[i] = opts[i].strip(':')
     return " [" + ",".join(opts) + "]"
-   
+
 def isRefAO(ao):
     return int(ao.annotation("IsRef")) == 1 or isRefPath(ao.path)
 
@@ -39,7 +39,7 @@ class AOPath(object):
     TODO: move to YODA?
     """
     import re
-    re_aopath = re.compile(r"^(/[^\[\]\@\#]+)(\[[A-Za-z\d\._]+\])?(#\d+|@[\d\.]+)?$")
+    re_aopath = re.compile(r"^(/[^\[\]\@\#]+)(\[[A-Za-z\d\._=]+\])?(#\d+|@[\d\.]+)?$")
 
     def __init__(self, path):
         import os

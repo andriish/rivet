@@ -1,3 +1,7 @@
+2019-06-25  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Allow '=' signs in weight names as propagated into Rivet/YODA histo paths.
+
 2019-06-21 Christian Gutschow  <chris.g@cern.ch>
 
 	* Reinstating ATLAS_2016_CONF_2016_078
@@ -203,7 +207,7 @@
 	NOTREENTRY, NOHEPDATA, SINGLEWEIGHT, and UNPHYSICAL.
 
 	* Can now configured to use HepMC3 (3.1.1 or later).
-	
+
 2019-05-23  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix Unicode and argparse bugs in bin/rivet. Thanks to Frank Siegert.
