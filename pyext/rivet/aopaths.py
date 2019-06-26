@@ -11,6 +11,10 @@ def stripOptions(path):
     import re
     return re.sub(r':\w+=[^:/]+', "", path)
 
+def stripWeightName(path):
+    import re
+    return re.sub(r'\[.*\]', "", path)
+
 def extractOptionString(path):
     import re
     re_opts = re.compile(r"^.*(:\w+=[^:/]+)+")
