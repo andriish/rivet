@@ -72,10 +72,10 @@ def getHistos(filelist):
             ## Add it to the ref or mc paths, if this path isn't already known
             basepath = aop.basepath(keepref=False)
             if aop.isref() and basepath not in refhistos:
-                ao.path = aop.varpath(keepref=False, defaultvarid=0)
+                ao.path = aop.varpath(keepref=False, defaultvarid="0")
                 refhistos[basepath] = ao
             else: #if basepath not in mchistos[infile]:
-                mchistos[infile].setdefault(basepath, {})[aop.varid(0)] = ao
+                mchistos[infile].setdefault(basepath, {})[aop.varid("0")] = ao
 
     return refhistos, mchistos
 
@@ -323,6 +323,7 @@ if __name__ == '__main__':
         exit(1)
     hpaths, h2ds = [], []
     for aos in mchistos.values():
+        print ('UHMMM1', aos)
         for p in aos.keys():
             ps = rivet.stripOptions(p)
             if ps and ps not in hpaths:
