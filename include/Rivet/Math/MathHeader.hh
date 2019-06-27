@@ -3,6 +3,7 @@
 
 #include "Rivet/Tools/Exceptions.hh"
 #include "Rivet/Tools/Utils.hh"
+#include <cmath>
 
 namespace Rivet {
 
@@ -20,6 +21,15 @@ namespace Rivet {
 
   /// A pre-defined value of \f$ \pi/2 \f$.
   static const double HALFPI = M_PI_2;
+
+  /// A pre-defined value of \f$ \sqrt{2} \f$.
+  static const double SQRT2 = M_SQRT2;
+
+  /// A pre-defined value of \f$ \sqrt{\pi} \f$.
+  static constexpr double SQRTPI = sqrt(M_PI);
+
+  /// A pre-defined value of \f$ \sqrt{2\pi} \f$.
+  static constexpr double SQRT2PI = sqrt(2*M_PI);
 
   /// Enum for signs of numbers.
   enum Sign { MINUS = -1, ZERO = 0, PLUS = 1 };
