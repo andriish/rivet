@@ -20,7 +20,16 @@ namespace Rivet {
 
 
   AnalysisHandler::~AnalysisHandler()
-  {  }
+  {
+    static bool printed = false;
+    // Print out MCnet boilerplate
+    if (!printed && getLog().getLevel() <= 20) {
+      cout << endl;
+      cout << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl;
+      cout << "Please acknowledge plots made with Rivet analyses, and cite arXiv:1003.0694 (http://arxiv.org/abs/1003.0694)" << endl;
+      printed = true;
+    }
+  }
 
 
   Log& AnalysisHandler::getLog() const {
@@ -115,7 +124,7 @@ namespace Rivet {
     MSG_DEBUG("Event #" << _eventcounter.numEntries() << " weight = " << event.weight());
 
     // Cross-section
-    
+
     #if defined ENABLE_HEPMC_3
     if (ge.cross_section()) {
       //@todo HepMC3::GenCrossSection methods aren't const accessible :(
@@ -208,13 +217,6 @@ namespace Rivet {
     // // Delete analyses
     // MSG_DEBUG("Deleting analyses");
     // _analyses.clear();
-
-    // Print out MCnet boilerplate
-    if (getLog().getLevel()<=20){
-      cout << endl;
-      cout << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl;
-      cout << "Please acknowledge plots made with Rivet analyses, and cite arXiv:1003.0694 (http://arxiv.org/abs/1003.0694)" << endl;
-    }
   }
 
 
