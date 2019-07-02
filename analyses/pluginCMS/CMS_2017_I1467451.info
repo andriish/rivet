@@ -1,3 +1,4 @@
+
 Name: CMS_2017_I1467451
 Year: 2017
 Summary: Measurement of the transverse momentum spectrum of the Higgs boson produced in $pp$collisions at $\sqrt{s} = 8$ TeV using H to WW decays
@@ -24,7 +25,14 @@ The fiducial region is defined at particle level (using Born level leptons) as:
  - psudorapidity of electrons and muons $|\eta| < 2.5$
  - Invariant mass of the two charged leptons $m_{ll} > 12$ GeV
  - Charged lepton pair $p_T > 30$ GeV
- - Invariant mass of the leptonic system in the transverse plane $m_T^{e\mu\nu\nu} > 50$ GeV'
+ - Invariant mass of the leptonic system in the transverse plane $m_T^{e\mu\nu\nu} > 50$ GeV
+Notes on reinterpretation:
+  Major- Despite the existance of a "fiducial" cross section definition, it is not clear this can really be used to constrain any 
+  BSM signal other than an excess/deficit in SM Higgs->WW events. There is a b-jet veto is applied to suppress ttbar background, 
+  which is however not implemented in the fiducial cross section defintion, and so is extrapolated out during the unfolding. 
+  Even after this, the background remains very large and is subtracted using a fit to data. How all this might affect a hypothetical 
+  non-SM-H source of electrons and muons (on which the "fiducial" region is based) is very difficult to evaluate. 
+  Minor- The rivet routine uses dressed leptons even though the above (and the paper) say they are born level.'
 NeedCrossSection: yes
 BibKey: Khachatryan:2016vnn
 BibTeX: '@article{Khachatryan:2016vnn,
