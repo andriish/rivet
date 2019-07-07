@@ -159,7 +159,9 @@ def _search_inspire(url):
                 for k,v in c.items():
                     if k=='code':
                         entries[v] = c.text
-            if entries.get('9') == 'SPIRESTeX':
+            if entries.get('9') == 'INSPIRETeX':
+                result['bibtex'] = entries['a']
+            elif entries.get('9') == 'SPIRESTeX':
                 result['bibtex'] = entries['a']
 
         if i.get('tag') == '037':
