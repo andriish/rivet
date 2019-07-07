@@ -131,24 +131,28 @@ namespace Rivet {
 	  leptons = zfinderm.constituents();
 	  
 	}
-	const double zrap  = Zboson.absrap();
-	const double zmass = Zboson.mass();
-	const double eta1 = leptons[0].abseta();
-	const double eta2 = leptons[1].abseta();
+
+	if (leptons.size() > 1) {
+
+	  const double zrap  = Zboson.absrap();
+	  const double zmass = Zboson.mass();
+	  const double eta1 = leptons[0].abseta();
+	  const double eta2 = leptons[1].abseta();
 		
-	// separation into central/forward and three mass bins
-	if (eta1 < 2.5 && eta2 < 2.5) {
-	  if (zmass < 66.0*GeV)        _h_Zcenlow_y_dressed->fill(zrap);
-	  else if (zmass < 116.0*GeV)  _h_Zcenpeak_y_dressed->fill(zrap);
-	  else                         _h_Zcenhigh_y_dressed->fill(zrap);
-	} 
-	else if ((eta1 < 2.5 && 2.5 < eta2 && eta2 < 4.9) || (eta2 < 2.5 && 2.5 < eta1 && eta1 < 4.9)) {
-	  if (zmass < 66.0*GeV)   vetoEvent;
-	  if (zmass < 116.0*GeV)  _h_Zfwdpeak_y_dressed->fill(zrap);
-	  else                    _h_Zfwdhigh_y_dressed->fill(zrap);
+	  // separation into central/forward and three mass bins
+	  if (eta1 < 2.5 && eta2 < 2.5) {
+	    if (zmass < 66.0*GeV)        _h_Zcenlow_y_dressed->fill(zrap);
+	    else if (zmass < 116.0*GeV)  _h_Zcenpeak_y_dressed->fill(zrap);
+	    else                         _h_Zcenhigh_y_dressed->fill(zrap);
+	  } 
+	  else if ((eta1 < 2.5 && 2.5 < eta2 && eta2 < 4.9) || (eta2 < 2.5 && 2.5 < eta1 && eta1 < 4.9)) {
+	    if (zmass > 66.0*GeV) {   
+	      if (zmass < 116.0*GeV)  _h_Zfwdpeak_y_dressed->fill(zrap);
+	      else                    _h_Zfwdhigh_y_dressed->fill(zrap);
+	    }
+	  }
 	}
       }
-      
     }
 
     /// Normalise histograms etc., after the run
