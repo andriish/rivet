@@ -13,12 +13,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ATLAS_2017_I1598613(const string name="ATLAS_2017_I1598613", size_t mode = 0,
-                        const string ref_data="ATLAS_2017_I1598613") : Analysis(name) {
-      _mode = mode; //default to the 3-muon mode
-      setRefDataName(ref_data);
-    }
-
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2017_I1598613);
 
     struct HistoHandler {
       Histo1DPtr histo;
@@ -35,6 +30,10 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
+
+        // default to widest cut, electrons and muons.
+        _mode = 0;      
+        if ( getOption("BMODE") == "BB" )  _mode = 1;
 
       // Get the particles needed for each running mode:
       if (_mode == 0) {
@@ -247,16 +246,7 @@ namespace Rivet {
   };
 
 
-
-  /// Specialised subclass for the BB analysis
-  struct ATLAS_2017_I1598613_BB : public ATLAS_2017_I1598613 {
-    ATLAS_2017_I1598613_BB() : ATLAS_2017_I1598613("ATLAS_2017_I1598613_BB", 1) { }
-  };
-
-
   // Hooks for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2017_I1598613);
-  DECLARE_RIVET_PLUGIN(ATLAS_2017_I1598613_BB);
-
 
 }
