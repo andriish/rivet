@@ -196,12 +196,27 @@ else
   FASTJETLIBADD="$FASTJETLIBADD -lTrackJetPlugin -lATLASConePlugin -lCMSIterativeConePlugin"
   FASTJETLIBADD="$FASTJETLIBADD -lEECambridgePlugin -lJadePlugin"
 fi;
+
+## FastJet contrib (allow paths specified separately from FJ)
+AC_ARG_WITH([fjcontrib],
+            [AC_HELP_STRING(--with-fjcontrib, path to FastJet Contrib @<:@$FASTJETPATH@:>@)], [], [])
+if test -n "$with_fjcontrib"; then
+  FJCONTRIBINCPATH=$with_fjcontrib/include
+  FJCONTRIBLIBPATH=$with_fjcontrib/lib
+  FJCONTRIBCPPFLAGS=-I$FJCONTRIBINCPATH
+  AC_SUBST(FJCONTRIBINCPATH)
+  AC_SUBST(FJCONTRIBLIBPATH)
+  AC_SUBST(FJCONTRIBCPPFLAGS)
+  FASTJETLIBADD="-L$FJCONTRIBLIBPATH $FASTJETLIBADD"
+fi
 FASTJETLIBADD="$FASTJETLIBADD -lfastjetcontribfragile -lfastjettools"
+
+## Test FastJet + Contrib
+## Check for FastJet headers that require the --enable-all(cxx)plugins option
 AC_MSG_NOTICE([FastJet LIBADD = $FASTJETLIBADD])
 AC_SUBST(FASTJETLIBADD)
-# Check for FastJet headers that require the --enable-all(cxx)plugins option
 oldCPPFLAGS=$CPPFLAGS
-CPPFLAGS="$CPPFLAGS -I$FASTJETINCPATH"
+CPPFLAGS="$CPPFLAGS $FASTJETCPPFLAGS $FJCONTRIBCPPFLAGS"
 oldLIBS=$LIBS
 LIBS="$LIBS $FASTJETLIBADD"
 FASTJET_ERRMSG="Required FastJet plugin headers were not found: did you build FastJet with the --enable-allcxxplugins option?"
@@ -338,14 +353,13 @@ AM_CONDITIONAL(WITH_CYTHON, [test x$CYTHON_FOUND = xyes])
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include"
 #AM_CPPFLAGS="$AM_CPPFLAGS -I\$(top_srcdir)/include/eigen3"
 #AM_CPPFLAGS="$AM_CPPFLAGS \$(GSL_CPPFLAGS)"
-dnl AM_CPPFLAGS="$AM_CPPFLAGS \$(BOOST_CPPFLAGS)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(YODAINCPATH)"
 if test x$use_hepmc2 = xyes ; then
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPMCINCPATH)"
 else
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPMC3INCPATH)"
 fi
-AM_CPPFLAGS="$AM_CPPFLAGS -I\$(FASTJETINCPATH)"
+AM_CPPFLAGS="$AM_CPPFLAGS \$(FASTJETCPPFLAGS) \$(FJCONTRIBCPPFLAGS)"
 AC_CEDAR_CHECKCXXFLAG([-pedantic], [AM_CXXFLAGS="$AM_CXXFLAGS -pedantic"])
 AC_CEDAR_CHECKCXXFLAG([-Wall], [AM_CXXFLAGS="$AM_CXXFLAGS -Wall"])
 AC_CEDAR_CHECKCXXFLAG([-Wno-long-long], [AM_CXXFLAGS="$AM_CXXFLAGS -Wno-long-long"])

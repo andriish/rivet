@@ -1,3 +1,7 @@
+2019-07-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a --with-fjcontrib option flag to configure.
+
 2019-06-26 Christian Gutschow  <chris.g@cern.ch>
 
 	* rivet-cmphistos - AOPath for nominal should be filled with string 0, not integer 0
