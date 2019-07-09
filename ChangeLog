@@ -1,3 +1,7 @@
+2019-07-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add convenience aliases for vectors of standard types: strings, ints, doubles, etc.
+
 2019-06-23  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add Particle::closestApproach() function -- needs testing. Useful for long-lived particles.
