@@ -138,26 +138,35 @@ namespace Rivet {
     /// Perform the particle finding & smearing calculation
     void project(const Event& e) {
       // Copying and filtering
-      const Particles& truthparticles = apply<ParticleFinder>(e, "TruthParticles").particlesByPt();
+      const Particles& truthparticles = apply<ParticleFinder>(e, "TruthParticles").particlesByPt(); //truthParticles();
       _theParticles.clear(); _theParticles.reserve(truthparticles.size());
       for (const Particle& p : truthparticles) {
         Particle pdet = p;
         double peff = -1;
         bool keep = true;
+        MSG_TRACE("Number of detector functions = " << _detFns.size());
         for (const ParticleEffSmearFn& fn : _detFns) {
           tie(pdet, peff) = fn(pdet); // smear & eff
+          // Test the short-circuit random numbers if possible; note handling of < 0 and > 1 probabilities
+          if (peff <= 0 || rand01() > peff) keep = false;
           MSG_DEBUG("New det particle: pid=" << pdet.pid()
                     << ", mom=" << pdet.mom()/GeV << " GeV, "
                     << "pT=" << pdet.pT()/GeV << ", eta=" << pdet.eta()
-                    << " : eff=" << 100*peff << "%");
-          if (peff <= 0) { keep = false; break; } //< no need to roll expensive dice (and we deal with -ve probabilities, just in case)
-          if (peff < 1 && rand01() > peff)  { keep = false; break; } //< roll dice (and deal with >1 probabilities, just in case)
+                    << " : eff=" << 100*peff << "%, discarded=" << boolalpha << !keep);
+          if (!keep) break; // discarded; no need to try more smear-eff functions
         }
-        if (keep) {
-          pdet.addConstituent(p); //< record where the smearing was built from
-          _theParticles.push_back(pdet);
-        }
+        // If discarding, go straight to the next particle
+        if (!keep) continue;
+        // Store, recording where the smearing was built from
+        pdet.addConstituent(p); ///< @todo Is this a good idea?? What if raw particles are requested?
+        _theParticles.push_back(pdet);
       }
+    }
+
+
+    /// Get the truth particles (sorted by pT)
+    const Particles truthParticles() const {
+      return getProjection<ParticleFinder>("TruthParticles").particlesByPt();
     }
 
 

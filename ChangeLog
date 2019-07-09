@@ -1,5 +1,9 @@
 2019-07-09  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Improve debug reporting from SmearedParticles.
+
+	* Add SmearedParticles::truthParticles and SmearedJets::truthJets functions for access to the unsmeared inputs.
+
 	* Add convenience aliases for vectors of standard types: strings, ints, doubles, etc.
 
 2019-06-23  Andy Buckley  <andy.buckley@cern.ch>
