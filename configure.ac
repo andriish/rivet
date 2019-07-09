@@ -201,6 +201,7 @@ fi;
 AC_ARG_WITH([fjcontrib],
             [AC_HELP_STRING(--with-fjcontrib, path to FastJet Contrib @<:@$FASTJETPATH@:>@)], [], [])
 if test -n "$with_fjcontrib"; then
+  AC_MSG_NOTICE([FastJet Contrib base path given: $with_fjcontrib])
   FJCONTRIBINCPATH=$with_fjcontrib/include
   FJCONTRIBLIBPATH=$with_fjcontrib/lib
   FJCONTRIBCPPFLAGS=-I$FJCONTRIBINCPATH
