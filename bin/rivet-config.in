@@ -82,6 +82,8 @@ if test -n "$tmp"; then
     test -n "$iyoda" && OUT="$OUT -I${iyoda}"
     ifastjet="@FASTJETINCPATH@"
     test -n "$ifastjet" && OUT="$OUT -I${ifastjet}"
+    ifjcontrib="@FJCONTRIBCPPFLAGS@"
+    test -n "$ifjcontrib" && OUT="$OUT ${ifjcontrib}"
 fi
 
 tmp=$( echo "$*" | egrep -- '--\<ldflags\>|--\<libs\>')

@@ -171,6 +171,8 @@ iyoda="@YODAINCPATH@"
 test -n "$iyoda" && mycppflags="$mycppflags -I${iyoda}"
 ifastjet="@FASTJETINCPATH@"
 test -n "$ifastjet" && mycppflags="$mycppflags -I${ifastjet}"
+ifjcontrib="@FJCONTRIBFLAGS@"
+test -n "$ifjcontrib" && mycppflags="$mycppflags ${ifjcontrib}"
 
 ## Get Rivet system linker flags (duplicating that in rivet-config.in)
 myldflags=""
