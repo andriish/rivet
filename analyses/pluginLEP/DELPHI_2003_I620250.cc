@@ -2,6 +2,9 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/Sphericity.hh"
+#include "Rivet/Projections/ParisiTensor.hh"
+#include "Rivet/Projections/Hemispheres.hh"
 
 namespace Rivet {
 
