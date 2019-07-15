@@ -3,7 +3,7 @@ Year: 2014
 Summary: Ratios of jet pT spectra, which relate to the ratios of inclusive, differential jet cross sections
 Experiment: CMS
 Collider: LHC
-InspireID: 1260838
+InspireID: I1298810
 Status: VALIDATED
 Authors:
  - Markus Radziej <radziej@physik.rwth-aachen.de>
@@ -51,4 +51,3 @@ Validation:
  - $A-7 LHC-7-Jets-7
  - $A-8 LHC-7-Jets-8
  - $A-9 LHC-7-Jets-9
-
