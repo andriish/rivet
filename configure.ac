@@ -196,6 +196,7 @@ else
   FASTJETLIBADD="$FASTJETLIBADD -lTrackJetPlugin -lATLASConePlugin -lCMSIterativeConePlugin"
   FASTJETLIBADD="$FASTJETLIBADD -lEECambridgePlugin -lJadePlugin"
 fi;
+FASTJETLDFLAGS="-L$FASTJETLIBPATH"
 
 ## FastJet contrib (allow paths specified separately from FJ)
 AC_ARG_WITH([fjcontrib],
@@ -209,13 +210,16 @@ if test -n "$with_fjcontrib"; then
   AC_SUBST(FJCONTRIBLIBPATH)
   AC_SUBST(FJCONTRIBCPPFLAGS)
   FASTJETLIBADD="-L$FJCONTRIBLIBPATH $FASTJETLIBADD"
+
 fi
 FASTJETLIBADD="$FASTJETLIBADD -lfastjetcontribfragile -lfastjettools"
+FASTJETLDFLAGS="$FASTJETLDFLAGS -L$FJCONTRIBLIBPATH"
 
 ## Test FastJet + Contrib
 ## Check for FastJet headers that require the --enable-all(cxx)plugins option
 AC_MSG_NOTICE([FastJet LIBADD = $FASTJETLIBADD])
 AC_SUBST(FASTJETLIBADD)
+AC_SUBST(FASTJETLDFLAGS)
 oldCPPFLAGS=$CPPFLAGS
 CPPFLAGS="$CPPFLAGS $FASTJETCPPFLAGS $FJCONTRIBCPPFLAGS"
 oldLIBS=$LIBS
