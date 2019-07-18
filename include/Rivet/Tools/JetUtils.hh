@@ -121,7 +121,7 @@ namespace Rivet {
   struct HasNoTag : BoolJetFunctor {
     HasNoTag(const Cut& c=Cuts::open()) : cut(c) {}
     // HasNoTag(const std::function<bool(const Jet& j)>& f) : selector(f) {}
-    bool operator() (const Jet& j) const { return !j.bTagged(cut) && j.cTagged(cut); }
+    bool operator() (const Jet& j) const { return !j.bTagged(cut) && !j.cTagged(cut); }
     // const std::function<bool(const Jet& j)> selector;
     const Cut cut;
   };

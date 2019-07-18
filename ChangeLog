@@ -1,3 +1,7 @@
+2019-07-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix logic error in HasNoTag functor.
+
 2019-07-16 Christian Gutschow  <chris.g@cern.ch>
 
 	* Release version 3.0.1
