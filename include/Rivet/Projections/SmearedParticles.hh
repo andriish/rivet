@@ -152,7 +152,7 @@ namespace Rivet {
           MSG_DEBUG("New det particle: pid=" << pdet.pid()
                     << ", mom=" << pdet.mom()/GeV << " GeV, "
                     << "pT=" << pdet.pT()/GeV << ", eta=" << pdet.eta()
-                    << " : eff=" << 100*peff << "%, discarded=" << boolalpha << !keep);
+                    << " : eff=" << 100*peff << "%, discarded=" << std::boolalpha << !keep);
           if (!keep) break; // discarded; no need to try more smear-eff functions
         }
         // If discarding, go straight to the next particle
