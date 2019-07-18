@@ -22,8 +22,16 @@ namespace Rivet {
   {  }
 
 
-  AnalysisHandler::~AnalysisHandler()
-  {  }
+  AnalysisHandler::~AnalysisHandler() {
+      static bool printed = false;
+    // Print out MCnet boilerplate
+    if (!printed && getLog().getLevel() <= 20) {
+      cout << endl;
+      cout << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl;
+      cout << "Please acknowledge plots made with Rivet analyses, and cite arXiv:1003.0694 (http://arxiv.org/abs/1003.0694)" << endl;
+      printed = true;
+    }
+  }
 
 
   Log& AnalysisHandler::getLog() const {
@@ -278,14 +286,6 @@ namespace Rivet {
 
     _stage = Stage::OTHER;
 
-    if ( _dumping ) return;
- 
-    // Print out MCnet boilerplate
-    if (getLog().getLevel()<=20){
-      cout << endl;
-      cout << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl;
-      cout << "Please acknowledge plots made with Rivet analyses, and cite arXiv:1003.0694 (http://arxiv.org/abs/1003.0694)" << endl;
-    }
   }
 
 
