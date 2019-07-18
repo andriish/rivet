@@ -14,6 +14,12 @@
 
 	* Add a --with-fjcontrib option flag to configure.
 
+	* Add convenience aliases for vectors of standard types: strings, ints, doubles, etc.
+
+	* Improve debug reporting from SmearedParticles.
+
+	* Add SmearedParticles::truthParticles and SmearedJets::truthJets functions for access to the unsmeared inputs.
+
 2019-06-26 Christian Gutschow  <chris.g@cern.ch>
 
 	* rivet-cmphistos - AOPath for nominal should be filled with string 0, not integer 0

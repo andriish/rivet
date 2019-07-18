@@ -76,6 +76,13 @@ namespace Rivet {
 
   //@}
 
+  /// @name Convenience container typedefs
+  //@{
+  typedef vector<std::string> strings;
+  typedef vector<double> doubles;
+  typedef vector<float> floats;
+  typedef vector<int> ints;
+  //@}
 
   /// @name Boolean-return container searching
   //@{
