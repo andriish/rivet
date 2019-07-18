@@ -26,10 +26,10 @@ namespace Rivet {
   static const double SQRT2 = M_SQRT2;
 
   /// A pre-defined value of \f$ \sqrt{\pi} \f$.
-  static constexpr double SQRTPI = sqrt(M_PI);
+  static const double SQRTPI = 2 / M_2_SQRTPI;
 
-  /// A pre-defined value of \f$ \sqrt{2\pi} \f$.
-  static constexpr double SQRT2PI = sqrt(2*M_PI);
+  // /// A pre-defined value of \f$ \sqrt{2\pi} \f$.
+  // static const double SQRT2PI = SQRT2 * SQRTPI;
 
   /// Enum for signs of numbers.
   enum Sign { MINUS = -1, ZERO = 0, PLUS = 1 };
