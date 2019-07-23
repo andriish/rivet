@@ -1,4 +1,4 @@
-FROM hepstore/rivet-pythia:3.0.0-8240
+FROM hepstore/rivet-pythia:3.0.1-8243
 MAINTAINER Andy Buckley <andy.buckley@cern.ch>
 
 CMD /bin/bash

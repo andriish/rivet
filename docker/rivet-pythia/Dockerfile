@@ -1,4 +1,4 @@
-FROM hepstore/rivet:3.0.0
+FROM hepstore/rivet:3.0.1
 MAINTAINER Andy Buckley <andy.buckley@cern.ch>
 
 RUN dnf install -y rsync
@@ -10,7 +10,7 @@ RUN mkdir /code && cd /code \
     && cd ../.. && rm -r /code
 
 RUN mkdir /code && cd /code \
-    && wget http://home.thep.lu.se/~torbjorn/pythia8/pythia8240.tgz -O- | tar xz \
+    && wget http://home.thep.lu.se/~torbjorn/pythia8/pythia8243.tgz -O- | tar xz \
     && cd pythia*/ && ./configure --enable-shared --{prefix,with-{hepmc2,lhapdf6}}=/usr/local \
     && make -j5 && make install \
     && cd ../.. && rm -r /code
