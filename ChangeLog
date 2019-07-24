@@ -1,3 +1,8 @@
+2019-07-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add CMS_2018_I1646260 soft-lepton SUSY search analysis (used for
+	recasting comparisons at Les Houches 2019).
+
 2019-07-22  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add ATLAS_2018_I1667046 ATLAS 36/fb RPV SUSY search.
@@ -10,7 +15,8 @@
 
 	* Improve debug reporting from SmearedParticles.
 
-	* Add SmearedParticles::truthParticles and SmearedJets::truthJets functions for access to the unsmeared inputs.
+	* Add SmearedParticles::truthParticles and SmearedJets::truthJets
+	functions for access to the unsmeared inputs.
 
 	* Add convenience aliases for vectors of standard types: strings, ints, doubles, etc.
 
@@ -29,7 +35,9 @@
 2019-06-06 Christian Gutschow  <chris.g@cern.ch>
 
 	* Adding Marek's opacity fix to make-plots
-	* removing if statement testing if type(u'') is (not) str when deciding whether to encode string in bin/rivet
+
+	* removing if statement testing if type(u'') is (not) str when
+	deciding whether to encode string in bin/rivet
 
 2019-06-06  Peter Richardson <peter.richardson@durham.ac.uk>
 
