@@ -81,11 +81,15 @@ namespace Rivet {
     /// @name Cross-sections
     //@{
 
-    /// Get the cross-section known to the handler.
+    /// Get the cross-section known to the handler
     Scatter1DPtr crossSection() const { return _xs; }
 
-    /// Set the cross-section for the process being generated.
+    /// Set the cross-section for the process being generated
     void setCrossSection(pair<double, double> xsec);
+    /// Set the cross-section for the process being generated (alternative signature)
+    void setCrossSection(double xsec, double xsecerr) {
+      setCrossSection({xsec, xsecerr});
+    }
 
     /// Get the nominal cross-section
     double nominalCrossSection() const {
@@ -191,7 +195,7 @@ namespace Rivet {
     /// Remove analyses from the run list using their names.
     AnalysisHandler& removeAnalyses(const std::vector<std::string>& analysisnames);
 
-    /// 
+    ///
 
     //@}
 
@@ -213,7 +217,7 @@ namespace Rivet {
     /// This function will call the AnalysisBase::analyze() function of all
     /// included analysis objects, after checking the event pointer validity.
     void analyze(const GenEvent* event);
-    
+
     /// Finalize a run. This function calls the AnalysisBase::finalize()
     /// functions of all included analysis objects.
     void finalize();
