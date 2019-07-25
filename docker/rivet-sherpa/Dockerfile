@@ -1,34 +1,34 @@
 FROM hepstore/rivet:3.0.1
 MAINTAINER Andy Buckley <andy.buckley@cern.ch>
 
-RUN dnf install -y rsync git pypy
-
 RUN mkdir /code && cd /code \
     && wget https://www.hepforge.org/archive/lhapdf/LHAPDF-6.2.3.tar.gz -O- | tar xz \
     && cd LHAPDF-*/ && ./configure --prefix=/usr/local \
     && make -j5 && make install \
     && cd ../.. && rm -r /code
 
-RUN cd /usr/local \
+RUN dnf install -y rsync git pypy \
+    && cd /usr/local \
     && git clone https://gitlab.com/openloops/OpenLoops.git \
     && cd OpenLoops && ./scons \
     && ./openloops libinstall ppll pptt
 
+RUN dnf install -y libtool texinfo sqlite-devel swig pypy openmpi openmpi-devel
+ENV PATH="${PATH}:/usr/lib64/openmpi/bin"
+
 RUN mkdir /code && cd /code \
-    && git clone -b rel-2-2-7 https://gitlab.com/sherpa-team/sherpa.git \
-    && dnf install -y libtool openmpi-devel swig sqlite-devel texinfo \
-    && cd sherpa && autoreconf -fi \
+    && git clone -b rel-2-2-7 https://gitlab.com/sherpa-team/sherpa.git && cd sherpa && autoreconf -fi \
     && ./configure --prefix=/usr/local \
       --enable-lhapdf=/usr/local --enable-fastjet=/usr/local \
       --enable-hepmc2=/usr/local --enable-openloops=/usr/local/OpenLoops \
-      --enable-pyext --enable-gzip \
+      --enable-pyext --enable-gzip --enable-analysis \
       --enable-mpi CC=mpicc CXX=mpic++ \
-    && make -j2 CXXFLAGS="-O2 -std=c++11" AM_CXXFLAGS="-O2 -std=c++11" \
+    && make -j1 CXXFLAGS="-O2 -std=c++11" AM_CXXFLAGS="-O2 -std=c++11" \
     && make install \
     && mkdir /usr/local/Sherpa \
     && mv Examples /usr/local/Sherpa \
     && cd ../.. && rm -r /code
-#--enable-analysis 
+# wget https://sherpa.hepforge.org/downloads/?f=SHERPA-MC-2.2.7.tar.gz -O - | tar xf && cd SHERPA-MC-2.2.7
 
 # RUN apt-get update; \
 # apt-get -q -y --no-install-recommends install pypy; \
