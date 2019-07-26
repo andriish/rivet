@@ -1,6 +1,8 @@
 FROM fedora:27
 LABEL maintainer="rivet@projects.hepforge.org"
 
+# TODO: Move to fedora:30 will also require adding the texlive-pst-arrow package
+
 RUN dnf update -y \
     && dnf install -y \
       make gcc-c++ gcc-gfortran redhat-rpm-config \
