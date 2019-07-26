@@ -16,7 +16,10 @@ NumEvents: 1000000
 Beams: [e+, e-]
 Energies: [41.4, 55.3, 65.4, 75.7, 82.3, 85.1, 91.2, 130.1, 136.1, 161.3, 172.3, 182.8, 188.6, 194.4, 200.2, 206.2]
 NeedCrossSection: no
-Description: Event shapes, charged particle multiplicity and scaled momentum distribution at the Z-boson peak.
+Description: 'Event shapes, charged particle multiplicity and scaled momentum distributions, flavour separated
+             at the Z-boson peak. The analysis also includes non-flavour separated
+	     event shapes, charged particle multiplicity and scaled momentum distributions at events both above and
+	     below the Z pole. There are also jet distributions in the paper which are not currently implemented.'
 BibKey: Achard:2004sv
 BibTeX: '@article{Achard:2004sv,
       author         = "Achard, P. and others",
@@ -34,3 +37,7 @@ BibTeX: '@article{Achard:2004sv,
       reportNumber   = "CERN-PH-EP-2004-024, CERN-EP-PH-2004-024",
       SLACcitation   = "%%CITATION = HEP-EX/0406049;%%"
 }'
+
+Validation:
+ - $A LEP-91
+

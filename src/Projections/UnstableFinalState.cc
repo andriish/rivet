@@ -1,43 +1,32 @@
 // -*- C++ -*-
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
 
-  /// @todo Add a FIRST/LAST/ANY enum to specify the mode for uniquifying replica chains (default = LAST)
-
-
-  void UnstableFinalState::project(const Event& e) {
+  void UnstableParticles::project(const Event& e) {
     _theParticles.clear();
 
     /// @todo Replace PID veto list with PID:: functions?
     vector<PdgId> vetoIds;
     vetoIds += 22; // status 2 photons don't count!
     vetoIds += 110; vetoIds += 990; vetoIds += 9990; // Reggeons
-    //vetoIds += 9902210; // something weird from PYTHIA6
-    for (const GenParticle* p : Rivet::particles(e.genEvent())) {
+
+    for (ConstGenParticlePtr p : HepMCUtils::particles(e.genEvent())) {
+      const Particle rp(p);
       const int st = p->status();
       bool passed =
         (st == 1 || (st == 2 && !contains(vetoIds, abs(p->pdg_id())))) &&
         !PID::isParton(p->pdg_id()) && ///< Always veto partons
-        !p->is_beam() && // Filter beam particles
+        p->status() !=4 && // Filter beam particles
         _cuts->accept(p->momentum());
 
       // Avoid double counting by re-marking as unpassed if ID == (any) parent ID
-      const GenVertex* pv = p->production_vertex();
-      // if (passed && pv) {
-      //   for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin(); pp != pv->particles_in_const_end(); ++pp) {
-      //     if (p->pdg_id() == (*pp)->pdg_id() && (*pp)->status() == 2) {
-      //       passed = false;
-      //       break;
-      //     }
-      //   }
-      // }
-      //
+      ConstGenVertexPtr pv = p->production_vertex();
       // Avoid double counting by re-marking as unpassed if ID == any child ID
-      const GenVertex* dv = p->end_vertex();
+      ConstGenVertexPtr dv = p->end_vertex();
       if (passed && dv) {
-        for (GenParticle* pp : particles_out(dv)) {
+        for (ConstGenParticlePtr pp : HepMCUtils::particles(dv, Relatives::CHILDREN)) {
           if (p->pdg_id() == pp->pdg_id() && pp->status() == 2) {
             passed = false;
             break;
@@ -46,7 +35,7 @@ namespace Rivet {
       }
 
       // Add to output particles collection
-      if (passed) _theParticles.push_back(Particle(*p));
+      if (passed) _theParticles.push_back(rp);
 
       // Log parents and children
       if (getLog().isActive(Log::TRACE)) {
@@ -56,14 +45,12 @@ namespace Rivet {
                   << ", eta = " << p->momentum().eta()
                   << ": result = " << std::boolalpha << passed);
         if (pv) {
-          for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin(); pp != pv->particles_in_const_end(); ++pp) {
-            MSG_TRACE("  parent ID = " << (*pp)->pdg_id());
-          }
+          for (ConstGenParticlePtr pp : HepMCUtils::particles(pv, Relatives::PARENTS))
+            MSG_TRACE("  parent ID = " << pp->pdg_id());
         }
         if (dv) {
-          for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
-            MSG_TRACE("  child ID  = " << (*pp)->pdg_id());
-          }
+          for (ConstGenParticlePtr pp : HepMCUtils::particles(dv, Relatives::CHILDREN))
+            MSG_TRACE("  child ID  = " << pp->pdg_id());
         }
       }
     }

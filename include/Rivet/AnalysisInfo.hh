@@ -50,6 +50,14 @@ namespace Rivet {
     /// Set the name of the analysis.
     void setName(const std::string& name) { _name = name; }
 
+    /// Get the reference data name of the analysis (if different from plugin name).
+    std::string getRefDataName() const { 
+      if (!_refDataName.empty())  return _refDataName;
+      return name();
+    }
+
+    /// Set the reference data name of the analysis (if different from plugin name).
+    void setRefDataName(const std::string& name) { _refDataName = name; }
 
     /// Get the Inspire (SPIRES replacement) ID code for this analysis.
     const std::string& inspireId() const { return _inspireId; }
@@ -184,18 +192,95 @@ namespace Rivet {
     void setTodos(const std::vector<std::string>& todos) { _todos = todos; }
 
 
+    /// Get the option list.
+    const std::vector<std::string>& options() const { return _options; }
+
+    /// Check if the given option is valid.
+    bool validOption(std::string key, std::string val) const;
+
+    /// Set the option list.
+    void setOptions(const std::vector<std::string>& opts) {
+      _options = opts;
+      buildOptionMap();
+    }
+
+    /// Build a map of options to facilitate checking.
+    void buildOptionMap();
+
+    /// List a series of command lines to be used for valdation
+    const std::vector<std::string> & validation() const {
+      return _validation;
+    }
+
     /// Return true if this analysis needs to know the process cross-section.
     bool needsCrossSection() const { return _needsCrossSection; }
 
     /// Return true if this analysis needs to know the process cross-section.
     void setNeedsCrossSection(bool needXsec) { _needsCrossSection = needXsec; }
 
+    /// Return true if finalize() can be run multiple times for this analysis.
+    bool reentrant() const { return _reentrant; }
+
+    /// setReentrant
+    void setReentrant(bool ree = true) { _reentrant = ree; }
+
+    /// Return true if validated
+    bool validated() const {
+      return statuscheck("VALIDATED");
+    }
+
+    /// Return true if preliminary
+    bool preliminary() const {
+      return statuscheck("PRELIMINARY");
+    }
+
+    /// Return true if obsolete
+    bool obsolete() const {
+      return statuscheck("OBSOLETE");
+    }
+
+    /// Return true if unvalidated
+    bool unvalidated() const {
+      return statuscheck("UNVALIDATED");
+    }
+
+    /// Return true if includes random variations
+    bool random() const {
+      return statuscheck("RANDOM");
+    }
+
+    /// Return true if the analysis uses generator-dependent
+    /// information.
+    bool unphysical() const {
+      return statuscheck("UNPHYSICAL");
+    }
+
+    /// Check if refdata comes automatically from Hepdata.
+    bool hepdata() const {
+      return !statuscheck("NOHEPDATA");
+    }
+
+    /// Check if This analysis can handle mulltiple weights.
+    bool multiweight() const {
+      return !statuscheck("SINGLEWEIGHT");
+    }
+    
+
+    bool statuscheck(string word) const {
+      auto pos =_status.find(word);
+      if ( pos == string::npos ) return false;
+      if ( pos > 0 && isalnum(_status[pos - 1]) ) return false;
+      if ( pos + word.length() < _status.length() &&
+           isalnum(_status[pos + word.length()]) ) return false;
+      return true;
+    }
     //@}
 
 
   private:
 
     std::string _name;
+    std::string _refDataName;
     std::string _spiresId, _inspireId;
     std::vector<std::string> _authors;
     std::string _summary;
@@ -216,8 +301,16 @@ namespace Rivet {
     std::vector<std::string> _todos;
     bool _needsCrossSection;
 
+    std::vector<std::string> _options;
+    std::map< std::string, std::set<std::string> > _optionmap;
+
+    std::vector<std::string> _validation;
+    
+    bool _reentrant;
+    
     void clear() {
       _name = "";
+      _refDataName = "";
       _spiresId = "";
       _inspireId = "";
       _authors.clear();
@@ -238,6 +331,10 @@ namespace Rivet {
       _status = "";
       _todos.clear();
       _needsCrossSection = false;
+      _options.clear();
+      _optionmap.clear();
+      _validation.clear();
+      _reentrant = false;
     }
 
   };

@@ -28,6 +28,8 @@ Makefile$
 Makefile\.in$
 \.(pdf|toc|bbl|blg|sty|bib|html|tex)$
 Doxyfile$
+doxy/html/.*
+doxy/latex/.*
 \.libs$
 \.deps$
 #Rivet.yoda
@@ -70,3 +72,40 @@ Doxyfile$
 ^local/.*$
 ^(for|analyses)\d\d\d$
 ^analyses/data$
+
+# added by aHg on Mon Feb 25 14:51:05 2019
+syntax: glob
+bin/LHC-13-Jets-0.hepmc.gz
+
+# added by aHg on Mon Feb 25 16:16:10 2019
+syntax: glob
+bin/*.gz
+
+# added by aHg on Thu Feb 28 11:44:29 2019
+syntax: glob
+bin/hepmc-compress
+
+# added by aHg on Tue Mar  5 14:30:12 2019
+syntax: glob
+doc/rivet-manual.dvi
+
+# added by aHg on Tue Mar  5 14:30:21 2019
+syntax: glob
+doc/rivet-manual.ps
+
+# added by aHg on Fri Mar 15 10:38:23 2019
+syntax: glob
+bin/rivet-hepmz
+
+# added by aHg on Fri Mar 15 10:38:43 2019
+syntax: glob
+bin/converall.log
+
+# added by aHg on Fri Mar 15 10:38:48 2019
+syntax: glob
+bin/converall.sh
+^doxy/.*$
+
+# added by aHg on Tue May 28 11:20:16 2019
+syntax: glob
+bin/hepmc-compress

@@ -38,3 +38,7 @@ BibTeX: '@Article{Ackerstaff:1997kj,
      doi       = "10.1016/S0370-2693(97)01077-0",
      SLACcitation  = "%%CITATION = HEP-EX/9708022;%%"
 }'
+
+Validation:
+ - $A LEP-91
+

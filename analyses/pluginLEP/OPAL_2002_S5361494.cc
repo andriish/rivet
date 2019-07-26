@@ -22,9 +22,6 @@ namespace Rivet {
     /// Constructor
     OPAL_2002_S5361494()
       : Analysis("OPAL_2002_S5361494"),
-        _weightedTotalChargedPartNumLight(0.),
-        _weightedTotalChargedPartNumCharm(0.),
-        _weightedTotalChargedPartNumBottom(0.),
         _weightLight(0.),_weightCharm(0.),_weightBottom(0.)
     {}
 
@@ -37,7 +34,9 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "CFS");
       declare(InitialQuarks(), "IQF");
-
+      _cLight  = bookCounter("/TMP/CLIGHT" );
+      _cCharm  = bookCounter("/TMP/CCHARM" );
+      _cBottom = bookCounter("/TMP/CBOTTOM");
     }
 
 
@@ -73,16 +72,16 @@ namespace Rivet {
       const size_t numParticles = cfs.particles().size();
       switch (flavour) {
       case 1: case 2: case 3:
-        _weightLight  += weight;
-        _weightedTotalChargedPartNumLight  += numParticles * weight;
+	_weightLight  += weight;
+        _cLight->fill(  numParticles * weight );
         break;
       case 4:
         _weightCharm  += weight;
-        _weightedTotalChargedPartNumCharm  += numParticles * weight;
+	_cCharm->fill(  numParticles * weight );
         break;
       case 5:
         _weightBottom += weight;
-        _weightedTotalChargedPartNumBottom += numParticles * weight;
+        _cBottom->fill( numParticles * weight );
         break;
       }
 
@@ -90,25 +89,45 @@ namespace Rivet {
 
 
     void finalize() {
-      Histo1D temphisto(refData(1, 1, 1));
-
-      const double avgNumPartsBottom = _weightBottom != 0. ? _weightedTotalChargedPartNumBottom / _weightBottom : 0.;
-      const double avgNumPartsCharm  = _weightCharm  != 0. ? _weightedTotalChargedPartNumCharm  / _weightCharm  : 0.;
-      const double avgNumPartsLight  =  _weightLight != 0. ? _weightedTotalChargedPartNumLight  / _weightLight  : 0.;
-      Scatter2DPtr h_bottom = bookScatter2D(1, 1, 1);
-      Scatter2DPtr h_charm  = bookScatter2D(1, 1, 2);
-      Scatter2DPtr h_light  = bookScatter2D(1, 1, 3);
-      Scatter2DPtr h_diff   = bookScatter2D(1, 1, 4);  // bottom minus light
-      for (size_t b = 0; b < temphisto.numBins(); b++) {
-        const double x  = temphisto.bin(b).xMid();
-        const double ex = temphisto.bin(b).xWidth()/2.;
-        if (inRange(sqrtS()/GeV, x-ex, x+ex)) {
-          // @TODO: Fix y-error:
-          h_bottom->addPoint(x, avgNumPartsBottom, ex, 0.);
-          h_charm->addPoint(x, avgNumPartsCharm, ex, 0.);
-          h_light->addPoint(x, avgNumPartsLight, ex, 0.);
-          h_diff->addPoint(x, avgNumPartsBottom-avgNumPartsLight, ex, 0.);
-        }
+      // calculate the averages and diffs
+      if(_weightLight!=0)  scale( _cLight, 1./_weightLight);
+      if(_weightCharm !=0) scale( _cCharm, 1./_weightCharm);
+      if(_weightBottom!=0) scale(_cBottom,1./_weightBottom);
+      Counter _cDiff = *_cBottom - *_cLight;
+      // fill the histograms
+      for(unsigned int ix=1;ix<5;++ix) {
+	double val(0.), err(0.0);
+	if(ix==1) {
+	  val = _cBottom->val();
+	  err = _cBottom->err();
+	}
+	else if(ix==2) {
+	  val = _cCharm->val();
+	  err = _cCharm->err();
+	}
+	else if(ix==3) {
+	  val = _cLight->val();
+	  err = _cLight->err();
+	}
+	else if(ix==4) {
+	  val = _cDiff.val();
+	  err = _cDiff.err();
+	}
+	Scatter2D temphisto(refData(1, 1, ix));
+	Scatter2DPtr  mult = bookScatter2D(1, 1, ix);
+	for (size_t b = 0; b < temphisto.numPoints(); b++) {
+	  const double x  = temphisto.point(b).x();
+	  pair<double,double> ex = temphisto.point(b).xErrs();
+	  pair<double,double> ex2 = ex;
+	  if(ex2.first ==0.) ex2. first=0.0001;
+	  if(ex2.second==0.) ex2.second=0.0001;
+	  if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+	    mult->addPoint(x, val, ex, make_pair(err,err));
+	  }
+	  else {
+	    mult->addPoint(x, 0., ex, make_pair(0.,.0));
+	  }
+	}
       }
     }
 
@@ -119,9 +138,9 @@ namespace Rivet {
 
     /// @name Multiplicities
     //@{
-    double _weightedTotalChargedPartNumLight;
-    double _weightedTotalChargedPartNumCharm;
-    double _weightedTotalChargedPartNumBottom;
+    CounterPtr _cLight;
+    CounterPtr _cCharm;
+    CounterPtr _cBottom;
     //@}
 
     /// @name Weights

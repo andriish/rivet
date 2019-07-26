@@ -33,7 +33,7 @@ namespace Rivet {
       // a b-quark must have been produced
       /// @todo Ouch. Use hadron tagging...
       int nb = 0;
-      foreach (const GenParticle* p, particles(event.genEvent())) {
+      for(ConstGenParticlePtr p: HepMCUtils::particles(event.genEvent())) {
         if (abs(p->pdg_id()) == PID::BQUARK) nb += 1;
       }
       if (nb == 0) vetoEvent;

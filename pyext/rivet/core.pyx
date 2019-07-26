@@ -48,6 +48,12 @@ cdef class AnalysisHandler:
     def finalize(self):
         self._ptr.finalize()
 
+    def dump(self, file, period):
+        self._ptr.dump(file, period)
+
+    def mergeYodas(self, filelist, delopts, equiv):
+        self._ptr.mergeYodas(filelist, delopts, equiv)
+
 
 cdef class Run:
     cdef c.Run *_ptr
@@ -75,8 +81,8 @@ cdef class Run:
     def readEvent(self):
         return self._ptr.readEvent()
 
-    def skipEvent(self):
-        return self._ptr.skipEvent()
+#    def skipEvent(self):
+#        return self._ptr.skipEvent()
 
     def processEvent(self):
         return self._ptr.processEvent()
@@ -100,6 +106,10 @@ cdef class Analysis:
     def keywords(self):
         kws = deref(self._ptr).keywords()
         return [ k.decode('utf-8') for k in kws ]
+
+    def validation(self):
+        vld = deref(self._ptr).validation()
+        return [ k.decode('utf-8') for k in vld ]
 
     def authors(self):
         auths = deref(self._ptr).authors()
@@ -173,6 +183,14 @@ cdef class AnalysisLoader:
         return pyobj
 
 
+## Convenience versions in main rivet namespace
+def analysisNames():
+    return AnalysisLoader.analysisNames()
+def getAnalysis(name):
+    return AnalysisLoader.getAnalysis(name)
+
+
+## Path functions
 def getAnalysisLibPaths():
     ps = c.getAnalysisLibPaths()
     return [ p.decode('utf-8') for p in ps ]

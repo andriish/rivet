@@ -12,14 +12,18 @@ namespace Rivet {
   public:
     
     /// Constructor
-    ATLAS_2017_I1514251(string name="ATLAS_2017_I1514251")
-      : Analysis(name)  {
-      // This class uses the combined e+mu mode
-      _mode = 0;
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2017_I1514251);
     
     /// Book histograms and initialise projections before the run
     void init() {
+
+      // Get options from the new option system
+      // default to combined.
+      _mode = 2;
+      if ( getOption("LMODE") == "EL" ) _mode = 0;
+      if ( getOption("LMODE") == "MU" ) _mode = 1;
+      if ( getOption("LMODE") == "EMU" ) _mode = 2;
+
       const FinalState fs;
       
       Cut cuts = (Cuts::pT > 25*GeV) && (Cuts::abseta < 2.5);
@@ -38,19 +42,19 @@ namespace Rivet {
       declare(jets, "jets");
       
       // individual channels
-      _h_Njets       = bookHisto1D(1, 1, _mode + 1);
-      _h_Njets_Ratio = bookScatter2D(1, 2, _mode + 1, true);
-      _h_Njets_excl  = bookHisto1D(1, 3, _mode + 1);
+      _h_Njets_excl  = bookHisto1D(  _mode + 1, 1, 1);
+      _h_Njets       = bookHisto1D(  _mode + 4, 1, 1);
+      _h_Njets_Ratio = bookScatter2D(_mode + 7, 1, 1, true);
 
-      _h_HT                    = bookHisto1D(1, 4, _mode + 1);
-      _h_leading_jet_rap       = bookHisto1D(1, 5, _mode + 1);
-      _h_leading_jet_pT_eq1jet = bookHisto1D(1, 6, _mode + 1);
-      _h_leading_jet_pT        = bookHisto1D(1, 7, _mode + 1);
-      _h_leading_jet_pT_2jet   = bookHisto1D(1, 8, _mode + 1);
-      _h_leading_jet_pT_3jet   = bookHisto1D(1, 9, _mode + 1);
-      _h_leading_jet_pT_4jet   = bookHisto1D(1, 10, _mode + 1);
-      _h_jet_dphi              = bookHisto1D(1, 11, _mode + 1);
-      _h_jet_mass              = bookHisto1D(1, 12, _mode + 1);
+      _h_leading_jet_pT_eq1jet = bookHisto1D(_mode + 10, 1, 1);
+      _h_leading_jet_pT        = bookHisto1D(_mode + 13, 1, 1);
+      _h_leading_jet_pT_2jet   = bookHisto1D(_mode + 16, 1, 1);
+      _h_leading_jet_pT_3jet   = bookHisto1D(_mode + 19, 1, 1);
+      _h_leading_jet_pT_4jet   = bookHisto1D(_mode + 22, 1, 1);
+      _h_leading_jet_rap       = bookHisto1D(_mode + 25, 1, 1);
+      _h_HT                    = bookHisto1D(_mode + 28, 1, 1);
+      _h_jet_dphi              = bookHisto1D(_mode + 31, 1, 1);
+      _h_jet_mass              = bookHisto1D(_mode + 34, 1, 1);
 
     }
     
@@ -58,7 +62,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       
-      const double weight = event.weight();
+      const double weight = event.weight(); 
       
       const ZFinder& zeefinder = apply<ZFinder>(event, "zeefinder");
       const ZFinder& zmumufinder = apply<ZFinder>(event, "zmumufinder");
@@ -67,9 +71,11 @@ namespace Rivet {
       const Particles& zmumus = zmumufinder.bosons();
 
       //Veto Z->mumu in electron mode, and vice versa:      
-      if (_mode==1 && (zees.size()!=1 || zmumus.size() ) )  vetoEvent;
-      else if (_mode==2 && (zees.size() || zmumus.size()!=1 ) )  vetoEvent;
-      else if (zees.size() + zmumus.size() != 1) {
+      if (_mode==0 && (zees.size()!=1 || zmumus.size() ) )  vetoEvent;
+
+      if (_mode==1 && (zees.size() || zmumus.size()!=1 ) )  vetoEvent;
+
+      if (zees.size() + zmumus.size() != 1) {
         // Running in combined mode, we did not find exactly one Z. Not good.
         MSG_DEBUG("Did not find exactly one good Z candidate");
         vetoEvent;
@@ -131,17 +137,21 @@ namespace Rivet {
         _h_Njets_Ratio->point(i).setY(r, e);
       }
 
-      scale(_h_Njets,                  crossSectionPerEvent() );
-      scale(_h_Njets_excl,             crossSectionPerEvent() );
-      scale(_h_HT,                     crossSectionPerEvent() );
-      scale(_h_leading_jet_rap,        crossSectionPerEvent() );
-      scale(_h_leading_jet_pT,         crossSectionPerEvent() );
-      scale(_h_leading_jet_pT_eq1jet,  crossSectionPerEvent() );
-      scale(_h_leading_jet_pT_2jet,    crossSectionPerEvent() );
-      scale(_h_leading_jet_pT_3jet,    crossSectionPerEvent() );
-      scale(_h_leading_jet_pT_4jet,    crossSectionPerEvent() );
-      scale(_h_jet_dphi,               crossSectionPerEvent() );
-      scale(_h_jet_mass,               crossSectionPerEvent() );
+      // when running in combined mode, need to average to get lepton xsec
+      double normfac = crossSectionPerEvent();
+      if (_mode == 2) normfac = 0.5*normfac;
+
+      scale(_h_Njets,                  normfac );
+      scale(_h_Njets_excl,             normfac );
+      scale(_h_HT,                     normfac );
+      scale(_h_leading_jet_rap,        normfac );
+      scale(_h_leading_jet_pT,         normfac );
+      scale(_h_leading_jet_pT_eq1jet,  normfac );
+      scale(_h_leading_jet_pT_2jet,    normfac );
+      scale(_h_leading_jet_pT_3jet,    normfac );
+      scale(_h_leading_jet_pT_4jet,    normfac );
+      scale(_h_jet_dphi,               normfac );
+      scale(_h_jet_mass,               normfac );
 
     }
 
@@ -171,31 +181,6 @@ namespace Rivet {
   
   };
 
-
-
-  class ATLAS_2017_I1514251_EL : public ATLAS_2017_I1514251 {
-  public:
-    ATLAS_2017_I1514251_EL()
-      : ATLAS_2017_I1514251("ATLAS_2017_I1514251_EL")
-    {
-      _mode = 1;
-    }
-  };
-
-
-
-  class ATLAS_2017_I1514251_MU : public ATLAS_2017_I1514251 {
-  public:
-    ATLAS_2017_I1514251_MU()
-      : ATLAS_2017_I1514251("ATLAS_2017_I1514251_MU")
-    {
-      _mode = 2;
-    }
-  };
-
-
-
   DECLARE_RIVET_PLUGIN(ATLAS_2017_I1514251);
-  DECLARE_RIVET_PLUGIN(ATLAS_2017_I1514251_EL);
-  DECLARE_RIVET_PLUGIN(ATLAS_2017_I1514251_MU);
+
 }

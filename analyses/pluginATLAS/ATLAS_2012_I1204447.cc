@@ -5,7 +5,7 @@
 #include "Rivet/Projections/VisibleFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 #include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
@@ -51,7 +51,7 @@ namespace Rivet {
       declare(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
 
       // Final state including all unstable particles (including taus)
-      declare(UnstableFinalState(Cuts::abseta < 5.0 && Cuts::pT > 5*GeV), "UFS");
+      declare(UnstableParticles(Cuts::abseta < 5.0 && Cuts::pT > 5*GeV), "UFS");
 
       // Final state including all electrons
       IdentifiedFinalState elecs(Cuts::abseta < 2.47 && Cuts::pT > 10*GeV);
@@ -152,7 +152,7 @@ namespace Rivet {
       // Taus
       /// @todo This could benefit from a tau finder projection
       Particles tau_candidates;
-      foreach (const Particle& tau, apply<UnstableFinalState>(event, "UFS").particlesByPt()) {
+      foreach (const Particle& tau, apply<UnstableParticles>(event, "UFS").particlesByPt()) {
         // Only pick taus out of all unstable particles
         if (tau.abspid() != PID::TAU) continue;
 
@@ -624,10 +624,10 @@ namespace Rivet {
     /// @todo Move to TauFinder and make less HepMC-ish
     FourMomentum get_tau_neutrino_mom(const Particle& p)  {
       assert(p.abspid() == PID::TAU);
-      const GenVertex* dv = p.genParticle()->end_vertex();
-      assert(dv != NULL);
-      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
-        if (abs((*pp)->pdg_id()) == PID::NU_TAU) return FourMomentum((*pp)->momentum());
+      ConstGenVertexPtr dv = p.genParticle()->end_vertex();
+      assert(dv != nullptr);
+      for(ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
+        if (abs(pp->pdg_id()) == PID::NU_TAU) return FourMomentum(pp->momentum());
       }
       return FourMomentum();
     }
@@ -635,23 +635,23 @@ namespace Rivet {
 
     /// Function calculating the prong number of taus
     /// @todo Move to TauFinder and make less HepMC-ish
-    void get_prong_number(const GenParticle* p, unsigned int& nprong, bool& lep_decaying_tau) {
-      assert(p != NULL);
+    void get_prong_number(ConstGenParticlePtr p, unsigned int& nprong, bool& lep_decaying_tau) {
+      assert(p != nullptr);
       //const int tau_barcode = p->barcode();
-      const GenVertex* dv = p->end_vertex();
-      assert(dv != NULL);
-      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
+      ConstGenVertexPtr dv = p->end_vertex();
+      assert(dv != nullptr);
+      for(ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
         // If they have status 1 and are charged they will produce a track and the prong number is +1
-        if ((*pp)->status() == 1 )  {
-          const int id = (*pp)->pdg_id();
+        if (pp->status() == 1 )  {
+          const int id = pp->pdg_id();
           if (Rivet::PID::charge(id) != 0 ) ++nprong;
           // Check if tau decays leptonically
           // @todo Can a tau decay include a tau in its decay daughters?!
           if ((abs(id) == PID::ELECTRON || abs(id) == PID::MUON || abs(id) == PID::TAU) && abs(p->pdg_id()) == PID::TAU) lep_decaying_tau = true;
         }
         // If the status of the daughter particle is 2 it is unstable and the further decays are checked
-        else if ((*pp)->status() == 2 )  {
-          get_prong_number(*pp, nprong, lep_decaying_tau);
+        else if (pp->status() == 2 )  {
+          get_prong_number(pp, nprong, lep_decaying_tau);
         }
       }
     }

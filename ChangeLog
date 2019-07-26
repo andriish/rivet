@@ -1,3 +1,752 @@
+2019-07-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add CMS_2018_I1646260 soft-lepton SUSY search analysis (used for
+	recasting comparisons at Les Houches 2019).
+
+2019-07-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add ATLAS_2018_I1667046 ATLAS 36/fb RPV SUSY search.
+
+2019-07-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix logic error in HasNoTag functor.
+
+2019-07-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Improve debug reporting from SmearedParticles.
+
+	* Add SmearedParticles::truthParticles and SmearedJets::truthJets
+	functions for access to the unsmeared inputs.
+
+	* Add convenience aliases for vectors of standard types: strings, ints, doubles, etc.
+
+2019-06-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add Particle::closestApproach() function -- needs testing. Useful for long-lived particles.
+
+2019-06-20 Christian Gutschow  <chris.g@cern.ch>
+
+	* Adding ATLAS_2011_I930220, ATLAS_2018_I1634970 and ATLAS_2019_I1718132
+
+2019-06-19  Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
+
+	* Adding bookScatter3D method
+
+2019-06-06 Christian Gutschow  <chris.g@cern.ch>
+
+	* Adding Marek's opacity fix to make-plots
+
+	* removing if statement testing if type(u'') is (not) str when
+	deciding whether to encode string in bin/rivet
+
+2019-06-06  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* fix typo in rivet-cmphistos
+	* sync yoda for many D0 analyses
+	* sync yoda for CDF_2008_S8093652 D0_2008_S7554427
+
+2019-06-05  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* L3_2004_I652683 add missing plots and sync yoda, still missing n charged as functiomn of CMS energy and jet plots
+	* PLUTO_1980_I154270 clean up to prepare for yoda sync
+	* CDF_2015_I1388868, changes to allow yoda sync, histograms renumbered and systematic error added to y values
+	* sync yoda for CDF analysis where y errors changed due better calc in HEPData
+
+2019-06-05  Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
+
+	* Adding more heavy-ion beam particles: DEUTERON, ALUMINIUM,
+	COPPER, XENON, URANIUM
+
+2019-06-04  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* sync yoda for BELLE_2015_I1397632, two hists change label + final binchangeset:   7157:2482c97f5ef8
+	* update BABAR_2007_S6895344.yoda with improved error calc
+	* sync yoda for H1_1994_S2919893.yoda, only difference handling of non-existance bins, better in new version
+	* sync yoda for OPAL_2000_S4418603.yoda, changes only in histos not used by rivet
+	* sync yoda for OPAL_1997_S3608263, missing histos in rivet copy
+	* sync yoda for OPAL_1997_S3396100, trival difference some asymmetric x bins in new output but bin limits same
+	* remove null bins from yoda to allow sync with hepdata in CLEO_2004_S5809304.yoda
+	* add OPAL_1997_I421977 for sigma +/- production
+
+2019-06-03  Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
+
+	* Adding new heavy-ion beam particles: GOLD, LEAD.
+	* Switching already existing heavy-ion analyses to use new beam types
+
+2019-06-03  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* sync ALEPH_1996_S3196992.yoda with HEPdata, rounding issues in old version
+	* sync ALEPH_2001_S4656318.yoda, differences in histos not used in analysis
+	* sync DELPHI_2011_I890503.yoda, fixes y errors but still a zero width bin to deal with
+	* switch to using counters in OPAL_2002_S5361494, errors now calculated, and allows yoda sync with HEPdata
+	* add DELPHI_2003_I620250 for event shapes below Z pole
+	* switch to using counters in DELPHI_2000_S4328825, errors now calculated, and allows partial yoda sync with HEPdata
+	* update PLUTO_1980_I154270.yoda for new hepdata error calc
+	* update JADE_1983_I190818 to handle zero bins widths and update the yoda from HEPData
+
+2019-06-02  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* add DELPHI_2000_I524694 for sigma- and lambdsa(1520) production at LEP
+	* clean up code in OPAL_1997_S3396100, fixed normalisation of sigma-(1385) distributions
+
+2019-06-01 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* update yoda for ARGUS_1993_S2653028, improved y errors, still zero bin width issues
+	* update yoda for SND_2016_I1471515, ALEPH_1995_I382179, ALEPH_1999_S4193598
+	* add analysis CLEO_1991_I29927, B* production in e+e-
+
+2019-05-31 Christian Gutschow  <chris.g@cern.ch>
+
+	* Skip beam particles when trying to determine promptness (thanks to Marek Schoenherr for pointing this out)
+	* Apple's CLANG compiler really doesn't like uninitialised variables ... sorry Peter!
+
+2019-05-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use integer rather than overloaded Projection comparison at the
+	apply stage. Improves Smeared* projection reproducibility and may
+	speed up the apply step. Thanks to Xiangyang Ju.
+
+2019-05-29  Peter Richardson <peter.richardson@durham.ac.uk>
+	* Move BABAR and BELLE analyses to separate plugin and add new mainly radiative
+	return analyses
+
+	* new pluginNovosibirsk with analyses from SND, CMD, etc
+
+	* new pluginOrsay with analyses from DM1 and DM2
+
+	* new PETRA analyses, mainly for R
+
+	* move existing Tristan analyses to separate plugin and add new, mainy R
+	analyses
+
+	* new pluginFrascati with analyses from ADONE and DAPHNE
+
+	* move older SLAC e+e- analyses to separate plugin and add new analyses
+
+	* move DORIS analysis to separate plugin and add new ones
+
+	* move CLEO analyses to new CESR plugin and add more analyses
+
+	* new plugin with analyses from the BES experiment
+
+	* new MC analyses for hadron/tau decays based on Herwig internal ones
+
+	* sync BABAR_2007_I729388, BABAR_2013_I1238276, BABAR_2005_S6181155 and all those
+	where no difference with yodadiff, similarly for BELLE
+
+	* fix no of tracks plots in ATLAS_2016_I1424838, normalise to 100 not 1, agreed by Chris G
+
+	* merge two versions of OPAL_2004_I631361, now using new options feature instead.
+
+2019-05-29  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* The GenEvents in rivet can now be stripped from (most) light
+	quarks and gluons to speed up searching.
+
+	* Status lines in info files can now contain words like
+	NOTREENTRY, NOHEPDATA, SINGLEWEIGHT, and UNPHYSICAL.
+
+	* Can now configured to use HepMC3 (3.1.1 or later).
+
+2019-05-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix Unicode and argparse bugs in bin/rivet. Thanks to Frank Siegert.
+
+2019-05-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Release version 2.7.2
+
+	* Fixes to CMS_2016_I1487288 jet selection and
+	normalisation. Thanks to Peter Richardson for highlighting the
+	issues.
+
+2019-05-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Improve Vector3::azimuthalAngle() (also used by FourMomentum and
+	FourVector) to use exact rather than fuzzy is-zero check, to only
+	check the perpendicular components, and to note that IEEE floating
+	point implementations of atan2 should already be 'safe' unless we
+	decide that this function should throw or return NaN in case of
+	null or along-z vectors. Thanks to Louis Moureaux from CMS for the
+	report and diagnosis.
+
+2019-05-17  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Tools/Utils.h: Add isum() functions, and mark other container
+	functions as wanting a conversion to use std::function.
+
+2019-05-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add super-generic (i)discardIfAny(particlebases, particlebases, bool(pb,pb)) functions.
+
+2019-05-16 Christian Gutschow  <chris.g@cern.ch>
+
+	* Introduce TTMODE options for MC_TTBAR to pick the decay mode
+
+2019-05-09 Christian Gutschow  <chris.g@cern.ch>
+
+	* Release version 2.7.1
+
+2019-05-09 Christian Gutschow  <chris.g@cern.ch>
+
+	* add correlation information for those analyses
+	that are compatible with HEPData
+	* prevent Variations meta data from being copied
+	* comment out redudnant code in MeasureDefinition.cc
+	to suppress compiler warning
+
+2019-05-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use an std::map rather than std::set to store analyses in
+	AnalysisHandler, hopefully therefore fixing the analysis
+	evaluation order and making multi-analysis runs with random
+	numbers repeatable.
+
+2019-05-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Modify LorentzTransform::setBetaVec to behave better for boost
+	along x, y, and z axes.
+
+	* Attach bare lepton GenParticle pointers to output of
+	DressedLeptons, to allow ancestry/decay navigation (request by
+	Markus Seidel).
+
+	* Add Particle::setGenParticle method and manual Particle
+	constructors with the option to pass a GenParticle*.
+
+	* Improve DressedLeptons constructor to deconstruct incoming
+	particles into bare and dressing components (report by Markus
+	Seidel).
+
+	* Remove GSL includes and single remaining method (for now).
+
+2019-05-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* First set of script conversions from optparse to argparse for Python3.
+
+2019-05-06 Peter Richardson  <peter.richardson@durham.ac.uk>
+	* Fix normalisation in ATLAS_2016_I1444991 after yoda update from HepData
+
+2019-05-04 Christian Gutschow  <chris.g@cern.ch>
+	* default entry point of ATLAS_2014_I1319490 should
+	  be average of muon and electron channel
+	* fix units in ATLAS_2014_I1319490 and apply
+	  Peter Richardson's plot updates
+
+2019-05-04 Peter Richardson  <peter.richardson@durham.ac.uk>
+	* Fix plot selection and labels in ATLAS_2016_I1419652 (due yoda update from HepData)
+	* Fix to mode switch and plot labels in ATLAS_2014_I1319490
+
+2019-05-03 Peter Richardson  <peter.richardson@durham.ac.uk>
+	* Fix info text and plot labels in ATLAS_2013_I1217863
+	* Fix Zfinder test in ATLAS_2014_I1312627, size is now no of Z's not leptons
+
+2019-05-02  Peter Richardson  <peter.richardson@durham.ac.uk>
+	* Fix unicode in ATLAS_2014_I1312627,ATLAS_2016_I1424838,ATLAS_2016_I1426523
+
+2019-05-02  Peter Richardson  <peter.richardson@durham.ac.uk>
+
+	* Fix make-plots CustomMajorTicks and CustomMinorTicks
+
+2019-04-30  Peter Richardson  <peter.richardson@durham.ac.uk>
+
+	* Fix make-plots rendering when last point is NaN-valued.
+
+2019-04-30 Christian Gutschow  <chris.g@cern.ch>
+	* path sign behaviour in deltaEta (MathUtils.hh)
+	* add signed option for deltaRap
+
+2019-04-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add tau mistag efficiency functions for jet smearing.
+
+	* Make RIVET_RANDOM_SEED have effect outside OpenMP builds, too.
+
+2019-04-29 Christian Gutschow  <chris.g@cern.ch>
+	* remove IsRef from output Histo1D
+	* fix HEPData IDs in hist booking for ATLAS_2014_I1315949
+
+2019-04-26 Christian Gutschow  <chris.g@cern.ch>
+	* use jet size rather than 4-momentum size (?)
+	to fill in CDF_1996_S3108457
+
+2019-04-25 Christian Gutschow  <chris.g@cern.ch>
+	* fix mapping to ref data in STAR_2006_S6500200,
+	put bin width manually into ref data file
+
+2019-04-24 Christian Gutschow  <chris.g@cern.ch>
+	* Patch weird behaviour in ATLAS_2017_I1589844 and
+	ATLAS_2017_I1609448 when Cut argument is passed to
+	VetoedFinalState constructor. In version 2.6.2 or
+	prior, this would select the particles passing the cut,
+	after that they are being vetoed.
+
+2019-04-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add CMS_2016_I1487288 (CMS WZ differential cross-sections at 8
+	TeV) from Shehu AbdusSalam, refined and extended to jet
+	distributions by AB.
+
+2019-04-24  Jon Butterworth <j.butterworth@ucl.ac.uk>
+
+	* Fix logic of call the vetoedFinalState in ATLAS_2017_I1609448
+	which was giving wrong met calculation.
+
+2019-04-23  Chris Gutschow  <chris.g@cern.ch>
+
+	* Apply suggested corrections from Peter Richardson to
+	ATLAS_2014_I1282441 (normalisation of second plot is in millibarn
+	not microbarn), ATLAS_2015_I1387176 and ATLAS_2015_I1397635
+	(Unicode issues in the .info), ATLAS_2016_I1419070 (need more than
+	1 entry for a variance not just 1), CMS_2010_PAS_QCD_10_024 and
+	CMS_2012_PAS_FSQ_12_020 (class names need to be consistent with
+	file names to find the .yoda ref data), CMS_2013_I1261026 (need to
+	ensure more than 1 entry in histos to avoid LowStats issues from
+	YODA), CMS_2014_I1298810, CMS_2016_I1421646, CMS_2016_I1454211
+	(the polymarker command in the yoda caused make-plots to fail if
+	there is more than 1 MC line), CMS_2017_I1467451 (cross sections
+	in fb), CMS_2017_I1605749 (data fixed in HepData so don't need to
+	divide by bin width anymore), ALEPH_1996_S3486095 (delete a lot of
+	unused variables), ALEPH_2014_I1267648 (only worked if the final
+	decay products were direct children of the tau, which is not the
+	case in Herwig or Pythia -- rewritten to search down the decay
+	tree), DELPHI_1996_S3430090, DELPHI_2000_S4328825,
+	OPAL_1998_S374990, ARGUS_1993_S2669951, ALEPH_1996_S3486095
+	(switch ' to ^\prime in plots as it wasn't working as it was),
+	ALEPH_2004_S5765862 (fix typo in plot label), BABAR_2003_I593379
+	and BELLE_2008_I786560 (switch to Rivet particle from
+	genParticle), and to add the 2D case to the Sphericity projection
+	so tranSphericity works.
+
+2019-04-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add RIVET_CACHE_PROJECTIONS environment variable, for runtime
+	disabling of the caching mechanism (for debugging and
+	cross-checking).
+
+	* Add optional only_physical and remove_duplicates args (passed
+	through to the Particle methods) to hasParticleAncestorWith and
+	hasParticleDescendantWith functors.
+
+2019-04-08  Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
+
+	* Restored behaviour of getData function to return finalized
+	plots by default
+
+2019-04-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Remove/protect against last Unicode .encode() calls that broke Python3 compatibility.
+
+	* Remove last assert (for mod2() >= 0) from Vector classes.
+
+2019-04-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Move inline projections *inside* analysis classes, since our
+	aggregated build mechanism means there's no longer a unique
+	unnamed namespace for each analysis .cc file.
+
+	* Adding analyses ATLAS_2018_I1677498 (WWbb), ATLAS_2018_I1711114
+	(g -> bb), and ATLAS_2019_I1720442 (4-lepton lineshape).
+
+2019-03-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Extend more deltaPhi(x,y) functions with an optional bool for signed dPhi.
+
+	* Add Particle::isSame and isSame(Particle, Particle) functions in
+	lieu of implicit (and wrong) Particle::operator==.
+
+	* Reinstate Particle -> GenParticle as an explicit cast option.
+
+2019-03-15  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* src/Projections/Sphericity.cc: Skip zero-momentum particles.
+
+	* [Reader,Writer]CompressedAscii[cc,hh]: Introduced possibility to
+	wead and write HepMC (v3) files in a compressed and stripped
+	format. Also included a simple progra bin/rivet-hepmz to convert
+	between this new format and othe HepMC fortmats.
+
+2019-03-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add CMS_2018_I1686000.cc single-top plus photon analysis (with
+	an info file warning about fiducial definition oddity)
+
+	* Remove Particle -> GenParticle implicit cast.
+
+	* analyses/pluginCMS/CMS_2018_I1682495.cc: Fix normalisation of
+	final plots (patch from Sal Rappoccio, spot by Deepak Kar)
+
+2019-02-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* bin/make-plots: Fix a few Py2/3 incompabilities in
+	make-plots. Thanks to Leif Gellersen for the tip-off
+
+	* analyses/Makefile.am: Adopt a more make-friendly plugin building
+	rule. Thanks to Dima Konstantinov.
+
+2019-02-24  Jon Butterworth  <j.butterworth@ucl.ac.uk>
+
+	* Fix multiple bugs in ATLAS_2017_I1514251 (Z+jets) including a
+	problem with REF data having zero bin widths
+
+2019-02-23  Jon Butterworth <j.butterworth@ucl.ac.uk>
+
+	* Added first version of ZEUS_2012_I1116258 (dijet photoproduction). Currently works but unvalidated,
+	  need to check exact recombination scheme with ZEUS contacts. Note ZEUS_2001_S4815815 also needs the
+	  recombination scheme checking. (Now done; changed to Et scheme are checking original code, 27/2/19.)
+
+2019-02-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Move UnstableParticles to a consistently-named header, with
+	UnstableFinalState.hh retained for backward compatibility.
+
+	* Improve/fix UnstableParticles projection's Cut constructor
+	argument to apply the cut on a Rivet::Particle rather than a
+	HepMC::FourVector, meaning that PID cuts can now be used.
+
+2019-02-17  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Convert ATLAS_2013_I1217863 analysis variants to use the LMODE
+	analysis option (from Jon Butterworth).
+
+2019-02-20  James Monk  <jwmonk@protonmail.com>
+	* src/Tools/RivetHepMC_2.cc: implementation of HepMC helper funcs
+	for HepMC2
+
+	* Add HepMCUtils namespace for helper funcs
+
+	* Relatives class spoofs HepMC3::Relatives interface using HepMC2
+	iterator_ranges
+
+	* Replace calls to particles_in() and particles_out() by HepMCUtils::particles
+
+	* Fix pyext/setup.py.in for both HepMC2 and HepMC3
+
+	* Configures with either --with-hepmc=/blah or --with-hepmc3=/blah
+
+	* Compiles for either HepMC2 or HepMC3 (3.1 or higher)
+
+2019-02-17  James Monk  <jwmonk@protonmail.com>
+
+	* Update many build paths to cope with new HepMC3 include and lib paths :(
+
+	* Use RivetHepMC namespace in place of HepMC:: RivetHepMC.hh should take care of it
+
+	* configure.ac addes appropriate define to CPPFLAGS
+
+	* wrangle rivet-buildplugin to cope with HePMC3 paths
+
+	* HepMC::Reader is still a bit fubar :(
+
+2018-12-10  James Monk  <jwmonk@protonmail.com>
+
+	* Merge from default
+
+2018-12-06  James Monk  <jwmonk@protonmail.com>
+
+	* RivetHepMC.hh: Much simplified.  Use only Const version of
+	GenParticlePtr Only func delarations - two separate implementation
+	files for HepMC2 or 3
+
+	* configure.ac: HepMC version dependence for building RivetHepMC_2.cc or RivetHepMC_3.cc
+
+	* src/Makefile.am: HepMC version dependence
+
+	* src/Tools/RivetHepMC_3.cc: implementations of funs for HepMC v3
+
+	* bin/rivet-nopy.cc: re-implement using HepMC3 reader interface
+	(may need separate implementation for HepMC2)
+
+	* Particle.hh, Event.cc, Jet.cc: const GenParticle replaced by ConstGenParticle
+
+	* Projections Beam, DISLepton, FinalPartons, FinalState,
+	HeavyHadrons, InitialQuarks, MergedFinalState, PrimaryHadrons,
+	UnstableFinalState, VetoedFinalState: Use ConstGenParticlePtr and
+	vector<ConstGenParticlePtr> consistently
+
+	* pluginATLAS: Start to fix some uses of const GenParticlePtr
+
+2019-02-15  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* Release 2.7.0
+
+2019-02-12  Christian Bierlich  <christian.bierlich@thep.lu.se>
+
+	* Introduced CentralityProjection, allowing an analysis to cut
+	on percentiles of single event quantities, preloaded from a
+	user generated or supplied (by experiment) histogram. Notably
+	used for the centrality definition in heavy ion analyses.
+	User specifies the centrality definition as a special analysis
+	option called cent, eg: "MyAnalysis:cent=GEN".
+	Example usage: Calibration analysis: MC_Cent_pPb_Calib,
+	Analysis using that calibration: MC_Cent_pPb_Eta.
+
+	* Introduced EventMixingFinalState to provide simple event mixing
+	functionality. Currently only works with unit event weights.
+	Example usage: ALICE_2016_I1507157.
+
+	* Introduced Correlators, a framework for calculating single event
+	correlators based on the generic framework (arXiv: 1010.0233 and
+	arXiv: 1312.3572), and perfoming all event averages giving flow
+	coefficents. Implemented as new analysis base class.
+	Example usage: ALICE_2016_I1419244.
+
+	* Introduced a PrimaryParticle projection, replicating experimental
+	definitions of stable particles through decay chains. Recommended for
+	analyses which would otherwise have to require stable particles
+	at generator level.
+
+	* Introduced AliceCommon and AtlasCommon convenience tools, defining
+	several triggers, primary particle definitions and acceptances.
+
+	* Contributed, validated analyses using above features:
+	ALICE_2010_I880049: Multiplicity at mid-rapidity, PbPb @ 2.76 TeV/nn.
+	ALICE_2012_I1127497: Nuclear modification factor, PbPb @ 2.76 TeV/nn.
+	ALICE_2012_I930312: Di-hadron correlations, PbPb @ 2.76 TeV/nn.
+
+	* Contributed, unvalidated analyses using above features:
+	BRAHMS_2004_I647076: pi, K, p spectra as function of rapidity,
+	AuAu @ 200 GeV/nn
+	ALICE_2012_I1126966: pi, K, p spectra, PbPb @ 2.76 TeV/nn.
+	ALICE_2013_I1225979: Charged multiplicity, PbPb @ 2.76 TeV/nn.
+	ALICE_2014_I1243865: Multi-strange baryons, PbPb @ 2.76 TeV/nn.
+	ALICE_2014_I1244523: Multi-strange baryons, pPb @ 5.02 TeV/nn.
+	ALICE_2015_PBPBCentrality: Centrality calibration for PbPb. Note
+	that the included 5.02 TeV/nn data is not well defined at particle
+	level, and cannot be compared to experiment without full detector
+	simulation.
+	ALICE_2016_I1394676: Charged multiplicity, PbPb @ 2.76 TeV/nn.
+	ALICE_2016_I1419244: Multiparticle correlations (flow) using generic
+	framework, PbPb @ 5.02 TeV/nn.
+	ALICE_2016_I1471838: Multi-strange baryons, pp @ 7 TeV.
+	ALICE_2016_I1507090: Charged multiplicity, PbPb @ 5.02 TeV/nn.
+	ALICE_2016_I1507157: Angular correlations, pp @ 7 TeV.
+	ATLAS_2015_I1386475: Charged multiplicity, pPb @ 5.02 TeV/nn.
+	ATLAS_PBPB_CENTRALITY: Forward energy flow + centrality calibration,
+	data not unfolded, but well defined at particle level, PbPb @ 2.76
+	TeV/nn.
+	ATLAS_2015_I1360290: Charged multiplicity + spectra, PbPb @ 2.76
+	TeV/nn.
+	ATLAS_pPb_Calib: Forward energy flow + centrality calibration,
+	data not unfolded, but well defined at particle level, pPb @ 5.02
+	TeV/nn.
+	STAR_2016_I1414638: Di-hadron correlations, AuAu @ 200 GeV/nn.
+	CMS_2017_I1471287: Multiparticle correlations (flow) using generic
+	framework, pp @ 7 TeV.
+
+	* Contributed analyses without data:
+	ALICE_2015_PPCentrality: ALICE pp centrality (multiplicity classes)
+	calibration.
+	BRAHMS_2004_CENTRALITY: BRAHMS centrality calibration.
+	STAR_BES_CALIB: STAR centrality calibration.
+	MC_Cent_pPb_Calib: Example analysis, centrality calibration.
+	MC_Cent_pPb_Eta: Example analysis, centrality usage.
+
+2019-01-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add real CMS Run 1 and Run 2 MET resolution smearing functions, based on 8 TeV paper and 13 TeV PAS.
+
+2019-01-07  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* Reintroduced the PXCONE option in FastJets using a local version
+	of the Fortran based pxcone algorithm converted to c++ with f2c
+	and slightly hacked to avoid dependency on Fortran runtime libraries.
+
+	* Introduced rivet-merge for statistically correct merging of YODA
+	files produced by Rivet. Only works on analysis with reentrant
+	finalize.
+
+	* Introduced --dump flag to the rivet script to periodically run
+	finalize and write out the YODA file for anayses with reentrant
+	finalize.
+
+	* Introduced reentrant finalize. Rivet now produces YODA files
+	where all analysis objects are stored in two version. One is
+	prefixed by "/RAW" and gives the state of the object before
+	finalize was run, and the other is the properly finalized object.
+	Analyses must be flagged "Reentrant: True" in the .info file to
+	properly use this feature.
+
+	* Added an option system. Analyses can now be added to rivet with
+	options. Adding eg. "MyAnalysis:Opt1=val1:Opt2=val2" will create
+	and add a MyAnalysis object making the options available through
+	the Analysis::getOption() function. Several objects of MyAnalysis
+	with different options can be added in the same run. Allowed
+	options must be specified in the MyAnalysis.info file.
+
+	* Added several utilities for heavy ions.
+
+2019-01-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add setting of cross-section error in AnalysisHandler and Run.
+
+2018-12-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add hasNoTag jet-classification functor, to complement hasBTag and hasCTag.
+
+2018-12-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Rework VetoedFinalState to be based on Cuts, and to be constructible from Cut arguments.
+
+	* Pre-emptively exclude all hadrons and partons from returning true in isDirect computations.
+
+	* Cache the results of isDirect calculations on Particle (a bit awkwardly... roll on C++17).
+
+	* Add a default-FinalState version of the DressedLeptons constructor.
+
+2018-12-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a FIRST/LAST enum switch for PartonicTops, to choose which top quark clone to use.
+
+2018-12-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a FastJet clustering mode for DressedLeptons.
+
+2018-12-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Release 2.6.2
+
+	* Info file bugfixes for LHCF_2016_I1385877, from Eugenio Berti.
+
+	* Update references in three CMS analysis .info files.
+
+2018-12-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Rework doc directory no-build by default to be compatible with 'make dist' packaging.
+
+	* Add fjcontrib RecursiveTools to Rivet/Tools/fjcontrib set.
+
+2018-11-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add CMS_2018_I1653948, CMS_2018_I1653948, CMS_2018_I1682495, and CMS_2018_I1690148 analyses.
+
+	* Add FastJet EnergyCorrelator and rejig the internal fjcontrib bundle a little.
+
+2018-11-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Merge ATLAS_2017_I1517194_MU and ATLAS_2018_I1656578.
+
+	* Add signed calculation optional bool argument on all deltaPhi functions.
+
+2018-11-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix CMS_2012_I1102908 efficiency calculation. Thanks to Anton Karneyeu!
+
+2018-11-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Remove doc dir from default top-level make
+
+2018-09-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use updated ATLAS R2 muon efficiencies.
+
+	* Use proper ATLAS photon efficiency functions for Runs 1 and 2, from arXiv:1606.01813 and ATL-PHYS-PUB-2016-014.
+
+2018-08-31  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Update embedded yaml-cpp to v0.6.0.
+
+2018-08-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add RIVET_WEIGHT_INDEX=-1 -> ignore event weights behaviour. Slow, but sometimes useful for debug.
+
+2018-08-29  Christian Gutschow  <chris.g@cern.ch>
+
+	* Allow reference data file name to be different from plugin name
+	via setRefDataName(fname) method, aiming to unify HepData records.
+
+2018-08-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Version 2.6.1 release.
+
+2018-08-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a RIVET_RANDOM_SEED variable to fix the smearing random-seed engine for validation comparisons.
+
+2018-07-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Merge in ATLAS_2017_I1604029 (ttbar+gamma), ATLAS_2017_I1626105
+	(dileptonic ttbar), ATLAS_2017_I1644367 (triphotons), and
+	ATLAS_2017_I1645627 (photon + jets).
+
+	* Postpone Particles enhancement now, since the required C++11 isn't supported on lxplus7 = CentOS7.
+
+	* Add MC_DILEPTON analysis.
+
+2018-07-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix HepData tarball download handling: StringIO is *not* safe anymore
+
+2018-07-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add LorentzTransform factory functions direct from FourMomentum, and operator()s
+
+2018-06-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add FinalState(fs, cut) augmenting constructor, and PrevFS projection machinery. Validated for a abscharge > 0 cut.
+
+	* Add hasProjection() methods to ProjectionHandler and ProjectionApplier.
+
+	* Clone MC_GENERIC as MC_FSPARTICLES and deprecate the badly-named original.
+
+	* Fix Spires -> Inspire ID for CMS_2017_I1518399.
+
+2018-06-04  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix installation of (In)DirectFinalState.hh
+
+2018-05-31  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add init-time setting of a single weight-vector index from the
+	RIVET_WEIGHT_INDEX environment variable. To be removed in v3, but
+	really we should have done this years ago... and we don't know how
+	long the handover will be.
+
+2018-05-22  Neil Warrack  <neil.warrack@cern.ch>
+
+	* Include 'unphysical' photon parents in PartonicTops' veto of prompt leptons from photon conversions.
+
+2018-05-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Make Particles and Jets into actual specialisations of
+	std::vector rather than typedefs, and update surrounding classes
+	to use them. The specialisations can implicitly cast to vectors of
+	FourMomentum (and maybe Pseudojet).
+
+2018-05-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Make CmpAnaHandle::operator() const, for GCC 8 (thanks to CMS)
+
+2018-05-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* CMS_2016_I1421646.cc: Add patch from CMS to veto if leading jets
+	outside |y| < 2.5, rather than only considering jets in that
+	acceptance. Thanks to CMS and Markus Seidel.
+
+2018-04-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Tidy keywords and luminosity entries, and add both to BSM search .info files.
+
+	* Add Luminosity_fb and Keywords placeholders in mkanalysis output.
+
+2018-04-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add pairMass and pairPt functions.
+
+	* Add (i)discardIfAnyDeltaRLess and (i)discardIfAnyDeltaPhiLess functions.
+
+	* Add normalize() methods to Cutflow and Cutflows.
+
+	* Add DirectFinalState and IndirectFinalState alias headers, for forward compatibility. 'Prompt' is confusing.
+
+2018-04-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add initializer_list overload for binIndex. Needed for other util functions operating on vectors.
+
+	* Fix function signature bug is isMT2 overload.
+
+	* Add isSameSign, isOppSign, isSameFlav, isOppFlav, and isOSSF etc. functions on PIDs and Particles.
+
 2018-03-27  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add RatioPlotLogY key to make-plots. Thanks to Antonin Maire.
@@ -431,6 +1180,18 @@
 2017-02-05  Andy Buckley  <andy.buckley@cern.ch>
 
        * Add HasBTag and HasCTag jet functors, with lower-case aliases.
+
+2017-01-31  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Start making analyses HepMC3-compatible, including major tidying in ATLAS_2013_I1243871.
+
+	* Add Cut-arg variants to HeavyHadrons particle-retrieving methods.
+
+	* Convert core to be compatible with HepMC3.
+
+2017-01-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Removing lots of long-deprecated functions & methods.
 
 2017-01-18  Andy Buckley  <andy.buckley@cern.ch>
 

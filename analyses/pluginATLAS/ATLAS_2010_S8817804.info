@@ -5,7 +5,7 @@ Experiment: ATLAS
 Collider:   LHC 7TeV
 SpiresID:   8817804
 InspireID: 871366
-Status:     VALIDATED
+Status:     VALIDATED REENTRANT
 Authors:
  - James Monk <jmonk@cern.ch>
 References:

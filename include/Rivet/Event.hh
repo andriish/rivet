@@ -26,15 +26,21 @@ namespace Rivet {
     //@{
 
     /// Constructor from a HepMC GenEvent pointer
-    Event(const GenEvent* ge)
-      : _genevent_original(ge), _genevent(*ge)
-    { assert(ge); _init(*ge); }
+    Event(const GenEvent* ge, bool strip = false)
+      : _genevent_original(ge) {
+      assert(ge);
+      _genevent = *ge;
+      if ( strip ) _strip(_genevent);
+      _init(*ge);
+    }
 
     /// Constructor from a HepMC GenEvent reference
     /// @deprecated HepMC uses pointers, so we should talk to HepMC via pointers
-    Event(const GenEvent& ge)
-      : _genevent_original(&ge), _genevent(ge)
-    { _init(ge); }
+    Event(const GenEvent& ge, bool strip = false)
+      : _genevent_original(&ge), _genevent(ge) {
+        if ( strip ) _strip(_genevent);
+        _init(ge);
+      }
 
     /// Copy constructor
     Event(const Event& e)
@@ -49,6 +55,9 @@ namespace Rivet {
 
     /// The generated event obtained from an external event generator
     const GenEvent* genEvent() const { return &_genevent; }
+
+    /// The generated event obtained from an external event generator
+    const GenEvent* originalGenEvent() const { return _genevent_original; }
 
     /// @brief The generation weight associated with the event
     ///
@@ -66,7 +75,7 @@ namespace Rivet {
     double asqrtS() const;
 
     /// Get the generator centrality (impact-parameter quantile in [0,1]; or -1 if undefined (usual for non-HI generators))
-    double centrality() const;
+    //double centrality() const;
 
     // /// Get the boost to the beam centre-of-mass
     // Vector3 beamCMSBoost() const;
@@ -111,23 +120,40 @@ namespace Rivet {
     /// to the previous equivalent projection is returned. If no previous
     /// Projection was found, the Projection::project(const Event&) of @a p is
     /// called and a reference to @a p is returned.
+    ///
+    /// @todo Can make this non-templated, since only cares about ptr to Projection base class
+    ///
+    /// @note Comparisons here are by direct pointer comparison, because
+    /// equivalence is guaranteed if pointers are equal, and inequivalence
+    /// guaranteed if they aren't, thanks to the ProjectionHandler registry
     template <typename PROJ>
     const PROJ& applyProjection(PROJ& p) const {
       Log& log = Log::getLog("Rivet.Event");
-      log << Log::TRACE << "Applying projection " << &p << " (" << p.name() << ") -> comparing to projections " << _projections << endl;
-      // First search for this projection *or an equivalent* in the already-executed list
-      const Projection* cpp(&p);
-      std::set<const Projection*>::const_iterator old = _projections.find(cpp);
-      if (old != _projections.end()) {
-        log << Log::TRACE << "Equivalent projection found -> returning already-run projection " << *old << endl;
-        const Projection& pRef = **old;
-        return pcast<PROJ>(pRef);
+      static bool docaching = getEnvParam("RIVET_CACHE_PROJECTIONS", true);
+      if (docaching) {
+        log << Log::TRACE << "Applying projection " << &p << " (" << p.name() << ") -> comparing to projections " << _projections << endl;
+        // First search for this projection *or an equivalent* in the already-executed list
+        const Projection* cpp(&p);
+        /// @note Currently using reint cast to integer type to bypass operator==(Proj*, Proj*)
+        // std::set<const Projection*>::const_iterator old = _projections.find(cpp);
+        std::set<const Projection*>::const_iterator old = std::begin(_projections);
+        std::uintptr_t recpp = reinterpret_cast<std::uintptr_t>(cpp);
+        for (; old != _projections.end(); ++old)
+          if (reinterpret_cast<std::uintptr_t>(*old) == recpp) break;
+        if (old != _projections.end()) {
+          log << Log::TRACE << "Equivalent projection found -> returning already-run projection " << *old << endl;
+          const Projection& pRef = **old;
+          return pcast<PROJ>(pRef);
+        }
+        log << Log::TRACE << "No equivalent projection in the already-run list -> projecting now" << endl;
+      } else {
+        log << Log::TRACE << "Applying projection " << &p << " (" << p.name() << ") WITHOUT projection caching & comparison" << endl;
       }
       // If this one hasn't been run yet on this event, run it and add to the list
-      log << Log::TRACE << "No equivalent projection in the already-run list -> projecting now" << endl;
-      Projection* pp = const_cast<Projection*>(cpp);
+      Projection* pp = const_cast<Projection*>(&p);
+      pp->_isValid = true;
       pp->project(*this);
-      _projections.insert(pp);
+      if (docaching) _projections.insert(pp);
       return p;
     }
 
@@ -146,6 +172,10 @@ namespace Rivet {
 
     /// @brief Actual (shared) implementation of the constructors from GenEvents
     void _init(const GenEvent& ge);
+
+    /// @brief Remove uninteresting or unphysicsl particles in the
+    /// GenEvent to speed up searches.
+    void _strip(GenEvent & ge);
 
     // /// @brief Convert the GenEvent to use conventional alignment
     // ///

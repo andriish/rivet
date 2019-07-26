@@ -2,8 +2,8 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/Jet.hh"
 #include "Rivet/Math/Vectors.hh"
+#include "Rivet/Tools/RivetHepMC.hh"
 #include "fastjet/PseudoJet.hh"
-#include "HepMC/SimpleVector.h"
 
 /// @todo Identify what can go into anonymous namespace
 
@@ -477,9 +477,9 @@ namespace Rivet {
 
 
   template<>
-  class Cuttable<HepMC::FourVector> : public CuttableBase {
+  class Cuttable<RivetHepMC::FourVector> : public CuttableBase {
   public:
-    Cuttable(const HepMC::FourVector& vec) : vec_(vec) {}
+    Cuttable(const RivetHepMC::FourVector& vec) : vec_(vec) {}
     double getValue(Cuts::Quantity qty) const {
       switch ( qty ) {
       case Cuts::pT:     return vec_.perp();
@@ -497,10 +497,10 @@ namespace Rivet {
     }
 
   private:
-    const HepMC::FourVector& vec_;
+    const RivetHepMC::FourVector& vec_;
   };
 
-  SPECIALISE_ACCEPT(HepMC::FourVector)
+  SPECIALISE_ACCEPT(RivetHepMC::FourVector)
 
 
 }

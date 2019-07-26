@@ -2,7 +2,7 @@
 #define RIVET_Cuts_HH
 
 #include "Rivet/Tools/Cuts.fhh"
-#include <memory>
+#include <string>
 
 namespace Rivet {
 

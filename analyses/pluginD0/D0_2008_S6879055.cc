@@ -12,7 +12,7 @@ namespace Rivet {
 
     /// Default constructor.
     D0_2008_S6879055()
-      : Analysis("D0_2008_S6879055")
+      : Analysis("D0_2008_S6879055"), _wSum(0.)
     {    }
     // DEFAULT_RIVET_ANA_CONSTRUCTOR(D0_2008_S6879055);
 
@@ -68,7 +68,7 @@ namespace Rivet {
       }
 
       // For normalisation of crossSection data (includes events with no jets passing cuts)
-      _crossSectionRatio->fill(0, weight);
+      _wSum+=weight;
 
       // Fill jet pT and multiplicities
       if (finaljet_list.size() >= 1) {
@@ -93,7 +93,7 @@ namespace Rivet {
     /// Finalize
     void finalize() {
       // Now divide by the inclusive result
-      scale(_crossSectionRatio,1/_crossSectionRatio->bin(0).area());
+      scale(_crossSectionRatio,1/_wSum);
 
       // Normalise jet pTs to integrals of data
       // @note There is no other way to do this, because these quantities are not detector-corrected
@@ -114,6 +114,7 @@ namespace Rivet {
     Histo1DPtr _pTjet1;
     Histo1DPtr _pTjet2;
     Histo1DPtr _pTjet3;
+    double _wSum;
     //@}
 
   };

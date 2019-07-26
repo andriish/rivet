@@ -1,6 +1,6 @@
 Name: DELPHI_2000_S4328825
 Year: 2000
-Summary: Hadronization properties of $b$ quarks compared to light quarks in $e^+ e^-\to q \bar{q}$ from 183\;GeV to 200\;GeV
+Summary: Hadronization properties of $b$ quarks compared to light quarks in $e^+ e^-\to q \bar{q}$ from 183 GeV to 200 GeV
 Experiment: OPAL
 Collider: LEP 2
 SpiresID: 4328825
@@ -27,7 +27,7 @@ BibTeX: '@Article{Abreu:2000nt,
      author    = "Abreu, P. and others",
      collaboration = "DELPHI",
      title     = "{Hadronization properties of b quarks compared to light
-                  quarks in $e^+ e^- \to q \bar{q}$ from 183\;GeV to 200\;GeV}",
+                  quarks in $e^+ e^- \to q \bar{q}$ from 183 GeV to 200 GeV}",
      journal   = "Phys. Lett.",
      volume    = "B479",
      year      = "2000",
@@ -37,3 +37,12 @@ BibTeX: '@Article{Abreu:2000nt,
      doi       = "10.1016/S0370-2693(00)00312-9",
      SLACcitation  = "%%CITATION = HEP-EX/0103022;%%"
 }'
+
+Validation:
+ - $A LEP-183
+ - $A-2 LEP-189
+ - $A-3 LEP-192
+ - $A-4 LEP-196
+ - $A-5 LEP-200
+ - $A-6 LEP-206
+

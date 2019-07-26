@@ -46,6 +46,7 @@ namespace Rivet {
   /// Base type for Jet -> bool functors
   struct BoolJetFunctor {
     virtual bool operator()(const Jet& p) const = 0;
+    virtual ~BoolJetFunctor() {}
   };
 
 
@@ -115,6 +116,16 @@ namespace Rivet {
     const Cut cut;
   };
   using hasCTag = HasCTag;
+
+  /// Anti-B/C-tagging functor, with a tag selection cut as the stored state
+  struct HasNoTag : BoolJetFunctor {
+    HasNoTag(const Cut& c=Cuts::open()) : cut(c) {}
+    // HasNoTag(const std::function<bool(const Jet& j)>& f) : selector(f) {}
+    bool operator() (const Jet& j) const { return !j.bTagged(cut) && !j.cTagged(cut); }
+    // const std::function<bool(const Jet& j)> selector;
+    const Cut cut;
+  };
+  using hasNoTag = HasNoTag;
 
   //@}
 

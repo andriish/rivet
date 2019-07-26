@@ -2,7 +2,7 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/ZFinder.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -24,7 +24,7 @@ namespace Rivet {
       FinalState fs(Cuts::abseta < 2.4 && Cuts::pT > 20*GeV);
       declare(fs, "FS");
 
-      UnstableFinalState ufs(Cuts::abseta < 2 && Cuts::pT > 15*GeV);
+      UnstableParticles ufs(Cuts::abseta < 2 && Cuts::pT > 15*GeV);
       declare(ufs, "UFS");
 
       Cut zetacut = Cuts::abseta < 2.4;
@@ -56,7 +56,7 @@ namespace Rivet {
     void analyze(const Event& e) {
       vector<FourMomentum> Bmom;
 
-      const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
       const ZFinder& zfindermu = apply<ZFinder>(e, "ZFinderMu");
       const ZFinder& zfinderel = apply<ZFinder>(e, "ZFinderEl");
 
@@ -74,14 +74,14 @@ namespace Rivet {
         if (PID::hasBottom(pid)) {
 
           bool good_B = false;
-          const GenParticle* pgen = p.genParticle();
-          const GenVertex* vgen = pgen -> end_vertex();
+          ConstGenParticlePtr pgen = p.genParticle();
+          ConstGenVertexPtr vgen = pgen -> end_vertex();
 
           // Loop over the decay products of each unstable particle, looking for a b-hadron pair
           /// @todo Avoid HepMC API
-          for (GenVertex::particles_out_const_iterator it = vgen->particles_out_const_begin(); it !=  vgen->particles_out_const_end(); ++it) {
+          for (ConstGenParticlePtr it: HepMCUtils::particles(vgen, Relatives::CHILDREN)){
             // If the particle produced has a bottom quark do not count it and go to the next loop cycle.
-            if (!( PID::hasBottom( (*it)->pdg_id() ) ) ) {
+            if (!( PID::hasBottom( it->pdg_id() ) ) ) {
               good_B = true;
               continue;
             } else {

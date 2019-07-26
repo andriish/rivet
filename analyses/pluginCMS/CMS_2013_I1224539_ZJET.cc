@@ -93,24 +93,19 @@ namespace Rivet {
       const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.bosons().size() != 1) vetoEvent;
       const Particle& z = zfinder.bosons()[0];
-      if (zfinder.constituents().size() <2) {
-	MSG_WARNING("Found a Z with less than 2 constituents.");
-	vetoEvent;
+      if (z.constituents().size() < 2) {
+        MSG_WARNING("Found a Z with less than 2 constituents.");
+        vetoEvent;
       }
-
       const Particle l1 = zfinder.constituents()[0];
       const Particle l2 = zfinder.constituents()[1];
-
+      MSG_DEBUG(l1.pT() << " " << l2.pT());
 
       // Require a high-pT Z (and constituents)
-      if (l1.pT() < 30*GeV ) vetoEvent;
-      if (l2.pT() < 30*GeV ) vetoEvent;
-      if (z.pT() < 120*GeV) vetoEvent;
+      if (l1.pT() < 30*GeV || l2.pT() < 30*GeV || z.pT() < 120*GeV) vetoEvent;
 
       // AK7 jets
       const PseudoJets& psjetsAK7_zj = apply<FastJets>(event, "JetsAK7_zj").pseudoJetsByPt(50.0*GeV);
-
-
       if (!psjetsAK7_zj.empty()) {
         // Get the leading jet and make sure it's back-to-back with the Z
         const fastjet::PseudoJet& j0 = psjetsAK7_zj[0];

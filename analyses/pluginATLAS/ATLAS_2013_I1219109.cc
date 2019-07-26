@@ -13,28 +13,33 @@ namespace Rivet {
   class ATLAS_2013_I1219109: public Analysis {
   public:
 
-    ATLAS_2013_I1219109(string name = "ATLAS_2013_I1219109")
-      : Analysis(name)
-    {
-      // the electron mode is used by default
-      _mode = 1;
-    }
-
+    ///@brief: Electroweak Wjj production at 8 TeV
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2013_I1219109);
+    //@}
 
     void init() {
-      FinalState fs;
-      declare(fs, "FinalState");
+
+      // Get options from the new option system
+      _mode = 0;
+      if ( getOption("LMODE") == "EL" ) _mode = 1;
+      if ( getOption("LMODE") == "MU" ) _mode = 2;
+
+      const FinalState fs;
 
       Cut cuts = Cuts::abseta < 2.5 && Cuts::pT >= 25*GeV;
 
       // W finder for electrons and muons
-      WFinder wf(fs, cuts, _mode==3? PID::MUON : PID::ELECTRON, 0.0*GeV, MAXDOUBLE, 0.0, 0.1,
+      WFinder wf_mu(fs, cuts, PID::MUON, 0.0*GeV, MAXDOUBLE, 0.0, 0.1,
                  WFinder::CLUSTERNODECAY, WFinder::NOTRACK, WFinder::TRANSMASS);
-      declare(wf, "WF");
+      WFinder wf_el(fs, cuts, PID::ELECTRON, 0.0*GeV, MAXDOUBLE, 0.0, 0.1,
+                 WFinder::CLUSTERNODECAY, WFinder::NOTRACK, WFinder::TRANSMASS);
+      declare(wf_mu, "WFmu");
+      declare(wf_el, "WFel");
 
       // jets
       VetoedFinalState jet_fs(fs);
-      jet_fs.addVetoOnThisFinalState(getProjection<WFinder>("WF"));
+      jet_fs.addVetoOnThisFinalState(wf_el);
+      jet_fs.addVetoOnThisFinalState(wf_mu);
       FastJets fj(jet_fs, FastJets::ANTIKT, 0.4);
       fj.useInvisibles();
       declare(fj, "Jets");
@@ -42,9 +47,9 @@ namespace Rivet {
 
 
       // book histograms
-      _njet     = bookHisto1D(1, 1, _mode); // dSigma / dNjet
-      _jet1_bPt = bookHisto1D(2, 1, _mode); // dSigma / dBjetPt for Njet = 1
-      _jet2_bPt = bookHisto1D(2, 2, _mode); // dSigma / dBjetPt for Njet = 2
+      _njet     = bookHisto1D(1, 1, 1); // dSigma / dNjet
+      _jet1_bPt = bookHisto1D(3, 1, 1); // dSigma / dBjetPt for Njet = 1
+      _jet2_bPt = bookHisto1D(8, 1, 1); // dSigma / dBjetPt for Njet = 2
 
     }
 
@@ -54,18 +59,28 @@ namespace Rivet {
       const double weight = event.weight();
 
       //  retrieve W boson candidate
-      const WFinder& wf = apply<WFinder>(event, "WF");
-      if( wf.bosons().size() != 1 )  vetoEvent; // only one W boson candidate
-      if( !(wf.mT() > 60.0*GeV) )    vetoEvent;
+      const WFinder& wf_mu = apply<WFinder>(event, "WFmu");
+      const WFinder& wf_el = apply<WFinder>(event, "WFel");
+
+      size_t nWmu = wf_mu.size();
+      size_t nWel = wf_el.size();
+
+      if (_mode == 0 && !((nWmu == 1 && !nWel) || (!nWmu && nWel == 1)))  vetoEvent; // one W->munu OR W->elnu candidate, otherwise veto
+      if (_mode == 1 && !(!nWmu && nWel == 1))  vetoEvent; // one W->elnu candidate, otherwise veto
+      if (_mode == 2 && !(nWmu == 1 && !nWel))  vetoEvent; // one W->munu candidate, otherwise veto
+
+
+      if (   (nWmu? wf_mu : wf_el).bosons().size() != 1 )  vetoEvent; // only one W boson candidate
+      if ( !((nWmu? wf_mu : wf_el).mT() > 60.0*GeV) )      vetoEvent;
       //const Particle& Wboson  = wf.boson();
 
 
       // retrieve constituent neutrino
-      const Particle& neutrino = wf.constituentNeutrino();
-      if( !(neutrino.pT() > 25.0*GeV) )  vetoEvent;
+      const Particle& neutrino = (nWmu? wf_mu : wf_el).constituentNeutrino();
+      if( !(neutrino.pT() > 25*GeV) )  vetoEvent;
 
       // retrieve constituent lepton
-      const Particle& lepton = wf.constituentLepton();
+      const Particle& lepton = (nWmu? wf_mu : wf_el).constituentLepton();
 
       // count good jets, check if good jet contains B hadron
       const Particles& bHadrons = apply<HeavyHadrons>(event, "BHadrons").bHadrons();
@@ -105,18 +120,12 @@ namespace Rivet {
 
     void finalize() {
 
-      // Print summary info
-      const double xs_pb(crossSection() / picobarn);
-      const double sumw(sumOfWeights());
-      MSG_INFO("Cross-Section/pb: " << xs_pb      );
-      MSG_INFO("Sum of weights  : " << sumw       );
-      MSG_INFO("nEvents         : " << numEvents());
-
-      const double sf(xs_pb / sumw);
-
-      scale(_njet,     sf);
-      scale(_jet1_bPt, sf);
-      scale(_jet2_bPt, sf);
+      const double sf = _mode? 1.0 : 0.5;
+      const double xs_pb = sf * crossSection() / picobarn  / sumOfWeights();
+      const double xs_fb = sf * crossSection() / femtobarn / sumOfWeights();
+      scale(_njet,     xs_pb);
+      scale(_jet1_bPt, xs_fb);
+      scale(_jet2_bPt, xs_fb);
     }
 
   protected:
@@ -133,27 +142,7 @@ namespace Rivet {
 
   };
 
-  class ATLAS_2013_I1219109_EL : public ATLAS_2013_I1219109 {
-  public:
-    ATLAS_2013_I1219109_EL()
-      : ATLAS_2013_I1219109("ATLAS_2013_I1219109_EL")
-    {
-      _mode = 2;
-    }
-  };
-
-  class ATLAS_2013_I1219109_MU : public ATLAS_2013_I1219109 {
-  public:
-    ATLAS_2013_I1219109_MU()
-      : ATLAS_2013_I1219109("ATLAS_2013_I1219109_MU")
-    {
-      _mode = 3;
-    }
-  };
-
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2013_I1219109);
-  DECLARE_RIVET_PLUGIN(ATLAS_2013_I1219109_EL);
-  DECLARE_RIVET_PLUGIN(ATLAS_2013_I1219109_MU);
 
 }

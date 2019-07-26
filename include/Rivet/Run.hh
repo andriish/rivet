@@ -56,7 +56,7 @@ namespace Rivet {
     bool readEvent();
     
     /// Read the next HepMC event only to skip it
-    bool skipEvent();
+    //bool skipEvent();
 
     /// Handle next event
     bool processEvent();
@@ -98,8 +98,8 @@ namespace Rivet {
     /// Output stream for HepMC writer
     std::shared_ptr<std::istream> _istr;
 
-    /// HepMC I/O writer
-    std::shared_ptr<HepMC::IO_GenEvent> _io;
+    /// HepMC reader
+    std::shared_ptr<HepMC_IO_type> _hepmcReader;
 
     //@}
 

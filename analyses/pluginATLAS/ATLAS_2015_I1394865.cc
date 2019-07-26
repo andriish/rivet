@@ -5,7 +5,7 @@
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/WFinder.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/MergedFinalState.hh"
@@ -138,7 +138,7 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      const double norm = crossSection()/sumOfWeights()/femtobarn;
+      const double norm = crossSection()/sumOfWeights()/femtobarn/TeV;
       scale(_h_ZZ_mZZ,  norm);
       scale(_h_ZZ_pTZZ, norm);
     }

@@ -6,7 +6,7 @@ Collider: LHC
 InspireID: 1082936
 Status: VALIDATED
 Authors:
- - Holger Schulz hschulz@physik.hu-berlin.de
+ - Holger Schulz <hschulz@physik.hu-berlin.de>
 References:
  - arXiv:1112.6297v2 [hep-ex]
  - CERN-PH-EP-2011-192

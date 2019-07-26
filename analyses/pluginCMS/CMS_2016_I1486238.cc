@@ -2,7 +2,7 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/InitialQuarks.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 #include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
@@ -49,7 +49,7 @@ namespace Rivet {
       // Initial quarks
       /// @note Quark-level tagging...
       Particles bquarks;
-      for (const GenParticle* p : particles(event.genEvent())) {
+      for (ConstGenParticlePtr p : HepMCUtils::particles(event.genEvent())) {
         if (abs(p->pdg_id()) == PID::BQUARK) bquarks += Particle(p);
       }
       Jets bjets, ljets;

@@ -267,6 +267,23 @@ namespace Rivet {
   //@}
 
 
+  /// @name Particle pair classifiers
+  /// @todo Make versions that work on ParticlePair?
+  //@{
+
+  inline bool isSameSign(const Particle& a, const Particle& b) { return PID::isSameSign(a.pid(), b.pid()); }
+  inline bool isOppSign(const Particle& a, const Particle& b) { return PID::isOppSign(a.pid(), b.pid()); }
+  inline bool isSameFlav(const Particle& a, const Particle& b) { return PID::isSameFlav(a.pid(), b.pid()); }
+  inline bool isOppFlav(const Particle& a, const Particle& b) { return PID::isOppFlav(a.pid(), b.pid()); }
+
+  inline bool isOSSF(const Particle& a, const Particle& b) { return PID::isOSSF(a.pid(), b.pid()); }
+  inline bool isSSSF(const Particle& a, const Particle& b) { return PID::isSSSF(a.pid(), b.pid()); }
+  inline bool isOSOF(const Particle& a, const Particle& b) { return PID::isOSOF(a.pid(), b.pid()); }
+  inline bool isSSOF(const Particle& a, const Particle& b) { return PID::isSSOF(a.pid(), b.pid()); }
+
+  //@}
+
+
   /// @name Particle charge/sign comparison functions
   //@{
 
@@ -334,13 +351,13 @@ namespace Rivet {
 
 
   /// @brief Determine whether a particle has an ancestor which meets the function requirement
-  inline bool hasAncestorWith(const Particle& p, const ParticleSelector& f) {
-    return p.hasAncestorWith(f);
+  inline bool hasAncestorWith(const Particle& p, const ParticleSelector& f, bool only_physical=true) {
+    return p.hasAncestorWith(f, only_physical);
   }
 
   /// @brief Determine whether a particle has an ancestor which doesn't meet the function requirement
-  inline bool hasAncestorWithout(const Particle& p, const ParticleSelector& f) {
-    return p.hasAncestorWithout(f);
+  inline bool hasAncestorWithout(const Particle& p, const ParticleSelector& f, bool only_physical=true) {
+    return p.hasAncestorWithout(f, only_physical);
   }
 
 
@@ -367,14 +384,13 @@ namespace Rivet {
 
 
   /// @brief Determine whether a particle has a descendant which meets the function requirement
-  inline bool hasDescendantWith(const Particle& p, const ParticleSelector& f) {
-    return p.hasDescendantWith(f);
-    // return !p.allDescendants(f).empty();
+  inline bool hasDescendantWith(const Particle& p, const ParticleSelector& f, bool remove_duplicates=true) {
+    return p.hasDescendantWith(f, remove_duplicates);
   }
 
   /// @brief Determine whether a particle has a descendant which doesn't meet the function requirement
-  inline bool hasDescendantWithout(const Particle& p, const ParticleSelector& f) {
-    return p.hasDescendantWithout(f);
+  inline bool hasDescendantWithout(const Particle& p, const ParticleSelector& f, bool remove_duplicates=true) {
+    return p.hasDescendantWithout(f, remove_duplicates);
   }
 
 
@@ -468,6 +484,7 @@ namespace Rivet {
   /// Base type for Particle -> bool functors
   struct BoolParticleFunctor {
     virtual bool operator()(const Particle& p) const = 0;
+    virtual ~BoolParticleFunctor() {}
   };
 
   /// Functor for and-combination of selector logic
@@ -517,17 +534,21 @@ namespace Rivet {
 
   /// PID matching functor
   struct HasPID : public BoolParticleFunctor {
-    HasPID(PdgId pid) : targetpid(pid) { }
-    bool operator()(const Particle& p) const { return p.pid() == targetpid; }
-    PdgId targetpid;
+    HasPID(PdgId pid) : targetpids{pid} { }
+    HasPID(vector<PdgId> pids) : targetpids{pids} { }
+    HasPID(initializer_list<PdgId> pids) : targetpids{pids} { }
+    bool operator()(const Particle& p) const { return contains(targetpids, p.pid()); }
+    vector<PdgId> targetpids;
   };
   using hasPID = HasPID;
 
   /// |PID| matching functor
   struct HasAbsPID : public BoolParticleFunctor {
-    HasAbsPID(PdgId pid) : targetpid(abs(pid)) { }
-    bool operator()(const Particle& p) const { return p.abspid() == abs(targetpid); }
-    PdgId targetpid;
+    HasAbsPID(PdgId pid) : targetapids{abs(pid)} { }
+    HasAbsPID(vector<PdgId> pids) { for (PdgId pid : pids) targetapids.push_back(abs(pid)); }
+    HasAbsPID(initializer_list<PdgId> pids) { for (PdgId pid : pids) targetapids.push_back(abs(pid)); }
+    bool operator()(const Particle& p) const { return contains(targetapids, p.abspid()); }
+    vector<PdgId> targetapids;
   };
   using hasAbsPID = HasAbsPID;
 
@@ -573,19 +594,21 @@ namespace Rivet {
 
   /// Determine whether a particle has an ancestor which meets the cut/function
   struct HasParticleAncestorWith : public BoolParticleFunctor {
-    HasParticleAncestorWith(const ParticleSelector& f) : fn(f) { }
-    HasParticleAncestorWith(const Cut& c);
-    bool operator()(const Particle& p) const { return hasAncestorWith(p, fn); }
+    HasParticleAncestorWith(const ParticleSelector& f, bool only_physical=true) : fn(f), onlyphysical(only_physical) { }
+    HasParticleAncestorWith(const Cut& c, bool only_physical=true);
+    bool operator()(const Particle& p) const { return hasAncestorWith(p, fn, onlyphysical); }
     ParticleSelector fn;
+    bool onlyphysical;
   };
   using hasParticleAncestorWith = HasParticleAncestorWith;
 
   /// Determine whether a particle has an ancestor which doesn't meet the cut/function
   struct HasParticleAncestorWithout : public BoolParticleFunctor {
-    HasParticleAncestorWithout(const ParticleSelector& f) : fn(f) { }
-    HasParticleAncestorWithout(const Cut& c);
-    bool operator()(const Particle& p) const { return hasAncestorWithout(p, fn); }
+    HasParticleAncestorWithout(const ParticleSelector& f, bool only_physical=true) : fn(f), onlyphysical(only_physical) { }
+    HasParticleAncestorWithout(const Cut& c, bool only_physical=true);
+    bool operator()(const Particle& p) const { return hasAncestorWithout(p, fn, onlyphysical); }
     ParticleSelector fn;
+    bool onlyphysical;
   };
   using hasParticleAncestorWithout = HasParticleAncestorWithout;
 
@@ -630,19 +653,21 @@ namespace Rivet {
 
   /// Determine whether a particle has a descendant which meets the cut/function
   struct HasParticleDescendantWith : public BoolParticleFunctor {
-    HasParticleDescendantWith(const ParticleSelector& f) : fn(f) { }
-    HasParticleDescendantWith(const Cut& c);
-    bool operator()(const Particle& p) const { return hasDescendantWith(p, fn); }
+    HasParticleDescendantWith(const ParticleSelector& f, bool remove_duplicates=true) : fn(f), rmduplicates(remove_duplicates) { }
+    HasParticleDescendantWith(const Cut& c, bool remove_duplicates=true);
+    bool operator()(const Particle& p) const { return hasDescendantWith(p, fn, rmduplicates); }
     ParticleSelector fn;
+    bool rmduplicates;
   };
   using hasParticleDescendantWith = HasParticleDescendantWith;
 
   /// Determine whether a particle has a descendant which doesn't meet the cut/function
   struct HasParticleDescendantWithout : public BoolParticleFunctor {
-    HasParticleDescendantWithout(const ParticleSelector& f) : fn(f) { }
-    HasParticleDescendantWithout(const Cut& c);
-    bool operator()(const Particle& p) const { return hasDescendantWithout(p, fn); }
+    HasParticleDescendantWithout(const ParticleSelector& f, bool remove_duplicates=true) : fn(f), rmduplicates(remove_duplicates) { }
+    HasParticleDescendantWithout(const Cut& c, bool remove_duplicates=true);
+    bool operator()(const Particle& p) const { return hasDescendantWithout(p, fn, rmduplicates); }
     ParticleSelector fn;
+    bool rmduplicates;
   };
   using hasParticleDescendantWithout = HasParticleDescendantWithout;
 
@@ -692,6 +717,15 @@ namespace Rivet {
     return out;
   }
 
+
+  // inline void ifilterIsolateDeltaR(Particles& particles, const FourMomenta& vecs) {
+  //   ifilter_discard(particles,
+  // }
+
+
+  // inline Particles filterIsolateDeltaR(const Particles& particles, const FourMomenta& vecs) {
+  // }
+
   //@}
 
 
@@ -735,6 +769,12 @@ namespace Rivet {
 
   // Import Kin namespace into Rivet
   using namespace Kin;
+
+
+  /// Check Particle equivalence
+  inline bool isSame(const Particle& a, const Particle& b) {
+    return a.isSame(b);
+  }
 
 
 }

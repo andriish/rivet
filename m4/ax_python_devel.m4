@@ -119,10 +119,12 @@ to something else than an empty string.
         cat << EOF > ax_python_devel_vpy.py
 class VPy:
     def vtup(self, s):
-        return tuple(map(int, s.strip().split(".")))
+        return tuple(map(int, s.strip().replace("rc", ".").split(".")))
     def __init__(self):
-        import platform
-        self.vpy = self.vtup(platform.python_version())
+        #import platform
+        #self.vpy = self.vtup(platform.python_version())
+        import sys
+        self.vpy = tuple(sys.version_info)
     def __eq__(self, s):
         return self.vpy == self.vtup(s)
     def __ne__(self, s):

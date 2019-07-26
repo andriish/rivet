@@ -4,6 +4,10 @@
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/AnalysisInfo.hh"
 #include "Rivet/Tools/BeamConstraint.hh"
+#include "Rivet/Projections/ImpactParameterProjection.hh"
+#include "Rivet/Projections/GeneratedPercentileProjection.hh"
+#include "Rivet/Projections/UserCentEstimate.hh"
+#include "Rivet/Projections/CentralityProjection.hh"
 
 namespace Rivet {
 
@@ -113,23 +117,53 @@ namespace Rivet {
   }
 
 
+  // bool Analysis::beamIDsCompatible(const PdgIdPair& beams) const {
+  //   bool beamIdsOk = false;
+  //   for (const PdgIdPair& bp : requiredBeams()) {
+  //     if (compatible(beams, bp)) {
+  //       beamIdsOk =  true;
+  //       break;
+  //     }
+  //   }
+  //   return beamIdsOk;
+  // }
+
+
+  // /// Check that the energies are compatible (within 1% or 1 GeV, whichever is larger, for a bit of UI forgiveness)
+  // bool Analysis::beamEnergiesCompatible(const pair<double,double>& energies) const {
+  //   /// @todo Use some sort of standard ordering to improve comparisons, esp. when the two beams are different particles
+  //   bool beamEnergiesOk = requiredEnergies().size() > 0 ? false : true;
+  //   typedef pair<double,double> DoublePair;
+  //   for (const DoublePair& ep : requiredEnergies()) {
+  //     if ((fuzzyEquals(ep.first, energies.first, 0.01) && fuzzyEquals(ep.second, energies.second, 0.01)) ||
+  //         (fuzzyEquals(ep.first, energies.second, 0.01) && fuzzyEquals(ep.second, energies.first, 0.01)) ||
+  //         (abs(ep.first - energies.first) < 1*GeV && abs(ep.second - energies.second) < 1*GeV) ||
+  //         (abs(ep.first - energies.second) < 1*GeV && abs(ep.second - energies.first) < 1*GeV)) {
+  //       beamEnergiesOk =  true;
+  //       break;
+  //     }
+  //   }
+  //   return beamEnergiesOk;
+  // }
+
+
+  // bool Analysis::beamsCompatible(const PdgIdPair& beams, const pair<double,double>& energies) const {
   bool Analysis::isCompatible(const PdgIdPair& beams, const pair<double,double>& energies) const {
     // First check the beam IDs
     bool beamIdsOk = false;
-    foreach (const PdgIdPair& bp, requiredBeams()) {
+    for (const PdgIdPair& bp : requiredBeams()) {
       if (compatible(beams, bp)) {
         beamIdsOk =  true;
         break;
       }
     }
     if (!beamIdsOk) return false;
-
     // Next check that the energies are compatible (within 1% or 1 GeV, whichever is larger, for a bit of UI forgiveness)
-
+    
     /// @todo Use some sort of standard ordering to improve comparisons, esp. when the two beams are different particles
     bool beamEnergiesOk = requiredEnergies().size() > 0 ? false : true;
     typedef pair<double,double> DoublePair;
-    foreach (const DoublePair& ep, requiredEnergies()) {
+    for (const DoublePair& ep : requiredEnergies()) {
       if ((fuzzyEquals(ep.first, energies.first, 0.01) && fuzzyEquals(ep.second, energies.second, 0.01)) ||
           (fuzzyEquals(ep.first, energies.second, 0.01) && fuzzyEquals(ep.second, energies.first, 0.01)) ||
           (abs(ep.first - energies.first) < 1*GeV && abs(ep.second - energies.second) < 1*GeV) ||
@@ -139,9 +173,6 @@ namespace Rivet {
       }
     }
     return beamEnergiesOk;
-
-    /// @todo Need to also check internal consistency of the analysis'
-    /// beam requirements with those of the projections it uses.
   }
 
 
@@ -177,31 +208,23 @@ namespace Rivet {
   void Analysis::_cacheRefData() const {
     if (_refdata.empty()) {
       MSG_TRACE("Getting refdata cache for paper " << name());
-      _refdata = getRefData(name());
+      _refdata = getRefData(getRefDataName());
     }
   }
 
+  vector<AnalysisObjectPtr> Analysis::getAllData(bool includeorphans) const{
+    return handler().getData(includeorphans, false, false);
+  }
 
   CounterPtr Analysis::bookCounter(const string& cname,
                                    const string& title) {
-                                   // const string& xtitle,
-                                   // const string& ytitle) {
-    const string path = histoPath(cname);
-    CounterPtr ctr = make_shared<Counter>(path, title);
-    addAnalysisObject(ctr);
-    MSG_TRACE("Made counter " << cname << " for " << name());
-    // hist->setAnnotation("XLabel", xtitle);
-    // hist->setAnnotation("YLabel", ytitle);
-    return ctr;
+    return addOrGetCompatAO(make_shared<Counter>(histoPath(cname), title));
   }
 
 
   CounterPtr Analysis::bookCounter(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
                                    const string& title) {
-                                   // const string& xtitle,
-                                   // const string& ytitle) {
-    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
-    return bookCounter(axisCode, title);
+    return bookCounter(mkAxisCode(datasetId, xAxisId, yAxisId), title);
   }
 
 
@@ -210,23 +233,11 @@ namespace Rivet {
                                    const string& title,
                                    const string& xtitle,
                                    const string& ytitle) {
-    Histo1DPtr hist;
-    try { // try to bind to pre-existing
-      // AnalysisObjectPtr ao = getAnalysisObject(path);
-      // hist = dynamic_pointer_cast<Histo1D>(ao);
-      hist = getHisto1D(hname);
-      /// @todo Test that cast worked
-      /// @todo Also test that binning is as expected?
-      MSG_TRACE("Bound pre-existing histogram " << hname <<  " for " << name());
-    } catch (...) { // binding failed; make it from scratch
-      hist = make_shared<Histo1D>(nbins, lower, upper, histoPath(hname), title);
-      addAnalysisObject(hist);
-      MSG_TRACE("Made histogram " << hname <<  " for " << name());
-    }
+    Histo1DPtr hist = make_shared<Histo1D>(nbins, lower, upper, histoPath(hname), title);
     hist->setTitle(title);
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
-    return hist;
+    return addOrGetCompatAO(hist);
   }
 
 
@@ -235,23 +246,11 @@ namespace Rivet {
                                    const string& title,
                                    const string& xtitle,
                                    const string& ytitle) {
-    Histo1DPtr hist;
-    try { // try to bind to pre-existing
-      // AnalysisObjectPtr ao = getAnalysisObject(path);
-      // hist = dynamic_pointer_cast<Histo1D>(ao);
-      hist = getHisto1D(hname);
-      /// @todo Test that cast worked
-      /// @todo Also test that binning is as expected?
-      MSG_TRACE("Bound pre-existing histogram " << hname <<  " for " << name());
-    } catch (...) { // binding failed; make it from scratch
-      hist = make_shared<Histo1D>(binedges, histoPath(hname), title);
-      addAnalysisObject(hist);
-      MSG_TRACE("Made histogram " << hname <<  " for " << name());
-    }
+    Histo1DPtr hist = make_shared<Histo1D>(binedges, histoPath(hname), title);
     hist->setTitle(title);
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
-    return hist;
+    return addOrGetCompatAO(hist);
   }
 
 
@@ -269,24 +268,14 @@ namespace Rivet {
                                    const string& title,
                                    const string& xtitle,
                                    const string& ytitle) {
-    Histo1DPtr hist;
-    try { // try to bind to pre-existing
-      // AnalysisObjectPtr ao = getAnalysisObject(path);
-      // hist = dynamic_pointer_cast<Histo1D>(ao);
-      hist = getHisto1D(hname);
-      /// @todo Test that cast worked
-      /// @todo Also test that binning is as expected?
-      MSG_TRACE("Bound pre-existing histogram " << hname <<  " for " << name());
-    } catch (...) { // binding failed; make it from scratch
-      hist = make_shared<Histo1D>(refscatter, histoPath(hname));
-      if (hist->hasAnnotation("IsRef")) hist->rmAnnotation("IsRef");
-      addAnalysisObject(hist);
-      MSG_TRACE("Made histogram " << hname <<  " for " << name());
-    }
+    Histo1DPtr hist = make_shared<Histo1D>(refscatter, histoPath(hname));
+    if (hist->hasAnnotation("IsRef")) hist->rmAnnotation("IsRef");
+    if (hist->hasAnnotation("ErrorBreakdown")) hist->rmAnnotation("ErrorBreakdown");
+    if (hist->hasAnnotation("Variations")) hist->rmAnnotation("Variations");
     hist->setTitle(title);
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
-    return hist;
+    return addOrGetCompatAO(hist);
   }
 
 
@@ -324,12 +313,10 @@ namespace Rivet {
   {
     const string path = histoPath(hname);
     Histo2DPtr hist = make_shared<Histo2D>(nxbins, xlower, xupper, nybins, ylower, yupper, path, title);
-    addAnalysisObject(hist);
-    MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
     hist->setAnnotation("ZLabel", ztitle);
-    return hist;
+    return addOrGetCompatAO(hist);
   }
 
 
@@ -343,12 +330,10 @@ namespace Rivet {
   {
     const string path = histoPath(hname);
     Histo2DPtr hist = make_shared<Histo2D>(xbinedges, ybinedges, path, title);
-    addAnalysisObject(hist);
-    MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
     hist->setAnnotation("ZLabel", ztitle);
-    return hist;
+    return addOrGetCompatAO(hist);
   }
 
 
@@ -373,14 +358,14 @@ namespace Rivet {
                                    const string& ztitle) {
     const string path = histoPath(hname);
     Histo2DPtr hist( new Histo2D(refscatter, path) );
-    addAnalysisObject(hist);
-    MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
     if (hist->hasAnnotation("IsRef")) hist->rmAnnotation("IsRef");
+    if (hist->hasAnnotation("ErrorBreakdown")) hist->rmAnnotation("ErrorBreakdown");
+    if (hist->hasAnnotation("Variations")) hist->rmAnnotation("Variations");
     hist->setTitle(title);
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
     hist->setAnnotation("ZLabel", ztitle);
-    return hist;
+    return addOrGetCompatAO(hist);
   }
 
 
@@ -414,11 +399,9 @@ namespace Rivet {
                                        const string& ytitle) {
     const string path = histoPath(hname);
     Profile1DPtr prof = make_shared<Profile1D>(nbins, lower, upper, path, title);
-    addAnalysisObject(prof);
-    MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
-    return prof;
+    return addOrGetCompatAO(prof);
   }
 
 
@@ -429,11 +412,9 @@ namespace Rivet {
                                        const string& ytitle) {
     const string path = histoPath(hname);
     Profile1DPtr prof = make_shared<Profile1D>(binedges, path, title);
-    addAnalysisObject(prof);
-    MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
-    return prof;
+    return addOrGetCompatAO(prof);
   }
 
 
@@ -454,13 +435,13 @@ namespace Rivet {
                                        const string& ytitle) {
     const string path = histoPath(hname);
     Profile1DPtr prof = make_shared<Profile1D>(refscatter, path);
-    addAnalysisObject(prof);
-    MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     if (prof->hasAnnotation("IsRef")) prof->rmAnnotation("IsRef");
+    if (prof->hasAnnotation("ErrorBreakdown")) prof->rmAnnotation("ErrorBreakdown");
+    if (prof->hasAnnotation("Variations")) prof->rmAnnotation("Variations");
     prof->setTitle(title);
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
-    return prof;
+    return addOrGetCompatAO(prof);
   }
 
 
@@ -496,12 +477,10 @@ namespace Rivet {
   {
     const string path = histoPath(hname);
     Profile2DPtr prof = make_shared<Profile2D>(nxbins, xlower, xupper, nybins, ylower, yupper, path, title);
-    addAnalysisObject(prof);
-    MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
     prof->setAnnotation("ZLabel", ztitle);
-    return prof;
+    return addOrGetCompatAO(prof);
   }
 
 
@@ -515,12 +494,10 @@ namespace Rivet {
   {
     const string path = histoPath(hname);
     Profile2DPtr prof = make_shared<Profile2D>(xbinedges, ybinedges, path, title);
-    addAnalysisObject(prof);
-    MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
     prof->setAnnotation("ZLabel", ztitle);
-    return prof;
+    return addOrGetCompatAO(prof);
   }
 
 
@@ -545,14 +522,14 @@ namespace Rivet {
                                        const string& ztitle) {
     const string path = histoPath(hname);
     Profile2DPtr prof( new Profile2D(refscatter, path) );
-    addAnalysisObject(prof);
-    MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
     if (prof->hasAnnotation("IsRef")) prof->rmAnnotation("IsRef");
+    if (prof->hasAnnotation("ErrorBreakdown")) prof->rmAnnotation("ErrorBreakdown");
+    if (prof->hasAnnotation("Variations")) prof->rmAnnotation("Variations");
     prof->setTitle(title);
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
     prof->setAnnotation("ZLabel", ztitle);
-    return prof;
+    return addOrGetCompatAO(prof);
   }
 
 
@@ -603,13 +580,13 @@ namespace Rivet {
     } else {
       s = make_shared<Scatter2D>(path);
     }
-    addAnalysisObject(s);
-    MSG_TRACE("Made scatter " << hname <<  " for " << name());
     if (s->hasAnnotation("IsRef")) s->rmAnnotation("IsRef");
+    if (s->hasAnnotation("ErrorBreakdown")) s->rmAnnotation("ErrorBreakdown");
+    if (s->hasAnnotation("Variations")) s->rmAnnotation("Variations");
     s->setTitle(title);
     s->setAnnotation("XLabel", xtitle);
     s->setAnnotation("YLabel", ytitle);
-    return s;
+    return addOrGetCompatAO(s);
   }
 
 
@@ -618,28 +595,18 @@ namespace Rivet {
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
-    Scatter2DPtr s;
     const string path = histoPath(hname);
-    try { // try to bind to pre-existing
-      s = getAnalysisObject<Scatter2D>(hname);
-      /// @todo Also test that binning is as expected?
-      MSG_TRACE("Bound pre-existing scatter " << path <<  " for " << name());
-    } catch (...) { // binding failed; make it from scratch
-      s = make_shared<Scatter2D>(path);
-      const double binwidth = (upper-lower)/npts;
-      for (size_t pt = 0; pt < npts; ++pt) {
-        const double bincentre = lower + (pt + 0.5) * binwidth;
-        s->addPoint(bincentre, 0, binwidth/2.0, 0);
-      }
-      addAnalysisObject(s);
-      MSG_TRACE("Made scatter " << hname <<  " for " << name());
+    Scatter2DPtr s = make_shared<Scatter2D>(path);
+    const double binwidth = (upper-lower)/npts;
+    for (size_t pt = 0; pt < npts; ++pt) {
+      const double bincentre = lower + (pt + 0.5) * binwidth;
+      s->addPoint(bincentre, 0, binwidth/2.0, 0);
     }
     s->setTitle(title);
     s->setAnnotation("XLabel", xtitle);
     s->setAnnotation("YLabel", ytitle);
-    return s;
+    return addOrGetCompatAO(s);
   }
-
 
   Scatter2DPtr Analysis::bookScatter2D(const string& hname,
                                        const vector<double>& binedges,
@@ -653,14 +620,126 @@ namespace Rivet {
       const double binwidth = binedges[pt+1] - binedges[pt];
       s->addPoint(bincentre, 0, binwidth/2.0, 0);
     }
-    addAnalysisObject(s);
-    MSG_TRACE("Made scatter " << hname <<  " for " << name());
     s->setTitle(title);
     s->setAnnotation("XLabel", xtitle);
     s->setAnnotation("YLabel", ytitle);
-    return s;
+    return addOrGetCompatAO(s);
   }
 
+  Scatter2DPtr Analysis::bookScatter2D(const Scatter2DPtr scPtr, 
+    const std::string& path, const std::string& title, 
+    const std::string& xtitle, const std::string& ytitle ) {
+    
+    Scatter2DPtr s = make_shared<Scatter2D>(*scPtr);
+    s->setPath(path);
+    s->setTitle(title);
+    s->setAnnotation("XLabel",xtitle);
+    s->setAnnotation("YLabel",ytitle);
+    return addOrGetCompatAO(s);
+  
+  }
+
+
+  Scatter3DPtr Analysis::bookScatter3D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId, unsigned int zAxisId,
+                                       bool copy_pts,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle,
+                                       const string& ztitle) {
+    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
+    return bookScatter3D(axisCode, copy_pts, title, xtitle, ytitle, ztitle);
+  }
+
+
+  Scatter3DPtr Analysis::bookScatter3D(const string& hname,
+                                       bool copy_pts,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle,
+                                       const string& ztitle) {
+    Scatter3DPtr s;
+    const string path = histoPath(hname);
+    if (copy_pts) {
+      const Scatter3D& refdata = refData<YODA::Scatter3D>(hname);
+      s = make_shared<Scatter3D>(refdata, path);
+      for (Point3D& p : s->points()) p.setZ(0, 0);
+    } else {
+      s = make_shared<Scatter3D>(path);
+    }
+    if (s->hasAnnotation("IsRef")) s->rmAnnotation("IsRef");
+    if (s->hasAnnotation("ErrorBreakdown")) s->rmAnnotation("ErrorBreakdown");
+    if (s->hasAnnotation("Variations")) s->rmAnnotation("Variations");
+    s->setTitle(title);
+    s->setAnnotation("XLabel", xtitle);
+    s->setAnnotation("YLabel", ytitle);
+    s->setAnnotation("ZLabel", ztitle);
+    return addOrGetCompatAO(s);
+  }
+
+
+  Scatter3DPtr Analysis::bookScatter3D(const string& hname,
+                                       size_t xnpts, double xlower, double xupper,
+                                       size_t ynpts, double ylower, double yupper,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle,
+                                       const string& ztitle) {
+    const string path = histoPath(hname);
+    Scatter3DPtr s = make_shared<Scatter3D>(path);
+    const double xbinwidth = (xupper-xlower)/xnpts;
+    const double ybinwidth = (yupper-ylower)/ynpts;
+    for (size_t xpt = 0; xpt < xnpts; ++xpt) {
+      const double xbincentre = xlower + (xpt + 0.5) * xbinwidth;
+      for (size_t ypt = 0; ypt < ynpts; ++ypt) {
+        const double ybincentre = ylower + (ypt + 0.5) * ybinwidth;
+        s->addPoint(xbincentre, ybincentre, 0, xbinwidth/2.0, ybinwidth/2.0, 0);
+      }
+    }
+    s->setTitle(title);
+    s->setAnnotation("XLabel", xtitle);
+    s->setAnnotation("YLabel", ytitle);
+    s->setAnnotation("ZLabel", ztitle);
+    return addOrGetCompatAO(s);
+  }
+
+  Scatter3DPtr Analysis::bookScatter3D(const string& hname,
+                                       const vector<double>& xbinedges,
+                                       const vector<double>& ybinedges,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle,
+                                       const string& ztitle) {
+    const string path = histoPath(hname);
+    Scatter3DPtr s = make_shared<Scatter3D>(path);
+    for (size_t xpt = 0; xpt < xbinedges.size()-1; ++xpt) {
+      const double xbincentre = (xbinedges[xpt] + xbinedges[xpt+1]) / 2.0;
+      const double xbinwidth = xbinedges[xpt+1] - xbinedges[xpt];
+      for (size_t ypt = 0; ypt < ybinedges.size()-1; ++ypt) {
+        const double ybincentre = (ybinedges[ypt] + ybinedges[ypt+1]) / 2.0;
+        const double ybinwidth = xbinedges[ypt+1] - xbinedges[ypt];
+        s->addPoint(xbincentre, ybincentre, 0, xbinwidth/2.0, ybinwidth/2.0, 0);
+      }
+    }
+    s->setTitle(title);
+    s->setAnnotation("XLabel", xtitle);
+    s->setAnnotation("YLabel", ytitle);
+    s->setAnnotation("ZLabel", ztitle);
+    return addOrGetCompatAO(s);
+  }
+
+  Scatter3DPtr Analysis::bookScatter3D(const Scatter3DPtr scPtr,
+    const std::string& path, const std::string& title,
+    const std::string& xtitle, const std::string& ytitle, const std::string& ztitle ) {
+
+    Scatter3DPtr s = make_shared<Scatter3D>(*scPtr);
+    s->setPath(path);
+    s->setTitle(title);
+    s->setAnnotation("XLabel",xtitle);
+    s->setAnnotation("YLabel",ytitle);
+    s->setAnnotation("ZLabel",ztitle);
+    return addOrGetCompatAO(s);
+
+  }
 
   /////////////////////
 
@@ -785,7 +864,9 @@ namespace Rivet {
     }
     MSG_TRACE("Normalizing histo " << histo->path() << " to " << norm);
     try {
-      histo->normalize(norm, includeoverflows);
+      const double hint = histo->integral(includeoverflows);
+      if (hint == 0)  MSG_WARNING("Skipping histo with null area " << histo->path());
+      else            histo->normalize(norm, includeoverflows);
     } catch (YODA::Exception& we) {
       MSG_WARNING("Could not normalize histo " << histo->path());
       return;
@@ -819,7 +900,9 @@ namespace Rivet {
     }
     MSG_TRACE("Normalizing histo " << histo->path() << " to " << norm);
     try {
-      histo->normalize(norm, includeoverflows);
+      const double hint = histo->integral(includeoverflows);
+      if (hint == 0)  MSG_WARNING("Skipping histo with null area " << histo->path());
+      else            histo->normalize(norm, includeoverflows);
     } catch (YODA::Exception& we) {
       MSG_WARNING("Could not normalize histo " << histo->path());
       return;
@@ -891,5 +974,104 @@ namespace Rivet {
     }
  }
 
+const CentralityProjection &
+Analysis::declareCentrality(const SingleValueProjection &proj,
+                            string calAnaName, string calHistName,
+                            const string projName, bool increasing) {
+
+  CentralityProjection cproj;
+  
+  // Select the centrality variable from option. Use REF as default.
+  // Other selections are "GEN", "IMP" and "USR" (USR only in HEPMC 3).
+  string sel = getOption<string>("cent","REF");
+  set<string> done;
+
+  if ( sel == "REF" ) {
+    Scatter2DPtr refscat;
+    auto refmap = getRefData(calAnaName);
+    if ( refmap.find(calHistName) != refmap.end() )
+      refscat =
+        dynamic_pointer_cast<Scatter2D>(refmap.find(calHistName)->second);
+
+    if ( !refscat ) {
+      MSG_WARNING("No reference calibration histogram for " <<
+                  "CentralityProjection " << projName << " found " <<
+                  "(requested histogram " << calHistName << " in " <<
+                  calAnaName << ")");
+    }
+    else {
+      MSG_INFO("Found calibration histogram " << sel << " " << refscat->path());
+      cproj.add(PercentileProjection(proj, refscat, increasing), sel);
+    }
+  }
+  else if ( sel == "GEN" ) {
+    Histo1DPtr genhist;
+    string histpath = "/" + calAnaName + "/" + calHistName;
+    for ( AnalysisObjectPtr ao : handler().getData(true, false, false) ) {
+      if ( ao->path() == histpath )
+        genhist = dynamic_pointer_cast<Histo1D>(ao);
+    }
+    if ( !genhist || genhist->numEntries() <= 1 ) {
+      MSG_WARNING("No generated calibration histogram for " <<
+               "CentralityProjection " << projName << " found " <<
+               "(requested histogram " << calHistName << " in " <<
+               calAnaName << ")");
+    }
+    else {
+      MSG_INFO("Found calibration histogram " << sel << " " << genhist->path());
+      cproj.add(PercentileProjection(proj, genhist, increasing), sel);
+    }
+  }
+  else if ( sel == "IMP" ) {
+    Histo1DPtr imphist =
+      getAnalysisObject<Histo1D>(calAnaName, calHistName + "_IMP");
+    if ( !imphist || imphist->numEntries() <= 1 ) {
+      MSG_WARNING("No impact parameter calibration histogram for " <<
+               "CentralityProjection " << projName << " found " <<
+               "(requested histogram " << calHistName << "_IMP in " <<
+               calAnaName << ")");
+    }
+    else {
+      MSG_INFO("Found calibration histogram " << sel << " " << imphist->path());
+      cproj.add(PercentileProjection(ImpactParameterProjection(),
+                                     imphist, true), sel);
+    }
+  }
+  else if ( sel == "USR" ) {
+#if HEPMC_VERSION_CODE >= 3000000
+    Histo1DPtr usrhist =
+      getAnalysisObject<Histo1D>(calAnaName, calHistName + "_USR");
+    if ( !usrhist || usrhist->numEntries() <= 1 ) {
+      MSG_WARNING("No user-defined calibration histogram for " <<
+               "CentralityProjection " << projName << " found " <<
+               "(requested histogram " << calHistName << "_USR in " <<
+               calAnaName << ")");
+      continue;
+    }
+    else {
+      MSG_INFO("Found calibration histogram " << sel << " " << usrhist->path());
+      cproj.add((UserCentEstimate(), usrhist, true), sel);
+     }
+#else
+      MSG_WARNING("UserCentEstimate is only available with HepMC3.");
+#endif
+    }
+  else if ( sel == "RAW" ) {
+#if HEPMC_VERSION_CODE >= 3000000
+    cproj.add(GeneratedCentrality(), sel);
+#else
+    MSG_WARNING("GeneratedCentrality is only available with HepMC3.");
+#endif
+  }
+    else
+      MSG_WARNING("'" << sel << "' is not a valid PercentileProjection tag.");
+
+  if ( cproj.empty() )
+    MSG_WARNING("CentralityProjection " << projName
+                << " did not contain any valid PercentileProjections.");
+
+  return declare(cproj, projName);
+  
+}
 
 }

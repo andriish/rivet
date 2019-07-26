@@ -72,18 +72,15 @@ namespace Rivet {
 
   private:
 
-    /*
-     * Compute Distance of Closest Approach in z range for one particle. 
-     * Assuming length unit is mm.
-     * Returns -1. if unable to compute the DCA to PV.
-     */
+    /// Compute distance of closest approach in z range for one particle.
+    /// Returns -1 if unable to compute the DCA to PV.
     double getPVDCA(const Particle& p) {
-      const HepMC::GenVertex* vtx = p.genParticle()->production_vertex();
+      ConstGenVertexPtr vtx = p.genParticle()->production_vertex();
       if ( 0 == vtx ) return -1.;
-      
+
       // Unit vector of particle's MOMENTUM three vector
       const Vector3 u = p.momentum().p3().unit();
-      
+
       // The interaction point is always at (0, 0,0,0) hence the
       // vector pointing from the PV to the particle production vertex is:
       Vector3 d(vtx->position().x(), vtx->position().y(), vtx->position().z());
@@ -92,7 +89,7 @@ namespace Rivet {
       double proj = d.dot(u);
       d -= (u * proj);
 
-      // d should be orthogonal to u and it's length give the distance of 
+      // d should be orthogonal to u and it's length give the distance of
       // closest approach
       return d.mod();
     }

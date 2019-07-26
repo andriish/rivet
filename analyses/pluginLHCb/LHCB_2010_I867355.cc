@@ -26,16 +26,16 @@ namespace Rivet {
       double weight = event.weight();
 
       Particles bhadrons;
-      foreach (const GenParticle* p, particles(event.genEvent())) {
+      for(ConstGenParticlePtr p: HepMCUtils::particles(event.genEvent())) {
         if (!( PID::isHadron( p->pdg_id() ) && PID::hasBottom( p->pdg_id() )) ) continue;
 
-        const GenVertex* dv = p->end_vertex();
+        ConstGenVertexPtr dv = p->end_vertex();
 
         bool hasBdaughter = false;
         if ( PID::isHadron( p->pdg_id() ) && PID::hasBottom( p->pdg_id() )) { // selecting b-hadrons
           if (dv) {
-            for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin() ; pp != dv->particles_out_const_end() ; ++pp) {
-              if (PID::isHadron( (*pp)->pdg_id() ) && PID::hasBottom( (*pp)->pdg_id() )) {
+            for (ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
+              if (PID::isHadron(pp->pdg_id() ) && PID::hasBottom(pp->pdg_id() )) {
                 hasBdaughter = true;
               }
             }
@@ -46,7 +46,7 @@ namespace Rivet {
         bhadrons += Particle(*p);
       }
 
-      foreach (const Particle& particle, bhadrons) {
+      for(const Particle& particle: bhadrons) {
 
         // take fabs() to use full statistics and then multiply weight by 0.5 because LHCb is single-sided
         double eta = fabs(particle.eta());

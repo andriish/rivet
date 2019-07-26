@@ -1,16 +1,11 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 #include "Rivet/Math/Constants.hh"
 #include "Rivet/Math/Units.hh"
-#include "HepMC/GenEvent.h"
-#include "HepMC/GenParticle.h"
-#include "HepMC/GenVertex.h"
-#include "HepMC/SimpleVector.h"
 
 namespace Rivet {
 
-using namespace HepMC;
 using namespace std;
 
   // Lifetime cut: longest living ancestor ctau < 10^-11 [m]
@@ -49,7 +44,7 @@ using namespace std;
       _h_K0s_pt_y_35  = bookHisto1D(2,1,2);
       _h_K0s_pt_y_40  = bookHisto1D(2,1,3);
       _h_K0s_pt_y_all = bookHisto1D(3,1,1);
-      declare(UnstableFinalState(), "UFS");
+      declare(UnstableParticles(), "UFS");
     }
 
 
@@ -58,14 +53,14 @@ using namespace std;
       int id;
       double y, pT;
       const double weight = event.weight();
-      const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
       double ancestor_lftime;
       foreach (const Particle& p, ufs.particles()) {
         id = p.pid();
         if ((id != 310) && (id != -310)) continue;
         sumKs0_all ++;
         ancestor_lftime = 0.;
-        const GenParticle* long_ancestor = getLongestLivedAncestor(p, ancestor_lftime);
+        ConstGenParticlePtr long_ancestor = getLongestLivedAncestor(p, ancestor_lftime);
         if ( !(long_ancestor) ) {
           sumKs0_badnull ++;
           continue;
@@ -166,28 +161,29 @@ using namespace std;
       return lft;
     }
 
-    const GenParticle* getLongestLivedAncestor(const Particle& p, double& lifeTime) {
-      const GenParticle* ret = NULL;
+    ConstGenParticlePtr getLongestLivedAncestor(const Particle& p, double& lifeTime) {
+      ConstGenParticlePtr ret = nullptr;
       lifeTime = 1.;
-      if (p.genParticle() == NULL) return NULL;
-      const GenParticle* pmother = p.genParticle();
+      if (p.genParticle() == nullptr) return nullptr;
+      ConstGenParticlePtr pmother = p.genParticle();
       double longest_ctau = 0.;
       double mother_ctau;
-      int mother_pid, n_inparts;
-      const GenVertex* ivertex = pmother->production_vertex();
+      int mother_pid;
+      ConstGenVertexPtr ivertex = pmother->production_vertex();
       while (ivertex) {
-        n_inparts = ivertex->particles_in_size();
-        if (n_inparts < 1) {ret = NULL; break;}    // error: should never happen!
-        const GenVertex::particles_in_const_iterator iPart_invtx = ivertex->particles_in_const_begin();
-        pmother = (*iPart_invtx);                   // first mother particle
+        
+        vector<ConstGenParticlePtr> inparts = HepMCUtils::particles(ivertex, Relatives::PARENTS);
+        
+        if (inparts.size() < 1) {ret = nullptr; break;}    // error: should never happen!
+        pmother = inparts.at(0);                   // first mother particle
         mother_pid = pmother->pdg_id();
         ivertex = pmother->production_vertex();     // get next vertex
         if ( (mother_pid == 2212) || (mother_pid <= 100) ) {
-          if (ret == NULL) ret = pmother;
+          if (ret == nullptr) ret = pmother;
           continue;
         }
         mother_ctau = getLifeTime(mother_pid);
-        if (mother_ctau < 0.) { ret= NULL; break; }   // error:should never happen!
+        if (mother_ctau < 0.) { ret= nullptr; break; }   // error:should never happen!
         if (mother_ctau > longest_ctau) {
           longest_ctau = mother_ctau;
           ret = pmother;

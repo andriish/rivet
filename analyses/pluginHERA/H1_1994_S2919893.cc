@@ -58,12 +58,14 @@ namespace Rivet {
 
       // Get the DIS kinematics
       const DISKinematics& dk = apply<DISKinematics>(event, "Kinematics");
+      if ( dk.failed() ) vetoEvent;
       const double x  = dk.x();
       const double w2 = dk.W2();
       const double w = sqrt(w2);
 
       // Momentum of the scattered lepton
       const DISLepton& dl = apply<DISLepton>(event,"Lepton");
+      if ( dl.failed() ) return;
       const FourMomentum leptonMom = dl.out();
       const double ptel = leptonMom.pT();
       const double enel = leptonMom.E();
@@ -73,9 +75,9 @@ namespace Rivet {
       const FinalState& fs = apply<FinalState>(event, "FS");
       Particles particles;
       particles.reserve(fs.particles().size());
-      const GenParticle* dislepGP = dl.out().genParticle();
-      foreach (const Particle& p, fs.particles()) {
-        const GenParticle* loopGP = p.genParticle();
+      ConstGenParticlePtr dislepGP = dl.out().genParticle();
+      for(const Particle& p: fs.particles()) {
+        ConstGenParticlePtr loopGP = p.genParticle();
         if (loopGP == dislepGP) continue;
         particles.push_back(p);
       }

@@ -166,7 +166,7 @@ namespace Rivet {
         for (ithres = 0; ithres < threshLimit; ithres++) {
           if (jet_n[ithres] < 3) continue; // 3 or more jets for ljets
           // Fill
-          if (ihist == 0) _histogram(ihist, ithres)->fill(jet_n[ithres], weight); // njets
+          if (ihist == 0) _histogram(ihist, ithres)->fill(jet_n[ithres] - 2, weight); // njets
           else if (ihist == 1) _histogram(ihist, ithres)->fill(_jets[0].pT(), weight); // leading jet pT
           else if (ihist == 2) _histogram(ihist, ithres)->fill(_jets[1].pT(), weight); // 2nd jet pT
           else if (ihist == 3 && jet_n[ithres] >= 3) _histogram(ihist, ithres)->fill(_jets[2].pT(), weight); // 3rd jet pT
@@ -264,8 +264,8 @@ namespace Rivet {
       const unsigned int hInd = (histId == 0) ? thresholdId : (_thresholdLimit(0) + (histId-1) + thresholdId);
       if (_hMap.find(hInd) != _hMap.end()) return _hMap[hInd];
 
-      if (histId == 0) _hMap.insert(make_pair(hInd,bookHisto1D(1,thresholdId+1,1)));
-      else _hMap.insert(make_pair(hInd,bookHisto1D(2,histId,1)));
+      if (histId == 0) _hMap.insert(make_pair(hInd,bookHisto1D(thresholdId+1,1,1)));
+      else _hMap.insert(make_pair(hInd,bookHisto1D(4+histId,1,1)));
       return _hMap[hInd];
     }
 

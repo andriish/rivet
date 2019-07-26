@@ -3,7 +3,7 @@ Year: 2016
 Summary: Measurement of the inclusive jet cross-section in $pp$ collisions at $\sqrt{s} = 13\;\TeV$
 Experiment: CMS
 Collider: LHC
-SpiresID: 1459051
+InspireID: 1459051
 Status: VALIDATED
 Authors:
  - Paolo Gunnellini <paolo.gunnellini@desy.de>
@@ -21,7 +21,7 @@ Description:
   'A measurement of the double-differential inclusive jet cross section as a function of
   jet transverse momentum pT and absolute jet rapidity |y| is presented. The analysis is
   based on proton-proton collisions collected by the CMS experiment at the LHC at a
-  centre-of-mass energy of 13 TeV. The data samples correspond to integrated luminosities 
+  centre-of-mass energy of 13 TeV. The data samples correspond to integrated luminosities
   of 71 and 44 pb-1 for |y| < 3 and 3.2 < |y| < 4.7, respectively. Jets are reconstructed
   with the anti-kt clustering algorithm for two jet sizes, R, of 0.7 and 0.4, in a phase
   space region covering jet pT up to 2 TeV and jet rapidity up to |y| = 4.7. Predictions

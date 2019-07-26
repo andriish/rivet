@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 
 namespace Rivet {
@@ -19,7 +19,7 @@ namespace Rivet {
 
       // Use a large eta range such that we can discriminate on y
       /// @todo Convert to use a y-cut directly
-      UnstableFinalState ufs(Cuts::abseta < 10 && Cuts::pT > 500*MeV);
+      UnstableParticles ufs(Cuts::abseta < 10 && Cuts::pT > 500*MeV);
       IdentifiedFinalState phis(ufs);
       phis.acceptIdPair(PID::PHI);
       declare(phis, "Phis");
@@ -28,8 +28,8 @@ namespace Rivet {
       kpms.acceptIdPair(PID::KPLUS);
       declare(kpms, "Kpms");
 
-      _h_phi_rapidity = bookHisto1D(1,1,1);
-      _h_phi_pT       = bookHisto1D(2,1,1);
+      _h_phi_rapidity = bookHisto1D(2,1,1);
+      _h_phi_pT       = bookHisto1D(1,1,1);
     }
 
 
@@ -76,7 +76,7 @@ namespace Rivet {
 
 
     void finalize() {
-      scale(_h_phi_rapidity, crossSection()/microbarn/sumOfWeights());
+      scale(_h_phi_rapidity, crossSection()/millibarn/sumOfWeights());
       scale(_h_phi_pT, crossSection()/microbarn/sumOfWeights());
     }
 
@@ -87,8 +87,5 @@ namespace Rivet {
 
   };
 
-
-
   DECLARE_RIVET_PLUGIN(ATLAS_2014_I1282441);
-
 }

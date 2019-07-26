@@ -328,7 +328,7 @@ a similar way as their regular counterparts:
 RatioPlotYLabel=<label>
 RatioPlotYMin=<value>
 RatioPlotYMax=<value>
-RatioPlotYSize=<size>
+RatioPlotSizeY=<size>
 RatioPlotErrorBandColor=<color>
 --------------------
 

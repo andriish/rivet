@@ -162,6 +162,18 @@ namespace Rivet {
     /// @todo Add axion, black hole remnant, etc. on demand
     //@}
 
+    /// @name Nuclei
+    //@{
+    static const PdgId DEUTERON = 1000010020;
+    static const PdgId ALUMINIUM = 1000130270;
+    static const PdgId COPPER = 1000290630;
+    static const PdgId XENON = 1000541290;
+    static const PdgId GOLD = 1000791970;
+    static const PdgId LEAD = 1000822080;
+    static const PdgId URANIUM = 1000922380;
+    /// @todo Add other nuclei on demand
+    //@}
+
 
 
     /// Handler for particle name code <-> string conversion
@@ -213,6 +225,13 @@ namespace Rivet {
         _add_pid_name(ZBOSON, "ZBOSON");
         _add_pid_name(HIGGS, "HIGGS");
         _add_pid_name(ANTITAU, "ANTITAU");
+        _add_pid_name(DEUTERON, "DEUTERON");
+        _add_pid_name(ALUMINIUM, "ALUMINIUM");
+        _add_pid_name(COPPER, "COPPER");
+        _add_pid_name(XENON, "XENON");
+        _add_pid_name(GOLD, "GOLD");
+        _add_pid_name(LEAD, "LEAD");
+        _add_pid_name(URANIUM, "URANIUM");
         _add_pid_name(ANY, "*");
       }
 
