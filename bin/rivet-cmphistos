@@ -323,7 +323,6 @@ if __name__ == '__main__':
         exit(1)
     hpaths, h2ds = [], []
     for aos in mchistos.values():
-        print ('UHMMM1', aos)
         for p in aos.keys():
             ps = rivet.stripOptions(p)
             if ps and ps not in hpaths:
