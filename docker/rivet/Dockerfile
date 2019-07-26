@@ -1,4 +1,4 @@
-FROM fedora:27
+FROM fedora:30
 LABEL maintainer="rivet@projects.hepforge.org"
 
 RUN dnf update -y \
@@ -12,7 +12,7 @@ RUN dnf update -y \
     && dnf clean all
 
 RUN mkdir /code && cd /code \
-    && wget https://phab.hepforge.org/source/rivetbootstraphg/browse/3.0.0/rivet-bootstrap?view=raw -O rivet-bootstrap \
+    && wget https://phab.hepforge.org/source/rivetbootstraphg/browse/3.0.1/rivet-bootstrap?view=raw -O rivet-bootstrap \
     && chmod +x rivet-bootstrap \
     && INSTALL_PREFIX=/usr/local INSTALL_GSL=0 INSTALL_RIVETDEV=0 MAKE="make -j7" ./rivet-bootstrap \
     && echo "source /usr/local/share/Rivet/rivet-completion" > /etc/profile.d/rivet-completion.sh \

@@ -1,11 +1,17 @@
 def isRefPath(path):
     return path.startswith("/REF")
 
+def isTheoryPath(path):
+    return path.startswith("/THY")
+
 def isRawPath(path):
     return path.startswith("/RAW")
 
 def isRawAO(ao):
     return isRawPath(ao.path)
+
+def isTheoryAO(ao):
+    return isTheryPath(ao.path)
 
 def stripOptions(path):
     import re
