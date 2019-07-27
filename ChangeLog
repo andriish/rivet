@@ -4,6 +4,15 @@
 	XMajorTickLineColor defaulted to '0.3pt' -- TeX xcolor versions
 	started to complain about this in some Fedora >27 version.
 
+2019-07-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add CMS_2018_I1646260 soft-lepton SUSY search analysis (used for
+	recasting comparisons at Les Houches 2019).
+
+2019-07-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add ATLAS_2018_I1667046 ATLAS 36/fb RPV SUSY search.
+
 2019-07-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix logic error in HasNoTag functor.
