@@ -227,8 +227,8 @@ namespace Rivet {
 
       // Initialise and register projections
 
-      // the basic final-state projection: 
-      // all final-state particles within 
+      // the basic final-state projection:
+      // all final-state particles within
       // the given eta acceptance
       const FinalState fs(Cuts::abseta < 4.9);
 
@@ -343,11 +343,11 @@ END PLOT
     src = """\
 Name: %(ANANAME)s
 Year: %(ANAYEAR)s
-Summary: <Insert short %(ANANAME)s description>
+Summary: <A one-line informative %(ANANAME)s headline>
 Experiment: %(ANAEXPT)s
 Collider: %(ANACOLLIDER)s
 %(ANAREFREPO)sID: %(ANAINSPIREID)s
-Status: UNVALIDATED
+Status: UNVALIDATED NOTREENTRY NOHEPDATA SINGLEWEIGHT UNPHYSICAL
 Authors:
  - Your Name <your@email.address>
 #References:
@@ -359,9 +359,15 @@ RunInfo: <Describe event types, cuts, and other general generator config tips.>
 #Energies: <Run energies or beam energy pairs in GeV, e.g. [13000] or [[8.0, 3.5]] or [630, 1800]. Order pairs to match "Beams">
 #Luminosity_fb: <Insert integrated luminosity, in inverse fb>
 Description:
-  '<A fairly long description, including what is measured
-  and if possible what it is useful for in terms of MC validation
-  and tuning. Use LaTeX for maths like $\pT > 50\;\GeV$.>'
+  'A brief description of what is measured and what it is useful for
+  in terms of MC testing, tuning, reinterpretation, etc. Use LaTeX
+  for maths, e.g. $\pT > 50\;\GeV$.'
+ValidationInfo:
+  'A description of the process used to validate the Rivet code against
+  the original experimental analysis. Cut-flow tables and similar information
+  are welcome'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
 Keywords: []
 BibKey: %(ANABIBKEY)s
 BibTeX: '%(ANABIBTEX)s'
