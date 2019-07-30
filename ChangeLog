@@ -1,3 +1,10 @@
+2019-07-30 Christian Gutschow  <chris.g@cern.ch>
+
+	* Just discussed with Andy: Removing regression reference files 
+	from installation since other developer output (e.g. for the website) 
+	is also not included
+
+
 2019-07-26  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix a longstanding make-plots bug, in which the
