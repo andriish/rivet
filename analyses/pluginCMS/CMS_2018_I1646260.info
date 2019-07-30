@@ -13,7 +13,7 @@ References:
  - 'DOI: 10.1016/j.physletb.2018.05.062'
  - 'CMS-SUS-16-048'
  - 'arXiv:1801.01846'
-RunInfo: <Describe event types, cuts, and other general generator config tips.>
+RunInfo: BSM signal events
 NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [13000]
@@ -28,6 +28,27 @@ Description:
   with nearly degenerate masses, as expected in natural supersymmetry models with light
   higgsinos, as well as in terms of the pair production of top squarks, when the lightest
   neutralino and the top squark have similar masses.'
+ValidationInfo:
+  'Validated for the published EWino cutflows using 250k MG5 events generated with the
+  CMS simplified model used in the paper. Cutflow for (150,142.5) benchmark:
+
+  |                               |      CMS |    Count |
+  |:------------------------------|---------:|---------:|
+  |                               | 172004.0 | 172004.0 |
+  |Pass 2mu                       |    242.7 |    249.1 |
+  |Pass mu+mu-                    |    218.5 |    220.2 |
+  |Pass pTmumu > 3 GeV            |    213.8 |    217.4 |
+  |Pass Mmumu in [4,50] GeV       |    103.3 |    128.7 |
+  |Pass Mmumu not in [9,10.5] GeV |    102.2 |    128.0 |
+  |Pass pTmiss in [125, 200] GeV  |      9.8 |      8.3 |
+  |Pass mu+pTmiss trigger         |      5.5 |      5.4 |
+  |Pass ISR jet                   |      5.3 |      5.4 |
+  |Pass HT > 100 GeV              |      4.1 |      5.4 |
+  |Pass pTmiss/HT in [0.6, 1.4]   |      3.7 |      5.4 |
+  |Pass b-tag veto                |      3.0 |      2.7 |
+  |Pass Mtautau veto              |      2.7 |      2.7 |
+  |Pass MT < 70 GeV               |      2.2 |      2.2 |
+  '
 Keywords: [susy, leptons, softlepton]
 BibKey: Sirunyan:2018iwl
 BibTeX: '@article{Sirunyan:2018iwl,
