@@ -37,12 +37,12 @@ namespace Rivet {
   bool Run::readEvent() {
     /// @todo Clear rather than new the GenEvent object per-event?
     _evt.reset(new GenEvent());
-    if(!HepMCUtils::readEvent(_hepmcReader, _evt)){
+    if (!HepMCUtils::readEvent(_hepmcReader, _evt)){
       Log::getLog("Rivet.Run") << Log::DEBUG << "Read failed. End of file?" << endl;
       return false;
     }
     // Rescale event weights by file-level weight, if scaling is non-trivial
-    if (!fuzzyEquals(_fileweight, 1.0)) {
+    if (_fileweight != 1.0) {
       for (size_t i = 0; i < (size_t) _evt->weights().size(); ++i) {
         _evt->weights()[i] *= _fileweight;
       }
@@ -58,26 +58,26 @@ namespace Rivet {
 
     // In case makeReader fails.
     std::string errormessage;
-    
+
     // Set up HepMC input reader objects
     if (evtfile == "-") {
-#ifdef HAVE_LIBZ
+      #ifdef HAVE_LIBZ
       _istr = make_shared<zstr::istream>(std::cin);
       _hepmcReader = HepMCUtils::makeReader(*_istr, &errormessage);
-#else
+      #else
       _hepmcReader = HepMCUtils::makeReader(std::cin, &errormessage);
-#endif
+      #endif
     } else {
       if ( !fileexists(evtfile) )
         throw Error("Event file '" + evtfile + "' not found");
-#ifdef HAVE_LIBZ
+      #ifdef HAVE_LIBZ
       // NB. zstr auto-detects if file is deflated or plain-text
       _istr = make_shared<zstr::ifstream>(evtfile.c_str());
-#else
+      #else
       _istr = make_shared<std::ifstream>(evtfile.c_str());
-#endif
+      #endif
       _hepmcReader = HepMCUtils::makeReader(*_istr, &errormessage);
-      
+
     }
 
     if (_hepmcReader == nullptr) {
@@ -108,7 +108,7 @@ namespace Rivet {
     if (!std::isnan(_xs)) {
       Log::getLog("Rivet.Run")
         << Log::DEBUG << "Setting user cross-section = " << _xs << " pb" << endl;
-      
+
       _ah.setCrossSection(make_pair(_xs, 0.0));
     }
 

@@ -1,5 +1,7 @@
 2019-08-01  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Reinstate the command-line event skipping.
+
 	* Return str(pid) or 0 in PID <-> name translations, rather than throwing PidError.
 
 2019-08-01 Christian Gutschow  <chris.g@cern.ch>
