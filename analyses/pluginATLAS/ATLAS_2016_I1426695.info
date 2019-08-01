@@ -45,6 +45,6 @@ BibTeX: '@article{Aad:2016xww,
       SLACcitation   = "%%CITATION = ARXIV:1603.02439;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-8-UE
 

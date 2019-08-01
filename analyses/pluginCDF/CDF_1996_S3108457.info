@@ -40,6 +40,6 @@ BibTeX: '@Article{Abe:1995rw,
      SLACcitation  = "%%CITATION = PRLTA,75,608;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-I-Jets-5
 

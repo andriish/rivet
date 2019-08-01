@@ -41,7 +41,7 @@ BibTeX: '@Article{Alner:1986xu,
      SLACcitation  = "%%CITATION = ZEPYA,C33,1;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A SppS-200-UE
  - $A-2 SppS-900-UE
 

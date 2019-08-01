@@ -38,6 +38,6 @@ BibTeX: '@Article{Ackerstaff:1998hz,
      SLACcitation  = "%%CITATION = HEP-EX/9807004;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

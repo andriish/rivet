@@ -43,6 +43,6 @@ BibTeX: '@article{ATLAS:2012al,
       SLACcitation   = "%%CITATION = ARXIV:1203.5015;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Top-L
 

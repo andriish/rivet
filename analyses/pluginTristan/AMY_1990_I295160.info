@@ -34,7 +34,7 @@ BibTeX: '@article{Zheng:1990iq,
       SLACcitation   = "%%CITATION = PHRVA,D42,737;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-50
  - $A-2 LEP-52
  - $A-3 LEP-55

@@ -38,7 +38,7 @@ BibTeX: '@article{Aad:2014vwa,
       SLACcitation   = "%%CITATION = ARXIV:1410.8857;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Jets-10
  - $A-2 LHC-7-Jets-3
  - $A-3 LHC-7-Jets-4

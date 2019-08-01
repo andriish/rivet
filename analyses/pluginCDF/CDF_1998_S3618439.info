@@ -39,7 +39,7 @@ BibTeX: '@Article{Abe:1997eua,
      SLACcitation  = "%%CITATION = PRLTA,80,3461;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-I-Jets-4
  - $A-2 TVT-Run-I-Jets-5
 

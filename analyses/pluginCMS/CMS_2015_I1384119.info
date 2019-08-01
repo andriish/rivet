@@ -35,6 +35,6 @@ BibTeX: '@article{Khachatryan:2015jna,
       SLACcitation   = "%%CITATION = ARXIV:1507.05915;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-13-UE
 

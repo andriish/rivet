@@ -35,7 +35,7 @@ ToDo:
  - Add the missing distributions
  - Add missing Trigger conditions, move to Trigger Projection
 
-Validation:
+ReleaseTests:
  - $A LEP-14
  - $A-2 LEP-22
  - $A-3 LEP-35

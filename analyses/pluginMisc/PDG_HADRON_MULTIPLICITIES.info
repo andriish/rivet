@@ -35,7 +35,7 @@ BibTeX: '@Article{Amsler:2008zzb,
      SLACcitation  = "%%CITATION = PHLTA,B667,1;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-10
  - $A-2 LEP-177
  - $A-3 LEP-35

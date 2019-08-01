@@ -34,7 +34,7 @@ BibTeX: '@Article{Aad:2011ni,
 ToDo:
   Check BibKey and BibTeX consistency when fixed on SPIRES.
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Jets-10
  - $A-2 LHC-7-Jets-4
  - $A-3 LHC-7-Jets-5

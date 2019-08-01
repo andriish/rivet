@@ -30,6 +30,6 @@ Description:
   underlying event is the toward region (the recoil jet is boosted into
   the away region).
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-Z-mu
 

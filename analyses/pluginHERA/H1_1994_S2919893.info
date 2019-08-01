@@ -40,6 +40,6 @@ BibTeX: '@Article{Abt:1994ye,
      SLACcitation  = "%%CITATION = ZEPYA,C63,377;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A DIS-e--LowQ2
 

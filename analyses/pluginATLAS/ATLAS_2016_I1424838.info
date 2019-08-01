@@ -36,7 +36,7 @@ BibTeX: '@article{Aad:2016ria,
       SLACcitation   = "%%CITATION = ARXIV:1602.08980;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-Z-e
  - $A-2 LHC-Z-mu
 

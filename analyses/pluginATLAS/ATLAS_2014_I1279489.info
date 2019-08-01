@@ -46,6 +46,6 @@ BibTeX: '@article{Aad:2014dta,
       SLACcitation   = "%%CITATION = ARXIV:1401.7610;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-8-Z-Mass3-mu
 

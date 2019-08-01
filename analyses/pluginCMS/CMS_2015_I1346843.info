@@ -51,7 +51,7 @@ BibTeX: '@article{Khachatryan:2015rja,
 ToDo:
  - Implement the analysis, test it, remove this ToDo, and mark as VALIDATED :-)
 
-Validation:
+ReleaseTests:
  - $A LHC-Z-mu-SOPHTY
  - $A-2 LHC-Z-mu
 

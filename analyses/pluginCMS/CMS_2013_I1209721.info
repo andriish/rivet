@@ -50,7 +50,7 @@ BibTeX: '@article{Chatrchyan:2013tna,
       SLACcitation   = "%%CITATION = ARXIV:1301.1646;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Z-Jet-0-e
  - $A-2 LHC-7-Z-Jet-0-mu
  - $A-3 LHC-7-Z-Jet-1-e

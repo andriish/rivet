@@ -34,6 +34,6 @@ BibTeX: '@Article{Akers:1994ez,
 }
 '
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

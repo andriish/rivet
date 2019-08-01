@@ -34,7 +34,7 @@ BibTeX: '@Article{Albajar:1989an,
      SLACcitation  = "%%CITATION = NUPHA,B335,261;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A SppS-200-UE
  - $A-2 SppS-500-UE
  - $A-3 SppS-900-UE

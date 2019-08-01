@@ -46,6 +46,6 @@ BibTeX: '@article{Aad:2012awa,
       SLACcitation   = "%%CITATION = ARXIV:1211.6096;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-ZZ-lv
 

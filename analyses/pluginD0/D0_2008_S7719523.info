@@ -53,6 +53,6 @@ BibTeX: '@Article{Abazov:2008er,
      SLACcitation  = "%%CITATION = 0804.1107;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-PromptPhoton
 

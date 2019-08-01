@@ -31,7 +31,7 @@ BibTeX: '@article{Aad:2013fba,
       SLACcitation   = "%%CITATION = ARXIV:1307.5749;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Top-L
  - $A-2 LHC-7-Top-SL
 

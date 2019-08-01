@@ -38,6 +38,6 @@ BibTeX: '@article{Achard:2004sv,
       SLACcitation   = "%%CITATION = HEP-EX/0406049;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

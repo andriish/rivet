@@ -30,7 +30,7 @@ Description:
   The tracking efficiency is $\sim 0.8$, but that is an approximation,
   as below $pT \sim 0.6~\text{GeV}$ it is falling quite steeply.
 
-Validation:
+ReleaseTests:
  - $A Star-Jets-2
  - $A-2 Star-Jets-4
  - $A-3 Star-UE

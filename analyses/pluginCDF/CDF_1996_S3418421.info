@@ -36,7 +36,7 @@ BibTeX: '@Article{Abe:1996mj,
      SLACcitation  = "%%CITATION = HEP-EX/9609011;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-I-Jets-6
  - $A-2 TVT-Run-I-Jets-7
  - $A-3 TVT-Run-I-Jets-8

@@ -38,7 +38,7 @@ BibTeX: '@Article{Khachatryan:2011as,
      SLACcitation  = "%%CITATION = 1102.2020;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-DiJets-1-B
  - $A-2 LHC-7-DiJets-2-B
  - $A-3 LHC-7-DiJets-3-B

@@ -36,6 +36,6 @@ BibTeX: '@article{Barate:1999bg,
       primaryClass   = "hep-ex",
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

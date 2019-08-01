@@ -23,6 +23,6 @@ Description:
   of the muon pseudorapidity using a data sample corresponding to a total
   integrated luminosity of 31 pb$^{-1}$.
 
-Validation:
+ReleaseTests:
  - $A LHC-W-mu
 

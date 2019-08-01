@@ -39,6 +39,6 @@ BibTeX: '@article{Abe:2001hj,
       SLACcitation   = "%%CITATION = HEP-EX/0103041;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A BFactory-10.58-res
 

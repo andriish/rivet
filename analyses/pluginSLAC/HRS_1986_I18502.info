@@ -36,6 +36,6 @@ BibTeX: '@article{Derrick:1986jx,
       SLACcitation   = "%%CITATION = PHRVA,D34,3304;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-29
 

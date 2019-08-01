@@ -50,6 +50,6 @@ BibTeX: '@Article{Khachatryan:2010xs,
      doi       ="10.1007/JHEP02(2010)041",
      SLACcitation  ="%%CITATION = 1002.0621;%%"}'
 
-Validation:
+ReleaseTests:
  - $A LHC-2360-UE
 

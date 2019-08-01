@@ -1,5 +1,5 @@
 Name: MC_WWJETS
-Summary: Monte Carlo validation observables for $W^+[e^+ \, \nu]W^-[\mu^- \, \nu]$ + jets production
+Summary: Monte Carlo ReleaseTests observables for $W^+[e^+ \, \nu]W^-[\mu^- \, \nu]$ + jets production
 Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>
@@ -15,6 +15,6 @@ Description:
   the opposite charge leptons and correlations with jets.
 NeedCrossSection: yes
 
-Validation:
+ReleaseTests:
  - $A LHC-WW-emu
 

@@ -39,7 +39,7 @@ BibTeX: '@Article{Abe:1989td,
      SLACcitation  = "%%CITATION = PHRVA,D41,2330;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-630-UE
  - $A-2 TVT-Run-I-UE
 

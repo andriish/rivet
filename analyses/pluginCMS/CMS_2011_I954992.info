@@ -43,6 +43,6 @@ BibTeX: '@article{Chatrchyan:2011ci,
       reportNumber   = "CERN-PH-EP-2011-187, CMS-FWD-10-005",
       SLACcitation   = "%%CITATION = ARXIV:1111.5536;%%",}'
 
-Validation:
+ReleaseTests:
  - $A LHC-GammaGamma-7
 

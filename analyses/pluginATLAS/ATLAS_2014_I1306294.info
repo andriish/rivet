@@ -53,6 +53,6 @@ BibTeX: '@article{Aad:2014dvb,
       SLACcitation   = "%%CITATION = ARXIV:1407.3643;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-Z-e
 

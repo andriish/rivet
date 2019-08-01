@@ -41,7 +41,7 @@ BibTeX: '@Article{Acosta:2005ix,
      SLACcitation  = "%%CITATION = HEP-EX/0505013;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-Jets-0
  - $A-2 TVT-Run-II-Jets-1
  - $A-3 TVT-Run-II-Jets-2

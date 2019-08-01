@@ -33,6 +33,6 @@ BibTeX: '@article{Albrecht:1992qf,
       SLACcitation   = "%%CITATION = ZEPYA,C58,191;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A BFactory-Upsilon4
 

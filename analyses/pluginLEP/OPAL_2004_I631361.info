@@ -42,7 +42,7 @@ BibTeX: '@article{Abbiendi:2004gh,
       SLACcitation   = "%%CITATION = HEP-EX/0310048;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-10.5-gg
  - $A-2 LEP-11.96-gg
  - $A-3 LEP-13.96-gg

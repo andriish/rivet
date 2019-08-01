@@ -59,6 +59,6 @@ BibTeX: '@Article{Aaltonen:2007ip,
      SLACcitation  = "%%CITATION = 0711.4044;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-W
 

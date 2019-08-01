@@ -51,6 +51,6 @@ BibTeX: '@article{Khachatryan:2015oqa,
       SLACcitation   = "%%CITATION = ARXIV:1505.04480;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-8-Top-All
 

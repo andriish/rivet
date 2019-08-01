@@ -36,6 +36,6 @@ BibTeX: '@article{Khachatryan:2016oou,
       SLACcitation   = "%%CITATION = ARXIV:1607.00837;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-8-Top-All
 

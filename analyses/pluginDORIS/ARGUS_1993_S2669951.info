@@ -33,7 +33,7 @@ BibTeX: '@article{Albrecht:1992nu,
 }
 '
 
-Validation:
+ReleaseTests:
  - $A BFactory-10.45
  - $A-2 BFactory-Upsilon
  - $A-3 BFactory-Upsilon2

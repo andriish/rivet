@@ -35,6 +35,6 @@ BibTeX: '@Article{Alexander:1996qj,
      SLACcitation  = "%%CITATION = ZEPYA,C73,569;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

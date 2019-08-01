@@ -41,6 +41,6 @@ BibTeX: '@article{Chatrchyan:2013gfi,
       SLACcitation   = "%%CITATION = ARXIV:1302.2394;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-2760-UE
 

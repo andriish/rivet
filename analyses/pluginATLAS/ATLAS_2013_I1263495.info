@@ -46,7 +46,7 @@ BibTeX: '@article{Aad:2013zba,
       SLACcitation   = "%%CITATION = ARXIV:1311.1440;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-PromptPhoton-1
  - $A-2 LHC-7-PromptPhoton-2
  - $A-3 LHC-7-PromptPhoton-3

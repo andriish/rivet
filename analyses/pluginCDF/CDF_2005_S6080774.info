@@ -44,7 +44,7 @@ BibTeX: '@Article{Acosta:2004sn,
      SLACcitation  = "%%CITATION = HEP-EX/0412050;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-DiPhoton-GammaGamma
  - $A-2 TVT-Run-II-DiPhoton-GammaJet
 

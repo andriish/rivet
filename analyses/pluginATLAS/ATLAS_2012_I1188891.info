@@ -40,7 +40,7 @@ BibTeX: '@article{Aad:2012ma,
 }'
 
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Jets-10
  - $A-2 LHC-7-Jets-2
  - $A-3 LHC-7-Jets-3

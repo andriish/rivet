@@ -42,6 +42,6 @@ BibTeX: '@Article{Aamodt:2010ft,
      SLACcitation  = "%%CITATION = 1004.3034;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-2360-UE
 

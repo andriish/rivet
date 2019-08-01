@@ -36,6 +36,6 @@ BibTeX: '
       SLACcitation   = "%%CITATION = ARXIV:1201.1276;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-W-mu
 

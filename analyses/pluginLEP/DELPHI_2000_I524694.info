@@ -36,6 +36,6 @@ BibTeX: '@article{Abreu:2000nu,
       SLACcitation   = "%%CITATION = HEP-EX/0103020;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

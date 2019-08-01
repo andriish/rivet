@@ -38,7 +38,7 @@ BibTeX: '@Article{Heister:2003aj,
      SLACcitation  = "%%CITATION = EPHJA,C35,457;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-133
  - $A-2 LEP-161
  - $A-3 LEP-172

@@ -44,6 +44,6 @@ ToDo:
  - Add y23 and R4(ycut) histograms
  - Get data from HepData when available (so far just read off the plots)
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

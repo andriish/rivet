@@ -43,7 +43,7 @@ BibTeX: '@Article{Abazov:2010ah,
      SLACcitation  = "%%CITATION = 1002.4917;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-DiPhoton-GammaGamma
  - $A-2 TVT-Run-II-DiPhoton-GammaJet
 

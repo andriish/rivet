@@ -1,6 +1,7 @@
 2019-08-01 Christian Gutschow  <chris.g@cern.ch>
 
 	* Filling _h_N with the N events rather than weights (MC_XS)
+	* Changing Validation to ReleaseTests in all info files
 
 2019-07-30 Christian Gutschow  <chris.g@cern.ch>
 

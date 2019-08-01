@@ -41,7 +41,7 @@ BibTeX: '@article{Aad:2016mok,
       SLACcitation   = "%%CITATION = ARXIV:1602.01633;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-13-UE-Long
  - $A-2 LHC-13-UE
 

@@ -34,6 +34,6 @@ BibTeX: '@Article{Abreu:1995qx,
      SLACcitation  = "%%CITATION = ZEPYA,C67,543;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

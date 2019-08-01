@@ -33,7 +33,7 @@ BibTeX: '@article{Aad:2011fc,
       SLACcitation   = "%%CITATION = ARXIV:1112.6297;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-DiJets-1-C
  - $A-2 LHC-7-DiJets-2-C
  - $A-3 LHC-7-DiJets-3-C

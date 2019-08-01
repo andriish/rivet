@@ -38,6 +38,6 @@ BibTeX: '@article{Fujikawa:2008ma,
       SLACcitation   = "%%CITATION = ARXIV:0805.3773;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A BFactory-Tau
 

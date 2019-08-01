@@ -47,7 +47,7 @@ BibTeX: '@Article{Acosta:2001rm,
      SLACcitation  = "%%CITATION = PHRVA,D65,072005;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-630-UE
  - $A-2 TVT-Run-I-UE
 

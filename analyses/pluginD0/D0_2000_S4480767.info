@@ -41,6 +41,6 @@ BibTeX: '@Article{Abbott:2000xv,
      SLACcitation  = "%%CITATION = HEP-EX/0010026;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-I-W
 

@@ -39,6 +39,6 @@ BibTeX: '@Article{Heister:2001jg,
      SLACcitation  = "%%CITATION = HEP-EX/0106051;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

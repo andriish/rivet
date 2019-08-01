@@ -47,7 +47,7 @@ BibTeX: '@Article{Aaltonen:2008eq,
      SLACcitation  = "%%CITATION = 0807.2204;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-Jets-2
  - $A-2 TVT-Run-II-Jets-3
  - $A-3 TVT-Run-II-Jets-4

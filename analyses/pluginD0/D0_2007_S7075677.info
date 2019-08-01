@@ -41,6 +41,6 @@ BibTeX: '@Article{Abazov:2007jy,
      SLACcitation  = "%%CITATION = HEP-EX/0702025;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-Z-e
 

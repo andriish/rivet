@@ -42,6 +42,6 @@ BibTeX: '@article{Aaij:2013nxa,
       SLACcitation   = "%%CITATION = ARXIV:1310.8197;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-Z-mu
 

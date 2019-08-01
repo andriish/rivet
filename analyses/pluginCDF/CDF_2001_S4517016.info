@@ -43,7 +43,7 @@ BibTeX: '@Article{Affolder:2000ew,
      SLACcitation  = "%%CITATION = HEP-EX/0012013;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-I-Jets-1
  - $A-2 TVT-Run-I-Jets-2
  - $A-3 TVT-Run-I-Jets-3

@@ -55,7 +55,7 @@ BibTeX: '@article{Khachatryan:2016wdh,
       SLACcitation   = "%%CITATION = ARXIV:1605.04436;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-13-Jets-0
  - $A-2 LHC-13-Jets-1
  - $A-3 LHC-13-Jets-10

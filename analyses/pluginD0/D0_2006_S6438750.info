@@ -48,6 +48,6 @@ BibTeX: '@Article{Abazov:2005wc,
      SLACcitation  = "%%CITATION = HEP-EX/0511054;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-PromptPhoton
 

@@ -42,7 +42,7 @@ BibTeX: '@article{:2012fs,
       SLACcitation   = "%%CITATION = ARXIV:1208.0563;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Jets-0
  - $A-2 LHC-7-Jets-1
  - $A-3 LHC-7-Jets-2

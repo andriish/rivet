@@ -41,6 +41,6 @@ BibTeX: '@Article{Aubert:2007mh,
      SLACcitation  = "%%CITATION = 0707.2981;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A BFactory-Tau
 

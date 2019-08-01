@@ -31,6 +31,6 @@ BibTeX: '@Article{Alexander:1995gq,
      SLACcitation  = "%%CITATION = PHLTA,B358,162;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

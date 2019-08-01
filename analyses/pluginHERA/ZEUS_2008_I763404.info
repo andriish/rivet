@@ -49,6 +49,6 @@ BibTeX: '@article{Chekanov:2007rh,
       SLACcitation   = "%%CITATION = ARXIV:0710.1498;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A HERA-II-GammaP-Gap
 

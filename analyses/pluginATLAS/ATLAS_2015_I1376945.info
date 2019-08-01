@@ -37,6 +37,6 @@ BibTeX: '@article{Aad:2015lxa,
       SLACcitation   = "%%CITATION = ARXIV:1506.05629;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-8-Top-All
 

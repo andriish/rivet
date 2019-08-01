@@ -50,6 +50,6 @@ BibTeX: '@article{Antchev:2014lez,
       reportNumber   = "CERN-PH-EP-2014-260",
       SLACcitation   = "%%CITATION = ARXIV:1411.4963;%%"}'
 
-Validation:
+ReleaseTests:
  - $A LHC-8-UE
 

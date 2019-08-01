@@ -42,6 +42,6 @@ BibTeX: '@Article{Abe:1994nj,
      SLACcitation  = "%%CITATION = PHRVA,D50,5562;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-I-Jets-4
 

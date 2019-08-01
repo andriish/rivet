@@ -48,6 +48,6 @@ BibTeX: '@Article{Andreev:2015cwa,
       SLACcitation   = "%%CITATION = ARXIV:1502.01683;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A HERA-II-GammaP-Gap
 

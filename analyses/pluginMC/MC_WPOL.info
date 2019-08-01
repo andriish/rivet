@@ -1,5 +1,5 @@
 Name: MC_WPOL
-Summary: Monte Carlo validation observables for $W$ polarisation
+Summary: Monte Carlo ReleaseTests observables for $W$ polarisation
 Status: VALIDATED
 Authors:
 - Frank Siegert <frank.siegert@cern.ch>
@@ -12,6 +12,6 @@ Description:
   fR, fL, f0, separately for W+ and W-.'
 NeedCrossSection: yes
 
-Validation:
+ReleaseTests:
  - $A LHC-W-e
 

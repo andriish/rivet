@@ -40,6 +40,6 @@ BibTeX: '@Article{Abreu:1996na,
      SLACcitation  = "%%CITATION = ZEPYA,C73,11;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

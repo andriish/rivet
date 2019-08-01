@@ -38,6 +38,6 @@ BibTeX: '@Article{Abe:1998zs,
      SLACcitation  = "%%CITATION = HEP-EX/9805029;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

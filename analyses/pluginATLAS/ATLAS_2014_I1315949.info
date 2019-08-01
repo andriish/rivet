@@ -46,6 +46,6 @@ BibTeX: '@article{Aad:2014jgf,
 }'
 
 
-Validation:
+ReleaseTests:
  - $A LHC-Z-mu
 

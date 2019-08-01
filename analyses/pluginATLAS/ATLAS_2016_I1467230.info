@@ -49,7 +49,7 @@ BibTeX: '@article{Aaboud:2016itf,
       SLACcitation   = "%%CITATION = ARXIV:1606.01133;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-13-UE-Long
  - $A-2 LHC-13-UE
 

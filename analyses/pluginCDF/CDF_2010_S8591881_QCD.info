@@ -30,7 +30,7 @@ Description:
   toward region. The transverse regions are most sensitive to the
   underlying event.
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-Jets-0
  - $A-2 TVT-Run-II-Jets-1
  - $A-3 TVT-Run-II-Jets-2

@@ -45,7 +45,7 @@ BibTeX: '@article{Aad:2014qja,
 }'
 
 
-Validation:
+ReleaseTests:
  - $A LHC-Z-LowMass-e
  - $A-2 LHC-Z-LowMass-mu
 

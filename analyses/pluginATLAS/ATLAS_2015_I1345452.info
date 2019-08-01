@@ -53,6 +53,6 @@ BibTeX: '@article{Aad:2015eia,
       SLACcitation   = "%%CITATION = ARXIV:1502.05923;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Top-All
 

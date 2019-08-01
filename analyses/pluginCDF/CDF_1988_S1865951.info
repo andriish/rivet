@@ -33,7 +33,7 @@ BibTeX: '@Article{Abe:1988yu,
      SLACcitation  = "%%CITATION = PRLTA,61,1819;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-630-UE
  - $A-2 TVT-Run-I-UE
 

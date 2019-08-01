@@ -38,7 +38,7 @@ BibTeX: '@Article{Abreu:2000nt,
      SLACcitation  = "%%CITATION = HEP-EX/0103022;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-183
  - $A-2 LEP-189
  - $A-3 LEP-192

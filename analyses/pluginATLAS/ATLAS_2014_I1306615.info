@@ -49,7 +49,7 @@ BibTeX: '@article{Aad:2014lwa,
       SLACcitation   = "%%CITATION = ARXIV:1407.4222;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-8-VBF-GammaGamma
  - $A-2 LHC-8-WH-GammaGamma
  - $A-3 LHC-8-ZH-GammaGamma

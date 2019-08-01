@@ -42,6 +42,6 @@ BibTeX: '@Article{Aaltonen:2009ty,
      SLACcitation  = "%%CITATION = 0910.3623;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-PromptPhoton
 

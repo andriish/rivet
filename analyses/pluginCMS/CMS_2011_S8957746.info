@@ -39,7 +39,7 @@ BibTeX: '@Article{Khachatryan:2011dx,
      SLACcitation  = "%%CITATION = 1102.0068;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Jets-3
  - $A-2 LHC-7-Jets-4
  - $A-3 LHC-7-Jets-5

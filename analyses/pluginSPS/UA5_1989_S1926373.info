@@ -41,7 +41,7 @@ BibTeX: '@Article{Ansorge:1988kn,
      SLACcitation  = "%%CITATION = ZEPYA,C43,357;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A SppS-200-UE
  - $A-2 SppS-900-UE
 

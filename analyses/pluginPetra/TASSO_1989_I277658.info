@@ -34,7 +34,7 @@ BibTeX: '@article{Braunschweig:1989bp,
       SLACcitation   = "%%CITATION = ZEPYA,C45,193;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-14
  - $A-2 LEP-22
  - $A-3 LEP-34.8

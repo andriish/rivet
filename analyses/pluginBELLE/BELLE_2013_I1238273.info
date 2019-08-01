@@ -33,6 +33,6 @@ BibTeX: '@article{Sibidanov:2013rkk,
       SLACcitation   = "%%CITATION = ARXIV:1306.2781;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A BFactory-Upsilon4
 

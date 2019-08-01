@@ -40,7 +40,7 @@ ToDo:
  - Get data into Hepdata
  - Add journal information once available
 
-Validation:
+ReleaseTests:
  - $A LHC-W-e
  - $A-2 LHC-W-mu
 

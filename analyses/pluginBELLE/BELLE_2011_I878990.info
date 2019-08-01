@@ -34,6 +34,6 @@ BibTeX: '@article{Ha:2010rf,
       SLACcitation   = "%%CITATION = ARXIV:1012.0090;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A BFactory-Upsilon4
 

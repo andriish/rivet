@@ -46,6 +46,6 @@ BibTeX: '@article{Khachatryan:2014uva,
       SLACcitation   = "%%CITATION = ARXIV:1406.7533;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-W-mu
 
