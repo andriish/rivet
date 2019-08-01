@@ -38,12 +38,12 @@ namespace Rivet {
   bool Run::readEvent() {
     /// @todo Clear rather than new the GenEvent object per-event?
     _evt.reset(new GenEvent());
-    if(!HepMCUtils::readEvent(_hepmcReader, _evt)){
+    if (!HepMCUtils::readEvent(_hepmcReader, _evt)){
       Log::getLog("Rivet.Run") << Log::DEBUG << "Read failed. End of file?" << endl;
       return false;
     }
     // Rescale event weights by file-level weight, if scaling is non-trivial
-    if (!fuzzyEquals(_fileweight, 1.0)) {
+    if (_fileweight != 1.0) {
       for (size_t i = 0; i < (size_t) _evt->weights().size(); ++i) {
         _evt->weights()[i] *= _fileweight;
       }
@@ -59,26 +59,25 @@ namespace Rivet {
 
     // In case makeReader fails.
     std::string errormessage;
-    
+
     // Set up HepMC input reader objects
     if (evtfile == "-") {
-#ifdef HAVE_LIBZ
+      #ifdef HAVE_LIBZ
       _istr = make_shared<zstr::istream>(std::cin);
       _hepmcReader = HepMCUtils::makeReader(*_istr, &errormessage);
-#else
+      #else
       _hepmcReader = HepMCUtils::makeReader(std::cin, &errormessage);
-#endif
+      #endif
     } else {
       if ( !fileexists(evtfile) )
         throw Error("Event file '" + evtfile + "' not found");
-#ifdef HAVE_LIBZ
+      #ifdef HAVE_LIBZ
       // NB. zstr auto-detects if file is deflated or plain-text
       _istr = make_shared<zstr::ifstream>(evtfile.c_str());
-#else
+      #else
       _istr = make_shared<std::ifstream>(evtfile.c_str());
-#endif
+      #endif
       _hepmcReader = HepMCUtils::makeReader(*_istr, &errormessage);
-      
     }
 
     if (_hepmcReader == nullptr) {
@@ -125,7 +124,7 @@ namespace Rivet {
 
   bool Run::processEvent() {
     // Set cross-section if found in event and not from command line
-    
+
     #if defined ENABLE_HEPMC_3
     if (std::isnan(_xs) && _evt->cross_section()) {
       const double xs = _evt->cross_section()->xsec(); ///< in pb
@@ -141,7 +140,7 @@ namespace Rivet {
       _ah.setCrossSection(xs);
     }
     #endif
-    
+
     // Complain about absence of cross-section if required!
     if (_ah.needCrossSection() && !_ah.hasCrossSection()) {
       Log::getLog("Rivet.Run")
