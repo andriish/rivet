@@ -1,3 +1,7 @@
+2019-08-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Return str(pid) or 0 in PID <-> name translations, rather than throwing PidError.
+
 2019-07-26  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix a longstanding make-plots bug, in which the
