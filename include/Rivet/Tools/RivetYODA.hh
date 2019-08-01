@@ -316,6 +316,11 @@ namespace Rivet {
     T & operator*() { return *active(); }
 
     const T & operator*() const { return *active(); }
+
+    // can be useful for weight analysis (see e.g. MC_WEIGHTS for use)
+    T * _getPersistent (unsigned int iWeight) { return _persistent.at(iWeight).get(); } 
+
+
     /* @todo
      * these need to be re-thought out.
 
