@@ -1,5 +1,7 @@
 2019-08-01  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Fall back to using quark constituents for jet tagging, for fixed-order running.
+
 	* Reinstate the command-line event skipping.
 
 	* Return str(pid) or 0 in PID <-> name translations, rather than throwing PidError.
