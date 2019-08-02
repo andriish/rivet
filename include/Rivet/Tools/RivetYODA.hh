@@ -445,7 +445,7 @@ namespace Rivet {
       : _p(p.get())
     {}
 
-    // Goes right through to the active YODA object's members
+    // Goes right through to the active Wrapper<YODA> object's members
     T & operator->()                            { return  *_p; }
     const T & operator->() const                { return  *_p; }
 

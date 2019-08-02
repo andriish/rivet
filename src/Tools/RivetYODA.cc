@@ -353,7 +353,7 @@ namespace Rivet {
 
         // simple replay of all tuple entries
         // each recorded fill is inserted into all persistent weightname histos
-        for ( size_t m = 0; m < _persistent.size(); ++m )
+        for ( size_t m = 0; m < _persistent.size(); ++m ) //< m is the variation index
             for ( const auto & f : _evgroup[0]->fills() )
                 _persistent[m]->fill( f.first, f.second * weight[0][m] );
 
@@ -450,7 +450,7 @@ namespace Rivet {
     // If not, assume it is a normal analysis path.
     std::regex repath("^(/RAW)?(/REF)?/([^/:]+)(:[^/]+)?(/TMP)?/([^\\[]+)(\\[(.+)\\])?");
     _valid = regex_search(fullpath, m, repath);
-    if ( !_valid ) return;     
+    if ( !_valid ) return;
     _raw = (m[1] == "/RAW");
     _ref = (m[2] == "/REF");
     _analysis = m[3];
@@ -483,7 +483,7 @@ namespace Rivet {
     if ( fullpath.size() < 2 ) return false;
 
     if ( !chopweight(fullpath) ) return false;
-    
+
     string::size_type p = fullpath.find("/");
     if ( p == 0 ) return false;
     if ( p == string::npos ) {
@@ -525,7 +525,7 @@ namespace Rivet {
     anal = anal.substr(0, p);
     return chopoptions(anal);
   }
-    
+
   void AOPath::fixOptionString() {
     ostringstream oss;
     for ( auto optval : _options )
