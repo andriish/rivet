@@ -29,10 +29,9 @@ namespace Rivet {
     void init() {
       /// @todo Convert to Scatter1D or Counter
       book(_h_XS, "XS");
-      book(_h_N, "N");
-      //book(_h_pmXS, "pmXS", 2, -1.0, 1.0);
-      //book(_h_pmN, "pmN", 2, -1.0, 1.0);
-      book(_c_N, "_aux_N");
+      book(_h_N, "N", 1, 0.0, 1.0);
+      book(_h_pmXS, "pmXS", 2, -1.0, 1.0);
+      book(_h_pmN, "pmN", 2, -1.0, 1.0);
 
       _mc_xs = _mc_error = 0.;
     }
@@ -40,10 +39,6 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      _c_N->fill();
-      //_h_pmXS->fill(0.5);
-      //_h_pmN ->fill(0.5);
-      
       #if defined ENABLE_HEPMC_3
       //@todo HepMC3::GenCrossSection methods aren't const accessible :(
       RivetHepMC::GenCrossSection gcs = *(event.genEvent()->cross_section());
@@ -53,15 +48,22 @@ namespace Rivet {
       _mc_xs    = event.genEvent()->cross_section()->cross_section();
       _mc_error = event.genEvent()->cross_section()->cross_section_error();
       #endif // VERSION_CODE >= 3000000
+
+      for (size_t m = 0; m < event.weights().size(); ++m) {
+        const double weight = event.weights()[m];
+        _h_pmXS.get()->_getPersistent(m)->fill(0.5*(weight > 0 ? 1. : -1), abs(weight));
+        _h_pmN.get()->_getPersistent(m)->fill(0.5*(weight > 0 ? 1. : -1), 1.);
+        _h_N.get()->_getPersistent(m)->fill(0.5, 1.0);
+      }
       
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      //scale(_h_pmXS, crossSection()/sumOfWeights());
-      const double N = _c_N->numEntries();
-      _h_N->addPoint(0.5, N, 0.5, sqrt(N));
+      scale(_h_pmXS, crossSection()/sumOfWeights());
+      scale(_h_pmN, 1.0/numEvents());
+      scale(_h_N, 1.0/numEvents());
       #ifndef HEPMC_HAS_CROSS_SECTION
       _mc_xs = crossSection();
       _mc_error = 0.0;
@@ -76,11 +78,8 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    CounterPtr _c_N;
     Scatter2DPtr _h_XS;
-    Scatter2DPtr _h_N;
-    //Histo1DPtr _h_pmXS;
-    //Histo1DPtr _h_pmN;
+    Histo1DPtr _h_pmXS, _h_pmN, _h_N;
     double _mc_xs, _mc_error;
     //@}
 
