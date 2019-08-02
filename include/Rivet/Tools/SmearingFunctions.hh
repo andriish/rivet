@@ -161,9 +161,9 @@ namespace Rivet {
     if (e.abseta() > 2.5 || e.Et() < 20*GeV) return 0.0;
     const int i_et = binIndex(e.Et()/GeV, et_edges, true);
     const int i_eta = binIndex(e.abseta(), eta_edges);
-    const eff_et = et_effs[i_et]; //< integral eff
+    const double eff_et = et_effs[i_et]; //< integral eff
     // Scale to |eta| shape, following the ~85% efficient high-ET bin from Run 1
-    const eff = eff_et * (eta_refs[i_eta]/0.85);
+    const double eff = eff_et * (eta_refs[i_eta]/0.85);
     //return ELECTRON_IDEFF_ATLAS_RUN1_TIGHT(e);
     return eff;
   }
