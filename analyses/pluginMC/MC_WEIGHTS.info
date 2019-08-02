@@ -8,4 +8,5 @@ RunInfo: Suitable for any process.
 PtCuts: [0]
 Description:
   Analysis for studying event weight distributions and fraction of events
-  with negative weights.
+  with negative weights. This analysis will not produce sensible 
+  distributions in case of correlated NLO sub-events.
