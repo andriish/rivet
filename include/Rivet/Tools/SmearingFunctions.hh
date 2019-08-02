@@ -100,7 +100,7 @@ namespace Rivet {
   ///
   /// ~1% increase over Run 1 informed by Fig 1 in https://cds.cern.ch/record/2157687/files/ATLAS-CONF-2016-024.pdf
   inline double ELECTRON_IDEFF_ATLAS_RUN2_MEDIUM(const Particle& e) {
-    return 1.01 * ELECTRON_IDEFF_ATLAS_RUN2_MEDIUM(e);
+    return 1.01 * ELECTRON_IDEFF_ATLAS_RUN1_MEDIUM(e);
   }
 
 
