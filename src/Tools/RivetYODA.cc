@@ -349,26 +349,20 @@ namespace Rivet {
       const bool have_subevents = _evgroup.size() > 1;
       if ( ! have_subevents ) {
 
-
-
-        // simple replay of all tuple entries
-        // each recorded fill is inserted into all persistent weightname histos
-        for ( size_t m = 0; m < _persistent.size(); ++m ) //< m is the variation index
-            for ( const auto & f : _evgroup[0]->fills() )
-                _persistent[m]->fill( f.first, f.second * weight[0][m] );
-
-
+          // simple replay of all tuple entries
+          // each recorded fill is inserted into all persistent weightname histos
+          for ( const auto & f : _evgroup[0]->fills() ) {
+              for ( size_t m = 0; m < _persistent.size(); ++m ) { //< m is the variation index
+                  _persistent[m]->fill( f.first, f.second * weight[0][m] );
+              }
+          }
 
       } else {
-
-
 
         // outer index is subevent, inner index is jets in the event
         vector<vector<Fill<T>>> linedUpXs
             = match_fills<T>(_evgroup, {typename T::FillType(), 0.0});
         commit<T>( _persistent, linedUpXs, weight );
-
-
 
       }
       _evgroup.clear();
@@ -388,9 +382,9 @@ namespace Rivet {
 
   template <>
   void Wrapper<YODA::Counter>::pushToPersistent(const vector<valarray<double> >& weight) {
-    for ( size_t m = 0; m < _persistent.size(); ++m ) {
-      for ( size_t n = 0; n < _evgroup.size(); ++n ) {
-        for ( const auto & f : _evgroup[n]->fills() ) {
+    for ( size_t n = 0; n < _evgroup.size(); ++n ) {
+      for ( const auto & f : _evgroup[n]->fills() ) {
+        for ( size_t m = 0; m < _persistent.size(); ++m ) {
           _persistent[m]->fill( f.second * weight[n][m] );
         }
       }

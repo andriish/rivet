@@ -1,3 +1,7 @@
+2019-08-03  Christian Gutschow  <chris.g@cern.ch>
+
+	* Skip loop over variation weights if AO hasn't been filled
+
 2019-08-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Some improvements to Run 2 electron medium & tight ID efficiency parametrisations.
