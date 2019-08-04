@@ -27,9 +27,9 @@ namespace Rivet {
       _runZ = true;
       _runW = true;
       if ( getOption("LMODE") == "EL" || 
-       getOption("LMODE") == "ZEL" ||
-       getOption("LMODE") == "WEL" ) 
-      _mode = 1;
+	   getOption("LMODE") == "ZEL" ||
+	   getOption("LMODE") == "WEL" ) 
+	_mode = 1;
       if ( getOption("LMODE") == "MU" || 
 	   getOption("LMODE") == "ZMU" ||
 	   getOption("LMODE") == "WMU" ) 
@@ -101,9 +101,13 @@ namespace Rivet {
 	else if (_mode !=1 && wfinderm.bosons().size() == 1 ) {
 	  lep = wfinderm.constituentLeptons()[0];
 	}
-	if (lep.charge3() > 0)  _h_Wp_eta->fill(lep.abseta());
-	else                    _h_Wm_eta->fill(lep.abseta());
-	
+
+	if (lep.charge3() == 3) {
+	  _h_Wp_eta->fill(lep.abseta()); 
+	}
+	else if (lep.charge3() == -3) {
+	  _h_Wm_eta->fill(lep.abseta());
+	}
       }
 
       // now the Z stuff. 
