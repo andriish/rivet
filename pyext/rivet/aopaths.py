@@ -11,7 +11,7 @@ def isRawAO(ao):
     return isRawPath(ao.path)
 
 def isTheoryAO(ao):
-    return isTheryPath(ao.path)
+    return isTheoryPath(ao.path)
 
 def stripOptions(path):
     import re
