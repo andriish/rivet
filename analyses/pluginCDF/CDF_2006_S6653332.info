@@ -43,6 +43,6 @@ BibTeX: '@Article{Abulencia:2006ce,
      SLACcitation  = "%%CITATION = HEP-EX/0605099;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-Z-mu
 

@@ -36,6 +36,6 @@ BibTeX: '@Article{Alexopoulos:1998bi,
      SLACcitation  = "%%CITATION = PHLTA,B435,453;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-I-UE
 

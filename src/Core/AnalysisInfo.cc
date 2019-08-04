@@ -79,7 +79,7 @@ namespace Rivet {
     TRY_GETINFO_SEQ("ToDo", todos);
     TRY_GETINFO_SEQ("Keywords", keywords);
     TRY_GETINFO_SEQ("Options", options);
-    TRY_GETINFO_SEQ("Validation", validation);
+    TRY_GETINFO_SEQ("ReleaseTests", validation);
     #undef TRY_GETINFO_SEQ
 
     // Build the option map

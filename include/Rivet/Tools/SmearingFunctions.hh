@@ -97,9 +97,10 @@ namespace Rivet {
   }
 
   /// @brief ATLAS Run 2 'medium' electron identification/selection efficiency
-  /// @todo Currently just a copy of Run 1: fix!
+  ///
+  /// ~1% increase over Run 1 informed by Fig 1 in https://cds.cern.ch/record/2157687/files/ATLAS-CONF-2016-024.pdf
   inline double ELECTRON_IDEFF_ATLAS_RUN2_MEDIUM(const Particle& e) {
-    return ELECTRON_IDEFF_ATLAS_RUN1_MEDIUM(e);
+    return 1.01 * ELECTRON_IDEFF_ATLAS_RUN1_MEDIUM(e);
   }
 
 
@@ -150,9 +151,21 @@ namespace Rivet {
   }
 
   /// @brief ATLAS Run 2 'tight' electron identification/selection efficiency
-  /// @todo Currently just a copy of Run 1: fix!
+  ///
+  /// ~1% increase over Run 1 informed by Fig 1 in https://cds.cern.ch/record/2157687/files/ATLAS-CONF-2016-024.pdf
   inline double ELECTRON_IDEFF_ATLAS_RUN2_TIGHT(const Particle& e) {
-    return ELECTRON_IDEFF_ATLAS_RUN1_TIGHT(e);
+    const static vector<double> et_edges = { /* 10, 15, */ 20, 25, 30, 35, 40, 45, 50, 60, 80 };
+    const static vector<double> et_effs = { 0.785, 0.805, 0.820, 0.830, 0.840, 0.850, 0.875, 0.910 };
+    const static vector<double> eta_edges = {0.000, 0.051, 0.374, 0.720, 0.981, 1.279, 1.468, 1.707, 1.945, 2.207, 2.457, 2.500}; // from ET > 80 bin
+    const static vector<double> eta_refs =    {0.819, 0.855, 0.899, 0.906, 0.900, 0.869, 0.865, 0.873, 0.869, 0.868, 0.859};
+    if (e.abseta() > 2.5 || e.Et() < 20*GeV) return 0.0;
+    const int i_et = binIndex(e.Et()/GeV, et_edges, true);
+    const int i_eta = binIndex(e.abseta(), eta_edges);
+    const double eff_et = et_effs[i_et]; //< integral eff
+    // Scale to |eta| shape, following the ~85% efficient high-ET bin from Run 1
+    const double eff = eff_et * (eta_refs[i_eta]/0.85);
+    //return ELECTRON_IDEFF_ATLAS_RUN1_TIGHT(e);
+    return eff;
   }
 
 

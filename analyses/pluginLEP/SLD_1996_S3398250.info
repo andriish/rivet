@@ -35,6 +35,6 @@ BibTeX: '@Article{Abe:1996zi,
      SLACcitation  = "%%CITATION = HEP-EX/9608008;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

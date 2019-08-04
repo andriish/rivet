@@ -37,6 +37,6 @@ BibTeX: '@article{Aubert:2002hc,
       SLACcitation   = "%%CITATION = HEP-EX/0207097;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A BFactory-10.58-res
 

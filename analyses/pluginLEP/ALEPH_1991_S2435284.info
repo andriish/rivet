@@ -39,6 +39,6 @@ BibTeX: '@Article{Decamp:1991uz,
      SLACcitation  = "%%CITATION = PHLTA,B273,181;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

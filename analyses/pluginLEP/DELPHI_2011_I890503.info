@@ -39,6 +39,6 @@ BibTeX: '@article{DELPHI:2011aa,
       SLACcitation   = "%%CITATION = ARXIV:1102.4748;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

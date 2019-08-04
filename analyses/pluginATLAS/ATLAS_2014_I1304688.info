@@ -42,6 +42,6 @@ BibTeX: '@article{Aad:2014iaa,
       SLACcitation   = "%%CITATION = ARXIV:1407.0891;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Top-All
 

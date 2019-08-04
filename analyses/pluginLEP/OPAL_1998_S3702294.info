@@ -37,6 +37,6 @@ BibTeX: '@Article{Ackerstaff:1998ue,
      SLACcitation  = "%%CITATION = HEP-EX/9802013;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

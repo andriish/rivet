@@ -43,7 +43,7 @@ BibTeX: '@article{Aad:2011hd,
       SLACcitation   = "%%CITATION = ARXIV:1111.1297;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-UE-Long
  - $A-2 LHC-900-UE-Long
 

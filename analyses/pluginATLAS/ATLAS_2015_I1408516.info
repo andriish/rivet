@@ -42,7 +42,7 @@ BibTeX: '@article{Aad:2015auj,
       SLACcitation   = "%%CITATION = ARXIV:1512.02192;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-8-Z-Mass1-e
  - $A-2 LHC-8-Z-Mass1-mu
  - $A-3 LHC-8-Z-Mass2-e

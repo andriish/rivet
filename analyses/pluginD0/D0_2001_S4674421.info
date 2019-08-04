@@ -41,6 +41,6 @@ BibTeX: '@Article{Abazov:2001nta,
      SLACcitation  = "%%CITATION = HEP-EX/0107012;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-I-WZ
 

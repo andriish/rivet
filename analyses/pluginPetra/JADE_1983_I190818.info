@@ -33,7 +33,7 @@ BibTeX: '@article{Bartel:1983qp,
       SLACcitation   = "%%CITATION = ZEPYA,C20,187;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-12
  - $A-2 LEP-30
  - $A-3 LEP-35

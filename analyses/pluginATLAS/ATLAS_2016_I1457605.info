@@ -37,7 +37,7 @@ BibTeX: '@article{Aad:2016xcr,
       SLACcitation   = "%%CITATION = ARXIV:1605.03495;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-8-PromptPhoton-1
  - $A-2 LHC-8-PromptPhoton-2
  - $A-3 LHC-8-PromptPhoton-3

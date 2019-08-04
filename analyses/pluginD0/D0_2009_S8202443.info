@@ -41,6 +41,6 @@ BibTeX: '@Article{Abazov:2009av,
      SLACcitation  = "%%CITATION = 0903.1748;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-Z-e
 

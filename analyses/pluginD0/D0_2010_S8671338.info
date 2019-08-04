@@ -42,6 +42,6 @@ BibTeX: '@Article{Abazov:2010kn,
      SLACcitation  = "%%CITATION = 1006.0618;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-Z-mu
 

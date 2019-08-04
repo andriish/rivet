@@ -42,7 +42,7 @@ BibTeX: '@Article{:2008hua,
      SLACcitation  = "%%CITATION = 0802.2400;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-Jets-0
  - $A-2 TVT-Run-II-Jets-1
  - $A-3 TVT-Run-II-Jets-2

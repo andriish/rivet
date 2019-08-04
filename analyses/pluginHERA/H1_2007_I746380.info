@@ -45,6 +45,6 @@ BibTeX: '@article{Aktas:2007hn,
       SLACcitation   = "%%CITATION = HEP-EX/0703022;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A HERA-I-GammaP-Gap
 

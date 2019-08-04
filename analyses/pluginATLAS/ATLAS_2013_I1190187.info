@@ -48,6 +48,6 @@ BibTeX: '@article{ATLAS:2012mec,
       SLACcitation   = "%%CITATION = ARXIV:1210.2979;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-WW-ll
 

@@ -38,6 +38,6 @@ BibTeX: '@article{Chatrchyan:2013xxa,
       SLACcitation   = "%%CITATION = ARXIV:1312.5729;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-W-mu
 

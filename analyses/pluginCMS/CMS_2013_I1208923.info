@@ -42,7 +42,7 @@ BibTeX: '@article{Chatrchyan:2012bja,
       SLACcitation   = "%%CITATION = ARXIV:1212.6660;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-DiJets-1-A
  - $A-2 LHC-7-DiJets-2-A
  - $A-3 LHC-7-DiJets-3-A

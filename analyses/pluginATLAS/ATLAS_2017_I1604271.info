@@ -44,7 +44,7 @@ BibTeX: '@article{Aaboud:2017dvo,
       SLACcitation   = "%%CITATION = ARXIV:1706.03192;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-8-Jets-10
  - $A-2 LHC-8-Jets-3
  - $A-3 LHC-8-Jets-4

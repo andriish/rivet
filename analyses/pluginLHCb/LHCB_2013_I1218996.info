@@ -53,7 +53,7 @@ BibTeX: '@article{Aaij:2013mga,
       SLACcitation   = "%%CITATION = ARXIV:1302.2864;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Bottom-1
  - $A-2 LHC-7-Charm-1
 

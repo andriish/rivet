@@ -30,6 +30,6 @@ BibTeX: '@article{Buskulic:1994ft,
 }'
 
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

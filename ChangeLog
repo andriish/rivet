@@ -1,3 +1,46 @@
+2019-08-03  Christian Gutschow  <chris.g@cern.ch>
+
+	* Skip loop over variation weights if AO hasn't been filled
+
+2019-08-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Some improvements to Run 2 electron medium & tight ID efficiency parametrisations.
+
+2019-08-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fall back to using quark constituents for jet tagging, for fixed-order running.
+
+	* Reinstate the command-line event skipping.
+
+	* Return str(pid) or 0 in PID <-> name translations, rather than throwing PidError.
+
+2019-08-01 Christian Gutschow  <chris.g@cern.ch>
+
+	* Filling _h_N with the N events rather than weights (MC_XS)
+	* Changing Validation to ReleaseTests in all info files
+	* Re-instating MC_WEIGHTS, MC_XS
+
+2019-07-30 Christian Gutschow  <chris.g@cern.ch>
+
+	* Just discussed with Andy: Removing regression reference files
+	from installation since other developer output (e.g. for the website)
+	is also not included
+
+2019-07-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix a longstanding make-plots bug, in which the
+	XMajorTickLineColor defaulted to '0.3pt' -- TeX xcolor versions
+	started to complain about this in some Fedora >27 version.
+
+2019-07-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add CMS_2018_I1646260 soft-lepton SUSY search analysis (used for
+	recasting comparisons at Les Houches 2019).
+
+2019-07-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add ATLAS_2018_I1667046 ATLAS 36/fb RPV SUSY search.
+
 2019-07-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix logic error in HasNoTag functor.

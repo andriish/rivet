@@ -46,6 +46,6 @@ BibTeX: '@Article{Abazov:2008qv,
      SLACcitation  = "%%CITATION = 0807.3367;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-W
 

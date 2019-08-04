@@ -33,6 +33,6 @@ BibTeX: '@Article{Abreu:1998nn,
      SLACcitation  = "%%CITATION = PHLTA,B449,364;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

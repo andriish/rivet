@@ -52,6 +52,6 @@ BibTeX: '@Article{Affolder:1999jh,
      SLACcitation  = "%%CITATION = HEP-EX/0001021;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-I-Z
 

@@ -40,6 +40,6 @@ ToDo:
  - Normalise to generator values (just scale by 1/nPassedCuts?) rather than data areas?
 
 # Currently disabled
-# Validation:
+# ReleaseTests:
 #  - $A Star-UE
 

@@ -48,7 +48,7 @@ BibTeX: '@Article{Abulencia:2007ez,
      SLACcitation  = "%%CITATION = HEP-EX/0701051;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-Jets-0
  - $A-2 TVT-Run-II-Jets-1
  - $A-3 TVT-Run-II-Jets-2

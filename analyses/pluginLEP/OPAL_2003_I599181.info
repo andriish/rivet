@@ -39,6 +39,6 @@ BibTeX: '@article{Abbiendi:2002vt,
 }'
 
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

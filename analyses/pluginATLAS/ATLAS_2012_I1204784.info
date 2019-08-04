@@ -37,7 +37,7 @@ BibTeX: '@article{Aad:2012wfa,
       SLACcitation   = "%%CITATION = ARXIV:1211.6899;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-Z-e
  - $A-2 LHC-Z-mu
 

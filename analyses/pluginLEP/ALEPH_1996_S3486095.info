@@ -33,6 +33,6 @@ BibTeX: '@Article{Barate:1996fi,
      SLACcitation  = "%%CITATION = PRPLC,294,1;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

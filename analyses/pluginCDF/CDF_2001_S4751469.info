@@ -44,7 +44,7 @@ BibTeX: '@Article{Affolder:2001xt,
      SLACcitation  = "%%CITATION = PHRVA,D65,092002;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-I-Jets-1
  - $A-2 TVT-Run-I-UE
 

@@ -40,6 +40,6 @@ BibTeX: '@Article{Abe:1996nn,
      SLACcitation  = "%%CITATION = HEP-EX/9605004;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-I-Jets-5
 

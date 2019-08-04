@@ -35,7 +35,7 @@ BibTeX: '@article{Berger:1980zb,
       SLACcitation   = "%%CITATION = PHLTA,B95,313;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-12
  - $A-2 LEP-13
  - $A-3 LEP-17

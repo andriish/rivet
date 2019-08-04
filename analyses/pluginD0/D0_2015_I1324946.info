@@ -42,7 +42,7 @@ BibTeX: '@article{Abazov:2014mza,
       SLACcitation   = "%%CITATION = ARXIV:1410.8052;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-Z-HighMass-mu
  - $A-2 TVT-Run-II-Z-LowMass-mu
  - $A-3 TVT-Run-II-Z-mu

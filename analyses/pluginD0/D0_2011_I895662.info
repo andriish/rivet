@@ -39,6 +39,6 @@ BibTeX: '@article{Abazov:2011ub,
       SLACcitation   = "%%CITATION = ARXIV:1104.1986;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-Jets-5
 

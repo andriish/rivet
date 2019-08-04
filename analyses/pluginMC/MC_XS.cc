@@ -15,9 +15,7 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    MC_XS()
-      : Analysis("MC_XS")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(MC_XS);
 
     //@}
 
@@ -34,15 +32,13 @@ namespace Rivet {
       book(_h_N, "N", 1, 0.0, 1.0);
       book(_h_pmXS, "pmXS", 2, -1.0, 1.0);
       book(_h_pmN, "pmN", 2, -1.0, 1.0);
+
       _mc_xs = _mc_error = 0.;
     }
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      _h_N->fill(0.5);
-      _h_pmXS->fill(0.5);
-      _h_pmN ->fill(0.5);
-      
+
       #if defined ENABLE_HEPMC_3
       //@todo HepMC3::GenCrossSection methods aren't const accessible :(
       RivetHepMC::GenCrossSection gcs = *(event.genEvent()->cross_section());
@@ -52,6 +48,13 @@ namespace Rivet {
       _mc_xs    = event.genEvent()->cross_section()->cross_section();
       _mc_error = event.genEvent()->cross_section()->cross_section_error();
       #endif // VERSION_CODE >= 3000000
+
+      for (size_t m = 0; m < event.weights().size(); ++m) {
+        const double weight = event.weights()[m];
+        _h_pmXS.get()->_getPersistent(m)->fill(0.5*(weight > 0 ? 1. : -1), abs(weight));
+        _h_pmN.get()->_getPersistent(m)->fill(0.5*(weight > 0 ? 1. : -1), 1.);
+        _h_N.get()->_getPersistent(m)->fill(0.5, 1.0);
+      }
       
     }
 
@@ -59,6 +62,8 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       scale(_h_pmXS, crossSection()/sumOfWeights());
+      scale(_h_pmN, 1.0/numEvents());
+      scale(_h_N, 1.0/numEvents());
       #ifndef HEPMC_HAS_CROSS_SECTION
       _mc_xs = crossSection();
       _mc_error = 0.0;
@@ -74,9 +79,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Scatter2DPtr _h_XS;
-    Histo1DPtr _h_N;
-    Histo1DPtr _h_pmXS;
-    Histo1DPtr _h_pmN;
+    Histo1DPtr _h_pmXS, _h_pmN, _h_N;
     double _mc_xs, _mc_error;
     //@}
 

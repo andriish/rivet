@@ -37,7 +37,7 @@ BibTeX: '@Article{Aaltonen:2008dn,
      SLACcitation  = "%%CITATION = 0812.4036;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-Jets-10
  - $A-2 TVT-Run-II-Jets-11
  - $A-3 TVT-Run-II-Jets-8

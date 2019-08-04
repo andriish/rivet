@@ -55,7 +55,7 @@ BibTeX: '@article{Aad:2014xca,
 }'
 
 
-Validation:
+ReleaseTests:
  - $A LHC-W-e
  - $A-2 LHC-W-mu
 

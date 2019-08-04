@@ -44,6 +44,6 @@ BibTeX: '@article{Chatrchyan:2011wt,
       SLACcitation   = "%%CITATION = ARXIV:1406.0113;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-8-ZZ-lv
 

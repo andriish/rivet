@@ -16,6 +16,6 @@ Description:
 Options:
 - TTMODE=ALLHAD,ONELEP,TWOLEP,ANYLEP
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Top-SL
 

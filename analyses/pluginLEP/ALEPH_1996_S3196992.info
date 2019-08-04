@@ -40,6 +40,6 @@ BibTeX: '@Article{Buskulic:1995au,
      SLACcitation  = "%%CITATION = ZEPYA,C69,365;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91-nopi
 

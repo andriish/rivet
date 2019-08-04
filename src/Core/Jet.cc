@@ -166,17 +166,27 @@ namespace Rivet {
 
   Particles Jet::bTags(const Cut& c) const {
     Particles rtn;
+    // First try for ghost-associated b-tag particles
     for (const Particle& tp : tags()) {
       if (hasBottom(tp) && c->accept(tp)) rtn.push_back(tp);
+    }
+    // If no proper tags found, look for b quark constituents
+    if (rtn.empty()) {
+      rtn = filter_select(constituents(), hasAbsPID(PID::BQUARK));
     }
     return rtn;
   }
 
   Particles Jet::cTags(const Cut& c) const {
     Particles rtn;
+    // First try for ghost-associated c-tag particles
     for (const Particle& tp : tags()) {
       /// @todo Is making b and c tags exclusive the right thing to do?
       if (hasCharm(tp) && !hasBottom(tp) && c->accept(tp)) rtn.push_back(tp);
+    }
+    // If no proper tags found, look for b quark constituents
+    if (rtn.empty()) {
+      rtn = filter_select(constituents(), hasAbsPID(PID::CQUARK));
     }
     return rtn;
   }

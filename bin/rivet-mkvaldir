@@ -202,7 +202,7 @@ mf.write("""#
 # as "make" recipes where the output YODA file can be given by $@ and the
 # HepMC file by $< possible options must then be included by explicitly
 #
-# When submitting a new analysis to Rivet, the "Validation:" section
+# When submitting a new analysis to Rivet, the "ReleaseTests:" section
 # of the .info file must be present and all the corresponding YODA
 # reference file should be be included in the submission. If a
 # non-standard HepMC file is needed to reproduce the reference YODA,

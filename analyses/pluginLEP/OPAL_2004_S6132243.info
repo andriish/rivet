@@ -41,7 +41,7 @@ BibTeX: '@Article{Abbiendi:2004qz,
      SLACcitation  = "%%CITATION = HEP-EX/0503051;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-133
  - $A-2 LEP-177
  - $A-3 LEP-197

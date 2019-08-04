@@ -45,7 +45,7 @@ BibTeX: '@article{Aaboud:2019jcc,
       SLACcitation   = "%%CITATION = ARXIV:1902.00377;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-13-Top-L
  - $A-2 LHC-13-Z-el-jets :LMODE=ELEL
  - $A-3 LHC-13-Z-mu-jets :LMODE=MUMU

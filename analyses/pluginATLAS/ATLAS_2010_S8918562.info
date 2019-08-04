@@ -30,6 +30,6 @@ Description:
   ones. The observed distributions are corrected to well-defined
   phase-space regions, using model-independent corrections.
 
-Validation:
+ReleaseTests:
  - $A LHC-2360-UE
 

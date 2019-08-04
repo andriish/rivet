@@ -37,6 +37,6 @@ BibTeX: '@article{Heister:2001kp,
       SLACcitation   = "%%CITATION = HEP-EX/0201012;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

@@ -49,6 +49,6 @@ BibTeX: '@article{Aad:2014qxa,
       SLACcitation   = "%%CITATION = ARXIV:1409.8639;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-W-e
 

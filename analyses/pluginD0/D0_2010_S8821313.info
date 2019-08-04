@@ -37,7 +37,7 @@ BibTeX: '@Article{Abazov:2010mk,
 ToDo:
 
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-Z-e
  - $A-2 TVT-Run-II-Z-mu
 

@@ -41,7 +41,7 @@ BibTeX: '@article{Aubert:2005cu,
       SLACcitation   = "%%CITATION = HEP-EX/0504014;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A BFactory-10.54
  - $A-2 BFactory-10.58
 

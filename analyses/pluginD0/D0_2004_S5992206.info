@@ -38,7 +38,7 @@ BibTeX: '@Article{Abazov:2004hm,
      SLACcitation  = "%%CITATION = HEP-EX/0409040;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-Jets-3
  - $A-2 TVT-Run-II-Jets-4
  - $A-3 TVT-Run-II-Jets-5

@@ -35,7 +35,7 @@ BibTex: '@article{Aad:2015lha,
       SLACcitation   = "%%CITATION = ARXIV:1504.05833;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-8-VBF
  - $A-2 LHC-8-WH
  - $A-3 LHC-8-ZH

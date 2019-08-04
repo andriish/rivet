@@ -40,6 +40,6 @@ BibTeX: '@article{Lees:2013rqd,
       SLACcitation   = "%%CITATION = ARXIV:1306.2895;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A BFactory-10.54
 

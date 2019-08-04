@@ -37,7 +37,7 @@ BibTeX: '@article{Khachatryan:2011zj,
       primaryClass   = "hep-ex",}'
 
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Jets-3
  - $A-2 LHC-7-Jets-4
  - $A-3 LHC-7-Jets-5

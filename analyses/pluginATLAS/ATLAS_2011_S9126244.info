@@ -42,7 +42,7 @@ BibTeX: '@Article{Aad:2011jz,
      primaryClass  =  "hep-ex",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Jets-1
  - $A-2 LHC-7-Jets-10
  - $A-3 LHC-7-Jets-2

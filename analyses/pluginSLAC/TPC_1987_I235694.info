@@ -35,6 +35,6 @@ BibTeX: '@article{Aihara:1986mv,
       SLACcitation   = "%%CITATION = PHLTA,B184,299;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-29
 

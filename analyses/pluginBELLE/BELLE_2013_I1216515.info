@@ -42,6 +42,6 @@ BibTeX: '@article{Leitgab:2013qh,
       SLACcitation   = "%%CITATION = ARXIV:1301.6183;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A BFactory-10.52
 

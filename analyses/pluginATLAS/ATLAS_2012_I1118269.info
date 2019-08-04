@@ -41,7 +41,7 @@ BibTeX: '@article{:2012fc,
       SLACcitation   = "%%CITATION = ARXIV:1206.3122;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Bottom-1
  - $A-2 LHC-7-Bottom-2
  - $A-3 LHC-7-Bottom-3

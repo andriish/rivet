@@ -39,7 +39,7 @@ BibTeX: '@Article{Affolder:2001fa,
      SLACcitation  = "%%CITATION = HEP-PH/0102074;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-I-Jets-1
  - $A-2 TVT-Run-I-Jets-2
  - $A-3 TVT-Run-I-Jets-3

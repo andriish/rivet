@@ -45,7 +45,7 @@ BibTeX: '@article{Aaboud:2017wsi,
       SLACcitation   = "%%CITATION = ARXIV:1711.02692;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-13-Jets-10
  - $A-2 LHC-13-Jets-3
  - $A-3 LHC-13-Jets-4

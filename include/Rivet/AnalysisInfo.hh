@@ -51,7 +51,7 @@ namespace Rivet {
     void setName(const std::string& name) { _name = name; }
 
     /// Get the reference data name of the analysis (if different from plugin name).
-    std::string getRefDataName() const { 
+    std::string getRefDataName() const {
       if (!_refDataName.empty())  return _refDataName;
       return name();
     }
@@ -213,10 +213,8 @@ namespace Rivet {
     }
 
     /// Return true if this analysis needs to know the process cross-section.
+    /// @deprecated Cross-section should now always be available from the HepMC
     bool needsCrossSection() const { return _needsCrossSection; }
-
-    /// Return true if this analysis needs to know the process cross-section.
-
 
     /// Return true if finalize() can be run multiple times for this analysis.
     bool reentrant() const { return _reentrant; }
@@ -264,7 +262,7 @@ namespace Rivet {
     bool multiweight() const {
       return !statuscheck("SINGLEWEIGHT");
     }
-    
+
 
     bool statuscheck(string word) const {
       auto pos =_status.find(word);
@@ -305,9 +303,9 @@ namespace Rivet {
     std::map< std::string, std::set<std::string> > _optionmap;
 
     std::vector<std::string> _validation;
-    
+
     bool _reentrant;
-    
+
     void clear() {
       _name = "";
       _refDataName = "";

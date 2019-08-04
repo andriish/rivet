@@ -36,6 +36,6 @@ BibTeX: '@article{Lees:2014ihu,
       SLACcitation   = "%%CITATION = ARXIV:1412.5502;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A BFactory-Upsilon4
 

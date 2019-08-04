@@ -43,6 +43,6 @@ BibTeX: '@article{Aad:2011cx,
       SLACcitation   = "%%CITATION = ARXIV:1111.5570;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-WZ
 

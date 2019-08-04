@@ -64,7 +64,7 @@ BibTeX: '@article{Chatrchyan:2013oda,
 ToDo:
  - Update reference when paper published
 
-Validation:
+ReleaseTests:
  - $A LHC-7-PromptPhoton-1
  - $A-2 LHC-7-PromptPhoton-2
  - $A-3 LHC-7-PromptPhoton-3

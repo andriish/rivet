@@ -39,7 +39,7 @@ BibTeX: '@article{Abbiendi:2002vn,
       SLACcitation   = "%%CITATION = HEP-EX/0211007;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-130
  - $A-2 LEP-136
  - $A-3 LEP-161

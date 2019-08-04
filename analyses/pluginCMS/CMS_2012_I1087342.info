@@ -41,7 +41,7 @@ BibTeX: '@article{Chatrchyan:2012gwa,
       reportNumber   = "CMS-FWD-11-002, CERN-PH-EP-2011-179",
       SLACcitation   = "%%CITATION = ARXIV:1202.0704;%%",}'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Jets-0
  - $A-2 LHC-7-Jets-1
  - $A-3 LHC-7-Jets-10

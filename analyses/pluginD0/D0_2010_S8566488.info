@@ -37,7 +37,7 @@ BibTeX: '@Article{Abazov:2010fr,
      SLACcitation  = "%%CITATION = 1002.4594;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-Jets-10
  - $A-2 TVT-Run-II-Jets-11
  - $A-3 TVT-Run-II-Jets-8

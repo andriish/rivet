@@ -50,7 +50,7 @@ BibTeX: '@article{ATLAS:2012am,
  
 
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Jets-10
  - $A-2 LHC-7-Jets-4
  - $A-3 LHC-7-Jets-5

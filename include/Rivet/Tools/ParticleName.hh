@@ -182,19 +182,17 @@ namespace Rivet {
     class ParticleNames {
     public:
 
-      static const std::string& particleName(PdgId pid) {
-        /// @todo Isn't there a nicer, pointerless way to do singletons?
+      static std::string particleName(PdgId pid) {
         if (!_instance) _instance = unique_ptr<ParticleNames>(new ParticleNames);
         return _instance->_particleName(pid);
       }
 
       static PdgId particleId(const std::string& pname) {
-        /// @todo Isn't there a nicer, pointerless way to do singletons?
         if (!_instance) _instance = unique_ptr<ParticleNames>(new ParticleNames);
         return _instance->_particleId(pname);
       }
 
-      const std::string& _particleName(PdgId pid);
+      std::string _particleName(PdgId pid);
 
       PdgId _particleId(const std::string& pname);
 
@@ -250,7 +248,7 @@ namespace Rivet {
 
 
     /// Print a PdgId as a named string.
-    inline const std::string& toParticleName(PdgId p) {
+    inline std::string toParticleName(PdgId p) {
       return ParticleNames::particleName(p);
     }
 

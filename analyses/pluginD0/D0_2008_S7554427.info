@@ -42,6 +42,6 @@ BibTeX: '@Article{:2007nt,
      SLACcitation  = "%%CITATION = 0712.0803;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-Z-e
 

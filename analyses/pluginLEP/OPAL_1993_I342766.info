@@ -32,6 +32,6 @@ BibTeX: '@article{Acton:1992us,
 }'
 
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

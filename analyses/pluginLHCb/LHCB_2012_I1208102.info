@@ -47,6 +47,6 @@ BibTeX: '@article{Aaij:2012mda,
       SLACcitation   = "%%CITATION = ARXIV:1212.4620;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-Z-MedMass-e
 

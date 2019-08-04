@@ -49,7 +49,7 @@ BibTeX: '@article{Chatrchyan:2011wt,
       SLACcitation   = "%%CITATION = ARXIV:1110.4973;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-Z-e
  - $A-2 LHC-Z-mu
 

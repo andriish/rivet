@@ -36,6 +36,6 @@ BibTeX: '@Article{Abe:2003iy,
      SLACcitation  = "%%CITATION = HEP-EX/0310017;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

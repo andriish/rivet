@@ -36,6 +36,6 @@ BibTeX: '@Article{Artuso:2004pj,
      SLACcitation  = "%%CITATION = HEP-EX/0402040;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A BFactory-10.52-sym
 

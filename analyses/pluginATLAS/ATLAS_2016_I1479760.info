@@ -42,6 +42,6 @@ BibTeX: '@article{Aaboud:2016dea,
       SLACcitation   = "%%CITATION = ARXIV:1608.01857;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Jets-3
 

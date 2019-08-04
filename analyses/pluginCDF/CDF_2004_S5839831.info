@@ -52,7 +52,7 @@ BibTeX: '@Article{Acosta:2004wqa,
      SLACcitation  = "%%CITATION = HEP-EX/0404004;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-630-Jets-1
  - $A-2 TVT-630-Jets-2
  - $A-3 TVT-630-Jets-3

@@ -316,6 +316,11 @@ namespace Rivet {
     T & operator*() { return *active(); }
 
     const T & operator*() const { return *active(); }
+
+    // can be useful for weight analysis (see e.g. MC_WEIGHTS for use)
+    T * _getPersistent (unsigned int iWeight) { return _persistent.at(iWeight).get(); } 
+
+
     /* @todo
      * these need to be re-thought out.
 
@@ -440,7 +445,7 @@ namespace Rivet {
       : _p(p.get())
     {}
 
-    // Goes right through to the active YODA object's members
+    // Goes right through to the active Wrapper<YODA> object's members
     T & operator->()                            { return  *_p; }
     const T & operator->() const                { return  *_p; }
 

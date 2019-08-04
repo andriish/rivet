@@ -38,6 +38,6 @@ BibTeX: '@Article{Abelev:2006cs,
      SLACcitation  = "%%CITATION = NUCL-EX/0607033;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A Star-UE
 

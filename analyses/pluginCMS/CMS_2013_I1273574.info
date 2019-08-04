@@ -43,7 +43,7 @@ BibTeX: '@article{Chatrchyan:2013qza,
       SLACcitation   = "%%CITATION = ARXIV:1312.6440;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LHC-7-Jets-1
  - $A-2 LHC-7-Jets-10
  - $A-3 LHC-7-Jets-2

@@ -349,26 +349,20 @@ namespace Rivet {
       const bool have_subevents = _evgroup.size() > 1;
       if ( ! have_subevents ) {
 
-
-
-        // simple replay of all tuple entries
-        // each recorded fill is inserted into all persistent weightname histos
-        for ( size_t m = 0; m < _persistent.size(); ++m )
-            for ( const auto & f : _evgroup[0]->fills() )
-                _persistent[m]->fill( f.first, f.second * weight[0][m] );
-
-
+          // simple replay of all tuple entries
+          // each recorded fill is inserted into all persistent weightname histos
+          for ( const auto & f : _evgroup[0]->fills() ) {
+              for ( size_t m = 0; m < _persistent.size(); ++m ) { //< m is the variation index
+                  _persistent[m]->fill( f.first, f.second * weight[0][m] );
+              }
+          }
 
       } else {
-
-
 
         // outer index is subevent, inner index is jets in the event
         vector<vector<Fill<T>>> linedUpXs
             = match_fills<T>(_evgroup, {typename T::FillType(), 0.0});
         commit<T>( _persistent, linedUpXs, weight );
-
-
 
       }
       _evgroup.clear();
@@ -388,9 +382,9 @@ namespace Rivet {
 
   template <>
   void Wrapper<YODA::Counter>::pushToPersistent(const vector<valarray<double> >& weight) {
-    for ( size_t m = 0; m < _persistent.size(); ++m ) {
-      for ( size_t n = 0; n < _evgroup.size(); ++n ) {
-        for ( const auto & f : _evgroup[n]->fills() ) {
+    for ( size_t n = 0; n < _evgroup.size(); ++n ) {
+      for ( const auto & f : _evgroup[n]->fills() ) {
+        for ( size_t m = 0; m < _persistent.size(); ++m ) {
           _persistent[m]->fill( f.second * weight[n][m] );
         }
       }
@@ -450,7 +444,7 @@ namespace Rivet {
     // If not, assume it is a normal analysis path.
     std::regex repath("^(/RAW)?(/REF)?/([^/:]+)(:[^/]+)?(/TMP)?/([^\\[]+)(\\[(.+)\\])?");
     _valid = regex_search(fullpath, m, repath);
-    if ( !_valid ) return;     
+    if ( !_valid ) return;
     _raw = (m[1] == "/RAW");
     _ref = (m[2] == "/REF");
     _analysis = m[3];
@@ -483,7 +477,7 @@ namespace Rivet {
     if ( fullpath.size() < 2 ) return false;
 
     if ( !chopweight(fullpath) ) return false;
-    
+
     string::size_type p = fullpath.find("/");
     if ( p == 0 ) return false;
     if ( p == string::npos ) {
@@ -525,7 +519,7 @@ namespace Rivet {
     anal = anal.substr(0, p);
     return chopoptions(anal);
   }
-    
+
   void AOPath::fixOptionString() {
     ostringstream oss;
     for ( auto optval : _options )

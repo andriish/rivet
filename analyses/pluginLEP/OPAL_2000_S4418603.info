@@ -39,6 +39,6 @@ BibTeX: '@article{Abbiendi:2000cv,
       SLACcitation   = "%%CITATION = HEP-EX/0007017;%%",
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

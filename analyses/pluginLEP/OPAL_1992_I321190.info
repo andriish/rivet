@@ -34,6 +34,6 @@ BibTeX: '@article{Acton:1991aa,
       SLACcitation   = "%%CITATION = ZEPYA,C53,539;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A LEP-91
 

@@ -40,6 +40,6 @@ BibTeX: '@Article{Abazov:2006gs,
      SLACcitation  = "%%CITATION = HEP-EX/0608052;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A TVT-Run-II-Z-e
 

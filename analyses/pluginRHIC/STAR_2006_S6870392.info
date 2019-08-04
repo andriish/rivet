@@ -38,7 +38,7 @@ BibTeX: '@Article{Abelev:2006uq,
      SLACcitation  = "%%CITATION = HEP-EX/0608030;%%"
 }'
 
-Validation:
+ReleaseTests:
  - $A Star-Jets-1
  - $A-2 Star-Jets-3
  - $A-3 Star-UE

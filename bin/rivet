@@ -92,7 +92,7 @@ extragroup.add_argument("--nskip", dest="EVTSKIPNUM", type=int,
                         default=0, metavar="NUM",
                         help="skip NUM events read from input before beginning processing")
 extragroup.add_argument("--skip-weights", dest="SKIP_WEIGHTS", action="store_true",
-                      default=False, help="only run on the nominal weight")                        
+                      default=False, help="only run on the nominal weight")
 extragroup.add_argument("--runname", dest="RUN_NAME", default=None, metavar="NAME",
                         help="give an optional run name, to be prepended as a 'top level directory' in histo paths")
 extragroup.add_argument("--ignore-beams", dest="IGNORE_BEAMS", action="store_true", default=False,
@@ -115,6 +115,7 @@ timinggroup.add_argument("--run-timeout", dest="RUN_TIMEOUT", type=int,
                          help="max time in whole seconds to wait for the run to finish. This can be useful on batch systems such "
                          "as the LCG Grid where tokens expire on a fixed wall-clock and can render long Rivet runs unable to write "
                          "out the final histogram file (default = unlimited)")
+
 verbgroup = parser.add_argument_group("Verbosity control")
 parser.add_argument("-l", dest="NATIVE_LOG_STRS", action="append",
                     default=[], help="set a log level in the Rivet library")
@@ -637,7 +638,9 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
         ## Optional event skipping
         if evtnum <= args.EVTSKIPNUM:
             logging.debug("Skipping event #%i" % evtnum)
-            run.skipEvent();
+            run.readEvent();
+            if evtnum % 1000 == 0:
+                logging.info("Skipping event #%i" % evtnum)
             continue
 
         ## Only log the event number once we're actually processing
@@ -673,7 +676,7 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
 ## Print end-of-loop messages
 loopendtime = datetime.datetime.now().replace(microsecond=0)
 logging.info("Finished event loop at %s" % str(loopendtime))
-# logging.info("Cross-section = %e pb" % ah.crossSection())
+#logging.info("Cross-section = %e pb" % ah.crossSection())
 print()
 
 
