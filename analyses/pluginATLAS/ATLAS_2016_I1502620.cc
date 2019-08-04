@@ -101,8 +101,12 @@ namespace Rivet {
 	else if (_mode !=1 && wfinderm.bosons().size() == 1 ) {
 	  lep = wfinderm.constituentLeptons()[0];
 	}
-	if (lep.charge3() > 0)  _h_Wp_eta->fill(lep.abseta(), weight);
-	else                    _h_Wm_eta->fill(lep.abseta(), weight);
+	if (lep.charge3() == 3) {
+	  _h_Wp_eta->fill(lep.abseta()); 
+	}
+	else if (lep.charge3() == -3) {
+	  _h_Wm_eta->fill(lep.abseta());
+	}
 	
       }
 
