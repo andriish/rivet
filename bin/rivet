@@ -634,6 +634,7 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
             continue
 
     ## Announce new file
+    print()
     msg = "Reading events from '%s'" % hepmcfile
     if hepmcfileweight != 1.0:
         msg += " (file weight = %e)" % hepmcfileweight
@@ -682,7 +683,7 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
             sys.exit(3)
 
 ## Print end-of-loop messages
-print()
+print("\n")
 loopendtime = datetime.datetime.now().replace(microsecond=0)
 logging.info("Finished event loop at %s" % str(loopendtime))
 logging.info("Cross-section = %e pb" % ah.crossSection())
