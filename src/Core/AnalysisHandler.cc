@@ -205,7 +205,7 @@ namespace Rivet {
     }
 
     if ( _dumpPeriod > 0 && numEvents() > 0 && numEvents()%_dumpPeriod == 0 ) {
-      MSG_INFO("Dumping intermediate results to " << _dumpFile << ".");
+      MSG_DEBUG("Dumping intermediate results to " << _dumpFile << ".");
       _dumping = numEvents()/_dumpPeriod;
       finalize();
       writeData(_dumpFile);
@@ -241,10 +241,10 @@ namespace Rivet {
 
   void AnalysisHandler::finalize() {
     if (!_initialised) return;
-    MSG_INFO("Finalising analyses");
+    MSG_DEBUG("Finalising analyses");
 
     _stage = Stage::FINALIZE;
-    
+
     // First push all analyses' objects to persistent and final
     MSG_TRACE("AnalysisHandler::finalize(): Pushing analysis objects to persistent.");
     pushToPersistent();
@@ -259,8 +259,7 @@ namespace Rivet {
     for (AnaHandle a : analyses()) {
       if ( _dumping && !a->info().reentrant() )  {
         if ( _dumping == 1 )
-          MSG_INFO("Skipping finalize in periodic dump of " << a->name()
-                   << " as it is not declared reentrant.");
+          MSG_DEBUG("Skipping finalize in periodic dump of " << a->name() << " as it is not declared re-entrant.");
         continue;
       }
       for (size_t iW = 0; iW < numWeights(); iW++) {
@@ -281,7 +280,7 @@ namespace Rivet {
     // Print out number of events processed
     if (!_dumping) {
       const int nevts = numEvents();
-      MSG_INFO("Processed " << nevts << " event" << (nevts != 1 ? "s" : ""));
+      MSG_DEBUG("Processed " << nevts << " event" << (nevts != 1 ? "s" : ""));
     }
 
     _stage = Stage::OTHER;
@@ -422,7 +421,7 @@ namespace Rivet {
       for (YODA::AnalysisObject* aor : aos_raw) {
         YODA::AnalysisObjectPtr ao(aor);
         AOPath path(ao->path());
-        if ( !path ) 
+        if ( !path )
           throw UserError("Invalid path name in file: " + file);
         if ( !path.isRaw() ) continue;
 
@@ -602,7 +601,7 @@ namespace Rivet {
         output.push_back(rao.get()->activeYODAPtr());
       }
     }
-      
+
     try {
       YODA::write(filename, output.begin(), output.end());
     } catch (...) { //< YODA::WriteError&

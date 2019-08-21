@@ -495,9 +495,14 @@ def logNEvt(n, starttime, maxevtnum):
         nevtloglevel = logging.INFO
     else:
         nevtloglevel = logging.DEBUG
+
+    if logging.getLogger().getEffectiveLevel() > nevtloglevel:
+        return
+
     currenttime = datetime.datetime.now().replace(microsecond=0)
     elapsedtime = currenttime - starttime
-    logging.log(nevtloglevel, "Event %d (%s elapsed)" % (n, str(elapsedtime)))
+    msg = "Event {:d} ({} elapsed)".format(n, str(elapsedtime))
+
     # if maxevtnum is None:
     #     logging.log(nevtloglevel, "Event %d (%s elapsed)" % (n, str(elapsedtime)))
     # else:
@@ -505,6 +510,12 @@ def logNEvt(n, starttime, maxevtnum):
     #     eta = time.strftime("%a %b %d %H:%M", datetime.localtime(currenttime + remainingtime))
     #     logging.log(nevtloglevel, "Event %d (%d s elapsed / %d s left) -> ETA: %s" %
     #                 (n, elapsedtime, remainingtime, eta))
+
+    if sys.stdout.isatty() and nevtloglevel <= logging.INFO:
+        print(msg, end="\r")
+        sys.stdout.flush()
+    else:
+        logging.log(nevtloglevel, msg)
 
 
 ## Do some checks on output histo file, before we stat the event loop
