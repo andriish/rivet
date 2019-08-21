@@ -1,5 +1,12 @@
 2019-08-21  Andy Buckley  <andy.buckley@cern.ch>
 
+	* If writing to a terminal, use carriage return to eat less
+	scrollback space by overwriting the 100th event outputs and only
+	using a full newline for the 1000s. Also reducing the re-entrant
+	histogramming noise from AnalysisHandler to make this neater
+	rather than splurging the same green semi-debug output every 1000
+	events. It's ridiculous how much more professional this feels...
+
 	* Combine ATLAS electron reco and ID efficiencies into EFF_LOOSE, EFF_MEDIUM, etc. functions.
 
 	* Improve ATLAS Run 2 electron reconstruction efficiency map, based on 2019 paper Fig 2.

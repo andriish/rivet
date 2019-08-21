@@ -152,7 +152,7 @@ namespace Rivet {
     }
 
     if ( _dumpPeriod > 0 && numEvents()%_dumpPeriod == 0 ) {
-      MSG_INFO("Dumping intermediate results to " << _dumpFile << ".");
+      MSG_DEBUG("Dumping intermediate results to " << _dumpFile << ".");
       _dumping = numEvents()/_dumpPeriod;
       finalize();
       writeData(_dumpFile);
@@ -180,14 +180,14 @@ namespace Rivet {
       backupAOs[ao->path()] = AnalysisObjectPtr(ao->newclone());
 
     // Now we run the (re-entrant) finalize() functions for all analyses.
-    MSG_INFO("Finalising analyses");
+    MSG_DEBUG("Finalising analyses");
     for (AnaHandle a : analyses()) {
       a->setCrossSection(_xs);
       try {
         if ( !_dumping || a->info().reentrant() )  a->finalize();
         else if ( _dumping == 1 )
-          MSG_INFO("Skipping finalize in periodic dump of " << a->name()
-                   << " as it is not declared reentrant.");
+          MSG_DEBUG("Skipping finalize in periodic dump of " << a->name()
+                    << " as it is not declared reentrant.");
       } catch (const Error& err) {
         cerr << "Error in " << a->name() << "::finalize method: " << err.what() << endl;
         exit(1);
@@ -212,7 +212,7 @@ namespace Rivet {
 
     // Print out number of events processed
     const int nevts = _eventcounter.numEntries();
-    MSG_INFO("Processed " << nevts << " event" << (nevts != 1 ? "s" : ""));
+    MSG_DEBUG("Processed " << nevts << " event" << (nevts != 1 ? "s" : ""));
 
     // // Delete analyses
     // MSG_DEBUG("Deleting analyses");
