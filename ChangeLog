@@ -1,3 +1,9 @@
+2019-08-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Combine ATLAS electron reco and ID efficiencies into EFF_LOOSE, EFF_MEDIUM, etc. functions.
+
+	* Improve ATLAS Run 2 electron reconstruction efficiency map, based on 2019 paper Fig 2.
+
 2019-08-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Some improvements to Run 2 electron medium & tight ID efficiency parametrisations.
