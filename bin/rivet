@@ -685,18 +685,18 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
             sys.exit(3)
 
 ## Print end-of-loop messages
+print()
 loopendtime = datetime.datetime.now().replace(microsecond=0)
 logging.info("Finished event loop at %s" % str(loopendtime))
-#logging.info("Cross-section = %e pb" % ah.crossSection())
-print()
-
+logging.info("Cross-section = %e pb" % ah.crossSection())
 
 ## Finalize and write out data file
 run.finalize()
 if args.WRITE_DATA:
     ah.writeData(args.HISTOFILE)
+
+## Print end-of-run messages
 print()
 endtime = datetime.datetime.now().replace(microsecond=0)
 logging.info("Rivet run completed at %s, time elapsed = %s" % (str(endtime), str(endtime-starttime)))
-print()
 logging.info("Histograms written to %s" % os.path.abspath(args.HISTOFILE))
