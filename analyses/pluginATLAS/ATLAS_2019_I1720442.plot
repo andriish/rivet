@@ -29,19 +29,19 @@ Title=$100 < p_\text{T} < 600$ GeV
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1720442/d06
-Title=$0 < |y| < 0.4$ GeV
+Title=$0 < |y| < 0.4$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1720442/d07
-Title=$0.4 < |y| < 0.8$ GeV
+Title=$0.4 < |y| < 0.8$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1720442/d08
-Title=$0.8 < |y| < 1.2$ GeV
+Title=$0.8 < |y| < 1.2$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1720442/d09
-Title=$1.2 < |y| < 2.5$ GeV
+Title=$1.2 < |y| < 2.5$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1720442/d12
