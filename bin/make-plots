@@ -50,6 +50,7 @@ pat_property = re.compile('^(\w+?)=(.*)$')
 pat_property_opt = re.compile('^ReplaceOption\[(\w+=\w+)\]=(.*)$')
 pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
 pat_options = re.compile(r"((?::\w+=[^:/]+)+)")
+pat_varname = re.compile(r'\[.*\]')
 
 
 def fuzzyeq(a, b, tolerance=1e-6):
@@ -146,6 +147,7 @@ class InputData(Described):
 
         self.description['_OptSubs'] = { }
         self.description['is2dim'] = False
+        self.description['Variations'] = ''
         f = open(filename)
         for line in f:
             m = pat_begin_block.match(line)
@@ -194,6 +196,15 @@ class InputData(Described):
         f.close()
 
         self.apply_config_files(args.CONFIGFILES)
+
+        # Only keep selected variations (+ nominal)
+        if self.description['Variations']:
+            var_patterns = self.description['Variations'].split(',') # keep vars matching any of these patterns
+            for path in self.histos.keys():
+                vartype = pat_varname.search(path)
+                if vartype: # if true, this is a variation histogram
+                    if not any([ re.search(pat, vartype.group(0)) for pat in var_patterns ]):
+                        del self.histos[path]
 
         self.description.setdefault('PlotSizeX', 10.)
         self.description.setdefault('PlotSizeY', 6.)

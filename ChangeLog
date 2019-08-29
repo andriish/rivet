@@ -1,3 +1,11 @@
+2019-08-29  Christian Gutschow  <chris.g@cern.ch>
+
+	* You can now specify a Variations=MUR*,PDF123456* tag (using wildcards even!)
+	in the BEGIN PLOT ... END PLOT section in order to select the weights that
+	make-plots should draw in the plot (or pass --no-weights to rivet-cmphistos/-mkhtml
+	to drop all of them). 
+
+
 2019-08-21  Andy Buckley  <andy.buckley@cern.ch>
 
 	* If writing to a terminal, use carriage return to eat less
