@@ -14,7 +14,7 @@ namespace Rivet {
     declare(TauFinder(TauFinder::DecayMode::HADRONIC), "Taus");
 
     // Print/hide FJ banner
-    cout.setstate(std::ios_base::badbit);
+    std::cout.setstate(std::ios_base::badbit);
     fastjet::ClusterSequence::print_banner();
     std::cout.clear();
   }

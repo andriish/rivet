@@ -41,7 +41,7 @@ namespace Rivet {
 
       FinalState es(Cuts::abspid == PID::ELECTRON && Cuts::abseta < 2.47 && !Cuts::absetaIn(1.37, 1.52) && Cuts::pT > 10*GeV);
       declare(es, "TruthElectrons");
-      declare(SmearedParticles(es, ELECTRON_EFF_ATLAS_RUN2, ELECTRON_SMEAR_ATLAS_RUN2), "Electrons");
+      declare(SmearedParticles(es, ELECTRON_RECOEFF_ATLAS_RUN2, ELECTRON_SMEAR_ATLAS_RUN2), "Electrons");
 
       FinalState mus(Cuts::abspid == PID::MUON && Cuts::abseta < 2.4 && Cuts::pT > 10*GeV);
       declare(mus, "TruthMuons");
@@ -101,7 +101,7 @@ namespace Rivet {
       const Jets sigbjets60 = filter_select(sigjets60, [](const Jet& j) { return j.bTagged(Cuts::pT > 5*GeV); });
       const Particles sigmuons = filter_select(muons, Cuts::pT > 35*GeV);
       Particles sigelecs = filter_select(elecs, Cuts::pT > 35*GeV);
-      ifilter_select(sigelecs, ParticleEffFilter(ELECTRON_IDEFF_ATLAS_RUN2_TIGHT));
+      ifilter_select(sigelecs, ParticleEffFilter(ELECTRON_EFF_ATLAS_RUN2_TIGHT));
 
 
       //////////////////

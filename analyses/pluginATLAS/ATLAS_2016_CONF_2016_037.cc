@@ -43,7 +43,7 @@ namespace Rivet {
 
       FinalState es(Cuts::abspid == PID::ELECTRON && Cuts::abseta < 2.47 && !Cuts::absetaIn(1.37, 1.52) && Cuts::pT > 10*GeV);
       declare(es, "TruthElectrons");
-      declare(SmearedParticles(es, ELECTRON_EFF_ATLAS_RUN2, ELECTRON_SMEAR_ATLAS_RUN2), "Electrons");
+      declare(SmearedParticles(es, ELECTRON_RECOEFF_ATLAS_RUN2, ELECTRON_SMEAR_ATLAS_RUN2), "Electrons");
 
       FinalState mus(Cuts::abspid == PID::MUON && Cuts::abseta < 2.5 && Cuts::pT > 10*GeV);
       declare(mus, "TruthMuons");
@@ -112,7 +112,7 @@ namespace Rivet {
       // Lepton isolation
       Particles sigelecs = filter_select(elecs, Cuts::abseta < 2);
       Particles sigmuons = muons;
-      ifilter_select(sigelecs, ParticleEffFilter(ELECTRON_IDEFF_ATLAS_RUN2_MEDIUM));
+      ifilter_select(sigelecs, ParticleEffFilter(ELECTRON_EFF_ATLAS_RUN2_MEDIUM));
       const Particles trks = apply<ParticleFinder>(event, "Tracks").particles();
       const Particles clus = apply<ParticleFinder>(event, "Clusters").particles();
       ifilter_discard(sigelecs, [&](const Particle& e) {

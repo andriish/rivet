@@ -42,7 +42,7 @@ namespace Rivet {
 
       PromptFinalState es(Cuts::abseta < 2.47 && Cuts::abspid == PID::ELECTRON, true, true);
       declare(es, "TruthElectrons");
-      declare(SmearedParticles(es, ELECTRON_EFF_ATLAS_RUN2, ELECTRON_SMEAR_ATLAS_RUN2), "RecoElectrons");
+      declare(SmearedParticles(es, ELECTRON_RECOEFF_ATLAS_RUN2, ELECTRON_SMEAR_ATLAS_RUN2), "RecoElectrons");
 
       PromptFinalState mus(Cuts::abseta < 2.7 && Cuts::abspid == PID::MUON, true);
       declare(mus, "TruthMuons");
@@ -123,7 +123,7 @@ namespace Rivet {
             return trks.size() < 3 || (m.pT() > 2*j.pT() && m.pT() > 0.7*sum(trks, pT, 0.0));
           });
       // Loose electron selection
-      ifilter_select(elecs, ParticleEffFilter(ELECTRON_IDEFF_ATLAS_RUN2_LOOSE));
+      ifilter_select(elecs, ParticleEffFilter(ELECTRON_EFF_ATLAS_RUN2_LOOSE));
 
       // Veto the event if there are any remaining baseline leptons
       if (!elecs.empty()) vetoEvent;

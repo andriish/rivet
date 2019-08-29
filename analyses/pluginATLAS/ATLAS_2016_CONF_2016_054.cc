@@ -41,7 +41,7 @@ namespace Rivet {
 
       FinalState es(Cuts::abseta < 2.47 && Cuts::pT > 7*GeV && Cuts::abspid == PID::ELECTRON);
       declare(es, "TruthElectrons");
-      declare(SmearedParticles(es, ELECTRON_EFF_ATLAS_RUN2, ELECTRON_SMEAR_ATLAS_RUN2), "Electrons");
+      declare(SmearedParticles(es, ELECTRON_RECOEFF_ATLAS_RUN2, ELECTRON_SMEAR_ATLAS_RUN2), "Electrons");
 
       FinalState mus(Cuts::abseta < 2.5 && Cuts::pT > 6*GeV && Cuts::abspid == PID::MUON);
       declare(mus, "TruthMuons");
@@ -118,7 +118,7 @@ namespace Rivet {
       Particles sigelecs = filter_select(elecs, grad_loose_filter);
       Particles sigmuons = filter_select(muons, grad_loose_filter);
       // Tight electron selection (NB. assuming independent eff to gradient-loose... hmm)
-      ifilter_select(sigelecs, ParticleEffFilter(ELECTRON_IDEFF_ATLAS_RUN2_TIGHT));
+      ifilter_select(sigelecs, ParticleEffFilter(ELECTRON_EFF_ATLAS_RUN2_TIGHT));
 
 
       // MET calculation (NB. done generically, with smearing, rather than via explicit physics objects)

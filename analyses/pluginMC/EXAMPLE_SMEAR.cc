@@ -59,7 +59,7 @@ namespace Rivet {
       declare(truthelectrons, "Electrons0");
       DressedLeptons dressedelectrons(photons, truthelectrons, 0.2);
       declare(dressedelectrons, "Electrons1");
-      SmearedParticles recoelectrons(dressedelectrons, ELECTRON_EFF_ATLAS_RUN2, ELECTRON_SMEAR_ATLAS_RUN2);
+      SmearedParticles recoelectrons(dressedelectrons, ELECTRON_RECOEFF_ATLAS_RUN2, ELECTRON_SMEAR_ATLAS_RUN2);
       declare(recoelectrons, "Electrons2");
 
       IdentifiedFinalState truthmuons(Cuts::abseta < 5 && Cuts::pT > 10*GeV, {{PID::MUON, PID::ANTIMUON}});
