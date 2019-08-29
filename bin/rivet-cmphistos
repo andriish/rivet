@@ -289,6 +289,8 @@ if __name__ == '__main__':
     selgroup.add_argument("-M", "--unmatch", action="append",
                           help="exclude histograms whose $path/$name string matches these regexes",
                           dest="PATHUNPATTERNS")
+    selgroup.add_argument("--no-weights", help="prevent multiweights from being plotted", dest="NO_WEIGHTS",
+                          action="store_true", default=False)
 
     args = parser.parse_args()
 
@@ -436,6 +438,8 @@ if __name__ == '__main__':
                     # TODO: calculate and plot an appropriate error band, somehow...
                     for i in sorted(hmcs.keys(), reverse=True):
                         iscanonical = (str(i) == "0")
+                        if args.NO_WEIGHTS and not iscanonical:
+                          continue
                         hmc = hmcs[i]
                         ## Default linecolor, linestyle
                         if not is2d:

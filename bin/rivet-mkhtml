@@ -88,6 +88,8 @@ stygroup.add_argument("--minion", dest="OUTPUT_FONT", action="store_const", cons
                       help="use Adobe Minion Pro as font. DEPRECATED: Use --font")
 stygroup.add_argument("--remove-options", help="remove options label from legend", dest="REMOVE_OPTIONS",
                     action="store_true", default=False)
+stygroup.add_argument("--no-weights", help="prevent multiweights from being plotted", dest="NO_WEIGHTS",
+                    action="store_true", default=False)
 
 selgroup = parser.add_argument_group("Selective plotting")
 selgroup.add_argument("-m", "--match", action="append", dest="PATHPATTERNS", default=[],
@@ -231,6 +233,8 @@ if args.NOPLOTTITLE:
     ch_cmd.append("--no-plottitle")
 if args.REMOVE_OPTIONS:
     ch_cmd.append("--remove-options")
+if args.NO_WEIGHTS:
+    ch_cmd.append("--no-weights")
 # if args.REF_ID is not None:
 #     ch_cmd.append("--refid=%s" % os.path.abspath(args.REF_ID))
 if args.REFTITLE:
