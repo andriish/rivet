@@ -88,8 +88,6 @@ stygroup.add_argument("--minion", dest="OUTPUT_FONT", action="store_const", cons
                       help="use Adobe Minion Pro as font. DEPRECATED: Use --font")
 stygroup.add_argument("--remove-options", help="remove options label from legend", dest="REMOVE_OPTIONS",
                     action="store_true", default=False)
-stygroup.add_argument("--no-weights", help="prevent multiweights from being plotted", dest="NO_WEIGHTS",
-                    action="store_true", default=False)
 
 selgroup = parser.add_argument_group("Selective plotting")
 selgroup.add_argument("-m", "--match", action="append", dest="PATHPATTERNS", default=[],
@@ -100,6 +98,8 @@ selgroup.add_argument("--ana-match", action="append", dest="ANAPATTERNS", defaul
                       help="only write out histograms from analyses whose name matches any of these regexes")
 selgroup.add_argument("--ana-unmatch", action="append", dest="ANAUNPATTERNS", default=[],
                       help="exclude histograms from analyses whose name matches any of these regexes")
+selgroup.add_argument("--no-weights", help="prevent multiweights from being plotted", dest="NO_WEIGHTS",
+                    action="store_true", default=False)
 
 vrbgroup = parser.add_argument_group("Verbosity control")
 vrbgroup.add_argument("-v", "--verbose", help="add extra debug messages", dest="VERBOSE",
