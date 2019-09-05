@@ -80,8 +80,8 @@ namespace Rivet {
 	    foundRes = true;
 	  }
 	}
-	// find the eta
-	else if(p.pid()==223) {
+	// find the omega
+	else if(p.pdgId()==223) {
 	  map<long,int> nRes = nCount;
 	  int ncount = ntotal;
 	  findChildren(p,nRes,ncount);
