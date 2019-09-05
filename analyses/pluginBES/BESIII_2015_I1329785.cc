@@ -7,11 +7,11 @@ namespace Rivet {
 
 
   /// @brief Add a short analysis description here
-  class BESIII_2018_I1699641 : public Analysis {
+  class BESIII_2015_I1329785 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BESIII_2018_I1699641);
+    DEFAULT_RIVET_ANALYSIS_CTOR(BESIII_2015_I1329785);
 
 
     /// @name Analysis methods
@@ -19,20 +19,17 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      // Initialise and register projections
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-
-      // Book histograms
-      book(_cKKpipi, "TMP/2Kpipi" );
-      book(_cKKpieta, "TMP/2Kpieta");
+      _nChi0 = bookCounter("TMP/chi0");
+      _nChi1 = bookCounter("TMP/chi1");
+      _nChi2 = bookCounter("TMP/chi2");
     }
 
-
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      for (const Particle &child : p.children()) {
+      foreach(const Particle &child, p.children()) {
 	if(child.children().empty()) {
-	  nRes[child.pid()]-=1;
+	  --nRes[child.pdgId()];
 	  --ncount;
 	}
 	else
@@ -43,34 +40,24 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const FinalState& fs = apply<FinalState>(event, "FS");
-
       map<long,int> nCount;
       int ntotal(0);
-      for (const Particle& p : fs.particles()) {
-	nCount[p.pid()] += 1;
+      foreach (const Particle& p, fs.particles()) {
+	nCount[p.pdgId()] += 1;
 	++ntotal;
       }
-      // K K pi pi
-      if(ntotal==4 && nCount[310]==1 && nCount[111]==1 &&
-	 ((nCount[ 321]==1 &&nCount[-211]==1) ||
-	  (nCount[-321]==1 &&nCount[ 211]==1) ))
-	_cKKpipi->fill();
-      // eta resonance
       const FinalState& ufs = apply<FinalState>(event, "UFS");
-      for (const Particle& p : ufs.particles()) {
+      foreach (const Particle& p, ufs.particles(Cuts::pid==10441 or Cuts::pid==20443 or Cuts::pid==445)) {
 	if(p.children().empty()) continue;
-	if(p.pid()!=221) continue;
-	map<long,int> nRes=nCount;
+	map<long,int> nRes = nCount;
 	int ncount = ntotal;
 	findChildren(p,nRes,ncount);
-	if(ncount!=3) continue;
-	bool matched=true;
+	// chi gamma 
+	if(ncount!=1) continue;
+	bool matched = true;
 	for(auto const & val : nRes) {
-	  if(abs(val.first)==321 || abs(val.first)==211) {
-	    continue;
-	  }
-	  else if(abs(val.first)==310) {
-	    if(val.second!=1) {
+	  if(val.first==22) {
+	    if(val.second !=1) {
 	      matched = false;
 	      break;
 	    }
@@ -80,31 +67,39 @@ namespace Rivet {
 	    break;
 	  }
 	}
-	if(matched==false) continue;
-	if((nCount[ 321] == 1 && nCount[-211] ==1) ||
-	   (nCount[-321] == 1 && nCount[ 211] ==1))
-	  _cKKpieta->fill();
+	if(matched) {
+	  if(p.pdgId()==10441)
+	    _nChi0->fill(event.weight());
+	  else if(p.pdgId()==20443)
+	    _nChi1->fill(event.weight());
+	  else if(p.pdgId()==445)
+	    _nChi2->fill(event.weight());
+	  break;
+	}
       }
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      for(unsigned int ix=1;ix<3;++ix) {
-	double sigma = 0., error = 0.;
+
+      double fact =  crossSection()/ sumOfWeights() /picobarn;
+      for(unsigned int ix=1;ix<4;++ix) {
+	double sigma(0.),error(0.);
 	if(ix==1) {
-	  sigma = _cKKpipi->val();
-	  error = _cKKpipi->err();
+	  sigma = _nChi0->val()*fact;
+	  error = _nChi0->err()*fact;
 	}
 	else if(ix==2) {
-	  sigma = _cKKpieta->val();
-	  error = _cKKpieta->err();
+	  sigma = _nChi1->val()*fact;
+	  error = _nChi1->err()*fact;
 	}
-    	sigma *= crossSection()/ sumOfWeights() /picobarn;
-    	error *= crossSection()/ sumOfWeights() /picobarn;
-	Scatter2D temphisto(refData(ix, 1, 1));
-	Scatter2DPtr  mult;
-        book(mult, ix, 1, 1);
+	else if(ix==3) {
+	  sigma = _nChi2->val()*fact;
+	  error = _nChi2->err()*fact;
+	}
+	Scatter2D temphisto(refData(ix, 1, 8));
+	Scatter2DPtr  mult = bookScatter2D(ix, 1, 8);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();
@@ -120,20 +115,18 @@ namespace Rivet {
 	}
       }
     }
-
     //@}
-
 
     /// @name Histograms
     //@{
-    CounterPtr _cKKpipi,_cKKpieta;
+    CounterPtr _nChi0,_nChi1,_nChi2;
     //@}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BESIII_2018_I1699641);
+  DECLARE_RIVET_PLUGIN(BESIII_2015_I1329785);
 
 
 }
