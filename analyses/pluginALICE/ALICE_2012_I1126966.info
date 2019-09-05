@@ -3,7 +3,7 @@ Year: 2012
 Summary: Pion, Kaon, and Proton Production in Central Pb-Pb Collisions at 2.76 TeV
 Experiment: ALICE
 Collider: LHC
-SpiresID: 1126966
+InspireID: 1126966
 Status: UNVALIDATED
 Authors:
  - Cody B Duncan <cody.duncan@monash.edu>
