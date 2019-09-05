@@ -205,7 +205,9 @@ class InputData(Described):
             for path in self.histos.keys():
                 vartype = pat_varname.search(path)
                 if vartype: # if true, this is a variation histogram
-                    if not any([ re.search(pat, vartype.group(0)) for pat in var_patterns ]):
+                    varname = vartype.group(0)
+                    skip = any([ key in varname for key in [ 'AUX', 'NOPLOT', 'DEBUG' ] ])
+                    if skip or not any([ re.search(pat, vartype.group(0)) for pat in var_patterns ]):
                         del self.histos[path]
 
         self.description.setdefault('PlotSizeX', 10.)
