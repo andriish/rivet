@@ -411,6 +411,9 @@ if __name__ == '__main__':
             hasdataref = True
             refdata = refhistos[hpath]
             refdata.setAnnotation('Title', args.REFTITLE)
+            for key in refdata.annotations:
+                if not any([ keep in key for keep in [ 'IsRef', 'Path', 'Title', 'Type' ] ]):
+                    refdata.rmAnnotation(key)
             if not is2d:
                 refdata.setAnnotation('ErrorBars', '1')
                 refdata.setAnnotation('PolyMarker', '*')
