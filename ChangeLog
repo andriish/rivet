@@ -15,7 +15,8 @@
 	* Add many missing dists to DELPHI_2003_I620250
 	* Add 13 more FENICE, KLOE, SND and CMD analyses
 	* Add 15 new LEP analyses
-	
+	* Add new projections and first analyses for gamma gamma collisions
+
 2019-07-24  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add CMS_2018_I1646260 soft-lepton SUSY search analysis (used for
