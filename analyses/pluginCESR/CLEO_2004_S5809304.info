@@ -1,5 +1,8 @@
 Name: CLEO_2004_S5809304
 Summary: Charm hadrons from fragmentation near the $\Upsilon(4S)$
+Experiment: CLEO
+Collider: CESR
+InspireID: 645209
 Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>
