@@ -4,6 +4,7 @@ Summary: Cross section in $e^+e^-\to$hadrons for energies between 57.37 and 59.8
 Experiment: TOPAZ
 Collider:  Tristan
 InspireID: 353845
+Status: VALIDATED
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
