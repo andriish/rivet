@@ -16,6 +16,7 @@ namespace Rivet {
 
     void analyze(const Event& e) {
       // Find the upsilons
+<<<<<<< local
       Particles upsilons;
       // First in unstable final state
       const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
@@ -44,37 +45,64 @@ namespace Rivet {
       for (const Particle& p : upsilons) {
         _weightSum->fill();
         vector<ConstGenParticlePtr> pionsA,pionsB,protonsA,protonsB,kaons;
+=======
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
+      foreach (const Particle& p, ufs.particles(Cuts::pid==300553)) {
+        _weightSum += weight;
+        Particles pionsA,pionsB,protonsA,protonsB,kaons;
+>>>>>>> graft
         // Find the decay products we want
-        findDecayProducts(p.genParticle(), pionsA, pionsB, protonsA, protonsB, kaons);
+        findDecayProducts(p, pionsA, pionsB, protonsA, protonsB, kaons);
         LorentzTransform cms_boost;
         if (p.p3().mod() > 1*MeV)
           cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
         for (size_t ix = 0; ix < pionsA.size(); ++ix) {
-          FourMomentum ptemp(pionsA[ix]->momentum());
+          FourMomentum ptemp(pionsA[ix].momentum());
           FourMomentum p2 = cms_boost.transform(ptemp);
           double pcm = cms_boost.transform(ptemp).vector3().mod();
           _histPiA->fill(pcm);
         }
         _multPiA->fill(10.58,double(pionsA.size()));
         for (size_t ix = 0; ix < pionsB.size(); ++ix) {
+<<<<<<< local
           double pcm = cms_boost.transform(FourMomentum(pionsB[ix]->momentum())).vector3().mod();
           _histPiB->fill(pcm);
+=======
+          double pcm = cms_boost.transform(pionsB[ix].momentum()).vector3().mod();
+          _histPiB->fill(pcm,weight);
+>>>>>>> graft
         }
         _multPiB->fill(10.58,double(pionsB.size()));
         for (size_t ix = 0; ix < protonsA.size(); ++ix) {
+<<<<<<< local
           double pcm = cms_boost.transform(FourMomentum(protonsA[ix]->momentum())).vector3().mod();
           _histpA->fill(pcm);
+=======
+          double pcm = cms_boost.transform(protonsA[ix].momentum()).vector3().mod();
+          _histpA->fill(pcm,weight);
+>>>>>>> graft
         }
         _multpA->fill(10.58,double(protonsA.size()));
         for (size_t ix = 0; ix < protonsB.size(); ++ix) {
+<<<<<<< local
           double pcm = cms_boost.transform(FourMomentum(protonsB[ix]->momentum())).vector3().mod();
           _histpB->fill(pcm);
+=======
+          double pcm = cms_boost.transform(protonsB[ix].momentum()).vector3().mod();
+          _histpB->fill(pcm,weight);
+>>>>>>> graft
         }
         _multpB->fill(10.58,double(protonsB.size()));
         for (size_t ix = 0 ;ix < kaons.size(); ++ix) {
+<<<<<<< local
           double pcm = cms_boost.transform(FourMomentum(kaons[ix]->momentum())).vector3().mod();
           _histKA->fill(pcm);
           _histKB->fill(pcm);
+=======
+          double pcm = cms_boost.transform(kaons[ix].momentum()).vector3().mod();
+          _histKA->fill(pcm,weight);
+          _histKB->fill(pcm,weight);
+>>>>>>> graft
         }
         _multK->fill(10.58,double(kaons.size()));
       }
@@ -131,37 +159,32 @@ namespace Rivet {
     //@}
 
 
-    void findDecayProducts(ConstGenParticlePtr p,
-                           vector<ConstGenParticlePtr>& pionsA, vector<ConstGenParticlePtr>& pionsB,
-                           vector<ConstGenParticlePtr>& protonsA, vector<ConstGenParticlePtr>& protonsB,
-                           vector<ConstGenParticlePtr>& kaons)
-    {
-      int parentId = p->pdg_id();
-      ConstGenVertexPtr dv = p->end_vertex();
-      /// @todo Use better looping
-      for(ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
-        int id = abs(pp->pdg_id());
+    void findDecayProducts(Particle parent, Particles & pionsA, Particles & pionsB,
+                           Particles & protonsA, Particles & protonsB, Particles & kaons) {
+      int parentId = parent.pdgId();
+      for(const Particle & p : parent.children()) {
+        int id = abs(p.pdgId());
         if (id == PID::PIPLUS) {
           if (parentId != PID::LAMBDA && parentId != PID::K0S) {
-            pionsA.push_back(pp);
-            pionsB.push_back(pp);
+            pionsA.push_back(p);
+            pionsB.push_back(p);
           }
           else
-            pionsB.push_back(pp);
+            pionsB.push_back(p);
         }
         else if (id == PID::PROTON) {
           if (parentId != PID::LAMBDA && parentId != PID::K0S) {
-            protonsA.push_back(pp);
-            protonsB.push_back(pp);
+            protonsA.push_back(p);
+            protonsB.push_back(p);
           }
           else
-            protonsB.push_back(pp);
+            protonsB.push_back(p);
         }
         else if (id == PID::KPLUS) {
-          kaons.push_back(pp);
+          kaons.push_back(p);
         }
-        else if (pp->end_vertex())
-          findDecayProducts(pp, pionsA, pionsB, protonsA, protonsB, kaons);
+        else if (!p.children().empty())
+          findDecayProducts(p, pionsA, pionsB, protonsA, protonsB, kaons);
       }
     }
 

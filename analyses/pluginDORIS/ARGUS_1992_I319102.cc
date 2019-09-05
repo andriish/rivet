@@ -1,11 +1,12 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief charged multiplicity at 4s and nearby continuum
   class ARGUS_1992_I319102 : public Analysis {
   public:
 
@@ -20,40 +21,64 @@ namespace Rivet {
     void init() {
 
       // Initialise and register projections
+      declare(UnstableParticles(), "UFS");
       declare(FinalState(), "FS");
 
       // Book histograms
       if(fuzzyEquals(sqrtS()/GeV, 10.47 , 1E-3))
 	book(_h_N, 2, 1, 1);
-      else if(fuzzyEquals(sqrtS()/GeV, 10.575, 1E-3))
-	book(_h_N, 3, 1, 1);
+      book(_h_N, 3, 1, 1);
       // counters for R
       book(_c_hadrons, "/TMP/sigma_hadrons");
       book(_c_muons, "/TMP/sigma_muons");
+    }
+
+    /// Recursively walk the decay tree to find decay products of @a p
+    void findDecayProducts(Particle mother, unsigned int & nCharged) {
+      for(const Particle & p: mother.children()) {
+	if(!p.children().empty())
+	  findDecayProducts(p, nCharged);
+	else if(PID::isCharged(p.pdgId()))
+	  ++nCharged;
+      }
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const FinalState& fs = apply<FinalState>(event, "FS");
-
-      map<long,int> nCount;
-      int ntotal(0);
-      unsigned int nCharged(0);
-      for (const Particle& p : fs.particles()) {
-	nCount[p.pid()] += 1;
-	++ntotal;
-	if(PID::isCharged(p.pid())) ++nCharged;
+      // Find the Upsilons among the unstables
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
+      Particles upsilons = ufs.particles(Cuts::pid==300553);
+      const double weight = event.weight();
+      // Continuum
+      if (upsilons.empty()) {
+	map<long,int> nCount;
+	int ntotal(0);
+	unsigned int nCharged(0);
+	foreach (const Particle& p, fs.particles()) {
+	  nCount[p.pdgId()] += 1;
+	  ++ntotal;
+	  if(PID::isCharged(p.pdgId())) ++nCharged;
+	}
+	// mu+mu- + photons
+	if(nCount[-13]==1 and nCount[13]==1 &&
+	   ntotal==2+nCount[22])
+	  _c_muons->fill();
+	// everything else
+	else {
+	  _c_hadrons->fill();
+	  if(_h_N)
+	    _h_N->fill(nCharged);
+	}
       }
-      // mu+mu- + photons
-      if(nCount[-13]==1 and nCount[13]==1 &&
-	 ntotal==2+nCount[22])
-	_c_muons->fill();
-      // everything else
+      // upsilon 4s
       else {
-	_c_hadrons->fill();
-	if(_h_N)
-	  _h_N->fill(nCharged);
+        for (const Particle& ups : upsilons) {
+	  unsigned int nCharged(0);
+	  findDecayProducts(ups,nCharged);
+	  _h_N_Upsilon->fill(nCharged);
+	}
       }
     }
 
@@ -95,6 +120,7 @@ namespace Rivet {
       if(_h_N) {
 	normalize(_h_N,200.);
       }
+	normalize(_h_N_Upsilon,200.);
     }
 
     //@}
@@ -102,7 +128,7 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    Histo1DPtr _h_N;
+    Histo1DPtr _h_N,_h_N_Upsilon;
     CounterPtr _c_hadrons, _c_muons;
     //@}
 
