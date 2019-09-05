@@ -1,3 +1,9 @@
+2019-09-05  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* Adding an analysis with an option that has not been declared in
+	the info file is now allowed, but an appropriate warning is
+	emitted.
+
 2019-08-29  Christian Gutschow  <chris.g@cern.ch>
 
 	* You can now specify a Variations=MUR*,PDF123456* tag (using wildcards even!)

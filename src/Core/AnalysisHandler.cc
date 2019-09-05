@@ -316,11 +316,11 @@ namespace Rivet {
           MSG_WARNING("Error in option specification. Skipping analysis " << analysisname);
           return *this;
         }
-        if ( !analysis->info().validOption(opt[0], opt[1]) ) {
-          MSG_WARNING("Cannot set option '" << opt[0] << "' to '" << opt[1]
-                      << "'. Skipping analysis " << analysisname);
-          return *this;
-        }
+        if ( !analysis->info().validOption(opt[0], opt[1]) )
+          MSG_WARNING("Setting the option '" << opt[0] << "' to '"
+                      << opt[1] << "' for " << analysisname
+                      << " has not been declared in the info file "
+                      << " and may be ignored in the analysis.");
         opts[opt[0]] = opt[1];
       }
       for ( auto opt: opts) {
