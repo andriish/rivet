@@ -10,6 +10,10 @@
 	* Add 5 new Tristan analyses
 	* Add 17 new BES analyses
 	* Add 8 new CLEO, A2, E756, FOCUS and NA48 analyses
+	* Inspire ids fixed in several ALICE, ATLAS, UA5 and BABAR analyses
+	* Improve normalization in ALEPH_1999_S4193598
+	* Add many missing dists to DELPHI_2003_I620250
+	* Add 13 more FENICE, KLOE, SND and CMD analyses
 	
 2019-07-24  Andy Buckley  <andy.buckley@cern.ch>
 
