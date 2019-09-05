@@ -1,3 +1,4 @@
+
 ## Internal headers - not to be installed
 nobase_dist_noinst_HEADERS =
 ## Public headers - to be installed
@@ -50,6 +51,9 @@ nobase_pkginclude_HEADERS += \
   Projections/FinalPartons.hh \
   Projections/FinalState.hh \
   Projections/FParameter.hh \
+  Projections/GammaGammaFinalState.hh \
+  Projections/GammaGammaKinematics.hh \
+  Projections/GammaGammaLeptons.hh \
   Projections/GeneratedPercentileProjection.hh \
   Projections/HadronicFinalState.hh \
   Projections/HeavyHadrons.hh \
