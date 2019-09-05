@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief R between 3.603 and 5.195 GeV
   class DASP_1978_I129715 : public Analysis {
   public:
 

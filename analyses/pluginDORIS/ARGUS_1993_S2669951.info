@@ -1,5 +1,9 @@
 Name: ARGUS_1993_S2669951
 Summary: Production of the $\eta'(958)$ and $f_0(980)$ in $e^+e^-$ annihilation in the Upsilon region.
+Experiment: ARGUS
+Collider: DORIS
+InspireID: 342061
+SpiresID: 2669951
 Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>
@@ -8,8 +12,6 @@ References:
 RunInfo:
   $e^+ e^-$ analysis near the $\Upsilon(4S)$ resonance.
 NumEvents: 1000000
-SpiresID: 2669951
-InspireID: 342061
 Beams: [e+, e-]
 Energies: [9.46,10.02,10.45]
 PtCuts: [0]
