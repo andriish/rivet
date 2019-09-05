@@ -354,16 +354,16 @@ namespace Rivet {
       const double xs_pb(crossSection() / picobarn);
       const double xs_fb(crossSection() / femtobarn);
       const double sumw(sumOfWeights());
-      MSG_INFO("Cross-Section/pb: " << xs_pb      );
-      MSG_INFO("Cross-Section/fb: " << xs_fb      );
-      MSG_INFO("Sum of weights  : " << sumw       );
-      MSG_INFO("nEvents         : " << numEvents());
+      MSG_DEBUG("Cross-Section/pb: " << xs_pb      );
+      MSG_DEBUG("Cross-Section/fb: " << xs_fb      );
+      MSG_DEBUG("Sum of weights  : " << sumw       );
+      MSG_DEBUG("nEvents         : " << numEvents());
 
       const double sf_pb(xs_pb / sumw);
       const double sf_fb(xs_fb / sumw);
 
-      MSG_INFO("sf_pb         : " << sf_pb);
-      MSG_INFO("sf_fb         : " << sf_fb);
+      MSG_DEBUG("sf_pb         : " << sf_pb);
+      MSG_DEBUG("sf_fb         : " << sf_fb);
 
       float totalBR= 4*0.1086*0.033658; // W and Z leptonic branching fractions
 

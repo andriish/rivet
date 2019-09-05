@@ -77,9 +77,9 @@ namespace Rivet {
       const double xs_pb( crossSection() / picobarn );
       const double sumW( sumOfWeights() );
       const double xs_norm_factor( 0.5*xs_pb / sumW );
-      MSG_INFO( "Cross-Section/pb     : " << xs_pb       );
-      MSG_INFO( "Sum of weights       : " << sumW        );
-      MSG_INFO( "nEvents              : " << numEvents() );
+      MSG_DEBUG( "Cross-Section/pb     : " << xs_pb       );
+      MSG_DEBUG( "Sum of weights       : " << sumW        );
+      MSG_DEBUG( "nEvents              : " << numEvents() );
 
       for (size_t alg = 0; alg < 2; ++alg) {
         _pt[alg].scale(xs_norm_factor, this);

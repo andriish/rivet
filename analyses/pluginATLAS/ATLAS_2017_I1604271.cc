@@ -74,10 +74,10 @@ namespace Rivet {
       const double sumW( sumOfWeights() );
       const double xs_norm_factor( 0.5*xs_pb / sumW );
      
-      MSG_INFO( "Cross-Section/pb     : " << xs_pb       );
-      MSG_INFO( "ZH                   : " << crossSectionPerEvent()/ picobarn);
-      MSG_INFO( "Sum of weights       : " << sumW        );
-      MSG_INFO( "nEvents              : " << numEvents() );
+      MSG_DEBUG( "Cross-Section/pb     : " << xs_pb       );
+      MSG_DEBUG( "ZH                   : " << crossSectionPerEvent()/ picobarn);
+      MSG_DEBUG( "Sum of weights       : " << sumW        );
+      MSG_DEBUG( "nEvents              : " << numEvents() );
       _pThistograms4.scale(xs_norm_factor, this);
       _pThistograms6.scale(xs_norm_factor, this);
 
