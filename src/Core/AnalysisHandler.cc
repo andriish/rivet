@@ -18,6 +18,7 @@ namespace Rivet {
   AnalysisHandler::AnalysisHandler(const string& runname)
     : _runname(runname),
       _initialised(false), _ignoreBeams(false), _skipWeights(false),
+      _hasWeightCap(false), _weightCap(0.),
       _defaultWeightIdx(0), _dumpPeriod(0), _dumping(false)
   {  }
 
@@ -143,6 +144,11 @@ namespace Rivet {
       if ( _weightNames[i] == "" ) _defaultWeightIdx = i;
   }
 
+  void AnalysisHandler::setWeightCap(const double maxWeight) {
+    _weightCap=maxWeight;
+    _hasWeightCap = true;
+  }
+
   void AnalysisHandler::analyze(const GenEvent& ge) {
     // Call init with event as template if not already initialised
     if (!_initialised) init(ge);
@@ -189,6 +195,16 @@ namespace Rivet {
     }
 
     _subEventWeights.push_back(event.weights());
+    if (_hasWeightCap) {
+      MSG_DEBUG("Implementing weight cap using a maximum |weight| of " << _weightCap << ".");
+      for (size_t i = 0; i < _subEventWeights.size(); ++i) {
+        for (size_t j = 0; j < _subEventWeights[i].size(); ++j) {
+          if (abs(_subEventWeights[i][j]) > _weightCap) {
+            _subEventWeights[i][j] = sign(_subEventWeights[i][j]) * _weightCap;
+          }
+        }
+      }
+    }
     MSG_DEBUG("Analyzing subevent #" << _subEventWeights.size() - 1 << ".");
 
     _eventCounter->fill();

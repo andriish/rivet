@@ -23,6 +23,9 @@ cdef class AnalysisHandler:
     def skipMultiWeights(self, ignore=False):
         self._ptr.skipMultiWeights(ignore)
 
+    def setWeightCap(self, double maxWeight):
+        self._ptr.setWeightCap(maxWeight)
+
     def addAnalysis(self, name):
         self._ptr.addAnalysis(name.encode('utf-8'))
         return self

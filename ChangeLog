@@ -1,3 +1,9 @@
+2019-09-05  Christian Gutschow  <chris.g@cern.ch>
+
+	* implement setWeightCap(double) method in AnalaysisHandler that
+	can be used to cop off large weights. USE WITH CARE!!
+	* implement --weight-cap flag in main rivet script to set weight flag
+
 2019-09-05  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* Adding an analysis with an option that has not been declared in

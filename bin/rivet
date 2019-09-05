@@ -93,6 +93,8 @@ extragroup.add_argument("--nskip", dest="EVTSKIPNUM", type=int,
                         help="skip NUM events read from input before beginning processing")
 extragroup.add_argument("--skip-weights", dest="SKIP_WEIGHTS", action="store_true",
                       default=False, help="only run on the nominal weight")
+extragroup.add_argument("--weight-cap", dest="WEIGHT_CAP", type=float,
+                      default=None, help="set maximum abs(weight) to be used for histogram fills")
 extragroup.add_argument("--runname", dest="RUN_NAME", default=None, metavar="NAME",
                         help="give an optional run name, to be prepended as a 'top level directory' in histo paths")
 extragroup.add_argument("--ignore-beams", dest="IGNORE_BEAMS", action="store_true", default=False,
@@ -533,6 +535,8 @@ RUNNAME = args.RUN_NAME or ""
 ah = rivet.AnalysisHandler(RUNNAME)
 ah.setIgnoreBeams(args.IGNORE_BEAMS)
 ah.skipMultiWeights(args.SKIP_WEIGHTS)
+if args.WEIGHT_CAP != None:
+    ah.setWeightCap(args.WEIGHT_CAP)
 
 for a in args.ANALYSES:
     ## Print warning message and exit if not a valid analysis name

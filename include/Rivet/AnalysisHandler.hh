@@ -75,6 +75,9 @@ namespace Rivet {
     /// Get the index of the nominal weight-stream
     size_t defaultWeightIndex() const { return _defaultWeightIdx; }
 
+    /// Set the weight cap
+    void setWeightCap(const double maxWeight);
+
     //@}
 
 
@@ -313,7 +316,7 @@ namespace Rivet {
     /// Weight names
     std::vector<std::string> _weightNames;
     std::vector<std::valarray<double> > _subEventWeights;
-    size_t _numWeightTypes; // always == WeightVector.size()
+    //size_t _numWeightTypes; // always == WeightVector.size()
 
     /// Run name
     std::string _runname;
@@ -335,6 +338,12 @@ namespace Rivet {
 
     /// Flag to check if multiweights should be included
     bool _skipWeights;
+
+    /// Flag to activate weight cap
+    bool _hasWeightCap;
+
+    /// weight cap value
+    double _weightCap;
 
     /// Current event number
     int _eventNumber;
