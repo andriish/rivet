@@ -458,7 +458,8 @@ if __name__ == '__main__':
                         #if hmc.hasAnnotation("Title"):
                         #    hmc.setAnnotation("Title", hmc.annotation("Title") +
                         #                      rivet.extractOptionString(xpath))
-                        anaobjects.append(hmc)
+                        if not is2d :
+                            anaobjects.append(hmc)
                         if iscanonical:
                             mainlines.append(fullpath)
                         else:
@@ -467,8 +468,9 @@ if __name__ == '__main__':
                             ratioreference = fullpath
                         ## For 2D, plot each histo now (since overlay makes no sense)
                         if is2d:
+                            suffix=(infile.split("/")[-1].replace(".yoda",""))
                             s = mkOutput(hpath, [hmc], plot, special)
-                            writeOutput(s, fullpath)
+                            writeOutput(s, "%s_%s" % (hpath,suffix))
                     styleidx += 1
 
 
@@ -494,5 +496,6 @@ if __name__ == '__main__':
 
 
         ## Make the output and write to file
-        o = mkOutput(hpath, anaobjects, plot, special)
-        writeOutput(o, hpath)
+        if(len(anaobjects)>0) :
+            o = mkOutput(hpath, anaobjects, plot, special)
+            writeOutput(o, hpath)
