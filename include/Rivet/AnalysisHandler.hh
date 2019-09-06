@@ -76,7 +76,7 @@ namespace Rivet {
     size_t defaultWeightIndex() const { return _defaultWeightIdx; }
 
     /// Set the weight cap
-    void setWeightCap(const double maxWeight);
+    void setWeightCap(const double maxWeight) { _weightCap = maxWeight; }
 
     //@}
 
@@ -338,9 +338,6 @@ namespace Rivet {
 
     /// Flag to check if multiweights should be included
     bool _skipWeights;
-
-    /// Flag to activate weight cap
-    bool _hasWeightCap;
 
     /// weight cap value
     double _weightCap;
