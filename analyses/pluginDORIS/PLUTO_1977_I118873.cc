@@ -23,13 +23,13 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
       
       if      (fuzzyEquals(sqrtS()/GeV, 3.63, 1E-3)) {
-	_h_spectrum = bookHisto1D(2, 1, 1);
+	book(_h_spectrum, 2, 1, 1);
       }
       else if (fuzzyEquals(sqrtS()/GeV, 4.03, 1E-3)) {
-	_h_spectrum = bookHisto1D(3, 1, 1);
+	book(_h_spectrum, 3, 1, 1);
       }
       else if (fuzzyEquals(sqrtS()/GeV, 4.5, 1E-3)) {
-	_h_spectrum = bookHisto1D(4, 1, 1);
+	book(_h_spectrum, 4, 1, 1);
       }
       else
 	MSG_ERROR("Beam energy not supported!");
@@ -38,18 +38,17 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       // unstable particles
-      foreach (const Particle& p, apply<UnstableParticles>(event, "UFS").
+      for (const Particle& p : apply<UnstableParticles>(event, "UFS").
 	       particles(Cuts::pid==PID::K0S)) {
 	double xp = p.E()/meanBeamMom;
 	double beta = p.p3().mod()/p.E();
-	_h_spectrum->fill(xp,weight/beta);
+	_h_spectrum->fill(xp,1./beta);
       }
     }
 

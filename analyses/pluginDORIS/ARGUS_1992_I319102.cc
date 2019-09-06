@@ -38,7 +38,7 @@ namespace Rivet {
       for(const Particle & p: mother.children()) {
 	if(!p.children().empty())
 	  findDecayProducts(p, nCharged);
-	else if(PID::isCharged(p.pdgId()))
+	else if(PID::isCharged(p.pid()))
 	  ++nCharged;
       }
     }
@@ -50,16 +50,15 @@ namespace Rivet {
       // Find the Upsilons among the unstables
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       Particles upsilons = ufs.particles(Cuts::pid==300553);
-      const double weight = event.weight();
       // Continuum
       if (upsilons.empty()) {
 	map<long,int> nCount;
 	int ntotal(0);
 	unsigned int nCharged(0);
-	foreach (const Particle& p, fs.particles()) {
-	  nCount[p.pdgId()] += 1;
+	for (const Particle& p : fs.particles()) {
+	  nCount[p.pid()] += 1;
 	  ++ntotal;
-	  if(PID::isCharged(p.pdgId())) ++nCharged;
+	  if(PID::isCharged(p.pid())) ++nCharged;
 	}
 	// mu+mu- + photons
 	if(nCount[-13]==1 and nCount[13]==1 &&

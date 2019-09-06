@@ -23,17 +23,17 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      _h_ups1 = bookHisto1D(3, 1, 1);
-      _h_cont = bookHisto1D(4, 1, 1);
-      _weightSum_cont = 0.;
-      _weightSum_Ups1 = 0.;
+      book(_h_ups1, 3, 1, 1);
+      book(_h_cont, 4, 1, 1);
+      book(_weightSum_cont,"TMP/weightSum_cont");
+      book(_weightSum_Ups1,"TMP/weightSum_Ups1");
 
     }
 
     /// Recursively walk the decay tree to find decay products of @a p
     void findDecayProducts(Particle mother, Particles& unstable) {
       for(const Particle & p: mother.children()) {
-        const int id = p.pdgId();
+        const int id = p.pid();
 	if(id == 3124) {
 	  unstable.push_back(p);
 	}
@@ -48,21 +48,21 @@ namespace Rivet {
       // Find the Upsilons among the unstables
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       Particles upsilons = ufs.particles(Cuts::pid==553);
-      const double weight = event.weight();
       // Continuum
       if (upsilons.empty()) { 
         MSG_DEBUG("No Upsilons found => continuum event");
-        _weightSum_cont += weight;
-        foreach (const Particle& p, ufs.particles(Cuts::abspid==3124)) {
+        _weightSum_cont->fill();
+        for (const Particle& p : ufs.particles(Cuts::abspid==3124)) {
           const double xp = 2.*p.E()/sqrtS();
           const double beta = p.p3().mod() / p.E();
-	  _h_cont->fill(xp,weight/beta);
+	  _h_cont->fill(xp,1./beta);
 	}
       }
       // Upsilon(s) found
       else { 
         MSG_DEBUG("Upsilons found => resonance event");
         for (const Particle& ups : upsilons) {
+	  _weightSum_Ups1->fill();
           Particles unstable;
           // Find the decay products we want
           findDecayProducts(ups, unstable);
@@ -71,11 +71,11 @@ namespace Rivet {
             cms_boost = LorentzTransform::mkFrameTransformFromBeta(ups.momentum().betaVec());
           const double mass = ups.mass();
 	  // loop over decay products
-          foreach(const Particle& p, unstable) {
+          for(const Particle& p : unstable) {
             const FourMomentum p2 = cms_boost.transform(p.momentum());
             const double xp = 2.*p2.E()/mass;
             const double beta = p2.p3().mod()/p2.E();
-	    _h_ups1->fill(xp,weight/beta);
+	    _h_ups1->fill(xp,1./beta);
 	  }
 	}
       }
@@ -84,11 +84,11 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
 
-      if (_weightSum_cont > 0.) {
-	scale(_h_cont, 1./_weightSum_cont);
+      if (_weightSum_cont->val() > 0.) {
+	scale(_h_cont, 1./ *_weightSum_cont);
       }
-      if (_weightSum_Ups1 > 0.) {
-	scale(_h_ups1, 1./_weightSum_Ups1);
+      if (_weightSum_Ups1->val() > 0.) {
+	scale(_h_ups1, 1./ *_weightSum_Ups1);
       }
 
     }
@@ -99,7 +99,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_ups1, _h_cont;
-    double _weightSum_cont,_weightSum_Ups1;
+    CounterPtr _weightSum_cont,_weightSum_Ups1;
     //@}
 
 

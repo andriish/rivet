@@ -16,41 +16,10 @@ namespace Rivet {
 
     void analyze(const Event& e) {
       // Find the upsilons
-<<<<<<< local
-      Particles upsilons;
-      // First in unstable final state
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
-      for (const Particle& p : ufs.particles()) {
-        if (p.pid() == 300553) upsilons.push_back(p);
-      }
-      // Then in whole event if that failed
-      if (upsilons.empty()) {
-        for(ConstGenParticlePtr p: HepMCUtils::particles(e.genEvent())) {
-          if (p->pdg_id() != 300553) continue;
-          ConstGenVertexPtr pv = p->production_vertex();
-          bool passed = true;
-          if (pv) {
-            for(ConstGenParticlePtr pp: HepMCUtils::particles(pv, Relatives::PARENTS)){
-              if ( p->pdg_id() == pp->pdg_id() ) {
-                passed = false;
-                break;
-              }
-            }
-          }
-          if (passed) upsilons.push_back(Particle(*p));
-        }
-      }
-
-      // Find an upsilon
-      for (const Particle& p : upsilons) {
-        _weightSum->fill();
-        vector<ConstGenParticlePtr> pionsA,pionsB,protonsA,protonsB,kaons;
-=======
       const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
-      foreach (const Particle& p, ufs.particles(Cuts::pid==300553)) {
-        _weightSum += weight;
+      for (const Particle& p : ufs.particles(Cuts::pid==300553)) {
+	_weightSum->fill();
         Particles pionsA,pionsB,protonsA,protonsB,kaons;
->>>>>>> graft
         // Find the decay products we want
         findDecayProducts(p, pionsA, pionsB, protonsA, protonsB, kaons);
         LorentzTransform cms_boost;
@@ -64,45 +33,24 @@ namespace Rivet {
         }
         _multPiA->fill(10.58,double(pionsA.size()));
         for (size_t ix = 0; ix < pionsB.size(); ++ix) {
-<<<<<<< local
-          double pcm = cms_boost.transform(FourMomentum(pionsB[ix]->momentum())).vector3().mod();
-          _histPiB->fill(pcm);
-=======
           double pcm = cms_boost.transform(pionsB[ix].momentum()).vector3().mod();
-          _histPiB->fill(pcm,weight);
->>>>>>> graft
+          _histPiB->fill(pcm);
         }
         _multPiB->fill(10.58,double(pionsB.size()));
         for (size_t ix = 0; ix < protonsA.size(); ++ix) {
-<<<<<<< local
-          double pcm = cms_boost.transform(FourMomentum(protonsA[ix]->momentum())).vector3().mod();
-          _histpA->fill(pcm);
-=======
           double pcm = cms_boost.transform(protonsA[ix].momentum()).vector3().mod();
-          _histpA->fill(pcm,weight);
->>>>>>> graft
+          _histpA->fill(pcm);
         }
         _multpA->fill(10.58,double(protonsA.size()));
         for (size_t ix = 0; ix < protonsB.size(); ++ix) {
-<<<<<<< local
-          double pcm = cms_boost.transform(FourMomentum(protonsB[ix]->momentum())).vector3().mod();
-          _histpB->fill(pcm);
-=======
           double pcm = cms_boost.transform(protonsB[ix].momentum()).vector3().mod();
-          _histpB->fill(pcm,weight);
->>>>>>> graft
+          _histpB->fill(pcm);
         }
         _multpB->fill(10.58,double(protonsB.size()));
         for (size_t ix = 0 ;ix < kaons.size(); ++ix) {
-<<<<<<< local
-          double pcm = cms_boost.transform(FourMomentum(kaons[ix]->momentum())).vector3().mod();
+          double pcm = cms_boost.transform(kaons[ix].momentum()).vector3().mod();
           _histKA->fill(pcm);
           _histKB->fill(pcm);
-=======
-          double pcm = cms_boost.transform(kaons[ix].momentum()).vector3().mod();
-          _histKA->fill(pcm,weight);
-          _histKB->fill(pcm,weight);
->>>>>>> graft
         }
         _multK->fill(10.58,double(kaons.size()));
       }
@@ -161,9 +109,9 @@ namespace Rivet {
 
     void findDecayProducts(Particle parent, Particles & pionsA, Particles & pionsB,
                            Particles & protonsA, Particles & protonsB, Particles & kaons) {
-      int parentId = parent.pdgId();
+      int parentId = parent.pid();
       for(const Particle & p : parent.children()) {
-        int id = abs(p.pdgId());
+        int id = abs(p.pid());
         if (id == PID::PIPLUS) {
           if (parentId != PID::LAMBDA && parentId != PID::K0S) {
             pionsA.push_back(p);

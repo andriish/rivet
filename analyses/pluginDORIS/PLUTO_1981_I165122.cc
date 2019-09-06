@@ -27,25 +27,25 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
       
       // Book histograms
-      _c_hadrons = bookCounter("/TMP/sigma_hadrons");
-      _c_muons   = bookCounter("/TMP/sigma_muons");
-      _c_kaons   = bookCounter("/TMP/sigma_kaons");
-      _c_hadronsY= bookCounter("/TMP/sigma_hadronsY");
-      _c_muonsY  = bookCounter("/TMP/sigma_muonsY");
-      _c_kaonsY  = bookCounter("/TMP/sigma_kaonsY");
+      book(_c_hadrons , "/TMP/sigma_hadrons");
+      book(_c_muons   , "/TMP/sigma_muons");
+      book(_c_kaons   , "/TMP/sigma_kaons");
+      book(_c_hadronsY, "/TMP/sigma_hadronsY");
+      book(_c_muonsY  , "/TMP/sigma_muonsY");
+      book(_c_kaonsY  , "/TMP/sigma_kaonsY");
       if      (fuzzyEquals(sqrtS()/GeV, 9.4, 1E-3)) {
-	_h_spectrum1 = bookHisto1D(5, 1, 1);
+	book(_h_spectrum1, 5, 1, 1);
       }
       else if (fuzzyEquals(sqrtS()/GeV, 30.0, 1E-2)) {
-	_h_spectrum1 = bookHisto1D(4, 1, 1);
+	book(_h_spectrum1, 4, 1, 1);
       }
-      _h_spectrum2 = bookHisto1D(6, 1, 1);
+      book(_h_spectrum2, 6, 1, 1);
     }
 
     /// Recursively walk the decay tree to find decay products of @a p
     void findDecayProducts(Particle mother, Particles &kaons, Particles& stable) {
       for(const Particle & p: mother.children()) {
-        const int id = p.pdgId();
+        const int id = p.pid();
 	if(id==130 || id ==310) {
 	  kaons.push_back(p);
 	}
@@ -59,7 +59,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
@@ -75,24 +74,24 @@ namespace Rivet {
 	const FinalState& fs = apply<FinalState>(event, "FS");
 	map<long,int> nCount;
 	int ntotal(0);
-	foreach (const Particle& p, fs.particles()) {
-	  nCount[p.pdgId()] += 1;
+	for (const Particle& p : fs.particles()) {
+	  nCount[p.pid()] += 1;
 	  ++ntotal;
 	}
 	// mu+mu- + photons
 	if(nCount[-13]==1 and nCount[13]==1 &&
 	   ntotal==2+nCount[22])
-	  _c_muons->fill(weight);
+	  _c_muons->fill();
 	// everything else
 	else
-	  _c_hadrons->fill(weight);
+	  _c_hadrons->fill();
 	// unstable particles
-	foreach (const Particle& p, ufs.particles(Cuts::pid==130 or Cuts::pid==310)) {
+	for (const Particle& p : ufs.particles(Cuts::pid==130 or Cuts::pid==310)) {
 	  if(_h_spectrum1) {
 	    double xp = p.p3().mod()/meanBeamMom;
-	    _h_spectrum1->fill(xp,weight);
+	    _h_spectrum1->fill(xp);
 	  }
-	  _c_kaons->fill(weight);
+	  _c_kaons->fill();
 	}
       }
       else {
@@ -109,23 +108,23 @@ namespace Rivet {
 
 	  map<long,int> nCount;
 	  int ntotal(0);
-	  foreach (const Particle& p, stable) {
-	    nCount[p.pdgId()] += 1;
+	  for (const Particle& p : stable) {
+	    nCount[p.pid()] += 1;
 	    ++ntotal;
 	  }
 	  for( const Particle & kaon : kaons) {
             const FourMomentum p2 = cms_boost.transform(kaon.momentum());
             const double xp = 2.*p2.p3().mod()/mass;
-	    _h_spectrum2->fill(xp,weight);
-	    _c_kaonsY->fill(weight);
+	    _h_spectrum2->fill(xp);
+	    _c_kaonsY->fill();
 	  }
 	  // mu+mu- + photons
 	  if(nCount[-13]==1 and nCount[13]==1 &&
 	     ntotal==2+nCount[22])
-	    _c_muonsY->fill(weight);
+	    _c_muonsY->fill();
 	  // everything else
 	  else
-	    _c_hadronsY->fill(weight);
+	    _c_hadronsY->fill();
 	}
       }
     }
@@ -148,7 +147,8 @@ namespace Rivet {
 	double              rval = R.point(0).x();
 	pair<double,double> rerr = R.point(0).xErrs();
 	Scatter2D temphisto(refData(ix, 1, 1));
-	Scatter2DPtr mult = bookScatter2D(ix, 1, 1);
+	Scatter2DPtr mult;
+	book(mult,ix, 1, 1);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

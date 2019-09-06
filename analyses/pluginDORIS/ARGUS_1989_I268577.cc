@@ -23,16 +23,16 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      _h_D2 = bookHisto1D(2, 1, 1);
+      book(_h_D2, 2, 1, 1);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
-      foreach (const Particle& p, ufs.particles(Cuts::abspid==425)) {
+      for (const Particle& p : ufs.particles(Cuts::abspid==425)) {
 	const double xp = 2.*p.p3().mod()/sqrtS();
-	_h_D2->fill(xp,event.weight());
+	_h_D2->fill(xp);
       }
     }
 

@@ -50,14 +50,14 @@ namespace Rivet {
       else
 	MSG_ERROR("Beam energy not supported!");
       // Book histograms
-      _h_EEC  = bookHisto1D(1, 1, iloc);
+      book(_h_EEC, 1, 1, iloc);
       if(iloc==7||iloc==8) {
-	_h_AEEC = bookHisto1D(5, 1, 1);
+	book(_h_AEEC, 5, 1, 1);
 	// _h_opposite = bookHisto1D(2, 1, 1);
       }
       else if(iloc==21 ||iloc==2)
-	_h_AEEC = bookHisto1D(4, 1, 1);
-      _weightSum = 0.;
+	book(_h_AEEC,4, 1, 1);
+      book(_weightSum,"TMP/weightSum");
     }
 
 
@@ -71,11 +71,10 @@ namespace Rivet {
         vetoEvent;
       }
       MSG_DEBUG("Passed leptonic event cut");
-      const double weight = event.weight();
-      _weightSum += weight;
+      _weightSum->fill();
 
       double Evis = 0.0;
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         Evis += p.E();
       }
       double Evis2 = sqr(Evis);
@@ -90,14 +89,14 @@ namespace Rivet {
           const double thetaij = mom3_i.unit().angle(mom3_j.unit())/M_PI*180.;
           double eec = (energy_i*energy_j) / Evis2;
 	  if(p_i != p_j) eec *= 2.;
-	  _h_EEC ->fill(thetaij,  eec*weight);
-	  // if(_h_opposite) _h_opposite ->fill(mom3_i.unit().dot(mom3_j.unit()),  eec*weight);
+	  _h_EEC ->fill(thetaij,  eec);
+	  // if(_h_opposite) _h_opposite ->fill(mom3_i.unit().dot(mom3_j.unit()),  eec);
 	  if(_h_AEEC) {
 	    if (thetaij < 90.) {
-	      _h_AEEC->fill(thetaij, -eec*weight);
+	      _h_AEEC->fill(thetaij, -eec);
 	    }
 	    else {
-	      _h_AEEC  ->fill(180.-thetaij, eec*weight);
+	      _h_AEEC  ->fill(180.-thetaij, eec);
 	    }
 	  }
         }
@@ -108,9 +107,9 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale(_h_EEC , 360.0/M_PI/_weightSum);
-      scale(_h_AEEC, 360.0/M_PI/_weightSum);
-      // scale(_h_opposite, 2./_weightSum);
+      scale(_h_EEC , 360.0/M_PI/ *_weightSum);
+      scale(_h_AEEC, 360.0/M_PI/ *_weightSum);
+      // scale(_h_opposite, 2./ *_weightSum);
 
     }
 
@@ -119,7 +118,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_EEC, _h_AEEC, _h_opposite;
-    double _weightSum;
+    CounterPtr _weightSum;
     //@}
 
   };
