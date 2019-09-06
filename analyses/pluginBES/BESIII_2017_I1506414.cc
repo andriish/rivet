@@ -28,19 +28,19 @@ namespace Rivet {
 	      
       // Book histograms
       if(fuzzyEquals(sqrtS(),3.1,1e-1)) {
-	_h_xi  = bookHisto1D(1, 1, 2);
-	_h_sig = bookHisto1D(1, 1, 1);
+	book(_h_xi , 1, 1, 2);
+	book(_h_sig, 1, 1, 1);
       }
       else if (fuzzyEquals(sqrtS(), 3.686, 1E-1)) {
-	_h_xi  = bookHisto1D(1, 1, 4);
-	_h_sig = bookHisto1D(1, 1, 3);
+	book(_h_xi , 1, 1, 4);
+	book(_h_sig, 1, 1, 3);
       }
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for( const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  nRes[child.pdgId()]-=1;
+	  nRes[child.pid()]-=1;
 	  --ncount;
 	}
 	else
@@ -53,7 +53,7 @@ namespace Rivet {
       // get the axis, direction of incoming electron
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       Vector3 axis;
-      if(beams.first.pdgId()>0)
+      if(beams.first.pid()>0)
 	axis = beams.first .momentum().p3().unit();
       else
 	axis = beams.second.momentum().p3().unit();
@@ -61,21 +61,21 @@ namespace Rivet {
       const FinalState& fs = apply<FinalState>(event, "FS");
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p :  fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
 
 
       const UnstableParticles & ufs = apply<UnstableParticles>(event, "UFS");
-      foreach (const Particle& p, ufs.particles(Cuts::abspid==3322 or Cuts::abspid==3214)) {
+      for (const Particle& p :  ufs.particles(Cuts::abspid==3322 or Cuts::abspid==3214)) {
        	if(p.children().empty()) continue;
        	map<long,int> nRes=nCount;
        	int ncount = ntotal;
        	findChildren(p,nRes,ncount);
 	bool matched=false;
 	// check for antiparticle
-	foreach (const Particle& p2, ufs.particles(Cuts::pid==-p.pdgId())) {
+	for (const Particle& p2 :  ufs.particles(Cuts::pid==-p.pid())) {
 	  if(p2.children().empty()) continue;
 	  map<long,int> nRes2=nRes;
 	  int ncount2 = ncount;
@@ -92,14 +92,14 @@ namespace Rivet {
 	    if(matched) {
 	      // calc cosine
 	      double ctheta;
-	      if(p.pdgId()>0)
+	      if(p.pid()>0)
 		ctheta = p .momentum().p3().unit().dot(axis);
 	      else
 		ctheta = p2.momentum().p3().unit().dot(axis);
-	      if(abs(p.pdgId())==3322)
-		_h_xi ->fill(ctheta,event.weight());
-	      else if(abs(p.pdgId())==3214)
-		_h_sig->fill(ctheta,event.weight());
+	      if(abs(p.pid())==3322)
+		_h_xi ->fill(ctheta);
+	      else if(abs(p.pid())==3214)
+		_h_sig->fill(ctheta);
 	      break;
 	    }
 	  }
@@ -152,12 +152,14 @@ namespace Rivet {
 	ioff=1;
       }
       normalize(_h_xi,1.,false);
-      Scatter2DPtr _h_alpha_xi = bookScatter2D(2,2*ioff+2,1);
+      Scatter2DPtr _h_alpha_xi;
+      book(_h_alpha_xi,2,2*ioff+2,1);
       pair<double,pair<double,double> > alpha = calcAlpha(_h_xi);
       _h_alpha_xi->addPoint(0.5, alpha.first, make_pair(0.5,0.5),
 			    make_pair(alpha.second.first,alpha.second.second) );
       normalize(_h_sig,1.,false);
-      Scatter2DPtr _h_alpha_sig = bookScatter2D(2,2*ioff+1,1);
+      Scatter2DPtr _h_alpha_sig;
+      book(_h_alpha_sig,2,2*ioff+1,1);
       alpha = calcAlpha(_h_sig);
       _h_alpha_sig->addPoint(0.5, alpha.first, make_pair(0.5,0.5),
 			     make_pair(alpha.second.first,alpha.second.second) );

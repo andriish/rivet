@@ -23,8 +23,8 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      _h_q2_K  = bookHisto1D(1, 1, 1);
-      _h_q2_pi = bookHisto1D(2, 1, 1);
+      book(_h_q2_K , 1, 1, 1);
+      book(_h_q2_pi, 2, 1, 1);
 
     }
 
@@ -47,24 +47,24 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Loop over D+/- mesons
-      foreach(const Particle& p, apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==PID::DPLUS)) {
+      for (const Particle& p :  apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==PID::DPLUS)) {
         if (isSemileptonicDecay(p, {PID::PI0, PID::POSITRON, PID::NU_E}) ||
 	    isSemileptonicDecay(p, {PID::PI0, PID::ELECTRON, PID::NU_EBAR})) {
-          _h_q2_pi->fill(q2(p, PID::PI0), event.weight());
+          _h_q2_pi->fill(q2(p, PID::PI0));
         }
 	else if(isSemileptonicDecay(p, {-311, PID::POSITRON, PID::NU_E})) {
-          _h_q2_K ->fill(q2(p, -311), event.weight());
+          _h_q2_K ->fill(q2(p, -311));
         }
 	else if(isSemileptonicDecay(p, { 311, PID::ELECTRON, PID::NU_EBAR})) {
-          _h_q2_K ->fill(q2(p, 311), event.weight());
+          _h_q2_K ->fill(q2(p, 311));
         }
 	else if(isSemileptonicDecay(p, {PID::K0S, PID::POSITRON, PID::NU_E}) ||
 		isSemileptonicDecay(p, {PID::K0S, PID::ELECTRON, PID::NU_EBAR})) {
-          _h_q2_K ->fill(q2(p, PID::K0S), event.weight());
+          _h_q2_K ->fill(q2(p, PID::K0S));
         }
 	else if(isSemileptonicDecay(p, {PID::K0L, PID::POSITRON, PID::NU_E}) ||
 		isSemileptonicDecay(p, {PID::K0L, PID::ELECTRON, PID::NU_EBAR})) {
-          _h_q2_K ->fill(q2(p, PID::K0L), event.weight());
+          _h_q2_K ->fill(q2(p, PID::K0L));
         }
       }
 

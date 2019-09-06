@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
-
+#include <sstream>
 namespace Rivet {
 
 
@@ -22,14 +22,16 @@ namespace Rivet {
       // Initialise and register projections
       declare(UnstableParticles(), "UFS" );
       // Book histograms
-      _h_ctheta_pi0   = bookHisto1D("ctheta_pi0"  , 20,-1,1);
-      _h_ctheta_gamma = bookHisto1D("ctheta_gamma", 20,-1,1);
+      book(_h_ctheta_pi0  , "ctheta_pi0"  , 20,-1,1);
+      book(_h_ctheta_gamma, "ctheta_gamma", 20,-1,1);
       double step=0.1;
       double xmin=-1.;
       for(unsigned int ix=0;ix<20;++ix) {
-	ostringstream title;
+	Histo1DPtr temp;
+	std::ostringstream title;
 	title << "ctheta_Sigma_" << ix;
-	_h_ctheta_Sigma.addHistogram(xmin, xmin+step, bookHisto1D(title.str(), 20,-1,1));
+	book(temp,title.str(), 20,-1,1);
+	_h_ctheta_Sigma.add(xmin, xmin+step, temp);
 	xmin+=step;
       }
       _nSigma=0.;
@@ -39,43 +41,43 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // loop over Omega baryons
-      foreach(const Particle& Xi, apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==3322)) {
-	int sign = Xi.pdgId()/3322;
+      for(const Particle& Xi : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==3322)) {
+	int sign = Xi.pid()/3322;
 	if(Xi.children().size()!=2) continue;
 	Particle baryon1,meson1;
 	unsigned int mode(0);
-	if(Xi.children()[0].pdgId()==sign*3122 && 
-	   Xi.children()[1].pdgId()==111) {
+	if(Xi.children()[0].pid()==sign*3122 && 
+	   Xi.children()[1].pid()==111) {
 	  baryon1 = Xi.children()[0];
 	  meson1  = Xi.children()[1];
 	  mode=1;
 	}
-	else if(Xi.children()[1].pdgId()==sign*3122 && 
-		Xi.children()[0].pdgId()==111) {
+	else if(Xi.children()[1].pid()==sign*3122 && 
+		Xi.children()[0].pid()==111) {
 	  baryon1 = Xi.children()[1];
 	  meson1  = Xi.children()[0];
 	  mode=1;
 	}
-	else if(Xi.children()[0].pdgId()==sign*3122 && 
-	   Xi.children()[1].pdgId()==22) {
+	else if(Xi.children()[0].pid()==sign*3122 && 
+	   Xi.children()[1].pid()==22) {
 	  baryon1 = Xi.children()[0];
 	  meson1  = Xi.children()[1];
 	  mode=2;
 	}
-	else if(Xi.children()[1].pdgId()==sign*3122 && 
-		Xi.children()[0].pdgId()==22) {
+	else if(Xi.children()[1].pid()==sign*3122 && 
+		Xi.children()[0].pid()==22) {
 	  baryon1 = Xi.children()[1];
 	  meson1  = Xi.children()[0];
 	  mode=2;
 	}
-	else if(Xi.children()[0].pdgId()==sign*3212 && 
-	   Xi.children()[1].pdgId()==22) {
+	else if(Xi.children()[0].pid()==sign*3212 && 
+	   Xi.children()[1].pid()==22) {
 	  baryon1 = Xi.children()[0];
 	  meson1  = Xi.children()[1];
 	  mode=3;
 	}
-	else if(Xi.children()[1].pdgId()==sign*3212 && 
-		Xi.children()[0].pdgId()==22) {
+	else if(Xi.children()[1].pid()==sign*3212 && 
+		Xi.children()[0].pid()==22) {
 	  baryon1 = Xi.children()[1];
 	  meson1  = Xi.children()[0];
 	  mode=3;
@@ -85,13 +87,13 @@ namespace Rivet {
 	if(baryon1.children().size()!=2) continue;
 	Particle baryon2,meson2,baryon3,meson3;
 	if(mode==1 || mode ==2) {
-	  if(baryon1.children()[0].pdgId()== sign*2212 && 
-	     baryon1.children()[1].pdgId()==-sign*211) {
+	  if(baryon1.children()[0].pid()== sign*2212 && 
+	     baryon1.children()[1].pid()==-sign*211) {
 	    baryon2 = baryon1.children()[0];
 	    meson2  = baryon1.children()[1];
 	  }
-	  else if(baryon1.children()[1].pdgId()== sign*2212 && 
-		  baryon1.children()[0].pdgId()==-sign*211) {
+	  else if(baryon1.children()[1].pid()== sign*2212 && 
+		  baryon1.children()[0].pid()==-sign*211) {
 	    baryon2 = baryon1.children()[1];
 	    meson2  = baryon1.children()[0];
 	  }
@@ -99,25 +101,25 @@ namespace Rivet {
 	    continue;
 	}
 	else if(mode==3) {
-	  if(baryon1.children()[0].pdgId()== sign*3122 && 
-	     baryon1.children()[1].pdgId()== 22) {
+	  if(baryon1.children()[0].pid()== sign*3122 && 
+	     baryon1.children()[1].pid()== 22) {
 	    baryon2 = baryon1.children()[0];
 	    meson2  = baryon1.children()[1];
 	  }
-	  else if(baryon1.children()[1].pdgId()== sign*3122 && 
-		  baryon1.children()[0].pdgId()== 22) {
+	  else if(baryon1.children()[1].pid()== sign*3122 && 
+		  baryon1.children()[0].pid()== 22) {
 	    baryon2 = baryon1.children()[1];
 	    meson2  = baryon1.children()[0];
 	  }
 	  else
 	    continue;
-	  if(baryon2.children()[0].pdgId()== sign*2212 && 
-	     baryon2.children()[1].pdgId()==-sign*211) {
+	  if(baryon2.children()[0].pid()== sign*2212 && 
+	     baryon2.children()[1].pid()==-sign*211) {
 	    baryon3 = baryon2.children()[0];
 	    meson3  = baryon2.children()[1];
 	  }
-	  else if(baryon2.children()[1].pdgId()== sign*2212 && 
-		  baryon2.children()[0].pdgId()==-sign*211) {
+	  else if(baryon2.children()[1].pid()== sign*2212 && 
+		  baryon2.children()[0].pid()==-sign*211) {
 	    baryon3 = baryon2.children()[1];
 	    meson3  = baryon2.children()[0];
 	  }
@@ -166,7 +168,7 @@ namespace Rivet {
       return make_pair(sum2/sum1,sqrt(1./sum1));
     }
     
-    pair<double,double> calcAlpha(BinnedHistogram<double> hist) {
+    pair<double,double> calcAlpha(BinnedHistogram hist) {
       double sum1(0.),sum2(0.);
       double step=0.1;
       double xmin=-1.;
@@ -191,17 +193,20 @@ namespace Rivet {
     void finalize() {
       // Xi0 -> Lambda0 pi0
       normalize(_h_ctheta_pi0);
-      Scatter2DPtr _h_alpha_pi0 = bookScatter2D(1,1,1);
+      Scatter2DPtr _h_alpha_pi0;
+      book(_h_alpha_pi0,1,1,1);
       pair<double,double> alpha = calcAlpha(_h_ctheta_pi0);
       _h_alpha_pi0->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
       // Xi0 -> Lambda gamma (N.B. sign due defns)
       normalize(_h_ctheta_gamma);
-      Scatter2DPtr _h_alpha_gamma = bookScatter2D(2,1,1);
+      Scatter2DPtr _h_alpha_gamma;
+      book(_h_alpha_gamma,2,1,1);
       alpha = calcAlpha(_h_ctheta_gamma);
       _h_alpha_gamma->addPoint(0.5,-alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
       // Xi0 -> Sigma gamma
       _h_ctheta_Sigma.scale(1./_nSigma,this);
-      Scatter2DPtr _h_alpha_Sigma = bookScatter2D(3,1,1);
+      Scatter2DPtr _h_alpha_Sigma;
+      book(_h_alpha_Sigma,3,1,1);
       alpha = calcAlpha(_h_ctheta_Sigma);
       _h_alpha_Sigma->addPoint(0.5,alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
     }
@@ -212,7 +217,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_ctheta_pi0,_h_ctheta_gamma;
-    BinnedHistogram<double> _h_ctheta_Sigma;
+    BinnedHistogram _h_ctheta_Sigma;
     double _nSigma;
     //@}
 

@@ -21,13 +21,13 @@ namespace Rivet {
     void init() {
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      _nChi0 = bookCounter("TMP/chi0");
+      book(_nChi0, "TMP/chi0");
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for( const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  --nRes[child.pdgId()];
+	  --nRes[child.pid()];
 	  --ncount;
 	}
 	else
@@ -40,18 +40,18 @@ namespace Rivet {
       const FinalState& fs = apply<FinalState>(event, "FS");
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p :  fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       bool matched = false;
-      foreach (const Particle& p, ufs.particles(Cuts::pid==10441)) {
+      for (const Particle& p :  ufs.particles(Cuts::pid==10441)) {
 	if(p.children().empty()) continue;
 	map<long,int> nRes = nCount;
 	int ncount = ntotal;
 	findChildren(p,nRes,ncount);
-	foreach (const Particle & p2, ufs.particles(Cuts::pid==223)) {
+	for (const Particle& p2 :  ufs.particles(Cuts::pid==223)) {
 	  map<long,int> nRes2 = nRes;
 	  int ncount2 = ncount;
 	  findChildren(p2,nRes2,ncount2);
@@ -64,7 +64,7 @@ namespace Rivet {
 	    }
 	  }
 	  if(matched) {
-	    _nChi0->fill(event.weight());
+	    _nChi0->fill();
 	    break;
 	  }
 	}
@@ -79,7 +79,8 @@ namespace Rivet {
       double sigma = _nChi0->val()*fact;
       double error = _nChi0->err()*fact;
       Scatter2D temphisto(refData(1, 1, 1));
-      Scatter2DPtr  mult = bookScatter2D(1, 1, 1);
+      Scatter2DPtr  mult;
+      book(mult, 1, 1, 1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	const double x  = temphisto.point(b).x();
 	pair<double,double> ex = temphisto.point(b).xErrs();

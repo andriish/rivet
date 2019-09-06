@@ -52,7 +52,7 @@ namespace Rivet {
       for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
 	// find the eta
-	if(p.pdgId()==221) {
+	if(p.pid()==221) {
 	  map<long,int> nRes = nCount;
 	  int ncount = ntotal;
 	  findChildren(p,nRes,ncount);

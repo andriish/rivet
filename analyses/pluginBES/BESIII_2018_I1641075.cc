@@ -23,14 +23,14 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      _h_m = bookHisto1D(1, 1, 5);
+      book(_h_m, 1, 1, 5);
 
     }
     
     void findDecayProducts(const Particle & mother, unsigned int & nstable, unsigned int & ngamma, 
                            unsigned int & npip, unsigned int & npim, FourMomentum & ptot) {
       for(const Particle & p : mother.children()) {
-        int id = p.pdgId();
+        int id = p.pid();
         if (id == PID::PIMINUS ) {
 	  ++npim;
           ++nstable;
@@ -58,12 +58,12 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Loop over eta' mesons
-      foreach(const Particle& p, apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==331)) {
+      for (const Particle& p :  apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==331)) {
 	unsigned nstable(0),ngamma(0),npip(0),npim(0);
 	FourMomentum ptot;
 	findDecayProducts(p,nstable,ngamma,npip,npim,ptot);
 	if(nstable==3 && npim==1 && npip==1 && ngamma==1)
-	  _h_m->fill(ptot.mass(),event.weight());
+	  _h_m->fill(ptot.mass());
       }
     }
 

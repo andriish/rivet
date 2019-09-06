@@ -23,9 +23,9 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS" );
 
       // Book histograms
-      _h_cthetaP   = bookHisto1D("cthetaP"  ,20,-1,1);
-      _h_cthetaM   = bookHisto1D("cthetaM"  ,20,-1,1);
-      _h_cthetaAll = bookHisto1D("cthetaAll",20,-1,1);
+      book(_h_cthetaP  , "cthetaP"  ,20,-1,1);
+      book(_h_cthetaM  , "cthetaM"  ,20,-1,1);
+      book(_h_cthetaAll, "cthetaAll",20,-1,1);
 
     }
 
@@ -33,17 +33,17 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // loop over Omega baryons
-      foreach(const Particle& Omega, apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==3334)) {
-	int sign = Omega.pdgId()/3334;
+      for(const Particle& Omega : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==3334)) {
+	int sign = Omega.pid()/3334;
 	if(Omega.children().size()!=2) continue;
 	Particle Lambda,kaon;
-	if(Omega.children()[0].pdgId()==sign*3122 && 
-	   Omega.children()[1].pdgId()==-sign*321) {
+	if(Omega.children()[0].pid()==sign*3122 && 
+	   Omega.children()[1].pid()==-sign*321) {
 	  Lambda = Omega.children()[0];
 	  kaon   = Omega.children()[1];
 	}
-	else if(Omega.children()[1].pdgId()==sign*3122 && 
-		Omega.children()[0].pdgId()==-sign*321) {
+	else if(Omega.children()[1].pid()==sign*3122 && 
+		Omega.children()[0].pid()==-sign*321) {
 	  Lambda = Omega.children()[1];
 	  kaon   = Omega.children()[0];
 	}
@@ -51,13 +51,13 @@ namespace Rivet {
 	  continue;
 	if(Lambda.children().size()!=2) continue;
 	Particle proton,pion;
-	if(Lambda.children()[0].pdgId()==sign*2212 && 
-	   Lambda.children()[1].pdgId()==-sign*211) {
+	if(Lambda.children()[0].pid()==sign*2212 && 
+	   Lambda.children()[1].pid()==-sign*211) {
 	  proton = Lambda.children()[0];
 	  pion   = Lambda.children()[1];
 	}
-	else if(Lambda.children()[1].pdgId()==sign*2212 && 
-		Lambda.children()[0].pdgId()==-sign*211) {
+	else if(Lambda.children()[1].pid()==sign*2212 && 
+		Lambda.children()[0].pid()==-sign*211) {
 	  proton = Lambda.children()[1];
 	  pion   = Lambda.children()[0];
 	}
@@ -104,13 +104,16 @@ namespace Rivet {
       normalize(_h_cthetaM  );
       normalize(_h_cthetaAll);
       // calculate the values of alpha
-      Scatter2DPtr _h_alphaP = bookScatter2D(1,1,1);
+      Scatter2DPtr _h_alphaP;
+      book(_h_alphaP,1,1,1);
       pair<double,double> alpha = calcAlpha(_h_cthetaP);
       _h_alphaP->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
-      Scatter2DPtr _h_alphaM = bookScatter2D(1,1,2);
+      Scatter2DPtr _h_alphaM;
+      book(_h_alphaM,1,1,2);
       alpha = calcAlpha(_h_cthetaM);
       _h_alphaM->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
-      Scatter2DPtr _h_alphaAll = bookScatter2D(1,1,3);
+      Scatter2DPtr _h_alphaAll;
+      book(_h_alphaAll,1,1,3);
       alpha = calcAlpha(_h_cthetaAll);
       _h_alphaAll->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
     }

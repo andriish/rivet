@@ -19,15 +19,15 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       declare(UnstableParticles(), "UFS");
-      _h_etapi   = bookHisto1D( 1, 1, 1);
-      _nPhi=0.;
+      book(_h_etapi, 1, 1, 1);
+      book(_nPhi,"TMP/nPhi");
     }
 
     void findDecayProducts(const Particle & mother, unsigned int & nstable,
                            unsigned int & neta,   unsigned int & npi,
 			   unsigned int & ngamma, FourMomentum & ptot) {
       for(const Particle & p : mother.children()) {
-        int id = p.pdgId();
+        int id = p.pid();
         if ( id == PID::ETA ) {
 	  ++neta;
           ++nstable;
@@ -58,13 +58,13 @@ namespace Rivet {
 
       // Loop over phis
       for(const Particle& phi : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==PID::PHI)) {
-	_nPhi+=event.weight();
+	_nPhi->fill();
         unsigned int nstable(0),neta(0),npi(0),ngamma(0);
       	FourMomentum p_tot(0,0,0,0);
         findDecayProducts(phi, nstable, neta, npi, ngamma, p_tot);
        	if(nstable!=3) continue;
       	if(neta==1 && npi==1 && ngamma==1 ) {
-          _h_etapi->fill(p_tot.mass()/MeV, event.weight());
+          _h_etapi->fill(p_tot.mass()/MeV);
 	}
       }
 
@@ -73,8 +73,7 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       // normalise to total no of phi mesons
-      // and mult by 10^7 due normalisation in paper
-      scale( _h_etapi, 1./_nPhi);
+      scale( _h_etapi, 1./ *_nPhi);
     }
 
     //@}
@@ -83,7 +82,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_etapi;
-    double _nPhi;
+    CounterPtr _nPhi;
     //@}
 
 

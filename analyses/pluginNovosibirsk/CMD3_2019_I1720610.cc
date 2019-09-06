@@ -26,16 +26,16 @@ namespace Rivet {
 
       // Book histograms
 
-      _c_all   = bookCounter("/TMP/all");
-      _c_omega = bookCounter("/TMP/omega");
-      _c_eta   = bookCounter("/TMP/eta");
+      book(_c_all  , "/TMP/all");
+      book(_c_omega, "/TMP/omega");
+      book(_c_eta  , "/TMP/eta");
 
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for(const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  --nRes[child.pdgId()];
+	  --nRes[child.pid()];
 	  --ncount;
 	}
 	else
@@ -46,24 +46,23 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // find the final-state particles
-      double weight = event.weight();
       const FinalState& fs = apply<FinalState>(event, "FS");
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       if(ntotal==7 && nCount[211]==3 && nCount[-211]==3 && nCount[111] ==1 ) {
-	_c_all->fill(weight);
+	_c_all->fill();
       }
       // find omega/phi + eta 
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       bool found=false;
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
 	// find the eta/omega
-	if(p.pdgId()!=221 && p.pdgId()!=223) continue;
+	if(p.pid()!=221 && p.pid()!=223) continue;
 	map<long,int> nRes = nCount;
 	int ncount = ntotal;
 	findChildren(p,nRes,ncount);
@@ -83,10 +82,10 @@ namespace Rivet {
 	    }
 	  }
 	  if(matched) {
-	    if(p.pdgId()==221)
-	      _c_eta->fill(event.weight());
-	    else if(p.pdgId()==223)
-	      _c_omega->fill(event.weight());
+	    if(p.pid()==221)
+	      _c_eta->fill();
+	    else if(p.pid()==223)
+	      _c_omega->fill();
 	    found = true;
 	    break;
 	  }
@@ -115,7 +114,8 @@ namespace Rivet {
 	  error = _c_omega->err()*fact;
 	}
 	Scatter2D temphisto(refData(1, 1, ix));
-	Scatter2DPtr  mult = bookScatter2D(1, 1, ix);
+	Scatter2DPtr  mult;
+	book(mult, 1, 1, ix);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

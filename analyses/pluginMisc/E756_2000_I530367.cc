@@ -23,8 +23,8 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS" );
 
       // Book histograms
-      _h_cthetaP = bookHisto1D("cthetaP",20,-1,1);
-      _h_cthetaM = bookHisto1D("cthetaM",20,-1,1);
+      book(_h_cthetaP, "cthetaP",20,-1,1);
+      book(_h_cthetaM, "cthetaM",20,-1,1);
 
     }
 
@@ -32,17 +32,17 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // loop over Xi- baryons
-      foreach(const Particle& Xi, apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==3312)) {
-	int sign = Xi.pdgId()/3312;
+      for (const Particle& Xi : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==3312)) {
+	int sign = Xi.pid()/3312;
 	if(Xi.children().size()!=2) continue;
 	Particle Lambda,pion1;
-	if(Xi.children()[0].pdgId()==sign*3122 && 
-	   Xi.children()[1].pdgId()==-sign*211) {
+	if(Xi.children()[0].pid()==sign*3122 && 
+	   Xi.children()[1].pid()==-sign*211) {
 	  Lambda = Xi.children()[0];
 	  pion1   = Xi.children()[1];
 	}
-	else if(Xi.children()[1].pdgId()==sign*3122 && 
-		Xi.children()[0].pdgId()==-sign*211) {
+	else if(Xi.children()[1].pid()==sign*3122 && 
+		Xi.children()[0].pid()==-sign*211) {
 	  Lambda = Xi.children()[1];
 	  pion1   = Xi.children()[0];
 	}
@@ -50,13 +50,13 @@ namespace Rivet {
 	  continue;
 	if(Lambda.children().size()!=2) continue;
 	Particle proton,pion2;
-	if(Lambda.children()[0].pdgId()==sign*2212 && 
-	   Lambda.children()[1].pdgId()==-sign*211) {
+	if(Lambda.children()[0].pid()==sign*2212 && 
+	   Lambda.children()[1].pid()==-sign*211) {
 	  proton = Lambda.children()[0];
 	  pion2   = Lambda.children()[1];
 	}
-	else if(Lambda.children()[1].pdgId()==sign*2212 && 
-		Lambda.children()[0].pdgId()==-sign*211) {
+	else if(Lambda.children()[1].pid()==sign*2212 && 
+		Lambda.children()[0].pid()==-sign*211) {
 	  proton = Lambda.children()[1];
 	  pion2   = Lambda.children()[0];
 	}
@@ -73,10 +73,10 @@ namespace Rivet {
 	// calculate angle
 	double cTheta = pp.p3().unit().dot(axis);
 	if(sign==1) {
-	  _h_cthetaM->fill(cTheta,1.);
+	  _h_cthetaM->fill(cTheta);
 	}
 	else {
-	  _h_cthetaP->fill(cTheta,1.);
+	  _h_cthetaP->fill(cTheta);
 	}
       }
     }
@@ -102,12 +102,14 @@ namespace Rivet {
       normalize(_h_cthetaM);
       // calculate the values of alpha
       // xibar+
-      Scatter2DPtr _h_alphaP = bookScatter2D(1,1,2);
+      Scatter2DPtr _h_alphaP;
+      book(_h_alphaP, 1,1,2);
       pair<double,double> alpha = calcAlpha(_h_cthetaP);
       _h_alphaP->addPoint(0.5, alpha.first, make_pair(0.5,0.5),
 			  make_pair(alpha.second,alpha.second) );
       // xi-
-      Scatter2DPtr _h_alphaM = bookScatter2D(1,1,1);
+      Scatter2DPtr _h_alphaM;
+      book(_h_alphaM, 1,1,1);
       alpha = calcAlpha(_h_cthetaM);
       _h_alphaM->addPoint(0.5, alpha.first, make_pair(0.5,0.5),
 			  make_pair(alpha.second,alpha.second) );

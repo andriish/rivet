@@ -26,14 +26,14 @@ namespace Rivet {
 
       // Book histograms
 
-      _c_all   = bookCounter("/TMP/all");
+      book(_c_all, "/TMP/all");
 
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for(const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  --nRes[child.pdgId()];
+	  --nRes[child.pid()];
 	  --ncount;
 	}
 	else
@@ -44,16 +44,15 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // find the final-state particles
-      double weight = event.weight();
       const FinalState& fs = apply<FinalState>(event, "FS");
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       if(ntotal==6 && nCount[211]==3 && nCount[-211]==3) {
-	_c_all->fill(weight);
+	_c_all->fill();
       }
     }
 
@@ -65,7 +64,8 @@ namespace Rivet {
       double sigma = _c_all->val()*fact;
       double error = _c_all->err()*fact;
       Scatter2D temphisto(refData(1, 1, 1));
-      Scatter2DPtr  mult = bookScatter2D(1, 1, 1);
+      Scatter2DPtr  mult;
+      book(mult, 1, 1, 1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	const double x  = temphisto.point(b).x();
 	pair<double,double> ex = temphisto.point(b).xErrs();

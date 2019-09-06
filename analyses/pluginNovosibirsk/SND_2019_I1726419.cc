@@ -25,17 +25,17 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
 
-      _c_all   = bookCounter("/TMP/all");
-      _c_omega = bookCounter("/TMP/omega");
-      _c_phi   = bookCounter("/TMP/phi");
-      _c_rho   = bookCounter("/TMP/rho");
+      book(_c_all  , "/TMP/all");
+      book(_c_omega, "/TMP/omega");
+      book(_c_phi  , "/TMP/phi");
+      book(_c_rho  , "/TMP/rho");
     }
 
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for( const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  --nRes[child.pdgId()];
+	  --nRes[child.pid()];
 	  --ncount;
 	}
 	else
@@ -45,22 +45,21 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      double weight = event.weight();
       
       const FinalState& fs = apply<FinalState>(event, "FS");
 
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       bool found = false, foundOmegaPhi = false;
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
 	// find the eta
-	if(p.pdgId()!=221) continue;
+	if(p.pid()!=221) continue;
 	map<long,int> nRes = nCount;
 	int ncount = ntotal;
 	findChildren(p,nRes,ncount);
@@ -80,12 +79,12 @@ namespace Rivet {
 	    }
 	  }
 	  if(matched) {
-	    _c_all->fill(event.weight());
+	    _c_all->fill();
 	    found = true;
 	  }
 	}
-	foreach (const Particle& p2, ufs.particles()) {
-	  if(p2.pdgId()!=223 && p2.pdgId()!=333) continue;
+	for (const Particle& p2 : ufs.particles()) {
+	  if(p2.pid()!=223 && p2.pid()!=333) continue;
 	  map<long,int> nResB = nRes;
 	  int ncountB = ncount;
 	  findChildren(p2,nResB,ncountB);
@@ -98,16 +97,16 @@ namespace Rivet {
 	    }
 	  }
 	  if(matched2) {
-	    if(p2.pdgId()==223)
-	      _c_omega->fill(event.weight());
-	    else if(p2.pdgId()==333)
-	      _c_phi->fill(event.weight());
+	    if(p2.pid()==223)
+	      _c_omega->fill();
+	    else if(p2.pid()==333)
+	      _c_phi->fill();
 	    foundOmegaPhi=true;
 	  }
 	}
       }
       if(found && !foundOmegaPhi)
-	_c_rho->fill(weight);
+	_c_rho->fill();
     }
     
 
@@ -133,7 +132,8 @@ namespace Rivet {
 	  error = _c_rho->err()*fact;
 	} 
 	Scatter2D temphisto(refData(1, 1, ix));
-	Scatter2DPtr  mult = bookScatter2D(1, 1, ix);
+	Scatter2DPtr  mult;
+	book(mult, 1, 1, ix);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

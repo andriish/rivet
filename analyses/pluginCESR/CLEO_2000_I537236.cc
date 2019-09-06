@@ -21,37 +21,37 @@ namespace Rivet {
       // Initialise and register projections
       declare(UnstableParticles(), "UFS" );
       // Book histograms
-      _h_ctheta   = bookHisto1D("ctheta"  , 20,-1,1);
+      book(_h_ctheta, "ctheta"  , 20,-1,1);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // loop over Omega baryons
-      foreach(const Particle& Xic, apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==4132)) {
-	int sign = Xic.pdgId()/4132;
+      for( const Particle& Xic : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==4132)) {
+	int sign = Xic.pid()/4132;
 	if(Xic.children().size()!=2) continue;
 	Particle baryon1,meson1;
-	if(Xic.children()[0].pdgId()==sign*3312 && 
-	   Xic.children()[1].pdgId()==sign*211) {
+	if(Xic.children()[0].pid()==sign*3312 && 
+	   Xic.children()[1].pid()==sign*211) {
 	  baryon1 = Xic.children()[0];
 	  meson1  = Xic.children()[1];
 	}
-	else if(Xic.children()[1].pdgId()==sign*3312 && 
-		Xic.children()[0].pdgId()==sign*211) {
+	else if(Xic.children()[1].pid()==sign*3312 && 
+		Xic.children()[0].pid()==sign*211) {
 	  baryon1 = Xic.children()[1];
 	  meson1  = Xic.children()[0];
 	}
 	else
 	  continue;
 	Particle baryon2,meson2;
-	if(baryon1.children()[0].pdgId()== sign*3122 && 
-	   baryon1.children()[1].pdgId()==-sign*211) {
+	if(baryon1.children()[0].pid()== sign*3122 && 
+	   baryon1.children()[1].pid()==-sign*211) {
 	  baryon2 = baryon1.children()[0];
 	  meson2  = baryon1.children()[1];
 	}
-	else if(baryon1.children()[1].pdgId()== sign*3122 && 
-		baryon1.children()[0].pdgId()==-sign*211) {
+	else if(baryon1.children()[1].pid()== sign*3122 && 
+		baryon1.children()[0].pid()==-sign*211) {
 	  baryon2 = baryon1.children()[1];
 	  meson2  = baryon1.children()[0];
 	}
@@ -89,7 +89,8 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       normalize(_h_ctheta);
-      Scatter2DPtr _h_alpha = bookScatter2D(1,1,1);
+      Scatter2DPtr _h_alpha;
+      book(_h_ctheta,1,1,1);
       pair<double,double> alpha = calcAlpha(_h_ctheta);
       _h_alpha->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
     }

@@ -26,30 +26,30 @@ namespace Rivet {
       declare(FinalState(), "FS");
 
       // Book histograms
-      _h_T1_p = bookHisto1D("T1_p",20,-1.,1.);
-      _h_T2_p = bookHisto1D("T2_p",20,-1.,1.);
-      _h_T3_p = bookHisto1D("T3_p",20,-1.,1.);
-      _h_T4_p = bookHisto1D("T4_p",20,-1.,1.);
-      _h_T5_p = bookHisto1D("T5_p",20,-1.,1.);
-      			           
-      _h_T1_n = bookHisto1D("T1_n",20,-1.,1.);
-      _h_T2_n = bookHisto1D("T2_n",20,-1.,1.);
-      _h_T3_n = bookHisto1D("T3_n",20,-1.,1.);
-      _h_T4_n = bookHisto1D("T4_n",20,-1.,1.);
-      _h_T5_n = bookHisto1D("T5_n",20,-1.,1.);
+      book(_h_T1_p, "T1_p",20,-1.,1.);
+      book(_h_T2_p, "T2_p",20,-1.,1.);
+      book(_h_T3_p, "T3_p",20,-1.,1.);
+      book(_h_T4_p, "T4_p",20,-1.,1.);
+      book(_h_T5_p, "T5_p",20,-1.,1.);
+           		       
+      book(_h_T1_n, "T1_n",20,-1.,1.);
+      book(_h_T2_n, "T2_n",20,-1.,1.);
+      book(_h_T3_n, "T3_n",20,-1.,1.);
+      book(_h_T4_n, "T4_n",20,-1.,1.);
+      book(_h_T5_n, "T5_n",20,-1.,1.);
       
-      _h_cThetaL    = bookHisto1D("cThetaL",20,-1.,1.);
+      book(_h_cThetaL,"cThetaL",20,-1.,1.);
       
-      _h_mu_p = bookHisto1D("mu_p",20,-1.,1.);
-      _h_mu_n = bookHisto1D("mu_n",20,-1.,1.);
-      _wsum_p = 0.;
-      _wsum_n = 0.;
+      book(_h_mu_p, "mu_p",20,-1.,1.);
+      book(_h_mu_n, "mu_n",20,-1.,1.);
+      book(_wsum_p,"TMP/wsum_p");
+      book(_wsum_n,"TMP/wsum_n");
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for( const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  nRes[child.pdgId()]-=1;
+	  nRes[child.pid()]-=1;
 	  --ncount;
 	}
 	else
@@ -62,7 +62,7 @@ namespace Rivet {
       // get the axis, direction of incoming electron
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       Vector3 axis;
-      if(beams.first.pdgId()>0)
+      if(beams.first.pid()>0)
 	axis = beams.first .momentum().p3().unit();
       else
 	axis = beams.second.momentum().p3().unit();
@@ -70,22 +70,22 @@ namespace Rivet {
       const FinalState& fs = apply<FinalState>(event, "FS");
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p :  fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
       // loop over lambda0 baryons
       const UnstableParticles & ufs = apply<UnstableParticles>(event, "UFS");
       Particle Lambda,LamBar;
       bool matched(false);
-      foreach (const Particle& p, ufs.particles(Cuts::abspid==3122)) {
+      for (const Particle& p :  ufs.particles(Cuts::abspid==3122)) {
        	if(p.children().empty()) continue;
        	map<long,int> nRes=nCount;
        	int ncount = ntotal;
        	findChildren(p,nRes,ncount);
        	matched=false;
        	// check for antiparticle
-      	foreach (const Particle& p2, ufs.particles(Cuts::pid==-p.pdgId())) {
+      	for (const Particle& p2 :  ufs.particles(Cuts::pid==-p.pid())) {
       	  if(p2.children().empty()) continue;
       	  map<long,int> nRes2=nRes;
       	  int ncount2 = ncount;
@@ -100,7 +100,7 @@ namespace Rivet {
       	    }
       	    // fond baryon and antibaryon
       	    if(matched) {
-	      if(p.pdgId()>0) {
+	      if(p.pid()>0) {
 		Lambda = p;
 		LamBar = p2;
 	      }
@@ -118,7 +118,7 @@ namespace Rivet {
       Particle proton;
       matched = false;
       for (const Particle & p : Lambda.children()) {
-	if(p.pdgId()==2212) {
+	if(p.pid()==2212) {
 	  matched=true;
 	  proton=p;
 	}
@@ -127,11 +127,11 @@ namespace Rivet {
       Particle baryon;
       int mode(-1);
       for (const Particle & p : LamBar.children()) {
-	if(p.pdgId()==-2212) {
+	if(p.pid()==-2212) {
 	  baryon=p;
 	  mode=0;
 	}
-	else if(p.pdgId()==-2112) {
+	else if(p.pid()==-2112) {
 	  baryon=p;
 	  mode=1;
 	}
@@ -156,24 +156,24 @@ namespace Rivet {
       double T5 = n1z*n2z-sqr(sinL)*n1y*n2y;
       double mu = n1y-n2y;
       if(mode==0) {
-	_h_T1_p->fill(cosL,T1*event.weight());
-	_h_T2_p->fill(cosL,T2*event.weight());
-	_h_T3_p->fill(cosL,T3*event.weight());
-	_h_T4_p->fill(cosL,T4*event.weight());
-	_h_T5_p->fill(cosL,T5*event.weight());
-	_h_mu_p->fill(cosL,mu*event.weight());
-	_wsum_p+=event.weight();
+	_h_T1_p->fill(cosL,T1);
+	_h_T2_p->fill(cosL,T2);
+	_h_T3_p->fill(cosL,T3);
+	_h_T4_p->fill(cosL,T4);
+	_h_T5_p->fill(cosL,T5);
+	_h_mu_p->fill(cosL,mu);
+	_wsum_p->fill();
       }
       else {
-	_h_T1_n->fill(cosL,T1*event.weight());
-	_h_T2_n->fill(cosL,T2*event.weight());
-	_h_T3_n->fill(cosL,T3*event.weight());
-	_h_T4_n->fill(cosL,T4*event.weight());
-	_h_T5_n->fill(cosL,T5*event.weight());
-	_h_mu_n->fill(cosL,mu*event.weight());
-	_wsum_n+=event.weight();
+	_h_T1_n->fill(cosL,T1);
+	_h_T2_n->fill(cosL,T2);
+	_h_T3_n->fill(cosL,T3);
+	_h_T4_n->fill(cosL,T4);
+	_h_T5_n->fill(cosL,T5);
+	_h_mu_n->fill(cosL,mu);
+	_wsum_n->fill();
       }
-      _h_cThetaL->fill(cosL,event.weight());
+      _h_cThetaL->fill(cosL);
     }
     
     pair<double,pair<double,double> > calcAlpha0(Histo1DPtr hist) {
@@ -235,24 +235,25 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       normalize(_h_cThetaL);
-      scale(_h_T1_p,1./_wsum_p);
-      scale(_h_T2_p,1./_wsum_p);
-      scale(_h_T3_p,1./_wsum_p);
-      scale(_h_T4_p,1./_wsum_p);
-      scale(_h_T5_p,1./_wsum_p);
+      scale(_h_T1_p,1./ *_wsum_p);
+      scale(_h_T2_p,1./ *_wsum_p);
+      scale(_h_T3_p,1./ *_wsum_p);
+      scale(_h_T4_p,1./ *_wsum_p);
+      scale(_h_T5_p,1./ *_wsum_p);
       
-      scale(_h_T1_n,1./_wsum_n);
-      scale(_h_T2_n,1./_wsum_n);
-      scale(_h_T3_n,1./_wsum_n);
-      scale(_h_T4_n,1./_wsum_n);
-      scale(_h_T5_n,1./_wsum_n);
+      scale(_h_T1_n,1./ *_wsum_n);
+      scale(_h_T2_n,1./ *_wsum_n);
+      scale(_h_T3_n,1./ *_wsum_n);
+      scale(_h_T4_n,1./ *_wsum_n);
+      scale(_h_T5_n,1./ *_wsum_n);
       
-      scale(_h_mu_p,1./_wsum_p);
-      scale(_h_mu_n,1./_wsum_n);
+      scale(_h_mu_p,1./ *_wsum_p);
+      scale(_h_mu_n,1./ *_wsum_n);
 
       // calculate alpha0
       pair<double,pair<double,double> > alpha0 = calcAlpha0(_h_cThetaL);
-      Scatter2DPtr _h_alpha0 = bookScatter2D(1,1,1);
+      Scatter2DPtr _h_alpha0;
+      book(_h_alpha0,1,1,1);
       _h_alpha0->addPoint(0.5, alpha0.first, make_pair(0.5,0.5),
 			  make_pair(alpha0.second.first,alpha0.second.second) );
       double s2 = -1. + sqr(alpha0.first);
@@ -302,11 +303,13 @@ namespace Rivet {
 								      8*(c_T3_p.first*c_T4_p.first*alpha0.second.second +  s3*c_T4_p.first*c_T3_p.second +  s3*c_T3_p.first*c_T4_p.second)* s1*s5*s6))/
 							    (4* pow(3 + alpha0.first,3)* pow(c_T3_p.first,3)* pow(c_T4_p.first,3) -  9*s2*s3*c_T3_p.first*c_T4_p.first*s4)))/
 			(disc + 2*s1*s5*s6)))/(2.*pow(c_T3_p.first,2));
-	Scatter2DPtr _h_alphaM = bookScatter2D(1,3,1);
+	Scatter2DPtr _h_alphaM;
+	book(_h_alphaM,1,3,1);
 	_h_alphaM->addPoint(0.5, aM, make_pair(0.5,0.5),
 			    make_pair(-aM_M , -aM_P ) );
 
-	Scatter2DPtr _h_alphaP = bookScatter2D(1,4,1);
+	Scatter2DPtr _h_alphaP;
+	book(_h_alphaP,1,4,1);
 	_h_alphaP->addPoint(0.5, aP, make_pair(0.5,0.5),
 			    make_pair(-aP_M , -aP_P  ) );
 	// now for Delta
@@ -323,7 +326,8 @@ namespace Rivet {
 	  (pow(1 - pow(alpha0.first,2),1.5)*pow(c_T4_p.first,3)*pow(-((disc + 2*s1*s5*s6)/   (s2*s6)),1.5)*(-9*s2*s4 + 4*s1*s5*s6));
 	ds_P /= sqrt(1.-sqr(sDelta));
 	ds_M /= sqrt(1.-sqr(sDelta));
-	Scatter2DPtr _h_sin = bookScatter2D(1,2,1);
+	Scatter2DPtr _h_sin;
+	book(_h_sin,1,2,1);
 	_h_sin->addPoint(0.5, Delta/M_PI*180., make_pair(0.5,0.5), make_pair( -ds_P/M_PI*180., -ds_M/M_PI*180. ) );
       }
       // alpha 0
@@ -354,7 +358,8 @@ namespace Rivet {
 								      8*(c_T3_n.first*c_T4_n.first*alpha0.second.second +  s3*c_T4_n.first*c_T3_n.second +  s3*c_T3_n.first*c_T4_n.second)* s1*s5*s6))/
 							    (4* pow(3 + alpha0.first,3)* pow(c_T3_n.first,3)* pow(c_T4_n.first,3) -  9*s2*s3*c_T3_n.first*c_T4_n.first*s4)))/
 			(disc + 2*s1*s5*s6)))/(2.*pow(c_T3_n.first,2));
-	Scatter2DPtr _h_alpha0 = bookScatter2D(1,5,1);
+	Scatter2DPtr _h_alpha0;
+	book(_h_alpha0,1,5,1);
 	_h_alpha0->addPoint(0.5, a0, make_pair(0.5,0.5),
 			    make_pair(-a0_M , -a0_P ) );
       }
@@ -368,7 +373,7 @@ namespace Rivet {
     Histo1DPtr _h_T1_n,_h_T2_n,_h_T3_n,_h_T4_n,_h_T5_n;
     Histo1DPtr _h_cThetaL;
     Histo1DPtr _h_mu_p,_h_mu_n;
-    double _wsum_p,_wsum_n;
+    CounterPtr _wsum_p,_wsum_n;
     //@}
 
   };

@@ -22,31 +22,21 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      _dalitz = bookHisto2D(1,1,1);
-      _h_dalitz.addHistogram( -0.9, -0.8, bookHisto1D(2, 1, 1 ));
-      _h_dalitz.addHistogram( -0.8, -0.7, bookHisto1D(2, 1, 2 ));
-      _h_dalitz.addHistogram( -0.7, -0.6, bookHisto1D(2, 1, 3 ));
-      _h_dalitz.addHistogram( -0.6, -0.5, bookHisto1D(2, 1, 4 ));
-      _h_dalitz.addHistogram( -0.5, -0.4, bookHisto1D(2, 1, 5 ));
-      _h_dalitz.addHistogram( -0.4, -0.3, bookHisto1D(2, 1, 6 ));
-      _h_dalitz.addHistogram( -0.3, -0.2, bookHisto1D(2, 1, 7 ));
-      _h_dalitz.addHistogram( -0.2, -0.1, bookHisto1D(2, 1, 8 ));
-      _h_dalitz.addHistogram( -0.1,  0.0, bookHisto1D(2, 1, 9 ));
-      _h_dalitz.addHistogram(  0.0,  0.1, bookHisto1D(2, 1, 10));
-      _h_dalitz.addHistogram(  0.1,  0.2, bookHisto1D(2, 1, 11));
-      _h_dalitz.addHistogram(  0.2,  0.3, bookHisto1D(2, 1, 12));
-      _h_dalitz.addHistogram(  0.3,  0.4, bookHisto1D(2, 1, 13));
-      _h_dalitz.addHistogram(  0.4,  0.5, bookHisto1D(2, 1, 14));
-      _h_dalitz.addHistogram(  0.5,  0.6, bookHisto1D(2, 1, 15));
-      _h_dalitz.addHistogram(  0.6,  0.7, bookHisto1D(2, 1, 16));
-      _h_dalitz.addHistogram(  0.7,  0.8, bookHisto1D(2, 1, 17));
-      _norm=0.;
+      book(_dalitz, 1,1,1);
+      double step(0.1), x(-0.9);
+      for(unsigned int ix=1;ix<18;++ix) {
+	Histo1DPtr temp;
+	book(temp,2,1,ix);
+	_h_dalitz.add( x, x+step, temp);
+	x += step;
+      }
+      book(_norm,"TMP/norm");
     }
     
     void findDecayProducts(const Particle & mother, unsigned int & nstable,
 			   Particles &pi0, Particles &pip, Particles &pim) {
       for(const Particle & p : mother.children()) {
-        int id = p.pdgId();
+        int id = p.pid();
         if (id == PID::PIMINUS ) {
 	  pim.push_back(p);
           ++nstable;
@@ -70,8 +60,8 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // Loop over eta mesons
-      foreach(const Particle& p, apply<UnstableParticles>(event, "UFS").particles()) {
-	if(p.pdgId()!=221) continue;
+      for (const Particle& p : apply<UnstableParticles>(event, "UFS").particles()) {
+	if(p.pid()!=221) continue;
       	Particles pi0, pip, pim;
       	unsigned nstable(0);
       	findDecayProducts(p,nstable,pi0,pip,pim);
@@ -89,9 +79,9 @@ namespace Rivet {
 	  // X and Y variables
       	  double X = sqrt(3.)/Q*(Ep-Em);
       	  double Y = 3.*E0/Q-1.;
-       	  _dalitz ->fill(X,Y,event.weight());
-	  _h_dalitz.fill(Y,X,event.weight());
-       	  if(fabs(X)<0.03225806451612903 && Y>0. && Y<0.1) _norm+=event.weight();
+       	  _dalitz ->fill(X,Y);
+	  _h_dalitz.fill(Y,X);
+       	  if(fabs(X)<0.03225806451612903 && Y>0. && Y<0.1) _norm->fill();
       	}
       }
     }
@@ -99,8 +89,8 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale(_dalitz,0.06451612903225806*0.1/_norm);
-      for (Histo1DPtr histo : _h_dalitz.getHistograms()) scale(histo,0.06451612903225806/_norm);
+      scale(_dalitz,0.06451612903225806*0.1/ *_norm);
+      for (Histo1DPtr histo : _h_dalitz.histos()) scale(histo,0.06451612903225806/ *_norm);
 
     }
 
@@ -110,8 +100,8 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo2DPtr _dalitz;
-    BinnedHistogram<double> _h_dalitz;
-    double _norm;
+    BinnedHistogram _h_dalitz;
+    CounterPtr _norm;
     //@}
 
 

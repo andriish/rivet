@@ -23,18 +23,16 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
       
       // Book histograms
-      _h_Ds_star1   = bookHisto1D(1, 1, 1);
-      _h_Ds         = bookHisto1D(2, 1, 1);
-      _h_Ds_star2   = bookHisto1D(3, 1, 1);
-      _h_Ds_primary = bookHisto1D(4, 1, 1);
+      book(_h_Ds_star1  , 1, 1, 1);
+      book(_h_Ds        , 2, 1, 1);
+      book(_h_Ds_star2  , 3, 1, 1);
+      book(_h_Ds_primary, 4, 1, 1);
 
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
-
       // Loop through unstable FS particles and look for charmed mesons
       const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
 
@@ -56,22 +54,22 @@ namespace Rivet {
       	  //   MSG_DEBUG("D_s found");
       	  mH2 = sqr(1.96834);
       	  xp = mom/sqrt(s/4.0 - mH2);
-      	  _h_Ds->fill(xp,weight);
+      	  _h_Ds->fill(xp);
       	  for(const Particle & mother : p.parents()) {
-      	    if(PID::isCharmMeson(mother.pdgId())) {
+      	    if(PID::isCharmMeson(mother.pid())) {
       	      primary = false;
       	      break;
       	    }
       	  }
       	  if(primary)
-      	    _h_Ds_primary->fill(xp,weight);
+      	    _h_Ds_primary->fill(xp);
       	  break;
         case 433:
           MSG_DEBUG("D_s* found");
           mH2 = sqr(2.1122);
       	  xp = mom/sqrt(s/4.0 - mH2);
-      	  _h_Ds_star1->fill(xp,weight);
-      	  _h_Ds_star2->fill(xp,weight);
+      	  _h_Ds_star1->fill(xp);
+      	  _h_Ds_star2->fill(xp);
       	  break;
       	default:
       	  break;

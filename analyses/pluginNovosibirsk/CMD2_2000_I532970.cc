@@ -81,7 +81,7 @@ namespace Rivet {
 	  }
 	}
 	// find the omega
-	else if(p.pdgId()==223) {
+	else if(p.pid()==223) {
 	  map<long,int> nRes = nCount;
 	  int ncount = ntotal;
 	  findChildren(p,nRes,ncount);

@@ -21,15 +21,15 @@ namespace Rivet {
       // Initialise and register projections
       declare(UnstableParticles(), "UFS");
       // Book histograms
-      _h_pm = bookHisto1D(1, 1, 1);
-      _h_p0 = bookHisto1D(2, 1, 1);
+      book(_h_pm, 1, 1, 1);
+      book(_h_p0, 2, 1, 1);
       
     }
     
     void findDecayProducts(const Particle & mother, unsigned int & nstable, Particles &pip,
 			   Particles &pim, Particles &pi0) {
       for(const Particle & p : mother.children()) {
-	int id = p.pdgId();
+	int id = p.pid();
 	if (id == PID::PIMINUS ) {
 	  pim.push_back(p);
 	  ++nstable;
@@ -52,15 +52,14 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight=event.weight();
-      foreach(const Particle& p, apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==333)) {
+      for (const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==333)) {
 	Particles pip,pim,pi0;
 	unsigned int nstable(0);
 	findDecayProducts(p, nstable, pip,pim,pi0);
 	if(nstable==3 && pip.size()==1 && pim.size()==1&&pi0.size()==1) {
-	  _h_pm->fill((pip[0].momentum()+pim[0].momentum()).mass()/MeV,weight);
-	  _h_p0->fill((pip[0].momentum()+pi0[0].momentum()).mass()/MeV,weight);
-	  _h_p0->fill((pim[0].momentum()+pi0[0].momentum()).mass()/MeV,weight);
+	  _h_pm->fill((pip[0].momentum()+pim[0].momentum()).mass()/MeV);
+	  _h_p0->fill((pip[0].momentum()+pi0[0].momentum()).mass()/MeV);
+	  _h_p0->fill((pim[0].momentum()+pi0[0].momentum()).mass()/MeV);
 	}
       }
     }

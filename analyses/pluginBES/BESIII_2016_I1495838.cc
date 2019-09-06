@@ -46,7 +46,7 @@ namespace Rivet {
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       // find the psis
-      foreach (const Particle& p, ufs.particles(Cuts::pid==443)) {
+      for (const Particle& p :  ufs.particles(Cuts::pid==443)) {
 	if(p.children().empty()) continue;
 	map<long,int> nRes = nCount;
 	int ncount = ntotal;

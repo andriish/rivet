@@ -21,15 +21,15 @@ namespace Rivet {
       // Initialise and register projections
       declare(UnstableParticles(), "UFS");
       // Book histograms
-      _h_m = bookHisto1D(1, 1, 1);
-      _weight=0.;
+      book(_h_m, 1, 1, 1);
+      book(_weight,"TMP/weight");
     }
 
     void findDecayProducts(const Particle & mother, unsigned int & nstable, unsigned int & npi, 
                            unsigned int & nep, unsigned int & nem, unsigned int & ngamma,
 			   FourMomentum & ptot) {
       for(const Particle & p : mother.children()) {
-        int id = p.pdgId();
+        int id = p.pid();
         if (id == PID::EMINUS ) {
 	  ++nem;
           ++nstable;
@@ -63,7 +63,7 @@ namespace Rivet {
       static double mpi  = 134.9770*MeV;
 
       // Loop over phi mesons
-      foreach(const Particle& p, apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==333)) {
+      for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==333)) {
 	unsigned nstable(0),npi(0),nep(0),nem(0),ngamma(0);
 	FourMomentum ptot;
 	findDecayProducts(p,nstable,npi,nep,nem,ngamma,ptot);
@@ -72,10 +72,10 @@ namespace Rivet {
 	  double beta = sqrt(1.-4*sqr(me/q));
 	  double p = sqrt(sqr(1.+sqr(q)/(sqr(mphi)-sqr(mpi)))-4.*sqr(mphi*q/(sqr(mphi)-sqr(mpi))));
 	  double fact = beta*MeV/q*(1.+2.*sqr(me/q))*pow(p,3);
-	  _h_m->fill(q/MeV,event.weight()/fact);
+	  _h_m->fill(q/MeV,1./fact);
 	}
 	else if(nstable==2 && ngamma ==1 && npi==1) {
-	  _weight += event.weight();
+	  _weight->fill();
 	}
       }
       
@@ -85,7 +85,7 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       static double alpha= 7.2973525664e-3;
-      scale(_h_m, 1.5*M_PI/_weight/alpha);
+      scale(_h_m, 1.5*M_PI/alpha/ *_weight);
 
     }
 
@@ -95,7 +95,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_m;
-    double _weight;
+    CounterPtr _weight;
     //@}
 
 

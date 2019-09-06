@@ -23,14 +23,14 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      _h_n = bookHisto1D(1, 1, 1);
+      book(_h_n, 1, 1, 1);
 
     }
     
     void findChildren(const Particle & p,int & nCharged) {
-      foreach(const Particle &child, p.children()) {
+      for( const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  if(PID::isCharged(child.pdgId())) ++nCharged;
+	  if(PID::isCharged(child.pid())) ++nCharged;
 	}
 	else
 	  findChildren(child,nCharged);
@@ -39,10 +39,10 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      foreach (const Particle& p, apply<FinalState>(event, "UFS").particles(Cuts::pid==441)) {
+      for (const Particle& p :  apply<FinalState>(event, "UFS").particles(Cuts::pid==441)) {
 	int nCharged(0);
 	findChildren(p,nCharged);
-	_h_n->fill(min(nCharged,8),event.weight());
+	_h_n->fill(min(nCharged,8));
       }
     }
 

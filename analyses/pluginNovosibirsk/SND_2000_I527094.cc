@@ -19,15 +19,15 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       declare(UnstableParticles(), "UFS");
-      _h_pipi   = bookHisto1D( 1, 1, 1);
-      _nPhi=0.;
+      book(_h_pipi, 1, 1, 1);
+      book(_nPhi,"TMP/nPhi");
     }
 
     void findDecayProducts(const Particle & mother, unsigned int & nstable,
                            unsigned int & npi,
 			   unsigned int & ngamma, FourMomentum & ptot) {
       for(const Particle & p : mother.children()) {
-        int id = p.pdgId();
+        int id = p.pid();
         if (id == PID::PI0) {
 	  ++npi;
           ++nstable;
@@ -52,13 +52,13 @@ namespace Rivet {
     void analyze(const Event& event) {
       // Loop over phis
       for(const Particle& phi : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==PID::PHI)) {
-	_nPhi+=event.weight();
+	_nPhi->fill();
         unsigned int nstable(0),npi(0),ngamma(0);
       	FourMomentum p_tot(0,0,0,0);
         findDecayProducts(phi, nstable, npi, ngamma, p_tot);
        	if(nstable!=3) continue;
       	if(npi==2 && ngamma==1 ) {
-          _h_pipi->fill(p_tot.mass()/MeV, event.weight());
+          _h_pipi->fill(p_tot.mass()/MeV);
 	}
       }
     }
@@ -66,7 +66,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale( _h_pipi, 1./_nPhi);
+      scale( _h_pipi, 1./ *_nPhi);
     }
 
     //@}
@@ -75,7 +75,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_pipi;
-    double _nPhi;
+    CounterPtr _nPhi;
     //@}
 
 

@@ -27,8 +27,8 @@ namespace Rivet {
       declare(FinalState(), "FS");
 
       // Book histograms
-      _h_proton  = bookHisto1D("ctheta_p",20,-1.,1.);
-      _h_neutron = bookHisto1D("ctheta_n",20,-1.,1.);
+      book(_h_proton ,"ctheta_p",20,-1.,1.);
+      book(_h_neutron,"ctheta_n",20,-1.,1.);
 
     }
 
@@ -38,7 +38,7 @@ namespace Rivet {
       // get the axis, direction of incoming electron
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       Vector3 axis;
-      if(beams.first.pdgId()>0)
+      if(beams.first.pid()>0)
 	axis = beams.first .momentum().p3().unit();
       else
 	axis = beams.second.momentum().p3().unit();
@@ -47,18 +47,18 @@ namespace Rivet {
       map<long,int> nCount;
       int ntotal(0);
       Particle outgoing;
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
-	if(p.pdgId()==2212 || p.pdgId()==2112)
+      for (const Particle& p :  fs.particles()) {
+	nCount[p.pid()] += 1;
+	if(p.pid()==2212 || p.pid()==2112)
 	  outgoing = p;
 	++ntotal;
       }
       if(ntotal==2) {
 	if(nCount[2212]==1 && nCount[-2212]==1) {
-	  _h_proton->fill(outgoing.momentum().p3().unit().dot(axis),event.weight());
+	  _h_proton->fill(outgoing.momentum().p3().unit().dot(axis));
 	}
 	else if(nCount[2112]==1 && nCount[-2112]==1) {
-	  _h_neutron->fill(outgoing.momentum().p3().unit().dot(axis),event.weight());
+	  _h_neutron->fill(outgoing.momentum().p3().unit().dot(axis));
 	}
       }
     }
@@ -99,13 +99,17 @@ namespace Rivet {
       // proton
       normalize(_h_proton );
       pair<double,pair<double,double> > alpha = calcAlpha(_h_proton);
-      Scatter2DPtr _h_alpha_proton = bookScatter2D(1,1,1);
-      _h_alpha_proton->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second.first,alpha.second.second) );
+      Scatter2DPtr _h_alpha_proton;
+      book(_h_alpha_proton,1,1,1);
+      _h_alpha_proton->addPoint(0.5, alpha.first, make_pair(0.5,0.5),
+				make_pair(alpha.second.first,alpha.second.second) );
       // neutron
       normalize(_h_neutron);
       alpha = calcAlpha(_h_neutron);
-      Scatter2DPtr _h_alpha_neutron = bookScatter2D(1,1,2);
-      _h_alpha_neutron->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second.first,alpha.second.second) );
+      Scatter2DPtr _h_alpha_neutron;
+      book(_h_alpha_neutron,1,1,2);
+      _h_alpha_neutron->addPoint(0.5, alpha.first, make_pair(0.5,0.5),
+				 make_pair(alpha.second.first,alpha.second.second) );
     }
 
     //@}
