@@ -10,9 +10,6 @@ namespace Rivet {
       fail();
       return;
     }
-    LorentzTransform hcmboost; //< Null boost = LAB frame by default
-    // if (_boosttype == HCM) hcmboost = ggkin.boostHCM();
-    // else if (_boosttype == BREIT) hcmboost = ggkin.boostBreit();
 
     const GammaGammaLeptons& gglep = ggkin.apply<GammaGammaLeptons>(e, "Lepton");
     if ( ggkin.failed() ) {
@@ -30,10 +27,8 @@ namespace Rivet {
     ConstGenParticlePtr lep2 = gglep.out().second.genParticle();
     // Ensure that we skip the GammaGamma leptons
     for (const Particle& p : fs.particles()) { 
-      Particle temp = p;
-      if (_boosttype != LAB) temp.setMomentum(hcmboost.transform(temp.momentum()));
       if (p.genParticle() != lep1 &&
-	  p.genParticle() != lep2)  _theParticles.push_back(temp);
+	  p.genParticle() != lep2)  _theParticles.push_back(p);
     }
   }
 

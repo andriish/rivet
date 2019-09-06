@@ -64,7 +64,7 @@ namespace Rivet {
   }
 
 
-  int GammaGammaKinematics::compare(const Projection & p) const {
+  CmpState GammaGammaKinematics::compare(const Projection & p) const {
     const GammaGammaKinematics& other = pcast<GammaGammaKinematics>(p);
     return mkNamedPCmp(other, "Lepton");
   }

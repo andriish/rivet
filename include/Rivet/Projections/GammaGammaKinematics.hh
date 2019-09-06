@@ -23,8 +23,8 @@ namespace Rivet {
     {
       setName("GammaGammaKinematics");
       //addPdgIdPair(ANY, hadid);
-      addProjection(Beam(), "Beam");
-      addProjection(lepton, "Lepton");
+      declare(Beam(), "Beam");
+      declare(lepton, "Lepton");
     }
 
     /// Clone on the heap.
@@ -37,7 +37,7 @@ namespace Rivet {
     virtual void project(const Event& e);
 
     /// Compare with other projections.
-    virtual int compare(const Projection& p) const;
+    virtual CmpState compare(const Projection& p) const;
 
 
   public:
@@ -47,27 +47,6 @@ namespace Rivet {
 
     /// The \f$W^2\f$.
     double W2() const { return _theW2; }
-
-    // /// The Bjorken \f$x\f$.
-    // double x() const { return _theX; }
-
-    // /// The inelasticity \f$y\f$
-    // double y() const { return _theY; }
-
-    // /// The centre of mass energy \f$s\f$
-    // double s() const { return _theS; }
-
-
-
-    // /// The LorentzRotation needed to boost a particle to the hadronic CM frame.
-    // const LorentzTransform& boostHCM() const {
-    //   return _hcm;
-    // }
-
-    // /// The LorentzRotation needed to boost a particle to the hadronic Breit frame.
-    // const LorentzTransform& boostBreit() const {
-    //   return _breit;
-    // }
 
     /// The incoming lepton beam particle
     const ParticlePair& beamLeptons() const {
@@ -89,23 +68,8 @@ namespace Rivet {
     /// The \f$W^2\f$.
     double _theW2;
 
-    // /// The Bjorken \f$x\f$.
-    // double _theX;
-
-    // /// The Inelasticity \f$y\f$
-    // double _theY;
-
-    // /// The centre of mass energy \f$s\f$
-    // double _theS;
-
     /// Incoming and outgoing GammaGamma particles
     ParticlePair _inLepton, _outLepton;
-
-    // /// The LorentzRotation needed to boost a particle to the hadronic CM frame.
-    // LorentzTransform _hcm;
-
-    // /// The LorentzRotation needed to boost a particle to the hadronic Breit frame.
-    // LorentzTransform _breit;
 
   };
 

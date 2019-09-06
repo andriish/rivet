@@ -23,17 +23,14 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(UnstableParticles(), "UFS");
       
-      _h_Xe_Ds   = bookHisto1D(3, 1, 1);
-      _h_Xe_Ds_b = bookHisto1D(4, 1, 1);
-      _h_Xe_Ds_c = bookHisto1D(5, 1, 1);
+      book(_h_Xe_Ds  , 3, 1, 1);
+      book(_h_Xe_Ds_b, 4, 1, 1);
+      book(_h_Xe_Ds_c, 5, 1, 1);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
-
-      
       const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
       
       // Get beams and average beam momentum
@@ -47,11 +44,11 @@ namespace Rivet {
 	// Scaled energy.
 	const double energy = p.E()/GeV;
 	const double scaledEnergy = energy/meanBeamMom;
-	_h_Xe_Ds->fill(scaledEnergy, weight);
+	_h_Xe_Ds->fill(scaledEnergy);
 	if(nB==0)
-	  _h_Xe_Ds_c->fill(scaledEnergy, weight);
+	  _h_Xe_Ds_c->fill(scaledEnergy);
 	else
-	  _h_Xe_Ds_b->fill(scaledEnergy, weight);
+	  _h_Xe_Ds_b->fill(scaledEnergy);
       }
     }
 

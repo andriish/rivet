@@ -25,11 +25,13 @@ namespace Rivet {
 
 
       // Book histograms
-      _h_bottom = bookHisto1D(1, 1, 1);
-      _h_charm  = bookHisto1D(1, 1, 2);
-      _h_light  = bookHisto1D(1, 1, 3);
+      book(_h_bottom, 1, 1, 1);
+      book(_h_charm , 1, 1, 2);
+      book(_h_light , 1, 1, 3);
 
-      _wBottom = _wCharm = _wLight = 0.;
+      book(_wBottom,"TMP/wBottom");
+      book(_wCharm ,"TMP/wCharm" );
+      book(_wLight ,"TMP/wLight" );
     }
 
 
@@ -46,9 +48,6 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      // Get event weight for histo filling
-      const double weight = event.weight();
-
       int flavour = 0;
       const InitialQuarks& iqf = apply<InitialQuarks>(event, "IQF");
 
@@ -59,7 +58,7 @@ namespace Rivet {
       }
       else {
         map<int, double> quarkmap;
-        foreach (const Particle& p, iqf.particles()) {
+        for (const Particle& p : iqf.particles()) {
           if (quarkmap[p.pid()] < p.E()) {
             quarkmap[p.pid()] = p.E();
           }
@@ -71,19 +70,19 @@ namespace Rivet {
           }
         }
       }
-      if     (flavour==5) _wBottom += weight;
-      else if(flavour==4) _wCharm  += weight;
-      else                _wLight  += weight;
+      if     (flavour==5) _wBottom->fill();
+      else if(flavour==4) _wCharm ->fill();
+      else                _wLight ->fill();
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         double xp = p.p3().mod()/meanBeamMom;
-	if     (flavour==5) _h_bottom->fill(xp,weight);
-	else if(flavour==4) _h_charm ->fill(xp,weight);
-	else                _h_light ->fill(xp,weight);
+	if     (flavour==5) _h_bottom->fill(xp);
+	else if(flavour==4) _h_charm ->fill(xp);
+	else                _h_light ->fill(xp);
       }
     }
 
@@ -91,9 +90,9 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
 
-      scale(_h_bottom, 1./_wBottom);
-      scale(_h_charm , 1./_wCharm);
-      scale(_h_light , 1./_wLight);
+      scale(_h_bottom, 1./ *_wBottom);
+      scale(_h_charm , 1./ *_wCharm);
+      scale(_h_light , 1./ *_wLight);
 
     }
 
@@ -103,7 +102,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_bottom, _h_charm, _h_light;
-    double _wBottom, _wCharm, _wLight;
+    CounterPtr _wBottom, _wCharm, _wLight;
     //@}
 
 

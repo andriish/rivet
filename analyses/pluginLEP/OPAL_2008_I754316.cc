@@ -20,26 +20,25 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       // get the hadronic final state
-      const GammaGammaKinematics& diskin = declare(GammaGammaKinematics(), "Kinematics");
-      const FinalState & fs = declare(GammaGammaFinalState(diskin, GammaGammaFinalState::LAB), "FS");
+      const GammaGammaKinematics& gammakin = declare(GammaGammaKinematics(), "Kinematics");
+      const FinalState & fs = declare(GammaGammaFinalState(gammakin), "FS");
       declare(FastJets(fs, FastJets::KT,1.),"Jets");
 
       // Book histograms
-      _h_y1 = bookHisto1D(1, 1, 1);
-      _h_y2 = bookHisto1D(2, 1, 1);
+      book(_h_y1,1, 1, 1);
+      book(_h_y2,2, 1, 1);
 
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      double weight = event.weight();
       Jets jets = apply<FastJets>(event, "Jets").jetsByPt(Cuts::pT > 5*GeV and Cuts::abseta < 1.5);
       if(jets.empty()) vetoEvent;
       for(const Jet & jet : jets) {
-      	_h_y2->fill(jet.pT(),weight);
+      	_h_y2->fill(jet.pT());
       	if(abs(jet.eta())<1.0)
-      	  _h_y1->fill(jet.pT(),weight);
+      	  _h_y1->fill(jet.pT());
       }
     }
 

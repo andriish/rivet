@@ -27,12 +27,12 @@ namespace Rivet {
       declare(cfs, "CFS");
       declare(Thrust(cfs), "Thrust");
 
-      _h_pT_in  = bookHisto1D(1, 1, 1);
-      _h_pT_out = bookHisto1D(2, 1, 1);
-      _h_y      = bookHisto1D(3, 1, 1);
-      _h_x      = bookHisto1D(4, 1, 1);
-      _h_xi     = bookHisto1D(5, 1, 1);
-      _wSum = 0.;
+      book(_h_pT_in , 1, 1, 1);
+      book(_h_pT_out, 2, 1, 1);
+      book(_h_y     , 3, 1, 1);
+      book(_h_x     , 4, 1, 1);
+      book(_h_xi    , 5, 1, 1);
+      book(_wSum,"TMP/wSum");
     }
 
 
@@ -47,8 +47,7 @@ namespace Rivet {
         vetoEvent;
       }
       MSG_DEBUG("Passed leptonic event cut");
-      const double weight = event.weight();
-      _wSum += weight;
+      _wSum->fill();
 
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
@@ -58,21 +57,21 @@ namespace Rivet {
       // Thrusts
       MSG_DEBUG("Calculating thrust");
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
-      foreach (const Particle& p, cfs.particles()) {
+      for (const Particle& p : cfs.particles()) {
         const Vector3 mom3  = p.p3();
         const double energy = p.E();
         const double pTinT  = dot(mom3, thrust.thrustMajorAxis());
         const double pToutT = dot(mom3, thrust.thrustMinorAxis());
-      	_h_pT_in ->fill(fabs(pTinT/GeV) ,weight);
-      	_h_pT_out->fill(fabs(pToutT/GeV),weight);
+      	_h_pT_in ->fill(fabs(pTinT/GeV) );
+      	_h_pT_out->fill(fabs(pToutT/GeV));
         const double momT = dot(thrust.thrustAxis(), mom3);
         const double rapidityT = 0.5 * std::log((energy + momT) / (energy - momT));
-      	_h_y->fill(fabs(rapidityT),weight);
+      	_h_y->fill(fabs(rapidityT));
         const double mom = mom3.mod();
         const double scaledMom = mom/meanBeamMom;
         const double logInvScaledMom = -std::log(scaledMom);
-        _h_xi->fill(logInvScaledMom, weight);
-        _h_x ->fill(scaledMom      , weight);
+        _h_xi->fill(logInvScaledMom);
+        _h_x ->fill(scaledMom      );
       }
     }
 
@@ -80,11 +79,11 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
 
-      scale(_h_pT_in , 1./_wSum);
-      scale(_h_pT_out, 1./_wSum);
-      scale(_h_y     , 1./_wSum);
-      scale(_h_x     , 1./_wSum);
-      scale(_h_xi    , 1./_wSum);
+      scale(_h_pT_in , 1./ *_wSum);
+      scale(_h_pT_out, 1./ *_wSum);
+      scale(_h_y     , 1./ *_wSum);
+      scale(_h_x     , 1./ *_wSum);
+      scale(_h_xi    , 1./ *_wSum);
 
     }
 
@@ -94,7 +93,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_pT_in,_h_pT_out,_h_y,_h_x,_h_xi;
-    double _wSum;
+    CounterPtr _wSum;
     //@}
 
 

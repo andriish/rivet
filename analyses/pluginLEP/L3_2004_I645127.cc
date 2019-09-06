@@ -29,23 +29,23 @@ namespace Rivet {
       // Initialise and register projections
       if(_mode==0) {
 	const GammaGammaKinematics& diskin = declare(GammaGammaKinematics(), "Kinematics");
-	declare(GammaGammaFinalState(diskin, GammaGammaFinalState::LAB), "FS");
+	declare(GammaGammaFinalState(diskin), "FS");
 	declare(UnstableParticles(),"UFS");
       }
       else if(_mode==1) {
 	declare(FinalState(), "FS");
       }
       // Book counters
-      _c_sigma_mu1 = bookCounter("/TMP/sigma_mu_1");
-      _c_sigma_mu2 = bookCounter("/TMP/sigma_mu_2");
-      _c_sigma_tau = bookCounter("/TMP/sigma_tau");
+      book(_c_sigma_mu1, "/TMP/sigma_mu_1");
+      book(_c_sigma_mu2, "/TMP/sigma_mu_2");
+      book(_c_sigma_tau, "/TMP/sigma_tau");
 
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for(const Particle &child : p.children()) {
     	if(child.children().empty()) {
-    	  --nRes[child.pdgId()];
+    	  --nRes[child.pid()];
     	  --ncount;
     	}
     	else
@@ -55,7 +55,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      double weight = event.weight();
       // stuff for e+e- collisions
       double W2 = sqr(sqrtS());
       if(_mode==0) {
@@ -68,29 +67,29 @@ namespace Rivet {
       int ntotal(0);
       bool fiducal = true;
       for(const Particle & p : fs.particles()) {
-     	nCount[p.pdgId()] += 1;
+     	nCount[p.pid()] += 1;
      	++ntotal;
-	if(abs(p.pdgId())==13) {
+	if(abs(p.pid())==13) {
 	  if(abs(cos(p.momentum().polarAngle()))>0.8) fiducal = false;
 	}
       }
       if( nCount[-13]==1 && nCount[13]==1 && ntotal==2+nCount[22]) {
 	if(W2<1600.*sqr(GeV)) { 
-	  _c_sigma_mu1->fill(weight);
+	  _c_sigma_mu1->fill();
 	  if(fiducal) {
-	    _c_sigma_mu2->fill(weight);
+	    _c_sigma_mu2->fill();
 	  }
 	} 
       }
       if(_mode==1) return;
       bool foundTauPlus = false, foundTauMinus = true;
       const UnstableParticles & ufs = apply<UnstableParticles>(event, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
     	// find the taus
-     	if(abs(p.pdgId())==15) {
-	  if(p.pdgId()== 15) foundTauMinus=true;
-	  if(p.pdgId()==-15) foundTauPlus =true;
+     	if(abs(p.pid())==15) {
+	  if(p.pid()== 15) foundTauMinus=true;
+	  if(p.pid()==-15) foundTauPlus =true;
      	  findChildren(p,nCount,ntotal);
 	}
       }
@@ -107,7 +106,7 @@ namespace Rivet {
 	}
       }
       if(matched)
-	_c_sigma_tau->fill(weight);
+	_c_sigma_tau->fill();
     }
 
 
@@ -152,7 +151,8 @@ namespace Rivet {
 	  error = _c_sigma_mu1->err();
 	}
 	Scatter2D temphisto(refData(id, 1, iy));
-	Scatter2DPtr  mult = bookScatter2D(id, 1, iy);
+	Scatter2DPtr  mult;
+	book(mult, id, 1, iy);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();

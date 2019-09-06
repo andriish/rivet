@@ -196,14 +196,14 @@ namespace Rivet {
       
       MSG_DEBUG("Calculating Parisi params");
       const ParisiTensor& parisi = apply<ParisiTensor>(event, "Parisi");
-      _h_CParam->fill(parisi.C(), weight);
-      if(_h_DParam) _h_DParam->fill(parisi.D(), weight);
+      _h_CParam->fill(parisi.C());
+      if(_h_DParam) _h_DParam->fill(parisi.D());
 
       // single particle distributions
       const FinalState& fs = apply<FinalState>(event, "FS");
       if(_h_xi) {
-	foreach (const Particle& p, fs.particles()) {
-	  if( ! PID::isCharged(p.pdgId())) continue;
+	for (const Particle& p : fs.particles()) {
+	  if( ! PID::isCharged(p.pid())) continue;
 	  // Get momentum and energy of each particle.
 	  const Vector3 mom3 = p.p3();
 	  const double energy = p.E();
@@ -212,18 +212,18 @@ namespace Rivet {
 	  const double mom = mom3.mod();
 	  const double scaledMom = mom/meanBeamMom;
 	  const double logInvScaledMom = -std::log(scaledMom);
-	  _h_xi->fill(logInvScaledMom, weight);
+	  _h_xi->fill(logInvScaledMom);
 	  
 	  // Get momenta components w.r.t. thrust and sphericity.
 	  const double momT = dot(thrust.thrustAxis(), mom3);
 	  const double pTinT = dot(mom3, thrust.thrustMajorAxis());
 	  const double pToutT = dot(mom3, thrust.thrustMinorAxis());
-	  _h_pTIn ->fill(fabs(pTinT/GeV), weight);
-	  _h_pTOut->fill(fabs(pToutT/GeV), weight);
+	  _h_pTIn ->fill(fabs(pTinT/GeV));
+	  _h_pTOut->fill(fabs(pToutT/GeV));
 	  
 	  // Calculate rapidities w.r.t. thrust and sphericity.
 	  const double rapidityT = 0.5 * std::log((energy + momT) / (energy - momT));
-	  _h_rap->fill(fabs(rapidityT), weight);
+	  _h_rap->fill(fabs(rapidityT));
 	  MSG_TRACE(fabs(rapidityT) << " " << scaledMom/GeV);
 	}
       }

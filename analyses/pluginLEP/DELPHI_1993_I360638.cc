@@ -28,12 +28,12 @@ namespace Rivet {
       declare(Sphericity(cfs), "Sphericity");
 
       // Book histograms
-      _h_x        = bookHisto1D(1, 1, 1);
-      _h_rap      = bookHisto1D(3, 1, 1);
-      _h_cos      = bookHisto1D(4, 1, 1);
-      _m_single   = bookHisto1D(2, 1, 1);
-      _m_like     = bookHisto1D(5, 1, 1);
-      _m_opposite = bookHisto1D(6, 1, 1);
+      book(_h_x       , 1, 1, 1);
+      book(_h_rap     , 3, 1, 1);
+      book(_h_cos     , 4, 1, 1);
+      book(_m_single  , 2, 1, 1);
+      book(_m_like    , 5, 1, 1);
+      book(_m_opposite, 6, 1, 1);
 
     }
 
@@ -45,33 +45,32 @@ namespace Rivet {
       const size_t numParticles = fs.particles().size();
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (numParticles < 2) vetoEvent;
-      const double weight = event.weight();
       const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
       // lambda
       Particles lambda    = ufs.particles(Cuts::pid== PID::LAMBDA);
       Particles lambdabar = ufs.particles(Cuts::pid==-PID::LAMBDA);
       // multiplicities
-      _m_single->fill(91.2,(lambda.size()+lambdabar.size())*weight);
+      _m_single->fill(91.2,(lambda.size()+lambdabar.size()));
       if(lambda.empty()&&lambdabar.empty()) vetoEvent;
       for(const Particle& p : lambda) {
 	double xP = 2.*p.p3().mod()/sqrtS();
-	_h_x->fill(xP,weight);
+	_h_x->fill(xP);
       }
       for(const Particle& p : lambdabar) {
 	double xP = 2.*p.p3().mod()/sqrtS();
-	_h_x->fill(xP,weight);
+	_h_x->fill(xP);
       }
       if(lambda.size()>=2) {
 	unsigned int npair=lambda.size()/2;
-	_m_like->fill(91.2,weight*double(npair));
+	_m_like->fill(91.2,double(npair));
       }
       if(lambdabar.size()>=2) {
 	unsigned int npair=lambdabar.size()/2;
-	_m_like->fill(91.2,weight*double(npair));
+	_m_like->fill(91.2,double(npair));
       }
       if(lambda.size()==0 || lambdabar.size()==0)
 	return;
-      _m_opposite->fill(91.2,weight*double(max(lambda.size(),lambdabar.size())));
+      _m_opposite->fill(91.2,double(max(lambda.size(),lambdabar.size())));
       const Sphericity& sphericity = apply<Sphericity>(event, "Sphericity");
       for(const Particle & p : lambda) {
         const Vector3 momP = p.p3();
@@ -83,8 +82,8 @@ namespace Rivet {
 	  const double  enB  = pb.E();
 	  const double  modB = dot(sphericity.sphericityAxis(), momB);
 	  const double rapB = 0.5 * std::log((enB + modB) / (enB - modB));
-	  _h_rap->fill(abs(rapP-rapB),weight);
-	  _h_cos->fill(momP.unit().dot(momB.unit()),weight);
+	  _h_rap->fill(abs(rapP-rapB));
+	  _h_cos->fill(momP.unit().dot(momB.unit()));
 	}
       }
     }

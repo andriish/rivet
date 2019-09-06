@@ -28,11 +28,11 @@ namespace Rivet {
       declare(InitialQuarks(), "IQF");
 
       // Book histograms
-      _h_pi_all = bookHisto1D(1, 1, 1);
-      _h_pi_bot = bookHisto1D(3, 1, 1);
+      book(_h_pi_all, 1, 1, 1);
+      book(_h_pi_bot, 3, 1, 1);
 
-      _wAll=0.;
-      _wBot=0.;
+      book(_wAll,"TMP/wAll");
+      book(_wBot,"TMP/wBot");
     }
 
 
@@ -49,9 +49,6 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      // Get event weight for histo filling
-      const double weight = event.weight();
-
       int flavour = 0;
       const InitialQuarks& iqf = apply<InitialQuarks>(event, "IQF");
 
@@ -62,7 +59,7 @@ namespace Rivet {
       }
       else {
         map<int, double> quarkmap;
-        foreach (const Particle& p, iqf.particles()) {
+        for (const Particle& p : iqf.particles()) {
           if (quarkmap[p.pid()] < p.E()) {
             quarkmap[p.pid()] = p.E();
           }
@@ -75,8 +72,8 @@ namespace Rivet {
         }
       }
 
-      _wAll += weight;
-      if(flavour==5) _wBot += weight;
+      _wAll->fill();
+      if(flavour==5) _wBot->fill();
 
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
@@ -87,18 +84,18 @@ namespace Rivet {
       // Final state of unstable particles to get particle spectra
       const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
 
-      foreach (const Particle& p, ufs.particles(Cuts::pid==PID::PI0)) {
+      for (const Particle& p : ufs.particles(Cuts::pid==PID::PI0)) {
         double xp = p.p3().mod()/meanBeamMom;
-	_h_pi_all->fill(xp,weight);
-	if(flavour==5) _h_pi_bot->fill(xp,weight);
+	_h_pi_all->fill(xp);
+	if(flavour==5) _h_pi_bot->fill(xp);
       }
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale(_h_pi_all, 1./_wAll);
-      scale(_h_pi_bot, 1./_wBot);
+      scale(_h_pi_all, 1./ *_wAll);
+      scale(_h_pi_bot, 1./ *_wBot);
     }
 
     //@}
@@ -107,7 +104,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_pi_all, _h_pi_bot;
-    double _wAll,_wBot;
+    CounterPtr _wAll,_wBot;
     //@}
 
 

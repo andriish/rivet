@@ -21,35 +21,34 @@ namespace Rivet {
     void init() {
       // get the hadronic final state
       const GammaGammaKinematics& diskin = declare(GammaGammaKinematics(), "Kinematics");
-      const FinalState & fs = declare(GammaGammaFinalState(diskin, GammaGammaFinalState::LAB), "FS");
+      const FinalState & fs = declare(GammaGammaFinalState(diskin), "FS");
       declare(FastJets(fs, FastJets::KT,1.),"Jets");
-      _h_theta[0]    = bookHisto1D( 1,1,1);
-      _h_theta[1]    = bookHisto1D( 2,1,1);
-      _h_ET[0]       = bookHisto1D( 3,1,1);
-      _h_ET[1]       = bookHisto1D( 4,1,1);
-      _h_ET[2]       = bookHisto1D( 5,1,1);
-      _h_xg[0][0]    = bookHisto1D( 6,1,1);
-      _h_xg[0][1]    = bookHisto1D( 7,1,1);
-      _h_xg[1][0]    = bookHisto1D( 9,1,1);
-      _h_xg[1][1]    = bookHisto1D(10,1,1);
-      _h_xg[2][0]    = bookHisto1D(11,1,1);
-      _h_xg[2][1]    = bookHisto1D(12,1,1);
-      _h_xg_high     = bookHisto1D( 8,1,1);
-      _h_xlog[0]     = bookHisto1D(13,1,1);
-      _h_xlog[1]     = bookHisto1D(14,1,1);
-      _h_xlog[2]     = bookHisto1D(15,1,1);
-      _h_eta_diff[0] = bookHisto1D(16,1,1);
-      _h_eta_diff[1] = bookHisto1D(17,1,1);
-      _h_eta_min[0]  = bookHisto1D(18,1,1);
-      _h_eta_min[1]  = bookHisto1D(19,1,1);
-      _h_eta_min[2]  = bookHisto1D(20,1,1);
-      _h_eta_min[3]  = bookHisto1D(21,1,1);
+      book(_h_theta[0]   ,  1,1,1);
+      book(_h_theta[1]   ,  2,1,1);
+      book(_h_ET[0]      ,  3,1,1);
+      book(_h_ET[1]      ,  4,1,1);
+      book(_h_ET[2]      ,  5,1,1);
+      book(_h_xg[0][0]   ,  6,1,1);
+      book(_h_xg[0][1]   ,  7,1,1);
+      book(_h_xg[1][0]   ,  9,1,1);
+      book(_h_xg[1][1]   , 10,1,1);
+      book(_h_xg[2][0]   , 11,1,1);
+      book(_h_xg[2][1]   , 12,1,1);
+      book(_h_xg_high    ,  8,1,1);
+      book(_h_xlog[0]    , 13,1,1);
+      book(_h_xlog[1]    , 14,1,1);
+      book(_h_xlog[2]    , 15,1,1);
+      book(_h_eta_diff[0], 16,1,1);
+      book(_h_eta_diff[1], 17,1,1);
+      book(_h_eta_min[0] , 18,1,1);
+      book(_h_eta_min[1] , 19,1,1);
+      book(_h_eta_max[0] , 20,1,1);
+      book(_h_eta_max[1] , 21,1,1);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      double weight = event.weight();
       // need at least two jets with |eta|<2 and pT>3 
       Jets jets = apply<FastJets>(event, "Jets").jetsByPt(Cuts::Et > 3.*GeV and Cuts::abseta < 2.);
       if(jets.size()<2) vetoEvent;
@@ -74,62 +73,62 @@ namespace Rivet {
       // cost distributions
       if(pj.mass()>15.*GeV && etaBar<=1.) {
 	if(xp>0.75 && xm>0.75)
-	  _h_theta[0]->fill(abs(cost),weight);
+	  _h_theta[0]->fill(abs(cost));
 	else if(xp<0.75 && xm<0.75)
-	  _h_theta[1]->fill(abs(cost),weight);
+	  _h_theta[1]->fill(abs(cost));
       }
       // ET distributions
-      _h_ET[0]->fill(Etbar,weight);
+      _h_ET[0]->fill(Etbar);
       if((xp<0.75 && xm>0.75)|| (xm<0.75&&xp>0.75))
-	_h_ET[1]->fill(Etbar,weight);
+	_h_ET[1]->fill(Etbar);
       else if(xp<0.75 && xm <0.75)
-	_h_ET[2]->fill(Etbar,weight);
+	_h_ET[2]->fill(Etbar);
       if(Etbar>=5.&&Etbar<7.) {
-	_h_xg[0][0]->fill(xp,weight);
-	_h_xg[0][0]->fill(xm,weight);
-	_h_xlog[0]->fill(log(xp),weight);
-	_h_xlog[0]->fill(log(xm),weight);
+	_h_xg[0][0]->fill(xp);
+	_h_xg[0][0]->fill(xm);
+	_h_xlog[0]->fill(log(xp));
+	_h_xlog[0]->fill(log(xm));
 	if((xp<0.75 && xm>0.75)|| (xm<0.75&&xp>0.75)) {
-	  _h_xg[1][0]->fill(xp,weight);
-	  _h_xg[1][0]->fill(xm,weight);
-	  _h_xlog[1]->fill(log(xp),weight);
-	  _h_xlog[1]->fill(log(xm),weight);
+	  _h_xg[1][0]->fill(xp);
+	  _h_xg[1][0]->fill(xm);
+	  _h_xlog[1]->fill(log(xp));
+	  _h_xlog[1]->fill(log(xm));
 	}
 	else if(xp<0.75 && xm <0.75) {
-	  _h_xg[2][0]->fill(xp,weight);
-	  _h_xg[2][0]->fill(xm,weight);
-	  _h_xlog[2]->fill(log(xp),weight);
-	  _h_xlog[2]->fill(log(xm),weight);
+	  _h_xg[2][0]->fill(xp);
+	  _h_xg[2][0]->fill(xm);
+	  _h_xlog[2]->fill(log(xp));
+	  _h_xlog[2]->fill(log(xm));
 	}
       }
       else if(Etbar>=7.&& Etbar<11.) {
-	_h_xg[0][1]->fill(xp,weight);
-	_h_xg[0][1]->fill(xm,weight);
+	_h_xg[0][1]->fill(xp);
+	_h_xg[0][1]->fill(xm);
 	if((xp<0.75 && xm>0.75)|| (xm<0.75&&xp>0.75)) {
-	  _h_xg[1][1]->fill(xp,weight);
-	  _h_xg[1][1]->fill(xm,weight);
+	  _h_xg[1][1]->fill(xp);
+	  _h_xg[1][1]->fill(xm);
 	}
 	else if(xp<0.75 && xm <0.75) {
-	  _h_xg[2][1]->fill(xp,weight);
-	  _h_xg[2][1]->fill(xm,weight);
+	  _h_xg[2][1]->fill(xp);
+	  _h_xg[2][1]->fill(xm);
 	}
       }
       else if(Etbar>=11.&& Etbar<25.) {
-	_h_xg_high->fill(xp,weight);
-	_h_xg_high->fill(xm,weight);
+	_h_xg_high->fill(xp);
+	_h_xg_high->fill(xm);
       }
       // vs eta
       double etaMin = min(abs(jets[0].eta()),abs(jets[1].eta()));
       double etaMax = max(abs(jets[0].eta()),abs(jets[1].eta()));
       if((xp<0.75 && xm>0.75)|| (xm<0.75&&xp>0.75)) {
-	_h_eta_diff[0]->fill(abs(jets[0].eta()-jets[1].eta()),weight);
-	_h_eta_min[0]->fill(etaMin,weight);
-	_h_eta_max[0]->fill(etaMax,weight);
+	_h_eta_diff[0]->fill(abs(jets[0].eta()-jets[1].eta()));
+	_h_eta_min[0]->fill(etaMin);
+	_h_eta_max[0]->fill(etaMax);
       }
       else if(xp<0.75 && xm <0.75) {
-	_h_eta_diff[1]->fill(abs(jets[0].eta()-jets[1].eta()),weight);
-	_h_eta_min[1]->fill(etaMin,weight);
-	_h_eta_max[1]->fill(etaMax,weight);
+	_h_eta_diff[1]->fill(abs(jets[0].eta()-jets[1].eta()));
+	_h_eta_min[1]->fill(etaMin);
+	_h_eta_max[1]->fill(etaMax);
       }
     }
 

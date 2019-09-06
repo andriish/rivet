@@ -24,10 +24,10 @@ namespace Rivet {
       declare(ChargedFinalState(), "FS");
 
       // Book histograms
-      _h_kaon_p    = bookHisto1D(3, 1, 1);
-      _h_kaon_x    = bookHisto1D(5, 1, 1);
-      _h_proton_p  = bookHisto1D(4, 1, 1);
-      _h_proton_x  = bookHisto1D(6, 1, 1);
+      book(_h_kaon_p   , 3, 1, 1);
+      book(_h_kaon_x   , 5, 1, 1);
+      book(_h_proton_p , 4, 1, 1);
+      book(_h_proton_x , 6, 1, 1);
     }
 
 
@@ -45,25 +45,22 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      // Get event weight for histo filling
-      const double weight = event.weight();
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
-      foreach (const Particle& p, fs.particles(Cuts::abspid==321 or
+      for (const Particle& p : fs.particles(Cuts::abspid==321 or
 					       Cuts::abspid==2212)) {
 	double modp = p.p3().mod();
         double xp = modp/meanBeamMom;
-	if(abs(p.pdgId())==321) {
-	  _h_kaon_p  ->fill(modp,weight);
-	  _h_kaon_x  ->fill(xp  ,weight);
+	if(abs(p.pid())==321) {
+	  _h_kaon_p  ->fill(modp);
+	  _h_kaon_x  ->fill(xp  );
 	}
 	else {
-	  _h_proton_p->fill(modp,weight);
-	  _h_proton_x->fill(xp  ,weight);
+	  _h_proton_p->fill(modp);
+	  _h_proton_x->fill(xp  );
 	}
       }
     }

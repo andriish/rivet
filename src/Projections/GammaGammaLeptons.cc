@@ -4,7 +4,7 @@
 namespace Rivet {
 
 
-  int GammaGammaLeptons::compare(const Projection& p) const {
+  CmpState GammaGammaLeptons::compare(const Projection& p) const {
     const GammaGammaLeptons& other = pcast<GammaGammaLeptons>(p);
     return mkNamedPCmp(other, "Beam") || mkNamedPCmp(other, "LFS") ||
       mkNamedPCmp(other, "IFS") || cmp(_sort, other._sort);

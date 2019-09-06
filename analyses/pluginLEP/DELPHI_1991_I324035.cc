@@ -27,19 +27,19 @@ namespace Rivet {
       declare(thrust, "Thrust");
 
       // Book histograms
-      _h_all_05   = bookHisto1D( 1, 1, 1);
-      _h_all_10   = bookHisto1D( 2, 1, 1);
-      _h_all_15   = bookHisto1D( 3, 1, 1);
-      _h_all_20   = bookHisto1D( 4, 1, 1);
-      _h_all_all  = bookHisto1D( 5, 1, 1);
-      _h_hemi_05  = bookHisto1D( 6, 1, 1);
-      _h_hemi_10  = bookHisto1D( 7, 1, 1);
-      _h_hemi_15  = bookHisto1D( 8, 1, 1);
-      _h_hemi_20  = bookHisto1D( 9, 1, 1);
-      _h_hemi_30  = bookHisto1D(10, 1, 1);
-      _h_hemi_40  = bookHisto1D(11, 1, 1);
-      _h_hemi_50  = bookHisto1D(12, 1, 1);
-      _h_hemi_all = bookHisto1D(13, 1, 1);
+      book(_h_all_05  ,  1, 1, 1);
+      book(_h_all_10  ,  2, 1, 1);
+      book(_h_all_15  ,  3, 1, 1);
+      book(_h_all_20  ,  4, 1, 1);
+      book(_h_all_all ,  5, 1, 1);
+      book(_h_hemi_05 ,  6, 1, 1);
+      book(_h_hemi_10 ,  7, 1, 1);
+      book(_h_hemi_15 ,  8, 1, 1);
+      book(_h_hemi_20 ,  9, 1, 1);
+      book(_h_hemi_30 , 10, 1, 1);
+      book(_h_hemi_40 , 11, 1, 1);
+      book(_h_hemi_50 , 12, 1, 1);
+      book(_h_hemi_all, 13, 1, 1);
     }
 
 
@@ -54,7 +54,6 @@ namespace Rivet {
         vetoEvent;
       }
       MSG_DEBUG("Passed leptonic event cut");
-      const double weight = event.weight();
 
       // Thrusts
       MSG_DEBUG("Calculating thrust");
@@ -121,27 +120,27 @@ namespace Rivet {
 	else
 	  ++n_neg_all;
       }
-      _h_all_05 ->fill(n_all_05 ,weight);
-      _h_all_10 ->fill(n_all_10 ,weight);
-      _h_all_15 ->fill(n_all_15 ,weight);
-      _h_all_20 ->fill(n_all_20 ,weight);
-      _h_all_all->fill(n_all_all,weight);
-      _h_hemi_05 ->fill(n_pos_05 ,weight);
-      _h_hemi_10 ->fill(n_pos_10 ,weight);
-      _h_hemi_15 ->fill(n_pos_15 ,weight);
-      _h_hemi_20 ->fill(n_pos_20 ,weight);
-      _h_hemi_30 ->fill(n_pos_30 ,weight);
-      _h_hemi_40 ->fill(n_pos_40 ,weight);
-      _h_hemi_50 ->fill(n_pos_50 ,weight);
-      _h_hemi_all->fill(n_pos_all,weight);
-      _h_hemi_05 ->fill(n_neg_05 ,weight);
-      _h_hemi_10 ->fill(n_neg_10 ,weight);
-      _h_hemi_15 ->fill(n_neg_15 ,weight);
-      _h_hemi_20 ->fill(n_neg_20 ,weight);
-      _h_hemi_30 ->fill(n_neg_30 ,weight);
-      _h_hemi_40 ->fill(n_neg_40 ,weight);
-      _h_hemi_50 ->fill(n_neg_50 ,weight);
-      _h_hemi_all->fill(n_neg_all,weight);
+      _h_all_05 ->fill(n_all_05 );
+      _h_all_10 ->fill(n_all_10 );
+      _h_all_15 ->fill(n_all_15 );
+      _h_all_20 ->fill(n_all_20 );
+      _h_all_all->fill(n_all_all);
+      _h_hemi_05 ->fill(n_pos_05 );
+      _h_hemi_10 ->fill(n_pos_10 );
+      _h_hemi_15 ->fill(n_pos_15 );
+      _h_hemi_20 ->fill(n_pos_20 );
+      _h_hemi_30 ->fill(n_pos_30 );
+      _h_hemi_40 ->fill(n_pos_40 );
+      _h_hemi_50 ->fill(n_pos_50 );
+      _h_hemi_all->fill(n_pos_all);
+      _h_hemi_05 ->fill(n_neg_05 );
+      _h_hemi_10 ->fill(n_neg_10 );
+      _h_hemi_15 ->fill(n_neg_15 );
+      _h_hemi_20 ->fill(n_neg_20 );
+      _h_hemi_30 ->fill(n_neg_30 );
+      _h_hemi_40 ->fill(n_neg_40 );
+      _h_hemi_50 ->fill(n_neg_50 );
+      _h_hemi_all->fill(n_neg_all);
     }
 
 

@@ -26,12 +26,12 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // // Book histograms
-      _histXpOmega   = bookHisto1D( 5, 1, 1);
-      _histLnXpOmega = bookHisto1D( 6, 1, 1);
-      _histXpEtaP1   = bookHisto1D( 7, 1, 1);
-      _histLnXpEtaP1 = bookHisto1D( 8, 1, 1);
-      _histXpEtaP2   = bookHisto1D( 9, 1, 1);
-      _histLnXpEtaP2 = bookHisto1D(10, 1, 1);
+      book(_histXpOmega  ,  5, 1, 1);
+      book(_histLnXpOmega,  6, 1, 1);
+      book(_histXpEtaP1  ,  7, 1, 1);
+      book(_histLnXpEtaP1,  8, 1, 1);
+      book(_histXpEtaP2  ,  9, 1, 1);
+      book(_histLnXpEtaP2, 10, 1, 1);
 
     }
 
@@ -47,9 +47,6 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed ncharged cut");
 
-      // Get event weight for histo filling                                                                                                    
-      const double weight = event.weight();
-
       // Get beams and average beam momentum                                                                                                
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() + beams.second.p3().mod() ) / 2.0;
@@ -59,18 +56,18 @@ namespace Rivet {
       const Particles& mesons = apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::ETAPRIME or
       										 Cuts::pid==PID::OMEGA);
 
-      foreach (const Particle& p, mesons) {
+      for (const Particle& p : mesons) {
       	double xp = p.p3().mod()/meanBeamMom;
 	double xi = log(1./xp);
-      	if(p.pdgId()==PID::ETAPRIME) {
-      	  _histXpEtaP1->fill(xp, weight);
-      	  _histLnXpEtaP1->fill(xi, weight);
-      	  _histXpEtaP2->fill(xp, weight);
-      	  _histLnXpEtaP2->fill(xi, weight);
+      	if(p.pid()==PID::ETAPRIME) {
+      	  _histXpEtaP1->fill(xp);
+      	  _histLnXpEtaP1->fill(xi);
+      	  _histXpEtaP2->fill(xp);
+      	  _histLnXpEtaP2->fill(xi);
       	}
       	else {
-      	  _histXpOmega->fill(xp, weight);
-      	  _histLnXpOmega->fill(xi, weight);
+      	  _histXpOmega->fill(xp);
+      	  _histLnXpOmega->fill(xi);
       	}
       }
     }
