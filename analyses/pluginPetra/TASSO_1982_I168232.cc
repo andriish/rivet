@@ -26,37 +26,34 @@ namespace Rivet {
       
       // Book histograms
       if(fuzzyEquals(sqrtS()/GeV, 14., 1e-3)) {
-	_h_E = bookHisto1D(2,1,1);
-	_h_p = bookHisto1D(2,2,2);
-	_h_x = bookHisto1D(2,3,3);
+	book(_h_E, 2,1,1);
+	book(_h_p, 2,2,2);
+	book(_h_x, 2,3,3);
       }
       else if (fuzzyEquals(sqrtS()/GeV, 34., 1e-3)) {
-	_h_E = bookHisto1D(3,1,1);
-	_h_p = bookHisto1D(3,2,2);
-	_h_x = bookHisto1D(3,3,3);
+	book(_h_E, 3,1,1);
+	book(_h_p, 3,2,2);
+	book(_h_x, 3,3,3);
       }
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // Get event weight for histo filling
-      const double weight = event.weight();
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
-      foreach (const Particle& p, apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::PI0)) {
-	if(!p.parents().empty() && p.parents()[0].pdgId()==PID::K0S)
+      for (const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::PI0)) {
+	if(!p.parents().empty() && p.parents()[0].pid()==PID::K0S)
 	  continue;
 	double xE = p.E()/meanBeamMom;
 	double beta = p.p3().mod()/p.E();
-	_h_E->fill(p.E()       ,weight);
-	_h_p->fill(p.p3().mod(),weight);
-	_h_x->fill(xE,weight/beta);
+	_h_E->fill(p.E()       );
+	_h_p->fill(p.p3().mod());
+	_h_x->fill(xE,1./beta);
       }
 
     }

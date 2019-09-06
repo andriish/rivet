@@ -50,21 +50,19 @@ namespace Rivet {
 	MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
       
       // Book histograms
-      _p_thrust_pt      = bookProfile1D(1, 1, 1);
-      _p_thrust_pt2     = bookProfile1D(1, 1, 2);
-      _p_thrust_sum_pt  = bookProfile1D(1, 1, 3);
-      _p_thrust_sum_pt2 = bookProfile1D(1, 1, 4);
-      _p_sphere_pt      = bookProfile1D(2, 1, 1);
-      _p_sphere_pt2     = bookProfile1D(2, 1, 2);
-      _p_sphere_sum_pt  = bookProfile1D(2, 1, 3);
-      _p_sphere_sum_pt2 = bookProfile1D(2, 1, 4);
-
+      book(_p_thrust_pt     , 1, 1, 1);
+      book(_p_thrust_pt2    , 1, 1, 2);
+      book(_p_thrust_sum_pt , 1, 1, 3);
+      book(_p_thrust_sum_pt2, 1, 1, 4);
+      book(_p_sphere_pt     , 2, 1, 1);
+      book(_p_sphere_pt2    , 2, 1, 2);
+      book(_p_sphere_sum_pt , 2, 1, 3);
+      book(_p_sphere_sum_pt2, 2, 1, 4);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double & weight = event.weight();
       // Sphericities
       MSG_DEBUG("Calculating sphericity");
       const Sphericity& sphericity = apply<Sphericity>(event, "Sphericity");
@@ -83,21 +81,21 @@ namespace Rivet {
         const double pToutS = dot(mom3, sphericity.sphericityMinorAxis()); 
         const double pT2_T = sqr(pTinT) + sqr(pToutT);
         const double pT2_S = sqr(pTinS) + sqr(pToutS);
-	if(PID::isCharged(p.pdgId())) ++nCharged;
+	if(PID::isCharged(p.pid())) ++nCharged;
       	pT_T_sum  += sqrt(pT2_T);
       	pT2_T_sum +=      pT2_T ;
       	pT_S_sum  += sqrt(pT2_S);
       	pT2_S_sum +=      pT2_S ;
       }
       if(nCharged<4) vetoEvent;
-      _p_thrust_pt      ->bins()[_iBin].fill(sqrtS(),pT_T_sum /nPart/MeV         ,weight);
-      _p_thrust_pt2     ->bins()[_iBin].fill(sqrtS(),pT2_T_sum/nPart/1e3/sqr(MeV),weight);
-      _p_thrust_sum_pt  ->bins()[_iBin].fill(sqrtS(),pT_T_sum /GeV               ,weight);
-      _p_thrust_sum_pt2 ->bins()[_iBin].fill(sqrtS(),pT2_T_sum/GeV               ,weight);
-      _p_sphere_pt      ->bins()[_iBin].fill(sqrtS(),pT_S_sum /nPart/MeV         ,weight);
-      _p_sphere_pt2     ->bins()[_iBin].fill(sqrtS(),pT2_S_sum/nPart/1e3/sqr(MeV),weight);
-      _p_sphere_sum_pt  ->bins()[_iBin].fill(sqrtS(),pT_S_sum /GeV               ,weight);
-      _p_sphere_sum_pt2 ->bins()[_iBin].fill(sqrtS(),pT2_S_sum/GeV               ,weight);
+      _p_thrust_pt      ->bins()[_iBin].fill(sqrtS(),pT_T_sum /nPart/MeV         );
+      _p_thrust_pt2     ->bins()[_iBin].fill(sqrtS(),pT2_T_sum/nPart/1e3/sqr(MeV));
+      _p_thrust_sum_pt  ->bins()[_iBin].fill(sqrtS(),pT_T_sum /GeV               );
+      _p_thrust_sum_pt2 ->bins()[_iBin].fill(sqrtS(),pT2_T_sum/GeV               );
+      _p_sphere_pt      ->bins()[_iBin].fill(sqrtS(),pT_S_sum /nPart/MeV         );
+      _p_sphere_pt2     ->bins()[_iBin].fill(sqrtS(),pT2_S_sum/nPart/1e3/sqr(MeV));
+      _p_sphere_sum_pt  ->bins()[_iBin].fill(sqrtS(),pT_S_sum /GeV               );
+      _p_sphere_sum_pt2 ->bins()[_iBin].fill(sqrtS(),pT2_S_sum/GeV               );
 
     }
 

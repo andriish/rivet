@@ -24,7 +24,7 @@ namespace Rivet {
 
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
-
+      
       // Thrust and sphericity
       declare(Sphericity(cfs), "Sphericity");
       // Book histograms
@@ -38,29 +38,28 @@ namespace Rivet {
       else
 	MSG_ERROR("Beam energy not supported!");
 
-      _h_S = bookHisto1D(  ihist, 1, 1);
-      _h_A = bookHisto1D(2+ihist, 1, 1);
-      _h_x = bookHisto1D(4+ihist, 1, 1);
+      book(_h_S ,   ihist, 1, 1);
+      book(_h_A , 2+ihist, 1, 1);
+      book(_h_x , 4+ihist, 1, 1);
 
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       const Sphericity& sphericity = apply<Sphericity>(event, "Sphericity");
-      _h_S->fill(sphericity.sphericity(), weight);
-      _h_A->fill(sphericity.aplanarity(), weight);
-      foreach (const Particle& p, cfs.particles()) {
+      _h_S->fill(sphericity.sphericity());
+      _h_A->fill(sphericity.aplanarity());
+      for (const Particle& p : cfs.particles()) {
         const Vector3 mom3 = p.p3();
         const double mom = mom3.mod();
         const double xp = mom/meanBeamMom;
-        _h_x->fill(xp, weight);
+        _h_x->fill(xp);
       }
 
     }

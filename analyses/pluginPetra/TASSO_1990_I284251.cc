@@ -54,30 +54,29 @@ namespace Rivet {
 	MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
 
       if(_ih==0) {
-	_h_K0_x   = bookHisto1D(1,1,_iy);
+	book(_h_K0_x, 1,1,_iy);
 	if(_iy!=3) {
-	  _p_K0_S_1 = bookProfile1D(5,1,2*_iy-1);
-	  _p_K0_S_2 = bookProfile1D(5,1,2*_iy);
+	  book(_p_K0_S_1, 5,1,2*_iy-1);
+	  book(_p_K0_S_2, 5,1,2*_iy);
 	}
-	_h_Kstar_x= bookHisto1D(8,1,_iy);
+	book(_h_Kstar_x, 8,1,_iy);
 	if(_iy==2) {
-	  _p_Kstar_S_1 = bookProfile1D(10,1,1);
-	  _p_Kstar_S_2 = std::make_shared<YODA::Profile1D>(Profile1D(refData(10,1,2)));
+	  book(_p_Kstar_S_1, 10,1,1);
+	  book(_p_Kstar_S_2,"TMP/p_Kstar_S_2",refData(10,1,2));
 	}
       }
       else {
-	_h_K0_x   = bookHisto1D  (_ih+1,1,1);
-	_p_K0_S_1 = bookProfile1D(_ih+5,1,1);
-	_p_K0_S_2 = std::make_shared<YODA::Profile1D>(Profile1D(refData(_ih+5,1,2)));
+	book(_h_K0_x  , _ih+1,1,1);
+	book(_p_K0_S_1, _ih+5,1,1);
+	book(_p_K0_S_2,"TMP/p_K0_S_2",refData(_ih+5,1,2));
       }
-      _n_K0   =bookCounter("/TMP/nK0"   );
-      _n_Kstar=bookCounter("/TMP/nKstar");
+      book(_n_K0   ,"/TMP/nK0"   );
+      book(_n_Kstar,"/TMP/nKstar");
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       const size_t numParticles = cfs.particles().size();
 
@@ -100,25 +99,25 @@ namespace Rivet {
 	double xE = p.E()/meanBeamMom;
 	double modp = p.p3().mod();
 	double beta = modp/p.E();
-	if(abs(p.pdgId())==323) {
-	  if(_h_Kstar_x) _h_Kstar_x->fill(xE,weight/beta);
+	if(abs(p.pid())==323) {
+	  if(_h_Kstar_x) _h_Kstar_x->fill(xE,1./beta);
 	  ++nKstar;
 	}
 	else {
-	  if(_h_K0_x) _h_K0_x->fill(xE,weight/beta);
+	  if(_h_K0_x) _h_K0_x->fill(xE,1./beta);
 	  ++nK0;
 	}
       }
-      _n_K0->fill(nK0*weight);
-      _n_Kstar->fill(nKstar*weight);
+      _n_K0->fill(nK0);
+      _n_Kstar->fill(nKstar);
       double sphere = sphericity.sphericity();
       if(_p_K0_S_1) {
-	_p_K0_S_1->fill(sphere,nK0,weight);
-	_p_K0_S_2->fill(sphere,cfs.particles().size(),weight);
+	_p_K0_S_1->fill(sphere,nK0);
+	_p_K0_S_2->fill(sphere,cfs.particles().size());
       }
       if(_p_Kstar_S_1) {
-	_p_Kstar_S_1->fill(sphere,nKstar,weight);		    
-	_p_Kstar_S_2->fill(sphere,cfs.particles().size(),weight);
+	_p_Kstar_S_1->fill(sphere,nKstar);		    
+	_p_Kstar_S_2->fill(sphere,cfs.particles().size());
       }
     }
 
@@ -128,17 +127,23 @@ namespace Rivet {
       scale(_h_K0_x, sqr(sqrtS())*crossSection()/microbarn/sumOfWeights());
       if(_h_Kstar_x) scale(_h_Kstar_x, sqr(sqrtS())*crossSection()/nanobarn/sumOfWeights());
       if(_p_K0_S_1) {
+	Scatter2DPtr temp;
 	if(_ih==0)
-	  divide(_p_K0_S_1,_p_K0_S_2,bookScatter2D(5,1,2*_iy));
+	  book(temp,5,1,2*_iy);
 	else
-	  divide(_p_K0_S_1,_p_K0_S_2,bookScatter2D(_ih+5,1,2));
+	  book(temp,_ih+5,1,2);
+	divide(_p_K0_S_1,_p_K0_S_2,temp);
       }
-      if(_p_Kstar_S_1)
-	divide(_p_Kstar_S_1,_p_Kstar_S_2,bookScatter2D(10,1,2));
+      if(_p_Kstar_S_1) {
+	Scatter2DPtr temp;
+	book(temp,10,1,2);
+	divide(_p_Kstar_S_1,_p_Kstar_S_2,temp);
+      }
       // K0 mult
       scale(_n_K0   ,1./sumOfWeights());
       Scatter2D temphisto(refData(4, 1, 1));
-      Scatter2DPtr     mult = bookScatter2D(4, 1, 1);
+      Scatter2DPtr mult;
+      book(mult, 4, 1, 1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
       	const double x  = temphisto.point(b).x();
       	pair<double,double> ex = temphisto.point(b).xErrs();
@@ -153,7 +158,8 @@ namespace Rivet {
       // K*= mult
       scale(_n_Kstar,1./sumOfWeights());
       Scatter2D temphisto2(refData(9, 1, 1));
-      Scatter2DPtr     mult2 = bookScatter2D(9, 1, 1);
+      Scatter2DPtr mult2;
+      book(mult2,9, 1, 1);
       for (size_t b = 0; b < temphisto2.numPoints(); b++) {
       	const double x  = temphisto2.point(b).x();
       	pair<double,double> ex = temphisto2.point(b).xErrs();

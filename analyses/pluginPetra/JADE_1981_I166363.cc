@@ -25,8 +25,8 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      _h_pbar      = bookHisto1D(1, 1, 1);
-      _h_lambdabar = bookHisto1D(2, 1, 1);
+      book(_h_pbar     , 1, 1, 1);
+      book(_h_lambdabar, 2, 1, 1);
 
     }
 
@@ -43,11 +43,11 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      foreach (const Particle& p, apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==-2212 or Cuts::pid==-3122)) {
-	if(p.pdgId()==-2212)
-	  _h_pbar->fill(p.p3().mod(), event.weight());
+      for (const Particle& p : apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==-2212 or Cuts::pid==-3122)) {
+	if(p.pid()==-2212)
+	  _h_pbar->fill(p.p3().mod());
 	else
-	  _h_lambdabar->fill(p.p3().mod(), event.weight());
+	  _h_lambdabar->fill(p.p3().mod());
       }
 
     }

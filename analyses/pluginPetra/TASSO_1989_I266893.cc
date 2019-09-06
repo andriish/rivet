@@ -38,28 +38,27 @@ namespace Rivet {
       else
 	MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
 
-      _h_lam_p     = bookHisto1D(6*_ih+3,1,1);
-      _h_lam_pL    = bookHisto1D(6*_ih+4,1,1);
-      _h_lam_pTIn  = bookHisto1D(6*_ih+5,1,1);
-      _h_lam_pTOut = bookHisto1D(6*_ih+6,1,1);
-      _h_lam_rap   = bookHisto1D(6*_ih+7,1,1);
-      _h_lam_x     = bookHisto1D(6*_ih+8,1,1);
-      _p_lam_S_1   = bookProfile1D(15+_ih,1,1);
-      _p_lam_S_2   = bookProfile1D(15+_ih,1,2);
+      book(_h_lam_p    ,6*_ih+3,1,1);
+      book(_h_lam_pL   ,6*_ih+4,1,1);
+      book(_h_lam_pTIn ,6*_ih+5,1,1);
+      book(_h_lam_pTOut,6*_ih+6,1,1);
+      book(_h_lam_rap  ,6*_ih+7,1,1);
+      book(_h_lam_x    ,6*_ih+8,1,1);
+      book(_p_lam_S_1  ,15+_ih,1,1);
+      book(_p_lam_S_2  ,15+_ih,1,2);
       if(_ih==0) {
-      	_h_xi_p     = bookHisto1D(18,1,1);
-      	_h_xi_pL    = bookHisto1D(19,1,1);
-      	_h_xi_pTIn  = bookHisto1D(20,1,1);
-      	_h_xi_pTOut = bookHisto1D(21,1,1);
-      	_h_xi_rap   = bookHisto1D(22,1,1);
-      	_h_xi_x     = bookHisto1D(23,1,1);
+      	book(_h_xi_p    ,18,1,1);
+      	book(_h_xi_pL   ,19,1,1);
+      	book(_h_xi_pTIn ,20,1,1);
+      	book(_h_xi_pTOut,21,1,1);
+      	book(_h_xi_rap  ,22,1,1);
+      	book(_h_xi_x    ,23,1,1);
       }
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       const size_t numParticles = cfs.particles().size();
 
@@ -78,7 +77,7 @@ namespace Rivet {
       unsigned int nLam(0);
       UnstableParticles ufs = apply<UnstableParticles>(event,"UFS");
       for(const Particle & p : ufs.particles(Cuts::abspid==3122 or Cuts::abspid==3312)) {
-      	int id = abs(p.pdgId());
+      	int id = abs(p.pid());
       	double xE = p.E()/meanBeamMom;
       	Vector3 mom3 = p.p3();
         const double energy = p.E();
@@ -89,26 +88,26 @@ namespace Rivet {
         const double pToutS = dot(mom3, sphericity.sphericityMinorAxis());
         const double rapidityS = 0.5 * std::log((energy + momS) / (energy - momS));
       	if(id==3122) {
-      	  _h_lam_x->fill(xE,weight/beta);
-      	  _h_lam_p->fill(modp/GeV,weight);
-      	  _h_lam_pL   ->fill(abs(momS)/GeV  ,weight);
-      	  _h_lam_pTIn ->fill(abs(pTinS)/GeV ,weight);
-      	  _h_lam_pTOut->fill(abs(pToutS)/GeV,weight);
-      	  _h_lam_rap  ->fill(abs(rapidityS) ,weight);
+      	  _h_lam_x->fill(xE,1./beta);
+      	  _h_lam_p->fill(modp/GeV);
+      	  _h_lam_pL   ->fill(abs(momS)/GeV  );
+      	  _h_lam_pTIn ->fill(abs(pTinS)/GeV );
+      	  _h_lam_pTOut->fill(abs(pToutS)/GeV);
+      	  _h_lam_rap  ->fill(abs(rapidityS) );
 	  ++nLam;
       	}
       	else if(_h_xi_x) {
-      	  _h_xi_x->fill(xE,weight/beta);
-      	  _h_xi_p->fill(modp/GeV,weight);
-      	  _h_xi_pL   ->fill(abs(momS)/GeV  ,weight);
-      	  _h_xi_pTIn ->fill(abs(pTinS)/GeV ,weight);
-      	  _h_xi_pTOut->fill(abs(pToutS)/GeV,weight);
-      	  _h_xi_rap  ->fill(abs(rapidityS) ,weight);
+      	  _h_xi_x->fill(xE,1./beta);
+      	  _h_xi_p->fill(modp/GeV);
+      	  _h_xi_pL   ->fill(abs(momS)/GeV  );
+      	  _h_xi_pTIn ->fill(abs(pTinS)/GeV );
+      	  _h_xi_pTOut->fill(abs(pToutS)/GeV);
+      	  _h_xi_rap  ->fill(abs(rapidityS) );
       	}
       }
       double sphere = sphericity.sphericity();
-      _p_lam_S_1->fill(sphere,nLam,weight);
-      _p_lam_S_2->fill(sphere,cfs.particles().size(),weight);
+      _p_lam_S_1->fill(sphere,nLam);
+      _p_lam_S_2->fill(sphere,cfs.particles().size());
     }
 
 
@@ -120,7 +119,9 @@ namespace Rivet {
       scale( _h_lam_pTOut, crossSection()/nanobarn/sumOfWeights());
       scale( _h_lam_rap  , crossSection()/nanobarn/sumOfWeights());
       scale( _h_lam_x    , sqr(sqrtS())*crossSection()/nanobarn/sumOfWeights());
-      divide(_p_lam_S_1,_p_lam_S_2,bookScatter2D(15+_ih,1,3));
+      Scatter2DPtr temp;
+      book(temp,15+_ih,1,3);
+      divide(_p_lam_S_1,_p_lam_S_2,temp);
       if(_ih==0) {
       	scale( _h_xi_p    , crossSection()/nanobarn/sumOfWeights());
       	scale( _h_xi_pL   , crossSection()/nanobarn/sumOfWeights());

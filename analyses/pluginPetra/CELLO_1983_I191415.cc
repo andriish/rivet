@@ -39,8 +39,8 @@ namespace Rivet {
       else
 	MSG_ERROR("Beam energy not supported!");
       // Book histograms
-      _h_gamma = bookHisto1D(iloc  , 1, 1);
-      _h_pi0   = bookHisto1D(iloc+3, 1, 1);
+      book(_h_gamma, iloc  , 1, 1);
+      book(_h_pi0  , iloc+3, 1, 1);
     }
 
 
@@ -56,9 +56,6 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      // Get event weight for histo filling
-      const double weight = event.weight();
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
@@ -66,14 +63,13 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Final state to get particle spectra
-      foreach (const Particle& p, apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==111)) {
+      for (const Particle& p : apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==111)) {
 	double xE = p.E()/meanBeamMom;
-	_h_pi0->fill(xE, weight);
+	_h_pi0->fill(xE);
       }
-      foreach (const Particle& p, apply<FinalState>(event, "FS").particles(Cuts::pid==111 || Cuts::pid==22)) {
+      for (const Particle& p : apply<FinalState>(event, "FS").particles(Cuts::pid==22)) {
 	double xE = p.E()/meanBeamMom;
-	if(p.pdgId()==22)
-	  _h_gamma->fill(xE, weight);
+	_h_gamma->fill(xE);
       }
     }
 

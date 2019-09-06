@@ -26,10 +26,10 @@ namespace Rivet {
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
       // Book histograms
-      _h_gamma = bookHisto1D(2, 1, 1);
-      _h_pi0A  = bookHisto1D(3, 1, 1);
-      _h_pi0B  = bookHisto1D(4, 1, 1);
-      _h_eta   = bookHisto1D(5, 1, 1);
+      book(_h_gamma , 2, 1, 1);
+      book(_h_pi0A  , 3, 1, 1);
+      book(_h_pi0B  , 4, 1, 1);
+      book(_h_eta   , 5, 1, 1);
     }
 
 
@@ -45,9 +45,6 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      // Get event weight for histo filling
-      const double weight = event.weight();
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
@@ -55,19 +52,19 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Final state to get particle spectra
-      foreach (const Particle& p, apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==111 || Cuts::pid==221)) {
+      for (const Particle& p : apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==111 || Cuts::pid==221)) {
 	double xE = p.E()/meanBeamMom;
-	if(p.pdgId()==111) {
-	  _h_pi0A->fill(xE, weight);
-	  _h_pi0B->fill(xE, weight);
+	if(p.pid()==111) {
+	  _h_pi0A->fill(xE);
+	  _h_pi0B->fill(xE);
 	}
 	else
-	  _h_eta->fill(xE, weight);
+	  _h_eta->fill(xE);
       }
-      foreach (const Particle& p, apply<FinalState>(event, "FS").particles(Cuts::pid==111 || Cuts::pid==22)) {
+      for (const Particle& p : apply<FinalState>(event, "FS").particles(Cuts::pid==111 || Cuts::pid==22)) {
 	double xE = p.E()/meanBeamMom;
-	if(p.pdgId()==22)
-	  _h_gamma->fill(xE, weight);
+	if(p.pid()==22)
+	  _h_gamma->fill(xE);
       }
     }
 

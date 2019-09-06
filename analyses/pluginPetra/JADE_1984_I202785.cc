@@ -23,31 +23,28 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      _h_x     = bookHisto1D(1, 1, 1);
-      _h_theta = bookHisto1D(3, 1, 1);
+      book(_h_x    , 1, 1, 1);
+      book(_h_theta, 3, 1, 1);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-
-      // Get event weight for histo filling
-      const double weight = event.weight();
       
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
-      Vector3 axis = beams.first.pdgId() == PID::EMINUS ?
+      Vector3 axis = beams.first.pid() == PID::EMINUS ?
 	beams.first.p3().unit() : beams.second.p3().unit();
       const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
-      foreach (const Particle& p, ufs.particles(Cuts::abspid==413)) {
+      for (const Particle& p : ufs.particles(Cuts::abspid==413)) {
 	double modp = p.p3().mod();
 	double xP =modp/meanBeamMom;
-	_h_x->fill(xP, weight);
-	if(xP>0.4&&p.pdgId()>0) {
-	  _h_theta->fill(p.p3().dot(axis)/modp,weight);
+	_h_x->fill(xP);
+	if(xP>0.4&&p.pid()>0) {
+	  _h_theta->fill(p.p3().dot(axis)/modp);
 	}
       }
     }

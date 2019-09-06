@@ -35,19 +35,19 @@ namespace Rivet {
       else
 	MSG_ERROR("Beam energy not supported!");
 
-      _h_p_pi = bookHisto1D(3*_iHist+2,1,1);
-      _h_x_pi = bookHisto1D(3*_iHist+2,1,2);
-      _h_p_K  = bookHisto1D(3*_iHist+3,1,1);
-      _h_x_K  = bookHisto1D(3*_iHist+3,1,2);
-      _h_p_p  = bookHisto1D(3*_iHist+4,1,1);
-      _h_x_p  = bookHisto1D(3*_iHist+4,1,2);
+      book(_h_p_pi,3*_iHist+2,1,1);
+      book(_h_x_pi,3*_iHist+2,1,2);
+      book(_h_p_K ,3*_iHist+3,1,1);
+      book(_h_x_K ,3*_iHist+3,1,2);
+      book(_h_p_p ,3*_iHist+4,1,1);
+      book(_h_x_p ,3*_iHist+4,1,2);
 
-      _n_pi   = std::make_shared<YODA::Histo1D>(YODA::Histo1D(refData(3*_iHist+ 8,1,1)));
-      _d_pi   = std::make_shared<YODA::Histo1D>(YODA::Histo1D(refData(3*_iHist+ 8,1,1)));
-      _n_K    = std::make_shared<YODA::Histo1D>(YODA::Histo1D(refData(3*_iHist+ 9,1,1)));
-      _d_K    = std::make_shared<YODA::Histo1D>(YODA::Histo1D(refData(3*_iHist+ 9,1,1)));
-      _n_p    = std::make_shared<YODA::Histo1D>(YODA::Histo1D(refData(3*_iHist+10,1,1)));
-      _d_p    = std::make_shared<YODA::Histo1D>(YODA::Histo1D(refData(3*_iHist+10,1,1)));
+      book(_n_pi,"TMP/n_pi",refData(3*_iHist+ 8,1,1));
+      book(_d_pi,"TMP/d_pi",refData(3*_iHist+ 8,1,1));
+      book(_n_K ,"TMP/n_K" ,refData(3*_iHist+ 9,1,1));
+      book(_d_K ,"TMP/d_K" ,refData(3*_iHist+ 9,1,1));
+      book(_n_p ,"TMP/n_p" ,refData(3*_iHist+10,1,1));
+      book(_d_p ,"TMP/d_p" ,refData(3*_iHist+10,1,1));
 
     }
 
@@ -65,36 +65,33 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      // Get event weight for histo filling
-      const double weight = event.weight();
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       
-      foreach (const Particle& p, fs.particles()) {
+      for( const Particle& p : fs.particles()) {
 	double modp = p.p3().mod();
-	_d_pi->fill(modp,weight);
-	_d_K->fill(modp,weight);
-	_d_p ->fill(modp,weight);
+	_d_pi->fill(modp);
+	_d_K->fill(modp);
+	_d_p ->fill(modp);
 	double beta = modp/p.E();
 	double xE = p.E()/meanBeamMom;
-	if(abs(p.pdgId())==211) {
-	  _h_p_pi->fill(modp, weight);
-	  _h_x_pi->fill(xE  , weight/beta);
-	  _n_pi->fill(modp,weight);
+	if(abs(p.pid())==211) {
+	  _h_p_pi->fill(modp);
+	  _h_x_pi->fill(xE  , 1./beta);
+	  _n_pi->fill(modp);
 	}
-	else if(abs(p.pdgId())==321) {
-	  _h_p_K->fill(modp, weight);
-	  _h_x_K->fill(xE  , weight/beta);
-	  _n_K->fill(modp,weight);
+	else if(abs(p.pid())==321) {
+	  _h_p_K->fill(modp);
+	  _h_x_K->fill(xE  ,1./beta);
+	  _n_K->fill(modp);
 	}
-	else if(abs(p.pdgId())==2212) {
-	  _h_p_p->fill(modp, weight);
-	  _h_x_p->fill(xE  , weight/beta);
-	  _n_p ->fill(modp,weight);
+	else if(abs(p.pid())==2212) {
+	  _h_p_p->fill(modp);
+	  _h_x_p->fill(xE  ,1./beta);
+	  _n_p ->fill(modp);
 	}
 
       }
@@ -110,10 +107,15 @@ namespace Rivet {
       scale(_h_x_K  , sqr(sqrtS())*crossSection()/microbarn/sumOfWeights());
       scale(_h_p_p  , crossSection()/nanobarn/sumOfWeights());
       scale(_h_x_p  , sqr(sqrtS())*crossSection()/microbarn/sumOfWeights());
+
+      Scatter2DPtr temp1,temp2,temp3;
+      book(temp1,3*_iHist+ 8,1,1);
+      book(temp2,3*_iHist+ 9,1,1);
+      book(temp3,3*_iHist+10,1,1);
       
-      divide(_n_pi,_d_pi, bookScatter2D(3*_iHist+ 8,1,1));
-      divide(_n_K ,_d_K , bookScatter2D(3*_iHist+ 9,1,1));
-      divide(_n_p ,_d_p , bookScatter2D(3*_iHist+10,1,1));
+      divide(_n_pi,_d_pi, temp1);
+      divide(_n_K ,_d_K , temp2);
+      divide(_n_p ,_d_p , temp3);
     }
 
     //@}

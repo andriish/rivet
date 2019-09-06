@@ -34,36 +34,34 @@ namespace Rivet {
       else
       	MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
       // Book histograms
-      _h_gamma = bookHisto1D(1+ioff, 1, 1);
-      _h_pi0   = bookHisto1D(3+ioff, 1, 1);
-      if(ioff==0) _h_eta   = bookHisto1D(5+ioff, 1, 1);
+      book(_h_gamma, 1+ioff, 1, 1);
+      book(_h_pi0  , 3+ioff, 1, 1);
+      if(ioff==0) book(_h_eta, 5+ioff, 1, 1);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // Get event weight for histo filling
-      const double weight = event.weight();
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       // gamma
       const FinalState& fs = apply<FinalState>(event, "FS");
-      foreach (const Particle& p, fs.particles(Cuts::pid==22)) {
+      for (const Particle& p : fs.particles(Cuts::pid==22)) {
       	double xE = p.E()/meanBeamMom;
-      	_h_gamma->fill(xE,weight);
+      	_h_gamma->fill(xE);
       }
       // pi0, eta
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
-      foreach (const Particle& p, ufs.particles(Cuts::pid==111 or Cuts::pid==221)) {
+      for (const Particle& p : ufs.particles(Cuts::pid==111 or Cuts::pid==221)) {
       	double modp = p.p3().mod();
       	double xE = p.E()/meanBeamMom;
       	double beta = modp/p.E();
-      	if(p.pdgId()==111)
-      	  _h_pi0->fill(xE,weight/beta);
+      	if(p.pid()==111)
+      	  _h_pi0->fill(xE,1./beta);
       	else if(_h_eta)
-      	  _h_eta->fill(xE,weight/beta);
+      	  _h_eta->fill(xE,1./beta);
       }
     }
 

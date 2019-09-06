@@ -40,12 +40,12 @@ namespace Rivet {
       else
 	MSG_ERROR("Beam energy not supported!");
       
-      _h_p_pi = bookHisto1D(hist1[0],1,1);
-      _h_p_K  = bookHisto1D(hist1[1],1,1);
-      _h_p_p  = bookHisto1D(hist1[2],1,1);
-      _h_x_pi = bookHisto1D(hist2[0],1,1);
-      _h_x_K  = bookHisto1D(hist2[1],1,1);
-      _h_x_p  = bookHisto1D(hist2[2],1,1);
+      book(_h_p_pi , hist1[0],1,1);
+      book(_h_p_K  , hist1[1],1,1);
+      book(_h_p_p  , hist1[2],1,1);
+      book(_h_x_pi , hist2[0],1,1);
+      book(_h_x_K  , hist2[1],1,1);
+      book(_h_x_p  , hist2[2],1,1);
 
     }
 
@@ -63,28 +63,25 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      // Get event weight for histo filling
-      const double weight = event.weight();
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
 	double xE = p.E()/meanBeamMom;
-	if(abs(p.pdgId())==211) {
-	  _h_p_pi->fill(p.p3().mod(), weight);
-	  _h_x_pi->fill(xE          , weight);
+	if(abs(p.pid())==211) {
+	  _h_p_pi->fill(p.p3().mod());
+	  _h_x_pi->fill(xE          );
 	}
-	else if(abs(p.pdgId())==321) {
-	  _h_p_K->fill(p.p3().mod(), weight);
-	  _h_x_K->fill(xE          , weight);
+	else if(abs(p.pid())==321) {
+	  _h_p_K->fill(p.p3().mod());
+	  _h_x_K->fill(xE          );
 	}
-	else if(abs(p.pdgId())==2212) {
-	  _h_p_p->fill(p.p3().mod(), weight);
-	  _h_x_p->fill(xE          , weight);
+	else if(abs(p.pid())==2212) {
+	  _h_p_p->fill(p.p3().mod());
+	  _h_x_p->fill(xE          );
 	}
       }
     }

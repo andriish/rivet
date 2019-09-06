@@ -25,16 +25,13 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      _h_spectrum = bookHisto1D(2, 1, 1);
+      book(_h_spectrum, 2, 1, 1);
 
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // Get event weight for histo filling
-      const double weight = event.weight();
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
@@ -42,11 +39,11 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       UnstableParticles ufs = apply<UnstableParticles>(event,"UFS");
-      foreach (const Particle& p, ufs.particles(Cuts::abspid==3312)) {
+      for (const Particle& p : ufs.particles(Cuts::abspid==3312)) {
 	double modp = p.p3().mod();
 	double beta = modp/p.E();
 	double xE = p.E()/meanBeamMom;
-	_h_spectrum->fill(xE,weight/beta);
+	_h_spectrum->fill(xE,1./beta);
       }
     }
 

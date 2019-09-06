@@ -40,24 +40,23 @@ namespace Rivet {
       else
 	MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
       // Book histograms
-      _h_diff  = bookHisto1D(1, 1, offset);
-      _h_heavy = bookHisto1D(2, 1, offset);
-      _h_light = bookHisto1D(3, 1, offset);
+      book(_h_diff , 1, 1, offset);
+      book(_h_heavy, 2, 1, offset);
+      book(_h_light, 3, 1, offset);
 
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
 
       if (cfs.particles().size() < 3 ) vetoEvent;
 
       const Hemispheres& hemi = apply<Hemispheres>(event, "Hemispheres");
-      _h_heavy->fill(hemi.scaledM2high(), weight);
-      _h_light->fill(hemi.scaledM2low() , weight);
-      _h_diff ->fill(hemi.scaledM2diff(), weight);
+      _h_heavy->fill(hemi.scaledM2high());
+      _h_light->fill(hemi.scaledM2low() );
+      _h_diff ->fill(hemi.scaledM2diff());
     }
 
 

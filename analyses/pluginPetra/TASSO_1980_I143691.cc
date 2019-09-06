@@ -27,7 +27,7 @@ namespace Rivet {
       
 
       // Book histograms
-      _mult = bookCounter("/TMP/mult");
+      book(_mult, "/TMP/mult");
       unsigned int iloc(0);
       if(fuzzyEquals(sqrtS()/GeV, 13 , 1E-3))
 	iloc = 1;
@@ -38,28 +38,27 @@ namespace Rivet {
       else
 	MSG_ERROR("Beam energy not supported!");
 
-      _h_rap = bookHisto1D(iloc+1,1,1);
-      _h_x   = bookHisto1D(iloc+4,1,1);
+      book(_h_rap,iloc+1,1,1);
+      book(_h_x  ,iloc+4,1,1);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       // thrust
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
       Vector3 axis=thrust.thrustAxis();
-      foreach (const Particle& p, cfs.particles()) {
+      for (const Particle& p : cfs.particles()) {
 	const Vector3 mom3 = p.p3();
 	double pp = mom3.mod();
 	double xP = 2.*pp/sqrtS();
-	_h_x->fill(xP,weight);
+	_h_x->fill(xP);
         const double mom = dot(axis, mom3);
 	const double rap = 0.5 * log((p.E() + mom) /
 				     (p.E() - mom));
-	_h_rap->fill(fabs(rap),event.weight());
-	_mult->fill(weight);
+	_h_rap->fill(fabs(rap));
+	_mult->fill();
       }
     }
 
@@ -73,7 +72,8 @@ namespace Rivet {
       scale(_mult,1./sumOfWeights());
       
       Scatter2D temphisto(refData(1, 1, 1));
-      Scatter2DPtr     mult = bookScatter2D(1, 1, 1);
+      Scatter2DPtr     mult;
+      book(mult,1, 1, 1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	const double x  = temphisto.point(b).x();
 	pair<double,double> ex = temphisto.point(b).xErrs();

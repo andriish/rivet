@@ -23,38 +23,38 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
       if(fuzzyEquals(sqrtS()/GeV, 12., 1e-3)) {
-	_h_x2 = bookHisto1D(2,1,1);
-	_h_x3 = bookHisto1D(3,1,1);
+	book(_h_x2,2,1,1);
+	book(_h_x3,3,1,1);
       }
       else if (fuzzyEquals(sqrtS()/GeV, 14., 1e-3)) {
-	_h_x1 = bookHisto1D(1,1,1);
-	_h_x2 = bookHisto1D(2,1,2);
-	_h_x3 = bookHisto1D(3,1,2);
+	book(_h_x1,1,1,1);
+	book(_h_x2,2,1,2);
+	book(_h_x3,3,1,2);
       }
       else if (fuzzyEquals(sqrtS()/GeV, 22., 1e-3)) {
-	_h_x1 = bookHisto1D(1,1,2);
-	_h_x2 = bookHisto1D(2,1,3);
-	_h_x3 = bookHisto1D(3,1,3);
+	book(_h_x1,1,1,2);
+	book(_h_x2,2,1,3);
+	book(_h_x3,3,1,3);
       }
       else if (fuzzyEquals(sqrtS()/GeV, 25., 1e-3)) {
-	_h_x2 = bookHisto1D(2,1,4);
-	_h_x3 = bookHisto1D(3,1,4);
+	book(_h_x2,2,1,4);
+	book(_h_x3,3,1,4);
       }
       else if (fuzzyEquals(sqrtS()/GeV, 30., 1e-3)) {
-	_h_x2 = bookHisto1D(2,1,5);
-	_h_x3 = bookHisto1D(3,1,5);
+	book(_h_x2,2,1,5);
+	book(_h_x3,3,1,5);
       }
       else if (fuzzyEquals(sqrtS()/GeV, 34., 1e-3)) {
-	_h_x2 = bookHisto1D(2,1,6);
-	_h_x3 = bookHisto1D(3,1,6);
+	book(_h_x2,2,1,6);
+	book(_h_x3,3,1,6);
       }
       else if (fuzzyEquals(sqrtS()/GeV, 35., 1e-3)) {
-	_h_x2 = bookHisto1D(2,1,7);
-	_h_x3 = bookHisto1D(3,1,7);
+	book(_h_x2, 2,1,7);
+        book(_h_x3, 3,1,7);
       }
 
       if(inRange(sqrtS()/GeV, 29.9,36.7))
-	_h_x1 = bookHisto1D(1,1,3);
+	book(_h_x1, 1,1,3);
       
       if(!_h_x1 && !_h_x2 && !_h_x3)
       	MSG_ERROR("Beam energy not supported!");
@@ -75,20 +75,17 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      // Get event weight for histo filling
-      const double weight = event.weight();
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
 	double xp = p.p3().mod()/meanBeamMom;
-	if(_h_x1) _h_x1->fill(xp,weight);
-	if(_h_x2) _h_x2->fill(xp,weight);
-	if(_h_x3) _h_x3->fill(xp,weight);
+	if(_h_x1) _h_x1->fill(xp);
+	if(_h_x2) _h_x2->fill(xp);
+	if(_h_x3) _h_x3->fill(xp);
       }
     }
 

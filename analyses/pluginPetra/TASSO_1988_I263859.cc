@@ -30,24 +30,23 @@ namespace Rivet {
       declare(Sphericity(cfs), "Sphericity");
 
       // Book histograms
-      _h_sphericity = bookHisto1D( 1, 1, 1);
-      _h_aplanarity = bookHisto1D( 2, 1, 1);
-      _h_thrust     = bookHisto1D( 3, 1, 1);
-      _h_pTin2      = bookHisto1D( 4, 1, 1);
-      _h_pTout2     = bookHisto1D( 5, 1, 1);
-      _h_ncharged   = bookHisto1D( 6, 1, 1);
-      _h_pTin       = bookHisto1D( 7, 1, 1);
-      _h_pTout      = bookHisto1D( 8, 1, 1);
-      _h_pT         = bookHisto1D( 9, 1, 1);
-      _h_x          = bookHisto1D(10, 1, 1);
-      _h_rap        = bookHisto1D(11, 1, 1);
+      book(_h_sphericity,  1, 1, 1);
+      book(_h_aplanarity,  2, 1, 1);
+      book(_h_thrust    ,  3, 1, 1);
+      book(_h_pTin2     ,  4, 1, 1);
+      book(_h_pTout2    ,  5, 1, 1);
+      book(_h_ncharged  ,  6, 1, 1);
+      book(_h_pTin      ,  7, 1, 1);
+      book(_h_pTout     ,  8, 1, 1);
+      book(_h_pT        ,  9, 1, 1);
+      book(_h_x         , 10, 1, 1);
+      book(_h_rap       , 11, 1, 1);
 
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       
       // Get beams and average beam momentum
@@ -57,19 +56,19 @@ namespace Rivet {
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
       const Sphericity& sphericity = apply<Sphericity>(event, "Sphericity");
 
-      _h_sphericity->fill(sphericity.sphericity(), weight);
-      _h_aplanarity->fill(sphericity.aplanarity(), weight);
-      _h_thrust    ->fill(thrust.thrust(),weight);
+      _h_sphericity->fill(sphericity.sphericity());
+      _h_aplanarity->fill(sphericity.aplanarity());
+      _h_thrust    ->fill(thrust.thrust());
 
       double pTin2sum(0.), pTout2sum(0.);
-      foreach (const Particle& p, cfs.particles()) {
+      for (const Particle& p : cfs.particles()) {
         // Get momentum and energy of each particle.
         const Vector3 mom3 = p.p3();
         const double energy = p.E();
         // Scaled momenta.
         const double mom = mom3.mod();
         const double scaledMom = mom/meanBeamMom;
-        _h_x->fill(scaledMom, weight);
+        _h_x->fill(scaledMom);
 
         const double momS = dot(sphericity.sphericityAxis(), mom3);
         const double pTinS = dot(mom3, sphericity.sphericityMajorAxis());
@@ -80,17 +79,17 @@ namespace Rivet {
 	pTin2sum  += sqr(pTinS);
 	pTout2sum += sqr(pToutS);
 
-	_h_pTin ->fill(abs(pTinS)/GeV ,weight);
-	_h_pTout->fill(abs(pToutS)/GeV,weight);
-	_h_pT   ->fill(pT/GeV         ,weight);
-	_h_rap  ->fill(abs(rapidityS), weight);
+	_h_pTin ->fill(abs(pTinS)/GeV );
+	_h_pTout->fill(abs(pToutS)/GeV);
+	_h_pT   ->fill(pT/GeV         );
+	_h_rap  ->fill(abs(rapidityS) );
 
 	
       }
       unsigned int nCharged = cfs.particles().size();
-      _h_pTin2 ->fill(pTin2sum /nCharged,weight);
-      _h_pTout2->fill(pTout2sum/nCharged,weight);
-      _h_ncharged->fill(nCharged,weight);
+      _h_pTin2 ->fill(pTin2sum /nCharged);
+      _h_pTout2->fill(pTout2sum/nCharged);
+      _h_ncharged->fill(nCharged);
     }
 
 

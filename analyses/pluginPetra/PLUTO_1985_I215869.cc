@@ -22,8 +22,8 @@ namespace Rivet {
       // Initialise and register projections
       declare(FinalState(), "FS");
       // Book histograms
-      _h_EEC  = bookHisto1D(1, 1, 1);
-      _weightSum = 0.;
+      book(_h_EEC, 1, 1, 1);
+      book(_weightSum, "TMP/weightSum");
     }
 
 
@@ -37,11 +37,9 @@ namespace Rivet {
         vetoEvent;
       }
       MSG_DEBUG("Passed leptonic event cut");
-      const double weight = event.weight();
-      _weightSum += weight;
 
       double Evis = 0.0;
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         Evis += p.E();
       }
       double Evis2 = sqr(Evis);
@@ -57,7 +55,7 @@ namespace Rivet {
           //const double thetaij = mom3_i.unit().angle(mom3_j.unit())/M_PI*180.;
           double eec = (energy_i*energy_j) / Evis2;
 	  if(p_i != p_j) eec *= 2.;
-	  _h_EEC ->fill(cosij,  eec*weight);
+	  _h_EEC ->fill(cosij,  eec);
 	}
       }
     }
@@ -65,7 +63,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale(_h_EEC , 1./_weightSum);
+      scale(_h_EEC , 1./ *_weightSum);
     }
     //@}
 
@@ -73,7 +71,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_EEC;
-    double _weightSum;
+    CounterPtr _weightSum;
     //@}
 
 

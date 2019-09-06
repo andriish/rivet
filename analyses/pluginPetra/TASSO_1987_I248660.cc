@@ -37,8 +37,8 @@ namespace Rivet {
       }
       else
 	MSG_ERROR("Beam energy not supported!");
-      _histEEC  = bookHisto1D(iloc, 1, 1);
-      _weightSum =0.;
+      book(_histEEC, iloc, 1, 1);
+      book(_weightSum, "TMP/weightSum");
     }
 
 
@@ -52,11 +52,10 @@ namespace Rivet {
         vetoEvent;
       }
       MSG_DEBUG("Passed leptonic event cut");
-      const double weight = event.weight();
-      _weightSum += weight;
 
+      _weightSum->fill();
       double Evis = 0.0;
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         Evis += p.E();
       }
       double Evis2 = sqr(Evis);
@@ -71,7 +70,7 @@ namespace Rivet {
           const double cosij = dot(mom3_i.unit(), mom3_j.unit());
           double eec = (energy_i*energy_j) / Evis2;
 	  if(p_i != p_j) eec *= 2.;
-          _histEEC->fill(cosij, eec*weight);
+          _histEEC->fill(cosij, eec);
         }
       }
     }
@@ -79,7 +78,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale(_histEEC,  1.0/_weightSum);
+      scale(_histEEC,  1.0/ *_weightSum);
     }
 
     //@}
@@ -88,7 +87,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _histEEC;
-    double _weightSum;
+    CounterPtr _weightSum;
     //@}
 
 
