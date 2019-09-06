@@ -26,19 +26,18 @@ namespace Rivet {
 
 
     /// Constructor
-    //DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2014_I1312627);
-    ATLAS_2014_I1312627(std::string name="ATLAS_2014_I1312627")
-      : Analysis(name)
-    {
-      _mode = 0; // using electron channel for combined data by default
-    }
-
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2014_I1312627);
 
     /// @name Analysis methods
     //@{
 
     /// Book histograms and initialise projections before the run
     void init() {
+
+      // get option
+      _mode = 0;
+      if ( getOption("LMODE") == "EL" )  _mode = 1;
+      if ( getOption("LMODE") == "MU" )  _mode = 2;
 
       // Set up cuts
       Cut cuts;
@@ -218,30 +217,6 @@ namespace Rivet {
 
   };
 
-
-
-  /// Electron-specific version of the ATLAS_2014_I1312627 R-jets analysis
-  class ATLAS_2014_I1312627_EL : public ATLAS_2014_I1312627 {
-  public:
-    ATLAS_2014_I1312627_EL()
-      : ATLAS_2014_I1312627("ATLAS_2014_I1312627_EL")
-    { _mode = 1; }
-  };
-
-
-  /// Muon-specific version of the ATLAS_2014_I1312627 R-jets analysis
-  class ATLAS_2014_I1312627_MU : public ATLAS_2014_I1312627 {
-  public:
-    ATLAS_2014_I1312627_MU()
-      : ATLAS_2014_I1312627("ATLAS_2014_I1312627_MU")
-    { _mode = 2; }
-  };
-
-
   // Hooks for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2014_I1312627);
-  DECLARE_RIVET_PLUGIN(ATLAS_2014_I1312627_EL);
-  DECLARE_RIVET_PLUGIN(ATLAS_2014_I1312627_MU);
-
-
 }

@@ -4,7 +4,7 @@ Summary: Ratios of $V$+jets observables between $W$ and $Z$ events
 Experiment: ATLAS
 Collider: LHC
 InspireID: 1312627
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Christian Gutschow <chris.g@cern.ch>
 References:
@@ -17,7 +17,8 @@ NumEvents: 1000000
 Beams: [p+, p+]
 Energies: [7000]
 PtCuts: [25,30]
-NeedCrossSection: True
+Options:
+- LMODE=EL,MU
 Description:
   'Measurements of the ratio of the production cross sections for $W$ and $Z$ bosons in association with jets in proton-proton
   collisions at $\sqrt{s} = 7$~TeV with the ATLAS experiment at the Large Hadron Collider. The measurement is based on the
@@ -53,4 +54,6 @@ BibTeX: '@article{Aad:2014rta,
 
 ReleaseTests:
  - $A LHC-W-Z-e
+ - $A-2 LHC-W-Z-e :LMODE=EL
+ - $A-3 LHC-W-Z-m :LMODE=MU
 

@@ -1,3 +1,7 @@
+2019-09-06  Christian Gutschow  <chris.g@cern.ch>
+
+	* introduce options for ATLAS_2014_I1312627
+
 2019-09-05  Christian Gutschow  <chris.g@cern.ch>
 
 	* implement setWeightCap(double) method in AnalaysisHandler that
