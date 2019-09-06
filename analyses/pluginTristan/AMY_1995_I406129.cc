@@ -62,16 +62,15 @@ namespace Rivet {
       FinalState fs;
       declare(fs, "FS");
       // Book histograms
-      _h_jade_P  = bookHisto1D(2, 1, 1);
-      _h_jade_E  = bookHisto1D(3, 1, 1);
-      _h_jade_E0 = bookHisto1D(6, 1, 1);
-      _h_durham  = bookHisto1D(4, 1, 1);
+      book(_h_jade_P , 2, 1, 1);
+      book(_h_jade_E , 3, 1, 1);
+      book(_h_jade_E0, 6, 1, 1);
+      book(_h_durham , 4, 1, 1);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
       Particles particles =  apply<FinalState>(event, "FS").particles();
       MSG_DEBUG("Num particles = " << particles.size());
       PseudoJets pjs;
@@ -79,7 +78,7 @@ namespace Rivet {
       for (const Particle & p : particles) {
 	Vector3 mom = p.p3();
 	double energy = p.E();
-	if(PID::isCharged(p.pdgId())) {
+	if(PID::isCharged(p.pid())) {
 	  energy = sqrt(mom.mod2()+sqr(mpi));
 	}
 	else {
@@ -92,37 +91,37 @@ namespace Rivet {
       fastjet::JetDefinition durDef(fastjet::ee_kt_algorithm, fastjet::E_scheme);
       fastjet::ClusterSequence durham(pjs,durDef);
       double y_23 = durham.exclusive_ymerge_max(2);
-      _h_durham->fill(y_23,weight);
+      _h_durham->fill(y_23);
       // jade e-scheme
       fastjet::JetDefinition::Plugin *plugin = new fastjet::JadePlugin();
       fastjet::JetDefinition jadeEDef(plugin);
       jadeEDef.set_recombination_scheme(fastjet::E_scheme);
       fastjet::ClusterSequence jadeE(pjs,jadeEDef);
       y_23 = jadeE.exclusive_ymerge_max(2);
-      _h_jade_E->fill(y_23,weight);
+      _h_jade_E->fill(y_23);
       // jade p-scheme
       fastjet::P_scheme p_scheme;
       fastjet::JetDefinition jadePDef(plugin);
       jadePDef.set_recombiner(&p_scheme);
       fastjet::ClusterSequence jadeP(pjs,jadePDef);
       y_23 = jadeP.exclusive_ymerge_max(2);
-      _h_jade_P->fill(y_23,weight);
+      _h_jade_P->fill(y_23);
       // jade E0-scheme
       fastjet::E0_scheme e0_scheme;
       fastjet::JetDefinition jadeE0Def(plugin);
       jadeE0Def.set_recombiner(&e0_scheme);
       fastjet::ClusterSequence jadeE0(pjs,jadeE0Def);
       y_23 = jadeE0.exclusive_ymerge_max(2);
-      _h_jade_E0->fill(y_23,weight);
+      _h_jade_E0->fill(y_23);
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale(_h_jade_E, 1./sumOfWeights());
+      scale(_h_jade_E , 1./sumOfWeights());
       scale(_h_jade_E0, 1./sumOfWeights());
-      scale(_h_jade_P, 1./sumOfWeights());
-      scale(_h_durham, 1./sumOfWeights());
+      scale(_h_jade_P , 1./sumOfWeights());
+      scale(_h_durham , 1./sumOfWeights());
 
     }
 

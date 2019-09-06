@@ -28,16 +28,14 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      _h_x  = bookHisto1D(1, 1, 1);
-      _h_pt = bookHisto1D(3, 1, 1);
+      book(_h_x , 1, 1, 1);
+      book(_h_pt, 3, 1, 1);
 
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // event weight
-      const double weight = event.weight();
       // require 5 charged particles
       const FinalState& fs = apply<FinalState>(event, "FS");
       if(fs.size()<3) vetoEvent;
@@ -51,11 +49,11 @@ namespace Rivet {
       Vector3 axis = thrust.thrustAxis();
       // Final state of unstable particles to get particle spectra
       const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
-      foreach (const Particle& p, ufs.particles(Cuts::pid==333)) {
+      for (const Particle& p : ufs.particles(Cuts::pid==333)) {
         double xE = p.E()/meanBeamMom;
 	double pT2 = p.p3().mod2()-sqr(axis.dot(p.p3()));
-	_h_x ->fill(xE,weight);
-	_h_pt->fill(pT2,weight);
+	_h_x ->fill(xE );
+	_h_pt->fill(pT2);
       }
     }
 

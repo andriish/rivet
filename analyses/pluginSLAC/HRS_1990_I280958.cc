@@ -30,17 +30,17 @@ namespace Rivet {
       declare(Thrust(cfs), "Thrust");
 
       // Book histograms
-      _h_X         = bookHisto1D(3, 1, 1);
-      _h_rap_all   = bookHisto1D(4, 1, 1);
-      _h_rap_light = bookHisto1D(6, 1, 1);
-      _h_rap_charm = bookHisto1D(5, 1, 1);
-      _wLight = _wCharm =0.;
+      book(_h_X        , 3, 1, 1);
+      book(_h_rap_all  , 4, 1, 1);
+      book(_h_rap_light, 6, 1, 1);
+      book(_h_rap_charm, 5, 1, 1);
+      book(_wLight,"TMP/wLight");
+      book(_wCharm,"TMP/wCharm");
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       int nch = cfs.particles().size();
       if(nch<5) vetoEvent;
@@ -63,7 +63,7 @@ namespace Rivet {
 	for(const Particle & p : Dstar) {
 	  if(p.E()>pTag.E()) pTag=p;
 	}
-	_wCharm+=weight;
+	_wCharm->fill();
       }
       bool lightTagged = false;
       if(!charmTagged) {
@@ -71,7 +71,7 @@ namespace Rivet {
 	  if(p.p3().mod()>9.43*GeV) {
 	    pTag=p;
 	    lightTagged=true;
-	    _wLight+=weight;
+	    _wLight->fill();
 	    break;
 	  }
 	}
@@ -86,26 +86,24 @@ namespace Rivet {
          double xE = p.E()/meanBeamMom;
 	 const double energy = p.E();
 	 const double momT = dot(axis, p.p3());
-	 _h_X->fill(xE,weight);
+	 _h_X->fill(xE);
 	 double rap = 0.5 * std::log((energy + momT) / (energy - momT));
-	 _h_rap_all->fill(fabs(rap),weight);
+	 _h_rap_all->fill(fabs(rap));
 	 rap *=sign;
 	 if(charmTagged)
-	   _h_rap_charm->fill(rap,weight);
+	   _h_rap_charm->fill(rap);
 	 else if(lightTagged)
-	   _h_rap_light->fill(rap,weight);
+	   _h_rap_light->fill(rap);
       }
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
-
       scale(_h_X        , crossSection()*sqr(sqrtS())/nanobarn/sumOfWeights());
       scale(_h_rap_all  , 1./sumOfWeights());
-      scale(_h_rap_light, 1./_wLight);
-      scale(_h_rap_charm, 1./_wCharm);
+      scale(_h_rap_light, 1./ *_wLight);
+      scale(_h_rap_charm, 1./ *_wCharm);
     }
 
     //@}
@@ -114,7 +112,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_X, _h_rap_all,_h_rap_light,_h_rap_charm;
-    double _wLight,_wCharm;
+    CounterPtr _wLight,_wCharm;
     //@}
 
 

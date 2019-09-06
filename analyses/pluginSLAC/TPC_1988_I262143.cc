@@ -23,27 +23,27 @@ namespace Rivet {
       declare(ChargedFinalState(), "FS");
 
       // Book histograms
-      _h_z_pi   = bookHisto1D(1, 1, 1);
-      _h_z_K    = bookHisto1D(1, 1, 2);
-      _h_z_p    = bookHisto1D(1, 1, 3);
-      _h_z_all  = bookHisto1D(1, 1, 4);
+      book(_h_z_pi ,1, 1, 1);
+      book(_h_z_K  ,1, 1, 2);
+      book(_h_z_p  ,1, 1, 3);
+      book(_h_z_all,1, 1, 4);
       
-      _h_z2_pi   = bookHisto1D(5, 1, 1);
-      _h_z2_K    = bookHisto1D(5, 1, 2);
-      _h_z2_p    = bookHisto1D(5, 1, 3);
+      book(_h_z2_pi, 5, 1, 1);
+      book(_h_z2_K , 5, 1, 2);
+      book(_h_z2_p , 5, 1, 3);
       
-      _n_pi = std::make_shared<YODA::Histo1D>(Histo1D(refData(6,1,1)));
-      _n_K  = std::make_shared<YODA::Histo1D>(Histo1D(refData(6,1,2)));
-      _n_p  = std::make_shared<YODA::Histo1D>(Histo1D(refData(6,1,3)));
-      _d_pi = std::make_shared<YODA::Histo1D>(Histo1D(refData(6,1,1)));
-      _d_K  = std::make_shared<YODA::Histo1D>(Histo1D(refData(6,1,2)));
-      _d_p  = std::make_shared<YODA::Histo1D>(Histo1D(refData(6,1,3)));
-      _n2_K = std::make_shared<YODA::Histo1D>(Histo1D(refData(7,1,1)));
-      _n2_p = std::make_shared<YODA::Histo1D>(Histo1D(refData(7,1,2)));
-      _n3_p = std::make_shared<YODA::Histo1D>(Histo1D(refData(7,1,3)));
-      _d2_K = std::make_shared<YODA::Histo1D>(Histo1D(refData(7,1,1)));
-      _d2_p = std::make_shared<YODA::Histo1D>(Histo1D(refData(7,1,2)));
-      _d3_p = std::make_shared<YODA::Histo1D>(Histo1D(refData(7,1,3)));
+      book(_n_pi,"TMP/n_pi", refData(6,1,1));
+      book(_n_K ,"TMP/n_K" , refData(6,1,2));
+      book(_n_p ,"TMP/n_p" , refData(6,1,3));
+      book(_d_pi,"TMP/d_pi", refData(6,1,1));
+      book(_d_K ,"TMP/d_K" , refData(6,1,2));
+      book(_d_p ,"TMP/d_p" , refData(6,1,3));
+      book(_n2_K,"TMP/n2_K", refData(7,1,1));
+      book(_n2_p,"TMP/n2_p", refData(7,1,2));
+      book(_n3_p,"TMP/n3_p", refData(7,1,3));
+      book(_d2_K,"TMP/d2_K", refData(7,1,1));
+      book(_d2_p,"TMP/d2_p", refData(7,1,2));
+      book(_d3_p,"TMP/d3_p", refData(7,1,3));
     }
 
 
@@ -61,42 +61,39 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      // Get event weight for histo filling
-      const double weight = event.weight();
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
 	double xP = p.p3().mod()/meanBeamMom;
-	_h_z_all->fill(xP, weight);
-	_d_pi->fill(xP, weight);
-	_d_K ->fill(xP, weight);
-	_d_p ->fill(xP, weight);
-	int id = abs(p.pdgId());
+	_h_z_all->fill(xP);
+	_d_pi->fill(xP);
+	_d_K ->fill(xP);
+	_d_p ->fill(xP);
+	int id = abs(p.pid());
 	if(id==211) {
-	  _h_z_pi->fill(xP, weight);
-	  _h_z2_pi->fill(xP, xP*weight);
-	  _n_pi ->fill(xP, 100.*weight);
-	  _d2_K->fill(xP, weight);
-	  _d2_p->fill(xP, weight);
-	  _d3_p->fill(xP, weight);
+	  _h_z_pi->fill(xP);
+	  _h_z2_pi->fill(xP, xP);
+	  _n_pi ->fill(xP, 100.);
+	  _d2_K->fill(xP);
+	  _d2_p->fill(xP);
+	  _d3_p->fill(xP);
 	}
 	else if(id==321) {
-	  _h_z_K ->fill(xP, weight);
-	  _h_z2_K ->fill(xP, xP*weight);
-	  _n_K ->fill(xP, 100.*weight);
-	  _n2_K->fill(xP, weight);
-	  _d3_p->fill(xP, weight);
+	  _h_z_K ->fill(xP);
+	  _h_z2_K ->fill(xP, xP);
+	  _n_K ->fill(xP, 100.);
+	  _n2_K->fill(xP);
+	  _d3_p->fill(xP);
 	}
 	else if(id==2212) {
-	  _h_z_p ->fill(xP, weight);
-	  _h_z2_p ->fill(xP, xP*weight);
-	  _n_p  ->fill(xP, 100.*weight);
-	  _n2_p->fill(xP, weight);
-	  _n3_p->fill(xP, weight);
+	  _h_z_p ->fill(xP);
+	  _h_z2_p ->fill(xP, xP);
+	  _n_p  ->fill(xP, 100.);
+	  _n2_p->fill(xP);
+	  _n3_p->fill(xP);
 	}
       }
     }
@@ -111,12 +108,19 @@ namespace Rivet {
       scale(_h_z2_pi ,1./sumOfWeights());
       scale(_h_z2_K  ,1./sumOfWeights());
       scale(_h_z2_p  ,1./sumOfWeights());
-      divide(_n_pi,_d_pi, bookScatter2D(6, 1, 1));
-      divide(_n_K ,_d_K , bookScatter2D(6, 1, 2));
-      divide(_n_p ,_d_p , bookScatter2D(6, 1, 3));
-      divide(_n2_K,_d2_K, bookScatter2D(7, 1, 1));
-      divide(_n2_p,_d2_p, bookScatter2D(7, 1, 2));
-      divide(_n3_p,_d3_p, bookScatter2D(7, 1, 3));
+      Scatter2DPtr temp1,temp2,temp3,temp4,temp5,temp6;
+      book(temp1,6, 1, 1);
+      book(temp2,6, 1, 2);
+      book(temp3,6, 1, 3);
+      book(temp4,7, 1, 1);
+      book(temp5,7, 1, 2);
+      book(temp6,7, 1, 3);
+      divide(_n_pi,_d_pi, temp1);
+      divide(_n_K ,_d_K , temp2);
+      divide(_n_p ,_d_p , temp3);
+      divide(_n2_K,_d2_K, temp4);
+      divide(_n2_p,_d2_p, temp5);
+      divide(_n3_p,_d3_p, temp6);
     }
 
     //@}

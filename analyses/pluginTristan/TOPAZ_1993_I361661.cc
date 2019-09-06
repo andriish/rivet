@@ -30,9 +30,9 @@ namespace Rivet {
       declare(Hemispheres(thrust), "Hemispheres");
 
       // Book histograms
-      _h_thrust = bookHisto1D(1, 1, 1);
-      _h_rho    = bookHisto1D(2, 1, 1);
-      _h_y23    = bookHisto1D(3, 1, 1);
+      book(_h_thrust, 1, 1, 1);
+      book(_h_rho   , 2, 1, 1);
+      book(_h_y23   , 3, 1, 1);
 
     }
 
@@ -47,18 +47,16 @@ namespace Rivet {
         MSG_DEBUG("Failed leptonic event cut");
         vetoEvent;
       }
-      MSG_DEBUG("Passed leptonic event cut");
-      const double weight = event.weight();
       // thrust
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
-      _h_thrust->fill(-log(1.-thrust.thrust()),weight);
+      _h_thrust->fill(-log(1.-thrust.thrust()));
       // jet mass
       const Hemispheres& hemi = apply<Hemispheres>(event, "Hemispheres");
-      _h_rho->fill(-log(hemi.scaledM2high()), weight);
+      _h_rho->fill(-log(hemi.scaledM2high()));
       // Jets
       const FastJets& durjet = apply<FastJets>(event, "DurhamJets");
       if(numParticles>=3)
-        if (durjet.clusterSeq()) _h_y23->fill(-log(durjet.clusterSeq()->exclusive_ymerge_max(2)), weight);
+        if (durjet.clusterSeq()) _h_y23->fill(-log(durjet.clusterSeq()->exclusive_ymerge_max(2)));
     }
 
 

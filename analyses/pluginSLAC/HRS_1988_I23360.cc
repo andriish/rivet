@@ -28,16 +28,15 @@ namespace Rivet {
       declare(cfs, "CFS");
 
       // Book histograms
-      _h_Dstar1 = bookHisto1D(1,1,1);
-      _h_Dstar2 = bookHisto1D(1,1,2);
-      _h_D0     = bookHisto1D(2,1,1);
-      _h_Dp     = bookHisto1D(2,1,2);
+      book(_h_Dstar1,1,1,1);
+      book(_h_Dstar2,1,1,2);
+      book(_h_D0    ,2,1,1);
+      book(_h_Dp    ,2,1,2);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       int nch = cfs.particles().size();
       if(nch<5) vetoEvent;
@@ -50,16 +49,16 @@ namespace Rivet {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for(const Particle & p : ufs.particles(Cuts::abspid==413 || Cuts::abspid==421 || Cuts::abspid==411 )) {
          double xE = p.E()/meanBeamMom;
-	 int id = abs(p.pdgId());
+	 int id = abs(p.pid());
 	 if(id==413) {
-	   _h_Dstar1->fill(xE,weight);
-	   _h_Dstar2->fill(xE,weight);
+	   _h_Dstar1->fill(xE);
+	   _h_Dstar2->fill(xE);
 	 }
 	 else if(id==421) {
-	   _h_D0->fill(xE,weight);
+	   _h_D0->fill(xE);
 	 }
 	 else if(id==411) {
-	   _h_Dp->fill(xE,weight);
+	   _h_Dp->fill(xE);
 	 }
       }
     }

@@ -22,10 +22,10 @@ namespace Rivet {
       // Initialise and register projections
       declare(FinalState(), "FS");
 
-      _histEEC    = bookHisto1D(1, 1, 1);
-      _histEEC_Pi = bookHisto1D(1, 1, 2);
-      _histAEEC   = bookHisto1D(1, 1, 3);
-      _weightSum =0.;
+      book(_histEEC   , 1, 1, 1);
+      book(_histEEC_Pi, 1, 1, 2);
+      book(_histAEEC  , 1, 1, 3);
+      book(_weightSum,"TMP/weightSum");
 
     }
 
@@ -40,11 +40,10 @@ namespace Rivet {
         vetoEvent;
       }
       MSG_DEBUG("Passed leptonic event cut");
-      const double weight = event.weight();
-      _weightSum += weight;
+      _weightSum->fill();
 
       double Evis = 0.0;
-      foreach (const Particle& p, fs.particles()) {
+      for( const Particle& p : fs.particles()) {
         Evis += p.E();
       }
       double Evis2 = sqr(Evis);
@@ -60,12 +59,12 @@ namespace Rivet {
           double eec = (energy_i*energy_j) / Evis2;
 	  if(p_i != p_j) eec *= 2.;
           if (thetaij < 90.) {
-	    _histEEC ->fill(thetaij,  eec*weight);
-            _histAEEC->fill(thetaij, -eec*weight);
+	    _histEEC ->fill(thetaij,  eec);
+            _histAEEC->fill(thetaij, -eec);
 	  }
           else {
-	    _histEEC_Pi->fill(180.-thetaij, eec*weight);
-            _histAEEC  ->fill(180.-thetaij, eec*weight);
+	    _histEEC_Pi->fill(180.-thetaij, eec);
+            _histAEEC  ->fill(180.-thetaij, eec);
 	  }
         }
       }
@@ -73,9 +72,9 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale(_histEEC   , 180.0/M_PI/_weightSum*1000.);
-      scale(_histEEC_Pi, 180.0/M_PI/_weightSum*1000.);
-      scale(_histAEEC  , 180.0/M_PI/_weightSum*1000.);
+      scale(_histEEC   , 180.0/M_PI*1000./ *_weightSum);
+      scale(_histEEC_Pi, 180.0/M_PI*1000./ *_weightSum);
+      scale(_histAEEC  , 180.0/M_PI*1000./ *_weightSum);
     }
 
     //@}
@@ -83,7 +82,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _histEEC, _histEEC_Pi, _histAEEC;
-    double _weightSum;
+    CounterPtr _weightSum;
     //@}
 
   };

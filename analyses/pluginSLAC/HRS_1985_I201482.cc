@@ -31,32 +31,31 @@ namespace Rivet {
       declare(thrust, "Thrust");
 
       // Book histograms
-      _histSphericity = bookHisto1D( 1, 1, 1);
-      _histThrust     = bookHisto1D( 3, 1, 1);
-      _histThrust2Jet = bookHisto1D( 4, 1, 1);
-      _histAplanarity = bookHisto1D( 6, 1, 1);
-      _histZ          = bookHisto1D(10, 1, 1);
-      _histZ2Jet      = bookHisto1D(11, 1, 1);
-      _histZScale     = bookHisto1D(12, 1, 1);
-      _histZJet[0]    = bookHisto1D(13, 1, 1);
-      _histZJet[1]    = bookHisto1D(14, 1, 1);
-      _histZJet[2]    = bookHisto1D(15, 1, 1);
-      _histXFeyn      = bookHisto1D(16, 1, 1);
-      _histXFeyn2Jet  = bookHisto1D(17, 1, 1);
-      _histRap        = bookHisto1D(19, 1, 1);
-      _histRap2Jet    = bookHisto1D(20, 1, 1);
-      _histPtT        = bookHisto1D(22, 1, 1);
-      _histPtT2Jet    = bookHisto1D(23, 1, 1);
-      _histPtTIn      = bookHisto1D(24, 1, 1);
-      _histPtTOut     = bookHisto1D(25, 1, 1);
-      _wSum=0.;
+      book(_histSphericity,  1, 1, 1);
+      book(_histThrust    ,  3, 1, 1);
+      book(_histThrust2Jet,  4, 1, 1);
+      book(_histAplanarity,  6, 1, 1);
+      book(_histZ         , 10, 1, 1);
+      book(_histZ2Jet     , 11, 1, 1);
+      book(_histZScale    , 12, 1, 1);
+      book(_histZJet[0]   , 13, 1, 1);
+      book(_histZJet[1]   , 14, 1, 1);
+      book(_histZJet[2]   , 15, 1, 1);
+      book(_histXFeyn     , 16, 1, 1);
+      book(_histXFeyn2Jet , 17, 1, 1);
+      book(_histRap       , 19, 1, 1);
+      book(_histRap2Jet   , 20, 1, 1);
+      book(_histPtT       , 22, 1, 1);
+      book(_histPtT2Jet   , 23, 1, 1);
+      book(_histPtTIn     , 24, 1, 1);
+      book(_histPtTOut    , 25, 1, 1);
+      book(_wSum ,"TMP/wSum");
+      book(_wSum2,"TMP/wSum2");
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // event weight
-      const double weight = event.weight();
       // require 5 charged particles
       const FinalState& fs = apply<FinalState>(event, "FS");
       const size_t numParticles = fs.particles().size();
@@ -73,14 +72,14 @@ namespace Rivet {
       // identify two and three jet regions
       bool twoJet   = sphericity.sphericity()<=0.25 && sphericity.aplanarity()<=0.1;
       //bool threeJet = sphericity.sphericity() >0.25 && sphericity.aplanarity()<=0.1;
-      _wSum  += weight;
-      if(twoJet) _wSum2 += weight;
+      _wSum->fill();
+      if(twoJet) _wSum2->fill();
       // basic event shapes
-      _histSphericity->fill(sphericity.sphericity(),weight);
-      _histThrust    ->fill(thrust.thrust(),weight);
-      _histAplanarity->fill(sphericity.aplanarity(),weight);
+      _histSphericity->fill(sphericity.sphericity());
+      _histThrust    ->fill(thrust.thrust());
+      _histAplanarity->fill(sphericity.aplanarity());
       if(twoJet)
-	_histThrust2Jet->fill(thrust.thrust(),weight);
+	_histThrust2Jet->fill(thrust.thrust());
       double pTSqIn  = 0.;
       double pTSqOut = 0.;
       unsigned int iPlus(0),iMinus(0);
@@ -96,28 +95,28 @@ namespace Rivet {
 	const double pT2 = sqr(pTin)+sqr(pTout);
 	pTSqIn  += sqr(dot(p.p3(), sphericity.sphericityMajorAxis()));
 	pTSqOut += sqr(dot(p.p3(), sphericity.sphericityMinorAxis()));
-	_histZ     ->fill(z         ,  weight);
-	_histZScale->fill(z         ,  weight);
-	_histXFeyn ->fill(xF        ,z*weight);
-	_histRap   ->fill(rap       ,  weight);
-	_histPtT   ->fill(pT2       ,  weight);
+	_histZ     ->fill(z         );
+	_histZScale->fill(z         );
+	_histXFeyn ->fill(xF        ,z);
+	_histRap   ->fill(rap       );
+	_histPtT   ->fill(pT2       );
 	if(twoJet) {
-	  _histZ2Jet    ->fill(z  ,  weight);
-	  _histXFeyn2Jet->fill(xF ,z*weight);
-	  _histRap2Jet  ->fill(rap,  weight);
-	  _histPtT2Jet  ->fill(pT2,  weight);
+	  _histZ2Jet    ->fill(z  );
+	  _histXFeyn2Jet->fill(xF ,z);
+	  _histRap2Jet  ->fill(rap);
+	  _histPtT2Jet  ->fill(pT2);
 	  if(momT>0.&&iPlus<3) {
-	    _histZJet[iPlus]->fill(z,weight);
+	    _histZJet[iPlus]->fill(z);
 	    iPlus+=1;
 	  }
 	  else if(momT<0.&&iMinus<3) {
-	    _histZJet[iMinus]->fill(z,weight);
+	    _histZJet[iMinus]->fill(z);
 	    iMinus+=1;
 	  }
 	}
       }
-      _histPtTIn ->fill(pTSqIn /numParticles , weight);
-      _histPtTOut->fill(pTSqOut/numParticles , weight);
+      _histPtTIn ->fill(pTSqIn /numParticles);
+      _histPtTOut->fill(pTSqOut/numParticles);
     }
 
 
@@ -128,19 +127,19 @@ namespace Rivet {
       normalize(_histThrust);
       normalize(_histThrust2Jet);
       normalize(_histAplanarity);
-      scale(_histZ        ,1./_wSum);
+      scale(_histZ        ,1./ *_wSum);
       scale(_histZScale   , sqr(sqrtS())*crossSection()/microbarn/sumOfWeights());
-      scale(_histXFeyn    ,1./_wSum/M_PI);
-      scale(_histRap      ,1./_wSum);
-      scale(_histZ2Jet    ,1./_wSum2);
-      scale(_histXFeyn2Jet,1./_wSum2/M_PI);
-      scale(_histRap2Jet  ,1./_wSum2);
-      scale(_histPtT      ,1./_wSum);
-      scale(_histPtT2Jet  ,1./_wSum2);
-      scale(_histPtTIn    ,1./_wSum);
-      scale(_histPtTOut   ,1./_wSum);
+      scale(_histXFeyn    ,1./M_PI/ *_wSum);
+      scale(_histRap      ,1./ *_wSum);
+      scale(_histZ2Jet    ,1./ *_wSum2);
+      scale(_histXFeyn2Jet,1./M_PI/ *_wSum2);
+      scale(_histRap2Jet  ,1./ *_wSum2);
+      scale(_histPtT      ,1./ *_wSum);
+      scale(_histPtT2Jet  ,1./ *_wSum2);
+      scale(_histPtTIn    ,1./ *_wSum);
+      scale(_histPtTOut   ,1./ *_wSum);
       for(unsigned int i=0;i<3;++i)
-	scale(_histZJet[i]   ,0.5/_wSum2);
+	scale(_histZJet[i]   ,0.5/ *_wSum2);
     }
 
     //@}
@@ -151,7 +150,7 @@ namespace Rivet {
     Histo1DPtr _histSphericity, _histThrust, _histThrust2Jet, _histAplanarity,
       _histZ, _histZ2Jet, _histZScale, _histXFeyn, _histXFeyn2Jet, _histRap,
       _histRap2Jet, _histPtT, _histPtT2Jet, _histPtTIn, _histPtTOut ,_histZJet[3];
-    double _wSum,_wSum2;
+    CounterPtr _wSum,_wSum2;
     //@}
 
 

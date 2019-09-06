@@ -30,29 +30,29 @@ namespace Rivet {
       declare(thrust, "Thrust");
       declare(Hemispheres(sphere), "Hemispheres");
       // histograms
-      _histRapidityT  = bookHisto1D( 1, 1, 1);
-      _histScaledMom  = bookHisto1D( 2, 1, 1);
-      _histPl         = bookHisto1D( 3, 1, 1);
-      _histPt         = bookHisto1D( 4, 1, 1);
-      _histPt2        = bookHisto1D( 5, 1, 1);
-      _histPtIn       = bookHisto1D( 6, 1, 1);
-      _histPtOut      = bookHisto1D( 7, 1, 1);
-      _histMeanPtIn2  = bookHisto1D( 8, 1, 1);
-      _histMeanPtOut2 = bookHisto1D( 9, 1, 1);
-      _histNtheta     = bookHisto1D(10, 1, 1);
-      _histEtheta     = bookHisto1D(11, 1, 1);
-      _histThrust     = bookHisto1D(12, 1, 1);
-      _histMajor      = bookHisto1D(13, 1, 1);
-      _histMinor      = bookHisto1D(14, 1, 1);
-      _histOblateness = bookHisto1D(15, 1, 1);
-      _histSphericity = bookHisto1D(16, 1, 1);
-      _histAplanarity = bookHisto1D(17, 1, 1);
-      _histQx         = bookHisto1D(18, 1, 1);
-      _histQ21        = bookHisto1D(19, 1, 1);
-      _histRhoLight   = bookHisto1D(20, 1, 1);
-      _histRhoHeavy   = bookHisto1D(21, 1, 1);
-      _histRhoDiff    = bookHisto1D(22, 1, 1);
-      _wSum=0.;
+      book(_histRapidityT , 1, 1, 1);
+      book(_histScaledMom , 2, 1, 1);
+      book(_histPl        , 3, 1, 1);
+      book(_histPt        , 4, 1, 1);
+      book(_histPt2       , 5, 1, 1);
+      book(_histPtIn      , 6, 1, 1);
+      book(_histPtOut     , 7, 1, 1);
+      book(_histMeanPtIn2 , 8, 1, 1);
+      book(_histMeanPtOut2, 9, 1, 1);
+      book(_histNtheta    ,10, 1, 1);
+      book(_histEtheta    ,11, 1, 1);
+      book(_histThrust    ,12, 1, 1);
+      book(_histMajor     ,13, 1, 1);
+      book(_histMinor     ,14, 1, 1);
+      book(_histOblateness,15, 1, 1);
+      book(_histSphericity,16, 1, 1);
+      book(_histAplanarity,17, 1, 1);
+      book(_histQx        ,18, 1, 1);
+      book(_histQ21       ,19, 1, 1);
+      book(_histRhoLight  ,20, 1, 1);
+      book(_histRhoHeavy  ,21, 1, 1);
+      book(_histRhoDiff   ,22, 1, 1);
+      book(_wSum,"TMP/wSum");
     }
 
 
@@ -67,8 +67,7 @@ namespace Rivet {
         vetoEvent;
       }
       MSG_DEBUG("Passed leptonic event cut");
-      const double weight = event.weight();
-      _wSum += weight;
+      _wSum->fill();
 
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
@@ -79,23 +78,23 @@ namespace Rivet {
       // Thrusts
       MSG_DEBUG("Calculating thrust");
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
-      _histThrust    ->fill(thrust.thrust()     , weight);
-      _histMajor     ->fill(thrust.thrustMajor(), weight);
-      _histMinor     ->fill(thrust.thrustMinor(), weight);
-      _histOblateness->fill(thrust.oblateness() , weight);
+      _histThrust    ->fill(thrust.thrust()     );
+      _histMajor     ->fill(thrust.thrustMajor());
+      _histMinor     ->fill(thrust.thrustMinor());
+      _histOblateness->fill(thrust.oblateness() );
       // Sphericities
       MSG_DEBUG("Calculating sphericity");
       const Sphericity& sphericity = apply<Sphericity>(event, "Sphericity");
-      _histSphericity->fill(sphericity.sphericity(), weight);
-      _histAplanarity->fill(sphericity.aplanarity(), weight);
-      _histQx        ->fill(sqrt(1./3.)*(sphericity.lambda1()-sphericity.lambda2()), weight);
-      _histQ21       ->fill(sphericity.lambda2()-sphericity.lambda3(), weight);
+      _histSphericity->fill(sphericity.sphericity());
+      _histAplanarity->fill(sphericity.aplanarity());
+      _histQx        ->fill(sqrt(1./3.)*(sphericity.lambda1()-sphericity.lambda2()));
+      _histQ21       ->fill(sphericity.lambda2()-sphericity.lambda3());
       // Hemispheres
       MSG_DEBUG("Calculating hemisphere variables");
       const Hemispheres& hemi = apply<Hemispheres>(event, "Hemispheres");
-      _histRhoHeavy->fill(hemi.scaledM2high(), weight);
-      _histRhoLight->fill(hemi.scaledM2low() , weight);
-      _histRhoDiff ->fill(hemi.scaledM2diff(), weight);
+      _histRhoHeavy->fill(hemi.scaledM2high());
+      _histRhoLight->fill(hemi.scaledM2low() );
+      _histRhoDiff ->fill(hemi.scaledM2diff());
       // single particle distributions
       double pTIn2(0.),pTOut2(0.);
       unsigned int nCharged(0);
@@ -114,51 +113,51 @@ namespace Rivet {
         const double rapidityT = 0.5 * std::log((energy + momT) / (energy - momT));
 	double angle = sphericity.sphericityAxis().angle(p.p3())/M_PI*180.;
 	if(angle>90.) angle=180.-angle;
-	if(PID::isCharged(p.pdgId())) {
-	  _histScaledMom->fill(scaledMom, weight);
-	  _histRapidityT->fill(fabs(rapidityT), weight);
-	  _histPl       ->fill(fabs(momS)     , weight);
-	  _histPt       ->fill(pT             , weight);
-	  _histPt2      ->fill(sqr(pT)        , weight);
-	  _histPtIn     ->fill(fabs(pTinS)    , weight);
-	  _histPtOut    ->fill(fabs(pToutS)   , weight);
+	if(PID::isCharged(p.pid())) {
+	  _histScaledMom->fill(scaledMom);
+	  _histRapidityT->fill(fabs(rapidityT));
+	  _histPl       ->fill(fabs(momS)     );
+	  _histPt       ->fill(pT             );
+	  _histPt2      ->fill(sqr(pT)        );
+	  _histPtIn     ->fill(fabs(pTinS)    );
+	  _histPtOut    ->fill(fabs(pToutS)   );
 	  pTIn2  += sqr(pTinS);
 	  pTOut2 += sqr(pToutS);
-	  _histNtheta->fill(angle,weight);
+	  _histNtheta->fill(angle);
 	  ++nCharged;
 	}
-	_histEtheta->fill(angle,energy*weight); 
+	_histEtheta->fill(angle,energy); 
       }
-      _histMeanPtIn2 ->fill( pTIn2/nCharged,weight);
-      _histMeanPtOut2->fill(pTOut2/nCharged,weight);
+      _histMeanPtIn2 ->fill( pTIn2/nCharged);
+      _histMeanPtOut2->fill(pTOut2/nCharged);
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
       // histograms
-      scale(_histRapidityT , 1./_wSum);
-      scale(_histScaledMom , 1./_wSum);
-      scale(_histPl        , 1./_wSum);
-      scale(_histPt        , 1./_wSum);
-      scale(_histPt2       , 1./_wSum);
-      scale(_histPtIn      , 1./_wSum);
-      scale(_histPtOut     , 1./_wSum);
-      scale(_histMeanPtIn2 , 1./_wSum);
-      scale(_histMeanPtOut2, 1./_wSum);
-      scale(_histNtheta    , 1./_wSum);
-      scale(_histEtheta    , 1./_wSum);
-      scale(_histThrust    , 1./_wSum);
-      scale(_histMajor     , 1./_wSum);
-      scale(_histMinor     , 1./_wSum);
-      scale(_histOblateness, 1./_wSum);
-      scale(_histSphericity, 1./_wSum);
-      scale(_histAplanarity, 1./_wSum);
-      scale(_histQx        , 1./_wSum);
-      scale(_histQ21       , 1./_wSum);
-      scale(_histRhoLight  , 1./_wSum);
-      scale(_histRhoHeavy  , 1./_wSum);
-      scale(_histRhoDiff   , 1./_wSum);
+      scale(_histRapidityT , 1./ *_wSum);
+      scale(_histScaledMom , 1./ *_wSum);
+      scale(_histPl        , 1./ *_wSum);
+      scale(_histPt        , 1./ *_wSum);
+      scale(_histPt2       , 1./ *_wSum);
+      scale(_histPtIn      , 1./ *_wSum);
+      scale(_histPtOut     , 1./ *_wSum);
+      scale(_histMeanPtIn2 , 1./ *_wSum);
+      scale(_histMeanPtOut2, 1./ *_wSum);
+      scale(_histNtheta    , 1./ *_wSum);
+      scale(_histEtheta    , 1./ *_wSum);
+      scale(_histThrust    , 1./ *_wSum);
+      scale(_histMajor     , 1./ *_wSum);
+      scale(_histMinor     , 1./ *_wSum);
+      scale(_histOblateness, 1./ *_wSum);
+      scale(_histSphericity, 1./ *_wSum);
+      scale(_histAplanarity, 1./ *_wSum);
+      scale(_histQx        , 1./ *_wSum);
+      scale(_histQ21       , 1./ *_wSum);
+      scale(_histRhoLight  , 1./ *_wSum);
+      scale(_histRhoHeavy  , 1./ *_wSum);
+      scale(_histRhoDiff   , 1./ *_wSum);
     }
 
     //@}
@@ -170,7 +169,7 @@ namespace Rivet {
       _histMeanPtIn2, _histMeanPtOut2, _histNtheta, _histEtheta, _histThrust, _histMajor, _histMinor,
       _histOblateness, _histSphericity, _histAplanarity, _histQx, _histQ21, _histRhoLight,
       _histRhoHeavy, _histRhoDiff;
-    double _wSum;
+    CounterPtr _wSum;
     //@}
 
 
