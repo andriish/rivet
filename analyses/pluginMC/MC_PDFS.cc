@@ -43,7 +43,7 @@ namespace Rivet {
       if (event.genEvent()->pdf_info() == 0) vetoEvent;
       PdfInfo pdfi = *(event.genEvent()->pdf_info());
 
-#ifdef ENABLE_HEPMC_3
+#ifdef RIVET_ENABLE_HEPMC_3
       MSG_DEBUG("PDF Q = " << pdfi.scale<< " for (id, x) = "
                 << "(" << pdfi.pdf_id[0] << ", " << pdfi.x[0] << ") "
                 << "(" << pdfi.pdf_id[1] << ", " << pdfi.x[1] << ")");

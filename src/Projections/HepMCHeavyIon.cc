@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Projections/HepMCHeavyIon.hh"
 
-#ifdef ENABLE_HEPMC_3
+#ifdef RIVET_ENABLE_HEPMC_3
 #define IMPLEMENTATION(rettype, functionname, defret) \
 rettype HepMCHeavyIon::functionname() const { \
   return _hi? _hi->functionname: defret;        \
@@ -84,7 +84,7 @@ IMPLEMENTATION_NO_HEPMC2(int, Nspec_proj_p, -1)
 IMPLEMENTATION_NO_HEPMC2(int, Nspec_targ_p, -1)
 
 map<int,double> HepMCHeavyIon::participant_plane_angles() const {
-#ifdef ENABLE_HEPMC_3
+#ifdef RIVET_ENABLE_HEPMC_3
   return _hi? _hi->participant_plane_angles: map<int,double>(); 
 #else
   MSG_WARNING("HeavyIon::participant_plane_angles is only avialable in HepMC3");
@@ -93,7 +93,7 @@ map<int,double> HepMCHeavyIon::participant_plane_angles() const {
 }
 
 map<int,double> HepMCHeavyIon::eccentricities() const {
-#ifdef ENABLE_HEPMC_3
+#ifdef RIVET_ENABLE_HEPMC_3
   return _hi? _hi->eccentricities: map<int,double>(); 
 #else
   MSG_WARNING("HeavyIon::eccentricities is only avialable in HepMC3");

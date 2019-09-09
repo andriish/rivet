@@ -168,12 +168,12 @@ else
   fi
 
   AC_SUBST(HEPMC_VERSION)
+  AC_DEFINE([RIVET_ENABLE_HEPMC_3],[1], [Defined if version 3 of HepMC is used.])
   CPPFLAGS=$oldCPPFLAGS
 
 fi
 
 AM_CONDITIONAL([ENABLE_HEPMC_3], [test x$hepmc_major = x3])
-AM_COND_IF([ENABLE_HEPMC_3],[CPPFLAGS="$CPPFLAGS -DENABLE_HEPMC_3=true"])
 
 ## FastJet clustering library
 AC_CEDAR_LIBRARYANDHEADERS([fastjet], , , [AC_MSG_ERROR([FastJet is required])])

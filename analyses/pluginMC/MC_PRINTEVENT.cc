@@ -147,7 +147,7 @@ namespace Rivet {
       /// @todo Wouldn't this be nice... if HepMC::IO_AsciiParticles was sane :-/
       // printEvent(event.genEvent());
 
-      #ifdef ENABLE_HEPMC_3
+      #ifdef RIVET_ENABLE_HEPMC_3
       
       /// @todo gonna try this instead of replicating everything below
       RivetHepMC::Print::content(*(event.genEvent()));

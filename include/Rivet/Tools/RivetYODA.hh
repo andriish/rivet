@@ -178,6 +178,7 @@ namespace Rivet {
     TupleWrapper(const YODA::Counter & h) : YODA::Counter(h) {}
     // todo: do we need to deal with users using fractions directly?
     void fill( double weight=1.0, double fraction=1.0 ) {
+      (void)fraction;
       fills_.insert( {YODA::Counter::FillType(),weight} );
     }
     void reset() { fills_.clear(); }
@@ -194,6 +195,7 @@ namespace Rivet {
     TupleWrapper(const YODA::Histo1D & h) : YODA::Histo1D(h) {}
     // todo: do we need to deal with users using fractions directly?
     void fill( double x, double weight=1.0, double fraction=1.0 ) {
+      (void)fraction;
       if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
       fills_.insert( { x , weight } );
     }
@@ -211,6 +213,7 @@ namespace Rivet {
     TupleWrapper(const YODA::Profile1D & h) : YODA::Profile1D(h) {}
     // todo: do we need to deal with users using fractions directly?
     void fill( double x, double y, double weight=1.0, double fraction=1.0 ) {
+      (void)fraction;
       if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
       if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN");
       fills_.insert( { YODA::Profile1D::FillType{x,y}, weight } );
@@ -230,6 +233,7 @@ namespace Rivet {
     TupleWrapper(const YODA::Histo2D & h) : YODA::Histo2D(h) {}
     // todo: do we need to deal with users using fractions directly?
     void fill( double x, double y, double weight=1.0, double fraction=1.0 ) {
+      (void)fraction;
       if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
       if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN");
       fills_.insert( { YODA::Histo2D::FillType{x,y}, weight } );
@@ -248,6 +252,7 @@ namespace Rivet {
     TupleWrapper(const YODA::Profile2D & h) : YODA::Profile2D(h) {}
     // todo: do we need to deal with users using fractions directly?
     void fill( double x, double y, double z, double weight=1.0, double fraction=1.0 ) {
+      (void)fraction;
       if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
       if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN");
       if ( std::isnan(z) ) throw YODA::RangeError("Z is NaN");

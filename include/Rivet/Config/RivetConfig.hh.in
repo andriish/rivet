@@ -17,5 +17,8 @@
 /* Define to the version of this package. */
 #undef RIVET_VERSION
 
+/* Define if versio 3 of HepMC is used. */
+#undef RIVET_ENABLE_HEPMC_3
+
 
 #endif
