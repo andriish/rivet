@@ -80,7 +80,7 @@ namespace Rivet {
 	    foundRes = true;
 	  }
 	}
-	// find the eta
+	// find the omega
 	else if(p.pid()==223) {
 	  map<long,int> nRes = nCount;
 	  int ncount = ntotal;

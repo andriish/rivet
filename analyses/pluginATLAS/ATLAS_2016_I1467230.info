@@ -3,7 +3,7 @@ Year: 2016
 Summary: Track-based minimum bias with low-pT tracks at 13 TeV
 Experiment: ATLAS
 Collider: LHC
-SpiresID: 1467230
+InspireID: 1467230
 Status: VALIDATED
 Authors:
  - Roman Lysak <roman.lysak@cern.ch>

@@ -14,8 +14,8 @@ NeedCrossSection: yes
 Beams: [e+,e-]
 Luminosity_fb: 
 Description:
-  'Measurement of the cross section for $e^+e^-\to J/\psiK^+K^-$ at energies between 4.175 and 5.975 GeV using radiative return by BELLE.
-   The paper also includes $J\psiK^0_SK^0_S$ but the data is a confidence limit and is therefore not implemented'
+  'Measurement of the cross section for $e^+e^-\to J/\psi K^+K^-$ at energies between 4.175 and 5.975 GeV using radiative return by BELLE.
+   The paper also includes $J\psi K^0_SK^0_S$ but the data is a confidence limit and is therefore not implemented'
 Keywords: []
 BibKey: Shen:2014gdm
 BibTeX: '@article{Shen:2014gdm,

@@ -15,7 +15,7 @@ LogY=0
 ConnectGaps=1
 END PLOT
 BEGIN PLOT /ARGUS_1992_I319102/d03-x01-y01
-Title=Charged Multiplicity at 10.47 GeV
+Title=Charged Multiplicity in $\Upsilon(4S)$ decays
 XLabel=$N$
 YLabel=Probability/\%
 LogY=0

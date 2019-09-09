@@ -1,6 +1,6 @@
 Name: DELPHI_2003_I620250
 Year: 2003
-Summary: Measurements of event shapes at 45, 66 and 76 GeV by DELPHI using radiative return
+Summary: Measurements of event shapes by DELPHI, above and below $m_Z$
 Experiment: DELPHI
 Collider: LEP
 InspireID: 620250
@@ -13,9 +13,10 @@ RunInfo:
   Hadronic Z decay events generated below the Z pole
 NeedCrossSection: no
 Beams: [e+, e-]
-Energies: [45,66,76]
+Energies: [45,66,76,183,189,192,196,200,202,205,207]
 Description:
-  'Measurement of a wide range of event shapes by DELPHI at energies below the Z pole using radiative events. This analyses allows the energy dependence of simulations to be studied.'
+  'Measurement of a wide range of event shapes by DELPHI at energies below the Z pole using radiative events and above $m_Z$ from LEP2.
+   This analyses allows the energy dependence of simulations to be studied. Only the distributions and not the means are implemented.'
 Keywords: []
 BibKey: Abdallah:2003xz
 BibTeX: '@article{Abdallah:2003xz,

@@ -45,36 +45,33 @@ namespace Rivet {
 	++ntotal;
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
-      for (const Particle& p : ufs.particles()) {
+      // find the psis
+      for (const Particle& p :  ufs.particles(Cuts::pid==443)) {
 	if(p.children().empty()) continue;
-	// find the psi
-	if(p.pid()==443) {
-	  map<long,int> nRes = nCount;
-	  int ncount = ntotal;
-	  findChildren(p,nRes,ncount);
-	  // psi pi+pi-
-	  if(ncount!=2) continue;
-	  bool matched = true;
-	  for(auto const & val : nRes) {
-	    if(abs(val.first)==211) {
-	      if(val.second !=1) {
-		matched = false;
-		break;
-	      }
-	    }
-	    else if(val.second!=0) {
+	map<long,int> nRes = nCount;
+	int ncount = ntotal;
+	findChildren(p,nRes,ncount);
+	// psi pi+pi-
+	if(ncount!=2) continue;
+	bool matched = true;
+	for(auto const & val : nRes) {
+	  if(abs(val.first)==211) {
+	    if(val.second !=1) {
 	      matched = false;
 	      break;
 	    }
 	  }
-	  if(matched) {
-	    _nPsi->fill();
+	  else if(val.second!=0) {
+	    matched = false;
 	    break;
 	  }
 	}
+	if(matched) {
+	  _nPsi->fill();
+	  break;
+	}
       }
     }
-
 
     /// Normalise histograms etc., after the run
     void finalize() {

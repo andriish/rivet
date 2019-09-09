@@ -51,7 +51,7 @@ namespace Rivet {
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
-	// find the omega
+	// find the eta
 	if(p.pid()==221) {
 	  map<long,int> nRes = nCount;
 	  int ncount = ntotal;

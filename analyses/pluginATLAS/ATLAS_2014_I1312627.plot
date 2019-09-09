@@ -1,5 +1,16 @@
-# BEGIN PLOT /ATLAS_2014_I1312627/d..
+# BEGIN PLOT /ATLAS_2014_I1312627/d..-x..-y01
 Title=$W \rightarrow e \nu / Z \rightarrow ee$ (MC) vs $W \rightarrow \ell \nu / Z \rightarrow \ell\ell$ (data), dressed level
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2014_I1312627/d..-x..-y02
+Title=Electron channel, dressed level
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2014_I1312627/d..-x..-y03
+Title=Muon channel, dressed level
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2014_I1312627/d..
 LogY=0
 XTwosidedTicks=1
 YTwosidedTicks=1
