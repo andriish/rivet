@@ -160,7 +160,7 @@ namespace Rivet {
 	if (id == 331 || id == 9010221) {
 	  unstable.push_back(p);
 	}
-	if(!p.children().empty())
+	else if(!p.children().empty())
 	  findDecayProducts(p, unstable);
       }
     }
