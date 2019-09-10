@@ -27,7 +27,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // loop over Omega baryons
+      // loop over Xi_c0 baryons
       foreach(const Particle& Xic, apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==4132)) {
 	int sign = Xic.pdgId()/4132;
 	if(Xic.children().size()!=2) continue;
