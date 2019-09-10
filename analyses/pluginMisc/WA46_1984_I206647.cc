@@ -23,9 +23,9 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS" );
 
       // Book histograms
-      _h_cthetalam = bookHisto1D("cthetaP"  ,20,-1,1);
-      _h_cthetaxi0 = bookHisto1D("cthetaM"  ,20,-1,1);
-      _h_cthetaxim = bookHisto1D("cthetaAll",20,-1,1);
+      book(_h_cthetalam ,"cthetaP"  ,20,-1,1);
+      book(_h_cthetaxi0 ,"cthetaM"  ,20,-1,1);
+      book(_h_cthetaxim ,"cthetaAll",20,-1,1);
 
     }
 
@@ -33,7 +33,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // loop over Omega baryons
-      foreach(const Particle& Omega, apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==3334)) {
+      for(const Particle& Omega : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==3334)) {
 	int sign = Omega.pid()/3334;
 	if(Omega.children().size()!=2) continue;
 	Particle baryon1,meson1;
@@ -124,11 +124,11 @@ namespace Rivet {
 	// calculate angle
 	double cTheta = pp.p3().unit().dot(axis);
 	if(baryon1.abspid()==3122)
-	  _h_cthetalam->fill(cTheta,event.weight());
+	  _h_cthetalam->fill(cTheta);
 	else if(baryon1.abspid()==3322)
-	  _h_cthetaxi0->fill(cTheta,event.weight());
+	  _h_cthetaxi0->fill(cTheta);
 	else if(baryon1.abspid()==3312)
-	  _h_cthetaxim->fill(cTheta,event.weight());
+	  _h_cthetaxim->fill(cTheta);
       }
     }
 
@@ -153,13 +153,16 @@ namespace Rivet {
       normalize(_h_cthetaxi0);
       normalize(_h_cthetaxim);
       // calculate the values of alpha
-      Scatter2DPtr _h_alphaLam = bookScatter2D(1,1,1);
+      Scatter2DPtr _h_alphaLam;
+      book(_h_alphaLam,1,1,1);
       pair<double,double> alpha = calcAlpha(_h_cthetalam);
       _h_alphaLam->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
-      Scatter2DPtr _h_alphaXi0 = bookScatter2D(1,1,2);
+      Scatter2DPtr _h_alphaXi0;
+      book(_h_alphaXi0,1,1,2);
       alpha = calcAlpha(_h_cthetaxi0);
       _h_alphaXi0->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
-      Scatter2DPtr _h_alphaXim = bookScatter2D(1,1,3);
+      Scatter2DPtr _h_alphaXim;
+      book(_h_alphaXim,1,1,3);
       alpha = calcAlpha(_h_cthetaxim);
       _h_alphaXim->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
     }

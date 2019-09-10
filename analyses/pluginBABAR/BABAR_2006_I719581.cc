@@ -22,26 +22,26 @@ namespace Rivet {
       // Initialise and register projections
       declare(UnstableParticles(), "UFS" );
       // Book histograms
-      _h_ctheta_xic    = bookHisto1D(1,1,1);
-      _h_ctheta_omegac = bookHisto1D(2,1,1);
+      book(_h_ctheta_xic   ,1,1,1);
+      book(_h_ctheta_omegac,2,1,1);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // loop over Xi_c0 baryons and Omega_c0 baryons
-      foreach(const Particle& baryon, apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==4132 || Cuts::abspid==4332 )) {
+      for(const Particle& baryon : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==4132 || Cuts::abspid==4332 )) {
 	int sign = baryon.pid()/baryon.abspid();
 	if(baryon.children().size()!=2) continue;
 	Particle baryon1,meson1;
 	if(baryon.abspid()==4132) {
-	  if(baryon.children()[0].pdgId()==sign*3334 && 
-	     baryon.children()[1].pdgId()==sign*321) {
+	  if(baryon.children()[0].pid()==sign*3334 && 
+	     baryon.children()[1].pid()==sign*321) {
 	    baryon1 = baryon.children()[0];
 	    meson1  = baryon.children()[1];
 	  }
-	  else if(baryon.children()[1].pdgId()==sign*3332 && 
-		  baryon.children()[0].pdgId()==sign*321) {
+	  else if(baryon.children()[1].pid()==sign*3332 && 
+		  baryon.children()[0].pid()==sign*321) {
 	    baryon1 = baryon.children()[1];
 	    meson1  = baryon.children()[0];
 	  }
@@ -49,13 +49,13 @@ namespace Rivet {
 	    continue;
 	}
 	else {
-	  if(baryon.children()[0].pdgId()==sign*3334 && 
-	     baryon.children()[1].pdgId()==sign*211) {
+	  if(baryon.children()[0].pid()==sign*3334 && 
+	     baryon.children()[1].pid()==sign*211) {
 	    baryon1 = baryon.children()[0];
 	    meson1  = baryon.children()[1];
 	  }
-	  else if(baryon.children()[1].pdgId()==sign*3334 && 
-		  baryon.children()[0].pdgId()==sign*211) {
+	  else if(baryon.children()[1].pid()==sign*3334 && 
+		  baryon.children()[0].pid()==sign*211) {
 	    baryon1 = baryon.children()[1];
 	    meson1  = baryon.children()[0];
 	  }
@@ -63,13 +63,13 @@ namespace Rivet {
 	    continue;
 	}
 	Particle baryon2,meson2;
-	if(baryon1.children()[0].pdgId()== sign*3122 && 
-	   baryon1.children()[1].pdgId()==-sign*321) {
+	if(baryon1.children()[0].pid()== sign*3122 && 
+	   baryon1.children()[1].pid()==-sign*321) {
 	  baryon2 = baryon1.children()[0];
 	  meson2  = baryon1.children()[1];
 	}
-	else if(baryon1.children()[1].pdgId()== sign*3122 && 
-		baryon1.children()[0].pdgId()==-sign*321) {
+	else if(baryon1.children()[1].pid()== sign*3122 && 
+		baryon1.children()[0].pid()==-sign*321) {
 	  baryon2 = baryon1.children()[1];
 	  meson2  = baryon1.children()[0];
 	}

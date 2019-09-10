@@ -26,15 +26,15 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
       declare(FinalState(), "FS");
       
-      _h_xim  = bookHisto1D(1, 1, 1);
-      _h_xip  = bookHisto1D(1, 1, 2);
+      book(_h_xim, 1, 1, 1);
+      book(_h_xip, 1, 1, 2);
 
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
-      foreach(const Particle &child, p.children()) {
+      for(const Particle &child : p.children()) {
 	if(child.children().empty()) {
-	  nRes[child.pdgId()]-=1;
+	  nRes[child.pid()]-=1;
 	  --ncount;
 	}
 	else
@@ -47,7 +47,7 @@ namespace Rivet {
       // get the axis, direction of incoming electron
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       Vector3 axis;
-      if(beams.first.pdgId()>0)
+      if(beams.first.pid()>0)
 	axis = beams.first .momentum().p3().unit();
       else
 	axis = beams.second.momentum().p3().unit();
@@ -55,20 +55,20 @@ namespace Rivet {
       const FinalState& fs = apply<FinalState>(event, "FS");
       map<long,int> nCount;
       int ntotal(0);
-      foreach (const Particle& p, fs.particles()) {
-	nCount[p.pdgId()] += 1;
+      for (const Particle& p : fs.particles()) {
+	nCount[p.pid()] += 1;
 	++ntotal;
       }
 
       const UnstableParticles & ufs = apply<UnstableParticles>(event, "UFS");
-      foreach (const Particle& p, ufs.particles(Cuts::abspid==3314)) {
+      for (const Particle& p : ufs.particles(Cuts::abspid==3314)) {
        	if(p.children().empty()) continue;
        	map<long,int> nRes=nCount;
        	int ncount = ntotal;
        	findChildren(p,nRes,ncount);
 	bool matched=false;
 	// check for antiparticle
-	foreach (const Particle& p2, ufs.particles(Cuts::pid==-p.pdgId())) {
+	for (const Particle& p2 : ufs.particles(Cuts::pid==-p.pid())) {
 	  if(p2.children().empty()) continue;
 	  map<long,int> nRes2=nRes;
 	  int ncount2 = ncount;
@@ -87,8 +87,8 @@ namespace Rivet {
 	      double ctheta1 = p .momentum().p3().unit().dot(axis);
 	      double ctheta2 = p2.momentum().p3().unit().dot(axis);
 	      if(p.pid()<0) swap(ctheta1,ctheta2);
-	      _h_xim->fill(ctheta1,event.weight());
-	      _h_xip->fill(ctheta1,event.weight());
+	      _h_xim->fill(ctheta1);
+	      _h_xip->fill(ctheta1);
 	      break;
 	    }
 	  }
@@ -134,7 +134,8 @@ namespace Rivet {
     void finalize() {
       normalize(_h_xim,1.,false);
       normalize(_h_xip,1.,false);
-      Scatter2DPtr _h_alpha_xi = bookScatter2D(2,1,1);
+      Scatter2DPtr _h_alpha_xi;
+      book(_h_alpha_xi, 2,1,1);
       pair<double,pair<double,double> > alpha = calcAlpha(_h_xim);
       _h_alpha_xi->addPoint(0.5, alpha.first, make_pair(0.5,0.5),
 			    make_pair(alpha.second.first,alpha.second.second) );
