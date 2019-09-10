@@ -1,3 +1,7 @@
+2019-09-10 Peter Richardson <peter.richardson@durham.ac.uk>
+	* fixes to ARGUS_1993_S2789213 ARGUS_1993_S2669951
+	* new BABAR, BES and WA46 baryon decay analyses
+
 2019-09-09  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* Various fixes to work properly with HepMC3.
