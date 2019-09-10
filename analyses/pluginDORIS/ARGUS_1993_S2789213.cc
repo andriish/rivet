@@ -207,7 +207,7 @@ namespace Rivet {
             id == 333 || id == 223 ) {
 	  unstable.push_back(p);
 	}
-	if(!p.children().empty())
+	else if(!p.children().empty())
 	  findDecayProducts(p, unstable);
       }
     }
