@@ -50,7 +50,6 @@ pat_property = re.compile('^(\w+?)=(.*)$')
 pat_property_opt = re.compile('^ReplaceOption\[(\w+=\w+)\]=(.*)$')
 pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
 pat_options = re.compile(r"((?::\w+=[^:/]+)+)")
-pat_varname = re.compile(r'\[.*\]')
 
 
 def fuzzyeq(a, b, tolerance=1e-6):
@@ -147,9 +146,6 @@ class InputData(Described):
 
         self.description['_OptSubs'] = { }
         self.description['is2dim'] = False
-        self.description['Variations'] = ''
-        self.description['BandComponentEnv'] = ''
-        self.description['BandComponentPDF'] = ''
         f = open(filename)
         for line in f:
             m = pat_begin_block.match(line)
@@ -198,17 +194,6 @@ class InputData(Described):
         f.close()
 
         self.apply_config_files(args.CONFIGFILES)
-
-        # Only keep selected variations (+ nominal)
-        if self.description['Variations']:
-            var_patterns = self.description['Variations'].split(',') # keep vars matching any of these patterns
-            for path in self.histos.keys():
-                vartype = pat_varname.search(path)
-                if vartype: # if true, this is a variation histogram
-                    varname = vartype.group(0)
-                    skip = any([ key in varname for key in [ 'AUX', 'NOPLOT', 'DEBUG' ] ])
-                    if skip or not any([ re.search(pat, vartype.group(0)) for pat in var_patterns ]):
-                        del self.histos[path]
 
         self.description.setdefault('PlotSizeX', 10.)
         self.description.setdefault('PlotSizeY', 6.)
@@ -558,64 +543,6 @@ class Plot(object):
     def __init__(self, inputdata):
         pass
 
-    def combine_weights(self, inputdata, curvegroup, isPDF):
-        if isPDF:
-            try:
-                import lhapdf
-                lhapdf.setVerbosity(0)
-            except ImportError:
-                return
-        errors = None; PDFset = None; PDFvars = [ ]
-        for path in inputdata.histos.keys():
-            isVariation = pat_varname.search(path)
-            varname = isVariation.group(0) if isVariation else ''
-            # accept nominal and variations matching any of the specified patterns
-            if not varname or any([ re.search(pat, varname) for pat in curvegroup.split(',') ]):
-                if not varname and '_VarBand' not in inputdata.histos:
-                    # make a copy of the nominal as basis for the error tube
-                    inputdata.histos['_VarBand'] = copy.deepcopy(inputdata.histos[path])
-                    col = inputdata.histos['_VarBand'].description['LineColor']
-                    inputdata.histos['_VarBand'].description['ErrorBandColor'] = col
-                    inputdata.histos['_VarBand'].description['ErrorBars'] = '0'
-                    inputdata.histos['_VarBand'].description['ErrorBands'] = '1'
-                    inputdata.histos['_VarBand'].description['ErrorBandOpacity'] = '0.5'
-                    inputdata.description['DrawOnly'].append('_VarBand')
-                    for tag in inputdata.description:
-                        if 'VariationBand' in tag:
-                            inputdata.histos['_VarBand'].description[tag[13:]] = inputdata.description[tag]
-                # get central values of current variation
-                central_values = [ p.val for p in inputdata.histos[path].data ]
-                # update envelope
-                if isPDF:
-                    if varname:
-                        PDFvars.append(central_values)
-                elif errors == None:
-                    errors = [ list(central_values), list(central_values) ]
-                else:
-                    errors[0] = map(min, zip(errors[0], central_values))
-                    errors[1] = map(max, zip(errors[1], central_values))
-                # remove current variation from curves to be plotted
-                if varname:
-                    if path in inputdata.description['DrawOnly']:
-                        inputdata.description['DrawOnly'].remove(path)
-                    if isPDF and PDFset == None:
-                        lhapdfID = int(re.search('PDF[0-9]*', varname).group(0)[3:])
-                        PDFset = lhapdf.mkPDF(lhapdfID).set()
-        # compute PDF uncertainty
-        if PDFset:
-            PDFvars = map(list, zip(*PDFvars)) # transpose
-            uncertainties = [ PDFset.uncertainty(binVars) for binVars in PDFvars ]
-            err0 = [ unc.errminus for unc in uncertainties ]
-            err1 = [ unc.errplus  for unc in uncertainties ]
-        # update error bars of current variation band
-        if '_VarBand' in inputdata.description['DrawOnly'] and errors != None:
-            for i in range(len(inputdata.histos['_VarBand'].data)):
-                val = inputdata.histos['_VarBand'].data[i].val
-                err0, err1 = inputdata.histos['_VarBand'].data[i].err
-                inputdata.histos['_VarBand'].data[i].err[0] = sqrt(err0 ** 2 + (val - errors[0][i]) ** 2)
-                inputdata.histos['_VarBand'].data[i].err[1] = sqrt(err1 ** 2 + (val - errors[1][i]) ** 2)
-
-
     def set_normalization(self,inputdata):
         if inputdata.normalized == True:
             return
@@ -630,12 +557,6 @@ class Plot(object):
         for i in inputdata.histos.keys():
             inputdata.histos[i].mangle_input()
         inputdata.normalized = True
-        for bandType in ['BandComponentEnv', 'BandComponentPDF']:
-            # TODO: this assumes only one envelope and one PDF band is desired
-            # need to modify in a way that multiple envelopes etc. are supported
-            if inputdata.description[bandType]:
-              for curvegroup in inputdata.description[bandType].split(' '):
-                  self.combine_weights(inputdata, curvegroup, 'PDF' in bandType)
 
     def stack_histograms(self,inputdata):
         if 'Stack' in inputdata.description:

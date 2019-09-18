@@ -16,7 +16,7 @@ ENVIRONMENT:
 """
 
 from __future__ import print_function
-import rivet, yoda, sys, os
+import rivet, yoda, sys, os, math, re
 rivet.util.check_python_version()
 rivet.util.set_process_name(os.path.basename(__file__))
 
@@ -162,6 +162,16 @@ def setOptions(ao, options):
     for opt in options:
         key, val = opt.split('=', 1)
         ao.setAnnotation(key, val)
+
+
+def setBandOptions(ao):
+    "Set band-specific annotations"
+    ao.setAnnotation('ErrorBars',  '0')
+    ao.setAnnotation('ErrorBands', '1')
+    if 'ErrorBandColor' not in ao.annotations:
+        ao.setAnnotation('ErrorBandColor', ao.annotation('LineColor'))
+    if 'ErrorBandOpacity' not in ao.annotations:
+        ao.setAnnotation('ErrorBandOpacity', '0.5')
 
 
 # TODO: move to rivet.utils
@@ -400,6 +410,16 @@ if __name__ == '__main__':
         elif args.STYLE == 'bw' and showratio:
             plot['RatioPlotErrorBandColor'] = 'black!10'
 
+        ## are we meant to calculate a PDF band? Need LHAPDF in that case ...
+        for bandType in ['BandComponentEnv', 'BandComponentPDF']:
+            if bandType in plot:
+                if 'PDF' in bandType:
+                    try:
+                        import lhapdf
+                        lhapdf.setVerbosity(0)
+                    except ImportError as e:
+                        print("LHAPDF not available! Need this to construct PDF band: ", e.strerror)
+                        exit(1)
 
         ## Get a special object, if there is one for this path
         special = plotparser.getSpecial(hpath)
@@ -438,28 +458,89 @@ if __name__ == '__main__':
                         continue
                     hmcs = mchistos[infile][xpath]
                     ## For now, just plot all the different variation histograms (reversed, so [0] is on top)
-                    # TODO: calculate and plot an appropriate error band, somehow...
+                    # calculate an appropriate error band -- can only do bands for Histo1D or Scatter2D for now ...
+                    BANDNAME = '_VarBand'
+                    obj_type = str(hmcs["0"])
+                    construct_band = 'Histo1D' in obj_type or 'Scatter2D' in obj_type
+                    for bandType in ['BandComponentPDF', 'BandComponentEnv']:
+                        if not construct_band or bandType not in plot:
+                            continue
+                        for curvegroup in plot[bandType].split(' '):
+                            isPDF = 'PDF' in bandType
+                            errors = None; PDFset = None; PDFvars = [ ]
+                            for varname in sorted(hmcs.keys()):
+                                isNominal = (str(varname) == "0")
+                                # accept nominal and variations matching any of the specified patterns
+                                if isNominal or any([ re.search(pat, varname) for pat in curvegroup.split(',') ]):
+                                    thisobj = hmcs[varname].mkScatter() if 'Histo1D' in obj_type else hmcs[varname]
+                                    if isNominal and BANDNAME not in hmcs:
+                                        # make a copy of the nominal as basis for the error tube
+                                        hmcs[BANDNAME] = thisobj if 'Histo1D' in obj_type else hmcs.clone()
+                                        newpath = hmcs[BANDNAME].annotation('Path')+"["+BANDNAME+"]"
+                                        hmcs[BANDNAME].setAnnotation('Path', newpath)
+                                    # get central values of current variation
+                                    central_values = [ p.y for p in thisobj.points ] 
+                                    # update envelope
+                                    if isPDF:
+                                        if not isNominal:
+                                            PDFvars.append(central_values)
+                                    elif errors == None:
+                                        errors = [ list(central_values), list(central_values) ]
+                                    else:
+                                        errors[0] = map(min, zip(errors[0], central_values))
+                                        errors[1] = map(max, zip(errors[1], central_values))
+                                    # remove current variation from curves to be plotted
+                                    if not isNominal:
+                                        del mchistos[infile][xpath][varname]
+                                        if isPDF and PDFset == None:
+                                            lhapdfID = int(re.search('PDF[0-9]*', varname).group(0)[3:])
+                                            PDFset = lhapdf.mkPDF(lhapdfID).set()
+                            # compute PDF uncertainty
+                            if PDFset:
+                                PDFvars = map(list, zip(*PDFvars)) # transpose
+                                # TODO: would be nice if I could ask LHAPDF to give me the tuple straightaway
+                                uncertainties = [ PDFset.uncertainty(binVars) for binVars in PDFvars ]
+                                errors = [ (unc.errminus, unc.errplus) for unc in uncertainties ]
+                                errors = map(list, zip(*errors))
+                            # update error bars of current variation band
+                            if BANDNAME in hmcs and errors != None:
+                                
+                                for i in range(hmcs[BANDNAME].numPoints):
+                                    val = hmcs[BANDNAME].points[i].y
+                                    err0, err1 = hmcs[BANDNAME].points[i].yErrs
+                                    err0 = math.sqrt(err0 ** 2 + (val - errors[0][i]) ** 2)
+                                    err1 = math.sqrt(err1 ** 2 + (val - errors[1][i]) ** 2)
+                                    hmcs[BANDNAME].points[i].yErrs = (err0, err1)
+
                     for i in sorted(hmcs.keys(), reverse=True):
-                        iscanonical = (str(i) == "0")
+                        hname = str(i)
+                        iscanonical = (hname == "0")
+                        isband = BANDNAME in hname
                         if args.NO_WEIGHTS and not iscanonical:
                           continue
                         hmc = hmcs[i]
                         ## Default linecolor, linestyle
                         if not is2d:
-                            setStyle(hmc, styleidx, not iscanonical)
+                            setStyle(hmc, styleidx, isband or not iscanonical)
                             if args.MC_ERRS:
                                 hmc.setAnnotation('ErrorBars', '1')
                         ## Plot defaults from .plot files
                         histopts = plotparser.getHistogramOptions(hpath)
                         if histopts:
                             for key, val in histopts.items():
+                                # this cheat means we don't have
+                                # to re-define common tags
+                                if 'VariationBand' in key:
+                                    key = key[13:]
                                 hmc.setAnnotation(key, val)
                         ## Command line plot options
                         setOptions(hmc, plotoptions[infile])
+                        if isband:
+                            setBandOptions(hmc)
                         ## Set path attribute
                         fullpath = "/"+infile+xpath
                         if not iscanonical:
-                            fullpath += "["+str(i)+"]"
+                            fullpath += "["+hname+"]"
                         hmc.setAnnotation('Path', fullpath)
                         ## Add object / path to appropriate lists
                         #if hmc.hasAnnotation("Title"):
@@ -468,8 +549,14 @@ if __name__ == '__main__':
                         anaobjects.append(hmc)
                         if iscanonical:
                             mainlines.append(fullpath)
-                        else:
-                            varlines.append(fullpath)
+                        elif not any([ key in hname for key in [ 'AUX', 'NOPLOT', 'DEBUG' ] ]):
+                            user_var = False
+                            # check if user specified what variations to keep
+                            if 'Variations' in plot:
+                                var_patterns = plot['Variations'].split(',') # keep vars matching any of these patterns
+                                user_var = any([ re.search(pat, hname) for pat in var_patterns ])
+                            if BANDNAME in hname or user_var:
+                                varlines.append(fullpath)
                         if showratio and ratioreference is None and iscanonical:
                             ratioreference = fullpath
                         ## For 2D, plot each histo now (since overlay makes no sense)
