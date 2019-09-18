@@ -4,6 +4,7 @@ Summary: Measurement of $R$ for energies between 50 and 61.4 GeV.
 Experiment: AMY
 Collider: Tristan
 InspireID: 294525
+Status: VALIDATED
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:

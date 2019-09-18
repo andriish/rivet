@@ -2,9 +2,11 @@
 #ifndef RIVET_RivetHepMC_HH
 #define RIVET_RivetHepMC_HH
 
+#include "Rivet/Config/RivetConfig.hh"
+
 #include <valarray>
 
-#ifdef ENABLE_HEPMC_3
+#ifdef RIVET_ENABLE_HEPMC_3
 #include "HepMC3/HepMC3.h"
 #include "HepMC3/Relatives.h"
 #include "HepMC3/Reader.h"

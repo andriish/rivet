@@ -11,12 +11,12 @@ namespace Rivet {
   public:
 
     ARGUS_1993_S2669951()
-      : Analysis("ARGUS_1993_S2669951") {   }
-
+      : Analysis("ARGUS_1993_S2669951")
+    {   }
 
     void init() {
       declare(UnstableParticles(), "UFS");
-
+      
       book(_weightSum_cont, "weightSum_cont");
       book(_weightSum_Ups1, "weightSum_Ups1");
       book(_weightSum_Ups2, "weightSum_Ups2");
@@ -31,105 +31,79 @@ namespace Rivet {
       book(_hist_cont_f0 ,2, 1, 1);
       book(_hist_Ups1_f0 ,3, 1, 1);
       book(_hist_Ups2_f0 ,4, 1, 1);
-
     }
 
 
     void analyze(const Event& e) {
-
       // Find the Upsilons among the unstables
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
-      Particles upsilons;
-
-      // First in unstable final state
-      for (const Particle& p : ufs.particles())
-        if (p.pid() == 553 || p.pid() == 100553)
-          upsilons.push_back(p);
-      // Then in whole event if fails
-      if (upsilons.empty()) {
-        /// @todo Replace HepMC digging with Particle::descendents etc. calls
-        for(ConstGenParticlePtr p: HepMCUtils::particles(e.genEvent())) {
-          if ( p->pdg_id() != 553 && p->pdg_id() != 100553 ) continue;
-          // Discard it if its parent has the same PDG ID code (avoid duplicates)
-          ConstGenVertexPtr pv = p->production_vertex();
-          bool passed = true;
-          if (pv) {
-            for(ConstGenParticlePtr pp: HepMCUtils::particles(pv, Relatives::PARENTS)){
-              if ( p->pdg_id() == pp->pdg_id() ) {
-                passed = false;
-                break;
-              }
-            }
-          }
-          if (passed) upsilons.push_back(Particle(*p));
-        }
-      }
-
-
-      // Finding done, now fill counters
-      if (upsilons.empty()) { // Continuum
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
+      Particles upsilons = ufs.particles(Cuts::pid==553 or Cuts::pid==100553);
+      // Continuum
+      if (upsilons.empty()) { 
         MSG_DEBUG("No Upsilons found => continuum event");
-
         _weightSum_cont->fill();
-        unsigned int nEtaA(0), nEtaB(0), nf0(0);
         for (const Particle& p : ufs.particles()) {
-          const int id = p.abspid();
+          const int id = p.pid();
           const double xp = 2.*p.E()/sqrtS();
           const double beta = p.p3().mod() / p.E();
           if (id == 9010221) {
-            _hist_cont_f0->fill(xp, 1.0/beta);
-            nf0 += 1;
+            _hist_cont_f0->fill(xp, 1./beta);
+	    _count_f0[2]->fill();
           } else if (id == 331) {
-            if (xp > 0.35) nEtaA += 1;
-            nEtaB += 1;
+            if (xp > 0.35) _count_etaPrime_highZ[1]->fill();
+	    _count_etaPrime_allZ[2]->fill();
           }
-        }
-        _count_f0[2]            ->fill(nf0);
-        _count_etaPrime_highZ[1]->fill(nEtaA);
-        _count_etaPrime_allZ[2] ->fill(nEtaB);
-
-      } else { // Upsilon(s) found
-        MSG_DEBUG("Upsilons found => resonance event");
-
+	}
+      }
+      // Upsilon(s) found
+      else {
         for (const Particle& ups : upsilons) {
           const int parentId = ups.pid();
-          ((parentId == 553) ? _weightSum_Ups1 : _weightSum_Ups2)->fill();
+	  if(parentId==553) {
+	    _weightSum_Ups1->fill();
+	  }
+	  else {
+	    _weightSum_Ups2->fill();
+	  }
           Particles unstable;
           // Find the decay products we want
-          findDecayProducts(ups.genParticle(), unstable);
+          findDecayProducts(ups, unstable);
+	  // boost to rest frame (if required)
           LorentzTransform cms_boost;
           if (ups.p3().mod() > 1*MeV)
             cms_boost = LorentzTransform::mkFrameTransformFromBeta(ups.momentum().betaVec());
           const double mass = ups.mass();
-          unsigned int nEtaA(0), nEtaB(0), nf0(0);
+	  // loop over decay products
           for(const Particle& p : unstable) {
-            const int id = p.abspid();
+            const int id = p.pid();
             const FourMomentum p2 = cms_boost.transform(p.momentum());
             const double xp = 2.*p2.E()/mass;
             const double beta = p2.p3().mod()/p2.E();
-            if (id == 9010221) { //< ?
-              ((parentId == 553) ? _hist_Ups1_f0 : _hist_Ups2_f0)->fill(xp, 1.0/beta);
-              nf0 += 1;
-            } else if (id == 331) { //< ?
-              if (xp > 0.35) nEtaA += 1;
-              nEtaB += 1;
-            }
-          }
-          if (parentId == 553) {
-            _count_f0[0]            ->fill(  nf0);
-            _count_etaPrime_highZ[0]->fill(nEtaA);
-            _count_etaPrime_allZ[0] ->fill(nEtaB);
-          } else {
-            _count_f0[1]->fill(nf0);
-            _count_etaPrime_allZ[1] ->fill(nEtaB);
-          }
-        }
+            if (id == 9010221) {
+	      if(parentId == 553 ) {
+		_hist_Ups1_f0->fill(xp, 1./beta);
+		_count_f0[0]->fill();
+	      }
+	      else {
+		_hist_Ups2_f0->fill(xp, 1./beta);
+		_count_f0[1]->fill();
+	      }
+	    }
+	    else if ( id == 331 ) {
+	      if (parentId == 553) {
+		if (xp > 0.35) _count_etaPrime_highZ[0]->fill();
+		_count_etaPrime_allZ[0]->fill();
+	      }
+	      else {
+		_count_etaPrime_allZ[1]->fill();
+	      }
+	    }
+	  }
+	}
       }
     }
 
-
     void finalize() {
-
       // High-Z eta' multiplicity
       Scatter2DPtr s111;
       book(s111, 1, 1, 1, true);
@@ -147,6 +121,7 @@ namespace Rivet {
         s112->point(1).setY(_count_etaPrime_allZ[2]->val() / _weightSum_cont->val(), 0);
       if (_weightSum_Ups2->val() > 0) // Point at 10.02
         s112->point(2).setY(_count_etaPrime_allZ[1]->val() / _weightSum_Ups2->val(), 0);
+
 
       // f0 multiplicity
       Scatter2DPtr s511;
@@ -178,16 +153,17 @@ namespace Rivet {
     Histo1DPtr _hist_cont_f0, _hist_Ups1_f0, _hist_Ups2_f0;
 
 
-    /// Recursively walk the HepMC tree to find decay products of @a p
-    void findDecayProducts(ConstGenParticlePtr p, Particles& unstable) {
-      ConstGenVertexPtr dv = p->end_vertex();
-      for (ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
-        const int id = abs(pp->pdg_id());
-        if (id == 331 || id == 9010221) unstable.push_back(Particle(pp));
-        else if (pp->end_vertex()) findDecayProducts(pp, unstable);
+    /// Recursively walk the decay tree to find decay products of @a p
+    void findDecayProducts(Particle mother, Particles& unstable) {
+      for(const Particle & p: mother.children()) {
+        const int id = p.pid();
+	if (id == 331 || id == 9010221) {
+	  unstable.push_back(p);
+	}
+	else if(!p.children().empty())
+	  findDecayProducts(p, unstable);
       }
     }
-
 
   };
 

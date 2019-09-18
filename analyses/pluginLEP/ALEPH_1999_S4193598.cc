@@ -46,7 +46,7 @@ namespace Rivet {
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0/GeV;
 
-      // Accept all D*+- decays. Normalisation to data in finalize
+      // Accept all D*+- decays.
       for (const Particle& p : filter_select(ufs.particles(), Cuts::abspid==PID::DSTARPLUS)) {
           // Scaled energy.
           const double energy = p.E()/GeV;
@@ -58,9 +58,9 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
-      // Normalize to data integral
-      normalize(_h_Xe_Ds, 4.98);
+      // brs for D*+/- -> D0 pi+/- and D0->K+pi-
+      double br = 0.677*0.03950;
+      scale(_h_Xe_Ds, 1./sumOfWeights()*br*1000.);
     }
 
   private:

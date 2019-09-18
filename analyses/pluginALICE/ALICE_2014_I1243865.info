@@ -3,7 +3,7 @@ Year: 2014
 Summary: Multi-Strange Baryon production at mid rapidity in Pb--Pb at 2.76 TeV/nn
 Experiment: ALICE
 Collider: LHC
-SpiresID: 1243865
+InspireID: 1243865
 Status: UNVALIDATED
 Authors:
  - Cody B Duncan <cody.duncan@monash.edu>

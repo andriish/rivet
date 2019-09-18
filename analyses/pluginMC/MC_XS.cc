@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 
-#ifndef ENABLE_HEPMC_3
+#ifndef RIVET_ENABLE_HEPMC_3
 #include "HepMC/HepMCDefs.h"
 #endif
 
@@ -39,7 +39,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      #if defined ENABLE_HEPMC_3
+      #if defined RIVET_ENABLE_HEPMC_3
       //@todo HepMC3::GenCrossSection methods aren't const accessible :(
       RivetHepMC::GenCrossSection gcs = *(event.genEvent()->cross_section());
       _mc_xs    = gcs.xsec();

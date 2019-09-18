@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief phi -> eta pi0 gamma
   class KLOE_2009_I818106 : public Analysis {
   public:
 

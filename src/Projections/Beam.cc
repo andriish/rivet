@@ -22,7 +22,7 @@ namespace Rivet {
     
     /// There are no barcodes in HepMC3
     /// @todo implement some other fallback rubric?
-    #ifndef ENABLE_HEPMC_3
+    #ifndef RIVET_ENABLE_HEPMC_3
     
     // Hmm, this sucks. Last guess is that barcodes 1 and 2 are the beams
     if (e.genEvent()->barcode_to_particle(1) && e.genEvent()->barcode_to_particle(2)) {

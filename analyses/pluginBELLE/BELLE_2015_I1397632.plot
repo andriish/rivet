@@ -14,7 +14,7 @@ XLabel=$w$
 NormalizeToIntegral=1
 # END PLOT
 
-# BEGIN PLOT /BELLE_2015_I1397632/d01-x01-y03
+# BEGIN PLOT /BELLE_2015_I1397632/d02-x01-y01
 Title=$B^+\to D^0e^+\nu$
 XLabel=$w$
 #YLabel=[Uncomment and insert y-axis label for histogram d01-x01-y01 here]
@@ -22,7 +22,7 @@ XLabel=$w$
 NormalizeToIntegral=1
 # END PLOT
 
-# BEGIN PLOT /BELLE_2015_I1397632/d01-x01-y04
+# BEGIN PLOT /BELLE_2015_I1397632/d02-x01-y02
 Title=$B^+\to D^0\mu^+\nu$
 XLabel=$w$
 #YLabel=[Uncomment and insert y-axis label for histogram d01-x01-y01 here]

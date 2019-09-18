@@ -32,6 +32,3 @@ BibTeX: '%%% contains utf-8, see: http://inspirehep.net/info/faq/general#utf8
       note           = "[Zh. Eksp. Teor. Fiz.148,no.1,34(2015)]",
       SLACcitation   = "%%CITATION = JTPHE,121,27;%%"
 }'
-ToDo:
- - Implement the analysis, test it, remove this ToDo, and mark as VALIDATED :-)
-

@@ -35,6 +35,3 @@ BibTeX: '@article{TheBABAR:2017aph,
       reportNumber   = "BABAR-PUB-15-005, SLAC-PUB-16940",
       SLACcitation   = "%%CITATION = ARXIV:1704.05009;%%"
 }'
-ToDo:
- - Implement the analysis, test it, remove this ToDo, and mark as VALIDATED :-)
-
