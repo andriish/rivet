@@ -47,7 +47,7 @@ def getHistos(filelist):
         for path, ao in analysisobjects.items():
             ## We can't plot non-histograms yet
             # TODO: support counter plotting with a faked x (or y) position and forced plot width/height
-            if ao.type not in ("Counter",
+            if ao.type() not in ("Counter",
                                "Histo1D",
                                "Histo2D",
                                "Profile1D",
@@ -168,9 +168,9 @@ def setBandOptions(ao):
     "Set band-specific annotations"
     ao.setAnnotation('ErrorBars',  '0')
     ao.setAnnotation('ErrorBands', '1')
-    if 'ErrorBandColor' not in ao.annotations:
+    if 'ErrorBandColor' not in ao.annotations():
         ao.setAnnotation('ErrorBandColor', ao.annotation('LineColor'))
-    if 'ErrorBandOpacity' not in ao.annotations:
+    if 'ErrorBandOpacity' not in ao.annotations():
         ao.setAnnotation('ErrorBandOpacity', '0.5')
 
 
@@ -479,7 +479,7 @@ if __name__ == '__main__':
                                         newpath = hmcs[BANDNAME].annotation('Path')+"["+BANDNAME+"]"
                                         hmcs[BANDNAME].setAnnotation('Path', newpath)
                                     # get central values of current variation
-                                    central_values = [ p.y for p in thisobj.points ] 
+                                    central_values = [ p.y() for p in thisobj.points() ] 
                                     # update envelope
                                     if isPDF:
                                         if not isNominal:
@@ -505,12 +505,12 @@ if __name__ == '__main__':
                             # update error bars of current variation band
                             if BANDNAME in hmcs and errors != None:
                                 
-                                for i in range(hmcs[BANDNAME].numPoints):
-                                    val = hmcs[BANDNAME].points[i].y
-                                    err0, err1 = hmcs[BANDNAME].points[i].yErrs
+                                for i in range(hmcs[BANDNAME].numPoints()):
+                                    val = hmcs[BANDNAME].point(i).y()
+                                    err0, err1 = hmcs[BANDNAME].point(i).yErrs()
                                     err0 = math.sqrt(err0 ** 2 + (val - errors[0][i]) ** 2)
                                     err1 = math.sqrt(err1 ** 2 + (val - errors[1][i]) ** 2)
-                                    hmcs[BANDNAME].points[i].yErrs = (err0, err1)
+                                    hmcs[BANDNAME].point(i).setYErrs(err0, err1)
 
                     for i in sorted(hmcs.keys(), reverse=True):
                         hname = str(i)
@@ -590,6 +590,6 @@ if __name__ == '__main__':
 
 
         ## Make the output and write to file
-        if(len(anaobjects)>0) :
+        if len(anaobjects) > 0:
             o = mkOutput(hpath, anaobjects, plot, special)
             writeOutput(o, hpath)

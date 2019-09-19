@@ -1,3 +1,8 @@
+2019-09-19  Christian Gutschow  <chris.g@cern.ch>
+
+	* making plotting scripts compatible with tip of YODA-1-7 branch
+	This will break things for older YODA checkouts ...
+
 2019-09-18  Christian Gutschow  <chris.g@cern.ch>
 
 	* move variation-band combination into rivet-cmpthistos,
