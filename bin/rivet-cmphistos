@@ -157,21 +157,23 @@ def setStyle(ao, istyle, variation=False):
     ao.setAnnotation('LineColor', '%s' % c)
 
 
-def setOptions(ao, options):
+def setOptions(ao, options, isBand):
     "Set arbitrary annotations"
     for opt in options:
         key, val = opt.split('=', 1)
+        # this cheat means we don't have
+        # to re-define common tags
+        if 'VariationBand' in key:
+            key = key[13:]
+        print ('CHRISG', key, val, ao)
         ao.setAnnotation(key, val)
-
-
-def setBandOptions(ao):
-    "Set band-specific annotations"
-    ao.setAnnotation('ErrorBars',  '0')
-    ao.setAnnotation('ErrorBands', '1')
-    if 'ErrorBandColor' not in ao.annotations():
-        ao.setAnnotation('ErrorBandColor', ao.annotation('LineColor'))
-    if 'ErrorBandOpacity' not in ao.annotations():
-        ao.setAnnotation('ErrorBandOpacity', '0.5')
+    if isBand:
+        ao.setAnnotation('ErrorBars',  '0')
+        ao.setAnnotation('ErrorBands', '1')
+        if 'ErrorBandColor' not in ao.annotations():
+            ao.setAnnotation('ErrorBandColor', ao.annotation('LineColor'))
+        if 'ErrorBandOpacity' not in ao.annotations():
+            ao.setAnnotation('ErrorBandOpacity', '0.5')
 
 
 # TODO: move to rivet.utils
@@ -528,15 +530,10 @@ if __name__ == '__main__':
                         histopts = plotparser.getHistogramOptions(hpath)
                         if histopts:
                             for key, val in histopts.items():
-                                # this cheat means we don't have
-                                # to re-define common tags
-                                if 'VariationBand' in key:
-                                    key = key[13:]
                                 hmc.setAnnotation(key, val)
                         ## Command line plot options
-                        setOptions(hmc, plotoptions[infile])
-                        if isband:
-                            setBandOptions(hmc)
+                        print ('CHRISG', plotoptions[infile])
+                        setOptions(hmc, plotoptions[infile], isband)
                         ## Set path attribute
                         fullpath = "/"+infile+xpath
                         if not iscanonical:
