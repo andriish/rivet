@@ -70,8 +70,8 @@ cdef class Run:
     def __del__(self):
         del self._ptr
 
-    def setCrossSection(self, double x):
-        self._ptr.setCrossSection(x)
+    def setCrossSection(self, double x, double e):
+        self._ptr.setCrossSection(x, e)
         return self
 
     def setListAnalyses(self, choice):

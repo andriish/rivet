@@ -1,3 +1,7 @@
+2019-09-24  Christian Gutschow  <chris.g@cern.ch>
+
+	* fixing setCrossSection bug in rivet python script
+
 2019-09-19  Christian Gutschow  <chris.g@cern.ch>
 
 	* making plotting scripts compatible with tip of YODA-1-7 branch

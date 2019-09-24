@@ -570,7 +570,7 @@ if args.SHOW_BIBTEX:
 run = rivet.Run(ah)
 if args.CROSS_SECTION is not None:
     logging.info("User-supplied cross-section = %e pb" % args.CROSS_SECTION)
-    run.setCrossSection(args.CROSS_SECTION)
+    run.setCrossSection(args.CROSS_SECTION, 0.0)
 if args.LIST_USED_ANALYSES is not None:
     run.setListAnalyses(args.LIST_USED_ANALYSES)
 
