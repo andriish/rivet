@@ -96,10 +96,10 @@ def getRivetRefData(anas=None):
         for infile in filelist:
             analysisobjects = yoda.read(infile, patterns=args.PATHPATTERNS, unpatterns=args.PATHUNPATTERNS)
             for path, ao in analysisobjects.items():
-                aop = rivet.AOPath(ao.path)
+                aop = rivet.AOPath(ao.path())
                 if aop.isref():
-                    ao.path = aop.basepath(keepref=False)
-                    refhistos[ao.path] = ao
+                    ao.setPath(aop.basepath(keepref=False))
+                    refhistos[ao.path()] = ao
     return refhistos
 
 
