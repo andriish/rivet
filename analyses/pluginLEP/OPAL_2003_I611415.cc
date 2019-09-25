@@ -42,8 +42,8 @@ namespace Rivet {
       _h_eta_diff[1] = bookHisto1D(17,1,1);
       _h_eta_min[0]  = bookHisto1D(18,1,1);
       _h_eta_min[1]  = bookHisto1D(19,1,1);
-      _h_eta_min[2]  = bookHisto1D(20,1,1);
-      _h_eta_min[3]  = bookHisto1D(21,1,1);
+      _h_eta_max[0]  = bookHisto1D(20,1,1);
+      _h_eta_max[1]  = bookHisto1D(21,1,1);
     }
 
 

@@ -27,23 +27,21 @@ namespace Rivet {
       _runZ = true;
       _runW = true;
       if ( getOption("LMODE") == "EL" || 
-	   getOption("LMODE") == "ZEL" ||
-	   getOption("LMODE") == "WEL" ) 
-	_mode = 1;
+         getOption("LMODE") == "ZEL" ||
+         getOption("LMODE") == "WEL" ) 
+      _mode = 1;
       if ( getOption("LMODE") == "MU" || 
-	   getOption("LMODE") == "ZMU" ||
-	   getOption("LMODE") == "WMU" ) 
-	_mode = 2;
+         getOption("LMODE") == "ZMU" ||
+         getOption("LMODE") == "WMU" ) 
+      _mode = 2;
       if ( getOption("LMODE") == "Z" || 
-	   getOption("LMODE") == "ZEL" || 
-	   getOption("LMODE") == "ZMU" ) 
-	_runW = false;
+         getOption("LMODE") == "ZEL" || 
+         getOption("LMODE") == "ZMU" ) 
+      _runW = false;
       if ( getOption("LMODE") == "W" || 
-	   getOption("LMODE") == "WEL" || 
-	   getOption("LMODE") == "WMU" ) 
-	_runZ = false;
-
-
+         getOption("LMODE") == "WEL" || 
+         getOption("LMODE") == "WMU" ) 
+      _runZ = false;
 
 
       ///Initialise and register projections here
@@ -69,17 +67,17 @@ namespace Rivet {
 
       /// Book histograms here      
       if (_runW) {
-	_h_Wp_eta = bookHisto1D(   9, 1, 1);
-	_h_Wm_eta = bookHisto1D(  10, 1, 1);
-	_h_W_asym = bookScatter2D(35, 1, 1);
+        _h_Wp_eta = bookHisto1D(   9, 1, 1);
+        _h_Wm_eta = bookHisto1D(  10, 1, 1);
+        _h_W_asym = bookScatter2D(35, 1, 1);
       }
 
       if (_runZ) {
-	_h_Zcenlow_y_dressed   = bookHisto1D(11, 1, 1);
-	_h_Zcenpeak_y_dressed  = bookHisto1D(12, 1, 1);
-	_h_Zcenhigh_y_dressed  = bookHisto1D(13, 1, 1);
-	_h_Zfwdpeak_y_dressed  = bookHisto1D(14, 1, 1);
-	_h_Zfwdhigh_y_dressed  = bookHisto1D(15, 1, 1);
+        _h_Zcenlow_y_dressed   = bookHisto1D(11, 1, 1);
+        _h_Zcenpeak_y_dressed  = bookHisto1D(12, 1, 1);
+        _h_Zcenhigh_y_dressed  = bookHisto1D(13, 1, 1);
+        _h_Zfwdpeak_y_dressed  = bookHisto1D(14, 1, 1);
+        _h_Zfwdhigh_y_dressed  = bookHisto1D(15, 1, 1);
       }
     }
 
@@ -94,19 +92,19 @@ namespace Rivet {
 
         const double weight = event.weight();
 
-	Particle lep;
-	if (_mode !=2 && wfindere.bosons().size() == 1 ) {
-	  lep = wfindere.constituentLeptons()[0];
-	}
-	else if (_mode !=1 && wfinderm.bosons().size() == 1 ) {
-	  lep = wfinderm.constituentLeptons()[0];
-	}
-	if (lep.charge3() == 3) {
-	  _h_Wp_eta->fill(lep.abseta()); 
-	}
-	else if (lep.charge3() == -3) {
-	  _h_Wm_eta->fill(lep.abseta());
-	}
+        Particle lep;
+        if (_mode !=2 && wfindere.bosons().size() == 1 ) {
+          lep = wfindere.constituentLeptons()[0];
+        }
+        else if (_mode !=1 && wfinderm.bosons().size() == 1 ) {
+          lep = wfinderm.constituentLeptons()[0];
+        }
+        if (lep.charge3() == 3) {
+          _h_Wp_eta->fill(lep.abseta(), weight); 
+        }
+        else if (lep.charge3() == -3) {
+          _h_Wm_eta->fill(lep.abseta(), weight);
+        }
 	
       }
 
@@ -118,43 +116,43 @@ namespace Rivet {
       // must be one and only one candidate.
       if (zfindere.bosons().size()+zfinderm.bosons().size() == 1 && _runZ) {
 
-	const double weight = event.weight();
-	
-	Particle Zboson;
-	ParticleVector leptons;
-	
-	// candidate is e+e-
-	if (_mode != 2 && zfindere.bosons().size() == 1 ) {
-	  
-	  Zboson = zfindere.boson();
-	  leptons = zfindere.constituents();
-	}  
+        const double weight = event.weight();
+        
+        Particle Zboson;
+        ParticleVector leptons;
+        
+        // candidate is e+e-
+        if (_mode != 2 && zfindere.bosons().size() == 1 ) {
+          
+          Zboson = zfindere.boson();
+          leptons = zfindere.constituents();
+        }  
 
-	// candidate is mu+mu-
+        // candidate is mu+mu-
         else if (_mode !=1 && zfinderm.bosons().size() == 1 ) {
-	  
-	  Zboson = zfinderm.boson();
-	  leptons = zfinderm.constituents();
-	  
-	}
-	const double zrap  = Zboson.absrap();
-	const double zmass = Zboson.mass();
-	const double eta1 = leptons[0].abseta();
-	const double eta2 = leptons[1].abseta();
-		
-	// separation into central/forward and three mass bins
-	if (eta1 < 2.5 && eta2 < 2.5) {
-	  if (zmass < 66.0*GeV)        _h_Zcenlow_y_dressed->fill(zrap, weight);
-	  else if (zmass < 116.0*GeV)  _h_Zcenpeak_y_dressed->fill(zrap, weight);
-	  else                         _h_Zcenhigh_y_dressed->fill(zrap, weight);
-	} 
-	else if ((eta1 < 2.5 && 2.5 < eta2 && eta2 < 4.9) || (eta2 < 2.5 && 2.5 < eta1 && eta1 < 4.9)) {
-	  if (zmass < 66.0*GeV)   vetoEvent;
-	  if (zmass < 116.0*GeV)  _h_Zfwdpeak_y_dressed->fill(zrap, weight);
-	  else                    _h_Zfwdhigh_y_dressed->fill(zrap, weight);
-	}
-      }
       
+          Zboson = zfinderm.boson();
+          leptons = zfinderm.constituents();
+          
+        }
+        const double zrap  = Zboson.absrap();
+        const double zmass = Zboson.mass();
+        const double eta1 = leptons[0].abseta();
+        const double eta2 = leptons[1].abseta();
+      
+        // separation into central/forward and three mass bins
+        if (eta1 < 2.5 && eta2 < 2.5) {
+          if (zmass < 66.0*GeV)        _h_Zcenlow_y_dressed->fill(zrap, weight);
+          else if (zmass < 116.0*GeV)  _h_Zcenpeak_y_dressed->fill(zrap, weight);
+          else                         _h_Zcenhigh_y_dressed->fill(zrap, weight);
+        } 
+        else if ((eta1 < 2.5 && 2.5 < eta2 && eta2 < 4.9) || (eta2 < 2.5 && 2.5 < eta1 && eta1 < 4.9)) {
+          if (zmass < 66.0*GeV)   vetoEvent;
+          if (zmass < 116.0*GeV)  _h_Zfwdpeak_y_dressed->fill(zrap, weight);
+          else                    _h_Zfwdhigh_y_dressed->fill(zrap, weight);
+        }
+      }
+        
     }
 
     /// Normalise histograms etc., after the run
@@ -163,23 +161,23 @@ namespace Rivet {
       // Construct asymmetry: (dsig+/deta - dsig-/deta) / (dsig+/deta + dsig-/deta)
       //divide(*_h_Wp_eta - *_h_Wm_eta, *_h_Wp_eta + *_h_Wm_eta, _h_W_asym);
       if (_runW) {
-	for (size_t i = 0; i < _h_Wp_eta->numBins(); ++i) {
-	  YODA::HistoBin1D& bp = _h_Wp_eta->bin(i);
-	  YODA::HistoBin1D& bm = _h_Wm_eta->bin(i);
-	  const double sum  = bp.height() + bm.height();
-	  //const double xerr = 0.5 * bp.xWidth();
-	  double val = 0., yerr = 0.;
+        for (size_t i = 0; i < _h_Wp_eta->numBins(); ++i) {
+          YODA::HistoBin1D& bp = _h_Wp_eta->bin(i);
+          YODA::HistoBin1D& bm = _h_Wm_eta->bin(i);
+          const double sum  = bp.height() + bm.height();
+          //const double xerr = 0.5 * bp.xWidth();
+          double val = 0., yerr = 0.;
 
-	  if (sum) {
-	    const double pos2  = bp.height() * bp.height();
-	    const double min2  = bm.height() * bm.height();
-	    const double errp2 = bp.heightErr() * bp.heightErr();
-	    const double errm2 = bm.heightErr() * bm.heightErr();
-	    val = (bp.height() - bm.height()) / sum;
-	    yerr = 2. * sqrt(errm2 * pos2 + errp2 * min2) / (sum * sum);
-	  }
-	  _h_W_asym->addPoint(bp.midpoint(), val, 0.5*bp.xWidth(), yerr);
-	}
+          if (sum) {
+            const double pos2  = bp.height() * bp.height();
+            const double min2  = bm.height() * bm.height();
+            const double errp2 = bp.heightErr() * bp.heightErr();
+            const double errm2 = bm.heightErr() * bm.heightErr();
+            val = (bp.height() - bm.height()) / sum;
+            yerr = 2. * sqrt(errm2 * pos2 + errp2 * min2) / (sum * sum);
+          }
+          _h_W_asym->addPoint(bp.midpoint(), val, 0.5*bp.xWidth(), yerr);
+        }
       }
 
       // Print summary info
@@ -197,16 +195,16 @@ namespace Rivet {
       const double sf = lfac * 0.5 * xs_pb / sumw; // 0.5 accounts for rapidity bin width
 
       if (_runW){
-	scale(_h_Wp_eta, sf);
-	scale(_h_Wm_eta, sf);
+        scale(_h_Wp_eta, sf);
+        scale(_h_Wm_eta, sf);
       }
 
       if (_runZ){
-	scale(_h_Zcenlow_y_dressed, sf);
-	scale(_h_Zcenpeak_y_dressed, sf);
-	scale(_h_Zcenhigh_y_dressed, sf);
-	scale(_h_Zfwdpeak_y_dressed, sf);
-	scale(_h_Zfwdhigh_y_dressed, sf);
+        scale(_h_Zcenlow_y_dressed, sf);
+        scale(_h_Zcenpeak_y_dressed, sf);
+        scale(_h_Zcenhigh_y_dressed, sf);
+        scale(_h_Zfwdpeak_y_dressed, sf);
+        scale(_h_Zfwdhigh_y_dressed, sf);
       }
     }
 
@@ -238,9 +236,4 @@ namespace Rivet {
 
 
 }
-
-// END END END
-
-
-
 
