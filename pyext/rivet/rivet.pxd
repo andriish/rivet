@@ -26,7 +26,7 @@ cdef extern from "Rivet/AnalysisHandler.hh" namespace "Rivet":
 cdef extern from "Rivet/Run.hh" namespace "Rivet":
     cdef cppclass Run:
         Run(AnalysisHandler)
-        Run& setCrossSection(double, double) # For chaining?
+        Run& setCrossSection(double) # For chaining?
         Run& setListAnalyses(bool)
         bool init(string, double) except + # $2=1.0
         bool openFile(string, double) except + # $2=1.0
