@@ -1,3 +1,7 @@
+2019-09-25  Christian Gutschow  <chris.g@cern.ch>
+
+	* add FJCONTRIB lib path to rivetenv.(c)sh, thanks Aidan Kelly!
+
 2019-09-24  Christian Gutschow  <chris.g@cern.ch>
 
 	* fixing setCrossSection bug in rivet python script
