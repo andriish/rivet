@@ -1,4 +1,9 @@
+2019-10-02 Christian Gutschow  <chris.g@cern.ch>
+
+	* Implement XMin and XMax arguments for chi2 calc in make-plots
+
 2019-09-10 Peter Richardson <peter.richardson@durham.ac.uk>
+
 	* fixes to ARGUS_1993_S2789213 ARGUS_1993_S2669951
 	* new BABAR, BES and WA46 baryon decay analyses
 
