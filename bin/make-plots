@@ -2183,11 +2183,13 @@ class Histogram(DrawableObject, Described):
 
     def getChi2(self, name, customXrange = None):
         chi2 = 0.
+        n = 0
         for i in range(len(self.data)):
             if customXrange != None:
                 if self.data[i].xmid < customXrange[0] or \
                    self.data[i].xmid >= customXrange[1]:
                    continue
+            n += 1
             if fuzzyeq(self.data[i].xmin, name.data[i].xmin) and \
                fuzzyeq(self.data[i].xmax, name.data[i].xmax):
                 try:
@@ -2196,7 +2198,7 @@ class Histogram(DrawableObject, Described):
                     pass
             else:
                 print('+++ Error in Histogram.getChi2() for %s: binning of histograms differs' % self.path)
-        return chi2/len(self.data)
+        return chi2/float(n)
 
     def getSigmaBinValue(self):
         if self.sigmabinvalue==None:
