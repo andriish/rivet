@@ -14,15 +14,9 @@ namespace Rivet {
     addProjection(TauFinder(TauFinder::HADRONIC), "Taus");
 
     // Print/hide FJ banner
-    // fastjet::ClusterSequence::fastjet_banner_stream() = XXXX;
     cout.setstate(std::ios_base::badbit);
     fastjet::ClusterSequence::print_banner();
     std::cout.clear();
-    // std::streambuf* cout_sbuf = std::cout.rdbuf(); // save original sbuf
-    // std::ofstream   fout("/dev/null");
-    // std::cout.rdbuf(fout.rdbuf()); // redirect 'cout' to a 'fout'
-    // fastjet::ClusterSequence::print_banner();
-    // std::cout.rdbuf(cout_sbuf); // restore the original stream buffer
   }
 
 
