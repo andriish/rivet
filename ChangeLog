@@ -1,3 +1,7 @@
+2019-10-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add better parametrisation of ATLAS Run 2 muon efficiency and smearing.
+
 2019-08-21  Andy Buckley  <andy.buckley@cern.ch>
 
 	* If writing to a terminal, use carriage return to eat less
