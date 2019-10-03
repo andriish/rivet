@@ -1,28 +1,33 @@
+2019-10-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add better parametrisation of ATLAS Run 2 muon efficiency and smearing.
+
 2019-10-02  Christian Gutschow  <chris.g@cern.ch>
 
-	* implement XMin and XMax for chi2 calc in make-plots
+	* Implement XMin and XMax for chi2 calc in make-plots
 
 2019-09-25  Christian Gutschow  <chris.g@cern.ch>
 
-	* add FJCONTRIB lib path to rivetenv.(c)sh, thanks Aidan Kelly!
+	* Add FJCONTRIB lib path to rivetenv.(c)sh, thanks Aidan Kelly!
 
 2019-09-24  Christian Gutschow  <chris.g@cern.ch>
 
-	* fixing setCrossSection bug in rivet python script
+	* Fixing setCrossSection bug in rivet python script
 
 2019-09-19  Christian Gutschow  <chris.g@cern.ch>
 
-	* making plotting scripts compatible with tip of YODA-1-7 branch
+	* Making plotting scripts compatible with tip of YODA-1-7 branch
 	This will break things for older YODA checkouts ...
 
 2019-09-18  Christian Gutschow  <chris.g@cern.ch>
 
-	* move variation-band combination into rivet-cmpthistos,
+	* Move variation-band combination into rivet-cmpthistos,
 	so that the result is written out to dat file
 
 2019-09-10 Peter Richardson <peter.richardson@durham.ac.uk>
-	* fixes to ARGUS_1993_S2789213 ARGUS_1993_S2669951
-	* new BABAR, BES and WA46 baryon decay analyses
+
+	* Fixes to ARGUS_1993_S2789213 ARGUS_1993_S2669951
+	* New BABAR, BES and WA46 baryon decay analyses
 
 2019-09-09  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
@@ -65,21 +70,21 @@
 
 2019-09-04  Christian Gutschow  <chris.g@cern.ch>
 
-	* make-plots can now combine multiweights to form a band. 
-	Use BandComponentEnv and/or BandComponentPDF to specify 
+	* make-plots can now combine multiweights to form a band.
+	Use BandComponentEnv and/or BandComponentPDF to specify
 	envelope- or PDF-like components that should contribute
-	to the band. Spaces should be used to separate weight 
-	groups (one	envelope / PDF combination per weight group), 
-	while each weight group should be given by a comma-separated 
-	list. Regex is supported. All band components are added in 
-	quadrature with the statistical uncertainty. 
+	to the band. Spaces should be used to separate weight
+	groups (one	envelope / PDF combination per weight group),
+	while each weight group should be given by a comma-separated
+	list. Regex is supported. All band components are added in
+	quadrature with the statistical uncertainty.
 
 2019-08-29  Christian Gutschow  <chris.g@cern.ch>
 
 	* You can now specify a Variations=MUR*,PDF123456* tag (using wildcards even!)
 	in the BEGIN PLOT ... END PLOT section in order to select the weights that
 	make-plots should draw in the plot (or pass --no-weights to rivet-cmphistos/-mkhtml
-	to drop all of them). 
+	to drop all of them).
 
 
 2019-08-21  Andy Buckley  <andy.buckley@cern.ch>
