@@ -372,11 +372,21 @@ namespace Rivet {
   //@{
 
   /// ATLAS Run 1 muon reco efficiency
-  inline double MUON_RECOEFF_ATLAS_RUN1(const Particle& m) {
+  inline double MUON_EFF_ATLAS_RUN1(const Particle& m) {
     if (m.abspid() != PID::MUON) return 0;
     if (m.abseta() > 2.7) return 0;
     if (m.pT() < 10*GeV) return 0;
     return (m.abseta() < 1.5) ? 0.95 : 0.85;
+  }
+
+  /// ATLAS Run 2 muon reco efficiency
+  /// From https://arxiv.org/pdf/1603.05598.pdf , Fig3 top
+  inline double MUON_RECOEFF_ATLAS_RUN2(const Particle& m) {
+    if (m.abspid() != PID::MUON) return 0;
+    if (m.abseta() > 2.5) return 0;
+    if (m.abseta() < 0.1) return 0.61;
+    // if (m.pT() < 10*GeV) return 0;
+    return (m.abseta() < 1) ? 0.98 : 0.99;
   }
 
   /// @brief ATLAS Run 2 muon reco+ID efficiency
@@ -389,7 +399,7 @@ namespace Rivet {
     static const vector<double> edges_pt = {0., 3.5, 4., 5., 6., 7., 8., 10.};
     static const vector<double> effs = {0.00, 0.76, 0.94, 0.97, 0.98, 0.98, 0.98, 0.99};
     const int i_pt = binIndex(m.pT()/GeV, edges_pt, true);
-    const double eff = effs[i_pt] * MUON_RECOEFF_ATLAS_RUN1(m);
+    const double eff = effs[i_pt] * MUON_RECOEFF_ATLAS_RUN2(m);
     return eff;
   }
 
@@ -419,11 +429,15 @@ namespace Rivet {
   }
 
   /// ATLAS Run 2 muon reco smearing
-  /// @todo Currently just a copy of the Run 1 version: fix!
+  /// From https://arxiv.org/abs/1603.05598 , eq (10) and Fig 12
   inline Particle MUON_SMEAR_ATLAS_RUN2(const Particle& m) {
-    return MUON_SMEAR_ATLAS_RUN1(m);
+    double mres_pt = 0.015;
+    if (m.pT() > 50*GeV) mres_pt = 0.014 + 0.01*(m.pT()/GeV-50)/50;
+    if (m.pT() > 100*GeV) mres_pt = 0.025;
+    const double ptres_pt = SQRT2 * mres_pt; //< from Eq (10)
+    const double resolution = (m.abseta() < 1.5 ? 1.0 : 1.25) * ptres_pt;
+    return Particle(m.pid(), P4_SMEAR_PT_GAUSS(m, resolution*m.pT()));
   }
-
 
 
 
