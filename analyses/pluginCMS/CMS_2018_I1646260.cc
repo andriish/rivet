@@ -145,7 +145,7 @@ namespace Rivet {
       _cutflows.fill(8, triggerSF);
 
       // MET/HT
-      const double ht = sum(jets, pT, 0.0);
+      const double ht = sum(jets, Kin::pT, 0.0);
       if (ht < 100*GeV) vetoEvent;
       _cutflows.fill(9, triggerSF);
       if (!inRange(ptmiss/ht, 0.6, 1.4)) vetoEvent;
