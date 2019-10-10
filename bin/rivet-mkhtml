@@ -364,11 +364,10 @@ if not args.DRY_RUN:
                 continue
 
         try:
-            # a, s = (analysis.encode("utf-8"), summary.encode("utf-8"))
             if args.SINGLE:
-                index.write('\n<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis.encode("utf-8"), summary.encode("utf-8")))
+                index.write('\n<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, summary))
             else:
-                index.write('\n<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' % (analysis.encode("utf-8"), summary.encode("utf-8")))
+                index.write('\n<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' % (analysis, summary))
         except UnicodeEncodeError as ue:
             print("Unicode error in analysis description for " + analysis + ": " + str(ue))
 
