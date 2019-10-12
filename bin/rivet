@@ -231,7 +231,7 @@ if args.LIST_ANALYSES:
                         msg[-1] += u"  [ \int L = %s fb^{-1} ]" % a.luminosityfb()
     msg = rivet.util.detex(msg)
     retlist = '\n'.join([ u"%-25s   %s" % (a,m) for a,m in zip(names,msg) ])
-    retlist = retlist.encode('utf-8')
+    #retlist = retlist.encode('utf-8')
     print(retlist)
     sys.exit(0)
 
