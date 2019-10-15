@@ -60,7 +60,7 @@ namespace Rivet {
       for (size_t i = 0; i < cutresults.size(); ++i)
         if (!fill(icut+i, cutresults[i], weight)) { rtn = false; break; }
       icurr = icut + cutresults.size();
-      return true;
+      return rtn;
     }
 
 

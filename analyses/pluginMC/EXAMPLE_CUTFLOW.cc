@@ -22,7 +22,7 @@ namespace Rivet {
     void init() {
 
       // Projections
-      const DirectFinalState leps(Cuts::abseta < 4 && Cuts::abspid == PID::ELECTRON || Cuts::abspid == PID::MUON);
+      const DirectFinalState leps(Cuts::abseta < 4 && (Cuts::abspid == PID::ELECTRON || Cuts::abspid == PID::MUON));
       declare(leps, "Leptons");
 
       const FinalState fs(Cuts::abseta < 4);
