@@ -1,6 +1,7 @@
 2019-10-15  Christian Gutschow  <chris.g@cern.ch>
 
 	* HEPMC3 compatibility patches, thanks Andrii Verbytskyi!
+	* Suppress pesky warnings from InitialQuarks
 
 
 2019-10-15  Andy Buckley  <andy.buckley@cern.ch>
