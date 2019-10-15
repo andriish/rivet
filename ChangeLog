@@ -3,6 +3,8 @@
 	* Add MendelMin minimiser class to the Tools collection -- needs a
 	bit of tweaking, but it's a start.
 
+	* Add new EXAMPLE_CUTFLOW analysis to demonstrate use of the Cutflow system.
+
 	* Add more convenient fillnext methods to Cutflow, and refactor a bit.
 
 2019-10-03  Andy Buckley  <andy.buckley@cern.ch>
