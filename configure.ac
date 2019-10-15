@@ -174,6 +174,7 @@ else
 fi
 
 AM_CONDITIONAL([ENABLE_HEPMC_3], [test x$hepmc_major = x3])
+AM_COND_IF([ENABLE_HEPMC_3],[CPPFLAGS="$CPPFLAGS -DENABLE_HEPMC_3=true"])
 
 ## FastJet clustering library
 AC_CEDAR_LIBRARYANDHEADERS([fastjet], , , [AC_MSG_ERROR([FastJet is required])])
@@ -204,7 +205,11 @@ AC_ARG_WITH([fjcontrib],
 if test -n "$with_fjcontrib"; then
   AC_MSG_NOTICE([FastJet Contrib base path given: $with_fjcontrib])
   FJCONTRIBINCPATH=$with_fjcontrib/include
+if  [[  -f  "$with_fjcontrib/lib64/libfastjettools.so"  ]] || [[ -f  "$with_fjcontrib/lib64/libfastjettools.dyld"  ]]; then
+  FJCONTRIBLIBPATH=$with_fjcontrib/lib64
+else
   FJCONTRIBLIBPATH=$with_fjcontrib/lib
+fi
   FJCONTRIBCPPFLAGS=-I$FJCONTRIBINCPATH
   AC_SUBST(FJCONTRIBINCPATH)
   AC_SUBST(FJCONTRIBLIBPATH)

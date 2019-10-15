@@ -73,8 +73,9 @@ bool ReaderCompressedAscii::read_event(GenEvent &evt) {
   while(!failed()) {
 
     std::getline(*m_stream, line);
-    is = std::istringstream(line);
-    is.get(); // Remove the first character from the stream.
+    is.clear();
+    is.str(line);
+is.get(); // Remove the first character from the stream.
     if ( line.empty() ) continue;
 
     if ( line.substr(0, 5) == "HepMC" ) {

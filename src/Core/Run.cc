@@ -7,11 +7,18 @@
 #include <limits>
 #include <iostream>
 
+#ifdef ENABLE_HEPMC_3
+#include "HepMC3/ReaderFactory.h"
+#endif
+
 using std::cout;
 using std::endl;
 
 namespace Rivet {
-
+union magic_t {
+    uint8_t bytes[4];
+    uint32_t number;
+};
 
   Run::Run(AnalysisHandler& ah)
     : _ah(ah), _fileweight(1.0), _xs(NAN)
@@ -59,6 +66,39 @@ namespace Rivet {
     // In case makeReader fails.
     std::string errormessage;
 
+#ifdef ENABLE_HEPMC_3
+if (evtfile == "-") {
+       printf("Reading events from standard input assuming IO_GenEvent format\n");
+#ifdef HAVE_LIBZ
+      _istr = make_shared<zstr::istream>(std::cin);
+      _hepmcReader = std::shared_ptr<RivetHepMC::Reader>((RivetHepMC::Reader*) ( new RivetHepMC::ReaderAsciiHepMC2(*_istr)));
+#else
+      _hepmcReader = std::shared_ptr<RivetHepMC::Reader>((RivetHepMC::Reader*) ( new RivetHepMC::ReaderAsciiHepMC2(std::cin)));
+#endif
+} 
+else 
+{
+_hepmcReader = RivetHepMC::deduce_reader(evtfile);
+#ifdef HAVE_LIBZ
+if (!_hepmcReader)
+{
+        printf("No succes with deduction of file type. Test if the file is compressed.\n");
+        std::ifstream file_test(evtfile);
+        magic_t my_magic = {0x1f, 0x8b, 0x08, 0x08};
+        magic_t file_magic;
+        file_test.read((char *) file_magic.bytes, sizeof(file_magic));
+        if ( file_magic.number == my_magic.number )
+        {
+        printf("File is compressed\n");
+        printf("Reading events from compressed file assuming IO_GenEvent format\n");
+        _istr = make_shared<zstr::ifstream>(evtfile);
+        _hepmcReader = std::shared_ptr<RivetHepMC::Reader>((RivetHepMC::Reader*) ( new RivetHepMC::ReaderAsciiHepMC2(*_istr)));
+        }
+}
+#endif
+}
+
+#else    
     // Set up HepMC input reader objects
     if (evtfile == "-") {
       #ifdef HAVE_LIBZ
@@ -79,6 +119,7 @@ namespace Rivet {
       _hepmcReader = HepMCUtils::makeReader(*_istr, &errormessage);
 
     }
+#endif
 
     if (_hepmcReader == nullptr) {
       Log::getLog("Rivet.Run")

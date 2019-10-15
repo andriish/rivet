@@ -88,8 +88,8 @@ void WriterCompressedAscii::write_event(const GenEvent &evt) {
 
   m_current = &evt;
   m_masses.clear();
-  os = std::ostringstream();
-
+  os.clear();
+  os.str(std::string());
   if ( !run_info() ) {
     set_run_info(evt.run_info());
     write_run_info();

@@ -1,18 +1,22 @@
+#include <fstream>
+#ifdef ENABLE_HEPMC_3
+#include "HepMC3/GenEvent.h"
+#include "HepMC3/GenParticle.h"
+#include "HepMC3/GenVertex.h"
+#include "HepMC3/GenVertex.h"
+#include "HepMC3/ReaderFactory.h"
+#endif
+#include "Rivet/Tools/RivetHepMC.hh"
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/AnalysisLoader.hh"
-//#include "HepMC/IO_GenEvent.h"
-#include "Rivet/Tools/RivetHepMC.hh"
-#include <fstream>
-
-using namespace std;
 
 int main(int argc, char** argv) {
   if (argc < 2) {
-    cerr << "Usage: " << argv[0] << " <hepmcfile> <ana1> [<ana2> ...]" << '\n';
-    cout << "Available analyses:\n";
-    for (const string& a : Rivet::AnalysisLoader::analysisNames())
-      cout << "  " << a << "\n";
-    cout << endl;
+    std::cerr << "Usage: " << argv[0] << " <hepmcfile> <ana1> [<ana2> ...]" << '\n';
+    std::cout << "Available analyses:\n";
+    for (const std::string& a : Rivet::AnalysisLoader::analysisNames())
+      std::cout << "  " << a << "\n";
+    std::cout << std::endl;
     return 1;
   }
 
@@ -21,20 +25,30 @@ int main(int argc, char** argv) {
     ah.addAnalysis(argv[i]);
   }
 
+#ifdef ENABLE_HEPMC_3
+ std::shared_ptr<HepMC3::Reader> reader = HepMC3::deduce_reader(argv[1]);
+  std::shared_ptr<HepMC3::GenEvent> evt = std::make_shared<HepMC3::GenEvent>();
+
+  
+
+#else
   std::ifstream istr(argv[1], std::ios::in);
   
   std::shared_ptr<Rivet::HepMC_IO_type> reader = Rivet::HepMCUtils::makeReader(istr);
   
-  std::shared_ptr<Rivet::RivetHepMC::GenEvent> evt = make_shared<Rivet::RivetHepMC::GenEvent>();
+  std::shared_ptr<Rivet::RivetHepMC::GenEvent> evt = std::make_shared<Rivet::RivetHepMC::GenEvent>();
+
+#endif
   
   while(reader && Rivet::HepMCUtils::readEvent(reader, evt)){
     ah.analyze(evt.get());
     evt.reset(new Rivet::RivetHepMC::GenEvent());
   }
   
-  istr.close();
 
-  ah.setCrossSection(make_pair(1.0, 0.0));
+  
+
+  ah.setCrossSection(std::make_pair(1.0, 0.0));
   ah.finalize();
   ah.writeData("Rivet.yoda");
 
