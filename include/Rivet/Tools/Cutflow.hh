@@ -19,11 +19,13 @@ namespace Rivet {
       : name(cfname), ncuts(cutnames.size()), cuts(cutnames), counts(ncuts+1, 0), icurr(0)
     {  }
 
+
     /// @brief Fill the pre-cut counter
     void fillinit(double weight=1.) {
       counts[0] += weight;
       icurr = 1;
     }
+
 
     /// @brief Fill the @a {icut}'th post-cut counter, starting at icut=1 for first cut
     ///
@@ -48,11 +50,6 @@ namespace Rivet {
 
     /// @brief Fill cut-state counters from an n-element results vector, starting at icut
     ///
-    /// This function is to be used to fill all of an event's pre- and post-cut
-    /// state counters at once, including the incoming event counter. It must not be
-    /// mixed with calls to the @c fill(size_t, bool) and @c fillinit() methods,
-    /// or double-counting will occur.
-    ///
     /// @note Returns the overall cut result to allow 'side-effect' cut-flow filling in an if-statement
     bool fill(size_t icut, const vector<bool>& cutresults, double weight=1.) {
       if (icut == 0)
@@ -66,14 +63,6 @@ namespace Rivet {
       return true;
     }
 
-
-    /// @brief Fill all cut-state counters from an Ncut-element results vector, starting at icut=1
-    bool fillall(const vector<bool>& cutresults, double weight=1.) {
-      if (cutresults.size() != ncuts)
-        throw RangeError("Number of filled cut results needs to match the Cutflow construction");
-      // if (icut == 0) { fillinit(weight); icut = 1; }
-      return fill(1, cutresults, weight);
-    }
 
     /// @brief Fill the next post-cut counter
     ///
@@ -97,6 +86,16 @@ namespace Rivet {
     }
 
 
+    /// @brief Fill all cut-state counters from an Ncut-element results vector, starting at icut=1
+    ///
+    /// @deprecated Prefer to use vector fillinit() and vector fill()
+    bool fillall(const vector<bool>& cutresults, double weight=1.) {
+      if (cutresults.size() != ncuts)
+        throw RangeError("Number of filled cut results needs to match the Cutflow construction");
+      // if (icut == 0) { fillinit(weight); icut = 1; }
+      return fill(1, cutresults, weight);
+    }
+
     /// @brief Fill the N trailing post-cut counters, when supplied with an N-element results vector
     ///
     /// The @a cutresults vector represents the boolean results of the last N cuts. This function
@@ -117,6 +116,7 @@ namespace Rivet {
       return fill(ncuts+1-cutresults.size(), cutresults, weight);
     }
 
+
     /// Scale the cutflow weights by the given factor
     void scale(double factor) {
       for (double& x : counts) x *= factor;
@@ -126,6 +126,7 @@ namespace Rivet {
     void normalize(double norm, size_t icut=0) {
       scale(norm/counts.at(icut));
     }
+
 
     /// Create a string representation
     string str() const {
@@ -191,6 +192,7 @@ namespace Rivet {
     /// Populating constructor
     Cutflows(const vector<Cutflow>& cutflows) : cfs(cutflows) {  }
 
+
     /// Append a provided Cutflow to the list
     void addCutflow(const Cutflow& cf) {
       cfs.push_back(cf);
@@ -200,6 +202,7 @@ namespace Rivet {
     void addCutflow(const string& cfname, const vector<string>& cutnames) {
       cfs.push_back(Cutflow(cfname, cutnames));
     }
+
 
     /// Access the @a i'th Cutflow
     Cutflow& operator [] (size_t i) { return cfs[i]; }
@@ -219,10 +222,12 @@ namespace Rivet {
       throw UserError("Requested cut-flow name '" + name + "' does not exist");
     }
 
+
     /// Fill the pre-cuts state counter for all contained {Cutflow}s
     void fillinit(double weight=1.) {
       for (Cutflow& cf : cfs) cf.fillinit(weight);
     }
+
 
     /// @brief Fill the @a {icut}'th post-cut counter, starting at icut=1 for first cut, with the same result for all {Cutflow}s
     bool fill(size_t icut, bool cutresult=true, double weight=1.) {
@@ -242,11 +247,6 @@ namespace Rivet {
 
     /// @brief Fill cut-state counters from an n-element results vector, starting at icut
     ///
-    /// This function is to be used to fill all of an event's pre- and post-cut
-    /// state counters at once, including the incoming event counter. It must not be
-    /// mixed with calls to the @c fill(size_t, bool) and @c fillinit() methods,
-    /// or double-counting will occur.
-    ///
     /// @note Returns the overall cut result to allow 'side-effect' cut-flow filling in an if-statement
     bool fill(size_t icut, const vector<bool>& cutresults, double weight=1.) {
       bool rtn;
@@ -254,13 +254,6 @@ namespace Rivet {
       return rtn;
     }
 
-
-    /// @brief Fill all cut-state counters from an Ncut-element results vector, starting at icut=1
-    bool fillall(const vector<bool>& cutresults, double weight=1.) {
-      bool rtn;
-      for (Cutflow& cf : cfs) cf.fillall(cutresults, weight);
-      return rtn;
-    }
 
     /// @brief Fill the next post-cut counter
     ///
@@ -283,7 +276,17 @@ namespace Rivet {
     /// @note Returns the cut result to allow 'side-effect' cut-flow filling in an if-statement
     bool fillnext(const vector<bool>& cutresults, double weight=1.) {
       bool rtn;
-      for (Cutflow& cf : cfs) cf.fillnext(cutresults, weight);
+      for (Cutflow& cf : cfs) rtn = cf.fillnext(cutresults, weight);
+      return rtn;
+    }
+
+
+    /// @brief Fill all cut-state counters from an Ncut-element results vector, starting at icut=1
+    ///
+    /// @deprecated Prefer to use vector fillinit() and vector fill()
+    bool fillall(const vector<bool>& cutresults, double weight=1.) {
+      bool rtn;
+      for (Cutflow& cf : cfs) rtn = cf.fillall(cutresults, weight);
       return rtn;
     }
 
@@ -298,6 +301,7 @@ namespace Rivet {
     void normalize(double norm, size_t icut=0) {
       for (Cutflow& cf : cfs) cf.normalize(norm, icut);
     }
+
 
     /// Create a string representation
     string str() const {
