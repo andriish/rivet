@@ -115,7 +115,8 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       const double expected = 36.1*crossSection()/femtobarn;
-      normalize({_h_sigmaM, _h_modeta}, expected/sumOfWeights());
+      normalize(_h_sigmaM, expected/sumOfWeights());
+      normalize(_h_modeta, expected/sumOfWeights());
       // _flows.scale(99.7/numEvents());
       MSG_INFO(_flows);
     }
