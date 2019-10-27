@@ -1,3 +1,8 @@
+2019-10-27  Christian Gutschow  <chris.g@cern.ch>
+
+	* Added LHCF_2018_I1518782 and LHCF_2018_I1692008
+	submitted by Eugenio Berti
+
 2019-10-15  Christian Gutschow  <chris.g@cern.ch>
 
 	* HEPMC3 compatibility patches, thanks Andrii Verbytskyi!
