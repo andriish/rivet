@@ -1003,7 +1003,13 @@ class MainPlot(Plot):
 
             if inputdata.description.get('GofType', "chi2") != 'chi2':
                 return
-            gof = inputdata.histos[i].getChi2(inputdata.histos[refdata])
+            xmin = inputdata.histos[refdata].getXMin()
+            xmax = inputdata.histos[refdata].getXMax()
+            if inputdata.description.get('XMin'):
+                xmin = float(inputdata.description['XMin'])
+            if inputdata.description.get('XMax'):
+                xmax = float(inputdata.description['XMax'])
+            gof = inputdata.histos[i].getChi2(inputdata.histos[refdata], [xmin, xmax])            
             if i == inputdata.description['GofFrame'] and inputdata.description['FrameColor'] is None:
                 inputdata.description['FrameColor'] = pickcolor(gof)
             if inputdata.histos[i].description.setdefault('Title', '') != '':
@@ -2175,9 +2181,15 @@ class Histogram(DrawableObject, Described):
                 return i-1
         return len(self.data)-1
 
-    def getChi2(self, name):
+    def getChi2(self, name, customXrange = None):
         chi2 = 0.
+        ndf = 0
         for i in range(len(self.data)):
+            if customXrange != None:
+                if self.data[i].xmid < customXrange[0] or \
+                   self.data[i].xmid >= customXrange[1]:
+                   continue        
+            ndf += 1
             if fuzzyeq(self.data[i].xmin, name.data[i].xmin) and \
                fuzzyeq(self.data[i].xmax, name.data[i].xmax):
                 try:
@@ -2186,7 +2198,7 @@ class Histogram(DrawableObject, Described):
                     pass
             else:
                 print('+++ Error in Histogram.getChi2() for %s: binning of histograms differs' % self.path)
-        return chi2/len(self.data)
+        return chi2/float(ndf)
 
     def getSigmaBinValue(self):
         if self.sigmabinvalue==None:

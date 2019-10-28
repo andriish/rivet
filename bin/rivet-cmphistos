@@ -47,7 +47,7 @@ def getHistos(filelist):
         for path, ao in analysisobjects.items():
             ## We can't plot non-histograms yet
             # TODO: support counter plotting with a faked x (or y) position and forced plot width/height
-            if ao.type not in ("Counter",
+            if ao.type() not in ("Counter",
                                "Histo1D",
                                "Histo2D",
                                "Profile1D",
@@ -96,10 +96,10 @@ def getRivetRefData(anas=None):
         for infile in filelist:
             analysisobjects = yoda.read(infile, patterns=args.PATHPATTERNS, unpatterns=args.PATHUNPATTERNS)
             for path, ao in analysisobjects.items():
-                aop = rivet.AOPath(ao.path)
+                aop = rivet.AOPath(ao.path())
                 if aop.isref():
-                    ao.path = aop.basepath(keepref=False)
-                    refhistos[ao.path] = ao
+                    ao.setPath(aop.basepath(keepref=False))
+                    refhistos[ao.path()] = ao
     return refhistos
 
 
