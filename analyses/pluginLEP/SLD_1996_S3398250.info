@@ -34,3 +34,7 @@ BibTeX: '@Article{Abe:1996zi,
      doi       = "10.1016/0370-2693(96)01025-8",
      SLACcitation  = "%%CITATION = HEP-EX/9608008;%%"
 }'
+
+ReleaseTests:
+ - $A LEP-91
+

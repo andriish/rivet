@@ -18,21 +18,21 @@ namespace Rivet {
     /// Initialization, called once before running
     void init() {
       // Projections
-      const FastJets jets(FinalState(-5.0, 5.0, 0.0*GeV), FastJets::ANTIKT, 0.5);
+      const FastJets jets(FinalState((Cuts::etaIn(-5.0, 5.0))), FastJets::ANTIKT, 0.5);
       declare(jets, "Jets");
 
       // Book histograms
-      _hist_T_90  = bookHisto1D(1, 1, 1);
-      _hist_m_90  = bookHisto1D(2, 1, 1);
-      _hist_T_125 = bookHisto1D(3, 1, 1);
-      _hist_m_125 = bookHisto1D(4, 1, 1);
-      _hist_T_200 = bookHisto1D(5, 1, 1);
-      _hist_m_200 = bookHisto1D(6, 1, 1);
+      book(_hist_T_90  ,1, 1, 1);
+      book(_hist_m_90  ,2, 1, 1);
+      book(_hist_T_125 ,3, 1, 1);
+      book(_hist_m_125 ,4, 1, 1);
+      book(_hist_T_200 ,5, 1, 1);
+      book(_hist_m_200 ,6, 1, 1);
     }
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
       const Jets& jets = apply<FastJets>(event, "Jets").jetsByPt(30.0*GeV);
       if (jets.size() < 2 ||
           fabs(jets[0].eta()) >= 1.3 ||
@@ -41,7 +41,7 @@ namespace Rivet {
         vetoEvent;
       }
       std::vector<Vector3> momenta;
-      foreach (const Jet& j, jets) {
+      for (const Jet& j : jets) {
         if (j.abseta() < 1.3) {
           Vector3 mom = j.p3();
           mom.setZ(0.0);

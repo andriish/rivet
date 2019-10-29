@@ -40,3 +40,7 @@ BibTeX: '@Article{Abbott:2000xv,
      doi       = "10.1016/S0370-2693(01)00628-1",
      SLACcitation  = "%%CITATION = HEP-EX/0010026;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-Run-I-W
+

@@ -23,16 +23,16 @@ namespace Rivet {
     MissingMomentum(const Cut& c=Cuts::open()) {
       setName("MissingMomentum");
       FinalState fs(c);
-      addProjection(fs, "FS");
-      addProjection(VisibleFinalState(fs), "VisibleFS");
+      declare(fs, "FS");
+      declare(VisibleFinalState(fs), "VisibleFS");
     }
 
 
     /// Constructor.
     MissingMomentum(const FinalState& fs) {
       setName("MissingMomentum");
-      addProjection(fs, "FS");
-      addProjection(VisibleFinalState(fs), "VisibleFS");
+      declare(fs, "FS");
+      declare(VisibleFinalState(fs), "VisibleFS");
     }
 
 
@@ -132,7 +132,7 @@ namespace Rivet {
     void project(const Event& e);
 
     /// Compare projections.
-    int compare(const Projection& p) const;
+    CmpState compare(const Projection& p) const;
 
 
   private:

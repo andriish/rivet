@@ -33,3 +33,7 @@ BibTeX: '@article{Acton:1991aa,
       reportNumber   = "CERN-PPE-91-176",
       SLACcitation   = "%%CITATION = ZEPYA,C53,539;%%"
 }'
+
+ReleaseTests:
+ - $A LEP-91
+

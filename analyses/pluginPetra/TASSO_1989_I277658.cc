@@ -38,8 +38,8 @@ namespace Rivet {
         MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
                     << " doesn't match any available analysis energy .");
       }
-      _histCh = bookHisto1D(5, 1, offset); 
-      _histTotal = bookProfile1D(2, 1, 1);
+      book(_histCh, 5, 1, offset); 
+      book(_histTotal, 2, 1, 1);
     }
 
 
@@ -47,8 +47,8 @@ namespace Rivet {
     void analyze(const Event& event) {
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       MSG_DEBUG("Total charged multiplicity = " << cfs.size());
-      _histCh->fill(cfs.size(), event.weight());
-      _histTotal->fill(sqrtS(),cfs.size(),event.weight());
+      _histCh->fill(cfs.size());
+      _histTotal->fill(sqrtS(),cfs.size());
     }
 
 

@@ -29,3 +29,7 @@ Description:
   the $Z$ has been reconstructed. Thus the region most sensitive to the
   underlying event is the toward region (the recoil jet is boosted into
   the away region).
+
+ReleaseTests:
+ - $A TVT-Run-II-Z-mu
+

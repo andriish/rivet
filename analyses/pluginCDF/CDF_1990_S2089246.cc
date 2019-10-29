@@ -15,7 +15,6 @@ namespace Rivet {
     CDF_1990_S2089246()
       : Analysis("CDF_1990_S2089246")
     {
-      _sumWTrig = 0;
     }
 
 
@@ -25,14 +24,15 @@ namespace Rivet {
     void init() {
       // Setup projections
       declare(TriggerCDFRun0Run1(), "Trigger");
-      declare(ChargedFinalState(-3.5, 3.5), "CFS");
+      declare(ChargedFinalState((Cuts::etaIn(-3.5, 3.5))), "CFS");
 
       // Book histo
       if (fuzzyEquals(sqrtS()/GeV, 1800, 1E-3)) {
-        _hist_eta = bookHisto1D(3, 1, 1);
+        book(_hist_eta ,3, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 630, 1E-3)) {
-        _hist_eta = bookHisto1D(4, 1, 1);
+        book(_hist_eta ,4, 1, 1);
       }
+      book(_sumWTrig, "sumWTrig");
     }
 
 
@@ -41,14 +41,13 @@ namespace Rivet {
       // Trigger
       const bool trigger = apply<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
-      const double weight = event.weight();
-      _sumWTrig += weight;
+      _sumWTrig->fill();
 
       // Loop over final state charged particles to fill eta histos
       const FinalState& fs = apply<FinalState>(event, "CFS");
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         const double eta = p.eta();
-        _hist_eta->fill(fabs(eta), weight);
+        _hist_eta->fill(fabs(eta));
       }
     }
 
@@ -57,7 +56,7 @@ namespace Rivet {
     void finalize() {
       // Divide through by num events to get d<N>/d(eta) in bins
       // Factor of 1/2 for |eta| -> eta
-      scale(_hist_eta, 0.5/_sumWTrig);
+      scale(_hist_eta, 0.5/ *_sumWTrig);
     }
 
     //@}
@@ -67,7 +66,7 @@ namespace Rivet {
 
     /// @name Weight counter
     //@{
-    double _sumWTrig;
+    CounterPtr _sumWTrig;
     //@}
 
     /// @name Histogram collections

@@ -36,3 +36,7 @@ BibTeX: '@Article{Aad:2011tqa,
 }'
 ToDo:
  - Validate.
+
+ReleaseTests:
+ - $A LHC-7-Jets-4
+

@@ -5,7 +5,7 @@ Experiment: ALICE
 Collider: LHC
 SpireID: 
 InspireID: 1127497
-Status: VALIDATED
+Status: VALIDATED REENTRANT
 Authors:
  - Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
  - Jan Fiete Grosse-Oetringhaus <Jan.Fiete.Grosse-Oetringhaus@cern.ch>
@@ -16,7 +16,8 @@ RunInfo:
 NumEvents:
 Options:
  - cent=REF,GEN,IMP,USR 
-Beams: [[p, p], [1000822080, 1000822080]]
+ - beam=HI,PP
+Beams: [[p, p], [Pb, Pb]]
 # This is _total_ energy of beams, so this becomes 208*2760=574080
 Energies: [2760, 574080]
 Description:
@@ -39,4 +40,3 @@ BibTeX: '@article{Abelev:2012hxa,
       reportNumber   = "CERN-PH-EP-2012-233",
       SLACcitation   = "%%CITATION = ARXIV:1208.2711;%%"
 }'
-Reentrant: True

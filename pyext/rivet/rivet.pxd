@@ -11,12 +11,14 @@ ctypedef pair[PdgId,PdgId] PdgIdPair
 cdef extern from "Rivet/AnalysisHandler.hh" namespace "Rivet":
     cdef cppclass AnalysisHandler:
         void setIgnoreBeams(bool)
+        void skipMultiWeights(bool)
+        void setWeightCap(double)
         AnalysisHandler& addAnalysis(string)
         vector[string] analysisNames() const
         # Analysis* analysis(string)
         void writeData(string&)
         void readData(string&)
-        double crossSection()
+        double nominalCrossSection()
         void finalize()
         void dump(string, int)
         void mergeYodas(vector[string], vector[string], bool)
@@ -40,6 +42,8 @@ cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
         vector[string] authors()
         vector[string] references()
         vector[string] keywords()
+        vector[string] validation()
+        bool reentrant()
         string name()
         string bibTeX()
         string bibKey()

@@ -5,18 +5,24 @@ libRivetProjections_la_SOURCES = \
   ChargedFinalState.cc \
   ChargedLeptons.cc \
   CentralEtHCM.cc \
+  DISDiffHadron.cc \
   DISFinalState.cc \
   DISKinematics.cc \
   DISLepton.cc \
+  DISRapidityGap.cc \
   DressedLeptons.cc \
   FastJets.cc \
   PxConePlugin.cc \
   FinalPartons.cc \
   FinalState.cc \
   FParameter.cc \
+  GammaGammaFinalState.cc \
+  GammaGammaKinematics.cc \
+  GammaGammaLeptons.cc \
   HadronicFinalState.cc \
   HeavyHadrons.cc \
   Hemispheres.cc \
+  HepMCHeavyIon.cc \
   IdentifiedFinalState.cc \
   InitialQuarks.cc \
   InvMassFinalState.cc \
@@ -41,6 +47,7 @@ libRivetProjections_la_SOURCES = \
   TriggerCDFRun2.cc \
   TriggerUA5.cc \
   UnstableFinalState.cc \
+  UndressBeamLeptons.cc \
   VetoedFinalState.cc \
   VisibleFinalState.cc \
   WFinder.cc \

@@ -18,20 +18,20 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      const FinalState cnfs(-4.7, 4.7);
+      const FinalState cnfs((Cuts::etaIn(-4.7, 4.7)));
       declare(FastJets(cnfs, FastJets::ANTIKT, 0.5), "Jets");
 
-      _h_jetetas[0]     = bookHisto1D(1,1,1);
-      _h_jetpts[0]      = bookHisto1D(2,1,1);
-      _h_DeltaS         = bookHisto1D(3,1,1);
-      _h_DeltaPhiSoft   = bookHisto1D(4,1,1);
-      _h_DeltaPtRelSoft = bookHisto1D(5,1,1);
-      _h_jetetas[2]     = bookHisto1D(6,1,1);
-      _h_jetpts[2]      = bookHisto1D(7,1,1);
-      _h_jetetas[3]     = bookHisto1D(8,1,1);
-      _h_jetpts[3]      = bookHisto1D(9,1,1);
-      _h_jetetas[1]     = bookHisto1D(10,1,1);
-      _h_jetpts[1]      = bookHisto1D(11,1,1);
+      book(_h_jetetas[0]     ,1,1,1);
+      book(_h_jetpts[0]      ,2,1,1);
+      book(_h_DeltaS         ,3,1,1);
+      book(_h_DeltaPhiSoft   ,4,1,1);
+      book(_h_DeltaPtRelSoft ,5,1,1);
+      book(_h_jetetas[2]     ,6,1,1);
+      book(_h_jetpts[2]      ,7,1,1);
+      book(_h_jetetas[3]     ,8,1,1);
+      book(_h_jetpts[3]      ,9,1,1);
+      book(_h_jetetas[1]     ,10,1,1);
+      book(_h_jetpts[1]      ,11,1,1);
     }
 
 
@@ -43,13 +43,13 @@ namespace Rivet {
 
       // Ensure that there are exactly 4 jets > 20 GeV, with two above 50 GeV
       Jets hardjets, alljets;
-      foreach (const Jet& j, jets) {
+      for (const Jet& j : jets) {
         if (j.abseta() > 4.7) continue;
         if (j.pT() > 50*GeV) hardjets.push_back(j);
         if (j.pT() > 20*GeV) alljets.push_back(j);
       }
       if (hardjets.size() < 2 || alljets.size() != 4) vetoEvent;
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Histogram pT and eta of all 4 jets
       for (size_t i = 0; i < 4; ++i) {

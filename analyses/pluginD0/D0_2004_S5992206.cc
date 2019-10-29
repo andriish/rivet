@@ -41,21 +41,21 @@ namespace Rivet {
 
     void init() {
       // Final state for jets, mET etc.
-      const FinalState fs(-3.0, 3.0);
+      const FinalState fs((Cuts::etaIn(-3.0, 3.0)));
       declare(fs, "FS");
       // Veto neutrinos, and muons with pT above 1.0 GeV
       VetoedFinalState vfs(fs);
       vfs.vetoNeutrinos();
-      vfs.addVetoPairDetail(PID::MUON, 1.0*GeV, MAXDOUBLE);
+      vfs.addVetoPairDetail(PID::MUON, 1.0*GeV, DBL_MAX);
       declare(vfs, "VFS");
       declare(FastJets(vfs, FastJets::D0ILCONE, 0.7), "Jets");
       declare(MissingMomentum(vfs), "CalMET");
 
       // Book histograms
-      _histJetAzimuth_pTmax75_100  = bookHisto1D(1, 2, 1);
-      _histJetAzimuth_pTmax100_130 = bookHisto1D(2, 2, 1);
-      _histJetAzimuth_pTmax130_180 = bookHisto1D(3, 2, 1);
-      _histJetAzimuth_pTmax180_    = bookHisto1D(4, 2, 1);
+      book(_histJetAzimuth_pTmax75_100  ,1, 2, 1);
+      book(_histJetAzimuth_pTmax100_130 ,2, 2, 1);
+      book(_histJetAzimuth_pTmax130_180 ,3, 2, 1);
+      book(_histJetAzimuth_pTmax180_    ,4, 2, 1);
     }
 
 
@@ -90,16 +90,15 @@ namespace Rivet {
       }
 
       if (pT1/GeV >= 75.0) {
-        const double weight = event.weight();
         const double dphi = deltaPhi(jets[0].phi(), jets[1].phi());
         if (inRange(pT1/GeV, 75.0, 100.0)) {
-          _histJetAzimuth_pTmax75_100->fill(dphi, weight);
+          _histJetAzimuth_pTmax75_100->fill(dphi);
         } else if (inRange(pT1/GeV, 100.0, 130.0)) {
-          _histJetAzimuth_pTmax100_130->fill(dphi, weight);
+          _histJetAzimuth_pTmax100_130->fill(dphi);
         } else if (inRange(pT1/GeV, 130.0, 180.0)) {
-          _histJetAzimuth_pTmax130_180->fill(dphi, weight);
+          _histJetAzimuth_pTmax130_180->fill(dphi);
         } else if (pT1/GeV > 180.0) {
-          _histJetAzimuth_pTmax180_->fill(dphi, weight);
+          _histJetAzimuth_pTmax180_->fill(dphi);
         }
       }
 

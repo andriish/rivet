@@ -35,7 +35,7 @@ namespace Rivet {
       declare(photonfs, "photons");
 
       // Initialize event count here:
-      _fidWeights = 0.;
+      book(_fidWeights, "_fidWeights");
     }
 
 
@@ -113,7 +113,7 @@ namespace Rivet {
       if (Myy >= 110*GeV && (y1.Et()/Myy < 0.4 || y2.Et()/Myy < 0.3) ) vetoEvent;
 
       // Add to cross-section
-      _fidWeights += event.weight();
+      _fidWeights->fill();
     }
 
 
@@ -121,7 +121,7 @@ namespace Rivet {
     void finalize() {
 
       // Compute selection efficiency & statistical error
-      const double eff = _fidWeights/sumOfWeights();
+      const double eff = _fidWeights->val()/sumOfWeights();
       const double err = sqrt(eff*(1-eff)/numEvents());
 
       // Compute fiducial cross-section in fb
@@ -142,7 +142,7 @@ namespace Rivet {
   private:
 
     const vector<double> _eta_bins_areaoffset = {0.0, 1.5, 3.0};
-    double _fidWeights;
+    CounterPtr _fidWeights;
 
   };
 

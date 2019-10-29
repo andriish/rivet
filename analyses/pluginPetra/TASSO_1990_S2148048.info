@@ -34,3 +34,10 @@ BibTeX: '@Article{Braunschweig:1990yd,
 ToDo:
  - Add the missing distributions
  - Add missing Trigger conditions, move to Trigger Projection
+
+ReleaseTests:
+ - $A LEP-14
+ - $A-2 LEP-22
+ - $A-3 LEP-35
+ - $A-4 LEP-44
+

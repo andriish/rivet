@@ -9,7 +9,7 @@ test -n "$YODA_PYTHONPATH" || { (which yoda-config > /dev/null) && YODA_PYTHONPA
 test -n "$YODA_PYTHONPATH" || echo "yoda-config could not be found: you may need to manually set paths to libYODA and the yoda Python package" 1>&2
 
 export PATH="$exec_prefix/bin:@YODABINPATH@:$PATH"
-export @LIBPATHVARNAME@="@libdir@:@YODALIBPATH@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@GSLLIBPATH@:$@LIBPATHVARNAME@"
+export @LIBPATHVARNAME@="@libdir@:@YODALIBPATH@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@FJCONTRIBLIBPATH@:$@LIBPATHVARNAME@"
 export PYTHONPATH="@RIVET_PYTHONPATH@:$YODA_PYTHONPATH:$PYTHONPATH"
 
 export TEXMFHOME="@datadir@/Rivet/texmf:$TEXMFHOME"

@@ -34,3 +34,10 @@ BibTeX: '@article{Aad:2015nda,
       reportNumber   = "CERN-PH-EP-2015-181",
       SLACcitation   = "%%CITATION = ARXIV:1509.07335;%%"
 }'
+
+ReleaseTests:
+ - $A LHC-8-Jets-3
+ - $A-2 LHC-8-Jets-7
+ - $A-3 LHC-8-Jets-8
+ - $A-4 LHC-8-Jets-9
+

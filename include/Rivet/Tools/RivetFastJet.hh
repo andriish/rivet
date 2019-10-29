@@ -11,8 +11,13 @@
 #include "fastjet/tools/Filter.hh"
 #include "fastjet/tools/Recluster.hh"
 
+namespace fastjet {
+  namespace contrib { }
+}
+
 namespace Rivet {
 
+  namespace fjcontrib = fastjet::contrib;
 
   /// Unscoped awareness of FastJet's PseudoJet
   using fastjet::PseudoJet;

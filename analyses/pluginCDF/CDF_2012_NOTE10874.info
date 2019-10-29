@@ -22,3 +22,9 @@ Description:
   which was performed just before the Tevatron was shut down. The energy
   ratio histograms can be created from different runs with a merging script
   available in the Rivet bin directory.
+
+ReleaseTests:
+ - $A TVT-300-Jets-1
+ - $A-2 TVT-900-Jets-1
+ - $A-3 TVT-Run-II-Jets-0
+

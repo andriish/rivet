@@ -49,3 +49,9 @@ BibTeX: '@Article{Ansorge:1988fg,
 ToDo:
  - Check sanity of implementation of b with assymetric eta bins
  - Get rid of vectors, use temp. histos instead
+
+ReleaseTests:
+ - $A SppS-200-UE
+ - $A-2 SppS-546-UE
+ - $A-3 SppS-900-UE
+

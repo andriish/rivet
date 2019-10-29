@@ -40,3 +40,8 @@ BibTeX: '@Article{Alner:1986xu,
      doi       = "10.1007/BF01410446",
      SLACcitation  = "%%CITATION = ZEPYA,C33,1;%%"
 }'
+
+ReleaseTests:
+ - $A SppS-200-UE
+ - $A-2 SppS-900-UE
+

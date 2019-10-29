@@ -44,3 +44,7 @@ BibTeX: '@article{Aad:2016xww,
       reportNumber   = "CERN-EP-2016-020",
       SLACcitation   = "%%CITATION = ARXIV:1603.02439;%%"
 }'
+
+ReleaseTests:
+ - $A LHC-8-UE
+

@@ -34,9 +34,6 @@ namespace Rivet {
     /// Get the cross-section for this run.
     Run& setCrossSection(const double xs);
 
-    /// Get the current cross-section from the analysis handler in pb.
-    double crossSection() const;
-
     /// Declare whether to list available analyses
     Run& setListAnalyses(const bool dolist);
 
@@ -54,9 +51,9 @@ namespace Rivet {
 
     /// Read the next HepMC event
     bool readEvent();
-    
+
     /// Read the next HepMC event only to skip it
-    bool skipEvent();
+    //bool skipEvent();
 
     /// Handle next event
     bool processEvent();
@@ -98,8 +95,8 @@ namespace Rivet {
     /// Output stream for HepMC writer
     std::shared_ptr<std::istream> _istr;
 
-    /// HepMC I/O writer
-    std::shared_ptr<HepMC::IO_GenEvent> _io;
+    /// HepMC reader
+    std::shared_ptr<HepMC_IO_type> _hepmcReader;
 
     //@}
 

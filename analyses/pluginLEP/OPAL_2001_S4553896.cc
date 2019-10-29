@@ -87,17 +87,16 @@ namespace Rivet {
 
 
       /// @todo Book histograms here, e.g.:
-      _h_BZ      = bookHisto1D(3, 1, 1);
-      _h_KSW     = bookHisto1D(4, 1, 1);
-      _h_NR      = bookHisto1D(5, 1, 1);
-      _h_ALPHA34 = bookHisto1D(6, 1, 1);
+      book(_h_BZ      ,3, 1, 1);
+      book(_h_KSW     ,4, 1, 1);
+      book(_h_NR      ,5, 1, 1);
+      book(_h_ALPHA34 ,6, 1, 1);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
-
+ 
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (apply<FinalState>(event, "FS").particles().size() < 2) {
         vetoEvent;
@@ -106,17 +105,17 @@ namespace Rivet {
       const FastJets& fastjets = apply<FastJets>(event, "Jets");
       if (fastjets.clusterSeq()) {
         vector<fastjet::PseudoJet> jets;
-        foreach (const fastjet::PseudoJet& jet,
+        for (const fastjet::PseudoJet& jet :
                  fastjet::sorted_by_E(fastjets.clusterSeq()->exclusive_jets_ycut(0.008))) {
           if (jet.E()>3.0*GeV) jets.push_back(jet);
         }
         if (jets.size() == 4) {
           // Prevent nan-fill due to division by zero in calc_BZ
           double bz = fabs(calc_BZ(jets));
-          if (!std::isnan(bz)) _h_BZ->fill(bz, weight);
-          _h_KSW->fill(calc_KSW(jets), weight);
-          _h_NR->fill(fabs(calc_NR(jets)), weight);
-          _h_ALPHA34->fill(calc_ALPHA34(jets), weight);
+          if (!std::isnan(bz)) _h_BZ->fill(bz);
+          _h_KSW->fill(calc_KSW(jets));
+          _h_NR->fill(fabs(calc_NR(jets)));
+          _h_ALPHA34->fill(calc_ALPHA34(jets));
         }
       }
 

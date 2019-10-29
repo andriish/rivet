@@ -63,3 +63,11 @@ BibTeX: '@article{Chatrchyan:2013oda,
       SLACcitation   = "%%CITATION = ARXIV:1310.3082;%%",}'
 ToDo:
  - Update reference when paper published
+
+ReleaseTests:
+ - $A LHC-7-PromptPhoton-1
+ - $A-2 LHC-7-PromptPhoton-2
+ - $A-3 LHC-7-PromptPhoton-3
+ - $A-4 LHC-7-PromptPhoton-4
+ - $A-5 LHC-Z-mu
+

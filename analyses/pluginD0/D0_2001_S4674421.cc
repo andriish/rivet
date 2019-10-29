@@ -26,21 +26,21 @@ namespace Rivet {
 
     void init() {
       // Final state projection
-      FinalState fs(-5.0, 5.0); // corrected for detector acceptance
+      FinalState fs((Cuts::etaIn(-5.0, 5.0))); // corrected for detector acceptance
       declare(fs, "FS");
 
       // Z -> e- e+
-      LeadingParticlesFinalState eeFS(FinalState(-5.0, 5.0, 0.)); //20.);
+      LeadingParticlesFinalState eeFS(FinalState((Cuts::etaIn(-5.0, 5.0)))); //20.);
       eeFS.addParticleIdPair(PID::ELECTRON);
       declare(eeFS, "eeFS");
 
       // W- -> e- nu_e~
-      LeadingParticlesFinalState enuFS(FinalState(-5.0, 5.0, 0.)); //25.);
+      LeadingParticlesFinalState enuFS(FinalState((Cuts::etaIn(-5.0, 5.0)))); //25.);
       enuFS.addParticleId(PID::ELECTRON).addParticleId(PID::NU_EBAR);
       declare(enuFS, "enuFS");
 
       // W+ -> e+ nu_e
-      LeadingParticlesFinalState enubFS(FinalState(-5.0, 5.0, 0.)); //25.);
+      LeadingParticlesFinalState enubFS(FinalState((Cuts::etaIn(-5.0, 5.0)))); //25.);
       enubFS.addParticleId(PID::POSITRON).addParticleId(PID::NU_E);
       declare(enubFS, "enubFS");
 
@@ -50,20 +50,18 @@ namespace Rivet {
       declare(vfs, "VFS");
 
       // Counters
-      _eventsFilledW = 0.0;
-      _eventsFilledZ = 0.0;
+      book(_eventsFilledW,"eventsFilledW");
+      book(_eventsFilledZ,"eventsFilledZ");
 
       // Histograms
-      _h_dsigdpt_w = bookHisto1D(1, 1, 1);
-      _h_dsigdpt_z = bookHisto1D(1, 1, 2);
-      _h_dsigdpt_scaled_z = bookScatter2D(2, 1, 1);
+      book(_h_dsigdpt_w ,1, 1, 1);
+      book(_h_dsigdpt_z ,1, 1, 2);
+      book(_h_dsigdpt_scaled_z, 2, 1, 1);
     }
 
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
-
       const LeadingParticlesFinalState& eeFS = apply<LeadingParticlesFinalState>(event, "eeFS");
       // Z boson analysis
       if (eeFS.particles().size() >= 2) {
@@ -86,9 +84,9 @@ namespace Rivet {
           }
         }
         if (pT > 0. && mass2 > 0. && inRange(sqrt(mass2)/GeV, 75.0, 105.0)) {
-          _eventsFilledZ += weight;
+          _eventsFilledZ->fill();
           MSG_DEBUG("Z pmom.pT() = " << pT/GeV << " GeV");
-          _h_dsigdpt_z->fill(pT/GeV, weight);
+          _h_dsigdpt_z->fill(pT/GeV);
           // return if found a Z
           return;
         }
@@ -115,8 +113,8 @@ namespace Rivet {
         }
       }
       if (pT > 0.) {
-        _eventsFilledW += weight;
-        _h_dsigdpt_w->fill(pT/GeV, weight);
+        _eventsFilledW->fill();
+        _h_dsigdpt_w->fill(pT/GeV);
       }
     }
 
@@ -127,10 +125,10 @@ namespace Rivet {
       const double xSecPerEvent = crossSectionPerEvent()/picobarn;
 
       // Correct W pT distribution to W cross-section
-      const double xSecW = xSecPerEvent * _eventsFilledW;
+      const double xSecW = xSecPerEvent * dbl(*_eventsFilledW);
 
       // Correct Z pT distribution to Z cross-section
-      const double xSecZ = xSecPerEvent * _eventsFilledZ;
+      const double xSecZ = xSecPerEvent * dbl(*_eventsFilledZ);
 
       // Get W and Z pT integrals
       const double wpt_integral = _h_dsigdpt_w->integral();
@@ -170,8 +168,8 @@ namespace Rivet {
 
     /// @name Event counters for cross section normalizations
     //@{
-    double _eventsFilledW;
-    double _eventsFilledZ;
+    CounterPtr _eventsFilledW;
+    CounterPtr _eventsFilledZ;
     //@}
 
     //@{

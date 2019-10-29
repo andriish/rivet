@@ -8,7 +8,7 @@ InspireID: 852450
 Status: VALIDATED
 Authors:
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>
- - Jan Fiete Grosse-Oetringhaus@cern.ch <Jan.Fiete.Grosse-Oetringhaus@cern.ch>
+ - Jan Fiete Grosse-Oetringhaus <Jan.Fiete.Grosse-Oetringhaus@cern.ch>
 References:
  - Eur.Phys.J.C68:89-108,2010
  - arXiv:1004.3034 [hep-ex]
@@ -41,3 +41,7 @@ BibTeX: '@Article{Aamodt:2010ft,
      doi       = "10.1140/epjc/s10052-010-1339-x",
      SLACcitation  = "%%CITATION = 1004.3034;%%"
 }'
+
+ReleaseTests:
+ - $A LHC-2360-UE
+

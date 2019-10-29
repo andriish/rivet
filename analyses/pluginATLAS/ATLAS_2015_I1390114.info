@@ -50,3 +50,7 @@ BibTeX: '@article{Aad:2015yja,
       reportNumber   = "CERN-PH-EP-2015-200",
       SLACcitation   = "%%CITATION = ARXIV:1508.06868;%%"
 }'
+
+ReleaseTests:
+ - $A LHC-8-Top-All
+

@@ -5,7 +5,7 @@
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/WFinder.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/MergedFinalState.hh"
@@ -41,15 +41,13 @@ namespace Rivet {
 
 
       // Both ZZ on-shell histos
-      _h_ZZ_mZZ  = bookHisto1D(1, 1, 1);
-      _h_ZZ_pTZZ = bookHisto1D(2, 1, 1);
+      book(_h_ZZ_mZZ , 1, 1, 1);
+      book(_h_ZZ_pTZZ, 2, 1, 1);
     }
 
 
     /// Do the analysis
     void analyze(const Event& e) {
-      const double weight = e.weight();
-
       ////////////////////////////////////////////////////////////////////
       // Preselection of leptons for ZZ-> llll final state
       ////////////////////////////////////////////////////////////////////
@@ -131,8 +129,8 @@ namespace Rivet {
       if (!pass) vetoEvent;
 
       // Fill histograms
-      _h_ZZ_mZZ->fill(mZZ, weight);
-      _h_ZZ_pTZZ->fill(pTZZ, weight);
+      _h_ZZ_mZZ->fill(mZZ);
+      _h_ZZ_pTZZ->fill(pTZZ);
     }
 
 

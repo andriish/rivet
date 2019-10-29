@@ -48,3 +48,11 @@ BibTeX: '@article{Aad:2015cua,
       reportNumber   = "CERN-PH-EP-2015-207",
       SLACcitation   = "%%CITATION = ARXIV:1509.05190;%%"
 }'
+
+ReleaseTests:
+ - $A LHC-8-Jets-1
+ - $A-2 LHC-8-Jets-3
+ - $A-3 LHC-8-Jets-7
+ - $A-4 LHC-8-Jets-8
+ - $A-5 LHC-8-Jets-9
+

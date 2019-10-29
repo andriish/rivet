@@ -13,7 +13,7 @@ RunInfo:
   Hadronic e+ e- events generated below the Z pole
 NumEvents: 1000000
 Beams: [e+, e-]
-Energies: [9.4,12.0,13.0,17.0,22.0,27.6,30.2,30.7,31.3,30.75]
+Energies: [9.4,12.0,13.0,17.0,22.0,27.6,30.2,30.7,31.3]
 PtCuts: [0]
 Description:
   The charged particle multiplicity distribution of hadronic $e^+e^-$ events
@@ -34,3 +34,17 @@ BibTeX: '@article{Berger:1980zb,
       reportNumber   = "DESY-80-69",
       SLACcitation   = "%%CITATION = PHLTA,B95,313;%%"
 }'
+
+ReleaseTests:
+ - $A LEP-12
+ - $A-2 LEP-13
+ - $A-3 LEP-17
+ - $A-4 LEP-22
+ - $A-5 LEP-27.6
+ - $A-6 LEP-30.2
+ - $A-7 LEP-30.7
+ - $A-9 LEP-31.3
+ - $A-10 LEP-9.4
+
+# Currently disabled
+#  - $A-8 LEP-30.75

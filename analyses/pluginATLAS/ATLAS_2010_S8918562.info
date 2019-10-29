@@ -29,3 +29,7 @@ Description:
   providing diffraction-reduced measurements as well as more inclusive
   ones. The observed distributions are corrected to well-defined
   phase-space regions, using model-independent corrections.
+
+ReleaseTests:
+ - $A LHC-2360-UE
+

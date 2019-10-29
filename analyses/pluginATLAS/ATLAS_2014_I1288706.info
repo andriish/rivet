@@ -44,3 +44,8 @@ BibTeX: '@article{Aad:2014qja,
       SLACcitation   = "%%CITATION = ARXIV:1404.1212;%%",
 }'
 
+
+ReleaseTests:
+ - $A LHC-Z-LowMass-e
+ - $A-2 LHC-Z-LowMass-mu
+

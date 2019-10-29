@@ -35,7 +35,7 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
 
-      _histXbweak     = bookHisto1D(1, 1, 1);
+      book(_histXbweak     ,1, 1, 1);
     }
 
 
@@ -50,9 +50,6 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed ncharged cut");
 
-      // Get event weight for histo filling
-      const double weight = e.weight();
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(e, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
@@ -60,22 +57,21 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
 
-      for (const GenParticle* p : particles(e.genEvent())) {
-        const GenVertex* dv = p->end_vertex();
+      for(ConstGenParticlePtr p : HepMCUtils::particles(e.genEvent())) {
+        ConstGenVertexPtr dv = p->end_vertex();
         if (PID::isBottomHadron(p->pdg_id())) {
           const double xp = p->momentum().e()/meanBeamMom;
 
           // If the B-hadron has no B-hadron as a child, it decayed weakly:
           if (dv) {
             bool is_weak = true;
-            for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin() ;
-                 pp != dv->particles_out_const_end() ; ++pp) {
-              if (PID::isBottomHadron((*pp)->pdg_id())) {
+            for (ConstGenParticlePtr pp: HepMCUtils::particles(dv, Relatives::CHILDREN)){
+              if (PID::isBottomHadron(pp->pdg_id())) {
                 is_weak = false;
               }
             }
             if (is_weak) {
-              _histXbweak->fill(xp, weight);
+              _histXbweak->fill(xp);
             }
           }
 

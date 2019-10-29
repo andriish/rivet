@@ -35,3 +35,7 @@ BibTeX: '
       reportNumber   = "CERN-PH-EP-2011-218",
       SLACcitation   = "%%CITATION = ARXIV:1201.1276;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-W-mu
+

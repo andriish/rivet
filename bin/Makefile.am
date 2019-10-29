@@ -7,7 +7,8 @@ RIVETPROGS = \
     rivet-mkanalysis \
 	  rivet-findid rivet-which \
     rivet-diffhepdata \
-    rivet-cmphistos rivet-mkhtml rivet-merge
+    rivet-diffhepdata-all \
+    rivet-cmphistos rivet-mkhtml rivet-merge rivet-mkvaldir
 if ENABLE_PYEXT
 dist_bin_SCRIPTS += $(RIVETPROGS)
 else
@@ -30,6 +31,19 @@ endif
 ## No-Python Rivet program
 noinst_PROGRAMS = rivet-nopy
 rivet_nopy_SOURCES = rivet-nopy.cc
-rivet_nopy_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS)
+rivet_nopy_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS) $(CPPFLAGS)
+rivet_nopy_LDADD = $(top_builddir)/src/libRivet.la
+if ENABLE_HEPMC_3
+
+bin_PROGRAMS = rivet-hepmz
+rivet_hepmz_SOURCES = rivet-hepmz.cc
+rivet_hepmz_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS) $(CPPFLAGS)
+rivet_hepmz_LDADD = $(top_builddir)/src/libRivet.la -lHepMC3 -lHepMC3search
+rivet_hepmz_LDFLAGS = -L$(HEPMC3LIBPATH)
+
+rivet_nopy_LDFLAGS = -L$(HEPMC3LIBPATH)
+rivet_nopy_LDADD += -lHepMC3 -lHepMC3search
+else
 rivet_nopy_LDFLAGS = -L$(HEPMCLIBPATH)
-rivet_nopy_LDADD = $(top_builddir)/src/libRivet.la -lHepMC
+rivet_nopy_LDADD += -lHepMC
+endif

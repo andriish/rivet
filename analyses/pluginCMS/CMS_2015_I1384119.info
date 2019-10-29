@@ -34,3 +34,7 @@ BibTeX: '@article{Khachatryan:2015jna,
       reportNumber   = "CMS-FSQ-15-001, CERN-PH-EP-2015-180",
       SLACcitation   = "%%CITATION = ARXIV:1507.05915;%%"
 }'
+
+ReleaseTests:
+ - $A LHC-13-UE
+

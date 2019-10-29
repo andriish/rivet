@@ -42,3 +42,7 @@ BibTeX: '@article{ATLAS:2012al,
       reportNumber   = "CERN-PH-EP-2012-062",
       SLACcitation   = "%%CITATION = ARXIV:1203.5015;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-7-Top-L
+

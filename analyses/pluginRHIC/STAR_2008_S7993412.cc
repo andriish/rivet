@@ -19,11 +19,11 @@ namespace Rivet {
 
     /// Book projections and histograms
     void init() {
-      ChargedFinalState fs(-1.0, 1.0, 1.0*GeV);
+      ChargedFinalState fs((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  1.0*GeV));
       declare(fs, "FS");
 
-      _h_Y_jet_trigger = bookProfile1D(1, 1, 1);
-      _h_Y_jet_associated = bookProfile1D(2, 1, 1);
+      book(_h_Y_jet_trigger ,1, 1, 1);
+      book(_h_Y_jet_associated ,2, 1, 1);
     }
 
 
@@ -36,21 +36,19 @@ namespace Rivet {
         vetoEvent;
       }
 
-      const double weight = event.weight();
-
-      foreach (const Particle& tp, fs.particles()) {
+      for (const Particle& tp : fs.particles()) {
         const double triggerpT = tp.pT();
         if (triggerpT >= 2.0 && triggerpT < 5.0) {
           int n_associated = 0;
-          foreach (const Particle& ap, fs.particles()) {
+          for (const Particle& ap : fs.particles()) {
             if (!inRange(ap.pT()/GeV, 1.5, triggerpT)) continue;
             if (deltaPhi(tp.phi(), ap.phi()) > 1) continue;
             if (fabs(tp.eta() - ap.eta()) > 1.75) continue;
             n_associated += 1;
           }
           //const double dPhidEta = 2 * 2*1.75;
-          //_h_Y_jet_trigger->fill(triggerpT, n_associated/dPhidEta, weight);
-          _h_Y_jet_trigger->fill(triggerpT, n_associated, weight);
+          //_h_Y_jet_trigger->fill(triggerpT, n_associated/dPhidEta);
+          _h_Y_jet_trigger->fill(triggerpT, n_associated);
         }
       }
     }

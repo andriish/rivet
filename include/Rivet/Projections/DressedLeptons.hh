@@ -42,7 +42,7 @@ namespace Rivet {
   };
 
 
-  /// @brief Cluster photons from a given FS to charged leptons
+  /// @brief Cluster photons from a given FS to all charged particles (typically leptons)
   ///
   /// This stores the original (bare) charged particles and photons as
   /// particles() while the newly created clustered lepton objects are
@@ -106,16 +106,6 @@ namespace Rivet {
                    bool useDecayPhotons=false,
                    bool useJetClustering=false);
 
-    // For compatibility only
-    /// @cond INTERNAL
-    DEPRECATED("Use the new form with no bool cluster argument")
-    DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
-                   double dRmax, const Cut& cut, bool,
-                   bool useDecayPhotons, bool useJetClustering)
-      : DressedLeptons(photons, bareleptons, dRmax, cut, useDecayPhotons, useJetClustering)
-    {   }
-    /// @endcond
-
 
     /// Clone this projection
     DEFAULT_RIVET_PROJ_CLONE(DressedLeptons);
@@ -146,7 +136,7 @@ namespace Rivet {
     void project(const Event& e);
 
     /// Compare projections.
-    int compare(const Projection& p) const;
+    CmpState compare(const Projection& p) const;
 
 
   private:

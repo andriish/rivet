@@ -62,53 +62,52 @@ namespace Rivet {
 
       declare(FastJets(vfs, FastJets::ANTIKT, m_jetdr), "Jets");
 
-      m_hist_thadpt = bookHisto1D("d01-x01-y01");
-      m_hist_thady = bookHisto1D("d03-x01-y01");
-      m_hist_tleppt = bookHisto1D("d05-x01-y01");
-      m_hist_tlepy = bookHisto1D("d07-x01-y01");
-      m_hist_ttm = bookHisto1D("d09-x01-y01");
-      m_hist_ttpt = bookHisto1D("d11-x01-y01");
-      m_hist_tty = bookHisto1D("d13-x01-y01");
-      m_hist_njet = bookHisto1D("d15-x01-y01");
+      book(m_hist_thadpt , "d01-x01-y01");
+      book(m_hist_thady , "d03-x01-y01");
+      book(m_hist_tleppt , "d05-x01-y01");
+      book(m_hist_tlepy , "d07-x01-y01");
+      book(m_hist_ttm , "d09-x01-y01");
+      book(m_hist_ttpt , "d11-x01-y01");
+      book(m_hist_tty , "d13-x01-y01");
+      book(m_hist_njet , "d15-x01-y01");
       /// @todo Memory leak
-      m_hist_njet_ttm = new Histo1DGroup(this, {"d17-x01-y01", "d18-x01-y01", "d19-x01-y01", "d20-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5});
-      m_hist_njet_thadpt = new Histo1DGroup(this, {"d22-x01-y01", "d23-x01-y01", "d24-x01-y01", "d25-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5});
-      m_hist_njet_ttpt = new Histo1DGroup(this, {"d27-x01-y01", "d28-x01-y01", "d29-x01-y01", "d30-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5});
-      m_hist_thady_thadpt = new Histo1DGroup(this, {"d32-x01-y01", "d33-x01-y01", "d34-x01-y01", "d35-x01-y01"}, {0.0,0.5, 1.0, 1.5, 2.5});
-      m_hist_ttm_tty = new Histo1DGroup(this, {"d37-x01-y01", "d38-x01-y01", "d39-x01-y01", "d40-x01-y01"}, {300., 450., 625., 850., 2000.});
-      m_hist_thadpt_ttm = new Histo1DGroup(this, {"d42-x01-y01", "d43-x01-y01", "d44-x01-y01", "d45-x01-y01"}, {0., 90., 180., 270., 800.});
-      m_hist_jetspt = new Histo1DGroup(this, {"d47-x01-y01", "d48-x01-y01", "d49-x01-y01", "d50-x01-y01", "d51-x01-y01", "d52-x01-y01", "d53-x01-y01", "d54-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5});
-      m_hist_jetseta = new Histo1DGroup(this, {"d56-x01-y01", "d57-x01-y01", "d58-x01-y01", "d59-x01-y01", "d60-x01-y01", "d61-x01-y01", "d62-x01-y01", "d63-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5});
-      m_hist_jetsdrjets = new Histo1DGroup(this, {"d65-x01-y01", "d66-x01-y01", "d67-x01-y01", "d68-x01-y01", "d69-x01-y01", "d70-x01-y01", "d71-x01-y01", "d72-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5});
-      m_hist_jetsdrtops = new Histo1DGroup(this, {"d74-x01-y01", "d75-x01-y01", "d76-x01-y01", "d77-x01-y01", "d78-x01-y01", "d79-x01-y01", "d80-x01-y01", "d81-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5});
-      m_hist_njetspt = new Histo1DGroup(this, {"d169-x01-y01", "d170-x01-y01", "d171-x01-y01", "d172-x01-y01"}, {0., 40., 60., 80., 120.});
+      m_hist_njet_ttm = Histo1DGroup(this, {"d17-x01-y01", "d18-x01-y01", "d19-x01-y01", "d20-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5});
+      m_hist_njet_thadpt = Histo1DGroup(this, {"d22-x01-y01", "d23-x01-y01", "d24-x01-y01", "d25-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5});
+      m_hist_njet_ttpt = Histo1DGroup(this, {"d27-x01-y01", "d28-x01-y01", "d29-x01-y01", "d30-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5});
+      m_hist_thady_thadpt = Histo1DGroup(this, {"d32-x01-y01", "d33-x01-y01", "d34-x01-y01", "d35-x01-y01"}, {0.0,0.5, 1.0, 1.5, 2.5});
+      m_hist_ttm_tty = Histo1DGroup(this, {"d37-x01-y01", "d38-x01-y01", "d39-x01-y01", "d40-x01-y01"}, {300., 450., 625., 850., 2000.});
+      m_hist_thadpt_ttm = Histo1DGroup(this, {"d42-x01-y01", "d43-x01-y01", "d44-x01-y01", "d45-x01-y01"}, {0., 90., 180., 270., 800.});
+      m_hist_jetspt = Histo1DGroup(this, {"d47-x01-y01", "d48-x01-y01", "d49-x01-y01", "d50-x01-y01", "d51-x01-y01", "d52-x01-y01", "d53-x01-y01", "d54-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5});
+      m_hist_jetseta = Histo1DGroup(this, {"d56-x01-y01", "d57-x01-y01", "d58-x01-y01", "d59-x01-y01", "d60-x01-y01", "d61-x01-y01", "d62-x01-y01", "d63-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5});
+      m_hist_jetsdrjets = Histo1DGroup(this, {"d65-x01-y01", "d66-x01-y01", "d67-x01-y01", "d68-x01-y01", "d69-x01-y01", "d70-x01-y01", "d71-x01-y01", "d72-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5});
+      m_hist_jetsdrtops = Histo1DGroup(this, {"d74-x01-y01", "d75-x01-y01", "d76-x01-y01", "d77-x01-y01", "d78-x01-y01", "d79-x01-y01", "d80-x01-y01", "d81-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5});
+      m_hist_njetspt = Histo1DGroup(this, {"d169-x01-y01", "d170-x01-y01", "d171-x01-y01", "d172-x01-y01"}, {0., 40., 60., 80., 120.});
 
-      m_nhist_thadpt = bookHisto1D("d83-x01-y01");
-      m_nhist_thady = bookHisto1D("d85-x01-y01");
-      m_nhist_tleppt = bookHisto1D("d87-x01-y01");
-      m_nhist_tlepy = bookHisto1D("d89-x01-y01");
-      m_nhist_ttm = bookHisto1D("d91-x01-y01");
-      m_nhist_ttpt = bookHisto1D("d93-x01-y01");
-      m_nhist_tty = bookHisto1D("d95-x01-y01");
-      m_nhist_njet = bookHisto1D("d97-x01-y01");
+      book(m_nhist_thadpt , "d83-x01-y01");
+      book(m_nhist_thady , "d85-x01-y01");
+      book(m_nhist_tleppt , "d87-x01-y01");
+      book(m_nhist_tlepy , "d89-x01-y01");
+      book(m_nhist_ttm , "d91-x01-y01");
+      book(m_nhist_ttpt , "d93-x01-y01");
+      book(m_nhist_tty , "d95-x01-y01");
+      book(m_nhist_njet , "d97-x01-y01");
       /// @todo Memory leak
-      m_nhist_njet_ttm = new Histo1DGroup(this, {"d99-x01-y01", "d100-x01-y01", "d101-x01-y01", "d102-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5});
-      m_nhist_njet_thadpt = new Histo1DGroup(this, {"d104-x01-y01", "d105-x01-y01", "d106-x01-y01", "d107-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5});
-      m_nhist_njet_ttpt = new Histo1DGroup(this, {"d109-x01-y01", "d110-x01-y01", "d111-x01-y01", "d112-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5});
-      m_nhist_thady_thadpt = new Histo1DGroup(this, {"d114-x01-y01", "d115-x01-y01", "d116-x01-y01", "d117-x01-y01"}, {0.0,0.5, 1.0, 1.5, 2.5});
-      m_nhist_ttm_tty = new Histo1DGroup(this, {"d119-x01-y01", "d120-x01-y01", "d121-x01-y01", "d122-x01-y01"}, {300., 450., 625., 850., 2000.});
-      m_nhist_thadpt_ttm = new Histo1DGroup(this, {"d124-x01-y01", "d125-x01-y01", "d126-x01-y01", "d127-x01-y01"}, {0., 90., 180., 270., 800.});
-      m_nhist_jetspt = new Histo1DGroup(this, {"d129-x01-y01", "d130-x01-y01", "d131-x01-y01", "d132-x01-y01", "d133-x01-y01", "d134-x01-y01", "d135-x01-y01", "d136-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5});
-      m_nhist_jetseta = new Histo1DGroup(this, {"d138-x01-y01", "d139-x01-y01", "d140-x01-y01", "d141-x01-y01", "d142-x01-y01", "d143-x01-y01", "d144-x01-y01", "d145-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5});
-      m_nhist_jetsdrjets = new Histo1DGroup(this, {"d147-x01-y01", "d148-x01-y01", "d149-x01-y01", "d150-x01-y01", "d151-x01-y01", "d152-x01-y01", "d153-x01-y01", "d154-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5});
-      m_nhist_jetsdrtops = new Histo1DGroup(this, {"d156-x01-y01", "d157-x01-y01", "d158-x01-y01", "d159-x01-y01", "d160-x01-y01", "d161-x01-y01", "d162-x01-y01", "d163-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5});
-      m_hist_gap1 = bookScatter2D("d165-x01-y01");
-      m_hist_gap2 = bookScatter2D("d167-x01-y01");
+      m_nhist_njet_ttm = Histo1DGroup(this, {"d99-x01-y01", "d100-x01-y01", "d101-x01-y01", "d102-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5});
+      m_nhist_njet_thadpt = Histo1DGroup(this, {"d104-x01-y01", "d105-x01-y01", "d106-x01-y01", "d107-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5});
+      m_nhist_njet_ttpt = Histo1DGroup(this, {"d109-x01-y01", "d110-x01-y01", "d111-x01-y01", "d112-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5});
+      m_nhist_thady_thadpt = Histo1DGroup(this, {"d114-x01-y01", "d115-x01-y01", "d116-x01-y01", "d117-x01-y01"}, {0.0,0.5, 1.0, 1.5, 2.5});
+      m_nhist_ttm_tty = Histo1DGroup(this, {"d119-x01-y01", "d120-x01-y01", "d121-x01-y01", "d122-x01-y01"}, {300., 450., 625., 850., 2000.});
+      m_nhist_thadpt_ttm = Histo1DGroup(this, {"d124-x01-y01", "d125-x01-y01", "d126-x01-y01", "d127-x01-y01"}, {0., 90., 180., 270., 800.});
+      m_nhist_jetspt = Histo1DGroup(this, {"d129-x01-y01", "d130-x01-y01", "d131-x01-y01", "d132-x01-y01", "d133-x01-y01", "d134-x01-y01", "d135-x01-y01", "d136-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5});
+      m_nhist_jetseta = Histo1DGroup(this, {"d138-x01-y01", "d139-x01-y01", "d140-x01-y01", "d141-x01-y01", "d142-x01-y01", "d143-x01-y01", "d144-x01-y01", "d145-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5});
+      m_nhist_jetsdrjets = Histo1DGroup(this, {"d147-x01-y01", "d148-x01-y01", "d149-x01-y01", "d150-x01-y01", "d151-x01-y01", "d152-x01-y01", "d153-x01-y01", "d154-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5});
+      m_nhist_jetsdrtops = Histo1DGroup(this, {"d156-x01-y01", "d157-x01-y01", "d158-x01-y01", "d159-x01-y01", "d160-x01-y01", "d161-x01-y01", "d162-x01-y01", "d163-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5});
+      book(m_hist_gap1, "d165-x01-y01");
+      book(m_hist_gap2, "d167-x01-y01");
     }
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
       m_leptons.clear();
       m_vetoleptons.clear();
       m_neutrinos.clear();
@@ -188,7 +187,7 @@ namespace Rivet {
                 m_tlep = Particle(-6, tl);
                 m_tlep_decay[0] = Particle(5, bjl);
                 m_tlep_decay[1] = m_leptons[0];
-                m_tlep_decay[2] = Particle(-1*(m_leptons[0].pdgId()+1), nusum);
+                m_tlep_decay[2] = Particle(-1*(m_leptons[0].pid()+1), nusum);
               }
             }
           }
@@ -223,43 +222,43 @@ namespace Rivet {
 
       FourMomentum tt(m_thad.momentum() + m_tlep.momentum());
 
-      m_hist_thadpt->fill(m_thad.pt(), weight);
-      m_nhist_thadpt->fill(m_thad.pt(), weight);
-      m_hist_thady->fill(abs(m_thad.rapidity()), weight);
-      m_nhist_thady->fill(abs(m_thad.rapidity()), weight);
-      m_hist_tleppt->fill(m_tlep.pt(), weight);
-      m_nhist_tleppt->fill(m_tlep.pt(), weight);
-      m_hist_tlepy->fill(abs(m_tlep.rapidity()), weight);
-      m_nhist_tlepy->fill(abs(m_tlep.rapidity()), weight);
-      m_hist_ttm->fill(tt.mass(), weight);
-      m_nhist_ttm->fill(tt.mass(), weight);
-      m_hist_ttpt->fill(tt.pt(), weight);
-      m_nhist_ttpt->fill(tt.pt(), weight);
-      m_hist_tty->fill(abs(tt.rapidity()), weight);
-      m_nhist_tty->fill(abs(tt.rapidity()), weight);
-      m_hist_njet->fill(min(m_additionaljets.size(), (size_t)5), weight);
-      m_nhist_njet->fill(min(m_additionaljets.size(), (size_t)5), weight);
+      m_hist_thadpt->fill(m_thad.pt());
+      m_nhist_thadpt->fill(m_thad.pt());
+      m_hist_thady->fill(abs(m_thad.rapidity()));
+      m_nhist_thady->fill(abs(m_thad.rapidity()));
+      m_hist_tleppt->fill(m_tlep.pt());
+      m_nhist_tleppt->fill(m_tlep.pt());
+      m_hist_tlepy->fill(abs(m_tlep.rapidity()));
+      m_nhist_tlepy->fill(abs(m_tlep.rapidity()));
+      m_hist_ttm->fill(tt.mass());
+      m_nhist_ttm->fill(tt.mass());
+      m_hist_ttpt->fill(tt.pt());
+      m_nhist_ttpt->fill(tt.pt());
+      m_hist_tty->fill(abs(tt.rapidity()));
+      m_nhist_tty->fill(abs(tt.rapidity()));
+      m_hist_njet->fill(min(m_additionaljets.size(), (size_t)5));
+      m_nhist_njet->fill(min(m_additionaljets.size(), (size_t)5));
       int njet = min((size_t)3, m_additionaljets.size());
-      m_hist_njet_ttm->fill(njet, tt.mass(), weight);
-      m_nhist_njet_ttm->fill(njet, tt.mass(), weight);
-      m_hist_njet_thadpt->fill(njet, m_thad.pt(), weight);
-      m_nhist_njet_thadpt->fill(njet, m_thad.pt(), weight);
-      m_hist_njet_ttpt->fill(njet, tt.pt(), weight);
-      m_nhist_njet_ttpt->fill(njet, tt.pt(), weight);
-      m_hist_thady_thadpt->fill(abs(m_thad.rapidity()), m_thad.pt(), weight);
-      m_nhist_thady_thadpt->fill(abs(m_thad.rapidity()), m_thad.pt(), weight);
-      m_hist_ttm_tty->fill(tt.mass(), abs(tt.rapidity()), weight);
-      m_nhist_ttm_tty->fill(tt.mass(), abs(tt.rapidity()), weight);
-      m_hist_thadpt_ttm->fill(m_thad.pt(), tt.mass(), weight);
-      m_nhist_thadpt_ttm->fill(m_thad.pt(), tt.mass(), weight);
+      m_hist_njet_ttm.fill(njet, tt.mass());
+      m_nhist_njet_ttm.fill(njet, tt.mass());
+      m_hist_njet_thadpt.fill(njet, m_thad.pt());
+      m_nhist_njet_thadpt.fill(njet, m_thad.pt());
+      m_hist_njet_ttpt.fill(njet, tt.pt());
+      m_nhist_njet_ttpt.fill(njet, tt.pt());
+      m_hist_thady_thadpt.fill(abs(m_thad.rapidity()), m_thad.pt());
+      m_nhist_thady_thadpt.fill(abs(m_thad.rapidity()), m_thad.pt());
+      m_hist_ttm_tty.fill(tt.mass(), abs(tt.rapidity()));
+      m_nhist_ttm_tty.fill(tt.mass(), abs(tt.rapidity()));
+      m_hist_thadpt_ttm.fill(m_thad.pt(), tt.mass());
+      m_nhist_thadpt_ttm.fill(m_thad.pt(), tt.mass());
       int jpos = -1;
       for (const Particles& jets : {m_tt_jets, m_additionaljets}) {
         for (const Particle& jet : jets) {
           jpos++;
-          m_hist_jetspt->fill(jpos, jet.pt(), weight);
-          m_nhist_jetspt->fill(jpos, jet.pt(), weight);
-          m_hist_jetseta->fill(jpos, abs(jet.eta()), weight);
-          m_nhist_jetseta->fill(jpos, abs(jet.eta()), weight);
+          m_hist_jetspt.fill(jpos, jet.pt());
+          m_nhist_jetspt.fill(jpos, jet.pt());
+          m_hist_jetseta.fill(jpos, abs(jet.eta()));
+          m_nhist_jetseta.fill(jpos, abs(jet.eta()));
           double drmin = 1E10;
           for (const Particle& tjet : m_tt_jets) {
             double dr = deltaR(jet, tjet);
@@ -268,23 +267,23 @@ namespace Rivet {
               drmin = dr;
             }
           }
-          m_hist_jetsdrjets->fill(jpos, drmin, weight);
-          m_nhist_jetsdrjets->fill(jpos, drmin, weight);
-          m_hist_jetsdrtops->fill(jpos, min(deltaR(jet, m_thad), deltaR(jet, m_tlep)), weight);
-          m_nhist_jetsdrtops->fill(jpos, min(deltaR(jet, m_thad), deltaR(jet, m_tlep)), weight);
+          m_hist_jetsdrjets.fill(jpos, drmin);
+          m_nhist_jetsdrjets.fill(jpos, drmin);
+          m_hist_jetsdrtops.fill(jpos, min(deltaR(jet, m_thad), deltaR(jet, m_tlep)));
+          m_nhist_jetsdrtops.fill(jpos, min(deltaR(jet, m_thad), deltaR(jet, m_tlep)));
         }
       }
       for (double ptcut : {30, 50, 75, 100}) {
-        m_hist_njetspt->fill(ptcut , count_if(m_additionaljets.begin(), m_additionaljets.end(),
-                                              [&ptcut](const Particle& j) {return j.pt() > ptcut;}), weight);
+        m_hist_njetspt.fill(ptcut , count_if(m_additionaljets.begin(), m_additionaljets.end(),
+                                              [&ptcut](const Particle& j) {return j.pt() > ptcut;}));
       }
     }
 
 
     virtual void finalize()
     {
-      m_hist_jetspt->gapfractionfromjetpt(m_hist_gap1, 1);
-      m_hist_jetspt->gapfractionfromjetpt(m_hist_gap2, 2);
+      m_hist_jetspt.gapfractionfromjetpt(m_hist_gap1, 1);
+      m_hist_jetspt.gapfractionfromjetpt(m_hist_gap2, 2);
       scale(m_hist_thadpt, crossSection()/sumOfWeights());
       scale(m_hist_thady, crossSection()/sumOfWeights());
       scale(m_hist_tleppt, crossSection()/sumOfWeights());
@@ -293,17 +292,17 @@ namespace Rivet {
       scale(m_hist_tty, crossSection()/sumOfWeights());
       scale(m_hist_ttm, crossSection()/sumOfWeights());
       scale(m_hist_njet, crossSection()/sumOfWeights());
-      m_hist_njet_ttm->scale(crossSection()/sumOfWeights(), false);
-      m_hist_njet_thadpt->scale(crossSection()/sumOfWeights(), false);
-      m_hist_njet_ttpt->scale(crossSection()/sumOfWeights(), false);
-      m_hist_thady_thadpt->scale(crossSection()/sumOfWeights());
-      m_hist_ttm_tty->scale(crossSection()/sumOfWeights());
-      m_hist_thadpt_ttm->scale(crossSection()/sumOfWeights());
-      m_hist_jetspt->scale(crossSection()/sumOfWeights(), false);
-      m_hist_jetseta->scale(crossSection()/sumOfWeights(), false);
-      m_hist_jetsdrjets->scale(crossSection()/sumOfWeights(), false);
-      m_hist_jetsdrtops->scale(crossSection()/sumOfWeights(), false);
-      m_hist_njetspt->scale(crossSection()/sumOfWeights(), false);
+      m_hist_njet_ttm.scale(crossSection()/sumOfWeights(), false);
+      m_hist_njet_thadpt.scale(crossSection()/sumOfWeights(), false);
+      m_hist_njet_ttpt.scale(crossSection()/sumOfWeights(), false);
+      m_hist_thady_thadpt.scale(crossSection()/sumOfWeights());
+      m_hist_ttm_tty.scale(crossSection()/sumOfWeights());
+      m_hist_thadpt_ttm.scale(crossSection()/sumOfWeights());
+      m_hist_jetspt.scale(crossSection()/sumOfWeights(), false);
+      m_hist_jetseta.scale(crossSection()/sumOfWeights(), false);
+      m_hist_jetsdrjets.scale(crossSection()/sumOfWeights(), false);
+      m_hist_jetsdrtops.scale(crossSection()/sumOfWeights(), false);
+      m_hist_njetspt.scale(crossSection()/sumOfWeights(), false);
 
 
       scale(m_nhist_thadpt, 1./m_nhist_thadpt->sumW(false));
@@ -314,16 +313,16 @@ namespace Rivet {
       scale(m_nhist_tty, 1./m_nhist_tty->sumW(false));
       scale(m_nhist_ttm, 1./m_nhist_ttm->sumW(false));
       scale(m_nhist_njet, 1./m_nhist_njet->sumW(false));
-      m_nhist_njet_ttm->norm(false);
-      m_nhist_njet_thadpt->norm(false);
-      m_nhist_njet_ttpt->norm(false);
-      m_nhist_thady_thadpt->norm(true);
-      m_nhist_ttm_tty->norm(true);
-      m_nhist_thadpt_ttm->norm(true);
-      m_nhist_jetspt->norm(false);
-      m_nhist_jetseta->norm(false);
-      m_nhist_jetsdrjets->norm(false);
-      m_nhist_jetsdrtops->norm(false);
+      m_nhist_njet_ttm.norm(false);
+      m_nhist_njet_thadpt.norm(false);
+      m_nhist_njet_ttpt.norm(false);
+      m_nhist_thady_thadpt.norm(true);
+      m_nhist_ttm_tty.norm(true);
+      m_nhist_thadpt_ttm.norm(true);
+      m_nhist_jetspt.norm(false);
+      m_nhist_jetseta.norm(false);
+      m_nhist_jetsdrjets.norm(false);
+      m_nhist_jetsdrtops.norm(false);
 
     }
 
@@ -336,17 +335,17 @@ namespace Rivet {
     Histo1DPtr m_hist_tty;
     Histo1DPtr m_hist_ttm;
     Histo1DPtr m_hist_njet;
-    Histo1DGroup* m_hist_njet_ttm;
-    Histo1DGroup* m_hist_njet_thadpt;
-    Histo1DGroup* m_hist_njet_ttpt;
-    Histo1DGroup* m_hist_thady_thadpt;
-    Histo1DGroup* m_hist_ttm_tty;
-    Histo1DGroup* m_hist_thadpt_ttm;
-    Histo1DGroup* m_hist_jetspt;
-    Histo1DGroup* m_hist_jetseta;
-    Histo1DGroup* m_hist_jetsdrjets;
-    Histo1DGroup* m_hist_jetsdrtops;
-    Histo1DGroup* m_hist_njetspt;
+    Histo1DGroup m_hist_njet_ttm;
+    Histo1DGroup m_hist_njet_thadpt;
+    Histo1DGroup m_hist_njet_ttpt;
+    Histo1DGroup m_hist_thady_thadpt;
+    Histo1DGroup m_hist_ttm_tty;
+    Histo1DGroup m_hist_thadpt_ttm;
+    Histo1DGroup m_hist_jetspt;
+    Histo1DGroup m_hist_jetseta;
+    Histo1DGroup m_hist_jetsdrjets;
+    Histo1DGroup m_hist_jetsdrtops;
+    Histo1DGroup m_hist_njetspt;
 
     Histo1DPtr m_nhist_thadpt;
     Histo1DPtr m_nhist_thady;
@@ -356,16 +355,16 @@ namespace Rivet {
     Histo1DPtr m_nhist_ttpt;
     Histo1DPtr m_nhist_tty;
     Histo1DPtr m_nhist_njet;
-    Histo1DGroup* m_nhist_njet_ttm;
-    Histo1DGroup* m_nhist_njet_thadpt;
-    Histo1DGroup* m_nhist_njet_ttpt;
-    Histo1DGroup* m_nhist_thady_thadpt;
-    Histo1DGroup* m_nhist_ttm_tty;
-    Histo1DGroup* m_nhist_thadpt_ttm;
-    Histo1DGroup* m_nhist_jetspt;
-    Histo1DGroup* m_nhist_jetseta;
-    Histo1DGroup* m_nhist_jetsdrjets;
-    Histo1DGroup* m_nhist_jetsdrtops;
+    Histo1DGroup m_nhist_njet_ttm;
+    Histo1DGroup m_nhist_njet_thadpt;
+    Histo1DGroup m_nhist_njet_ttpt;
+    Histo1DGroup m_nhist_thady_thadpt;
+    Histo1DGroup m_nhist_ttm_tty;
+    Histo1DGroup m_nhist_thadpt_ttm;
+    Histo1DGroup m_nhist_jetspt;
+    Histo1DGroup m_nhist_jetseta;
+    Histo1DGroup m_nhist_jetsdrjets;
+    Histo1DGroup m_nhist_jetsdrtops;
     Scatter2DPtr m_hist_gap1;
     Scatter2DPtr m_hist_gap2;
 
@@ -408,7 +407,8 @@ namespace Rivet {
 
   CMS_2018_I1663958::Histo1DGroup::Histo1DGroup(CMS_2018_I1663958* an, const vector<string>& hnames, const vector<double>& xbinranges) : m_an(an), m_xbins(xbinranges) {
     for (const string& hname : hnames) {
-      m_histos.push_back(an->bookHisto1D(hname));
+      Histo1DPtr tmp;
+      m_histos.push_back(an->book(tmp,hname));
     }
   }
 

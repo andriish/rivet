@@ -1,5 +1,5 @@
 Name: MC_VH2BB
-Summary: MC unboosted VH2bb validation plots
+Summary: MC unboosted VH2bb ReleaseTests plots
 Collider: LHC
 Status: VALIDATED
 Authors:
@@ -13,3 +13,8 @@ PtCuts: [0]
 Description:
   'Various plots for characterising the process $V H \to b\bar{b}$'
 NeedCrossSection: yes
+
+ReleaseTests:
+ - $A LHC-WH
+ - $A-2 LHC-ZH
+

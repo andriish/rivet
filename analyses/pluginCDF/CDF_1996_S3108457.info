@@ -39,3 +39,7 @@ BibTeX: '@Article{Abe:1995rw,
      doi       = "10.1103/PhysRevLett.75.608",
      SLACcitation  = "%%CITATION = PRLTA,75,608;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-Run-I-Jets-5
+

@@ -4,7 +4,7 @@
 #include "Rivet/Math/MathHeader.hh"
 #include "Rivet/Math/MathUtils.hh"
 
-#include "Rivet/Math/eigen/vector.h"
+#include "Rivet/Math/eigen3/Dense"
 
 namespace Rivet {
 
@@ -25,7 +25,7 @@ namespace Rivet {
     friend Vector<M> multiply(const Matrix<M>& a, const Vector<M>& b);
 
   public:
-    Vector() { _vec.loadZero(); }
+    Vector() : _vec(EVector::Zero()) { }
 
     Vector(const Vector<N>& other)
       : _vec(other._vec) { }
@@ -67,7 +67,7 @@ namespace Rivet {
     }
 
     /// Vector dimensionality
-    size_t size() const {
+    constexpr size_t size() const {
       return N;
     }
 
@@ -94,7 +94,7 @@ namespace Rivet {
     /// \f$ \sqrt{\sum_{i=1}^N x_i^2} \f$.
     double mod() const {
       const double norm = mod2();
-      assert(norm >= 0);
+      //assert(norm >= 0); //< *should* be impossible
       return sqrt(norm);
     }
 
@@ -113,24 +113,25 @@ namespace Rivet {
       return _vec != a._vec;
     }
 
-    bool operator<(const Vector<N>& a) const {
-      return _vec < a._vec;
-    }
+    // bool operator<(const Vector<N>& a) const {
+    //   return _vec < a._vec;
+    // }
 
-    bool operator<=(const Vector<N>& a) const {
-      return _vec <= a._vec;
-    }
+    // bool operator<=(const Vector<N>& a) const {
+    //   return _vec <= a._vec;
+    // }
 
-    bool operator>(const Vector<N>& a) const {
-      return _vec > a._vec;
-    }
+    // bool operator>(const Vector<N>& a) const {
+    //   return _vec > a._vec;
+    // }
 
-    bool operator>=(const Vector<N>& a) const {
-      return _vec >= a._vec;
-    }
+    // bool operator>=(const Vector<N>& a) const {
+    //   return _vec >= a._vec;
+    // }
 
     /// Vector
-    Eigen::Vector<double,N> _vec;
+    using EVector = Eigen::Matrix<double,N,1>;
+    EVector _vec;
 
   };
 
@@ -144,7 +145,7 @@ namespace Rivet {
   /// Make string representation
   template <size_t N>
   inline const string toString(const Vector<N>& v) {
-    ostringstream out;
+    std::ostringstream out;
     out << "(";
     for (size_t i = 0; i < v.size(); ++i) {
       out << (fabs(v[i]) < 1E-30 ? 0.0 : v[i]);

@@ -36,3 +36,7 @@ BibTeX: '@article{Heister:2001kp,
       reportNumber   = "CERN-EP-2001-090",
       SLACcitation   = "%%CITATION = HEP-EX/0201012;%%",
 }'
+
+ReleaseTests:
+ - $A LEP-91
+

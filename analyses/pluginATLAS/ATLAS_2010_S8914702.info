@@ -32,3 +32,10 @@ BibTeX: '@Article{Collaboration:2010sp,
      primaryClass  =  "hep-ex",
      SLACcitation  = "%%CITATION = 1012.4389;%%"
 }'
+
+ReleaseTests:
+ - $A LHC-7-PromptPhoton-1
+ - $A-2 LHC-7-PromptPhoton-2
+ - $A-3 LHC-7-PromptPhoton-3
+ - $A-4 LHC-7-PromptPhoton-4
+

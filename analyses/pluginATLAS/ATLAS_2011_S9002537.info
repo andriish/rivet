@@ -22,3 +22,7 @@ Description:
   The asymmetry is measured in the $W \to \mu$ decay mode as a function
   of the muon pseudorapidity using a data sample corresponding to a total
   integrated luminosity of 31 pb$^{-1}$.
+
+ReleaseTests:
+ - $A LHC-W-mu
+

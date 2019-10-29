@@ -44,3 +44,12 @@ BibTeX: '@article{Aad:2016oit,
       reportNumber   = "CERN-PH-EP-2016-001, CERN-EP-2016-001",
       SLACcitation   = "%%CITATION = ARXIV:1602.00988;%%"
 }'
+
+ReleaseTests:
+ - $A LHC-8-Jets-0
+ - $A-2 LHC-8-Jets-1
+ - $A-3 LHC-8-Jets-3
+ - $A-4 LHC-8-Jets-7
+ - $A-5 LHC-8-Jets-8
+ - $A-6 LHC-8-Jets-9
+

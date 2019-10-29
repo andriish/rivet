@@ -41,3 +41,7 @@ BibTeX: '@article{Aad:2014iaa,
       reportNumber   = "CERN-PH-EP-2014-114",
       SLACcitation   = "%%CITATION = ARXIV:1407.0891;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-7-Top-All
+

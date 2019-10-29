@@ -37,3 +37,7 @@ BibTeX: '@Article{Abe:1998zs,
      doi       = "10.1103/PhysRevD.59.052001",
      SLACcitation  = "%%CITATION = HEP-EX/9805029;%%"
 }'
+
+ReleaseTests:
+ - $A LEP-91
+

@@ -13,7 +13,17 @@ namespace Rivet {
   DressedLepton::DressedLepton(const Particle& dlepton)
     : Particle(dlepton)
   {
-    setConstituents({{dlepton}}); //< bare lepton is first constituent
+    if (dlepton.isComposite()) {
+      Particles dressing;
+      dressing.reserve(dlepton.constituents().size()-1);
+      for (const Particle& p : dlepton.constituents()) {
+        if (p.isChargedLepton()) setConstituents({{p}}); //< bare lepton is first constituent
+        else dressing.push_back(p);
+      }
+      addConstituents(dressing);
+    } else {
+      setConstituents({{dlepton}});
+    }
   }
 
   DressedLepton::DressedLepton(const Particle& lepton, const Particles& photons, bool momsum)
@@ -50,21 +60,21 @@ namespace Rivet {
     // Find photons -- specialising to prompt photons if decay photons are to be vetoed
     IdentifiedFinalState photonfs(photons, PID::PHOTON);
     if (_fromDecay) {
-      addProjection(photonfs, "Photons");
+      declare(photonfs, "Photons");
     } else {
-      addProjection(PromptFinalState(photonfs), "Photons");
+      declare(PromptFinalState(photonfs), "Photons");
     }
 
     // Find bare leptons
     IdentifiedFinalState leptonfs(bareleptons);
     leptonfs.acceptIdPairs({PID::ELECTRON, PID::MUON, PID::TAU}); //< hmm, no final-state taus, so is this useful?
-    addProjection(leptonfs, "Leptons");
+    declare(leptonfs, "Leptons");
 
     // Set up FJ clustering option
     if (_useJetClustering) {
       MergedFinalState mergedfs(photonfs, leptonfs);
       FastJets leptonjets(mergedfs, FastJets::ANTIKT, dRmax);
-      addProjection(leptonjets, "LeptonJets");
+      declare(leptonjets, "LeptonJets");
     }
   }
 
@@ -79,17 +89,17 @@ namespace Rivet {
 
 
 
-  int DressedLeptons::compare(const Projection& p) const {
+  CmpState DressedLeptons::compare(const Projection& p) const {
     // Compare the two as final states (for pT and eta cuts)
     const DressedLeptons& other = dynamic_cast<const DressedLeptons&>(p);
-    int fscmp = FinalState::compare(other);
-    if (fscmp != EQUIVALENT) return fscmp;
+    CmpState fscmp = FinalState::compare(other);
+    if (fscmp != CmpState::EQ) return fscmp;
 
     const PCmp phcmp = mkNamedPCmp(p, "Photons");
-    if (phcmp != EQUIVALENT) return phcmp;
+    if (phcmp != CmpState::EQ) return phcmp;
 
     const PCmp sigcmp = mkNamedPCmp(p, "Leptons");
-    if (sigcmp != EQUIVALENT) return sigcmp;
+    if (sigcmp != CmpState::EQ) return sigcmp;
 
     return (cmp(_dRmax, other._dRmax) ||
             cmp(_fromDecay, other._fromDecay) ||
@@ -114,7 +124,7 @@ namespace Rivet {
 
       if (_dRmax <= 0) {
         for (const Particle& bl : bareleptons) {
-          Particle dl(bl.pid(), bl.momentum());
+          Particle dl(bl.pid(), bl.momentum(), bl.genParticle());
           dl.setConstituents({bl});
           allClusteredLeptons += dl;
         }
@@ -124,7 +134,7 @@ namespace Rivet {
           const Particles leps = sortByPt(lepjet.particles(isChargedLepton));
           if (leps.empty()) continue;
           Particles constituents = {leps[0]}; //< note no dressing for subleading leptons
-          Particle dl(leps[0].pid(), leps[0].momentum());
+          Particle dl(leps[0].pid(), leps[0].momentum(), leps[0].genParticle());
           constituents += lepjet.particles(isPhoton);
           dl.setConstituents(constituents);
           allClusteredLeptons += dl;
@@ -134,7 +144,7 @@ namespace Rivet {
     } else {
 
       for (const Particle& bl : bareleptons) {
-        Particle dl(bl.pid(), bl.momentum());
+        Particle dl(bl.pid(), bl.momentum(), bl.genParticle());
         dl.setConstituents({bl});
         allClusteredLeptons += dl;
       }
@@ -143,8 +153,8 @@ namespace Rivet {
         const FinalState& photons = applyProjection<FinalState>(e, "Photons");
         for (const Particle& photon : photons.particles()) {
           // Ignore photon if it's from a hadron/tau decay and we're avoiding those
-          /// @todo Can remove via the PromptFinalState conversion above?
-          if (!_fromDecay && photon.fromDecay()) continue;
+          /// @todo Already removed via the PromptFinalState conversion above?
+          if (!_fromDecay && !photon.isDirect()) continue;
           const FourMomentum& p_P = photon.momentum();
           double dRmin = _dRmax;
           int idx = -1;
@@ -167,10 +177,13 @@ namespace Rivet {
     // Fill the canonical particles collection with the composite DL Particles
     for (const Particle& lepton : allClusteredLeptons) {
       const bool acc = accept(lepton);
-      MSG_TRACE("Clustered lepton " << lepton << " with constituents = " << lepton.constituents() << ", cut-pass = " << boolalpha << acc);
+      MSG_TRACE("Clustered lepton " << lepton
+                << " with constituents = " << lepton.constituents()
+                << ", cut-pass = " << std::boolalpha << acc);
       if (acc) _theParticles.push_back(lepton);
     }
-    MSG_DEBUG("#dressed leptons = " << allClusteredLeptons.size() << " -> " << _theParticles.size() << " after cuts");
+    MSG_DEBUG("#dressed leptons = " << allClusteredLeptons.size()
+              << " -> " << _theParticles.size() << " after cuts");
 
   }
 

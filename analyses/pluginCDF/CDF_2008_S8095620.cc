@@ -16,10 +16,8 @@ namespace Rivet {
     /// jet cuts: |eta| <= 1.5
     CDF_2008_S8095620()
       : Analysis("CDF_2008_S8095620"),
-        _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5), _Lep1PtCut(18.), _Lep2PtCut(10.), _LepEtaCut(3.2),
-        _sumWeightSelected(0.0)
-    {
-    }
+        _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5), _Lep1PtCut(18.), _Lep2PtCut(10.), _LepEtaCut(3.2)
+    { }
 
 
     /// @name Analysis methods
@@ -27,14 +25,14 @@ namespace Rivet {
 
     void init() {
       // Set up projections
-      const FinalState fs(-3.2, 3.2);
+      const FinalState fs((Cuts::etaIn(-3.2, 3.2)));
       declare(fs, "FS");
       // Create a final state with any e+e- or mu+mu- pair with
       // invariant mass 76 -> 106 GeV and ET > 18 (Z decay products)
       vector<pair<PdgId,PdgId> > vids;
       vids.push_back(make_pair(PID::ELECTRON, PID::POSITRON));
       vids.push_back(make_pair(PID::MUON, PID::ANTIMUON));
-      FinalState fs2(-3.2, 3.2);
+      FinalState fs2((Cuts::etaIn(-3.2, 3.2)));
       InvMassFinalState invfs(fs2, vids, 76*GeV, 106*GeV);
       declare(invfs, "INVFS");
       // Make a final state without the Z decay products for jet clustering
@@ -44,12 +42,14 @@ namespace Rivet {
       declare(FastJets(vfs, FastJets::CDFMIDPOINT, 0.7), "Jets");
 
       // Book histograms
-      _dStot    = bookHisto1D(1, 1, 1);
-      _dSdET    = bookHisto1D(2, 1, 1);
-      _dSdETA   = bookHisto1D(3, 1, 1);
-      _dSdZpT   = bookHisto1D(4, 1, 1);
-      _dSdNJet  = bookHisto1D(5, 1, 1);
-      _dSdNbJet = bookHisto1D(6, 1, 1);
+      book(_dStot    ,1, 1, 1);
+      book(_dSdET    ,2, 1, 1);
+      book(_dSdETA   ,3, 1, 1);
+      book(_dSdZpT   ,4, 1, 1);
+      book(_dSdNJet  ,5, 1, 1);
+      book(_dSdNbJet ,6, 1, 1);
+
+      book(_sumWeightSelected,"sumWeightSelected");
      }
 
 
@@ -82,14 +82,14 @@ namespace Rivet {
         if (Lep1Pt < _Lep2PtCut || Lep2Pt < _Lep1PtCut) vetoEvent;
       }
 
-      _sumWeightSelected += event.weight();
+      _sumWeightSelected->fill();
       /// @todo: write out a warning if there are more than two decay products
       FourMomentum Zmom = ZDecayProducts[0].momentum() +  ZDecayProducts[1].momentum();
 
       // Put all b-quarks in a vector
       /// @todo Use a b-hadron search rather than b-quarks for tagging
       Particles bquarks;
-      foreach (const GenParticle* p, particles(event.genEvent())) {
+      for(ConstGenParticlePtr p: HepMCUtils::particles(event.genEvent())) {
         if (std::abs(p->pdg_id()) == PID::BQUARK) {
           bquarks += Particle(*p);
         }
@@ -112,7 +112,7 @@ namespace Rivet {
           numJet++;
           // does the jet contain a b-quark?
           bool bjet = false;
-          foreach (const Particle& bquark,  bquarks) {
+          for (const Particle& bquark :  bquarks) {
             if (deltaR(jt->rapidity(), jt->phi(), bquark.rapidity(),bquark.phi()) <= _Rjet) {
               bjet = true;
               break;
@@ -120,18 +120,18 @@ namespace Rivet {
           } // end loop around b-jets
           if (bjet) {
             numBJet++;
-            _dSdET->fill(jt->perp(),event.weight());
-            _dSdETA->fill(fabs(jt->rapidity()),event.weight());
+            _dSdET->fill(jt->perp());
+            _dSdETA->fill(fabs(jt->rapidity()));
           }
         }
       } // end loop around jets
 
       // wasn't asking for b-jets before!!!!
-      if(numJet > 0 && numBJet > 0) _dSdNJet->fill(numJet,event.weight());
+      if(numJet > 0 && numBJet > 0) _dSdNJet->fill(numJet);
       if(numBJet > 0) {
-        _dStot->fill(1960.0,event.weight());
-        _dSdNbJet->fill(numBJet,event.weight());
-        _dSdZpT->fill(Zmom.pT(),event.weight());
+        _dStot->fill(1960.0);
+        _dSdNbJet->fill(numBJet);
+        _dSdZpT->fill(Zmom.pT());
       }
     }
 
@@ -144,7 +144,7 @@ namespace Rivet {
       // since the cross sections are normalized to the inclusive
       // Z cross sections.
       double Scale = 1.0;
-      if (_sumWeightSelected != 0.0) Scale = 1.0/_sumWeightSelected;
+      if (_sumWeightSelected->val() != 0.0) Scale = 1.0/dbl(*_sumWeightSelected);
       scale(_dStot,Scale);
       scale(_dSdET,Scale);
       scale(_dSdETA,Scale);
@@ -164,7 +164,7 @@ namespace Rivet {
     double _Lep1PtCut;
     double _Lep2PtCut;
     double _LepEtaCut;
-    double _sumWeightSelected;
+    CounterPtr _sumWeightSelected;
 
     //@{
     /// Histograms

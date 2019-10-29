@@ -1,4 +1,5 @@
 // -*- C++ -*-
+#include "Rivet/Analysis.hh"
 #include "Rivet/Tools/AtlasCommon.hh"
 #include "Rivet/Projections/ImpactParameterProjection.hh"
 
@@ -22,7 +23,7 @@ public:
     declare(ATLAS::MinBiasTrigger(), "Trigger");
 
     // The calibrationhistogram:
-    _calib = bookHisto1D("SumETPb", 100, 0.0, 200.0);
+    book(_calib, "SumETPb", 100, 0.0, 200.0);
 
     // If histogram was pre-loaded, the calibration is done.
     _done = ( _calib->numEntries() > 0 );
@@ -31,7 +32,7 @@ public:
     // it MUST be named the same as the histogram for the experimental
     // observable with an added _IMP suffix for the Pecentile<>
     // binning to work properly.
-    _impcalib = bookHisto1D("SumETPb_IMP", 400, 0.0, 20.0);
+    book(_impcalib, "SumETPb_IMP", 400, 0.0, 20.0);
 
 
   }
@@ -41,17 +42,15 @@ public:
 
     if ( _done ) return;
     
-    const double weight = event.weight();
-
     // The alternative centrality based on generated impact
     // parameter, assumes that the generator does not describe the
     // full final state, and should therefore be filled even if the
     // event is not triggered.
-    _impcalib->fill(apply<SingleValueProjection>(event, "IMP")(), weight);
+    _impcalib->fill(apply<SingleValueProjection>(event, "IMP")());
 
     if ( !apply<ATLAS::MinBiasTrigger>(event, "Trigger")() ) vetoEvent;
 
-    _calib->fill(apply<ATLAS::SumET_PB_Centrality>(event, "Centrality")(), weight);
+    _calib->fill(apply<ATLAS::SumET_PB_Centrality>(event, "Centrality")());
 
   }
   

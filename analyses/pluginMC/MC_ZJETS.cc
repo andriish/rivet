@@ -26,13 +26,13 @@ namespace Rivet {
     void init() {
       FinalState fs;
       Cut cut = Cuts::abseta < 3.5 && Cuts::pT > 25*GeV;
-      ZFinder zfinder(fs, cut, _lepton, 65*GeV, 115*GeV, _dR, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
+      ZFinder zfinder(fs, cut, _lepton, 65*GeV, 115*GeV, _dR, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::YES);
       declare(zfinder, "ZFinder");
       FastJets jetpro(zfinder.remainingFinalState(), FastJets::ANTIKT, 0.4);
       declare(jetpro, "Jets");
 
-      _h_Z_jet1_deta = bookHisto1D("Z_jet1_deta", 50, -5, 5);
-      _h_Z_jet1_dR = bookHisto1D("Z_jet1_dR", 25, 0.5, 7.0);
+      book(_h_Z_jet1_deta ,"Z_jet1_deta", 50, -5, 5);
+      book(_h_Z_jet1_dR ,"Z_jet1_dR", 25, 0.5, 7.0);
 
       MC_JetAnalysis::init();
     }
@@ -41,13 +41,16 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event & e) {
+      MSG_TRACE("MC_ZJETS: running ZFinder");
       const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size() != 1) vetoEvent;
       const FourMomentum& zmom = zfinder.bosons()[0].momentum();
+      MSG_TRACE("MC_ZJETS: have exactly one Z boson candidate");
 
       const Jets& jets = apply<FastJets>(e, "Jets").jetsByPt(_jetptcut);
       if (jets.size() > 0) {
-        const double weight = e.weight();
+        MSG_TRACE("MC_ZJETS: have at least one valid jet");
+        const double weight = 1.0;
         _h_Z_jet1_deta->fill(zmom.eta()-jets[0].eta(), weight);
         _h_Z_jet1_dR->fill(deltaR(zmom, jets[0].momentum()), weight);
       }

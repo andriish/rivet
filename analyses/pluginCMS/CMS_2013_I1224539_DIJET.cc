@@ -34,7 +34,7 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      FinalState fs(-2.4, 2.4, 0*GeV);
+      FinalState fs((Cuts::etaIn(-2.4, 2.4)));
       declare(fs, "FS");
 
       // Jet collections
@@ -44,10 +44,10 @@ namespace Rivet {
 
       // Histograms
       for (size_t i = 0; i < N_PT_BINS_dj; ++i ) {
-        _h_ungroomedAvgJetMass_dj[i] = bookHisto1D(i+1+0*N_PT_BINS_dj, 1, 1);
-        _h_filteredAvgJetMass_dj[i] = bookHisto1D(i+1+1*N_PT_BINS_dj, 1, 1);
-        _h_trimmedAvgJetMass_dj[i] = bookHisto1D(i+1+2*N_PT_BINS_dj, 1, 1);
-        _h_prunedAvgJetMass_dj[i] = bookHisto1D(i+1+3*N_PT_BINS_dj, 1, 1);
+        book(_h_ungroomedAvgJetMass_dj[i] ,i+1+0*N_PT_BINS_dj, 1, 1);
+        book(_h_filteredAvgJetMass_dj[i] ,i+1+1*N_PT_BINS_dj, 1, 1);
+        book(_h_trimmedAvgJetMass_dj[i] ,i+1+2*N_PT_BINS_dj, 1, 1);
+        book(_h_prunedAvgJetMass_dj[i] ,i+1+3*N_PT_BINS_dj, 1, 1);
       }
     }
 
@@ -65,7 +65,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Look at events with >= 2 jets
       const PseudoJets& psjetsAK7 = apply<FastJets>(event, "JetsAK7").pseudoJetsByPt( 50.0*GeV );

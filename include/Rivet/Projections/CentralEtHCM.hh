@@ -21,7 +21,7 @@ namespace Rivet {
     CentralEtHCM(const DISFinalState& fs)
     {
       setName("CentralEtHCM");
-      addProjection(fs, "FS");
+      declare(fs, "FS");
     }
 
     /// Clone on the heap.
@@ -34,7 +34,7 @@ namespace Rivet {
     void project(const Event& e);
 
     /// Compare with other projections
-    int compare(const Projection& p) const {
+    CmpState compare(const Projection& p) const {
       return mkNamedPCmp(p, "FS");
     }
 

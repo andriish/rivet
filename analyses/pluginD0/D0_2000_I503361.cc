@@ -22,18 +22,16 @@ namespace Rivet {
     void init() {
 
       ///  Initialise and register projections here
-      ZFinder zfinder(FinalState(), Cuts::open(), PID::ELECTRON, 75*GeV, 105*GeV, 0.0*GeV, ZFinder::NOCLUSTER);
+      ZFinder zfinder(FinalState(), Cuts::open(), PID::ELECTRON, 75*GeV, 105*GeV, 0.0*GeV, ZFinder::ClusterPhotons::NONE);
       declare(zfinder, "ZFinder");
 
 
-      _hist_zpt = bookHisto1D(1, 1, 1);
+      book(_hist_zpt ,1, 1, 1);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
-
       /// @todo Do the event by event analysis here
       const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.bosons().size() != 1) {
@@ -47,7 +45,7 @@ namespace Rivet {
       }
 
       MSG_DEBUG("Dilepton mass = " << pZ.mass()/GeV << " GeV");
-      _hist_zpt->fill(pZ.pT(), weight);
+      _hist_zpt->fill(pZ.pT());
 
     }
 
@@ -61,9 +59,6 @@ namespace Rivet {
 
 
   private:
-
-    // Data members like post-cuts event weight counters go here
-
 
     /// @name Histograms
     //@{

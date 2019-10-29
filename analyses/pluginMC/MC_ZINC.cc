@@ -25,16 +25,16 @@ namespace Rivet {
     void init() {
       FinalState fs;
       Cut cut = Cuts::abseta < 3.5 && Cuts::pT > 25*GeV;
-      ZFinder zfinder(fs, cut, _lepton, 65.0*GeV, 115.0*GeV, _dR, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
+      ZFinder zfinder(fs, cut, _lepton, 65.0*GeV, 115.0*GeV, _dR, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::YES);
       declare(zfinder, "ZFinder");
 
-      _h_Z_mass = bookHisto1D("Z_mass", 50, 66.0, 116.0);
-      _h_Z_pT = bookHisto1D("Z_pT", logspace(100, 1.0, 0.5*(sqrtS()>0.?sqrtS():14000.)/GeV));
-      _h_Z_pT_peak = bookHisto1D("Z_pT_peak", 25, 0.0, 25.0);
-      _h_Z_y = bookHisto1D("Z_y", 40, -4.0, 4.0);
-      _h_Z_phi = bookHisto1D("Z_phi", 25, 0.0, TWOPI);
-      _h_lepton_pT = bookHisto1D("lepton_pT", logspace(100, 10.0, 0.25*(sqrtS()>0.?sqrtS():14000.)/GeV));
-      _h_lepton_eta = bookHisto1D("lepton_eta", 40, -4.0, 4.0);
+      book(_h_Z_mass ,"Z_mass", 50, 66.0, 116.0);
+      book(_h_Z_pT ,"Z_pT", logspace(100, 1.0, 0.5*(sqrtS()>0.?sqrtS():14000.)/GeV));
+      book(_h_Z_pT_peak ,"Z_pT_peak", 25, 0.0, 25.0);
+      book(_h_Z_y ,"Z_y", 40, -4.0, 4.0);
+      book(_h_Z_phi ,"Z_phi", 25, 0.0, TWOPI);
+      book(_h_lepton_pT ,"lepton_pT", logspace(100, 10.0, 0.25*(sqrtS()>0.?sqrtS():14000.)/GeV));
+      book(_h_lepton_eta ,"lepton_eta", 40, -4.0, 4.0);
 
     }
 
@@ -44,7 +44,7 @@ namespace Rivet {
     void analyze(const Event & e) {
       const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size() != 1) vetoEvent;
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       FourMomentum zmom(zfinder.bosons()[0].momentum());
       _h_Z_mass->fill(zmom.mass()/GeV, weight);

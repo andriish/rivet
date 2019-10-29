@@ -26,7 +26,7 @@ namespace Rivet {
     /// Book histograms
     void init() {
       // Full final state
-      FinalState fs(-5.0, 5.0);
+      FinalState fs((Cuts::etaIn(-5.0, 5.0)));
       declare(fs, "FS");
 
       // Leading electrons in tracking acceptance
@@ -34,16 +34,14 @@ namespace Rivet {
       elfs.acceptIdPair(PID::ELECTRON);
       declare(elfs, "LeadingElectrons");
 
-      _h_jet_multiplicity = bookHisto1D(1, 1, 1);
-      _h_jet_pT_cross_section_incl_1jet = bookHisto1D(2, 1, 1);
-      _h_jet_pT_cross_section_incl_2jet = bookHisto1D(3, 1, 1);
+      book(_h_jet_multiplicity ,1, 1, 1);
+      book(_h_jet_pT_cross_section_incl_1jet ,2, 1, 1);
+      book(_h_jet_pT_cross_section_incl_2jet ,3, 1, 1);
     }
 
 
     /// Do the analysis
     void analyze(const Event & event) {
-      const double weight = event.weight();
-
       // Skip if the event is empty
       const FinalState& fs = apply<FinalState>(event, "FS");
       if (fs.empty()) {
@@ -96,8 +94,8 @@ namespace Rivet {
           if (deltaR(p_e0, p_P) < 0.2) copy = false;
           if (deltaR(p_e1, p_P) < 0.2) copy = false;
         } else {
-          if (p.genParticle()->barcode() == Z_candidates[0].first.genParticle()->barcode()) copy = false;
-          if (p.genParticle()->barcode() == Z_candidates[0].second.genParticle()->barcode()) copy = false;
+          if (HepMCUtils::uniqueId(p.genParticle()) == HepMCUtils::uniqueId(Z_candidates[0].first.genParticle())) copy = false;
+          if (HepMCUtils::uniqueId(p.genParticle()) == HepMCUtils::uniqueId(Z_candidates[0].second.genParticle())) copy = false;
         }
         if (copy) jetparts.push_back(p);
       }
@@ -112,7 +110,7 @@ namespace Rivet {
       // // Take jets with pt > 30, |eta| < 2.1:
       // const Jets& jets = jetpro.jets();
       // Jets jets_cut;
-      // foreach (const Jet& j, jets) {
+      // for (const Jet& j, jets) {
       //   if (j.pT()/GeV > 30.0 && j.abseta() < 2.1) {
       //     jets_cut.push_back(j);
       //   }
@@ -135,14 +133,14 @@ namespace Rivet {
 
       // Fill histograms
       for (size_t njet=1; njet<=jets_cut.size(); ++njet) {
-        _h_jet_multiplicity->fill(njet, weight);
+        _h_jet_multiplicity->fill(njet);
       }
       for (const Jet& j : jets_cut) {
         if (jets_cut.size() > 0) {
-          _h_jet_pT_cross_section_incl_1jet->fill(j.pT(), weight);
+          _h_jet_pT_cross_section_incl_1jet->fill(j.pT());
         }
         if (jets_cut.size() > 1) {
-          _h_jet_pT_cross_section_incl_2jet->fill(j.pT(), weight);
+          _h_jet_pT_cross_section_incl_2jet->fill(j.pT());
         }
       }
     }

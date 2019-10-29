@@ -36,3 +36,10 @@ BibTeX: '@article{Khachatryan:2011zj,
       archivePrefix  = "arXiv",
       primaryClass   = "hep-ex",}'
 
+
+ReleaseTests:
+ - $A LHC-7-Jets-3
+ - $A-2 LHC-7-Jets-4
+ - $A-3 LHC-7-Jets-5
+ - $A-4 LHC-7-Jets-6
+

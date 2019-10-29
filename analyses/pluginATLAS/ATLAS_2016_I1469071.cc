@@ -37,13 +37,13 @@ namespace Rivet {
       PromptFinalState leptons(FinalState(fs_z && (Cuts::abspid == PID::ELECTRON || Cuts::abspid == PID::MUON)));
       leptons.acceptTauDecays(false);
       DressedLeptons dressedleptons(photons, leptons, 0.1, FS_Zlept, true);
-      addProjection(dressedleptons, "DressedLeptons");
+      declare(dressedleptons, "DressedLeptons");
 
       // Electrons and muons in Total PS
       PromptFinalState leptons_total(Cuts::abspid == PID::ELECTRON || Cuts::abspid == PID::MUON);
       leptons_total.acceptTauDecays(false);
       DressedLeptons dressedleptonsTotal(photons, leptons_total, 0.1, Cuts::open(), true);
-      addProjection(dressedleptonsTotal, "DressedLeptonsTotal");
+      declare(dressedleptonsTotal, "DressedLeptonsTotal");
 
       // Promot neutrinos (yikes!)
       IdentifiedFinalState nu_id;
@@ -60,30 +60,28 @@ namespace Rivet {
       declare(jets, "Jets");
 
       // Book histograms
-      _h_eee          = bookHisto1D(1, 1, 1);
-      _h_mee          = bookHisto1D(1, 1, 2);
-      _h_emm          = bookHisto1D(1, 1, 3);
-      _h_mmm          = bookHisto1D(1, 1, 4);
-      _h_fid          = bookHisto1D(1, 1, 5);
-      _h_eee_Plus     = bookHisto1D(2, 1, 1);
-      _h_mee_Plus     = bookHisto1D(2, 1, 2);
-      _h_emm_Plus     = bookHisto1D(2, 1, 3);
-      _h_mmm_Plus     = bookHisto1D(2, 1, 4);
-      _h_fid_Plus     = bookHisto1D(2, 1, 5);
-      _h_eee_Minus    = bookHisto1D(3, 1, 1);
-      _h_mee_Minus    = bookHisto1D(3, 1, 2);
-      _h_emm_Minus    = bookHisto1D(3, 1, 3);
-      _h_mmm_Minus    = bookHisto1D(3, 1, 4);
-      _h_fid_Minus    = bookHisto1D(3, 1, 5);
-      _h_total        = bookHisto1D(6, 1, 1);
-      _h_Njets        = bookHisto1D(8, 1, 1);
+      book(_h_eee      , 1, 1, 1);
+      book(_h_mee      , 1, 1, 2);
+      book(_h_emm      , 1, 1, 3);
+      book(_h_mmm      , 1, 1, 4);
+      book(_h_fid      , 1, 1, 5);
+      book(_h_eee_Plus , 2, 1, 1);
+      book(_h_mee_Plus , 2, 1, 2);
+      book(_h_emm_Plus , 2, 1, 3);
+      book(_h_mmm_Plus , 2, 1, 4);
+      book(_h_fid_Plus , 2, 1, 5);
+      book(_h_eee_Minus, 3, 1, 1);
+      book(_h_mee_Minus, 3, 1, 2);
+      book(_h_emm_Minus, 3, 1, 3);
+      book(_h_mmm_Minus, 3, 1, 4);
+      book(_h_fid_Minus, 3, 1, 5);
+      book(_h_total    , 6, 1, 1);
+      book(_h_Njets    , 8, 1, 1);
 
     }
 
 
     void analyze(const Event& event) {
-
-      const double weight = event.weight();
 
       const vector<DressedLepton>& dressedleptons = apply<DressedLeptons>(event, "DressedLeptons").dressedLeptons();
       const vector<DressedLepton>& dressedleptonsTotal = apply<DressedLeptons>(event, "DressedLeptonsTotal").dressedLeptons();
@@ -145,7 +143,7 @@ namespace Rivet {
       }
 
       FourMomentum ZbosonTotal   = dressedleptonsTotal[i].momentum()+dressedleptonsTotal[j].momentum();
-      if ( ZbosonTotal.mass() >= 66*GeV && ZbosonTotal.mass() <= 116*GeV )  _h_total->fill(13000, weight);
+      if ( ZbosonTotal.mass() >= 66*GeV && ZbosonTotal.mass() <= 116*GeV )  _h_total->fill(13000);
 
       //---end Total PS
 
@@ -225,28 +223,28 @@ namespace Rivet {
       if (deltaR(Zlepton1, Wlepton)  < 0.3)        vetoEvent;
       if (deltaR(Zlepton2, Wlepton)  < 0.3)        vetoEvent;
 
-      if (EventType == 3)  _h_eee->fill(13000., weight);
-      if (EventType == 2)  _h_mee->fill(13000., weight);
-      if (EventType == 1)  _h_emm->fill(13000., weight);
-      if (EventType == 0)  _h_mmm->fill(13000., weight);
-      _h_fid->fill(13000, weight);
+      if (EventType == 3)  _h_eee->fill(13000.);
+      if (EventType == 2)  _h_mee->fill(13000.);
+      if (EventType == 1)  _h_emm->fill(13000.);
+      if (EventType == 0)  _h_mmm->fill(13000.);
+      _h_fid->fill(13000);
 
       if (EventCharge == 1) {
-        if (EventType == 3)  _h_eee_Plus->fill(13000., weight);
-        if (EventType == 2)  _h_mee_Plus->fill(13000., weight);
-        if (EventType == 1)  _h_emm_Plus->fill(13000., weight);
-        if (EventType == 0)  _h_mmm_Plus->fill(13000., weight);
-        _h_fid_Plus->fill(13000, weight);
+        if (EventType == 3)  _h_eee_Plus->fill(13000.);
+        if (EventType == 2)  _h_mee_Plus->fill(13000.);
+        if (EventType == 1)  _h_emm_Plus->fill(13000.);
+        if (EventType == 0)  _h_mmm_Plus->fill(13000.);
+        _h_fid_Plus->fill(13000);
       } else {
-        if (EventType == 3)  _h_eee_Minus->fill(13000., weight);
-        if (EventType == 2)  _h_mee_Minus->fill(13000., weight);
-        if (EventType == 1)  _h_emm_Minus->fill(13000., weight);
-        if (EventType == 0)  _h_mmm_Minus->fill(13000., weight);
-        _h_fid_Minus->fill(13000, weight);
+        if (EventType == 3)  _h_eee_Minus->fill(13000.);
+        if (EventType == 2)  _h_mee_Minus->fill(13000.);
+        if (EventType == 1)  _h_emm_Minus->fill(13000.);
+        if (EventType == 0)  _h_mmm_Minus->fill(13000.);
+        _h_fid_Minus->fill(13000);
       }
 
-      if (jets.size() < 4)  _h_Njets->fill(jets.size(), weight);
-      else  _h_Njets->fill(4, weight);
+      if (jets.size() < 4)  _h_Njets->fill(jets.size());
+      else  _h_Njets->fill(4);
 
     }
 

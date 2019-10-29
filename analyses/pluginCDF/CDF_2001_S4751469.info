@@ -43,3 +43,8 @@ BibTeX: '@Article{Affolder:2001xt,
      doi       = "10.1103/PhysRevD.65.092002",
      SLACcitation  = "%%CITATION = PHRVA,D65,092002;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-Run-I-Jets-1
+ - $A-2 TVT-Run-I-UE
+

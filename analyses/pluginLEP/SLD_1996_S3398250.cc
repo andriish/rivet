@@ -8,8 +8,10 @@
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/ParisiTensor.hh"
 #include "Rivet/Projections/Hemispheres.hh"
-#include "Rivet/Projections/InitialQuarks.hh"
 #include <cmath>
+
+#define I_KNOW_THE_INITIAL_QUARKS_PROJECTION_IS_DODGY_BUT_NEED_TO_USE_IT
+#include "Rivet/Projections/InitialQuarks.hh"
 
 namespace Rivet {
 
@@ -21,8 +23,7 @@ namespace Rivet {
 
     /// Constructor
     SLD_1996_S3398250()
-      : Analysis("SLD_1996_S3398250"),
-        _weightLight(0.),_weightCharm(0.),_weightBottom(0.)
+      : Analysis("SLD_1996_S3398250")
     {}
 
     /// @name Analysis methods
@@ -35,14 +36,21 @@ namespace Rivet {
       declare(ChargedFinalState(), "CFS");
       declare(InitialQuarks(), "IQF");
 
-      _h_bottom = bookHisto1D(1, 1, 1);
-      _h_charm  = bookHisto1D(2, 1, 1);
-      _h_light  = bookHisto1D(3, 1, 1);
+      book(_h_bottom ,1, 1, 1);
+      book(_h_charm  ,2, 1, 1);
+      book(_h_light  ,3, 1, 1);
+
+      book(_weightLight, "_weightLight");
+      book(_weightCharm, "_weightCharm");
+      book(_weightBottom, "_weightBottom");
+
+      book(scatter_c, 4,1,1);
+      book(scatter_b, 5,1,1);
+
     }
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       if (cfs.size() < 2) vetoEvent;
@@ -58,7 +66,7 @@ namespace Rivet {
       }
       else {
         map<int, double> quarkmap;
-        foreach (const Particle& p, iqf.particles()) {
+        for (const Particle& p : iqf.particles()) {
           if (quarkmap[p.pid()] < p.E()) {
             quarkmap[p.pid()] = p.E();
           }
@@ -73,39 +81,38 @@ namespace Rivet {
       const size_t numParticles = cfs.particles().size();
       switch (flavour) {
       case 1: case 2: case 3:
-        _weightLight  += weight;
-        _h_light->fillBin(0, numParticles*weight);
+        _weightLight ->fill();
+        _h_light->fillBin(0, numParticles);
         break;
       case 4:
-        _weightCharm  += weight;
-        _h_charm->fillBin(0, numParticles*weight);
+        _weightCharm ->fill();
+        _h_charm->fillBin(0, numParticles);
         break;
       case 5:
-        _weightBottom += weight;
-        _h_bottom->fillBin(0, numParticles*weight);
+        _weightBottom->fill();
+        _h_bottom->fillBin(0, numParticles);
         break;
       }
 
     }
 
 
-    void multiplicity_subtract(const Histo1DPtr first, const Histo1DPtr second, int a, int b, int c) {
+    void multiplicity_subtract(const Histo1DPtr first, const Histo1DPtr second, Scatter2DPtr & scatter) {
       const double x  = first->bin(0).xMid();
       const double ex = first->bin(0).xWidth()/2.;
       const double y  = first->bin(0).area() - second->bin(0).area();
       const double ey = sqrt(sqr(first->bin(0).areaErr()) + sqr(second->bin(0).areaErr()));
-      Scatter2DPtr scatter = bookScatter2D(a, b, c);
       scatter->addPoint(x, y, ex, ey);
     }
 
 
     void finalize() {
-      if (_weightBottom != 0) scale(_h_bottom, 1./_weightBottom);
-      if (_weightCharm  != 0) scale(_h_charm,  1./_weightCharm );
-      if (_weightLight  != 0) scale(_h_light,  1./_weightLight );
+      if (_weightBottom->val() != 0) scale(_h_bottom, 1./ *_weightBottom);
+      if (_weightCharm->val()  != 0) scale(_h_charm,  1./ *_weightCharm );
+      if (_weightLight->val()  != 0) scale(_h_light,  1./ *_weightLight );
 
-      multiplicity_subtract(_h_charm,  _h_light, 4, 1, 1);
-      multiplicity_subtract(_h_bottom, _h_light, 5, 1, 1);
+      multiplicity_subtract(_h_charm,  _h_light, scatter_c);
+      multiplicity_subtract(_h_bottom, _h_light, scatter_b);
     }
 
     //@}
@@ -113,12 +120,12 @@ namespace Rivet {
 
   private:
 
-
+    Scatter2DPtr scatter_c, scatter_b;
     /// @name Weights
     //@{
-    double _weightLight;
-    double _weightCharm;
-    double _weightBottom;
+    CounterPtr _weightLight;
+    CounterPtr _weightCharm;
+    CounterPtr _weightBottom;
     //@}
 
     Histo1DPtr _h_bottom;

@@ -22,23 +22,21 @@ namespace Rivet {
 
       const FinalState fs;
       Cut cuts = Cuts::abseta < 2.5 && Cuts::pT > 25*GeV;
-      ZFinder zfinder(fs, cuts, PID::ELECTRON, 116*GeV, 1500*GeV, 0.1);      
+      ZFinder zfinder(fs, cuts, PID::ELECTRON, 116*GeV, 1500*GeV, 0.1);
       declare(zfinder, "ZFinder");
-      
-      _hist_mll = bookHisto1D(1, 1, 2);
+
+      book(_hist_mll, 1, 1, 2);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-
-    	const double weight = event.weight();
       const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
 
     	if (zfinder.bosons().size() != 1)  vetoEvent;
-	
+
       double mass = zfinder.bosons()[0].mass();
-	    _hist_mll->fill(mass, weight);
+	    _hist_mll->fill(mass);
     }
 
 

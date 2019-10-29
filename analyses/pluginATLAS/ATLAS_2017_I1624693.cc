@@ -55,19 +55,19 @@ namespace Rivet {
     void init() {
 
       /// @todo Initialise and register projections here
-      ChargedFinalState cfs(-2.5, 2.5, 0.1*GeV);
-      addProjection(cfs,"CFS");
+      ChargedFinalState cfs((Cuts::etaIn(-2.5, 2.5) && Cuts::pT >=  0.1*GeV));
+      declare(cfs,"CFS");
 
       // pion mass;
       pim = 0.1396;     
 
       /// @todo Book histograms here, e.g.:
-      _DeltaQ = bookHisto1D(1, 1, 1);
-      _Delta3h = bookHisto1D(2, 1, 1);
-      _dalitz  = bookHisto2D(3, 1, 1);
+      book(_DeltaQ , 1, 1, 1);
+      book(_Delta3h, 2, 1, 1);
+      book(_dalitz , 3, 1, 1);
 
       // auxiliary
-      _h_nch = bookHisto1D("_nch", 200, -0.5, 199.5);
+      book(_h_nch, "_nch", 200, -0.5, 199.5);
 
     }
 
@@ -79,7 +79,7 @@ namespace Rivet {
 
       /// @todo Do the event by event analysis here
       const ChargedFinalState& had = applyProjection<ChargedFinalState>(event, "CFS");
-      ParticleVector hs=had.particles();
+      Particles hs=had.particles();
       int nch = hs.size(); 
 
       if (nch < 3)  return; 

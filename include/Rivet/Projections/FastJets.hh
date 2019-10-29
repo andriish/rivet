@@ -17,8 +17,8 @@
 #include "fastjet/D0RunIIConePlugin.hh"
 #include "fastjet/TrackJetPlugin.hh"
 #include "fastjet/JadePlugin.hh"
-#include "Rivet/Projections/PxConePlugin.hh"
 //#include "fastjet/PxConePlugin.hh"
+#include "Rivet/Projections/PxConePlugin.hh"
 
 namespace Rivet {
 
@@ -29,7 +29,7 @@ namespace Rivet {
 
     /// Wrapper enum for selected FastJet jet algorithms.
     /// @todo Move to JetAlg and alias here?
-    enum JetAlgName { KT, CAM, SISCONE, ANTIKT, PXCONE,
+    enum Algo { KT, CAM, SISCONE, ANTIKT, PXCONE,
                       ATLASCONE, CMSCONE,
                       CDFJETCLU, CDFMIDPOINT, D0ILCONE,
                       JADE, DURHAM, TRACKJET, GENKTEE };
@@ -43,8 +43,8 @@ namespace Rivet {
     /// @warning The AreaDefinition pointer must be heap-allocated: it will be stored/deleted via a shared_ptr.
     FastJets(const FinalState& fsp,
              const fastjet::JetDefinition& jdef,
-             JetAlg::MuonsStrategy usemuons=JetAlg::ALL_MUONS,
-             JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES,
+             JetAlg::Muons usemuons=JetAlg::Muons::ALL,
+             JetAlg::Invisibles useinvis=JetAlg::Invisibles::NONE,
              fastjet::AreaDefinition* adef=nullptr)
       : JetAlg(fsp, usemuons, useinvis), _jdef(jdef), _adef(adef)
     {
@@ -57,8 +57,8 @@ namespace Rivet {
     FastJets(const FinalState& fsp,
              const fastjet::JetDefinition& jdef,
              fastjet::AreaDefinition* adef,
-             JetAlg::MuonsStrategy usemuons=JetAlg::ALL_MUONS,
-             JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES)
+             JetAlg::Muons usemuons=JetAlg::Muons::ALL,
+             JetAlg::Invisibles useinvis=JetAlg::Invisibles::NONE)
       : FastJets(fsp, jdef, usemuons, useinvis, adef)
     {    }
 
@@ -68,8 +68,8 @@ namespace Rivet {
     FastJets(const FinalState& fsp,
              fastjet::JetAlgorithm type,
              fastjet::RecombinationScheme recom, double rparameter,
-             JetAlg::MuonsStrategy usemuons=JetAlg::ALL_MUONS,
-             JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES,
+             JetAlg::Muons usemuons=JetAlg::Muons::ALL,
+             JetAlg::Invisibles useinvis=JetAlg::Invisibles::NONE,
              fastjet::AreaDefinition* adef=nullptr)
       : FastJets(fsp, fastjet::JetDefinition(type, rparameter, recom), usemuons, useinvis, adef)
     {    }
@@ -81,8 +81,8 @@ namespace Rivet {
              fastjet::JetAlgorithm type,
              fastjet::RecombinationScheme recom, double rparameter,
              fastjet::AreaDefinition* adef,
-             JetAlg::MuonsStrategy usemuons=JetAlg::ALL_MUONS,
-             JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES)
+             JetAlg::Muons usemuons=JetAlg::Muons::ALL,
+             JetAlg::Invisibles useinvis=JetAlg::Invisibles::NONE)
       : FastJets(fsp, type, recom, rparameter, usemuons, useinvis, adef)
     {    }
 
@@ -91,8 +91,8 @@ namespace Rivet {
     /// @warning Provided plugin and area definition pointers must be heap-allocated; Rivet will store/delete via a shared_ptr
     FastJets(const FinalState& fsp,
              fastjet::JetDefinition::Plugin* plugin,
-             JetAlg::MuonsStrategy usemuons=JetAlg::ALL_MUONS,
-             JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES,
+             JetAlg::Muons usemuons=JetAlg::Muons::ALL,
+             JetAlg::Invisibles useinvis=JetAlg::Invisibles::NONE,
              fastjet::AreaDefinition* adef=nullptr)
       : FastJets(fsp, fastjet::JetDefinition(plugin), usemuons, useinvis, adef)
     {
@@ -105,8 +105,8 @@ namespace Rivet {
     FastJets(const FinalState& fsp,
              fastjet::JetDefinition::Plugin* plugin,
              fastjet::AreaDefinition* adef,
-             JetAlg::MuonsStrategy usemuons=JetAlg::ALL_MUONS,
-             JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES)
+             JetAlg::Muons usemuons=JetAlg::Muons::ALL,
+             JetAlg::Invisibles useinvis=JetAlg::Invisibles::NONE)
       : FastJets(fsp, plugin, usemuons, useinvis, adef)
     {    }
 
@@ -118,9 +118,9 @@ namespace Rivet {
     ///
     /// @warning Provided area definition pointer must be heap-allocated; Rivet will store/delete via a shared_ptr
     FastJets(const FinalState& fsp,
-             JetAlgName alg, double rparameter,
-             JetAlg::MuonsStrategy usemuons=JetAlg::ALL_MUONS,
-             JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES,
+             Algo alg, double rparameter,
+             JetAlg::Muons usemuons=JetAlg::Muons::ALL,
+             JetAlg::Invisibles useinvis=JetAlg::Invisibles::NONE,
              fastjet::AreaDefinition* adef=nullptr,
              double seed_threshold=1.0)
       : JetAlg(fsp, usemuons, useinvis)
@@ -132,7 +132,7 @@ namespace Rivet {
 
     // /// Same thing as above, but without an FS (for when we want to pass the particles directly to the calc method)
     // /// @todo Does this work properly, without internal HeavyQuarks etc.?
-    // FastJets(JetAlgName alg, double rparameter, double seed_threshold=1.0) { _initJdef(alg, rparameter, seed_threshold); }
+    // FastJets(Algo alg, double rparameter, double seed_threshold=1.0) { _initJdef(alg, rparameter, seed_threshold); }
     // /// Same thing as above, but without an FS (for when we want to pass the particles directly to the calc method)
     // /// @todo Does this work properly, without internal HeavyQuarks etc.?
     // FastJets(fastjet::JetAlgorithm type, fastjet::RecombinationScheme recom, double rparameter) { _initJdef(type, recom, rparameter); }
@@ -249,7 +249,7 @@ namespace Rivet {
 
     /// Shared utility functions to implement constructor behaviour
     void _initBase();
-    void _initJdef(JetAlgName alg, double rparameter, double seed_threshold);
+    void _initJdef(Algo alg, double rparameter, double seed_threshold);
 
   protected:
 
@@ -257,7 +257,7 @@ namespace Rivet {
     void project(const Event& e);
 
     /// Compare projections.
-    int compare(const Projection& p) const;
+    CmpState compare(const Projection& p) const;
 
   public:
 

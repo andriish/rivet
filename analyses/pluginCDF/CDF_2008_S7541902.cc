@@ -22,8 +22,7 @@ namespace Rivet {
       : Analysis("CDF_2008_S7541902"),
         _electronETCut(20.0*GeV), _electronETACut(1.1),
         _eTmissCut(30.0*GeV), _mTCut(20.0*GeV),
-        _jetEtCutA(20.0*GeV),  _jetEtCutB(25.0*GeV), _jetETA(2.0),
-        _sumW(0)
+        _jetEtCutA(20.0*GeV),  _jetEtCutB(25.0*GeV), _jetETA(2.0)
     {    }
 
 
@@ -33,14 +32,14 @@ namespace Rivet {
     void init() {
       // Set up projections
       // Basic FS
-      FinalState fs(-3.6, 3.6);
+      FinalState fs((Cuts::etaIn(-3.6, 3.6)));
       declare(fs, "FS");
 
       // Create a final state with any e-nu pair with invariant mass 65 -> 95 GeV and ET > 20 (W decay products)
       vector<pair<PdgId,PdgId> > vids;
       vids += make_pair(PID::ELECTRON, PID::NU_EBAR);
       vids += make_pair(PID::POSITRON, PID::NU_E);
-      FinalState fs2(-3.6, 3.6, 20*GeV);
+      FinalState fs2((Cuts::etaIn(-3.6, 3.6) && Cuts::pT >=  20*GeV));
       InvMassFinalState invfs(fs2, vids, 65*GeV, 95*GeV);
       declare(invfs, "INVFS");
 
@@ -52,11 +51,13 @@ namespace Rivet {
 
       // Book histograms
       for (int i = 0 ; i < 4 ; ++i) {
-        _histJetEt[i] = bookHisto1D(1+i, 1, 1);
-        _histJetMultRatio[i] = bookScatter2D(5, 1, i+1, true);
+        book(_histJetEt[i] ,1+i, 1, 1);
+        book(_histJetMultRatio[i], 5, 1, i+1, true);
         /// @todo These would be better off as YODA::Counter until finalize()
-        _histJetMult[i] = bookHisto1D(6+i, 1, 1); // _sumW is essentially the 0th "histo" counter
+        book(_histJetMult[i] ,6+i, 1, 1); // _sumW is essentially the 0th "histo" counter
       }
+
+      book(_sumW,"sumW");
     }
 
 
@@ -68,7 +69,7 @@ namespace Rivet {
 
       FourMomentum electronP, neutrinoP;
       bool gotElectron(false), gotNeutrino(false);
-      foreach (const Particle& p, wDecayProducts) {
+      for (const Particle& p : wDecayProducts) {
         FourMomentum p4 = p.momentum();
         if (p4.Et() > _electronETCut && fabs(p4.eta()) < _electronETACut && p.abspid() == PID::ELECTRON) {
           electronP = p4;
@@ -91,13 +92,13 @@ namespace Rivet {
       const JetAlg& jetProj = apply<FastJets>(event, "Jets");
       Jets theJets = jetProj.jets(cmpMomByEt, Cuts::Et > _jetEtCutA);
       size_t njetsA(0), njetsB(0);
-      foreach (const Jet& j, theJets) {
+      for (const Jet& j : theJets) {
         const FourMomentum pj = j.momentum();
         if (fabs(pj.rapidity()) < _jetETA) {
           // Fill differential histograms for top 4 jets with Et > 20
           if (njetsA < 4 && pj.Et() > _jetEtCutA) {
             ++njetsA;
-            _histJetEt[njetsA-1]->fill(pj.Et(), event.weight());
+            _histJetEt[njetsA-1]->fill(pj.Et());
           }
           // Count number of jets with Et > 25 (for multiplicity histograms)
           if (pj.Et() > _jetEtCutB) ++njetsB;
@@ -105,12 +106,12 @@ namespace Rivet {
       }
 
       // Increment event counter
-      _sumW += event.weight();
+      _sumW->fill();
 
       // Jet multiplicity
       for (size_t i = 1; i <= njetsB; ++i) {
         /// @todo This isn't really a histogram: replace with a YODA::Counter when we have one!
-        _histJetMult[i-1]->fill(1960., event.weight());
+        _histJetMult[i-1]->fill(1960.);
         if (i == 4) break;
       }
     }
@@ -122,10 +123,10 @@ namespace Rivet {
 
       // Fill the 0th ratio histogram specially
       /// @todo This special case for 1-to-0 will disappear if we use Counters for all mults including 0.
-      if (_sumW > 0) {
+      if (_sumW->val() > 0) {
         const YODA::Histo1D::Bin& b0 = _histJetMult[0]->bin(0);
-        double ratio = b0.area()/_sumW;
-        double frac_err = 1/_sumW; ///< This 1/sqrt{N} error treatment isn't right for weighted events: use YODA::Counter
+        double ratio = b0.area()/dbl(*_sumW);
+        double frac_err = 1/dbl(*_sumW); ///< This 1/sqrt{N} error treatment isn't right for weighted events: use YODA::Counter
         if (b0.area() > 0) frac_err = sqrt( sqr(frac_err) + sqr(b0.areaErr()/b0.area()) );
         _histJetMultRatio[0]->point(0).setY(ratio, ratio*frac_err);
       }
@@ -180,7 +181,7 @@ namespace Rivet {
     Histo1DPtr _histJetMultNorm;
     Scatter2DPtr _histJetMultRatio[4];
     Histo1DPtr _histJetMult[4];
-    double _sumW;
+    CounterPtr _sumW;
     //@}
 
   };

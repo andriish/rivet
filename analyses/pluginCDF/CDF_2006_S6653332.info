@@ -8,7 +8,7 @@ InspireID: 717572
 Status: VALIDATED
 Authors:
  - Lars Sonnenschein <Lars.Sonnenschein@cern.ch>
- - Steffen Schumann <s.schumann(at)thphys.uni-heidelberg.de>
+ - Steffen Schumann <s.schumann@thphys.uni-heidelberg.de>
 References:
  - Phys.Rev.D.74:032008,2006
  - doi:10.1103/PhysRevD.74.032008
@@ -42,3 +42,7 @@ BibTeX: '@Article{Abulencia:2006ce,
      doi       = "10.1103/PhysRevD.74.032008",
      SLACcitation  = "%%CITATION = HEP-EX/0605099;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-Run-II-Z-mu
+

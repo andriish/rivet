@@ -51,3 +51,7 @@ BibTeX: '@Article{Affolder:1999jh,
      doi       = "10.1103/PhysRevLett.84.845",
      SLACcitation  = "%%CITATION = HEP-EX/0001021;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-Run-I-Z
+

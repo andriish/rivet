@@ -37,3 +37,9 @@ BibTeX: '@Article{Aad:2011td,
       reportNumber   = "CERN-PH-EP-2011-180",
       SLACcitation   = "%%CITATION = ARXIV:1112.4432;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-7-Jets-1
+ - $A-2 LHC-7-Jets-2
+ - $A-3 LHC-7-Jets-3
+

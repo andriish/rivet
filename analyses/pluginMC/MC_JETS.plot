@@ -265,9 +265,9 @@ XMin=20.0
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_HT
-Title=Scalar sum of jet transverse momenta (HT)
-XLabel=$HT$ [GeV]
-YLabel=$\text{d}\sigma/\text{d}HT$ [pb/GeV]
+Title=Scalar sum of jet transverse momenta ($H_\text{T}$)
+XLabel=$H_\text{T}$ [GeV]
+YLabel=$\text{d}\sigma/\text{d}H_\text{T}$ [pb/GeV]
 LogX=1
 # END PLOT
 

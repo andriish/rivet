@@ -22,10 +22,6 @@ namespace Rivet {
     /// @name Utility functions
     //@{
 
-    /// Absolute value
-    /// @deprecated Just use abs()!
-    inline int abspid(int pid) { return abs(pid); }
-
     ///  PID digits (base 10) are: n nr nl nq1 nq2 nq3 nj
     ///  The Location enum provides a convenient index into the PID.
     enum Location { nj=1, nq3, nq2, nq1, nl, nr, n, n8, n9, n10 };
@@ -89,9 +85,6 @@ namespace Rivet {
       if (isNucleus(pid)) return (abs(pid)/10000) % 1000;
       return 0;
     }
-    /// Alias for nuclZ
-    /// @deprecated Use nuclZ
-    inline int Z(int pid) { return nuclZ(pid); }
 
     /// Get the atomic weight (number of nucleons) in a nucleus/ion
     /// @note Ion numbers are +/- 10LZZZAAAI.
@@ -101,9 +94,6 @@ namespace Rivet {
       if (isNucleus(pid)) return (abs(pid)/10) % 1000;
       return 0;
     }
-    /// Alias for nuclA
-    /// @deprecated Use nuclA
-    inline int A(int pid) { return nuclA(pid); }
 
     /// If this is a nucleus (ion), get nLambda
     /// @note Ion numbers are +/- 10LZZZAAAI.
@@ -113,9 +103,6 @@ namespace Rivet {
       if (isNucleus(pid)) return _digit(n8,pid);
       return 0;
     }
-    /// Alias for nuclNlambda
-    /// @deprecated Use nuclNlambda
-    inline int lambda(int pid) { return nuclNlambda(pid); }
 
     //@}
 
@@ -189,8 +176,6 @@ namespace Rivet {
       // }
       return false;
     }
-    /// @deprecated Use the nicer capitalisation isDiquark(pid)
-    inline bool isDiQuark(int pid) { return isDiquark(pid); }
 
     /// Check to see if this is a valid pentaquark
     inline bool isPentaquark(int pid) {
@@ -453,7 +438,7 @@ namespace Rivet {
         } else {
           charge = ch100[q2-1] - ch100[q3-1];
         }
-      } else if (isDiQuark(pid)) {// diquarks
+      } else if (isDiquark(pid)) {// diquarks
         charge = ch100[q2-1] + ch100[q1-1];
       } else if (isBaryon(pid)) {// baryons
         charge = ch100[q3-1] + ch100[q2-1] + ch100[q1-1];
@@ -463,10 +448,6 @@ namespace Rivet {
       if (pid < 0) charge *= -1;
       return charge;
     }
-
-    /// Alias for charge3
-    /// @deprecated Prefer charge3
-    inline int threeCharge(int pid) { return charge3(pid); }
 
     /// Return the absolute value of 3 times the EM charge
     inline int abscharge3(int pid) { return std::abs(charge3(pid)); }

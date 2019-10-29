@@ -46,3 +46,7 @@ BibTeX: '@article{Aaij:2012mda,
       reportNumber   = "CERN-PH-EP-2012-363, LHCB-PAPER-2012-036",
       SLACcitation   = "%%CITATION = ARXIV:1212.4620;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-Z-MedMass-e
+

@@ -6,8 +6,8 @@ Collider: LHC
 InspireID: 1310737
 Status: VALIDATED
 Authors:
-- Fabio Cossutti (fabio.cossutti@ts.infn.it)
-- Chiara La Licata (chiara.lalicata@ts.infn.it)
+- Fabio Cossutti <fabio.cossutti@ts.infn.it>
+- Chiara La Licata <chiara.lalicata@ts.infn.it>
 References:
 - Phys.Rev. D91 (2015) 052008
 - http://dx.doi.org/10.1103/PhysRevD.91.052008
@@ -58,3 +58,8 @@ BibTeX: '@article{Khachatryan:2014zya,
       reportNumber = "CMS-SMP-12-017, CERN-PH-EP-2014-205",
       SLACcitation = "%%CITATION = ARXIV:1408.3104;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-Z-e
+ - $A-2 LHC-Z-mu
+

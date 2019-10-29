@@ -1,7 +1,7 @@
 # BEGIN PLOT /ATLAS_2016_I1424838/d01
 Title=$N_\text{ch}$, $Z\to e^+e^-$
 XLabel=$N_\text{ch}$
-YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}$
+YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch} \times 100$
 LogY=0
 LogY=0
 # END PLOT
@@ -9,7 +9,7 @@ LogY=0
 # BEGIN PLOT /ATLAS_2016_I1424838/d07
 Title=$N_\text{ch}$, $Z\to e^+e^-$, $p_\perp(Z) \in [0,6)$~GeV
 XLabel=$N_\text{ch}$
-YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}$
+YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}\times 100$
 LogY=0
 LogY=0
 # END PLOT
@@ -17,7 +17,7 @@ LogY=0
 # BEGIN PLOT /ATLAS_2016_I1424838/d13
 Title=$N_\text{ch}$, $Z\to e^+e^-$, $p_\perp(Z) \in [6,12)$~GeV
 XLabel=$N_\text{ch}$
-YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}$
+YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}\times 100$
 LogY=0
 LogY=0
 # END PLOT
@@ -25,7 +25,7 @@ LogY=0
 # BEGIN PLOT /ATLAS_2016_I1424838/d19
 Title=$N_\text{ch}$, $Z\to e^+e^-$, $p_\perp(Z) \in [12,25)$~GeV
 XLabel=$N_\text{ch}$
-YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}$
+YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}\times 100$
 LogY=0
 LogY=0
 # END PLOT
@@ -33,7 +33,7 @@ LogY=0
 # BEGIN PLOT /ATLAS_2016_I1424838/d25
 Title=$N_\text{ch}$, $Z\to e^+e^-$, $p_\perp(Z) > 25$~GeV
 XLabel=$N_\text{ch}$
-YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}$
+YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}\times 100$
 LogY=0
 LogY=0
 # END PLOT
@@ -41,105 +41,105 @@ LogY=0
 # BEGIN PLOT /ATLAS_2016_I1424838/d31
 Title=$N_\text{ch}$, $Z\to \mu^+\mu^-$
 XLabel=$N_\text{ch}$
-YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}$
+YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}\times 100$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1424838/d37
 Title=$N_\text{ch}$, $Z\to \mu^+\mu^-$, $p_\perp(Z) \in [0,6)$~GeV
 XLabel=$N_\text{ch}$
-YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}$
+YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}\times 100$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1424838/d43
 Title=$N_\text{ch}$, $Z\to \mu^+\mu^-$, $p_\perp(Z) \in [6,12)$~GeV
 XLabel=$N_\text{ch}$
-YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}$
+YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}\times 100$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1424838/d49
 Title=$N_\text{ch}$, $Z\to \mu^+\mu^-$, $p_\perp(Z) \in [12,25)$~GeV
 XLabel=$N_\text{ch}$
-YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}$
+YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}\times 100$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1424838/d55
 Title=$N_\text{ch}$, $Z\to \mu^+\mu^-$, $p_\perp(Z) > 25$~GeV
 XLabel=$N_\text{ch}$
-YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}$
+YLabel=$1/N~ \text{d}N /\text{d}N_\text{ch}\times 100$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1424838/d02
 Title=$\sum p_\perp$, $Z\to e^+e^-$
 XLabel=$\sum p_\perp$~[GeV]
-YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp$
+YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp\times 100$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1424838/d08
 Title=$\sum p_\perp$, $Z\to e^+e^-$, $p_\perp(Z) \in [0,6)$~GeV
 XLabel=$\sum p_\perp$
-YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp$
+YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp\times 100$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1424838/d14
 Title=$\sum p_\perp$, $Z\to e^+e^-$, $p_\perp(Z) \in [6,12)$~GeV
 XLabel=$\sum p_\perp$~[GeV]
-YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp$
+YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp\times 100$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1424838/d20
 Title=$\sum p_\perp$, $Z\to e^+e^-$, $p_\perp(Z) \in [12,25)$~GeV
 XLabel=$\sum p_\perp$~[GeV]
-YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp$
+YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp\times 100$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1424838/d26
 Title=$\sum p_\perp$, $Z\to e^+e^-$, $p_\perp(Z) > 25$~GeV
 XLabel=$\sum p_\perp$~[GeV]
-YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp$
+YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp\times 100$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1424838/d32
 Title=$\sum p_\perp$, $Z\to \mu^+\mu^-$
 XLabel=$\sum p_\perp$~[GeV]
-YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp$
+YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp\times 100$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1424838/d38
 Title=$\sum p_\perp$, $Z\to \mu^+\mu^-$, $p_\perp(Z) \in [0,6)$~GeV
 XLabel=$\sum p_\perp$~[GeV]
-YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp$
+YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp\times 100$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1424838/d44
 Title=$\sum p_\perp$, $Z\to \mu^+\mu^-$, $p_\perp(Z) \in [6,12)$~GeV
 XLabel=$\sum p_\perp$~[GeV]
-YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp$
+YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp\times 100$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1424838/d50
 Title=$\sum p_\perp$, $Z\to \mu^+\mu^-$, $p_\perp(Z) \in [12,25)$~GeV
 XLabel=$\sum p_\perp$~[GeV]
-YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp$
+YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp\times 100$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1424838/d56
 Title=$\sum p_\perp$, $Z\to \mu^+\mu^-$, $p_\perp(Z) > 25$~GeV
 XLabel=$\sum p_\perp$~[GeV]
-YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp$
+YLabel=$1/N~ \text{d}N /\text{d}\sum p_\perp\times 100$
 LogY=0
 # END PLOT
 
@@ -162,7 +162,7 @@ LogY=0
 # BEGIN PLOT /ATLAS_2016_I1424838/d15
 Title=$\mathcal{B}$, $Z\to e^+e^-$, $p_\perp(Z) \in [6,12)$~GeV
 XLabel=$\mathcal{B}$~[GeV]
-YLabel=$1/N~ \text{d}N /\text{d}\mathcal{B}$~[GeV]
+YLabel=$1/N~ \text{d}N /\text{d}\mathcal{B}$~[GeV] $\times 100$
 XMax=60
 LogY=0
 # END PLOT
@@ -170,7 +170,7 @@ LogY=0
 # BEGIN PLOT /ATLAS_2016_I1424838/d21
 Title=$\mathcal{B}$, $Z\to e^+e^-$, $p_\perp(Z) \in [12,25)$~GeV
 XLabel=$\mathcal{B}$~[GeV]
-YLabel=$1/N~ \text{d}N /\text{d}\mathcal{B}$~[GeV]
+YLabel=$1/N~ \text{d}N /\text{d}\mathcal{B}$~[GeV] $\times 100$
 XMax=60
 LogY=0
 # END PLOT
@@ -178,7 +178,7 @@ LogY=0
 # BEGIN PLOT /ATLAS_2016_I1424838/d27
 Title=$\mathcal{B}$, $Z\to e^+e^-$, $p_\perp(Z) > 25$~GeV
 XLabel=$\mathcal{B}$~[GeV]
-YLabel=$1/N~ \text{d}N /\text{d}\mathcal{B}$~[GeV]
+YLabel=$1/N~ \text{d}N /\text{d}\mathcal{B}$~[GeV] $\times 100$
 XMax=60
 LogY=0
 # END PLOT
@@ -186,7 +186,7 @@ LogY=0
 # BEGIN PLOT /ATLAS_2016_I1424838/d33
 Title=$\mathcal{B}$, $Z\to \mu^+\mu^-$
 XLabel=$\mathcal{B}$~[GeV]
-YLabel=$1/N~ \text{d}N /\text{d}\mathcal{B}$~[GeV]
+YLabel=$1/N~ \text{d}N /\text{d}\mathcal{B}$~[GeV] $\times 100$
 XMax=60
 LogY=0
 # END PLOT
@@ -194,7 +194,7 @@ LogY=0
 # BEGIN PLOT /ATLAS_2016_I1424838/d39
 Title=$\mathcal{B}$, $Z\to \mu^+\mu^-$, $p_\perp(Z) \in [0,6)$~GeV
 XLabel=$\mathcal{B}$~[GeV]
-YLabel=$1/N~ \text{d}N /\text{d}\mathcal{B}$~[GeV]
+YLabel=$1/N~ \text{d}N /\text{d}\mathcal{B}$~[GeV] $\times 100$
 XMax=60
 LogY=0
 # END PLOT
@@ -202,7 +202,7 @@ LogY=0
 # BEGIN PLOT /ATLAS_2016_I1424838/d45
 Title=$\mathcal{B}$, $Z\to \mu^+\mu^-$, $p_\perp(Z) \in [6,12)$~GeV
 XLabel=$\mathcal{B}$~[GeV]
-YLabel=$1/N~ \text{d}N /\text{d}\mathcal{B}$~[GeV]
+YLabel=$1/N~ \text{d}N /\text{d}\mathcal{B}$~[GeV] $\times 100$
 XMax=60
 LogY=0
 # END PLOT
@@ -210,7 +210,7 @@ LogY=0
 # BEGIN PLOT /ATLAS_2016_I1424838/d51
 Title=$\mathcal{B}$, $Z\to \mu^+\mu^-$, $p_\perp(Z) \in [12,25)$~GeV
 XLabel=$\mathcal{B}$~[GeV]
-YLabel=$1/N~ \text{d}N /\text{d}\mathcal{B}$~[GeV]
+YLabel=$1/N~ \text{d}N /\text{d}\mathcal{B}$~[GeV] $\times 100$
 XMax=60
 LogY=0
 # END PLOT
@@ -218,7 +218,7 @@ LogY=0
 # BEGIN PLOT /ATLAS_2016_I1424838/d57
 Title=$\mathcal{B}$, $Z\to \mu^+\mu^-$, $p_\perp(Z) > 25$~GeV
 XLabel=$\mathcal{B}$~[GeV]
-YLabel=$1/N~ \text{d}N /\text{d}\mathcal{B}$~[GeV]
+YLabel=$1/N~ \text{d}N /\text{d}\mathcal{B}$~[GeV] $\times 100$
 XMax=60
 LogY=0
 # END PLOT

@@ -24,7 +24,7 @@ namespace Rivet {
 
     void init() {
       // Set up projections
-      const FinalState fs(-2.0, 2.0);
+      const FinalState fs((Cuts::etaIn(-2.0, 2.0)));
       declare(fs, "FS");
       FastJets fj(fs, FastJets::CDFMIDPOINT, 0.7);
       fj.useInvisibles();
@@ -43,13 +43,13 @@ namespace Rivet {
           _jsnames_pT[k] = pname;
           const JetShape jsp(fj, 0.0, 0.7, 7, _ptedges[k], _ptedges[k+1], 0.1, 0.7, RAPIDITY);
           declare(jsp, pname);
-          _profhistRho_pT[k] = bookProfile1D(i+1, 1, j+1);
-          _profhistPsi_pT[k] = bookProfile1D(6+i+1, 1, j+1);
+          book(_profhistRho_pT[k] ,i+1, 1, j+1);
+          book(_profhistPsi_pT[k] ,6+i+1, 1, j+1);
         }
       }
 
       // Final histo
-      _profhistPsi_vs_pT = bookScatter2D(13, 1, 1, true);
+      book(_profhistPsi_vs_pT, 13, 1, 1, true);
     }
 
 
@@ -67,7 +67,6 @@ namespace Rivet {
       }
 
       // Calculate and histogram jet shapes
-      const double weight = evt.weight();
       for (size_t ipt = 0; ipt < 18; ++ipt) {
         const JetShape& jsipt = apply<JetShape>(evt, _jsnames_pT[ipt]);
         for (size_t ijet = 0; ijet < jsipt.numJets(); ++ijet) {
@@ -75,9 +74,9 @@ namespace Rivet {
             const double r_rho = jsipt.rBinMid(rbin);
             MSG_DEBUG(ipt << " " << rbin << " (" << r_rho << ") " << jsipt.diffJetShape(ijet, rbin));
             /// @note Bin width Jacobian factor of 0.7/0.1 = 7 in the differential shapes plot
-            _profhistRho_pT[ipt]->fill(r_rho/0.7, (0.7/0.1)*jsipt.diffJetShape(ijet, rbin), weight);
+            _profhistRho_pT[ipt]->fill(r_rho/0.7, (0.7/0.1)*jsipt.diffJetShape(ijet, rbin));
             const double r_Psi = jsipt.rBinMax(rbin);
-            _profhistPsi_pT[ipt]->fill(r_Psi/0.7, jsipt.intJetShape(ijet, rbin), weight);
+            _profhistPsi_pT[ipt]->fill(r_Psi/0.7, jsipt.intJetShape(ijet, rbin));
           }
         }
       }

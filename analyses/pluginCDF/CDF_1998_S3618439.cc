@@ -19,18 +19,16 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      FinalState fs(-4.2, 4.2);
+      FinalState fs(Cuts::abseta < 4.2);
       declare(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
 
-      _h_sumET_20 = bookHisto1D(1, 1, 1);
-      _h_sumET_100 = bookHisto1D(1, 1, 2);
+      book(_h_sumET_20 ,1, 1, 1);
+      book(_h_sumET_100 ,1, 1, 2);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
-
       const Jets jets = apply<FastJets>(event, "Jets").jets(Cuts::Et > 20*GeV, cmpMomByEt);
       double sumET_20(0.0), sumET_100(0.0);
       for (const Jet& jet : jets) {
@@ -38,8 +36,8 @@ namespace Rivet {
         sumET_20 += ET;
         if (ET > 100.0) sumET_100 += ET;
       }
-      if (sumET_20  > 320.0) _h_sumET_20->fill(sumET_20, weight);
-      if (sumET_100 > 320.0) _h_sumET_100->fill(sumET_100, weight);
+      if (sumET_20 > 320.0) _h_sumET_20->fill(sumET_20);
+      if (sumET_100 > 320.0) _h_sumET_100->fill(sumET_100);
     }
 
 

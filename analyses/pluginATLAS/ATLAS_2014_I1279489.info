@@ -45,3 +45,7 @@ BibTeX: '@article{Aad:2014dta,
       reportNumber   = "CERN-PH-EP-2013-227",
       SLACcitation   = "%%CITATION = ARXIV:1401.7610;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-8-Z-Mass3-mu
+

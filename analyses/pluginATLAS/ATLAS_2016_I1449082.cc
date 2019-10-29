@@ -92,16 +92,16 @@ namespace Rivet {
       declare(FastJets(vfs, FastJets::ANTIKT, 0.4), "Jets");
 
       // Book histograms
-      _h_dEta      = bookHisto1D(1, 1, 1);
-      _h_dY        = bookHisto1D(2, 1, 1);
+      book(_h_dEta     , 1, 1, 1);
+      book(_h_dY       , 2, 1, 1);
       for (size_t iM = 0; iM < kNmeas; ++iM) {
-        _h_Acll[iM] = bookScatter2D(3+iM, 1, 1);
-        _h_Actt[iM] = bookScatter2D(7+iM, 1, 1);
+        book(_h_Acll[iM], 3+iM, 1, 1);
+        book(_h_Actt[iM], 7+iM, 1, 1);
       }
       for (size_t iM = 0; iM < kNmeas; ++iM) {
         for (size_t iB = 0; iB < kNbins; ++iB) {
-          _h_dEta_asym[iM][iB] = bookHisto1D( "dEta_asym_" + measStr[iM] + "_bin" + rangeStr[iM][iB],  2,  -10., 10.);
-          _h_dY_asym  [iM][iB] = bookHisto1D( "dY_asym_"   + measStr[iM] + "_bin" + rangeStr[iM][iB],  2,  -10., 10.);
+      book(    _h_dEta_asym[iM][iB],  "dEta_asym_" + measStr[iM] + "_bin" + rangeStr[iM][iB],  2,  -10., 10.);
+      book(    _h_dY_asym  [iM][iB],  "dY_asym_"   + measStr[iM] + "_bin" + rangeStr[iM][iB],  2,  -10., 10.);
         }
       }
 
@@ -192,9 +192,8 @@ namespace Rivet {
       double pttt = (top_p + top_n).pt()*GeV;
 
       // Fill histos, counters
-      const double weight = event.weight();
-      _h_dEta->fill(dEta, weight);
-      _h_dY  ->fill(dY  , weight);
+      _h_dEta->fill(dEta);
+      _h_dY  ->fill(dY  );
       // Histos for inclusive and differential asymmetries
       int mttBinID  = getBinID(kmttMeas , mtt);
       int betaBinID = getBinID(kbetaMeas, beta);
@@ -209,8 +208,8 @@ namespace Rivet {
           default: binID = -1; break;
         }
         if (binID >= 0) {
-          _h_dY_asym  [iM][binID] ->fill(dY  , weight);
-          _h_dEta_asym[iM][binID] ->fill(dEta, weight);
+          _h_dY_asym  [iM][binID] ->fill(dY  );
+          _h_dEta_asym[iM][binID] ->fill(dEta);
         }
       }
     }

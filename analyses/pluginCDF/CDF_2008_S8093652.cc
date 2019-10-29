@@ -25,14 +25,12 @@ namespace Rivet {
       FastJets conefinder(fs, FastJets::CDFMIDPOINT, 0.7);
       declare(conefinder, "ConeFinder");
 
-      _h_m_dijet = bookHisto1D(1, 1, 1);
+      book(_h_m_dijet ,1, 1, 1);
     }
 
 
     /// Do the analysis
     void analyze(const Event & e) {
-      const double weight = e.weight();
-
       const JetAlg& jetpro = apply<JetAlg>(e, "ConeFinder");
       const Jets& jets = jetpro.jetsByPt();
 
@@ -45,7 +43,7 @@ namespace Rivet {
       }
 
       double mjj = FourMomentum(j0+j1).mass();
-      _h_m_dijet->fill(mjj, weight);
+      _h_m_dijet->fill(mjj);
     }
 
 

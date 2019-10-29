@@ -19,7 +19,7 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      const ChargedFinalState cfs(-MAXDOUBLE, MAXDOUBLE, 0.1/GeV);
+      const ChargedFinalState cfs(Cuts::pT >=  0.1/GeV);
       declare(cfs, "CFS");
 
       // Thrust and sphericity
@@ -42,16 +42,15 @@ namespace Rivet {
           offset = 3;
           break;
       }
-      //_h_xp         = bookHisto1D( 2, 1, 1+offset);
-      _h_sphericity = bookHisto1D( 6, 1, 1+offset);
-      _h_aplanarity = bookHisto1D( 7, 1, 1+offset);
-      _h_thrust     = bookHisto1D( 8, 1, 1+offset);
+      //book(_h_xp         , 2, 1, 1+offset);
+      book(_h_sphericity , 6, 1, 1+offset);
+      book(_h_aplanarity , 7, 1, 1+offset);
+      book(_h_thrust     , 8, 1, 1+offset);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
 
       //// Get beams and average beam momentum
@@ -80,7 +79,7 @@ namespace Rivet {
       }
 
       // Raise counter for events that pass trigger conditions
-      //_sumWPassed += event.weight();
+      //_sumWPassed += 1.0;
 
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
       //const Vector3 & thrustAxis = thrust.thrustAxis ();
@@ -93,18 +92,18 @@ namespace Rivet {
       const Sphericity& sphericity = apply<Sphericity>(event, "Sphericity");
 
       //// Fill histograms in order of appearance in paper
-      //foreach (const Particle& p, cfs.particles()) {
+      //for (const Particle& p : cfs.particles()) {
         //// Get momentum and energy of each particle.
         //const Vector3 mom3 = p.p3();
         //// Scaled momenta.
         //const double mom = mom3.mod();
         //const double scaledMom = mom/meanBeamMom;
-        //_h_xp->fill(scaledMom, weight);
+        //_h_xp->fill(scaledMom);
       //}
       //
-      _h_sphericity->fill(sphericity.sphericity(), weight);
-      _h_aplanarity->fill(sphericity.aplanarity(), weight);
-      _h_thrust->fill(thrust.thrust(), weight);
+      _h_sphericity->fill(sphericity.sphericity());
+      _h_aplanarity->fill(sphericity.aplanarity());
+      _h_thrust->fill(thrust.thrust());
     }
 
 

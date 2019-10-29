@@ -21,21 +21,19 @@ namespace Rivet {
 
     /// Book projections and histograms
     void init() {
-      FinalState fs(-2.0, 2.0);
+      FinalState fs((Cuts::etaIn(-2.0, 2.0)));
       declare(fs, "FS");
       declare(FastJets(fs, FastJets::CDFMIDPOINT, 0.4,
-                             JetAlg::ALL_MUONS, JetAlg::NO_INVISIBLES,
+                             JetAlg::Muons::ALL, JetAlg::Invisibles::NONE,
                              nullptr, 0.5), "MidpointJets");
 
-      _h_jet_pT_MB = bookHisto1D(1, 1, 1);
-      _h_jet_pT_HT = bookHisto1D(2, 1, 1);
+      book(_h_jet_pT_MB ,1, 1, 1);
+      book(_h_jet_pT_HT ,2, 1, 1);
     }
 
 
     /// Do the analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
-
       // Skip if the event is empty
       const FinalState& fs = apply<FinalState>(event, "FS");
       if (fs.empty()) {
@@ -49,10 +47,10 @@ namespace Rivet {
       if (!jets.empty()) {
         const Jet& j1 = jets.front();
         if (inRange(fabs(j1.eta()), 0.2, 0.8)) {
-          foreach (const Jet& j, jets) {
+          for (const Jet& j : jets) {
             const FourMomentum pj = j.momentum();
-            _h_jet_pT_MB->fill(pj.pT(), weight);
-            _h_jet_pT_HT->fill(pj.pT(), weight);
+            _h_jet_pT_MB->fill(pj.pT());
+            _h_jet_pT_HT->fill(pj.pT());
           }
         }
       }

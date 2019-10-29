@@ -51,14 +51,14 @@ namespace Rivet {
     /// Constructor from histo range and number of bins.
     JetShape(const JetAlg& jetalg,
              double rmin, double rmax, size_t nbins,
-             double ptmin=0, double ptmax=MAXDOUBLE,
-             double absrapmin=-MAXDOUBLE, double absrapmax=-MAXDOUBLE,
+             double ptmin=0, double ptmax=DBL_MAX,
+             double absrapmin=-DBL_MAX, double absrapmax=-DBL_MAX,
              RapScheme rapscheme=RAPIDITY);
 
     /// Constructor from vector of bin edges.
     JetShape(const JetAlg& jetalg, vector<double> binedges,
-             double ptmin=0, double ptmax=MAXDOUBLE,
-             double absrapmin=-MAXDOUBLE, double absrapmax=-MAXDOUBLE,
+             double ptmin=0, double ptmax=DBL_MAX,
+             double absrapmin=-DBL_MAX, double absrapmax=-DBL_MAX,
              RapScheme rapscheme=RAPIDITY);
 
     /// Clone on the heap.
@@ -123,7 +123,7 @@ namespace Rivet {
     /// Central \f$ r \f$ value for bin @a rbin.
     double rBinMid(size_t rbin) const {
       assert(inRange(rbin, 0u, numBins()));
-      //cout << _binedges << endl;
+      //cout << _binedges << '\n';
       return (_binedges[rbin] + _binedges[rbin+1])/2.0;
     }
 
@@ -160,7 +160,7 @@ namespace Rivet {
     void project(const Event& e);
 
     /// Compare projections.
-    int compare(const Projection& p) const;
+    CmpState compare(const Projection& p) const;
 
 
   private:

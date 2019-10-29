@@ -43,8 +43,8 @@ namespace Rivet {
     ParisiTensor(const FinalState& fsp)
     {
       setName("ParisiTensor");
-      addProjection(fsp, "FS");
-      addProjection(Sphericity(fsp, 1.0), "Sphericity");
+      declare(fsp, "FS");
+      declare(Sphericity(fsp, 1.0), "Sphericity");
       clear();
     }
 
@@ -58,7 +58,7 @@ namespace Rivet {
     void project(const Event& e);
 
     /// Compare with other projections.
-    int compare(const Projection& p) const;
+    CmpState compare(const Projection& p) const;
 
 
   public:

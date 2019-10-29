@@ -33,3 +33,13 @@ BibTeX: '@Article{Aad:2011ni,
 }'
 ToDo:
   Check BibKey and BibTeX consistency when fixed on SPIRES.
+
+ReleaseTests:
+ - $A LHC-7-Jets-10
+ - $A-2 LHC-7-Jets-4
+ - $A-3 LHC-7-Jets-5
+ - $A-4 LHC-7-Jets-6
+ - $A-5 LHC-7-Jets-7
+ - $A-6 LHC-7-Jets-8
+ - $A-7 LHC-7-Jets-9
+

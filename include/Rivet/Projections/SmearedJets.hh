@@ -78,7 +78,7 @@ namespace Rivet {
       : _detFns(effSmearFns), _bTagEffFn(bTagEffFn), _cTagEffFn(cTagEffFn)
     {
       setName("SmearedJets");
-      addProjection(ja, "TruthJets");
+      declare(ja, "TruthJets");
     }
 
 
@@ -105,29 +105,29 @@ namespace Rivet {
 
 
     /// Compare to another SmearedJets
-    int compare(const Projection& p) const {
+    CmpState compare(const Projection& p) const {
       // Compare truth jets definitions
-      const int teq = mkPCmp(p, "TruthJets");
-      if (teq != EQUIVALENT) return teq;
+      const CmpState teq = mkPCmp(p, "TruthJets");
+      if (teq != CmpState::EQ) return teq;
 
       // Compare lists of detector functions
       const SmearedJets& other = dynamic_cast<const SmearedJets&>(p);
-      const int nfeq = cmp(_detFns.size(), other._detFns.size());
-      if (nfeq != EQUIVALENT) return nfeq;
+      const CmpState nfeq = cmp(_detFns.size(), other._detFns.size());
+      if (nfeq != CmpState::EQ) return nfeq;
       for (size_t i = 0; i < _detFns.size(); ++i) {
-        const int feq = _detFns[i].cmp(other._detFns[i]);
-        if (feq != EQUIVALENT) return feq;
+        const CmpState feq = _detFns[i].cmp(other._detFns[i]);
+        if (feq != CmpState::EQ) return feq;
       }
 
       // If we got this far, we're equal
-      return EQUIVALENT;
+      return CmpState::EQ;
     }
 
 
     /// Perform the jet finding & smearing calculation
     void project(const Event& e) {
       // Copying and filtering
-      const Jets& truthjets = apply<JetAlg>(e, "TruthJets").jetsByPt();
+      const Jets& truthjets = apply<JetAlg>(e, "TruthJets").jetsByPt(); //truthJets();
       _recojets.clear(); _recojets.reserve(truthjets.size());
       // Apply jet smearing and efficiency transforms
       for (const Jet& j : truthjets) {
@@ -136,7 +136,7 @@ namespace Rivet {
         MSG_DEBUG("Truth jet: " << "mom=" << jdet.mom()/GeV << " GeV, pT=" << jdet.pT()/GeV << ", eta=" << jdet.eta());
         for (const JetEffSmearFn& fn : _detFns) {
           double jeff = -1;
-          tie(jdet, jeff) = fn(jdet); // smear & eff
+          std::tie(jdet, jeff) = fn(jdet); // smear & eff
           // Re-add constituents & tags if (we assume accidentally) they were lost by the smearing function
           if (jdet.particles().empty() && !j.particles().empty()) jdet.particles() = j.particles();
           if (jdet.tags().empty() && !j.tags().empty()) jdet.tags() = j.tags();
@@ -172,6 +172,10 @@ namespace Rivet {
     /// Return the full jet list for the JetAlg methods to use
     Jets _jets() const { return _recojets; }
 
+    /// Get the truth jets (sorted by pT)
+    const Jets truthJets() const {
+      return getProjection<JetAlg>("TruthJets").jetsByPt();
+    }
 
     /// Reset the projection. Smearing functions will be unchanged.
     void reset() { _recojets.clear(); }

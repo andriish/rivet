@@ -20,6 +20,12 @@ cdef class AnalysisHandler:
     def setIgnoreBeams(self, ignore=True):
         self._ptr.setIgnoreBeams(ignore)
 
+    def skipMultiWeights(self, ignore=False):
+        self._ptr.skipMultiWeights(ignore)
+
+    def setWeightCap(self, double maxWeight):
+        self._ptr.setWeightCap(maxWeight)
+
     def addAnalysis(self, name):
         self._ptr.addAnalysis(name.encode('utf-8'))
         return self
@@ -42,14 +48,14 @@ cdef class AnalysisHandler:
     def writeData(self, name):
         self._ptr.writeData(name.encode('utf-8'))
 
-    def crossSection(self):
-        return self._ptr.crossSection()
+    def nominalCrossSection(self):
+        return self._ptr.nominalCrossSection()
 
     def finalize(self):
         self._ptr.finalize()
 
-    def dump(self, file, period):
-        self._ptr.dump(file, period)
+    def dump(self, name, period):
+        self._ptr.dump(name.encode('utf-8'), period)
 
     def mergeYodas(self, filelist, delopts, equiv):
         self._ptr.mergeYodas(filelist, delopts, equiv)
@@ -81,8 +87,8 @@ cdef class Run:
     def readEvent(self):
         return self._ptr.readEvent()
 
-    def skipEvent(self):
-        return self._ptr.skipEvent()
+    # def skipEvent(self):
+    #     return self._ptr.skipEvent()
 
     def processEvent(self):
         return self._ptr.processEvent()
@@ -106,6 +112,13 @@ cdef class Analysis:
     def keywords(self):
         kws = deref(self._ptr).keywords()
         return [ k.decode('utf-8') for k in kws ]
+
+    def validation(self):
+        vld = deref(self._ptr).validation()
+        return [ k.decode('utf-8') for k in vld ]
+
+    def reentrant(self):
+        return deref(self._ptr).reentrant()
 
     def authors(self):
         auths = deref(self._ptr).authors()
@@ -179,6 +192,15 @@ cdef class AnalysisLoader:
         return pyobj
 
 
+## Convenience versions in main rivet namespace
+def analysisNames():
+    return AnalysisLoader.analysisNames()
+
+def getAnalysis(name):
+    return AnalysisLoader.getAnalysis(name.encode('utf-8'))
+
+
+## Path functions
 def getAnalysisLibPaths():
     ps = c.getAnalysisLibPaths()
     return [ p.decode('utf-8') for p in ps ]

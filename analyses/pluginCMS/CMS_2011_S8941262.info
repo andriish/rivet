@@ -44,3 +44,10 @@ BibTeX: '@Article{Khachatryan:2011hf,
      doi       = "10.1007/JHEP03(2011)090",
      SLACcitation  = "%%CITATION = 1101.3512;%%"
 }'
+
+ReleaseTests:
+ - $A LHC-7-Bottom-0
+ - $A-2 LHC-7-Bottom-1
+ - $A-3 LHC-7-Bottom-2
+ - $A-4 LHC-7-Bottom-3
+

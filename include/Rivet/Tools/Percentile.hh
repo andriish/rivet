@@ -91,7 +91,7 @@ class PercentileTBase : public PercentileBase {
 public:
 
   /// Convenient typedef.
-  typedef typename T::Ptr TPtr;
+  typedef rivet_shared_ptr<Wrapper<T>> TPtr;
 
   /// @brief the main constructor
   ///
@@ -116,7 +116,7 @@ public:
   /// CentralityProjection @a proj. This function is common for
   /// Percentile and PecentileXaxis, but for the latter the @a cent
   /// argument should be left to its default.
-  void add(shared_ptr<T> ao, CounterPtr cnt,
+  void add(TPtr ao, CounterPtr cnt,
            pair<float,float> cent = {0.0, 100.0} ) {
     _cent.push_back(cent);
     _histos.push_back( { ao, cnt } );
@@ -131,7 +131,7 @@ public:
     copyFrom(other);
     if ( tv.size() != _cent.size() ) return false;
     for ( auto t : tv )
-      _histos.push_back( { t, make_shared<Counter>() } );
+      _histos.push_back( { t, CounterPtr() } );
     return true;
   }
 
@@ -141,7 +141,7 @@ public:
   bool init(const Event & event) { 
     selectBins(event);
     for (const auto bin : _activeBins)
-      _histos[bin].second->fill(event.weight());
+      _histos[bin].second->fill();
     return !_activeBins.empty();
   }
 
@@ -170,7 +170,7 @@ public:
   /// the AnalysisObject and the second is a counter keeping track of
   /// the sum of event weights for which the AnalysisObject has been
   /// active.
-  const vector<pair<shared_ptr<T>, shared_ptr<Counter> > > &
+  const vector<pair<TPtr, CounterPtr > > &
   analysisObjects() const{
     return _histos;
   }
@@ -181,7 +181,7 @@ protected:
   /// the AnalysisObject and the second is a counter keeping track of
   /// the sum of event weights for which the AnalysisObject has been
   /// active.
-  vector<pair<shared_ptr<T>, shared_ptr<Counter> > > _histos;
+  vector<pair<TPtr, CounterPtr > > _histos;
 
 };
 

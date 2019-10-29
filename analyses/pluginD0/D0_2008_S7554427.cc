@@ -26,11 +26,11 @@ namespace Rivet {
     void init() {
       FinalState fs;
       ZFinder zfinder(fs, Cuts::open(), PID::ELECTRON,
-                      40*GeV, 200*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
+                      40*GeV, 200*GeV, 0.2, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::YES);
       declare(zfinder, "ZFinder");
 
-      _h_ZpT         = bookHisto1D(1, 1, 1);
-      _h_forward_ZpT = bookHisto1D(3, 1, 1);
+      book(_h_ZpT         ,1, 1, 1);
+      book(_h_forward_ZpT ,3, 1, 1);
     }
 
 
@@ -43,8 +43,8 @@ namespace Rivet {
       }
       const double yZ = fabs(zfinder.bosons()[0].rapidity());
       const double pTZ = zfinder.bosons()[0].pT();
-      _h_ZpT->fill(pTZ, e.weight());
-      if (yZ > 2) _h_forward_ZpT->fill(pTZ, e.weight());
+      _h_ZpT->fill(pTZ);
+      if (yZ > 2) _h_forward_ZpT->fill(pTZ);
     }
 
 

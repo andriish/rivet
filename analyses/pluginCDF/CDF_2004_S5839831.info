@@ -51,3 +51,16 @@ BibTeX: '@Article{Acosta:2004wqa,
      doi       = "10.1103/PhysRevD.70.072002",
      SLACcitation  = "%%CITATION = HEP-EX/0404004;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-630-Jets-1
+ - $A-2 TVT-630-Jets-2
+ - $A-3 TVT-630-Jets-3
+ - $A-4 TVT-630-UE
+ - $A-5 TVT-Run-I-Jets-1
+ - $A-6 TVT-Run-I-Jets-2
+ - $A-7 TVT-Run-I-Jets-3
+ - $A-8 TVT-Run-I-Jets-4
+ - $A-9 TVT-Run-I-Jets-5
+ - $A-10 TVT-Run-I-UE
+

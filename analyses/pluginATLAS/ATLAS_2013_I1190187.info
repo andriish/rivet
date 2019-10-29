@@ -47,3 +47,7 @@ BibTeX: '@article{ATLAS:2012mec,
       reportNumber   = "CERN-PH-EP-2012-242",
       SLACcitation   = "%%CITATION = ARXIV:1210.2979;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-WW-ll
+

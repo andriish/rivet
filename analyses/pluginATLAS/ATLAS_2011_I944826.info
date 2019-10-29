@@ -42,3 +42,8 @@ BibTeX: '@article{Aad:2011hd,
       reportNumber   = "CERN-PH-EP-2011-168",
       SLACcitation   = "%%CITATION = ARXIV:1111.1297;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-7-UE-Long
+ - $A-2 LHC-900-UE-Long
+

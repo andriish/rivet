@@ -163,16 +163,16 @@ else
     irivet="@includedir@"
 fi
 test -n "$irivet" && mycppflags="$mycppflags -I${irivet}"
+@ENABLE_HEPMC_3_TRUE@ihepmc_1="@HEPMC3INCPATH@ @CPPFLAGS@"
+@ENABLE_HEPMC_3_FALSE@ihepmc_2="@HEPMCINCPATH@"
+test -n "$ihepmc_1" && mycppflags="$mycppflags -I${ihepmc_1}"
+test -n "$ihepmc_2" && mycppflags="$mycppflags -I${ihepmc_2}"
 iyoda="@YODAINCPATH@"
 test -n "$iyoda" && mycppflags="$mycppflags -I${iyoda}"
-ihepmc="@HEPMCINCPATH@"
-test -n "$ihepmc" && mycppflags="$mycppflags -I${ihepmc}"
 ifastjet="@FASTJETINCPATH@"
 test -n "$ifastjet" && mycppflags="$mycppflags -I${ifastjet}"
-# igsl="@GSLINCPATH@"
-# test -n "$igsl" && mycppflags="$mycppflags -I${igsl}"
-# iboost="@BOOST_CPPFLAGS@"
-# test -n "$iboost" && mycppflags="$mycppflags ${iboost}"
+ifjcontrib="@FJCONTRIBCPPFLAGS@"
+test -n "$ifjcontrib" && mycppflags="$mycppflags ${ifjcontrib}"
 
 ## Get Rivet system linker flags (duplicating that in rivet-config.in)
 myldflags=""
@@ -182,11 +182,13 @@ else
     lrivet="@libdir@"
 fi
 test -n "$lrivet" && myldflags="$myldflags -L${lrivet}"
-lhepmc="@HEPMCLIBPATH@"
-test -n "$lhepmc" && myldflags="$myldflags -L${lhepmc}"
+@ENABLE_HEPMC_3_TRUE@lhepmc_1="@HEPMC3LIBPATH@"
+@ENABLE_HEPMC_3_FALSE@lhepmc_2="@HEPMCLIBPATH@"
+test -n "$lhepmc_1" && myldflags="$myldflags -L${lhepmc_1}"
+test -n "$lhepmc_2" && myldflags="$myldflags -L${lhepmc_2}"
 lyoda="@YODALIBPATH@"
 test -n "$lyoda" && myldflags="$myldflags -L${lyoda}"
-lfastjet="@FASTJETCONFIGLIBADD@"
+lfastjet="@FASTJETLIBADD@"
 test -n "$lfastjet" && myldflags="$myldflags ${lfastjet}"
 ## Detect whether the linker accepts the --no-as-needed flag and prepend the linker flag with it if possible
 if (cd /tmp && echo -e 'int main() { return 0; }' > $$.cc; $mycxx -Wl,--no-as-needed $$.cc -o $$ 2> /dev/null); then

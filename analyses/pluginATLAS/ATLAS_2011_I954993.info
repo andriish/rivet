@@ -42,3 +42,7 @@ BibTeX: '@article{Aad:2011cx,
       reportNumber   = "CERN-PH-EP-2011-184",
       SLACcitation   = "%%CITATION = ARXIV:1111.5570;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-WZ
+

@@ -673,10 +673,6 @@ namespace Rivet {
       return p3()/E();
     }
 
-    /// @brief Deprecated alias for betaVec
-    /// @deprecated This will be removed; use betaVec() instead
-    Vector3 boostVector() const { return betaVec(); }
-
     //@}
 
 
@@ -1511,7 +1507,7 @@ namespace Rivet {
 
   /// Render a 4-vector as a string.
   inline std::string toString(const FourVector& lv) {
-    ostringstream out;
+    std::ostringstream out;
     out << "("  << (fabs(lv.t()) < 1E-30 ? 0.0 : lv.t())
         << "; " << (fabs(lv.x()) < 1E-30 ? 0.0 : lv.x())
         << ", " << (fabs(lv.y()) < 1E-30 ? 0.0 : lv.y())
@@ -1528,21 +1524,10 @@ namespace Rivet {
 
   //@}
 
-
-  /// @name Typedefs of vector types to short names
-  /// @todo Switch canonical and alias names
-  //@{
-  //typedef FourVector V4; //< generic
-  typedef FourVector X4; //< spatial
-  typedef FourMomentum P4; //< momentum
-  //@}
-
   /// @name Typedefs for lists of vector types
   //@{
   typedef std::vector<FourVector> FourVectors;
   typedef std::vector<FourMomentum> FourMomenta;
-  typedef std::vector<X4> X4s;
-  typedef std::vector<P4> P4a;
   //@}
 
 

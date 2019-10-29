@@ -19,7 +19,7 @@ namespace Rivet {
       : FinalState(), _vetoCuts(cuts)
     {
       setName("VetoedFinalState");
-      addProjection(fsp, "FS");
+      declare(fsp, "FS");
     }
 
     /// Constructor with a specific FinalState and a single cut to veto
@@ -34,7 +34,7 @@ namespace Rivet {
 
     /// Constructor with a default FinalState and a single cut to veto
     VetoedFinalState(const Cut& cut)
-      : VetoedFinalState(FinalState(), {cut})
+      : VetoedFinalState(FinalState(), vector<Cut>{cut})
     {   }
 
     /// Constructor with a specific FinalState and a PID list to veto
@@ -47,7 +47,7 @@ namespace Rivet {
 
     /// Constructor with a specific FinalState and a PID to veto
     VetoedFinalState(const FinalState& fsp, PdgId vetopid)
-      : VetoedFinalState(fsp, {Cuts::pid == vetopid})
+      : VetoedFinalState(fsp, vector<Cut>{Cuts::pid == vetopid})
     {   }
 
     /// Constructor with a default FinalState and a PID list to veto
@@ -60,7 +60,7 @@ namespace Rivet {
 
     /// Constructor with a default FinalState and a PID to veto
     VetoedFinalState(PdgId vetopid)
-      : VetoedFinalState(FinalState(), {Cuts::pid == vetopid})
+      : VetoedFinalState(FinalState(), vector<Cut>{Cuts::pid == vetopid})
     {   }
 
     /// Constructor with specific FinalState but no cuts
@@ -121,7 +121,7 @@ namespace Rivet {
     /// @brief Add a particle ID and \f$ p_T \f$ range to veto
     ///
     /// Particles with \f$ p_T \f$ IN the given range will be rejected.
-    VetoedFinalState& addVetoDetail(PdgId pid, double ptmin, double ptmax=numeric_limits<double>::max()) {
+    VetoedFinalState& addVetoDetail(PdgId pid, double ptmin, double ptmax=std::numeric_limits<double>::max()) {
       return addVeto(pid, Cuts::ptIn(ptmin, ptmax));
     }
     //const auto addVeto = addVetoDetail;
@@ -130,7 +130,7 @@ namespace Rivet {
     ///
     /// Given a single ID, both the particle and its conjugate antiparticle will
     /// be rejected if their \f$ p_T \f$ is IN the given range.
-    VetoedFinalState& addVetoPairDetail(PdgId pid, double ptmin, double ptmax=numeric_limits<double>::max()) {
+    VetoedFinalState& addVetoPairDetail(PdgId pid, double ptmin, double ptmax=std::numeric_limits<double>::max()) {
       return addVetoPair(pid, Cuts::ptIn(ptmin, ptmax));
     }
     //using addVetoPair = addVetoPairDetail;
@@ -191,7 +191,7 @@ namespace Rivet {
     /// Veto particles from a supplied final state
     VetoedFinalState& addVetoOnThisFinalState(const ParticleFinder& fs) {
       const string name = "FS_" + to_str(_vetofsnames.size());
-      addProjection(fs, name);
+      declare(fs, name);
       _vetofsnames.insert(name);
       return *this;
     }
@@ -208,7 +208,7 @@ namespace Rivet {
     void project(const Event& e);
 
     /// Compare projections.
-    int compare(const Projection& p) const;
+    CmpState compare(const Projection& p) const;
 
 
   private:

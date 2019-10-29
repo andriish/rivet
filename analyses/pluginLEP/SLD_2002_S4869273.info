@@ -37,3 +37,7 @@ BibTeX: '@Article{Abe:2002iq,
      note      = "[Erratum-ibid.D66:079905,2002]",
      SLACcitation  = "%%CITATION = HEP-EX/0202031;%%"
 }'
+
+ReleaseTests:
+ - $A LEP-91
+

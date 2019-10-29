@@ -1,5 +1,5 @@
 Name: MC_ZJETS
-Summary: Monte Carlo validation observables for $Z[e^+ \, e^-]$ + jets production
+Summary: Monte Carlo ReleaseTests observables for $Z[e^+ \, e^-]$ + jets production
 Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>
@@ -15,3 +15,7 @@ Description:
   differential jet rates 0->1, 1->2, 2->3, 3->4, and integrated 0--4
   jet rates.
 NeedCrossSection: yes
+
+ReleaseTests:
+ - $A LHC-Z-e
+

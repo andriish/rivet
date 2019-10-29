@@ -41,3 +41,17 @@ BibTeX: '@article{Aad:2011sp,
       primaryClass   = "hep-ex",
       SLACcitation   = "%%CITATION = ARXIV:1104.3038;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-7-Bottom-0
+ - $A-2 LHC-7-Bottom-1
+ - $A-3 LHC-7-Bottom-2
+ - $A-4 LHC-7-Bottom-3
+ - $A-5 LHC-7-Bottom-4
+ - $A-6 LHC-7-Bottom-5
+ - $A-7 LHC-7-Charm-1
+ - $A-8 LHC-7-Charm-2
+ - $A-9 LHC-7-Charm-3
+ - $A-10 LHC-7-Charm-4
+ - $A-11 LHC-7-Charm-5
+

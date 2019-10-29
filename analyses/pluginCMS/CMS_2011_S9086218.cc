@@ -22,22 +22,22 @@ namespace Rivet {
       declare(FastJets(fs, FastJets::ANTIKT, 0.5),"Jets");
 
       // Book histograms:
-      _hist_sigma.addHistogram(0.0, 0.5, bookHisto1D(1, 1, 1));
-      _hist_sigma.addHistogram(0.5, 1.0, bookHisto1D(2, 1, 1));
-      _hist_sigma.addHistogram(1.0, 1.5, bookHisto1D(3, 1, 1));
-      _hist_sigma.addHistogram(1.5, 2.0, bookHisto1D(4, 1, 1));
-      _hist_sigma.addHistogram(2.0, 2.5, bookHisto1D(5, 1, 1));
-      _hist_sigma.addHistogram(2.5, 3.0, bookHisto1D(6, 1, 1));
+      {Histo1DPtr tmp; _hist_sigma.add(0.0, 0.5, book(tmp, 1, 1, 1));}
+      {Histo1DPtr tmp; _hist_sigma.add(0.5, 1.0, book(tmp, 2, 1, 1));}
+      {Histo1DPtr tmp; _hist_sigma.add(1.0, 1.5, book(tmp, 3, 1, 1));}
+      {Histo1DPtr tmp; _hist_sigma.add(1.5, 2.0, book(tmp, 4, 1, 1));}
+      {Histo1DPtr tmp; _hist_sigma.add(2.0, 2.5, book(tmp, 5, 1, 1));}
+      {Histo1DPtr tmp; _hist_sigma.add(2.5, 3.0, book(tmp, 6, 1, 1));}
     }
 
     // Analysis
     void analyze(const Event &event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
       const FastJets& fj = apply<FastJets>(event,"Jets");
       const Jets& jets = fj.jets(Cuts::ptIn(18*GeV, 1100.0*GeV) && Cuts::absrap < 4.7);
 
       // Fill the relevant histograms:
-      foreach(const Jet& j, jets) {
+      for(const Jet& j : jets) {
         _hist_sigma.fill(j.absrap(), j.pT(), weight);
       }
     }
@@ -48,7 +48,7 @@ namespace Rivet {
     }
 
   private:
-    BinnedHistogram<double> _hist_sigma;
+    BinnedHistogram _hist_sigma;
   };
 
   // This global object acts as a hook for the plugin system.

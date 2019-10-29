@@ -54,3 +54,8 @@ BibTeX: '@article{Aad:2014xca,
       SLACcitation   = "%%CITATION = ARXIV:1402.6263;%%",
 }'
 
+
+ReleaseTests:
+ - $A LHC-W-e
+ - $A-2 LHC-W-mu
+

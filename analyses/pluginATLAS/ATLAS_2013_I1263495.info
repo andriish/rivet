@@ -45,3 +45,10 @@ BibTeX: '@article{Aad:2013zba,
       reportNumber   = "CERN-PH-EP-2013-164",
       SLACcitation   = "%%CITATION = ARXIV:1311.1440;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-7-PromptPhoton-1
+ - $A-2 LHC-7-PromptPhoton-2
+ - $A-3 LHC-7-PromptPhoton-3
+ - $A-4 LHC-7-PromptPhoton-4
+

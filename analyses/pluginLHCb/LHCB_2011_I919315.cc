@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -26,28 +26,28 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      declare(UnstableFinalState(), "UFS");
+      declare(UnstableParticles(), "UFS");
 
-      _h_Phi_pT_y.addHistogram(  2.44, 2.62, bookHisto1D(2, 1, 1));
-      _h_Phi_pT_y.addHistogram(  2.62, 2.80, bookHisto1D(2, 1, 2));
-      _h_Phi_pT_y.addHistogram(  2.80, 2.98, bookHisto1D(3, 1, 1));
-      _h_Phi_pT_y.addHistogram(  2.98, 3.16, bookHisto1D(3, 1, 2));
-      _h_Phi_pT_y.addHistogram(  3.16, 3.34, bookHisto1D(4, 1, 1));
-      _h_Phi_pT_y.addHistogram(  3.34, 3.52, bookHisto1D(4, 1, 2));
-      _h_Phi_pT_y.addHistogram(  3.52, 3.70, bookHisto1D(5, 1, 1));
-      _h_Phi_pT_y.addHistogram(  3.70, 3.88, bookHisto1D(5, 1, 2));
-      _h_Phi_pT_y.addHistogram(  3.88, 4.06, bookHisto1D(6, 1, 1));
-      _h_Phi_pT = bookHisto1D(7, 1, 1);
-      _h_Phi_y = bookHisto1D(8, 1, 1);
+      {Histo1DPtr tmp; _h_Phi_pT_y.add(  2.44, 2.62, book(tmp, 2, 1, 1));}
+      {Histo1DPtr tmp; _h_Phi_pT_y.add(  2.62, 2.80, book(tmp, 2, 1, 2));}
+      {Histo1DPtr tmp; _h_Phi_pT_y.add(  2.80, 2.98, book(tmp, 3, 1, 1));}
+      {Histo1DPtr tmp; _h_Phi_pT_y.add(  2.98, 3.16, book(tmp, 3, 1, 2));}
+      {Histo1DPtr tmp; _h_Phi_pT_y.add(  3.16, 3.34, book(tmp, 4, 1, 1));}
+      {Histo1DPtr tmp; _h_Phi_pT_y.add(  3.34, 3.52, book(tmp, 4, 1, 2));}
+      {Histo1DPtr tmp; _h_Phi_pT_y.add(  3.52, 3.70, book(tmp, 5, 1, 1));}
+      {Histo1DPtr tmp; _h_Phi_pT_y.add(  3.70, 3.88, book(tmp, 5, 1, 2));}
+      {Histo1DPtr tmp; _h_Phi_pT_y.add(  3.88, 4.06, book(tmp, 6, 1, 1));}
+      book(_h_Phi_pT ,7, 1, 1);
+      book(_h_Phi_y ,8, 1, 1);
     }
 
 
     /// Perform the per-event analysis
     void analyze (const Event& event) {
-      const double weight = event.weight();
-      const UnstableFinalState& ufs = apply<UnstableFinalState> (event, "UFS");
+      const double weight = 1;
+      const UnstableParticles& ufs = apply<UnstableFinalState> (event, "UFS");
 
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         const PdgId id = p.abspid();
 
         if (id == 333) { // id 333 = phi-meson
@@ -82,7 +82,7 @@ namespace Rivet {
     //@{
     Histo1DPtr _h_Phi_y;
     Histo1DPtr _h_Phi_pT;
-    BinnedHistogram<double> _h_Phi_pT_y;
+    BinnedHistogram _h_Phi_pT_y;
     //@}
 
   };

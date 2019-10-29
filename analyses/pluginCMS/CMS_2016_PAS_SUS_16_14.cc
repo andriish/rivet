@@ -54,13 +54,13 @@ namespace Rivet {
         for (size_t ib = 0; ib < 4; ++ib) {
           for (size_t ih = 0; ih < 10; ++ih) {
             const size_t i = 40*ij + 10*ib + ih;
-            _h_srcounts[i] = bookCounter(toString(2*ij+3) + "j-" + toString(ib) + "b-" + toString(ih));
+            book(_h_srcounts[i], toString(2*ij+3) + "j-" + toString(ib) + "b-" + toString(ih));
           }
         }
       }
       _h_srcountsagg.resize(12);
       for (size_t ia = 0; ia < 12; ++ia) {
-        _h_srcountsagg[ia] = bookCounter("agg-" + toString(ia));
+        book(_h_srcountsagg[ia], "agg-" + toString(ia));
       }
 
     }
@@ -74,7 +74,7 @@ namespace Rivet {
       if (jets24.size() < 3) vetoEvent;
 
       // HT cut
-      vector<double> jetpts24; transform(jets24, jetpts24, pT);
+      vector<double> jetpts24; transform(jets24, jetpts24, Kin::pT);
       const double ht = sum(jetpts24, 0.0);
       if (ht < 300*GeV) vetoEvent;
 
@@ -149,18 +149,18 @@ namespace Rivet {
 
 
       // Fill the aggregate signal regions first
-      if (nj >= 3 && nbj == 0 && ht >  500*GeV && htmiss > 500*GeV) _h_srcountsagg[ 0]->fill(event.weight());
-      if (nj >= 3 && nbj == 0 && ht > 1500*GeV && htmiss > 750*GeV) _h_srcountsagg[ 1]->fill(event.weight());
-      if (nj >= 5 && nbj == 0 && ht >  500*GeV && htmiss > 500*GeV) _h_srcountsagg[ 2]->fill(event.weight());
-      if (nj >= 5 && nbj == 0 && ht > 1500*GeV && htmiss > 750*GeV) _h_srcountsagg[ 3]->fill(event.weight());
-      if (nj >= 9 && nbj == 0 && ht > 1500*GeV && htmiss > 750*GeV) _h_srcountsagg[ 4]->fill(event.weight());
-      if (nj >= 3 && nbj >= 2 && ht >  500*GeV && htmiss > 500*GeV) _h_srcountsagg[ 5]->fill(event.weight());
-      if (nj >= 3 && nbj >= 1 && ht >  750*GeV && htmiss > 750*GeV) _h_srcountsagg[ 6]->fill(event.weight());
-      if (nj >= 5 && nbj >= 3 && ht >  500*GeV && htmiss > 500*GeV) _h_srcountsagg[ 7]->fill(event.weight());
-      if (nj >= 5 && nbj >= 2 && ht > 1500*GeV && htmiss > 750*GeV) _h_srcountsagg[ 8]->fill(event.weight());
-      if (nj >= 9 && nbj >= 3 && ht >  750*GeV && htmiss > 750*GeV) _h_srcountsagg[ 9]->fill(event.weight());
-      if (nj >= 7 && nbj >= 1 && ht >  300*GeV && htmiss > 300*GeV) _h_srcountsagg[10]->fill(event.weight());
-      if (nj >= 5 && nbj >= 1 && ht >  750*GeV && htmiss > 750*GeV) _h_srcountsagg[11]->fill(event.weight());
+      if (nj >= 3 && nbj == 0 && ht >  500*GeV && htmiss > 500*GeV) _h_srcountsagg[ 0]->fill(1.0);
+      if (nj >= 3 && nbj == 0 && ht > 1500*GeV && htmiss > 750*GeV) _h_srcountsagg[ 1]->fill(1.0);
+      if (nj >= 5 && nbj == 0 && ht >  500*GeV && htmiss > 500*GeV) _h_srcountsagg[ 2]->fill(1.0);
+      if (nj >= 5 && nbj == 0 && ht > 1500*GeV && htmiss > 750*GeV) _h_srcountsagg[ 3]->fill(1.0);
+      if (nj >= 9 && nbj == 0 && ht > 1500*GeV && htmiss > 750*GeV) _h_srcountsagg[ 4]->fill(1.0);
+      if (nj >= 3 && nbj >= 2 && ht >  500*GeV && htmiss > 500*GeV) _h_srcountsagg[ 5]->fill(1.0);
+      if (nj >= 3 && nbj >= 1 && ht >  750*GeV && htmiss > 750*GeV) _h_srcountsagg[ 6]->fill(1.0);
+      if (nj >= 5 && nbj >= 3 && ht >  500*GeV && htmiss > 500*GeV) _h_srcountsagg[ 7]->fill(1.0);
+      if (nj >= 5 && nbj >= 2 && ht > 1500*GeV && htmiss > 750*GeV) _h_srcountsagg[ 8]->fill(1.0);
+      if (nj >= 9 && nbj >= 3 && ht >  750*GeV && htmiss > 750*GeV) _h_srcountsagg[ 9]->fill(1.0);
+      if (nj >= 7 && nbj >= 1 && ht >  300*GeV && htmiss > 300*GeV) _h_srcountsagg[10]->fill(1.0);
+      if (nj >= 5 && nbj >= 1 && ht >  750*GeV && htmiss > 750*GeV) _h_srcountsagg[11]->fill(1.0);
 
 
       // Nj bin and Nbj bins
@@ -185,7 +185,7 @@ namespace Rivet {
       const size_t ibin = 40*inj + 10*inbj + (size_t)iht;
 
       // Fill SR counter
-      _h_srcounts[ibin]->fill(event.weight());
+      _h_srcounts[ibin]->fill(1.0);
 
     }
 

@@ -3,7 +3,7 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ZFinder.hh"
 #include "Rivet/Projections/WFinder.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Math/LorentzTrans.hh"
 
@@ -47,44 +47,44 @@ namespace Rivet {
       declare(FastJets(fs, FastJets::ANTIKT, 0.6), "AntiKT06");
 
       /// Book histograms
-      _h_jet_bb_Delta_eta = bookHisto1D("jet_bb_Delta_eta", 50, 0, 4);
-      _h_jet_bb_Delta_phi = bookHisto1D("jet_bb_Delta_phi", 50, 0, M_PI);
-      _h_jet_bb_Delta_pT = bookHisto1D("jet_bb_Delta_pT", 50,0, 500);
-      _h_jet_bb_Delta_R = bookHisto1D("jet_bb_Delta_R", 50, 0, 5);
-      _h_jet_b_jet_eta = bookHisto1D("jet_b_jet_eta", 50, -4, 4);
-      _h_jet_b_jet_multiplicity = bookHisto1D("jet_b_jet_multiplicity", 11, -0.5, 10.5);
-      _h_jet_b_jet_phi = bookHisto1D("jet_b_jet_phi", 50, 0, 2.*M_PI);
-      _h_jet_b_jet_pT = bookHisto1D("jet_b_jet_pT", 50, 0, 500);
-      _h_jet_H_eta_using_bb = bookHisto1D("jet_H_eta_using_bb", 50, -4, 4);
-      _h_jet_H_mass_using_bb = bookHisto1D("jet_H_mass_using_bb", 50, 50, 200);
-      _h_jet_H_phi_using_bb = bookHisto1D("jet_H_phi_using_bb", 50, 0, 2.*M_PI);
-      _h_jet_H_pT_using_bb = bookHisto1D("jet_H_pT_using_bb", 50, 0, 500);
-      _h_jet_eta = bookHisto1D("jet_eta", 50, -4, 4);
-      _h_jet_multiplicity = bookHisto1D("jet_multiplicity", 11, -0.5, 10.5);
-      _h_jet_phi = bookHisto1D("jet_phi", 50, 0, 2.*M_PI);
-      _h_jet_pT = bookHisto1D("jet_pT", 50, 0, 500);
-      _h_jet_VBbb_Delta_eta = bookHisto1D("jet_VBbb_Delta_eta", 50, 0, 4);
-      _h_jet_VBbb_Delta_phi = bookHisto1D("jet_VBbb_Delta_phi", 50, 0, M_PI);
-      _h_jet_VBbb_Delta_pT = bookHisto1D("jet_VBbb_Delta_pT", 50, 0, 500);
-      _h_jet_VBbb_Delta_R = bookHisto1D("jet_VBbb_Delta_R", 50, 0, 8);
+      book(_h_jet_bb_Delta_eta ,"jet_bb_Delta_eta", 50, 0, 4);
+      book(_h_jet_bb_Delta_phi ,"jet_bb_Delta_phi", 50, 0, M_PI);
+      book(_h_jet_bb_Delta_pT ,"jet_bb_Delta_pT", 50,0, 500);
+      book(_h_jet_bb_Delta_R ,"jet_bb_Delta_R", 50, 0, 5);
+      book(_h_jet_b_jet_eta ,"jet_b_jet_eta", 50, -4, 4);
+      book(_h_jet_b_jet_multiplicity ,"jet_b_jet_multiplicity", 11, -0.5, 10.5);
+      book(_h_jet_b_jet_phi ,"jet_b_jet_phi", 50, 0, 2.*M_PI);
+      book(_h_jet_b_jet_pT ,"jet_b_jet_pT", 50, 0, 500);
+      book(_h_jet_H_eta_using_bb ,"jet_H_eta_using_bb", 50, -4, 4);
+      book(_h_jet_H_mass_using_bb ,"jet_H_mass_using_bb", 50, 50, 200);
+      book(_h_jet_H_phi_using_bb ,"jet_H_phi_using_bb", 50, 0, 2.*M_PI);
+      book(_h_jet_H_pT_using_bb ,"jet_H_pT_using_bb", 50, 0, 500);
+      book(_h_jet_eta ,"jet_eta", 50, -4, 4);
+      book(_h_jet_multiplicity ,"jet_multiplicity", 11, -0.5, 10.5);
+      book(_h_jet_phi ,"jet_phi", 50, 0, 2.*M_PI);
+      book(_h_jet_pT ,"jet_pT", 50, 0, 500);
+      book(_h_jet_VBbb_Delta_eta ,"jet_VBbb_Delta_eta", 50, 0, 4);
+      book(_h_jet_VBbb_Delta_phi ,"jet_VBbb_Delta_phi", 50, 0, M_PI);
+      book(_h_jet_VBbb_Delta_pT ,"jet_VBbb_Delta_pT", 50, 0, 500);
+      book(_h_jet_VBbb_Delta_R ,"jet_VBbb_Delta_R", 50, 0, 8);
 
-      _h_VB_eta = bookHisto1D("VB_eta", 50, -4, 4);
-      _h_VB_mass = bookHisto1D("VB_mass", 50, 60, 110);
-      _h_Z_multiplicity = bookHisto1D("Z_multiplicity", 11, -0.5, 10.5);
-      _h_W_multiplicity = bookHisto1D("W_multiplicity", 11, -0.5, 10.5);
-      _h_VB_phi = bookHisto1D("VB_phi", 50, 0, 2.*M_PI);
-      _h_VB_pT = bookHisto1D("VB_pT", 50, 0, 500);
+      book(_h_VB_eta ,"VB_eta", 50, -4, 4);
+      book(_h_VB_mass ,"VB_mass", 50, 60, 110);
+      book(_h_Z_multiplicity ,"Z_multiplicity", 11, -0.5, 10.5);
+      book(_h_W_multiplicity ,"W_multiplicity", 11, -0.5, 10.5);
+      book(_h_VB_phi ,"VB_phi", 50, 0, 2.*M_PI);
+      book(_h_VB_pT ,"VB_pT", 50, 0, 500);
 
-      _h_jet_bVB_angle_Hframe = bookHisto1D("jet_bVB_angle_Hframe", 50, 0, M_PI);
-      _h_jet_bVB_cosangle_Hframe = bookHisto1D("jet_bVB_cosangle_Hframe", 50, -1, 1);
-      _h_jet_bb_angle_Hframe = bookHisto1D("jet_bb_angle_Hframe", 50, 0, M_PI);
-      _h_jet_bb_cosangle_Hframe = bookHisto1D("jet_bb_cosangle_Hframe", 50, -1, 1);
+      book(_h_jet_bVB_angle_Hframe ,"jet_bVB_angle_Hframe", 50, 0, M_PI);
+      book(_h_jet_bVB_cosangle_Hframe ,"jet_bVB_cosangle_Hframe", 50, -1, 1);
+      book(_h_jet_bb_angle_Hframe ,"jet_bb_angle_Hframe", 50, 0, M_PI);
+      book(_h_jet_bb_cosangle_Hframe ,"jet_bb_cosangle_Hframe", 50, -1, 1);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       const double JETPTCUT = 30*GeV;
 
@@ -101,7 +101,7 @@ namespace Rivet {
 
       // Identify the b-jets
       Jets bjets;
-      foreach (const Jet& jet, jets) {
+      for (const Jet& jet : jets) {
         const double jetEta = jet.eta();
         const double jetPhi = jet.phi();
         const double jetPt = jet.pT();
@@ -119,7 +119,7 @@ namespace Rivet {
       _h_jet_b_jet_multiplicity->fill(bjets.size(), weight);
 
       // Plot vector boson properties
-      foreach (const Particle& v, vectorBosons) {
+      for (const Particle& v : vectorBosons) {
         _h_VB_phi->fill(v.phi(), weight);
         _h_VB_pT->fill(v.pT(), weight);
         _h_VB_eta->fill(v.eta(), weight);
@@ -150,7 +150,7 @@ namespace Rivet {
           _h_jet_H_phi_using_bb->fill(phiggs.phi(), weight);
           _h_jet_H_pT_using_bb->fill(phiggs.pT(), weight);
 
-          foreach (const Particle& v, vectorBosons) {
+          for (const Particle& v : vectorBosons) {
             const double deltaEtaVH = fabs(phiggs.eta() - v.eta());
             const double deltaPhiVH = deltaPhi(phiggs, v.momentum());
             const double deltaRVH = deltaR(phiggs, v.momentum());
@@ -225,7 +225,7 @@ namespace Rivet {
       const double angle1 = b1BOOSTED.angle(virtualVBMomentumBOOSTED);
       const double angle2 = b2BOOSTED.angle(virtualVBMomentumBOOSTED);
 
-      const double anglebb = b1BOOSTED.angle(b2BOOSTED);
+      const double anglebb = mapAngle0ToPi(b1BOOSTED.angle(b2BOOSTED));
 
       vector<double> rtn;
       rtn.push_back(angle1 < angle2 ? angle1 : angle2);

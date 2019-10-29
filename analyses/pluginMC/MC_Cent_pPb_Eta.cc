@@ -45,13 +45,12 @@ public:
 
   /// Perform the per-event analysis
   void analyze(const Event& event) {
-    const double weight = event.weight();
 
     if ( !apply<TriggerProjection>(event, "Trigger")() ) vetoEvent;
 
     _hEta->init(event);
     for ( const auto &p : apply<ChargedFinalState>(event,"CFS").particles() )
-      _hEta->fill(p.eta(), weight);
+      _hEta->fill(p.eta());
 
   }
     

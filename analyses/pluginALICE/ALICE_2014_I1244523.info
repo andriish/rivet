@@ -3,7 +3,7 @@ Year: 2014
 Summary: Multiplicity Dependence of Pion, Kaon, Proton and Lambda Production in p--Pb Collisions at 5.02 TeV/nn
 Experiment: ALICE
 Collider: LHC
-SpiresID: 1244523
+InspireID: 1244523
 Status: UNVALIDATED
 Authors:
  - Johannes Bellm <johannes.bellm@thep.lu.se>
@@ -19,7 +19,7 @@ RunInfo:
 NeedCrossSection: no
 Options:
  - cent=REF,GEN,IMP,USR
-Beams: [2212,1000822080]
+Beams: [p, Pb]
 Energies: [[4000,326560]]
 Description:
   'Identified baryons and mesons plotted in invariant pT spectra as well as average pT and yield ratios.

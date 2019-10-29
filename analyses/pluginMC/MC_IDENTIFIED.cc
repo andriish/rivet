@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -28,40 +28,40 @@ namespace Rivet {
       // Projections
       const FinalState cnfs(Cuts::abseta < 5.0 && Cuts::pT > 500*MeV);
       declare(cnfs, "FS");
-      declare(UnstableFinalState(Cuts::abseta < 5.0 && Cuts::pT > 500*MeV), "UFS");
+      declare(UnstableParticles(Cuts::abseta < 5.0 && Cuts::pT > 500*MeV), "UFS");
 
       // Histograms
       // @todo Choose E/pT ranged based on input energies... can't do anything about kin. cuts, though
 
-      _histStablePIDs  = bookHisto1D("MultsStablePIDs", 3335, -0.5, 3334.5);
-      _histDecayedPIDs = bookHisto1D("MultsDecayedPIDs", 3335, -0.5, 3334.5);
-      _histAllPIDs     = bookHisto1D("MultsAllPIDs", 3335, -0.5, 3334.5);
+      book(_histStablePIDs  ,"MultsStablePIDs", 3335, -0.5, 3334.5);
+      book(_histDecayedPIDs ,"MultsDecayedPIDs", 3335, -0.5, 3334.5);
+      book(_histAllPIDs     ,"MultsAllPIDs", 3335, -0.5, 3334.5);
 
-      _histEtaPi       = bookHisto1D("EtaPi", 25, 0, 5);
-      _histEtaK        = bookHisto1D("EtaK", 25, 0, 5);
-      _histEtaLambda   = bookHisto1D("EtaLambda", 25, 0, 5);
+      book(_histEtaPi       ,"EtaPi", 25, 0, 5);
+      book(_histEtaK        ,"EtaK", 25, 0, 5);
+      book(_histEtaLambda   ,"EtaLambda", 25, 0, 5);
     }
 
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Unphysical (debug) plotting of all PIDs in the event, physical or otherwise
-      foreach (const GenParticle* gp, particles(event.genEvent())) {
+      for(ConstGenParticlePtr gp: HepMCUtils::particles(event.genEvent())) {
         _histAllPIDs->fill(abs(gp->pdg_id()), weight);
       }
 
       // Charged + neutral final state PIDs
       const FinalState& cnfs = apply<FinalState>(event, "FS");
-      foreach (const Particle& p, cnfs.particles()) {
+      for (const Particle& p : cnfs.particles()) {
         _histStablePIDs->fill(p.abspid(), weight);
       }
 
       // Unstable PIDs and identified particle eta spectra
-      const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
+      for (const Particle& p : ufs.particles()) {
         _histDecayedPIDs->fill(p.pid(), weight);
         const double eta_abs = p.abseta();
         const PdgId pid = p.abspid(); //if (PID::isMeson(pid) && PID::hasStrange()) {

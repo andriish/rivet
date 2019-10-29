@@ -2,7 +2,7 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 namespace Rivet {
 
 
@@ -25,8 +25,8 @@ public:
 	void init() {
 
 		// Initialise and register projections
-		addProjection(UnstableFinalState(), "UFS");
-		addProjection(Beam(), "Beam");
+		declare(UnstableParticles(), "UFS");
+		declare(Beam(), "Beam");
 
 		// calculate beam rapidity
 		const Particle bm1 = beams().first;
@@ -42,74 +42,74 @@ public:
 		if(bm1.pid()==2212 && bm2.pid()==2212) { //p-p
 			_pp_Pb = true;
 			if( fuzzyEquals( _sqrts/GeV, 7000., 1E-3) ) {
-				_p_pi0_rap_apT = bookProfile1D(1, 1, 2);
+				book(_p_pi0_rap_apT, 1, 1, 2);
 
-				_h_pi0_rap_pT.addHistogram(  8.8, 9.0, bookHisto1D(2, 1, 2));
-				_h_pi0_rap_pT.addHistogram(  9.0, 9.2, bookHisto1D(3, 1, 2));
-				_h_pi0_rap_pT.addHistogram(  9.2, 9.4, bookHisto1D(4, 1, 2));
-				_h_pi0_rap_pT.addHistogram(  9.4, 9.6, bookHisto1D(5, 1, 2));
-				_h_pi0_rap_pT.addHistogram(  9.6, 9.8, bookHisto1D(6, 1, 2));
-				_h_pi0_rap_pT.addHistogram(  9.8, 10.0, bookHisto1D(7, 1, 2));
-				_h_pi0_rap_pT.addHistogram(  10.0, 10.2, bookHisto1D(8, 1, 2));
-				_h_pi0_rap_pT.addHistogram(  10.2, 10.4, bookHisto1D(9, 1, 2));
-				_h_pi0_rap_pT.addHistogram(  10.4, 10.6, bookHisto1D(10, 1, 2));
-				_h_pi0_rap_pT.addHistogram(  10.6, 10.8, bookHisto1D(11, 1, 2));
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  8.8, 9.0, book(tmp, 2, 1, 2));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  9.0, 9.2, book(tmp, 3, 1, 2));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  9.2, 9.4, book(tmp, 4, 1, 2));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  9.4, 9.6, book(tmp, 5, 1, 2));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  9.6, 9.8, book(tmp, 6, 1, 2));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  9.8, 10.0, book(tmp, 7, 1, 2));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  10.0, 10.2, book(tmp, 8, 1, 2));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  10.2, 10.4, book(tmp, 9, 1, 2));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  10.4, 10.6, book(tmp, 10, 1, 2));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  10.6, 10.8, book(tmp, 11, 1, 2));}
 
-				_h_pi0_pT_pZ.addHistogram(  0.0, 0.2, bookHisto1D(12, 1, 2));
-				_h_pi0_pT_pZ.addHistogram(  0.2, 0.4, bookHisto1D(13, 1, 2));
-				_h_pi0_pT_pZ.addHistogram(  0.4, 0.6, bookHisto1D(14, 1, 2));
-				_h_pi0_pT_pZ.addHistogram(  0.6, 0.8, bookHisto1D(15, 1, 2));
-				_h_pi0_pT_pZ.addHistogram(  0.8, 1.0, bookHisto1D(16, 1, 2));
+				{Histo1DPtr tmp; _h_pi0_pT_pZ.add(  0.0, 0.2, book(tmp, 12, 1, 2));}
+				{Histo1DPtr tmp; _h_pi0_pT_pZ.add(  0.2, 0.4, book(tmp, 13, 1, 2));}
+				{Histo1DPtr tmp; _h_pi0_pT_pZ.add(  0.4, 0.6, book(tmp, 14, 1, 2));}
+				{Histo1DPtr tmp; _h_pi0_pT_pZ.add(  0.6, 0.8, book(tmp, 15, 1, 2));}
+				{Histo1DPtr tmp; _h_pi0_pT_pZ.add(  0.8, 1.0, book(tmp, 16, 1, 2));}
 
-				_h_pi0_rap = bookHisto1D(21, 1, 2);
+				book(_h_pi0_rap, 21, 1, 2);
 
-				_p_pi0_raploss_apT = bookProfile1D(22, 1, 2);
-				_h_pi0_raploss = bookHisto1D(23, 1, 2);
+				book(_p_pi0_raploss_apT, 22, 1, 2);
+				book(_h_pi0_raploss, 23, 1, 2);
 			} else if(fuzzyEquals( _sqrts/GeV, 2760., 1E-3) ){
-				_p_pi0_rap_apT = bookProfile1D(1, 1, 1);
+				book(_p_pi0_rap_apT, 1, 1, 1);
 
-				_h_pi0_rap_pT.addHistogram(  8.8, 9.0, bookHisto1D(2, 1, 1));
-				_h_pi0_rap_pT.addHistogram(  9.0, 9.2, bookHisto1D(3, 1, 1));
-				_h_pi0_rap_pT.addHistogram(  9.2, 9.4, bookHisto1D(4, 1, 1));
-				_h_pi0_rap_pT.addHistogram(  9.4, 9.6, bookHisto1D(5, 1, 1));
-				_h_pi0_rap_pT.addHistogram(  9.6, 9.8, bookHisto1D(6, 1, 1));
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  8.8, 9.0, book(tmp, 2, 1, 1));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  9.0, 9.2, book(tmp, 3, 1, 1));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  9.2, 9.4, book(tmp, 4, 1, 1));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  9.4, 9.6, book(tmp, 5, 1, 1));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  9.6, 9.8, book(tmp, 6, 1, 1));}
 
-				_h_pi0_pT_pZ.addHistogram(  0.0, 0.2, bookHisto1D(12, 1, 1));
-				_h_pi0_pT_pZ.addHistogram(  0.2, 0.4, bookHisto1D(13, 1, 1));
+				{Histo1DPtr tmp; _h_pi0_pT_pZ.add(  0.0, 0.2, book(tmp, 12, 1, 1));}
+				{Histo1DPtr tmp; _h_pi0_pT_pZ.add(  0.2, 0.4, book(tmp, 13, 1, 1));}
 
-				_h_pi0_rap = bookHisto1D(21, 1, 1);
+				book(_h_pi0_rap, 21, 1, 1);
 
-				_p_pi0_raploss_apT = bookProfile1D(22, 1, 1);
-				_h_pi0_raploss = bookHisto1D(23, 1, 1);
+				book(_p_pi0_raploss_apT, 22, 1, 1);
+				book(_h_pi0_raploss, 23, 1, 1);
 			}else{
 				MSG_INFO("p-p collisions : energy out of range!");
 			}
-		} else if (bm1.pid()==2212 && bm2.pid()==1000822080){ //p-Pb
+		} else if (bm1.pid()==PID::PROTON && bm2.pid()==PID::LEAD){ //p-Pb
 			_pp_Pb = false;
 			if( fuzzyEquals( _sqrts/sqrt(208.)/GeV, 5020., 1E-3) ) {
-				_p_pi0_rap_apT = bookProfile1D(1, 1, 3);
+				book(_p_pi0_rap_apT, 1, 1, 3);
 
-				_h_pi0_rap_pT.addHistogram(  8.8, 9.0, bookHisto1D(2, 1, 3));
-				_h_pi0_rap_pT.addHistogram(  9.0, 9.2, bookHisto1D(3, 1, 3));
-				_h_pi0_rap_pT.addHistogram(  9.2, 9.4, bookHisto1D(4, 1, 3));
-				_h_pi0_rap_pT.addHistogram(  9.4, 9.6, bookHisto1D(5, 1, 3));
-				_h_pi0_rap_pT.addHistogram(  9.6, 9.8, bookHisto1D(6, 1, 3));
-				_h_pi0_rap_pT.addHistogram(  9.8, 10.0, bookHisto1D(7, 1, 3));
-				_h_pi0_rap_pT.addHistogram(  10.0, 10.2, bookHisto1D(8, 1, 3));
-				_h_pi0_rap_pT.addHistogram(  10.2, 10.4, bookHisto1D(9, 1, 3));
-				_h_pi0_rap_pT.addHistogram(  10.4, 10.6, bookHisto1D(10, 1, 3));
-				_h_pi0_rap_pT.addHistogram(  10.6, 10.8, bookHisto1D(11, 1, 3));
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  8.8, 9.0, book(tmp, 2, 1, 3));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  9.0, 9.2, book(tmp, 3, 1, 3));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  9.2, 9.4, book(tmp, 4, 1, 3));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  9.4, 9.6, book(tmp, 5, 1, 3));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  9.6, 9.8, book(tmp, 6, 1, 3));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  9.8, 10.0, book(tmp, 7, 1, 3));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  10.0, 10.2, book(tmp, 8, 1, 3));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  10.2, 10.4, book(tmp, 9, 1, 3));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  10.4, 10.6, book(tmp, 10, 1, 3));}
+				{Histo1DPtr tmp; _h_pi0_rap_pT.add(  10.6, 10.8, book(tmp, 11, 1, 3));}
 
-				_h_pi0_pT_pZ.addHistogram(  0.0, 0.2, bookHisto1D(12, 1, 3));
-				_h_pi0_pT_pZ.addHistogram(  0.2, 0.4, bookHisto1D(13, 1, 3));
-				_h_pi0_pT_pZ.addHistogram(  0.4, 0.6, bookHisto1D(14, 1, 3));
-				_h_pi0_pT_pZ.addHistogram(  0.6, 0.8, bookHisto1D(15, 1, 3));
-				_h_pi0_pT_pZ.addHistogram(  0.8, 1.0, bookHisto1D(16, 1, 3));
+				{Histo1DPtr tmp; _h_pi0_pT_pZ.add(  0.0, 0.2, book(tmp, 12, 1, 3));}
+				{Histo1DPtr tmp; _h_pi0_pT_pZ.add(  0.2, 0.4, book(tmp, 13, 1, 3));}
+				{Histo1DPtr tmp; _h_pi0_pT_pZ.add(  0.4, 0.6, book(tmp, 14, 1, 3));}
+				{Histo1DPtr tmp; _h_pi0_pT_pZ.add(  0.6, 0.8, book(tmp, 15, 1, 3));}
+				{Histo1DPtr tmp; _h_pi0_pT_pZ.add(  0.8, 1.0, book(tmp, 16, 1, 3));}
 
-				//_h_pi0_rap = bookHisto1D(21, 1, 3);
+				//_h_pi0_rap = book(tmp, 21, 1, 3);
 
-				_p_pi0_raploss_apT = bookProfile1D(22, 1, 3);
-				//_h_pi0_raploss = bookHisto1D(23, 1, 3);
+				book(_p_pi0_raploss_apT, 22, 1, 3);
+				//_h_pi0_raploss = book(tmp, 23, 1, 3);
 			}else{
 				MSG_INFO("p-Pb collisions : energy out of range!");
 			}
@@ -123,7 +123,7 @@ public:
 	void analyze(const Event& event) {
 		_nevt = _nevt + 1.;
 
-		const UnstableFinalState &ufs = applyProjection<UnstableFinalState> (event, "UFS");
+		const UnstableParticles &ufs = applyProjection<UnstableParticles> (event, "UFS");
 		Particles ufs_particles = ufs.particles();
 		for (Particle& p: ufs_particles ) {
 
@@ -172,7 +172,7 @@ public:
 		const double inv_scale_factor = 1. / _nevt / (2.*PI);
 		const double pt_bin_width = 0.2;
 
-		for (Histo1DPtr h: _h_pi0_pT_pZ.getHistograms()){
+		for (Histo1DPtr h: _h_pi0_pT_pZ.histos()){
 			if(h->path() == "/LHCF_2016_I1385877/d12-x01-y01" ||
 					h->path() == "/LHCF_2016_I1385877/d12-x01-y02" ||
 					h->path() == "/LHCF_2016_I1385877/d12-x01-y03")
@@ -183,7 +183,7 @@ public:
 
 		const double scale_factor =  1. / _nevt / (2.*PI);
 		const double rap_bin_width = 0.2;
-		for (Histo1DPtr h: _h_pi0_rap_pT.getHistograms()) {
+		for (Histo1DPtr h: _h_pi0_rap_pT.histos()) {
 			const int cutoff_bin = h->binIndexAt(pt_cutoff);
 
 			if(cutoff_bin>=0) {
@@ -215,14 +215,15 @@ private:
 	double _beam_rap;
 	double _beam_rap_1;
 	double _beam_rap_2;
-	BinnedHistogram<double> _h_pi0_pT_pZ;
-	BinnedHistogram<double> _h_pi0_rap_pT;
+	BinnedHistogram _h_pi0_pT_pZ;
+	BinnedHistogram _h_pi0_rap_pT;
 	Profile1DPtr _p_pi0_rap_apT;
 	Histo1DPtr _h_pi0_rap;
 	Profile1DPtr _p_pi0_raploss_apT;
 	Histo1DPtr _h_pi0_raploss;
 	//@}
 };
+
 
 // The hook for the plugin system
 DECLARE_RIVET_PLUGIN(LHCF_2016_I1385877);

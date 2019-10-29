@@ -47,3 +47,7 @@ BibTeX: '@Article{Abazov:2005wc,
      doi       = "10.1016/j.physletb.2006.04.048",
      SLACcitation  = "%%CITATION = HEP-EX/0511054;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-Run-II-PromptPhoton
+

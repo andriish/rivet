@@ -46,3 +46,7 @@ BibTeX: '@article{Aad:2012meb,
 }'
 ToDo:
  - Validate the eccentricity plot (commented out for now)
+
+ReleaseTests:
+ - $A LHC-7-Jets-6
+

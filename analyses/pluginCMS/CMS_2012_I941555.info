@@ -48,3 +48,8 @@ BibTeX: '@article{Chatrchyan:2011wt,
       reportNumber   = "CMS-EWK-10-010, CERN-PH-EP-2011-169",
       SLACcitation   = "%%CITATION = ARXIV:1110.4973;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-Z-e
+ - $A-2 LHC-Z-mu
+

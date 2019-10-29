@@ -3,7 +3,7 @@
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -15,7 +15,7 @@ namespace Rivet {
 
     /// Constructor
     OPAL_1996_S3257789()
-      : Analysis("OPAL_1996_S3257789"), _weightSum(0.)
+      : Analysis("OPAL_1996_S3257789")
     {}
 
 
@@ -25,10 +25,11 @@ namespace Rivet {
     void init() {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
-      declare(UnstableFinalState(), "UFS");
-      _histXpJPsi   = bookHisto1D( 1, 1, 1);
-      _multJPsi     = bookHisto1D( 2, 1, 1);
-      _multPsiPrime = bookHisto1D( 2, 1, 2);
+      declare(UnstableParticles(), "UFS");
+      book(_histXpJPsi   , 1, 1, 1);
+      book(_multJPsi     , 2, 1, 1);
+      book(_multPsiPrime , 2, 1, 2);
+      book(_weightSum,"_weightSum");
     }
 
 
@@ -44,9 +45,6 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      // Get event weight for histo filling
-      const double weight = e.weight();
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(e, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
@@ -54,17 +52,17 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Final state of unstable particles to get particle spectra
-      const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
 
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         if(p.abspid()==443) {
           double xp = p.p3().mod()/meanBeamMom;
-          _histXpJPsi->fill(xp, weight);
-          _multJPsi->fill(91.2,weight);
-          _weightSum += weight;
+          _histXpJPsi->fill(xp);
+          _multJPsi->fill(91.2);
+          _weightSum->fill();
         }
         else if(p.abspid()==100443) {
-          _multPsiPrime->fill(91.2,weight);
+          _multPsiPrime->fill(91.2);
         }
       }
     }
@@ -72,8 +70,8 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      if(_weightSum>0.)
-        scale(_histXpJPsi  , 0.1/_weightSum);
+      if(_weightSum->val()>0.)
+        scale(_histXpJPsi  , 0.1/ *_weightSum);
       scale(_multJPsi    , 1./sumOfWeights());
       scale(_multPsiPrime, 1./sumOfWeights());
     }
@@ -83,13 +81,14 @@ namespace Rivet {
 
   private:
 
-    double _weightSum;
+    CounterPtr _weightSum;
     Histo1DPtr _histXpJPsi;
     Histo1DPtr _multJPsi;
     Histo1DPtr _multPsiPrime;
     //@}
 
   };
+
 
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(OPAL_1996_S3257789);

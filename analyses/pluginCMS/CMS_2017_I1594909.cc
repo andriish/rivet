@@ -59,7 +59,7 @@ namespace Rivet {
           for (int k = 1; k <= 10; ++k) {
             if (j > 3 && (k == 1 || k == 4)) continue;
             stringstream s; s << "count_" << (i+1); // << "_" << j << b << k;
-            _counts[make_tuple(j,b,k)] = bookCounter(s.str());
+            book(_counts[std::make_tuple(j,b,k)], s.str());
             i += 1;
           }
         }
@@ -67,7 +67,7 @@ namespace Rivet {
       MSG_DEBUG("Booked " << i << " signal regions (should be 174)");
       // Aggregate SR counters
       for (size_t i = 0; i < 12; ++i)
-        _counts_agg[i] = bookCounter("count_agg_" + toString(i+1));
+        book(_counts_agg[i], "count_agg_" + toString(i+1));
 
 
       // Book cut-flow
@@ -93,7 +93,7 @@ namespace Rivet {
       // Find isolated leptons
       const Particles isoleps = filter_select(elecs+mus, [&](const Particle& l){
           const double dR = l.pT() < 50*GeV ? 0.2 : l.pT() < 200*GeV ? 10*GeV/l.pT() : 0.05;
-          const double sumpt = sum(filter_select(pfiso, deltaRLess(l, dR)), pT, 0.0);
+          const double sumpt = sum(filter_select(pfiso, deltaRLess(l, dR)), Kin::pT, 0.0);
           return sumpt/l.pT() < (l.abspid() == PID::ELECTRON ? 0.1 : 0.2); //< different I criteria for e and mu
         });
 
@@ -102,7 +102,7 @@ namespace Rivet {
       const Particles isochgs = filter_select(pfchg, [&](const Particle& t){
           if (t.abseta() > 2.4) return false;
           if (any(isoleps, deltaRLess(t, 0.01))) return false; //< don't count isolated leptons here
-          const double sumpt = sum(filter_select(pfchg, deltaRLess(t, 0.3)), pT, -t.pT());
+          const double sumpt = sum(filter_select(pfchg, deltaRLess(t, 0.3)), Kin::pT, -t.pT());
           return sumpt/t.pT() < ((t.abspid() == PID::ELECTRON || t.abspid() == PID::MUON) ? 0.2 : 0.1);
         });
 
@@ -115,7 +115,7 @@ namespace Rivet {
       MSG_DEBUG("Njets = " << jets.size() << ", Nisojets = " << njets << ", Nbjets = " << nbjets);
 
       // Calculate HT, HTmiss, and pTmiss quantities
-      const double ht = sum(jets, pT, 0.0);
+      const double ht = sum(jets, Kin::pT, 0.0);
       const Vector3 vhtmiss = -sum(jets, pTvec, Vector3());
       const double htmiss = vhtmiss.perp();
       const Vector3& vptmiss = -apply<SmearedMET>(event, "MET").vectorEt();
@@ -187,7 +187,7 @@ namespace Rivet {
       /////////////////////////////////////
       // Find SR index and fill counter
 
-      const double w = event.weight();
+      const double w = 1.0;
 
       const int idx_j = binIndex(njets, vector<int>{2,3,5,7,9}, true);
       const int idx_b = binIndex(nbjets, vector<int>{0,1,2,3}, true);
@@ -204,7 +204,7 @@ namespace Rivet {
 
       // Fill via 3-tuple index
       if (idx_j >= 0 && idx_b >= 0 && idx_k >= 0) {
-        const auto idx = make_tuple(idx_j+1,idx_b+1,idx_k);
+        const auto idx = std::make_tuple(idx_j+1,idx_b+1,idx_k);
         if (has_key(_counts, idx)) _counts[idx]->fill(w);
       }
 

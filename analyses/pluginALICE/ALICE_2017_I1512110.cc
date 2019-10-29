@@ -1,6 +1,6 @@
 //-*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -17,24 +17,23 @@ namespace Rivet {
 
     void init() {
 
-      const UnstableFinalState ufs(Cuts::absrap < _rapmax);
-      addProjection(ufs, "UFS");
+      const UnstableParticles ufs(Cuts::absrap < _rapmax);
+      declare(ufs, "UFS");
 
-      _h_pi0 = bookHisto1D(3,1,1);
-      _h_eta = bookHisto1D(4,1,1);
-      _h_etaToPion = bookScatter2D(5,1,1);
+      book(_h_pi0, 3,1,1);
+      book(_h_eta, 4,1,1);
+      book(_h_etaToPion, 5,1,1);
 
       // temporary plots with the binning of _h_etaToPion
       // to construct the eta/pi0 ratio in the end
-      _temp_h_pion = bookHisto1D("TMP/h_pion",refData(5,1,1));
-      _temp_h_eta = bookHisto1D("TMP/h_eta",refData(5,1,1));
+      book(_temp_h_pion, "TMP/h_pion",refData(5,1,1));
+      book(_temp_h_eta , "TMP/h_eta", refData(5,1,1));
     }
 
 
     void analyze(const Event& event) {
 
-      const double weight = event.weight();
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
 
       for (const Particle& p : ufs.particles()) {
 
@@ -49,14 +48,14 @@ namespace Rivet {
                  p.hasAncestor(3322) || p.hasAncestor(-3322) || // Cascades
                  p.hasAncestor(3312) || p.hasAncestor(-3312) )) // Cascades
             {
-              _h_pi0->fill(p.pT()/GeV, weight /(TWOPI*p.pT()/GeV*2*_rapmax));
-              _temp_h_pion->fill(p.pT()/GeV, weight);
+              _h_pi0->fill(p.pT()/GeV, 1.0 /(TWOPI*p.pT()/GeV*2*_rapmax));
+              _temp_h_pion->fill(p.pT()/GeV);
             }
         }
         else if (p.pid() == 221){
           // eta meson
-          _h_eta->fill(p.pT()/GeV, weight /(TWOPI*p.pT()/GeV*2*_rapmax));
-          _temp_h_eta->fill(p.pT()/GeV, weight);
+          _h_eta->fill(p.pT()/GeV, 1.0 /(TWOPI*p.pT()/GeV*2*_rapmax));
+          _temp_h_eta->fill(p.pT()/GeV);
         }
       }
     }

@@ -34,3 +34,10 @@ BibTeX: '@Article{Amsler:2008zzb,
      doi       = "10.1016/j.physletb.2008.07.018",
      SLACcitation  = "%%CITATION = PHLTA,B667,1;%%"
 }'
+
+ReleaseTests:
+ - $A LEP-10
+ - $A-2 LEP-177
+ - $A-3 LEP-35
+ - $A-4 LEP-91
+

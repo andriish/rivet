@@ -39,3 +39,10 @@ BibTeX: '@article{Aad:2012cv,
       SLACcitation   = "%%CITATION = ARXIV:1203.3161;%%",
 }'
 
+
+ReleaseTests:
+ - $A LHC-7-PromptPhoton-1
+ - $A-2 LHC-7-PromptPhoton-2
+ - $A-3 LHC-7-PromptPhoton-3
+ - $A-4 LHC-7-PromptPhoton-4
+

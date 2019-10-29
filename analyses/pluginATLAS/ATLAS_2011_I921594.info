@@ -44,3 +44,10 @@ BibTeX: '@article{Aad:2011tw,
       reportNumber   = "CERN-PH-EP-2011-115",
       SLACcitation   = "%%CITATION = ARXIV:1108.0253;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-7-PromptPhoton-1
+ - $A-2 LHC-7-PromptPhoton-2
+ - $A-3 LHC-7-PromptPhoton-3
+ - $A-4 LHC-7-PromptPhoton-4
+

@@ -4,8 +4,8 @@
 
 #include "Rivet/Tools/RivetSTL.hh"
 #include "Rivet/Tools/PrettyPrint.hh"
+#include "Rivet/Tools/Exceptions.hh"
 #include <ostream>
-#include <iostream>
 #include <cctype>
 #include <cerrno>
 #include <stdexcept>
@@ -14,18 +14,7 @@
 #include <climits>
 #include <cfloat>
 #include <cmath>
-
-
-// // Macro to help with overzealous compiler warnings
-// /// @note It's easier and better to just not give an arg name to args which won't be used, when possible.
-// #ifdef UNUSED
-// #elif defined(__GNUC__)
-// # define UNUSED(x) UNUSED_ ## x __attribute__((unused))
-// #elif defined(__LCLINT__)
-// # define UNUSED(x) /*@unused@*/ x
-// #else
-// # define UNUSED(x) x
-// #endif
+#include <sstream>
 
 
 /// Macro to help mark code as deprecated to produce compiler warnings
@@ -80,7 +69,7 @@ namespace Rivet {
   /// Just a convenience wrapper for the more general Boost lexical_cast
   template <typename T>
   inline string to_str(const T& x) {
-    return lexical_cast<string>(x);
+    return to_string(x);
   }
 
   /// @brief Convert any object to a string
@@ -88,7 +77,7 @@ namespace Rivet {
   /// An alias for to_str() with a more "Rivety" mixedCase name.
   template <typename T>
   inline string toString(const T& x) {
-    return to_str(x);
+    return to_string(x);
   }
 
   /// Replace the first instance of patt with repl
@@ -181,6 +170,17 @@ namespace Rivet {
     return rtn;
   }
 
+  /// Make a string containing the string representations of each item in v, separated by sep
+  template <>
+  inline string join(const vector<string>& v, const string& sep) {
+    string rtn;
+    for (size_t i = 0; i < v.size(); ++i) {
+      if (i != 0) rtn += sep;
+      rtn += v[i];
+    }
+    return rtn;
+  }
+
   /// Make a string containing the string representations of each item in s, separated by sep
   template <typename T>
   inline string join(const set<T>& s, const string& sep=" ") {
@@ -188,6 +188,17 @@ namespace Rivet {
     for (const T& x : s) {
       if (rtn.size() > 0) rtn += sep;
       rtn += to_str(x);
+    }
+    return rtn;
+  }
+
+  /// Make a string containing the string representations of each item in s, separated by sep
+  template <>
+  inline string join(const set<string>& s, const string& sep) {
+    string rtn;
+    for (const string & x : s) {
+      if (rtn.size() > 0) rtn += sep;
+      rtn += x;
     }
     return rtn;
   }
@@ -277,12 +288,14 @@ namespace Rivet {
   }
 
   /// Return number of elements in the container @a c for which @c f(x) is true.
+  /// @todo Use std::function<bool(typename CONTAINER::value_type)>
   template <typename CONTAINER, typename FN>
   inline unsigned int count(const CONTAINER& c, const FN& f) {
     return std::count_if(std::begin(c), std::end(c), f);
   }
 
   /// Return true if x is true for any x in container c, otherwise false.
+  /// @todo Use std::function<bool(typename CONTAINER::value_type)>
   template <typename CONTAINER>
   inline bool any(const CONTAINER& c) {
     // return std::any_of(std::begin(c), std::end(c), [](const auto& x){return bool(x);});
@@ -291,12 +304,14 @@ namespace Rivet {
   }
 
   /// Return true if f(x) is true for any x in container c, otherwise false.
+  /// @todo Use std::function<bool(typename CONTAINER::value_type)>
   template <typename CONTAINER, typename FN>
   inline bool any(const CONTAINER& c, const FN& f) {
     return std::any_of(std::begin(c), std::end(c), f);
   }
 
   /// Return true if @a x is true for all @c x in container @a c, otherwise false.
+  /// @todo Use std::function<bool(typename CONTAINER::value_type)>
   template <typename CONTAINER>
   inline bool all(const CONTAINER& c) {
     // return std::all_of(std::begin(c), std::end(c), [](const auto& x){return bool(x);});
@@ -305,12 +320,14 @@ namespace Rivet {
   }
 
   /// Return true if @a f(x) is true for all @c x in container @a c, otherwise false.
+  /// @todo Use std::function<bool(typename CONTAINER::value_type)>
   template <typename CONTAINER, typename FN>
   inline bool all(const CONTAINER& c, const FN& f) {
     return std::all_of(std::begin(c), std::end(c), f);
   }
 
   /// Return true if @a x is false for all @c x in container @a c, otherwise false.
+  /// @todo Use std::function<bool(typename CONTAINER::value_type)>
   template <typename CONTAINER>
   inline bool none(const CONTAINER& c) {
     // return std::none_of(std::begin(c), std::end(c), [](){});
@@ -319,6 +336,7 @@ namespace Rivet {
   }
 
   /// Return true if @a f(x) is false for all @c x in container @a c, otherwise false.
+  /// @todo Use std::function<bool(typename CONTAINER::value_type)>
   template <typename CONTAINER, typename FN>
   inline bool none(const CONTAINER& c, const FN& f) {
     return std::none_of(std::begin(c), std::end(c), f);
@@ -326,6 +344,7 @@ namespace Rivet {
 
 
   /// A single-container-arg version of std::transform, aka @c map
+  /// @todo Use std::function<typename C2::value_type(typename C1::value_type)>
   template <typename C1, typename C2, typename FN>
   inline const C2& transform(const C1& in, C2& out, const FN& f) {
     out.clear(); out.resize(in.size());
@@ -334,6 +353,7 @@ namespace Rivet {
   }
 
   /// A single-container-arg version of std::accumulate, aka @c reduce
+  /// @todo Use std::function<T(typename C1::value_type)>
   template <typename C1, typename T, typename FN>
   inline T accumulate(const C1& in, const T& init, const FN& f) {
     const T rtn = std::accumulate(in.begin(), in.end(), init, f);
@@ -341,6 +361,7 @@ namespace Rivet {
   }
 
   /// Generic sum function, adding @c x for all @c x in container @a c, starting with @a start
+  /// @todo Use CONTAINER::value_type? Or more flexible not to?
   template <typename CONTAINER, typename T>
   inline T sum(const CONTAINER& c, const T& start=T()) {
     T rtn = start;
@@ -349,6 +370,7 @@ namespace Rivet {
   }
 
   /// Generic sum function, adding @a fn(@c x) for all @c x in container @a c, starting with @a start
+  /// @todo Use std::function<T(typename CONTAINER::value_type)>
   template <typename CONTAINER, typename FN, typename T>
   inline T sum(const CONTAINER& c, const FN& f, const T& start=T()) {
     T rtn = start;
@@ -356,8 +378,25 @@ namespace Rivet {
     return rtn;
   }
 
+  /// In-place generic sum function, adding @c x on to container @a out for all @c x in container @a c
+  /// @todo Use CONTAINER::value_type? Or more flexible not to?
+  template <typename CONTAINER, typename T>
+  inline T& isum(const CONTAINER& c, T& out) {
+    for (const auto& x : c) out += x;
+    return out;
+  }
+
+  /// In-place generic sum function, adding @a fn(@c x) on to container @a out for all @c x in container @a c
+  /// @todo Use std::function<T(typename CONTAINER::value_type)>
+  template <typename CONTAINER, typename FN, typename T>
+  inline T& isum(const CONTAINER& c, const FN& f, T& out) {
+    for (const auto& x : c) out += f(x);
+    return out;
+  }
+
 
   /// Filter a collection in-place, removing the subset that passes the supplied function
+  /// @todo Use std::function<bool(typename CONTAINER::value_type)>
   template <typename CONTAINER, typename FN>
   inline CONTAINER& ifilter_discard(CONTAINER& c, const FN& f) {
     const auto newend = std::remove_if(std::begin(c), std::end(c), f);
@@ -366,6 +405,7 @@ namespace Rivet {
   }
 
   /// Filter a collection by copy, removing the subset that passes the supplied function
+  /// @todo Use std::function<bool(typename CONTAINER::value_type)>
   template <typename CONTAINER, typename FN>
   inline CONTAINER filter_discard(const CONTAINER& c, const FN& f) {
     CONTAINER rtn = c;
@@ -374,6 +414,7 @@ namespace Rivet {
 
   /// Filter a collection by copy into a supplied container, removing the subset that passes the supplied function
   /// @note New container will be replaced, not appended to
+  /// @todo Use std::function<bool(typename CONTAINER::value_type)>
   template <typename CONTAINER, typename FN>
   inline CONTAINER& filter_discard(const CONTAINER& c, const FN& f, CONTAINER& out) {
     out = filter_discard(c, f);
@@ -382,6 +423,7 @@ namespace Rivet {
 
 
   /// Filter a collection in-place, keeping the subset that passes the supplied function
+  /// @todo Use std::function<bool(typename CONTAINER::value_type)>
   template <typename CONTAINER, typename FN>
   inline CONTAINER& ifilter_select(CONTAINER& c, const FN& f) {
     //using value_type = typename std::remove_reference<decltype(*std::begin(std::declval<typename std::add_lvalue_reference<CONTAINER>::type>()))>::type;
@@ -390,6 +432,7 @@ namespace Rivet {
   }
 
   /// Filter a collection by copy, keeping the subset that passes the supplied function
+  /// @todo Use std::function<bool(typename CONTAINER::value_type)>
   template <typename CONTAINER, typename FN>
   inline CONTAINER filter_select(const CONTAINER& c, const FN& f) {
     CONTAINER rtn = c;
@@ -398,6 +441,7 @@ namespace Rivet {
 
   /// Filter a collection by copy into a supplied container, keeping the subset that passes the supplied function
   /// @note New container will be replaced, not appended to
+  /// @todo Use std::function<bool(typename CONTAINER::value_type)>
   template <typename CONTAINER, typename FN>
   inline CONTAINER& filter_select(const CONTAINER& c, const FN& f, CONTAINER& out) {
     out = filter_select(c, f);

@@ -15,14 +15,6 @@ namespace Rivet {
   typedef std::shared_ptr<Analysis> AnaHandle;
 
 
-  // Needed to make smart pointers compare equivalent in the STL set
-  struct CmpAnaHandle {
-    bool operator() (const AnaHandle& a, const AnaHandle& b) const {
-      return a.get() < b.get();
-    }
-  };
-
-
   /// A class which handles a number of analysis objects to be applied to
   /// generated events. An {@link Analysis}' AnalysisHandler is also responsible
   /// for handling the final writing-out of histograms.
@@ -50,61 +42,76 @@ namespace Rivet {
 
   public:
 
-    /// @name Run properties
+    /// @name Run properties and weights
     //@{
 
     /// Get the name of this run.
-    string runName() const { return _runname; }
-
+    string runName() const;
 
     /// Get the number of events seen. Should only really be used by external
     /// steering code or analyses in the finalize phase.
-    size_t numEvents() const { return _eventcounter.numEntries(); }
+    size_t numEvents() const;
 
     /// @brief Access the sum of the event weights seen
     ///
     /// This is the weighted equivalent of the number of events. It should only
     /// be used by external steering code or analyses in the finalize phase.
-    double sumW() const { return _eventcounter.sumW(); }
+    double sumW() const { return _eventCounter->sumW(); }
     /// Access to the sum of squared-weights
-    double sumW2() const { return _eventcounter.sumW2(); }
+    double sumW2() const { return _eventCounter->sumW2(); }
 
-    /// @brief Compatibility alias for sumOfWeights
-    ///
-    /// @deprecated Prefer sumW
-    double sumOfWeights() const { return sumW(); }
+    /// Names of event weight categories
+    const vector<string>& weightNames() const { return _weightNames; }
 
-    /// @brief Set the sum of weights
-    ///
-    /// This is useful if Rivet is steered externally and
-    /// the analyses are run for a sub-contribution of the events
-    /// (but of course have to be normalised to the total sum of weights)
-    ///
-    /// @todo What about the sumW2 term? That needs to be set coherently. Need a
-    /// new version, with all three N,sumW,sumW2 numbers (or a counter)
-    /// supplied.
-    ///
-    /// @deprecated Weight sums are no longer tracked this way...
-    void setSumOfWeights(const double& sum) {
-      //_sumOfWeights = sum;
-      throw Error("Can't set sum of weights independently, since it's now tracked by a Counter. "
-                  "Please contact the Rivet authors if you need this.");
+    /// Are any of the weights non-numeric?
+    size_t numWeights() const { return _weightNames.size(); }
+
+    /// Are any of the weights non-numeric?
+    bool haveNamedWeights() const;
+
+    /// Set the weight names from a GenEvent
+    void setWeightNames(const GenEvent& ge);
+
+    /// Get the index of the nominal weight-stream
+    size_t defaultWeightIndex() const { return _defaultWeightIdx; }
+
+    /// Set the weight cap
+    void setWeightCap(const double maxWeight) { _weightCap = maxWeight; }
+
+    //@}
+
+
+    /// @name Cross-sections
+    //@{
+
+    /// Get the cross-section known to the handler
+    Scatter1DPtr crossSection() const { return _xs; }
+
+    /// Set the cross-section for the process being generated
+    void setCrossSection(pair<double, double> xsec);
+    /// Set the cross-section for the process being generated (alternative signature)
+    void setCrossSection(double xsec, double xsecerr) {
+      setCrossSection({xsec, xsecerr});
     }
 
+    /// Get the nominal cross-section
+    double nominalCrossSection() const {
+      _xs.get()->setActiveWeightIdx(_defaultWeightIdx);
+      const YODA::Scatter1D::Points& ps = _xs->points();
+      if (ps.size() != 1) {
+        string errMsg = "cross section missing when requesting nominal cross section";
+        throw Error(errMsg);
+      }
+      double xs = ps[0].x();
+      _xs.get()->unsetActiveWeight();
+      return xs;
+    }
 
-    /// Is cross-section information required by at least one child analysis?
-    /// @deprecated Should no-longer be an issue: does any generator not write the cross-section?
-    bool needCrossSection() const;
-    /// Whether the handler knows about a cross-section.
-    /// @deprecated Should no-longer be an issue: does any generator not write the cross-section?
-    bool hasCrossSection() const;
+    //@}
 
-    /// Get the cross-section known to the handler.
-    double crossSection() const { return _xs; }
 
-    /// Set the cross-section for the process being generated.
-    AnalysisHandler& setCrossSection(double xs, double xserr=0);
-
+    /// @name Beams
+    //@{
 
     /// Set the beam particles for this run
     AnalysisHandler& setRunBeams(const ParticlePair& beams) {
@@ -127,6 +134,9 @@ namespace Rivet {
     /// Setter for _ignoreBeams
     void setIgnoreBeams(bool ignore=true);
 
+    /// Setter for _skipWeights
+    void skipMultiWeights(bool ignore=false);
+
     //@}
 
 
@@ -137,13 +147,28 @@ namespace Rivet {
     std::vector<std::string> analysisNames() const;
 
     /// Get the collection of currently registered analyses.
-    const std::set<AnaHandle, CmpAnaHandle>& analyses() const {
+    const std::map<std::string, AnaHandle>& analysesMap() const {
       return _analyses;
     }
 
-    /// Get a registered analysis by name.
-    const AnaHandle analysis(const std::string& analysisname) const;
+    /// Get the collection of currently registered analyses.
+    std::vector<AnaHandle> analyses() const {
+      std::vector<AnaHandle> rtn;
+      rtn.reserve(_analyses.size());
+      for (const auto& apair : _analyses) rtn.push_back(apair.second);
+      return rtn;
+    }
 
+    /// Get a registered analysis by name.
+    AnaHandle analysis(const std::string& analysisname) {
+      if ( _analyses.find(analysisname) == _analyses.end() )
+        throw LookupError("No analysis named '" + analysisname + "' registered in AnalysisHandler");
+      try {
+        return _analyses[analysisname];
+      } catch (...) {
+        throw LookupError("No analysis named '" + analysisname + "' registered in AnalysisHandler");
+      }
+    }
 
     /// Add an analysis to the run list by object
     AnalysisHandler& addAnalysis(Analysis* analysis);
@@ -157,7 +182,7 @@ namespace Rivet {
 
     /// @brief Add an analysis with a map of analysis options.
     AnalysisHandler& addAnalysis(const std::string& analysisname, std::map<string, string> pars);
-    
+
     /// @brief Add analyses to the run list using their names.
     ///
     /// The actual {@link Analysis}' to be used will be obtained via
@@ -172,6 +197,8 @@ namespace Rivet {
 
     /// Remove analyses from the run list using their names.
     AnalysisHandler& removeAnalyses(const std::vector<std::string>& analysisnames);
+
+    ///
 
     //@}
 
@@ -204,15 +231,23 @@ namespace Rivet {
     /// @name Histogram / data object access
     //@{
 
-    /// Add a vector of analysis objects to the current state.
-    void addData(const std::vector<AnalysisObjectPtr>& aos);
+    /// After all subevents in an event group has been processed push
+    /// all histo fills to the relevant histograms.
+    void pushToPersistent();
 
     /// Read analysis plots into the histo collection (via addData) from the named file.
     void readData(const std::string& filename);
 
-    /// Get all analyses' plots as a vector of analysis objects.
-    std::vector<AnalysisObjectPtr> getData(bool includeorphans = false,
-                                           bool includetmps = false) const;
+    /// Get all multi-weight Rivet analysis object wrappers
+    vector<MultiweightAOPtr> getRivetAOs() const;
+
+    /// Get a pointer to a preloaded yoda object with the given path,
+    /// or null if path is not found.
+    const YODA::AnalysisObjectPtr getPreload(string path) const {
+      auto it = _preloads.find(path);
+      if ( it == _preloads.end() ) return nullptr;
+      return it->second;
+    }
 
     /// Write all analyses' plots (via getData) to the named file.
     void writeData(const std::string& filename) const;
@@ -235,7 +270,7 @@ namespace Rivet {
     /// statistically independent) Rivet runs. The corresponding
     /// analyses will be loaded and their analysis objects will be
     /// filled with the merged result. finalize() will be run on each
-    /// relevant anslysis. The resulting YODA file can then be rwitten
+    /// relevant analysis. The resulting YODA file can then be rwitten
     /// out by writeData(). If delopts is non-empty, it is assumed to
     /// contain names different options to be merged into the same
     /// analysis objects.
@@ -244,35 +279,53 @@ namespace Rivet {
                     bool equiv = false);
 
     /// Helper function to strip specific options from data object paths.
-    void stripOptions(AnalysisObjectPtr ao,
+    void stripOptions(YODA::AnalysisObjectPtr ao,
                       const vector<string> & delopts) const;
 
     //@}
 
+
+    /// Indicate which Rivet stage we're in.
+    /// At the moment, only INIT is used to enable booking.
+    enum class Stage { OTHER, INIT, FINALIZE };
+
+    /// Which stage are we in?
+    Stage stage() const { return _stage; }
+
+
   private:
 
+    /// Current handler stage
+    Stage _stage = Stage::OTHER;
+
     /// The collection of Analysis objects to be used.
-    set<AnaHandle, CmpAnaHandle> _analyses;
+    std::map<std::string, AnaHandle> _analyses;
 
     /// A vector of pre-loaded object which do not have a valid
     /// Analysis plugged in.
-    vector<AnalysisObjectPtr> _orphanedPreloads;
+    map<string,YODA::AnalysisObjectPtr> _preloads;
 
     /// A vector containing copies of analysis objects after
     /// finalize() has been run.
-    vector<AnalysisObjectPtr> _finalizedAOs;
+    vector<YODA::AnalysisObjectPtr> _finalizedAOs;
+
 
     /// @name Run properties
     //@{
+
+    /// Weight names
+    std::vector<std::string> _weightNames;
+    std::vector<std::valarray<double> > _subEventWeights;
+    //size_t _numWeightTypes; // always == WeightVector.size()
 
     /// Run name
     std::string _runname;
 
     /// Event counter
-    Counter _eventcounter;
+    mutable CounterPtr _eventCounter;
 
     /// Cross-section known to AH
-    double _xs, _xserr;
+    Scatter1DPtr _xs;
 
     /// Beams used by this run.
     ParticlePair _beams;
@@ -282,6 +335,18 @@ namespace Rivet {
 
     /// Flag whether input event beams should be ignored in compatibility check
     bool _ignoreBeams;
+
+    /// Flag to check if multiweights should be included
+    bool _skipWeights;
+
+    /// weight cap value
+    double _weightCap;
+
+    /// Current event number
+    int _eventNumber;
+
+    /// The index in the weight vector for the nominal weight stream
+    size_t _defaultWeightIdx;
 
     /// Determines how often Rivet runs finalize() and writes the
     /// result to a YODA file.

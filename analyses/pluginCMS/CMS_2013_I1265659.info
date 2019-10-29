@@ -43,3 +43,7 @@ BibTeX: '@article{Chatrchyan:2013fha,
 }'
 ToDo:
  - Update references when accepted by journal
+
+ReleaseTests:
+ - $A LHC-7-Jets-4
+

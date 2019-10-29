@@ -6,8 +6,4 @@
 #include "Rivet/Math/Vector3.hh"
 #include "Rivet/Math/Vector4.hh"
 
-// typedef std::vector<FourMomentum> FourMomenta;
-// typedef std::vector<FourVector> FourVectors;
-// typedef std::vector<Vector3> Vector3s;
-
 #endif

@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/PromptFinalState.hh"
@@ -56,7 +56,7 @@ namespace Rivet {
 
       // Tau finding
       /// @todo Use TauFinder
-      UnstableFinalState ufs;
+      UnstableParticles ufs;
       IdentifiedFinalState tau_id(ufs);
       tau_id.acceptIdPair(PID::TAU);
       PromptFinalState bare_tau(tau_id);
@@ -84,20 +84,20 @@ namespace Rivet {
       // Small-R jets
       /// @todo Use extra constructor args
       FastJets jets(vfs, FastJets::ANTIKT, 0.4);
-      jets.useInvisibles(JetAlg::ALL_INVISIBLES);
-      jets.useMuons(JetAlg::DECAY_MUONS);
+      jets.useInvisibles(JetAlg::Invisibles::ALL);
+      jets.useMuons(JetAlg::Muons::DECAY);
       declare(jets, "jets");
 
       // Large-R jets
       /// @todo Use extra constructor args
       FastJets large_jets(vfs, FastJets::ANTIKT, 1.0);
-      large_jets.useInvisibles(JetAlg::ALL_INVISIBLES);
-      large_jets.useMuons(JetAlg::DECAY_MUONS);
+      large_jets.useInvisibles(JetAlg::Invisibles::ALL);
+      large_jets.useMuons(JetAlg::Muons::DECAY);
       declare(large_jets, "fat_jets");
 
 
       /// Book histogram
-      _h_pttop = bookHisto1D(1, 1, 1);
+      book(_h_pttop ,1, 1, 1);
     }
 
 
@@ -196,7 +196,7 @@ namespace Rivet {
       }
 
       // Fill histo if selection passed
-      if (hadbtag || lepbtag) _h_pttop->fill(fjet.pT()/GeV, event.weight());
+      if (hadbtag || lepbtag) _h_pttop->fill(fjet.pT()/GeV);
     }
 
 

@@ -40,3 +40,7 @@ BibTeX: '@article{Chatrchyan:2013gfi,
       reportNumber   = "CMS-FWD-11-003, CERN-PH-EP-2013-012",
       SLACcitation   = "%%CITATION = ARXIV:1302.2394;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-2760-UE
+

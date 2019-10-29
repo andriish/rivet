@@ -43,3 +43,7 @@ BibTeX: '@article{Chatrchyan:2011wt,
       reportNumber   = "CERN-PH-EP-2014-080",
       SLACcitation   = "%%CITATION = ARXIV:1406.0113;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-8-ZZ-lv
+

@@ -25,7 +25,7 @@ namespace Rivet {
       : _metSmearFn(metSmearFn)
     {
       setName("SmearedMET");
-      addProjection(mm, "TruthMET");
+      declare(mm, "TruthMET");
     }
 
     /// @brief Constructor from a Cut (on the particles used to determine missing momentum) and a smearing function
@@ -34,7 +34,7 @@ namespace Rivet {
       : _metSmearFn(metSmearFn)
     {
       setName("SmearedMET");
-      addProjection(MissingMomentum(cut), "TruthMET");
+      declare(MissingMomentum(cut), "TruthMET");
     }
 
 
@@ -45,7 +45,7 @@ namespace Rivet {
 
 
     /// Compare to another SmearedMET
-    int compare(const Projection& p) const {
+    CmpState compare(const Projection& p) const {
       const SmearedMET& other = dynamic_cast<const SmearedMET&>(p);
       if (get_address(_metSmearFn) == 0) return cmp((size_t)this, (size_t)&p);
       MSG_TRACE("Smear hashes = " << get_address(_metSmearFn) << "," << get_address(other._metSmearFn));

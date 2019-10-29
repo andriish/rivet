@@ -32,3 +32,8 @@ BibTeX: '@Article{Abe:1988yu,
      doi       = "10.1103/PhysRevLett.61.1819",
      SLACcitation  = "%%CITATION = PRLTA,61,1819;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-630-UE
+ - $A-2 TVT-Run-I-UE
+

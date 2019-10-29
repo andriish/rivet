@@ -35,3 +35,9 @@ BibTeX: '@Article{Abe:1996mj,
      doi       = "10.1103/PhysRevLett.77.5336",
      SLACcitation  = "%%CITATION = HEP-EX/9609011;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-Run-I-Jets-6
+ - $A-2 TVT-Run-I-Jets-7
+ - $A-3 TVT-Run-I-Jets-8
+

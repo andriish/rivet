@@ -5,7 +5,7 @@
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/WFinder.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/MergedFinalState.hh"
@@ -13,6 +13,7 @@
 #include "Rivet/Projections/InvMassFinalState.hh"
 
 namespace Rivet {
+
 
   /// Generic Z candidate
   struct Zstate : public ParticlePair {
@@ -25,7 +26,7 @@ namespace Rivet {
 
 
 
-  /// @name ZZ analysis
+  /// ZZ analysis
   class ATLAS_2012_I1203852 : public Analysis {
   public:
 
@@ -34,10 +35,11 @@ namespace Rivet {
       : Analysis("ATLAS_2012_I1203852")
     {    }
 
+
     void init() {
 
       // NB Missing ET is not required to be neutrinos
-      FinalState fs(-5.0, 5.0, 0.0*GeV);
+      FinalState fs((Cuts::etaIn(-5.0, 5.0)));
 
       // Final states to form Z bosons
       vids.push_back(make_pair(PID::ELECTRON, PID::POSITRON));
@@ -77,7 +79,7 @@ namespace Rivet {
       declare(neutrino_fs, "NEUTRINO_FS");
 
       // Calculate missing ET from the visible final state, not by requiring neutrinos
-      addProjection(MissingMomentum(Cuts::abseta < 4.5), "MISSING");
+      declare(MissingMomentum(Cuts::abseta < 4.5), "MISSING");
 
       VetoedFinalState jetinput;
       jetinput.addVetoOnThisFinalState(bare_MU);
@@ -87,26 +89,24 @@ namespace Rivet {
       declare(jetpro, "jet");
 
       // Both ZZ on-shell histos
-      _h_ZZ_xsect = bookHisto1D(1, 1, 1);
-      _h_ZZ_ZpT   = bookHisto1D(3, 1, 1);
-      _h_ZZ_phill = bookHisto1D(5, 1, 1);
-      _h_ZZ_mZZ   = bookHisto1D(7, 1, 1);
+      book(_h_ZZ_xsect ,1, 1, 1);
+      book(_h_ZZ_ZpT   ,3, 1, 1);
+      book(_h_ZZ_phill ,5, 1, 1);
+      book(_h_ZZ_mZZ   ,7, 1, 1);
 
       // One Z off-shell (ZZstar) histos
-      _h_ZZs_xsect = bookHisto1D(1, 1, 2);
+      book(_h_ZZs_xsect ,1, 1, 2);
 
       // ZZ -> llnunu histos
-      _h_ZZnunu_xsect = bookHisto1D(1, 1, 3);
-      _h_ZZnunu_ZpT   = bookHisto1D(4, 1, 1);
-      _h_ZZnunu_phill = bookHisto1D(6, 1, 1);
-      _h_ZZnunu_mZZ   = bookHisto1D(8, 1, 1);
+      book(_h_ZZnunu_xsect ,1, 1, 3);
+      book(_h_ZZnunu_ZpT   ,4, 1, 1);
+      book(_h_ZZnunu_phill ,6, 1, 1);
+      book(_h_ZZnunu_mZZ   ,8, 1, 1);
     }
 
 
     /// Do the analysis
     void analyze(const Event& e) {
-      const double weight = e.weight();
-
       ////////////////////////////////////////////////////////////////////
       // preselection of leptons for ZZ-> llll final state
       ////////////////////////////////////////////////////////////////////
@@ -123,11 +123,11 @@ namespace Rivet {
       ////////////////////////////////////////////////////////////////////
       // OVERLAP removal dR(l,l)>0.2
       ////////////////////////////////////////////////////////////////////
-      foreach ( const DressedLepton& l1, leptonsFS_sel4l) {
+      for (const DressedLepton& l1 : leptonsFS_sel4l) {
         bool isolated = true;
-        foreach (DressedLepton& l2, leptonsFS_sel4l) {
+        for (DressedLepton& l2 : leptonsFS_sel4l) {
           const double dR = deltaR(l1, l2);
-          if (dR < 0.2 && l1 != l2) { isolated = false; break; }
+          if (dR < 0.2 && !isSame(l1, l2)) { isolated = false; break; }
         }
         if (isolated) leptons_sel4l.push_back(l1);
       }
@@ -138,7 +138,7 @@ namespace Rivet {
 
       // calculate total 'flavour' charge
       double totalcharge = 0;
-      foreach (Particle& l, leptons_sel4l) totalcharge += l.pid();
+      for (const Particle& l : leptons_sel4l) totalcharge += l.pid();
 
       // Analyze 4 lepton events
       if (leptons_sel4l.size() == 4 && totalcharge == 0  ) {
@@ -165,15 +165,15 @@ namespace Rivet {
         if (mZ1 > 20*GeV && mZ2 > 20*GeV) {
           // ZZ* selection
           if (inRange(mZ1, 66*GeV, 116*GeV) || inRange(mZ2, 66*GeV, 116*GeV)) {
-            _h_ZZs_xsect  -> fill(sqrtS()*GeV,  weight);
+            _h_ZZs_xsect  -> fill(sqrtS()*GeV); ///< @todo xsec * GeV??
           }
 
           // ZZ selection
           if (inRange(mZ1, 66*GeV, 116*GeV) && inRange(mZ2, 66*GeV, 116*GeV)) {
-            _h_ZZ_xsect  -> fill(sqrtS()*GeV,  weight);
-            _h_ZZ_ZpT    -> fill(ZpT   , weight);
-            _h_ZZ_phill  -> fill(phill , weight);
-            _h_ZZ_mZZ    -> fill(mZZ   , weight);
+            _h_ZZ_xsect  -> fill(sqrtS()*GeV); ///< @todo xsec * GeV??
+            _h_ZZ_ZpT    -> fill(ZpT);
+            _h_ZZ_phill  -> fill(phill);
+            _h_ZZ_mZZ    -> fill(mZZ);
           }
         }
       }
@@ -201,12 +201,12 @@ namespace Rivet {
       if (leptons_sel2l2nu.empty()) vetoEvent; // no further analysis, fine to veto
 
       Particles leptons_sel2l2nu_jetveto;
-      foreach (const DressedLepton& l, mu_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
-      foreach (const DressedLepton& l, el_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
+      for (const DressedLepton& l : mu_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
+      for (const DressedLepton& l : el_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
       double ptll = (leptons_sel2l2nu[0].momentum() + leptons_sel2l2nu[1].momentum()).pT();
 
       // Find Z1-> ll
-      FinalState fs2(-3.2, 3.2);
+      FinalState fs2((Cuts::etaIn(-3.2, 3.2)));
       InvMassFinalState imfs(fs2, vids, 20*GeV, sqrtS());
       imfs.calc(leptons_sel2l2nu);
       if (imfs.particlePairs().size() != 1) vetoEvent;
@@ -249,10 +249,10 @@ namespace Rivet {
       // JETVETO: veto all events with at least one good jet
       ///////////////////////////////////////////////////////////////////////////
       vector<Jet> good_jets;
-      foreach (const Jet& j, apply<FastJets>(e, "jet").jetsByPt(25)) {
+      for (const Jet& j : apply<FastJets>(e, "jet").jetsByPt(25)) {
         if (j.abseta() > 4.5) continue;
         bool isLepton = 0;
-        foreach (const Particle& l, leptons_sel2l2nu_jetveto) {
+        for (const Particle& l : leptons_sel2l2nu_jetveto) {
           const double dR = deltaR(l.momentum(), j.momentum());
           if (dR < 0.3) { isLepton = true; break; }
         }
@@ -270,10 +270,10 @@ namespace Rivet {
 
 
       // End of ZZllnunu selection: now fill histograms
-      _h_ZZnunu_xsect->fill(sqrtS()/GeV, weight);
-      _h_ZZnunu_ZpT  ->fill(ZpT, weight);
-      _h_ZZnunu_phill->fill(phill, weight);
-      _h_ZZnunu_mZZ  ->fill(mTZZ, weight);
+      _h_ZZnunu_xsect->fill(sqrtS()/GeV); ///< @todo xsec / GeV??
+      _h_ZZnunu_ZpT  ->fill(ZpT);
+      _h_ZZnunu_phill->fill(phill);
+      _h_ZZnunu_mZZ  ->fill(mTZZ);
 
     }
 
@@ -319,7 +319,7 @@ namespace Rivet {
     /////////////////////////////////////////////////////////////////////////////
 
     Particles part_pos_el, part_neg_el, part_pos_mu, part_neg_mu;
-    foreach (const Particle& l , leptons_sel4l) {
+    for (const Particle& l : leptons_sel4l) {
       if (l.abspid() == PID::ELECTRON) {
         if (l.pid() < 0) part_neg_el.push_back(l);
         if (l.pid() > 0) part_pos_el.push_back(l);

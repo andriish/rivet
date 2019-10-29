@@ -38,3 +38,7 @@ BibTeX: '@Article{Decamp:1991uz,
      doi       = "10.1016/0370-2693(91)90575-B",
      SLACcitation  = "%%CITATION = PHLTA,B273,181;%%"
 }'
+
+ReleaseTests:
+ - $A LEP-91
+

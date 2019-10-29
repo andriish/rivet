@@ -1,0 +1,32 @@
+Name: ARGUS_1989_I268577
+Year: 1989
+Summary: Spectrum for $D^0_{s2}$ production in $e^+e^-$ at 10 GeV in the continuum
+Experiment: ARGUS
+Collider: DORIS
+InspireID: 268577
+Status: VALIDATED
+Authors:
+ - Peter Richardson <Peter.Richardson@durham.ac.uk>
+References:
+ - Phys.Lett. B221 (1989) 422-426
+RunInfo:
+  $e^+ e^-$ analysis near the $\Upsilon$ resonances
+NeedCrossSection: no
+Beams: [e-, e+]
+Energies: [10.]
+Description:
+  'Measurement of the spectrum for the production of  $D^0_{2}$ by the ARGUS experiment'
+Keywords: []
+BibKey: Albrecht:1988dj
+BibTeX: '@article{Albrecht:1988dj,
+      author         = "Albrecht, H. and others",
+      title          = "{Observation of the D*0 (2459) in e+ e- Annihilation}",
+      collaboration  = "ARGUS",
+      journal        = "Phys. Lett.",
+      volume         = "B221",
+      year           = "1989",
+      pages          = "422-426",
+      doi            = "10.1016/0370-2693(89)91737-1",
+      reportNumber   = "DESY-88-179",
+      SLACcitation   = "%%CITATION = PHLTA,B221,422;%%"
+}'

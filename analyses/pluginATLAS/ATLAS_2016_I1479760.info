@@ -41,3 +41,7 @@ BibTeX: '@article{Aaboud:2016dea,
       reportNumber   = "CERN-EP-2016-183",
       SLACcitation   = "%%CITATION = ARXIV:1608.01857;%%"
 }'
+
+ReleaseTests:
+ - $A LHC-7-Jets-3
+

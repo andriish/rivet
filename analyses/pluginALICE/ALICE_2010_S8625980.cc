@@ -13,8 +13,7 @@ namespace Rivet {
 
     /// Constructor
     ALICE_2010_S8625980()
-      : Analysis("ALICE_2010_S8625980"),
-        _Nevt_after_cuts(0.0)
+      : Analysis("ALICE_2010_S8625980")
     {    }
 
     //@}
@@ -28,39 +27,38 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      ChargedFinalState cfs(-1.0, 1.0);
+      ChargedFinalState cfs((Cuts::etaIn(-1.0, 1.0)));
       declare(cfs, "CFS");
 
       if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
-        _h_dN_deta    = bookHisto1D(4, 1, 1);
+        book(_h_dN_deta    ,4, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 2360, 1E-3)) {
-        _h_dN_deta    = bookHisto1D(5, 1, 1);
+        book(_h_dN_deta    ,5, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) {
-        _h_dN_deta    = bookHisto1D(6, 1, 1);
-        _h_dN_dNch    = bookHisto1D(3, 1, 1);
+        book(_h_dN_deta    ,6, 1, 1);
+        book(_h_dN_dNch    ,3, 1, 1);
       }
+      book(_Nevt_after_cuts, "Nevt_after_cuts");
 
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
-
       const ChargedFinalState& charged = apply<ChargedFinalState>(event, "CFS");
       if (charged.size() < 1) {
         vetoEvent;
       }
-      _Nevt_after_cuts += weight;
+      _Nevt_after_cuts->fill();
 
 
-      foreach (const Particle& p, charged.particles()) {
+      for (const Particle& p : charged.particles()) {
         const double eta = p.eta();
-        _h_dN_deta->fill(eta, weight);
+        _h_dN_deta->fill(eta);
       }
 
       if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) {
-        _h_dN_dNch->fill(charged.size(), weight);
+        _h_dN_dNch->fill(charged.size());
       }
     }
 
@@ -71,7 +69,7 @@ namespace Rivet {
       if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) {
         normalize(_h_dN_dNch);
       }
-      scale(_h_dN_deta, 1.0/_Nevt_after_cuts);
+      scale(_h_dN_deta, 1.0/ *_Nevt_after_cuts);
 
     }
 
@@ -85,7 +83,7 @@ namespace Rivet {
 
     Histo1DPtr _h_dN_deta;
     Histo1DPtr _h_dN_dNch;
-    double _Nevt_after_cuts;
+    CounterPtr _Nevt_after_cuts;
     //@}
 
 

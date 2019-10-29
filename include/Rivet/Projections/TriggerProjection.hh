@@ -25,7 +25,7 @@ public:
     setName("TriggerProjection");
   }
   virtual ~TriggerProjection() {}
-  
+
   /// Clone on the heap.
   DEFAULT_RIVET_PROJ_CLONE(TriggerProjection);
 
@@ -47,8 +47,8 @@ protected:
   }
 
   /// Compare projections
-  virtual int compare(const Projection&) const {
-    return 0;
+  virtual CmpState compare(const Projection&) const {
+    return CmpState::EQ;
   }
 
   /// Indicate that the event has failed the trigger.
@@ -65,4 +65,3 @@ private:
 }
 
 #endif
-

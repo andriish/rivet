@@ -25,3 +25,9 @@ BibTeX: '@article{CMS-PAS-QCD-11-010,
    title = "Measurement of strange particle production in underlying event in proton--proton collisions at $\sqrt{s} = 7$\;TeV",
    year  = "2012",
 }'
+
+ReleaseTests:
+ - $A LHC-7-Jets-1
+ - $A-2 LHC-7-Jets-2
+ - $A-3 LHC-7-Jets-3
+

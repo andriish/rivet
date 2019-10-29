@@ -9,8 +9,8 @@ namespace Rivet {
 
   namespace {
     /// @brief Helper function to fill correlation points into scatter plot
-    Point2D correlation_helper(double x, double xerr, const vector<int> & nf, const vector<int> & nb, double sumWPassed) {
-      return Point2D(x, correlation(nf, nb), xerr, correlation_err(nf, nb)/sqrt(sumWPassed));
+    Point2D correlation_helper(double x, double xerr, const vector<int> & nf, const vector<int> & nb, CounterPtr sumWPassed) {
+      return Point2D(x, correlation(nf, nb), xerr, correlation_err(nf, nb)/sqrt(sumWPassed->val()));
     }
   }
 
@@ -20,7 +20,7 @@ namespace Rivet {
   public:
 
     UA5_1988_S1867512()
-      : Analysis("UA5_1988_S1867512"), _sumWPassed(0)
+      : Analysis("UA5_1988_S1867512")
     {    }
 
 
@@ -32,39 +32,41 @@ namespace Rivet {
       declare(TriggerUA5(), "Trigger");
 
       // Symmetric eta interval
-      declare(ChargedFinalState(-0.5, 0.5), "CFS05");
+      declare(ChargedFinalState((Cuts::etaIn(-0.5, 0.5))), "CFS05");
 
       // Asymmetric intervals first
       // Forward eta intervals
-      declare(ChargedFinalState(0.0, 1.0), "CFS10F");
-      declare(ChargedFinalState(0.5, 1.5), "CFS15F");
-      declare(ChargedFinalState(1.0, 2.0), "CFS20F");
-      declare(ChargedFinalState(1.5, 2.5), "CFS25F");
-      declare(ChargedFinalState(2.0, 3.0), "CFS30F");
-      declare(ChargedFinalState(2.5, 3.5), "CFS35F");
-      declare(ChargedFinalState(3.0, 4.0), "CFS40F");
+      declare(ChargedFinalState((Cuts::etaIn(0.0, 1.0))), "CFS10F");
+      declare(ChargedFinalState((Cuts::etaIn(0.5, 1.5))), "CFS15F");
+      declare(ChargedFinalState((Cuts::etaIn(1.0, 2.0))), "CFS20F");
+      declare(ChargedFinalState((Cuts::etaIn(1.5, 2.5))), "CFS25F");
+      declare(ChargedFinalState((Cuts::etaIn(2.0, 3.0))), "CFS30F");
+      declare(ChargedFinalState((Cuts::etaIn(2.5, 3.5))), "CFS35F");
+      declare(ChargedFinalState((Cuts::etaIn(3.0, 4.0))), "CFS40F");
 
       // Backward eta intervals
-      declare(ChargedFinalState(-1.0,  0.0), "CFS10B");
-      declare(ChargedFinalState(-1.5, -0.5), "CFS15B");
-      declare(ChargedFinalState(-2.0, -1.0), "CFS20B");
-      declare(ChargedFinalState(-2.5, -1.5), "CFS25B");
-      declare(ChargedFinalState(-3.0, -2.0), "CFS30B");
-      declare(ChargedFinalState(-3.5, -2.5), "CFS35B");
-      declare(ChargedFinalState(-4.0, -3.0), "CFS40B");
+      declare(ChargedFinalState((Cuts::etaIn(-1.0,  0.0))), "CFS10B");
+      declare(ChargedFinalState((Cuts::etaIn(-1.5, -0.5))), "CFS15B");
+      declare(ChargedFinalState((Cuts::etaIn(-2.0, -1.0))), "CFS20B");
+      declare(ChargedFinalState((Cuts::etaIn(-2.5, -1.5))), "CFS25B");
+      declare(ChargedFinalState((Cuts::etaIn(-3.0, -2.0))), "CFS30B");
+      declare(ChargedFinalState((Cuts::etaIn(-3.5, -2.5))), "CFS35B");
+      declare(ChargedFinalState((Cuts::etaIn(-4.0, -3.0))), "CFS40B");
 
       // Histogram booking, we have sqrt(s) = 200, 546 and 900 GeV
       // TODO use Scatter2D to be able to output errors
       if (fuzzyEquals(sqrtS()/GeV, 200.0, 1E-4)) {
-        _hist_correl = bookScatter2D(2, 1, 1);
-        _hist_correl_asym = bookScatter2D(3, 1, 1);
+        book(_hist_correl, 2, 1, 1);
+        book(_hist_correl_asym, 3, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 546.0, 1E-4)) {
-        _hist_correl = bookScatter2D(2, 1, 2);
-        _hist_correl_asym = bookScatter2D(3, 1, 2);
+        book(_hist_correl, 2, 1, 2);
+        book(_hist_correl_asym, 3, 1, 2);
       } else if (fuzzyEquals(sqrtS()/GeV, 900.0, 1E-4)) {
-        _hist_correl = bookScatter2D(2, 1, 3);
-        _hist_correl_asym = bookScatter2D(3, 1, 3);
+        book(_hist_correl, 2, 1, 3);
+        book(_hist_correl_asym, 3, 1, 3);
       }
+
+      book(_sumWPassed, "sumW");
     }
 
 
@@ -72,7 +74,7 @@ namespace Rivet {
       // Trigger
       const bool trigger = apply<TriggerUA5>(event, "Trigger").nsdDecision();
       if (!trigger) vetoEvent;
-      _sumWPassed += event.weight();
+      _sumWPassed->fill();
 
       // Count forward/backward particles
       n_10f.push_back(apply<ChargedFinalState>(event, "CFS10F").size());
@@ -148,7 +150,7 @@ namespace Rivet {
 
     /// @name Counters
     //@{
-    double _sumWPassed;
+    CounterPtr _sumWPassed;
     //@}
 
 

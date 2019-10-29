@@ -24,16 +24,14 @@ namespace Rivet {
       declare(cnfs, "FS");
 
       // Histograms
-      _histPt         = bookHisto1D("pT", 30, 0, 30);
-      _histMass       = bookHisto1D("Mass", 20, 0, 1);
+      book(_histPt         ,"pT", 30, 0, 30);
+      book(_histMass       ,"Mass", 20, 0, 1);
 
     }
 
 
     /// Do the analysis
     void analyze(const Event& event) {
-      // Make sure to always include the event weight in histogram fills!
-      const double weight = event.weight();
 
       const Particles ps = apply<FinalState>(event, "FS").particlesByPt();
 
@@ -43,16 +41,16 @@ namespace Rivet {
 
       for (const Particle& p : ps) {
         if ( ptcut->accept(p) )
-          _histPt->fill(p.pT(), weight);
+          _histPt->fill(p.pT());
         if ( combine->accept(p) )
-          _histMass->fill(p.mass(), weight);
+          _histMass->fill(p.mass());
       }
     }
 
 
     /// Finalize
     void finalize() {
-      normalize({_histPt, _histMass});
+      normalize(_histPt); normalize(_histMass);
     }
 
     //@}

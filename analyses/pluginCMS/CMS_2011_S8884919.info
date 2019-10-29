@@ -46,3 +46,7 @@ BibTeX: '@Article{Khachatryan:2010nk,
      SLACcitation  = "%%CITATION = 1011.5531;%%"
   }'
 ToDo:
+
+ReleaseTests:
+ - $A LHC-2360-UE
+

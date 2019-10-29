@@ -36,3 +36,10 @@ BibTeX: '@Article{Abazov:2010fr,
      primaryClass  =  "hep-ex",
      SLACcitation  = "%%CITATION = 1002.4594;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-Run-II-Jets-10
+ - $A-2 TVT-Run-II-Jets-11
+ - $A-3 TVT-Run-II-Jets-8
+ - $A-4 TVT-Run-II-Jets-9
+

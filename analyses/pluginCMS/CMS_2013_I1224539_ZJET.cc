@@ -10,8 +10,6 @@
 namespace Rivet {
 
 
-
-
   class CMS_2013_I1224539_ZJET : public Analysis {
   public:
 
@@ -41,7 +39,7 @@ namespace Rivet {
 
       // Find Zs with pT > 120 GeV
       ZFinder zfinder(fs, Cuts::abseta < 2.4 && Cuts::pT > 30*GeV, PID::ELECTRON, 80*GeV, 100*GeV,
-                      0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
+                      0.2, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::YES);
       declare(zfinder, "ZFinder");
 
       // Z+jet jet collections
@@ -53,12 +51,12 @@ namespace Rivet {
       /// @note These are 2D histos rendered into slices
       const int zjetsOffset = 28;
       for (size_t i = 0; i < N_PT_BINS_vj; ++i ) {
-        _h_ungroomedJetMass_AK7_zj[i] = bookHisto1D(zjetsOffset+i+1+0*N_PT_BINS_vj, 1, 1);
-        _h_filteredJetMass_AK7_zj[i] = bookHisto1D(zjetsOffset+i+1+1*N_PT_BINS_vj,1,1);
-        _h_trimmedJetMass_AK7_zj[i] = bookHisto1D(zjetsOffset+i+1+2*N_PT_BINS_vj,1,1);
-        _h_prunedJetMass_AK7_zj[i] = bookHisto1D(zjetsOffset+i+1+3*N_PT_BINS_vj,1,1);
-        _h_prunedJetMass_CA8_zj[i] = bookHisto1D(zjetsOffset+i+1+4*N_PT_BINS_vj,1,1);
-        if (i > 0) _h_filteredJetMass_CA12_zj[i] = bookHisto1D(zjetsOffset+i+5*N_PT_BINS_vj,1,1);
+        book(_h_ungroomedJetMass_AK7_zj[i] ,zjetsOffset+i+1+0*N_PT_BINS_vj, 1, 1);
+        book(_h_filteredJetMass_AK7_zj[i] ,zjetsOffset+i+1+1*N_PT_BINS_vj,1,1);
+        book(_h_trimmedJetMass_AK7_zj[i] ,zjetsOffset+i+1+2*N_PT_BINS_vj,1,1);
+        book(_h_prunedJetMass_AK7_zj[i] ,zjetsOffset+i+1+3*N_PT_BINS_vj,1,1);
+        book(_h_prunedJetMass_CA8_zj[i] ,zjetsOffset+i+1+4*N_PT_BINS_vj,1,1);
+        if (i > 0) book(_h_filteredJetMass_CA12_zj[i] ,zjetsOffset+i+5*N_PT_BINS_vj,1,1);
       }
     }
 
@@ -86,7 +84,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Get the Z
       const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
@@ -102,9 +100,7 @@ namespace Rivet {
       assert(&l1 != &l2);
 
       // Require a high-pT Z (and constituents)
-      if (l1.pT() < 30*GeV ) vetoEvent;
-      if (l2.pT() < 30*GeV ) vetoEvent;
-      if (z.pT() < 120*GeV) vetoEvent;
+      if (l1.pT() < 30*GeV || l2.pT() < 30*GeV || z.pT() < 120*GeV) vetoEvent;
 
       // AK7 jets
       const PseudoJets& psjetsAK7_zj = apply<FastJets>(event, "JetsAK7_zj").pseudoJetsByPt(50.0*GeV);

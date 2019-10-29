@@ -36,3 +36,10 @@ BibTeX: '@article{Aad:2016xcr,
       reportNumber   = "CERN-EP-2016-035",
       SLACcitation   = "%%CITATION = ARXIV:1605.03495;%%"
 }'
+
+ReleaseTests:
+ - $A LHC-8-PromptPhoton-1
+ - $A-2 LHC-8-PromptPhoton-2
+ - $A-3 LHC-8-PromptPhoton-3
+ - $A-4 LHC-8-PromptPhoton-4
+

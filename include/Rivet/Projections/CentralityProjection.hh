@@ -35,7 +35,7 @@ public:
   /// Default constructor.
   CentralityProjection() {}
 
-  
+
   DEFAULT_RIVET_PROJ_CLONE(CentralityProjection);
 
   /// @BRIEF Add a new centality estimate.
@@ -60,7 +60,7 @@ public:
   bool empty() const {
     return _projNames.empty();
   }
-  
+
   /// Return the percentile of the @a i'th projection.
   ///
   /// Note that operator() will return the zero'th projection.
@@ -69,33 +69,32 @@ public:
   }
 
   // Standard comparison function.
-  int compare(const Projection& p) const {
-    const CentralityProjection* other = 
-	    dynamic_cast<const CentralityProjection*>(&p);
-    if (other->_projNames.size() == 0) return UNDEFINED;
+  CmpState compare(const Projection& p) const {
+    const CentralityProjection* other = dynamic_cast<const CentralityProjection*>(&p);
+    if (other->_projNames.size() == 0) return CmpState::NEQ;
     for (string pname : _projNames) {
       bool hasPname = true;
       for (string p2name : other->_projNames){
         if (pname != p2name) hasPname = false;
       }
-      if (!hasPname) return UNDEFINED;
+      if (!hasPname) return CmpState::NEQ;
     }
-    return EQUIVALENT;
+    return CmpState::EQ;
   }
 
-  /// THe list of names of the internal projections.
+  /// The list of names of the internal projections.
   vector<string> projections() const {
     return _projNames;
   }
 
 private:
 
-  /// THe list of names of the internal projections.
+  /// The list of names of the internal projections.
   vector<string> _projNames;
 
   /// The list of percentiles resulting from the last projection.
   vector<double> _values;
-  
+
 };
 
 }

@@ -6,7 +6,7 @@
 #include "Rivet/Math/MatrixN.hh"
 #include "Rivet/Math/Matrix3.hh"
 #include "Rivet/Math/Vector4.hh"
-#include <iostream>
+#include <ostream>
 
 namespace Rivet {
 
@@ -34,16 +34,6 @@ namespace Rivet {
       return sqrt(1 - sqr(1/gamma));
     }
 
-    // /// Calculate the \f$ \gamma \f$ factor from \f$ \bar{\beta}^2 = 1-\beta^2 \f$
-    // static double betabarsq2gamma(double betabarsq) {
-    //   return 1.0 / sqrt(betabarsq);
-    // }
-
-    // /// Calculate \f$ \bar{\beta}^2 = 1-\beta^2 \f$ from the \f$ \gamma \f$ factor
-    // static double gamma2betabarsq(double gamma) {
-    //   return 1.0 / sqr(gamma);
-    // }
-
     //@}
 
 
@@ -55,6 +45,10 @@ namespace Rivet {
       _boostMatrix = Matrix<4>::mkIdentity();
     }
 
+    /// Constructor from a 4x4 matrix
+    LorentzTransform(const Matrix<4>& boostMatrix) {
+      _boostMatrix = boostMatrix;
+    }
 
     /// Make an LT for an active boost (i.e. object velocity += in boost direction)
     static LorentzTransform mkObjTransformFromBeta(const Vector3& vbeta) {
@@ -98,24 +92,40 @@ namespace Rivet {
     /// @name Boost vector and beta/gamma factors
     //@{
 
+    /// Set up an active Lorentz boost from a (unit) direction vector, and \f$ \beta \f$ & \f$ \gamma \f$ factors
+    LorentzTransform& _setBoost(const Vector3& vec, double beta, double gamma) {
+      // Set to identity for null boosts
+      _boostMatrix = Matrix<4>::mkIdentity();
+      if (isZero(beta)) return *this;
+      //
+      // It's along the x, y, or z axis if 2 Cartesian components are zero
+      const bool alongxyz = (int(vec.x() == 0) + int(vec.y() == 0) + int(vec.z() == 0) == 2);
+      const int i = (!alongxyz || vec.x() != 0) ? 1 : (vec.y() != 0) ? 2 : 3;
+      const int isign = !alongxyz ? 1 : sign(vec[i-1]);
+      //
+      _boostMatrix.set(0, 0, gamma);
+      _boostMatrix.set(i, i, gamma);
+      _boostMatrix.set(0, i, +isign*beta*gamma); //< +ve coeff since active boost
+      _boostMatrix.set(i, 0, +isign*beta*gamma); //< +ve coeff since active boost
+      //
+      if (!alongxyz) _boostMatrix = rotate(Vector3::mkX(), vec)._boostMatrix;
+      return *this;
+    }
+
     /// Set up an active Lorentz boost from the \f$ \vec\beta \f$ vector
     LorentzTransform& setBetaVec(const Vector3& vbeta) {
-      assert(vbeta.mod2() < 1);
+      // Set to identity for null boosts
+      _boostMatrix = Matrix<4>::mkIdentity();
+      if (isZero(vbeta.mod2())) return *this;
       const double beta = vbeta.mod();
       const double gamma = beta2gamma(beta);
-      _boostMatrix = Matrix<4>::mkIdentity();
-      _boostMatrix.set(0, 0, gamma);
-      _boostMatrix.set(1, 1, gamma);
-      _boostMatrix.set(0, 1, +beta*gamma); //< +ve coeff since active boost
-      _boostMatrix.set(1, 0, +beta*gamma); //< +ve coeff since active boost
-      if (beta > 0) _boostMatrix = rotate(Vector3::mkX(), vbeta)._boostMatrix;
-      return *this;
+      return _setBoost(vbeta.unit(), beta, gamma);
     }
 
     /// Get the \f$ \vec\beta \f$ vector for an active Lorentz boost
     Vector3 betaVec() const {
       FourMomentum boost(_boostMatrix.getColumn(0)); //< @todo WRONG?!
-      //cout << "!!!" << boost << endl;
+      //cout << "!!!" << boost << '\n';
       if (boost.isZero()) return Vector3();
       assert(boost.E() > 0);
       const double beta = boost.p3().mod() / boost.E();
@@ -130,15 +140,12 @@ namespace Rivet {
 
     /// Set up an active Lorentz boost from the \f$ \vec\gamma \f$ vector
     LorentzTransform& setGammaVec(const Vector3& vgamma) {
+      // Set to identity for null boosts
+      _boostMatrix = Matrix<4>::mkIdentity();
+      if (isZero(vgamma.mod2() - 1)) return *this;
       const double gamma = vgamma.mod();
       const double beta = gamma2beta(gamma);
-      _boostMatrix = Matrix<4>::mkIdentity();
-      _boostMatrix.set(0, 0, gamma);
-      _boostMatrix.set(1, 1, gamma);
-      _boostMatrix.set(0, 1, +beta*gamma); //< +ve coeff since active boost
-      _boostMatrix.set(1, 0, +beta*gamma); //< +ve coeff since active boost
-      if (beta > 0) _boostMatrix = rotate(Vector3::mkX(), vgamma)._boostMatrix;
-      return *this;
+      return _setBoost(vgamma.unit(), beta, gamma);
     }
 
     /// Get the \f$ \vec\gamma \f$ vector for an active Lorentz boost
@@ -279,7 +286,7 @@ namespace Rivet {
     return toString(lt.toMatrix());
   }
 
-  inline ostream& operator<<(std::ostream& out, const LorentzTransform& lt) {
+  inline std::ostream& operator<<(std::ostream& out, const LorentzTransform& lt) {
     out << toString(lt);
     return out;
   }

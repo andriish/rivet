@@ -25,8 +25,8 @@ namespace Rivet {
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
 
-      _histChTot = bookHisto1D(1, 1, 1);
-      _histAver  = bookHisto1D(2, 1, 1);
+      book(_histChTot ,1, 1, 1);
+      book(_histAver, 2, 1, 1);
     }
 
 
@@ -34,8 +34,8 @@ namespace Rivet {
     void analyze(const Event& event) {
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       MSG_DEBUG("Total charged multiplicity = " << cfs.size());
-      _histChTot->fill(cfs.size(), event.weight());
-      _histAver->fill(_histAver->bin(0).xMid(),cfs.size()*event.weight());
+      _histChTot->fill(cfs.size());
+      _histAver->fill(_histAver->bin(0).xMid(),cfs.size());
     }
 
 

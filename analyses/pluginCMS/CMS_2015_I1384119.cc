@@ -20,7 +20,7 @@ namespace Rivet {
       const ChargedFinalState cfs(Cuts::abseta < 2);
       declare(cfs, "CFS");
 
-      _hist_dNch_dEta_inel = bookHisto1D(1, 1, 1);
+      book(_hist_dNch_dEta_inel ,1, 1, 1);
     }
 
 
@@ -31,11 +31,11 @@ namespace Rivet {
       if (fsa.size() <= 2) vetoEvent;
 
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
-      foreach (const Particle& p, cfs.particles()) {
+      for (const Particle& p : cfs.particles()) {
         const int id = p.abspid();
         // continue if particle is a proton, a kaon or a pion
         if (id == 211 || id == 321 || id == 2212) ///< @todo Use PID:: ID constants
-          _hist_dNch_dEta_inel->fill(p.eta(), event.weight());
+          _hist_dNch_dEta_inel->fill(p.eta(), 1.0);
       }
     }
 

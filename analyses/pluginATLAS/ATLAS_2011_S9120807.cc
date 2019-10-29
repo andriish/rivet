@@ -34,9 +34,9 @@ namespace Rivet {
       photonfs.acceptId(PID::PHOTON);
       declare(photonfs, "Photon");
 
-      _h_M    = bookHisto1D(1, 1, 1);
-      _h_pT   = bookHisto1D(2, 1, 1);
-      _h_dPhi = bookHisto1D(3, 1, 1);
+      book(_h_M    ,1, 1, 1);
+      book(_h_pT   ,2, 1, 1);
+      book(_h_dPhi ,3, 1, 1);
     }
 
 
@@ -117,10 +117,9 @@ namespace Rivet {
       const double pTyy = yy.pT()/GeV;
       const double dPhiyy = deltaPhi(y1.phi(), y2.phi());
 
-      const double weight = event.weight();
-      _h_M->fill(Myy, weight);
-      _h_pT->fill(pTyy, weight);
-      _h_dPhi->fill(dPhiyy, weight);
+      _h_M->fill(Myy);
+      _h_pT->fill(pTyy);
+      _h_dPhi->fill(dPhiyy);
     }
 
 

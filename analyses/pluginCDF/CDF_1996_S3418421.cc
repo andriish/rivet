@@ -30,23 +30,23 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      FinalState fs(-4.2, 4.2);
+      FinalState fs((Cuts::etaIn(-4.2, 4.2)));
       declare(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
 
-      _h_chi.addHistogram(241.0, 300.0, bookHisto1D(1, 1, 1));
-      _h_chi.addHistogram(300.0, 400.0, bookHisto1D(1, 1, 2));
-      _h_chi.addHistogram(400.0, 517.0, bookHisto1D(1, 1, 3));
-      _h_chi.addHistogram(517.0, 625.0, bookHisto1D(1, 1, 4));
-      _h_chi.addHistogram(625.0, 1800.0, bookHisto1D(1, 1, 5));
-      _h_ratio = bookScatter2D(2, 1, 1);
-      _htmp_chi_above_25 = bookHisto1D("TMP/chiabove25", refData(2, 1, 1));
-      _htmp_chi_below_25 = bookHisto1D("TMP/chibelow25", refData(2, 1, 1));
+      {Histo1DPtr tmp; _h_chi.add(241.0, 300.0, book(tmp, 1, 1, 1));}
+      {Histo1DPtr tmp; _h_chi.add(300.0, 400.0, book(tmp, 1, 1, 2));}
+      {Histo1DPtr tmp; _h_chi.add(400.0, 517.0, book(tmp, 1, 1, 3));}
+      {Histo1DPtr tmp; _h_chi.add(517.0, 625.0, book(tmp, 1, 1, 4));}
+      {Histo1DPtr tmp; _h_chi.add(625.0,1800.0, book(tmp, 1, 1, 5));}
+      book(_h_ratio,  2, 1, 1);
+      book(_htmp_chi_above_25 ,"TMP/chiabove25", refData(2, 1, 1));
+      book(_htmp_chi_below_25 ,"TMP/chibelow25", refData(2, 1, 1));
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       Jets jets = apply<FastJets>(event, "Jets").jetsByPt(50.0*GeV);
       if (jets.size() < 2) vetoEvent;
@@ -68,7 +68,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      foreach (Histo1DPtr hist, _h_chi.getHistograms()) {
+      for (Histo1DPtr hist : _h_chi.histos()) {
         normalize(hist);
       }
       divide(_htmp_chi_below_25, _htmp_chi_above_25, _h_ratio);
@@ -80,7 +80,7 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    BinnedHistogram<double> _h_chi;
+    BinnedHistogram _h_chi;
     Histo1DPtr _htmp_chi_above_25, _htmp_chi_below_25;
     Scatter2DPtr _h_ratio;
     //@}

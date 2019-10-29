@@ -58,3 +58,7 @@ BibTeX: '@Article{Aaltonen:2007ip,
      doi       = "10.1103/PhysRevD.77.011108",
      SLACcitation  = "%%CITATION = 0711.4044;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-Run-II-W
+

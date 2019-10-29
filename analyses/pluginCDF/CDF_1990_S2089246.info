@@ -38,3 +38,8 @@ BibTeX: '@Article{Abe:1989td,
      doi       = "10.1103/PhysRevD.41.2330",
      SLACcitation  = "%%CITATION = PHRVA,D41,2330;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-630-UE
+ - $A-2 TVT-Run-I-UE
+

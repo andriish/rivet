@@ -33,3 +33,10 @@ BibTeX: '@article{Braunschweig:1989bp,
       reportNumber   = "DESY-89-038",
       SLACcitation   = "%%CITATION = ZEPYA,C45,193;%%"
 }'
+
+ReleaseTests:
+ - $A LEP-14
+ - $A-2 LEP-22
+ - $A-3 LEP-34.8
+ - $A-4 LEP-43.6
+

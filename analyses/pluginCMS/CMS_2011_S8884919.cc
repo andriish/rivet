@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     void init() {
-      ChargedFinalState cfs(-2.4, 2.4, 0.0*GeV);
+      ChargedFinalState cfs((Cuts::etaIn(-2.4, 2.4)));
       declare(cfs, "CFS");
 
       // eta bins
@@ -27,32 +27,35 @@ namespace Rivet {
 
       if (fuzzyEquals(sqrtS()/GeV, 900)) {
         for (size_t ietabin=0; ietabin < _etabins.size(); ietabin++) {
-          _h_dNch_dn.push_back( bookHisto1D( 2 + ietabin, 1, 1) );
+          _h_dNch_dn.push_back( Histo1DPtr() ); 
+          book( _h_dNch_dn.back(), 2 + ietabin, 1, 1);
         }
-        _h_dNch_dn_pt500_eta24 = bookHisto1D(20, 1, 1);
-        _h_dmpt_dNch_eta24 = bookProfile1D(23, 1, 1);
+        book(_h_dNch_dn_pt500_eta24 ,20, 1, 1);
+        book(_h_dmpt_dNch_eta24 ,23, 1, 1);
       }
 
       if (fuzzyEquals(sqrtS()/GeV, 2360)) {
         for (size_t ietabin=0; ietabin < _etabins.size(); ietabin++) {
-          _h_dNch_dn.push_back( bookHisto1D(7 + ietabin, 1, 1) );
+          _h_dNch_dn.push_back( Histo1DPtr() );
+          book(_h_dNch_dn.back(), 7 + ietabin, 1, 1);
         }
-        _h_dNch_dn_pt500_eta24 = bookHisto1D(21, 1, 1);
-        _h_dmpt_dNch_eta24 = bookProfile1D(24, 1, 1);
+        book(_h_dNch_dn_pt500_eta24 ,21, 1, 1);
+        book(_h_dmpt_dNch_eta24 ,24, 1, 1);
       }
 
       if (fuzzyEquals(sqrtS()/GeV, 7000)) {
         for (size_t ietabin=0; ietabin < _etabins.size(); ietabin++) {
-          _h_dNch_dn.push_back( bookHisto1D(12 + ietabin, 1, 1) );
+          _h_dNch_dn.push_back( Histo1DPtr() );
+          book(_h_dNch_dn.back(), 12 + ietabin, 1, 1);
         }
-        _h_dNch_dn_pt500_eta24 = bookHisto1D(22, 1, 1);
-        _h_dmpt_dNch_eta24 = bookProfile1D(25, 1, 1);
+        book(_h_dNch_dn_pt500_eta24 ,22, 1, 1);
+        book(_h_dmpt_dNch_eta24 ,25, 1, 1);
       }
     }
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Get the charged particles
       const ChargedFinalState& charged = apply<ChargedFinalState>(event, "CFS");
@@ -65,7 +68,7 @@ namespace Rivet {
       double sumpt = 0;
 
       // Loop over particles in event
-      foreach (const Particle& p, charged.particles()) {
+      for (const Particle& p : charged.particles()) {
         // Selecting only charged hadrons
         if (! PID::isHadron(p.pid())) continue;
 

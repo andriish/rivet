@@ -38,3 +38,8 @@ BibTeX: '@Article{Aad:2011gj,
      primaryClass  =  "hep-ex",
      SLACcitation  = "%%CITATION = 1107.2381;%%"
 }'
+
+ReleaseTests:
+ - $A LHC-Z-e
+ - $A-2 LHC-Z-mu
+

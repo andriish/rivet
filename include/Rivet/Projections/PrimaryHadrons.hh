@@ -3,7 +3,7 @@
 #define RIVET_PrimaryHadrons_HH
 
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 
@@ -23,14 +23,14 @@ namespace Rivet {
     /// Constructor with cuts argument
     PrimaryHadrons(const Cut& c=Cuts::open()) {
       setName("PrimaryHadrons");
-      addProjection(UnstableFinalState(c), "UFS");
+      declare(UnstableParticles(c), "UFS");
     }
 
     /// Constructor with specification of the minimum and maximum pseudorapidity
     /// \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
     PrimaryHadrons(double mineta, double maxeta, double minpt=0.0*GeV) {
       setName("PrimaryHadrons");
-      addProjection(UnstableFinalState(Cuts::etaIn(mineta, maxeta) && Cuts::pT > minpt), "UFS");
+      declare(UnstableParticles(Cuts::etaIn(mineta, maxeta) && Cuts::pT > minpt), "UFS");
     }
 
 
@@ -44,7 +44,7 @@ namespace Rivet {
     virtual void project(const Event& e);
 
     // /// Compare projections.
-    // int compare(const Projection& p) const;
+    // CmpState compare(const Projection& p) const;
 
   };
 

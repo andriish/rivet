@@ -179,7 +179,7 @@ namespace Rivet {
 #define MSG_LVL(lvl, x) \
   do { \
     if (getLog().isActive(lvl)) { \
-      getLog() << lvl << x << endl;   \
+      getLog() << lvl << x << '\n';   \
     } \
   } while (0)
 

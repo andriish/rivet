@@ -32,7 +32,7 @@ namespace Rivet {
       size_t hist_bin = 0;
       for (size_t i = 0; i < _eta_bins.size()-1; ++i) {
         if (fabs(_eta_bins[i] - 1.37) < .0001) continue;
-        _h_Et_photon[i] = bookHisto1D(1, 1, hist_bin+1);
+        book(_h_Et_photon[i] ,1, 1, hist_bin+1);
         hist_bin += 1;
       }
     }
@@ -93,7 +93,7 @@ namespace Rivet {
       MSG_DEBUG("Passed isolation cut");
 
       // Fill histogram
-      _h_Et_photon[eta_bin]->fill(leadingPhoton.Et()/GeV, event.weight());
+      _h_Et_photon[eta_bin]->fill(leadingPhoton.Et()/GeV);
     }
 
 

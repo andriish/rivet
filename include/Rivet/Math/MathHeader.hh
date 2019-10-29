@@ -3,15 +3,12 @@
 
 #include "Rivet/Tools/Exceptions.hh"
 #include "Rivet/Tools/Utils.hh"
+#include <cmath>
 
 namespace Rivet {
 
 
   /// Pre-defined numeric type limits
-  /// @deprecated Prefer the standard DBL/INT_MAX
-  static const double MAXDOUBLE = DBL_MAX; // was std::numeric_limits<double>::max(); -- warns in GCC5
-  static const double MAXINT = INT_MAX; // was std::numeric_limits<int>::max(); -- warns in GCC5
-
   /// A pre-defined value of \f$ \pi \f$.
   static const double PI = M_PI;
 
@@ -20,6 +17,15 @@ namespace Rivet {
 
   /// A pre-defined value of \f$ \pi/2 \f$.
   static const double HALFPI = M_PI_2;
+
+  /// A pre-defined value of \f$ \sqrt{2} \f$.
+  static const double SQRT2 = M_SQRT2;
+
+  /// A pre-defined value of \f$ \sqrt{\pi} \f$.
+  static const double SQRTPI = 2 / M_2_SQRTPI;
+
+  // /// A pre-defined value of \f$ \sqrt{2\pi} \f$.
+  // static const double SQRT2PI = SQRT2 * SQRTPI;
 
   /// Enum for signs of numbers.
   enum Sign { MINUS = -1, ZERO = 0, PLUS = 1 };

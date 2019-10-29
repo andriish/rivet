@@ -18,16 +18,16 @@ namespace Rivet {
       FastJets akt(fs, FastJets::ANTIKT, 0.5);
       declare(akt, "antikT");
 
-      _h_deltaPhi.addHistogram( 80.,  110., bookHisto1D(1, 1, 1));
-      _h_deltaPhi.addHistogram(110.,  140., bookHisto1D(2, 1, 1));
-      _h_deltaPhi.addHistogram(140.,  200., bookHisto1D(3, 1, 1));
-      _h_deltaPhi.addHistogram(200.,  300., bookHisto1D(4, 1, 1));
-      _h_deltaPhi.addHistogram(300., 7000., bookHisto1D(5, 1, 1));
+      {Histo1DPtr tmp; _h_deltaPhi.add( 80.,  110., book(tmp, 1, 1, 1));}
+      {Histo1DPtr tmp; _h_deltaPhi.add(110.,  140., book(tmp, 2, 1, 1));}
+      {Histo1DPtr tmp; _h_deltaPhi.add(140.,  200., book(tmp, 3, 1, 1));}
+      {Histo1DPtr tmp; _h_deltaPhi.add(200.,  300., book(tmp, 4, 1, 1));}
+      {Histo1DPtr tmp; _h_deltaPhi.add(300., 7000., book(tmp, 5, 1, 1));}
     }
 
 
     void analyze(const Event & event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       const Jets& jets = apply<JetAlg>(event, "antikT").jetsByPt();
       if (jets.size() < 2) vetoEvent;
@@ -42,14 +42,14 @@ namespace Rivet {
 
 
     void finalize() {
-      foreach (Histo1DPtr histo, _h_deltaPhi.getHistograms()) {
+      for (Histo1DPtr histo : _h_deltaPhi.histos()) {
         normalize(histo, 1.);
       }
     }
 
   private:
 
-    BinnedHistogram<double> _h_deltaPhi;
+    BinnedHistogram _h_deltaPhi;
 
   };
 

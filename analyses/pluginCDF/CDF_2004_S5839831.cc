@@ -53,7 +53,7 @@ namespace Rivet {
       unsigned int numPlus(0), numMinus(0);
       double ptPlus(0), ptMinus(0);
       // Run over all charged tracks
-      foreach (const Particle& t, tracks) {
+      for (const Particle& t : tracks) {
         FourMomentum trackMom = t.momentum();
         const double pt = trackMom.pT();
 
@@ -100,47 +100,47 @@ namespace Rivet {
       // Set up projections
       declare(TriggerCDFRun0Run1(), "Trigger");
       declare(Beam(), "Beam");
-      const FinalState calofs(-1.2, 1.2);
+      const FinalState calofs((Cuts::etaIn(-1.2, 1.2)));
       declare(calofs, "CaloFS");
       declare(FastJets(calofs, FastJets::CDFJETCLU, 0.7), "Jets");
-      const ChargedFinalState trackfs(-1.2, 1.2, 0.4*GeV);
+      const ChargedFinalState trackfs((Cuts::etaIn(-1.2, 1.2) && Cuts::pT >=  0.4*GeV));
       declare(trackfs, "TrackFS");
       // Restrict tracks to |eta| < 0.7 for the min bias part.
-      const ChargedFinalState mbfs(-0.7, 0.7, 0.4*GeV);
+      const ChargedFinalState mbfs((Cuts::etaIn(-0.7, 0.7) && Cuts::pT >=  0.4*GeV));
       declare(mbfs, "MBFS");
       // Restrict tracks to |eta| < 1 for the Swiss-Cheese part.
-      const ChargedFinalState cheesefs(-1.0, 1.0, 0.4*GeV);
+      const ChargedFinalState cheesefs((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  0.4*GeV));
       declare(cheesefs, "CheeseFS");
       declare(FastJets(cheesefs, FastJets::CDFJETCLU, 0.7), "CheeseJets");
 
       // Book histograms
       if (fuzzyEquals(sqrtS()/GeV, 1800, 1E-3)) {
-        _pt90MaxAvg1800 = bookProfile1D(1, 1, 1);
-        _pt90MinAvg1800 = bookProfile1D(1, 1, 2);
-        _pt90Max1800 = bookProfile1D(2, 1, 1);
-        _pt90Min1800 = bookProfile1D(2, 1, 2);
-        _pt90Diff1800 = bookProfile1D(2, 1, 3);
-        _num90Max1800 = bookProfile1D(4, 1, 1);
-        _num90Min1800 = bookProfile1D(4, 1, 2);
-        _pTSum1800_2Jet = bookProfile1D(7, 1, 1);
-        _pTSum1800_3Jet = bookProfile1D(7, 1, 2);
+        book(_pt90MaxAvg1800 ,1, 1, 1);
+        book(_pt90MinAvg1800 ,1, 1, 2);
+        book(_pt90Max1800 ,2, 1, 1);
+        book(_pt90Min1800 ,2, 1, 2);
+        book(_pt90Diff1800 ,2, 1, 3);
+        book(_num90Max1800 ,4, 1, 1);
+        book(_num90Min1800 ,4, 1, 2);
+        book(_pTSum1800_2Jet ,7, 1, 1);
+        book(_pTSum1800_3Jet ,7, 1, 2);
 
-        _pt90Dbn1800Et40 = bookHisto1D(3, 1, 1);
-        _pt90Dbn1800Et80 = bookHisto1D(3, 1, 2);
-        _pt90Dbn1800Et120 = bookHisto1D(3, 1, 3);
-        _pt90Dbn1800Et160 = bookHisto1D(3, 1, 4);
-        _pt90Dbn1800Et200 = bookHisto1D(3, 1, 5);
-        _numTracksDbn1800MB = bookHisto1D(5, 1, 1);
-        _ptDbn1800MB = bookHisto1D(6, 1, 1);
+        book(_pt90Dbn1800Et40 ,3, 1, 1);
+        book(_pt90Dbn1800Et80 ,3, 1, 2);
+        book(_pt90Dbn1800Et120 ,3, 1, 3);
+        book(_pt90Dbn1800Et160 ,3, 1, 4);
+        book(_pt90Dbn1800Et200 ,3, 1, 5);
+        book(_numTracksDbn1800MB ,5, 1, 1);
+        book(_ptDbn1800MB ,6, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 630, 1E-3)) {
-        _pt90Max630 = bookProfile1D(8, 1, 1);
-        _pt90Min630 = bookProfile1D(8, 1, 2);
-        _pt90Diff630 = bookProfile1D(8, 1, 3);
-        _pTSum630_2Jet = bookProfile1D(9, 1, 1);
-        _pTSum630_3Jet = bookProfile1D(9, 1, 2);
+        book(_pt90Max630 ,8, 1, 1);
+        book(_pt90Min630 ,8, 1, 2);
+        book(_pt90Diff630 ,8, 1, 3);
+        book(_pTSum630_2Jet ,9, 1, 1);
+        book(_pTSum630_3Jet ,9, 1, 2);
 
-        _numTracksDbn630MB = bookHisto1D(10, 1, 1);
-        _ptDbn630MB = bookHisto1D(11, 1, 1);
+        book(_numTracksDbn630MB ,10, 1, 1);
+        book(_ptDbn630MB ,11, 1, 1);
       }
     }
 
@@ -151,9 +151,7 @@ namespace Rivet {
       const bool trigger = apply<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
 
-      // Get sqrt(s) and event weight
       const double sqrtS = apply<Beam>(event, "Beam").sqrtS();
-      const double weight = event.weight();
 
       {
         MSG_DEBUG("Running max/min analysis");
@@ -173,29 +171,29 @@ namespace Rivet {
             const Particles tracks = apply<FinalState>(event, "TrackFS").particles();
             const ConesInfo cones = _calcTransCones(leadingjet.momentum(), tracks);
             if (fuzzyEquals(sqrtS/GeV, 630)) {
-              _pt90Max630->fill(ETlead/GeV, cones.ptMax/GeV, weight);
-              _pt90Min630->fill(ETlead/GeV, cones.ptMin/GeV, weight);
-              _pt90Diff630->fill(ETlead/GeV, cones.ptDiff/GeV, weight);
+              _pt90Max630->fill(ETlead/GeV, cones.ptMax/GeV);
+              _pt90Min630->fill(ETlead/GeV, cones.ptMin/GeV);
+              _pt90Diff630->fill(ETlead/GeV, cones.ptDiff/GeV);
             } else if (fuzzyEquals(sqrtS/GeV, 1800)) {
-              _num90Max1800->fill(ETlead/GeV, cones.numMax, weight);
-              _num90Min1800->fill(ETlead/GeV, cones.numMin, weight);
-              _pt90Max1800->fill(ETlead/GeV, cones.ptMax/GeV, weight);
-              _pt90Min1800->fill(ETlead/GeV, cones.ptMin/GeV, weight);
-              _pt90Diff1800->fill(ETlead/GeV, cones.ptDiff/GeV, weight);
-              _pt90MaxAvg1800->fill(ETlead/GeV, cones.ptMax/GeV, weight); // /numMax
-              _pt90MinAvg1800->fill(ETlead/GeV, cones.ptMin/GeV, weight); // /numMin
+              _num90Max1800->fill(ETlead/GeV, cones.numMax);
+              _num90Min1800->fill(ETlead/GeV, cones.numMin);
+              _pt90Max1800->fill(ETlead/GeV, cones.ptMax/GeV);
+              _pt90Min1800->fill(ETlead/GeV, cones.ptMin/GeV);
+              _pt90Diff1800->fill(ETlead/GeV, cones.ptDiff/GeV);
+              _pt90MaxAvg1800->fill(ETlead/GeV, cones.ptMax/GeV); // /numMax
+              _pt90MinAvg1800->fill(ETlead/GeV, cones.ptMin/GeV); // /numMin
               //
               const double ptTransTotal = cones.ptMax + cones.ptMin;
               if (inRange(ETlead/GeV, 40., 80.)) {
-                _pt90Dbn1800Et40->fill(ptTransTotal/GeV, weight);
+                _pt90Dbn1800Et40->fill(ptTransTotal/GeV);
               } else if (inRange(ETlead/GeV, 80., 120.)) {
-                _pt90Dbn1800Et80->fill(ptTransTotal/GeV, weight);
+                _pt90Dbn1800Et80->fill(ptTransTotal/GeV);
               } else if (inRange(ETlead/GeV, 120., 160.)) {
-                _pt90Dbn1800Et120->fill(ptTransTotal/GeV, weight);
+                _pt90Dbn1800Et120->fill(ptTransTotal/GeV);
               } else if (inRange(ETlead/GeV, 160., 200.)) {
-                _pt90Dbn1800Et160->fill(ptTransTotal/GeV, weight);
+                _pt90Dbn1800Et160->fill(ptTransTotal/GeV);
               } else if (inRange(ETlead/GeV, 200., 270.)) {
-                _pt90Dbn1800Et200->fill(ptTransTotal/GeV, weight);
+                _pt90Dbn1800Et200->fill(ptTransTotal/GeV);
               }
             }
 
@@ -209,19 +207,19 @@ namespace Rivet {
         MSG_DEBUG("Running min bias multiplicity analysis");
         const Particles mbtracks = apply<FinalState>(event, "MBFS").particles();
         if (fuzzyEquals(sqrtS/GeV, 1800)) {
-          _numTracksDbn1800MB->fill(mbtracks.size(), weight);
+          _numTracksDbn1800MB->fill(mbtracks.size());
         } else if (fuzzyEquals(sqrtS/GeV, 630)) {
-          _numTracksDbn630MB->fill(mbtracks.size(), weight);
+          _numTracksDbn630MB->fill(mbtracks.size());
         }
         // Run over all charged tracks
-        foreach (const Particle& t, mbtracks) {
+        for (const Particle& t : mbtracks) {
           FourMomentum trackMom = t.momentum();
           const double pt = trackMom.pT();
           // Plot total pT distribution for min bias
           if (fuzzyEquals(sqrtS/GeV, 1800)) {
-            _ptDbn1800MB->fill(pt/GeV, weight);
+            _ptDbn1800MB->fill(pt/GeV);
           } else if (fuzzyEquals(sqrtS/GeV, 630)) {
-            _ptDbn630MB->fill(pt/GeV, weight);
+            _ptDbn630MB->fill(pt/GeV);
           }
         }
       }
@@ -253,7 +251,7 @@ namespace Rivet {
           const double phi2 = cheesejets[1].phi();
 
           double ptSumSub2(0), ptSumSub3(0);
-          foreach (const Particle& t, cheesetracks) {
+          for (const Particle& t : cheesetracks) {
             FourMomentum trackMom = t.momentum();
             const double pt = trackMom.pT();
 
@@ -287,11 +285,11 @@ namespace Rivet {
 
           // Swiss Cheese sub 2,3 jets distributions for sqrt(s) = 630 GeV, 1800 GeV
           if (fuzzyEquals(sqrtS/GeV, 630)) {
-            if (!isZero(ptSumSub2)) _pTSum630_2Jet->fill(cheeseETlead/GeV, ptSumSub2/GeV, weight);
-            if (!isZero(ptSumSub3))_pTSum630_3Jet->fill(cheeseETlead/GeV, ptSumSub3/GeV, weight);
+            if (!isZero(ptSumSub2)) _pTSum630_2Jet->fill(cheeseETlead/GeV, ptSumSub2/GeV);
+            if (!isZero(ptSumSub3))_pTSum630_3Jet->fill(cheeseETlead/GeV, ptSumSub3/GeV);
           } else if (fuzzyEquals(sqrtS/GeV, 1800)) {
-            if (!isZero(ptSumSub2))_pTSum1800_2Jet->fill(cheeseETlead/GeV, ptSumSub2/GeV, weight);
-            if (!isZero(ptSumSub3))_pTSum1800_3Jet->fill(cheeseETlead/GeV, ptSumSub3/GeV, weight);
+            if (!isZero(ptSumSub2))_pTSum1800_2Jet->fill(cheeseETlead/GeV, ptSumSub2/GeV);
+            if (!isZero(ptSumSub3))_pTSum1800_3Jet->fill(cheeseETlead/GeV, ptSumSub3/GeV);
           }
 
         }

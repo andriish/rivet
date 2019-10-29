@@ -34,3 +34,7 @@ BibTeX: '@Article{Abe:1997yb,
      doi       = "10.1103/PhysRevD.56.2532",
      SLACcitation  = "%%CITATION = PHRVA,D56,2532;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-Run-I-Jets-5
+

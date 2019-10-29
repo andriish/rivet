@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
-for EXPT in alice atlas cms lhcb star cleo h1 zeus babar belle; do
-    for YEAR in $(seq 2010 $(date +"%Y")); do
+for EXPT in alice atlas cms lhcb star phenix cleo h1 zeus hermes babar belle opal delphi aleph l3 jade sld argus compass; do
+    for YEAR in $(seq 1980 $(date +"%Y")); do
         OUT=inspire-$EXPT-$YEAR.marc.xml
         if [[ -e $OUT ]]; then
             echo "$OUT exists: skipping $EXPT $YEAR download"

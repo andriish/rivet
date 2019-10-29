@@ -38,3 +38,7 @@ BibTeX: '@Article{Heister:2001jg,
      doi       = "10.1016/S0370-2693(01)00690-6",
      SLACcitation  = "%%CITATION = HEP-EX/0106051;%%"
 }'
+
+ReleaseTests:
+ - $A LEP-91
+

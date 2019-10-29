@@ -40,3 +40,7 @@ BibTeX: '@Article{Abazov:2007jy,
      doi       = "10.1103/PhysRevD.76.012003",
      SLACcitation  = "%%CITATION = HEP-EX/0702025;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-Run-II-Z-e
+

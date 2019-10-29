@@ -38,3 +38,7 @@ BibTeX: '@article{Abbiendi:2000cv,
       reportNumber   = "CERN-EP-2000-070",
       SLACcitation   = "%%CITATION = HEP-EX/0007017;%%",
 }'
+
+ReleaseTests:
+ - $A LEP-91
+

@@ -16,8 +16,7 @@ namespace Rivet {
 
     /// Constructor
     D0_2009_S8349509()
-      : Analysis("D0_2009_S8349509"),
-        _inclusive_Z_sumofweights(0)
+      : Analysis("D0_2009_S8349509")
     {    }
 
     //@}
@@ -29,47 +28,45 @@ namespace Rivet {
     /// Book histograms
     void init() {
       Cut cut = Cuts::abseta < 1.7 && Cuts::pT > 15*GeV;
-      ZFinder zfinder(FinalState(), cut, PID::MUON, 65*GeV, 115*GeV, 0.2, ZFinder::NOCLUSTER, ZFinder::TRACK);
+      ZFinder zfinder(FinalState(), cut, PID::MUON, 65*GeV, 115*GeV, 0.2, ZFinder::ClusterPhotons::NONE, ZFinder::AddPhotons::YES);
       declare(zfinder, "ZFinder");
 
       FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5);
       declare(conefinder, "ConeFinder");
 
-      _h_dphi_jet_Z25 = bookHisto1D(1, 1, 1);
-      _h_dphi_jet_Z45 = bookHisto1D(2, 1, 1);
+      book(_h_dphi_jet_Z25 ,1, 1, 1);
+      book(_h_dphi_jet_Z45 ,2, 1, 1);
 
-      _h_dy_jet_Z25 = bookHisto1D(3, 1, 1);
-      _h_dy_jet_Z45 = bookHisto1D(4, 1, 1);
+      book(_h_dy_jet_Z25 ,3, 1, 1);
+      book(_h_dy_jet_Z45 ,4, 1, 1);
 
-      _h_yboost_jet_Z25 = bookHisto1D(5, 1, 1);
-      _h_yboost_jet_Z45 = bookHisto1D(6, 1, 1);
+      book(_h_yboost_jet_Z25 ,5, 1, 1);
+      book(_h_yboost_jet_Z45 ,6, 1, 1);
 
-      _h_dphi_jet_Z25_xs = bookHisto1D(1, 1, 2);
-      _h_dphi_jet_Z45_xs = bookHisto1D(2, 1, 2);
+      book(_h_dphi_jet_Z25_xs ,1, 1, 2);
+      book(_h_dphi_jet_Z45_xs ,2, 1, 2);
 
-      _h_dy_jet_Z25_xs = bookHisto1D(3, 1, 2);
-      _h_dy_jet_Z45_xs = bookHisto1D(4, 1, 2);
+      book(_h_dy_jet_Z25_xs ,3, 1, 2);
+      book(_h_dy_jet_Z45_xs ,4, 1, 2);
 
-      _h_yboost_jet_Z25_xs = bookHisto1D(5, 1, 2);
-      _h_yboost_jet_Z45_xs = bookHisto1D(6, 1, 2);
+      book(_h_yboost_jet_Z25_xs ,5, 1, 2);
+      book(_h_yboost_jet_Z45_xs ,6, 1, 2);
 
-      _inclusive_Z_sumofweights = 0;
+      book(_inclusive_Z_sumofweights, "_inclusive_Z_sumofweights");
     }
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
-
       const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.bosons().size() == 1) {
         // count inclusive sum of weights for histogram normalisation
-        _inclusive_Z_sumofweights += weight;
+        _inclusive_Z_sumofweights->fill();
 
         const FourMomentum& zmom = zfinder.bosons()[0].momentum();
         if (zmom.pT() < 25*GeV) vetoEvent;
 
         Jets jets;
-        foreach (const Jet& j, apply<JetAlg>(event, "ConeFinder").jetsByPt(20*GeV)) {
+        for (const Jet& j : apply<JetAlg>(event, "ConeFinder").jetsByPt(20*GeV)) {
           if (j.abseta() < 2.8) {
             jets.push_back(j);
             break;
@@ -90,20 +87,20 @@ namespace Rivet {
         const double yboost = fabs(yZ+yjet)/2;
 
         if (zmom.pT() > 25*GeV) {
-          _h_dphi_jet_Z25->fill(dphi, weight);
-          _h_dy_jet_Z25->fill(dy, weight);
-          _h_yboost_jet_Z25->fill(yboost, weight);
-          _h_dphi_jet_Z25_xs->fill(dphi, weight);
-          _h_dy_jet_Z25_xs->fill(dy, weight);
-          _h_yboost_jet_Z25_xs->fill(yboost, weight);
+          _h_dphi_jet_Z25->fill(dphi);
+          _h_dy_jet_Z25->fill(dy);
+          _h_yboost_jet_Z25->fill(yboost);
+          _h_dphi_jet_Z25_xs->fill(dphi);
+          _h_dy_jet_Z25_xs->fill(dy);
+          _h_yboost_jet_Z25_xs->fill(yboost);
         }
         if (zmom.pT() > 45*GeV) {
-          _h_dphi_jet_Z45->fill(dphi, weight);
-          _h_dy_jet_Z45->fill(dy, weight);
-          _h_yboost_jet_Z45->fill(yboost, weight);
-          _h_dphi_jet_Z45_xs->fill(dphi, weight);
-          _h_dy_jet_Z45_xs->fill(dy, weight);
-          _h_yboost_jet_Z45_xs->fill(yboost, weight);
+          _h_dphi_jet_Z45->fill(dphi);
+          _h_dy_jet_Z45->fill(dy);
+          _h_yboost_jet_Z45->fill(yboost);
+          _h_dphi_jet_Z45_xs->fill(dphi);
+          _h_dy_jet_Z45_xs->fill(dy);
+          _h_yboost_jet_Z45_xs->fill(yboost);
         }
       }
 
@@ -111,13 +108,13 @@ namespace Rivet {
 
 
     void finalize() {
-      if (_inclusive_Z_sumofweights == 0) return;
-      scale(_h_dphi_jet_Z25, 1/_inclusive_Z_sumofweights);
-      scale(_h_dphi_jet_Z45, 1/_inclusive_Z_sumofweights);
-      scale(_h_dy_jet_Z25, 1/_inclusive_Z_sumofweights);
-      scale(_h_dy_jet_Z45, 1/_inclusive_Z_sumofweights);
-      scale(_h_yboost_jet_Z25, 1/_inclusive_Z_sumofweights);
-      scale(_h_yboost_jet_Z45, 1/_inclusive_Z_sumofweights);
+      if (_inclusive_Z_sumofweights->val() == 0) return;
+      scale(_h_dphi_jet_Z25, 1/ *_inclusive_Z_sumofweights);
+      scale(_h_dphi_jet_Z45, 1/ *_inclusive_Z_sumofweights);
+      scale(_h_dy_jet_Z25, 1/ *_inclusive_Z_sumofweights);
+      scale(_h_dy_jet_Z45, 1/ *_inclusive_Z_sumofweights);
+      scale(_h_yboost_jet_Z25, 1/ *_inclusive_Z_sumofweights);
+      scale(_h_yboost_jet_Z45, 1/ *_inclusive_Z_sumofweights);
 
       scale(_h_dphi_jet_Z25_xs, crossSectionPerEvent());
       scale(_h_dphi_jet_Z45_xs, crossSectionPerEvent());
@@ -159,7 +156,7 @@ namespace Rivet {
     Histo1DPtr _h_yboost_jet_Z45_xs;
     //@}
 
-    double _inclusive_Z_sumofweights;
+    CounterPtr _inclusive_Z_sumofweights;
 
   };
 

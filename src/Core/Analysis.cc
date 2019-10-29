@@ -13,9 +13,7 @@ namespace Rivet {
 
 
   Analysis::Analysis(const string& name)
-    : _crossSection(-1.0),
-      _gotCrossSection(false),
-      _analysishandler(NULL)
+      : _analysishandler(nullptr)
   {
     ProjectionApplier::_allowProjReg = false;
     _defaultname = name;
@@ -65,7 +63,7 @@ namespace Rivet {
 
 
   const string Analysis::mkAxisCode(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-    stringstream axisCode;
+    std::stringstream axisCode;
     axisCode << "d";
     if (datasetId < 10) axisCode << 0;
     axisCode << datasetId;
@@ -158,8 +156,9 @@ namespace Rivet {
       }
     }
     if (!beamIdsOk) return false;
+
     // Next check that the energies are compatible (within 1% or 1 GeV, whichever is larger, for a bit of UI forgiveness)
-    
+
     /// @todo Use some sort of standard ordering to improve comparisons, esp. when the two beams are different particles
     bool beamEnergiesOk = requiredEnergies().size() > 0 ? false : true;
     typedef pair<double,double> DoublePair;
@@ -178,25 +177,17 @@ namespace Rivet {
 
   ///////////////////////////////////////////
 
-
-  Analysis& Analysis::setCrossSection(double xs) {
-    _crossSection = xs;
-    _gotCrossSection = true;
-    return *this;
-  }
-
   double Analysis::crossSection() const {
-    if (!_gotCrossSection || std::isnan(_crossSection)) {
-      string errMsg = "You did not set the cross section for the analysis " + name();
+    const YODA::Scatter1D::Points& ps = handler().crossSection()->points();
+    if (ps.size() != 1) {
+      string errMsg = "cross section missing for analysis " + name();
       throw Error(errMsg);
     }
-    return _crossSection;
+    return ps[0].x();
   }
 
   double Analysis::crossSectionPerEvent() const {
-    const double sumW = sumOfWeights();
-    assert(sumW != 0.0);
-    return _crossSection / sumW;
+    return crossSection()/sumW();
   }
 
 
@@ -212,421 +203,429 @@ namespace Rivet {
     }
   }
 
-  vector<AnalysisObjectPtr> Analysis::getAllData(bool includeorphans) const{
-    return handler().getData(includeorphans);
-  }
-
-  CounterPtr Analysis::bookCounter(const string& cname,
-                                   const string& title) {
-    return addOrGetCompatAO(make_shared<Counter>(histoPath(cname), title));
-  }
+  // vector<YODA::AnalysisObjectPtr> Analysis::getAllData(bool includeorphans) const{
+  //   return handler().getData(includeorphans, false, false);
+  // }
 
 
-  CounterPtr Analysis::bookCounter(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-                                   const string& title) {
-    return bookCounter(mkAxisCode(datasetId, xAxisId, yAxisId), title);
-  }
-
-
-  Histo1DPtr Analysis::bookHisto1D(const string& hname,
-                                   size_t nbins, double lower, double upper,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle) {
-    Histo1DPtr hist = make_shared<Histo1D>(nbins, lower, upper, histoPath(hname), title);
-    hist->setTitle(title);
-    hist->setAnnotation("XLabel", xtitle);
-    hist->setAnnotation("YLabel", ytitle);
-    return addOrGetCompatAO(hist);
+  CounterPtr & Analysis::book(CounterPtr & ctr,
+                              const string& cname) {
+    // const string path = histoPath(cname);
+    // ctr = CounterPtr(handler().weightNames(), Counter(path, title));
+    // ctr = addAnalysisObject(ctr);
+    // return ctr;
+    return ctr = registerAO( Counter(histoPath(cname)) );
   }
 
 
-  Histo1DPtr Analysis::bookHisto1D(const string& hname,
-                                   const vector<double>& binedges,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle) {
-    Histo1DPtr hist = make_shared<Histo1D>(binedges, histoPath(hname), title);
-    hist->setTitle(title);
-    hist->setAnnotation("XLabel", xtitle);
-    hist->setAnnotation("YLabel", ytitle);
-    return addOrGetCompatAO(hist);
-  }
-
-
-  Histo1DPtr Analysis::bookHisto1D(const string& hname,
-                                   const initializer_list<double>& binedges,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle) {
-    return bookHisto1D(hname, vector<double>{binedges}, title, xtitle, ytitle);
-  }
-
-
-  Histo1DPtr Analysis::bookHisto1D(const string& hname,
-                                   const Scatter2D& refscatter,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle) {
-    Histo1DPtr hist = make_shared<Histo1D>(refscatter, histoPath(hname));
-    hist->setTitle(title);
-    hist->setAnnotation("XLabel", xtitle);
-    hist->setAnnotation("YLabel", ytitle);
-    return addOrGetCompatAO(hist);
-  }
-
-
-  Histo1DPtr Analysis::bookHisto1D(const string& hname,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle) {
-    const Scatter2D& refdata = refData(hname);
-    return bookHisto1D(hname, refdata, title, xtitle, ytitle);
-  }
-
-
-  Histo1DPtr Analysis::bookHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle) {
+  CounterPtr & Analysis::book(CounterPtr & ctr, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
-    return bookHisto1D(axisCode, title, xtitle, ytitle);
+    return book(ctr, axisCode);
   }
 
 
-  /// @todo Add booking methods which take a path, titles and *a reference Scatter from which to book*
+
+
+  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname, size_t nbins, double lower, double upper) {
+    const string path = histoPath(hname);
+
+    Histo1D hist = Histo1D(nbins, lower, upper, path);
+
+    // histo = Histo1DPtr(handler().weightNames(), hist);
+    // histo = addAnalysisObject(histo);
+    // return histo;
+    return histo = registerAO(hist);
+  }
+
+  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname, const initializer_list<double>& binedges) {
+  	return book(histo, hname, vector<double>{binedges});
+  }
+
+  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname, const vector<double>& binedges) {
+    const string path = histoPath(hname);
+
+    Histo1D hist = Histo1D(binedges, path);
+
+    // histo = Histo1DPtr(handler().weightNames(), hist);
+    // histo = addAnalysisObject(histo);
+    // return histo;
+    return histo = registerAO(hist);
+  }
+
+  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname) {
+    const Scatter2D& refdata = refData(hname);
+    return book(histo, hname, refdata);
+  }
+
+
+  Histo1DPtr & Analysis::book(Histo1DPtr & histo, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
+    return book(histo, axisCode);
+  }
+
+  Histo1DPtr & Analysis::book(Histo1DPtr& histo, const string& hname, const Scatter2D& refscatter) {
+    const string path = histoPath(hname);
+
+    Histo1D hist = Histo1D(refscatter, path);
+    for (const string& a : hist.annotations()) {
+      if (a != "Path")  hist.rmAnnotation(a);
+    }
+
+    // histo = Histo1DPtr(handler().weightNames(), hist);
+    // histo = addAnalysisObject(histo);
+    // return histo;
+    return histo = registerAO(hist);
+  }
 
 
   /////////////////
 
 
-  Histo2DPtr Analysis::bookHisto2D(const string& hname,
+  Histo2DPtr & Analysis::book(Histo2DPtr & h2d,const string& hname,
                                    size_t nxbins, double xlower, double xupper,
-                                   size_t nybins, double ylower, double yupper,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle)
-  {
+                                   size_t nybins, double ylower, double yupper) {
     const string path = histoPath(hname);
-    Histo2DPtr hist = make_shared<Histo2D>(nxbins, xlower, xupper, nybins, ylower, yupper, path, title);
-    hist->setAnnotation("XLabel", xtitle);
-    hist->setAnnotation("YLabel", ytitle);
-    hist->setAnnotation("ZLabel", ztitle);
-    return addOrGetCompatAO(hist);
+
+    Histo2D hist(nxbins, xlower, xupper, nybins, ylower, yupper, path);
+
+    // h2d = Histo2DPtr(handler().weightNames(), hist);
+    // h2d = addAnalysisObject(h2d);
+    // return h2d;
+    return h2d = registerAO(hist);
   }
 
-
-  Histo2DPtr Analysis::bookHisto2D(const string& hname,
-                                   const vector<double>& xbinedges,
-                                   const vector<double>& ybinedges,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle)
-  {
-    const string path = histoPath(hname);
-    Histo2DPtr hist = make_shared<Histo2D>(xbinedges, ybinedges, path, title);
-    hist->setAnnotation("XLabel", xtitle);
-    hist->setAnnotation("YLabel", ytitle);
-    hist->setAnnotation("ZLabel", ztitle);
-    return addOrGetCompatAO(hist);
-  }
-
-
-  Histo2DPtr Analysis::bookHisto2D(const string& hname,
+  Histo2DPtr & Analysis::book(Histo2DPtr & h2d,const string& hname,
                                    const initializer_list<double>& xbinedges,
-                                   const initializer_list<double>& ybinedges,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle)
-  {
-    return bookHisto2D(hname, vector<double>{xbinedges}, vector<double>{ybinedges},
-                       title, xtitle, ytitle, ztitle);
+                                   const initializer_list<double>& ybinedges) {
+  	return book(h2d, hname, vector<double>{xbinedges}, vector<double>{ybinedges});
   }
 
-
-  Histo2DPtr Analysis::bookHisto2D(const string& hname,
-                                   const Scatter3D& refscatter,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle) {
+  Histo2DPtr & Analysis::book(Histo2DPtr & h2d,const string& hname,
+                                   const vector<double>& xbinedges,
+                                   const vector<double>& ybinedges) {
     const string path = histoPath(hname);
-    Histo2DPtr hist( new Histo2D(refscatter, path) );
-    if (hist->hasAnnotation("IsRef")) hist->rmAnnotation("IsRef");
-    hist->setTitle(title);
-    hist->setAnnotation("XLabel", xtitle);
-    hist->setAnnotation("YLabel", ytitle);
-    hist->setAnnotation("ZLabel", ztitle);
-    return addOrGetCompatAO(hist);
+
+    Histo2D hist(xbinedges, ybinedges, path);
+
+    // h2d = Histo2DPtr(handler().weightNames(), hist);
+    // h2d = addAnalysisObject(h2d);
+    // return h2d;
+    return h2d = registerAO(hist);
   }
 
 
-  Histo2DPtr Analysis::bookHisto2D(const string& hname,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle) {
+  Histo2DPtr & Analysis::book(Histo2DPtr & histo, const string& hname, const Scatter3D& refscatter) {
+    const string path = histoPath(hname);
+
+    Histo2D hist = Histo2D(refscatter, path);
+    for (const string& a : hist.annotations()) {
+      if (a != "Path")  hist.rmAnnotation(a);
+    }
+
+    // histo = Histo2DPtr(handler().weightNames(), hist);
+    // histo = addAnalysisObject(histo);
+    // return histo;
+    return histo = registerAO(hist);
+  }
+
+
+  Histo2DPtr & Analysis::book(Histo2DPtr & histo, const string& hname) {
     const Scatter3D& refdata = refData<Scatter3D>(hname);
-    return bookHisto2D(hname, refdata, title, xtitle, ytitle, ztitle);
+    return book(histo, hname, refdata);
   }
 
 
-  Histo2DPtr Analysis::bookHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle) {
+  Histo2DPtr & Analysis::book(Histo2DPtr & histo, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
-    return bookHisto2D(axisCode, title, xtitle, ytitle, ztitle);
+    return book(histo, axisCode);
   }
 
 
   /////////////////
 
 
-  Profile1DPtr Analysis::bookProfile1D(const string& hname,
-                                       size_t nbins, double lower, double upper,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
+  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname, size_t nbins, double lower, double upper) {
     const string path = histoPath(hname);
-    Profile1DPtr prof = make_shared<Profile1D>(nbins, lower, upper, path, title);
-    prof->setAnnotation("XLabel", xtitle);
-    prof->setAnnotation("YLabel", ytitle);
-    return addOrGetCompatAO(prof);
+
+    Profile1D prof(nbins, lower, upper, path);
+
+    // p1d = Profile1DPtr(handler().weightNames(), prof);
+    // p1d = addAnalysisObject(p1d);
+    // return p1d;
+    return p1d = registerAO(prof);
   }
 
 
-  Profile1DPtr Analysis::bookProfile1D(const string& hname,
-                                       const vector<double>& binedges,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
+  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname, const initializer_list<double>& binedges) {
+  	return book(p1d, hname, vector<double>{binedges});
+  }
+
+  Profile1DPtr & Analysis::book(Profile1DPtr & p1d, const string& hname, const vector<double>& binedges) {
     const string path = histoPath(hname);
-    Profile1DPtr prof = make_shared<Profile1D>(binedges, path, title);
-    prof->setAnnotation("XLabel", xtitle);
-    prof->setAnnotation("YLabel", ytitle);
-    return addOrGetCompatAO(prof);
+
+    Profile1D prof(binedges, path);
+
+    // p1d = Profile1DPtr(handler().weightNames(), prof);
+    // p1d = addAnalysisObject(p1d);
+    // return p1d;
+    return p1d = registerAO(prof);
   }
 
-
-  Profile1DPtr Analysis::bookProfile1D(const string& hname,
-                                       const initializer_list<double>& binedges,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle)
-  {
-    return bookProfile1D(hname, vector<double>{binedges}, title, xtitle, ytitle);
-  }
-
-
-  Profile1DPtr Analysis::bookProfile1D(const string& hname,
-                                       const Scatter2D& refscatter,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
+  Profile1DPtr & Analysis::book(Profile1DPtr & p1d, const string& hname, const Scatter2D& refscatter) {
     const string path = histoPath(hname);
-    Profile1DPtr prof = make_shared<Profile1D>(refscatter, path);
-    if (prof->hasAnnotation("IsRef")) prof->rmAnnotation("IsRef");
-    prof->setTitle(title);
-    prof->setAnnotation("XLabel", xtitle);
-    prof->setAnnotation("YLabel", ytitle);
-    return addOrGetCompatAO(prof);
+
+    Profile1D prof(refscatter, path);
+    for (const string& a : prof.annotations()) {
+      if (a != "Path")  prof.rmAnnotation(a);
+    }
+
+    // p1d = Profile1DPtr(handler().weightNames(), prof);
+    // p1d = addAnalysisObject(p1d);
+    // return p1d;
+    return p1d = registerAO(prof);
   }
 
 
-  Profile1DPtr Analysis::bookProfile1D(const string& hname,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
+  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname) {
     const Scatter2D& refdata = refData(hname);
-    return bookProfile1D(hname, refdata, title, xtitle, ytitle);
+    return  book(p1d, hname, refdata);
   }
 
 
-  Profile1DPtr Analysis::bookProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
+  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
-    return bookProfile1D(axisCode, title, xtitle, ytitle);
+    return book(p1d, axisCode);
   }
 
 
   ///////////////////
 
 
-
-  Profile2DPtr Analysis::bookProfile2D(const string& hname,
+  Profile2DPtr & Analysis::book(Profile2DPtr & p2d, const string& hname,
                                    size_t nxbins, double xlower, double xupper,
-                                   size_t nybins, double ylower, double yupper,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle)
-  {
+                                   size_t nybins, double ylower, double yupper) {
     const string path = histoPath(hname);
-    Profile2DPtr prof = make_shared<Profile2D>(nxbins, xlower, xupper, nybins, ylower, yupper, path, title);
-    prof->setAnnotation("XLabel", xtitle);
-    prof->setAnnotation("YLabel", ytitle);
-    prof->setAnnotation("ZLabel", ztitle);
-    return addOrGetCompatAO(prof);
+
+    Profile2D prof(nxbins, xlower, xupper, nybins, ylower, yupper, path);
+
+    // p2d = Profile2DPtr(handler().weightNames(), prof);
+    // p2d = addAnalysisObject(p2d);
+    // return p2d;
+    return p2d = registerAO(prof);
   }
 
 
-  Profile2DPtr Analysis::bookProfile2D(const string& hname,
+  Profile2DPtr & Analysis::book(Profile2DPtr & p2d, const string& hname,
+                                   const initializer_list<double>& xbinedges,
+                                   const initializer_list<double>& ybinedges) {
+  	return book(p2d, hname, vector<double>{xbinedges}, vector<double>{ybinedges});
+  }
+
+
+  Profile2DPtr & Analysis::book(Profile2DPtr & p2d, const string& hname,
                                    const vector<double>& xbinedges,
-                                   const vector<double>& ybinedges,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle)
-  {
+                                   const vector<double>& ybinedges) {
     const string path = histoPath(hname);
-    Profile2DPtr prof = make_shared<Profile2D>(xbinedges, ybinedges, path, title);
-    prof->setAnnotation("XLabel", xtitle);
-    prof->setAnnotation("YLabel", ytitle);
-    prof->setAnnotation("ZLabel", ztitle);
-    return addOrGetCompatAO(prof);
+
+    Profile2D prof(xbinedges, ybinedges, path);
+
+    // p2d = Profile2DPtr(handler().weightNames(), prof);
+    // p2d = addAnalysisObject(p2d);
+    // return p2d;
+    return p2d = registerAO(prof);
   }
 
 
-  Profile2DPtr Analysis::bookProfile2D(const string& hname,
-                                       const initializer_list<double>& xbinedges,
-                                       const initializer_list<double>& ybinedges,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle,
-                                       const string& ztitle)
-  {
-    return bookProfile2D(hname, vector<double>{xbinedges}, vector<double>{ybinedges},
-                         title, xtitle, ytitle, ztitle);
-  }
+  /// @todo REINSTATE
+
+  // Profile2DPtr Analysis::book(Profile2DPtr& prof,const string& hname,
+  //                                      const Scatter3D& refscatter) {
+  //   const string path = histoPath(hname);
+
+  //   /// @todo Add no-metadata argument to YODA copy constructors
+  //   Profile2D prof(refscatter, path);
+  //   if (prof.hasAnnotation("IsRef")) prof.rmAnnotation("IsRef");
+
+  //   p2d = Profile2DPtr(handler().weightNames(), prof);
+  //   p2d = addAnalysisObject(p2d);
+  //   return p2d;
+  // }
 
 
-  Profile2DPtr Analysis::bookProfile2D(const string& hname,
-                                       const Scatter3D& refscatter,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle,
-                                       const string& ztitle) {
-    const string path = histoPath(hname);
-    Profile2DPtr prof( new Profile2D(refscatter, path) );
-    if (prof->hasAnnotation("IsRef")) prof->rmAnnotation("IsRef");
-    prof->setTitle(title);
-    prof->setAnnotation("XLabel", xtitle);
-    prof->setAnnotation("YLabel", ytitle);
-    prof->setAnnotation("ZLabel", ztitle);
-    return addOrGetCompatAO(prof);
-  }
+  // Profile2DPtr Analysis::book(Profile2DPtr& prof, const string& hname) {
+  //   const Scatter3D& refdata = refData<Scatter3D>(hname);
+  //   return book(prof, hname, refdata);
+  // }
 
 
-  Profile2DPtr Analysis::bookProfile2D(const string& hname,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle,
-                                       const string& ztitle) {
-    const Scatter3D& refdata = refData<Scatter3D>(hname);
-    return bookProfile2D(hname, refdata, title, xtitle, ytitle, ztitle);
-  }
+  /// @todo Should be able to book Scatter1Ds
 
 
-  Profile2DPtr Analysis::bookProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle,
-                                       const string& ztitle) {
+  ///////////////
+
+
+  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, unsigned int datasetId, 
+                                       unsigned int xAxisId, unsigned int yAxisId, bool copy_pts) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
-    return bookProfile2D(axisCode, title, xtitle, ytitle, ztitle);
+    return book(s2d, axisCode, copy_pts);
   }
 
 
-  /////////////////
-
-
-  Scatter2DPtr Analysis::bookScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-                                       bool copy_pts,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
-    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
-    return bookScatter2D(axisCode, copy_pts, title, xtitle, ytitle);
-  }
-
-
-  Scatter2DPtr Analysis::bookScatter2D(const string& hname,
-                                       bool copy_pts,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
-    Scatter2DPtr s;
+  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname, bool copy_pts) {
     const string path = histoPath(hname);
+
+    Scatter2D scat;
     if (copy_pts) {
       const Scatter2D& refdata = refData(hname);
-      s = make_shared<Scatter2D>(refdata, path);
-      for (Point2D& p : s->points()) p.setY(0, 0);
+      scat = Scatter2D(refdata, path);
+      for (Point2D& p : scat.points()) p.setY(0, 0);
+      for (const string& a : scat.annotations()) {
+        if (a != "Path")  scat.rmAnnotation(a);
+      }
     } else {
-      s = make_shared<Scatter2D>(path);
+      scat = Scatter2D(path);
     }
-    if (s->hasAnnotation("IsRef")) s->rmAnnotation("IsRef");
-    s->setTitle(title);
-    s->setAnnotation("XLabel", xtitle);
-    s->setAnnotation("YLabel", ytitle);
-    return addOrGetCompatAO(s);
+
+    // s2d = Scatter2DPtr(handler().weightNames(), scat);
+    // s2d = addAnalysisObject(s2d);
+    // return s2d;
+    return s2d = registerAO(scat);
   }
 
 
-  Scatter2DPtr Analysis::bookScatter2D(const string& hname,
-                                       size_t npts, double lower, double upper,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
+  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname, size_t npts, double lower, double upper) {
     const string path = histoPath(hname);
-    Scatter2DPtr s = make_shared<Scatter2D>(path);
+
+    Scatter2D scat;
     const double binwidth = (upper-lower)/npts;
     for (size_t pt = 0; pt < npts; ++pt) {
       const double bincentre = lower + (pt + 0.5) * binwidth;
-      s->addPoint(bincentre, 0, binwidth/2.0, 0);
+      scat.addPoint(bincentre, 0, binwidth/2.0, 0);
     }
-    s->setTitle(title);
-    s->setAnnotation("XLabel", xtitle);
-    s->setAnnotation("YLabel", ytitle);
-    return addOrGetCompatAO(s);
+
+    // s2d = Scatter2DPtr(handler().weightNames(), scat);
+    // s2d = addAnalysisObject(s2d);
+    // return s2d;
+    return s2d = registerAO(scat);
   }
 
-  Scatter2DPtr Analysis::bookScatter2D(const string& hname,
-                                       const vector<double>& binedges,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
+  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname, const vector<double>& binedges) {
     const string path = histoPath(hname);
-    Scatter2DPtr s = make_shared<Scatter2D>(path);
+
+    Scatter2D scat;
     for (size_t pt = 0; pt < binedges.size()-1; ++pt) {
       const double bincentre = (binedges[pt] + binedges[pt+1]) / 2.0;
       const double binwidth = binedges[pt+1] - binedges[pt];
-      s->addPoint(bincentre, 0, binwidth/2.0, 0);
+      scat.addPoint(bincentre, 0, binwidth/2.0, 0);
     }
-    s->setTitle(title);
-    s->setAnnotation("XLabel", xtitle);
-    s->setAnnotation("YLabel", ytitle);
-    return addOrGetCompatAO(s);
+
+    // s2d = Scatter2DPtr(handler().weightNames(), scat);
+    // s2d = addAnalysisObject(s2d);
+    // return s2d;
+    return s2d = registerAO(scat);
   }
 
-  Scatter2DPtr Analysis::bookScatter2D(const Scatter2DPtr scPtr, 
-    const std::string& path, const std::string& title, 
-    const std::string& xtitle, const std::string& ytitle ) {
-    
-    Scatter2DPtr s = make_shared<Scatter2D>(*scPtr);
-    s->setPath(path);
-    s->setTitle(title);
-    s->setAnnotation("XLabel",xtitle);
-    s->setAnnotation("YLabel",ytitle);
-    return addOrGetCompatAO(s);
-  
+  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname, const Scatter2D& refscatter) {
+    const string path = histoPath(hname);
+
+    Scatter2D scat(refscatter, path);
+    for (const string& a : scat.annotations()) {
+      if (a != "Path")  scat.rmAnnotation(a);
+    }
+
+    return s2d = registerAO(scat);
   }
+
+
+  ///////////////
+
+
+  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, unsigned int datasetId, unsigned int xAxisId, 
+                                unsigned int yAxisId, unsigned int zAxisId, bool copy_pts) {
+    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
+    return book(s3d, axisCode, copy_pts);
+  }
+
+
+  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, const string& hname, bool copy_pts) {
+    const string path = histoPath(hname);
+
+    Scatter3D scat;
+    if (copy_pts) {
+      const Scatter3D& refdata = refData<Scatter3D>(hname);
+      scat = Scatter3D(refdata, path);
+      for (Point3D& p : scat.points()) p.setZ(0, 0);
+      for (const string& a : scat.annotations()) {
+        if (a != "Path")  scat.rmAnnotation(a);
+      }
+    } else {
+      scat = Scatter3D(path);
+    }
+
+    // s3d = Scatter3DPtr(handler().weightNames(), scat);
+    // s3d = addAnalysisObject(s3d);
+    // return s3d;
+    return s3d = registerAO(scat);
+  }
+
+
+  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, const string& hname,
+                                size_t xnpts, double xlower, double xupper,
+                                size_t ynpts, double ylower, double yupper) {
+    const string path = histoPath(hname);
+
+    Scatter3D scat;
+    const double xbinwidth = (xupper-xlower)/xnpts;
+    const double ybinwidth = (yupper-ylower)/ynpts;
+    for (size_t xpt = 0; xpt < xnpts; ++xpt) {
+      const double xbincentre = xlower + (xpt + 0.5) * xbinwidth;
+      for (size_t ypt = 0; ypt < ynpts; ++ypt) {
+        const double ybincentre = ylower + (ypt + 0.5) * ybinwidth;
+        scat.addPoint(xbincentre, ybincentre, 0, 0.5*xbinwidth, 0.5*ybinwidth, 0);
+      }
+    }
+
+    // s3d = Scatter3DPtr(handler().weightNames(), scat);
+    // s3d = addAnalysisObject(s3d);
+    // return s3d;
+    return s3d = registerAO(scat);
+  }
+
+  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, const string& hname, 
+                                const vector<double>& xbinedges, 
+                                const vector<double>& ybinedges) {
+    Scatter3D scat;
+    for (size_t xpt = 0; xpt < xbinedges.size()-1; ++xpt) {
+      const double xbincentre = (xbinedges[xpt] + xbinedges[xpt+1]) / 2.0;
+      const double xbinwidth = xbinedges[xpt+1] - xbinedges[xpt];
+      for (size_t ypt = 0; ypt < ybinedges.size()-1; ++ypt) {
+        const double ybincentre = (ybinedges[ypt] + ybinedges[ypt+1]) / 2.0;
+        const double ybinwidth = ybinedges[ypt+1] - ybinedges[ypt];
+        scat.addPoint(xbincentre, ybincentre, 0, 0.5*xbinwidth, 0.5*ybinwidth, 0);
+      }
+    }
+
+    // s3d = Scatter3DPtr(handler().weightNames(), scat);
+    // s3d = addAnalysisObject(s3d);
+    // return s3d;
+    return s3d = registerAO(scat);
+  }
+
+  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, const string& hname, const Scatter3D& refscatter) {
+    const string path = histoPath(hname);
+
+    Scatter3D scat(refscatter, path);
+    for (const string& a : scat.annotations()) {
+      if (a != "Path")  scat.rmAnnotation(a);
+    }
+
+    return s3d = registerAO(scat);
+  }
+
+
+  ///////////////
+
+
 
   /////////////////////
 
@@ -725,16 +724,16 @@ namespace Rivet {
   }
 
 
-  void Analysis::scale(CounterPtr cnt, double factor) {
+  void Analysis::scale(CounterPtr cnt, Analysis::CounterAdapter factor) {
     if (!cnt) {
-      MSG_WARNING("Failed to scale counter=NULL in analysis " << name() << " (scale=" << factor << ")");
+      MSG_WARNING("Failed to scale counter=NULL in analysis " << name() << " (scale=" << double(factor) << ")");
       return;
     }
-    if (std::isnan(factor) || std::isinf(factor)) {
-      MSG_WARNING("Failed to scale counter=" << cnt->path() << " in analysis: " << name() << " (invalid scale factor = " << factor << ")");
+    if (std::isnan(double(factor)) || std::isinf(double(factor))) {
+      MSG_WARNING("Failed to scale counter=" << cnt->path() << " in analysis: " << name() << " (invalid scale factor = " << double(factor) << ")");
       factor = 0;
     }
-    MSG_TRACE("Scaling counter " << cnt->path() << " by factor " << factor);
+    MSG_TRACE("Scaling counter " << cnt->path() << " by factor " << double(factor));
     try {
       cnt->scaleW(factor);
     } catch (YODA::Exception& we) {
@@ -744,12 +743,12 @@ namespace Rivet {
   }
 
 
-  void Analysis::normalize(Histo1DPtr histo, double norm, bool includeoverflows) {
+  void Analysis::normalize(Histo1DPtr histo, Analysis::CounterAdapter norm, bool includeoverflows) {
     if (!histo) {
-      MSG_WARNING("Failed to normalize histo=NULL in analysis " << name() << " (norm=" << norm << ")");
+      MSG_WARNING("Failed to normalize histo=NULL in analysis " << name() << " (norm=" << double(norm) << ")");
       return;
     }
-    MSG_TRACE("Normalizing histo " << histo->path() << " to " << norm);
+    MSG_TRACE("Normalizing histo " << histo->path() << " to " << double(norm));
     try {
       const double hint = histo->integral(includeoverflows);
       if (hint == 0)  MSG_WARNING("Skipping histo with null area " << histo->path());
@@ -761,16 +760,16 @@ namespace Rivet {
   }
 
 
-  void Analysis::scale(Histo1DPtr histo, double factor) {
+  void Analysis::scale(Histo1DPtr histo, Analysis::CounterAdapter factor) {
     if (!histo) {
-      MSG_WARNING("Failed to scale histo=NULL in analysis " << name() << " (scale=" << factor << ")");
+      MSG_WARNING("Failed to scale histo=NULL in analysis " << name() << " (scale=" << double(factor) << ")");
       return;
     }
-    if (std::isnan(factor) || std::isinf(factor)) {
-      MSG_WARNING("Failed to scale histo=" << histo->path() << " in analysis: " << name() << " (invalid scale factor = " << factor << ")");
+    if (std::isnan(double(factor)) || std::isinf(double(factor))) {
+      MSG_WARNING("Failed to scale histo=" << histo->path() << " in analysis: " << name() << " (invalid scale factor = " << double(factor) << ")");
       factor = 0;
     }
-    MSG_TRACE("Scaling histo " << histo->path() << " by factor " << factor);
+    MSG_TRACE("Scaling histo " << histo->path() << " by factor " << double(factor));
     try {
       histo->scaleW(factor);
     } catch (YODA::Exception& we) {
@@ -780,12 +779,12 @@ namespace Rivet {
   }
 
 
-  void Analysis::normalize(Histo2DPtr histo, double norm, bool includeoverflows) {
+  void Analysis::normalize(Histo2DPtr histo, Analysis::CounterAdapter norm, bool includeoverflows) {
     if (!histo) {
-      MSG_ERROR("Failed to normalize histo=NULL in analysis " << name() << " (norm=" << norm << ")");
+      MSG_ERROR("Failed to normalize histo=NULL in analysis " << name() << " (norm=" << double(norm) << ")");
       return;
     }
-    MSG_TRACE("Normalizing histo " << histo->path() << " to " << norm);
+    MSG_TRACE("Normalizing histo " << histo->path() << " to " << double(norm));
     try {
       const double hint = histo->integral(includeoverflows);
       if (hint == 0)  MSG_WARNING("Skipping histo with null area " << histo->path());
@@ -797,16 +796,16 @@ namespace Rivet {
   }
 
 
-  void Analysis::scale(Histo2DPtr histo, double factor) {
+  void Analysis::scale(Histo2DPtr histo, Analysis::CounterAdapter factor) {
     if (!histo) {
-      MSG_ERROR("Failed to scale histo=NULL in analysis " << name() << " (scale=" << factor << ")");
+      MSG_ERROR("Failed to scale histo=NULL in analysis " << name() << " (scale=" << double(factor) << ")");
       return;
     }
-    if (std::isnan(factor) || std::isinf(factor)) {
-      MSG_ERROR("Failed to scale histo=" << histo->path() << " in analysis: " << name() << " (invalid scale factor = " << factor << ")");
+    if (std::isnan(double(factor)) || std::isinf(double(factor))) {
+      MSG_ERROR("Failed to scale histo=" << histo->path() << " in analysis: " << name() << " (invalid scale factor = " << double(factor) << ")");
       factor = 0;
     }
-    MSG_TRACE("Scaling histo " << histo->path() << " by factor " << factor);
+    MSG_TRACE("Scaling histo " << histo->path() << " by factor " << double(factor));
     try {
       histo->scaleW(factor);
     } catch (YODA::Exception& we) {
@@ -830,20 +829,41 @@ namespace Rivet {
     s->setPath(path);
   }
 
-
+}
   /// @todo 2D versions of integrate... defined how, exactly?!?
 
 
   //////////////////////////////////
 
+// namespace {
+//   void errormsg(std::string name) {
+//     // #ifdef HAVE_BACKTRACE
+//     //      void * buffer[4];
+//     //      backtrace(buffer, 4);
+//     //      backtrace_symbols_fd(buffer, 4 , 1);
+//     // #endif
+//     std::cerr << name << ": Can't book objects outside of init().\n";
+//     assert(false);
+//   }
+// }
 
-  void Analysis::addAnalysisObject(AnalysisObjectPtr ao) {
-    _analysisobjects.push_back(ao);
-  }
+
+namespace Rivet {
+
+
+  // void Analysis::addAnalysisObject(const MultiweightAOPtr & ao) {
+  //   if (handler().stage() == AnalysisHandler::Stage::INIT) {
+  //     _analysisobjects.push_back(ao);
+  //   }
+  //   else {
+  //     errormsg(name());
+  //   }
+  // }
 
 
   void Analysis::removeAnalysisObject(const string& path) {
-    for (vector<AnalysisObjectPtr>::iterator it = _analysisobjects.begin();  it != _analysisobjects.end(); ++it) {
+    for (auto it = _analysisobjects.begin();
+         it != _analysisobjects.end(); ++it) {
       if ((*it)->path() == path) {
         _analysisobjects.erase(it);
         break;
@@ -851,10 +871,9 @@ namespace Rivet {
     }
   }
 
-
-  void Analysis::removeAnalysisObject(AnalysisObjectPtr ao) {
-    for (vector<AnalysisObjectPtr>::iterator it = _analysisobjects.begin();  it != _analysisobjects.end(); ++it) {
-      if (*it == ao) {
+  void Analysis::removeAnalysisObject(const MultiweightAOPtr & ao) {
+    for (auto it = _analysisobjects.begin();  it != _analysisobjects.end(); ++it) {
+      if ((*it) == ao) {
         _analysisobjects.erase(it);
         break;
       }
@@ -867,18 +886,17 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
                             const string projName, bool increasing) {
 
   CentralityProjection cproj;
-  
+
   // Select the centrality variable from option. Use REF as default.
   // Other selections are "GEN", "IMP" and "USR" (USR only in HEPMC 3).
   string sel = getOption<string>("cent","REF");
   set<string> done;
 
   if ( sel == "REF" ) {
-    Scatter2DPtr refscat;
+    YODA::Scatter2DPtr refscat;
     auto refmap = getRefData(calAnaName);
     if ( refmap.find(calHistName) != refmap.end() )
-      refscat =
-        dynamic_pointer_cast<Scatter2D>(refmap.find(calHistName)->second);
+      refscat = dynamic_pointer_cast<Scatter2D>(refmap.find(calHistName)->second);
 
     if ( !refscat ) {
       MSG_WARNING("No reference calibration histogram for " <<
@@ -888,56 +906,56 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
     }
     else {
       MSG_INFO("Found calibration histogram " << sel << " " << refscat->path());
-      cproj.add(PercentileProjection(proj, refscat, increasing), sel);
+      cproj.add(PercentileProjection(proj, *refscat, increasing), sel);
     }
   }
   else if ( sel == "GEN" ) {
-    Histo1DPtr genhist;
-    string histpath = "/" + calAnaName + "/" + calHistName;
-    for ( AnalysisObjectPtr ao : handler().getData(true) ) {
-      if ( ao->path() == histpath )
-        genhist = dynamic_pointer_cast<Histo1D>(ao);
-    }
-    if ( !genhist || genhist->numEntries() <= 1 ) {
+    YODA::Histo1DPtr genhists =
+      getPreload<Histo1D>("/" + calAnaName + "/" + calHistName);
+    // for ( YODA::AnalysisObjectPtr ao : handler().getData(true) ) {
+    //   if ( ao->path() == histpath )
+    //     genhist = dynamic_pointer_cast<Histo1D>(ao);
+    // }
+    if ( !genhists || genhists->numEntries() <= 1 ) {
       MSG_WARNING("No generated calibration histogram for " <<
                "CentralityProjection " << projName << " found " <<
                "(requested histogram " << calHistName << " in " <<
                calAnaName << ")");
     }
     else {
-      MSG_INFO("Found calibration histogram " << sel << " " << genhist->path());
-      cproj.add(PercentileProjection(proj, genhist, increasing), sel);
+      MSG_INFO("Found calibration histogram " << sel << " " << genhists->path());
+      cproj.add(PercentileProjection(proj, *genhists, increasing), sel);
     }
   }
   else if ( sel == "IMP" ) {
-    Histo1DPtr imphist =
-      getAnalysisObject<Histo1D>(calAnaName, calHistName + "_IMP");
-    if ( !imphist || imphist->numEntries() <= 1 ) {
+    YODA::Histo1DPtr imphists =
+      getPreload<Histo1D>("/" + calAnaName + "/" + calHistName + "_IMP");
+    if ( !imphists || imphists->numEntries() <= 1 ) {
       MSG_WARNING("No impact parameter calibration histogram for " <<
                "CentralityProjection " << projName << " found " <<
                "(requested histogram " << calHistName << "_IMP in " <<
                calAnaName << ")");
     }
     else {
-      MSG_INFO("Found calibration histogram " << sel << " " << imphist->path());
+      MSG_INFO("Found calibration histogram " << sel << " " << imphists->path());
       cproj.add(PercentileProjection(ImpactParameterProjection(),
-                                     imphist, true), sel);
+                                     *imphists, true), sel);
     }
   }
   else if ( sel == "USR" ) {
 #if HEPMC_VERSION_CODE >= 3000000
-    Histo1DPtr usrhist =
-      getAnalysisObject<Histo1D>(calAnaName, calHistName + "_USR");
-    if ( !usrhist || usrhist->numEntries() <= 1 ) {
+    YODA::Histo1DPtr usrhists =
+      getPreload<Histo1D>("/" + calAnaName + "/" + calHistName + "_USR");
+    if ( !usrhists || usrhists->numEntries() <= 1 ) {
       MSG_WARNING("No user-defined calibration histogram for " <<
                "CentralityProjection " << projName << " found " <<
                "(requested histogram " << calHistName << "_USR in " <<
-               calAnaName << ")");
+                  calAnaName << ")");
       continue;
     }
     else {
-      MSG_INFO("Found calibration histogram " << sel << " " << usrhist->path());
-      cproj.add((UserCentEstimate(), usrhist, true), sel);
+      MSG_INFO("Found calibration histogram " << sel << " " << usrhists->path());
+      cproj.add((UserCentEstimate(), usrhists*, true), sel);
      }
 #else
       MSG_WARNING("UserCentEstimate is only available with HepMC3.");
@@ -958,7 +976,41 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
                 << " did not contain any valid PercentileProjections.");
 
   return declare(cproj, projName);
-  
+
 }
+
+
+  vector<string> Analysis::_weightNames() const {
+    return handler().weightNames();
+  }
+
+  YODA::AnalysisObjectPtr Analysis::_getPreload(string path) const {
+    return handler().getPreload(path);
+  }
+
+  size_t Analysis::_defaultWeightIndex() const {
+    return handler().defaultWeightIndex();
+  }
+
+  MultiweightAOPtr Analysis::_getOtherAnalysisObject(const std::string & ananame, const std::string& name) {
+    std::string path = "/" + ananame + "/" + name;
+    const auto& ana = handler().analysis(ananame);
+    return ana->getAnalysisObject(name); //< @todo includeorphans check??
+  }
+
+  void Analysis::_checkBookInit() const {
+    if (handler().stage() != AnalysisHandler::Stage::INIT) {
+      MSG_ERROR("Can't book objects outside of init()");
+      throw UserError(name() + ": Can't book objects outside of init().");
+    }
+  }
+
+  bool Analysis::inInit() const {
+    return handler().stage() == AnalysisHandler::Stage::INIT;
+  }
+
+  bool Analysis::inFinalize() const {
+    return handler().stage() == AnalysisHandler::Stage::FINALIZE;
+  }
 
 }

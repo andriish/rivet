@@ -38,3 +38,9 @@ BibTeX: '@Article{Affolder:1999ua,
      doi       = "10.1103/PhysRevD.61.091101",
      SLACcitation  = "%%CITATION = HEP-EX/9912022;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-Run-I-Jets-6
+ - $A-2 TVT-Run-I-Jets-7
+ - $A-3 TVT-Run-I-Jets-8
+

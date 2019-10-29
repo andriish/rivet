@@ -16,7 +16,7 @@ namespace Rivet {
     /// Initialisation
     void init() {
       declare(FinalState(), "FS");
-      _h_sigma = bookHisto1D(1, 1, 1);
+      book(_h_sigma, 1, 1, 1);
     }
 
 
@@ -51,7 +51,7 @@ namespace Rivet {
       if (xi < 1e-6) vetoEvent;
 
       // Fill the histogram
-      _h_sigma->fill(sqrtS()/GeV, event.weight());
+      _h_sigma->fill(sqrtS()/GeV);
     }
 
 

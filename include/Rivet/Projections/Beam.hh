@@ -190,13 +190,15 @@ namespace Rivet {
     virtual void project(const Event& e);
 
 
-  private:
-
-    /// Compare with other projections -- it's always the same, since there are no params
-    virtual int compare(const Projection&) const { return EQUIVALENT; }
+  protected:
 
     /// The beam particles in the current collision
     ParticlePair _theBeams;
+
+  private:
+
+    /// Compare with other projections -- it's always the same, since there are no params
+    virtual CmpState compare(const Projection&) const { return CmpState::EQ; }
 
   };
 

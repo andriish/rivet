@@ -37,3 +37,10 @@ BibTeX: '@Article{Abazov:2004hm,
      doi       = "10.1103/PhysRevLett.94.221801",
      SLACcitation  = "%%CITATION = HEP-EX/0409040;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-Run-II-Jets-3
+ - $A-2 TVT-Run-II-Jets-4
+ - $A-3 TVT-Run-II-Jets-5
+ - $A-4 TVT-Run-II-Jets-6
+

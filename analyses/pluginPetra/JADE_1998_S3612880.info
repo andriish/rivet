@@ -38,3 +38,9 @@ BibTeX: '@Article{MovillaFernandez:1997fr,
 }'
 ToDo:
  - Trigger conditions?
+
+ReleaseTests:
+ - $A LEP-22
+ - $A-2 LEP-35
+ - $A-3 LEP-44
+

@@ -52,3 +52,7 @@ BibTeX: '@article{Aad:2014dvb,
       reportNumber   = "CERN-PH-EP-2014-118",
       SLACcitation   = "%%CITATION = ARXIV:1407.3643;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-Z-e
+

@@ -27,9 +27,9 @@ namespace Rivet {
       FinalState fs;
 
       // Partonic tops
-      declare(PartonicTops(PartonicTops::ELECTRON, false), "ElectronPartonTops");
-      declare(PartonicTops(PartonicTops::MUON, false),     "MuonPartonTops");
-      declare(PartonicTops(PartonicTops::HADRONIC),        "HadronicPartonTops");
+      declare(PartonicTops(PartonicTops::DecayMode::ELECTRON, false), "ElectronPartonTops");
+      declare(PartonicTops(PartonicTops::DecayMode::MUON, false),     "MuonPartonTops");
+      declare(PartonicTops(PartonicTops::DecayMode::HADRONIC),        "HadronicPartonTops");
 
       // Projection for electrons and muons
       IdentifiedFinalState photons(fs, PID::PHOTON);
@@ -54,34 +54,34 @@ namespace Rivet {
       declare(FastJets(fs_jets, FastJets::ANTIKT, 0.5), "ak5jets");
       declare(FastJets(fs_jets, FastJets::CAM, 0.8), "ca8jets");
 
-      _hEl_topPt_parton          = bookHisto1D("d01-x01-y01"); // dsigma/dpt(top quark), el ch
-      _hEl_topPt_particle        = bookHisto1D("d02-x01-y01"); // dsigma/dpt(top jet), el ch
-      _hEl_topY_parton           = bookHisto1D("d03-x01-y01"); // dsigma/dy(top quark), el ch
-      _hEl_topY_particle         = bookHisto1D("d04-x01-y01"); // dsigma/dy(top jet), el ch
-      _hMu_topPt_parton          = bookHisto1D("d05-x01-y01"); // dsigma/dpt(top quark), mu ch
-      _hMu_topPt_particle        = bookHisto1D("d06-x01-y01"); // dsigma/dpt(top jet), mu ch
-      _hMu_topY_parton           = bookHisto1D("d07-x01-y01"); // dsigma/dy(top quark), mu ch
-      _hMu_topY_particle         = bookHisto1D("d08-x01-y01"); // dsigma/dy(top jet), mu ch
-      _hComb_topPt_parton        = bookHisto1D("d09-x01-y01"); // dsigma/dpt(top quark), comb ch
-      _hComb_topPt_particle      = bookHisto1D("d10-x01-y01"); // dsigma/dpt(top jet), comb ch
-      _hComb_topY_parton         = bookHisto1D("d11-x01-y01"); // dsigma/dy(top quark), comb ch
-      _hComb_topY_particle       = bookHisto1D("d12-x01-y01"); // dsigma/dy(top jet), comb ch
+      book(_hEl_topPt_parton          , "d01-x01-y01"); // dsigma/dpt(top quark), el ch
+      book(_hEl_topPt_particle        , "d02-x01-y01"); // dsigma/dpt(top jet), el ch
+      book(_hEl_topY_parton           , "d03-x01-y01"); // dsigma/dy(top quark), el ch
+      book(_hEl_topY_particle         , "d04-x01-y01"); // dsigma/dy(top jet), el ch
+      book(_hMu_topPt_parton          , "d05-x01-y01"); // dsigma/dpt(top quark), mu ch
+      book(_hMu_topPt_particle        , "d06-x01-y01"); // dsigma/dpt(top jet), mu ch
+      book(_hMu_topY_parton           , "d07-x01-y01"); // dsigma/dy(top quark), mu ch
+      book(_hMu_topY_particle         , "d08-x01-y01"); // dsigma/dy(top jet), mu ch
+      book(_hComb_topPt_parton        , "d09-x01-y01"); // dsigma/dpt(top quark), comb ch
+      book(_hComb_topPt_particle      , "d10-x01-y01"); // dsigma/dpt(top jet), comb ch
+      book(_hComb_topY_parton         , "d11-x01-y01"); // dsigma/dy(top quark), comb ch
+      book(_hComb_topY_particle       , "d12-x01-y01"); // dsigma/dy(top jet), comb ch
 
-      _hEl_topPt_parton_norm     = bookHisto1D("d13-x01-y01"); // 1/sigma dsigma/dpt(top quark), el ch
-      _hEl_topPt_particle_norm   = bookHisto1D("d14-x01-y01"); // 1/sigma dsigma/dpt(top jet), el ch
-      _hEl_topY_parton_norm      = bookHisto1D("d15-x01-y01"); // 1/sigma dsigma/dy(top quark), el ch
-      _hEl_topY_particle_norm    = bookHisto1D("d16-x01-y01"); // 1/sigma dsigma/dy(top jet), el ch
-      _hMu_topPt_parton_norm     = bookHisto1D("d17-x01-y01"); // 1/sigma dsigma/dpt(top quark), mu ch
-      _hMu_topPt_particle_norm   = bookHisto1D("d18-x01-y01"); // 1/sigma dsigma/dpt(top jet), mu ch
-      _hMu_topY_parton_norm      = bookHisto1D("d19-x01-y01"); // 1/sigma dsigma/dy(top quark), mu ch
-      _hMu_topY_particle_norm    = bookHisto1D("d20-x01-y01"); // 1/sigma dsigma/dy(top jet), mu ch
-      _hComb_topPt_parton_norm   = bookHisto1D("d21-x01-y01"); // 1/sigma dsigma/dpt(top quark), comb ch
-      _hComb_topPt_particle_norm = bookHisto1D("d22-x01-y01"); // 1/sigma dsigma/dpt(top jet), comb ch
-      _hComb_topY_parton_norm    = bookHisto1D("d23-x01-y01"); // 1/sigma dsigma/dy(top quark), comb ch
-      _hComb_topY_particle_norm  = bookHisto1D("d24-x01-y01"); // 1/sigma dsigma/dy(top jet), comb ch
+      book(_hEl_topPt_parton_norm     , "d13-x01-y01"); // 1/sigma dsigma/dpt(top quark), el ch
+      book(_hEl_topPt_particle_norm   , "d14-x01-y01"); // 1/sigma dsigma/dpt(top jet), el ch
+      book(_hEl_topY_parton_norm      , "d15-x01-y01"); // 1/sigma dsigma/dy(top quark), el ch
+      book(_hEl_topY_particle_norm    , "d16-x01-y01"); // 1/sigma dsigma/dy(top jet), el ch
+      book(_hMu_topPt_parton_norm     , "d17-x01-y01"); // 1/sigma dsigma/dpt(top quark), mu ch
+      book(_hMu_topPt_particle_norm   , "d18-x01-y01"); // 1/sigma dsigma/dpt(top jet), mu ch
+      book(_hMu_topY_parton_norm      , "d19-x01-y01"); // 1/sigma dsigma/dy(top quark), mu ch
+      book(_hMu_topY_particle_norm    , "d20-x01-y01"); // 1/sigma dsigma/dy(top jet), mu ch
+      book(_hComb_topPt_parton_norm   , "d21-x01-y01"); // 1/sigma dsigma/dpt(top quark), comb ch
+      book(_hComb_topPt_particle_norm , "d22-x01-y01"); // 1/sigma dsigma/dpt(top jet), comb ch
+      book(_hComb_topY_parton_norm    , "d23-x01-y01"); // 1/sigma dsigma/dy(top quark), comb ch
+      book(_hComb_topY_particle_norm  , "d24-x01-y01"); // 1/sigma dsigma/dy(top jet), comb ch
 
-      _hMu_cutflow = bookHisto1D("mu_cutflow", 7, -0.5, 6.5);
-      _hEl_cutflow = bookHisto1D("el_cutflow", 7, -0.5, 6.5);
+      book(_hMu_cutflow , "mu_cutflow", 7, -0.5, 6.5);
+      book(_hEl_cutflow , "el_cutflow", 7, -0.5, 6.5);
     }
 
 
@@ -161,7 +161,7 @@ namespace Rivet {
         }
       }
 
-      const double weight = event.weight();
+      const double weight = 1.0;
       if (partonCh == 1) {
         _nMu += weight;
         _hMu_topPt_parton->fill(partonTopP4.pT()/GeV, weight);
@@ -232,24 +232,25 @@ namespace Rivet {
 
     void finalize() {
 
-      normalize({_hMu_topPt_parton_norm, _hMu_topY_parton_norm, _hEl_topPt_parton_norm,
-            _hEl_topY_parton_norm, _hComb_topPt_parton_norm, _hComb_topY_parton_norm}, 1.0, false);
-      normalize({_hMu_topPt_particle_norm, _hMu_topY_particle_norm, _hEl_topPt_particle_norm,
-            _hEl_topY_particle_norm, _hComb_topPt_particle_norm, _hComb_topY_particle_norm}, 1.0, false);
+      normalize(_hMu_topPt_parton_norm); normalize(_hMu_topY_parton_norm); normalize(_hEl_topPt_parton_norm);
+      normalize(_hEl_topY_parton_norm); normalize(_hComb_topPt_parton_norm); normalize(_hComb_topY_parton_norm, 1.0, false);
+      normalize(_hMu_topPt_particle_norm); normalize(_hMu_topY_particle_norm); normalize(_hEl_topPt_particle_norm);
+      normalize(_hEl_topY_particle_norm); normalize(_hComb_topPt_particle_norm); normalize(_hComb_topY_particle_norm, 1.0, false);
 
-      scale(_hMu_topPt_particle, crossSection()/femtobarn / sumOfWeights());
-      scale(_hEl_topPt_particle, crossSection()/femtobarn / sumOfWeights());
-      scale(_hMu_topY_particle, crossSection()/femtobarn / sumOfWeights());
-      scale(_hEl_topY_particle, crossSection()/femtobarn / sumOfWeights());
-      scale(_hComb_topPt_particle, crossSection()/femtobarn / sumOfWeights());
-      scale(_hComb_topY_particle, crossSection()/femtobarn / sumOfWeights());
+      const double sf = crossSection() / femtobarn / sumOfWeights();
+      scale(_hMu_topPt_particle, sf);
+      scale(_hEl_topPt_particle, sf);
+      scale(_hMu_topY_particle, sf);
+      scale(_hEl_topY_particle, sf);
+      scale(_hComb_topPt_particle, sf);
+      scale(_hComb_topY_particle, sf);
 
-      scale(_hMu_topPt_parton, crossSection()/femtobarn / sumOfWeights());
-      scale(_hEl_topPt_parton, crossSection()/femtobarn / sumOfWeights());
-      scale(_hMu_topY_parton, crossSection()/femtobarn / sumOfWeights());
-      scale(_hEl_topY_parton, crossSection()/femtobarn / sumOfWeights());
-      scale(_hComb_topPt_parton, crossSection()/femtobarn / sumOfWeights());
-      scale(_hComb_topY_parton, crossSection()/femtobarn / sumOfWeights());
+      scale(_hMu_topPt_parton, sf);
+      scale(_hEl_topPt_parton, sf);
+      scale(_hMu_topY_parton, sf);
+      scale(_hEl_topY_parton, sf);
+      scale(_hComb_topPt_parton, sf);
+      scale(_hComb_topY_parton, sf);
 
     }
 

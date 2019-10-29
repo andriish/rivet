@@ -14,25 +14,35 @@ namespace Rivet {
 
   /// ATLAS Run 1 electron reconstruction efficiency
   /// @todo Include reco eff (but no e/y discrimination) in forward region
-  /// @todo How to use this in combination with tracking eff?
-  inline double ELECTRON_EFF_ATLAS_RUN1(const Particle& e) {
+  inline double ELECTRON_RECOEFF_ATLAS_RUN1(const Particle& e) {
+    if (e.abspid() != PID::ELECTRON) return 0;
     if (e.abseta() > 2.5) return 0;
     if (e.pT() < 10*GeV) return 0;
     return (e.abseta() < 1.5) ? 0.95 : 0.85;
   }
 
   /// ATLAS Run 2 electron reco efficiency
-  /// @todo Currently just a copy of Run 1: fix!
-  inline double ELECTRON_EFF_ATLAS_RUN2(const Particle& e) {
-    return ELECTRON_EFF_ATLAS_RUN1(e);
+  ///
+  /// Based on https://arxiv.org/pdf/1902.04655.pdf Fig 2
+  inline double ELECTRON_RECOEFF_ATLAS_RUN2(const Particle& e) {
+    if (e.abspid() != PID::ELECTRON) return 0;
+    const double et = e.Et();
+    if (e.abseta() > 2.5 || e.Et() < 2*GeV) return 0;
+    if (et > 25*GeV) return 0.97;
+    if (et > 10*GeV) return 0.92 + (et/GeV-10)/15.*0.05;
+    if (et >  6*GeV) return 0.85 + (et/GeV-6)/4.*0.07;
+    if (et >  5*GeV) return 0.70 + (et/GeV-5)/1.*0.15;
+    if (et >  2*GeV) return 0.00 + (et/GeV-2)/3.*0.70;
+    return 0;
   }
 
 
-  /// @brief ATLAS Run 2 'loose' electron identification/selection efficiency
+  /// @brief ATLAS Run 2 'loose' electron reco+identification efficiency
   ///
   /// Values read from Fig 3 of ATL-PHYS-PUB-2015-041
   /// @todo What about faking by jets or non-electrons?
-  inline double ELECTRON_IDEFF_ATLAS_RUN2_LOOSE(const Particle& e) {
+  inline double ELECTRON_EFF_ATLAS_RUN2_LOOSE(const Particle& e) {
+    if (e.abspid() != PID::ELECTRON) return 0;
 
     // Manually symmetrised eta eff histogram
     const static vector<double> edges_eta = { 0.0,   0.1,   0.8,   1.37,  1.52,  2.01,  2.37,  2.47 };
@@ -46,12 +56,13 @@ namespace Rivet {
     const int i_eta = binIndex(e.abseta(), edges_eta);
     const int i_et = binIndex(e.Et()/GeV, edges_et, true);
     const double eff = effs_et[i_et] * effs_eta[i_eta] / 0.95; //< norm factor as approximate double differential
-    return min(eff, 1.0);
+    return min(eff, 1.0) * ELECTRON_RECOEFF_ATLAS_RUN2(e);
   }
 
 
-  /// @brief ATLAS Run 1 'medium' electron identification/selection efficiency
-  inline double ELECTRON_IDEFF_ATLAS_RUN1_MEDIUM(const Particle& e) {
+  /// @brief ATLAS Run 1 'medium' electron reco+identification efficiency
+  inline double ELECTRON_EFF_ATLAS_RUN1_MEDIUM(const Particle& e) {
+    if (e.abspid() != PID::ELECTRON) return 0;
 
     const static vector<double> eta_edges_10 = {0.000, 0.049, 0.454, 1.107, 1.46, 1.790, 2.277, 2.500};
     const static vector<double> eta_vals_10  = {0.730, 0.757, 0.780, 0.771, 0.77, 0.777, 0.778};
@@ -93,18 +104,21 @@ namespace Rivet {
     if (e.abseta() > 2.5 || e.Et() < 10*GeV) return 0.0;
     const int i_et = binIndex(e.Et()/GeV, et_edges, true);
     const int i_eta = binIndex(e.abseta(), et_eta_edges[i_et]);
-    return et_eta_vals[i_et][i_eta];
+    return et_eta_vals[i_et][i_eta] * ELECTRON_RECOEFF_ATLAS_RUN1(e);
   }
 
-  /// @brief ATLAS Run 2 'medium' electron identification/selection efficiency
-  /// @todo Currently just a copy of Run 1: fix!
-  inline double ELECTRON_IDEFF_ATLAS_RUN2_MEDIUM(const Particle& e) {
-    return ELECTRON_IDEFF_ATLAS_RUN1_MEDIUM(e);
+  /// @brief ATLAS Run 2 'medium' electron reco+identification efficiency
+  ///
+  /// ~1% increase over Run 1 informed by Fig 1 in https://cds.cern.ch/record/2157687/files/ATLAS-CONF-2016-024.pdf
+  inline double ELECTRON_EFF_ATLAS_RUN2_MEDIUM(const Particle& e) {
+    if (e.abspid() != PID::ELECTRON) return 0;
+    return 1.01 * ELECTRON_EFF_ATLAS_RUN1_MEDIUM(e);
   }
 
 
-  /// @brief ATLAS Run 1 'tight' electron identification/selection efficiency
-  inline double ELECTRON_IDEFF_ATLAS_RUN1_TIGHT(const Particle& e) {
+  /// @brief ATLAS Run 1 'tight' electron reco+identification efficiency
+  inline double ELECTRON_EFF_ATLAS_RUN1_TIGHT(const Particle& e) {
+    if (e.abspid() != PID::ELECTRON) return 0;
 
     const static vector<double> eta_edges_10 = {0.000, 0.049, 0.459, 1.100, 1.461, 1.789, 2.270, 2.500};
     const static vector<double> eta_vals_10  = {0.581, 0.632, 0.668, 0.558, 0.548, 0.662, 0.690};
@@ -146,13 +160,26 @@ namespace Rivet {
     if (e.abseta() > 2.5 || e.Et() < 10*GeV) return 0.0;
     const int i_et = binIndex(e.Et()/GeV, et_edges, true);
     const int i_eta = binIndex(e.abseta(), et_eta_edges[i_et]);
-    return et_eta_vals[i_et][i_eta];
+    return et_eta_vals[i_et][i_eta] * ELECTRON_RECOEFF_ATLAS_RUN1(e);
   }
 
-  /// @brief ATLAS Run 2 'tight' electron identification/selection efficiency
-  /// @todo Currently just a copy of Run 1: fix!
-  inline double ELECTRON_IDEFF_ATLAS_RUN2_TIGHT(const Particle& e) {
-    return ELECTRON_IDEFF_ATLAS_RUN1_TIGHT(e);
+  /// @brief ATLAS Run 2 'tight' electron reco+identification efficiency
+  ///
+  /// ~1% increase over Run 1 informed by Fig 1 in https://cds.cern.ch/record/2157687/files/ATLAS-CONF-2016-024.pdf
+  inline double ELECTRON_EFF_ATLAS_RUN2_TIGHT(const Particle& e) {
+    if (e.abspid() != PID::ELECTRON) return 0;
+    const static vector<double> et_edges = { /* 10, 15, */ 20, 25, 30, 35, 40, 45, 50, 60, 80 };
+    const static vector<double> et_effs = { 0.785, 0.805, 0.820, 0.830, 0.840, 0.850, 0.875, 0.910 };
+    const static vector<double> eta_edges = {0.000, 0.051, 0.374, 0.720, 0.981, 1.279, 1.468, 1.707, 1.945, 2.207, 2.457, 2.500}; // from ET > 80 bin
+    const static vector<double> eta_refs =    {0.819, 0.855, 0.899, 0.906, 0.900, 0.869, 0.865, 0.873, 0.869, 0.868, 0.859};
+    if (e.abseta() > 2.5 || e.Et() < 20*GeV) return 0.0;
+    const int i_et = binIndex(e.Et()/GeV, et_edges, true);
+    const int i_eta = binIndex(e.abseta(), eta_edges);
+    const double eff_et = et_effs[i_et]; //< integral eff
+    // Scale to |eta| shape, following the ~85% efficient high-ET bin from Run 1
+    const double eff = eff_et * (eta_refs[i_eta]/0.85) * ELECTRON_RECOEFF_ATLAS_RUN2(e);
+    //return ELECTRON_IDEFF_ATLAS_RUN1_TIGHT(e);
+    return eff;
   }
 
 
@@ -200,6 +227,7 @@ namespace Rivet {
 
   /// CMS Run 1 electron reconstruction efficiency
   inline double ELECTRON_EFF_CMS_RUN1(const Particle& e) {
+    if (e.abspid() != PID::ELECTRON) return 0;
     if (e.abseta() > 2.5) return 0;
     if (e.pT() < 10*GeV) return 0;
     return (e.abseta() < 1.5) ? 0.95 : 0.85;
@@ -209,6 +237,7 @@ namespace Rivet {
   /// CMS Run 2 electron reco efficiency
   /// @todo Currently just a copy of Run 1: fix!
   inline double ELECTRON_EFF_CMS_RUN2(const Particle& e) {
+    if (e.abspid() != PID::ELECTRON) return 0;
     return ELECTRON_EFF_CMS_RUN1(e);
   }
 
@@ -257,6 +286,8 @@ namespace Rivet {
   ///
   /// Taken from converted photons, Fig 8, in arXiv:1606.01813
   inline double PHOTON_EFF_ATLAS_RUN1(const Particle& y) {
+    if (y.abspid() != PID::PHOTON) return 0; ///< @todo Allow electron misID? What about jet misID?
+
     if (y.pT() < 10*GeV) return 0;
     if (inRange(y.abseta(), 1.37, 1.52) || y.abseta() > 2.37) return 0;
 
@@ -285,6 +316,8 @@ namespace Rivet {
   ///
   /// Taken from converted photons, Fig 6, in ATL-PHYS-PUB-2016-014
   inline double PHOTON_EFF_ATLAS_RUN2(const Particle& y) {
+    if (y.abspid() != PID::PHOTON) return 0; ///< @todo Allow electron misID? What about jet misID?
+
     if (y.pT() < 10*GeV) return 0;
     if (inRange(y.abseta(), 1.37, 1.52) || y.abseta() > 2.37) return 0;
 
@@ -312,6 +345,7 @@ namespace Rivet {
   /// CMS Run 1 photon reco efficiency
   /// @todo Currently from Delphes
   inline double PHOTON_EFF_CMS_RUN1(const Particle& y) {
+    if (y.abspid() != PID::PHOTON) return 0; ///< @todo Allow electron misID? What about jet misID?
     if (y.pT() < 10*GeV || y.abseta() > 2.5) return 0;
     return (y.abseta() < 1.5) ? 0.95 : 0.85;
   }
@@ -319,6 +353,7 @@ namespace Rivet {
   /// CMS Run 2 photon reco efficiency
   /// @todo Currently just a copy of Run 1: fix!
   inline double PHOTON_EFF_CMS_RUN2(const Particle& y) {
+    if (y.abspid() != PID::PHOTON) return 0; ///< @todo Allow electron misID? What about jet misID?
     return PHOTON_EFF_CMS_RUN1(y);
   }
 
@@ -338,23 +373,38 @@ namespace Rivet {
 
   /// ATLAS Run 1 muon reco efficiency
   inline double MUON_EFF_ATLAS_RUN1(const Particle& m) {
+    if (m.abspid() != PID::MUON) return 0;
     if (m.abseta() > 2.7) return 0;
     if (m.pT() < 10*GeV) return 0;
     return (m.abseta() < 1.5) ? 0.95 : 0.85;
   }
 
-  /// @brief ATLAS Run 2 muon reco efficiency
+  /// ATLAS Run 2 muon reco efficiency
+  /// From https://arxiv.org/pdf/1603.05598.pdf , Fig3 top
+  inline double MUON_RECOEFF_ATLAS_RUN2(const Particle& m) {
+    if (m.abspid() != PID::MUON) return 0;
+    if (m.abseta() > 2.5) return 0;
+    if (m.abseta() < 0.1) return 0.61;
+    // if (m.pT() < 10*GeV) return 0;
+    return (m.abseta() < 1) ? 0.98 : 0.99;
+  }
+
+  /// @brief ATLAS Run 2 muon reco+ID efficiency
   ///
   /// For medium ID, from Fig 3 of
   /// https://cds.cern.ch/record/2047831/files/ATL-PHYS-PUB-2015-037.pdf
   inline double MUON_EFF_ATLAS_RUN2(const Particle& m) {
+    if (m.abspid() != PID::MUON) return 0;
     if (m.abseta() > 2.7) return 0;
     static const vector<double> edges_pt = {0., 3.5, 4., 5., 6., 7., 8., 10.};
     static const vector<double> effs = {0.00, 0.76, 0.94, 0.97, 0.98, 0.98, 0.98, 0.99};
     const int i_pt = binIndex(m.pT()/GeV, edges_pt, true);
-    const double eff = effs[i_pt];
+    const double eff = effs[i_pt] * MUON_RECOEFF_ATLAS_RUN2(m);
     return eff;
   }
+
+  /// @todo Add muon loose/medium/tight ID efficiencies? All around 95-98%... ignore?
+
 
 
   /// ATLAS Run 1 muon reco smearing
@@ -379,16 +429,21 @@ namespace Rivet {
   }
 
   /// ATLAS Run 2 muon reco smearing
-  /// @todo Currently just a copy of the Run 1 version: fix!
+  /// From https://arxiv.org/abs/1603.05598 , eq (10) and Fig 12
   inline Particle MUON_SMEAR_ATLAS_RUN2(const Particle& m) {
-    return MUON_SMEAR_ATLAS_RUN1(m);
+    double mres_pt = 0.015;
+    if (m.pT() > 50*GeV) mres_pt = 0.014 + 0.01*(m.pT()/GeV-50)/50;
+    if (m.pT() > 100*GeV) mres_pt = 0.025;
+    const double ptres_pt = SQRT2 * mres_pt; //< from Eq (10)
+    const double resolution = (m.abseta() < 1.5 ? 1.0 : 1.25) * ptres_pt;
+    return Particle(m.pid(), P4_SMEAR_PT_GAUSS(m, resolution*m.pT()));
   }
-
 
 
 
   /// CMS Run 1 muon reco efficiency
   inline double MUON_EFF_CMS_RUN1(const Particle& m) {
+    if (m.abspid() != PID::MUON) return 0;
     if (m.abseta() > 2.4) return 0;
     if (m.pT() < 10*GeV) return 0;
     return 0.95 * (m.abseta() < 1.5 ? 1 : exp(0.5 - 5e-4*m.pT()/GeV));
@@ -397,6 +452,7 @@ namespace Rivet {
   /// CMS Run 2 muon reco efficiency
   /// @todo Currently just a copy of Run 1: fix!
   inline double MUON_EFF_CMS_RUN2(const Particle& m) {
+    if (m.abspid() != PID::MUON) return 0;
     return MUON_EFF_CMS_RUN1(m);
   }
 
@@ -460,11 +516,41 @@ namespace Rivet {
     if (chargedhadrons.empty()) return 0; //< leptonic tau
     if (pThadvis < 20*GeV) return 0; //< below threshold
     if (pThadvis < 40*GeV) {
-      if (chargedhadrons.size() == 1) return (t.abspid() == PID::TAU) ? 0.56 : 1/20.;
-      if (chargedhadrons.size() == 3) return (t.abspid() == PID::TAU) ? 0.38 : 1/100.;
+      if (chargedhadrons.size() == 1) return (t.abspid() == PID::TAU) ? 0.56 : 0; //1/20.;
+      if (chargedhadrons.size() == 3) return (t.abspid() == PID::TAU) ? 0.38 : 0; //1/100.;
     } else {
-      if (chargedhadrons.size() == 1) return (t.abspid() == PID::TAU) ? 0.56 : 1/25.;
-      if (chargedhadrons.size() == 3) return (t.abspid() == PID::TAU) ? 0.38 : 1/400.;
+      if (chargedhadrons.size() == 1) return (t.abspid() == PID::TAU) ? 0.56 : 0; //1/25.;
+      if (chargedhadrons.size() == 3) return (t.abspid() == PID::TAU) ? 0.38 : 0; //1/400.;
+    }
+    return 0;
+  }
+
+  /// @brief ATLAS Run 1 8 TeV tau misID rates (medium working point)
+  ///
+  /// Taken from http://arxiv.org/pdf/1412.7086.pdf
+  ///   20-40 GeV 1-prong LMT eff|mis = 0.66|1/10, 0.56|1/20, 0.36|1/80
+  ///   20-40 GeV 3-prong LMT eff|mis = 0.45|1/60, 0.38|1/100, 0.27|1/300
+  ///   > 40 GeV 1-prong LMT eff|mis = 0.66|1/15, 0.56|1/25, 0.36|1/80
+  ///   > 40 GeV 3-prong LMT eff|mis = 0.45|1/250, 0.38|1/400, 0.27|1/1300
+  inline double TAU_MISID_ATLAS_RUN1(const Jet& j) {
+    if (j.abseta() > 2.5) return 0; //< hmm... mostly
+    double pThadvis = 0;
+    Particles chargedhadrons;
+    for (const Particle& p : j.particles()) {
+      if (p.isHadron()) {
+        pThadvis += p.pT(); //< right definition? Paper is unclear
+        if (p.charge3() != 0 && p.abseta() < 2.5 && p.pT() > 1*GeV) chargedhadrons += p;
+      }
+    }
+    if (chargedhadrons.empty()) return 0;
+    if (pThadvis < 20*GeV) return 0;
+    /// @todo Add some "if jet is true tau" logic... how? tau among constituents' ancestors?
+    if (pThadvis < 40*GeV) {
+      if (chargedhadrons.size() == 1) return 1/20.;
+      if (chargedhadrons.size() == 3) return 1/100.;
+    } else {
+      if (chargedhadrons.size() == 1) return 1/25.;
+      if (chargedhadrons.size() == 3) return 1/400.;
     }
     return 0;
   }
@@ -476,6 +562,7 @@ namespace Rivet {
   ///   LMT 1 prong efficiency/mistag = 0.6|1/30, 0.55|1/50, 0.45|1/120
   ///   LMT 3 prong efficiency/mistag = 0.5|1/30, 0.4|1/110, 0.3|1/300
   inline double TAU_EFF_ATLAS_RUN2(const Particle& t) {
+    if (t.abspid() != PID::TAU) return 0;
     if (t.abseta() > 2.5) return 0; //< hmm... mostly
     double pThadvis = 0;
     Particles chargedhadrons;
@@ -487,8 +574,30 @@ namespace Rivet {
     }
     if (chargedhadrons.empty()) return 0; //< leptonic tau
     if (pThadvis < 20*GeV) return 0; //< below threshold
-    if (chargedhadrons.size() == 1) return (t.abspid() == PID::TAU) ? 0.55 : 1/50.;
-    if (chargedhadrons.size() == 3) return (t.abspid() == PID::TAU) ? 0.40 : 1/110.;
+    if (chargedhadrons.size() == 1) return (t.abspid() == PID::TAU) ? 0.55 : 0; //1/50.;
+    if (chargedhadrons.size() == 3) return (t.abspid() == PID::TAU) ? 0.40 : 0; //1/110.;
+    return 0;
+  }
+
+  /// @brief ATLAS Run 2 13 TeV tau misID rate (medium working point)
+  ///
+  /// From https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2015-045/ATL-PHYS-PUB-2015-045.pdf
+  ///   LMT 1 prong efficiency/mistag = 0.6|1/30, 0.55|1/50, 0.45|1/120
+  ///   LMT 3 prong efficiency/mistag = 0.5|1/30, 0.4|1/110, 0.3|1/300
+  inline double TAU_MISID_ATLAS_RUN2(const Jet& j) {
+    if (j.abseta() > 2.5) return 0; //< hmm... mostly
+    double pThadvis = 0;
+    Particles chargedhadrons;
+    for (const Particle& p : j.particles()) {
+      if (p.isHadron()) {
+        pThadvis += p.pT(); //< right definition? Paper is unclear
+        if (p.charge3() != 0 && p.abseta() < 2.5 && p.pT() > 1*GeV) chargedhadrons += p;
+      }
+    }
+    if (chargedhadrons.empty()) return 0;
+    if (pThadvis < 20*GeV) return 0; //< below threshold
+    if (chargedhadrons.size() == 1) return 1/50.;
+    if (chargedhadrons.size() == 3) return 1/110.;
     return 0;
   }
 
@@ -514,18 +623,20 @@ namespace Rivet {
   }
 
 
-  /// CMS Run 2 tau efficiency
-  ///
-  /// @todo Needs work; this is the dumb version from Delphes 3.3.2
-  inline double TAU_EFF_CMS_RUN2(const Particle& t) {
-    return (t.abspid() == PID::TAU) ? 0.6 : 0;
-  }
-
   /// CMS Run 1 tau efficiency
   ///
   /// @todo Needs work; this is just a copy of the Run 2 version in Delphes 3.3.2
   inline double TAU_EFF_CMS_RUN1(const Particle& t) {
-    return TAU_EFF_CMS_RUN2(t);
+    if (t.abspid() != PID::TAU) return 0;
+    return (t.abspid() == PID::TAU) ? 0.6 : 0;
+  }
+
+  /// CMS Run 2 tau efficiency
+  ///
+  /// @todo Needs work; this is the dumb version from Delphes 3.3.2
+  inline double TAU_EFF_CMS_RUN2(const Particle& t) {
+    if (t.abspid() != PID::TAU) return 0;
+    return (t.abspid() == PID::TAU) ? 0.6 : 0;
   }
 
 
@@ -604,8 +715,14 @@ namespace Rivet {
 
   /// CMS Run 2 jet smearing
   /// @todo Just a copy of the suboptimal ATLAS one: improve!!
-  inline Jet JET_SMEAR_CMS_RUN2(const Jet& j) {
+  inline Jet JET_SMEAR_CMS_RUN1(const Jet& j) {
     return JET_SMEAR_ATLAS_RUN1(j);
+  }
+
+  /// CMS Run 2 jet smearing
+  /// @todo Just a copy of the suboptimal ATLAS one: improve!!
+  inline Jet JET_SMEAR_CMS_RUN2(const Jet& j) {
+    return JET_SMEAR_CMS_RUN1(j);
   }
 
   //@}

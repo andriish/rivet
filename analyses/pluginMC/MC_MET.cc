@@ -23,15 +23,15 @@ namespace Rivet {
       declare(MissingMomentum(inclfs), "InclMET");
       declare(MissingMomentum(calofs), "CaloMET");
 
-      _h_met_incl = bookHisto1D("met_incl", logspace(30, 1, 150));
-      _h_met_calo = bookHisto1D("met_calo", logspace(30, 1, 150));
-      _h_set_incl = bookHisto1D("set_incl", logspace(30, 1, sqrtS()/GeV/2));
-      _h_set_calo = bookHisto1D("set_calo", logspace(30, 1, sqrtS()/GeV/2));
+      book(_h_met_incl ,"met_incl", logspace(30, 1, 150));
+      book(_h_met_calo ,"met_calo", logspace(30, 1, 150));
+      book(_h_set_incl ,"set_incl", logspace(30, 1, sqrtS()/GeV/2));
+      book(_h_set_calo ,"set_calo", logspace(30, 1, sqrtS()/GeV/2));
     }
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       const MissingMomentum& mmincl = apply<MissingMomentum>(event, "InclMET");
       _h_met_incl->fill(mmincl.met()/GeV, weight);
@@ -45,8 +45,8 @@ namespace Rivet {
 
 
     void finalize() {
-      normalize({_h_met_incl, _h_set_incl});
-      normalize({_h_met_calo, _h_set_calo});
+      normalize(_h_met_incl); normalize(_h_set_incl);
+      normalize(_h_met_calo); normalize(_h_set_calo);
     }
 
 

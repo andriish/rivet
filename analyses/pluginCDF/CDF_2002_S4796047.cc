@@ -30,7 +30,6 @@ namespace Rivet {
     CDF_2002_S4796047()
       : Analysis("CDF_2002_S4796047")
     {
-      _sumWTrig = 0;
     }
 
 
@@ -40,17 +39,19 @@ namespace Rivet {
     /// Book projections and histograms
     void init() {
       declare(TriggerCDFRun0Run1(), "Trigger");
-      const ChargedFinalState cfs(-1.0, 1.0, 0.4*GeV);
+      const ChargedFinalState cfs((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  0.4*GeV));
       declare(cfs, "FS");
 
       // Histos
       if (fuzzyEquals(sqrtS()/GeV, 630)) {
-        _hist_multiplicity  = bookHisto1D(1, 1, 1);
-        _hist_pt_vs_multiplicity  = bookProfile1D(3, 1, 1);
+        book(_hist_multiplicity  ,1, 1, 1);
+        book(_hist_pt_vs_multiplicity  ,3, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 1800)) {
-        _hist_multiplicity = bookHisto1D(2, 1, 1);
-        _hist_pt_vs_multiplicity = bookProfile1D(4, 1, 1);
+        book(_hist_multiplicity ,2, 1, 1);
+        book(_hist_pt_vs_multiplicity ,4, 1, 1);
       }
+      book(_sumWTrig, "sumWTrig");
+
     }
 
 
@@ -59,20 +60,19 @@ namespace Rivet {
       // Trigger
       const bool trigger = apply<TriggerCDFRun0Run1>(evt, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
-      const double weight = evt.weight();
-      _sumWTrig += weight;
+      _sumWTrig->fill();
 
       // Get beam energy and tracks
       const ChargedFinalState& fs = apply<ChargedFinalState>(evt, "FS");
       const size_t numParticles = fs.particles().size();
 
       // Fill histos of charged multiplicity distributions
-      _hist_multiplicity->fill(numParticles, weight);
+      _hist_multiplicity->fill(numParticles);
 
       // Fill histos for <pT> vs. charged multiplicity
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         const double pT = p.pT();
-        _hist_pt_vs_multiplicity->fill(numParticles, pT/GeV, weight);
+        _hist_pt_vs_multiplicity->fill(numParticles, pT/GeV);
       }
 
     }
@@ -103,7 +103,7 @@ namespace Rivet {
 
     /// @name Counter
     //@{
-    double _sumWTrig;
+    CounterPtr _sumWTrig;
     //@}
 
     /// @name Histos

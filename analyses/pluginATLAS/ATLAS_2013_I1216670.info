@@ -40,3 +40,8 @@ BibTeX: '@article{Aad:2013bjm,
       reportNumber   = "CERN-PH-EP-2012-355",
       SLACcitation   = "%%CITATION = ARXIV:1301.6872;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-W-e
+ - $A-2 LHC-W-mu
+

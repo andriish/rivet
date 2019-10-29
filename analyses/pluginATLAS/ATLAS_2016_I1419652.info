@@ -40,3 +40,8 @@ BibTeX: '@article{Aad:2016mok,
       reportNumber   = "CERN-EP-2016-014",
       SLACcitation   = "%%CITATION = ARXIV:1602.01633;%%"
 }'
+
+ReleaseTests:
+ - $A LHC-13-UE-Long
+ - $A-2 LHC-13-UE
+

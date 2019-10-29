@@ -38,3 +38,9 @@ BibTeX: '@Article{Khachatryan:2011dx,
      doi       = "10.1016/j.physletb.2011.03.060",
      SLACcitation  = "%%CITATION = 1102.0068;%%"
 }'
+
+ReleaseTests:
+ - $A LHC-7-Jets-3
+ - $A-2 LHC-7-Jets-4
+ - $A-3 LHC-7-Jets-5
+

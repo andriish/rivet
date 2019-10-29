@@ -45,3 +45,7 @@ BibTeX: '@Article{Abazov:2008qv,
      doi       = "10.1103/PhysRevLett.101.211801",
      SLACcitation  = "%%CITATION = 0807.3367;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-Run-II-W
+

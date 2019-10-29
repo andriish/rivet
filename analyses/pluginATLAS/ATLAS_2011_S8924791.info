@@ -40,3 +40,13 @@ BibTeX: '@article{Aad:2011kq,
       reportNumber   = "CERN-PH-EP-2010-077",
       SLACcitation   = "%%CITATION = ARXIV:1101.0070;%%"
 }'
+
+ReleaseTests:
+ - $A LHC-7-Jets-1
+ - $A-2 LHC-7-Jets-2
+ - $A-3 LHC-7-Jets-3
+ - $A-4 LHC-7-Jets-4
+ - $A-5 LHC-7-Jets-5
+ - $A-6 LHC-7-Jets-6
+ - $A-7 LHC-7-Jets-7
+

@@ -2,7 +2,7 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 #include "Rivet/Projections/PrimaryHadrons.hh"
 #include "Rivet/Projections/HeavyHadrons.hh"
 
@@ -28,26 +28,26 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      FastJets fj(FinalState(-5, 5), FastJets::ANTIKT, 0.6);
+      FastJets fj(FinalState((Cuts::etaIn(-5, 5))), FastJets::ANTIKT, 0.6);
       fj.useInvisibles();
       declare(fj, "Jets");
       declare(HeavyHadrons(Cuts::abseta < 5 && Cuts::pT > 500*MeV), "BCHadrons");
 
-      _h_ptCJetLead = bookHisto1D("ptCJetLead", linspace(5, 0, 20, false) + logspace(25, 20, 200));
-      _h_ptCHadrLead = bookHisto1D("ptCHadrLead", linspace(5, 0, 10, false) + logspace(25, 10, 200));
-      _h_ptFracC = bookHisto1D("ptfracC", 50, 0, 1.5);
-      _h_eFracC = bookHisto1D("efracC", 50, 0, 1.5);
+      book(_h_ptCJetLead ,"ptCJetLead", linspace(5, 0, 20, false) + logspace(25, 20, 200));
+      book(_h_ptCHadrLead ,"ptCHadrLead", linspace(5, 0, 10, false) + logspace(25, 10, 200));
+      book(_h_ptFracC ,"ptfracC", 50, 0, 1.5);
+      book(_h_eFracC ,"efracC", 50, 0, 1.5);
 
-      _h_ptBJetLead = bookHisto1D("ptBJetLead", linspace(5, 0, 20, false) + logspace(25, 20, 200));
-      _h_ptBHadrLead = bookHisto1D("ptBHadrLead", linspace(5, 0, 10, false) + logspace(25, 10, 200));
-      _h_ptFracB = bookHisto1D("ptfracB", 50, 0, 1.5);
-      _h_eFracB = bookHisto1D("efracB", 50, 0, 1.5);
+      book(_h_ptBJetLead ,"ptBJetLead", linspace(5, 0, 20, false) + logspace(25, 20, 200));
+      book(_h_ptBHadrLead ,"ptBHadrLead", linspace(5, 0, 10, false) + logspace(25, 10, 200));
+      book(_h_ptFracB ,"ptfracB", 50, 0, 1.5);
+      book(_h_eFracB ,"efracB", 50, 0, 1.5);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Get jets and heavy hadrons
       const Jets& jets = apply<JetAlg>(event, "Jets").jetsByPt();
@@ -63,11 +63,11 @@ namespace Rivet {
       /// @todo Do this again with the ghost match?
       MSG_DEBUG("Getting b/c-tags");
       bool gotLeadingB = false, gotLeadingC = false;;
-      foreach (const Jet& j, jets) {
+      for (const Jet& j : jets) {
         if (!gotLeadingB) {
           FourMomentum leadBJet, leadBHadr;
           double dRmin = MAX_DR;
-          foreach (const Particle& b, bhadrons) {
+          for (const Particle& b : bhadrons) {
             const double dRcand = min(dRmin, deltaR(j, b));
             if (dRcand < dRmin) {
               dRmin = dRcand;
@@ -91,7 +91,7 @@ namespace Rivet {
         if (!gotLeadingC) {
           FourMomentum leadCJet, leadCHadr;
           double dRmin = MAX_DR;
-          foreach (const Particle& c, chadrons) {
+          for (const Particle& c : chadrons) {
             const double dRcand = min(dRmin, deltaR(j, c));
             if (dRcand < dRmin) {
               dRmin = dRcand;

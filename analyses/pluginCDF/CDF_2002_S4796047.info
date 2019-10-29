@@ -46,3 +46,8 @@ BibTeX: '@Article{Acosta:2001rm,
      doi       = "10.1103/PhysRevD.65.072005",
      SLACcitation  = "%%CITATION = PHRVA,D65,072005;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-630-UE
+ - $A-2 TVT-Run-I-UE
+

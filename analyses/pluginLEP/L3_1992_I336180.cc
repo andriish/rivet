@@ -3,7 +3,7 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -26,11 +26,11 @@ namespace Rivet {
       // Initialise and register projections
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
-      declare(UnstableFinalState(), "UFS");
+      declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      _histXpEta = bookHisto1D( 1, 1, 1);
-      _histLnXpEta = bookHisto1D( 2, 1, 1);
+      book(_histXpEta , 1, 1, 1);
+      book(_histLnXpEta , 2, 1, 1);
 
     }
 
@@ -46,22 +46,19 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed ncharged cut");
 
-      // Get event weight for histo filling                                                                                                    
-      const double weight = event.weight();
-
       // Get beams and average beam momentum                                                                                                
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() + beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Final state of unstable particles to get particle spectra
-      const Particles& etas = apply<UnstableFinalState>(event, "UFS").particles(Cuts::abspid==PID::ETA);
+      const Particles& etas = apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==PID::ETA);
 
-      foreach (const Particle& p, etas) {
+      for (const Particle& p : etas) {
 	double xp = p.p3().mod()/meanBeamMom;
         MSG_DEBUG("Eta xp = " << xp);
-        _histXpEta->fill(xp, weight);
-        _histLnXpEta->fill(log(1./xp), weight);
+        _histXpEta->fill(xp);
+        _histLnXpEta->fill(log(1./xp));
       }
     }
 

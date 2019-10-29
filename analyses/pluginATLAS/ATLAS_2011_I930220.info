@@ -56,3 +56,15 @@ BibTeX: '@article{ATLAS:2011ac,
       reportNumber   = "CERN-PH-EP-2011-146",
       SLACcitation   = "%%CITATION = ARXIV:1109.6833;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-7-Bottom-0
+ - $A-2 LHC-7-Bottom-1
+ - $A-3 LHC-7-Bottom-2
+ - $A-4 LHC-7-Bottom-3
+ - $A-5 LHC-7-Bottom-4
+ - $A-6 LHC-7-Bottom-5
+ - $A-7 LHC-7-Bottom-6
+ - $A-8 LHC-7-Bottom-7
+ - $A-9 LHC-7-Bottom-8
+

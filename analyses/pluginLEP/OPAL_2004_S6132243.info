@@ -40,3 +40,10 @@ BibTeX: '@Article{Abbiendi:2004qz,
      doi       = "10.1140/epjc/s2005-02120-6",
      SLACcitation  = "%%CITATION = HEP-EX/0503051;%%"
 }'
+
+ReleaseTests:
+ - $A LEP-133
+ - $A-2 LEP-177
+ - $A-3 LEP-197
+ - $A-4 LEP-91
+

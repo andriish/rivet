@@ -38,7 +38,7 @@ namespace Rivet {
 
       PromptFinalState es(Cuts::abseta < 2.47 && Cuts::abspid == PID::ELECTRON, true, true);
       declare(es, "TruthElectrons");
-      declare(SmearedParticles(es, ELECTRON_EFF_ATLAS_RUN2, ELECTRON_SMEAR_ATLAS_RUN2), "RecoElectrons");
+      declare(SmearedParticles(es, ELECTRON_RECOEFF_ATLAS_RUN2, ELECTRON_SMEAR_ATLAS_RUN2), "RecoElectrons");
 
       PromptFinalState mus(Cuts::abseta < 2.7 && Cuts::abspid == PID::MUON, true);
       declare(mus, "TruthMuons");
@@ -46,13 +46,13 @@ namespace Rivet {
 
 
       // Book histograms/counters
-      _h_2jl = bookCounter("2jl");
-      _h_2jm = bookCounter("2jm");
-      _h_2jt = bookCounter("2jt");
-      _h_4jt = bookCounter("4jt");
-      _h_5j  = bookCounter("5j");
-      _h_6jm = bookCounter("6jm");
-      _h_6jt = bookCounter("6jt");
+      book(_h_2jl, "2jl");
+      book(_h_2jm, "2jm");
+      book(_h_2jt, "2jt");
+      book(_h_4jt, "4jt");
+      book(_h_5j , "5j");
+      book(_h_6jm, "6jm");
+      book(_h_6jt, "6jt");
 
 
       // Book cut-flows
@@ -104,7 +104,7 @@ namespace Rivet {
       }
 
       // Loose electron selection
-      ifilter_select(elecs, ParticleEffFilter(ELECTRON_IDEFF_ATLAS_RUN2_LOOSE));
+      ifilter_select(elecs, ParticleEffFilter(ELECTRON_EFF_ATLAS_RUN2_LOOSE));
 
       // Veto the event if there are any remaining baseline leptons
       if (!elecs.empty()) vetoEvent;
@@ -137,11 +137,11 @@ namespace Rivet {
       // Fill SR counters
       // 2-jet SRs
       if (_flows["2jl"].filltail({true, true, min_dphi_met_3 > 0.8, j2pt > 200*GeV,
-              met_sqrt_ht > 15*sqrt(GeV), meff_incl > 1200*GeV})) _h_2jl->fill(event.weight());
+              met_sqrt_ht > 15*sqrt(GeV), meff_incl > 1200*GeV})) _h_2jl->fill();
       if (_flows["2jm"].filltail({j1pt > 300*GeV, true, min_dphi_met_3 > 0.4, j2pt > 50*GeV,
-              met_sqrt_ht > 15*sqrt(GeV), meff_incl > 1600*GeV})) _h_2jm->fill(event.weight());
+              met_sqrt_ht > 15*sqrt(GeV), meff_incl > 1600*GeV})) _h_2jm->fill();
       if (_flows["2jt"].filltail({true, true, min_dphi_met_3 > 0.8, j2pt > 200*GeV,
-              met_sqrt_ht > 20*sqrt(GeV), meff_incl > 2000*GeV})) _h_2jt->fill(event.weight());
+              met_sqrt_ht > 20*sqrt(GeV), meff_incl > 2000*GeV})) _h_2jt->fill();
 
       // Upper multiplicity SRs
       const double j4pt = jets50.size() > 3 ? jetpts50[3] : -1;
@@ -157,16 +157,16 @@ namespace Rivet {
 
       if (_flows["4jt"].filltail({true, jets50.size() >= 4, min_dphi_met_3 > 0.4 && min_dphi_met_more > 0.2,
               jetpts[1] > 100*GeV, j4pt > 100*GeV, aplanarity > 0.04, met_meff_4 > 0.20, meff_incl > 2200*GeV}))
-        _h_4jt->fill(event.weight());
+        _h_4jt->fill();
       if (_flows["5j"].filltail({true, jets50.size() >= 5, min_dphi_met_3 > 0.4 && min_dphi_met_more > 0.2,
               jetpts[1] > 100*GeV, j4pt > 100*GeV && j5pt > 50*GeV, aplanarity > 0.04, met_meff_5 > 0.25, meff_incl > 1600*GeV}))
-        _h_5j->fill(event.weight());
+        _h_5j->fill();
       if (_flows["6jm"].filltail({true, jets50.size() >= 6, min_dphi_met_3 > 0.4 && min_dphi_met_more > 0.2,
               jetpts[1] > 100*GeV, j4pt > 100*GeV && j6pt > 50*GeV, aplanarity > 0.04, met_meff_6 > 0.25, meff_incl > 1600*GeV}))
-        _h_6jm->fill(event.weight());
+        _h_6jm->fill();
       if (_flows["6jt"].filltail({true, jets50.size() >= 6, min_dphi_met_3 > 0.4 && min_dphi_met_more > 0.2,
               jetpts[1] > 100*GeV, j4pt > 100*GeV && j6pt > 50*GeV, aplanarity > 0.04, met_meff_6 > 0.20, meff_incl > 2000*GeV}))
-        _h_6jt->fill(event.weight());
+        _h_6jt->fill();
 
     }
 
@@ -175,9 +175,9 @@ namespace Rivet {
     void finalize() {
 
       const double sf = 3.2*crossSection()/femtobarn/sumOfWeights();
-      scale({_h_2jl, _h_2jl, _h_2jl}, sf);
-      scale({_h_4jt, _h_5j}, sf);
-      scale({_h_6jm, _h_6jt}, sf);
+      scale(_h_2jl, sf); scale(_h_2jl, sf); scale(_h_2jl, sf);
+      scale(_h_4jt, sf); scale(_h_5j, sf);
+      scale(_h_6jm, sf); scale(_h_6jt, sf);
 
       MSG_INFO("CUTFLOWS:\n\n" << _flows);
 

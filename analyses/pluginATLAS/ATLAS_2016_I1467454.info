@@ -53,3 +53,11 @@ BibTeX: '@article{Aad:2016zzw,
       reportNumber   = "CERN-EP-2016-079",
       SLACcitation   = "%%CITATION = ARXIV:1606.01736;%%"
 }'
+
+# Currently disabled
+# ReleaseTests:
+#  - $A LHC-8-Z-Mass3-e
+#  - $A-2 LHC-8-Z-Mass3 :LMODE=MU
+#  - $A-3 LHC-8-Z-Mass4 :LMODE=EL
+#  - $A-4 LHC-8-Z-Mass4 :LMODE=MU
+

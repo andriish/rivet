@@ -3,7 +3,7 @@
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 
 
@@ -24,10 +24,10 @@ namespace Rivet {
     void init() {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
-      declare(UnstableFinalState(), "UFS");
+      declare(UnstableParticles(), "UFS");
 
-      _histXbweak     = bookHisto1D(1, 1, 1);
-      _histMeanXbweak = bookProfile1D(2, 1, 1);
+      book(_histXbweak     ,1, 1, 1);
+      book(_histMeanXbweak ,2, 1, 1);
     }
 
 
@@ -40,16 +40,13 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed ncharged cut");
 
-      // Get event weight for histo filling
-      const double weight = e.weight();
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(e, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
-      const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
       // Get Bottom hadrons
       const Particles bhads = filter_select(ufs.particles(), isBottomHadron);
 
@@ -57,8 +54,8 @@ namespace Rivet {
         // Check for weak decay, i.e. no more bottom present in children
         if (bhad.children(lastParticleWith(hasBottom)).empty()) {
           const double xp = bhad.E()/meanBeamMom;
-          _histXbweak->fill(xp, weight);
-          _histMeanXbweak->fill(_histMeanXbweak->bin(0).xMid(), xp, weight);
+          _histXbweak->fill(xp);
+          _histMeanXbweak->fill(_histMeanXbweak->bin(0).xMid(), xp);
         }
       }
     }

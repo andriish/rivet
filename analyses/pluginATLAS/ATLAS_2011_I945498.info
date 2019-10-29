@@ -7,7 +7,7 @@ InspireID: 945498
 Status: VALIDATED
 Authors:
  - Evelin Meoni <evelin.meoni@cern.ch>
- - Holger Schulz
+ - Holger Schulz <holger.schulz@fnal.gov>
  - Roman Lysak <roman.lysak@cern.ch>
 References:
  - arXiv:1111.2690v1 [hep-ex]
@@ -39,3 +39,8 @@ BibTeX: '@article{Aad:2011qv,
       reportNumber   = "CERN-PH-EP-2011-162",
       SLACcitation   = "%%CITATION = ARXIV:1111.2690;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-Z-e
+ - $A-2 LHC-Z-mu
+

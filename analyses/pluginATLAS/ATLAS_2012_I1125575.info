@@ -41,3 +41,10 @@ BibTeX: '@article{:2012fs,
       reportNumber   = "CERN-PH-EP-2012-148",
       SLACcitation   = "%%CITATION = ARXIV:1208.0563;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-7-Jets-0
+ - $A-2 LHC-7-Jets-1
+ - $A-3 LHC-7-Jets-2
+ - $A-4 LHC-7-Jets-3
+

@@ -4,38 +4,48 @@
 #include <string>
 #include <array>
 #include <vector>
-#include <set>
 #include <list>
+#include <set>
 #include <map>
-#include <utility>
-#include <tuple>
-#include <algorithm>
-#include <type_traits>
-#include <stdexcept>
-#include <cassert>
 #include <memory>
-#include <typeinfo>
-#include <sstream>
-#include <fstream>
-#include <iostream>
-#include <iomanip>
-#include <cmath>
-#include <limits>
 #include <functional>
-
-
-#ifndef foreach
-/// @decl A foreach macro for backward compatibility with BOOST_FOREACH
-#define foreach(value, container) for (value : container)
-#endif
-
+#include <ostream>
+#include <sstream>
+// #include <tuple>
+// #include <utility>
+// #include <algorithm>
+// #include <cassert>
+// #include <typeinfo>
+// #include <iomanip>
+// #include <cmath>
+// #include <limits>
 
 namespace Rivet {
 
 
   /// We implicitly use STL entities in the Rivet namespace
-  using namespace std;
+  // using namespace std;
+  using std::string;
+  using std::to_string;
 
+  using std::array;
+  using std::vector;
+  using std::list;
+  using std::set;
+  using std::multiset;
+  using std::map;
+  using std::multimap;
+  using std::pair;
+  using std::make_pair;
+
+  using std::unique_ptr;
+  using std::shared_ptr;
+  using std::make_shared;
+  using std::dynamic_pointer_cast;
+
+  using std::initializer_list;
+
+  using std::function;
 
   /// @name Streaming containers as string reps
   /// @todo Make these named toStr rather than operator<<
@@ -66,6 +76,13 @@ namespace Rivet {
 
   //@}
 
+  /// @name Convenience container typedefs
+  //@{
+  typedef vector<std::string> strings;
+  typedef vector<double> doubles;
+  typedef vector<float> floats;
+  typedef vector<int> ints;
+  //@}
 
   /// @name Boolean-return container searching
   //@{
@@ -168,10 +185,10 @@ namespace std {
 
   /// Get a function pointer / hash integer from an std::function
   template<typename T, typename... U>
-  inline size_t get_address(std::function<T(U...)> f) {
+  inline uintptr_t get_address(std::function<T(U...)> f) {
     typedef T(fnType)(U...);
     fnType ** fnPointer = f.template target<fnType*>();
-    return (fnPointer != nullptr) ? reinterpret_cast<size_t>(*fnPointer) : 0;
+    return (fnPointer != nullptr) ? reinterpret_cast<uintptr_t>(*fnPointer) : 0;
   }
 
   //@}

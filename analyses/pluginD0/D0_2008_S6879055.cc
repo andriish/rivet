@@ -23,26 +23,22 @@ namespace Rivet {
     void init() {
       FinalState fs;
       ZFinder zfinder(fs, Cuts::open(), PID::ELECTRON,
-                      40*GeV, 200*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
+                      40*GeV, 200*GeV, 0.2, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::YES);
       declare(zfinder, "ZFinder");
 
       FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5);
       declare(conefinder, "ConeFinder");
 
-      _crossSectionRatio = bookHisto1D(1, 1, 1);
-      _pTjet1 = bookHisto1D(2, 1, 1);
-      _pTjet2 = bookHisto1D(3, 1, 1);
-      _pTjet3 = bookHisto1D(4, 1, 1);
+      book(_crossSectionRatio ,1, 1, 1);
+      book(_pTjet1 ,2, 1, 1);
+      book(_pTjet2 ,3, 1, 1);
+      book(_pTjet3 ,4, 1, 1);
     }
 
 
 
     /// Do the analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
-
-
-
       const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.bosons().size()!=1) {
         vetoEvent;
@@ -56,7 +52,7 @@ namespace Rivet {
       const double e1phi = e1.phi();
 
       vector<FourMomentum> finaljet_list;
-      foreach (const Jet& j, apply<JetAlg>(event, "ConeFinder").jetsByPt(20*GeV)) {
+      for (const Jet& j : apply<JetAlg>(event, "ConeFinder").jetsByPt(20*GeV)) {
         const double jeta = j.eta();
         const double jphi = j.phi();
         if (fabs(jeta) < 2.5) {
@@ -68,23 +64,23 @@ namespace Rivet {
       }
 
       // For normalisation of crossSection data (includes events with no jets passing cuts)
-      _crossSectionRatio->fill(0, weight);
+      _crossSectionRatio->fill(0);
 
       // Fill jet pT and multiplicities
       if (finaljet_list.size() >= 1) {
-        _crossSectionRatio->fill(1, weight);
-        _pTjet1->fill(finaljet_list[0].pT(), weight);
+        _crossSectionRatio->fill(1);
+        _pTjet1->fill(finaljet_list[0].pT());
       }
       if (finaljet_list.size() >= 2) {
-        _crossSectionRatio->fill(2, weight);
-        _pTjet2->fill(finaljet_list[1].pT(), weight);
+        _crossSectionRatio->fill(2);
+        _pTjet2->fill(finaljet_list[1].pT());
       }
       if (finaljet_list.size() >= 3) {
-        _crossSectionRatio->fill(3, weight);
-        _pTjet3->fill(finaljet_list[2].pT(), weight);
+        _crossSectionRatio->fill(3);
+        _pTjet3->fill(finaljet_list[2].pT());
       }
       if (finaljet_list.size() >= 4) {
-        _crossSectionRatio->fill(4, weight);
+        _crossSectionRatio->fill(4);
       }
     }
 

@@ -22,7 +22,7 @@ namespace Rivet {
         return false;
 
     // Reject if from a hadron or tau decay.
-    if (p.fromDecay())
+    if (p.fromHadron() || p.fromTau())
       return false;
 
     return _cuts->accept(p);
@@ -31,7 +31,7 @@ namespace Rivet {
 
   void FinalPartons::project(const Event& e) {
     _theParticles.clear();
-    for (const GenParticle* gp : Rivet::particles(e.genEvent())) {
+    for (ConstGenParticlePtr gp : HepMCUtils::particles(e.genEvent())) {
       if (!gp) continue;
       const Particle p(gp);
       if (accept(p)) _theParticles.push_back(p);

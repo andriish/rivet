@@ -35,3 +35,7 @@ BibTeX: '@article{Barate:1999bg,
       archivePrefix  = "arXiv",
       primaryClass   = "hep-ex",
 }'
+
+ReleaseTests:
+ - $A LEP-91
+

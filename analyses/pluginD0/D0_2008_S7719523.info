@@ -52,3 +52,7 @@ BibTeX: '@Article{Abazov:2008er,
      doi       = "10.1016/j.physletb.2008.06.076",
      SLACcitation  = "%%CITATION = 0804.1107;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-Run-II-PromptPhoton
+

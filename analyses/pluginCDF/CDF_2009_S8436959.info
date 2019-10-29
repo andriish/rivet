@@ -41,3 +41,7 @@ BibTeX: '@Article{Aaltonen:2009ty,
      doi       = "10.1103/PhysRevD.80.111106",
      SLACcitation  = "%%CITATION = 0910.3623;%%"
 }'
+
+ReleaseTests:
+ - $A TVT-Run-II-PromptPhoton
+

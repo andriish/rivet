@@ -45,3 +45,7 @@ BibTeX: '@article{Aad:2012awa,
       reportNumber   = "CERN-PH-EP-2012-318",
       SLACcitation   = "%%CITATION = ARXIV:1211.6096;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-ZZ-lv
+

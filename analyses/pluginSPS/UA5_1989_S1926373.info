@@ -40,3 +40,8 @@ BibTeX: '@Article{Ansorge:1988kn,
      doi       = "10.1007/BF01506531",
      SLACcitation  = "%%CITATION = ZEPYA,C43,357;%%"
 }'
+
+ReleaseTests:
+ - $A SppS-200-UE
+ - $A-2 SppS-900-UE
+

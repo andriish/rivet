@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     void init() {
-      FinalState fs(-3.5, 3.5);
+      FinalState fs((Cuts::etaIn(-3.5, 3.5)));
       declare(fs, "FinalState");
       FastJets fj(fs, FastJets::ANTIKT, 0.4);
       fj.useInvisibles();
@@ -25,15 +25,16 @@ namespace Rivet {
       declare(HeavyHadrons(Cuts::abseta < 3.5 && Cuts::pT > 5*GeV), "BHadrons");
 
       double ybins[] = { 0.0, 0.3, 0.8, 1.2, 2.1 };
-      for (size_t i = 0; i < 4; ++i)
-        _bjetpT_SV0.addHistogram(ybins[i], ybins[i+1], bookHisto1D(i+1, 1, 1));
-
-      _bjetpT_SV0_All    = bookHisto1D(5, 1, 1);
-      _bjetpT_pTRel      = bookHisto1D(6, 1, 1);
-      _dijet_mass        = bookHisto1D(7, 1, 1);
-      _dijet_phi         = bookHisto1D(8, 1, 1);
-      _dijet_chi_110_370 = bookHisto1D(9, 1, 1);
-      _dijet_chi_370_850 = bookHisto1D(10, 1, 1);
+      for (size_t i = 0; i < 4; ++i) {
+        Histo1DPtr tmp;
+        _bjetpT_SV0.add(ybins[i], ybins[i+1], book(tmp, i+1, 1, 1));
+      }
+      book(_bjetpT_SV0_All    ,5, 1, 1);
+      book(_bjetpT_pTRel      ,6, 1, 1);
+      book(_dijet_mass        ,7, 1, 1);
+      book(_dijet_phi         ,8, 1, 1);
+      book(_dijet_chi_110_370 ,9, 1, 1);
+      book(_dijet_chi_370_850 ,10, 1, 1);
 
       _chiCounter1 = 0.0;
       _chiCounter2 = 0.0;
@@ -42,16 +43,16 @@ namespace Rivet {
 
 
     void analyze(const Event& evt) {
-      const double weight = evt.weight();
+      const double weight = 1.0;
 
       const Particles& bHadrons = apply<HeavyHadrons>(evt, "BHadrons").bHadrons();
       const Jets& jets = apply<JetAlg>(evt, "Jets").jetsByPt(15*GeV);
 
       FourMomentum leadingJet, subleadingJet;
       int leadJet = 0, subJet = 0;
-      foreach (const Jet& j, jets) {
+      for (const Jet& j : jets) {
         bool hasB = false;
-        foreach (const Particle& b, bHadrons)
+        for (const Particle& b : bHadrons)
           if (deltaR(j, b) < 0.3) { hasB = true; break; }
 
         // Identify and classify the leading and subleading jets
@@ -120,7 +121,7 @@ namespace Rivet {
 
   private:
 
-    BinnedHistogram<double> _bjetpT_SV0;
+    BinnedHistogram _bjetpT_SV0;
 
     Histo1DPtr _bjetpT_SV0_All;
     Histo1DPtr _bjetpT_pTRel;

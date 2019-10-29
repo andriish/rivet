@@ -12,7 +12,7 @@ namespace Rivet {
 
     void init() {
       declare(FinalState(), "FS");
-      _h_sigma = bookHisto1D(1, 1, 1);
+      book(_h_sigma ,1, 1, 1);
     }
 
 
@@ -41,7 +41,7 @@ namespace Rivet {
       const double xi = m2/sqr(sqrtS()); // sqrt(s) = 7000 GeV
       if (xi < 5e-6) vetoEvent;
 
-      _h_sigma->fill(sqrtS()/GeV, event.weight());
+      _h_sigma->fill(sqrtS()/GeV);
     }
 
 

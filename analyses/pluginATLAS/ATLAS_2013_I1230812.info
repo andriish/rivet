@@ -50,3 +50,7 @@ BibTeX: '@article{Aad:2013ysa,
       reportNumber   = "CERN-PH-EP-2013-023",
       SLACcitation   = "%%CITATION = ARXIV:1304.7098;%%",
       }'
+
+ReleaseTests:
+ - $A LHC-Z-e
+

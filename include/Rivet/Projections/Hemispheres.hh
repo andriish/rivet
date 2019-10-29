@@ -59,7 +59,7 @@ namespace Rivet {
     /// Constructor.
     Hemispheres(const AxesDefinition& ax) {
       setName("Hemispheres");
-      addProjection(ax, "Axes");
+      declare(ax, "Axes");
       clear();
     }
 
@@ -90,7 +90,7 @@ namespace Rivet {
     void project(const Event& e);
 
     /// Compare with other projections.
-    int compare(const Projection& p) const {
+    CmpState compare(const Projection& p) const {
       return mkNamedPCmp(p, "Axes");
     }
 

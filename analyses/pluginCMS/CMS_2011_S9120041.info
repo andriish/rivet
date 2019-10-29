@@ -7,7 +7,7 @@ SpiresID: 9120041
 InspireID: 916908
 Status: VALIDATED
 Authors:
- - Mohammed Zakaria (mzakaria@ufl.edu)
+ - Mohammed Zakaria <mzakaria@ufl.edu>
 References:
   - J. High Energy Phys 09 (2011) 109
 RunInfo:
@@ -38,4 +38,10 @@ BibTeX: '@article{Chatrchyan:2011id,
       eprint         = "1107.0330",
       archivePrefix  = "arXiv",
       primaryClass   = "hep-ex",}'
+
+ReleaseTests:
+ - $A LHC-7-Jets-1
+ - $A-2 LHC-7-Jets-2
+ - $A-3 LHC-7-Jets-3
+ - $A-4 LHC-7-Jets-4
 

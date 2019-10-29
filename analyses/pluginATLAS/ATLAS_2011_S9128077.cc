@@ -31,54 +31,52 @@ namespace Rivet {
       declare(j6, "AntiKtJets06");
 
       // Persistent histograms
-      _h_jet_multi_inclusive = bookHisto1D(1, 1, 1);
-      _h_jet_multi_ratio = bookScatter2D(2, 1, 1);
+      book(_h_jet_multi_inclusive ,1, 1, 1);
+      book(_h_jet_multi_ratio, 2, 1, 1);
       _h_jet_pT.resize(4);
-      _h_jet_pT[0] = bookHisto1D(3, 1, 1);
-      _h_jet_pT[1] = bookHisto1D(4, 1, 1);
-      _h_jet_pT[2] = bookHisto1D(5, 1, 1);
-      _h_jet_pT[3] = bookHisto1D(6, 1, 1);
-      _h_HT_2 = bookHisto1D(7, 1, 1);
-      _h_HT_3 = bookHisto1D(8, 1, 1);
-      _h_HT_4 = bookHisto1D(9, 1, 1);
+      book(_h_jet_pT[0] ,3, 1, 1);
+      book(_h_jet_pT[1] ,4, 1, 1);
+      book(_h_jet_pT[2] ,5, 1, 1);
+      book(_h_jet_pT[3] ,6, 1, 1);
+      book(_h_HT_2 ,7, 1, 1);
+      book(_h_HT_3 ,8, 1, 1);
+      book(_h_HT_4 ,9, 1, 1);
       //
-      _h_pTlead_R06_60_ratio = bookScatter2D(10, 1, 1);
-      _h_pTlead_R06_80_ratio = bookScatter2D(11, 1, 1);
-      _h_pTlead_R06_110_ratio = bookScatter2D(12, 1, 1);
-      _h_pTlead_R04_60_ratio = bookScatter2D(13, 1, 1);
-      _h_pTlead_R04_80_ratio = bookScatter2D(14, 1, 1);
-      _h_pTlead_R04_110_ratio = bookScatter2D(15, 1, 1);
-      _h_HT2_R06_ratio = bookScatter2D(16, 1, 1);
-      _h_HT2_R04_ratio = bookScatter2D(17, 1, 1);
+      book(_h_pTlead_R06_60_ratio, 10, 1, 1);
+      book(_h_pTlead_R06_80_ratio, 11, 1, 1);
+      book(_h_pTlead_R06_110_ratio, 12, 1, 1);
+      book(_h_pTlead_R04_60_ratio, 13, 1, 1);
+      book(_h_pTlead_R04_80_ratio, 14, 1, 1);
+      book(_h_pTlead_R04_110_ratio, 15, 1, 1);
+      book(_h_HT2_R06_ratio, 16, 1, 1);
+      book(_h_HT2_R04_ratio, 17, 1, 1);
 
       // Temporary histograms to be divided for the dsigma3/dsigma2 ratios
-      _h_tmp_pTlead_R06_60_2  = Histo1D(refData(10, 1, 1));
-      _h_tmp_pTlead_R06_80_2  = Histo1D(refData(11, 1, 1));
-      _h_tmp_pTlead_R06_110_2 = Histo1D(refData(12, 1, 1));
-      _h_tmp_pTlead_R06_60_3  = Histo1D(refData(10, 1, 1));
-      _h_tmp_pTlead_R06_80_3  = Histo1D(refData(11, 1, 1));
-      _h_tmp_pTlead_R06_110_3 = Histo1D(refData(12, 1, 1));
+      book(_h_tmp_pTlead_R06_60_2 , "TMP/pTlead_R06_60_2 ", refData(10, 1, 1));
+      book(_h_tmp_pTlead_R06_80_2 , "TMP/pTlead_R06_80_2 ", refData(11, 1, 1));
+      book(_h_tmp_pTlead_R06_110_2, "TMP/pTlead_R06_110_2", refData(12, 1, 1));
+      book(_h_tmp_pTlead_R06_60_3 , "TMP/pTlead_R06_60_3 ", refData(10, 1, 1));
+      book(_h_tmp_pTlead_R06_80_3 , "TMP/pTlead_R06_80_3 ", refData(11, 1, 1));
+      book(_h_tmp_pTlead_R06_110_3, "TMP/pTlead_R06_110_3", refData(12, 1, 1));
       //
-      _h_tmp_pTlead_R04_60_2  = Histo1D(refData(13, 1, 1));
-      _h_tmp_pTlead_R04_80_2  = Histo1D(refData(14, 1, 1));
-      _h_tmp_pTlead_R04_110_2 = Histo1D(refData(15, 1, 1));
-      _h_tmp_pTlead_R04_60_3  = Histo1D(refData(13, 1, 1));
-      _h_tmp_pTlead_R04_80_3  = Histo1D(refData(14, 1, 1));
-      _h_tmp_pTlead_R04_110_3 = Histo1D(refData(15, 1, 1));
+      book(_h_tmp_pTlead_R04_60_2 , "TMP/pTlead_R04_60_2 ", refData(13, 1, 1));
+      book(_h_tmp_pTlead_R04_80_2 , "TMP/pTlead_R04_80_2 ", refData(14, 1, 1));
+      book(_h_tmp_pTlead_R04_110_2, "TMP/pTlead_R04_110_2", refData(15, 1, 1));
+      book(_h_tmp_pTlead_R04_60_3 , "TMP/pTlead_R04_60_3 ", refData(13, 1, 1));
+      book(_h_tmp_pTlead_R04_80_3 , "TMP/pTlead_R04_80_3 ", refData(14, 1, 1));
+      book(_h_tmp_pTlead_R04_110_3, "TMP/pTlead_R04_110_3", refData(15, 1, 1));
       //
-      _h_tmp_HT2_R06_2 = Histo1D(refData(16, 1, 1));
-      _h_tmp_HT2_R06_3 = Histo1D(refData(16, 1, 1));
-      _h_tmp_HT2_R04_2 = Histo1D(refData(17, 1, 1));
-      _h_tmp_HT2_R04_3 = Histo1D(refData(17, 1, 1));
+      book(_h_tmp_HT2_R06_2, "TMP/HT2_R06_2", refData(16, 1, 1));
+      book(_h_tmp_HT2_R06_3, "TMP/HT2_R06_3", refData(16, 1, 1));
+      book(_h_tmp_HT2_R04_2, "TMP/HT2_R04_2", refData(17, 1, 1));
+      book(_h_tmp_HT2_R04_3, "TMP/HT2_R04_3", refData(17, 1, 1));
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
-
       vector<FourMomentum> jets04;
-      foreach (const Jet& jet, apply<FastJets>(event, "AntiKtJets04").jetsByPt(60.0*GeV)) {
+      for (const Jet& jet : apply<FastJets>(event, "AntiKtJets04").jetsByPt(60.0*GeV)) {
         if (jet.abseta() < 2.8) {
           jets04.push_back(jet.momentum());
         }
@@ -86,39 +84,39 @@ namespace Rivet {
 
       if (jets04.size() > 1 && jets04[0].pT() > 80.0*GeV) {
         for (size_t i = 2; i <= jets04.size(); ++i) {
-          _h_jet_multi_inclusive->fill(i, weight);
+          _h_jet_multi_inclusive->fill(i);
         }
 
         double HT = 0.0;
         for (size_t i = 0; i < jets04.size(); ++i) {
-          if (i < _h_jet_pT.size()) _h_jet_pT[i]->fill(jets04[i].pT(), weight);
+          if (i < _h_jet_pT.size()) _h_jet_pT[i]->fill(jets04[i].pT());
           HT += jets04[i].pT();
         }
 
-        if (jets04.size() >= 2) _h_HT_2->fill(HT, weight);
-        if (jets04.size() >= 3) _h_HT_3->fill(HT, weight);
-        if (jets04.size() >= 4) _h_HT_4->fill(HT, weight);
+        if (jets04.size() >= 2) _h_HT_2->fill(HT);
+        if (jets04.size() >= 3) _h_HT_3->fill(HT);
+        if (jets04.size() >= 4) _h_HT_4->fill(HT);
 
         double pT1(jets04[0].pT()), pT2(jets04[1].pT());
         double HT2 = pT1 + pT2;
         if (jets04.size() >= 2) {
-          _h_tmp_HT2_R04_2.fill(HT2, weight);
-          _h_tmp_pTlead_R04_60_2.fill(pT1, weight);
-          if (pT2 > 80.0*GeV) _h_tmp_pTlead_R04_80_2.fill(pT1, weight);
-          if (pT2 > 110.0*GeV) _h_tmp_pTlead_R04_110_2.fill(pT1, weight);
+          _h_tmp_HT2_R04_2->fill(HT2);
+          _h_tmp_pTlead_R04_60_2->fill(pT1);
+          if (pT2 > 80.0*GeV) _h_tmp_pTlead_R04_80_2->fill(pT1);
+          if (pT2 > 110.0*GeV) _h_tmp_pTlead_R04_110_2->fill(pT1);
         }
         if (jets04.size() >= 3) {
           double pT3(jets04[2].pT());
-          _h_tmp_HT2_R04_3.fill(HT2, weight);
-          _h_tmp_pTlead_R04_60_3.fill(pT1, weight);
-          if (pT3 > 80.0*GeV) _h_tmp_pTlead_R04_80_3.fill(pT1, weight);
-          if (pT3 > 110.0*GeV) _h_tmp_pTlead_R04_110_3.fill(pT1, weight);
+          _h_tmp_HT2_R04_3->fill(HT2);
+          _h_tmp_pTlead_R04_60_3->fill(pT1);
+          if (pT3 > 80.0*GeV) _h_tmp_pTlead_R04_80_3->fill(pT1);
+          if (pT3 > 110.0*GeV) _h_tmp_pTlead_R04_110_3->fill(pT1);
         }
       }
 
       /// @todo It'd be better to avoid duplicating 95% of the code!
       vector<FourMomentum> jets06;
-      foreach (const Jet& jet, apply<FastJets>(event, "AntiKtJets06").jetsByPt(60.0*GeV)) {
+      for (const Jet& jet : apply<FastJets>(event, "AntiKtJets06").jetsByPt(60.0*GeV)) {
         if (jet.abseta() < 2.8) {
           jets06.push_back(jet.momentum());
         }
@@ -127,17 +125,17 @@ namespace Rivet {
         double pT1(jets06[0].pT()), pT2(jets06[1].pT());
         double HT2 = pT1 + pT2;
         if (jets06.size() >= 2) {
-          _h_tmp_HT2_R06_2.fill(HT2, weight);
-          _h_tmp_pTlead_R06_60_2.fill(pT1, weight);
-          if (pT2 > 80.0*GeV) _h_tmp_pTlead_R06_80_2.fill(pT1, weight);
-          if (pT2 > 110.0*GeV) _h_tmp_pTlead_R06_110_2.fill(pT1, weight);
+          _h_tmp_HT2_R06_2->fill(HT2);
+          _h_tmp_pTlead_R06_60_2->fill(pT1);
+          if (pT2 > 80.0*GeV) _h_tmp_pTlead_R06_80_2->fill(pT1);
+          if (pT2 > 110.0*GeV) _h_tmp_pTlead_R06_110_2->fill(pT1);
         }
         if (jets06.size() >= 3) {
           double pT3(jets06[2].pT());
-          _h_tmp_HT2_R06_3.fill(HT2, weight);
-          _h_tmp_pTlead_R06_60_3.fill(pT1, weight);
-          if (pT3 > 80.0*GeV) _h_tmp_pTlead_R06_80_3.fill(pT1, weight);
-          if (pT3 > 110.0*GeV) _h_tmp_pTlead_R06_110_3.fill(pT1, weight);
+          _h_tmp_HT2_R06_3->fill(HT2);
+          _h_tmp_pTlead_R06_60_3->fill(pT1);
+          if (pT3 > 80.0*GeV) _h_tmp_pTlead_R06_80_3->fill(pT1);
+          if (pT3 > 110.0*GeV) _h_tmp_pTlead_R06_110_3->fill(pT1);
         }
       }
 
@@ -204,11 +202,11 @@ namespace Rivet {
 
     /// @name Temporary histograms to be divided for the dsigma3/dsigma2 ratios
     //@{
-    Histo1D _h_tmp_pTlead_R06_60_2, _h_tmp_pTlead_R06_80_2, _h_tmp_pTlead_R06_110_2;
-    Histo1D _h_tmp_pTlead_R06_60_3, _h_tmp_pTlead_R06_80_3, _h_tmp_pTlead_R06_110_3;
-    Histo1D _h_tmp_pTlead_R04_60_2, _h_tmp_pTlead_R04_80_2, _h_tmp_pTlead_R04_110_2;
-    Histo1D _h_tmp_pTlead_R04_60_3, _h_tmp_pTlead_R04_80_3, _h_tmp_pTlead_R04_110_3;
-    Histo1D _h_tmp_HT2_R06_2, _h_tmp_HT2_R06_3, _h_tmp_HT2_R04_2, _h_tmp_HT2_R04_3;
+    Histo1DPtr _h_tmp_pTlead_R06_60_2, _h_tmp_pTlead_R06_80_2, _h_tmp_pTlead_R06_110_2;
+    Histo1DPtr _h_tmp_pTlead_R06_60_3, _h_tmp_pTlead_R06_80_3, _h_tmp_pTlead_R06_110_3;
+    Histo1DPtr _h_tmp_pTlead_R04_60_2, _h_tmp_pTlead_R04_80_2, _h_tmp_pTlead_R04_110_2;
+    Histo1DPtr _h_tmp_pTlead_R04_60_3, _h_tmp_pTlead_R04_80_3, _h_tmp_pTlead_R04_110_3;
+    Histo1DPtr _h_tmp_HT2_R06_2, _h_tmp_HT2_R06_3, _h_tmp_HT2_R04_2, _h_tmp_HT2_R04_3;
     //@}
 
   };

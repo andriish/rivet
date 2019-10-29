@@ -34,12 +34,12 @@ namespace Rivet {
       declare(fs, "AllFS");
 
       // Get leading photon
-      LeadingParticlesFinalState photonfs(FinalState(-0.9, 0.9, 23.0*GeV));
+      LeadingParticlesFinalState photonfs(FinalState((Cuts::etaIn(-0.9, 0.9) && Cuts::pT >=  23.0*GeV)));
       photonfs.addParticleId(PID::PHOTON);
       declare(photonfs, "LeadingPhoton");
 
       // Book histograms
-      _h_pTgamma = bookHisto1D(1, 1, 1);
+      book(_h_pTgamma ,1, 1, 1);
     }
 
 
@@ -58,7 +58,7 @@ namespace Rivet {
       double eta_P = photon.eta();
       double phi_P = photon.phi();
       double econe = 0.0;
-      foreach (const Particle& p, apply<FinalState>(event, "AllFS").particles()) {
+      for (const Particle& p : apply<FinalState>(event, "AllFS").particles()) {
         if (deltaR(eta_P, phi_P,
                    p.eta(), p.phi()) < 0.4) {
           econe += p.E();
@@ -69,8 +69,7 @@ namespace Rivet {
       }
 
       // Fill histo
-      const double weight = event.weight();
-      _h_pTgamma->fill(photon.pT(), weight);
+      _h_pTgamma->fill(photon.pT());
     }
 
 

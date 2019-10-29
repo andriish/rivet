@@ -12,7 +12,6 @@ namespace Rivet {
 
     /// Constructor
     UA5_1989_S1926373() : Analysis("UA5_1989_S1926373") {
-      _sumWPassed = 0;
     }
 
 
@@ -22,28 +21,28 @@ namespace Rivet {
     /// Book histograms and projections
     void init() {
       declare(TriggerUA5(), "Trigger");
-      declare(ChargedFinalState(-0.5, 0.5), "CFS05");
-      declare(ChargedFinalState(-1.5, 1.5), "CFS15");
-      declare(ChargedFinalState(-3.0, 3.0), "CFS30");
-      declare(ChargedFinalState(-5.0, 5.0), "CFS50");
+      declare(ChargedFinalState((Cuts::etaIn(-0.5, 0.5))), "CFS05");
+      declare(ChargedFinalState((Cuts::etaIn(-1.5, 1.5))), "CFS15");
+      declare(ChargedFinalState((Cuts::etaIn(-3.0, 3.0))), "CFS30");
+      declare(ChargedFinalState((Cuts::etaIn(-5.0, 5.0))), "CFS50");
 
       // NB. _hist_nch and _hist_ncheta50 use the same data but different binning
       if (fuzzyEquals(sqrtS()/GeV, 200, 1E-3)) {
-        _hist_nch        = bookHisto1D(1, 1, 1);
-        _hist_nch_eta05  = bookHisto1D(3, 1, 1);
-        _hist_nch_eta15  = bookHisto1D(4, 1, 1);
-        _hist_nch_eta30  = bookHisto1D(5, 1, 1);
-        _hist_nch_eta50  = bookHisto1D(6, 1, 1);
-        _hist_mean_nch   = bookHisto1D(11, 1, 1);
+        book(_hist_nch        ,1, 1, 1);
+        book(_hist_nch_eta05  ,3, 1, 1);
+        book(_hist_nch_eta15  ,4, 1, 1);
+        book(_hist_nch_eta30  ,5, 1, 1);
+        book(_hist_nch_eta50  ,6, 1, 1);
+        book(_hist_mean_nch   ,11, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
-        _hist_nch        = bookHisto1D(2, 1, 1);
-        _hist_nch_eta05  = bookHisto1D(7, 1, 1);
-        _hist_nch_eta15  = bookHisto1D(8, 1, 1);
-        _hist_nch_eta30  = bookHisto1D(9, 1, 1);
-        _hist_nch_eta50  = bookHisto1D(10, 1, 1);
-        _hist_mean_nch   = bookHisto1D(12, 1, 1);
+        book(_hist_nch        ,2, 1, 1);
+        book(_hist_nch_eta05  ,7, 1, 1);
+        book(_hist_nch_eta15  ,8, 1, 1);
+        book(_hist_nch_eta30  ,9, 1, 1);
+        book(_hist_nch_eta50  ,10, 1, 1);
+        book(_hist_mean_nch   ,12, 1, 1);
       }
-
+	book(_sumWPassed, "SumW");
       /// @todo Moments of distributions
     }
 
@@ -54,8 +53,7 @@ namespace Rivet {
       const TriggerUA5& trigger = apply<TriggerUA5>(event, "Trigger");
       if (!trigger.nsdDecision()) vetoEvent;
 
-      const double weight = event.weight();
-      _sumWPassed += weight;
+      _sumWPassed->fill();
 
       // Count final state particles in several eta regions
       const int numP05 = apply<ChargedFinalState>(event, "CFS05").size();
@@ -64,22 +62,22 @@ namespace Rivet {
       const int numP50 = apply<ChargedFinalState>(event, "CFS50").size();
 
       // Fill histograms
-      _hist_nch->fill(numP50, weight);
-      _hist_nch_eta05->fill(numP05, weight);
-      _hist_nch_eta15->fill(numP15, weight);
-      _hist_nch_eta30->fill(numP30, weight);
-      _hist_nch_eta50->fill(numP50, weight);
-      _hist_mean_nch->fill(_hist_mean_nch->bin(0).xMid(), numP50*weight);
+      _hist_nch->fill(numP50);
+      _hist_nch_eta05->fill(numP05);
+      _hist_nch_eta15->fill(numP15);
+      _hist_nch_eta30->fill(numP30);
+      _hist_nch_eta50->fill(numP50);
+      _hist_mean_nch->fill(_hist_mean_nch->bin(0).xMid(), numP50);
     }
 
 
     void finalize() {
-      scale(_hist_nch, 1.0/_sumWPassed);
-      scale(_hist_nch_eta05, 1.0/_sumWPassed);
-      scale(_hist_nch_eta15, 1.0/_sumWPassed);
-      scale(_hist_nch_eta30, 1.0/_sumWPassed);
-      scale(_hist_nch_eta50, 1.0/_sumWPassed);
-      scale(_hist_mean_nch, 1.0/_sumWPassed);
+      scale(_hist_nch, 1.0 / *_sumWPassed);
+      scale(_hist_nch_eta05, 1.0 / *_sumWPassed);
+      scale(_hist_nch_eta15, 1.0 / *_sumWPassed);
+      scale(_hist_nch_eta30, 1.0 / *_sumWPassed);
+      scale(_hist_nch_eta50, 1.0 / *_sumWPassed);
+      scale(_hist_mean_nch, 1.0 / *_sumWPassed);
     }
 
     //@}
@@ -89,7 +87,7 @@ namespace Rivet {
 
     /// @name Counters
     //@{
-    double _sumWPassed;
+    CounterPtr _sumWPassed;
     //@}
 
     /// @name Histograms

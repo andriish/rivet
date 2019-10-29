@@ -1,7 +1,7 @@
 check_PROGRAMS = testMath testMatVec testCmp testApi testNaN testBeams
 
 AM_LDFLAGS = -L$(top_srcdir)/src $(YAMLCPP_LDFLAGS) -L$(YODALIBPATH)
-LIBS = -lm $(GSL_LDFLAGS) -lYODA
+LIBS = -lm -lYODA
 
 TEST_LDADD = $(top_builddir)/src/libRivet.la $(HEPMCLDFLAGS) $(YODALDFLAGS) $(HEPMCLDLIBS) $(YODALDLIBS)
 
@@ -32,7 +32,7 @@ TESTS_ENVIRONMENT = \
   RIVET_TESTS_SRC=$(srcdir)
 
 TESTS = \
-testMath testMatVec testCmp testApi testNaN testBeams \
+testMath testMatVec testCmp testApi.sh testNaN.sh testBeams \
 testImport.sh
 
 if ENABLE_ANALYSES
@@ -41,6 +41,6 @@ TESTS += testCmdLine.sh
 
 endif
 
-EXTRA_DIST = testApi.hepmc testCmdLine.sh testImport.sh
+EXTRA_DIST = testApi.hepmc testCmdLine.sh testImport.sh testApi.sh testNaN.sh
 
 CLEANFILES = log a.out fifo.hepmc file2.hepmc out.yoda NaN.aida Rivet.yoda

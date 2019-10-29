@@ -3,6 +3,10 @@
 #include "Rivet/ProjectionHandler.hh"
 #include "Rivet/Tools/Cmp.hh"
 #include <algorithm>
+#include <iostream>
+
+using std::cerr;
+using std::endl;
 
 namespace {
   // Get a logger.
@@ -38,8 +42,7 @@ namespace Rivet {
     if ( ph ) {
       const Projection & ret = _register(parent, ph, name);
       return ret;
-    }
-    else {
+    } else {
       unique_ptr<Projection> p = _clone(proj);
       const Projection & ret = _register(parent, move(p), name);
       // Return registered proj
@@ -113,7 +116,7 @@ namespace Rivet {
     getLog() << Log::TRACE << "Comparing " << &proj
              << " with " << _projs.size()
              << " registered projection" << (_projs.size() == 1 ? "" : "s") <<  endl;
-    foreach (const ProjHandle& ph, _projs) {
+    for (const ProjHandle& ph : _projs) {
       // Make sure the concrete types match, using RTTI.
       const std::type_info& regtype = typeid(*ph);
       getLog() << Log::TRACE << "  RTTI type comparison with " << ph << ": "
@@ -122,7 +125,7 @@ namespace Rivet {
       getLog() << Log::TRACE << "  RTTI type matches with " << ph << endl;
 
       // Test for semantic match
-      if (pcmp(*ph, proj) != EQUIVALENT) {
+      if (pcmp(*ph, proj) != CmpState::EQ) {
         getLog() << Log::TRACE << "  Projections at "
                  << &proj << " and " << ph << " are not equivalent" << endl;
       } else {
@@ -139,12 +142,12 @@ namespace Rivet {
 
 
   string ProjectionHandler::_getStatus() const {
-    ostringstream msg;
+    std::ostringstream msg;
     msg << "Current projection hierarchy:" << endl;
-    foreach (const NamedProjsMap::value_type& nps, _namedprojs) {
+    for (const NamedProjsMap::value_type& nps : _namedprojs) {
       //const string parentname = nps.first->name();
       msg << nps.first << endl; //"(" << parentname << ")" << endl;
-      foreach (const NamedProjs::value_type& np, nps.second) {
+      for (const NamedProjs::value_type& np : nps.second) {
         msg << "  " << np.second << " (" << np.second->name()
             << ", locally called '" << np.first << "')" << endl;
       }
@@ -204,14 +207,10 @@ namespace Rivet {
   }
 
 
-
-
-  set<const Projection*> ProjectionHandler::getChildProjections(const ProjectionApplier& parent,
-                                                                ProjDepth depth) const
-  {
+  set<const Projection*> ProjectionHandler::getChildProjections(const ProjectionApplier& parent, ProjDepth depth) const {
     set<const Projection*> toplevel;
     NamedProjs nps = _namedprojs.find(&parent)->second;
-    foreach (NamedProjs::value_type& np, nps) {
+    for (NamedProjs::value_type& np : nps) {
       toplevel.insert(np.second.get());
     }
     if (depth == SHALLOW) {
@@ -220,7 +219,7 @@ namespace Rivet {
     } else {
       // Return recursively built projection list
       set<const Projection*> alllevels = toplevel;
-      foreach (const Projection* p, toplevel) {
+      for (const Projection* p : toplevel) {
         set<const Projection*> allsublevels = getChildProjections(*p, DEEP);
         alllevels.insert(allsublevels.begin(), allsublevels.end());
       }
@@ -238,18 +237,17 @@ namespace Rivet {
   }
 
 
-  const Projection& ProjectionHandler::getProjection(const ProjectionApplier& parent,
-                                                     const string& name) const {
+  const Projection& ProjectionHandler::getProjection(const ProjectionApplier& parent, const string& name) const {
     MSG_TRACE("Searching for child projection '" << name << "' of " << &parent);
     NamedProjsMap::const_iterator nps = _namedprojs.find(&parent);
     if (nps == _namedprojs.end()) {
-      ostringstream msg;
+      std::ostringstream msg;
       msg << "No projections registered for parent " << &parent;
       throw Error(msg.str());
     }
     NamedProjs::const_iterator np = nps->second.find(name);
     if (np == nps->second.end()) {
-      ostringstream msg;
+      std::ostringstream msg;
       msg << "No projection '" << name << "' found for parent " << &parent;
       throw Error(msg.str());
     }

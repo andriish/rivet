@@ -57,3 +57,13 @@ BibTeX: '@article{Aad:2013tea,
       reportNumber   = "CERN-PH-EP-2013-192",
       SLACcitation   = "%%CITATION = ARXIV:1312.3524;%%",
 }'
+
+ReleaseTests:
+ - $A LHC-7-DiJets-1-A
+ - $A-2 LHC-7-DiJets-2-A
+ - $A-3 LHC-7-DiJets-3-A
+ - $A-4 LHC-7-DiJets-4-A
+ - $A-5 LHC-7-DiJets-5-A
+ - $A-6 LHC-7-DiJets-6-A
+ - $A-7 LHC-7-DiJets-7-A
+

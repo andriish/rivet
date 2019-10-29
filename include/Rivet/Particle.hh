@@ -28,34 +28,38 @@ namespace Rivet {
         _original(nullptr), _id(PID::ANY), _isDirect{false,false}
     {   }
 
-    /// Constructor without GenParticle.
-    Particle(PdgId pid, const FourMomentum& mom, const FourVector& pos=FourVector())
+    /// Constructor from PID and momentum.
+    Particle(PdgId pid, const FourMomentum& mom, const FourVector& pos=FourVector(), ConstGenParticlePtr gp=nullptr)
       : ParticleBase(),
-        _original(nullptr), _id(pid),
+        _original(gp), _id(pid),
         _momentum(mom), _origin(pos),
         _isDirect{false,false}
     {   }
 
+    /// Constructor from PID, momentum, and a GenParticle for relational links.
+    Particle(PdgId pid, const FourMomentum& mom, ConstGenParticlePtr gp, const FourVector& pos=FourVector())
+      : Particle(pid, mom, pos, gp)
+    {   }
+
     /// Constructor from a HepMC GenParticle pointer.
-    Particle(const GenParticle* gp)
+    Particle(ConstGenParticlePtr gp)
       : ParticleBase(),
         _original(gp), _id(gp->pdg_id()),
         _momentum(gp->momentum()),
         _isDirect{false,false}
     {
-      const GenVertex* vprod = gp->production_vertex();
+      ConstGenVertexPtr vprod = gp->production_vertex();
       if (vprod != nullptr) {
         setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
       }
     }
 
     /// Constructor from a HepMC GenParticle reference.
-    Particle(const GenParticle& gp)
-      : Particle(&gp)
+    Particle(const RivetHepMC::GenParticle& gp)
+      : Particle(HepMCUtils::getParticlePtr(gp))
     {   }
 
     //@}
-
 
     /// @name Kinematic properties
     //@{
@@ -86,7 +90,7 @@ namespace Rivet {
     /// @name Positional properties
     //@{
 
-    /// The origin position.
+    /// The origin position (and time).
     const FourVector& origin() const {
       return _origin;
     }
@@ -99,6 +103,23 @@ namespace Rivet {
     Particle& setOrigin(double t, double x, double y, double z) {
       _origin = FourMomentum(t, x, y, z);
       return *this;
+    }
+
+    //@}
+
+    /// @name Displacement-projection properties
+    //@{
+
+    /// Find the point of closest approach to the primary vertex
+    Vector3 closestApproach() const {
+      const FourVector& v0 = origin();
+      /// @todo Check that this works with all angles
+      const double rho0 = origin().perp() / sin(this->phi() - origin().phi());
+      const double phi0 = M_PI/2 - this->phi();
+      const double x0 = rho0 * cos(phi0);
+      const double y0 = rho0 * sin(phi0);
+      const double z0 = origin().z() - v0.perp()/tan(this->theta());
+      return Vector3(x0, y0, z0);
     }
 
     //@}
@@ -116,14 +137,20 @@ namespace Rivet {
     operator PseudoJet () const { return pseudojet(); }
 
 
+    /// Set a const pointer to the original GenParticle
+    Particle& setGenParticle(ConstGenParticlePtr gp) {
+      _original = gp;
+      return *this;
+    }
+
     /// Get a const pointer to the original GenParticle
-    const GenParticle* genParticle() const {
+    ConstGenParticlePtr genParticle() const {
       return _original;
     }
 
     /// Cast operator for conversion to GenParticle*
-    /// @todo This one's a bad idea since it enables accidental Particle comparisons
-    operator const GenParticle* () const { return genParticle(); }
+    /// @note Not implicit since that would enable accidental Particl::operator== comparisons
+    explicit operator ConstGenParticlePtr () const { return genParticle(); }
 
     //@}
 
@@ -135,9 +162,6 @@ namespace Rivet {
     PdgId pid() const { return _id; }
     /// Absolute value of the PDG ID code.
     PdgId abspid() const { return std::abs(_id); }
-    /// This Particle's PDG ID code (alias).
-    /// @deprecated Prefer the pid/abspid form
-    PdgId pdgId() const { return _id; }
 
     //@}
 
@@ -153,10 +177,6 @@ namespace Rivet {
 
     /// Three times the charge of this Particle (i.e. integer multiple of smallest quark charge).
     int charge3() const { return PID::charge3(pid()); }
-
-    /// Alias for charge3
-    /// @deprecated Use charge3
-    int threeCharge() const { return PID::threeCharge(pid()); }
 
     /// Three times the absolute charge of this Particle (i.e. integer multiple of smallest quark charge).
     int abscharge3() const { return PID::abscharge3(pid()); }
@@ -353,7 +373,6 @@ namespace Rivet {
     /// experimental analyses!
     ///
     /// @deprecated Prefer e.g. hasParentWith(Cut::pid == 123)
-    //DEPRECATED("Prefer e.g. hasParentWith(Cut::pid == 123)");
     bool hasParent(PdgId pid) const;
 
 
@@ -413,7 +432,6 @@ namespace Rivet {
     /// experimental analyses!
     ///
     /// @deprecated Prefer hasAncestorWith(Cuts::pid == pid) etc.
-    //DEPRECATED("Prefer e.g. hasAncestorWith(Cut::pid == 123)");
     bool hasAncestor(PdgId pid, bool only_physical=true) const;
 
 
@@ -481,7 +499,7 @@ namespace Rivet {
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
     ///
-    /// @deprecated Too vague: use fromHadron or fromHadronicTau
+    DEPRECATED("Too vague: use fromHadron() || fromPromptTau(), or isDirect()")
     bool fromDecay() const { return fromHadron() || fromPromptTau(); }
 
     /// @brief Shorthand definition of 'promptness' based on set definition flags
@@ -669,10 +687,26 @@ namespace Rivet {
     //@}
 
 
+    /// @name Comparison
+    //@{
+
+    /// Compare particles, based on "external" characteristics, with a little angular tolerance
+    ///
+    /// @note Not a deep comparison: GenParticle ptr and constituents are not used in the comparison
+    bool isSame(const Particle& other) const {
+      if (pid() != other.pid()) return false;
+      if (!isZero((mom() - other.mom()).mod())) return false;
+      if (!isZero((origin() - other.origin()).mod())) return false;
+      return true;
+    }
+
+    //@}
+
+
   protected:
 
-    /// A pointer to the original GenParticle from which this Particle is projected (may be null)
-    const GenParticle* _original;
+    /// A pointer to the original GenParticle from which this Particle is projected.
+    ConstGenParticlePtr _original;
 
     /// Constituent particles if this is a composite (may be empty)
     Particles _constituents;
@@ -703,7 +737,6 @@ namespace Rivet {
   std::ostream& operator << (std::ostream& os, const ParticlePair& pp);
 
   //@}
-
 
 }
 
