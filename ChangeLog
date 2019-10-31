@@ -1,5 +1,10 @@
 2019-10-31  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Change JetAlg canonical name and header to JetFinder, to match
+	ParticleFinder. JetAlg.hh defines a (pre-deprecated)
+	backward-compatibility alias for now, to be removed in v3.1.0 long
+	with other deprecated API features.
+
 	* Add probability density functions for Gaussian and Crystal Ball
 	distributions, and a Crystal Ball random sampler function; all
 	currently in Random.hh/.cc.
