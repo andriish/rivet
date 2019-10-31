@@ -1,5 +1,8 @@
 2019-10-31  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Force rebuild of Cython files if a sufficient Cython
+	installation is found, by touching the .pyx file during configure.
+
 	* Add discard/idiscard and select/iselect aliases for the clunkier filter_select etc.
 
 	* Add ParticleBase forwarding of the dot() method from FourVector/FourMomentum.
