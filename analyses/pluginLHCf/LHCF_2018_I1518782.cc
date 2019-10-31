@@ -6,7 +6,8 @@
 
 namespace Rivet {
 
-  /// @brief forward photon production cross-section at 13 TeV
+
+  /// @brief Forward photon production cross-section at 13 TeV
   class LHCF_2018_I1518782 : public Analysis {
   public:
 
@@ -29,17 +30,16 @@ namespace Rivet {
 
     }
 
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const FinalState &fs = apply<FinalState> (event, "FS");
-      Particles fs_particles = fs.particles();
+      Particles fs_particles = apply<FinalState> (event, "FS").particles();
+      for (const Particle& p : fs_particles) {
 
-      for (Particle& p : fs_particles) {
-
-        // select photons above threshold
-        if (p.abspid() != 22) continue;
-        if (p.E()/GeV < 200.) continue;
+        // Select photons above threshold
+        if (p.abspid() != PID::PHOTON) continue;
+        if (p.E() < 200*GeV) continue;
 
         // Double analysis efficiency with a two-sided LHCf
         const double eta = abs(p.eta());
@@ -52,27 +52,32 @@ namespace Rivet {
         else if (eta > 8.81 && eta < 8.99) {
           _h_n_en_eta2->fill(energy);
         }
+
       }
 
     }
 
+
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale(_h_n_en_eta1, crossSection()/millibarn/sumOfWeights()/2.); // norm to cross section
-      scale(_h_n_en_eta2, crossSection()/millibarn/sumOfWeights()/2.); // norm to cross section
+      // Norm to cross-section
+      scale(_h_n_en_eta1, crossSection()/millibarn/sumOfWeights()/2.);
+      scale(_h_n_en_eta2, crossSection()/millibarn/sumOfWeights()/2.);
     }
+
     //@}
+
 
   private:
 
     /// @name Histograms
     //@{
-    Histo1DPtr _h_n_en_eta1;
-    Histo1DPtr _h_n_en_eta2;
+    Histo1DPtr _h_n_en_eta1, _h_n_en_eta2;
     //@}
+
   };
 
-  // The hook for the plugin system
+
   DECLARE_RIVET_PLUGIN(LHCF_2018_I1518782);
 
 }
