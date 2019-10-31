@@ -39,7 +39,8 @@ namespace Rivet {
               const Params & fixpar=Params(), //const RndT & rndin,
               unsigned int npop = 20, unsigned int ngen = 20,
               double margin = 0.1)
-      : _f(fin), _q(fixpar), _rnd(rndin), _NDim(ndim), _margin(margin),
+      : _f(fin), _q(fixpar), //_rnd(rndin),
+        _NDim(ndim), _margin(margin),
         _pop(npop), _fit(npop, -1.0), showTrace(false) {}
 
 
@@ -84,7 +85,7 @@ namespace Rivet {
 
     /// Simple wrapper around the random number generator.
     double rnd() const {
-      return rand01() //_rnd();
+      return rand01(); //_rnd();
     }
 
     /// Return a random parameter point in the unit hypercube.
