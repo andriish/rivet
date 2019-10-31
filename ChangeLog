@@ -1,5 +1,9 @@
 2019-10-31  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add probability density functions for Gaussian and Crystal Ball
+	distributions, and a Crystal Ball random sampler function; all
+	currently in Random.hh/.cc.
+
 	* Force rebuild of Cython files if a sufficient Cython
 	installation is found, by touching the .pyx file during configure.
 
