@@ -24,24 +24,45 @@ namespace Rivet {
     using Params = std::valarray<double>;
     /// Typedef for the function to be minimised
     using FuncT = std::function<double(const Params&, const Params&)>;
+    /// Typedef for the function to be minimised
+    using FuncNoFixedT = std::function<double(const Params&)>;
     // /// Typedef for the [0,1] random number generator
     // using RndT = std::function<double()>;
 
 
-    /// Constructor taking as arguments: the function, @a fin, to be
-    /// minimised; a random number generator, @rndin, returning double
-    /// random numbers between 0 and 1; the dimension, @a ndim, of the
-    /// unit hypercube for which @a fin is defined. Optional arguments
-    /// are: the number, @a npop, of individuals in the population; and
-    /// @a margin which determines how much ramndomness is involved when
-    /// an individual is evolved twowards the fittest individual.
-    MendelMin(const FuncT & fin, unsigned int ndim,
-              const Params & fixpar=Params(), //const RndT & rndin,
-              unsigned int npop = 20, unsigned int ngen = 20,
-              double margin = 0.1)
+    /// Constructor with fixed parameters
+    ///
+    /// Mandatory arguments: the function, @a fin, to be minimised;
+    /// the dimension, @a ndim, of the unit hypercube for which @a fin is
+    /// defined; a set of fixed parameters not to be optimised.
+    ///
+    /// Optional arguments are: the number, @a npop, of individuals in the
+    /// population; and @a margin which determines how much randomness is
+    /// involved when an individual is evolved twowards the fittest individual.
+    MendelMin(const FuncT& fin, unsigned int ndim,
+              const Params& fixpar, //const RndT & rndin,
+              unsigned int npop=20, unsigned int ngen=20,
+              double margin=0.1)
       : _f(fin), _q(fixpar), //_rnd(rndin),
         _NDim(ndim), _margin(margin),
         _pop(npop), _fit(npop, -1.0), showTrace(false) {}
+
+
+    /// Constructor without fixed parameters
+    ///
+    /// Mandatory arguments: the function, @a fin, to be minimised; the
+    /// dimension, @a ndim, of the unit hypercube for which @a fin is defined.
+    ///
+    /// Optional arguments are: the number, @a npop, of individuals in the
+    /// population; and @a margin which determines how much randomness is
+    /// involved when an individual is evolved twowards the fittest individual.
+    MendelMin(const FuncNoFixedT& fin, unsigned int ndim,
+              //const RndT & rndin,
+              unsigned int npop=20, unsigned int ngen=20,
+              double margin=0.1)
+      : MendelMin([&](const Params& ps, const Params&) -> double { return fin(ps); },
+                  ndim, {}, npop, ngen, margin)
+    {   }
 
 
     /// Supply a best guess for the fittest parameter point to help
