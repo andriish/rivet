@@ -13,6 +13,8 @@
 
 namespace Rivet {
 
+  using std::valarray;
+
 
   /// MendelMin implements a home brewed genetic algorithm for finding
   /// the minimum of a function defined on a unit hypercube returning a
