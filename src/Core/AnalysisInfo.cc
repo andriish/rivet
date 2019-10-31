@@ -50,8 +50,9 @@ namespace Rivet {
 
     // Simple scalars (test for nullness before casting)
     #define TRY_GETINFO(KEY, VAR) try { if (doc[KEY] && !doc[KEY].IsNull()) ai->_ ## VAR = doc[KEY].as<string>(); } catch (...) { THROW_INFOERR(KEY); }
-    #define TRY_GETINFO_DBL(KEY, VAR) try { if (doc[KEY] && !doc[KEY].IsNull()) ai->_ ## VAR = doc[KEY].as<double>(); } catch (...) { THROW_INFOERR(KEY); }
-
+    #define TRY_GETINFO_DEFAULT(KEY, VAR, DEFAULT) try { if (doc[KEY] && !doc[KEY].IsNull()) ai->_ ## VAR = doc[KEY].as<string>(); } catch (...) { ai->_ ## VAR = DEFAULT; }
+    #define TRY_GETINFO_DBL(KEY, VAR, DEFAULT) try { if (doc[KEY] && !doc[KEY].IsNull()) ai->_ ## VAR = doc[KEY].as<double>(); } catch (...) { THROW_INFOERR(KEY); }
+    #define TRY_GETINFO_DBL_DEFAULT(KEY, VAR, DEFAULT) try { if (doc[KEY] && !doc[KEY].IsNull()) ai->_ ## VAR = doc[KEY].as<double>(); } catch (...) { ai->_ ## VAR = DEFAULT; }
     TRY_GETINFO("Name", name);
     TRY_GETINFO("Summary", summary);
     TRY_GETINFO("Status", status);
@@ -64,9 +65,11 @@ namespace Rivet {
     TRY_GETINFO("InspireID", inspireId);
     TRY_GETINFO("BibKey", bibKey);
     TRY_GETINFO("BibTeX", bibTeX);
-    TRY_GETINFO_DBL("Luminosity_fb", luminosityfb);
+    TRY_GETINFO_DBL_DEFAULT("Luminosity_fb", luminosityfb, -1);
     #undef TRY_GETINFO
+    #undef TRY_GETINFO_DEFAULT
     #undef TRY_GETINFO_DBL
+    #undef TRY_GETINFO_DBL_DEFAULT
 
     // Normalise the status info to upper-case
     ai->_status = toUpper(ai->_status);
