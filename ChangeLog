@@ -1,5 +1,7 @@
 2019-10-31  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add discard/idiscard and select/iselect aliases for the clunkier filter_select etc.
+
 	* Add ParticleBase forwarding of the dot() method from FourVector/FourMomentum.
 
 2019-10-27  Christian Gutschow  <chris.g@cern.ch>

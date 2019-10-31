@@ -403,6 +403,11 @@ namespace Rivet {
     c.erase(newend, c.end());
     return c;
   }
+  /// Alias
+  template <typename CONTAINER, typename FN>
+  inline CONTAINER& idiscard(CONTAINER& c, const FN& f) {
+    return ifilter_discard(c, f);
+  }
 
   /// Filter a collection by copy, removing the subset that passes the supplied function
   /// @todo Use std::function<bool(typename CONTAINER::value_type)>
@@ -410,6 +415,11 @@ namespace Rivet {
   inline CONTAINER filter_discard(const CONTAINER& c, const FN& f) {
     CONTAINER rtn = c;
     return ifilter_discard(rtn, f); ///< @todo More efficient would be copy_if with back_inserter...
+  }
+  /// Alias
+  template <typename CONTAINER, typename FN>
+  inline CONTAINER& discard(CONTAINER& c, const FN& f) {
+    return filter_discard(c, f);
   }
 
   /// Filter a collection by copy into a supplied container, removing the subset that passes the supplied function
@@ -419,6 +429,11 @@ namespace Rivet {
   inline CONTAINER& filter_discard(const CONTAINER& c, const FN& f, CONTAINER& out) {
     out = filter_discard(c, f);
     return out;
+  }
+  /// Alias
+  template <typename CONTAINER, typename FN>
+  inline CONTAINER& discard(CONTAINER& c, const FN& f, CONTAINER& out) {
+    return filter_discard(c, f, out);
   }
 
 
@@ -430,6 +445,11 @@ namespace Rivet {
     auto invf = [&](const typename CONTAINER::value_type& x){ return !f(x); };
     return ifilter_discard(c, invf);
   }
+  /// Alias
+  template <typename CONTAINER, typename FN>
+  inline CONTAINER& iselect(CONTAINER& c, const FN& f) {
+    return ifilter_select(c, f);
+  }
 
   /// Filter a collection by copy, keeping the subset that passes the supplied function
   /// @todo Use std::function<bool(typename CONTAINER::value_type)>
@@ -437,6 +457,11 @@ namespace Rivet {
   inline CONTAINER filter_select(const CONTAINER& c, const FN& f) {
     CONTAINER rtn = c;
     return ifilter_select(rtn, f); ///< @todo More efficient would be copy_if with back_inserter ... but is that equally container agnostic?
+  }
+  /// Alias
+  template <typename CONTAINER, typename FN>
+  inline CONTAINER& select(CONTAINER& c, const FN& f) {
+    return filter_select(c, f);
   }
 
   /// Filter a collection by copy into a supplied container, keeping the subset that passes the supplied function
@@ -446,6 +471,11 @@ namespace Rivet {
   inline CONTAINER& filter_select(const CONTAINER& c, const FN& f, CONTAINER& out) {
     out = filter_select(c, f);
     return out;
+  }
+  /// Alias
+  template <typename CONTAINER, typename FN>
+  inline CONTAINER& select(CONTAINER& c, const FN& f, CONTAINER& out) {
+    return filter_select(c, f, out);
   }
 
 
