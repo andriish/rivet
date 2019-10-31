@@ -205,9 +205,13 @@ namespace Rivet {
       return info().year();
     }
 
-    /// The luminosity in inverse femtobarn
-    virtual std::string luminosityfb() const {
+    /// The integrated luminosity in inverse femtobarn
+    virtual double luminosityfb() const {
       return info().luminosityfb();
+    }
+    /// The integrated luminosity in inverse picobarn
+    virtual double luminosity() const {
+      return info().luminosity();
     }
 
     /// Journal, and preprint references.
@@ -613,7 +617,7 @@ namespace Rivet {
     /// meaningful and can't be extracted from the data, then set the @a
     /// copy_pts parameter to true. This creates points to match the reference
     /// data's x values and errors, but with the y values and errors zeroed.
-    Scatter3DPtr & book(Scatter3DPtr & s3d, unsigned int datasetId, unsigned int xAxisId, 
+    Scatter3DPtr & book(Scatter3DPtr & s3d, unsigned int datasetId, unsigned int xAxisId,
                         unsigned int yAxisId, unsigned int zAxisId, bool copy_pts=false);
 
     /// @brief Book a 3-dimensional data point set with equally spaced x-points in a range.
@@ -780,7 +784,7 @@ namespace Rivet {
 
     /// Check if we are in the finalize stage.
     bool inFinalize() const;
-    
+
   private:
 
     /// To be used in finalize context only:
@@ -1044,7 +1048,7 @@ namespace Rivet {
         if ( weightname != "" ) finalpath +=  "[" + weightname + "]";
         YODAPtrT preload = getPreload<YODAT>(finalpath);
         if ( preload ) {
-          if ( !bookingCompatible(preload, yaop) ) { 
+          if ( !bookingCompatible(preload, yaop) ) {
             MSG_WARNING("Found incompatible pre-existing data object with same base path "
                         << finalpath <<  " for " << name());
             preload = nullptr;

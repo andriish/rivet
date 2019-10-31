@@ -1,5 +1,10 @@
 2019-10-31  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Change luminosity info storage and accessors to double rather
+	than string, so usable in analyses, and add an
+	Analysis::luminosity() method with the units in Rivet's standard
+	picobarns for use like luminosity()/femtobarn in analysis code.
+
 	* Change JetAlg canonical name and header to JetFinder, to match
 	ParticleFinder. JetAlg.hh defines a (pre-deprecated)
 	backward-compatibility alias for now, to be removed in v3.1.0 long
