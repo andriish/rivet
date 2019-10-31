@@ -1,5 +1,7 @@
 2019-10-31  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add a catchier rivet-build script as an alias (to become canonical in future) for rivet-buildplugin.
+
 	* Change luminosity info storage and accessors to double rather
 	than string, so usable in analyses, and add an
 	Analysis::luminosity() method with the units in Rivet's standard

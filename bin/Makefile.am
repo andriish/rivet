@@ -1,4 +1,4 @@
-bin_SCRIPTS = rivet-config rivet-buildplugin
+bin_SCRIPTS = rivet-config rivet-build rivet-buildplugin
 dist_bin_SCRIPTS = make-plots make-pgfplots
 EXTRA_DIST =
 
