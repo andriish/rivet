@@ -22,6 +22,20 @@ namespace Rivet {
 
     /// @name Analysis methods
     //@{
+      
+    // method to turn Hist1D into Scatter... so we can write this out witout dividing by bin width
+    // since the HEPData entry corresponding to this does not divide the refData by bin width!
+    // Have requested they update their HEPData entry but until they do so, we use this workaround.
+    Scatter2DPtr convertToScatterWithoutBinWidthDivision(Histo1DPtr input , Scatter2DPtr output ){
+      for (size_t b = 0; b < input->numBins(); ++b) {
+            const double x   = input->bin(b).xMid();
+            const double ex  = input->bin(b).xWidth()/2.;
+            const double val = input->bin(b).sumW();
+            const double err = input->bin(b).relErr() * val;
+            output->addPoint(x, val, ex, err);
+       }
+       return output;
+    }
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -53,6 +67,24 @@ namespace Rivet {
       book(_h_5j , "5j");
       book(_h_6jm, "6jm");
       book(_h_6jt, "6jt");
+      
+      book(_hMeff_2jl, 4,1,1);
+      book(_hMeff_2jm, 5,1,1);
+      book(_hMeff_2jt, 6,1,1);
+      book(_hMeff_4jt, 7,1,1);
+      book(_hMeff_5j , 8,1,1);
+      book(_hMeff_6jm, 9,1,1);
+      book(_hMeff_6jt, 10,1,1);
+      
+      book(_h_temp_Meff_2jl, "_temp_Meff_2jl",refData( 4,1,1));
+      book(_h_temp_Meff_2jm, "_temp_Meff_2jm",refData( 5,1,1));
+      book(_h_temp_Meff_2jt, "_temp_Meff_2jt",refData( 6,1,1));
+      book(_h_temp_Meff_4jt, "_temp_Meff_4jt",refData( 7,1,1));
+      book(_h_temp_Meff_5j , "_temp_Meff_5j" ,refData( 8,1,1));
+      book(_h_temp_Meff_6jm, "_temp_Meff_6jm",refData( 9,1,1));
+      book(_h_temp_Meff_6jt, "_temp_Meff_6jt",refData(10,1,1));
+
+
 
 
       // Book cut-flows
@@ -67,7 +99,6 @@ namespace Rivet {
       _flows.addCutflow("6jt", cutsXj);
 
     }
-
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
@@ -137,11 +168,17 @@ namespace Rivet {
       // Fill SR counters
       // 2-jet SRs
       if (_flows["2jl"].filltail({true, true, min_dphi_met_3 > 0.8, j2pt > 200*GeV,
-              met_sqrt_ht > 15*sqrt(GeV), meff_incl > 1200*GeV})) _h_2jl->fill();
+            met_sqrt_ht > 15*sqrt(GeV), meff_incl > 1200*GeV})) _h_2jl->fill();
       if (_flows["2jm"].filltail({j1pt > 300*GeV, true, min_dphi_met_3 > 0.4, j2pt > 50*GeV,
-              met_sqrt_ht > 15*sqrt(GeV), meff_incl > 1600*GeV})) _h_2jm->fill();
+            met_sqrt_ht > 15*sqrt(GeV), meff_incl > 1600*GeV})) _h_2jm->fill();
       if (_flows["2jt"].filltail({true, true, min_dphi_met_3 > 0.8, j2pt > 200*GeV,
-              met_sqrt_ht > 20*sqrt(GeV), meff_incl > 2000*GeV})) _h_2jt->fill();
+            met_sqrt_ht > 20*sqrt(GeV), meff_incl > 2000*GeV})) _h_2jt->fill();
+
+      // Fill SR Meff Histo1Ds
+      // 2-jet SRs
+      if ((min_dphi_met_3 > 0.8) && (j2pt > 200*GeV) && (met_sqrt_ht > 15*sqrt(GeV))) _h_temp_Meff_2jl->fill(meff_incl);
+      if ((j1pt > 300*GeV)  && (min_dphi_met_3 > 0.4) && (j2pt > 50*GeV) && (met_sqrt_ht > 15*sqrt(GeV))) _h_temp_Meff_2jm->fill(meff_incl);
+      if ((min_dphi_met_3 > 0.8) && (j2pt > 200*GeV ) && (met_sqrt_ht > 20*sqrt(GeV))) _h_temp_Meff_2jt->fill(meff_incl);
 
       // Upper multiplicity SRs
       const double j4pt = jets50.size() > 3 ? jetpts50[3] : -1;
@@ -155,18 +192,29 @@ namespace Rivet {
       const double met_meff_6 = met / meff_6;
       const double min_dphi_met_more = jets50.size() > 3 ? min(tail(dphimets50, -3)) : -1;
 
+
       if (_flows["4jt"].filltail({true, jets50.size() >= 4, min_dphi_met_3 > 0.4 && min_dphi_met_more > 0.2,
-              jetpts[1] > 100*GeV, j4pt > 100*GeV, aplanarity > 0.04, met_meff_4 > 0.20, meff_incl > 2200*GeV}))
+            jetpts[1] > 100*GeV, j4pt > 100*GeV, aplanarity > 0.04, met_meff_4 > 0.20, meff_incl > 2200*GeV}))
         _h_4jt->fill();
       if (_flows["5j"].filltail({true, jets50.size() >= 5, min_dphi_met_3 > 0.4 && min_dphi_met_more > 0.2,
-              jetpts[1] > 100*GeV, j4pt > 100*GeV && j5pt > 50*GeV, aplanarity > 0.04, met_meff_5 > 0.25, meff_incl > 1600*GeV}))
+            jetpts[1] > 100*GeV, j4pt > 100*GeV && j5pt > 50*GeV, aplanarity > 0.04, met_meff_5 > 0.25, meff_incl > 1600*GeV}))
         _h_5j->fill();
       if (_flows["6jm"].filltail({true, jets50.size() >= 6, min_dphi_met_3 > 0.4 && min_dphi_met_more > 0.2,
-              jetpts[1] > 100*GeV, j4pt > 100*GeV && j6pt > 50*GeV, aplanarity > 0.04, met_meff_6 > 0.25, meff_incl > 1600*GeV}))
+            jetpts[1] > 100*GeV, j4pt > 100*GeV && j6pt > 50*GeV, aplanarity > 0.04, met_meff_6 > 0.25, meff_incl > 1600*GeV}))
         _h_6jm->fill();
       if (_flows["6jt"].filltail({true, jets50.size() >= 6, min_dphi_met_3 > 0.4 && min_dphi_met_more > 0.2,
-              jetpts[1] > 100*GeV, j4pt > 100*GeV && j6pt > 50*GeV, aplanarity > 0.04, met_meff_6 > 0.20, meff_incl > 2000*GeV}))
+            jetpts[1] > 100*GeV, j4pt > 100*GeV && j6pt > 50*GeV, aplanarity > 0.04, met_meff_6 > 0.20, meff_incl > 2000*GeV}))
         _h_6jt->fill();
+
+      // Fill SR Meff Histo1Ds
+      // Upper multiplicity SRs
+      if (((jets50.size() >= 4) && (min_dphi_met_3 > 0.4) && (min_dphi_met_more > 0.2) &&  (jetpts[1] > 100*GeV) && (j4pt > 100*GeV) && (aplanarity > 0.04) && (met_meff_4 > 0.20))) _h_temp_Meff_4jt->fill(meff_incl);
+      if (((jets50.size() >= 5) && (min_dphi_met_3 > 0.4) && (min_dphi_met_more > 0.2 ) && 
+            (jetpts[1] > 100*GeV) && (j4pt > 100*GeV) && (j5pt > 50*GeV) && (aplanarity > 0.04) && (met_meff_5 > 0.25))) _h_temp_Meff_5j->fill(meff_incl);
+      if (((jets50.size() >= 6) && (min_dphi_met_3 > 0.4) && (min_dphi_met_more > 0.2) && 
+            (jetpts[1] > 100*GeV) && (j4pt > 100*GeV) && (j6pt > 50*GeV) && (aplanarity > 0.04) && (met_meff_6 > 0.25))) _h_temp_Meff_6jm->fill(meff_incl);
+      if (((jets50.size() >= 6) && (min_dphi_met_3 > 0.4) && (min_dphi_met_more > 0.2) && 
+            (jetpts[1] > 100*GeV) && (j4pt > 100*GeV) && (j6pt > 50*GeV) && (aplanarity > 0.04) && (met_meff_6 > 0.20))) _h_temp_Meff_6jt->fill(meff_incl);
 
     }
 
@@ -175,10 +223,24 @@ namespace Rivet {
     void finalize() {
 
       const double sf = 3.2*crossSection()/femtobarn/sumOfWeights();
-      scale(_h_2jl, sf); scale(_h_2jl, sf); scale(_h_2jl, sf);
+      scale(_h_2jl, sf); scale(_h_2jm, sf); scale(_h_2jt, sf);
       scale(_h_4jt, sf); scale(_h_5j, sf);
       scale(_h_6jm, sf); scale(_h_6jt, sf);
 
+      scale(_h_temp_Meff_2jl, sf); scale(_h_temp_Meff_2jm, sf); scale(_h_temp_Meff_2jt, sf);
+      scale(_h_temp_Meff_4jt, sf); scale(_h_temp_Meff_5j, sf);
+      scale(_h_temp_Meff_6jm, sf); scale(_h_temp_Meff_6jt, sf);
+      
+      
+      // the HEPData entry corresponding to this does not divide their distributions
+      // by bin width... so to avoid this we need to convert to Scatter2D which is not divided by bw
+      _hMeff_2jl = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_2jl,_hMeff_2jl); 
+      _hMeff_2jm = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_2jm,_hMeff_2jm); 
+      _hMeff_2jt = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_2jt,_hMeff_2jt); 
+      _hMeff_4jt = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_4jt,_hMeff_4jt); 
+      _hMeff_5j  = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_5j ,_hMeff_5j ) ; 
+      _hMeff_6jm = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_6jm,_hMeff_6jm); 
+      _hMeff_6jt = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_6jt,_hMeff_6jt); 
       MSG_INFO("CUTFLOWS:\n\n" << _flows);
 
     }
@@ -186,19 +248,27 @@ namespace Rivet {
     //@}
 
 
-  private:
+    private:
 
     /// @name Histograms
     //@{
     CounterPtr _h_2jl, _h_2jm, _h_2jt;
     CounterPtr _h_4jt, _h_5j;
     CounterPtr _h_6jm, _h_6jt;
+    
+    Scatter2DPtr  _hMeff_2jl, _hMeff_2jm, _hMeff_2jt;
+    Scatter2DPtr  _hMeff_4jt, _hMeff_5j;
+    Scatter2DPtr  _hMeff_6jm, _hMeff_6jt;
+
+    Histo1DPtr _h_temp_Meff_2jl, _h_temp_Meff_2jm, _h_temp_Meff_2jt;
+    Histo1DPtr _h_temp_Meff_4jt, _h_temp_Meff_5j;
+    Histo1DPtr _h_temp_Meff_6jm, _h_temp_Meff_6jt;
     //@}
 
     /// Cut-flows
     Cutflows _flows;
 
-  };
+  };                  
 
 
 
