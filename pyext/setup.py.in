@@ -60,4 +60,4 @@ extns = [ext("core")]#, header_files)]
 setup(name = "rivet",
       version="@PACKAGE_VERSION@",
       ext_modules = extns,
-      packages = ["rivet"])
+      packages = ["rivet", "rivet.hepdatapatches"])
