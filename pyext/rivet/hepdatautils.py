@@ -87,12 +87,13 @@ def patch_yodaref(yoda_from_hepdata):
     """
 
 
-    import importlib, yoda, hepdatapatches
+    import importlib, yoda
+    import rivet.hepdatapatches as hdpatch
     hepdata_content = yoda.read( yoda_from_hepdata )
     for tag in hepdata_content:
         if tag.startswith("/REF"):
             routine, tableid = tag.rstrip("/")[5:].split('/')
-            if hasattr(hepdatapatches, routine):
+            if hasattr(hdpatch, routine):
                 # get relevant patch function for this routine and apply patch
                 routine_patcher = importlib.import_module("rivet.hepdatapatches." + routine)
                 hepdata_content[tag] = routine_patcher.patch(tag, hepdata_content[tag])
