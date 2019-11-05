@@ -107,4 +107,3 @@ Title=300 GeV $< m_{\mu\mu} <$ 500 GeV
 # BEGIN PLOT /ATLAS_2016_I1467454/d39
 Title=500 GeV $< m_{\mu\mu} <$ 1500 GeV
 # END PLOT
-
