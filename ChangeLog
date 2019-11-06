@@ -1,5 +1,10 @@
 2019-11-06  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add ATLAS_2018_I1676551 analysis: 13 TeV 36/fb recursive jigsaw
+	3 and 3 lepton BSM search. Implemented without ROOT/RestFrames by
+	Derek Yeung and validated (with acceptable but imperfect
+	agreement) against published cutflow tables.
+
 	* Add ATLAS_2019_I1725190 analysis: 13 TeV full Run-2 dilepton
 	mass with analysis-specific parametrised smearing functions.
 
