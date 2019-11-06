@@ -1,6 +1,6 @@
 Name: ATLAS_2019_I1724098
 Year: 2019
-Summary: Jet Sub-structure at 13 TeV
+Summary: Jet substructure at 13 TeV
 Experiment: ATLAS
 Collider: LHC
 InspireID: 1724098
@@ -14,14 +14,15 @@ References:
  - doi:10.1007/JHEP08(2019)033
  - arXiv:1903.02942 [hep-ex]
 Keywords:
-  - TAGGING
-  - SUBSTRUCTURE
-  - BOOSTED
-  - JETS
+ - substructure
+ - boosted
+ - jets
+ - ttbar
+ - w
 Options:
-  - MODE=DJ,TW
+ - MODE=DJ,TW
 RunInfo:
- multijet / ttbar production at 13 TeV
+ 'Multijet / ttbar production at 13 TeV'
 Luminosity_fb: 33.0
 Beams: [p+, p+]
 Energies: [13000]
