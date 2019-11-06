@@ -1,5 +1,7 @@
 2019-11-06  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add CMS_2018_I1708620 analysis: 13 TeV forward energy flow, converted to support re-entrant finalize.
+
 	* Add LHCB_2018_I1665223 analysis: 13 TeV inelastic pp cross-section in LHCb fiducial acceptance.
 
 2019-10-31  Andy Buckley  <andy.buckley@cern.ch>
