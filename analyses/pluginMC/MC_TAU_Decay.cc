@@ -29,6 +29,8 @@ namespace Rivet {
       book(_h_2B_m2enu, "h_2B_m2enu", 200,0.,3.15);
       book(_h_2B_menu, "h_2B_menu" , 200,0.,1.8 );
       // hadronic
+      // 1 hadron
+      book(_h_1B_xpi, "h_1B_xpi", 25,0.0,1.0);
       // 2 hadrons
       book(_h_2B_m2pipi, "h_2B_m2pipi", 200,0.,3.15);
       book(_h_2B_mpipi, "h_2B_mpipi" , 200,0.,1.8 );
@@ -268,7 +270,13 @@ namespace Rivet {
 	//      << pip.size() << " " << pim.size() << " " << pi0.size() << " " 
 	//      << Kp.size() << " " << Km.size() << " " << K0S.size() << " " <<  K0L.size() << "\n";
 	// 2 hadrons
-	if(nstable==3 ) {
+        if(nstable==2) {
+          if(pim.size()==1) {
+            double xpi = pim[0].momentum().p()/tau.momentum().p();
+            _h_1B_xpi->fill(xpi);
+          }
+        }
+	else if(nstable==3 ) {
 	  if(em.size()==1 && nu_ebar.size()==1) {
 	    FourMomentum ptot = em[0].momentum()+nu_ebar[0].momentum();
 	    double mass2 = ptot.mass2();
@@ -532,6 +540,8 @@ namespace Rivet {
       // leptonic
       normalize(_h_2B_m2enu);
       normalize(_h_2B_menu );
+      // 1 hadron
+      normalize(_h_1B_xpi);
       // 2 hadrons
       normalize(_h_2B_m2pipi);
       normalize(_h_2B_mpipi );
@@ -606,6 +616,8 @@ namespace Rivet {
     // histograms for leptonic decay
     Histo1DPtr _h_2B_m2enu,_h_2B_menu;
     Histo1DPtr _h_2B_m2munu,_h_2B_mmunu;
+    // histograms for 1 hadron decay
+    Histo1DPtr _h_1B_xpi;
     // histograms for 2 hadron decay
     Histo1DPtr _h_2B_m2pipi,_h_2B_mpipi;
     Histo1DPtr _h_2B_m2KpiA,_h_2B_m2KpiB,_h_2B_mKpiA,_h_2B_mKpiB;
