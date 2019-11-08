@@ -98,7 +98,7 @@
 
 2019-09-06  Christian Gutschow  <chris.g@cern.ch>
 
-	* introduce options for ATLAS_2014_I1312627
+	* Introduce options for ATLAS_2014_I1312627
 
 2019-09-05 Peter Richardson <peter.richardson@durham.ac.uk>
 
@@ -121,9 +121,10 @@
 
 2019-09-05  Christian Gutschow  <chris.g@cern.ch>
 
-	* implement setWeightCap(double) method in AnalaysisHandler that
-	can be used to cop off large weights. USE WITH CARE!!
-	* implement --weight-cap flag in main rivet script to set weight flag
+	* Implement setWeightCap(double) method in AnalaysisHandler that
+	can be used to chop off large weights. USE WITH CARE!!
+
+	* Implement --weight-cap flag in main rivet script to set weight flag
 
 2019-09-05  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
@@ -148,7 +149,6 @@
 	in the BEGIN PLOT ... END PLOT section in order to select the weights that
 	make-plots should draw in the plot (or pass --no-weights to rivet-cmphistos/-mkhtml
 	to drop all of them).
-
 
 2019-08-21  Andy Buckley  <andy.buckley@cern.ch>
 
