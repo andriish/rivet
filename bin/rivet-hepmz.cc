@@ -70,7 +70,8 @@ int main(int argc, char** argv) {
   }
 
 
-  Rivet::zstr::ifstream input(ifile);
+  
+  std::shared_ptr<std::istream> istr;
   shared_ptr<ostream> output;
   if ( ofile.substr(ofile.length() - 3) == ".gz" ||
        ofile.substr(ofile.length() - 6) == ".hepmz" )
@@ -79,7 +80,7 @@ int main(int argc, char** argv) {
     output = make_shared<ofstream>(ofile);
 
   shared_ptr<Rivet::HepMC_IO_type>
-    reader = Rivet::HepMCUtils::makeReader(input);
+    reader = Rivet::HepMCUtils::makeReader(ifile, istr);
   
   shared_ptr<Rivet::RivetHepMC::GenEvent>
     evt = make_shared<Rivet::RivetHepMC::GenEvent>();
