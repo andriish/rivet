@@ -1,3 +1,10 @@
+2019-11-09  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* Fixed HepMC3 interface so that it can use the built in deduce_reader.
+	(Thanks to Andrii Verbytskyi for input)
+
+	* Fixed rivet-mkvaldir so that it downloads hepmc files from the new site.
+
 2019-11-06  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add ATLAS_2018_I1676551 analysis: 13 TeV 36/fb recursive jigsaw
