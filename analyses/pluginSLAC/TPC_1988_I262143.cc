@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
