@@ -170,7 +170,10 @@ def setOptions(ao, options, isBand):
         ao.setAnnotation('ErrorBars',  '0')
         ao.setAnnotation('ErrorBands', '1')
         if 'ErrorBandColor' not in ao.annotations:
-            ao.setAnnotation('ErrorBandColor', ao.annotation('LineColor'))
+            c = ao.annotation('LineColor')
+            if 'byte' in str(type(c)):
+                c = c.decode('utf-8')
+            ao.setAnnotation('ErrorBandColor', c)
         if 'ErrorBandOpacity' not in ao.annotations:
             ao.setAnnotation('ErrorBandOpacity', '0.5')
 
