@@ -178,7 +178,10 @@ def setOptions(ao, options, isBand):
         if 'ErrorBandOpacity' not in ao.annotations():
 =======
         if 'ErrorBandColor' not in ao.annotations:
-            ao.setAnnotation('ErrorBandColor', ao.annotation('LineColor'))
+            c = ao.annotation('LineColor')
+            if 'byte' in str(type(c)):
+                c = c.decode('utf-8')
+            ao.setAnnotation('ErrorBandColor', c)
         if 'ErrorBandOpacity' not in ao.annotations:
 >>>>>>> removing more Y1.8 tweaks
             ao.setAnnotation('ErrorBandOpacity', '0.5')
