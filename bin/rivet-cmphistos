@@ -47,7 +47,7 @@ def getHistos(filelist):
         for path, ao in analysisobjects.items():
             ## We can't plot non-histograms yet
             # TODO: support counter plotting with a faked x (or y) position and forced plot width/height
-            if ao.type() not in ("Counter",
+            if ao.type not in ("Counter",
                                "Histo1D",
                                "Histo2D",
                                "Profile1D",
@@ -98,8 +98,8 @@ def getRivetRefData(anas=None):
             for path, ao in analysisobjects.items():
                 aop = rivet.AOPath(ao.path())
                 if aop.isref():
-                    ao.setPath(aop.basepath(keepref=False))
-                    refhistos[ao.path()] = ao
+                    ao.path = aop.basepath(keepref=False)
+                    refhistos[ao.path] = ao
     return refhistos
 
 
@@ -435,7 +435,7 @@ if __name__ == '__main__':
             hasdataref = True
             refdata = refhistos[hpath]
             refdata.setAnnotation('Title', args.REFTITLE)
-            for key in refdata.annotations():
+            for key in refdata.annotations:
                 if not any([ keep in key for keep in [ 'IsRef', 'Path', 'Title', 'Type' ] ]):
                     refdata.rmAnnotation(key)
             if not is2d:
@@ -483,7 +483,7 @@ if __name__ == '__main__':
                                         newpath = hmcs[BANDNAME].annotation('Path')+"["+BANDNAME+"]"
                                         hmcs[BANDNAME].setAnnotation('Path', newpath)
                                     # get central values of current variation
-                                    central_values = [ p.y() for p in thisobj.points() ] 
+                                    central_values = [ p.y() for p in thisobj.points() ]
                                     # update envelope
                                     if isPDF:
                                         if not isNominal:
@@ -508,7 +508,7 @@ if __name__ == '__main__':
                                 errors = map(list, zip(*errors))
                             # update error bars of current variation band
                             if BANDNAME in hmcs and errors != None:
-                                
+
                                 for i in range(hmcs[BANDNAME].numPoints()):
                                     val = hmcs[BANDNAME].point(i).y()
                                     err0, err1 = hmcs[BANDNAME].point(i).yErrs()
