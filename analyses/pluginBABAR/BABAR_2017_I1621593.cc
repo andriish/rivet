@@ -49,7 +49,7 @@ namespace Rivet {
         _num4pi->fill();
         const FinalState& ufs = apply<FinalState>(event, "UFS");
         if (!ufs.particles(Cuts::pid==223).empty()) {
-          _numOmega->fill(event.weight());
+          _numOmega->fill();
         }
       }
 
@@ -92,7 +92,7 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    CounterPtr _num4pi;
+    CounterPtr _num4pi, _numOmega;
     vector<Scatter2DPtr> _mult;
     //@}
 
