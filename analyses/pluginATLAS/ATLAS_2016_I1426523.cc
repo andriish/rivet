@@ -171,16 +171,21 @@ namespace Rivet {
       WeightW3 = 1/(pow(MassW0*MassW0 - MW_PDG*MW_PDG,2) + pow(MW_PDG*GammaW_PDG,2));
       WeightTotal3 = WeightZ3*WeightW3;
       M3 = -1*WeightTotal3;
+      bool found = false;
 
       if( (M1 < M2 && M1 < M3) || (MassZ01 != 0 && MassW2 != 0 && MassZ02 == 0 && MassZ12 == 0) ){
         i = 0; j = 1; k = 2;
+        found = true;
       }
       if( (M2 < M1 && M2 < M3) || (MassZ02 != 0 && MassW1 != 0 && MassZ01 == 0 && MassZ12 == 0) ){
         i = 0; j = 2; k = 1;
+        found = true;
       }
       if( (M3 < M1 && M3 < M2) || (MassZ12 != 0 && MassW0 != 0 && MassZ01 == 0 && MassZ02 == 0) ){
         i = 1; j = 2; k = 0;
+        found = true;
       }
+      if (!found) vetoEvent;
 
       FourMomentum ZbosonTotal   = dressedleptonsTotal[i].momentum()+dressedleptonsTotal[j].momentum();
 
