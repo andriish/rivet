@@ -96,7 +96,7 @@ def getRivetRefData(anas=None):
         for infile in filelist:
             analysisobjects = yoda.read(infile, patterns=args.PATHPATTERNS, unpatterns=args.PATHUNPATTERNS)
             for path, ao in analysisobjects.items():
-                aop = rivet.AOPath(ao.path())
+                aop = rivet.AOPath(ao.path)
                 if aop.isref():
                     ao.path = aop.basepath(keepref=False)
                     refhistos[ao.path] = ao
@@ -169,7 +169,7 @@ def setOptions(ao, options, isBand):
     if isBand:
         ao.setAnnotation('ErrorBars',  '0')
         ao.setAnnotation('ErrorBands', '1')
-        if 'ErrorBandColor' not in ao.annotations():
+        if 'ErrorBandColor' not in ao.annotations:
             ao.setAnnotation('ErrorBandColor', ao.annotation('LineColor'))
         if 'ErrorBandOpacity' not in ao.annotations:
             ao.setAnnotation('ErrorBandOpacity', '0.5')
@@ -347,6 +347,7 @@ if __name__ == '__main__':
 
     # Unique list of analyses
     anas = list(set([x.split("/")[1] for x in hpaths]))
+    print (anas)
 
     ## Take reference data from the Rivet search paths, if there is not already
     if args.RIVETREFS:
@@ -477,10 +478,10 @@ if __name__ == '__main__':
                                     if isNominal and BANDNAME not in hmcs:
                                         # make a copy of the nominal as basis for the error tube
                                         hmcs[BANDNAME] = thisobj if 'Histo1D' in obj_type else hmcs[varname].clone()
-                                        newpath = hmcs[BANDNAME].annotation('Path')+"["+BANDNAME+"]"
+                                        newpath = "%s[%s]" % (hmcs[BANDNAME].annotation('Path'), BANDNAME)
                                         hmcs[BANDNAME].setAnnotation('Path', newpath)
                                     # get central values of current variation
-                                    central_values = [ p.y() for p in thisobj.points() ] 
+                                    central_values = [ p.y for p in thisobj.points ] 
                                     # update envelope
                                     if isPDF:
                                         if not isNominal:
@@ -488,8 +489,8 @@ if __name__ == '__main__':
                                     elif errors == None:
                                         errors = [ list(central_values), list(central_values) ]
                                     else:
-                                        errors[0] = map(min, zip(errors[0], central_values))
-                                        errors[1] = map(max, zip(errors[1], central_values))
+                                        errors[0] = list(map(min, zip(errors[0], central_values)))
+                                        errors[1] = list(map(max, zip(errors[1], central_values)))
                                     # remove current variation from curves to be plotted
                                     if not isNominal:
                                         del mchistos[infile][xpath][varname]
@@ -502,13 +503,13 @@ if __name__ == '__main__':
                                 # TODO: would be nice if I could ask LHAPDF to give me the tuple straightaway
                                 uncertainties = [ PDFset.uncertainty(binVars) for binVars in PDFvars ]
                                 errors = [ (unc.errminus, unc.errplus) for unc in uncertainties ]
-                                errors = map(list, zip(*errors))
+                                errors = list(map(list, zip(*errors)))
                             # update error bars of current variation band
                             if BANDNAME in hmcs and errors != None:
                                 
-                                for i in range(hmcs[BANDNAME].numPoints()):
-                                    val = hmcs[BANDNAME].point(i).y()
-                                    err0, err1 = hmcs[BANDNAME].point(i).yErrs()
+                                for i in range(hmcs[BANDNAME].numPoints):
+                                    val = hmcs[BANDNAME].point(i).y
+                                    err0, err1 = hmcs[BANDNAME].point(i).yErrs
                                     err0 = math.sqrt(err0 ** 2 + (val - errors[0][i]) ** 2)
                                     err1 = math.sqrt(err1 ** 2 + (val - errors[1][i]) ** 2)
                                     hmcs[BANDNAME].point(i).setYErrs(err0, err1)
