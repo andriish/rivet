@@ -26,7 +26,7 @@ libRivetProjections_la_SOURCES = \
   IdentifiedFinalState.cc \
   InitialQuarks.cc \
   InvMassFinalState.cc \
-  JetAlg.cc \
+  JetFinder.cc \
   JetShape.cc \
   LeadingParticlesFinalState.cc \
   MergedFinalState.cc \

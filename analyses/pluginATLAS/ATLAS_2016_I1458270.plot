@@ -4,4 +4,3 @@ YTwosidedTicks=1
 XLabel=$m_\text{eff} \text{ (incl.)}$ [GeV]
 YLabel=$\text{Events per bin}$
 # END PLOT
-

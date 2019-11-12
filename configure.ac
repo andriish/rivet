@@ -340,9 +340,11 @@ if test x$enable_pyext == xyes; then
   AM_CHECK_CYTHON([0.24.0], [:], [:])
   if test x$CYTHON_FOUND = xyes; then
     AC_MSG_NOTICE([Cython >= 0.24 found: Python extension source can be rebuilt (for developers)])
+    # Force rebuild since we have a sufficient Cython
+    test -f $(top_srcdir)/pyext/rivet/core.pyx && touch $(top_srcdir)/pyext/rivet/core.pyx
   fi
 
-  AC_CHECK_FILE([pyext/rivet/core.cpp],
+  AC_CHECK_FILE([$(top_srcdir)/pyext/rivet/core.cpp],
                 [],
                 [if test "x$CYTHON_FOUND" != "xyes"; then
                   AC_MSG_ERROR([Cython is required for --enable-pyext, no pre-built core.cpp was found.])

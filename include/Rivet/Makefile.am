@@ -66,6 +66,7 @@ nobase_pkginclude_HEADERS += \
   Projections/InitialQuarks.hh \
   Projections/InvMassFinalState.hh \
   Projections/JetAlg.hh \
+  Projections/JetFinder.hh \
   Projections/JetShape.hh \
   Projections/LeadingParticlesFinalState.hh \
   Projections/LossyFinalState.hh \
@@ -132,6 +133,7 @@ nobase_pkginclude_HEADERS += \
   Tools/Exceptions.hh \
   Tools/JetUtils.hh \
   Tools/Logging.hh  \
+  Tools/MendelMin.hh  \
   Tools/Random.hh  \
   Tools/ParticleBaseUtils.hh \
   Tools/ParticleIdUtils.hh \
@@ -157,7 +159,7 @@ nobase_pkginclude_HEADERS += \
 nobase_dist_noinst_HEADERS += \
   Tools/osdir.hh \
   Math/eigen3/COPYING.GPL \
-  Math/eigen3/README.md   
+  Math/eigen3/README.md
 
 ## Maths
 nobase_pkginclude_HEADERS += \
@@ -361,4 +363,3 @@ nobase_pkginclude_HEADERS += \
   Math/eigen3/src/SVD/SVDBase.h \
   Math/eigen3/src/SVD/UpperBidiagonalization.h \
   Math/eigen3/SVD
-

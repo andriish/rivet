@@ -5,7 +5,9 @@
 #include "HepMC3/ReaderAscii.h"
 #include "HepMC3/ReaderAsciiHepMC2.h"
 #include "HepMC3/GenCrossSection.h"
+#include "HepMC3/ReaderFactory.h"
 #include <cassert>
+#include "../Core/zstr/zstr.hpp"
 
 namespace Rivet{
   
@@ -66,10 +68,22 @@ namespace Rivet{
       return io->read_event(*evt) && !io->failed();
     }
     
-    shared_ptr<HepMC_IO_type> makeReader(std::istream & istr,
+    shared_ptr<HepMC_IO_type> makeReader(std::string filename,
+                                         std::shared_ptr<std::istream> & istrp,
                                          std::string * errm) {
       shared_ptr<HepMC_IO_type> ret;
-      
+
+#ifdef HAVE_LIBZ
+      if ( filename == "-" )
+        istrp = make_shared<zstr::istream>(std::cin);
+      else
+        istrp = make_shared<zstr::ifstream>(filename.c_str());
+      std::istream & istr = *istrp;
+#else
+      if ( filename != "-" ) istrp = make_shared<std::ifstream>(filename.c_str());
+      std::istream & istr = filename == "-"? std::cin: *istrp;
+#endif
+
       // First scan forward and check if there is some hint as to what
       // kind of file we are looking att.
       int ntry = 10;
@@ -93,21 +107,31 @@ namespace Rivet{
         --ntry;
       }
 
-      
       if ( filetype == 3 )
         ret = make_shared<RivetHepMC::ReaderAscii>(istr);
       else if ( filetype == 4 )
         ret = make_shared<Rivet::ReaderCompressedAscii>(istr);
-      else
+      else if ( filetype == 2 )
         ret = make_shared<RivetHepMC::ReaderAsciiHepMC2>(istr);
-      if ( filetype == 0 && errm )
-        *errm += "Could not determine file type. Assuming HepMC2 file. ";
+
       // Check that everything was ok.
-      if ( ret->failed() ) {
-        if ( errm ) *errm = "Problems reading from HepMC file.";
-        ret = shared_ptr<HepMC_IO_type>();
+      if ( ret ) {
+        if ( ret->failed() ) {
+          if ( errm ) *errm = "Problems reading from HepMC file. ";
+          ret = shared_ptr<HepMC_IO_type>();
+        }
+        return ret;
+      }
+      if ( !ret && filename == "-"  ) {
+        if ( errm ) *errm += "Problems reading HepMC from stdin. No header found. ";
+        return shared_ptr<HepMC_IO_type>();
       }
 
+      // Now we try to reopen the file and see if we can read something.
+      if ( errm ) *errm += "Could not deduce file format. Will ask HepMC3 to try. ";
+      ret = RivetHepMC::deduce_reader(filename);
+
+      
       return ret;
     }
 

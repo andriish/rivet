@@ -677,6 +677,8 @@ namespace Rivet {
   /// Alias for ifilter_select
   /// @deprecated Use ifilter_select
   inline Particles& ifilterBy(Particles& particles, const Cut& c) { return ifilter_select(particles, c); }
+  /// New alias for ifilter_select
+  inline Particles& iselect(Particles& particles, const Cut& c) { return ifilter_select(particles, c); }
 
   /// Filter a particle collection in-place to the subset that passes the supplied Cut
   inline Particles filter_select(const Particles& particles, const Cut& c) {
@@ -686,6 +688,8 @@ namespace Rivet {
   /// Alias for ifilter_select
   /// @deprecated Use filter_select
   inline Particles filterBy(const Particles& particles, const Cut& c) { return filter_select(particles, c); }
+  /// New alias for ifilter_select
+  inline Particles select(const Particles& particles, const Cut& c) { return filter_select(particles, c); }
 
   /// Filter a particle collection in-place to the subset that passes the supplied Cut
   inline Particles filter_select(const Particles& particles, const Cut& c, Particles& out) {
@@ -695,22 +699,30 @@ namespace Rivet {
   /// Alias for ifilter_select
   /// @deprecated Use filter_select
   inline Particles filterBy(const Particles& particles, const Cut& c, Particles& out) { return filter_select(particles, c, out); }
+  /// New alias for ifilter_select
+  inline Particles select(const Particles& particles, const Cut& c, Particles& out) { return filter_select(particles, c, out); }
 
 
   /// Filter a particle collection in-place to the subset that fails the supplied Cut
   Particles& ifilter_discard(Particles& particles, const Cut& c);
+  /// New alias for ifilter_discard
+  inline Particles& idiscard(Particles& particles, const Cut& c) { return ifilter_discard(particles, c); }
 
   /// Filter a particle collection in-place to the subset that fails the supplied Cut
   inline Particles filter_discard(const Particles& particles, const Cut& c) {
     Particles rtn = particles;
     return ifilter_discard(rtn, c);
   }
+  /// New alias for filter_discard
+  inline Particles discard(const Particles& particles, const Cut& c) { return filter_discard(particles, c); }
 
   /// Filter a particle collection in-place to the subset that fails the supplied Cut
   inline Particles filter_discard(const Particles& particles, const Cut& c, Particles& out) {
     out = filter_discard(particles, c);
     return out;
   }
+  /// New alias for filter_discard
+  inline Particles discard(const Particles& particles, const Cut& c, Particles& out) { return filter_discard(particles, c, out); }
 
 
   // inline void ifilterIsolateDeltaR(Particles& particles, const FourMomenta& vecs) {

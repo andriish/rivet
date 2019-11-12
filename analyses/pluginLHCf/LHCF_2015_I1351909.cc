@@ -227,7 +227,7 @@ public:
 								}
 							} else { //This condition should never happen
 								cout << "Looping over particles generation ended without match : Exit..." << endl;
-								exit(EXIT_FAILURE);
+                vetoEvent;
 							}
 
 							++ngeneration;
@@ -237,7 +237,7 @@ public:
 					}
 				} else { //This condition should never happen
 					cout << "Particle seems not to be produced in collision or decay : Exit..." << endl;
-					exit(EXIT_FAILURE);
+          vetoEvent;
 				}
 
 			} else {

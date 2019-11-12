@@ -164,8 +164,11 @@ cdef class Analysis:
     def year(self):
         return deref(self._ptr).year().decode('utf-8')
 
+    def luminosity(self):
+        return deref(self._ptr).luminosity()
+
     def luminosityfb(self):
-        return deref(self._ptr).luminosityfb().decode('utf-8')
+        return deref(self._ptr).luminosityfb()
 
 #cdef object
 LEVELS = dict(TRACE = 0, DEBUG = 10, INFO = 20,

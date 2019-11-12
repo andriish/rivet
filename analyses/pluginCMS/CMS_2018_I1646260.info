@@ -14,7 +14,7 @@ References:
  - 'CMS-SUS-16-048'
  - 'arXiv:1801.01846'
 RunInfo:
-  low-mass l^+ l^- + pTmiss (l = el, mu)
+  Low-mass l^+ l^- + pTmiss (l = el, mu)
 NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [13000]

@@ -142,6 +142,11 @@ namespace Rivet {
     /// Angle between this vector and another (3-vector)
     double angle(const Vector3& v3) const { return momentum().angle(v3); }
 
+    /// Lorentz dot product between this 4-vector and another
+    double dot(const ParticleBase& v) const { return momentum().dot(v.momentum()); }
+    /// Angle between this 4-vector and another
+    double dot(const FourVector& v) const { return momentum().dot(v); }
+
     //@}
 
   };

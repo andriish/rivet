@@ -50,6 +50,9 @@ namespace Rivet {
 
     // Simple scalars (test for nullness before casting)
     #define TRY_GETINFO(KEY, VAR) try { if (doc[KEY] && !doc[KEY].IsNull()) ai->_ ## VAR = doc[KEY].as<string>(); } catch (...) { THROW_INFOERR(KEY); }
+    #define TRY_GETINFO_DEFAULT(KEY, VAR, DEFAULT) try { if (doc[KEY] && !doc[KEY].IsNull()) ai->_ ## VAR = doc[KEY].as<string>(); } catch (...) { ai->_ ## VAR = DEFAULT; }
+    #define TRY_GETINFO_DBL(KEY, VAR, DEFAULT) try { if (doc[KEY] && !doc[KEY].IsNull()) ai->_ ## VAR = doc[KEY].as<double>(); } catch (...) { THROW_INFOERR(KEY); }
+    #define TRY_GETINFO_DBL_DEFAULT(KEY, VAR, DEFAULT) try { if (doc[KEY] && !doc[KEY].IsNull()) ai->_ ## VAR = doc[KEY].as<double>(); } catch (...) { ai->_ ## VAR = DEFAULT; }
     TRY_GETINFO("Name", name);
     TRY_GETINFO("Summary", summary);
     TRY_GETINFO("Status", status);
@@ -58,13 +61,17 @@ namespace Rivet {
     TRY_GETINFO("Experiment", experiment);
     TRY_GETINFO("Collider", collider);
     TRY_GETINFO("Year", year);
-    TRY_GETINFO("Luminosity_fb", luminosityfb);
     TRY_GETINFO("SpiresID", spiresId);
     TRY_GETINFO("InspireID", inspireId);
     TRY_GETINFO("BibKey", bibKey);
     TRY_GETINFO("BibTeX", bibTeX);
+    TRY_GETINFO_DBL_DEFAULT("Luminosity_fb", luminosityfb, -1);
     #undef TRY_GETINFO
+    #undef TRY_GETINFO_DEFAULT
+    #undef TRY_GETINFO_DBL
+    #undef TRY_GETINFO_DBL_DEFAULT
 
+    // Normalise the status info to upper-case
     ai->_status = toUpper(ai->_status);
 
     // Sequences (test the seq *and* each entry for nullness before casting)
@@ -156,33 +163,35 @@ namespace Rivet {
     return ss.str();
   }
 
-void AnalysisInfo::buildOptionMap() {
-  _optionmap.clear();
-  for ( auto opttag : _options ) {
-    std::vector<std::string> optv = split(opttag, "=");
-    std::string optname = optv[0];
-    for ( auto opt : split(optv[1], ",") )
-      _optionmap[optname].insert(opt);
-  }
-}
 
-bool AnalysisInfo::validOption(std::string key, std::string val) const {
-  auto opt = _optionmap.find(key);
-  // The option is required to be defined in the .info file.
-  if ( opt == _optionmap.end() ) return false;
-  // If the selection option is among the range of given options,
-  // we are fine.
-  if ( opt->second.find(val) != opt->second.end() ) return true;
-  // Wild card selection option for value types is #.
-  if ( opt->second.size() == 1 && *opt->second.begin() == "#" ) {
-    std::istringstream ss(val);
-    double test;
-    if ( ss >> test ) return true;
+  void AnalysisInfo::buildOptionMap() {
+    _optionmap.clear();
+    for ( auto opttag : _options ) {
+      std::vector<std::string> optv = split(opttag, "=");
+      std::string optname = optv[0];
+      for ( auto opt : split(optv[1], ",") )
+        _optionmap[optname].insert(opt);
+    }
   }
-  // Wild card selection option for any type is *.
-  if ( opt->second.size() == 1 && *opt->second.begin() == "*" )
-    return true;
-  return false;
-}
+
+
+  bool AnalysisInfo::validOption(std::string key, std::string val) const {
+    auto opt = _optionmap.find(key);
+    // The option is required to be defined in the .info file.
+    if ( opt == _optionmap.end() ) return false;
+    // If the selection option is among the range of given options,
+    // we are fine.
+    if ( opt->second.find(val) != opt->second.end() ) return true;
+    // Wildcard selection option for value types is #.
+    if ( opt->second.size() == 1 && *opt->second.begin() == "#" ) {
+      std::istringstream ss(val);
+      double test;
+      if ( ss >> test ) return true;
+    }
+    // Wildcard selection option for any type is *.
+    if ( opt->second.size() == 1 && *opt->second.begin() == "*" )
+      return true;
+    return false;
+  }
 
 }

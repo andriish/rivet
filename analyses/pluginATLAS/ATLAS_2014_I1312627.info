@@ -55,5 +55,5 @@ BibTeX: '@article{Aad:2014rta,
 ReleaseTests:
  - $A LHC-W-Z-e
  - $A-2 LHC-W-Z-e :LMODE=EL
- - $A-3 LHC-W-Z-m :LMODE=MU
+ - $A-3 LHC-W-Z-mu :LMODE=MU
 

@@ -22,7 +22,7 @@ namespace Rivet {
 
     /// @name Analysis methods
     //@{
-      
+
     // method to turn Hist1D into Scatter... so we can write this out witout dividing by bin width
     // since the HEPData entry corresponding to this does not divide the refData by bin width!
     // Have requested they update their HEPData entry but until they do so, we use this workaround.
@@ -67,7 +67,7 @@ namespace Rivet {
       book(_h_5j , "5j");
       book(_h_6jm, "6jm");
       book(_h_6jt, "6jt");
-      
+
       book(_hMeff_2jl, 4,1,1);
       book(_hMeff_2jm, 5,1,1);
       book(_hMeff_2jt, 6,1,1);
@@ -75,7 +75,7 @@ namespace Rivet {
       book(_hMeff_5j , 8,1,1);
       book(_hMeff_6jm, 9,1,1);
       book(_hMeff_6jt, 10,1,1);
-      
+
       book(_h_temp_Meff_2jl, "_temp_Meff_2jl",refData( 4,1,1));
       book(_h_temp_Meff_2jm, "_temp_Meff_2jm",refData( 5,1,1));
       book(_h_temp_Meff_2jt, "_temp_Meff_2jt",refData( 6,1,1));
@@ -209,11 +209,11 @@ namespace Rivet {
       // Fill SR Meff Histo1Ds
       // Upper multiplicity SRs
       if (((jets50.size() >= 4) && (min_dphi_met_3 > 0.4) && (min_dphi_met_more > 0.2) &&  (jetpts[1] > 100*GeV) && (j4pt > 100*GeV) && (aplanarity > 0.04) && (met_meff_4 > 0.20))) _h_temp_Meff_4jt->fill(meff_incl);
-      if (((jets50.size() >= 5) && (min_dphi_met_3 > 0.4) && (min_dphi_met_more > 0.2 ) && 
+      if (((jets50.size() >= 5) && (min_dphi_met_3 > 0.4) && (min_dphi_met_more > 0.2 ) &&
             (jetpts[1] > 100*GeV) && (j4pt > 100*GeV) && (j5pt > 50*GeV) && (aplanarity > 0.04) && (met_meff_5 > 0.25))) _h_temp_Meff_5j->fill(meff_incl);
-      if (((jets50.size() >= 6) && (min_dphi_met_3 > 0.4) && (min_dphi_met_more > 0.2) && 
+      if (((jets50.size() >= 6) && (min_dphi_met_3 > 0.4) && (min_dphi_met_more > 0.2) &&
             (jetpts[1] > 100*GeV) && (j4pt > 100*GeV) && (j6pt > 50*GeV) && (aplanarity > 0.04) && (met_meff_6 > 0.25))) _h_temp_Meff_6jm->fill(meff_incl);
-      if (((jets50.size() >= 6) && (min_dphi_met_3 > 0.4) && (min_dphi_met_more > 0.2) && 
+      if (((jets50.size() >= 6) && (min_dphi_met_3 > 0.4) && (min_dphi_met_more > 0.2) &&
             (jetpts[1] > 100*GeV) && (j4pt > 100*GeV) && (j6pt > 50*GeV) && (aplanarity > 0.04) && (met_meff_6 > 0.20))) _h_temp_Meff_6jt->fill(meff_incl);
 
     }
@@ -230,17 +230,17 @@ namespace Rivet {
       scale(_h_temp_Meff_2jl, sf); scale(_h_temp_Meff_2jm, sf); scale(_h_temp_Meff_2jt, sf);
       scale(_h_temp_Meff_4jt, sf); scale(_h_temp_Meff_5j, sf);
       scale(_h_temp_Meff_6jm, sf); scale(_h_temp_Meff_6jt, sf);
-      
-      
+
+
       // the HEPData entry corresponding to this does not divide their distributions
       // by bin width... so to avoid this we need to convert to Scatter2D which is not divided by bw
-      _hMeff_2jl = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_2jl,_hMeff_2jl); 
-      _hMeff_2jm = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_2jm,_hMeff_2jm); 
-      _hMeff_2jt = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_2jt,_hMeff_2jt); 
-      _hMeff_4jt = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_4jt,_hMeff_4jt); 
-      _hMeff_5j  = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_5j ,_hMeff_5j ) ; 
-      _hMeff_6jm = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_6jm,_hMeff_6jm); 
-      _hMeff_6jt = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_6jt,_hMeff_6jt); 
+      _hMeff_2jl = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_2jl,_hMeff_2jl);
+      _hMeff_2jm = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_2jm,_hMeff_2jm);
+      _hMeff_2jt = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_2jt,_hMeff_2jt);
+      _hMeff_4jt = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_4jt,_hMeff_4jt);
+      _hMeff_5j  = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_5j ,_hMeff_5j ) ;
+      _hMeff_6jm = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_6jm,_hMeff_6jm);
+      _hMeff_6jt = convertToScatterWithoutBinWidthDivision(_h_temp_Meff_6jt,_hMeff_6jt);
       MSG_INFO("CUTFLOWS:\n\n" << _flows);
 
     }
@@ -255,7 +255,7 @@ namespace Rivet {
     CounterPtr _h_2jl, _h_2jm, _h_2jt;
     CounterPtr _h_4jt, _h_5j;
     CounterPtr _h_6jm, _h_6jt;
-    
+
     Scatter2DPtr  _hMeff_2jl, _hMeff_2jm, _hMeff_2jt;
     Scatter2DPtr  _hMeff_4jt, _hMeff_5j;
     Scatter2DPtr  _hMeff_6jm, _hMeff_6jt;
@@ -268,7 +268,7 @@ namespace Rivet {
     /// Cut-flows
     Cutflows _flows;
 
-  };                  
+  };
 
 
 

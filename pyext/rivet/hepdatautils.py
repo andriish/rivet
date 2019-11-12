@@ -74,3 +74,28 @@ def download_from_hepdata(inspire_id, rivet_analysis_name=None):
 
     print('Downloaded {}'.format(yodafile_from_hepdata))
     return yodafile_from_hepdata
+
+
+
+def patch_yodaref(yoda_from_hepdata):
+    """\
+    Take a YODA file and check if the reference data contained in the file is in need of post-processing.
+    If so, apply relevant post-processing steps and return.
+
+    :param yoda_from_hepdata: YODA file containing reference data from HEPData for post-processing
+    :return: YODA file with post-processed data from HEPData
+    """
+
+
+    import importlib, yoda
+    import rivet.hepdatapatches as hdpatch
+    hepdata_content = yoda.read( yoda_from_hepdata )
+    for tag in hepdata_content:
+        if tag.startswith("/REF"):
+            routine, tableid = tag.rstrip("/")[5:].split('/')
+            if hasattr(hdpatch, routine):
+                # get relevant patch function for this routine and apply patch
+                routine_patcher = importlib.import_module("rivet.hepdatapatches." + routine)
+                hepdata_content[tag] = routine_patcher.patch(tag, hepdata_content[tag])
+    return hepdata_content
+
