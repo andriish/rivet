@@ -4,6 +4,7 @@
 #include "Rivet/Tools/Utils.hh"
 #include "Rivet/Tools/RivetHepMC.hh"
 #include "Rivet/Tools/Logging.hh"
+#include "../Core/zstr/zstr.hpp"
 
 /*namespace {
 
@@ -120,8 +121,20 @@ namespace Rivet{
       return ge->beam_particles();
     }
 
-    std::shared_ptr<HepMC::IO_GenEvent> makeReader(std::istream &istr,
+    std::shared_ptr<HepMC::IO_GenEvent> makeReader(std::string filename,
+                                                   std::shared_ptr<std::istream> & istrp,
                                                    std::string *) {
+#ifdef HAVE_LIBZ
+      if ( filename == "-" )
+        istrp = make_shared<Rivet::zstr::istream>(std::cin);
+      else
+        istrp = make_shared<Rivet::zstr::ifstream>(filename.c_str());
+      std::istream & istr = *istrp;
+#else
+      if ( filename != "-" ) istrp = make_shared<std::ifstream>(filename.c_str());
+      std::istream & istr = filename == "-"? std::cin: *istrp;
+#endif
+
       return make_shared<HepMC::IO_GenEvent>(istr);
     }
    

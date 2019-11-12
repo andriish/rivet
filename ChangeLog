@@ -1,6 +1,29 @@
 2019-11-12  Christian Gutschow  <chris.g@cern.ch>
 
-	* Merging Peter Richardson's updates from the 2-7-x branch
+	* Merging Peter's changes from release-2-7-x branch
+
+2019-11-09  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* Fixed HepMC3 interface so that it can use the built in deduce_reader.
+	(Thanks to Andrii Verbytskyi for input)
+
+	* Fixed rivet-mkvaldir so that it downloads hepmc files from the new site.
+
+2019-11-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add ATLAS_2018_I1676551 analysis: 13 TeV 36/fb recursive jigsaw
+	3 and 3 lepton BSM search. Implemented without ROOT/RestFrames by
+	Derek Yeung and validated (with acceptable but imperfect
+	agreement) against published cutflow tables.
+
+	* Add ATLAS_2019_I1725190 analysis: 13 TeV full Run-2 dilepton
+	mass with analysis-specific parametrised smearing functions.
+
+	* Add CMS_2018_I1708620 analysis: 13 TeV forward energy flow,
+	converted to support re-entrant finalize.
+
+	* Add LHCB_2018_I1665223 analysis: 13 TeV inelastic pp
+	cross-section in LHCb fiducial acceptance.
 
 2019-10-31  Andy Buckley  <andy.buckley@cern.ch>
 
@@ -86,7 +109,7 @@
 
 2019-09-06  Christian Gutschow  <chris.g@cern.ch>
 
-	* introduce options for ATLAS_2014_I1312627
+	* Introduce options for ATLAS_2014_I1312627
 
 2019-09-05 Peter Richardson <peter.richardson@durham.ac.uk>
 
@@ -109,9 +132,10 @@
 
 2019-09-05  Christian Gutschow  <chris.g@cern.ch>
 
-	* implement setWeightCap(double) method in AnalaysisHandler that
-	can be used to cop off large weights. USE WITH CARE!!
-	* implement --weight-cap flag in main rivet script to set weight flag
+	* Implement setWeightCap(double) method in AnalaysisHandler that
+	can be used to chop off large weights. USE WITH CARE!!
+
+	* Implement --weight-cap flag in main rivet script to set weight flag
 
 2019-09-05  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
@@ -136,7 +160,6 @@
 	in the BEGIN PLOT ... END PLOT section in order to select the weights that
 	make-plots should draw in the plot (or pass --no-weights to rivet-cmphistos/-mkhtml
 	to drop all of them).
-
 
 2019-08-21  Andy Buckley  <andy.buckley@cern.ch>
 

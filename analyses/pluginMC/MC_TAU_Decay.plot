@@ -1,3 +1,10 @@
+BEGIN PLOT /MC_TAU_Decay/h_1B_xpi
+LogY=0
+YMin=0.75
+YMax=1.25
+XLabel=$x_\pi$
+YLabel=1/N dN/d$x_\pi$
+END PLOT
 BEGIN PLOT /MC_TAU_Decay/h_2B_mpipi
 Title=Mass distribution of the hadrons for $\tau^-\to\pi^-\pi^0\nu_\tau$
 XLabel=$m_{\pi^-\pi^0}$/GeV

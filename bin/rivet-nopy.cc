@@ -1,11 +1,4 @@
 #include <fstream>
-#ifdef ENABLE_HEPMC_3
-#include "HepMC3/GenEvent.h"
-#include "HepMC3/GenParticle.h"
-#include "HepMC3/GenVertex.h"
-#include "HepMC3/GenVertex.h"
-#include "HepMC3/ReaderFactory.h"
-#endif
 #include "Rivet/Tools/RivetHepMC.hh"
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/AnalysisLoader.hh"
@@ -25,21 +18,13 @@ int main(int argc, char** argv) {
     ah.addAnalysis(argv[i]);
   }
 
-#ifdef ENABLE_HEPMC_3
- std::shared_ptr<HepMC3::Reader> reader = HepMC3::deduce_reader(argv[1]);
-  std::shared_ptr<HepMC3::GenEvent> evt = std::make_shared<HepMC3::GenEvent>();
-
+  std::shared_ptr<std::istream> istr;
   
-
-#else
-  std::ifstream istr(argv[1], std::ios::in);
-  
-  std::shared_ptr<Rivet::HepMC_IO_type> reader = Rivet::HepMCUtils::makeReader(istr);
+  std::shared_ptr<Rivet::HepMC_IO_type> reader = Rivet::HepMCUtils::makeReader(argv[1], istr);
   
   std::shared_ptr<Rivet::RivetHepMC::GenEvent> evt = std::make_shared<Rivet::RivetHepMC::GenEvent>();
 
-#endif
-  
+ 
   while(reader && Rivet::HepMCUtils::readEvent(reader, evt)){
     ah.analyze(evt.get());
     evt.reset(new Rivet::RivetHepMC::GenEvent());
