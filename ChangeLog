@@ -1,3 +1,7 @@
+2019-11-12 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Fixes to A2_2017_I1486671 to improve decay detection
+
 2019-10-02 Christian Gutschow  <chris.g@cern.ch>
 
 	* Implement XMin and XMax arguments for chi2 calc in make-plots

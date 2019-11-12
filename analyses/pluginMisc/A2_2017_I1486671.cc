@@ -46,7 +46,7 @@ namespace Rivet {
 	  ++npi;
           ++nstable;
         }
-	else if (id == PID::GAMMA) {
+	else if (id == PID::GAMMA && p.children().empty() ) {
 	  ++ngamma;
 	  ++nstable;
 	}
@@ -64,9 +64,8 @@ namespace Rivet {
       static double momega = 1019.461*MeV;
       static double meta   = 547.862 *MeV;
       static double mpi    = 134.9770*MeV;
-
       // Loop over eta and omega mesons
-      foreach(const Particle& p, apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==333 or Cuts::pid==221)) {
+      foreach(const Particle& p, apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==223 or Cuts::pid==221)) {
        	unsigned nstable(0),npi(0),nep(0),nem(0),ngamma(0);
        	FourMomentum ptot;
       	findDecayProducts(p,nstable,npi,nep,nem,ngamma,ptot);
