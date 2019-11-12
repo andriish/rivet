@@ -46,7 +46,7 @@ namespace Rivet {
 	  ++npi;
           ++nstable;
         }
-	else if (id == PID::GAMMA) {
+	else if (id == PID::GAMMA && p.children().empty() ) {
 	  ++ngamma;
 	  ++nstable;
 	}
