@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 """
-Build a directory with a Makefile for running a validation suit.
+Build a directory with a Makefile for running an analysis validation suite
 
 """
 
@@ -44,7 +44,7 @@ extragroup.add_argument("--hepmc-dir", dest="HEPMCDIR",
 extragroup.add_argument("--ref-dir", dest="REFDIR",
                         default="",
                         help="specify the directory where the reference " + \
-                        "yodas are located.")
+                        ".yoda files are located.")
 
 args = parser.parse_args()
 
@@ -74,7 +74,7 @@ else:
         out = commands.getstatusoutput("rm -f " + hepmcdir)
     if os.path.exists(hepmcdir):
         print("Error: please remove directory '" + hepmcdir + \
-              "' before spicifying a new location for HepMC files")
+              "' before specifying a new location for HepMC files")
         sys.exit(1)
     if not os.path.exists(args.HEPMCDIR):
         try:
@@ -92,7 +92,7 @@ if  os.path.exists(valdir + "/tmp"):
 try:
     os.makedirs(valdir + "/tmp")
 except:
-    print("Error: failed to make tmo directory '%s'" % valdir + "/tmp")
+    print("Error: failed to make temp directory '%s'" % valdir + "/tmp")
     sys.exit(1)
 
 refdir = args.REFDIR
@@ -156,11 +156,11 @@ for ananame in all_analyses:
             if len(sublines) > 1:
                 valtargets[targetname] += "\t$(V)echo done " + \
                     targetname + ".yoda\n"
-                
-                
+
+
 #############################
 ## Write the Makefile
-                
+
 mf = open(valdir + "/Makefile", 'w')
 
 ## Header and default and help targets.
