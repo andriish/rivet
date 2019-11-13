@@ -136,7 +136,7 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       scale(_h_mee, crossSection()*luminosity()/femtobarn/sumOfWeights());
-      scale(_h_mm, crossSection()*luminosity()/femtobarn/sumOfWeights());
+      scale(_h_mmm, crossSection()*luminosity()/femtobarn/sumOfWeights());
     }
 
     //@}
