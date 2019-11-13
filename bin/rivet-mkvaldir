@@ -191,7 +191,7 @@ mf.write("""#
 # the YODA-name should be given without the .yoda suffix and typically
 # is constructed from the analysis name with some number appended if
 # there are more than one reference YODA for an analysis. Note that
-# the sting "$A" can be used anywher and will be expanded to the
+# the string "$A" can be used anywhere and will be expanded to the
 # analysis name. HEPMC-name should given without the ".hepmc.gz"
 # suffix. "dependencies" can eg. include the reference YODA from
 # another analysis that are referenced in any of the
@@ -200,7 +200,7 @@ mf.write("""#
 # be extracted form the resulting yoda. In this case the analysis will
 # be run using the "options" if present. The command lines will be used
 # as "make" recipes where the output YODA file can be given by $@ and the
-# HepMC file by $< possible options must then be included by explicitly
+# HepMC file by $< possible options must then be included explicitly.
 #
 # When submitting a new analysis to Rivet, the "ReleaseTests:" section
 # of the .info file must be present and all the corresponding YODA
