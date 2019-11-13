@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// Search for new physics with dijet angular distributions in proton-proton collisions at sqrt{(s) = 13 TeV
+  /// Search for new physics with dijet angular distributions at 13 TeV
   class CMS_2017_I1519995 : public Analysis {
   public:
 
@@ -17,6 +17,7 @@ namespace Rivet {
     void init() {
       FastJets antikt(FinalState(), FastJets::ANTIKT, 0.4);
       declare(antikt, "ANTIKT");
+      /// @todo We need a better way!!
       {Histo1DPtr tmp; _h_chi_dijet.add(4800., 8000., book(tmp, 1, 1, 1));}
       {Histo1DPtr tmp; _h_chi_dijet.add(4200., 4800., book(tmp, 2, 1, 1));}
       {Histo1DPtr tmp; _h_chi_dijet.add(3600., 4200., book(tmp, 3, 1, 1));}
@@ -45,8 +46,6 @@ namespace Rivet {
       for (Histo1DPtr hist : _h_chi_dijet.histos()) normalize(hist);
     }
 
-
-  private:
 
     BinnedHistogram _h_chi_dijet;
 
