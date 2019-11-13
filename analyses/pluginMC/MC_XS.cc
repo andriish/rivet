@@ -1,5 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
+#include "Rivet/AnalysisHandler.hh"
 
 #ifndef RIVET_ENABLE_HEPMC_3
 #include "HepMC/HepMCDefs.h"
@@ -49,7 +50,8 @@ namespace Rivet {
       _mc_error = event.genEvent()->cross_section()->cross_section_error();
       #endif // VERSION_CODE >= 3000000
 
-      for (size_t m = 0; m < event.weights().size(); ++m) {
+      assert(event.weights().size() >= handler().numWeights());
+      for (size_t m = 0; m < handler().numWeights(); ++m) {
         const double weight = event.weights()[m];
         _h_pmXS.get()->_getPersistent(m)->fill(0.5*(weight > 0 ? 1. : -1), abs(weight));
         _h_pmN.get()->_getPersistent(m)->fill(0.5*(weight > 0 ? 1. : -1), 1.);
