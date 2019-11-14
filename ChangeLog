@@ -1,6 +1,12 @@
+2019-11-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Release version 3.0.2
+
+	* Fix typos, HTML styling, and download URL in rivet-mkvaldir.
+
 2019-11-12  Christian Gutschow  <chris.g@cern.ch>
 
-	* Merging Peter's changes from release-2-7-x branch
+	* Merging Peter's changes from release-2-7-x branch.
 
 2019-11-09  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
