@@ -57,6 +57,8 @@
 
 2019-11-14  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Release version 3.0.2
+
 	* Fix typos, HTML styling, and download URL in rivet-mkvaldir.
 
 2019-11-12  Christian Gutschow  <chris.g@cern.ch>
