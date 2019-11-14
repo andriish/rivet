@@ -180,7 +180,7 @@ mf.write("""#
 # automatically downloaded if missing. In the end of running 'make
 # check', the newly produced YODA files will be compared with the
 # reference ones. If differences are found in any histogram, the
-# corresponing plot will be produced by rivet-mkhtml and can be
+# corresponding plot will be produced by rivet-mkhtml and can be
 # accessed from the index.html file.
 #
 # The syntax for specifying a reference YODA in the .info file looks
@@ -274,20 +274,34 @@ mf.write("""\n
 .PRECIOUS: $(VALYODAS) $(HEPMCYODAS)
 
 check: $(VALDIFFS) $(REENTRANTS)
-	$(V)echo "<h2>Problematic analyses in Rivet validation</h2>" > index.html
+	$(V)echo "<html>" > index.html
+	$(V)echo "  <head>" >> index.html
+	$(V)echo "    <title>Rivet release validation plots</title>" >> index.html
+	$(V)echo "    <style>" >> index.html
+	$(V)echo "      html { font-family: sans-serif; }" >> index.html
+	$(V)echo "      img { border: 0; }
+	$(V)echo "      a { text-decoration: none; font-weight: bold; }
+	$(V)echo "    </style>
+	$(V)echo "  </head>
+	$(V)echo "  <body>
+	$(V)echo "    <h2>Problematic analyses in Rivet validation</h2>" >> index.html
+	$(V)echo "    <ul>" >> index.html
 	$(V)for dir in $^; do \\
 	  if [ -d $$dir ]; then \\
 	    for subdir in `ls $$dir`; do \\
 	      if [ -f $$dir/$$subdir/index.html ]; then\\
-		echo -n "<a href=\"$$dir/$$subdir/index.html\">$${dir/.diff/}</a> (" >> index.html; \\
+		echo -n "<li><a href=\"$$dir/$$subdir/index.html\">$${dir/.diff/}</a> (" >> index.html; \\
 	        echo -n `head -1 tmp/$${dir/.diff/.log}`  >> index.html; \\
-	        echo ")<br>"  >> index.html; \\
+	        echo ")</li>"  >> index.html; \\
 	      fi \\
 	    done \\
 	  elif [ -s $$dir ]; then \\
 	    cat $$dir >> index.html; \\
 	  fi \\
 	done
+	$(V)echo "    </ul>" >> index.html
+	$(V)echo "  </body>" >> index.html
+	$(V)echo "</html>" >> index.html
 	$(V)echo ""
 	$(V)if test `cat index.html | wc -l` -gt 1; then \\
 	  echo "Differences found, open index.html to inspect plots."; \\
