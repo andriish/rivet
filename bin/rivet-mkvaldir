@@ -341,4 +341,4 @@ mf.write("\n")
 
 ## target for fetching the standard HepMC files from cernbox
 mf.write("HEPMC/%.hepmc.gz:\n")
-mf.write("\twget 'http://rivetval.web.cern.ch/rivetval/$(@F)' -O $@\n\n")
+mf.write("\twget 'http://rivetval.web.cern.ch/rivetval/HEPMC/$(@F)' -O $@\n\n")
