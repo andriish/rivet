@@ -279,11 +279,11 @@ check: $(VALDIFFS) $(REENTRANTS)
 	$(V)echo "    <title>Rivet release validation plots</title>" >> index.html
 	$(V)echo "    <style>" >> index.html
 	$(V)echo "      html { font-family: sans-serif; }" >> index.html
-	$(V)echo "      img { border: 0; }
-	$(V)echo "      a { text-decoration: none; font-weight: bold; }
-	$(V)echo "    </style>
-	$(V)echo "  </head>
-	$(V)echo "  <body>
+	$(V)echo "      img { border: 0; }" >> index.html
+	$(V)echo "      a { text-decoration: none; font-weight: bold; }" >> index.html
+	$(V)echo "    </style>" >> index.html
+	$(V)echo "  </head>" >> index.html
+	$(V)echo "  <body>" >> index.html
 	$(V)echo "    <h2>Problematic analyses in Rivet validation</h2>" >> index.html
 	$(V)echo "    <ul>" >> index.html
 	$(V)for dir in $^; do \\
@@ -303,7 +303,7 @@ check: $(VALDIFFS) $(REENTRANTS)
 	$(V)echo "  </body>" >> index.html
 	$(V)echo "</html>" >> index.html
 	$(V)echo ""
-	$(V)if test `cat index.html | wc -l` -gt 1; then \\
+	$(V)if test `cat index.html | wc -l` -gt 15; then \\
 	  echo "Differences found, open index.html to inspect plots."; \\
 	else \\
 	  echo "No differences found!"; \\
