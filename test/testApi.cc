@@ -15,8 +15,8 @@ int main(int argc, char* argv[]) {
   ah.addAnalysis("EXAMPLE");
   ah.addAnalyses({{ "MC_JETS", "EXAMPLE_CUTS", "EXAMPLE_SMEAR" }});
 
-  std::ifstream file("testApi.hepmc");
-  shared_ptr<Rivet::HepMC_IO_type> reader = Rivet::HepMCUtils::makeReader(file);
+  shared_ptr<std::istream> file;
+  shared_ptr<Rivet::HepMC_IO_type> reader = Rivet::HepMCUtils::makeReader("testApi.hepmc", file);
   std::shared_ptr<Rivet::GenEvent> evt = make_shared<Rivet::GenEvent>();
   double sum_of_weights = 0.0;
   while ( Rivet::HepMCUtils::readEvent(reader, evt) ) {
@@ -24,7 +24,6 @@ int main(int argc, char* argv[]) {
     ah.analyze(*evt);
     sum_of_weights += evt->weights()[0];
   }
-  file.close();
 
   ah.setCrossSection(make_pair(1.0, 0.1));
 
