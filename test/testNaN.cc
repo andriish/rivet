@@ -57,8 +57,8 @@ int main(int argc, char* argv[]) {
   Rivet::AnalysisHandler rivet;
   rivet.addAnalysis("NanTest");
 
-  std::ifstream file("testApi.hepmc");
-  shared_ptr<Rivet::HepMC_IO_type> reader = Rivet::HepMCUtils::makeReader(file);
+  std::shared_ptr<std::istream> file;
+  shared_ptr<Rivet::HepMC_IO_type> reader = Rivet::HepMCUtils::makeReader("testApi.hepmc", file);
   std::shared_ptr<Rivet::GenEvent> evt = make_shared<Rivet::GenEvent>();
   double sum_of_weights = 0.0;
 
@@ -67,7 +67,6 @@ int main(int argc, char* argv[]) {
     rivet.analyze(*evt);
     sum_of_weights += evt->weights()[0];
   }
-  file.close();
 
   rivet.setCrossSection(make_pair(1.0, 0.1));
   rivet.finalize();
