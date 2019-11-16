@@ -16,6 +16,9 @@ libRivetProjections_la_SOURCES = \
   FinalPartons.cc \
   FinalState.cc \
   FParameter.cc \
+  GammaGammaFinalState.cc \
+  GammaGammaKinematics.cc \
+  GammaGammaLeptons.cc \
   HadronicFinalState.cc \
   HeavyHadrons.cc \
   Hemispheres.cc \

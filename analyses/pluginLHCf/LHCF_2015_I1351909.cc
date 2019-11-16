@@ -140,7 +140,7 @@ public:
 
 		const FinalState &fs = applyProjection<FinalState> (event, "FS");
 		Particles fs_particles = fs.particles();
-                const Beam & beams = applyProjection<Beam> (event, "Beam");
+                const Beam & beams = applyProjection<Beam> (event, "Beams");
 
 		vector<Particle> processed_parents;
 		processed_parents.clear();
@@ -235,7 +235,7 @@ public:
 								}
 							} else { //This condition should never happen
 								cout << "Looping over particles generation ended without match : Exit..." << endl;
-								exit(EXIT_FAILURE);
+								vetoEvent;
 							}
 
 							++ngeneration;
@@ -245,7 +245,7 @@ public:
 					}
 				} else { //This condition should never happen
 					cout << "Particle seems not to be produced in collision or decay : Exit..." << endl;
-					exit(EXIT_FAILURE);
+					vetoEvent;
 				}
 
 			} else {

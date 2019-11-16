@@ -1,6 +1,38 @@
+2019-11-12 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Fixes to A2_2017_I1486671 to improve decay detection
+
 2019-10-03  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add better parametrisation of ATLAS Run 2 muon efficiency and smearing.
+
+2019-10-02 Christian Gutschow  <chris.g@cern.ch>
+
+	* Implement XMin and XMax arguments for chi2 calc in make-plots
+
+2019-09-10 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* fixes to ARGUS_1993_S2789213 ARGUS_1993_S2669951
+	* new BABAR, BES and WA46 baryon decay analyses
+
+2019-09-05 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add four new CELLO analyses CELLO_1982_I12010, CELLO_1983_I191415,
+	CELLO_1989_I276764, CELLO_1990_I283026 events shapes and spectra at Petra
+	* Add 18 new TASSO analyses, event shapes and spectra at Petra
+	* Add 6 new PLUTO analyses, event shapes and spectra at Petra and Doris
+	* Add 11 new SLAC e+e- analyses, event shapes and particle spectra
+	* Add 5 new JADE analyses
+	* Add 7 new ARGUS analyses, and improvements to several existing ones
+	* Add 5 new Tristan analyses
+	* Add 17 new BES analyses
+	* Add 8 new CLEO, A2, E756, FOCUS and NA48 analyses
+	* Inspire ids fixed in several ALICE, ATLAS, UA5 and BABAR analyses
+	* Improve normalization in ALEPH_1999_S4193598
+	* Add many missing dists to DELPHI_2003_I620250
+	* Add 13 more FENICE, KLOE, SND and CMD analyses
+	* Add 15 new LEP analyses
+	* Add new projections and first analyses for gamma gamma collisions
 
 2019-08-21  Andy Buckley  <andy.buckley@cern.ch>
 

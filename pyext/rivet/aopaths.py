@@ -5,7 +5,7 @@ def isRawPath(path):
     return path.startswith("/RAW")
 
 def isRawAO(ao):
-    return isRawPath(ao.path)
+    return isRawPath(ao.path())
 
 def stripOptions(path):
     import re
@@ -23,13 +23,13 @@ def extractOptionString(path):
     return " [" + ",".join(opts) + "]"
    
 def isRefAO(ao):
-    return int(ao.annotation("IsRef")) == 1 or isRefPath(ao.path)
+    return int(ao.annotation("IsRef")) == 1 or isRefPath(ao.path())
 
 def isTmpPath(path):
     return "/_" in path #< match *any* underscore-prefixed path component
 
 def isTmpAO(ao):
-    return isTmpPath(ao.path)
+    return isTmpPath(ao.path())
 
 
 class AOPath(object):

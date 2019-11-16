@@ -4,6 +4,7 @@ Summary: Cross section in $e^+e^-\to$hadrons for 57.77 GeV
 Experiment: VENUS
 Collider: Tristan
 InspireID: 500179
+Status: VALIDATED
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
