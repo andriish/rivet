@@ -18,7 +18,7 @@ namespace Rivet {
 
       const FinalState fs;
       declare(fs,"FinalState");
-      FastJets fj04(fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::ALL, JetAlg::Invisibles::ALL);
+      FastJets fj04(fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::ALL, JetAlg::Invisibles::DECAY);
       declare(fj04, "AntiKT04");
 
       // |y| and ystar bins

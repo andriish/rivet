@@ -1,6 +1,16 @@
-2019-11-14  Andy Buckley  <andy.buckley@cern.ch>
+2019-11-17  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Release version 3.0.2
+
+2019-11-17 Jon Butterworth <j.butterworth@ucl.ac.uk>
+
+	* Fix to ATLAS_2018_I1634970 to stop using prompt invisible in jets
+
+2019-11-12 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Fixes to A2_2017_I1486671 to improve decay detection
+
+2019-11-14  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix typos, HTML styling, and download URL in rivet-mkvaldir.
 
@@ -245,6 +255,8 @@
 
 	* Add SmearedParticles::truthParticles and SmearedJets::truthJets functions for access to the unsmeared inputs.
 
+	* Add convenience aliases for vectors of standard types: strings, ints, doubles, etc.
+
 2019-06-26 Christian Gutschow  <chris.g@cern.ch>
 
 	* rivet-cmphistos - AOPath for nominal should be filled with string 0, not integer 0
@@ -283,6 +295,7 @@
 
 	* Release version 3.0.0
 
+	* Adding ATLAS_2011_I930220, ATLAS_2018_I1634970 and ATLAS_2019_I1718132
 
 2019-06-19  Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
 
@@ -355,15 +368,19 @@
 
 2019-06-06 Christian Gutschow  <chris.g@cern.ch>
 
-	* Ading Marek's opacity fix to make-plots
-	* removing if statement testing if type(u'') is (not) str when deciding whether to encode string in bin/rivet
+	* Adding Marek's opacity fix to make-plots
+
+	* removing if statement testing if type(u'') is (not) str when
+	deciding whether to encode string in bin/rivet
 
 2019-06-06  Peter Richardson <peter.richardson@durham.ac.uk>
+
 	* fix typo in rivet-cmphistos
 	* sync yoda for many D0 analyses
 	* sync yoda for CDF_2008_S8093652 D0_2008_S7554427
 
 2019-06-05  Peter Richardson <peter.richardson@durham.ac.uk>
+
 	* L3_2004_I652683 add missing plots and sync yoda, still missing n charged as functiomn of CMS energy and jet plots
 	* PLUTO_1980_I154270 clean up to prepare for yoda sync
 	* CDF_2015_I1388868, changes to allow yoda sync, histograms renumbered and systematic error added to y values
@@ -375,6 +392,7 @@
 	COPPER, XENON, URANIUM
 
 2019-06-04  Peter Richardson <peter.richardson@durham.ac.uk>
+
 	* sync yoda for BELLE_2015_I1397632, two hists change label + final binchangeset:   7157:2482c97f5ef8
 	* update BABAR_2007_S6895344.yoda with improved error calc
 	* sync yoda for H1_1994_S2919893.yoda, only difference handling of non-existance bins, better in new version
@@ -384,13 +402,13 @@
 	* remove null bins from yoda to allow sync with hepdata in CLEO_2004_S5809304.yoda
 	* add OPAL_1997_I421977 for sigma +/- production
 
-
 2019-06-03  Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>
 
 	* Adding new heavy-ion beam particles: GOLD, LEAD.
 	* Switching already existing heavy-ion analyses to use new beam types
 
 2019-06-03  Peter Richardson <peter.richardson@durham.ac.uk>
+
 	* sync ALEPH_1996_S3196992.yoda with HEPdata, rounding issues in old version
 	* sync ALEPH_2001_S4656318.yoda, differences in histos not used in analysis
 	* sync DELPHI_2011_I890503.yoda, fixes y errors but still a zero width bin to deal with
@@ -401,10 +419,12 @@
 	* update JADE_1983_I190818 to handle zero bins widths and update the yoda from HEPData
 
 2019-06-02  Peter Richardson <peter.richardson@durham.ac.uk>
+
 	* add DELPHI_2000_I524694 for sigma- and lambdsa(1520) production at LEP
 	* clean up code in OPAL_1997_S3396100, fixed normalisation of sigma-(1385) distributions
 
 2019-06-01 Peter Richardson <peter.richardson@durham.ac.uk>
+
 	* update yoda for ARGUS_1993_S2653028, improved y errors, still zero bin width issues
 	* update yoda for SND_2016_I1471515, ALEPH_1995_I382179, ALEPH_1999_S4193598
 	* add analysis CLEO_1991_I29927, B* production in e+e-
@@ -413,7 +433,6 @@
 
 	* Skip beam particles when trying to determine promptness (thanks to Marek Schoenherr for pointing this out)
 	* Apple's CLANG compiler really doesn't like uninitialised variables ... sorry Peter!
-
 
 2019-05-29  Andy Buckley  <andy.buckley@cern.ch>
 
@@ -964,7 +983,6 @@
 2018-08-29  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add RIVET_WEIGHT_INDEX=-1 -> ignore event weights behaviour. Slow, but sometimes useful for debug.
-	* Change default plugin library installation to $prefix/lib/Rivet, since they're non-linkable.
 
 2018-08-29  Christian Gutschow  <chris.g@cern.ch>
 
