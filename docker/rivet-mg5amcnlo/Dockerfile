@@ -1,10 +1,10 @@
-FROM hepstore/rivet:2.7.1
+FROM hepstore/rivet:3.0.2
 MAINTAINER Andy Buckley <andy.buckley@cern.ch>
 
 RUN dnf install -y rsync
 
 RUN mkdir /code && cd /code \
-    && wget https://www.hepforge.org/archive/lhapdf/LHAPDF-6.2.1.tar.gz -O- | tar xz \
+    && wget https://www.hepforge.org/archive/lhapdf/LHAPDF-6.2.3.tar.gz -O- | tar xz \
     && cd LHAPDF-*/ && ./configure --prefix=/usr/local \
     && make -j5 && make install \
     && cd ../.. && rm -r /code

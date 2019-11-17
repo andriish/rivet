@@ -1,4 +1,4 @@
-FROM hepstore/rivet:3.0.1
+FROM hepstore/rivet:3.0.2
 MAINTAINER Andy Buckley <andy.buckley@cern.ch>
 
 RUN dnf install -y boost-devel
