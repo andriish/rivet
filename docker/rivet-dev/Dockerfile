@@ -1,12 +1,12 @@
-FROM fedora:27
+FROM fedora:30
 LABEL maintainer="rivet@projects.hepforge.org"
 
 RUN dnf update -y \
     && dnf install -y \
       make gcc-c++ gcc-gfortran redhat-rpm-config \
       wget tar less bzip2 findutils which nano zlib-devel \
-      python python-devel file python-matplotlib gsl-devel \
-      texlive-latex-bin texlive-texconfig-bin texlive-pst-tools \
+      python python-devel python-requests file python-matplotlib gsl-devel \
+      texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow \
       ghostscript ImageMagick texlive-dvips texlive-relsize \
       texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended \
     && dnf clean all
