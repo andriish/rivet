@@ -1,3 +1,7 @@
+2019-11-17  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Release version 3.0.2
+
 2019-11-17 Jon Butterworth <j.butterworth@ucl.ac.uk>
 
 	* Fix to ATLAS_2018_I1634970 to stop using prompt invisible in jets
@@ -7,8 +11,6 @@
 	* Fixes to A2_2017_I1486671 to improve decay detection
 
 2019-11-14  Andy Buckley  <andy.buckley@cern.ch>
-
-	* Release version 3.0.2
 
 	* Fix typos, HTML styling, and download URL in rivet-mkvaldir.
 
