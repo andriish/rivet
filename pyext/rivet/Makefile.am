@@ -3,8 +3,9 @@ EXTRA_DIST = \
     hepdatautils.py \
     spiresbib.py util.py \
     plotinfo.py aopaths.py \
-    core.pyx rivet.pxd \
-    core.cpp
+    core.pyx rivet.pxd core.cpp \
+	hepdatapatches
+
 
 MAINTAINERCLEANFILES = core.cpp
 BUILT_SOURCES = core.cpp
@@ -20,4 +21,3 @@ else
 core.cpp:
 	@echo "Not (re)generating core.cpp since Cython is not installed"
 endif
-
