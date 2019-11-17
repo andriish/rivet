@@ -14,7 +14,7 @@ RUN dnf update -y \
 RUN mkdir /code && cd /code \
     && wget https://phab.hepforge.org/source/rivetbootstraphg/browse/default/rivet-bootstrap?view=raw -O rivet-bootstrap \
     && chmod +x rivet-bootstrap \
-    && INSTALL_PREFIX=/usr/local INSTALL_GSL=0 INSTALL_RIVETDEV=1 MAKE="make -j7" ./rivet-bootstrap \
+    && INSTALL_PREFIX=/usr/local INSTALL_RIVETDEV=1 MAKE="make -j4" ./rivet-bootstrap \
     && echo "source /usr/local/share/Rivet/rivet-completion" > /etc/profile.d/rivet-completion.sh \
     && echo "source /usr/local/share/YODA/yoda-completion" > /etc/profile.d/yoda-completion.sh \
     && texconfig rehash \
