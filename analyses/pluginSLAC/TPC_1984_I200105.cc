@@ -1,8 +1,10 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/Thrust.hh"
+#include "Rivet/Projections/Beam.hh"
 
 namespace Rivet {
 
@@ -48,7 +50,7 @@ namespace Rivet {
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
       Vector3 axis = thrust.thrustAxis();
       // Final state of unstable particles to get particle spectra
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::pid==333)) {
         double xE = p.E()/meanBeamMom;
 	double pT2 = p.p3().mod2()-sqr(axis.dot(p.p3()));
