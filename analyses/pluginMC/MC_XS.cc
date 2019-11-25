@@ -64,8 +64,6 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       scale(_h_pmXS, crossSection()/sumOfWeights());
-      scale(_h_pmN, 1.0/numEvents());
-      scale(_h_N, 1.0/numEvents());
       #ifndef HEPMC_HAS_CROSS_SECTION
       _mc_xs = crossSection();
       _mc_error = 0.0;
