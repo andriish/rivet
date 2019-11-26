@@ -1,3 +1,7 @@
+2019-11-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Improve normalization guidance and fix energy specification in mkanalysis .info file template.
+
 2019-11-17  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Release version 3.0.2
