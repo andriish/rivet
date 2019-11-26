@@ -289,8 +289,9 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
 
-      normalize(_h["YYYY"]); // normalize to unity
-      scale(_h["ZZZZ"], crossSection()/picobarn/sumOfWeights()); // norm to cross section
+      normalize(_h["XXXX"]); // normalize to unity
+      normalize(_h["YYYY"], crossSection()/picobarn); // normalize to generated cross-section in fb (no cuts)
+      scale(_h["ZZZZ"], crossSection()/picobarn/sumW()); // norm to generated cross-section in pb (after cuts)
 
     }
 
@@ -352,7 +353,7 @@ References:
  - 'Example: arXiv:1605.03814'
 #RunInfo: <Describe event types, cuts, and other general generator config tips.>
 #Beams: [p+, p+]
-#Energies: [6500,6500]
+#Energies: [[6500,6500]]
 #Luminosity_fb: 139.0
 Description:
   'A brief description of what is measured and what it is useful for

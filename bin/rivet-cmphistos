@@ -484,7 +484,7 @@ if __name__ == '__main__':
                                         newpath = "%s[%s]" % (hmcs[BANDNAME].annotation('Path'), BANDNAME)
                                         hmcs[BANDNAME].setAnnotation('Path', newpath)
                                     # get central values of current variation
-                                    central_values = [ p.y for p in thisobj.points ] 
+                                    central_values = [ p.y for p in thisobj.points ]
                                     # update envelope
                                     if isPDF:
                                         if not isNominal:
@@ -509,7 +509,7 @@ if __name__ == '__main__':
                                 errors = list(map(list, zip(*errors)))
                             # update error bars of current variation band
                             if BANDNAME in hmcs and errors != None:
-                                
+
                                 for i in range(hmcs[BANDNAME].numPoints):
                                     val = hmcs[BANDNAME].point(i).y
                                     err0, err1 = hmcs[BANDNAME].point(i).yErrs
