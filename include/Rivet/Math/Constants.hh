@@ -1,7 +1,7 @@
 #ifndef RIVET_MATH_CONSTANTS
 #define RIVET_MATH_CONSTANTS
 
-#include "Rivet/Math/MathHeader.hh"
+#include "Rivet/Math/MathConstants.hh"
 #include "Rivet/Math/Units.hh"
 
 namespace Rivet {

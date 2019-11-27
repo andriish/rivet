@@ -1,7 +1,7 @@
 #ifndef RIVET_MATH_VECTORN
 #define RIVET_MATH_VECTORN
 
-#include "Rivet/Math/MathHeader.hh"
+#include "Rivet/Math/MathConstants.hh"
 #include "Rivet/Math/MathUtils.hh"
 
 #include "Rivet/Math/eigen3/Dense"

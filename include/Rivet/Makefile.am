@@ -167,7 +167,7 @@ nobase_pkginclude_HEADERS += \
   Math/Vector3.hh \
   Math/VectorN.hh \
   Math/MatrixN.hh \
-  Math/MathHeader.hh \
+  Math/MathConstants.hh \
   Math/Vectors.hh \
   Math/LorentzTrans.hh \
   Math/Matrix3.hh \

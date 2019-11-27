@@ -1,7 +1,7 @@
 #ifndef RIVET_MATH_LORENTZTRANS
 #define RIVET_MATH_LORENTZTRANS
 
-#include "Rivet/Math/MathHeader.hh"
+#include "Rivet/Math/MathConstants.hh"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/MatrixN.hh"
 #include "Rivet/Math/Matrix3.hh"

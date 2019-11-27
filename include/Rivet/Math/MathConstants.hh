@@ -1,5 +1,5 @@
-#ifndef RIVET_Math_MathHeader
-#define RIVET_Math_MathHeader
+#ifndef RIVET_Math_MathConstants
+#define RIVET_Math_MathConstants
 
 #include "Rivet/Tools/Exceptions.hh"
 #include "Rivet/Tools/Utils.hh"

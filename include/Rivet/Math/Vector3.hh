@@ -1,7 +1,7 @@
 #ifndef RIVET_MATH_VECTOR3
 #define RIVET_MATH_VECTOR3
 
-#include "Rivet/Math/MathHeader.hh"
+#include "Rivet/Math/MathConstants.hh"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/VectorN.hh"
 

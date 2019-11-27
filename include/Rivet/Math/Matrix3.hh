@@ -1,7 +1,7 @@
 #ifndef RIVET_MATH_MATRIX3
 #define RIVET_MATH_MATRIX3
 
-#include "Rivet/Math/MathHeader.hh"
+#include "Rivet/Math/MathConstants.hh"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/MatrixN.hh"
 #include "Rivet/Math/Vector3.hh"
