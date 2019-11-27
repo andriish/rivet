@@ -218,9 +218,9 @@ if args.LIST_ANALYSES:
             msg.append('')
             if args.LOGLEVEL <= logging.INFO:
                 a = rivet.AnalysisLoader.getAnalysis(aname)
-                st = "" if a.status() == "VALIDATED" else ("[%s] " % a.status())
+                st = "" if "VALIDATED" in a.status() else "[UNVALIDATED]" #("[%s] " % a.status())
                 # detex will very likely introduce some non-ASCII chars from
-                # greek names in analysis titles.
+                # Greek names in analysis titles.
                 # The u"" prefix and explicit print encoding are necessary for
                 # py2 to handle this properly
                 msg[-1] = u"%s%s" % (st, a.summary())
