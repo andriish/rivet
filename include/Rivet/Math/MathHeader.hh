@@ -27,6 +27,18 @@ namespace Rivet {
   // /// A pre-defined value of \f$ \sqrt{2\pi} \f$.
   // static const double SQRT2PI = SQRT2 * SQRTPI;
 
+  /// @brief Pre-defined values of \f$ \infty \f$.
+  ///
+  /// See https://en.cppreference.com/w/cpp/types/numeric_limits/infinity
+  static const double INFF = HUGE_VALF;
+  static const double INF = HUGE_VAL;
+  static const double INFL = HUGE_VALL;
+
+  // Other useful predefined values already exist in C++, e.g.:
+  // DBL_MAX
+  // NAN
+
+
   /// Enum for signs of numbers.
   enum Sign { MINUS = -1, ZERO = 0, PLUS = 1 };
 
