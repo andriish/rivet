@@ -481,7 +481,7 @@ namespace Rivet {
 
   /// @brief Slice of the container elements cf. Python's [i:j] syntax
   ///
-  /// The element at the @j index is not included in the returned container.
+  /// The element at the @a j index is not included in the returned container.
   /// @a i and @a j can be negative, treated as backward offsets from the end of the container.
   template <typename CONTAINER>
   inline CONTAINER slice(const CONTAINER& c, int i, int j) {
@@ -505,7 +505,7 @@ namespace Rivet {
 
   /// @brief Head slice of the @a n first container elements
   ///
-  /// Negative @a n means to take the head excluding the @a{n}-element tail
+  /// Negative @a n means to take the head excluding the @a n -element tail
   template <typename CONTAINER>
   inline CONTAINER head(const CONTAINER& c, int n) {
     // if (n > c.size()) throw RangeError("Requested head longer than container");
@@ -516,7 +516,7 @@ namespace Rivet {
 
   /// @brief Tail slice of the @a n last container elements
   ///
-  /// Negative @a n means to take the tail from after the @a{n}th element
+  /// Negative @a n means to take the tail from after the @a n th element
   template <typename CONTAINER>
   inline CONTAINER tail(const CONTAINER& c, int n) {
     // if (n > c.size()) throw RangeError("Requested tail longer than container");

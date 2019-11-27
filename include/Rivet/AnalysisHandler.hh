@@ -253,7 +253,7 @@ namespace Rivet {
     void writeData(const std::string& filename) const;
 
     /// Tell Rivet to dump intermediate result to a file named @a
-    /// dumpfile every @a period'th event. If @period is not positive,
+    /// dumpfile every @a period'th event. If @a period is not positive,
     /// no dumping will be done.
     void dump(string dumpfile, int period) {
       _dumpPeriod = period;
