@@ -1,3 +1,7 @@
+2019-11-28  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Pass HepMC3 path info through to the rivet-config script.
+
 2019-11-27  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Refine testing and printing of UNVALIDATED status in analysis listing.
