@@ -20,14 +20,14 @@
 }*/
 
 namespace Rivet{
-  
+
   const Relatives Relatives::PARENTS     = HepMC::parents;
   const Relatives Relatives::CHILDREN    = HepMC::children;
   const Relatives Relatives::ANCESTORS   = HepMC::ancestors;
   const Relatives Relatives::DESCENDANTS = HepMC::descendants;
-  
+
   namespace HepMCUtils{
-    
+
     ConstGenParticlePtr getParticlePtr(const RivetHepMC::GenParticle & gp) {
       return &gp;
     }
@@ -38,7 +38,7 @@ namespace Rivet{
       }
       return result;
     }
-    
+
     std::vector<ConstGenParticlePtr> particles(const GenEvent *ge){
       std::vector<ConstGenParticlePtr> result;
       for(GenEvent::particle_const_iterator pi = ge->particles_begin(); pi != ge->particles_end(); ++pi){
@@ -46,7 +46,7 @@ namespace Rivet{
       }
       return result;
     }
-   
+
     std::vector<ConstGenVertexPtr> vertices(ConstGenEventPtr ge){
       std::vector<ConstGenVertexPtr> result;
       for(GenEvent::vertex_const_iterator vi = ge->vertices_begin(); vi != ge->vertices_end(); ++vi){
@@ -54,7 +54,7 @@ namespace Rivet{
       }
       return result;
     }
-    
+
     std::vector<ConstGenVertexPtr> vertices(const GenEvent *ge){
       std::vector<ConstGenVertexPtr> result;
       for(GenEvent::vertex_const_iterator vi = ge->vertices_begin(); vi != ge->vertices_end(); ++vi){
@@ -62,7 +62,7 @@ namespace Rivet{
       }
       return result;
     }
-    
+
     std::vector<ConstGenParticlePtr> particles(ConstGenVertexPtr gv, const Relatives &relo){
       std::vector<ConstGenParticlePtr> result;
       /// @todo A particle_const_iterator on GenVertex would be nice...
@@ -80,35 +80,35 @@ namespace Rivet{
 
     std::vector<ConstGenParticlePtr> particles(ConstGenParticlePtr gp, const Relatives &relo){
       ConstGenVertexPtr vtx;
-      
+
       switch(relo){
         case HepMC::parents:
-        
+
         case HepMC::ancestors:
           vtx = gp->production_vertex();
         break;
-        
+
         case HepMC::children:
-        
+
         case HepMC::descendants:
           vtx = gp->end_vertex();
         break;
-        
+
         default:
-        
+
         throw std::runtime_error("Not implemented!");
         break;
       }
-      
+
       return particles(vtx, relo);
     }
 
-    
-    
+
+
     int uniqueId(ConstGenParticlePtr gp){
       return gp->barcode();
     }
-    
+
     int particles_size(ConstGenEventPtr ge){
       return ge->particles_size();
     }
@@ -116,7 +116,7 @@ namespace Rivet{
     int particles_size(const GenEvent *ge){
       return ge->particles_size();
     }
-    
+
     std::pair<ConstGenParticlePtr,ConstGenParticlePtr> beams(const GenEvent *ge){
       return ge->beam_particles();
     }
@@ -137,7 +137,7 @@ namespace Rivet{
 
       return make_shared<HepMC::IO_GenEvent>(istr);
     }
-   
+
     bool readEvent(std::shared_ptr<HepMC::IO_GenEvent> io, std::shared_ptr<GenEvent> evt){
       if(io->rdstate() != 0) return false;
       if(!io->fill_next_event(evt.get())) return false;
@@ -158,7 +158,7 @@ namespace Rivet{
       /// Attempt an alternative solution based on stringstreams:
       std::stringstream stream;
       ge.weights().print(stream);
-      std::string pair; // placeholder for subtsring matches
+      std::string pair; // placeholder for substring matches
       while (std::getline(stream, pair, ' ')) {
         if ( pair.size() < 2 ) continue;
         pair.erase(pair.begin()); // removes the "(" on the LHS

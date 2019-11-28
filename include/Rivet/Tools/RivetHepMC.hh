@@ -3,8 +3,10 @@
 #define RIVET_RivetHepMC_HH
 
 #include "Rivet/Config/RivetConfig.hh"
-
+#include "Rivet/Tools/RivetSTL.hh"
+#include "Rivet/Tools/Exceptions.hh"
 #include <valarray>
+
 
 #ifdef RIVET_ENABLE_HEPMC_3
 
@@ -16,17 +18,17 @@
 #endif
 namespace Rivet {
   namespace RivetHepMC = HepMC3;
+
   using RivetHepMC::ConstGenParticlePtr;
   using RivetHepMC::ConstGenVertexPtr;
   using RivetHepMC::Relatives;
   using RivetHepMC::ConstGenHeavyIonPtr;
 
   using HepMC_IO_type = RivetHepMC::Reader;
-
   using PdfInfo = RivetHepMC::GenPdfInfo;
 }
 
-#else
+#else // HEPMC_2
 
 #include "HepMC/GenEvent.h"
 #include "HepMC/GenParticle.h"
@@ -35,8 +37,7 @@ namespace Rivet {
 #include "HepMC/Version.h"
 #include "HepMC/GenRanges.h"
 #include "HepMC/IO_GenEvent.h"
-
-namespace Rivet{
+namespace Rivet {
   namespace RivetHepMC = HepMC;
 
   // HepMC 2.07 provides its own #defines
@@ -66,23 +67,21 @@ namespace Rivet{
 
   using HepMC_IO_type = HepMC::IO_GenEvent;
   using PdfInfo = RivetHepMC::PdfInfo;
-
 }
 
 #endif
 
-#include "Rivet/Tools/RivetSTL.hh"
-#include "Rivet/Tools/Exceptions.hh"
+#endif
 
 
 namespace Rivet {
 
+
   using RivetHepMC::GenEvent;
   using ConstGenEventPtr = std::shared_ptr<const GenEvent>;
-  /// @todo Use mcutils?
 
-  namespace HepMCUtils{
-
+  /// @todo Use MCUtils?
+  namespace HepMCUtils {
     ConstGenParticlePtr              getParticlePtr(const RivetHepMC::GenParticle & gp);
     std::vector<ConstGenParticlePtr> particles(ConstGenEventPtr ge);
     std::vector<ConstGenParticlePtr> particles(const GenEvent *ge);
@@ -92,19 +91,17 @@ namespace Rivet {
     std::vector<ConstGenParticlePtr> particles(ConstGenParticlePtr gp, const Relatives &relo);
     int uniqueId(ConstGenParticlePtr gp);
     int particles_size(ConstGenEventPtr ge);
-    int particles_size(const GenEvent *ge);
-    std::pair<ConstGenParticlePtr,ConstGenParticlePtr> beams(const GenEvent *ge);
-  std::shared_ptr<HepMC_IO_type> makeReader(std::string filename,
-                                            std::shared_ptr<std::istream> &istrp,
-                                            std::string * errm = 0);
-    bool readEvent(std::shared_ptr<HepMC_IO_type> io,
-                   std::shared_ptr<GenEvent> evt);
-    void strip(GenEvent & ge,
-               const set<long> & stripid = {1, -1, 2, -2, 3,-3, 21});
-    vector<string> weightNames(const GenEvent & ge);
-    pair<double,double> crossSection(const GenEvent & ge);
-    std::valarray<double> weights(const GenEvent & ge);
+    int particles_size(const GenEvent* ge);
+    std::pair<ConstGenParticlePtr,ConstGenParticlePtr> beams(const GenEvent* ge);
+    std::shared_ptr<HepMC_IO_type> makeReader(std::string filename, std::shared_ptr<std::istream>& istrp, std::string* errm = 0);
+    bool readEvent(std::shared_ptr<HepMC_IO_type> io, std::shared_ptr<GenEvent> evt);
+    void strip(GenEvent & ge, const set<long>& stripid = {1, -1, 2, -2, 3,-3, 21});
+    vector<string> weightNames(const GenEvent& ge);
+    std::valarray<double> weights(const GenEvent& ge);
+    pair<double,double> crossSection(const GenEvent& ge);
   }
+
+
 }
 
 #endif

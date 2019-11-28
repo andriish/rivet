@@ -50,6 +50,7 @@ namespace Rivet {
     }
   }
 
+
   /// Check if any of the weightnames is not a number
   bool AnalysisHandler::haveNamedWeights() const {
     bool dec=false;
@@ -138,6 +139,7 @@ namespace Rivet {
     MSG_DEBUG("Analysis handler initialised");
   }
 
+
   void AnalysisHandler::setWeightNames(const GenEvent& ge) {
     if (!_skipWeights)  _weightNames = HepMCUtils::weightNames(ge);
     if ( _weightNames.empty() )  _weightNames.push_back("");
@@ -166,6 +168,7 @@ namespace Rivet {
       }
     }
   }
+
 
   void AnalysisHandler::analyze(const GenEvent& ge) {
     // Call init with event as template if not already initialised
@@ -257,6 +260,7 @@ namespace Rivet {
     analyze(*ge);
   }
 
+
   void AnalysisHandler::pushToPersistent() {
     if ( _subEventWeights.empty() ) return;
     MSG_TRACE("AnalysisHandler::analyze(): Pushing _eventCounter to persistent.");
@@ -272,6 +276,7 @@ namespace Rivet {
     }
     _subEventWeights.clear();
   }
+
 
   void AnalysisHandler::finalize() {
     if (!_initialised) return;
@@ -384,33 +389,6 @@ namespace Rivet {
     // }
     return *this;
   }
-
-
-  // void AnalysisHandler::addData(const std::vector<YODA::AnalysisObjectPtr>& aos) {
-  //   for (const YODA::AnalysisObjectPtr ao : aos) {
-  //     string path = ao->path();
-  //     if ( path.substr(0, 5) != "/RAW/" ) {
-  //       _orphanedPreloads.push_back(ao);
-  //       continue;
-  //     }
-
-  //     path = path.substr(4);
-  //     ao->setPath(path);
-  //     if (path.size() > 1) { // path > "/"
-  //       try {
-  //         const string ananame =  ::split(path, "/")[0];
-  //         AnaHandle a = analysis(ananame);
-  //         /// @todo FIXXXXX
-  //         //MultiweightAOPtr mao = ????; /// @todo generate right Multiweight object from ao
-  //         //a->addAnalysisObject(mao); /// @todo Need to statistically merge...
-  //       } catch (const Error& e) {
-  //         MSG_TRACE("Adding analysis object " << path <<
-  //                   " to the list of orphans.");
-  //         _orphanedPreloads.push_back(ao);
-  //       }
-  //     }
-  //   }
-  // }
 
 
   void AnalysisHandler::stripOptions(YODA::AnalysisObjectPtr ao,
@@ -575,6 +553,7 @@ namespace Rivet {
 
   }
 
+
   void AnalysisHandler::readData(const string& filename) {
     try {
       /// @todo Use new YODA SFINAE to fill the smart ptr vector directly
@@ -587,6 +566,7 @@ namespace Rivet {
     }
   }
 
+
   vector<MultiweightAOPtr> AnalysisHandler::getRivetAOs() const {
       vector<MultiweightAOPtr> rtn;
 
@@ -595,12 +575,11 @@ namespace Rivet {
               rtn.push_back(ao);
           }
       }
-
       rtn.push_back(_eventCounter);
       rtn.push_back(_xs);
-
       return rtn;
   }
+
 
   void AnalysisHandler::writeData(const string& filename) const {
 
@@ -701,12 +680,14 @@ namespace Rivet {
     return;
   }
 
+
   AnalysisHandler& AnalysisHandler::addAnalysis(Analysis* analysis) {
     analysis->_analysishandler = this;
     // _analyses.insert(AnaHandle(analysis));
     _analyses[analysis->name()] = AnaHandle(analysis);
     return *this;
   }
+
 
   PdgIdPair AnalysisHandler::beamIds() const {
     return Rivet::beamIds(beams());
@@ -717,9 +698,11 @@ namespace Rivet {
     return Rivet::sqrtS(beams());
   }
 
+
   void AnalysisHandler::setIgnoreBeams(bool ignore) {
     _ignoreBeams=ignore;
   }
+
 
   void AnalysisHandler::skipMultiWeights(bool ignore) {
     _skipWeights = ignore;
