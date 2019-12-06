@@ -21,6 +21,15 @@ def stripWeightName(path):
     import re
     return re.sub(r'\[.*\]', "", path)
 
+def extractWeightName(path):
+    import re
+    re_weight = re.compile(r".*\[(.*?)\].*")
+    m = re_weight.match(path)
+    if not m:
+        return ""
+    else:
+        return m.group(1)
+
 def extractOptionString(path):
     import re
     re_opts = re.compile(r"^.*(:\w+=[^:/]+)+")
