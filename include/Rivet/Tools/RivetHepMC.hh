@@ -13,6 +13,9 @@
 #include "HepMC3/HepMC3.h"
 #include "HepMC3/Relatives.h"
 #include "HepMC3/Reader.h"
+#ifndef HEPMC_HAS_CROSS_SECTION
+#define HEPMC_HAS_CROSS_SECTION
+#endif
 namespace Rivet {
   namespace RivetHepMC = HepMC3;
   using RivetHepMC::ConstGenParticlePtr;
