@@ -359,17 +359,28 @@ namespace Rivet {
     return rtn;
   }
 
+
+  /// @brief Generic sum function, adding @c x for all @c x in container @a c
+  ///
+  /// @note Default-constructs the return type -- not always possible! Supply an explicit start value if necessary.
+  template <typename CONTAINER>
+  inline typename CONTAINER::value_type sum(const CONTAINER& c) {
+    typename CONTAINER::value_type rtn; //< default construct return type
+    for (const auto& x : c) rtn += x;
+    return rtn;
+  }
+
   /// Generic sum function, adding @c x for all @c x in container @a c, starting with @a start
-  /// @todo Use CONTAINER::value_type? Or more flexible not to?
+  ///
+  /// @note It's more more flexible here to not use CONTAINER::value_type, allowing implicit casting to T.
   template <typename CONTAINER, typename T>
-  inline T sum(const CONTAINER& c, const T& start=T()) {
+  inline T sum(const CONTAINER& c, const T& start) {
     T rtn = start;
     for (const auto& x : c) rtn += x;
     return rtn;
   }
 
   /// Generic sum function, adding @a fn(@c x) for all @c x in container @a c, starting with @a start
-  /// @todo Use const std::function<T(typename CONTAINER::value_type)>
   template <typename CONTAINER, typename FN, typename T>
   inline T sum(const CONTAINER& c, const FN& f, const T& start=T()) {
     T rtn = start;
@@ -378,7 +389,8 @@ namespace Rivet {
   }
 
   /// In-place generic sum function, adding @c x on to container @a out for all @c x in container @a c
-  /// @todo Use CONTAINER::value_type? Or more flexible not to?
+  ///
+  /// @note It's more more flexible here to not use CONTAINER::value_type, allowing implicit casting to T.
   template <typename CONTAINER, typename T>
   inline T& isum(const CONTAINER& c, T& out) {
     for (const auto& x : c) out += x;
@@ -386,7 +398,8 @@ namespace Rivet {
   }
 
   /// In-place generic sum function, adding @a fn(@c x) on to container @a out for all @c x in container @a c
-  /// @todo Use const std::function<T(typename CONTAINER::value_type)>
+  ///
+  /// @note It's more more flexible here to not use CONTAINER::value_type, allowing implicit casting to T.
   template <typename CONTAINER, typename FN, typename T>
   inline T& isum(const CONTAINER& c, const FN& f, T& out) {
     for (const auto& x : c) out += f(x);
