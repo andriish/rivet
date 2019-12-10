@@ -414,6 +414,7 @@ namespace Rivet {
   }
 
 
+
   /// @brief Generic sum function, adding @c x for all @c x in container @a c
   ///
   /// @note Default-constructs the return type -- not always possible! Supply an explicit start value if necessary.
