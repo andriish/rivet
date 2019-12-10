@@ -29,6 +29,8 @@
 
 	* Add default ANY decay mode to TauFinder.
 
+	* Convert various template functor arguments to std::function.
+
 2019-11-28  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Pass HepMC3 path info through to the rivet-config script.
