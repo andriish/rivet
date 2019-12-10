@@ -203,25 +203,23 @@ namespace Rivet {
   //////////////////////
 
 
-  // DISABLED UNTIL VANILLA CC7 COMPATIBILITY NOT NEEDED
+  /// Jets copy constructor from vector<Jet>
+  Jets::Jets(const std::vector<Jet>& vjs) : base(vjs) {}
 
-  // /// Jets copy constructor from vector<Jet>
-  // Jets::Jets(const std::vector<Jet>& vjs) : base(vjs) {}
+  /// Jets -> FourMomenta cast/conversion operator
+  FourMomenta Jets::moms() const {
+    // FourMomenta rtn(this->begin(), this->end());
+    FourMomenta rtn; rtn.reserve(this->size());
+    for (size_t i = 0; i < this->size(); ++i) rtn.push_back((*this)[i]);
+    return rtn;
+  }
 
-  // /// Jets -> FourMomenta cast/conversion operator
-  // Jets::operator FourMomenta () const {
-  //   // FourMomenta rtn(this->begin(), this->end());
-  //   FourMomenta rtn; rtn.reserve(this->size());
-  //   for (size_t i = 0; i < this->size(); ++i) rtn.push_back((*this)[i]);
-  //   return rtn;
-  // }
-
-  // /// Jets concatenation operator
-  // Jets operator + (const Jets& a, const Jets& b) {
-  //   Jets rtn(a);
-  //   rtn += b;
-  //   return rtn;
-  // }
+  /// Jets concatenation operator
+  Jets operator + (const Jets& a, const Jets& b) {
+    Jets rtn(a);
+    rtn += b;
+    return rtn;
+  }
 
 
   //////////////////////
