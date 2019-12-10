@@ -14,19 +14,20 @@ namespace Rivet {
   // Forward declaration
   class Particle;
 
-  // DISABLED UNTIL VANILLA CC7 COMPATIBILITY NOT NEEDED
-  // /// Typedefs for a vector of Particle objects.
-  // class Particles : public std::vector<Particle> {
-  // public:
-  //   using base = std::vector<Particle>; //< using-declarations don't like template syntax
-  //   using base::base; //< import base-class constructors
-  //   /// Copy constructor from vector<Particle>
-  //   Particles(const std::vector<Particle>& vps);
-  //   operator FourMomenta () const; //< implementation in Particle.cc
-  //   /// @todo Add conversion to PseudoJets?
-  // };
-  // Particles operator + (const Particles& a, const Particles& b);
-  typedef std::vector<Particle> Particles;
+  /// Typedefs for a vector of Particle objects.
+  // typedef std::vector<Particle> Particles;
+  class Particles : public std::vector<Particle> {
+  public:
+    using base = std::vector<Particle>; //< using-declarations don't like template syntax
+    using base::base; //< import base-class constructors
+    /// Copy constructor from vector<Particle>
+    Particles(const std::vector<Particle>& vps);
+    FourMomenta moms() const; //< implementation in Particle.cc
+    inline operator FourMomenta () const { return moms(); }
+    /// @todo Add conversion to PseudoJets?
+  };
+
+  Particles operator + (const Particles& a, const Particles& b);
 
   /// Typedef for a pair of Particle objects.
   typedef std::pair<Particle, Particle> ParticlePair;

@@ -15,20 +15,22 @@ namespace Rivet {
   // Forward declaration
   class Jet;
 
-  // DISABLED UNTIL VANILLA CC7 COMPATIBILITY NOT NEEDED
-  // /// A collection of Jet objects.
-  // class Jets : public std::vector<Jet> {
-  // public:
-  //   using base = std::vector<Jet>; //< using-declarations don't like template syntax
-  //   using base::base; //< import base-class constructors
-  //   /// Copy constructor from vector<Jet>
-  //   Jets(const std::vector<Jet>& vjs);
-  //   operator FourMomenta () const; //< implementation in Jet.cc
-  //   /// @todo Add conversion to PseudoJets
-  // };
-  // Jets operator + (const Jets& a, const Jets& b);
-  // //@}
-  typedef std::vector<Jet> Jets;
+  /// A collection of Jet objects.
+  // typedef std::vector<Jet> Jets;
+  class Jets : public std::vector<Jet> {
+  public:
+    using base = std::vector<Jet>; //< using-declarations don't like template syntax
+    using base::base; //< import base-class constructors
+    /// Copy constructor from vector<Jet>
+    Jets(const std::vector<Jet>& vjs);
+    FourMomenta moms() const; //< implementation in Jet.cc
+    inline operator FourMomenta () const { return moms(); }
+    /// @todo Add conversion to PseudoJets
+  };
+
+  Jets operator + (const Jets& a, const Jets& b);
+
+  //@}
 
 
   /// @name Jet function/functor declarations

@@ -288,11 +288,19 @@ namespace Rivet {
     return rtn;
   }
 
+  // /// Return number of elements in the container @a c for which @c f(x) is true.
+  // template <typename CONTAINER>
+  // inline unsigned int count(const CONTAINER& c, const std::function<bool(typename CONTAINER::value_type)>& f) {
+  //   return std::count_if(std::begin(c), std::end(c), f);
+  // }
+
   /// Return number of elements in the container @a c for which @c f(x) is true.
-  template <typename CONTAINER>
-  inline unsigned int count(const CONTAINER& c, const std::function<bool(typename CONTAINER::value_type)>& f) {
+  template <typename CONTAINER, typename FN>
+  inline unsigned int count(const CONTAINER& c, const FN& f) {
     return std::count_if(std::begin(c), std::end(c), f);
   }
+
+
 
   /// Return true if x is true for any x in container c, otherwise false.
   template <typename CONTAINER>
@@ -302,11 +310,19 @@ namespace Rivet {
     return false;
   }
 
+  // /// Return true if f(x) is true for any x in container c, otherwise false.
+  // template <typename CONTAINER>
+  // inline bool any(const CONTAINER& c, const std::function<bool(typename CONTAINER::value_type)>& f) {
+  //   return std::any_of(std::begin(c), std::end(c), f);
+  // }
+
   /// Return true if f(x) is true for any x in container c, otherwise false.
-  template <typename CONTAINER>
-  inline bool any(const CONTAINER& c, const std::function<bool(typename CONTAINER::value_type)>& f) {
+  template <typename CONTAINER, typename FN>
+  inline bool any(const CONTAINER& c, const FN& f) {
     return std::any_of(std::begin(c), std::end(c), f);
   }
+
+
 
   /// Return true if @a x is true for all @c x in container @a c, otherwise false.
   template <typename CONTAINER>
@@ -316,11 +332,19 @@ namespace Rivet {
     return true;
   }
 
+  // /// Return true if @a f(x) is true for all @c x in container @a c, otherwise false.
+  // template <typename CONTAINER>
+  // inline bool all(const CONTAINER& c, const std::function<bool(typename CONTAINER::value_type)>& f) {
+  //   return std::all_of(std::begin(c), std::end(c), f);
+  // }
+
   /// Return true if @a f(x) is true for all @c x in container @a c, otherwise false.
-  template <typename CONTAINER>
-  inline bool all(const CONTAINER& c, const std::function<bool(typename CONTAINER::value_type)>& f) {
+  template <typename CONTAINER, typename FN>
+  inline bool all(const CONTAINER& c, const FN& f) {
     return std::all_of(std::begin(c), std::end(c), f);
   }
+
+
 
   /// Return true if @a x is false for all @c x in container @a c, otherwise false.
   template <typename CONTAINER>
@@ -330,34 +354,62 @@ namespace Rivet {
     return true;
   }
 
+  // /// Return true if @a f(x) is false for all @c x in container @a c, otherwise false.
+  // template <typename C>
+  // inline bool none(const C& c, const std::function<bool(typename C::value_type)>& f) {
+  //   return std::none_of(std::begin(c), std::end(c), f);
+  // }
+
   /// Return true if @a f(x) is false for all @c x in container @a c, otherwise false.
-  template <typename C>
-  inline bool none(const C& c, const std::function<bool(typename C::value_type)>& f) {
+  template <typename CONTAINER, typename FN>
+  inline bool none(const CONTAINER& c, const FN& f) {
     return std::none_of(std::begin(c), std::end(c), f);
   }
 
+
+
+  // /// A single-container-arg version of std::transform, aka @c map
+  // template <typename CONTAINER1, typename CONTAINER2>
+  // inline const CONTAINER2& transform(const CONTAINER1& in, CONTAINER2& out,
+  //                            const std::function<typename CONTAINER2::value_type(typename CONTAINER1::value_type)>& f) {
+  //   out.clear(); out.resize(in.size());
+  //   std::transform(in.begin(), in.end(), out.begin(), f);
+  //   return out;
+  // }
+
   /// A single-container-arg version of std::transform, aka @c map
-  template <typename C1, typename C2>
-  inline const C2& transform(const C1& in, C2& out, const std::function<typename C2::value_type(typename C1::value_type)>& f) {
+  template <typename CONTAINER1, typename CONTAINER2, typename FN>
+  inline const CONTAINER2& transform(const CONTAINER1& in, CONTAINER2& out, const FN& f) {
     out.clear(); out.resize(in.size());
     std::transform(in.begin(), in.end(), out.begin(), f);
     return out;
   }
 
   /// A single-container-arg, return-value version of std::transform, aka @c map
-  template <typename C1, typename T2>
-  inline std::vector<T2> transform(const C1& in, const std::function<T2(typename C1::value_type)>& f) {
+  /// @todo Make the function template polymorphic... or specific to ParticleBase
+  template <typename CONTAINER1, typename T2>
+  inline std::vector<T2> transform(const CONTAINER1& in, const std::function<T2(typename CONTAINER1::value_type)>& f) {
     std::vector<T2> out(in.size());
     transform(in, out, f);
     return out;
   }
 
+
+
+  // /// A single-container-arg version of std::accumulate, aka @c reduce
+  // template <typename CONTAINER1, typename T>
+  // inline T accumulate(const CONTAINER1& in, const T& init, const std::function<T(typename CONTAINER1::value_type)>& f) {
+  //   const T rtn = std::accumulate(in.begin(), in.end(), init, f);
+  //   return rtn;
+  // }
+
   /// A single-container-arg version of std::accumulate, aka @c reduce
-  template <typename C1, typename T, typename FN>
-  inline T accumulate(const C1& in, const T& init, const std::function<T(typename C1::value_type)>& f) {
+  template <typename CONTAINER1, typename T, typename FN>
+  inline T accumulate(const CONTAINER1& in, const T& init, const FN& f) {
     const T rtn = std::accumulate(in.begin(), in.end(), init, f);
     return rtn;
   }
+
 
 
   /// @brief Generic sum function, adding @c x for all @c x in container @a c
@@ -388,6 +440,8 @@ namespace Rivet {
     return rtn;
   }
 
+
+
   /// In-place generic sum function, adding @c x on to container @a out for all @c x in container @a c
   ///
   /// @note It's more more flexible here to not use CONTAINER::value_type, allowing implicit casting to T.
@@ -407,8 +461,9 @@ namespace Rivet {
   }
 
 
+
   /// Filter a collection in-place, removing the subset that passes the supplied function
-  /// @todo Use const std::function<bool(typename CONTAINER::value_type)>
+  /// @todo Use const std::function<bool(typename CONTAINER::value_type)>... but need polymorphism for ParticleBase
   template <typename CONTAINER, typename FN>
   inline CONTAINER& ifilter_discard(CONTAINER& c, const FN& f) {
     const auto newend = std::remove_if(std::begin(c), std::end(c), f);
@@ -421,8 +476,9 @@ namespace Rivet {
     return ifilter_discard(c, f);
   }
 
+
   /// Filter a collection by copy, removing the subset that passes the supplied function
-  /// @todo Use const std::function<bool(typename CONTAINER::value_type)>
+  /// @todo Use const std::function<bool(typename CONTAINER::value_type)>... but need polymorphism for ParticleBase
   template <typename CONTAINER, typename FN>
   inline CONTAINER filter_discard(const CONTAINER& c, const FN& f) {
     CONTAINER rtn = c;
@@ -436,7 +492,7 @@ namespace Rivet {
 
   /// Filter a collection by copy into a supplied container, removing the subset that passes the supplied function
   /// @note New container will be replaced, not appended to
-  /// @todo Use const std::function<bool(typename CONTAINER::value_type)>
+  /// @todo Use const std::function<bool(typename CONTAINER::value_type)>... but need polymorphism for ParticleBase
   template <typename CONTAINER, typename FN>
   inline CONTAINER& filter_discard(const CONTAINER& c, const FN& f, CONTAINER& out) {
     out = filter_discard(c, f);
@@ -449,8 +505,9 @@ namespace Rivet {
   }
 
 
+
   /// Filter a collection in-place, keeping the subset that passes the supplied function
-  /// @todo Use const std::function<bool(typename CONTAINER::value_type)>
+  /// @todo Use const std::function<bool(typename CONTAINER::value_type)>... but need polymorphism for ParticleBase
   template <typename CONTAINER, typename FN>
   inline CONTAINER& ifilter_select(CONTAINER& c, const FN& f) {
     //using value_type = typename std::remove_reference<decltype(*std::begin(std::declval<typename std::add_lvalue_reference<CONTAINER>::type>()))>::type;
@@ -464,7 +521,7 @@ namespace Rivet {
   }
 
   /// Filter a collection by copy, keeping the subset that passes the supplied function
-  /// @todo Use const std::function<bool(typename CONTAINER::value_type)>
+  /// @todo Use const std::function<bool(typename CONTAINER::value_type)>... but need polymorphism for ParticleBase
   template <typename CONTAINER, typename FN>
   inline CONTAINER filter_select(const CONTAINER& c, const FN& f) {
     CONTAINER rtn = c;
@@ -472,13 +529,13 @@ namespace Rivet {
   }
   /// Alias
   template <typename CONTAINER, typename FN>
-  inline CONTAINER& select(CONTAINER& c, const FN& f) {
+  inline CONTAINER select(const CONTAINER& c, const FN& f) {
     return filter_select(c, f);
   }
 
   /// Filter a collection by copy into a supplied container, keeping the subset that passes the supplied function
   /// @note New container will be replaced, not appended to
-  /// @todo Use const std::function<bool(typename CONTAINER::value_type)>
+  /// @todo Use const std::function<bool(typename CONTAINER::value_type)>... but need polymorphism for ParticleBase
   template <typename CONTAINER, typename FN>
   inline CONTAINER& filter_select(const CONTAINER& c, const FN& f, CONTAINER& out) {
     out = filter_select(c, f);
@@ -489,6 +546,7 @@ namespace Rivet {
   inline CONTAINER& select(CONTAINER& c, const FN& f, CONTAINER& out) {
     return filter_select(c, f, out);
   }
+
 
 
   /// @brief Slice of the container elements cf. Python's [i:j] syntax
