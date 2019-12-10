@@ -1,5 +1,7 @@
 2019-12-10  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add default ANY decay mode to TauFinder.
+
 	* Convert various template functor arguments to std::function.
 
 2019-11-28  Andy Buckley  <andy.buckley@cern.ch>
