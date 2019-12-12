@@ -17,7 +17,7 @@ for i in `seq 0 $N`; do
     echo "Writing analysis list to $tagfile" 1>&2
 
     > $tagfile
-    git ls-tree -r --name-only $tag src/Analysis/ src/Analyses/ analyses/ | grep "\.cc" | \
+    git ls-tree --full-tree -r --name-only $tag src/Analysis/ src/Analyses/ analyses/ | grep "\.cc" | \
         while read i; do basename $i .cc >> $tagfile; done
     sort $tagfile > $$ && mv $$ $tagfile
 done
