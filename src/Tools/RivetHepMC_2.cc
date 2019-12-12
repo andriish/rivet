@@ -169,13 +169,7 @@ namespace Rivet{
         while (std::getline(spair, pair, ',')) {
           temp.push_back(std::move(pair));
         }
-        if (temp.size() == 2) {
-          // store the default weight based on weight names
-          if (temp[0] == "Weight" || temp[0] == "0" || temp[0] == "Default") {
-            ret.push_back("");
-          } 
-          else  ret.push_back(temp[0]);
-        }
+        if (temp.size() == 2)  ret.push_back(temp[0]);
       }
       /// Possible future solution based on regex
       /*std::ostringstream stream;

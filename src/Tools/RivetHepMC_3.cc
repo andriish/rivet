@@ -193,11 +193,7 @@ namespace Rivet{
       } catch (HepMC3::WeightError & w) {
         return vector<string>();
       }
-      for ( string & w : ret )
-        if ( w == "Weight" || w == "0" || w == "Default" )
-          w = "";
-      return ret;
-       
+      return ret; 
     }
 
     std::valarray<double> weights(const GenEvent & ge) {

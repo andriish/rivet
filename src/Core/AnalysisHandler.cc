@@ -140,8 +140,30 @@ namespace Rivet {
   void AnalysisHandler::setWeightNames(const GenEvent& ge) {
     if (!_skipWeights)  _weightNames = HepMCUtils::weightNames(ge);
     if ( _weightNames.empty() )  _weightNames.push_back("");
-    for ( int i = 0, N = _weightNames.size(); i < N; ++i )
-      if ( _weightNames[i] == "" ) _defaultWeightIdx = i;
+    else {
+      size_t nDefaults = 0;
+      for (string & w : _weightNames) {
+        if (w == "")  ++nDefaults;
+      }
+      if (!nDefaults) {
+        for (string & w : _weightNames) {
+          if ( w == "Weight" || w == "0" || w == "Default" ) {
+            if (!nDefaults)  w = "";
+            ++nDefaults;
+          }
+        }
+      }
+      for ( int i = 0, N = _weightNames.size(); i < N; ++i ) {
+        if ( _weightNames[i] == "" ) _defaultWeightIdx = i;
+      }
+      if (nDefaults > 1) {
+        MSG_WARNING("Found more than " << nDefaults << " default weight candidates. Will use: " << _weightNames[_defaultWeightIdx]);
+      }
+      else if (nDefaults < 1) {
+        cerr << "Could not identify nominal weight. Please check your HEPMC file." << endl;
+        exit(1);
+      }
+    }
   }
 
   void AnalysisHandler::analyze(const GenEvent& ge) {
