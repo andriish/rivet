@@ -4,7 +4,7 @@
 
 ## Get list of all tags excluding tip
 declare -a tags
-for t in $(hg tags | egrep -v "\<tip\>" | cut -d" " -f1 | sort -r); do tags+=($t); done
+for t in $(git tag | sort -r); do tags+=($t); done
 let numtags=${#tags[@]}
 
 ## Write out ana files per tag
@@ -17,7 +17,7 @@ for i in `seq 0 $N`; do
     echo "Writing analysis list to $tagfile" 1>&2
 
     > $tagfile
-    hg manifest --rev $tag | egrep "^src/Analyses/.*\.cc|^analyses/plugin.*/.*\.cc" | \
+    git ls-tree -r --name-only $tag src/Analysis/ src/Analyses/ analyses/ | grep "\.cc" | \
         while read i; do basename $i .cc >> $tagfile; done
     sort $tagfile > $$ && mv $$ $tagfile
 done
