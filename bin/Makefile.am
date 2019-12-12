@@ -8,7 +8,7 @@ RIVETPROGS = \
 	  rivet-findid rivet-which \
     rivet-diffhepdata \
     rivet-diffhepdata-all \
-    rivet-cmphistos rivet-mkhtml rivet-merge rivet-mkvaldir
+    rivet-cmphistos rivet-plot rivet-mkhtml rivet-merge rivet-mkvaldir
 if ENABLE_PYEXT
 dist_bin_SCRIPTS += $(RIVETPROGS)
 else

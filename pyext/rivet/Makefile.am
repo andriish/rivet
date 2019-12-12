@@ -3,6 +3,7 @@ EXTRA_DIST = \
     hepdatautils.py \
     spiresbib.py util.py \
     plotinfo.py aopaths.py \
+    rivetcmp.py \
     core.pyx rivet.pxd core.cpp \
 	hepdatapatches
 
