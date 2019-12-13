@@ -1,4 +1,4 @@
-#include "Rivet/Analysis.hh"
+f#include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 
@@ -89,24 +89,24 @@ namespace Rivet {
           ProfileBin1D bdiff2 = central_2GeV->bin(i) - forward_2GeV->bin(i);
           ProfileBin1D bdiff5 = central_5GeV->bin(i) - forward_5GeV->bin(i);
 
-          double ydiff  = central_500MeV->bin(i).numEntries()? central_500MeV->bin(i).mean() : 0.0;
-          double ydiff2 = central_2GeV->bin(i).numEntries()?   central_2GeV->bin(i).mean()   : 0.0;
-          double ydiff5 = central_5GeV->bin(i).numEntries()?   central_5GeV->bin(i).mean()   : 0.0;
-          ydiff  -= forward_500MeV->bin(i).numEntries()? forward_500MeV->bin(i).mean() : 0.0;
-          ydiff2 -= forward_2GeV->bin(i).numEntries()?   forward_2GeV->bin(i).mean()   : 0.0;
-          ydiff5 -= forward_5GeV->bin(i).numEntries()?   forward_5GeV->bin(i).mean()   : 0.0;
+          double ydiff  = central_500MeV->bin(i).effNumEntries()? central_500MeV->bin(i).mean() : 0.0;
+          double ydiff2 = central_2GeV->bin(i).effNumEntries()?   central_2GeV->bin(i).mean()   : 0.0;
+          double ydiff5 = central_5GeV->bin(i).effNumEntries()?   central_5GeV->bin(i).mean()   : 0.0;
+          ydiff  -= forward_500MeV->bin(i).effNumEntries()? forward_500MeV->bin(i).mean() : 0.0;
+          ydiff2 -= forward_2GeV->bin(i).effNumEntries()?   forward_2GeV->bin(i).mean()   : 0.0;
+          ydiff5 -= forward_5GeV->bin(i).effNumEntries()?   forward_5GeV->bin(i).mean()   : 0.0;
 
-          double yerr  = bsum.numEntries()  > 1.0 ?  bsum.stdErr() : 0.0;
-          double yerr2 = bsum2.numEntries() > 1.0 ? bsum2.stdErr() : 0.0;
-          double yerr5 = bsum5.numEntries() > 1.0 ? bsum5.stdErr() : 0.0;
+          double yerr  = bsum.effNumEntries()  > 1.0 ?  bsum.stdErr() : 0.0;
+          double yerr2 = bsum2.effNumEntries() > 1.0 ? bsum2.stdErr() : 0.0;
+          double yerr5 = bsum5.effNumEntries() > 1.0 ? bsum5.stdErr() : 0.0;
 
 	  diff_500MeV->point(i).setY(ydiff, yerr);
           diff_2GeV->point(i).setY(ydiff2, yerr2);
           diff_5GeV->point(i).setY(ydiff5, yerr5);
 
-          sum_500MeV->point(i).setY(bsum.numEntries()? bsum.mean() : 0.0, yerr);
-          sum_2GeV->point(i).setY(bsum2.numEntries()? bsum2.mean() : 0.0, yerr2);
-          sum_5GeV->point(i).setY(bsum5.numEntries()? bsum5.mean() : 0.0, yerr5);
+          sum_500MeV->point(i).setY(bsum.effNumEntries()? bsum.mean() : 0.0, yerr);
+          sum_2GeV->point(i).setY(bsum2.effNumEntries()? bsum2.mean() : 0.0, yerr2);
+          sum_5GeV->point(i).setY(bsum5.effNumEntries()? bsum5.mean() : 0.0, yerr5);
         }
       }
 
