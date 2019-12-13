@@ -81,11 +81,11 @@ namespace Rivet {
         if (p.charge() > 0) {
           _h_cpos_xF->fill( xF );
           _h_cpos_pT2->fill( p.pT2() );
-          _h_cpos_eta->fill( p.eta() );
+          _h_cpos_eta->fill( pcm.eta() );
         } else if (p.pid() == PID::PIMINUS) {
           _h_cneg_xF->fill( xF );
           _h_cneg_pT2->fill( p.pT2() );
-          _h_cneg_eta->fill( p.eta() );
+          _h_cneg_eta->fill( pcm.eta() );
         }
       }
     }
