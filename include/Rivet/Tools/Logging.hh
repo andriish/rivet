@@ -6,6 +6,7 @@
 namespace Rivet {
 
 
+  /// @brief Logging system for controlled & formatted writing to stdout
   class Log {
   public:
 

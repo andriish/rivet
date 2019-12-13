@@ -15,6 +15,8 @@ namespace Rivet {
   typedef std::shared_ptr<Analysis> AnaHandle;
 
 
+  /// @brief The key class for coordination of Analysis objects and the event loop
+  ///
   /// A class which handles a number of analysis objects to be applied to
   /// generated events. An {@link Analysis}' AnalysisHandler is also responsible
   /// for handling the final writing-out of histograms.

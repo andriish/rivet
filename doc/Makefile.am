@@ -129,6 +129,18 @@ bend.eps cone.eps thinker.eps slip.eps \
 h-physrev3.bst JHEP3.cls JHEP.bst
 
 
+## Doxygen
+if WITH_DOXYGEN
+dox:
+	@echo "Running Doxygen..."
+	@$(DOXYGEN) $(builddir)/Doxyfile || true
+	@cp dynsections.js doxy/html/
+install-dox:
+	$(install_sh_DATA) doxy/html/* $(DESTDIR)$(pkgdatadir)/doc/html
+endif
+
+
+
 all-local:
 	@echo "No default target in doc: run 'make doc' to build documentation"
 	@true
@@ -137,9 +149,13 @@ install-data-local:
 	@echo "No local docs installation: copy the documentation to wherever you require"
 	@true
 
-
 mostlyclean-local:
 	rm -rf *.aux *.log *.toc
 
 clean-local:
 	rm -rf rivet-coverage-*.html $(DOCS) $(DOCDIRS)
+	rm -rf $(builddir)/doxy
+
+uninstall-local:
+	@rm -rf $(DESTDIR)$(pkgdatadir)/doc; \
+	test ! -d $(DESTDIR)$(pkgdatadir) || rmdir $(DESTDIR)$(pkgdatadir) || true

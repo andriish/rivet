@@ -9,8 +9,11 @@
 namespace Rivet {
 
 
-  /// @name Electron efficiency and smearing functions
-  //@{
+  /// @defgroup smearing Detector smearing & efficiency functions
+  /// @{
+
+  /// @defgroup smearing_elec Electron efficiency and smearing functions
+  /// @{
 
   /// ATLAS Run 1 electron reconstruction efficiency
   /// @todo Include reco eff (but no e/y discrimination) in forward region
@@ -275,12 +278,12 @@ namespace Rivet {
     return ELECTRON_SMEAR_CMS_RUN1(e);
   }
 
-  //@}
+  /// @}
 
 
 
-  /// @name Photon efficiency and smearing functions
-  //@{
+  /// @defgroup smearing_photon Photon efficiency and smearing functions
+  /// @{
 
   /// @brief ATLAS Run 2 photon reco efficiency
   ///
@@ -364,12 +367,12 @@ namespace Rivet {
   inline Particle PHOTON_SMEAR_CMS_RUN1(const Particle& y) { return y; }
   inline Particle PHOTON_SMEAR_CMS_RUN2(const Particle& y) { return y; }
 
-  //@}
+  /// @}
 
 
 
-  /// @name Muon efficiency and smearing functions
-  //@{
+  /// @defgroup smearing_muon Muon efficiency and smearing functions
+  /// @{
 
   /// ATLAS Run 1 muon reco efficiency
   inline double MUON_EFF_ATLAS_RUN1(const Particle& m) {
@@ -380,6 +383,7 @@ namespace Rivet {
   }
 
   /// ATLAS Run 2 muon reco efficiency
+  ///
   /// From https://arxiv.org/pdf/1603.05598.pdf , Fig3 top
   inline double MUON_RECOEFF_ATLAS_RUN2(const Particle& m) {
     if (m.abspid() != PID::MUON) return 0;
@@ -489,12 +493,12 @@ namespace Rivet {
     return MUON_SMEAR_CMS_RUN1(m);
   }
 
-  //@}
+  /// @}
 
 
 
-  /// @name Tau efficiency and smearing functions
-  //@{
+  /// @defgroup smearing_tau Tau efficiency and smearing functions
+  /// @{
 
   /// @brief ATLAS Run 1 8 TeV tau efficiencies (medium working point)
   ///
@@ -653,12 +657,12 @@ namespace Rivet {
     return TAU_SMEAR_CMS_RUN1(t);
   }
 
-  //@}
+  /// @}
 
 
 
-  /// @name Jet efficiency and smearing functions
-  //@{
+  /// @defgroup smearing_jet Jet efficiency and smearing functions
+  /// @{
 
   /// Return the ATLAS Run 1 jet flavour tagging efficiency for the given Jet
   inline double JET_BTAG_ATLAS_RUN1(const Jet& j) {
@@ -669,6 +673,7 @@ namespace Rivet {
     if (j.cTagged(ftagsel)) return 0.20*tanh(0.020*j.pT()/GeV)*( 1/(1+0.0034*j.pT()/GeV));
     return 0.002 + 7.3e-6*j.pT()/GeV;
   }
+
   /// Return the ATLAS Run 2 MC2c20 jet flavour tagging efficiency for the given Jet
   inline double JET_BTAG_ATLAS_RUN2_MV2C20(const Jet& j) {
     if (j.abseta() > 2.5) return 0;
@@ -676,6 +681,7 @@ namespace Rivet {
     if (j.cTagged(Cuts::pT > 5*GeV)) return 1/4.5;
     return 1/140.;
   }
+
   /// Return the ATLAS Run 2 MC2c10 jet flavour tagging efficiency for the given Jet
   inline double JET_BTAG_ATLAS_RUN2_MV2C10(const Jet& j) {
     if (j.abseta() > 2.5) return 0;
@@ -725,11 +731,11 @@ namespace Rivet {
     return JET_SMEAR_CMS_RUN1(j);
   }
 
-  //@}
+  /// @}
 
 
-  /// @name ETmiss smearing functions
-  //@{
+  /// @defgroup smearing_elec Missing ET smearing functions
+  /// @{
 
   inline Vector3 MET_SMEAR_IDENTITY(const Vector3& met, double) { return met; }
 
@@ -792,11 +798,11 @@ namespace Rivet {
     return smeared_met;
   }
 
-  //@}
+  /// @}
 
 
-  /// @name Tracking efficiency and smearing functions
-  //@{
+  /// @defgroup smearing_trk Tracking efficiency and smearing functions
+  /// @{
 
   /// ATLAS Run 1 tracking efficiency
   inline double TRK_EFF_ATLAS_RUN1(const Particle& p) {
@@ -873,7 +879,9 @@ namespace Rivet {
     return TRK_EFF_CMS_RUN1(p);
   }
 
-  //@}
+  /// @}
+
+  /// @}
 
 
 }

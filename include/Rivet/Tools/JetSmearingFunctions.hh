@@ -10,13 +10,16 @@
 namespace Rivet {
 
 
-  /// @name Jet filtering, efficiency and smearing utils
-  //@{
+  /// @ingroup smearing
+  /// @{
 
-  /// @name Typedef for Jet smearing functions/functors
+  /// @defgroup smearing_particle Generic jet filtering, efficiency and smearing utils
+  /// @{
+
+  /// Typedef for Jet smearing functions/functors
   typedef function<Jet(const Jet&)> JetSmearFn;
 
-  /// @name Typedef for Jet efficiency functions/functors
+  /// Typedef for Jet efficiency functions/functors
   typedef function<double(const Jet&)> JetEffFn;
 
 
@@ -42,7 +45,8 @@ namespace Rivet {
 
 
   /// @brief b-tagging efficiency functor, for more readable b-tag effs and mistag rates
-  /// Note several constructors, allowing for optional specification of charm, tau, and light jet mistag rates
+  ///
+  /// @note Note the several constructors, allowing for optional specification of charm, tau, and light jet mistag rates.
   struct JET_BTAG_EFFS {
     JET_BTAG_EFFS(double eff_b, double eff_light=0) : _eff_b(eff_b), _eff_c(-1), _eff_t(-1), _eff_l(eff_light) { }
     JET_BTAG_EFFS(double eff_b, double eff_c, double eff_light) : _eff_b(eff_b), _eff_c(eff_c), _eff_t(-1), _eff_l(eff_light) { }
@@ -129,8 +133,9 @@ namespace Rivet {
   };
   using jetEffFilter = JetEffFilter;
 
-  //@}
+  /// @}
 
+  /// @}
 
 }
 

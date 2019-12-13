@@ -9,7 +9,7 @@
 namespace Rivet {
 
 
-  /// Rivet wrapper for HepMC event and Projection references.
+  /// @brief Representation of a HepMC event, and enabler of Projection caching
   ///
   /// Event is a concrete class representing an generated event in Rivet. It is
   /// constructed given a HepMC::GenEvent, a pointer to which is kept by the

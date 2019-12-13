@@ -679,10 +679,10 @@ namespace Rivet {
     ////////////////////////////////////////
 
 
-    /// @name Sorting helpers
-    //@{
+    /// @cond HIDDEN
 
     /// Struct for sorting by increasing energy
+    /// @deprecated Use cmpMomByEAsc
     struct byEAscending {
       bool operator()(const FourMomentum& left, const FourMomentum& right) const{
         const double pt2left = left.E();
@@ -697,6 +697,7 @@ namespace Rivet {
 
 
     /// Struct for sorting by decreasing energy
+    /// @deprecated Use cmpMomByE
     struct byEDescending {
       bool operator()(const FourMomentum& left, const FourMomentum& right) const{
         return byEAscending()(right, left);
@@ -707,7 +708,7 @@ namespace Rivet {
       }
     };
 
-    //@}
+    /// @endcond HIDDEN
 
 
     ////////////////////////////////////////
@@ -1331,8 +1332,11 @@ namespace Rivet {
   //////////////////////////////////////////////////////
 
 
-  /// @name 4-vector comparison functions (for sorting)
-  //@{
+  /// @defgroup momutils Functions for 4-momenta
+  /// @{
+
+  /// @defgroup momutils_cmp 4-vector comparison functions (for sorting)
+  /// @{
 
   /// Comparison to give a sorting by decreasing pT
   inline bool cmpMomByPt(const FourMomentum& a, const FourMomentum& b) {
@@ -1469,11 +1473,11 @@ namespace Rivet {
     return sortBy(pbs, cmpMomByEt);
   }
 
-  //@}
+  /// @}
 
 
-  /// @name MT calculation
-  //@{
+  /// @defgroup momutils_mt MT calculation
+  /// @{
 
   /// Calculate transverse mass of a visible and an invisible 3-vector
   inline double mT(const Vector3& vis, const Vector3& invis) {
@@ -1496,14 +1500,14 @@ namespace Rivet {
     return mT(vis, invis.p3());
   }
 
-  //@}
+  /// @}
 
 
   //////////////////////////////////////////////////////
 
 
-  /// @name 4-vector string representations
-  //@{
+  /// @defgroup momutils_str 4-vector string representations
+  /// @{
 
   /// Render a 4-vector as a string.
   inline std::string toString(const FourVector& lv) {
@@ -1522,13 +1526,15 @@ namespace Rivet {
     return out;
   }
 
-  //@}
+  /// @}
 
-  /// @name Typedefs for lists of vector types
-  //@{
+  /// Typedefs for lists of vector types
+  /// @{
   typedef std::vector<FourVector> FourVectors;
   typedef std::vector<FourMomentum> FourMomenta;
-  //@}
+  /// @}
+
+  /// @}
 
 
 }

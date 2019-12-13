@@ -8,6 +8,7 @@
 namespace Rivet {
 
 
+  /// @brief Holder of analysis metadata
   class AnalysisInfo {
   public:
 
