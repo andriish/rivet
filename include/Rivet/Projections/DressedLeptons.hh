@@ -10,7 +10,8 @@
 namespace Rivet {
 
 
-  /// A charged lepton meta-particle created by clustering photons close to the bare lepton
+  /// @brief A charged lepton meta-particle created by clustering photons close to the bare lepton
+  ///
   /// @todo Remove completely -- it's unnecessary and too confusing (esp. between copying & aggregating)
   /// @deprecated Just use Particle.constituents() now.
   class DressedLepton : public Particle {

@@ -9,6 +9,7 @@
 namespace Rivet {
 
 
+  /// Calculator of the beam-thrust observable
   class BeamThrust : public Projection {
   public:
 

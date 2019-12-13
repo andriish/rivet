@@ -7,8 +7,11 @@
 namespace Rivet {
 
 
-  /// @name Unbound functions for converting between Jets, Particles and PseudoJets
-  //@{
+  /// @defgroup jetutils Functions for Jets
+  /// @{
+
+  /// @defgroup jetutils_conv Converting between Jets, Particles and PseudoJets
+  /// @{
 
   inline PseudoJets mkPseudoJets(const Particles& ps) {
     PseudoJets rtn; rtn.reserve(ps.size());
@@ -31,11 +34,11 @@ namespace Rivet {
     return rtn;
   }
 
-  //@}
+  /// @}
 
 
-  /// @name Jet classifier -> bool functors
-  //@{
+  /// @defgroup jetutils_j2bool Jet classifier -> bool functors
+  /// @{
 
   /// std::function instantiation for functors taking a Jet and returning a bool
   using JetSelector = function<bool(const Jet&)>;
@@ -127,11 +130,11 @@ namespace Rivet {
   };
   using hasNoTag = HasNoTag;
 
-  //@}
+  /// @}
 
 
-  /// @name Unbound functions for filtering jets
-  //@{
+  /// @defgroup jetutils_filt Unbound functions for filtering jets
+  /// @{
 
   /// Filter a jet collection in-place to the subset that passes the supplied Cut
   Jets& ifilter_select(Jets& jets, const Cut& c);
@@ -190,13 +193,13 @@ namespace Rivet {
   /// New alias for filter_discard
   inline Jets discard(const Jets& jets, const Cut& c, Jets& out) { return filter_discard(jets, c, out); }
 
-  //@}
+  /// @}
 
 
 
-  /// @name Operations on collections of Jet
+  /// @defgroup jetutils_coll Operations on collections of Jet
   /// @note This can't be done on generic collections of ParticleBase -- thanks, C++ :-/
-  //@{
+  /// @{
   namespace Kin {
 
     inline double sumPt(const Jets& js) {
@@ -215,12 +218,14 @@ namespace Rivet {
     /// @todo Isolation routines?
 
   }
-  //@}
+  /// @}
 
 
   // Import Kin namespace into Rivet
   using namespace Kin;
 
+
+  /// @}
 
 }
 

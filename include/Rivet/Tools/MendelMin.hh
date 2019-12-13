@@ -16,6 +16,8 @@ namespace Rivet {
   using std::valarray;
 
 
+  /// @brief A genetic algorithm functional minimizer
+  ///
   /// MendelMin implements a home brewed genetic algorithm for finding
   /// the minimum of a function defined on a unit hypercube returning a
   /// non-negative real number (eg. a Chi-squared value).

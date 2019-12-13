@@ -9,13 +9,16 @@
 namespace Rivet {
 
 
-  /// @name Particle filtering, efficiency and smearing utils
-  //@{
+  /// @ingroup smearing
+  /// @{
 
-  /// @name Typedef for Particle smearing functions/functors
+  /// @defgroup smearing_particle Generic particle filtering, efficiency and smearing utils
+  /// @{
+
+  /// Typedef for Particle smearing functions/functors
   typedef function<Particle(const Particle&)> ParticleSmearFn;
 
-  /// @name Typedef for Particle efficiency functions/functors
+  /// Typedef for Particle efficiency functions/functors
   typedef function<double(const Particle&)> ParticleEffFn;
 
 
@@ -98,8 +101,9 @@ namespace Rivet {
     return rand01() < feff(p);
   }
 
-  /// A functor to return true if Particle @a p survives a random efficiency selection
-  /// @deprecated Prefer
+  /// @brief A functor to return true if Particle @a p survives a random efficiency selection
+  ///
+  /// @deprecated Prefer... ?
   struct ParticleEffFilter {
     template <typename FN>
     ParticleEffFilter(const FN& feff) : _feff(feff) {}
@@ -110,8 +114,9 @@ namespace Rivet {
   };
   using particleEffFilter = ParticleEffFilter;
 
-  //@}
+  /// @}
 
+  /// @}
 
 }
 
