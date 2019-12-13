@@ -39,6 +39,8 @@
 
 	* EHS_1988_I265504 fix rapidity calc so in CMS not lab
 
+	* A2_2017_I1486671 fix omega PDG number
+
 2019-12-10  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Re-enable custom Particles and Jets vectors, with moms() and other conversion functions.
