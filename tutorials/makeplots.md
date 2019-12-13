@@ -1,415 +1,149 @@
-<div id="hf_header"><span id="hf_banner">[rivet](/) is hosted by [Hepforge](http://www.hepforge.org/), [IPPP Durham](http://www.ippp.dur.ac.uk)</span></div>
-
-<div id="hepforge-content">
-
-<table>
-
-<tbody>
-
-<tr>
-
-<td class="hepforge-column noprint">
-
-*   [Rivet home](/)
-    *   [Professor](http://professor.hepforge.org/)
-    *   [YODA](http://yoda.hepforge.org/)
-    *   [Contur](http://contur.hepforge.org/)
-    *   [MCplots](http://mcplots.cern.ch/)
-    *   [AGILe](http://agile.hepforge.org/)
-*   [Downloads](http://www.hepforge.org/downloads/rivet)
-    *   [New analyses](https://www.hepforge.org/archive/rivet/contrib/)
-*   [Analyses](/rivet-coverage)
-    *   [Standard analyses](/analyses.html)
-    *   [Analysis changelog](/anadiffs.txt)
-    *   [Writing an analysis](/trac/wiki/WritingAnAnalysis)
-    *   [Submitting analyses](/trac/wiki/SubmittingAnalyses)
-*   [Analysis coverage & wishlists](/rivet-coverage)
-    *   [General](/rivet-coverage)
-    *   [No searches/HI](/rivet-coverage-nosearches-noheavyion)
-    *   [Searches](/rivet-coverage-searchesonly)
-    *   [Heavy ion](/rivet-coverage-heavyiononly)
-    *   [Submitting analyses](/trac/wiki/SubmittingAnalyses)
-*   [Documentation](/doc)
-    *   [Getting started](/trac/wiki/GettingStarted)
-    *   [Rivet via Docker](/trac/wiki/Docker)
-    *   [Manuals & tutorials](/doc)
-    *   [Troubleshooting / FAQ](/trac/wiki/TroubleShooting)
-    *   [Changelog](https://phab.hepforge.org/source/rivethg/browse/default/ChangeLog)
-    *   [Writing an analysis](/trac/wiki/WritingAnAnalysis)
-    *   [Submitting analyses](/trac/wiki/SubmittingAnalyses)
-    *   [Code documentation (doxygen)](/code/dev/)
-*   [Source code](https://phab.hepforge.org/source/rivethg/browse/default/)
-*   [Contact](mailto:rivet@projects.hepforge.org)
-
-</td>
-
-<td class="hepforge-column">
-
-<div id="header">
-
 # make-plots
 
-<div id="toc">
-
-<div id="toctitle">Table of Contents</div>
-
-<noscript>
-
-**JavaScript must be enabled in your browser to display the table of contents.**
-
-</noscript>
-
-</div>
-
-</div>
-
-<div id="content">
-
-<div class="sect1">
-
-## About
-
-<div class="sectionbody">
-
-<div class="paragraph">
-
-`make-plots` reads histogram files in a simple text format and converts them into PostScript or PDF files. This is done by creating a LaTeX file and running `latex`, `dvips`, and maybe `ps2pdf`.
-
-</div>
-
-</div>
-
-</div>
-
-<div class="sect1">
+The plots produced with `rivet-mkhtml` are really rendered with the command `make-plots`, which is called under the hood. The `make-plots` command can also be used to create figures from the simple .dat text format produced by `rivet-cmphistos` directly.
+The `make-plots` script is quite powerful, and includes several options to modify plotting style, adding curves or fits and more. For use with Rivet, the syntax documented in this document should be provided in the .plot file.
+Internally, `make-plots` the simple text format and converts them into PostScript or PDF files by creating a LaTeX file and running `latex`, `dvips`, and maybe `ps2pdf`.
 
 ## Usage
 
-<div class="sectionbody">
-
-<div class="paragraph">
-
 To run `make-plots` call
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
      make-plots [options] file.dat [file2.dat ...]
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 All available options can be listed by running
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
      make-plots --help
-
-</div>
-
-</div>
-
-<div class="sect2">
+```
 
 ### Configuration files
 
-<div class="paragraph">
 
 `make-plots` typically takes the plotting instructions and settings from the input ascii files as described in the "Input Format" chapter. It is also possible though to pass a global configuration file to `make-plots` (cf. `--help`) which allows to specify/overwrite settings for certain plots or histograms in a plot on top of what the input files specify. This could be useful if the ascii files are generated automatically (e.g. with `rivet-mkhtml` or `compare-histos`) and you still want to apply custom plotting options.
 
-</div>
-
-<div class="paragraph">
-
 An example for this looks like:
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     # BEGIN PLOT figures/MC_WJETS/W_mass.dat
     XMin=60.0
     XMax=100.0
     LegendXPos=0.65
     # END PLOT
 
-    .*myLOrun.aida/D0_2008_S7554427/d01-x01-y01::Scale=1.0
+    .*myLOrun.yoda/D0_2008_S7554427/d01-x01-y01::Scale=1.0
 
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 Here first the options in the `PLOT` section of a specific ascii file are being amended/overwritten. The second part shows how to overwrite the `Scale` property of one specific histogram line using the ID of the histogram.
 
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="sect1">
-
 ## Input Format
-
-<div class="sectionbody">
-
-<div class="paragraph">
 
 The ascii files which can be read by `make-plots` are divided into sections. There are four types of sections which are called `PLOT`, `HISTOGRAM`, `FUNCTION`, and `SPECIAL`. Every file must contain exactly one `PLOT` section and at least one section of the other three types. There may be multiple `HISTOGRAM`, `FUNCTION`, and `SPECIAL` sections.
 
-</div>
-
-<div class="paragraph">
-
 Empty lines and lines starting with `#` are ignored, except for the section delimiters described below.
-
-</div>
-
-<div class="sect2">
 
 ### PLOT
 
-<div class="paragraph">
-
 The `PLOT` section starts with
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     # BEGIN PLOT
 
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 and ends with
 
-</div>
 
-<div class="listingblock">
-
-<div class="content">
-
+```
     # END PLOT
 
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 Every file must have exactly one `PLOT` section. In this section global parameters are specified, like the axis labels, the plot title, size, … An empty `PLOT` section is perfectly legal, though.
-
-</div>
-
-<div class="paragraph">
-
 In this section the following parameters can be set:
-
-</div>
-
-<div class="sect3">
 
 #### Titles, Labels
 
-<div class="listingblock">
-
-<div class="content">
-
+```
     Title=<title>
 
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 The title of the plot.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     XLabel=<label>
     YLabel=<label>
     ZLabel=<label>
 
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 Axis labels for the x-, y-, and z-axis.
 
-</div>
 
-<div class="listingblock">
-
-<div class="content">
-
+```
     XLabelSep=<distance>
     YLabelSep=<distance>
     ZLabelSep=<distance>
 
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 Distance between the axis label and the plot in units of `\labelsep`.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     XMajorTickMarks=<last_digit>
     YMajorTickMarks=<last_digit>
     ZMajorTickMarks=<last_digit>
     XMinorTickMarks=<nticks>
     YMinorTickMarks=<nticks>
     ZMinorTickMarks=<nticks>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 `make-plots` tries to guess the distance between tickmarks automatically. If you are not satisfied with its result, you can override this by setting `<last_digit>` to 1, 2, 5, or 10, and `<nticks>` to the number of minor ticks you like. _Note_: These options are not available for logarithmic axes.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     XTwosidedTicks=<0|1>
     YTwosidedTicks=<0|1>
 
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 Draw tickmarks also on the upper and/or right side of the plot.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     XCustomMajorTicks=<list>
     YCustomMajorTicks=<list>
     ZCustomMajorTicks=<list>
 
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 To specify major ticks at arbitrary positions and/or with arbitrary labels. `<list>` is a whitespace-separated list of format `value1 <spaces_or_tabs> label1 <spaces_or_tabs> value2 <spaces_or_tabs> label2 ...`.
 
-</div>
 
-<div class="paragraph">
+[//]: # TODO: allow use of YAML-style list syntax to clarify delimiters?
 
-TODO: allow use of YAML-style list syntax to clarify delimiters?
-
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     XCustomMinorTicks=<list>
     YCustomMinorTicks=<list>
     ZCustomMinorTicks=<list>
-
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 To specify minor ticks at arbitrary positions. `<list>` is a tab separated list of format `value1 <tab> value2 <tab> value3 ...`.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     PlotXTickLabels=<0|1>
     RatioPlotTickLabels=<0|1>
 
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 Disable/enable plotting of the tick labels in the plot and ratio plot (useful if multiple plots are to be combined manually later).
 
-</div>
-
-</div>
-
-<div class="sect3">
 
 #### Axes
 
-<div class="listingblock">
-
-<div class="content">
-
+```
     LogX=<0|1>
     LogY=<0|1>
     LogZ=<0|1>
 
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 Use a logarithmic x-, y-, or z-axis. Default is linear.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     XMin=<value>
     XMax=<value>
     YMin=<value>
@@ -419,274 +153,98 @@ Use a logarithmic x-, y-, or z-axis. Default is linear.
     FullRange=<0|1>
     ShowZero=<0|1>
 
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 Specify the plot range. By default the range is chosen such that all data is visible in linear plots, and the zero is visible. `ShowZero=0` suppresses plotting the zero in linear plots and thus zooms into the actual y-value range of the distribution. In logarithmic plots the automatic choice of `YMin` is limited to be not smaller than 2e-4*`YMax`, but manually you can specify any value. `FullRange=1` also overrides the 2e-4*`YMax` limit and plots the full range in y.
-
-</div>
-
-</div>
-
-<div class="sect3">
 
 #### Normalization, Rebinning
 
-<div class="listingblock">
-
-<div class="content">
-
+```
     NormalizeToIntegral=<1|0>
     NormalizeToSum=<1|0>
     Scale=<factor>
-
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 Normalize all histograms to their integral, to their sum of entries, or scale them by some arbitrary factor. Normalization and scale options in the `PLOT` section override the corresponding option in the `HISTOGRAM` section. The scale factor is applied after normalization.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     Rebin=<nbins>
-
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 Rebin all histograms in this plot. Syntax and functionality is the same as for the Rebin option in the `HISTOGRAM` section.
-
-</div>
-
-</div>
-
-<div class="sect3">
 
 #### Sizes and Margins
 
-<div class="listingblock">
-
-<div class="content">
-
-    PlotSize=<xsize,ysize>
-
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
+     PlotSize=<xsize,ysize>
+```
 Size in x and y direction of the plot. This can be specified in any unit LaTeX understands.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     LeftMargin=<size>
     RightMargin=<size>
     TopMargin=<size>
     BottomMargin=<size>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 Distance between the plot and the paper edge.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     FrameColor=<color>
-
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 Background color for the margin around the plot.
-
-</div>
-
-</div>
-
-<div class="sect3">
 
 #### Legends
 
-<div class="listingblock">
-
-<div class="content">
-
+```
     Legend=<0|1>
-
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 Display a legend in the plot.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     CustomLegend=<text>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 Custom text that is added to the legend.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     LegendXPos=<pos>
     LegendYPos=<pos>
-
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 Position of the legend within the plot. Anchor point is the top left corner of the legend, so units typically range between 0.0 and 1.0.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     LegendAlign=<align>
-
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 Horizontal alignment of the legend: `LegendAlign=l` is the default and will create a left-aligned legend, while `LegendAlign=r` is right-aligned with the keys on the right hand side.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     LegendOnly=<list>
-
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 Whitespace separated list of IDs. These can be histograms or functions. The legend is only shown for the listed objects. Without this option, all plotted objects which have a title enter the legend. The legend titles are plotted in the given order, so there are cases in which it makes sense to use `LegendOnly` together with all histogram IDs. It is also possible to specify the legend order on an entry-by-entry basis using the `LegendOrder=<int>` setting for each histogram or function.
 
-</div>
-
-</div>
-
-<div class="sect3">
 
 #### Plotting Options
 
-<div class="listingblock">
-
-<div class="content">
-
+```
     DrawOnly=<list>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 Whitespace separated list of histogram IDs. Only the histograms in this list are plotted, even if there are more histograms defined in the file. The histograms are plotted in the given order, so there are cases in which it makes sense to use `DrawOnly` together with all histogram IDs. This is especially useful for the `Stack` option. It is also possible to specify the plotting order on a histogram-by-histogram basis using the `PlotOrder=<int>` setting for each histogram.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     Stack=<list>
-
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 Whitespace separated list of histogram IDs. The histograms will be added on top of each other. This is useful for example to compare data with background if the background has contributions from several histograms.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     DrawSpecialFirst=<0|1>
     DrawFunctionFirst=<0|1>
-
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 By default the `SPECIAL` and `FUNCTION` sections are plotted after the histograms. With these options you can override that behaviour.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     ConnectGaps=<0|1>
-
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 If error bars are disabled and you want to bridge gaps in a histogram, you can set this parameter. By default it is off. Setting it in the `PLOT` section affects all histograms, but you can also set it in the `HISTOGRAM` section for individual histograms. The local setting overrides the global setting.
 
-</div>
-
-</div>
-
-<div class="sect3">
 
 #### Comparison Plots
 
