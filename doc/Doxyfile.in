@@ -51,7 +51,7 @@ PROJECT_BRIEF          =
 # pixels and the maximum width should not exceed 200 pixels. Doxygen will copy
 # the logo to the output directory.
 
-PROJECT_LOGO           = rivet.jpg
+PROJECT_LOGO           = @top_srcdir@/rivet.jpg
 
 # The OUTPUT_DIRECTORY tag is used to specify the (relative or absolute) path
 # into which the generated documentation will be written. If a relative path is
@@ -664,7 +664,6 @@ SHOW_USED_FILES        = YES
 # The default value is: YES.
 
 SHOW_FILES             = NO
-#YES
 
 # Set the SHOW_NAMESPACES tag to NO to disable the generation of the Namespaces
 # page. This will remove the Namespaces entry from the Quick Index and from the
@@ -694,7 +693,7 @@ FILE_VERSION_FILTER    =
 # DoxygenLayout.xml, doxygen will parse it automatically even if the LAYOUT_FILE
 # tag is left empty.
 
-LAYOUT_FILE            =
+LAYOUT_FILE            = @srcdir@/DoxyLayout.xml
 
 # The CITE_BIB_FILES tag can be used to specify one or more bib files containing
 # the reference definitions. This must be a list of .bib files. The .bib
@@ -781,8 +780,8 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = @top_srcdir@/include/Rivet index.dox
-# @top_srcdir@/src
+INPUT                  = @top_srcdir@/include/Rivet \
+                         @srcdir@/index.dox
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -855,12 +854,22 @@ EXCLUDE_PATTERNS       =
 # exclude all test directories use the pattern */test/*
 
 EXCLUDE_SYMBOLS        = _* \
-                         HepMC3::* std::* \
-                         Rivet::PxConePlugin Rivet::*CompressedAscii \
-                         Rivet::AOPath Rivet::AnalysisObjectWrapper *Traits* Rivet::Cmp* \
-                         Rivet::CutBase Rivet::EigenSystem Rivet::EigenPairCmp* \
-                         Rivet::MergeDistance Rivet::PID::*ParticleNames \
-                         Rivet::ReferenceTraits* Rivet::Relatives Rivet::rivet_shared_ptr* \
+                         HepMC3::* \
+                         std::* \
+                         Rivet::PxConePlugin \
+                         Rivet::*CompressedAscii \
+                         Rivet::AOPath \
+                         Rivet::AnalysisObjectWrapper \
+                         *Traits* \
+                         Rivet::Cmp* \
+                         Rivet::CutBase \
+                         Rivet::EigenSystem \
+                         Rivet::EigenPairCmp* \
+                         Rivet::MergeDistance \
+                         Rivet::PID::*ParticleNames \
+                         Rivet::ReferenceTraits* \
+                         Rivet::Relatives \
+                         Rivet::rivet_shared_ptr* \
                          Rivet::*Wrapper*
 
 # The EXAMPLE_PATH tag can be used to specify one or more files or directories
@@ -1153,7 +1162,7 @@ HTML_STYLESHEET        =
 # list). For an example see the documentation.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_EXTRA_STYLESHEET  =
+HTML_EXTRA_STYLESHEET  = @srcdir@/doxycustom.css
 
 # The HTML_EXTRA_FILES tag can be used to specify one or more extra images or
 # other source files which should be copied to the HTML output directory. Note
@@ -1211,7 +1220,6 @@ HTML_TIMESTAMP         = YES
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
 HTML_DYNAMIC_SECTIONS  = NO
-#HTML_DYNAMIC_MENUS  = NO
 
 # With HTML_INDEX_NUM_ENTRIES one can control the preferred number of entries
 # shown in the various tree structured indices initially; the user can expand
@@ -1423,7 +1431,7 @@ ECLIPSE_DOC_ID         = org.doxygen.Project
 # The default value is: NO.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-DISABLE_INDEX          = YES
+DISABLE_INDEX          = NO
 
 # The GENERATE_TREEVIEW tag is used to specify whether a tree-like index
 # structure should be generated to display hierarchical information. If the tag
@@ -1628,7 +1636,7 @@ EXTRA_SEARCH_MAPPINGS  =
 # If the GENERATE_LATEX tag is set to YES, doxygen will generate LaTeX output.
 # The default value is: YES.
 
-GENERATE_LATEX         = YES
+GENERATE_LATEX         = NO
 
 # The LATEX_OUTPUT tag is used to specify where the LaTeX docs will be put. If a
 # relative path is entered the value of OUTPUT_DIRECTORY will be put in front of
@@ -1647,7 +1655,7 @@ LATEX_OUTPUT           = latex
 # The default file is: latex.
 # This tag requires that the tag GENERATE_LATEX is set to YES.
 
-LATEX_CMD_NAME         = latex
+LATEX_CMD_NAME         = pdflatex
 
 # The MAKEINDEX_CMD_NAME tag can be used to specify the command name to generate
 # index for LaTeX.
@@ -2198,7 +2206,6 @@ DOT_NUM_THREADS        = 0
 # This tag requires that the tag HAVE_DOT is set to YES.
 
 DOT_FONTNAME           =
-#FreeSans.ttf
 
 # The DOT_FONTSIZE tag can be used to set the size (in points) of the font of
 # dot graphs.
