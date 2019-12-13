@@ -1,3 +1,6 @@
+2019-12-13  Peter Richardson <peter.richardson@durham.ac.uk>
+	*  ATLAS_2011_S9128077 ensure all bins outputed in d02, otherwise problems with yodamerge
+
 2019-12-10  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Re-enable custom Particles and Jets vectors, with moms() and other conversion functions.
