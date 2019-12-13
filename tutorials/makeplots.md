@@ -248,643 +248,249 @@ If error bars are disabled and you want to bridge gaps in a histogram, you can s
 
 #### Comparison Plots
 
-<div class="paragraph">
-
 With the
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     RatioPlot=1
     RatioPlotReference=<histogram_ID>
-
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 options you can create ratio plots for two or more histograms. Note that you must specify your reference data ID. This option is used by the [`compare-histos`](compare-histos.html) script.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     RatioPlotMode=<default|deviation|datamc>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 By default, the ratio plot displays MC/Data. You can switch to (MC-data)/uncertainty (`deviation`) or Data/MC (`datamc`) with this option.
 
-</div>
-
-<div class="paragraph">
-
 In ratio plots the following additional options are available and work in a similar way as their regular counterparts:
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     RatioPlotYLabel=<label>
     RatioPlotYMin=<value>
     RatioPlotYMax=<value>
     RatioPlotYSize=<size>
     RatioPlotErrorBandColor=<color>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 By default, the reference data is plotted using a yellow error band around the central value of the ratio plot. If you would rather have it plotted in the same style as in the main plot (e.g. with black errorbars), you can specify:
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     RatioPlotSameStyle=1
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 If you only want the ratio plot without showing the actual data distribution, you can switch off the main plot. This option implies `RatioPlot=1`:
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     MainPlot=0
-
-</div>
-
-</div>
-
-</div>
-
-<div class="sect3">
+```
 
 #### Goodness of Fit
 
-<div class="paragraph">
 
 `make-plots` can calculate the goodness of fit between histograms and display the result in the legend. It is also possible to change the color of the margin around the plot depending on the GoF. This is useful to provide a quick overview when looking at many plots.
 
-</div>
 
-<div class="listingblock">
-
-<div class="content">
-
+```
     GofType=chi2
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 The type of GoF. The default is `chi2` and currently that’s the only option.
 
-</div>
 
-<div class="listingblock">
-
-<div class="content">
-
+```
     GofReference=<histogram_ID>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 specifies the reference histogram to be used for the GoF calculation. If this option is omitted, the fallback is `RatioPlotReference`.
 
-</div>
-
-<div class="paragraph">
 
 The GoF calculation is activated by two options:
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     GofLegend=<0|1>
     GofFrame=<histogram_ID>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 `GofLegend` calculates the GoF for all histograms and displays the results in the legend. With `GofFrame` you can specify a single histogram for which the GoF result will be shown in the legend and used to assign a color to the plot margins. Note that `FrameColor` overrides the color choice for the margin. You can use
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     GofFrameColor=<colorthresholds>
 
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 to specify the thresholds for the frame color. This option takes a list of `<threshold>:<color>` pairs, separated by whitespace. The default is `GofFrameColor=0:green 3:yellow 6:red!70`. Again, if you use `FrameColor`, this option is disabled.
 
-</div>
-
-</div>
-
-<div class="sect3">
-
 #### Color Palettes for 2-dim Plots
-
-<div class="paragraph">
 
 With the option `ColorSeries` you can define a custom color palette for 2-dimensional plots. The syntax is the same as for the `\definecolorseries` command in the `xcolor` LaTeX package after the color series name, i.e. `{core-model}{method}[begin-model]{begin-spec}[end-model]{end-spec}`. For more information you can consult the [xcolor documentation](http://www.ctan.org/tex-archive/macros/latex/contrib/xcolor/xcolor.pdf). Here is an example:
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     ColorSeries={rgb}{last}[rgb]{1,0.97,0.94}[rgb]{0.6,0.0,0.05}
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="sect2">
-
+```
 ### HISTOGRAM
-
-<div class="paragraph">
 
 The `HISTOGRAM` section starts with
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     # BEGIN HISTOGRAM <ID>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 and ends with
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     # END HISTOGRAM
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 There can be more than one `HISTOGRAM` section in a file. Histograms are identified by `<ID>` which can be any string _not_ containing whitespace.
 
-</div>
-
-<div class="sect3">
-
 #### Data Format
-
-<div class="paragraph">
 
 Lines starting with a number (positive or negative) are interpreted as data. Each line specifies one bin. The fields in each line must be separated by tabs, not spaces (this needs to be fixes some day). For 1-dimensional histograms the format can be
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     <lowerbinedge>  <upperbinedge>  <value>  <error>
     <lowerbinedge>  <upperbinedge>  <value>  <minuserror>  <pluserror>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 2-dimensional histograms are supported, too. They are plotted as colormap (errors are ignored) and specified as
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     <lowerxbinedge>  <upperxbinedge>  <lowerybinedge>  <upperybinedge>  <value>  <error>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="sect3">
+```
 
 #### Titles
 
-<div class="listingblock">
-
-<div class="content">
-
+```
     Title=<title>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 Title of the histogram. This is used for the legend.
 
-</div>
-
-</div>
-
-<div class="sect3">
-
 #### Linestyles
 
-<div class="listingblock">
-
-<div class="content">
-
+```
     LineStyle=<style>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 Any linestyle that is understood by the LaTeX pstricks package, e.g. `solid`, `dotted`, `dashed`, `none`, as well as a special `dashdotted` (or `dotdashed`) linestyle which does what you might expect.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     LineColor=<color>
-
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 Color of the line. Default is black, but any color that pstricks understands can be used, including constructions like `red!70!blue!20` (for mixing colors), `{[rgb]{0.8,0,0.7}}` (for RGB-colors), `{[wave]{580}}` (for wavelengths in nm), `LineColor={[cmyk]{1,1,0,0}}` for CMYK-colors, or `[hsb]{0.5,1,1}` for HSB-colors.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     LineOpacity=<opacity>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 Set the opacity of the line. Default is 1.0\. This might not work for ps output.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     LineWidth=<width>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 Width of the line.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     LineDash=<dashstyle>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 If `LineStyle` is set to `dashed`, you can specify the dash style with this option. Anything that is understood by pstrick’s `dash=...` option is valid. An example for a dash-dotted line is `LineDash=3pt 3pt .8pt 3pt`. You can use `LineStyle=dashdotted` or `LineStyle=dotdashed` as an abbreviation for `LineStyle=dashed` with `LineDash=3pt 3pt .8pt 3pt`.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     ConnectBins=<0|1>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 Choose whether to connect adjacent bins' horizontal lines together by a vertical line on the bin edge. This is enabled by default, but you may wish to disable it when plotting reference data with error bars and point markers.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     ConnectGaps=<0|1>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 If ConnectBins is enabled and you want to bridge gaps in a histogram, you can set this parameter. By default it is off. Setting it in the `PLOT` section affects all histograms, but you can also set it in the `HISTOGRAM` section for individual histograms. The local setting overrides the global setting.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     SmoothLine=<0|1>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 Draw a smooth curve rather than a histogram
 
-</div>
-
-</div>
-
-<div class="sect3">
-
 #### Fillstyles
 
-<div class="listingblock">
-
-<div class="content">
-
+```
     FillStyle=<style>
     FillColor=<color>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 To fill the area below a histogram, set `FillStyle` and `FillColor` to something pstricks understands. Examples for the style are `solid` or `vlines`. See `LineColor` for examples of color definitions.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     FillOpacity=<opacity>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 Set the opacity of the solid fillcolor. Default is 1.0\. This might not work for ps output.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     HatchColor=<color>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 The color of a hatch pattern used for filling the area below a histogram. This is used for example when you use `vlines` as style.
 
-</div>
-
-</div>
-
-<div class="sect3">
-
 #### Data Points
 
-<div class="listingblock">
-
-<div class="content">
-
+```
     ErrorBars=<0|1>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 Turn on error bars.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     ErrorBands=<0|1>
     ErrorBandColor=<color>
-
-</div>
-
-</div>
-
-<div class="paragraph">
-
+```
 Turn on error bands and set their color (see `LineColor` for a description of color definitions).
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     ErrorBandOpacity=<opacity>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 Set the opacity of the error band. Default is 1.0\. This might not work for ps output.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     PolyMarker=<dotstyle>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 The marker style of the points. Any dot style which is understood by pstricks is valid, e.g. `*`, `o`, `triangle`, `diamond`, …
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     DotSize=<size>
     DotScale=<factor>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 The size of the markers. With `DotSize` you can specify the absolute size, e.g. in units of `pt`, while `DotScale` is a relative measure with respect to the default size.
 
-</div>
-
-</div>
-
-<div class="sect3">
-
 #### Normalization, Rebinning
 
-<div class="listingblock">
-
-<div class="content">
-
+```
     NormalizeToIntegral=<1|0>
     NormalizeToSum=<1|0>
     Scale=<factor>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 Normalize the histogram to the integral, to the sum of entries, or scale it by some arbitrary factor. If normalization and a scale factor are given, the scale factor is applied after normalization. This is useful for stacking histograms when the ratios are known.
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     Rebin=<nbins>
     ErrorType=<stat|env>
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 Rebin the histogram. Starting with the lowest bin <nbins> bins are combined into a new bin. If the number of bins in the histogram is not a multiple of <nbins>, the remaining bins at the upper histogram end are silently ignored (i.e. if the original histogram has 10 bins and <nbins> is 3, the plotted histogram shows three bins combining the bins 1—9 of the original histogram). The treatment of the errors is determined by the given ErrorType: `stat` (default) assumes the errors are of statistical nature and combines them in quadrature sum, while `env` allows to treat errors as envelope of various uncertainty runs which are combined linearly.
 
-</div>
-
-</div>
-
-</div>
-
-<div class="sect2">
-
 ### FUNCTION
-
-<div class="paragraph">
 
 `make-plots` can draw arbitrary functions. These functions are defined as python code sniplets which are evaluated by `make-plots`. The code sniplet must come after all other options in a `FUNCTION` section and are preceded by `Code=` on a single line. An example `FUNCTION` section might look like this:
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     # BEGIN FUNCTION f_cc
     LineColor=red
     Code=
@@ -898,25 +504,13 @@ Rebin the histogram. Starting with the lowest bin <nbins> bins are combined into
     else:
         return .5*p2*(1.+erf( (x-p0)/sqrt(x*p1) ))
     # END FUNCTION
-
-</div>
-
-</div>
-
-<div class="sect3">
+```
 
 #### Common Options with HISTOGRAM
 
-<div class="paragraph">
-
 The following options have the same meaning as in the `HISTOGRAM` section:
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     Title=<title>
     LineStyle=<style>
     LineColor=<color>
@@ -925,76 +519,32 @@ The following options have the same meaning as in the `HISTOGRAM` section:
     FillStyle=<style>
     FillColor=<color>
     HatchColor=<color>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="sect3">
+```
 
 #### Function Range
 
-<div class="paragraph">
-
 You can limit the plot range of functions by specifying
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     XMin=<value>
     XMax=<value>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="sect2">
+```
 
 ### SPECIAL
 
-<div class="paragraph">
-
 The `SPECIAL` sections are used to include any custom pstricks code. This is useful for drawing arrows and lines, put text at any position into the plot, etc. The default coordinate system is defined to be `(0,0)` at the lower left and `(1,1)` at the upper right corner of the plot. By putting the `\physicscoor` command in front of a coordinate pair, these coordinates are interpreted not in the pstricks coordinate system, but in the physics coordinate system of the plot, which is useful e.g. for marking cut values in a plot. Similar `\physicsxcoor` and `\physicsycoor` commands exist which will only treat the x or y coordinate respectively as being in physics units.
 
-</div>
+*Hint:* If you want to clip your `SPECIAL` code to the plot area, you can use
 
-<div class="paragraph">
-
-Hint: If you want to clip your `SPECIAL` code to the plot area, you can use
-
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     \psclip{\psframe[linewidth=0, linestyle=none](0,0)(1,1)}
        ...
     \endpsclip
-
-</div>
-
-</div>
-
-<div class="paragraph">
+```
 
 An example of a `SPECIAL` section might look like this:
 
-</div>
-
-<div class="listingblock">
-
-<div class="content">
-
+```
     # BEGIN SPECIAL
     \psclip{\psframe[linewidth=0, linestyle=none](0,0)(1,1)}
     \psline[linewidth=1.2pt,linecolor=red]{<-}\physicscoor(2.83,2)\physicscoor(2.83,18)
@@ -1003,37 +553,4 @@ An example of a `SPECIAL` section might look like this:
     \psline[linewidth=0.8pt,linecolor=red,linestyle=dashed]\physicscoor(-3.59,0)\physicscoor(-3.59,28.14)
     \endpsclip
     # END SPECIAL
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div id="footnotes">
-
-* * *
-
-</div>
-
-<div id="footer">
-
-<div id="footer-text">Last updated 2016-10-12 17:09:05 BST</div>
-
-</div>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
+```
