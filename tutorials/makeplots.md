@@ -254,7 +254,7 @@ With the
     RatioPlot=1
     RatioPlotReference=<histogram_ID>
 ```
-options you can create ratio plots for two or more histograms. Note that you must specify your reference data ID. This option is used by the [`compare-histos`](compare-histos.html) script.
+options you can create ratio plots for two or more histograms. Note that you must specify your reference data ID. This option is used by the `compare-histos` script.
 
 ```
     RatioPlotMode=<default|deviation|datamc>

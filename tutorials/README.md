@@ -40,4 +40,6 @@ well as how to implement and contribute your own analyses.
 
 [Working with development source](developer.md)
 
-[Submitting an analyses](submitanalysis.md)
+[Submitting an analysis](submitanalysis.md)
+
+[Coding style](codingstyle.md)
