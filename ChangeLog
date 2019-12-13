@@ -25,7 +25,7 @@
 
 	* add omega hist in BABAR_2017_I1621593
 
-
+	* EHS_1988_I265504 fix rapidity calc so in CMS not lab
 
 	
 2019-12-10  Andy Buckley  <andy.buckley@cern.ch>
