@@ -1,5 +1,9 @@
 2019-12-13  Peter Richardson <peter.richardson@durham.ac.uk>
-	*  ATLAS_2011_S9128077 ensure all bins outputed in d02, otherwise problems with yodamerge
+	* ATLAS_2011_S9128077 ensure all bins outputed in d02, otherwise problems with yodamerge
+	
+	* ATLAS_2015_I1393758 and ATLAS_2016_I1419070, change numEntries -> effNumEntries to avoid issues in NLO runs
+
+	* change ratio plot label, was wrong way up, in ATLAS_2012_I1203852, ATLAS_2013_I1190187
 
 2019-12-10  Andy Buckley  <andy.buckley@cern.ch>
 
