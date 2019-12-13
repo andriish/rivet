@@ -66,7 +66,7 @@ namespace Rivet {
       static double mpi    = 134.9770*MeV;
 
       // Loop over eta and omega mesons
-      for( const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==333 or Cuts::pid==221)) {
+      for( const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==223 or Cuts::pid==221)) {
        	unsigned nstable(0),npi(0),nep(0),nem(0),ngamma(0);
        	FourMomentum ptot;
       	findDecayProducts(p,nstable,npi,nep,nem,ngamma,ptot);
