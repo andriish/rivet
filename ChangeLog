@@ -19,6 +19,8 @@
 
 	* change ratio plot label, was wrong way up, in ATLAS_2012_I1203852, ATLAS_2013_I1190187
 
+	* use rivet normalize not yoda in ATLAS_2018_I1711114 to avoid issues if histos empty
+
 2019-12-10  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Re-enable custom Particles and Jets vectors, with moms() and other conversion functions.

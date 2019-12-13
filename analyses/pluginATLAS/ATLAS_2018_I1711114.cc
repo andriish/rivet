@@ -95,10 +95,10 @@ namespace Rivet {
 
     /// Scale histos
     void finalize() {
-      _h_R->normalize(  1.0, false);
-      _h_phi->normalize(1.0, false);
-      _h_z->normalize(  1.0, false);
-      _h_rho->normalize(1.0, false);
+      normalize(_h_R  ,  1.0, false);
+      normalize(_h_phi,  1.0, false);
+      normalize(_h_z  ,  1.0, false);
+      normalize(_h_rho,  1.0, false);
     }
 
 
