@@ -21,6 +21,8 @@
 
 	* use rivet normalize not yoda in ATLAS_2018_I1711114 to avoid issues if histos empty
 
+	* avoid crash in ATLAS_2016_I1426523 if host not found
+
 2019-12-10  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Re-enable custom Particles and Jets vectors, with moms() and other conversion functions.
