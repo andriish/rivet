@@ -27,13 +27,15 @@
 
 	* ATLAS_2011_S9128077 ensure all bins outputted in d02, otherwise problems with yodamerge
 
-	* ATLAS_2015_I1393758 and ATLAS_2016_I1419070, change numEntries -> effNumEntries to avoid issues in NLO runs
+	* ATLAS_2015_I1393758 and ATLAS_2016_I1419070, CMS_2012_I1111014, change numEntries -> effNumEntries to avoid issues in NLO runs
 
 	* Change ratio plot label, was wrong way up, in ATLAS_2012_I1203852, ATLAS_2013_I1190187
 
-	* use rivet normalize not yoda in ATLAS_2018_I1711114 to avoid issues if histos empty
+	* Use rivet normalize not yoda in ATLAS_2018_I1711114 to avoid issues if histos empty
 
-	* avoid crash in ATLAS_2016_I1426523 if host not found
+	* Avoid crash in ATLAS_2016_I1426523 if host not found
+
+	* Add omega hist in BABAR_2017_I1621593
 
 2019-12-10  Andy Buckley  <andy.buckley@cern.ch>
 
