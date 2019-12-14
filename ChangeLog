@@ -1,6 +1,8 @@
 2019-12-14  Peter Richardson <peter.richardson@durham.ac.uk>
 	* added TPC_1991_I316132, HRS_1987_I250823 D* polarization at 29 GeV
 
+	* added VENUS_1998_I453613, TOPAZ_1997_I454183 charged particles at 58 GeV
+
 2019-12-13  Peter Richardson <peter.richardson@durham.ac.uk>
 	* ATLAS_2011_S9128077 ensure all bins outputed in d02, otherwise problems with yodamerge
 
