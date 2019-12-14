@@ -12,9 +12,12 @@
 
 	* Formally require YODA >= 1.8.0 in configure.
 
+2019-12-14  Peter Richardson <peter.richardson@durham.ac.uk>
+	* added TPC_1991_I316132, HRS_1987_I250823 D* polarization at 29 GeV
+
 2019-12-13  Peter Richardson <peter.richardson@durham.ac.uk>
 	* ATLAS_2011_S9128077 ensure all bins outputed in d02, otherwise problems with yodamerge
-	
+
 	* ATLAS_2015_I1393758 and ATLAS_2016_I1419070, CMS_2012_I1111014, change numEntries -> effNumEntries to avoid issues in NLO runs
 
 	* change ratio plot label, was wrong way up, in ATLAS_2012_I1203852, ATLAS_2013_I1190187
@@ -29,7 +32,6 @@
 
 	* A2_2017_I1486671 fix omega PDG number
 
-	
 2019-12-10  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Re-enable custom Particles and Jets vectors, with moms() and other conversion functions.
