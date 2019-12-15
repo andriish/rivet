@@ -14,7 +14,7 @@ namespace Rivet {
   class Analysis;
 
 
-  /// A set of booked Histo1DPtr, each in a bin of a second variable.
+  /// @brief A set of booked Histo1DPtr, each in a bin of a second variable.
   ///
   /// BinnedHistogram contains a series of histograms of the same quantity
   /// each in a different region of a second quantity.  For example, a

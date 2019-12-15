@@ -13,7 +13,10 @@
 namespace Rivet {
 
 
-  /// @name Particle classifier functions
+  /// @defgroup particleutils Functions for Particles
+  /// @{
+
+  /// @defgroup particleutils_class Particle classifier functions
   //@{
 
   /// Unbound function access to PID code
@@ -259,12 +262,13 @@ namespace Rivet {
   /// If this is a nucleus (ion), get nLambda
   PARTICLE_TO_PID_INTFN(nuclNlambda)
 
-  //@}
+  /// @}
 
 
-  /// @name Particle pair classifiers
+  /// @defgroup particleutils_pairclass Particle pair classifiers
+  /// @brief
   /// @todo Make versions that work on ParticlePair?
-  //@{
+  /// @{
 
   inline bool isSameSign(const Particle& a, const Particle& b) { return PID::isSameSign(a.pid(), b.pid()); }
   inline bool isOppSign(const Particle& a, const Particle& b) { return PID::isOppSign(a.pid(), b.pid()); }
@@ -276,11 +280,11 @@ namespace Rivet {
   inline bool isOSOF(const Particle& a, const Particle& b) { return PID::isOSOF(a.pid(), b.pid()); }
   inline bool isSSOF(const Particle& a, const Particle& b) { return PID::isSSOF(a.pid(), b.pid()); }
 
-  //@}
+  /// @}
 
 
-  /// @name Particle charge/sign comparison functions
-  //@{
+  /// @defgroup particleutils_charge Particle charge/sign comparison functions
+  /// @{
 
   /// @brief Return true if Particles @a a and @a b have the opposite charge sign
   /// @note Two neutrals returns false
@@ -311,7 +315,7 @@ namespace Rivet {
     return a.charge3() != b.charge3();
   }
 
-  //@}
+  /// @}
 
 
 
@@ -319,8 +323,8 @@ namespace Rivet {
 
 
 
-  /// @name Non-PID particle properties, via unbound functions
-  //@{
+  /// @defgroup particleutils_nonpid Non-PID particle properties, via unbound functions
+  /// @{
 
   /// @brief Determine whether a particle is the first in a decay chain to meet the function requirement
   inline bool isFirstWith(const Particle& p, const ParticleSelector& f) {
@@ -468,13 +472,13 @@ namespace Rivet {
   // DEPRECATED("Too vague: use fromHadron or fromHadronicTau")
   // inline bool fromDecay(const Particle& p) { return p.fromDecay(); }
 
-  //@}
+  /// @}
 
 
-  /// @name Particle classifier -> bool functors
+  /// @defgroup particleutils_p2bool Particle classifier -> bool functors
   ///
   /// To be passed to any() or all() e.g. any(p.children(), HasPID(PID::MUON))
-  //@{
+  /// @{
 
   /// Base type for Particle -> bool functors
   struct BoolParticleFunctor {
@@ -666,11 +670,11 @@ namespace Rivet {
   };
   using hasParticleDescendantWithout = HasParticleDescendantWithout;
 
-  //@}
+  /// @}
 
 
-  /// @name Unbound functions for filtering particles
-  //@{
+  /// @defgroup particleutils_filt Unbound functions for filtering particles
+  /// @{
 
   /// Filter a particle collection in-place to the subset that passes the supplied Cut
   Particles& ifilter_select(Particles& particles, const Cut& c);
@@ -733,12 +737,12 @@ namespace Rivet {
   // inline Particles filterIsolateDeltaR(const Particles& particles, const FourMomenta& vecs) {
   // }
 
-  //@}
+  /// @}
 
 
 
-  /// @name Particle pair functions
-  //@{
+  /// @defgroup particleutils_pair Particle pair functions
+  /// @{
 
   /// Get the PDG ID codes of a ParticlePair
   /// @todo Make ParticlePair a custom class instead?
@@ -746,13 +750,14 @@ namespace Rivet {
     return make_pair(pp.first.pid(), pp.second.pid());
   }
 
-  //@}
+  /// @}
 
 
 
-  /// @name Operations on collections of Particle
+  /// @defgroup particleutils_kin Operations on collections of Particle
+  ///
   /// @note This can't be done on generic collections of ParticleBase -- thanks, C++ :-/
-  //@{
+  ///@{
   namespace Kin {
 
     inline double sumPt(const Particles& ps) {
@@ -771,7 +776,7 @@ namespace Rivet {
     /// @todo Isolation routines?
 
   }
-  //@}
+  /// @}
 
 
   // Import Kin namespace into Rivet
@@ -782,6 +787,8 @@ namespace Rivet {
   inline bool isSame(const Particle& a, const Particle& b) {
     return a.isSame(b);
   }
+
+  /// @}
 
 
 }

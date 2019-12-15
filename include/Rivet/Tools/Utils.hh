@@ -17,6 +17,8 @@
 #include <sstream>
 #include <functional>
 
+/// @defgroup utils Other utilities
+
 
 /// Macro to help mark code as deprecated to produce compiler warnings
 #ifndef DEPRECATED
@@ -44,9 +46,10 @@ namespace Rivet {
   static constexpr double DBL_NAN = std::numeric_limits<double>::quiet_NaN();
 
 
-  /// @name String utils
-  //@{
+  /// @defgroup strutils String utils
+  /// @{
 
+  /// @brief Exception class for throwing from lexical_cast when a parse goes wrong
   struct bad_lexical_cast : public std::runtime_error {
     bad_lexical_cast(const std::string& what) : std::runtime_error(what) {}
   };
@@ -219,11 +222,12 @@ namespace Rivet {
     return dirs;
   }
 
-  //@}
+  /// @}
 
 
-  /// @name Path utils
-  //@{
+
+  /// @defgroup pathutils Path utils
+  /// @{
 
   /// @brief Split a path string with colon delimiters
   ///
@@ -231,7 +235,6 @@ namespace Rivet {
   inline vector<string> pathsplit(const string& path) {
     return split(path, ":");
   }
-
 
   /// @brief Join several filesystem paths together with the standard ':' delimiter
   ///
@@ -273,11 +276,12 @@ namespace Rivet {
     return f.substr(f.rfind(".")+1);
   }
 
-  //@}
+  /// @}
 
 
-  /// @name Container utils
-  //@{
+
+  /// @defgroup contutils Container utils
+  /// @{
 
   /// Return number of true elements in the container @a c .
   template <typename CONTAINER>
@@ -640,12 +644,14 @@ namespace Rivet {
     return std::make_pair(rtnmin, rtnmax);
   }
 
-  //@}
+  /// @}
 
 
   /// @brief Get a parameter from a named environment variable, with automatic type conversion
+  ///
   /// @note Return @a fallback if the variable is not defined, otherwise convert its string to the template type
   /// @todo Should the param name have to be specific to an analysis? Can specialise as an Analysis member fn.
+  /// @ingroup utils
   template <typename T>
   T getEnvParam(const std::string name, const T& fallback) {
     char* env = getenv(name.c_str());
