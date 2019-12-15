@@ -1,6 +1,10 @@
 2019-12-15  Peter Richardson <peter.richardson@durham.ac.uk>
 	* fixes for pointers, booking in TASSO_1990_I284251 and TASSO_1982_I177174
 
+	* added MARKI_1976_I109792, DASP_1979_I132045 particle spectra at low energies
+
+	* added DASP_1979_I132410 eta production at low energies
+
 2019-12-14  Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* added ARGUS_1988_I261672 for sigmac production
