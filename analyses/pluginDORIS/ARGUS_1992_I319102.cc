@@ -27,7 +27,7 @@ namespace Rivet {
       // Book histograms
       if(fuzzyEquals(sqrtS()/GeV, 10.47 , 1E-3))
 	book(_h_N, 2, 1, 1);
-      book(_h_N, 3, 1, 1);
+      book(_h_N_Upsilon, 3, 1, 1);
       // counters for R
       book(_c_hadrons, "/TMP/sigma_hadrons");
       book(_c_muons, "/TMP/sigma_muons");
