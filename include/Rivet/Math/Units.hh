@@ -1,7 +1,7 @@
 #ifndef RIVET_MATH_UNITS
 #define RIVET_MATH_UNITS
 
-#include "Rivet/Math/MathHeader.hh"
+#include "Rivet/Math/MathConstants.hh"
 
 namespace Rivet {
 
@@ -61,7 +61,7 @@ namespace Rivet {
   constexpr double  picosecond = 1.e-12*second;
 
   // symbols
-  constexpr double ns = nanosecond;			
+  constexpr double ns = nanosecond;
   constexpr double  s = second;
   constexpr double ms = millisecond;
 
@@ -70,7 +70,7 @@ namespace Rivet {
   //
   constexpr double eplus = 1.0;		// positron charge
   constexpr double e_SI  = 1.60217733e-19;	// positron charge in coulomb
-  
+
   //
   // Energy [E]
   //
@@ -80,7 +80,7 @@ namespace Rivet {
   constexpr double megaelectronvolt = 1.e-3*gigaelectronvolt;
   constexpr double teraelectronvolt = 1.e+3*gigaelectronvolt;
   constexpr double petaelectronvolt = 1.e+6*gigaelectronvolt;
-  
+
   // symbols
   constexpr double  eV = electronvolt;
   constexpr double keV = kiloelectronvolt;

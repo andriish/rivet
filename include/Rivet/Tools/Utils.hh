@@ -15,6 +15,7 @@
 #include <cfloat>
 #include <cmath>
 #include <sstream>
+#include <functional>
 
 /// @defgroup utils Other utilities
 
@@ -306,7 +307,6 @@ namespace Rivet {
 
 
   /// Return true if x is true for any x in container c, otherwise false.
-  /// @todo Use std::function<bool(typename CONTAINER::value_type)>
   template <typename CONTAINER>
   inline bool any(const CONTAINER& c) {
     // return std::any_of(std::begin(c), std::end(c), [](const auto& x){return bool(x);});
@@ -329,7 +329,6 @@ namespace Rivet {
 
 
   /// Return true if @a x is true for all @c x in container @a c, otherwise false.
-  /// @todo Use std::function<bool(typename CONTAINER::value_type)>
   template <typename CONTAINER>
   inline bool all(const CONTAINER& c) {
     // return std::all_of(std::begin(c), std::end(c), [](const auto& x){return bool(x);});
@@ -352,7 +351,6 @@ namespace Rivet {
 
 
   /// Return true if @a x is false for all @c x in container @a c, otherwise false.
-  /// @todo Use std::function<bool(typename CONTAINER::value_type)>
   template <typename CONTAINER>
   inline bool none(const CONTAINER& c) {
     // return std::none_of(std::begin(c), std::end(c), [](){});
@@ -416,7 +414,6 @@ namespace Rivet {
   }
 
 
-
   /// @brief Generic sum function, adding @c x for all @c x in container @a c
   ///
   /// @note Default-constructs the return type -- not always possible! Supply an explicit start value if necessary.
@@ -428,16 +425,16 @@ namespace Rivet {
   }
 
   /// Generic sum function, adding @c x for all @c x in container @a c, starting with @a start
-  /// @todo Use CONTAINER::value_type? Or more flexible not to?
+  ///
+  /// @note It's more more flexible here to not use CONTAINER::value_type, allowing implicit casting to T.
   template <typename CONTAINER, typename T>
-  inline T sum(const CONTAINER& c, const T& start=T()) {
+  inline T sum(const CONTAINER& c, const T& start) {
     T rtn = start;
     for (const auto& x : c) rtn += x;
     return rtn;
   }
 
   /// Generic sum function, adding @a fn(@c x) for all @c x in container @a c, starting with @a start
-  /// @todo Use std::function<T(typename CONTAINER::value_type)>
   template <typename CONTAINER, typename FN, typename T>
   inline T sum(const CONTAINER& c, const FN& f, const T& start=T()) {
     T rtn = start;
@@ -448,7 +445,8 @@ namespace Rivet {
 
 
   /// In-place generic sum function, adding @c x on to container @a out for all @c x in container @a c
-  /// @todo Use CONTAINER::value_type? Or more flexible not to?
+  ///
+  /// @note It's more more flexible here to not use CONTAINER::value_type, allowing implicit casting to T.
   template <typename CONTAINER, typename T>
   inline T& isum(const CONTAINER& c, T& out) {
     for (const auto& x : c) out += x;
@@ -456,7 +454,8 @@ namespace Rivet {
   }
 
   /// In-place generic sum function, adding @a fn(@c x) on to container @a out for all @c x in container @a c
-  /// @todo Use std::function<T(typename CONTAINER::value_type)>
+  ///
+  /// @note It's more more flexible here to not use CONTAINER::value_type, allowing implicit casting to T.
   template <typename CONTAINER, typename FN, typename T>
   inline T& isum(const CONTAINER& c, const FN& f, T& out) {
     for (const auto& x : c) out += f(x);
@@ -554,7 +553,7 @@ namespace Rivet {
 
   /// @brief Slice of the container elements cf. Python's [i:j] syntax
   ///
-  /// The element at the @j index is not included in the returned container.
+  /// The element at the @a j index is not included in the returned container.
   /// @a i and @a j can be negative, treated as backward offsets from the end of the container.
   template <typename CONTAINER>
   inline CONTAINER slice(const CONTAINER& c, int i, int j) {
@@ -578,7 +577,7 @@ namespace Rivet {
 
   /// @brief Head slice of the @a n first container elements
   ///
-  /// Negative @a n means to take the head excluding the @a{n}-element tail
+  /// Negative @a n means to take the head excluding the @a n -element tail
   template <typename CONTAINER>
   inline CONTAINER head(const CONTAINER& c, int n) {
     // if (n > c.size()) throw RangeError("Requested head longer than container");
@@ -589,7 +588,7 @@ namespace Rivet {
 
   /// @brief Tail slice of the @a n last container elements
   ///
-  /// Negative @a n means to take the tail from after the @a{n}th element
+  /// Negative @a n means to take the tail from after the @a n th element
   template <typename CONTAINER>
   inline CONTAINER tail(const CONTAINER& c, int n) {
     // if (n > c.size()) throw RangeError("Requested tail longer than container");

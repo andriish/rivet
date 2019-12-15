@@ -684,7 +684,7 @@ namespace Rivet {
     /// contains a histogram with the name @a calHistName with an
     /// appended "_IMP" This histogram will be used to add an optional
     /// centrality percentile based on the generated impact
-    /// parameter. If @increasing is true, a low (high) value of @proj
+    /// parameter. If @a increasing is true, a low (high) value of @a proj
     /// is assumed to correspond to a more peripheral (central) event.
     const CentralityProjection&
     declareCentrality(const SingleValueProjection &proj,
@@ -825,10 +825,10 @@ namespace Rivet {
     /// @todo Should really be protected: only public to keep BinnedHistogram happy for now...
     //@{
 
-    /// Multiplicatively scale the given counter, @a cnt, by factor @s factor.
+    /// Multiplicatively scale the given counter, @a cnt, by factor @a factor.
     void scale(CounterPtr cnt, CounterAdapter factor);
 
-    /// Multiplicatively scale the given counters, @a cnts, by factor @s factor.
+    /// Multiplicatively scale the given counters, @a cnts, by factor @a factor.
     /// @note Constness intentional, if weird, to allow passing rvalue refs of smart ptrs (argh)
     /// @todo Use SFINAE for a generic iterable of CounterPtrs
     void scale(const std::vector<CounterPtr>& cnts, CounterAdapter factor) {
@@ -857,10 +857,10 @@ namespace Rivet {
       for (auto& h : histos) normalize(h, norm, includeoverflows);
     }
 
-    /// Multiplicatively scale the given histogram, @a histo, by factor @s factor.
+    /// Multiplicatively scale the given histogram, @a histo, by factor @a factor.
     void scale(Histo1DPtr histo, CounterAdapter factor);
 
-    /// Multiplicatively scale the given histograms, @a histos, by factor @s factor.
+    /// Multiplicatively scale the given histograms, @a histos, by factor @a factor.
     /// @note Constness intentional, if weird, to allow passing rvalue refs of smart ptrs (argh)
     /// @todo Use SFINAE for a generic iterable of Histo1DPtrs
     void scale(const std::vector<Histo1DPtr>& histos, CounterAdapter factor) {
@@ -888,10 +888,10 @@ namespace Rivet {
       for (auto& h : histos) normalize(h, norm, includeoverflows);
     }
 
-    /// Multiplicatively scale the given histogram, @a histo, by factor @s factor.
+    /// Multiplicatively scale the given histogram, @a histo, by factor @a factor.
     void scale(Histo2DPtr histo, CounterAdapter factor);
 
-    /// Multiplicatively scale the given histograms, @a histos, by factor @s factor.
+    /// Multiplicatively scale the given histograms, @a histos, by factor @a factor.
     /// @note Constness intentional, if weird, to allow passing rvalue refs of smart ptrs (argh)
     /// @todo Use SFINAE for a generic iterable of Histo2DPtrs
     void scale(const std::vector<Histo2DPtr>& histos, CounterAdapter factor) {

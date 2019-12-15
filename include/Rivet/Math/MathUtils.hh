@@ -2,7 +2,7 @@
 #ifndef RIVET_MathUtils_HH
 #define RIVET_MathUtils_HH
 
-#include "Rivet/Math/MathHeader.hh"
+#include "Rivet/Math/MathConstants.hh"
 #include <type_traits>
 #include <cassert>
 

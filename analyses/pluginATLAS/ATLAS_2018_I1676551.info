@@ -14,7 +14,7 @@ References:
  - 'CERN-EP-2018-113'
 RunInfo: BSM signal events, with 2 or 3 high-pT leptons.
 Beams: [p+, p+]
-Energies: [6500,6500]
+Energies: [[6500,6500]]
 Luminosity_fb: 36.1
 Description:
   'A search for electroweak production of supersymmetric particles in two-lepton and three-lepton

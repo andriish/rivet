@@ -428,19 +428,19 @@ namespace Rivet {
   void AnalysisHandler::mergeYodas(const vector<string> & aofiles,
                                    const vector<string> & delopts, bool equiv) {
 
-    // Convenient typedef;
+    // Convenience typedef
     typedef multimap<string, YODA::AnalysisObjectPtr> AOMap;
 
-    // Store all found weights here.
+    // Store all found weights here
     set<string> foundWeightNames;
 
-    // Stor all found analyses.
+    // Store all found analyses
     set<string> foundAnalyses;
 
-    // Store all analysis objects here.
+    // Store all analysis objects here
     vector<AOMap> allaos;
 
-    // Go through all files and collect information.
+    // Go through all files and collect information
     for ( auto file : aofiles ) {
       allaos.push_back(AOMap());
       AOMap & aomap = allaos.back();
@@ -459,7 +459,7 @@ namespace Rivet {
         if ( !path.isRaw() ) continue;
 
         foundWeightNames.insert(path.weight());
-        // Now check if any options should be removed.
+        // Now check if any options should be removed
         for ( string delopt : delopts )
           if ( path.hasOption(delopt) ) path.removeOption(delopt);
         path.setPath();
@@ -469,7 +469,7 @@ namespace Rivet {
       }
     }
 
-    // Now make analysis handler aware of the weight names present.
+    // Now make analysis handler aware of the weight names present
     _weightNames.clear();
     _defaultWeightIdx = 0;
     for ( string name : foundWeightNames ) _weightNames.push_back(name);
@@ -495,7 +495,7 @@ namespace Rivet {
     _stage = Stage::OTHER;
     _initialised = true;
 
-    // Now get all booked analysis objects.
+    // Now get all booked analysis objects
     vector<MultiweightAOPtr> raos;
     for (AnaHandle a : analyses()) {
       for (const auto & ao : a->analysisObjects()) {
@@ -503,8 +503,7 @@ namespace Rivet {
       }
     }
 
-    // Collect global weights and xcoss sections and fix scaling for
-    // all files.
+    // Collect global weights and cross sections and fix scaling for all files
     _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
     _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
     for (size_t iW = 0; iW < numWeights(); iW++) {
@@ -604,7 +603,7 @@ namespace Rivet {
 
   void AnalysisHandler::writeData(const string& filename) const {
 
-    // This is where we store the OAs to be written.
+    // This is where we store the AOs to be written.
     vector<YODA::AnalysisObjectPtr> output;
 
     // First get all multiwight AOs
@@ -643,8 +642,14 @@ namespace Rivet {
   }
 
 
-  string AnalysisHandler::runName() const { return _runname; }
-  size_t AnalysisHandler::numEvents() const { return _eventCounter->numEntries(); }
+  string AnalysisHandler::runName() const {
+    return _runname;
+  }
+
+
+  size_t AnalysisHandler::numEvents() const {
+    return _eventCounter->numEntries();
+  }
 
 
   std::vector<std::string> AnalysisHandler::analysisNames() const {
@@ -666,9 +671,7 @@ namespace Rivet {
 
 
   AnalysisHandler& AnalysisHandler::removeAnalyses(const std::vector<std::string>& analysisnames) {
-    for (const string& aname : analysisnames) {
-      removeAnalysis(aname);
-    }
+    for (const string& aname : analysisnames) removeAnalysis(aname);
     return *this;
   }
 
@@ -714,7 +717,7 @@ namespace Rivet {
   }
 
   void AnalysisHandler::skipMultiWeights(bool ignore) {
-    _skipWeights=ignore;
+    _skipWeights = ignore;
   }
 
 

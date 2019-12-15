@@ -54,7 +54,8 @@ namespace Rivet {
 
 
   std::valarray<double> Event::weights() const {
-    return HepMCUtils::weights(_genevent);
+    const std::valarray<double> ws = HepMCUtils::weights(_genevent);
+    return ws.size() > 0 ? ws : std::valarray<double>{1.0};
   }
   
 }

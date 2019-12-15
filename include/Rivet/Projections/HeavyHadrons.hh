@@ -13,7 +13,7 @@ namespace Rivet {
   /// @brief Project out the last pre-decay b and c hadrons.
   ///
   /// This currently defines a c-hadron as one which contains a @a c quark and
-  /// @a{not} a @a b quark.
+  /// @b not a @a b quark.
   ///
   /// @todo This assumes that the heavy hadrons are unstable... should we also look for stable ones in case the decays are disabled?
   class HeavyHadrons : public FinalState {

@@ -25,17 +25,19 @@ namespace Rivet {
     /// @name Constructors
     //@{
 
-    /// Constructor taking cuts object
+    /// @brief Constructor taking cuts object
+    ///
     /// @param inputfs Input final state
-    /// @param cuts lepton cuts
-    /// @param pid type of the leptons
-    /// @param minmass,maxmass mass window
-    /// @param dRmax maximum dR of photons around leptons to take into account
+    /// @param cuts  Lepton cuts
+    /// @param pid  Type of the leptons
+    /// @param minmass,maxmass  Dilepton mass window
+    /// @param dRmax  Maximum dR of photons around leptons to take into account
     ///  for Z reconstruction (only relevant if one of the following are true)
-    /// @param clusterPhotons whether such photons are supposed to be
+    /// @param chLeptons  The type of charged leptons considered
+    /// @param clusterPhotons  Whether such photons are supposed to be
     ///  clustered to the lepton objects and thus Z mom
-    /// @param trackPhotons whether such photons should be added to _theParticles
-    ///  (cf. _trackPhotons)
+    /// @param trackPhotons  Whether such photons should be considered constituent particles
+    /// @param masstarget  The expected (transverse) mass value, if resolving ambiguities
     ZFinder(const FinalState& inputfs,
             const Cut& cuts,
             PdgId pid,

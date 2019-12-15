@@ -13,11 +13,11 @@ namespace Rivet {
   class TauFinder : public FinalState {
   public:
 
-    enum class DecayMode { 
-      ANY = 0, 
+    enum class DecayMode {
+      ANY = 0,
       ALL = 0,
-      LEPTONIC, 
-      HADRONIC 
+      LEPTONIC,
+      HADRONIC
     };
 
     static bool isHadronic(const Particle& tau) {
@@ -30,7 +30,7 @@ namespace Rivet {
     }
 
 
-    TauFinder(DecayMode decaymode, const Cut& cut=Cuts::open()) {
+    TauFinder(DecayMode decaymode=DecayMode::ANY, const Cut& cut=Cuts::open()) {
       /// @todo What about directness/promptness?
       setName("TauFinder");
       _decmode = decaymode;

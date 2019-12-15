@@ -25,19 +25,21 @@ namespace Rivet {
     /// @name Constructors
     //@{
 
-    /// Constructor taking cuts object
-    /// @param inputfs Input final state
-    /// @param leptoncuts Charged lepton cuts
-    /// @param pid Type of the charged lepton
-    /// @param minmass,maxmass (Transverse) mass window
-    /// @param missingET Minimal amount of missing ET (neutrinos) required
-    /// @param dRmax Maximum dR of photons around charged lepton to take into account
+    /// @brief Constructor taking cuts object
+    ///
+    /// @param inputfs  Input final state
+    /// @param leptoncuts  Charged lepton cuts
+    /// @param pid  Type of the charged lepton
+    /// @param minmass,maxmass  (Transverse) mass window
+    /// @param missingET  Minimal amount of missing ET (neutrinos) required
+    /// @param dRmax  Maximum dR of photons around charged lepton to take into account
     ///  for W reconstruction (only relevant if one of the following are true)
-    /// @param chLeptons Only use prompt charged leptons, or any charged leptons?
-    /// @param clusterPhotons Whether such photons are supposed to be
+    /// @param chLeptons  Only use prompt charged leptons, or any charged leptons?
+    /// @param clusterPhotons  Whether such photons are supposed to be
     ///  clustered to the lepton object and thus W mom
-    /// @param trackPhotons Whether such photons should be added to _theParticles
-    /// @param masstype Whether mass window should be applied using m or mT
+    /// @param trackPhotons  Whether such photons should be added to _theParticles
+    /// @param masstype  Whether mass window should be applied using m or mT
+    /// @param masstarget  The expected (transverse) mass value, if resolving ambiguities
     ///
     /// @todo Revisit AddPhotons::NO as default?
     WFinder(const FinalState& inputfs,

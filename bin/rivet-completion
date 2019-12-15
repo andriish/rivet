@@ -129,6 +129,7 @@ function _rivet_buildplugin() {
 
 
 complete -F _rivet_buildplugin rivet-buildplugin
+complete -F _rivet_buildplugin rivet-build
 
 
 ##############################
