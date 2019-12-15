@@ -90,7 +90,7 @@ namespace Rivet {
     void finalize() {
       normalize(_h_ctheta);
       Scatter2DPtr _h_alpha;
-      book(_h_ctheta,1,1,1);
+      book(_h_alpha,1,1,1);
       pair<double,double> alpha = calcAlpha(_h_ctheta);
       _h_alpha->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
     }
