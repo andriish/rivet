@@ -49,14 +49,14 @@ namespace Rivet {
 	book(_h_x3,3,1,6);
       }
       else if (fuzzyEquals(sqrtS()/GeV, 35., 1e-3)) {
-	book(_h_x2, 2,1,7);
+        book(_h_x2, 2,1,7);
         book(_h_x3, 3,1,7);
       }
 
       if(inRange(sqrtS()/GeV, 29.9,36.7))
-	book(_h_x1, 1,1,3);
-      
-      if(!_h_x1 && !_h_x2 && !_h_x3)
+        book(_h_x1, 1,1,3);
+
+      if(_h_x1==Histo1DPtr() && _h_x2==Histo1DPtr() && _h_x3==Histo1DPtr())
       	MSG_ERROR("Beam energy not supported!");
 
     }
@@ -83,9 +83,9 @@ namespace Rivet {
       
       for (const Particle& p : fs.particles()) {
 	double xp = p.p3().mod()/meanBeamMom;
-	if(_h_x1) _h_x1->fill(xp);
-	if(_h_x2) _h_x2->fill(xp);
-	if(_h_x3) _h_x3->fill(xp);
+	if(_h_x1!=Histo1DPtr()) _h_x1->fill(xp);
+	if(_h_x2!=Histo1DPtr()) _h_x2->fill(xp);
+	if(_h_x3!=Histo1DPtr()) _h_x3->fill(xp);
       }
     }
 

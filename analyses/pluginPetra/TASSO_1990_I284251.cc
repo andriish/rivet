@@ -57,7 +57,7 @@ namespace Rivet {
 	book(_h_K0_x, 1,1,_iy);
 	if(_iy!=3) {
 	  book(_p_K0_S_1, 5,1,2*_iy-1);
-	  book(_p_K0_S_2, 5,1,2*_iy);
+	  book(_p_K0_S_2,"TMP/p_K0_S_2",refData(_ih+5,1,2*_iy));
 	}
 	book(_h_Kstar_x, 8,1,_iy);
 	if(_iy==2) {
@@ -100,22 +100,22 @@ namespace Rivet {
 	double modp = p.p3().mod();
 	double beta = modp/p.E();
 	if(abs(p.pid())==323) {
-	  if(_h_Kstar_x) _h_Kstar_x->fill(xE,1./beta);
+	  if(_h_Kstar_x!=Histo1DPtr()) _h_Kstar_x->fill(xE,1./beta);
 	  ++nKstar;
 	}
 	else {
-	  if(_h_K0_x) _h_K0_x->fill(xE,1./beta);
+	  if(_h_K0_x!=Histo1DPtr()) _h_K0_x->fill(xE,1./beta);
 	  ++nK0;
 	}
       }
       _n_K0->fill(nK0);
       _n_Kstar->fill(nKstar);
       double sphere = sphericity.sphericity();
-      if(_p_K0_S_1) {
+      if(_p_K0_S_1!=Profile1DPtr()) {
 	_p_K0_S_1->fill(sphere,nK0);
 	_p_K0_S_2->fill(sphere,cfs.particles().size());
       }
-      if(_p_Kstar_S_1) {
+      if(_p_Kstar_S_1!=Profile1DPtr()) {
 	_p_Kstar_S_1->fill(sphere,nKstar);		    
 	_p_Kstar_S_2->fill(sphere,cfs.particles().size());
       }
@@ -125,8 +125,9 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       scale(_h_K0_x, sqr(sqrtS())*crossSection()/microbarn/sumOfWeights());
-      if(_h_Kstar_x) scale(_h_Kstar_x, sqr(sqrtS())*crossSection()/nanobarn/sumOfWeights());
-      if(_p_K0_S_1) {
+      if(_h_Kstar_x!=Histo1DPtr())
+	scale(_h_Kstar_x, sqr(sqrtS())*crossSection()/nanobarn/sumOfWeights());
+      if(_p_K0_S_1!=Profile1DPtr()) {
 	Scatter2DPtr temp;
 	if(_ih==0)
 	  book(temp,5,1,2*_iy);
@@ -134,7 +135,7 @@ namespace Rivet {
 	  book(temp,_ih+5,1,2);
 	divide(_p_K0_S_1,_p_K0_S_2,temp);
       }
-      if(_p_Kstar_S_1) {
+      if(_p_Kstar_S_1!=Profile1DPtr()) {
 	Scatter2DPtr temp;
 	book(temp,10,1,2);
 	divide(_p_Kstar_S_1,_p_Kstar_S_2,temp);
