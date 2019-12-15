@@ -1,9 +1,18 @@
+2019-12-15  Peter Richardson <peter.richardson@durham.ac.uk>
+	* fixes for pointers, booking in TASSO_1990_I284251 and TASSO_1982_I177174
+
 2019-12-14  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* added ARGUS_1988_I261672 for sigmac production
+
+	* added LHCB_2013_I1243156, ARGUS_1989_I280943, BABAR_2010_I867611 helicity angles for excited D meson decays
+
 	* added TPC_1991_I316132, HRS_1987_I250823 D* polarization at 29 GeV
 
 	* added VENUS_1998_I453613, TOPAZ_1997_I454183 charged particles at 58 GeV
 
 2019-12-13  Peter Richardson <peter.richardson@durham.ac.uk>
+
 	* ATLAS_2011_S9128077 ensure all bins outputed in d02, otherwise problems with yodamerge
 
 	* ATLAS_2015_I1393758 and ATLAS_2016_I1419070, CMS_2012_I1111014, change numEntries -> effNumEntries to avoid issues in NLO runs
