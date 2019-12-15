@@ -31,6 +31,12 @@
 
 	* added DASP_1979_I132410 eta production at low energies
 
+	* added BABAR_2006_I719111 particle specta in B decays
+
+	* added OPAL_2001_I536266 flavour separate charge particle multiplicites
+
+	* added new CLEO and CUSB analyses
+
 2019-12-14  Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* added ARGUS_1988_I261672 for sigmac production
