@@ -17,7 +17,7 @@ namespace Rivet {
 
   AnalysisHandler::AnalysisHandler(const string& runname)
     : _runname(runname),
-      _initialised(false), _ignoreBeams(false), 
+      _initialised(false), _ignoreBeams(false),
       _skipWeights(false), _weightCap(0.),
       _defaultWeightIdx(0), _dumpPeriod(0), _dumping(false)
   {  }
@@ -27,9 +27,10 @@ namespace Rivet {
       static bool printed = false;
     // Print out MCnet boilerplate
     if (!printed && getLog().getLevel() <= 20) {
-      cout << endl;
-      cout << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl;
-      cout << "Please acknowledge plots made with Rivet analyses, and cite arXiv:1003.0694 (http://arxiv.org/abs/1003.0694)" << endl;
+      cout << endl
+           << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl
+           << "Please acknowledge Rivet in results made using it, and cite https://arxiv.org/abs/1912.05451" << endl;
+           // << "https://arxiv.org/abs/1003.0694" << endl;
       printed = true;
     }
   }
