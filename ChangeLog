@@ -23,6 +23,10 @@
 
 	* Formally require YODA >= 1.8.0 in configure.
 
+2019-12-16  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* add new ALEPH analyses
+
 2019-12-15  Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* fixes for pointers, booking in TASSO_1990_I284251 and TASSO_1982_I177174
@@ -42,7 +46,7 @@
 	* fix issues with ARGUS_1992_I319102, CLEO_2000_I537236
 
 	* added new DELPHI analyses
-	
+
 	* added L3_1995_I381046, B*/B ratio
 
 	* added new OPAL analyses
