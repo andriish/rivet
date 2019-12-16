@@ -1,3 +1,7 @@
+2019-12-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Formally require YODA >= 1.8.0 in configure.
+
 2019-12-10  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Re-enable custom Particles and Jets vectors, with moms() and other conversion functions.
