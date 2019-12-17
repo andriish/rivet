@@ -27,6 +27,10 @@
 
 	* add CMD3_2019_I1770428 K0S K0S pi+ pi- cross section
 
+	* fix histogram ids in BELLE_2009_I809630
+
+	* add TMP to histogram labels in ARGUS_1993_S2669951
+
 2019-12-16  Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* add new ALEPH analyses
