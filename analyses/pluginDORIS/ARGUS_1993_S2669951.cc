@@ -17,15 +17,15 @@ namespace Rivet {
     void init() {
       declare(UnstableParticles(), "UFS");
       
-      book(_weightSum_cont, "weightSum_cont");
-      book(_weightSum_Ups1, "weightSum_Ups1");
-      book(_weightSum_Ups2, "weightSum_Ups2");
+      book(_weightSum_cont, "TMP/weightSum_cont");
+      book(_weightSum_Ups1, "TMP/weightSum_Ups1");
+      book(_weightSum_Ups2, "TMP/weightSum_Ups2");
 
       for ( auto i : {0,1,2} ) {
         if ( i < 2 )
-          book(_count_etaPrime_highZ[i], "count_etaPrime_highz_" + to_str(i));
-        book(_count_etaPrime_allZ[i], "count_etaPrime_allz_" + to_str(i));
-        book(_count_f0[i], "count_f0_" + to_str(i));
+          book(_count_etaPrime_highZ[i], "TMP/count_etaPrime_highz_" + to_str(i));
+        book(_count_etaPrime_allZ[i], "TMP/count_etaPrime_allz_" + to_str(i));
+        book(_count_f0[i], "TMP/count_f0_" + to_str(i));
       }
 
       book(_hist_cont_f0 ,2, 1, 1);
