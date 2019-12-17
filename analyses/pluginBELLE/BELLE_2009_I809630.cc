@@ -112,9 +112,9 @@ namespace Rivet {
 	}
 	sigma *= crossSection()/ sumOfWeights() /nanobarn;
 	error *= crossSection()/ sumOfWeights() /nanobarn;
-	Scatter2D temphisto(refData(1, 1, ix));
+	Scatter2D temphisto(refData(ix, 1, 1));
 	Scatter2DPtr  mult;
-        book(mult, 1, 1, ix);
+        book(mult, ix, 1, 1);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();
