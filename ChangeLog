@@ -1,3 +1,9 @@
+2019-12-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Switch required compiler dialect to C++14, to ensure that
+	compiler definitely (?) supports required C++11. C++14 or 17 is
+	the current standard LCG build dialect.
+
 2019-12-16  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Formally require YODA >= 1.8.0 in configure.
