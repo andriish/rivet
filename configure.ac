@@ -281,17 +281,23 @@ fi
 AM_CONDITIONAL(ENABLE_ANALYSES, [test x$enable_analyses = xyes])
 
 
-## Build LaTeX docs if possible...
-AC_PATH_PROG(PDFLATEX, pdflatex)
+dnl ## Build LaTeX docs if possible...
+dnl AC_PATH_PROG(PDFLATEX, pdflatex)
+dnl AM_CONDITIONAL(WITH_PDFLATEX, [test x$PDFLATEX != x])
+dnl ## ... unless told otherwise!
+dnl AC_ARG_ENABLE([pdfmanual],
+dnl   [AC_HELP_STRING(--enable-pdfmanual, [build and install the manual])],
+dnl   [], [enable_pdfmanual=no])
+dnl if test x$enable_pdfmanual = xyes; then
+dnl    AC_MSG_WARN([Building Rivet manual, by request])
+dnl fi
+# TODO: remove
 AM_CONDITIONAL(WITH_PDFLATEX, [test x$PDFLATEX != x])
-## ... unless told otherwise!
-AC_ARG_ENABLE([pdfmanual],
-  [AC_HELP_STRING(--enable-pdfmanual, [build and install the manual])],
-  [], [enable_pdfmanual=no])
-if test x$enable_pdfmanual = xyes; then
-   AC_MSG_WARN([Building Rivet manual, by request])
-fi
 AM_CONDITIONAL(ENABLE_PDFMANUAL, [test x$enable_pdfmanual = xyes])
+#
+AC_ARG_ENABLE([pdfmanual],
+  [AC_HELP_STRING(--enable-pdfmanual, [backward compatility dummy flag, no effect and deprecated])], [], [])
+
 
 ## Build Doxygen documentation if possible
 AC_ARG_ENABLE([doxygen],
