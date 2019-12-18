@@ -20,8 +20,8 @@ PtCuts: [0]
 Description:  The $K^{*0}$ fragmentation function has been measured in hadronic $Z^0$ decays. 
  In addition the  helicity density matrix elements for inclusive $K^*(892)^0$ mesons
  from hadronic $Z^0$ decays have been measured over the full range of $K^{*0}$ momentum
- using data taken with the OPAL experiment at LEP. Only the fragmentation function
- measurement is currently implemented.
+ using data taken with the OPAL experiment at LEP.
+ Both the fragmentation function and polarization measurements are implemented.
 
 BibKey: Ackerstaff:1997kj
 BibTeX: '@Article{Ackerstaff:1997kj,
