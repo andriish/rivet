@@ -8,7 +8,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief kaon spectra at LEP1
   class DELPHI_1995_I377487 : public Analysis {
   public:
 

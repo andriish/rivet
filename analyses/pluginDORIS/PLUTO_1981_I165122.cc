@@ -134,16 +134,8 @@ namespace Rivet {
     void finalize() {
       // energy dependent
       for(unsigned int ix=1;ix<4;++ix) {
-	Scatter1D R;
-	if(ix==1 ) {
-	  R = *_c_kaons/ *_c_muons;
-	}
-	else if(ix==2) {
-	  R = *_c_kaons/ *_c_hadrons;
-	}
-	else if(ix==3) {
-	  R = *_c_kaons/ *_c_muons;
-	}
+	CounterPtr denom = (ix==1 || ix==3 ) ? _c_muons : _c_hadrons;
+	Scatter1D R = *_c_kaons/ *denom;
 	double              rval = R.point(0).x();
 	pair<double,double> rerr = R.point(0).xErrs();
 	Scatter2D temphisto(refData(ix, 1, 1));
@@ -170,7 +162,7 @@ namespace Rivet {
 	      mult   ->addPoint(x, 0., ex, make_pair(0.,.0));
 	    }
 	  }
-	  else {
+	  else if (denom->numEntries()>0) {
 	    pair<double,double> ex2 = ex;
 	    if(ex2.first ==0.) ex2. first=0.0001;
 	    if(ex2.second==0.) ex2.second=0.0001;

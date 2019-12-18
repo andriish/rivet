@@ -88,7 +88,7 @@ namespace Rivet {
 	      double ctheta2 = p2.momentum().p3().unit().dot(axis);
 	      if(p.pid()<0) swap(ctheta1,ctheta2);
 	      _h_xim->fill(ctheta1);
-	      _h_xip->fill(ctheta1);
+	      _h_xip->fill(ctheta2);
 	      break;
 	    }
 	  }
