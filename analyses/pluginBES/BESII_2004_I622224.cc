@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Charged particle spectra between 2.2 and 4.8 GeV
   class BESII_2004_I622224 : public Analysis {
   public:
 

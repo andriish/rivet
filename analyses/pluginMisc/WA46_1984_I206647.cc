@@ -23,9 +23,9 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS" );
 
       // Book histograms
-      book(_h_cthetalam ,"cthetaP"  ,20,-1,1);
-      book(_h_cthetaxi0 ,"cthetaM"  ,20,-1,1);
-      book(_h_cthetaxim ,"cthetaAll",20,-1,1);
+      book(_h_cthetalam, "cthetaLambda",20,-1,1);
+      book(_h_cthetaxi0, "cthetaXi0"   ,20,-1,1);
+      book(_h_cthetaxim, "cthetaXim"   ,20,-1,1);
 
     }
 

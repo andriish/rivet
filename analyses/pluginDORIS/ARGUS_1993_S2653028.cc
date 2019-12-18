@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief BELLE pi+/-, K+/- and proton/antiproton spectrum at Upsilon(4S)
+  /// @brief ARGUS pi+/-, K+/- and proton/antiproton spectrum at Upsilon(4S)
   /// @author Peter Richardson
   class ARGUS_1993_S2653028 : public Analysis {
   public:
