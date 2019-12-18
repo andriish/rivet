@@ -11,13 +11,13 @@ YLabel=$\alpha$
 LogY=0
 END PLOT
 
-BEGIN PLOT /WA46_1984_I206647/cthetalam
+BEGIN PLOT /WA46_1984_I206647/cthetaLambda
 Title=$\cos\theta$ for $\Omega^-\to\Lambda^0K^-+\text{c.c}$
 END PLOT
-BEGIN PLOT /WA46_1984_I206647/cthetaxi0
+BEGIN PLOT /WA46_1984_I206647/cthetaXi0
 Title=$\cos\theta$ for $\Omega^-\to\Xi^0\pi^-+\text{c.c}$
 END PLOT
-BEGIN PLOT /WA46_1984_I206647/cthetaxim
+BEGIN PLOT /WA46_1984_I206647/cthetaXim
 Title=$\cos\theta$ for $\Omega^-\to\Xi^-\pi^0+\text{c.c}$
 END PLOT
 
