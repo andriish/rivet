@@ -1,5 +1,12 @@
 BEGIN PLOT /ARGUS_1989_I268577/d02-x01-y01
-Title=Scaled momentum for $D^0_2$
+Title=Scaled momentum spectrum for $D_2^*(2460)^0$
 XLabel=$x_p$
 YLabel=$1/\sigma\text{d}\sigma/\text{d}x_p$
+LogY=0
+END PLOT
+BEGIN PLOT /ARGUS_1989_I268577/d03-x01-y01
+Title=Decay angle for $D_2^*(2460)^0$
+XLabel=$\cos\theta_H^*$
+YLabel=$1/\sigma\text{d}\sigma/\text{d}\cos\theta_H^*$
+LogY=0
 END PLOT
