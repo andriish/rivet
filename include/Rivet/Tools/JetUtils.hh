@@ -120,13 +120,24 @@ namespace Rivet {
   };
   using hasCTag = HasCTag;
 
-  /// Anti-B/C-tagging functor, with a tag selection cut as the stored state
-  struct HasNoTag : BoolJetFunctor {
-    HasNoTag(const Cut& c=Cuts::open()) : cut(c) {}
-    // HasNoTag(const std::function<bool(const Jet& j)>& f) : selector(f) {}
-    bool operator() (const Jet& j) const { return !j.bTagged(cut) && !j.cTagged(cut); }
+  /// Tau-tagging functor, with a tag selection cut as the stored state
+  struct HasTauTag : BoolJetFunctor {
+    HasTauTag(const Cut& c=Cuts::open()) : cut(c) {}
+    // HasTauTag(const std::function<bool(const Jet& j)>& f) : selector(f) {}
+    bool operator() (const Jet& j) const { return j.tauTagged(cut); }
     // const std::function<bool(const Jet& j)> selector;
     const Cut cut;
+  };
+  using hasTauTag = HasTauTag;
+
+  /// Anti-B/C-tagging functor, with a tag selection cut as the stored state
+  struct HasNoTag : BoolJetFunctor {
+    HasNoTag(const Cut& c=Cuts::open(), bool quarktagsonly=false) : cut(c), qtagsonly(quarktagsonly) {}
+    // HasNoTag(const std::function<bool(const Jet& j)>& f) : selector(f) {}
+    bool operator() (const Jet& j) const { return !j.bTagged(cut) && !j.cTagged(cut) && (qtagsonly || !j.tauTagged(cut)); }
+    // const std::function<bool(const Jet& j)> selector;
+    const Cut cut;
+    bool qtagsonly;
   };
   using hasNoTag = HasNoTag;
 

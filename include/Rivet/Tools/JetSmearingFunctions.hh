@@ -37,11 +37,17 @@ namespace Rivet {
   };
 
 
-  /// Return 1 if the given Jet contains a b, otherwise 0
+  /// @brief Return 1 if the given Jet contains a b, otherwise 0
+  /// @todo Need to be able to pass a tag pT threshold? -> functor struct
   inline double JET_BTAG_PERFECT(const Jet& j) { return j.bTagged() ? 1 : 0; }
 
-  /// Return 1 if the given Jet contains a c, otherwise 0
+  /// @brief Return 1 if the given Jet contains a c, otherwise 0
+  /// @todo Need to be able to pass a tag pT threshold? -> functor struct
   inline double JET_CTAG_PERFECT(const Jet& j) { return j.cTagged() ? 1 : 0; }
+
+  /// @brief Return 1 if the given Jet contains a c, otherwise 0
+  /// @todo Need to be able to pass a tag pT threshold? -> functor struct
+  inline double JET_TAUTAG_PERFECT(const Jet& j) { return j.tauTagged() ? 1 : 0; }
 
 
   /// @brief b-tagging efficiency functor, for more readable b-tag effs and mistag rates

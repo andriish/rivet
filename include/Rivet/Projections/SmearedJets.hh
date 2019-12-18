@@ -37,6 +37,8 @@ namespace Rivet {
     //@{
 
     /// @brief Constructor with a reco efficiency and optional tagging efficiencies
+    ///
+    /// @todo Add a tau-tag slot
     SmearedJets(const JetAlg& ja,
                 const JetSmearFn& smearFn,
                 const JetEffFn& bTagEffFn=JET_BTAG_PERFECT,
@@ -46,6 +48,8 @@ namespace Rivet {
 
 
     /// @brief Constructor with tagging efficiencies, plus an ordered init-list of efficiency and smearing functions
+    ///
+    /// @todo Add a tau-tag slot
     SmearedJets(const JetAlg& ja,
                 const JetEffFn& bTagEffFn=JET_BTAG_PERFECT,
                 const JetEffFn& cTagEffFn=JET_CTAG_PERFECT,
@@ -54,6 +58,8 @@ namespace Rivet {
     {    }
 
     /// @brief Constructor with tagging efficiencies, plus an ordered vector of efficiency and smearing functions
+    ///
+    /// @todo Add a tau-tag slot
     SmearedJets(const JetAlg& ja,
                 const JetEffFn& bTagEffFn=JET_BTAG_PERFECT,
                 const JetEffFn& cTagEffFn=JET_CTAG_PERFECT,
@@ -63,6 +69,8 @@ namespace Rivet {
 
 
     /// @brief Constructor with an ordered init-list of efficiency and smearing functions, plus optional tagging efficiencies
+    ///
+    /// @todo Add a tau-tag slot
     SmearedJets(const JetAlg& ja,
                 const initializer_list<JetEffSmearFn>& effSmearFns,
                 const JetEffFn& bTagEffFn=JET_BTAG_PERFECT,
@@ -71,6 +79,8 @@ namespace Rivet {
     {    }
 
     /// @brief Constructor with an ordered vector of efficiency and smearing functions, plus optional tagging efficiencies
+    ///
+    /// @todo Add a tau-tag slot
     SmearedJets(const JetAlg& ja,
                 const vector<JetEffSmearFn>& effSmearFns,
                 const JetEffFn& bTagEffFn=JET_BTAG_PERFECT,
@@ -84,6 +94,8 @@ namespace Rivet {
 
     /// @brief Constructor with trailing efficiency arg
     /// @deprecated Use the version with pair-smearing list as 2nd argument
+    ///
+    /// @todo Add a tau-tag slot
     SmearedJets(const JetAlg& ja,
                 const JetSmearFn& smearFn,
                 const JetEffFn& bTagEffFn,

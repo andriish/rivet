@@ -536,7 +536,7 @@ namespace Rivet {
   ///   20-40 GeV 3-prong LMT eff|mis = 0.45|1/60, 0.38|1/100, 0.27|1/300
   ///   > 40 GeV 1-prong LMT eff|mis = 0.66|1/15, 0.56|1/25, 0.36|1/80
   ///   > 40 GeV 3-prong LMT eff|mis = 0.45|1/250, 0.38|1/400, 0.27|1/1300
-  inline double TAU_MISID_ATLAS_RUN1(const Jet& j) {
+  inline double TAUJET_EFF_ATLAS_RUN1(const Jet& j) {
     if (j.abseta() > 2.5) return 0; //< hmm... mostly
     double pThadvis = 0;
     Particles chargedhadrons;
@@ -548,13 +548,13 @@ namespace Rivet {
     }
     if (chargedhadrons.empty()) return 0;
     if (pThadvis < 20*GeV) return 0;
-    /// @todo Add some "if jet is true tau" logic... how? tau among constituents' ancestors?
+
     if (pThadvis < 40*GeV) {
-      if (chargedhadrons.size() == 1) return 1/20.;
-      if (chargedhadrons.size() == 3) return 1/100.;
+      if (chargedhadrons.size() == 1) return j.tauTagged(Cuts::pT > 10*GeV) ? 0.56 : 1/20.;
+      if (chargedhadrons.size() == 3) return j.tauTagged(Cuts::pT > 10*GeV) ? 0.38 : 1/100.;
     } else {
-      if (chargedhadrons.size() == 1) return 1/25.;
-      if (chargedhadrons.size() == 3) return 1/400.;
+      if (chargedhadrons.size() == 1) return j.tauTagged(Cuts::pT > 10*GeV) ? 0.56 : 1/25.;
+      if (chargedhadrons.size() == 3) return j.tauTagged(Cuts::pT > 10*GeV) ? 0.38 : 1/400.;
     }
     return 0;
   }
@@ -588,7 +588,7 @@ namespace Rivet {
   /// From https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2015-045/ATL-PHYS-PUB-2015-045.pdf
   ///   LMT 1 prong efficiency/mistag = 0.6|1/30, 0.55|1/50, 0.45|1/120
   ///   LMT 3 prong efficiency/mistag = 0.5|1/30, 0.4|1/110, 0.3|1/300
-  inline double TAU_MISID_ATLAS_RUN2(const Jet& j) {
+  inline double TAUJET_EFF_ATLAS_RUN2(const Jet& j) {
     if (j.abseta() > 2.5) return 0; //< hmm... mostly
     double pThadvis = 0;
     Particles chargedhadrons;
@@ -600,23 +600,42 @@ namespace Rivet {
     }
     if (chargedhadrons.empty()) return 0;
     if (pThadvis < 20*GeV) return 0; //< below threshold
-    if (chargedhadrons.size() == 1) return 1/50.;
-    if (chargedhadrons.size() == 3) return 1/110.;
+    if (chargedhadrons.size() == 1) return j.tauTagged(Cuts::pT > 10*GeV) ? 0.55 : 1/50.;
+    if (chargedhadrons.size() == 3) return j.tauTagged(Cuts::pT > 10*GeV) ? 0.40 : 1/110.;
     return 0;
   }
 
 
   /// ATLAS Run 1 tau smearing
-  /// @todo Currently a copy of the crappy jet smearing that is probably wrong...
+  /// @todo Currently a copy of the jet smearing
   inline Particle TAU_SMEAR_ATLAS_RUN1(const Particle& t) {
-    // Const fractional resolution for now
-    static const double resolution = 0.03;
+    // // Const fractional resolution for now
+    // static const double resolution = 0.03;
+
+    // // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
+    // /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
+    // const double fsmear = max(randnorm(1., resolution), 0.);
+    // const double mass = t.mass2() > 0 ? t.mass() : 0; //< numerical carefulness...
+    // return Particle(t.pid(), FourMomentum::mkXYZM(t.px()*fsmear, t.py()*fsmear, t.pz()*fsmear, mass));
+
+    // Jet energy resolution lookup
+    //   Implemented by Matthias Danninger for GAMBIT, based roughly on
+    //   https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2015-017/
+    //   Parameterisation can be still improved, but eta dependence is minimal
+    /// @todo Also need a JES uncertainty component?
+    static const vector<double> binedges_pt = {0., 50., 70., 100., 150., 200., 1000., 10000.};
+    static const vector<double> jer = {0.145, 0.115, 0.095, 0.075, 0.07, 0.05, 0.04, 0.04}; //< note overflow value
+    const int ipt = binIndex(t.pT()/GeV, binedges_pt, true);
+    if (ipt < 0) return t;
+    const double resolution = jer.at(ipt);
 
     // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
     /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
     const double fsmear = max(randnorm(1., resolution), 0.);
     const double mass = t.mass2() > 0 ? t.mass() : 0; //< numerical carefulness...
-    return Particle(t.pid(), FourMomentum::mkXYZM(t.px()*fsmear, t.py()*fsmear, t.pz()*fsmear, mass));
+    Particle rtn(PID::TAU, FourMomentum::mkXYZM(t.px()*fsmear, t.py()*fsmear, t.pz()*fsmear, mass));
+    //if (deltaPhi(t, rtn) > 0.01) cout << "jdphi: " << deltaPhi(t, rtn) << endl;
+    return rtn;
   }
 
 
