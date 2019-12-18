@@ -24,7 +24,8 @@ namespace Rivet {
 
       // Book histograms
       book(_cK0K0pippim , "TMP/K0K0pippim");
-
+      book( _h_pipi ,2,1,1);
+      book( _h_total,2,1,2);
     }
 
 
@@ -34,20 +35,29 @@ namespace Rivet {
 
       map<long,int> nCount;
       int ntotal(0);
+      Particles pip,k0;
       for (const Particle& p : fs.particles()) {
 	nCount[p.pid()] += 1;
+	if(p.abspid()==211)
+	  pip.push_back(p);
+	else if(p.pid()==310)
+	  k0.push_back(p);
 	++ntotal;
       }
-      if(ntotal==4) {
-	if(nCount[310]==2 && nCount[211]==1 && nCount[-211]==1)
-	  _cK0K0pippim->fill();
+      if(ntotal==4 && nCount[310]==2 && nCount[211]==1 && nCount[-211]==1) {
+	_cK0K0pippim->fill();
+	FourMomentum ppipi = pip[0].momentum()+pip[1].momentum();
+	_h_pipi->fill(ppipi.mass()/MeV);
+	for(unsigned int ix=0;ix<2;++ix)
+	  _h_total->fill((ppipi+k0[ix].momentum()).mass()/MeV);
       }
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
+      normalize(_h_pipi );
+      normalize(_h_total);
       double fact = crossSection()/ sumOfWeights() /nanobarn;
       double sigma = _cK0K0pippim->val()*fact;
       double error = _cK0K0pippim->err()*fact;
@@ -75,6 +85,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     CounterPtr _cK0K0pippim;
+    Histo1DPtr _h_pipi, _h_total;
     //@}
 
 
