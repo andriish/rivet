@@ -19,17 +19,21 @@
 	compiler definitely (?) supports required C++11. C++14 or 17 is
 	the current standard LCG build dialect.
 
-2019-12-16  Andy Buckley  <andy.buckley@cern.ch>
+2019-12-18  Peter Richardson <peter.richardson@durham.ac.uk>
 
-	* Formally require YODA >= 1.8.0 in configure.
+	* add decay angle to ARGUS_1989_I268577
 
-2019-12-16  Peter Richardson <peter.richardson@durham.ac.uk>
+2019-12-17  Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* add CMD3_2019_I1770428 K0S K0S pi+ pi- cross section
 
 	* fix histogram ids in BELLE_2009_I809630
 
 	* add TMP to histogram labels in ARGUS_1993_S2669951
+
+2019-12-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Formally require YODA >= 1.8.0 in configure.
 
 2019-12-16  Peter Richardson <peter.richardson@durham.ac.uk>
 
