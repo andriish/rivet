@@ -90,10 +90,10 @@ namespace Rivet {
     Scatter1DPtr crossSection() const { return _xs; }
 
     /// Set the cross-section for the process being generated
-    void setCrossSection(pair<double, double> xsec);
+    void setCrossSection(pair<double, double> xsec, bool isUserSupplied=false);
     /// Set the cross-section for the process being generated (alternative signature)
-    void setCrossSection(double xsec, double xsecerr) {
-      setCrossSection({xsec, xsecerr});
+    void setCrossSection(double xsec, double xsecerr, bool isUserSupplied=false) {
+      setCrossSection({xsec, xsecerr}, isUserSupplied);
     }
 
     /// Get the nominal cross-section
@@ -328,6 +328,12 @@ namespace Rivet {
 
     /// Cross-section known to AH
     Scatter1DPtr _xs;
+
+    /// Nominal cross-section
+    double _xsec;
+
+    /// Nominal cross-section error
+    double _xsecerr;
 
     /// Beams used by this run.
     ParticlePair _beams;
