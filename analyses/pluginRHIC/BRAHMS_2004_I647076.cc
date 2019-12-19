@@ -5,93 +5,10 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Tools/RHICCommon.hh"
 
 namespace Rivet {
 
-  /// @brief BRAHMS Centrality projection.
-  class BRAHMSCentrality : public SingleValueProjection {
-  public:
-    // Constructor
-    BRAHMSCentrality() : SingleValueProjection() {
-      // Using here the BRAHMS reaction centrality from eg. 1602.01183, which
-      // might not be correct.
-      declare(ChargedFinalState(Cuts::pT > 0.1*GeV && Cuts::abseta < 2.2),
-        "ChargedFinalState");
-    }
-    // Destructor
-    virtual ~BRAHMSCentrality() {}
-
-    // Clone on the heap.
-    DEFAULT_RIVET_PROJ_CLONE(BRAHMSCentrality);
-
-  protected:
-    // Do the projection. Count the number of charged particles in
-    // the specified range.
-    virtual void project(const Event& e) {
-      clear();
-      set(apply<ChargedFinalState>
-        (e, "ChargedFinalState").particles().size());
-    }
-
-    // Compare to another projection.
-    virtual CmpState compare(const Projection& p) const {
-      // This projection is only used for the analysis below.
-      return CmpState::NEQ;
-    }
-
-  };
-
-  /// @brief Brahms centrality calibration analysis based on the
-  //  BrahmsCentrality projection. No data is given for this
-  //  analysis, so one MUST do a calibration run.
-  class BRAHMS_2004_CENTRALITY : public Analysis {
-  public:
-    // Constructor
-    BRAHMS_2004_CENTRALITY() : Analysis("BRAHMS_2004_CENTRALITY") {}
-
-    // Initialize the analysis
-    void init() {
-       declare(BRAHMSCentrality(),"Centrality");
-       declare(ImpactParameterProjection(), "IMP");
-       
-       // The central multiplicity.
-       book(mult, "mult",450,0,4500);
-       
-       // Safeguard against filling preloaded histograms.
-       done = (mult->numEntries() > 0);
-
-       // The impact parameter.
-       book(imp, "mult_IMP",100,0,20);
-    }
-
-    // Analyse a single event
-    void analyze(const Event& event) {
-      if (done) return;
-      // Fill impact parameter.
-      imp->fill(apply<SingleValueProjection>(event,"IMP")());
-      // Fill multiplicity.
-      mult->fill(apply<SingleValueProjection>(event,"Centrality")());
-    }
-
-    // Finalize the analysis
-    void finalize() {
-      // Normalize the distributions, safeguarding against 
-      // yoda normalization error.
-      if(mult->numEntries() > 0) mult->normalize();
-      if(imp->numEntries() > 0) imp->normalize();
-    
-    }
-
-  private:
-    // Histograms.
-    Histo1DPtr mult;
-    Histo1DPtr imp;
-    // Flag to test if we have preloaded histograms.
-    bool done;
-  
-  };
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BRAHMS_2004_CENTRALITY);
 
   /// @brief Brahms pT spectra for id particles (pi+, pi-, K+, K-)
   //  in small bins of rapidity, 5% central collisions. 
@@ -111,7 +28,7 @@ namespace Rivet {
 
       // Initialise and register projections
       // Centrality Projection.
-      declareCentrality(BRAHMSCentrality(), "BRAHMS_2004_CENTRALITY","mult","BCEN");
+      declareCentrality(BRAHMSCentrality(), "BRAHMS_2004_AUAUCentrality","mult","BCEN");
       // TODO: Feed down correction is unclear.
       declare(FinalState(Cuts::rap < 4 && Cuts::rap > -0.1 && Cuts::pT > 100*MeV), "FS");
       // The measured rapidity intervals for pions.

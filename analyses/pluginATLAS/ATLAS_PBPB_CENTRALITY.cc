@@ -24,9 +24,6 @@ public:
     // The calibration histogram:
     book(_calib, "sumETFwd");
 
-    // If histogram was pre-loaded, the calibration is done.
-    _done = ( _calib->numEntries() > 0 );
-
     // The alternative histogram based on impact parameter. Note that
     // it MUST be named the same as the histogram for the experimental
     // observable with an added _IMP suffix for the Pecentile<>
@@ -38,8 +35,6 @@ public:
   /// Perform the per-event analysis
   void analyze(const Event& event) {
 
-    if ( _done ) return;
-    
     // The alternative centrality based on generated impact
     // parameter, assumes that the generator does not describe the
     // full final state, and should therefore be filled even if the
@@ -65,9 +60,6 @@ private:
   /// The calibration histograms.
   Histo1DPtr _calib;
   Histo1DPtr _impcalib;
-
-  /// Safeguard from adding to a pre-loaded histogram.
-  bool _done;
 
 };
 
