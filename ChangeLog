@@ -1,3 +1,10 @@
+2019-12-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Projections/EventMixingFinalState.hh: Replace use of
+	std::random_shuffle (deprecated in C++14, removed in C++17) with
+	std::shuffle and direct access to our thread-safe random number
+	generator.
+
 2019-12-19  Christian Gutschow  <chris.g@cern.ch>
 
 	* Give precedence to user-supplied cross-section
