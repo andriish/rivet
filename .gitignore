@@ -75,12 +75,7 @@ include/Rivet/Config/DummyConfig.hh.in
 include/Rivet/Config/BuildOptions.hh
 include/Rivet/Config/DummyConfig.hh
 include/Rivet/Config/RivetConfig.hh
-doc/*.log
-doc/*.aux
-doc/*.out
-doc/analist*.dat
-doc/ana
-doc/doxy
+doc/
 test/log
 test/*.log
 test/out.yoda
@@ -101,12 +96,9 @@ Rivet-*
 local/*
 (for|analyses)\d\d\d
 analyses/data
-
 bin/LHC-13-Jets-0.hepmc.gz
 bin/*.gz
 bin/hepmc-compress
-doc/rivet-manual.dvi
-doc/rivet-manual.ps
 bin/rivet-hepmz
 bin/converall.log
 bin/converall.sh

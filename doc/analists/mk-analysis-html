@@ -18,7 +18,7 @@ print("Using output file name '%s' and directory '%s'" % (OUTFILE, OUTDIR))
 
 
 ## Add the rivet Python module build dir(s) to the Python module path, then import
-pybuild = os.path.abspath(os.path.join(os.getcwd(), "..", "pyext", "build"))
+pybuild = os.path.abspath(os.path.join(os.getcwd(), "..", "..", "pyext", "build"))
 pydirs = [os.path.join(pybuild, d) for d in os.listdir(pybuild)
           if re.match(r"lib\..*-.*-%d\.%d" % (sys.version_info[0], sys.version_info[1]), d)]
 sys.path = pydirs + sys.path
@@ -26,7 +26,7 @@ import rivet
 
 ## Add info file locations
 from glob import glob
-dirpatt = os.path.join(os.getcwd(), "..", "analyses", "plugin*")
+dirpatt = os.path.join(os.getcwd(), "..", "..", "analyses", "plugin*")
 for d in glob(dirpatt):
     #print(d)
     rivet.addAnalysisDataPath(os.path.abspath(d))
@@ -71,7 +71,7 @@ except:
     sys.exit(1)
 
 ## Find analysis source files
-ccpatt = os.path.join(os.getcwd(), "..", "analyses", "plugin*", "*.cc")
+ccpatt = os.path.join(os.getcwd(), "..", "..", "analyses", "plugin*", "*.cc")
 ccfiles = glob(ccpatt)
 #print(ccfiles)
 

@@ -48,7 +48,7 @@ EXPT_REOBJS = [re.compile(patt, re.I) for patt in EXPT_PATTS]
 
 ## Add the rivet Python module build dir(s) to the Python module path, then import
 import os, sys
-pybuild = os.path.abspath(os.path.join(os.getcwd(), "..", "pyext", "build"))
+pybuild = os.path.abspath(os.path.join(os.getcwd(), "..", "..", "pyext", "build"))
 pydirs = [os.path.join(pybuild, d) for d in os.listdir(pybuild)
           if re.match(r"lib\..*-.*-%d\.%d" % (sys.version_info[0], sys.version_info[1]), d)]
 sys.path = pydirs + sys.path
