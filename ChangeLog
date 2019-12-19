@@ -5,6 +5,10 @@
 	std::shuffle and direct access to our thread-safe random number
 	generator.
 
+	* Significant revisions to tau jet efficiency functions.
+
+	* Add JET_EFF_ONE/ZERO aliases, cf. the Particle versions.
+
 2019-12-19  Christian Gutschow  <chris.g@cern.ch>
 
 	* Give precedence to user-supplied cross-section
