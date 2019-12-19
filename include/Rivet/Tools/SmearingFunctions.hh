@@ -547,16 +547,16 @@ namespace Rivet {
       }
     }
     if (chargedhadrons.empty()) return 0;
-    if (pThadvis < 20*GeV) return 0;
-
-    if (pThadvis < 40*GeV) {
-      if (chargedhadrons.size() == 1) return j.tauTagged(Cuts::pT > 10*GeV) ? 0.56 : 1/20.;
-      if (chargedhadrons.size() == 3) return j.tauTagged(Cuts::pT > 10*GeV) ? 0.38 : 1/100.;
-    } else {
-      if (chargedhadrons.size() == 1) return j.tauTagged(Cuts::pT > 10*GeV) ? 0.56 : 1/25.;
-      if (chargedhadrons.size() == 3) return j.tauTagged(Cuts::pT > 10*GeV) ? 0.38 : 1/400.;
+    if (pThadvis < 20*GeV) return 0; //< below threshold
+    const Particles ttags = j.tauTags(Cuts::pT > 10*GeV);
+    if (ttags.empty()) {
+      if (pThadvis < 40*GeV)
+        return chargedhadrons.size() == 1 ? 1/20. : 1/100.; //< fake rates
+      else
+        return chargedhadrons.size() == 1 ? 1/25. : 1/400.; //< fake rates
     }
-    return 0;
+    const Particles prongs = ttags[0].stableDescendants(Cuts::charge3 > 0 && Cuts::pT > 1*GeV && Cuts::abseta < 2.5);
+    return prongs.size() == 1 ? 0.56 : 0.38;
   }
 
 
@@ -600,9 +600,16 @@ namespace Rivet {
     }
     if (chargedhadrons.empty()) return 0;
     if (pThadvis < 20*GeV) return 0; //< below threshold
-    if (chargedhadrons.size() == 1) return j.tauTagged(Cuts::pT > 10*GeV) ? 0.55 : 1/50.;
-    if (chargedhadrons.size() == 3) return j.tauTagged(Cuts::pT > 10*GeV) ? 0.40 : 1/110.;
-    return 0;
+    const Particles ttags = j.tauTags(Cuts::pT > 10*GeV);
+    // if (ttags.empty()) {
+    //   if (pThadvis < 40*GeV)
+    //     return chargedhadrons.size() == 1 ? 1/50. : 1/110.; //< fake rates
+    //   else
+    //     return chargedhadrons.size() == 1 ? 1/25. : 1/400.; //< fake rates
+    // }
+    if (ttags.empty()) return chargedhadrons.size() == 1 ? 1/50. : 1/110.; //< fake rates
+    const Particles prongs = ttags[0].stableDescendants(Cuts::charge3 > 0 && Cuts::pT > 1*GeV && Cuts::abseta < 2.5);
+    return prongs.size() == 1 ? 0.55 : 0.40;
   }
 
 
