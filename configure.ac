@@ -430,7 +430,7 @@ AC_CONFIG_FILES(pyext/Makefile pyext/rivet/Makefile pyext/setup.py)
 AC_CONFIG_FILES(data/Makefile data/texmf/Makefile)
 AC_CONFIG_FILES(doc/Makefile)
 AC_CONFIG_FILES(doc/rivetversion.sty doc/Doxyfile)
-AC_CONFIG_FILES(bin/Makefile bin/rivet-config bin/rivet-buildplugin)
+AC_CONFIG_FILES(bin/Makefile bin/rivet-config bin/rivet-build)
 AC_CONFIG_FILES(rivetenv.sh rivetenv.csh rivet.pc)
 
 AC_OUTPUT

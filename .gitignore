@@ -56,7 +56,7 @@ doxy/latex/.*
 .deps
 #Rivet.yoda
 #.*/Rivet.yoda
-bin/rivet-buildplugin
+bin/rivet-build
 bin/rivet-config
 bin/rivet-nopy
 aclocal.m4
