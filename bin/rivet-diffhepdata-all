@@ -19,7 +19,7 @@ Examples:
 from __future__ import print_function
 import os, shutil, importlib, glob, requests, argparse
 
-from rivet import hepdatautils
+from rivet import hepdatautils, version
 import yoda
 
 parser = argparse.ArgumentParser(usage='Check compatibility of YODA reference data files with HEPData for all Rivet analyses')
@@ -60,7 +60,11 @@ if not os.path.exists(output_name):
     os.makedirs(output_name)
 
 # Get mapping between INSPIRE IDs and Rivet analysis names.
-response = requests.get('http://rivet.hepforge.org/analyses.json')
+analyses_url = 'http://rivet.hepforge.org/analyses'
+response = requests.get(analyses_url + version().replace('.', '') + '.json')
+# Fallback if version-specific analyses.json file not available.
+if response.status_code != requests.codes.ok:
+    response = requests.get(analyses_url + '.json')
 analyses = response.json()
 
 # Loop over INSPIRE IDs and collect compatible and incompatible analyses.
