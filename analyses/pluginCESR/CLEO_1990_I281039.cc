@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 #include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
@@ -28,7 +29,7 @@ namespace Rivet {
       book(_h_D2, 1, 1, 2);
 
     }
-    
+
     /// Recursively walk the decay tree to find decay products of @a p
     void findDecayProducts(Particle mother, Particles & dstar, Particles & pi,unsigned int & ncount) {
       for(const Particle & p: mother.children()) {
