@@ -104,6 +104,18 @@ endif
 
 
 
+## Doxygen
+if WITH_DOXYGEN
+dox:
+	@echo "Running Doxygen..."
+	@$(DOXYGEN) $(builddir)/Doxyfile || true
+	@cp dynsections.js doxy/html/
+install-dox:
+	$(install_sh_DATA) doxy/html/* $(DESTDIR)$(pkgdatadir)/doc/html
+endif
+
+
+
 all-local:
 	@echo "No default target in doc: run 'make doc' to build documentation"
 	@true
