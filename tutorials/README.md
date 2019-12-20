@@ -1,10 +1,23 @@
 # Introduction to Rivet
 
-TODO: Write a short introduction to Rivet here.
+Rivet is a system for preservation of particle-collider analysis logic, analysis
+reinterpretation via MC simulations, and the validation and improvement of Monte
+Carlo event generator codes. It covers all aspects of collider physics, from
+unfolded precision measurements to reconstruction-level searches, and physics
+from the Standard Model to BSM theories, and from perturbative jet, boson and
+top-quarks to hadron decays, inclusive QCD, and Heavy Ion physics.
 
-The following documents will show you how to get started with Rivet,
-installing the program, running the program, plotting results, as
-well as how to implement and contribute your own analyses.
+Rivet is the most widespread way by which analysis code from the LHC and other
+high-energy collider experiments is preserved for comparison to and development
+of future theory models. It is used by phenomenologists, MC generator
+developers, and experimentalists on the LHC and other facilities. Coding
+analyses in Rivet is a great way to publish executable code that extends the
+longevity, relevance, and impact of your publications!
+
+These short guides will help you with everything from installation, to first
+runs of existing analyses, to writing, running, and plotting results, as well as
+how to implement and contribute your own analyses.
+
 
 ## Getting started
 
@@ -14,6 +27,7 @@ well as how to implement and contribute your own analyses.
 
 [First rivet run](firstrun.md)
 
+
 ## Plotting and run merging
 
 [Plotting with `rivet-mkhtml`](plotting.md)
@@ -21,6 +35,7 @@ well as how to implement and contribute your own analyses.
 [Customize plots with `make-plots`](makeplots.md)
 
 [Merging histograms with `yodamerge` and `rivet-merge`](merging.md)
+
 
 ## Advanced running and plotting
 
@@ -30,11 +45,13 @@ well as how to implement and contribute your own analyses.
 
 [Merging separate physics runs with `rivet-merge`](merging2.md)
 
+
 ## Writing a Rivet analysis
 
 [Writing a simple analysis](simple-analysis.md)
 
 [Writing an analysis with FastJet](fastjet.md)
+
 
 ## Developer topics
 
