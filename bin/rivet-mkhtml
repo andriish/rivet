@@ -23,6 +23,7 @@ from __future__ import print_function
 import rivet, sys, os
 rivet.util.check_python_version()
 rivet.util.set_process_name(os.path.basename(__file__))
+COMMAND = " ".join([os.path.basename(sys.argv[0])] + sys.argv[1:])
 
 import glob, shutil
 from subprocess import Popen,PIPE
@@ -319,9 +320,10 @@ if not args.DRY_RUN:
     ## A helper function for metadata LaTeX -> HTML conversion
     from rivet.util import htmlify
 
-    ## A timestamp HTML fragment to be used on each page:
+    ## Timestamp and command HTML fragments to be used on each page:
     import datetime
     timestamp = '<p>Generated at %s</p>\n' % datetime.datetime.now().strftime("%A, %d. %B %Y %I:%M%p")
+    command = '<p>Created with command: <kbd>%s</kbd></p>' % COMMAND
 
     index = open(os.path.join(args.OUTPUTDIR, "index.html"), "w")
     index.write('<html>\n<head>\n<title>%s</title>\n%s</head>\n<body>' % (args.TITLE, style + script))
@@ -431,7 +433,7 @@ if not args.DRY_RUN:
         if not args.SINGLE:
             anaindex.write('<div style="float:none">%s</body>\n</html></div>\n' % timestamp)
             anaindex.close()
-    index.write('<br>%s</body>\n</html>' % timestamp)
+    index.write("<br>\n%s\n%s\n</body>\n</html>" % (timestamp, command))
     index.close()
 
 # http://stackoverflow.com/questions/377017/test-if-executable-exists-in-python

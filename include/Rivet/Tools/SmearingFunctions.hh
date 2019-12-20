@@ -509,6 +509,7 @@ namespace Rivet {
   ///   > 40 GeV 3-prong LMT eff|mis = 0.45|1/250, 0.38|1/400, 0.27|1/1300
   inline double TAU_EFF_ATLAS_RUN1(const Particle& t) {
     if (t.abseta() > 2.5) return 0; //< hmm... mostly
+    if (inRange(t.abseta(), 1.37, 1.52)) return 0; //< crack region
     double pThadvis = 0;
     Particles chargedhadrons;
     for (const Particle& p : t.children()) {
@@ -538,6 +539,7 @@ namespace Rivet {
   ///   > 40 GeV 3-prong LMT eff|mis = 0.45|1/250, 0.38|1/400, 0.27|1/1300
   inline double TAUJET_EFF_ATLAS_RUN1(const Jet& j) {
     if (j.abseta() > 2.5) return 0; //< hmm... mostly
+    if (inRange(j.abseta(), 1.37, 1.52)) return 0; //< crack region
     double pThadvis = 0;
     Particles chargedhadrons;
     for (const Particle& p : j.particles()) {
@@ -551,9 +553,9 @@ namespace Rivet {
     const Particles ttags = j.tauTags(Cuts::pT > 10*GeV);
     if (ttags.empty()) {
       if (pThadvis < 40*GeV)
-        return chargedhadrons.size() == 1 ? 1/20. : 1/100.; //< fake rates
+        return chargedhadrons.size() == 1 ? 1/20. : chargedhadrons.size() == 3 ? 1/100. : 0; //< fake rates
       else
-        return chargedhadrons.size() == 1 ? 1/25. : 1/400.; //< fake rates
+        return chargedhadrons.size() == 1 ? 1/25. : chargedhadrons.size() == 3 ? 1/400. : 0; //< fake rates
     }
     const Particles prongs = ttags[0].stableDescendants(Cuts::charge3 > 0 && Cuts::pT > 1*GeV && Cuts::abseta < 2.5);
     return prongs.size() == 1 ? 0.56 : 0.38;
@@ -568,6 +570,7 @@ namespace Rivet {
   inline double TAU_EFF_ATLAS_RUN2(const Particle& t) {
     if (t.abspid() != PID::TAU) return 0;
     if (t.abseta() > 2.5) return 0; //< hmm... mostly
+    if (inRange(t.abseta(), 1.37, 1.52)) return 0; //< crack region
     double pThadvis = 0;
     Particles chargedhadrons;
     for (const Particle& p : t.children()) {
@@ -590,6 +593,7 @@ namespace Rivet {
   ///   LMT 3 prong efficiency/mistag = 0.5|1/30, 0.4|1/110, 0.3|1/300
   inline double TAUJET_EFF_ATLAS_RUN2(const Jet& j) {
     if (j.abseta() > 2.5) return 0; //< hmm... mostly
+    if (inRange(j.abseta(), 1.37, 1.52)) return 0; //< crack region
     double pThadvis = 0;
     Particles chargedhadrons;
     for (const Particle& p : j.particles()) {
@@ -607,7 +611,7 @@ namespace Rivet {
     //   else
     //     return chargedhadrons.size() == 1 ? 1/25. : 1/400.; //< fake rates
     // }
-    if (ttags.empty()) return chargedhadrons.size() == 1 ? 1/50. : 1/110.; //< fake rates
+    if (ttags.empty()) return chargedhadrons.size() == 1 ? 1/50. : chargedhadrons.size() == 3 ? 1/110. : 0; //< fake rates
     const Particles prongs = ttags[0].stableDescendants(Cuts::charge3 > 0 && Cuts::pT > 1*GeV && Cuts::abseta < 2.5);
     return prongs.size() == 1 ? 0.55 : 0.40;
   }

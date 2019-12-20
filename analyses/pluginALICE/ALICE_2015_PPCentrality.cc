@@ -17,14 +17,11 @@ namespace Rivet {
       declare(ImpactParameterProjection(), "IMP");
       book(_v0m, "V0M",100,0,200);
       book(_imp, "V0M_IMP",100,0,20);
-      _done = (_v0m->numEntries() > 0);
     }
 
 
     // Per-event analysis
     void analyze(const Event& event) {
-      if (_done) return;
-
       _imp->fill(apply<SingleValueProjection>(event,"IMP")());
 
       // Check if we have any hit in either V0-A or -C.  If not, the
@@ -44,7 +41,6 @@ namespace Rivet {
 
     Histo1DPtr _v0m;
     Histo1DPtr _imp;
-    bool _done;
   };
 
 
