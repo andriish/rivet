@@ -1,4 +1,4 @@
-EXTRA_DIST = compare-histos.txt make-plots.txt
+EXTRA_DIST =
 DOCS =
 DOCDIRS =
 
@@ -60,16 +60,7 @@ anadiffs.txt: $(top_srcdir)/analyses $(srcdir)/anadiff/diffanas
 	cd anadiff && ./diffanas > anadiffs.txt
 
 
-## TODO: Replace with a Markdown compiler and README.md + tutorials/: (py)pandoc?
-if WITH_ASCIIDOC
-DOCS += compare-histos.html make-plots.html
-EXTRA_DIST += compare-histos.html make-plots.html
-compare-histos.html: compare-histos.txt
-	asciidoc -a toc compare-histos.txt || true
-
-make-plots.html: make-plots.txt
-	asciidoc -a toc make-plots.txt || true
-endif
+## TODO: Add a Markdown compiler and README.md + tutorials/: (py)pandoc?
 
 
 ################
