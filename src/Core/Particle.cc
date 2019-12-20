@@ -285,6 +285,9 @@ namespace Rivet {
   ///////////////////////
 
 
+  /// Particles default constructor
+  Particles::Particles() : base() {}
+
   /// Particles copy constructor from vector<Particle>
   Particles::Particles(const std::vector<Particle>& vps) : base(vps) {}
 

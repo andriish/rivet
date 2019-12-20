@@ -14,17 +14,24 @@ namespace Rivet {
   // Forward declaration
   class Particle;
 
-  /// Typedefs for a vector of Particle objects.
+
+  /// @brief Specialised vector of Particle objects.
+  ///
+  /// A specialised version of vector<Particle> which is able to implicitly and
+  /// explicitly convert to a vector of FourMomentum.
+  ///
+  /// @todo Add explicit and implicit conversion to PseudoJets
+  ///
   // typedef std::vector<Particle> Particles;
   class Particles : public std::vector<Particle> {
   public:
     using base = std::vector<Particle>; //< using-declarations don't like template syntax
     using base::base; //< import base-class constructors
-    /// Copy constructor from vector<Particle>
+    Particles();
     Particles(const std::vector<Particle>& vps);
     FourMomenta moms() const; //< implementation in Particle.cc
     inline operator FourMomenta () const { return moms(); }
-    /// @todo Add conversion to PseudoJets?
+    /// @todo Add conversion to PseudoJets
   };
 
   Particles operator + (const Particles& a, const Particles& b);

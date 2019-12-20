@@ -203,6 +203,9 @@ namespace Rivet {
   //////////////////////
 
 
+  /// Jets default constructor
+  Jets::Jets() : base() {}
+
   /// Jets copy constructor from vector<Jet>
   Jets::Jets(const std::vector<Jet>& vjs) : base(vjs) {}
 

@@ -15,13 +15,20 @@ namespace Rivet {
   // Forward declaration
   class Jet;
 
-  /// A collection of Jet objects.
-  // typedef std::vector<Jet> Jets;
+
+  /// @brief Specialised vector of Jet objects.
+  ///
+  /// A specialised version of vector<Jet> which is able to implicitly and
+  /// explicitly convert to a vector of FourMomentum.
+  ///
+  /// @todo Add explicit and implicit conversion to PseudoJets
+  ///
+  /// typedef std::vector<Jet> Jets;
   class Jets : public std::vector<Jet> {
   public:
     using base = std::vector<Jet>; //< using-declarations don't like template syntax
     using base::base; //< import base-class constructors
-    /// Copy constructor from vector<Jet>
+    Jets();
     Jets(const std::vector<Jet>& vjs);
     FourMomenta moms() const; //< implementation in Jet.cc
     inline operator FourMomenta () const { return moms(); }
