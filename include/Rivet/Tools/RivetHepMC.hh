@@ -71,8 +71,6 @@ namespace Rivet {
 
 #endif
 
-#endif
-
 
 namespace Rivet {
 
