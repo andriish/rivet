@@ -65,9 +65,9 @@ namespace Rivet {
       for (int i = 0, N = refdata.size(); i < N; ++i) {
         // The ratio plots.
         book(ratio[i], refdata[i], true);
-      // Signal and mixed background.
-        book(signal[i], "/TMP/" + refdata[i] + "-s");
-        book(background[i], "/TMP/" + refdata[i] + "-b");
+        // Signal and mixed background.
+        book(signal[i], "/TMP/" + refdata[i] + "-s", refData(refdata[i]));
+        book(background[i], "/TMP/" + refdata[i] + "-b", refData(refdata[i]));
         // Number of signal and mixed pairs.
         nsp.push_back(0.);
         nmp.push_back(0.);
@@ -77,7 +77,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-
       // Triggering
       if (!apply<ALICE::V0AndTrigger>(event, "V0-AND")()) return;
       // The projections
@@ -85,10 +84,8 @@ namespace Rivet {
         applyProjection<PrimaryParticles>(event,"APRIM");
       const EventMixingFinalState& evm = 
         applyProjection<EventMixingFinalState>(event, "EVM");
-
       // Test if we have enough mixing events available to continue.
       if (!evm.hasMixingEvents()) return;
-
       for(const Particle& p1 : pp.particles()) {
         // Start by doing the signal distributions
 	for(const Particle& p2 : pp.particles()) {
