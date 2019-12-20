@@ -7,13 +7,13 @@ The rest of these instructions are mainly aimed at users who want to natively in
 GettingStartedForDevelopers has some additional or replacement steps for people wishing to check out the development version from the repository and build from there.
 
 
-## Native installation
+## Native installation of Rivet and all dependencies
 
 The simplest Rivet installation uses a "bootstrap" script to install Rivet and all its dependencies from release tarballs.
 
-If you are installing Rivet on an Apple Mac, please take a look at the MacInstallationIssues first. If you want to use packages from CERN's CVMFS network file system to assist your installation, or to directly use Rivet from there, see the bottom of this page.
+[//]: # (If you are installing Rivet on an Apple Mac, please take a look at the MacInstallationIssues first.)
+[//]: # (If you want to use packages from CERN's CVMFS network file system to assist your installation, or to directly use Rivet from there, see the bottom of this page.)
 
-## Installation of Rivet and all dependencies
 
 ### Prerequisites
 
@@ -25,6 +25,8 @@ CERN lxplus you can get such an environment (and also a fixed LaTeX for plotting
 source /cvmfs/sft.cern.ch/lcg/releases/LCG_96/Python/2.7.16/x86_64-centos7-gcc62-opt/Python-env.sh
 export PATH=/cvmfs/sft.cern.ch/lcg/external/texlive/2016/bin/x86_64-linux:$PATH
 ```
+
+### Installation
 
 1. Download the bootstrap script''' into a temporary working directory, and make it executable:
 ```
