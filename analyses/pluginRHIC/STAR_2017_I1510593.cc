@@ -614,7 +614,6 @@ private:
 /// Variables
   vector<double> energies;
   vector<double> centralities;
-  double sumWeight = 0;
   int cenbin, enebin = 0, enebinfig = 0;
   double nprtcl, nPi[5], nPiPlus[5], nKaon[5], nKaonPlus[5], nProton[5],
   nAntiProton[5];
