@@ -5,7 +5,7 @@ Build a directory with a Makefile for running an analysis validation suite
 
 """
 
-import os, sys, shutil,  commands
+import os, sys, shutil, subprocess
 
 ## Load the rivet module
 try:
@@ -18,7 +18,7 @@ except:
         modname = sys.modules[__name__].__file__
         binpath = os.path.dirname(modname)
         rivetconfigpath = os.path.join(binpath, "rivet-config")
-        rivetpypath = commands.getoutput(rivetconfigpath + " --pythonpath")
+        rivetpypath = subprocess.getoutput(rivetconfigpath + " --pythonpath")
         sys.path.append(rivetpypath)
         import rivet
     except:
@@ -71,7 +71,7 @@ if not args.HEPMCDIR :
             sys.exit(1)
 else:
     if os.path.exists(hepmcdir) and os.path.islink(hepmcdir):
-        out = commands.getstatusoutput("rm -f " + hepmcdir)
+        out = subprocess.getstatusoutput("rm -f " + hepmcdir)
     if os.path.exists(hepmcdir):
         print("Error: please remove directory '" + hepmcdir + \
               "' before specifying a new location for HepMC files")
@@ -83,7 +83,7 @@ else:
             print("Error: failed to make new directory '%s'" % args.HEPMCDIR)
         sys.exit(1)
 
-    out = commands.getstatusoutput("ln -sf " +
+    out = subprocess.getstatusoutput("ln -sf " +
                                    os.path.relpath(args.HEPMCDIR, valdir) +
                                    " " + hepmcdir)
 
@@ -97,10 +97,10 @@ except:
 
 refdir = args.REFDIR
 if not refdir :
-    rivetdatapath = commands.getoutput("rivet-config --datadir")
+    rivetdatapath = subprocess.getoutput("rivet-config --datadir")
     refdir = rivetdatapath + "/refyodas"
-out = commands.getstatusoutput("rm -f " + valdir + "/refyodas")
-out = commands.getstatusoutput("ln -s " + os.path.relpath(refdir, valdir) +
+out = subprocess.getstatusoutput("rm -f " + valdir + "/refyodas")
+out = subprocess.getstatusoutput("ln -s " + os.path.relpath(refdir, valdir) +
                                " " + valdir + "/refyodas")
 
 
@@ -138,7 +138,7 @@ for ananame in all_analyses:
                 ananame + options + \
                 "/' tmp/" + hepmcname + ".yoda " + targetname + ".yoda >> tmp/" + \
                 targetname + ".log 2>&1\n"
-            if not hepmctargets.has_key(hepmcname):
+            if hepmcname not in hepmctargets:
                 hepmctargets[hepmcname] = ananame + options
             else:
                 hepmctargets[hepmcname] += " " + ananame + options
