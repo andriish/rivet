@@ -32,6 +32,15 @@ namespace Rivet {
     return val == 0;
   }
 
+  /// @brief Check if a number is NaN
+  template <typename NUM>
+  inline typename std::enable_if<std::is_floating_point<NUM>::value, bool>::type
+  isNaN(NUM val) { return std::isnan(val); }
+
+  /// @brief Check if a number is non-NaN
+  template <typename NUM>
+  inline typename std::enable_if<std::is_floating_point<NUM>::value, bool>::type
+  notNaN(NUM val) { return !std::isnan(val); }
 
   /// @brief Compare two numbers for equality with a degree of fuzziness
   ///
