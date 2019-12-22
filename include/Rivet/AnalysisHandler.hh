@@ -330,10 +330,7 @@ namespace Rivet {
     Scatter1DPtr _xs;
 
     /// Nominal cross-section
-    double _xsec;
-
-    /// Nominal cross-section error
-    double _xsecerr;
+    std::pair<double,double> _userxs;
 
     /// Beams used by this run.
     ParticlePair _beams;

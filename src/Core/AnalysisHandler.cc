@@ -16,7 +16,7 @@ namespace Rivet {
 
 
   AnalysisHandler::AnalysisHandler(const string& runname)
-    : _runname(runname), _xsec(NAN), _xsecerr(NAN),
+    : _runname(runname), _userxs{NAN, NAN},
       _initialised(false), _ignoreBeams(false),
       _skipWeights(false), _weightCap(0.),
       _defaultWeightIdx(0), _dumpPeriod(0), _dumping(false)
@@ -657,27 +657,24 @@ namespace Rivet {
 
 
   void AnalysisHandler::setCrossSection(pair<double,double> xsec, bool isUserSupplied) {
-    if (isUserSupplied || std::isnan(_xsec)) {
-      _xsec = xsec.first;
-      _xsecerr = xsec.second;
-    }
+    // Update the user xsec
+    if (isUserSupplied) _userxs = xsec;
+
+    // If not setting the user xsec, and a user xsec is already set, exit early
+    if (!isUserSupplied && notNaN(_userxs.first)) return;
+
+    // Otherwise, update the xs scatter: xs_var = xs_nom * (sumW_var/sumW_nom)
     _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
     _eventCounter.get()->setActiveWeightIdx(_defaultWeightIdx);
-    double nomwgt = sumW();
-
-    // The cross section of each weight variation is the nominal cross section
-    // times the sumW(variation) / sumW(nominal).
-    // This way the cross section will work correctly
+    const double nomwgt = sumW();
     for (size_t iW = 0; iW < numWeights(); iW++) {
       _eventCounter.get()->setActiveWeightIdx(iW);
-      double s = sumW() / nomwgt;
+      const double s = sumW() / nomwgt;
       _xs.get()->setActiveWeightIdx(iW);
-      _xs->addPoint(_xsec*s, _xsecerr*s);
+      _xs->addPoint(xsec.first*s, xsec.second*s);
     }
-
     _eventCounter.get()->unsetActiveWeight();
     _xs.get()->unsetActiveWeight();
-    return;
   }
 
 
