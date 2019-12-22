@@ -38,7 +38,7 @@ coverage/rivet-coverage.html: $(wildcard $(srcdir)/coverage/inspire*.json) $(wil
     DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(top_builddir)/analyses:: \
-    $(PYTHON) $(srcdir)/../coverage/mk-coverage-htmls || true
+    $(srcdir)/../coverage/mk-coverage-htmls || true
 
 endif
 
@@ -47,7 +47,9 @@ endif
 if WITH_DOXYGEN
 DOCS += dox
 EXTRA_DIST += doxygen
-dox:
+dox: doxygen/html
+	@true
+doxygen/html: doxygen/Doxyfile doxygen/index.dox $(top_srcdir)/analyses $(top_srcdir)/include/Rivet $(top_srcdir)/src
 	@cd  $(builddir)/doxygen/ && $(DOXYGEN) Doxyfile || true
 	@cp doxygen/dynsections.js doxygen/html/
 install-dox:
@@ -90,30 +92,6 @@ coverage: coverage/rivet-coverage.html
 ## TODO: upload *and* make version-numbered copies on the server
 upload: $(DOCS) $(DOCDIRS)
 	$(RSH) -r $? $(DEST)
-
-
-## Doxygen
-if WITH_DOXYGEN
-dox:
-	@echo "Running Doxygen..."
-	@$(DOXYGEN) $(builddir)/Doxyfile || true
-	@cp dynsections.js doxy/html/
-install-dox:
-	$(install_sh_DATA) doxy/html/* $(DESTDIR)$(pkgdatadir)/doc/html
-endif
-
-
-
-## Doxygen
-if WITH_DOXYGEN
-dox:
-	@echo "Running Doxygen..."
-	@$(DOXYGEN) $(builddir)/Doxyfile || true
-	@cp dynsections.js doxy/html/
-install-dox:
-	$(install_sh_DATA) doxy/html/* $(DESTDIR)$(pkgdatadir)/doc/html
-endif
-
 
 
 all-local:
