@@ -592,7 +592,7 @@ namespace Rivet {
 
     // Fix the oredering so that default weight is written out first.
     vector<size_t> order;
-    if ( _defaultWeightIdx >= 0 && _defaultWeightIdx < numWeights() )
+    if ( _defaultWeightIdx < numWeights() )
       order.push_back(_defaultWeightIdx);
     for ( size_t  i = 0; i < numWeights(); ++i )
       if ( i != _defaultWeightIdx ) order.push_back(i);
