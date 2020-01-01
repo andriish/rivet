@@ -155,7 +155,7 @@ namespace Rivet {
       
       
 	if ((photons[0].pT() >= 130*GeV)  &&
-	    (fabs(fabs(deltaPhi(photons[0], met_vec)) - 3.14) >= 1.57)) {
+	    (fabs(fabs(deltaPhi(photons[0], met_vec)) - 3.14) <= 1.57)) {
       
 	  // Photon isolation calculated by jets, count jets
 	  Jet ph_jet;
