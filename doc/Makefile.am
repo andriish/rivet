@@ -45,7 +45,7 @@ endif
 
 ## Doxygen
 if WITH_DOXYGEN
-DOCS += dox
+DOCS += doxygen/html
 EXTRA_DIST += doxygen
 dox: doxygen/html
 	@true
