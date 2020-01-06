@@ -64,7 +64,10 @@ anadiff/anadiffs.txt: $(top_srcdir)/analyses $(srcdir)/anadiff/diffanas
 
 
 ## TODO: Add a Markdown compiler and README.md + tutorials/: (py)pandoc?
-
+EXTRA_DIST += tutorials
+#if WITH_PANDOC
+#for i in *.md; do j=${i/.md/.html}; echo "Making tutorial $j"; pandoc -f markdown -t html $i > $j; done
+#endif
 
 ################
 
