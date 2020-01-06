@@ -58,7 +58,8 @@ endif
 
 
 ## Analyses diffs between releases
-anadiffs.txt: $(top_srcdir)/analyses $(srcdir)/anadiff/diffanas
+DOCS += anadiff/anadiffs.txt
+anadiff/anadiffs.txt: $(top_srcdir)/analyses $(srcdir)/anadiff/diffanas
 	cd anadiff && ./diffanas > anadiffs.txt
 
 
