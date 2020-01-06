@@ -12,8 +12,8 @@ rivet-mkhtml withUE.yoda:'Title=With UE' withoutUE.yoda:'LineColor=blue'
 
 Run `rivet-mkhtml --help` to find out about all features and options.
 
-Plotting options will be taken from `*.plot` files installed in Rivet's share directory. 
-These contain plotting instructions according to the `make-plots` syntax as documented in 
+Plotting options will be taken from `*.plot` files installed in Rivet's share directory.
+These contain plotting instructions according to the `make-plots` syntax as documented in
 [http://rivet.hepforge.org/make-plots.html.](http://rivet.hepforge.org/make-plots.html)
 Such files can also be written for any plugin analysis and will be found if they are in the `RIVET_ANALYSIS_PATH`.
 
@@ -24,8 +24,8 @@ You can also run the other two commands separately:
 and reference plots appropriately into a set of plot data files ending with
 `.dat`. More options are described by running `compare-histos --help`.
 
-Incidentally, the reference files for each Rivet analysis are to be found 
-in the installed Rivet shared data directory, `installdir/share/Rivet`. 
+Incidentally, the reference files for each Rivet analysis are to be found
+in the installed Rivet shared data directory, `installdir/share/Rivet`.
 You can find the location of this by using the `rivet-config` command:
 
 ```
@@ -46,6 +46,5 @@ Note that the plotting tools internally use LaTeX for drawing, and for very
 complex plots it might sometimes fail with an error message like
 "TeX memory exceeded" (or "DVI file can't be opened"). In such
 a case it is recommended to increase the allowed TeX memory size as described
-e.g. in the [http://pgfplots.sourceforge.net/pgfplots.pdf pgfplots manual]
+e.g. in the [pgfplots manual](http://pgfplots.sourceforge.net/pgfplots.pdf)
 in Section 6.2.
-

@@ -28,7 +28,7 @@ export PATH=/cvmfs/sft.cern.ch/lcg/external/texlive/2016/bin/x86_64-linux:$PATH
 
 ### Installation
 
-1. Download the bootstrap script''' into a temporary working directory, and make it executable:
+1. **Download the bootstrap script** into a temporary working directory, and make it executable:
 ```
   cd /scratch/rivet
   wget https://gitlab.com/hepcedar/rivetbootstrap/raw/3.1.0/rivet-bootstrap
@@ -36,13 +36,13 @@ export PATH=/cvmfs/sft.cern.ch/lcg/external/texlive/2016/bin/x86_64-linux:$PATH
 ```
 (Replace the version string as appropriate if you want to install other versions of Rivet.)
 
-2. Check the options.''' Look at the header of the script to see all variables which you can set, e.g. to skip installation of certain dependencies if they are available in your system:
+2. **Check the options.** Look at the header of the script to see all variables which you can set, e.g. to skip installation of certain dependencies if they are available in your system:
 ```
   less rivet-bootstrap ## and read...
 ```
 
 
-3. Run the script.''' By default it will install to `$PWD/local`, where `$PWD` is the current directory. If you need to change that, specify the corresponding values on the command line. Examples:
+3. **Run the script.** By default it will install to `$PWD/local`, where `$PWD` is the current directory. If you need to change that, specify the corresponding values on the command line. Examples:
 ```
 ./rivet-bootstrap
   # or, e.g.
@@ -63,6 +63,6 @@ After the script grinds away for a while, it will tell you that it is finished a
 
 If that works, everything is installed correctly. If you are using the `bash` shell in your terminal, then Rivet will offer you programmable tab completion: try typing {{{rivet}}} and pressing the Tab key!
 
-'''You may wish to add the environment variable settings to your `~/.bashrc` shell config file, so that Rivet will work without needing any special session setup.'''
+**You may wish to add the environment variable settings to your `~/.bashrc` shell config file, so that Rivet will work without needing any special session setup.**
 
 You can now check out the FirstRivetRun guide.
