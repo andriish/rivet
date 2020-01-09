@@ -1,0 +1,10 @@
+Name: TUTORIAL
+Year: 2019
+Summary: Tutorial analysis with dilepton and jet observables
+Authors:
+ - Rivet team <rivet-developers@cern.ch>
+Description:
+  'Starting point for an analysis-writing tutorial looking at
+  (dressed) lepton and (b-)jet reconstruction.'
+Options:
+ - LMODE=EL,MU
