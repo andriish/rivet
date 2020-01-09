@@ -276,7 +276,9 @@ if len(args.SHOW_ANALYSES) > 0:
         msg += name + "\n"
         msg += (len(name) * "=") + "\n\n"
         msg += rivet.util.detex(ana.summary()) + "\n\n"
-        msg += "Status: " + ana.status() + "\n\n"
+        msg += "Status: " + ana.status() + "\n"
+        msg += "URL: https://rivet.hepforge.org/analyses/{}.html".format(name) + "\n"
+        msg += "\n"
 
         # TODO: reduce to only show Inspire in v3
         if ana.inspireId():
@@ -287,6 +289,7 @@ if len(args.SHOW_ANALYSES) > 0:
             msg += "Spires ID: " + ana.spiresId() + "\n"
             msg += "Inspire URL: http://inspire-hep.net/search?p=find+key+" + ana.spiresId() + "\n"
             msg += "HepData URL: http://hepdata.cedar.ac.uk/view/irn" + ana.spiresId() + "\n"
+
 
         if ana.year():
             msg += "Year of publication: " + ana.year() + "\n"
