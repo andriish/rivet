@@ -1,3 +1,10 @@
+2020-01-15  Jon Butterworth <j.butterworth@cern.ch>
+
+	* Add a warning to CMS WZ analysis CMS_2016_I1487288 because
+	it looks like it produces cross sections but actually they
+	are normalised to data, and do not have fiducial correction
+	applied differentially.
+
 2020-01-14  Jon Butterworth <j.butterworth@cern.ch>
 
 	* Stop the occasional population of a bin which is outside acceptance in
