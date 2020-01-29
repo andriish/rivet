@@ -9,6 +9,7 @@
 #include "Rivet/Projections/SingleValueProjection.hh"
 #include "Rivet/Tools/Percentile.hh"
 #include "Rivet/Tools/RHICCommon.hh"
+#include "Rivet/Projections/HepMCHeavyIon.hh"
 
 namespace Rivet {
 
@@ -35,6 +36,9 @@ void init() {
   // The observed particles.
   declare(ChargedFinalState(Cuts::abseta < 0.5 &&
     Cuts::absrap < 0.1 && Cuts::pT > 0.2), "CFS");
+
+  // Access the HepMC heavy ion info
+  declare(HepMCHeavyIon(), "HepMC");
 
   // Book histograms
 
@@ -188,8 +192,8 @@ void init() {
      const double c = cent();
 
      /// Determine the impact parameter
-     const HepMC::HeavyIon* hi = event.genEvent()->heavy_ion();
-     const double Npart = hi->Npart_targ();
+     const HepMCHeavyIon & hi = apply<HepMCHeavyIon>(event, "HepMC");
+     const double Npart = hi.Npart_targ();
 
      /// Determine the centrality bin
      if (c < 5)

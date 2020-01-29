@@ -227,15 +227,16 @@ help:
 ## target for comparing the generated yodas with the reference ones
 mf.write("""
 %.diff: %.yoda
-	$(V)rm -rf $@
+	$(V)rm -rf $@ $@dir
 	$(V)if [ -e refyodas/$< ]; then \\
 	  if ! yodadiff $< refyodas/$< -t 1e-2 -q; then \\
+            yodadiff $< refyodas/$< -t 1e-2 > $@; \\
 	    echo $< differs from reference yoda; \\
 	    only=""; \\
 	    for plot in `yodadiff $< refyodas/$< -t 1e-2 -l`; do \\
 		only="$$only -m $$plot"; \\
 	    done; \\
-	    rivet-mkhtml $$only -o $@ $< refyodas/$<:Title=ref > /dev/null 2>&1; \\
+	    rivet-mkhtml $$only -o $@dir $< refyodas/$<:Title=ref > /dev/null 2>&1; \\
 	  else \\
 	    echo $< is the same as reference yoda; \\
 	    touch $@; \\
@@ -291,17 +292,18 @@ check: $(VALDIFFS) $(REENTRANTS)
 	$(V)echo "  <body>" >> index.html
 	$(V)echo "    <h2>Problematic analyses in Rivet validation</h2>" >> index.html
 	$(V)echo "    <ul>" >> index.html
-	$(V)for dir in $^; do \\
-	  if [ -d $$dir ]; then \\
-	    for subdir in `ls $$dir`; do \\
-	      if [ -f $$dir/$$subdir/index.html ]; then\\
-		echo -n "<li><a href=\"$$dir/$$subdir/index.html\">$${dir/.diff/}</a> (" >> index.html; \\
-	        echo -n `head -1 tmp/$${dir/.diff/.log}`  >> index.html; \\
-	        echo ")</li>"  >> index.html; \\
+	$(V)for diff in $^; do \\
+	  if [ -d $${diff}dir ]; then \\
+	    for subdir in `ls $${diff}dir`; do \\
+	      if [ -f $${diff}dir/$$subdir/index.html ]; then\\
+		echo -n "<li><a href=\"$${diff}dir/$$subdir/index.html\">$${diff/.diff/}</a> (" >> index.html; \\
+	        echo -n `head -1 tmp/$${diff/.diff/.log}`  >> index.html; \\
+		echo -n ") [<a href=\"$$diff\">yodadiff</a>]" >> index.html; \\
+	        echo "</li>"  >> index.html; \\
 	      fi \\
 	    done \\
-	  elif [ -s $$dir ]; then \\
-	    cat $$dir >> index.html; \\
+	  elif [ -s $$diff ]; then \\
+	    cat $$diff >> index.html; \\
 	  fi \\
 	done
 	$(V)echo "    </ul>" >> index.html
@@ -318,7 +320,7 @@ clean:
 	rm -f $(VALYODAS) $(REENTRANTS)
 	rm -rf tmp
 	mkdir tmp
-	rm -rf $(VALDIFFS)
+	rm -rf $(VALDIFFS) *.diffdir
 	rm -f index.html
 
 

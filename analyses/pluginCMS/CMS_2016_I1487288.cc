@@ -41,6 +41,8 @@ namespace Rivet {
       book(_h_ZpT, "d03-x01-y01");
       book(_h_Njet, "d04-x01-y01", {-0.5, 0.5, 1.5, 2.5, 3.5}); ///< @todo Ref data has null bin widths
       book(_h_JpT, "d05-x01-y01");
+
+      MSG_WARNING("\033[91;1mLIMITED VALIDITY - check info file for details!\033[m");
     }
 
 
