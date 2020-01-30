@@ -9,11 +9,7 @@ RUN mkdir /code && cd /code \
     && make -j5 && make install \
     && cd ../.. && rm -rf /code
 
-RUN lhapdf install MMHT2014{,n}lo68cl
-# RUN cd /usr/local/share/LHAPDF/ && \
-#     for pdf in MMHT2014{,n}lo68cl; do \
-#       wget https://lhapdf.hepforge.org/downloads?f=pdfsets/current/$pdf.tar.gz -O- | tar xz; \
-#     done
+RUN lhapdf install MMHT2014{,n}lo68cl CT14{,n}lo
 
 RUN dnf install -y mercurial libtool
 
