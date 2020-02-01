@@ -1,3 +1,10 @@
+2020-01-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add optional 'sign' arguments to all deltaEta and deltaRap
+	functions, for use with Vector2 and symmetry with deltaPhi.
+
+	* Add a Vector2 class.
+
 2020-01-15  Jon Butterworth <j.butterworth@cern.ch>
 
 	* Add a warning to CMS WZ analysis CMS_2016_I1487288 because
