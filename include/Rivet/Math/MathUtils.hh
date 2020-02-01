@@ -275,8 +275,10 @@ namespace Rivet {
 
   /// @brief Make a list of @a nbins + 1 values equally spaced between @a start and @a end inclusive.
   ///
-  /// NB. The arg ordering and the meaning of the nbins variable is "histogram-like",
+  /// @note The arg ordering and the meaning of the nbins variable is "histogram-like",
   /// as opposed to the Numpy/Matlab version.
+  ///
+  /// @todo Import the YODA version rather than maintain this parallel version?
   inline vector<double> linspace(size_t nbins, double start, double end, bool include_end=true) {
     assert(end >= start);
     assert(nbins > 0);
@@ -293,9 +295,11 @@ namespace Rivet {
 
   /// @brief Make a list of @a nbins + 1 values exponentially spaced between @a start and @a end inclusive.
   ///
-  /// NB. The arg ordering and the meaning of the nbins variable is "histogram-like",
+  /// @note The arg ordering and the meaning of the nbins variable is "histogram-like",
   /// as opposed to the Numpy/Matlab version, and the start and end arguments are expressed
   /// in "normal" space, rather than as the logarithms of the start/end values as in Numpy/Matlab.
+  ///
+  /// @todo Import the YODA version rather than maintain this parallel version?
   inline vector<double> logspace(size_t nbins, double start, double end, bool include_end=true) {
     assert(end >= start);
     assert(start > 0);
@@ -315,7 +319,7 @@ namespace Rivet {
   }
 
 
-  /// @todo geomspace
+  /// @todo pdfspace()... from YODA?
 
 
   /// @brief Make a list of @a nbins + 1 values spaced for equal area
