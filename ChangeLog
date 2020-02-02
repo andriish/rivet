@@ -1,3 +1,7 @@
+2020-02-01  Jon Butterworth <j.butterworth@cern.ch>
+	* Error trapping in rivet-findid for rare cases
+	when two bibtex entries are found (e.g. rivet-findid 1487288)
+	
 2020-01-15  Jon Butterworth <j.butterworth@cern.ch>
 
 	* Add a warning to CMS WZ analysis CMS_2016_I1487288 because

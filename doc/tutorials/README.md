@@ -47,6 +47,11 @@ how to implement and contribute your own analyses.
 
 
 ## Writing a Rivet analysis
+[What is an Analysis?](what-analysis.md)
+
+[What is a Projection?](projection.md)
+
+[How does Rivet histograms work?](rivet-histograms.md)
 
 [Writing a simple analysis](simple-analysis.md)
 
