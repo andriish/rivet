@@ -410,7 +410,11 @@ namespace Rivet {
 
     string basePath() const { return _basePath; }
 
+    string baseName() const { return _baseName; }
+
     string _basePath;
+
+    string _baseName;
 
     // do we need implicit cast?
     // operator typename T::Ptr () {
