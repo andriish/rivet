@@ -40,6 +40,4 @@ BibTeX: '@article{Aad:2015wga,
       reportNumber   = "CERN-PH-EP-2015-032",
       SLACcitation   = "%%CITATION = ARXIV:1504.04337;%%"
 }'
-ToDo:
- - Implement the analysis, test it, remove this ToDo, and mark as VALIDATED :-)
 
