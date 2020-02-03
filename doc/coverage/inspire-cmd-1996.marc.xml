@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Search-Engine-Total-Number-Of-Results: 4 -->
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <controlfield tag="001">434817</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D98-18790</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Akhmetshin:1996zs</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Recent results from the CMD-2 detector at VEPP-2M collider</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">436089</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1086/118039</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">oai:arXiv.org:astro-ph/9604178</subfield>
+    <subfield code="z">oai:arXiv.org:astro-ph/9604178</subfield>
+    <subfield code="9">arXiv</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Fan:1996kv</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">ADS</subfield>
+    <subfield code="a">1996AJ....112..628F</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">astro-ph/9604178</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="c">astro-ph</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Deep wide-field spectrophotometry of the open cluster m67</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">438132</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D09-01851</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Akhmetshin:1996qn</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">The precise measurement of the omega-meson parameters with the CMD-2 detector</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">431527</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.1016/0168-9002(96)00560-8</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D97-03134</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Aksenov:1996ib</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Transputer based data acquisition system for the CMD-2 detector</subfield>
+  </datafield>
+</record>
+
+</collection>

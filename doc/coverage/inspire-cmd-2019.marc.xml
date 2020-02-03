@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Search-Engine-Total-Number-Of-Results: 21 -->
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <controlfield tag="001">1770428</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">CMD-3:2019cvx</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1912.05751</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1912.05751</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Study Of The Process $e^+e^- \to K_s^0 K_s^0 \pi^+\pi^-$ In The C.M. Energy Range 1.6--2.0 Gev With The CMD-3 Detector</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">CMD-3</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1759809</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">10.1051/epjconf/201921802008</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Fedotovich:2019dgc</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA19-kp44ab</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">Study of the processes $e^+ e^- \to K^+ K^− + n \pi$ (n = 1,2,3) with the CMD-3 detector at the VEPP-2000 electron-positron collider</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1759807</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">10.1051/epjconf/201921802006</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Ignatov:2019hgb</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA19-kp44ab</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">Preliminary results on CMD-3 measurement of $e^+e^−\to \pi^+ \pi^−$ cross section</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1759802</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">10.1051/epjconf/201921802001</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Logashenko:2019esl</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA19-kp45k</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">CMD-3 Overview</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1744510</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1007/JHEP01(2020)112</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1007/JHEP01(2020)112</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Gribanov:2019qgw</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1907.08002</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj30n</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1907.08002</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Measurement of the $e^{+}e^{-}\rightarrow\eta\pi^{+}\pi^{-}$ cross section with the CMD-3 detector at the VEPP-2000 collider</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1740604</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">10.1051/epjconf/201921207002</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Solodov:2019lmm</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA19-kp26bf</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">The NNbar and multihadron production at the threshold at VEPP2000</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1740597</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">10.1051/epjconf/201921204012</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Tolmachev:2019abb</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA19-kp26bf</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">Study of the process $e^+e^- \to \pi^+ \pi^-\gamma$ with the CMD-3 detector at the $e^+e^-$ collider VEPP-2000</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1740596</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">10.1051/epjconf/201921204011</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Ryzhenenkov:2019jsf</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA19-kp26cd</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">Current status of luminosity measurement with the CMD-3 detector at the VEPP-2000 collider</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1740594</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">10.1051/epjconf/201921204009</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Korobov:2019gui</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA19-kp27q</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">Study of $\pi^+ \pi^- \pi^+ \pi^-$ production with CMD-3 detector at the VEPP-2000 collider</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1740593</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">10.1051/epjconf/201921204008</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Semenov:2019zzi</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA19-kp26bf</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">Study of the $e^+e^− \to K_S K_L \pi^0$ process up to 2 GeV with the CMD-3 detector at the VEPP-2000 collider</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1740592</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">10.1051/epjconf/201921204007</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Erofeev:2019cyn</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA19-kp26bf</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">Study of the process $e^+e^− \to K^+K^− \pi^0$ in the center-of-mass energy range 1.2–2 GeV with the CMD-3 detector</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1740586</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">10.1051/epjconf/201921204001</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Ignatov:2019omb</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA19-kp26bf</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">Recent results from CMD-3</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1740583</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">10.1051/epjconf/201921203008</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Kozyrev:2019ial</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA19-kp26aw</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">An amplitude analysis of the process $e^+e^- \to 4 \pi$ in the center-of-mass energy range 900–2000 MeV with the CMD3 detector at the VEPP-2000 $e^+e^-$ collider</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1740575</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">10.1051/epjconf/201921202011</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Shemyakin:2019grw</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA19-kp26be</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">Search for the process $e^+e^− \to $D*(2007) with the CMD-3 detector</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1740541</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1016/j.physletb.2019.134946</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Ivanov:2019crp</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1906.08006</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj27e</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1906.08006</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Elsevier</subfield>
+    <subfield code="a">Study of the process $e^+e^-{\to}K^+K^-\eta$ with the CMD-3 detector at the VEPP-2000 collider</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1736318</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">JACoW</subfield>
+    <subfield code="a">10.18429/JACoW-eeFACT2018-MOYBA01</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Shwartz:2019gsj</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA19-kp22bf</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">JACoW</subfield>
+    <subfield code="a">Round Colliding Beams at Vepp-2000 with Extreme Tuneshifts</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1729455</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">SciPost Fundation</subfield>
+    <subfield code="a">10.21468/SciPostPhysProc.1.034</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Achasov:2019umi</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA19-kp17an</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">SciPost Fundation</subfield>
+    <subfield code="a">Experimental input from $e^+e^-$ machines to hadronic contribution to muon (g-2)</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1720610</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1016/j.physletb.2019.04.007</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">CMD-3:2019ufp</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1902.06449</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj09y</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1902.06449</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Elsevier</subfield>
+    <subfield code="a">Study of the process $e^+e^-\to 3(\pi^+\pi^-)\pi^0$ in the C.M. Energy range 1.6--2.0 GeV with the CMD-3 detector</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">CMD-3</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1718676</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">10.1051/epjconf/201919902027</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Fedotovich:2019znm</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA19-kp08av</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">Recent results of the hadronic cross section measurements with the CMD-3 detector at $e^+e^−$ collider VEPP-2000</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1718675</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">10.1051/epjconf/201919902026</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Beloborodov:2019ipp</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA19-kp07cm</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">EDP Sciences</subfield>
+    <subfield code="a">Study of $e^+e^−$ annihilation to hadrons at the VEPP-2000 collider</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1749089</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">SISSA</subfield>
+    <subfield code="a">10.22323/1.340.0647</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Ivanov:2019ner</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA19-kp34ah</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">SISSA</subfield>
+    <subfield code="a">Measurement of hadronic cross sections at CMD-3</subfield>
+  </datafield>
+</record>
+
+</collection>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Search-Engine-Total-Number-Of-Results: 4 -->
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <controlfield tag="001">836265</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevD.81.057102</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">oai:arXiv.org:0911.1232</subfield>
+    <subfield code="z">oai:arXiv.org:0911.1232</subfield>
+    <subfield code="9">arXiv</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D10-07469</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Achasov:2009en</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">arXiv:0911.1232</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Search for Lepton Flavor Violation Process e^+e^- \to e\mu in the Energy Region \sqrt{s}=984 - 1060 MeV and \phi\to e\mu Decay</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">833934</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">oai:arXiv.org:0910.2698</subfield>
+    <subfield code="z">oai:arXiv.org:0910.2698</subfield>
+    <subfield code="9">arXiv</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D10-06629</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Stancu:2009vq</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">arXiv:0910.2698</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">FERMILAB-LOI-2009-02</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">A Letter of Intent to Build a MiniBooNE Near Detector: BooNE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">812649</controlfield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">SND tracking system: Tests with cosmic muons</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.1016/j.nima.2008.08.099</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Aulchenko:2009zzb</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">812634</controlfield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">First experience with SND calorimeter at VEPP-2000 collider</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.1016/j.nima.2008.08.012</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Achasov:2009zza</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+</record>
+
+</collection>

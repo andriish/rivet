@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Search-Engine-Total-Number-Of-Results: 1 -->
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <controlfield tag="001">410834</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Aulchenko:1995km</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">BUDKER-INP-1995-56</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Beginning of the experiments with SND detector at e+ e- collider VEPP-2M in Novosibirsk</subfield>
+  </datafield>
+</record>
+
+</collection>
