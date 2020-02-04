@@ -1013,6 +1013,7 @@ namespace Rivet {
       return dynamic_pointer_cast<YODAT>(_getPreload(path));
     }
 
+
     /// Register a new data object, optionally read in preloaded data.
     template <typename YODAT>
     rivet_shared_ptr< Wrapper<YODAT> > registerAO(const YODAT & yao) {
@@ -1025,17 +1026,21 @@ namespace Rivet {
         throw UserError(name() + ": Can't book objects outside of init() or finalize().");
       }
 
-      // First check that we haven't booked this before. This is
-      // allowed when booking in finalze.
+      // First check that we haven't booked this before.
+      // This is allowed when booking in finalize: just warn in that case.
+      // If in init(), throw an exception: it's 99.9% never going to be intentional.
       for (auto & waold : analysisObjects()) {
         if ( yao.path() == waold.get()->basePath() ) {
-          if ( !inInit() )
-            MSG_WARNING("Found double-booking of " << yao.path() << " in "
-                        << name() << ". Keeping previous booking");
+          const string msg = "Found double-booking of " + yao.path() + " in " + name();
+          if ( inInit() ) {
+            MSG_ERROR(msg);
+            throw LookupError(msg);
+          } else {
+            MSG_WARNING(msg + ". Keeping previous booking");
+          }
           return RAOT(dynamic_pointer_cast<WrapperT>(waold.get()));
         }
       }
-
 
       shared_ptr<WrapperT> wao = make_shared<WrapperT>();
       wao->_basePath = yao.path();
@@ -1092,8 +1097,8 @@ namespace Rivet {
       _analysisobjects.push_back(ret);
 
       return ret;
-
     }
+
 
     /// Register a data object in the histogram system
     template <typename AO=MultiweightAOPtr>
