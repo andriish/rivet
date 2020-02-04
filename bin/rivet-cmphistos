@@ -86,11 +86,17 @@ def getRivetRefData(anas=None):
     rivet_data_dirs = rivet.getAnalysisRefPaths()
     dirlist = []
     for d in rivet_data_dirs:
+        import glob
         if anas is None:
-            import glob
-            dirlist.append(glob.glob(os.path.join(d, '*.yoda')))
+            dirlist.append(glob.glob(os.path.join(d, '*.yoda*')))
         else:
-            dirlist.append([os.path.join(d, a+'.yoda') for a in anas])
+            #dirlist.append([os.path.join(d, a+'.yoda*') for a in anas])
+            for a in anas:
+                res = glob.glob(os.path.join(d, a+'.yoda'))
+                if len(res) == 0:
+                    res = glob.glob(os.path.join(d, a+'.yoda.gz'))
+                if len(res) != 0:
+                    dirlist.append(res)
     for filelist in dirlist:
         # TODO: delegate to getHistos?
         for infile in filelist:
