@@ -7,12 +7,12 @@ namespace Rivet {
 
 
   /// CMS 4-jet production at 7 TeV
-  class CMS_2014_I1273574 : public Analysis {
+  class CMS_2013_I1273574 : public Analysis {
   public:
 
     /// Constructor
-    CMS_2014_I1273574()
-      : Analysis("CMS_2014_I1273574")
+    CMS_2013_I1273574()
+      : Analysis("CMS_2013_I1273574")
     {    }
 
 
@@ -121,6 +121,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(CMS_2014_I1273574);
+  DECLARE_RIVET_PLUGIN(CMS_2013_I1273574);
 
 }
