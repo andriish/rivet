@@ -160,7 +160,13 @@ def _search_inspire(url):
                     if k=='code':
                         entries[v] = c.text
             if entries.get('9') == 'INSPIRETeX':
-                result['bibtex'] = entries['a']
+                try:
+                    result['bibtex'] = entries['a']
+                except:
+                    try:
+                        result['bibtex'] = entries['z']
+                    except:
+                        print ("Error finding bibtex",entries)
             elif entries.get('9') == 'SPIRESTeX':
                 result['bibtex'] = entries['a']
 

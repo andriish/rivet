@@ -1,3 +1,10 @@
+2020-02-04 Peter Richardson <peter.richardson@durham.ac.uk>
+	* Improvements to the rivet coverage for e+e- experiments
+
+2020-02-01  Jon Butterworth <j.butterworth@cern.ch>
+	* Error trapping in rivet-findid for rare cases
+	when two bibtex entries are found (e.g. rivet-findid 1487288)
+
 2020-01-29  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add optional 'sign' arguments to all deltaEta and deltaRap

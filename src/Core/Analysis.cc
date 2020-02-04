@@ -208,8 +208,7 @@ namespace Rivet {
   // }
 
 
-  CounterPtr & Analysis::book(CounterPtr & ctr,
-                              const string& cname) {
+  CounterPtr & Analysis::book(CounterPtr & ctr, const string& cname) {
     // const string path = histoPath(cname);
     // ctr = CounterPtr(handler().weightNames(), Counter(path, title));
     // ctr = addAnalysisObject(ctr);
@@ -464,7 +463,7 @@ namespace Rivet {
   ///////////////
 
 
-  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, unsigned int datasetId, 
+  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, unsigned int datasetId,
                                        unsigned int xAxisId, unsigned int yAxisId, bool copy_pts) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
     return book(s2d, axisCode, copy_pts);
@@ -540,7 +539,7 @@ namespace Rivet {
   ///////////////
 
 
-  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, unsigned int datasetId, unsigned int xAxisId, 
+  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, unsigned int datasetId, unsigned int xAxisId,
                                 unsigned int yAxisId, unsigned int zAxisId, bool copy_pts) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
     return book(s3d, axisCode, copy_pts);
@@ -591,8 +590,8 @@ namespace Rivet {
     return s3d = registerAO(scat);
   }
 
-  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, const string& hname, 
-                                const vector<double>& xbinedges, 
+  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, const string& hname,
+                                const vector<double>& xbinedges,
                                 const vector<double>& ybinedges) {
     Scatter3D scat;
     for (size_t xpt = 0; xpt < xbinedges.size()-1; ++xpt) {

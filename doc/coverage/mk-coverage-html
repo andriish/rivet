@@ -42,8 +42,8 @@ now = datetime.datetime.now()
 
 ## Experiment (grouping) names and regex patterns
 import re
-EXPTS = ["ALICE", "ATLAS", "CMS", "LHCb", "B-factories", "HERA", "LEP", "Other"]
-EXPT_PATTS = ["ALICE", "ATLAS", "CMS", "LHCb", "BABAR|BELLE", "H1|ZEUS", "ALEPH|DELPHI|L3|OPAL|SLD"]
+EXPTS = ["ALICE", "ATLAS", "CMS", "LHCb", "Forward", "HERA", "EE-HIGH", "EE-LOW", "Tevatron", "RHIC", "SPS", "Other"]
+EXPT_PATTS = ["ALICE", "ATLAS", "CMS", "LHCb", "LHCF|TOTEM", "H1|ZEUS|HERMES", "ALEPH|DELPHI|L3|OPAL|SLD|LEP|TASSO|JADE|AMY|TOPAZ|MAC|VENUS|CELLO|TPC|HRS|PLUTO|MARK-J|MARK-II", "BABAR|BELLE|CLEO|CUSB|ARGUS|SND|CMD|DM1|DM2|KLOE|BES|OLYA|FENICE|LENA|DASP|MARK-I|MUPI|NMD|DESY147|MD1|CRYSTAL|ND|GAMMAGAMMA|BBAR|AACHEN-DESY-ANNECY(LAPP)-MIT-NIKHEF-BEIJING", "CDF|D0|E735", "STAR|PHENIX", "COMPASS|NA48|NA49|EHS/NA22|NA22"]
 EXPT_REOBJS = [re.compile(patt, re.I) for patt in EXPT_PATTS]
 
 ## Add the rivet Python module build dir(s) to the Python module path, then import
@@ -56,7 +56,7 @@ import rivet
 
 ## Add info file locations
 from glob import glob
-dirpatt = os.path.join(os.getcwd(), "..", "analyses", "plugin*")
+dirpatt = os.path.join(os.getcwd(), "..", "..", "analyses", "plugin*")
 for d in glob(dirpatt):
     #print(d)
     rivet.addAnalysisDataPath(os.path.abspath(d))
@@ -90,6 +90,7 @@ if args.VERBOSE:
 ## Read Inspire IDs from ranking files
 blacklist, greylist, hotlist = [], [], []
 assigned = {}
+comment  = {}
 for rankfilestr in args.RANKFILES:
     for rankfile in rankfilestr.split(" "):
         with open(rankfile) as rf:
@@ -114,6 +115,9 @@ for rankfilestr in args.RANKFILES:
                     if last.startswith("<") and last.endswith(">"):
                         last = last[1:-1]
                     assigned[ins] = last
+                # Detect an optional comment
+                if(line.count("#")==2) :
+                    comment[ins] = line.split("#")[1]
 
 
 ## Add rankings/tags to the record
@@ -190,6 +194,8 @@ for iex, ex in enumerate(EXPTS):
                 rankcode = rec[-1].split()[0]
                 # line = u"{} {} {}\n".format(ins.encode("UTF-8"), syms[code], rec[3].encode("UTF-8"))
                 line = u"{} {} {}".format(ins, syms[rankcode], rec[0])
+                if ins in comment :
+                    line += " #{}#".format(comment[ins])
                 # print(assigned.get(ins))
                 if ins in assigned:
                     #print(ins, rec[0], assigned[ins])
@@ -218,8 +224,13 @@ if args.NOHEAVYION:
 
 
 ## Web page rendering
-import html
-OUT = html.HTML("html")
+try:
+    import html
+    OUT = html.HTML("html")
+except :
+    import imp
+    html = imp.load_source('html', '/usr/local/lib/python2.7/dist-packages/html.py')
+    OUT = html.HTML("html")
 
 title = "Rivet analysis coverage"
 exclstr = " ({})".format(", ".join(excls)) if excls else ""
@@ -290,7 +301,12 @@ th = t.thead(newlines=True)
 r = th.tr(klass="thead")
 r.td().b("Key")
 for ex in EXPTS:
-    r.td().b(ex)
+    if(ex=="EE-HIGH") :
+        r.td().b("$e^+e^-(\geq12$ GeV)")
+    elif(ex=="EE-LOW") :
+        r.td().b("$e^+e^-(\leq12$ GeV)")
+    else :
+        r.td().b(ex)
 #
 tb = t.tbody(newlines=True)
 r = tb.tr(klass="default")
@@ -324,7 +340,13 @@ body.button("Show blacklist", id="blacktoggle")
 tabs = body.div(id="tabs")
 u = tabs.ul()
 for ex in EXPTS:
-    u.li().a(ex, href="#{}expt".format(ex.lower()))
+    if(ex=="EE-HIGH") :
+        u.li().a("$e^+e^-(\geq12$ GeV)", href="#{}expt".format(ex.lower()))
+    elif(ex=="EE-LOW") :
+        u.li().a("$e^+e^-(\leq12$ GeV)", href="#{}expt".format(ex.lower()))
+    else :
+        u.li().a(ex, href="#{}expt".format(ex.lower()))
+        
 for ex in EXPTS:
     d = tabs.div(id="{}expt".format(ex.lower()))
     t = d.table(klass="list").tbody(newlines=True)
@@ -380,6 +402,9 @@ for ex in EXPTS:
         if ins in assigned:
             p += " "
             p.a("IN PROGRESS: assigned to {}".format(assigned[ins]), href="mailto:{}".format(assigned[ins]))
+        ## Comment
+        if ins in comment :
+            cell.p().span().b(comment[ins])
 
 
 ## Time-created footer

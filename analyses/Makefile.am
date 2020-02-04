@@ -8,7 +8,7 @@ PLUGIN_NAMES = $(notdir $(subst plugin,,$(PLUGIN_DIRS)))
 PLUGIN_LIBS = $(patsubst %,Rivet%Analyses.so,$(PLUGIN_NAMES))
 PLUGIN_INFOFILES = $(shell ls $(abs_srcdir)/plugin*/*.info)
 PLUGIN_PLOTFILES = $(shell ls $(abs_srcdir)/plugin*/*.plot)
-PLUGIN_YODAFILES = $(shell ls $(abs_srcdir)/plugin*/*.yoda)
+PLUGIN_YODAFILES = $(shell ls $(abs_srcdir)/plugin*/*.yoda*)
 PLUGIN_DATAFILES = $(PLUGIN_INFOFILES) $(PLUGIN_PLOTFILES) $(PLUGIN_YODAFILES)
 
 CLEANFILES = $(PLUGIN_LIBS)
@@ -45,7 +45,7 @@ RivetTristanAnalyses.so: $(filter-out $(srcdir)/pluginTristan/tmp*.cc, $(wildcar
 
 all-local: $(PLUGIN_LIBS) $(PLUGIN_DATAFILES)
 	mkdir -p $(builddir)/data
-	for pdir in $(abs_srcdir)/plugin*; do $(LN_S) -f $${pdir}/*.{info,plot,yoda} $(builddir)/data; done
+	for pdir in $(abs_srcdir)/plugin*; do $(LN_S) -f $${pdir}/*.{info,plot,yoda*} $(builddir)/data; done
 
 clean-local:
 	rm -rf data
@@ -57,13 +57,13 @@ install-exec-local: $(PLUGIN_LIBS)
 install-data-local: $(PLUGIN_DATAFILES)
 	@echo "Installing analysis data files..."
 	$(mkdir_p) $(DESTDIR)$(pkgdatadir)
-	for pdir in $(builddir)/plugin*; do rsync -aq $${pdir}/*.{info,plot,yoda} $(DESTDIR)$(pkgdatadir)/ || cp $${pdir}/*.{info,plot,yoda} $(DESTDIR)$(pkgdatadir)/; done
+	for pdir in $(builddir)/plugin*; do rsync -aq $${pdir}/*.{info,plot,yoda*} $(DESTDIR)$(pkgdatadir)/ || cp $${pdir}/*.{info,plot,yoda*} $(DESTDIR)$(pkgdatadir)/; done
 
 uninstall-local:
 	cd $(DESTDIR)$(libdir) && rm -f $(PLUGIN_LIBS)
 	@echo "Uninstalling analysis data files..."
 	rm -f $(DESTDIR)$(pkgdatadir)/*.info
 	rm -f $(DESTDIR)$(pkgdatadir)/*.plot
-	rm -f $(DESTDIR)$(pkgdatadir)/*.yoda
+	rm -f $(DESTDIR)$(pkgdatadir)/*.yoda*
 
 endif

@@ -33,6 +33,7 @@ for ifile, xmlfile in enumerate(args.XMLFILES):
     if ifile > 0: print()
     print("Processing {}...".format(xmlfile))
     jsonfile = xmlfile.replace(".marc.xml", ".json")
+    print (jsonfile)
     if os.path.exists(jsonfile):
         print("{} exists, skipping {} testing".format(jsonfile, xmlfile))
         continue

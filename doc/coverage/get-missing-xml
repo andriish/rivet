@@ -1,0 +1,66 @@
+#! /usr/bin/env python
+# This Python file uses the following encoding: utf-8
+import os,rivet,urllib2,io
+from StringIO import StringIO
+
+## Add info file locations
+from glob import glob
+dirpatt = os.path.join(os.getcwd(), "..", "..", "analyses", "plugin*")
+for d in glob(dirpatt):
+    #print(d)
+    rivet.addAnalysisDataPath(os.path.abspath(d))
+
+## Rivet analyses to cross-reference
+ranas = {}
+for aname in rivet.AnalysisLoader.analysisNames():
+    ana = rivet.AnalysisLoader.getAnalysis(aname)
+    # TODO: all anas *should* have an Inspire ID...
+    try:
+        # print(aname, ":", ana.inspireId(), ":")
+        ranas.setdefault(int(ana.inspireId()), []).append(ana.name())
+    except:
+        pass
+
+from glob import glob
+## Read data from JSON files
+records = {}
+import json
+for jsonfile in glob("*.json"):
+    if(jsonfile=="inspire-missing.json") : continue
+    with open(jsonfile) as jf:
+        recs = json.load(jf)
+        records.update(recs)
+records = {int(k) : v for k, v in records.items()}
+
+print("Read total of {} records".format(len(records)))
+
+output=u"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<collection xmlns=\"http://www.loc.gov/MARC21/slim\">\n"
+
+
+for val in ranas :
+    if(val in records) : continue
+    if("PDG" in ranas[val][0]) : continue
+    response = urllib2.urlopen("https://inspirehep.net/search?ln=en&ln=en&p=find+recid+%s+&of=xm&action_search=Search&sf=earliestdate&so=d&rm=&rg=250&sc=0&ot=001,024,035,037,710,245" %val, timeout = 120)
+    buf = StringIO(response.read().decode('utf-8'))
+    line=buf.readline()
+    writing=False
+    hasExperiment=False
+    while line :
+        if "<record>" in line :
+            writing=True
+        if "</record>" in line :
+            if ( not hasExperiment ) :
+                name = ranas[val][0].split("_")[0]
+                if "MARK" in name : name=name.replace("MARK","MARK-")
+                output+= "<datafield tag=\"710\" ind1=\" \" ind2=\" \">\n<subfield code=\"g\">%s</subfield>\n</datafield>\n" % name
+            output+=line
+            writing=False
+        if(writing) : output+=line
+        if("tag=\"710\"" in line ) :
+            hasExperiment=True
+        line=buf.readline()
+    print val,ranas[val]
+
+output+="</collection>\n"
+with io.open("inspire-missing.marc.xml", "w", encoding="utf-8") as xml:
+    xml.write(output)
