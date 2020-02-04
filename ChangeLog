@@ -68,6 +68,7 @@
 	* Add KEDR R analysis
 	* Fix for K+K- eta plot in BABAR_2008_I765258
 	* Fix rivet2->3 issue in JADE_1983_I190818
+	* Fix to bin widths for various analyses to improve plotting
 
 2020-02-02  Andy Buckley  <andy.buckley@cern.ch>
 
