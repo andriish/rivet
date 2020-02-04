@@ -21,8 +21,6 @@ namespace Rivet {
       const FinalState cnfs((Cuts::etaIn(-4.7, 4.7)));
       declare(FastJets(cnfs, FastJets::ANTIKT, 0.5), "Jets");
 
-      cout << "Here" << endl;
-
       // Modified to match the HEPDATA record.
       // eta of highest pT jet
       //book(_h_jetetas[0]     ,1,1,1);
