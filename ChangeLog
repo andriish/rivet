@@ -12,6 +12,9 @@
 	* Error trapping in rivet-findid for rare cases
 	when two bibtex entries are found (e.g. rivet-findid 1487288)
 
+2020-02-02  Jon Butterworth <j.butterworth@cern.ch>
+	* sync with HEPData for CMS_2017_I1598460 and CMS_2013_I1273574
+
 2020-01-15  Jon Butterworth <j.butterworth@cern.ch>
 
 	* Add a warning to CMS WZ analysis CMS_2016_I1487288 because
