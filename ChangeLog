@@ -65,6 +65,7 @@
 
 	* Improvements to the analysis coverage for e+e- experiments.
 	* Add BESIII_2019_I1773081 e+e--> pi+_pi-pi0
+	* Add KEDR R analysis
 
 2020-02-02  Andy Buckley  <andy.buckley@cern.ch>
 
