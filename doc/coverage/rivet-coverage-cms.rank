@@ -367,7 +367,7 @@
 1298508 X Searches for electroweak production of charginos, neutralinos, and sleptons decaying to leptons and W, Z, and Higgs bosons in pp collisions at 8 TeV
 1298512 X Search for jet extinction in the inclusive jet-$p_t$ spectrum from proton-proton collisions at $\sqrt s =$ 8 TeV
 1298807 . Measurement of the $pp \to ZZ$ production cross section and constraints on anomalous triple gauge couplings in four-lepton final states at $\sqrt s=$8 TeV
-1298810 ! Measurement of the ratio of inclusive jet cross sections using the anti-$k_T$ algorithm with radius parameters R=0.5 and 0.7 in pp collisions at $\sqrt{s}=7$  TeV
+1298810 . Measurement of the ratio of inclusive jet cross sections using the anti-$k_T$ algorithm with radius parameters R=0.5 and 0.7 in pp collisions at $\sqrt{s}=7$  TeV
 1298812 . Measurement of prompt $J/\psi$ pair production in pp collisions at $ \sqrt{s} $ = 7 Tev
 1299142 . Measurement of jet fragmentation in PbPb and pp collisions at $\sqrt{s_{NN}}=2.76$ TeV
 1299490 X CMS data and workflow management system
@@ -571,6 +571,7 @@
 1475003 X Observation of the decay $B^+ \to \psi(2S) \phi(1020) K^+$ in pp collisions at $\sqrt s =$ 8 TeV
 1475472 X Search for lepton flavour violating decays of the Higgs boson to $e \tau$ and $e \mu$ in proton–proton collisions at $\sqrt s=$ 8 TeV
 1475475 X Jet energy scale and resolution in the CMS experiment in pp collisions at 8 TeV
+1476015 . Measurement of the differential production cross section for top-quark pairs as a function of jet multiplicity in the lepton+jets final state at $\sqrt{s}=8$ TeV with the CMS detector
 1477207 ? Search for dark matter in proton-proton collisions at 8 TeV with missing transverse momentum and vector boson tagged jets
 1477805 X Measurement of the WZ production cross section in pp collisions at $\sqrt(s) =$ 13 TeV
 1477806 . Measurement of electroweak production of a W boson and two forward jets in proton-proton collisions at $ \sqrt{s}=8 $ TeV
@@ -657,7 +658,7 @@
 1594731 ? Search for physics beyond the standard model in events with two leptons of same sign, missing transverse momentum, and jets in proton–proton collisions at $\sqrt{s} = 13\,\text {TeV} $
 1594909 . Search for supersymmetry in multijet events with missing transverse momentum in proton-proton collisions at 13 TeV
 1598036 ? Search for black holes in high-multiplicity final states in proton-proton collisions at $ \sqrt{s}=$13 TeV
-1598460 ! Measurement of the triple-differential dijet cross section in proton-proton collisions at $\sqrt{s}=8\,\text {TeV} $ and constraints on parton distribution functions
+1598460 . Measurement of the triple-differential dijet cross section in proton-proton collisions at $\sqrt{s}=8\,\text {TeV} $ and constraints on parton distribution functions
 1598467 X Search for Charged Higgs Bosons Produced via Vector Boson Fusion and Decaying into a Pair of $W$ and $Z$ Bosons Using $pp$ Collisions at $\sqrt{s}=13\text{ }\text{ }\mathrm{TeV}$
 1599400 ? Search for new phenomena with the $M_{\mathrm {T2}}$ variable in the all-hadronic final state produced in proton–proton collisions at $\sqrt{s} = 13$ $\,\text {TeV}$
 1599402 ? Search for Supersymmetry in $pp$ Collisions at $\sqrt{s}=13\text{ }\text{ }\mathrm{TeV}$ in the Single-Lepton Final State Using the Sum of Masses of Large-Radius Jets
@@ -895,7 +896,7 @@
 1706262 X Layout and Assembly Technique of the GEM Chambers for the Upgrade of the CMS First Muon Endcap Station
 1706995 . Measurement of inclusive very forward jet cross sections in proton-lead collisions at $\sqrt{s_\mathrm{NN}}=$ 5.02 TeV
 1708516 . Search for supersymmetry in events with a photon, a lepton, and missing transverse momentum in proton-proton collisions at $\sqrt{s} =$ 13 TeV
-1708620 ! Measurement of the energy density as a function of pseudorapidity in proton-proton collisions at $\sqrt{s}=$ 13 TeV
+1708620 . Measurement of the energy density as a function of pseudorapidity in proton-proton collisions at $\sqrt{s}=$ 13 TeV
 1709180 . Observation of single top quark production in association with a Z boson in proton-proton collisions at $\sqrt{s} =$ 13 TeV
 1709317 . Search for an exotic decay of the Higgs boson to a pair of light pseudoscalars in the final state with two muons and two b quarks in pp collisions at 13 TeV
 1709318 ! Inclusive search for supersymmetry in pp collisions at $\sqrt{s}=$ 13 TeV using razor variables and boosted object identification in zero and one lepton final states
@@ -933,3 +934,9 @@
 1729144 ! Measurement of $\mathrm{t\bar t}$ normalised multi-differential cross sections in pp collisions at $\sqrt s=13$ TeV, and simultaneous determination of the strong coupling strength, top quark pole mass, and parton distribution functions
 1731568 . Multiparticle correlation studies in pPb collisions at $\sqrt{s_\mathrm{NN}} =$ 8.16 TeV
 1733223 . Observation of nuclear modifications in W$^\pm$ boson production in pPb collisions at $\sqrt{s_\mathrm{NN}} =$ 8.16 TeV
+1775563 . Search for an excited lepton that decays via a contact interaction to a lepton and two jets in proton-proton collisions at $\sqrt{s} =$ 13 TeV
+1776599 . Study of excited $\Lambda_\mathrm{b}^0$ states decaying to $\Lambda_\mathrm{b}^0\pi^+\pi^-$ in proton-proton collisions at $\sqrt{s}=$ 13 TeV
+1776600 . Measurements of dose-rate effects in the radiation damage of plastic scintillator tiles using silicon photomultipliers
+1776758 . Measurement of the associated production of a Z boson with charm or bottom quark jets in proton-proton collisions at $\sqrt{s}=$ 13 TeV
+1777308 . Search for charged Higgs bosons decaying into a top and a bottom quark in the all-jet final state of pp collisions at $\sqrt{s}=$ 13 TeV
+1777617 . Search for physics beyond the standard model in events with jets and two same-sign or at least three charged leptons in proton-proton collisions at $\sqrt{s}=$ 13 TeV
