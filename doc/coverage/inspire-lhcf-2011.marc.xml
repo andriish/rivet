@@ -1,62 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 8 -->
+<!-- Search-Engine-Total-Number-Of-Results: 2 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
-<record>
-  <controlfield tag="001">942483</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1063/1.3628716</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Kasahara:2011zz</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">First year results from LHCf</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">942456</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1063/1.3628748</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Mitsuka:2011zz</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Data analysis techniques for LHCf</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">942455</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1063/1.3628749</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Mase:2011zz</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">The performance of the LHCf detector</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">942454</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1063/1.3628750</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Kawade:2011zz</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Study of GSO scintillator for the LHCf upgrade</subfield>
-  </datafield>
-</record>
 <record>
   <controlfield tag="001">897417</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
@@ -122,46 +66,6 @@
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
     <subfield code="a">Monte Carlo study of forward pi0 production spectra to be measured by the LHCf experiment for the purpose of benchmarking hadron interaction models at 10(17)-eV</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">1206181</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1393/ncc/i2011-11091-8</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Bonechi:2011xe</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">DA19-kp15bm</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">First results from LHCf for forward physics in s**(1/2) = 7-TeV proton-proton interactions</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">1126320</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1393/ncc/i2011-10841-x</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Menjo:2011zz</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">1434705</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">DA19-kp23z</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Comparison of hadron interaction models with measurement of forward spectra by the LHCf apparatus</subfield>
   </datafield>
 </record>
 

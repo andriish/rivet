@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 42 -->
+<!-- Search-Engine-Total-Number-Of-Results: 30 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record>
   <controlfield tag="001">665218</controlfield>
@@ -34,34 +34,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">BES</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">663700</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1103/PhysRevD.71.082002</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">oai:arXiv.org:gr-qc/0411027</subfield>
-    <subfield code="z">oai:arXiv.org:gr-qc/0411027</subfield>
-    <subfield code="9">arXiv</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D05-02814</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Ando:2004rr</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">gr-qc/0411027</subfield>
-    <subfield code="9">arXiv</subfield>
-    <subfield code="c">gr-qc</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Observation results by the TAMA300 detector on gravitational wave bursts from stellar-core collapses</subfield>
   </datafield>
 </record>
 <record>
@@ -301,66 +273,6 @@
   </datafield>
 </record>
 <record>
-  <controlfield tag="001">661517</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1086/427544</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">oai:arXiv.org:astro-ph/0410239</subfield>
-    <subfield code="z">oai:arXiv.org:astro-ph/0410239</subfield>
-    <subfield code="9">arXiv</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Abazajian:2004it</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">ADS</subfield>
-    <subfield code="a">2005AJ....129.1755A</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">astro-ph/0410239</subfield>
-    <subfield code="9">arXiv</subfield>
-    <subfield code="c">astro-ph</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">FERMILAB-PUB-04-337-A-CD</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">The Third Data Release of the Sloan Digital Sky Survey</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">SDSS</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">664942</controlfield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">D05-02579</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">Adam:2004ch</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">oai:arXiv.org:nucl-ex/0411038</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">nucl-ex/0411038</subfield>
-    <subfield code="c">nucl-ex</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Proposal for the wide angle shower apparatus (WASA) at COSY-Julich: WASA at COSY</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">WASA-at-COSY</subfield>
-  </datafield>
-</record>
-<record>
   <controlfield tag="001">659022</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
     <subfield code="2">DOI</subfield>
@@ -427,44 +339,6 @@
   </datafield>
 </record>
 <record>
-  <controlfield tag="001">673292</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1140/epjc/s2005-02353-3</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">oai:arXiv.org:hep-ex/0510022</subfield>
-    <subfield code="z">oai:arXiv.org:hep-ex/0510022</subfield>
-    <subfield code="9">arXiv</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D06-03870</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Abdallah:2004bb</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">894984</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">hep-ex/0510022</subfield>
-    <subfield code="9">arXiv</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">CERN-PH-EP-2004-066</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Flavour independent searches for hadronically decaying neutral Higgs bosons</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">DELPHI</subfield>
-  </datafield>
-</record>
-<record>
   <controlfield tag="001">657201</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
     <subfield code="2">DOI</subfield>
@@ -492,48 +366,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">BES</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">656973</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1140/epjc/s2005-02122-4</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">oai:arXiv.org:hep-ex/0408097</subfield>
-    <subfield code="z">oai:arXiv.org:hep-ex/0408097</subfield>
-    <subfield code="9">arXiv</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D04-15564</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Abbiendi:2004gn</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">789341</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">2005EPJC...40..317O</subfield>
-    <subfield code="9">ADS</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">hep-ex/0408097</subfield>
-    <subfield code="9">arXiv</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">CERN-PH-EP-2004-039</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Flavor independent h0A0 search and two Higgs doublet model interpretation of neutral Higgs boson searches at LEP</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">OPAL</subfield>
   </datafield>
 </record>
 <record>
@@ -783,31 +615,6 @@
   </datafield>
 </record>
 <record>
-  <controlfield tag="001">652003</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1016/j.astropartphys.2003.12.004</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D04-10066</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Acernese:2004wr</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">ADS</subfield>
-    <subfield code="a">2004APh....21....1A</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">The commissioning of the central interferometer of the Virgo gravitational wave detector</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">VIRGO</subfield>
-  </datafield>
-</record>
-<record>
   <controlfield tag="001">651831</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
     <subfield code="2">DOI</subfield>
@@ -835,31 +642,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">BES</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">651577</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1016/j.astropartphys.2003.10.003</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D04-10075</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Acernese:2004ae</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">ADS</subfield>
-    <subfield code="a">2004APh....20..629A</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">First locking of the Virgo central area interferometer with suspension hierarchical control</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">VIRGO</subfield>
   </datafield>
 </record>
 <record>
@@ -929,84 +711,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">BES</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">648739</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1103/PhysRevLett.93.202002</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">oai:arXiv.org:hep-ex/0404027</subfield>
-    <subfield code="z">oai:arXiv.org:hep-ex/0404027</subfield>
-    <subfield code="9">arXiv</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D04-09425</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Adler:2004ps</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">ADS</subfield>
-    <subfield code="a">2004PhRvL..93t2002A</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">in2p3-00023732</subfield>
-    <subfield code="9">HAL</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">hep-ex/0404027</subfield>
-    <subfield code="9">arXiv</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Double helicity asymmetry in inclusive mid-rapidity pi0 production for polarized p + p collisions at s**(1/2) = 200-GeV</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">PHENIX</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">648335</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1088/0264-9381/21/5/049</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D04-09980</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Yvert:2004te</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">A first test of a sine-Hough method for the detection of pulsars in binary systems using the E4 VIRGO engineering run data</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">VIRGO</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">648302</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1088/0264-9381/21/5/003</subfield>
-    <subfield code="2">DOI</subfield>
-    <subfield code="9">bibcheck</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Acernese:2004rv</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Results of the VIRGO central interferometer commissioning</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">VIRGO</subfield>
   </datafield>
 </record>
 <record>
@@ -1166,41 +870,6 @@
   </datafield>
 </record>
 <record>
-  <controlfield tag="001">644208</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1103/PhysRevLett.93.051801</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">oai:arXiv.org:hep-ex/0402017</subfield>
-    <subfield code="z">oai:arXiv.org:hep-ex/0402017</subfield>
-    <subfield code="9">arXiv</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D04-06518</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Ahn:2004te</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">2004PhRvL..93e1801A</subfield>
-    <subfield code="9">ADS</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">hep-ex/0402017</subfield>
-    <subfield code="9">arXiv</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Search for electron neutrino appearance in a 250 km long baseline experiment</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">K2K</subfield>
-  </datafield>
-</record>
-<record>
   <controlfield tag="001">644048</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
     <subfield code="2">DOI</subfield>
@@ -1260,27 +929,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">BES</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">643442</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1088/0954-3899/30/1/005</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D04-04662</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Caines:2004bv</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">An update from STAR - using strangeness to probe relativistic heavy ion collisions</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">STAR</subfield>
   </datafield>
 </record>
 <record>

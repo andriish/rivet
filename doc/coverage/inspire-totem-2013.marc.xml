@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 7 -->
+<!-- Search-Engine-Total-Number-Of-Results: 6 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record>
   <controlfield tag="001">1257991</controlfield>
@@ -82,29 +82,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">TOTEM</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">1250181</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="9">bibmatch</subfield>
-    <subfield code="a">10.1016/j.nima.2012.08.084</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">INSPIRETeX</subfield>
-    <subfield code="a">Baechler:2013xja</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">DA13-kp36a</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">1709898</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Status of the TOTEM experiment at LHC</subfield>
   </datafield>
 </record>
 <record>

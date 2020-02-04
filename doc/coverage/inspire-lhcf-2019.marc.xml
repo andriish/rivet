@@ -1,34 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 2 -->
+<!-- Search-Engine-Total-Number-Of-Results: 1 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
-<record>
-  <controlfield tag="001">1748975</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="9">SISSA</subfield>
-    <subfield code="a">10.22323/1.340.0207</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">INSPIRETeX</subfield>
-    <subfield code="a">Berti:2018lid</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">DA19-kp34af</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">HAL</subfield>
-    <subfield code="a">hal-02302764</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">2702836</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">SISSA</subfield>
-    <subfield code="a">The LHCf experiment: recent physics results</subfield>
-  </datafield>
-</record>
 <record>
   <controlfield tag="001">1734643</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">

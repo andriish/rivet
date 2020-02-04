@@ -1,42 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 4 -->
+<!-- Search-Engine-Total-Number-Of-Results: 2 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
-<record>
-  <controlfield tag="001">1707151</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="9">EDP Sciences</subfield>
-    <subfield code="a">10.1051/epjconf/201818202068</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">INSPIRETeX</subfield>
-    <subfield code="a">Korol:2018bqq</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">DA18-kp51n</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">EDP Sciences</subfield>
-    <subfield code="a">Measurement of the hadronic cross sections with the CMD-3 and SND detectors at the VEPP-2000 collider</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">1707207</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.18429/JACoW-RuPAC2018-MOXMH02</subfield>
-    <subfield code="2">DOI</subfield>
-    <subfield code="9">JACoW</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Shwartz:2018nna</subfield>
-    <subfield code="9">INSPIRETeX</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">VEPP-2000 Collider Operation in Full Energy Range with New Injector</subfield>
-    <subfield code="9">JACoW</subfield>
-  </datafield>
-</record>
 <record>
   <controlfield tag="001">1684636</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">

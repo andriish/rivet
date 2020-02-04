@@ -1,74 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 8 -->
+<!-- Search-Engine-Total-Number-Of-Results: 3 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
-<record>
-  <controlfield tag="001">340171</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1016/0920-5632(93)90167-5</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D92-18008</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D94-10103</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Aglietta:1992zq</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">243247</subfield>
-    <subfield code="9">CDS</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">ADS</subfield>
-    <subfield code="a">1993NuPhS..31..450A</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">LNGS-92-46</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">First results of a search for neutrinos from collapsing stars with the LVD at Gran Sasso</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">LVD</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">340136</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1016/0370-2693(92)91094-P</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D92-18054</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D93-04587</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Ahmed:1992xj</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">ADS</subfield>
-    <subfield code="a">1992PhLB..297..205A</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">DESY-92-142</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Hard scattering in gamma p interactions</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">H1</subfield>
-  </datafield>
-</record>
 <record>
   <controlfield tag="001">336913</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
@@ -109,81 +41,6 @@
   </datafield>
 </record>
 <record>
-  <controlfield tag="001">335147</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1016/0370-2693(92)91002-Q</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D92-10022</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D92-15630</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Acton:1992gd</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">237608</subfield>
-    <subfield code="9">CDS</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">ADS</subfield>
-    <subfield code="a">1992PhLB..287..401A</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">CERN-PPE-92-089</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">CERN-PPE-92-89</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">A Study of two particle momentum correlations in hadronic Z0 decays</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">OPAL</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">334577</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1007/BF01482583</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D92-09159</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D92-18039</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Buskulic:1992hq</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">236710</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">ins334577</subfield>
-    <subfield code="9">HEPDATA</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">CERN-PPE-92-062</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Properties of hadronic Z decays and test of QCD generators</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">ALEPH</subfield>
-  </datafield>
-</record>
-<record>
   <controlfield tag="001">346742</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="z">D94-03752</subfield>
@@ -215,28 +72,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">BES</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">346680</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1007/BF02740929</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D94-00958</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Aglietta:1992dy</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">260142</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">The Most powerful scintillator supernovae detector: LVD</subfield>
   </datafield>
 </record>
 

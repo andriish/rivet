@@ -1,44 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 1 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
-<record>
-  <controlfield tag="001">378770</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1103/PhysRevC.51.R1065</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">oai:arXiv.org:nucl-th/9410039</subfield>
-    <subfield code="z">oai:arXiv.org:nucl-th/9410039</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">D95-15321</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">Albert:1994xs</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">ADS</subfield>
-    <subfield code="a">1995PhRvC..51.1065A</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">ins378770</subfield>
-    <subfield code="9">HEPDATA</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">nucl-th/9410039</subfield>
-    <subfield code="c">nucl-th</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Measurement of the reaction C-12 (muon-neutrino, mu-) X near threshold</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">LSND</subfield>
-  </datafield>
-</record>
 
 </collection>

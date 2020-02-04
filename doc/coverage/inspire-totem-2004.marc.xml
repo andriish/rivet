@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 3 -->
+<!-- Search-Engine-Total-Number-Of-Results: 2 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record>
   <controlfield tag="001">657751</controlfield>
@@ -19,28 +19,6 @@
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
     <subfield code="a">TOTEM: Technical design report - Addendum. Total cross section, elastic scattering and diffraction dissociation at the Large Hadron Collider at CERN</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">648116</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1016/j.nima.2003.10.078</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D05-09258</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Avati:2004hz</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">802356</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">First test of cold edgeless silicon microstrip detectors</subfield>
   </datafield>
 </record>
 <record>

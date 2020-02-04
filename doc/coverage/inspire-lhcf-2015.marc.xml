@@ -1,29 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 5 -->
+<!-- Search-Engine-Total-Number-Of-Results: 2 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
-<record>
-  <controlfield tag="001">1390248</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="9">EDP Sciences</subfield>
-    <subfield code="a">10.1051/epjconf/20159908004</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">INSPIRETeX</subfield>
-    <subfield code="a">Menjo:2015cpa</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">DA15-kp36z</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">2159154</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Recent results from LHCf</subfield>
-  </datafield>
-</record>
 <record>
   <controlfield tag="001">1385877</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
@@ -63,65 +40,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">LHCf</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">1374444</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="9">EDP Sciences</subfield>
-    <subfield code="a">10.1051/epjconf/20159601031</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">INSPIRETeX</subfield>
-    <subfield code="a">Tiberio:2015gfa</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">DA15-kp24o</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">2159092</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Recent results from the LHCf experiment</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">1374353</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="9">EDP Sciences</subfield>
-    <subfield code="a">10.1051/epjconf/20149504010</subfield>
-  </datafield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="9">EDP Sciences</subfield>
-    <subfield code="a">10.1051/epjconf/20159504010</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">INSPIRETeX</subfield>
-    <subfield code="z">Bonechi:2015ihi</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">INSPIRETeX</subfield>
-    <subfield code="a">Bonechi:2015tba</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">DA16-kp44au</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">DA15-kp24m</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">2159082</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Latest LHCf results and preparation to the LHC run for 13 TeV proton–proton interactions</subfield>
   </datafield>
 </record>
 <record>

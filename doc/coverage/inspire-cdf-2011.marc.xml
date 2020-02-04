@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 65 -->
+<!-- Search-Engine-Total-Number-Of-Results: 64 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record>
   <controlfield tag="001">1082447</controlfield>
@@ -1686,52 +1686,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">CDF</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">913398</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1103/PhysRevLett.107.011804</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">oai:arXiv.org:1106.1921</subfield>
-    <subfield code="z">oai:arXiv.org:1106.1921</subfield>
-    <subfield code="9">arXiv</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D11-13413</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Abazov:2011af</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">1016884</subfield>
-    <subfield code="9">OSTI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">2011PhRvL.107a1804A</subfield>
-    <subfield code="9">ADS</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">in2p3-00600474</subfield>
-    <subfield code="9">HAL</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">arXiv:1106.1921</subfield>
-    <subfield code="9">arXiv</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">FERMILAB-PUB-11-267-E</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Bounds on an anomalous dijet resonance in $W+$jets production in $p\bar{p}$ collisions at $\sqrt{s} =1.96$ TeV</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">D0</subfield>
   </datafield>
 </record>
 <record>

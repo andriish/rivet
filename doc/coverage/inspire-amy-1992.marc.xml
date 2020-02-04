@@ -1,94 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 4 -->
+<!-- Search-Engine-Total-Number-Of-Results: 1 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
-<record>
-  <controlfield tag="001">340637</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1016/0168-9002(92)90594-T</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">D92-15081</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">Abashian:1992zg</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">The AMY barrel electromagnetic shower counter at TRISTAN</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">332576</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1016/0370-2693(92)90414-Y</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D92-08019</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D92-10988</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Hayashii:1992tc</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">ADS</subfield>
-    <subfield code="a">1992PhLB..279..422H</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">KEKSCAN</subfield>
-    <subfield code="a">199127208</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">ins332576</subfield>
-    <subfield code="9">HEPDATA</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">KEK-PREPRINT-91-208</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">NWU-HEP-92-01</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">DPNU-92-06</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">INS-911</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">KOBE-HEP-92-01</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">OCU-HEP-92-01</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">PU-92-658</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">TIT-HEP-92-01</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">TU-HEP-92-01</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">TUAT-HEP-92-01</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">UT-HE-92-03</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">An experimental study of muon pair production in tagged two photon interactions</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">TOPAZ</subfield>
-  </datafield>
-</record>
 <record>
   <controlfield tag="001">349385</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -100,24 +12,6 @@
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
     <subfield code="a">Search for anomalous gamma gamma production at TRISTAN</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">345496</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1016/0168-9002(92)90005-O</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D93-03982</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Ueno:1992wf</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">The Design of the AMY central drift chamber and performance in a 3-T magnetic field</subfield>
   </datafield>
 </record>
 

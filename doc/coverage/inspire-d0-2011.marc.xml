@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 59 -->
+<!-- Search-Engine-Total-Number-Of-Results: 45 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record>
   <controlfield tag="001">1082709</controlfield>
@@ -44,55 +44,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">D0</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">1082327</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1007/JHEP04(2012)129</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">oai:arXiv.org:1112.4698</subfield>
-    <subfield code="z">oai:arXiv.org:1112.4698</subfield>
-    <subfield code="9">arXiv</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D12-01247</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Aaij:2011ad</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">1408728</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">2012JHEP...04..129A</subfield>
-    <subfield code="9">ADS</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">in2p3-00697082</subfield>
-    <subfield code="9">HAL</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">arXiv:1112.4698</subfield>
-    <subfield code="9">arXiv</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">LHCB-PAPER-2011-032</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">CERN-PH-EP-2011-206</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Measurement of mixing and CP violation parameters in two-body charm decays</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">LHCb</subfield>
   </datafield>
 </record>
 <record>
@@ -141,105 +92,6 @@
   </datafield>
 </record>
 <record>
-  <controlfield tag="001">1082009</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1103/PhysRevD.85.052005</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">oai:arXiv.org:1112.4432</subfield>
-    <subfield code="z">oai:arXiv.org:1112.4432</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">D12-01214</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">Aad:2011td</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">1407975</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">ins1082009</subfield>
-    <subfield code="9">HEPDATA</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">in2p3-00653697</subfield>
-    <subfield code="9">HAL</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">arXiv:1112.4432</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">CERN-PH-EP-2011-180</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Measurement of $D^{*+/-}$ meson production in jets from pp collisions at sqrt(s) = 7 TeV with the ATLAS detector</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">ATLAS</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">1079920</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1103/PhysRevLett.108.111602</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1103/PhysRevLett.108.129903</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">oai:arXiv.org:1112.0938</subfield>
-    <subfield code="z">oai:arXiv.org:1112.0938</subfield>
-    <subfield code="9">arXiv</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D12-00487</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Aaij:2011in</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">1404248</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">2012PhRvL.108l9903A</subfield>
-    <subfield code="9">ADS</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">in2p3-00653527</subfield>
-    <subfield code="9">HAL</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">arXiv:1112.0938</subfield>
-    <subfield code="9">arXiv</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">LHCB-PAPER-2011-023</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">CERN-PH-EP-2011-208</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Evidence for CP violation in time-integrated $D^0 \to h^-h^+$ decay rates</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">LHCb</subfield>
-  </datafield>
-</record>
-<record>
   <controlfield tag="001">1079749</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
     <subfield code="2">DOI</subfield>
@@ -282,96 +134,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">D0</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">947066</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1103/PhysRevD.85.012009</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">D11-17673</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">D12-00928</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">Aaltonen:2011se</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">oai:arXiv.org:1111.5023</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">1030749</subfield>
-    <subfield code="9">OSTI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">1401272</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">FERMILAB-PUB-11-624-PPD</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">arXiv:1111.5023</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Measurement of CP--violating asymmetries in $D^0\to\pi^+\pi^-$ and $D^0\to K^+K^-$ decays at CDF</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">CDF</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">946659</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1103/PhysRevD.85.092017</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">oai:arXiv.org:1111.4387</subfield>
-    <subfield code="z">oai:arXiv.org:1111.4387</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">D11-17670</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">delAmoSanchez:2011gi</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">OSTI</subfield>
-    <subfield code="a">1104157</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">in2p3-00643202</subfield>
-    <subfield code="9">HAL</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">arXiv:1111.4387</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">SLAC-PUB-14763</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">BABAR-PUB-10-019</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Observation and study of the baryonic B-meson decays B to D(*) p pbar (pi) (pi)</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">BaBar</subfield>
   </datafield>
 </record>
 <record>
@@ -454,47 +216,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">D0</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">943722</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1103/PhysRevD.85.091107</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">oai:arXiv.org:1110.6480</subfield>
-    <subfield code="z">oai:arXiv.org:1110.6480</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">Lees:2011qz</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">OSTI</subfield>
-    <subfield code="a">1104083</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">in2p3-00709864</subfield>
-    <subfield code="9">HAL</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">arXiv:1110.6480</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">SLAC-PUB-14392</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">BABAR-PUB-11-004</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Search for the Decay $D^0 -&gt; \gamma \gamma$ and Measurement of the Branching Fraction for $D^0 -&gt; \pi^0 \pi^0$</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">BaBar</subfield>
   </datafield>
 </record>
 <record>
@@ -676,55 +397,6 @@
   </datafield>
 </record>
 <record>
-  <controlfield tag="001">940142</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1016/j.physletb.2011.10.073</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">oai:arXiv.org:1110.3676</subfield>
-    <subfield code="z">oai:arXiv.org:1110.3676</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">D11-16866</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">Aaij:2011tz</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">1390818</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">2011PhLB..706...32L</subfield>
-    <subfield code="9">ADS</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">in2p3-00637871</subfield>
-    <subfield code="9">HAL</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">arXiv:1110.3676</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">LHCB-PAPER-2011-008</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">CERN-PH-EP-2011-150</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">First observation of the decay $\bar{B}^0_s \to D^0 K^{*0}$ and a measurement of the ratio of branching fractions $\frac{{\cal B}(\bar{B}^0_s \to D^0 K^{*0})}{{\cal B}(\bar{B}^0 \to D^0 \rho^0)}$</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">LHCb</subfield>
-  </datafield>
-</record>
-<record>
   <controlfield tag="001">940019</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
     <subfield code="2">DOI</subfield>
@@ -897,46 +569,6 @@
   </datafield>
 </record>
 <record>
-  <controlfield tag="001">924618</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1103/PhysRevD.84.071501</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D11-16746</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Chen:2011hy</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">oai:arXiv.org:1108.4271</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">OSTI</subfield>
-    <subfield code="a">1253889</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">BELLE-PREPRINT-2011-9</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">KEK-PREPRINT-2011-7</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">arXiv:1108.4271</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Observation of $B^- \to \bar{p} \Lambda D^0$ at Belle</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">Belle</subfield>
-  </datafield>
-</record>
-<record>
   <controlfield tag="001">924199</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
     <subfield code="2">DOI</subfield>
@@ -975,50 +607,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">D0</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">920989</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1103/PhysRevD.84.112007</subfield>
-  </datafield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1103/PhysRevD.87.039901</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">D11-13364</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">Lees:2011gw</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">oai:arXiv.org:1107.5751</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">in2p3-00614114</subfield>
-    <subfield code="9">HAL</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">BABAR-PUB-11-013</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">SLAC-PUB-14521</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">arXiv:1107.5751</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Branching Fraction Measurements of the Color-Suppressed Decays $\bar{B}^0 \to D^{(*)0} \pi^0$, $D^{(*)0} \eta$, $D^{(*)0} \omega$, and $D^{(*)0} \eta^\prime$ and Measurement of the Polarization in the Decay $\bar{B}^0 \to D^{*0} \omega$</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">BaBar</subfield>
   </datafield>
 </record>
 <record>
@@ -1890,51 +1478,6 @@
   </datafield>
 </record>
 <record>
-  <controlfield tag="001">897008</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1103/PhysRevD.84.012002</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">oai:arXiv.org:1104.4472</subfield>
-    <subfield code="z">oai:arXiv.org:1104.4472</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">D11-06889</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">Lees:2011up</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">OSTI</subfield>
-    <subfield code="a">1099718</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">in2p3-00591631</subfield>
-    <subfield code="9">HAL</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">arXiv:1104.4472</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">BABAR-PUB-11-006</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">SLAC-PUB-14444</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Search for $b \to u$ Transitions in $B^\pm \to [K^\mp pi^\pm \pi^0]_D K^\pm$ Decays</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">BaBar</subfield>
-  </datafield>
-</record>
-<record>
   <controlfield tag="001">896254</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
     <subfield code="2">DOI</subfield>
@@ -2066,51 +1609,6 @@
   </datafield>
 </record>
 <record>
-  <controlfield tag="001">894464</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1103/PhysRevLett.106.231803</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">oai:arXiv.org:1103.5951</subfield>
-    <subfield code="z">oai:arXiv.org:1103.5951</subfield>
-    <subfield code="9">arXiv</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D11-06917</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Belle:2011ac</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">2011PhRvL.106w1803H</subfield>
-    <subfield code="9">ADS</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">OSTI</subfield>
-    <subfield code="a">1099561</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">arXiv:1103.5951</subfield>
-    <subfield code="9">arXiv</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">BELLE-PREPRINT-2011-4</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">KEK-PREPRINT-2010-52</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Evidence for the Suppressed Decay B- -&gt; DK-, D -&gt; K+pi-</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">Belle</subfield>
-  </datafield>
-</record>
-<record>
   <controlfield tag="001">893669</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
     <subfield code="2">DOI</subfield>
@@ -2238,96 +1736,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">D0</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">886797</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1103/PhysRevD.83.051102</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1103/PhysRevD.83.059902</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">oai:arXiv.org:1102.0935</subfield>
-    <subfield code="z">oai:arXiv.org:1102.0935</subfield>
-    <subfield code="9">arXiv</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D11-03050</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Belle:2011ad</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">OSTI</subfield>
-    <subfield code="a">1100035</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">arXiv:1102.0935</subfield>
-    <subfield code="9">arXiv</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Study of the decays $B -&gt; D_{s1}(2536)^+ \bar{D}^{(*)}$</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">Belle</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">886536</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1016/j.physletb.2011.02.039</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">D11-03053</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">Aaij:2011ju</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">1326409</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">ADS</subfield>
-    <subfield code="a">2011PhLB..698...14L</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">oai:arXiv.org:1102.0348</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">in2p3-00563271</subfield>
-    <subfield code="9">HAL</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">CERN-PH-EP-2011-008</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">LHCb-PAPER-2011-001</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">LHCB-PAPER-2011-001</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">arXiv:1102.0348</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">First observation of $\bar{B}^0_s \to D_{s2}^{*+} X \mu^-\bar{\nu}$ decays</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">LHCb</subfield>
   </datafield>
 </record>
 <record>
@@ -2509,31 +1917,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">D0</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">885495</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1016/j.physletb.2010.10.008</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">D11-03641</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">Batley:2011zza</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">1281653</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Precision measurement of the ratio $BR(K_S \to \pi^+ \pi^- e^+ e^-)/BR(K_L \pi^+ pi^- \pi^0_D)$</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">NA48/1</subfield>
   </datafield>
 </record>
 <record>

@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 3 -->
+<!-- Search-Engine-Total-Number-Of-Results: 1 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
-<record>
-  <controlfield tag="001">736263</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1063/1.2396963</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">Bonechi:2006dj</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">The LHCf experiment at the LHC accelerator</subfield>
-  </datafield>
-</record>
 <record>
   <controlfield tag="001">710481</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -37,20 +23,6 @@
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
     <subfield code="a">Technical design report of the LHCf experiment: Measurement of photons and neutral pions in the very forward region of LHC</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">736147</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1007/s10582-006-0147-x</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">Adriani:2006zx</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">The LHCf experiment at LHC</subfield>
   </datafield>
 </record>
 

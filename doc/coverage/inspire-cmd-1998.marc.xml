@@ -1,62 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 4 -->
+<!-- Search-Engine-Total-Number-Of-Results: 1 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
-<record>
-  <controlfield tag="001">480170</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1016/S0370-2693(98)00826-0</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D99-00566</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Akhmetshin:1998se</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">ins480170</subfield>
-    <subfield code="9">HEPDATA</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Study of dynamics of Phi --&gt; pi+ pi- pi0 decay with CMD-2 detector</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">490872</controlfield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">oai:arXiv.org:astro-ph/9810221</subfield>
-    <subfield code="z">oai:arXiv.org:astro-ph/9810221</subfield>
-    <subfield code="9">arXiv</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Alves:1998qf</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">1999IAUS..190..517A</subfield>
-    <subfield code="9">ADS</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">astro-ph/9810221</subfield>
-    <subfield code="9">arXiv</subfield>
-    <subfield code="c">astro-ph</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">The MACHO project lmc variable star inventory: classical cepheids, agb variables, and the 9 million star color-magnitude diagram</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">485607</controlfield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Akhmetshin:1998qh</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Investigation of the rare Phi radiative decays with the CMD-2 detector at VEPP-2M collider</subfield>
-  </datafield>
-</record>
 <record>
   <controlfield tag="001">483994</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">

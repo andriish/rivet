@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 9 -->
+<!-- Search-Engine-Total-Number-Of-Results: 7 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record>
   <controlfield tag="001">538836</controlfield>
@@ -224,35 +224,6 @@
   </datafield>
 </record>
 <record>
-  <controlfield tag="001">547156</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1086/320554</subfield>
-    <subfield code="2">DOI</subfield>
-    <subfield code="9">ADS</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">oai:arXiv.org:astro-ph/0008282</subfield>
-    <subfield code="z">oai:arXiv.org:astro-ph/0008282</subfield>
-    <subfield code="9">arXiv</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Alcock:2000zv</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">2001ApJ...552..582A</subfield>
-    <subfield code="9">ADS</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">astro-ph/0008282</subfield>
-    <subfield code="9">arXiv</subfield>
-    <subfield code="c">astro-ph</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">The MACHO project hubble space telescope follow-up: preliminary results on the location of the large magellanic cloud microlensing source stars</subfield>
-  </datafield>
-</record>
-<record>
   <controlfield tag="001">523691</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
     <subfield code="2">DOI</subfield>
@@ -289,34 +260,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">CMD-2</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">544273</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1086/301326</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">oai:arXiv.org:astro-ph/0001435</subfield>
-    <subfield code="z">oai:arXiv.org:astro-ph/0001435</subfield>
-    <subfield code="9">arXiv</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Alcock:2000ms</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">ADS</subfield>
-    <subfield code="a">2000AJ....119.2194A</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">astro-ph/0001435</subfield>
-    <subfield code="9">arXiv</subfield>
-    <subfield code="c">astro-ph</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">The MACHO project 9 million star color-magnitude diagram of the large magellanic cloud</subfield>
   </datafield>
 </record>
 

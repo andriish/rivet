@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 5 -->
+<!-- Search-Engine-Total-Number-Of-Results: 4 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record>
   <controlfield tag="001">143985</controlfield>
@@ -127,19 +127,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">JADE</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">9025</controlfield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Barber:1980ur</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">PETRA-PROPOSAL-UNN(1)</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">JADE: PROPOSAL FOR A COMPACT MAGNETIC DETECTOR AT PETRA</subfield>
   </datafield>
 </record>
 

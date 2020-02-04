@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 4 -->
+<!-- Search-Engine-Total-Number-Of-Results: 3 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record>
   <controlfield tag="001">1115294</controlfield>
@@ -72,25 +72,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">TOTEM</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">1379783</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="9">World Scientific</subfield>
-    <subfield code="a">10.1142/9789814405072_0143</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">INSPIRETeX</subfield>
-    <subfield code="a">Berretti:2012pca</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">DA15-kp27w</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Reconstruction Software for High Multiplicity Events in GEM Detectors</subfield>
   </datafield>
 </record>
 <record>

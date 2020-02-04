@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 5 -->
+<!-- Search-Engine-Total-Number-Of-Results: 3 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record>
   <controlfield tag="001">1710347</controlfield>
@@ -146,50 +146,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">TOTEM</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">1757665</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="9">IEEE</subfield>
-    <subfield code="a">10.1109/NSSMIC.2018.8824331</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">INSPIRETeX</subfield>
-    <subfield code="a">Cossio:2018gfz</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">DA19-kp42ad</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">IEEE</subfield>
-    <subfield code="a">Optimization of the reconstruction algorithm in triple-GEM detector</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">1744687</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="9">IEEE</subfield>
-    <subfield code="a">10.1109/UCC-Companion.2018.00018</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">INSPIRETeX</subfield>
-    <subfield code="a">Avati:2018zav</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">DA19-kp32g</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">2706003</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">IEEE</subfield>
-    <subfield code="a">Big Data Tools and Cloud Services for High Energy Physics Analysis in TOTEM Experiment</subfield>
   </datafield>
 </record>
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 7 -->
+<!-- Search-Engine-Total-Number-Of-Results: 3 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record>
   <controlfield tag="001">568807</controlfield>
@@ -37,73 +37,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">CMD-2</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">577788</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1086/338983</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">oai:arXiv.org:astro-ph/0111095</subfield>
-    <subfield code="z">oai:arXiv.org:astro-ph/0111095</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">Newberg:2001sx</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">ADS</subfield>
-    <subfield code="a">2002ApJ...569..245N</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">astro-ph/0111095</subfield>
-    <subfield code="c">astro-ph</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">FERMILAB-PUB-01-469-A</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">The Ghost of Sagittarius and Lumps in the Halo of the Milky Way</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">SDSS</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">579475</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="9">bibmatch</subfield>
-    <subfield code="a">10.1142/9789812777157_0028</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">Akhmetshin:2001rz</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">WSP</subfield>
-    <subfield code="a">Study of $e^+e^-$ Annihilation Into Hadrons at Vepp-2m</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">579326</controlfield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D03-07942</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Akhmetshin:2001af</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">BUDKER-INP-2001-58</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Cross-section measurement of the process e+ e- --&gt; K0(L) K0(S) in cm energy range 2E = 1.05-GeV to 1.38-GeV with CMD-2</subfield>
   </datafield>
 </record>
 <record>
@@ -168,23 +101,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">CMD-2</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">579332</controlfield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="z">D03-05176</subfield>
-    <subfield code="9">DESY</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Aulchenko:2001je</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">BUDKER-INP-2001-45</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">CMD-2M Detector Project</subfield>
   </datafield>
 </record>
 

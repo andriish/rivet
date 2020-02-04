@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 5 -->
+<!-- Search-Engine-Total-Number-Of-Results: 4 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
-<record>
-  <controlfield tag="001">1202061</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1016/j.nima.2011.12.071</subfield>
-    <subfield code="2">DOI</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Menjo:2012ng</subfield>
-    <subfield code="9">SPIRESTeX</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">DA15-kp26m</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Forward photon energy spectrum at LHC 7-TeV p-p collisions measured by LHCf</subfield>
-  </datafield>
-</record>
 <record>
   <controlfield tag="001">1124336</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
