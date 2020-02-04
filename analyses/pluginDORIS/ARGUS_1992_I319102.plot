@@ -4,8 +4,6 @@ XLabel=$\sqrt{s}$/GeV
 YLabel=$R$
 LogY=0
 ConnectGaps=1
-XMin=9.
-XMax=10.
 END PLOT
 BEGIN PLOT /ARGUS_1992_I319102/d02-x01-y01
 Title=Charged Multiplicity at 10.47 GeV
