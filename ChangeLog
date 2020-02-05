@@ -1,6 +1,13 @@
+2020-02-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Change the AnalysisHandler logger name from Analysis.Handler to
+	AnalysisHandler, since -lAnalysis=DEBUG would be expected to turn
+	on logging for debugging of an analysis, not the core machinery
+	that deploys it (which is not interesting to most users).
+
 2020-02-04 Peter Richardson <peter.richardson@durham.ac.uk>
 
-	* Improvements to the rivet coverage for e+e- experiments
+	* Improvements to the analysis coverage for e+e- experiments.
 
 2020-02-02  Andy Buckley  <andy.buckley@cern.ch>
 
