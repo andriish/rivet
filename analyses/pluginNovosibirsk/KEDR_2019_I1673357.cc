@@ -66,23 +66,23 @@ namespace Rivet {
       book(mult1, 1, 1, 1);
       book(mult2, 1, 1, 2);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
-      	const double x  = temphisto.point(b).x();
-      	pair<double,double> ex = temphisto.point(b).xErrs();
-      	pair<double,double> ex2 = ex;
-      	if(ex2.first ==0.) ex2. first=0.0001;
-      	if(ex2.second==0.) ex2.second=0.0001;
-      	if (inRange(sqrtS()/MeV, x-ex2.first, x+ex2.second)) {
-      	  mult1   ->addPoint(x, rval, ex, rerr);
-      	  mult2   ->addPoint(x, rval, ex, rerr);
-      	  hadrons ->addPoint(x, sig_h, ex, make_pair(err_h,err_h));
-      	  muons   ->addPoint(x, sig_m, ex, make_pair(err_m,err_m));
-      	}
-      	else {
-      	  mult1   ->addPoint(x, 0., ex, make_pair(0.,.0));
-      	  mult2   ->addPoint(x, 0., ex, make_pair(0.,.0));
-      	  hadrons ->addPoint(x, 0., ex, make_pair(0.,.0));
-      	  muons   ->addPoint(x, 0., ex, make_pair(0.,.0));
-      	}
+        const double x  = temphisto.point(b).x();
+        pair<double,double> ex = temphisto.point(b).xErrs();
+        pair<double,double> ex2 = ex;
+        if(ex2.first ==0.) ex2. first=0.0001;
+        if(ex2.second==0.) ex2.second=0.0001;
+        if (inRange(sqrtS()/MeV, x-ex2.first, x+ex2.second)) {
+          mult1   ->addPoint(x, rval, ex, rerr);
+          mult2   ->addPoint(x, rval, ex, rerr);
+          hadrons ->addPoint(x, sig_h, ex, make_pair(err_h,err_h));
+          muons   ->addPoint(x, sig_m, ex, make_pair(err_m,err_m));
+        }
+        else {
+          mult1   ->addPoint(x, 0., ex, make_pair(0.,.0));
+          mult2   ->addPoint(x, 0., ex, make_pair(0.,.0));
+          hadrons ->addPoint(x, 0., ex, make_pair(0.,.0));
+          muons   ->addPoint(x, 0., ex, make_pair(0.,.0));
+        }
       }
     }
 
