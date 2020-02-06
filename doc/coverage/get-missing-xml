@@ -1,5 +1,14 @@
 #! /usr/bin/env python
 # This Python file uses the following encoding: utf-8
+#
+#  This python script downloads the paper information
+#  for any papers which are implemented as analyses in rivet and aren't already
+#  downloaded. In addition if the experiment for the paper is not
+#  set by inspire it is set using the analysis name.
+#
+#  We need this as many older papers don't have experiment info in inspire
+#  Most is copied from get-marcxml-inspire
+#
 import os,rivet,urllib2,io
 from StringIO import StringIO
 
@@ -34,13 +43,16 @@ records = {int(k) : v for k, v in records.items()}
 
 print("Read total of {} records".format(len(records)))
 
+# header string for the xml
 output=u"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<collection xmlns=\"http://www.loc.gov/MARC21/slim\">\n"
-
-
+# loop over all analyses
 for val in ranas :
+    # skip if we have the paper or from PDG
     if(val in records) : continue
     if("PDG" in ranas[val][0]) : continue
+    # get the xml as in get-marcxml-inspire but just lookup by inspire id = recid
     response = urllib2.urlopen("https://inspirehep.net/search?ln=en&ln=en&p=find+recid+%s+&of=xm&action_search=Search&sf=earliestdate&so=d&rm=&rg=250&sc=0&ot=001,024,035,037,710,245" %val, timeout = 120)
+    # parse the respose to strip the header and footer of the xml
     buf = StringIO(response.read().decode('utf-8'))
     line=buf.readline()
     writing=False
@@ -49,6 +61,7 @@ for val in ranas :
         if "<record>" in line :
             writing=True
         if "</record>" in line :
+            # add the experiment if not set
             if ( not hasExperiment ) :
                 name = ranas[val][0].split("_")[0]
                 if "MARK" in name : name=name.replace("MARK","MARK-")
@@ -56,11 +69,13 @@ for val in ranas :
             output+=line
             writing=False
         if(writing) : output+=line
+        # check if the experiment is set
         if("tag=\"710\"" in line ) :
             hasExperiment=True
         line=buf.readline()
     print val,ranas[val]
 
+# add the footer and write the file
 output+="</collection>\n"
 with io.open("inspire-missing.marc.xml", "w", encoding="utf-8") as xml:
     xml.write(output)
