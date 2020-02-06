@@ -1,14 +1,14 @@
-Name: TEST
+Name: MC_CORRELATORS_EXAMPLE
 Year: 2010
 Summary: Pseudorapidities at three energies, charged multiplicity at 7 TeV
+Summary: Example analysis to illustrate use of Correlators
 Experiment: ALICE
 RunInfo:
   Diffractive events need to be enabled.
-NumEvents: 1000000
 Beams: [p+, p+]
 Energies: [900]
 Description:
-  'This is an ALICE publication with pseudorapities for 0.9, 2.36 and $7\;\TeV$
+  'The example is based on an ALICE publication with pseudorapities for 0.9, 2.36 and $7\;\TeV$
   and the charged multiplicity at $7\;\TeV$. The analysis requires at least on
   charged particle in the event. Only the INEL distributions are considered here'
 BibKey: Aamodt:2010pp

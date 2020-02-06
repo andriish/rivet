@@ -8,14 +8,14 @@
 namespace Rivet {
 
 
-  class TEST : public CumulantAnalysis {
+  class MC_CORRELATORS_EXAMPLE : public CumulantAnalysis {
   public:
 
     /// @name Constructors etc.
     //@{
 
     /// Constructor
-    TEST() : CumulantAnalysis("TEST") {
+    MC_CORRELATORS_EXAMPLE() : CumulantAnalysis("MC_CORRELATORS_EXAMPLE") {
     }
     //@}
 
@@ -76,6 +76,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TEST);
+  DECLARE_RIVET_PLUGIN(MC_CORRELATORS_EXAMPLE);
 
 }
