@@ -576,6 +576,7 @@ class Plot(object):
         if 'Value object' in str(inputdata.histos) or 'Counter object' in str(inputdata.histos):
           inputdata.description['XCustomMajorTicks'] = ''
           inputdata.description['XCustomMinorTicks'] = ''
+          inputdata.description['XTicks'] = 'None'
 
     def set_borders(self, inputdata):
         self.set_xmax(inputdata)
@@ -2889,6 +2890,9 @@ class XTicks(Ticks):
         twosided = bool(int(self.description.get('XTwosidedTicks', '1')))
         out = ""
         out += ('\n%\n% X-Ticks\n%\n')
+        if str(self.description.get('XTicks')) == "None":
+           out += ('\n% no X-Ticks\n')
+           return out
         out += self.add_definitions()
         uselog = self.description['LogX'] and (self.coors.xmin() > 0 and self.coors.xmax() > 0)
         out += self.draw_ticks(self.coors.xmin(), self.coors.xmax(),\
@@ -2978,6 +2982,9 @@ class YTicks(Ticks):
         twosided = bool(int(self.description.get('YTwosidedTicks', '1')))
         out = ""
         out += ('\n%\n% Y-Ticks\n%\n')
+        if str(self.description.get('YTicks', '')) == "None":
+           out += ('\n% no Y-Ticks\n')
+           return out
         out += self.add_definitions();
         uselog = self.description['LogY'] and self.coors.ymin() > 0 and self.coors.ymax() > 0
         out += self.draw_ticks(self.coors.ymin(), self.coors.ymax(),
@@ -3088,6 +3095,9 @@ class ZTicks(Ticks):
     def draw(self, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True):
         out = ""
         out += ('\n%\n% Z-Ticks\n%\n')
+        if str(self.description.get('ZTicks', '')) == "None":
+           out += ('\n% no Z-Ticks\n')
+           return out
         out += ('\\def\\majortickmarkz{\\psline[linewidth='+self.majorticklinewidth+',linecolor='+self.majorticklinecolor+'](0,0)('+self.majorticklength+',0)}%\n')
         out += ('\\def\\minortickmarkz{\\psline[linewidth='+self.minorticklinewidth+',linecolor='+self.minorticklinecolor+'](0,0)('+self.minorticklength+',0)}%\n')
         out += self.draw_ticks(self.coors.zmin(), self.coors.zmax(),\
