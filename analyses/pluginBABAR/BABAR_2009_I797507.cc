@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief measurement of R_b between 10.541 and 11.206 GeV
   class BABAR_2009_I797507 : public Analysis {
   public:
 

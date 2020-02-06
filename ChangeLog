@@ -54,6 +54,10 @@
 	::refData() functions in C++, and a Pythonised version of the
 	latter to the Python interface.
 
+2020-02-06 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2015_I1336624
+
 2020-02-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Change the AnalysisHandler logger name from Analysis.Handler to
