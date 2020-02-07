@@ -606,16 +606,16 @@ namespace Rivet {
 
     /// @brief Book an ECorrelator in the same way as a histogram
     /// @todo Rename to book(ECorrPtr, ...)
-    ECorrPtr bookECorrelator(const string name, const vector<int>& h, const Scatter2DPtr hIn) {
+    ECorrPtr bookECorrelator(const string name, const vector<int>& h, const YODA::Scatter2D& hIn) {
       vector<double> binIn;
-      for (auto b : hIn->points()) binIn.push_back(b.xMin());
-      binIn.push_back(hIn->points().back().xMax());
+      for (auto b : hIn.points()) binIn.push_back(b.xMin());
+      binIn.push_back(hIn.points().back().xMax());
       ECorrPtr ecPtr = ECorrPtr(new ECorrelator(h, binIn));
       list<Profile1DPtr> eCorrProfs;
       for (int i = 0; i < BOOT_BINS; ++i) {
         Profile1DPtr tmp;
-        book(tmp, name+"-"+to_string(i),*hIn);
-        tmp->setPath(this->name()+"/FINAL/" + name+"-"+to_string(i));
+        book(tmp, "TMP/FINAL/"+name+"-"+to_string(i),hIn);
+        //tmp->setPath(this->name()+"/FINAL/" + name+"-"+to_string(i));
         //tmp->setPath(tmp->path()+"FINAL");
         eCorrProfs.push_back(tmp);
       }
@@ -627,16 +627,16 @@ namespace Rivet {
     /// @brief Book a gapped ECorrelator with two harmonic vectors
     /// @todo Rename to book(ECorrPtr, ...)
     ECorrPtr bookECorrelator(const string name, const vector<int>& h1,
-                             const vector<int>& h2, const Scatter2DPtr hIn ) {
+                             const vector<int>& h2, const YODA::Scatter2D& hIn ) {
       vector<double> binIn;
-      for (auto b : hIn->points()) binIn.push_back(b.xMin());
-      binIn.push_back(hIn->points().back().xMax());
+      for (auto b : hIn.points()) binIn.push_back(b.xMin());
+      binIn.push_back(hIn.points().back().xMax());
       ECorrPtr ecPtr = ECorrPtr(new ECorrelator(h1, h2, binIn));
       list<Profile1DPtr> eCorrProfs;
       for (int i = 0; i < BOOT_BINS; ++i) {
-        Profile1DPtr tmp;
-        book(tmp, name+"-"+to_string(i),*hIn);
-        tmp->setPath(this->name()+"/FINAL/" + name+"-"+to_string(i));
+      Profile1DPtr tmp;
+        book(tmp, "TMP/FINAL/"+name+"-"+to_string(i),hIn);
+        //tmp->setPath(this->name()+"/FINAL/" + name+"-"+to_string(i));
         //tmp->setPath(tmp->path()+"FINAL");
         eCorrProfs.push_back(tmp);
       }
@@ -649,7 +649,7 @@ namespace Rivet {
     ///
     /// @todo Rename to book(ECorrPtr, ...)
     ECorrPtr bookECorrelatorGap (const string name, const vector<int>& h,
-                                 const Scatter2DPtr hIn) {
+                                 const YODA::Scatter2D& hIn) {
       const vector<int> h1(h.begin(), h.begin() + h.size() / 2);
       const vector<int> h2(h.begin() + h.size() / 2, h.end());
       return bookECorrelator(name, h1, h2, hIn);
@@ -660,7 +660,7 @@ namespace Rivet {
     ///
     /// @todo Rename to book(ECorrPtr, ...)
     template<unsigned int N, unsigned int M>
-    ECorrPtr bookECorrelator(const string name, const Scatter2DPtr hIn) {
+    ECorrPtr bookECorrelator(const string name, const YODA::Scatter2D& hIn) {
       return bookECorrelator(name, Correlators::hVec(N, M), hIn);
     }
 
@@ -669,7 +669,7 @@ namespace Rivet {
     ///
     /// @todo Rename to book(ECorrPtr, ...)
     template<unsigned int N, unsigned int M>
-    ECorrPtr bookECorrelatorGap(const string name, const Scatter2DPtr hIn) {
+    ECorrPtr bookECorrelatorGap(const string name, const YODA::Scatter2D& hIn) {
       return bookECorrelatorGap(name, Correlators::hVec(N, M), hIn);
     }
 
@@ -713,10 +713,17 @@ namespace Rivet {
     template<typename T>
     static void fillScatter(Scatter2DPtr h, vector<double>& binx, T func) {
       vector<YODA::Point2D> points;
+      // Test if we have proper bins from a booked histogram.
+      bool hasBins = (h->points().size() > 0);
       for (int i = 0, N = binx.size() - 1; i < N; ++i) {
         double xMid = (binx[i] + binx[i + 1]) / 2.0;
         double xeMin = fabs(xMid - binx[i]);
         double xeMax = fabs(xMid - binx[i + 1]);
+	if (hasBins) {
+	  xMid = h->points()[i].x();
+	  xeMin = h->points()[i].xErrMinus();
+	  xeMax = h->points()[i].xErrPlus();
+	}
         double yVal = func(i);
         if (std::isnan(yVal)) yVal = 0.;
         double yErr = 0;
@@ -738,10 +745,17 @@ namespace Rivet {
     const void fillScatter(Scatter2DPtr h, vector<double>& binx, F func,
                            vector<pair<double, double> >& yErr) const {
       vector<YODA::Point2D> points;
+      // Test if we have proper bins from a booked histogram.
+      bool hasBins = (h->points().size() > 0);
       for (int i = 0, N = binx.size() - 1; i < N; ++i) {
         double xMid = (binx[i] + binx[i + 1]) / 2.0;
         double xeMin = fabs(xMid - binx[i]);
         double xeMax = fabs(xMid - binx[i + 1]);
+	if (hasBins) {
+	  xMid = h->points()[i].x();
+	  xeMin = h->points()[i].xErrMinus();
+	  xeMax = h->points()[i].xErrPlus();
+	}
         double yVal = func(i);
         if (std::isnan(yVal))
           points.push_back(YODA::Point2D(xMid, 0., xeMin, xeMax,0., 0.));

@@ -8,14 +8,14 @@
 namespace Rivet {
 
 
-  class TEST : public CumulantAnalysis {
+  class MC_TEST_CORRELATORS : public CumulantAnalysis {
   public:
 
     /// @name Constructors etc.
     //@{
 
     /// Constructor
-    TEST() : CumulantAnalysis("TEST") {
+    MC_TEST_CORRELATORS() : CumulantAnalysis("MC_TEST_CORRELATORS") {
     }
     //@}
 
@@ -33,9 +33,9 @@ namespace Rivet {
       book(h_c22, "c22",120,0,120);
       book(h_c23, "c23",120,0,120);
       book(h_v22pT, "v22pT",10,0,10);
-      ec22 = bookECorrelator<2,2>("ec22",h_c22);
-      ec23 = bookECorrelator<3,2>("ec32",h_c22);
-      ec22pT = bookECorrelator<2,2>("ec22pT",h_v22pT);
+      ec22 = bookECorrelator<2,2>("ec22",*h_c22);
+      ec23 = bookECorrelator<3,2>("ec32",*h_c22);
+      ec22pT = bookECorrelator<2,2>("ec22pT",*h_v22pT);
       pair<int, int> max = getMaxValues(); 
       // Declare correlator projections.
       declare(Correlators(pp, max.first, max.second, h_v22pT),"CRS");
@@ -76,6 +76,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TEST);
+  DECLARE_RIVET_PLUGIN(MC_TEST_CORRELATORS);
 
 }

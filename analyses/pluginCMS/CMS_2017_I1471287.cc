@@ -85,28 +85,28 @@ namespace Rivet {
       book(h_c26, 31, 1, 1, true);
 
       // Corresponding event averaged correlators.
-      ec22 = bookECorrelatorGap<2,2>("ec22",h_v22);
-      ec32 = bookECorrelatorGap<3,2>("ec32",h_v32);
+      ec22 = bookECorrelatorGap<2,2>("ec22",refData(1,1,1));
+      ec32 = bookECorrelatorGap<3,2>("ec32",refData(3,1,1));
 
       // ... pT binned
-      ec22pT = bookECorrelatorGap<2,2>("ec22pT",h_v22pT);
-      ec22pTh = bookECorrelatorGap<2,2>("ec22pTh",h_v22pTh);
-      ec22pTK = bookECorrelatorGap<2,2>("ec22pTK",h_v22pTK);
-      ec22pTL = bookECorrelatorGap<2,2>("ec22pTL",h_v22pTL);
-      ec22pTKc = bookECorrelatorGap<2,2>("ec22pTKc",h_v22pTKc);
-      ec22pTLc = bookECorrelatorGap<2,2>("ec22pTLc",h_v22pTLc);
+      ec22pT = bookECorrelatorGap<2,2>("ec22pT",refData(11,1,1));
+      ec22pTh = bookECorrelatorGap<2,2>("ec22pTh",refData(17,1,1));
+      ec22pTK = bookECorrelatorGap<2,2>("ec22pTK",refData(18,1,1));
+      ec22pTL = bookECorrelatorGap<2,2>("ec22pTL",refData(19,1,1));
+      ec22pTKc = bookECorrelatorGap<2,2>("ec22pTKc",refData(21,1,1));
+      ec22pTLc = bookECorrelatorGap<2,2>("ec22pTLc",refData(22,1,1));
 
       // Maximal N and P for the gapped.
       pair<int, int> max = getMaxValues();
 
       // For the four particle cumulant.
-      ec22_4 = bookECorrelator<2,2>("ec22_4",h_c24);
-      ec24_4 = bookECorrelator<2,4>("ec24_4",h_c24);
+      ec22_4 = bookECorrelator<2,2>("ec22_4",refData(28,1,1));
+      ec24_4 = bookECorrelator<2,4>("ec24_4",refData(28,1,1));
 
       // For the six particle cumulant.
-      ec22_6 = bookECorrelator<2,2>("ec22_6",h_c26);
-      ec24_6 = bookECorrelator<2,4>("ec24_6",h_c26);
-      ec26_6 = bookECorrelator<2,6>("ec26_6",h_c26);
+      ec22_6 = bookECorrelator<2,2>("ec22_6",refData(31,1,1));
+      ec24_6 = bookECorrelator<2,4>("ec24_6",refData(31,1,1));
+      ec26_6 = bookECorrelator<2,6>("ec26_6",refData(31,1,1));
 
       // Maximal N and P for the higher orders.
       pair<int, int> maxH = getMaxValues();
