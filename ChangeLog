@@ -48,6 +48,10 @@
 
 	* Overload scale and normalize for map<string,Histo1DPtr>
 
+2020-02-08 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2017_I1494065
+
 2020-02-07  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add AnalysisInfo::refFile() and Analysis::refFile() and
