@@ -603,20 +603,38 @@ namespace Rivet {
     /// Typedef of shared pointer to ECorrelator.
     typedef shared_ptr<ECorrelator> ECorrPtr;
 
-
     /// @brief Book an ECorrelator in the same way as a histogram
     /// @todo Rename to book(ECorrPtr, ...)
     ECorrPtr bookECorrelator(const string name, const vector<int>& h, const YODA::Scatter2D& hIn) {
       vector<double> binIn;
       for (auto b : hIn.points()) binIn.push_back(b.xMin());
-      binIn.push_back(hIn.points().back().xMax());
+      return bookECorrelator(name, h, binIn);
+    }
+
+    /// @brief Book an ECorrelator in the same way as a histogram
+    /// @todo Rename to book(ECorrPtr, ...)
+    ECorrPtr bookECorrelator(const string name, const vector<int>& h, vector<double>& binIn) {
       ECorrPtr ecPtr = ECorrPtr(new ECorrelator(h, binIn));
       list<Profile1DPtr> eCorrProfs;
       for (int i = 0; i < BOOT_BINS; ++i) {
         Profile1DPtr tmp;
-        book(tmp, "TMP/FINAL/"+name+"-"+to_string(i),hIn);
-        //tmp->setPath(this->name()+"/FINAL/" + name+"-"+to_string(i));
-        //tmp->setPath(tmp->path()+"FINAL");
+        book(tmp,"TMP/"+name+"-"+to_string(i),binIn);
+        eCorrProfs.push_back(tmp);
+      }
+      ecPtr->setProfs(eCorrProfs);
+      eCorrPtrs.push_back(ecPtr);
+      return ecPtr;
+    }
+
+    /// @brief Book a gapped ECorrelator with two harmonic vectors
+    /// @todo Rename to book(ECorrPtr, ...)
+    ECorrPtr bookECorrelator(const string name, const vector<int>& h1,
+                             const vector<int>& h2, vector<double>& binIn) {
+      ECorrPtr ecPtr = ECorrPtr(new ECorrelator(h1, h2, binIn));
+      list<Profile1DPtr> eCorrProfs;
+      for (int i = 0; i < BOOT_BINS; ++i) {
+      Profile1DPtr tmp;
+        book(tmp,"TMP/"+name+"-"+to_string(i),binIn);
         eCorrProfs.push_back(tmp);
       }
       ecPtr->setProfs(eCorrProfs);
@@ -631,28 +649,26 @@ namespace Rivet {
       vector<double> binIn;
       for (auto b : hIn.points()) binIn.push_back(b.xMin());
       binIn.push_back(hIn.points().back().xMax());
-      ECorrPtr ecPtr = ECorrPtr(new ECorrelator(h1, h2, binIn));
-      list<Profile1DPtr> eCorrProfs;
-      for (int i = 0; i < BOOT_BINS; ++i) {
-      Profile1DPtr tmp;
-        book(tmp, "TMP/FINAL/"+name+"-"+to_string(i),hIn);
-        //tmp->setPath(this->name()+"/FINAL/" + name+"-"+to_string(i));
-        //tmp->setPath(tmp->path()+"FINAL");
-        eCorrProfs.push_back(tmp);
-      }
-      ecPtr->setProfs(eCorrProfs);
-      eCorrPtrs.push_back(ecPtr);
-      return ecPtr;
+      return bookECorrelator(name, h1, h2, binIn);
     }
 
     /// Shorthand for gapped correlators, splitting the harmonic vector into negative and positive components
     ///
     /// @todo Rename to book(ECorrPtr, ...)
-    ECorrPtr bookECorrelatorGap (const string name, const vector<int>& h,
+    ECorrPtr bookECorrelatorGap(const string name, const vector<int>& h,
                                  const YODA::Scatter2D& hIn) {
       const vector<int> h1(h.begin(), h.begin() + h.size() / 2);
       const vector<int> h2(h.begin() + h.size() / 2, h.end());
       return bookECorrelator(name, h1, h2, hIn);
+    }
+
+    /// @brief Templated version of correlator booking which takes
+    /// @a N desired harmonic and @a M number of particles, and given bins.
+    ///
+    /// @todo Rename to book(ECorrPtr, ...)
+    template<unsigned int N, unsigned int M>
+    ECorrPtr bookECorrelator(const string name, vector<double> binIn) {
+      return bookECorrelator(name, Correlators::hVec(N, M), binIn);
     }
 
     /// @brief Templated version of correlator booking which takes
@@ -670,7 +686,11 @@ namespace Rivet {
     /// @todo Rename to book(ECorrPtr, ...)
     template<unsigned int N, unsigned int M>
     ECorrPtr bookECorrelatorGap(const string name, const YODA::Scatter2D& hIn) {
-      return bookECorrelatorGap(name, Correlators::hVec(N, M), hIn);
+      const vector<int> h = Correlators::hVec(N,M); 
+      const vector<int> h1(h.begin(), h.begin() + h.size() / 2);
+      const vector<int> h2(h.begin() + h.size() / 2, h.end());
+      return bookECorrelator(name, h1, h2, hIn);
+	    
     }
 
 
@@ -681,7 +701,7 @@ namespace Rivet {
     /// (ie. multi-histogram merging) for the analysis.
     void stream() {
       for (auto ecItr = eCorrPtrs.begin(); ecItr != eCorrPtrs.end(); ++ecItr){
-        (*ecItr)->fillFromProfs();
+        //(*ecItr)->fillFromProfs();
         corrPlot(list<Profile1DPtr>((*ecItr)->profBegin(), (*ecItr)->profEnd()), *ecItr);
       }
     }
@@ -765,6 +785,7 @@ namespace Rivet {
       }
       h->reset();
       h->points().clear();
+      
       for (int i = 0, N = points.size(); i < N; ++i)
         h->addPoint(points[i]);
     }
@@ -954,8 +975,8 @@ namespace Rivet {
           // (and no desire to add it) of sumWX of the profile, so really
           // we should use a Dbn1D - but that does not work for Profile1D's.
           profBins.push_back( YODA::ProfileBin1D((*hItr)->bin(j).xEdges(),
-                                                 YODA::Dbn2D( binPtrs[i]->numEntries(), binPtrs[i]->sumW(),
-                                                              binPtrs[i]->sumW2(), 0., 0., binPtrs[i]->sumWX(), 0, 0)));
+            YODA::Dbn2D( binPtrs[i]->numEntries(), binPtrs[i]->sumW(),
+            binPtrs[i]->sumW2(), 0., 0., binPtrs[i]->sumWX(), 0, 0)));
           ne += binPtrs[i]->numEntries();
           sow += binPtrs[i]->sumW();
           sow2 += binPtrs[i]->sumW2();
@@ -971,10 +992,11 @@ namespace Rivet {
           (*hItr)->addBin(profBins[j]);
         // The reference flow in the underflow bin.
         (*hItr)->setUnderflow(YODA::Dbn2D(refBins[i]->numEntries(),
-                                          refBins[i]->sumW(), refBins[i]->sumW2(), 0., 0.,
-                                          refBins[i]->sumWX(), 0., 0.));
+          refBins[i]->sumW(), refBins[i]->sumW2(), 0., 0.,
+          refBins[i]->sumWX(), 0., 0.));
       } // End loop of bootstrapped correlators.
     }
+
     // @brief Four particle integrated cn.
     const void cnFourInt(Scatter2DPtr h, ECorrPtr e2, ECorrPtr e4) const {
       auto e2bins = e2->getBins();
