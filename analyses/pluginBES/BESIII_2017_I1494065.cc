@@ -6,12 +6,12 @@
 namespace Rivet {
 
 
-  /// @brief e+ e- > pi+ pi- J/Psi
-  class BELLE_2013_I1225975 : public Analysis {
+  /// @brief e+ e- > pi+ pi- h_c
+  class BESIII_2017_I1494065 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BELLE_2013_I1225975);
+    DEFAULT_RIVET_ANALYSIS_CTOR(BESIII_2017_I1494065);
 
 
     /// @name Analysis methods
@@ -21,7 +21,7 @@ namespace Rivet {
     void init() {
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      book(_nJPsi, "TMP/jpsi");
+      book(_nhc, "TMP/h_c");
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
@@ -48,7 +48,7 @@ namespace Rivet {
       for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
 	// find the omega
-	if(p.pid()==443) {
+	if(p.pid()==10443) {
 	  map<long,int> nRes = nCount;
 	  int ncount = ntotal;
 	  findChildren(p,nRes,ncount);
@@ -68,34 +68,35 @@ namespace Rivet {
 	    }
 	  }
 	  if(matched) {
-	    _nJPsi->fill();
+	    _nhc->fill();
 	    break;
 	  }
 	}
       }
     }
 
-
     /// Normalise histograms etc., after the run
     void finalize() {
-      double sigma =  _nJPsi->val();
-      double error = _nJPsi->err();
+      double sigma = _nhc->val();
+      double error = _nhc->err();
       sigma *= crossSection()/ sumOfWeights() /picobarn;
-      error *= crossSection()/ sumOfWeights() /picobarn; 
-      Scatter2D temphisto(refData(1, 1, 1));
-      Scatter2DPtr  mult;
-      book(mult, 1, 1, 1);
-      for (size_t b = 0; b < temphisto.numPoints(); b++) {
-	const double x  = temphisto.point(b).x();
-	pair<double,double> ex = temphisto.point(b).xErrs();
-	pair<double,double> ex2 = ex;
-	if(ex2.first ==0.) ex2. first=0.0001;
-	if(ex2.second==0.) ex2.second=0.0001;
-	if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
-	  mult->addPoint(x, sigma, ex, make_pair(error,error));
-	}
-	else {
-	  mult->addPoint(x, 0., ex, make_pair(0.,.0));
+      error *= crossSection()/ sumOfWeights() /picobarn;
+      for(unsigned int  ix=1;ix<3;++ix) {
+	Scatter2D temphisto(refData(ix, 1, 1));
+	Scatter2DPtr  mult;
+	book(mult, ix, 1, 1);
+	for (size_t b = 0; b < temphisto.numPoints(); b++) {
+	  const double x  = temphisto.point(b).x();
+	  pair<double,double> ex = temphisto.point(b).xErrs();
+	  pair<double,double> ex2 = ex;
+	  if(ex2.first ==0.) ex2. first=0.0001;
+	  if(ex2.second==0.) ex2.second=0.0001;
+	  if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+	    mult->addPoint(x, sigma, ex, make_pair(error,error));
+	  }
+	  else {
+	    mult->addPoint(x, 0., ex, make_pair(0.,.0));
+	  }
 	}
       }
     }
@@ -105,13 +106,13 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    CounterPtr _nJPsi;
+    CounterPtr _nhc;
     //@}
 
 
   };
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BELLE_2013_I1225975);
+
+  DECLARE_RIVET_PLUGIN(BESIII_2017_I1494065);
 
 }
