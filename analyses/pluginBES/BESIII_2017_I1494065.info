@@ -18,3 +18,20 @@ ValidationInfo:
 #ReleaseTests:
 # - $A my-hepmc-prefix :MODE=some_rivet_flag
 Keywords: []
+BibKey: BESIII:2016adj
+BibTeX: '@article{BESIII:2016adj,
+      author         = "Ablikim, Medina and others",
+      title          = "{Evidence of Two Resonant Structures in $e^+ e^- \to
+                        \pi^+ \pi^- h_c$}",
+      collaboration  = "BESIII",
+      journal        = "Phys. Rev. Lett.",
+      volume         = "118",
+      year           = "2017",
+      number         = "9",
+      pages          = "092002",
+      doi            = "10.1103/PhysRevLett.118.092002",
+      eprint         = "1610.07044",
+      archivePrefix  = "arXiv",
+      primaryClass   = "hep-ex",
+      SLACcitation   = "%%CITATION = ARXIV:1610.07044;%%"
+}'
