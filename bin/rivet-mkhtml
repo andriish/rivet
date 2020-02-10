@@ -458,6 +458,10 @@ def which(program):
 ## Run make-plots on all generated .dat files
 # sys.exit(0)
 mp_cmd = ["make-plots"]
+for configfile in args.CONFIGFILES:
+    configfile = os.path.abspath(os.path.expanduser(configfile))
+    if os.access(configfile, os.R_OK):
+        mp_cmd.append("--config=%s" % configfile)
 if args.NUMTHREADS:
     mp_cmd.append("--num-threads=%d" % args.NUMTHREADS)
 if args.NO_CLEANUP:
