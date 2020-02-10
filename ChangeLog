@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 2020-03-18  Christian Gutschow  <chris.g@cern.ch>
 
 	* Allow "Nominal" as a potential default weight name
@@ -41,6 +40,12 @@
 2020-02-13  Christian Gutschow  <chris.g@cern.ch>
 
 	* Overload scale and normalize for map<string,Histo1DPtr>
+
+2020-02-10 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2018_I1653121
+	* Add BESIII_2017_I1596897
+	* Add BESIII_2020_I1762922
 
 2020-02-08 Peter Richardson <peter.richardson@durham.ac.uk>
 
