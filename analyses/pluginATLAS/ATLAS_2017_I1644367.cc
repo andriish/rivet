@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/IdentifiedFinalState.hh"
+#include "Rivet/Projections/PromptFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
@@ -24,7 +24,7 @@ namespace Rivet {
       fj.useJetArea(new fastjet::AreaDefinition(fastjet::VoronoiAreaSpec()));
       declare(fj, "KtJetsD05");
 
-      IdentifiedFinalState photonfs(Cuts::abspid == PID::PHOTON && Cuts::abseta < 2.37 && Cuts::pT > 15*GeV);
+      PromptFinalState photonfs(Cuts::abspid == PID::PHOTON && Cuts::abseta < 2.37 && Cuts::pT > 15*GeV);
       declare(photonfs, "Photon");
 
       // Histograms
@@ -49,7 +49,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Require at least 2 photons in final state
-      const Particles photons = apply<IdentifiedFinalState>(event, "Photon").particlesByPt(Cuts::abseta < 1.37 || Cuts::abseta > 1.5);
+      const Particles photons = apply<PromptFinalState>(event, "Photon").particlesByPt(Cuts::abseta < 1.37 || Cuts::abseta > 1.5);
       if (photons.size() < 3) vetoEvent;
 
       // Get jets, and corresponding jet areas

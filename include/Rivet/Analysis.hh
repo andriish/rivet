@@ -69,25 +69,17 @@ namespace Rivet {
 
   public:
 
-    /// @name Standard constructors and destructors.
-    //@{
-
-    // /// The default constructor.
-    // Analysis();
-
     /// Constructor
     Analysis(const std::string& name);
 
     /// The destructor.
     virtual ~Analysis() {}
 
-    //@}
-
 
   public:
 
-    /// @name Main analysis methods
-    //@{
+    /// @defgroup analysis_main Main analysis methods
+    /// @{
 
     /// Initialize this analysis object. A concrete class should here
     /// book all necessary histograms. An overridden function must make
@@ -107,15 +99,15 @@ namespace Rivet {
     /// function.
     virtual void finalize() { }
 
-    //@}
+    /// @}
 
 
   public:
 
-    /// @name Metadata
+    /// @defgroup analysis_meta Metadata
     /// Metadata is used for querying from the command line and also for
     /// building web pages and the analysis pages in the Rivet manual.
-    //@{
+    /// @{
 
     /// Get the actual AnalysisInfo object in which all this metadata is stored.
     const AnalysisInfo& info() const {
@@ -249,6 +241,13 @@ namespace Rivet {
       return info().reentrant();
     }
 
+
+    /// Location of reference data YODA file
+    virtual std::string refFile() const {
+      return info().refFile();
+    }
+
+
     /// Return the allowed pairs of incoming beams required by this analysis.
     virtual const std::vector<PdgIdPair>& requiredBeams() const {
       return info().beams();
@@ -258,7 +257,6 @@ namespace Rivet {
       info().setBeams(requiredBeams);
       return *this;
     }
-
 
     /// Sets of valid beam energy pairs, in GeV
     virtual const std::vector<std::pair<double, double> >& requiredEnergies() const {
@@ -276,23 +274,19 @@ namespace Rivet {
       return *this;
     }
 
-    //@}
-
-
-    /// @name Internal metadata modifying methods
-    //@{
 
     /// Get the actual AnalysisInfo object in which all this metadata is stored (non-const).
+    /// @note For *internal* use!
     AnalysisInfo& info() {
       assert(_info && "No AnalysisInfo object :O");
       return *_info;
     }
 
-    //@}
+    /// @}
 
 
-    /// @name Run conditions
-    //@{
+    /// @defgroup analysis_run Run conditions
+    /// @{
 
     /// Incoming beams for this run
     const ParticlePair& beams() const;
@@ -308,13 +302,14 @@ namespace Rivet {
       return sqrtS() <= 0.0;
     }
 
-    //@}
+    /// @}
 
 
-    /// @name Analysis / beam compatibility testing
+    /// @defgroup analysis_beamcompat Analysis / beam compatibility testing
+    ///
     /// @todo Replace with beamsCompatible() with no args (calling beams() function internally)
     /// @todo Add beamsMatch() methods with same (shared-code?) tolerance as in beamsCompatible()
-    //@{
+    /// @{
 
     /// Check if analysis is compatible with the provided beam particle IDs and energies
     bool isCompatible(const ParticlePair& beams) const;
@@ -325,7 +320,7 @@ namespace Rivet {
     /// Check if analysis is compatible with the provided beam particle IDs and energies
     bool isCompatible(const PdgIdPair& beams, const std::pair<double,double>& energies) const;
 
-    //@}
+    /// @}
 
     /// Access the controlling AnalysisHandler object.
     AnalysisHandler& handler() const { return *_analysishandler; }
@@ -363,8 +358,8 @@ namespace Rivet {
 
   protected:
 
-    /// @name Histogram paths
-    //@{
+    /// @defgroup analysis_histopaths Histogram paths
+    /// @{
 
     /// Get the canonical histogram "directory" path for this analysis.
     const std::string histoDir() const;
@@ -378,11 +373,18 @@ namespace Rivet {
     /// Get the internal histogram name for given d, x and y (cf. HepData)
     const std::string mkAxisCode(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const;
 
-    //@}
+    /// @}
 
 
-    /// @name Histogram reference data
-    //@{
+    /// @defgroup analysis_refdata Histogram reference data
+    /// @{
+
+    /// Get all reference data objects for this analysis
+    const std::map<std::string, YODA::AnalysisObjectPtr>& refData() const {
+      _cacheRefData();
+      return _refdata;
+    }
+
 
     /// Get reference data for a named histo
     /// @todo SFINAE to ensure that the type inherits from YODA::AnalysisObject?
@@ -397,6 +399,7 @@ namespace Rivet {
       return dynamic_cast<T&>(*_refdata[hname]);
     }
 
+
     /// Get reference data for a numbered histo
     /// @todo SFINAE to ensure that the type inherits from YODA::AnalysisObject?
     template <typename T=YODA::Scatter2D>
@@ -405,11 +408,11 @@ namespace Rivet {
       return refData(hname);
     }
 
-    //@}
+    /// @}
 
 
-    /// @name Counter booking
-    //@{
+    /// @defgroup analysis_cbook Counter booking
+    /// @{
 
     /// Book a counter.
     CounterPtr & book(CounterPtr &, const std::string& name);
@@ -419,11 +422,11 @@ namespace Rivet {
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
     CounterPtr & book(CounterPtr &, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
-    //@}
+    /// @}
 
 
-    /// @name 1D histogram booking
-    //@{
+    /// @defgroup analysis_h1book 1D histogram booking
+    /// @{
 
     /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
     Histo1DPtr & book(Histo1DPtr &,const std::string& name, size_t nbins, double lower, double upper);
@@ -445,11 +448,11 @@ namespace Rivet {
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
     Histo1DPtr & book(Histo1DPtr &,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
-    //@}
+    /// @}
 
 
-    /// @name 2D histogram booking
-    //@{
+    /// @defgroup analysis_h2book 2D histogram booking
+    /// @{
 
     /// Book a 2D histogram with @a nxbins and @a nybins uniformly
     /// distributed across the ranges @a xlower - @a xupper and @a
@@ -482,11 +485,11 @@ namespace Rivet {
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
     Histo2DPtr & book(Histo2DPtr &,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
-    //@}
+    /// @}
 
 
-    /// @name 1D profile histogram booking
-    //@{
+    /// @defgroup analysis_p1book 1D profile histogram booking
+    /// @{
 
     /// Book a 1D profile histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
     Profile1DPtr & book(Profile1DPtr &,  const std::string& name, size_t nbins, double lower, double upper);
@@ -508,11 +511,11 @@ namespace Rivet {
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
     Profile1DPtr & book(Profile1DPtr &,  unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
-    //@}
+    /// @}
 
 
-    /// @name 2D profile histogram booking
-    //@{
+    /// @defgroup analysis_p2book 2D profile histogram booking
+    /// @{
 
     /// Book a 2D profile histogram with @a nxbins and @a nybins uniformly
     /// distributed across the ranges @a xlower - @a xupper and @a ylower - @a
@@ -547,11 +550,11 @@ namespace Rivet {
     // /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
     // Profile2DPtr & book(const Profile2DPtr &, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
-    //@}
+    /// @}
 
 
-    /// @name 2D scatter booking
-    //@{
+    /// @defgroup analysis_s2book 2D scatter booking
+    /// @{
 
     /// @brief Book a 2-dimensional data point set with the given name.
     ///
@@ -590,10 +593,10 @@ namespace Rivet {
     /// Book a 2-dimensional data point set with x-points from an existing scatter and a new path.
     Scatter2DPtr & book(Scatter2DPtr & s2d, const string& hname, const Scatter2D& refscatter);
 
-    //@}
+    /// @}
 
-        /// @name 3D scatter booking
-    //@{
+    /// @defgroup analysis_s3book 3D scatter booking
+    /// @{
 
     /// @brief Book a 3-dimensional data point set with the given name.
     ///
@@ -637,13 +640,13 @@ namespace Rivet {
     /// Book a 3-dimensional data point set with x-points from an existing scatter and a new path.
     Scatter3DPtr & book(Scatter3DPtr & s3d, const std::string& hname, const Scatter3D& refscatter);
 
-    //@}
+    /// @}
 
 
   public:
 
-    /// @name Accessing options for this Analysis instance.
-    //@{
+    /// @defgroup analysis_options Accessing options for this Analysis instance.
+    /// @{
 
     /// Return the map of all options given to this analysis.
     const std::map<std::string,std::string> & options() {
@@ -669,7 +672,7 @@ namespace Rivet {
       return ret;
     }
 
-    //@}
+    /// @}
     /// @brief Book a CentralityProjection
     ///
     /// Using a SingleValueProjection, @a proj, giving the value of an
@@ -821,9 +824,10 @@ namespace Rivet {
       return s.points()[0].x();
     }
 
-    /// @name Analysis object manipulation
+    /// @defgroup analysis_manip Analysis object manipulation
+    ///
     /// @todo Should really be protected: only public to keep BinnedHistogram happy for now...
-    //@{
+    /// @{
 
     /// Multiplicatively scale the given counter, @a cnt, by factor @a factor.
     void scale(CounterPtr cnt, CounterAdapter factor);
@@ -991,7 +995,7 @@ namespace Rivet {
     /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
     void integrate(const Histo1D& h, Scatter2DPtr s) const;
 
-    //@}
+    /// @}
 
 
   public:
@@ -1004,8 +1008,8 @@ namespace Rivet {
 
   protected:
 
-    /// @name Data object registration, retrieval, and removal
-    //@{
+    /// @defgroup analysis_aoaccess Data object registration, retrieval, and removal
+    /// @{
 
     /// Get a preloaded YODA object.
     template <typename YODAT>
@@ -1305,7 +1309,7 @@ namespace Rivet {
     //   return getAnalysisObject<Scatter2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
     // }
 
-    //@}
+    /// @}
 
 
   private:
@@ -1320,11 +1324,11 @@ namespace Rivet {
     /// @todo Make this a map for fast lookup by path?
     vector<MultiweightAOPtr> _analysisobjects;
 
-    /// @name Cross-section variables
-    //@{
+    /// @defgroup analysis_xsecvars Cross-section variables
+    /// @{
     double _crossSection;
     bool _gotCrossSection;
-    //@}
+    /// @}
 
     /// The controlling AnalysisHandler object.
     AnalysisHandler* _analysishandler;
@@ -1341,13 +1345,13 @@ namespace Rivet {
 
   private:
 
-    /// @name Utility functions
-    //@{
+    /// @defgroup analysis_utils Utility functions
+    /// @{
 
     /// Get the reference data for this paper and cache it.
     void _cacheRefData() const;
 
-    //@}
+    /// @}
 
 
     /// The assignment operator is private and must never be called.

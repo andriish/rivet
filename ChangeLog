@@ -1,3 +1,9 @@
+2020-02-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add AnalysisInfo::refFile() and Analysis::refFile() and
+	::refData() functions in C++, and a Pythonised version of the
+	latter to the Python interface.
+
 2020-02-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Change the AnalysisHandler logger name from Analysis.Handler to
