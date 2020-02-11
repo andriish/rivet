@@ -37,9 +37,9 @@ namespace Rivet {
       book(_hist_ups1_xi     , 7,1,1);
       book(_hist_ups2_xi     , 8,1,1);
       book(_hist_cont_xi     , 9,1,1);
-      book(_weightSum_cont,"TMP/");
-      book(_weightSum_Ups1,"TMP/");
-      book(_weightSum_Ups2,"TMP/");
+      book(_weightSum_cont,"TMP/sum_cont");
+      book(_weightSum_Ups1,"TMP/sum_ups1");
+      book(_weightSum_Ups2,"TMP/sum_ups2");
     }
 
    /// Recursively walk the decay tree to find decay products of @a p
