@@ -223,28 +223,30 @@
 376849 X Search for CP violation in D0 decay #conference of 395432#
 376850 X Search for D0 ---> K+ pi- pi0 #search/conference#
 376851 X Measurement of the tau lepton lifetime #conference of 420727#
-376852 . Pi- pi+ energy correlation in tau pair events #fig 6???#
+376852 X Pi- pi+ energy correlation in tau pair events #fig 6???, superseeded 439746#
 376855 . Observation of tau decays with two neutral kaons #some dists, superseeded?#
 376857 X A Study of jet production rates in the four flavor continuum and a test of QCD #interesting but text not available#
 376858 X Measurement of hadronic spectral moments in tau decays and a determination of alpha-s #conference of 96711#
 376863 X Measurements of B ---> D(s)+ X decays #conference of 401599#
-376874 . A Study of baryon production in B decay: Search for semileptonic decays of B mesons to charmed baryons and the first observation of Xi(c) production in B decay
-376875 . Measurement of the form-factors for anti-B0 ---> D*+ lepton- anti-neutrino
+376874 . A Study of baryon production in B decay: Search for semileptonic decays of B mesons to charmed baryons and the first observation of Xi(c) production in B decay #to text, superseeded?#
+376875 X Measurement of the form-factors for anti-B0 ---> D*+ lepton- anti-neutrino #superseeded#
 376876 X Measurement of the branching ratio of B ---> X e neutrino with lepton tags #conference of 401274#
-377110 . Search for B ---> K lepton+ lepton- and B ---> K* lepton+ lepton- decays
+377110 X Search for B ---> K lepton+ lepton- and B ---> K* lepton+ lepton- decays #search, superseeded#
 377111 X Observation of D1+ (2430) and D2*+ (2470) #conference of 378319#
 377112 X New decay modes of the Lambda(c)+ charm baryon #conference of 392228#
 377113 X Measurement of the ratios B (D(s)+ ---> eta lepton+ neutrino) / B (D(s)+ ---> phi lepton+ neutrino) and B (D(s)+ ---> eta-prime lepton+ neutrino) / B (D(s)+ ---> phi lepton+ neutrino) #conference of 397789#
 377114 X Form-factor ratio measurement in Lambda(c)+ ---> Lambda e+ electron-neutrino #conference of 392342#
 377115 X Measurement of B (tau- ---> h- h+ h- (pi0) tau-neutrino) #conference of 400623#
-377116 . Study of the decays tau- ---> K(s)0 h- (pi0) tau-neutrino
-377117 . Measurement of B (tau- ---> tau-neutrino K- K0) and b (tau- ---> tau-neutrino K- K0 pi0)
+377116 . Study of the decays tau- ---> K(s)0 h- (pi0) tau-neutrino #figs but low stats, superseeded?#
+377117 . Measurement of B (tau- ---> tau-neutrino K- K0) and b (tau- ---> tau-neutrino K- K0 pi0) #figs but low stats, superseeded?#
 377118 X Measurement of the branching ratio for Upsilon (1S) ---> tau+ tau- #conference of 377393#
-377119 . Search for neutrinoless decays of the tau lepton
-377120 . First observation of Xi(c)+ ---> Xi0 e+ electron-neutrino and a measurement of the Xi(c)+ / Xi(c)0 lifetime ratio
-377121 . Measurement of the ratios of form-factors in the decay D(s)+ ---> phi e+ electron-neutrino
-377122 . Observation of B ---> psi pi decays
-377393 . Measurement of the branching fraction for Upsilon (1S) ---> tau+ tau-
+377119 X Search for neutrinoless decays of the tau lepton #search#
+377120 X First observation of Xi(c)+ ---> Xi0 e+ electron-neutrino and a measurement of the Xi(c)+ / Xi(c)0 lifetime ratio #BR#
+377121 . Measurement of the ratios of form-factors in the decay D(s)+ ---> phi e+ electron-neutrino #fig2??, superseeded?#
+377122 X Observation of B ---> psi pi decays #BR#
+377393 X Measurement of the branching fraction for Upsilon (1S) ---> tau+ tau- #BR#
+
+
 377833 . Measurement of the electromagnetic form-factor of the proton in the timelike region #implemented#
 378319 . Observation of D1+ (2420) and D2*+ (2460)
 379898 X Final result on the mass of the tau lepton from the BES collaboration #mass#
@@ -316,7 +318,7 @@
 439530 . Study of gluon versus quark fragmentation in Upsilon --> g g gamma and e+ e- --> q anti-q gamma events at s**(1/2) = 10-GeV
 439560 . Analyses of D+ --> K(S)0 K+ and D+ ---> K(S)0 pi+
 439745 . Lambda anti-lambda production in two photon interactions at CLEO
-439746 . Tau-neutrino helicity from h+- energy correlations
+439746 . Tau-neutrino helicity from h+- energy correlations #fig 2?#
 440388 . Study of the B0 semileptonic decay spectrum at the Upsilon (4s) resonance
 440389 X Study of K(S) K(L) coupled decays and K(L) Be interactions with the CMD-2 detector at VEPP-2M Collider #not implementable#
 440717 . Measurement of the decay amplitudes and branching fractions of $b \to J/\psi K^{*}$ and $b \to J/\psi K$ decays
