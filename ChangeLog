@@ -41,6 +41,10 @@
 
 	* Overload scale and normalize for map<string,Histo1DPtr>
 
+2020-02-12 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2017_I1509241 e+e- > p pbar pi0
+
 2020-02-11 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add CLEOIII_2006_I728679 and CLEOII_2002_I601701,
