@@ -4,7 +4,7 @@
 29006 X Study of D0 decays into final states with a pi0 or eta #superseeded#
 29927 . Measurement of the inclusive B* cross-section above the Upsilon (4S) #implemented#
 30059 . Inclusive chi(2 p) production in upsilon (3s) decay #fig 2 but photon energy resolution?#
-30428 . Inclusive and exclusive decays of B mesons to final states including charm and charmonium mesons #figs but very old# 
+30428 . Inclusive and exclusive decays of B mesons to final states including charm and charmonium mesons #figs but very old#
 31222 X Observation of the decay xi(c)0 ---> omega- K+ #BR#
 32611 . Shape studies of quark jets versus gluon jets at s**(1.2) = 10-GeV #interesting distributions#
 32918 X Measurement of tau decays involving eta mesons #BR, dists superseeded#
@@ -245,8 +245,6 @@
 377121 . Measurement of the ratios of form-factors in the decay D(s)+ ---> phi e+ electron-neutrino #fig2??, superseeded?#
 377122 X Observation of B ---> psi pi decays #BR#
 377393 X Measurement of the branching fraction for Upsilon (1S) ---> tau+ tau- #BR#
-
-
 377833 . Measurement of the electromagnetic form-factor of the proton in the timelike region #implemented#
 378319 . Observation of D1+ (2420) and D2*+ (2460)
 379898 X Final result on the mass of the tau lepton from the BES collaboration #mass#
@@ -2572,7 +2570,6 @@
 1430890 X Limit on the production of a new vector boson in $\mathrm{e^+ e^-}\rightarrow {\rm U}\gamma$, U$\rightarrow \pi^+\pi^-$ with the KLOE experiment #limit#
 1430903 X Search for the decay B0→ϕγ
 1431982 X Measurement of the branching ratio of $\bar{B}^0 \rightarrow D^{*+} \tau^- \bar{\nu}_{\tau}$ relative to $\bar{B}^0 \rightarrow D^{*+} \ell^- \bar{\nu}_{\ell}$ decays with a semileptonic tagging method
-
 1437949 . Observation of an anomalous line shape of the $\eta^{\prime}\pi^{+}\pi^{-}$ mass spectrum near the $p\bar{p}$ mass threshold in $J/\psi\rightarrow\gamma\eta^{\prime}\pi^{+}\pi^{-}$ #distributions but backgrounds#
 1441203 . Measurement of the neutral $D$ meson mixing parameters in a time-dependent amplitude analysis of the $D^0\to\pi^+\pi^-\pi^0$ decay #fig 2??#
 1444514 X Measurement of the leptonic decay width of $J/\psi$ using initial state radiation #not implementable#
@@ -2663,7 +2660,7 @@
 1610301 . Study of $\eta$ and dipion transitions in $\Upsilon(4S)$ decays to lower bottomonia #fig 5?#
 1610304 X Search for $\psi(3686)\to \gamma\eta_c(\eta(1405))\to \gamma \pi^{+}\pi^{-}\pi^{0}$ #limit#
 1611291 X Observation of $\chi_{c2}\to\eta'\eta'$ and $\chi_{c0,2}\to\eta\eta'$ #branching ratio#
-1613517 . Angular analysis of the $e^+ e^- \to D^{(*) \pm} D^{* \mp}$ process near the open charm threshold using initial-state radiation  #implemented#
+1613517 . Angular analysis of the $e^+ e^- \to D^{(*) \pm} D^{* \mp}$ process near the open charm threshold using initial-state radiation #implemented#
 1613519 X Measurement of the ${D}^{*}(2010{)}^{+}\text{-}{D}^{+}$ Mass Difference #mass#
 1614572 X Z-chamber of the CMD-3 detector in the reconstruction of the track longitudinal coordinate #detector#
 1615382 X The Belle II SVD detector #detector#
