@@ -41,6 +41,11 @@
 
 	* Overload scale and normalize for map<string,Histo1DPtr>
 
+2020-02-13 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add LENA_1981_I164397
+	* Add CUSB_1984_I199809
+
 2020-02-12 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2017_I1509241 e+e- > p pbar pi0
