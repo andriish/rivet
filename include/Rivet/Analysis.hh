@@ -838,6 +838,13 @@ namespace Rivet {
     void scale(const std::vector<CounterPtr>& cnts, CounterAdapter factor) {
       for (auto& c : cnts) scale(c, factor);
     }
+
+    /// Iteratively scale the counters in the map @a maps, by factor @a factor.
+    template<typename T>
+    void scale(const std::map<T, CounterPtr>& maps, CounterAdapter factor) {
+      for (auto& m : maps) scale(m.second, factor);
+    }
+
     /// @todo YUCK!
     template <std::size_t array_size>
     void scale(const CounterPtr (&cnts)[array_size], CounterAdapter factor) {
@@ -855,6 +862,13 @@ namespace Rivet {
     void normalize(const std::vector<Histo1DPtr>& histos, CounterAdapter norm=1.0, bool includeoverflows=true) {
       for (auto& h : histos) normalize(h, norm, includeoverflows);
     }
+
+    /// Normalize the histograms in map, @a maps, to area = @a norm.
+    template<typename T>
+    void normalize(const std::map<T, Histo1DPtr>& maps, CounterAdapter norm=1.0, bool includeoverflows=true) {
+      for (auto& m : maps) normalize(m.second, norm, includeoverflows);
+    }
+
     /// @todo YUCK!
     template <std::size_t array_size>
     void normalize(const Histo1DPtr (&histos)[array_size], CounterAdapter norm=1.0, bool includeoverflows=true) {
@@ -870,6 +884,13 @@ namespace Rivet {
     void scale(const std::vector<Histo1DPtr>& histos, CounterAdapter factor) {
       for (auto& h : histos) scale(h, factor);
     }
+
+    /// Iteratively scale the histograms in the map, @a maps, by factor @a factor.
+    template<typename T>
+    void scale(const std::map<T, Histo1DPtr>& maps, CounterAdapter factor) {
+      for (auto& m : maps) scale(m.second, factor);
+    }
+
     /// @todo YUCK!
     template <std::size_t array_size>
     void scale(const Histo1DPtr (&histos)[array_size], CounterAdapter factor) {
@@ -886,6 +907,13 @@ namespace Rivet {
     void normalize(const std::vector<Histo2DPtr>& histos, CounterAdapter norm=1.0, bool includeoverflows=true) {
       for (auto& h : histos) normalize(h, norm, includeoverflows);
     }
+
+    /// Normalize the histograms in map, @a maps, to area = @a norm.
+    template<typename T>
+    void normalize(const std::map<T, Histo2DPtr>& maps, CounterAdapter norm=1.0, bool includeoverflows=true) {
+      for (auto& m : maps) normalize(m.second, norm, includeoverflows);
+    }
+
     /// @todo YUCK!
     template <std::size_t array_size>
     void normalize(const Histo2DPtr (&histos)[array_size], CounterAdapter norm=1.0, bool includeoverflows=true) {
@@ -901,6 +929,13 @@ namespace Rivet {
     void scale(const std::vector<Histo2DPtr>& histos, CounterAdapter factor) {
       for (auto& h : histos) scale(h, factor);
     }
+
+    /// Iteratively scale the histograms in the map, @a maps, by factor @a factor.
+    template<typename T>
+    void scale(const std::map<T, Histo2DPtr>& maps, CounterAdapter factor) {
+      for (auto& m : maps) scale(m.second, factor);
+    }
+
     /// @todo YUCK!
     template <std::size_t array_size>
     void scale(const Histo2DPtr (&histos)[array_size], CounterAdapter factor) {

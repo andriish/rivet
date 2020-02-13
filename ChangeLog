@@ -1,3 +1,7 @@
+2020-02-13  Christian Gutschow  <chris.g@cern.ch>
+
+	* Overload scale and normalize for map<string,Histo1DPtr>
+
 2020-02-07  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add AnalysisInfo::refFile() and Analysis::refFile() and
