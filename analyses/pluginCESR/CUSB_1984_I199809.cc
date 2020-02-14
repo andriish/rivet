@@ -19,7 +19,6 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-
       // Initialise and register projections
       declare(UnstableParticles(),"UFS");
       book(_hist, 1, 1, 1);
@@ -64,7 +63,7 @@ namespace Rivet {
 	Particles pip, pim, pi0, onium;
 	findDecayProducts(ups,nstable,pip,pim,pi0,onium);
 	// check for onium
-	if(onium.size() !=1 || nstable !=3) continue;
+	if(onium.size() !=1 || onium[0].pid()!=553 || nstable !=3) continue;
 	// check for pipi
 	if( ! (pip.size()==1 && pim.size() ==1) ) continue;
 	FourMomentum q = pip[0].momentum()+pim[0].momentum();
