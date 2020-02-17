@@ -28,7 +28,6 @@ namespace Rivet {
       // Upsilon (4S)
       bookHistos(300553,   553,1.2);
       bookHistos(300553,100553,0.6);
-      bookHistos(300553,200553,0.3);
       // Upsilon (3S)
       bookHistos(200553,   553,0.9);
       bookHistos(200553,100553,0.4);
@@ -101,8 +100,8 @@ namespace Rivet {
 	}
 	// if histos not made, make them
 	if(!found) {
-	  cerr << "\n\ntesting  not found " << vMeson.pid() << " " << onium[0].pid() << " "
-	       << vMeson.mass()-onium[0].mass() << "\n\n";
+	  MSG_WARNING("MC_Onium_PiPi_Decay" << vMeson.pid() << " " << onium[0].pid() << " "
+		      << vMeson.mass()-onium[0].mass() << "\n");
 	  continue;
 	}
 	// boost to rest frame of the pion pair

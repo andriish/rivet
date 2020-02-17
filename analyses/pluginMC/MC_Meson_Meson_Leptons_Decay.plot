@@ -1,27 +1,33 @@
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/d01-x01-y01
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h_.*_13_mff
 XLabel=$m_{\mu^+\mu^-}$ [GeV]
-YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d} m_{\mu^+\mu^-}$ [${\rm GeV}^{-1}$] 
+YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d} m_{\mu^+\mu^-}$ [${\rm GeV}^{-1}$]
+LogY=0
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h_.*_13_mPf
 XLabel=$m_{P\mu^-}$ [GeV]
 YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d} m_{P\mu^-}$ [${\rm GeV}^{-1}$] 
+LogY=0
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h_.*_13_mPfbar
 XLabel=$m_{P\mu^+}$ [GeV]
 YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d} m_{P\mu^+}$ [${\rm GeV}^{-1}$] 
+LogY=0
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h_.*_11_mff
 XLabel=$m_{e^+e^-}$ [GeV]
 YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d} m_{e^+e^-}$ [${\rm GeV}^{-1}$] 
+LogY=0
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h_.*_11_mPf
 XLabel=$m_{Pe^-}$ [GeV]
 YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d} m_{Pe^-}$ [${\rm GeV}^{-1}$] 
+LogY=0
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h_.*_11_mPfbar
 XLabel=$m_{Pe^+}$ [GeV]
 YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d} m_{Pe^+}$ [${\rm GeV}^{-1}$] 
+LogY=0
 END PLOT
 
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h_223p_111p_13_mff
@@ -121,27 +127,33 @@ END PLOT
 
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_.*_13_mff
 XLabel=$m_{\mu^+\mu^-}$ [GeV]
-YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d} m_{\mu^+\mu^-}$ [${\rm GeV}^{-1}$] 
+YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d} m_{\mu^+\mu^-}$ [${\rm GeV}^{-1}$]
+LogY=0
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_.*_13_mVf
 XLabel=$m_{V\mu^-}$ [GeV]
 YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d} m_{V\mu^-}$ [${\rm GeV}^{-1}$] 
+LogY=0
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_.*_13_mVfbar
 XLabel=$m_{V\mu^+}$ [GeV]
 YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d} m_{V\mu^+}$ [${\rm GeV}^{-1}$] 
+LogY=0
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_.*_11_mff
 XLabel=$m_{e^+e^-}$ [GeV]
 YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d} m_{e^+e^-}$ [${\rm GeV}^{-1}$] 
+LogY=0
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_.*_11_mVf
 XLabel=$m_{Ve^-}$ [GeV]
 YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d} m_{Ve^-}$ [${\rm GeV}^{-1}$] 
+LogY=0
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_.*_11_mVfbar
 XLabel=$m_{Ve^+}$ [GeV]
 YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d} m_{Ve^+}$ [${\rm GeV}^{-1}$] 
+LogY=0
 END PLOT
 
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_221p_22p_13_mff
@@ -199,6 +211,28 @@ END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_111p_22p_11_mVfbar
 Title=$\gamma e^+$ mass distribution in the decay $\pi^0\to\gamma e^+e^-$
 END PLOT
+
+
+BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_443p_22p_13_mff
+Title=$\mu^+\mu^-$ mass distribution in the decay $J/\psi\to\gamma\mu^+\mu^-$
+END PLOT
+BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_443p_22p_13_mVf
+Title=$\gamma\mu^-$ mass distribution in the decay $J/\psi\to\gamma\mu^+\mu^-$
+END PLOT
+BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_443p_22p_13_mVfbar
+Title=$\gamma\mu^+$ mass distribution in the decay $J/\psi\to\gamma\mu^+\mu^-$
+END PLOT
+BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_443p_22p_11_mff
+Title=$e^+e^-$ mass distribution in the decay $J/\psi\to\gamma e^+e^-$
+END PLOT
+BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_443p_22p_11_mVf
+Title=$\gamma e^-$ mass distribution in the decay $J/\psi\to\gamma e^+e^-$
+END PLOT
+BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_443p_22p_11_mVfbar
+Title=$\gamma e^+$ mass distribution in the decay $J/\psi\to\gamma e^+e^-$
+END PLOT
+
+
 
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_331p_22p_13_mff
 Title=$\mu^+\mu^-$ mass distribution in the decay $\eta^\prime\to\gamma\mu^+\mu^-$
