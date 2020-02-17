@@ -2890,7 +2890,7 @@ class XTicks(Ticks):
         twosided = bool(int(self.description.get('XTwosidedTicks', '1')))
         out = ""
         out += ('\n%\n% X-Ticks\n%\n')
-        if str(self.description.get('XTicks')) == "None":
+        if str(self.description.get('XTicks',True)) == "None":
            out += ('\n% no X-Ticks\n')
            return out
         out += self.add_definitions()
