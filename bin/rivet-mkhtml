@@ -44,6 +44,8 @@ parser.add_argument("-i", "--ignore-unvalidated", dest="IGNORE_UNVALIDATED", act
                     default=False, help="ignore unvalidated analyses")
 # parser.add_argument("--ref", "--refid", dest="REF_ID",
 #                   default=None, help="ID of reference data set (file path for non-REF data)")
+parser.add_argument("--no-rivet-refs", dest="RIVETREFS", action="store_false",
+                        default=True, help="don't use Rivet reference data files")
 parser.add_argument("--dry-run", help="don't actually do any plotting or HTML building", dest="DRY_RUN",
                     action="store_true", default=False)
 parser.add_argument("--no-cleanup", dest="NO_CLEANUP", action="store_true", default=False,
@@ -230,6 +232,8 @@ if args.MC_ERRS:
     ch_cmd.append("--mc-errs")
 if not args.SHOW_RATIO:
     ch_cmd.append("--no-ratio")
+if not args.RIVETREFS:
+    ch_cmd.append("--no-rivet-refs")
 if args.NOPLOTTITLE:
     ch_cmd.append("--no-plottitle")
 if args.REMOVE_OPTIONS:
