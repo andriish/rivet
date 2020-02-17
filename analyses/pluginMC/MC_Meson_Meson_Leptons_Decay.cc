@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief MC decay M -> M l+ l-
   class MC_Meson_Meson_Leptons_Decay : public Analysis {
   public:
 
@@ -23,6 +23,71 @@ namespace Rivet {
       // Initialise and register projections
       declare(UnstableParticles(),"UFS");
 
+      // book the Histos
+      // pi0 dalitz
+      bookHistos(111,22,11,0.140);
+      // eta dalitz
+      bookHistos(221,22,11,0.55);
+      bookHistos(221,22,13,0.55);
+      // eta' dalitz
+      bookHistos(331,22,11,0.96);
+      bookHistos(331,22,13,0.96);
+      // omega -> pi0
+      bookHistos(223,111,11,0.8);
+      bookHistos(223,111,13,0.8);
+      // phi -> pi0
+      bookHistos(333,111,11,1.1);
+      bookHistos(333,111,13,1.1);
+      // phi -> eta
+      bookHistos(333,221,11,1.1);
+      bookHistos(333,221,13,1.1);
+      // J/psi dalitz
+      bookHistos(443,22,11,3.1);
+      bookHistos(443,22,13,3.1);
+      // B -> s gamma
+      bookHistos(511,313,11,5.3);
+      bookHistos(511,313,13,5.3);
+    }
+
+    void bookHistos(int id1, int id2, int il, double dM) {
+      if(abs(id2)%10==3 || id2==22) {
+	_incoming_P.push_back(id1);
+	_outgoingV.push_back(id2);
+	_outgoingf_P.push_back(il);
+	std::ostringstream title;
+	title << "h2_" << abs(id1);
+	if(id1>0) title << "p";
+	else      title << "m";
+	title << "_" << abs(id2);
+	if(id2>0) title << "p";
+	else                    title << "m";
+	title << "_" << il << "_";
+	_mff_P   .push_back(Histo1DPtr());
+	book(_mff_P.back(), title.str()+"mff"   , 100, 0., dM);
+	_mVf   .push_back(Histo1DPtr());
+	book(_mVf.back(), title.str()+"mVf"   , 100, 0., dM);
+	_mVfbar.push_back(Histo1DPtr());
+	book(_mVfbar.back(), title.str()+"mVfbar", 100, 0., dM);
+      }
+      else {
+	_incomingV.push_back(id1);
+	_outgoingP.push_back(id2);
+	_outgoingf_V.push_back(il);
+	std::ostringstream title;
+	title << "h_" << abs(id1);
+	if(id1>0) title << "p";
+	else      title << "m";
+	title << "_" << abs(id2);
+	if(id2>0) title << "p";
+	else                    title << "m";
+	title << "_" << il << "_";
+	_mff_V   .push_back(Histo1DPtr());
+	book(_mff_V.back(), title.str()+"mff"   , 100, 0., dM);
+	_mPf   .push_back(Histo1DPtr());
+	book(_mPf.back(), title.str()+"mPf"   , 100, 0., dM);
+	_mPfbar.push_back(Histo1DPtr());
+	book(_mPfbar.back(), title.str()+"mPfbar", 100, 0., dM);
+      }
     }
 
     void findDecayProducts(const Particle & mother,
@@ -83,24 +148,9 @@ namespace Rivet {
 	  }
 	  // create a new graph if needed
 	  if(!found) {
-	    ix=_incomingV.size();
-	    _incomingV.push_back(pid);
-	    _outgoingP.push_back(scalar[0].pid());
-	    _outgoingf_V.push_back(lm[0].pid());
-	    std::ostringstream title;
-	    title << "h_" << abs(pid);
-	    if(pid>0) title << "p";
-	    else      title << "m";
-	    title << "_" << abs(scalar[0].pid());
-	    if(scalar[0].pid()>0) title << "p";
-	    else                    title << "m";
-	    title << "_" << lm[0].pid() << "_";
-	    _mff_V   .push_back(Histo1DPtr());
-            book(_mff_V.back(), title.str()+"mff"   , 200, 0., iMeson.mass());
-            _mPf   .push_back(Histo1DPtr());
-            book(_mPf.back(), title.str()+"mPf"   , 200, 0., iMeson.mass());
-            _mPfbar.push_back(Histo1DPtr());
-            book(_mPfbar.back(), title.str()+"mPfbar", 200, 0., iMeson.mass());
+	    MSG_WARNING("MC_Meson_Meson_Leptons_Decay S" << iMeson.pid() << " " << scalar[0].pid() << " "
+			<< iMeson.mass() << "\n");
+	    continue;
 	  }
 	  // add the results to the histogram
 	  _mff_V   [ix]->fill((lm    [0].momentum()+lp[0].momentum()).mass());
@@ -121,24 +171,9 @@ namespace Rivet {
 	  }
 	  // create a new graph if needed
 	  if(!found) {
-	    ix=_incoming_P.size();
-	    _incoming_P.push_back(pid);
-	    _outgoingV.push_back(vector[0].pid());
-	    _outgoingf_P.push_back(lm[0].pid());
-	    std::ostringstream title;
-	    title << "h2_" << abs(pid);
-	    if(pid>0) title << "p";
-	    else      title << "m";
-	    title << "_" << abs(vector[0].pid());
-	    if(vector[0].pid()>0) title << "p";
-	    else                    title << "m";
-	    title << "_" << lm[0].pid() << "_";
-	    _mff_V   .push_back(Histo1DPtr());
-            book(_mff_V.back(), title.str()+"mff"   , 200, 0., iMeson.mass());
-            _mPf   .push_back(Histo1DPtr());
-            book(_mPf.back(), title.str()+"mPf"   , 200, 0., iMeson.mass());
-            _mPfbar.push_back(Histo1DPtr());
-            book(_mPfbar.back(), title.str()+"mPfbar", 200, 0., iMeson.mass());
+	    MSG_WARNING("MC_Meson_Meson_Leptons_Decay V" << iMeson.pid() << " " << vector[0].pid() << " "
+			<< iMeson.mass() << "\n");
+	    continue;
 	  }
 	  // add the results to the histogram
 	  _mff_P   [ix]->fill((lm    [0].momentum()+lp[0].momentum()).mass());
