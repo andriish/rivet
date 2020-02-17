@@ -21,9 +21,35 @@ namespace Rivet {
 
       // Initialise and register projections
       declare(UnstableParticles(),"UFS");
-
+      // psi 2S
+      bookHistos(100443,   443,0.6);
+      // psi(3770)
+      bookHistos( 30443,   443,0.7);
+      // Upsilon (4S)
+      bookHistos(300553,   553,1.2);
+      bookHistos(300553,100553,0.6);
+      bookHistos(300553,200553,0.3);
+      // Upsilon (3S)
+      bookHistos(200553,   553,0.9);
+      bookHistos(200553,100553,0.4);
+      // Upsilon (2S)
+      bookHistos(100553,   553,0.6);
     }
 
+    void bookHistos(int id1, int id2, double deltaM) {
+      double twompi = 0.378;
+      _incoming.push_back(id1);
+      _outgoing.push_back(id2);
+      std::ostringstream title;
+      title << "h_" << id1 << "_" << id2 << "_";
+      _mpipi.push_back(make_pair(Histo1DPtr(), Histo1DPtr()));
+      book(_mpipi.back().first, title.str()+"mpippim",100,twompi/GeV,deltaM/GeV);
+      book(_mpipi.back().second, title.str()+"mpi0pi0",100,twompi/GeV,deltaM/GeV);
+      _hel.push_back(make_pair(Histo1DPtr(), Histo1DPtr()));
+      book(_hel.back().first, title.str()+"hpippim",100,-1.,1.);
+      book(_hel.back().second, title.str()+"hpi0pi0",100, 0.,1.);
+    }
+    
     void findDecayProducts(const Particle & mother,
 			   unsigned int & nstable,
 			   Particles& pip, Particles& pim,
@@ -35,7 +61,7 @@ namespace Rivet {
 	  ++nstable;
 	}
        	else if (id == PID::PIPLUS) {
-       	  pim.push_back(p);
+       	  pip.push_back(p);
        	  ++nstable;
        	}
        	else if (id == PID::PI0) {
@@ -75,19 +101,9 @@ namespace Rivet {
 	}
 	// if histos not made, make them
 	if(!found) {
-	  double twompi = 0.378;
-	  double upp    = vMeson.mass()-onium[0].mass();
-	  iloc=_incoming.size();
-	  _incoming.push_back(vMeson.pid());
-	  _outgoing.push_back(onium[0].pid());
-	  std::ostringstream title;
-	  title << "h_" << vMeson.pid() << "_" << onium[0].pid() << "_";
-          _mpipi.push_back(make_pair(Histo1DPtr(), Histo1DPtr()));
-          book(_mpipi.back().first, title.str()+"mpippim",200,twompi/GeV,upp/GeV);
-          book(_mpipi.back().second, title.str()+"mpi0pi0",200,twompi/GeV,upp/GeV);
-          _hel.push_back(make_pair(Histo1DPtr(), Histo1DPtr()));
-          book(_hel.back().first, title.str()+"hpippim",200,-1.,1.);
-          book(_hel.back().second, title.str()+"hpi0pi0",200, 0.,1.);
+	  cerr << "\n\ntesting  not found " << vMeson.pid() << " " << onium[0].pid() << " "
+	       << vMeson.mass()-onium[0].mass() << "\n\n";
+	  continue;
 	}
 	// boost to rest frame of the pion pair
 	FourMomentum q = vMeson.momentum()-onium[0].momentum();
