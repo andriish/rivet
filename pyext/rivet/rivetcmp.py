@@ -42,8 +42,11 @@ def getHistos(args,filelist):
     refhistos, mchistos = {}, {}
     for infile in filelist:
         mchistos.setdefault(infile, {})
-        analysisobjects = yoda.read(infile, patterns=args.PATHPATTERNS, unpatterns=args.PATHUNPATTERNS)
-        #print(analysisobjects)
+        
+	#analysisobjects = yoda.read(infile, patterns=args.PATHPATTERNS, unpatterns=args.PATHUNPATTERNS)
+	analysisobjects = yoda.read(infile)
+        
+	#print(analysisobjects)
         for path, ao in analysisobjects.items():
             ## We can't plot non-histograms yet
             # TODO: support counter plotting with a faked x (or y) position and forced plot width/height
