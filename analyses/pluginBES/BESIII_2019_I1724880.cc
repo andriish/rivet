@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Charged particle multiplicity in eta_c decays
   class BESIII_2019_I1724880 : public Analysis {
   public:
 
