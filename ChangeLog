@@ -37,6 +37,10 @@
 	* Update PID util functions to match the latest version of
 	MCUtils/PIDCodes/PIDUtils.h
 
+2020-02-19 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2016_I1384778 for Collins assymetry
+
 2020-02-18 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add CLEO_1995_I392704 for lambda_c decay correlations and
