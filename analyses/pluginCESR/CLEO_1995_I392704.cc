@@ -33,43 +33,37 @@ namespace Rivet {
       for( const Particle& Lambdac : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==4122)) {
 	int sign = Lambdac.pid()/4122;
 	if(Lambdac.children().size()!=2) continue;
-	Particle baryon1,meson1;
+	Particle baryon1;
 	bool lambda=true;
 	if(Lambdac.children()[0].pid()==sign*3122 && 
 	   Lambdac.children()[1].pid()==sign*211) {
 	  baryon1 = Lambdac.children()[0];
-	  meson1  = Lambdac.children()[1];
 	}
 	else if(Lambdac.children()[1].pid()==sign*3122 && 
 		Lambdac.children()[0].pid()==sign*211) {
 	  baryon1 = Lambdac.children()[1];
-	  meson1  = Lambdac.children()[0];
 	}
 	else if(Lambdac.children()[0].pid()==sign*3222 && 
 		Lambdac.children()[1].pid()==111) {
 	  baryon1 = Lambdac.children()[0];
-	  meson1  = Lambdac.children()[1];
 	  lambda=false;
 	}
 	else if(Lambdac.children()[1].pid()==sign*3222 && 
 		Lambdac.children()[0].pid()==111) {
 	  baryon1 = Lambdac.children()[0];
-	  meson1  = Lambdac.children()[1];
 	  lambda=false;
 	}
 	else
 	  continue;
 	int idMeson = lambda ? -sign*211 : 111;
-	Particle baryon2,meson2;
+	Particle baryon2;
 	if(baryon1.children()[0].pid()== sign*2212 && 
 	   baryon1.children()[1].pid()== idMeson) {
 	  baryon2 = baryon1.children()[0];
-	  meson2  = baryon1.children()[1];
 	}
 	else if(baryon1.children()[1].pid()== sign*2212 && 
 		baryon1.children()[0].pid()== idMeson) {
 	  baryon2 = baryon1.children()[1];
-	  meson2  = baryon1.children()[0];
 	}
 	else
 	  continue;
