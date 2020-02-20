@@ -1,4 +1,353 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Search-Engine-Total-Number-Of-Results: 11 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <controlfield tag="001">222610</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.1016/0370-2693(86)90361-8</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D86-00093</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D86-03769</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Albrecht:1985je</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">DESY-85/129</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Search for Gluinos in Decays of the Chi($b$) (1 $p$ Wave Triplet) Meson</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ARGUS</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">222219</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevLett.56.549</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D85-12299</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D86-02448</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">SPIRESTeX</subfield>
+    <subfield code="a">Albrecht:1985as</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">KEKSCAN</subfield>
+    <subfield code="a">85-12-216</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">ADS</subfield>
+    <subfield code="a">1986PhRvL..56..549A</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">OSTI</subfield>
+    <subfield code="a">5932534</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">ins222219</subfield>
+    <subfield code="9">HEPDATA</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">DESY-85-119</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Observation of a New Charmed Meson.</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ARGUS</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">221006</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1007/BF01550813</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D85-09863</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D86-00085</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Albrecht:1985bg</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">KEKSCAN</subfield>
+    <subfield code="a">85-09-129</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">DESY-85-083</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Upper Limit for the Emission of Monoenergetic Photons in $\Upsilon$ (1s) and $\Upsilon$ (2s) Meson Decays</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ARGUS</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">221001</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.1016/0370-2693(85)91338-3</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D85-09088</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D85-12303</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Albrecht:1985bb</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">DESY-85-068</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Radiative Decays of the $\Upsilon$ (2s) Into the Three Chi($b$) States.</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ARGUS</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">216797</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.1016/0370-2693(85)90805-6</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D85-06847</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D85-11320</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Albrecht:1985ew</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">DESY-85-048</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Direct Evidence for W Exchange in Charmed Meson Decay</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ARGUS</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">215990</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.1016/0370-2693(85)90305-3</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D85-06809</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D85-13664</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D87-02193</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Albrecht:1985fc</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">DESY-85-054</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">An Upper Limit on the Mass of the $\nu_\tau$</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ARGUS</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">214358</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1016/0370-2693(85)90675-6</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D85-04603</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D85-10433</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">SPIRESTeX</subfield>
+    <subfield code="a">Albrecht:1985zv</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">ADS</subfield>
+    <subfield code="a">1985PhLB..157..326A</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">ins214358</subfield>
+    <subfield code="9">HEPDATA</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">DESY-85-034</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Observation of Anti-deuteron Production in Electron - Positron Annihilation at 10-{GeV} Center-of-mass Energy</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ARGUS</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">214357</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1016/0370-2693(85)91369-3</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D85-05255</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D85-09053</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">SPIRESTeX</subfield>
+    <subfield code="a">Albrecht:1985zu</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">ins214357</subfield>
+    <subfield code="9">HEPDATA</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">DESY-85-037</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Search for Fractionally Charged Particles Produced in $e^+ e^-$ Annihilation</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ARGUS</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">213240</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1007/BF01550247</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D85-03272</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D85-08415</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Albrecht:1985im</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">KEKSCAN</subfield>
+    <subfield code="a">85-04-026</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">DESY-85-021</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">A Determination of the Muon Pair Branching Ratio of the Upsilon-prime Meson</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ARGUS</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">213080</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.1016/0370-2693(85)90429-0</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D85-03275</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D85-07690</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Albrecht:1985qz</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">DESY-85-014</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Search for Narrow States Coupling to $\tau$ Pairs in Radiative Upsilon Decays</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ARGUS</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">221003</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.1016/0370-2693(85)90948-7</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D85-09094</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D85-12899</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Albrecht:1985bd</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">DESY-85-070</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">OBSERVATION OF B MESON DECAY INTO J / psi</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ARGUS</subfield>
+  </datafield>
+</record>
 
 </collection>
