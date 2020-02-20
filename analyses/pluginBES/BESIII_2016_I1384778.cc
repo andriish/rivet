@@ -62,10 +62,14 @@ namespace Rivet {
 	const double x1=2.*pions[i1].momentum().t()/sqrtS();
 	// cut on z1
 	if(x1<0.2||x1>0.9) continue;
+	// cos theta cut
+	if(abs(cos(pions[i1].momentum().p3().polarAngle()))>0.93) continue;
 	for(unsigned int i2=i1+1;i2<pions.size();++i2) {
 	  // cut on z2
 	  const double x2=2.*pions[i2].momentum().t()/sqrtS();
 	  if(x2<0.2||x2>0.9) continue;
+	  // cos theta cut
+	  if(abs(cos(pions[i2].momentum().p3().polarAngle()))>0.93) continue;
 	  // cut on opening angle (>120 degrees)
 	  if(pions[i1].momentum().p3().angle(pions[i2].momentum().p3())>2.*M_PI/3.)
 	    continue;
