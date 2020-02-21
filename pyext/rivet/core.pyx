@@ -170,6 +170,17 @@ cdef class Analysis:
     def luminosityfb(self):
         return deref(self._ptr).luminosityfb()
 
+    def refFile(self):
+        #return findAnalysisRefFile(self.name() + ".yoda")
+        return deref(self._ptr).refFile()
+
+    def refData(self, asdict=True, patterns=None, unpatterns=None):
+        """Get this analysis' reference data, cf. yoda.read()
+        NB. There's also a C++ version of this, but this wrapping is nicer for Python"""
+        import yoda
+        return yoda.read(self.refFile(), asdict, patterns, unpatterns)
+
+
 #cdef object
 LEVELS = dict(TRACE = 0, DEBUG = 10, INFO = 20,
               WARN = 30, WARNING = 30, ERROR = 40,

@@ -24,6 +24,7 @@ namespace Rivet {
     assert(_info);
   }
 
+
   double Analysis::sqrtS() const {
     return handler().sqrtS();
   }

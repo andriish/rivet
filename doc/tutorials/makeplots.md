@@ -484,7 +484,7 @@ Normalize the histogram to the integral, to the sum of entries, or scale it by s
     ErrorType=<stat|env>
 ```
 
-Rebin the histogram. Starting with the lowest bin <nbins> bins are combined into a new bin. If the number of bins in the histogram is not a multiple of <nbins>, the remaining bins at the upper histogram end are silently ignored (i.e. if the original histogram has 10 bins and <nbins> is 3, the plotted histogram shows three bins combining the bins 1—9 of the original histogram). The treatment of the errors is determined by the given ErrorType: `stat` (default) assumes the errors are of statistical nature and combines them in quadrature sum, while `env` allows to treat errors as envelope of various uncertainty runs which are combined linearly.
+Rebin the histogram. Starting with the lowest bin `<nbins>` bins are combined into a new bin. If the number of bins in the histogram is not a multiple of `<nbins>`, the remaining bins at the upper histogram end are silently ignored (i.e. if the original histogram has 10 bins and `<nbins>` is 3, the plotted histogram shows three bins combining the bins 1—9 of the original histogram). The treatment of the errors is determined by the given ErrorType: `stat` (default) assumes the errors are of statistical nature and combines them in quadrature sum, while `env` allows to treat errors as envelope of various uncertainty runs which are combined linearly.
 
 ### FUNCTION
 
