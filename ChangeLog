@@ -1,3 +1,8 @@
+2020-02-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Update PID util functions to match the latest version of
+	MCUtils/PIDCodes/PIDUtils.h
+
 2020-02-13  Christian Gutschow  <chris.g@cern.ch>
 
 	* Overload scale and normalize for map<string,Histo1DPtr>
