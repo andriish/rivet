@@ -44,6 +44,10 @@
 	* Update PID util functions to match the latest version of
 	MCUtils/PIDCodes/PIDUtils.h
 
+2020-02-21 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2009_I810744 Upsilon(4s) -> pipi Upsilon(1S)
+
 2020-02-20 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BABAR_2010_I864027  D_s cross sections
