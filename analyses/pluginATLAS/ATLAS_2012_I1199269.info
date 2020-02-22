@@ -33,6 +33,7 @@ Description:
   results are compared to the prediction of leading-order parton-shower
   and next-to-leading-order and next-to-next-to-leading-order
   parton-level generators.'
+BibKey: Aad:2012tba
 BibTeX:
   '@article{Aad:2012tba,
         author         = "Aad, Georges and others",

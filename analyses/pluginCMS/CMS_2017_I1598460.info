@@ -32,7 +32,7 @@ Description:
     constraints on parton distribution functions are obtained and the inferred value of the
     strong coupling constant is $\alpha_s(M_{Z})$ = 0.1199 $\pm$ 0.0015 (exp)$^{+0.0031}_{-0.0020}$ (theo),
     where M$_{Z}$ is the mass of the Z boson.
-BibKey: Sirunyan:2017sk
+BibKey: Sirunyan:2017skj
 BibTeX: '@article{Sirunyan:2017skj,
       author         = "Sirunyan, Albert M and others",
       title          = "{Measurement of the triple-differential dijet cross
