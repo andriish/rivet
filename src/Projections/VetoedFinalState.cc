@@ -13,6 +13,7 @@ namespace Rivet {
     return \
       cmp(_vetoCuts, other._vetoCuts) ||
       cmp(_compositeVetoes, other._compositeVetoes) ||
+      cmp(_nCompositeDecays, other._nCompositeDecays) ||
       cmp(_parentVetoes, other._parentVetoes);
   }
 
