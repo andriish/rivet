@@ -32,6 +32,11 @@
 	* Add SFINAE type restriction to PROJ templated type deduction in
 	Analysis::apply() methods.
 
+2020-02-22 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CLEOII_1997_I442910 Xi_c spectrum in b decays
+	* Add CLEOII_2005_I668268 lambda_c decay correlations
+
 2020-02-21  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Update PID util functions to match the latest version of
