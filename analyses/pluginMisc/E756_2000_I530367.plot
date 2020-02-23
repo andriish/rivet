@@ -22,8 +22,13 @@ END PLOT
 BEGIN PLOT /E756_2000_I530367/d01-x01-y02
 Title=$\alpha$ for $\Xi^-\to\Lambda^0\pi^-$
 ConnectBins=0
+YMin=-1
+YMax=1
 END PLOT
+
 BEGIN PLOT /E756_2000_I530367/d01-x01-y01
 Title=$\alpha$ for $\bar\Xi^+\to\bar\Lambda^0\pi^+$
 ConnectBins=0
+YMin=-1
+YMax=1
 END PLOT
