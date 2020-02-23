@@ -2,7 +2,6 @@
 
 	* Allow "Nominal" as a potential default weight name
 
-
 2020-03-06  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Make AnalysisObject pointer wrapper objects throw an exception
@@ -23,9 +22,9 @@
 
 	* Add patch to allow finding of zipped reference data
 
-2020-02-21  Jon Butterworth <j.butterworth@ucl.ac.uk>
+2020-02-23 Peter Richardson <peter.richardson@durham.ac.uk>
 
-	* Trying to merge in hepdat sync
+	* Add ARGUS_1992_I319105 Lambda_c decay correlations
 
 2020-02-22  Andy Buckley  <andy.buckley@cern.ch>
 
@@ -36,6 +35,10 @@
 
 	* Add CLEOII_1997_I442910 Xi_c spectrum in b decays
 	* Add CLEOII_2005_I668268 lambda_c decay correlations
+
+2020-02-21  Jon Butterworth <j.butterworth@ucl.ac.uk>
+
+	* Trying to merge in hepdat sync
 
 2020-02-21  Andy Buckley  <andy.buckley@cern.ch>
 
