@@ -243,16 +243,17 @@ namespace Rivet {
 
 
   bool Particle::isDirect(bool allow_from_direct_tau, bool allow_from_direct_mu) const {
-  while (!_isDirect.second) { ///< @todo Replace awkward caching with C++17 std::optional
+  const size_t tm = 2 * size_t(allow_from_direct_tau) + size_t(allow_from_direct_mu); // need one cache per combi
+  while (!_isDirect[tm].second) { ///< @todo Replace awkward caching with C++17 std::optional
     // Immediate short-circuit: hadrons can't be direct, and for partons we can't tell
     if (isHadron() || isParton()) {
-      _isDirect = std::make_pair(false, true); break;
+      _isDirect[tm] = std::make_pair(false, true); break;
     }
 
     // Obtain links to parentage
-    if (genParticle() == nullptr) { _isDirect = std::make_pair(false, true); break; } // no HepMC connection, give up! Throw UserError exception?
+    if (genParticle() == nullptr) { _isDirect[tm] = std::make_pair(false, true); break; } // no HepMC connection, give up! Throw UserError exception?
     ConstGenVertexPtr prodVtx = genParticle()->production_vertex();
-    if (prodVtx == nullptr) { _isDirect = std::make_pair(false, true); break; } // orphaned particle, has to be assume false
+    if (prodVtx == nullptr) { _isDirect[tm] = std::make_pair(false, true); break; } // orphaned particle, has to be assume false
     std::pair<ConstGenParticlePtr,ConstGenParticlePtr> thebeams =
       HepMCUtils::beams(prodVtx->parent_event());
     for (ConstGenParticlePtr ancestor : HepMCUtils::particles(prodVtx, Relatives::ANCESTORS)) {
@@ -266,18 +267,18 @@ namespace Rivet {
                                              // making
       if (ancestor == thebeams.first || ancestor == thebeams.second)  continue; // ignore beam particles
       if (PID::isHadron(pid)) {
-        _isDirect = std::make_pair(false, true); break;
+        _isDirect[tm] = std::make_pair(false, true); break;
       } // direct particles can't be from hadron decays
       if (abs(pid) == PID::TAU && abspid() != PID::TAU && !allow_from_direct_tau) {
-        _isDirect = std::make_pair(false, true); break;
+        _isDirect[tm] = std::make_pair(false, true); break;
       } // allow or ban particles from tau decays (permitting tau copies)
       if (abs(pid) == PID::MUON && abspid() != PID::MUON && !allow_from_direct_mu) {
-        _isDirect = std::make_pair(false, true); break;
+        _isDirect[tm] = std::make_pair(false, true); break;
       } // allow or ban particles from muon decays (permitting muon copies)
     }
-    if (!_isDirect.second) _isDirect = std::make_pair(true, true); //< guarantee loop exit
+    if (!_isDirect[tm].second) _isDirect[tm] = std::make_pair(true, true); //< guarantee loop exit
   }
-  return _isDirect.first;
+  return _isDirect[tm].first;
   }
 
 

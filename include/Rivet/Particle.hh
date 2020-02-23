@@ -25,7 +25,7 @@ namespace Rivet {
     /// @note A particle without info is useless. This only exists to keep STL containers happy.
     Particle()
       : ParticleBase(),
-        _original(nullptr), _id(PID::ANY), _isDirect{false,false}
+        _original(nullptr), _id(PID::ANY), _isDirect(4, std::make_pair(false,false))
     {   }
 
     /// Constructor from PID and momentum.
@@ -33,7 +33,7 @@ namespace Rivet {
       : ParticleBase(),
         _original(gp), _id(pid),
         _momentum(mom), _origin(pos),
-        _isDirect{false,false}
+        _isDirect(4, std::make_pair(false,false))
     {   }
 
     /// Constructor from PID, momentum, and a GenParticle for relational links.
@@ -46,7 +46,7 @@ namespace Rivet {
       : ParticleBase(),
         _original(gp), _id(gp->pdg_id()),
         _momentum(gp->momentum()),
-        _isDirect{false,false}
+        _isDirect(4, std::make_pair(false,false))
     {
       ConstGenVertexPtr vprod = gp->production_vertex();
       if (vprod != nullptr) {
@@ -722,7 +722,7 @@ namespace Rivet {
 
     /// Cached computation of directness, via ancestry. Second element is cache status
     /// @todo Replace this awkward caching with C++17 std::optional
-    mutable std::pair<bool,bool> _isDirect;
+    mutable std::vector<std::pair<bool,bool> > _isDirect;
 
   };
 
