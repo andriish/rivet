@@ -31,6 +31,9 @@
 	* Add patch to allow finding of zipped reference data
 
 2020-02-23 Peter Richardson <peter.richardson@durham.ac.uk>
+	* Add ARGUS_1986_I227324 event shapes at Upsilon(1S)
+
+2020-02-24 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add ARGUS_1992_I319105 Lambda_c decay correlations
 	* Add CLEOII_2000_I533575 Xi asymmetry

@@ -7,7 +7,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Thrust like variable at Upsilon(1s,2S)
   class LENA_1981_I164397 : public Analysis {
   public:
 
