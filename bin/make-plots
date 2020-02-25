@@ -211,9 +211,9 @@ class InputData(Described):
                 self.description['RatioPlotSizeY'] = float(plotsizes[2])
             del self.description['PlotSize']
 
-        self.description.setdefault('LogX', 0)
-        self.description.setdefault('LogY', 0)
-        self.description.setdefault('LogZ', 0)
+        self.description['LogX'] = str(self.description.get('LogX', 0)) in ["1", "yes", "true"]
+        self.description['LogY'] = str(self.description.get('LogY', 0)) in ["1", "yes", "true"]
+        self.description['LogZ'] = str(self.description.get('LogZ', 0)) in ["1", "yes", "true"]
 
         self.description['RatioPlotSizeY'] = 0.
         if not self.attr_bool('MainPlot',1):
