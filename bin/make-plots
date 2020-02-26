@@ -1999,7 +1999,7 @@ class Histogram(DrawableObject, Described):
                 if (k<len(rebins)-1):
                     upper = self.getBin(rebins[k+1]['Start'])
                     end = 0
-                for i in range(lower,int((upper/rebin)*rebin+end),rebin):
+                for i in range(int(lower), int((upper/rebin)*rebin+end), int(rebin)):
                     foo=0.
                     barl=0.
                     baru=0.
