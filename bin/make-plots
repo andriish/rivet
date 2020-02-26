@@ -224,8 +224,8 @@ class InputData(Described):
                 if self.has_attr('RatioPlot'+i+'YSize') and self.attr('RatioPlot'+i+'YSize') != '':
                     self.description['RatioPlot'+i+'SizeY'] = self.attr_float('RatioPlot'+i+'YSize')
                 else:
-                    if self.attr_bool('MainPlot'):  self.description['RatioPlot'+i+'SizeY'] = 3.
-                    else:                           self.description['RatioPlot'+i+'SizeY'] = 6.
+                    if self.attr_bool('MainPlot'):  self.description['RatioPlot'+i+'SizeY'] = 6.
+                    else:                           self.description['RatioPlot'+i+'SizeY'] = 3.
                     if self.description['is2dim']:
                         self.description['RatioPlotSizeY'] *= 2.
 
@@ -1999,7 +1999,7 @@ class Histogram(DrawableObject, Described):
                 if (k<len(rebins)-1):
                     upper = self.getBin(rebins[k+1]['Start'])
                     end = 0
-                for i in range(lower,(upper/rebin)*rebin+end,rebin):
+                for i in range(lower,int((upper/rebin)*rebin+end),rebin):
                     foo=0.
                     barl=0.
                     baru=0.
