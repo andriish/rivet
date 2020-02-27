@@ -28,7 +28,7 @@ Description:
 The fiducial cross-section, six differential distributions and the cross-section as a function of the jet-veto transverse momentum threshold are measured and compared with several theoretical predictions. 
 Constraints on anomalous electroweak gauge boson self-interactions are also presented in the framework of a dimension-six effective field theory.'
 BibKey: Aaboud:2019nkz
-'@article{Aaboud:2019nkz,
+BibTex: '@article{Aaboud:2019nkz,
       author         = "Aaboud, Morad and others",
       title          = "{Measurement of fiducial and differential $W^+W^-$
                         production cross-sections at $\sqrt{s}=$13 TeV with the
