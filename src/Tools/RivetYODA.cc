@@ -71,8 +71,10 @@ void Wrapper<T>::newSubEvent() {
     /// Try to find YODA otherwise fall back to try AIDA
     const string path1 = findAnalysisRefFile(papername + ".yoda");
     if (!path1.empty()) return path1;
-    const string path2 = findAnalysisRefFile(papername + ".aida");
+    const string path2 = findAnalysisRefFile(papername + ".yoda.gz");
     if (!path2.empty()) return path2;
+    const string path3 = findAnalysisRefFile(papername + ".aida");
+    if (!path3.empty()) return path3;
     throw Rivet::Error("Couldn't find ref data file '" + papername + ".yoda" +
                        " in data path, '" + getRivetDataPath() + "', or '.'");
   }

@@ -1,4 +1,9 @@
+2020-02-28  Christian Gutschow  <chris.g@cern.ch>
+
+	* Add patch to allow finding of zipped reference data
+
 2020-02-21  Jon Butterworth <j.butterworth@ucl.ac.uk>
+
 	* Trying to merge in hepdat sync
 
 2020-02-21  Andy Buckley  <andy.buckley@cern.ch>
