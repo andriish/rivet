@@ -5,16 +5,16 @@
 namespace Rivet {
 
 
-  /// @brief q^2 in B0 -> pi- l+ nu_l decays
-  class BELLE_2011_I878990 : public Analysis {
+  /// @brief q^2 in D0 -> K- e+ nu_e decays
+  class BABAR_2007_I1091435 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BELLE_2011_I878990);
+    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2007_I1091435);
 
 
     /// @name Analysis methods
-    //@{
+    ///@{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -44,10 +44,9 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // Loop over B0 mesons 
-      for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::B0)) {
-        if (isSemileptonicDecay(p, {PID::PIMINUS, PID::POSITRON, PID::NU_E}) ||
-            isSemileptonicDecay(p, {PID::PIMINUS, PID::ANTIMUON, PID::NU_MU})) {
-            _h_q2->fill(q2(p, PID::PIMINUS));
+      for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::D0)) {
+        if (isSemileptonicDecay(p, {PID::KMINUS, PID::POSITRON, PID::NU_E}) ) {
+	  _h_q2->fill(q2(p, PID::KMINUS));
         }
       }
     }
@@ -55,28 +54,21 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
-      normalize(_h_q2, 3000.86); // normalize to BF*dQ2
-
+      normalize(_h_q2, 1.);
     }
 
-    //@}
-
-
-  private:
+    ///@}
 
 
     /// @name Histograms
-    //@{
+    ///@{
     Histo1DPtr _h_q2;
-    //@}
+    ///@}
 
 
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BELLE_2011_I878990);
-
+  DECLARE_RIVET_PLUGIN(BABAR_2007_I1091435);
 
 }
