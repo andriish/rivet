@@ -2,7 +2,7 @@ Name: CLEOII_1994_I381696
 Year: 1994
 Summary: Spectrum for $\Lambda_c^+(2595)$ and $\Lambda_c^+(2625)$ production at 10.58 GeV
 Experiment: CLEOII
-Collider: <Insert the collider name>
+Collider: CESR
 InspireID: 381696
 Status: VALIDATED
 Authors:
