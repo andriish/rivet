@@ -13,7 +13,7 @@ RunInfo: e+e- to hadrons
 Beams: [e+, e-]
 Energies: [10.58]
 Description:
-  'Spectrum for the average of $\Xi_c^{\prime0}$ and $\Xi_c^{\prime+}$ produced measured by CLEOII.'
+  'Spectrum for the average of $\Xi_c^{\prime0}$ and $\Xi_c^{\prime+}$ produced at 10.58 GeV measured by CLEOII.'
 ValidationInfo:
   'Herwig 7 events'
 #ReleaseTests:
