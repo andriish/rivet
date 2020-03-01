@@ -35,16 +35,20 @@ namespace Rivet {
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double Emax = ( beams.first.p3().mod() + beams.second.p3().mod() ) / 2.0;
-      const double Pmax = sqrt(sqr(Emax)-sqr(2.535));
       const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::abspid==id2595 or
 					     Cuts::abspid==id2625)) {
 	// spectrum
-	double xp = p.momentum().p3().mod()/Pmax;
-	if(p.pid()==id2595)
+	if(p.pid()==id2595) {
+	  double Pmax = sqrt(sqr(Emax)-sqr(2.595));
+	  double xp = p.momentum().p3().mod()/Pmax;
 	  _h_2595->fill(xp);
-	else
+	}
+	else {
+	  double Pmax = sqrt(sqr(Emax)-sqr(2.625));
+	  double xp = p.momentum().p3().mod()/Pmax;
 	  _h_2625->fill(xp);
+	}
       }
     }
 
