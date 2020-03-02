@@ -6,12 +6,12 @@
 namespace Rivet {
 
 
-  /// @brief Spectrum for Lambda_c(2625)
-  class ARGUS_1993_I357132 : public Analysis {
+  /// @brief Spectrum for D_s2+
+  class ARGUS_1995_I397794 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ARGUS_1993_I357132);
+    DEFAULT_RIVET_ANALYSIS_CTOR(ARGUS_1995_I397794);
 
 
     /// @name Analysis methods
@@ -29,13 +29,13 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      static const int id2625 = 4124;
+      static const int idDs2 = 435;
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double Emax = ( beams.first.p3().mod() + beams.second.p3().mod() ) / 2.0;
       const double Pmax = sqrt(sqr(Emax)-sqr(2.625));
       const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
-      for (const Particle& p : ufs.particles(Cuts::abspid==id2625)) {
+      for (const Particle& p : ufs.particles(Cuts::abspid==idDs2)) {
 	double xp = p.momentum().p3().mod()/Pmax;
 	_h_x->fill(xp);
       }
@@ -59,6 +59,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ARGUS_1993_I357132);
+  DECLARE_RIVET_PLUGIN(ARGUS_1995_I397794);
 
 }
