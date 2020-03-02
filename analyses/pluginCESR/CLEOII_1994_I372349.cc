@@ -6,12 +6,12 @@
 namespace Rivet {
 
 
-  /// @brief D_1+ and D_2 spectra
-  class CLEOII_1994_I378319 : public Analysis {
+  /// @brief  D_10 and D_20 spectra
+  class CLEOII_1994_I372349 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEOII_1994_I378319);
+    DEFAULT_RIVET_ANALYSIS_CTOR(CLEOII_1994_I372349);
 
 
     /// @name Analysis methods
@@ -24,16 +24,16 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
       // book histos
       book(_h_D2_cTheta,2,1,1);
-      book(_h_D2_x     ,4,1,1);
-      book(_h_D1_cTheta,3,1,1);
-      book(_h_D1_x     ,4,1,2);
+      book(_h_D2_x     ,1,1,1);
+      book(_h_D1_cTheta,2,1,2);
+      book(_h_D1_x     ,1,1,2);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      static const int idD1 = 10413;
-      static const int idD2 = 415;
+      static const int idD1 = 10423;
+      static const int idD2 = 425;
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double Emax = ( beams.first.p3().mod() + beams.second.p3().mod() ) / 2.0;
@@ -53,12 +53,12 @@ namespace Rivet {
 	int sign = p.pid()/p.abspid();
 	Particle Dstar;
 	if(p.children().size()!=2) continue;
-	if(p.children()[0].pid()==sign*423 &&
-	   p.children()[1].pid()==sign*211) {
+	if(p.children()[0].pid()==sign*413 &&
+	   p.children()[1].pid()==-sign*211) {
 	  Dstar = p.children()[0];
 	}
-	else if(p.children()[1].pid()==sign*423 &&
-		p.children()[0].pid()==sign*211) {
+	else if(p.children()[1].pid()==sign*413 &&
+		p.children()[0].pid()==-sign*211) {
 	  Dstar = p.children()[1];
 	}
 	else {
@@ -66,11 +66,11 @@ namespace Rivet {
 	}
 	if(Dstar.children().size()!=2) continue;
 	Particle pion;
-	if(Dstar.children()[0].pid()== 111 && 
+	if(Dstar.children()[0].pid()== sign*211 && 
 	   Dstar.children()[1].pid()== sign*421) {
 	  pion = Dstar.children()[0];
 	}
-	else if(Dstar.children()[1].pid()== 111 && 
+	else if(Dstar.children()[1].pid()== sign*211 && 
 		Dstar.children()[0].pid()== sign*421) {
 	  pion = Dstar.children()[1];
 	}
@@ -90,7 +90,7 @@ namespace Rivet {
 	  _h_D1_cTheta->fill(cTheta);
 	else
 	  _h_D2_cTheta->fill(cTheta);
-      }      
+      }
     }
 
     /// Normalise histograms etc., after the run
@@ -113,6 +113,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(CLEOII_1994_I378319);
+  DECLARE_RIVET_PLUGIN(CLEOII_1994_I372349);
 
 }

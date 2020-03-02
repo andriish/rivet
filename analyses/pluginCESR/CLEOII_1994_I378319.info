@@ -2,7 +2,7 @@ Name: CLEOII_1994_I378319
 Year: 1994
 Summary: Spectra for  $D_1(2420)^+$ and $D_2^*(2460)^+$
 Experiment: CLEOII
-Collider: <Insert the collider name>
+Collider: CESR
 InspireID: 378319
 Status: VALIDATED
 Authors:
@@ -14,7 +14,7 @@ NeedCrossSection: no
 Beams: [e-, e+]
 Energies: [10.58]
 Description:
-  'Measurement of the scaled momentum spectrua for $D_1(2420)^+$ and  $D^*_2(2460)^+$ mesons at 10.58 GeV.'
+  'Measurement of the scaled momentum spectra for $D_1(2420)^+$ and  $D^*_2(2460)^+$ mesons at 10.58 GeV.'
 Keywords: []
 BibKey: Bergfeld:1994af
 BibTeX: '@article{Bergfeld:1994af,
