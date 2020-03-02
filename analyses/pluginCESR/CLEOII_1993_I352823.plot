@@ -5,7 +5,7 @@ YLabel=$1/N\text{d}N/\text{d}x_p$
 LogY=0
 END PLOT
 BEGIN PLOT /CLEOII_1993_I352823/d04-x01-y01
-Title=Helicity angle for $D_{s1}(2536)^+\to D^{*0}(\toD^0\poi^0)K^+$ 
+Title=Helicity angle for $D_{s1}(2536)^+\to D^{*0}(\to D^0\pi^0)K^+$
 XLabel=$\cos\theta$
 YLabel=$1/N\text{d}N/\text{d}\cos\theta$
 LogY=0
