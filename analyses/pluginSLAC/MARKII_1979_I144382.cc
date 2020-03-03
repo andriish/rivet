@@ -29,7 +29,7 @@ namespace Rivet {
     void findDecayProducts(const Particle & mother,
 			   unsigned int & nstable,
 			   Particles& pip, Particles& pim,
-			   Particles& pi0, Particles & onium) {
+			   Particles & onium) {
       for(const Particle & p : mother.children()) {
         int id = p.pid();
       	if ( id == PID::PIMINUS) {
@@ -40,16 +40,12 @@ namespace Rivet {
        	  pip.push_back(p);
        	  ++nstable;
        	}
-       	else if (id == PID::PI0) {
-       	  pi0.push_back(p);
-       	  ++nstable;
-       	}
-	else if (abs(id)%1000==443 || abs(id)%1000==553) {
+	else if (id==443) {
 	  onium.push_back(p);
 	  ++nstable;
 	}
 	else if ( !p.children().empty() ) {
-	  findDecayProducts(p,nstable,pip,pim,pi0,onium);
+	  findDecayProducts(p,nstable,pip,pim,onium);
 	}
 	else
 	  ++nstable;
@@ -61,12 +57,10 @@ namespace Rivet {
       // loop over unstable particles
       for(const Particle& ups : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==100443)) {
       	unsigned int nstable(0);
-      	Particles pip, pim, pi0, onium;
-      	findDecayProducts(ups,nstable,pip,pim,pi0,onium);
+      	Particles pip, pim, onium;
+      	findDecayProducts(ups,nstable,pip,pim,onium);
       	// check for onium
-      	if(onium.size() !=1 || onium[0].pid()!=443 || nstable !=3) continue;
-      	// check for pipi
-      	if( ! (pip.size()==1 && pim.size() ==1) ) continue;
+      	if(onium.size() !=1 || nstable !=3 || pip.size()!=1 || pim.size() !=1 ) continue;
       	FourMomentum q = pip[0].momentum()+pim[0].momentum();
       	_hist->fill(q.mass2());
       }
