@@ -54,7 +54,7 @@
 141565 . Study of the Reaction $e^+ e^- \to p \bar{p}$ in the Total Energy Range 1925-{MeV} - 2180-{MeV} #implemented#
 141722 . Total Cross-Section for Hadronic Production by e+ e- Annihilation in the Total Center-Of-Mass Energy Range 1.42-GeV - 3.09-GeV #implemented#
 143939 . CHARMED MESON PRODUCTION AND DECAY PROPERTIES AT THE psi-prime-prime (3770) #implemented#
-144382 . DECAYS OF THE psi-prime (3684) TO OTHER CHARMONIUM STATES
+144382 . DECAYS OF THE psi-prime (3684) TO OTHER CHARMONIUM STATES #implemented#
 145403 X RESULTS FROM DASP ON E+ E- ANNIHILATION BETWEEN 3.1-GEV AND 5.2-GEV #data elsewhere#
 152630 . Total Cross-section for Hadron Production by Electron - Positron Annihilation at Adone #implemented#
 153382 . Measurement of the $e^+ e^- \to \pi^+ \pi^- \pi^+ \pi^-$ Cross-section in the $\rho^\prime$ (1600) Energy Region #implemented#
@@ -293,7 +293,7 @@
 346742 X Experimental study of f2 (1270) in the J / psi hadronic decay #conference#
 348217 X Trigger project for the KLOE experiment at Frascati Phi-factory (DAPHNE) #detector#
 352710 X Inclusive measurement of B mesons semileptonic branching fractions #conference#
-352823 . Production and decay of the D(s1)+ (2536) #data???#
+352823 . Production and decay of the D(s1)+ (2536) #implemented#
 352983 . A Partial wave analysis of the decay D0 ---> K0(s) pi+ pi- #fig 3#
 353222 X A Limit on the tau-neutrino mass #mass#
 354224 . Kaons in flavor tagged B decays #implemented#
@@ -396,7 +396,7 @@
 392881 X Determination of the Michel parameters xi and delta in leptonic tau decays #numbers not dists#
 393519 . A Study of jet production rates in the four flavor continuum and a test of QCD #interesting but data and tex???#
 393522 X Measurement of the ratio of branching fractions B (D0 ---> pi- e+ electron-neutrino) / B (D0 ---> K- e+ electron-neutrino) #BR#
-394246 . A Search for B ---> lepton anti-lepton-neutrino #search, BR#
+394246 X A Search for B ---> lepton anti-lepton-neutrino #search, BR#
 394377 X A Study of CP violation in B meson decays: Technical design report #detector#
 394587 . A Search for lepton flavor violating decays tau ----> e alpha, tau ---> mu alpha #figs 2,3?#
 394593 X BaBar technical design report #detector#
@@ -432,7 +432,7 @@
 415612 X Measurement of the branching fraction for D(s)- ---> phi pi- #BR#
 415889 . Physics with ARGUS #review, worth looking at to find papers#
 415895 X A Measurement of B (D0 ---> K- pi+ pi0) / B (D0 ---> K- pi+) #BR#
-415897 . Analysis of D0 ---> K anti-K X decays #BR#
+415897 X Analysis of D0 ---> K anti-K X decays #BR#
 416471 . Observation of an excited charmed baryon decaying into Xi(c)0 pi+ #fig 4??#
 417820 X Precision measurement of J / psi leptonic branching fraction #BR#
 418560 X Search for a vector glueball by a scan of the J / psi resonance #search#
@@ -905,68 +905,69 @@
 593190 X Study of charmless B decays to three kaon final states #fig 6 but large backgrounds and low stats#
 593261 . Measurement of the inclusive semileptonic branching fraction of B mesons and |V(cb)| #fig 3?#
 593379 . Study of inclusive production of charmonium mesons in $B$ decay #implemented#
-593380 . A Measurement of the $B^0 \to J/\psi \pi^{+} \pi^{-}$ branching fraction #fig 1???#
+593380 X A Measurement of the $B^0 \to J/\psi \pi^{+} \pi^{-}$ branching fraction #superseeded 594586#
 593544 X Study of exclusive B decays to charmed baryons at BELLE #branching ratios#
-593909 . Measurement of branching fractions for B ---> eta(c) K(*) decays
-594000 . A Measurement of the rate of wrong sign decays D0 ---> K+ pi-
-594586 . A measurement of the $B^0 \to J/\psi \pi^+ \pi^-$ branching fraction
-594839 . Measurement of the lepton energy in the decay anti-B ---> X l anti-nu and determination of the heavy quark expansion parameters
+593909 X Measurement of branching fractions for B ---> eta(c) K(*) decays #BR#
+594000 X A Measurement of the rate of wrong sign decays D0 ---> K+ pi- #BR#
+594586 X A measurement of the $B^0 \to J/\psi \pi^+ \pi^-$ branching fraction #no implementable dists#
+594839 X Measurement of the lepton energy in the decay anti-B ---> X l anti-nu and determination of the heavy quark expansion parameters #conference#
 598375 X psi(2S) two-body and three-body hadronic decays #BR#
 598398 X A Measurement of psi(2S) resonance parameters #not unfolded#
 598948 X Measurement of hadronic cross-section and preliminary results on the pion form-factor using the radiative return at DAPHNE #conference#
 599226 X $\eta$, $\eta^\prime$ studies with the KLOE detector at DAPHNE #conference#
-599918 . Determination of the anti-B ---> D* l anti-nu decay width and |V(cb)|
-600099 . First observation of the exclusive decays Lambda+(c) ---> Lambda pi+ pi+ pi- pi0 and Lambda+(c) ---> Lambda omega pi+
-600986 . Search for the electric dipole moment of the tau lepton
+599918 . Determination of the anti-B ---> D* l anti-nu decay width and |V(cb)| #???#
+600099 X First observation of the exclusive decays Lambda+(c) ---> Lambda pi+ pi+ pi- pi0 and Lambda+(c) ---> Lambda omega pi+ #BR#
+600986 X Search for the electric dipole moment of the tau lepton #search#
 601222 . Study of the process e+ e- ---> K0(L) K0(S) in the CM energy range 1.05-GeV to 1.38-GeV with CMD-2 #implemented#
-601602 . Study of anti-B0 ---> D0(*) pi+ pi- decays
-601696 . Measuring the hadronic cross-section via radiative return
-601701 . Inclusive eta-prime production from the Upsilon(1S)
-602456 . Measurement of branching fractions and charge asymmetries for two-body B meson decays with charmonium
-602547 . A study of the rare decays $B^0 \to D_s^{(*)+} \pi^-$ and $B^0 \to D_s^{(*)-} K+$
-603171 . Measurement of the B0 - anti-B0 mixing rate with B0 (anti-B0) ---> D*-+ pi+- partial reconstruction
+601602 X Study of anti-B0 ---> D0(*) pi+ pi- decays #BR#
+601696 X Measuring the hadronic cross-section via radiative return #conference#
+601701 . Inclusive eta-prime production from the Upsilon(1S) #implemented#
+602456 X Measurement of branching fractions and charge asymmetries for two-body B meson decays with charmonium #mixing#
+602547 X A study of the rare decays $B^0 \to D_s^{(*)+} \pi^-$ and $B^0 \to D_s^{(*)-} K+$ #BR#
+603171 X Measurement of the B0 - anti-B0 mixing rate with B0 (anti-B0) ---> D*-+ pi+- partial reconstruction #mixing#
 603495 X The trigger system of the KLOE experiment #detector#
-603989 . Measurement of the $B^0$ meson lifetime with partial reconstruction of $B^0 \to D^{*-} \pi^+$ and $B^0 \to D^{*-} \rho^+$ decays
-604095 . Simultaneous measurement of the $B^0$ meson lifetime and mixing frequency with $B^0 \to D^{*-} \ell^+ \nu_\ell$ decays
-604565 . Studies of B0 - anti-B0 mixing properties with inclusive dilepton events
-604800 . First search for the flavor changing neutral current decay D0 ---> gamma gamma
+603989 X Measurement of the $B^0$ meson lifetime with partial reconstruction of $B^0 \to D^{*-} \pi^+$ and $B^0 \to D^{*-} \rho^+$ decays #lifetime#
+604095 X Simultaneous measurement of the $B^0$ meson lifetime and mixing frequency with $B^0 \to D^{*-} \ell^+ \nu_\ell$ decays #lifetime, mixing#
+604565 X Studies of B0 - anti-B0 mixing properties with inclusive dilepton events #mixing#
+604800 X First search for the flavor changing neutral current decay D0 ---> gamma gamma #search#
 604946 X KLOE at DAPHNE #detector#
-605177 . Measurement of lepton momentum moments in the decay anti-B ---> X l anti-nu and determination of heavy quark expansion parameters and |V(cb)|
-605338 . Observation of anti-B0 ---> Lambda+(c) anti-p decay
-605543 . Study of time dependent CP violating asymmetries in b ---> s anti-q q decays
-605636 . Observation of anti-B0 ---> D0 anti-K0 and anti-B0 ---> D0 anti-K*0 decays
-606309 . Measurements of inclusive $B \to \psi$ production
+605177 . Measurement of lepton momentum moments in the decay anti-B ---> X l anti-nu and determination of heavy quark expansion parameters and |V(cb)| #???#
+605338 X Observation of anti-B0 ---> Lambda+(c) anti-p decay #BR#
+605543 X Study of time dependent CP violating asymmetries in b ---> s anti-q q decays #mixing#
+605636 X Observation of anti-B0 ---> D0 anti-K0 and anti-B0 ---> D0 anti-K*0 decays #BR#
+606309 . Measurements of inclusive $B \to \psi$ production #fig1#
 607106 X Recent results from the KLOE experiment #conference#
 610925 X Results from the KLOE experiment #conference#
-611037 . Measurement of the CKM matrix element $|V_{ub}|$ with $B \to \rho e \nu$ decays
+611037 X Measurement of the CKM matrix element $|V_{ub}|$ with $B \to \rho e \nu$ decays #conference#
 611141 X Measurements of the mass and full width of the eta(c) meson #mass#
-611745 . Measurements of the branching fractions and helicity amplitudes in $B \to D^{*} \rho$ decays
-612221 . Evidence for CP violating asymmetries B0 ---> pi+ pi- decays and constraints on the CKM angle phi(2)
+611745 . Measurements of the branching fractions and helicity amplitudes in $B \to D^{*} \rho$ decays #fig 2#
+612221 X Evidence for CP violating asymmetries B0 ---> pi+ pi- decays and constraints on the CKM angle phi(2) #mixing#
 612867 . Experimental study of the e+ e- ---> pi0 gamma process in the energy region s**1/2 = 0.60-GeV - 0.97-GeV #implemented#
-613283 . Measurement of $B^0 \to D_s^{(*)+} D^{*-}$ branching fractions and $B^0 \to D_s^{(*)+} D^{*-}$ polarization with a partial reconstruction technique
-613543 . Observation of B0 ---> p anti-Lambda pi-
-613626 . Measurements of charmless hadronic two body B meson decays and the ratio B(B ---> D K) / B(B ---> D pi)
-613712 . Branching fractions of tau leptons decays to three charged hadrons
-614513 . Measurement of the branching fraction and CP-violating asymmetries in neutral $B$ decays to $D^{*\pm} D^\mp$
+613283 . Measurement of $B^0 \to D_s^{(*)+} D^{*-}$ branching fractions and $B^0 \to D_s^{(*)+} D^{*-}$ polarization with a partial reconstruction technique #fig 3#
+613543 . Observation of B0 ---> p anti-Lambda pi- #fig 2#
+613626 X Measurements of charmless hadronic two body B meson decays and the ratio B(B ---> D K) / B(B ---> D pi) #BR#
+613712 X Branching fractions of tau leptons decays to three charged hadrons #BR#
+614513 X Measurement of the branching fraction and CP-violating asymmetries in neutral $B$ decays to $D^{*\pm} D^\mp$ #mixing#
 614663 X Search for lepton flavor violation process J / psi ---> e mu #search#
 614664 . Observation of a near threshold enhancement in th p anti-p mass spectrum from radiative J / psi ---> gamma p anti-p decays #fig3?#
-614784 . Study of the charmless inclusive B ---> eta-prime X decay
+614784 . Study of the charmless inclusive B ---> eta-prime X decay #fig2?#
 615077 . Study of the decay $\phi \to \pi^+ \pi^- \pi^0$ with the KLOE detector #dists?#
-615079 . Study of time-dependent CP asymmetry in neutral $B$ decays to $J/\psi \pi^0$
-615081 . Rates, polarizations, and asymmetries in charmless vector-vector B decays
-615259 . Measurements of the branching fractions of charged B decays to K+ pi- pi+ final states
-615490 . Observation of the decay $B^\pm \to \pi^\pm \pi^0$, study of $B^\pm \to K^\pm \pi^0$, and search for $B^0 \to \pi^0 \pi^0$
-615560 . Branching fractions in $B \to \phi$ h and search for direct CP violation in $B^\pm \to \phi K^\pm$
-615636 . A Search for $B^{+} \to \tau^{+} \tau$ neutrino recoiling against $B^{-} \to D^0 \ell^-$ lepton anti-neutrino $X$
-615638 . Evidence for $B^+ \to J/\psi p \overline{\Lambda}$ and search for $B^0 \to J/\psi p \bar{p}$
-615807 . Observation of B meson decays to eta pi and eta K
-615808 . Observation of B meson decays to omega pi+, omega K+, and omega K0
-616044 . Limits on the lifetime difference of neutral B mesons and on CP, T, and CPT violation in B0 anti-B0 mixing
-616112 . Measurements of CP-violating asymmetries and branching fractions in $B$ meson decays to $\eta^\prime K$
+615079 X Study of time-dependent CP asymmetry in neutral $B$ decays to $J/\psi \pi^0$ #mixing#
+615081 X Rates, polarizations, and asymmetries in charmless vector-vector B decays #BR#
+615259 . Measurements of the branching fractions of charged B decays to K+ pi- pi+ final states #fig 5#
+615490 X Observation of the decay $B^\pm \to \pi^\pm \pi^0$, study of $B^\pm \to K^\pm \pi^0$, and search for $B^0 \to \pi^0 \pi^0$ #BR#
+615560 X Branching fractions in $B \to \phi$ h and search for direct CP violation in $B^\pm \to \phi K^\pm$ #BR#
+615636 X A Search for $B^{+} \to \tau^{+} \tau$ neutrino recoiling against $B^{-} \to D^0 \ell^-$ lepton anti-neutrino $X$ #search#
+615638 X Evidence for $B^+ \to J/\psi p \overline{\Lambda}$ and search for $B^0 \to J/\psi p \bar{p}$ #BR#
+615807 X Observation of B meson decays to eta pi and eta K #BR#
+615808 X Observation of B meson decays to omega pi+, omega K+, and omega K0 #BR#
+616044 X Limits on the lifetime difference of neutral B mesons and on CP, T, and CPT violation in B0 anti-B0 mixing #search#
+616112 X Measurements of CP-violating asymmetries and branching fractions in $B$ meson decays to $\eta^\prime K$ #mixing#
 616197 X Evidence of kappa particle in J / psi ---> anti-K*(892)0 K+ pi- #conference#
-616391 . Measurements of the branching fractions and charge asymmetries of charmless three-body charged $B$ decays
-616444 . Search for $D^0 - \bar{D}^0$ mixing and a measurement of the doubly Cabibbo-suppressed decay rate in $D^0 \to K \pi$ decays
+616391 X Measurements of the branching fractions and charge asymmetries of charmless three-body charged $B$ decays #BR#
+616444 X Search for $D^0 - \bar{D}^0$ mixing and a measurement of the doubly Cabibbo-suppressed decay rate in $D^0 \to K \pi$ decays #search#
 616446 . Study of the process e+ e- ---> omega pi0 ---> pi0 pi0 gamma in c.m. energy range 920-MeV - 1380-MeV at CMD-2 #implemented#
+
 616525 X First evidence of Lambda anti-Lambda in chi(cJ) decays #br#
 616619 . Rare $B$ decays into states containing a $J/\psi$ meson and a meson with $s \bar{s}$ quark content
 616620 . Search for B ---> anti-p e- anti-nu(e) X decay using a partial reconstruction method
@@ -1433,7 +1434,7 @@
 686797 . An amplitude analysis of the decay $B^\pm \to \pi^\pm \pi^\pm \pi^\mp$
 686798 . Dalitz plot analysis of $D^0 \to \bar{K}^0 K^+ K^-$
 686891 . Measurement of the Branching Fraction of B0 Meson Decay to a(1)+(1260) pi-
-686892 . Observation of D(s1)(2536)+ ---> D+ pi- K+
+686892 X Observation of D(s1)(2536)+ ---> D+ pi- K+ #superseeded 762013#
 686893 . Measurement of branching fractions and mass spectra of $B \to K \pi \pi \gamma$
 686992 . Observation of a chi'(c2) candidate in gamma gamma ---> D anti-D production in Belle
 686993 . Search for B ---> tau nu and B ---> K nu anti-nu decays with a fully reconstructed B at Belle
@@ -1545,36 +1546,37 @@
 709052 X Measurement of the form-factor slopes for the decay $K(L) \to \pi^\pm e^\mp \nu$ with the KLOE detector #not implementable#
 709461 . First measurements of the exclusive decays of the upsilon(5S) to B meson final states and improved B*(S) mass measurement
 709463 . Determinations of |V(ub)| from inclusive semileptonic B decays with reduced model dependence
-709730 . The $e^+e^- \to 3(\pi^+ \pi^-), 2(\pi^+ \pi^- \pi^0)$ and $K^+ K^- 2(\pi^+ \pi^-)$ cross sections at center-of-mass energies from production threshold to 4.5-GeV measured with initial-state radiation
-710344 . Measurements of the $B \to D^{*}$ form-factors using the decay $\bar{B}^0 \to D^{*+} e^{-}$ electron-neutrino
-710707 . Observation of a near-threshold enhancement in the omega phi mass spectrum from the doubly OZI suppressed decay J / psi --> gamma omega phi #fig3?#
-710864 . Charmonium decays of Y(4260), psi(4160) and psi(4040)
-711380 . Measurement of time-dependent CP asymmetries in $B^0 \to D^{(*)}$ +- $\pi^\mp$ and $B^0 \to D^\pm \rho^\mp$ decays
-711492 . Evidence for B ---> eta-prime pi and improved measurements for B ---> eta-prime K
-711845 . Measurements of the branching fraction and time-dependent CP asymmetries of $B^0 \to J/\psi \pi^0$ decays
-711846 . Branching fraction limits for B0 decays to eta-prime eta, eta- prime pi0 and eta pi0
-712066 . Measurement of Forward-Backward Asymmetry and Wilson Coefficients in B ---> K* l+ l-
-712068 . Measurement of interference between electromagnetic and strong amplitudes in psi(2S) decays to two pseudoscalar mesons
-712216 X Measurement of the pion form-factor in the range 1.04-GeV to 1.38-GeV with the CMD-2 detector #only form factro not sigma#
-712308 . Search for the non-D anti-D decay psi(3770) ---> K0(S) K0(L)
-712736 . Search for neutrinoless decays tau ---> l h h and tau ---> l V0
-712740 . Measurements of CP-violating asymmetries and branching fractions in B decays to omega K and omega pi
-712824 X Measurement of the branching ratio of the $K(L) \to \pi^+ \pi^-$ decay with the KLOE detector #BR#
-712993 . Observation of B0 Meson Decay to a+-(1)(1260) pi-+
-713179 . Search for T, CP and CPT violation in B0 anti-B0 mMixing with inclusive dilepton events
-713270 . Observation of a charmed baryon decaying to D0p at a mass near 2.94-GeV/c**2
-713342 . Measurement of branching fractions in radiative B decays to eta K gamma and search for B decays to eta-prime K gamma
-713678 X Search for the rare decays J/psi ---> D-(s) e+ nu(e), J/psi ---> anti-D0 e+ e- #search#
-713679 . Search for the charmed pentaquark candidate Theta(c)(3100)0 in e+ e- annihilations at s**(1/2) = 10.58-GeV
-713779 . Measurements of branching fractions, rate asymmetries, and angular distributions in the rare decays $B \to K \ell^{+} \ell^{-}$ and $B \to K^{*} \ell^{+} \ell^{-}$
-713862 . Study of the decay $\bar{B}^0 \to D^{*+} \omega \pi^{-}$
-713981 . Observation of Decays $B^0 \to D_s$ (*) + $\pi^{-}$ and $B^0 \to D_s$ (*) - $K^{+}$
-713982 . Measurements of CP violation in B0 ---> D*- pi+ and B0 ---> D- pi+ decays
-713983 . Search for the decay $\tau^{-} \to 3 \pi^{-} 2 \pi^{+} 2 \pi^0 \nu_{tau}$
-714058 . Measurement of $\bar{b}^0 \to D^{(*)} 0 \bar{K}$( *) 0 branching fractions
-714147 . Measurement of the $B^{-} \to D^0 K^{*-}$ branching fraction
-714148 . Evidence of the Purely Leptonic Decay B- ---> tau- anti-nu(tau)
 
+
+709730 . The $e^+e^- \to 3(\pi^+ \pi^-), 2(\pi^+ \pi^- \pi^0)$ and $K^+ K^- 2(\pi^+ \pi^-)$ cross sections at center-of-mass energies from production threshold to 4.5-GeV measured with initial-state radiation #implemented#
+710344 X Measurements of the $B \to D^{*}$ form-factors using the decay $\bar{B}^0 \to D^{*+} e^{-}$ electron-neutrino #not implementable#
+710707 . Observation of a near-threshold enhancement in the omega phi mass spectrum from the doubly OZI suppressed decay J / psi --> gamma omega phi #fig3?#
+710864 . Charmonium decays of Y(4260), psi(4160) and psi(4040) #dists#
+711380 X Measurement of time-dependent CP asymmetries in $B^0 \to D^{(*)}$ +- $\pi^\mp$ and $B^0 \to D^\pm \rho^\mp$ decays #BR#
+711492 X Evidence for B ---> eta-prime pi and improved measurements for B ---> eta-prime K #BR#
+711845 X Measurements of the branching fraction and time-dependent CP asymmetries of $B^0 \to J/\psi \pi^0$ decays #BR#
+711846 X Branching fraction limits for B0 decays to eta-prime eta, eta- prime pi0 and eta pi0 #BR#
+712066 . Measurement of Forward-Backward Asymmetry and Wilson Coefficients in B ---> K* l+ l- #???#
+712068 X Measurement of interference between electromagnetic and strong amplitudes in psi(2S) decays to two pseudoscalar mesons #BR#
+712216 X Measurement of the pion form-factor in the range 1.04-GeV to 1.38-GeV with the CMD-2 detector #only form factro not sigma#
+712308 X Search for the non-D anti-D decay psi(3770) ---> K0(S) K0(L) #search#
+712736 X Search for neutrinoless decays tau ---> l h h and tau ---> l V0 #search#
+712740 X Measurements of CP-violating asymmetries and branching fractions in B decays to omega K and omega pi #mixing#
+712824 X Measurement of the branching ratio of the $K(L) \to \pi^+ \pi^-$ decay with the KLOE detector #BR#
+712993 X Observation of B0 Meson Decay to a+-(1)(1260) pi-+ #BR#
+713179 X Search for T, CP and CPT violation in B0 anti-B0 mMixing with inclusive dilepton events #mixing#
+713270 X Observation of a charmed baryon decaying to D0p at a mass near 2.94-GeV/c**2 #mass, width#
+713342 X Measurement of branching fractions in radiative B decays to eta K gamma and search for B decays to eta-prime K gamma #BR#
+713678 X Search for the rare decays J/psi ---> D-(s) e+ nu(e), J/psi ---> anti-D0 e+ e- #search#
+713679 X Search for the charmed pentaquark candidate Theta(c)(3100)0 in e+ e- annihilations at s**(1/2) = 10.58-GeV #search#
+713779 . Measurements of branching fractions, rate asymmetries, and angular distributions in the rare decays $B \to K \ell^{+} \ell^{-}$ and $B \to K^{*} \ell^{+} \ell^{-}$ #???#
+713862 . Study of the decay $\bar{B}^0 \to D^{*+} \omega \pi^{-}$ #figs 6,8#
+713981 X Observation of Decays $B^0 \to D_s$ (*) + $\pi^{-}$ and $B^0 \to D_s$ (*) - $K^{+}$ #BR#
+713982 X Measurements of CP violation in B0 ---> D*- pi+ and B0 ---> D- pi+ decays #mixing#
+713983 X Search for the decay $\tau^{-} \to 3 \pi^{-} 2 \pi^{+} 2 \pi^0 \nu_{tau}$ #search#
+714058 X Measurement of $\bar{b}^0 \to D^{(*)} 0 \bar{K}$( *) 0 branching fractions #BR#
+714147 . Measurement of the $B^{-} \to D^0 K^{*-}$ branching fraction #fig 2?#
+714148 X Evidence of the Purely Leptonic Decay B- ---> tau- anti-nu(tau) #BR#
 714316 X Measurements of branching fractions and q**2 distributions for B ---> pi l nu and B ---> rho l nu decays with B ---> D(*) l nu decay tagging #not implementable#
 714447 . A Study of the D*(sJ)(2317) and D(sJ)(2460) Mesons in Inclusive c anti-c Production Near (s)**(1/2) = 10.6-GeV #implementable figs#
 714448 . Observation of Upsilon(4S) decays to pi+ pi- Upsilon(1S) and pi+ pi- Upsilon(2S) #fig 3#
@@ -1586,7 +1588,7 @@
 715346 X Measurement of the DAFNE luminosity with the KLOE detector using large angle Bhabha scattering #Luminosity measurement#
 715430 . Measurement of D0 ---> pi l nu (Kl nu) Form Factors and Absolute Branching Fractions #???#
 715530 . Measurement of phi(3) with Dalitz plot analysis of B+ ---> D(*)K(*)+ decay #fig 2?#
-715623 . Dalitz plot analysis of the decay $B^\pm \to K^\pm K^\pm K^\mp$ #not implementable#
+715623 X Dalitz plot analysis of the decay $B^\pm \to K^\pm K^\pm K^\mp$ #not implementable#
 715830 X Search for the h(c) meson in B+- ---> h(c) K+- #search#
 715831 X Search for B Meson Decays to eta' eta' K #search#
 716145 X B meson decays to mega K*, omega rho, omega omega, omega phi, and omega f(0) #BR#
@@ -2335,10 +2337,10 @@
 884579 X Search for CP Violation in the Decays $D^0\rightarrow K^0_S P^0$ #search#
 884880 X Searches for the baryon- and lepton-number violating decays $B^0\rightarrow\Lambda_c^+\ell^-$, $B^-\rightarrow\Lambda\ell^-$, and $B^-\rightarrow\bar{\Lambda}\ell^-$ #search#
 886797 X Study of the decays $B -> D_{s1}(2536)^+ \bar{D}^{(*)}$ #BR#
-886818 . Measurements of time-dependent CP asymmetries in $B \to D^{*\mp} \pi^{\pm}$ decays using a partial reconstruction technique #mixing#
+886818 X Measurements of time-dependent CP asymmetries in $B \to D^{*\mp} \pi^{\pm}$ decays using a partial reconstruction technique #mixing#
 889524 . Observation of $B_s^0\to J/\psi f_0(980)$ and Evidence for $B_s^0\to J/\psi f_0(1370)$ #figs#
 890325 X Evidence for the $h_b(1P)$ meson in the decay $\Upsilon(3S) \to \pi^0 h_b(1P)$ #BR#
-892421 . Measurement of the mass and width of the D(s1)(2536)+ meson #figs 12,12?#
+892421 . Measurement of the mass and width of the D(s1)(2536)+ meson #figs 11,12?#
 892684 . Cross Sections for the Reactions e+e- --> K+ K- pi+pi-, K+ K- pi0pi0, and K+ K- K+ K- Measured Using Initial-State Radiation Events #implemented#
 892990 . First observation of the $P$-wave spin-singlet bottomonium states $h_b(1P)$ and $h_b(2P)$ #???#
 893232 . Observation of $\eta_c(1S)$ and $\eta_c(2S)$ decays to $K^+ K^- \pi^+ \pi^- \pi^0$ in two-photon interactions #???#
@@ -2378,7 +2380,7 @@
 931212 X Evidence for Direct CP Violation in $B^\pm \to \eta h^\pm$ and Observation of $B^0 \to \eta K^0$ #mixing#
 939487 . Observation of two charged bottomonium-like resonances in Y(5S) decays #figs 2,3#
 942722 X A Measurement of the Semileptonic Branching Fraction of the B_s Meson #BR#
-943293 . Search for Bbar --> Lambda_c+ X l- nu_l Decays in Events With a Fully Reconstructed B Meson #search#
+943293 X Search for Bbar --> Lambda_c+ X l- nu_l Decays in Events With a Fully Reconstructed B Meson #search#
 943722 X Search for the Decay $D^0 -> \gamma \gamma$ and Measurement of the Branching Fraction for $D^0 -> \pi^0 \pi^0$ #BR#
 944146 X Measurements of the mass and width of the $\eta_c$ using $\psi' -> \gamma \eta_c$ #mass and width#
 945306 X Search for a light Higgs-like boson $A^0$ in $J/\psi$ radiative decays #search#
@@ -2398,7 +2400,7 @@
 1089359 X Search for lepton-number violating processes in $B^+ \to h^- l^+ l^+$ decays #search#
 1090664 . Observation of new resonant structures in $\gamma \gamma \to \omega \phi$, $\phi \phi$ and $\omega \omega$ #implementable figs#
 1091435 . Measurement of the hadronic form-factor in $D^0 \to K^{-} e^{+} \nu_{e}$ 1 #table 2#
-1095371 . Evidence for CP Violation in the Decay $D^+\rightarrow K^0_S\pi^+$ #BR, mixing#
+1095371 X Evidence for CP Violation in the Decay $D^+\rightarrow K^0_S\pi^+$ #BR, mixing#
 1095407 X Measurements of Branching Fractions and Time-dependent CP Violating Asymmetries in $B^{0} \to D^{(*)\pm}D^{\mp}$ Decays #mixing#
 1097066 . Evidence for the Direct Two-Photon Transition from $\psi(3686)$ to $J/\psi$ #fig 3?#
 1107905 . Study of the reaction $e^{+}e^{-} \to J/\psi\pi^{+}\pi^{-}$ via initial-state radiation at BaBar #fig3??#
@@ -2483,7 +2485,7 @@
 1217420 . Study of the process $e^+e^-\to 3(\pi^+\pi^-)$ in the c.m.energy range 1.5--2.0 gev with the cmd-3 detector #implemented#
 1217421 . Study of $e^+e^- \to p \bar{p}$ via initial-state radiation at BABAR #implemented#
 1217425 . Study of the decay $\bar{B}^{0}\rightarrow\Lambda_{c}^{+}\bar{p}\pi^{+}\pi^{-}$ and its intermediate states #figs 9,10#
-1217553 . Measurement of the CP violation parameters in $B^0 \to \pi^+ \pi^-$ decays #mixing#
+1217553 X Measurement of the CP violation parameters in $B^0 \to \pi^+ \pi^-$ decays #mixing#
 1219953 X Search for an $H$-dibaryon with mass  near $2m_\Lambda$ in $\Upsilon(1S)$ and $\Upsilon(2S)$ decays #search#
 1222328 X Measurement of an Excess of $\bar{B} \to D^{(*)}\tau^- \bar{\nu}_\tau$ Decays and Implications for Charged Higgs Bosons #BR#
 1223625 . Study of $J/ψ → ωp\overline{p}$ at BESIII #fig 4?#
