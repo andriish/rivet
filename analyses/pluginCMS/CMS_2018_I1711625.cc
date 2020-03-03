@@ -38,8 +38,6 @@ namespace Rivet {
       book(_h_massMuMu, 3, 1, 1); /// muon channel result in full-phase space @ dressed level
       book(_h_massMuMuFiducial, 5, 1, 1); /// muon channel result in fiducial region @ post-FSR level
       book(_h_massEEFiducial, 6, 1, 1); /// electron channel result in fiducial region @ post-FSR level
-      book(_sumWeight_mumu, "_auxSumWmumu");
-      book(_sumWeight_ee, "_auxSumWee");
     }
 
 
@@ -49,13 +47,11 @@ namespace Rivet {
       const DressedLeptons muons_dressed = apply<DressedLeptons>(event, "DressedMuons");
       bool filled_mu = FillHistogram_DressedLepton(muons_dressed, 13);
       if ( filled_mu ) {
-        _sumWeight_mumu->fill();
 
         const PromptFinalState muons_PFS = apply<PromptFinalState>(event, "PromptFinalStateMuons");
         FillHistogram_PFSLepton(muons_PFS, 13);
       }
       else { // electron channel
-        _sumWeight_ee->fill();
 
         const PromptFinalState electrons_PFS = apply<PromptFinalState>(event, "PromptFinalStateElectrons");
         FillHistogram_PFSLepton(electrons_PFS, 11);
@@ -65,9 +61,11 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale(_h_massMuMu, crossSection()/picobarn/_sumWeight_mumu->sumW()); /// norm to cross section
-      scale(_h_massMuMuFiducial, crossSection()/picobarn/_sumWeight_mumu->sumW()); /// norm to cross section
-      scale(_h_massEEFiducial, crossSection()/picobarn/_sumWeight_ee->sumW()); /// norm to cross section
+
+      scale(_h_massMuMu, crossSection()/picobarn/sumOfWeights()); /// norm to cross section
+      scale(_h_massMuMuFiducial, crossSection()/picobarn/sumOfWeights()); /// norm to cross section
+      scale(_h_massEEFiducial, crossSection()/picobarn/sumOfWeights()); /// norm to cross section
+
     }
 
     //@}
@@ -82,10 +80,6 @@ namespace Rivet {
     Histo1DPtr _h_massMuMuFiducial;
     Histo1DPtr _h_massEEFiducial;
     //@}
-
-    // weights for each channel
-    CounterPtr _sumWeight_mumu;
-    CounterPtr _sumWeight_ee;
 
 
     // select two opposite sign leptons with highest pT & fill the histogram for full-phase space diff. x-section
