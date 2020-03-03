@@ -18,11 +18,15 @@
 	(and helpful error message) if being dereferenced to a null
 	pointer.
 
-2020-03-02  Peter Richardson <peter.richardson@durham.ac.uk>
+2020-03-03  Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add  Upsilon(4S) -> pipi Upsilon(1,2S)
 	* Add BABAR_2006_I714448 Upsilon(4S) -> pipi Upsilon(1,2S)
 	* Add CLEOII_1995_I404590 Xi_c+ spectra
+	* Add CLEOII_1999_I501417 Xi_c1 spectra
+
+2020-03-02  Peter Richardson <peter.richardson@durham.ac.uk>
+
 	* Add CLEOII_1994_I378319 charged D_1,D_2 spectrum
 	* Add CLEO_1992_I315181 baryon spectra in B decays
 	* Add CLEOII_1994_I372349 neutral D_1,D_2 spectrum
