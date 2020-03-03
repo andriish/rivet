@@ -24,6 +24,7 @@
 	* Add BABAR_2006_I714448 Upsilon(4S) -> pipi Upsilon(1,2S)
 	* Add CLEOII_1995_I404590 Xi_c+ spectra
 	* Add CLEOII_1999_I501417 Xi_c1 spectra
+	* Add CLEOII_1997_I424575 Sigma_c* spectra
 
 2020-03-02  Peter Richardson <peter.richardson@durham.ac.uk>
 
@@ -45,7 +46,7 @@
 	* Add ARGUS_1997_I440304 Lambda_c* spectrum
 	* Add ARGUS_1993_I357132 Lambda_c* spectrum
 	* Add BABAR_2007_I1091435 D0->K- semileptonic
-	* Add BESIII_2018_I1655158 D0->pi- and S+->pi0 semileptonic
+	* Add BESIII_2018_I1655158 D0->pi- and D+->pi0 semileptonic
 
 2020-02-28  Christian Gutschow  <chris.g@cern.ch>
 
