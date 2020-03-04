@@ -8,15 +8,19 @@
 	(and helpful error message) if being dereferenced to a null
 	pointer.
 
-2020-03-05  Andy Buckley  <andy.buckley@cern.ch>
-
-	* Improve the 'couldn't import rivet module' error message.
-
 2020-03-06  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Make AnalysisObject pointer wrapper objects throw an exception
 	(and helpful error message) if being dereferenced to a null
 	pointer.
+
+2020-03-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Improve the 'couldn't import rivet module' error message.
+
+2020-03-04  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CLEO_1990_I298611 Lambda_c spectra
 
 2020-03-03  Peter Richardson <peter.richardson@durham.ac.uk>
 
