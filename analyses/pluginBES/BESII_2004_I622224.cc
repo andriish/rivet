@@ -33,6 +33,8 @@ namespace Rivet {
 	iloc = 5;
       else if(fuzzyEquals(sqrtS()/GeV, 4.8 , 1E-3))
 	iloc = 6;
+      else
+	MSG_ERROR("Beam energy not supported!");
       assert(iloc!=0);
       book(_h_ln, iloc   ,1,1);
       book(_h_weight, "TMP/Weight");
