@@ -178,8 +178,7 @@ namespace Rivet {
 
       void finalize() {
         const double sf = crossSectionPerEvent();
-        for (auto hist : _h) { scale(hist.second, sf); }
-        for (auto hist : _hST) { scale(hist.second, sf); }
+        scale(_h, sf); scale(_hST, sf);
       }
 
       //@}

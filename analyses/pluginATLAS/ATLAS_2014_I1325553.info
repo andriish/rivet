@@ -23,7 +23,7 @@ Description:
   with radius parameter values of 0.4 and 0.6. The double-differential cross-sections are presented
   as a function of the jet transverse momentum and the jet rapidity, covering jet transverse momenta
   from 100 GeV to 2 TeV.
-BibKey: Aad:2014vwa,
+BibKey: Aad:2014vwa
 BibTeX: '@article{Aad:2014vwa,
       author         = "Aad, Georges and others",
       title          = "{Measurement of the inclusive jet cross-section in

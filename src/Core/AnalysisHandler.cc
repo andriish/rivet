@@ -37,7 +37,7 @@ namespace Rivet {
 
 
   Log& AnalysisHandler::getLog() const {
-    return Log::getLog("Rivet.Analysis.Handler");
+    return Log::getLog("Rivet.AnalysisHandler");
   }
 
 
@@ -166,7 +166,7 @@ namespace Rivet {
       for ( int i = 0, N = _weightNames.size(); i < N; ++i ) {
         if ( _weightNames[i] == "" ) _defaultWeightIdx = i;
       }
-      if (_skipWeights)  _weightNames = { _weightNames[_defaultWeightIdx] }; 
+      if (_skipWeights)  _weightNames = { _weightNames[_defaultWeightIdx] };
     }
   }
 

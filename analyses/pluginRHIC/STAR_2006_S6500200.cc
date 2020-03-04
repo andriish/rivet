@@ -38,9 +38,9 @@ namespace Rivet {
       book(_h_pT_antiproton ,17, 1, 1);
 
       book(_s_piminus_piplus, 23, 1, 2);
-      book(_s_antipr_pr     , 24, 2, 2);
-      book(_s_pr_piplus     , 25, 3, 2);
-      book(_s_antipr_piminus, 26, 4, 2);
+      book(_s_antipr_pr     , 24, 1, 2);
+      book(_s_pr_piplus     , 25, 1, 2);
+      book(_s_antipr_piminus, 26, 1, 2);
 
       book(_sumWeightSelected, "sumWeightSelected");
     }

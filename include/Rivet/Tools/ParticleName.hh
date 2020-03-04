@@ -159,6 +159,13 @@ namespace Rivet {
     static const PdgId NEUTRALINO1 = 1000022;
     static const PdgId GRAVITINO = 1000039;
     static const PdgId GLUINO = 1000021;
+    static const int BPRIME = 7;
+    static const int TPRIME = 8;
+    static const int LPRIME = 17;
+    static const int NUPRIME = 18;
+    // static const int DARKMATTERSCALAR = 1000051;
+    // static const int DARKMATTERFERMION = 1000052;
+    // static const int DARKMATTERVECTOR = 1000053;
     /// @todo Add axion, black hole remnant, etc. on demand
     //@}
 

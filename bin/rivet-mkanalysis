@@ -220,7 +220,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    ///@{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -295,15 +295,15 @@ namespace Rivet {
 
     }
 
-    //@}
+    ///@}
 
 
     /// @name Histograms
-    //@{
+    ///@{
     map<string, Histo1DPtr> _h;
     map<string, Profile1DPtr> _p;
     map<string, CounterPtr> _c;
-    //@}
+    ///@}
 %(INLINEMETHODS)s
 
   };
@@ -356,9 +356,8 @@ References:
 #Energies: [[6500,6500]]
 #Luminosity_fb: 139.0
 Description:
-  'A brief description of what is measured and what it is useful for
-  in terms of MC testing, tuning, reinterpretation, etc. Use LaTeX
-  for maths, e.g. $\pT > 50\;\GeV$.'
+  'A brief description of what is measured and what it is useful for.
+   Use LaTeX for maths, e.g. $\pT > 50\;\GeV$.'
 ValidationInfo:
   'A description of the process used to validate the Rivet code against
   the original experimental analysis. Cut-flow tables and similar information

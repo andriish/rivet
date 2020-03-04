@@ -44,6 +44,8 @@ parser.add_argument("-i", "--ignore-unvalidated", dest="IGNORE_UNVALIDATED", act
                     default=False, help="ignore unvalidated analyses")
 # parser.add_argument("--ref", "--refid", dest="REF_ID",
 #                   default=None, help="ID of reference data set (file path for non-REF data)")
+parser.add_argument("--no-rivet-refs", dest="RIVETREFS", action="store_false",
+                        default=True, help="don't use Rivet reference data files")
 parser.add_argument("--dry-run", help="don't actually do any plotting or HTML building", dest="DRY_RUN",
                     action="store_true", default=False)
 parser.add_argument("--no-cleanup", dest="NO_CLEANUP", action="store_true", default=False,
@@ -230,6 +232,8 @@ if args.MC_ERRS:
     ch_cmd.append("--mc-errs")
 if not args.SHOW_RATIO:
     ch_cmd.append("--no-ratio")
+if not args.RIVETREFS:
+    ch_cmd.append("--no-rivet-refs")
 if args.NOPLOTTITLE:
     ch_cmd.append("--no-plottitle")
 if args.REMOVE_OPTIONS:
@@ -458,6 +462,10 @@ def which(program):
 ## Run make-plots on all generated .dat files
 # sys.exit(0)
 mp_cmd = ["make-plots"]
+for configfile in args.CONFIGFILES:
+    configfile = os.path.abspath(os.path.expanduser(configfile))
+    if os.access(configfile, os.R_OK):
+        mp_cmd.append("--config=%s" % configfile)
 if args.NUMTHREADS:
     mp_cmd.append("--num-threads=%d" % args.NUMTHREADS)
 if args.NO_CLEANUP:

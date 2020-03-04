@@ -223,7 +223,7 @@ namespace Rivet {
     /// Finalize
     void finalize() {
       const double sf = crossSection() / femtobarn / sumOfWeights();
-      for (auto hist : _h) { scale(hist.second, sf); }
+      scale(_h, sf);
     }
 
 

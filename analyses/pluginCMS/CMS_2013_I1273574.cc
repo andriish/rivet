@@ -21,17 +21,41 @@ namespace Rivet {
       const FinalState cnfs((Cuts::etaIn(-4.7, 4.7)));
       declare(FastJets(cnfs, FastJets::ANTIKT, 0.5), "Jets");
 
-      book(_h_jetetas[0]     ,1,1,1);
+      // Modified to match the HEPDATA record.
+      // eta of highest pT jet
+      //book(_h_jetetas[0]     ,1,1,1);
+      book(_h_jetetas[0]     ,6,1,1);
+
+      // pt of the highest pT jet
       book(_h_jetpts[0]      ,2,1,1);
-      book(_h_DeltaS         ,3,1,1);
-      book(_h_DeltaPhiSoft   ,4,1,1);
-      book(_h_DeltaPtRelSoft ,5,1,1);
-      book(_h_jetetas[2]     ,6,1,1);
-      book(_h_jetpts[2]      ,7,1,1);
-      book(_h_jetetas[3]     ,8,1,1);
-      book(_h_jetpts[3]      ,9,1,1);
-      book(_h_jetetas[1]     ,10,1,1);
-      book(_h_jetpts[1]      ,11,1,1);
+
+      //book(_h_DeltaS         ,3,1,1);
+      book(_h_DeltaS         ,12,1,1);
+
+      //book(_h_DeltaPhiSoft   ,4,1,1);
+      book(_h_DeltaPhiSoft   ,10,1,1);
+
+      //book(_h_DeltaPtRelSoft ,5,1,1);
+      book(_h_DeltaPtRelSoft ,11,1,1);
+
+      // eta and pT of 3rd highest pT jet
+      //book(_h_jetetas[2]     ,6,1,1);
+      //book(_h_jetpts[2]      ,7,1,1);
+      book(_h_jetetas[2]     ,8,1,1);
+      book(_h_jetpts[2]      ,4,1,1);
+
+      // eta and pT of 4th highest pT jet
+      //book(_h_jetetas[3]     ,8,1,1);
+      //book(_h_jetpts[3]      ,9,1,1);
+      book(_h_jetetas[3]     ,9,1,1);
+      book(_h_jetpts[3]      ,5,1,1);
+
+      // eta and pT of 2nd highest pT jet
+      //book(_h_jetetas[1]     ,10,1,1);
+      //book(_h_jetpts[1]      ,11,1,1);
+      book(_h_jetetas[1]     ,7,1,1);
+      book(_h_jetpts[1]      ,3,1,1);
+
     }
 
 
