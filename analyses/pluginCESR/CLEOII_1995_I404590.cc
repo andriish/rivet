@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Xi_c+ spectrum
   class CLEOII_1995_I404590 : public Analysis {
   public:
 
