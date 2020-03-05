@@ -27,17 +27,21 @@ Description:
   Mass of the two leading jets in bins of the mean \pT of the two jets.'
 References:
   - arXiv:1303.4811
-BibKey: 'Chatrchyan:2013rla'
-BibTeX: '@article{Chatrchyan:2013rla,
+BibKey: 'Chatrchyan:2013vbb'
+BibTeX: '@article{Chatrchyan:2013vbb,
       author         = "Chatrchyan, Serguei and others",
-      title          = "{Studies of jet mass in dijet and $W/Z$+jet events}",
-      collaboration  = "CMS Collaboration",
+      title          = "{Studies of Jet Mass in Dijet and W/Z + Jet Events}",
+      collaboration  = "CMS",
+      journal        = "JHEP",
+      volume         = "05",
       year           = "2013",
+      pages          = "090",
+      doi            = "10.1007/JHEP05(2013)090",
       eprint         = "1303.4811",
       archivePrefix  = "arXiv",
       primaryClass   = "hep-ex",
       reportNumber   = "CMS-SMP-12-019, CERN-PH-EP-2013-016",
-      SLACcitation   = "%%CITATION = ARXIV:1303.4811;%%",
+      SLACcitation   = "%%CITATION = ARXIV:1303.4811;%%"
 }'
 
 ReleaseTests:
