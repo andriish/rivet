@@ -1,6 +1,6 @@
 # Merging rivet runs with `rivet-merge`
 
-As ov version 2.7 the concept of a *reentrant* analysis was introduced in Rivet.
+As of version 2.7 the concept of a *reentrant* analysis was introduced in Rivet.
 This means that an analysis is written so that the `finalize` method can be run
 several times. This also means that `rivet` can read in a previously produced
 `yoda` file and re-run `finalize`. One of the advantages of this is that it is
@@ -36,5 +36,5 @@ they are simply merged together with
 rivet-merge run_10-20.yoda run_20-50.yoda run_50-100.yoda run_100-inf.yoda 
 ```
 (note the absence of `-e`) where the merged result is found in the default
-output file Ŕivet.yoda`.
+output file `Rivet.yoda`.
 
