@@ -57,7 +57,7 @@ how to implement and contribute your own analyses.
 
 [Writing an analysis with FastJet](fastjet.md)
 
-[Contributing a routine](ancontrib.md)
+[Contributing a routine](anacontrib.md)
 
 [Migrating from Rivet v2 to Rivet v3](mig2to3.md)
 
