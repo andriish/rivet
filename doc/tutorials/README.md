@@ -39,11 +39,11 @@ how to implement and contribute your own analyses.
 
 ## Advanced running and plotting
 
-[Using analysis options](anaoptions.md)
+[Using analysis options (work in progress)](anaoptions.md)
 
-[Preload files, centrality calibration](calibration.md)
+[Preload files, centrality calibration (work in progress)](calibration.md)
 
-[Merging separate physics runs with `rivet-merge`](merging2.md)
+[Merging separate physics runs with `rivet-merge` (work in progress)](merging2.md)
 
 
 ## Writing a Rivet analysis
@@ -64,8 +64,6 @@ how to implement and contribute your own analyses.
 
 ## Developer topics
 
-[Working with development source](developer.md)
-
-[Submitting an analysis](submitanalysis.md)
+[Working with development source (work in progress)](developer.md)
 
 [Coding style](codingstyle.md)
