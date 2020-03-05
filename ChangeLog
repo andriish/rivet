@@ -1,3 +1,7 @@
+2020-03-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Improve the 'couldn't import rivet module' error message.
+
 2020-02-28  Christian Gutschow  <chris.g@cern.ch>
 
 	* Add patch to allow finding of zipped reference data
