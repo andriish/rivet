@@ -65,7 +65,7 @@ re-running the data processing steps. rivet-cmphistos also accepts various
 command-line modifiers to change major rendering features. The most convenient way
 to make plots from Rivet YODA files, however, is with the rivet-mkhtml script:
 
-> rivet-mkhtml path/to/CDF_2001_S4751469.aida py.aida:'Pythia 6.418' hw.aida:'Herwig++ 2.3.0'
+> rivet-mkhtml path/to/CDF_2001_S4751469.yoda py.yoda:'Pythia 6.418' hw.yoda:'Herwig++ 2.3.0'
 
 will create a rivet-plots directory containing a set of web pages with thumbnail
 plot images, linked to full PDF versions of the plots.

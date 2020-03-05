@@ -30,7 +30,7 @@ namespace Rivet {
 
 
   /// Wrapper projection for smearing {@link Jet}s with detector resolutions and efficiencies
-  class SmearedJets : public JetAlg {
+  class SmearedJets : public JetFinder {
   public:
 
     /// @name Constructors etc.
@@ -39,7 +39,7 @@ namespace Rivet {
     /// @brief Constructor with a reco efficiency and optional tagging efficiencies
     ///
     /// @todo Add a tau-tag slot
-    SmearedJets(const JetAlg& ja,
+    SmearedJets(const JetFinder& ja,
                 const JetSmearFn& smearFn,
                 const JetEffFn& bTagEffFn=JET_BTAG_PERFECT,
                 const JetEffFn& cTagEffFn=JET_CTAG_PERFECT)
@@ -50,7 +50,7 @@ namespace Rivet {
     /// @brief Constructor with tagging efficiencies, plus an ordered init-list of efficiency and smearing functions
     ///
     /// @todo Add a tau-tag slot
-    SmearedJets(const JetAlg& ja,
+    SmearedJets(const JetFinder& ja,
                 const JetEffFn& bTagEffFn=JET_BTAG_PERFECT,
                 const JetEffFn& cTagEffFn=JET_CTAG_PERFECT,
                 const initializer_list<JetEffSmearFn>& effSmearFns={})
@@ -60,7 +60,7 @@ namespace Rivet {
     /// @brief Constructor with tagging efficiencies, plus an ordered vector of efficiency and smearing functions
     ///
     /// @todo Add a tau-tag slot
-    SmearedJets(const JetAlg& ja,
+    SmearedJets(const JetFinder& ja,
                 const JetEffFn& bTagEffFn=JET_BTAG_PERFECT,
                 const JetEffFn& cTagEffFn=JET_CTAG_PERFECT,
                 const vector<JetEffSmearFn>& effSmearFns={})
@@ -71,7 +71,7 @@ namespace Rivet {
     /// @brief Constructor with an ordered init-list of efficiency and smearing functions, plus optional tagging efficiencies
     ///
     /// @todo Add a tau-tag slot
-    SmearedJets(const JetAlg& ja,
+    SmearedJets(const JetFinder& ja,
                 const initializer_list<JetEffSmearFn>& effSmearFns,
                 const JetEffFn& bTagEffFn=JET_BTAG_PERFECT,
                 const JetEffFn& cTagEffFn=JET_CTAG_PERFECT)
@@ -81,7 +81,7 @@ namespace Rivet {
     /// @brief Constructor with an ordered vector of efficiency and smearing functions, plus optional tagging efficiencies
     ///
     /// @todo Add a tau-tag slot
-    SmearedJets(const JetAlg& ja,
+    SmearedJets(const JetFinder& ja,
                 const vector<JetEffSmearFn>& effSmearFns,
                 const JetEffFn& bTagEffFn=JET_BTAG_PERFECT,
                 const JetEffFn& cTagEffFn=JET_CTAG_PERFECT)
@@ -96,7 +96,7 @@ namespace Rivet {
     /// @deprecated Use the version with pair-smearing list as 2nd argument
     ///
     /// @todo Add a tau-tag slot
-    SmearedJets(const JetAlg& ja,
+    SmearedJets(const JetFinder& ja,
                 const JetSmearFn& smearFn,
                 const JetEffFn& bTagEffFn,
                 const JetEffFn& cTagEffFn,
@@ -139,7 +139,7 @@ namespace Rivet {
     /// Perform the jet finding & smearing calculation
     void project(const Event& e) {
       // Copying and filtering
-      const Jets& truthjets = apply<JetAlg>(e, "TruthJets").jetsByPt(); //truthJets();
+      const Jets& truthjets = apply<JetFinder>(e, "TruthJets").jetsByPt(); //truthJets();
       _recojets.clear(); _recojets.reserve(truthjets.size());
       // Apply jet smearing and efficiency transforms
       for (const Jet& j : truthjets) {
@@ -181,12 +181,12 @@ namespace Rivet {
     }
 
 
-    /// Return the full jet list for the JetAlg methods to use
+    /// Return the full jet list for the JetFinder methods to use
     Jets _jets() const { return _recojets; }
 
     /// Get the truth jets (sorted by pT)
     const Jets truthJets() const {
-      return getProjection<JetAlg>("TruthJets").jetsByPt();
+      return getProjection<JetFinder>("TruthJets").jetsByPt();
     }
 
     /// Reset the projection. Smearing functions will be unchanged.
