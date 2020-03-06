@@ -10,6 +10,11 @@
 
 	* Trying to merge in hepdat sync
 
+2020-02-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add SFINAE type restriction to PROJ templated type deduction in
+	Analysis::apply() methods.
+
 2020-02-21  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Update PID util functions to match the latest version of
