@@ -37,3 +37,18 @@ ConnectGaps=1
 XMin=9.
 XMax=10.
 END PLOT
+
+BEGIN PLOT /ARGUS_1992_I319102/d04-x01-y01
+Title=Average charged Multiplicity at 10.47 GeV
+XLabel=$\sqrt{s}$ [GeV]
+YLabel=$\langle N_{\text{charged}}\rangle$
+LogY=0
+LegendYPos=0.2
+END PLOT
+BEGIN PLOT /ARGUS_1992_I319102/d05-x01-y01
+Title=Average charged Multiplicity in $\Upsilon(4S)$ decays
+XLabel=$\sqrt{s}$ [GeV]
+YLabel=$\langle N_{\text{charged}}\rangle$
+LogY=0
+LegendYPos=0.2
+END PLOT

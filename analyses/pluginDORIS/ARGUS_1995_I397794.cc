@@ -23,7 +23,9 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(UnstableParticles(), "UFS");
       // book histos
-      book(_h_x,1,1,1);
+      book(_h_rate1,1,1,1);
+      book(_h_rate2,1,2,1);
+      book(_h_x,2,1,1);
     }
 
 
@@ -38,6 +40,18 @@ namespace Rivet {
       for (const Particle& p : ufs.particles(Cuts::abspid==idDs2)) {
 	double xp = p.momentum().p3().mod()/Pmax;
 	_h_x->fill(xp);
+	int sign = p.pid()/p.abspid();
+	if(p.children().size()!=2) continue;
+	if(p.children()[0].pid()==sign*421 &&
+	   p.children()[1].pid()==sign*321) {
+	  _h_rate1->fill(xp);
+	  _h_rate2->fill(xp);
+	}
+	else if(p.children()[1].pid()==sign*421 &&
+		p.children()[0].pid()==sign*321) {
+	  _h_rate1->fill(xp);
+	  _h_rate2->fill(xp);
+	}
       }
     }
 
@@ -45,6 +59,8 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       normalize(_h_x);
+      scale(_h_rate1,0.3*crossSection()/sumOfWeights()/picobarn);
+      scale(_h_rate2,crossSection()/sumOfWeights()/picobarn);
     }
 
     ///@}
@@ -52,7 +68,7 @@ namespace Rivet {
 
     /// @name Histograms
     ///@{
-    Histo1DPtr _h_x;
+    Histo1DPtr _h_x,_h_rate1,_h_rate2;
     ///@}
 
 

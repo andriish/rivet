@@ -1,6 +1,6 @@
 Name: ARGUS_1989_I282570
 Year: 1989
-Summary:  Spectrum for $D^+_{s1}(2536)$ production at 10.58 GeV
+Summary:  Spectrum for $D^+_{s1}(2536)$ production at 10. GeV
 Experiment: ARGUS
 Collider: DORIS
 InspireID: 282570
@@ -11,9 +11,9 @@ References:
  - Phys.Lett. B230 (1989) 162
 RunInfo: e+e- to hadrons 
 Beams: [e+, e-]
-Energies: [10.58]
+Energies: [10.]
 Description:
-  'Spectrum for $D^+_{s1}(2536)$ production at 10.58 GeV measured by ARGUS.'
+  'Spectrum for $D^+_{s1}(2536)$ production at 10. GeV measured by ARGUS.'
 ValidationInfo:
   'Herwig 7 events'
 #ReleaseTests:

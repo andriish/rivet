@@ -17,9 +17,11 @@ BEGIN PLOT /ARGUS_1989_I262551/d03-x01-y01
 Title=$\phi$ multiplicity in $\Upsilon(1S)$ decays
 XLabel=
 YLabel=$N_{\phi}$
+LogY=0
 END PLOT
 BEGIN PLOT /ARGUS_1989_I262551/d04-x01-y01
 Title=$\phi$ multiplicity in $\Upsilon(2S)$ decays
 XLabel=
 YLabel=$N_{\phi}$
+LogY=0
 END PLOT

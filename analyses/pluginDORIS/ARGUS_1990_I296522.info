@@ -1,6 +1,6 @@
 Name: ARGUS_1990_I296522
 Year: 1990
-Summary: Spectrum for $\Xi_c^{+}$ production at 10.5 GeV
+Summary: Spectrum for $\Xi_c^{0,+}$ production at 10.5 GeV
 Experiment: ARGUS
 Collider: DORIS
 InspireID: 296522
@@ -13,7 +13,7 @@ RunInfo: e+e- to hadrons
 Beams: [e+, e-]
 Energies: [10.5]
 Description:
-  'Spectrum for $\Xi_c^{+}$ production at 10.58 GeV measured by ARGUS.'
+  'Spectrum for $\Xi_c^{0,+}$ production at 10.58 GeV measured by ARGUS.'
 ValidationInfo:
   'Herwig 7 events'
 #ReleaseTests:
