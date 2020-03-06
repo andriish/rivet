@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief J/psi rate
   class BABAR_2001_I558091 : public Analysis {
   public:
 
