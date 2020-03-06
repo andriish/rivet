@@ -29,6 +29,7 @@
 2020-03-05  Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BABAR_2007_I722622 Xi_c' spectra
+	* Add bin width to BABAR_2001_I558091, BABAR_2006_I731865, BELLE_2009_I823878
 
 2020-03-04  Peter Richardson <peter.richardson@durham.ac.uk>
 
