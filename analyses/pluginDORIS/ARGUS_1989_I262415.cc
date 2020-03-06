@@ -23,8 +23,12 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      book(_h_ups1, 3, 1, 1);
-      book(_h_cont, 4, 1, 1);
+      book(_h_ups1_obs, 1, 1, 1);
+      book(_h_cont_obs, 1, 1, 2);
+      book(_h_ups1_all, 1, 2, 1);
+      book(_h_cont_all, 1, 2, 2);
+      book(_h_ups1    , 3, 1, 1);
+      book(_h_cont    , 4, 1, 1);
       book(_weightSum_cont,"TMP/weightSum_cont");
       book(_weightSum_Ups1,"TMP/weightSum_Ups1");
 
@@ -56,6 +60,8 @@ namespace Rivet {
           const double xp = 2.*p.E()/sqrtS();
           const double beta = p.p3().mod() / p.E();
 	  _h_cont->fill(xp,1./beta);
+	  _h_cont_obs->fill(xp);
+	  _h_cont_all->fill(xp);
 	}
       }
       // Upsilon(s) found
@@ -76,6 +82,8 @@ namespace Rivet {
             const double xp = 2.*p2.E()/mass;
             const double beta = p2.p3().mod()/p2.E();
 	    _h_ups1->fill(xp,1./beta);
+	    _h_ups1_obs->fill(xp);
+	    _h_ups1_all->fill(xp);
 	  }
 	}
       }
@@ -83,12 +91,15 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
       if (_weightSum_cont->val() > 0.) {
-	scale(_h_cont, 1./ *_weightSum_cont);
+	scale(_h_cont    , 1. / *_weightSum_cont);
+	scale(_h_cont_obs, 0.3/ *_weightSum_cont);
+	scale(_h_cont_all, 1. / *_weightSum_cont);
       }
       if (_weightSum_Ups1->val() > 0.) {
-	scale(_h_ups1, 1./ *_weightSum_Ups1);
+	scale(_h_ups1    , 1. / *_weightSum_Ups1);
+	scale(_h_ups1_obs, 0.3/ *_weightSum_Ups1);
+	scale(_h_ups1_all, 1. / *_weightSum_Ups1);
       }
 
     }
@@ -99,6 +110,8 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_ups1, _h_cont;
+    Histo1DPtr _h_ups1_obs, _h_cont_obs;
+    Histo1DPtr _h_ups1_all, _h_cont_all;
     CounterPtr _weightSum_cont,_weightSum_Ups1;
     //@}
 

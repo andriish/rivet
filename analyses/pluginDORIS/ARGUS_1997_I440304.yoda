@@ -1,13 +1,21 @@
 BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_1997_I440304/d01-x01-y01
-ErrorBreakdown: {0: {stat: {dn: -0.04, up: 0.04}, sys: {dn: -0.03, up: 0.03}}, 1: {stat: {dn: -0.13, up: 0.24}, sys: {dn: -0.13, up: 0.13}}}
 IsRef: 1
 Path: /REF/ARGUS_1997_I440304/d01-x01-y01
 Title: doi:10.17182/hepdata.44624.v1/t1
 Type: Scatter2D
-Variations: [""]
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 5.000000e-01	5.000000e-01	5.000000e-01	2.500000e-01	1.838478e-01	2.729469e-01
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_1997_I440304/d01-x02-y01
+IsRef: 1
+Path: /REF/ARGUS_1997_I440304/d01-x02-y01
+Title: 
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 8.500000e-01	1.500000e-01	1.500000e-01	1.400000e-01	5.000000e-02	5.000000e-02
 END YODA_SCATTER2D_V2
 
