@@ -88,7 +88,6 @@
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="a">hal-02507716</subfield>
     <subfield code="9">HAL</subfield>
-  </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
     <subfield code="a">arXiv:2002.11325</subfield>

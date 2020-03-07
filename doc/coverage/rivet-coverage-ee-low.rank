@@ -101,7 +101,7 @@
 221003 X OBSERVATION OF B MESON DECAY INTO J / psi #BR#
 221006 X Upper Limit for the Emission of Monoenergetic Photons in $\Upsilon$ (1s) and $\Upsilon$ (2s) Meson Decays #LIMIT#
 221309 . Electromagnetic Pion Form-Factor in the Timelike Region #implemented#
-222219 . Observation of a New Charmed Meson. #sigma?, fig4?#
+222219 X Observation of a New Charmed Meson. #sigma?, fig4?, superseeded#
 222610 X Search for Gluinos in Decays of the Chi($b$) (1 $p$ Wave Triplet) Meson #search#
 227324 . An Upper Limit for Two Jet Production in Direct $\Upsilon$ (1s) Decays #implementable event shapes#
 230593 X Observation of F Decays Into $\bar{K}^* K$ #BR#
@@ -950,7 +950,7 @@
 614513 X Measurement of the branching fraction and CP-violating asymmetries in neutral $B$ decays to $D^{*\pm} D^\mp$ #mixing#
 614663 X Search for lepton flavor violation process J / psi ---> e mu #search#
 614664 . Observation of a near threshold enhancement in th p anti-p mass spectrum from radiative J / psi ---> gamma p anti-p decays #fig3?#
-614784 . Study of the charmless inclusive B ---> eta-prime X decay #fig2?#
+614784 X Study of the charmless inclusive B ---> eta-prime X decay #fig2?, but large backgrounds#
 615077 . Study of the decay $\phi \to \pi^+ \pi^- \pi^0$ with the KLOE detector #dists?#
 615079 X Study of time-dependent CP asymmetry in neutral $B$ decays to $J/\psi \pi^0$ #mixing#
 615081 X Rates, polarizations, and asymmetries in charmless vector-vector B decays #BR#
@@ -967,7 +967,6 @@
 616391 X Measurements of the branching fractions and charge asymmetries of charmless three-body charged $B$ decays #BR#
 616444 X Search for $D^0 - \bar{D}^0$ mixing and a measurement of the doubly Cabibbo-suppressed decay rate in $D^0 \to K \pi$ decays #search#
 616446 . Study of the process e+ e- ---> omega pi0 ---> pi0 pi0 gamma in c.m. energy range 920-MeV - 1380-MeV at CMD-2 #implemented#
-
 616525 X First evidence of Lambda anti-Lambda in chi(cJ) decays #br#
 616619 . Rare $B$ decays into states containing a $J/\psi$ meson and a meson with $s \bar{s}$ quark content
 616620 . Search for B ---> anti-p e- anti-nu(e) X decay using a partial reconstruction method
@@ -991,7 +990,7 @@
 620432 . Comment on e+ e- annihilation into J / psi J / psi
 620435 . Cabibbo suppressed decays of D+ ---> pi+ pi0, K+ anti-K0, K+ pi0
 621182 . Measurements of branching fractions and CP-violating asymmetries in $B^0 \to \rho^\pm h^\mp$ decays
-621350 . Improved measurement of the form-factors and first search for CP violation in the decay of Lambda+(c) ---> Lambda e+ nu(e)
+621350 X Improved measurement of the form-factors and first search for CP violation in the decay of Lambda+(c) ---> Lambda e+ nu(e) #conference#
 621459 . Search for the radiative decays $B \to \rho \gamma$ and $B^0 \to \omega \gamma$
 621966 . A Dalitz plot analysis of D0 ---> pi- pi+ pi0 decays in CLEO II.V
 622155 . Measurement of time-dependent CP asymmetries and the CP-odd fraction in the decay $B^0 \to D^{*+} D^{*-}$
@@ -1384,7 +1383,6 @@
 682657 . Evidence for X(3872) ---> gamma J / psi and the sub-threshold decay X(3872) ---> omega J / psi
 682658 . Experimental constraints on the possible J**PC quantum numbers of the X(3872)
 682659 . Measurements of branching fraction and polarization in B+ ---> rho+ K*0 decay
-
 682775 X Branching fraction measurements of psi(2S) decay to baryon-antibaryon final states #BR#
 683281 X Observation of h(c))(P(1)-1) state of charmonium #mass#
 683282 X KLOE results on $f_0(980)$, $a_0(980)$ scalars and eta decays #conference#
@@ -1398,7 +1396,7 @@
 683673 X Observation of thirteen new exclusive multi-body hadronic decays of the psi(2S) #BR#
 684106 X Search for the decay $\tau^- \to 4\pi^- 3\pi^+ (\pi^0) \nu_\tau$ #search#
 684396 . Study of J / psi decays to Lambda anti-Lambda and Sigma0 anti-Sigma0 #fig 3#
-684678 X The hadronic cross section measurement at KLOE #conference# 
+684678 X The hadronic cross section measurement at KLOE #conference#
 684952 X Determination of $|V_{ub}|$ from measurements of the electron and neutrino momenta in inclusive semileptonic $B$ decays #superseeded#
 685744 X Obervation of chi(cj) ---> omega omega decays #BR#
 685818 X Absolute branching fraction measurements of exclusive D0 semileptonic decays #BR#
