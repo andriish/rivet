@@ -1,8 +1,6 @@
 BEGIN PLOT /BABAR_2004_I642355/d01-x01-y01
-Title=[Insert title for histogram d01-x01-y01 here]
-XLabel=[Insert $x$-axis label for histogram d01-x01-y01 here]
-YLabel=[Insert $y$-axis label for histogram d01-x01-y01 here]
-# + any additional plot settings you might like, see make-plots documentation
+Title=Mass distribution for $X_s$ in $B\to\eta^\prime X_s$
+XLabel=$m_X$ [GeV]
+YLabel=$\text{d}B/\text{d}m_X$ [$\text{GeV}^{-1}$]
+LogY=0
 END PLOT
-
-# ... add more histograms as you need them ...
