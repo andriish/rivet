@@ -26,6 +26,45 @@
 </datafield>
 </record>
 <record>
+  <controlfield tag="001">108144</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevLett.36.700</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D76-03732</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">SPIRESTeX</subfield>
+    <subfield code="a">Siegrist:1976br</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">KEKSCAN</subfield>
+    <subfield code="a">1976-05-064</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">OSTI</subfield>
+    <subfield code="a">7356592</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">ins108144</subfield>
+    <subfield code="9">HEPDATA</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">SLAC-PUB-1717</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">LBL-4804</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Observation of a Resonance at 4.4-GeV and Additional Structure Near 4.1-GeV in e+ e- Annihilation</subfield>
+  </datafield>
+<datafield tag="710" ind1=" " ind2=" ">
+<subfield code="g">MARK-I</subfield>
+</datafield>
+</record>
+<record>
   <controlfield tag="001">524221</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
     <subfield code="2">DOI</subfield>
@@ -339,6 +378,53 @@
   </datafield>
 </record>
 <record>
+  <controlfield tag="001">295286</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevD.43.34</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D90-09586</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D91-04035</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">SPIRESTeX</subfield>
+    <subfield code="a">VonZanthier:1990we</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">KEKSCAN</subfield>
+    <subfield code="a">90-05-151</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">ADS</subfield>
+    <subfield code="a">1991PhRvD..43...34V</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">OSTI</subfield>
+    <subfield code="a">6053389</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">ins295286</subfield>
+    <subfield code="9">HEPDATA</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">SLAC-PUB-5213</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">LBL-28859</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Measurement of the Total Hadronic Cross-section in $e^+ e^-$ Annihilation at $\sqrt{s}=29$-{GeV}</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">MARK-II</subfield>
+  </datafield>
+</record>
+<record>
   <controlfield tag="001">1765606</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
     <subfield code="2">DOI</subfield>
@@ -540,53 +626,6 @@
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">UA5</subfield>
-  </datafield>
-</record>
-<record>
-  <controlfield tag="001">295286</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1103/PhysRevD.43.34</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">D90-09586</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">D91-04035</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">VonZanthier:1990we</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">KEKSCAN</subfield>
-    <subfield code="a">90-05-151</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">ADS</subfield>
-    <subfield code="a">1991PhRvD..43...34V</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">OSTI</subfield>
-    <subfield code="a">6053389</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">ins295286</subfield>
-    <subfield code="9">HEPDATA</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">SLAC-PUB-5213</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">LBL-28859</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Measurement of the Total Hadronic Cross-section in $e^+ e^-$ Annihilation at $\sqrt{s}=29$-{GeV}</subfield>
-  </datafield>
-  <datafield tag="710" ind1=" " ind2=" ">
-    <subfield code="g">MARK-II</subfield>
   </datafield>
 </record>
 <record>
@@ -1793,6 +1832,53 @@
 </datafield>
 </record>
 <record>
+  <controlfield tag="001">205668</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevD.31.2161</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D84-14129</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D85-05748</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">SPIRESTeX</subfield>
+    <subfield code="a">Behrends:1984be</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">KEKSCAN</subfield>
+    <subfield code="a">84-12-364</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">ADS</subfield>
+    <subfield code="a">1985PhRvD..31.2161B</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">OSTI</subfield>
+    <subfield code="a">5748238</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">ins205668</subfield>
+    <subfield code="9">HEPDATA</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">CLNS-84-630</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">CLEO-84-9</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Inclusive Hadron Production in Upsilon Decays and in Nonresonant electron-Positron Annihilation at 10.49-GeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">CLEO</subfield>
+  </datafield>
+</record>
+<record>
   <controlfield tag="001">558279</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
     <subfield code="2">DOI</subfield>
@@ -2783,6 +2869,34 @@
 </datafield>
 </record>
 <record>
+  <controlfield tag="001">294419</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D90-03973</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">SPIRESTeX</subfield>
+    <subfield code="a">Edwards:1990pc</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">KEKSCAN</subfield>
+    <subfield code="a">90-02-325</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">ins294419</subfield>
+    <subfield code="9">HEPDATA</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">SLAC-PUB-5160</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Hadron Production in $e^+ e^-$ Annihilation From $\sqrt{s}=5$-{GeV} to 7.4-{GeV}</subfield>
+  </datafield>
+<datafield tag="710" ind1=" " ind2=" ">
+<subfield code="g">CRYSTAL</subfield>
+</datafield>
+</record>
+<record>
   <controlfield tag="001">601222</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
     <subfield code="2">DOI</subfield>
@@ -3134,6 +3248,44 @@
   </datafield>
 <datafield tag="710" ind1=" " ind2=" ">
 <subfield code="g">SND</subfield>
+</datafield>
+</record>
+<record>
+  <controlfield tag="001">1744510</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1007/JHEP01(2020)112</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1007/JHEP01(2020)112</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Gribanov:2019qgw</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1907.08002</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj30n</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1907.08002</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Measurement of the $e^{+}e^{-}\rightarrow\eta\pi^{+}\pi^{-}$ cross section with the CMD-3 detector at the VEPP-2000 collider</subfield>
+  </datafield>
+<datafield tag="710" ind1=" " ind2=" ">
+<subfield code="g">CMD3</subfield>
 </datafield>
 </record>
 <record>
@@ -3504,34 +3656,6 @@
 </datafield>
 </record>
 <record>
-  <controlfield tag="001">294419</controlfield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">D90-03973</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">Edwards:1990pc</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">KEKSCAN</subfield>
-    <subfield code="a">90-02-325</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">ins294419</subfield>
-    <subfield code="9">HEPDATA</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">SLAC-PUB-5160</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Hadron Production in $e^+ e^-$ Annihilation From $\sqrt{s}=5$-{GeV} to 7.4-{GeV}</subfield>
-  </datafield>
-<datafield tag="710" ind1=" " ind2=" ">
-<subfield code="g">CRYSTAL</subfield>
-</datafield>
-</record>
-<record>
   <controlfield tag="001">321108</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
     <subfield code="2">DOI</subfield>
@@ -3626,42 +3750,37 @@
 </datafield>
 </record>
 <record>
-  <controlfield tag="001">108144</controlfield>
+  <controlfield tag="001">1471515</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
     <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1103/PhysRevLett.36.700</subfield>
+    <subfield code="a">10.1103/PhysRevD.94.032010</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Achasov:2016eyg</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">DESY</subfield>
-    <subfield code="z">D76-03732</subfield>
+    <subfield code="z">D16-kj27a</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">SPIRESTeX</subfield>
-    <subfield code="a">Siegrist:1976br</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1606.06481</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">KEKSCAN</subfield>
-    <subfield code="a">1976-05-064</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">OSTI</subfield>
-    <subfield code="a">7356592</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">ins108144</subfield>
+    <subfield code="a">ins1471515</subfield>
     <subfield code="9">HEPDATA</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">SLAC-PUB-1717</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">LBL-4804</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1606.06481</subfield>
+    <subfield code="c">hep-ex</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Observation of a Resonance at 4.4-GeV and Additional Structure Near 4.1-GeV in e+ e- Annihilation</subfield>
+    <subfield code="a">Study of the process $e^+e^-\to\omega\eta\pi^0$ in the energy range $\sqrt{s} &lt;2$ GeV with the SND detector</subfield>
   </datafield>
 <datafield tag="710" ind1=" " ind2=" ">
-<subfield code="g">MARK-I</subfield>
+<subfield code="g">SND</subfield>
 </datafield>
 </record>
 <record>
@@ -3698,40 +3817,6 @@
   </datafield>
 <datafield tag="710" ind1=" " ind2=" ">
 <subfield code="g">GAMMAGAMMA</subfield>
-</datafield>
-</record>
-<record>
-  <controlfield tag="001">1471515</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="a">10.1103/PhysRevD.94.032010</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">INSPIRETeX</subfield>
-    <subfield code="a">Achasov:2016eyg</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">D16-kj27a</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">oai:arXiv.org:1606.06481</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">ins1471515</subfield>
-    <subfield code="9">HEPDATA</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">arXiv:1606.06481</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="a">Study of the process $e^+e^-\to\omega\eta\pi^0$ in the energy range $\sqrt{s} &lt;2$ GeV with the SND detector</subfield>
-  </datafield>
-<datafield tag="710" ind1=" " ind2=" ">
-<subfield code="g">SND</subfield>
 </datafield>
 </record>
 <record>
@@ -3827,44 +3912,6 @@
   </datafield>
 <datafield tag="710" ind1=" " ind2=" ">
 <subfield code="g">DM1</subfield>
-</datafield>
-</record>
-<record>
-  <controlfield tag="001">1744510</controlfield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="9">bibmatch</subfield>
-    <subfield code="a">10.1007/JHEP01(2020)112</subfield>
-  </datafield>
-  <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="2">DOI</subfield>
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">10.1007/JHEP01(2020)112</subfield>
-    <subfield code="q">publication</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">INSPIRETeX</subfield>
-    <subfield code="a">Gribanov:2019qgw</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">oai:arXiv.org:1907.08002</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">DESY</subfield>
-    <subfield code="z">D19-kj30n</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">arXiv:1907.08002</subfield>
-    <subfield code="c">hep-ex</subfield>
-  </datafield>
-  <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">Measurement of the $e^{+}e^{-}\rightarrow\eta\pi^{+}\pi^{-}$ cross section with the CMD-3 detector at the VEPP-2000 collider</subfield>
-  </datafield>
-<datafield tag="710" ind1=" " ind2=" ">
-<subfield code="g">CMD3</subfield>
 </datafield>
 </record>
 <record>
