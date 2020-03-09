@@ -16,7 +16,7 @@ YLabel=$1/\Gamma\text{d}\Gamma/\text{d}\cos\theta_X$
 XLabel=$\cos\theta_X$
 LogY=0
 END PLOT
-BEGIN PLOT /BES_1999_I507637/d01-x01-y02
+BEGIN PLOT /BES_1999_I507637/d01-x01-y04
 Title=$\cos\theta^*_\pi$ for  $\psi(2S)\to J/\psi\pi^+\pi^-$
 YLabel=$1/\Gamma\text{d}\Gamma/\text{d}\cos\theta^*_\pi$
 XLabel=$\cos\theta^*_\pi$
