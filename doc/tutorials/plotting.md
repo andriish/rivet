@@ -48,3 +48,9 @@ complex plots it might sometimes fail with an error message like
 a case it is recommended to increase the allowed TeX memory size as described
 e.g. in the [pgfplots manual](http://pgfplots.sourceforge.net/pgfplots.pdf)
 in Section 6.2.
+
+Furthermore, imagemagick's `convert` is used to convert .pdf files into .png
+files for the plot website. Some versions of imagemagick might cause error
+messages like `not authorized @ error/constitute.c/ReadImage/412`, which can
+[be fixed](https://stackoverflow.com/q/52998331/3094872) by giving `rights="read|write"` for both PS and PDF formats in
+`/etc/ImageMagick-7/policy.xml`.
