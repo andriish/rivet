@@ -323,7 +323,7 @@ namespace Rivet {
     const T & operator*() const { return *active(); }
 
     // can be useful for weight analysis (see e.g. MC_WEIGHTS for use)
-    T * _getPersistent (unsigned int iWeight) { return _persistent.at(iWeight).get(); } 
+    T * _getPersistent (unsigned int iWeight) { return _persistent.at(iWeight).get(); }
 
 
     /* @todo
@@ -410,7 +410,11 @@ namespace Rivet {
 
     string basePath() const { return _basePath; }
 
+    string baseName() const { return _baseName; }
+
     string _basePath;
+
+    string _baseName;
 
     // do we need implicit cast?
     // operator typename T::Ptr () {
@@ -451,8 +455,14 @@ namespace Rivet {
     {}
 
     // Goes right through to the active Wrapper<YODA> object's members
-    T & operator->()                            { return  *_p; }
-    const T & operator->() const                { return  *_p; }
+    T & operator->() {
+      if (_p == nullptr) throw Error("Dereferencing null AnalysisObject pointer. Is there an unbooked histogram variable?");
+      return  *_p;
+    }
+    const T & operator->() const                {
+      if (_p == nullptr) throw Error("Dereferencing null AnalysisObject pointer. Is there an unbooked histogram variable?");
+      return  *_p;
+    }
 
     // The active YODA object
     typename T::Inner & operator*()             { return **_p; }

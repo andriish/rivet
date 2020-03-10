@@ -26,6 +26,7 @@ template <class T>
 Wrapper<T>::Wrapper(const vector<string>& weightNames, const T & p)
 {
   _basePath = p.path();
+  _baseName = p.name();
   for (const string& weightname : weightNames) {
     _persistent.push_back(make_shared<T>(p));
     _final.push_back(make_shared<T>(p));

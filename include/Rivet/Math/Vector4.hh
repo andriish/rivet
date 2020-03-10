@@ -1246,63 +1246,63 @@ namespace Rivet {
   //@{
 
   /// Calculate the difference in pseudorapidity between two vectors.
-  inline double deltaEta(const FourMomentum& a, const FourMomentum& b) {
-    return deltaEta(a.vector3(), b.vector3());
+  inline double deltaEta(const FourMomentum& a, const FourMomentum& b, bool sign=false) {
+    return deltaEta(a.vector3(), b.vector3(), sign);
   }
 
   /// Calculate the difference in pseudorapidity between two vectors.
-  inline double deltaEta(const FourMomentum& v, double eta2) {
-    return deltaEta(v.vector3(), eta2);
+  inline double deltaEta(const FourMomentum& v, double eta2, bool sign=false) {
+    return deltaEta(v.vector3(), eta2, sign);
   }
 
   /// Calculate the difference in pseudorapidity between two vectors.
-  inline double deltaEta(double eta1, const FourMomentum& v) {
-    return deltaEta(eta1, v.vector3());
+  inline double deltaEta(double eta1, const FourMomentum& v, bool sign=false) {
+    return deltaEta(eta1, v.vector3(), sign);
   }
 
   /// Calculate the difference in pseudorapidity between two vectors.
-  inline double deltaEta(const FourVector& a, const FourVector& b) {
-    return deltaEta(a.vector3(), b.vector3());
+  inline double deltaEta(const FourVector& a, const FourVector& b, bool sign=false) {
+    return deltaEta(a.vector3(), b.vector3(), sign);
   }
 
   /// Calculate the difference in pseudorapidity between two vectors.
-  inline double deltaEta(const FourVector& v, double eta2) {
-    return deltaEta(v.vector3(), eta2);
+  inline double deltaEta(const FourVector& v, double eta2, bool sign=false) {
+    return deltaEta(v.vector3(), eta2, sign);
   }
 
   /// Calculate the difference in pseudorapidity between two vectors.
-  inline double deltaEta(double eta1, const FourVector& v) {
-    return deltaEta(eta1, v.vector3());
+  inline double deltaEta(double eta1, const FourVector& v, bool sign=false) {
+    return deltaEta(eta1, v.vector3(), sign);
   }
 
   /// Calculate the difference in pseudorapidity between two vectors.
-  inline double deltaEta(const FourVector& a, const FourMomentum& b) {
-    return deltaEta(a.vector3(), b.vector3());
+  inline double deltaEta(const FourVector& a, const FourMomentum& b, bool sign=false) {
+    return deltaEta(a.vector3(), b.vector3(), sign);
   }
 
   /// Calculate the difference in pseudorapidity between two vectors.
-  inline double deltaEta(const FourMomentum& a, const FourVector& b) {
-    return deltaEta(a.vector3(), b.vector3());
+  inline double deltaEta(const FourMomentum& a, const FourVector& b, bool sign=false) {
+    return deltaEta(a.vector3(), b.vector3(), sign);
   }
 
   /// Calculate the difference in pseudorapidity between two vectors.
-  inline double deltaEta(const FourVector& a, const Vector3& b) {
-    return deltaEta(a.vector3(), b);
+  inline double deltaEta(const FourVector& a, const Vector3& b, bool sign=false) {
+    return deltaEta(a.vector3(), b, sign);
   }
 
   /// Calculate the difference in pseudorapidity between two vectors.
-  inline double deltaEta(const Vector3& a, const FourVector& b) {
-    return deltaEta(a, b.vector3());
+  inline double deltaEta(const Vector3& a, const FourVector& b, bool sign=false) {
+    return deltaEta(a, b.vector3(), sign);
   }
 
   /// Calculate the difference in pseudorapidity between two vectors.
-  inline double deltaEta(const FourMomentum& a, const Vector3& b) {
-    return deltaEta(a.vector3(), b);
+  inline double deltaEta(const FourMomentum& a, const Vector3& b, bool sign=false) {
+    return deltaEta(a.vector3(), b, sign);
   }
 
   /// Calculate the difference in pseudorapidity between two vectors.
-  inline double deltaEta(const Vector3& a, const FourMomentum& b) {
-    return deltaEta(a, b.vector3());
+  inline double deltaEta(const Vector3& a, const FourMomentum& b, bool sign=false) {
+    return deltaEta(a, b.vector3(), sign);
   }
 
   //@}
@@ -1312,18 +1312,18 @@ namespace Rivet {
   //@{
 
   /// Calculate the difference in rapidity between two 4-momentum vectors.
-  inline double deltaRap(const FourMomentum& a, const FourMomentum& b) {
-    return deltaRap(a.rapidity(), b.rapidity());
+  inline double deltaRap(const FourMomentum& a, const FourMomentum& b, bool sign=false) {
+    return deltaRap(a.rapidity(), b.rapidity(), sign);
   }
 
   /// Calculate the difference in rapidity between two 4-momentum vectors.
-  inline double deltaRap(const FourMomentum& v, double y2) {
-    return deltaRap(v.rapidity(), y2);
+  inline double deltaRap(const FourMomentum& v, double y2, bool sign=false) {
+    return deltaRap(v.rapidity(), y2, sign);
   }
 
   /// Calculate the difference in rapidity between two 4-momentum vectors.
-  inline double deltaRap(double y1, const FourMomentum& v) {
-    return deltaRap(y1, v.rapidity());
+  inline double deltaRap(double y1, const FourMomentum& v, bool sign=false) {
+    return deltaRap(y1, v.rapidity(), sign);
   }
 
   //@}
