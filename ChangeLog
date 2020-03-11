@@ -81,6 +81,10 @@
 
 	* Add a Vector2 class.
 
+2020-01-16  Christian Gutschow  <chris.g@cern.ch>
+
+	* Make sure --skip-weights picks the nominal weight and not the 0th weight
+
 2020-01-15  Jon Butterworth <j.butterworth@cern.ch>
 
 	* Add a warning to CMS WZ analysis CMS_2016_I1487288 because
