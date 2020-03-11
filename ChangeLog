@@ -2,6 +2,10 @@
 
 	* Allow "Nominal" as a potential default weight name
 
+2020-03-11  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2004_I632399 phi spectra in B decays
+
 2020-03-10  Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BABAR_2006_I714447 excited D_s spectra
