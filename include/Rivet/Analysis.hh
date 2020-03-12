@@ -109,7 +109,6 @@ namespace Rivet {
 
     //@}
 
-
   public:
 
     /// @name Metadata
@@ -641,6 +640,10 @@ namespace Rivet {
 
 
   public:
+
+
+    /// @name Provide access to RAW histograms before finalization.
+    virtual void transformRAW() {}
 
     /// @name Accessing options for this Analysis instance.
     //@{

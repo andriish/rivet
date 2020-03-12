@@ -57,8 +57,8 @@ cdef class AnalysisHandler:
     def dump(self, name, period):
         self._ptr.dump(name.encode('utf-8'), period)
 
-    def mergeYodas(self, filelist, delopts, equiv):
-        self._ptr.mergeYodas(filelist, delopts, equiv)
+    def mergeYodas(self, filelist, delopts, addopts, equiv):
+        self._ptr.mergeYodas(filelist, delopts, addopts, equiv)
 
 
 cdef class Run:

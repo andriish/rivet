@@ -614,7 +614,7 @@ namespace Rivet {
       list<Profile1DPtr> eCorrProfs;
       for (int i = 0; i < BOOT_BINS; ++i) {
         Profile1DPtr tmp;
-        book(tmp, "TMP/FINAL/"+name+"-"+to_string(i),hIn);
+        book(tmp, ""+name+"-"+to_string(i),hIn);
         //tmp->setPath(this->name()+"/FINAL/" + name+"-"+to_string(i));
         //tmp->setPath(tmp->path()+"FINAL");
         eCorrProfs.push_back(tmp);
@@ -635,7 +635,7 @@ namespace Rivet {
       list<Profile1DPtr> eCorrProfs;
       for (int i = 0; i < BOOT_BINS; ++i) {
       Profile1DPtr tmp;
-        book(tmp, "TMP/FINAL/"+name+"-"+to_string(i),hIn);
+        book(tmp, ""+name+"-"+to_string(i),hIn);
         //tmp->setPath(this->name()+"/FINAL/" + name+"-"+to_string(i));
         //tmp->setPath(tmp->path()+"FINAL");
         eCorrProfs.push_back(tmp);
@@ -681,7 +681,7 @@ namespace Rivet {
     /// (ie. multi-histogram merging) for the analysis.
     void stream() {
       for (auto ecItr = eCorrPtrs.begin(); ecItr != eCorrPtrs.end(); ++ecItr){
-        (*ecItr)->fillFromProfs();
+        //(*ecItr)->fillFromProfs();
         corrPlot(list<Profile1DPtr>((*ecItr)->profBegin(), (*ecItr)->profEnd()), *ecItr);
       }
     }
@@ -959,6 +959,7 @@ namespace Rivet {
           ne += binPtrs[i]->numEntries();
           sow += binPtrs[i]->sumW();
           sow2 += binPtrs[i]->sumW2();
+          cout << sow << endl;
         }
         // Reset the bins of the profiles.
         (*hItr)->reset();

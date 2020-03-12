@@ -49,15 +49,22 @@ extragroup.add_argument("-e", "--equiv", dest="EQUIV", action="store_true", defa
                         help="assume that the yoda files are equivalent but statistically independent (default= assume that different files contains different processes)")
 extragroup.add_argument("-O", "--merge-option", dest="MERGEOPTIONS", action="append",
                         default=[], help="specify an analysis option name where different options should be merged into the default analysis.")
+extragroup.add_argument("-a", "--add-option", dest="ADDOPTIONS", action="append", default=[], help="specify an analysis option in the format ANALYSIS:NAME=VALUE that should be added in the merging.")
 
 args = parser.parse_args()
 
 
 ############################
-## Actual analysis runs
-
-
 ## Set up analysis handler
-ah = rivet.AnalysisHandler("Merging")
-ah.mergeYodas(args.YODAFILES, args.MERGEOPTIONS, args.EQUIV)
-ah.writeData(args.OUTPUTFILE)
+try:
+    ah = rivet.AnalysisHandler("Merging")
+    ah.mergeYodas(args.YODAFILES, args.MERGEOPTIONS, args.ADDOPTIONS, args.EQUIV)
+    ah.writeData(args.OUTPUTFILE)
+except:
+    # Python3 and Cython3 might require explicit byte strings
+    ah = rivet.AnalysisHandler(b"Merging")
+    yfiles = [y.encode() for y in args.YODAFILES]
+    moptions = [m.encode() for m in args.MERGEOPTIONS]
+    aoptions = [a.encode() for a in args.ADDOPTIONS]
+    ah.mergeYodas(yfiles, moptions, aoptions, args.EQUIV)
+    ah.writeData(args.OUTPUTFILE)
