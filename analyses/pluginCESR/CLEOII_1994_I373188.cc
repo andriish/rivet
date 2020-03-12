@@ -5,12 +5,12 @@
 namespace Rivet {
 
 
-  /// @brief tau -> K eta
-  class CLEOII_1996_I415409 : public Analysis {
+  /// @brief tau -> (5pi)-pi0
+  class CLEOII_1994_I373188 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEOII_1996_I415409);
+    DEFAULT_RIVET_ANALYSIS_CTOR(CLEOII_1994_I373188);
 
 
     /// @name Analysis methods
@@ -24,19 +24,19 @@ namespace Rivet {
 
     void findDecayProducts(const Particle & mother,
                            unsigned int & nstable,
-                           Particles& eta, Particles& K) {
+                           Particles& pim, Particles& pi0) {
       for(const Particle & p : mother.children()) {
 	long id = p.abspid();
-        if (id == PID::ETA ) {
-          eta.push_back(p);
+        if (id == PID::PI0 ) {
+          pi0.push_back(p);
           ++nstable;
 	}
-        else if (id == PID::KPLUS) {
-          K.push_back(p);
+        else if (abs(id) == PID::PIPLUS) {
+          pim.push_back(p);
           ++nstable;
         }
         else if ( !p.children().empty() ) {
-          findDecayProducts(p, nstable, eta,K);
+          findDecayProducts(p, nstable, pim,pi0);
         }
         else
           ++nstable;
@@ -47,14 +47,18 @@ namespace Rivet {
     void analyze(const Event& event) {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::abspid==PID::TAU)) {
-        Particles eta, K;
+        Particles pi0,pim;
         unsigned int nstable = 0;
         // find the decay products we want
-        findDecayProducts(p, nstable, eta, K);
-        if (nstable != 3) continue;
+        findDecayProducts(p, nstable, pim, pi0);
+        if (nstable != 7) continue;
 	// K eta
-        if (K.size() == 1 && eta.size() == 1)
-	  _hist->fill((eta[0].momentum()+K[0].momentum()).mass());
+        if (pim.size() == 5 && pi0.size() == 1) {
+	  FourMomentum phad=pi0[0].momentum();
+	  for(const Particle & p2: pim)
+	    phad += p2.momentum();
+	  _hist->fill(phad.mass());
+	}
       }
     }
 
@@ -76,6 +80,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(CLEOII_1996_I415409);
+  DECLARE_RIVET_PLUGIN(CLEOII_1994_I373188);
 
 }
