@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Electron spectrum in D decays
+  /// @brief q^2 in D0 and D+ semi-lepto
   class CLEOC_2009_I823313 : public Analysis {
   public:
 
@@ -18,71 +18,68 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      // projections
-      declare(UnstableParticles(),"UFS");
-      // Book histograms
-      // specify custom binning
-      book(_h_Dp, 1,1,1);
-      book(_h_D0, 1,1,2);
+
+      // Initialise and register projections
+      declare(UnstableParticles(), "UFS");
+      // histograms`
+      book(_h_q2_D0_pi,1,1,1);
+      book(_h_q2_D0_K ,1,1,2);
+      book(_h_q2_Dp_pi,1,1,3);
+      book(_h_q2_Dp_K ,1,1,4);
     }
 
-    void findDecayProducts(Particle parent, Particles & em, Particles & ep,
-			   Particles & nue, Particles & nueBar) {
-      for(const Particle & p : parent.children()) {
-	if(p.pid() == PID::EMINUS) {
-	  em.push_back(p);
-	}
-	else if(p.pid() == PID::EPLUS) {
-	  ep.push_back(p);
-	}
-	else if(p.pid() == PID::NU_E) {
-	  nue.push_back(p);
-	}
-	else if(p.pid() == PID::NU_EBAR) {
-	  nueBar.push_back(p);
-	}
-	else if(PID::isCharmHadron(p.pid())) {
-	  findDecayProducts(p,em,ep,nue,nueBar);
-	}
-	else if(!PID::isHadron(p.pid())) {
-	  findDecayProducts(p,em,ep,nue,nueBar);
-	}
-      }
+    // Calculate the Q2 using mother and daugher meson
+    double q2(const Particle& B, int mesonID) {
+      FourMomentum q = B.mom() - filter_select(B.children(), Cuts::abspid==abs(mesonID))[0];
+      return q*q;
+    }
+
+    // Check for explicit decay into pdgids
+    bool isSemileptonicDecay(const Particle& mother, vector<int> ids) {
+      // Trivial check to ignore any other decays but the one in question modulo photons
+      const Particles children = mother.children(Cuts::pid!=PID::PHOTON);
+      if (children.size()!=ids.size()) return false;
+      // Check for the explicit decay
+      return all(ids, [&](int i){return count(children, hasPID(i))==1;});
     }
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // find and loop over psi(3770)
-      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
-      for (const Particle& p : ufs.particles(Cuts::pid==30443)) {
-	// boost to rest frame
-	LorentzTransform boost;
-	if (p.p3().mod() > 1*MeV)
-	  boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
-	// loop over decay products
-	for(const Particle & p : p.children()) {
-	  if(p.abspid()==411 || p.abspid()==421) {
-	    Particles em,ep,nue,nueBar;
-	    findDecayProducts(p,em,ep,nue,nueBar);
-	    if(em.size()==1 && nueBar.size()==1) {
-	      double pmod = boost.transform(em[0].momentum()).p3().mod();
-	      if(p.abspid()==411) _h_Dp->fill(pmod);
-	      else                _h_D0->fill(pmod);
-	    }
-	    else if(ep.size()==1 && nue.size()==1) {
-	      double pmod = boost.transform(ep[0].momentum()).p3().mod();
-	      if(p.abspid()==411) _h_Dp->fill(pmod);
-	      else                _h_D0->fill(pmod);
-	    }
-	  }	
+      // Loop over B0 mesons 
+      for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==PID::D0 or
+									       Cuts::abspid==PID::DPLUS )) {
+        if (p.abspid()==PID::D0) {
+	  if(isSemileptonicDecay(p, {PID::PIMINUS, PID::POSITRON, PID::NU_E}) ||
+	     isSemileptonicDecay(p, {PID::PIPLUS , PID::ELECTRON, PID::NU_EBAR}) )
+	    _h_q2_D0_pi->fill(q2(p, PID::PIMINUS));
+	  else if(isSemileptonicDecay(p, {PID::KMINUS, PID::POSITRON, PID::NU_E}) ||
+		  isSemileptonicDecay(p, {PID::KPLUS , PID::ELECTRON, PID::NU_EBAR}))
+	    _h_q2_D0_K ->fill(q2(p, PID::KMINUS));
+        }
+	else if(p.abspid()==PID::DPLUS) {
+	  if(isSemileptonicDecay(p, {PID::PI0, PID::POSITRON, PID::NU_E})  ||
+	     isSemileptonicDecay(p, {PID::PI0, PID::ELECTRON, PID::NU_EBAR}))
+	    _h_q2_Dp_pi->fill(q2(p, PID::PI0));
+	  else if(isSemileptonicDecay(p, {-311, PID::POSITRON, PID::NU_E}))
+	    _h_q2_Dp_K ->fill(q2(p, -311));
+	  else if(isSemileptonicDecay(p, { 311, PID::ELECTRON, PID::NU_EBAR}))
+	    _h_q2_Dp_K ->fill(q2(p, 311));
+	  else if(isSemileptonicDecay(p, {PID::K0S, PID::POSITRON, PID::NU_E}) ||
+		  isSemileptonicDecay(p, {PID::K0S, PID::ELECTRON, PID::NU_EBAR}))
+	    _h_q2_Dp_K ->fill(q2(p, PID::K0S));
+	  else if(isSemileptonicDecay(p, {PID::K0L, PID::POSITRON, PID::NU_E}) ||
+		  isSemileptonicDecay(p, {PID::K0L, PID::ELECTRON, PID::NU_EBAR}))
+	    _h_q2_Dp_K ->fill(q2(p, PID::K0L));
 	}
       }
     }
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      normalize(_h_D0);
-      normalize(_h_Dp);
+      normalize(_h_q2_D0_pi);
+      normalize(_h_q2_D0_K );
+      normalize(_h_q2_Dp_pi);
+      normalize(_h_q2_Dp_K );
     }
 
     ///@}
@@ -90,7 +87,7 @@ namespace Rivet {
 
     /// @name Histograms
     ///@{
-    Histo1DPtr _h_Dp,_h_D0;
+    Histo1DPtr _h_q2_D0_pi, _h_q2_D0_K, _h_q2_Dp_pi, _h_q2_Dp_K;
     ///@}
 
 
