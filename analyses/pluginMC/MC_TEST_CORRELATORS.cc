@@ -3,7 +3,7 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/PrimaryParticles.hh"
 #include "Rivet/Tools/Correlators.hh"
-
+#include "YODA/Scatter2D.h"
 
 namespace Rivet {
 
@@ -25,37 +25,28 @@ namespace Rivet {
     //@{
     /// Book histograms and initialise projections before the run
     void init() {
-
       ChargedFinalState cfs(Cuts::abseta < 1.0);
       declare(cfs, "CFS");
       ChargedFinalState pp(Cuts::abseta < 2.0);
       declare(pp, "PP");
-      book(h_c22, "c22",120,0,120);
-      book(h_c23, "c23",120,0,120);
-      book(h_v22pT, "v22pT",10,0,10);
-      ec22 = bookECorrelator<2,2>("ec22",*h_c22);
-      ec23 = bookECorrelator<3,2>("ec32",*h_c22);
-      ec22pT = bookECorrelator<2,2>("ec22pT",*h_v22pT);
+      book(h_c22, "c22", {0.,1.,2.,5.,20.,30.,50.,70.,100});
+      ec22 = bookECorrelator<2,2>("ec22",{0.,1.,2.,5.,20.,30.,50.,70.,100});
       pair<int, int> max = getMaxValues(); 
       // Declare correlator projections.
-      declare(Correlators(pp, max.first, max.second, h_v22pT),"CRS");
+      declare(Correlators(pp, max.first, max.second),"CRS");
     }
+    
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const Correlators& c = apply<Correlators>(event,"CRS");
       ec22->fill(apply<ChargedFinalState>(event,"CFS").particles().size(), c);
-      ec23->fill(apply<ChargedFinalState>(event,"CFS").particles().size(), c);
-      ec22pT->fill(c);
     }
+    
     /// Normalise histograms etc., after the run
     void finalize() {
       stream();
       cnTwoInt(h_c22,ec22);
-      cnTwoInt(h_c23,ec23);
-      vnTwoDiff(h_v22pT,ec22pT);
-
     }
-
 
     //@}
   private:
@@ -64,11 +55,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Scatter2DPtr h_c22;
-    Scatter2DPtr h_v22pT;
     ECorrPtr ec22;
-    ECorrPtr ec22pT;
-    Scatter2DPtr h_c23;
-    ECorrPtr ec23;
     //@}
 
   };

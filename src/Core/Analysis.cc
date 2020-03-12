@@ -495,7 +495,7 @@ namespace Rivet {
   Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname, size_t npts, double lower, double upper) {
     const string path = histoPath(hname);
 
-    Scatter2D scat;
+    Scatter2D scat(path, hname);
     const double binwidth = (upper-lower)/npts;
     for (size_t pt = 0; pt < npts; ++pt) {
       const double bincentre = lower + (pt + 0.5) * binwidth;
@@ -511,7 +511,7 @@ namespace Rivet {
   Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname, const vector<double>& binedges) {
     const string path = histoPath(hname);
 
-    Scatter2D scat;
+    Scatter2D scat(path, hname);
     for (size_t pt = 0; pt < binedges.size()-1; ++pt) {
       const double bincentre = (binedges[pt] + binedges[pt+1]) / 2.0;
       const double binwidth = binedges[pt+1] - binedges[pt];
