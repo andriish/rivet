@@ -5,12 +5,12 @@
 namespace Rivet {
 
 
-  /// @brief q^2 in D0 and D+ semi-lepto
-  class CLEOC_2009_I823313 : public Analysis {
+  /// @brief D -> pi,K semi-leptonic q^2
+  class CLEOC_2008_I769777 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEOC_2009_I823313);
+    DEFAULT_RIVET_ANALYSIS_CTOR(CLEOC_2008_I769777);
 
 
     /// @name Analysis methods
@@ -23,9 +23,11 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
       // histograms`
       book(_h_q2_D0_pi,1,1,1);
-      book(_h_q2_D0_K ,1,1,2);
-      book(_h_q2_Dp_pi,1,1,3);
+      book(_h_q2_Dp_pi,1,1,2);
+      book(_h_q2_D0_K ,1,1,3);
       book(_h_q2_Dp_K ,1,1,4);
+      book(_nD0,"TMP/nD0");
+      book(_nDp,"TMP/nDp");
     }
 
     // Calculate the Q2 using mother and daugher meson
@@ -49,6 +51,7 @@ namespace Rivet {
       for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==PID::D0 or
 									       Cuts::abspid==PID::DPLUS )) {
         if (p.abspid()==PID::D0) {
+	  _nD0->fill();
 	  if(isSemileptonicDecay(p, {PID::PIMINUS, PID::POSITRON, PID::NU_E}) ||
 	     isSemileptonicDecay(p, {PID::PIPLUS , PID::ELECTRON, PID::NU_EBAR}) )
 	    _h_q2_D0_pi->fill(q2(p, PID::PIMINUS));
@@ -57,6 +60,7 @@ namespace Rivet {
 	    _h_q2_D0_K ->fill(q2(p, PID::KMINUS));
         }
 	else if(p.abspid()==PID::DPLUS) {
+	  _nDp->fill();
 	  if(isSemileptonicDecay(p, {PID::PI0, PID::POSITRON, PID::NU_E})  ||
 	     isSemileptonicDecay(p, {PID::PI0, PID::ELECTRON, PID::NU_EBAR}))
 	    _h_q2_Dp_pi->fill(q2(p, PID::PI0));
@@ -74,12 +78,13 @@ namespace Rivet {
       }
     }
 
+
     /// Normalise histograms etc., after the run
     void finalize() {
-      normalize(_h_q2_D0_pi);
-      normalize(_h_q2_D0_K );
-      normalize(_h_q2_Dp_pi);
-      normalize(_h_q2_Dp_K );
+      scale(_h_q2_D0_pi,100./ *_nD0);
+      scale(_h_q2_D0_K ,100./ *_nD0);
+      scale(_h_q2_Dp_pi,100./ *_nDp);
+      scale(_h_q2_Dp_K ,100./ *_nDp);
     }
 
     ///@}
@@ -88,12 +93,13 @@ namespace Rivet {
     /// @name Histograms
     ///@{
     Histo1DPtr _h_q2_D0_pi, _h_q2_D0_K, _h_q2_Dp_pi, _h_q2_Dp_K;
+    CounterPtr _nD0,_nDp;
     ///@}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(CLEOC_2009_I823313);
+  DECLARE_RIVET_PLUGIN(CLEOC_2008_I769777);
 
 }
