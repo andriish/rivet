@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief tau -> pi-pi0 nu_tau
   class CLEO_1999_I508944 : public Analysis {
   public:
 
