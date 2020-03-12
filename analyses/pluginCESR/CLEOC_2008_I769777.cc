@@ -21,7 +21,7 @@ namespace Rivet {
 
       // Initialise and register projections
       declare(UnstableParticles(), "UFS");
-      // histograms`
+      // histograms
       book(_h_q2_D0_pi,1,1,1);
       book(_h_q2_Dp_pi,1,1,2);
       book(_h_q2_D0_K ,1,1,3);
