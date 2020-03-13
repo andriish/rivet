@@ -15,7 +15,7 @@ References:
 RunInfo: p-Pb minimum bias events with $c\tau > 10 cm$ stable.
 NeedCrossSection: no
 Options:
- - cent=REF,GEN,IMP,USR
+ - cent=REF,GEN,IMP,USR,RAW
 Beams: [p, Pb]
 Energies: [[4000,326560]]
 Description:

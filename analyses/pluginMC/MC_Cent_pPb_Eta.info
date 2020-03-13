@@ -4,7 +4,7 @@ Status: UNVALIDATED REENTRANT
 Authors:
  - Leif Lönnblad <leif.lonnblad@thep.lu.se>
 Options:
- - cent=REF,GEN,IMP
+ - cent=REF,GEN,IMP,RAW
 NumEvents: 50000
 References:
  - arXiv:1508.00848 [hep-ex]

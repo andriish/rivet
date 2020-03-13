@@ -20,7 +20,7 @@ Beams: [Pb, Pb]
 # This is _total_ energy of beams, so this becomes 208*2760=574080
 Energies: [574080]
 Options:
- - cent=REF,GEN,IMP,USR
+ - cent=REF,GEN,IMP,USR,RAW
 Description:
   Measurements of transverse momentum (pT) spectra for charged Xi and Omega hyperon
   production at mid-rapidity in several centrality intervals for Pb-Pb collisions
