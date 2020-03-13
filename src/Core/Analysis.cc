@@ -888,7 +888,7 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
   CentralityProjection cproj;
 
   // Select the centrality variable from option. Use REF as default.
-  // Other selections are "GEN", "IMP" and "USR" (USR only in HEPMC 3).
+  // Other selections are "GEN", "IMP", "RAW" and "USR" (USR only in HEPMC 3).
   string sel = getOption<string>("cent","REF");
   set<string> done;
 
@@ -958,18 +958,18 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
       cproj.add((UserCentEstimate(), usrhists*, true), sel);
      }
 #else
-      MSG_WARNING("UserCentEstimate is only available with HepMC3.");
+      MSG_ERROR("UserCentEstimate is only available with HepMC3.");
 #endif
     }
   else if ( sel == "RAW" ) {
-#if HEPMC_VERSION_CODE >= 3000000
-    cproj.add(GeneratedCentrality(), sel);
+#if HEPMC_VERSION_CODE >= 3000000 || defined(RIVET_ENABLE_HEPMC_20610)
+    cproj.add(GeneratedPercentileProjection(), sel);
 #else
-    MSG_WARNING("GeneratedCentrality is only available with HepMC3.");
+    MSG_ERROR("GeneratedCentrality is only available with HepMC3 and HepMC 2.06.10.");
 #endif
   }
     else
-      MSG_WARNING("'" << sel << "' is not a valid PercentileProjection tag.");
+      MSG_ERROR("'" << sel << "' is not a valid PercentileProjection tag.");
 
   if ( cproj.empty() )
     MSG_WARNING("CentralityProjection " << projName

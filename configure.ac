@@ -138,6 +138,9 @@ if test x$use_hepmc2 = xyes; then
   HEPMC_VERSION=$hepmc_major$hepmc_minor
   AC_MSG_NOTICE([HepMC version is $hepmc_version -> $HEPMC_VERSION])
   AC_SUBST(HEPMC_VERSION)
+  if test "x$hepmc_version" == "x2.06.10"; then
+    AC_DEFINE([RIVET_ENABLE_HEPMC_20610],[1], [Defined if version 2.06.10 of HepMC is used.])
+  fi
   CPPFLAGS=$oldCPPFLAGS
 
 else
