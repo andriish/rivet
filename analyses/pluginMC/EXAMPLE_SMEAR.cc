@@ -7,6 +7,7 @@
 #include "Rivet/Projections/SmearedJets.hh"
 #include "Rivet/Projections/SmearedParticles.hh"
 #include "Rivet/Projections/SmearedMET.hh"
+#include "Rivet/Projections/HTT.h"
 
 namespace Rivet {
 
@@ -36,6 +37,9 @@ namespace Rivet {
 
       FastJets fj(FinalState(Cuts::abseta < 5), FastJets::ANTIKT, 0.4);
       declare(fj, "Jets0");
+
+      const HTT htt(fj);
+      declare(htt, "HEPTopTagger");
 
       SmearedJets sj1(fj, JET_SMEAR_IDENTITY);
       declare(sj1, "Jets1");
@@ -118,6 +122,7 @@ namespace Rivet {
       const Vector3 met1 = apply<SmearedMET>(event, "MET1").vectorEt();
       const Vector3 met2 = apply<SmearedMET>(event, "MET2").vectorEt();
       MSG_DEBUG("MET = " << met0.mod()/GeV << ", " << met1.mod()/GeV << ", " << met2.mod()/GeV << " GeV");
+      std::cout << "MET = " << met0.mod()/GeV << ", " << met1.mod()/GeV << ", " << met2.mod()/GeV << " GeV" << std::endl;
       _h_met_true->fill(met0.mod()/GeV, weight);
       _h_met_reco->fill(met1.mod()/GeV, weight);
       if (met0.perp() > 0 && met1.perp() > 0 && deltaPhi(met0, met1) > 0.1) {
@@ -129,6 +134,9 @@ namespace Rivet {
       const Jets jets1 = apply<JetAlg>(event, "Jets1").jetsByPt(Cuts::pT > 10*GeV);
       const Jets jets2 = apply<JetAlg>(event, "Jets2").jetsByPt(Cuts::pT > 10*GeV);
       const Jets jets3 = apply<JetAlg>(event, "Jets3").jetsByPt(Cuts::pT > 10*GeV);
+
+      const HTT& tagger = apply<HTT>(event, "HEPTopTagger");
+
       MSG_DEBUG("Numbers of jets = " << jets0.size() << " true; "
                << jets1.size() << ", " << jets2.size() << ", " << jets3.size());
       if (!jets0.empty() && !jets2.empty() && deltaPhi(jets0[0], jets2[0]) > 0.1) {

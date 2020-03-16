@@ -146,6 +146,7 @@ namespace Rivet {
         Jet jdet = j;
         bool keep = true;
         MSG_DEBUG("Truth jet: " << "mom=" << jdet.mom()/GeV << " GeV, pT=" << jdet.pT()/GeV << ", eta=" << jdet.eta());
+        //std::cout << "SmearedJets::Jet const size = " << jdet.pseudojet().constituents().size() << std::endl;
         for (const JetEffSmearFn& fn : _detFns) {
           double jeff = -1;
           std::tie(jdet, jeff) = fn(jdet); // smear & eff

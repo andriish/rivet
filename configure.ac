@@ -222,7 +222,7 @@ fi
   FASTJETLIBADD="$FASTJETLIBADD -L$FJCONTRIBLIBPATH"
   FASTJETLDFLAGS="$FASTJETLDFLAGS -L$FJCONTRIBLIBPATH"
 fi
-FASTJETLIBADD="$FASTJETLIBADD -lfastjetcontribfragile -lfastjettools"
+FASTJETLIBADD="$FASTJETLIBADD -lfastjetcontribfragile -lfastjettools -L/home/ppe/j/jaraz/packages/rivet/HEPTopTagger/Nsubjettiness  -lNsubjettiness -L/home/ppe/j/jaraz/packages/rivet/HEPTopTagger/qjets/lib -lQjets"
 AC_SUBST(FASTJETLIBADD)
 AC_SUBST(FASTJETLDFLAGS)
 AC_MSG_NOTICE([FastJet lib flags: $FASTJETLIBADD])

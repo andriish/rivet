@@ -28,6 +28,7 @@ libRivetProjections_la_SOURCES = \
   InvMassFinalState.cc \
   JetFinder.cc \
   JetShape.cc \
+  HTT.cc \
   LeadingParticlesFinalState.cc \
   MergedFinalState.cc \
   MissingMomentum.cc \

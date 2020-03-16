@@ -14,7 +14,8 @@ libRivetTools_la_SOURCES = \
   RivetMT2.cc \
   RivetPaths.cc \
   Utils.cc \
-  binreloc.c
+  binreloc.c \
+  HEPTopTagger.cc 
 
 if ENABLE_HEPMC_3
 libRivetTools_la_SOURCES += RivetHepMC_3.cc ReaderCompressedAscii.cc WriterCompressedAscii.cc

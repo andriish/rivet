@@ -68,6 +68,7 @@ nobase_pkginclude_HEADERS += \
   Projections/JetAlg.hh \
   Projections/JetFinder.hh \
   Projections/JetShape.hh \
+  Projections/HTT.hh \
   Projections/LeadingParticlesFinalState.hh \
   Projections/LossyFinalState.hh \
   Projections/MergedFinalState.hh \
