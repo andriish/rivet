@@ -8,7 +8,7 @@
 #include "fastjet/ClusterSequence.hh"
 #include "fastjet/tools/Pruner.hh"
 #include "fastjet/tools/Filter.hh"
-#include "/home/ppe/j/jaraz/packages/rivet/HEPTopTagger/Nsubjettiness/Nsubjettiness.hh"
+#include "fastjet/contrib/Nsubjettiness.hh"
 #include "/home/ppe/j/jaraz/packages/rivet/HEPTopTagger/qjets/QjetsPlugin.h"
 
 namespace HEPTopTagger{
