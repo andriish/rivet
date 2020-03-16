@@ -10,6 +10,11 @@
 
 	* Allow "Nominal" as a potential default weight name
 
+2020-03-16  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add ARGUS_1990_I283027 anti-deuteron spectrum in Upsilon(1S) decays
+	* Add ARGUS_1990_I283027 Delta++ spectrum in Upsilon(1S) decays
+
 2020-03-12  Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2018_I1697371 D0 -> K semi-leptonic
