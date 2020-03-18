@@ -53,8 +53,8 @@ namespace Rivet {
         double _filtering_R   = 0.3;
         double _filtering_minpT_subjet = 0.;
 
-        JetAlgorithm _filtering_jetalg    = fastjet::cambridge_algorithm;
-        JetAlgorithm _reclustering_jetalg = fastjet::cambridge_algorithm;
+        fastjet::JetAlgorithm _filtering_jetalg    = fastjet::cambridge_algorithm;
+        fastjet::JetAlgorithm _reclustering_jetalg = fastjet::cambridge_algorithm;
 
         double _zcut        = 0.1;
         double _rcut_factor = 0.5;
@@ -137,8 +137,8 @@ namespace Rivet {
         void set_filtering_R(double v) {_filtering_R=v;}
         void set_filtering_minpT_subjet(double v) {_filtering_minpT_subjet=v;}
 
-        void set_filtering_jetalg(JetAlgorithm j) {_filtering_jetalg=j;}
-        void set_reclustering_jetalg(JetAlgorithm j) {_reclustering_jetalg=j;}
+        void set_filtering_jetalg(fastjet::JetAlgorithm j) {_filtering_jetalg=j;}
+        void set_reclustering_jetalg(fastjet::JetAlgorithm j) {_reclustering_jetalg=j;}
 
 
 
