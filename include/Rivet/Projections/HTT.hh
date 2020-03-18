@@ -12,6 +12,8 @@
 #include "../../HEPTopTagger/HEPTopTagger.hh"
 //#include <functional>
 
+using namespace HEPTopTagger;
+
 namespace Rivet {
 
 
@@ -30,9 +32,9 @@ namespace Rivet {
         unsigned _filtering_n;
         double _filtering_R;
         double _filtering_minpT_subjet;
-        JetAlgorithm _filtering_jetalg;
-
-        JetAlgorithm _reclustering_jetalg;
+//        JetAlgorithm _filtering_jetalg;
+//
+//        JetAlgorithm _reclustering_jetalg;
 
 
     public:

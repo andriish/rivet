@@ -46,7 +46,7 @@ void HTT::calc(const Jets& jets) {
     for (unsigned i=0; i<jets.size();i++) {
       // Apply jet cuts
 //      HEPTopTagger::HEPTopTagger tagger(jets[i]);
-        tagger(jets[i]);
+        tagger->_jet = &(jets[i]);
              // Unclustering, Filtering & Subjet Settings
 //      tagger.set_max_subjet_mass(30.);
 //      tagger.set_mass_drop_threshold(0.8);
@@ -63,12 +63,12 @@ void HTT::calc(const Jets& jets) {
 //      tagger.set_fw(0.15);
 
       // Run the tagger
-      tagger.run();
-      MSG_INFO("Maybe top: " << tagger.is_maybe_top());
+      tagger->run();
+      MSG_INFO("Maybe top: " << tagger->is_maybe_top());
             // Look at output if we have a tag:
-      if (tagger.is_tagged()){
+      if (tagger->is_tagged()){
         MSG_INFO("Input fatjet: " << i << "  pT = " << jets[i].perp());
-        MSG_INFO("Output: pT = " << tagger.t().perp() << " Mass = " << tagger.t().m() << " f_rec = " << tagger.f_rec());
+        MSG_INFO("Output: pT = " << tagger->t().perp() << " Mass = " << tagger->t().m() << " f_rec = " << tagger->f_rec());
       } else {
           MSG_INFO("Not tagged");
       }
