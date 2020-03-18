@@ -48,6 +48,8 @@ namespace Rivet {
         }
 
         HEPTopTagger::HEPTopTagger tagger() {return _tagger;}
+        
+        void init_jet(const fastjet::PseudoJet& jet) {_tagger(jet);}
 
         void calc(const Jets& jets);
         
