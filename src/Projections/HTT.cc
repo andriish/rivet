@@ -33,23 +33,23 @@ void HTT::calc(const Jets& jets) {
       // Apply jet cuts
       HEPTopTagger::HEPTopTagger tagger(jets[i]);
              // Unclustering, Filtering & Subjet Settings
-      tagger.set_max_subjet_mass(_max_subjet_mass);
-      tagger.set_mass_drop_threshold(_mass_drop_treshold);
-      tagger.set_filtering_R(_filtering_R);
-      tagger.set_filtering_n(_filtering_n);
-      tagger.set_filtering_minpt_subjet(_filtering_minpT_subjet);
+      tagger->set_max_subjet_mass(_max_subjet_mass);
+      tagger->set_mass_drop_threshold(_mass_drop_treshold);
+      tagger->set_filtering_R(_filtering_R);
+      tagger->set_filtering_n(_filtering_n);
+      tagger->set_filtering_minpt_subjet(_filtering_minpT_subjet);
 
       // How to select among candidates
-      tagger.set_mode(_mode);
+      tagger->set_mode(_mode);
 
       // Requirements to accept a candidate
-      tagger.set_top_minpt(_minpt_tag);
-      tagger.set_top_mass_range(_mtmin, _mtmax);
-      tagger.set_fw(_fw);
+      tagger->set_top_minpt(_minpt_tag);
+      tagger->set_top_mass_range(_mtmin, _mtmax);
+      tagger->set_fw(_fw);
 
       // Run the tagger
       tagger->run();
-      MSG_INFO("Maybe top: " << tagger.is_maybe_top());
+      MSG_INFO("Maybe top: " << tagger->is_maybe_top());
             // Look at output if we have a tag:
       if (tagger->is_tagged()){
         MSG_INFO("Input fatjet: " << i << "  pT = " << jets[i].perp());

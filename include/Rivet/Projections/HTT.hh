@@ -30,7 +30,7 @@ using namespace fastjet;
 
         double _mass_drop_treshold, _max_subjet_mass;
 
-        int _mode; 
+        HEPTopTagger::Mode _mode; 
         // (0 = EARLY_MASSRATIO_SORT_MASS)
         // (1 = LATE_MASSRATIO_SORT_MASS)
         // (2 = EARLY_MASSRATIO_SORT_MODDJADE)
@@ -107,11 +107,11 @@ using namespace fastjet;
 
         void set_mode(int m) 
         {
-            if (m==0)      _mode=EARLY_MASSRATIO_SORT_MASS;
-            else if (m==1) _mode=LATE_MASSRATIO_SORT_MASS;
-            else if (m==2) _mode=EARLY_MASSRATIO_SORT_MODDJADE;
-            else if (m==3) _mode=LATE_MASSRATIO_SORT_MODDJADE;
-            else if (m==4) _mode=TWO_STEP_FILTER;
+            if (m==0)      _mode=HEPTopTagger::EARLY_MASSRATIO_SORT_MASS;
+            else if (m==1) _mode=HEPTopTagger::LATE_MASSRATIO_SORT_MASS;
+            else if (m==2) _mode=HEPTopTagger::EARLY_MASSRATIO_SORT_MODDJADE;
+            else if (m==3) _mode=HEPTopTagger::LATE_MASSRATIO_SORT_MODDJADE;
+            else if (m==4) _mode=HEPTopTagger::TWO_STEP_FILTER;
             else 
             {
                 MSG_ERROR("Mode has to be between 0 and 4");
