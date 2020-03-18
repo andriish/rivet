@@ -7,7 +7,6 @@
 #include "Rivet/Projections/SmearedJets.hh"
 #include "Rivet/Projections/SmearedParticles.hh"
 #include "Rivet/Projections/SmearedMET.hh"
-#include "Rivet/Projections/HTT.h"
 
 namespace Rivet {
 
@@ -37,9 +36,6 @@ namespace Rivet {
 
       FastJets fj(FinalState(Cuts::abseta < 5), FastJets::ANTIKT, 0.4);
       declare(fj, "Jets0");
-
-      const HTT htt(fj);
-      declare(htt, "HEPTopTagger");
 
       SmearedJets sj1(fj, JET_SMEAR_IDENTITY);
       declare(sj1, "Jets1");
@@ -135,7 +131,6 @@ namespace Rivet {
       const Jets jets2 = apply<JetAlg>(event, "Jets2").jetsByPt(Cuts::pT > 10*GeV);
       const Jets jets3 = apply<JetAlg>(event, "Jets3").jetsByPt(Cuts::pT > 10*GeV);
 
-      const HTT& tagger = apply<HTT>(event, "HEPTopTagger");
 
       MSG_DEBUG("Numbers of jets = " << jets0.size() << " true; "
                << jets1.size() << ", " << jets2.size() << ", " << jets3.size());
