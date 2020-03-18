@@ -7,12 +7,12 @@ namespace Rivet {
 using namespace std;
 
 
-HTT::HTT(const JetAlg& jetalg, const std::map<std::string,std::string>& options)
-{
-    setName("HEPTopTagger");
-    declare(jetalg, "Jets");
-    Set_Parameters(options);
-}
+//HTT::HTT(const JetAlg& jetalg, const std::map<std::string,std::string>& options)
+//{
+//    setName("HEPTopTagger");
+//    declare(jetalg, "Jets");
+//    Set_Parameters(options);
+//}
 
 CmpState HTT::compare(const Projection& p) const 
 {

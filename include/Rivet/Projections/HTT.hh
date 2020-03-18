@@ -86,7 +86,12 @@ namespace Rivet {
 
     public:
 
-        void HTT(const JetAlg& jetalg, const std::map<std::string,std::string>& options);
+        HTT(const JetAlg& jetalg, const std::map<std::string,std::string>& options)
+        {
+            setName("HEPTopTagger");
+            declare(jetalg, "Jets");
+            Set_Parameters(options);
+        }
         DEFAULT_RIVET_PROJ_CLONE(HTT);
 
         // Set parameters
