@@ -45,7 +45,7 @@ using namespace fastjet;
         double _mtmin  = 150.;
         double _mtmax  = 200.;
         double _rmin   = 0.85*_mwmass/_mtmass;
-        double _rmax   = 1.15*_mwmass/_mtmass
+        double _rmax   = 1.15*_mwmass/_mtmass;
         double _fw     = 0.15; 
 
         double _m23cut    = 0.35;
@@ -70,7 +70,7 @@ using namespace fastjet;
 
         double _R_filt_optimalR_calc = 0.2;
         double _N_filt_optimalR_calc = 10.;
-        double _r_min_exp_function   = &_R_filt_optimalR_calc; // =_R_filt_optimalR_calc
+        double _r_min_exp_function   = _R_filt_optimalR_calc; // =_R_filt_optimalR_calc
 
         double _optimalR_mmin = 150.;
         double _optimalR_mmax = 200.;
