@@ -86,7 +86,7 @@ namespace Rivet {
 
     public:
 
-        HTT(const JetAlg& jetalg, const std::map<std::string, std::string>& options);
+        void HTT(const JetAlg& jetalg, const std::map<std::string,std::string>& options);
         DEFAULT_RIVET_PROJ_CLONE(HTT);
 
         // Set parameters

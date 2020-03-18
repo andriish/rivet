@@ -7,7 +7,7 @@ namespace Rivet {
 using namespace std;
 
 
-HTT::HTT(const JetAlg& jetalg, const std::map<std::string, std::string>& options)
+HTT::HTT(const JetAlg& jetalg, const std::map<std::string,std::string>& options)
 {
     setName("HEPTopTagger");
     declare(jetalg, "Jets");
