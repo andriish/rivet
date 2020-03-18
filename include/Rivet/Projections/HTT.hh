@@ -111,7 +111,7 @@ namespace Rivet {
             }
         }
 
-        void set_mtmass(double v) {_mtmass=v;}
+        void HTT::set_mtmass(double v) {_mtmass=v;}
         void set_mwmass(double v) {_mwmass=v;}
         void set_mtmin(double v) {_mtmin=v;}
         void set_mtmax(double v) {_mtmax=v;}
