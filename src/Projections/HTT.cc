@@ -5,7 +5,6 @@
 namespace Rivet {
 
 using namespace std;
-using namespace HEPTopTagger;
 
 
 //HTT::HTT(const JetAlg& jetalg,

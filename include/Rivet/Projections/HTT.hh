@@ -12,12 +12,8 @@
 #include "../../HEPTopTagger/HEPTopTagger.hh"
 //#include <functional>
 
-using namespace HEPTopTagger;
-
 namespace Rivet {
 
-using namespace HEPTopTagger;
-using namespace fastjet;
 
 
   class HTT : public Projection
