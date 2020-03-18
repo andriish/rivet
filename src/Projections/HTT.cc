@@ -2,29 +2,18 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/HTT.hh"
 
-using namespace Rivet;
+namespace Rivet {
+
 using namespace std;
+using namespace HEPTopTagger;
 
 
-HTT::HTT(const JetAlg& jetalg)
+HTT::HTT(const JetAlg& jetalg,
+         unsigned mode=4)
 {
     setName("HEPTopTagger");
     declare(jetalg, "Jets");
-    HEPTopTagger::HEPTopTagger* tagger = GetNewTagger();
-  tagger->set_max_subjet_mass(30.);
-  tagger->set_mass_drop_threshold(0.8);
-  tagger->set_filtering_R(0.3);
-  tagger->set_filtering_n(5);
-  tagger->set_filtering_minpt_subjet(30.);
-
-  // How to select among candidates
-  tagger->set_mode(HEPTopTagger::TWO_STEP_FILTER);
-
-  // Requirements to accept a candidate
-  tagger->set_top_minpt(200);
-  tagger->set_top_mass_range(150., 200.);
-  tagger->set_fw(0.15);
-  tagger->set_debug(1);
+    set_mode(mode);
 }
 
 CmpState HTT::compare(const Projection& p) const 
@@ -39,32 +28,28 @@ void HTT::Reset()
 }
 
 void HTT::calc(const Jets& jets) {
-    Reset();
 
-    HEPTopTagger::HEPTopTagger* tagger = GetNewTagger();
-//    for (const Jet& jet : jets) {
     for (unsigned i=0; i<jets.size();i++) {
       // Apply jet cuts
-//      HEPTopTagger::HEPTopTagger tagger(jets[i]);
-        init_jet(jets[i]);
+      HEPTopTagger tagger(jets[i]);
              // Unclustering, Filtering & Subjet Settings
-//      tagger.set_max_subjet_mass(30.);
-//      tagger.set_mass_drop_threshold(0.8);
-//      tagger.set_filtering_R(0.3);
-//      tagger.set_filtering_n(5);
-//      tagger.set_filtering_minpt_subjet(30.);
-//
-//      // How to select among candidates
-//      tagger.set_mode(HEPTopTagger::TWO_STEP_FILTER);
-//
-//      // Requirements to accept a candidate
-//      tagger.set_top_minpt(200);
-//      tagger.set_top_mass_range(150., 200.);
-//      tagger.set_fw(0.15);
+      tagger.set_max_subjet_mass(_max_subjet_mass);
+      tagger.set_mass_drop_threshold(_mass_drop_treshold);
+      tagger.set_filtering_R(_filtering_R);
+      tagger.set_filtering_n(_filtering_n);
+      tagger.set_filtering_minpt_subjet(_filtering_minpT_subjet);
+
+      // How to select among candidates
+      tagger.set_mode(_mode);
+
+      // Requirements to accept a candidate
+      tagger.set_top_minpt(_minpt_tag);
+      tagger.set_top_mass_range(_mtmin, _mtmax);
+      tagger.set_fw(_fw);
 
       // Run the tagger
       tagger->run();
-      MSG_INFO("Maybe top: " << tagger->is_maybe_top());
+      MSG_INFO("Maybe top: " << tagger.is_maybe_top());
             // Look at output if we have a tag:
       if (tagger->is_tagged()){
         MSG_INFO("Input fatjet: " << i << "  pT = " << jets[i].perp());
@@ -79,4 +64,6 @@ void HTT::calc(const Jets& jets) {
 void HTT::project(const Event& e) {
     const Jets jets = applyProjection<JetAlg>(e, "Jets").jets();
     calc(jets);
+}
+
 }
