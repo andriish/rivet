@@ -81,14 +81,14 @@ using namespace fastjet;
                                    _filtering_minpT_subjet(0.), _reclustering_jetalg(fastjet::cambridge_algorithm),
                                    _zcut(0.1), _rcut_factor(0.5),_max_fatjet_R(1.5), 
                                    _min_fatjet_R(0.5), _step_R(0.1), _optimalR_threshold(0.2),
-                                   _R_filt_optimalR_calc(0.2), _N_filt_optimalR_calc(10),
+                                   _R_filt_optimalR_calc(0.2), _N_filt_optimalR_calc(10.),
                                    _r_min_exp_function(&_R_filt_optimalR_calc),
                                    _optimalR_mmin(150.), _optimalR_mmax(200.), 
                                    _optimalR_fw(0.175), _R_opt_diff(0.3),
                                    _R_filt_optimalR_pass(0.2), _N_filt_optimalR_pass(5), 
                                    _R_filt_optimalR_fail(0.3), _N_filt_optimalR_fail(3),
                                    _q_zcut(0.1), _q_dcut_fctr(0.5), _q_exp_min(0.), 
-                                   _q_exp_max(0.), _q_rigidity(0.1), _q_truncation_fctr(&(0.0)) 
+                                   _q_exp_max(0.), _q_rigidity(0.1), _q_truncation_fctr(0.) 
         {
             setName("HEPTopTagger");
             declare(jetalg, "Jets");
