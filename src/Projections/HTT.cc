@@ -76,7 +76,7 @@ void HTT::Set_Parameters(const std::map<std::string, std::string>& options)
         {
             std::string key = it->first;
             std::for_each(key.begin(), key.end(), [](char & c)
-            { c = ::tolower(c); })
+            { c = ::tolower(c); });
             
             if (key == "topmass")
             {
