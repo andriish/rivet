@@ -46,6 +46,8 @@ void HTT::calc(const Jets& jets) {
       tagger.set_fw(_fw);
 
       // Run the tagger
+      tagger.get_setting();
+      tagger.get_info();
       tagger.run();
       MSG_INFO("Maybe top: " << tagger.is_maybe_top());
             // Look at output if we have a tag:
