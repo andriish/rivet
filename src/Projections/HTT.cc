@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Projections/HTT.h"
+#include "Rivet/Projections/HTT.hh"
 
 using namespace Rivet;
 using namespace std;
