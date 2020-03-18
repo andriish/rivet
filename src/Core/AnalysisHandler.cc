@@ -157,7 +157,7 @@ namespace Rivet {
       if (nDefaults == 0) {
         for (string& w : _weightNames) {
           const string W = toUpper(w);
-          if (W == "WEIGHT" || W == "0" || W == "DEFAULT") {
+          if (W == "WEIGHT" || W == "0" || W == "DEFAULT" || W == "NOMINAL") {
             if (nDefaults == 0) w = ""; //< non-const reference: actually change the registered weight name
             nDefaults += 1;
           }
