@@ -3,7 +3,10 @@
 #define RIVET_HTT_HH
 
 #include "Rivet/Jet.hh"
-//#include "Rivet/Particle.hh"
+#include "fastjet/PseudoJet.hh"
+#include "fastjet/ClusterSequence.hh"
+#include "fastjet/tools/Pruner.hh"
+#include "fastjet/tools/Filter.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/JetAlg.hh"
 #include "../../HEPTopTagger/HEPTopTagger.hh"
@@ -16,7 +19,21 @@ namespace Rivet {
   {
     private:
 
+        HEPTopTagger::HEPTopTagger _tagger;
+
         std::vector<double> _topjets;
+        bool _do_qjets;
+
+        double _mass_drop_treshold;
+        double _max_subjet_mass;
+
+        unsigned _filtering_n;
+        double _filtering_R;
+        double _filtering_minpT_subjet;
+        JetAlgorithm _filtering_jetalg;
+
+        JetAlgorithm _reclustering_jetalg;
+
 
     public:
 
