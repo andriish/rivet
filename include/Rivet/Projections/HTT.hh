@@ -26,69 +26,74 @@ using namespace fastjet;
 
         std::vector<double> _topjets;
 
-        bool _do_qjets, _do_optimalR, _debug;
+        bool _do_qjets=0;
+        bool _do_optimalR=1;
+        bool _debug=1;
 
-        double _mass_drop_treshold, _max_subjet_mass;
+        double _mass_drop_treshold =0.8;
+        double _max_subjet_mass=30.;
 
-        HEPTopTagger::Mode _mode; 
+        HEPTopTagger::Mode _mode=HEPTopTagger::TWO_STEP_FILTER; 
         // (0 = EARLY_MASSRATIO_SORT_MASS)
         // (1 = LATE_MASSRATIO_SORT_MASS)
         // (2 = EARLY_MASSRATIO_SORT_MODDJADE)
         // (3 = LATE_MASSRATIO_SORT_MODDJADE)
         // (4 = TWO_STEP_FILTER)
 
-        double _mtmass, _mwmass, _mtmin, _mtmax, _rmin, _rmax, _fw; 
+        double _mtmass = 172.9;
+        double _mwmass = 80.379;
+        double _mtmin  = 150.;
+        double _mtmax  = 200.;
+        double _rmin   = 0.85*_mwmass/_mtmass;
+        double _rmax   = 1.15*_mwmass/_mtmass
+        double _fw     = 0.15; 
 
-        double _m23cut, _m13cutmin, _m13cutmax, _minpt_tag;
+        double _m23cut    = 0.35;
+        double _m13cutmin = 0.2;
+        double _m13cutmax = 1.3;
+        double _minpt_tag = 200.;
 
-        unsigned _filtering_n;
-        double _filtering_R, _filtering_minpT_subjet;
+        unsigned _filtering_n = 5;
+        double _filtering_R   = 0.3;
+        double _filtering_minpT_subjet = 0.;
 
-        JetAlgorithm _filtering_jetalg, _reclustering_jetalg;
+        JetAlgorithm _filtering_jetalg    = fastjet::cambridge_algorithm;
+        JetAlgorithm _reclustering_jetalg = fastjet::cambridge_algorithm;
 
-        double _zcut;
-        double _rcut_factor;
+        double _zcut        = 0.1;
+        double _rcut_factor = 0.5;
 
-        double _max_fatjet_R; // max should be same with clustering def
-        double _min_fatjet_R;
-        double _step_R;
-        double _optimalR_threshold;
+        double _max_fatjet_R       = 1.5; // max should be same with clustering def
+        double _min_fatjet_R       = 0.5;
+        double _step_R             = 0.1;
+        double _optimalR_threshold = 0.2;
 
-        double _R_filt_optimalR_calc;
-        double _N_filt_optimalR_calc;
-        double _r_min_exp_function; // =_R_filt_optimalR_calc
+        double _R_filt_optimalR_calc = 0.2;
+        double _N_filt_optimalR_calc = 10.;
+        double _r_min_exp_function   = &_R_filt_optimalR_calc; // =_R_filt_optimalR_calc
 
-        double _optimalR_mmin;
-        double _optimalR_mmax;
-        double _optimalR_fw;
-        double _R_opt_diff;
+        double _optimalR_mmin = 150.;
+        double _optimalR_mmax = 200.;
+        double _optimalR_fw   = 0.175;
+        double _R_opt_diff    = 0.3;
 
-        double _R_filt_optimalR_pass;
-        double _N_filt_optimalR_pass, _R_filt_optimalR_fail, _N_filt_optimalR_fail;
+        double _R_filt_optimalR_pass = .2;
+        double _N_filt_optimalR_pass = 5.;
+        double _R_filt_optimalR_fail = .3;
+        double _N_filt_optimalR_fail = 3.;
 
-        double _q_zcut, _q_dcut_fctr, _q_exp_min, _q_exp_max, _q_rigidity, _q_truncation_fctr;
+        double _q_zcut =0.1;
+        double _q_dcut_fctr =0.5;
+        double _q_exp_min =0.;
+        double _q_exp_max = .0;
+        double _q_rigidity =.1;
+        double _q_truncation_fctr = 0.;
 
 
     public:
 
         HTT(const JetAlg& jetalg, 
-            unsigned mode=4) : _do_optimalR(1), _do_qjets(0),
-                                   _mass_drop_treshold(0.8), _max_subjet_mass(30.),
-                                   _mtmass(172.3), _mwmass(80.4), _fw(0.15),
-                                   _mtmin(150.), _mtmax(200.), _rmin(0.85*80.4/172.3), _rmax(1.15*80.4/172.3),
-                                   _m23cut(0.35), _m13cutmin(0.2), _m13cutmax(1.3), _minpt_tag(200.),
-                                   _filtering_n(5), _filtering_R(0.3), _filtering_jetalg(fastjet::cambridge_algorithm), 
-                                   _filtering_minpT_subjet(0.), _reclustering_jetalg(fastjet::cambridge_algorithm),
-                                   _zcut(0.1), _rcut_factor(0.5),_max_fatjet_R(1.5), 
-                                   _min_fatjet_R(0.5), _step_R(0.1), _optimalR_threshold(0.2),
-                                   _R_filt_optimalR_calc(0.2), _N_filt_optimalR_calc(10.),
-                                   _r_min_exp_function(&_R_filt_optimalR_calc),
-                                   _optimalR_mmin(150.), _optimalR_mmax(200.), 
-                                   _optimalR_fw(0.175), _R_opt_diff(0.3),
-                                   _R_filt_optimalR_pass(0.2), _N_filt_optimalR_pass(5), 
-                                   _R_filt_optimalR_fail(0.3), _N_filt_optimalR_fail(3),
-                                   _q_zcut(0.1), _q_dcut_fctr(0.5), _q_exp_min(0.), 
-                                   _q_exp_max(0.), _q_rigidity(0.1), _q_truncation_fctr(0.); 
+            unsigned mode=4)
         {
             setName("HEPTopTagger");
             declare(jetalg, "Jets");
