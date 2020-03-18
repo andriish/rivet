@@ -65,7 +65,7 @@ void HTT::calc(const Jets& jets) {
       _tagger.run();
       MSG_INFO("Maybe top: " << _tagger.is_maybe_top());
             // Look at output if we have a tag:
-      if (tagger.is_tagged()){
+      if (_tagger.is_tagged()){
         MSG_INFO("Input fatjet: " << i << "  pT = " << jets[i].perp());
         MSG_INFO("Output: pT = " << _tagger.t().perp() << " Mass = " << _tagger.t().m() << " f_rec = " << _tagger.f_rec());
       } else {
