@@ -83,7 +83,7 @@ void HTT::Set_Parameters(const std::map<std::string, std::string>& options)
                 double tmp=0.;
                 std::stringstream str;
                 str << it->second;
-                str >> tmp
+                str >> tmp;
                 if (tmp>0.) _mtmass = tmp;
             }
         
