@@ -40,6 +40,14 @@ namespace Rivet {
         HTT(const JetAlg& jetalg);
         DEFAULT_RIVET_PROJ_CLONE(HTT);
 
+        HEPTopTagger::HEPTopTagger* GetNewTagger()
+        {
+          return &(_tagger);
+        }
+
+        HEPTopTagger::HEPTopTagger tagger() {return _tagger;}
+        HEPTopTagger::HEPTopTagger tagger(FastJet::Pseudojet& jet) {return _tagger;}
+
         void calc(const Jets& jets);
         
         void Reset();
