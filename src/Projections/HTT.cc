@@ -68,25 +68,25 @@ void HTT::project(const Event& e) {
 
 
 
-void HTT::set_mtmass(double v) {_mtmass=v;}
-void HTT::set_mwmass(double v) {_mwmass=v;}
-void HTT::set_mtmin(double v) {_mtmin=v;}
-void HTT::set_mtmax(double v) {_mtmax=v;}
-void HTT::set_rmin(double v) {_rmin=v;}
-void HTT::set_rmax(double v) {_rmax=v;}
-void HTT::set_fw(double fw) {_fw=fw;}
-
-void HTT::set_m23cut(double v) {_m23cut=v;}
-void HTT::set_m13cutmin(double v) {_m13cutmin=v;}
-void HTT::set_m13cutmax(double v) {_m13cutmin=v;}
-void HTT::set_minpt_tag(double v) {_minpt_tag=v;}
-
-void HTT::set_filtering_n(unsigned i) {_filtering_n=i;}
-void HTT::set_filtering_R(double v) {_filtering_R=v;}
-void HTT::set_filtering_minpT_subjet(double v) {_filtering_minpT_subjet=v;}
-
-void HTT::set_filtering_jetalg(fastjet::JetAlgorithm j) {_filtering_jetalg=j;}
-void HTT::set_reclustering_jetalg(fastjet::JetAlgorithm j) {_reclustering_jetalg=j;}
+//void HTT::set_mtmass(double v) {_mtmass=v;}
+//void HTT::set_mwmass(double v) {_mwmass=v;}
+//void HTT::set_mtmin(double v) {_mtmin=v;}
+//void HTT::set_mtmax(double v) {_mtmax=v;}
+//void HTT::set_rmin(double v) {_rmin=v;}
+//void HTT::set_rmax(double v) {_rmax=v;}
+//void HTT::set_fw(double fw) {_fw=fw;}
+//
+//void HTT::set_m23cut(double v) {_m23cut=v;}
+//void HTT::set_m13cutmin(double v) {_m13cutmin=v;}
+//void HTT::set_m13cutmax(double v) {_m13cutmin=v;}
+//void HTT::set_minpt_tag(double v) {_minpt_tag=v;}
+//
+//void HTT::set_filtering_n(unsigned i) {_filtering_n=i;}
+//void HTT::set_filtering_R(double v) {_filtering_R=v;}
+//void HTT::set_filtering_minpT_subjet(double v) {_filtering_minpT_subjet=v;}
+//
+//void HTT::set_filtering_jetalg(fastjet::JetAlgorithm j) {_filtering_jetalg=j;}
+//void HTT::set_reclustering_jetalg(fastjet::JetAlgorithm j) {_reclustering_jetalg=j;}
 
 
 
