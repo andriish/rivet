@@ -31,6 +31,7 @@ void HTT::calc(const Jets& jets) {
       // Apply jet cuts
       HEPTopTagger::HEPTopTagger tagger(jets[i]);
              // Unclustering, Filtering & Subjet Settings
+      tagger.set_mt(_mtmass);
       tagger.set_max_subjet_mass(_max_subjet_mass);
       tagger.set_mass_drop_threshold(_mass_drop_treshold);
       tagger.set_filtering_R(_filtering_R);
