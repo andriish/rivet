@@ -88,7 +88,7 @@ using namespace fastjet;
                                    _R_filt_optimalR_pass(0.2), _N_filt_optimalR_pass(5), 
                                    _R_filt_optimalR_fail(0.3), _N_filt_optimalR_fail(3),
                                    _q_zcut(0.1), _q_dcut_fctr(0.5), _q_exp_min(0.), 
-                                   _q_exp_max(0.), _q_rigidity(0.1), _q_truncation_fctr(0.0) 
+                                   _q_exp_max(0.), _q_rigidity(0.1), _q_truncation_fctr(&(0.0)) 
         {
             setName("HEPTopTagger");
             declare(jetalg, "Jets");
@@ -125,7 +125,7 @@ using namespace fastjet;
         void set_mtmax(double v) {_mtmax=v;}
         void set_rmin(double v) {_rmin=v;}
         void set_rmax(double v) {_rmax=v;}
-        void set_fw(double fw) {_fw;}
+        void set_fw(double fw) {_fw=fw;}
 
         void set_m23cut(double v) {_m23cut=v;}
         void set_m13cutmin(double v) {_m13cutmin=v;}
