@@ -11,7 +11,7 @@ HTT::HTT(const JetAlg& jetalg, const std::map<std::string, std::string>& options
 {
     setName("HEPTopTagger");
     declare(jetalg, "Jets");
-    set_options(options);
+    Set_Parameters(options);
 }
 
 CmpState HTT::compare(const Projection& p) const 
