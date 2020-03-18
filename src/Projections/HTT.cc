@@ -7,11 +7,11 @@ namespace Rivet {
 using namespace std;
 
 
-HTT::HTT(const JetAlg& jetalg)
+HTT::HTT(const JetAlg& jetalg, const std::map<std::string, std::string>& options)
 {
     setName("HEPTopTagger");
     declare(jetalg, "Jets");
-    set_mode(4);
+    set_options(options);
 }
 
 CmpState HTT::compare(const Projection& p) const 
@@ -68,26 +68,36 @@ void HTT::project(const Event& e) {
 
 
 
-//void HTT::set_mtmass(double v) {_mtmass=v;}
-//void HTT::set_mwmass(double v) {_mwmass=v;}
-//void HTT::set_mtmin(double v) {_mtmin=v;}
-//void HTT::set_mtmax(double v) {_mtmax=v;}
-//void HTT::set_rmin(double v) {_rmin=v;}
-//void HTT::set_rmax(double v) {_rmax=v;}
-//void HTT::set_fw(double fw) {_fw=fw;}
-//
-//void HTT::set_m23cut(double v) {_m23cut=v;}
-//void HTT::set_m13cutmin(double v) {_m13cutmin=v;}
-//void HTT::set_m13cutmax(double v) {_m13cutmin=v;}
-//void HTT::set_minpt_tag(double v) {_minpt_tag=v;}
-//
-//void HTT::set_filtering_n(unsigned i) {_filtering_n=i;}
-//void HTT::set_filtering_R(double v) {_filtering_R=v;}
-//void HTT::set_filtering_minpT_subjet(double v) {_filtering_minpT_subjet=v;}
-//
-//void HTT::set_filtering_jetalg(fastjet::JetAlgorithm j) {_filtering_jetalg=j;}
-//void HTT::set_reclustering_jetalg(fastjet::JetAlgorithm j) {_reclustering_jetalg=j;}
+void HTT::Set_Parameters(const std::map<std::string, std::string>& options)
+{
+      // Loop over options
+      for (std::map<std::string,std::string>::const_iterator
+           it=options.begin();it!=options.end();it++)
+        {
+            std::string key = it->first;
+            std::for_each(key.begin(), key.end(), [](char & c)
+            { c = ::tolower(c); })
+            
+            if (key == "topmass")
+            {
+                double tmp=0.;
+                std::stringstream str;
+                str << it->second;
+                str >> tmp
+                if (tmp>0.) _mtmass = tmp;
+            }
+        
+        
+        
+        
+        
+        
+        
+        }
 
+
+
+}
 
 
 }
