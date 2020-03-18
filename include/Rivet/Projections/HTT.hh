@@ -90,12 +90,12 @@ namespace Rivet {
         DEFAULT_RIVET_PROJ_CLONE(HTT);
 
         // Set parameters
-        void set_do_qjets(bool m) {_do_qjets=m;}
-        void set_do_optimalR(bool m) {_do_optimalR=m;}
-        void set_debug(bool m) {_debug=m;}
+        void set_do_qjets(bool m) const {_do_qjets=m;}
+        void set_do_optimalR(bool m) const {_do_optimalR=m;}
+        void set_debug(bool m) const {_debug=m;}
 
-        void set_mass_drop_treshold(double v) {_mass_drop_treshold=v;}
-        void set_max_subjet_mass(double v) {_max_subjet_mass=v;}
+        void set_mass_drop_treshold(double v) const {_mass_drop_treshold=v;}
+        void set_max_subjet_mass(double v) const {_max_subjet_mass=v;}
 
         void set_mode(int m) 
         {
@@ -111,25 +111,25 @@ namespace Rivet {
             }
         }
 
-        void set_mtmass(double v);
-        void set_mwmass(double v);
-        void set_mtmin(double v);
-        void set_mtmax(double v);
-        void set_rmin(double v);
-        void set_rmax(double v);
-        void set_fw(double fw);
+        void set_mtmass(double v) const {_mtmass=v;}
+        void set_mwmass(double v) const {_mwmass=v;}
+        void set_mtmin(double v) const {_mtmin=v;}
+        void set_mtmax(double v) const {_mtmax=v;}
+        void set_rmin(double v) const {_rmin=v;}
+        void set_rmax(double v) const {_rmax=v;}
+        void set_fw(double fw) const {_fw=fw;}
 
-        void set_m23cut(double v);
-        void set_m13cutmin(double v);
-        void set_m13cutmax(double v);
-        void set_minpt_tag(double v);
+        void set_m23cut(double v) const {_m23cut=v;}
+        void set_m13cutmin(double v) const {_m13cutmin=v;}
+        void set_m13cutmax(double v) const {_m13cutmin=v;}
+        void set_minpt_tag(double v) const {_minpt_tag=v;}
 
-        void set_filtering_n(unsigned i);
-        void set_filtering_R(double v);
-        void set_filtering_minpT_subjet(double v);
+        void set_filtering_n(unsigned i) const {_filtering_n=i;}
+        void set_filtering_R(double v) const {_filtering_R=v;}
+        void set_filtering_minpT_subjet(double v) const {_filtering_minpT_subjet=v;}
 
-        void set_filtering_jetalg(fastjet::JetAlgorithm j);
-        void set_reclustering_jetalg(fastjet::JetAlgorithm j);
+        void set_filtering_jetalg(fastjet::JetAlgorithm j) const {_filtering_jetalg=j;}
+        void set_reclustering_jetalg(fastjet::JetAlgorithm j) const {_reclustering_jetalg=j;}
 
 
 
