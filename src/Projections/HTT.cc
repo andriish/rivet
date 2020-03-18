@@ -30,7 +30,7 @@ void HTT::calc(const Jets& jets) {
     for (unsigned i=0; i<jets.size();i++) {
       // Apply jet cuts
       HEPTopTagger::HEPTopTagger tagger(jets[i]);
-             // Unclustering, Filtering & Subjet Settings
+      MSG_INFO("Top Mass reasigned: " << _mtmass);
       tagger.set_mt(_mtmass);
       tagger.set_max_subjet_mass(_max_subjet_mass);
       tagger.set_mass_drop_threshold(_mass_drop_treshold);
@@ -86,6 +86,7 @@ void HTT::Set_Parameters(const std::map<std::string, std::string>& options)
                 str << it->second;
                 str >> tmp;
                 if (tmp>0.) _mtmass = tmp;
+                MSG_INFO("Top Mass reasigned: " << _mtmass);
             }
         
         
