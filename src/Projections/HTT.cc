@@ -11,20 +11,20 @@ HTT::HTT(const JetAlg& jetalg)
     setName("HEPTopTagger");
     declare(jetalg, "Jets");
     HEPTopTagger::HEPTopTagger* tagger = GetNewTagger();
-  tagger.set_max_subjet_mass(30.);
-  tagger.set_mass_drop_threshold(0.8);
-  tagger.set_filtering_R(0.3);
-  tagger.set_filtering_n(5);
-  tagger.set_filtering_minpt_subjet(30.);
+  tagger->set_max_subjet_mass(30.);
+  tagger->set_mass_drop_threshold(0.8);
+  tagger->set_filtering_R(0.3);
+  tagger->set_filtering_n(5);
+  tagger->set_filtering_minpt_subjet(30.);
 
   // How to select among candidates
-  tagger.set_mode(HEPTopTagger::TWO_STEP_FILTER);
+  tagger->set_mode(HEPTopTagger::TWO_STEP_FILTER);
 
   // Requirements to accept a candidate
-  tagger.set_top_minpt(200);
-  tagger.set_top_mass_range(150., 200.);
-  tagger.set_fw(0.15);
-  tagger.set_debug(1);
+  tagger->set_top_minpt(200);
+  tagger->set_top_mass_range(150., 200.);
+  tagger->set_fw(0.15);
+  tagger->set_debug(1);
 }
 
 CmpState HTT::compare(const Projection& p) const 
@@ -41,7 +41,7 @@ void HTT::Reset()
 void HTT::calc(const Jets& jets) {
     Reset();
 
-    
+    HEPTopTagger::HEPTopTagger* tagger = GetNewTagger();
 //    for (const Jet& jet : jets) {
     for (unsigned i=0; i<jets.size();i++) {
       // Apply jet cuts
