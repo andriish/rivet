@@ -8,13 +8,13 @@ using namespace std;
 using namespace HEPTopTagger;
 
 
-HTT::HTT(const JetAlg& jetalg,
-         unsigned mode=4)
-{
-    setName("HEPTopTagger");
-    declare(jetalg, "Jets");
-    set_mode(mode);
-}
+//HTT::HTT(const JetAlg& jetalg,
+//         unsigned mode=4)
+//{
+//    setName("HEPTopTagger");
+//    declare(jetalg, "Jets");
+//    set_mode(mode);
+//}
 
 CmpState HTT::compare(const Projection& p) const 
 {
@@ -31,7 +31,7 @@ void HTT::calc(const Jets& jets) {
 
     for (unsigned i=0; i<jets.size();i++) {
       // Apply jet cuts
-      HEPTopTagger tagger(jets[i]);
+      HEPTopTagger::HEPTopTagger tagger(jets[i]);
              // Unclustering, Filtering & Subjet Settings
       tagger.set_max_subjet_mass(_max_subjet_mass);
       tagger.set_mass_drop_threshold(_mass_drop_treshold);

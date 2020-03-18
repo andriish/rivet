@@ -88,7 +88,12 @@ using namespace fastjet;
                                    _R_filt_optimalR_pass(0.2), _N_filt_optimalR_pass(5), 
                                    _R_filt_optimalR_fail(0.3), _N_filt_optimalR_fail(3),
                                    _q_zcut(0.1), _q_dcut_fctr(0.5), _q_exp_min(0.), 
-                                   _q_exp_max(0.), _q_rigidity(0.1), _q_truncation_fctr(0.0) {}
+                                   _q_exp_max(0.), _q_rigidity(0.1), _q_truncation_fctr(0.0) 
+        {
+            setName("HEPTopTagger");
+            declare(jetalg, "Jets");
+            set_mode(mode);
+        }
 
         DEFAULT_RIVET_PROJ_CLONE(HTT);
 
