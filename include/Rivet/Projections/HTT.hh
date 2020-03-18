@@ -14,8 +14,6 @@
 
 namespace Rivet {
 
-
-
   class HTT : public Projection
   {
     private:
@@ -88,14 +86,7 @@ namespace Rivet {
 
     public:
 
-        HTT(const JetAlg& jetalg, 
-            unsigned mode=4)
-        {
-            setName("HEPTopTagger");
-            declare(jetalg, "Jets");
-            set_mode(mode);
-        }
-
+        HTT(const JetAlg& jetalg);
         DEFAULT_RIVET_PROJ_CLONE(HTT);
 
         // Set parameters
