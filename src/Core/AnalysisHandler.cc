@@ -142,30 +142,44 @@ namespace Rivet {
 
   void AnalysisHandler::setWeightNames(const GenEvent& ge) {
     _weightNames = HepMCUtils::weightNames(ge);
-    if ( _weightNames.empty() )  _weightNames.push_back("");
-    else {
+    if (_weightNames.empty()) {
+      _weightNames.push_back("");
+      _defaultWeightIdx = 0;
+    } else {
+      /// @todo Reinstate RIVET_WEIGHT_INDEX as a way to force past bad naming from generators?
+
+      // Find default weights, starting with the preferred empty "" name
       size_t nDefaults = 0;
-      for (string & w : _weightNames) {
-        if (w == "")  ++nDefaults;
+      for (const string& w : _weightNames) {
+        if (w == "") nDefaults += 1;
       }
-      if (!nDefaults) {
-        for (string & w : _weightNames) {
-          if ( w == "Weight" || w == "0" || w == "Default" ) {
-            if (!nDefaults)  w = "";
-            ++nDefaults;
+      // If no weights with the preferred name, look for acceptable alternatives
+      if (nDefaults == 0) {
+        for (string& w : _weightNames) {
+          const string W = toUpper(w);
+          if (W == "WEIGHT" || W == "0" || W == "DEFAULT") {
+            if (nDefaults == 0) w = ""; //< non-const reference: actually change the registered weight name
+            nDefaults += 1;
           }
         }
       }
-      if (nDefaults > 1) {
-        MSG_WARNING("Found more than " << nDefaults << " default weight candidates. Will use: " << _weightNames[_defaultWeightIdx]);
-      }
-      else if (nDefaults < 1) {
-        cerr << "Could not identify nominal weight. Please check your HEPMC file." << endl;
+      // Exit if no nominal weight could be found
+      if (nDefaults == 0) {
+        MSG_ERROR("Could not identify nominal weight. Please check your HEPMC file.");
         exit(1);
       }
-      for ( int i = 0, N = _weightNames.size(); i < N; ++i ) {
+      // Warn if multiple weight names were acceptable alternatives
+      if (nDefaults > 1) {
+        /// @todo But the default index hasn't been (re)set yet, right???
+        MSG_WARNING("Found more than " << nDefaults << " default weight candidates. Will use: " << _weightNames[_defaultWeightIdx]);
+      }
+      // Re-set the default/nominal weight index
+      /// @todo Should this move earlier, cf. multiple-candidate warning? Could be done in the earlier loops?
+      /// @todo Does this need a "break" to escape the loop on the *first* empty name?
+      for (int i = 0, N = _weightNames.size(); i < N; ++i) {
         if ( _weightNames[i] == "" ) _defaultWeightIdx = i;
       }
+      // If running in single-weight mode, make that single weight the nominal one
       if (_skipWeights)  _weightNames = { _weightNames[_defaultWeightIdx] };
     }
   }
@@ -591,7 +605,7 @@ namespace Rivet {
     vector<MultiweightAOPtr> raos = getRivetAOs();
     output.reserve(raos.size()*2*numWeights());
 
-    // Fix the oredering so that default weight is written out first.
+    // Fix the ordering so that default weight is written out first.
     vector<size_t> order;
     if ( _defaultWeightIdx < numWeights() )
       order.push_back(_defaultWeightIdx);
