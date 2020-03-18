@@ -46,7 +46,6 @@ namespace Rivet {
         }
 
         HEPTopTagger::HEPTopTagger tagger() {return _tagger;}
-        HEPTopTagger::HEPTopTagger tagger(FastJet::Pseudojet& jet) {return _tagger;}
 
         void calc(const Jets& jets);
         
