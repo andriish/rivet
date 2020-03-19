@@ -116,7 +116,7 @@ for rankfilestr in args.RANKFILES:
                         last = last[1:-1]
                     assigned[ins] = last
                 # Detect an optional comment
-                if(line.count("#")==2) :
+                if line.count("#") == 2:
                     comment[ins] = line.split("#")[1]
 
 
@@ -188,12 +188,13 @@ for iex, ex in enumerate(EXPTS):
             sys.exit(1)
         rfname = "{}-{}.rank".format(args.BASENAME, ex.lower())
         print("Writing updated rank file to {}".format(rfname))
-        syms = { "default" : ".", "rivet" : ".", "grey" : "?", "black" : "X", "hot" : "!" }
+        SYMBS = { "default" : ".", "rivet" : ".", "grey" : "?", "black" : "X", "hot" : "!" }
         with open(rfname, "w") as rf:
             for ins, rec in sorted(ex_records[ex].items()):
                 rankcode = rec[-1].split()[0]
-                # line = u"{} {} {}\n".format(ins.encode("UTF-8"), syms[code], rec[3].encode("UTF-8"))
-                line = u"{} {} {}".format(ins, syms[rankcode], rec[0])
+                #rankcode = "hot"rankcodes[0] if "hot" not in rankcodes #< keep the ! marker in the file after implementation
+                # line = u"{} {} {}\n".format(ins.encode("UTF-8"), SYMBS[code], rec[3].encode("UTF-8"))
+                line = u"{} {} {}".format(ins, SYMBS[rankcode], rec[0])
                 if ins in comment :
                     line += " #{}#".format(comment[ins])
                 # print(assigned.get(ins))
