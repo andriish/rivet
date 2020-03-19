@@ -101,6 +101,7 @@ void HTT::calc(const Jets& jets) {
 
 void HTT::project(const Event& e) {
     const Jets jets = applyProjection<JetAlg>(e, "Jets").jets();
+    Reset();
     calc(jets);
 }
 
