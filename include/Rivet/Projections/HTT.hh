@@ -34,7 +34,7 @@ namespace Rivet {
         // (3 = LATE_MASSRATIO_SORT_MODDJADE)
         // (4 = TWO_STEP_FILTER)
 
-        double _mtmass;// = 172.9;
+        double _mtmass = 172.9;
         double _mwmass = 80.379;
         double _mtmin  = 150.;
         double _mtmax  = 200.;
