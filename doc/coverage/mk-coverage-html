@@ -203,6 +203,11 @@ for iex, ex in enumerate(EXPTS):
                 line += "\n"
                 rf.write(line.encode("UTF-8"))
 
+## If we're just updating the ranking files, stop here
+if args.UPDATERANK:
+    exit(0)
+
+
 ntot = len(records)
 nrivet = len([ins for ins, rec in records.items() if "rivet" in rec[-1]])
 ndefault = len([ins for ins, rec in records.items() if "default" in rec[-1]])
@@ -346,7 +351,7 @@ for ex in EXPTS:
         u.li().a("$e^+e^-(\leq12$ GeV)", href="#{}expt".format(ex.lower()))
     else :
         u.li().a(ex, href="#{}expt".format(ex.lower()))
-        
+
 for ex in EXPTS:
     d = tabs.div(id="{}expt".format(ex.lower()))
     t = d.table(klass="list").tbody(newlines=True)
