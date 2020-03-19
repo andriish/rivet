@@ -59,7 +59,7 @@ void HTT::calc(const Jets& jets) {
 
         tagger.set_filtering_optimalR_calc_R(_R_filt_optimalR_calc);
         tagger.set_filtering_optimalR_calc_n(_N_filt_optimalR_calc);
-        tagger.set_optimalR_calc_fun(&_r_min_exp_function);
+        tagger.set_optimalR_calc_fun(*_r_min_exp_function);
 
         tagger.set_optimalR_type_top_mass_range(_optimalR_mmin, _optimalR_mmax);
         tagger.set_optimalR_type_fw(_optimalR_fw);
