@@ -22,7 +22,7 @@ namespace Rivet {
 
         bool _do_qjets=0;
         bool _do_optimalR=1;
-        bool _debug=1;
+        bool _debug=0;
 
         double _mass_drop_treshold =0.8;
         double _max_subjet_mass=30.;
@@ -95,13 +95,6 @@ namespace Rivet {
         DEFAULT_RIVET_PROJ_CLONE(HTT);
 
         // Set parameters
-        void set_do_qjets(bool m) {_do_qjets=m;}
-        void set_do_optimalR(bool m) {_do_optimalR=m;}
-        void set_debug(bool m) {_debug=m;}
-
-        void set_mass_drop_treshold(double v) {_mass_drop_treshold=v;}
-        void set_max_subjet_mass(double v) {_max_subjet_mass=v;}
-
         void set_mode(int m) 
         {
             if (m==0)      _mode=HEPTopTagger::EARLY_MASSRATIO_SORT_MASS;
@@ -116,30 +109,9 @@ namespace Rivet {
             }
         }
 
-        void set_mtmass(double v) {_mtmass=v;}
-        void set_mwmass(double v) {_mwmass=v;}
-        void set_mtmin(double v) {_mtmin=v;}
-        void set_mtmax(double v) {_mtmax=v;}
-        void set_rmin(double v) {_rmin=v;}
-        void set_rmax(double v) {_rmax=v;}
-        void set_fw(double fw) {_fw=fw;}
-
-        void set_m23cut(double v) {_m23cut=v;}
-        void set_m13cutmin(double v) {_m13cutmin=v;}
-        void set_m13cutmax(double v) {_m13cutmin=v;}
-        void set_minpt_tag(double v) {_minpt_tag=v;}
-
-        void set_filtering_n(unsigned i) {_filtering_n=i;}
-        void set_filtering_R(double v) {_filtering_R=v;}
-        void set_filtering_minpT_subjet(double v) {_filtering_minpT_subjet=v;}
-
-        void set_filtering_jetalg(fastjet::JetAlgorithm j) {_filtering_jetalg=j;}
-        void set_reclustering_jetalg(fastjet::JetAlgorithm j) {_reclustering_jetalg=j;}
-
         void Set_Parameters(const std::map<std::string, std::string>& options);
 
         void calc(const Jets& jets);
-        
         void Reset();
         
     protected:
