@@ -85,7 +85,7 @@ void HTT::Set_Parameters(const std::map<std::string, std::string>& options)
                 std::stringstream str;
                 str << it->second;
                 str >> tmp;
-                if (tmp>0.) _mtmass = tmp;
+                if (tmp>0.) set_mtmass(tmp);
                 MSG_INFO("Top Mass reasigned: " << _mtmass);
             }
         
