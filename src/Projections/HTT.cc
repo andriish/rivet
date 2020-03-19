@@ -41,43 +41,59 @@ void HTT::calc(const Jets& jets) {
 
         tagger.set_reclustering_jetalgorithm(_reclustering_jetalg);
 
+        // How to select among candidates
         tagger.set_mode(_mode);
         tagger.set_mt(_mtmass);
         tagger.set_mw(_mwmass);
+        // Requirements to accept a candidate
+        tagger.set_top_mass_range(_mtmin, _mtmax);
+        tagger.set_fw(_fw);
+        tagger.set_mass_ratio_range(_rmin,_rmax);
+        tagger.set_mass_ratio_cut(_m23cut,_m13cutmin,_m13cutmax);
+        tagger.set_top_minpt(_minpt_tag);
 
+        tagger.set_optimalR_max(_max_fatjet_R);
+        tagger.set_optimalR_min(_min_fatjet_R);
+        tagger.set_optimalR_step(_step_R);
+        tagger.set_optimalR_threshold(_optimalR_threshold);
 
+        tagger.set_filtering_optimalR_calc_R(_R_filt_optimalR_calc);
+        tagger.set_filtering_optimalR_calc_n(_N_filt_optimalR_calc);
+        tagger.set_optimalR_calc_fun(_r_min_exp_function);
 
-      tagger.set_mt(_mtmass);
-      
-      tagger.set_mass_drop_threshold(_mass_drop_treshold);
-      tagger.set_filtering_R(_filtering_R);
-      tagger.set_filtering_n(_filtering_n);
-      tagger.set_filtering_minpt_subjet(_filtering_minpT_subjet);
+        tagger.set_optimalR_type_top_mass_range(_optimalR_mmin, _optimalR_mmax);
+        tagger.set_optimalR_type_fw(_optimalR_fw);
+        tagger.set_optimalR_type_max_diff(_R_opt_diff);
 
-      // How to select among candidates
-      tagger.set_mode(_mode);
+        tagger.set_filtering_optimalR_pass_R(_R_filt_optimalR_pass);
+        tagger.set_filtering_optimalR_pass_n(_N_filt_optimalR_pass);
+        tagger.set_filtering_optimalR_fail_R(_R_filt_optimalR_fail);
+        tagger.set_filtering_optimalR_fail_n(_N_filt_optimalR_fail);
 
-      // Requirements to accept a candidate
-      tagger.set_top_minpt(_minpt_tag);
-      tagger.set_top_mass_range(_mtmin, _mtmax);
-      tagger.set_fw(_fw);
+        tagger.set_pruning_zcut(_zcut);
+        tagger.set_pruning_rcut_factor(_q_zcut,_q_dcut_fctr,_q_exp_min,
+                                       _q_exp_max,_q_rigidity,_q_truncation_fctr);
 
-      // Run the tagger
-      tagger.run();
-      if (_debug)
-      {
-          tagger.get_info();
-          tagger.get_setting();
-      }
-      MSG_INFO("Maybe top: " << tagger.is_maybe_top());
+        tagger.set_debug(_debug);
+        tagger.do_qjets(_do_qjets);
+        tagger.set_qjets(_debug);
+
+        // Run the tagger
+        tagger.run();
+        if (_debug)
+        {
+            tagger.get_info();
+            tagger.get_setting();
+            MSG_INFO("Maybe top: " << tagger.is_maybe_top());
             // Look at output if we have a tag:
-      if (tagger.is_tagged()){
-        MSG_INFO("Input fatjet: " << i << "  pT = " << jets[i].perp());
-        MSG_INFO("Output: pT = " << tagger.t().perp() << " Mass = " << tagger.t().m() << " f_rec = " << tagger.f_rec());
-      } else {
-          MSG_INFO("Not tagged");
-      }
+            if (tagger.is_tagged()){
+                MSG_INFO("Input fatjet: " << i << "  pT = " << jets[i].perp());
+                MSG_INFO("Output: pT = " << tagger.t().perp() << " Mass = " << tagger.t().m() << " f_rec = " << tagger.f_rec());
+            } else {
+                MSG_INFO("Not tagged");
+            }
         //MSG_INFO("Jet PT = " << jet.pT()/GeV);
+        }
     }
 }
 
@@ -201,6 +217,8 @@ void HTT::Set_Parameters(const std::map<std::string, std::string>& options)
                 str << it->second;
                 str >> tmp;
                 _fw = tmp;
+                _rmin = (1.-fw)*_mwmass/_mtmass;
+                _rmax = (1.+fw)*_mwmass/_mtmass;
             }
             else if (key == "m23cut" || key == "cut::m23")
             {
