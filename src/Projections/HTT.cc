@@ -59,7 +59,7 @@ void HTT::calc(const Jets& jets) {
 
         tagger.set_filtering_optimalR_calc_R(_R_filt_optimalR_calc);
         tagger.set_filtering_optimalR_calc_n(_N_filt_optimalR_calc);
-        tagger.set_optimalR_calc_fun(_r_min_exp_function);
+        tagger.set_optimalR_calc_fun(&_r_min_exp_function);
 
         tagger.set_optimalR_type_top_mass_range(_optimalR_mmin, _optimalR_mmax);
         tagger.set_optimalR_type_fw(_optimalR_fw);
@@ -71,12 +71,12 @@ void HTT::calc(const Jets& jets) {
         tagger.set_filtering_optimalR_fail_n(_N_filt_optimalR_fail);
 
         tagger.set_pruning_zcut(_zcut);
-        tagger.set_pruning_rcut_factor(_q_zcut,_q_dcut_fctr,_q_exp_min,
-                                       _q_exp_max,_q_rigidity,_q_truncation_fctr);
+        tagger.set_pruning_rcut_factor(_rcut_factor);
 
         tagger.set_debug(_debug);
         tagger.do_qjets(_do_qjets);
-        tagger.set_qjets(_debug);
+        tagger.set_qjets(_q_zcut,_q_dcut_fctr,_q_exp_min,
+                         _q_exp_max,_q_rigidity,_q_truncation_fctr);
 
         // Run the tagger
         tagger.run();
@@ -217,8 +217,8 @@ void HTT::Set_Parameters(const std::map<std::string, std::string>& options)
                 str << it->second;
                 str >> tmp;
                 _fw = tmp;
-                _rmin = (1.-fw)*_mwmass/_mtmass;
-                _rmax = (1.+fw)*_mwmass/_mtmass;
+                _rmin = (1.-_fw)*_mwmass/_mtmass;
+                _rmax = (1.+_fw)*_mwmass/_mtmass;
             }
             else if (key == "m23cut" || key == "cut::m23")
             {
