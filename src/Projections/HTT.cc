@@ -48,7 +48,7 @@ void HTT::calc(const Jets& jets) {
 
       // Run the tagger
       tagger.get_setting();
-      tagger.get_info();
+      //tagger.get_info();
       tagger.run();
       MSG_INFO("Maybe top: " << tagger.is_maybe_top());
             // Look at output if we have a tag:
@@ -78,7 +78,7 @@ void HTT::Set_Parameters(const std::map<std::string, std::string>& options)
             std::string key = it->first;
             std::for_each(key.begin(), key.end(), [](char & c)
             { c = ::tolower(c); });
-            
+            MSG_INFO("Key = " << key);
             if (key == "topmass")
             {
                 double tmp=0.;
