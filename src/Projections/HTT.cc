@@ -81,7 +81,7 @@ void HTT::calc(const Jets& jets) {
         // Run the tagger
         tagger.run();
         if (tagger.is_tagged())
-            _topjets.push_back(jets[i])
+            _topjets.push_back(jets[i]);
         if (_debug)
         {
             tagger.get_info();
