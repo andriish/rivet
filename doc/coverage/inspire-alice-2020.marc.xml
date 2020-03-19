@@ -1,15 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 1 -->
+<!-- Search-Engine-Total-Number-Of-Results: 5 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record>
+  <controlfield tag="001">1785315</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2020wwy</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2003.06053</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2712568</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2003.06053</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2020-036</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Measurement of nuclear effects on $\psi\rm{(2S)}$ production in p-Pb collisions at $\sqrt{\textit{s}_{\rm NN}} = 8.16$ TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1784203</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2020sfy</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2003.03184</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2710467</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2003.03184</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2020-025</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">(Anti-)Deuteron production in pp collisions at $\sqrt{s}=13$ TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1784041</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2003.02394</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Acharya:2020zji</subfield>
+    <subfield code="9">INSPIRETeX</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2711508</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2003.02394</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2020-024</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Multiplicity dependence of $\pi$, K, and p production in pp collisions at $\sqrt{s} = 13$ TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1782227</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2020sbc</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2002.10897</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2710371</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02504650</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2002.10897</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2020-021</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Coherent photoproduction of $\rho^{0}$ vector mesons in ultra-peripheral Pb-Pb collisions at $\sqrt{s_{\rm NN}} = 5.02$ TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
   <controlfield tag="001">1778342</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2020taj</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
     <subfield code="a">oai:arXiv.org:2002.00633</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Acharya:2020taj</subfield>
-    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2705472</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02483986</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D20-kj08a</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>

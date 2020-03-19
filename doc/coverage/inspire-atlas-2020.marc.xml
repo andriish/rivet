@@ -1,6 +1,185 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 3 -->
+<!-- Search-Engine-Total-Number-Of-Results: 8 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <controlfield tag="001">1784454</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Aad:2020grf</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2003.03565</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2712429</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2003.03565</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-274</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Measurement of azimuthal anisotropy of muons from charm and bottom hadrons in Pb+Pb collisions at $\sqrt{s_{NN}} =$ 5.02 TeV with the ATLAS detector</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ATLAS</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1782650</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Aad:2020zxo</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2002.12223</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2711592</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HEPDATA</subfield>
+    <subfield code="a">ins1782650</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02507736</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2002.12223</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2020-014</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Search for heavy Higgs bosons decaying into two tau leptons with the ATLAS detector using $pp$ collisions at $\sqrt{s}=13$ TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ATLAS</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1782373</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Aad:2020kep</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2002.11325</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2711475</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02507716</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2002.11325</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-276</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Search for dijet resonances in events with an isolated charged lepton using $\sqrt{s} = 13$ TeV proton-proton collision data collected by the ATLAS detector</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ATLAS</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1781293</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Aad:2020wog</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2002.07546</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2710130</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02497875</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2002.07546</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-273</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Observation of the associated production of a top quark and a $Z$ boson in $pp$ collisions at $\sqrt{s} = 13$ TeV with the ATLAS detector</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ATLAS</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1780099</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Aad:2020mnm</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2002.05315</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2709401</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02491289</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D20-kj08j</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2002.05315</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2020-009</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Test of CP invariance in vector-boson fusion production of the Higgs boson in the $H\rightarrow\tau\tau$ channel in proton$-$proton collisions at $\sqrt{s}$ = 13 TeV with the ATLAS detector</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ATLAS</subfield>
+  </datafield>
+</record>
 <record>
   <controlfield tag="001">1776624</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -14,6 +193,14 @@
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">CDS</subfield>
     <subfield code="a">2706856</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D20-kj05k</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02475302</subfield>
+    <subfield code="9">HAL</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -54,6 +241,10 @@
     <subfield code="9">DESY</subfield>
     <subfield code="z">D20-kj04h</subfield>
   </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02467324</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
     <subfield code="a">arXiv:2001.05178</subfield>
@@ -84,6 +275,14 @@
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">CDS</subfield>
     <subfield code="a">2706266</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02467298</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D20-kj05a</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>

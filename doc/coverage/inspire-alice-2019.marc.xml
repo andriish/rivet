@@ -1,8 +1,2046 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 2 -->
+<!-- Search-Engine-Total-Number-Of-Results: 47 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record>
+  <controlfield tag="001">1767961</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019uia</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1912.00740</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2703113</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02416905</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1912.00740</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-271</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Non-linear flow modes of identified particles in Pb-Pb collisions at $\sqrt{s_{\rm{NN}}}$ = 5.02 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1762369</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019kqn</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.14407</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2694295</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj46c</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02382015</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.14407</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-232</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Investigation of the p-$\Sigma^{0}$ interaction via femtoscopy in pp collisions</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1762368</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1016/j.physletb.2020.135225</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019qge</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.14419</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2696247</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj46c</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02382010</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">ins1762368</subfield>
+    <subfield code="9">HEPDATA</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.14419</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-249</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Evidence of rescattering effect in Pb-Pb collisions at the LHC through production of $\rm{K}^{*}(892)^{0}$ and $\phi(1020)$ mesons</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1762367</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019ijj</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.14406</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2696189</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02371636</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj46b</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.14406</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-241</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Probing the effects of strong electromagnetic fields with charge-dependent directed flow in Pb-Pb collisions at the LHC</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1762364</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019wyb</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.14410</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2696246</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj46b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02382014</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.14410</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-248</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">$\rm{K}^{*}(\rm{892})^{0}$ and $\phi(1020)$ production at midrapidity in pp collisions at $\sqrt{s}$ = 8 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1762362</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019vpe</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.14408</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2696371</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj46b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02383442</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.14408</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-251</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Measurement of spin-orbital angular momentum interactions in relativistic heavy-ion collisions</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1762360</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019lqc</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.14405</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2696226</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj46b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02383444</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.14405</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-243</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Inclusive $\Upsilon$ production in p-Pb collisions at $\sqrt{s_{\rm NN}}$ = 8.16 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1762358</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019psw</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.14398</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2696228</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj46b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02394743</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">ins1762358</subfield>
+    <subfield code="9">HEPDATA</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.14398</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-244</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Jet-hadron correlations measured relative to the second order event plane in Pb-Pb collisions at $\sqrt{s_{\rm{NN}}}$ = 2.76 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1762356</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019xmu</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.14401</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2696242</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj46b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02403738</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.14401</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-246</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Production of (anti-)$^3$He and (anti-)$^3$H in p-Pb collisions at $\sqrt{s_{\rm{NN}}}$ = 5.02 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1762354</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019icl</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.14403</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2696043</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj46b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02382013</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.14403</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-239</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Azimuthal correlations of prompt D mesons with charged particles in pp and p-Pb collisions at $\sqrt{s_{\rm NN}}$ = 5.02 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1762353</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019lkh</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.14404</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2695050</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj46b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02383422</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.14404</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-234</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Centrality and transverse momentum dependence of inclusive J/$\psi$ production at midrapidity in Pb-Pb collisions at $\sqrt{s_{\rm NN}}$ = 5.02 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1762350</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019nqn</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.14400</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2695074</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj46b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02383421</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.14400</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-235</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Underlying Event properties in pp collisions at $\sqrt{s}$ = 13 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1762348</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019bli</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.14397</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2696229</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj45o</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02383424</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.14397</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-245</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Multiplicity dependence of K*(892)$^{0}$ and $\phi$(1020) production in pp collisions at $\sqrt{s}$ = 13 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1762347</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1007/JHEP02(2020)077</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019hao</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.14399</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2696334</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj46b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02383420</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.14399</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-250</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Springer</subfield>
+    <subfield code="a">Measurement of electrons from heavy-flavour hadron decays as a function of multiplicity in p-Pb collisions at $\sqrt{s_{\rm NN}}$ = 5.02 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1762340</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019oxz</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.14393</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2696404</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj46b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02382012</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.14393</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-252</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Longitudinal and azimuthal evolution of two-particle transverse momentum correlations in Pb-Pb collisions at $\sqrt{s_{\rm{NN}}}$ = 2.76 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1762338</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019izy</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.14396</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2696405</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj46b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02382011</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.14396</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-253</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Global baryon number conservation encoded in net-proton fluctuations measured in Pb-Pb collisions at $\sqrt{s_{\rm NN}}$ = 2.76 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1759860</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019mom</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.09110</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2690337</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj45b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02372413</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.09110</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-205</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Measurement of electrons from semileptonic heavy-flavour hadron decays at midrapidity in pp and Pb-Pb collisions at $\sqrt{s_{\rm{NN}}}$ = 5.02 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1760170</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019ttn</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.09718</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2689881</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj45b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02383328</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.09718</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-202</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Measurement of the (anti-)$^{3}$He elliptic flow in Pb-Pb collisions at $\sqrt{s_{\rm{NN}}}$ = 5.02 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1759506</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019yoi</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.07678</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2690831</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj44b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02382025</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.07678</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-208</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Production of charged pions, kaons and (anti-)protons in Pb-Pb and inelastic pp collisions at $\sqrt{s_{\rm{NN}}}$ = 5.02 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1755387</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019jyg</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1909.09718</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2689797</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02327851</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1909.09718</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-200</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Measurements of inclusive jet spectra in pp and central Pb-Pb collisions at $\sqrt{s_{\rm{NN}}}$ = 5.02 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1753083</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1007/JHEP02(2020)041</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019iur</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1909.03158</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2688233</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02317308</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1909.03158</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-187</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Springer</subfield>
+    <subfield code="a">Studies of J/$\psi$ production at forward rapidity in Pb-Pb collisions at $\sqrt{s_{\rm{NN}}}$ = 5.02 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1752507</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1909.01281</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019ryw</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2685249</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj38a</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02309002</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1909.01281</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-173</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Global polarization of $\Lambda$ and $\overline{\Lambda}$ hyperons in Pb-Pb collisions at the LHC</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1752831</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">Springer</subfield>
+    <subfield code="a">10.1140/epjc/s10052-020-7687-2</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">ALICE:2019smg</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1909.00486</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2686753</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj38g</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02498393</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1909.00486</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-178</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Measurement of $\Lambda$(1520) production in pp collisions at $\sqrt{s}$ = 7 TeV and p-Pb collisions at $\sqrt{s_{\rm{NN}}}$ = 5.02 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1748157</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1140/epjc/s10052-020-7673-8</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019kyh</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1908.01861</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2684538</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj34b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02290817</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">ins1748157</subfield>
+    <subfield code="9">HEPDATA</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1908.01861</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-168</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Springer</subfield>
+    <subfield code="a">Multiplicity dependence of (multi-)strange hadron production in proton-proton collisions at $\sqrt{s}$ = 13 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1743989</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1016/j.physletb.2019.134905</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019qcp</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1907.06906</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj31a</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HEPDATA</subfield>
+    <subfield code="a">ins1743989</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02279093</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2681904</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1907.06906</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-148</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Elsevier</subfield>
+    <subfield code="a">$^3_\Lambda\mathrm{H}$ and $^3_{\bar{\Lambda}}\mathrm{\bar{H}}$ lifetime measurement in Pb-Pb collisions at $\sqrt{s_{\mathrm{NN}}} = $ 5.02 TeV via two-body decay</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1742764</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevLett.123.192301</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevLett.123.192301</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019hlv</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1907.03169</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj30b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HEPDATA</subfield>
+    <subfield code="a">ins1742764</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02193942</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2681098</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1907.03169</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-144</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">APS</subfield>
+    <subfield code="a">Measurement of $\Upsilon(1{\rm S})$ elliptic flow at forward rapidity in Pb-Pb collisions at $\sqrt{s_{\rm{NN}}}=5.02$ TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1738950</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1007/JHEP12(2019)092</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019mno</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1906.03425</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2677034</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02166465</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj26b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">ins1738950</subfield>
+    <subfield code="9">HEPDATA</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1906.03425</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-125</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Springer</subfield>
+    <subfield code="a">Measurement of prompt D$^{0}$, D$^{+}$, D$^{*+}$, and $ {\mathrm{D}}_{\mathrm{S}}^{+} $ production in p–Pb collisions at $ \sqrt{{\mathrm{s}}_{\mathrm{NN}}} $ = 5.02 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1738836</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1016/j.physletb.2019.135043</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019rys</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1906.03136</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj26b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02165504</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2676817</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">ins1738836</subfield>
+    <subfield code="9">HEPDATA</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1906.03136</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-120</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Multiplicity dependence of light (anti-)nuclei production in p-Pb collisions at $\sqrt{s_{\rm{NN}}}$ = 5.02 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1738300</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1140/epjc/s10052-019-7389-9</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1140/epjc/s10052-019-7389-9</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019jkx</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1906.01371</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj25b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HEPDATA</subfield>
+    <subfield code="a">ins1738300</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02166559</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2676329</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1906.01371</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-117</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Measurement of the inclusive isolated photon production cross section in pp collisions at $\sqrt{s}$ = 7 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1737592</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevLett.124.092301</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevLett.124.092301</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019bsa</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1905.13470</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj25b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02160631</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2676657</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1905.13470</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-118</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Scattering studies with low-energy kaon-proton femtoscopy in proton-proton collisions at the LHC</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1735351</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1007/JHEP10(2019)084</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019lkw</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1905.07211</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2674130</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj22c</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02148250</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HEPDATA</subfield>
+    <subfield code="a">ins1735351</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1905.07211</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">CERN-EP-2019-101</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Inclusive J/$\psi$ production at mid-rapidity in pp collisions at $\sqrt{s}$ = 5.02 TeV</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Springer</subfield>
+    <subfield code="a">Inclusive J/ψ production at mid-rapidity in pp collisions at $ \sqrt{s} $ = 5.02 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1735349</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1016/j.physletb.2019.134822</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1016/j.physletb.2019.134822</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019yvb</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1905.07209</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj22b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HEPDATA</subfield>
+    <subfield code="a">ins1735349</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02148247</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2673333</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1905.07209</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-096</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Study of the $\Lambda$-$\Lambda$ interaction with femtoscopy correlations in pp and p-Pb collisions at the LHC</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1735345</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1140/epjc/s10052-019-7350-y</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1140/epjc/s10052-019-7350-y</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019mzb</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1905.07208</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj22b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02148291</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2673221</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">ins1735345</subfield>
+    <subfield code="9">HEPDATA</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1905.07208</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-094</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Springer</subfield>
+    <subfield code="a">Charged-particle production as a function of multiplicity and transverse spherocity in pp collisions at $\sqrt{s} =5.02$ and 13 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1735344</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1007/JHEP09(2019)008</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1007/JHEP09(2019)008</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019mky</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1905.07207</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj22b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HEPDATA</subfield>
+    <subfield code="a">ins1735344</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02148293</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2672188</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1905.07207</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-078</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Springer</subfield>
+    <subfield code="a">Production of muons from heavy-flavour hadron decays in pp collisions at $ \sqrt{s} $ = 5.02 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1733689</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1103/PhysRevD.100.092004</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevD.100.092004</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019tku</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1905.02536</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj22b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HEPDATA</subfield>
+    <subfield code="a">ins1733689</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02144198</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2670641</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1905.02536</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-070</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Measurement of charged jet cross section in $pp$ collisions at ${\sqrt{s}=5.02}$ TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1733684</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1016/j.physletb.2020.135227</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019djg</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1905.02512</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj22b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02144200</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2672588</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1905.02512</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-087</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Elsevier</subfield>
+    <subfield code="a">Exploration of jet substructure using iterative declustering in pp and Pb–Pb collisions at LHC energies</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1733683</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1007/JHEP08(2019)133</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1007/JHEP08(2019)133</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019zup</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1905.02510</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj22b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HEPDATA</subfield>
+    <subfield code="a">ins1733683</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02144202</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2672253</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1905.02510</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-081</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Springer</subfield>
+    <subfield code="a">Measurement of the production of charm jets tagged with D$^{0}$ mesons in pp collisions at $ \sqrt{\mathrm{s}}=7 $ TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1732232</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1016/j.physletb.2019.07.020</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019ssy</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1904.13118</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj20o</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02136312</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2672211</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1904.13118</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-079</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Elsevier</subfield>
+    <subfield code="a">Measurement of jet radial profiles in Pb$–$Pb collisions at $\sqrt{s_{\rm NN}}=$ 2.76 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1731784</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevLett.123.112002</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevLett.123.112002</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019sms</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1904.12198</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj20o</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HEPDATA</subfield>
+    <subfield code="a">ins1731784</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02136313</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2672251</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1904.12198</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-080</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">APS</subfield>
+    <subfield code="a">First Observation of an Attractive Interaction between a Proton and a Cascade Baryon</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1729529</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1016/j.physletb.2019.134926</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019vlb</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1904.06272</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj18o</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HEPDATA</subfield>
+    <subfield code="a">ins1729529</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02129789</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2670306</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1904.06272</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-069</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Coherent J/$\psi$ photoproduction at forward rapidity in ultra-peripheral Pb-Pb collisions at $\sqrt{s_{\rm{NN}}}=5.02$ TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1727337</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevC.100.024002</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevC.100.024002</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019fip</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1903.12310</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj16p</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HEPDATA</subfield>
+    <subfield code="a">ins1727337</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02101682</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2668680</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1903.12310</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-054</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">One-dimensional charged kaon femtoscopy in p-Pb collisions at $\sqrt{s_{\rm NN}}$ = 5.02 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1724934</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1016/j.physletb.2020.135223</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019ldv</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1903.06149</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj13m</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02080709</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2666996</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1903.06149</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-045</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Elsevier</subfield>
+    <subfield code="a">Measurement of strange baryon–antibaryon interactions with femtoscopic correlations</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1723697</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevLett.123.142301</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevLett.123.142301</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019vdf</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1903.01790</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj13m</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HEPDATA</subfield>
+    <subfield code="a">ins1723697</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02073499</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2661740</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1903.01790</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-033</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">APS</subfield>
+    <subfield code="a">Investigations of Anisotropic Flow Using Multiparticle Azimuthal Correlations in pp, p-Pb, Xe-Xe, and Pb-Pb Collisions at the LHC</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1721729</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1016/j.physletb.2019.05.028</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1016/j.physletb.2019.05.028</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019rgc</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1902.09290</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj11r</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02066929</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2658213</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1902.09290</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-024</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Elsevier</subfield>
+    <subfield code="a">Multiplicity dependence of (anti-)deuteron production in pp collisions at $\sqrt{s}$ = 7 TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1720637</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1088/1748-0221/14/05/P05025</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1088/1748-0221/14/05/P05025</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Acharya:2019rum</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1902.06145</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA19-kp09bi</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02058538</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2657572</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1902.06145</subfield>
+    <subfield code="c">physics.ins-det</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2019-020</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Calibration of the photon spectrometer PHOS of the ALICE experiment</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">ALICE</subfield>
+  </datafield>
+</record>
+<record>
   <controlfield tag="001">1716440</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1140/epjc/s10052-019-6873-6</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1140/epjc/s10052-019-6873-6</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Acharya:2019mgn</subfield>
@@ -12,12 +2050,20 @@
     <subfield code="a">oai:arXiv.org:1901.07979</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">2653801</subfield>
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj06s</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HEPDATA</subfield>
+    <subfield code="a">ins1716440</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">HAL</subfield>
     <subfield code="a">hal-02008903</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2653801</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -29,8 +2075,8 @@
     <subfield code="a">CERN-EP-2019-004</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">Measurement of ${\rm D^0}$, ${\rm D^+}$, ${\rm D^{*+}}$ and ${{\rm D^+_s}}$ production in pp collisions at $\mathbf{\sqrt{{\textit s}}~=~5.02~TeV}$ with ALICE</subfield>
+    <subfield code="9">Springer</subfield>
+    <subfield code="a">Measurement of ${{\mathrm{D}}^0}$ , ${{\mathrm{D}}^+}$ , ${{\mathrm{D}}^{*+}}$ and ${{\mathrm{D}}^+_{\mathrm{s}}}$ production in pp collisions at ${\sqrt{{\textit{s}}}~=~5.02~{\text {TeV}}}$ with ALICE</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">ALICE</subfield>
@@ -38,6 +2084,17 @@
 </record>
 <record>
   <controlfield tag="001">1714695</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1007/JHEP09(2019)108</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1007/JHEP09(2019)108</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Acharya:2019idg</subfield>
@@ -47,12 +2104,16 @@
     <subfield code="a">oai:arXiv.org:1901.05518</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">2650113</subfield>
+    <subfield code="9">HEPDATA</subfield>
+    <subfield code="a">ins1714695</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">hal-01998976</subfield>
     <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-01998976</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2650113</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -64,8 +2125,8 @@
     <subfield code="a">CERN-EP-2018-332</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">Event-shape and multiplicity dependence of freeze-out radii in pp collisions at $\sqrt{{\textit s}}=7$ TeV</subfield>
+    <subfield code="9">Springer</subfield>
+    <subfield code="a">Event-shape and multiplicity dependence of freeze-out radii in pp collisions at $ \sqrt{s} $ = 7 TeV</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">ALICE</subfield>

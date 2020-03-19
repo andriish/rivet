@@ -1,8 +1,634 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 2 -->
+<!-- Search-Engine-Total-Number-Of-Results: 21 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record>
+  <controlfield tag="001">1771348</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1103/PhysRevD.101.052004</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2019xpp</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1912.08187</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1912.08187</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Underlying event measurements in $p$+$p$ collisions at $\sqrt{s}= 200 $ GeV at RHIC</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1767419</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2019tql</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1911.12168</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1911.12168</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Measurement of D$^0$-meson + hadron two-dimensional angular correlations in Au+Au collisions at $\sqrt{s_{\rm NN}} = $ 200 GeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1762811</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2019fbq</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1911.00596</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj47b</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1911.00596</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Methods for a blind analysis of isobar data collected by the STAR collaboration</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1762441</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2019hpq</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.14628</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj46c</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.14628</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Observation of enhancement of charmed baryon-to-meson ratio in Au+Au collisions at $\sqrt{s_{NN}}$ = 200 GeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1761439</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1910.12400</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2019mby</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj46b</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1910.12400</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Probing Extreme Electromagnetic Fields with the Breit-Wheeler Process</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1748776</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevC.101.024905</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevC.101.024905</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2019dkq</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1908.03585</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj35d</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1908.03585</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Bulk Properties of the System Formed in Au+Au Collisions at $\sqrt{s_{\mathrm{NN}}}$ = 14.5 GeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1740989</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2019ecx</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1906.09363</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj28a</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1906.09363</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Measurement of away-side broadening with self-subtraction of flow in Au+Au collisions at $\sqrt{s_{_\mathrm{NN}}}=200$ GeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1740846</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevC.101.014916</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevC.101.014916</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2019sdm</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1906.09204</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj28c</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1906.09204</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Beam-energy dependence of identified two-particle angular correlations in Au+Au collisions at RHIC</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1738953</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2019koz</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1906.03732</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj26b</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1906.03732</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Strange hadron production in Au+Au collisions at $\sqrt{s_{_{\mathrm{NN}}}}$ = 7.7, 11.5, 19.6, 27, and 39 GeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1738942</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1016/j.physletb.2019.134975</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">STAR:2019xzd</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1906.03373</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj26b</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1906.03373</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Elsevier</subfield>
+    <subfield code="a">Charge-dependent pair correlations relative to a third particle in $p$ + Au and $d$+ Au collisions at RHIC</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1738738</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1103/PhysRevD.100.052005</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevD.100.052005</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2019aml</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1906.02740</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj24o</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1906.02740</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">APS</subfield>
+    <subfield code="a">Longitudinal double-spin asymmetry for inclusive jet and dijet production in pp collisions at $\sqrt{s} = 510$  GeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1737650</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1016/j.physletb.2019.134917</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2019rbk</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1905.13669</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj25b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">ins1737650</subfield>
+    <subfield code="9">HEPDATA</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1905.13669</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Elsevier</subfield>
+    <subfield code="a">Measurement of inclusive $J/\psi$ suppression in Au+Au collisions at $\sqrt{s_{NN}}$ = 200 GeV through the dimuon channel at STAR</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1737354</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevLett.123.132301</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevLett.123.132301</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2019srw</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1905.11917</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj24b</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1905.11917</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">APS</subfield>
+    <subfield code="a">Polarization of $\Lambda$ ($\bar{\Lambda}$) hyperons along the beam direction in Au+Au collisions at $\sqrt{s_{_{NN}}}$ = 200 GeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1735184</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevD.100.052009</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2019mrg</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1905.06075</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj21z</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1905.06075</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">APS</subfield>
+    <subfield code="a">Measurements of the transverse-momentum-dependent cross sections of $J/\psi$ production at mid-rapidity in proton+proton collisions at $\sqrt{s} =$ 510 and 500 GeV with the STAR detector</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1733225</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevLett.123.162301</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevLett.123.162301</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2019wnk</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1905.02052</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj22b</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1905.02052</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">APS</subfield>
+    <subfield code="a">First Observation of the Directed Flow of $D^{0}$ and $\overline{D^0}$ in Au+Au Collisions at $\sqrt{s_{\rm NN}}$ = 200 GeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1731573</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevLett.123.132302</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevLett.123.132302</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">STAR:2019yox</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1904.11658</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj19aa</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1904.11658</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">APS</subfield>
+    <subfield code="a">Observation of excess J/$\psi$ yield at very low transverse momenta in Au+Au collisions at $\sqrt{s_{\rm{NN}}} =$ 200 GeV and U+U collisions at $\sqrt{s_{\rm{NN}}} =$ 193 GeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1731117</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1038/s41567-020-0799-7</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1038/s41567-020-0799-7</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2019phl</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1904.10520</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj18y</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1904.10520</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Nature</subfield>
+    <subfield code="a">Measurement of the mass difference and the binding energy of the hypertriton and antihypertriton</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1727273</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevC.99.064905</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2019wnb</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1903.11778</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj15n</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1903.11778</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">APS</subfield>
+    <subfield code="a">Beam energy dependence of (anti-)deuteron production in Au + Au collisions at the BNL Relativistic Heavy Ion Collider</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1724809</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1103/PhysRevC.100.014902</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevC.100.014902</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2019xmk</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1903.05370</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj13o</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1903.05370</subfield>
+    <subfield code="c">nucl-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">APS</subfield>
+    <subfield code="a">Collision-energy dependence of second-order off-diagonal and diagonal cumulants of net-charge, net-proton, and net-kaon multiplicity distributions in Au + Au collisions</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
+<record>
   <controlfield tag="001">1716552</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1103/PhysRevLett.122.172301</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevLett.122.172301</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Adam:2019woz</subfield>
@@ -18,7 +644,7 @@
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
-    <subfield code="a">Azimuthal harmonics in small and large collision systems at RHIC top energies</subfield>
+    <subfield code="a">Azimuthal Harmonics in Small and Large Collision Systems at RHIC Top Energies</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">STAR</subfield>
@@ -26,6 +652,10 @@
 </record>
 <record>
   <controlfield tag="001">1712047</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevC.99.044918</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Adam:2019rsf</subfield>
@@ -34,14 +664,18 @@
     <subfield code="9">arXiv</subfield>
     <subfield code="a">oai:arXiv.org:1901.00837</subfield>
   </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj03r</subfield>
+  </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
     <subfield code="a">arXiv:1901.00837</subfield>
     <subfield code="c">nucl-ex</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">Collision Energy Dependence of $p_{\rm t}$ Correlations in Au+Au Collisions at RHIC</subfield>
+    <subfield code="9">APS</subfield>
+    <subfield code="a">Collision-energy dependence of $p_t$ correlations in Au + Au collisions at energies available at the BNL Relativistic Heavy Ion Collider</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">STAR</subfield>

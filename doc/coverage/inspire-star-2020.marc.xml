@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 2 -->
+<!-- Search-Engine-Total-Number-Of-Results: 3 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <controlfield tag="001">1783875</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2020kug</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2003.02114</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2003.02114</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Measurement of Groomed Jet Substructure Observables in \pp Collisions at $\sqrt{s} = 200$ GeV with STAR</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">STAR</subfield>
+  </datafield>
+</record>
 <record>
   <controlfield tag="001">1776194</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -10,6 +33,10 @@
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
     <subfield code="a">oai:arXiv.org:2001.06419</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D20-kj06a</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
