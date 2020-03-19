@@ -18,7 +18,7 @@ namespace Rivet {
   {
     private:
 
-        std::vector<double> _topjets;
+        Jets _topjets;
 
         bool _do_qjets=0;
         bool _do_optimalR=1;
@@ -110,6 +110,8 @@ namespace Rivet {
         }
 
         void Set_Parameters(const std::map<std::string, std::string>& options);
+
+        Jets topjets() const { return _topjets; }
 
         void calc(const Jets& jets);
         void Reset();
