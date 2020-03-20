@@ -1370,7 +1370,7 @@
 679506 X Measurement of absolute hadronic branching fractions of D mesons and e+ e- ---> D anti-D cross sections at E(cm) = 3773-MeV #BR#
 679956 X Evidence for the decay $B^\pm \to K^{*\pm} \pi^0$ #BR#
 679960 X Measurement of $\phi_3$ with Dalitz plot analysis of $B^{\pm} \to DK^{*\pm}$ decay #mixing#
-679961 X Production and decay of $\Xi_c^0$ at BABAR #implemented#
+679961 . Production and decay of $\Xi_c^0$ at BABAR #implemented#
 680373 X Time-dependent CP-violating asymmetries in b ---> s anti-q q transitions #mixing#
 680703 . Studies of CP violation in B ---> J/psi K* decays #fig 2#
 680847 X Measurement of time-dependent CP-violating asymmetries and constraints on $\sin(2\beta+\gamma)$ with partial reconstruction of $B \to D^{*\mp} \pi^\pm$ decays #mixing#
@@ -3025,7 +3025,7 @@
 1767633 . Measurements of the Branching Fractions ${\cal B}(B^{-} \to \bar{\Lambda}_{c}^{-} \Xi_{c}^{'0})$, ${\cal B}(B^{-} \to \bar{\Lambda}_{c}^{-} \Xi_{c}(2645)^{0})$ and ${\cal B}(B^{-} \to \bar{\Lambda}_{c}^{-} \Xi_{c}(2790)^{0}) $
 1767758 X Search for baryon and lepton number violating decays $D^+\to\bar\Lambda(\bar\Sigma^0)e^+$ and $D^+\to\Lambda(\Sigma^0)e^+$ #search, BR#
 1769654 . Resonances in $e^+e^-$ annihilation near 2.2 GeV
-1770428 . Study Of The Process $e^+e^- \to K_s^0 K_s^0 \pi^+\pi^-$ In The C.M. Energy Range 1.6--2.0 Gev With The CMD-3 Detector #implemented#
+1770428 . Study Of The Process $E^+E^-\To K_s^0 K_s^0 \Pi^+\Pi^-$ In The C.M. Energy Range 1.6--2.0 Gev With The Cmd-3 Detector #implemented#
 1770439 X Measurement of the branching fraction for the decay $K_S \to \pi \mu \nu$ with the KLOE detector #BR#
 1770442 X White Paper on the Future Physics Programme of BESIII #detector#
 1770445 . Study of $B \to p {\bar p} \pi \pi$
