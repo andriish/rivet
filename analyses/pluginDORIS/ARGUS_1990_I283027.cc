@@ -29,8 +29,7 @@ namespace Rivet {
     /// Recursively walk the decay tree to find decay products of @a p
     void findDecayProducts(Particle mother, Particles& deut) {
       // deuteron id code
-      // static const long id = -1000010020;
-      static const long id = -2212;
+      static const long id = -1000010020;
       for(const Particle & p: mother.children()) {
 	if(p.pid() == id) {
 	  deut.push_back(p);
