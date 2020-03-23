@@ -641,9 +641,16 @@ namespace Rivet {
 
   public:
 
+    /// @name Allow RAW histograms to be read in to local objects.
+    virtual void rawHookIn(YODA::AnalysisObjectPtr yao) {
+      (void) yao;
+    }
 
-    /// @name Provide access to RAW histograms before finalization.
-    virtual void transformRAW() {}
+    /// @name Provide access to RAW histograms before writing out to file.
+    virtual void rawHookOut(vector<MultiweightAOPtr> raos, size_t iW) {
+      (void) raos;
+      (void) iW;
+    }
 
     /// @name Accessing options for this Analysis instance.
     //@{

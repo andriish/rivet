@@ -56,7 +56,7 @@ namespace Rivet {
 
     // Constructor which takes a Scatter2D to estimate bin edges.
     Correlators(const ParticleFinder& fsp, int nMaxIn,
-                int pMaxIn, const Scatter2DPtr hIn);
+                int pMaxIn, const YODA::Scatter2D hIn);
 
     /// @brief Integrated correlator of @a n harmonic, with the
     /// number of powers being the size of @a n.
@@ -519,39 +519,31 @@ namespace Rivet {
 
       /// @brief Set the @a prIn list of profile histograms associated with the internal bins
       ///
-      /// Called automatically when booking, no need to call it yourself.
-      void setProfs(list<Profile1DPtr> prIn) {
+      void setProfs(vector<string> prIn) {
         profs = prIn;
       }
 
-      /// Fill bins with content from preloaded histograms
-      void fillFromProfs() {
-        list<Profile1DPtr>::iterator hItr = profs.begin();
+      /// @brief Fill bins with content from preloaded histograms
+      bool fillFromProfile(YODA::AnalysisObjectPtr yao, string name) {
         auto refs = reference.getBinPtrs<CorSingleBin>();
-        for (size_t i = 0; i < profs.size(); ++i, ++hItr) {
-          for (size_t j = 0; j < binX.size() - 1; ++j) {
-            const YODA::ProfileBin1D& pBin = (*hItr)->binAt(binX[j]);
-            auto tmp  = binContent[j].getBinPtrs<CorSingleBin>();
-            tmp[i]->addContent(pBin.numEntries(), pBin.sumW(), pBin.sumW2(),
-                               pBin.sumWY());
-          }
-          // Get the reference flow from the underflow bin of the histogram.
-          const YODA::Dbn2D& uBin = (*hItr)->underflow();
-          refs[i]->addContent(uBin.numEntries(), uBin.sumW(), uBin.sumW2(),
-                              uBin.sumWY());
+        for (size_t i = 0; i < profs.size(); ++i) {
+	  if (yao->path() == "/RAW/"+name+"/TMP/"+profs[i]) {
+            YODA::Profile1DPtr pPtr = dynamic_pointer_cast<YODA::Profile1D>(yao);
+	    for (size_t j = 0; j < binX.size() - 1; ++j) {
+              const YODA::ProfileBin1D& pBin = pPtr->binAt(binX[j]);
+              auto tmp  = binContent[j].getBinPtrs<CorSingleBin>();
+              tmp[i]->addContent(pBin.numEntries(), pBin.sumW(), pBin.sumW2(),
+                pBin.sumWY());
+            }
+            // Get the reference flow from the underflow bin of the histogram.
+            const YODA::Dbn2D& uBin = pPtr->underflow();
+            refs[i]->addContent(uBin.numEntries(), uBin.sumW(), uBin.sumW2(),
+              uBin.sumWY());
+	    return true;
+	  }
         } // End loop of bootstrapped correlators.
+	return false;
       }
-
-      /// Begin iterator for the list of associated profile histograms
-      list<Profile1DPtr>::iterator profBegin() {
-        return profs.begin();
-      }
-
-      /// End iterator for the list of associated profile histograms
-      list<Profile1DPtr>::iterator profEnd() {
-        return profs.end();
-      }
-
 
     private:
 
@@ -577,8 +569,9 @@ namespace Rivet {
       vector<CorBin> binContent;
       // The reference flow.
       CorBin reference;
+    public:
       // The profile histograms associated with the CorBins for streaming.
-      list<Profile1DPtr> profs;
+      vector <string> profs;
 
     };
 
@@ -608,6 +601,7 @@ namespace Rivet {
     ECorrPtr bookECorrelator(const string name, const vector<int>& h, const YODA::Scatter2D& hIn) {
       vector<double> binIn;
       for (auto b : hIn.points()) binIn.push_back(b.xMin());
+      binIn.push_back(hIn.points().back().xMax());
       return bookECorrelator(name, h, binIn);
     }
 
@@ -615,14 +609,11 @@ namespace Rivet {
     /// @todo Rename to book(ECorrPtr, ...)
     ECorrPtr bookECorrelator(const string name, const vector<int>& h, vector<double>& binIn) {
       ECorrPtr ecPtr = ECorrPtr(new ECorrelator(h, binIn));
-      list<Profile1DPtr> eCorrProfs;
+      vector<string> eCorrProfs;
       for (int i = 0; i < BOOT_BINS; ++i) {
         Profile1DPtr tmp;
-        book(tmp, ""+name+"-"+to_string(i),hIn);
-        //tmp->setPath(this->name()+"/FINAL/" + name+"-"+to_string(i));
-        //tmp->setPath(tmp->path()+"FINAL");
-        //book(tmp,"TMP/"+name+"-"+to_string(i),binIn);
-        eCorrProfs.push_back(tmp);
+	book(tmp,"TMP/"+name+"-"+to_string(i),binIn);
+        eCorrProfs.push_back(name+"-"+to_string(i));
       }
       ecPtr->setProfs(eCorrProfs);
       eCorrPtrs.push_back(ecPtr);
@@ -634,20 +625,17 @@ namespace Rivet {
     ECorrPtr bookECorrelator(const string name, const vector<int>& h1,
                              const vector<int>& h2, vector<double>& binIn) {
       ECorrPtr ecPtr = ECorrPtr(new ECorrelator(h1, h2, binIn));
-      list<Profile1DPtr> eCorrProfs;
+      vector<string> eCorrProfs;
       for (int i = 0; i < BOOT_BINS; ++i) {
-      Profile1DPtr tmp;
-        book(tmp, ""+name+"-"+to_string(i),hIn);
-        //tmp->setPath(this->name()+"/FINAL/" + name+"-"+to_string(i));
-        //tmp->setPath(tmp->path()+"FINAL");
-        //book(tmp,"TMP/"+name+"-"+to_string(i),binIn);
-        eCorrProfs.push_back(tmp);
+        Profile1DPtr tmp;
+        book(tmp,"TMP/"+name+"-"+to_string(i),binIn);
+        eCorrProfs.push_back(name+"-"+to_string(i));
       }
       ecPtr->setProfs(eCorrProfs);
       eCorrPtrs.push_back(ecPtr);
       return ecPtr;
     }
-
+    
     /// @brief Book a gapped ECorrelator with two harmonic vectors
     /// @todo Rename to book(ECorrPtr, ...)
     ECorrPtr bookECorrelator(const string name, const vector<int>& h1,
@@ -658,7 +646,8 @@ namespace Rivet {
       return bookECorrelator(name, h1, h2, binIn);
     }
 
-    /// Shorthand for gapped correlators, splitting the harmonic vector into negative and positive components
+    /// Shorthand for gapped correlators, splitting the harmonic vector into negative and 
+    /// positive components.
     ///
     /// @todo Rename to book(ECorrPtr, ...)
     ECorrPtr bookECorrelatorGap(const string name, const vector<int>& h,
@@ -699,21 +688,7 @@ namespace Rivet {
 	    
     }
 
-
-    /// @brief Stream correlators to the yoda file
-    ///
-    /// The stream method MUST be called in finalize() if one wants to stream
-    /// correlators to the yoda file, in order to do re-entrant finalize
-    /// (ie. multi-histogram merging) for the analysis.
-    void stream() {
-      for (auto ecItr = eCorrPtrs.begin(); ecItr != eCorrPtrs.end(); ++ecItr){
-        //(*ecItr)->fillFromProfs();
-        corrPlot(list<Profile1DPtr>((*ecItr)->profBegin(), (*ecItr)->profEnd()), *ecItr);
-      }
-    }
-
-
-  private:
+  protected:
 
     // Bookkeeping of the event averaged correlators.
     list<ECorrPtr> eCorrPtrs;
@@ -955,53 +930,72 @@ namespace Rivet {
     const void corrPlot(Scatter2DPtr h, ECorrPtr e) const {
       cnTwoInt(h, e);
     }
-
-
-    /// Put an event-averaged correlator into Profile1Ds, one for each bootstrapping bin
-    const void corrPlot(list<Profile1DPtr> profs, ECorrPtr e) const {
-      vector<CorBin> corBins = e->getBins();
-      vector<double> binx = e->getBinX();
-      auto ref = e->getReference();
-      auto refBins = ref.getBinPtrs<CorSingleBin>();
-      // Assert bin size.
-      if (binx.size() - 1 != corBins.size()){
-        cout << "corrPlot: Bin size (x,y) differs!" << endl;
-        return;
-      }
-      list<Profile1DPtr>::iterator hItr = profs.begin();
-      // Loop over the boostrapped correlators.
-      for (size_t i = 0; i < profs.size(); ++i, ++hItr) {
-        vector<YODA::ProfileBin1D> profBins;
-        // Numbers for the summary distribution
-        double ne = 0., sow = 0., sow2 = 0.;
-        for (size_t j = 0, N = binx.size() - 1; j < N; ++j) {
-          vector<CorSingleBin*> binPtrs =
-            corBins[j].getBinPtrs<CorSingleBin>();
-          // Construct bin of the profiled quantities. We have no information
-          // (and no desire to add it) of sumWX of the profile, so really
-          // we should use a Dbn1D - but that does not work for Profile1D's.
-          profBins.push_back( YODA::ProfileBin1D((*hItr)->bin(j).xEdges(),
-            YODA::Dbn2D( binPtrs[i]->numEntries(), binPtrs[i]->sumW(),
-            binPtrs[i]->sumW2(), 0., 0., binPtrs[i]->sumWX(), 0, 0)));
-          ne += binPtrs[i]->numEntries();
-          sow += binPtrs[i]->sumW();
-          sow2 += binPtrs[i]->sumW2();
-          cout << sow << endl;
+  
+    
+     
+    
+    // TODO Use full path for lookup, change to single AU in output, rename.
+    void rawHookIn(YODA::AnalysisObjectPtr yao) final {
+      // Fill the corresponding ECorrelator.
+      for (auto ec : eCorrPtrs) if(ec->fillFromProfile(yao, name())) break;;
+    }
+    
+    /// @brief Transform RAW ECorrelator Profiles to have content 
+    /// before writing them.
+    /// Overloaded method from Analysis base class should not be
+    /// overridden further.
+    void rawHookOut(vector<MultiweightAOPtr> raos, size_t iW) final {
+      // Loop over the correlators and extract the numbers.
+      for (auto ec : eCorrPtrs) {
+        vector<CorBin> corBins = ec->getBins();
+        vector<double> binx = ec->getBinX();
+        auto ref = ec->getReference();
+        auto refBins = ref.getBinPtrs<CorSingleBin>();
+        // Assert bin size.
+        if (binx.size() - 1 != corBins.size()){
+          cout << "corrPlot: Bin size (x,y) differs!" << endl;
+          return;
         }
-        // Reset the bins of the profiles.
-        (*hItr)->reset();
-        (*hItr)->bins().clear();
-        // Add our new bins.
-        // The total distribution
-        (*hItr)->setTotalDbn(YODA::Dbn2D(ne,sow,sow2,0.,0.,0.,0.,0.));
-        // The bins.
-        for (int j = 0, N = profBins.size(); j < N; ++j)
-          (*hItr)->addBin(profBins[j]);
-        // The reference flow in the underflow bin.
-        (*hItr)->setUnderflow(YODA::Dbn2D(refBins[i]->numEntries(),
-          refBins[i]->sumW(), refBins[i]->sumW2(), 0., 0.,
-          refBins[i]->sumWX(), 0., 0.));
-      } // End loop of bootstrapped correlators.
+	// Loop over the booked histograms using their names.
+        for (int i = 0, N = ec->profs.size(); i < N; ++i) {
+	  for (auto rao : raos) {
+	    if (rao->path() == "/"+name()+"/TMP/"+ec->profs[i]) {
+	      // Get a pointer to the active profile. 
+	      rao.get()->setActiveWeightIdx(iW);
+  	      YODA::Profile1DPtr pPtr = dynamic_pointer_cast<YODA::Profile1D>(
+	        rao.get()->activeYODAPtr());
+	      // New bins.
+	      vector<YODA::ProfileBin1D> profBins;
+              // Numbers for the summary distribution
+              double ne = 0., sow = 0., sow2 = 0.;
+              for (size_t j = 0, N = binx.size() - 1; j < N; ++j) {
+                vector<CorSingleBin*> binPtrs =
+                  corBins[j].getBinPtrs<CorSingleBin>();
+                // Construct bin of the profiled quantities. We have no information
+                // (and no desire to add it) of sumWX of the profile, so really
+                // we should use a Dbn1D - but that does not work for Profile1D's.
+                profBins.push_back( YODA::ProfileBin1D(pPtr->bin(j).xEdges(),
+                  YODA::Dbn2D( binPtrs[i]->numEntries(), binPtrs[i]->sumW(),
+                  binPtrs[i]->sumW2(), 0., 0., binPtrs[i]->sumWX(), 0, 0)));
+                ne += binPtrs[i]->numEntries();
+                sow += binPtrs[i]->sumW();
+                sow2 += binPtrs[i]->sumW2();
+              }
+	      // Put the ECorrelator into the raw histogram.
+	      pPtr->reset();
+	      pPtr->bins().clear();
+	      // Add the bins.
+	      pPtr->addBins(profBins);
+	      // Set the total distribution.
+              pPtr->setTotalDbn(YODA::Dbn2D(ne,sow,sow2,0.,0.,0.,0.,0.));
+              // And reference flow in the underflow bin.
+	      pPtr->setUnderflow(YODA::Dbn2D(refBins[i]->numEntries(),
+                refBins[i]->sumW(), refBins[i]->sumW2(), 0., 0.,
+                refBins[i]->sumWX(), 0., 0.));
+	    }
+	  }
+	}
+      }
     }
 
     // @brief Four particle integrated cn.

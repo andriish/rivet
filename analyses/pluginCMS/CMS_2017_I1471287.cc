@@ -120,28 +120,28 @@ namespace Rivet {
       declare(Correlators(cfsn, max.first, max.second),"CNeg");
 
       // For pT differential, charged particles, low multiplicity.
-      declare(Correlators(cfsppT, max.first, max.second, h_v22pTh),"CPosLowPT");
-      declare(Correlators(cfsnpT, max.first, max.second, h_v22pTh),"CNegLowPT");
+      declare(Correlators(cfsppT, max.first, max.second, refData(17,1,1)),"CPosLowPT");
+      declare(Correlators(cfsnpT, max.first, max.second, refData(17,1,1)),"CNegLowPT");
 
       // For pT differential, charged particles, high multiplicity.
-      declare(Correlators(cfsppT, max.first, max.second, h_v22pT),"CPosHighPT");
-      declare(Correlators(cfsnpT, max.first, max.second, h_v22pT),"CNegHighPT");
+      declare(Correlators(cfsppT, max.first, max.second, refData(11,1,1)),"CPosHighPT");
+      declare(Correlators(cfsnpT, max.first, max.second, refData(11,1,1)),"CNegHighPT");
 
       // For pT differential, kaons. low multiplicity.
-      declare(Correlators(kfsppT, max.first, max.second, h_v22pTK),"CPosLowPTK");
-      declare(Correlators(kfsnpT, max.first, max.second, h_v22pTK),"CNegLowPTK");
+      declare(Correlators(kfsppT, max.first, max.second, refData(18,1,1)),"CPosLowPTK");
+      declare(Correlators(kfsnpT, max.first, max.second, refData(18,1,1)),"CNegLowPTK");
 
       // For pT differential, kaons. high multiplicity.
-      declare(Correlators(kfsppT, max.first, max.second, h_v22pTKc),"CPosHighPTK");
-      declare(Correlators(kfsnpT, max.first, max.second, h_v22pTKc),"CNegHighPTK");
+      declare(Correlators(kfsppT, max.first, max.second, refData(21,1,1)),"CPosHighPTK");
+      declare(Correlators(kfsnpT, max.first, max.second, refData(21,1,1)),"CNegHighPTK");
 
       // For pT differential, lambda. low multiplicity.
-      declare(Correlators(lfsppT, max.first, max.second, h_v22pTL),"CPosLowPTL");
-      declare(Correlators(lfsnpT, max.first, max.second, h_v22pTL),"CNegLowPTL");
+      declare(Correlators(lfsppT, max.first, max.second, refData(19,1,1)),"CPosLowPTL");
+      declare(Correlators(lfsnpT, max.first, max.second, refData(19,1,1)),"CNegLowPTL");
 
       // For pT differential, lambda. high multiplicity.
-      declare(Correlators(lfsppT, max.first, max.second, h_v22pTLc),"CPosHighPTL");
-      declare(Correlators(lfsnpT, max.first, max.second, h_v22pTLc),"CNegHighPTL");
+      declare(Correlators(lfsppT, max.first, max.second, refData(22,1,1)),"CPosHighPTL");
+      declare(Correlators(lfsnpT, max.first, max.second, refData(22,1,1)),"CNegHighPTL");
 
 
     }
@@ -199,9 +199,6 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      // Correlators must be streamed
-      // in order to run reentrant finalize.
-      stream();
       cnTwoInt(h_v22, ec22);
       cnTwoInt(h_v32, ec32);
       vnTwoDiff(h_v22pT, ec22pT);

@@ -44,7 +44,6 @@ namespace Rivet {
     
     /// Normalise histograms etc., after the run
     void finalize() {
-      stream();
       cnTwoInt(h_c22,ec22);
     }
 

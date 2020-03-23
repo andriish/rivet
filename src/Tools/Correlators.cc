@@ -20,9 +20,9 @@ namespace Rivet {
 
   // Alternative constructor.
   Correlators::Correlators(const ParticleFinder& fsp, int nMaxIn,
-    int pMaxIn, const Scatter2DPtr hIn) : nMax(nMaxIn + 1), pMax(pMaxIn + 1) {
-    for (auto b : hIn->points()) pTbinEdges.push_back(b.xMin());
-    pTbinEdges.push_back(hIn->points().back().xMax());
+    int pMaxIn, const YODA::Scatter2D hIn) : nMax(nMaxIn + 1), pMax(pMaxIn + 1) {
+    for (auto b : hIn.points()) pTbinEdges.push_back(b.xMin());
+    pTbinEdges.push_back(hIn.points().back().xMax());
     setName("Correlators");
     declareProjection(fsp, "FS");
     isPtDiff   = !pTbinEdges.empty();

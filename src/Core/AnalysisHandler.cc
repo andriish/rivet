@@ -283,14 +283,12 @@ namespace Rivet {
     if (!_initialised) return;
     MSG_DEBUG("Finalising analyses");
     
-    for (const AnaHandle& a : analyses())
-      a->transformRAW();
-    _stage = Stage::FINALIZE;
-
     // First push all analyses' objects to persistent and final
     MSG_TRACE("AnalysisHandler::finalize(): Pushing analysis objects to persistent.");
     pushToPersistent();
 
+    _stage = Stage::FINALIZE;
+    
     // Copy all histos to finalize versions.
     _eventCounter.get()->pushToFinal();
     _xs.get()->pushToFinal();
@@ -311,7 +309,8 @@ namespace Rivet {
           ao.get()->setActiveFinalWeightIdx(iW);
         try {
           MSG_TRACE("running " << a->name() << "::finalize() for weight " << iW << ".");
-          a->finalize();
+          
+	  a->finalize();
         } catch (const Error& err) {
           cerr << "Error in " << a->name() << "::finalize method: " << err.what() << '\n';
           exit(1);
@@ -555,12 +554,11 @@ namespace Rivet {
       xsec.reset();
       xsec.addPoint(Point1D(xs, xserr));
 
-      // Go through alla analyses and add stuff to their analysis objects;
+      // Go through all analyses and add stuff to their analysis objects;
       for (AnaHandle a : analyses()) {
         for (const auto & ao : a->analysisObjects()) {
           ao.get()->setActiveWeightIdx(iW);
           YODA::AnalysisObjectPtr yao = ao.get()->activeYODAPtr();
-          cout << ao->name() << endl;
           for ( int i = 0, N = sows.size(); i < N; ++i ) {
             if ( !sows[i] || !xsecs[i] ) continue;
             auto range = allaos[i].equal_range(yao->path());
@@ -568,18 +566,9 @@ namespace Rivet {
               if ( !addaos(yao, aoit->second, scales[i]) )
                 MSG_WARNING("Cannot merge objects with path " << yao->path()
                             <<" of type " << yao->annotation("Type") );
-          if (ao->name() == "ec22-0") {
-            YODA::Profile1DPtr h = dynamic_pointer_cast<YODA::Profile1D>(aoit->second);
-            cout << "HH " << h->numEntries() << endl;
-          }
-
             }
           }
-          if (ao->name() == "ec22-0") {
-            cout << "Got it!" << endl;
-            YODA::Profile1DPtr h = dynamic_pointer_cast<YODA::Profile1D>(ao.get()->activeYODAPtr());
-            cout << h->sumW() << endl;
-          }
+	  a->rawHookIn(yao);
           ao.get()->unsetActiveWeight();
         }
       }
@@ -646,6 +635,11 @@ namespace Rivet {
       }
     }
 
+    // Analyses can make changes neccesary for merging to RAW objects
+    // before writing.
+    for (size_t iW : order)
+      for (auto a : analyses()) a->rawHookOut(raos, iW);
+    
     // Finally the RAW objects.
     for (size_t iW : order ) {
       for ( auto rao : raos ) {
