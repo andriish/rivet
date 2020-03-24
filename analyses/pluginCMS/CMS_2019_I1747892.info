@@ -1,0 +1,56 @@
+Name: CMS_2019_I1747892
+Year: 2019
+Summary: Measurement of the average very forward energy as a function of the track multiplicity at central pseudorapidities in proton-proton collisions 13 TeV
+Experiment: CMS
+Collider: LHC
+InspireID: 1747892
+Status: VALIDATED
+Authors:
+ - sebastian.baur@cern.ch
+ - ralf.ulrich@cern.ch
+References:
+ - Eur.Phys.J.C 79 (2019) 893
+ - CMS-FSQ-18-001
+RunInfo:
+  Proton-proton beam, 13 TeV center-of-mass-energy, minimum-bias processes.
+NumEvents: 1M
+NeedCrossSection: no
+Beams: [p+,p+]
+Energies: [13000]
+Description:
+  'The average total energy as well as its hadronic and
+  electromagnetic components are measured with the CMS detector at
+  very-forward pseudorapidity, as a function of the charged particle
+  multiplicity in the region |eta|<2. Note: this RIVET plugin
+  generates results on detector level by applying a final
+  forward-folding of a migration matrix provided as part of this
+  plugin. This is done to create consistency with the published
+  data. To estimate the modelling uncertainty of this approach, it is
+  repeated for four variants of the migration matrix, each of which is
+  obtained from a full detector Monte Carlo simulation using one of
+  the following event generators: PYTHIA 8 tune CUETP8M1,
+  PYTHIA 8 tune 4C/MBR, EPOS-LHC, and SIBYLL2.1. Then final 
+  result is the average of those
+  variations. Model uncertainties can be obtained from the spread of
+  the individual results. Read the paper for more information on this
+  approach, and the definition of the matrices. '
+Keywords: ['CMS', 'CERN LHC', 'forward phase space', 'CASTOR', 'underlying event']
+BibKey: Sirunyan:2019rqy
+BibTeX: '@article{Sirunyan:2019rqy,
+      author         = "Sirunyan, Albert M and others",
+      title          = "{Measurement of the average very forward energy as a
+                        function of the track multiplicity at central
+                        pseudorapidities in proton-proton collisions at
+                        $\sqrt{s}=$ 13 TeV}",
+      collaboration  = "CMS",
+      journal        = "Eur. Phys. J.",
+      volume         = "C79",
+      year           = "2019",
+      number         = "11",
+      pages          = "893",
+      doi            = "10.1140/epjc/s10052-019-7402-3",
+      eprint         = "1908.01750",
+      archivePrefix  = "arXiv",
+      primaryClass   = "hep-ex",
+      reportNumber   = "CMS-FSQ-18-001, CERN-EP-2019-146, CMS-FSQ-18-001-003",
+      SLACcitation   = "%%CITATION = ARXIV:1908.01750;%%"}'
