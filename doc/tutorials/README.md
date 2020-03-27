@@ -22,7 +22,6 @@ how to implement and contribute your own analyses.
 ## Getting started
 
 [Installation](installation.md)
-	- [Linking against HepMC3](hepmc.md)
 
 [Rivet via Docker](docker.md)
 
@@ -66,5 +65,7 @@ how to implement and contribute your own analyses.
 ## Developer topics
 
 [Working with development source (work in progress)](developer.md)
+
+[Linking against HepMC3](hepmc.md)
 
 [Coding style](codingstyle.md)
