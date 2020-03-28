@@ -14,7 +14,7 @@ Rivet is tested against HepMC-3.1.1, later versions might not be supported by th
 wget http://hepmc.web.cern.ch/hepmc/releases/HepMC3-3.1.1.tar.gz
 tar xvf HepMC3-3.1.1.tar.gz
 ```
-Make a build directory for HepMC and configure the build with `cmake`. The installation directory should be set to a user defined location, instead of the dummy location shown here. Note that HepMC *must* be build with its search engine enabled and static libraries build (ie. the default settings should not be changed).
+Make a build directory for HepMC and configure the build with `cmake`. The installation directory should be set to a user defined location, instead of the dummy location shown here. Note that HepMC *must* have with static libraries built, and should be built with the search function enabled (ie. the default settings should not be changed).
 
 ```
 mkdir hepmc3-build
