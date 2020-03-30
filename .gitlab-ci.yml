@@ -1,0 +1,131 @@
+image: fedora:30
+
+variables:
+  #ATLAS_LOCAL_ROOT_BASE: /cvmfs/atlas.cern.ch/repo/ATLASLocalRootBase
+  GIT_STRATEGY: fetch
+  GIT_SUBMODULE_STRATEGY: recursive
+  GIT_SSL_NO_VERIFY: "true"
+  SRC_DIR: src
+  BUILD_DIR: build
+  SRC_DIR_ABS: "${CI_PROJECT_DIR}/${SRC_DIR}"
+  BUILD_DIR_ABS: "${CI_PROJECT_DIR}/${BUILD_DIR}"
+  LD_LIBRARY_PATH: "/usr/local/lib"
+  PYTHONPATH: "/usr/local/lib64/python2.7/site-packages"
+
+
+stages:
+- compile
+- check
+#- validate
+
+before_script:
+- dnf update -y 
+- dnf install -y make cmake gcc-c++ gcc-gfortran redhat-rpm-config m4 automake autoconf libtool
+- dnf install -y wget tar less bzip2 findutils which nano zlib-devel git 
+- dnf install -y python python-devel python-requests file python-matplotlib  gsl-devel
+- dnf install -y texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow 
+- dnf install -y ghostscript ImageMagick texlive-dvips texlive-relsize 
+- dnf install -y texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended 
+- dnf clean all
+
+
+
+
+
+build:
+  stage: compile
+  except:
+    - schedules
+  script:
+    - cd ..
+    - BUILD_PREFIX="$PWD"
+    - INSTALL_PREFIX="$PWD/local"
+    - MAKE="make -j3"
+    - export CPPFLAGS="$CPPFLAGS -DNDEBUG"
+    #versions
+    - test -z "$HEPMC_VERSION" && HEPMC_VERSION="2.06.10" #< TODO: update to v3
+    - test -z "$FASTJET_VERSION" && FASTJET_VERSION="3.3.3"
+    - test -z "$FJCONTRIB_VERSION" && FJCONTRIB_VERSION="1.042"
+    - test -z "$CYTHON_VERSION" && CYTHON_VERSION="0.29.15"
+    ## Immediate exit on a command (group) failure and optional debug mode
+    - set -e
+    - export PATH=$INSTALL_PREFIX/bin:$PATH
+    - function conf { ./configure --prefix=$INSTALL_PREFIX "$@"; }
+    - function mmi { $MAKE "$@" && $MAKE install; }
+    - function wget_untar { wget --no-check-certificate $1 -O- | tar --no-same-owner -xz; }
+    - mkdir -p $INSTALL_PREFIX/etc/bash_completion.d
+    #install hepmc
+    - echo "INSTALLING HEPMC $HEPMC_VERSION"
+    - cd $BUILD_PREFIX
+    - test -d HepMC-$HEPMC_VERSION || wget_untar http://hepmc.web.cern.ch/hepmc/releases/hepmc$HEPMC_VERSION.tgz
+    - mkdir -p HepMC-$HEPMC_VERSION-build && cd HepMC-$HEPMC_VERSION-build
+    - cmake ../HepMC-$HEPMC_VERSION/ -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX -Dmomentum=GEV -Dlength=MM
+    - mmi
+    - HEPMCPATH=$INSTALL_PREFIX
+    #install fastjet
+    - echo "INSTALLING FASTJET $FASTJET_VERSION"
+    - cd $BUILD_PREFIX
+    - test -d fastjet-$FASTJET_VERSION || wget_untar http://www.fastjet.fr/repo/fastjet-$FASTJET_VERSION.tar.gz
+    - cd fastjet-$FASTJET_VERSION
+    - conf --enable-shared --disable-auto-ptr --enable-allcxxplugins
+    - mmi
+    - FASTJETPATH=$INSTALL_PREFIX
+    #install jfcontrib
+    - echo "INSTALLING FASTJET CONTRIB $FJCONTRIB_VERSION"
+    -  cd $BUILD_PREFIX
+    - test -d fastjet-$FJCONTRIB_VERSION || wget_untar http://fastjet.hepforge.org/contrib/downloads/fjcontrib-$FJCONTRIB_VERSION.tar.gz
+    - cd fjcontrib-$FJCONTRIB_VERSION
+    - ./configure --fastjet-config=$FASTJETPATH/bin/fastjet-config CXXFLAGS=-fPIC # fastjet-config already contains INSTALL_PREFIX
+    - mmi fragile-shared-install
+    #install cython
+    - echo "INSTALLING CYTHON $CYTHON_VERSION"
+    - cd $BUILD_PREFIX
+    - CYTHON_VERSION=0.28.5
+    - test -d cython-$CYTHON_VERSION || { wget https://github.com/cython/cython/archive/$CYTHON_VERSION.tar.gz -O - | tar xz; }
+    - export PATH=$BUILD_PREFIX/cython-$CYTHON_VERSION/bin:$PATH
+    - export PYTHONPATH=$BUILD_PREFIX/cython-$CYTHON_VERSION:$PYTHONPATH
+    # install dev yoda
+    - echo "INSTALLING DEV YODA"
+    - cd $BUILD_PREFIX
+    - test -d yoda || git clone https://gitlab.com/hepcedar/yoda.git yoda
+    - cd yoda
+    - git checkout origin/release-1-8
+    - autoreconf -i
+    - conf $YODA_CONFFLAGS
+    - mmi
+    - cp yodaenv.sh $INSTALL_PREFIX/yodaenv.sh
+    - YODAPATH=$INSTALL_PREFIX
+    # install dev rivet
+    - echo "INSTALLING DEV RIVET"
+    - cd $BUILD_PREFIX
+    - cd rivet
+    - autoreconf -i
+    - conf $RIVET_CONFFLAGS  --with-yoda=$YODAPATH --with-hepmc=$HEPMCPATH --with-fastjet=$FASTJETPATH
+    - mmi
+    - cp rivetenv.sh rivetenv.csh $INSTALL_PREFIX/
+    # setup env
+    - source $INSTALL_PREFIX/rivetenv.sh
+    - rivet -h
+    - cd ..
+    - mv local ${CI_PROJECT_DIR}/.
+  artifacts:
+    paths:
+      - ${CI_PROJECT_DIR}
+    expire_in: 1 week
+
+make check:
+  stage: check
+  except:
+    - schedules
+  script:
+    - pwd
+    - mv local ../.
+    - cd ..
+    - ls
+    - source  /builds/hepcedar/local/rivetenv.sh
+    - rivet -h
+    - cd  ${CI_PROJECT_DIR}
+    - make check 
+  dependencies:
+      - build
+
