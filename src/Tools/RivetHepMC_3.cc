@@ -189,8 +189,13 @@ namespace Rivet{
     vector<string> weightNames(const GenEvent & ge) {
       vector<string> ret;
       try {
+#if HEPMC3_VERSION_CODE >= 3002000
+        ret = ge.weight_names();
+#else
         ret = ge.weight_names("");
-      } catch (HepMC3::WeightError & w) {
+#endif
+
+      } catch ( ... ) {
         return vector<string>();
       }
       return ret; 
