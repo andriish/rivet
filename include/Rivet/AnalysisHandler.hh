@@ -243,6 +243,9 @@ namespace Rivet {
     /// Get all multi-weight Rivet analysis object wrappers
     vector<MultiweightAOPtr> getRivetAOs() const;
 
+    /// Get all YODA analysis objects (across all weights, optionally including RAW)
+    vector<YODA::AnalysisObjectPtr> getYodaAOs(bool includeraw=false) const;
+
     /// Get a pointer to a preloaded yoda object with the given path,
     /// or null if path is not found.
     const YODA::AnalysisObjectPtr getPreload(string path) const {

@@ -596,16 +596,14 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::writeData(const string& filename) const {
-
-    // This is where we store the AOs to be written.
+  vector<YODA::AnalysisObjectPtr> AnalysisHandler::getYodaAOs(bool includeraw) const {
     vector<YODA::AnalysisObjectPtr> output;
 
-    // First get all multiwight AOs
+    // First get all multiweight AOs
     vector<MultiweightAOPtr> raos = getRivetAOs();
-    output.reserve(raos.size()*2*numWeights());
+    output.reserve(raos.size() * numWeights() * (includeraw ? 2 : 1));
 
-    // Fix the ordering so that default weight is written out first.
+    // Identify an index ordering so that default weight is written out first
     vector<size_t> order;
     if ( _defaultWeightIdx < numWeights() )
       order.push_back(_defaultWeightIdx);
@@ -622,18 +620,28 @@ namespace Rivet {
     }
 
     // Finally the RAW objects.
-    for (size_t iW : order ) {
-      for ( auto rao : raos ) {
-        rao.get()->setActiveWeightIdx(iW);
-        output.push_back(rao.get()->activeYODAPtr());
+    if (includeraw) {
+      for (size_t iW : order ) {
+        for ( auto rao : raos ) {
+          rao.get()->setActiveWeightIdx(iW);
+          output.push_back(rao.get()->activeYODAPtr());
+        }
       }
     }
 
+    return output;
+  }
+
+
+  void AnalysisHandler::writeData(const string& filename) const {
+
+    const vector<YODA::AnalysisObjectPtr> output = getYodaAOs(true);
     try {
       YODA::write(filename, output.begin(), output.end());
     } catch (...) { //< YODA::WriteError&
       throw UserError("Unexpected error in writing file: " + filename);
     }
+
   }
 
 
