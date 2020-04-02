@@ -240,9 +240,6 @@ namespace Rivet {
     /// Read analysis plots into the histo collection (via addData) from the named file.
     void readData(const std::string& filename);
 
-    /// Get all multi-weight Rivet analysis object wrappers
-    vector<MultiweightAOPtr> getRivetAOs() const;
-
     /// Get all YODA analysis objects (across all weights, optionally including RAW)
     vector<YODA::AnalysisObjectPtr> getYodaAOs(bool includeraw=false) const;
 
@@ -296,6 +293,11 @@ namespace Rivet {
 
     /// Which stage are we in?
     Stage stage() const { return _stage; }
+
+  protected:
+
+    /// Get all multi-weight Rivet analysis object wrappers
+    vector<MultiweightAOPtr> getRivetAOs() const;
 
 
   private:
