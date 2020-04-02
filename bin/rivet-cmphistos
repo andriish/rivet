@@ -519,8 +519,10 @@ if __name__ == '__main__':
                                 for i in range(hmcs[BANDNAME].numPoints()):
                                     val = hmcs[BANDNAME].point(i).y()
                                     err0, err1 = hmcs[BANDNAME].point(i).yErrs()
-                                    err0 = math.sqrt(err0 ** 2 + (val - errors[0][i]) ** 2)
-                                    err1 = math.sqrt(err1 ** 2 + (val - errors[1][i]) ** 2)
+                                    contrib0 = errors[0][i] if isPDF else val - errors[0][i]
+                                    contrib1 = errors[1][i] if isPDF else val - errors[1][i]
+                                    err0 = math.sqrt(err0 ** 2 + contrib0 ** 2)
+                                    err1 = math.sqrt(err1 ** 2 + contrib1 ** 2)
                                     hmcs[BANDNAME].point(i).setYErrs(err0, err1)
 
                     for i in sorted(hmcs.keys(), reverse=True):
