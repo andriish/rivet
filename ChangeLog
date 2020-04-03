@@ -1,3 +1,7 @@
+2020-04-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding IOError, ReadError, and WriteError exception classes, to avoid use of generic Error.
+
 2020-04-01  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add a public AnalysisHandler::getYodaAOs() function and use it to implement writeData().

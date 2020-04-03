@@ -12,10 +12,14 @@ using std::cout;
 using std::endl;
 
 namespace Rivet {
-union magic_t {
+
+
+  /// Byte/number conversion via union, for HepMC file inspection
+  union magic_t {
     uint8_t bytes[4];
     uint32_t number;
-};
+  };
+
 
   Run::Run(AnalysisHandler& ah)
     : _ah(ah), _fileweight(1.0), _xs(NAN)
@@ -63,92 +67,94 @@ union magic_t {
     // In case makeReader fails.
     std::string errormessage;
 
-#ifdef RIVET_ENABLE_HEPMC_3
-if (evtfile == "-") {
-/** Turn off the buffering to make IO faster and make ungetc work on cin */
-       std::basic_ios<char>::sync_with_stdio(false);
-#ifdef HAVE_LIBZ
+    #ifdef RIVET_ENABLE_HEPMC_3
+    if (evtfile == "-") {
+      // Turn off the buffering to make IO faster and make ungetc work on cin
+      std::basic_ios<char>::sync_with_stdio(false);
+      #ifdef HAVE_LIBZ
       _istr = make_shared<zstr::istream>(std::cin);
-#else
+      #else
       _istr = make_shared<std::istream>(std::cin);
-#endif
-/** Use standard HepMC3 deduction on stream. For HepMC3<3.2.0 the function is implemented in Rivet. */
+      #endif
+      // Use standard HepMC3 deduction on stream. For HepMC3 < 3.2.0 the function is implemented in Rivet
       _hepmcReader = RivetHepMC::deduce_reader(*_istr);
-} 
-else 
-{
-/** Use standard HepMC3 deduction on file. */
-_hepmcReader = RivetHepMC::deduce_reader(evtfile);
-/** The deduction has failed. Check if the file is compressed. */
-if (!_hepmcReader)
-{
-        MSG_INFO("No success with deduction of file type. Test if the file is compressed")
+    } else {
+      // Use standard HepMC3 deduction on file
+      _hepmcReader = RivetHepMC::deduce_reader(evtfile);
+      // Check if the file is compressed, if the deduction fails
+      /// @todo Can we move this into the RivetHepMC.hh header? This is a *lot* of HepMC-specific noise for the Run manager class
+      if (!_hepmcReader) {
+        MSG_INFO("No success with deduction of file type. Test if the file is compressed");
         std::ifstream file_test(evtfile);
         magic_t my_magic = {0x1f, 0x8b, 0x08, 0x08};
         magic_t file_magic;
         file_test.read((char *) file_magic.bytes, sizeof(file_magic));
-        if ( file_magic.number == my_magic.number )
-        {
-        MSG_INFO("File is compressed")
-#ifdef HAVE_LIBZ
-        _istr = make_shared<zstr::ifstream>(evtfile);
-        _hepmcReader = RivetHepMC::deduce_reader(*_istr);
-#else
-        MSG_INFO("No zlib support.")
-#endif 
+        if (file_magic.number == my_magic.number) {
+          MSG_INFO("File is compressed");
+          #ifdef HAVE_LIBZ
+          _istr = make_shared<zstr::ifstream>(evtfile);
+          _hepmcReader = RivetHepMC::deduce_reader(*_istr);
+          #else
+          MSG_INFO("No zlib support.");
+          #endif
+        } else {
+          // File is not compressed. Open stream and let the code below to handle it
+          MSG_INFO("File is not compressed. No succes with deduction of file type.");
+          _istr = make_shared<std::ifstream>(evtfile);
         }
-        else
-        {
-/** File is not complessed. Open stream and let the code below to handle it*/
-        MSG_INFO("File is not compressed. No succes with deduction of file type.")
-        _istr = make_shared<std::ifstream>(evtfile);
-        }
-}
-}
-/** The deduction has failed. Check custom formats. */
-if (!_hepmcReader)
-{
-    std::vector<std::string> head;
-    head.push_back("");
-    size_t back=0;
-    size_t backnonempty=0;
-    while ( (back<200&&backnonempty<100)&&_istr) {char c=_istr->get(); back++; if (c=='\n') { if (head.back().length()!=0) head.push_back("");} else { head.back()+=c; backnonempty++;} }
-    if (!_istr)
-    {
-        MSG_INFO("Info in deduce_reader: input stream is too short or invalid.")
+      }
     }
-    for (size_t i=0; i<back; i++)  _istr->unget();
-    if( strncmp(head.at(0).c_str(),"HepMC::Version",14) == 0 && strncmp(head.at(1).c_str(),"HepMC::CompressedAsciiv3-START_EVENT_LISTING",44)==0 )
-    {
-        MSG_INFO("Info in deduce_reader: Attempt CompressedAsciiv3")
+
+    // If the deduction has failed, check custom formats
+    /// @todo Move this into the RivetHepMC.hh header: this is a *lot* of HepMC-specific noise for the Run manager class
+    if (!_hepmcReader) {
+      std::vector<std::string> head;
+      head.push_back("");
+      size_t back=0;
+      size_t backnonempty=0;
+      while (back < 200 && backnonempty < 100 && _istr) { ///< @todo Document this
+        char c = _istr->get();
+        back++;
+        if (c == '\n') {
+          if (head.back().length() != 0)
+            head.push_back("");
+        } else {
+          head.back() += c;
+          backnonempty++;
+        }
+      }
+      if (!_istr) MSG_INFO("Info in deduce_reader: input stream is too short or invalid.");
+      for (size_t i = 0; i < back; ++i) _istr->unget();
+      if (strncmp(head.at(0).c_str(), "HepMC::Version", 14) == 0 &&
+          strncmp(head.at(1).c_str(), "HepMC::CompressedAsciiv3-START_EVENT_LISTING", 44) == 0) {
+        MSG_INFO("Info in deduce_reader: Attempt CompressedAsciiv3");
         //_hepmcReader= make_shared<Rivet::RivetHepMC::ReaderCompressedAscii>(_istr);
+      }
     }
-}
-#endif
+    #endif
 
 
-#ifndef RIVET_ENABLE_HEPMC_3
+    #ifndef RIVET_ENABLE_HEPMC_3
     // Set up HepMC input reader objects
     if (evtfile == "-") {
-#ifdef HAVE_LIBZ
+      #ifdef HAVE_LIBZ
       _istr = make_shared<zstr::istream>(std::cin);
       _hepmcReader = HepMCUtils::makeReader(*_istr, &errormessage);
-#else
+      #else
       _hepmcReader = HepMCUtils::makeReader(std::cin, &errormessage);
-#endif
+      #endif
     } else {
       if ( !fileexists(evtfile) )
-        throw Error("Event file '" + evtfile + "' not found");
-#ifdef HAVE_LIBZ
+        throw ReadError("Event file '" + evtfile + "' not found");
+      #ifdef HAVE_LIBZ
       // NB. zstr auto-detects if file is deflated or plain-text
       _istr = make_shared<zstr::ifstream>(evtfile.c_str());
-#else
+      #else
       _istr = make_shared<std::ifstream>(evtfile.c_str());
-#endif
+      #endif
       _hepmcReader = HepMCUtils::makeReader(*_istr, &errormessage);
-
     }
-#endif
+    #endif
     if (_hepmcReader == nullptr) {
       Log::getLog("Rivet.Run")
         << Log::ERROR << "Read error in file '" << evtfile << "' "

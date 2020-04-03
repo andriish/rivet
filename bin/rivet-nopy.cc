@@ -19,24 +19,19 @@ int main(int argc, char** argv) {
     ah.addAnalysis(argv[i]);
   }
 
-#ifdef RIVET_ENABLE_HEPMC_3
+  #ifdef RIVET_ENABLE_HEPMC_3
   std::shared_ptr<Rivet::RivetHepMC::Reader> reader = Rivet::RivetHepMC::deduce_reader(argv[1]);
   std::shared_ptr<Rivet::RivetHepMC::GenEvent> evt = std::make_shared<Rivet::RivetHepMC::GenEvent>();
-#else
+  #else
   std::ifstream istr(argv[1], std::ios::in);
   std::shared_ptr<Rivet::HepMC_IO_type> reader = Rivet::HepMCUtils::makeReader(istr);
-  
   std::shared_ptr<Rivet::RivetHepMC::GenEvent> evt = std::make_shared<Rivet::RivetHepMC::GenEvent>();
+  #endif
 
-#endif
- 
-  while(reader && Rivet::HepMCUtils::readEvent(reader, evt)){
+  while (reader && Rivet::HepMCUtils::readEvent(reader, evt)) {
     ah.analyze(evt.get());
     evt.reset(new Rivet::RivetHepMC::GenEvent());
   }
-  
-
-  
 
   ah.setCrossSection(std::make_pair(1.0, 0.0));
   ah.finalize();
