@@ -15,6 +15,11 @@
 #include "HepMC3/Units.h"
 #include <cstring>
 #include <sstream>
+#if HEPMC3_VERSION_CODE>=3002000
+#define  ERROR HEPMC3_ERROR
+#define  WARNING HEPMC3_WARNING
+#define  DEBUG HEPMC3_DEBUG
+#endif
 
 #if HEPMC3_VERSION_CODE >= 3002000
 #define ERROR(x) HEPMC3_ERROR(x)
