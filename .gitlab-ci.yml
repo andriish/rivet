@@ -104,7 +104,7 @@ build:
     - cp -r rivet rivet_hepmc3
     - cd rivet
     - autoreconf -i
-    - conf $RIVET_CONFFLAGS  --with-yoda=$YODAPATH --with-hepmc3=/usr --with-fastjet=$FASTJETPATH    
+    - conf $RIVET_CONFFLAGS  --prefix=$INSTALL_PREFIX/rivet_hepmc3 --with-yoda=$YODAPATH --with-hepmc3=/usr --with-fastjet=$FASTJETPATH    
     - mmi
     - cp rivetenv.sh $INSTALL_PREFIX/rivetenv_hepmc3.sh
     - cp rivetenv.csh $INSTALL_PREFIX/rivetenv_hepmc3.csh
