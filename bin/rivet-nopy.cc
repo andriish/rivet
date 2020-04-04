@@ -23,8 +23,8 @@ int main(int argc, char** argv) {
   std::shared_ptr<Rivet::RivetHepMC::Reader> reader = Rivet::RivetHepMC::deduce_reader(argv[1]);
   std::shared_ptr<Rivet::RivetHepMC::GenEvent> evt = std::make_shared<Rivet::RivetHepMC::GenEvent>();
   #else
-  std::ifstream istr(argv[1], std::ios::in);
-  std::shared_ptr<Rivet::HepMC_IO_type> reader = Rivet::HepMCUtils::makeReader(istr);
+  std::shared_ptr<std::istream> istr= std::shared_ptr<std::istream>(new std::ifstream (argv[1], std::ios::in));
+  std::shared_ptr<Rivet::HepMC_IO_type> reader = Rivet::HepMCUtils::makeReader(argv[1],istr);
   std::shared_ptr<Rivet::RivetHepMC::GenEvent> evt = std::make_shared<Rivet::RivetHepMC::GenEvent>();
   #endif
 

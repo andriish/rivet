@@ -135,25 +135,11 @@ namespace Rivet {
 
 
     #ifndef RIVET_ENABLE_HEPMC_3
-    // Set up HepMC input reader objects
-    if (evtfile == "-") {
-      #ifdef HAVE_LIBZ
-      _istr = make_shared<zstr::istream>(std::cin);
-      _hepmcReader = HepMCUtils::makeReader(*_istr, &errormessage);
-      #else
-      _hepmcReader = HepMCUtils::makeReader(std::cin, &errormessage);
-      #endif
-    } else {
-      if ( !fileexists(evtfile) )
-        throw ReadError("Event file '" + evtfile + "' not found");
-      #ifdef HAVE_LIBZ
-      // NB. zstr auto-detects if file is deflated or plain-text
-      _istr = make_shared<zstr::ifstream>(evtfile.c_str());
-      #else
-      _istr = make_shared<std::ifstream>(evtfile.c_str());
-      #endif
-      _hepmcReader = HepMCUtils::makeReader(*_istr, &errormessage);
-    }
+    // Use Rivet's own file format deduction (which uses the one in
+    // HepMC3 if needed).
+    _hepmcReader = HepMCUtils::makeReader(evtfile, _istr, &errormessage);
+
+    // Check that it worked.
     #endif
     if (_hepmcReader == nullptr) {
       Log::getLog("Rivet.Run")
