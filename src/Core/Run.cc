@@ -84,22 +84,22 @@ namespace Rivet {
       // Check if the file is compressed, if the deduction fails
       /// @todo Can we move this into the RivetHepMC.hh header? This is a *lot* of HepMC-specific noise for the Run manager class
       if (!_hepmcReader) {
-        MSG_INFO("No success with deduction of file type. Test if the file is compressed");
+        Log::getLog("Rivet.Run") << Log::INFO<< "No success with deduction of file type. Test if the file is compressed"<<std::endl;
         std::ifstream file_test(evtfile);
         magic_t my_magic = {0x1f, 0x8b, 0x08, 0x08};
         magic_t file_magic;
         file_test.read((char *) file_magic.bytes, sizeof(file_magic));
         if (file_magic.number == my_magic.number) {
-          MSG_INFO("File is compressed");
+          Log::getLog("Rivet.Run") << Log::INFO<< "File is compressed"<<std::endl;
           #ifdef HAVE_LIBZ
           _istr = make_shared<zstr::ifstream>(evtfile);
           _hepmcReader = RivetHepMC::deduce_reader(*_istr);
           #else
-          MSG_INFO("No zlib support.");
+          Log::getLog("Rivet.Run") << Log::INFO<< "No zlib support.");
           #endif
         } else {
           // File is not compressed. Open stream and let the code below to handle it
-          MSG_INFO("File is not compressed. No succes with deduction of file type.");
+          Log::getLog("Rivet.Run") << Log::INFO<< "File is not compressed. No succes with deduction of file type."<<std::endl;
           _istr = make_shared<std::ifstream>(evtfile);
         }
       }
@@ -123,11 +123,11 @@ namespace Rivet {
           backnonempty++;
         }
       }
-      if (!_istr) MSG_INFO("Info in deduce_reader: input stream is too short or invalid.");
+      if (!_istr) Log::getLog("Rivet.Run") << Log::INFO<< "Info in deduce_reader: input stream is too short or invalid."<<std::endl;
       for (size_t i = 0; i < back; ++i) _istr->unget();
       if (strncmp(head.at(0).c_str(), "HepMC::Version", 14) == 0 &&
           strncmp(head.at(1).c_str(), "HepMC::CompressedAsciiv3-START_EVENT_LISTING", 44) == 0) {
-        MSG_INFO("Info in deduce_reader: Attempt CompressedAsciiv3");
+        Log::getLog("Rivet.Run") << Log::INFO<< "Info in deduce_reader: Attempt CompressedAsciiv3"<<std::endl;
         //_hepmcReader= make_shared<Rivet::RivetHepMC::ReaderCompressedAscii>(_istr);
       }
     }
