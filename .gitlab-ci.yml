@@ -26,6 +26,8 @@ before_script:
 - dnf install -y texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow 
 - dnf install -y ghostscript ImageMagick texlive-dvips texlive-relsize 
 - dnf install -y texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended 
+# The HepM3 from EPEL/Fedora is validated on regular basis.
+- dnf install -y HepMC3 HepMC3-devel HepMC3-search HepMC3-search-devel
 - dnf clean all
 
 
@@ -97,6 +99,18 @@ build:
     - YODAPATH=$INSTALL_PREFIX
     # install dev rivet
     - echo "INSTALLING DEV RIVET"
+    - cd $BUILD_PREFIX
+#insert AV-> checks compilation only
+    - cp -r rivet rivet_hepmc3
+    - cd rivet
+    - autoreconf -i
+    - conf $RIVET_CONFFLAGS  --with-yoda=$YODAPATH --with-hepmc3=/usr --with-fastjet=$FASTJETPATH    
+    - mmi
+    - cp rivetenv.sh $INSTALL_PREFIX/rivetenv_hepmc3.sh
+    - cp rivetenv.csh $INSTALL_PREFIX/rivetenv_hepmc3.csh
+    - source $INSTALL_PREFIX/rivetenv_hepmc3.sh
+    - rivet -h
+#insert <-AV
     - cd $BUILD_PREFIX
     - cd rivet
     - autoreconf -i
