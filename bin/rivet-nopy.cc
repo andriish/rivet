@@ -28,10 +28,14 @@ int main(int argc, char** argv) {
   std::shared_ptr<Rivet::RivetHepMC::GenEvent> evt = std::make_shared<Rivet::RivetHepMC::GenEvent>();
   #endif
 
-  while (reader && Rivet::HepMCUtils::readEvent(reader, evt)) {
+ 
+  while(reader && Rivet::HepMCUtils::readEvent(reader, evt)){
     ah.analyze(evt.get());
     evt.reset(new Rivet::RivetHepMC::GenEvent());
   }
+  
+
+  
 
   ah.setCrossSection(std::make_pair(1.0, 0.0));
   ah.finalize();

@@ -10,11 +10,9 @@
 
 #ifdef RIVET_ENABLE_HEPMC_3
 
-
 #include "HepMC3/HepMC3.h"
 #include "HepMC3/Relatives.h"
 #include "HepMC3/Reader.h"
-
 #ifndef HEPMC_HAS_CROSS_SECTION
 #define HEPMC_HAS_CROSS_SECTION
 #endif
@@ -26,17 +24,17 @@ namespace HepMC3 {
 
 namespace Rivet {
   namespace RivetHepMC = HepMC3;
+
   using RivetHepMC::ConstGenParticlePtr;
   using RivetHepMC::ConstGenVertexPtr;
   using RivetHepMC::Relatives;
   using RivetHepMC::ConstGenHeavyIonPtr;
+
   using HepMC_IO_type = RivetHepMC::Reader;
   using PdfInfo = RivetHepMC::GenPdfInfo;
 }
 
-
 #else // HEPMC_2
-
 
 #include "HepMC/GenEvent.h"
 #include "HepMC/GenParticle.h"
@@ -45,7 +43,6 @@ namespace Rivet {
 #include "HepMC/Version.h"
 #include "HepMC/GenRanges.h"
 #include "HepMC/IO_GenEvent.h"
-
 namespace Rivet {
   namespace RivetHepMC = HepMC;
 
@@ -78,9 +75,7 @@ namespace Rivet {
   using PdfInfo = RivetHepMC::PdfInfo;
 }
 
-
-#endif //< end HepMC v2 vs v3 blocks
-
+#endif
 
 
 namespace Rivet {
