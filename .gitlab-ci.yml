@@ -132,11 +132,12 @@ make check:
   except:
     - schedules
   script:
+    - INSTALL_PREFIX="$PWD/local"
     - pwd
     - mv local ../.
     - cd ..
     - ls
-    - source  /builds/hepcedar/local/rivetenv.sh
+    - source  $INSTALL_PREFIX/rivetenv.sh
     - rivet -h
     - cd  ${CI_PROJECT_DIR}
     - make check 
