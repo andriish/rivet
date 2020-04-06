@@ -66,27 +66,26 @@ namespace Rivet {
       scale(_h_D0,0.5*crossSection()/sumOfWeights()/nanobarn);
       scale(_h_Dp,0.5*crossSection()/sumOfWeights()/nanobarn);
       for(unsigned int ix=1;ix<5;++ix) {
-      	double sigma,error;
+        double sigma = crossSection()/ sumOfWeights() /nanobarn;
+        double error = crossSection()/ sumOfWeights() /nanobarn; 
       	if(ix==1) {
-      	  sigma = _nD0->val();
-      	  error = _nD0->err();
+      	  sigma *= _nD0->val();
+      	  error *= _nD0->err();
       	}
       	else if (ix==2){
-      	  sigma = _nDp->val();
-      	  error = _nDp->err();
+      	  sigma *= _nDp->val();
+      	  error *= _nDp->err();
       	}
       	else if (ix==3){
-      	  sigma = _nDs->val();
-      	  error = _nDs->err();
+      	  sigma *= _nDs->val();
+      	  error *= _nDs->err();
       	}
       	else if (ix==4){
-      	  sigma = _nCharm->val();
-      	  error = _nCharm->err();
+      	  sigma *= _nCharm->val();
+      	  error *= _nCharm->err();
       	}
-	sigma *= crossSection()/ sumOfWeights() /nanobarn;
-	error *= crossSection()/ sumOfWeights() /nanobarn; 
-	Scatter2D temphisto(refData(1, 1, ix));
-	Scatter2DPtr  mult;
+        Scatter2D temphisto(refData(1, 1, ix));
+        Scatter2DPtr  mult;
         book(mult, 1, 1, ix);
       	for (size_t b = 0; b < temphisto.numPoints(); b++) {
       	  const double x  = temphisto.point(b).x();
