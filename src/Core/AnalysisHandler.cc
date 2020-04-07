@@ -163,10 +163,9 @@ namespace Rivet {
           }
         }
       }
-      // Exit if no nominal weight could be found
+      // Warn user that no nominal weight could be identified
       if (nDefaults == 0) {
-        MSG_ERROR("Could not identify nominal weight. Please check your HEPMC file.");
-        exit(1);
+        MSG_WARNING("Could not identify nominal weight. Will continue assuming variations-only run.");
       }
       // Warn if multiple weight names were acceptable alternatives
       if (nDefaults > 1) {
