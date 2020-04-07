@@ -103,6 +103,8 @@ selgroup.add_argument("--ana-unmatch", action="append", dest="ANAUNPATTERNS", de
                       help="exclude histograms from analyses whose name matches any of these regexes")
 selgroup.add_argument("--no-weights", help="prevent multiweights from being plotted", dest="NO_WEIGHTS",
                     action="store_true", default=False)
+selgroup.add_argument("--nominal-weight", dest='DEFAULT_VARIATION',
+                    default="0", help='specify the nominal weight name, default is 0')
 
 vrbgroup = parser.add_argument_group("Verbosity control")
 vrbgroup.add_argument("-v", "--verbose", help="add extra debug messages", dest="VERBOSE",
@@ -240,6 +242,8 @@ if args.REMOVE_OPTIONS:
     ch_cmd.append("--remove-options")
 if args.NO_WEIGHTS:
     ch_cmd.append("--no-weights")
+if args.DEFAULT_VARIATION:
+    ch_cmd.append("--nominal-weight=%s" % args.DEFAULT_VARIATION)
 # if args.REF_ID is not None:
 #     ch_cmd.append("--refid=%s" % os.path.abspath(args.REF_ID))
 if args.REFTITLE:

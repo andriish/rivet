@@ -72,10 +72,10 @@ def getHistos(filelist):
             ## Add it to the ref or mc paths, if this path isn't already known
             basepath = aop.basepath(keepref=False)
             if aop.isref() and basepath not in refhistos:
-                ao.setPath(aop.varpath(keepref=False, defaultvarid="0"))
+                ao.setPath(aop.varpath(keepref=False, defaultvarid=args.DEFAULT_VARIATION))
                 refhistos[basepath] = ao
             else: #if basepath not in mchistos[infile]:
-                mchistos[infile].setdefault(basepath, {})[aop.varid("0")] = ao
+                mchistos[infile].setdefault(basepath, {})[aop.varid(args.DEFAULT_VARIATION)] = ao
 
     return refhistos, mchistos
 
@@ -311,6 +311,9 @@ if __name__ == '__main__':
                           dest="PATHUNPATTERNS")
     selgroup.add_argument("--no-weights", help="prevent multiweights from being plotted", dest="NO_WEIGHTS",
                           action="store_true", default=False)
+    selgroup.add_argument("--nominal-weight", dest='DEFAULT_VARIATION',
+                          default="0", help='specify the nominal weight name, default is 0')
+                         
 
     args = parser.parse_args()
 
@@ -471,7 +474,9 @@ if __name__ == '__main__':
                     ## For now, just plot all the different variation histograms (reversed, so [0] is on top)
                     # calculate an appropriate error band -- can only do bands for Histo1D or Scatter2D for now ...
                     BANDNAME = '_VarBand'
-                    obj_type = str(hmcs["0"])
+                    if args.DEFAULT_VARIATION not in hmcs:
+                      print ("WARNING: Weight \"%s\" not found in file!" % args.DEFAULT_VARIATION)
+                    obj_type = str(hmcs[args.DEFAULT_VARIATION])
                     construct_band = 'Histo1D' in obj_type or 'Scatter2D' in obj_type
                     for bandType in ['BandComponentPDF', 'BandComponentEnv']:
                         if not construct_band or bandType not in plot:
@@ -480,7 +485,7 @@ if __name__ == '__main__':
                             isPDF = 'PDF' in bandType
                             errors = None; PDFset = None; PDFvars = [ ]
                             for varname in sorted(hmcs.keys()):
-                                isNominal = (str(varname) == "0")
+                                isNominal = (str(varname) == args.DEFAULT_VARIATION)
                                 # accept nominal and variations matching any of the specified patterns
                                 if isNominal or any([ re.search(pat, varname) for pat in curvegroup.split(',') ]):
                                     thisobj = hmcs[varname].mkScatter() if 'Histo1D' in obj_type else hmcs[varname]
@@ -527,7 +532,7 @@ if __name__ == '__main__':
 
                     for i in sorted(hmcs.keys(), reverse=True):
                         hname = str(i)
-                        iscanonical = (hname == "0")
+                        iscanonical = (hname == args.DEFAULT_VARIATION)
                         isband = BANDNAME in hname
                         if args.NO_WEIGHTS and not iscanonical:
                           continue
