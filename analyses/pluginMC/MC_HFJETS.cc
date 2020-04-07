@@ -49,7 +49,7 @@ namespace Rivet {
       for (const Jet& j : jets) {
         bool gotLeadingB = false, gotLeadingC = false;
         // b-tag testing
-        if (!gotLeadingB && j.bTagged()) {
+        if (!gotLeadingB && j.bTagged(Cuts::pT > 500*MeV)) {
           gotLeadingB = true;
           const Particle& bhad = j.bTags()[0];
           _h_ptBJetLead->fill(j.pT()/GeV);
@@ -59,7 +59,7 @@ namespace Rivet {
           continue;
         }
         // c-tag testing
-        if (!gotLeadingC && j.cTagged() && !j.bTagged()) {
+        if (!gotLeadingC && j.cTagged(Cuts::pT > 500*MeV) && !j.bTagged(Cuts::pT > 500*MeV)) {
           gotLeadingC = true;
           const Particle& chad = j.cTags()[0];
           _h_ptCJetLead->fill(j.pT()/GeV);
