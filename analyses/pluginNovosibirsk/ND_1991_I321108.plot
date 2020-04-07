@@ -88,7 +88,7 @@ XLabel=$\sqrt{s}$/MeV
 YLabel=$\sigma(e^+e^-\to K^0_SK^0_L)$/nb
 ConnectGaps=1
 END PLOT
-BEGIN PLOT /ND_1991_I321108/d14-x01-y02
+BEGIN PLOT /ND_1991_I321108/d14-x01-y01
 Title=$\sigma(e^+e^-\to 2\pi^+2\pi^-\pi^0)$
 XLabel=$\sqrt{s}$/MeV
 YLabel=$\sigma(e^+e^-\to 2\pi^+2\pi^-\pi^0)$/nb

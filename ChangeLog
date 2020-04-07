@@ -1,3 +1,8 @@
+2020-04-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Update the MC_HFJETS routine to use the 'new' ghost-tagging
+	rather than an ad-hoc dR scheme.
+
 2020-04-03  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding IOError, ReadError, and WriteError exception classes, to avoid use of generic Error.
@@ -14,49 +19,222 @@
 
 	* Allow "Nominal" as a potential default weight name
 
+2020-03-16  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add ARGUS_1990_I283027 anti-deuteron spectrum in Upsilon(1S) decays
+	* Add ARGUS_1990_I283027 Delta++ spectrum in Upsilon(1S) decays
+
+2020-03-12  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2018_I1697371 D0 -> K semi-leptonic
+	* Add CLEOC_2009_I823313 D -> pi, K q2
+	* Add CLEOC_2006_I715096 electron spectrum in D decays
+	* Add CLEOC_2008_I769777 D -> pi, K q2
+	* Add CLEOC_2011_I875526 D -> eta q2
+	* Add CLEOII_1996_I415409 tau -> K eta
+	* Add CLEOII_1994_I373188 tau -> 3pi-2pi+pi0
+
+2020-03-11  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2004_I632399 phi spectra in B decays
+	* Add BESIII_2018_I1662660 D^+ -> eta semi-leptonic
+	* Add CLEOII_1994_I361356 Sigma_c 0,++ in B decays
+
+2020-03-10  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2006_I714447 excited D_s spectra
+
+2020-03-09  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CLEOII_1992_I32611 chi_b(2P) decays
+	* Add CLEO_1985_I205668 identified particle spectra
+
+2020-03-07  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2010_I835104 B-> eta Xs
+	* Add BABAR_2002_I582184 D_s spectra
+
 2020-03-06  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Make AnalysisObject pointer wrapper objects throw an exception
 	(and helpful error message) if being dereferenced to a null
 	pointer.
+
+2020-03-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Make AnalysisObject pointer wrapper objects throw an exception
+	(and helpful error message) if being dereferenced to a null
+	pointer.
+
+2020-03-06  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2019_I1726357 e+e- -> Lambda Lambdabar
+	* Add CLEOII_2002_I606309 B->Psi
+	* Add BABAR_2004_I642355 B-> eta' Xs
 
 2020-03-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Improve the 'couldn't import rivet module' error message.
 
-2020-03-06  Andy Buckley  <andy.buckley@cern.ch>
+2020-03-05  Peter Richardson <peter.richardson@durham.ac.uk>
 
-	* Make AnalysisObject pointer wrapper objects throw an exception
-	(and helpful error message) if being dereferenced to a null
-	pointer.
+	* Add BABAR_2007_I722622 Xi_c' spectra
+	* Add bin width to BABAR_2001_I558091, BABAR_2006_I731865, BELLE_2009_I823878
+	* Improvements to ARGUS analyses, mainly adding missing histos
+
+2020-03-04  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add ARGUS_1990_I296522 Xi_c+ spectrum
+	* Add BELLE_2008_I762013 D_s1(2536) decay angles
+	* Add BABAR_2007_I746745 Omega_c spectrum
+
+2020-03-03  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CLEO_1990_I298611 Lambda_c spectra
+	* Add BES_1999_I508349 charm cross section
+
+2020-03-03  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add  Upsilon(4S) -> pipi Upsilon(1,2S)
+	* Add BABAR_2006_I714448 Upsilon(4S) -> pipi Upsilon(1,2S)
+	* Add CLEOII_1995_I404590 Xi_c+ spectra
+	* Add CLEOII_1999_I501417 Xi_c1 spectra
+	* Add CLEOII_1997_I424575 Sigma_c* spectra
+	* Add BABAR_2011_I892421 D_s1(2536) decay angles
+
+2020-03-02  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CLEOII_1994_I378319 charged D_1,D_2 spectrum
+	* Add CLEO_1992_I315181 baryon spectra in B decays
+	* Add CLEOII_1994_I372349 neutral D_1,D_2 spectrum
+	* Add ARGUS_1995_I397794 D_s2 spectrum
+	* Add ARGUS_1989_I282570 D_s1(2536) spectrum
+	* Add BES_1999_I507637 psi(2S)->J/psi pi+pi-
+
+2020-03-01  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CLEOII_1999_I478217 Xi_c' spectrum
+	* Add CLEOII_1994_I356001 Upsilon(3S) -> pipi Upsilon
+	* Add CLEOII_1993_I352823 D_s1(2536) spectrum
+	* Add CLEOII_1994_I381696 Lambda_c* spectrum
+	* Add CLEOII_1995_I397770 Xi_c*0 spectrum
+	* Add CLEOII_1996_I416471 Xi_c*+ spectrum
+	* Add ARGUS_1997_I440304 Lambda_c* spectrum
+	* Add ARGUS_1993_I357132 Lambda_c* spectrum
+	* Add BABAR_2007_I1091435 D0->K- semileptonic
+	* Add BESIII_2018_I1655158 D0->pi- and D+->pi0 semileptonic
 
 2020-02-28  Christian Gutschow  <chris.g@cern.ch>
 
 	* Add patch to allow finding of zipped reference data
 
-2020-02-21  Jon Butterworth <j.butterworth@ucl.ac.uk>
+2020-02-28 Peter Richardson <peter.richardson@durham.ac.uk>
 
-	* Trying to merge in hepdat sync
+	* Add MARKII_1979_I144382 Psi(2) -> J/Psi pi+pi-
+	* Add BABAR_2007_I760730 e+e- > D* D and D*D*
+	* Add BELLE_2002_I563840 e+e- charmoinum spectrum
+
+2020-02-24 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add ARGUS_1986_I227324 event shapes at Upsilon(1S)
+
+2020-02-23 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add ARGUS_1992_I319105 Lambda_c decay correlations
+	* Add CLEOII_2000_I533575 Xi asymmetry
 
 2020-02-22  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add SFINAE type restriction to PROJ templated type deduction in
 	Analysis::apply() methods.
 
+2020-02-22 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CLEOII_1997_I442910 Xi_c spectrum in b decays
+	* Add CLEOII_2005_I668268 lambda_c decay correlations
+
+2020-02-21  Jon Butterworth <j.butterworth@ucl.ac.uk>
+
+	* Trying to merge in hepdat sync
+
 2020-02-21  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Update PID util functions to match the latest version of
 	MCUtils/PIDCodes/PIDUtils.h
 
+2020-02-21 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2009_I810744 Upsilon(4s) -> pipi Upsilon(1S)
+	* Add BABAR_2015_I1377201 D*+/- spectrum in Upsilon(1S) decays
+	* Add ARGUS_1994_I371613, lambda_c decay correlations
+
+2020-02-20 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2010_I864027  D_s cross sections
+	* Add CLEOII_1994_I371611, lambda_c decay correlations
+
+2020-02-19 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2016_I1384778 for Collins assymetry
+
+2020-02-18 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CLEO_1995_I392704 for lambda_c decay correlations and
+	improvements to the similar FOCUS_2006_I693639
+	* Add CLEOII_1999_I504672, multiplicity in 4s decays
+	* Add BELLE_2011_I878228 D_s cross sections
+
+2020-02-17 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2017_I1498564
+	* Fixes to MC analyses as booking not allowed in
+	analyse any more
+
+2020-02-14 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2018_I1685535
+	* Add CLEOII_1998_I467642
+
 2020-02-13  Christian Gutschow  <chris.g@cern.ch>
 
 	* Overload scale and normalize for map<string,Histo1DPtr>
+
+2020-02-13 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add LENA_1981_I164397
+	* Add CUSB_1984_I199809
+	* Add BESIII_2018_I1633425
+
+2020-02-12 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2017_I1509241 e+e- > p pbar pi0
+
+2020-02-11 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CLEOIII_2006_I728679 and CLEOII_2002_I601701,
+	eta' spectra in Upsilon(1S) decay
+	* fix double booking of hists in ARGUS_1988_I251097
+	* Add BABAR_2013_I1247058 for e+e- > p pbar
+
+2020-02-10 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2018_I1653121
+	* Add BESIII_2017_I1596897
+	* Add BESIII_2020_I1762922
+
+2020-02-08 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2017_I1494065
 
 2020-02-07  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add AnalysisInfo::refFile() and Analysis::refFile() and
 	::refData() functions in C++, and a Pythonised version of the
 	latter to the Python interface.
+
+2020-02-06 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2015_I1336624
 
 2020-02-05  Andy Buckley  <andy.buckley@cern.ch>
 
@@ -68,6 +246,11 @@
 2020-02-04 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Improvements to the analysis coverage for e+e- experiments.
+	* Add BESIII_2019_I1773081 e+e--> pi+_pi-pi0
+	* Add KEDR R analysis
+	* Fix for K+K- eta plot in BABAR_2008_I765258
+	* Fix rivet2->3 issue in JADE_1983_I190818
+	* Fix to bin widths for various analyses to improve plotting
 
 2020-02-02  Andy Buckley  <andy.buckley@cern.ch>
 

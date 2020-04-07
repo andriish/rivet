@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief phi spectrum at Upsilon 4 and 5s
   class CLEO_2007_I728872 : public Analysis {
   public:
 

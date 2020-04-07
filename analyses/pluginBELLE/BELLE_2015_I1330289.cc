@@ -1,7 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
-#include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
 
