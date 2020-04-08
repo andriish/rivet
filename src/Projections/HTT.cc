@@ -30,6 +30,7 @@ void HTT::calc(const Jets& jets) {
     {
         HEPTopTagger::HEPTopTagger tagger(jets[i].pseudojet());
 
+        MSG_INfo("Constituents : " << jets[i].pseudojet().constituents().size());
         // Set parameters
         tagger.set_mass_drop_threshold(_mass_drop_treshold);
         tagger.set_max_subjet_mass(_max_subjet_mass);
