@@ -28,7 +28,7 @@ void HTT::Reset()
 void HTT::calc(const Jets& jets) {
     for (unsigned i=0; i<jets.size();i++)
     {
-        HEPTopTagger::HEPTopTagger tagger(jets[i]);
+        HEPTopTagger::HEPTopTagger tagger(jets[i].pseudojet());
 
         // Set parameters
         tagger.set_mass_drop_threshold(_mass_drop_treshold);
