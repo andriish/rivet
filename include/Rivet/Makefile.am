@@ -71,6 +71,7 @@ nobase_pkginclude_HEADERS += \
   Projections/LeadingParticlesFinalState.hh \
   Projections/LossyFinalState.hh \
   Projections/MergedFinalState.hh \
+  Projections/METFinder.hh \
   Projections/MissingMomentum.hh \
   Projections/NeutralFinalState.hh \
   Projections/NonHadronicFinalState.hh \

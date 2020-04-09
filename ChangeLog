@@ -1,3 +1,8 @@
+2020-04-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a METFinder base class, common to MissingMomentum and
+	SmearedMET to make them interchangeable.
+
 2020-04-07  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Update the MC_HFJETS routine to use the 'new' ghost-tagging
