@@ -19,13 +19,13 @@ stages:
 #- validate
 
 before_script:
-- dnf update -y 
+- dnf update -y
 - dnf install -y make cmake gcc-c++ gcc-gfortran redhat-rpm-config m4 automake autoconf libtool
-- dnf install -y wget tar less bzip2 findutils which nano zlib-devel git 
+- dnf install -y wget tar less bzip2 findutils which nano zlib-devel git
 - dnf install -y python python-devel python-requests file python-matplotlib  gsl-devel
-- dnf install -y texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow 
-- dnf install -y ghostscript ImageMagick texlive-dvips texlive-relsize 
-- dnf install -y texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended 
+- dnf install -y texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow
+- dnf install -y ghostscript ImageMagick texlive-dvips texlive-relsize
+- dnf install -y texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended
 # The HepM3 from EPEL/Fedora is validated on regular basis.
 - dnf install -y HepMC3 HepMC3-devel HepMC3-search HepMC3-search-devel
 - dnf clean all
@@ -72,7 +72,7 @@ build:
     - conf --enable-shared --disable-auto-ptr --enable-allcxxplugins
     - mmi
     - FASTJETPATH=$INSTALL_PREFIX
-    #install jfcontrib
+    #install fjcontrib
     - echo "INSTALLING FASTJET CONTRIB $FJCONTRIB_VERSION"
     -  cd $BUILD_PREFIX
     - test -d fastjet-$FJCONTRIB_VERSION || wget_untar http://fastjet.hepforge.org/contrib/downloads/fjcontrib-$FJCONTRIB_VERSION.tar.gz
@@ -104,7 +104,7 @@ build:
     - cp -r rivet rivet_hepmc3
     - cd rivet
     - autoreconf -i
-    - conf $RIVET_CONFFLAGS  --prefix=$INSTALL_PREFIX/rivet_hepmc3 --with-yoda=$YODAPATH --with-hepmc3=/usr --with-fastjet=$FASTJETPATH    
+    - conf $RIVET_CONFFLAGS  --prefix=$INSTALL_PREFIX/rivet_hepmc3 --with-yoda=$YODAPATH --with-hepmc3=/usr --with-fastjet=$FASTJETPATH
     - mmi
     - cp rivetenv.sh $INSTALL_PREFIX/rivetenv_hepmc3.sh
     - cp rivetenv.csh $INSTALL_PREFIX/rivetenv_hepmc3.csh
@@ -134,13 +134,12 @@ make check:
   script:
     - INSTALL_PREFIX="$PWD/local"
     - pwd
-    - mv local ../.
+    #- mv local ../
     - cd ..
     - ls
     - source  $INSTALL_PREFIX/rivetenv.sh
     - rivet -h
     - cd  ${CI_PROJECT_DIR}
-    - make check 
+    - make check
   dependencies:
-      - build
-
+    - build
