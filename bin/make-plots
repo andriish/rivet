@@ -3483,9 +3483,8 @@ if __name__ == '__main__':
                         logging.warning('Warning: Using "--minion" requires minion.sty to be installed. Ignoring it.')
                         args.OUTPUT_FONT = "PALATINO"
 
-                ## Check for HEP LaTeX packages
-                # TODO: remove HEP-specifics/non-standards?
-                for pkg in ["hepnames", "underscore"]:
+                ## Check for useful LaTeX packages
+                for pkg in ["underscore"]: #"hepnames"
                     p = subprocess.Popen(["kpsewhich", "%s.sty" % pkg], stdout=subprocess.PIPE)
                     p.wait()
                     if p.returncode == 0:
