@@ -14,9 +14,9 @@ using namespace std;
 //    Set_Parameters(options);
 //}
 
-CmpState HTT::compare(const Projection& p) const 
+CmpState HTT::compare(const Projection& p) const
 {
-
+  /// @todo Needs to depend on params/options and cuts
     return CmpState::EQ;
 }
 
@@ -25,8 +25,12 @@ void HTT::Reset()
     _topjets.clear();
 }
 
-void HTT::calc(const Jets& jets) {
-    for (unsigned i=0; i<jets.size();i++)
+void HTT::calc(const Jets& xjets) {
+
+  /// @todo Remove hard coding!
+  Jets jets = select(xjets, Cuts::pT > 200*GeV);
+  /// @todo Use range-for syntax: cleaner and more hackable
+  for (unsigned i=0; i<jets.size();i++)
     {
         HEPTopTagger::HEPTopTagger tagger(jets[i].pseudojet());
 

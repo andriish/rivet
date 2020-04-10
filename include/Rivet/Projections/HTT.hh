@@ -9,7 +9,7 @@
 #include "fastjet/tools/Filter.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/JetAlg.hh"
-#include "../../HEPTopTagger/HEPTopTagger.hh"
+#include "HEPTopTagger.hh"
 //#include <functional>
 
 namespace Rivet {

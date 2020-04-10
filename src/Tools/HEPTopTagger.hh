@@ -9,25 +9,26 @@
 #include "fastjet/tools/Pruner.hh"
 #include "fastjet/tools/Filter.hh"
 #include "fastjet/contrib/Nsubjettiness.hh"
-#include "/home/ppe/j/jaraz/packages/rivet/HEPTopTagger/qjets/QjetsPlugin.h"
+#include "qjets/QjetsPlugin.h"
 
-namespace HEPTopTagger{
+namespace HEPTopTagger {
 
   using namespace std;
   using namespace fastjet;
 
-  enum Mode {EARLY_MASSRATIO_SORT_MASS, 
-	     LATE_MASSRATIO_SORT_MASS, 
+  enum Mode {EARLY_MASSRATIO_SORT_MASS,
+	     LATE_MASSRATIO_SORT_MASS,
 	     EARLY_MASSRATIO_SORT_MODDJADE,
 	     LATE_MASSRATIO_SORT_MODDJADE,
 	     TWO_STEP_FILTER};
 
+
   class HEPTopTagger_fixed_R {
   public:
     HEPTopTagger_fixed_R();
-  
+
     HEPTopTagger_fixed_R(fastjet::PseudoJet jet);
-  
+
     HEPTopTagger_fixed_R(fastjet::PseudoJet jet,
 			 double mtmass, double mwmass);
 
@@ -39,12 +40,12 @@ namespace HEPTopTagger{
 
     void set_mass_drop_threshold(double x) {_mass_drop_threshold = x;}
     void set_max_subjet_mass(double x) {_max_subjet_mass = x;}
-  
+
     void set_filtering_n(unsigned nfilt) {_nfilt = nfilt;}
     void set_filtering_R(double Rfilt) {_Rfilt = Rfilt;}
     void set_filtering_minpt_subjet(double x) {_minpt_subjet = x;}
     void set_filtering_jetalgorithm(JetAlgorithm jet_algorithm) {_jet_algorithm_filter = jet_algorithm;}
-  
+
     void set_reclustering_jetalgorithm(JetAlgorithm jet_algorithm) {_jet_algorithm_recluster = jet_algorithm;}
 
     void set_mode(enum Mode mode) {_mode = mode;}
@@ -55,7 +56,7 @@ namespace HEPTopTagger{
     void set_mass_ratio_range(double rmin, double rmax) {_rmin = rmin; _rmax = rmax;}
     void set_mass_ratio_cut(double m23cut, double m13cutmin,double m13cutmax) {_m23cut = m23cut; _m13cutmin = m13cutmin; _m13cutmax = m13cutmax;}
     void set_top_minpt(double x) {_minpt_tag = x;}
-  
+
     void set_pruning_zcut(double zcut) {_zcut = zcut;}
     void set_pruning_rcut_factor(double rcut_factor) {_rcut_factor = rcut_factor;}
 
@@ -63,7 +64,7 @@ namespace HEPTopTagger{
     void set_qjets(double q_zcut, double q_dcut_fctr, double q_exp_min, double q_exp_max, double q_rigidity, double q_truncation_fctr) {
       _q_zcut = q_zcut; _q_dcut_fctr = q_dcut_fctr; _q_exp_min = q_exp_min; _q_exp_max = q_exp_max; _q_rigidity =  q_rigidity; _q_truncation_fctr =  q_truncation_fctr;
     }
-  
+
     //get information
     bool is_maybe_top() const {return _is_maybe_top;}
     bool is_masscut_passed() const {return _is_masscut_passed;}
@@ -88,13 +89,13 @@ namespace HEPTopTagger{
     const std::vector<PseudoJet> & top_hadrons() const {return _top_hadrons;}
     const std::vector<PseudoJet> & hardparts() const {return _top_parts;}
     const PseudoJet & fat_initial() {return _fat;}
-  
+
     void get_setting() const;
     void get_info() const;
 
     double nsub(fastjet::PseudoJet jet, int order, fastjet::contrib::Njettiness::AxesMode axes = fastjet::contrib::Njettiness::kt_axes, double beta = 1., double R0 = 1.);
     double q_weight() {return _qweight;}
-   
+
   private:
     bool _do_qjets;
 
@@ -110,12 +111,12 @@ namespace HEPTopTagger{
     double _rmin, _rmax;
     double _m23cut, _m13cutmin, _m13cutmax;
     double _minpt_tag;
-  
+
     unsigned _nfilt;
     double _Rfilt;
     JetAlgorithm _jet_algorithm_filter;
     double _minpt_subjet;
-  
+
     JetAlgorithm _jet_algorithm_recluster;
 
     double _zcut;
@@ -123,10 +124,10 @@ namespace HEPTopTagger{
 
     double _q_zcut, _q_dcut_fctr, _q_exp_min, _q_exp_max, _q_rigidity, _q_truncation_fctr;
     JetDefinition _qjet_def;
-  
+
     PseudoJet _fat;
     bool _debug;
-  
+
     bool _is_masscut_passed;
     bool _is_ptmincut_passed;
     bool _is_maybe_top;
@@ -149,7 +150,7 @@ namespace HEPTopTagger{
 
     static bool _first_time;
     double _qweight;
-  
+
     //internal functions
     void FindHardSubst(const PseudoJet& jet, std::vector<fastjet::PseudoJet>& t_parts);
     std::vector<PseudoJet> Filtering(const std::vector <PseudoJet> & top_constits, const JetDefinition & filtering_def);
@@ -159,18 +160,20 @@ namespace HEPTopTagger{
     double djademod (const fastjet::PseudoJet & subjet_i, const fastjet::PseudoJet & subjet_j, const fastjet::PseudoJet & ref);
 
     void print_banner();
-  
+
   };
 
+
+
   class HEPTopTagger {
-  
   public:
+
     HEPTopTagger();
-  
+
     HEPTopTagger(const fastjet::PseudoJet & jet);
 
 
-    HEPTopTagger(const fastjet::PseudoJet & jet, 
+    HEPTopTagger(const fastjet::PseudoJet & jet,
 		 double mtmass, double mwmass
 		 );
 
@@ -205,7 +208,7 @@ namespace HEPTopTagger{
     const PseudoJet & fat_initial() {return _fat;}
     const PseudoJet & fat_Ropt() {return _HEPTopTagger_opt.fat_initial();}
     HEPTopTagger_fixed_R HEPTopTaggeragger(int i)  {return _HEPTopTagger[i];}
-  
+
     double Ropt() const {return _Ropt/10.;}
     double Ropt_calc() const {return _R_opt_calc;}
 
@@ -215,20 +218,20 @@ namespace HEPTopTagger{
 
     void get_setting() const {return _HEPTopTagger_opt.get_setting();};
     void get_info() const {return _HEPTopTagger_opt.get_info();};
-  
+
     double q_weight() {return _qweight;}
-  
+
     //settings
     void do_optimalR(bool optimalR) {_do_optimalR = optimalR;}
 
     void set_mass_drop_threshold(double x) {_mass_drop_threshold = x;}
     void set_max_subjet_mass(double x) {_max_subjet_mass = x;}
- 
+
     void set_filtering_n(unsigned nfilt) {_nfilt = nfilt;}
     void set_filtering_R(double Rfilt) {_Rfilt = Rfilt;}
     void set_filtering_minpt_subjet(double x) {_minpt_subjet = x;}
     void set_filtering_jetalgorithm(JetAlgorithm jet_algorithm) {_jet_algorithm_filter = jet_algorithm;}
-  
+
     void set_reclustering_jetalgorithm(JetAlgorithm jet_algorithm) {_jet_algorithm_recluster = jet_algorithm;}
 
     void set_mode(enum Mode mode) {_mode = mode;}
@@ -239,7 +242,7 @@ namespace HEPTopTagger{
     void set_mass_ratio_range(double rmin, double rmax) {_rmin = rmin; _rmax = rmax;}
     void set_mass_ratio_cut(double m23cut, double m13cutmin,double m13cutmax) {_m23cut = m23cut; _m13cutmin = m13cutmin; _m13cutmax = m13cutmax;}
     void set_top_minpt(double x) {_minpt_tag = x;}
-  
+
     void set_optimalR_max(double x) {_max_fatjet_R = x;}
     void set_optimalR_min(double x) {_min_fatjet_R = x;}
     void set_optimalR_step(double x) {_step_R = x;}
@@ -252,12 +255,12 @@ namespace HEPTopTagger{
     void set_optimalR_type_top_mass_range(double x, double y) {_optimalR_mmin = x; _optimalR_mmax = y;}
     void set_optimalR_type_fw(double x) {_optimalR_fw = x;}
     void set_optimalR_type_max_diff(double x) {_R_opt_diff = x;}
-  
+
     void set_filtering_optimalR_pass_R(double x) {_R_filt_optimalR_pass = x;}
     void set_filtering_optimalR_pass_n(unsigned x) {_N_filt_optimalR_pass = x;}
     void set_filtering_optimalR_fail_R(double x) {_R_filt_optimalR_fail = x;}
     void set_filtering_optimalR_fail_n(unsigned x) {_N_filt_optimalR_fail = x;}
-  
+
     void set_pruning_zcut(double zcut) {_zcut = zcut;}
     void set_pruning_rcut_factor(double rcut_factor) {_rcut_factor = rcut_factor;}
 
@@ -266,60 +269,60 @@ namespace HEPTopTagger{
     void set_qjets(double q_zcut, double q_dcut_fctr, double q_exp_min, double q_exp_max, double q_rigidity, double q_truncation_fctr) {
       _q_zcut = q_zcut; _q_dcut_fctr = q_dcut_fctr; _q_exp_min = q_exp_min; _q_exp_max = q_exp_max; _q_rigidity =  q_rigidity; _q_truncation_fctr =  q_truncation_fctr;
     }
-  
-  
+
+
   private:
     bool _do_optimalR, _do_qjets;
- 
+
     PseudoJet _jet;
     PseudoJet _initial_jet;
-  
+
     double _mass_drop_threshold;
     double _max_subjet_mass;
-  
+
     Mode _mode;
     double _mtmass, _mwmass;
     double _mtmin, _mtmax;
     double _rmin, _rmax;
     double _m23cut, _m13cutmin, _m13cutmax;
     double _minpt_tag;
- 
+
     unsigned _nfilt;
     double _Rfilt;
     fastjet::JetAlgorithm _jet_algorithm_filter;
     double _minpt_subjet;
- 
+
     fastjet::JetAlgorithm _jet_algorithm_recluster;
 
     double _zcut;
     double _rcut_factor;
- 
+
     double _max_fatjet_R, _min_fatjet_R, _step_R, _optimalR_threshold;
 
     double  _R_filt_optimalR_calc, _N_filt_optimalR_calc;
     double (*_r_min_exp_function)(double);
-  
+
     double _optimalR_mmin, _optimalR_mmax, _optimalR_fw, _R_opt_calc, _R_opt_diff;
     double _R_filt_optimalR_pass, _N_filt_optimalR_pass, _R_filt_optimalR_fail, _N_filt_optimalR_fail;
 
     double _q_zcut, _q_dcut_fctr, _q_exp_min, _q_exp_max, _q_rigidity, _q_truncation_fctr;
     JetDefinition _qjet_def;
-  
+
     PseudoJet _fat, _filt_fat;
     map<int,int> _n_small_fatjets;
     map<int,HEPTopTagger_fixed_R> _HEPTopTagger;
     HEPTopTagger_fixed_R _HEPTopTagger_opt;
 
     int _Ropt;
-  
+
     bool _debug;
     double _qweight;
 
     void UnclusterFatjets(const vector<fastjet::PseudoJet> & big_fatjets, vector<fastjet::PseudoJet> & small_fatjets, const ClusterSequence & cs, const double small_radius);
 
   };
+
+
 }
-//--------------------------------------------------------------------
 
 #endif // __HEPTOPTAGGER_HH__
-

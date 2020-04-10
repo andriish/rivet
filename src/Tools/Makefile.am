@@ -15,7 +15,7 @@ libRivetTools_la_SOURCES = \
   RivetPaths.cc \
   Utils.cc \
   binreloc.c \
-  HEPTopTagger.cc 
+  HEPTopTagger.cc
 
 if ENABLE_HEPMC_3
 libRivetTools_la_SOURCES += RivetHepMC_3.cc ReaderCompressedAscii.cc WriterCompressedAscii.cc
@@ -26,3 +26,5 @@ endif
 dist_noinst_HEADERS = binreloc.h lester_mt2_bisect.hh
 
 libRivetTools_la_CPPFLAGS = $(AM_CPPFLAGS) -DENABLE_BINRELOC -DDEFAULTDATADIR=\"$(datadir)\" -DDEFAULTLIBDIR=\"$(libdir)\"
+libRivetTools_la_CPPFLAGS += -I$(HOME)/packages/rivet/HEPTopTagger
+libRivetTools_la_CPPFLAGS += -I$(HOME)/proj/hep/HEPTopTagger2
