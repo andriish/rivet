@@ -189,6 +189,7 @@ check-plugin:
     - cd testArea
     - rivet-mkanalysis MY_TEST
     - rivet-build RivetMY_TEST.so MY_TEST.cc
+    - rivet --pwd --list-analyses
     - wget --no-check-certificate https://rivetval.web.cern.ch/rivetval/HEPMC/LHC-13-Top-All.hepmc.gz 
     - rivet -a MC_TTBAR:TTMODE=ANYLEP -H ttbar_test_run.yoda LHC-13-Top-All.hepmc.gz
   artifacts:
