@@ -16,12 +16,12 @@ variables:
 stages:
 - compile
 - check
-#- validate
+- validate
 
 before_script:
 - dnf update -y
 - dnf install -y make cmake gcc-c++ gcc-gfortran redhat-rpm-config m4 automake autoconf libtool
-- dnf install -y wget tar less bzip2 findutils which nano zlib-devel git
+- dnf install -y wget tar less bzip2 findutils which nano zlib-devel git rsync
 - dnf install -y python python-devel python-requests file python-matplotlib  gsl-devel
 - dnf install -y texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow
 - dnf install -y ghostscript ImageMagick texlive-dvips texlive-relsize
@@ -34,29 +34,29 @@ before_script:
 
 
 
-build:
-  stage: compile
+prep:
+  stage: .pre
   except:
     - schedules
   script:
     - cd ..
     - BUILD_PREFIX="$PWD"
-    - INSTALL_PREFIX="$PWD/local"
+    - INSTALL_PREFIX="${CI_PROJECT_DIR}/local"
     - MAKE="make -j3"
     - export CPPFLAGS="$CPPFLAGS -DNDEBUG"
-    #versions
+    # versions
     - test -z "$HEPMC_VERSION" && HEPMC_VERSION="2.06.10" #< TODO: update to v3
     - test -z "$FASTJET_VERSION" && FASTJET_VERSION="3.3.3"
     - test -z "$FJCONTRIB_VERSION" && FJCONTRIB_VERSION="1.042"
     - test -z "$CYTHON_VERSION" && CYTHON_VERSION="0.29.15"
-    ## Immediate exit on a command (group) failure and optional debug mode
+    # immediate exit on a command (group) failure and optional debug mode
     - set -e
     - export PATH=$INSTALL_PREFIX/bin:$PATH
     - function conf { ./configure --prefix=$INSTALL_PREFIX "$@"; }
     - function mmi { $MAKE "$@" && $MAKE install; }
     - function wget_untar { wget --no-check-certificate $1 -O- | tar --no-same-owner -xz; }
     - mkdir -p $INSTALL_PREFIX/etc/bash_completion.d
-    #install hepmc
+    # install hepmc
     - echo "INSTALLING HEPMC $HEPMC_VERSION"
     - cd $BUILD_PREFIX
     - test -d HepMC-$HEPMC_VERSION || wget_untar http://hepmc.web.cern.ch/hepmc/releases/hepmc$HEPMC_VERSION.tgz
@@ -64,7 +64,7 @@ build:
     - cmake ../HepMC-$HEPMC_VERSION/ -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX -Dmomentum=GEV -Dlength=MM
     - mmi
     - HEPMCPATH=$INSTALL_PREFIX
-    #install fastjet
+    # install fastjet
     - echo "INSTALLING FASTJET $FASTJET_VERSION"
     - cd $BUILD_PREFIX
     - test -d fastjet-$FASTJET_VERSION || wget_untar http://www.fastjet.fr/repo/fastjet-$FASTJET_VERSION.tar.gz
@@ -72,14 +72,14 @@ build:
     - conf --enable-shared --disable-auto-ptr --enable-allcxxplugins
     - mmi
     - FASTJETPATH=$INSTALL_PREFIX
-    #install fjcontrib
+    # install fjcontrib
     - echo "INSTALLING FASTJET CONTRIB $FJCONTRIB_VERSION"
-    -  cd $BUILD_PREFIX
+    - cd $BUILD_PREFIX
     - test -d fastjet-$FJCONTRIB_VERSION || wget_untar http://fastjet.hepforge.org/contrib/downloads/fjcontrib-$FJCONTRIB_VERSION.tar.gz
     - cd fjcontrib-$FJCONTRIB_VERSION
     - ./configure --fastjet-config=$FASTJETPATH/bin/fastjet-config CXXFLAGS=-fPIC # fastjet-config already contains INSTALL_PREFIX
     - mmi fragile-shared-install
-    #install cython
+    # install cython
     - echo "INSTALLING CYTHON $CYTHON_VERSION"
     - cd $BUILD_PREFIX
     - CYTHON_VERSION=0.28.5
@@ -97,49 +97,120 @@ build:
     - mmi
     - cp yodaenv.sh $INSTALL_PREFIX/yodaenv.sh
     - YODAPATH=$INSTALL_PREFIX
+    - echo "DEPENDENCIES BUILT SUCCESSFULLY."
+  artifacts:
+    paths:
+      - local/
+    expire_in: 1 week
+
+build:
+  stage: compile
+  except:
+    - schedules
+  script:
+    - cd ..
+    - BUILD_PREFIX="$PWD"
+    - INSTALL_PREFIX="${CI_PROJECT_DIR}/local"
+    - MAKE="make -j3"
+    - export CPPFLAGS="$CPPFLAGS -DNDEBUG"
+    # immediate exit on a command (group) failure and optional debug mode
+    - set -e
+    - export PATH=$INSTALL_PREFIX/bin:$PATH
+    - function conf { ./configure --prefix=$INSTALL_PREFIX "$@"; }
+    - function mmi { $MAKE check "$@" && $MAKE install; }
+    - function wget_untar { wget --no-check-certificate $1 -O- | tar --no-same-owner -xz; }
+    # install cython
+    - echo "INSTALLING CYTHON $CYTHON_VERSION"
+    - cd $BUILD_PREFIX
+    - CYTHON_VERSION=0.28.5
+    - test -d cython-$CYTHON_VERSION || { wget https://github.com/cython/cython/archive/$CYTHON_VERSION.tar.gz -O - | tar xz; }
+    - export PATH=$BUILD_PREFIX/cython-$CYTHON_VERSION/bin:$PATH
+    - export PYTHONPATH=$BUILD_PREFIX/cython-$CYTHON_VERSION:$PYTHONPATH
     # install dev rivet
-    - echo "INSTALLING DEV RIVET"
-    - cd $BUILD_PREFIX
-#insert AV-> checks compilation only
-    - cp -r rivet rivet_hepmc3
-    - cd rivet
+    - echo "INSTALLING DEV RIVET AGAINST HEPMC2"
+    - cd $BUILD_PREFIX/rivet
     - autoreconf -i
-    - conf $RIVET_CONFFLAGS  --prefix=$INSTALL_PREFIX/rivet_hepmc3 --with-yoda=$YODAPATH --with-hepmc3=/usr --with-fastjet=$FASTJETPATH
-    - mmi
-    - cp rivetenv.sh $INSTALL_PREFIX/rivetenv_hepmc3.sh
-    - cp rivetenv.csh $INSTALL_PREFIX/rivetenv_hepmc3.csh
-    - source $INSTALL_PREFIX/rivetenv_hepmc3.sh
-    - rivet -h
-#insert <-AV
-    - cd $BUILD_PREFIX
-    - cd rivet
-    - autoreconf -i
-    - conf $RIVET_CONFFLAGS  --with-yoda=$YODAPATH --with-hepmc=$HEPMCPATH --with-fastjet=$FASTJETPATH
+    - conf $RIVET_CONFFLAGS --with-yoda=$YODAPATH --with-hepmc=$HEPMCPATH --with-fastjet=$FASTJETPATH
     - mmi
     - cp rivetenv.sh rivetenv.csh $INSTALL_PREFIX/
     # setup env
     - source $INSTALL_PREFIX/rivetenv.sh
     - rivet -h
-    - cd ..
-    - mv local ${CI_PROJECT_DIR}/.
   artifacts:
     paths:
-      - ${CI_PROJECT_DIR}
+      - local/
     expire_in: 1 week
+  dependencies:
+    - prep
 
-make check:
+build-hepmc3:
+  stage: compile
+  except:
+    - schedules
+  script:
+    - cd ..
+    - BUILD_PREFIX="$PWD"
+    - INSTALL_PREFIX="${CI_PROJECT_DIR}/local"
+    - MAKE="make -j3"
+    - export CPPFLAGS="$CPPFLAGS -DNDEBUG"
+    # immediate exit on a command (group) failure and optional debug mode
+    - set -e
+    - export PATH=$INSTALL_PREFIX/bin:$PATH
+    - function conf { ./configure --prefix=$INSTALL_PREFIX "$@"; }
+    - function mmi { $MAKE check "$@" && $MAKE install; }
+    - function wget_untar { wget --no-check-certificate $1 -O- | tar --no-same-owner -xz; }
+    # install cython
+    - echo "INSTALLING CYTHON $CYTHON_VERSION"
+    - cd $BUILD_PREFIX
+    - CYTHON_VERSION=0.28.5
+    - test -d cython-$CYTHON_VERSION || { wget https://github.com/cython/cython/archive/$CYTHON_VERSION.tar.gz -O - | tar xz; }
+    - export PATH=$BUILD_PREFIX/cython-$CYTHON_VERSION/bin:$PATH
+    - export PYTHONPATH=$BUILD_PREFIX/cython-$CYTHON_VERSION:$PYTHONPATH
+    # install dev rivet
+    - echo "INSTALLING DEV RIVET AGAINST HEPMC3"
+    - cd $BUILD_PREFIX/rivet
+    - autoreconf -i
+    - conf $RIVET_CONFFLAGS --with-yoda=$YODAPATH --with-hepmc3=/usr --with-fastjet=$FASTJETPATH
+    - mmi
+    - cp rivetenv.sh rivetenv.csh $INSTALL_PREFIX/
+    # setup env
+    - source $INSTALL_PREFIX/rivetenv.sh
+    - rivet -h
+  dependencies:
+    - prep
+
+check-plugin:
   stage: check
   except:
     - schedules
   script:
-    - INSTALL_PREFIX="$PWD/local"
-    - pwd
-    #- mv local ../
-    - cd ..
-    - ls
-    - source  $INSTALL_PREFIX/rivetenv.sh
-    - rivet -h
-    - cd  ${CI_PROJECT_DIR}
-    - make check
+    - source local/rivetenv.sh
+    - mkdir testArea
+    - cd testArea
+    - rivet-mkanalysis MY_TEST
+    - rivet-build RivetMY_TEST.so MY_TEST.cc
+    - wget --no-check-certificate https://rivetval.web.cern.ch/rivetval/HEPMC/LHC-13-Top-All.hepmc.gz 
+    - rivet -a MC_TTBAR:TTMODE=ANYLEP -H ttbar_test_run.yoda LHC-13-Top-All.hepmc.gz
+  artifacts:
+    paths:
+      - local/
+      - testArea/ttbar_test_run.yoda
+    expire_in: 1 week
   dependencies:
     - build
+
+make-plots:
+  stage: validate
+  except:
+    - schedules
+  script:
+    - source local/rivetenv.sh
+    - cd testArea
+    - rivet-mkhtml --errs -o ttbar_test_plots ttbar_test_run.yoda
+  artifacts:
+    paths:
+      - testArea/ttbar_test_plots/
+    expire_in: 1 week
+  dependencies:
+    - check-plugin
+
