@@ -19,7 +19,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      FastJets fj(FinalState((Cuts::etaIn(-5, 5))), FastJets::ANTIKT, 0.6);
+      FastJets fj(FinalState(Cuts::abseta < 5), FastJets::ANTIKT, 0.6);
       fj.useInvisibles();
       declare(fj, "Jets");
       declare(HeavyHadrons(Cuts::abseta < 5 && Cuts::pT > 500*MeV), "BCHadrons");
@@ -51,7 +51,7 @@ namespace Rivet {
         // b-tag testing
         if (!gotLeadingB && j.bTagged(Cuts::pT > 500*MeV)) {
           gotLeadingB = true;
-          const Particle& bhad = j.bTags()[0];
+          Particle bhad = sortByPt(j.bTags(Cuts::pT > 500*MeV))[0];
           _h_ptBJetLead->fill(j.pT()/GeV);
           _h_ptBHadrLead->fill(bhad.pT()/GeV);
           _h_ptFracB->fill(bhad.pT() / j.pT());
@@ -61,7 +61,7 @@ namespace Rivet {
         // c-tag testing
         if (!gotLeadingC && j.cTagged(Cuts::pT > 500*MeV) && !j.bTagged(Cuts::pT > 500*MeV)) {
           gotLeadingC = true;
-          const Particle& chad = j.cTags()[0];
+          Particle chad = sortByPt(j.cTags(Cuts::pT > 500*MeV))[0];
           _h_ptCJetLead->fill(j.pT()/GeV);
           _h_ptCHadrLead->fill(chad.pT()/GeV);
           _h_ptFracC->fill(chad.pT() / j.pT());
