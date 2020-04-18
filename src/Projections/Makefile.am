@@ -1,5 +1,6 @@
 noinst_LTLIBRARIES = libRivetProjections.la
-CPPFLAGS = -I$(HOME)/proj/hep/HEPTopTagger2
+CPPFLAGS  = -I$(HOME)/packages/rivet/HEPTopTagger
+CPPFLAGS += -I$(HOME)/proj/hep/HEPTopTagger2
 libRivetProjections_la_SOURCES = \
   Beam.cc \
   BeamThrust.cc \

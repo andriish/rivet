@@ -4,7 +4,7 @@ lib_LTLIBRARIES = libRivet.la
 
 libRivet_la_SOURCES =
 
-libRivet_la_LDFLAGS = -export-dynamic -avoid-version -L$(YODALIBPATH)
+libRivet_la_LDFLAGS = -export-dynamic -avoid-version -L$(YODALIBPATH) -L${HOME}/packages/rivet/rivet/src/Tools
 
 libRivet_la_LIBADD = \
 Core/libRivetCore.la \

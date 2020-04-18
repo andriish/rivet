@@ -224,7 +224,7 @@ fi
 fi
 FASTJETLIBADD="$FASTJETLIBADD -lfastjetcontribfragile -lfastjettools"
 FASTJETLIBADD="$FASTJETLIBADD -L/home/ppe/j/jaraz/packages/rivet/HEPTopTagger/qjets/lib"
-FASTJETLIBADD="$FASTJETLIBADD -L${HOME}/proj/hep/HEPTopTagger2/qjets/lib"
+#FASTJETLIBADD="$FASTJETLIBADD -L${HOME}/proj/hep/HEPTopTagger2/qjets/lib"
 FASTJETLIBADD="$FASTJETLIBADD -lQjets"
 AC_SUBST(FASTJETLIBADD)
 AC_SUBST(FASTJETLDFLAGS)

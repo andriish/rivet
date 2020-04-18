@@ -27,4 +27,5 @@ dist_noinst_HEADERS = binreloc.h lester_mt2_bisect.hh
 
 libRivetTools_la_CPPFLAGS = $(AM_CPPFLAGS) -DENABLE_BINRELOC -DDEFAULTDATADIR=\"$(datadir)\" -DDEFAULTLIBDIR=\"$(libdir)\"
 libRivetTools_la_CPPFLAGS += -I$(HOME)/packages/rivet/HEPTopTagger
+libRivetTools_la_CPPFLAGS += -I$(HOME)/packages/rivet/rivet/src/Tools
 libRivetTools_la_CPPFLAGS += -I$(HOME)/proj/hep/HEPTopTagger2

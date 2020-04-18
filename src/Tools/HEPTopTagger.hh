@@ -9,7 +9,7 @@
 #include "fastjet/tools/Pruner.hh"
 #include "fastjet/tools/Filter.hh"
 #include "fastjet/contrib/Nsubjettiness.hh"
-#include "qjets/QjetsPlugin.h"
+#include "/home/ppe/j/jaraz/packages/rivet/HEPTopTagger/qjets/QjetsPlugin.h"
 
 namespace HEPTopTagger {
 
