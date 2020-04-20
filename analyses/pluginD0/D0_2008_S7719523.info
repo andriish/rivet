@@ -13,7 +13,7 @@ Authors:
 References:
  - Phys.Lett.B666:435-445,2008
  - doi:10.1016/j.physletb.2008.06.076
- - arXiv:0804.1107v2 [hep-ex]
+ - arXiv:0804.1107 [hep-ex]
 RunInfo:
   "Produce only gamma + jet ($q,\\bar{q},g$) hard processes (for Pythia 6, this means MSEL=10
   and MSUB indices 14, 29 & 115 enabled). The lowest bin edge is at 30 GeV, so a kinematic

@@ -34,6 +34,10 @@ cdef class AnalysisHandler:
         anames = self._ptr.analysisNames()
         return [ a.decode('utf-8') for a in anames ]
 
+    def stdAnalysisNames(self):
+        anames = self._ptr.stdAnalysisNames()
+        return [ a.decode('utf-8') for a in anames ]
+
     # def analysis(self, aname):
     #     cdef c.Analysis* ptr = self._ptr.analysis(aname)
     #     cdef Analysis pyobj = Analysis.__new__(Analysis)
@@ -188,9 +192,20 @@ LEVELS = dict(TRACE = 0, DEBUG = 10, INFO = 20,
 
 
 cdef class AnalysisLoader:
+
     @staticmethod
     def analysisNames():
         names = c.AnalysisLoader_analysisNames()
+        return [ n.decode('utf-8') for n in names ]
+
+    # @staticmethod
+    # def allAnalysisNames():
+    #     names = c.AnalysisLoader_allAnalysisNames()
+    #     return { n.decode('utf-8') for n in names }
+
+    @staticmethod
+    def stdAnalysisNames():
+        names = c.AnalysisLoader_stdAnalysisNames()
         return [ n.decode('utf-8') for n in names ]
 
 
@@ -209,6 +224,9 @@ cdef class AnalysisLoader:
 ## Convenience versions in main rivet namespace
 def analysisNames():
     return AnalysisLoader.analysisNames()
+
+def stdAnalysisNames():
+    return AnalysisLoader.stdAnalysisNames()
 
 def getAnalysis(name):
     return AnalysisLoader.getAnalysis(name.encode('utf-8'))

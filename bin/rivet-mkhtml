@@ -353,6 +353,7 @@ if not args.DRY_RUN:
             index.write('<li><a href="#%s">%s</a>\n' % (analysis, htmlify(summary)) )
         index.write('</ul>\n')
 
+    official_routines = rivet.stdAnalysisNames()
     for analysis in analyses:
         references = []
         summary = htmlify(analysis)
@@ -389,6 +390,16 @@ if not args.DRY_RUN:
         # elif ana.spiresId():
             reflist.append('<a href="http://inspire-hep.net/search?p=find+key+%s">Inspire</a>' % spiresid)
             reflist.append('<a href="http://hepdata.cedar.ac.uk/view/irn%s">HepData</a>' % spiresid)
+        if analysis in official_routines:
+            reflist.append('<a href="https://rivet.hepforge.org/analyses/%s.html">Analysis reference</a>' % analysis)
+        for i, ref in enumerate(references):
+            if "arXiv" in ref:
+                try:
+                    arxivID = ref.split(' ')[0].split(':')[-1]
+                    if arxivID:
+                        references[i] = '<a href="https://arxiv.org/abs/%s">arXiv:%s</a>' % (arxivID, arxivID)
+                except:
+                    pass
         reflist += references
         index.write('<p>%s</p>\n' % " &#124; ".join(reflist))
 

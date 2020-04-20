@@ -4,6 +4,7 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/ParticleName.hh"
 #include "Rivet/Tools/BeamConstraint.hh"
+#include "Rivet/Tools/RivetPaths.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "YODA/IO.h"
@@ -660,6 +661,19 @@ namespace Rivet {
       rtn.push_back(a->name());
     }
     return rtn;
+  }
+
+
+  std::vector<std::string> AnalysisHandler::stdAnalysisNames() const {
+    // std::vector<std::string> rtn;
+    // const string anadatpath = findAnalysisDataFile("analyses.dat");
+    // if (fileexists(anadatpath)) {
+    //   std::ifstream anadat(anadatpath);
+    //   string ananame;
+    //   while (anadat >> ananame) rtn += ananame;
+    // }
+    // return rtn;
+    return AnalysisLoader::stdAnalysisNames();
   }
 
 

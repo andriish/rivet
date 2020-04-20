@@ -19,9 +19,19 @@ namespace Rivet {
   class AnalysisLoader {
   public:
 
-    /// Get all the available analyses' names.
+    /// Get the available analyses' names
     static vector<string> analysisNames();
-    static set<string> getAllAnalysisNames();
+
+    /// Get all the available analyses' names (as a set)
+    ///
+    /// @todo Why this duplicate?
+    static set<string> allAnalysisNames();
+    /// @deprecated Use allAnalysisNames()
+    static set<string> getAllAnalysisNames() { return allAnalysisNames(); }
+
+    /// Get the standard analyses' names (from a release-specific list file)
+    static vector<string> stdAnalysisNames();
+
 
     /// Get an analysis by name.
     /// Warning: a name arg which matches no known analysis will return a null

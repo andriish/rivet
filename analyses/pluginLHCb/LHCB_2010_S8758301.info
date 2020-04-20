@@ -12,7 +12,7 @@ Authors:
  - Alex Grecu <Alex.Grecu@cern.ch>
 References:
  - Phys.Lett.B693:69-80,2010
- - arXiv:1008.3105[hep-ex]
+ - arXiv:1008.3105 [hep-ex]
 RunInfo:
   QCD events. See paper for MC discussion.
 NumEvents: 1000000

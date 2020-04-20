@@ -10,7 +10,7 @@ Authors:
 References:
 - 'Phys.Rev.Lett. 94 (2005) 162301'
 - '10.1103/PhysRevLett.94.162301'
-- 'arXiv:043050'
+- 'arXiv:nucl-ex/043050'
 RunInfo: Au Au minimum bias events, only 5% most central events used in analysis.
 NeedCrossSection: no
 Options:

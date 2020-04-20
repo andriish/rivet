@@ -16,6 +16,11 @@ doc:
 clean-local:
 	@rm -rf a.out
 
+install-data-local:
+	cd doc && $(MAKE) dat json
+	$(mkdir_p) $(DESTDIR)$(pkgdatadir)
+	$(install_sh_DATA) doc/analists/analyses.dat $(DESTDIR)$(pkgdatadir)/
+	$(install_sh_DATA) doc/analists/analyses.json $(DESTDIR)$(pkgdatadir)/
 
 ## Upload tarballs to HepForge
 RSH = rsync

@@ -2,11 +2,21 @@
 
 	* Explicitly delete the comma operator between Cut objects, to stop anyone from trying!
 
+2020-04-11  Christian Gutschow  <chris.g@cern.ch>
+
+	* Add link to Analysis reference and arXiv preprint to html output
+
+2020-04-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add stdAnalysisNames() functions to AnalysisHandler and
+	AnalysisLoader (static in the second case), and expose them
+	through the Python interface, with a rivet.stdAnalysisNames()
+	module-level alias for convenience, cf. rivet.analysisNames().
+
 2020-04-10  Christian Gutschow  <chris.g@cern.ch>
 
 	* rebinning by an integer is more permissive if the number of bins 
 	are not divisible by the rebinning factor
-2020-04-10  Christian Gutschow  <chris.g@cern.ch>
 
 2020-04-09  Andy Buckley  <andy.buckley@cern.ch>
 

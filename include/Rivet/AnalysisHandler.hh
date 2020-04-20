@@ -148,6 +148,9 @@ namespace Rivet {
     /// Get a list of the currently registered analyses' names.
     std::vector<std::string> analysisNames() const;
 
+    /// Get a list of the official analysis names for this release.
+    std::vector<std::string> stdAnalysisNames() const;
+
     /// Get the collection of currently registered analyses.
     const std::map<std::string, AnaHandle>& analysesMap() const {
       return _analyses;

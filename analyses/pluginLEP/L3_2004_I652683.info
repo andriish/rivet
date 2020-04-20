@@ -10,7 +10,7 @@ Authors:
 References:
 - 'Phys.Rept. 399 (2004) 71-174'
 - '10.1016/j.physrep.2004.07.002'
-- 'http://arxiv.org/abs/hep-ex/0406049'
+- 'arXiv:hep-ex/0406049'
 RunInfo: $e^+ e^- \to q \bar{q}$
 NumEvents: 1000000
 Beams: [e+, e-]

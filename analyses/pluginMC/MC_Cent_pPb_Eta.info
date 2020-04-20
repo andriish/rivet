@@ -7,7 +7,8 @@ Options:
  - cent=REF,GEN,IMP
 NumEvents: 50000
 References:
- - arXiv:1508.00848 [hep-ex], Eur.Phys.J. C76 (2016) no.4, 199
+ - arXiv:1508.00848 [hep-ex]
+ - Eur.Phys.J. C76 (2016) no.4, 199
 RunInfo: Any!
 Description:
    Template analysis for obtaining eta distributions binned in

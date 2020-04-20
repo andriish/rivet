@@ -15,6 +15,7 @@ cdef extern from "Rivet/AnalysisHandler.hh" namespace "Rivet":
         void setWeightCap(double)
         AnalysisHandler& addAnalysis(string)
         vector[string] analysisNames() const
+        vector[string] stdAnalysisNames() const
         # Analysis* analysis(string)
         void writeData(string&)
         void readData(string&)
@@ -73,6 +74,8 @@ cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
 
 cdef extern from "Rivet/AnalysisLoader.hh":
     vector[string] AnalysisLoader_analysisNames "Rivet::AnalysisLoader::analysisNames" ()
+    #set[string] AnalysisLoader_allAnalysisNames "Rivet::AnalysisLoader::allAnalysisNames" ()
+    vector[string] AnalysisLoader_stdAnalysisNames "Rivet::AnalysisLoader::stdAnalysisNames" ()
     unique_ptr[Analysis] AnalysisLoader_getAnalysis "Rivet::AnalysisLoader::getAnalysis" (string)
 
 cdef extern from "Rivet/Tools/RivetPaths.hh" namespace "Rivet":
