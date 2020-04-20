@@ -1999,10 +1999,17 @@ class Histogram(DrawableObject, Described):
                 if (k<len(rebins)-1):
                     upper = self.getBin(rebins[k+1]['Start'])
                     end = 0
-                for i in range(int(lower), int((upper/rebin)*rebin+end), int(rebin)):
+                lower_edges = list(range(int(lower), int((upper/rebin)*rebin+end), int(rebin)))
+                residual = { }
+                if lower_edges[-1] + int(rebin) > maxindex + 1:
+                  lower_edges.pop(-1)
+                  residual[ lower_edges[-1] ] = maxindex - lower_edges[-1] + 1
+                for i in lower_edges:
                     foo=0.
                     barl=0.
                     baru=0.
+                    if i in residual:
+                      rebin = residual[i]
                     for j in range(rebin):
                         if i+j>maxindex:
                             break
