@@ -703,7 +703,7 @@ class Plot(object):
             out += self.write_extended_pstricks()
         #
         ## Hacked-in HEP-specific kerned unit macros... urk
-        out += ('\\newcommand{\\MeV}{\text{Me\\kern-0.15ex V}}\n')
+        out += ('\\newcommand{\\MeV}{\\text{Me\\kern-0.15ex V}}\n')
         out += ('\\newcommand{\\GeV}{\text{Ge\\kern-0.15ex V}}\n')
         out += ('\\newcommand{\\TeV}{\text{Te\\kern-0.15ex V}}\n')
         out += ('\\newcommand{\\MeVc}{\ensuremath{\text{Me\\kern-0.15ex V}/c}}\n')
