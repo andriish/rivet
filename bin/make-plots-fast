@@ -2601,8 +2601,7 @@ if __name__ == '__main__':
                         args.OUTPUT_FONT = "PALATINO"
 
                 ## Check for HEP LaTeX packages
-                # TODO: remove HEP-specifics/non-standards?
-                for pkg in ["hepnames", "hepunits", "underscore"]:
+                for pkg in ["underscore"]: #"hepnames"
                     p = subprocess.Popen(["kpsewhich", "%s.sty" % pkg], stdout=subprocess.PIPE)
                     p.wait()
                     if p.returncode == 0:
@@ -2695,6 +2694,13 @@ if __name__ == '__main__':
     # out += ('\\usepackage[pdfcrop={--margins 10}]{auto-pst-pdf}\n')
     out += ('\\usepackage{auto-pst-pdf}\n')
     out += '\n'
+    #
+    ## Hacked-in HEP-specific kerned unit macros... urk
+    out += ('\\newcommand{\\MeV}{\\text{Me\\kern-0.15ex V}}\n')
+    out += ('\\newcommand{\\GeV}{\\text{Ge\\kern-0.15ex V}}\n')
+    out += ('\\newcommand{\\TeV}{\\text{Te\\kern-0.15ex V}}\n')
+    out += '\n'
+    #
     out += ('\\begin{document}\n')
     #out += ('\\pagestyle{empty}\n')
     out += ('\\SpecialCoor\n')
