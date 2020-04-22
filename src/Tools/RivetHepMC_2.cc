@@ -1,23 +1,11 @@
 // -*- C++ -*-
 
-//#include <regex>
+#include <regex>
 #include "Rivet/Tools/Utils.hh"
 #include "Rivet/Tools/RivetHepMC.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "../Core/zstr/zstr.hpp"
 
-/*namespace {
-
-  inline std::vector<std::string> split(const std::string& input, const std::string& regex) {
-    // passing -1 as the submatch index parameter performs splitting
-    std::regex re(regex);
-    std::sregex_token_iterator
-      first{input.begin(), input.end(), re, -1},
-      last;
-      return {first, last};
-  }
-
-}*/
 
 namespace Rivet{
 
@@ -25,6 +13,15 @@ namespace Rivet{
   const Relatives Relatives::CHILDREN    = HepMC::children;
   const Relatives Relatives::ANCESTORS   = HepMC::ancestors;
   const Relatives Relatives::DESCENDANTS = HepMC::descendants;
+
+  inline std::vector<std::string> split_by_regex(const std::string& input, const std::string& regex) {
+    // passing -1 as the submatch index parameter performs splitting
+    std::regex re(regex);
+    std::sregex_token_iterator
+      first{input.begin(), input.end(), re, -1},
+      last;
+      return {first, last};
+  }
 
   namespace HepMCUtils{
 
@@ -156,7 +153,7 @@ namespace Rivet{
       /// Obtaining weight names using regex probably neater, but regex
       /// is not defined in GCC4.8, which is currently used by Lxplus.
       /// Attempt an alternative solution based on stringstreams:
-      std::stringstream stream;
+      /*std::stringstream stream;
       ge.weights().print(stream);
       std::string pair; // placeholder for substring matches
       while (std::getline(stream, pair, ' ')) {
@@ -170,25 +167,19 @@ namespace Rivet{
           temp.push_back(std::move(pair));
         }
         if (temp.size() == 2)  ret.push_back(temp[0]);
-      }
-      /// Possible future solution based on regex
-      /*std::ostringstream stream;
-      ge.weights().print(stream);  // Super lame, I know
-      string str =  stream.str();
-
-      std::regex re("(([^()]+))"); // Regex for stuff enclosed by parentheses ()
-      for (std::sregex_iterator i = std::sregex_iterator(str.begin(), str.end(), re);
-           i != std::sregex_iterator(); ++i ) {
-        std::smatch m = *i;
-        vector<string> temp = ::split(m.str(), "[,]");
-        if (temp.size() ==2) {
-          // store the default weight based on weight names
-          if (temp[0] == "Weight" || temp[0] == "0" || temp[0] == "Default") {
-            ret.push_back("");
-          } else
-            ret.push_back(temp[0]);
-        }
       }*/
+      /// Possible future solution based on regex
+      std::ostringstream stream;
+      ge.weights().print(stream); // Super lame, I know
+      string str =  stream.str();
+      std::regex re("(([^()]+))"); // Regex for stuff enclosed by parentheses ()
+      auto reg_begin = std::sregex_iterator(str.begin(), str.end(), re);
+      auto reg_end = std::sregex_iterator();
+      for (std::sregex_iterator rit = reg_begin; rit != reg_end; ++rit) {
+        std::smatch m = *rit;
+        vector<string> temp = split_by_regex(m.str(), "[,]");
+        if (temp.size() ==2)  ret.push_back(temp[0]);
+      }
       return ret;
     }
 

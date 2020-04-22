@@ -12,6 +12,8 @@ cdef extern from "Rivet/AnalysisHandler.hh" namespace "Rivet":
     cdef cppclass AnalysisHandler:
         void setIgnoreBeams(bool)
         void skipMultiWeights(bool)
+        void selectMultiWeights(string)
+        void deselectMultiWeights(string)
         void setWeightCap(double)
         AnalysisHandler& addAnalysis(string)
         vector[string] analysisNames() const

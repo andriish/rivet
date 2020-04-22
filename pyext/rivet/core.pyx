@@ -20,8 +20,14 @@ cdef class AnalysisHandler:
     def setIgnoreBeams(self, ignore=True):
         self._ptr.setIgnoreBeams(ignore)
 
-    def skipMultiWeights(self, ignore=False):
+    def skipMultiWeights(self, ignore=True):
         self._ptr.skipMultiWeights(ignore)
+
+    def selectMultiWeights(self, patterns=""):
+        self._ptr.selectMultiWeights(patterns.encode('utf-8'))
+
+    def deselectMultiWeights(self, patterns=""):
+        self._ptr.deselectMultiWeights(patterns.encode('utf-8'))
 
     def setWeightCap(self, double maxWeight):
         self._ptr.setWeightCap(maxWeight)

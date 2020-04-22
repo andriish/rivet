@@ -1,3 +1,10 @@
+2020-04-21  Christian Gutschow  <chris.g@cern.ch>
+
+	* Improve identification of nominal weight (fewer loops)
+	* add --match-weights flag to select subset of weights (with regex support)
+	* add --unmatch-weights flag to deselect subset of weights (with regex support)
+	* clean up code in AnalysisHandler
+
 2020-04-14  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Explicitly delete the comma operator between Cut objects, to stop anyone from trying!
