@@ -8,7 +8,8 @@
 
 namespace Rivet {
 
-  /// @brief ALICE PbPb at 2.76 TeV azimuthal di-hadron correlations
+
+  /// ALICE PbPb at 2.76 TeV azimuthal di-hadron correlations
   class ALICE_2012_I930312 : public Analysis {
   public:
 
@@ -47,8 +48,7 @@ namespace Rivet {
       // Initialize trigger counters and yield histograms
       string title = "Per trigger particle yield";
       string xtitle = "$\\Delta\\eta$ (rad)";
-      string ytitle =
-        "$1 / N_{trig} {\\rm d}N_{assoc} / {\\rm d}\\Delta\\eta$ (rad$^-1$)";
+      string ytitle = "$1 / N_{trig} {\\rm d}N_{assoc} / {\\rm d}\\Delta\\eta$ (rad$^-1$)";
       for (int itype = 0; itype < EVENT_TYPES; ++itype) {
         book(_counterTrigger[itype], "counter." + toString(itype));
         for (int ipt = 0; ipt < PT_BINS; ++ipt) {
@@ -93,8 +93,7 @@ namespace Rivet {
       for (int itype = 0; itype < EVENT_TYPES; ++itype) {
         for (int ipt = 0; ipt < PT_BINS; ++ipt) {
           string newname = _histYield[itype][ipt]->name() + ".nobkg";
-          string newtitle = _histYield[itype][ipt]->title() +
-            ", background subtracted";
+          string newtitle = _histYield[itype][ipt]->title() + ", background subtracted";
           book(_histYieldNoBkg[itype][ipt], newname, 36, -0.5*M_PI, 1.5*M_PI);
         }
       }
