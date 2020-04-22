@@ -93,8 +93,14 @@ extragroup.add_argument("-n", "--nevts", dest="MAXEVTNUM", type=int,
 extragroup.add_argument("--nskip", dest="EVTSKIPNUM", type=int,
                         default=0, metavar="NUM",
                         help="skip NUM events read from input before beginning processing")
-extragroup.add_argument("--skip-weights", dest="SKIP_WEIGHTS", action="store_true",
+extragroup.add_argument("--skip-weights", "--skip-multiweights", dest="SKIP_WEIGHTS", action="store_true",
                       default=False, help="only run on the nominal weight")
+extragroup.add_argument("--match-weights", dest="MATCH_WEIGHTS", default="", 
+                        help="select weight variations matching this comma-separated list of weight names "
+                        "(supports regular expressions). Nominal weight cannot be skipped.")
+extragroup.add_argument("--unmatch-weights", dest="UNMATCH_WEIGHTS", default="", 
+                        help="deselect weight variations matching this comma-separated list of weight names "
+                        "(supports regular expressions). Nominal weight cannot be skipped.")
 extragroup.add_argument("--weight-cap", dest="WEIGHT_CAP", type=float,
                       default=None, help="set maximum abs(weight) to be used for histogram fills")
 extragroup.add_argument("--runname", dest="RUN_NAME", default=None, metavar="NAME",
@@ -540,6 +546,8 @@ RUNNAME = args.RUN_NAME or ""
 ah = rivet.AnalysisHandler(RUNNAME)
 ah.setIgnoreBeams(args.IGNORE_BEAMS)
 ah.skipMultiWeights(args.SKIP_WEIGHTS)
+ah.selectMultiWeights(args.MATCH_WEIGHTS)
+ah.deselectMultiWeights(args.UNMATCH_WEIGHTS)
 if args.WEIGHT_CAP != None:
     ah.setWeightCap(args.WEIGHT_CAP)
 

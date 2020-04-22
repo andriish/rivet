@@ -51,8 +51,9 @@ namespace Rivet {
       #endif // VERSION_CODE >= 3000000
 
       assert(event.weights().size() >= handler().numWeights());
+      const vector<size_t>& indices = handler().weightIndices();
       for (size_t m = 0; m < handler().numWeights(); ++m) {
-        const double weight = event.weights()[m];
+        const double weight = event.weights()[indices[m]];
         _h_pmXS.get()->_getPersistent(m)->fill(0.5*(weight > 0 ? 1. : -1), abs(weight));
         _h_pmN.get()->_getPersistent(m)->fill(0.5*(weight > 0 ? 1. : -1), 1.);
         _h_N.get()->_getPersistent(m)->fill(0.5, 1.0);
