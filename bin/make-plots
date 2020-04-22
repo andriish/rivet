@@ -710,7 +710,7 @@ class Plot(object):
         out += ('\\newcommand{\\GeVc}{\\ensuremath{\\text{Ge\\kern-0.15ex V}/c}}\n')
         out += ('\\newcommand{\\TeVc}{\\ensuremath{\\text{Te\\kern-0.15ex V}/c}}\n')
         out += ('\\newcommand{\\MeVcsq}{\\ensuremath{\\text{Me\\kern-0.15ex V}/c^2}}\n')
-        out += ('\\newcommand{\\GeVcsq}{\ensuremath{\text{Ge\\kern-0.15ex V}/c^2}}\n')
+        out += ('\\newcommand{\\GeVcsq}{\\ensuremath{\\text{Ge\\kern-0.15ex V}/c^2}}\n')
         out += ('\\newcommand{\\TeVcsq}{\ensuremath{\text{Te\\kern-0.15ex V}/c^2}}\n')
         #
         out += ('\\begin{document}\n')
