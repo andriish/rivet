@@ -648,6 +648,9 @@ namespace Rivet {
     /// @defgroup analysis_options Accessing options for this Analysis instance.
     /// @{
 
+    /// Get the default/nominal weight index for the original weight matrix
+    size_t _globalDefaultWeightIndex() const;
+
     /// Return the map of all options given to this analysis.
     const std::map<std::string,std::string> & options() {
       return _options;

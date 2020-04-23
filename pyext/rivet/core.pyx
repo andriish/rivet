@@ -68,6 +68,8 @@ cdef class AnalysisHandler:
         self._ptr.dump(name.encode('utf-8'), period)
 
     def mergeYodas(self, filelist, delopts, equiv):
+        filelist = [ f.encode('utf-8') for f in filelist ]
+        delopts  = [ d.encode('utf-8') for d in delopts  ]
         self._ptr.mergeYodas(filelist, delopts, equiv)
 
 

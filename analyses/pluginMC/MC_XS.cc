@@ -50,9 +50,10 @@ namespace Rivet {
       _mc_error = event.genEvent()->cross_section()->cross_section_error();
       #endif // VERSION_CODE >= 3000000
 
-      assert(event.weights().size() >= handler().numWeights());
+      const size_t numWeights = handler().numWeights();
       const vector<size_t>& indices = handler().weightIndices();
-      for (size_t m = 0; m < handler().numWeights(); ++m) {
+      assert(numWeights == indices.size());
+      for (size_t m = 0; m < numWeights; ++m) {
         const double weight = event.weights()[indices[m]];
         _h_pmXS.get()->_getPersistent(m)->fill(0.5*(weight > 0 ? 1. : -1), abs(weight));
         _h_pmN.get()->_getPersistent(m)->fill(0.5*(weight > 0 ? 1. : -1), 1.);

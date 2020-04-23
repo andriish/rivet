@@ -989,6 +989,10 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
     return handler().defaultWeightIndex();
   }
 
+  size_t Analysis::_globalDefaultWeightIndex() const {
+    return handler().globalDefaultWeightIndex();
+  }
+
   MultiweightAOPtr Analysis::_getOtherAnalysisObject(const std::string & ananame, const std::string& name) {
     std::string path = "/" + ananame + "/" + name;
     const auto& ana = handler().analysis(ananame);

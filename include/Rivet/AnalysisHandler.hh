@@ -65,7 +65,7 @@ namespace Rivet {
     /// Names of event weight categories
     const vector<string>& weightNames() const { return _weightNames; }
 
-    /// Are any of the weights non-numeric?
+    /// Indices of the weights in the original weight matrix
     const vector<size_t> weightIndices() const { return _weightIndices; }
 
     /// Are any of the weights non-numeric?
@@ -79,6 +79,9 @@ namespace Rivet {
 
     /// Get the index of the nominal weight-stream
     size_t defaultWeightIndex() const { return _rivetDefaultWeightIdx; }
+
+    /// Get the index of the nominal weight-stream in the original weight matrix
+    size_t globalDefaultWeightIndex() const { return _defaultWeightIdx; }
 
     /// Set the weight cap
     void setWeightCap(const double maxWeight) { _weightCap = maxWeight; }
