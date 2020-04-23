@@ -93,8 +93,6 @@ namespace Rivet {
       // Initialize background-subtracted yield histograms
       for (int itype = 0; itype < EVENT_TYPES; ++itype) {
         for (int ipt = 0; ipt < PT_BINS; ++ipt) {
-          //string newname = _histYield[itype][ipt]->name() + ".nobkg";
-          //string newtitle = _histYield[itype][ipt]->title() + ", background subtracted";
           book(_histYieldNoBkg[itype][ipt], hYieldName[itype][ipt] + ".nobkg", 36, -0.5*M_PI, 1.5*M_PI);
         }
       }
