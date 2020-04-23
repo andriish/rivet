@@ -4,7 +4,7 @@ Summary: Soft-Drop Jet Mass at 13 TeV
 Experiment: ATLAS
 Collider: LHC
 InspireID: 1637587
-Status: VALIDATED
+Status: VALIDATED REENTRANT
 Authors: 
  - Ben Nachman <benjamin.philip.nachman@cern.ch>
  - Jennifer Roloff <jroloff2@gmail.com>
@@ -55,3 +55,4 @@ BibTex: '@article{Aaboud:2017qwh,
 
 ReleaseTests:
  - $A LHC-13-DiJets-boosted
+
