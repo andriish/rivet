@@ -2675,7 +2675,8 @@ if __name__ == '__main__':
         out += ('\\usepackage[symbolgreek]{mathastext}\n')
     for pkg in args.LATEXPKGS:
         out += ('\\usepackage{%s}\n' % pkg)
-    out += ('\\usepackage{pst-all}\n')
+    out += ('\\usepackage{pstricks}\n')
+    out += ('\\usepackage{multido}\n')
     out += ('\\usepackage{xcolor}\n')
     out += ('\\selectcolormodel{rgb}\n')
     out += ('\\definecolor{red}{HTML}{EE3311}\n') # (Google uses 'DC3912')

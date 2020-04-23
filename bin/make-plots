@@ -679,7 +679,8 @@ class Plot(object):
         for pkg in args.LATEXPKGS:
             out += ('\\usepackage{%s}\n' % pkg)
         out += ('\\usepackage[dvipsnames]{xcolor}\n')
-        out += ('\\usepackage{pst-all}\n')
+        out += ('\\usepackage{pstricks}\n')
+        out += ('\\usepackage{multido}\n')
         out += ('\\selectcolormodel{rgb}\n')
         out += ('\\definecolor{red}{HTML}{EE3311}\n') # (Google uses 'DC3912')
         out += ('\\definecolor{blue}{HTML}{3366FF}')
