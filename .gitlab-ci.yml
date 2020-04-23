@@ -122,7 +122,9 @@ build:
     - function wget_untar { wget --no-check-certificate $1 -O- | tar --no-same-owner -xz; }
     - cd ${CI_PROJECT_DIR}
     # download pre-installed versions of HepMC2, FASTJET, FJcontrib and YODA
-    - wget_untar https://rivetval.web.cern.ch/rivetval/CI/FEDORA-30_HEPMC-2.06.10_FASTJET-3.3.3_FJCONTRIB-1.042_YODA-1-8-status2020-04-13.tar.gz
+    #- wget_untar https://rivetval.web.cern.ch/rivetval/CI/FEDORA-30_HEPMC-2.06.10_FASTJET-3.3.3_FJCONTRIB-1.042_YODA-1-8-status2020-04-13.tar.gz
+    # alternative download location:
+    - wget_untar https://cgutscho.web.cern.ch/cgutscho/FEDORA-30_HEPMC-2.06.10_FASTJET-3.3.3_FJCONTRIB-1.042_YODA-1-8-status2020-04-13.tar.gz
     # install cython
     - echo "INSTALLING CYTHON $CYTHON_VERSION"
     - cd $BUILD_PREFIX
