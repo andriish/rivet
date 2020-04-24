@@ -1,3 +1,6 @@
+2020-02-24  Jon Butterworth <j.butterworth@ucl.ac.uk>
+	* fix ATLAS_2012_I1203852, ATLAS_2015_I1394865 (7 & 8TeV 4L) to use prompt final state
+
 2020-04-21  Christian Gutschow  <chris.g@cern.ch>
 
 	* Improve identification of nominal weight (fewer loops)
