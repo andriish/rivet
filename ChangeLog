@@ -1,5 +1,7 @@
 2020-02-24  Jon Butterworth <j.butterworth@ucl.ac.uk>
 	* fix ATLAS_2012_I1203852, ATLAS_2015_I1394865 (7 & 8TeV 4L) to use prompt final state
+	* fix ATLAS_2016_I1492320 (WWW analysis) to implement the like-sign requirement 
+	properly (from M.Habedank)
 
 2020-04-21  Christian Gutschow  <chris.g@cern.ch>
 

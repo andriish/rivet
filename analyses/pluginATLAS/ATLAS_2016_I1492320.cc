@@ -166,7 +166,7 @@ namespace Rivet {
 	  if (mll < 40*GeV) vetoEvent;
 
 	  // Require same-sign leading leptons
-	  if (leps[0].charge()*leps[0].charge() < 0) vetoEvent;
+	  if (leps[0].charge()*leps[1].charge() < 0) vetoEvent;
 
 	  // Veto di-electron combinations within 10 GeV of the Z mass
 	  if (fabs(mll - 91.188*GeV) < 10*GeV && leps[0].abspid() == PID::ELECTRON && leps[1].abspid() == PID::ELECTRON) vetoEvent;
