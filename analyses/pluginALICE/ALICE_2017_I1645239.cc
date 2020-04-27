@@ -7,7 +7,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// Lambda_c production in pp collisions at 7 TeV and in p-Pb collisions at sqrt{sNN} = 5.02 TeV
   class ALICE_2017_I1645239 : public Analysis {
   public:
 
@@ -20,73 +20,70 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
+
       // Initialise and register projections
       declare(UnstableParticles(Cuts::absrap < 0.96), "upProj");
 
       // Book histograms
-      _h_Lc         = bookHisto1D(1, 1, 1);                             // Lc in pp at 7 TeV
-      _h_LcPb       = bookHisto1D(2, 1, 1);                             // Lc in p-Pb at 5.02 TeV 
-      _h_LcD0       = bookScatter2D(3, 1, 1);                           // Lc/D0 in pp at 7 TeV
-      _h_LcD0Pb     = bookScatter2D(4, 1, 1);                           // Lc/D0 in p-Pb at 5.02 TeV
-      _h_LcD0int    = bookScatter2D(5, 1, 1);                           // "Integrated" Lc/D0 in pp at 7 TeV (1 < pT < 8 GeV/c)
-      _h_LcD0Pbint  = bookScatter2D(6, 1, 1);                           // "Integrated" Lc/D0 in p-Pb at 5.02 TeV (2 < pT < 12 GeV/c)
-      _h_RpPb       = bookScatter2D(7, 1, 1);                           // RpPb 
-      _h_Lcdummy    = bookHisto1D("TMP/Lcdummy", refData(3,1,1));       // Lc in pp at 7 TeV with (_h_LcD0) binning
-      _h_D0         = bookHisto1D("TMP/D0",      refData(3,1,1));       // D0 in pp at 7 TeV with (_h_LcD0) binning
-      _h_LcPbdummy  = bookHisto1D("TMP/LcPbdummy", refData(4,1,1));     // Lc in p-Pb at 5.02 TeV with (_h_LcD0Pb) binning
-      _h_D0Pb       = bookHisto1D("TMP/D0Pb",      refData(4,1,1));     // D0 in p-Pb at 5.02 TeV with (_h_LcD0Pb) binning
-      _h_Lcint      = bookHisto1D("TMP/Lcint", refData(5,1,1));         // "Integrated" Lc in pp at 7 TeV with (_h_LcD0int) binning
-      _h_D0int      = bookHisto1D("TMP/D0int", refData(5,1,1));         // "Integrated" D0 in pp at 7 TeV with (_h_LcD0int) binning
-      _h_LcintPb    = bookHisto1D("TMP/LcintPb", refData(6,1,1));       // "Integrated" Lc in p-Pb at 5.02 TeV with (_h_LcD0Pbint) binning
-      _h_D0intPb    = bookHisto1D("TMP/D0intPb", refData(6,1,1));       // "Integrated" D0 in p-Pb at 5.02 TeV with (_h_LcD0Pbint) binning
-      _h_LcR        = bookHisto1D("TMP/LcR",   refData(7,1,1));         // Lc in pp at 5.02 TeV with (_h_RpPb) binning
-      _h_LcRPb      = bookHisto1D("TMP/LcRPb", refData(7,1,1));         // Lc in p-Pb at 5.02 TeV with (_h_RpPb) binning
+      book(_h_Lc         , 1, 1, 1);                           // Lc in pp at 7 TeV
+      book(_h_LcPb       , 2, 1, 1);                           // Lc in p-Pb at 5.02 TeV
+      book(_h_LcD0       , 3, 1, 1);                           // Lc/D0 in pp at 7 TeV
+      book(_h_LcD0Pb     , 4, 1, 1);                           // Lc/D0 in p-Pb at 5.02 TeV
+      book(_h_LcD0int    , 5, 1, 1);                           // "Integrated" Lc/D0 in pp at 7 TeV (1 < pT < 8 GeV/c)
+      book(_h_LcD0Pbint  , 6, 1, 1);                           // "Integrated" Lc/D0 in p-Pb at 5.02 TeV (2 < pT < 12 GeV/c)
+      book(_h_RpPb       , 7, 1, 1);                           // RpPb
+      book(_h_Lcdummy    , "TMP/Lcdummy",   refData(3,1,1));   // Lc in pp at 7 TeV with (_h_LcD0) binning
+      book(_h_D0         , "TMP/D0",        refData(3,1,1));   // D0 in pp at 7 TeV with (_h_LcD0) binning
+      book(_h_LcPbdummy  , "TMP/LcPbdummy", refData(4,1,1));   // Lc in p-Pb at 5.02 TeV with (_h_LcD0Pb) binning
+      book(_h_D0Pb       , "TMP/D0Pb",      refData(4,1,1));   // D0 in p-Pb at 5.02 TeV with (_h_LcD0Pb) binning
+      book(_h_Lcint      , "TMP/Lcint",     refData(5,1,1));   // "Integrated" Lc in pp at 7 TeV with (_h_LcD0int) binning
+      book(_h_D0int      , "TMP/D0int",     refData(5,1,1));   // "Integrated" D0 in pp at 7 TeV with (_h_LcD0int) binning
+      book(_h_LcintPb    , "TMP/LcintPb",   refData(6,1,1));   // "Integrated" Lc in p-Pb at 5.02 TeV with (_h_LcD0Pbint) binning
+      book(_h_D0intPb    , "TMP/D0intPb",   refData(6,1,1));   // "Integrated" D0 in p-Pb at 5.02 TeV with (_h_LcD0Pbint) binning
+      book(_h_LcR        , "TMP/LcR",       refData(7,1,1));   // Lc in pp at 5.02 TeV with (_h_RpPb) binning
+      book(_h_LcRPb      , "TMP/LcRPb",     refData(7,1,1));   // Lc in p-Pb at 5.02 TeV with (_h_RpPb) binning
      }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      PdgIdPair beamp; 
+      PdgIdPair beamp;
       beamp = beamIds();
-      const double weight = event.weight();
       const UnstableParticles& upProj = apply<UnstableParticles>(event, "upProj");
-      
-      /*PDG code IDs used in the code: 2212 = p+, 4122 = Lc, 421 = D0, 1000822080 = Pb */
-      if(beamp.first == 2212 && beamp.second == 2212){
-        //pp cycle
-        if(fuzzyEquals(sqrtS()/GeV,5020)){ // pp 5.02 TeV
-         foreach (const Particle& p, upProj.particles()) {
-            if(p.fromBottom())
-                continue;
-            else{    
-                 if(p.rap() < 0.04 && p.rap() > -0.96){
-                     // NOTE : when building the Lc reference at 5.02 TeV in pp, we use directly here the rapidity range covered in p-Pb
-                     // In the absence of real data Lc pp 5.02 TeV, the ALICE publication uses an FONLL-based extrapolation from Lc pp data : i) at sqrt(s) = 7 TeV ii) in |y| < 0.5, 
-                     // with dedicated systematic uncertainties due this choice.
-                     if(p.abspid() == 4122)
-                        _h_LcR->fill(p.pT()/GeV, weight);   
-                 } // end if -0.96 < y< 0.04      
-            } // if prompt 
-         }// end foreach
+
+      // PDG code IDs used in the code: 2212 = p+, 4122 = Lc, 421 = D0, 1000822080 = Pb
+      if (beamp.first == PID::PROTON && beamp.second == PID::PROTON) {
+        // pp cycle
+        if (fuzzyEquals(sqrtS()/GeV,5020)) { // pp 5.02 TeV
+          for (const Particle& p : upProj.particles()) {
+            if (p.fromBottom()) continue;
+            if (p.rap() < 0.04 && p.rap() > -0.96){
+              // NOTE : when building the Lc reference at 5.02 TeV in pp, we use directly here the rapidity range covered in p-Pb
+              // In the absence of real data Lc pp 5.02 TeV, the ALICE publication uses an FONLL-based extrapolation from Lc pp data : i) at sqrt(s) = 7 TeV ii) in |y| < 0.5,
+              // with dedicated systematic uncertainties due this choice.
+              if (p.abspid() == 4122)
+                _h_LcR->fill(p.pT()/GeV, weight);
+            }
+          }
         }
-        else{
-         foreach (const Particle& p, upProj.particles()) {  // pp 7 TeV
-            if(p.fromBottom())
+        else {
+          for (const Particle& p : upProj.particles()) {  // pp 7 TeV
+            if (p.fromBottom())
                 continue;
-            else{    
-                 if(p.absrap() < 0.5){
-                    if(p.abspid() == 421){
-                        _h_D0       ->fill(p.pT()/GeV, weight); 
-                        _h_D0int    ->fill(0,weight);
+            else {
+                 if (p.absrap() < 0.5) {
+                    if (p.abspid() == 421) {
+                      _h_D0       ->fill(p.pT()/GeV, weight);
+                      _h_D0int    ->fill(0,weight);
                     }// end if D0
-                    else if(p.abspid() == 4122){
-                        _h_Lc       ->fill(p.pT()/GeV, weight);
-                        _h_Lcdummy  ->fill(p.pT()/GeV, weight);
-                        _h_Lcint    ->fill(0,weight);
+                    else if (p.abspid() == 4122) {
+                      _h_Lc       ->fill(p.pT()/GeV, weight);
+                      _h_Lcdummy  ->fill(p.pT()/GeV, weight);
+                      _h_Lcint    ->fill(0,weight);
                     }// end if Lc
-                 }// end if |y| < 0.5   
-            }// end if prompt    
-         }// end foreach
+                 }// end if |y| < 0.5
+            }// end if prompt
+          }// end foreach
         }
       }// end if pp beams
       else if((beamp.first == 2212 && beamp.second == 1000822080) || (beamp.second == 2212 && beamp.first == 1000822080)){
@@ -94,10 +91,10 @@ namespace Rivet {
         foreach (const Particle& p, upProj.particles()) {
             if(p.fromBottom())
                 continue;
-            else{    
+            else{
                  if(p.rap() < 0.04 && p.rap() > -0.96){
                     if(p.abspid() == 421){
-                        _h_D0Pb         ->fill(p.pT()/GeV, weight); 
+                        _h_D0Pb         ->fill(p.pT()/GeV, weight);
                         _h_D0intPb      ->fill(-0.5,weight);
                     }// end if D0
                     else if(p.abspid() == 4122){
@@ -106,17 +103,17 @@ namespace Rivet {
                         _h_LcRPb        ->fill(p.pT()/GeV, weight);
                         _h_LcintPb      ->fill(-0.5,weight);
                     }// if Lc
-                 }// end if -0.96 < y< 0.04       
+                 }// end if -0.96 < y< 0.04
             }// end if prompt
          }// end foreach
-       }// end p-Pb  
+       }// end p-Pb
 
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-        // NOTE 1 : At this point cross sections consider both particles and antiparticles, 
+        // NOTE 1 : At this point cross sections consider both particles and antiparticles,
         // hence a factor 2 is added in the histos normalization in order to account for this (as done in the paper)
         // NOTE 2 : any rapidity range here is 1-unit wide (in pp and p-Pb), no further division by 1 is requested to get dsigma/dpTdy cross section
       if(_h_D0->numEntries()>0)         scale(_h_D0,        crossSection()/(microbarn*2*sumOfWeights()));       // norm to cross section
@@ -129,12 +126,12 @@ namespace Rivet {
       if(_h_D0intPb->numEntries()>0)    scale(_h_D0intPb,   crossSection()/(microbarn*2*sumOfWeights()));       // norm to cross section
       if(_h_LcPb->numEntries()>0)       scale(_h_LcPb,      crossSection()/(microbarn*2*sumOfWeights()));       // norm to cross section
       if(_h_LcintPb->numEntries()>0)    scale(_h_LcintPb,   crossSection()/(microbarn*2*sumOfWeights()));       // norm to cross section
-      
+
       if (_h_Lcdummy->numEntries()>0    && _h_D0->numEntries()>0)       divide(_h_Lcdummy,  _h_D0,      _h_LcD0);
       if (_h_LcPbdummy->numEntries()>0  && _h_D0Pb->numEntries()>0)     divide(_h_LcPbdummy,_h_D0Pb,    _h_LcD0Pb);
       if (_h_Lcint->numEntries()>0      && _h_D0int->numEntries()>0)    divide(_h_Lcint,    _h_D0int,   _h_LcD0int);
       if (_h_LcintPb->numEntries()>0    && _h_D0intPb->numEntries()>0)  divide(_h_LcintPb,  _h_D0intPb, _h_LcD0Pbint);
-      
+
       if(_h_LcR->numEntries()>0)        scale(_h_LcR,       208*crossSection()/(microbarn*2*sumOfWeights()));   // norm to cross section, 208 factor accounts for the atomic number of Lead
       if(_h_LcRPb->numEntries()>0)      scale(_h_LcRPb,     crossSection()/(microbarn*2*sumOfWeights()));       // norm to cross section
       if (_h_LcRPb->numEntries()>0      && _h_LcR->numEntries()>0)      divide(_h_LcRPb,    _h_LcR,     _h_RpPb);
