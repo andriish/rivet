@@ -4,7 +4,7 @@ The easiest way to start using Rivet is via the Docker system (see https://www.d
 
 The rest of these instructions are mainly aimed at users who want to natively install and run a release of Rivet on their machine.
 
-GettingStartedForDevelopers has some additional or replacement steps for people wishing to check out the development version from the repository and build from there.
+[//]: # GettingStartedForDevelopers has some additional or replacement steps for people wishing to check out the development version from the repository and build from there.
 
 
 ## Native installation of Rivet and all dependencies
@@ -50,6 +50,13 @@ INSTALL_PREFIX=$HOME/software/rivet MAKE="make -j8" ./rivet-bootstrap
 ```
 We will refer to the installation root path as `$PREFIX`.
 
+*Other variables used in the script, such as version numbers, can be overridden
+ this way. Those other than `INSTALL_PREFIX` and `MAKE` are mainly of interest
+ to developers, though. It is possible that you will need a developer-style
+ setup of the Rivet development version rather than a released version: in this
+ case you will need to have essential developer tools like autotools and Cython
+ already installed, then pass `INSTALL_RIVETDEV=1` as a command-line variable.*
+
 
 ## Setting up the environment
 
@@ -65,4 +72,28 @@ If that works, everything is installed correctly. If you are using the `bash` sh
 
 **You may wish to add the environment variable settings to your `~/.bashrc` shell config file, so that Rivet will work without needing any special session setup.**
 
-You can now check out the FirstRivetRun guide.
+
+## Troubleshooting
+
+The main things that can go wrong during Rivet installation and setup are
+related to the Python interface. Rivet relies heavily on Python interfaces to
+the C++ libraries for its user-facing command-line scripts, but this requires
+a suitable Python environment before installation.
+
+If you hit problems, a good first idea is to make sure that the installation
+prefix is treated as a valid location for Python to load packages from. If
+installing into a system location like `/usr/local` this should be automatic; if
+doing something more custom, you may need to set or append to the `PYTHONPATH`
+environment variable. The usual Python install path is
+`$INSTALL_PREFIX/lib/pythonX.Y/site-packages`, but it's best to check your
+system for variations; once confirmed, put
+`export PYTHONPATH=$INSTALL_PREFIX/lib/pythonX.Y/site-packages:$PYTHONPATH`
+into your shell environment, perhaps permanently into your `.bashrc` file.
+
+The second issue is specific to Macs, on which the system Python is configured
+to refuse to load modules that load "untrusted" binary libraries... like `libRivet`.
+We have not found a satisfactory workaround for this restriction, which seems
+designed under the assumption that Mac users will not be developers of Python
+extensions to compiled non-system libraries. Since this is unrealistic for
+HEP use, we recommend avoiding the Mac system Python and compiler suite entirely,
+in favour of developer packages from e.g. Homebrew or Conda.
