@@ -55,9 +55,19 @@ namespace Rivet {
   namespace Cuts {
 
     /// Available categories of cut objects
-    enum Quantity { pT=0, pt=0, Et=1, et=1, E=2, energy=2,
-                    mass, rap, absrap, eta, abseta, phi,
-                    pid, abspid, charge, abscharge, charge3, abscharge3, pz };
+    enum Quantity { pT=0, pt=0,
+                    Et=1, et=1,
+                    E=2, energy=2,
+                    mass,
+                    rap, absrap,
+                    eta, abseta,
+                    phi,
+                    pid, abspid,
+                    charge, abscharge,
+                    charge3, abscharge3,
+                    pz,
+                    tag
+    };
 
     /// Fully open cut singleton, accepts everything
     const Cut& open(); //< access by factory function

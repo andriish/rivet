@@ -43,8 +43,10 @@ namespace Rivet {
       return "3Q"; break;
     case Cuts::abscharge3:
       return "|3Q|"; break;
-    case Cuts::pz: //case Cuts::pt:
+    case Cuts::pz:
       return "pz"; break;
+    case Cuts::tag:
+      return "tag"; break;
     }
     return "???";
   }
@@ -443,6 +445,7 @@ namespace Rivet {
       case Cuts::abseta: return std::abs(jet_.pseudorapidity());
       case Cuts::phi:    return jet_.phi();
       case Cuts::pz:     return jet_.pz();
+      case Cuts::tag:    return jet_.tag();
       default: qty_not_found();
       }
       return -999.;
