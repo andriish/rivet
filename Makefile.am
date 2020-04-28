@@ -1,6 +1,8 @@
 ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = src pyext data include bin analyses test doc
 
+AUTOMAKE_OPTIONS = foreign
+
 EXTRA_DIST = GUIDELINES
 
 DISTCHECK_CONFIGURE_FLAGS = --enable-debug --with-yoda=$(YODAPATH) --with-hepmc=$(HEPMCPATH) --with-fastjet=$(FASTJETPATH)
