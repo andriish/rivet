@@ -1413,12 +1413,6 @@ namespace Rivet {
   // Template specialisation for literal character strings (which don't play well with stringstream)
   template<>
   inline const char* Analysis::getOption(std::string optname, const char* def) {
-    // if (_options.find(optname) == _options.end()) return def;
-    // std::stringstream ss;
-    // ss << _options.find(optname)->second;
-    // std::string ret;
-    // ss >> ret;
-    // return ret;
     return getOption<std::string>(optname, def).c_str();
   }
 
