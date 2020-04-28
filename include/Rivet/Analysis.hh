@@ -663,8 +663,10 @@ namespace Rivet {
       return "";
     }
 
-    /// Get an option for this analysis instance converted to a
-    /// specific type (given by the specified @a def value).
+    /// @brief Get an option for this analysis instance converted to a specific type
+    ///
+    /// The return type is given by the specified @a def value, or by an explicit template
+    /// type-argument, e.g. getOption<double>("FOO", 3).
     template<typename T>
     T getOption(std::string optname, T def) {
       if (_options.find(optname) == _options.end()) return def;
@@ -676,6 +678,11 @@ namespace Rivet {
     }
 
     /// @}
+
+
+    /// @defgroup analysis_bookhi Booking heavy ion features
+    /// @{
+
     /// @brief Book a CentralityProjection
     ///
     /// Using a SingleValueProjection, @a proj, giving the value of an
@@ -695,7 +702,8 @@ namespace Rivet {
     const CentralityProjection&
     declareCentrality(const SingleValueProjection &proj,
                       string calAnaName, string calHistName,
-                      const string projName, bool increasing = false);
+                      const string projName, bool increasing=false);
+
 
     /// @brief Book a Percentile wrapper around AnalysisObjects.
     ///
@@ -733,6 +741,7 @@ namespace Rivet {
       return pctl;
     }
 
+
     // /// @brief Book Percentile wrappers around AnalysisObjects.
     // ///
     // /// Based on a previously registered CentralityProjection named @a
@@ -764,6 +773,8 @@ namespace Rivet {
     //   pctl.add(wtf, cnt);
     //   return pctl;
     // }
+
+    /// @}
 
 
   private:
@@ -1397,6 +1408,19 @@ namespace Rivet {
     Analysis& operator=(const Analysis&);
 
   };
+
+
+  // Template specialisation for literal character strings (which don't play well with stringstream)
+  template<>
+  inline const char* Analysis::getOption(std::string optname, const char* def) {
+    // if (_options.find(optname) == _options.end()) return def;
+    // std::stringstream ss;
+    // ss << _options.find(optname)->second;
+    // std::string ret;
+    // ss >> ret;
+    // return ret;
+    return getOption<std::string>(optname, def).c_str();
+  }
 
 
 }
