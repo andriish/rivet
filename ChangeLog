@@ -1,6 +1,15 @@
+2020-04-28  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use old.inspirehep.net for now in rivet-findid, and update other
+	references to Inspire to use the new URL scheme. Coverage scripts
+	and findid will need a proper migration to the new Inspire in the
+	longer term.
+
 2020-02-24  Jon Butterworth <j.butterworth@ucl.ac.uk>
+
 	* fix ATLAS_2012_I1203852, ATLAS_2015_I1394865 (7 & 8TeV 4L) to use prompt final state
-	* fix ATLAS_2016_I1492320 (WWW analysis) to implement the like-sign requirement 
+
+	* fix ATLAS_2016_I1492320 (WWW analysis) to implement the like-sign requirement
 	properly (from M.Habedank)
 
 2020-04-21  Christian Gutschow  <chris.g@cern.ch>
@@ -27,7 +36,7 @@
 
 2020-04-10  Christian Gutschow  <chris.g@cern.ch>
 
-	* rebinning by an integer is more permissive if the number of bins 
+	* rebinning by an integer is more permissive if the number of bins
 	are not divisible by the rebinning factor
 
 2020-04-09  Andy Buckley  <andy.buckley@cern.ch>
