@@ -1,5 +1,8 @@
 2020-04-29  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add an integer RIVET_VERSION_CODE #define to the config header,
+	for easier compile-time triggering in user code.
+
 	* Specialize Analysis::getOption(name, default) for literal string
 	default, to avoid an invalid internal use of stringstream.
 
