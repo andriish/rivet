@@ -95,10 +95,10 @@ extragroup.add_argument("--nskip", dest="EVTSKIPNUM", type=int,
                         help="skip NUM events read from input before beginning processing")
 extragroup.add_argument("--skip-weights", "--skip-multiweights", dest="SKIP_WEIGHTS", action="store_true",
                       default=False, help="only run on the nominal weight")
-extragroup.add_argument("--match-weights", dest="MATCH_WEIGHTS", default="", 
+extragroup.add_argument("--match-weights", dest="MATCH_WEIGHTS", default="",
                         help="select weight variations matching this comma-separated list of weight names "
                         "(supports regular expressions). Nominal weight cannot be skipped.")
-extragroup.add_argument("--unmatch-weights", dest="UNMATCH_WEIGHTS", default="", 
+extragroup.add_argument("--unmatch-weights", dest="UNMATCH_WEIGHTS", default="",
                         help="deselect weight variations matching this comma-separated list of weight names "
                         "(supports regular expressions). Nominal weight cannot be skipped.")
 extragroup.add_argument("--weight-cap", dest="WEIGHT_CAP", type=float,
@@ -291,12 +291,12 @@ if len(args.SHOW_ANALYSES) > 0:
         # TODO: reduce to only show Inspire in v3
         if ana.inspireId():
             msg += "Inspire ID: " + ana.inspireId() + "\n"
-            msg += "Inspire URL: http://inspire-hep.net/record/" + ana.inspireId() + "\n"
-            msg += "HepData URL: http://hepdata.net/record/ins" + ana.inspireId() + "\n"
+            msg += "Inspire URL: https://inspirehep.net/literature/" + ana.inspireId() + "\n"
+            msg += "HepData URL: https://hepdata.net/record/ins" + ana.inspireId() + "\n"
         elif ana.spiresId():
             msg += "Spires ID: " + ana.spiresId() + "\n"
-            msg += "Inspire URL: http://inspire-hep.net/search?p=find+key+" + ana.spiresId() + "\n"
-            msg += "HepData URL: http://hepdata.cedar.ac.uk/view/irn" + ana.spiresId() + "\n"
+            msg += "Inspire URL: https://inspirehep.net/literature?q=" + ana.spiresId() + "\n"
+            msg += "HepData URL: https://hepdata.cedar.ac.uk/view/irn" + ana.spiresId() + "\n"
 
 
         if ana.year():

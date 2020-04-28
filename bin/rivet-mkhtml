@@ -384,11 +384,11 @@ if not args.DRY_RUN:
 
         reflist = []
         if inspireid:
-            reflist.append('<a href="http://inspire-hep.net/record/%s">Inspire</a>' % inspireid)
+            reflist.append('<a href="https://inspirehep.net/literature/%s">Inspire</a>' % inspireid)
             reflist.append('<a href="http://hepdata.net/record/ins%s">HepData</a>' % inspireid)
         elif spiresid:
         # elif ana.spiresId():
-            reflist.append('<a href="http://inspire-hep.net/search?p=find+key+%s">Inspire</a>' % spiresid)
+            reflist.append('<a href="https://inspirehep.net/literature?q=%s">Inspire</a>' % spiresid)
             reflist.append('<a href="http://hepdata.cedar.ac.uk/view/irn%s">HepData</a>' % spiresid)
         if analysis in official_routines:
             reflist.append('<a href="https://rivet.hepforge.org/analyses/%s.html">Analysis reference</a>' % analysis)

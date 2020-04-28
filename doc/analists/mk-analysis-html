@@ -88,13 +88,11 @@ for aname in sorted(list(all_analyses)):
     page += "<b>%s</b><br/>\n" %  htmlify(ana.summary())
     page += "<b>Experiment:</b> %s (%s)<br/>\n" % (ana.experiment(), ana.collider())
     if ana.inspireId():
-        spiresbase = "http://inspire-hep.net/record"
-        page += "<b>Inspire ID:</b> <a href='%s/%s'>%s</a><br/>\n" % \
-            (spiresbase, ana.inspireId(), ana.inspireId())
+        url = "https://inspirehep.net/literature/{}".format(ana.inspireId())
+        page += "<b>Inspire ID:</b> <a href='%s'>%s</a><br/>\n" % (url, ana.inspireId())
     elif ana.spiresId():
-        spiresbase = "http://inspire-hep.net/search?p=find+key"
-        page += "<b>Spires ID:</b> <a href='%s+%s'>%s</a><br/>\n" % \
-            (spiresbase, ana.spiresId(), ana.spiresId())
+        url = "https://inspirehep.net/literature?q={}".format(ana.spiresId())
+        page += "<b>Spires ID:</b> <a href='%s'>%s</a><br/>\n" % (url, ana.spiresId())
     page += "<b>Status:</b> %s<br/>\n" % ana.status()
 
     ## Authors

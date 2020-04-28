@@ -88,7 +88,7 @@ def output(result):
     insp = result.get('inspire')
     if insp:
         print('inspire     %s' % insp)
-        print('inspire_url http://inspirehep.net/record/%s' % insp)
+        print('inspire_url https://old.inspirehep.net/record/%s' % insp)
 
     tex = result.get('bibtex')
     if tex:
@@ -102,7 +102,7 @@ def output(result):
 
 
 def try_arxiv(id):
-    url = 'http://inspirehep.net/search?p=eprint+%s&of=xm' % id
+    url = 'http://old.inspirehep.net/search?p=eprint+%s&of=xm' % id
     ret = _search_inspire(url)
     if ret.get('arxiv') == id:
         return ret
@@ -111,7 +111,7 @@ def try_arxiv(id):
 
 
 def try_spires(id):
-    url = 'http://inspirehep.net/search?p=key+%s&of=xm' % id
+    url = 'http://old.inspirehep.net/search?p=key+%s&of=xm' % id
     ret = _search_inspire(url)
     if ret.get('spires') == id:
         return ret
@@ -120,7 +120,7 @@ def try_spires(id):
 
 
 def try_inspire(id):
-    url = 'http://inspirehep.net/record/%s/export/xm' % id
+    url = 'http://old.inspirehep.net/record/%s/export/xm' % id
     ret = _search_inspire(url)
     if ret.get('inspire') == id:
         return ret
