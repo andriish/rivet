@@ -45,6 +45,10 @@ how to implement and contribute your own analyses.
 
 [Merging separate physics runs with `rivet-merge` (work in progress)](merging2.md)
 
+[Running on a subset of available multiweights](multiweights_running.md)
+
+[Fun with multiweights when plotting YODA files (work in progress)](multiweights_plotting.md)
+
 
 ## Writing a Rivet analysis
 [What is an Analysis?](what-analysis.md)

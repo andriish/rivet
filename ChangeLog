@@ -5,6 +5,13 @@
 	and findid will need a proper migration to the new Inspire in the
 	longer term.
 
+2020-04-26  Christian Gutschow  <chris.g@cern.ch>
+
+	* Allow user to specify default weight to be used by plotting scripts,
+	different defaults possible for different yoda files
+	* Allow users to recycle the same yoda file by giving it a "Name" on the command line,
+	which makes it possible to compare two variations in the same file
+
 2020-02-24  Jon Butterworth <j.butterworth@ucl.ac.uk>
 
 	* fix ATLAS_2012_I1203852, ATLAS_2015_I1394865 (7 & 8TeV 4L) to use prompt final state
