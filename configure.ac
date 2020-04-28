@@ -20,12 +20,21 @@ m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 AC_CONFIG_MACRO_DIR([m4])
 AC_SUBST(LT_OBJDIR)
 
+## Compute version code
+let rivet_major=`echo "$PACKAGE_VERSION" | cut -d. -f1`
+let rivet_minor=`echo "$PACKAGE_VERSION" | cut -d. -f2`
+let rivet_micro=`echo "$PACKAGE_VERSION" | cut -d. -f3 | [sed -e 's/[^0-9]//g']`
+let PACKAGE_VERSION_CODE=10000*$rivet_major+100*$rivet_minor+$rivet_micro
+
 ## Package-specific #defines
 AC_DEFINE_UNQUOTED(RIVET_VERSION, "$PACKAGE_VERSION", "Rivet version string")
+AC_DEFINE_UNQUOTED(RIVET_VERSION_CODE, $PACKAGE_VERSION_CODE, "Rivet version int")
 AC_DEFINE_UNQUOTED(RIVET_NAME, "$PACKAGE_NAME", "Rivet name string")
 AC_DEFINE_UNQUOTED(RIVET_STRING, "$PACKAGE_STRING", "Rivet name and version string")
 AC_DEFINE_UNQUOTED(RIVET_TARNAME, "$PACKAGE_TARNAME", "Rivet short name string")
 AC_DEFINE_UNQUOTED(RIVET_BUGREPORT, "$PACKAGE_BUGREPORT", "Rivet contact email address")
+
+
 
 ## OS X
 AC_CEDAR_OSX
