@@ -42,14 +42,15 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      int nfs = apply<ChargedFinalState>(event, "CFS").size();
+      size_t nfs = apply<ChargedFinalState>(event, "CFS").size();
+      if (nfs >= 30)  nfs = 30;
       _h_mult->fill(nfs);
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      normalize(_h_mult); // normalize to unity
+      normalize(_h_mult, 2.0); // normalize to 2 to account for bin width
 
     }
 

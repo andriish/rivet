@@ -12,6 +12,7 @@ from . import DM2_1990_I297706
 from . import MAC_1985_I206052
 from . import MARKII_1991_I295286
 from . import MARKJ_1979_I141976
+from . import NA22_1986_I18431
 from . import NMD_1974_I745
 from . import TPC_1987_I235694
 from . import UA5_1982_S875503
