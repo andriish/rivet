@@ -18,6 +18,6 @@ def patch(path, ao):
     ]
     if path in needs_patching:
       for p in ao.points():
-        p.setErrs(1, (bWidth, bWidth))
+        p.setErrs(1, (0.5, 0.5))
     return ao
 
