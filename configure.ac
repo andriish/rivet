@@ -142,6 +142,9 @@ if test x$use_hepmc2 = xyes; then
     AC_DEFINE([RIVET_ENABLE_HEPMC_20610],[1], [Defined if version 2.06.10 of HepMC is used.])
   fi
   CPPFLAGS=$oldCPPFLAGS
+  HEPMCLIBNAME="-lHepMC"
+  AC_SUBST(HEPMCLIBNAME)
+
 
 else
 
@@ -177,8 +180,10 @@ else
   ## Use generic HEPMC* variables for HepMC3 as well (needed for rivet-config.in)
   c=$HEPMC3INCPATH
   HEPMCLIBPATH=$HEPMC3LIBPATH
+  HEPMCLIBNAME="-lHepMC3 -lHepMC3search"
   AC_SUBST(HEPMCINCPATH)
   AC_SUBST(HEPMCLIBPATH)
+  AC_SUBST(HEPMCLIBNAME)
 fi
 
 AM_CONDITIONAL([ENABLE_HEPMC_3], [test x$hepmc_major = x3])

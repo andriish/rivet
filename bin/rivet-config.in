@@ -91,7 +91,7 @@ if test -n "$tmp"; then
     lrivet="@libdir@"
     test -n "$lrivet" && OUT="$OUT -L${lrivet}"
     lhepmc="@HEPMCLIBPATH@"
-    test -n "$lhepmc" && OUT="$OUT -L${lhepmc} -lHepMC"
+    test -n "$lhepmc" && OUT="$OUT -L${lhepmc} @HEPMCLIBNAME@"
     lyoda="@YODALIBPATH@"
     test -n "$lyoda" && OUT="$OUT -L${lyoda} -lYODA"
     lfastjet="@FASTJETLIBADD@"
