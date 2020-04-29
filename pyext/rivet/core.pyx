@@ -70,9 +70,8 @@ cdef class AnalysisHandler:
     def mergeYodas(self, filelist, delopts, addopts, equiv):
         filelist = [ f.encode('utf-8') for f in filelist ]
         delopts  = [ d.encode('utf-8') for d in delopts  ]
-	addopts  = [ d.encode('utf-8') for d in addopts ]
-        
-	self._ptr.mergeYodas(filelist, delopts, addopts, equiv)
+        addopts  = [ d.encode('utf-8') for d in addopts ]
+        self._ptr.mergeYodas(filelist, delopts, addopts, equiv)
 
 
 cdef class Run:

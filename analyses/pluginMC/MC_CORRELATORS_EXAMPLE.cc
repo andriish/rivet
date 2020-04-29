@@ -38,7 +38,7 @@ namespace Rivet {
       ec22pT = bookECorrelator<2,2>("ec22pT",*h_v22pT);
       pair<int, int> max = getMaxValues(); 
       // Declare correlator projections.
-      declare(Correlators(pp, max.first, max.second, h_v22pT),"CRS");
+      declare(Correlators(pp, max.first, max.second, *h_v22pT),"CRS");
     }
     /// Perform the per-event analysis
     void analyze(const Event& event) {
