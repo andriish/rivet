@@ -14,7 +14,7 @@ References:
 RunInfo: PbPb minimum bias events.
 NeedCrossSection: no
 Options:
- - cent=REF,GEN,IMP,USR,RAW
+ - cent=REF,GEN,IMP,USR
 Beams: [Pb, Pb]
 # This is _total_ energy of beams, so this becomes 208*5023=1044784
 Energies: [1044784]

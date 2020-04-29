@@ -293,6 +293,7 @@ namespace Rivet {
     /// analysis objects.
     void mergeYodas(const vector<string> & aofiles,
                     const vector<string> & delopts = vector<string>(),
+                    const vector<string> & addopts = vector<string>(),
                     bool equiv = false);
 
     /// Helper function to strip specific options from data object paths.

@@ -43,7 +43,6 @@ namespace Rivet {
         Cuts::eta > -0.8 && Cuts::pT > 0.2*GeV && Cuts::pT < 5.0*GeV);
       declare(cfsn, "CFSN");
 
-
       // Book histograms before booking the correlators
       // to have access to bin edges.
       book(h_v22gap, 1, 1, 1, true);
@@ -72,43 +71,40 @@ namespace Rivet {
       book(h_ec26, "_ec26", refData(1, 1, 3));
       book(h_ec28, "_ec28", refData(1, 1, 4));
 
-
       // Corresponding event averaged correlators.
       // Integrated, with gap.
-      ec22gap = bookECorrelatorGap<2,2>("ec22gap",h_v22gap);
-      ec32gap = bookECorrelatorGap<3,2>("ec32gap",h_v32gap);
-      ec42gap = bookECorrelatorGap<4,2>("ec42gap",h_v42gap);
-
+      ec22gap = bookECorrelatorGap<2,2>("ec22gap",refData(1,1,1));
+      ec32gap = bookECorrelatorGap<3,2>("ec32gap",refData(2,1,1));
+      ec42gap = bookECorrelatorGap<4,2>("ec42gap",refData(2,1,2));
 
       // Integrated, no gap.
-      ec22 = bookECorrelator<2,2>("ec22",h_v24);
-      ec24 = bookECorrelator<2,4>("ec24",h_v24);
-      ec26 = bookECorrelator<2,6>("ec26",h_v26);
-      ec28 = bookECorrelator<2,8>("ec28",h_v28);
+      ec22 = bookECorrelator<2,2>("ec22",refData(1,1,2));
+      ec24 = bookECorrelator<2,4>("ec24",refData(1,1,2));
+      ec26 = bookECorrelator<2,6>("ec26",refData(1,1,3));
+      ec28 = bookECorrelator<2,8>("ec28",refData(1,1,4));
 
       // pT differential, no gap, three centralities.
-      ec22pT10 = bookECorrelator<2,2>("ec22pT10",h_v24pT10);
-      ec24pT10 = bookECorrelator<2,4>("ec24pT10",h_v24pT10);
+      ec22pT10 = bookECorrelator<2,2>("ec22pT10",refData(9,1,1));
+      ec24pT10 = bookECorrelator<2,4>("ec24pT10",refData(9,1,1));
 
-      ec22pT20 = bookECorrelator<2,2>("ec22pT20",h_v24pT20);
-      ec24pT20 = bookECorrelator<2,4>("ec24pT20",h_v24pT20);
+      ec22pT20 = bookECorrelator<2,2>("ec22pT20",refData(9,1,2));
+      ec24pT20 = bookECorrelator<2,4>("ec24pT20",refData(9,1,2));
 
-      ec22pT30 = bookECorrelator<2,2>("ec22pT30",h_v24pT30);
-      ec24pT30 = bookECorrelator<2,4>("ec24pT30",h_v24pT30);
+      ec22pT30 = bookECorrelator<2,2>("ec22pT30",refData(9,1,3));
+      ec24pT30 = bookECorrelator<2,4>("ec24pT30",refData(9,1,3));
 
       // pT differential, with gap, 30-40% centrality.
-      ec22gappT = bookECorrelatorGap<2,2>("ec22gappT",h_v22gappT);
-      ec32gappT = bookECorrelatorGap<3,2>("ec32gappT",h_v32gappT);
-      ec42gappT = bookECorrelatorGap<4,2>("ec42gappT",h_v42gappT);
-
+      ec22gappT = bookECorrelatorGap<2,2>("ec22gappT",refData(8,1,1));
+      ec32gappT = bookECorrelatorGap<3,2>("ec32gappT",refData(8,1,2));
+      ec42gappT = bookECorrelatorGap<4,2>("ec42gappT",refData(8,1,3));
 
       pair<int, int> max = getMaxValues();
       // Declare correlator projections.
-      declare(Correlators(cfs, max.first, max.second, h_v22gappT),
+      declare(Correlators(cfs, max.first, max.second, refData(8,1,1)),
         "Correlators");
-      declare(Correlators(cfsp, max.first, max.second, h_v22gappT),
+      declare(Correlators(cfsp, max.first, max.second, refData(8,1,1)),
         "CorrelatorsPos");
-      declare(Correlators(cfsn, max.first, max.second, h_v22gappT),
+      declare(Correlators(cfsn, max.first, max.second, refData(8,1,1)),
         "CorrelatorsNeg");
 
     }
@@ -156,9 +152,6 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-       // Correlators must be streamed
-       // in order to run reentrant finalize.
-       stream();
        // Filling test histos.
        cnTwoInt(h_c22gap, ec22gap);
        cnTwoInt(h_c32gap, ec32gap);

@@ -645,11 +645,19 @@ namespace Rivet {
 
   public:
 
-    /// @defgroup analysis_options Accessing options for this Analysis instance.
-    /// @{
+    /// @name Allow RAW histograms to be read in to local objects.
+    virtual void rawHookIn(YODA::AnalysisObjectPtr yao) {
+      (void) yao;
+    }
 
-    /// Get the default/nominal weight index for the original weight matrix
-    size_t _globalDefaultWeightIndex() const;
+    /// @name Provide access to RAW histograms before writing out to file.
+    virtual void rawHookOut(vector<MultiweightAOPtr> raos, size_t iW) {
+      (void) raos;
+      (void) iW;
+    }
+
+    /// @name Accessing options for this Analysis instance.
+    //@{
 
     /// Return the map of all options given to this analysis.
     const std::map<std::string,std::string> & options() {

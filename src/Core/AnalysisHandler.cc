@@ -495,7 +495,9 @@ namespace Rivet {
 
 
   void AnalysisHandler::mergeYodas(const vector<string> & aofiles,
-                                   const vector<string> & delopts, bool equiv) {
+                                   const vector<string> & delopts, 
+                                   const vector<string> & addopts,
+                                   bool equiv) {
 
     // Convenience typedef
     typedef multimap<string, YODA::AnalysisObjectPtr> AOMap;
@@ -508,6 +510,22 @@ namespace Rivet {
 
     // Store all analysis objects here
     vector<AOMap> allaos;
+
+    // Parse option adding.
+    vector<string> optAnas;
+    vector<string> optKeys;
+    vector<string> optVals;
+    for (string addopt : addopts) {
+      size_t pos1 = addopt.find(":");
+      size_t pos2 = addopt.find("=");
+      if (pos1 == string::npos || pos2 == string::npos || pos2 < pos1) {
+        MSG_WARNING("Malformed analysis option: "+addopt+". Format as ANA:OPT=VAL");
+        continue;
+      }
+      optAnas.push_back(addopt.substr(0, pos1));
+      optKeys.push_back(addopt.substr(pos1 +1, pos2 - pos1 - 1));
+      optVals.push_back(addopt.substr(pos2 +1 , addopt.size() - pos2 - 1));
+    }
 
     // Go through all files and collect information
     for ( auto file : aofiles ) {
@@ -531,6 +549,13 @@ namespace Rivet {
         // Now check if any options should be removed
         for ( string delopt : delopts )
           if ( path.hasOption(delopt) ) path.removeOption(delopt);
+        // ...or added
+        for (size_t i = 0; i < optAnas.size(); ++i) {
+          if (path.path().find(optAnas[i]) != string::npos ) {
+            path.setOption(optKeys[i], optVals[i]);
+            path.fixOptionString();   
+          }
+        }
         path.setPath();
         if ( path.analysisWithOptions() != "" )
           foundAnalyses.insert(path.analysisWithOptions());
@@ -625,11 +650,13 @@ namespace Rivet {
           for ( int i = 0, N = sows.size(); i < N; ++i ) {
             if ( !sows[i] || !xsecs[i] ) continue;
             auto range = allaos[i].equal_range(yao->path());
-            for ( auto aoit = range.first; aoit != range.second; ++aoit )
+            for ( auto aoit = range.first; aoit != range.second; ++aoit ) {
               if ( !addaos(yao, aoit->second, scales[i]) )
                 MSG_WARNING("Cannot merge objects with path " << yao->path()
                             <<" of type " << yao->annotation("Type") );
+            }
           }
+	  a->rawHookIn(yao);
           ao.get()->unsetActiveWeight();
         }
       }
@@ -693,6 +720,11 @@ namespace Rivet {
       }
     }
 
+    // Analyses can make changes neccesary for merging to RAW objects
+    // before writing.
+    for (size_t iW : order)
+      for (auto a : analyses()) a->rawHookOut(raos, iW);
+    
     // Finally the RAW objects.
     if (includeraw) {
       for (size_t iW : order ) {

@@ -33,9 +33,9 @@ namespace Rivet {
       book(h_c22, "c22",120,0,120);
       book(h_c23, "c23",120,0,120);
       book(h_v22pT, "v22pT",10,0,10);
-      ec22 = bookECorrelator<2,2>("ec22",h_c22);
-      ec23 = bookECorrelator<3,2>("ec32",h_c22);
-      ec22pT = bookECorrelator<2,2>("ec22pT",h_v22pT);
+      ec22 = bookECorrelator<2,2>("ec22",*h_c22);
+      ec23 = bookECorrelator<3,2>("ec32",*h_c22);
+      ec22pT = bookECorrelator<2,2>("ec22pT",*h_v22pT);
       pair<int, int> max = getMaxValues(); 
       // Declare correlator projections.
       declare(Correlators(pp, max.first, max.second, h_v22pT),"CRS");
@@ -49,7 +49,6 @@ namespace Rivet {
     }
     /// Normalise histograms etc., after the run
     void finalize() {
-      stream();
       cnTwoInt(h_c22,ec22);
       cnTwoInt(h_c23,ec23);
       vnTwoDiff(h_v22pT,ec22pT);
