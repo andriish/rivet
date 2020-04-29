@@ -656,6 +656,10 @@ namespace Rivet {
       (void) iW;
     }
 
+    /// @name Get the default/nominal weight index for the original weight matrix
+    size_t _globalDefaultWeightIndex() const;
+
+
     /// @name Accessing options for this Analysis instance.
     //@{
 
