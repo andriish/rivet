@@ -1,5 +1,14 @@
 2020-04-29  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add R209_1982_I168182 (Drell Yan measurements $pp \to \mu^+\mu^-
+	+X $ at $\sqrt{s} = 44$ and $62$ GeV at CERN ISR),
+	PHENIX_2019_I1672015 (Drell Yan production at low masses at
+	$\sqrt{s} = 200$ GeV), NUSEA_2003_I613362 (Drell-Yan dimuon
+	absolute cross-sections in 800 GeV pp and pd collisions),
+	E605_1991_I302822 (dimuon production in proton-copper collisions
+	at 38.8 GeV), and E288_1981_I153009 (dimuon continuum in 27 GeV
+	pN). Thanks to Hannes Jung for all the above!
+
 	* Add an integer RIVET_VERSION_CODE #define to the config header,
 	for easier compile-time triggering in user code.
 
@@ -7,6 +16,8 @@
 	default, to avoid an invalid internal use of stringstream.
 
 2020-04-28  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add ALICE_2017_I1645239 (Lambda_C production in pp + pPb).
 
 	* Use old.inspirehep.net for now in rivet-findid, and update other
 	references to Inspire to use the new URL scheme. Coverage scripts
