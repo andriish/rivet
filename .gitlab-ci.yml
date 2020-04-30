@@ -201,7 +201,7 @@ check-plugin:
     #- wget --no-check-certificate https://rivetval.web.cern.ch/rivetval/HEPMC/LHC-13-Top-All.hepmc.gz 
     # alternative download location:
     - wget --no-check-certificate https://cgutscho.web.cern.ch/cgutscho/LHC-13-Top-All.hepmc.gz 
-    - rivet --pwd -a MY_TEST,MC_TTBAR:TTMODE=ANYLEP,ATLAS_2018_I1646686,ATLAS_2018_I1656578 -H ttbar_test_run.yoda LHC-13-Top-All.hepmc.gz
+    - rivet --pwd -a MC_TTBAR:TTMODE=ANYLEP,ATLAS_2017_I1614149,ATLAS_2018_I1646686,ATLAS_2018_I1656578 -H ttbar_test_run.yoda LHC-13-Top-All.hepmc.gz
   artifacts:
     when: always
     paths:
