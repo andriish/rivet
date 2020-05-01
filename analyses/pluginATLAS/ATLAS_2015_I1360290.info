@@ -22,6 +22,8 @@ Description:
    collisions. Also measured is $\eta$ distributions at various $p_\perp$ intervals. Nuclear
    modification factors currently not implemented, but could be.'
 Keywords: []
+ReleaseTests:
+ - $A LHC-2760-PbPb :cent=REF
 BibKey: Aad:2015wga
 BibTeX: '@article{Aad:2015wga,
       author         = "Aad, Georges and others",

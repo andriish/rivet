@@ -16,6 +16,8 @@ References:
 - '10.1103/PhysRevLett.94.162301'
 - 'arXiv:043050'
 Keywords: []
+ReleaseTests:
+ - $A RHIC-200-AuAu
 BibKey: Bearden:2004yx
 BibTeX: '@article{Bearden:2004yx,
       author         = "Bearden, I. G. and others",

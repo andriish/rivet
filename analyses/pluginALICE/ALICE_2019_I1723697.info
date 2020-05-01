@@ -23,6 +23,10 @@ Description:
    the analysis ALICE_2015_PPCentrality, and the resulting file pre-loaded to Rivet. Furthermore, the analysis option beam=<beam-type> (pp,pPb,XeXe,PbPb) must be
    used when running the analysis, if multiple runs should be merged by rivet-merge afterwards.'
 Keywords: []
+ReleaseTests:
+ - $A LHC-5020-pPb :beam=pPb
+ - $A-2 LHC-5044-XeXe :beam=XeXe
+ - $A-3 LHC-5020-PbPb :beam=PbPb
 BibKey: Acharya:2019vdf
 BibTeX: '@article{Acharya:2019vdf,
       author         = "Acharya, Shreyasi and others",
