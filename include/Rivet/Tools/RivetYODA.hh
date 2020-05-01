@@ -325,6 +325,10 @@ namespace Rivet {
     // can be useful for weight analysis (see e.g. MC_WEIGHTS for use)
     T * _getPersistent (unsigned int iWeight) { return _persistent.at(iWeight).get(); }
 
+    string basePath() const { return _basePath; }
+
+    string baseName() const { return _baseName; }
+
 
     /* @todo
      * these need to be re-thought out.
@@ -407,10 +411,6 @@ namespace Rivet {
     vector<typename TupleWrapper<T>::Ptr> _evgroup;
 
     typename T::Ptr _active;
-
-    string basePath() const { return _basePath; }
-
-    string baseName() const { return _baseName; }
 
     string _basePath;
 
