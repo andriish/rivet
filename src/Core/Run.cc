@@ -45,7 +45,7 @@ namespace Rivet {
   bool Run::readEvent() {
     /// @todo Clear rather than new the GenEvent object per-event?
     _evt.reset(new GenEvent());
-    if (!HepMCUtils::readEvent(_hepmcReader, _evt)){
+    if (!HepMCUtils::readEvent(_hepmcReader, _evt)) {
       Log::getLog("Rivet.Run") << Log::DEBUG << "Read failed. End of file?" << endl;
       return false;
     }

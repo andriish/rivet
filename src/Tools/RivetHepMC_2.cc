@@ -121,33 +121,34 @@ namespace Rivet{
     std::shared_ptr<HepMC::IO_GenEvent> makeReader(std::string filename,
                                                    std::shared_ptr<std::istream> & istrp,
                                                    std::string *) {
-#ifdef HAVE_LIBZ
+      #ifdef HAVE_LIBZ
       if ( filename == "-" )
         istrp = make_shared<Rivet::zstr::istream>(std::cin);
       else
         istrp = make_shared<Rivet::zstr::ifstream>(filename.c_str());
       std::istream & istr = *istrp;
-#else
+      #else
       if ( filename != "-" ) istrp = make_shared<std::ifstream>(filename.c_str());
       std::istream & istr = filename == "-"? std::cin: *istrp;
-#endif
+      #endif
 
       return make_shared<HepMC::IO_GenEvent>(istr);
     }
 
-    bool readEvent(std::shared_ptr<HepMC::IO_GenEvent> io, std::shared_ptr<GenEvent> evt){
-      if(io->rdstate() != 0) return false;
-      if(!io->fill_next_event(evt.get())) return false;
+    bool readEvent(std::shared_ptr<HepMC::IO_GenEvent> io, std::shared_ptr<GenEvent> evt) {
+      if (io->rdstate() != 0) return false;
+      if (!io->fill_next_event(evt.get())) return false;
+      evt->use_units(HepMC::Units::GEV, HepMC::Units::MM);
       return true;
     }
 
     // This functions could be filled with code doing the same stuff as
-    // in the HepMC3 version of This file.
+    // in the HepMC3 version of this file.
     void strip(GenEvent &, const set<long> &) {}
 
     vector<string> weightNames(const GenEvent & ge) {
-      /// reroute the print output to a std::stringstream and process
-      /// The iteration is done over a map in hepmc2 so this is safe
+      // Reroute the print output to a std::stringstream and process
+      // The iteration is done over a map in HepMC2 so this is safe
       vector<string> ret;
 
       /// Obtaining weight names using regex probably neater, but regex

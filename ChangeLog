@@ -38,12 +38,19 @@
 	* fix ATLAS_2016_I1492320 (WWW analysis) to implement the like-sign requirement
 	properly (from M.Habedank)
 
+2020-04-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Force HepMC event units to GEV, MM in HepMC helper functions.
+
 2020-04-21  Christian Gutschow  <chris.g@cern.ch>
 
 	* Improve identification of nominal weight (fewer loops)
-	* add --match-weights flag to select subset of weights (with regex support)
-	* add --unmatch-weights flag to deselect subset of weights (with regex support)
-	* clean up code in AnalysisHandler
+
+	* Add --match-weights flag to select subset of weights (with regex support)
+
+	* Add --unmatch-weights flag to deselect subset of weights (with regex support)
+
+	* Clean up code in AnalysisHandler
 
 2020-04-14  Andy Buckley  <andy.buckley@cern.ch>
 
@@ -62,8 +69,8 @@
 
 2020-04-10  Christian Gutschow  <chris.g@cern.ch>
 
-	* rebinning by an integer is more permissive if the number of bins
-	are not divisible by the rebinning factor
+	* Make rebinning by an integer more permissive if the number of bins
+	is not divisible by the rebinning factor.
 
 2020-04-09  Andy Buckley  <andy.buckley@cern.ch>
 
