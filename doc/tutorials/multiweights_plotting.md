@@ -14,7 +14,7 @@ for a specific file. Passing the `--no-weights` flag will
 remove the multiweights for all input files.
 
 
-## Combining the weights into a uncertainty bands
+## Combining the weights into uncertainty bands
 
 In general, combining weights will always require input from the user at some level, 
 especially when a more complicated prescription for how to combine the weights is required. 
@@ -33,7 +33,7 @@ comma-separated list (or regular expression) and work out the envelope from them
 rivet-mkhtml --errs file1.yoda:"BandComponentEnv=Weight1,Weight2" file2.yoda:"BandComponentEnv=MUR.*MUF.*PDF123456"
 ```
 
-If multiple envelopes are required you just leave a space between the groups of weight names,
+If multiple envelopes are required, just leave a space between the groups of weight names,
 for which separate envelopes will be worked out (and then summed in quadrature).:
 
 ```
