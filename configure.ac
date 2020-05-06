@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[3.1.1a],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[3.1.1],[rivet@projects.hepforge.org],[Rivet])
 
 ## Check and block installation into the src/build dir
 if test "$prefix" = "$PWD"; then
@@ -23,7 +23,7 @@ AC_SUBST(LT_OBJDIR)
 ## Compute version code
 let rivet_major=`echo "$PACKAGE_VERSION" | cut -d. -f1`
 let rivet_minor=`echo "$PACKAGE_VERSION" | cut -d. -f2`
-let rivet_micro=`echo "$PACKAGE_VERSION" | cut -d. -f3 | [sed -e 's/[^0-9]//g']`
+let rivet_micro=`echo "$PACKAGE_VERSION" | cut -d. -f3 | [sed -e 's/[^0-9].*//g']`
 let PACKAGE_VERSION_CODE=10000*$rivet_major+100*$rivet_minor+$rivet_micro
 
 ## Package-specific #defines
