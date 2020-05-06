@@ -1,4 +1,4 @@
-EXTRA_DIST =
+EXTRA_DIST = analists/mk-analysis-html analists/mk-analysis-json analists/mk-analysis-txt
 DOCS =
 DOCDIRS =
 
