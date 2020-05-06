@@ -4,15 +4,10 @@ The easiest way to start using Rivet is via the Docker system (see https://www.d
 
 The rest of these instructions are mainly aimed at users who want to natively install and run a release of Rivet on their machine.
 
-[//]: # GettingStartedForDevelopers has some additional or replacement steps for people wishing to check out the development version from the repository and build from there.
-
 
 ## Native installation of Rivet and all dependencies
 
 The simplest Rivet installation uses a "bootstrap" script to install Rivet and all its dependencies from release tarballs.
-
-[//]: # (If you are installing Rivet on an Apple Mac, please take a look at the MacInstallationIssues first.)
-[//]: # (If you want to use packages from CERN's CVMFS network file system to assist your installation, or to directly use Rivet from there, see the bottom of this page.)
 
 
 ### Prerequisites
