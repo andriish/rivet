@@ -21,7 +21,8 @@ namespace Rivet {
     : _runname(runname), _userxs{NAN, NAN},
       _initialised(false), _ignoreBeams(false),
       _skipWeights(false), _matchWeightNames(""),
-      _unmatchWeightNames(""), _weightCap(0.), _defaultWeightIdx(0), 
+      _unmatchWeightNames(""), _weightCap(0.),
+      _NLOSmearing(0.), _defaultWeightIdx(0), 
       _rivetDefaultWeightIdx(0), _dumpPeriod(0), _dumping(false)
   {  }
 
@@ -359,7 +360,7 @@ namespace Rivet {
       for (auto ao : a->analysisObjects()) {
         MSG_TRACE("AnalysisHandler::analyze(): Pushing " << a->name()
                   << "'s " << ao->name() << " to persistent.");
-        ao.get()->pushToPersistent(_subEventWeights);
+        ao.get()->pushToPersistent(_subEventWeights, _NLOSmearing);
       }
       MSG_TRACE("AnalysisHandler::analyze(): finished pushing "
                 << a->name() << "'s objects to persistent.");

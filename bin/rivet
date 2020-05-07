@@ -103,6 +103,8 @@ extragroup.add_argument("--unmatch-weights", dest="UNMATCH_WEIGHTS", default="",
                         "(supports regular expressions). Nominal weight cannot be skipped.")
 extragroup.add_argument("--weight-cap", dest="WEIGHT_CAP", type=float,
                       default=None, help="set maximum abs(weight) to be used for histogram fills")
+extragroup.add_argument("--nlo-smearing", dest="NLO_SMEARING", type=float,
+                      default=0.0, help=" If larger than zero, smear histogram fillings to avoid that NLO counter events end up on the other side of a bin-boundary as compared to the corresponding real event in a fill. The fills will be smeared over the given fraction of the bin width.")
 extragroup.add_argument("--runname", dest="RUN_NAME", default=None, metavar="NAME",
                         help="give an optional run name, to be prepended as a 'top level directory' in histo paths")
 extragroup.add_argument("--ignore-beams", dest="IGNORE_BEAMS", action="store_true", default=False,
@@ -550,6 +552,8 @@ ah.selectMultiWeights(args.MATCH_WEIGHTS)
 ah.deselectMultiWeights(args.UNMATCH_WEIGHTS)
 if args.WEIGHT_CAP != None:
     ah.setWeightCap(args.WEIGHT_CAP)
+
+ah.setNLOSmearing(args.NLO_SMEARING)
 
 for a in args.ANALYSES:
     ## Print warning message and exit if not a valid analysis name

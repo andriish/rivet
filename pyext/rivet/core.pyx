@@ -32,6 +32,9 @@ cdef class AnalysisHandler:
     def setWeightCap(self, double maxWeight):
         self._ptr.setWeightCap(maxWeight)
 
+    def setNLOSmearing(self, double smear):
+        self._ptr.setNLOSmearing(smear)
+
     def addAnalysis(self, name):
         self._ptr.addAnalysis(name.encode('utf-8'))
         return self

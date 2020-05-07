@@ -143,7 +143,8 @@ namespace Rivet {
 
     virtual void newSubEvent() = 0;
 
-    virtual void pushToPersistent(const vector<std::valarray<double> >& weight) = 0;
+    virtual void pushToPersistent(const vector<std::valarray<double> >& weight,
+                                  double nlowfrac = 0.0) = 0;
     virtual void pushToFinal() = 0;
 
     virtual YODA::AnalysisObjectPtr activeYODAPtr() const = 0;
@@ -397,7 +398,8 @@ namespace Rivet {
     const vector<typename T::Ptr> & final() const { return _final; }
 
     /* to be implemented for each type */
-    void pushToPersistent(const vector<std::valarray<double> >& weight);
+    void pushToPersistent(const vector<std::valarray<double> >& weight,
+                          double nlowfrac = 0.0);
     void pushToFinal();
 
 
