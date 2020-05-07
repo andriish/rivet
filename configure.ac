@@ -257,7 +257,7 @@ AC_CHECK_HEADER([fastjet/TrackJetPlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG]
 FASTJET_ERRMSG="Required FastJet Contrib headers were not found: did you install FastJet Contrib?"
 AC_CHECK_HEADER([fastjet/contrib/SoftDrop.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG])])
 AC_MSG_CHECKING([FastJet test program compilation])
-FASTJET_ERRMSG="Couldn't build FastJet test program: did you install FastJet Contrib with 'make fragile-shared-install'?"
+FASTJET_ERRMSG="Couldn't build FastJet test program: are your FastJet and FastJet Contrib versions up to date, and did you install Contrib with 'make fragile-shared-install'?"
 AC_LINK_IFELSE([AC_LANG_SOURCE([#include <vector>
 #include "fastjet/PseudoJet.hh"
 #include "fastjet/ClusterSequence.hh"
