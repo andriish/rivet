@@ -15,6 +15,7 @@ cdef extern from "Rivet/AnalysisHandler.hh" namespace "Rivet":
         void selectMultiWeights(string)
         void deselectMultiWeights(string)
         void setWeightCap(double)
+        void setNLOSmearing(double)
         AnalysisHandler& addAnalysis(string)
         vector[string] analysisNames() const
         vector[string] stdAnalysisNames() const

@@ -116,6 +116,120 @@ namespace {
   using Rivet::TupleWrapper;
 
     template <class T>
+     typename T::BinType
+     fillT2binT(typename T::FillType a) {
+       return a;
+    }
+
+    template <>
+    YODA::Profile1D::BinType
+    fillT2binT<YODA::Profile1D>(YODA::Profile1D::FillType a) {
+      return get<0>(a);
+    }
+
+    template <>
+    YODA::Profile2D::BinType
+    fillT2binT<YODA::Profile2D>(YODA::Profile2D::FillType a) {
+      return YODA::Profile2D::BinType{ get<0>(a), get<1>(a) };
+    }
+
+  struct SmearWindows1D {
+
+    template <class T>
+    SmearWindows1D(T & h, const vector<Fill<T>> & fills,
+                   double fsmear = 0.5) {
+      static bool init = false;
+      if ( !init ) {
+        init = true;
+        std::cerr << "Smearing Window: " << fsmear << std::endl;
+      }
+      const int nf = fills.size();     
+      xhi.resize(nf);
+      xlo.resize(nf);
+      int over = 0;
+      int under = 0;
+      const double xmax = h.xMax();
+      const double xmin = h.xMin();
+      const int iblast = h.bins().size() - 1;
+      
+      for ( int i = 0; i < nf; ++i ) {
+        const double x = fillT2binT<T>(fills[i].first);
+        int ib = h.binIndexAt(x);
+        if ( x >= xmax ) {
+          if ( x > xmax ) ++over;
+          ib = iblast;
+        }
+        else if ( x < xmin ) {
+          ++under;
+          ib = 0;
+        }
+        int ibn = ib;
+        if ( x > h.bin(ib).xMid() ) {
+          if ( ib != iblast ) ++ibn;
+        } else {
+          if ( ib != 0 ) --ibn;
+        }
+
+        const double ibw = h.bin(ib).width() < h.bin(ibn).width()? ib: ibn;
+        if ( fsmear > 0.0 ) {
+          const double xdel = fsmear*h.bin(ibw).width()/2.0;
+          xhi[i] = x + xdel;
+          xlo[i] = x - xdel;
+        } else {
+          const double xdel = h.bin(ibw).width()/2.0;
+          if ( x > xmax ) {
+            xhi[i] = max(xmax + 2.0*xdel, x + xdel);
+            xlo[i] = max(xmax, x - xdel);
+          } else if ( x < xmin ) {
+            xhi[i] = min(xmin, x + xdel);
+            xlo[i] = min(xmin - 2.0*xdel, x - xdel);
+          } else {
+            xhi[i] = h.bin(ib).xMax();
+            xlo[i] = h.bin(ib).xMin();
+          }
+        }
+      }
+      for ( int i = 0; i < nf; ++i ) {
+        if ( over == nf && xlo[i] < xmax && xhi[i] > xmax ) {
+          xhi[i] = xmax + wsize(i);
+          xlo[i] = xmax;
+        }
+        else if ( over == 0 && xlo[i] < xmax && xhi[i] > xmax ) {
+          xlo[i] = xmax - wsize(i);
+          xhi[i] = xmax;
+        }
+        else if ( under == nf && xlo[i] < xmin && xhi[i] > xmin ) {
+          xlo[i] = xmin - wsize(i);
+          xhi[i] = xmin;
+        }
+        else if ( under == 0 && xlo[i] < xmin && xhi[i] > xmin ) {
+          xhi[i] = xmin + wsize(i);
+          xlo[i] = xmin;
+        }
+      }
+    }
+
+    set<double> edges() const {
+      set<double> edgeset;
+      for ( unsigned int i = 0; i < xlo.size(); ++i ) {
+        edgeset.insert(xlo[i]);
+        edgeset.insert(xhi[i]);
+      }
+      return edgeset;
+    }
+
+    double fencloses(int i, double elo, double ehi) {
+      if ( xlo[i] <= elo &&  xhi[i] >= ehi ) return (ehi - elo)/wsize(i);
+      return -1.0;
+    }
+
+    vector<double> xhi;
+    vector<double> xlo;
+    double wsize(int i) const { return xhi[i] - xlo[i]; }    
+  
+  };
+
+    template <class T>
     double get_window_size(const typename T::Ptr & histo,
                            typename T::BinType x) {
         // the bin index we fall in
@@ -146,23 +260,56 @@ namespace {
         return min( b.width(), b1.width() ) / 2.0;
     }
 
-    template <class T>
-     typename T::BinType
-     fillT2binT(typename T::FillType a) {
-       return a;
+
+
+  template <class T>
+  void commit2(vector<typename T::Ptr> & persistent,
+               const vector< vector<Fill<T>> > & tuple,
+               const vector<valarray<double>> & weights,
+               double nlowfrac) {
+
+    // TODO check if all the xs are in the same bin anyway!
+    // Then no windowing needed
+
+    
+    assert(persistent.size() == weights[0].size());
+
+    for ( const auto & x : tuple ) {
+
+      SmearWindows1D windows(*persistent[0], x, nlowfrac);
+      
+      set<double> edgeset = windows.edges();
+
+      vector< std::tuple<double,valarray<double>,double> > hfill;
+      auto edgit = edgeset.begin();
+      double ehi = *edgit;
+      while ( ++edgit != edgeset.end() ) {
+        double elo = ehi;
+        ehi = *edgit;
+        valarray<double> sumw(0.0, persistent.size()); // need m copies of this
+        int nfill = 0;
+        double wfrac = -1.0;
+        for ( size_t i = 0; i < x.size(); ++i  ) {
+
+          double f = windows.fencloses(i, elo, ehi);
+          if ( f <= 0.0 ) continue;
+          wfrac = f;
+          sumw += x[i].second * weights[i];
+          ++nfill;
+        }
+        if ( nfill == 0 ) continue;
+        double ffrac = double(nfill)/double(x.size());
+        hfill.push_back( make_tuple( (ehi + elo)/2.0, sumw/ffrac, ffrac*wfrac ) );
+      }
+
+      for ( auto f : hfill )
+        for ( size_t m = 0; m < persistent.size(); ++m )
+          persistent[m]->fill( get<0>(f), get<1>(f)[m], get<2>(f) );
+      // Note the scaling to one single fill
+
     }
 
-    template <>
-    YODA::Profile1D::BinType
-    fillT2binT<YODA::Profile1D>(YODA::Profile1D::FillType a) {
-      return get<0>(a);
-    }
-
-    template <>
-    YODA::Profile2D::BinType
-    fillT2binT<YODA::Profile2D>(YODA::Profile2D::FillType a) {
-      return YODA::Profile2D::BinType{ get<0>(a), get<1>(a) };
-    }
+  }
 
 
 
@@ -203,6 +350,7 @@ namespace {
             double elo = ehi;
             ehi = *edgit;
             valarray<double> sumw(0.0, persistent.size()); // need m copies of this
+            int nfill = 0;
             bool gap = true; // Check for gaps between the sub-windows.
             for ( size_t i = 0; i < x.size(); ++i  ) {
               // check equals comparisons here!
@@ -211,16 +359,18 @@ namespace {
                    fillT2binT<T>(x[i].first) - wsize <= elo ) {
                 sumw += x[i].second * weights[i];
                 gap = false;
+                ++nfill;
               }
             }
             if ( gap ) continue;
-            hfill.push_back( make_tuple( (ehi + elo)/2.0, sumw, (ehi - elo) ) );
+            double frac = double(nfill)/double(x.size());
+            hfill.push_back( make_tuple( (ehi + elo)/2.0, sumw/frac, frac*0.5*(ehi - elo)/wsize ) );
             sumf += ehi - elo;
           }
 
           for ( auto f : hfill )
             for ( size_t m = 0; m < persistent.size(); ++m )
-              persistent[m]->fill( get<0>(f), get<1>(f)[m], get<2>(f)/sumf );
+              persistent[m]->fill( get<0>(f), get<1>(f)[m], get<2>(f) );
             // Note the scaling to one single fill
 
     }
@@ -228,19 +378,31 @@ namespace {
   }
 
 
-  template<>
-  void commit<YODA::Histo2D>(vector<YODA::Histo2D::Ptr> & persistent,
+  // template<>
+  // void commit<YODA::Histo2D>(vector<YODA::Histo2D::Ptr> & persistent,
+  //             const vector< vector<Fill<YODA::Histo2D>> > & tuple,
+  //             const vector<valarray<double>> & weights)
+  // {}
+
+  // template<>
+  // void commit<YODA::Profile2D>(vector<YODA::Profile2D::Ptr> & persistent,
+  //             const vector< vector<Fill<YODA::Profile2D>> > & tuple,
+  //             const vector<valarray<double>> & weights)
+  // {}
+
+   template<>
+  void commit2<YODA::Histo2D>(vector<YODA::Histo2D::Ptr> & persistent,
               const vector< vector<Fill<YODA::Histo2D>> > & tuple,
-              const vector<valarray<double>> & weights)
+                              const vector<valarray<double>> & weights, double)
   {}
 
   template<>
-  void commit<YODA::Profile2D>(vector<YODA::Profile2D::Ptr> & persistent,
+  void commit2<YODA::Profile2D>(vector<YODA::Profile2D::Ptr> & persistent,
               const vector< vector<Fill<YODA::Profile2D>> > & tuple,
-              const vector<valarray<double>> & weights)
+              const vector<valarray<double>> & weights, double)
   {}
 
-    template <class T>
+   template <class T>
     double distance(T a, T b) {
       return abs(a - b);
     }
@@ -345,7 +507,8 @@ match_fills(const vector<typename TupleWrapper<T>::Ptr> & evgroup, const Fill<T>
 namespace Rivet {
 
   template <class T>
-  void Wrapper<T>::pushToPersistent(const vector<valarray<double> >& weight) {
+  void Wrapper<T>::pushToPersistent(const vector<valarray<double> >& weight,
+                          double nlowfrac) {
       assert( _evgroup.size() == weight.size() );
 
       // have we had subevents at all?
@@ -365,8 +528,8 @@ namespace Rivet {
         // outer index is subevent, inner index is jets in the event
         vector<vector<Fill<T>>> linedUpXs
             = match_fills<T>(_evgroup, {typename T::FillType(), 0.0});
-        commit<T>( _persistent, linedUpXs, weight );
-
+        // commit<T>( _persistent, linedUpXs, weight );
+        commit2<T>( _persistent, linedUpXs, weight, nlowfrac );
       }
       _evgroup.clear();
       _active.reset();
@@ -383,36 +546,52 @@ namespace Rivet {
 
 
 
+  // template <>
+  // void Wrapper<YODA::Counter>::pushToPersistent(const vector<valarray<double> >& weight) {
+  //   for ( size_t n = 0; n < _evgroup.size(); ++n ) {
+  //     for ( const auto & f : _evgroup[n]->fills() ) {
+  //       for ( size_t m = 0; m < _persistent.size(); ++m ) {
+  //         _persistent[m]->fill( f.second * weight[n][m] );
+  //       }
+  //     }
+  //   }
+
   template <>
-  void Wrapper<YODA::Counter>::pushToPersistent(const vector<valarray<double> >& weight) {
-    for ( size_t n = 0; n < _evgroup.size(); ++n ) {
-      for ( const auto & f : _evgroup[n]->fills() ) {
-        for ( size_t m = 0; m < _persistent.size(); ++m ) {
-          _persistent[m]->fill( f.second * weight[n][m] );
-        }
+  void Wrapper<YODA::Counter>::
+  pushToPersistent(const vector<valarray<double> >& weight,
+                   double) {
+    for ( size_t m = 0; m < _persistent.size(); ++m ) {
+      vector<double> sumfw(1, 0.0);
+      for ( size_t n = 0; n < _evgroup.size(); ++n ) {
+        const auto & fills = _evgroup[n]->fills();
+        if ( fills.size() > sumfw.size() ) sumfw.resize(fills.size(), 0.0);
+        int fi = 0;
+        for ( const auto & f : _evgroup[n]->fills() )
+          sumfw[fi++] += f.second * weight[n][m];
       }
+      for ( double fw : sumfw )
+        _persistent[m]->fill(fw);
     }
+    _evgroup.clear();
+    _active.reset();
+  }
+
+  template <>
+  void Wrapper<YODA::Scatter1D>::pushToPersistent(const vector<valarray<double> >& weight, double) {
 
     _evgroup.clear();
     _active.reset();
   }
 
   template <>
-  void Wrapper<YODA::Scatter1D>::pushToPersistent(const vector<valarray<double> >& weight) {
+  void Wrapper<YODA::Scatter2D>::pushToPersistent(const vector<valarray<double> >& weight, double) {
 
     _evgroup.clear();
     _active.reset();
   }
 
   template <>
-  void Wrapper<YODA::Scatter2D>::pushToPersistent(const vector<valarray<double> >& weight) {
-
-    _evgroup.clear();
-    _active.reset();
-  }
-
-  template <>
-  void Wrapper<YODA::Scatter3D>::pushToPersistent(const vector<valarray<double> >& weight) {
+  void Wrapper<YODA::Scatter3D>::pushToPersistent(const vector<valarray<double> >& weight, double) {
 
     _evgroup.clear();
     _active.reset();

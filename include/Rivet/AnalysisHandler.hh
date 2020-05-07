@@ -86,6 +86,9 @@ namespace Rivet {
     /// Set the weight cap
     void setWeightCap(const double maxWeight) { _weightCap = maxWeight; }
 
+    /// Set the relative width of the NLO smearing window.
+    void setNLOSmearing(double frac) { _NLOSmearing = frac; }
+
     //@}
 
 
@@ -378,6 +381,9 @@ namespace Rivet {
 
     /// weight cap value
     double _weightCap;
+
+    /// The relative width of the NLO smearing window.
+    double _NLOSmearing;
 
     /// Current event number
     int _eventNumber;
