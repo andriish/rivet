@@ -1,3 +1,7 @@
+2020-05-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Force single-threaded build of Cython, to avoid race conditions.
+
 2020-05-06  Christian Gutschow  <chris.g@cern.ch>
 
 	* Add ATLAS_2020_I1790256 (Lund Jet Plane measurement at 13 TeV)
