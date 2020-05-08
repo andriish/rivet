@@ -211,7 +211,7 @@ if test -f "$FJCONFIG"; then
   if test "$fjmajor" -lt 3; then
     AC_MSG_ERROR([FastJet version 3.0.0 or later is required])
   fi
-  FASTJETLIBADD="$($FJCONFIG --plugins --shared --libs| tr ' ' '\n' | grep -v gcc  | tr '\n' ' ')"
+  FASTJETLIBADD="$($FJCONFIG --plugins --shared --libs | sed 's/\S*\/gcc\/\S*//g')"
 else
   FASTJETLIBADD="-L$FASTJETLIBPATH -l$FASTJETLIBNAME"
   FASTJETLIBADD="$FASTJETLIBADD -lSISConePlugin -lsiscone -lsiscone_spherical"
