@@ -17,7 +17,7 @@ RUN dnf install -y \
 RUN mkdir /code && cd /code \
     && wget https://gitlab.com/hepcedar/rivetbootstrap/raw/3.1.1/rivet-bootstrap \
     && chmod +x rivet-bootstrap \
-    && INSTALL_PREFIX=/usr/local INSTALL_RIVETDEV=0 MAKE="make -j7" ./rivet-bootstrap \
+    && INSTALL_PREFIX=/usr/local HEPMC_VERSION=3.2.1 INSTALL_RIVETDEV=0 MAKE="make -j7" ./rivet-bootstrap \
     && echo "source /usr/local/share/Rivet/rivet-completion" > /etc/profile.d/rivet-completion.sh \
     && echo "source /usr/local/share/YODA/yoda-completion" > /etc/profile.d/yoda-completion.sh \
     && texconfig rehash \
