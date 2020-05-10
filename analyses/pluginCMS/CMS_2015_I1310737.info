@@ -11,7 +11,7 @@ Authors:
 References:
 - Phys.Rev. D91 (2015) 052008
 - http://dx.doi.org/10.1103/PhysRevD.91.052008
-- http://arxiv.org/abs/arXiv:1408.3104
+- arxiv:1408.3104
 - http://inspirehep.net/record/1310737
 RunInfo:
   'Run MC generators with Z decaying leptonically into both electrons and muons at 7 TeV CoM energy.

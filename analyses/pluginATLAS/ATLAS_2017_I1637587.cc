@@ -70,7 +70,7 @@ namespace Rivet {
       double norm0 = 0.;
       double norm1 = 0.;
       double norm2 = 0.;
-      for (size_t i = 4; i < 7; ++i) { //only normalize in the resummation region.
+      for (size_t i = 4; i <= 7; ++i) { //only normalize in the resummation region.
         norm0+=_h_Table1->bin(i).height();
       	norm1+=_h_Table2->bin(i).height();
       	norm2+=_h_Table3->bin(i).height();
@@ -89,7 +89,7 @@ namespace Rivet {
     void ptNorm(Histo1DPtr ptBinnedHist) {
       for (size_t k = 0; k < 9; ++k){
         double normalization = 0;
-        for (size_t j = 4; j < 7; ++j) {
+        for (size_t j = 4; j <= 7; ++j) {
           normalization += ptBinnedHist->bin(k*10 + j).height();
         }
         if( normalization == 0 ) continue;
@@ -145,3 +145,4 @@ namespace Rivet {
 
  DECLARE_RIVET_PLUGIN(ATLAS_2017_I1637587);
 }
+

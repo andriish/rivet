@@ -15,7 +15,7 @@ References:
 RunInfo:
 NumEvents:
 Options:
- - cent=REF,GEN,IMP,USR 
+ - cent=REF,GEN,IMP,USR,RAW
  - beam=HI,PP
 Beams: [[p, p], [Pb, Pb]]
 # This is _total_ energy of beams, so this becomes 208*2760=574080

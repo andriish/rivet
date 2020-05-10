@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief NA22 min bias multiplicity distributions.
+  /// NA22 min bias multiplicity distributions.
   class NA22_1986_I18431 : public Analysis {
   public:
 
@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    ///@{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -33,8 +33,10 @@ namespace Rivet {
         btype = 3;
       else {
         MSG_ERROR("Beam error: Not compatible!");
-	return;
+        return;
       }
+
+      // Book histo for appropriate beam type
       book(_h_mult, btype, 1, 1);
 
     }
@@ -42,18 +44,18 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      int nfs = apply<ChargedFinalState>(event, "CFS").size();
+      size_t nfs = apply<ChargedFinalState>(event, "CFS").size();
+      if (nfs >= 30)  nfs = 30;
       _h_mult->fill(nfs);
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      normalize(_h_mult); // normalize to unity
-
+      normalize(_h_mult, 2.0); // normalize to 2 to account for bin width
     }
 
-    //@}
+    ///@}
 
 
     /// @name Histograms

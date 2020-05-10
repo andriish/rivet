@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief ND measurement of exclusive hadronic final states
   class ND_1991_I321108 : public Analysis {
   public:
 

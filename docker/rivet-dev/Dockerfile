@@ -1,4 +1,4 @@
-FROM fedora:30
+FROM fedora:32
 LABEL maintainer="rivet@projects.hepforge.org"
 
 RUN dnf update -y \

@@ -25,6 +25,7 @@ for d in glob(dirpatt):
     rivet.addAnalysisDataPath(os.path.abspath(d))
 
 ## Build analysis Inspire -> [Ana, Ana, ...] dict
+# TODO: any papers without Inspire IDs?
 ins_anas = {}
 for aname in sorted(rivet.AnalysisLoader.analysisNames()):
     ana = rivet.AnalysisLoader.getAnalysis(aname)

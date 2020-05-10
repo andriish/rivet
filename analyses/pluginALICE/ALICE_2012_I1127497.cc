@@ -109,7 +109,11 @@ namespace Rivet {
       if ( isHI ) {
 
         const HepMCHeavyIon & hi = apply<HepMCHeavyIon>(event, "HepMC");
-
+        if (!hi.ok()) {
+	  MSG_WARNING("HEPMC Heavy ion container needed for this analysis, but not "
+	    "found for this event. Skipping.");
+	  vetoEvent;
+	}
         // Prepare centrality projection and value
         const CentralityProjection& centrProj =
           apply<CentralityProjection>(event, "V0M");

@@ -10,7 +10,7 @@ Authors:
  - Georg Sieber
 References:
   - Eur.Phys.J. C77 (2017) no.11, 746
-  - https://arxiv.org/abs/1705.02628
+  - arXiv:1705.02628
 RunInfo:
     pp collision, 8 TeV, jets with anti-kt algorithm with a jet size parameter of
     $R = 0.7$; only events with at least two jets up to $|y| = 5.0$ are selected

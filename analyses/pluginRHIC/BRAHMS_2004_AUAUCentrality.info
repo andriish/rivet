@@ -5,7 +5,8 @@ Authors:
  - Christian Bierlich <christian.bierlich@thep.lu.se>
 NumEvents: 50000
 References:
- - arXiv:1508.00848 [hep-ex], Eur.Phys.J. C76 (2016) no.4, 199
+ - arXiv:1508.00848 [hep-ex]
+ - Eur.Phys.J. C76 (2016) no.4, 199
 RunInfo: Any!
 Description:
    'Calibration analysis for BRAHMS AuAu centrality. The centrality number of 
@@ -15,6 +16,8 @@ References:
 - '10.1103/PhysRevLett.94.162301'
 - 'arXiv:043050'
 Keywords: []
+ReleaseTests:
+ - $A RHIC-200-AuAu
 BibKey: Bearden:2004yx
 BibTeX: '@article{Bearden:2004yx,
       author         = "Bearden, I. G. and others",

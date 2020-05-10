@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 46 -->
+<!-- Search-Engine-Total-Number-Of-Results: 48 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <controlfield tag="001">1773653</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Ablikim:2019ibo</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1912.12411</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D20-kj02j</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1912.12411</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Observation of $D^+\to\eta\eta\pi^+$ and improved measurement of $D^{0(+)}\to\eta\pi^+\pi^{-(0)}$</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">BESIII</subfield>
+  </datafield>
+</record>
 <record>
   <controlfield tag="001">1773080</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -57,6 +84,10 @@
 </record>
 <record>
   <controlfield tag="001">1771616</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevD.101.032008</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Ablikim:2019xhx</subfield>
@@ -71,8 +102,8 @@
     <subfield code="c">hep-ex</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">Partial wave analysis of $\psi(3686)\rightarrow K^{+}K^{-}\eta$</subfield>
+    <subfield code="9">APS</subfield>
+    <subfield code="a">Partial wave analysis of $\psi(3686)\to K^{+}K^{-}\eta$</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">BESIII</subfield>
@@ -87,6 +118,14 @@
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
     <subfield code="a">oai:arXiv.org:1912.05983</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj52e</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02508281</subfield>
+    <subfield code="9">HAL</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -106,6 +145,16 @@
 </record>
 <record>
   <controlfield tag="001">1767758</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevD.101.031102</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevD.101.031102</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Ablikim:2019lil</subfield>
@@ -120,8 +169,39 @@
     <subfield code="c">hep-ex</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
+    <subfield code="9">APS</subfield>
     <subfield code="a">Search for baryon and lepton number violating decays $D^+\to\bar\Lambda(\bar\Sigma^0)e^+$ and $D^+\to\Lambda(\Sigma^0)e^+$</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">BESIII</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1765606</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevD.101.012004</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1911.06669</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Ablikim:2019ecg</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D19-kj48o</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1911.06669</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">APS</subfield>
+    <subfield code="a">Measurement of $J/\psi\to\Xi(1530)^{-}\bar\Xi^{+}$ and evidence for the radiative decay $\Xi(1530)^{-}\to\gamma\Xi^-$</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">BESIII</subfield>
@@ -165,7 +245,7 @@
     <subfield code="a">No. 1</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
+    <subfield code="9">APS</subfield>
     <subfield code="a">Observation of the decays $\chi_{cJ} \to \phi \phi \eta$</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
@@ -328,9 +408,9 @@
 <record>
   <controlfield tag="001">1750827</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1103/PhysRevLett.123.211802</subfield>
     <subfield code="2">DOI</subfield>
     <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1103/PhysRevLett.123.211802</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
@@ -350,7 +430,7 @@
     <subfield code="c">hep-ex</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
+    <subfield code="9">APS</subfield>
     <subfield code="a">Observation of the leptonic decay $D^+ \to \tau^+ \nu_\tau$</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
@@ -417,6 +497,10 @@
 </record>
 <record>
   <controlfield tag="001">1748229</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevD.101.032001</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Ablikim:2019msz</subfield>
@@ -435,7 +519,7 @@
     <subfield code="c">hep-ex</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
+    <subfield code="9">APS</subfield>
     <subfield code="a">Search for the rare decay $\eta'\rightarrow\pi^{0}\pi^{0}\pi^{0}\pi^{0}$ at BESIII</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
@@ -472,9 +556,9 @@
 <record>
   <controlfield tag="001">1746508</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1103/PhysRevLett.123.231801</subfield>
     <subfield code="2">DOI</subfield>
     <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1103/PhysRevLett.123.231801</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
@@ -490,8 +574,8 @@
     <subfield code="c">hep-ex</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">Observation of the Semileptonic $D^+$ Transition into an Axial-Vector Meson $\bar K_1(1270)^0$</subfield>
+    <subfield code="9">APS</subfield>
+    <subfield code="a">Observation of the Semileptonic $D^+$ Decay into the $\bar K_1(1270)^0$ Axial-Vector Meson</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">BESIII</subfield>

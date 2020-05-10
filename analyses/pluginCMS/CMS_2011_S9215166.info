@@ -12,7 +12,7 @@ Authors:
 References:
  - JHEP 1111 148
  - doi:10.1007/JHEP11(2011)148
- - arXiv:hep-ex/1110.0211
+ - arXiv:1110.0211 [hep-ex]
 RunInfo:
   $pp$ MB and QCD interactions at 0.9 and 7~TeV. No pT-cuts.
 NumEvents: 500000

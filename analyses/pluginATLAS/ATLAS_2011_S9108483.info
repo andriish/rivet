@@ -9,7 +9,7 @@ Status: UNVALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>
 References:
- - arXiv:arXiv:1106.4495
+ - arXiv:1106.4495
 RunInfo:
   BSM signal events at 7000 GeV.
 NumEvents: 25000 for BSM signals

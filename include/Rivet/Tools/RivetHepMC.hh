@@ -16,6 +16,12 @@
 #ifndef HEPMC_HAS_CROSS_SECTION
 #define HEPMC_HAS_CROSS_SECTION
 #endif
+
+namespace HepMC3 {
+  std::shared_ptr<HepMC3::Reader> deduce_reader(const std::string &filename);
+  std::shared_ptr<HepMC3::Reader> deduce_reader(std::istream &stream);
+}
+
 namespace Rivet {
   namespace RivetHepMC = HepMC3;
 

@@ -249,7 +249,7 @@ for idx in $(seq 1 $num_buckets); do
 		srcnames[$idx]="$tmpfile"
 	fi
 done
-objnames=("${srcnames[@]/.cc/.o}")
+objnames=("${srcnames[@]/%.cc/.o}")
 
 if [[ -z "$debug" ]]; then silencer="@"; fi
 tmpmakefile=$(mktemp Makefile.tmp.XXXXXXXXXX)

@@ -13,7 +13,8 @@ Description:
    contains the experimental centrality calibration, but extracted
    from the plot in the paper. Note that this has not been unfolded
    for detector effects.'
-
+ReleaseTests:
+ - $A LHC-5020-pPb
 BibKey: Aad:2015zza
 BibTeX: '@article{Aad:2015zza,
       author         = "Aad, Georges and others",

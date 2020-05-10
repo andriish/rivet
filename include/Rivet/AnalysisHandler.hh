@@ -65,6 +65,9 @@ namespace Rivet {
     /// Names of event weight categories
     const vector<string>& weightNames() const { return _weightNames; }
 
+    /// Indices of the weights in the original weight matrix
+    const vector<size_t> weightIndices() const { return _weightIndices; }
+
     /// Are any of the weights non-numeric?
     size_t numWeights() const { return _weightNames.size(); }
 
@@ -75,10 +78,16 @@ namespace Rivet {
     void setWeightNames(const GenEvent& ge);
 
     /// Get the index of the nominal weight-stream
-    size_t defaultWeightIndex() const { return _defaultWeightIdx; }
+    size_t defaultWeightIndex() const { return _rivetDefaultWeightIdx; }
+
+    /// Get the index of the nominal weight-stream in the original weight matrix
+    size_t globalDefaultWeightIndex() const { return _defaultWeightIdx; }
 
     /// Set the weight cap
     void setWeightCap(const double maxWeight) { _weightCap = maxWeight; }
+
+    /// Set the relative width of the NLO smearing window.
+    void setNLOSmearing(double frac) { _NLOSmearing = frac; }
 
     //@}
 
@@ -98,7 +107,7 @@ namespace Rivet {
 
     /// Get the nominal cross-section
     double nominalCrossSection() const {
-      _xs.get()->setActiveWeightIdx(_defaultWeightIdx);
+      _xs.get()->setActiveWeightIdx(_rivetDefaultWeightIdx);
       const YODA::Scatter1D::Points& ps = _xs->points();
       if (ps.size() != 1) {
         string errMsg = "cross section missing when requesting nominal cross section";
@@ -139,6 +148,12 @@ namespace Rivet {
     /// Setter for _skipWeights
     void skipMultiWeights(bool ignore=false);
 
+    /// Setter for _matchtWeightNames
+    void selectMultiWeights(std::string patterns="");
+
+    /// Setter for _unmatchWeightNames
+    void deselectMultiWeights(std::string patterns="");
+
     //@}
 
 
@@ -147,6 +162,9 @@ namespace Rivet {
 
     /// Get a list of the currently registered analyses' names.
     std::vector<std::string> analysisNames() const;
+
+    /// Get a list of the official analysis names for this release.
+    std::vector<std::string> stdAnalysisNames() const;
 
     /// Get the collection of currently registered analyses.
     const std::map<std::string, AnaHandle>& analysesMap() const {
@@ -240,8 +258,8 @@ namespace Rivet {
     /// Read analysis plots into the histo collection (via addData) from the named file.
     void readData(const std::string& filename);
 
-    /// Get all multi-weight Rivet analysis object wrappers
-    vector<MultiweightAOPtr> getRivetAOs() const;
+    /// Get all YODA analysis objects (across all weights, optionally including RAW)
+    vector<YODA::AnalysisObjectPtr> getYodaAOs(bool includeraw=false) const;
 
     /// Get a pointer to a preloaded yoda object with the given path,
     /// or null if path is not found.
@@ -278,6 +296,7 @@ namespace Rivet {
     /// analysis objects.
     void mergeYodas(const vector<string> & aofiles,
                     const vector<string> & delopts = vector<string>(),
+                    const vector<string> & addopts = vector<string>(),
                     bool equiv = false);
 
     /// Helper function to strip specific options from data object paths.
@@ -293,6 +312,13 @@ namespace Rivet {
 
     /// Which stage are we in?
     Stage stage() const { return _stage; }
+
+  protected:
+
+    /// Get all multi-weight Rivet analysis object wrappers
+    vector<MultiweightAOPtr> getRivetAOs() const;
+
+    std::valarray<double> pruneWeights(const std::valarray<double>& weights);
 
 
   private:
@@ -320,6 +346,9 @@ namespace Rivet {
     std::vector<std::valarray<double> > _subEventWeights;
     //size_t _numWeightTypes; // always == WeightVector.size()
 
+    /// Weight indices
+    std::vector<size_t> _weightIndices;
+
     /// Run name
     std::string _runname;
 
@@ -344,14 +373,26 @@ namespace Rivet {
     /// Flag to check if multiweights should be included
     bool _skipWeights;
 
+    /// String of weight names (or regex) to select multiweights
+    std::string _matchWeightNames;
+
+    /// String of weight names (or regex) to veto multiweights
+    std::string _unmatchWeightNames;
+
     /// weight cap value
     double _weightCap;
+
+    /// The relative width of the NLO smearing window.
+    double _NLOSmearing;
 
     /// Current event number
     int _eventNumber;
 
-    /// The index in the weight vector for the nominal weight stream
+    /// The index in the (original) weight vector for the nominal weight stream
     size_t _defaultWeightIdx;
+
+    /// The index in the (possibly pruned) weight vector for the nominal weight stream
+    size_t _rivetDefaultWeightIdx;
 
     /// Determines how often Rivet runs finalize() and writes the
     /// result to a YODA file.

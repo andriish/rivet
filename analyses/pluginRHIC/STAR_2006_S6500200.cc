@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief STAR identified hadron spectra in pp at 200 GeV
+  /// STAR identified hadron spectra in pp at 200 GeV
   class STAR_2006_S6500200 : public Analysis {
   public:
 
@@ -42,7 +42,7 @@ namespace Rivet {
       book(_s_pr_piplus     , 25, 1, 2);
       book(_s_antipr_piminus, 26, 1, 2);
 
-      book(_sumWeightSelected, "sumWeightSelected");
+      book(_sumWeightSelected, "_sumWeightSelected");
     }
 
 

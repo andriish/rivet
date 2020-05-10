@@ -4,6 +4,7 @@
 #include "Rivet/Tools/Utils.hh"
 #include "Rivet/Tools/osdir.hh"
 #include "Rivet/Analysis.hh"
+#include <fstream>
 #include <dlfcn.h>
 
 namespace Rivet {
@@ -27,14 +28,27 @@ namespace Rivet {
   }
 
 
-  set<string> AnalysisLoader::getAllAnalysisNames() {
+  set<string> AnalysisLoader::allAnalysisNames() {
     set<string> anaset;
     vector<string> anas = analysisNames();
-    for (const string &ana : anas) {
+    for (const string& ana : anas) {
       anaset.insert(ana);
     }
     return anaset;
   }
+
+
+  std::vector<std::string> AnalysisLoader::stdAnalysisNames() {
+    std::vector<std::string> rtn;
+    const string anadatpath = findAnalysisDataFile("analyses.dat");
+    if (fileexists(anadatpath)) {
+      std::ifstream anadat(anadatpath);
+      string ananame;
+      while (anadat >> ananame) rtn += ananame;
+    }
+    return rtn;
+  }
+
 
 
   unique_ptr<Analysis> AnalysisLoader::getAnalysis(const string& analysisname) {

@@ -12,16 +12,20 @@ cdef extern from "Rivet/AnalysisHandler.hh" namespace "Rivet":
     cdef cppclass AnalysisHandler:
         void setIgnoreBeams(bool)
         void skipMultiWeights(bool)
+        void selectMultiWeights(string)
+        void deselectMultiWeights(string)
         void setWeightCap(double)
+        void setNLOSmearing(double)
         AnalysisHandler& addAnalysis(string)
         vector[string] analysisNames() const
+        vector[string] stdAnalysisNames() const
         # Analysis* analysis(string)
         void writeData(string&)
         void readData(string&)
         double nominalCrossSection()
         void finalize()
         void dump(string, int)
-        void mergeYodas(vector[string], vector[string], bool)
+        void mergeYodas(vector[string], vector[string], vector[string], bool)
 
 cdef extern from "Rivet/Run.hh" namespace "Rivet":
     cdef cppclass Run:
@@ -73,6 +77,8 @@ cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
 
 cdef extern from "Rivet/AnalysisLoader.hh":
     vector[string] AnalysisLoader_analysisNames "Rivet::AnalysisLoader::analysisNames" ()
+    #set[string] AnalysisLoader_allAnalysisNames "Rivet::AnalysisLoader::allAnalysisNames" ()
+    vector[string] AnalysisLoader_stdAnalysisNames "Rivet::AnalysisLoader::stdAnalysisNames" ()
     unique_ptr[Analysis] AnalysisLoader_getAnalysis "Rivet::AnalysisLoader::getAnalysis" (string)
 
 cdef extern from "Rivet/Tools/RivetPaths.hh" namespace "Rivet":

@@ -679,7 +679,8 @@ class Plot(object):
         for pkg in args.LATEXPKGS:
             out += ('\\usepackage{%s}\n' % pkg)
         out += ('\\usepackage[dvipsnames]{xcolor}\n')
-        out += ('\\usepackage{pst-all}\n')
+        out += ('\\usepackage{pstricks}\n')
+        out += ('\\usepackage{multido}\n')
         out += ('\\selectcolormodel{rgb}\n')
         out += ('\\definecolor{red}{HTML}{EE3311}\n') # (Google uses 'DC3912')
         out += ('\\definecolor{blue}{HTML}{3366FF}')
@@ -701,6 +702,13 @@ class Plot(object):
                 out += ('%s\n' %color)
         if 'UseExtendedPSTricks' in inputdata.description and inputdata.description['UseExtendedPSTricks']=='1':
             out += self.write_extended_pstricks()
+        #
+        ## Hacked-in HEP-specific kerned unit macros... urk
+        out += ('\\newcommand{\\MeV}{\\text{Me\\kern-0.15ex V}}\n')
+        out += ('\\newcommand{\\GeV}{\\text{Ge\\kern-0.15ex V}}\n')
+        out += ('\\newcommand{\\TeV}{\\text{Te\\kern-0.15ex V}}\n')
+        out += '\n'
+        #
         out += ('\\begin{document}\n')
         out += ('\\pagestyle{empty}\n')
         out += ('\\SpecialCoor\n')
@@ -1999,10 +2007,17 @@ class Histogram(DrawableObject, Described):
                 if (k<len(rebins)-1):
                     upper = self.getBin(rebins[k+1]['Start'])
                     end = 0
-                for i in range(int(lower), int((upper/rebin)*rebin+end), int(rebin)):
+                lower_edges = list(range(int(lower), int((upper/rebin)*rebin+end), int(rebin)))
+                residual = { }
+                if lower_edges[-1] + int(rebin) > maxindex + 1:
+                  lower_edges.pop(-1)
+                  residual[ lower_edges[-1] ] = maxindex - lower_edges[-1] + 1
+                for i in lower_edges:
                     foo=0.
                     barl=0.
                     baru=0.
+                    if i in residual:
+                      rebin = residual[i]
                     for j in range(rebin):
                         if i+j>maxindex:
                             break
@@ -3464,9 +3479,8 @@ if __name__ == '__main__':
                         logging.warning('Warning: Using "--minion" requires minion.sty to be installed. Ignoring it.')
                         args.OUTPUT_FONT = "PALATINO"
 
-                ## Check for HEP LaTeX packages
-                # TODO: remove HEP-specifics/non-standards?
-                for pkg in ["hepnames", "hepunits", "underscore"]:
+                ## Check for useful LaTeX packages
+                for pkg in ["underscore"]: #"hepnames"
                     p = subprocess.Popen(["kpsewhich", "%s.sty" % pkg], stdout=subprocess.PIPE)
                     p.wait()
                     if p.returncode == 0:

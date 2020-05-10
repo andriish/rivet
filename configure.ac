@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[3.1.0],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[3.1.1],[rivet@projects.hepforge.org],[Rivet])
 
 ## Check and block installation into the src/build dir
 if test "$prefix" = "$PWD"; then
@@ -20,12 +20,21 @@ m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 AC_CONFIG_MACRO_DIR([m4])
 AC_SUBST(LT_OBJDIR)
 
+## Compute version code
+let rivet_major=`echo "$PACKAGE_VERSION" | cut -d. -f1`
+let rivet_minor=`echo "$PACKAGE_VERSION" | cut -d. -f2`
+let rivet_micro=`echo "$PACKAGE_VERSION" | cut -d. -f3 | [sed -e 's/[^0-9].*//g']`
+let PACKAGE_VERSION_CODE=10000*$rivet_major+100*$rivet_minor+$rivet_micro
+
 ## Package-specific #defines
 AC_DEFINE_UNQUOTED(RIVET_VERSION, "$PACKAGE_VERSION", "Rivet version string")
+AC_DEFINE_UNQUOTED(RIVET_VERSION_CODE, $PACKAGE_VERSION_CODE, "Rivet version int")
 AC_DEFINE_UNQUOTED(RIVET_NAME, "$PACKAGE_NAME", "Rivet name string")
 AC_DEFINE_UNQUOTED(RIVET_STRING, "$PACKAGE_STRING", "Rivet name and version string")
 AC_DEFINE_UNQUOTED(RIVET_TARNAME, "$PACKAGE_TARNAME", "Rivet short name string")
 AC_DEFINE_UNQUOTED(RIVET_BUGREPORT, "$PACKAGE_BUGREPORT", "Rivet contact email address")
+
+
 
 ## OS X
 AC_CEDAR_OSX
@@ -138,7 +147,13 @@ if test x$use_hepmc2 = xyes; then
   HEPMC_VERSION=$hepmc_major$hepmc_minor
   AC_MSG_NOTICE([HepMC version is $hepmc_version -> $HEPMC_VERSION])
   AC_SUBST(HEPMC_VERSION)
+  if test "x$hepmc_version" == "x2.06.10"; then
+    AC_DEFINE([RIVET_ENABLE_HEPMC_20610],[1], [Defined if version 2.06.10 of HepMC is used.])
+  fi
   CPPFLAGS=$oldCPPFLAGS
+  HEPMCLIBNAME="-lHepMC"
+  AC_SUBST(HEPMCLIBNAME)
+
 
 else
 
@@ -174,8 +189,10 @@ else
   ## Use generic HEPMC* variables for HepMC3 as well (needed for rivet-config.in)
   c=$HEPMC3INCPATH
   HEPMCLIBPATH=$HEPMC3LIBPATH
+  HEPMCLIBNAME="-lHepMC3 -lHepMC3search"
   AC_SUBST(HEPMCINCPATH)
   AC_SUBST(HEPMCLIBPATH)
+  AC_SUBST(HEPMCLIBNAME)
 fi
 
 AM_CONDITIONAL([ENABLE_HEPMC_3], [test x$hepmc_major = x3])
@@ -194,7 +211,7 @@ if test -f "$FJCONFIG"; then
   if test "$fjmajor" -lt 3; then
     AC_MSG_ERROR([FastJet version 3.0.0 or later is required])
   fi
-  FASTJETLIBADD="$($FJCONFIG --plugins --shared --libs)"
+  FASTJETLIBADD="$($FJCONFIG --plugins --shared --libs| tr ' ' '\n' | grep -v gcc  | tr '\n' ' ')"
 else
   FASTJETLIBADD="-L$FASTJETLIBPATH -l$FASTJETLIBNAME"
   FASTJETLIBADD="$FASTJETLIBADD -lSISConePlugin -lsiscone -lsiscone_spherical"
@@ -240,7 +257,7 @@ AC_CHECK_HEADER([fastjet/TrackJetPlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG]
 FASTJET_ERRMSG="Required FastJet Contrib headers were not found: did you install FastJet Contrib?"
 AC_CHECK_HEADER([fastjet/contrib/SoftDrop.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG])])
 AC_MSG_CHECKING([FastJet test program compilation])
-FASTJET_ERRMSG="Couldn't build FastJet test program: did you install FastJet Contrib with 'make fragile-shared-install'?"
+FASTJET_ERRMSG="Couldn't build FastJet test program: are your FastJet and FastJet Contrib versions up to date, and did you install Contrib with 'make fragile-shared-install'?"
 AC_LINK_IFELSE([AC_LANG_SOURCE([#include <vector>
 #include "fastjet/PseudoJet.hh"
 #include "fastjet/ClusterSequence.hh"

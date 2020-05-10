@@ -10,7 +10,7 @@ Authors:
 References:
   - "Phys.Lett. B717 (2012) 162-172"
   - "doi:10.1016/j.physletb.2012.09.015"
-  - "arXiv:hep-ex/1205.5724"
+  - "arXiv:1205.5724 [hep-ex]"
 RunInfo: Generic $pp$ collision events.
 Beams: [p+, p+]
 Energies: [900, 7000]

@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief e+e- > p pbar
   class BESIII_2019_I1736235 : public Analysis {
   public:
 

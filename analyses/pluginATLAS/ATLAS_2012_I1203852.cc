@@ -3,9 +3,7 @@
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
-#include "Rivet/Projections/WFinder.hh"
-#include "Rivet/Projections/LeadingParticlesFinalState.hh"
-#include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Projections/PromptFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/MergedFinalState.hh"
@@ -40,6 +38,7 @@ namespace Rivet {
 
       // NB Missing ET is not required to be neutrinos
       FinalState fs((Cuts::etaIn(-5.0, 5.0)));
+      PromptFinalState pfs((Cuts::etaIn(-5.0, 5.0)));
 
       // Final states to form Z bosons
       vids.push_back(make_pair(PID::ELECTRON, PID::POSITRON));
@@ -48,10 +47,10 @@ namespace Rivet {
       IdentifiedFinalState Photon(fs);
       Photon.acceptIdPair(PID::PHOTON);
 
-      IdentifiedFinalState bare_EL(fs);
+      IdentifiedFinalState bare_EL(pfs);
       bare_EL.acceptIdPair(PID::ELECTRON);
 
-      IdentifiedFinalState bare_MU(fs);
+      IdentifiedFinalState bare_MU(pfs);
       bare_MU.acceptIdPair(PID::MUON);
 
 

@@ -8,7 +8,7 @@ Status: OBSOLETE
 Authors:
  - Angela Chen <aqchen@fas.harvard.edu>
 References:
- - arXiv:nnnn.nnnn
+ - ATLAS_2011_CONF_2011_098
 RunInfo:
   BSM signal events at 7000 GeV.
 NumEvents: 25000 for BSM signals

@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief e+ e- > pi+ pi- J/Psi
   class BELLE_2013_I1225975 : public Analysis {
   public:
 

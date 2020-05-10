@@ -67,8 +67,8 @@ namespace Rivet {
   protected:
     // Constructor
     EventMixingBase(const Projection & mixObsProj, const ParticleFinder& mix,
-                    size_t nMixIn, double oMin, double oMax, double deltao) : nMix(nMixIn),
-                                                                              unitWeights(true) {
+                    size_t nMixIn, double oMin, double oMax, double deltao,
+                    const size_t defaultIdx) : nMix(nMixIn), unitWeights(true) {
       // The base class contructor should be called explicitly in derived classes
       // to add projections below.
       setName("EventMixingBase");
@@ -76,6 +76,7 @@ namespace Rivet {
       declare(mix,"MIX");
       MSG_WARNING("EventMixing is not fully validated. Use with caution.");
 
+      _defaultWeightIdx = defaultIdx;
       // Set up the map for mixing events.
       for(double o = oMin; o < oMax; o+=deltao )
         mixEvents[o] = std::deque<MixEvent>();
@@ -156,9 +157,9 @@ namespace Rivet {
         return;
       }
       const Particles mix = applyProjection<ParticleFinder>(e, "MIX").particles();
-      mixItr->second.push_back(make_pair(mix,e.weights()[0]));
+      mixItr->second.push_back(make_pair(mix,e.weights()[_defaultWeightIdx]));
       // Assume unit weights until we see otherwise.
-      if (unitWeights && e.weights()[0] != 1.0 ) {
+      if (unitWeights && e.weights()[_defaultWeightIdx] != 1.0 ) {
         unitWeights = false;
         nMix *= 2;
       }
@@ -188,6 +189,8 @@ namespace Rivet {
     /// Using unit weights or not.
     bool unitWeights;
 
+    size_t _defaultWeightIdx;
+
   };
 
 
@@ -196,8 +199,8 @@ namespace Rivet {
   public:
     EventMixingFinalState(const ParticleFinder & mixObsProj,
                           const ParticleFinder& mix, size_t nMixIn, double oMin, double oMax,
-                          double deltao) :
-      EventMixingBase(mixObsProj, mix, nMixIn, oMin, oMax, deltao) {
+                          double deltao, const size_t defaultIdx) :
+      EventMixingBase(mixObsProj, mix, nMixIn, oMin, oMax, deltao, defaultIdx) {
       setName("EventMixingFinalState");
     }
 
@@ -219,8 +222,8 @@ namespace Rivet {
 
     EventMixingCentrality(const CentralityProjection& mixObsProj,
                           const ParticleFinder& mix, size_t nMixIn, double oMin, double oMax,
-                          double deltao) :
-      EventMixingBase(mixObsProj, mix, nMixIn, oMin, oMax, deltao) {
+                          double deltao, const size_t defaultIdx) :
+      EventMixingBase(mixObsProj, mix, nMixIn, oMin, oMax, deltao, defaultIdx) {
       setName("EventMixingCentrality");
     }
 

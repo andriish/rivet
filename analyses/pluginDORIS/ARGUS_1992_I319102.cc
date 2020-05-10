@@ -25,12 +25,17 @@ namespace Rivet {
       declare(FinalState(), "FS");
 
       // Book histograms
-      if(fuzzyEquals(sqrtS()/GeV, 10.47 , 1E-3))
+      if(fuzzyEquals(sqrtS()/GeV, 10.47 , 1E-3)) {
 	book(_h_N, 2, 1, 1);
+	book(_h_tot_N,4,1,1);
+      }
       book(_h_N_Upsilon, 3, 1, 1);
+      book(_h_N_tot_Upsilon,5,1,1);
       // counters for R
       book(_c_hadrons, "/TMP/sigma_hadrons");
       book(_c_muons, "/TMP/sigma_muons");
+      book(_w_cont,"/TMP/w_cont");
+      book(_w_ups ,"/TMP/w_ups" );
     }
 
     /// Recursively walk the decay tree to find decay products of @a p
@@ -67,8 +72,11 @@ namespace Rivet {
 	// everything else
 	else {
 	  _c_hadrons->fill();
-	  if(_h_N)
+	  if(_h_N) {
 	    _h_N->fill(nCharged);
+	    _h_tot_N->fill(10.47,nCharged);
+	    _w_cont->fill();
+	  }
 	}
       }
       // upsilon 4s
@@ -77,6 +85,8 @@ namespace Rivet {
 	  unsigned int nCharged(0);
 	  findDecayProducts(ups,nCharged);
 	  _h_N_Upsilon->fill(nCharged);
+	  _h_N_tot_Upsilon->fill(10.575,nCharged);
+	  _w_ups->fill();
 	}
       }
     }
@@ -118,8 +128,12 @@ namespace Rivet {
       }
       if(_h_N) {
 	normalize(_h_N,200.);
+	if(_w_cont->val()!=0)
+	  scale(_h_tot_N,1./ *_w_cont);
       }
-	normalize(_h_N_Upsilon,200.);
+      normalize(_h_N_Upsilon,200.);
+      if(_w_ups->val()!=0)
+	scale(_h_N_tot_Upsilon,1./ *_w_ups);
     }
 
     //@}
@@ -127,8 +141,9 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    Histo1DPtr _h_N,_h_N_Upsilon;
+    Histo1DPtr _h_N,_h_N_Upsilon,_h_tot_N,_h_N_tot_Upsilon;
     CounterPtr _c_hadrons, _c_muons;
+    CounterPtr _w_cont,_w_ups;
     //@}
 
 

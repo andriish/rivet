@@ -11,7 +11,10 @@ References:
 RunInfo: Any process producing Lambda_c baryons
 Description:
 'Measurement of the decay asymmetries in $\Lambda^+_c\to\Lambda^0\pi^+$ by the FOCUS experiment.
- The asymmetry parameter is extracted by fitting to normalised angular distribution. This analysis is useful for testing spin correlations
+ The asymmetry parameter is extracted by fitting to normalised angular distribution. N.B. the product of the asymmetry parameters for
+ the $\Lambda_c$ and daughter baryon is implemented as this is what is measured, rather than the extracted
+ parameter for the $\Lambda_c$ which relies on other measurements of the parameter for the daughter baryon.
+ This analysis is useful for testing spin correlations
  in hadron decays.'
 Keywords: []
 BibKey: Link:2005ft

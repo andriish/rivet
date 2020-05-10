@@ -46,7 +46,7 @@ namespace Rivet {
 
       for (size_t i = 0; i < 4; i++) {
         book(_nWeightedBaryon[i], "TMP/nWeightedBaryon"+to_str(i));
-        book(_nWeightedAntiBaryon[i], "TMP/nWeightedBaryon"+to_str(i));
+        book(_nWeightedAntiBaryon[i], "TMP/nWeightedAntiBaryon"+to_str(i));
       }
       book(_sumWeightSelected, "sumWselected");
     }

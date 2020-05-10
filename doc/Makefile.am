@@ -1,4 +1,4 @@
-EXTRA_DIST =
+EXTRA_DIST = analists/mk-analysis-html analists/mk-analysis-json analists/mk-analysis-txt
 DOCS =
 DOCDIRS =
 
@@ -24,6 +24,16 @@ analists/analyses.json: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-js
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
     $(PYTHON) $(abs_srcdir)/analists/mk-analysis-json || true
+
+## Analysis-list text file
+DOCS += analists/analyses.dat
+analists/analyses.dat: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-txt
+	cd analists && \
+	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
+    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
+    PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
+    RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
+    $(PYTHON) $(abs_srcdir)/analists/mk-analysis-txt || true
 
 ## Analysis coverage
 DOCS += coverage/rivet-coverage.html \
@@ -85,6 +95,9 @@ html-local: analists/analyses.html
 	@true
 
 json: analists/analyses.json
+	@true
+
+dat: analists/analyses.dat
 	@true
 
 anadiff: anadiff/anadiffs.txt

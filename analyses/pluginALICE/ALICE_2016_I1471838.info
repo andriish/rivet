@@ -15,7 +15,7 @@ NeedCrossSection: no
 Beams: [p+, p+]
 Energies: [7000]
 Options:
- - cent=REF,GEN,IMP,USR
+ - cent=REF,GEN,IMP,USR,RAW
 Description:
   'Measurements of pT spectra and yields of (multi)strange hadrons, as well as 
    protons and pions (yields only) in forward multiplicity classes at 7 TeV.

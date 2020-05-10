@@ -143,7 +143,8 @@ namespace Rivet {
 
     virtual void newSubEvent() = 0;
 
-    virtual void pushToPersistent(const vector<std::valarray<double> >& weight) = 0;
+    virtual void pushToPersistent(const vector<std::valarray<double> >& weight,
+                                  double nlowfrac = 0.0) = 0;
     virtual void pushToFinal() = 0;
 
     virtual YODA::AnalysisObjectPtr activeYODAPtr() const = 0;
@@ -323,7 +324,11 @@ namespace Rivet {
     const T & operator*() const { return *active(); }
 
     // can be useful for weight analysis (see e.g. MC_WEIGHTS for use)
-    T * _getPersistent (unsigned int iWeight) { return _persistent.at(iWeight).get(); } 
+    T * _getPersistent (unsigned int iWeight) { return _persistent.at(iWeight).get(); }
+
+    string basePath() const { return _basePath; }
+
+    string baseName() const { return _baseName; }
 
 
     /* @todo
@@ -393,7 +398,8 @@ namespace Rivet {
     const vector<typename T::Ptr> & final() const { return _final; }
 
     /* to be implemented for each type */
-    void pushToPersistent(const vector<std::valarray<double> >& weight);
+    void pushToPersistent(const vector<std::valarray<double> >& weight,
+                          double nlowfrac = 0.0);
     void pushToFinal();
 
 
@@ -407,10 +413,6 @@ namespace Rivet {
     vector<typename TupleWrapper<T>::Ptr> _evgroup;
 
     typename T::Ptr _active;
-
-    string basePath() const { return _basePath; }
-
-    string baseName() const { return _baseName; }
 
     string _basePath;
 
@@ -455,8 +457,14 @@ namespace Rivet {
     {}
 
     // Goes right through to the active Wrapper<YODA> object's members
-    T & operator->()                            { return  *_p; }
-    const T & operator->() const                { return  *_p; }
+    T & operator->() {
+      if (_p == nullptr) throw Error("Dereferencing null AnalysisObject pointer. Is there an unbooked histogram variable?");
+      return  *_p;
+    }
+    const T & operator->() const                {
+      if (_p == nullptr) throw Error("Dereferencing null AnalysisObject pointer. Is there an unbooked histogram variable?");
+      return  *_p;
+    }
 
     // The active YODA object
     typename T::Inner & operator*()             { return **_p; }

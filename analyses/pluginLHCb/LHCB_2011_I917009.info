@@ -9,7 +9,7 @@ Authors:
  - Alex Grecu <Alex.Grecu@cern.ch>
 References:
  - JHEP08:034,2011
- - arXiv:1107.0882[hep-ex]
+ - arXiv:1107.0882 [hep-ex]
  - doi:10.1007/JHEP08(2011)034
 RunInfo:
   QCD events. LHCb minimum bias, Perugia 0 and Perugia NOCR tune events used for reproducing published histograms.

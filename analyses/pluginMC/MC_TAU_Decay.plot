@@ -1,4 +1,5 @@
 BEGIN PLOT /MC_TAU_Decay/h_1B_xpi
+Title=Pion Momentum fraction in 1 pion tau decay
 LogY=0
 YMin=0.75
 YMax=1.25

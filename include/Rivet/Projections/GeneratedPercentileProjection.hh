@@ -12,6 +12,7 @@ public:
   
   GeneratedPercentileProjection() {
     setName("GeneratedPercentileProjection");
+    declare(HepMCHeavyIon(), "HepMC");
   }
 
   /// Clone on the heap.

@@ -10,7 +10,7 @@ Authors:
 References:
  - Phys.Lett.B487:264-272,2000
  - doi:10.1016/PhysLettB.487.264
- - arXiv:hep-ex/9905024v2
+ - arXiv:hep-ex/9905024
 RunInfo:
   $p\bar{p}$ dijet events at 1.8\;\TeV, with a minimum \pt of 12\;GeV.
 NumEvents: 1000000
