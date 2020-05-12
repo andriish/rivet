@@ -54,28 +54,28 @@ namespace Rivet {
     void analyze(const Event& event) {
       // find and loop over psi(3770)
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
-      for (const Particle& p : ufs.particles(Cuts::pid==30443)) {
-	// boost to rest frame
-	LorentzTransform boost;
-	if (p.p3().mod() > 1*MeV)
-	  boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
-	// loop over decay products
-	for(const Particle & p : p.children()) {
-	  if(p.abspid()==411 || p.abspid()==421) {
-	    Particles em,ep,nue,nueBar;
-	    findDecayProducts(p,em,ep,nue,nueBar);
-	    if(em.size()==1 && nueBar.size()==1) {
-	      double pmod = boost.transform(em[0].momentum()).p3().mod();
-	      if(p.abspid()==411) _h_Dp->fill(pmod);
-	      else                _h_D0->fill(pmod);
-	    }
-	    else if(ep.size()==1 && nue.size()==1) {
-	      double pmod = boost.transform(ep[0].momentum()).p3().mod();
-	      if(p.abspid()==411) _h_Dp->fill(pmod);
-	      else                _h_D0->fill(pmod);
-	    }
-	  }	
-	}
+      for (const Particle& parent : ufs.particles(Cuts::pid==30443)) {
+        // boost to rest frame
+        LorentzTransform boost;
+        if (parent.p3().mod() > 1*MeV)
+          boost = LorentzTransform::mkFrameTransformFromBeta(parent.momentum().betaVec());
+        // loop over decay products
+        for(const Particle & p : parent.children()) {
+          if(p.abspid()==411 || p.abspid()==421) {
+            Particles em,ep,nue,nueBar;
+            findDecayProducts(p,em,ep,nue,nueBar);
+            if(em.size()==1 && nueBar.size()==1) {
+              double pmod = boost.transform(em[0].momentum()).p3().mod();
+              if(p.abspid()==411) _h_Dp->fill(pmod);
+              else                _h_D0->fill(pmod);
+            }
+            else if(ep.size()==1 && nue.size()==1) {
+              double pmod = boost.transform(ep[0].momentum()).p3().mod();
+              if(p.abspid()==411) _h_Dp->fill(pmod);
+              else                _h_D0->fill(pmod);
+            }
+          }
+        }
       }
     }
 
