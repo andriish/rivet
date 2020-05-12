@@ -190,6 +190,7 @@ else
 
   ## Use generic HEPMC* variables for HepMC3 as well (needed for rivet-config.in)
   c=$HEPMC3INCPATH
+  HEPMCINCPATH=$HEPMC3INCPATH
   HEPMCLIBPATH=$HEPMC3LIBPATH
   HEPMCLIBNAME="-lHepMC3 -lHepMC3search"
   AC_SUBST(HEPMCINCPATH)
