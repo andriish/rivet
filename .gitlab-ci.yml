@@ -109,6 +109,9 @@ smoke-macos:
   stage: compile
   tags: 
     - macos
+  before_script:
+    - export TERM=xterm-256
+    - export SHELL=/bin/bash
   script:
     - whoami
     - autoreconf -i
