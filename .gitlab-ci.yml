@@ -112,15 +112,20 @@ smoke-macos:
   before_script:
     - export TERM=xterm-256
     - export SHELL=/bin/bash
-    - echo $PWD
-    - source ~/local/yodaenv.sh
+    - export LOCAL=/Users/bierlich/local/
+    - source $LOCAL/yodaenv.sh
   script:
     - autoreconf -i
-    - ./configure --prefix=$PWD/local/
+    - ./configure --prefix=$LOCAL --with-hepmc=$LOCAL --with-yoda=$LOCAL --with-fastjet=$LOCAL
     - make
     - make install
-    - source local/rivetenv.sh
-    - rivet -h
+    - source $LOCAL/rivetenv.sh
+    - rivet --list-analyses > analyses.log
+  artifacts:
+    when: always
+    paths:
+      - $LOCAL/config.log
+      - analysis.log
 
 build:
   stage: compile
