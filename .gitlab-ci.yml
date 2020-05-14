@@ -14,6 +14,7 @@ variables:
 
 
 stages:
+- pre
 - compile
 - check
 - validate
@@ -103,6 +104,12 @@ before_script:
 #    paths:
 #      - local.tar.gz
 #    expire_in: 1 week
+
+hello:
+  stage: pre
+  tags: macos
+  script:
+    - echo hello!
 
 build:
   stage: compile
