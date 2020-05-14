@@ -14,7 +14,7 @@ Run `rivet-mkhtml --help` to find out about all features and options.
 
 Plotting options will be taken from `*.plot` files installed in Rivet's share directory.
 These contain plotting instructions according to the `make-plots` syntax as documented in
-[http://rivet.hepforge.org/make-plots.html.](http://rivet.hepforge.org/make-plots.html)
+[make-plots.md](makeplots.md).
 Such files can also be written for any plugin analysis and will be found if they are in the `RIVET_ANALYSIS_PATH`.
 
 You can also run the other two commands separately:
