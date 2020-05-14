@@ -112,7 +112,8 @@ smoke-macos:
   before_script:
     - export TERM=xterm-256
     - export SHELL=/bin/bash
-    - source local/yodaenv.sh
+    - echo $PWD
+    - source ~/local/yodaenv.sh
   script:
     - autoreconf -i
     - ./configure --prefix=$PWD/local/
