@@ -107,7 +107,8 @@ before_script:
 
 hello:
   stage: pre
-  tags: macos
+  tags: 
+    - macos
   script:
     - echo hello!
 
