@@ -1,4 +1,4 @@
-FROM hepstore/rivet:3.1.0
+FROM hepstore/rivet:3.1.1
 MAINTAINER Andy Buckley <andy.buckley@cern.ch>
 
 RUN dnf install -y boost-devel
@@ -14,13 +14,13 @@ RUN lhapdf install MMHT2014{,n}lo68cl CT14{,n}lo
 RUN dnf install -y mercurial libtool
 
 RUN mkdir /code && cd /code \
-    && wget https://www.hepforge.org/archive/thepeg/ThePEG-2.2.0.tar.bz2 -O- | tar xj \
+    && wget https://www.hepforge.org/archive/thepeg/ThePEG-2.2.1.tar.bz2 -O- | tar xj \
     && cd ThePEG-*/ && ./configure --enable-shared --{prefix,with-{fastjet,hepmc,lhapdf}}=/usr/local \
     && make -j5 && make install \
     && cd ../.. && rm -rf /code
 
 RUN mkdir /code && cd /code \
-    && wget https://www.hepforge.org/archive/herwig/Herwig-7.2.0.tar.bz2 -O- | tar xj \
+    && wget https://www.hepforge.org/archive/herwig/Herwig-7.2.1.tar.bz2 -O- | tar xj \
     && cd Herwig-*/ \
     && ./configure --{prefix,with-{thepeg,fastjet}}=/usr/local \
     && make -j5 && make install \

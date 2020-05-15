@@ -1,4 +1,4 @@
-FROM hepstore/rivet:3.1.0
+FROM hepstore/rivet:3.1.1
 MAINTAINER Andy Buckley <andy.buckley@cern.ch>
 
 RUN mkdir /code && cd /code \
@@ -28,7 +28,7 @@ RUN mkdir /code && cd /code \
     && mkdir /usr/local/Sherpa \
     && mv Examples /usr/local/Sherpa \
     && cd ../.. && rm -r /code
-# wget https://sherpa.hepforge.org/downloads/?f=SHERPA-MC-2.2.7.tar.gz -O - | tar xf && cd SHERPA-MC-2.2.7
+# wget https://sherpa.hepforge.org/downloads/?f=SHERPA-MC-2.2.9.tar.gz -O - | tar xf && cd SHERPA-MC-2.2.9
 
 # RUN apt-get update; \
 # apt-get -q -y --no-install-recommends install pypy; \

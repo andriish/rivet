@@ -1,4 +1,4 @@
-FROM hepstore/rivet:3.1.0
+FROM hepstore/rivet:3.1.1
 MAINTAINER Andy Buckley <andy.buckley@cern.ch>
 
 RUN dnf install -y rsync

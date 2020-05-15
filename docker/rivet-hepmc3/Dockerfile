@@ -3,7 +3,7 @@ LABEL maintainer="rivet@projects.hepforge.org"
 
 RUN dnf update -y \
     && dnf install -y \
-      make gcc-c++ gcc-gfortran redhat-rpm-config \
+      make gcc-c++ gcc-gfortran redhat-rpm-config cmake \
       wget tar less bzip2 findutils which nano zlib-devel \
       python python-devel python-requests file python-matplotlib gsl-devel \
       texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow \
@@ -11,10 +11,7 @@ RUN dnf update -y \
       texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended \
     && dnf clean all
 
-RUN dnf install -y \
-    cmake
-
-RUN mkdir /code && cd /code \
+RUN mkdir /code && cd /code  \
     && wget https://gitlab.com/hepcedar/rivetbootstrap/raw/3.1.1/rivet-bootstrap \
     && chmod +x rivet-bootstrap \
     && INSTALL_PREFIX=/usr/local HEPMC_VERSION=3.2.1 INSTALL_RIVETDEV=0 MAKE="make -j7" ./rivet-bootstrap \
