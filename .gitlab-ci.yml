@@ -226,6 +226,8 @@ build_py3-hepmc3:
   except:
     - schedules
   script:
+    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib
+    - dnf clean all
     - alias python='/usr/bin/python${PYTHON_VERSION}'
     - shopt -s expand_aliases
     - if [ "$VENV" = "yes" ] ; then python -m venv --system-site-packages ~/.venv ; source ~/.venv/bin/activate ; fi
@@ -247,7 +249,7 @@ build_py3-hepmc3:
       - testArea/ttbar_test_run.yoda
     expire_in: 1 week
 
-check-plugin: 
+.check-plugin: 
   variables:
     VENV: "no" 
   dependencies:
