@@ -21,8 +21,7 @@ stages:
 before_script:
 - dnf update -y
 - dnf install -y make cmake gcc-c++ gcc-gfortran redhat-rpm-config m4 automake autoconf libtool
-- dnf install -y wget tar less bzip2 findutils which nano zlib-devel git rsync
-- dnf install -y python python-devel python-requests file python-matplotlib  gsl-devel
+- dnf install -y wget tar less bzip2 findutils which nano zlib-devel git rsync gsl-devel file
 - dnf install -y texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow
 - dnf install -y ghostscript ImageMagick texlive-dvips texlive-relsize
 - dnf install -y texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended
@@ -104,11 +103,17 @@ before_script:
 #      - local.tar.gz
 #    expire_in: 1 week
 
-build:
+.build_template: &build_template
   stage: compile
   except:
     - schedules
   script:
+    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib
+    - dnf clean all
+    - alias python='/usr/bin/python${PYTHON_VERSION}'
+    - shopt -s expand_aliases
+    - if [ "$VENV" = "yes" ] ; then python -m venv --system-site-packages ~/.venv ; source ~/.venv/bin/activate ; fi
+    - python --version
     - cd ..
     - BUILD_PREFIX="$PWD"
     - INSTALL_PREFIX="${CI_PROJECT_DIR}/local"
@@ -148,11 +153,17 @@ build:
       - local/
     expire_in: 1 week
 
-build-hepmc3:
+.build_template-hepmc3: &build_template-hepmc3
   stage: compile
   except:
     - schedules
   script:
+    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib
+    - dnf clean all
+    - alias python='/usr/bin/python${PYTHON_VERSION}'
+    - shopt -s expand_aliases
+    - if [ "$VENV" = "yes" ] ; then python -m venv --system-site-packages ~/.venv ; source ~/.venv/bin/activate ; fi
+    - python --version
     - cd ..
     - BUILD_PREFIX="$PWD"
     - INSTALL_PREFIX="${CI_PROJECT_DIR}/local"
@@ -186,6 +197,30 @@ build-hepmc3:
     # setup env
     - source $INSTALL_PREFIX/rivetenv.sh
     - rivet -h
+
+build: 
+  variables:
+    VENV: "no" 
+  <<: *build_template
+
+build_py3: 
+  variables:
+    PYTHON_VERSION: "3"
+    PYTHON: python3
+    VENV: "yes" 
+  <<: *build_template
+
+build-hepmc3: 
+  variables:
+    VENV: "no" 
+  <<: *build_template-hepmc3
+
+build_py3-hepmc3: 
+  variables:
+    PYTHON_VERSION: "3"
+    PYTHON: python3
+    VENV: "yes" 
+  <<: *build_template-hepmc3
 
 check-plugin:
   stage: check
