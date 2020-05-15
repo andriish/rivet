@@ -197,29 +197,6 @@ before_script:
     - source $INSTALL_PREFIX/rivetenv.sh
     - rivet -h
 
-build: 
-  variables:
-    VENV: "no" 
-  <<: *build_template
-
-build_py3: 
-  variables:
-    PYTHON_VERSION: "3"
-    PYTHON: python3
-    VENV: "yes" 
-  <<: *build_template
-
-build-hepmc3: 
-  variables:
-    VENV: "no" 
-  <<: *build_template-hepmc3
-
-build_py3-hepmc3: 
-  variables:
-    PYTHON_VERSION: "3"
-    PYTHON: python3
-    VENV: "yes" 
-  <<: *build_template-hepmc3
 
 .check-plugin_template: &check-plugin_template
   stage: check
@@ -249,21 +226,6 @@ build_py3-hepmc3:
       - testArea/ttbar_test_run.yoda
     expire_in: 1 week
 
-.check-plugin: 
-  variables:
-    VENV: "no" 
-  dependencies:
-    - build
-  <<: *check-plugin_template
-
-check-plugin_py3: 
-  variables:
-    PYTHON_VERSION: "3"
-    PYTHON: python3
-    VENV: "yes" 
-  dependencies:
-    - build_py3
-  <<: *check-plugin_template
 
 .make-plots_template: &make-plots_template
   stage: validate
@@ -283,7 +245,47 @@ check-plugin_py3:
       - testArea/ttbar_test_plots/
     expire_in: 1 week
 
-.make-plots: 
+build: 
+  variables:
+    VENV: "no" 
+  <<: *build_template
+
+build_py3: 
+  variables:
+    PYTHON_VERSION: "3"
+    PYTHON: python3
+    VENV: "yes" 
+  <<: *build_template
+
+build-hepmc3: 
+  variables:
+    VENV: "no" 
+  <<: *build_template-hepmc3
+
+build_py3-hepmc3: 
+  variables:
+    PYTHON_VERSION: "3"
+    PYTHON: python3
+    VENV: "yes" 
+  <<: *build_template-hepmc3
+
+check-plugin: 
+  variables:
+    VENV: "no" 
+  dependencies:
+    - build
+  <<: *check-plugin_template
+
+check-plugin_py3: 
+  variables:
+    PYTHON_VERSION: "3"
+    PYTHON: python3
+    VENV: "yes" 
+  dependencies:
+    - build_py3
+  <<: *check-plugin_template
+
+make-plots: 
   variables:
     VENV: "no" 
   dependencies:
