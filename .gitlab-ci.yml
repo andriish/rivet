@@ -119,7 +119,7 @@ smoke-macos:
     - ./configure --prefix=$LOCAL --with-hepmc=$LOCAL --with-yoda=$LOCAL --with-fastjet=$LOCAL
     - make
     - make install
-    - source $LOCAL/rivetenv.sh
+    - source rivetenv.sh
     - rivet --list-analyses > analyses.log
     - rivet-mkvaldir --hepmc-dir=$LOCAL/hepmc --ref-dir=analyses/valref rivet-valref
     - cd rivet-valref/
