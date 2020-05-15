@@ -10,7 +10,6 @@ variables:
   SRC_DIR_ABS: "${CI_PROJECT_DIR}/${SRC_DIR}"
   BUILD_DIR_ABS: "${CI_PROJECT_DIR}/${BUILD_DIR}"
   LD_LIBRARY_PATH: "/usr/local/lib"
-  PYTHONPATH: "/usr/local/lib64/python2.7/site-packages"
 
 
 stages:
@@ -222,11 +221,15 @@ build_py3-hepmc3:
     VENV: "yes" 
   <<: *build_template-hepmc3
 
-check-plugin:
+.check-plugin_template: &check-plugin_template
   stage: check
   except:
     - schedules
   script:
+    - alias python='/usr/bin/python${PYTHON_VERSION}'
+    - shopt -s expand_aliases
+    - if [ "$VENV" = "yes" ] ; then python -m venv --system-site-packages ~/.venv ; source ~/.venv/bin/activate ; fi
+    - python --version
     - source local/rivetenv.sh
     - mkdir testArea
     - cd testArea
@@ -243,14 +246,32 @@ check-plugin:
       - local/
       - testArea/ttbar_test_run.yoda
     expire_in: 1 week
+
+check-plugin: 
+  variables:
+    VENV: "no" 
   dependencies:
     - build
+  <<: *check-plugin_template
 
-make-plots:
+check-plugin_py3: 
+  variables:
+    PYTHON_VERSION: "3"
+    PYTHON: python3
+    VENV: "yes" 
+  dependencies:
+    - build_py3
+  <<: *check-plugin_template
+
+.make-plots: &make-plots_template
   stage: validate
   except:
     - schedules
   script:
+    - alias python='/usr/bin/python${PYTHON_VERSION}'
+    - shopt -s expand_aliases
+    - if [ "$VENV" = "yes" ] ; then python -m venv --system-site-packages ~/.venv ; source ~/.venv/bin/activate ; fi
+    - python --version
     - source local/rivetenv.sh
     - cd testArea
     - rivet-mkhtml --errs -o ttbar_test_plots ttbar_test_run.yoda
@@ -259,6 +280,20 @@ make-plots:
     paths:
       - testArea/ttbar_test_plots/
     expire_in: 1 week
+
+make-plots: 
+  variables:
+    VENV: "no" 
   dependencies:
     - check-plugin
+  <<: *make-plots_template
+
+make-plots_py3: 
+  variables:
+    PYTHON_VERSION: "3"
+    PYTHON: python3
+    VENV: "yes" 
+  dependencies:
+    - check-plugin_py3
+  <<: *make-plots_template
 
