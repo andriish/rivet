@@ -265,7 +265,7 @@ check-plugin_py3:
     - build_py3
   <<: *check-plugin_template
 
-.make-plots: &make-plots_template
+.make-plots_template: &make-plots_template
   stage: validate
   except:
     - schedules
@@ -283,7 +283,7 @@ check-plugin_py3:
       - testArea/ttbar_test_plots/
     expire_in: 1 week
 
-make-plots: 
+.make-plots: 
   variables:
     VENV: "no" 
   dependencies:
