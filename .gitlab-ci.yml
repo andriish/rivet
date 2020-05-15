@@ -232,6 +232,8 @@ before_script:
   except:
     - schedules
   script:
+    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib
+    - dnf clean all
     - alias python='/usr/bin/python${PYTHON_VERSION}'
     - shopt -s expand_aliases
     - if [ "$VENV" = "yes" ] ; then python -m venv --system-site-packages ~/.venv ; source ~/.venv/bin/activate ; fi
