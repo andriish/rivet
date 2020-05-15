@@ -121,11 +121,16 @@ smoke-macos:
     - make install
     - source $LOCAL/rivetenv.sh
     - rivet --list-analyses > analyses.log
+    - rivet-mkvaldir --hepmc-dir=$LOCAL/hepmc --ref-dir=analyses/valref rivet-valref
+    - cd rivet-valref/
+    - make tmp/LEP-91.yoda
+    - rivet-mkhtml tmp/LEP-91.yoda -m ALEPH_2004_S5765862/d01-x01-y01
   artifacts:
     when: always
     paths:
-      - $LOCAL/config.log
-      - analysis.log
+      - config.log
+      - analyses.log
+      - rivet-plots/
 
 build:
   stage: compile
