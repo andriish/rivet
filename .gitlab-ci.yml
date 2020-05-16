@@ -146,6 +146,7 @@ before_script:
     # setup env
     - source $INSTALL_PREFIX/rivetenv.sh
     - rivet -h
+    - rivet-mkhtml -h
   artifacts:
     when: always
     paths:
