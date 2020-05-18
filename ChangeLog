@@ -1,3 +1,8 @@
+2020-05-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* HTML sectioning and float/overflow/scrollbar improvements in
+	rivet-mkhtml output.
+
 2020-05-08  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Release 3.1.1.
