@@ -30,11 +30,11 @@ namespace Rivet {
       book(_hist_KKK_KKK       , 9, 1, 1);
       book(_hist_KKK_KK        ,10, 1, 1);
 
-      book(_weight_total, "weight_total");
-      book(_weight_pipipi, "weight_pipipi");
-      book(_weight_Kpipi, "weight_Kpipi");
-      book(_weight_KpiK, "weight_KpiK");
-      book(_weight_KKK, "weight_KKK");
+      book(_weight_total, "/TMP/weight_total");
+      book(_weight_pipipi, "/TMP/weight_pipipi");
+      book(_weight_Kpipi, "/TMP/weight_Kpipi");
+      book(_weight_KpiK, "/TMP/weight_KpiK");
+      book(_weight_KKK, "/TMP/weight_KKK");
 
       book(tmp11, 11, 1, 1, true);
       book(tmp12, 12, 1, 1, true);

@@ -148,13 +148,16 @@ namespace Rivet {
       // Fill inclusive jet multiplicity ratio
       Histo1D temphisto(refData(2, 1, 1));
       for (size_t b = 0; b < temphisto.numBins(); ++b) {
+	const double x   = temphisto.bin(b).xMid();
+	const double ex  = temphisto.bin(b).xWidth()/2.;
         if (_h_jet_multi_inclusive->bin(b).sumW() != 0) {
-          const double x   = temphisto.bin(b).xMid();
-          const double ex  = temphisto.bin(b).xWidth()/2.;
           const double val = _h_jet_multi_inclusive->bin(b+1).sumW() / _h_jet_multi_inclusive->bin(b).sumW();
           const double err = ( _h_jet_multi_inclusive->bin(b+1).relErr() + _h_jet_multi_inclusive->bin(b).relErr() ) * val;
           _h_jet_multi_ratio->addPoint(x, val, ex, err);
         }
+	else {
+          _h_jet_multi_ratio->addPoint(x, 0., ex, 0.);
+	}
       }
 
       // Normalize std histos

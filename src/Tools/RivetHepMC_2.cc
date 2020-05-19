@@ -1,14 +1,20 @@
 // -*- C++ -*-
 
-//#include <regex>
+#include <regex>
 #include "Rivet/Tools/Utils.hh"
 #include "Rivet/Tools/RivetHepMC.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "../Core/zstr/zstr.hpp"
 
-/*namespace {
 
-  inline std::vector<std::string> split(const std::string& input, const std::string& regex) {
+namespace Rivet{
+
+  const Relatives Relatives::PARENTS     = HepMC::parents;
+  const Relatives Relatives::CHILDREN    = HepMC::children;
+  const Relatives Relatives::ANCESTORS   = HepMC::ancestors;
+  const Relatives Relatives::DESCENDANTS = HepMC::descendants;
+
+  inline std::vector<std::string> split_by_regex(const std::string& input, const std::string& regex) {
     // passing -1 as the submatch index parameter performs splitting
     std::regex re(regex);
     std::sregex_token_iterator
@@ -17,17 +23,8 @@
       return {first, last};
   }
 
-}*/
-
-namespace Rivet{
-  
-  const Relatives Relatives::PARENTS     = HepMC::parents;
-  const Relatives Relatives::CHILDREN    = HepMC::children;
-  const Relatives Relatives::ANCESTORS   = HepMC::ancestors;
-  const Relatives Relatives::DESCENDANTS = HepMC::descendants;
-  
   namespace HepMCUtils{
-    
+
     ConstGenParticlePtr getParticlePtr(const RivetHepMC::GenParticle & gp) {
       return &gp;
     }
@@ -38,7 +35,7 @@ namespace Rivet{
       }
       return result;
     }
-    
+
     std::vector<ConstGenParticlePtr> particles(const GenEvent *ge){
       std::vector<ConstGenParticlePtr> result;
       for(GenEvent::particle_const_iterator pi = ge->particles_begin(); pi != ge->particles_end(); ++pi){
@@ -46,7 +43,7 @@ namespace Rivet{
       }
       return result;
     }
-   
+
     std::vector<ConstGenVertexPtr> vertices(ConstGenEventPtr ge){
       std::vector<ConstGenVertexPtr> result;
       for(GenEvent::vertex_const_iterator vi = ge->vertices_begin(); vi != ge->vertices_end(); ++vi){
@@ -54,7 +51,7 @@ namespace Rivet{
       }
       return result;
     }
-    
+
     std::vector<ConstGenVertexPtr> vertices(const GenEvent *ge){
       std::vector<ConstGenVertexPtr> result;
       for(GenEvent::vertex_const_iterator vi = ge->vertices_begin(); vi != ge->vertices_end(); ++vi){
@@ -62,7 +59,7 @@ namespace Rivet{
       }
       return result;
     }
-    
+
     std::vector<ConstGenParticlePtr> particles(ConstGenVertexPtr gv, const Relatives &relo){
       std::vector<ConstGenParticlePtr> result;
       /// @todo A particle_const_iterator on GenVertex would be nice...
@@ -80,35 +77,35 @@ namespace Rivet{
 
     std::vector<ConstGenParticlePtr> particles(ConstGenParticlePtr gp, const Relatives &relo){
       ConstGenVertexPtr vtx;
-      
+
       switch(relo){
         case HepMC::parents:
-        
+
         case HepMC::ancestors:
           vtx = gp->production_vertex();
         break;
-        
+
         case HepMC::children:
-        
+
         case HepMC::descendants:
           vtx = gp->end_vertex();
         break;
-        
+
         default:
-        
+
         throw std::runtime_error("Not implemented!");
         break;
       }
-      
+
       return particles(vtx, relo);
     }
 
-    
-    
+
+
     int uniqueId(ConstGenParticlePtr gp){
       return gp->barcode();
     }
-    
+
     int particles_size(ConstGenEventPtr ge){
       return ge->particles_size();
     }
@@ -116,7 +113,7 @@ namespace Rivet{
     int particles_size(const GenEvent *ge){
       return ge->particles_size();
     }
-    
+
     std::pair<ConstGenParticlePtr,ConstGenParticlePtr> beams(const GenEvent *ge){
       return ge->beam_particles();
     }
@@ -124,41 +121,42 @@ namespace Rivet{
     std::shared_ptr<HepMC::IO_GenEvent> makeReader(std::string filename,
                                                    std::shared_ptr<std::istream> & istrp,
                                                    std::string *) {
-#ifdef HAVE_LIBZ
+      #ifdef HAVE_LIBZ
       if ( filename == "-" )
         istrp = make_shared<Rivet::zstr::istream>(std::cin);
       else
         istrp = make_shared<Rivet::zstr::ifstream>(filename.c_str());
       std::istream & istr = *istrp;
-#else
+      #else
       if ( filename != "-" ) istrp = make_shared<std::ifstream>(filename.c_str());
       std::istream & istr = filename == "-"? std::cin: *istrp;
-#endif
+      #endif
 
       return make_shared<HepMC::IO_GenEvent>(istr);
     }
-   
-    bool readEvent(std::shared_ptr<HepMC::IO_GenEvent> io, std::shared_ptr<GenEvent> evt){
-      if(io->rdstate() != 0) return false;
-      if(!io->fill_next_event(evt.get())) return false;
+
+    bool readEvent(std::shared_ptr<HepMC::IO_GenEvent> io, std::shared_ptr<GenEvent> evt) {
+      if (io->rdstate() != 0) return false;
+      if (!io->fill_next_event(evt.get())) return false;
+      evt->use_units(HepMC::Units::GEV, HepMC::Units::MM);
       return true;
     }
 
     // This functions could be filled with code doing the same stuff as
-    // in the HepMC3 version of This file.
+    // in the HepMC3 version of this file.
     void strip(GenEvent &, const set<long> &) {}
 
     vector<string> weightNames(const GenEvent & ge) {
-      /// reroute the print output to a std::stringstream and process
-      /// The iteration is done over a map in hepmc2 so this is safe
+      // Reroute the print output to a std::stringstream and process
+      // The iteration is done over a map in HepMC2 so this is safe
       vector<string> ret;
 
       /// Obtaining weight names using regex probably neater, but regex
       /// is not defined in GCC4.8, which is currently used by Lxplus.
       /// Attempt an alternative solution based on stringstreams:
-      std::stringstream stream;
+      /*std::stringstream stream;
       ge.weights().print(stream);
-      std::string pair; // placeholder for subtsring matches
+      std::string pair; // placeholder for substring matches
       while (std::getline(stream, pair, ' ')) {
         if ( pair.size() < 2 ) continue;
         pair.erase(pair.begin()); // removes the "(" on the LHS
@@ -169,32 +167,20 @@ namespace Rivet{
         while (std::getline(spair, pair, ',')) {
           temp.push_back(std::move(pair));
         }
-        if (temp.size() == 2) {
-          // store the default weight based on weight names
-          if (temp[0] == "Weight" || temp[0] == "0" || temp[0] == "Default") {
-            ret.push_back("");
-          } 
-          else  ret.push_back(temp[0]);
-        }
-      }
-      /// Possible future solution based on regex
-      /*std::ostringstream stream;
-      ge.weights().print(stream);  // Super lame, I know
-      string str =  stream.str();
-
-      std::regex re("(([^()]+))"); // Regex for stuff enclosed by parentheses ()
-      for (std::sregex_iterator i = std::sregex_iterator(str.begin(), str.end(), re);
-           i != std::sregex_iterator(); ++i ) {
-        std::smatch m = *i;
-        vector<string> temp = ::split(m.str(), "[,]");
-        if (temp.size() ==2) {
-          // store the default weight based on weight names
-          if (temp[0] == "Weight" || temp[0] == "0" || temp[0] == "Default") {
-            ret.push_back("");
-          } else
-            ret.push_back(temp[0]);
-        }
+        if (temp.size() == 2)  ret.push_back(temp[0]);
       }*/
+      /// Possible future solution based on regex
+      std::ostringstream stream;
+      ge.weights().print(stream); // Super lame, I know
+      string str =  stream.str();
+      std::regex re("(([^()]+))"); // Regex for stuff enclosed by parentheses ()
+      auto reg_begin = std::sregex_iterator(str.begin(), str.end(), re);
+      auto reg_end = std::sregex_iterator();
+      for (std::sregex_iterator rit = reg_begin; rit != reg_end; ++rit) {
+        std::smatch m = *rit;
+        vector<string> temp = split_by_regex(m.str(), "[,]");
+        if (temp.size() ==2)  ret.push_back(temp[0]);
+      }
       return ret;
     }
 

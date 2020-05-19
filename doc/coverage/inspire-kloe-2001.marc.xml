@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Search-Engine-Total-Number-Of-Results: 5 -->
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <controlfield tag="001">559828</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D02-01367</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Aloisio:2001xr</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:hep-ex/0107024</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">hep-ex/0107024</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Detection of $\phi \to f(0)(980) \gamma$, $\phi \to a(0)(980) \gamma$ into five photons with KLOE at DAPHNE</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">559827</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D01-19684</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Aloisio:2001xq</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:hep-ex/0107023</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">hep-ex/0107023</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Measuring the hadronic cross-section at KLOE using the radiative return</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">559770</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D02-01405</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Aloisio:2001uz</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:hep-ex/0107022</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">hep-ex/0107022</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Detection of $\phi \to \eta^\prime \gamma$, $\phi \to \eta \gamma$ in $\pi^+ \pi^- \gamma \gamma \gamma$ final state with KLOE at DAPHNE</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">559768</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D02-01366</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Aloisio:2001ux</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:hep-ex/0107020</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">hep-ex/0107020</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Studies of K0(S) decays with the KLOE detector at DAPHNE</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">559266</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">oai:arXiv.org:hep-ex/0106100</subfield>
+    <subfield code="z">oai:arXiv.org:hep-ex/0106100</subfield>
+    <subfield code="9">arXiv</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D02-01448</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Denig:2001ra</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">hep-ex/0106100</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Measurement of the hadronic cross-section at KLOE using the radiative return</subfield>
+  </datafield>
+</record>
+
+</collection>

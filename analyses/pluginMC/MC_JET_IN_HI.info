@@ -7,4 +7,4 @@ Authors:
  - Christian Bierlich <christian.bierlich@thep.lu.se>
  - Johannes Bellm
 Options:
- - cent=REF,GEN,IMP,USR
+ - cent=REF,GEN,IMP,USR,RAW

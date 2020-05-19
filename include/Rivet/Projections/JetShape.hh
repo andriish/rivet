@@ -12,8 +12,7 @@
 namespace Rivet {
 
 
-  ///*
-  /// @brief Calculate the jet shape.
+  /// @brief Calculate transverse jet profiles
   ///
   /// Calculate the differential and integral jet shapes in \f$P_{\perp}\f$ for a given
   /// set of jets. This particular jet shape projection calculates jet shapes relative

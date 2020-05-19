@@ -211,49 +211,26 @@ class InputData(Described):
                 self.description['RatioPlotSizeY'] = float(plotsizes[2])
             del self.description['PlotSize']
 
-        self.description['RatioPlotSizeY'] = 0.
-        if self.description.get('MainPlot') == '0':
-            ## Ratio, no main
-            self.description['RatioPlot'] = '1' #< don't allow both to be zero!
-            self.description['PlotSizeY'] = 0.
-        #if 'RatioPlot' in self.description and self.description['RatioPlot']=='1':
-        if self.attr_bool('RatioPlot'):
-            if self.has_attr('RatioPlotYSize') and self.attr('RatioPlotYSize') != '':
-                self.description['RatioPlotSizeY'] = self.attr_float('RatioPlotYSize')
-            else:
-                if self.attr_bool('MainPlot'):  self.description['RatioPlotSizeY'] = 6.
-                else:                           self.description['RatioPlotSizeY'] = 3.
-                if self.description['is2dim']:
-                    self.description['RatioPlotSizeY'] *= 2.
-
-        for i in range(1,9):
-            if self.description.get('RatioPlot'+str(i), '0') == '1':
-                if self.description.get('RatioPlot'+str(i)+'YSize') != '':
-                    self.description['RatioPlot'+str(i)+'SizeY'] = float(self.description['RatioPlot'+str(i)+'YSize'])
-                else:
-                    if self.description.get('MainPlot') == '0':
-                        self.description['RatioPlot'+str(i)+'SizeY'] = 6.
-                    else:
-                        self.description['RatioPlot'+str(i)+'SizeY'] = 3.
-                    if self.description['is2dim']:
-                        self.description['RatioPlot'+str(i)+'SizeY'] *= 2.
-
-        ## Ensure numbers, not strings
-        self.description['PlotSizeX'] = float(self.description['PlotSizeX'])
-        self.description['PlotSizeY'] = float(self.description['PlotSizeY'])
-        self.description['RatioPlotSizeY'] = float(self.description['RatioPlotSizeY'])
-        # self.description['TopMargin'] = float(self.description['TopMargin'])
-        # self.description['BottomMargin'] = float(self.description['BottomMargin'])
-
         self.description['LogX'] = str(self.description.get('LogX', 0)) in ["1", "yes", "true"]
         self.description['LogY'] = str(self.description.get('LogY', 0)) in ["1", "yes", "true"]
         self.description['LogZ'] = str(self.description.get('LogZ', 0)) in ["1", "yes", "true"]
-        self.description['RatioPlotLogY'] = str(self.description.get('RatioPlotLogY', 0)) in ["1", "yes", "true"]
-        self.description['RatioPlotLogZ'] = str(self.description.get('RatioPlotLogZ', 0)) in ["1", "yes", "true"]
 
-        for i in range(1,9):
-            self.description['RatioPlot'+str(i)+'LogY'] = str(self.description.get('RatioPlot'+str(i)+'LogY', 0)) in ["1", "yes", "true"]
-            self.description['RatioPlot'+str(i)+'LogZ'] = str(self.description.get('RatioPlot'+str(i)+'LogZ', 0)) in ["1", "yes", "true"]
+        self.description['RatioPlotSizeY'] = 0.
+        if not self.attr_bool('MainPlot',1):
+            ## Ratio, no main
+            self.description['PlotSizeY'] = 0.
+        for i in [""] + [str(idx) for idx in range(1,9)]:
+            if self.attr_bool('RatioPlot'+i):
+                if self.has_attr('RatioPlot'+i+'YSize') and self.attr('RatioPlot'+i+'YSize') != '':
+                    self.description['RatioPlot'+i+'SizeY'] = self.attr_float('RatioPlot'+i+'YSize')
+                else:
+                    if self.attr_bool('MainPlot'):  self.description['RatioPlot'+i+'SizeY'] = 6.
+                    else:                           self.description['RatioPlot'+i+'SizeY'] = 3.
+                    if self.description['is2dim']:
+                        self.description['RatioPlotSizeY'] *= 2.
+
+            self.description.setdefault('RatioPlot'+i+'LogY',0)
+            self.description.setdefault('RatioPlot'+i+'LogZ',0)
 
         if 'Rebin' in self.description:
             for i in self.histos:
@@ -278,28 +255,11 @@ class InputData(Described):
             sortedhistolist.extend(histoordermap[i])
         self.description['DrawOnly']=sortedhistolist
 
-        refhistoordermap = {}
-        refhistolist = list(self.histos.keys())
-        if 'RatioPlotDrawOnly' in self.description:
-            refhistolist = filter(refhistolist.count, self.description['RatioPlotDrawOnly'].strip().split())
-            for histo in refhistolist:
-                order = 0
-                if 'PlotOrder' in self.histos[histo].description:
-                    order = int(self.histos[histo].description['PlotOrder'])
-                if not order in refhistoordermap:
-                    refhistoordermap[order] = []
-                refhistoordermap[order].append(histo)
-            sortedrefhistolist = []
-            for i in sorted(refhistoordermap.keys()):
-                sortedrefhistolist.extend(refhistoordermap[i])
-            self.description['RatioPlotDrawOnly']=sortedrefhistolist
-        else:
-            self.description['RatioPlotDrawOnly']=self.description['DrawOnly']
-        for i in range(1,9):
+        for i in [""] + [str(idx) for idx in range(1,9)]:
             refhistoordermap = {}
             refhistolist = list(self.histos.keys())
-            if ('RatioPlot'+str(i)+'DrawOnly') in self.description:
-                refhistolist = filter(refhistolist.count, self.description['RatioPlot'+str(i)+'DrawOnly'].strip().split())
+            if 'RatioPlot'+i+'DrawOnly' in self.description:
+                refhistolist = filter(refhistolist.count, self.description['RatioPlot'+i+'DrawOnly'].strip().split())
                 for histo in refhistolist:
                     order = 0
                     if 'PlotOrder' in self.histos[histo].description:
@@ -310,10 +270,9 @@ class InputData(Described):
                 sortedrefhistolist = []
                 for key in sorted(refhistoordermap.keys()):
                     sortedrefhistolist.extend(refhistoordermap[key])
-                self.description['RatioPlot'+str(i)+'DrawOnly']=sortedrefhistolist
+                self.description['RatioPlot'+i+'DrawOnly']=sortedrefhistolist
             else:
-                self.description['RatioPlot'+str(i)+'DrawOnly']=self.description['DrawOnly']
-
+                self.description['RatioPlot'+i+'DrawOnly']=self.description['DrawOnly']
 
         ## Inherit various values from histograms if not explicitly set
         for k in ['LogX', 'LogY', 'LogZ',
@@ -576,6 +535,7 @@ class Plot(object):
         if 'Value object' in str(inputdata.histos) or 'Counter object' in str(inputdata.histos):
           inputdata.description['XCustomMajorTicks'] = ''
           inputdata.description['XCustomMinorTicks'] = ''
+          inputdata.description['XTicks'] = 'None'
 
     def set_borders(self, inputdata):
         self.set_xmax(inputdata)
@@ -699,11 +659,8 @@ class Plot(object):
                      inputdata.description['LeftMargin'] + inputdata.description['RightMargin']
         papersizey = inputdata.description['PlotSizeY'] + 0.1 + \
                      inputdata.description['TopMargin'] + inputdata.description['BottomMargin']
-        papersizey += inputdata.description['RatioPlotSizeY']
-        for i in range(1,9):
-            if ('RatioPlot'+str(i)+'SizeY') in inputdata.description:
-                papersizey += inputdata.description['RatioPlot'+str(i)+'SizeY']
-        #
+        for i in [""] + [str(idx) for idx in range(1,9)]:
+            papersizey += inputdata.attr_float('RatioPlot'+i+'SizeY',0.)
         out = ""
         out += '\\documentclass{article}\n'
         if args.OUTPUT_FONT == "MINION":
@@ -722,7 +679,8 @@ class Plot(object):
         for pkg in args.LATEXPKGS:
             out += ('\\usepackage{%s}\n' % pkg)
         out += ('\\usepackage[dvipsnames]{xcolor}\n')
-        out += ('\\usepackage{pst-all}\n')
+        out += ('\\usepackage{pstricks}\n')
+        out += ('\\usepackage{multido}\n')
         out += ('\\selectcolormodel{rgb}\n')
         out += ('\\definecolor{red}{HTML}{EE3311}\n') # (Google uses 'DC3912')
         out += ('\\definecolor{blue}{HTML}{3366FF}')
@@ -744,6 +702,13 @@ class Plot(object):
                 out += ('%s\n' %color)
         if 'UseExtendedPSTricks' in inputdata.description and inputdata.description['UseExtendedPSTricks']=='1':
             out += self.write_extended_pstricks()
+        #
+        ## Hacked-in HEP-specific kerned unit macros... urk
+        out += ('\\newcommand{\\MeV}{\\text{Me\\kern-0.15ex V}}\n')
+        out += ('\\newcommand{\\GeV}{\\text{Ge\\kern-0.15ex V}}\n')
+        out += ('\\newcommand{\\TeV}{\\text{Te\\kern-0.15ex V}}\n')
+        out += '\n'
+        #
         out += ('\\begin{document}\n')
         out += ('\\pagestyle{empty}\n')
         out += ('\\SpecialCoor\n')
@@ -866,12 +831,9 @@ class MainPlot(Plot):
             for f in inputdata.functions.values():
                 out += f.draw(self.coors,inputdata)
 
-        if inputdata.attr_bool('Legend', False):
-            legend = Legend(inputdata.description,inputdata.histos,inputdata.functions,'Legend',1)
-            out += legend.draw()
-        for i in range(1,10):
-            if inputdata.attr_bool('Legend'+str(i), False):
-                legend = Legend(inputdata.description,inputdata.histos,inputdata.functions,'Legend'+str(i),i)
+        for i in [""] + [str(idx) for idx in range(1,9)]:
+            if inputdata.attr_bool('Legend'+i, False):
+                legend = Legend(inputdata.description,inputdata.histos,inputdata.functions,'Legend'+i,(1 if i=="" else int(i)))
                 out += legend.draw()
 
         if inputdata.description['is2dim']:
@@ -905,10 +867,8 @@ class MainPlot(Plot):
         drawlabels = True
         if 'PlotTickLabels' in inputdata.description and inputdata.description['PlotTickLabels']=='0':
             drawlabels=False
-        if 'RatioPlot' in inputdata.description and inputdata.description['RatioPlot']=='1':
-            drawlabels=False
-        for i in range(1,9):
-            if ('RatioPlot'+str(i)) in inputdata.description and inputdata.description['RatioPlot'+str(i)]=='1':
+        for i in [""] + [str(idx) for idx in range(1,9)]:
+            if inputdata.attr_bool('RatioPlot'+i,0):
                 drawlabels=False
 
         out += xticks.draw(custommajortickmarks=xcustommajortickmarks,
@@ -1255,12 +1215,9 @@ class RatioPlot(Plot):
                            custommajorticks=ycustommajorticks,
                            customminorticks=ycustomminorticks)
 
-        if inputdata.attr_bool(self.name+'Legend', False):
-            legend = Legend(inputdata.description,inputdata.histos,inputdata.functions,self.name+'Legend',1)
-            out += legend.draw()
-        for i in range(1,10):
-            if inputdata.attr_bool(self.name+'Legend'+str(i), False):
-                legend = Legend(inputdata.description,inputdata.histos,inputdata.functions,self.name+'Legend'+str(i),i)
+        for i in [""] + [str(idx) for idx in range(1,9)]:
+            if inputdata.attr_bool(self.name+'Legend'+i, False):
+                legend = Legend(inputdata.description,inputdata.histos,inputdata.functions,self.name+'Legend'+i,(1 if i=="" else int(i)))
                 out += legend.draw()
 
         labels = Labels(inputdata.description)
@@ -2050,10 +2007,17 @@ class Histogram(DrawableObject, Described):
                 if (k<len(rebins)-1):
                     upper = self.getBin(rebins[k+1]['Start'])
                     end = 0
-                for i in range(lower,(upper/rebin)*rebin+end,rebin):
+                lower_edges = list(range(int(lower), int((upper/rebin)*rebin+end), int(rebin)))
+                residual = { }
+                if lower_edges[-1] + int(rebin) > maxindex + 1:
+                  lower_edges.pop(-1)
+                  residual[ lower_edges[-1] ] = maxindex - lower_edges[-1] + 1
+                for i in lower_edges:
                     foo=0.
                     barl=0.
                     baru=0.
+                    if i in residual:
+                      rebin = residual[i]
                     for j in range(rebin):
                         if i+j>maxindex:
                             break
@@ -2889,6 +2853,9 @@ class XTicks(Ticks):
         twosided = bool(int(self.description.get('XTwosidedTicks', '1')))
         out = ""
         out += ('\n%\n% X-Ticks\n%\n')
+        if str(self.description.get('XTicks',True)) == "None":
+           out += ('\n% no X-Ticks\n')
+           return out
         out += self.add_definitions()
         uselog = self.description['LogX'] and (self.coors.xmin() > 0 and self.coors.xmax() > 0)
         out += self.draw_ticks(self.coors.xmin(), self.coors.xmax(),\
@@ -2978,6 +2945,9 @@ class YTicks(Ticks):
         twosided = bool(int(self.description.get('YTwosidedTicks', '1')))
         out = ""
         out += ('\n%\n% Y-Ticks\n%\n')
+        if str(self.description.get('YTicks', '')) == "None":
+           out += ('\n% no Y-Ticks\n')
+           return out
         out += self.add_definitions();
         uselog = self.description['LogY'] and self.coors.ymin() > 0 and self.coors.ymax() > 0
         out += self.draw_ticks(self.coors.ymin(), self.coors.ymax(),
@@ -3088,6 +3058,9 @@ class ZTicks(Ticks):
     def draw(self, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True):
         out = ""
         out += ('\n%\n% Z-Ticks\n%\n')
+        if str(self.description.get('ZTicks', '')) == "None":
+           out += ('\n% no Z-Ticks\n')
+           return out
         out += ('\\def\\majortickmarkz{\\psline[linewidth='+self.majorticklinewidth+',linecolor='+self.majorticklinecolor+'](0,0)('+self.majorticklength+',0)}%\n')
         out += ('\\def\\minortickmarkz{\\psline[linewidth='+self.minorticklinewidth+',linecolor='+self.minorticklinecolor+'](0,0)('+self.minorticklength+',0)}%\n')
         out += self.draw_ticks(self.coors.zmin(), self.coors.zmax(),\
@@ -3506,9 +3479,8 @@ if __name__ == '__main__':
                         logging.warning('Warning: Using "--minion" requires minion.sty to be installed. Ignoring it.')
                         args.OUTPUT_FONT = "PALATINO"
 
-                ## Check for HEP LaTeX packages
-                # TODO: remove HEP-specifics/non-standards?
-                for pkg in ["hepnames", "hepunits", "underscore"]:
+                ## Check for useful LaTeX packages
+                for pkg in ["underscore"]: #"hepnames"
                     p = subprocess.Popen(["kpsewhich", "%s.sty" % pkg], stdout=subprocess.PIPE)
                     p.wait()
                     if p.returncode == 0:

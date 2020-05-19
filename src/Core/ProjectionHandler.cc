@@ -106,8 +106,7 @@ namespace Rivet {
 
 
   // Try to find a equivalent projection in the system
-  ProjHandle ProjectionHandler::_getEquiv(const Projection& proj) const
-  {
+  ProjHandle ProjectionHandler::_getEquiv(const Projection& proj) const {
     // Get class type using RTTI
     const std::type_info& newtype = typeid(proj);
     getLog() << Log::TRACE << "RTTI type of " << &proj << " is " << newtype.name() << endl;
@@ -116,22 +115,23 @@ namespace Rivet {
     getLog() << Log::TRACE << "Comparing " << &proj
              << " with " << _projs.size()
              << " registered projection" << (_projs.size() == 1 ? "" : "s") <<  endl;
-    for (const ProjHandle& ph : _projs) {
+    for (const ProjHandle& regph : _projs) {
       // Make sure the concrete types match, using RTTI.
-      const std::type_info& regtype = typeid(*ph);
-      getLog() << Log::TRACE << "  RTTI type comparison with " << ph << ": "
+      const Projection& regproj = *regph; //< done separately from typeid() to keep Clang happy
+      const std::type_info& regtype = typeid(regproj);
+      getLog() << Log::TRACE << "  RTTI type comparison with " << regph << ": "
                << newtype.name() << " vs. " << regtype.name() << endl;
       if (newtype != regtype) continue;
-      getLog() << Log::TRACE << "  RTTI type matches with " << ph << endl;
+      getLog() << Log::TRACE << "  RTTI type matches with " << regph << endl;
 
       // Test for semantic match
-      if (pcmp(*ph, proj) != CmpState::EQ) {
+      if (pcmp(regproj, proj) != CmpState::EQ) {
         getLog() << Log::TRACE << "  Projections at "
-                 << &proj << " and " << ph << " are not equivalent" << endl;
+                 << &proj << " and " << regph << " are not equivalent" << endl;
       } else {
         getLog() << Log::TRACE << "  MATCH! Projections at "
-                 << &proj << " and " << ph << " are equivalent" << endl;
-        return ph;
+                 << &proj << " and " << regph << " are equivalent" << endl;
+        return regph;
       }
     }
     getLog() << Log::TRACE << "  Nothing matches." << endl;

@@ -21,13 +21,14 @@ namespace Rivet {
       // Initialise and register projections
       declare(UnstableParticles(), "UFS" );
       // Book histograms
-      book(_h_ctheta,"ctheta"  , 20,-1,1);
+      book(_h_ctheta1,2,1,1);
+      book(_h_ctheta2,3,1,1);
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // loop over Omega baryons
+      // loop over Lambda_c baryons
       for( const Particle& Lambdac : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==4122)) {
 	int sign = Lambdac.pid()/4122;
 	if(Lambdac.children().size()!=2) continue;
@@ -67,7 +68,10 @@ namespace Rivet {
 	FourMomentum pp = boost2.transform(pbaryon2);
 	// calculate angle
 	double cTheta = pp.p3().unit().dot(axis);
-	_h_ctheta->fill(cTheta);
+	if(sign>0)
+	  _h_ctheta1->fill(cTheta);
+	else
+	  _h_ctheta2->fill(cTheta);
       }
     }
 
@@ -88,10 +92,11 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      normalize(_h_ctheta);
+      normalize(_h_ctheta1);
+      normalize(_h_ctheta2);
       Scatter2DPtr _h_alpha;
       book(_h_alpha,1,1,1);
-      pair<double,double> alpha = calcAlpha(_h_ctheta);
+      pair<double,double> alpha = calcAlpha(_h_ctheta1);
       _h_alpha->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
     }
 
@@ -100,7 +105,7 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    Histo1DPtr _h_ctheta;
+    Histo1DPtr _h_ctheta1, _h_ctheta2;
     //@}
 
 

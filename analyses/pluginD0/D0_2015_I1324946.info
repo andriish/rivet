@@ -10,7 +10,7 @@ Authors:
 References:
  - Phys.Rev. D91 (2015) 072002
  - doi:10.1103/PhysRevD.91.072002
- - arXiv:hep-ex/1410.8052
+ - arXiv:1410.8052 [hep-ex]
 RunInfo: $Z/\gamma^*$ production with decays to  muons.
 NumEvents: 1000000
 NeedCrossSection: no

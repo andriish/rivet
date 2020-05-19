@@ -9,6 +9,7 @@
 namespace Rivet {
 
 
+  /// Calculator of the @f$ F @f$-parameter observable
   class FParameter : public Projection {
   public:
 
@@ -35,6 +36,8 @@ namespace Rivet {
     CmpState compare(const Projection& p) const {
       return mkNamedPCmp(p, "FS");
     }
+
+
   public:
 
     /// Reset the projection

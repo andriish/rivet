@@ -9,7 +9,7 @@ Authors:
  - Elena Yatsenko <elena.yatsenko@desy.de>
  - Judith Katzy <jkatzy@mail.cern.ch>
 References:
- - arXiv:1108.6308v1 [hep-ex]
+ - arXiv:1108.6308 [hep-ex]
 RunInfo:
   Run with $W$ decays to $e\,\nu_e$ and/or $\mu\,\nu_\mu$.
 NumEvents: 100k

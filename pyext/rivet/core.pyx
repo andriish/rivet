@@ -20,11 +20,20 @@ cdef class AnalysisHandler:
     def setIgnoreBeams(self, ignore=True):
         self._ptr.setIgnoreBeams(ignore)
 
-    def skipMultiWeights(self, ignore=False):
+    def skipMultiWeights(self, ignore=True):
         self._ptr.skipMultiWeights(ignore)
+
+    def selectMultiWeights(self, patterns=""):
+        self._ptr.selectMultiWeights(patterns.encode('utf-8'))
+
+    def deselectMultiWeights(self, patterns=""):
+        self._ptr.deselectMultiWeights(patterns.encode('utf-8'))
 
     def setWeightCap(self, double maxWeight):
         self._ptr.setWeightCap(maxWeight)
+
+    def setNLOSmearing(self, double smear):
+        self._ptr.setNLOSmearing(smear)
 
     def addAnalysis(self, name):
         self._ptr.addAnalysis(name.encode('utf-8'))
@@ -32,6 +41,10 @@ cdef class AnalysisHandler:
 
     def analysisNames(self):
         anames = self._ptr.analysisNames()
+        return [ a.decode('utf-8') for a in anames ]
+
+    def stdAnalysisNames(self):
+        anames = self._ptr.stdAnalysisNames()
         return [ a.decode('utf-8') for a in anames ]
 
     # def analysis(self, aname):
@@ -57,8 +70,11 @@ cdef class AnalysisHandler:
     def dump(self, name, period):
         self._ptr.dump(name.encode('utf-8'), period)
 
-    def mergeYodas(self, filelist, delopts, equiv):
-        self._ptr.mergeYodas(filelist, delopts, equiv)
+    def mergeYodas(self, filelist, delopts, addopts, equiv):
+        filelist = [ f.encode('utf-8') for f in filelist ]
+        delopts  = [ d.encode('utf-8') for d in delopts  ]
+        addopts  = [ d.encode('utf-8') for d in addopts ]
+        self._ptr.mergeYodas(filelist, delopts, addopts, equiv)
 
 
 cdef class Run:
@@ -170,6 +186,17 @@ cdef class Analysis:
     def luminosityfb(self):
         return deref(self._ptr).luminosityfb()
 
+    def refFile(self):
+        #return findAnalysisRefFile(self.name() + ".yoda")
+        return deref(self._ptr).refFile()
+
+    def refData(self, asdict=True, patterns=None, unpatterns=None):
+        """Get this analysis' reference data, cf. yoda.read()
+        NB. There's also a C++ version of this, but this wrapping is nicer for Python"""
+        import yoda
+        return yoda.read(self.refFile(), asdict, patterns, unpatterns)
+
+
 #cdef object
 LEVELS = dict(TRACE = 0, DEBUG = 10, INFO = 20,
               WARN = 30, WARNING = 30, ERROR = 40,
@@ -177,9 +204,20 @@ LEVELS = dict(TRACE = 0, DEBUG = 10, INFO = 20,
 
 
 cdef class AnalysisLoader:
+
     @staticmethod
     def analysisNames():
         names = c.AnalysisLoader_analysisNames()
+        return [ n.decode('utf-8') for n in names ]
+
+    # @staticmethod
+    # def allAnalysisNames():
+    #     names = c.AnalysisLoader_allAnalysisNames()
+    #     return { n.decode('utf-8') for n in names }
+
+    @staticmethod
+    def stdAnalysisNames():
+        names = c.AnalysisLoader_stdAnalysisNames()
         return [ n.decode('utf-8') for n in names ]
 
 
@@ -198,6 +236,9 @@ cdef class AnalysisLoader:
 ## Convenience versions in main rivet namespace
 def analysisNames():
     return AnalysisLoader.analysisNames()
+
+def stdAnalysisNames():
+    return AnalysisLoader.stdAnalysisNames()
 
 def getAnalysis(name):
     return AnalysisLoader.getAnalysis(name.encode('utf-8'))

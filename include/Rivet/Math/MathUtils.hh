@@ -2,7 +2,7 @@
 #ifndef RIVET_MathUtils_HH
 #define RIVET_MathUtils_HH
 
-#include "Rivet/Math/MathHeader.hh"
+#include "Rivet/Math/MathConstants.hh"
 #include <type_traits>
 #include <cassert>
 
@@ -32,6 +32,15 @@ namespace Rivet {
     return val == 0;
   }
 
+  /// @brief Check if a number is NaN
+  template <typename NUM>
+  inline typename std::enable_if<std::is_floating_point<NUM>::value, bool>::type
+  isNaN(NUM val) { return std::isnan(val); }
+
+  /// @brief Check if a number is non-NaN
+  template <typename NUM>
+  inline typename std::enable_if<std::is_floating_point<NUM>::value, bool>::type
+  notNaN(NUM val) { return !std::isnan(val); }
 
   /// @brief Compare two numbers for equality with a degree of fuzziness
   ///
@@ -266,8 +275,10 @@ namespace Rivet {
 
   /// @brief Make a list of @a nbins + 1 values equally spaced between @a start and @a end inclusive.
   ///
-  /// NB. The arg ordering and the meaning of the nbins variable is "histogram-like",
+  /// @note The arg ordering and the meaning of the nbins variable is "histogram-like",
   /// as opposed to the Numpy/Matlab version.
+  ///
+  /// @todo Import the YODA version rather than maintain this parallel version?
   inline vector<double> linspace(size_t nbins, double start, double end, bool include_end=true) {
     assert(end >= start);
     assert(nbins > 0);
@@ -284,9 +295,11 @@ namespace Rivet {
 
   /// @brief Make a list of @a nbins + 1 values exponentially spaced between @a start and @a end inclusive.
   ///
-  /// NB. The arg ordering and the meaning of the nbins variable is "histogram-like",
+  /// @note The arg ordering and the meaning of the nbins variable is "histogram-like",
   /// as opposed to the Numpy/Matlab version, and the start and end arguments are expressed
   /// in "normal" space, rather than as the logarithms of the start/end values as in Numpy/Matlab.
+  ///
+  /// @todo Import the YODA version rather than maintain this parallel version?
   inline vector<double> logspace(size_t nbins, double start, double end, bool include_end=true) {
     assert(end >= start);
     assert(start > 0);
@@ -306,7 +319,7 @@ namespace Rivet {
   }
 
 
-  /// @todo geomspace
+  /// @todo pdfspace()... from YODA?
 
 
   /// @brief Make a list of @a nbins + 1 values spaced for equal area

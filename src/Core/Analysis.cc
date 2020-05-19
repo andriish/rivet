@@ -24,6 +24,7 @@ namespace Rivet {
     assert(_info);
   }
 
+
   double Analysis::sqrtS() const {
     return handler().sqrtS();
   }
@@ -208,8 +209,7 @@ namespace Rivet {
   // }
 
 
-  CounterPtr & Analysis::book(CounterPtr & ctr,
-                              const string& cname) {
+  CounterPtr & Analysis::book(CounterPtr & ctr, const string& cname) {
     // const string path = histoPath(cname);
     // ctr = CounterPtr(handler().weightNames(), Counter(path, title));
     // ctr = addAnalysisObject(ctr);
@@ -464,7 +464,7 @@ namespace Rivet {
   ///////////////
 
 
-  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, unsigned int datasetId, 
+  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, unsigned int datasetId,
                                        unsigned int xAxisId, unsigned int yAxisId, bool copy_pts) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
     return book(s2d, axisCode, copy_pts);
@@ -540,7 +540,7 @@ namespace Rivet {
   ///////////////
 
 
-  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, unsigned int datasetId, unsigned int xAxisId, 
+  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, unsigned int datasetId, unsigned int xAxisId,
                                 unsigned int yAxisId, unsigned int zAxisId, bool copy_pts) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
     return book(s3d, axisCode, copy_pts);
@@ -591,8 +591,8 @@ namespace Rivet {
     return s3d = registerAO(scat);
   }
 
-  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, const string& hname, 
-                                const vector<double>& xbinedges, 
+  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, const string& hname,
+                                const vector<double>& xbinedges,
                                 const vector<double>& ybinedges) {
     Scatter3D scat;
     for (size_t xpt = 0; xpt < xbinedges.size()-1; ++xpt) {
@@ -888,7 +888,7 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
   CentralityProjection cproj;
 
   // Select the centrality variable from option. Use REF as default.
-  // Other selections are "GEN", "IMP" and "USR" (USR only in HEPMC 3).
+  // Other selections are "GEN", "IMP", "RAW" and "USR" (USR only in HEPMC 3).
   string sel = getOption<string>("cent","REF");
   set<string> done;
 
@@ -943,40 +943,37 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
     }
   }
   else if ( sel == "USR" ) {
-#if HEPMC_VERSION_CODE >= 3000000
+    #if HEPMC_VERSION_CODE >= 3000000
     YODA::Histo1DPtr usrhists =
       getPreload<Histo1D>("/" + calAnaName + "/" + calHistName + "_USR");
     if ( !usrhists || usrhists->numEntries() <= 1 ) {
       MSG_WARNING("No user-defined calibration histogram for " <<
                "CentralityProjection " << projName << " found " <<
-               "(requested histogram " << calHistName << "_USR in " <<
-                  calAnaName << ")");
+               "(requested histogram " << calHistName << "_USR in " << calAnaName << ")");
       continue;
-    }
-    else {
+    } else {
       MSG_INFO("Found calibration histogram " << sel << " " << usrhists->path());
       cproj.add((UserCentEstimate(), usrhists*, true), sel);
-     }
-#else
-      MSG_WARNING("UserCentEstimate is only available with HepMC3.");
-#endif
     }
-  else if ( sel == "RAW" ) {
-#if HEPMC_VERSION_CODE >= 3000000
-    cproj.add(GeneratedCentrality(), sel);
-#else
-    MSG_WARNING("GeneratedCentrality is only available with HepMC3.");
-#endif
+    #else
+    MSG_ERROR("UserCentEstimate is only available with HepMC3.");
+    #endif
   }
-    else
-      MSG_WARNING("'" << sel << "' is not a valid PercentileProjection tag.");
+  else if ( sel == "RAW" ) {
+    #if HEPMC_VERSION_CODE >= 3000000 || defined(RIVET_ENABLE_HEPMC_20610)
+    cproj.add(GeneratedPercentileProjection(), sel);
+    #else
+    MSG_ERROR("GeneratedCentrality is only available with HepMC3 and HepMC 2.06.10.");
+    #endif
+  }
+  else MSG_ERROR("'" << sel << "' is not a valid PercentileProjection tag.");
 
-  if ( cproj.empty() )
+  if ( cproj.empty() ) {
     MSG_WARNING("CentralityProjection " << projName
                 << " did not contain any valid PercentileProjections.");
-
+  }
+  
   return declare(cproj, projName);
-
 }
 
 
@@ -990,6 +987,10 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
 
   size_t Analysis::_defaultWeightIndex() const {
     return handler().defaultWeightIndex();
+  }
+
+  size_t Analysis::_globalDefaultWeightIndex() const {
+    return handler().globalDefaultWeightIndex();
   }
 
   MultiweightAOPtr Analysis::_getOtherAnalysisObject(const std::string & ananame, const std::string& name) {

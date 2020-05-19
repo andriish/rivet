@@ -18,7 +18,7 @@ RunInfo:
   Hadron multiplicity studies in proton-lead collisions at $\sqrt{s} = 5.02\;\TeV$
 NeedCrossSection: no
 Options:
- - cent=REF,GEN,IMP,USR
+ - cent=REF,GEN,IMP,USR,RAW
 Beams: [p, Pb]
 Energies: [[4000,326560]]
 Description:

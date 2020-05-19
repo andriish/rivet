@@ -9,8 +9,11 @@
 namespace Rivet {
 
 
-  /// @name Electron efficiency and smearing functions
-  //@{
+  /// @defgroup smearing Detector smearing & efficiency functions
+  /// @{
+
+  /// @defgroup smearing_elec Electron efficiency and smearing functions
+  /// @{
 
   /// ATLAS Run 1 electron reconstruction efficiency
   /// @todo Include reco eff (but no e/y discrimination) in forward region
@@ -275,12 +278,12 @@ namespace Rivet {
     return ELECTRON_SMEAR_CMS_RUN1(e);
   }
 
-  //@}
+  /// @}
 
 
 
-  /// @name Photon efficiency and smearing functions
-  //@{
+  /// @defgroup smearing_photon Photon efficiency and smearing functions
+  /// @{
 
   /// @brief ATLAS Run 2 photon reco efficiency
   ///
@@ -364,12 +367,12 @@ namespace Rivet {
   inline Particle PHOTON_SMEAR_CMS_RUN1(const Particle& y) { return y; }
   inline Particle PHOTON_SMEAR_CMS_RUN2(const Particle& y) { return y; }
 
-  //@}
+  /// @}
 
 
 
-  /// @name Muon efficiency and smearing functions
-  //@{
+  /// @defgroup smearing_muon Muon efficiency and smearing functions
+  /// @{
 
   /// ATLAS Run 1 muon reco efficiency
   inline double MUON_EFF_ATLAS_RUN1(const Particle& m) {
@@ -380,6 +383,7 @@ namespace Rivet {
   }
 
   /// ATLAS Run 2 muon reco efficiency
+  ///
   /// From https://arxiv.org/pdf/1603.05598.pdf , Fig3 top
   inline double MUON_RECOEFF_ATLAS_RUN2(const Particle& m) {
     if (m.abspid() != PID::MUON) return 0;
@@ -489,12 +493,12 @@ namespace Rivet {
     return MUON_SMEAR_CMS_RUN1(m);
   }
 
-  //@}
+  /// @}
 
 
 
-  /// @name Tau efficiency and smearing functions
-  //@{
+  /// @defgroup smearing_tau Tau efficiency and smearing functions
+  /// @{
 
   /// @brief ATLAS Run 1 8 TeV tau efficiencies (medium working point)
   ///
@@ -505,6 +509,7 @@ namespace Rivet {
   ///   > 40 GeV 3-prong LMT eff|mis = 0.45|1/250, 0.38|1/400, 0.27|1/1300
   inline double TAU_EFF_ATLAS_RUN1(const Particle& t) {
     if (t.abseta() > 2.5) return 0; //< hmm... mostly
+    if (inRange(t.abseta(), 1.37, 1.52)) return 0; //< crack region
     double pThadvis = 0;
     Particles chargedhadrons;
     for (const Particle& p : t.children()) {
@@ -532,8 +537,9 @@ namespace Rivet {
   ///   20-40 GeV 3-prong LMT eff|mis = 0.45|1/60, 0.38|1/100, 0.27|1/300
   ///   > 40 GeV 1-prong LMT eff|mis = 0.66|1/15, 0.56|1/25, 0.36|1/80
   ///   > 40 GeV 3-prong LMT eff|mis = 0.45|1/250, 0.38|1/400, 0.27|1/1300
-  inline double TAU_MISID_ATLAS_RUN1(const Jet& j) {
+  inline double TAUJET_EFF_ATLAS_RUN1(const Jet& j) {
     if (j.abseta() > 2.5) return 0; //< hmm... mostly
+    if (inRange(j.abseta(), 1.37, 1.52)) return 0; //< crack region
     double pThadvis = 0;
     Particles chargedhadrons;
     for (const Particle& p : j.particles()) {
@@ -543,16 +549,16 @@ namespace Rivet {
       }
     }
     if (chargedhadrons.empty()) return 0;
-    if (pThadvis < 20*GeV) return 0;
-    /// @todo Add some "if jet is true tau" logic... how? tau among constituents' ancestors?
-    if (pThadvis < 40*GeV) {
-      if (chargedhadrons.size() == 1) return 1/20.;
-      if (chargedhadrons.size() == 3) return 1/100.;
-    } else {
-      if (chargedhadrons.size() == 1) return 1/25.;
-      if (chargedhadrons.size() == 3) return 1/400.;
+    if (pThadvis < 20*GeV) return 0; //< below threshold
+    const Particles ttags = j.tauTags(Cuts::pT > 10*GeV);
+    if (ttags.empty()) {
+      if (pThadvis < 40*GeV)
+        return chargedhadrons.size() == 1 ? 1/20. : chargedhadrons.size() == 3 ? 1/100. : 0; //< fake rates
+      else
+        return chargedhadrons.size() == 1 ? 1/25. : chargedhadrons.size() == 3 ? 1/400. : 0; //< fake rates
     }
-    return 0;
+    const Particles prongs = ttags[0].stableDescendants(Cuts::charge3 > 0 && Cuts::pT > 1*GeV && Cuts::abseta < 2.5);
+    return prongs.size() == 1 ? 0.56 : 0.38;
   }
 
 
@@ -564,6 +570,7 @@ namespace Rivet {
   inline double TAU_EFF_ATLAS_RUN2(const Particle& t) {
     if (t.abspid() != PID::TAU) return 0;
     if (t.abseta() > 2.5) return 0; //< hmm... mostly
+    if (inRange(t.abseta(), 1.37, 1.52)) return 0; //< crack region
     double pThadvis = 0;
     Particles chargedhadrons;
     for (const Particle& p : t.children()) {
@@ -584,8 +591,9 @@ namespace Rivet {
   /// From https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2015-045/ATL-PHYS-PUB-2015-045.pdf
   ///   LMT 1 prong efficiency/mistag = 0.6|1/30, 0.55|1/50, 0.45|1/120
   ///   LMT 3 prong efficiency/mistag = 0.5|1/30, 0.4|1/110, 0.3|1/300
-  inline double TAU_MISID_ATLAS_RUN2(const Jet& j) {
+  inline double TAUJET_EFF_ATLAS_RUN2(const Jet& j) {
     if (j.abseta() > 2.5) return 0; //< hmm... mostly
+    if (inRange(j.abseta(), 1.37, 1.52)) return 0; //< crack region
     double pThadvis = 0;
     Particles chargedhadrons;
     for (const Particle& p : j.particles()) {
@@ -596,23 +604,49 @@ namespace Rivet {
     }
     if (chargedhadrons.empty()) return 0;
     if (pThadvis < 20*GeV) return 0; //< below threshold
-    if (chargedhadrons.size() == 1) return 1/50.;
-    if (chargedhadrons.size() == 3) return 1/110.;
-    return 0;
+    const Particles ttags = j.tauTags(Cuts::pT > 10*GeV);
+    // if (ttags.empty()) {
+    //   if (pThadvis < 40*GeV)
+    //     return chargedhadrons.size() == 1 ? 1/50. : 1/110.; //< fake rates
+    //   else
+    //     return chargedhadrons.size() == 1 ? 1/25. : 1/400.; //< fake rates
+    // }
+    if (ttags.empty()) return chargedhadrons.size() == 1 ? 1/50. : chargedhadrons.size() == 3 ? 1/110. : 0; //< fake rates
+    const Particles prongs = ttags[0].stableDescendants(Cuts::charge3 > 0 && Cuts::pT > 1*GeV && Cuts::abseta < 2.5);
+    return prongs.size() == 1 ? 0.55 : 0.40;
   }
 
 
   /// ATLAS Run 1 tau smearing
-  /// @todo Currently a copy of the crappy jet smearing that is probably wrong...
+  /// @todo Currently a copy of the jet smearing
   inline Particle TAU_SMEAR_ATLAS_RUN1(const Particle& t) {
-    // Const fractional resolution for now
-    static const double resolution = 0.03;
+    // // Const fractional resolution for now
+    // static const double resolution = 0.03;
+
+    // // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
+    // /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
+    // const double fsmear = max(randnorm(1., resolution), 0.);
+    // const double mass = t.mass2() > 0 ? t.mass() : 0; //< numerical carefulness...
+    // return Particle(t.pid(), FourMomentum::mkXYZM(t.px()*fsmear, t.py()*fsmear, t.pz()*fsmear, mass));
+
+    // Jet energy resolution lookup
+    //   Implemented by Matthias Danninger for GAMBIT, based roughly on
+    //   https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2015-017/
+    //   Parameterisation can be still improved, but eta dependence is minimal
+    /// @todo Also need a JES uncertainty component?
+    static const vector<double> binedges_pt = {0., 50., 70., 100., 150., 200., 1000., 10000.};
+    static const vector<double> jer = {0.145, 0.115, 0.095, 0.075, 0.07, 0.05, 0.04, 0.04}; //< note overflow value
+    const int ipt = binIndex(t.pT()/GeV, binedges_pt, true);
+    if (ipt < 0) return t;
+    const double resolution = jer.at(ipt);
 
     // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
     /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
     const double fsmear = max(randnorm(1., resolution), 0.);
     const double mass = t.mass2() > 0 ? t.mass() : 0; //< numerical carefulness...
-    return Particle(t.pid(), FourMomentum::mkXYZM(t.px()*fsmear, t.py()*fsmear, t.pz()*fsmear, mass));
+    Particle rtn(PID::TAU, FourMomentum::mkXYZM(t.px()*fsmear, t.py()*fsmear, t.pz()*fsmear, mass));
+    //if (deltaPhi(t, rtn) > 0.01) cout << "jdphi: " << deltaPhi(t, rtn) << endl;
+    return rtn;
   }
 
 
@@ -653,12 +687,12 @@ namespace Rivet {
     return TAU_SMEAR_CMS_RUN1(t);
   }
 
-  //@}
+  /// @}
 
 
 
-  /// @name Jet efficiency and smearing functions
-  //@{
+  /// @defgroup smearing_jet Jet efficiency and smearing functions
+  /// @{
 
   /// Return the ATLAS Run 1 jet flavour tagging efficiency for the given Jet
   inline double JET_BTAG_ATLAS_RUN1(const Jet& j) {
@@ -669,6 +703,7 @@ namespace Rivet {
     if (j.cTagged(ftagsel)) return 0.20*tanh(0.020*j.pT()/GeV)*( 1/(1+0.0034*j.pT()/GeV));
     return 0.002 + 7.3e-6*j.pT()/GeV;
   }
+
   /// Return the ATLAS Run 2 MC2c20 jet flavour tagging efficiency for the given Jet
   inline double JET_BTAG_ATLAS_RUN2_MV2C20(const Jet& j) {
     if (j.abseta() > 2.5) return 0;
@@ -676,6 +711,7 @@ namespace Rivet {
     if (j.cTagged(Cuts::pT > 5*GeV)) return 1/4.5;
     return 1/140.;
   }
+
   /// Return the ATLAS Run 2 MC2c10 jet flavour tagging efficiency for the given Jet
   inline double JET_BTAG_ATLAS_RUN2_MV2C10(const Jet& j) {
     if (j.abseta() > 2.5) return 0;
@@ -725,11 +761,11 @@ namespace Rivet {
     return JET_SMEAR_CMS_RUN1(j);
   }
 
-  //@}
+  /// @}
 
 
-  /// @name ETmiss smearing functions
-  //@{
+  /// @defgroup smearing_elec Missing ET smearing functions
+  /// @{
 
   inline Vector3 MET_SMEAR_IDENTITY(const Vector3& met, double) { return met; }
 
@@ -792,11 +828,11 @@ namespace Rivet {
     return smeared_met;
   }
 
-  //@}
+  /// @}
 
 
-  /// @name Tracking efficiency and smearing functions
-  //@{
+  /// @defgroup smearing_trk Tracking efficiency and smearing functions
+  /// @{
 
   /// ATLAS Run 1 tracking efficiency
   inline double TRK_EFF_ATLAS_RUN1(const Particle& p) {
@@ -873,7 +909,9 @@ namespace Rivet {
     return TRK_EFF_CMS_RUN1(p);
   }
 
-  //@}
+  /// @}
+
+  /// @}
 
 
 }

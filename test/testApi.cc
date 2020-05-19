@@ -1,5 +1,4 @@
 #include "Rivet/AnalysisHandler.hh"
-#include "HepMC/GenEvent.h"
 #include "Rivet/Tools/RivetHepMC.hh"
 #include <fstream>
 

@@ -9,7 +9,7 @@ Authors:
  - Simone Amoroso <amoroso@cern.ch>
 References:
  - Phys.Rev.D 86, 052010 (2012)
- - arXiv:hep-ex/arXiv:1207.7138v3
+ - arXiv:1207.7138 [hep-ex]
  - doi:10.1103/PhysRevD.86.052010   
 RunInfo: $Z\to ee$ event,  a cut on the dilepton invariant mass between 60 and 120 GeV can be added to increase statistics
 NumEvents: 1000000

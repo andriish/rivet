@@ -140,7 +140,7 @@ namespace Rivet {
     // Finalize
     void finalize() {
       for (unsigned int i = 0; i < _profhistAsym->numPoints(); ++i) {
-        if((_profhistDeta->bin(i).numEntries()<2)||(_profhistDphi->bin(i).numEntries()<2)) continue;
+        if((_profhistDeta->bin(i).effNumEntries()<2)||(_profhistDphi->bin(i).effNumEntries()<2)) continue;
         if((_profhistDeta->bin(i).mean()==0)||(_profhistDphi->bin(i).mean()==0)) continue;
         double mean_ratio=_profhistDeta->bin(i).mean() / _profhistDphi->bin(i).mean();
         double mean_error=mean_ratio*sqrt(pow(_profhistDeta->bin(i).stdErr()/_profhistDeta->bin(i).mean(),2)+pow(_profhistDphi->bin(i).stdErr()/_profhistDphi->bin(i).mean(),2));

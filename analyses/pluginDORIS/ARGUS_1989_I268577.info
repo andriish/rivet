@@ -1,6 +1,6 @@
 Name: ARGUS_1989_I268577
 Year: 1989
-Summary: Spectrum for $D^0_{s2}$ production in $e^+e^-$ at 10 GeV in the continuum
+Summary: Spectrum and decay angle for $D^0_{2}$ production in $e^+e^-$ at 10 GeV in the continuum
 Experiment: ARGUS
 Collider: DORIS
 InspireID: 268577
@@ -15,7 +15,9 @@ NeedCrossSection: no
 Beams: [e-, e+]
 Energies: [10.]
 Description:
-  'Measurement of the spectrum for the production of  $D^0_{2}$ by the ARGUS experiment'
+  'Measurement of the $D^*_2(2460)^0$ spectrum in $e^+e^-$ collisions at 10 GeV. The decay angle of the
+   $D^{+}$ with respect to the $D^*_2(2460)^0$ direction in the rest frame of the parent hadron, this gives information on the spin
+   of the parent, is also measured.'
 Keywords: []
 BibKey: Albrecht:1988dj
 BibTeX: '@article{Albrecht:1988dj,

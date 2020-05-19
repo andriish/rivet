@@ -153,6 +153,13 @@ namespace Rivet {
   }
 
 
+  /// Return the path to the reference data file
+  std::string AnalysisInfo::refFile() const {
+    return findAnalysisRefFile(name() + ".yoda");
+  }
+
+
+  /// Render the AnalysisInfo as a string
   string toString(const AnalysisInfo& ai) {
     std::stringstream ss;
     ss << ai.name();

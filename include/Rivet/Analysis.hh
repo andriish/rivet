@@ -69,25 +69,17 @@ namespace Rivet {
 
   public:
 
-    /// @name Standard constructors and destructors.
-    //@{
-
-    // /// The default constructor.
-    // Analysis();
-
     /// Constructor
     Analysis(const std::string& name);
 
     /// The destructor.
     virtual ~Analysis() {}
 
-    //@}
-
 
   public:
 
-    /// @name Main analysis methods
-    //@{
+    /// @defgroup analysis_main Main analysis methods
+    /// @{
 
     /// Initialize this analysis object. A concrete class should here
     /// book all necessary histograms. An overridden function must make
@@ -107,15 +99,15 @@ namespace Rivet {
     /// function.
     virtual void finalize() { }
 
-    //@}
+    /// @}
 
 
   public:
 
-    /// @name Metadata
+    /// @defgroup analysis_meta Metadata
     /// Metadata is used for querying from the command line and also for
     /// building web pages and the analysis pages in the Rivet manual.
-    //@{
+    /// @{
 
     /// Get the actual AnalysisInfo object in which all this metadata is stored.
     const AnalysisInfo& info() const {
@@ -249,6 +241,13 @@ namespace Rivet {
       return info().reentrant();
     }
 
+
+    /// Location of reference data YODA file
+    virtual std::string refFile() const {
+      return info().refFile();
+    }
+
+
     /// Return the allowed pairs of incoming beams required by this analysis.
     virtual const std::vector<PdgIdPair>& requiredBeams() const {
       return info().beams();
@@ -258,7 +257,6 @@ namespace Rivet {
       info().setBeams(requiredBeams);
       return *this;
     }
-
 
     /// Sets of valid beam energy pairs, in GeV
     virtual const std::vector<std::pair<double, double> >& requiredEnergies() const {
@@ -276,23 +274,19 @@ namespace Rivet {
       return *this;
     }
 
-    //@}
-
-
-    /// @name Internal metadata modifying methods
-    //@{
 
     /// Get the actual AnalysisInfo object in which all this metadata is stored (non-const).
+    /// @note For *internal* use!
     AnalysisInfo& info() {
       assert(_info && "No AnalysisInfo object :O");
       return *_info;
     }
 
-    //@}
+    /// @}
 
 
-    /// @name Run conditions
-    //@{
+    /// @defgroup analysis_run Run conditions
+    /// @{
 
     /// Incoming beams for this run
     const ParticlePair& beams() const;
@@ -308,13 +302,14 @@ namespace Rivet {
       return sqrtS() <= 0.0;
     }
 
-    //@}
+    /// @}
 
 
-    /// @name Analysis / beam compatibility testing
+    /// @defgroup analysis_beamcompat Analysis / beam compatibility testing
+    ///
     /// @todo Replace with beamsCompatible() with no args (calling beams() function internally)
     /// @todo Add beamsMatch() methods with same (shared-code?) tolerance as in beamsCompatible()
-    //@{
+    /// @{
 
     /// Check if analysis is compatible with the provided beam particle IDs and energies
     bool isCompatible(const ParticlePair& beams) const;
@@ -325,7 +320,7 @@ namespace Rivet {
     /// Check if analysis is compatible with the provided beam particle IDs and energies
     bool isCompatible(const PdgIdPair& beams, const std::pair<double,double>& energies) const;
 
-    //@}
+    /// @}
 
     /// Access the controlling AnalysisHandler object.
     AnalysisHandler& handler() const { return *_analysishandler; }
@@ -363,8 +358,8 @@ namespace Rivet {
 
   protected:
 
-    /// @name Histogram paths
-    //@{
+    /// @defgroup analysis_histopaths Histogram paths
+    /// @{
 
     /// Get the canonical histogram "directory" path for this analysis.
     const std::string histoDir() const;
@@ -378,11 +373,18 @@ namespace Rivet {
     /// Get the internal histogram name for given d, x and y (cf. HepData)
     const std::string mkAxisCode(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const;
 
-    //@}
+    /// @}
 
 
-    /// @name Histogram reference data
-    //@{
+    /// @defgroup analysis_refdata Histogram reference data
+    /// @{
+
+    /// Get all reference data objects for this analysis
+    const std::map<std::string, YODA::AnalysisObjectPtr>& refData() const {
+      _cacheRefData();
+      return _refdata;
+    }
+
 
     /// Get reference data for a named histo
     /// @todo SFINAE to ensure that the type inherits from YODA::AnalysisObject?
@@ -397,6 +399,7 @@ namespace Rivet {
       return dynamic_cast<T&>(*_refdata[hname]);
     }
 
+
     /// Get reference data for a numbered histo
     /// @todo SFINAE to ensure that the type inherits from YODA::AnalysisObject?
     template <typename T=YODA::Scatter2D>
@@ -405,11 +408,11 @@ namespace Rivet {
       return refData(hname);
     }
 
-    //@}
+    /// @}
 
 
-    /// @name Counter booking
-    //@{
+    /// @defgroup analysis_cbook Counter booking
+    /// @{
 
     /// Book a counter.
     CounterPtr & book(CounterPtr &, const std::string& name);
@@ -419,11 +422,11 @@ namespace Rivet {
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
     CounterPtr & book(CounterPtr &, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
-    //@}
+    /// @}
 
 
-    /// @name 1D histogram booking
-    //@{
+    /// @defgroup analysis_h1book 1D histogram booking
+    /// @{
 
     /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
     Histo1DPtr & book(Histo1DPtr &,const std::string& name, size_t nbins, double lower, double upper);
@@ -445,11 +448,11 @@ namespace Rivet {
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
     Histo1DPtr & book(Histo1DPtr &,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
-    //@}
+    /// @}
 
 
-    /// @name 2D histogram booking
-    //@{
+    /// @defgroup analysis_h2book 2D histogram booking
+    /// @{
 
     /// Book a 2D histogram with @a nxbins and @a nybins uniformly
     /// distributed across the ranges @a xlower - @a xupper and @a
@@ -482,11 +485,11 @@ namespace Rivet {
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
     Histo2DPtr & book(Histo2DPtr &,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
-    //@}
+    /// @}
 
 
-    /// @name 1D profile histogram booking
-    //@{
+    /// @defgroup analysis_p1book 1D profile histogram booking
+    /// @{
 
     /// Book a 1D profile histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
     Profile1DPtr & book(Profile1DPtr &,  const std::string& name, size_t nbins, double lower, double upper);
@@ -508,11 +511,11 @@ namespace Rivet {
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
     Profile1DPtr & book(Profile1DPtr &,  unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
-    //@}
+    /// @}
 
 
-    /// @name 2D profile histogram booking
-    //@{
+    /// @defgroup analysis_p2book 2D profile histogram booking
+    /// @{
 
     /// Book a 2D profile histogram with @a nxbins and @a nybins uniformly
     /// distributed across the ranges @a xlower - @a xupper and @a ylower - @a
@@ -547,11 +550,11 @@ namespace Rivet {
     // /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
     // Profile2DPtr & book(const Profile2DPtr &, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
-    //@}
+    /// @}
 
 
-    /// @name 2D scatter booking
-    //@{
+    /// @defgroup analysis_s2book 2D scatter booking
+    /// @{
 
     /// @brief Book a 2-dimensional data point set with the given name.
     ///
@@ -590,10 +593,10 @@ namespace Rivet {
     /// Book a 2-dimensional data point set with x-points from an existing scatter and a new path.
     Scatter2DPtr & book(Scatter2DPtr & s2d, const string& hname, const Scatter2D& refscatter);
 
-    //@}
+    /// @}
 
-        /// @name 3D scatter booking
-    //@{
+    /// @defgroup analysis_s3book 3D scatter booking
+    /// @{
 
     /// @brief Book a 3-dimensional data point set with the given name.
     ///
@@ -637,10 +640,25 @@ namespace Rivet {
     /// Book a 3-dimensional data point set with x-points from an existing scatter and a new path.
     Scatter3DPtr & book(Scatter3DPtr & s3d, const std::string& hname, const Scatter3D& refscatter);
 
-    //@}
+    /// @}
 
 
   public:
+
+    /// @name Allow RAW histograms to be read in to local objects.
+    virtual void rawHookIn(YODA::AnalysisObjectPtr yao) {
+      (void) yao;
+    }
+
+    /// @name Provide access to RAW histograms before writing out to file.
+    virtual void rawHookOut(vector<MultiweightAOPtr> raos, size_t iW) {
+      (void) raos;
+      (void) iW;
+    }
+
+    /// @name Get the default/nominal weight index for the original weight matrix
+    size_t _globalDefaultWeightIndex() const;
+
 
     /// @name Accessing options for this Analysis instance.
     //@{
@@ -657,8 +675,10 @@ namespace Rivet {
       return "";
     }
 
-    /// Get an option for this analysis instance converted to a
-    /// specific type (given by the specified @a def value).
+    /// @brief Get an option for this analysis instance converted to a specific type
+    ///
+    /// The return type is given by the specified @a def value, or by an explicit template
+    /// type-argument, e.g. getOption<double>("FOO", 3).
     template<typename T>
     T getOption(std::string optname, T def) {
       if (_options.find(optname) == _options.end()) return def;
@@ -669,7 +689,12 @@ namespace Rivet {
       return ret;
     }
 
-    //@}
+    /// @}
+
+
+    /// @defgroup analysis_bookhi Booking heavy ion features
+    /// @{
+
     /// @brief Book a CentralityProjection
     ///
     /// Using a SingleValueProjection, @a proj, giving the value of an
@@ -684,12 +709,13 @@ namespace Rivet {
     /// contains a histogram with the name @a calHistName with an
     /// appended "_IMP" This histogram will be used to add an optional
     /// centrality percentile based on the generated impact
-    /// parameter. If @increasing is true, a low (high) value of @proj
+    /// parameter. If @a increasing is true, a low (high) value of @a proj
     /// is assumed to correspond to a more peripheral (central) event.
     const CentralityProjection&
     declareCentrality(const SingleValueProjection &proj,
                       string calAnaName, string calHistName,
-                      const string projName, bool increasing = false);
+                      const string projName, bool increasing=false);
+
 
     /// @brief Book a Percentile wrapper around AnalysisObjects.
     ///
@@ -727,6 +753,7 @@ namespace Rivet {
       return pctl;
     }
 
+
     // /// @brief Book Percentile wrappers around AnalysisObjects.
     // ///
     // /// Based on a previously registered CentralityProjection named @a
@@ -758,6 +785,8 @@ namespace Rivet {
     //   pctl.add(wtf, cnt);
     //   return pctl;
     // }
+
+    /// @}
 
 
   private:
@@ -821,19 +850,27 @@ namespace Rivet {
       return s.points()[0].x();
     }
 
-    /// @name Analysis object manipulation
+    /// @defgroup analysis_manip Analysis object manipulation
+    ///
     /// @todo Should really be protected: only public to keep BinnedHistogram happy for now...
-    //@{
+    /// @{
 
-    /// Multiplicatively scale the given counter, @a cnt, by factor @s factor.
+    /// Multiplicatively scale the given counter, @a cnt, by factor @a factor.
     void scale(CounterPtr cnt, CounterAdapter factor);
 
-    /// Multiplicatively scale the given counters, @a cnts, by factor @s factor.
+    /// Multiplicatively scale the given counters, @a cnts, by factor @a factor.
     /// @note Constness intentional, if weird, to allow passing rvalue refs of smart ptrs (argh)
     /// @todo Use SFINAE for a generic iterable of CounterPtrs
     void scale(const std::vector<CounterPtr>& cnts, CounterAdapter factor) {
       for (auto& c : cnts) scale(c, factor);
     }
+
+    /// Iteratively scale the counters in the map @a maps, by factor @a factor.
+    template<typename T>
+    void scale(const std::map<T, CounterPtr>& maps, CounterAdapter factor) {
+      for (auto& m : maps) scale(m.second, factor);
+    }
+
     /// @todo YUCK!
     template <std::size_t array_size>
     void scale(const CounterPtr (&cnts)[array_size], CounterAdapter factor) {
@@ -851,21 +888,35 @@ namespace Rivet {
     void normalize(const std::vector<Histo1DPtr>& histos, CounterAdapter norm=1.0, bool includeoverflows=true) {
       for (auto& h : histos) normalize(h, norm, includeoverflows);
     }
+
+    /// Normalize the histograms in map, @a maps, to area = @a norm.
+    template<typename T>
+    void normalize(const std::map<T, Histo1DPtr>& maps, CounterAdapter norm=1.0, bool includeoverflows=true) {
+      for (auto& m : maps) normalize(m.second, norm, includeoverflows);
+    }
+
     /// @todo YUCK!
     template <std::size_t array_size>
     void normalize(const Histo1DPtr (&histos)[array_size], CounterAdapter norm=1.0, bool includeoverflows=true) {
       for (auto& h : histos) normalize(h, norm, includeoverflows);
     }
 
-    /// Multiplicatively scale the given histogram, @a histo, by factor @s factor.
+    /// Multiplicatively scale the given histogram, @a histo, by factor @a factor.
     void scale(Histo1DPtr histo, CounterAdapter factor);
 
-    /// Multiplicatively scale the given histograms, @a histos, by factor @s factor.
+    /// Multiplicatively scale the given histograms, @a histos, by factor @a factor.
     /// @note Constness intentional, if weird, to allow passing rvalue refs of smart ptrs (argh)
     /// @todo Use SFINAE for a generic iterable of Histo1DPtrs
     void scale(const std::vector<Histo1DPtr>& histos, CounterAdapter factor) {
       for (auto& h : histos) scale(h, factor);
     }
+
+    /// Iteratively scale the histograms in the map, @a maps, by factor @a factor.
+    template<typename T>
+    void scale(const std::map<T, Histo1DPtr>& maps, CounterAdapter factor) {
+      for (auto& m : maps) scale(m.second, factor);
+    }
+
     /// @todo YUCK!
     template <std::size_t array_size>
     void scale(const Histo1DPtr (&histos)[array_size], CounterAdapter factor) {
@@ -882,21 +933,35 @@ namespace Rivet {
     void normalize(const std::vector<Histo2DPtr>& histos, CounterAdapter norm=1.0, bool includeoverflows=true) {
       for (auto& h : histos) normalize(h, norm, includeoverflows);
     }
+
+    /// Normalize the histograms in map, @a maps, to area = @a norm.
+    template<typename T>
+    void normalize(const std::map<T, Histo2DPtr>& maps, CounterAdapter norm=1.0, bool includeoverflows=true) {
+      for (auto& m : maps) normalize(m.second, norm, includeoverflows);
+    }
+
     /// @todo YUCK!
     template <std::size_t array_size>
     void normalize(const Histo2DPtr (&histos)[array_size], CounterAdapter norm=1.0, bool includeoverflows=true) {
       for (auto& h : histos) normalize(h, norm, includeoverflows);
     }
 
-    /// Multiplicatively scale the given histogram, @a histo, by factor @s factor.
+    /// Multiplicatively scale the given histogram, @a histo, by factor @a factor.
     void scale(Histo2DPtr histo, CounterAdapter factor);
 
-    /// Multiplicatively scale the given histograms, @a histos, by factor @s factor.
+    /// Multiplicatively scale the given histograms, @a histos, by factor @a factor.
     /// @note Constness intentional, if weird, to allow passing rvalue refs of smart ptrs (argh)
     /// @todo Use SFINAE for a generic iterable of Histo2DPtrs
     void scale(const std::vector<Histo2DPtr>& histos, CounterAdapter factor) {
       for (auto& h : histos) scale(h, factor);
     }
+
+    /// Iteratively scale the histograms in the map, @a maps, by factor @a factor.
+    template<typename T>
+    void scale(const std::map<T, Histo2DPtr>& maps, CounterAdapter factor) {
+      for (auto& m : maps) scale(m.second, factor);
+    }
+
     /// @todo YUCK!
     template <std::size_t array_size>
     void scale(const Histo2DPtr (&histos)[array_size], CounterAdapter factor) {
@@ -991,7 +1056,7 @@ namespace Rivet {
     /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
     void integrate(const Histo1D& h, Scatter2DPtr s) const;
 
-    //@}
+    /// @}
 
 
   public:
@@ -1004,14 +1069,15 @@ namespace Rivet {
 
   protected:
 
-    /// @name Data object registration, retrieval, and removal
-    //@{
+    /// @defgroup analysis_aoaccess Data object registration, retrieval, and removal
+    /// @{
 
     /// Get a preloaded YODA object.
     template <typename YODAT>
     shared_ptr<YODAT> getPreload(string path) const {
       return dynamic_pointer_cast<YODAT>(_getPreload(path));
     }
+
 
     /// Register a new data object, optionally read in preloaded data.
     template <typename YODAT>
@@ -1025,17 +1091,21 @@ namespace Rivet {
         throw UserError(name() + ": Can't book objects outside of init() or finalize().");
       }
 
-      // First check that we haven't booked this before. This is
-      // allowed when booking in finalze.
+      // First check that we haven't booked this before.
+      // This is allowed when booking in finalize: just warn in that case.
+      // If in init(), throw an exception: it's 99.9% never going to be intentional.
       for (auto & waold : analysisObjects()) {
         if ( yao.path() == waold.get()->basePath() ) {
-          if ( !inInit() )
-            MSG_WARNING("Found double-booking of " << yao.path() << " in "
-                        << name() << ". Keeping previous booking");
+          const string msg = "Found double-booking of " + yao.path() + " in " + name();
+          if ( inInit() ) {
+            MSG_ERROR(msg);
+            throw LookupError(msg);
+          } else {
+            MSG_WARNING(msg + ". Keeping previous booking");
+          }
           return RAOT(dynamic_pointer_cast<WrapperT>(waold.get()));
         }
       }
-
 
       shared_ptr<WrapperT> wao = make_shared<WrapperT>();
       wao->_basePath = yao.path();
@@ -1092,8 +1162,8 @@ namespace Rivet {
       _analysisobjects.push_back(ret);
 
       return ret;
-
     }
+
 
     /// Register a data object in the histogram system
     template <typename AO=MultiweightAOPtr>
@@ -1300,7 +1370,7 @@ namespace Rivet {
     //   return getAnalysisObject<Scatter2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
     // }
 
-    //@}
+    /// @}
 
 
   private:
@@ -1315,11 +1385,11 @@ namespace Rivet {
     /// @todo Make this a map for fast lookup by path?
     vector<MultiweightAOPtr> _analysisobjects;
 
-    /// @name Cross-section variables
-    //@{
+    /// @defgroup analysis_xsecvars Cross-section variables
+    /// @{
     double _crossSection;
     bool _gotCrossSection;
-    //@}
+    /// @}
 
     /// The controlling AnalysisHandler object.
     AnalysisHandler* _analysishandler;
@@ -1336,13 +1406,13 @@ namespace Rivet {
 
   private:
 
-    /// @name Utility functions
-    //@{
+    /// @defgroup analysis_utils Utility functions
+    /// @{
 
     /// Get the reference data for this paper and cache it.
     void _cacheRefData() const;
 
-    //@}
+    /// @}
 
 
     /// The assignment operator is private and must never be called.
@@ -1350,6 +1420,13 @@ namespace Rivet {
     Analysis& operator=(const Analysis&);
 
   };
+
+
+  // Template specialisation for literal character strings (which don't play well with stringstream)
+  template<>
+  inline const char* Analysis::getOption(std::string optname, const char* def) {
+    return getOption<std::string>(optname, def).c_str();
+  }
 
 
 }

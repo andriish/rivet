@@ -3,6 +3,7 @@
 #define RIVET_SmearedMET_HH
 
 #include "Rivet/Projection.hh"
+#include "Rivet/Projections/METFinder.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Tools/SmearingFunctions.hh"
 #include <functional>
@@ -11,11 +12,11 @@ namespace Rivet {
 
 
   /// Wrapper projection for smearing missing (transverse) energy/momentum with detector resolutions
-  class SmearedMET : public Projection {
+  class SmearedMET : public METFinder {
   public:
 
     /// @name Constructors etc.
-    //@{
+    ///@{
 
     /// @brief Constructor from a MissingMomentum projection and a smearing function
     ///
@@ -41,7 +42,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(SmearedMET);
 
-    //@}
+    ///@}
 
 
     /// Compare to another SmearedMET
@@ -62,51 +63,28 @@ namespace Rivet {
 
 
     /// @name Transverse momentum functions
+    ///
     /// @note This may be what you want, even if the paper calls it "missing Et"!
-    /// @todo Move into a common base class for MissingMomentum and SmearedMET -- MomentumBalance, METFinder?
-    //@{
+    ///@{
 
     /// The vector-summed visible transverse momentum in the event, as a 3-vector with z=0
+    ///
     /// @note Reverse this vector with operator- to get the missing pT vector.
     /// @todo Currently equivalent to vectorEt
     const Vector3& vectorPt() const { return vectorEt(); }
 
-    /// Convenience vector MPT function
-    const Vector3 vectorMissingPt() const { return -vectorPt(); }
-    // Alias
-    const Vector3 vectorMPT() const { return vectorMissingPt(); }
-
-    /// The vector-summed missing transverse momentum in the event.
-    double missingPt() const { return vectorPt().mod(); }
-    // /// Alias for missingPt
-    // double mpt() const { return missingPt(); }
-
-    // /// The scalar-summed visible transverse momentum in the event.
-    // double scalarPt() const { return _spt; }
-    // // /// Alias for scalarPt
-    // // double spt() const { return scalarPt(); }
-
-    //@}
+    ///@}
 
 
     /// @name Transverse energy functions
+    ///
     /// @warning Despite the common names "MET" and "SET", what's often meant is the pT functions above!
-    /// @todo Move into a common base class for MissingMomentum and SmearedMET -- MomentumBalance, METFinder?
-    //@{
+    ///@{
 
     /// The vector-summed visible transverse energy in the event, as a 3-vector with z=0
+    ///
     /// @note Reverse this vector with operator- to get the missing ET vector.
     const Vector3& vectorEt() const { return _vet; }
-
-    /// Convenience vector MET function
-    const Vector3 vectorMissingEt() const { return -vectorEt(); }
-    // Alias
-    const Vector3 vectorMET() const { return vectorMissingEt(); }
-
-    /// The vector-summed missing transverse energy in the event.
-    double missingEt() const { return vectorEt().mod(); }
-    /// Alias for missingEt
-    double met() const { return missingEt(); }
 
     //@}
 

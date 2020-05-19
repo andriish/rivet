@@ -23,7 +23,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       declare(Beam(), "Beams");
-      const ChargedFinalState cfs;
+      const FinalState cfs(Cuts::charge != 0);
       declare(cfs, "FS");
       const Thrust thrust(cfs);
       declare(thrust, "Thrust");

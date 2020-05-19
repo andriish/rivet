@@ -17,6 +17,12 @@
 #include <cstring>
 #include <algorithm>//min max for VS2017
 
+#if HEPMC3_VERSION_CODE >= 3002000
+#define ERROR(x) HEPMC3_ERROR(x)
+#define WARNING(x) HEPMC3_WARNING(x)
+#define DEBUG(x,y) HEPMC3_DEBUG(x,y)
+#endif
+
 namespace Rivet {
 
 using namespace HepMC3;

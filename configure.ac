@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[3.1.x],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[3.1.1],[rivet@projects.hepforge.org],[Rivet])
 
 ## Check and block installation into the src/build dir
 if test "$prefix" = "$PWD"; then
@@ -20,12 +20,21 @@ m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 AC_CONFIG_MACRO_DIR([m4])
 AC_SUBST(LT_OBJDIR)
 
+## Compute version code
+let rivet_major=`echo "$PACKAGE_VERSION" | cut -d. -f1`
+let rivet_minor=`echo "$PACKAGE_VERSION" | cut -d. -f2`
+let rivet_micro=`echo "$PACKAGE_VERSION" | cut -d. -f3 | [sed -e 's/[^0-9].*//g']`
+let PACKAGE_VERSION_CODE=10000*$rivet_major+100*$rivet_minor+$rivet_micro
+
 ## Package-specific #defines
 AC_DEFINE_UNQUOTED(RIVET_VERSION, "$PACKAGE_VERSION", "Rivet version string")
+AC_DEFINE_UNQUOTED(RIVET_VERSION_CODE, $PACKAGE_VERSION_CODE, "Rivet version int")
 AC_DEFINE_UNQUOTED(RIVET_NAME, "$PACKAGE_NAME", "Rivet name string")
 AC_DEFINE_UNQUOTED(RIVET_STRING, "$PACKAGE_STRING", "Rivet name and version string")
 AC_DEFINE_UNQUOTED(RIVET_TARNAME, "$PACKAGE_TARNAME", "Rivet short name string")
 AC_DEFINE_UNQUOTED(RIVET_BUGREPORT, "$PACKAGE_BUGREPORT", "Rivet contact email address")
+
+
 
 ## OS X
 AC_CEDAR_OSX
@@ -39,7 +48,7 @@ if test "x$CXXFLAGS" == "x"; then CXXFLAGS="-O2"; fi
 ## Compiler setup
 AC_LANG(C++)
 AC_PROG_CXX
-AX_CXX_COMPILE_STDCXX([11], [noext], [mandatory])
+AX_CXX_COMPILE_STDCXX([14], [noext], [mandatory])
 
 ## Store and propagate the compiler identity and flags
 RIVETCXX="$CXX"
@@ -70,8 +79,8 @@ if test -f "$YODACONFIG"; then
   YODA_VERSION2=[`echo $YODA_VERSION | cut -d. -f2 | sed -e 's/\([0-9]*\).*/\1/g'`]
   YODA_VERSION3=[`echo $YODA_VERSION | cut -d. -f3 | sed -e 's/\([0-9]*\).*/\1/g'`]
     let YODA_VERSION_INT=YODA_VERSION1*10000+YODA_VERSION2*100+YODA_VERSION3
-  if test $YODA_VERSION_INT -lt 10704; then
-    AC_MSG_ERROR([YODA version isn't sufficient: at least version 1.7.4 required])
+  if test $YODA_VERSION_INT -lt 10800; then
+    AC_MSG_ERROR([YODA version isn't sufficient: at least version 1.8.0 required])
   fi
   AC_MSG_CHECKING([YODA Python path using yoda-config])
   YODA_PYTHONPATH=`$YODACONFIG --pythonpath`
@@ -138,7 +147,13 @@ if test x$use_hepmc2 = xyes; then
   HEPMC_VERSION=$hepmc_major$hepmc_minor
   AC_MSG_NOTICE([HepMC version is $hepmc_version -> $HEPMC_VERSION])
   AC_SUBST(HEPMC_VERSION)
+  if test "x$hepmc_version" == "x2.06.10"; then
+    AC_DEFINE([RIVET_ENABLE_HEPMC_20610],[1], [Defined if version 2.06.10 of HepMC is used.])
+  fi
   CPPFLAGS=$oldCPPFLAGS
+  HEPMCLIBNAME="-lHepMC"
+  AC_SUBST(HEPMCLIBNAME)
+
 
 else
 
@@ -171,6 +186,13 @@ else
   AC_DEFINE([RIVET_ENABLE_HEPMC_3],[1], [Defined if version 3 of HepMC is used.])
   CPPFLAGS=$oldCPPFLAGS
 
+  ## Use generic HEPMC* variables for HepMC3 as well (needed for rivet-config.in)
+  c=$HEPMC3INCPATH
+  HEPMCLIBPATH=$HEPMC3LIBPATH
+  HEPMCLIBNAME="-lHepMC3 -lHepMC3search"
+  AC_SUBST(HEPMCINCPATH)
+  AC_SUBST(HEPMCLIBPATH)
+  AC_SUBST(HEPMCLIBNAME)
 fi
 
 AM_CONDITIONAL([ENABLE_HEPMC_3], [test x$hepmc_major = x3])
@@ -189,7 +211,7 @@ if test -f "$FJCONFIG"; then
   if test "$fjmajor" -lt 3; then
     AC_MSG_ERROR([FastJet version 3.0.0 or later is required])
   fi
-  FASTJETLIBADD="$($FJCONFIG --plugins --shared --libs)"
+  FASTJETLIBADD="$($FJCONFIG --plugins --shared --libs| tr ' ' '\n' | grep -v gcc  | tr '\n' ' ')"
 else
   FASTJETLIBADD="-L$FASTJETLIBPATH -l$FASTJETLIBNAME"
   FASTJETLIBADD="$FASTJETLIBADD -lSISConePlugin -lsiscone -lsiscone_spherical"
@@ -235,7 +257,7 @@ AC_CHECK_HEADER([fastjet/TrackJetPlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG]
 FASTJET_ERRMSG="Required FastJet Contrib headers were not found: did you install FastJet Contrib?"
 AC_CHECK_HEADER([fastjet/contrib/SoftDrop.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG])])
 AC_MSG_CHECKING([FastJet test program compilation])
-FASTJET_ERRMSG="Couldn't build FastJet test program: did you install FastJet Contrib with 'make fragile-shared-install'?"
+FASTJET_ERRMSG="Couldn't build FastJet test program: are your FastJet and FastJet Contrib versions up to date, and did you install Contrib with 'make fragile-shared-install'?"
 AC_LINK_IFELSE([AC_LANG_SOURCE([#include <vector>
 #include "fastjet/PseudoJet.hh"
 #include "fastjet/ClusterSequence.hh"
@@ -276,17 +298,23 @@ fi
 AM_CONDITIONAL(ENABLE_ANALYSES, [test x$enable_analyses = xyes])
 
 
-## Build LaTeX docs if possible...
-AC_PATH_PROG(PDFLATEX, pdflatex)
+dnl ## Build LaTeX docs if possible...
+dnl AC_PATH_PROG(PDFLATEX, pdflatex)
+dnl AM_CONDITIONAL(WITH_PDFLATEX, [test x$PDFLATEX != x])
+dnl ## ... unless told otherwise!
+dnl AC_ARG_ENABLE([pdfmanual],
+dnl   [AC_HELP_STRING(--enable-pdfmanual, [build and install the manual])],
+dnl   [], [enable_pdfmanual=no])
+dnl if test x$enable_pdfmanual = xyes; then
+dnl    AC_MSG_WARN([Building Rivet manual, by request])
+dnl fi
+# TODO: remove
 AM_CONDITIONAL(WITH_PDFLATEX, [test x$PDFLATEX != x])
-## ... unless told otherwise!
-AC_ARG_ENABLE([pdfmanual],
-  [AC_HELP_STRING(--enable-pdfmanual, [build and install the manual])],
-  [], [enable_pdfmanual=no])
-if test x$enable_pdfmanual = xyes; then
-   AC_MSG_WARN([Building Rivet manual, by request])
-fi
 AM_CONDITIONAL(ENABLE_PDFMANUAL, [test x$enable_pdfmanual = xyes])
+#
+AC_ARG_ENABLE([pdfmanual],
+  [AC_HELP_STRING(--enable-pdfmanual, [backward compatility dummy flag, no effect and deprecated])], [], [])
+
 
 ## Build Doxygen documentation if possible
 AC_ARG_ENABLE([doxygen],
@@ -406,7 +434,7 @@ AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(AM_CXXFLAGS)
 
 AC_EMPTY_SUBST
-AC_CONFIG_FILES(Makefile Doxyfile)
+AC_CONFIG_FILES(Makefile)
 AC_CONFIG_FILES(include/Makefile include/Rivet/Makefile)
 AC_CONFIG_FILES(src/Makefile)
 AC_CONFIG_FILES(src/Core/Makefile src/Core/yamlcpp/Makefile)
@@ -417,9 +445,8 @@ AC_CONFIG_FILES(analyses/Makefile)
 AC_CONFIG_FILES(test/Makefile)
 AC_CONFIG_FILES(pyext/Makefile pyext/rivet/Makefile pyext/setup.py)
 AC_CONFIG_FILES(data/Makefile data/texmf/Makefile data/stylelib/Makefile)
-AC_CONFIG_FILES(doc/Makefile)
-AC_CONFIG_FILES(doc/rivetversion.sty)
-AC_CONFIG_FILES(bin/Makefile bin/rivet-config bin/rivet-buildplugin)
+AC_CONFIG_FILES(doc/Makefile doc/doxygen/Doxyfile)
+AC_CONFIG_FILES(bin/Makefile bin/rivet-config bin/rivet-build)
 AC_CONFIG_FILES(rivetenv.sh rivetenv.csh rivet.pc)
 
 AC_OUTPUT

@@ -23,6 +23,7 @@ from __future__ import print_function
 import rivet, sys, os
 rivet.util.check_python_version()
 rivet.util.set_process_name(os.path.basename(__file__))
+COMMAND = " ".join([os.path.basename(sys.argv[0])] + sys.argv[1:])
 
 import glob, shutil
 from subprocess import Popen,PIPE
@@ -43,6 +44,8 @@ parser.add_argument("-i", "--ignore-unvalidated", dest="IGNORE_UNVALIDATED", act
                     default=False, help="ignore unvalidated analyses")
 # parser.add_argument("--ref", "--refid", dest="REF_ID",
 #                   default=None, help="ID of reference data set (file path for non-REF data)")
+parser.add_argument("--no-rivet-refs", dest="RIVETREFS", action="store_false",
+                        default=True, help="don't use Rivet reference data files")
 parser.add_argument("--dry-run", help="don't actually do any plotting or HTML building", dest="DRY_RUN",
                     action="store_true", default=False)
 parser.add_argument("--no-cleanup", dest="NO_CLEANUP", action="store_true", default=False,
@@ -239,6 +242,8 @@ if args.MC_ERRS:
     ch_cmd.append("--mc-errs")
 if not args.SHOW_RATIO:
     ch_cmd.append("--no-ratio")
+if not args.RIVETREFS:
+    ch_cmd.append("--no-rivet-refs")
 if args.NOPLOTTITLE:
     ch_cmd.append("--no-plottitle")
 if args.REMOVE_OPTIONS:
@@ -338,9 +343,10 @@ if not args.DRY_RUN:
     ## A helper function for metadata LaTeX -> HTML conversion
     from rivet.util import htmlify
 
-    ## A timestamp HTML fragment to be used on each page:
+    ## Timestamp and command HTML fragments to be used on each page:
     import datetime
     timestamp = '<p>Generated at %s</p>\n' % datetime.datetime.now().strftime("%A, %d. %B %Y %I:%M%p")
+    command = '<p>Created with command: <kbd>%s</kbd></p>' % COMMAND
 
     index = open(os.path.join(args.OUTPUTDIR, "index.html"), "w")
     index.write('<html>\n<head>\n<title>%s</title>\n%s</head>\n<body>' % (args.TITLE, style + script))
@@ -362,6 +368,7 @@ if not args.DRY_RUN:
             index.write('<li><a href="#%s">%s</a>\n' % (analysis, htmlify(summary)) )
         index.write('</ul>\n')
 
+    official_routines = rivet.stdAnalysisNames()
     for analysis in analyses:
         references = []
         summary = htmlify(analysis)
@@ -392,12 +399,22 @@ if not args.DRY_RUN:
 
         reflist = []
         if inspireid:
-            reflist.append('<a href="http://inspire-hep.net/record/%s">Inspire</a>' % inspireid)
+            reflist.append('<a href="https://inspirehep.net/literature/%s">Inspire</a>' % inspireid)
             reflist.append('<a href="http://hepdata.net/record/ins%s">HepData</a>' % inspireid)
         elif spiresid:
         # elif ana.spiresId():
-            reflist.append('<a href="http://inspire-hep.net/search?p=find+key+%s">Inspire</a>' % spiresid)
+            reflist.append('<a href="https://inspirehep.net/literature?q=%s">Inspire</a>' % spiresid)
             reflist.append('<a href="http://hepdata.cedar.ac.uk/view/irn%s">HepData</a>' % spiresid)
+        if analysis in official_routines:
+            reflist.append('<a href="https://rivet.hepforge.org/analyses/%s.html">Analysis reference</a>' % analysis)
+        for i, ref in enumerate(references):
+            if "arXiv" in ref:
+                try:
+                    arxivID = ref.split(' ')[0].split(':')[-1]
+                    if arxivID:
+                        references[i] = '<a href="https://arxiv.org/abs/%s">arXiv:%s</a>' % (arxivID, arxivID)
+                except:
+                    pass
         reflist += references
         index.write('<p>%s</p>\n' % " &#124; ".join(reflist))
 
@@ -454,7 +471,7 @@ if not args.DRY_RUN:
         if not args.SINGLE:
             anaindex.write('<div style="float:none">%s</body>\n</html></div>\n' % timestamp)
             anaindex.close()
-    index.write('<br>%s</body>\n</html>' % timestamp)
+    index.write("<br>\n%s\n%s\n</body>\n</html>" % (timestamp, command))
     index.close()
 
 # http://stackoverflow.com/questions/377017/test-if-executable-exists-in-python
@@ -480,6 +497,10 @@ def which(program):
 # sys.exit(0)
 if not args.USE_MATPLOTLIB:
     mp_cmd = ["make-plots"]
+    for configfile in args.CONFIGFILES:
+        configfile = os.path.abspath(os.path.expanduser(configfile))
+        if os.access(configfile, os.R_OK):
+            mp_cmd.append("--config=%s" % configfile)
     if args.NUMTHREADS:
         mp_cmd.append("--num-threads=%d" % args.NUMTHREADS)
     if args.NO_CLEANUP:

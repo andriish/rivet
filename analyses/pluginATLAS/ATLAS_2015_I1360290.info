@@ -13,7 +13,7 @@ References:
 RunInfo: Pb--Pb minimum bias events. Centrality calibration from ATLAS_PBPB_CENTRALITY.
 NeedCrossSection: no
 Options:
- - cent=REF,GEN,IMP,USR
+ - cent=REF,GEN,IMP,USR,RAW
 Beams: [Pb, Pb]
 # This is _total_ energy of beams, so this becomes 208*2760=574080
 Energies: [574080]
@@ -22,6 +22,8 @@ Description:
    collisions. Also measured is $\eta$ distributions at various $p_\perp$ intervals. Nuclear
    modification factors currently not implemented, but could be.'
 Keywords: []
+ReleaseTests:
+ - $A LHC-2760-PbPb :cent=REF
 BibKey: Aad:2015wga
 BibTeX: '@article{Aad:2015wga,
       author         = "Aad, Georges and others",
@@ -40,6 +42,4 @@ BibTeX: '@article{Aad:2015wga,
       reportNumber   = "CERN-PH-EP-2015-032",
       SLACcitation   = "%%CITATION = ARXIV:1504.04337;%%"
 }'
-ToDo:
- - Implement the analysis, test it, remove this ToDo, and mark as VALIDATED :-)
 

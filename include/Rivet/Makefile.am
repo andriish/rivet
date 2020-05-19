@@ -71,6 +71,7 @@ nobase_pkginclude_HEADERS += \
   Projections/LeadingParticlesFinalState.hh \
   Projections/LossyFinalState.hh \
   Projections/MergedFinalState.hh \
+  Projections/METFinder.hh \
   Projections/MissingMomentum.hh \
   Projections/NeutralFinalState.hh \
   Projections/NonHadronicFinalState.hh \
@@ -142,6 +143,7 @@ nobase_pkginclude_HEADERS += \
   Tools/Percentile.hh \
   Tools/PrettyPrint.hh \
   Tools/ReaderCompressedAscii.hh \
+  Tools/RHICCommon.hh \
   Tools/RivetPaths.hh \
   Tools/RivetSTL.hh \
   Tools/RivetFastJet.hh \
@@ -167,7 +169,7 @@ nobase_pkginclude_HEADERS += \
   Math/Vector3.hh \
   Math/VectorN.hh \
   Math/MatrixN.hh \
-  Math/MathHeader.hh \
+  Math/MathConstants.hh \
   Math/Vectors.hh \
   Math/LorentzTrans.hh \
   Math/Matrix3.hh \

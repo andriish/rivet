@@ -1,4 +1,5 @@
 #include "Rivet/Analysis.hh"
+#include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/Thrust.hh"
 #include "Rivet/Projections/ZFinder.hh"
 #include "Rivet/Projections/FParameter.hh"

@@ -1,14 +1,17 @@
-bin_SCRIPTS = rivet-config rivet-buildplugin
-dist_bin_SCRIPTS = rivet-build make-plots make-pgfplots
+bin_SCRIPTS = rivet-config rivet-build
+dist_bin_SCRIPTS = make-plots \
+                   rivet-buildplugin  #< @todo: remove in 3.2.0
+dist_noinst_SCRIPTS = make-plots-fast make-pgfplots
+
 EXTRA_DIST =
 
 RIVETPROGS = \
     rivet \
     rivet-mkanalysis \
-	  rivet-findid rivet-which \
-    rivet-diffhepdata \
-    rivet-diffhepdata-all \
+    rivet-findid rivet-which \
+    rivet-diffhepdata rivet-diffhepdata-all \
     rivet-cmphistos rivet-plot rivet-mkhtml rivet-merge rivet-mkvaldir
+
 if ENABLE_PYEXT
 dist_bin_SCRIPTS += $(RIVETPROGS)
 else
@@ -42,7 +45,7 @@ rivet_hepmz_LDADD = $(top_builddir)/src/libRivet.la -lHepMC3 -lHepMC3search
 rivet_hepmz_LDFLAGS = -L$(HEPMC3LIBPATH)
 
 rivet_nopy_LDFLAGS = -L$(HEPMC3LIBPATH)
-rivet_nopy_LDADD += -lHepMC3 -lHepMC3search
+rivet_nopy_LDADD += $(top_builddir)/src/libRivet.la -lHepMC3 -lHepMC3search
 else
 rivet_nopy_LDFLAGS = -L$(HEPMCLIBPATH)
 rivet_nopy_LDADD += -lHepMC

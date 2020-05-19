@@ -4,10 +4,12 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/ParticleName.hh"
 #include "Rivet/Tools/BeamConstraint.hh"
+#include "Rivet/Tools/RivetPaths.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "YODA/IO.h"
 #include <iostream>
+#include <regex>
 
 using std::cout;
 using std::cerr;
@@ -16,10 +18,12 @@ namespace Rivet {
 
 
   AnalysisHandler::AnalysisHandler(const string& runname)
-    : _runname(runname),
-      _initialised(false), _ignoreBeams(false), 
-      _skipWeights(false), _weightCap(0.),
-      _defaultWeightIdx(0), _dumpPeriod(0), _dumping(false)
+    : _runname(runname), _userxs{NAN, NAN},
+      _initialised(false), _ignoreBeams(false),
+      _skipWeights(false), _matchWeightNames(""),
+      _unmatchWeightNames(""), _weightCap(0.),
+      _NLOSmearing(0.), _defaultWeightIdx(0), 
+      _rivetDefaultWeightIdx(0), _dumpPeriod(0), _dumping(false)
   {  }
 
 
@@ -27,16 +31,17 @@ namespace Rivet {
       static bool printed = false;
     // Print out MCnet boilerplate
     if (!printed && getLog().getLevel() <= 20) {
-      cout << endl;
-      cout << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl;
-      cout << "Please acknowledge plots made with Rivet analyses, and cite arXiv:1003.0694 (http://arxiv.org/abs/1003.0694)" << endl;
+      cout << endl
+           << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl
+           << "Please acknowledge Rivet in results made using it, and cite https://arxiv.org/abs/1912.05451" << endl;
+           // << "https://arxiv.org/abs/1003.0694" << endl;
       printed = true;
     }
   }
 
 
   Log& AnalysisHandler::getLog() const {
-    return Log::getLog("Rivet.Analysis.Handler");
+    return Log::getLog("Rivet.AnalysisHandler");
   }
 
 
@@ -48,6 +53,7 @@ namespace Rivet {
       return !s.empty() && it == s.end();
     }
   }
+
 
   /// Check if any of the weightnames is not a number
   bool AnalysisHandler::haveNamedWeights() const {
@@ -84,7 +90,9 @@ namespace Rivet {
     _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
 
     // Set the cross section based on what is reported by this event.
-    if ( ge.cross_section() ) setCrossSection(HepMCUtils::crossSection(ge));
+    if ( ge.cross_section() ) {
+      setCrossSection(HepMCUtils::crossSection(ge));
+    }
 
     // Check that analyses are beam-compatible, and remove those that aren't
     const size_t num_anas_requested = analysisNames().size();
@@ -137,12 +145,122 @@ namespace Rivet {
     MSG_DEBUG("Analysis handler initialised");
   }
 
+
   void AnalysisHandler::setWeightNames(const GenEvent& ge) {
-    if (!_skipWeights)  _weightNames = HepMCUtils::weightNames(ge);
-    if ( _weightNames.empty() )  _weightNames.push_back("");
-    for ( int i = 0, N = _weightNames.size(); i < N; ++i )
-      if ( _weightNames[i] == "" ) _defaultWeightIdx = i;
+    _weightNames = HepMCUtils::weightNames(ge);
+    if (_weightNames.empty()) {
+      _weightNames.push_back("");
+      _rivetDefaultWeightIdx = _defaultWeightIdx = 0;
+      _weightIndices = { 0 };
+      return;
+    } 
+
+    // Find default weights, starting with the preferred empty "" name
+    size_t nDefaults = 0;
+    _weightIndices.clear();
+    for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
+      _weightIndices.push_back(i);
+      if (_weightNames[i] == "") {
+        if (nDefaults == 0)  _rivetDefaultWeightIdx = _defaultWeightIdx = i;
+        ++nDefaults;
+      }
+    }
+    // If no weights with the preferred name, look for acceptable alternatives
+    if (nDefaults == 0) {
+      for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
+        const string W = toUpper(_weightNames[i]);
+        if (W == "WEIGHT" || W == "0" || W == "DEFAULT" || W == "NOMINAL") {
+          if (nDefaults == 0) {
+            _weightNames[i] = "";
+            _rivetDefaultWeightIdx = _defaultWeightIdx = i;
+          }
+          ++nDefaults;
+        }
+      }
+    }
+    // Warn user that no nominal weight could be identified
+    if (nDefaults == 0) {
+      MSG_WARNING("Could not identify nominal weight. Will continue assuming variations-only run.");
+    }
+    // Warn if multiple weight names were acceptable alternatives
+    if (nDefaults > 1) {
+      MSG_WARNING("Found more than " << nDefaults << " default weight candidates. Will use: " << _weightNames[_defaultWeightIdx]);
+    }
+    if (_skipWeights)  {
+      // If running in single-weight mode, remove all bar the nominal weight 
+      _weightIndices = { _defaultWeightIdx };
+      _weightNames = { _weightNames[_defaultWeightIdx] };
+      _rivetDefaultWeightIdx = 0;
+    }
+    else {
+      // check if weight name matches a supplied string/regex
+      // and then (de-)select accordingly
+      // deseleection takes precedence over selection
+      if (_matchWeightNames != "") {
+        MSG_DEBUG("Select weight names that match pattern \"" << _matchWeightNames << "\"");
+        // compile regex from each string in the comma-separated list
+        vector<std::regex> patterns;
+        for (const string& pattern : split(_matchWeightNames, ",")) { 
+          patterns.push_back( std::regex(pattern) );
+        }
+        // check which weights match supplied weight-name pattern
+        vector<string> selected_subset; _weightIndices.clear();
+        for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
+          if (i == _defaultWeightIdx) {
+            // default weight cannot be "unselected"
+            _rivetDefaultWeightIdx = _weightIndices.size();
+            _weightIndices.push_back(i);
+            selected_subset.push_back(_weightNames[i]);
+            MSG_DEBUG("Selected nominal weight: " << _weightNames[i]);
+            continue;
+          }
+          for (const std::regex& re : patterns) {
+            if ( std::regex_match(_weightNames[i], re) ) {
+              _weightIndices.push_back(i);
+              selected_subset.push_back(_weightNames[i]);
+              MSG_DEBUG("Selected variation weight: " << _weightNames[i]);
+              break;
+            }
+          }
+        }
+        _weightNames = selected_subset;
+      }
+     if (_unmatchWeightNames != "") {
+        MSG_DEBUG("Deselect weight names that match pattern \"" << _unmatchWeightNames << "\"");
+        // compile regex from each string in the comma-separated list
+        vector<std::regex> patterns;
+        for (const string& pattern : split(_unmatchWeightNames, ",")) {
+          patterns.push_back( std::regex(pattern) ); 
+        }
+        // check which weights match supplied weight-name pattern
+        vector<string> selected_subset; _weightIndices.clear();
+        for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
+          if (i == _defaultWeightIdx) {
+            // default weight cannot be vetoed
+            _rivetDefaultWeightIdx = _weightIndices.size();
+            _weightIndices.push_back(i);
+            selected_subset.push_back(_weightNames[i]);
+            MSG_DEBUG("Selected nominal weight: " << _weightNames[i]);
+            continue;
+          }
+          bool skip = false;
+          for (const std::regex& re : patterns) {
+            if ( std::regex_match(_weightNames[i], re) ) { skip = true; break; }
+          }
+          if (skip) continue;
+          _weightIndices.push_back(i);
+          selected_subset.push_back(_weightNames[i]);
+          MSG_DEBUG("Selected variation weight: " << _weightNames[i]);
+        }
+        _weightNames = selected_subset;
+      }
+    }
+    // done (de-)selecting weights, add useful debug messages:
+    MSG_DEBUG("Default weight name: \"" <<  _weightNames[_rivetDefaultWeightIdx] << "\"");
+    MSG_DEBUG("Default weight index (Rivet): " << _rivetDefaultWeightIdx);
+    MSG_DEBUG("Default weight index (overall): " << _defaultWeightIdx);
   }
+
 
   void AnalysisHandler::analyze(const GenEvent& ge) {
     // Call init with event as template if not already initialised
@@ -189,14 +307,13 @@ namespace Rivet {
         }
     }
 
-    _subEventWeights.push_back(event.weights());
+    _subEventWeights.push_back(pruneWeights(event.weights()));
     if (_weightCap != 0.) {
-      MSG_DEBUG("Implementing weight cap using a maximum |weight| of " << _weightCap << ".");
-      for (size_t i = 0; i < _subEventWeights.size(); ++i) {
-        for (size_t j = 0; j < _subEventWeights[i].size(); ++j) {
-          if (abs(_subEventWeights[i][j]) > _weightCap) {
-            _subEventWeights[i][j] = sign(_subEventWeights[i][j]) * _weightCap;
-          }
+      MSG_DEBUG("Implementing weight cap using a maximum |weight| = " << _weightCap << " for latest subevent.");
+      size_t lastSub = _subEventWeights.size() - 1;
+      for (size_t i = 0; i < _subEventWeights[lastSub].size(); ++i) {
+        if (abs(_subEventWeights[lastSub][i]) > _weightCap) {
+          _subEventWeights[lastSub][i] = sign(_subEventWeights[lastSub][i]) * _weightCap;
         }
       }
     }
@@ -234,6 +351,7 @@ namespace Rivet {
     analyze(*ge);
   }
 
+
   void AnalysisHandler::pushToPersistent() {
     if ( _subEventWeights.empty() ) return;
     MSG_TRACE("AnalysisHandler::analyze(): Pushing _eventCounter to persistent.");
@@ -242,13 +360,14 @@ namespace Rivet {
       for (auto ao : a->analysisObjects()) {
         MSG_TRACE("AnalysisHandler::analyze(): Pushing " << a->name()
                   << "'s " << ao->name() << " to persistent.");
-        ao.get()->pushToPersistent(_subEventWeights);
+        ao.get()->pushToPersistent(_subEventWeights, _NLOSmearing);
       }
       MSG_TRACE("AnalysisHandler::analyze(): finished pushing "
                 << a->name() << "'s objects to persistent.");
     }
     _subEventWeights.clear();
   }
+
 
   void AnalysisHandler::finalize() {
     if (!_initialised) return;
@@ -363,33 +482,6 @@ namespace Rivet {
   }
 
 
-  // void AnalysisHandler::addData(const std::vector<YODA::AnalysisObjectPtr>& aos) {
-  //   for (const YODA::AnalysisObjectPtr ao : aos) {
-  //     string path = ao->path();
-  //     if ( path.substr(0, 5) != "/RAW/" ) {
-  //       _orphanedPreloads.push_back(ao);
-  //       continue;
-  //     }
-
-  //     path = path.substr(4);
-  //     ao->setPath(path);
-  //     if (path.size() > 1) { // path > "/"
-  //       try {
-  //         const string ananame =  ::split(path, "/")[0];
-  //         AnaHandle a = analysis(ananame);
-  //         /// @todo FIXXXXX
-  //         //MultiweightAOPtr mao = ????; /// @todo generate right Multiweight object from ao
-  //         //a->addAnalysisObject(mao); /// @todo Need to statistically merge...
-  //       } catch (const Error& e) {
-  //         MSG_TRACE("Adding analysis object " << path <<
-  //                   " to the list of orphans.");
-  //         _orphanedPreloads.push_back(ao);
-  //       }
-  //     }
-  //   }
-  // }
-
-
   void AnalysisHandler::stripOptions(YODA::AnalysisObjectPtr ao,
                                      const vector<string> & delopts) const {
     string path = ao->path();
@@ -404,21 +496,39 @@ namespace Rivet {
 
 
   void AnalysisHandler::mergeYodas(const vector<string> & aofiles,
-                                   const vector<string> & delopts, bool equiv) {
+                                   const vector<string> & delopts, 
+                                   const vector<string> & addopts,
+                                   bool equiv) {
 
-    // Convenient typedef;
+    // Convenience typedef
     typedef multimap<string, YODA::AnalysisObjectPtr> AOMap;
 
-    // Store all found weights here.
+    // Store all found weights here
     set<string> foundWeightNames;
 
-    // Stor all found analyses.
+    // Store all found analyses
     set<string> foundAnalyses;
 
-    // Store all analysis objects here.
+    // Store all analysis objects here
     vector<AOMap> allaos;
 
-    // Go through all files and collect information.
+    // Parse option adding.
+    vector<string> optAnas;
+    vector<string> optKeys;
+    vector<string> optVals;
+    for (string addopt : addopts) {
+      size_t pos1 = addopt.find(":");
+      size_t pos2 = addopt.find("=");
+      if (pos1 == string::npos || pos2 == string::npos || pos2 < pos1) {
+        MSG_WARNING("Malformed analysis option: "+addopt+". Format as ANA:OPT=VAL");
+        continue;
+      }
+      optAnas.push_back(addopt.substr(0, pos1));
+      optKeys.push_back(addopt.substr(pos1 +1, pos2 - pos1 - 1));
+      optVals.push_back(addopt.substr(pos2 +1 , addopt.size() - pos2 - 1));
+    }
+
+    // Go through all files and collect information
     for ( auto file : aofiles ) {
       allaos.push_back(AOMap());
       AOMap & aomap = allaos.back();
@@ -437,9 +547,16 @@ namespace Rivet {
         if ( !path.isRaw() ) continue;
 
         foundWeightNames.insert(path.weight());
-        // Now check if any options should be removed.
+        // Now check if any options should be removed
         for ( string delopt : delopts )
           if ( path.hasOption(delopt) ) path.removeOption(delopt);
+        // ...or added
+        for (size_t i = 0; i < optAnas.size(); ++i) {
+          if (path.path().find(optAnas[i]) != string::npos ) {
+            path.setOption(optKeys[i], optVals[i]);
+            path.fixOptionString();   
+          }
+        }
         path.setPath();
         if ( path.analysisWithOptions() != "" )
           foundAnalyses.insert(path.analysisWithOptions());
@@ -447,9 +564,9 @@ namespace Rivet {
       }
     }
 
-    // Now make analysis handler aware of the weight names present.
+    // Now make analysis handler aware of the weight names present
     _weightNames.clear();
-    _defaultWeightIdx = 0;
+    _rivetDefaultWeightIdx = _defaultWeightIdx = 0;
     for ( string name : foundWeightNames ) _weightNames.push_back(name);
 
     // Then we create and initialize all analyses
@@ -473,7 +590,7 @@ namespace Rivet {
     _stage = Stage::OTHER;
     _initialised = true;
 
-    // Now get all booked analysis objects.
+    // Now get all booked analysis objects
     vector<MultiweightAOPtr> raos;
     for (AnaHandle a : analyses()) {
       for (const auto & ao : a->analysisObjects()) {
@@ -481,8 +598,7 @@ namespace Rivet {
       }
     }
 
-    // Collect global weights and xcoss sections and fix scaling for
-    // all files.
+    // Collect global weights and cross sections and fix scaling for all files
     _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
     _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
     for (size_t iW = 0; iW < numWeights(); iW++) {
@@ -535,11 +651,13 @@ namespace Rivet {
           for ( int i = 0, N = sows.size(); i < N; ++i ) {
             if ( !sows[i] || !xsecs[i] ) continue;
             auto range = allaos[i].equal_range(yao->path());
-            for ( auto aoit = range.first; aoit != range.second; ++aoit )
+            for ( auto aoit = range.first; aoit != range.second; ++aoit ) {
               if ( !addaos(yao, aoit->second, scales[i]) )
                 MSG_WARNING("Cannot merge objects with path " << yao->path()
                             <<" of type " << yao->annotation("Type") );
+            }
           }
+	  a->rawHookIn(yao);
           ao.get()->unsetActiveWeight();
         }
       }
@@ -553,6 +671,7 @@ namespace Rivet {
 
   }
 
+
   void AnalysisHandler::readData(const string& filename) {
     try {
       /// @todo Use new YODA SFINAE to fill the smart ptr vector directly
@@ -565,6 +684,7 @@ namespace Rivet {
     }
   }
 
+
   vector<MultiweightAOPtr> AnalysisHandler::getRivetAOs() const {
       vector<MultiweightAOPtr> rtn;
 
@@ -573,28 +693,24 @@ namespace Rivet {
               rtn.push_back(ao);
           }
       }
-
       rtn.push_back(_eventCounter);
       rtn.push_back(_xs);
-
       return rtn;
   }
 
-  void AnalysisHandler::writeData(const string& filename) const {
 
-    // This is where we store the OAs to be written.
+  vector<YODA::AnalysisObjectPtr> AnalysisHandler::getYodaAOs(bool includeraw) const {
     vector<YODA::AnalysisObjectPtr> output;
 
-    // First get all multiwight AOs
+    // First get all multiweight AOs
     vector<MultiweightAOPtr> raos = getRivetAOs();
-    output.reserve(raos.size()*2*numWeights());
+    output.reserve(raos.size() * numWeights() * (includeraw ? 2 : 1));
 
-    // Fix the oredering so that default weight is written out first.
-    vector<size_t> order;
-    if ( _defaultWeightIdx >= 0 && _defaultWeightIdx < numWeights() )
-      order.push_back(_defaultWeightIdx);
-    for ( size_t  i = 0; i < numWeights(); ++i )
-      if ( i != _defaultWeightIdx ) order.push_back(i);
+    // Identify an index ordering so that default weight is written out first
+    vector<size_t> order = { _rivetDefaultWeightIdx };
+    for ( size_t  i = 0; i < numWeights(); ++i ) {
+      if ( i != _rivetDefaultWeightIdx )  order.push_back(i);
+    }
 
     // Then we go through all finalized AOs one weight at a time
     for (size_t iW : order ) {
@@ -605,24 +721,45 @@ namespace Rivet {
       }
     }
 
+    // Analyses can make changes neccesary for merging to RAW objects
+    // before writing.
+    for (size_t iW : order)
+      for (auto a : analyses()) a->rawHookOut(raos, iW);
+    
     // Finally the RAW objects.
-    for (size_t iW : order ) {
-      for ( auto rao : raos ) {
-        rao.get()->setActiveWeightIdx(iW);
-        output.push_back(rao.get()->activeYODAPtr());
+    if (includeraw) {
+      for (size_t iW : order ) {
+        for ( auto rao : raos ) {
+          rao.get()->setActiveWeightIdx(iW);
+          output.push_back(rao.get()->activeYODAPtr());
+        }
       }
     }
 
+    return output;
+  }
+
+
+  void AnalysisHandler::writeData(const string& filename) const {
+
+    const vector<YODA::AnalysisObjectPtr> output = getYodaAOs(true);
     try {
       YODA::write(filename, output.begin(), output.end());
     } catch (...) { //< YODA::WriteError&
       throw UserError("Unexpected error in writing file: " + filename);
     }
+
   }
 
 
-  string AnalysisHandler::runName() const { return _runname; }
-  size_t AnalysisHandler::numEvents() const { return _eventCounter->numEntries(); }
+  string AnalysisHandler::runName() const {
+    return _runname;
+  }
+
+
+  size_t AnalysisHandler::numEvents() const {
+    return _eventCounter->numEntries();
+  }
 
 
   std::vector<std::string> AnalysisHandler::analysisNames() const {
@@ -631,6 +768,19 @@ namespace Rivet {
       rtn.push_back(a->name());
     }
     return rtn;
+  }
+
+
+  std::vector<std::string> AnalysisHandler::stdAnalysisNames() const {
+    // std::vector<std::string> rtn;
+    // const string anadatpath = findAnalysisDataFile("analyses.dat");
+    // if (fileexists(anadatpath)) {
+    //   std::ifstream anadat(anadatpath);
+    //   string ananame;
+    //   while (anadat >> ananame) rtn += ananame;
+    // }
+    // return rtn;
+    return AnalysisLoader::stdAnalysisNames();
   }
 
 
@@ -644,32 +794,32 @@ namespace Rivet {
 
 
   AnalysisHandler& AnalysisHandler::removeAnalyses(const std::vector<std::string>& analysisnames) {
-    for (const string& aname : analysisnames) {
-      removeAnalysis(aname);
-    }
+    for (const string& aname : analysisnames) removeAnalysis(aname);
     return *this;
   }
 
 
-  void AnalysisHandler::setCrossSection(pair<double,double> xsec) {
-    _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
-    _eventCounter.get()->setActiveWeightIdx(_defaultWeightIdx);
-    double nomwgt = sumW();
+  void AnalysisHandler::setCrossSection(pair<double,double> xsec, bool isUserSupplied) {
+    // Update the user xsec
+    if (isUserSupplied) _userxs = xsec;
 
-    // The cross section of each weight variation is the nominal cross section
-    // times the sumW(variation) / sumW(nominal).
-    // This way the cross section will work correctly
-    for (size_t iW = 0; iW < numWeights(); iW++) {
+    // If not setting the user xsec, and a user xsec is already set, exit early
+    if (!isUserSupplied && notNaN(_userxs.first)) return;
+
+    // Otherwise, update the xs scatter: xs_var = xs_nom * (sumW_var/sumW_nom)
+    _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
+    _eventCounter.get()->setActiveWeightIdx(_rivetDefaultWeightIdx);
+    const double nomwgt = sumW();
+    for (size_t iW = 0; iW < numWeights(); ++iW) {
       _eventCounter.get()->setActiveWeightIdx(iW);
-      double s = sumW() / nomwgt;
+      const double s = sumW() / nomwgt;
       _xs.get()->setActiveWeightIdx(iW);
       _xs->addPoint(xsec.first*s, xsec.second*s);
     }
-
     _eventCounter.get()->unsetActiveWeight();
     _xs.get()->unsetActiveWeight();
-    return;
   }
+
 
   AnalysisHandler& AnalysisHandler::addAnalysis(Analysis* analysis) {
     analysis->_analysishandler = this;
@@ -677,6 +827,7 @@ namespace Rivet {
     _analyses[analysis->name()] = AnaHandle(analysis);
     return *this;
   }
+
 
   PdgIdPair AnalysisHandler::beamIds() const {
     return Rivet::beamIds(beams());
@@ -687,13 +838,32 @@ namespace Rivet {
     return Rivet::sqrtS(beams());
   }
 
+
   void AnalysisHandler::setIgnoreBeams(bool ignore) {
     _ignoreBeams=ignore;
   }
 
+
   void AnalysisHandler::skipMultiWeights(bool ignore) {
-    _skipWeights=ignore;
+    _skipWeights = ignore;
   }
 
+  void AnalysisHandler::selectMultiWeights(std::string patterns) {
+    _matchWeightNames = patterns;
+  }
+
+  void AnalysisHandler::deselectMultiWeights(std::string patterns) {
+    _unmatchWeightNames = patterns;
+  }
+
+
+  std::valarray<double> AnalysisHandler::pruneWeights(const std::valarray<double>& weights) {
+    if (_weightIndices.size() == weights.size())  return weights;
+    std::valarray<double> acceptedWeights(_weightIndices.size());
+    for (size_t i = 0; i < _weightIndices.size(); ++i) {
+      acceptedWeights[i] = weights[_weightIndices[i]];
+    }
+    return acceptedWeights;
+  }
 
 }

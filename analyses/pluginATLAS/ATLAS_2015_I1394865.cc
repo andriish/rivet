@@ -1,16 +1,9 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
-#include "Rivet/Projections/WFinder.hh"
-#include "Rivet/Projections/LeadingParticlesFinalState.hh"
-#include "Rivet/Projections/UnstableParticles.hh"
-#include "Rivet/Projections/VetoedFinalState.hh"
+#include "Rivet/Projections/PromptFinalState.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
-#include "Rivet/Projections/MergedFinalState.hh"
-#include "Rivet/Projections/MissingMomentum.hh"
-#include "Rivet/Projections/InvMassFinalState.hh"
 
 namespace Rivet {
 
@@ -25,10 +18,11 @@ namespace Rivet {
 
     void init() {
       FinalState fs(Cuts::abseta < 5.0);
+      PromptFinalState pfs(Cuts::abseta < 5.0);
 
       IdentifiedFinalState photon(fs, PID::PHOTON);
-      IdentifiedFinalState bare_EL(fs, {PID::ELECTRON, -PID::ELECTRON});
-      IdentifiedFinalState bare_MU(fs, {PID::MUON, -PID::MUON});
+      IdentifiedFinalState bare_EL(pfs, {PID::ELECTRON, -PID::ELECTRON});
+      IdentifiedFinalState bare_MU(pfs, {PID::MUON, -PID::MUON});
 
       // Selection 1: ZZ-> llll selection
       Cut etaranges_el = Cuts::abseta < 2.5 && Cuts::pT > 7*GeV;
@@ -136,7 +130,7 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      const double norm = crossSection()/sumOfWeights()/femtobarn/TeV;
+      const double norm = crossSection()/sumOfWeights()/femtobarn*TeV;
       scale(_h_ZZ_mZZ,  norm);
       scale(_h_ZZ_pTZZ, norm);
     }

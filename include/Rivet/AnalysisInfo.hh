@@ -8,6 +8,7 @@
 namespace Rivet {
 
 
+  /// @brief Holder of analysis metadata
   class AnalysisInfo {
   public:
 
@@ -28,10 +29,11 @@ namespace Rivet {
 
   public:
 
-    /// @name Metadata
+    /// @defgroup anainfo_metadata Metadata
+    ///
     /// Metadata is used for querying from the command line and also for
     /// building web pages and the analysis pages in the Rivet manual.
-    //@{
+    /// @{
 
     /// Get the name of the analysis. By default this is computed using the
     /// experiment, year and Inspire/Spires ID metadata methods.
@@ -180,19 +182,17 @@ namespace Rivet {
     void setBibTeX(const std::string& bibTeX) { _bibTeX = bibTeX; }
 
 
-    /// Whether this analysis is trusted (in any way!)
-    const std::string& status() const { return _status; }
-
-    /// Set the analysis code status.
-    void setStatus(const std::string& status) { _status = status; }
-
-
     /// Any work to be done on this analysis.
     const std::vector<std::string>& todos() const { return _todos; }
 
     /// Set the to-do list.
     void setTodos(const std::vector<std::string>& todos) { _todos = todos; }
 
+    /// @}
+
+
+    /// @defgroup anainfo_options Analysis-options support
+    /// @{
 
     /// Get the option list.
     const std::vector<std::string>& options() const { return _options; }
@@ -209,14 +209,17 @@ namespace Rivet {
     /// Build a map of options to facilitate checking.
     void buildOptionMap();
 
-    /// List a series of command lines to be used for valdation
-    const std::vector<std::string> & validation() const {
-      return _validation;
-    }
+    /// @}
 
-    /// Return true if this analysis needs to know the process cross-section.
-    /// @deprecated Cross-section should now always be available from the HepMC
-    bool needsCrossSection() const { return _needsCrossSection; }
+
+    /// @defgroup anainfo_status Status info and categories
+    /// @{
+
+    /// Whether this analysis is trusted (in any way!)
+    const std::string& status() const { return _status; }
+
+    /// Set the analysis code status.
+    void setStatus(const std::string& status) { _status = status; }
 
     /// Return true if finalize() can be run multiple times for this analysis.
     bool reentrant() const { return _reentrant; }
@@ -265,7 +268,7 @@ namespace Rivet {
       return !statuscheck("SINGLEWEIGHT");
     }
 
-
+    /// ?
     bool statuscheck(string word) const {
       auto pos =_status.find(word);
       if ( pos == string::npos ) return false;
@@ -274,7 +277,22 @@ namespace Rivet {
            isalnum(_status[pos + word.length()]) ) return false;
       return true;
     }
-    //@}
+
+    /// @}
+
+
+    /// Find the path to the reference-data file for this analysis
+    std::string refFile() const;
+
+    /// List a series of command lines to be used for valdation
+    const std::vector<std::string> & validation() const {
+      return _validation;
+    }
+
+    /// Return true if this analysis needs to know the process cross-section.
+    /// @deprecated Cross-section should now always be available from the HepMC
+    bool needsCrossSection() const { return _needsCrossSection; }
+
 
 
   private:

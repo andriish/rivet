@@ -1,4 +1,4 @@
-FROM hepstore/rivet:3.0.2
+FROM hepstore/rivet:3.1.0
 MAINTAINER Andy Buckley <andy.buckley@cern.ch>
 
 RUN mkdir /code && cd /code \

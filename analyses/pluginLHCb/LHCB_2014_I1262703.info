@@ -12,7 +12,7 @@ Authors:
 References:
  - 'J. High Energy Phys.1401:033,2014'
  - 'doi:10.1007/jhep01(2014)033'
- - 'arXiv:hep-ex/1310.8197'
+ - 'arXiv:1310.8197 [hep-ex]'
 RunInfo:
   $pp$ $Z +$ jet events at 7 TeV with direct $\mu$ decays
 NumEvents: 100000

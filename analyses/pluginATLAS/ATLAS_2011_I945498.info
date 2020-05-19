@@ -10,7 +10,7 @@ Authors:
  - Holger Schulz <holger.schulz@fnal.gov>
  - Roman Lysak <roman.lysak@cern.ch>
 References:
- - arXiv:1111.2690v1 [hep-ex]
+ - arXiv:1111.2690 [hep-ex]
  - CERN-PH-EP-2011-162
 RunInfo:
   Z+jets, electronic and/or muonic Z-decays. Jets with transverse momentum $p_T > 30$ GeV and jet rapidity $|y| < 4.4$.

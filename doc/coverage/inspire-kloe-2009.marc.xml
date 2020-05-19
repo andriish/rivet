@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Search-Engine-Total-Number-Of-Results: 19 -->
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <controlfield tag="001">839791</controlfield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Measurement of the pion form factor for $M(\pi \pi)^2$ between 0.1 and 0.85 $GeV^2$ with the KLOE detector</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">arXiv:0912.2205</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.1088/1674-1137/34/6/013</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">oai:arXiv.org:0912.2205</subfield>
+    <subfield code="z">oai:arXiv.org:0912.2205</subfield>
+    <subfield code="9">arXiv</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Muller:2009pj</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">ADS</subfield>
+    <subfield code="a">2010ChPhC..34..686M</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">833180</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1088/1742-6596/171/1/012051</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">deSimone:2009zza</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">V(us) and CP violation from kaon decays with the KLOE detector</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">833179</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1088/1742-6596/171/1/012050</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Versaci:2009zz</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Study of the $\eta \to \pi^+ \pi^- e^+ e^-$ decay at KLOE</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">833156</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1088/1742-6596/171/1/012008</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">SPIRESTeX</subfield>
+    <subfield code="a">DiDomenico:2009zza</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Search for CPT violation and decoherence effects in the neutral kaon system</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">832761</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.22323/1.083.0035</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">oai:arXiv.org:0910.0190</subfield>
+    <subfield code="z">oai:arXiv.org:0910.0190</subfield>
+    <subfield code="9">arXiv</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Moulson:2009ru</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">arXiv:0910.0190</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Recent KLOE results on radiative kaon decays</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">826290</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1140/epjc/s10052-009-1217-6</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1140/epjc/s10052-009-1177-x</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D09-07812</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Ambrosino:2009aa</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:0907.3594</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">2009EPJC...64..627A</subfield>
+    <subfield code="9">ADS</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:0907.3594</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Precise measurement of $\Gamma(K \to e \nu(\gamma)) / \Gamma(K \to \mu \nu(\gamma))$ and study of $K \to e \nu \gamma$</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">819034</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">oai:arXiv.org:0904.4669</subfield>
+    <subfield code="z">oai:arXiv.org:0904.4669</subfield>
+    <subfield code="9">arXiv</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Nguyen:2009mj</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">arXiv:0904.4669</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">MORIOND-QCD-2009</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">KLOE Results on Light Meson Properties</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">818106</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1016/j.physletb.2009.09.022</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">oai:arXiv.org:0904.2539</subfield>
+    <subfield code="z">oai:arXiv.org:0904.2539</subfield>
+    <subfield code="9">arXiv</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D10-09234</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Ambrosino:2009py</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">2009PhLB..681....5K</subfield>
+    <subfield code="9">ADS</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="a">arXiv:0904.2539</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Study of the a(0)(980) meson via the radiative decay $\phi \to \eta \pi_0 \gamma$ with the KLOE detector</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">816145</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1016/j.physletb.2009.07.013</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="z">D10-09345</subfield>
+    <subfield code="9">DESY</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Ambrosino:2009rg</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:0903.4115</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">2009PhLB..679...10K</subfield>
+    <subfield code="9">ADS</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:0903.4115</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Search for the decay $\phi \to K^0 \bar{K^0} \gamma$ with the KLOE experiment</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">812680</controlfield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Measurement of the detection efficiency of the KLOE calorimeter for neutrons between 22-MeV and 174-MeV</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.1016/j.nima.2008.08.120</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Anelli:2009zza</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">863975</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.22323/1.084.0372</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Nguyen:2009zz</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">KLOE measurement of the $\sigma(\pi^+ \pi^- (\gamma))$ cross section and the pi+ pi- contribution to the muon anomaly</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">862913</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.22323/1.084.0197</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">deSimone:2009zz</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">KLOE measurements of K(L) lifetime and absolute branching ratio of $K^+ \to \pi^+ \pi^- \pi^+ (\gamma)$</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">862912</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.22323/1.084.0198</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Dreucci:2009zz</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Measurement of the K(S) lifetime and CPT symmetry tests in the neutral kaon system with quantum interferometry at KLOE</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">862911</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.22323/1.084.0199</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">DeLucia:2009zz</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">V(us) and lepton universality from kaon decays at KLOE</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">862553</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.22323/1.084.0046</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">SPIRESTeX</subfield>
+    <subfield code="a">DiMicco:2009zz</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">KLOE results on light meson properties</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">854712</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.22323/1.083.0006</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Bocchetta:2009zz</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Lifetimes of the K(S) and K(L) mesons and the absolute $K^+ \to \pi^+ \pi^- \pi^+$ branching ratio with KLOE</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">854708</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.22323/1.083.0013</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">Branchini:2009zze</subfield>
+    <subfield code="9">SPIRESTeX</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Detector upgrade for the KLOE2 experiment: The calorimeter system</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE-2</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">854696</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.22323/1.083.0038</subfield>
+    <subfield code="2">DOI</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">SPIRESTeX</subfield>
+    <subfield code="a">DiDomenico:2009zz</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Quantum coherence and CPT symmetry tests in the neutral kaon system at KLOE</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">815273</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1016/j.nuclphysbps.2008.12.065</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">SPIRESTeX</subfield>
+    <subfield code="a">Ambrosino:2009zzb</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Scalar mesons at KLOE</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">KLOE</subfield>
+  </datafield>
+</record>
+
+</collection>

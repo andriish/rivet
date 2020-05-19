@@ -25,7 +25,7 @@ namespace Rivet {
       declare(fj07, "Jets");
       /// @todo Book histograms here, e.g.:
       for (int i = 0; i < 6; i++) {
-        Histo1DPtr tmp; _h_ybys.push_back(book(tmp, i+1,1,1));
+        Histo1DPtr tmp; _h_ybys.push_back(book(tmp, 2*i+1,1,1));
       }
     }
 

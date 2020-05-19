@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Lambda Lambdabar cross section
   class BESIII_2018_I1627871 : public Analysis {
   public:
 

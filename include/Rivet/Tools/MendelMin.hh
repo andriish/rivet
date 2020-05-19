@@ -16,6 +16,8 @@ namespace Rivet {
   using std::valarray;
 
 
+  /// @brief A genetic algorithm functional minimizer
+  ///
   /// MendelMin implements a home brewed genetic algorithm for finding
   /// the minimum of a function defined on a unit hypercube returning a
   /// non-negative real number (eg. a Chi-squared value).
@@ -124,9 +126,9 @@ namespace Rivet {
         p[i] = std::max(0.0, std::min(p[i], 1.0));
     }
 
-    /// Move an @a bad parameter point towards a @a better one. The new
+    /// Move a @a bad parameter point towards a @a better one. The new
     /// point is picked randomly within the generalized hypercube where
-    /// @bad and @better are at diagonally opposite corners, enlarged by
+    /// @a bad and @a better are at diagonally opposite corners, enlarged by
     /// a fraction _margin.
     void move(Params & bad, const Params & better) const {
       bad += (better - bad)*(rndParams()*(1.0 + 2.0*_margin) - _margin);

@@ -38,8 +38,10 @@ except:
         rivetpypath = commands.getoutput(rivetconfigpath + " --pythonpath")
         sys.path.append(rivetpypath)
         import rivet
-    except:
-        sys.stderr.write("The rivet Python module could not be loaded: is your PYTHONPATH set correctly?\n")
+    except Exception as e:
+        sys.stderr.write("The rivet Python module could not be loaded: are your PYTHONPATH and (DY)LD_LIBRARY_PATH set correctly?\n")
+        sys.stderr.write("Try running 'python -c \"import rivet\"' at the command line (or \"import rivet\" in a Python REPL)\n")
+        sys.stderr.write("Full error message:\n{}\n".format(e))
         sys.exit(5)
 
 rivet.util.check_python_version()
@@ -91,10 +93,18 @@ extragroup.add_argument("-n", "--nevts", dest="MAXEVTNUM", type=int,
 extragroup.add_argument("--nskip", dest="EVTSKIPNUM", type=int,
                         default=0, metavar="NUM",
                         help="skip NUM events read from input before beginning processing")
-extragroup.add_argument("--skip-weights", dest="SKIP_WEIGHTS", action="store_true",
+extragroup.add_argument("--skip-weights", "--skip-multiweights", dest="SKIP_WEIGHTS", action="store_true",
                       default=False, help="only run on the nominal weight")
+extragroup.add_argument("--match-weights", dest="MATCH_WEIGHTS", default="",
+                        help="select weight variations matching this comma-separated list of weight names "
+                        "(supports regular expressions). Nominal weight cannot be skipped.")
+extragroup.add_argument("--unmatch-weights", dest="UNMATCH_WEIGHTS", default="",
+                        help="deselect weight variations matching this comma-separated list of weight names "
+                        "(supports regular expressions). Nominal weight cannot be skipped.")
 extragroup.add_argument("--weight-cap", dest="WEIGHT_CAP", type=float,
                       default=None, help="set maximum abs(weight) to be used for histogram fills")
+extragroup.add_argument("--nlo-smearing", dest="NLO_SMEARING", type=float,
+                      default=0.0, help=" If larger than zero, smear histogram fillings to avoid that NLO counter events end up on the other side of a bin-boundary as compared to the corresponding real event in a fill. The fills will be smeared over the given fraction of the bin width.")
 extragroup.add_argument("--runname", dest="RUN_NAME", default=None, metavar="NAME",
                         help="give an optional run name, to be prepended as a 'top level directory' in histo paths")
 extragroup.add_argument("--ignore-beams", dest="IGNORE_BEAMS", action="store_true", default=False,
@@ -218,9 +228,9 @@ if args.LIST_ANALYSES:
             msg.append('')
             if args.LOGLEVEL <= logging.INFO:
                 a = rivet.AnalysisLoader.getAnalysis(aname)
-                st = "" if a.status() == "VALIDATED" else ("[%s] " % a.status())
+                st = "" if "VALIDATED" in a.status() else "[UNVALIDATED]" #("[%s] " % a.status())
                 # detex will very likely introduce some non-ASCII chars from
-                # greek names in analysis titles.
+                # Greek names in analysis titles.
                 # The u"" prefix and explicit print encoding are necessary for
                 # py2 to handle this properly
                 msg[-1] = u"%s%s" % (st, a.summary())
@@ -276,17 +286,20 @@ if len(args.SHOW_ANALYSES) > 0:
         msg += name + "\n"
         msg += (len(name) * "=") + "\n\n"
         msg += rivet.util.detex(ana.summary()) + "\n\n"
-        msg += "Status: " + ana.status() + "\n\n"
+        msg += "Status: " + ana.status() + "\n"
+        msg += "URL: https://rivet.hepforge.org/analyses/{}.html".format(name) + "\n"
+        msg += "\n"
 
         # TODO: reduce to only show Inspire in v3
         if ana.inspireId():
             msg += "Inspire ID: " + ana.inspireId() + "\n"
-            msg += "Inspire URL: http://inspire-hep.net/record/" + ana.inspireId() + "\n"
-            msg += "HepData URL: http://hepdata.net/record/ins" + ana.inspireId() + "\n"
+            msg += "Inspire URL: https://inspirehep.net/literature/" + ana.inspireId() + "\n"
+            msg += "HepData URL: https://hepdata.net/record/ins" + ana.inspireId() + "\n"
         elif ana.spiresId():
             msg += "Spires ID: " + ana.spiresId() + "\n"
-            msg += "Inspire URL: http://inspire-hep.net/search?p=find+key+" + ana.spiresId() + "\n"
-            msg += "HepData URL: http://hepdata.cedar.ac.uk/view/irn" + ana.spiresId() + "\n"
+            msg += "Inspire URL: https://inspirehep.net/literature?q=" + ana.spiresId() + "\n"
+            msg += "HepData URL: https://hepdata.cedar.ac.uk/view/irn" + ana.spiresId() + "\n"
+
 
         if ana.year():
             msg += "Year of publication: " + ana.year() + "\n"
@@ -535,8 +548,12 @@ RUNNAME = args.RUN_NAME or ""
 ah = rivet.AnalysisHandler(RUNNAME)
 ah.setIgnoreBeams(args.IGNORE_BEAMS)
 ah.skipMultiWeights(args.SKIP_WEIGHTS)
+ah.selectMultiWeights(args.MATCH_WEIGHTS)
+ah.deselectMultiWeights(args.UNMATCH_WEIGHTS)
 if args.WEIGHT_CAP != None:
     ah.setWeightCap(args.WEIGHT_CAP)
+
+ah.setNLOSmearing(args.NLO_SMEARING)
 
 for a in args.ANALYSES:
     ## Print warning message and exit if not a valid analysis name

@@ -13,3 +13,5 @@ PtCuts: [0]
 Description:
   Monte Carlo validation observables for $Z[e^+ \, e^-]$ production, with bare leptons.
 NeedCrossSection: yes
+ReleaseTests:
+ - $A LHC-13-Zee-Matchbox-FIXEDORDER

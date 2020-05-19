@@ -1,5 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
+#include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Tools/Cuts.hh"
 #include "Rivet/Projections/SingleValueProjection.hh"
@@ -50,7 +51,8 @@ namespace Rivet {
         // needed since centrality does not make any difference here. However,
         // in some cases in this analysis the binning differ from each other,
         // so this is easy-to-implement way to account for that.
-        std::string namePP = _histNch[PBPB][ihist]->name() + "-pp";
+        std::string namePP = mkAxisCode(ihist+1,1,1) + "-pp";
+        
         // The binning is taken from the reference data
         book(_histNch[PP][ihist], namePP, refData(ihist+1, 1, 1));
 
@@ -107,7 +109,11 @@ namespace Rivet {
       if ( isHI ) {
 
         const HepMCHeavyIon & hi = apply<HepMCHeavyIon>(event, "HepMC");
-
+        if (!hi.ok()) {
+	  MSG_WARNING("HEPMC Heavy ion container needed for this analysis, but not "
+	    "found for this event. Skipping.");
+	  vetoEvent;
+	}
         // Prepare centrality projection and value
         const CentralityProjection& centrProj =
           apply<CentralityProjection>(event, "V0M");

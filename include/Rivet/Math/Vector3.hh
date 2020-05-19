@@ -1,7 +1,7 @@
 #ifndef RIVET_MATH_VECTOR3
 #define RIVET_MATH_VECTOR3
 
-#include "Rivet/Math/MathHeader.hh"
+#include "Rivet/Math/MathConstants.hh"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/VectorN.hh"
 
@@ -301,18 +301,18 @@ namespace Rivet {
   //@{
 
   /// Calculate the difference in pseudorapidity between two spatial vectors.
-  inline double deltaEta(const Vector3& a, const Vector3& b) {
-    return deltaEta(a.pseudorapidity(), b.pseudorapidity());
+  inline double deltaEta(const Vector3& a, const Vector3& b, bool sign=false) {
+    return deltaEta(a.pseudorapidity(), b.pseudorapidity(), sign);
   }
 
   /// Calculate the difference in pseudorapidity between two spatial vectors.
-  inline double deltaEta(const Vector3& v, double eta2) {
-    return deltaEta(v.pseudorapidity(), eta2);
+  inline double deltaEta(const Vector3& v, double eta2, bool sign=false) {
+    return deltaEta(v.pseudorapidity(), eta2, sign);
   }
 
   /// Calculate the difference in pseudorapidity between two spatial vectors.
-  inline double deltaEta(double eta1, const Vector3& v) {
-    return deltaEta(eta1, v.pseudorapidity());
+  inline double deltaEta(double eta1, const Vector3& v, bool sign=false) {
+    return deltaEta(eta1, v.pseudorapidity(), sign);
   }
 
   //@}

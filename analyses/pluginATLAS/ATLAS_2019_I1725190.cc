@@ -28,15 +28,16 @@ namespace Rivet {
 
       PromptFinalState electrons(Cuts::abspid == PID::ELECTRON && Cuts::Et > 30*GeV &&
                                  (Cuts::abseta < 2.47 && !Cuts::absetaIn(1.37, 1.52)));
-      SmearedParticles recoelectrons(electrons, ELECTRON_EFF_ATLAS_RUN2_MEDIUM);
+      SmearedParticles recoelectrons(electrons, PARTICLE_EFF_ONE); //ELECTRON_EFF_ATLAS_RUN2_MEDIUM);
       declare(recoelectrons, "Elecs");
 
       PromptFinalState muons(Cuts::abspid == PID::MUON && Cuts::pT > 30*GeV && Cuts::abseta < 2.5);
-      SmearedParticles recomuons(muons, [](const Particle& m) -> double {
-          if (m.pT() < 1*TeV) return 0.69;
-          if (m.pT() > 2.5*TeV) return 0.57;
-          return 0.69 - 0.12*(m.pT() - 1*TeV)/(2.5*TeV - 1*TeV);
-        });
+      SmearedParticles recomuons(muons, PARTICLE_EFF_ONE);
+      // [](const Particle& m) -> double {
+      //   if (m.pT() < 1*TeV) return 0.69;
+      //   if (m.pT() > 2.5*TeV) return 0.57;
+      //   return 0.69 - 0.12*(m.pT() - 1*TeV)/(2.5*TeV - 1*TeV);
+      // });
       declare(recomuons, "Muons");
 
       // Book histograms
@@ -80,7 +81,7 @@ namespace Rivet {
 
       // Apply dilepton efficiency curves (as function of mX ~ mll)
       const double eff = mumu ?
-        (0.38 + (mll - 200*GeV)/(6000*GeV - 200*GeV) * (0.54 - 0.38))  :
+        (0.54 - (mll - 200*GeV)/(6000*GeV - 200*GeV) * (0.54 - 0.38))  :
         (0.74 - 0.04*exp(-(mll-200*GeV)/100*GeV) - 0.08*exp(-(mll-200*GeV)/1000*GeV));
       if (rand01() > eff) vetoEvent;
 
@@ -135,7 +136,8 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale({_h_mee, _h_mmm}, crossSection()*luminosity()/femtobarn/sumOfWeights());
+      scale(_h_mee, crossSection()*luminosity()/femtobarn/sumOfWeights());
+      scale(_h_mmm, crossSection()*luminosity()/femtobarn/sumOfWeights());
     }
 
     //@}

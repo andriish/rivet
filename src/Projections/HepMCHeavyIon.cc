@@ -71,7 +71,11 @@ IMPLEMENTATION(double, event_plane_angle, -1.0)
 
 IMPLEMENTATION(double, sigma_inel_NN, -1.0)
 
+#ifdef RIVET_ENABLE_HEPMC_20610
+IMPLEMENTATION(double, centrality, -1.0)
+#else
 IMPLEMENTATION_NO_HEPMC2(double, centrality, -1.0)
+#endif
 
 IMPLEMENTATION_NO_HEPMC2(double, user_cent_estimate, -1.0)
 

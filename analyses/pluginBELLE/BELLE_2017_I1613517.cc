@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief D+/- D*-/+ and D*+ D*- cross sections
   class BELLE_2017_I1613517 : public Analysis {
   public:
 

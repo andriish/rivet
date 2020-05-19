@@ -29,7 +29,7 @@ namespace Rivet {
     centralityBins = {90., 60., 40., 30., 20., 10., 5., 1.};
     for (int i = 0; i < 8; ++i) {
       book(histEta[centralityBins[i]], 2, 1, i + 1);
-      book(sow[centralityBins[i]], histEta[centralityBins[i]]->name() + "Counter");
+      book(sow[centralityBins[i]], "_sow"+to_string(i) + "Counter");
     }
   }
 

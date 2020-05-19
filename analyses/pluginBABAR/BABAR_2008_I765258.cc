@@ -80,6 +80,7 @@ namespace Rivet {
 	      }
 	    }
 	  }
+	  if(matchedKK) _nMeson[4]->fill();
 	  for (const Particle& p2 : ufs.particles()) {
 	    if(p2.pid()!=333) continue;
 	    if(p2.parents()[0].isSame(p)) continue;
@@ -94,10 +95,10 @@ namespace Rivet {
 		break;
 	      }
 	    }
-	    if(matched2)
+	    if(matched2) {
 	      _nMeson[5]->fill();
-	    else if(matchedKK)
-	      _nMeson[4]->fill();
+	      break;
+	    }
 	  }
 	}
 	else if(p.pid()==333) {

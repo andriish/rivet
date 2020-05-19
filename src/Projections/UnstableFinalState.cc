@@ -19,7 +19,7 @@ namespace Rivet {
         (st == 1 || (st == 2 && !contains(vetoIds, abs(p->pdg_id())))) &&
         !PID::isParton(p->pdg_id()) && ///< Always veto partons
         p->status() !=4 && // Filter beam particles
-        _cuts->accept(p->momentum());
+        _cuts->accept(rp);
 
       // Avoid double counting by re-marking as unpassed if ID == (any) parent ID
       ConstGenVertexPtr pv = p->production_vertex();

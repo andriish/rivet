@@ -5,5 +5,5 @@ Title: doi:10.17182/hepdata.15560.v1/t1
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+
-9.390000e+00	0.000000e+00	0.000000e+00	3.480000e+00	4.000000e-02	4.000000e-02
+9.390000e+00	0.100000e+00	0.100000e+00	3.480000e+00	4.000000e-02	4.000000e-02
 END YODA_SCATTER2D_V2

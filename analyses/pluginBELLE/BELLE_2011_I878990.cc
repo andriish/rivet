@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief q^2 in B0 -> pi- l+ nu_l decays
   class BELLE_2011_I878990 : public Analysis {
   public:
 

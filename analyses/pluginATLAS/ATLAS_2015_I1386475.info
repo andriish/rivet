@@ -15,7 +15,7 @@ References:
 RunInfo: p-Pb minimum bias events with $c\tau > 10 cm$ stable.
 NeedCrossSection: no
 Options:
- - cent=REF,GEN,IMP,USR
+ - cent=REF,GEN,IMP,USR,RAW
 Beams: [p, Pb]
 Energies: [[4000,326560]]
 Description:
@@ -23,6 +23,8 @@ Description:
    of pseudorapidity in proton-lead collisions. The collision energy is asymmetric,
    4000 GeV for the proton and 1570/N for the lead. The primary particle definition is
    $c\tau > 10 cm$ stable, and should be enforced at generator level.'
+ReleaseTests:
+ - $A LHC-5020-pPb :cent=REF
 BibKey: Aad:2015zza
 BibTeX: '%%% contains utf-8, see: http://inspirehep.net/info/faq/general#utf8
 %%% add \usepackage[utf8]{inputenc} to your latex preamble

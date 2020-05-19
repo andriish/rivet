@@ -220,7 +220,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    ///@{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -289,20 +289,21 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
 
-      normalize(_h["YYYY"]); // normalize to unity
-      scale(_h["ZZZZ"], crossSection()/picobarn/sumOfWeights()); // norm to cross section
+      normalize(_h["XXXX"]); // normalize to unity
+      normalize(_h["YYYY"], crossSection()/picobarn); // normalize to generated cross-section in fb (no cuts)
+      scale(_h["ZZZZ"], crossSection()/picobarn/sumW()); // norm to generated cross-section in pb (after cuts)
 
     }
 
-    //@}
+    ///@}
 
 
     /// @name Histograms
-    //@{
+    ///@{
     map<string, Histo1DPtr> _h;
     map<string, Profile1DPtr> _p;
     map<string, CounterPtr> _c;
-    //@}
+    ///@}
 %(INLINEMETHODS)s
 
   };
@@ -352,12 +353,11 @@ References:
  - 'Example: arXiv:1605.03814'
 #RunInfo: <Describe event types, cuts, and other general generator config tips.>
 #Beams: [p+, p+]
-#Energies: [6500,6500]
+#Energies: [[6500,6500]]
 #Luminosity_fb: 139.0
 Description:
-  'A brief description of what is measured and what it is useful for
-  in terms of MC testing, tuning, reinterpretation, etc. Use LaTeX
-  for maths, e.g. $\pT > 50\;\GeV$.'
+  'A brief description of what is measured and what it is useful for.
+   Use LaTeX for maths, e.g. $\pT > 50\;\GeV$.'
 ValidationInfo:
   'A description of the process used to validate the Rivet code against
   the original experimental analysis. Cut-flow tables and similar information
@@ -374,4 +374,4 @@ ToDo:
     f.write(src)
     f.close()
 
-    logging.info("Use e.g. 'rivet-buildplugin Rivet%s.so %s.cc' to compile the plugin" % (ANANAME, ANANAME))
+    logging.info("Use e.g. 'rivet-build Rivet%s.so %s.cc' to compile the plugin" % (ANANAME, ANANAME))

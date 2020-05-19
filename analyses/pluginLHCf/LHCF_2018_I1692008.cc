@@ -1,8 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/Beam.hh"
-#include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Projections/FinalState.hh"
 
 namespace Rivet {
 
@@ -20,7 +18,6 @@ namespace Rivet {
     void init() {
 
       // Initialise and register projections
-      declare(Beam(), "Beam");
       declare(FinalState(), "FS");
 
       // Book histograms
@@ -32,31 +29,20 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
+      // Select photons above threshold
       const FinalState &fs = apply<FinalState> (event, "FS");
-      Particles fs_particles = fs.particles();
+      Particles fs_particles = fs.particles(Cuts::abspid==PID::NEUTRON && Cuts::E>=500/GeV && Cuts::abseta>8.812347);
 
-      for (Particle& p : fs_particles) {
+      for (const Particle& p : fs_particles) {
 
-        // select photons above threshold
-        if (p.abspid() != 2112) continue; //Select neutrons and antineutrons only
-        if (p.E()/GeV < 500.)   continue; //Select only energy above 500 GeV
-        //if(p.pT()/GeV == 0.0) continue; //Artificially remove QGSJet II-04 wrong events
-
-        // Double analysis efficiency with a two-sided LHCf
+        // Double analysis efficiency with a two-sided LHCf --- NOTE: taken care of in finalize division by 2
         const double eta = abs(p.eta());
         const double energy = p.E()/GeV;
 
-        if ( eta > 10.758267 ) {
-          _h_n_en_eta1->fill( energy );
-        } 
-        else if (eta > 8.994669 && eta < 9.217812) {
-          _h_n_en_eta2->fill( energy );
-        } 
-        else if (eta > 8.812347 && eta < 8.994669) {
-          _h_n_en_eta3->fill( energy );
-        }
+        if      (eta > 10.758267                 ) _h_n_en_eta1->fill(energy);
+        else if (eta > 8.994669 && eta < 9.217812) _h_n_en_eta2->fill(energy);
+        else if (eta < 8.994669                  ) _h_n_en_eta3->fill(energy);
       }
-
     }
 
     /// Normalise histograms etc., after the run

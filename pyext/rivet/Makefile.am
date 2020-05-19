@@ -12,6 +12,8 @@ MAINTAINERCLEANFILES = core.cpp
 BUILT_SOURCES = core.cpp
 
 if WITH_CYTHON
+.NOTPARALLEL:
+
 RIVETINCLUDE = $(top_srcdir)/include/Rivet/
 core.cpp: core.pyx rivet.pxd $(RIVETINCLUDE)/Analysis.hh $(RIVETINCLUDE)/AnalysisHandler.hh $(RIVETINCLUDE)/AnalysisLoader.hh $(RIVETINCLUDE)/Run.hh
 	cython $(srcdir)/core.pyx --cplus \

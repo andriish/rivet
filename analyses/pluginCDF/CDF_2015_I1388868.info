@@ -12,7 +12,7 @@ Authors:
  - Andy Buckley <andy.buckley@cern.ch>
 References:
  - 'Phys. Rev. D 92, 092009 (2015)'
- - 'arXiv:1508.05340'
+ - arXiv:1508.05340
 RunInfo:
   'Minimum bias proton-antiproton collision events at 300, 900 and 1960 GeV.
   Set particles with c*tau > 10 mm stable.'

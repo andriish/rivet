@@ -25,6 +25,9 @@ namespace Rivet {
       const double lepMaxEta = 2.5;
       const Cut lepton_cut = (Cuts::abseta < lepMaxEta);
 
+      MSG_WARNING("\033[91;1mLIMITED VALIDITY - check info file for details!\033[m");
+
+
       // Initialise and register projections
       FinalState fs((Cuts::etaIn(-2.5,2.5)));
       FinalState fsm((Cuts::etaIn(-5,5)));
