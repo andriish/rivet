@@ -1,0 +1,45 @@
+# Font
+lines.linewidth : 1
+font.family : stixgeneral
+mathtext.fontset : stix
+mathtext.default : rm
+
+# Color of figure
+axes.facecolor : fafafa
+axes.edgecolor : black
+axes.labelcolor : black
+figure.facecolor : fafafa
+figure.edgecolor : fafafa
+savefig.edgecolor : fafafa
+savefig.facecolor : fafafa
+# Figure layout
+figure.figsize : 5.5, 5.5
+figure.subplot.bottom : 0.16
+figure.subplot.top : 0.95
+figure.subplot.left : 0.16
+figure.subplot.right : 0.95
+
+# Axes
+axes.titlepad : 4.0
+axes.labelpad : 3.0
+axes.labelsize : 18
+xtick.labelsize : 15
+xtick.major.size : 10
+xtick.minor.size : 5
+ytick.labelsize : 15
+ytick.major.size : 10
+ytick.minor.size : 5
+lines.markersize : 6
+
+# Grid
+axes.grid : True
+grid.alpha : 0.7
+grid.linestyle : --
+grid.linewidth : 0.6
+
+# Legend
+legend.numpoints : 1
+legend.fontsize : 14
+legend.labelspacing : 0.3
+legend.frameon : True
+

@@ -1,0 +1,32 @@
+# Font
+lines.linewidth : 1
+font.family : stixgeneral
+mathtext.fontset : stix
+mathtext.default : rm
+
+# Figure layout
+figure.figsize : 5.5, 5.5
+figure.facecolor : white
+figure.subplot.bottom : 0.16
+figure.subplot.top : 0.95
+figure.subplot.left : 0.16
+figure.subplot.right : 0.95
+
+# Axes
+axes.titlepad : 4.0
+axes.labelpad : 3.0
+axes.labelsize : 10
+xtick.labelsize : 10
+xtick.major.size : 8
+xtick.minor.size : 4
+ytick.labelsize : 10
+ytick.major.size : 8
+ytick.minor.size : 4
+lines.markersize : 4
+
+# Legend
+legend.numpoints : 1
+legend.fontsize : 10
+legend.labelspacing : 0.3
+legend.frameon : False
+

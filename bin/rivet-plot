@@ -100,7 +100,12 @@ if __name__ == '__main__':
     for a in anas:
         if not os.path.exists(a):
             os.makedirs(a)
-    plt.style.use('rivet')
+    anaData = rivet.getAnalysisDataPaths()
+    for ad in anaData:
+        try:
+            plt.style.use(ad + '/stylelib/rivet.mplstyle')
+        except:
+            pass
     for sty in args.MPLSTYLE:
         plt.style.use(sty)
     # Make a good default color map.

@@ -1,1 +1,1 @@
-SUBDIRS = texmf
+SUBDIRS = texmf stylelib

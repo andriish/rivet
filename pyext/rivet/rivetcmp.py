@@ -329,8 +329,13 @@ def add3dToAx(hpath, ax, data, plot, plotoptions, cmap):
 ## Calculate the error on the ratio.
 def ratioError(ratio, yde, yd, yne, yn, ratioMode):
     if ratioMode == "default":
-        rep = [rr * np.sqrt((y1e/y1)**2 + (y2e/y2)**2) for rr, y1e, y1, y2e, y2 in zip(ratio,yde[0],yd,yne[0],yn)]
-        rem = [rr * np.sqrt((y1e/y1)**2 + (y2e/y2)**2) for rr, y1e, y1, y2e, y2 in zip(ratio,yde[1],yd,yne[1],yn)]
+        # Try propagating the error on the denominator.
+        try:
+            rep = [rr * np.sqrt((y1e/y1)**2 + (y2e/y2)**2) for rr, y1e, y1, y2e, y2 in zip(ratio,yde[0],yd,yne[0],yn)]
+            rem = [rr * np.sqrt((y1e/y1)**2 + (y2e/y2)**2) for rr, y1e, y1, y2e, y2 in zip(ratio,yde[1],yd,yne[1],yn)]
+        except:
+            rep = [rr * y2e/y2 for rr, y2e, y2 in zip(ratio, yne[0], yn)]
+            rem = [rr * y2e/y2 for rr, y2e, y2 in zip(ratio, yne[1], yn)]
         return [rep, rem]
     elif ratioMode == "deviation": # TODO: Fix this and other options.
         rep = [rr * np.sqrt((y1e[0]/y1)**2 + (y2e[0]/y2)**2) for rr, y1e, y1, y2e, y2 in zip(ratio,yde,yd,yne,yn)]
@@ -374,7 +379,10 @@ def addRatioToAx(hpath, ax, num, denom, plotoptions, colIter, errorbar=True, isD
     elif ratioMode == 'deviation':
         ratio = [(y1 - y2)/y2 for y1, y2 in zip(yn,yd)]
     if errorbar:
-        re = ratioError(ratio, yde, yd, yne, yn, ratioMode)
+        try:
+            re = ratioError(ratio, yde, yd, yne, yn, ratioMode)
+        except:
+            print('Ratio error in '+hpath+'. Could not calculate error on ratio.')
     try:
         if isData:
             ax.errorbar(xd, ratio, xerr=xde, yerr=re, fmt=lineStyle, color=lineColor,label=title)
