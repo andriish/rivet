@@ -10,7 +10,11 @@ variables:
   SRC_DIR_ABS: "${CI_PROJECT_DIR}/${SRC_DIR}"
   BUILD_DIR_ABS: "${CI_PROJECT_DIR}/${BUILD_DIR}"
   LD_LIBRARY_PATH: "/usr/local/lib"
-  PYTHONPATH: "/usr/local/lib64/python2.7/site-packages"
+  PYTHONPATH: "$PWD"
+  HEPMC_VERSION: "2.06.10" 
+  FASTJET_VERSION: "3.3.3"
+  FJCONTRIB_VERSION: "1.044"
+  CYTHON_VERSION: "0.29.15"
 
 
 stages:
@@ -21,34 +25,29 @@ stages:
 before_script:
 - dnf update -y
 - dnf install -y make cmake gcc-c++ gcc-gfortran redhat-rpm-config m4 automake autoconf libtool
-- dnf install -y wget tar less bzip2 findutils which nano zlib-devel git rsync
-- dnf install -y python python-devel python-requests file python-matplotlib  gsl-devel
+- dnf install -y wget tar less bzip2 findutils which nano zlib-devel git rsync file
 - dnf install -y texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow
 - dnf install -y ghostscript ImageMagick texlive-dvips texlive-relsize
 - dnf install -y texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended
-# The HepM3 from EPEL/Fedora is validated on regular basis.
-- dnf install -y HepMC3 HepMC3-devel HepMC3-search HepMC3-search-devel
 - dnf clean all
 
 
-
-
-
-#prep:
+#.build_template: &prep_template
 #  stage: .pre
 #  except:
 #    - schedules
 #  script:
+#    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib 
+#    - dnf clean all
+#    - alias python='/usr/bin/python${PYTHON_VERSION}'
+#    - shopt -s expand_aliases
+#    - if [ "$VENV" = "yes" ] ; then python -m venv --system-site-packages ~/.venv ; source ~/.venv/bin/activate ; fi
+#    - python --version
 #    - cd ..
 #    - BUILD_PREFIX="$PWD"
-#    - INSTALL_PREFIX="${CI_PROJECT_DIR}/local"
+#    - INSTALL_PREFIX="${CI_PROJECT_DIR}/local${PYTHON_VERSION}"
 #    - MAKE="make -j3"
 #    - export CPPFLAGS="$CPPFLAGS -DNDEBUG"
-#    # versions
-#    - test -z "$HEPMC_VERSION" && HEPMC_VERSION="2.06.10" #< TODO: update to v3
-#    - test -z "$FASTJET_VERSION" && FASTJET_VERSION="3.3.3"
-#    - test -z "$FJCONTRIB_VERSION" && FJCONTRIB_VERSION="1.042"
-#    - test -z "$CYTHON_VERSION" && CYTHON_VERSION="0.29.15"
 #    # immediate exit on a command (group) failure and optional debug mode
 #    - set -e
 #    - export PATH=$INSTALL_PREFIX/bin:$PATH
@@ -82,7 +81,6 @@ before_script:
 #    # install cython
 #    - echo "INSTALLING CYTHON $CYTHON_VERSION"
 #    - cd $BUILD_PREFIX
-#    - CYTHON_VERSION=0.28.5
 #    - test -d cython-$CYTHON_VERSION || { wget https://github.com/cython/cython/archive/$CYTHON_VERSION.tar.gz -O - | tar xz; }
 #    - export PATH=$BUILD_PREFIX/cython-$CYTHON_VERSION/bin:$PATH
 #    - export PYTHONPATH=$BUILD_PREFIX/cython-$CYTHON_VERSION:$PYTHONPATH
@@ -98,17 +96,41 @@ before_script:
 #    - cp yodaenv.sh $INSTALL_PREFIX/yodaenv.sh
 #    - echo "DEPENDENCIES BUILT SUCCESSFULLY."
 #    - cd ${CI_PROJECT_DIR}
-#    - tar czf local.tar.gz local
+#    - tar czf local${PYTHON_VERSION}.tar.gz local${PYTHON_VERSION}
 #  artifacts:
+#    when: always
 #    paths:
-#      - local.tar.gz
+#      - local${PYTHON_VERSION}.tar.gz
 #    expire_in: 1 week
+#
+#prep2:
+#  variables:
+#    VENV: "no"
+#  <<: *prep_template
+#
+#prep3:
+#  variables:
+#    PYTHON_VERSION: "3"
+#    PYTHON: python3
+#    VENV: "yes"
+#  <<: *prep_template
+
 
 build:
+  variables:
+    PYTHON_VERSION: ""
+    PYTHON: python
+    VENV: "no"
   stage: compile
   except:
     - schedules
   script:
+    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib 
+    - dnf clean all
+    - alias python='/usr/bin/python${PYTHON_VERSION}'
+    - shopt -s expand_aliases
+    - if [ "$VENV" = "yes" ] ; then python -m venv --system-site-packages ~/.venv ; source ~/.venv/bin/activate ; fi
+    - python --version
     - cd ..
     - BUILD_PREFIX="$PWD"
     - INSTALL_PREFIX="${CI_PROJECT_DIR}/local"
@@ -121,14 +143,18 @@ build:
     - function mmi { $MAKE check "$@" && $MAKE install; }
     - function wget_untar { wget --no-check-certificate $1 -O- | tar --no-same-owner -xz; }
     - cd ${CI_PROJECT_DIR}
+    - echo "DOWNLOAD AND SET UP PREINSTALLATION"
     # download pre-installed versions of HepMC2, FASTJET, FJcontrib and YODA
-    #- wget_untar https://rivetval.web.cern.ch/rivetval/CI/FEDORA-30_HEPMC-2.06.10_FASTJET-3.3.3_FJCONTRIB-1.042_YODA-1-8-status2020-04-13.tar.gz
+    #- wget_untar https://rivetval.web.cern.ch/rivetval/CI/FEDORA30_PYTHON2_HEPMC20610_FASTJET333_FJCONTRIB1044_YODA18X-status2020-05-20.tar.gz
     # alternative download location:
-    - wget_untar https://cgutscho.web.cern.ch/cgutscho/FEDORA-30_HEPMC-2.06.10_FASTJET-3.3.3_FJCONTRIB-1.042_YODA-1-8-status2020-04-13.tar.gz
+    - wget_untar https://cgutscho.web.cern.ch/cgutscho/FEDORA30_PYTHON2_HEPMC20610_FASTJET333_FJCONTRIB1044_YODA18X-status2020-05-20.tar.gz
+    # install cython
+    - cd $BUILD_PREFIX
+    - export HEPMCPATH=$INSTALL_PREFIX
+    - export FASTJETPATH=$INSTALL_PREFIX
+    - export YODAPATH=$INSTALL_PREFIX
     # install cython
     - echo "INSTALLING CYTHON $CYTHON_VERSION"
-    - cd $BUILD_PREFIX
-    - CYTHON_VERSION=0.28.5
     - test -d cython-$CYTHON_VERSION || { wget https://github.com/cython/cython/archive/$CYTHON_VERSION.tar.gz -O - | tar xz; }
     - export PATH=$BUILD_PREFIX/cython-$CYTHON_VERSION/bin:$PATH
     - export PYTHONPATH=$BUILD_PREFIX/cython-$CYTHON_VERSION:$PYTHONPATH
@@ -145,17 +171,30 @@ build:
   artifacts:
     when: always
     paths:
-      - local/
+      - local${PYTHON_VERSION}/
     expire_in: 1 week
 
+
 build-hepmc3:
+  variables:
+    PYTHON_VERSION: "3"
+    PYTHON: python3
+    VENV: "yes"
   stage: compile
   except:
     - schedules
   script:
+    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib 
+    # The HepM3 from EPEL/Fedora is validated on regular basis.
+    - dnf install -y HepMC3 HepMC3-devel HepMC3-search HepMC3-search-devel
+    - dnf clean all
+    - alias python='/usr/bin/python${PYTHON_VERSION}'
+    - shopt -s expand_aliases
+    - if [ "$VENV" = "yes" ] ; then python -m venv --system-site-packages ~/.venv ; source ~/.venv/bin/activate ; fi
+    - python --version
     - cd ..
     - BUILD_PREFIX="$PWD"
-    - INSTALL_PREFIX="${CI_PROJECT_DIR}/local"
+    - INSTALL_PREFIX="${CI_PROJECT_DIR}/local${PYTHON_VERSION}"
     - MAKE="make -j3"
     - export CPPFLAGS="$CPPFLAGS -DNDEBUG"
     # immediate exit on a command (group) failure and optional debug mode
@@ -165,14 +204,17 @@ build-hepmc3:
     - function mmi { $MAKE check "$@" && $MAKE install; }
     - function wget_untar { wget --no-check-certificate $1 -O- | tar --no-same-owner -xz; }
     - cd ${CI_PROJECT_DIR}
+    - echo "DOWNLOAD AND SET UP PREINSTALLATION"
     # download pre-installed versions of HepMC2, FASTJET, FJcontrib and YODA
-    #- wget_untar https://rivetval.web.cern.ch/rivetval/CI/FEDORA-30_HEPMC-2.06.10_FASTJET-3.3.3_FJCONTRIB-1.042_YODA-1-8-status2020-04-13.tar.gz
+    #- wget_untar https://rivetval.web.cern.ch/rivetval/CI/FEDORA30_PYTHON3_HEPMC20610_FASTJET333_FJCONTRIB1044_YODA18X-status2020-05-20.tar.gz
     # alternative download location:
-    - wget_untar https://cgutscho.web.cern.ch/cgutscho/FEDORA-30_HEPMC-2.06.10_FASTJET-3.3.3_FJCONTRIB-1.042_YODA-1-8-status2020-04-13.tar.gz
+    - wget_untar https://cgutscho.web.cern.ch/cgutscho/FEDORA30_PYTHON3_HEPMC20610_FASTJET333_FJCONTRIB1044_YODA18X-status2020-05-20.tar.gz
+    # install cython
+    - cd $BUILD_PREFIX
+    - export FASTJETPATH=$INSTALL_PREFIX
+    - export YODAPATH=$INSTALL_PREFIX
     # install cython
     - echo "INSTALLING CYTHON $CYTHON_VERSION"
-    - cd $BUILD_PREFIX
-    - CYTHON_VERSION=0.28.5
     - test -d cython-$CYTHON_VERSION || { wget https://github.com/cython/cython/archive/$CYTHON_VERSION.tar.gz -O - | tar xz; }
     - export PATH=$BUILD_PREFIX/cython-$CYTHON_VERSION/bin:$PATH
     - export PYTHONPATH=$BUILD_PREFIX/cython-$CYTHON_VERSION:$PYTHONPATH
@@ -186,15 +228,35 @@ build-hepmc3:
     # setup env
     - source $INSTALL_PREFIX/rivetenv.sh
     - rivet -h
+  artifacts:
+    when: always
+    paths:
+      - local${PYTHON_VERSION}/
+    expire_in: 1 week
+
 
 check-plugin:
+  variables:
+    PYTHON_VERSION: ""
+    PYTHON: python
+    VENV: "no"
   stage: check
   except:
     - schedules
   script:
-    - source local/rivetenv.sh
-    - mkdir testArea
-    - cd testArea
+    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib 
+    - dnf clean all
+    - alias python='/usr/bin/python${PYTHON_VERSION}'
+    - shopt -s expand_aliases
+    - ls
+    - if [ "$VENV" = "yes" ] ; then python -m venv --system-site-packages ~/.venv ; source ~/.venv/bin/activate ; fi
+    - python --version
+    - export HEPMCPATH=$INSTALL_PREFIX
+    - export FASTJETPATH=$INSTALL_PREFIX
+    - export YODAPATH=$INSTALL_PREFIX
+    - source local${PYTHON_VERSION}/rivetenv.sh
+    - mkdir testArea${PYTHON_VERSION}
+    - cd testArea${PYTHON_VERSION}
     - rivet-mkanalysis MY_TEST
     - rivet-build RivetMY_TEST.so MY_TEST.cc
     - rivet --pwd --list-analyses
@@ -205,25 +267,107 @@ check-plugin:
   artifacts:
     when: always
     paths:
-      - local/
-      - testArea/ttbar_test_run.yoda
+      - local${PYTHON_VERSION}/
+      - testArea${PYTHON_VERSION}/ttbar_test_run.yoda
     expire_in: 1 week
   dependencies:
     - build
 
 make-plots:
+  variables:
+    PYTHON_VERSION: ""
+    PYTHON: python
+    VENV: "no"
   stage: validate
   except:
     - schedules
   script:
-    - source local/rivetenv.sh
-    - cd testArea
+    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib 
+    - dnf clean all
+    - alias python='/usr/bin/python${PYTHON_VERSION}'
+    - shopt -s expand_aliases
+    - if [ "$VENV" = "yes" ] ; then python -m venv --system-site-packages ~/.venv ; source ~/.venv/bin/activate ; fi
+    - python --version
+    - export HEPMCPATH=$INSTALL_PREFIX
+    - export FASTJETPATH=$INSTALL_PREFIX
+    - export YODAPATH=$INSTALL_PREFIX
+    - source local${PYTHON_VERSION}/rivetenv.sh
+    - cd testArea${PYTHON_VERSION}
     - rivet-mkhtml --errs -o ttbar_test_plots ttbar_test_run.yoda
   artifacts:
     when: always
     paths:
-      - testArea/ttbar_test_plots/
+      - testArea${PYTHON_VERSION}ttbar_test_plots/
     expire_in: 1 week
   dependencies:
     - check-plugin
+
+
+check-plugin-py3:
+  variables:
+    PYTHON_VERSION: "3"
+    PYTHON: python3
+    VENV: "yes"
+  stage: check
+  except:
+    - schedules
+  script:
+    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib 
+    - dnf install -y HepMC3 HepMC3-devel HepMC3-search HepMC3-search-devel
+    - dnf clean all
+    - alias python='/usr/bin/python${PYTHON_VERSION}'
+    - shopt -s expand_aliases
+    - if [ "$VENV" = "yes" ] ; then python -m venv --system-site-packages ~/.venv ; source ~/.venv/bin/activate ; fi
+    - python --version
+    - export HEPMCPATH=$INSTALL_PREFIX
+    - export FASTJETPATH=$INSTALL_PREFIX
+    - export YODAPATH=$INSTALL_PREFIX
+    - source local${PYTHON_VERSION}/rivetenv.sh
+    - mkdir testArea${PYTHON_VERSION}
+    - cd testArea${PYTHON_VERSION}
+    - rivet-mkanalysis MY_TEST
+    - rivet-build RivetMY_TEST.so MY_TEST.cc
+    - rivet --pwd --list-analyses
+    #- wget --no-check-certificate https://rivetval.web.cern.ch/rivetval/HEPMC/LHC-13-Top-All.hepmc.gz 
+    # alternative download location:
+    - wget --no-check-certificate https://cgutscho.web.cern.ch/cgutscho/LHC-13-Top-All.hepmc.gz 
+    - rivet --pwd -a MC_TTBAR:TTMODE=ANYLEP,ATLAS_2017_I1614149,ATLAS_2018_I1646686,ATLAS_2018_I1656578 -H ttbar_test_run.yoda LHC-13-Top-All.hepmc.gz
+  artifacts:
+    when: always
+    paths:
+      - local${PYTHON_VERSION}/
+      - testArea${PYTHON_VERSION}/ttbar_test_run.yoda
+    expire_in: 1 week
+  dependencies:
+    - build-hepmc3
+
+make-plots-py3:
+  variables:
+    PYTHON_VERSION: "3"
+    PYTHON: python3
+    VENV: "yes"
+  stage: validate
+  except:
+    - schedules
+  script:
+    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib 
+    - dnf install -y HepMC3 HepMC3-devel HepMC3-search HepMC3-search-devel
+    - dnf clean all
+    - alias python='/usr/bin/python${PYTHON_VERSION}'
+    - shopt -s expand_aliases
+    - if [ "$VENV" = "yes" ] ; then python -m venv --system-site-packages ~/.venv ; source ~/.venv/bin/activate ; fi
+    - python --version
+    - export HEPMCPATH=$INSTALL_PREFIX
+    - export FASTJETPATH=$INSTALL_PREFIX
+    - export YODAPATH=$INSTALL_PREFIX
+    - source local${PYTHON_VERSION}/rivetenv.sh
+    - cd testArea${PYTHON_VERSION}
+    - rivet-mkhtml --errs -o ttbar_test_plots ttbar_test_run.yoda
+  artifacts:
+    when: always
+    paths:
+      - testArea${PYTHON_VERSION}/ttbar_test_plots/
+    expire_in: 1 week
+  dependencies:
+    - check-plugin-py3
 
