@@ -34,7 +34,7 @@ namespace Rivet {
       // ------- MINBIAS HISTOGRAMS --------
       //
       // MB event counter
-      book(m_chargedEvents, "m_chargedEvents");
+      book(m_chargedEvents, "m_chargedEvents_MB");
 
       book(_h_ETflowEta ,1, 1, 1);
       book(_h_SumETbin1 ,3, 1, 1);
@@ -47,7 +47,7 @@ namespace Rivet {
       // ------- DIJET HISTOGRAMS --------
       //
       // Dijet event counter
-      book(m_events_dijets, "m_chargedEvents");
+      book(m_events_dijets, "m_chargedEvents_dijets");
 
       // sumET
       book(_h_transETflowEta , 2, 1, 1);
