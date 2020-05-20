@@ -120,6 +120,7 @@ if test x$use_hepmc2 = xno && test x$use_hepmc3 = xno ; then
   AC_MSG_ERROR([HepMC2 or HepMC3 is required])
 fi
 
+rm conftest.*
 if test x$use_hepmc2 = xyes; then
 
   oldCPPFLAGS=$CPPFLAGS
