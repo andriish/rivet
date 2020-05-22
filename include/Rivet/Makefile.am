@@ -64,6 +64,7 @@ nobase_pkginclude_HEADERS += \
   Projections/ImpactParameterProjection.hh \
   Projections/IndirectFinalState.hh \
   Projections/InitialQuarks.hh \
+  Projections/InvisibleFinalState.hh \
   Projections/InvMassFinalState.hh \
   Projections/JetAlg.hh \
   Projections/JetFinder.hh \
