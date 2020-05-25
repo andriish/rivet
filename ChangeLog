@@ -1,6 +1,11 @@
+2020-05-25  Christian Gutschow  <chris.g@cern.ch>
+
+	* Fix small bug in rivet-cmphistos
+
 2020-05-21  Christian Gutschow  <chris.g@cern.ch>
 
 	* Add ATLAS_2018_I163527 (W+jets at 8 TeV)
+	* Add InvisibleFinalState projection
 
 2020-05-18  Andy Buckley  <andy.buckley@cern.ch>
 

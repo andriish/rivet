@@ -139,7 +139,7 @@ def parseArgs(args):
             plotoptions[has_name] = plotoptions[path]
             del plotoptions[path]
         if path != "PLOT" and not has_title:
-            plotoptions[path].append('Title=%s' % sanitiseString(os.path.basename( os.path.splitext(path)[0] )) )
+            plotoptions[has_name if has_name != "" else path].append('Title=%s' % sanitiseString(os.path.basename( os.path.splitext(path)[0] )) )
     return filelist, filenames, plotoptions
 
 
