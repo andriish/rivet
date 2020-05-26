@@ -1,0 +1,44 @@
+# TODO: use build-arg to choose the base image?
+FROM ubuntu:20.04
+LABEL maintainer="rivet@projects.hepforge.org"
+
+ARG PYTHON_VERSION=3
+ARG HEPMC_VERSION=2
+ARG CXX_CMD=g++
+ARG CC_CMD=gcc
+ARG FC_CMD=gfortran
+ARG RIVET_VERSION=3.1.1
+
+ENV CXX=${CXX_CMD}
+ENV CC=${CC_CMD}
+ENV FC=${FC_CMD}
+
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && if test "$PYTHON_VERSION" = "3"; then PYTHON_SYS_VERSION=3; PYTHON_PKG_VERSION=3; else PYTHON_SYS_VERSION=2.7; PYTHON_PKG_VERSION=; fi \
+    && if test "$HEPMC_VERSION" = "3"; then HEPMC_FULL_VERSION=3.2.1; else HEPMC_FULL_VERSION=2.06.10; fi \
+    && if test "$CXX_CMD" = "g++"; then CXX_PKG=g++; else CXX_PKG=clang; fi \
+    && if test "$CC_CMD" = "gcc"; then CC_PKG=gcc; else CC_PKG=clang; fi \
+    && if test "$FC_CMD" = "gfortran"; then FC_PKG=gfortran; else FC_PKG=flang; fi \
+    && apt-get update -y \
+    && apt-get install -y \
+      ${CXX_PKG} ${CC_PKG} ${FC_PKG} \
+      python${PYTHON_SYS_VERSION} python${PYTHON_SYS_VERSION}-dev \
+      python${PYTHON_PKG_VERSION}-requests python${PYTHON_PKG_VERSION}-matplotlib \
+      make automake autoconf libtool cmake \
+      wget tar less bzip2 findutils nano file \
+      zlib1g-dev libgsl-dev \
+      texlive-latex-recommended texlive-fonts-recommended \
+      graphicsmagick \
+    && apt-get clean -y
+
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python${PYTHON_VERSION} 2 \
+    && mkdir /code && cd /code \
+    && wget https://gitlab.com/hepcedar/rivetbootstrap/raw/${RIVET_VERSION}/rivet-bootstrap \
+    && chmod +x rivet-bootstrap \
+    && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 HEPMC_VERSION=${HEPMC_FULL_VERSION} MAKE="make -j6" ./rivet-bootstrap \
+    && rm -rf /code
+
+# ENV LD_LIBRARY_PATH /usr/local/lib
+# ENV PYTHONPATH /usr/local/lib64/python2.7/site-packages
+
+WORKDIR /work
