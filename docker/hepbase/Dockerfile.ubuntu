@@ -23,12 +23,13 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y \
       ${CXX_PKG} ${CC_PKG} ${FC_PKG} \
       python${PYTHON_SYS_VERSION} python${PYTHON_SYS_VERSION}-dev \
-      python${PYTHON_PKG_VERSION}-requests python${PYTHON_PKG_VERSION}-matplotlib \
+      python${PYTHON_PKG_VERSION}-requests \
       make automake autoconf libtool cmake \
       wget tar less bzip2 findutils nano file \
       zlib1g-dev libgsl-dev \
       texlive-latex-recommended texlive-fonts-recommended \
       graphicsmagick \
+    && if test "$PYTHON_VERSION" = "3"; then pip install matplotlib; else apt-get install python3-matplotlib; fi \
     && apt-get clean -y
 
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python${PYTHON_VERSION} 2 \
