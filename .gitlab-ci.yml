@@ -125,6 +125,11 @@ build:
   except:
     - schedules
   script:
+    - |
+      if [ "${CI_PROJECT_DIR}" != "/builds/hepcedar/rivet" ]; then
+        mkdir -p /builds/hepcedar/rivet
+        ln -s "${CI_PROJECT_DIR}/local" "/builds/hepcedar/rivet/local"
+      fi
     - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib 
     - dnf clean all
     - alias python='/usr/bin/python${PYTHON_VERSION}'
@@ -184,6 +189,11 @@ build-hepmc3:
   except:
     - schedules
   script:
+    - |
+      if [ "${CI_PROJECT_DIR}" != "/builds/hepcedar/rivet" ]; then
+        mkdir -p /builds/hepcedar/rivet
+        ln -s "${CI_PROJECT_DIR}/local${PYTHON_VERSION}" "/builds/hepcedar/rivet/local${PYTHON_VERSION}"
+      fi
     - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib 
     # The HepM3 from EPEL/Fedora is validated on regular basis.
     - dnf install -y HepMC3 HepMC3-devel HepMC3-search HepMC3-search-devel
@@ -244,6 +254,11 @@ check-plugin:
   except:
     - schedules
   script:
+    - |
+      if [ "${CI_PROJECT_DIR}" != "/builds/hepcedar/rivet" ]; then
+        mkdir -p /builds/hepcedar/rivet
+        ln -s "${CI_PROJECT_DIR}/local" "/builds/hepcedar/rivet/local"
+      fi
     - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib 
     - dnf clean all
     - alias python='/usr/bin/python${PYTHON_VERSION}'
@@ -270,8 +285,9 @@ check-plugin:
       - local${PYTHON_VERSION}/
       - testArea${PYTHON_VERSION}/ttbar_test_run.yoda
     expire_in: 1 week
-  dependencies:
-    - build
+  needs:
+    - job: build
+      artifacts: true
 
 make-plots:
   variables:
@@ -282,6 +298,11 @@ make-plots:
   except:
     - schedules
   script:
+    - |
+      if [ "${CI_PROJECT_DIR}" != "/builds/hepcedar/rivet" ]; then
+        mkdir -p /builds/hepcedar/rivet
+        ln -s "${CI_PROJECT_DIR}/local" "/builds/hepcedar/rivet/local"
+      fi
     - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib 
     - dnf clean all
     - alias python='/usr/bin/python${PYTHON_VERSION}'
@@ -299,8 +320,9 @@ make-plots:
     paths:
       - testArea${PYTHON_VERSION}ttbar_test_plots/
     expire_in: 1 week
-  dependencies:
-    - check-plugin
+  needs:
+    - job: check-plugin
+      artifacts: true
 
 
 check-plugin-py3:
@@ -312,6 +334,11 @@ check-plugin-py3:
   except:
     - schedules
   script:
+    - |
+      if [ "${CI_PROJECT_DIR}" != "/builds/hepcedar/rivet" ]; then
+        mkdir -p /builds/hepcedar/rivet
+        ln -s "${CI_PROJECT_DIR}/local${PYTHON_VERSION}" "/builds/hepcedar/rivet/local${PYTHON_VERSION}"
+      fi
     - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib 
     - dnf install -y HepMC3 HepMC3-devel HepMC3-search HepMC3-search-devel
     - dnf clean all
@@ -338,8 +365,9 @@ check-plugin-py3:
       - local${PYTHON_VERSION}/
       - testArea${PYTHON_VERSION}/ttbar_test_run.yoda
     expire_in: 1 week
-  dependencies:
-    - build-hepmc3
+  needs:
+    - job: build-hepmc3
+      artifacts: true
 
 make-plots-py3:
   variables:
@@ -350,6 +378,11 @@ make-plots-py3:
   except:
     - schedules
   script:
+    - |
+      if [ "${CI_PROJECT_DIR}" != "/builds/hepcedar/rivet" ]; then
+        mkdir -p /builds/hepcedar/rivet
+        ln -s "${CI_PROJECT_DIR}/local${PYTHON_VERSION}" "/builds/hepcedar/rivet/local${PYTHON_VERSION}"
+      fi
     - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib 
     - dnf install -y HepMC3 HepMC3-devel HepMC3-search HepMC3-search-devel
     - dnf clean all
@@ -368,6 +401,7 @@ make-plots-py3:
     paths:
       - testArea${PYTHON_VERSION}/ttbar_test_plots/
     expire_in: 1 week
-  dependencies:
-    - check-plugin-py3
+  needs:
+    - job: check-plugin-py3
+      artifacts: true
 
