@@ -31,8 +31,14 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 
 # TODO: join these two stages
 RUN export DEBIAN_FRONTEND=noninteractive \
+    && if test "$CXX_CMD" = "clang++"; then update-alternatives --install /usr/bin/g++ g++ /usr/bin/clang++ 2; fi \
+    && if test "$CXX_CMD" = "clang++"; then update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++ 2; fi \
+    && if test "$CC_CMD" = "clang"; then update-alternatives --install /usr/bin/gcc gcc /usr/bin/clang 2; fi \
+    && if test "$CC_CMD" = "clang"; then update-alternatives --install /usr/bin/cc cc /usr/bin/clang 2; fi \
+    && if test "$FC_CMD" = "flang"; then update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/flang 2; fi \
     && if test "$PYTHON_VERSION" = "3"; then PYTHON_SYS_VERSION=3; PYTHON_PKG_VERSION=3; else PYTHON_SYS_VERSION=2.7; PYTHON_PKG_VERSION=; fi \
     && update-alternatives --install /usr/bin/python python /usr/bin/python${PYTHON_SYS_VERSION} 2 \
+    && update-alternatives --install /usr/bin/python${PYTHON_VERSION} python${PYTHON_VERSION} /usr/bin/python${PYTHON_SYS_VERSION} 2 \
     && \
     if test "$PYTHON_VERSION" = "3"; then \
       apt-get install python3-requests python3-matplotlib; \
