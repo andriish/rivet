@@ -144,7 +144,12 @@ namespace Rivet {
     // Calulate mixing observable.
     // Must be overloaded in derived classes.
     virtual void calculateMixingObs(const Projection* mProj) = 0;
-
+    
+    // Allow for a veto on mixing events.
+    // Should be overridden in derived classes if needed.
+    virtual bool mixEventVeto(const Particles&) {
+      return false;
+    }
 
     /// Perform the projection on the Event.
     void project(const Event& e) {
@@ -157,6 +162,7 @@ namespace Rivet {
         return;
       }
       const Particles mix = applyProjection<ParticleFinder>(e, "MIX").particles();
+      if (mixEventVeto(mix)) return;
       mixItr->second.push_back(make_pair(mix,e.weights()[_defaultWeightIdx]));
       // Assume unit weights until we see otherwise.
       if (unitWeights && e.weights()[_defaultWeightIdx] != 1.0 ) {
