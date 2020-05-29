@@ -338,6 +338,13 @@ namespace Rivet {
     /// hasn't been set.
     double crossSectionPerEvent() const;
 
+    /// Get the process cross-section error in pb. Throws if this hasn't been set.
+    double crossSectionError() const;
+
+    /// Get the process cross-section error per generated event in
+    /// pb. Throws if this hasn't been set.
+    double crossSectionErrorPerEvent() const;
+
     /// @brief Get the number of events seen (via the analysis handler).
     ///
     /// @note Use in the finalize phase only.
