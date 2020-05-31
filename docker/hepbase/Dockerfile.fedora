@@ -2,7 +2,6 @@
 FROM fedora:32
 LABEL maintainer="rivet@projects.hepforge.org"
 
-ARG PYTHON_VERSION=3
 ARG HEPMC_VERSION=2
 ARG CXX_CMD=g++
 ARG CC_CMD=gcc
@@ -12,9 +11,6 @@ ARG RIVET_VERSION=3.1.1
 ENV CXX=${CXX_CMD}
 ENV CC=${CC_CMD}
 ENV FC=${FC_CMD}
-
-# TODO: Remove
-RUN dnf update -y
 
 RUN true \
     && if test "$CXX_CMD" = "clang++"; then alternatives --install /usr/bin/g++ g++ /usr/bin/clang++ 2; fi \
@@ -28,32 +24,13 @@ RUN true \
     && dnf install -y ${CXX_PKG} ${CC_PKG} ${FC_PKG} \
       make redhat-rpm-config cmake \
       wget tar less bzip2 findutils which nano file \
-      zlib-devel gsl-devel \
-      wget tar less bzip2 findutils which nano file
+      zlib-devel gsl-devel
 
-RUN true \
-    && if test "$PYTHON_VERSION" = "3"; then \
-         dnf install -y python3 python3-devel; \
-         alternatives --install /usr/bin/python python /usr/bin/python3 2; \
-       else \
-         dnf install -y llvm; \
-         wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz; \
-         tar xf Python-2.7.18.tgz; \
-         cd Python-2.7.18; \
-         ./configure --enable-optimizations; \
-         make altinstall; fi
+RUN dnf install -y python3 python3-devel python3-pip \
+    && alternatives --install /usr/bin/python python /usr/bin/python3 2 \
+    && pip install matplotlib requests Cython
 
-RUN true \
-    && if test "$PYTHON_VERSION" != "3"; then \
-         alternatives --install /usr/bin/python python /usr/local/bin/python2.7 2; \
-         alternatives --install /usr/bin/python2 python2 /usr/local/bin/python2.7 2; \
-       fi
-
-RUN true \
-    && wget https://bootstrap.pypa.io/get-pip.py -O get-pip.py \
-    && python get-pip.py && rm get-pip.py \
-    && pip install matplotlib requests \
-    && dnf install -y \
+RUN dnf install -y \
       texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow \
       texlive-relsize texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended \
       ghostscript GraphicsMagick texlive-dvips \
@@ -64,7 +41,7 @@ RUN true \
     && mkdir /code && cd /code \
     && wget https://gitlab.com/hepcedar/rivetbootstrap/raw/${RIVET_VERSION}/rivet-bootstrap \
     && chmod +x rivet-bootstrap \
-    && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 HEPMC_VERSION=${HEPMC_FULL_VERSION} MAKE="make -j6" ./rivet-bootstrap \
+    && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_FULL_VERSION} MAKE="make -j6" ./rivet-bootstrap \
     && rm -rf /code
 
 #ENV LD_LIBRARY_PATH /usr/local/lib

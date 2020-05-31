@@ -1,5 +1,4 @@
-# TODO: use build-arg to choose the base image?
-FROM ubuntu:20.04
+FROM python:2-buster
 LABEL maintainer="rivet@projects.hepforge.org"
 
 ARG HEPMC_VERSION=2
@@ -19,12 +18,11 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update -y \
     && apt-get install -y \
       ${CXX_PKG} ${CC_PKG} ${FC_PKG} \
-      python3 python3-dev python3-pip \
+      python2 python2-dev \
       make automake autoconf libtool cmake \
       wget tar less bzip2 findutils nano file \
       zlib1g-dev libgsl-dev \
-      texlive-latex-recommended texlive-fonts-recommended \
-      graphicsmagick
+    && apt-get clean -y
 
 # TODO: join these two stages
 RUN export DEBIAN_FRONTEND=noninteractive \
@@ -33,18 +31,22 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && if test "$CC_CMD" = "clang"; then update-alternatives --install /usr/bin/gcc gcc /usr/bin/clang 2; fi \
     && if test "$CC_CMD" = "clang"; then update-alternatives --install /usr/bin/cc cc /usr/bin/clang 2; fi \
     && if test "$FC_CMD" = "flang"; then update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/flang 2; fi \
-    && update-alternatives --install /usr/bin/python python /usr/bin/python3 2 \
-    && pip3 install matplotlib requests Cython \
-    && apt-get clean -y
+    && pip install matplotlib requests Cython
 
 RUN mkdir /code && cd /code \
     && if test "$HEPMC_VERSION" = "3"; then HEPMC_FULL_VERSION=3.2.1; else HEPMC_FULL_VERSION=2.06.10; fi \
+    && update-alternatives --install /usr/bin/python2.7.18 python2.7.18 /usr/bin/python2 2 \
     && wget https://gitlab.com/hepcedar/rivetbootstrap/raw/${RIVET_VERSION}/rivet-bootstrap \
     && chmod +x rivet-bootstrap \
     && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_FULL_VERSION} MAKE="make -j6" ./rivet-bootstrap \
     && rm -rf /code
 
+RUN apt-get install -y \
+      texlive-latex-recommended texlive-fonts-recommended \
+      graphicsmagick
+
 # ENV LD_LIBRARY_PATH /usr/local/lib
 # ENV PYTHONPATH /usr/local/lib64/python2.7/site-packages
 
+ENTRYPOINT /bin/bash
 WORKDIR /work
