@@ -13,31 +13,51 @@ ENV CXX=${CXX_CMD}
 ENV CC=${CC_CMD}
 ENV FC=${FC_CMD}
 
+# TODO: Remove
+RUN dnf update -y
+
 RUN true \
     && if test "$CXX_CMD" = "clang++"; then alternatives --install /usr/bin/g++ g++ /usr/bin/clang++ 2; fi \
     && if test "$CXX_CMD" = "clang++"; then alternatives --install /usr/bin/c++ c++ /usr/bin/clang++ 2; fi \
     && if test "$CC_CMD" = "clang"; then alternatives --install /usr/bin/gcc gcc /usr/bin/clang 2; fi \
     && if test "$CC_CMD" = "clang"; then alternatives --install /usr/bin/cc cc /usr/bin/clang 2; fi \
     && if test "$FC_CMD" = "flang"; then alternatives --install /usr/bin/gfortran gfortran /usr/bin/flang 2; fi \
-    && if test "$PYTHON_VERSION" = "3"; then PYTHON_SYS_VERSION=3; PYTHON_PKG_VERSION=3; else PYTHON_SYS_VERSION=27; PYTHON_PKG_VERSION=; fi \
     && if test "$CXX_CMD" = "g++"; then CXX_PKG=gcc-c++; else CXX_PKG=clang; fi \
     && if test "$CC_CMD" = "gcc"; then CC_PKG=gcc; else CC_PKG=clang; fi \
     && if test "$FC_CMD" = "gfortran"; then FC_PKG=gcc-gfortran; else FC_PKG=flang; fi \
-    && dnf update -y \
-    && dnf install -y \
-      ${CXX_PKG} ${CC_PKG} ${FC_PKG} \
-      python${PYTHON_VERSION} \
-      python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib \
+    && dnf install -y ${CXX_PKG} ${CC_PKG} ${FC_PKG} \
       make redhat-rpm-config cmake \
       wget tar less bzip2 findutils which nano file \
       zlib-devel gsl-devel \
+      wget tar less bzip2 findutils which nano file
+
+RUN true \
+    && if test "$PYTHON_VERSION" = "3"; then \
+         dnf install -y python3 python3-devel; \
+         alternatives --install /usr/bin/python python /usr/bin/python3 2; \
+       else \
+         dnf install -y llvm; \
+         wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz; \
+         tar xf Python-2.7.18.tgz; \
+         cd Python-2.7.18; \
+         ./configure --enable-optimizations; \
+         make altinstall; fi
+
+RUN true \
+    && if test "$PYTHON_VERSION" != "3"; then \
+         alternatives --install /usr/bin/python python /usr/local/bin/python2.7 2; \
+         alternatives --install /usr/bin/python2 python2 /usr/local/bin/python2.7 2; \
+       fi
+
+RUN true \
+    && wget https://bootstrap.pypa.io/get-pip.py -O get-pip.py \
+    && python get-pip.py && rm get-pip.py \
+    && pip install matplotlib requests \
+    && dnf install -y \
       texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow \
       texlive-relsize texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended \
-      ghostscript GraphicsMagick texlive-dvips  \
-    && alternatives --install /usr/bin/python python /usr/bin/python${PYTHON_SYS_VERSION} 2 \
-    && alternatives --install /usr/bin/python${PYTHON_VERSION} python${PYTHON_VERSION} /usr/bin/python${PYTHON_SYS_VERSION} 2 \
+      ghostscript GraphicsMagick texlive-dvips \
     && dnf clean all
-#python${PYTHON_VERSION}-devel
 
 RUN true \
     && if test "$HEPMC_VERSION" = "3"; then HEPMC_FULL_VERSION=3.2.1; else HEPMC_FULL_VERSION=2.06.10; fi \
