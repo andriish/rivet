@@ -1,4 +1,3 @@
-# TODO: use build-arg to choose the base image?
 FROM fedora:32
 LABEL maintainer="rivet@projects.hepforge.org"
 
@@ -13,28 +12,29 @@ ENV CC=${CC_CMD}
 ENV FC=${FC_CMD}
 
 RUN true \
+    && if test "$CXX_CMD" = "g++"; then CXX_PKG=gcc-c++; else CXX_PKG=clang; fi \
+    && if test "$CC_CMD" = "gcc"; then CC_PKG=gcc; else CC_PKG=clang; fi \
+    && if test "$FC_CMD" = "gfortran"; then FC_PKG=gcc-gfortran; else FC_PKG=flang; fi \
+    && dnf install -y ${CXX_PKG} ${CC_PKG} ${FC_PKG} \
     && if test "$CXX_CMD" = "clang++"; then alternatives --install /usr/bin/g++ g++ /usr/bin/clang++ 2; fi \
     && if test "$CXX_CMD" = "clang++"; then alternatives --install /usr/bin/c++ c++ /usr/bin/clang++ 2; fi \
     && if test "$CC_CMD" = "clang"; then alternatives --install /usr/bin/gcc gcc /usr/bin/clang 2; fi \
     && if test "$CC_CMD" = "clang"; then alternatives --install /usr/bin/cc cc /usr/bin/clang 2; fi \
     && if test "$FC_CMD" = "flang"; then alternatives --install /usr/bin/gfortran gfortran /usr/bin/flang 2; fi \
-    && if test "$CXX_CMD" = "g++"; then CXX_PKG=gcc-c++; else CXX_PKG=clang; fi \
-    && if test "$CC_CMD" = "gcc"; then CC_PKG=gcc; else CC_PKG=clang; fi \
-    && if test "$FC_CMD" = "gfortran"; then FC_PKG=gcc-gfortran; else FC_PKG=flang; fi \
-    && dnf install -y ${CXX_PKG} ${CC_PKG} ${FC_PKG} \
+    && dnf install -y \
       make redhat-rpm-config cmake \
       wget tar less bzip2 findutils which nano file \
-      zlib-devel gsl-devel
-
-RUN dnf install -y python3 python3-devel python3-pip \
+      zlib-devel gsl-devel \
+    && dnf install -y python3 python3-devel python3-pip \
     && alternatives --install /usr/bin/python python /usr/bin/python3 2 \
-    && pip install matplotlib requests Cython
-
-RUN dnf install -y \
-      texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow \
-      texlive-relsize texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended \
-      ghostscript GraphicsMagick texlive-dvips \
+    && pip install matplotlib requests Cython \
     && dnf clean all
+
+# RUN dnf install -y \
+#       texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow \
+#       texlive-relsize texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended \
+#       ghostscript GraphicsMagick texlive-dvips \
+#     && dnf clean all
 
 RUN true \
     && if test "$HEPMC_VERSION" = "3"; then HEPMC_FULL_VERSION=3.2.1; else HEPMC_FULL_VERSION=2.06.10; fi \

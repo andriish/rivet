@@ -24,7 +24,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
       zlib1g-dev libgsl-dev \
     && apt-get clean -y
 
-# TODO: join these two stages
 RUN export DEBIAN_FRONTEND=noninteractive \
     && if test "$CXX_CMD" = "clang++"; then update-alternatives --install /usr/bin/g++ g++ /usr/bin/clang++ 2; fi \
     && if test "$CXX_CMD" = "clang++"; then update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++ 2; fi \
@@ -40,10 +39,6 @@ RUN mkdir /code && cd /code \
     && chmod +x rivet-bootstrap \
     && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_FULL_VERSION} MAKE="make -j6" ./rivet-bootstrap \
     && rm -rf /code
-
-RUN apt-get install -y \
-      texlive-latex-recommended texlive-fonts-recommended \
-      graphicsmagick
 
 # ENV LD_LIBRARY_PATH /usr/local/lib
 # ENV PYTHONPATH /usr/local/lib64/python2.7/site-packages
