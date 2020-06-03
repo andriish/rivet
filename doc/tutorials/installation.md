@@ -37,13 +37,24 @@ export PATH=/cvmfs/sft.cern.ch/lcg/external/texlive/2016/bin/x86_64-linux:$PATH
 ```
 
 
-3. **Run the script.** By default it will install to `$PWD/local`, where `$PWD` is the current directory. If you need to change that, specify the corresponding values on the command line. Examples:
+3. **Run the script.** By default it will install the whole suite of Rivet dependencies
+and Rivet itself to `$PWD/local`, where `$PWD` is the current directory.
+We will refer to this installation root path as `ROOT`: where the word `ROOT`
+appears below, in commands for you to type in, you should replace it with the actual
+installation prefix you used when running `rivet-bootstrap`
+
+If you
+need to change that, specify the corresponding values on the command line. Other variables
+used by the script can be set at the same time if you wish. Examples:
 ```
+# To install to $PWD/local:
 ./rivet-bootstrap
-  # or, e.g.
+```
+or
+```
+# To install to ~/software/rivet
 INSTALL_PREFIX=$HOME/software/rivet MAKE="make -j8" ./rivet-bootstrap
 ```
-We will refer to the installation root path as `$PREFIX`.
 
 *Other variables used in the script, such as version numbers, can be overridden
  this way. Those other than `INSTALL_PREFIX` and `MAKE` are mainly of interest
@@ -58,7 +69,7 @@ We will refer to the installation root path as `$PREFIX`.
 After the script grinds away for a while, it will tell you that it is finished and how to set up a runtime environment (similar to that used inside the build script) for running Rivet. A sourceable rivetenv.(c)sh script is provided for (c)sh shell users to help set up this environment. Here's how to set up the environment and then test the `rivet` program's help feature and analysis listing:
 
 ```
-  source $PREFIX/rivetenv.sh
+  source ROOT/rivetenv.sh
   rivet --help
   rivet --list-analyses
 ```
