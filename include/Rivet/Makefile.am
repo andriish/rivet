@@ -64,6 +64,7 @@ nobase_pkginclude_HEADERS += \
   Projections/ImpactParameterProjection.hh \
   Projections/IndirectFinalState.hh \
   Projections/InitialQuarks.hh \
+  Projections/InvisibleFinalState.hh \
   Projections/InvMassFinalState.hh \
   Projections/JetAlg.hh \
   Projections/JetFinder.hh \
@@ -166,6 +167,7 @@ nobase_dist_noinst_HEADERS += \
 ## Maths
 nobase_pkginclude_HEADERS += \
   Math/Matrices.hh \
+  Math/Vector2.hh \
   Math/Vector3.hh \
   Math/VectorN.hh \
   Math/MatrixN.hh \

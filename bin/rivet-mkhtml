@@ -326,8 +326,8 @@ if not args.DRY_RUN:
 
     ## Timestamp and command HTML fragments to be used on each page:
     import datetime
-    timestamp = '<p>Generated at %s</p>\n' % datetime.datetime.now().strftime("%A, %d. %B %Y %I:%M%p")
-    command = '<p>Created with command: <kbd>%s</kbd></p>' % COMMAND
+    timestamp = '<p>Generated at %s</p>' % datetime.datetime.now().strftime("%A, %d. %B %Y %I:%M%p")
+    command = '<p>Created with command: <pre>%s</pre></p>' % COMMAND
 
     index = open(os.path.join(args.OUTPUTDIR, "index.html"), "w")
     index.write('<html>\n<head>\n<title>%s</title>\n%s</head>\n<body>' % (args.TITLE, style + script))
@@ -336,7 +336,7 @@ if not args.DRY_RUN:
     else:
         index.write('<h2>%s</h2>\n\n' % args.TITLE)
 
-    if args.SINGLE:
+    if args.SINGLE and len(analyses) > 1:
         ## Write table of contents
         index.write('<ul>\n')
         for analysis in analyses:
@@ -372,6 +372,7 @@ if not args.DRY_RUN:
 
         try:
             if args.SINGLE:
+                index.write('<section>\n')
                 index.write('\n<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, summary))
             else:
                 index.write('\n<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' % (analysis, summary))
@@ -412,6 +413,7 @@ if not args.DRY_RUN:
             anaindex = open(os.path.join(anapath, "index.html"), 'w')
             anaindex.write('<html>\n<head>\n<title>%s &ndash; %s</title>\n%s</head>\n<body>\n' %
                            (htmlify(args.TITLE), analysis, style + script))
+            anaindex.write('<section>\n')
             anaindex.write('<h3>%s</h3>\n' % htmlify(analysis))
             anaindex.write('<p><a href="../index.html">Back to index</a></p>\n')
             if description:
@@ -425,7 +427,7 @@ if not args.DRY_RUN:
         datfiles = glob.glob("%s/*.dat" % anapath)
         #print(datfiles)
 
-        anaindex.write('<div style="float:none; overflow:auto; width:100%">\n')
+        # anaindex.write('<div style="float:none; overflow:auto; width:100%">\n')
         for datfile in sorted(datfiles):
             obsname = os.path.basename(datfile).replace(".dat", "")
             pngfile = obsname+".png"
@@ -443,12 +445,18 @@ if not args.DRY_RUN:
             anaindex.write('      <img src="%s">\n' % pngfile )
             anaindex.write('    </a></a>\n')
             anaindex.write('  </div>\n')
-        anaindex.write('</div>\n')
+        # anaindex.write('</div>\n')
 
-        if not args.SINGLE:
-            anaindex.write('<div style="float:none">%s</body>\n</html></div>\n' % timestamp)
+        if args.SINGLE:
+            index.write('</section>\n\n')
+        else:
+            anaindex.write('</section>\n\n')
+            anaindex.write('<footer style="clear:both; margin-top:3em; padding-top:3em">\n%s\n</footer>\n\n' % timestamp)
+            anaindex.write('</body>\n</html>')
             anaindex.close()
-    index.write("<br>\n%s\n%s\n</body>\n</html>" % (timestamp, command))
+
+    index.write('<footer style="clear:both; margin-top:3em; padding-top:3em">\n%s\n%s\n</footer>\n\n' % (timestamp, command))
+    index.write('</body>\n</html>')
     index.close()
 
 # http://stackoverflow.com/questions/377017/test-if-executable-exists-in-python

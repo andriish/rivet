@@ -40,7 +40,7 @@ AC_DEFINE_UNQUOTED(RIVET_BUGREPORT, "$PACKAGE_BUGREPORT", "Rivet contact email a
 AC_CEDAR_OSX
 
 ## Work out the LCG platform tag
-AC_LCG_TAG
+dnl AC_LCG_TAG
 
 ## Set default compiler flags
 if test "x$CXXFLAGS" == "x"; then CXXFLAGS="-O2"; fi
@@ -64,6 +64,8 @@ AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 AX_EXECINFO
 AC_FUNC_STRERROR_R
+AC_CHECK_PROG([FCP], [rsync], [rsync -aq], [cp -f])
+AC_CHECK_PROG([RSH], [rsync], [rsync], [scp])
 
 ## YODA histogramming library
 AC_CEDAR_LIBRARYANDHEADERS([YODA], , , [AC_MSG_ERROR([YODA is required])])
@@ -211,7 +213,7 @@ if test -f "$FJCONFIG"; then
   if test "$fjmajor" -lt 3; then
     AC_MSG_ERROR([FastJet version 3.0.0 or later is required])
   fi
-  FASTJETLIBADD="$($FJCONFIG --plugins --shared --libs| tr ' ' '\n' | grep -v gcc  | tr '\n' ' ')"
+  FASTJETLIBADD="$($FJCONFIG --plugins --shared --libs | sed 's/\S*\/gcc\/\S*//g')"
 else
   FASTJETLIBADD="-L$FASTJETLIBPATH -l$FASTJETLIBNAME"
   FASTJETLIBADD="$FASTJETLIBADD -lSISConePlugin -lsiscone -lsiscone_spherical"

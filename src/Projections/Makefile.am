@@ -25,6 +25,7 @@ libRivetProjections_la_SOURCES = \
   HepMCHeavyIon.cc \
   IdentifiedFinalState.cc \
   InitialQuarks.cc \
+  InvisibleFinalState.cc \
   InvMassFinalState.cc \
   JetFinder.cc \
   JetShape.cc \

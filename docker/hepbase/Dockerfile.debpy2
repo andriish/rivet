@@ -1,0 +1,47 @@
+FROM python:2-buster
+LABEL maintainer="rivet-developers@cern.ch"
+
+ARG HEPMC_VERSION=2
+ARG CXX_CMD=g++
+ARG CC_CMD=gcc
+ARG FC_CMD=gfortran
+ARG RIVET_VERSION=3.1.1
+
+ENV CXX=${CXX_CMD}
+ENV CC=${CC_CMD}
+ENV FC=${FC_CMD}
+
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && if test "$CXX_CMD" = "g++"; then CXX_PKG=g++; else CXX_PKG=clang; fi \
+    && if test "$CC_CMD" = "gcc"; then CC_PKG=gcc; else CC_PKG=clang; fi \
+    && if test "$FC_CMD" = "gfortran"; then FC_PKG=gfortran; else FC_PKG=flang; fi \
+    && apt-get update -y \
+    && apt-get install -y \
+      ${CXX_PKG} ${CC_PKG} ${FC_PKG} \
+      python2 python2-dev \
+      make automake autoconf libtool cmake \
+      wget tar less bzip2 findutils nano file \
+      zlib1g-dev libgsl-dev \
+    && apt-get clean -y
+
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && if test "$CXX_CMD" = "clang++"; then update-alternatives --install /usr/bin/g++ g++ /usr/bin/clang++ 2; fi \
+    && if test "$CXX_CMD" = "clang++"; then update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++ 2; fi \
+    && if test "$CC_CMD" = "clang"; then update-alternatives --install /usr/bin/gcc gcc /usr/bin/clang 2; fi \
+    && if test "$CC_CMD" = "clang"; then update-alternatives --install /usr/bin/cc cc /usr/bin/clang 2; fi \
+    && if test "$FC_CMD" = "flang"; then update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/flang 2; fi \
+    && pip install matplotlib requests Cython
+
+RUN mkdir /code && cd /code \
+    && if test "$HEPMC_VERSION" = "3"; then HEPMC_FULL_VERSION=3.2.1; else HEPMC_FULL_VERSION=2.06.10; fi \
+    && update-alternatives --install /usr/bin/python2.7.18 python2.7.18 /usr/bin/python2 2 \
+    && wget https://gitlab.com/hepcedar/rivetbootstrap/raw/${RIVET_VERSION}/rivet-bootstrap \
+    && chmod +x rivet-bootstrap \
+    && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_FULL_VERSION} MAKE="make -j6" ./rivet-bootstrap \
+    && rm -rf /code
+
+# ENV LD_LIBRARY_PATH /usr/local/lib
+# ENV PYTHONPATH /usr/local/lib64/python2.7/site-packages
+
+ENTRYPOINT /bin/bash
+WORKDIR /work

@@ -37,13 +37,24 @@ export PATH=/cvmfs/sft.cern.ch/lcg/external/texlive/2016/bin/x86_64-linux:$PATH
 ```
 
 
-3. **Run the script.** By default it will install to `$PWD/local`, where `$PWD` is the current directory. If you need to change that, specify the corresponding values on the command line. Examples:
+3. **Run the script.** By default it will install the whole suite of Rivet dependencies
+and Rivet itself to `$PWD/local`, where `$PWD` is the current directory.
+We will refer to this installation root path as `ROOT`: where the word `ROOT`
+appears below, in commands for you to type in, you should replace it with the actual
+installation prefix you used when running `rivet-bootstrap`
+
+If you
+need to change that, specify the corresponding values on the command line. Other variables
+used by the script can be set at the same time if you wish. Examples:
 ```
+# To install to $PWD/local:
 ./rivet-bootstrap
-  # or, e.g.
+```
+or
+```
+# To install to ~/software/rivet
 INSTALL_PREFIX=$HOME/software/rivet MAKE="make -j8" ./rivet-bootstrap
 ```
-We will refer to the installation root path as `$PREFIX`.
 
 *Other variables used in the script, such as version numbers, can be overridden
  this way. Those other than `INSTALL_PREFIX` and `MAKE` are mainly of interest
@@ -58,17 +69,19 @@ We will refer to the installation root path as `$PREFIX`.
 After the script grinds away for a while, it will tell you that it is finished and how to set up a runtime environment (similar to that used inside the build script) for running Rivet. A sourceable rivetenv.(c)sh script is provided for (c)sh shell users to help set up this environment. Here's how to set up the environment and then test the `rivet` program's help feature and analysis listing:
 
 ```
-  source $PREFIX/rivetenv.sh
+  source ROOT/rivetenv.sh
   rivet --help
   rivet --list-analyses
 ```
 
-If that works, everything is installed correctly. If you are using the `bash` shell in your terminal, then Rivet will offer you programmable tab completion: try typing {{{rivet}}} and pressing the Tab key!
+If that works, everything is installed correctly. If you are using the `bash` shell in your terminal, then Rivet will offer you programmable tab completion: try typing `rivet ` and pressing the `Tab` key! Note the space before pressing `Tab`: if you just type `rivet` + `Tab`, without a space, you'll get a handy list of all the Rivet tool programs.
 
 **You may wish to add the environment variable settings to your `~/.bashrc` shell config file, so that Rivet will work without needing any special session setup.**
 
 
 ## Troubleshooting
+
+### PYTHONPATH and other path-search issues
 
 The main things that can go wrong during Rivet installation and setup are
 related to the Python interface. Rivet relies heavily on Python interfaces to
@@ -76,14 +89,21 @@ the C++ libraries for its user-facing command-line scripts, but this requires
 a suitable Python environment before installation.
 
 If you hit problems, a good first idea is to make sure that the installation
-prefix is treated as a valid location for Python to load packages from. If
-installing into a system location like `/usr/local` this should be automatic; if
-doing something more custom, you may need to set or append to the `PYTHONPATH`
-environment variable. The usual Python install path is
+prefix is treated as a valid location for Python to load packages from *before*
+running the installation process. If installing into a system location like
+`/usr/local` this should be automatic, but if doing something more custom, you
+may need to set or append to the `PYTHONPATH` environment variable. (This, and
+equivalent additions to the `PATH` and `(DY)LD_LIBRARY_PATH` environment variables
+for executable and shared-library loading respectively, is done post-build
+by the `rivetenv.(c)sh` setup script.)
+
+The usual install path for Rivet's Python package is in
 `$INSTALL_PREFIX/lib/pythonX.Y/site-packages`, but it's best to check your
-system for variations; once confirmed, put
+system for variations. Once confirmed, put
 `export PYTHONPATH=$INSTALL_PREFIX/lib/pythonX.Y/site-packages:$PYTHONPATH`
-into your shell environment, perhaps permanently into your `.bashrc` file.
+into your shell environment, and then run the installer.
+
+### Mac untrusted binaries
 
 The second issue is specific to Macs, on which the system Python is configured
 to refuse to load modules that load "untrusted" binary libraries... like `libRivet`.

@@ -148,7 +148,7 @@ namespace Rivet {
     /// Setter for _skipWeights
     void skipMultiWeights(bool ignore=false);
 
-    /// Setter for _matchtWeightNames
+    /// Setter for _matchWeightNames
     void selectMultiWeights(std::string patterns="");
 
     /// Setter for _unmatchWeightNames

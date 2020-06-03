@@ -57,7 +57,7 @@ install-exec-local: $(PLUGIN_LIBS)
 install-data-local: $(PLUGIN_DATAFILES)
 	@echo "Installing analysis data files..."
 	$(mkdir_p) $(DESTDIR)$(pkgdatadir)
-	for pdir in $(builddir)/plugin*; do rsync -aq $${pdir}/*.{info,plot,yoda*} $(DESTDIR)$(pkgdatadir)/ || cp $${pdir}/*.{info,plot,yoda*} $(DESTDIR)$(pkgdatadir)/; done
+	for pdir in $(builddir)/plugin*; do $(FCP) $${pdir}/*.{info,plot,yoda*} $(DESTDIR)$(pkgdatadir)/; done
 
 uninstall-local:
 	cd $(DESTDIR)$(libdir) && rm -f $(PLUGIN_LIBS)
