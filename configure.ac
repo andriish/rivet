@@ -40,7 +40,7 @@ AC_DEFINE_UNQUOTED(RIVET_BUGREPORT, "$PACKAGE_BUGREPORT", "Rivet contact email a
 AC_CEDAR_OSX
 
 ## Work out the LCG platform tag
-AC_LCG_TAG
+dnl AC_LCG_TAG
 
 ## Set default compiler flags
 if test "x$CXXFLAGS" == "x"; then CXXFLAGS="-O2"; fi
