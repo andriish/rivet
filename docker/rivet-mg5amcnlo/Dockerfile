@@ -1,5 +1,5 @@
 FROM hepstore/rivet:3.1.1
-MAINTAINER Andy Buckley <andy.buckley@cern.ch>
+LABEL maintainer="rivet-developers@cern.ch"
 
 WORKDIR /work
 

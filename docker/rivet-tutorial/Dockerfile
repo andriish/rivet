@@ -1,5 +1,5 @@
 FROM hepstore/rivet-pythia:3.1.1-8244
-MAINTAINER Andy Buckley <andy.buckley@cern.ch>
+LABEL maintainer="rivet-developers@cern.ch"
 
 CMD /bin/bash
 

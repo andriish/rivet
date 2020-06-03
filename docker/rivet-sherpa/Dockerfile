@@ -1,5 +1,5 @@
 FROM hepstore/rivet:3.1.1
-MAINTAINER Andy Buckley <andy.buckley@cern.ch>
+LABEL maintainer="rivet-developers@cern.ch"
 
 RUN mkdir /code && cd /code \
     && wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.2.3.tar.gz -O- | tar xz \

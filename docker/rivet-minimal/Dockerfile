@@ -1,4 +1,5 @@
 FROM hepstore/rivet:3.1.1 AS build
+LABEL maintainer="rivet-developers@cern.ch"
 
 FROM registry.fedoraproject.org/fedora-minimal:30
 

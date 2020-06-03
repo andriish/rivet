@@ -1,5 +1,5 @@
 FROM fedora:32
-LABEL maintainer="rivet@projects.hepforge.org"
+LABEL maintainer="rivet-developers@cern.ch"
 
 ARG HEPMC_VERSION=2
 ARG CXX_CMD=g++

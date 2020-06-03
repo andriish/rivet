@@ -1,5 +1,5 @@
 FROM fedora:30
-LABEL maintainer="rivet@projects.hepforge.org"
+LABEL maintainer="rivet-developers@cern.ch"
 
 RUN dnf update -y \
     && dnf install -y \

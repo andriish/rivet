@@ -1,5 +1,5 @@
 FROM hepstore/hepbase-ubuntu-gcc-hepmc2-py3
-LABEL maintainer="rivet@projects.hepforge.org"
+LABEL maintainer="rivet-developers@cern.ch"
 
 ARG RIVET_VERSION=3.1.1
 
