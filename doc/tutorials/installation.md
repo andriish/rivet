@@ -74,7 +74,7 @@ After the script grinds away for a while, it will tell you that it is finished a
   rivet --list-analyses
 ```
 
-If that works, everything is installed correctly. If you are using the `bash` shell in your terminal, then Rivet will offer you programmable tab completion: try typing {{{rivet}}} and pressing the Tab key!
+If that works, everything is installed correctly. If you are using the `bash` shell in your terminal, then Rivet will offer you programmable tab completion: try typing `rivet ` and pressing the `Tab` key! Note the space before pressing `Tab`: if you just type `rivet` + `Tab`, without a space, you'll get a handy list of all the Rivet tool programs.
 
 **You may wish to add the environment variable settings to your `~/.bashrc` shell config file, so that Rivet will work without needing any special session setup.**
 
