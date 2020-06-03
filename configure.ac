@@ -64,6 +64,8 @@ AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 AX_EXECINFO
 AC_FUNC_STRERROR_R
+AC_CHECK_PROG([FCP], [rsync], [rsync -aq], [cp -f])
+AC_CHECK_PROG([RSH], [rsync], [rsync], [scp])
 
 ## YODA histogramming library
 AC_CEDAR_LIBRARYANDHEADERS([YODA], , , [AC_MSG_ERROR([YODA is required])])
