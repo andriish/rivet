@@ -339,7 +339,10 @@ AC_ARG_ENABLE(pyext, [AC_HELP_STRING(--disable-pyext,
 ## Basic Python checks
 if test x$enable_pyext == xyes; then
   AX_PYTHON_DEVEL([>= '2.7.3'])
+  PYTHON_VERSION=`$PYTHON -c 'import platform; print platform.python_version()'`
+  PYTHON_MAJOR_VERSION=`$PYTHON -c 'import sys; print sys.version_info.major'`
   AC_SUBST(PYTHON_VERSION)
+  AC_SUBST(PYTHON_MAJOR_VERSION)
   RIVET_PYTHONPATH=`$PYTHON -c "from __future__ import print_function;
 import distutils.sysconfig; print(distutils.sysconfig.get_python_lib(prefix='$prefix', plat_specific=True));"`
   AC_SUBST(RIVET_PYTHONPATH)

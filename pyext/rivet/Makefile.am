@@ -15,7 +15,7 @@ if WITH_CYTHON
 
 RIVETINCLUDE = $(top_srcdir)/include/Rivet/
 core.cpp: core.pyx rivet.pxd $(RIVETINCLUDE)/Analysis.hh $(RIVETINCLUDE)/AnalysisHandler.hh $(RIVETINCLUDE)/AnalysisLoader.hh $(RIVETINCLUDE)/Run.hh
-	cython $(srcdir)/core.pyx --cplus \
+	cython $(srcdir)/core.pyx --cplus -$(PYTHON_MAJOR_VERSION) \
 	   -I $(srcdir) -I $(srcdir)/include \
 	   -I $(builddir) -I $(builddir)/include \
 	   -o $@
