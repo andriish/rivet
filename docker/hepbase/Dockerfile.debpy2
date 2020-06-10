@@ -20,7 +20,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
       ${CXX_PKG} ${CC_PKG} ${FC_PKG} \
       python2 python2-dev \
       make automake autoconf libtool cmake \
-      wget tar less bzip2 findutils nano file \
+      git wget tar less bzip2 findutils nano file \
       zlib1g-dev libgsl-dev \
     && apt-get clean -y
 

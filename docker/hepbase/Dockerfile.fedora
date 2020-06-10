@@ -23,7 +23,8 @@ RUN true \
     && if test "$FC_CMD" = "flang"; then alternatives --install /usr/bin/gfortran gfortran /usr/bin/flang 2; fi \
     && dnf install -y \
       make redhat-rpm-config cmake \
-      wget tar less bzip2 findutils which nano file \
+      m4 automake autoconf libtool \
+      git wget tar less bzip2 findutils which nano file diffutils \
       zlib-devel gsl-devel \
     && dnf install -y python3 python3-devel python3-pip \
     && alternatives --install /usr/bin/python python /usr/bin/python3 2 \
