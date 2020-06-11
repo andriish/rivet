@@ -9,7 +9,7 @@ It should be a sequence of alphanumeric characters and can include the following
 White space characters are in principle supported but have been a source of endless headaches 
 for Rivet users and Monte Carlo users in general: please don't use white space in weight names.
 
-Ideally, the weight name should include the LHAPDF ID where applicable, e.g. `MUR_2.0_MUF1.0_PDF123456`.
+Ideally, the weight name should include the LHAPDF ID where applicable, e.g. `MUR2.0_MUF1.0_PDF123456`.
 
 ## Plotting a subset of the weights
 
