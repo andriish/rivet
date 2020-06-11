@@ -1,3 +1,7 @@
+2020-06-11  Christian Gutschow  <chris.g@cern.ch>
+
+	* Allow + and - in AO paths
+
 2020-06-06  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add computation of Python versions and passing them to Cython as command-line flags.
