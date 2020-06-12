@@ -1,44 +1,50 @@
-function reset { touch "$@" ; rm "$@" ; touch "$@" ;}
+#! /usr/bin/env bash
 
-reset $1
-reset alreadyChecked.txt
+# TODO: which directory is this run from?
+# TODO: also test if a YODA ref file is updated, since autobinning could have been broken
 
+OUTFILE=$1
 
 function getAffectedFiles {
- fn="$@"; 
- if grep -Fxq "$fn" alreadyChecked.txt;
-   then echo "[INFO] $fn already checked, skip it"
-   else
-   echo $fn >> alreadyChecked.txt
-   headerName=`basename ${p%.*}`.hh
-   echo "[INFO] Checking which analyses depend on $p";
-   grep -iRl $headerName | tee affectedFiles.txt
-   cat affectedFiles.txt| grep analyses  >> $1
-   echo "[INFO] $fn affects these analyses:"
-   cat affectedFiles.txt| grep analyses
-   reset filesToScan.txt
-   cat affectedFiles.txt| grep src >> filesToScan.txt
-   cat affectedFiles.txt| grep hh >> filesToScan.txt
-   cat filesToScan.txt
-   echo "[INFO] Look recursively '$fn' dependencies"
-   while read q ; do 
-     getAffectedFiles $q
-   done  < filesToScan.txt;
- fi;
-   }
+    fn="$@";
+    if grep -Fxq "$fn" alreadyChecked.txt; then
+        echo "[INFO] $fn already checked, skip it"
+    else
+        echo "[INFO] Checking which analyses depend on $fn";
+        echo $fn > affectedFiles.txt
+        # echo $fn >> alreadyChecked.txt
+
+        headerName=`basename ${p%.*}`.hh
+        grep -iRl "$headerName" src/ include/ test/ >> affectedFiles.txt
+
+        echo "[INFO] $fn affects these analyses:"
+        cat affectedFiles.txt | grep -E "^analyses/.*\.(hh$|cc)$"
+        cat affectedFiles.txt | grep -E "^analyses/.*\.(hh$|cc)$" >> $OUTFILE
+
+        > filesToScan.txt
+        cat affectedFiles.txt | grep -E "^src/" >> filesToScan.txt
+        cat affectedFiles.txt | grep -E "\.hh$" >> filesToScan.txt
+        # cat filesToScan.txt
+        echo "[INFO] Look recursively for '$fn' dependencies"
+        cat filesToScan.txt | while read q; do
+            echo "$q"
+            getAffectedFiles $q
+        done
+    fi
+}
 
 
-git diff-tree --no-commit-id --name-only -r $CI_COMMIT_SHA  >> modifiedFiles.txt
 
-while read p ; do
-  getAffectedFiles $p
-done < modifiedFiles.txt
+> $OUTFILE
+> alreadyChecked.txt
 
-echo "========"
-echo Analyses to compile 
-echo "========"
-cat $1 | sort --unique > $1
-rm alreadyChecked.txt
-rm modifiedFiles.txt
-rm filesToScan.txt
-cat $1
+git diff-tree --no-commit-id --name-only -r $CI_COMMIT_SHA | while read p; do
+    getAffectedFiles $p
+done
+sort --unique -o $OUTFILE $OUTFILE
+
+echo
+echo "Analyses to compile:"
+cat $OUTFILE
+
+rm -f alreadyChecked.txt filesToScan.txt
