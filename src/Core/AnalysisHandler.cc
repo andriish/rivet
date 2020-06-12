@@ -225,35 +225,35 @@ namespace Rivet {
         }
         _weightNames = selected_subset;
       }
-     if (_unmatchWeightNames != "") {
+      vector<std::regex> patterns = { std::regex("AUX"), std::regex("NOPLOT") };
+      if (_unmatchWeightNames != "") {
         MSG_DEBUG("Deselect weight names that match pattern \"" << _unmatchWeightNames << "\"");
         // compile regex from each string in the comma-separated list
-        vector<std::regex> patterns;
         for (const string& pattern : split(_unmatchWeightNames, ",")) {
           patterns.push_back( std::regex(pattern) ); 
         }
-        // check which weights match supplied weight-name pattern
-        vector<string> selected_subset; _weightIndices.clear();
-        for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
-          if (i == _defaultWeightIdx) {
-            // default weight cannot be vetoed
-            _rivetDefaultWeightIdx = _weightIndices.size();
-            _weightIndices.push_back(i);
-            selected_subset.push_back(_weightNames[i]);
-            MSG_DEBUG("Selected nominal weight: " << _weightNames[i]);
-            continue;
-          }
-          bool skip = false;
-          for (const std::regex& re : patterns) {
-            if ( std::regex_match(_weightNames[i], re) ) { skip = true; break; }
-          }
-          if (skip) continue;
+      }
+      // check which weights match supplied weight-name pattern
+      vector<string> selected_subset; _weightIndices.clear();
+      for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
+        if (i == _defaultWeightIdx) {
+          // default weight cannot be vetoed
+          _rivetDefaultWeightIdx = _weightIndices.size();
           _weightIndices.push_back(i);
           selected_subset.push_back(_weightNames[i]);
-          MSG_DEBUG("Selected variation weight: " << _weightNames[i]);
+          MSG_DEBUG("Selected nominal weight: " << _weightNames[i]);
+          continue;
         }
-        _weightNames = selected_subset;
+        bool skip = false;
+        for (const std::regex& re : patterns) {
+          if ( std::regex_match(_weightNames[i], re) ) { skip = true; break; }
+        }
+        if (skip) continue;
+        _weightIndices.push_back(i);
+        selected_subset.push_back(_weightNames[i]);
+        MSG_DEBUG("Selected variation weight: " << _weightNames[i]);
       }
+      _weightNames = selected_subset;
     }
     // done (de-)selecting weights, add useful debug messages:
     MSG_DEBUG("Default weight name: \"" <<  _weightNames[_rivetDefaultWeightIdx] << "\"");
