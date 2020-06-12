@@ -11,7 +11,7 @@ variables:
   BUILD_DIR_ABS: "${CI_PROJECT_DIR}/${BUILD_DIR}"
   LD_LIBRARY_PATH: "/usr/local/lib"
   PYTHONPATH: "$PWD"
-  HEPMC_VERSION: "2.06.10" 
+  HEPMC_VERSION: "2.06.10"
   FASTJET_VERSION: "3.3.3"
   FJCONTRIB_VERSION: "1.044"
   CYTHON_VERSION: "0.29.15"
@@ -34,22 +34,22 @@ before_script:
     - dnf install -y make cmake gcc-c++ gcc-gfortran redhat-rpm-config m4 automake autoconf libtool
     - dnf install -y wget tar less bzip2 findutils which nano zlib-devel git rsync file
     # now extract list of analyses which are affected by this commit
-    - ./ci/getAffectedRoutines.sh anasToCompile.txt 
+    - ./ci/getAffectedRoutines.sh anasToCompile.txt
     # add in some analyses needed for later CI steps
     - find analyses | grep MC_TTBAR | grep cc  >> anasToCompile.txt
-    - find analyses | grep ATLAS_2018_I1656578 | grep cc  >> anasToCompile.txt 
+    - find analyses | grep ATLAS_2018_I1656578 | grep cc  >> anasToCompile.txt
     - find analyses | grep ATLAS_2018_I1646686 | grep cc  >> anasToCompile.txt
     - find analyses | grep ATLAS_2017_I1614149 | grep cc  >> anasToCompile.txt
     - cat anasToCompile.txt | sort --unique > anasToCompile.tmp ; mv anasToCompile.tmp anasToCompile.txt
     - echo "==== echo analyses to compile ====="
     - cat anasToCompile.txt
-    # now do the usual build 
+    # now do the usual build
     - |
       if [ "${CI_PROJECT_DIR}" != "/builds/hepcedar/rivet" ]; then
         mkdir -p /builds/hepcedar/rivet
         ln -s "${CI_PROJECT_DIR}/local${PYTHON_VERSION}" "/builds/hepcedar/rivet/local${PYTHON_VERSION}"
       fi
-    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib 
+    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib
     # The HepM3 from EPEL/Fedora is validated on regular basis.
     - if [ "${HEPMC_VERSION}" = "3" ] ; then dnf install -y HepMC3 HepMC3-devel HepMC3-search HepMC3-search-devel; fi
     - dnf clean all
@@ -73,7 +73,7 @@ before_script:
     # download pre-installed versions of HepMC2, FASTJET, FJcontrib and YODA
     - export DL="https://cgutscho.web.cern.ch/cgutscho/FEDORA30_PYTHON2_HEPMC20610_FASTJET333_FJCONTRIB1044_YODA18X-status2020-05-20.tar.gz"
     - if [ "${PYTHON_VERSION}" = "3" ]; then export DL="https://cgutscho.web.cern.ch/cgutscho/FEDORA30_PYTHON3_HEPMC20610_FASTJET333_FJCONTRIB1044_YODA18X-status2020-05-20.tar.gz" ; fi
-    - wget_untar $DL 
+    - wget_untar $DL
     # install cython
     - cd $BUILD_PREFIX
     - export FASTJETPATH=$INSTALL_PREFIX
@@ -122,7 +122,7 @@ before_script:
         mkdir -p /builds/hepcedar/rivet
         ln -s "${CI_PROJECT_DIR}/local${PYTHON_VERSION}" "/builds/hepcedar/rivet/local${PYTHON_VERSION}"
       fi
-    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib 
+    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib
     - if [ "${HEPMC_VERSION}" = "3" ] ; then dnf install -y HepMC3 HepMC3-devel HepMC3-search HepMC3-search-devel; fi
     - dnf clean all
     - alias python='/usr/bin/python${PYTHON_VERSION}'
@@ -139,13 +139,14 @@ before_script:
     - rivet-mkanalysis MY_TEST
     - rivet-build RivetMY_TEST.so MY_TEST.cc
     - rivet --pwd --list-analyses
-    #- wget --no-check-certificate https://rivetval.web.cern.ch/rivetval/HEPMC/LHC-13-Top-All.hepmc.gz 
+    #- wget --no-check-certificate https://rivetval.web.cern.ch/rivetval/HEPMC/LHC-13-Top-All.hepmc.gz
     # alternative download location:
-    - wget --no-check-certificate https://cgutscho.web.cern.ch/cgutscho/LHC-13-Top-All.hepmc.gz 
+    - wget --no-check-certificate https://cgutscho.web.cern.ch/cgutscho/LHC-13-Top-All.hepmc.gz
     - rivet --pwd -a MC_TTBAR:TTMODE=ANYLEP,ATLAS_2017_I1614149,ATLAS_2018_I1646686,ATLAS_2018_I1656578 -H ttbar_test_run.yoda LHC-13-Top-All.hepmc.gz
   artifacts:
     when: always
     paths:
+      - ./
       - local${PYTHON_VERSION}/
       - testArea${PYTHON_VERSION}/ttbar_test_run.yoda
     expire_in: 1 week
@@ -163,7 +164,7 @@ before_script:
         mkdir -p /builds/hepcedar/rivet
         ln -s "${CI_PROJECT_DIR}/local${PYTHON_VERSION}" "/builds/hepcedar/rivet/local${PYTHON_VERSION}"
       fi
-    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib 
+    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib
     - if [ "${HEPMC_VERSION}" = "3" ] ; then dnf install -y HepMC3 HepMC3-devel HepMC3-search HepMC3-search-devel; fi
     - dnf clean all
     - alias python='/usr/bin/python${PYTHON_VERSION}'
@@ -246,5 +247,3 @@ make-plots-py3:
     - job: check-plugin-py3
       artifacts: true
   <<: *make_plots_template
-
-
