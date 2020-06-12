@@ -105,8 +105,10 @@ before_script:
   artifacts:
     when: always
     paths:
-      - local${PYTHON_VERSION}/
-      - ${CI_PROJECT_DIR}/rivet/test
+      - ${CI_PROJECT_DIR}
+      #- local$
+      #- local${PYTHON_VERSION}/
+      #- ${CI_PROJECT_DIR}/test
     expire_in: 1 week
 
 
@@ -146,7 +148,6 @@ before_script:
   artifacts:
     when: always
     paths:
-      - ./
       - local${PYTHON_VERSION}/
       - testArea${PYTHON_VERSION}/ttbar_test_run.yoda
     expire_in: 1 week
