@@ -39,8 +39,8 @@ rivet.pc
 Makefile
 Makefile.in
 analyses/Makefile.tmp.*
-analyses/tmp\..*.cc
-**\.tm
+analyses/tmp.*.cc
+**.tm
 **.pdf
 **.toc
 **.bbl
