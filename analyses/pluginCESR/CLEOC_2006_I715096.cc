@@ -101,9 +101,3 @@ namespace Rivet {
   DECLARE_RIVET_PLUGIN(CLEOC_2006_I715096);
 
 }
-analyses/pluginBABAR/BABAR_2017_I1498564.cc
-analyses/pluginCESR/CLEOC_2006_I715096.cc
-analyses/pluginBABAR/BABAR_2017_I1498564.cc
-analyses/pluginCESR/CLEOC_2006_I715096.cc
-analyses/pluginBABAR/BABAR_2017_I1498564.cc
-analyses/pluginCESR/CLEOC_2006_I715096.cc

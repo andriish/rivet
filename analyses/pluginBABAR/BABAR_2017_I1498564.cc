@@ -112,6 +112,3 @@ namespace Rivet {
   DECLARE_RIVET_PLUGIN(BABAR_2017_I1498564);
 
 }
-analyses/pluginBABAR/BABAR_2017_I1498564.cc
-analyses/pluginBABAR/BABAR_2017_I1498564.cc
-analyses/pluginBABAR/BABAR_2017_I1498564.cc
