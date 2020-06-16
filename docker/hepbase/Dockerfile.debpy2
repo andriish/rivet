@@ -40,6 +40,12 @@ RUN mkdir /code && cd /code \
     && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_FULL_VERSION} MAKE="make -j6" ./rivet-bootstrap \
     && rm -rf /code
 
+ARG LATEX=0
+RUN if test "$LATEX" = "1"; then \
+      apt-get update -y; \
+      apt-get install -y texlive-latex-recommended texlive-fonts-recommended imagemagick; \
+    fi
+
 ENV LD_LIBRARY_PATH /usr/local/lib
 ENV PYTHONPATH /usr/local/lib64/python2.7/site-packages
 

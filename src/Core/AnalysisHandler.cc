@@ -97,7 +97,7 @@ namespace Rivet {
     // Check that analyses are beam-compatible, and remove those that aren't
     const size_t num_anas_requested = analysisNames().size();
     vector<string> anamestodelete;
-    for (const AnaHandle a : analyses()) {
+    for (const AnaHandle& a : analyses()) {
       if (!_ignoreBeams && !a->isCompatible(beams())) {
         //MSG_DEBUG(a->name() << " requires beams " << a->requiredBeams() << " @ " << a->requiredEnergies() << " GeV");
         anamestodelete.push_back(a->name());
@@ -291,24 +291,20 @@ namespace Rivet {
 
     // Create the Rivet event wrapper
     /// @todo Filter/normalize the event here
+    /// @todo Find a way to cache the env call
     bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
     Event event(ge, strip);
 
-    // set the cross section based on what is reported by this event.
-    // if no cross section
+    // Set the cross section based on what is reported by this event.
     if ( ge.cross_section() ) setCrossSection(HepMCUtils::crossSection(ge));
 
     // Won't happen for first event because _eventNumber is set in init()
     if (_eventNumber != ge.event_number()) {
-
       pushToPersistent();
-
       _eventNumber = ge.event_number();
-
     }
 
-
-    MSG_TRACE("starting new sub event");
+    MSG_TRACE("Starting new sub event");
     _eventCounter.get()->newSubEvent();
 
     for (const AnaHandle& a : analyses()) {

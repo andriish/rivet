@@ -31,12 +31,6 @@ RUN true \
     && pip install matplotlib requests Cython \
     && dnf clean all
 
-# RUN dnf install -y \
-#       texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow \
-#       texlive-relsize texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended \
-#       ghostscript GraphicsMagick texlive-dvips \
-#     && dnf clean all
-
 RUN true \
     && if test "$HEPMC_VERSION" = "3"; then HEPMC_FULL_VERSION=3.2.1; else HEPMC_FULL_VERSION=2.06.10; fi \
     && mkdir /code && cd /code \
@@ -44,6 +38,16 @@ RUN true \
     && chmod +x rivet-bootstrap \
     && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_FULL_VERSION} MAKE="make -j6" ./rivet-bootstrap \
     && rm -rf /code
+
+ARG LATEX=0
+RUN if test "$LATEX" = "1"; then \
+      dnf install -y \
+        texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow \
+        texlive-relsize texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended \
+        ghostscript ImageMagick texlive-dvips; \
+      dnf clean all; \
+    fi
+
 
 ENV LD_LIBRARY_PATH /usr/local/lib
 ENV PYTHONPATH /usr/local/lib64/python3.8/site-packages
