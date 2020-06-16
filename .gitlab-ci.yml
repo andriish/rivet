@@ -2,7 +2,6 @@ variables:
   GIT_STRATEGY: fetch
   GIT_SUBMODULE_STRATEGY: recursive
   GIT_SSL_NO_VERIFY: "true"
-  MAKE: "make -j3"
 
 
 stages:
@@ -22,6 +21,7 @@ stages:
     - shopt -s expand_aliases
     - set -e
     - BUILD_PREFIX="$CI_PROJECT_DIR"
+    - MAKE="make -j $(nproc)"
     #/build_$ARCH"
     - mkdir -p $BUILD_PREFIX
     - INSTALL_PREFIX="$CI_PROJECT_DIR/local_$ARCH"
