@@ -47,13 +47,13 @@ namespace Rivet {
     }
 
     // Loop on the tmp container and fill _theParticles
-    for (const pair<PdgId,const Particle*>& id_p : tmp) {
+    for (const auto& id_p : tmp) {
       MSG_DEBUG("Accepting particle ID " << id_p.first << " with momentum " << id_p.second->momentum());
       _theParticles.push_back(*id_p.second);
     }
 
     if (_leading_only) {
-      double ptmax=0.0;
+      double ptmax = 0.0;
       Particle pmax;
 
       for (const Particle& p : _theParticles) {

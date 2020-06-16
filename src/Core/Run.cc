@@ -86,7 +86,7 @@ namespace Rivet {
       if (!_hepmcReader) {
         Log::getLog("Rivet.Run") << Log::INFO<< "No success with deduction of file type. Test if the file is compressed"<<std::endl;
         std::ifstream file_test(evtfile);
-        magic_t my_magic = {0x1f, 0x8b, 0x08, 0x08};
+        magic_t my_magic = {{0x1f, 0x8b, 0x08, 0x08}};
         magic_t file_magic;
         file_test.read((char *) file_magic.bytes, sizeof(file_magic));
         if (file_magic.number == my_magic.number) {

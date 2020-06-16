@@ -664,12 +664,12 @@ namespace Rivet {
     //@{
 
     /// Return the map of all options given to this analysis.
-    const std::map<std::string,std::string> & options() {
+    const std::map<std::string,std::string>& options() const {
       return _options;
     }
 
     /// Get an option for this analysis instance as a string.
-    std::string getOption(std::string optname) {
+    std::string getOption(std::string optname) const {
       if ( _options.find(optname) != _options.end() )
         return _options.find(optname)->second;
       return "";
@@ -680,13 +680,21 @@ namespace Rivet {
     /// The return type is given by the specified @a def value, or by an explicit template
     /// type-argument, e.g. getOption<double>("FOO", 3).
     template<typename T>
-    T getOption(std::string optname, T def) {
+    T getOption(std::string optname, T def) const {
       if (_options.find(optname) == _options.end()) return def;
       std::stringstream ss;
       ss << _options.find(optname)->second;
       T ret;
       ss >> ret;
       return ret;
+    }
+
+    /// @brief Sane overload for literal character strings (which don't play well with stringstream)
+    ///
+    /// Note this isn't a template specialisation, because we can't return a non-static
+    /// char*, and T-as-return-type is built into the template function definition.
+    std::string getOption(std::string optname, const char* def) {
+      return getOption<std::string>(optname, def);
     }
 
     /// @}
@@ -1422,11 +1430,11 @@ namespace Rivet {
   };
 
 
-  // Template specialisation for literal character strings (which don't play well with stringstream)
-  template<>
-  inline const char* Analysis::getOption(std::string optname, const char* def) {
-    return getOption<std::string>(optname, def).c_str();
-  }
+  // // Template specialisation for literal character strings (which don't play well with stringstream)
+  // template<>
+  // inline std::string Analysis::getOption(std::string optname, const char* def) {
+  //   return getOption<std::string>(optname, def); //.c_str();
+  // }
 
 
 }
