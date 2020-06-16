@@ -1,11 +1,7 @@
-FROM hepstore/hepbase-ubuntu-gcc-hepmc2-py3
+FROM hepstore/hepbase-ubuntu-gcc-hepmc2-py3-latex
 LABEL maintainer="rivet-developers@cern.ch"
 
 ARG RIVET_VERSION=3.1.1
-
-RUN apt-get update -y && apt-get install -y \
-      texlive-latex-recommended texlive-fonts-recommended \
-      graphicsmagick
 
 RUN mkdir /code && cd /code \
     && wget https://rivet.hepforge.org/downloads/?f=Rivet-${RIVET_VERSION}.tar.gz -O Rivet-${RIVET_VERSION}.tar.gz \
