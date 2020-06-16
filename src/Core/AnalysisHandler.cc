@@ -233,7 +233,7 @@ namespace Rivet {
       }
 
       // Check if the remaining weight names match supplied string/regexes and *de*select accordingly
-      vector<std::regex> patterns = { std::regex("AUX"), std::regex("NOPLOT") };
+      vector<std::regex> patterns = { std::regex("AUX"), std::regex("DEBUG") };
       if (_unmatchWeightNames != "") {
         MSG_DEBUG("Deselect weight names that match pattern \"" << _unmatchWeightNames << "\"");
         // Compile regex from each string in the comma-separated list

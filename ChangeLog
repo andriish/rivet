@@ -4,7 +4,7 @@
 
 2020-06-10  Christian Gutschow  <chris.g@cern.ch>
 
-	* Always skip weights that have "AUX" or "NOPLOT" in the name.
+	* Always skip weights that have "AUX" or "DEBUG" in the name.
 
 2020-06-06  Andy Buckley  <andy.buckley@cern.ch>
 
