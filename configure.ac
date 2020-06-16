@@ -472,7 +472,7 @@ or pipe (the latter may be made with mkfifo) using the
 'rivet' executable.
 
 For a more pleasant command line experience, you can include
-the data/rivet-completion file into your .bashrc file,
+the bin/rivet-completion file into your .bashrc file,
 or your bash_completion.d directory if you have one.
 
 The rivetenv.*sh files will not be installed, but can help you

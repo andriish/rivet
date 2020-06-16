@@ -3,7 +3,7 @@ check_PROGRAMS = testMath testMatVec testCmp testApi testNaN testBeams
 AM_LDFLAGS = -L$(top_srcdir)/src $(YAMLCPP_LDFLAGS) -L$(YODALIBPATH)
 LIBS = -lm -lYODA
 
-TEST_LDADD = $(top_builddir)/src/libRivet.la $(HEPMCLDFLAGS) $(YODALDFLAGS) $(HEPMCLDLIBS) $(YODALDLIBS)
+TEST_LDADD = $(top_builddir)/src/libRivet.la $(HEPMCLDFLAGS) $(HEPMC3LDFLAGS) $(YODALDFLAGS) $(HEPMCLDLIBS) $(HEPMC3LDLIBS) $(YODALDLIBS)
 
 testMath_SOURCES = testMath.cc
 testMath_LDADD = $(TEST_LDADD)

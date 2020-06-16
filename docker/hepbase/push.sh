@@ -1,5 +1,7 @@
 for x in {ubuntu,fedora,debian}-{gcc,clang}-hepmc{2,3}-py{2,3}; do
-    echo $x
-    docker push hepstore/hepbase-$x
-    echo
+    for t in "" "-latex"; do
+        echo $x$t
+        docker push hepstore/hepbase-$x$t
+        echo
+    done
 done
