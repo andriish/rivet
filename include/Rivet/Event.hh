@@ -27,20 +27,20 @@ namespace Rivet {
 
     /// Constructor from a HepMC GenEvent pointer
     Event(const GenEvent* ge, bool strip = false)
-      : _genevent_original(ge) {
-      assert(ge);
-      _genevent = *ge;
-      if ( strip ) _strip(_genevent);
+      : _genevent_original(ge) , _genevent(*ge){
+      //assert(ge);
+      //_genevent = *ge;
+      //if ( strip ) _strip(_genevent);
       _init(*ge);
     }
 
     /// Constructor from a HepMC GenEvent reference
     /// @deprecated HepMC uses pointers, so we should talk to HepMC via pointers
-    Event(const GenEvent& ge, bool strip = false)
-      : _genevent_original(&ge), _genevent(ge) {
-        if ( strip ) _strip(_genevent);
-        _init(ge);
-      }
+   // Event(const GenEvent& ge, bool strip = false)
+   //   : _genevent_original(&ge), _genevent(ge) {
+   //     if ( strip ) _strip(_genevent);
+   //     _init(ge);
+   //   }
 
     /// Copy constructor
     Event(const Event& e)
@@ -195,7 +195,7 @@ namespace Rivet {
     /// Stored as a non-pointer since it may get overwritten, and memory for
     /// copying and cleanup is neater this way.
     /// @todo Change needed for HepMC3?
-    mutable GenEvent _genevent;
+    GenEvent& _genevent;
 
     /// All the GenEvent particles, wrapped as Rivet::Particles
     /// @note To be populated lazily, hence mutability
