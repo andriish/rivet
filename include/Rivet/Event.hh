@@ -26,9 +26,9 @@ namespace Rivet {
     //@{
 
     /// Constructor from a HepMC GenEvent pointer
-    Event(const GenEvent* ge, bool strip = false)
-      : _genevent_original(ge) , _genevent(*ge){
-      //assert(ge);
+    Event(GenEvent* ge, bool strip = false)
+      : _genevent_original(ge) , _genevent(*ge) {
+      assert(ge);
       //_genevent = *ge;
       //if ( strip ) _strip(_genevent);
       _init(*ge);
@@ -184,7 +184,7 @@ namespace Rivet {
     /// will often/always be a modified one.
     ///
     /// @todo Provide access to this via an Event::originalGenEvent() method? If requested...
-    const GenEvent* _genevent_original;
+    GenEvent* _genevent_original;
 
     /// @brief The GenEvent used by Rivet analysis projections etc.
     ///
