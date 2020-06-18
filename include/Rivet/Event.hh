@@ -26,6 +26,8 @@ namespace Rivet {
     //@{
 
     /// Constructor from a HepMC GenEvent pointer
+    ///
+    /// @todo Use the GenEventPtr alias
     Event(GenEvent* ge, bool strip = false)
       : _genevent_original(ge) , _genevent(*ge) {
       assert(ge);
@@ -36,11 +38,11 @@ namespace Rivet {
 
     /// Constructor from a HepMC GenEvent reference
     /// @deprecated HepMC uses pointers, so we should talk to HepMC via pointers
-   // Event(const GenEvent& ge, bool strip = false)
-   //   : _genevent_original(&ge), _genevent(ge) {
-   //     if ( strip ) _strip(_genevent);
-   //     _init(ge);
-   //   }
+   Event(GenEvent& ge, bool strip = false)
+     : _genevent_original(&ge), _genevent(ge) {
+       if (strip) _strip(_genevent);
+       _init(ge);
+     }
 
     /// Copy constructor
     Event(const Event& e)
@@ -54,9 +56,13 @@ namespace Rivet {
     //@{
 
     /// The generated event obtained from an external event generator
+    ///
+    /// @todo Wrong sort of constness! Fix this to use the const GenEventPtr aliases
     const GenEvent* genEvent() const { return &_genevent; }
 
     /// The generated event obtained from an external event generator
+    ///
+    /// @todo Remove
     const GenEvent* originalGenEvent() const { return _genevent_original; }
 
     /// Get the beam particles
@@ -169,7 +175,9 @@ namespace Rivet {
 
     /// @brief Remove uninteresting or unphysical particles in the
     /// GenEvent to speed up searches.
-    void _strip(GenEvent & ge);
+    ///
+    /// @todo Remove!
+    void _strip(GenEvent& ge);
 
     // /// @brief Convert the GenEvent to use conventional alignment
     // ///
@@ -183,18 +191,12 @@ namespace Rivet {
     /// This is the original GenEvent. In practise the version seen by users
     /// will often/always be a modified one.
     ///
-    /// @todo Provide access to this via an Event::originalGenEvent() method? If requested...
-    GenEvent* _genevent_original;
+    /// @todo Wrong sort of constness! Fix this to use the const GenEventPtr aliases
+    const GenEvent* _genevent_original;
 
     /// @brief The GenEvent used by Rivet analysis projections etc.
     ///
-    /// This version may be rotated to a "normal" alignment, have
-    /// generator-specific particles stripped out, etc.  If an analysis is
-    /// affected by these modifications, it is probably an unphysical analysis!
-    ///
-    /// Stored as a non-pointer since it may get overwritten, and memory for
-    /// copying and cleanup is neater this way.
-    /// @todo Change needed for HepMC3?
+    /// @note Now just a reference, pointing at the original HepMC event: no more realignment and stripping
     GenEvent& _genevent;
 
     /// All the GenEvent particles, wrapped as Rivet::Particles

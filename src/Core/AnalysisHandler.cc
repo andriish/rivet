@@ -73,20 +73,22 @@ namespace Rivet {
     if (_initialised)
       throw UserError("AnalysisHandler::init has already been called: cannot re-initialize!");
 
-    /// @todo Should the Rivet analysis objects know about weight names?
-
-    setRunBeams(Rivet::beams(ge));
+    // Set the Run's beams based on this first event
+    /// @todo Improve this const/ptr GenEvent mess!
+    const Event e(const_cast<GenEvent&>(ge));
+    setRunBeams(Rivet::beams(e));
     MSG_DEBUG("Initialising the analysis handler");
     _eventNumber = ge.event_number();
 
+    // Handle weights
     setWeightNames(ge);
-    if (_skipWeights)
-        MSG_INFO("Only using nominal weight. Variation weights will be ignored.");
-    else if (haveNamedWeights())
-        MSG_INFO("Using named weights");
-    else
-        MSG_INFO("NOT using named weights. Using first weight as nominal weight");
-
+    if (_skipWeights) {
+      MSG_INFO("Only using nominal weight. Variation weights will be ignored.");
+    } else if (haveNamedWeights()) {
+      MSG_INFO("Using named weights");
+    } else {
+      MSG_INFO("NOT using named weights. Using first weight as nominal weight");
+    }
     _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
 
     // Set the cross section based on what is reported by this event.
@@ -277,10 +279,16 @@ namespace Rivet {
     if (!_initialised) init(ge);
     assert(_initialised);
 
+    // Create the Rivet event wrapper
+    /// @todo Filter/normalize the event here
+    bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
+    /// @todo Improve this const/ptr GenEvent mess!
+    const Event e(const_cast<GenEvent&>(ge), strip);
+
     // Ensure that beam details match those from the first event (if we're checking beams)
     if ( !_ignoreBeams ) {
-      const PdgIdPair beams = Rivet::beamIds(ge);
-      const double sqrts = Rivet::sqrtS(ge);
+      const PdgIdPair beams = Rivet::beamIds(e);
+      const double sqrts = Rivet::sqrtS(e);
       if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
         cerr << "Event beams mismatch: "
              << PID::toBeamsString(beams) << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
@@ -289,37 +297,27 @@ namespace Rivet {
       }
     }
 
-    // Create the Rivet event wrapper
-    /// @todo Filter/normalize the event here
-    bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
-    Event event(ge, strip);
-
-    // set the cross section based on what is reported by this event.
-    // if no cross section
+    // Set the cross section based on what is reported by this event
     if ( ge.cross_section() ) setCrossSection(HepMCUtils::crossSection(ge));
 
     // Won't happen for first event because _eventNumber is set in init()
     if (_eventNumber != ge.event_number()) {
-
       pushToPersistent();
-
       _eventNumber = ge.event_number();
-
     }
 
-
-    MSG_TRACE("starting new sub event");
+    MSG_TRACE("Starting new sub event");
     _eventCounter.get()->newSubEvent();
 
     for (const AnaHandle& a : analyses()) {
-        for (auto ao : a->analysisObjects()) {
-            ao.get()->newSubEvent();
-        }
+      for (auto ao : a->analysisObjects()) {
+        ao.get()->newSubEvent();
+      }
     }
 
-    _subEventWeights.push_back(pruneWeights(event.weights()));
+    _subEventWeights.push_back(pruneWeights(e.weights()));
     if (_weightCap != 0.) {
-      MSG_DEBUG("Implementing weight cap using a maximum |weight| = " << _weightCap << " for latest subevent.");
+      MSG_DEBUG("Implementing weight cap using a maximum |weight| = " << _weightCap << " for latest subevent");
       size_t lastSub = _subEventWeights.size() - 1;
       for (size_t i = 0; i < _subEventWeights[lastSub].size(); ++i) {
         if (abs(_subEventWeights[lastSub][i]) > _weightCap) {
@@ -334,7 +332,7 @@ namespace Rivet {
     for (AnaHandle a : analyses()) {
       MSG_TRACE("About to run analysis " << a->name());
       try {
-        a->analyze(event);
+        a->analyze(e);
       } catch (const Error& err) {
         cerr << "Error in " << a->name() << "::analyze method: " << err.what() << endl;
         exit(1);
