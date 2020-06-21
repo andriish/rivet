@@ -187,11 +187,22 @@ namespace Rivet {
     return ps[0].x();
   }
 
+  double Analysis::crossSectionError() const {
+    const YODA::Scatter1D::Points& ps = handler().crossSection()->points();
+    if (ps.size() != 1) {
+      string errMsg = "cross section missing for analysis " + name();
+      throw Error(errMsg);
+    }
+    return ps[0].xErrAvg();
+  }
+
   double Analysis::crossSectionPerEvent() const {
     return crossSection()/sumW();
   }
 
-
+  double Analysis::crossSectionErrorPerEvent() const {
+    return crossSectionError()/sumW();
+  }
 
   ////////////////////////////////////////////////////////////
   // Histogramming
