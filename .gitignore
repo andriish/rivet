@@ -102,3 +102,5 @@ bin/hepmc-compress
 bin/rivet-hepmz
 bin/converall.log
 bin/converall.sh
+
+NaN.yoda

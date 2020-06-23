@@ -12,7 +12,7 @@ function getAffectedFiles {
     else
         echo "[INFO] Checking which analyses depend on $fn";
         echo $fn > affectedFiles.txt
-        # echo $fn >> alreadyChecked.txt
+        echo $fn >> alreadyChecked.txt
 
         headerName=`basename ${p%.*}`.hh
         grep -iRl "$headerName" src/ include/ test/ >> affectedFiles.txt
