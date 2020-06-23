@@ -1,3 +1,11 @@
+2020-06-23  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* Allow several AnalysisHandler objects to run in different
+	threads. This is a temporary fix. A permanent fix involves
+	changing the Analysis handler to own its own
+	projections. Currently each AnalysisHandler need sto be created
+	and run completely within the same separate thread.
+
 2020-06-11  Christian Gutschow  <chris.g@cern.ch>
 
 	* Allow + and - in AO paths

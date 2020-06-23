@@ -632,19 +632,23 @@ namespace Rivet {
         double xseci = xsecs[i]->point(0).x();
         double xsecerri = sqr(xsecs[i]->point(0).xErrAvg());
         sumw += *sows[i];
-        double effnent = sows[i]->effNumEntries();
+        double effnent = sows[i]->numEntries();
         xs += (equiv? effnent: 1.0)*xseci;
         xserr += (equiv? sqr(effnent): 1.0)*xsecerri;
       }
       vector<double> scales(sows.size(), 1.0);
       if ( equiv ) {
-        xs /= sumw.effNumEntries();
-        xserr = sqrt(xserr)/sumw.effNumEntries();
+        xs /= sumw.numEntries();
+        xserr = sqrt(xserr)/sumw.numEntries();
       } else {
         xserr = sqrt(xserr);
-        for ( int i = 0, N = sows.size(); i < N; ++i )
-          scales[i] = (sumw.sumW()/sows[i]->sumW())*
-           (xsecs[i]->point(0).x()/xs);
+        for ( int i = 0, N = sows.size(); i < N; ++i ) {
+          if ( sumw.sumW() == 0.0 || xsecs[i]->point(0).x() == 0.0 )
+            scales[i] = 0.0;
+          else
+            scales[i] = (sumw.sumW()/sows[i]->sumW())*
+              (xsecs[i]->point(0).x()/xs);
+        }
       }
       xsec.reset();
       xsec.addPoint(Point1D(xs, xserr));
@@ -816,11 +820,12 @@ namespace Rivet {
     _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
     _eventCounter.get()->setActiveWeightIdx(_rivetDefaultWeightIdx);
     const double nomwgt = sumW();
+    const double nomwt2 = sumW2();
     for (size_t iW = 0; iW < numWeights(); ++iW) {
       _eventCounter.get()->setActiveWeightIdx(iW);
       const double s = sumW() / nomwgt;
       _xs.get()->setActiveWeightIdx(iW);
-      _xs->addPoint(xsec.first*s, xsec.second*s);
+      _xs->addPoint(xsec.first*s, xsec.second*sqrt(sumW2()/nomwt2));
     }
     _eventCounter.get()->unsetActiveWeight();
     _xs.get()->unsetActiveWeight();
