@@ -9,30 +9,24 @@ namespace Rivet {
 
 
   /// @brief CDF Run II jet shape analysis
+  ///
   /// @author Andy Buckley
   class CDF_2005_S6217184 : public Analysis {
   public:
 
     /// Constructor
-    CDF_2005_S6217184()
-      : Analysis("CDF_2005_S6217184")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2005_S6217184);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Set up projections
-      const FinalState fs((Cuts::etaIn(-2.0, 2.0)));
+      const FinalState fs(Cuts::abseta < 2);
       declare(fs, "FS");
-      FastJets fj(fs, FastJets::CDFMIDPOINT, 0.7);
-      fj.useInvisibles();
+      FastJets fj(fs, FastJets::CDFMIDPOINT, 0.7, JetAlg::Muons::ALL, JetAlg::Invisibles::ALL);
       declare(fj, "Jets");
-
-      // Specify pT bins
-      _ptedges = {{ 37.0, 45.0, 55.0, 63.0, 73.0, 84.0, 97.0, 112.0, 128.0, 148.0,
-                    166.0, 186.0, 208.0, 229.0, 250.0, 277.0, 304.0, 340.0, 380.0 }};
 
       // Register a jet shape projection and histogram for each pT bin
       for (size_t i = 0; i < 6; ++i) {
@@ -41,7 +35,7 @@ namespace Rivet {
           stringstream ss; ss << "JetShape" << k;
           const string pname = ss.str();
           _jsnames_pT[k] = pname;
-          const JetShape jsp(fj, 0.0, 0.7, 7, _ptedges[k], _ptedges[k+1], 0.1, 0.7, RAPIDITY);
+          const JetShape jsp(fj, 0.0, 0.7, 7, PTEDGES[k], PTEDGES[k+1], 0.1, 0.7, RAPIDITY);
           declare(jsp, pname);
           book(_profhistRho_pT[k] ,i+1, 1, j+1);
           book(_profhistPsi_pT[k] ,6+i+1, 1, j+1);
@@ -59,7 +53,7 @@ namespace Rivet {
 
       // Get jets and require at least one to pass pT and y cuts
       const Jets jets = apply<FastJets>(evt, "Jets")
-        .jetsByPt(Cuts::ptIn(_ptedges.front()*GeV, _ptedges.back()*GeV) && Cuts::absrap < 0.7);
+        .jetsByPt(Cuts::ptIn(PTEDGES.front()*GeV, PTEDGES.back()*GeV) && Cuts::absrap < 0.7);
       MSG_DEBUG("Jet multiplicity before cuts = " << jets.size());
       if (jets.size() == 0) {
         MSG_DEBUG("No jets found in required pT and rapidity range");
@@ -87,39 +81,36 @@ namespace Rivet {
     // Finalize
     void finalize() {
       // Construct final 1-Psi(0.3/0.7) profile from Psi profiles
-      for (size_t i = 0; i < _ptedges.size()-1; ++i) {
+      for (size_t i = 0; i < PTEDGES.size()-1; ++i) {
         // Get entry for rad_Psi = 0.2 bin
-        /// @note Not a great handling of empty bins!
-        Profile1DPtr ph_i = _profhistPsi_pT[i];
-        const double y  = (ph_i->bin(2).effNumEntries() > 0) ? ph_i->bin(2).mean() : 0;
-        const double ey = (ph_i->bin(2).effNumEntries() > 1) ? ph_i->bin(2).stdErr() : 0;
+        /// @todo Not a great handling of empty bins! Skip point, or set NaN values?!
+        ProfileBin1D& bi = _profhistPsi_pT[i]->bin(2);
+        const double y  = (bi.effNumEntries() > 0) ? bi.mean() : 0;
+        const double ey = (bi.effNumEntries() > 1) ? bi.stdErr() : 0;
         _profhistPsi_vs_pT->point(i).setY(y, ey);
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
 
-    /// @name Analysis data
-    //@{
-
     /// Jet \f$ p_\perp\f$ bins.
-    vector<double> _ptedges; // This can't be a raw array if we want to initialise it non-painfully
+    const array<double, 19> PTEDGES =
+      {{ 37.0, 45.0, 55.0, 63.0, 73.0, 84.0, 97.0, 112.0, 128.0, 148.0,
+         166.0, 186.0, 208.0, 229.0, 250.0, 277.0, 304.0, 340.0, 380.0 }};
 
     /// JetShape projection name for each \f$p_\perp\f$ bin.
-    string _jsnames_pT[18];
-
-    //@}
+    array<string, 18> _jsnames_pT;
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Profile1DPtr _profhistRho_pT[18];
     Profile1DPtr _profhistPsi_pT[18];
     Scatter2DPtr _profhistPsi_vs_pT;
-    //@}
+    /// @}
 
   };
 
