@@ -51,7 +51,7 @@ for val in ranas :
     if(val in records) : continue
     if("PDG" in ranas[val][0]) : continue
     # get the xml as in get-marcxml-inspire but just lookup by inspire id = recid
-    response = urllib2.urlopen("https://inspirehep.net/search?ln=en&ln=en&p=find+recid+%s+&of=xm&action_search=Search&sf=earliestdate&so=d&rm=&rg=250&sc=0&ot=001,024,035,037,710,245" %val, timeout = 120)
+    response = urllib2.urlopen("https://old.inspirehep.net/search?ln=en&ln=en&p=find+recid+%s+&of=xm&action_search=Search&sf=earliestdate&so=d&rm=&rg=250&sc=0&ot=001,024,035,037,710,245" %val, timeout = 120)
     # parse the respose to strip the header and footer of the xml
     buf = StringIO(response.read().decode('utf-8'))
     line=buf.readline()
