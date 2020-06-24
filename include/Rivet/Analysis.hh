@@ -1450,6 +1450,10 @@ namespace Rivet {
 // Include definition of analysis plugin system so that analyses automatically see it when including Analysis.hh
 #include "Rivet/AnalysisBuilder.hh"
 
+
+/// @defgroup anamacros Analysis macros
+/// @{
+
 /// @def DECLARE_RIVET_PLUGIN
 /// Preprocessor define to prettify the global-object plugin hook mechanism.
 #define DECLARE_RIVET_PLUGIN(clsname) ::Rivet::AnalysisBuilder<clsname> plugin_ ## clsname
@@ -1467,6 +1471,7 @@ namespace Rivet {
 /// Slight abbreviation for DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR
 #define DEFAULT_RIVET_ANALYSIS_CTOR(clsname) DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR(clsname)
 
+/// @}
 
 
 #endif
