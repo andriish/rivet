@@ -14,12 +14,14 @@ function getAffectedFiles {
         echo $fn > affectedFiles.txt
         echo $fn >> alreadyChecked.txt
 
-        headerName=`basename ${p%.*}`.hh
-        grep -iRl "$headerName" src/ include/ test/ >> affectedFiles.txt
+        headerName=`basename ${p%.*}`
+        grep -iRl "$headerName" $CI_PROJECT_DIR/src/ $CI_PROJECT_DIR/include/ $CI_PROJECT_DIR/test/ >> affectedFiles.txt
 
         echo "[INFO] $fn affects these analyses:"
         cat affectedFiles.txt | grep -E "^analyses/.*\.(hh$|cc)$"
-        cat affectedFiles.txt | grep -E "^analyses/.*\.(hh$|cc)$" >> $OUTFILE
+        cat affectedFiles.txt | grep -E "^analyses/.*\.(hh$|cc)$" | while read p; do
+          echo $CI_PROJECT_DIR/$p >> $OUTFILE
+        done
 
         > filesToScan.txt
         cat affectedFiles.txt | grep -E "^src/" >> filesToScan.txt

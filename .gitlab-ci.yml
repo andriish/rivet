@@ -133,19 +133,19 @@ get_test_hepmc:
     - echo $ALLANAS
     - |
       if [[ "$ALLANAS" != "1" ]]; then
-        $CI_PROJECT_DIR/ci/getAffectedRoutines.sh anasToCompile.txt
-        find $CI_PROJECT_DIR/analyses | grep MC_TTBAR | grep cc  >> anasToCompile.txt
-        find $CI_PROJECT_DIR/analyses | grep ATLAS_2018_I1656578 | grep cc  >> anasToCompile.txt
-        find $CI_PROJECT_DIR/analyses | grep ATLAS_2018_I1646686 | grep cc  >> anasToCompile.txt
-        find $CI_PROJECT_DIR/analyses | grep ATLAS_2017_I1614149 | grep cc  >> anasToCompile.txt
-        sort --unique anasToCompile.txt -o anasToCompile.txt
-        cat anasToCompile.txt
+        $CI_PROJECT_DIR/ci/getAffectedRoutines.sh $CI_PROJECT_DIR/anasToCompile.txt
+        find $CI_PROJECT_DIR/analyses | grep MC_TTBAR | grep cc  >> $CI_PROJECT_DIR/anasToCompile.txt
+        find $CI_PROJECT_DIR/analyses | grep ATLAS_2018_I1656578 | grep cc  >> $CI_PROJECT_DIR/anasToCompile.txt
+        find $CI_PROJECT_DIR/analyses | grep ATLAS_2018_I1646686 | grep cc  >> $CI_PROJECT_DIR/anasToCompile.txt
+        find $CI_PROJECT_DIR/analyses | grep ATLAS_2017_I1614149 | grep cc  >> $CI_PROJECT_DIR/anasToCompile.txt
+        sort --unique $CI_PROJECT_DIR/anasToCompile.txt -o $CI_PROJECT_DIR/anasToCompile.txt
+        cat $CI_PROJECT_DIR/anasToCompile.txt
         ## Build changed routines
-        rivet-build RivetModifiedAnas.so `cat anasToCompile.txt`
+        rivet-build RivetModifiedAnas.so `cat $CI_PROJECT_DIR/anasToCompile.txt`
         mkdir -p $INSTALL_PREFIX/lib/Rivet
         mkdir -p $INSTALL_PREFIX/share/Rivet
         cp RivetModifiedAnas.so $INSTALL_PREFIX/lib/Rivet/
-        cat anasToCompile.txt | while read p; do cp ${p/%.cc}* $INSTALL_PREFIX/share/Rivet/; done
+        cat $CI_PROJECT_DIR/anasToCompile.txt | while read p; do cp ${p/%.cc}* $INSTALL_PREFIX/share/Rivet/; done
       fi
     ## Test analysis loading and listing
     - rivet --list-analyses

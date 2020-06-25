@@ -403,7 +403,7 @@ namespace Rivet {
       if (n_jets <= 2) _h[ "n_jets" ]->fill(n_jets);
       else _h[ "n_jets" ]->fill(3.0);
 
-      if (n_jets >= 0) _h[ "n_jets_incl" ]->fill(0.0);
+      _h[ "n_jets_incl" ]->fill(0.0);
       if (n_jets >= 1) _h[ "n_jets_incl" ]->fill(1.0);
       if (n_jets >= 2) _h[ "n_jets_incl" ]->fill(2.0);
       if (n_jets >= 3) _h[ "n_jets_incl" ]->fill(3.0);

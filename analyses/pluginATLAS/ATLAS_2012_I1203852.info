@@ -16,6 +16,8 @@ NumEvents: 100k
 Beams: [p+, p+]
 Energies: [7000]
 PtCuts: [20]
+Options:
+ - LMODE=LL,LNU,BOTH
 NeedsCrossSection: yes
 Description:
   'Measurement of the fiducial cross section for $ZZ(*)$ production in proton proton collisions
