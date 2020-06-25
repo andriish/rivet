@@ -856,7 +856,7 @@
 1703139 . Search for Higgs boson pair production in the $b\bar{b}WW^{*}$ decay mode at $\sqrt{s}=13$ TeV with the ATLAS detector
 1704138 ! Search for long-lived particles produced in $pp$ collisions at $\sqrt{s}=13$ TeV that decay into displaced hadronic jets in the ATLAS muon spectrometer
 1704495 ? Cross-section measurements of the Higgs boson decaying into a pair of $\tau$-leptons in proton-proton collisions at $\sqrt{s}=13$ TeV with the ATLAS detector
-1705395 . Study of the hard double-parton scattering contribution to inclusive four-lepton production in $pp$ collisions at $\sqrt{s}$ = 8 TeV with the ATLAS detector
+1705395 ? Study of the hard double-parton scattering contribution to inclusive four-lepton production in $pp$ collisions at $\sqrt{s}$ = 8 TeV with the ATLAS detector
 1705396 . Search for Higgs boson pair production in the $WW^{(*)}WW^{(*)}$ decay channel using ATLAS data recorded at $\sqrt{s}=13$ TeV
 1705857 . Measurements of fiducial and differential cross-sections of $t\bar{t}$ production with additional heavy-flavour jets in proton-proton collisions at $\sqrt{s}$ = 13 TeV with the ATLAS detector
 1707015 ! Measurements of inclusive and differential fiducial cross-sections of $t\bar{t}\gamma$ production in leptonic final states at $\sqrt{s}$ = 13 TeV in ATLAS
@@ -869,7 +869,7 @@
 1711243 . Search for large missing transverse momentum in association with one top-quark in proton-proton collisions at $\sqrt{s}=13$ TeV with the ATLAS detector
 1711261 . Search for chargino and neutralino production in final states with a Higgs boson and missing transverse momentum at $\sqrt{s} = 13$ TeV with the ATLAS detector
 1711770 . Search for top-quark decays $t \rightarrow Hq$ with 36 fb$^{-1}$ of $pp$ collision data at $\sqrt{s}=13$ TeV with the ATLAS detector
-1713423 . Measurement of the $t\bar{t}Z$ and $t\bar{t}W$ cross sections in proton-proton collisions at $\sqrt{s}=13$ TeV with the ATLAS detector
+1713423 ? Measurement of the $t\bar{t}Z$ and $t\bar{t}W$ cross sections in proton-proton collisions at $\sqrt{s}=13$ TeV with the ATLAS detector
 1716572 . Search for scalar resonances decaying into $\mu^{+}\mu^{-}$ in events with and without $b$-tagged jets produced in proton-proton collisions at $\sqrt{s}=13$ TeV with the ATLAS detector
 1717481 . Dijet azimuthal correlations and conditional yields in pp and p+Pb collisions at sNN=5.02TeV with the ATLAS detector
 1717495 ! Measurement of the ratio of cross sections for inclusive isolated-photon production in $pp$ collisions at $\sqrt s = 13$ and $8$ TeV with the ATLAS detector
@@ -878,8 +878,8 @@
 1718558 . Search for heavy charged long-lived particles in the ATLAS detector in 36.1 fb$^{-1}$ of proton-proton collision data at $\sqrt{s} = 13$ TeV
 1719200 . Search for long-lived neutral particles in $pp$ collisions at $\sqrt{s}$ = 13 TeV that decay into displaced hadronic jets in the ATLAS calorimeter
 1720078 X Electron reconstruction and identification in the ATLAS experiment using the 2015 and 2016 LHC proton-proton collision data at $\sqrt{s}$ = 13 TeV
-1720438 . Measurement of $W^{\pm}Z$ production cross sections and gauge boson polarisation in $pp$ collisions at $\sqrt{s} = 13$ TeV with the ATLAS detector
-1720442 . Measurement of the four-lepton invariant mass spectrum in 13 TeV proton-proton collisions with the ATLAS detector
+1720438 ? Measurement of $W^{\pm}Z$ production cross sections and gauge boson polarisation in $pp$ collisions at $\sqrt{s} = 13$ TeV with the ATLAS detector
+1720442 ! Measurement of the four-lepton invariant mass spectrum in 13 TeV proton-proton collisions with the ATLAS detector
 1720822 ? Combinations of single-top-quark production cross-section measurements and $|f_{\rm LV}V_{tb}|$ determinations at $\sqrt{s}=7$ and 8 TeV with the ATLAS and CMS experiments
 1721072 . Searches for third-generation scalar leptoquarks in $\sqrt{s}$ = 13 TeV pp collisions with the ATLAS detector
 1722028 ! Comparison of Fragmentation Functions for Jets Dominated by Light Quarks and Gluons from $pp$ and Pb+Pb Collisions in ATLAS
@@ -903,10 +903,10 @@
 1735352 . Measurement of $ZZ$ production in the $\ell\ell\nu\nu$ final state with the ATLAS detector in $pp$ collisions at $\sqrt{s} = 13$ TeV
 1735560 ? Search for the electroweak diboson production in association with a high-mass dijet system in semileptonic final states in $pp$ collisions at $\sqrt{s}=13$ TeV with the ATLAS detector
 1736526 . Search for heavy neutral leptons in decays of $W$ bosons produced in 13 TeV $pp$ collisions using prompt and displaced signatures with the ATLAS detector
-1736531 . Measurement of distributions sensitive to the underlying event in inclusive $Z$-boson production in pp collisions at $\sqrt{s} = 13$ TeV with the ATLAS detector
+1736531 ! Measurement of distributions sensitive to the underlying event in inclusive $Z$-boson production in pp collisions at $\sqrt{s} = 13$ TeV with the ATLAS detector
 1736730 . Search for magnetic monopoles and stable high-electric-charge objects in 13 TeV proton-proton collisions with the ATLAS detector
 1738524 ? Combination of searches for Higgs boson pairs in $pp$ collisions at $\sqrt{s} = $13 TeV with the ATLAS detector
-1738841 . Observation of electroweak production of a same-sign $W$ boson pair in association with two jets in $pp$ collisions at $\sqrt{s}=13$ TeV with the ATLAS detector
+1738841 X Observation of electroweak production of a same-sign $W$ boson pair in association with two jets in $pp$ collisions at $\sqrt{s}=13$ TeV with the ATLAS detector
 1738845 . Search for excited electrons singly produced in proton–proton collisions at $\sqrt{s}=13$ TeV with the ATLAS experiment at the LHC
 1739784 . Search for a heavy charged boson in events with a charged lepton and missing transverse momentum from $pp$ collisions at $\sqrt{s} = 13$ TeV with the ATLAS detector
 1740663 . Measurement of long-range two-particle azimuthal correlations in $Z$-boson tagged $pp$ collisions at $\sqrt{s}{=}8$ and 13 TeV
@@ -920,20 +920,20 @@
 1743581 . Measurement of flow harmonics correlations with mean transverse momentum in lead-lead and proton-lead collisions at $\sqrt{s_{NN}}=5.02$ TeV with the ATLAS detector
 1743838 . Searches for lepton-flavour-violating decays of the Higgs boson in $\sqrt{s}=13$ TeV pp collisions with the ATLAS detector
 1744201 . Measurement of the inclusive cross-section for the production of jets in association with a Z boson in proton-proton collisions at 8 TeV using the ATLAS detector
-1744212 . Measurement of the jet mass in high transverse momentum $Z(\rightarrow b\overline{b})\gamma$ production at $\sqrt{s}= 13$ TeV using the ATLAS detector
+1744212 ! Measurement of the jet mass in high transverse momentum $Z(\rightarrow b\overline{b})\gamma$ production at $\sqrt{s}= 13$ TeV using the ATLAS detector
 1745920 ? Search for displaced vertices of oppositely charged leptons from decays of long-lived particles in $pp$ collisions at $\sqrt {s}$ =13 TeV with the ATLAS detector
 1746053 . Measurement of $W^\pm $ boson production in Pb+Pb collisions at $\sqrt{s_{\mathrm{NN}}} = 5.02~\text {Te}\text {V}$ with the ATLAS detector
 1746286 . Measurement of $K_S^0$ and $\Lambda ^0$ production in $t \bar{t}$ dileptonic events in pp collisions at $\sqrt{s} =$ 7 TeV with the ATLAS detector
-1747555 . Electron and photon performance measurements with the ATLAS detector using the 2015–2017 LHC proton-proton collision data
+1747555 X Electron and photon performance measurements with the ATLAS detector using the 2015–2017 LHC proton-proton collision data
 1748270 . Measurement of the inclusive isolated-photon cross section in $pp$ collisions at $\sqrt{s}=13$ TeV using 36 fb$^{-1}$ of ATLAS data
 1748602 . Search for bottom-squark pair production with the ATLAS detector in final states containing Higgs bosons, $b$-jets and missing transverse momentum
 1749578 . Measurement of angular and momentum distributions of charged particles within and around jets in Pb+Pb and $pp$ collisions at $\sqrt{s_{\mathrm{NN}}} = 5.02$ TeV with the ATLAS detector
 1750030 . Search for non-resonant Higgs boson pair production in the $bb\ell\nu\ell\nu$ final state with the ATLAS detector in $pp$ collisions at $\sqrt{s} = 13$ TeV
-1750330 . Measurements of top-quark pair differential and double-differential cross-sections in the $\ell$+jets channel with $pp$ collisions at $\sqrt{s}=13$ TeV using the ATLAS detector
+1750330 ! Measurements of top-quark pair differential and double-differential cross-sections in the $\ell$+jets channel with $pp$ collisions at $\sqrt{s}=13$ TeV using the ATLAS detector
 1750597 . Search for electroweak production of charginos and sleptons decaying into final states with two leptons and missing transverse momentum in $\sqrt{s}=13$ TeV $pp$ collisions using the ATLAS detector
 1750600 . Search for flavour-changing neutral currents in processes with one top quark and a photon using 81 fb$^{-1}$ of $pp$ collisions at $\sqrt{s} = 13$ TeV with the ATLAS experiment
 1752312 X Performance of electron and photon triggers in ATLAS during LHC Run 2
-1752509 . Measurement of azimuthal anisotropy of muons from charm and bottom hadrons in $pp$ collisions at $\sqrt{s}=13$ TeV with the ATLAS detector
+1752509 ? Measurement of azimuthal anisotropy of muons from charm and bottom hadrons in $pp$ collisions at $\sqrt{s}=13$ TeV with the ATLAS detector
 1752519 . Search for light long-lived neutral particles produced in $pp$ collisions at $\sqrt{s} =$ 13 TeV and decaying into collimated leptons or light hadrons with the ATLAS detector
 1752936 X Combined measurements of Higgs boson production and decay using up to $80$ fb$^{-1}$ of proton-proton collision data at $\sqrt{s}=$ 13 TeV collected with the ATLAS experiment
 1754675 . Search for squarks and gluinos in final states with same-sign leptons and jets using 139 fb$^{-1}$ of data collected with the ATLAS detector
@@ -948,8 +948,8 @@
 1762209 . Transverse momentum and process dependent azimuthal anisotropies in $\sqrt{s_{\mathrm{NN}}}=8.16$ TeV $p$+Pb collisions with the ATLAS detector
 1762584 ! Measurement of differential cross sections for single diffractive dissociation in $\sqrt{s} = 8$ TeV $pp$ collisions using the ATLAS ALFA spectrometer
 1763625 ? Evidence for the production of three massive vector bosons with the ATLAS detector
-1764330 . Measurement of the azimuthal anisotropy of charged-particle production in Xe+Xe collisions at $\sqrt{s_{\mathrm{NN}}}=5.44$ TeV with the ATLAS detector
-1764342 . Measurement of the $Z(\rightarrow\ell^+\ell^-)\gamma$ production cross-section in $pp$ collisions at $\sqrt{s} =13$ TeV with the ATLAS detector
+1764330 ? Measurement of the azimuthal anisotropy of charged-particle production in Xe+Xe collisions at $\sqrt{s_{\mathrm{NN}}}=5.44$ TeV with the ATLAS detector
+1764342 ! Measurement of the $Z(\rightarrow\ell^+\ell^-)\gamma$ production cross-section in $pp$ collisions at $\sqrt{s} =13$ TeV with the ATLAS detector
 1764448 X ATLAS data quality operations and performance for 2015-2018 data-taking
 1765529 . Search for direct stau production in events with two hadronic $\tau$-leptons in $\sqrt{s} = 13$ TeV $pp$ collisions with the ATLAS detector
 1767646 . Search for long-lived neutral particles produced in $pp$ collisions at $\sqrt{s} = 13$ TeV decaying into displaced hadronic jets in the ATLAS inner detector and muon spectrometer
@@ -958,7 +958,7 @@
 1768911 ! Measurement of the transverse momentum distribution of Drell-Yan lepton pairs in proton-proton collisions at $\sqrt{s}=13$ TeV with the ATLAS detector
 1771533 . Search for chargino-neutralino production with mass splittings near the electroweak scale in three-lepton final states in $\sqrt{s}$ = 13 TeV $pp$ collisions with the ATLAS detector
 1772062 ! A measurement of soft-drop jet observables in $pp$ collisions with the ATLAS detector at $\sqrt{s} = 13$ TeV
-1772071 . Measurement of isolated-photon plus two-jet production in $pp$ collisions at $\sqrt s=13$ TeV with the ATLAS detector
+1772071 ! Measurement of isolated-photon plus two-jet production in $pp$ collisions at $\sqrt s=13$ TeV with the ATLAS detector
 1775251 . Longitudinal flow decorrelations in Xe+Xe collisions at $\sqrt{s_{\mathrm{NN}}}=5.44$ TeV with the ATLAS detector
 1775750 . Search for the $HH \rightarrow b \bar{b} b \bar{b}$ process via vector-boson fusion production using proton-proton collisions at $\sqrt{s} = 13$ TeV with the ATLAS detector
 1776624 ? Measurement of the $CP$-violating phase $\phi_s$ in $B^0_s \to J/\psi\phi$ decays in ATLAS at 13 TeV
@@ -970,10 +970,10 @@
 1788444 ! Measurements of the production cross-section for a $Z$ boson in association with $b$-jets in proton-proton collisions at $\sqrt{s} = 13$ TeV with the ATLAS detector
 1788448 . Search for long-lived, massive particles in events with a displaced vertex and a muon with large impact parameter in $pp$ collisions at $\sqrt{s} = 13$ TeV with the ATLAS detector
 1789583 . Search for Higgs boson decays into a $Z$ boson and a light hadronically decaying resonance using 13 TeV $pp$ collision data from the ATLAS detector
-1790250 . Higgs boson production cross-section measurements and their EFT interpretation in the $4\ell$ decay channel at $\sqrt{s}$ = 13 TeV with the ATLAS detector
+1790250 ? Higgs boson production cross-section measurements and their EFT interpretation in the $4\ell$ decay channel at $\sqrt{s}$ = 13 TeV with the ATLAS detector
 1790256 ! Measurement of the Lund jet plane using charged particles in 13 TeV proton-proton collisions with the ATLAS detector
-1790439 . Measurements of the Higgs boson inclusive and differential fiducial cross sections in the 4$\ell$ decay channel at $\sqrt{s}$ = 13 TeV
-1790698 . Study of the CP properties of the interaction of the Higgs boson with top quarks using top quark associated production of the Higgs boson and its decay into two photons with the ATLAS detector at the LHC
+1790439 ! Measurements of the Higgs boson inclusive and differential fiducial cross sections in the 4$\ell$ decay channel at $\sqrt{s}$ = 13 TeV
+1790698 ? Study of the CP properties of the interaction of the Higgs boson with top quarks using top quark associated production of the Higgs boson and its decay into two photons with the ATLAS detector at the LHC
 1792133 ? Observation of electroweak production of two jets and a $Z$-boson pair with the ATLAS detector at the LHC
 1792399 . Search for direct production of electroweakinos in final states with missing transverse momentum and a Higgs boson decaying into photons in $pp$ collisions at $\sqrt{s}=13$ TeV with the ATLAS detector
 1793218 X Performance of the ATLAS muon triggers in Run 2
