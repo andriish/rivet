@@ -1010,14 +1010,38 @@
 1773273 X A deep neural network to search for new long-lived particles decaying to jets
 1775563 . Search for an excited lepton that decays via a contact interaction to a lepton and two jets in proton-proton collisions at $\sqrt{s} =$ 13 TeV
 1776599 . Study of excited $\Lambda_\mathrm{b}^0$ states decaying to $\Lambda_\mathrm{b}^0\pi^+\pi^-$ in proton-proton collisions at $\sqrt{s}=$ 13 TeV
-1776600 X Measurements of dose-rate effects in the radiation damage of plastic scintillator tiles using silicon photomultipliers
+1776600 X Measurements with silicon photomultipliers of dose-rate effects in the radiation damage of plastic scintillator tiles in the CMS hadron endcap calorimeter
 1776758 ! Measurement of the associated production of a Z boson with charm or bottom quark jets in proton-proton collisions at $\sqrt{s}=$ 13 TeV
 1777308 . Search for charged Higgs bosons decaying into a top and a bottom quark in the all-jet final state of pp collisions at $\sqrt{s}=$ 13 TeV
 1777617 . Search for physics beyond the standard model in events with jets and two same-sign or at least three charged leptons in proton-proton collisions at $\sqrt{s}=$ 13 TeV
 1780982 . Measurement of the $\Upsilon$(1S) pair production cross section and search for resonances decaying to $\Upsilon$(1S)$\mu^+\mu^-$ in proton-proton collisions at $\sqrt{s}=$ 13 TeV
-1780985 . A measurement of the Higgs boson mass in the diphoton decay channel
-1781935 . Measurement of the cross section for electroweak production of a Z boson, a photon and two jets in proton-proton collisions at $\sqrt{s} =$ 13 TeV and constraints on anomalous quartic couplings
-1782637 . Measurement of single-diffractive dijet production in proton-proton collisions at $\sqrt{s} =$ 8 TeV with the CMS and TOTEM experiments
+1780985 ? A measurement of the Higgs boson mass in the diphoton decay channel
+1781935 ! Measurement of the cross section for electroweak production of a Z boson, a photon and two jets in proton-proton collisions at $\sqrt{s} =$ 13 TeV and constraints on anomalous quartic couplings
+1782637 ! Measurement of single-diffractive dijet production in proton-proton collisions at $\sqrt{s} =$ 8 TeV with the CMS and TOTEM experiments
 1783221 X Pileup mitigation at CMS in 13 TeV data
 1784063 . Study of central exclusive $\pi^+\pi^-$ production in proton-proton collisions at $\sqrt{s} =$ 5.02 and 13 TeV
 1785614 ! Measurement of the cross section for $\text{t}\bar{\text{t}}$ production with additional jets and b jets in pp collisions at $\sqrt{s}=$ 13 TeV
+1787821 ? Measurements of $\mathrm{t\bar{t}}$H production and the CP structure of the Yukawa interaction between the Higgs boson and top quark in the diphoton decay channel
+1788620 . The production of isolated photons in PbPb and pp collisions at $\sqrt{s_\mathrm{NN}} =$ 5.02 TeV
+1789224 . Measurement of quark- and gluon-like jet fractions using jet charge in PbPb and pp collisions at 5.02 TeV
+1790586 X Beam test performance of prototype silicon detectors for the Outer Tracker for the Phase-2 Upgrade of CMS
+1790827 ? Search for disappearing tracks in proton-proton collisions at $\sqrt{s} =$ 13 TeV
+1791648 X Identification of heavy, energetic, hadronically decaying particles using machine-learning techniques
+1792999 ? Measurement of CKM matrix elements in single top quark $t$-channel production in proton-proton collisions at $\sqrt{s} = $ 13 TeV
+1794169 . Measurements of production cross sections of WZ and same-sign WW boson pairs in association with two jets in proton-proton collisions at $\sqrt{s}=$ 13 TeV
+1795022 ? Combination of the W boson polarization measurements in top quark decays using ATLAS and CMS data at $\sqrt{s} =$ 8 TeV
+1795066 ? Observation of the B$^0_\mathrm{s}\to $X(3872)$\phi$ decay
+1795080 ! Dependence of inclusive jet production on the anti-$k_\mathrm{T}$ distance parameter in pp collisions at $\sqrt{s} =$ 13 TeV
+1796727 ? Search for a light charged Higgs boson in the H$^\pm \to $ cs channel in proton-proton collisions at $\sqrt{s}=$ 13 TeV
+1796729 ? Search for a light pseudoscalar Higgs boson in the boosted $\mu\mu\tau\tau$ final state in proton-proton collisions at $\sqrt{s}=$ 13 TeV
+1797701 X Aging Study on Resistive Plate Chambers of the CMS Muon Detector for HL-LHC
+1797707 X Improved-RPC for the CMS muon system upgrade for the HL-LHC
+1797848 X CMS RPC Activities During LHC LS-2
+1797926 X Experiences from the RPC data taking during the CMS RUN-2
+1798501 ! Measurement of b jet shapes in proton-proton collisions at $\sqrt{s} =$ 5.02 TeV
+1798652 X Towards a two-dimensional readout of the improved CMS Resistive Plate Chamber with a new front-end electronics
+1800735 ? Search for resonant pair production of Higgs bosons in the bbZZ channel in proton-proton collisions at $\sqrt{s}=$ 13 TeV
+1801111 . Measurement of the azimuthal anisotropy of $\Upsilon$(1S) and $\Upsilon$(2S) mesons in PbPb collisions at $\sqrt{s_\mathrm{NN}} =$ 5.02 TeV
+1801861 X Performance of the CMS Level-1 trigger in proton-proton collisions at $\sqrt{s} =$ 13 TeV
+1802092 X Evidence for top quark production in nucleus-nucleus collisions
+1802096 X Observation of the production of three massive gauge bosons at $\sqrt{s}=$ 13 TeV
