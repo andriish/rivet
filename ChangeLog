@@ -1,3 +1,9 @@
+2020-06-25  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a very horrible preprocessor hack to allow use of a private
+	method on the HepMC2 WeightContainer, for robust and correctly
+	ordered weight name acquisition before HepMC 2.06.11.
+
 2020-06-23  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* Allow several AnalysisHandler objects to run in different

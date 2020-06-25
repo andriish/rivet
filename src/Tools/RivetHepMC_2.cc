@@ -1,13 +1,18 @@
 // -*- C++ -*-
 
-#include <regex>
-#include "Rivet/Tools/Utils.hh"
+// Very dirty hack to allow use of HepMC < 2.06.11
+#define private public
+#include "HepMC/WeightContainer.h"
+#undef private
+
 #include "Rivet/Tools/RivetHepMC.hh"
+#include "Rivet/Tools/Utils.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "../Core/zstr/zstr.hpp"
+#include <regex>
 
+namespace Rivet {
 
-namespace Rivet{
 
   const Relatives Relatives::PARENTS     = HepMC::parents;
   const Relatives Relatives::CHILDREN    = HepMC::children;
@@ -64,14 +69,14 @@ namespace Rivet{
       std::vector<ConstGenParticlePtr> result;
       /// @todo A particle_const_iterator on GenVertex would be nice...
       // Before HepMC 2.7.0 there were no GV::particles_const_iterators and constness consistency was all screwed up :-/
-#if HEPMC_VERSION_CODE >= 2007000
+      #if HEPMC_VERSION_CODE >= 2007000
       for (HepMC::GenVertex::particle_iterator pi = gv->particles_begin(relo); pi != gv->particles_end(relo); ++pi)
-      result.push_back(*pi);
-#else
+        result.push_back(*pi);
+      #else
       HepMC::GenVertex* gv2 = const_cast<HepMC::GenVertex*>(gv);
       for (HepMC::GenVertex::particle_iterator pi = gv2->particles_begin(relo); pi != gv2->particles_end(relo); ++pi)
-      result.push_back(const_cast<ConstGenParticlePtr>(*pi));
-#endif
+        result.push_back(const_cast<ConstGenParticlePtr>(*pi));
+      #endif
       return result;
     }
 
@@ -114,13 +119,14 @@ namespace Rivet{
       return ge->particles_size();
     }
 
-    std::pair<ConstGenParticlePtr,ConstGenParticlePtr> beams(const GenEvent *ge){
+    std::pair<ConstGenParticlePtr,ConstGenParticlePtr> beams(const GenEvent *ge) {
       return ge->beam_particles();
     }
 
+
     std::shared_ptr<HepMC::IO_GenEvent> makeReader(std::string filename,
-                                                   std::shared_ptr<std::istream> & istrp,
-                                                   std::string *) {
+                                                   std::shared_ptr<std::istream>& istrp,
+                                                   std::string*) {
       #ifdef HAVE_LIBZ
       if ( filename == "-" )
         istrp = make_shared<Rivet::zstr::istream>(std::cin);
@@ -135,6 +141,7 @@ namespace Rivet{
       return make_shared<HepMC::IO_GenEvent>(istr);
     }
 
+
     bool readEvent(std::shared_ptr<HepMC::IO_GenEvent> io, std::shared_ptr<GenEvent> evt) {
       if (io->rdstate() != 0) return false;
       if (!io->fill_next_event(evt.get())) return false;
@@ -142,52 +149,51 @@ namespace Rivet{
       return true;
     }
 
+
     // This functions could be filled with code doing the same stuff as
     // in the HepMC3 version of this file.
     void strip(GenEvent &, const set<long> &) {}
 
-    vector<string> weightNames(const GenEvent & ge) {
+
+    vector<string> weightNames(const GenEvent& ge) {
+
+      #ifdef HEPMC_HAS_ORDERED_WEIGHTS
+      // The nice way, from HepMC 2.06.11
+      return ge.weights().weight_names();
+      #else
+      // A horrible way, before that
+      map<size_t,string> idxs_keys;
+      for (HepMC::WeightContainer::const_map_iterator it = ge.weights().map_begin(); it != ge.weights().map_end(); ++it) {
+        idxs_keys[it->second] = it->first;
+      }
+      vector<string> rtn; rtn.reserve(idxs_keys.size());
+      for (const auto& idx_key : idxs_keys) rtn.push_back(idx_key.second);
+      return rtn;
+      #endif
+
+      // Previous broken way, since HepMC2 itself got the ordering wrong in its printout
       // Reroute the print output to a std::stringstream and process
       // The iteration is done over a map in HepMC2 so this is safe
-      vector<string> ret;
-
-      /// Obtaining weight names using regex probably neater, but regex
-      /// is not defined in GCC4.8, which is currently used by Lxplus.
-      /// Attempt an alternative solution based on stringstreams:
-      /*std::stringstream stream;
-      ge.weights().print(stream);
-      std::string pair; // placeholder for substring matches
-      while (std::getline(stream, pair, ' ')) {
-        if ( pair.size() < 2 ) continue;
-        pair.erase(pair.begin()); // removes the "(" on the LHS
-        pair.pop_back();          // removes the ")" on the RHS
-        if (pair.empty())  continue;
-        std::stringstream spair(pair);
-        vector<string> temp;
-        while (std::getline(spair, pair, ',')) {
-          temp.push_back(std::move(pair));
-        }
-        if (temp.size() == 2)  ret.push_back(temp[0]);
-      }*/
-      /// Possible future solution based on regex
-      std::ostringstream stream;
-      ge.weights().print(stream); // Super lame, I know
-      string str =  stream.str();
-      std::regex re("(([^()]+))"); // Regex for stuff enclosed by parentheses ()
-      auto reg_begin = std::sregex_iterator(str.begin(), str.end(), re);
-      auto reg_end = std::sregex_iterator();
-      for (std::sregex_iterator rit = reg_begin; rit != reg_end; ++rit) {
-        std::smatch m = *rit;
-        vector<string> temp = split_by_regex(m.str(), "[,]");
-        if (temp.size() ==2)  ret.push_back(temp[0]);
-      }
-      return ret;
+      // vector<string> ret;
+      // std::ostringstream stream;
+      // ge.weights().print(stream); // Super lame, I know
+      // string str =  stream.str();
+      // std::regex re("(([^()]+))"); // Regex for stuff enclosed by parentheses ()
+      // auto reg_begin = std::sregex_iterator(str.begin(), str.end(), re);
+      // auto reg_end = std::sregex_iterator();
+      // for (std::sregex_iterator rit = reg_begin; rit != reg_end; ++rit) {
+      //   std::smatch m = *rit;
+      //   vector<string> temp = split_by_regex(m.str(), "[,]");
+      //   if (temp.size() ==2)  ret.push_back(temp[0]);
+      // }
     }
+
 
     pair<double,double> crossSection(const GenEvent & ge) {
       return make_pair(ge.cross_section()->cross_section(),
                        ge.cross_section()->cross_section_error());
     }
+
 
     std::valarray<double> weights(const GenEvent & ge) {
       const size_t W = ge.weights().size();
@@ -196,5 +202,7 @@ namespace Rivet{
         wts[iw] = ge.weights()[iw];
       return wts;
     }
+
+
   }
 }
