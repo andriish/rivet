@@ -300,17 +300,17 @@ check: $(VALDIFFS) $(REENTRANTS)
 	        echo -n `head -1 tmp/$${diff/.diff/.log}`  >> index.html; \\
 		echo -n ") [<a href=\"$$diff\">yodadiff</a>]" >> index.html; \\
 	        echo "</li>"  >> index.html; \\
-	      fi \\
-	    done \\
+	      fi; \\
+	    done; \\
 	  elif [ -s $$diff ]; then \\
 	    cat $$diff >> index.html; \\
-	  fi \\
+	  fi; \\
 	done
 	$(V)echo "    </ul>" >> index.html
 	$(V)echo "  </body>" >> index.html
 	$(V)echo "</html>" >> index.html
 	$(V)echo ""
-	$(V)if test `cat index.html | wc -l` -gt 15; then \\
+	$(V)if test -n "`find . -name '*.diff' -and -type f -and ! -size 0`"; then \\
 	  echo "Differences found, open index.html to inspect plots."; \\
 	else \\
 	  echo "No differences found!"; \\
