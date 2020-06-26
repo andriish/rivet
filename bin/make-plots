@@ -676,6 +676,8 @@ class Plot(object):
             out += ('\\usepackage{sfmath}\n')
             out += ('\\usepackage{helvet}\n')
             out += ('\\usepackage[symbolgreek]{mathastext}\n')
+            out += ('\\usepackage{sansmath}\n')
+            out += ('\\sansmath\n')
         for pkg in args.LATEXPKGS:
             out += ('\\usepackage{%s}\n' % pkg)
         out += ('\\usepackage[dvipsnames]{xcolor}\n')
