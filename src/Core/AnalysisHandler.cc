@@ -667,7 +667,7 @@ namespace Rivet {
                             <<" of type " << yao->annotation("Type") );
             }
           }
-	  a->rawHookIn(yao);
+          a->rawHookIn(yao);
           ao.get()->unsetActiveWeight();
         }
       }
