@@ -3249,7 +3249,7 @@ def process_datfile(datfile):
 
         ## Check for the required programs
         latexavailable = have_cmd("latex")
-        dvilualatexavailable = have_cmd("dvilualatex")
+        dvilualatexavailable = False #have_cmd("dvilualatex")
         dvipsavailable = have_cmd("dvips")
         convertavailable = have_cmd("convert")
         ps2pnmavailable = have_cmd("ps2pnm")
