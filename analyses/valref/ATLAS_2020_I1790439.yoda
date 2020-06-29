@@ -1996,7 +1996,7 @@ Title:
 Type: Scatter1D
 ---
 # xval	 xerr-	 xerr+	
-1.014335e-06	7.227293e-08	7.227293e-08
+1.014335e-06	2.069258e-07	2.069258e-07
 END YODA_SCATTER1D_V2
 
 
@@ -2997,7 +2997,7 @@ Title:
 Type: Scatter1D
 ---
 # xval	 xerr-	 xerr+	
-2.638385e+00	1.879891e-01	1.879891e-01
+2.638385e+00	8.006637e-02	8.006637e-02
 END YODA_SCATTER1D_V2
 
 
@@ -3998,7 +3998,7 @@ Title:
 Type: Scatter1D
 ---
 # xval	 xerr-	 xerr+	
-9.964521e-01	7.099878e-02	7.099878e-02
+9.964521e-01	3.762200e-02	3.762200e-02
 END YODA_SCATTER1D_V2
 
 
@@ -6819,7 +6819,7 @@ Title:
 Type: Scatter1D
 ---
 # xval	 xerr-	 xerr+	
-1.014335e-06	7.227293e-08	7.227293e-08
+1.014335e-06	2.069258e-07	2.069258e-07
 END YODA_SCATTER1D_V2
 
 
@@ -7774,7 +7774,7 @@ Title:
 Type: Scatter1D
 ---
 # xval	 xerr-	 xerr+	
-2.638385e+00	1.879891e-01	1.879891e-01
+2.638385e+00	8.006637e-02	8.006637e-02
 END YODA_SCATTER1D_V2
 
 
@@ -8729,7 +8729,7 @@ Title:
 Type: Scatter1D
 ---
 # xval	 xerr-	 xerr+	
-9.964521e-01	7.099878e-02	7.099878e-02
+9.964521e-01	3.762200e-02	3.762200e-02
 END YODA_SCATTER1D_V2
 
 
