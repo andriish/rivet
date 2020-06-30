@@ -1,0 +1,75 @@
+#! /usr/bin/env bash
+
+# TODO: also test if a YODA ref file is updated, since autobinning could have been broken
+
+
+## An explicit output file can be given, and will be saved
+OUTFILE=${1:-$$.affectedanas.txt}
+SAVEOUTFILE=${1:-0}
+
+## Temp file names
+ALREADYCHECKED=$$.alreadychecked.txt
+TOSCAN=$$.filestoscan.txt
+AFFECTED=$$.affectedfiles.txt
+
+
+## Work out base directory of the repo checkout
+ROOT=${CI_PROJECT_DIR:-$(git rev-parse --show-toplevel)}
+cd $ROOT
+
+## Safe file cleanup via trap
+function cleanup {
+    rm -f $ALREADYCHECKED $TOSCAN
+    test "$SAVEOUTFILE" = "1" || rm -f $OUTFILE
+}
+trap cleanup EXIT
+
+
+## Dependency-scanning function, to be called recursively
+function getAffectedFiles {
+    fn="$@";
+    if grep -Fxq "$fn" $ALREADYCHECKED; then
+        : #pass
+        #echo "[INFO] $fn already checked, skip it"
+    else
+        echo "[INFO] Checking which analyses depend on $fn";
+        echo $fn > $AFFECTED
+        echo $fn >> $ALREADYCHECKED
+
+        headerName=`basename ${p%.*}`
+        grep -iRl "$headerName" $ROOT/src/ $ROOT/include/ $ROOT/test/ >> $AFFECTED
+
+        echo "[INFO] $fn affects these analyses:"
+        cat $AFFECTED | grep -E "^analyses/.*\.(hh$|cc)$"
+        cat $AFFECTED | grep -E "^analyses/.*\.(hh$|cc)$" | while read p; do
+          echo $ROOT/$p >> $OUTFILE
+        done
+
+        > $TOSCAN
+        cat $AFFECTED | grep -E "^src/" >> $TOSCAN
+        cat $AFFECTED | grep -E "\.hh$" >> $TOSCAN
+        # cat $TOSCAN
+        echo "[INFO] Look recursively for '$fn' dependencies"
+        cat $TOSCAN | while read q; do
+            #echo "$q"
+            getAffectedFiles $q
+        done
+    fi
+    rm -f $AFFECTED
+}
+
+
+
+## Actually run
+> $OUTFILE
+> $ALREADYCHECKED
+GITSHA=${CI_COMMIT_SHA:-$(git rev-parse --short HEAD)}
+git diff-tree --no-commit-id --name-only -r $GITSHA | while read p; do
+    getAffectedFiles $p
+done
+sort --unique -o $OUTFILE $OUTFILE
+
+## Print to terminal
+echo
+echo "Analyses to compile:"
+cat $OUTFILE

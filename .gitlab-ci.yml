@@ -47,7 +47,7 @@ stages:
     - rivet -h
     - |
       if [[ "$ALLANAS" != "1" ]]; then
-        ./ci/getAffectedRoutines.sh anasToCompile.txt
+        devtools/analysesaffectedbylastcommit anasToCompile.txt
         echo "==== echo analyses to compile ====="
         cat anasToCompile.txt
         find analyses | grep MC_TTBAR | grep cc  >> anasToCompile.txt # need at least one!
@@ -132,11 +132,11 @@ get_test_hepmc:
    #   if [[ "$VAL" == "1" ]]; then
    #     URL1=https://rivetval.web.cern.ch/rivetval/HEPMC/
    #     URL2=https://cgutscho.web.cern.ch/cgutscho/
-   #     for u in $URL1 $URL2; do wget -q --no-check-certificate $u -O list.txt && break; done 
+   #     for u in $URL1 $URL2; do wget -q --no-check-certificate $u -O list.txt && break; done
    #     while read p ; do
    #       a=${p#<*href=\"} ; b=${a%\"*}
-   #       if echo ${b} | grep gz ; then 
-   #         echo $b 
+   #       if echo ${b} | grep gz ; then
+   #         echo $b
    #         for u in $URL1 $URL2; do wget -q  --no-check-certificate $u/$b -O valhepmc/$b  && break; done
    #       fi
    #     done < list.txt
@@ -189,12 +189,12 @@ get_test_hepmc:
     - rivet --pwd -a MC_TTBAR:TTMODE=ANYLEP,ATLAS_2017_I1614149,ATLAS_2018_I1646686,ATLAS_2018_I1656578 -H ttbar_test_run.yoda $CI_PROJECT_DIR/tt.hepmc.gz
     - | #monthly full validation only... SLOW!
       VAL=1
-      if [[ "$VAL" == "1" ]]; then 
-        if [[ "$ARCH" == "debian-gcc-hepmc2-py2" ]]; then 
+      if [[ "$VAL" == "1" ]]; then
+        if [[ "$ARCH" == "debian-gcc-hepmc2-py2" ]]; then
           cd $VAL_PREFIX
-          rivet-mkvaldir VALDIR --ref-dir $CI_PROJECT_DIR/analyses/valref/  
-          cd VALDIR 
-          make check -j $(nproc) 
+          rivet-mkvaldir VALDIR --ref-dir $CI_PROJECT_DIR/analyses/valref/
+          cd VALDIR
+          make check -j $(nproc)
           ls *diff > diffs.txt
           while read  p; do echo "==== $p ====" ; if [ -s "$p" ]; then echo "fail" ; exit 1 ; else echo "ok";  fi ; done < diffs.txt
         fi
