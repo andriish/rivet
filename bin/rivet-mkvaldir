@@ -248,7 +248,7 @@ mf.write("""
 
 %.reent: %.yoda
 	$(V)rm -rf $@
-	$(V)logfile=$<; logfile="tmp/$${logfile/.yoda/.log}"; \\
+	$(V)logfile=$<; logfile="tmp/$${logfile%.yoda}.log"; \\
 	if rivet-merge $< -o $<.yoda >> $$logfile  2>&1; then\\
 	  if yodadiff -q $< $<.yoda ; then \\
 	    echo $< is reentrant; \\
@@ -348,4 +348,4 @@ mf.write("\n")
 
 ## target for fetching the standard HepMC files from cernbox
 mf.write("HEPMC/%.hepmc.gz:\n")
-mf.write("\twget 'http://rivetval.web.cern.ch/rivetval/HEPMC/$(@F)' -O $@\n\n")
+mf.write("\twget 'http://rivetval.web.cern.ch/rivetval/HEPMC/$(@F)' -q -O $@\n\n")

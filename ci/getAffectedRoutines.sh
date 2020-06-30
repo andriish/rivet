@@ -8,7 +8,8 @@ OUTFILE=$1
 function getAffectedFiles {
     fn="$@";
     if grep -Fxq "$fn" alreadyChecked.txt; then
-        echo "[INFO] $fn already checked, skip it"
+        : #pass
+        #echo "[INFO] $fn already checked, skip it"
     else
         echo "[INFO] Checking which analyses depend on $fn";
         echo $fn > affectedFiles.txt
@@ -29,7 +30,7 @@ function getAffectedFiles {
         # cat filesToScan.txt
         echo "[INFO] Look recursively for '$fn' dependencies"
         cat filesToScan.txt | while read q; do
-            echo "$q"
+            #echo "$q"
             getAffectedFiles $q
         done
     fi
