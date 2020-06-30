@@ -5,7 +5,8 @@
 
 ## An explicit output file can be given, and will be saved
 OUTFILE=${1:-$$.affectedanas.txt}
-SAVEOUTFILE=${1:-0}
+SAVEOUTFILE=${1:-NO}
+echo $OUTFILE $SAVEOUTFILE
 
 ## Temp file names
 ALREADYCHECKED=$$.alreadychecked.txt
@@ -20,7 +21,7 @@ cd $ROOT
 ## Safe file cleanup via trap
 function cleanup {
     rm -f $ALREADYCHECKED $TOSCAN
-    test "$SAVEOUTFILE" = "1" || rm -f $OUTFILE
+    test "$SAVEOUTFILE" = "NO" && rm -f $OUTFILE
 }
 trap cleanup EXIT
 
