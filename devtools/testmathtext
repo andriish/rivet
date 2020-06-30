@@ -1,12 +1,21 @@
 #! /usr/bin/env python3
+"""
+Try rendering a file of TeX label code (one per line) with Matplotlib MathText
+"""
+
+import argparse
+ap = argparse.ArgumentParser(usage=__doc__)
+ap.add_argument("LABELFILE")
+args = ap.parse_args()
 
 from matplotlib import pyplot as plt
 plt.figure()
-with open("labels.dat") as f:
+with open(args.LABELFILE) as f:
     #print(len(f))
     for i, line in enumerate(f):
         tex = line.strip()
         print(f"{i}: rendering '{tex}'")
         plt.text(0.0, 0.0, tex)
-        plt.savefig("labels.pdf")
+        import os
+        plt.savefig(os.path.splitext(args.LABELFILE)[0] + ".pdf")
         plt.cla()
