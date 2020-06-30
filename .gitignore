@@ -49,6 +49,7 @@ analyses/tmp.*.cc
 **.bib
 **.html
 **.tex
+**.txt
 Doxyfile
 doxy/html/.*
 doxy/latex/.*
