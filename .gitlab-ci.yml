@@ -188,7 +188,6 @@ get_test_hepmc:
     ## Test standard analyses on a small event sample
     - rivet --pwd -a MC_TTBAR:TTMODE=ANYLEP,ATLAS_2017_I1614149,ATLAS_2018_I1646686,ATLAS_2018_I1656578 -H ttbar_test_run.yoda $CI_PROJECT_DIR/tt.hepmc.gz
     - | #monthly full validation only... SLOW!
-      VAL=1
       if [[ "$VAL" == "1" ]]; then 
         if [[ "$ARCH" == "debian-gcc-hepmc2-py2" ]]; then 
           cd $VAL_PREFIX
