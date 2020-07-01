@@ -238,12 +238,12 @@ mf.write("""
 	    done; \\
 	    rivet-mkhtml $$only -o $@dir $< refyodas/$<:Title=ref > /dev/null 2>&1; \\
 	  else \\
-	    echo $< is the same as reference yoda; \\
+	    echo $< is the same as the reference; \\
 	    touch $@; \\
 	  fi \\
 	else \\
-	  echo $< has no reference yoda; \\
-	  echo "$< has no reference yoda." > $@; \\
+	  echo $< has no reference yoda file; \\
+	  echo "$< has no reference yoda file." > $@; \\
 	fi
 
 %.reent: %.yoda
