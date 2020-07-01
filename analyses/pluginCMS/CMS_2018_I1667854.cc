@@ -97,13 +97,13 @@ namespace Rivet {
       const Particles* dressedLeptons = 0;
       if (z.get() != nullptr) {
         dressedLeptons = &electrons;
-        if (_mode = 1)
+        if (_mode == 1)
           vetoEvent;
       } else { // look for Z->mumu
         z = zfinder(muons);
         if (z.get() != nullptr) {
           dressedLeptons = &muons;
-          if (_mode = 0)
+          if (_mode == 0)
             vetoEvent;
         } else { // no Z boson found
           vetoEvent;

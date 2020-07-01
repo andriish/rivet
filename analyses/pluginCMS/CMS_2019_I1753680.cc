@@ -91,9 +91,9 @@ namespace Rivet {
         mm_event = true; 
       }
       
-      if (ee_event && _mode = 1)
+      if (ee_event && _mode == 1)
         vetoEvent;
-      if (mm_event && _mode = 0)
+      if (mm_event && _mode == 0)
         vetoEvent;
 
       const Particles& theLeptons = ee_event ? zeeFS.constituents() : zmumuFS.constituents();
