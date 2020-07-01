@@ -90,6 +90,11 @@ namespace Rivet {
       if (zmumus.size() == 1) { 
         mm_event = true; 
       }
+      
+      if (ee_event && _mode = 1)
+        vetoEvent;
+      if (mm_event && _mode = 0)
+        vetoEvent;
 
       const Particles& theLeptons = ee_event ? zeeFS.constituents() : zmumuFS.constituents();
       const Particle& lminus = theLeptons[0].charge() < 0 ? theLeptons[0] : theLeptons[1];
