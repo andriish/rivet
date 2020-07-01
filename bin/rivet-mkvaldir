@@ -243,7 +243,7 @@ mf.write("""
 	  fi \\
 	else \\
 	  echo $< has no reference yoda; \\
-	  echo "$< has no reference yoda.<br>" > $@; \\
+	  echo "$< has no reference yoda." > $@; \\
 	fi
 
 %.reent: %.yoda
@@ -255,7 +255,7 @@ mf.write("""
 	    touch $@; \\
 	  else \\
 	    echo $< is NOT reentrant; \\
-	    echo "$< was declared reentrant but is not.<br>" > $@; \\
+	    echo "$< was declared reentrant but is not." > $@; \\
 	  fi \\
 	fi
 	$(V)rm -rf $<.yoda
@@ -303,7 +303,7 @@ check: $(VALDIFFS) $(REENTRANTS)
 	      fi; \\
 	    done; \\
 	  elif [ -s $$diff ]; then \\
-	    cat $$diff >> index.html; \\
+	    echo "      <li>`cat $$diff`</li>" >> index.html; \\
 	  fi; \\
 	done
 	$(V)echo "    </ul>" >> index.html
