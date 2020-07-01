@@ -6,34 +6,29 @@
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
 
-#include <cstdlib>
-#include <cstring>
-
-#include <iostream>
-
-//// Credits: code was copied from CMS_2015_I1410737.cc and adapted by Ph. Gras
-////          to CMS-SMP-16-015,
 namespace Rivet {
 
+
+  /// @brief Differential cross section of Z boson production in association with jets at 13 TeV
+  ///
+  /// @note Code copied from CMS_2015_I1410737 and adapted by P. Gras to CMS-SMP-16-015,
   class CMS_2018_I1667854 : public Analysis {
   public:
 
     /// Constructor
-    CMS_2018_I1667854()
-      : Analysis("CMS_2018_I1667854")
-    {  }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2018_I1667854);
 
 
     /// Book histograms and initialise projections before the run
     void init() {
 
-      // Get options from the new option system
-      // default to combined.
+      // Get options from the new option system; defaults to combined e+mu
       _mode = 2;
       if ( getOption("LMODE") == "EL" ) _mode = 0;
       if ( getOption("LMODE") == "MU" ) _mode = 1;
       if ( getOption("LMODE") == "EMU" ) _mode = 2;
 
+      // Projections
       FinalState fs;
       VisibleFinalState visfs(fs);
       VetoedFinalState fs_notaudecay(fs);
@@ -43,19 +38,17 @@ namespace Rivet {
       IdentifiedFinalState bareMuons(fs_notaudecay);
       bareMuons.acceptIdPair(PID::MUON);
       declare(DressedLeptons(fs, bareMuons, /*dRmax = */0.1,
-                             Cuts::abseta < 2.4 && Cuts::pT > 20*GeV),
-              "muons");
+                             Cuts::abseta < 2.4 && Cuts::pT > 20*GeV), "muons");
 
       IdentifiedFinalState bareElectrons(fs_notaudecay);
       bareElectrons.acceptIdPair(PID::ELECTRON);
       declare(DressedLeptons(fs, bareElectrons, /*dRmax =*/ 0.1,
-                             Cuts::abseta < 2.4 && Cuts::pT > 20*GeV),
-              "electrons");
+                             Cuts::abseta < 2.4 && Cuts::pT > 20*GeV), "electrons");
 
       FastJets jets(visfs, FastJets::ANTIKT, 0.4);
       declare(jets, "jets");
 
-
+      // Histograms
       book(_h_excmult_jets_tot, 1, 1, 1);
       book(_h_incmult_jets_tot, 2, 1, 1);
       book(_h_zpt1, 3, 1, 1);
@@ -76,41 +69,39 @@ namespace Rivet {
       book(_h_jzb_ptLow, 18, 1, 1);
     }
 
-    /// Z boson finder.
-    /// Note: we don't use the standard ZFinder class in order to stick to
-    /// the definition of the punlication that is simpler than the ZFinder
-    /// algorithm
-    /// @param leptons pt-ordered of electron or muon collection to use to build
-    /// the Z boson
-    std::unique_ptr<Particle> zfinder(const Particles& leptons){
-      if(leptons.size() < 2) return 0;
-      if(leptons[0].charge()*leptons[1].charge() > 0) return 0;
-      std::unique_ptr<Particle> cand(new Particle(PID::ZBOSON, leptons[0].mom()
-                                                  + leptons[1].mom()));
+
+    /// @brief Z boson finder
+    ///
+    /// @note We don't use the standard ZFinder class in order to stick to
+    /// the definition of the publication that is simpler than the ZFinder algorithm.
+    ///
+    /// @param leptons pt-ordered list of electrons or muons from which to build the Z boson
+    std::unique_ptr<Particle> zfinder(const Particles& leptons) {
+      if (leptons.size() < 2) return 0;
+      if (leptons[0].charge()*leptons[1].charge() > 0) return 0;
+      std::unique_ptr<Particle> cand(new Particle(PID::ZBOSON, leptons[0].mom() + leptons[1].mom()));
       if (cand->mass() < 71.*GeV || cand->mass() > 111.*GeV) return 0;
       return cand;
     }
 
+
     /// Perform the per-event analysis
-    void analyze(const Event& event) {;
+    void analyze(const Event& event) {
 
+      // Get leptons
       const Particles& muons = apply<DressedLeptons>(event, "muons").particlesByPt();
-
       const Particles& electrons = apply<DressedLeptons>(event, "electrons").particlesByPt();
 
-      //Look for Z->ee
+      // Look for Z->ee
       std::unique_ptr<Particle> z = zfinder(electrons);
-
       const Particles* dressedLeptons = 0;
-
-      //Look for Z->ee
-      if(z.get() != nullptr){
+      if (z.get() != nullptr) {
         dressedLeptons = &electrons;
-      } else{ //look for Z->mumu
+      } else { // look for Z->mumu
         z = zfinder(muons);
-        if(z.get() != nullptr){
+        if (z.get() != nullptr) {
           dressedLeptons = &muons;
-        } else{ //no Z boson found
+        } else { // no Z boson found
           vetoEvent;
         }
       }
@@ -120,47 +111,43 @@ namespace Rivet {
       const Jets& jets = fj.jetsByPt(Cuts::absrap < 2.4 && Cuts::pT > 30*GeV);
 
       // Remove jets overlapping with any of the two selected leptons
-      Jets goodjets = filter_discard(jets, [dressedLeptons](const ParticleBase& j){
-          return deltaR(j, (*dressedLeptons)[0]) < 0.4
-          ||  deltaR(j, (*dressedLeptons)[1]) < 0.4;
+      Jets goodjets = filter_discard(jets, [dressedLeptons](const ParticleBase& j) {
+          return deltaR(j, (*dressedLeptons)[0]) < 0.4 ||  deltaR(j, (*dressedLeptons)[1]) < 0.4;
         });
 
       // Compute jet pt scalar sum, H_T:
-      double ht = sum(goodjets, [](const ParticleBase& j){
-          return j.pT();
-        }, 0.);
+      double ht = sum(goodjets, [](const ParticleBase& j){return j.pT();}, 0.);
 
       // Fill jet number integral histograms
       _h_excmult_jets_tot->fill(goodjets.size());
-      /// @todo Could be better computed by toIntegral transform on exclusive
-      ///       histo
+      /// @todo Could be better computed by toIntegral transform on exclusive histo
       for (size_t iJet = 0; iJet <= goodjets.size(); iJet++ )
         _h_incmult_jets_tot->fill(iJet);
 
       if (goodjets.size() < 1) return;
 
-      //hadronic recoil:
+      // Hadronic recoil:
       FourMomentum recoil;
-      for(const auto& j: goodjets) {
+      for (const auto& j: goodjets) {
         recoil += j.momentum();
       }
 
-      //Jet-Z balance = |recoil_T| - |pt(Z)|
+      // Jet-Z balance = |recoil_T| - |pt(Z)|
       double jzb  = recoil.pT() - z->pT();
 
-      //Pt balance:
+      // pT balance:
       double ptbal = (recoil + z->momentum()).pT();
 
-      // Fill leading jet histograms
+      // Fill leading-jet histograms
       _h_zpt1->fill(z->pT());
       const Jet& j1 = goodjets[0];
       _h_leading_jet_pt_tot->fill(j1.pT()/GeV);
       _h_leading_jet_y_tot->fill(j1.absrapidity());
       _h_ht1_tot->fill(ht/GeV);
       _h_jzb->fill(jzb/GeV);
-      if(z->pT() > 50*GeV){
+      if (z->pT() > 50*GeV) {
         _h_jzb_ptHigh->fill(jzb/GeV);
-      } else{
+      } else {
         _h_jzb_ptLow->fill(jzb/GeV);
       }
       _h_ptbal1->fill(ptbal/GeV);
@@ -186,9 +173,9 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
 
+      // Normalisation factor
       double norm = (sumOfWeights() != 0) ? crossSection()/sumOfWeights() : 1.0;
-      
-      // when running in combined mode, need to average to get lepton xsec
+      // When running in combined mode, need to average to get lepton xsec
       if (_mode == 2) norm /= 2.;
 
       // MSG_INFO("Cross section = " << std::setfill(' ') << std::setw(14)
@@ -220,14 +207,16 @@ namespace Rivet {
       scale(_h_jzb_ptLow, norm);
     }
 
+
   protected:
 
     size_t _mode;
 
+
   private:
 
     /// @name Histograms
-
+    /// @{
     Histo1DPtr _h_excmult_jets_tot,  _h_incmult_jets_tot;
     Histo1DPtr _h_leading_jet_pt_tot, _h_second_jet_pt_tot;
     Histo1DPtr _h_third_jet_pt_tot, _h_fourth_jet_pt_tot;
@@ -237,7 +226,12 @@ namespace Rivet {
     Histo1DPtr _h_ptbal1, _h_ptbal2, _h_ptbal3;
     Histo1DPtr _h_jzb, _h_jzb_ptHigh, _h_jzb_ptLow;
     Histo1DPtr _h_zpt1;
+    /// @}
+
   };
 
+
+
   DECLARE_RIVET_PLUGIN(CMS_2018_I1667854);
+
 }
