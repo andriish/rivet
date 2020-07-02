@@ -32,7 +32,7 @@ RUN true \
     && dnf clean all
 
 RUN true \
-    && if test "$HEPMC_VERSION" = "3"; then HEPMC_FULL_VERSION=3.2.1; else HEPMC_FULL_VERSION=2.06.10; fi \
+    && if test "$HEPMC_VERSION" = "3"; then HEPMC_FULL_VERSION=3.2.1; else HEPMC_FULL_VERSION=2.06.11; fi \
     && mkdir /code && cd /code \
     && wget https://gitlab.com/hepcedar/rivetbootstrap/raw/${RIVET_VERSION}/rivet-bootstrap \
     && chmod +x rivet-bootstrap \

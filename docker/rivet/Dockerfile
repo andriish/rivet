@@ -1,10 +1,10 @@
 FROM hepstore/hepbase-ubuntu-gcc-hepmc2-py3-latex
 LABEL maintainer="rivet-developers@cern.ch"
 
-ARG RIVET_VERSION=3.1.1
+ARG RIVET_VERSION=3.1.2
 
 RUN mkdir /code && cd /code \
-    && wget https://rivet.hepforge.org/downloads/?f=Rivet-${RIVET_VERSION}.tar.gz -O Rivet-${RIVET_VERSION}.tar.gz \
+    && wget --no-verbose https://rivet.hepforge.org/downloads/?f=Rivet-${RIVET_VERSION}.tar.gz -O Rivet-${RIVET_VERSION}.tar.gz \
     && tar xf Rivet-${RIVET_VERSION}.tar.gz && cd Rivet-${RIVET_VERSION}/ \
     && ./configure && make -j $(nproc --ignore=1) && make install \
     && echo "source /usr/local/share/Rivet/rivet-completion" > /etc/profile.d/rivet-completion.sh \

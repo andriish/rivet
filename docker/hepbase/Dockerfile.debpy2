@@ -33,7 +33,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && pip install matplotlib requests Cython
 
 RUN mkdir /code && cd /code \
-    && if test "$HEPMC_VERSION" = "3"; then HEPMC_FULL_VERSION=3.2.1; else HEPMC_FULL_VERSION=2.06.10; fi \
+    && if test "$HEPMC_VERSION" = "3"; then HEPMC_FULL_VERSION=3.2.1; else HEPMC_FULL_VERSION=2.06.11; fi \
     && update-alternatives --install /usr/bin/python2.7.18 python2.7.18 /usr/bin/python2 2 \
     && wget https://gitlab.com/hepcedar/rivetbootstrap/raw/${RIVET_VERSION}/rivet-bootstrap \
     && chmod +x rivet-bootstrap \
