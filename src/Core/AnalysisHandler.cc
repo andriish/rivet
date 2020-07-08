@@ -40,6 +40,7 @@ namespace Rivet {
   }
 
 
+  /// @todo Can we inline this?
   Log& AnalysisHandler::getLog() const {
     return Log::getLog("Rivet.AnalysisHandler");
   }
@@ -54,14 +55,13 @@ namespace Rivet {
     }
   }
 
-
-  /// Check if any of the weightnames is not a number
+  /// Check if any of the weight names is not a number
   bool AnalysisHandler::haveNamedWeights() const {
-    bool dec=false;
-    for (unsigned int i=0;i<_weightNames.size();++i) {
-      string s = _weightNames[i];
+    bool dec = false;
+    for (size_t i = 0; i <_weightNames.size(); ++i) {
+      const string& s = _weightNames[i];
       if (!is_number(s)) {
-        dec=true;
+        dec = true;
         break;
       }
     }
