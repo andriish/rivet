@@ -796,6 +796,65 @@ namespace Rivet {
     /// @defgroup mcutils_charge Charge functions
     ///@{
 
+      /// Finding if the particle is charged, without calculating the three times the total charge
+    inline int isParticleCharged(int pid){
+      static int ch100[100] = { -1,  2, -1, 2, -1, 2, -1, 2, 0, 0,
+                                -3,  0, -3, 0, -3, 0, -3, 0, 0, 0,
+                                 0,  0,  0, 3,  0, 0,  0, 0, 0, 0,
+                                 0,  0,  0, 3,  0, 0,  3, 0, 0, 0,
+                                 0, -1,  0, 0,  0, 0,  0, 0, 0, 0,
+                                 0,  6,  3, 6,  0, 0,  0, 0, 0, 0,
+                                 0,  0,  0, 0,  0, 0,  0, 0, 0, 0,
+                                 0,  0,  0, 0,  0, 0,  0, 0, 0, 0,
+                                 0,  0,  0, 0,  0, 0,  0, 0, 0, 0,
+                                 0,  0,  0, 0,  0, 0,  0, 0, 0, 0 };
+
+      const unsigned short q1 = _digit(nq1,pid);
+      const unsigned short q2 = _digit(nq2,pid);
+      const unsigned short q3 = _digit(nq3,pid);
+      const unsigned short ql = _digit(nl,pid);
+      const int ida = abs(pid);
+      const int sid = _fundamentalID(pid);
+
+      if (ida == 0 || _extraBits(pid) > 0) { // ion or illegal
+        return 0;
+      } else if( isQBall(pid) ) { // QBall
+        return( (ida/10) % 10000);
+      } else if( isHiddenValley(pid) ) { // Hidden Valley
+        return 0;
+      } else if( isDyon(pid) ) { // Dyon
+        return ((ida/10) %  1000); 
+      } else if (sid > 0 && sid <= 100) { // Use table
+        if (ida == 1000017 || ida == 1000018 || ida == 1000034) return 0;
+        else if (ida > 1000050 && ida <= 1000060) return 0; // ?
+        else if (ida > 50 && ida <= 60) return 0; // Generic DM
+        else if (ida == 5100061 || ida == 5100062) return 1;
+        else return ch100[sid-1];
+      } else if (_digit(nj,pid) == 0) { // KL, Ks, or undefined
+        return 0;
+      } else if (isMeson(pid)) { // Mesons
+        return (ch100[q2-1] - ch100[q3-1]);
+      } else if (isRHadron(pid) ) { // R-hadron
+        /// @todo Is this sufficiently general? Why only gluino in g+q+qbar? Better to recurse to the related SM hadron code?
+        if (q1 == 0 || q1 == 9) { //< gluino+q+qbar
+          if (q2 == 3 || q2 == 5) {
+            return (ch100[q3-1] - ch100[q2-1]);
+          } else {
+            return  (ch100[q2-1] - ch100[q3-1]);
+          }
+        } else if (ql == 0) { //< squark+q+q
+          return (ch100[q3-1] + ch100[q2-1] + ch100[q1-1]);
+        } else if (_digit(nr,pid) == 0) { //< squark+q+q+q
+          return (ch100[q3-1] + ch100[q2-1] + ch100[q1-1] + ch100[ql-1]);
+        }
+      } else if (isDiQuark(pid)) { // Diquarks
+        return (ch100[q2-1] + ch100[q1-1]);
+      } else if (isBaryon(pid)) { // Baryons
+        return (ch100[q3-1] + ch100[q2-1] + ch100[q1-1]);
+      } else { // Unknown
+        return 0;
+      }
+    }
     /// Three times the EM charge (as integer)
     inline int charge3(int pid) {
       static int ch100[100] = { -1,  2, -1, 2, -1, 2, -1, 2, 0, 0,
