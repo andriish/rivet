@@ -874,7 +874,16 @@ namespace Rivet {
       const int ida = abs(pid);
       const int sid = _fundamentalID(pid);
       int ch3 = 0;
-      if (ida == 0 || _extraBits(pid) > 0) { // ion or illegal
+      if(pid == 21 || pid == 22){ //gluon and 
+        return 0;
+      }
+      else if(pid == 211){
+        return 1;
+      }
+      else if(pid == -211){
+        return -1;
+      }
+      else if (ida == 0 || _extraBits(pid) > 0) { // ion or illegal
         return 0;
       } else if( isQBall(pid) ) { // QBall
         ch3 = 3*( (ida/10) % 10000);
@@ -937,7 +946,22 @@ namespace Rivet {
 
     /// Determine if the particle is electrically charged
     inline bool isCharged(int pid) {
-      return charge3(pid) != 0;
+      
+      if(pid == 21 || pid == 22){ //gluon and 
+        return false;
+      }
+      else if(pid == 211 || pid == -211){
+        return true;
+      }
+      else if(pid>0 && pid<=8) {
+        return true;
+      }
+      else {
+        return charge3(pid) != 0;
+      }
+      
+      
+      
     }
 
     /// Determine if the particle is electrically neutral

@@ -49,7 +49,7 @@ namespace Rivet {
     if ( pid() == PID::GLUON ) return true;
     
     // Charged particles are visible
-    if ( PID::isParticleCharged(pid()) != 0 ) return true;
+    if ( PID::isCharged(pid()) ) return true;
     
     // Neutral hadrons are visible
     if ( PID::isHadron(pid()) ) return true;

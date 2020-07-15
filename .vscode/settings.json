@@ -1,6 +1,8 @@
 {
     "files.associations": {
-        "*.fhh": "cpp"
+        "*.fhh": "cpp",
+        "ostream": "cpp",
+        "iostream": "cpp"
     },
     "C_Cpp.errorSquiggles": "Enabled"
 }
