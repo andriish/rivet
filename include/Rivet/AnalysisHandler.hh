@@ -154,6 +154,9 @@ namespace Rivet {
     /// Setter for _unmatchWeightNames
     void deselectMultiWeights(std::string patterns="");
 
+    /// Setter for _nominalWeightName
+    void setNominalWeightName(std::string name="");
+
     //@}
 
 
@@ -378,6 +381,9 @@ namespace Rivet {
 
     /// String of weight names (or regex) to veto multiweights
     std::string _unmatchWeightNames;
+
+    /// String giving the nominal weight name
+    std::string _nominalWeightName;
 
     /// weight cap value
     double _weightCap;

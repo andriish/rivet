@@ -17,7 +17,6 @@ Examples:
 ENVIRONMENT:
  * RIVET_ANALYSIS_PATH: list of paths to be searched for plugin analysis libraries at runtime
  * RIVET_DATA_PATH: list of paths to be searched for data files (defaults to use analysis path)
- * RIVET_WEIGHT_INDEX: the numerical weight-vector index to use in this run (default = 0; -1 = ignore weights)
  * See the documentation for more environment variables.
 """
 
@@ -101,6 +100,8 @@ extragroup.add_argument("--match-weights", dest="MATCH_WEIGHTS", default="",
 extragroup.add_argument("--unmatch-weights", dest="UNMATCH_WEIGHTS", default="",
                         help="deselect weight variations matching this comma-separated list of weight names "
                         "(supports regular expressions). Nominal weight cannot be skipped.")
+extragroup.add_argument("--nominal-weight", "--default-weight", dest="NOMINAL_WEIGHT", default="",
+                        help="specify the nominal weight name from the variations ")
 extragroup.add_argument("--weight-cap", dest="WEIGHT_CAP", type=float,
                       default=None, help="set maximum abs(weight) to be used for histogram fills")
 extragroup.add_argument("--nlo-smearing", dest="NLO_SMEARING", type=float,
@@ -550,6 +551,7 @@ ah.setIgnoreBeams(args.IGNORE_BEAMS)
 ah.skipMultiWeights(args.SKIP_WEIGHTS)
 ah.selectMultiWeights(args.MATCH_WEIGHTS)
 ah.deselectMultiWeights(args.UNMATCH_WEIGHTS)
+ah.setNominalWeightName(args.NOMINAL_WEIGHT)
 if args.WEIGHT_CAP != None:
     ah.setWeightCap(args.WEIGHT_CAP)
 
