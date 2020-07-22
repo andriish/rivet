@@ -21,7 +21,9 @@ namespace Rivet {
     : _runname(runname), _userxs{NAN, NAN},
       _initialised(false), _ignoreBeams(false),
       _skipWeights(false), _matchWeightNames(""),
-      _unmatchWeightNames(""), _weightCap(0.),
+      _unmatchWeightNames(""), 
+      _nominalWeightName(""),
+      _weightCap(0.),
       _NLOSmearing(0.), _defaultWeightIdx(0),
       _rivetDefaultWeightIdx(0), _dumpPeriod(0), _dumping(false)
   {  }
@@ -157,13 +159,16 @@ namespace Rivet {
       return;
     }
 
-    // Find default weights, starting with the preferred empty "" name
+    // Find default weights, starting with the chosen or preferred name (default = "")
     size_t nDefaults = 0;
     _weightIndices.clear();
     for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
       _weightIndices.push_back(i);
-      if (_weightNames[i] == "") {
-        if (nDefaults == 0)  _rivetDefaultWeightIdx = _defaultWeightIdx = i;
+      if (_weightNames[i] == _nominalWeightName) {
+        if (nDefaults == 0) {
+          _weightNames[i] = "";
+          _rivetDefaultWeightIdx = _defaultWeightIdx = i;
+        }
         ++nDefaults;
       }
     }
@@ -867,6 +872,9 @@ namespace Rivet {
     _unmatchWeightNames = patterns;
   }
 
+  void AnalysisHandler::setNominalWeightName(std::string name) {
+    _nominalWeightName = name;
+  }
 
   std::valarray<double> AnalysisHandler::pruneWeights(const std::valarray<double>& weights) {
     if (_weightIndices.size() == weights.size())  return weights;
