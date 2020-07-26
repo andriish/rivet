@@ -15,8 +15,6 @@ stages:
   image:
     hepstore/hepbase-$ARCH
   stage: compile
-  except:
-    - schedules
   script:
     - shopt -s expand_aliases
     - set -e
@@ -121,8 +119,6 @@ get_test_hepmc:
   image:
     jgoclawski/wget
   stage: precheck
-  except:
-    - schedules
   script:
     - URL1=https://rivetval.web.cern.ch/rivetval/HEPMC/LHC-13-Top-All.hepmc.gz
     - URL2=https://cgutscho.web.cern.ch/cgutscho/LHC-13-Top-All.hepmc.gz
@@ -153,8 +149,6 @@ get_test_hepmc:
   image:
     hepstore/hepbase-$ARCH
   stage: check
-  except:
-    - schedules
   script:
     - INSTALL_PREFIX="$CI_PROJECT_DIR/local_$ARCH"
     - TEST_PREFIX="$CI_PROJECT_DIR/test_$ARCH"
@@ -267,8 +261,6 @@ check_plugin_debian_gcc_hepmc3_py2:
   image:
     hepstore/hepbase-$ARCH-latex
   stage: validate
-  except:
-    - schedules
   script:
     - INSTALL_PREFIX="$CI_PROJECT_DIR/local_$ARCH"
     - TEST_PREFIX="$CI_PROJECT_DIR/test_$ARCH"
