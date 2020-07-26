@@ -34,29 +34,32 @@ namespace YODA {
 namespace Rivet {
 
 
+
+  /// @todo Document!
   class AnalysisObjectWrapper {
   public:
+
     virtual ~AnalysisObjectWrapper() {}
 
-    virtual YODA::AnalysisObject* operator->() = 0;
-    virtual YODA::AnalysisObject* operator->() const = 0;
-    virtual const YODA::AnalysisObject & operator*() const = 0;
+    virtual YODA::AnalysisObject* operator -> () = 0;
+    virtual YODA::AnalysisObject* operator -> () const = 0;
+    virtual const YODA::AnalysisObject& operator * () const = 0;
 
     /// @todo Rename to setActive(idx)
     virtual void setActiveWeightIdx(unsigned int iWeight) = 0;
 
-    /// @todo Set active object for finalize
+    /// Set active object for finalize
+    /// @todo Rename to setActiveFinal(idx)
     virtual void setActiveFinalWeightIdx(unsigned int iWeight) = 0;
 
     virtual void unsetActiveWeight() = 0;
 
-    bool operator ==(const AnalysisObjectWrapper& p) { return (this == &p); }
-    bool operator !=(const AnalysisObjectWrapper& p) { return (this != &p); }
+    bool operator == (const AnalysisObjectWrapper& p) { return (this == &p); }
+    bool operator != (const AnalysisObjectWrapper& p) { return (this != &p); }
 
-  protected:
-    /// @todo do we need this?
-    // virtual void reset() = 0;
   };
+
+
 
   /// @todo
   /// implement scatter1dptr and scatter2dptr here
@@ -136,8 +139,8 @@ namespace Rivet {
   */
 
 
+  /// @todo Document!
   class MultiweightAOWrapper : public AnalysisObjectWrapper {
-
   public:
     using Inner = YODA::AnalysisObject;
 
@@ -172,22 +175,30 @@ namespace Rivet {
   template <class T>
   class TupleWrapper;
 
+
   template<>
   class TupleWrapper<YODA::Counter> : public YODA::Counter {
   public:
+
     typedef shared_ptr<TupleWrapper<YODA::Counter>> Ptr;
+
     TupleWrapper(const YODA::Counter & h) : YODA::Counter(h) {}
-    // todo: do we need to deal with users using fractions directly?
+
+    /// @todo Do we need to deal with users using fractions directly?
     void fill( double weight=1.0, double fraction=1.0 ) {
-      (void)fraction;
+      (void)fraction; //< ???
       fills_.insert( {YODA::Counter::FillType(),weight} );
     }
+
     void reset() { fills_.clear(); }
-    const Fills<YODA::Counter> & fills() const { return fills_; }
+
+    const Fills<YODA::Counter>& fills() const { return fills_; }
+
   private:
     // x / weight pairs
     Fills<YODA::Counter> fills_;
   };
+
 
   template<>
   class TupleWrapper<YODA::Histo1D> : public YODA::Histo1D {
@@ -206,6 +217,7 @@ namespace Rivet {
     // x / weight pairs
     Fills<YODA::Histo1D> fills_;
   };
+
 
   template<>
   class TupleWrapper<YODA::Profile1D> : public YODA::Profile1D {
@@ -246,6 +258,7 @@ namespace Rivet {
     Fills<YODA::Histo2D> fills_;
   };
 
+
   template<>
   class TupleWrapper<YODA::Profile2D> : public YODA::Profile2D {
   public:
@@ -266,6 +279,7 @@ namespace Rivet {
     Fills<YODA::Profile2D> fills_;
   };
 
+
   template<>
   class TupleWrapper<YODA::Scatter1D> : public YODA::Scatter1D {
   public:
@@ -273,12 +287,14 @@ namespace Rivet {
     TupleWrapper(const YODA::Scatter1D & h) : YODA::Scatter1D(h) {}
   };
 
+
   template<>
   class TupleWrapper<YODA::Scatter2D> : public YODA::Scatter2D {
   public:
     typedef shared_ptr<TupleWrapper<YODA::Scatter2D>> Ptr;
     TupleWrapper(const YODA::Scatter2D & h) : YODA::Scatter2D(h) {}
   };
+
 
   template<>
   class TupleWrapper<YODA::Scatter3D> : public YODA::Scatter3D {
@@ -377,6 +393,7 @@ namespace Rivet {
 
 
   private:
+
     void setActiveWeightIdx(unsigned int iWeight) {
       _active = _persistent.at(iWeight);
     }
@@ -512,7 +529,7 @@ namespace Rivet {
 
 
 
-  // every object listed here needs a virtual fill method in YODA,
+  // Every object listed here needs a virtual fill method in YODA,
   // otherwise the Tuple fakery won't work.
 
   using MultiweightAOPtr = rivet_shared_ptr<MultiweightAOWrapper>;
