@@ -123,7 +123,7 @@ namespace Rivet {
 
     TupleWrapper(const YODA::Profile1D& h) : YODA::Profile1D(h) {}
 
-    // todo: do we need to deal with users using fractions directly?
+    /// @todo Do we need to deal with users using fractions directly?
     void fill( double x, double y, double weight=1.0, double fraction=1.0 ) {
       (void)fraction;
       if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
@@ -151,7 +151,7 @@ namespace Rivet {
 
     TupleWrapper(const YODA::Histo2D& h) : YODA::Histo2D(h) {}
 
-    // todo: do we need to deal with users using fractions directly?
+    /// @todo Do we need to deal with users using fractions directly?
     void fill( double x, double y, double weight=1.0, double fraction=1.0 ) {
       (void)fraction;
       if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
@@ -179,7 +179,7 @@ namespace Rivet {
 
     TupleWrapper(const YODA::Profile2D& h) : YODA::Profile2D(h) {}
 
-    // todo: do we need to deal with users using fractions directly?
+    /// @todo Do we need to deal with users using fractions directly?
     void fill( double x, double y, double z, double weight=1.0, double fraction=1.0 ) {
       (void)fraction;
       if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
@@ -517,6 +517,7 @@ namespace Rivet {
     // }
 
     friend class AnalysisHandler;
+
   };
 
 
