@@ -12,7 +12,6 @@
 
 // #include <regex>
 #include <sstream>
-
 using namespace std;
 
 namespace Rivet {
@@ -23,7 +22,7 @@ namespace Rivet {
 
 
   template <class T>
-  Wrapper<T>::Wrapper(const vector<string>& weightNames, const T & p) {
+  Wrapper<T>::Wrapper(const vector<string>& weightNames, const T& p) {
     _basePath = p.path();
     _baseName = p.name();
     for (const string& weightname : weightNames) {
@@ -57,6 +56,7 @@ namespace Rivet {
 
   template <class T>
   void Wrapper<T>::newSubEvent() {
+    /// @todo Replace this expensive cloning with resetting
     typename TupleWrapper<T>::Ptr tmp = make_shared<TupleWrapper<T>>(_persistent[0]->clone());
     tmp->reset();
     _evgroup.push_back( tmp );
@@ -66,7 +66,7 @@ namespace Rivet {
 
 
   string getDatafilePath(const string& papername) {
-    /// Try to find YODA otherwise fall back to try AIDA
+    /// Try to find a YODA file matching this analysis name
     const string path1 = findAnalysisRefFile(papername + ".yoda");
     if (!path1.empty()) return path1;
     const string path2 = findAnalysisRefFile(papername + ".yoda.gz");
@@ -83,6 +83,7 @@ namespace Rivet {
     vector<YODA::AnalysisObject*> aovec;
     YODA::Reader& reader = YODA::ReaderYODA::create();
     reader.read(datafile, aovec);
+    /// @todo Use this convenience function once YODA > 1.8.3 has been in circulation for a while
     // YODA::read(datafile, aovec);
 
     // Return value, to be populated
