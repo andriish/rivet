@@ -57,9 +57,12 @@ namespace Rivet {
 
   template <class T>
   void Wrapper<T>::newSubEvent() {
-    /// @todo Replace this expensive cloning with resetting: why clone?? I think it clones *and* then calls a copy constructor on the clone...
+    /// @todo Is this called every sub-event (and weight?), or for every weight once per event group?
+    /// @todo Replace this expensive cloning with just resetting: why clone??
     // typename TupleWrapper<T>::Ptr tmp = make_shared<TupleWrapper<T>>(_persistent[0]->clone());
     auto tmp = make_shared<TupleWrapper<T>>(_persistent[0]->clone());
+    // @todo Aditya: try this as a first step: I think it clones *and* then calls a copy constructor on the clone, which feels pointless and expensive...
+    // auto tmp = make_shared<TupleWrapper<T>>(*_persistent[0]);
     tmp->reset();
     _evgroup.push_back( tmp );
     _active = _evgroup.back();
