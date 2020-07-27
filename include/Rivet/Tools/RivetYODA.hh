@@ -49,11 +49,14 @@ namespace Rivet {
   using Fill = pair<typename T::FillType, Weight>;
 
   /// A set of several fill objects.
+  /// @todo Why a set rather than a vector? Efficiency???
   template <class T>
   using Fills = multiset<Fill<T>>;
 
 
   /// Wrappers for analysis objects to store all fills unaggregated, until collapsed.
+  ///
+  /// @todo
   template <class T>
   class TupleWrapper;
 
@@ -63,23 +66,24 @@ namespace Rivet {
   class TupleWrapper<YODA::Counter> : public YODA::Counter {
   public:
 
+    /// @todo Why?
     typedef shared_ptr<TupleWrapper<YODA::Counter>> Ptr;
 
-    TupleWrapper(const YODA::Counter & h) : YODA::Counter(h) {}
+    TupleWrapper(const YODA::Counter& h) : YODA::Counter(h) {}
 
     /// @todo Do we need to deal with users using fractions directly?
     void fill(double weight=1.0, double fraction=1.0) {
       (void)fraction; //< ???
-      fills_.insert( {YODA::Counter::FillType(),weight} );
+      _fills.insert( { YODA::Counter::FillType(), weight } );
     }
 
-    void reset() { fills_.clear(); }
+    void reset() { _fills.clear(); }
 
-    const Fills<YODA::Counter>& fills() const { return fills_; }
+    const Fills<YODA::Counter>& fills() const { return _fills; }
 
   private:
 
-    Fills<YODA::Counter> fills_;
+    Fills<YODA::Counter> _fills;
 
   };
 
@@ -91,22 +95,22 @@ namespace Rivet {
 
     typedef shared_ptr<TupleWrapper<YODA::Histo1D>> Ptr;
 
-    TupleWrapper(const YODA::Histo1D & h) : YODA::Histo1D(h) {}
+    TupleWrapper(const YODA::Histo1D& h) : YODA::Histo1D(h) {}
 
     // todo: do we need to deal with users using fractions directly?
     void fill( double x, double weight=1.0, double fraction=1.0 ) {
-      (void)fraction;
+      (void)fraction; //< ???
       if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
-      fills_.insert( { x , weight } );
+      _fills.insert( { x, weight } );
     }
 
-    void reset() { fills_.clear(); }
+    void reset() { _fills.clear(); }
 
-    const Fills<YODA::Histo1D> & fills() const { return fills_; }
+    const Fills<YODA::Histo1D>& fills() const { return _fills; }
 
   private:
 
-    Fills<YODA::Histo1D> fills_;
+    Fills<YODA::Histo1D> _fills;
 
   };
 
@@ -117,23 +121,23 @@ namespace Rivet {
   public:
     typedef shared_ptr<TupleWrapper<YODA::Profile1D>> Ptr;
 
-    TupleWrapper(const YODA::Profile1D & h) : YODA::Profile1D(h) {}
+    TupleWrapper(const YODA::Profile1D& h) : YODA::Profile1D(h) {}
 
     // todo: do we need to deal with users using fractions directly?
     void fill( double x, double y, double weight=1.0, double fraction=1.0 ) {
       (void)fraction;
       if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
       if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN");
-      fills_.insert( { YODA::Profile1D::FillType{x,y}, weight } );
+      _fills.insert( { YODA::Profile1D::FillType{x,y}, weight } );
     }
 
-    void reset() { fills_.clear(); }
+    void reset() { _fills.clear(); }
 
-    const Fills<YODA::Profile1D> & fills() const { return fills_; }
+    const Fills<YODA::Profile1D>& fills() const { return _fills; }
 
   private:
 
-    Fills<YODA::Profile1D> fills_;
+    Fills<YODA::Profile1D> _fills;
 
   };
 
@@ -145,23 +149,23 @@ namespace Rivet {
 
     typedef shared_ptr<TupleWrapper<YODA::Histo2D>> Ptr;
 
-    TupleWrapper(const YODA::Histo2D & h) : YODA::Histo2D(h) {}
+    TupleWrapper(const YODA::Histo2D& h) : YODA::Histo2D(h) {}
 
     // todo: do we need to deal with users using fractions directly?
     void fill( double x, double y, double weight=1.0, double fraction=1.0 ) {
       (void)fraction;
       if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
       if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN");
-      fills_.insert( { YODA::Histo2D::FillType{x,y}, weight } );
+      _fills.insert( { YODA::Histo2D::FillType{x,y}, weight } );
     }
 
-    void reset() { fills_.clear(); }
+    void reset() { _fills.clear(); }
 
-    const Fills<YODA::Histo2D> & fills() const { return fills_; }
+    const Fills<YODA::Histo2D>& fills() const { return _fills; }
 
   private:
 
-    Fills<YODA::Histo2D> fills_;
+    Fills<YODA::Histo2D> _fills;
 
   };
 
@@ -173,7 +177,7 @@ namespace Rivet {
 
     typedef shared_ptr<TupleWrapper<YODA::Profile2D>> Ptr;
 
-    TupleWrapper(const YODA::Profile2D & h) : YODA::Profile2D(h) {}
+    TupleWrapper(const YODA::Profile2D& h) : YODA::Profile2D(h) {}
 
     // todo: do we need to deal with users using fractions directly?
     void fill( double x, double y, double z, double weight=1.0, double fraction=1.0 ) {
@@ -181,16 +185,16 @@ namespace Rivet {
       if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
       if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN");
       if ( std::isnan(z) ) throw YODA::RangeError("Z is NaN");
-      fills_.insert( { YODA::Profile2D::FillType{x,y,z}, weight } );
+      _fills.insert( { YODA::Profile2D::FillType{x,y,z}, weight } );
     }
 
-    void reset() { fills_.clear(); }
+    void reset() { _fills.clear(); }
 
-    const Fills<YODA::Profile2D> & fills() const { return fills_; }
+    const Fills<YODA::Profile2D>& fills() const { return _fills; }
 
   private:
 
-    Fills<YODA::Profile2D> fills_;
+    Fills<YODA::Profile2D> _fills;
 
   };
 
@@ -202,7 +206,7 @@ namespace Rivet {
 
     typedef shared_ptr<TupleWrapper<YODA::Scatter1D>> Ptr;
 
-    TupleWrapper(const YODA::Scatter1D & h) : YODA::Scatter1D(h) {}
+    TupleWrapper(const YODA::Scatter1D& h) : YODA::Scatter1D(h) {}
 
   };
 
@@ -214,7 +218,7 @@ namespace Rivet {
 
     typedef shared_ptr<TupleWrapper<YODA::Scatter2D>> Ptr;
 
-    TupleWrapper(const YODA::Scatter2D & h) : YODA::Scatter2D(h) {}
+    TupleWrapper(const YODA::Scatter2D& h) : YODA::Scatter2D(h) {}
 
   };
 
@@ -226,7 +230,7 @@ namespace Rivet {
 
     typedef shared_ptr<TupleWrapper<YODA::Scatter3D>> Ptr;
 
-    TupleWrapper(const YODA::Scatter3D & h) : YODA::Scatter3D(h) {}
+    TupleWrapper(const YODA::Scatter3D& h) : YODA::Scatter3D(h) {}
 
   };
 
@@ -373,6 +377,8 @@ namespace Rivet {
     friend class Analysis;
 
     using Inner = T;
+    using TPtr = shared_ptr<T>;
+    using TFillPtr = shared_ptr<TupleWrapper<T>>;
 
     Wrapper() = default;
 
@@ -426,7 +432,6 @@ namespace Rivet {
           return false;
         }
       }
-
       return true;
     }
 
@@ -468,10 +473,12 @@ namespace Rivet {
     virtual YODA::AnalysisObjectPtr activeYODAPtr() const { return _active; }
 
     /// @todo DOCUMENT
-    const vector<typename T::Ptr>& persistent() const { return _persistent; }
+    //const vector<typename T::Ptr>& persistent() const { return _persistent; }
+    const vector<shared_ptr<T>>& persistent() const { return _persistent; }
 
     /// @todo DOCUMENT
-    const vector<typename T::Ptr>& final() const { return _final; }
+    //const vector<typename T::Ptr>& final() const { return _final; }
+    const vector<shared_ptr<T>>& final() const { return _final; }
 
     /// To be implemented for each type
     /// @todo DOCUMENT
@@ -483,16 +490,20 @@ namespace Rivet {
 
 
     /// M of these, one for each weight
-    vector<typename T::Ptr> _persistent;
+    //vector<typename T::Ptr> _persistent;
+    vector<shared_ptr<T>> _persistent;
 
     /// This is the copy of _persistent that will be passed to finalize().
-    vector<typename T::Ptr> _final;
+    //vector<typename T::Ptr> _final;
+    vector<shared_ptr<T>> _final;
 
     /// N of these, one for each event in evgroup.
-    vector<typename TupleWrapper<T>::Ptr> _evgroup;
+    //vector<typename TupleWrapper<T>::Ptr> _evgroup;
+    vector<shared_ptr<TupleWrapper<T>>> _evgroup;
 
     /// @todo DOCUMENT
-    typename T::Ptr _active;
+    //typename T::Ptr _active;
+    shared_ptr<T> _active;
 
     /// @todo DOCUMENT
     string _basePath;
