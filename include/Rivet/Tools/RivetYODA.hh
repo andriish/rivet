@@ -388,7 +388,8 @@ namespace Rivet {
 
 
     /// DOCUMENT!
-    typename T::Ptr active() const;
+    // typename T::Ptr active() const;
+    shared_ptr<T> active() const;
 
     /// Test for object validity.
     explicit operator bool() const { return static_cast<bool>(_active); } // Don't use active() here, assert will catch
@@ -627,7 +628,7 @@ namespace Rivet {
 
   /// @defgroup useraos User-facing analysis object wrappers
   ///
-  /// @note Every object listed here needs a virtual fill method in YODA,
+  /// @note Every object listed here needs a virtual fill() method in YODA,
   /// otherwise the Tuple fakery won't work.
   ///
   /// @{
