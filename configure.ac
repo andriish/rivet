@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[3.1.1],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[3.1.2],[rivet@projects.hepforge.org],[Rivet])
 
 ## Check and block installation into the src/build dir
 if test "$prefix" = "$PWD"; then
@@ -120,6 +120,7 @@ if test x$use_hepmc2 = xno && test x$use_hepmc3 = xno ; then
   AC_MSG_ERROR([HepMC2 or HepMC3 is required])
 fi
 
+rm conftest.*
 if test x$use_hepmc2 = xyes; then
 
   oldCPPFLAGS=$CPPFLAGS
@@ -190,6 +191,7 @@ else
 
   ## Use generic HEPMC* variables for HepMC3 as well (needed for rivet-config.in)
   c=$HEPMC3INCPATH
+  HEPMCINCPATH=$HEPMC3INCPATH
   HEPMCLIBPATH=$HEPMC3LIBPATH
   HEPMCLIBNAME="-lHepMC3 -lHepMC3search"
   AC_SUBST(HEPMCINCPATH)
@@ -339,9 +341,12 @@ AC_ARG_ENABLE(pyext, [AC_HELP_STRING(--disable-pyext,
 ## Basic Python checks
 if test x$enable_pyext == xyes; then
   AX_PYTHON_DEVEL([>= '2.7.3'])
+  PYTHON_FULL_VERSION=`$PYTHON -c 'from __future__ import print_function; import platform; print(platform.python_version())'`
+  PYTHON_MAJOR_VERSION=`$PYTHON -c 'from __future__ import print_function; import sys; print(sys.version_info.major)'`
   AC_SUBST(PYTHON_VERSION)
-  RIVET_PYTHONPATH=`$PYTHON -c "from __future__ import print_function;
-import distutils.sysconfig; print(distutils.sysconfig.get_python_lib(prefix='$prefix', plat_specific=True));"`
+  AC_SUBST(PYTHON_FULL_VERSION)
+  AC_SUBST(PYTHON_MAJOR_VERSION)
+  RIVET_PYTHONPATH=`$PYTHON -c "from __future__ import print_function; import distutils.sysconfig; print(distutils.sysconfig.get_python_lib(prefix='$prefix', plat_specific=True));"`
   AC_SUBST(RIVET_PYTHONPATH)
   if test -z "$PYTHON"; then
     AC_MSG_ERROR([Can't build Python extension since python can't be found])
@@ -467,7 +472,7 @@ or pipe (the latter may be made with mkfifo) using the
 'rivet' executable.
 
 For a more pleasant command line experience, you can include
-the data/rivet-completion file into your .bashrc file,
+the bin/rivet-completion file into your .bashrc file,
 or your bash_completion.d directory if you have one.
 
 The rivetenv.*sh files will not be installed, but can help you

@@ -338,6 +338,13 @@ namespace Rivet {
     /// hasn't been set.
     double crossSectionPerEvent() const;
 
+    /// Get the process cross-section error in pb. Throws if this hasn't been set.
+    double crossSectionError() const;
+
+    /// Get the process cross-section error per generated event in
+    /// pb. Throws if this hasn't been set.
+    double crossSectionErrorPerEvent() const;
+
     /// @brief Get the number of events seen (via the analysis handler).
     ///
     /// @note Use in the finalize phase only.
@@ -664,12 +671,12 @@ namespace Rivet {
     //@{
 
     /// Return the map of all options given to this analysis.
-    const std::map<std::string,std::string> & options() {
+    const std::map<std::string,std::string>& options() const {
       return _options;
     }
 
     /// Get an option for this analysis instance as a string.
-    std::string getOption(std::string optname) {
+    std::string getOption(std::string optname) const {
       if ( _options.find(optname) != _options.end() )
         return _options.find(optname)->second;
       return "";
@@ -680,13 +687,21 @@ namespace Rivet {
     /// The return type is given by the specified @a def value, or by an explicit template
     /// type-argument, e.g. getOption<double>("FOO", 3).
     template<typename T>
-    T getOption(std::string optname, T def) {
+    T getOption(std::string optname, T def) const {
       if (_options.find(optname) == _options.end()) return def;
       std::stringstream ss;
       ss << _options.find(optname)->second;
       T ret;
       ss >> ret;
       return ret;
+    }
+
+    /// @brief Sane overload for literal character strings (which don't play well with stringstream)
+    ///
+    /// Note this isn't a template specialisation, because we can't return a non-static
+    /// char*, and T-as-return-type is built into the template function definition.
+    std::string getOption(std::string optname, const char* def) {
+      return getOption<std::string>(optname, def);
     }
 
     /// @}
@@ -1422,11 +1437,11 @@ namespace Rivet {
   };
 
 
-  // Template specialisation for literal character strings (which don't play well with stringstream)
-  template<>
-  inline const char* Analysis::getOption(std::string optname, const char* def) {
-    return getOption<std::string>(optname, def).c_str();
-  }
+  // // Template specialisation for literal character strings (which don't play well with stringstream)
+  // template<>
+  // inline std::string Analysis::getOption(std::string optname, const char* def) {
+  //   return getOption<std::string>(optname, def); //.c_str();
+  // }
 
 
 }
@@ -1434,6 +1449,10 @@ namespace Rivet {
 
 // Include definition of analysis plugin system so that analyses automatically see it when including Analysis.hh
 #include "Rivet/AnalysisBuilder.hh"
+
+
+/// @defgroup anamacros Analysis macros
+/// @{
 
 /// @def DECLARE_RIVET_PLUGIN
 /// Preprocessor define to prettify the global-object plugin hook mechanism.
@@ -1452,6 +1471,7 @@ namespace Rivet {
 /// Slight abbreviation for DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR
 #define DEFAULT_RIVET_ANALYSIS_CTOR(clsname) DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR(clsname)
 
+/// @}
 
 
 #endif

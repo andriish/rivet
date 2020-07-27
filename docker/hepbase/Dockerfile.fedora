@@ -5,7 +5,7 @@ ARG HEPMC_VERSION=2
 ARG CXX_CMD=g++
 ARG CC_CMD=gcc
 ARG FC_CMD=gfortran
-ARG RIVET_VERSION=3.1.1
+ARG RIVET_VERSION=3.1.2
 
 ENV CXX=${CXX_CMD}
 ENV CC=${CC_CMD}
@@ -23,28 +23,43 @@ RUN true \
     && if test "$FC_CMD" = "flang"; then alternatives --install /usr/bin/gfortran gfortran /usr/bin/flang 2; fi \
     && dnf install -y \
       make redhat-rpm-config cmake \
-      wget tar less bzip2 findutils which nano file \
+      m4 automake autoconf libtool \
+      git wget tar less bzip2 findutils which nano file diffutils \
       zlib-devel gsl-devel \
-    && dnf install -y python3 python3-devel python3-pip \
+    && dnf install -y python3 python3-devel \
     && alternatives --install /usr/bin/python python /usr/bin/python3 2 \
+    && alternatives --install /usr/bin/python-config python-config /usr/bin/python3-config 2 \
+    && wget --no-verbose https://bootstrap.pypa.io/get-pip.py -O get-pip.py \
+    && python get-pip.py \
     && pip install matplotlib requests Cython \
     && dnf clean all
 
-# RUN dnf install -y \
-#       texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow \
-#       texlive-relsize texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended \
-#       ghostscript GraphicsMagick texlive-dvips \
-#     && dnf clean all
+RUN true \
+    && dnf install -y libXft libXpm libXext libsqlite3x uuid-devel \
+    && cd /usr/local \
+    && wget --no-verbose https://root.cern/download/root_v6.20.06.Linux-fedora31-x86_64-gcc9.2.tar.gz -O- | tar xz \
+    && echo "source /usr/local/root/bin/thisroot.sh" > /etc/profile.d/01-cernroot \
+    && echo "source /usr/local/root/bin/thisroot.sh" >> /root/.bashrc \
+    && dnf clean all
 
 RUN true \
-    && if test "$HEPMC_VERSION" = "3"; then HEPMC_FULL_VERSION=3.2.1; else HEPMC_FULL_VERSION=2.06.10; fi \
+    && if test "$HEPMC_VERSION" = "3"; then HEPMC_FULL_VERSION=3.2.1; else HEPMC_FULL_VERSION=2.06.11; fi \
     && mkdir /code && cd /code \
     && wget https://gitlab.com/hepcedar/rivetbootstrap/raw/${RIVET_VERSION}/rivet-bootstrap \
     && chmod +x rivet-bootstrap \
-    && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_FULL_VERSION} MAKE="make -j6" ./rivet-bootstrap \
+    && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_FULL_VERSION} MAKE="make -j $(nproc --ignore=1)" ./rivet-bootstrap \
     && rm -rf /code
 
-#ENV LD_LIBRARY_PATH /usr/local/lib
-#ENV PYTHONPATH /usr/local/lib64/python2.7/site-packages
+ARG LATEX=0
+RUN if test "$LATEX" = "1"; then \
+      dnf install -y \
+        texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow \
+        texlive-relsize texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended \
+        ghostscript ImageMagick texlive-dvips; \
+      dnf clean all; \
+    fi
+
+ENV LD_LIBRARY_PATH /usr/local/lib
+ENV PYTHONPATH /usr/local/lib64/python3.8/site-packages
 
 WORKDIR /work

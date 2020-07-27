@@ -111,6 +111,7 @@ for count, inspire_id in enumerate(sorted(analyses, key=analyses.get)):
 
         # Check if .yoda file has already been downloaded from HEPData, otherwise download. Do anyway if force_download = True.
         matched_files = glob.glob(os.path.join(hepdata_directory, 'HEPData-ins' + inspire_id + '-v*-yoda.yoda'))
+        yodafile_from_hepdata = None
         if not matched_files or force_download:
             try:
                 yodafile_from_hepdata = hepdatautils.download_from_hepdata(inspire_id, analysis)

@@ -20,7 +20,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
       ${CXX_PKG} ${CC_PKG} ${FC_PKG} \
       python2 python2-dev \
       make automake autoconf libtool cmake \
-      wget tar less bzip2 findutils nano file \
+      git wget tar less bzip2 findutils nano file \
       zlib1g-dev libgsl-dev \
     && apt-get clean -y
 
@@ -33,15 +33,21 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && pip install matplotlib requests Cython
 
 RUN mkdir /code && cd /code \
-    && if test "$HEPMC_VERSION" = "3"; then HEPMC_FULL_VERSION=3.2.1; else HEPMC_FULL_VERSION=2.06.10; fi \
+    && if test "$HEPMC_VERSION" = "3"; then HEPMC_FULL_VERSION=3.2.1; else HEPMC_FULL_VERSION=2.06.11; fi \
     && update-alternatives --install /usr/bin/python2.7.18 python2.7.18 /usr/bin/python2 2 \
     && wget https://gitlab.com/hepcedar/rivetbootstrap/raw/${RIVET_VERSION}/rivet-bootstrap \
     && chmod +x rivet-bootstrap \
-    && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_FULL_VERSION} MAKE="make -j6" ./rivet-bootstrap \
+    && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_FULL_VERSION} MAKE="make -j $(nproc --ignore=1)" ./rivet-bootstrap \
     && rm -rf /code
 
-# ENV LD_LIBRARY_PATH /usr/local/lib
-# ENV PYTHONPATH /usr/local/lib64/python2.7/site-packages
+ARG LATEX=0
+RUN if test "$LATEX" = "1"; then \
+      apt-get update -y; \
+      apt-get install -y texlive-latex-recommended texlive-fonts-recommended imagemagick; \
+    fi
+
+ENV LD_LIBRARY_PATH /usr/local/lib
+ENV PYTHONPATH /usr/local/lib64/python2.7/site-packages
 
 ENTRYPOINT /bin/bash
 WORKDIR /work

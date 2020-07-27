@@ -257,6 +257,8 @@ namespace Rivet {
     return *(np->second);
   }
 
-
+// @todo all thread/mutex code belongs to a temporary fix to allow for
+// basic threading
+std::mutex ProjectionHandler::mtx;
 
 }

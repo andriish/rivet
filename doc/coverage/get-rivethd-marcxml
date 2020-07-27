@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 """\
-%prog <file.marc.xml> [<file.marc.xml> ...]
+%(prog)s <file.marc.xml> [<file.marc.xml> ...]
 
 """
 

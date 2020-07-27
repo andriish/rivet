@@ -23,23 +23,17 @@ namespace Rivet {
   class AnalysisHandler {
   public:
 
-    /// @name Constructors and destructors. */
-    //@{
-
     /// Preferred constructor, with optional run name.
     AnalysisHandler(const string& runname="");
 
-    /// @brief Destructor
+    /// The copy constructor is deleted, so it can never be called.
+    AnalysisHandler(const AnalysisHandler&) = delete;
+
+    /// The assignment operator is deleted, so it can never be called.
+    AnalysisHandler& operator=(const AnalysisHandler&) = delete;
+
     /// The destructor is not virtual, as this class should not be inherited from.
     ~AnalysisHandler();
-
-    //@}
-
-
-  private:
-
-    /// Get a logger object.
-    Log& getLog() const;
 
 
   public:
@@ -154,6 +148,9 @@ namespace Rivet {
     /// Setter for _unmatchWeightNames
     void deselectMultiWeights(std::string patterns="");
 
+    /// Setter for _nominalWeightName
+    void setNominalWeightName(std::string name="");
+
     //@}
 
 
@@ -251,7 +248,7 @@ namespace Rivet {
     /// @name Histogram / data object access
     //@{
 
-    /// After all subevents in an event group has been processed push
+    /// After all subevents in an event group have been processed, push
     /// all histo fills to the relevant histograms.
     void pushToPersistent();
 
@@ -280,28 +277,25 @@ namespace Rivet {
       _dumpFile = dumpfile;
     }
 
-    /// Take the vector of yoda files and merge them together using
-    /// the cross section and weight information provided in each
-    /// file. Each file in @a aofiles is assumed to have been produced
-    /// by Rivet. By default the files are assumed to contain
-    /// different processes (or the same processs but mutually
-    /// exclusive cuts), but if @a equiv if ture, the files are
-    /// assumed to contain output of completely equivalent (but
-    /// statistically independent) Rivet runs. The corresponding
-    /// analyses will be loaded and their analysis objects will be
-    /// filled with the merged result. finalize() will be run on each
-    /// relevant analysis. The resulting YODA file can then be rwitten
-    /// out by writeData(). If delopts is non-empty, it is assumed to
-    /// contain names different options to be merged into the same
-    /// analysis objects.
-    void mergeYodas(const vector<string> & aofiles,
-                    const vector<string> & delopts = vector<string>(),
-                    const vector<string> & addopts = vector<string>(),
-                    bool equiv = false);
+    /// @brief Merge the vector of YODA files, using the cross-section and weight information provided in each.
+    ///
+    /// Each file in @a aofiles is assumed to have been produced by Rivet. By
+    /// default the files are assumed to contain different processes (or the
+    /// same processs but mutually exclusive cuts), but if @a equiv if true, the
+    /// files are assumed to contain output of completely equivalent (but
+    /// statistically independent) Rivet runs. The corresponding analyses will
+    /// be loaded and their analysis objects will be filled with the merged
+    /// result. finalize() will be run on each relevant analysis. The resulting
+    /// YODA file can then be rwitten out by writeData(). If @a delopts is
+    /// non-empty, it is assumed to contain names different options to be merged
+    /// into the same analysis objects.
+    void mergeYodas(const vector<string>& aofiles,
+                    const vector<string>& delopts=vector<string>(),
+                    const vector<string>& addopts=vector<string>(),
+                    bool equiv=false);
 
     /// Helper function to strip specific options from data object paths.
-    void stripOptions(YODA::AnalysisObjectPtr ao,
-                      const vector<string> & delopts) const;
+    void stripOptions(YODA::AnalysisObjectPtr ao, const vector<string>& delopts) const;
 
     //@}
 
@@ -310,8 +304,9 @@ namespace Rivet {
     /// At the moment, only INIT is used to enable booking.
     enum class Stage { OTHER, INIT, FINALIZE };
 
-    /// Which stage are we in?
+    /// Return the current processing stage.
     Stage stage() const { return _stage; }
+
 
   protected:
 
@@ -323,14 +318,15 @@ namespace Rivet {
 
   private:
 
-    /// Current handler stage
+    /// Current handler processing stage.
     Stage _stage = Stage::OTHER;
 
     /// The collection of Analysis objects to be used.
     std::map<std::string, AnaHandle> _analyses;
 
-    /// A vector of pre-loaded object which do not have a valid
-    /// Analysis plugged in.
+    /// A vector of pre-loaded object which do not have a valid Analysis plugged in.
+    ///
+    /// @todo Rename to _preloadedAOs for consistency
     map<string,YODA::AnalysisObjectPtr> _preloads;
 
     /// A vector containing copies of analysis objects after
@@ -379,10 +375,15 @@ namespace Rivet {
     /// String of weight names (or regex) to veto multiweights
     std::string _unmatchWeightNames;
 
+    /// String giving the nominal weight name
+    std::string _nominalWeightName;
+
     /// weight cap value
     double _weightCap;
 
     /// The relative width of the NLO smearing window.
+    ///
+    /// @todo Improve & standardise name
     double _NLOSmearing;
 
     /// Current event number
@@ -394,12 +395,10 @@ namespace Rivet {
     /// The index in the (possibly pruned) weight vector for the nominal weight stream
     size_t _rivetDefaultWeightIdx;
 
-    /// Determines how often Rivet runs finalize() and writes the
-    /// result to a YODA file.
+    /// How often Rivet runs finalize() and writes the result to a YODA file.
     int _dumpPeriod;
 
-    /// The name of a YODA file to which Rivet periodically dumps
-    /// results.
+    /// The name of a YODA file to which Rivet periodically dumps results.
     string _dumpFile;
 
     /// Flag to indicate periodic dumping is in progress
@@ -410,13 +409,10 @@ namespace Rivet {
 
   private:
 
-    /// The assignment operator is private and must never be called.
-    /// In fact, it should not even be implemented.
-    AnalysisHandler& operator=(const AnalysisHandler&);
+  private:
 
-    /// The copy constructor is private and must never be called.  In
-    /// fact, it should not even be implemented.
-    AnalysisHandler(const AnalysisHandler&);
+    /// Get a logger object.
+    Log& getLog() const;
 
   };
 

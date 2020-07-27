@@ -21,8 +21,10 @@ namespace Rivet {
     : _runname(runname), _userxs{NAN, NAN},
       _initialised(false), _ignoreBeams(false),
       _skipWeights(false), _matchWeightNames(""),
-      _unmatchWeightNames(""), _weightCap(0.),
-      _NLOSmearing(0.), _defaultWeightIdx(0), 
+      _unmatchWeightNames(""), 
+      _nominalWeightName(""),
+      _weightCap(0.),
+      _NLOSmearing(0.), _defaultWeightIdx(0),
       _rivetDefaultWeightIdx(0), _dumpPeriod(0), _dumping(false)
   {  }
 
@@ -40,6 +42,7 @@ namespace Rivet {
   }
 
 
+  /// @todo Can we inline this?
   Log& AnalysisHandler::getLog() const {
     return Log::getLog("Rivet.AnalysisHandler");
   }
@@ -54,14 +57,13 @@ namespace Rivet {
     }
   }
 
-
-  /// Check if any of the weightnames is not a number
+  /// Check if any of the weight names is not a number
   bool AnalysisHandler::haveNamedWeights() const {
-    bool dec=false;
-    for (unsigned int i=0;i<_weightNames.size();++i) {
-      string s = _weightNames[i];
+    bool dec = false;
+    for (size_t i = 0; i <_weightNames.size(); ++i) {
+      const string& s = _weightNames[i];
       if (!is_number(s)) {
-        dec=true;
+        dec = true;
         break;
       }
     }
@@ -97,7 +99,7 @@ namespace Rivet {
     // Check that analyses are beam-compatible, and remove those that aren't
     const size_t num_anas_requested = analysisNames().size();
     vector<string> anamestodelete;
-    for (const AnaHandle a : analyses()) {
+    for (const AnaHandle& a : analyses()) {
       if (!_ignoreBeams && !a->isCompatible(beams())) {
         //MSG_DEBUG(a->name() << " requires beams " << a->requiredBeams() << " @ " << a->requiredEnergies() << " GeV");
         anamestodelete.push_back(a->name());
@@ -148,24 +150,30 @@ namespace Rivet {
 
   void AnalysisHandler::setWeightNames(const GenEvent& ge) {
     _weightNames = HepMCUtils::weightNames(ge);
+
+    // If there are no weights, add a nominal one
     if (_weightNames.empty()) {
       _weightNames.push_back("");
       _rivetDefaultWeightIdx = _defaultWeightIdx = 0;
       _weightIndices = { 0 };
       return;
-    } 
+    }
 
-    // Find default weights, starting with the preferred empty "" name
+    // Find default weights, starting with the chosen or preferred name (default = "")
     size_t nDefaults = 0;
     _weightIndices.clear();
     for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
       _weightIndices.push_back(i);
-      if (_weightNames[i] == "") {
-        if (nDefaults == 0)  _rivetDefaultWeightIdx = _defaultWeightIdx = i;
+      if (_weightNames[i] == _nominalWeightName) {
+        if (nDefaults == 0) {
+          _weightNames[i] = "";
+          _rivetDefaultWeightIdx = _defaultWeightIdx = i;
+        }
         ++nDefaults;
       }
     }
-    // If no weights with the preferred name, look for acceptable alternatives
+
+    // If there are no weights with the preferred name, look for acceptable alternatives
     if (nDefaults == 0) {
       for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
         const string W = toUpper(_weightNames[i]);
@@ -178,6 +186,7 @@ namespace Rivet {
         }
       }
     }
+
     // Warn user that no nominal weight could be identified
     if (nDefaults == 0) {
       MSG_WARNING("Could not identify nominal weight. Will continue assuming variations-only run.");
@@ -186,28 +195,30 @@ namespace Rivet {
     if (nDefaults > 1) {
       MSG_WARNING("Found more than " << nDefaults << " default weight candidates. Will use: " << _weightNames[_defaultWeightIdx]);
     }
+
+    // Apply behaviours for only using the nominal weight, or all weights
     if (_skipWeights)  {
-      // If running in single-weight mode, remove all bar the nominal weight 
+
+      // If running in single-weight mode, remove all bar the nominal weight
       _weightIndices = { _defaultWeightIdx };
       _weightNames = { _weightNames[_defaultWeightIdx] };
       _rivetDefaultWeightIdx = 0;
-    }
-    else {
-      // check if weight name matches a supplied string/regex
-      // and then (de-)select accordingly
-      // deseleection takes precedence over selection
+
+    } else {
+
+      // Check if weight name matches a supplied string/regex and filter to select those only
       if (_matchWeightNames != "") {
         MSG_DEBUG("Select weight names that match pattern \"" << _matchWeightNames << "\"");
-        // compile regex from each string in the comma-separated list
+        // Compile regex from each string in the comma-separated list
         vector<std::regex> patterns;
-        for (const string& pattern : split(_matchWeightNames, ",")) { 
+        for (const string& pattern : split(_matchWeightNames, ",")) {
           patterns.push_back( std::regex(pattern) );
         }
-        // check which weights match supplied weight-name pattern
+        // Check which weights match supplied weight-name pattern
         vector<string> selected_subset; _weightIndices.clear();
         for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
           if (i == _defaultWeightIdx) {
-            // default weight cannot be "unselected"
+            // The default weight cannot be "unselected"
             _rivetDefaultWeightIdx = _weightIndices.size();
             _weightIndices.push_back(i);
             selected_subset.push_back(_weightNames[i]);
@@ -225,37 +236,41 @@ namespace Rivet {
         }
         _weightNames = selected_subset;
       }
-     if (_unmatchWeightNames != "") {
+
+      // Check if the remaining weight names match supplied string/regexes and *de*select accordingly
+      vector<std::regex> patterns = { std::regex("AUX"), std::regex("DEBUG") };
+      if (_unmatchWeightNames != "") {
         MSG_DEBUG("Deselect weight names that match pattern \"" << _unmatchWeightNames << "\"");
-        // compile regex from each string in the comma-separated list
-        vector<std::regex> patterns;
+        // Compile regex from each string in the comma-separated list
         for (const string& pattern : split(_unmatchWeightNames, ",")) {
-          patterns.push_back( std::regex(pattern) ); 
+          patterns.push_back( std::regex(pattern) );
         }
-        // check which weights match supplied weight-name pattern
-        vector<string> selected_subset; _weightIndices.clear();
-        for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
-          if (i == _defaultWeightIdx) {
-            // default weight cannot be vetoed
-            _rivetDefaultWeightIdx = _weightIndices.size();
-            _weightIndices.push_back(i);
-            selected_subset.push_back(_weightNames[i]);
-            MSG_DEBUG("Selected nominal weight: " << _weightNames[i]);
-            continue;
-          }
-          bool skip = false;
-          for (const std::regex& re : patterns) {
-            if ( std::regex_match(_weightNames[i], re) ) { skip = true; break; }
-          }
-          if (skip) continue;
+      }
+      // Check which weights match supplied weight-name pattern
+      vector<string> selected_subset; _weightIndices.clear();
+      for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
+        if (i == _defaultWeightIdx) {
+          // The default weight cannot be vetoed
+          _rivetDefaultWeightIdx = _weightIndices.size();
           _weightIndices.push_back(i);
           selected_subset.push_back(_weightNames[i]);
-          MSG_DEBUG("Selected variation weight: " << _weightNames[i]);
+          MSG_DEBUG("Selected nominal weight: " << _weightNames[i]);
+          continue;
         }
-        _weightNames = selected_subset;
+        bool skip = false;
+        for (const std::regex& re : patterns) {
+          if ( std::regex_match(_weightNames[i], re) ) { skip = true; break; }
+        }
+        if (skip) continue;
+        _weightIndices.push_back(i);
+        selected_subset.push_back(_weightNames[i]);
+        MSG_DEBUG("Selected variation weight: " << _weightNames[i]);
       }
+      _weightNames = selected_subset;
+
     }
-    // done (de-)selecting weights, add useful debug messages:
+
+    // Done (de-)selecting weights: show useful debug messages
     MSG_DEBUG("Default weight name: \"" <<  _weightNames[_rivetDefaultWeightIdx] << "\"");
     MSG_DEBUG("Default weight index (Rivet): " << _rivetDefaultWeightIdx);
     MSG_DEBUG("Default weight index (overall): " << _defaultWeightIdx);
@@ -281,24 +296,20 @@ namespace Rivet {
 
     // Create the Rivet event wrapper
     /// @todo Filter/normalize the event here
+    /// @todo Find a way to cache the env call
     bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
     Event event(ge, strip);
 
-    // set the cross section based on what is reported by this event.
-    // if no cross section
+    // Set the cross section based on what is reported by this event.
     if ( ge.cross_section() ) setCrossSection(HepMCUtils::crossSection(ge));
 
     // Won't happen for first event because _eventNumber is set in init()
     if (_eventNumber != ge.event_number()) {
-
       pushToPersistent();
-
       _eventNumber = ge.event_number();
-
     }
 
-
-    MSG_TRACE("starting new sub event");
+    MSG_TRACE("Starting new sub event");
     _eventCounter.get()->newSubEvent();
 
     for (const AnaHandle& a : analyses()) {
@@ -496,7 +507,7 @@ namespace Rivet {
 
 
   void AnalysisHandler::mergeYodas(const vector<string> & aofiles,
-                                   const vector<string> & delopts, 
+                                   const vector<string> & delopts,
                                    const vector<string> & addopts,
                                    bool equiv) {
 
@@ -554,7 +565,7 @@ namespace Rivet {
         for (size_t i = 0; i < optAnas.size(); ++i) {
           if (path.path().find(optAnas[i]) != string::npos ) {
             path.setOption(optKeys[i], optVals[i]);
-            path.fixOptionString();   
+            path.fixOptionString();
           }
         }
         path.setPath();
@@ -626,19 +637,23 @@ namespace Rivet {
         double xseci = xsecs[i]->point(0).x();
         double xsecerri = sqr(xsecs[i]->point(0).xErrAvg());
         sumw += *sows[i];
-        double effnent = sows[i]->effNumEntries();
+        double effnent = sows[i]->numEntries();
         xs += (equiv? effnent: 1.0)*xseci;
         xserr += (equiv? sqr(effnent): 1.0)*xsecerri;
       }
       vector<double> scales(sows.size(), 1.0);
       if ( equiv ) {
-        xs /= sumw.effNumEntries();
-        xserr = sqrt(xserr)/sumw.effNumEntries();
+        xs /= sumw.numEntries();
+        xserr = sqrt(xserr)/sumw.numEntries();
       } else {
         xserr = sqrt(xserr);
-        for ( int i = 0, N = sows.size(); i < N; ++i )
-          scales[i] = (sumw.sumW()/sows[i]->sumW())*
-           (xsecs[i]->point(0).x()/xs);
+        for ( int i = 0, N = sows.size(); i < N; ++i ) {
+          if ( sumw.sumW() == 0.0 || xsecs[i]->point(0).x() == 0.0 )
+            scales[i] = 0.0;
+          else
+            scales[i] = (sumw.sumW()/sows[i]->sumW())*
+              (xsecs[i]->point(0).x()/xs);
+        }
       }
       xsec.reset();
       xsec.addPoint(Point1D(xs, xserr));
@@ -657,7 +672,7 @@ namespace Rivet {
                             <<" of type " << yao->annotation("Type") );
             }
           }
-	  a->rawHookIn(yao);
+          a->rawHookIn(yao);
           ao.get()->unsetActiveWeight();
         }
       }
@@ -725,7 +740,7 @@ namespace Rivet {
     // before writing.
     for (size_t iW : order)
       for (auto a : analyses()) a->rawHookOut(raos, iW);
-    
+
     // Finally the RAW objects.
     if (includeraw) {
       for (size_t iW : order ) {
@@ -810,11 +825,12 @@ namespace Rivet {
     _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
     _eventCounter.get()->setActiveWeightIdx(_rivetDefaultWeightIdx);
     const double nomwgt = sumW();
+    const double nomwt2 = sumW2();
     for (size_t iW = 0; iW < numWeights(); ++iW) {
       _eventCounter.get()->setActiveWeightIdx(iW);
       const double s = sumW() / nomwgt;
       _xs.get()->setActiveWeightIdx(iW);
-      _xs->addPoint(xsec.first*s, xsec.second*s);
+      _xs->addPoint(xsec.first*s, xsec.second*sqrt(sumW2()/nomwt2));
     }
     _eventCounter.get()->unsetActiveWeight();
     _xs.get()->unsetActiveWeight();
@@ -856,6 +872,9 @@ namespace Rivet {
     _unmatchWeightNames = patterns;
   }
 
+  void AnalysisHandler::setNominalWeightName(std::string name) {
+    _nominalWeightName = name;
+  }
 
   std::valarray<double> AnalysisHandler::pruneWeights(const std::valarray<double>& weights) {
     if (_weightIndices.size() == weights.size())  return weights;

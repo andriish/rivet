@@ -39,7 +39,7 @@ for EXPT in ${EXPTS[@]}; do
             echo "Downloading $EXPT $YEAR Inspire record to $OUT"
             #URL="https://cds.cern.ch/search?ln=en&cc=${COLL}&op1=a&m1=a&p1=${YEAR}&f1=year&rg=200&jrec=1&of=xm"
             #URL="https://inspirehep.net/search?ln=en&ln=en&p=find+cn+${EXPT}+and+ac+100%2B+and+de+${YEAR}&of=xm&action_search=Search&sf=earliestdate&so=d&rm=&rg=250&sc=0&ot=001,024,035,037,710,245"
-	    URL="https://inspirehep.net/search?ln=en&ln=en&p=find+cn+${EXPT}+and+ac+${NAUTH}%2B+and+de+${YEAR}&of=xm&action_search=Search&sf=earliestdate&so=d&rm=&rg=250&sc=0&ot=001,024,035,037,710,245"
+	        URL="https://old.inspirehep.net/search?ln=en&ln=en&p=find+cn+${EXPT}+and+ac+${NAUTH}%2B+and+de+${YEAR}&of=xm&action_search=Search&sf=earliestdate&so=d&rm=&rg=250&sc=0&ot=001,024,035,037,710,245"
             echo "$URL"
             wget "$URL" -O $OUT
         fi

@@ -1,4 +1,5 @@
 // -*- C++ -*-
+#include "Rivet/Analysis.hh"
 #include "Rivet/Analyses/MC_Cent_pPb.hh"
 #include "Rivet/Tools/Percentile.hh"
 

@@ -238,24 +238,24 @@ mf.write("""
 	    done; \\
 	    rivet-mkhtml $$only -o $@dir $< refyodas/$<:Title=ref > /dev/null 2>&1; \\
 	  else \\
-	    echo $< is the same as reference yoda; \\
+	    echo $< is the same as the reference; \\
 	    touch $@; \\
 	  fi \\
 	else \\
-	  echo $< has no reference yoda; \\
-	  echo "$< has no reference yoda.<br>" > $@; \\
+	  echo $< has no reference yoda file; \\
+	  echo "$< has no reference yoda file." > $@; \\
 	fi
 
 %.reent: %.yoda
 	$(V)rm -rf $@
-	$(V)logfile=$<; logfile="tmp/$${logfile/.yoda/.log}"; \\
+	$(V)logfile=$<; logfile="tmp/$${logfile%.yoda}.log"; \\
 	if rivet-merge $< -o $<.yoda >> $$logfile  2>&1; then\\
 	  if yodadiff -q $< $<.yoda ; then \\
 	    echo $< is reentrant; \\
 	    touch $@; \\
 	  else \\
 	    echo $< is NOT reentrant; \\
-	    echo "$< was declared reentrant but is not.<br>" > $@; \\
+	    echo "$< was declared reentrant but is not." > $@; \\
 	  fi \\
 	fi
 	$(V)rm -rf $<.yoda
@@ -300,17 +300,17 @@ check: $(VALDIFFS) $(REENTRANTS)
 	        echo -n `head -1 tmp/$${diff/.diff/.log}`  >> index.html; \\
 		echo -n ") [<a href=\"$$diff\">yodadiff</a>]" >> index.html; \\
 	        echo "</li>"  >> index.html; \\
-	      fi \\
-	    done \\
+	      fi; \\
+	    done; \\
 	  elif [ -s $$diff ]; then \\
-	    cat $$diff >> index.html; \\
-	  fi \\
+	    echo "      <li>`cat $$diff`</li>" >> index.html; \\
+	  fi; \\
 	done
 	$(V)echo "    </ul>" >> index.html
 	$(V)echo "  </body>" >> index.html
 	$(V)echo "</html>" >> index.html
 	$(V)echo ""
-	$(V)if test `cat index.html | wc -l` -gt 15; then \\
+	$(V)if test -n "`find . -name '*.diff' -and -type f -and ! -size 0`"; then \\
 	  echo "Differences found, open index.html to inspect plots."; \\
 	else \\
 	  echo "No differences found!"; \\
@@ -348,4 +348,4 @@ mf.write("\n")
 
 ## target for fetching the standard HepMC files from cernbox
 mf.write("HEPMC/%.hepmc.gz:\n")
-mf.write("\twget 'http://rivetval.web.cern.ch/rivetval/HEPMC/$(@F)' -O $@\n\n")
+mf.write("\twget 'http://rivetval.web.cern.ch/rivetval/HEPMC/$(@F)' -q -O $@\n\n")

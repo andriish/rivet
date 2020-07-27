@@ -2,24 +2,55 @@
 
 set -e
 
+BUILD="docker build" # --squash"
+test "$TEST" && BUILD="echo $BUILD"
+
 for vhepmc in 2 3; do
-    MSG="Building hepbase image with HepMC=$vhepmc"
-    BASEARGS="--build-arg HEPMC_VERSION=$vhepmc"
-    GCCARGS="$BASEARGS --build-arg CXX_CMD=g++ --build-arg CC_CMD=gcc --build-arg FC_CMD=gfortran"
-    CLANGARGS="$BASEARGS --build-arg CXX_CMD=clang++ --build-arg CC_CMD=clang --build-arg FC_CMD=gfortran"
+    for tex in 0 1; do
+    # for tex in 0; do
 
-    echo "@@ $MSG on Ubuntu with GCC compilers"
-    docker build . -f Dockerfile.ubuntu $GCCARGS -t hepstore/hepbase-ubuntu-gcc-hepmc${vhepmc}-py3
+        MSG="Building hepbase image with HepMC=$vhepmc and TeX=$tex"
 
-    echo "@@ $MSG on Fedora with GCC compilers"
-    docker build . -f Dockerfile.fedora $GCCARGS -t hepstore/hepbase-fedora-gcc-hepmc${vhepmc}-py3
+        BASEARGS="--build-arg HEPMC_VERSION=$vhepmc --build-arg LATEX=$tex"
+        GCCARGS="$BASEARGS --build-arg CXX_CMD=g++ --build-arg CC_CMD=gcc --build-arg FC_CMD=gfortran"
+        CLANGARGS="$BASEARGS --build-arg CXX_CMD=clang++ --build-arg CC_CMD=clang --build-arg FC_CMD=gfortran"
+        if [[ "$tex" = 1 ]]; then TEXSUFFIX="-latex"; else TEXSUFFIX=""; fi
 
-    echo "@@ $MSG on Ubuntu with clang compilers"
-    docker build . -f Dockerfile.ubuntu ${CLANGARGS/gfortran/flang} -t hepstore/hepbase-ubuntu-clang-hepmc${vhepmc}-py3
+        echo "@@ $MSG on Ubuntu with GCC compilers"
+        tag=hepstore/hepbase-ubuntu-gcc-hepmc${vhepmc}-py3$TEXSUFFIX
+        $BUILD . -f Dockerfile.ubuntu $GCCARGS -t $tag
+        test "$PUSH" = 1 && docker push $tag
+        echo -e "\n\n\n"
 
-    # echo "@@ $MSG on Fedora with clang/LLVM compilers"
-    # docker build . -f Dockerfile.fedora ${CLANGARGS}                -t hepstore/hepbase-fedora-clang-hepmc${vhepmc}-py3
+        echo "@@ $MSG on Fedora with GCC compilers"
+        tag=hepstore/hepbase-fedora-gcc-hepmc${vhepmc}-py3$TEXSUFFIX
+        $BUILD . -f Dockerfile.fedora $GCCARGS -t $tag
+        test "$PUSH" = 1 && docker push $tag
+        echo -e "\n\n\n"
 
-    echo "@@ $MSG on Debian with GCC compilers and Python 2"
-    docker build . -f Dockerfile.debpy2 $GCCARGS -t hepstore/hepbase-debian-gcc-hepmc${vhepmc}-py2
+        echo "@@ $MSG on Ubuntu with clang compilers"
+        tag=hepstore/hepbase-ubuntu-clang-hepmc${vhepmc}-py3$TEXSUFFIX
+        $BUILD . -f Dockerfile.ubuntu ${CLANGARGS/gfortran/flang} -t $tag
+        test "$PUSH" = 1 && docker push $tag
+        echo -e "\n\n\n"
+
+        # echo "@@ $MSG on Fedora with clang/LLVM compilers"
+        # tag=hepstore/hepbase-fedora-clang-hepmc${vhepmc}-py3$TEXSUFFIX
+        # $BUILD . -f Dockerfile.fedora ${CLANGARGS} -t $tag
+        # test "$PUSH" = 1 && docker push $tag
+        # echo -e "\n\n\n"
+
+        echo "@@ $MSG on Ubuntu with GCC compilers and Python 2"
+        tag=hepstore/hepbase-ubuntu-gcc-hepmc${vhepmc}-py2$TEXSUFFIX
+        $BUILD . -f Dockerfile.ubuntu-py2 $GCCARGS -t $tag
+        test "$PUSH" = 1 && docker push $tag
+        echo -e "\n\n\n"
+
+        # echo "@@ $MSG on Debian with GCC compilers and Python 2"
+        # tag=hepstore/hepbase-debian-gcc-hepmc${vhepmc}-py2$TEXSUFFIX
+        # $BUILD . -f Dockerfile.debpy2 $GCCARGS -t $tag
+        # test "$PUSH" = 1 && docker push $tag
+        # echo -e "\n\n\n"
+
+    done
 done

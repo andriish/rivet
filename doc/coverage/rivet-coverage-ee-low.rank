@@ -3035,12 +3035,32 @@
 1773081 . Measurement of the $e^+e^-\to\pi^+\pi^-\pi^0$ Cross Section from 0.7 GeV to 3.0 GeV via Initial-State Radiation #implemented#
 1773086 . Search for an Invisibly Decaying $Z^{\prime}$ Boson at Belle II in $e^+ e^- \to \mu^+ \mu^- (e^{\pm} \mu^{\mp})$ Plus Missing Energy Final States
 1773653 . Observation of $D^+\to\eta\eta\pi^+$ and improved measurement of $D^{0(+)}\to\eta\pi^+\pi^{-(0)}$
-1774198 X Study of open-charm decay and radiative transitions of the X(3872) #BR#
-1775344 . Observation of a resonant structure in $e^{+}e^{-} \to K^{+}K^{-}\pi^{0}\pi^{0}$
-1777678 ! Update of inclusive cross sections of single and pairs of identified light charged hadrons #implement#
-1781291 X Search for intermediate resonances and dark gauge bosons in $J/\psi\rightarrow\gamma\pi^0\eta^{\prime}$ #search#
+1774198 . Study of open-charm decay and radiative transitions of the X(3872)
+1775344 . Observation of a Resonant Structure in $e^{+}e^{-} \to K^{+}K^{-}\pi^{0}\pi^{0}$
+1777678 . Update of inclusive cross sections of single and pairs of identified light charged hadrons
+1781291 . Search for intermediate resonances and dark gauge bosons in $J/\psi\rightarrow\gamma\pi^0\eta^{\prime}$
 1782978 . Determination of strong-phase parameters in $D\rightarrow K^0_{S,L}\pi^+\pi^-$
 1783209 . Model-independent determination of the relative strong-phase difference between $D^0$ and $\bar{D}^0\rightarrow K^0_{S,L}\pi^+\pi^-$ and its impact on the measurement of the CKM angle $\gamma/\phi_3$
 1784442 . Observation of the $Y(4220)$ and $Y(4360)$ in the process $e^{+}e^{-} \to \eta J/\psi$
 1785504 . Search for the decay $J/\psi\to\gamma + \rm {invisible}$
 1785816 . Dalitz analysis of $D^{0}\to K^{-}\pi^{+}\eta$ decays at Belle
+1785928 . First search for the $\eta_{c2}(1D)$ in $B$ decays at Belle
+1788734 . Observation of a structure in $e^{+}e^{-} \to \phi \eta^{\prime}$ at $\sqrt{s}$ from 2.05 to 3.08 GeV
+1789269 . Measurement of the $e^+e^- \to\pi^+\pi^- $ process cross section with the SND detector at the VEPP-2000 collider in the energy region $0.525<\sqrt{s}<0.883$ GeV
+1789623 . First Measurements of $\chi_{cJ}\rightarrow \Sigma^{-} \bar{\Sigma}^{+} (J = 0, 1, 2)$ Decays
+1789775 . Evidence for a vector charmoniumlike state in $e^+e^- \to D^+_sD^*_{s2}(2573)^-+c.c.$
+1790502 . Search for $B^0$ Decays to Invisible Final States ($+\gamma$) at Belle
+1791570 . $\Sigma^{+}$ and $\bar{\Sigma}^-$ polarization in the $J/\psi$ and $\psi(3686)$ decays
+1791812 . Measurement of the branching fraction ${\cal B}(\bar B^0\to D^{*+}\ell^-\bar\nu_\ell)$ with early Belle II data
+1791813 . Search for lepton-flavor violating decays $D^{0}\rightarrow X^{0}e^{\pm}\mu^{\mp}$
+1794149 . Precision measurement of the ${\cal B}(\Upsilon(3S)\to\tau^+\tau^-)/{\cal B}(\Upsilon(3S)\to\mu^+\mu^-)$ ratio
+1794329 . Search for a Dark Leptophilic Scalar at BABAR
+1795144 . Precise Measurements of Branching Fractions for $D_s^+$ Meson Decays to Two Pseudoscalar Mesons
+1795949 . Measurement of the Born Cross Sections for $e^+e^-\to D_s^+ D_{s1}(2460)^- +c.c.$ and $e^+e^-\to D_s^{\ast +} D_{s1}(2460)^- +c.c.$
+1796532 . Measurement of the $B^0$ lifetime using fully reconstructed hadronic decays in the 2019 Belle II dataset
+1796822 . Measurement of the Branching Fraction of the Decay $\boldsymbol{B^{+}\to\pi^{+}\pi^{-}\ell^{+}\nu_\ell}$ in Fully Reconstructed Events at Belle
+1797511 . Measurement of the absolute branching fraction of the inclusive decay $\Lambda_c^+ \to K_S^0X$
+1798392 . Charmless $B$ decay reconstruction in 2019 Belle II data
+1799437 . Analysis of the decay $D^0\rightarrow K_{S}^{0} K^{+} K^{-}$
+1800404 . Inclusive $\chi_{cJ}$ and $J/\psi$ decay distributions
+1800477 . Study of the process $e^+e^- \to \eta\pi^0\gamma$ in the energy range $\sqrt{s} = \mbox{1.05-2.00}$ GeV with the SND detector

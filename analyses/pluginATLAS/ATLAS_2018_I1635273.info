@@ -54,4 +54,4 @@ BibTex: '@article{Aaboud:2017soa,
     year = "2018"
 }'
 ReleaseTests:
- - $A LHC-8-W-e
+ - $A pp-8000-Wev

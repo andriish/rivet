@@ -39,8 +39,8 @@ rivet.pc
 Makefile
 Makefile.in
 analyses/Makefile.tmp.*
-analyses/tmp\..*.cc
-**\.tm
+analyses/tmp.*.cc
+**.tm
 **.pdf
 **.toc
 **.bbl
@@ -49,6 +49,7 @@ analyses/tmp\..*.cc
 **.bib
 **.html
 **.tex
+**.txt
 Doxyfile
 doxy/html/.*
 doxy/latex/.*
@@ -102,3 +103,5 @@ bin/hepmc-compress
 bin/rivet-hepmz
 bin/converall.log
 bin/converall.sh
+
+NaN.yoda

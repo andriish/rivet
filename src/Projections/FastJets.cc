@@ -139,7 +139,7 @@ namespace Rivet {
   // STATIC
   Jets FastJets::mkJets(const PseudoJets& pjs, const Particles& fsparticles, const Particles& tagparticles) {
     Jets rtn; rtn.reserve(pjs.size());
-    for (const PseudoJet pj : pjs) {
+    for (const PseudoJet& pj : pjs) {
       rtn.push_back(FastJets::mkJet(pj, fsparticles, tagparticles));
     }
     return rtn;
