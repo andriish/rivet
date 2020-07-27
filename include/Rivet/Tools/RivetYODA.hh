@@ -100,7 +100,7 @@ namespace Rivet {
     // todo: do we need to deal with users using fractions directly?
     void fill( double x, double weight=1.0, double fraction=1.0 ) {
       (void)fraction; //< ???
-      if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
+      if ( std::isnan(x) ) throw YODA::RangeError("X is NaN"); //< efficient?
       _fills.insert( { x, weight } );
     }
 
@@ -126,8 +126,8 @@ namespace Rivet {
     /// @todo Do we need to deal with users using fractions directly?
     void fill( double x, double y, double weight=1.0, double fraction=1.0 ) {
       (void)fraction;
-      if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
-      if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN");
+      if ( std::isnan(x) ) throw YODA::RangeError("X is NaN"); //< efficient?
+      if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN"); //< efficient?
       _fills.insert( { YODA::Profile1D::FillType{x,y}, weight } );
     }
 
@@ -154,8 +154,8 @@ namespace Rivet {
     /// @todo Do we need to deal with users using fractions directly?
     void fill( double x, double y, double weight=1.0, double fraction=1.0 ) {
       (void)fraction;
-      if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
-      if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN");
+      if ( std::isnan(x) ) throw YODA::RangeError("X is NaN"); //< efficient?
+      if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN"); //< efficient?
       _fills.insert( { YODA::Histo2D::FillType{x,y}, weight } );
     }
 
@@ -182,9 +182,9 @@ namespace Rivet {
     /// @todo Do we need to deal with users using fractions directly?
     void fill( double x, double y, double z, double weight=1.0, double fraction=1.0 ) {
       (void)fraction;
-      if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
-      if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN");
-      if ( std::isnan(z) ) throw YODA::RangeError("Z is NaN");
+      if ( std::isnan(x) ) throw YODA::RangeError("X is NaN"); //< efficient?
+      if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN"); //< efficient?
+      if ( std::isnan(z) ) throw YODA::RangeError("Z is NaN"); //< efficient?
       _fills.insert( { YODA::Profile2D::FillType{x,y,z}, weight } );
     }
 
@@ -493,11 +493,11 @@ namespace Rivet {
     //vector<typename T::Ptr> _persistent;
     vector<shared_ptr<T>> _persistent;
 
-    /// This is the copy of _persistent that will be passed to finalize().
+    /// The copy of M-entry _persistent that will be passed to finalize().
     //vector<typename T::Ptr> _final;
     vector<shared_ptr<T>> _final;
 
-    /// N of these, one for each event in evgroup.
+    /// A set of M subevent-wrappers, one for each weight, each containing one entry for each of the N events in evgroup.
     //vector<typename TupleWrapper<T>::Ptr> _evgroup;
     vector<shared_ptr<TupleWrapper<T>>> _evgroup;
 
