@@ -157,7 +157,7 @@ namespace Rivet {
       if (dilep.pT() <= 30*GeV)  vetoEvent;
 
       // Fill cross section as function of veto-jet pt before applying jet veto
-      if (jets30.empty() || jets30[0].pT()/GeV < 30.) _h["jetveto"]->fillBin(0);	
+      if (jets30.empty() || jets30[0].pT()/GeV < 30.) _h["jetveto"]->fillBin(0);
       if (jets30.empty() || jets30[0].pT()/GeV < 35.) _h["jetveto"]->fillBin(1);
       if (jets30.empty() || jets30[0].pT()/GeV < 40.) _h["jetveto"]->fillBin(2);
       if (jets30.empty() || jets30[0].pT()/GeV < 45.) _h["jetveto"]->fillBin(3);
@@ -192,14 +192,13 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       const double sf(crossSection()/femtobarn/sumOfWeights());
-      // scale histogram by binwidth, as bin content is actually a integrated fiducial cross section 
+      // scale histogram by binwidth, as bin content is actually a integrated fiducial cross section
       scale(_h["jetveto"], 5.);
       // scale to cross section
-      for (auto &hist : _h) {
+      for (auto& hist : _h) {
         scale(hist.second, sf);
         if (hist.first.find("norm") != string::npos) normalize(hist.second);
       }
-
     }
 
     //@}
@@ -212,6 +211,7 @@ namespace Rivet {
     //@}
 
   };
+
 
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2019_I1734263);
