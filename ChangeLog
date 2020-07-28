@@ -1,3 +1,7 @@
+2020-07-22  Christian Gutschow  <chris.g@cern.ch>
+
+	* Added self-guided Rivet "truth analysis" tutorial
+
 2020-07-16  Jon Butterworth <j.butterworth@ucl.ac.uk>
 
 	* Allow user to specify nominal weight. Also do not write out weight name it skip weights is selected
