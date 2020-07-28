@@ -96,7 +96,7 @@ build_fedora_gcc_hepmc2_py3:
 build_fedora_gcc_hepmc3_py3:
   variables:
     ARCH: fedora-gcc-hepmc3-py3
-  only: [schedules]
+  #only: [schedules]
   <<: *build_template
 
 build_ubuntu_gcc_hepmc2_py2:
@@ -107,7 +107,7 @@ build_ubuntu_gcc_hepmc2_py2:
 build_ubuntu_gcc_hepmc3_py2:
   variables:
     ARCH: ubuntu-gcc-hepmc3-py2
-  only: [schedules]
+  #only: [schedules]
   <<: *build_template
 
 
@@ -179,7 +179,7 @@ get_test_hepmc:
     - rivet --pwd -a MC_TTBAR:TTMODE=ANYLEP,ATLAS_2017_I1614149,ATLAS_2018_I1646686,ATLAS_2018_I1656578 -H ttbar_test_run.yoda $CI_PROJECT_DIR/tt.hepmc.gz
     - | #monthly full validation only... SLOW!
       if [[ "$VAL" == "1" ]]; then
-        if [[ "$ARCH" == "debian-gcc-hepmc2-py2" ]]; then
+        if [[ "$ARCH" == "ubuntu-gcc-hepmc2-py2" ]]; then
           cd $VAL_PREFIX
           rivet-mkvaldir VALDIR --ref-dir $CI_PROJECT_DIR/analyses/valref/
           cd VALDIR
@@ -234,7 +234,7 @@ check_plugin_fedora_gcc_hepmc2_py3:
 check_plugin_fedora_gcc_hepmc3_py3:
   variables:
     ARCH: fedora-gcc-hepmc3-py3
-  only: [schedules]
+  #only: [schedules]
   needs: [build_fedora_gcc_hepmc3_py3, get_test_hepmc]
   <<: *check_plugin_template
 
@@ -247,7 +247,7 @@ check_plugin_ubuntu_gcc_hepmc2_py2:
 check_plugin_ubuntu_gcc_hepmc3_py2:
   variables:
     ARCH: ubuntu-gcc-hepmc3-py2
-  only: [schedules]
+  #only: [schedules]
   needs: [build_ubuntu_gcc_hepmc3_py2, get_test_hepmc]
   <<: *check_plugin_template
 
@@ -311,7 +311,7 @@ make_plots_fedora_gcc_hepmc2_py3:
 make_plots_fedora_gcc_hepmc3_py3:
   variables:
     ARCH: fedora-gcc-hepmc3-py3
-  only: [schedules]
+  #only: [schedules]
   needs: [check_plugin_fedora_gcc_hepmc3_py3]
   <<: *make_plots_template
 
@@ -324,6 +324,6 @@ make_plots_ubuntu_gcc_hepmc2_py2:
 make_plots_ubuntu_gcc_hepmc3_py2:
   variables:
     ARCH: ubuntu-gcc-hepmc3-py2
-  only: [schedules]
+  #only: [schedules]
   needs: [check_plugin_ubuntu_gcc_hepmc3_py2]
   <<: *make_plots_template
