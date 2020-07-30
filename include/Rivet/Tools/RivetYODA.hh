@@ -54,7 +54,12 @@ namespace Rivet {
   using Fills = multiset<Fill<T>>;
 
 
-  /// Wrappers for analysis objects to store all fills unaggregated, until collapsed.
+  /// @brief Wrappers for analysis objects to store all fills unaggregated, until collapsed by pushToPersistent.
+  ///
+  /// The specialisations of this inherit from the YODA analysis object types,
+  /// and are used as such. The user-facing analysis objects in
+  /// Analysis::analyze() are TupleWrappers on the apparent type (accessed transparently
+  /// via the dereferencing of the current Wrapper<T>::active() pointer).
   ///
   /// @todo
   template <class T>
@@ -364,7 +369,8 @@ namespace Rivet {
   ///
   /// Specialisations of this (to each type of YODA object) are effectively the
   /// user-facing types in Rivet analyses, modulo a further wrapping via
-  /// the Rivet shared-pointer type.
+  /// the Rivet shared-pointer type. They can expose either TupleWrapper<T>
+  /// or T active pointers, for the analyze() and finalize() steps respectively.
   ///
   /// @todo RENAME TO SOMETHING BETTER
   ///
