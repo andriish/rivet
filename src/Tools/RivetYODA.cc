@@ -210,7 +210,7 @@ namespace {
 
     set<double> edges() const {
       set<double> edgeset;
-      for ( unsigned int i = 0; i < xlo.size(); ++i ) {
+      for ( size_t i = 0; i < xlo.size(); ++i ) {
         edgeset.insert(xlo[i]);
         edgeset.insert(xhi[i]);
       }
@@ -447,11 +447,10 @@ namespace {
   /// an ordered vector of fills (including NOFILLs) for each sub-event.
   template <class T>
   vector< vector<Fill<T> > >
-  match_fills(const vector<typename TupleWrapper<T>::Ptr> & evgroup, const Fill<T> & NOFILL)
-  {
+  match_fills(const vector<typename TupleWrapper<T>::Ptr> & evgroup, const Fill<T> & NOFILL) {
     vector< vector<Fill<T> > > matched;
     // First just copy subevents into vectors and find the longest vector.
-    unsigned int maxfill = 0; // length of biggest vector
+    size_t maxfill = 0; // length of biggest vector
     int imax = 0; // index position of biggest vector
     for ( const auto & it : evgroup ) {
       const auto & subev = it->fills();
@@ -525,25 +524,16 @@ namespace Rivet {
       // commit<T>( _persistent, linedUpXs, weight );
       commit2<T>( _persistent, linedUpXs, weight, nlowfrac );
     }
+
     _evgroup.clear();
     _active.reset();
-  }
-
-
-  template <class T>
-  void Wrapper<T>::pushToFinal() {
-    for ( size_t m = 0; m < _persistent.size(); ++m ) {
-      copyao(_persistent.at(m), _final.at(m));
-      if ( _final[m]->path().substr(0,4) == "/RAW" )
-        _final[m]->setPath(_final[m]->path().substr(4));
-    }
   }
 
 
   // template <>
   // void Wrapper<YODA::Counter>::pushToPersistent(const vector<valarray<double> >& weight) {
   //   for ( size_t n = 0; n < _evgroup.size(); ++n ) {
-  //     for ( const auto & f : _evgroup[n]->fills() ) {
+  //     for ( const auto& f : _evgroup[n]->fills() ) {
   //       for ( size_t m = 0; m < _persistent.size(); ++m ) {
   //         _persistent[m]->fill( f.second * weight[n][m] );
   //       }
@@ -557,10 +547,10 @@ namespace Rivet {
     for ( size_t m = 0; m < _persistent.size(); ++m ) {
       vector<double> sumfw(1, 0.0);
       for ( size_t n = 0; n < _evgroup.size(); ++n ) {
-        const auto & fills = _evgroup[n]->fills();
+        const auto& fills = _evgroup[n]->fills();
         if ( fills.size() > sumfw.size() ) sumfw.resize(fills.size(), 0.0);
         int fi = 0;
-        for ( const auto & f : _evgroup[n]->fills() )
+        for ( const auto& f : _evgroup[n]->fills() )
           sumfw[fi++] += f.second * weight[n][m];
       }
       for ( double fw : sumfw )
@@ -589,6 +579,17 @@ namespace Rivet {
   void Wrapper<YODA::Scatter3D>::pushToPersistent(const vector<valarray<double> >& weight, double) {
     _evgroup.clear();
     _active.reset();
+  }
+
+
+  template <class T>
+  void Wrapper<T>::pushToFinal() {
+    for ( size_t m = 0; m < _persistent.size(); ++m ) {
+      copyao(_persistent.at(m), _final.at(m));
+      // Remove the /RAW prefix, if there is one, from the final copy
+      if ( _final[m]->path().substr(0,4) == "/RAW" )
+        _final[m]->setPath(_final[m]->path().substr(4));
+    }
   }
 
 

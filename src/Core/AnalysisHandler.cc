@@ -21,7 +21,7 @@ namespace Rivet {
     : _runname(runname), _userxs{NAN, NAN},
       _initialised(false), _ignoreBeams(false),
       _skipWeights(false), _matchWeightNames(""),
-      _unmatchWeightNames(""), 
+      _unmatchWeightNames(""),
       _nominalWeightName(""),
       _weightCap(0.),
       _NLOSmearing(0.), _defaultWeightIdx(0),
@@ -303,19 +303,20 @@ namespace Rivet {
     // Set the cross section based on what is reported by this event.
     if ( ge.cross_section() ) setCrossSection(HepMCUtils::crossSection(ge));
 
-    // Won't happen for first event because _eventNumber is set in init()
+    // If the event number has changed, sync the sub-event analysis objects to persistent
+    // NB. Won't happen for first event because _eventNumber is set in init()
     if (_eventNumber != ge.event_number()) {
       pushToPersistent();
       _eventNumber = ge.event_number();
     }
 
-    MSG_TRACE("Starting new sub event");
+    // Make a new sub-event: affects every analysis object
+    MSG_TRACE("Starting new sub-event");
     _eventCounter.get()->newSubEvent();
-
     for (const AnaHandle& a : analyses()) {
-        for (auto ao : a->analysisObjects()) {
-            ao.get()->newSubEvent();
-        }
+      for (auto ao : a->analysisObjects()) {
+        ao.get()->newSubEvent();
+      }
     }
 
     _subEventWeights.push_back(pruneWeights(event.weights()));
@@ -343,7 +344,8 @@ namespace Rivet {
       MSG_TRACE("Finished running analysis " << a->name());
     }
 
-    if ( _dumpPeriod > 0 && numEvents() > 0 && numEvents()%_dumpPeriod == 0 ) {
+    // Dump current final histograms
+    if ( _dumpPeriod > 0 && numEvents() > 0 && numEvents() % _dumpPeriod == 0 ) {
       MSG_DEBUG("Dumping intermediate results to " << _dumpFile << ".");
       _dumping = numEvents()/_dumpPeriod;
       finalize();

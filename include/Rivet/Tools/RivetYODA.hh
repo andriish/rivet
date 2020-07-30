@@ -249,11 +249,11 @@ namespace Rivet {
     virtual const YODA::AnalysisObject& operator * () const = 0;
 
     /// @todo Rename to setActive(idx)
-    virtual void setActiveWeightIdx(unsigned int iWeight) = 0;
+    virtual void setActiveWeightIdx(size_t iWeight) = 0;
 
     /// Set active object for finalize
     /// @todo Rename to setActiveFinal(idx)
-    virtual void setActiveFinalWeightIdx(unsigned int iWeight) = 0;
+    virtual void setActiveFinalWeightIdx(size_t iWeight) = 0;
 
     virtual void unsetActiveWeight() = 0;
 
@@ -375,10 +375,12 @@ namespace Rivet {
   public:
 
     friend class Analysis;
+    friend class AnalysisHandler;
 
     using Inner = T;
     using TPtr = shared_ptr<T>;
     using TFillPtr = shared_ptr<TupleWrapper<T>>;
+
 
     Wrapper() = default;
 
@@ -387,9 +389,16 @@ namespace Rivet {
     ~Wrapper();
 
 
-    /// DOCUMENT!
+    /// Get the current active analysis object (may be either persistent or final, depending on stage)
     // typename T::Ptr active() const;
     shared_ptr<T> active() const;
+
+    /// Get the AO path of the object, without variation suffix
+    string basePath() const { return _basePath; }
+
+    /// Get the AO name of the object, without variation suffix
+    string baseName() const { return _baseName; }
+
 
     /// Test for object validity.
     explicit operator bool() const { return static_cast<bool>(_active); } // Don't use active() here, assert will catch
@@ -410,17 +419,6 @@ namespace Rivet {
     /// Forwarding dereference operator.
     const T& operator * () const { return *active(); }
 
-
-    /// @note Can be useful for weight analysis (see e.g. MC_WEIGHTS for use).
-    T* _getPersistent (unsigned int iWeight) { return _persistent.at(iWeight).get(); }
-
-    string basePath() const { return _basePath; }
-
-    string baseName() const { return _baseName; }
-
-    /// DOCUMENT!
-    /// @todo These need to be re-thought.
-    void reset() { active()->reset(); }
 
     /// Equality operator
     /// @todo These probably need to loop over all? Do we even want to provide equality? How about... no
@@ -456,37 +454,48 @@ namespace Rivet {
 
   private:
 
-    void setActiveWeightIdx(unsigned int iWeight) {
+    /// Set the active-object pointer to point at a variation in the persistent set
+    void setActiveWeightIdx(size_t iWeight) {
       _active = _persistent.at(iWeight);
     }
 
-    void setActiveFinalWeightIdx(unsigned int iWeight) {
+    /// Set the active-object pointer to point at a variation in the final set
+    void setActiveFinalWeightIdx(size_t iWeight) {
       _active = _final.at(iWeight);
     }
 
+    /// Clear the active object pointer
+    void reset() { active()->reset(); }
+
+    /// Unset the active-object pointer
+    ///
     /// @note This is for dev only---we shouldn't need this in real runs.
     void unsetActiveWeight() { _active.reset(); }
 
-    /// @todo DOCUMENT
+    /// @note Can be useful for weight analysis (see e.g. MC_WEIGHTS for use).
+    T* _getPersistent (size_t iWeight) { return _persistent.at(iWeight).get(); }
+
+
+    /// @brief Create new object analysis-object wrappers for this sub-event
+    ///
+    /// Called by AnalysisHandler::analyze() before dispatch to Analysis::analyze().
     void newSubEvent();
 
-    /// @todo DOCUMENT
+    /// Get the currently active (tuple wrapper on) analysis object
     virtual YODA::AnalysisObjectPtr activeYODAPtr() const { return _active; }
 
-    /// @todo DOCUMENT
+    /// Get the set of persistent (i.e. after whole event groups) live objects, as used by Analysis::analyze()
     //const vector<typename T::Ptr>& persistent() const { return _persistent; }
     const vector<shared_ptr<T>>& persistent() const { return _persistent; }
 
-    /// @todo DOCUMENT
+    /// Get the set of final analysis objects, as used by Analysis::finalize() and written out
     //const vector<typename T::Ptr>& final() const { return _final; }
     const vector<shared_ptr<T>>& final() const { return _final; }
 
-    /// To be implemented for each type
-    /// @todo DOCUMENT
+    /// Collapse the _evgroup set of tuple wrappers into fills of the persistent objects, using fractional fills if there are subevents
     void pushToPersistent(const vector<std::valarray<double> >& weight, double nlowfrac=0.0);
 
-    /// To be implemented for each type
-    /// @todo DOCUMENT
+    /// Copy all variations from the "live" persistent set to the final collection used by Analysis::finalize()
     void pushToFinal();
 
 
@@ -558,13 +567,13 @@ namespace Rivet {
     {}
 
     /// Goes right through to the active Wrapper<YODA> object's members
-    T & operator->() {
+    T& operator -> () {
       if (_p == nullptr) throw Error("Dereferencing null AnalysisObject pointer. Is there an unbooked histogram variable?");
       return *_p;
     }
 
     /// Goes right through to the active Wrapper<YODA> object's members
-    const T & operator -> () const                {
+    const T& operator -> () const                {
       if (_p == nullptr) throw Error("Dereferencing null AnalysisObject pointer. Is there an unbooked histogram variable?");
       return *_p;
     }
@@ -593,25 +602,25 @@ namespace Rivet {
 
     /// Less-than for ptr ordering.
     template <typename U>
-    bool operator<(const rivet_shared_ptr<U>& other) const {
+    bool operator < (const rivet_shared_ptr<U>& other) const {
       return _p < other._p;
     }
 
     /// Greater-than for ptr ordering.
     template <typename U>
-    bool operator>(const rivet_shared_ptr<U>& other) const {
+    bool operator > (const rivet_shared_ptr<U>& other) const {
       return _p > other._p;
     }
 
     /// Less-equals for ptr ordering.
     template <typename U>
-    bool operator<=(const rivet_shared_ptr<U> & other) const {
+    bool operator <= (const rivet_shared_ptr<U> & other) const {
       return _p <= other._p;
     }
 
     /// Greater-equals for ptr ordering.
     template <typename U>
-    bool operator>=(const rivet_shared_ptr<U> & other) const {
+    bool operator >= (const rivet_shared_ptr<U> & other) const {
       return _p >= other._p;
     }
 
