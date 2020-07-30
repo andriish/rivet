@@ -2,6 +2,7 @@
 #define RIVET_RIVETYODA_HH
 
 #include "Rivet/Config/RivetCommon.hh"
+#include "Rivet/Tools/Logging.hh"
 #include "YODA/AnalysisObject.h"
 #include "YODA/Counter.h"
 #include "YODA/Histo1D.h"
