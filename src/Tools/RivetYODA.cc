@@ -139,8 +139,8 @@ namespace {
     SmearWindows1D(T& h, const vector<Fill<T>>& fills, double fsmear=0.5) {
       static bool init = false;
       if ( !init ) {
+        MSG_DEBUG("Smearing Window: " << fsmear);
         init = true;
-        std::cerr << "Smearing Window: " << fsmear << std::endl;
       }
       const int nf = fills.size();
       xhi.resize(nf);
