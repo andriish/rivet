@@ -43,7 +43,7 @@ RUN true \
     && dnf clean all
 
 RUN true \
-    && if test "$HEPMC_VERSION" = "3"; then HEPMC_FULL_VERSION=3.2.1; else HEPMC_FULL_VERSION=2.06.11; fi \
+    && if test "$HEPMC_VERSION" = "3"; then HEPMC_FULL_VERSION=3.2.2; else HEPMC_FULL_VERSION=2.06.11; fi \
     && mkdir /code && cd /code \
     && wget https://gitlab.com/hepcedar/rivetbootstrap/raw/${RIVET_VERSION}/rivet-bootstrap \
     && chmod +x rivet-bootstrap \
@@ -59,7 +59,9 @@ RUN if test "$LATEX" = "1"; then \
       dnf clean all; \
     fi
 
-ENV LD_LIBRARY_PATH /usr/local/lib
+RUN echo "alias ll='ls -l'" > /etc/profile.d/ll.sh
+
+ENV LD_LIBRARY_PATH /usr/local/lib:/usr/local/lib64
 ENV PYTHONPATH /usr/local/lib64/python3.8/site-packages
 
 WORKDIR /work
