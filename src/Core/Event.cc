@@ -8,7 +8,6 @@
 namespace Rivet {
 
 
-
   ParticlePair Event::beams() const { return Rivet::beams(*this); }
 
 
@@ -26,7 +25,7 @@ namespace Rivet {
   }
 
 
-  void Event::_strip(GenEvent & ge) {
+  void Event::_strip(GenEvent& ge) {
     HepMCUtils::strip(ge);
   }
 
