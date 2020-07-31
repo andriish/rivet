@@ -667,11 +667,6 @@ namespace Rivet {
       (void) iW;
     }
 
-    /// @name Get the default/nominal weight index for the original weight matrix
-    /// @todo Should be protected, not public?
-    size_t _globalDefaultWeightIndex() const;
-
-
     /// @name Accessing options for this Analysis instance.
     //@{
 
@@ -818,9 +813,6 @@ namespace Rivet {
 
     /// Get the list of weight names from the handler
     YODA::AnalysisObjectPtr _getPreload(string name) const;
-
-    /// Get the default/nominal weight index
-    size_t _defaultWeightIndex() const;
 
     /// Get an AO from another analysis
     MultiweightAOPtr _getOtherAnalysisObject(const std::string & ananame, const std::string& name);
@@ -1091,6 +1083,9 @@ namespace Rivet {
     /// @defgroup analysis_aoaccess Data object registration, retrieval, and removal
     /// @{
 
+    /// Get the default/nominal weight index
+    size_t defaultWeightIndex() const;
+
     /// Get a preloaded YODA object.
     template <typename YODAT>
     shared_ptr<YODAT> getPreload(string path) const {
@@ -1192,8 +1187,8 @@ namespace Rivet {
       for (const MultiweightAOPtr& ao : analysisObjects()) {
 
         // Check AO base-name first
-        ao.get()->setActiveWeightIdx(_defaultWeightIndex());
-        aonew.get()->setActiveWeightIdx(_defaultWeightIndex());
+        ao.get()->setActiveWeightIdx(defaultWeightIndex());
+        aonew.get()->setActiveWeightIdx(defaultWeightIndex());
         if (ao->path() != aonew->path()) continue;
 
         // If base-name matches, check compatibility
@@ -1245,7 +1240,7 @@ namespace Rivet {
     template <typename AO=MultiweightAOPtr>
     const AO getAnalysisObject(const std::string& aoname) const {
       for (const MultiweightAOPtr& ao : analysisObjects()) {
-        ao.get()->setActiveWeightIdx(_defaultWeightIndex());
+        ao.get()->setActiveWeightIdx(defaultWeightIndex());
         if (ao->path() == histoPath(aoname)) {
           // return dynamic_pointer_cast<AO>(ao);
           return AO(dynamic_pointer_cast<typename AO::value_type>(ao.get()));
