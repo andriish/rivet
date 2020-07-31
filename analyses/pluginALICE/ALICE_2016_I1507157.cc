@@ -51,8 +51,7 @@ namespace Rivet {
       declare(pp,"APRIM");
 
       // The event mixing projection
-      const size_t defaultWeightIdx = _globalDefaultWeightIndex();
-      declare(EventMixingFinalState(cfsMult, pp, 5, 0, 100, 10, defaultWeightIdx),"EVM");
+      declare(EventMixingFinalState(cfsMult, pp, 5, 0, 100, 10, defaultWeightIndex()),"EVM");
       // The particle pairs.
       pid = {{211, -211}, {321, -321}, {2212, -2212}, {3122, -3122}, {211, 211},
              {321, 321}, {2212, 2212}, {3122, 3122}, {2212, 3122}, {2212, -3122}};

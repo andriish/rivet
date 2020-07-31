@@ -996,12 +996,8 @@ namespace Rivet {
     return handler().getPreload(path);
   }
 
-  size_t Analysis::_defaultWeightIndex() const {
+  size_t Analysis::defaultWeightIndex() const {
     return handler().defaultWeightIndex();
-  }
-
-  size_t Analysis::_globalDefaultWeightIndex() const {
-    return handler().globalDefaultWeightIndex();
   }
 
   MultiweightAOPtr Analysis::_getOtherAnalysisObject(const std::string & ananame, const std::string& name) {
