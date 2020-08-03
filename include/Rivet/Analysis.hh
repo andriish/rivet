@@ -1138,6 +1138,7 @@ namespace Rivet {
         YODAPtrT preload = getPreload<YODAT>(finalpath);
         if ( preload ) {
           if ( !bookingCompatible(preload, yaop) ) {
+            /// @todo What about if/when we want to make the final objects the Scatter or binned persistent type?
             MSG_WARNING("Found incompatible pre-existing data object with same base path "
                         << finalpath <<  " for " << name());
             preload = nullptr;

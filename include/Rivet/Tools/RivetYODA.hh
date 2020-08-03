@@ -67,7 +67,7 @@ namespace Rivet {
 
 
   /// TupleWrapper specialisation for Counter
-  template<>
+  template <>
   class TupleWrapper<YODA::Counter> : public YODA::Counter {
   public:
 
@@ -94,7 +94,7 @@ namespace Rivet {
 
 
   /// TupleWrapper specialisation for Histo1D
-  template<>
+  template <>
   class TupleWrapper<YODA::Histo1D> : public YODA::Histo1D {
   public:
 
@@ -121,7 +121,7 @@ namespace Rivet {
 
 
   /// TupleWrapper specialisation for Profile1D
-  template<>
+  template <>
   class TupleWrapper<YODA::Profile1D> : public YODA::Profile1D {
   public:
     typedef shared_ptr<TupleWrapper<YODA::Profile1D>> Ptr;
@@ -148,7 +148,7 @@ namespace Rivet {
 
 
   /// TupleWrapper specialisation for Histo2D
-  template<>
+  template <>
   class TupleWrapper<YODA::Histo2D> : public YODA::Histo2D {
   public:
 
@@ -176,7 +176,7 @@ namespace Rivet {
 
 
   /// TupleWrapper specialisation for Profile2D
-  template<>
+  template <>
   class TupleWrapper<YODA::Profile2D> : public YODA::Profile2D {
   public:
 
@@ -205,7 +205,7 @@ namespace Rivet {
 
 
   /// TupleWrapper specialisation for Scatter1D
-  template<>
+  template <>
   class TupleWrapper<YODA::Scatter1D> : public YODA::Scatter1D {
   public:
 
@@ -217,7 +217,7 @@ namespace Rivet {
 
 
   /// TupleWrapper specialisation for Scatter2D
-  template<>
+  template <>
   class TupleWrapper<YODA::Scatter2D> : public YODA::Scatter2D {
   public:
 
@@ -229,7 +229,7 @@ namespace Rivet {
 
 
   /// TupleWrapper specialisation for Scatter3D
-  template<>
+  template <>
   class TupleWrapper<YODA::Scatter3D> : public YODA::Scatter3D {
   public:
 
@@ -484,7 +484,8 @@ namespace Rivet {
 
     /// @brief Create new object analysis-object wrappers for this sub-event
     ///
-    /// Called by AnalysisHandler::analyze() before dispatch to Analysis::analyze().
+    /// Called every sub-event by AnalysisHandler::analyze() before dispatch to Analysis::analyze().
+    /// The fill values will be redistributed over variations by pushToPersistent().
     void newSubEvent();
 
     /// Get the currently active (tuple wrapper on) analysis object
@@ -696,14 +697,14 @@ namespace Rivet {
 
   /// Traits class to access the type of the AnalysisObject in the reference files.
   template<typename T> struct ReferenceTraits {};
-  template<> struct ReferenceTraits<Counter> { typedef Counter RefT; };
-  template<> struct ReferenceTraits<Scatter1D> { typedef Scatter1D RefT; };
-  template<> struct ReferenceTraits<Histo1D> { typedef Scatter2D RefT; };
-  template<> struct ReferenceTraits<Profile1D> { typedef Scatter2D RefT; };
-  template<> struct ReferenceTraits<Scatter2D> { typedef Scatter2D RefT; };
-  template<> struct ReferenceTraits<Histo2D> { typedef Scatter3D RefT; };
-  template<> struct ReferenceTraits<Profile2D> { typedef Scatter3D RefT; };
-  template<> struct ReferenceTraits<Scatter3D> { typedef Scatter3D RefT; };
+  template <> struct ReferenceTraits<Counter> { typedef Counter RefT; };
+  template <> struct ReferenceTraits<Scatter1D> { typedef Scatter1D RefT; };
+  template <> struct ReferenceTraits<Histo1D> { typedef Scatter2D RefT; };
+  template <> struct ReferenceTraits<Profile1D> { typedef Scatter2D RefT; };
+  template <> struct ReferenceTraits<Scatter2D> { typedef Scatter2D RefT; };
+  template <> struct ReferenceTraits<Histo2D> { typedef Scatter3D RefT; };
+  template <> struct ReferenceTraits<Profile2D> { typedef Scatter3D RefT; };
+  template <> struct ReferenceTraits<Scatter3D> { typedef Scatter3D RefT; };
 
 
   /// If @a dst and @a src both are of same subclass T, copy the
