@@ -458,6 +458,16 @@ namespace Rivet {
     }
 
 
+    /// Direct access to the YODA type in weight stream @a iWeight
+    ///
+    /// @note This is naturally a private member, but is exposed publicly for the sole exceptions of
+    /// analyses explicitly for studying weight distributions, e.g. MC_WEIGHTS. The "private style"
+    /// leading underscore in the name highlights that this should not normally be called by users.
+    ///
+    /// @todo Rename to minimize the clash with persistent()
+    T* _getPersistent(size_t iWeight) { return _persistent.at(iWeight).get(); }
+
+
   private:
 
     /// Set the active-object pointer to point at a variation in the persistent set
@@ -477,9 +487,6 @@ namespace Rivet {
     ///
     /// @note This is for dev only---we shouldn't need this in real runs.
     void unsetActiveWeight() { _active.reset(); }
-
-    /// @note Can be useful for weight analysis (see e.g. MC_WEIGHTS for use).
-    T* _getPersistent (size_t iWeight) { return _persistent.at(iWeight).get(); }
 
 
     /// @brief Create new object analysis-object wrappers for this sub-event
