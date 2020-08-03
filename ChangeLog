@@ -1,3 +1,12 @@
+2020-07-30  Christian Gutschow  <chris.g@cern.ch>
+
+	* Submission of ATLAS_2020_I1803608
+
+2020-07-28  Christian Gutschow  <chris.g@cern.ch>
+
+	* Fix bug related to (de)selection of weight subsets
+	* Make Event class aware of selected weight subsets
+
 2020-07-22  Christian Gutschow  <chris.g@cern.ch>
 
 	* Added self-guided Rivet "truth analysis" tutorial

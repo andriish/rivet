@@ -37,11 +37,9 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) { 
 
-      const size_t numWeights = handler().numWeights();
-      const vector<size_t>& indices = handler().weightIndices();
-      assert(numWeights == indices.size());
+      const size_t numWeights = event.weights().size();
       for (size_t m = 0; m < numWeights; ++m) {
-        const double weight = event.weights()[indices[m]];
+        const double weight = event.weights()[m];
         _h_weight_100.get()->_getPersistent(m)->fill(weight, 1.0);
         _h_weight_10.get()->_getPersistent(m)->fill(weight, 1.0);
         if (weight < 0.) {

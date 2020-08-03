@@ -138,7 +138,7 @@ namespace {
       static bool init = false;
       if ( !init ) {
         init = true;
-        std::cerr << "Smearing Window: " << fsmear << std::endl;
+        //std::cerr << "Smearing Window: " << fsmear << std::endl;
       }
       const int nf = fills.size();
       xhi.resize(nf);

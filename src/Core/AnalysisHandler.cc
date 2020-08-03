@@ -215,19 +215,19 @@ namespace Rivet {
           patterns.push_back( std::regex(pattern) );
         }
         // Check which weights match supplied weight-name pattern
-        vector<string> selected_subset; _weightIndices.clear();
+        vector<string> selected_subset; vector<size_t> selected_indices;
         for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
-          if (i == _defaultWeightIdx) {
+          if (_weightIndices[i] == _defaultWeightIdx) {
             // The default weight cannot be "unselected"
-            _rivetDefaultWeightIdx = _weightIndices.size();
-            _weightIndices.push_back(i);
+            _rivetDefaultWeightIdx = selected_indices.size();
+            selected_indices.push_back(_weightIndices[i]);
             selected_subset.push_back(_weightNames[i]);
             MSG_DEBUG("Selected nominal weight: " << _weightNames[i]);
             continue;
           }
           for (const std::regex& re : patterns) {
             if ( std::regex_match(_weightNames[i], re) ) {
-              _weightIndices.push_back(i);
+              selected_indices.push_back(_weightIndices[i]);
               selected_subset.push_back(_weightNames[i]);
               MSG_DEBUG("Selected variation weight: " << _weightNames[i]);
               break;
@@ -235,6 +235,7 @@ namespace Rivet {
           }
         }
         _weightNames = selected_subset;
+        _weightIndices = selected_indices;
       }
 
       // Check if the remaining weight names match supplied string/regexes and *de*select accordingly
@@ -247,12 +248,12 @@ namespace Rivet {
         }
       }
       // Check which weights match supplied weight-name pattern
-      vector<string> selected_subset; _weightIndices.clear();
+      vector<string> selected_subset; vector<size_t> selected_indices;
       for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
-        if (i == _defaultWeightIdx) {
+        if (_weightIndices[i] == _defaultWeightIdx) {
           // The default weight cannot be vetoed
-          _rivetDefaultWeightIdx = _weightIndices.size();
-          _weightIndices.push_back(i);
+          _rivetDefaultWeightIdx = selected_indices.size();
+          selected_indices.push_back(_weightIndices[i]);
           selected_subset.push_back(_weightNames[i]);
           MSG_DEBUG("Selected nominal weight: " << _weightNames[i]);
           continue;
@@ -262,11 +263,12 @@ namespace Rivet {
           if ( std::regex_match(_weightNames[i], re) ) { skip = true; break; }
         }
         if (skip) continue;
-        _weightIndices.push_back(i);
+        selected_indices.push_back(_weightIndices[i]);
         selected_subset.push_back(_weightNames[i]);
         MSG_DEBUG("Selected variation weight: " << _weightNames[i]);
       }
       _weightNames = selected_subset;
+      _weightIndices = selected_indices;
 
     }
 
@@ -298,7 +300,7 @@ namespace Rivet {
     /// @todo Filter/normalize the event here
     /// @todo Find a way to cache the env call
     bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
-    Event event(ge, strip);
+    Event event(ge, _weightIndices, strip);
 
     // Set the cross section based on what is reported by this event.
     if ( ge.cross_section() ) setCrossSection(HepMCUtils::crossSection(ge));
@@ -319,7 +321,7 @@ namespace Rivet {
       }
     }
 
-    _subEventWeights.push_back(pruneWeights(event.weights()));
+    _subEventWeights.push_back(event.weights());
     if (_weightCap != 0.) {
       MSG_DEBUG("Implementing weight cap using a maximum |weight| = " << _weightCap << " for latest subevent.");
       size_t lastSub = _subEventWeights.size() - 1;
@@ -876,15 +878,6 @@ namespace Rivet {
 
   void AnalysisHandler::setNominalWeightName(std::string name) {
     _nominalWeightName = name;
-  }
-
-  std::valarray<double> AnalysisHandler::pruneWeights(const std::valarray<double>& weights) {
-    if (_weightIndices.size() == weights.size())  return weights;
-    std::valarray<double> acceptedWeights(_weightIndices.size());
-    for (size_t i = 0; i < _weightIndices.size(); ++i) {
-      acceptedWeights[i] = weights[_weightIndices[i]];
-    }
-    return acceptedWeights;
   }
 
 }
