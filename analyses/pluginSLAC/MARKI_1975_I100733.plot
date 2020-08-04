@@ -19,3 +19,19 @@ YLabel=$\sigma(e^+e^-\to \mu^+\mu^-)/$nb
 LogY=0
 ConnectGaps=1
 END PLOT
+
+BEGIN PLOT /MARKI_1975_I100733/d03-x01-y01
+Title=Charged Particle scaled momentum at 3 GeV
+XLabel=$x_p$ 
+YLabel=$s\times \text{d}\sigma/\text{d}x_p$ [$\mu\text{b} \text{GeV}^2$]
+END PLOT
+BEGIN PLOT /MARKI_1975_I100733/d03-x01-y02
+Title=Charged Particle scaled momentum at 4.8 GeV
+XLabel=$x_p$
+YLabel=$s\times \text{d}\sigma/\text{d}x_p$ [$\mu\text{b} \text{GeV}^2$]
+END PLOT
+BEGIN PLOT /MARKI_1975_I100733/d03-x01-y03
+Title=Charged Particle scaled momentum at 7.4 GeV
+XLabel=$x_p$
+YLabel=$s\times \text{d}\sigma/\text{d}x_p$ [$\mu\text{b} \text{GeV}^2$]
+END PLOT

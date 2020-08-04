@@ -1,7 +1,7 @@
-BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_1991_I319105/d01-x01-y01
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_1992_I319105/d01-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.3, up: 0.3}, sys: {dn: -0.4, up: 0.4}}}
 IsRef: 1
-Path: /REF/ARGUS_1991_I319105/d01-x01-y01
+Path: /REF/ARGUS_1992_I319105/d01-x01-y01
 Title: doi:10.17182/hepdata.29262.v1/t1
 Type: Scatter2D
 Variations: [""]
@@ -11,10 +11,10 @@ Variations: [""]
 END YODA_SCATTER2D_V2
 
 
-BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_1991_I319105/d01-x01-y02
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_1992_I319105/d01-x01-y02
 ErrorBreakdown: {0: {stat: {dn: -0.6, up: 0.6}, sys: {dn: -0.4, up: 0.4}}}
 IsRef: 1
-Path: /REF/ARGUS_1991_I319105/d01-x01-y02
+Path: /REF/ARGUS_1992_I319105/d01-x01-y02
 Title: doi:10.17182/hepdata.29262.v1/t1
 Type: Scatter2D
 Variations: [""]
