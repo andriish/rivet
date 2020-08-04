@@ -23,12 +23,12 @@ namespace Rivet {
       // Book histograms
       book(_c_hadrons, "/TMP/sigma_hadrons");
       book(_c_muons, "/TMP/sigma_muons");
-    //   // if(inRange(sqrtS()/GeV,2.999,3.001))
-    //     book(_h_charged, 3, 1, 1);
-    //   // else if(inRange(sqrtS()/GeV,4.799,4.801))
-    //     book(_h_charged, 3, 1, 2);
-    //   // else if(inRange(sqrtS()/GeV,7.399,7.401))
-    //     book(_h_charged, 3, 1, 3);
+      if(inRange(sqrtS()/GeV,2.999,3.001))
+      	book(_h_charged, 3, 1, 1);
+      else if(inRange(sqrtS()/GeV,4.799,4.801))
+        book(_h_charged, 3, 1, 2);
+      else if(inRange(sqrtS()/GeV,7.399,7.401))
+        book(_h_charged, 3, 1, 3);
     }
 
 
@@ -39,28 +39,31 @@ namespace Rivet {
       map<long,int> nCount;
       int ntotal(0);
       for (const Particle& p : fs.particles()) {
-	nCount[p.pid()] += 1;
-	++ntotal;
-	// if(PID::isCharged(p.pid())&&_h_charged&&abs(p.pid())!=13) {
-	//   double x = 2.*p.p3().mod()/sqrtS();
-	//   _h_charged->fill(x);
-	// }
+      	nCount[p.pid()] += 1;
+      	++ntotal;
       }
       // mu+mu- + photons
       if(nCount[-13]==1 and nCount[13]==1 &&
-	 ntotal==2+nCount[22])
-	_c_muons->fill();
+      	 ntotal==2+nCount[22])
+      	_c_muons->fill();
       // everything else
-      else
-	_c_hadrons->fill();
+      else {
+      	_c_hadrons->fill();
+	for (const Particle& p : fs.particles()) {
+	  if(PID::isCharged(p.pid())) {
+	    double x = 2.*p.p3().mod()/sqrtS();
+	    _h_charged->fill(x);
+	  }
+	}
+      }
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      // if(_h_charged) {
-      // 	//scale(_h_charged, crossSection()/ sumOfWeights() /microbarn*sqr(sqrtS()));
-      // }
+      if(_h_charged) {
+      	scale(_h_charged, crossSection()/ sumOfWeights() /microbarn*sqr(sqrtS()));
+      }
       // R
       Scatter1D R = *_c_hadrons/ *_c_muons;
       double              rval = R.point(0).x();
@@ -78,21 +81,21 @@ namespace Rivet {
       Scatter2DPtr mult;
       book(mult, 2,1,1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
-	const double x  = temphisto.point(b).x();
-	pair<double,double> ex = temphisto.point(b).xErrs();
-	pair<double,double> ex2 = ex;
-	if(ex2.first ==0.) ex2. first=0.0001;
-	if(ex2.second==0.) ex2.second=0.0001;
-	if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
-	  mult   ->addPoint(x, rval, ex, rerr);
-	  hadrons->addPoint(x, sig_h, ex, make_pair(err_h,err_h));
-	  muons  ->addPoint(x, sig_m, ex, make_pair(err_m,err_m));
-	}
-	else {
-	  mult   ->addPoint(x, 0., ex, make_pair(0.,.0));
-	  hadrons->addPoint(x, 0., ex, make_pair(0.,.0));
-	  muons  ->addPoint(x, 0., ex, make_pair(0.,.0));
-	}
+      	const double x  = temphisto.point(b).x();
+      	pair<double,double> ex = temphisto.point(b).xErrs();
+      	pair<double,double> ex2 = ex;
+      	if(ex2.first ==0.) ex2. first=0.0001;
+      	if(ex2.second==0.) ex2.second=0.0001;
+      	if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+      	  mult   ->addPoint(x, rval, ex, rerr);
+      	  hadrons->addPoint(x, sig_h, ex, make_pair(err_h,err_h));
+      	  muons  ->addPoint(x, sig_m, ex, make_pair(err_m,err_m));
+      	}
+      	else {
+      	  mult   ->addPoint(x, 0., ex, make_pair(0.,.0));
+      	  hadrons->addPoint(x, 0., ex, make_pair(0.,.0));
+      	  muons  ->addPoint(x, 0., ex, make_pair(0.,.0));
+      	}
       }
     }
 
@@ -102,7 +105,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     CounterPtr _c_hadrons, _c_muons;
-    // Histo1DPtr _h_charged;
+    Histo1DPtr _h_charged;
     //@}
 
 
