@@ -4,23 +4,16 @@
 
 namespace Rivet {
 
-  /// @brief Analysis for the generated cross section
+
+  /// Analysis of the generated event-weight distributions
   class MC_WEIGHTS : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
-    /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(MC_WEIGHTS);
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -35,7 +28,7 @@ namespace Rivet {
 
 
     /// Perform the per-event analysis
-    void analyze(const Event& event) { 
+    void analyze(const Event& event) {
 
       const size_t numWeights = event.weights().size();
       for (size_t m = 0; m < numWeights; ++m) {
@@ -66,19 +59,19 @@ namespace Rivet {
       _h_xsfraction_neg->addPoint(0, negFrac, 0.5, negFracErr);
     }
 
-    //@}
+    /// @}
 
-
-  private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Scatter2DPtr _h_xsfraction_neg;
     Histo1DPtr _h_weight_100, _h_weight_10, _h_logweight_pos, _h_logweight_neg;
-    //@}
+    /// @}
 
   };
 
-  // The hook for the plugin system
+
+
   DECLARE_RIVET_PLUGIN(MC_WEIGHTS);
+
 }

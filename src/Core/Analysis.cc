@@ -1013,11 +1013,11 @@ namespace Rivet {
     }
   }
 
-  bool Analysis::inInit() const {
+  bool Analysis::_inInit() const {
     return handler().stage() == AnalysisHandler::Stage::INIT;
   }
 
-  bool Analysis::inFinalize() const {
+  bool Analysis::_inFinalize() const {
     return handler().stage() == AnalysisHandler::Stage::FINALIZE;
   }
 

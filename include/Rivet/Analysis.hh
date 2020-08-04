@@ -821,17 +821,18 @@ namespace Rivet {
     void _checkBookInit() const;
 
     /// Check if we are in the init stage.
-    bool inInit() const;
+    bool _inInit() const;
 
     /// Check if we are in the finalize stage.
-    bool inFinalize() const;
+    bool _inFinalize() const;
 
 
   private:
 
-    /// To be used in finalize context only:
+    /// To be used in finalize context only
     class CounterAdapter {
     public:
+
       CounterAdapter(double x) : x_(x) {}
 
       CounterAdapter(const YODA::Counter & c) : x_(c.val()) {}
@@ -841,7 +842,6 @@ namespace Rivet {
       }
 
       operator double() const { return x_; }
-
 
     private:
       double x_;
@@ -1100,8 +1100,8 @@ namespace Rivet {
       typedef shared_ptr<YODAT> YODAPtrT;
       typedef rivet_shared_ptr<WrapperT> RAOT;
 
-      if ( !inInit() && !inFinalize() ) {
-        MSG_ERROR("Can't book objects outside of init()");
+      if ( !_inInit() && !_inFinalize() ) {
+        MSG_ERROR("Can't book objects outside of init() or finalize()");
         throw UserError(name() + ": Can't book objects outside of init() or finalize().");
       }
 
@@ -1111,7 +1111,7 @@ namespace Rivet {
       for (auto& waold : analysisObjects()) {
         if ( yao.path() == waold.get()->basePath() ) {
           const string msg = "Found double-booking of " + yao.path() + " in " + name();
-          if ( inInit() ) {
+          if ( _inInit() ) {
             MSG_ERROR(msg);
             throw LookupError(msg);
           } else {
@@ -1168,7 +1168,7 @@ namespace Rivet {
       rivet_shared_ptr<WrapperT> ret(wao);
 
       ret.get()->unsetActiveWeight();
-      if ( inFinalize() ) {
+      if ( _inFinalize() ) {
         // If booked in finalize() we assume it is the first time
         // finalize is run.
         ret.get()->pushToFinal();
