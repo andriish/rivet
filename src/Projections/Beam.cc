@@ -10,7 +10,7 @@ namespace Rivet {
 
     // First try the official way: ask the GenEvent for the beam pointers
     assert(HepMCUtils::particles_size(e.genEvent()) >= 2);
-    std::pair<ConstGenParticlePtr,ConstGenParticlePtr> thebeams = HepMCUtils::beams(e.originalGenEvent());
+    std::pair<ConstGenParticlePtr,ConstGenParticlePtr> thebeams = HepMCUtils::beams(e.genEvent());
     if ( thebeams.first && thebeams.second ) {
       return ParticlePair{thebeams.first, thebeams.second};
     }
@@ -19,16 +19,13 @@ namespace Rivet {
     if (pstat4s.size() >= 2) {
       return ParticlePair{pstat4s[0], pstat4s[1]};
     }
-    
-    /// There are no barcodes in HepMC3
-    /// @todo implement some other fallback rubric?
-    #ifndef RIVET_ENABLE_HEPMC_3
-    
+
     // Hmm, this sucks. Last guess is that barcodes 1 and 2 are the beams
+    /// @todo There are no barcodes in HepMC3. Fall back to guessing from particle.id() rather than barcode?
+    #ifndef RIVET_ENABLE_HEPMC_3
     if (e.genEvent()->barcode_to_particle(1) && e.genEvent()->barcode_to_particle(2)) {
       return ParticlePair{e.genEvent()->barcode_to_particle(1), e.genEvent()->barcode_to_particle(2)};
     }
-
     #endif
 
     // Give up: return null beams

@@ -221,23 +221,21 @@ namespace Rivet {
     /// @{
 
     /// Initialize a run, with the run beams taken from the example event
-    ///
-    /// @todo Make a canonical ConstGenEventPtr version and deprecate this
     void init(const GenEvent& event);
 
-    /// @brief Analyze the given \a event by reference.
+    /// @brief Analyze the given @a event by reference
     ///
     /// This function will call the AnalysisBase::analyze() function of all
     /// included analysis objects.
     ///
-    /// @todo Make a canonical ConstGenEventPtr version and deprecate this
-    void analyze(const GenEvent& event);
+    /// @note Despite the event being passed as const, its units etc. may be changed, hence non-const.
+    void analyze(GenEvent& event);
 
-    /// @brief Analyze the given \a event by pointer.
+    /// @brief Analyze the given @a event by pointer
     ///
     /// This function will call the AnalysisBase::analyze() function of all
     /// included analysis objects, after checking the event pointer validity.
-    void analyze(const GenEvent* event);
+    void analyze(GenEvent* event);
 
     /// Finalize a run. This function calls the AnalysisBase::finalize()
     /// functions of all included analysis objects.

@@ -150,6 +150,15 @@ namespace Rivet {
   }
 
 
+  // void AnalysisHandler::init(GenEvent* ge) {
+  //   if (ge == nullptr) {
+  //     MSG_ERROR("AnalysisHandler received null pointer to GenEvent");
+  //     //throw Error("AnalysisHandler received null pointer to GenEvent");
+  //   }
+  //   init(*ge);
+  // }
+
+
   void AnalysisHandler::setWeightNames(const GenEvent& ge) {
     _weightNames = HepMCUtils::weightNames(ge);
 
@@ -281,7 +290,7 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::analyze(const GenEvent& ge) {
+  void AnalysisHandler::analyze(GenEvent& ge) {
     // Call init with event as template if not already initialised
     if (!_initialised) init(ge);
     assert(_initialised);
@@ -289,12 +298,13 @@ namespace Rivet {
     // Create the Rivet event wrapper
     //bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
     //const Event e(const_cast<GenEvent&>(ge), strip);
-    const Event e(ge, _weightIndices);
+    // const Event event(const_cast<GenEvent&>(ge), _weightIndices);
+    const Event event(ge, _weightIndices);
 
     // Ensure that beam details match those from the first event (if we're checking beams)
     if ( !_ignoreBeams ) {
-      const PdgIdPair beams = Rivet::beamIds(e);
-      const double sqrts = Rivet::sqrtS(e);
+      const PdgIdPair beams = Rivet::beamIds(event);
+      const double sqrts = Rivet::sqrtS(event);
       if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
         cerr << "Event beams mismatch: "
              << PID::toBeamsString(beams) << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
@@ -322,7 +332,7 @@ namespace Rivet {
       }
     }
 
-    // Optionally cap large weights
+    // Optionally cap large weights, to avoid spikes
     _subEventWeights.push_back(event.weights());
     if (_weightCap != 0.) {
       MSG_DEBUG("Implementing weight cap using a maximum |weight| = " << _weightCap << " for latest subevent");
@@ -333,14 +343,14 @@ namespace Rivet {
         }
       }
     }
-    MSG_DEBUG("Analyzing subevent #" << _subEventWeights.size() - 1 << ".");
 
-    _eventCounter->fill();
     // Run the analyses
+    MSG_DEBUG("Analyzing subevent #" << _subEventWeights.size() - 1 << ".");
+    _eventCounter->fill();
     for (AnaHandle a : analyses()) {
       MSG_TRACE("About to run analysis " << a->name());
       try {
-        a->analyze(e);
+        a->analyze(event);
       } catch (const Error& err) {
         cerr << "Error in " << a->name() << "::analyze method: " << err.what() << endl;
         exit(1);
@@ -360,7 +370,7 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::analyze(const GenEvent* ge) {
+  void AnalysisHandler::analyze(GenEvent* ge) {
     if (ge == nullptr) {
       MSG_ERROR("AnalysisHandler received null pointer to GenEvent");
       //throw Error("AnalysisHandler received null pointer to GenEvent");
