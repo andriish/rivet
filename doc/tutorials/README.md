@@ -18,6 +18,9 @@ These short guides will help you with everything from installation, to first
 runs of existing analyses, to writing, running, and plotting results, as well as
 how to implement and contribute your own analyses.
 
+Alternatively, feel free to checkout the self-guided tutorial under `truth-analysis`
+which is based on a tutorial prepared for an MCnet summer school.
+
 
 ## Getting started
 

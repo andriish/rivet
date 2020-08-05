@@ -42,7 +42,14 @@ namespace Rivet {
 
   std::valarray<double> Event::weights() const {
     const std::valarray<double> ws = HepMCUtils::weights(_genevent);
-    return ws.size() > 0 ? ws : std::valarray<double>{1.0};
+    if (!ws.size())  return std::valarray<double>{1.0};
+    size_t N = _weightIndices.size();
+    if (N == ws.size())  return ws;
+    std::valarray<double> new_ws(N);
+    for (size_t i = 0; i < N; ++i) {
+      new_ws[i] = ws[_weightIndices[i]];
+    }
+    return new_ws;
   }
 
 

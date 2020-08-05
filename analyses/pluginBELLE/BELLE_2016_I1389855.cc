@@ -83,9 +83,9 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      for(unsigned int ix=2;ix<4;++ix) {
+      for(unsigned int ix=3;ix<5;++ix) {
 	double sigma,error;
-	if(ix==2) {
+	if(ix==3) {
 	  sigma = _nhb1->val();
 	  error = _nhb1->err();
 	}

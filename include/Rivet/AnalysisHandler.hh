@@ -58,7 +58,7 @@ namespace Rivet {
     const vector<string>& weightNames() const { return _weightNames; }
 
     /// Indices of the weights in the original weight matrix
-    const vector<size_t> weightIndices() const { return _weightIndices; }
+    //const vector<size_t> weightIndices() const { return _weightIndices; }
 
     /// Are any of the weights non-numeric?
     size_t numWeights() const { return _weightNames.size(); }
@@ -71,9 +71,6 @@ namespace Rivet {
 
     /// Get the index of the nominal weight-stream
     size_t defaultWeightIndex() const { return _rivetDefaultWeightIdx; }
-
-    /// Get the index of the nominal weight-stream in the original weight matrix
-    size_t globalDefaultWeightIndex() const { return _defaultWeightIdx; }
 
     /// Set the weight cap
     void setWeightCap(const double maxWeight) { _weightCap = maxWeight; }
@@ -340,8 +337,6 @@ namespace Rivet {
     /// After all subevents in an event group have been processed, push
     /// all histo fills to the relevant histograms.
     void pushToPersistent();
-
-    std::valarray<double> pruneWeights(const std::valarray<double>& weights);
 
     /// @}
 

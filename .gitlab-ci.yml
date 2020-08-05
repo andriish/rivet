@@ -196,6 +196,7 @@ get_test_hepmc:
       - val_$ARCH/VALDIR/*yoda
       - val_$ARCH/VALDIR/*html
       - val_$ARCH/VALDIR/*diff
+      - val_$ARCH/VALDIR/*log
     #exclude:
     #  - test_$ARCH/VALDIR/*/*gz
     expire_in: 1 week

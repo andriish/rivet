@@ -21,7 +21,7 @@ namespace Rivet {
     : _runname(runname), _userxs{NAN, NAN},
       _initialised(false), _ignoreBeams(false),
       _skipWeights(false), _matchWeightNames(""),
-      _unmatchWeightNames(""), 
+      _unmatchWeightNames(""),
       _nominalWeightName(""),
       _weightCap(0.),
       _NLOSmearing(0.), _defaultWeightIdx(0),
@@ -217,19 +217,19 @@ namespace Rivet {
           patterns.push_back( std::regex(pattern) );
         }
         // Check which weights match supplied weight-name pattern
-        vector<string> selected_subset; _weightIndices.clear();
+        vector<string> selected_subset; vector<size_t> selected_indices;
         for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
-          if (i == _defaultWeightIdx) {
+          if (_weightIndices[i] == _defaultWeightIdx) {
             // The default weight cannot be "unselected"
-            _rivetDefaultWeightIdx = _weightIndices.size();
-            _weightIndices.push_back(i);
+            _rivetDefaultWeightIdx = selected_indices.size();
+            selected_indices.push_back(_weightIndices[i]);
             selected_subset.push_back(_weightNames[i]);
             MSG_DEBUG("Selected nominal weight: " << _weightNames[i]);
             continue;
           }
           for (const std::regex& re : patterns) {
             if ( std::regex_match(_weightNames[i], re) ) {
-              _weightIndices.push_back(i);
+              selected_indices.push_back(_weightIndices[i]);
               selected_subset.push_back(_weightNames[i]);
               MSG_DEBUG("Selected variation weight: " << _weightNames[i]);
               break;
@@ -237,6 +237,7 @@ namespace Rivet {
           }
         }
         _weightNames = selected_subset;
+        _weightIndices = selected_indices;
       }
 
       // Check if the remaining weight names match supplied string/regexes and *de*select accordingly
@@ -249,12 +250,12 @@ namespace Rivet {
         }
       }
       // Check which weights match supplied weight-name pattern
-      vector<string> selected_subset; _weightIndices.clear();
+      vector<string> selected_subset; vector<size_t> selected_indices;
       for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
-        if (i == _defaultWeightIdx) {
+        if (_weightIndices[i] == _defaultWeightIdx) {
           // The default weight cannot be vetoed
-          _rivetDefaultWeightIdx = _weightIndices.size();
-          _weightIndices.push_back(i);
+          _rivetDefaultWeightIdx = selected_indices.size();
+          selected_indices.push_back(_weightIndices[i]);
           selected_subset.push_back(_weightNames[i]);
           MSG_DEBUG("Selected nominal weight: " << _weightNames[i]);
           continue;
@@ -264,11 +265,12 @@ namespace Rivet {
           if ( std::regex_match(_weightNames[i], re) ) { skip = true; break; }
         }
         if (skip) continue;
-        _weightIndices.push_back(i);
+        selected_indices.push_back(_weightIndices[i]);
         selected_subset.push_back(_weightNames[i]);
         MSG_DEBUG("Selected variation weight: " << _weightNames[i]);
       }
       _weightNames = selected_subset;
+      _weightIndices = selected_indices;
 
     }
 
@@ -285,10 +287,9 @@ namespace Rivet {
     assert(_initialised);
 
     // Create the Rivet event wrapper
-    /// @todo Filter/normalize the event here
-    bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
-    /// @todo Improve this const/ptr GenEvent mess!
-    const Event e(const_cast<GenEvent&>(ge), strip);
+    //bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
+    //const Event e(const_cast<GenEvent&>(ge), strip);
+    const Event e(ge, _weightIndices);
 
     // Ensure that beam details match those from the first event (if we're checking beams)
     if ( !_ignoreBeams ) {
@@ -305,22 +306,24 @@ namespace Rivet {
     // Set the cross section based on what is reported by this event
     if ( ge.cross_section() ) setCrossSection(HepMCUtils::crossSection(ge));
 
-    // Won't happen for first event because _eventNumber is set in init()
+    // If the event number has changed, sync the sub-event analysis objects to persistent
+    // NB. Won't happen for first event because _eventNumber is set in init()
     if (_eventNumber != ge.event_number()) {
       pushToPersistent();
       _eventNumber = ge.event_number();
     }
 
-    MSG_TRACE("Starting new sub event");
+    // Make a new sub-event: affects every analysis object
+    MSG_TRACE("Starting new sub-event");
     _eventCounter.get()->newSubEvent();
-
     for (const AnaHandle& a : analyses()) {
       for (auto ao : a->analysisObjects()) {
         ao.get()->newSubEvent();
       }
     }
 
-    _subEventWeights.push_back(pruneWeights(e.weights()));
+    // Optionally cap large weights
+    _subEventWeights.push_back(event.weights());
     if (_weightCap != 0.) {
       MSG_DEBUG("Implementing weight cap using a maximum |weight| = " << _weightCap << " for latest subevent");
       size_t lastSub = _subEventWeights.size() - 1;
@@ -345,7 +348,8 @@ namespace Rivet {
       MSG_TRACE("Finished running analysis " << a->name());
     }
 
-    if ( _dumpPeriod > 0 && numEvents() > 0 && numEvents()%_dumpPeriod == 0 ) {
+    // Dump current final histograms
+    if ( _dumpPeriod > 0 && numEvents() > 0 && numEvents() % _dumpPeriod == 0 ) {
       MSG_DEBUG("Dumping intermediate results to " << _dumpFile << ".");
       _dumping = numEvents()/_dumpPeriod;
       finalize();
@@ -876,15 +880,6 @@ namespace Rivet {
 
   void AnalysisHandler::setNominalWeightName(std::string name) {
     _nominalWeightName = name;
-  }
-
-  std::valarray<double> AnalysisHandler::pruneWeights(const std::valarray<double>& weights) {
-    if (_weightIndices.size() == weights.size())  return weights;
-    std::valarray<double> acceptedWeights(_weightIndices.size());
-    for (size_t i = 0; i < _weightIndices.size(); ++i) {
-      acceptedWeights[i] = weights[_weightIndices[i]];
-    }
-    return acceptedWeights;
   }
 
 }

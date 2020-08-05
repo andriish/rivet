@@ -34,7 +34,7 @@ namespace YODA {
 namespace Rivet {
 
 
-  /// @defgroup aotuples Minimal objects representing AO fills, to be buffered before pushToPersistent.
+  /// @defgroup aotuples Minimal objects representing AO fills, to be buffered before pushToPersistent().
   ///
   /// @note Every object listed here needs a virtual fill method in YODA,
   /// otherwise the Tuple fakery won't work.
@@ -54,31 +54,42 @@ namespace Rivet {
   using Fills = multiset<Fill<T>>;
 
 
-  /// Wrappers for analysis objects to store all fills unaggregated, until collapsed.
+
+  /// @brief Wrappers for analysis objects to store all fills unaggregated, until collapsed by pushToPersistent().
   ///
-  /// @todo
+  /// The specialisations of this inherit from the YODA analysis object types,
+  /// and are used as such. The user-facing analysis objects in
+  /// Analysis::analyze() are TupleWrappers on the apparent type (accessed transparently
+  /// via the dereferencing of the current Wrapper<T>::active() pointer).
+  ///
+  /// @todo RENAME TO SOMETHING BETTER: AOProxy or FillProxy or SubEventProxy?
   template <class T>
   class TupleWrapper;
 
 
   /// TupleWrapper specialisation for Counter
-  template<>
+  template <>
   class TupleWrapper<YODA::Counter> : public YODA::Counter {
   public:
 
-    /// @todo Why?
+    /// @todo Can we remove this, now that we're not relying on the AO type having a Ptr property?
     typedef shared_ptr<TupleWrapper<YODA::Counter>> Ptr;
 
+    /// @todo Can we reduce the expense of calling the full base class constructor, which mostly won't be used?
     TupleWrapper(const YODA::Counter& h) : YODA::Counter(h) {}
 
+    /// Overloaded fill method, which stores subevent fill info until Wrapper<T>::pushToPersistent() is called.
+    ///
     /// @todo Do we need to deal with users using fractions directly?
     void fill(double weight=1.0, double fraction=1.0) {
       (void)fraction; //< ???
       _fills.insert( { YODA::Counter::FillType(), weight } );
     }
 
+    /// Empty the subevent stack (for start of new event group).
     void reset() { _fills.clear(); }
 
+    /// Access the fill info subevent stack.
     const Fills<YODA::Counter>& fills() const { return _fills; }
 
   private:
@@ -89,23 +100,29 @@ namespace Rivet {
 
 
   /// TupleWrapper specialisation for Histo1D
-  template<>
+  template <>
   class TupleWrapper<YODA::Histo1D> : public YODA::Histo1D {
   public:
 
+    /// @todo Can we remove this, now that we're not relying on the AO type having a Ptr property?
     typedef shared_ptr<TupleWrapper<YODA::Histo1D>> Ptr;
 
+    /// @todo Can we reduce the expense of calling the full base class constructor, which mostly won't be used?
     TupleWrapper(const YODA::Histo1D& h) : YODA::Histo1D(h) {}
 
-    // todo: do we need to deal with users using fractions directly?
+    /// Overloaded fill method, which stores subevent fill info until Wrapper<T>::pushToPersistent() is called.
+    ///
+    /// @todo Do we need to deal with users using fractions directly?
     void fill( double x, double weight=1.0, double fraction=1.0 ) {
       (void)fraction; //< ???
       if ( std::isnan(x) ) throw YODA::RangeError("X is NaN"); //< efficient?
       _fills.insert( { x, weight } );
     }
 
+    /// Empty the subevent stack (for start of new event group).
     void reset() { _fills.clear(); }
 
+    /// Access the fill info subevent stack.
     const Fills<YODA::Histo1D>& fills() const { return _fills; }
 
   private:
@@ -116,23 +133,30 @@ namespace Rivet {
 
 
   /// TupleWrapper specialisation for Profile1D
-  template<>
+  template <>
   class TupleWrapper<YODA::Profile1D> : public YODA::Profile1D {
   public:
+
+    /// @todo Can we remove this, now that we're not relying on the AO type having a Ptr property?
     typedef shared_ptr<TupleWrapper<YODA::Profile1D>> Ptr;
 
+    /// @todo Can we reduce the expense of calling the full base class constructor, which mostly won't be used?
     TupleWrapper(const YODA::Profile1D& h) : YODA::Profile1D(h) {}
 
+    /// Overloaded fill method, which stores subevent fill info until Wrapper<T>::pushToPersistent() is called.
+    ///
     /// @todo Do we need to deal with users using fractions directly?
     void fill( double x, double y, double weight=1.0, double fraction=1.0 ) {
-      (void)fraction;
+      (void)fraction; //< ???
       if ( std::isnan(x) ) throw YODA::RangeError("X is NaN"); //< efficient?
       if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN"); //< efficient?
       _fills.insert( { YODA::Profile1D::FillType{x,y}, weight } );
     }
 
+    /// Empty the subevent stack (for start of new event group).
     void reset() { _fills.clear(); }
 
+    /// Access the fill info subevent stack.
     const Fills<YODA::Profile1D>& fills() const { return _fills; }
 
   private:
@@ -143,24 +167,30 @@ namespace Rivet {
 
 
   /// TupleWrapper specialisation for Histo2D
-  template<>
+  template <>
   class TupleWrapper<YODA::Histo2D> : public YODA::Histo2D {
   public:
 
+    /// @todo Can we remove this, now that we're not relying on the AO type having a Ptr property?
     typedef shared_ptr<TupleWrapper<YODA::Histo2D>> Ptr;
 
+    /// @todo Can we reduce the expense of calling the full base class constructor, which mostly won't be used?
     TupleWrapper(const YODA::Histo2D& h) : YODA::Histo2D(h) {}
 
+    /// Overloaded fill method, which stores subevent fill info until Wrapper<T>::pushToPersistent() is called.
+    ///
     /// @todo Do we need to deal with users using fractions directly?
     void fill( double x, double y, double weight=1.0, double fraction=1.0 ) {
-      (void)fraction;
+      (void)fraction; //< ???
       if ( std::isnan(x) ) throw YODA::RangeError("X is NaN"); //< efficient?
       if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN"); //< efficient?
       _fills.insert( { YODA::Histo2D::FillType{x,y}, weight } );
     }
 
+    /// Empty the subevent stack (for start of new event group).
     void reset() { _fills.clear(); }
 
+    /// Access the fill info subevent stack.
     const Fills<YODA::Histo2D>& fills() const { return _fills; }
 
   private:
@@ -171,25 +201,31 @@ namespace Rivet {
 
 
   /// TupleWrapper specialisation for Profile2D
-  template<>
+  template <>
   class TupleWrapper<YODA::Profile2D> : public YODA::Profile2D {
   public:
 
+    /// @todo Can we remove this, now that we're not relying on the AO type having a Ptr property?
     typedef shared_ptr<TupleWrapper<YODA::Profile2D>> Ptr;
 
+    /// @todo Can we reduce the expense of calling the full base class constructor, which mostly won't be used?
     TupleWrapper(const YODA::Profile2D& h) : YODA::Profile2D(h) {}
 
+    /// Overloaded fill method, which stores subevent fill info until Wrapper<T>::pushToPersistent() is called.
+    ///
     /// @todo Do we need to deal with users using fractions directly?
     void fill( double x, double y, double z, double weight=1.0, double fraction=1.0 ) {
-      (void)fraction;
+      (void)fraction; //< ???
       if ( std::isnan(x) ) throw YODA::RangeError("X is NaN"); //< efficient?
       if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN"); //< efficient?
       if ( std::isnan(z) ) throw YODA::RangeError("Z is NaN"); //< efficient?
       _fills.insert( { YODA::Profile2D::FillType{x,y,z}, weight } );
     }
 
+    /// Empty the subevent stack (for start of new event group).
     void reset() { _fills.clear(); }
 
+    /// Access the fill info subevent stack.
     const Fills<YODA::Profile2D>& fills() const { return _fills; }
 
   private:
@@ -200,36 +236,42 @@ namespace Rivet {
 
 
   /// TupleWrapper specialisation for Scatter1D
-  template<>
+  template <>
   class TupleWrapper<YODA::Scatter1D> : public YODA::Scatter1D {
   public:
 
+    /// @todo Can we remove this, now that we're not relying on the AO type having a Ptr property?
     typedef shared_ptr<TupleWrapper<YODA::Scatter1D>> Ptr;
 
+    /// @todo Can we reduce the expense of calling the full base class constructor, which mostly won't be used?
     TupleWrapper(const YODA::Scatter1D& h) : YODA::Scatter1D(h) {}
 
   };
 
 
   /// TupleWrapper specialisation for Scatter2D
-  template<>
+  template <>
   class TupleWrapper<YODA::Scatter2D> : public YODA::Scatter2D {
   public:
 
+    /// @todo Can we remove this, now that we're not relying on the AO type having a Ptr property?
     typedef shared_ptr<TupleWrapper<YODA::Scatter2D>> Ptr;
 
+    /// @todo Can we reduce the expense of calling the full base class constructor, which mostly won't be used?
     TupleWrapper(const YODA::Scatter2D& h) : YODA::Scatter2D(h) {}
 
   };
 
 
   /// TupleWrapper specialisation for Scatter3D
-  template<>
+  template <>
   class TupleWrapper<YODA::Scatter3D> : public YODA::Scatter3D {
   public:
 
+    /// @todo Can we remove this, now that we're not relying on the AO type having a Ptr property?
     typedef shared_ptr<TupleWrapper<YODA::Scatter3D>> Ptr;
 
+    /// @todo Can we reduce the expense of calling the full base class constructor, which mostly won't be used?
     TupleWrapper(const YODA::Scatter3D& h) : YODA::Scatter3D(h) {}
 
   };
@@ -238,26 +280,43 @@ namespace Rivet {
 
 
 
-  /// Abstract interface to a set of YODA AnalysisObjects.
+
+
+  /// @brief Abstract interface to a set of YODA AnalysisObjects.
+  ///
+  /// This layer of interface is separated from the next to allow unweighted handling of
+  /// Scatter objects... but do we want that? Revisit when Scatters -> Binned<Meas> and
+  /// the live/dead finalize() treatment is ready to go.
+  ///
+  /// @todo RENAME TO SOMETHING BETTER! This is an e.g. MultiweightAOWrapper.
+  ///
+  /// @note This interface is not used anywhere other than in this file: eliminate/merge?
   class AnalysisObjectWrapper {
   public:
 
     virtual ~AnalysisObjectWrapper() {}
 
+    /// Access the active analysis object for function calls.
     virtual YODA::AnalysisObject* operator -> () = 0;
+    /// Access the active analysis object for const function calls.
     virtual YODA::AnalysisObject* operator -> () const = 0;
+    /// Access the active analysis object as a reference.
     virtual const YODA::AnalysisObject& operator * () const = 0;
 
-    /// @todo Rename to setActive(idx)
-    virtual void setActiveWeightIdx(unsigned int iWeight) = 0;
+    /// Set active object for analyze.
+    virtual void setActiveWeightIdx(size_t iWeight) = 0;
 
-    /// Set active object for finalize
-    /// @todo Rename to setActiveFinal(idx)
-    virtual void setActiveFinalWeightIdx(unsigned int iWeight) = 0;
+    /// Set active object for finalize.
+    virtual void setActiveFinalWeightIdx(size_t iWeight) = 0;
 
+    /// Unset the active-object pointer.
+    ///
+    /// @note This is for development only: we shouldn't need this in real runs.
     virtual void unsetActiveWeight() = 0;
 
+    /// Test for equality.
     bool operator == (const AnalysisObjectWrapper& p) { return (this == &p); }
+    /// Test for inequality.
     bool operator != (const AnalysisObjectWrapper& p) { return (this != &p); }
 
   };
@@ -343,19 +402,31 @@ namespace Rivet {
 
 
   /// Extended abstract interface to a set of YODA AOs corresponding to multiple weight-streams, with subevent handling.
+  ///
+  /// @todo RENAME TO SOMETHING BETTER! This really adds the subevent proxying, so e.g. SubEventAOWrapper or MultiEventAOWrapper
+  ///
+  /// @note This interface is not used anywhere other than in this file: eliminate/merge?
   class MultiweightAOWrapper : public AnalysisObjectWrapper {
   public:
+
+    /// The type being represented is a generic AO.
     using Inner = YODA::AnalysisObject;
 
+    /// Add a new layer of subevent fill staging.
     virtual void newSubEvent() = 0;
 
+    /// Sync the fill proxies to the persistent histogram.
     virtual void pushToPersistent(const vector<std::valarray<double> >& weight, double nlowfrac=0.0) = 0;
 
+    /// Sync the persistent histograms to the final collection.
     virtual void pushToFinal() = 0;
 
+    /// @todo Rename to active()?
     virtual YODA::AnalysisObjectPtr activeYODAPtr() const = 0;
 
+    /// The histogram path, without a variation suffix.
     virtual string basePath() const = 0;
+
   };
 
 
@@ -364,9 +435,12 @@ namespace Rivet {
   ///
   /// Specialisations of this (to each type of YODA object) are effectively the
   /// user-facing types in Rivet analyses, modulo a further wrapping via
-  /// the Rivet shared-pointer type.
+  /// the Rivet shared-pointer type. They can expose either TupleWrapper<T>
+  /// or T active pointers, for the analyze() and finalize() steps respectively.
   ///
-  /// @todo RENAME TO SOMETHING BETTER
+  /// @todo RENAME TO SOMETHING BETTER: Wrapper<T> is far too generic. Even
+  /// AnalysisObjectWrapper (with renamed base classes) would be a better
+  /// user-facing choice.
   ///
   /// @todo Some things are not really well-defined here. For instance: fill()
   /// in the finalize() method and integral() in the analyze() method.
@@ -375,10 +449,14 @@ namespace Rivet {
   public:
 
     friend class Analysis;
+    friend class AnalysisHandler;
 
+    /// Typedef for the YODA type being represented
     using Inner = T;
+    /// Typedef for a polymorphic pointer to T
+    /// @note Used either to point to a real T, or a TupleWrapper<T> derived class
     using TPtr = shared_ptr<T>;
-    using TFillPtr = shared_ptr<TupleWrapper<T>>;
+
 
     Wrapper() = default;
 
@@ -387,15 +465,21 @@ namespace Rivet {
     ~Wrapper();
 
 
-    /// DOCUMENT!
-    // typename T::Ptr active() const;
+    /// Get the current active analysis object (may be either persistent or final, depending on stage)
     shared_ptr<T> active() const;
+
+    /// Get the AO path of the object, without variation suffix
+    string basePath() const { return _basePath; }
+
+    /// Get the AO name of the object, without variation suffix
+    string baseName() const { return _baseName; }
+
 
     /// Test for object validity.
     explicit operator bool() const { return static_cast<bool>(_active); } // Don't use active() here, assert will catch
 
     /// Test for object invalidity.
-    bool operator!() const { return !_active; } // Don't use active() here, assert will catch
+    bool operator ! () const { return !_active; } // Don't use active() here, assert will catch
 
 
     /// Forwarding dereference-call operator.
@@ -410,17 +494,6 @@ namespace Rivet {
     /// Forwarding dereference operator.
     const T& operator * () const { return *active(); }
 
-
-    /// @note Can be useful for weight analysis (see e.g. MC_WEIGHTS for use).
-    T* _getPersistent (unsigned int iWeight) { return _persistent.at(iWeight).get(); }
-
-    string basePath() const { return _basePath; }
-
-    string baseName() const { return _baseName; }
-
-    /// DOCUMENT!
-    /// @todo These need to be re-thought.
-    void reset() { active()->reset(); }
 
     /// Equality operator
     /// @todo These probably need to loop over all? Do we even want to provide equality? How about... no
@@ -454,70 +527,98 @@ namespace Rivet {
     }
 
 
+    /// Direct access to the YODA type in weight stream @a iWeight
+    ///
+    /// @note This is naturally a private member accessible only to , but is exposed publicly to
+    /// allow analyses that explicitly study weight distributions,
+    /// e.g. MC_WEIGHTS. The "private style" leading underscore in the name
+    /// highlights that this should not normally be called by users.
+    ///
+    /// @todo Rename to minimize the clash with persistent()... or just expose persistent() instead?
+    T* _getPersistent(size_t iWeight) { return _persistent.at(iWeight).get(); }
+
+
+
   private:
 
-    void setActiveWeightIdx(unsigned int iWeight) {
+    /// @name Restricted-access methods
+    ///
+    /// These methods are accessible via the base classes, in which they are
+    /// public, but they cannot be called directly on a Wrapper<T> object except
+    /// by the friend classes Analysis (but not its children) and AnalysisHandler.
+    ///
+    /// @todo Review this design: it's counterintuitive and hard to maintain:
+    /// how crucial is it to hide these functions from analysis authors? Can we
+    /// just make them public and remove the friend stuff, then be able to use
+    /// the access control properly for *really* private things?
+    ///
+    /// @{
+
+    /// Set the active-object pointer to point at a variation in the persistent set
+    void setActiveWeightIdx(size_t iWeight) {
       _active = _persistent.at(iWeight);
     }
 
-    void setActiveFinalWeightIdx(unsigned int iWeight) {
+    /// Set the active-object pointer to point at a variation in the final set
+    void setActiveFinalWeightIdx(size_t iWeight) {
       _active = _final.at(iWeight);
     }
 
-    /// @note This is for dev only---we shouldn't need this in real runs.
+    /// Unset the active-object pointer
     void unsetActiveWeight() { _active.reset(); }
 
-    /// @todo DOCUMENT
+    /// Clear the active object pointer
+    void reset() { active()->reset(); }
+
+
+    /// @brief Create new object analysis-object wrappers for this sub-event
+    ///
+    /// Called every sub-event by AnalysisHandler::analyze() before dispatch to Analysis::analyze().
+    /// The fill values will be redistributed over variations by pushToPersistent().
     void newSubEvent();
 
-    /// @todo DOCUMENT
-    virtual YODA::AnalysisObjectPtr activeYODAPtr() const { return _active; }
-
-    /// @todo DOCUMENT
-    //const vector<typename T::Ptr>& persistent() const { return _persistent; }
-    const vector<shared_ptr<T>>& persistent() const { return _persistent; }
-
-    /// @todo DOCUMENT
-    //const vector<typename T::Ptr>& final() const { return _final; }
-    const vector<shared_ptr<T>>& final() const { return _final; }
-
-    /// To be implemented for each type
-    /// @todo DOCUMENT
+    /// Collapse the _evgroup set of tuple wrappers into fills of the persistent objects, using fractional fills if there are subevents
     void pushToPersistent(const vector<std::valarray<double> >& weight, double nlowfrac=0.0);
 
-    /// To be implemented for each type
-    /// @todo DOCUMENT
+    /// Copy all variations from the "live" persistent set to the final collection used by Analysis::finalize()
     void pushToFinal();
 
 
+    /// Get the set of persistent (i.e. after whole event groups) live objects, as used by Analysis::analyze()
+    const vector<shared_ptr<T>>& persistent() const { return _persistent; }
+
+    /// Get the set of final analysis objects, as used by Analysis::finalize() and written out
+    const vector<shared_ptr<T>>& final() const { return _final; }
+
+    /// Get the currently active (tuple wrapper on) analysis object
+    virtual YODA::AnalysisObjectPtr activeYODAPtr() const { return _active; }
+
+    /// @todo Do we need an implicit cast?
+    // operator typename TPtr () { return _active; }
+
+    /// @}
+
+
+    /// @name Data members
+    /// @{
+
     /// M of these, one for each weight
-    //vector<typename T::Ptr> _persistent;
     vector<shared_ptr<T>> _persistent;
 
     /// The copy of M-entry _persistent that will be passed to finalize().
-    //vector<typename T::Ptr> _final;
     vector<shared_ptr<T>> _final;
 
     /// A set of M subevent-wrappers, one for each weight, each containing one entry for each of the N events in evgroup.
-    //vector<typename TupleWrapper<T>::Ptr> _evgroup;
     vector<shared_ptr<TupleWrapper<T>>> _evgroup;
 
-    /// @todo DOCUMENT
-    //typename T::Ptr _active;
+    /// The currently active AO (or AO proxy).
     shared_ptr<T> _active;
 
-    /// @todo DOCUMENT
+    /// The base AO path of this object, without any variation suffix.
     string _basePath;
 
-    /// @todo DOCUMENT
+    /// The base AO name, without any variation suffix.
     string _baseName;
-
-    // do we need implicit cast?
-    // operator typename T::Ptr () {
-    //     return _active;
-    // }
-
-    friend class AnalysisHandler;
 
   };
 
@@ -530,7 +631,8 @@ namespace Rivet {
   ///
   /// @todo Provide remaining functionality that shared_ptr has (not needed right now).
   ///
-  /// @todo RENAME!
+  /// @todo RENAME TO SOMETHING BETTER! This naming is too generic, and the
+  /// "rivet" is redundant: we need something like ao_shared_ptr or AOWrapPtr.
   template <typename T>
   class rivet_shared_ptr {
   public:
@@ -545,26 +647,26 @@ namespace Rivet {
       : _p( make_shared<T>(weightNames, p) )
     {}
 
-    /// @todo SFINAE to require T<-U? Why not require rvalue == T?
+    /// @todo Use SFINAE to require T<-U? Why not require rvalue == T?
     template <typename U>
     rivet_shared_ptr(const shared_ptr<U>& p)
       : _p(p)
     {}
 
-    /// @todo SFINAE to require T<-U? Why not require rvalue == T?
+    /// @todo Use SFINAE to require T<-U? Why not require rvalue == T?
     template <typename U>
     rivet_shared_ptr(const rivet_shared_ptr<U>& p)
       : _p(p.get())
     {}
 
     /// Goes right through to the active Wrapper<YODA> object's members
-    T & operator->() {
+    T& operator -> () {
       if (_p == nullptr) throw Error("Dereferencing null AnalysisObject pointer. Is there an unbooked histogram variable?");
       return *_p;
     }
 
     /// Goes right through to the active Wrapper<YODA> object's members
-    const T & operator -> () const                {
+    const T& operator -> () const                {
       if (_p == nullptr) throw Error("Dereferencing null AnalysisObject pointer. Is there an unbooked histogram variable?");
       return *_p;
     }
@@ -593,25 +695,25 @@ namespace Rivet {
 
     /// Less-than for ptr ordering.
     template <typename U>
-    bool operator<(const rivet_shared_ptr<U>& other) const {
+    bool operator < (const rivet_shared_ptr<U>& other) const {
       return _p < other._p;
     }
 
     /// Greater-than for ptr ordering.
     template <typename U>
-    bool operator>(const rivet_shared_ptr<U>& other) const {
+    bool operator > (const rivet_shared_ptr<U>& other) const {
       return _p > other._p;
     }
 
     /// Less-equals for ptr ordering.
     template <typename U>
-    bool operator<=(const rivet_shared_ptr<U> & other) const {
+    bool operator <= (const rivet_shared_ptr<U> & other) const {
       return _p <= other._p;
     }
 
     /// Greater-equals for ptr ordering.
     template <typename U>
-    bool operator>=(const rivet_shared_ptr<U> & other) const {
+    bool operator >= (const rivet_shared_ptr<U> & other) const {
       return _p >= other._p;
     }
 
@@ -681,14 +783,14 @@ namespace Rivet {
 
   /// Traits class to access the type of the AnalysisObject in the reference files.
   template<typename T> struct ReferenceTraits {};
-  template<> struct ReferenceTraits<Counter> { typedef Counter RefT; };
-  template<> struct ReferenceTraits<Scatter1D> { typedef Scatter1D RefT; };
-  template<> struct ReferenceTraits<Histo1D> { typedef Scatter2D RefT; };
-  template<> struct ReferenceTraits<Profile1D> { typedef Scatter2D RefT; };
-  template<> struct ReferenceTraits<Scatter2D> { typedef Scatter2D RefT; };
-  template<> struct ReferenceTraits<Histo2D> { typedef Scatter3D RefT; };
-  template<> struct ReferenceTraits<Profile2D> { typedef Scatter3D RefT; };
-  template<> struct ReferenceTraits<Scatter3D> { typedef Scatter3D RefT; };
+  template <> struct ReferenceTraits<Counter> { typedef Counter RefT; };
+  template <> struct ReferenceTraits<Scatter1D> { typedef Scatter1D RefT; };
+  template <> struct ReferenceTraits<Histo1D> { typedef Scatter2D RefT; };
+  template <> struct ReferenceTraits<Profile1D> { typedef Scatter2D RefT; };
+  template <> struct ReferenceTraits<Scatter2D> { typedef Scatter2D RefT; };
+  template <> struct ReferenceTraits<Histo2D> { typedef Scatter3D RefT; };
+  template <> struct ReferenceTraits<Profile2D> { typedef Scatter3D RefT; };
+  template <> struct ReferenceTraits<Scatter3D> { typedef Scatter3D RefT; };
 
 
   /// If @a dst and @a src both are of same subclass T, copy the

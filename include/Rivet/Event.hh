@@ -27,26 +27,33 @@ namespace Rivet {
 
     /// Constructor from a HepMC GenEvent pointer
     ///
-    /// @todo Use the GenEventPtr alias
-    Event(GenEvent* ge, bool strip = false)
-      : _genevent_original(ge) , _genevent(*ge) {
+    /// @todo Use the ConstGenEventPtr alias: this is the wrong sort of const ptr
+    //
+    // Event(ConstGenEventPtr ge, const vector<size_t>& weightindices={}, bool strip=false)
+    Event(const GenEvent* ge, const vector<size_t>& weightindices={}) //, bool strip=false)
+      : _weightIndices(weightindices), _genevent_original(ge), _genevent(*ge)
+    {
       assert(ge);
-      //_genevent = *ge;
-      //if ( strip ) _strip(_genevent);
+      // _genevent = *ge;
+      // if (strip) _strip(_genevent);
       _init(*ge);
     }
 
     /// Constructor from a HepMC GenEvent reference
-    /// @deprecated HepMC uses pointers, so we should talk to HepMC via pointers
-   Event(GenEvent& ge, bool strip = false)
-     : _genevent_original(&ge), _genevent(ge) {
-       if (strip) _strip(_genevent);
-       _init(ge);
-     }
+    ///
+    /// @deprecated HepMC uses pointers, so we should talk to HepMC via pointers: no need to duplicate
+    Event(const GenEvent& ge, const vector<size_t>& weightindices={}) //, bool strip=false)
+      : _weightIndices(weightindices), _genevent_original(&ge), _genevent(ge)
+    {
+      // if (strip) _strip(_genevent);
+      // _init(ge);
+    }
 
     /// Copy constructor
     Event(const Event& e)
-      : _genevent_original(e._genevent_original), _genevent(e._genevent)
+      : _weightIndices(e._weightIndices),
+        _genevent_original(e._genevent_original),
+        _genevent(e._genevent)
     {  }
 
     //@}
@@ -186,12 +193,16 @@ namespace Rivet {
     // /// portability.
     // void _geNormAlignment();
 
+    /// @brief The indices of the selected weights, as instructed to the AnalysisHandler.
+    ///
+    /// The user can (de-)select weights and the AnalysisHandler knows about the subset
+    /// that match the specifications.
+    const std::vector<size_t> _weightIndices;
+
     /// @brief The generated event, as obtained from an external generator.
     ///
-    /// This is the original GenEvent. In practise the version seen by users
-    /// will often/always be a modified one.
-    ///
     /// @todo Wrong sort of constness! Fix this to use the const GenEventPtr aliases
+    /// @todo Remove
     const GenEvent* _genevent_original;
 
     /// @brief The GenEvent used by Rivet analysis projections etc.

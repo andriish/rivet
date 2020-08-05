@@ -667,11 +667,6 @@ namespace Rivet {
       (void) iW;
     }
 
-    /// @name Get the default/nominal weight index for the original weight matrix
-    /// @todo Should be protected, not public?
-    size_t _globalDefaultWeightIndex() const;
-
-
     /// @name Accessing options for this Analysis instance.
     //@{
 
@@ -819,9 +814,6 @@ namespace Rivet {
     /// Get the list of weight names from the handler
     YODA::AnalysisObjectPtr _getPreload(string name) const;
 
-    /// Get the default/nominal weight index
-    size_t _defaultWeightIndex() const;
-
     /// Get an AO from another analysis
     MultiweightAOPtr _getOtherAnalysisObject(const std::string & ananame, const std::string& name);
 
@@ -829,17 +821,18 @@ namespace Rivet {
     void _checkBookInit() const;
 
     /// Check if we are in the init stage.
-    bool inInit() const;
+    bool _inInit() const;
 
     /// Check if we are in the finalize stage.
-    bool inFinalize() const;
+    bool _inFinalize() const;
 
 
   private:
 
-    /// To be used in finalize context only:
+    /// To be used in finalize context only
     class CounterAdapter {
     public:
+
       CounterAdapter(double x) : x_(x) {}
 
       CounterAdapter(const YODA::Counter & c) : x_(c.val()) {}
@@ -849,7 +842,6 @@ namespace Rivet {
       }
 
       operator double() const { return x_; }
-
 
     private:
       double x_;
@@ -1091,6 +1083,9 @@ namespace Rivet {
     /// @defgroup analysis_aoaccess Data object registration, retrieval, and removal
     /// @{
 
+    /// Get the default/nominal weight index
+    size_t defaultWeightIndex() const;
+
     /// Get a preloaded YODA object.
     template <typename YODAT>
     shared_ptr<YODAT> getPreload(string path) const {
@@ -1105,8 +1100,8 @@ namespace Rivet {
       typedef shared_ptr<YODAT> YODAPtrT;
       typedef rivet_shared_ptr<WrapperT> RAOT;
 
-      if ( !inInit() && !inFinalize() ) {
-        MSG_ERROR("Can't book objects outside of init()");
+      if ( !_inInit() && !_inFinalize() ) {
+        MSG_ERROR("Can't book objects outside of init() or finalize()");
         throw UserError(name() + ": Can't book objects outside of init() or finalize().");
       }
 
@@ -1116,7 +1111,7 @@ namespace Rivet {
       for (auto& waold : analysisObjects()) {
         if ( yao.path() == waold.get()->basePath() ) {
           const string msg = "Found double-booking of " + yao.path() + " in " + name();
-          if ( inInit() ) {
+          if ( _inInit() ) {
             MSG_ERROR(msg);
             throw LookupError(msg);
           } else {
@@ -1138,6 +1133,7 @@ namespace Rivet {
         YODAPtrT preload = getPreload<YODAT>(finalpath);
         if ( preload ) {
           if ( !bookingCompatible(preload, yaop) ) {
+            /// @todo What about if/when we want to make the final objects the Scatter or binned persistent type?
             MSG_WARNING("Found incompatible pre-existing data object with same base path "
                         << finalpath <<  " for " << name());
             preload = nullptr;
@@ -1172,7 +1168,7 @@ namespace Rivet {
       rivet_shared_ptr<WrapperT> ret(wao);
 
       ret.get()->unsetActiveWeight();
-      if ( inFinalize() ) {
+      if ( _inFinalize() ) {
         // If booked in finalize() we assume it is the first time
         // finalize is run.
         ret.get()->pushToFinal();
@@ -1192,8 +1188,8 @@ namespace Rivet {
       for (const MultiweightAOPtr& ao : analysisObjects()) {
 
         // Check AO base-name first
-        ao.get()->setActiveWeightIdx(_defaultWeightIndex());
-        aonew.get()->setActiveWeightIdx(_defaultWeightIndex());
+        ao.get()->setActiveWeightIdx(defaultWeightIndex());
+        aonew.get()->setActiveWeightIdx(defaultWeightIndex());
         if (ao->path() != aonew->path()) continue;
 
         // If base-name matches, check compatibility
@@ -1245,7 +1241,7 @@ namespace Rivet {
     template <typename AO=MultiweightAOPtr>
     const AO getAnalysisObject(const std::string& aoname) const {
       for (const MultiweightAOPtr& ao : analysisObjects()) {
-        ao.get()->setActiveWeightIdx(_defaultWeightIndex());
+        ao.get()->setActiveWeightIdx(defaultWeightIndex());
         if (ao->path() == histoPath(aoname)) {
           // return dynamic_pointer_cast<AO>(ao);
           return AO(dynamic_pointer_cast<typename AO::value_type>(ao.get()));
