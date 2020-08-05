@@ -1,10 +1,49 @@
+2020-07-30  Christian Gutschow  <chris.g@cern.ch>
+
+	* Submission of ATLAS_2020_I1803608
+
+2020-07-28  Christian Gutschow  <chris.g@cern.ch>
+
+	* Fix bug related to (de)selection of weight subsets
+	* Make Event class aware of selected weight subsets
+
+2020-07-22  Christian Gutschow  <chris.g@cern.ch>
+
+	* Added self-guided Rivet "truth analysis" tutorial
+
+2020-07-16  Jon Butterworth <j.butterworth@ucl.ac.uk>
+
+	* Allow user to specify nominal weight. Also do not write out weight name it skip weights is selected
+
+2020-07-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Release 3.1.2
+
+2020-06-29  Christian Gutschow  <chris.g@cern.ch>
+
+	* Submission of ATLAS_2019_I1744201, ATLAS_2019_I1764342
+
+2020-06-25  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a very horrible preprocessor hack to allow use of a private
+	method on the HepMC2 WeightContainer, for robust and correctly
+	ordered weight name acquisition before HepMC 2.06.11.
+
+2020-06-23  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* Allow several AnalysisHandler objects to run in different
+	threads. This is a temporary fix. A permanent fix involves
+	changing the Analysis handler to own its own
+	projections. Currently each AnalysisHandler need sto be created
+	and run completely within the same separate thread.
+
 2020-06-11  Christian Gutschow  <chris.g@cern.ch>
 
 	* Allow + and - in AO paths
 
 2020-06-10  Christian Gutschow  <chris.g@cern.ch>
 
-	* Always skip weights that have "AUX" or "NOPLOT" in the name.
+	* Always skip weights that have "AUX" or "DEBUG" in the name.
 
 2020-06-06  Andy Buckley  <andy.buckley@cern.ch>
 

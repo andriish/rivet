@@ -8,18 +8,21 @@ OUTFILE=$1
 function getAffectedFiles {
     fn="$@";
     if grep -Fxq "$fn" alreadyChecked.txt; then
-        echo "[INFO] $fn already checked, skip it"
+        : #pass
+        #echo "[INFO] $fn already checked, skip it"
     else
         echo "[INFO] Checking which analyses depend on $fn";
         echo $fn > affectedFiles.txt
-        # echo $fn >> alreadyChecked.txt
+        echo $fn >> alreadyChecked.txt
 
-        headerName=`basename ${p%.*}`.hh
-        grep -iRl "$headerName" src/ include/ test/ >> affectedFiles.txt
+        headerName=`basename ${p%.*}`
+        grep -iRl "$headerName" $CI_PROJECT_DIR/src/ $CI_PROJECT_DIR/include/ $CI_PROJECT_DIR/test/ >> affectedFiles.txt
 
         echo "[INFO] $fn affects these analyses:"
         cat affectedFiles.txt | grep -E "^analyses/.*\.(hh$|cc)$"
-        cat affectedFiles.txt | grep -E "^analyses/.*\.(hh$|cc)$" >> $OUTFILE
+        cat affectedFiles.txt | grep -E "^analyses/.*\.(hh$|cc)$" | while read p; do
+          echo $CI_PROJECT_DIR/$p >> $OUTFILE
+        done
 
         > filesToScan.txt
         cat affectedFiles.txt | grep -E "^src/" >> filesToScan.txt
@@ -27,7 +30,7 @@ function getAffectedFiles {
         # cat filesToScan.txt
         echo "[INFO] Look recursively for '$fn' dependencies"
         cat filesToScan.txt | while read q; do
-            echo "$q"
+            #echo "$q"
             getAffectedFiles $q
         done
     fi

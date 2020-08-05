@@ -26,10 +26,8 @@ namespace Rivet {
     //@{
 
     /// Constructor from a HepMC GenEvent pointer
-    ///
-    /// @todo Use the GenEventPtr alias
-    Event(GenEvent* ge, bool strip = false)
-      : _genevent_original(ge) , _genevent(*ge) {
+    Event(const GenEvent* ge, const vector<size_t>& indices = {}, bool strip = false)
+      : _weightIndices(indices), _genevent_original(ge) {
       assert(ge);
       //_genevent = *ge;
       //if ( strip ) _strip(_genevent);
@@ -38,15 +36,17 @@ namespace Rivet {
 
     /// Constructor from a HepMC GenEvent reference
     /// @deprecated HepMC uses pointers, so we should talk to HepMC via pointers
-   Event(GenEvent& ge, bool strip = false)
-     : _genevent_original(&ge), _genevent(ge) {
-       if (strip) _strip(_genevent);
-       _init(ge);
-     }
+    Event(const GenEvent& ge, const vector<size_t>& indices = {}, bool strip = false)
+      : _weightIndices(indices), _genevent_original(&ge), _genevent(ge) {
+        if ( strip ) _strip(_genevent);
+        _init(ge);
+      }
 
     /// Copy constructor
     Event(const Event& e)
-      : _genevent_original(e._genevent_original), _genevent(e._genevent)
+      : _weightIndices(e._weightIndices),
+        _genevent_original(e._genevent_original), 
+        _genevent(e._genevent)
     {  }
 
     //@}
@@ -185,6 +185,12 @@ namespace Rivet {
     // /// hadron-lepton orientation and has to be corrected for DIS analysis
     // /// portability.
     // void _geNormAlignment();
+
+    /// @brief The indices of the selected weights, as instructed to the AnalysisHandler.
+    ///
+    /// The user can (de-)select weights and the AnalysisHandler knows about the subset
+    /// that match the specifications.
+    const std::vector<size_t> _weightIndices;
 
     /// @brief The generated event, as obtained from an external generator.
     ///

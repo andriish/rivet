@@ -87,6 +87,7 @@ namespace Rivet {
     static const PdgId RHOMINUS = -RHOPLUS;
     static const PdgId K0L = 130;
     static const PdgId K0S = 310;
+    static const PdgId K0 = 311;
     static const PdgId KPLUS = 321;
     static const PdgId KMINUS = -KPLUS;
     static const PdgId ETA = 221;

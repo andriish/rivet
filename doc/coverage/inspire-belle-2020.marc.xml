@@ -1,15 +1,257 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 2 -->
+<!-- Search-Engine-Total-Number-Of-Results: 9 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record>
+  <controlfield tag="001">1798392</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Abudinen:2020fif</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2005.13559</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA20-kp23cb</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2005.13559</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Charmless $B$ decay reconstruction in 2019 Belle II data</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">Belle-II</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1796822</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Beleno:2020gzt</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2005.07766</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D20-kj22ad</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2005.07766</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">Belle preprint 2020-06</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">KEK preprint 2020-04</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Measurement of the Branching Fraction of the Decay $\boldsymbol{B^{+}\to\pi^{+}\pi^{-}\ell^{+}\nu_\ell}$ in Fully Reconstructed Events at Belle</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">Belle</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1796532</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Abudinen:2020wyd</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2005.07507</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02739571</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D20-kj22ad</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2005.07507</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">BELLE2-CONF-PH-2020-003</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Measurement of the $B^0$ lifetime using fully reconstructed hadronic decays in the 2019 Belle II dataset</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">Belle-II</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1791812</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2004.09066</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Abudinen:2020yxf</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02564617</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D20-kj19g</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2004.09066</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">BELLE2-CONF-PH-2020-002</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Measurement of the branching fraction ${\cal B}(\bar B^0\to D^{*+}\ell^-\bar\nu_\ell)$ with early Belle II data</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">Belle-II</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1790502</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Ku:2020aix</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2004.03826</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02557739</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D20-kj16l</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2004.03826</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Search for $B^0$ Decays to Invisible Final States ($+\gamma$) at Belle</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">Belle</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1789775</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevD.101.091101</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Jia:2020epr</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2004.02404</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D20-kj16l</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2004.02404</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">APS</subfield>
+    <subfield code="a">Evidence for a vector charmoniumlike state in $e^+e^- \to D^+_sD^*_{s2}(2573)^-+c.c.$</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">Belle</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1785928</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1007/JHEP05(2020)034</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1007/JHEP05(2020)034</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Chilikin:2020irx</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2003.08335</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D20-kj13af</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2003.08335</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">Belle Preprint 2020-02; KEK Preprint 2019-58</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">Springer</subfield>
+    <subfield code="a">First search for the $\eta_{c2}(1D)$ in $B$ decays at Belle</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">Belle</subfield>
+  </datafield>
+</record>
+<record>
   <controlfield tag="001">1785816</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Chen:2020sog</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
     <subfield code="a">oai:arXiv.org:2003.07759</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Chen:2020sog</subfield>
-    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D20-kj13af</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -19,6 +261,10 @@
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv:reportnumber</subfield>
     <subfield code="a">KEK Preprint 2019-60</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">Belle Preprint 2020-04</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv:reportnumber</subfield>
@@ -38,6 +284,16 @@
 </record>
 <record>
   <controlfield tag="001">1777678</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevD.101.092004</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevD.101.092004</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Seidl:2020mqc</subfield>

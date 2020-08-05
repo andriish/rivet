@@ -4,7 +4,7 @@ LABEL maintainer="rivet-developers@cern.ch"
 RUN mkdir /code && cd /code \
     && wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.2.3.tar.gz -O- | tar xz \
     && cd LHAPDF-*/ && ./configure --prefix=/usr/local \
-    && make -j5 && make install \
+    && make -j $(nproc --ignore=1) && make install \
     && cd ../.. && rm -r /code
 
 RUN dnf install -y rsync git pypy \
@@ -23,7 +23,7 @@ RUN mkdir /code && cd /code \
       --enable-hepmc2=/usr/local --enable-openloops=/usr/local/OpenLoops \
       --enable-pyext --enable-gzip --enable-analysis \
       --enable-mpi CC=mpicc CXX=mpic++ \
-    && make -j1 CXXFLAGS="-O2 -std=c++11" AM_CXXFLAGS="-O2 -std=c++11" \
+    && make -j $(nproc --ignore=1) CXXFLAGS="-O2 -std=c++11" AM_CXXFLAGS="-O2 -std=c++11" \
     && make install \
     && mkdir /usr/local/Sherpa \
     && mv Examples /usr/local/Sherpa \

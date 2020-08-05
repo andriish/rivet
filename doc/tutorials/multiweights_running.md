@@ -11,10 +11,12 @@ all multiweights apart from the nominal.
 e.g. `--match-weights=WeightName1,WeightName2`, or using a suitable regular expressions,
 e.g. `--match-weights=MUR.*MUF.*PDF123456`. Note that the default weight can never be de-selected.
 * the `--unmatch-weights` flag can be used to de-select a subset of the weights, 
-e.g. `--match-weights=WeightName1,WeightName2`, or using a suitable regular expressions,
-e.g. `--match-weights=MUR1_MUF1_PDF123.*`. Note that the default weight can never be de-selected.
+e.g. `--unmatch-weights=WeightName1,WeightName2`, or using a suitable regular expressions,
+e.g. `--unmatch-weights=MUR1_MUF1_PDF123.*`. Note that the default weight can never be de-selected.
+* Rivet will try to guess which weight should be treated as nominal if it is sensibly named, but you can
+explicitly tell it which weight to treat as the nominal by passing the name using the `--nominal-weight` flag.
 
 When both flags are passed, `--match-weights` is evaluated first, and `--unmatch-weights` is applied
 to the "surviving weights". Whenever `--skip-multiweights` is passed, it takes precedence 
-(i.e. `--match-weights` and `--unmatch-weight` would be ignored in that case).
+(i.e. `--match-weights` and `--unmatch-weights` would be ignored in that case).
 

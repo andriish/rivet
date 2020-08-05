@@ -15,7 +15,7 @@ CLEANFILES = $(PLUGIN_LIBS)
 EXTRA_DIST = $(PLUGIN_DIRS)
 
 %.so:
-	@+echo && RIVET_BUILDPLUGIN_BEFORE_INSTALL=1 bash $(top_builddir)/bin/rivet-build -j2 $@ $^ -I$(top_builddir)/include
+	@+echo && RIVET_BUILDPLUGIN_BEFORE_INSTALL=1 bash $(top_builddir)/bin/rivet-build $@ $^ -I$(top_builddir)/include
 
 RivetALICEAnalyses.so: $(filter-out $(srcdir)/pluginALICE/tmp*.cc, $(wildcard $(srcdir)/pluginALICE/*.cc))
 RivetATLASAnalyses.so: $(filter-out $(srcdir)/pluginATLAS/tmp*.cc, $(wildcard $(srcdir)/pluginATLAS/*.cc))
@@ -47,9 +47,6 @@ all-local: $(PLUGIN_LIBS) $(PLUGIN_DATAFILES)
 	mkdir -p $(builddir)/data
 	for pdir in $(abs_srcdir)/plugin*; do $(LN_S) -f $${pdir}/*.{info,plot,yoda*} $(builddir)/data; done
 
-clean-local:
-	rm -rf data
-
 install-exec-local: $(PLUGIN_LIBS)
 	$(MKDIR_P) $(DESTDIR)$(libdir)/Rivet
 	$(INSTALL) $^ $(DESTDIR)$(libdir)/Rivet
@@ -57,11 +54,12 @@ install-exec-local: $(PLUGIN_LIBS)
 install-data-local: $(PLUGIN_DATAFILES)
 	@echo "Installing analysis data files..."
 	$(mkdir_p) $(DESTDIR)$(pkgdatadir)
-	for pdir in $(builddir)/plugin*; do $(FCP) $${pdir}/*.{info,plot,yoda*} $(DESTDIR)$(pkgdatadir)/; done
+	for pdir in $(srcdir)/plugin*; do $(FCP) $${pdir}/*.{info,plot,yoda*} $(DESTDIR)$(pkgdatadir)/; done
 
 uninstall-local:
 	cd $(DESTDIR)$(libdir) && rm -f $(PLUGIN_LIBS)
 	@echo "Uninstalling analysis data files..."
+	rm -f $(DESTDIR)$(pkgdatadir)/Rivet*.so
 	rm -f $(DESTDIR)$(pkgdatadir)/*.info
 	rm -f $(DESTDIR)$(pkgdatadir)/*.plot
 	rm -f $(DESTDIR)$(pkgdatadir)/*.yoda*

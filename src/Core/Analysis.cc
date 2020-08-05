@@ -13,7 +13,7 @@ namespace Rivet {
 
 
   Analysis::Analysis(const string& name)
-      : _analysishandler(nullptr)
+    : _analysishandler(nullptr)
   {
     ProjectionApplier::_allowProjReg = false;
     _defaultname = name;
@@ -187,11 +187,22 @@ namespace Rivet {
     return ps[0].x();
   }
 
+  double Analysis::crossSectionError() const {
+    const YODA::Scatter1D::Points& ps = handler().crossSection()->points();
+    if (ps.size() != 1) {
+      string errMsg = "cross section missing for analysis " + name();
+      throw Error(errMsg);
+    }
+    return ps[0].xErrAvg();
+  }
+
   double Analysis::crossSectionPerEvent() const {
     return crossSection()/sumW();
   }
 
-
+  double Analysis::crossSectionErrorPerEvent() const {
+    return crossSectionError()/sumW();
+  }
 
   ////////////////////////////////////////////////////////////
   // Histogramming
@@ -209,7 +220,7 @@ namespace Rivet {
   // }
 
 
-  CounterPtr & Analysis::book(CounterPtr & ctr, const string& cname) {
+  CounterPtr& Analysis::book(CounterPtr& ctr, const string& cname) {
     // const string path = histoPath(cname);
     // ctr = CounterPtr(handler().weightNames(), Counter(path, title));
     // ctr = addAnalysisObject(ctr);
@@ -218,7 +229,7 @@ namespace Rivet {
   }
 
 
-  CounterPtr & Analysis::book(CounterPtr & ctr, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+  CounterPtr& Analysis::book(CounterPtr& ctr, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
     return book(ctr, axisCode);
   }
@@ -226,7 +237,7 @@ namespace Rivet {
 
 
 
-  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname, size_t nbins, double lower, double upper) {
+  Histo1DPtr& Analysis::book(Histo1DPtr& histo, const string& hname, size_t nbins, double lower, double upper) {
     const string path = histoPath(hname);
 
     Histo1D hist = Histo1D(nbins, lower, upper, path);
@@ -237,11 +248,11 @@ namespace Rivet {
     return histo = registerAO(hist);
   }
 
-  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname, const initializer_list<double>& binedges) {
-  	return book(histo, hname, vector<double>{binedges});
+  Histo1DPtr& Analysis::book(Histo1DPtr& histo, const string& hname, const initializer_list<double>& binedges) {
+    return book(histo, hname, vector<double>{binedges});
   }
 
-  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname, const vector<double>& binedges) {
+  Histo1DPtr& Analysis::book(Histo1DPtr& histo, const string& hname, const vector<double>& binedges) {
     const string path = histoPath(hname);
 
     Histo1D hist = Histo1D(binedges, path);
@@ -252,18 +263,18 @@ namespace Rivet {
     return histo = registerAO(hist);
   }
 
-  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname) {
+  Histo1DPtr& Analysis::book(Histo1DPtr& histo, const string& hname) {
     const Scatter2D& refdata = refData(hname);
     return book(histo, hname, refdata);
   }
 
 
-  Histo1DPtr & Analysis::book(Histo1DPtr & histo, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+  Histo1DPtr& Analysis::book(Histo1DPtr& histo, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
     return book(histo, axisCode);
   }
 
-  Histo1DPtr & Analysis::book(Histo1DPtr& histo, const string& hname, const Scatter2D& refscatter) {
+  Histo1DPtr& Analysis::book(Histo1DPtr& histo, const string& hname, const Scatter2D& refscatter) {
     const string path = histoPath(hname);
 
     Histo1D hist = Histo1D(refscatter, path);
@@ -281,9 +292,9 @@ namespace Rivet {
   /////////////////
 
 
-  Histo2DPtr & Analysis::book(Histo2DPtr & h2d,const string& hname,
-                                   size_t nxbins, double xlower, double xupper,
-                                   size_t nybins, double ylower, double yupper) {
+  Histo2DPtr& Analysis::book(Histo2DPtr& h2d,const string& hname,
+                             size_t nxbins, double xlower, double xupper,
+                             size_t nybins, double ylower, double yupper) {
     const string path = histoPath(hname);
 
     Histo2D hist(nxbins, xlower, xupper, nybins, ylower, yupper, path);
@@ -294,15 +305,15 @@ namespace Rivet {
     return h2d = registerAO(hist);
   }
 
-  Histo2DPtr & Analysis::book(Histo2DPtr & h2d,const string& hname,
-                                   const initializer_list<double>& xbinedges,
-                                   const initializer_list<double>& ybinedges) {
-  	return book(h2d, hname, vector<double>{xbinedges}, vector<double>{ybinedges});
+  Histo2DPtr& Analysis::book(Histo2DPtr& h2d,const string& hname,
+                             const initializer_list<double>& xbinedges,
+                             const initializer_list<double>& ybinedges) {
+    return book(h2d, hname, vector<double>{xbinedges}, vector<double>{ybinedges});
   }
 
-  Histo2DPtr & Analysis::book(Histo2DPtr & h2d,const string& hname,
-                                   const vector<double>& xbinedges,
-                                   const vector<double>& ybinedges) {
+  Histo2DPtr& Analysis::book(Histo2DPtr& h2d,const string& hname,
+                             const vector<double>& xbinedges,
+                             const vector<double>& ybinedges) {
     const string path = histoPath(hname);
 
     Histo2D hist(xbinedges, ybinedges, path);
@@ -314,7 +325,7 @@ namespace Rivet {
   }
 
 
-  Histo2DPtr & Analysis::book(Histo2DPtr & histo, const string& hname, const Scatter3D& refscatter) {
+  Histo2DPtr& Analysis::book(Histo2DPtr& histo, const string& hname, const Scatter3D& refscatter) {
     const string path = histoPath(hname);
 
     Histo2D hist = Histo2D(refscatter, path);
@@ -329,13 +340,13 @@ namespace Rivet {
   }
 
 
-  Histo2DPtr & Analysis::book(Histo2DPtr & histo, const string& hname) {
+  Histo2DPtr& Analysis::book(Histo2DPtr& histo, const string& hname) {
     const Scatter3D& refdata = refData<Scatter3D>(hname);
     return book(histo, hname, refdata);
   }
 
 
-  Histo2DPtr & Analysis::book(Histo2DPtr & histo, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+  Histo2DPtr& Analysis::book(Histo2DPtr& histo, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
     return book(histo, axisCode);
   }
@@ -344,7 +355,7 @@ namespace Rivet {
   /////////////////
 
 
-  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname, size_t nbins, double lower, double upper) {
+  Profile1DPtr& Analysis::book(Profile1DPtr& p1d,const string& hname, size_t nbins, double lower, double upper) {
     const string path = histoPath(hname);
 
     Profile1D prof(nbins, lower, upper, path);
@@ -356,11 +367,11 @@ namespace Rivet {
   }
 
 
-  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname, const initializer_list<double>& binedges) {
-  	return book(p1d, hname, vector<double>{binedges});
+  Profile1DPtr& Analysis::book(Profile1DPtr& p1d,const string& hname, const initializer_list<double>& binedges) {
+    return book(p1d, hname, vector<double>{binedges});
   }
 
-  Profile1DPtr & Analysis::book(Profile1DPtr & p1d, const string& hname, const vector<double>& binedges) {
+  Profile1DPtr& Analysis::book(Profile1DPtr& p1d, const string& hname, const vector<double>& binedges) {
     const string path = histoPath(hname);
 
     Profile1D prof(binedges, path);
@@ -371,7 +382,7 @@ namespace Rivet {
     return p1d = registerAO(prof);
   }
 
-  Profile1DPtr & Analysis::book(Profile1DPtr & p1d, const string& hname, const Scatter2D& refscatter) {
+  Profile1DPtr& Analysis::book(Profile1DPtr& p1d, const string& hname, const Scatter2D& refscatter) {
     const string path = histoPath(hname);
 
     Profile1D prof(refscatter, path);
@@ -386,13 +397,13 @@ namespace Rivet {
   }
 
 
-  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname) {
+  Profile1DPtr& Analysis::book(Profile1DPtr& p1d,const string& hname) {
     const Scatter2D& refdata = refData(hname);
     return  book(p1d, hname, refdata);
   }
 
 
-  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+  Profile1DPtr& Analysis::book(Profile1DPtr& p1d,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
     return book(p1d, axisCode);
   }
@@ -401,9 +412,9 @@ namespace Rivet {
   ///////////////////
 
 
-  Profile2DPtr & Analysis::book(Profile2DPtr & p2d, const string& hname,
-                                   size_t nxbins, double xlower, double xupper,
-                                   size_t nybins, double ylower, double yupper) {
+  Profile2DPtr& Analysis::book(Profile2DPtr& p2d, const string& hname,
+                               size_t nxbins, double xlower, double xupper,
+                               size_t nybins, double ylower, double yupper) {
     const string path = histoPath(hname);
 
     Profile2D prof(nxbins, xlower, xupper, nybins, ylower, yupper, path);
@@ -415,16 +426,16 @@ namespace Rivet {
   }
 
 
-  Profile2DPtr & Analysis::book(Profile2DPtr & p2d, const string& hname,
-                                   const initializer_list<double>& xbinedges,
-                                   const initializer_list<double>& ybinedges) {
-  	return book(p2d, hname, vector<double>{xbinedges}, vector<double>{ybinedges});
+  Profile2DPtr& Analysis::book(Profile2DPtr& p2d, const string& hname,
+                               const initializer_list<double>& xbinedges,
+                               const initializer_list<double>& ybinedges) {
+    return book(p2d, hname, vector<double>{xbinedges}, vector<double>{ybinedges});
   }
 
 
-  Profile2DPtr & Analysis::book(Profile2DPtr & p2d, const string& hname,
-                                   const vector<double>& xbinedges,
-                                   const vector<double>& ybinedges) {
+  Profile2DPtr& Analysis::book(Profile2DPtr& p2d, const string& hname,
+                               const vector<double>& xbinedges,
+                               const vector<double>& ybinedges) {
     const string path = histoPath(hname);
 
     Profile2D prof(xbinedges, ybinedges, path);
@@ -464,14 +475,14 @@ namespace Rivet {
   ///////////////
 
 
-  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, unsigned int datasetId,
-                                       unsigned int xAxisId, unsigned int yAxisId, bool copy_pts) {
+  Scatter2DPtr& Analysis::book(Scatter2DPtr& s2d, unsigned int datasetId,
+                               unsigned int xAxisId, unsigned int yAxisId, bool copy_pts) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
     return book(s2d, axisCode, copy_pts);
   }
 
 
-  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname, bool copy_pts) {
+  Scatter2DPtr& Analysis::book(Scatter2DPtr& s2d, const string& hname, bool copy_pts) {
     const string path = histoPath(hname);
 
     Scatter2D scat;
@@ -493,7 +504,7 @@ namespace Rivet {
   }
 
 
-  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname, size_t npts, double lower, double upper) {
+  Scatter2DPtr& Analysis::book(Scatter2DPtr& s2d, const string& hname, size_t npts, double lower, double upper) {
     const string path = histoPath(hname);
 
     Scatter2D scat;
@@ -509,7 +520,7 @@ namespace Rivet {
     return s2d = registerAO(scat);
   }
 
-  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname, const vector<double>& binedges) {
+  Scatter2DPtr& Analysis::book(Scatter2DPtr& s2d, const string& hname, const vector<double>& binedges) {
     const string path = histoPath(hname);
 
     Scatter2D scat;
@@ -525,7 +536,7 @@ namespace Rivet {
     return s2d = registerAO(scat);
   }
 
-  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname, const Scatter2D& refscatter) {
+  Scatter2DPtr& Analysis::book(Scatter2DPtr& s2d, const string& hname, const Scatter2D& refscatter) {
     const string path = histoPath(hname);
 
     Scatter2D scat(refscatter, path);
@@ -540,14 +551,14 @@ namespace Rivet {
   ///////////////
 
 
-  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, unsigned int datasetId, unsigned int xAxisId,
-                                unsigned int yAxisId, unsigned int zAxisId, bool copy_pts) {
+  Scatter3DPtr& Analysis::book(Scatter3DPtr& s3d, unsigned int datasetId, unsigned int xAxisId,
+                               unsigned int yAxisId, unsigned int zAxisId, bool copy_pts) {
     const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
     return book(s3d, axisCode, copy_pts);
   }
 
 
-  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, const string& hname, bool copy_pts) {
+  Scatter3DPtr& Analysis::book(Scatter3DPtr& s3d, const string& hname, bool copy_pts) {
     const string path = histoPath(hname);
 
     Scatter3D scat;
@@ -569,9 +580,9 @@ namespace Rivet {
   }
 
 
-  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, const string& hname,
-                                size_t xnpts, double xlower, double xupper,
-                                size_t ynpts, double ylower, double yupper) {
+  Scatter3DPtr& Analysis::book(Scatter3DPtr& s3d, const string& hname,
+                               size_t xnpts, double xlower, double xupper,
+                               size_t ynpts, double ylower, double yupper) {
     const string path = histoPath(hname);
 
     Scatter3D scat;
@@ -591,9 +602,9 @@ namespace Rivet {
     return s3d = registerAO(scat);
   }
 
-  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, const string& hname,
-                                const vector<double>& xbinedges,
-                                const vector<double>& ybinedges) {
+  Scatter3DPtr& Analysis::book(Scatter3DPtr& s3d, const string& hname,
+                               const vector<double>& xbinedges,
+                               const vector<double>& ybinedges) {
     Scatter3D scat;
     for (size_t xpt = 0; xpt < xbinedges.size()-1; ++xpt) {
       const double xbincentre = (xbinedges[xpt] + xbinedges[xpt+1]) / 2.0;
@@ -611,7 +622,7 @@ namespace Rivet {
     return s3d = registerAO(scat);
   }
 
-  Scatter3DPtr & Analysis::book(Scatter3DPtr & s3d, const string& hname, const Scatter3D& refscatter) {
+  Scatter3DPtr& Analysis::book(Scatter3DPtr& s3d, const string& hname, const Scatter3D& refscatter) {
     const string path = histoPath(hname);
 
     Scatter3D scat(refscatter, path);
@@ -830,10 +841,10 @@ namespace Rivet {
   }
 
 }
-  /// @todo 2D versions of integrate... defined how, exactly?!?
+/// @todo 2D versions of integrate... defined how, exactly?!?
 
 
-  //////////////////////////////////
+//////////////////////////////////
 
 // namespace {
 //   void errormsg(std::string name) {
@@ -851,7 +862,7 @@ namespace Rivet {
 namespace Rivet {
 
 
-  // void Analysis::addAnalysisObject(const MultiweightAOPtr & ao) {
+  // void Analysis::addAnalysisObject(const MultiweightAOPtr& ao) {
   //   if (handler().stage() == AnalysisHandler::Stage::INIT) {
   //     _analysisobjects.push_back(ao);
   //   }
@@ -871,110 +882,110 @@ namespace Rivet {
     }
   }
 
-  void Analysis::removeAnalysisObject(const MultiweightAOPtr & ao) {
+  void Analysis::removeAnalysisObject(const MultiweightAOPtr& ao) {
     for (auto it = _analysisobjects.begin();  it != _analysisobjects.end(); ++it) {
       if ((*it) == ao) {
         _analysisobjects.erase(it);
         break;
       }
     }
- }
-
-const CentralityProjection &
-Analysis::declareCentrality(const SingleValueProjection &proj,
-                            string calAnaName, string calHistName,
-                            const string projName, bool increasing) {
-
-  CentralityProjection cproj;
-
-  // Select the centrality variable from option. Use REF as default.
-  // Other selections are "GEN", "IMP", "RAW" and "USR" (USR only in HEPMC 3).
-  string sel = getOption<string>("cent","REF");
-  set<string> done;
-
-  if ( sel == "REF" ) {
-    YODA::Scatter2DPtr refscat;
-    auto refmap = getRefData(calAnaName);
-    if ( refmap.find(calHistName) != refmap.end() )
-      refscat = dynamic_pointer_cast<Scatter2D>(refmap.find(calHistName)->second);
-
-    if ( !refscat ) {
-      MSG_WARNING("No reference calibration histogram for " <<
-                  "CentralityProjection " << projName << " found " <<
-                  "(requested histogram " << calHistName << " in " <<
-                  calAnaName << ")");
-    }
-    else {
-      MSG_INFO("Found calibration histogram " << sel << " " << refscat->path());
-      cproj.add(PercentileProjection(proj, *refscat, increasing), sel);
-    }
   }
-  else if ( sel == "GEN" ) {
-    YODA::Histo1DPtr genhists =
-      getPreload<Histo1D>("/" + calAnaName + "/" + calHistName);
-    // for ( YODA::AnalysisObjectPtr ao : handler().getData(true) ) {
-    //   if ( ao->path() == histpath )
-    //     genhist = dynamic_pointer_cast<Histo1D>(ao);
-    // }
-    if ( !genhists || genhists->numEntries() <= 1 ) {
-      MSG_WARNING("No generated calibration histogram for " <<
-               "CentralityProjection " << projName << " found " <<
-               "(requested histogram " << calHistName << " in " <<
-               calAnaName << ")");
-    }
-    else {
-      MSG_INFO("Found calibration histogram " << sel << " " << genhists->path());
-      cproj.add(PercentileProjection(proj, *genhists, increasing), sel);
-    }
-  }
-  else if ( sel == "IMP" ) {
-    YODA::Histo1DPtr imphists =
-      getPreload<Histo1D>("/" + calAnaName + "/" + calHistName + "_IMP");
-    if ( !imphists || imphists->numEntries() <= 1 ) {
-      MSG_WARNING("No impact parameter calibration histogram for " <<
-               "CentralityProjection " << projName << " found " <<
-               "(requested histogram " << calHistName << "_IMP in " <<
-               calAnaName << ")");
-    }
-    else {
-      MSG_INFO("Found calibration histogram " << sel << " " << imphists->path());
-      cproj.add(PercentileProjection(ImpactParameterProjection(),
-                                     *imphists, true), sel);
-    }
-  }
-  else if ( sel == "USR" ) {
-    #if HEPMC_VERSION_CODE >= 3000000
-    YODA::Histo1DPtr usrhists =
-      getPreload<Histo1D>("/" + calAnaName + "/" + calHistName + "_USR");
-    if ( !usrhists || usrhists->numEntries() <= 1 ) {
-      MSG_WARNING("No user-defined calibration histogram for " <<
-               "CentralityProjection " << projName << " found " <<
-               "(requested histogram " << calHistName << "_USR in " << calAnaName << ")");
-      continue;
-    } else {
-      MSG_INFO("Found calibration histogram " << sel << " " << usrhists->path());
-      cproj.add((UserCentEstimate(), usrhists*, true), sel);
-    }
-    #else
-    MSG_ERROR("UserCentEstimate is only available with HepMC3.");
-    #endif
-  }
-  else if ( sel == "RAW" ) {
-    #if HEPMC_VERSION_CODE >= 3000000 || defined(RIVET_ENABLE_HEPMC_20610)
-    cproj.add(GeneratedPercentileProjection(), sel);
-    #else
-    MSG_ERROR("GeneratedCentrality is only available with HepMC3 and HepMC 2.06.10.");
-    #endif
-  }
-  else MSG_ERROR("'" << sel << "' is not a valid PercentileProjection tag.");
 
-  if ( cproj.empty() ) {
-    MSG_WARNING("CentralityProjection " << projName
-                << " did not contain any valid PercentileProjections.");
+  const CentralityProjection&
+  Analysis::declareCentrality(const SingleValueProjection &proj,
+                              string calAnaName, string calHistName,
+                              const string projName, bool increasing) {
+
+    CentralityProjection cproj;
+
+    // Select the centrality variable from option. Use REF as default.
+    // Other selections are "GEN", "IMP", "RAW" and "USR" (USR only in HEPMC 3).
+    string sel = getOption<string>("cent","REF");
+    set<string> done;
+
+    if ( sel == "REF" ) {
+      YODA::Scatter2DPtr refscat;
+      auto refmap = getRefData(calAnaName);
+      if ( refmap.find(calHistName) != refmap.end() )
+        refscat = dynamic_pointer_cast<Scatter2D>(refmap.find(calHistName)->second);
+
+      if ( !refscat ) {
+        MSG_WARNING("No reference calibration histogram for " <<
+                    "CentralityProjection " << projName << " found " <<
+                    "(requested histogram " << calHistName << " in " <<
+                    calAnaName << ")");
+      }
+      else {
+        MSG_INFO("Found calibration histogram " << sel << " " << refscat->path());
+        cproj.add(PercentileProjection(proj, *refscat, increasing), sel);
+      }
+    }
+    else if ( sel == "GEN" ) {
+      YODA::Histo1DPtr genhists =
+        getPreload<Histo1D>("/" + calAnaName + "/" + calHistName);
+      // for ( YODA::AnalysisObjectPtr ao : handler().getData(true) ) {
+      //   if ( ao->path() == histpath )
+      //     genhist = dynamic_pointer_cast<Histo1D>(ao);
+      // }
+      if ( !genhists || genhists->numEntries() <= 1 ) {
+        MSG_WARNING("No generated calibration histogram for " <<
+                    "CentralityProjection " << projName << " found " <<
+                    "(requested histogram " << calHistName << " in " <<
+                    calAnaName << ")");
+      }
+      else {
+        MSG_INFO("Found calibration histogram " << sel << " " << genhists->path());
+        cproj.add(PercentileProjection(proj, *genhists, increasing), sel);
+      }
+    }
+    else if ( sel == "IMP" ) {
+      YODA::Histo1DPtr imphists =
+        getPreload<Histo1D>("/" + calAnaName + "/" + calHistName + "_IMP");
+      if ( !imphists || imphists->numEntries() <= 1 ) {
+        MSG_WARNING("No impact parameter calibration histogram for " <<
+                    "CentralityProjection " << projName << " found " <<
+                    "(requested histogram " << calHistName << "_IMP in " <<
+                    calAnaName << ")");
+      }
+      else {
+        MSG_INFO("Found calibration histogram " << sel << " " << imphists->path());
+        cproj.add(PercentileProjection(ImpactParameterProjection(),
+                                       *imphists, true), sel);
+      }
+    }
+    else if ( sel == "USR" ) {
+      #if HEPMC_VERSION_CODE >= 3000000
+      YODA::Histo1DPtr usrhists =
+        getPreload<Histo1D>("/" + calAnaName + "/" + calHistName + "_USR");
+      if ( !usrhists || usrhists->numEntries() <= 1 ) {
+        MSG_WARNING("No user-defined calibration histogram for " <<
+                    "CentralityProjection " << projName << " found " <<
+                    "(requested histogram " << calHistName << "_USR in " << calAnaName << ")");
+        continue;
+      } else {
+        MSG_INFO("Found calibration histogram " << sel << " " << usrhists->path());
+        cproj.add((UserCentEstimate(), usrhists*, true), sel);
+      }
+      #else
+      MSG_ERROR("UserCentEstimate is only available with HepMC3.");
+      #endif
+    }
+    else if ( sel == "RAW" ) {
+      #if HEPMC_VERSION_CODE >= 3000000 || defined(RIVET_ENABLE_HEPMC_20610)
+      cproj.add(GeneratedPercentileProjection(), sel);
+      #else
+      MSG_ERROR("GeneratedCentrality is only available with HepMC3 and HepMC 2.06.10.");
+      #endif
+    }
+    else MSG_ERROR("'" << sel << "' is not a valid PercentileProjection tag.");
+
+    if ( cproj.empty() ) {
+      MSG_WARNING("CentralityProjection " << projName
+                  << " did not contain any valid PercentileProjections.");
+    }
+
+    return declare(cproj, projName);
   }
-  
-  return declare(cproj, projName);
-}
 
 
   vector<string> Analysis::_weightNames() const {
@@ -985,12 +996,8 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
     return handler().getPreload(path);
   }
 
-  size_t Analysis::_defaultWeightIndex() const {
+  size_t Analysis::defaultWeightIndex() const {
     return handler().defaultWeightIndex();
-  }
-
-  size_t Analysis::_globalDefaultWeightIndex() const {
-    return handler().globalDefaultWeightIndex();
   }
 
   MultiweightAOPtr Analysis::_getOtherAnalysisObject(const std::string & ananame, const std::string& name) {
@@ -1006,11 +1013,11 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
     }
   }
 
-  bool Analysis::inInit() const {
+  bool Analysis::_inInit() const {
     return handler().stage() == AnalysisHandler::Stage::INIT;
   }
 
-  bool Analysis::inFinalize() const {
+  bool Analysis::_inFinalize() const {
     return handler().stage() == AnalysisHandler::Stage::FINALIZE;
   }
 

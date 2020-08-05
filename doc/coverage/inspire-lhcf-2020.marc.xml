@@ -12,6 +12,14 @@
     <subfield code="a">oai:arXiv.org:2003.02192</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D20-kj11m</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02518031</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">CDS</subfield>
     <subfield code="a">2712226</subfield>
   </datafield>

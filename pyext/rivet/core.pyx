@@ -29,6 +29,9 @@ cdef class AnalysisHandler:
     def deselectMultiWeights(self, patterns=""):
         self._ptr.deselectMultiWeights(patterns.encode('utf-8'))
 
+    def setNominalWeightName(self, name=""):
+        self._ptr.setNominalWeightName(name.encode('utf-8'))
+
     def setWeightCap(self, double maxWeight):
         self._ptr.setWeightCap(maxWeight)
 

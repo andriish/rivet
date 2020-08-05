@@ -1,7 +1,7 @@
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d01-x01-y01
 Path: /ATLAS_2017_I1637587/d01-x01-y01
 ScaledBy: 1.37671839144065343e-06
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.626159e+00
@@ -27,7 +27,7 @@ END YODA_HISTO1D_V2
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d02-x01-y01
 Path: /ATLAS_2017_I1637587/d02-x01-y01
 ScaledBy: 7.75423424974531600e-07
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.355188e+00
@@ -53,7 +53,7 @@ END YODA_HISTO1D_V2
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d03-x01-y01
 Path: /ATLAS_2017_I1637587/d03-x01-y01
 ScaledBy: 6.49052555375581723e-07
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.139988e+00
@@ -78,7 +78,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d04-x01-y01
 Path: /ATLAS_2017_I1637587/d04-x01-y01
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: 2.612427e+01
@@ -183,10 +183,10 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d05-x01-y01
 Path: /ATLAS_2017_I1637587/d05-x01-y01
-Title: ~
+Title: 
 Type: Histo1D
 ---
-# Mean: 2.836765e+01
+# Mean: 2.836766e+01
 # Area: 8.780821e+05
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
 Total   	Total   	8.780821e+05	3.095874e+09	2.490913e+07	1.217539e+09	1.124000e+03
@@ -288,7 +288,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d06-x01-y01
 Path: /ATLAS_2017_I1637587/d06-x01-y01
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: 2.898804e+01
@@ -393,7 +393,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_COUNTER_V2 /_EVTCOUNT
 Path: /_EVTCOUNT
-Title: ~
+Title: 
 Type: Counter
 ---
 # sumW	 sumW2	 numEntries
@@ -403,7 +403,7 @@ END YODA_COUNTER_V2
 
 BEGIN YODA_SCATTER1D_V2 /_XSEC
 Path: /_XSEC
-Title: ~
+Title: 
 Type: Scatter1D
 ---
 # xval	 xerr-	 xerr+	
@@ -414,10 +414,10 @@ END YODA_SCATTER1D_V2
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d01-x01-y01[1]
 Path: /ATLAS_2017_I1637587/d01-x01-y01[1]
 ScaledBy: 1.93723682279428040e+01
-Title: ~
+Title: 
 Type: Histo1D
 ---
-# Mean: -2.627560e+00
+# Mean: -2.627561e+00
 # Area: 1.062928e+00
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
 Total   	Total   	1.062928e+00	1.061177e-02	-2.792907e+00	8.636244e+00	8.910000e+02
@@ -440,10 +440,10 @@ END YODA_HISTO1D_V2
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d02-x01-y01[1]
 Path: /ATLAS_2017_I1637587/d02-x01-y01[1]
 ScaledBy: 1.14802658747273760e+01
-Title: ~
+Title: 
 Type: Histo1D
 ---
-# Mean: -2.328339e+00
+# Mean: -2.328338e+00
 # Area: 7.068164e-01
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
 Total   	Total   	7.068164e-01	4.020237e-03	-1.645708e+00	4.362130e+00	1.124000e+03
@@ -466,7 +466,7 @@ END YODA_HISTO1D_V2
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d03-x01-y01[1]
 Path: /ATLAS_2017_I1637587/d03-x01-y01[1]
 ScaledBy: 9.61498045007111202e+00
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.108438e+00
@@ -491,10 +491,10 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d04-x01-y01[1]
 Path: /ATLAS_2017_I1637587/d04-x01-y01[1]
-Title: ~
+Title: 
 Type: Histo1D
 ---
-# Mean: 1.420102e+01
+# Mean: 1.420103e+01
 # Area: 5.486823e-02
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
 Total   	Total   	5.486823e-02	2.827628e-05	7.791851e-01	2.416446e+01	8.910000e+02
@@ -596,7 +596,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d05-x01-y01[1]
 Path: /ATLAS_2017_I1637587/d05-x01-y01[1]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: 1.499661e+01
@@ -701,10 +701,10 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d06-x01-y01[1]
 Path: /ATLAS_2017_I1637587/d06-x01-y01[1]
-Title: ~
+Title: 
 Type: Histo1D
 ---
-# Mean: 1.554406e+01
+# Mean: 1.554407e+01
 # Area: 6.159671e-02
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
 Total   	Total   	6.159671e-02	3.050373e-05	9.574632e-01	2.944507e+01	1.135000e+03
@@ -806,7 +806,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_COUNTER_V2 /_EVTCOUNT[1]
 Path: /_EVTCOUNT[1]
-Title: ~
+Title: 
 Type: Counter
 ---
 # sumW	 sumW2	 numEntries
@@ -816,18 +816,18 @@ END YODA_COUNTER_V2
 
 BEGIN YODA_SCATTER1D_V2 /_XSEC[1]
 Path: /_XSEC[1]
-Title: ~
+Title: 
 Type: Scatter1D
 ---
 # xval	 xerr-	 xerr+	
-1.841336e-05	1.287535e-06	1.287535e-06
+1.841336e-05	1.933727e-06	1.933727e-06
 END YODA_SCATTER1D_V2
 
 
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d01-x01-y01[2]
 Path: /ATLAS_2017_I1637587/d01-x01-y01[2]
 ScaledBy: 5.03657286843805858e-07
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.559097e+00
@@ -853,7 +853,7 @@ END YODA_HISTO1D_V2
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d02-x01-y01[2]
 Path: /ATLAS_2017_I1637587/d02-x01-y01[2]
 ScaledBy: 3.13551350142957323e-07
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.386992e+00
@@ -879,7 +879,7 @@ END YODA_HISTO1D_V2
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d03-x01-y01[2]
 Path: /ATLAS_2017_I1637587/d03-x01-y01[2]
 ScaledBy: 2.59666341390378331e-07
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.173482e+00
@@ -904,10 +904,10 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d04-x01-y01[2]
 Path: /ATLAS_2017_I1637587/d04-x01-y01[2]
-Title: ~
+Title: 
 Type: Histo1D
 ---
-# Mean: 3.615263e+01
+# Mean: 3.615264e+01
 # Area: 1.857281e+06
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
 Total   	Total   	1.857281e+06	3.871484e+09	6.714560e+07	3.974352e+09	8.910000e+02
@@ -1009,7 +1009,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d05-x01-y01[2]
 Path: /ATLAS_2017_I1637587/d05-x01-y01[2]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: 3.764324e+01
@@ -1114,10 +1114,10 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d06-x01-y01[2]
 Path: /ATLAS_2017_I1637587/d06-x01-y01[2]
-Title: ~
+Title: 
 Type: Histo1D
 ---
-# Mean: 3.840704e+01
+# Mean: 3.840705e+01
 # Area: 2.365897e+06
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
 Total   	Total   	2.365897e+06	4.931689e+09	9.086710e+07	5.522324e+09	1.135000e+03
@@ -1219,7 +1219,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_COUNTER_V2 /_EVTCOUNT[2]
 Path: /_EVTCOUNT[2]
-Title: ~
+Title: 
 Type: Counter
 ---
 # sumW	 sumW2	 numEntries
@@ -1229,18 +1229,18 @@ END YODA_COUNTER_V2
 
 BEGIN YODA_SCATTER1D_V2 /_XSEC[2]
 Path: /_XSEC[2]
-Title: ~
+Title: 
 Type: Scatter1D
 ---
 # xval	 xerr-	 xerr+	
-5.950016e+02	4.160487e+01	4.160487e+01
+5.950016e+02	1.829652e+01	1.829652e+01
 END YODA_SCATTER1D_V2
 
 
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d01-x01-y01[3]
 Path: /ATLAS_2017_I1637587/d01-x01-y01[3]
 ScaledBy: 2.84900284900285045e-04
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.504780e+00
@@ -1266,7 +1266,7 @@ END YODA_HISTO1D_V2
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d02-x01-y01[3]
 Path: /ATLAS_2017_I1637587/d02-x01-y01[3]
 ScaledBy: 1.85099490976399901e-04
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.338620e+00
@@ -1292,7 +1292,7 @@ END YODA_HISTO1D_V2
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d03-x01-y01[3]
 Path: /ATLAS_2017_I1637587/d03-x01-y01[3]
 ScaledBy: 1.56311059007424857e-04
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.135484e+00
@@ -1317,7 +1317,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d04-x01-y01[3]
 Path: /ATLAS_2017_I1637587/d04-x01-y01[3]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: 3.589110e+01
@@ -1422,7 +1422,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d05-x01-y01[3]
 Path: /ATLAS_2017_I1637587/d05-x01-y01[3]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: 3.784204e+01
@@ -1527,7 +1527,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d06-x01-y01[3]
 Path: /ATLAS_2017_I1637587/d06-x01-y01[3]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: 3.845963e+01
@@ -1632,7 +1632,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_COUNTER_V2 /_EVTCOUNT[3]
 Path: /_EVTCOUNT[3]
-Title: ~
+Title: 
 Type: Counter
 ---
 # sumW	 sumW2	 numEntries
@@ -1642,18 +1642,18 @@ END YODA_COUNTER_V2
 
 BEGIN YODA_SCATTER1D_V2 /_XSEC[3]
 Path: /_XSEC[3]
-Title: ~
+Title: 
 Type: Scatter1D
 ---
 # xval	 xerr-	 xerr+	
-9.984759e-01	6.981738e-02	6.981738e-02
+9.984759e-01	3.911311e-02	3.911311e-02
 END YODA_SCATTER1D_V2
 
 
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d01-x01-y01[4]
 Path: /ATLAS_2017_I1637587/d01-x01-y01[4]
 ScaledBy: inf
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: nan
@@ -1679,7 +1679,7 @@ END YODA_HISTO1D_V2
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d02-x01-y01[4]
 Path: /ATLAS_2017_I1637587/d02-x01-y01[4]
 ScaledBy: inf
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: nan
@@ -1705,7 +1705,7 @@ END YODA_HISTO1D_V2
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d03-x01-y01[4]
 Path: /ATLAS_2017_I1637587/d03-x01-y01[4]
 ScaledBy: inf
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: nan
@@ -1730,7 +1730,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d04-x01-y01[4]
 Path: /ATLAS_2017_I1637587/d04-x01-y01[4]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
@@ -1833,7 +1833,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d05-x01-y01[4]
 Path: /ATLAS_2017_I1637587/d05-x01-y01[4]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
@@ -1936,7 +1936,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /ATLAS_2017_I1637587/d06-x01-y01[4]
 Path: /ATLAS_2017_I1637587/d06-x01-y01[4]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
@@ -2039,7 +2039,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_COUNTER_V2 /_EVTCOUNT[4]
 Path: /_EVTCOUNT[4]
-Title: ~
+Title: 
 Type: Counter
 ---
 # sumW	 sumW2	 numEntries
@@ -2049,7 +2049,7 @@ END YODA_COUNTER_V2
 
 BEGIN YODA_SCATTER1D_V2 /_XSEC[4]
 Path: /_XSEC[4]
-Title: ~
+Title: 
 Type: Scatter1D
 ---
 # xval	 xerr-	 xerr+	
@@ -2059,7 +2059,7 @@ END YODA_SCATTER1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d01-x01-y01
 Path: /RAW/ATLAS_2017_I1637587/d01-x01-y01
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.626159e+00
@@ -2084,7 +2084,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d02-x01-y01
 Path: /RAW/ATLAS_2017_I1637587/d02-x01-y01
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.355188e+00
@@ -2109,10 +2109,10 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d03-x01-y01
 Path: /RAW/ATLAS_2017_I1637587/d03-x01-y01
-Title: ~
+Title: 
 Type: Histo1D
 ---
-# Mean: -2.139987e+00
+# Mean: -2.139988e+00
 # Area: 8.807281e+05
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
 Total   	Total   	8.807281e+05	3.098641e+09	-1.884747e+06	4.478455e+06	1.135000e+03
@@ -2134,7 +2134,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d04-x01-y01
 Path: /RAW/ATLAS_2017_I1637587/d04-x01-y01
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: 2.612427e+01
@@ -2239,10 +2239,10 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d05-x01-y01
 Path: /RAW/ATLAS_2017_I1637587/d05-x01-y01
-Title: ~
+Title: 
 Type: Histo1D
 ---
-# Mean: 2.836765e+01
+# Mean: 2.836766e+01
 # Area: 8.780821e+05
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
 Total   	Total   	8.780821e+05	3.095874e+09	2.490913e+07	1.217539e+09	1.124000e+03
@@ -2344,7 +2344,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d06-x01-y01
 Path: /RAW/ATLAS_2017_I1637587/d06-x01-y01
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: 2.898804e+01
@@ -2449,7 +2449,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_COUNTER_V2 /RAW/_EVTCOUNT
 Path: /RAW/_EVTCOUNT
-Title: ~
+Title: 
 Type: Counter
 ---
 # sumW	 sumW2	 numEntries
@@ -2459,7 +2459,7 @@ END YODA_COUNTER_V2
 
 BEGIN YODA_SCATTER1D_V2 /RAW/_XSEC
 Path: /RAW/_XSEC
-Title: ~
+Title: 
 Type: Scatter1D
 ---
 # xval	 xerr-	 xerr+	
@@ -2469,7 +2469,7 @@ END YODA_SCATTER1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d01-x01-y01[1]
 Path: /RAW/ATLAS_2017_I1637587/d01-x01-y01[1]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.627561e+00
@@ -2494,7 +2494,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d02-x01-y01[1]
 Path: /RAW/ATLAS_2017_I1637587/d02-x01-y01[1]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.328338e+00
@@ -2519,10 +2519,10 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d03-x01-y01[1]
 Path: /RAW/ATLAS_2017_I1637587/d03-x01-y01[1]
-Title: ~
+Title: 
 Type: Histo1D
 ---
-# Mean: -2.108439e+00
+# Mean: -2.108438e+00
 # Area: 6.159671e-02
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
 Total   	Total   	6.159671e-02	3.050373e-05	-1.298729e-01	3.062637e-01	1.135000e+03
@@ -2544,10 +2544,10 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d04-x01-y01[1]
 Path: /RAW/ATLAS_2017_I1637587/d04-x01-y01[1]
-Title: ~
+Title: 
 Type: Histo1D
 ---
-# Mean: 1.420102e+01
+# Mean: 1.420103e+01
 # Area: 5.486823e-02
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
 Total   	Total   	5.486823e-02	2.827628e-05	7.791851e-01	2.416446e+01	8.910000e+02
@@ -2649,7 +2649,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d05-x01-y01[1]
 Path: /RAW/ATLAS_2017_I1637587/d05-x01-y01[1]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: 1.499661e+01
@@ -2754,10 +2754,10 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d06-x01-y01[1]
 Path: /RAW/ATLAS_2017_I1637587/d06-x01-y01[1]
-Title: ~
+Title: 
 Type: Histo1D
 ---
-# Mean: 1.554406e+01
+# Mean: 1.554407e+01
 # Area: 6.159671e-02
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
 Total   	Total   	6.159671e-02	3.050373e-05	9.574632e-01	2.944507e+01	1.135000e+03
@@ -2859,7 +2859,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_COUNTER_V2 /RAW/_EVTCOUNT[1]
 Path: /RAW/_EVTCOUNT[1]
-Title: ~
+Title: 
 Type: Counter
 ---
 # sumW	 sumW2	 numEntries
@@ -2869,17 +2869,17 @@ END YODA_COUNTER_V2
 
 BEGIN YODA_SCATTER1D_V2 /RAW/_XSEC[1]
 Path: /RAW/_XSEC[1]
-Title: ~
+Title: 
 Type: Scatter1D
 ---
 # xval	 xerr-	 xerr+	
-1.841336e-05	1.287535e-06	1.287535e-06
+1.841336e-05	1.933727e-06	1.933727e-06
 END YODA_SCATTER1D_V2
 
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d01-x01-y01[2]
 Path: /RAW/ATLAS_2017_I1637587/d01-x01-y01[2]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.559097e+00
@@ -2904,7 +2904,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d02-x01-y01[2]
 Path: /RAW/ATLAS_2017_I1637587/d02-x01-y01[2]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.386992e+00
@@ -2929,10 +2929,10 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d03-x01-y01[2]
 Path: /RAW/ATLAS_2017_I1637587/d03-x01-y01[2]
-Title: ~
+Title: 
 Type: Histo1D
 ---
-# Mean: -2.173481e+00
+# Mean: -2.173482e+00
 # Area: 2.365897e+06
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
 Total   	Total   	2.365897e+06	4.931689e+09	-5.142233e+06	1.257339e+07	1.135000e+03
@@ -2954,10 +2954,10 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d04-x01-y01[2]
 Path: /RAW/ATLAS_2017_I1637587/d04-x01-y01[2]
-Title: ~
+Title: 
 Type: Histo1D
 ---
-# Mean: 3.615263e+01
+# Mean: 3.615264e+01
 # Area: 1.857281e+06
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
 Total   	Total   	1.857281e+06	3.871484e+09	6.714560e+07	3.974352e+09	8.910000e+02
@@ -3059,7 +3059,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d05-x01-y01[2]
 Path: /RAW/ATLAS_2017_I1637587/d05-x01-y01[2]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: 3.764324e+01
@@ -3164,10 +3164,10 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d06-x01-y01[2]
 Path: /RAW/ATLAS_2017_I1637587/d06-x01-y01[2]
-Title: ~
+Title: 
 Type: Histo1D
 ---
-# Mean: 3.840704e+01
+# Mean: 3.840705e+01
 # Area: 2.365897e+06
 # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
 Total   	Total   	2.365897e+06	4.931689e+09	9.086710e+07	5.522324e+09	1.135000e+03
@@ -3269,7 +3269,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_COUNTER_V2 /RAW/_EVTCOUNT[2]
 Path: /RAW/_EVTCOUNT[2]
-Title: ~
+Title: 
 Type: Counter
 ---
 # sumW	 sumW2	 numEntries
@@ -3279,17 +3279,17 @@ END YODA_COUNTER_V2
 
 BEGIN YODA_SCATTER1D_V2 /RAW/_XSEC[2]
 Path: /RAW/_XSEC[2]
-Title: ~
+Title: 
 Type: Scatter1D
 ---
 # xval	 xerr-	 xerr+	
-5.950016e+02	4.160487e+01	4.160487e+01
+5.950016e+02	1.829652e+01	1.829652e+01
 END YODA_SCATTER1D_V2
 
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d01-x01-y01[3]
 Path: /RAW/ATLAS_2017_I1637587/d01-x01-y01[3]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.504780e+00
@@ -3314,7 +3314,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d02-x01-y01[3]
 Path: /RAW/ATLAS_2017_I1637587/d02-x01-y01[3]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.338620e+00
@@ -3339,7 +3339,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d03-x01-y01[3]
 Path: /RAW/ATLAS_2017_I1637587/d03-x01-y01[3]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: -2.135484e+00
@@ -3364,7 +3364,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d04-x01-y01[3]
 Path: /RAW/ATLAS_2017_I1637587/d04-x01-y01[3]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: 3.589110e+01
@@ -3469,7 +3469,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d05-x01-y01[3]
 Path: /RAW/ATLAS_2017_I1637587/d05-x01-y01[3]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: 3.784204e+01
@@ -3574,7 +3574,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d06-x01-y01[3]
 Path: /RAW/ATLAS_2017_I1637587/d06-x01-y01[3]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: 3.845963e+01
@@ -3679,7 +3679,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_COUNTER_V2 /RAW/_EVTCOUNT[3]
 Path: /RAW/_EVTCOUNT[3]
-Title: ~
+Title: 
 Type: Counter
 ---
 # sumW	 sumW2	 numEntries
@@ -3689,17 +3689,17 @@ END YODA_COUNTER_V2
 
 BEGIN YODA_SCATTER1D_V2 /RAW/_XSEC[3]
 Path: /RAW/_XSEC[3]
-Title: ~
+Title: 
 Type: Scatter1D
 ---
 # xval	 xerr-	 xerr+	
-9.984759e-01	6.981738e-02	6.981738e-02
+9.984759e-01	3.911311e-02	3.911311e-02
 END YODA_SCATTER1D_V2
 
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d01-x01-y01[4]
 Path: /RAW/ATLAS_2017_I1637587/d01-x01-y01[4]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
@@ -3722,7 +3722,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d02-x01-y01[4]
 Path: /RAW/ATLAS_2017_I1637587/d02-x01-y01[4]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
@@ -3745,7 +3745,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d03-x01-y01[4]
 Path: /RAW/ATLAS_2017_I1637587/d03-x01-y01[4]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
@@ -3768,7 +3768,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d04-x01-y01[4]
 Path: /RAW/ATLAS_2017_I1637587/d04-x01-y01[4]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
@@ -3871,7 +3871,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d05-x01-y01[4]
 Path: /RAW/ATLAS_2017_I1637587/d05-x01-y01[4]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
@@ -3974,7 +3974,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_HISTO1D_V2 /RAW/ATLAS_2017_I1637587/d06-x01-y01[4]
 Path: /RAW/ATLAS_2017_I1637587/d06-x01-y01[4]
-Title: ~
+Title: 
 Type: Histo1D
 ---
 # Mean: # ID	 ID	 sumw	 sumw2	 sumwx	 sumwx2	 numEntries
@@ -4077,7 +4077,7 @@ END YODA_HISTO1D_V2
 
 BEGIN YODA_COUNTER_V2 /RAW/_EVTCOUNT[4]
 Path: /RAW/_EVTCOUNT[4]
-Title: ~
+Title: 
 Type: Counter
 ---
 # sumW	 sumW2	 numEntries
@@ -4087,7 +4087,7 @@ END YODA_COUNTER_V2
 
 BEGIN YODA_SCATTER1D_V2 /RAW/_XSEC[4]
 Path: /RAW/_XSEC[4]
-Title: ~
+Title: 
 Type: Scatter1D
 ---
 # xval	 xerr-	 xerr+	

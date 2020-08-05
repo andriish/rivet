@@ -1,250 +1,329 @@
-image: fedora:30
-
 variables:
-  #ATLAS_LOCAL_ROOT_BASE: /cvmfs/atlas.cern.ch/repo/ATLASLocalRootBase
   GIT_STRATEGY: fetch
   GIT_SUBMODULE_STRATEGY: recursive
   GIT_SSL_NO_VERIFY: "true"
-  SRC_DIR: src
-  BUILD_DIR: build
-  SRC_DIR_ABS: "${CI_PROJECT_DIR}/${SRC_DIR}"
-  BUILD_DIR_ABS: "${CI_PROJECT_DIR}/${BUILD_DIR}"
-  LD_LIBRARY_PATH: "/usr/local/lib"
-  PYTHONPATH: "$PWD"
-  HEPMC_VERSION: "2.06.10"
-  FASTJET_VERSION: "3.3.3"
-  FJCONTRIB_VERSION: "1.044"
-  CYTHON_VERSION: "0.29.15"
 
 
 stages:
 - compile
+- precheck
 - check
 - validate
 
-before_script:
-- dnf update -y
-
 
 .build_template: &build_template
+  image:
+    hepstore/hepbase-$ARCH
   stage: compile
-  except:
-    - schedules
   script:
-    - dnf install -y make cmake gcc-c++ gcc-gfortran redhat-rpm-config m4 automake autoconf libtool
-    - dnf install -y wget tar less bzip2 findutils which nano zlib-devel git rsync file
-    # now extract list of analyses which are affected by this commit
-    - ./ci/getAffectedRoutines.sh anasToCompile.txt
-    # add in some analyses needed for later CI steps
-    - find analyses | grep MC_TTBAR | grep cc  >> anasToCompile.txt
-    - find analyses | grep ATLAS_2018_I1656578 | grep cc  >> anasToCompile.txt
-    - find analyses | grep ATLAS_2018_I1646686 | grep cc  >> anasToCompile.txt
-    - find analyses | grep ATLAS_2017_I1614149 | grep cc  >> anasToCompile.txt
-    - cat anasToCompile.txt | sort --unique > anasToCompile.tmp ; mv anasToCompile.tmp anasToCompile.txt
-    - echo "==== echo analyses to compile ====="
-    - cat anasToCompile.txt
-    # now do the usual build
-    - |
-      if [ "${CI_PROJECT_DIR}" != "/builds/hepcedar/rivet" ]; then
-        mkdir -p /builds/hepcedar/rivet
-        ln -s "${CI_PROJECT_DIR}/local${PYTHON_VERSION}" "/builds/hepcedar/rivet/local${PYTHON_VERSION}"
-      fi
-    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib
-    # The HepM3 from EPEL/Fedora is validated on regular basis.
-    - if [ "${HEPMC_VERSION}" = "3" ] ; then dnf install -y HepMC3 HepMC3-devel HepMC3-search HepMC3-search-devel; fi
-    - dnf clean all
-    - alias python='/usr/bin/python${PYTHON_VERSION}'
     - shopt -s expand_aliases
-    - if [ "$VENV" = "yes" ] ; then python -m venv --system-site-packages ~/.venv ; source ~/.venv/bin/activate ; fi
-    - cd ..
-    - BUILD_PREFIX="$PWD"
-    - INSTALL_PREFIX="${CI_PROJECT_DIR}/local${PYTHON_VERSION}"
-    - MAKE="make -j3"
-    - export CPPFLAGS="$CPPFLAGS -DNDEBUG"
-    # immediate exit on a command (group) failure and optional debug mode
     - set -e
-    - export PATH=$INSTALL_PREFIX/bin:$PATH
-    # disable all analysis builds by default
-    - function conf { ./configure --prefix=$INSTALL_PREFIX --disable-analyses "$@"; }
-    - function mmi { $MAKE "$@" && $MAKE install && $MAKE check; }
-    - function wget_untar { wget --no-check-certificate $1 -O- | tar --no-same-owner -xz; }
-    - cd ${CI_PROJECT_DIR}
-    - echo "DOWNLOAD AND SET UP PREINSTALLATION"
-    # download pre-installed versions of HepMC2, FASTJET, FJcontrib and YODA
-    - export DL="https://cgutscho.web.cern.ch/cgutscho/FEDORA30_PYTHON2_HEPMC20610_FASTJET333_FJCONTRIB1044_YODA18X-status2020-05-20.tar.gz"
-    - if [ "${PYTHON_VERSION}" = "3" ]; then export DL="https://cgutscho.web.cern.ch/cgutscho/FEDORA30_PYTHON3_HEPMC20610_FASTJET333_FJCONTRIB1044_YODA18X-status2020-05-20.tar.gz" ; fi
-    - wget_untar $DL
-    # install cython
-    - cd $BUILD_PREFIX
-    - export FASTJETPATH=$INSTALL_PREFIX
-    - export YODAPATH=$INSTALL_PREFIX
-    # install cython
-    - echo "INSTALLING CYTHON $CYTHON_VERSION"
-    - test -d cython-$CYTHON_VERSION || { wget https://github.com/cython/cython/archive/$CYTHON_VERSION.tar.gz -O - | tar xz; }
-    - export PATH=$BUILD_PREFIX/cython-$CYTHON_VERSION/bin:$PATH
-    - export PYTHONPATH=$BUILD_PREFIX/cython-$CYTHON_VERSION:$PYTHONPATH
-    # install dev rivet
-    - echo "INSTALLING DEV RIVET AGAINST HEPMC${PYTHON_VERSION}"
-    - cd $BUILD_PREFIX/rivet
+    - BUILD_PREFIX="$CI_PROJECT_DIR"
+    - MAKE="make -j $(nproc)"
+    #/build_$ARCH"
+    - mkdir -p $BUILD_PREFIX
+    - INSTALL_PREFIX="$CI_PROJECT_DIR/local_$ARCH"
+    - mkdir -p $INSTALL_PREFIX
+    - TEST_PREFIX="$CI_PROJECT_DIR/test_$ARCH"
+    - mkdir -p $TEST_PREFIX
+    ## Build the core library
+    # - export CPPFLAGS="$CPPFLAGS -DNDEBUG"
+    #- export PATH=$INSTALL_PREFIX/bin:$PATH
     - autoreconf -i
-    - export HEPMC_OPTION="--with-hepmc=$INSTALL_PREFIX"
-    - if [ "${HEPMC_VERSION}" = "3" ]; then export HEPMC_OPTION="--with-hepmc3=/usr"; fi
-    - conf $RIVET_CONFFLAGS --with-yoda=$YODAPATH $HEPMC_OPTION --with-fastjet=$FASTJETPATH
-    - mmi
+    - cd $BUILD_PREFIX
+    - if [[ "$ALLANAS" != "1" ]]; then ANAOPT="--disable-analyses"; fi
+    - CONF="./configure --prefix=$INSTALL_PREFIX $ANAOPT --with-yoda=/usr/local --with-hepmc=/usr/local --with-fastjet=/usr/local"
+    - if (echo $ARCH | grep -q hepmc3); then CONF=${CONF/with-hepmc/with-hepmc3}; fi
+    - echo $CONF
+    - $CONF
+    - $MAKE
+    - $MAKE check
+    - $MAKE install
     - cp rivetenv.sh rivetenv.csh $INSTALL_PREFIX/
-    # setup env
+    ## Basic testing
     - source $INSTALL_PREFIX/rivetenv.sh
     - rivet -h
-    - echo rivet-build `cat anasToCompile.txt`
-    - rivet-build RivetModifiedAnas.so `cat anasToCompile.txt`
-    - mkdir -p ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/lib/Rivet/.
-    - mkdir -p ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/.
-    - cp RivetModifiedAnas.so ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/lib/Rivet/.
-    - while read p ; do cp ${p/%.cc}* ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/. ; done < anasToCompile.txt
-    - rm ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/*cc
+    - |
+      if [[ "$ALLANAS" != "1" ]]; then
+        ./ci/getAffectedRoutines.sh anasToCompile.txt
+        echo "==== echo analyses to compile ====="
+        cat anasToCompile.txt
+        find analyses | grep MC_TTBAR | grep cc  >> anasToCompile.txt # need at least one!
+        cat anasToCompile.txt | sort --unique > anasToCompile.tmp ; mv anasToCompile.tmp anasToCompile.txt
+        echo rivet-build `cat anasToCompile.txt`
+        rivet-build RivetModifiedAnas.so `cat anasToCompile.txt`
+        mkdir -p ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/lib/Rivet/.
+        mkdir -p ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/.
+        cp RivetModifiedAnas.so ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/lib/Rivet/.
+        while read p ; do cp ${p/%.cc}* ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/. ; done < anasToCompile.txt
+        rm ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/*cc
+      fi
+
   artifacts:
     when: always
     paths:
-      - ${CI_PROJECT_DIR}
-      #- local$
-      #- local${PYTHON_VERSION}/
-      #- ${CI_PROJECT_DIR}/test
+      - $CI_PROJECT_DIR
+      # - test/
+      # - local_$ARCH/
     expire_in: 1 week
 
+
+build_ubuntu_gcc_hepmc2_py3:
+  variables:
+    ARCH: ubuntu-gcc-hepmc2-py3
+  <<: *build_template
+
+build_ubuntu_gcc_hepmc3_py3:
+  variables:
+    ARCH: ubuntu-gcc-hepmc3-py3
+  <<: *build_template
+
+build_ubuntu_clang_hepmc2_py3:
+  variables:
+    ARCH: ubuntu-clang-hepmc2-py3
+  <<: *build_template
+
+build_ubuntu_clang_hepmc3_py3:
+  variables:
+    ARCH: ubuntu-clang-hepmc3-py3
+  <<: *build_template
+
+build_fedora_gcc_hepmc2_py3:
+  variables:
+    ARCH: fedora-gcc-hepmc2-py3
+  <<: *build_template
+
+build_fedora_gcc_hepmc3_py3:
+  variables:
+    ARCH: fedora-gcc-hepmc3-py3
+  #only: [schedules]
+  <<: *build_template
+
+build_ubuntu_gcc_hepmc2_py2:
+  variables:
+    ARCH: ubuntu-gcc-hepmc2-py2
+  <<: *build_template
+
+build_ubuntu_gcc_hepmc3_py2:
+  variables:
+    ARCH: ubuntu-gcc-hepmc3-py2
+  #only: [schedules]
+  <<: *build_template
+
+
+get_test_hepmc:
+  image:
+    jgoclawski/wget
+  stage: precheck
+  script:
+    - URL1=https://rivetval.web.cern.ch/rivetval/HEPMC/LHC-13-Top-All.hepmc.gz
+    - URL2=https://cgutscho.web.cern.ch/cgutscho/LHC-13-Top-All.hepmc.gz
+    - for u in $URL1 $URL2; do wget --no-check-certificate $u -O tt.hepmc.gz && break; done
+    -  mkdir -p valhepmc
+   # - | #takes up too much space  to be uploaded as an artifact sadly :(
+   #   if [[ "$VAL" == "1" ]]; then
+   #     URL1=https://rivetval.web.cern.ch/rivetval/HEPMC/
+   #     URL2=https://cgutscho.web.cern.ch/cgutscho/
+   #     for u in $URL1 $URL2; do wget -q --no-check-certificate $u -O list.txt && break; done
+   #     while read p ; do
+   #       a=${p#<*href=\"} ; b=${a%\"*}
+   #       if echo ${b} | grep gz ; then
+   #         echo $b
+   #         for u in $URL1 $URL2; do wget -q  --no-check-certificate $u/$b -O valhepmc/$b  && break; done
+   #       fi
+   #     done < list.txt
+   #   fi
+  artifacts:
+    when: always
+    paths:
+      - $CI_PROJECT_DIR/tt.hepmc.gz
+      - $CI_PROJECT_DIR/valhepmc
+    expire_in: 1 week
 
 
 .check_plugin_template: &check_plugin_template
+  image:
+    hepstore/hepbase-$ARCH
   stage: check
-  except:
-    - schedules
   script:
-    - dnf install -y libtool wget tar less which git rsync file make cmake gcc-c++ gcc-gfortran redhat-rpm-config
+    - INSTALL_PREFIX="$CI_PROJECT_DIR/local_$ARCH"
+    - TEST_PREFIX="$CI_PROJECT_DIR/test_$ARCH"
+    - VAL_PREFIX="$CI_PROJECT_DIR/val_$ARCH"
+    - mkdir -p $VAL_PREFIX
+    - source $INSTALL_PREFIX/rivetenv.sh
+    - cd $TEST_PREFIX
+    ## Identify changed routines + a few standard ones for CI tests
+    - echo $ALLANAS
     - |
-      if [ "${CI_PROJECT_DIR}" != "/builds/hepcedar/rivet" ]; then
-        mkdir -p /builds/hepcedar/rivet
-        ln -s "${CI_PROJECT_DIR}/local${PYTHON_VERSION}" "/builds/hepcedar/rivet/local${PYTHON_VERSION}"
+      if [[ "$ALLANAS" != "1" ]]; then
+        $CI_PROJECT_DIR/ci/getAffectedRoutines.sh $CI_PROJECT_DIR/anasToCompile.txt
+        find $CI_PROJECT_DIR/analyses | grep MC_TTBAR | grep cc  >> $CI_PROJECT_DIR/anasToCompile.txt
+        find $CI_PROJECT_DIR/analyses | grep ATLAS_2018_I1656578 | grep cc  >> $CI_PROJECT_DIR/anasToCompile.txt
+        find $CI_PROJECT_DIR/analyses | grep ATLAS_2018_I1646686 | grep cc  >> $CI_PROJECT_DIR/anasToCompile.txt
+        find $CI_PROJECT_DIR/analyses | grep ATLAS_2017_I1614149 | grep cc  >> $CI_PROJECT_DIR/anasToCompile.txt
+        sort --unique $CI_PROJECT_DIR/anasToCompile.txt -o $CI_PROJECT_DIR/anasToCompile.txt
+        cat $CI_PROJECT_DIR/anasToCompile.txt
+        ## Build changed routines
+        rivet-build RivetModifiedAnas.so `cat $CI_PROJECT_DIR/anasToCompile.txt`
+        mkdir -p $INSTALL_PREFIX/lib/Rivet
+        mkdir -p $INSTALL_PREFIX/share/Rivet
+        cp RivetModifiedAnas.so $INSTALL_PREFIX/lib/Rivet/
+        cat $CI_PROJECT_DIR/anasToCompile.txt | while read p; do cp ${p/%.cc}* $INSTALL_PREFIX/share/Rivet/; done
       fi
-    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib
-    - if [ "${HEPMC_VERSION}" = "3" ] ; then dnf install -y HepMC3 HepMC3-devel HepMC3-search HepMC3-search-devel; fi
-    - dnf clean all
-    - alias python='/usr/bin/python${PYTHON_VERSION}'
-    - shopt -s expand_aliases
-    - ls
-    - if [ "$VENV" = "yes" ] ; then python -m venv --system-site-packages ~/.venv ; source ~/.venv/bin/activate ; fi
-    - python --version
-    - export HEPMCPATH=$INSTALL_PREFIX
-    - export FASTJETPATH=$INSTALL_PREFIX
-    - export YODAPATH=$INSTALL_PREFIX
-    - source local${PYTHON_VERSION}/rivetenv.sh
-    - mkdir testArea${PYTHON_VERSION}
-    - cd testArea${PYTHON_VERSION}
+    ## Test analysis loading and listing
+    - rivet --list-analyses
     - rivet-mkanalysis MY_TEST
-    - rivet-build RivetMY_TEST.so MY_TEST.cc
+    - rivet-build MY_TEST.cc
     - rivet --pwd --list-analyses
-    #- wget --no-check-certificate https://rivetval.web.cern.ch/rivetval/HEPMC/LHC-13-Top-All.hepmc.gz
-    # alternative download location:
-    - wget --no-check-certificate https://cgutscho.web.cern.ch/cgutscho/LHC-13-Top-All.hepmc.gz
-    - rivet --pwd -a MC_TTBAR:TTMODE=ANYLEP,ATLAS_2017_I1614149,ATLAS_2018_I1646686,ATLAS_2018_I1656578 -H ttbar_test_run.yoda LHC-13-Top-All.hepmc.gz
+    ## Test standard analyses on a small event sample
+    - rivet --pwd -a MC_TTBAR:TTMODE=ANYLEP,ATLAS_2017_I1614149,ATLAS_2018_I1646686,ATLAS_2018_I1656578 -H ttbar_test_run.yoda $CI_PROJECT_DIR/tt.hepmc.gz
+    - | #monthly full validation only... SLOW!
+      if [[ "$VAL" == "1" ]]; then
+        if [[ "$ARCH" == "ubuntu-gcc-hepmc2-py2" ]]; then
+          cd $VAL_PREFIX
+          rivet-mkvaldir VALDIR --ref-dir $CI_PROJECT_DIR/analyses/valref/
+          cd VALDIR
+          make check -j $(nproc)
+          ls *diff > diffs.txt
+          while read  p; do echo "==== $p ====" ; if [ -s "$p" ]; then echo "fail" ; exit 1 ; else echo "ok";  fi ; done < diffs.txt
+        fi
+      fi
   artifacts:
     when: always
     paths:
-      - local${PYTHON_VERSION}/
-      - testArea${PYTHON_VERSION}/ttbar_test_run.yoda
+      - local_$ARCH/
+      - test_$ARCH/
+      - val_$ARCH/VALDIR/*yoda
+      - val_$ARCH/VALDIR/*html
+      - val_$ARCH/VALDIR/*diff
+    #exclude:
+    #  - test_$ARCH/VALDIR/*/*gz
     expire_in: 1 week
 
+
+check_plugin_ubuntu_gcc_hepmc2_py3:
+  variables:
+    ARCH: ubuntu-gcc-hepmc2-py3
+  needs: [build_ubuntu_gcc_hepmc2_py3, get_test_hepmc]
+  <<: *check_plugin_template
+
+check_plugin_ubuntu_gcc_hepmc3_py3:
+  variables:
+    ARCH: ubuntu-gcc-hepmc3-py3
+  needs: [build_ubuntu_gcc_hepmc3_py3, get_test_hepmc]
+  <<: *check_plugin_template
+
+check_plugin_ubuntu_clang_hepmc2_py3:
+  variables:
+    ARCH: ubuntu-clang-hepmc2-py3
+  needs: [build_ubuntu_clang_hepmc2_py3, get_test_hepmc]
+  <<: *check_plugin_template
+
+check_plugin_ubuntu_clang_hepmc3_py3:
+  variables:
+    ARCH: ubuntu-clang-hepmc3-py3
+  needs: [build_ubuntu_clang_hepmc3_py3, get_test_hepmc]
+  <<: *check_plugin_template
+
+check_plugin_fedora_gcc_hepmc2_py3:
+  variables:
+    ARCH: fedora-gcc-hepmc2-py3
+  needs: [build_fedora_gcc_hepmc2_py3, get_test_hepmc]
+  <<: *check_plugin_template
+
+check_plugin_fedora_gcc_hepmc3_py3:
+  variables:
+    ARCH: fedora-gcc-hepmc3-py3
+  #only: [schedules]
+  needs: [build_fedora_gcc_hepmc3_py3, get_test_hepmc]
+  <<: *check_plugin_template
+
+check_plugin_ubuntu_gcc_hepmc2_py2:
+  variables:
+    ARCH: ubuntu-gcc-hepmc2-py2
+  needs: [build_ubuntu_gcc_hepmc2_py2, get_test_hepmc]
+  <<: *check_plugin_template
+
+check_plugin_ubuntu_gcc_hepmc3_py2:
+  variables:
+    ARCH: ubuntu-gcc-hepmc3-py2
+  #only: [schedules]
+  needs: [build_ubuntu_gcc_hepmc3_py2, get_test_hepmc]
+  <<: *check_plugin_template
+
+
+
 .make_plots_template: &make_plots_template
+  image:
+    hepstore/hepbase-$ARCH-latex
   stage: validate
-  except:
-    - schedules
   script:
-    - dnf install -y texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow
-    - dnf install -y ghostscript ImageMagick texlive-dvips texlive-relsize
-    - dnf install -y texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended
-    - |
-      if [ "${CI_PROJECT_DIR}" != "/builds/hepcedar/rivet" ]; then
-        mkdir -p /builds/hepcedar/rivet
-        ln -s "${CI_PROJECT_DIR}/local${PYTHON_VERSION}" "/builds/hepcedar/rivet/local${PYTHON_VERSION}"
-      fi
-    - dnf install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-devel python${PYTHON_VERSION}-requests python${PYTHON_VERSION}-matplotlib
-    - if [ "${HEPMC_VERSION}" = "3" ] ; then dnf install -y HepMC3 HepMC3-devel HepMC3-search HepMC3-search-devel; fi
-    - dnf clean all
-    - alias python='/usr/bin/python${PYTHON_VERSION}'
-    - shopt -s expand_aliases
-    - if [ "$VENV" = "yes" ] ; then python -m venv --system-site-packages ~/.venv ; source ~/.venv/bin/activate ; fi
-    - python --version
-    - export HEPMCPATH=$INSTALL_PREFIX
-    - export FASTJETPATH=$INSTALL_PREFIX
-    - export YODAPATH=$INSTALL_PREFIX
-    - source local${PYTHON_VERSION}/rivetenv.sh
-    - cd testArea${PYTHON_VERSION}
+    - INSTALL_PREFIX="$CI_PROJECT_DIR/local_$ARCH"
+    - TEST_PREFIX="$CI_PROJECT_DIR/test_$ARCH"
+    - source $INSTALL_PREFIX/rivetenv.sh
+    - cd $TEST_PREFIX
     - rivet-mkhtml --errs -o ttbar_test_plots ttbar_test_run.yoda
   artifacts:
     when: always
     paths:
-      - testArea${PYTHON_VERSION}/ttbar_test_plots/
+      - test_$ARCH/ttbar_test_plots/
+    expire_in: 1 week
+  artifacts:
+    when: always
+    paths:
+      - test_$ARCH/ttbar_test_plots
     expire_in: 1 week
 
 
-build:
+make_plots_ubuntu_gcc_hepmc2_py3:
   variables:
-    PYTHON_VERSION: ""
-    PYTHON: python
-    VENV: "no"
-    HEPMC_VERSION: "2"
-  <<: *build_template
-
-build-hepmc3:
-  variables:
-    PYTHON_VERSION: "3"
-    PYTHON: python3
-    VENV: "yes"
-    HEPMC_VERSION: "3"
-  <<: *build_template
-
-
-check-plugin:
-  variables:
-    PYTHON_VERSION: ""
-    PYTHON: python
-    VENV: "no"
-    HEPMC_VERSION: "2"
-  needs:
-    - job: build
-      artifacts: true
-  <<: *check_plugin_template
-
-
-
-check-plugin-py3:
-  variables:
-    PYTHON_VERSION: "3"
-    PYTHON: python3
-    VENV: "yes"
-    HEPMC_VERSION: "3"
-  needs:
-    - job: build-hepmc3
-      artifacts: true
-  <<: *check_plugin_template
-
-make-plots:
-  variables:
-    PYTHON_VERSION: ""
-    PYTHON: python
-    VENV: "no"
-    HEPMC_VERSION: "2"
-  needs:
-    - job: check-plugin
-      artifacts: true
+    ARCH: ubuntu-gcc-hepmc2-py3
+  needs: [check_plugin_ubuntu_gcc_hepmc2_py3]
   <<: *make_plots_template
 
-
-make-plots-py3:
+make_plots_ubuntu_gcc_hepmc3_py3:
   variables:
-    PYTHON_VERSION: "3"
-    PYTHON: python3
-    VENV: "yes"
-    HEPMC_VERSION: "3"
-  needs:
-    - job: check-plugin-py3
-      artifacts: true
+    ARCH: ubuntu-gcc-hepmc3-py3
+  only: [schedules]
+  needs: [check_plugin_ubuntu_gcc_hepmc3_py3]
+  <<: *make_plots_template
+
+make_plots_ubuntu_clang_hepmc2_py3:
+  variables:
+    ARCH: ubuntu-clang-hepmc2-py3
+  only: [schedules]
+  needs: [check_plugin_ubuntu_clang_hepmc2_py3]
+  <<: *make_plots_template
+
+make_plots_ubuntu_clang_hepmc3_py3:
+  variables:
+    ARCH: ubuntu-clang-hepmc3-py3
+  only: [schedules]
+  needs: [check_plugin_ubuntu_clang_hepmc3_py3]
+  <<: *make_plots_template
+
+make_plots_fedora_gcc_hepmc2_py3:
+  variables:
+    ARCH: fedora-gcc-hepmc2-py3
+  needs: [check_plugin_fedora_gcc_hepmc2_py3]
+  <<: *make_plots_template
+
+make_plots_fedora_gcc_hepmc3_py3:
+  variables:
+    ARCH: fedora-gcc-hepmc3-py3
+  #only: [schedules]
+  needs: [check_plugin_fedora_gcc_hepmc3_py3]
+  <<: *make_plots_template
+
+make_plots_ubuntu_gcc_hepmc2_py2:
+  variables:
+    ARCH: ubuntu-gcc-hepmc2-py2
+  needs: [check_plugin_ubuntu_gcc_hepmc2_py2]
+  <<: *make_plots_template
+
+make_plots_ubuntu_gcc_hepmc3_py2:
+  variables:
+    ARCH: ubuntu-gcc-hepmc3-py2
+  #only: [schedules]
+  needs: [check_plugin_ubuntu_gcc_hepmc3_py2]
   <<: *make_plots_template

@@ -62,18 +62,20 @@ namespace Rivet {
   /// histograms. Writing the histograms to a file is, however, done by
   /// the Rivet class.
   class Analysis : public ProjectionApplier {
+  public:
 
     /// The AnalysisHandler is a friend.
     friend class AnalysisHandler;
 
 
-  public:
-
     /// Constructor
     Analysis(const std::string& name);
 
-    /// The destructor.
+    /// The destructor
     virtual ~Analysis() {}
+
+    /// The assignment operator is private and mustdeleted, so it can never be called.
+    Analysis& operator=(const Analysis&) = delete;
 
 
   public:
@@ -338,6 +340,13 @@ namespace Rivet {
     /// hasn't been set.
     double crossSectionPerEvent() const;
 
+    /// Get the process cross-section error in pb. Throws if this hasn't been set.
+    double crossSectionError() const;
+
+    /// Get the process cross-section error per generated event in
+    /// pb. Throws if this hasn't been set.
+    double crossSectionErrorPerEvent() const;
+
     /// @brief Get the number of events seen (via the analysis handler).
     ///
     /// @note Use in the finalize phase only.
@@ -415,12 +424,12 @@ namespace Rivet {
     /// @{
 
     /// Book a counter.
-    CounterPtr & book(CounterPtr &, const std::string& name);
+    CounterPtr& book(CounterPtr&, const std::string& name);
 
     /// Book a counter, using a path generated from the dataset and axis ID codes
     ///
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    CounterPtr & book(CounterPtr &, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
+    CounterPtr& book(CounterPtr&, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
     /// @}
 
@@ -429,24 +438,24 @@ namespace Rivet {
     /// @{
 
     /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
-    Histo1DPtr & book(Histo1DPtr &,const std::string& name, size_t nbins, double lower, double upper);
+    Histo1DPtr& book(Histo1DPtr&,const std::string& name, size_t nbins, double lower, double upper);
 
     /// Book a 1D histogram with non-uniform bins defined by the vector of bin edges @a binedges .
-    Histo1DPtr & book(Histo1DPtr &,const std::string& name, const std::vector<double>& binedges);
+    Histo1DPtr& book(Histo1DPtr&,const std::string& name, const std::vector<double>& binedges);
 
     /// Book a 1D histogram with non-uniform bins defined by the vector of bin edges @a binedges .
-    Histo1DPtr & book(Histo1DPtr &,const std::string& name, const std::initializer_list<double>& binedges);
+    Histo1DPtr& book(Histo1DPtr&,const std::string& name, const std::initializer_list<double>& binedges);
 
     /// Book a 1D histogram with binning from a reference scatter.
-    Histo1DPtr & book(Histo1DPtr &,const std::string& name, const Scatter2D& refscatter);
+    Histo1DPtr& book(Histo1DPtr&,const std::string& name, const Scatter2D& refscatter);
 
     /// Book a 1D histogram, using the binnings in the reference data histogram.
-    Histo1DPtr & book(Histo1DPtr &,const std::string& name);
+    Histo1DPtr& book(Histo1DPtr&,const std::string& name);
 
     /// Book a 1D histogram, using the binnings in the reference data histogram.
     ///
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    Histo1DPtr & book(Histo1DPtr &,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
+    Histo1DPtr& book(Histo1DPtr&,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
     /// @}
 
@@ -457,33 +466,33 @@ namespace Rivet {
     /// Book a 2D histogram with @a nxbins and @a nybins uniformly
     /// distributed across the ranges @a xlower - @a xupper and @a
     /// ylower - @a yupper respectively along the x- and y-axis.
-    Histo2DPtr & book(Histo2DPtr &,const std::string& name,
+    Histo2DPtr& book(Histo2DPtr&,const std::string& name,
                            size_t nxbins, double xlower, double xupper,
                            size_t nybins, double ylower, double yupper);
 
     /// Book a 2D histogram with non-uniform bins defined by the
     /// vectors of bin edges @a xbinedges and @a ybinedges.
-    Histo2DPtr & book(Histo2DPtr &,const std::string& name,
+    Histo2DPtr& book(Histo2DPtr&,const std::string& name,
                            const std::vector<double>& xbinedges,
                            const std::vector<double>& ybinedges);
 
     /// Book a 2D histogram with non-uniform bins defined by the
     /// vectors of bin edges @a xbinedges and @a ybinedges.
-    Histo2DPtr & book(Histo2DPtr &,const std::string& name,
+    Histo2DPtr& book(Histo2DPtr&,const std::string& name,
                            const std::initializer_list<double>& xbinedges,
                            const std::initializer_list<double>& ybinedges);
 
     /// Book a 2D histogram with binning from a reference scatter.
-    Histo2DPtr & book(Histo2DPtr &,const std::string& name,
+    Histo2DPtr& book(Histo2DPtr&,const std::string& name,
                            const Scatter3D& refscatter);
 
     /// Book a 2D histogram, using the binnings in the reference data histogram.
-    Histo2DPtr & book(Histo2DPtr &,const std::string& name);
+    Histo2DPtr& book(Histo2DPtr&,const std::string& name);
 
     /// Book a 2D histogram, using the binnings in the reference data histogram.
     ///
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    Histo2DPtr & book(Histo2DPtr &,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
+    Histo2DPtr& book(Histo2DPtr&,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
     /// @}
 
@@ -492,24 +501,24 @@ namespace Rivet {
     /// @{
 
     /// Book a 1D profile histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
-    Profile1DPtr & book(Profile1DPtr &,  const std::string& name, size_t nbins, double lower, double upper);
+    Profile1DPtr& book(Profile1DPtr&,  const std::string& name, size_t nbins, double lower, double upper);
 
     /// Book a 1D profile histogram with non-uniform bins defined by the vector of bin edges @a binedges .
-    Profile1DPtr & book(Profile1DPtr &,  const std::string& name, const std::vector<double>& binedges);
+    Profile1DPtr& book(Profile1DPtr&,  const std::string& name, const std::vector<double>& binedges);
 
     /// Book a 1D profile histogram with non-uniform bins defined by the vector of bin edges @a binedges .
-    Profile1DPtr & book(Profile1DPtr &,  const std::string& name, const std::initializer_list<double>& binedges);
+    Profile1DPtr& book(Profile1DPtr&,  const std::string& name, const std::initializer_list<double>& binedges);
 
     /// Book a 1D profile histogram with binning from a reference scatter.
-    Profile1DPtr & book(Profile1DPtr &,  const std::string& name, const Scatter2D& refscatter);
+    Profile1DPtr& book(Profile1DPtr&,  const std::string& name, const Scatter2D& refscatter);
 
     /// Book a 1D profile histogram, using the binnings in the reference data histogram.
-    Profile1DPtr & book(Profile1DPtr &,  const std::string& name);
+    Profile1DPtr& book(Profile1DPtr&,  const std::string& name);
 
     /// Book a 1D profile histogram, using the binnings in the reference data histogram.
     ///
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    Profile1DPtr & book(Profile1DPtr &,  unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
+    Profile1DPtr& book(Profile1DPtr&,  unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
     /// @}
 
@@ -520,35 +529,35 @@ namespace Rivet {
     /// Book a 2D profile histogram with @a nxbins and @a nybins uniformly
     /// distributed across the ranges @a xlower - @a xupper and @a ylower - @a
     /// yupper respectively along the x- and y-axis.
-    Profile2DPtr & book(Profile2DPtr &,  const std::string& name,
+    Profile2DPtr& book(Profile2DPtr&,  const std::string& name,
                                size_t nxbins, double xlower, double xupper,
                                size_t nybins, double ylower, double yupper);
 
     /// Book a 2D profile histogram with non-uniform bins defined by the vectorx
     /// of bin edges @a xbinedges and @a ybinedges.
-    Profile2DPtr & book(Profile2DPtr &,  const std::string& name,
+    Profile2DPtr& book(Profile2DPtr&,  const std::string& name,
                                const std::vector<double>& xbinedges,
                                const std::vector<double>& ybinedges);
 
     /// Book a 2D profile histogram with non-uniform bins defined by the vectorx
     /// of bin edges @a xbinedges and @a ybinedges.
-    Profile2DPtr & book(Profile2DPtr &,  const std::string& name,
+    Profile2DPtr& book(Profile2DPtr&,  const std::string& name,
                                const std::initializer_list<double>& xbinedges,
                                const std::initializer_list<double>& ybinedges);
 
     /// @todo REINSTATE
 
     // /// Book a 2D profile histogram with binning from a reference scatter.
-    // Profile2DPtr & book(const Profile2DPtr &, const std::string& name,
+    // Profile2DPtr& book(const Profile2DPtr&, const std::string& name,
     //                            const Scatter3D& refscatter);
 
     // /// Book a 2D profile histogram, using the binnings in the reference data histogram.
-    // Profile2DPtr & book(const Profile2DPtr &, const std::string& name);
+    // Profile2DPtr& book(const Profile2DPtr&, const std::string& name);
 
     // /// Book a 2D profile histogram, using the binnings in the reference data histogram.
     // ///
     // /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    // Profile2DPtr & book(const Profile2DPtr &, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
+    // Profile2DPtr& book(const Profile2DPtr&, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
 
     /// @}
 
@@ -566,7 +575,7 @@ namespace Rivet {
     /// data's x values and errors, but with the y values and errors zeroed...
     /// assuming that there is a reference histo with the same name: if there
     /// isn't, an exception will be thrown.
-    Scatter2DPtr & book(Scatter2DPtr & s2d, const string& hname, bool copy_pts = false);
+    Scatter2DPtr& book(Scatter2DPtr& s2d, const string& hname, bool copy_pts = false);
 
     /// @brief Book a 2-dimensional data point set, using the binnings in the reference data histogram.
     ///
@@ -578,20 +587,20 @@ namespace Rivet {
     /// meaningful and can't be extracted from the data, then set the @a
     /// copy_pts parameter to true. This creates points to match the reference
     /// data's x values and errors, but with the y values and errors zeroed.
-    Scatter2DPtr & book(Scatter2DPtr & s2d, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId, bool copy_pts = false);
+    Scatter2DPtr& book(Scatter2DPtr& s2d, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId, bool copy_pts = false);
 
     /// @brief Book a 2-dimensional data point set with equally spaced x-points in a range.
     ///
     /// The y values and errors will be set to 0.
-    Scatter2DPtr & book(Scatter2DPtr & s2d, const string& hname, size_t npts, double lower, double upper);
+    Scatter2DPtr& book(Scatter2DPtr& s2d, const string& hname, size_t npts, double lower, double upper);
 
     /// @brief Book a 2-dimensional data point set based on provided contiguous "bin edges".
     ///
     /// The y values and errors will be set to 0.
-    Scatter2DPtr & book(Scatter2DPtr & s2d, const string& hname, const std::vector<double>& binedges);
+    Scatter2DPtr& book(Scatter2DPtr& s2d, const string& hname, const std::vector<double>& binedges);
 
     /// Book a 2-dimensional data point set with x-points from an existing scatter and a new path.
-    Scatter2DPtr & book(Scatter2DPtr & s2d, const string& hname, const Scatter2D& refscatter);
+    Scatter2DPtr& book(Scatter2DPtr& s2d, const string& hname, const Scatter2D& refscatter);
 
     /// @}
 
@@ -608,7 +617,7 @@ namespace Rivet {
     /// data's x values and errors, but with the y values and errors zeroed...
     /// assuming that there is a reference histo with the same name: if there
     /// isn't, an exception will be thrown.
-    Scatter3DPtr & book(Scatter3DPtr & s3d, const std::string& hname, bool copy_pts=false);
+    Scatter3DPtr& book(Scatter3DPtr& s3d, const std::string& hname, bool copy_pts=false);
 
     /// @brief Book a 3-dimensional data point set, using the binnings in the reference data histogram.
     ///
@@ -620,25 +629,25 @@ namespace Rivet {
     /// meaningful and can't be extracted from the data, then set the @a
     /// copy_pts parameter to true. This creates points to match the reference
     /// data's x values and errors, but with the y values and errors zeroed.
-    Scatter3DPtr & book(Scatter3DPtr & s3d, unsigned int datasetId, unsigned int xAxisId,
+    Scatter3DPtr& book(Scatter3DPtr& s3d, unsigned int datasetId, unsigned int xAxisId,
                         unsigned int yAxisId, unsigned int zAxisId, bool copy_pts=false);
 
     /// @brief Book a 3-dimensional data point set with equally spaced x-points in a range.
     ///
     /// The y values and errors will be set to 0.
-    Scatter3DPtr & book(Scatter3DPtr & s3d, const std::string& hname,
+    Scatter3DPtr& book(Scatter3DPtr& s3d, const std::string& hname,
                                size_t xnpts, double xlower, double xupper,
                                size_t ynpts, double ylower, double yupper);
 
     /// @brief Book a 3-dimensional data point set based on provided contiguous "bin edges".
     ///
     /// The y values and errors will be set to 0.
-    Scatter3DPtr & book(Scatter3DPtr & s3d, const std::string& hname,
+    Scatter3DPtr& book(Scatter3DPtr& s3d, const std::string& hname,
                                const std::vector<double>& xbinedges,
                                const std::vector<double>& ybinedges);
 
     /// Book a 3-dimensional data point set with x-points from an existing scatter and a new path.
-    Scatter3DPtr & book(Scatter3DPtr & s3d, const std::string& hname, const Scatter3D& refscatter);
+    Scatter3DPtr& book(Scatter3DPtr& s3d, const std::string& hname, const Scatter3D& refscatter);
 
     /// @}
 
@@ -646,30 +655,28 @@ namespace Rivet {
   public:
 
     /// @name Allow RAW histograms to be read in to local objects.
+    /// @todo Should be protected, not public?
     virtual void rawHookIn(YODA::AnalysisObjectPtr yao) {
       (void) yao;
     }
 
     /// @name Provide access to RAW histograms before writing out to file.
+    /// @todo Should be protected, not public?
     virtual void rawHookOut(vector<MultiweightAOPtr> raos, size_t iW) {
       (void) raos;
       (void) iW;
     }
 
-    /// @name Get the default/nominal weight index for the original weight matrix
-    size_t _globalDefaultWeightIndex() const;
-
-
     /// @name Accessing options for this Analysis instance.
     //@{
 
     /// Return the map of all options given to this analysis.
-    const std::map<std::string,std::string> & options() {
+    const std::map<std::string,std::string>& options() const {
       return _options;
     }
 
     /// Get an option for this analysis instance as a string.
-    std::string getOption(std::string optname) {
+    std::string getOption(std::string optname) const {
       if ( _options.find(optname) != _options.end() )
         return _options.find(optname)->second;
       return "";
@@ -680,13 +687,21 @@ namespace Rivet {
     /// The return type is given by the specified @a def value, or by an explicit template
     /// type-argument, e.g. getOption<double>("FOO", 3).
     template<typename T>
-    T getOption(std::string optname, T def) {
+    T getOption(std::string optname, T def) const {
       if (_options.find(optname) == _options.end()) return def;
       std::stringstream ss;
       ss << _options.find(optname)->second;
       T ret;
       ss >> ret;
       return ret;
+    }
+
+    /// @brief Sane overload for literal character strings (which don't play well with stringstream)
+    ///
+    /// Note this isn't a template specialisation, because we can't return a non-static
+    /// char*, and T-as-return-type is built into the template function definition.
+    std::string getOption(std::string optname, const char* def) {
+      return getOption<std::string>(optname, def);
     }
 
     /// @}
@@ -799,9 +814,6 @@ namespace Rivet {
     /// Get the list of weight names from the handler
     YODA::AnalysisObjectPtr _getPreload(string name) const;
 
-    /// Get the default/nominal weight index
-    size_t _defaultWeightIndex() const;
-
     /// Get an AO from another analysis
     MultiweightAOPtr _getOtherAnalysisObject(const std::string & ananame, const std::string& name);
 
@@ -809,29 +821,25 @@ namespace Rivet {
     void _checkBookInit() const;
 
     /// Check if we are in the init stage.
-    bool inInit() const;
+    bool _inInit() const;
 
     /// Check if we are in the finalize stage.
-    bool inFinalize() const;
+    bool _inFinalize() const;
+
 
   private:
 
-    /// To be used in finalize context only:
+    /// To be used in finalize context only
     class CounterAdapter {
     public:
-      CounterAdapter(double          x) : x_(x                ) {}
 
-      CounterAdapter(const YODA::Counter   & c) : x_(c.val()          ) {}
+      CounterAdapter(double x) : x_(x) {}
 
-      // CounterAdapter(CounterPtr     cp) : x_(cp->val()        ) {}
+      CounterAdapter(const YODA::Counter & c) : x_(c.val()) {}
 
       CounterAdapter(const YODA::Scatter1D & s) : x_(s.points()[0].x()) {
         assert( s.numPoints() == 1 || "Can only scale by a single value.");
       }
-
-      // CounterAdapter(Scatter1DPtr   sp) : x_(sp->points()[0].x()) {
-      // 	assert( sp->numPoints() == 1 || "Can only scale by a single value.");
-      // }
 
       operator double() const { return x_; }
 
@@ -850,10 +858,13 @@ namespace Rivet {
       return s.points()[0].x();
     }
 
+
     /// @defgroup analysis_manip Analysis object manipulation
     ///
     /// @todo Should really be protected: only public to keep BinnedHistogram happy for now...
     /// @{
+
+    /// @todo Add functions for converting histos and profiles to scatters (with bin-width and focus control, over syst variations)
 
     /// Multiplicatively scale the given counter, @a cnt, by factor @a factor.
     void scale(CounterPtr cnt, CounterAdapter factor);
@@ -1072,6 +1083,9 @@ namespace Rivet {
     /// @defgroup analysis_aoaccess Data object registration, retrieval, and removal
     /// @{
 
+    /// Get the default/nominal weight index
+    size_t defaultWeightIndex() const;
+
     /// Get a preloaded YODA object.
     template <typename YODAT>
     shared_ptr<YODAT> getPreload(string path) const {
@@ -1081,23 +1095,23 @@ namespace Rivet {
 
     /// Register a new data object, optionally read in preloaded data.
     template <typename YODAT>
-    rivet_shared_ptr< Wrapper<YODAT> > registerAO(const YODAT & yao) {
+    rivet_shared_ptr< Wrapper<YODAT> > registerAO(const YODAT& yao) {
       typedef Wrapper<YODAT> WrapperT;
       typedef shared_ptr<YODAT> YODAPtrT;
       typedef rivet_shared_ptr<WrapperT> RAOT;
 
-      if ( !inInit() && !inFinalize() ) {
-        MSG_ERROR("Can't book objects outside of init()");
+      if ( !_inInit() && !_inFinalize() ) {
+        MSG_ERROR("Can't book objects outside of init() or finalize()");
         throw UserError(name() + ": Can't book objects outside of init() or finalize().");
       }
 
       // First check that we haven't booked this before.
       // This is allowed when booking in finalize: just warn in that case.
       // If in init(), throw an exception: it's 99.9% never going to be intentional.
-      for (auto & waold : analysisObjects()) {
+      for (auto& waold : analysisObjects()) {
         if ( yao.path() == waold.get()->basePath() ) {
           const string msg = "Found double-booking of " + yao.path() + " in " + name();
-          if ( inInit() ) {
+          if ( _inInit() ) {
             MSG_ERROR(msg);
             throw LookupError(msg);
           } else {
@@ -1119,6 +1133,7 @@ namespace Rivet {
         YODAPtrT preload = getPreload<YODAT>(finalpath);
         if ( preload ) {
           if ( !bookingCompatible(preload, yaop) ) {
+            /// @todo What about if/when we want to make the final objects the Scatter or binned persistent type?
             MSG_WARNING("Found incompatible pre-existing data object with same base path "
                         << finalpath <<  " for " << name());
             preload = nullptr;
@@ -1153,7 +1168,7 @@ namespace Rivet {
       rivet_shared_ptr<WrapperT> ret(wao);
 
       ret.get()->unsetActiveWeight();
-      if ( inFinalize() ) {
+      if ( _inFinalize() ) {
         // If booked in finalize() we assume it is the first time
         // finalize is run.
         ret.get()->pushToFinal();
@@ -1167,14 +1182,14 @@ namespace Rivet {
 
     /// Register a data object in the histogram system
     template <typename AO=MultiweightAOPtr>
-    AO addAnalysisObject(const AO & aonew) {
+    AO addAnalysisObject(const AO& aonew) {
       _checkBookInit();
 
       for (const MultiweightAOPtr& ao : analysisObjects()) {
 
         // Check AO base-name first
-        ao.get()->setActiveWeightIdx(_defaultWeightIndex());
-        aonew.get()->setActiveWeightIdx(_defaultWeightIndex());
+        ao.get()->setActiveWeightIdx(defaultWeightIndex());
+        aonew.get()->setActiveWeightIdx(defaultWeightIndex());
         if (ao->path() != aonew->path()) continue;
 
         // If base-name matches, check compatibility
@@ -1215,7 +1230,7 @@ namespace Rivet {
     void removeAnalysisObject(const std::string& path);
 
     /// Unregister a data object from the histogram system (by pointer)
-    void removeAnalysisObject(const MultiweightAOPtr & ao);
+    void removeAnalysisObject(const MultiweightAOPtr& ao);
 
     // /// Get all data objects, for all analyses, from the AnalysisHandler
     // /// @todo Can we remove this? Why not call handler().getData()?
@@ -1226,7 +1241,7 @@ namespace Rivet {
     template <typename AO=MultiweightAOPtr>
     const AO getAnalysisObject(const std::string& aoname) const {
       for (const MultiweightAOPtr& ao : analysisObjects()) {
-        ao.get()->setActiveWeightIdx(_defaultWeightIndex());
+        ao.get()->setActiveWeightIdx(defaultWeightIndex());
         if (ao->path() == histoPath(aoname)) {
           // return dynamic_pointer_cast<AO>(ao);
           return AO(dynamic_pointer_cast<typename AO::value_type>(ao.get()));
@@ -1404,9 +1419,10 @@ namespace Rivet {
     /// The string of options.
     string _optstring;
 
+
   private:
 
-    /// @defgroup analysis_utils Utility functions
+    /// @name Utility functions
     /// @{
 
     /// Get the reference data for this paper and cache it.
@@ -1414,19 +1430,14 @@ namespace Rivet {
 
     /// @}
 
-
-    /// The assignment operator is private and must never be called.
-    /// In fact, it should not even be implemented.
-    Analysis& operator=(const Analysis&);
-
   };
 
 
-  // Template specialisation for literal character strings (which don't play well with stringstream)
-  template<>
-  inline const char* Analysis::getOption(std::string optname, const char* def) {
-    return getOption<std::string>(optname, def).c_str();
-  }
+  // // Template specialisation for literal character strings (which don't play well with stringstream)
+  // template<>
+  // inline std::string Analysis::getOption(std::string optname, const char* def) {
+  //   return getOption<std::string>(optname, def); //.c_str();
+  // }
 
 
 }
@@ -1434,6 +1445,10 @@ namespace Rivet {
 
 // Include definition of analysis plugin system so that analyses automatically see it when including Analysis.hh
 #include "Rivet/AnalysisBuilder.hh"
+
+
+/// @defgroup anamacros Analysis macros
+/// @{
 
 /// @def DECLARE_RIVET_PLUGIN
 /// Preprocessor define to prettify the global-object plugin hook mechanism.
@@ -1452,6 +1467,7 @@ namespace Rivet {
 /// Slight abbreviation for DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR
 #define DEFAULT_RIVET_ANALYSIS_CTOR(clsname) DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR(clsname)
 
+/// @}
 
 
 #endif

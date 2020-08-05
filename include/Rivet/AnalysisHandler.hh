@@ -23,29 +23,21 @@ namespace Rivet {
   class AnalysisHandler {
   public:
 
-    /// @name Constructors and destructors. */
-    //@{
-
     /// Preferred constructor, with optional run name.
     AnalysisHandler(const string& runname="");
 
-    /// @brief Destructor
+    /// The copy constructor is deleted, so it can never be called.
+    AnalysisHandler(const AnalysisHandler&) = delete;
+
+    /// The assignment operator is deleted, so it can never be called.
+    AnalysisHandler& operator=(const AnalysisHandler&) = delete;
+
     /// The destructor is not virtual, as this class should not be inherited from.
     ~AnalysisHandler();
 
-    //@}
-
-
-  private:
-
-    /// Get a logger object.
-    Log& getLog() const;
-
-
-  public:
 
     /// @name Run properties and weights
-    //@{
+    /// @{
 
     /// Get the name of this run.
     string runName() const;
@@ -66,7 +58,7 @@ namespace Rivet {
     const vector<string>& weightNames() const { return _weightNames; }
 
     /// Indices of the weights in the original weight matrix
-    const vector<size_t> weightIndices() const { return _weightIndices; }
+    //const vector<size_t> weightIndices() const { return _weightIndices; }
 
     /// Are any of the weights non-numeric?
     size_t numWeights() const { return _weightNames.size(); }
@@ -80,20 +72,29 @@ namespace Rivet {
     /// Get the index of the nominal weight-stream
     size_t defaultWeightIndex() const { return _rivetDefaultWeightIdx; }
 
-    /// Get the index of the nominal weight-stream in the original weight matrix
-    size_t globalDefaultWeightIndex() const { return _defaultWeightIdx; }
-
     /// Set the weight cap
     void setWeightCap(const double maxWeight) { _weightCap = maxWeight; }
 
     /// Set the relative width of the NLO smearing window.
     void setNLOSmearing(double frac) { _NLOSmearing = frac; }
 
-    //@}
+    /// Setter for _skipWeights
+    void skipMultiWeights(bool ignore=false);
+
+    /// Setter for _matchWeightNames
+    void selectMultiWeights(std::string patterns="");
+
+    /// Setter for _unmatchWeightNames
+    void deselectMultiWeights(std::string patterns="");
+
+    /// Setter for _nominalWeightName
+    void setNominalWeightName(std::string name="");
+
+    /// @}
 
 
     /// @name Cross-sections
-    //@{
+    /// @{
 
     /// Get the cross-section known to the handler
     Scatter1DPtr crossSection() const { return _xs; }
@@ -110,7 +111,7 @@ namespace Rivet {
       _xs.get()->setActiveWeightIdx(_rivetDefaultWeightIdx);
       const YODA::Scatter1D::Points& ps = _xs->points();
       if (ps.size() != 1) {
-        string errMsg = "cross section missing when requesting nominal cross section";
+        string errMsg = "value missing when requesting nominal cross-section";
         throw Error(errMsg);
       }
       double xs = ps[0].x();
@@ -118,11 +119,11 @@ namespace Rivet {
       return xs;
     }
 
-    //@}
+    /// @}
 
 
     /// @name Beams
-    //@{
+    /// @{
 
     /// Set the beam particles for this run
     AnalysisHandler& setRunBeams(const ParticlePair& beams) {
@@ -142,23 +143,18 @@ namespace Rivet {
     /// @deprecated Use standalone sqrtS(ah.beams()), to clean AH interface
     double sqrtS() const;
 
-    /// Setter for _ignoreBeams
+    /// Option to disable AH beam-consistency checks
+    /// @todo Make this the canonical name
+    void checkBeams(bool check=true) { setIgnoreBeams(check); }
+    /// Alias for checkBeams()
+    /// @deprecated Use checkBeams()
     void setIgnoreBeams(bool ignore=true);
 
-    /// Setter for _skipWeights
-    void skipMultiWeights(bool ignore=false);
-
-    /// Setter for _matchWeightNames
-    void selectMultiWeights(std::string patterns="");
-
-    /// Setter for _unmatchWeightNames
-    void deselectMultiWeights(std::string patterns="");
-
-    //@}
+    /// @}
 
 
-    /// @name Handle analyses
-    //@{
+    /// @name Analysis handling
+    /// @{
 
     /// Get a list of the currently registered analyses' names.
     std::vector<std::string> analysisNames() const;
@@ -218,13 +214,11 @@ namespace Rivet {
     /// Remove analyses from the run list using their names.
     AnalysisHandler& removeAnalyses(const std::vector<std::string>& analysisnames);
 
-    ///
-
-    //@}
+    /// @}
 
 
     /// @name Main init/execute/finalise
-    //@{
+    /// @{
 
     /// Initialize a run, with the run beams taken from the example event
     ///
@@ -249,15 +243,11 @@ namespace Rivet {
     /// functions of all included analysis objects.
     void finalize();
 
-    //@}
+    /// @}
 
 
     /// @name Histogram / data object access
-    //@{
-
-    /// After all subevents in an event group has been processed push
-    /// all histo fills to the relevant histograms.
-    void pushToPersistent();
+    /// @{
 
     /// Read analysis plots into the histo collection (via addData) from the named file.
     void readData(const std::string& filename);
@@ -274,76 +264,102 @@ namespace Rivet {
     }
 
     /// Write all analyses' plots (via getData) to the named file.
-    void writeData(const std::string& filename) const;
+    void writeData(const string& filename) const;
 
+    /// @brief Configure the AnalysisObject dump rate and destination.
+    ///
     /// Tell Rivet to dump intermediate result to a file named @a
     /// dumpfile every @a period'th event. If @a period is not positive,
     /// no dumping will be done.
-    void dump(string dumpfile, int period) {
+    void setAODump(const string& dumpfile, int period) {
+      dump(dumpfile, period);
+    }
+    /// @brief Configure the AnalysisObject dump rate and destination.
+    void setNoAODump() {
+      setAODump("DUMMY", -1);
+    }
+    /// Alias for setAODump()
+    /// @deprecated Prefer setAODump()
+    void dump(const string& dumpfile, int period) {
       _dumpPeriod = period;
       _dumpFile = dumpfile;
     }
 
-    /// Take the vector of yoda files and merge them together using
-    /// the cross section and weight information provided in each
-    /// file. Each file in @a aofiles is assumed to have been produced
-    /// by Rivet. By default the files are assumed to contain
-    /// different processes (or the same processs but mutually
-    /// exclusive cuts), but if @a equiv if ture, the files are
-    /// assumed to contain output of completely equivalent (but
-    /// statistically independent) Rivet runs. The corresponding
-    /// analyses will be loaded and their analysis objects will be
-    /// filled with the merged result. finalize() will be run on each
-    /// relevant analysis. The resulting YODA file can then be rwitten
-    /// out by writeData(). If delopts is non-empty, it is assumed to
-    /// contain names different options to be merged into the same
-    /// analysis objects.
-    void mergeYodas(const vector<string> & aofiles,
-                    const vector<string> & delopts = vector<string>(),
-                    const vector<string> & addopts = vector<string>(),
-                    bool equiv = false);
+    /// @brief Merge the vector of YODA files, using the cross-section and weight information provided in each.
+    ///
+    /// Each file in @a aofiles is assumed to have been produced by Rivet. By
+    /// default the files are assumed to contain different processes (or the
+    /// same processs but mutually exclusive cuts), but if @a equiv if true, the
+    /// files are assumed to contain output of completely equivalent (but
+    /// statistically independent) Rivet runs. The corresponding analyses will
+    /// be loaded and their analysis objects will be filled with the merged
+    /// result. finalize() will be run on each relevant analysis. The resulting
+    /// YODA file can then be rwitten out by writeData(). If @a delopts is
+    /// non-empty, it is assumed to contain names different options to be merged
+    /// into the same analysis objects.
+    ///
+    /// @todo Shouldn't this be private? Why is the Cython interface calling it?
+    void mergeYodas(const vector<string>& aofiles,
+                    const vector<string>& delopts=vector<string>(),
+                    const vector<string>& addopts=vector<string>(),
+                    bool equiv=false);
 
-    /// Helper function to strip specific options from data object paths.
-    void stripOptions(YODA::AnalysisObjectPtr ao,
-                      const vector<string> & delopts) const;
+    /// @}
 
-    //@}
 
+    /// @name Processing stage
+    /// @{
 
     /// Indicate which Rivet stage we're in.
     /// At the moment, only INIT is used to enable booking.
     enum class Stage { OTHER, INIT, FINALIZE };
 
-    /// Which stage are we in?
+    /// Return the current processing stage.
     Stage stage() const { return _stage; }
 
-  protected:
-
-    /// Get all multi-weight Rivet analysis object wrappers
-    vector<MultiweightAOPtr> getRivetAOs() const;
-
-    std::valarray<double> pruneWeights(const std::valarray<double>& weights);
+    /// @}
 
 
   private:
 
-    /// Current handler stage
+    /// @name Internal helper functions
+    /// @{
+
+    /// Get a logger object.
+    Log& getLog() const;
+
+    /// Get all multi-weight Rivet analysis object wrappers.
+    vector<MultiweightAOPtr> getRivetAOs() const;
+
+    /// Helper function to strip specific options from data object paths.
+    void stripOptions(YODA::AnalysisObjectPtr ao, const vector<string>& delopts) const;
+
+    /// After all subevents in an event group have been processed, push
+    /// all histo fills to the relevant histograms.
+    void pushToPersistent();
+
+    /// @}
+
+
+  private:
+
+    /// Current handler processing stage.
     Stage _stage = Stage::OTHER;
 
     /// The collection of Analysis objects to be used.
     std::map<std::string, AnaHandle> _analyses;
 
-    /// A vector of pre-loaded object which do not have a valid
-    /// Analysis plugged in.
+    /// A vector of pre-loaded object which do not have a valid Analysis plugged in.
+    ///
+    /// @todo Rename to _preloadedAOs for consistency
     map<string,YODA::AnalysisObjectPtr> _preloads;
 
-    /// A vector containing copies of analysis objects after
-    /// finalize() has been run.
+    /// A vector containing copies of analysis objects after finalize() has been run.
     vector<YODA::AnalysisObjectPtr> _finalizedAOs;
 
 
     /// @name Run properties
-    //@{
+    /// @{
 
     /// Weight names
     std::vector<std::string> _weightNames;
@@ -383,10 +399,15 @@ namespace Rivet {
     /// String of weight names (or regex) to veto multiweights
     std::string _unmatchWeightNames;
 
+    /// String giving the nominal weight name
+    std::string _nominalWeightName;
+
     /// weight cap value
     double _weightCap;
 
     /// The relative width of the NLO smearing window.
+    ///
+    /// @todo Improve & standardise name
     double _NLOSmearing;
 
     /// Current event number
@@ -398,29 +419,16 @@ namespace Rivet {
     /// The index in the (possibly pruned) weight vector for the nominal weight stream
     size_t _rivetDefaultWeightIdx;
 
-    /// Determines how often Rivet runs finalize() and writes the
-    /// result to a YODA file.
+    /// How often Rivet runs finalize() and writes the result to a YODA file.
     int _dumpPeriod;
 
-    /// The name of a YODA file to which Rivet periodically dumps
-    /// results.
+    /// The name of a YODA file to which Rivet periodically dumps results.
     string _dumpFile;
 
     /// Flag to indicate periodic dumping is in progress
     bool _dumping;
 
-    //@}
-
-
-  private:
-
-    /// The assignment operator is private and must never be called.
-    /// In fact, it should not even be implemented.
-    AnalysisHandler& operator=(const AnalysisHandler&);
-
-    /// The copy constructor is private and must never be called.  In
-    /// fact, it should not even be implemented.
-    AnalysisHandler(const AnalysisHandler&);
+    /// @}
 
   };
 

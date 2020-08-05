@@ -1,15 +1,15 @@
 24875 . Lambda0 and anti-Lambda0 Production from Proton - anti-Proton Collisions at s**(1/2) = 1.8-TeV
-224140 . THE D0 EXPERIMENT
-243872 . Proposal for upgrading the Collider Detector at Fermilab
-262056 . The CDF Detector: An Overview
-263320 . Transverse Momentum Distributions of Charged Particles Produced in $\bar{p}p$ Interactions at $\sqrt{s} = 630$ GeV and 1800 GeV
+224140 X THE D0 EXPERIMENT
+243872 X Proposal for upgrading the Collider Detector at Fermilab
+262056 X The CDF Detector: An Overview
+263320 ! Transverse Momentum Distributions of Charged Particles Produced in $\bar{p}p$ Interactions at $\sqrt{s} = 630$ GeV and 1800 GeV
 267998 . A measurement of $W$ boson production in 1.8 TeV $\bar{p}p$ collisions
 267999 . Measurement of the inclusive jet cross-section in $\bar{p}p$ collisions at $\sqrt{s} = 1.8$ TeV
 271661 . Limits on the masses of supersymmetric particles from 1.8 TeV $p\bar{p}$ collisions
 273437 . Measurement of < p(T) > as a function of N(c) at the FNAL p anti-p collider
 273439 . Lambda and anti-Lambda production from anti-p p collisions at 1.8-TeV center-of-mass energy
 273664 . The Transverse momentum spectrum of charged particles produced in anti-p p collisions at s**(1/2) = 1.8-TeV
-278394 . Dijet angular distributions from $\bar{p}p$ collisions at $\sqrt{s} = 1.8$ TeV
+278394 ! Dijet angular distributions from $\bar{p}p$ collisions at $\sqrt{s} = 1.8$ TeV
 280477 . Search for Heavy Stable Particles in 1.8-TeV pp¯ Collisions at the Fermilab Collider
 280478 . Measurement of the Mass and Width of the $Z^0$ Boson at the Fermilab Tevatron
 282054 . A search for the top quark in the reaction $\bar{p} p \to e + {\rm jets}$ at $\sqrt{s} = 1.8$ TeV
@@ -17,18 +17,18 @@
 283352 . Pseudorapidity distributions of charged particles produced in $\bar{p}p$ interactions at $\sqrt{s} = 630$ GeV and 1800 GeV
 283353 . Two jet differential cross-section in $\bar{p}p$ collisions at $\sqrt{s} = 1.8$ TeV
 285490 . Measurement of the ratio $\sigma(W^-\to e \nu)/\sigma (Z^-\to e e)$ in $\bar{p}p$ collisions at $\sqrt{s} = 1.8$ TeV
-286924 . Search for a light Higgs boson at the Tevatron $p\bar{p}$ collider
+286924 X Search for a light Higgs boson at the Tevatron $p\bar{p}$ collider
 287811 . $K_s^0$ production in $\bar{p}p$ interactions at $\sqrt{s}=$ 630 GeV and 1800 GeV
-288745 . The Two jet invariant mass distribution at $\sqrt{s} = 1.8$ TeV
-291510 . Status of the top quark search at CDF
+288745 ! The Two jet invariant mass distribution at $\sqrt{s} = 1.8$ TeV
+291510 X Status of the top quark search at CDF
 295740 . Search for New Heavy Quarks in Electron - Muon Events at the {Fermilab} Tevatron Collider
-296638 . The Dijet invariant mass at the Tevatron collider
-297585 . Jet fragmentation properties of $\bar{p}p$ collisions at $\sqrt{s} = 1.8$ TeV
+296638 ! The Dijet invariant mass at the Tevatron collider
+297585 ! Jet fragmentation properties of $\bar{p}p$ collisions at $\sqrt{s} = 1.8$ TeV
 298737 . Top quark search in the electron + jet channel in $p\bar{p}$ collisions at $\sqrt{s} = 1.8$ TeV
 299674 . A Measurement of the $W$ boson mass
 301060 . A Measurement of the $W$ boson mass in 1.8 TeV $\bar{p}p$ collisions
 302820 . A Measurement of $\sigma B (W \to e \nu)$ and $\sigma B (Z^0 \to e^+ e-)$ in $\bar{p}p$ collisions at $\sqrt{s} = 1800$ GeV
-306750 . $B$ physics at CDF
+306750 X $B$ physics at CDF
 308212 . Correlations in hadron production in 1.8-TeV anti-p p collisions
 310018 . Results from p anti-p collisions at s**(1/2) = 1.8-TeV for mass identified particle yields
 314225 . Measurement of the W P(T) distribution in $\bar{p}p$ collisions at $\sqrt{s} = 1.8$ TeV
@@ -1040,7 +1040,7 @@
 902034 . Precise measurement of the top-quark mass from lepton+jets events at D0
 913084 . Measurements of inclusive $W+$jets production rates as a function of jet transverse momentum in $p\bar{p}$ collisions at $\sqrt{s}=$ 1.96 TeV
 913348 . Direct measurement of the mass difference between top and antitop quarks
-913398 . Bounds on an anomalous dijet resonance in $W+$jets production in $p\bar{p}$ collisions at $\sqrt{s} =1.96$ TeV
+913398 X Bounds on an anomalous dijet resonance in $W+$jets production in $p\bar{p}$ collisions at $\sqrt{s} =1.96$ TeV
 914177 . Measurement of branching ratio and $B_s^0$ lifetime in the decay $B_s^0 \rightarrow J/\psi f_0(980)$ at CDF
 914187 . Evidence for $t\bar{t}\gamma$ Production and Measurement of $\sigma_t\bar{t}\gamma / \sigma_t\bar{t}$
 914331 . Search for doubly-charged Higgs boson pair production in $p\bar {p}$ collisions at $\sqrt{s} = 1.96$ TeV
@@ -1050,7 +1050,7 @@
 915978 . Measurement of the Cross Section for Prompt Isolated Diphoton Production in $p\bar{p}$ Collisions at $\sqrt{s} = 1.96$ TeV
 915980 . Measurement of the Cross Section for Prompt Isolated Diphoton Production in $p\bar{p}$ Collisions at $\sqrt{s} = 1.96$ TeV
 916159 . Precision measurement of the ratio ${\rm B}(t \to Wb)/{\rm B}(t \to Wq)$ and Extraction of $V_{tb}$
-916220 . Study of Substructure of High Transverse Momentum Jets Produced in Proton-Antiproton Collisions at $\sqrt{s}=1.96$ TeV
+916220 ! Study of Substructure of High Transverse Momentum Jets Produced in Proton-Antiproton Collisions at $\sqrt{s}=1.96$ TeV
 916531 . Measurement of the anomalous like-sign dimuon charge asymmetry with 9 fb${^-1}$ of $p\bar{p}$ collisions
 917443 . Search for associated Higgs boson production using like charge dilepton events in $p\bar{p}$ collisions at $\sqrt{s} = 1.96$ TeV
 917587 . Search for first generation leptoquark pair production in the electron + missing energy + jets final state
@@ -1148,7 +1148,7 @@
 1123913 . Search for a Higgs boson in the diphoton final state using the full CDF data set from $p\bar{p}$ collisions at $\sqrt{s} =$ 1.96 TeV
 1124036 . Evidence for a particle produced in association with weak bosons and decaying to a bottom-antibottom quark pair in Higgs boson searches at the Tevatron
 1124152 . Combined Search for the Standard Model Higgs Boson Decaying to $b \bar{b}$ Using the D0 Run II Data Set
-1124160 . Precision Top-Quark Mass Measurements at CDF
+1124160 X Precision Top-Quark Mass Measurements at CDF
 1124333 . Transverse momentum cross section of $e^+e^-$ pairs in the $Z$-boson region from $p\bar{p}$ collisions at $\sqrt{s}=1.96$ TeV
 1125851 . Search for the standard model Higgs boson in associated $WH$ production in 9.7 fb$^{-1}$ of $p\bar{p}$ collisions with the D0 detector
 1127334 . Search for the standard model Higgs boson produced in association with top quarks using the full CDF data set
@@ -1179,7 +1179,7 @@
 1215307 . Measurement of the differential cross sections for isolated direct photon pair production in $p \bar p$ collisions at $\sqrt{s} = 1.96$ TeV
 1215770 . Search for a Higgs boson in diphoton final states with the D0 detector in 9.6 fb-1 of $p\bar{p}$ collisions at $\sqrt{s}=1.96$ TeV
 1216297 . Search for the standard model Higgs boson in $\ell\nu$ + jets final states in 9.7 fb$^{-1}$ of $p\bar{p}$ collisions with the D0 detector
-1216522 . Combination fo Searches for the Higgs Boson Using the Full CDF Data Set
+1216522 X Combination fo Searches for the Higgs Boson Using the Full CDF Data Set
 1216676 . Search for $B_s^0 \rightarrow \mu^{+}\mu^{-}$ and $B^0 \rightarrow \mu^{+}\mu^{-}$ decays with the full CDF Run II data set
 1220242 . Search for Supersymmetry with Like-Sign Lepton-Tau Events at CDF
 1221042 . Search for Higgs boson production in trilepton and like-charge electron-muon final states with the D0 detector
@@ -1220,11 +1220,11 @@
 1256340 . Study of <math display="inline"><mi>C</mi><mi>P</mi></math> -violating charge asymmetries of single muons and like-sign dimuons in <math display="inline"><mi>p</mi><mover accent="true"><mi>p</mi><mo stretchy="false">¯</mo></mover></math> collisions
 1262318 . Search for a Dijet Resonance in Events with Jets and Missing Transverse Energy in $p\bar{p}$ Collisions at $\sqrt{s} = 1.96$ TeV
 1262803 . Measurement of the $W$ boson mass with the D0 detector
-1263361 . Precise Measurement of the W -Boson Mass with the Collider Detector at Fermilab
+1263361 X Precise Measurement of the W -Boson Mass with the Collider Detector at Fermilab
 1264262 . First Search for Exotic Z Boson Decays into Photons and Neutral Pions in Hadron Collisions
 1267210 . Measurement of the Direct CP-Violating Charge Asymmetry in ${D_s^\pm \rightarrow \phi \pi^{\pm}}$ Decays
 1268647 . Measurement of the W Boson Production Charge Asymmetry in $p\bar{p}\rightarrow W+X \rightarrow e\nu +X$ Events at $\sqrt{s}=1.96$ TeV
-1273669 . Jet Energy Scale Determination in the D0 Experiment
+1273669 X Jet Energy Scale Determination in the D0 Experiment
 1275618 . Improved $b$ Quark Jet Identification at the D0 Experiment
 1275813 . Electron and Photon Identification in the D0 Experiment
 1278493 . Measurement of differential $t\bar{t}$ production cross sections in $p\bar{p}$ collisions
@@ -1274,7 +1274,7 @@
 1366177 . Measurement of the Production and Differential Cross Sections of $W^{+}W^{-}$ Bosons in Association with Jets in $p\bar{p}$ Collisions at $\sqrt{s}=1.96$ TeV
 1375998 . Search for Violation of $CPT$ and Lorentz Invariance in ${B_s^0}$ Meson Oscillations
 1384115 . Simultaneous measurement of forward-backward asymmetry and top polarization in dilepton final states from $t\bar t$ production at the Tevatron
-1387753 . Precise measurement of the top quark mass in dilepton decays using optimized neutrino weighting
+1387753 X Precise measurement of the top quark mass in dilepton decays using optimized neutrino weighting
 1388868 . Study of the energy dependence of the underlying event in proton-antiproton collisions
 1390116 . Measurement of vector boson plus $D^{*}(2010)^+$ meson production in $\bar{p}p$ collisions at $\sqrt{s}=1.96\, {\rm TeV}$
 1391148 . Inclusive Production of the X(4140) State in $p \overline p$ Collisions at D0
@@ -1302,11 +1302,11 @@
 1629966 . Measurement of the Effective Weak Mixing Angle in $p\bar{p}\rightarrow Z/\gamma^* \rightarrow \ell^+\ell^-$ Events
 1645240 . A search for the exotic meson $X(5568)$ with the Collider Detector at Fermilab
 1645421 . Study of the ${X^\pm(5568)}$ state with semileptonic decays of the ${B_s^0}$ meson
-1649135 . Tevatron Run II combination of the effective leptonic electroweak mixing angle
+1649135 X Tevatron Run II combination of the effective leptonic electroweak mixing angle
 1650063 . Measurement of the $W W$ production cross section in $p\bar{p}$ collisions at $\sqrt{s} = 1.96$ TeV
 1680453 . Evidence for $Z_c^{\pm}(3900)$ in semi-inclusive decays of $b$-flavored hadrons
 1680821 . Search for standard-model Z and Higgs bosons decaying into a bottom-antibottom quark pair in proton-antiproton collisions at 1.96 TeV
-1685416 . Measurement of the differential cross sections for W -boson production in association with jets $p\bar{p}$ collisions at $\sqrt{s}=1.96$ TeV
+1685416 ! Measurement of the differential cross sections for W -boson production in association with jets $p\bar{p}$ collisions at $\sqrt{s}=1.96$ TeV
 1720079 . Search for Higgs-like particles produced in association with bottom quarks in proton-antiproton collisions
-1737595 . Properties of $Z_c^{\pm}(3900)$ Produced in $p \bar p$ Collision
-1761087 . Inclusive production of the $P_c$ resonances in $p \overline p $ collisions
+1737595 X Properties of $Z_c^{\pm}(3900)$ Produced in $p \bar p$ Collision
+1761087 X Inclusive production of the $P_c$ resonances in $p \overline p $ collisions
