@@ -32,10 +32,10 @@ namespace Rivet {
     //@{
 
     /// Get the cross-section for this run.
-    Run& setCrossSection(const double xs);
+    Run& setCrossSection(double xs);
 
     /// Declare whether to list available analyses
-    Run& setListAnalyses(const bool dolist);
+    Run& setListAnalyses(bool dolist);
 
     //@}
 

@@ -29,13 +29,13 @@ namespace Rivet {
   Run::~Run() { }
 
 
-  Run& Run::setCrossSection(const double xs) {
+  Run& Run::setCrossSection(double xs) {
     _xs = xs;
     return *this;
   }
 
 
-  Run& Run::setListAnalyses(const bool dolist) {
+  Run& Run::setListAnalyses(bool dolist) {
     _listAnalyses = dolist;
     return *this;
   }
