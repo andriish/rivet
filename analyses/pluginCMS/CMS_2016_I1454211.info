@@ -22,6 +22,8 @@ RunInfo:
 Luminosity: 19.7/fb
 Beams: [p+, p+]
 Energies: [8000]
+Options:
+ - TMODE=PARTICLE,BOTH
 Description:
   'The cross section for pair production of top quarks with high transverse momenta
   ($p_\mathrm{T} > 400$~\GeV) is measured in 19.7~fb$^{-1}$ of $\mathrm{pp}$
