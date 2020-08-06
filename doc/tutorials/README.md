@@ -73,4 +73,6 @@ which is based on a tutorial prepared for an MCnet summer school.
 
 [Working with development source (work in progress)](developer.md)
 
+[Linking against HepMC3](hepmc.md)
+
 [Coding style](codingstyle.md)

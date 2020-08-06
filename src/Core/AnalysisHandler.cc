@@ -150,6 +150,15 @@ namespace Rivet {
   }
 
 
+  // void AnalysisHandler::init(GenEvent* ge) {
+  //   if (ge == nullptr) {
+  //     MSG_ERROR("AnalysisHandler received null pointer to GenEvent");
+  //     //throw Error("AnalysisHandler received null pointer to GenEvent");
+  //   }
+  //   init(*ge);
+  // }
+
+
   void AnalysisHandler::setWeightNames(const GenEvent& ge) {
     _weightNames = HepMCUtils::weightNames(ge);
 
@@ -281,21 +290,21 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::analyze(const GenEvent& ge) {
+  void AnalysisHandler::analyze(GenEvent& ge) {
     // Call init with event as template if not already initialised
     if (!_initialised) init(ge);
     assert(_initialised);
 
     // Create the Rivet event wrapper
-    /// @todo Filter/normalize the event here
-    bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
-    /// @todo Improve this const/ptr GenEvent mess!
-    const Event e(const_cast<GenEvent&>(ge), strip);
+    //bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
+    //const Event e(const_cast<GenEvent&>(ge), strip);
+    // const Event event(const_cast<GenEvent&>(ge), _weightIndices);
+    const Event event(ge, _weightIndices);
 
     // Ensure that beam details match those from the first event (if we're checking beams)
     if ( !_ignoreBeams ) {
-      const PdgIdPair beams = Rivet::beamIds(e);
-      const double sqrts = Rivet::sqrtS(e);
+      const PdgIdPair beams = Rivet::beamIds(event);
+      const double sqrts = Rivet::sqrtS(event);
       if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
         cerr << "Event beams mismatch: "
              << PID::toBeamsString(beams) << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
@@ -304,13 +313,7 @@ namespace Rivet {
       }
     }
 
-    // Create the Rivet event wrapper
-    /// @todo Filter/normalize the event here
-    /// @todo Find a way to cache the env call
-    bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
-    Event event(ge, _weightIndices, strip);
-
-    // Set the cross section based on what is reported by this event.
+    // Set the cross section based on what is reported by this event
     if ( ge.cross_section() ) setCrossSection(HepMCUtils::crossSection(ge));
 
     // If the event number has changed, sync the sub-event analysis objects to persistent
@@ -329,6 +332,7 @@ namespace Rivet {
       }
     }
 
+    // Optionally cap large weights, to avoid spikes
     _subEventWeights.push_back(event.weights());
     if (_weightCap != 0.) {
       MSG_DEBUG("Implementing weight cap using a maximum |weight| = " << _weightCap << " for latest subevent");
@@ -339,10 +343,10 @@ namespace Rivet {
         }
       }
     }
-    MSG_DEBUG("Analyzing subevent #" << _subEventWeights.size() - 1 << ".");
 
-    _eventCounter->fill();
     // Run the analyses
+    MSG_DEBUG("Analyzing subevent #" << _subEventWeights.size() - 1 << ".");
+    _eventCounter->fill();
     for (AnaHandle a : analyses()) {
       MSG_TRACE("About to run analysis " << a->name());
       try {
@@ -366,7 +370,7 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::analyze(const GenEvent* ge) {
+  void AnalysisHandler::analyze(GenEvent* ge) {
     if (ge == nullptr) {
       MSG_ERROR("AnalysisHandler received null pointer to GenEvent");
       //throw Error("AnalysisHandler received null pointer to GenEvent");
