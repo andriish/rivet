@@ -9,8 +9,12 @@ namespace Rivet {
 
   /// @brief Convenience finder of partonic top quarks
   ///
-  /// @warning Requires there to be tops in the event record. A fiducial pseudo-top
-  /// analysis approach is strongly recommended instead of this.
+  /// @warning This projection requires there to be tops in the event record:
+  /// there is no guarantee of this, especially where the top quark is treated
+  /// (correctly) as a resonance rather than on-shell. Further, there is no
+  /// guarantee that the kinematics assigned to such tops are consistent,
+  /// physical, or even associated with the lab frame. A fiducial pseudo-top
+  /// analysis approach is *strongly* recommended instead.
   class PartonicTops : public ParticleFinder {
   public:
 
@@ -18,15 +22,15 @@ namespace Rivet {
     /// @brief Enum for categorising top quark decay modes
     ///
     /// More specifically, the decay mode of the W from the top. We presume top decay to a W and b quark.
-    enum class DecayMode { 
-      ANY = 0, 
-      ALL = 0, 
-      ELECTRON, 
-      MUON, 
-      TAU, 
-      E_MU, 
-      E_MU_TAU, 
-      HADRONIC 
+    enum class DecayMode {
+      ANY = 0,
+      ALL = 0,
+      ELECTRON,
+      MUON,
+      TAU,
+      E_MU,
+      E_MU_TAU,
+      HADRONIC
     };
 
     /// @brief Enum for categorising which top quark to be selected: last (weakly decaying) or first?
@@ -36,22 +40,20 @@ namespace Rivet {
     /// @name Constructors
     //@{
 
-    /// Constructor optionally taking cuts object
-    PartonicTops(const Cut& c=Cuts::OPEN, WhichTop whichtop=WhichTop::LAST)
-      : ParticleFinder(c), _topmode(whichtop), _decaymode(DecayMode::ALL),
-        _emu_from_prompt_tau(true), _include_hadronic_taus(false)
-    {  }
-
     /// Constructor taking decay mode details (and an optional cuts object)
     PartonicTops(DecayMode decaymode, bool emu_from_prompt_tau=true, bool include_hadronic_taus=false, const Cut& c=Cuts::OPEN, WhichTop whichtop=WhichTop::LAST)
       : ParticleFinder(c), _topmode(whichtop), _decaymode(decaymode),
         _emu_from_prompt_tau(emu_from_prompt_tau), _include_hadronic_taus(include_hadronic_taus)
     {  }
 
-    /// Constructor taking decay mode details (and an optional cuts object)
+    /// Constructor taking decay mode details (and a non-optional cuts object)
     PartonicTops(DecayMode decaymode, const Cut& c, bool emu_from_prompt_tau=true, bool include_hadronic_taus=false, WhichTop whichtop=WhichTop::LAST)
-      : ParticleFinder(c), _topmode(whichtop), _decaymode(decaymode),
-        _emu_from_prompt_tau(emu_from_prompt_tau), _include_hadronic_taus(include_hadronic_taus)
+      : PartonicTops(decaymode, emu_from_prompt_tau, include_hadronic_taus, c, whichtop)
+    {  }
+
+    /// Simple constructor optionally taking cuts object
+    PartonicTops(const Cut& c=Cuts::OPEN, WhichTop whichtop=WhichTop::LAST)
+      : PartonicTops(DecayMode::ALL, true, false, c, whichtop)
     {  }
 
 
@@ -75,11 +77,20 @@ namespace Rivet {
 
     /// Apply the projection on the supplied event.
     void project(const Event& event) {
+
+      // Warn about how terrible this is, the first time it's called!
+      static bool donerubric = false;
+      if (!donerubric) {
+        MSG_WARNING("PartonicTops is not recommended: MC generators do not guarantee physical properties for, or even the existence of, partonic event-record entries. Caveat emptor!");
+        donerubric = true;
+      }
+
       // Find partonic tops
       _theParticles = filter_select(event.allParticles(_cuts), (_topmode == WhichTop::LAST ? lastParticleWith(isTop) : firstParticleWith(isTop)));
+
       // Filtering by decay mode
       if (_decaymode != DecayMode::ALL) {
-        const auto fn = [&](const Particle& t) {
+        const auto decaycheck = [&](const Particle& t) {
           const Particles descendants = t.allDescendants();
           const bool prompt_e = any(descendants, [&](const Particle& p){ return p.abspid() == PID::ELECTRON && p.isPrompt(_emu_from_prompt_tau) && !p.hasAncestor(PID::PHOTON, false); });
           const bool prompt_mu = any(descendants, [&](const Particle& p){ return p.abspid() == PID::MUON && p.isPrompt(_emu_from_prompt_tau) && !p.hasAncestor(PID::PHOTON, false); });
@@ -91,8 +102,18 @@ namespace Rivet {
           if (_decaymode == DecayMode::HADRONIC && (!prompt_e && !prompt_mu && (!prompt_tau || (_include_hadronic_taus && prompt_hadronic_tau)))) return true; //< logical hairiness...
           return false;
         };
-        ifilter_select(_theParticles, fn);
+        ifilter_select(_theParticles, decaycheck);
       }
+
+      // Filtering and warning about unphysical partonic tops
+      const auto physcheck = [&](const Particle& t) {
+        if (t.E() < 0 || t.mass() < 0) {
+          MSG_WARNING("Unphysical partonic top with negative E or m found: " << t.mom());
+          return false;
+        }
+        return true;
+      };
+      ifilter_select(_theParticles, physcheck);
     }
 
 
