@@ -77,12 +77,6 @@ anagroup.add_argument("--pwd", dest="ANALYSIS_PATH_PWD", action="store_true", de
                       help="append the current directory (pwd) to the analysis/data search paths (cf. $RIVET_ANALYSIS_PATH).")
 
 extragroup = parser.add_argument_group("Extra run settings")
-extragroup.add_argument("-o", "-H", "--histo-file", dest="HISTOFILE",
-                        default="Rivet.yoda", help="specify the output histo file path (default = %(default)s)")
-extragroup.add_argument("-p", "--preload-file", dest="PRELOADFILE",
-                        default=None, help="specify and old yoda file to initialize (default = %(default)s)")
-extragroup.add_argument("--no-histo-file", dest="WRITE_DATA", action="store_false", default=True,
-                        help="don't write out any histogram file at the end of the run (default = write)")
 extragroup.add_argument("-x", "--cross-section", dest="CROSS_SECTION",
                         default=None, metavar="XS",
                         help="specify the signal process cross-section in pb")
@@ -92,32 +86,42 @@ extragroup.add_argument("-n", "--nevts", dest="MAXEVTNUM", type=int,
 extragroup.add_argument("--nskip", dest="EVTSKIPNUM", type=int,
                         default=0, metavar="NUM",
                         help="skip NUM events read from input before beginning processing")
-extragroup.add_argument("--skip-weights", "--skip-multiweights", dest="SKIP_WEIGHTS", action="store_true",
-                      default=False, help="only run on the nominal weight")
-extragroup.add_argument("--match-weights", dest="MATCH_WEIGHTS", default="",
-                        help="select weight variations matching this comma-separated list of weight names "
-                        "(supports regular expressions). Nominal weight cannot be skipped.")
-extragroup.add_argument("--unmatch-weights", dest="UNMATCH_WEIGHTS", default="",
-                        help="deselect weight variations matching this comma-separated list of weight names "
-                        "(supports regular expressions). Nominal weight cannot be skipped.")
-extragroup.add_argument("--nominal-weight", "--default-weight", dest="NOMINAL_WEIGHT", default="",
-                        help="specify the nominal weight name from the variations ")
-extragroup.add_argument("--weight-cap", dest="WEIGHT_CAP", type=float,
-                      default=None, help="set maximum abs(weight) to be used for histogram fills")
-extragroup.add_argument("--nlo-smearing", dest="NLO_SMEARING", type=float,
-                      default=0.0, help=" If larger than zero, smear histogram fillings to avoid that NLO counter events end up on the other side of a bin-boundary as compared to the corresponding real event in a fill. The fills will be smeared over the given fraction of the bin width.")
 extragroup.add_argument("--runname", dest="RUN_NAME", default=None, metavar="NAME",
                         help="give an optional run name, to be prepended as a 'top level directory' in histo paths")
 extragroup.add_argument("--ignore-beams", dest="IGNORE_BEAMS", action="store_true", default=False,
                         help="ignore input event beams when checking analysis compatibility. "
                         "WARNING: analyses may not work correctly, or at all, with inappropriate beams")
-extragroup.add_argument("-d", "--dump", "--histo-interval", dest="DUMP_PERIOD", type=int,
+
+histogroup = parser.add_argument_group("Histogram settings")
+histogroup.add_argument("-o", "-H", "--histo-file", dest="HISTOFILE",
+                        default="Rivet.yoda", help="specify the output histo file path (default = %(default)s)")
+histogroup.add_argument("-p", "--preload-histos", "--preload-file", dest="PRELOADFILE",
+                        default=None, help="specify an old YODA file to initialize (default = %(default)s)")
+histogroup.add_argument("--no-histo-file", dest="WRITE_DATA", action="store_false", default=True,
+                        help="don't write out any histogram file at the end of the run (default = write)")
+histogroup.add_argument("--nlo-smearing", dest="NLO_SMEARING", type=float,
+                        default=0.0, help=" If larger than zero, smear histogram fillings to avoid that NLO counter events end up on the other side of a bin-boundary as compared to the corresponding real event in a fill. The fills will be smeared over the given fraction of the bin width.")
+histogroup.add_argument("-d", "--dump", "--histo-interval", dest="DUMP_PERIOD", type=int,
                         default=1000, metavar="NUM",
                         help="specify the number of events between histogram file updates, "
                         "default = %(default)s. Set to 0 to only write out at the end of the run. "
                         "Note that intermediate histograms will be those from the analyze step "
                         "only, except for analyses explicitly declared Reentrant for which the "
                         "finalize function is executed first.")
+
+weightgroup = parser.add_argument_group("Event weight settings")
+weightgroup.add_argument("--single-weight", "--skip-multiweights", "--skip-weights", dest="SKIP_MULTIWEIGHTS", action="store_true",
+                         default=False, help="only run on the nominal weight")
+weightgroup.add_argument("--match-weights", dest="MATCH_WEIGHTS", default="",
+                         help="select weight variations matching this comma-separated list of weight names "
+                         "(supports regular expressions). Nominal weight cannot be skipped.")
+weightgroup.add_argument("--unmatch-weights", dest="UNMATCH_WEIGHTS", default="",
+                         help="deselect weight variations matching this comma-separated list of weight names "
+                         "(supports regular expressions). Nominal weight cannot be skipped.")
+weightgroup.add_argument("--nominal-weight", "--default-weight", dest="NOMINAL_WEIGHT", default="",
+                         help="specify the nominal weight name from the variations ")
+weightgroup.add_argument("--weight-cap", "--cap-weights", dest="WEIGHT_CAP", type=float,
+                         default=None, help="set maximum abs(weight) to be used for histogram fills")
 
 timinggroup = parser.add_argument_group("Timeouts and periodic operations")
 timinggroup.add_argument("--event-timeout", dest="EVENT_TIMEOUT", type=int,
@@ -548,7 +552,7 @@ if not os.access(histo_parentdir,os.W_OK):
 RUNNAME = args.RUN_NAME or ""
 ah = rivet.AnalysisHandler(RUNNAME)
 ah.setIgnoreBeams(args.IGNORE_BEAMS)
-ah.skipMultiWeights(args.SKIP_WEIGHTS)
+ah.skipMultiWeights(args.SKIP_MULTIWEIGHTS)
 ah.selectMultiWeights(args.MATCH_WEIGHTS)
 ah.deselectMultiWeights(args.UNMATCH_WEIGHTS)
 ah.setNominalWeightName(args.NOMINAL_WEIGHT)

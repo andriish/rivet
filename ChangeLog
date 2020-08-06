@@ -1,3 +1,8 @@
+2020-08-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add --single-weight, --preload-histos, and --cap-weights flags
+	to the rivet script, and tidy the option-flag groupings.
+
 2020-07-30  Christian Gutschow  <chris.g@cern.ch>
 
 	* Submission of ATLAS_2020_I1803608
