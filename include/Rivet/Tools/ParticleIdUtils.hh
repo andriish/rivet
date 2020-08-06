@@ -815,9 +815,19 @@ namespace Rivet {
       const int ida = abs(pid);
       const int sid = _fundamentalID(pid);
       int ch3 = 0;
-      if (ida == 0 || _extraBits(pid) > 0) { // ion or illegal
+      if(pid == 21 || pid == 22){ //gluon and photon
         return 0;
-      } else if( isQBall(pid) ) { // QBall
+      }
+      else if(pid == 211){ // charged pions 
+        return 3;
+      }
+      else if(pid == -211){ // charged pions
+        return -3;
+      }
+      else if (ida == 0 || _extraBits(pid) > 0) { // ion or illegal
+        return 0;
+      }
+       else if( isQBall(pid) ) { // QBall
         ch3 = 3*( (ida/10) % 10000);
       } else if( isHiddenValley(pid) ) { // Hidden Valley
         return 0;
@@ -878,7 +888,13 @@ namespace Rivet {
 
     /// Determine if the particle is electrically charged
     inline bool isCharged(int pid) {
-      return charge3(pid) != 0;
+      if(pid>0 && pid<=8) { // quarks
+        return true;
+      } else if(pid>=-8 && pid<0){ // anti quarks
+        return true;
+      }else {
+        return charge3(pid) != 0;
+      }
     }
 
     /// Determine if the particle is electrically neutral
