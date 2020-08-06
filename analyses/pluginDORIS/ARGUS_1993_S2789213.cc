@@ -159,6 +159,8 @@ namespace Rivet {
       for(unsigned int ix=0;ix<3;++ix) {
 	if(scales[ix]->val() <= 0.) continue;
 	for(unsigned int iy=0;iy<5;++iy) {
+	  // skip Upsilon(4S) -> omega, just an upper limit
+	  if(ix==2&&iy==0) continue;
 	  Scatter2DPtr scatter;
 	  book(scatter,ix+1, 1, iy+1, true);
 	  scale(_mult[ix][iy],1./ *scales[ix]);
