@@ -808,26 +808,19 @@ namespace Rivet {
                                  0,  0,  0, 0,  0, 0,  0, 0, 0, 0,
                                  0,  0,  0, 0,  0, 0,  0, 0, 0, 0,
                                  0,  0,  0, 0,  0, 0,  0, 0, 0, 0 };
+      if (pid == 21 || pid == 22) return 0; // gluon and photon
+      if (pid == 211) return 3; // charged pion
+      if (pid == -211) return -3; // charged pions
+
       const unsigned short q1 = _digit(nq1,pid);
       const unsigned short q2 = _digit(nq2,pid);
       const unsigned short q3 = _digit(nq3,pid);
       const unsigned short ql = _digit(nl,pid);
       const int ida = abs(pid);
       const int sid = _fundamentalID(pid);
+      if (ida == 0 || _extraBits(pid) > 0) return 0; // ion or illegal
       int ch3 = 0;
-      if(pid == 21 || pid == 22){ //gluon and photon
-        return 0;
-      }
-      else if(pid == 211){ // charged pions 
-        return 3;
-      }
-      else if(pid == -211){ // charged pions
-        return -3;
-      }
-      else if (ida == 0 || _extraBits(pid) > 0) { // ion or illegal
-        return 0;
-      }
-       else if( isQBall(pid) ) { // QBall
+      if( isQBall(pid) ) { // QBall
         ch3 = 3*( (ida/10) % 10000);
       } else if( isHiddenValley(pid) ) { // Hidden Valley
         return 0;
@@ -888,18 +881,14 @@ namespace Rivet {
 
     /// Determine if the particle is electrically charged
     inline bool isCharged(int pid) {
-      if(pid>0 && pid<=8) { // quarks
-        return true;
-      } else if(pid>=-8 && pid<0){ // anti quarks
-        return true;
-      }else {
-        return charge3(pid) != 0;
-      }
+      /// @todo What if PID = 0? Applies to everything... should we throw an exception?
+      if (pid >= -8 && pid <= 8) return true; // quarks and anti-quarks
+      return charge3(pid) != 0; //< pions, photons and gluons already fast in here
     }
 
     /// Determine if the particle is electrically neutral
     inline bool isNeutral(int pid) {
-      return charge3(pid) == 0;
+      return !isCharged(pid);
     }
 
     ///@}
