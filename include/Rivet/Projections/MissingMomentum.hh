@@ -12,11 +12,13 @@
 namespace Rivet {
 
 
-  /// @brief Calculate missing \f$ E \f$, \f$ E_\perp \f$ etc.
+  /// @brief Calculate missing \f$ E \f$, \f$ E_\perp \f$ etc. as complements to the total visible momentum
   ///
-  /// Project out the total visible energy vector, allowing missing
-  /// \f$ E \f$, \f$ E_\perp \f$ etc. to be calculated. Final state
-  /// visibility restrictions are automatic.
+  /// Project out the total visible energy vector, allowing missing \f$ E \f$,
+  /// \f$ E_\perp \f$ etc. to be calculated. Final-state particle visibility
+  /// restrictions are automatic, and the resulting visible/missing momentum
+  /// vectors are over the whole event rather than over hard objects (jets +
+  /// leptons) or specific to prompt invisibles.
   class MissingMomentum : public METFinder {
   public:
 
@@ -28,23 +30,20 @@ namespace Rivet {
       declare(VisibleFinalState(fs), "VisibleFS");
     }
 
-
-    /// Constructor.
-    MissingMomentum(const FinalState& fs) {
-      setName("MissingMomentum");
-      declare(fs, "FS");
-      declare(VisibleFinalState(fs), "VisibleFS");
-    }
+    /// Simple constructor
+    MissingMomentum(const FinalState& fs)
+      : MissingMomentum()
+    { }
 
 
-    /// Clone on the heap.
+    /// Clone on the heap
     DEFAULT_RIVET_PROJ_CLONE(MissingMomentum);
 
 
     /// @name Visible/missing four-momentum functions
-    ///@{
+    /// @{
 
-    /// The vector-summed visible four-momentum in the event.
+    /// @brief The vector-summed visible four-momentum in the event
     ///
     /// @note Reverse this vector with .reverse() to get the missing momentum vector.
     ///
@@ -55,7 +54,7 @@ namespace Rivet {
     /// Alias for visibleMomentum
     const FourMomentum visibleMom(double mass=0*GeV) const { return visibleMomentum(mass); }
 
-    /// The missing four-momentum in the event, required to balance the final state.
+    /// @brief The missing four-momentum in the event, required to balance the final state.
     ///
     /// @note The optional @a mass argument is used to set a mass on the 4-vector. By
     ///   default it is zero (since missing momentum is really a 3-momentum quantity:
@@ -64,15 +63,16 @@ namespace Rivet {
     /// Alias for missingMomentum
     const FourMomentum missingMom(double mass=0*GeV) const { return missingMomentum(mass); }
 
-    ///@}
+    /// @}
 
 
     /// @name Transverse momentum functions
     ///
     /// @note This may be what you want, even if the paper calls it "missing Et"!
-    ///@{
+    /// @{
 
-    /// The vector-summed visible transverse momentum in the event, as a 3-vector with z=0
+    /// @brief The vector-summed visible transverse momentum in the event, as a 3-vector with z=0
+    ///
     /// @note Reverse this vector with operator- to get the missing pT vector.
     const Vector3& vectorPt() const { return _vpt; }
 
@@ -81,15 +81,16 @@ namespace Rivet {
     // /// Alias for scalarPt
     // double spt() const { return scalarPt(); }
 
-    ///@}
+    /// @}
 
 
     /// @name Transverse energy functions
     ///
     /// @warning Despite the common names "MET" and "SET", what's often meant is the pT functions above!
-    ///@{
+    /// @{
 
-    /// The vector-summed visible transverse energy in the event, as a 3-vector with z=0
+    /// @brief The vector-summed visible transverse energy in the event, as a 3-vector with z=0
+    ///
     /// @note Reverse this vector with operator- to get the missing ET vector.
     const Vector3& vectorEt() const { return _vet; }
 
@@ -98,7 +99,7 @@ namespace Rivet {
     /// Alias for scalarEt
     double set() const { return scalarEt(); }
 
-    //@}
+    /// @}
 
 
     /// Clear the projection results.
