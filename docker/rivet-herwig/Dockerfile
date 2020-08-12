@@ -10,9 +10,9 @@ RUN mkdir /code && cd /code \
 RUN lhapdf install MMHT2014{,n}lo68cl CT14{,n}lo
 
 RUN mkdir /code && cd /code \
-    && apt-get install -y mercurial libtool libboost-dev \
+    && apt-get install -y libtool libboost-dev libboost-test-dev \
     && wget https://www.hepforge.org/archive/thepeg/ThePEG-2.2.1.tar.bz2 -O- | tar xj \
-    && cd ThePEG-*/ && ./configure --enable-shared --{prefix,with-{fastjet,hepmc,lhapdf}}=/usr/local \
+    && cd ThePEG-*/ && ./configure --enable-shared --{prefix,with-{fastjet,hepmc,lhapdf,rivet}}=/usr/local \
     && make -j $(nproc --ignore=1) && make install \
     && cd ../.. && rm -rf /code
 
