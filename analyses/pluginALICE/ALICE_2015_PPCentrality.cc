@@ -22,7 +22,8 @@ namespace Rivet {
 
     // Per-event analysis
     void analyze(const Event& event) {
-      _imp->fill(apply<SingleValueProjection>(event,"IMP")());
+      if(event.genEvent()->heavy_ion()) 
+        _imp->fill(apply<SingleValueProjection>(event,"IMP")());
 
       // Check if we have any hit in either V0-A or -C.  If not, the
       // event is not selected and we get out.
@@ -35,10 +36,10 @@ namespace Rivet {
 
     void finalize() {
       _v0m->normalize();
-      _imp->normalize();
+      if(_imp->sumW() > 0) _imp->normalize();
     }
 
-
+    bool hasb;
     Histo1DPtr _v0m;
     Histo1DPtr _imp;
   };
