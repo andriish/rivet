@@ -58,3 +58,5 @@ BibTeX: '@article{Sirunyan:2017yar,
       reportNumber   = "CMS-TOP-15-015, CERN-EP-2017-018",
       SLACcitation   = "%%CITATION = ARXIV:1703.06330;%%"
 }'
+ReleaseTests:
+ - $A LHC-8-Top-All
