@@ -57,7 +57,9 @@ RUN if test "$LATEX" = "1"; then \
       apt-get install -y texlive-latex-recommended texlive-fonts-recommended imagemagick; \
     fi
 
+
 ENV LD_LIBRARY_PATH /usr/local/lib
 ENV PYTHONPATH /usr/local/lib64/python3.8/site-packages
 
+ADD bash.bashrc /etc/
 WORKDIR /work

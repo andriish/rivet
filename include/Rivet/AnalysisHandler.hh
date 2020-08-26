@@ -100,7 +100,7 @@ namespace Rivet {
     Scatter1DPtr crossSection() const { return _xs; }
 
     /// Set the cross-section for the process being generated
-    void setCrossSection(pair<double, double> xsec, bool isUserSupplied=false);
+    void setCrossSection(const pair<double, double>& xsec, bool isUserSupplied=false);
     /// Set the cross-section for the process being generated (alternative signature)
     void setCrossSection(double xsec, double xsecerr, bool isUserSupplied=false) {
       setCrossSection({xsec, xsecerr}, isUserSupplied);

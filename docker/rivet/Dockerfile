@@ -15,5 +15,6 @@ RUN mkdir /code && cd /code \
     && echo "source /usr/local/share/YODA/yoda-completion" > /etc/profile.d/yoda-completion.sh \
     && texhash \
     && rm -rf /code
+ADD bash.bashrc /etc/
 
 WORKDIR /work

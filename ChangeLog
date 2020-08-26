@@ -9,6 +9,10 @@
 	deep copy, so users should be fully aware that the passed event is
 	not completely safe from modification.
 
+2020-08-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add warnings and physicality checks to PartonicTops.
+
 2020-07-30  Christian Gutschow  <chris.g@cern.ch>
 
 	* Submission of ATLAS_2020_I1803608

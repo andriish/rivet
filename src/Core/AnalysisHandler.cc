@@ -94,9 +94,7 @@ namespace Rivet {
     _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
 
     // Set the cross section based on what is reported by this event.
-    if ( ge.cross_section() ) {
-      setCrossSection(HepMCUtils::crossSection(ge));
-    }
+    if ( ge.cross_section() ) setCrossSection(HepMCUtils::crossSection(ge));
 
     // Check that analyses are beam-compatible, and remove those that aren't
     const size_t num_anas_requested = analysisNames().size();
@@ -830,7 +828,7 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::setCrossSection(pair<double,double> xsec, bool isUserSupplied) {
+  void AnalysisHandler::setCrossSection(const pair<double,double>& xsec, bool isUserSupplied) {
     // Update the user xsec
     if (isUserSupplied) _userxs = xsec;
 
