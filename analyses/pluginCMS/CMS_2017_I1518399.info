@@ -59,4 +59,4 @@ BibTeX: '@article{Sirunyan:2017yar,
       SLACcitation   = "%%CITATION = ARXIV:1703.06330;%%"
 }'
 ReleaseTests:
- - $A LHC-8-Top-All
+ - $A pp-8000-ttbar-sl-boosted

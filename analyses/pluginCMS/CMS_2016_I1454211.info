@@ -74,4 +74,4 @@ BibTex: '@article{Khachatryan:2016gxp,
       SLACcitation   = "%%CITATION = ARXIV:1605.00116;%%"
 }'
 ReleaseTests:
- - $A LHC-8-Top-All
+ - $A pp-8000-ttbar-sl-boosted
