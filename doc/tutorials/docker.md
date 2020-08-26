@@ -85,7 +85,7 @@ You might want to put these alias definitions into your `~/.bashrc` for persiste
 ```
 alias rivet='docker run -i --privileged --rm  -u `id -u $USER`:`id -g`  -v $PWD:$PWD -w $PWD  hepstore/rivet:X.Y.Z rivet'
 alias rivet-mkanalysis='docker run -i --privileged --rm  -u `id -u $USER`:`id -g`  -v $PWD:$PWD -w $PWD  hepstore/rivet:X.Y.Z rivet-mkanalysis'
-alias rivet-buildplugin='docker run -i --privileged --rm  -u `id -u $USER`:`id -g`  -v $PWD:$PWD -w $PWD  hepstore/rivet:X.Y.Z rivet-buildplugin'
+alias rivet-build='docker run -i --privileged --rm  -u `id -u $USER`:`id -g`  -v $PWD:$PWD -w $PWD  hepstore/rivet:X.Y.Z rivet-build'
 alias rivet-mkhtml='docker run -i --privileged --rm  -u `id -u $USER`:`id -g`  -v $PWD:$PWD -w $PWD  hepstore/rivet:X.Y.Z rivet-mkhtml'
 alias yodamerge='docker run -i --privileged --rm  -u `id -u $USER`:`id -g`  -v $PWD:$PWD -w $PWD  hepstore/rivet:X.Y.Z yodamerge'
 ```
