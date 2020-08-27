@@ -65,7 +65,7 @@ stages:
       - $CI_PROJECT_DIR
       # - test/
       # - local_$ARCH/
-    expire_in: 1 week
+    expire_in: 36 hrs
 
 
 build_ubuntu_gcc_hepmc2_py3:
@@ -138,7 +138,7 @@ get_test_hepmc:
     paths:
       - $CI_PROJECT_DIR/tt.hepmc.gz
       - $CI_PROJECT_DIR/valhepmc
-    expire_in: 1 week
+    expire_in: 36 hrs
 
 
 .check_plugin_template: &check_plugin_template
@@ -199,7 +199,7 @@ get_test_hepmc:
       - val_$ARCH/VALDIR/tmp/*log
     #exclude:
     #  - test_$ARCH/VALDIR/*/*gz
-    expire_in: 1 week
+    expire_in: 36 hrs
 
 
 check_plugin_ubuntu_gcc_hepmc2_py3:
@@ -268,12 +268,12 @@ check_plugin_ubuntu_gcc_hepmc3_py2:
     when: always
     paths:
       - test_$ARCH/ttbar_test_plots/
-    expire_in: 1 week
+    expire_in: 36 hrs
   artifacts:
     when: always
     paths:
       - test_$ARCH/ttbar_test_plots
-    expire_in: 1 week
+    expire_in: 36 hrs
 
 
 make_plots_ubuntu_gcc_hepmc2_py3:
