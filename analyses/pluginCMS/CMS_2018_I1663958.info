@@ -55,3 +55,5 @@ BibTeX:
       reportNumber   = "CMS-TOP-17-002, CERN-EP-2018-039",
       SLACcitation   = "%%CITATION = ARXIV:1803.08856;%%"
 }'
+ReleaseTests:
+ - $A LHC-13-Top-All
