@@ -6,7 +6,9 @@
 #include "Rivet/Projection.fhh"
 #include "Rivet/ProjectionHandler.hh"
 #include "Rivet/Tools/Logging.hh"
+#include<queue>
 
+using namespace std; // @@@AK
 namespace Rivet {
 
 
@@ -167,12 +169,25 @@ namespace Rivet {
     /// @brief Register a contained projection (user-facing version)
     /// @todo Add SFINAE to require that PROJ inherit from Projection
     template <typename PROJ>
-    const PROJ& declare(const PROJ& proj, const std::string& name) { return declareProjection(proj, name); }
+    const PROJ& declare(const PROJ& proj, const std::string& name) {
+      //{@@@AK 
+      if(_projhandler){ 
+        return declareProjection(proj, name);
+      }
+      _declQueue.push(make_pair(proj, name));
+      return proj;
+    }
     /// @brief Register a contained projection (user-facing, arg-reordered version)
     /// @todo Add SFINAE to require that PROJ inherit from Projection
     template <typename PROJ>
-    const PROJ& declare(const std::string& name, const PROJ& proj) { return declareProjection(proj, name); }
-
+    const PROJ& declare(const std::string& name, const PROJ& proj) { 
+      if(_projhandler){
+        return declareProjection(proj, name);
+      }
+      _declQueue.push(make_pair(proj, name));
+      return proj;
+    }
+//@@@AK}
 
     /// Untemplated function to do the work...
     const Projection& _declareProjection(const Projection& proj, const std::string& name);
@@ -187,7 +202,17 @@ namespace Rivet {
     /// Non-templated version of proj-based applyProjection, to work around
     /// header dependency issue.
     const Projection& _applyProjection(const Event& evt, const Projection& proj) const;
-
+///{ @@@AK
+    void setProjectionhandler(ProjectionHandler& projHandler){
+      _projhandler = projHandler;
+      while(!_declQueue.empty()){
+        auto obj = _declQueue.front();
+        Projection& ret = this->declareProjection(obj.first, obj.second);
+        ret.setProjectionHandler(projHandler);
+        _declQueue.pop();
+      }
+    }
+// @@@AK}
 
     /// Flag to forbid projection registration in analyses until the init phase
     bool _allowProjReg;
@@ -200,6 +225,9 @@ namespace Rivet {
 
     /// Pointer to projection handler.
     ProjectionHandler& _projhandler;
+    //shared_ptr<ProjectionHandler&> _projhandler;
+
+    std::queue<pair<Projection&, string&>> _declQueue; // @@@AK
 
   };
 

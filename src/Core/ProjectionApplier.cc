@@ -10,7 +10,7 @@ namespace Rivet {
   // NB. Allow proj registration in constructor by default -- explicitly disable for Analysis
   ProjectionApplier::ProjectionApplier()
     : _allowProjReg(true), _owned(false),
-      _projhandler(ProjectionHandler::getInstance())
+      _projhandler(nullptr) // @@@AK
   {  }
 
 

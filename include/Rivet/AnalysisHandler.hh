@@ -6,6 +6,7 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/AnalysisLoader.hh"
 #include "Rivet/Tools/RivetYODA.hh"
+#include "Rivet/ProjectionHandler.hh"
 
 namespace Rivet {
 
@@ -427,6 +428,9 @@ namespace Rivet {
     bool _dumping;
 
     /// @}
+
+    /// Projection Handler
+    ProjectionHandler _projHandler; //@@@AK
 
   };
 
