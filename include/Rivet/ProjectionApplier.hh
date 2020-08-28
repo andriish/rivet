@@ -170,8 +170,8 @@ namespace Rivet {
     /// @todo Add SFINAE to require that PROJ inherit from Projection
     template <typename PROJ>
     const PROJ& declare(const PROJ& proj, const std::string& name) {
-      //{@@@AK 
-      if(_projhandler){ 
+      //{@@@AK
+      if(_projhandler){
         return declareProjection(proj, name);
       }
       _declQueue.push(make_pair(proj, name));
@@ -180,7 +180,7 @@ namespace Rivet {
     /// @brief Register a contained projection (user-facing, arg-reordered version)
     /// @todo Add SFINAE to require that PROJ inherit from Projection
     template <typename PROJ>
-    const PROJ& declare(const std::string& name, const PROJ& proj) { 
+    const PROJ& declare(const std::string& name, const PROJ& proj) {
       if(_projhandler){
         return declareProjection(proj, name);
       }
@@ -202,11 +202,20 @@ namespace Rivet {
     /// Non-templated version of proj-based applyProjection, to work around
     /// header dependency issue.
     const Projection& _applyProjection(const Event& evt, const Projection& proj) const;
+
 ///{ @@@AK
-    void setProjectionhandler(ProjectionHandler& projHandler){
+    /// @todo AB: Add Doxygen comment, follow surrounding coding style
+    /// @todo AB: Changes to this header force a rebuild of everything: put the implementation in the .cc file
+    void setProjectionHandler(ProjectionHandler& projHandler) {
+      /// Problem with reference reassignment: see comment below on _projhandler member declaration
       _projhandler = projHandler;
-      while(!_declQueue.empty()){
+      /// @todo AB: Move this into a _syncDeclQueue function to be called both by setProjectionHandler() and declare()
+      while (!_declQueue.empty()) {
+        /// @todo AB: only use auto when the type is genuinely awkward to express: here it's just
         auto obj = _declQueue.front();
+        /// @todo AB: should the order be switched, to set the PH on the Proj
+        /// *about* to be declared first? That way the setting will cascade up
+        /// from deepest level to top-level, as currently. Maybe safer that way?
         Projection& ret = this->declareProjection(obj.first, obj.second);
         ret.setProjectionHandler(projHandler);
         _declQueue.pop();
@@ -224,9 +233,12 @@ namespace Rivet {
     mutable bool _owned;
 
     /// Pointer to projection handler.
+    /// @todo AB: I don't think this can work: what's the null value on construction?
     ProjectionHandler& _projhandler;
     //shared_ptr<ProjectionHandler&> _projhandler;
 
+    /// @todo AB: You can't store references... how does this work????
+    /// @todo AB: What's the string for?
     std::queue<pair<Projection&, string&>> _declQueue; // @@@AK
 
   };
