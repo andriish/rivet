@@ -12,7 +12,7 @@
 namespace Rivet {
 
 
-  /// @brief soft drop mass at 13 TeV
+  /// @brief Soft-drop mass at 13 TeV
   class ATLAS_2019_I1772062: public Analysis {
   public:
 
@@ -20,187 +20,187 @@ namespace Rivet {
     DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2019_I1772062);
 
 
-  void getQuarkGluon(Rivet::Histo1DPtr hForward, Rivet::Histo1DPtr hCentral, Rivet::Histo1DPtr hQuark, Rivet::Histo1DPtr hGluon, int ptbin, string parName){
+    void getQuarkGluon(Rivet::Histo1DPtr hForward, Rivet::Histo1DPtr hCentral, Rivet::Histo1DPtr hQuark, Rivet::Histo1DPtr hGluon, int ptbin, string parName) {
 
-    int nBins = rhoBins.size() - 1;
-    if(parName == "rg" || parName == "trg") nBins = rgBins.size()-1;
-    if(parName == "zg" || parName == "tzg") nBins = zgBins.size()-1;
+      int nBins = rhoBins.size() - 1;
+      if (parName == "rg" || parName == "trg") nBins = rgBins.size()-1;
+      if (parName == "zg" || parName == "tzg") nBins = zgBins.size()-1;
 
-    double FGC = gluonFractionCentral[ptbin];
-    double FGF = gluonFractionForward[ptbin];
-    double FQC = 1.-FGC;
-    double FQF = 1.-FGF;
+      double FGC = gluonFractionCentral[ptbin];
+      double FGF = gluonFractionForward[ptbin];
+      double FQC = 1.-FGC;
+      double FQF = 1.-FGF;
 
-    for(int i=0; i<hGluon->numBins(); i++){
-      double binCenter = hGluon->bin(i).midpoint();
-      double gVal = 0., qVal = 0.;
-      if ((FQF -  FQC) != 0.) {
-        gVal = (FQF * hCentral->bin(ptbin*(nBins) + i).height() - FQC * hForward->bin(ptbin*(nBins) + i).height()) / (FQF - FQC);
-        qVal = (FGF * hCentral->bin(ptbin*(nBins) + i).height() - FGC * hForward->bin(ptbin*(nBins) + i).height()) / (FQC - FQF);
-      }
-      hGluon->fill(binCenter, gVal);
-      hQuark->fill(binCenter, qVal);
-    }
-
-    histNorm(hQuark, parName);
-    histNorm(hGluon, parName);
-  }
-
-  void ptNorm(Rivet::Histo1DPtr ptBinnedHist, std::string var){
-    int varNormBin1 = 0;
-    int varNormBin2 = 0;
-    int nBins = 10;
-
-    if(var=="m" || var=="tm"){
-      varNormBin1 = normBin1;
-      varNormBin2 = normBin2;
-    }
-    if(var=="zg" || var=="tzg"){
-      varNormBin2 = zgBins.size()-1;
-      nBins = zgBins.size()-1;
-    }
-    if(var=="rg" || var=="trg"){
-      varNormBin2 = rgBins.size()-1;
-      nBins = rgBins.size()-1;
-    }
-
-    for(unsigned int k=0; k< ptBins.size()-1; ++k){
-      double normalization = 0;
-      
-      for(unsigned int j=varNormBin1; j<varNormBin2; ++j){
-        double binWidth = 1.;
-        if(var=="m" || var=="tm"){
-          binWidth = rhoBins[j+1] - rhoBins[j];
+      for (size_t i=0; i<hGluon->numBins(); i++) {
+        double binCenter = hGluon->bin(i).midpoint();
+        double gVal = 0., qVal = 0.;
+        if ((FQF -  FQC) != 0.) {
+          gVal = (FQF * hCentral->bin(ptbin*(nBins) + i).height() - FQC * hForward->bin(ptbin*(nBins) + i).height()) / (FQF - FQC);
+          qVal = (FGF * hCentral->bin(ptbin*(nBins) + i).height() - FGC * hForward->bin(ptbin*(nBins) + i).height()) / (FQC - FQF);
         }
-        if(var=="zg" || var=="tzg"){
-          binWidth = zgBins[j+1]- zgBins[j];
-        }
-
-        if(var=="rg" || var=="trg"){
-          binWidth = rgBins[j+1]- rgBins[j];
-          if(j==nBins-1) ptBinnedHist->bin( k*nBins+j ).scaleW(2.);
-          //normalization += ptBinnedHist->bin(k*nBins+j).height()*binWidth;
-          normalization += ptBinnedHist->bin(k*(nBins) + j).height()*binWidth;
-        }
-        else{
-          normalization += ptBinnedHist->bin(k*(nBins) + j).height()*binWidth;
-        }
+        hGluon->fill(binCenter, gVal);
+        hQuark->fill(binCenter, qVal);
       }
 
-      if( normalization == 0 ) continue;
-  
-      for(unsigned int j=0; j<nBins; j++){
-        if(var=="rg" || var=="trg"){
-          ptBinnedHist->bin(k*(nBins) + j ).scaleW(1. / (normalization) );
-        }
-        else{
-          ptBinnedHist->bin(k*(nBins) + j ).scaleW(1. / (normalization));
+      histNorm(hQuark, parName);
+      histNorm(hGluon, parName);
+    }
+
+    void ptNorm(Rivet::Histo1DPtr ptBinnedHist, std::string var) {
+      size_t varNormBin1 = 0;
+      size_t varNormBin2 = 0;
+      size_t nBins = 10;
+
+      if (var=="m" || var=="tm") {
+        varNormBin1 = normBin1;
+        varNormBin2 = normBin2;
+      }
+      if (var=="zg" || var=="tzg") {
+        varNormBin2 = zgBins.size()-1;
+        nBins = zgBins.size()-1;
+      }
+      if (var=="rg" || var=="trg") {
+        varNormBin2 = rgBins.size()-1;
+        nBins = rgBins.size()-1;
+      }
+
+      for (size_t k=0; k< ptBins.size()-1; ++k) {
+        double normalization = 0;
+
+        for (size_t j=varNormBin1; j<varNormBin2; ++j) {
+          double binWidth = 1.;
+          if (var=="m" || var=="tm") {
+            binWidth = rhoBins[j+1] - rhoBins[j];
+          }
+          if (var=="zg" || var=="tzg") {
+            binWidth = zgBins[j+1]- zgBins[j];
+          }
+
+          if (var=="rg" || var=="trg") {
+            binWidth = rgBins[j+1]- rgBins[j];
+            if (j==nBins-1) ptBinnedHist->bin( k*nBins+j ).scaleW(2.);
+            //normalization += ptBinnedHist->bin(k*nBins+j).height()*binWidth;
+            normalization += ptBinnedHist->bin(k*(nBins) + j).height()*binWidth;
+          }
+          else{
+            normalization += ptBinnedHist->bin(k*(nBins) + j).height()*binWidth;
+          }
         }
 
+        if (normalization == 0) continue;
+
+        for (unsigned int j=0; j<nBins; j++) {
+          if (var=="rg" || var=="trg") {
+            ptBinnedHist->bin(k*(nBins) + j ).scaleW(1. / (normalization) );
+          }
+          else{
+            ptBinnedHist->bin(k*(nBins) + j ).scaleW(1. / (normalization));
+          }
+
+        }
+      }
+
+      return;
+    }
+
+    void histNorm(Rivet::Histo1DPtr hist, std::string var) {
+      if (var=="m" || var=="tm") {
+        double norm = 0.;
+        for (size_t i = normBin1; i < normBin2; i++) { //only normalize in the resummation region.
+          norm+=hist->bin(i).area();
+        }
+        if (norm > 0.) {
+          hist->scaleW(1.0/(norm));
+        }
+      }
+      else if ( var=="zg" || var=="tzg") {
+        normalize(hist);
+      }
+      else{
+        normalize(hist);
       }
     }
 
-    return;
-  }
 
-  void histNorm(Rivet::Histo1DPtr hist, std::string var){
-    if(var=="m" || var=="tm"){ 
-      double norm = 0.;
-      for (size_t i = normBin1; i < normBin2; i++) { //only normalize in the resummation region.
-        norm+=hist->bin(i).area();
-      }
-      if(norm > 0.){
-        hist->scaleW(1.0/(norm));
-      }
+    int return_bin(float pT, float rho, std::string whichvar) {
+      // First thing's first
+      if (pT < ptBins[0]) return -100;
+
+      if (whichvar=="m" && rho < pow(10,-4.5)) return -100;
+      if (whichvar=="tm" && rho < pow(10,-4.5)) return -100;
+
+      if (whichvar=="zg" && rho <= 0) return -100;
+      if (whichvar=="tzg" && rho <= 0) return -100;
+
+      if (whichvar=="rg" && rho <= -1.2) return -100;
+      if (whichvar=="trg" && rho <= -1.2) return -100;
+
+      if (whichvar=="id" && rho <= 1) return -100;
+
+      int pTbin = 1;
+      if (pT < ptBins[0]) pTbin = 0; //should not happen
+      else if (pT < ptBins[1]) pTbin = 1;
+      else if (pT < ptBins[2]) pTbin = 2;
+      else if (pT < ptBins[3]) pTbin = 3;
+      else if (pT < ptBins[4]) pTbin = 4;
+      else pTbin = 5;
+      if (pTbin == 0) return -1;
+
+      int rhobin = 1.;
+      if ((whichvar=="m") || (whichvar=="tm"))
+        {
+          if (rho < pow(10,-4.5)) rhobin = 0; //this should not happen.
+          else if (rho < pow(10,-4.1)) rhobin = 1;
+          else if (rho < pow(10,-3.7)) rhobin = 2;
+          else if (rho < pow(10,-3.3)) rhobin = 3;
+          else if (rho < pow(10,-2.9)) rhobin = 4;
+          else if (rho < pow(10,-2.5)) rhobin = 5;
+          else if (rho < pow(10,-2.1)) rhobin = 6;
+          else if (rho < pow(10,-1.7)) rhobin = 7;
+          else if (rho < pow(10,-1.3)) rhobin = 8;
+          else if (rho < pow(10,-0.9)) rhobin = 9;
+          else if (rho < pow(10,-0.5)) rhobin = 10;
+          else rhobin = 10;
+          return rhobin*1. + (pTbin*1.-1.)*10.-1;
+        }
+
+      // zg
+      else if ((whichvar=="zg")||(whichvar=="tzg"))
+        {
+          if (rho < 0.00) return -10;
+          else if (rho < 0.05) rhobin = 1;
+          else if (rho < 0.10) rhobin = 2;
+          else if (rho < 0.15) rhobin = 3;
+          else if (rho < 0.20) rhobin = 4;
+          else if (rho < 0.25) rhobin = 5;
+          else if (rho < 0.30) rhobin = 6;
+          else if (rho < 0.35) rhobin = 7;
+          else if (rho < 0.40) rhobin = 8;
+          else if (rho < 0.45) rhobin = 9;
+          else if (rho < 0.50) rhobin = 10;
+          else rhobin = 10;
+          return rhobin*1. + (pTbin*1.-1.)*10.-1;
+        }
+
+      //rg
+      else if ((whichvar=="rg")||(whichvar=="trg"))
+        {
+          if (rho < -1.2) return -10;
+          else if (rho < -1.0) rhobin = 1;
+          else if (rho < -0.8) rhobin = 2;
+          else if (rho < -0.6) rhobin = 3;
+          else if (rho < -0.4) rhobin = 4;
+          else if (rho < -0.2) rhobin = 5;
+          else if (rho < -0.1) rhobin = 6;
+          else rhobin = 6;
+          return rhobin*1. + (pTbin*1.-1.)*6.-1;
+        }
+
+      return -100;
     }
-    else if( var=="zg" || var=="tzg"){
-      normalize(hist);
-    }
-    else{
-      normalize(hist);
-    }
-  }
 
 
-  int return_bin(float pT, float rho, std::string whichvar){
-    // First thing's first
-    if (pT < ptBins[0]) return -100;
-  
-    if (whichvar=="m" && rho < pow(10,-4.5)) return -100;
-    if (whichvar=="tm" && rho < pow(10,-4.5)) return -100;
-  
-    if (whichvar=="zg" && rho <= 0) return -100;
-    if (whichvar=="tzg" && rho <= 0) return -100;
-  
-    if (whichvar=="rg" && rho <= -1.2) return -100;
-    if (whichvar=="trg" && rho <= -1.2) return -100;
 
-    if (whichvar=="id" && rho <= 1) return -100;
-
-    int pTbin = 1;
-    if (pT < ptBins[0]) pTbin = 0; //should not happen
-    else if (pT < ptBins[1]) pTbin = 1;
-    else if (pT < ptBins[2]) pTbin = 2;
-    else if (pT < ptBins[3]) pTbin = 3;
-    else if (pT < ptBins[4]) pTbin = 4;
-    else pTbin = 5;
-    if(pTbin == 0) return -1;
-  
-    int rhobin = 1.;
-    if ((whichvar=="m") || (whichvar=="tm"))
-      {
-        if (rho < pow(10,-4.5)) rhobin = 0; //this should not happen.
-        else if (rho < pow(10,-4.1)) rhobin = 1;
-        else if (rho < pow(10,-3.7)) rhobin = 2;
-        else if (rho < pow(10,-3.3)) rhobin = 3;
-        else if (rho < pow(10,-2.9)) rhobin = 4;
-        else if (rho < pow(10,-2.5)) rhobin = 5;
-        else if (rho < pow(10,-2.1)) rhobin = 6;
-        else if (rho < pow(10,-1.7)) rhobin = 7;
-        else if (rho < pow(10,-1.3)) rhobin = 8;
-        else if (rho < pow(10,-0.9)) rhobin = 9;
-        else if (rho < pow(10,-0.5)) rhobin = 10;
-        else rhobin = 10;
-        return rhobin*1. + (pTbin*1.-1.)*10.-1;
-      }
-  
-    // zg
-    else if ((whichvar=="zg")||(whichvar=="tzg"))
-      {
-        if (rho < 0.00) return -10;
-        else if (rho < 0.05) rhobin = 1;
-        else if (rho < 0.10) rhobin = 2;
-        else if (rho < 0.15) rhobin = 3;
-        else if (rho < 0.20) rhobin = 4;
-        else if (rho < 0.25) rhobin = 5;
-        else if (rho < 0.30) rhobin = 6;
-        else if (rho < 0.35) rhobin = 7;
-        else if (rho < 0.40) rhobin = 8;
-        else if (rho < 0.45) rhobin = 9;
-        else if (rho < 0.50) rhobin = 10;
-        else rhobin = 10;
-        return rhobin*1. + (pTbin*1.-1.)*10.-1;
-      }
-
-    //rg
-    else if ((whichvar=="rg")||(whichvar=="trg"))
-      { 
-        if (rho < -1.2) return -10;
-        else if (rho < -1.0) rhobin = 1;
-        else if (rho < -0.8) rhobin = 2;
-        else if (rho < -0.6) rhobin = 3;
-        else if (rho < -0.4) rhobin = 4;
-        else if (rho < -0.2) rhobin = 5;
-        else if (rho < -0.1) rhobin = 6;
-        else rhobin = 6;
-        return rhobin*1. + (pTbin*1.-1.)*6.-1;
-      }
-
-    return -100;
-  }
-
-
-    
     /// Book cuts and projections
     void init() {
       // All final state particles
@@ -250,7 +250,7 @@ namespace Rivet {
       book(_h["_h_Table22"], 22,1,1);  // Track, Rho, beta=1,   inclusive pT, central jet
       book(_h["_h_Table23"], 23,1,1);  // Cluster, Rho, beta=2, inclusive pT, central jet
       book(_h["_h_Table24"], 24,1,1);  // Track, Rho, beta=2,   inclusive pT, central jet
-      
+
       book(_h["_h_Table25"], 25,1,1);  // Cluster, zg, beta=0,  inclusive pT, central jet
       book(_h["_h_Table26"], 26,1,1);  // Track, zg, beta=0,    inclusive pT, central jet
       book(_h["_h_Table27"], 27,1,1);  // Cluster, zg, beta=1,  inclusive pT, central jet
@@ -318,7 +318,7 @@ namespace Rivet {
       book(_h["_h_Table76"], 76,1,1);  // Track, Rho, beta=1,   pT binned, central jet
       book(_h["_h_Table77"], 77,1,1);  // Cluster, Rho, beta=2, pT binned, central jet
       book(_h["_h_Table78"], 78,1,1);  // Track, Rho, beta=2,   pT binned, central jet
-      
+
       book(_h["_h_Table79"], 79,1,1);  // Cluster, zg, beta=0,  pT binned, central jet
       book(_h["_h_Table80"], 80,1,1);  // Track, zg, beta=0,    pT binned, central jet
       book(_h["_h_Table81"], 81,1,1);  // Cluster, zg, beta=1,  pT binned, central jet
@@ -380,26 +380,26 @@ namespace Rivet {
       book(_h["_h_Table126"], 126,1,1);  // Track, rg, beta=2,    quark jet
 
 
-      book(_h["_h_Table127"], 127,1,1);   // Cluster, Rho, beta=0, gluon jet 
-      book(_h["_h_Table128"], 128,1,1);   // Track, Rho, beta=0,   gluon jet 
-      book(_h["_h_Table129"], 129,1,1);   // Cluster, Rho, beta=1, gluon jet 
-      book(_h["_h_Table130"], 130,1,1);   // Track, Rho, beta=1,   gluon jet 
-      book(_h["_h_Table131"], 131,1,1);   // Cluster, Rho, beta=2, gluon jet 
-      book(_h["_h_Table132"], 132,1,1);   // Track, Rho, beta=2,   gluon jet 
+      book(_h["_h_Table127"], 127,1,1);   // Cluster, Rho, beta=0, gluon jet
+      book(_h["_h_Table128"], 128,1,1);   // Track, Rho, beta=0,   gluon jet
+      book(_h["_h_Table129"], 129,1,1);   // Cluster, Rho, beta=1, gluon jet
+      book(_h["_h_Table130"], 130,1,1);   // Track, Rho, beta=1,   gluon jet
+      book(_h["_h_Table131"], 131,1,1);   // Cluster, Rho, beta=2, gluon jet
+      book(_h["_h_Table132"], 132,1,1);   // Track, Rho, beta=2,   gluon jet
 
-      book(_h["_h_Table133"], 133,1,1);   // Cluster, zg, beta=0,  gluon jet 
-      book(_h["_h_Table134"], 134,1,1);   // Track, zg, beta=0,    gluon jet 
-      book(_h["_h_Table135"], 135,1,1);   // Cluster, zg, beta=1,  gluon jet 
-      book(_h["_h_Table136"], 136,1,1);  // Track, zg, beta=1,    gluon jet 
-      book(_h["_h_Table137"], 137,1,1);  // Cluster, zg, beta=2,  gluon jet 
-      book(_h["_h_Table138"], 138,1,1);  // Track, zg, beta=2,    gluon jet 
+      book(_h["_h_Table133"], 133,1,1);   // Cluster, zg, beta=0,  gluon jet
+      book(_h["_h_Table134"], 134,1,1);   // Track, zg, beta=0,    gluon jet
+      book(_h["_h_Table135"], 135,1,1);   // Cluster, zg, beta=1,  gluon jet
+      book(_h["_h_Table136"], 136,1,1);  // Track, zg, beta=1,    gluon jet
+      book(_h["_h_Table137"], 137,1,1);  // Cluster, zg, beta=2,  gluon jet
+      book(_h["_h_Table138"], 138,1,1);  // Track, zg, beta=2,    gluon jet
 
-      book(_h["_h_Table139"], 139,1,1);  // Cluster, rg, beta=0,  gluon jet 
-      book(_h["_h_Table140"], 140,1,1);  // Track, rg, beta=0,    gluon jet 
-      book(_h["_h_Table141"], 141,1,1);  // Cluster, rg, beta=1,  gluon jet 
-      book(_h["_h_Table142"], 142,1,1);  // Track, rg, beta=1,    gluon jet 
-      book(_h["_h_Table143"], 143,1,1);  // Cluster, rg, beta=2,  gluon jet 
-      book(_h["_h_Table144"], 144,1,1);  // Track, rg, beta=2,    gluon jet 
+      book(_h["_h_Table139"], 139,1,1);  // Cluster, rg, beta=0,  gluon jet
+      book(_h["_h_Table140"], 140,1,1);  // Track, rg, beta=0,    gluon jet
+      book(_h["_h_Table141"], 141,1,1);  // Cluster, rg, beta=1,  gluon jet
+      book(_h["_h_Table142"], 142,1,1);  // Track, rg, beta=1,    gluon jet
+      book(_h["_h_Table143"], 143,1,1);  // Cluster, rg, beta=2,  gluon jet
+      book(_h["_h_Table144"], 144,1,1);  // Track, rg, beta=2,    gluon jet
 
     }
 
@@ -411,25 +411,25 @@ namespace Rivet {
 
       if (myJets.size() < 2)  vetoEvent;
       if (myJets[0].pT() > 1.5*myJets[1].pT())  vetoEvent;
-      if (myJets[0].abseta() > 1.5 || myJets[1].abseta() > 1.5) vetoEvent; 
+      if (myJets[0].abseta() > 1.5 || myJets[1].abseta() > 1.5) vetoEvent;
 
       std::vector<bool> isCentral;
-      isCentral.push_back(true); 
-      isCentral.push_back(false); 
-      if(myJets[0].abseta() > myJets[1].abseta()){
+      isCentral.push_back(true);
+      isCentral.push_back(false);
+      if (myJets[0].abseta() > myJets[1].abseta()) {
         isCentral[0] = false;
         isCentral[1] = true;
       }
 
       for (size_t i = 0; i < 2; ++i) {
-      	if (myJets[i].pT() < 300*GeV) continue;
+        if (myJets[i].pT() < 300*GeV) continue;
 
         vector<fastjet::PseudoJet> charged_constituents;
         for (const Particle& p : tracks) {
-            const double dr = deltaR(myJets[i], p, PSEUDORAPIDITY);
-            if (dr > 0.8) continue;
-            if (abs(p.pid()) == 13) continue;
-            charged_constituents.push_back(p);
+          const double dr = deltaR(myJets[i], p, PSEUDORAPIDITY);
+          if (dr > 0.8) continue;
+          if (abs(p.pid()) == 13) continue;
+          charged_constituents.push_back(p);
         }
 
         fastjet::ClusterSequence cs_ca(myJets[i].constituents(), fastjet::JetDefinition(fastjet::cambridge_algorithm, 0.8));
@@ -438,8 +438,8 @@ namespace Rivet {
         fastjet::ClusterSequence cs_ca_charged(charged_constituents, fastjet::JetDefinition(fastjet::cambridge_algorithm, 0.8));
         vector<fastjet::PseudoJet> myJet_ca_charged = fastjet::sorted_by_pt(cs_ca_charged.inclusive_jets(10.0));
 
-        if(myJet_ca.size()==0) continue;
-        if(myJet_ca_charged.size()==0) continue;
+        if (myJet_ca.size()==0) continue;
+        if (myJet_ca_charged.size()==0) continue;
 
         // grooming parameters that are scanned.
         vector<size_t> betas = { 0, 1, 2 };
@@ -450,27 +450,16 @@ namespace Rivet {
           fastjet::PseudoJet sdJet_charged = sd(myJet_ca_charged[0]);
 
           double rho2              = pow(sdJet.m()/myJets[i].pT(),2);
-      	  double log10rho2         = log(rho2)/log(10.);
+          double log10rho2         = log(rho2)/log(10.);
           double zg                = sdJet.structure_of<fastjet::contrib::SoftDrop>().symmetry();
           double rg                = sdJet.structure_of<fastjet::contrib::SoftDrop>().delta_R();
-          if(rg > 0){
-            rg                = log(rg) / log(10.);
-          }
-          else{
-            rg = -100;
-          }
+          rg = (rg > 0) ? log(rg) / log(10.) : -100;
 
           double rho2_charged      = pow(sdJet_charged.m()/myJet_ca_charged[0].pt(),2);
-      	  double log10rho2_charged = log(rho2_charged)/log(10.);
+          double log10rho2_charged = log(rho2_charged)/log(10.);
           double zg_charged        = sdJet_charged.structure_of<fastjet::contrib::SoftDrop>().symmetry();
-
           double rg_charged             = sdJet.structure_of<fastjet::contrib::SoftDrop>().delta_R();
-          if(rg_charged > 0){
-            rg_charged             = log(rg_charged) / log(10.);
-          }
-          else{
-            rg_charged = -100; 
-          }
+          rg_charged = (rg_charged > 0) ? log(rg_charged) / log(10.) : -100;
 
           double pt_log10rho2 = return_bin(myJets[i].pT()/GeV, rho2, "m");
           double pt_zg = return_bin(myJets[i].pT()/GeV, zg, "zg");
@@ -481,164 +470,164 @@ namespace Rivet {
           double pt_rg_charged = return_bin(myJets[i].pT()/GeV,        rg_charged,   "trg");
 
 
-      	  if (ibeta==0)  {
-             _h["_h_Table1"]->fill(  log10rho2);
-             _h["_h_Table2"]->fill(  log10rho2_charged);
-             _h["_h_Table7"]->fill(  zg);
-             _h["_h_Table8"]->fill(  zg_charged);
-             if(rg > -1.2)
-             _h["_h_Table13"]->fill(  rg);
-             if(rg_charged > -1.2)
-             _h["_h_Table14"]->fill(  rg_charged);
+          if (ibeta==0)  {
+            _h["_h_Table1"]->fill(  log10rho2);
+            _h["_h_Table2"]->fill(  log10rho2_charged);
+            _h["_h_Table7"]->fill(  zg);
+            _h["_h_Table8"]->fill(  zg_charged);
+            if (rg > -1.2)
+              _h["_h_Table13"]->fill(  rg);
+            if (rg_charged > -1.2)
+              _h["_h_Table14"]->fill(  rg_charged);
 
-             _h["_h_Table55"]->fill(  pt_log10rho2);
-             _h["_h_Table56"]->fill(  pt_log10rho2_charged);
-             _h["_h_Table61"]->fill(  pt_zg);
-             _h["_h_Table62"]->fill(  pt_zg_charged);
-             _h["_h_Table67"]->fill(  pt_rg);
-             _h["_h_Table68"]->fill(  pt_rg_charged);
+            _h["_h_Table55"]->fill(  pt_log10rho2);
+            _h["_h_Table56"]->fill(  pt_log10rho2_charged);
+            _h["_h_Table61"]->fill(  pt_zg);
+            _h["_h_Table62"]->fill(  pt_zg_charged);
+            _h["_h_Table67"]->fill(  pt_rg);
+            _h["_h_Table68"]->fill(  pt_rg_charged);
 
-             if(isCentral[i]){ 
-               _h["_h_Table19"]->fill(  log10rho2);
-               _h["_h_Table20"]->fill(  log10rho2_charged);
-               _h["_h_Table25"]->fill(  zg);
-               _h["_h_Table26"]->fill(  zg_charged);
-               if(rg > -1.2)
-                 _h["_h_Table31"]->fill(  rg);
-               if(rg_charged > -1.2)
-                 _h["_h_Table32"]->fill(  rg_charged);
+            if (isCentral[i]) {
+              _h["_h_Table19"]->fill(  log10rho2);
+              _h["_h_Table20"]->fill(  log10rho2_charged);
+              _h["_h_Table25"]->fill(  zg);
+              _h["_h_Table26"]->fill(  zg_charged);
+              if (rg > -1.2)
+                _h["_h_Table31"]->fill(  rg);
+              if (rg_charged > -1.2)
+                _h["_h_Table32"]->fill(  rg_charged);
 
-               _h["_h_Table73"]->fill(  pt_log10rho2);
-               _h["_h_Table74"]->fill(  pt_log10rho2_charged);
-               _h["_h_Table79"]->fill(  pt_zg);
-               _h["_h_Table80"]->fill(  pt_zg_charged);
-               _h["_h_Table85"]->fill(  pt_rg);
-               _h["_h_Table86"]->fill(  pt_rg_charged);
-             }
+              _h["_h_Table73"]->fill(  pt_log10rho2);
+              _h["_h_Table74"]->fill(  pt_log10rho2_charged);
+              _h["_h_Table79"]->fill(  pt_zg);
+              _h["_h_Table80"]->fill(  pt_zg_charged);
+              _h["_h_Table85"]->fill(  pt_rg);
+              _h["_h_Table86"]->fill(  pt_rg_charged);
+            }
 
-             if(!isCentral[i]){
-               _h["_h_Table37"]->fill(  log10rho2);
-               _h["_h_Table38"]->fill(  log10rho2_charged);
-               _h["_h_Table43"]->fill(  zg);
-               _h["_h_Table44"]->fill(  zg_charged);
-               if(rg > -1.2)
-                 _h["_h_Table49"]->fill(  rg);
-               if(rg_charged > -1.2)
-                 _h["_h_Table50"]->fill(  rg_charged);
+            if (!isCentral[i]) {
+              _h["_h_Table37"]->fill(  log10rho2);
+              _h["_h_Table38"]->fill(  log10rho2_charged);
+              _h["_h_Table43"]->fill(  zg);
+              _h["_h_Table44"]->fill(  zg_charged);
+              if (rg > -1.2)
+                _h["_h_Table49"]->fill(  rg);
+              if (rg_charged > -1.2)
+                _h["_h_Table50"]->fill(  rg_charged);
 
-               _h["_h_Table91"]->fill(  pt_log10rho2);
-               _h["_h_Table92"]->fill(  pt_log10rho2_charged);
-               _h["_h_Table97"]->fill(  pt_zg);
-               _h["_h_Table98"]->fill(  pt_zg_charged);
-               _h["_h_Table103"]->fill(  pt_rg);
-               _h["_h_Table104"]->fill(  pt_rg_charged);
-             }
+              _h["_h_Table91"]->fill(  pt_log10rho2);
+              _h["_h_Table92"]->fill(  pt_log10rho2_charged);
+              _h["_h_Table97"]->fill(  pt_zg);
+              _h["_h_Table98"]->fill(  pt_zg_charged);
+              _h["_h_Table103"]->fill(  pt_rg);
+              _h["_h_Table104"]->fill(  pt_rg_charged);
+            }
           }
-      	  if (ibeta==1)  { 
-             _h["_h_Table3"]->fill(  log10rho2);
-             _h["_h_Table4"]->fill(  log10rho2_charged);
-             _h["_h_Table9"]->fill(  zg);
-             _h["_h_Table10"]->fill(  zg_charged);
-             if(rg > -1.2)
-               _h["_h_Table15"]->fill(  rg);
-             if(rg_charged > -1.2)
-               _h["_h_Table16"]->fill(  rg_charged);
+          if (ibeta==1)  {
+            _h["_h_Table3"]->fill(  log10rho2);
+            _h["_h_Table4"]->fill(  log10rho2_charged);
+            _h["_h_Table9"]->fill(  zg);
+            _h["_h_Table10"]->fill(  zg_charged);
+            if (rg > -1.2)
+              _h["_h_Table15"]->fill(  rg);
+            if (rg_charged > -1.2)
+              _h["_h_Table16"]->fill(  rg_charged);
 
-             _h["_h_Table57"]->fill(  pt_log10rho2);
-             _h["_h_Table58"]->fill(  pt_log10rho2_charged);
-             _h["_h_Table63"]->fill(  pt_zg);
-             _h["_h_Table64"]->fill(  pt_zg_charged);
-             _h["_h_Table69"]->fill(  pt_rg);
-             _h["_h_Table70"]->fill(  pt_rg_charged);
+            _h["_h_Table57"]->fill(  pt_log10rho2);
+            _h["_h_Table58"]->fill(  pt_log10rho2_charged);
+            _h["_h_Table63"]->fill(  pt_zg);
+            _h["_h_Table64"]->fill(  pt_zg_charged);
+            _h["_h_Table69"]->fill(  pt_rg);
+            _h["_h_Table70"]->fill(  pt_rg_charged);
 
-             if(isCentral[i]){ 
-               _h["_h_Table21"]->fill(  log10rho2);
-               _h["_h_Table22"]->fill(  log10rho2_charged);
-               _h["_h_Table27"]->fill(  zg);
-               _h["_h_Table28"]->fill(  zg_charged);
-               if(rg > -1.2)
-                 _h["_h_Table33"]->fill(  rg);
-               if(rg_charged > -1.2)
-                 _h["_h_Table34"]->fill(  rg_charged);
+            if (isCentral[i]) {
+              _h["_h_Table21"]->fill(  log10rho2);
+              _h["_h_Table22"]->fill(  log10rho2_charged);
+              _h["_h_Table27"]->fill(  zg);
+              _h["_h_Table28"]->fill(  zg_charged);
+              if (rg > -1.2)
+                _h["_h_Table33"]->fill(  rg);
+              if (rg_charged > -1.2)
+                _h["_h_Table34"]->fill(  rg_charged);
 
-               _h["_h_Table75"]->fill(  pt_log10rho2);
-               _h["_h_Table76"]->fill(  pt_log10rho2_charged);
-               _h["_h_Table81"]->fill(  pt_zg);
-               _h["_h_Table82"]->fill(  pt_zg_charged);
-               _h["_h_Table87"]->fill(  pt_rg);
-               _h["_h_Table88"]->fill(  pt_rg_charged);
-             }
+              _h["_h_Table75"]->fill(  pt_log10rho2);
+              _h["_h_Table76"]->fill(  pt_log10rho2_charged);
+              _h["_h_Table81"]->fill(  pt_zg);
+              _h["_h_Table82"]->fill(  pt_zg_charged);
+              _h["_h_Table87"]->fill(  pt_rg);
+              _h["_h_Table88"]->fill(  pt_rg_charged);
+            }
 
-             if(!isCentral[i]){
-               _h["_h_Table39"]->fill(  log10rho2);
-               _h["_h_Table40"]->fill(  log10rho2_charged);
-               _h["_h_Table45"]->fill(  zg);
-               _h["_h_Table46"]->fill(  zg_charged);
-               if(rg > -1.2)
-                 _h["_h_Table51"]->fill(  rg);
-               if(rg_charged > -1.2)
-                 _h["_h_Table52"]->fill(  rg_charged);
+            if (!isCentral[i]) {
+              _h["_h_Table39"]->fill(  log10rho2);
+              _h["_h_Table40"]->fill(  log10rho2_charged);
+              _h["_h_Table45"]->fill(  zg);
+              _h["_h_Table46"]->fill(  zg_charged);
+              if (rg > -1.2)
+                _h["_h_Table51"]->fill(  rg);
+              if (rg_charged > -1.2)
+                _h["_h_Table52"]->fill(  rg_charged);
 
-               _h["_h_Table93"]->fill(  pt_log10rho2);
-               _h["_h_Table94"]->fill(  pt_log10rho2_charged);
-               _h["_h_Table99"]->fill(  pt_zg);
-               _h["_h_Table100"]->fill(  pt_zg_charged);
-               _h["_h_Table105"]->fill(  pt_rg);
-               _h["_h_Table106"]->fill(  pt_rg_charged);
-             }
+              _h["_h_Table93"]->fill(  pt_log10rho2);
+              _h["_h_Table94"]->fill(  pt_log10rho2_charged);
+              _h["_h_Table99"]->fill(  pt_zg);
+              _h["_h_Table100"]->fill(  pt_zg_charged);
+              _h["_h_Table105"]->fill(  pt_rg);
+              _h["_h_Table106"]->fill(  pt_rg_charged);
+            }
           }
-      	  if (ibeta==2)  {
-             _h["_h_Table5"]->fill(  log10rho2);
-             _h["_h_Table6"]->fill(  log10rho2_charged);
-             _h["_h_Table11"]->fill(  zg);
-             _h["_h_Table12"]->fill(  zg_charged);
-             if(rg > -1.2)
-               _h["_h_Table17"]->fill(  rg);
-             if(rg_charged > -1.2)
-               _h["_h_Table18"]->fill(  rg_charged);
-          
-             _h["_h_Table59"]->fill(  pt_log10rho2);
-             _h["_h_Table60"]->fill(  pt_log10rho2_charged);
-             _h["_h_Table65"]->fill(  pt_zg);
-             _h["_h_Table66"]->fill(  pt_zg_charged);
-             _h["_h_Table71"]->fill(  pt_rg);
-             _h["_h_Table72"]->fill(  pt_rg_charged);
+          if (ibeta==2)  {
+            _h["_h_Table5"]->fill(  log10rho2);
+            _h["_h_Table6"]->fill(  log10rho2_charged);
+            _h["_h_Table11"]->fill(  zg);
+            _h["_h_Table12"]->fill(  zg_charged);
+            if (rg > -1.2)
+              _h["_h_Table17"]->fill(  rg);
+            if (rg_charged > -1.2)
+              _h["_h_Table18"]->fill(  rg_charged);
 
-             if(isCentral[i]){
-               _h["_h_Table23"]->fill(  log10rho2);
-               _h["_h_Table24"]->fill(  log10rho2_charged);
-               _h["_h_Table29"]->fill(  zg);
-               _h["_h_Table30"]->fill(  zg_charged);
-               if(rg > -1.2)
-                 _h["_h_Table35"]->fill(  rg);
-               if(rg_charged > -1.2)
-                 _h["_h_Table36"]->fill(  rg_charged);
+            _h["_h_Table59"]->fill(  pt_log10rho2);
+            _h["_h_Table60"]->fill(  pt_log10rho2_charged);
+            _h["_h_Table65"]->fill(  pt_zg);
+            _h["_h_Table66"]->fill(  pt_zg_charged);
+            _h["_h_Table71"]->fill(  pt_rg);
+            _h["_h_Table72"]->fill(  pt_rg_charged);
 
-               _h["_h_Table77"]->fill(  pt_log10rho2);
-               _h["_h_Table78"]->fill(  pt_log10rho2_charged);
-               _h["_h_Table83"]->fill(  pt_zg);
-               _h["_h_Table84"]->fill(  pt_zg_charged);
-               _h["_h_Table89"]->fill(  pt_rg);
-               _h["_h_Table90"]->fill(  pt_rg_charged);
-             }
+            if (isCentral[i]) {
+              _h["_h_Table23"]->fill(  log10rho2);
+              _h["_h_Table24"]->fill(  log10rho2_charged);
+              _h["_h_Table29"]->fill(  zg);
+              _h["_h_Table30"]->fill(  zg_charged);
+              if (rg > -1.2)
+                _h["_h_Table35"]->fill(  rg);
+              if (rg_charged > -1.2)
+                _h["_h_Table36"]->fill(  rg_charged);
 
-             if(!isCentral[i]){
-               _h["_h_Table41"]->fill(  log10rho2);  
-               _h["_h_Table42"]->fill(  log10rho2_charged);
-               _h["_h_Table47"]->fill(  zg);
-               _h["_h_Table48"]->fill(  zg_charged);
-               if(rg > -1.2)
-                 _h["_h_Table53"]->fill(  rg);
-               if(rg_charged > -1.2)
-                 _h["_h_Table54"]->fill(  rg_charged);
+              _h["_h_Table77"]->fill(  pt_log10rho2);
+              _h["_h_Table78"]->fill(  pt_log10rho2_charged);
+              _h["_h_Table83"]->fill(  pt_zg);
+              _h["_h_Table84"]->fill(  pt_zg_charged);
+              _h["_h_Table89"]->fill(  pt_rg);
+              _h["_h_Table90"]->fill(  pt_rg_charged);
+            }
 
-               _h["_h_Table95"]->fill(  pt_log10rho2);
-               _h["_h_Table96"]->fill(  pt_log10rho2_charged);
-               _h["_h_Table101"]->fill(  pt_zg);
-               _h["_h_Table102"]->fill(  pt_zg_charged);
-               _h["_h_Table107"]->fill(  pt_rg);
-               _h["_h_Table108"]->fill(  pt_rg_charged);
-             }
+            if (!isCentral[i]) {
+              _h["_h_Table41"]->fill(  log10rho2);
+              _h["_h_Table42"]->fill(  log10rho2_charged);
+              _h["_h_Table47"]->fill(  zg);
+              _h["_h_Table48"]->fill(  zg_charged);
+              if (rg > -1.2)
+                _h["_h_Table53"]->fill(  rg);
+              if (rg_charged > -1.2)
+                _h["_h_Table54"]->fill(  rg_charged);
+
+              _h["_h_Table95"]->fill(  pt_log10rho2);
+              _h["_h_Table96"]->fill(  pt_log10rho2_charged);
+              _h["_h_Table101"]->fill(  pt_zg);
+              _h["_h_Table102"]->fill(  pt_zg_charged);
+              _h["_h_Table107"]->fill(  pt_rg);
+              _h["_h_Table108"]->fill(  pt_rg_charged);
+            }
           }
 
         }
@@ -665,7 +654,7 @@ namespace Rivet {
       histNorm(_h["_h_Table16"], "rg");
       histNorm(_h["_h_Table17"], "rg");
       histNorm(_h["_h_Table18"], "rg");
-      
+
       histNorm(_h["_h_Table19"], "m");
       histNorm(_h["_h_Table20"], "m");
       histNorm(_h["_h_Table21"], "m");
@@ -684,7 +673,7 @@ namespace Rivet {
       histNorm(_h["_h_Table34"], "rg");
       histNorm(_h["_h_Table35"], "rg");
       histNorm(_h["_h_Table36"], "rg");
-      
+
 
       histNorm(_h["_h_Table37"], "m");
       histNorm(_h["_h_Table38"], "m");
@@ -704,7 +693,7 @@ namespace Rivet {
       histNorm(_h["_h_Table52"], "rg");
       histNorm(_h["_h_Table53"], "rg");
       histNorm(_h["_h_Table54"], "rg");
-      
+
 
       ptNorm(_h["_h_Table55"], "m");
       ptNorm(_h["_h_Table56"], "m");
@@ -724,7 +713,7 @@ namespace Rivet {
       ptNorm(_h["_h_Table70"], "rg");
       ptNorm(_h["_h_Table71"], "rg");
       ptNorm(_h["_h_Table72"], "rg");
-      
+
       ptNorm(_h["_h_Table73"], "m");
       ptNorm(_h["_h_Table74"], "m");
       ptNorm(_h["_h_Table75"], "m");
@@ -743,7 +732,7 @@ namespace Rivet {
       ptNorm(_h["_h_Table88"], "rg");
       ptNorm(_h["_h_Table89"], "rg");
       ptNorm(_h["_h_Table90"], "rg");
-      
+
 
       ptNorm(_h["_h_Table91"], "m");
       ptNorm(_h["_h_Table92"], "m");
@@ -763,7 +752,7 @@ namespace Rivet {
       ptNorm(_h["_h_Table106"], "rg");
       ptNorm(_h["_h_Table107"], "rg");
       ptNorm(_h["_h_Table108"], "rg");
-      
+
 
 
       getQuarkGluon(_h["_h_Table91"], _h["_h_Table73"], _h["_h_Table109"], _h["_h_Table127"], 2, "m");
@@ -797,5 +786,5 @@ namespace Rivet {
 
   };
 
- DECLARE_RIVET_PLUGIN(ATLAS_2019_I1772062);
+  DECLARE_RIVET_PLUGIN(ATLAS_2019_I1772062);
 }
