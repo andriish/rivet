@@ -141,7 +141,7 @@ namespace Rivet {
 
     /// Get a reference to the ProjectionHandler for this thread.
     ProjectionHandler& getProjHandler() const {
-      return _projhandler;
+      return *_projhandler;
     }
 
 
@@ -174,7 +174,7 @@ namespace Rivet {
       if(_projhandler){
         return declareProjection(proj, name);
       }
-      _declQueue.push(make_pair(proj, name));
+      _declQueue.push(make_pair(&proj, name));
       return proj;
     }
     /// @brief Register a contained projection (user-facing, arg-reordered version)
@@ -184,7 +184,7 @@ namespace Rivet {
       if(_projhandler){
         return declareProjection(proj, name);
       }
-      _declQueue.push(make_pair(proj, name));
+      _declQueue.push(make_pair(&proj, name));
       return proj;
     }
 //@@@AK}
@@ -206,21 +206,7 @@ namespace Rivet {
 ///{ @@@AK
     /// @todo AB: Add Doxygen comment, follow surrounding coding style
     /// @todo AB: Changes to this header force a rebuild of everything: put the implementation in the .cc file
-    void setProjectionHandler(ProjectionHandler& projHandler) {
-      /// Problem with reference reassignment: see comment below on _projhandler member declaration
-      _projhandler = projHandler;
-      /// @todo AB: Move this into a _syncDeclQueue function to be called both by setProjectionHandler() and declare()
-      while (!_declQueue.empty()) {
-        /// @todo AB: only use auto when the type is genuinely awkward to express: here it's just
-        auto obj = _declQueue.front();
-        /// @todo AB: should the order be switched, to set the PH on the Proj
-        /// *about* to be declared first? That way the setting will cascade up
-        /// from deepest level to top-level, as currently. Maybe safer that way?
-        Projection& ret = this->declareProjection(obj.first, obj.second);
-        ret.setProjectionHandler(projHandler);
-        _declQueue.pop();
-      }
-    }
+    void setProjectionHandler(ProjectionHandler& projectionHandler);
 // @@@AK}
 
     /// Flag to forbid projection registration in analyses until the init phase
@@ -234,12 +220,13 @@ namespace Rivet {
 
     /// Pointer to projection handler.
     /// @todo AB: I don't think this can work: what's the null value on construction?
-    ProjectionHandler& _projhandler;
+    //ProjectionHandler& _projhandler;
+    ProjectionHandler* _projhandler;
     //shared_ptr<ProjectionHandler&> _projhandler;
 
     /// @todo AB: You can't store references... how does this work????
-    /// @todo AB: What's the string for?
-    std::queue<pair<Projection&, string&>> _declQueue; // @@@AK
+    /// @todo AB: What's the string for? - declare receives reference to a Projection and name, so we need to store both as long as we delays the declareProjection
+    std::queue<pair<Projection*, string>> _declQueue; // @@@AK
 
   };
 

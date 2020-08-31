@@ -84,7 +84,7 @@ namespace Rivet {
     //ProjectionHandler& operator = (const ProjectionHandler&) = delete; // @@@AK
 
     /// The copy constructor is hidden.
-    ProjectionHandler(const ProjectionHandler&) = delete;
+    //ProjectionHandler(const ProjectionHandler&) = delete;
 
     /// The standard constructor.
     ProjectionHandler() = default;
