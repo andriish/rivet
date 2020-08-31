@@ -52,7 +52,7 @@ namespace Rivet {
       /// @todo AB: Move this into a _syncDeclQueue function to be called both by setProjectionHandler() and declare() - [AK] Why we need to call below from declare?
       while (!_declQueue.empty()) {
         /// @todo AB: only use auto when the type is genuinely awkward to express: here it's just - done
-        pair<std::unique_ptr<Projection>, string> obj = std::move(_declQueue.front());
+        pair<Projection*, string> obj = _declQueue.front();
         /// @todo AB: should the order be switched, to set the PH on the Proj
         /// *about* to be declared first? That way the setting will cascade up
         /// from deepest level to top-level, as currently. Maybe safer that way?
