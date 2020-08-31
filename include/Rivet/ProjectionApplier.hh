@@ -174,7 +174,8 @@ namespace Rivet {
       if(_projhandler){
         return declareProjection(proj, name);
       }
-      _declQueue.push(make_pair(&proj, name));
+      std::unique_ptr<Projection> projClone = proj.clone();
+      _declQueue.push(std::move(make_pair(std::move(projClone), std::move(name))));
       return proj;
     }
     /// @brief Register a contained projection (user-facing, arg-reordered version)
@@ -184,7 +185,8 @@ namespace Rivet {
       if(_projhandler){
         return declareProjection(proj, name);
       }
-      _declQueue.push(make_pair(&proj, name));
+      std::unique_ptr<Projection> projClone = proj.clone();
+      _declQueue.push(std::move(make_pair(std::move(projClone), std::move(name))));
       return proj;
     }
 //@@@AK}
@@ -226,7 +228,7 @@ namespace Rivet {
 
     /// @todo AB: You can't store references... how does this work????
     /// @todo AB: What's the string for? - declare receives reference to a Projection and name, so we need to store both as long as we delays the declareProjection
-    std::queue<pair<Projection*, string>> _declQueue; // @@@AK
+    std::queue<pair<std::unique_ptr<Projection>, string>> _declQueue; // @@@AK
 
   };
 
