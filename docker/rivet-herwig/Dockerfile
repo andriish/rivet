@@ -40,17 +40,23 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 
 RUN export DEBIAN_FRONTEND=noninteractive \
     && python -m venv /herwig \
+    && mkdir -r /herwig/etc/bash_completion.d \
     && . /herwig/bin/activate \
     && pip install Cython six \
+    && cp /herwig/bin/activate{,-raw} \
     && wget https://herwig.hepforge.org/downloads/herwig-bootstrap \
     && chmod +x herwig-bootstrap \
     && ./herwig-bootstrap /herwig -j$(nproc --ignore=1) \
       --thepeg-version=${THEPEG_VERSION} --herwig-version=${HERWIG_VERSION} \
       --rivet-version=${RIVET_VERSION} --yoda-version=${YODA_VERSION} \
       --without-hjets \
-    && mv herwig-bootstrap /herwig/src
+    && rm -r /herwig/src
+    #mv herwig-bootstrap /herwig/src
 
-RUN echo ". /herwig/bin/herwig-activate" >> /etc/bash.bashrc
+RUN true \
+    && echo ". /herwig/bin/activate" >> /etc/bash.bashrc \
+    && echo ". /herwig/etc/bash_completion.d/yoda-completion" >> /etc/bash.bashrc \
+    && echo ". /herwig/etc/bash_completion.d/rivet-completion" >> /etc/bash.bashrc
 
 WORKDIR /work
 CMD /bin/bash
