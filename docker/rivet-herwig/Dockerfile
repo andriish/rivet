@@ -40,7 +40,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 
 RUN export DEBIAN_FRONTEND=noninteractive \
     && python -m venv /herwig \
-    && mkdir -r /herwig/etc/bash_completion.d \
+    && mkdir -p /herwig/etc/bash_completion.d \
     && . /herwig/bin/activate \
     && pip install Cython six \
     && cp /herwig/bin/activate{,-raw} \
@@ -50,8 +50,11 @@ RUN export DEBIAN_FRONTEND=noninteractive \
       --thepeg-version=${THEPEG_VERSION} --herwig-version=${HERWIG_VERSION} \
       --rivet-version=${RIVET_VERSION} --yoda-version=${YODA_VERSION} \
       --without-hjets \
-    && rm -r /herwig/src
+    && rm -r /herwig/src herwig-bootstrap
     #mv herwig-bootstrap /herwig/src
+
+RUN apt-get update -y \
+    && apt-get install -y texlive-latex-recommended texlive-fonts-recommended imagemagick
 
 RUN true \
     && echo ". /herwig/bin/activate" >> /etc/bash.bashrc \
