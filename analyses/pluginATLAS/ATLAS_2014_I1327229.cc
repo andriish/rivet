@@ -8,10 +8,10 @@
 #include "Rivet/Projections/UnstableParticles.hh"
 #include "Rivet/Projections/FastJets.hh"
 
-
 namespace Rivet {
 
 
+  /// Inclusive multilepton search at 8 TeV
   class ATLAS_2014_I1327229 : public Analysis {
   public:
 
@@ -162,7 +162,7 @@ namespace Rivet {
         if ( tau.abspid() != PID::TAU) continue;
         // Check that tau has decayed into daughter particles
         if (tau.genParticle()->end_vertex() == 0) continue;
-       // Calculate visible tau momentum using the tau neutrino momentum in the tau decay
+        // Calculate visible tau momentum using the tau neutrino momentum in the tau decay
         FourMomentum daughter_tau_neutrino_momentum = get_tau_neutrino_momentum(tau);
         Particle tau_vis = tau;
         tau_vis.setMomentum(tau.momentum()-daughter_tau_neutrino_momentum);
