@@ -25,7 +25,7 @@ Description:
   well-defined in the paper: the midpoint of the differential bin has been used
   thanks to information from Stefan Kluth and Christoph Pahl.  We anyway
   recommend that the differential plots be preferred over the integrated ones
-  for MC generator ReleaseTests and tuning, to minimise correlations.'
+  for MC generator validation and tuning, to minimise correlations.'
 BibKey: Pfeifenschneider:1999rz
 BibTeX: '@Article{Pfeifenschneider:1999rz,
      author    = "Pfeifenschneider, P. and others",
