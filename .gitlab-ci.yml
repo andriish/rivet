@@ -58,11 +58,15 @@ stages:
         while read p ; do cp ${p/%.cc}* ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/. ; done < anasToCompile.txt
         rm ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/*cc
       fi
+    - find $CI_PROJECT_DIR
+    - ls $CI_PROJECT_DIR
 
   artifacts:
     when: always
     paths:
-      - $CI_PROJECT_DIR
+      - ${CI_PROJECT_DIR}/local_$ARCH/
+      - ${CI_PROJECT_DIR}/test_$ARCH/
+      - ${CI_PROJECT_DIR}/Make*
       # - test/
       # - local_$ARCH/
     expire_in: 36 hrs
@@ -193,6 +197,7 @@ get_test_hepmc:
     paths:
       - local_$ARCH/
       - test_$ARCH/
+      - val_$ARCH/VALDIR/Make*
       - val_$ARCH/VALDIR/*yoda
       - val_$ARCH/VALDIR/*html
       - val_$ARCH/VALDIR/*diff
