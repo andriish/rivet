@@ -2,6 +2,10 @@
 
 	* Create bash completion dir in $prefix/etc if it doesn't exist.
 
+2020-08-27  Christian Gutschow  <chris.g@cern.ch>
+
+	* Fix bug where path wasn't set for booking of scatters
+
 2020-08-26  Christian Gutschow  <chris.g@cern.ch>
 
 	* Submission of ATLAS_2019_I1762584 and ATLAS_2019_I1772062
