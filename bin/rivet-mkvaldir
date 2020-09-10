@@ -296,7 +296,7 @@ check: $(VALDIFFS) $(REENTRANTS)
 	  if [ -d $${diff}dir ]; then \\
 	    for subdir in `ls $${diff}dir`; do \\
 	      if [ -f $${diff}dir/$$subdir/index.html ]; then\\
-		echo -n "<li><a href=\"$${diff}dir/$$subdir/index.html\">$${diff/.diff/}</a> (" >> index.html; \\
+		echo -n "<li><a href=\"$${diff}dir/$$subdir/index.html\">$${diff%.diff}</a> (" >> index.html; \\
 	        echo -n `head -1 tmp/$${diff/.diff/.log}`  >> index.html; \\
 		echo -n ") [<a href=\"$$diff\">yodadiff</a>]" >> index.html; \\
 	        echo "</li>"  >> index.html; \\
@@ -326,7 +326,7 @@ clean:
 
 %.recheck: %.yoda
 	rm -f $<
-	hepmc=tmp/$<; rm -f tmp/`head -1 $${hepmc/.yoda/.log}`".yoda"
+	hepmc=tmp/$<; rm -f tmp/`head -1 $${hepmc%.yoda}.log`".yoda"
 	$(MAKE) check
 
 """)
