@@ -507,7 +507,7 @@ namespace Rivet {
   Scatter2DPtr& Analysis::book(Scatter2DPtr& s2d, const string& hname, size_t npts, double lower, double upper) {
     const string path = histoPath(hname);
 
-    Scatter2D scat;
+    Scatter2D scat(path);
     const double binwidth = (upper-lower)/npts;
     for (size_t pt = 0; pt < npts; ++pt) {
       const double bincentre = lower + (pt + 0.5) * binwidth;
@@ -523,7 +523,7 @@ namespace Rivet {
   Scatter2DPtr& Analysis::book(Scatter2DPtr& s2d, const string& hname, const vector<double>& binedges) {
     const string path = histoPath(hname);
 
-    Scatter2D scat;
+    Scatter2D scat(path);
     for (size_t pt = 0; pt < binedges.size()-1; ++pt) {
       const double bincentre = (binedges[pt] + binedges[pt+1]) / 2.0;
       const double binwidth = binedges[pt+1] - binedges[pt];
@@ -585,7 +585,7 @@ namespace Rivet {
                                size_t ynpts, double ylower, double yupper) {
     const string path = histoPath(hname);
 
-    Scatter3D scat;
+    Scatter3D scat(path);
     const double xbinwidth = (xupper-xlower)/xnpts;
     const double ybinwidth = (yupper-ylower)/ynpts;
     for (size_t xpt = 0; xpt < xnpts; ++xpt) {
@@ -605,7 +605,9 @@ namespace Rivet {
   Scatter3DPtr& Analysis::book(Scatter3DPtr& s3d, const string& hname,
                                const vector<double>& xbinedges,
                                const vector<double>& ybinedges) {
-    Scatter3D scat;
+    const string path = histoPath(hname);
+
+    Scatter3D scat(path);
     for (size_t xpt = 0; xpt < xbinedges.size()-1; ++xpt) {
       const double xbincentre = (xbinedges[xpt] + xbinedges[xpt+1]) / 2.0;
       const double xbinwidth = xbinedges[xpt+1] - xbinedges[xpt];
