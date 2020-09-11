@@ -501,7 +501,7 @@ if __name__ == '__main__':
                     BANDNAME = '_VarBand'
                     defaultWeightName = getDefaultVariation(plotoptions[infile])
                     if defaultWeightName not in hmcs:
-                        print ("WARNING: Weight \"%s\" not found in file!" % defaultWeightName)
+                        raise NameError("No default weight found in file!")
                     obj_type = str(hmcs[defaultWeightName])
                     construct_band = 'Histo1D' in obj_type or 'Scatter2D' in obj_type
                     componentNames = ['BandComponentPDF', 'BandComponentEnv']

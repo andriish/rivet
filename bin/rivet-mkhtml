@@ -286,9 +286,9 @@ if not args.DRY_RUN:
     out, err = subproc.communicate()
     retcode = subproc.returncode
     if args.VERBOSE or retcode != 0:
-        print('Output from rivet-cmphistos:\n', out)
+        print('Output from rivet-cmphistos:\n', out.decode("utf-8"))
     if err :
-        print('Errors from rivet-cmphistos:\n', err)
+        print('Errors from rivet-cmphistos:\n', err.decode("utf-8"))
     if retcode != 0:
         print('Crash in rivet-cmphistos code = ', retcode, ' exiting')
         exit(retcode)
