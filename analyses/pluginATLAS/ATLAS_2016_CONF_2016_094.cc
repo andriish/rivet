@@ -83,7 +83,7 @@ namespace Rivet {
       // Remove any untagged low-multiplicity/muon-dominated jet within dR = 0.4 of a muon
       for (const Particle& m : muons)
         ifilter_discard(jets, [&](const Jet& j) {
-            if (!j.bTagged(Cuts::pT > 5*GeV)) return false; /// @note A different b-tag working point, 85%, was actually used here *sigh*
+            if (j.bTagged(Cuts::pT > 5*GeV)) return false; /// @note A different b-tag working point, 85%, was actually used here *sigh*
             if (deltaR(m, j, RAPIDITY) > 0.4) return false;
             if (j.particles(Cuts::abscharge != 0).size() < 3) return true;
             return m.pT()/j.pT() > 0.5;

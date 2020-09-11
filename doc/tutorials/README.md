@@ -18,8 +18,9 @@ These short guides will help you with everything from installation, to first
 runs of existing analyses, to writing, running, and plotting results, as well as
 how to implement and contribute your own analyses.
 
-Alternatively, feel free to checkout the self-guided tutorial under `truth-analysis`
-which is based on a tutorial prepared for an MCnet summer school.
+Alternatively, feel free to checkout one of the self-guided tutorials (listed towards the
+bottom) used for  summer schools and similar. They are suitable for beginners, 
+and differently themed depending on the original audience.
 
 
 ## Getting started
@@ -42,7 +43,7 @@ which is based on a tutorial prepared for an MCnet summer school.
 
 ## Advanced running and plotting
 
-[Using analysis options (work in progress)](anaoptions.md)
+[Using analysis options](anaoptions.md)
 
 [Preload files, centrality calibration (work in progress)](calibration.md)
 
@@ -76,3 +77,9 @@ which is based on a tutorial prepared for an MCnet summer school.
 [Linking against HepMC3](hepmc.md)
 
 [Coding style](codingstyle.md)
+
+## Self-guided tutorials
+
+[Resonances, jet physics & weight variations at LHC](lhc-basic-tutorial)
+
+[DIS kinematics and final states & analysis options at EIC](eic-basic-tutorial)

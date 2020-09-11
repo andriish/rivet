@@ -51,3 +51,5 @@ BibTeX: '@article{Khachatryan:2016xws,
       reportNumber   = "CMS-TOP-14-023, CERN-PH-EP-2015-333",
       SLACcitation   = "%%CITATION = ARXIV:1601.01107;%%"
 }'
+ReleaseTests:
+ - $A LHC-8-Top-All

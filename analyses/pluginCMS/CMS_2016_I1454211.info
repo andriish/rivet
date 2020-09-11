@@ -73,3 +73,5 @@ BibTex: '@article{Khachatryan:2016gxp,
       reportNumber   = "CMS-TOP-14-012, CERN-EP-2016-078",
       SLACcitation   = "%%CITATION = ARXIV:1605.00116;%%"
 }'
+ReleaseTests:
+ - $A pp-8000-ttbar-sl-boosted

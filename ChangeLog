@@ -1,3 +1,19 @@
+2020-08-31  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Create bash completion dir in $prefix/etc if it doesn't exist.
+
+2020-08-27  Christian Gutschow  <chris.g@cern.ch>
+
+	* Fix bug where path wasn't set for booking of scatters
+
+2020-08-26  Christian Gutschow  <chris.g@cern.ch>
+
+	* Submission of ATLAS_2019_I1762584 and ATLAS_2019_I1772062
+
+2020-08-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add warnings and physicality checks to PartonicTops
+
 2020-08-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add Event::hepmcEvent() and Event::hepmcEventPtr() methods as
@@ -8,10 +24,6 @@
 	a non-const GenEvent argument: we are no longer making an internal
 	deep copy, so users should be fully aware that the passed event is
 	not completely safe from modification.
-
-2020-08-06  Andy Buckley  <andy.buckley@cern.ch>
-
-	* Add warnings and physicality checks to PartonicTops.
 
 2020-07-30  Christian Gutschow  <chris.g@cern.ch>
 

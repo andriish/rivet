@@ -47,57 +47,52 @@ namespace Rivet {
       declare(jets, "Jets");
 
       // Book histograms
-      for (const auto & id: std::vector<std::tuple<std::string, int, int, int>> {
-          {"xs_flavor",           3, 1, 1},
-          {"H4l_pt",              5, 1, 1},
-          {"Z1_m",                7, 1, 1},
-          {"Z2_m",                9, 1, 1},
-          {"abshiggs_y",          11, 1, 1},
-          {"abscthstr",           13, 1, 1},
-          {"cth1",                15, 1, 1},
-          {"cth2",                17, 1, 1},
-          {"phi",                 19, 1, 1},
-          {"phi1",                21, 1, 1},
-          {"n_jets",              23, 1, 1},
-          {"n_jets_incl",         25, 1, 1},
-          {"n_bjets",             26, 1, 1},
-          {"jet_pt_leading",      28, 1, 1},
-          {"jet_pt_subleading",   30, 1, 1},
-          {"dijet_m",             32, 1, 1},
-          {"dijet_deltaeta",      34, 1, 1},
-          {"dijet_deltaphi",      36, 1, 1},
-          {"pt4lj",               38, 1, 1},
-          {"pt4ljj",              40, 1, 1},
-          {"m4lj",                42, 1, 1},
-          {"m4ljj",               44, 1, 1},
-          {"m12vsm34",            46, 1, 1},
-          {"m12vsm34_2l2m",       48, 1, 1},
-          {"m12vsm34_2l2e",       49, 1, 1},
-          {"pt4lvy4l_0_0p5",      51, 1, 1},
-          {"pt4lvy4l_0p5_1",      51, 1, 3},
-          {"pt4lvy4l_1_1p5",      51, 1, 5},
-          {"pt4lvy4l_1p5_2p5",    51, 1, 7},
-          {"pt4lvnjet_0",         53, 1, 1},
-          {"pt4lvnjet_1",         53, 1, 3},
-          {"pt4lvnjet_2",         53, 1, 5},
-          {"pt4lvnjet_3",         53, 1, 7},
-          {"pt4lvpt4lj",          55, 1, 1},
-          {"pt4ljvm4lj",          57, 1, 1},
-          {"pt4lvptj0",           59, 1, 1},
-          {"ptj0vyj0",            61, 1, 1},
-          {"ptj0vptj1",           63, 1, 1},
-          {"Z1_m_4l",             65, 1, 1},
-          {"Z1_m_2l2l",           66, 1, 1},
-          {"Z2_m_4l",             68, 1, 1},
-          {"Z2_m_2l2l",           69, 1, 1},
-          {"phi_4l",              71, 1, 1},
-          {"phi_2l2l",            72, 1, 1},
-          {"m12vsm34_4l",         74, 1, 1},
-          {"m12vsm34_2l2l",       75, 1, 1}
-        }){
-        book(_h[std::get<0>(id)], std::get<1>(id), std::get<2>(id), std::get<3>(id));
-
-      }
+      book(_h["xs_flavor"],           3, 1, 1);
+      book(_h["H4l_pt"],              5, 1, 1);
+      book(_h["Z1_m"],                7, 1, 1);
+      book(_h["Z2_m"],                9, 1, 1);
+      book(_h["abshiggs_y"],          11, 1, 1);
+      book(_h["abscthstr"],           13, 1, 1);
+      book(_h["cth1"],                15, 1, 1);
+      book(_h["cth2"],                17, 1, 1);
+      book(_h["phi"],                 19, 1, 1);
+      book(_h["phi1"],                21, 1, 1);
+      book(_h["n_jets"],              23, 1, 1);
+      book(_h["n_jets_incl"],         25, 1, 1);
+      book(_h["n_bjets"],             26, 1, 1);
+      book(_h["jet_pt_leading"],      28, 1, 1);
+      book(_h["jet_pt_subleading"],   30, 1, 1);
+      book(_h["dijet_m"],             32, 1, 1);
+      book(_h["dijet_deltaeta"],      34, 1, 1);
+      book(_h["dijet_deltaphi"],      36, 1, 1);
+      book(_h["pt4lj"],               38, 1, 1);
+      book(_h["pt4ljj"],              40, 1, 1);
+      book(_h["m4lj"],                42, 1, 1);
+      book(_h["m4ljj"],               44, 1, 1);
+      book(_h["m12vsm34"],            46, 1, 1);
+      book(_h["m12vsm34_2l2m"],       48, 1, 1);
+      book(_h["m12vsm34_2l2e"],       49, 1, 1);
+      book(_h["pt4lvy4l_0_0p5"],      51, 1, 1);
+      book(_h["pt4lvy4l_0p5_1"],      51, 1, 3);
+      book(_h["pt4lvy4l_1_1p5"],      51, 1, 5);
+      book(_h["pt4lvy4l_1p5_2p5"],    51, 1, 7);
+      book(_h["pt4lvnjet_0"],         53, 1, 1);
+      book(_h["pt4lvnjet_1"],         53, 1, 3);
+      book(_h["pt4lvnjet_2"],         53, 1, 5);
+      book(_h["pt4lvnjet_3"],         53, 1, 7);
+      book(_h["pt4lvpt4lj"],          55, 1, 1);
+      book(_h["pt4ljvm4lj"],          57, 1, 1);
+      book(_h["pt4lvptj0"],           59, 1, 1);
+      book(_h["ptj0vyj0"],            61, 1, 1);
+      book(_h["ptj0vptj1"],           63, 1, 1);
+      book(_h["Z1_m_4l"],             65, 1, 1);
+      book(_h["Z1_m_2l2l"],           66, 1, 1);
+      book(_h["Z2_m_4l"],             68, 1, 1);
+      book(_h["Z2_m_2l2l"],           69, 1, 1);
+      book(_h["phi_4l"],              71, 1, 1);
+      book(_h["phi_2l2l"],            72, 1, 1);
+      book(_h["m12vsm34_4l"],         74, 1, 1);
+      book(_h["m12vsm34_2l2l"],       75, 1, 1);
     }
 
     /// Do the per-event analysis
@@ -154,9 +149,9 @@ namespace Rivet {
 
           // Form the quad with pair closest to Z pole first
           if (dileptons[i].Zdist() < dileptons[j].Zdist()) {
-            quadruplets.push_back(Quadruplet(dileptons[i], dileptons[j]));            
+            quadruplets.push_back(Quadruplet(dileptons[i], dileptons[j]));
           } else {
-            quadruplets.push_back(Quadruplet(dileptons[j], dileptons[i]));            
+            quadruplets.push_back(Quadruplet(dileptons[j], dileptons[i]));
           }
         }
       }
@@ -801,7 +796,7 @@ namespace Rivet {
         static const int ncomb = 16;
         // Helicities for the process
         static const int helicities[ncomb][4] = {
-          {-1, -1, -1, -1}, {-1, -1, -1,  1}, {-1, -1,  1, -1}, {-1, -1,  1,  1}, 
+          {-1, -1, -1, -1}, {-1, -1, -1,  1}, {-1, -1,  1, -1}, {-1, -1,  1,  1},
           {-1,  1, -1, -1}, {-1,  1, -1,  1}, {-1,  1,  1, -1}, {-1,  1,  1,  1},
           { 1, -1, -1, -1}, { 1, -1, -1,  1}, { 1, -1,  1, -1}, { 1, -1,  1,  1},
           { 1,  1, -1, -1}, { 1,  1, -1,  1}, { 1,  1,  1, -1}, { 1,  1,  1,  1}
@@ -852,7 +847,7 @@ namespace Rivet {
         else sqp0p3 = pow(max(p[0] + p[3], 0.0), 0.5);
         if (isixx) chi[0] = std::complex<double> (-sqp0p3, 0.0);
         else chi[0] = std::complex<double> (sqp0p3, 0.0);
-        if (sqp0p3 == 0.0) chi[1] = std::complex<double> (-nhel * pow(2.0 * p[0], 0.5), 0.0); 
+        if (sqp0p3 == 0.0) chi[1] = std::complex<double> (-nhel * pow(2.0 * p[0], 0.5), 0.0);
         else chi[1] = std::complex<double> (nhel * p[1], -p[2])/sqp0p3;
         if (isixx) {
           if (nhel == 1) {
@@ -933,10 +928,10 @@ namespace Rivet {
                        (F2[3] * F1[4]) + cI * (F2[2] * F1[5])));
         V3[5] = COUP2 * denom * 2. * cI * (OM3 * 1./2. * P3[3] * (TMP11 + 2. * (TMP14)) +
                       (+1./2. * (F2[4] * F1[2]) - 1./2. * (F2[5] * F1[3]) - F2[2] * F1[4] + F2[3] * F1[5]));
-        V3[2] += COUP1 * denom * - cI * (F2[4] * F1[2] + F2[5] * F1[3] - P3[0] * OM3 * TMP11); 
+        V3[2] += COUP1 * denom * - cI * (F2[4] * F1[2] + F2[5] * F1[3] - P3[0] * OM3 * TMP11);
         V3[3] += COUP1 * denom * - cI * (-F2[5] * F1[2] - F2[4] * F1[3] - P3[1] * OM3 * TMP11);
         V3[4] += COUP1 * denom * - cI * (-cI * (F2[5] * F1[2]) + cI * (F2[4] * F1[3]) - P3[2] * OM3 * TMP11);
-        V3[5] += COUP1 * denom * - cI * (F2[5] * F1[3] - F2[4] * F1[2] - P3[3] * OM3 * TMP11); 
+        V3[5] += COUP1 * denom * - cI * (F2[5] * F1[3] - F2[4] * F1[2] - P3[3] * OM3 * TMP11);
       }
 
       std::complex<double> VVS3_0(double mass,

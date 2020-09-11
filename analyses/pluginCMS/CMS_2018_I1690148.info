@@ -44,3 +44,5 @@ BibTeX: '@article{Sirunyan:2018asm,
       reportNumber   = "CMS-TOP-17-013, CERN-EP-2018-214",
       SLACcitation   = "%%CITATION = ARXIV:1808.07340;%%"
 }'
+ReleaseTests:
+ - $A LHC-13-Top-All
