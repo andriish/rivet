@@ -1,4 +1,5 @@
-FROM hepstore/rivet:3.1.1
+FROM hepstore/rivet:3.1.2-ubuntu-gcc-hepmc2-py2
+
 LABEL maintainer="rivet-developers@cern.ch"
 
 RUN mkdir /code && cd /code \
@@ -17,7 +18,7 @@ RUN dnf install -y libtool texinfo sqlite-devel swig pypy openmpi openmpi-devel
 ENV PATH="${PATH}:/usr/lib64/openmpi/bin"
 
 RUN mkdir /code && cd /code \
-    && git clone -b rel-2-2-7 https://gitlab.com/sherpa-team/sherpa.git && cd sherpa && autoreconf -fi \
+    && git clone -b rel-2-2-10 https://gitlab.com/sherpa-team/sherpa.git && cd sherpa && autoreconf -fi \
     && ./configure --prefix=/usr/local \
       --enable-lhapdf=/usr/local --enable-fastjet=/usr/local \
       --enable-hepmc2=/usr/local --enable-openloops=/usr/local/OpenLoops \
@@ -28,7 +29,8 @@ RUN mkdir /code && cd /code \
     && mkdir /usr/local/Sherpa \
     && mv Examples /usr/local/Sherpa \
     && cd ../.. && rm -r /code
-# wget https://sherpa.hepforge.org/downloads/?f=SHERPA-MC-2.2.9.tar.gz -O - | tar xf && cd SHERPA-MC-2.2.9
+
+
 
 # RUN apt-get update; \
 # apt-get -q -y --no-install-recommends install pypy; \

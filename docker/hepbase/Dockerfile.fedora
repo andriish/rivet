@@ -59,6 +59,14 @@ RUN if test "$LATEX" = "1"; then \
       dnf clean all; \
     fi
 
+RUN mkdir /code && cd /code \
+    && wget --no-verbose https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.3.0.tar.gz -O- | tar xz \
+    && cd LHAPDF-*/ && ./configure --prefix=/usr/local \
+    && make -j $(nproc --ignore=1) && make install \
+    && rm -r /code
+
+
+
 RUN echo "alias ll='ls -l'" > /etc/profile.d/ll.sh
 
 ENV LD_LIBRARY_PATH /usr/local/lib:/usr/local/lib64

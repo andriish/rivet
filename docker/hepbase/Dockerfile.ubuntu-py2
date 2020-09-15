@@ -59,6 +59,12 @@ RUN if test "$LATEX" = "1"; then \
       apt-get install -y texlive-latex-recommended texlive-fonts-recommended imagemagick; \
     fi
 
+RUN mkdir /code && cd /code \
+    && wget --no-verbose https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.3.0.tar.gz -O- | tar xz \
+    && cd LHAPDF-*/ && ./configure --prefix=/usr/local \
+    && make -j $(nproc --ignore=1) && make install \
+    && rm -r /code
+
 
 ENV LD_LIBRARY_PATH /usr/local/lib
 ENV PYTHONPATH /usr/local/lib64/python3.8/site-packages
