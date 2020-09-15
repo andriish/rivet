@@ -2,23 +2,27 @@ FROM hepstore/rivet:3.1.2-ubuntu-gcc-hepmc2-py2
 
 LABEL maintainer="rivet-developers@cern.ch"
 
-RUN mkdir /code && cd /code \
-    && wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.2.3.tar.gz -O- | tar xz \
+# TODO: remove with next hepbase/rivet image version
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && mkdir /code && cd /code \
+    && wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.3.0.tar.gz -O- | tar xz \
     && cd LHAPDF-*/ && ./configure --prefix=/usr/local \
     && make -j $(nproc --ignore=1) && make install \
     && cd ../.. && rm -r /code
 
-RUN dnf install -y rsync git pypy \
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get install -y rsync pypy \
     && cd /usr/local \
     && git clone https://gitlab.com/openloops/OpenLoops.git \
     && cd OpenLoops && ./scons \
     && ./openloops libinstall ppll pptt
 
-RUN dnf install -y libtool texinfo sqlite-devel swig pypy openmpi openmpi-devel
 ENV PATH="${PATH}:/usr/lib64/openmpi/bin"
-
-RUN mkdir /code && cd /code \
-    && git clone -b rel-2-2-10 https://gitlab.com/sherpa-team/sherpa.git && cd sherpa && autoreconf -fi \
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get install -y libtool texinfo libsqlite3-dev swig openmpi-bin libopenmpi-dev \
+    && mkdir /code && cd /code \
+    && git clone -b rel-2-2-10 https://gitlab.com/sherpa-team/sherpa.git \
+    && cd sherpa && autoreconf -fi \
     && ./configure --prefix=/usr/local \
       --enable-lhapdf=/usr/local --enable-fastjet=/usr/local \
       --enable-hepmc2=/usr/local --enable-openloops=/usr/local/OpenLoops \
@@ -27,10 +31,10 @@ RUN mkdir /code && cd /code \
     && make -j $(nproc --ignore=1) CXXFLAGS="-O2 -std=c++11" AM_CXXFLAGS="-O2 -std=c++11" \
     && make install \
     && mkdir /usr/local/Sherpa \
-    && mv Examples /usr/local/Sherpa \
-    && cd ../.. && rm -r /code
+    && mv Examples /usr/local/Sherpa
 
 
+# && cd ../.. && rm -r /code
 
 # RUN apt-get update; \
 # apt-get -q -y --no-install-recommends install pypy; \

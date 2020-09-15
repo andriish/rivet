@@ -2,6 +2,7 @@ FROM hepstore/rivet:3.1.2
 LABEL maintainer="rivet-developers@cern.ch"
 SHELL ["/bin/bash", "-c"]
 
+# TODO: remove with next hepbase/rivet image version
 RUN export DEBIAN_FRONTEND=noninteractive \
     && mkdir /code && cd /code \
     && wget --no-verbose https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.3.0.tar.gz -O- | tar xz \
