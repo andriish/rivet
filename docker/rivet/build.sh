@@ -13,12 +13,20 @@ for vhepmc in 3 2; do
         echo "@@ $MSG $arch"
         tag="hepstore/rivet:$VERSION-$arch"
         $BUILD --build-arg ARCH=$arch -t $tag
-        # test "$PUSH" = 1 && docker push $tag
+        test "$PUSH" = 1 && docker push $tag && sleep 1m
         echo -e "\n\n\n"
 
     done
 done
 
+## Convenience tags
 docker tag hepstore/rivet:$VERSION{-ubuntu-gcc-hepmc2-py3,}
 docker tag hepstore/rivet:$VERSION{-ubuntu-gcc-hepmc3-py3,-hepmc3}
 docker tag hepstore/rivet:{$VERSION,latest}
+if [[ "$PUSH" = 1 ]]; then
+    docker push hepstore/rivet:$VERSION
+    sleep 30s
+    docker push hepstore/rivet:$VERSION-hepmc3
+    sleep 30s
+    docker push hepstore/rivet:latest
+fi
