@@ -57,19 +57,19 @@ namespace Rivet {
         LorentzTransform boost;
         if (ups.p3().mod() > 1*MeV)
           boost = LorentzTransform::mkFrameTransformFromBeta(ups.momentum().betaVec());
-	for(const Particle p : protons) {
+	for(const Particle & p : protons) {
           double pcm = boost.transform(p.momentum()).p3().mod();
 	  _h_p->fill(pcm);
 	}
-	for(const Particle p : lambda_c) {
+	for(const Particle & p : lambda_c) {
           double pcm = boost.transform(p.momentum()).p3().mod();
 	  _h_Lambda_c->fill(pcm);
 	}
-	for(const Particle p : lambda) {
+	for(const Particle & p : lambda) {
           double pcm = boost.transform(p.momentum()).p3().mod();
 	  _h_Lambda->fill(pcm);
 	}
-	for(const Particle p : xi) {
+	for(const Particle & p : xi) {
           double pcm = boost.transform(p.momentum()).p3().mod();
 	  _h_Xi->fill(pcm);
 	}

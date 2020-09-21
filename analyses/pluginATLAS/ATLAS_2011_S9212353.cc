@@ -135,7 +135,7 @@ namespace Rivet {
       }
 
       // pTcone around electron
-      for ( const Particle e : candtemp_e ) {
+      for ( const Particle & e : candtemp_e ) {
         double pTinCone = -e.pT();
         for ( const Particle & track : chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
