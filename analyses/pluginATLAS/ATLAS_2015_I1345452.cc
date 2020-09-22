@@ -117,7 +117,7 @@ namespace Rivet {
 
       //get true l+jets events by removing events with more than 1 electron||muon neutrino
       unsigned int n_elmu_neutrinos = 0;
-      for (const Particle p : _neutrinos) {
+      for (const Particle & p : _neutrinos) {
         if (p.abspid() == 12 || p.abspid() == 14)  ++n_elmu_neutrinos;
       }
       if (n_elmu_neutrinos != 1)  vetoEvent;
