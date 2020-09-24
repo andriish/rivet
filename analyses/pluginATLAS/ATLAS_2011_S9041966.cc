@@ -143,7 +143,7 @@ namespace Rivet {
       }
 
       // pTcone around electron
-      for ( const Particle e : candtemp_e ) {
+      for ( const Particle & e : candtemp_e ) {
         ++tmpe;
         double pTinCone = -e.pT();
         for ( const Particle & track : vfs_particles ) {
@@ -184,7 +184,7 @@ namespace Rivet {
       Jets recon_jets;
       for ( const Jet& jet : cand_jets ) {
         bool away_from_lept = true;
-        for ( const Particle e : cand_e ) {
+        for ( const Particle & e : cand_e ) {
           if ( deltaR(e.momentum(),jet.momentum()) <= 0.5 ) {
             away_from_lept = false;
             break;

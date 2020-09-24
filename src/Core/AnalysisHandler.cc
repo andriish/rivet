@@ -114,7 +114,7 @@ namespace Rivet {
     }
 
     // Warn if any analysis' status is not unblemished
-    for (const AnaHandle a : analyses()) {
+    for (const AnaHandle& a : analyses()) {
       if ( a->info().preliminary() ) {
         MSG_WARNING("Analysis '" << a->name() << "' is preliminary: be careful, it may change and/or be renamed!");
       } else if ( a->info().obsolete() ) {

@@ -74,9 +74,9 @@ namespace Rivet {
       const vector<DressedLepton>& all_elecs = apply<DressedLeptons>(event, "ELECS").dressedLeptons();
       const vector<DressedLepton>& all_muons = apply<DressedLeptons>(event, "MUONS").dressedLeptons();
       Jets goodJets;
-      for (const Jet j : allJets) {
+      for (const Jet & j : allJets) {
         bool keep = true;
-        for (const DressedLepton el : all_elecs)  keep &= deltaR(j, el) >= 0.2;
+        for (const DressedLepton & el : all_elecs)  keep &= deltaR(j, el) >= 0.2;
         if (keep)  goodJets += j;
       }
       if ( goodJets.size() < 4 )  vetoEvent;
@@ -85,9 +85,9 @@ namespace Rivet {
        *    LEPTONS   *
        ****************/
       vector<DressedLepton> muons, vetoMuons;
-      for (const DressedLepton mu : all_muons) {
+      for (const DressedLepton & mu : all_muons) {
         bool keep = true;
-        for (const Jet j : goodJets)  keep &= deltaR(j, mu) >= 0.4;
+        for (const Jet & j : goodJets)  keep &= deltaR(j, mu) >= 0.4;
         if (keep && mu.pt() > 15*GeV) {
           vetoMuons.push_back(mu);
           if (mu.pt() > 25*GeV)  muons.push_back(mu);
@@ -95,9 +95,9 @@ namespace Rivet {
       }
 
       vector<DressedLepton> elecs, vetoElecs;
-      for (const DressedLepton el : all_elecs) {
+      for (const DressedLepton & el : all_elecs) {
         bool keep = true;
-        for (const Jet j : goodJets)  keep &= deltaR(j, el) >= 0.4;
+        for (const Jet & j : goodJets)  keep &= deltaR(j, el) >= 0.4;
         if (keep && el.pt() > 15*GeV) {
           vetoElecs.push_back(el);
           if (el.pt() > 25*GeV)  elecs.push_back(el);
@@ -114,8 +114,8 @@ namespace Rivet {
       /******************************
        *    ELECTRON-MUON OVERLAP   *
        ******************************/
-      for (const DressedLepton electron : elecs) {
-        for (const DressedLepton muon : muons) {
+      for (const DressedLepton & electron : elecs) {
+        for (const DressedLepton & muon : muons) {
           double d_theta = fabs(muon.theta() - electron.theta());
           double d_phi = deltaPhi(muon.phi(), electron.phi());
           if (d_theta < 0.005 && d_phi < 0.005)  vetoEvent;
@@ -139,10 +139,10 @@ namespace Rivet {
        *    B-JETS    *
        ****************/
       Jets bJets, wJets;
-      for(Jet j : goodJets) {
+      for(Jet & j : goodJets) {
         bool b_tagged = false;
         Particles bTags = j.bTags();
-        for ( Particle b : bTags ) {
+        for ( Particle & b : bTags ) {
           b_tagged |= b.pT() > 5*GeV;
         }
         if (b_tagged)  bJets += j;
@@ -165,17 +165,17 @@ namespace Rivet {
       Particles& constituents = jet.particles();
       Particles charged_constituents;
       if (isCharged) {
-        for (Particle p : constituents) {
+        for (Particle & p : constituents) {
           if (p.charge3() != 0)  charged_constituents += p;
         }
         constituents = charged_constituents;
       }
       // calculate axis
       FourMomentum axis;
-      for (Particle p : constituents)  axis += p.momentum();
+      for (Particle& p : constituents)  axis += p.momentum();
       Vector3 J(axis.rap(), axis.phi(MINUSPI_PLUSPI), 0.0);
       // calculate pull
-      for (Particle p : constituents) {
+      for (Particle & p : constituents) {
         Vector3 ri = Vector3(p.rap(), p.phi(MINUSPI_PLUSPI), 0.0) - J;
         while (ri.y() >  Rivet::PI) ri.setY(ri.y() - Rivet::TWOPI);
         while (ri.y() < -Rivet::PI) ri.setY(ri.y() + Rivet::TWOPI);

@@ -221,7 +221,7 @@ namespace Rivet {
       // Get anti-kt jets with p_T > 200 GeV, check abs(y) < 2, and fill mass histograms
       const FastJets& ktfj = apply<FastJets>(event, "AKT");
       PseudoJets ktjets = ktfj.pseudoJetsByPt(200*GeV);
-      for (const PseudoJet ajet : ktjets) {
+      for (const PseudoJet & ajet : ktjets) {
         if (abs(ajet.rap()) < 2) {
           _h_ktmass.fill(ajet.perp(), ajet.m(), weight);
         }
@@ -230,7 +230,7 @@ namespace Rivet {
       // Same as above but C/A jets
       const FastJets& cafj = apply<FastJets>(event, "CA");
       PseudoJets cajets = cafj.pseudoJetsByPt(200*GeV);
-      for (const PseudoJet ajet : cajets) {
+      for (const PseudoJet & ajet : cajets) {
         if (abs(ajet.rap()) < 2) {
           _h_camass.fill(ajet.perp(), ajet.m(), weight);
         }
@@ -238,7 +238,7 @@ namespace Rivet {
 
       // Split and filter.
       // Only do this to C/A jets in this analysis.
-      for (const PseudoJet pjet : cajets) {
+      for (const PseudoJet & pjet : cajets) {
         if ( pjet.perp() > 600 || abs(pjet.rap()) > 2) continue;
         double dR = 0;
         bool unclustered = false;
@@ -250,7 +250,7 @@ namespace Rivet {
 
       // Use the two last stages of clustering to get sqrt(d_12) and sqrt(d_23).
       // Only use anti-kt jets in this analysis.
-      for (const PseudoJet pjet : ktjets) {
+      for (const PseudoJet & pjet : ktjets) {
         if (pjet.perp() > 600 || abs(pjet.rap()) > 2) continue;
         ClusterSequence subjet_cseq(ktfj.clusterSeq()->constituents(pjet), JetDefinition(kt_algorithm, M_PI/2.));
         double d_12 = subjet_cseq.exclusive_dmerge(1) * M_PI*M_PI/4.;
@@ -266,7 +266,7 @@ namespace Rivet {
       //Rcut is used for particles that are very far from the closest axis. At 10
       //is has no impact on the outcome of the calculation
       double Rcut = 10.;
-      for (const PseudoJet pjet : cajets) {
+      for (const PseudoJet & pjet : cajets) {
         if (pjet.perp() > 600*GeV || fabs(pjet.rap()) > 2) continue;
 
         const PseudoJets constituents = cafj.clusterSeq()->constituents(pjet);
@@ -286,7 +286,7 @@ namespace Rivet {
         _h_cat32.fill(pjet.perp(), tau3/tau2, weight);
       }
 
-      for (const PseudoJet pjet : ktjets) {
+      for (const PseudoJet & pjet : ktjets) {
         if (pjet.perp() > 600*GeV || fabs(pjet.rap()) > 2) continue;
 
         const PseudoJets constituents = ktfj.clusterSeq()->constituents(pjet);
