@@ -54,7 +54,10 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     #mv herwig-bootstrap /herwig/src
 
 RUN apt-get update -y \
-    && apt-get install -y texlive-latex-recommended texlive-fonts-recommended imagemagick
+    && apt-get install -y texlive-latex-recommended texlive-fonts-recommended \
+    && apt-get install -y texlive-latex-extra texlive-pstricks imagemagick \
+    && apt-get install -y imagemagick \
+    && sed -i 's/^.*policy.*coder.*none.*(PS|PDF).*//' /etc/ImageMagick-6/policy.xml
 
 RUN true \
     && echo ". /herwig/bin/activate" >> /etc/bash.bashrc \
