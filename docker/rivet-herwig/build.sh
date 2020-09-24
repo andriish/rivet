@@ -18,4 +18,8 @@ $BUILD -t $tag
 docker tag $tag hepstore/rivet-herwig:$RIVET_VERSION
 docker tag $tag hepstore/rivet-herwig:latest
 
-test "$PUSH" = 1 && docker push hepstore/rivet-herwig
+if [[ "$PUSH" = 1 ]]; then
+    docker push $tag
+    docker push hepstore/rivet-herwig:$RIVET_VERSION
+    docker push hepstore/rivet-herwig:latest
+fi
