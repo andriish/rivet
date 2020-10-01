@@ -19,6 +19,8 @@ NumEvents: 1000000
 Beams: [p+, p+]
 Energies: [900]
 PtCuts: [0, 1.6]
+Options:
+ - DropPlots=SIG,D2SIG
 Description:
   The paper presents the cross-section and double differential cross-section measurement
   for prompt $K^0_S$ production in pp collisions at $\sqrt{s} = 0.9\;TeV$. The data were taken
