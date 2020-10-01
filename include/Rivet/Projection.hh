@@ -38,7 +38,7 @@ namespace Rivet {
 
 
     /// @name Standard constructors and destructors.
-    //@{
+    /// @{
 
     /// The default constructor.
     Projection();
@@ -49,7 +49,7 @@ namespace Rivet {
     /// The destructor.
     virtual ~Projection();
 
-    //@}
+    /// @}
 
 
     /// Get the name of the projection.
@@ -68,7 +68,7 @@ namespace Rivet {
     }
 
     /// @name Projection operation and comparison
-    //@{
+    /// @{
 
     /// Take the information available in the Event and make the
     /// calculations necessary to obtain the projection. Note that this
@@ -104,30 +104,30 @@ namespace Rivet {
     /// the virtual compare(const Projection &) will be returned.
     bool before(const Projection& p) const;
 
-    //@}
+    /// @}
 
 
 
-    /// @name Beam configuration
-    /// @todo Does it really make sense to restrict Projections to particular beam configs? Do we use this in practice?
-    //@{
+    // /// @name Beam configuration
+    // /// @todo Does it really make sense to restrict Projections to particular beam configs? Do we use this in practice?
+    // /// @{
 
-    /// Return the allowed beam pairs on which this projection can operate, not
-    /// including recursion. Derived classes should ensure that all contained
-    /// projections are registered in the @a _projections set for the beam
-    /// constraint chaining to work.
-    /// @todo Remove the beam constraints system from projections.
-    virtual const std::set<PdgIdPair> beamPairs() const;
+    // /// Return the allowed beam pairs on which this projection can operate, not
+    // /// including recursion. Derived classes should ensure that all contained
+    // /// projections are registered in the @a _projections set for the beam
+    // /// constraint chaining to work.
+    // /// @todo Remove the beam constraints system from projections.
+    // virtual const std::set<PdgIdPair> beamPairs() const;
 
 
-    /// Add a colliding beam pair.
-    /// @todo This deserves a better name!
-    Projection& addPdgIdPair(PdgId beam1, PdgId beam2) {
-      _beamPairs.insert(PdgIdPair(beam1, beam2));
-      return *this;
-    }
+    // /// Add a colliding beam pair.
+    // /// @todo This deserves a better name!
+    // Projection& addPdgIdPair(PdgId beam1, PdgId beam2) {
+    //   _beamPairs.insert(PdgIdPair(beam1, beam2));
+    //   return *this;
+    // }
 
-    //@}
+    // /// @}
 
 
   protected:
@@ -174,7 +174,7 @@ namespace Rivet {
 
     /// Flag to tell if this projection is in a valid state.
     bool _isValid;
-    
+
   };
 
 

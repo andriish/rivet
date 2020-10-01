@@ -13,7 +13,7 @@
 namespace Rivet {
 
 
-  /// Generic Z candidate 
+  /// Generic Z candidate
   struct Zstate : public ParticlePair {
     Zstate() { }
     Zstate(ParticlePair _particlepair) : ParticlePair(_particlepair) { }
@@ -29,14 +29,12 @@ namespace Rivet {
   public:
 
     /// Default constructor
-    ATLAS_2012_I1203852()
-      : Analysis("ATLAS_2012_I1203852")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2012_I1203852);
 
 
     void init() {
 
-      // Get options 
+      // Get options
       // Default does everything
       _mode = 0;
       if ( getOption("LMODE") == "LL" )  _mode = 1;
@@ -102,7 +100,7 @@ namespace Rivet {
 	VetoedFinalState jetinput;
 	jetinput.addVetoOnThisFinalState(bare_MU);
 	jetinput.addVetoOnThisFinalState(neutrino_fs);
-	
+
 	FastJets jetpro(fs, FastJets::ANTIKT, 0.4);
 	declare(jetpro, "jet");
 
@@ -181,12 +179,12 @@ namespace Rivet {
 	  if (mZ1 > 20*GeV && mZ2 > 20*GeV) {
 	    // ZZ* selection
 	    if (inRange(mZ1, 66*GeV, 116*GeV) || inRange(mZ2, 66*GeV, 116*GeV)) {
-	      _h_ZZs_xsect  -> fill(sqrtS()*GeV); ///< @todo xsec * GeV??
+	      _h_ZZs_xsect  -> fill(sqrtS()/GeV);
 	    }
 
 	    // ZZ selection
 	    if (inRange(mZ1, 66*GeV, 116*GeV) && inRange(mZ2, 66*GeV, 116*GeV)) {
-	      _h_ZZ_xsect  -> fill(sqrtS()*GeV); ///< @todo xsec * GeV??
+	      _h_ZZ_xsect  -> fill(sqrtS()/GeV);
 	      _h_ZZ_ZpT    -> fill(ZpT);
 	      _h_ZZ_phill  -> fill(phill);
 	      _h_ZZ_mZZ    -> fill(mZZ);
@@ -279,17 +277,17 @@ namespace Rivet {
 	}
 	size_t n_sel_jets = good_jets.size();
 	if (n_sel_jets != 0) vetoEvent;
-	
+
 
 	/////////////////////////////////////////////////////////////
 	// Fractional MET and lepton pair difference: "RatioMet"< 0.4
 	////////////////////////////////////////////////////////////
 	double ratioMet = fabs(Z2.pT() - Z1.pT()) / Z1.pT();
 	if (ratioMet  > 0.4 ) vetoEvent;
-	
-	
+
+
 	// End of ZZllnunu selection: now fill histograms
-	_h_ZZnunu_xsect->fill(sqrtS()/GeV); ///< @todo xsec / GeV??
+	_h_ZZnunu_xsect->fill(sqrtS()/GeV);
 	_h_ZZnunu_ZpT  ->fill(ZpT);
 	_h_ZZnunu_phill->fill(phill);
 	_h_ZZnunu_mZZ  ->fill(mTZZ);

@@ -25,31 +25,23 @@ namespace Rivet {
       // Initialise and register projections
       const FinalState fs;
       declare(fs, "FS");
-      // Thrust
       const Thrust thrust(fs);
       declare(thrust, "Thrust");
       const Sphericity sphericity(fs);
       declare(sphericity, "Sphericity");
-      _iBin=-1;
-      if(fuzzyEquals(sqrtS(),7.7,1e-2))
-	_iBin = 0;
-      else if(fuzzyEquals(sqrtS(),9.4,1e-2))
-	_iBin = 1;
-      else if(fuzzyEquals(sqrtS(),12.,1e-2))
-	_iBin = 2;
-      else if(fuzzyEquals(sqrtS(),13.,1e-2))
-	_iBin = 3;
-      else if(fuzzyEquals(sqrtS(),17.,1e-2))
-	_iBin = 4;
-      else if(fuzzyEquals(sqrtS(),22.,1e-2))
-	_iBin = 5;
-      else if(fuzzyEquals(sqrtS(),27.6,1e-2))
-	_iBin = 6;
-      else if(fuzzyEquals(sqrtS(),30.8,1e-2))
-	_iBin = 7;
-      else
-	MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
-      
+
+      // Histograms
+      _iBin = -1;
+      if      (beamEnergyMatch( 7.7*GeV)) _iBin = 0;
+      else if (beamEnergyMatch( 9.4*GeV)) _iBin = 1;
+      else if (beamEnergyMatch(12.0*GeV)) _iBin = 2;
+      else if (beamEnergyMatch(13.0*GeV)) _iBin = 3;
+      else if (beamEnergyMatch(17.0*GeV)) _iBin = 4;
+      else if (beamEnergyMatch(22.0*GeV)) _iBin = 5;
+      else if (beamEnergyMatch(27.6*GeV)) _iBin = 6;
+      else if (beamEnergyMatch(30.8*GeV)) _iBin = 7;
+      else MSG_ERROR("Beam energy " << sqrtS()/GeV << " GeV not supported!");
+
       // Book histograms
       book(_p_thrust_pt     , 1, 1, 1);
       book(_p_thrust_pt2    , 1, 1, 2);
@@ -79,7 +71,7 @@ namespace Rivet {
         const double pTinT = dot(mom3, thrust.thrustMajorAxis());
         const double pToutT = dot(mom3, thrust.thrustMinorAxis());
         const double pTinS = dot(mom3, sphericity.sphericityMajorAxis());
-        const double pToutS = dot(mom3, sphericity.sphericityMinorAxis()); 
+        const double pToutS = dot(mom3, sphericity.sphericityMinorAxis());
         const double pT2_T = sqr(pTinT) + sqr(pToutT);
         const double pT2_S = sqr(pTinS) + sqr(pToutS);
 	if(PID::isCharged(p.pid())) ++nCharged;

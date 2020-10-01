@@ -11,9 +11,8 @@ namespace Rivet {
   class BABAR_2005_S6181155 : public Analysis {
   public:
 
-    BABAR_2005_S6181155()
-      : Analysis("BABAR_2005_S6181155")
-    { }
+    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2005_S6181155);
+
 
     void init() {
       declare(Beam(), "Beams");
@@ -38,7 +37,6 @@ namespace Rivet {
 
       for (const Particle& p : ufs.particles()) {
         // 3-momentum in CMS frame
-
         const double mom = cms_boost.transform(p.momentum()).vector3().mod();
         // Only looking at Xi_c^0
         if (p.abspid() != 4132 ) continue;

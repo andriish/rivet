@@ -20,23 +20,16 @@ namespace Rivet {
     void init() {
       const ChargedFinalState fs;
       declare(fs, "FS");
-      unsigned int iloc(0);
-      if(fuzzyEquals(sqrtS()/GeV, 2.2 , 1E-3))
-	iloc = 1;
-      else if(fuzzyEquals(sqrtS()/GeV, 2.6 , 1E-3))
-	iloc = 2;
-      else if(fuzzyEquals(sqrtS()/GeV, 3.0 , 1E-3))
-	iloc = 3;
-      else if(fuzzyEquals(sqrtS()/GeV, 3.2 , 1E-3))
-	iloc = 4;
-      else if(fuzzyEquals(sqrtS()/GeV, 4.6 , 1E-3))
-	iloc = 5;
-      else if(fuzzyEquals(sqrtS()/GeV, 4.8 , 1E-3))
-	iloc = 6;
-      else
-	MSG_ERROR("Beam energy not supported!");
-      assert(iloc!=0);
-      book(_h_ln, iloc   ,1,1);
+      unsigned int iloc = 0;
+      if      (beamEnergyMatch(2.2*GeV)) iloc = 1;
+      else if (beamEnergyMatch(2.6*GeV)) iloc = 2;
+      else if (beamEnergyMatch(3.0*GeV)) iloc = 3;
+      else if (beamEnergyMatch(3.2*GeV)) iloc = 4;
+      else if (beamEnergyMatch(4.6*GeV)) iloc = 5;
+      else if (beamEnergyMatch(4.8*GeV)) iloc = 6;
+      else MSG_ERROR("Beam energy not supported!");
+      assert(iloc != 0);
+      book(_h_ln, iloc, 1, 1);
       book(_h_weight, "TMP/Weight");
     }
 
@@ -45,13 +38,13 @@ namespace Rivet {
     void analyze(const Event& event) {
       const ChargedFinalState& fs = apply<ChargedFinalState>(event, "FS");
       if(fs.particles().size()==2 &&
-	 abs(fs.particles()[0].pid())==13 &&
-	 abs(fs.particles()[1].pid())==13) vetoEvent;
+         abs(fs.particles()[0].pid())==13 &&
+         abs(fs.particles()[1].pid())==13) vetoEvent;
       for (const Particle& p : fs.particles()) {
-	const Vector3 mom3 = p.p3();
-	double pp = mom3.mod();
-	double xi = -log(2.*pp/sqrtS());
-	_h_ln->fill(xi);
+        const Vector3 mom3 = p.p3();
+        double pp = mom3.mod();
+        double xi = -log(2.*pp/sqrtS());
+        _h_ln->fill(xi);
       }
       _h_weight->fill();
     }

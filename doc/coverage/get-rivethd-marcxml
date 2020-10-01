@@ -19,7 +19,7 @@ anas = {}
 for aname in rivet.AnalysisLoader.analysisNames():
     ana = rivet.AnalysisLoader.getAnalysis(aname)
     # TODO: all anas *should* have an Inspire ID...
-    anas.setdefault(ana.inspireId(), []).append(ana.name())
+    anas.setdefault(ana.inspireID(), []).append(ana.name())
 del anas[""]
 # print(anas.keys())
 

@@ -195,14 +195,14 @@ namespace Rivet {
         return _instance->_particleName(pid);
       }
 
-      static PdgId particleId(const std::string& pname) {
+      static PdgId particleID(const std::string& pname) {
         if (!_instance) _instance = unique_ptr<ParticleNames>(new ParticleNames);
-        return _instance->_particleId(pname);
+        return _instance->_particleID(pname);
       }
 
       std::string _particleName(PdgId pid);
 
-      PdgId _particleId(const std::string& pname);
+      PdgId _particleID(const std::string& pname);
 
 
     private:
@@ -262,8 +262,8 @@ namespace Rivet {
 
 
     /// Print a PdgId as a named string.
-    inline PdgId toParticleId(const std::string& pname) {
-      return ParticleNames::particleId(pname);
+    inline PdgId toParticleID(const std::string& pname) {
+      return ParticleNames::particleID(pname);
     }
 
 
@@ -275,8 +275,8 @@ namespace Rivet {
 
     /// Convenience maker of particle ID pairs from particle names.
     inline std::pair<PdgId,PdgId> make_pdgid_pair(const std::string& a, const std::string& b) {
-      const PdgId pa = toParticleId(a);
-      const PdgId pb = toParticleId(b);
+      const PdgId pa = toParticleID(a);
+      const PdgId pb = toParticleID(b);
       return make_pair(pa, pb);
     }
 

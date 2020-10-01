@@ -8,7 +8,7 @@ namespace Rivet {
   class ATLAS_2010_S8894728 : public Analysis {
   public:
 
-    ATLAS_2010_S8894728() : Analysis("ATLAS_2010_S8894728") {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2010_S8894728);
 
 
     void init() {
@@ -21,8 +21,8 @@ namespace Rivet {
 
       // Get an index for the beam energy
       int isqrts = -1;
-      if (fuzzyEquals(sqrtS(), 900*GeV)) isqrts = 0;
-      else if (fuzzyEquals(sqrtS(), 7*TeV)) isqrts = 1;
+      if (beamEnergyMatch(900*GeV)) isqrts = 0;
+      else if (beamEnergyMatch(7*TeV)) isqrts = 1;
       assert(isqrts >= 0);
 
       // Nch profiles, 500 MeV track pT cut
@@ -180,10 +180,9 @@ namespace Rivet {
       // |Delta(phi)| and so differ by a factor of 2: we have to actually norm for angular range = 2pi
       const size_t nbins = refData(13,1,1).numPoints();
       std::vector<double> ptcut;
-      if (fuzzyEquals(sqrtS(), 900*GeV)) {
+      if (beamEnergyMatch(900*GeV)) {
         ptcut += 1.0; ptcut += 1.5; ptcut += 2.0; ptcut += 2.5;
-      }
-      else if (fuzzyEquals(sqrtS(), 7*TeV)) {
+      } else if (beamEnergyMatch(7*TeV)) {
         ptcut += 1.0; ptcut += 2.0; ptcut += 3.0; ptcut += 5.0;
       }
       assert(ptcut.size() == 4);
@@ -239,7 +238,7 @@ namespace Rivet {
       _hist_ptsum_away_100->fill(pTlead/GeV, ptSum100[2]/GeV/dEtadPhi);
 
       // And finally the Nch and pT vs eta_lead profiles (again from > 100 MeV tracks, and only at 7 TeV)
-      if (fuzzyEquals(sqrtS(), 7*TeV) && pTlead > 5*GeV) {
+      if (beamEnergyMatch(7*TeV) && pTlead > 5*GeV) {
         // MSG_INFO(sqrtS() << " " << pTlead << " " << ptSum100[1]/dEtadPhi << " " << num100[1]/dEtadPhi);
         _hist_nch_vs_eta_transverse_100->fill(etalead, num100[1]/dEtadPhi);
         _hist_ptsum_vs_eta_transverse_100->fill(etalead, ptSum100[1]/GeV/dEtadPhi);

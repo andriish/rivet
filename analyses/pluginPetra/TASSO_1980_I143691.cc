@@ -25,19 +25,15 @@ namespace Rivet {
       ChargedFinalState cfs;
       declare(cfs, "CFS");
       declare(Thrust(cfs), "Thrust");
-      
+
 
       // Book histograms
       book(_mult, "/TMP/mult");
-      unsigned int iloc(0);
-      if(fuzzyEquals(sqrtS()/GeV, 13 , 1E-3))
-	iloc = 1;
-      else if(inRange(sqrtS(),16.99,23.01))
-	iloc = 2;
-      else if(inRange(sqrtS(),27.3,31.7))
-	iloc = 3;
-      else
-	MSG_ERROR("Beam energy not supported!");
+      unsigned int iloc = 0;
+      if      (beamEnergyMatch(13*GeV))            iloc = 1;
+      else if (inRange(sqrtS()/GeV, 16.99, 23.01)) iloc = 2;
+      else if (inRange(sqrtS()/GeV, 27.30, 31.70)) iloc = 3;
+      else MSG_ERROR("Beam energy not supported!");
 
       book(_h_rap,iloc+1,1,1);
       book(_h_x  ,iloc+4,1,1);
@@ -51,15 +47,15 @@ namespace Rivet {
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
       Vector3 axis=thrust.thrustAxis();
       for (const Particle& p : cfs.particles()) {
-	const Vector3 mom3 = p.p3();
-	double pp = mom3.mod();
-	double xP = 2.*pp/sqrtS();
-	_h_x->fill(xP);
+        const Vector3 mom3 = p.p3();
+        double pp = mom3.mod();
+        double xP = 2.*pp/sqrtS();
+        _h_x->fill(xP);
         const double mom = dot(axis, mom3);
-	const double rap = 0.5 * log((p.E() + mom) /
-				     (p.E() - mom));
-	_h_rap->fill(fabs(rap));
-	_mult->fill();
+        const double rap = 0.5 * log((p.E() + mom) /
+                                     (p.E() - mom));
+        _h_rap->fill(fabs(rap));
+        _mult->fill();
       }
     }
 
@@ -68,25 +64,25 @@ namespace Rivet {
     void finalize() {
 
       scale(_h_rap, 1./sumOfWeights());
-      scale(_h_x  , crossSection()*sqr(sqrtS())/sumOfWeights()/microbarn);  
+      scale(_h_x  , crossSection()*sqr(sqrtS())/sumOfWeights()/microbarn);
 
       scale(_mult,1./sumOfWeights());
-      
+
       Scatter2D temphisto(refData(1, 1, 1));
       Scatter2DPtr     mult;
       book(mult,1, 1, 1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
-	const double x  = temphisto.point(b).x();
-	pair<double,double> ex = temphisto.point(b).xErrs();
-	pair<double,double> ex2 = ex;
-	if(ex2.first ==0.) ex2. first=0.2;
-	if(ex2.second==0.) ex2.second=0.2;
-	if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
-	  mult   ->addPoint(x, _mult->val(), ex, make_pair(_mult->err(), _mult->err()));
-	}
-	else {
-	  mult   ->addPoint(x, 0., ex, make_pair(0.,.0));
-	}
+        const double x  = temphisto.point(b).x();
+        pair<double,double> ex = temphisto.point(b).xErrs();
+        pair<double,double> ex2 = ex;
+        if(ex2.first ==0.) ex2. first=0.2;
+        if(ex2.second==0.) ex2.second=0.2;
+        if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+          mult   ->addPoint(x, _mult->val(), ex, make_pair(_mult->err(), _mult->err()));
+        }
+        else {
+          mult   ->addPoint(x, 0., ex, make_pair(0.,.0));
+        }
       }
     }
 

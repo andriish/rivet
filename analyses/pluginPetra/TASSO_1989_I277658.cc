@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// Hadronic charged-multiplicity measurement between 14 and 43.6 GeV
   class TASSO_1989_I277658 : public Analysis {
   public:
 
@@ -18,27 +18,21 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
+      // Projections
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
 
+      // Compute histo index offsets from beam energies
       int offset = 0;
-      if(fuzzyEquals(sqrtS()/GeV,14.0)) {
-	offset = 1;
-      }
-      else if(fuzzyEquals(sqrtS()/GeV,22.0)) {
-	offset = 2;
-      }
-      else if(fuzzyEquals(sqrtS()/GeV,34.8)) {
-	offset = 3;
-      }
-      else if(fuzzyEquals(sqrtS()/GeV,43.6)) {
-	offset = 4;
-      }
-      else {
-        MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
-                    << " doesn't match any available analysis energy .");
-      }
-      book(_histCh, 5, 1, offset); 
+      if      (beamEnergyMatch(14.0*GeV)) offset = 1;
+      else if (beamEnergyMatch(22.0*GeV)) offset = 2;
+      else if (beamEnergyMatch(34.8*GeV)) offset = 3;
+      else if (beamEnergyMatch(43.6*GeV)) offset = 4;
+      else MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
+                       << " doesn't match any available analysis energy .");
+
+      // Book histograms
+      book(_histCh, 5, 1, offset);
       book(_histTotal, 2, 1, 1);
     }
 

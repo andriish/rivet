@@ -17,13 +17,11 @@ namespace Rivet {
   public:
 
     ALEPH_2004_S5765862()
-      : Analysis("ALEPH_2004_S5765862") , _initialisedJets(false),
+      : Analysis("ALEPH_2004_S5765862"),
+        _initialisedJets(false),
         _initialisedSpectra(false)
-    {
-    }
+    {    }
 
-
-  public:
 
     void init() {
       _initialisedJets    = true;
@@ -139,12 +137,12 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
- 
+
       const Thrust& thrust = apply<Thrust>(e, "Thrust");
       const Sphericity& sphericity = apply<Sphericity>(e, "Sphericity");
 
       if(_initialisedJets) {
-        bool LEP1 = fuzzyEquals(sqrtS(),91.2*GeV,0.01);
+        bool LEP1 = fuzzyEquals(sqrtS(), 91.2*GeV, 0.01);
         // event shapes
         double thr = LEP1 ? thrust.thrust() : 1.0 - thrust.thrust();
         _h_thrust->fill(thr);
@@ -268,8 +266,8 @@ namespace Rivet {
 
       Histo1D temphisto(refData(1, 1, 1));
       const double avgNumParts = dbl(*_weightedTotalChargedPartNum) / sumOfWeights();
-      
-     
+
+
       for (size_t b = 0; b < temphisto.numBins(); b++) {
         const double x  = temphisto.bin(b).xMid();
         const double ex = temphisto.bin(b).xWidth()/2.;

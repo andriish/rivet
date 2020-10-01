@@ -8,14 +8,14 @@ namespace Rivet {
   class CMS_2010_S8547297 : public Analysis {
   public:
 
-    CMS_2010_S8547297() : Analysis("CMS_2010_S8547297") {}
+    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2010_S8547297);
 
 
     void init() {
       ChargedFinalState cfs((Cuts::etaIn(-2.5, 2.5)));
       declare(cfs, "CFS");
 
-      if (fuzzyEquals(sqrtS()/GeV, 900)) {
+      if (beamEnergyMatch(900*GeV)) {
         for (int d=1; d<=3; d++) {
           for (int y=1; y<=4; y++) {
             _h_dNch_dpT.push_back(Histo1DPtr());
@@ -24,7 +24,7 @@ namespace Rivet {
         }
         book(_h_dNch_dpT_all ,7, 1, 1);
         book(_h_dNch_dEta ,8, 1, 1);
-      } else if (fuzzyEquals(sqrtS()/GeV, 2360)) {
+      } else if (beamEnergyMatch(2360*GeV)) {
         for (int d=4; d<=6; d++) {
           for (int y=1; y<=4; y++) {
             _h_dNch_dpT.push_back(Histo1DPtr());

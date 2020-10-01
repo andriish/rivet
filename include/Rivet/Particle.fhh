@@ -36,7 +36,10 @@ namespace Rivet {
 
   Particles operator + (const Particles& a, const Particles& b);
 
-  /// Typedef for a pair of Particle objects.
+
+  /// @brief Typedef for a pair of Particle objects
+  ///
+  /// @todo Make ParticlePair a custom class instead?
   typedef std::pair<Particle, Particle> ParticlePair;
 
   //@}

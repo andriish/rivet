@@ -10,10 +10,11 @@ ctypedef pair[PdgId,PdgId] PdgIdPair
 
 cdef extern from "Rivet/AnalysisHandler.hh" namespace "Rivet":
     cdef cppclass AnalysisHandler:
-        void setIgnoreBeams(bool)
+        # void setIgnoreBeams(bool)
+        void setCheckBeams(bool)
         void skipMultiWeights(bool)
-        void selectMultiWeights(string)
-        void deselectMultiWeights(string)
+        void matchWeightNames(string)
+        void unmatchWeightNames(string)
         void setNominalWeightName(string)
         void setWeightCap(double)
         void setNLOSmearing(double)
@@ -42,8 +43,8 @@ cdef extern from "Rivet/Run.hh" namespace "Rivet":
 
 cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
     cdef cppclass Analysis:
-        vector[PdgIdPair]& requiredBeams()
-        vector[pair[double, double]] requiredEnergies()
+        vector[PdgIdPair]& requiredBeamIDs()
+        vector[pair[double, double]] requiredBeamEnergies()
         vector[string] authors()
         vector[string] references()
         vector[string] keywords()
@@ -55,8 +56,8 @@ cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
         string collider()
         string description()
         string experiment()
-        string inspireId()
-        string spiresId()
+        string inspireID()
+        string spiresID()
         string runInfo()
         string status()
         string summary()

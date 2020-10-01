@@ -39,23 +39,23 @@ namespace Rivet {
       unsigned int offset = 0;
       int offset2 = 0;
 
-      if (fuzzyEquals(sqrtS()/GeV, 133  , 1E-3)) {
-	offset  = 0;			   
-	offset2 = 1;			   
-      }					   
-      else if (fuzzyEquals(sqrtS()/GeV, 161  , 1E-3)) {
-	offset  = 0;			   
-	offset2 = 2;			   
-      }					   
-      else if (fuzzyEquals(sqrtS()/GeV, 172  , 1E-3)) {
-	offset  = 0;			   
-	offset2 = 3;			   
-      }					   
-      else if (fuzzyEquals(sqrtS()/GeV, 183  , 1E-3)) {
-	offset  = 1;			   
-	offset2 = 1;			   
+      if (beamEnergyMatch(133*GeV)) {
+        offset  = 0;
+        offset2 = 1;
       }
-      
+      else if (beamEnergyMatch(161*GeV)) {
+        offset  = 0;
+        offset2 = 2;
+      }
+      else if (beamEnergyMatch(172*GeV)) {
+        offset  = 0;
+        offset2 = 3;
+      }
+      else if (beamEnergyMatch(183*GeV)) {
+        offset  = 1;
+        offset2 = 1;
+      }
+
       book(_h_thrust          , 13+offset, 1, offset2);
       book(_h_major           , 15+offset, 1, offset2);
       book(_h_minor           , 17+offset, 1, offset2);

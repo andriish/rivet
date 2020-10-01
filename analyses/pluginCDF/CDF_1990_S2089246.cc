@@ -12,10 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    CDF_1990_S2089246()
-      : Analysis("CDF_1990_S2089246")
-    {
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_1990_S2089246);
 
 
     /// @name Analysis methods
@@ -27,9 +24,9 @@ namespace Rivet {
       declare(ChargedFinalState((Cuts::etaIn(-3.5, 3.5))), "CFS");
 
       // Book histo
-      if (fuzzyEquals(sqrtS()/GeV, 1800, 1E-3)) {
+      if (beamEnergyMatch(1800*GeV)) {
         book(_hist_eta ,3, 1, 1);
-      } else if (fuzzyEquals(sqrtS()/GeV, 630, 1E-3)) {
+      } else if (beamEnergyMatch(630*GeV)) {
         book(_hist_eta ,4, 1, 1);
       }
       book(_sumWTrig, "sumWTrig");

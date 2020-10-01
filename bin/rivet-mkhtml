@@ -366,7 +366,7 @@ if not args.DRY_RUN:
                 summary = htmlify("%s (%s)" % (ana.summary(), analysis))
             references = ana.references()
             description = htmlify(ana.description())
-            spiresid = ana.spiresId()
+            spiresid = ana.spiresID()
             if args.IGNORE_UNVALIDATED and ana.status().upper() != "VALIDATED":
                 continue
 
@@ -384,7 +384,7 @@ if not args.DRY_RUN:
             reflist.append('<a href="https://inspirehep.net/literature/%s">Inspire</a>' % inspireid)
             reflist.append('<a href="http://hepdata.net/record/ins%s">HepData</a>' % inspireid)
         elif spiresid:
-        # elif ana.spiresId():
+        # elif ana.spiresID():
             reflist.append('<a href="https://inspirehep.net/literature?q=%s">Inspire</a>' % spiresid)
             reflist.append('<a href="http://hepdata.cedar.ac.uk/view/irn%s">HepData</a>' % spiresid)
         if analysis in official_routines:

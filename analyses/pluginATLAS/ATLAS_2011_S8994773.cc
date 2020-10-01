@@ -5,6 +5,8 @@
 namespace Rivet {
 
 
+  /// @brief Calo-based underlying event at 900 GeV and 7 TeV in ATLAS
+  ///
   /// @author Jinlong Zhang
   class ATLAS_2011_S8994773 : public Analysis {
   public:
@@ -21,8 +23,8 @@ namespace Rivet {
 
       // Get an index for the beam energy
       isqrts = -1;
-      if (fuzzyEquals(sqrtS(), 900*GeV)) isqrts = 0;
-      else if (fuzzyEquals(sqrtS(), 7*TeV)) isqrts = 1;
+      if (beamEnergyMatch(900*GeV)) isqrts = 0;
+      else if (beamEnergyMatch(7*TeV)) isqrts = 1;
       assert(isqrts >= 0);
 
       // N profiles, 500 MeV pT cut
@@ -106,8 +108,8 @@ namespace Rivet {
 
   private:
 
-    // Little helper function to identify Delta(phi) regions
-    inline int region_index(double dphi) {
+    /// Little helper function to identify Delta(phi) regions
+    int region_index(double dphi) {
       assert(inRange(dphi, 0.0, PI, CLOSED, CLOSED));
       if (dphi < PI/3.0) return 0;
       if (dphi < 2*PI/3.0) return 1;
@@ -116,6 +118,7 @@ namespace Rivet {
 
 
   private:
+
     int isqrts;
 
     Profile1DPtr _hist_N_transverse_500;
@@ -130,7 +133,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2011_S8994773);
 
 }

@@ -6,12 +6,11 @@ using namespace std;
 
 namespace Rivet {
 
+
   class CMS_2011_S8884919 : public Analysis {
   public:
 
-    CMS_2011_S8884919()
-      : Analysis("CMS_2011_S8884919")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2011_S8884919);
 
 
     void init() {
@@ -25,16 +24,16 @@ namespace Rivet {
       _etabins.push_back(2.0);
       _etabins.push_back(2.4) ;
 
-      if (fuzzyEquals(sqrtS()/GeV, 900)) {
+      if (beamEnergyMatch(900*GeV)) {
         for (size_t ietabin=0; ietabin < _etabins.size(); ietabin++) {
-          _h_dNch_dn.push_back( Histo1DPtr() ); 
+          _h_dNch_dn.push_back( Histo1DPtr() );
           book( _h_dNch_dn.back(), 2 + ietabin, 1, 1);
         }
         book(_h_dNch_dn_pt500_eta24 ,20, 1, 1);
         book(_h_dmpt_dNch_eta24 ,23, 1, 1);
       }
 
-      if (fuzzyEquals(sqrtS()/GeV, 2360)) {
+      if (beamEnergyMatch(2360*GeV)) {
         for (size_t ietabin=0; ietabin < _etabins.size(); ietabin++) {
           _h_dNch_dn.push_back( Histo1DPtr() );
           book(_h_dNch_dn.back(), 7 + ietabin, 1, 1);
@@ -43,7 +42,7 @@ namespace Rivet {
         book(_h_dmpt_dNch_eta24 ,24, 1, 1);
       }
 
-      if (fuzzyEquals(sqrtS()/GeV, 7000)) {
+      if (beamEnergyMatch(7000*GeV)) {
         for (size_t ietabin=0; ietabin < _etabins.size(); ietabin++) {
           _h_dNch_dn.push_back( Histo1DPtr() );
           book(_h_dNch_dn.back(), 12 + ietabin, 1, 1);

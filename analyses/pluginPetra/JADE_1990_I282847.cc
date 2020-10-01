@@ -7,7 +7,7 @@
 namespace Rivet {
 
 
-  /// @brief gamma, pi0 and eta spectra at 35 and 44 GeV
+  /// JADE gamma, pi0 and eta spectra at 35 and 44 GeV
   class JADE_1990_I282847 : public Analysis {
   public:
 
@@ -24,15 +24,10 @@ namespace Rivet {
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
 
-      int ioff=-1;
-      if(fuzzyEquals(sqrtS()/GeV,35.,1e-3)) {
-      	ioff=0;
-      }
-      else if(fuzzyEquals(sqrtS()/GeV,44.,1e-3)) {
-      	ioff=1;
-      }
-      else
-      	MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
+      int ioff = -1;
+      if      (beamEnergyMatch(35*GeV)) ioff = 0;
+      else if (beamEnergyMatch(44*GeV)) ioff = 1;
+      else MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
       // Book histograms
       book(_h_gamma, 1+ioff, 1, 1);
       book(_h_pi0  , 3+ioff, 1, 1);

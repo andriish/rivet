@@ -29,7 +29,7 @@ for d in glob(dirpatt):
 ins_anas = {}
 for aname in sorted(rivet.AnalysisLoader.analysisNames()):
     ana = rivet.AnalysisLoader.getAnalysis(aname)
-    iid = ana.inspireId()
+    iid = ana.inspireID()
     #print(aname, ":", iid, ":", ana.summary())
     try:
         x = int(iid)

@@ -24,40 +24,20 @@ namespace Rivet {
       declare(FinalState(), "FS");
       // Book histograms
       unsigned int iloc(0);
-      if(fuzzyEquals(sqrtS()/GeV, 7.7, 1e-3)) {
-	iloc=1;
-      }
-      else if(fuzzyEquals(sqrtS()/GeV, 9.4, 1e-3)) {
-	iloc=2;
-      }
-      else if (fuzzyEquals(sqrtS()/GeV, 12., 1e-3)) {
-	iloc=3;
-      }
-      else if (fuzzyEquals(sqrtS()/GeV, 13., 1e-3)) {
-	iloc=4;
-      }
-      else if (fuzzyEquals(sqrtS()/GeV, 17., 1e-3)) {
-	iloc=5;
-      }
-      else if (fuzzyEquals(sqrtS()/GeV, 22., 1e-3)) {
-	iloc=6;
-      }
-      else if (fuzzyEquals(sqrtS()/GeV, 27.6, 1e-3)) {
-	iloc=7;
-      }
-      else if (inRange(sqrtS()/GeV,30,31.6)) {
-	iloc=8;
-      }
-      else
-	MSG_ERROR("Beam energy not supported!");
+      if      (beamEnergyMatch(7.7*GeV)) iloc=1;
+      else if (beamEnergyMatch(9.4*GeV)) iloc=2;
+      else if (beamEnergyMatch(12.*GeV)) iloc=3;
+      else if (beamEnergyMatch(13.*GeV)) iloc=4;
+      else if (beamEnergyMatch(17.*GeV)) iloc=5;
+      else if (beamEnergyMatch(22.*GeV)) iloc=6;
+      else if (beamEnergyMatch(27.6*GeV)) iloc=7;
+      else if (inRange(sqrtS()/GeV, 30, 31.6)) iloc=8;
+      else MSG_ERROR("Beam energy not supported!");
+
       // Book histograms
       book(_h_EEC, 1, 1, iloc);
-      if(iloc==7||iloc==8) {
-	book(_h_AEEC, 5, 1, 1);
-	// _h_opposite = bookHisto1D(2, 1, 1);
-      }
-      else if(iloc==21 ||iloc==2)
-	book(_h_AEEC,4, 1, 1);
+      if (iloc==7||iloc==8) book(_h_AEEC, 5, 1, 1);
+      else if (iloc==21 ||iloc==2) book(_h_AEEC,4, 1, 1);
       book(_weightSum,"TMP/weightSum");
     }
 
@@ -89,17 +69,17 @@ namespace Rivet {
           const double energy_j = p_j->momentum().E();
           const double thetaij = mom3_i.unit().angle(mom3_j.unit())/M_PI*180.;
           double eec = (energy_i*energy_j) / Evis2;
-	  if(p_i != p_j) eec *= 2.;
-	  _h_EEC ->fill(thetaij,  eec);
-	  // if(_h_opposite) _h_opposite ->fill(mom3_i.unit().dot(mom3_j.unit()),  eec);
-	  if(_h_AEEC) {
-	    if (thetaij < 90.) {
-	      _h_AEEC->fill(thetaij, -eec);
-	    }
-	    else {
-	      _h_AEEC  ->fill(180.-thetaij, eec);
-	    }
-	  }
+          if(p_i != p_j) eec *= 2.;
+          _h_EEC ->fill(thetaij,  eec);
+          // if(_h_opposite) _h_opposite ->fill(mom3_i.unit().dot(mom3_j.unit()),  eec);
+          if(_h_AEEC) {
+            if (thetaij < 90.) {
+              _h_AEEC->fill(thetaij, -eec);
+            }
+            else {
+              _h_AEEC  ->fill(180.-thetaij, eec);
+            }
+          }
         }
       }
 

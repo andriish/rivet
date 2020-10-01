@@ -28,9 +28,9 @@ namespace Rivet {
       declare(Thrust(fs)    ,"Thrust");
       declare(Sphericity(fs),"Sphericity");
       // histograms
-      if(fuzzyEquals(sqrtS(),9.98,1e-2)) {
-	book(_h_T_cont ,2, 1, 2);
-	book(_h_S_cont ,1, 1, 2);
+      if(beamEnergyMatch(9.98*GeV)) {
+        book(_h_T_cont ,2, 1, 2);
+        book(_h_S_cont ,1, 1, 2);
       }
       book(_h_T_Ups ,2, 1, 1);
       book(_h_S_Ups ,1, 1, 1);
@@ -39,14 +39,14 @@ namespace Rivet {
     /// Recursively walk the decay tree to find the stable decay products of @a p
     void findDecayProducts(Particle mother, Particles& charged, Particles & neutral) {
       for(const Particle & p: mother.children()) {
-	if(!p.children().empty())
-	  findDecayProducts(p, charged, neutral);
-	else {
-	  if(isCharged(p))
-	    charged.push_back(p);
-	  else
-	    neutral.push_back(p);
-	}
+        if(!p.children().empty())
+          findDecayProducts(p, charged, neutral);
+        else {
+          if(isCharged(p))
+            charged.push_back(p);
+          else
+            neutral.push_back(p);
+        }
       }
     }
 
@@ -57,20 +57,20 @@ namespace Rivet {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       Particles upsilons = ufs.particles(Cuts::pid==553 or Cuts::pid==100553);
       if (upsilons.empty() && _h_T_cont) {
-	Particles charged = apply<ChargedFinalState>(event, "CFS").particles(); 
-	// at least 6 charged particles
-	if(charged.size()<6) vetoEvent;
-	// cut on high momentum particles
-	unsigned int nHigh(0);
-	for(const Particle & p : charged) {
-	  if(p.momentum().p3().mod()>2.5) ++nHigh;
-	}
-	if(nHigh>1) vetoEvent;
+        Particles charged = apply<ChargedFinalState>(event, "CFS").particles();
+        // at least 6 charged particles
+        if(charged.size()<6) vetoEvent;
+        // cut on high momentum particles
+        unsigned int nHigh(0);
+        for(const Particle & p : charged) {
+          if(p.momentum().p3().mod()>2.5) ++nHigh;
+        }
+        if(nHigh>1) vetoEvent;
         MSG_DEBUG("No Upsilons found => continuum event");
-	Thrust thrust = apply<Thrust>(event, "Thrust");
-	_h_T_cont->fill(thrust.thrust());
-	Sphericity sphericity = apply<Sphericity>(event, "Sphericity");
-	_h_S_cont->fill(sphericity.sphericity());
+        Thrust thrust = apply<Thrust>(event, "Thrust");
+        _h_T_cont->fill(thrust.thrust());
+        Sphericity sphericity = apply<Sphericity>(event, "Sphericity");
+        _h_S_cont->fill(sphericity.sphericity());
       }
       else {
         for (const Particle& ups : upsilons) {
@@ -79,28 +79,28 @@ namespace Rivet {
             boost = LorentzTransform::mkFrameTransformFromBeta(ups.momentum().betaVec());
           // Find the decay products we want
           Particles charged,neutral;
-	  // 6 charged particles
+          // 6 charged particles
           findDecayProducts(ups, charged, neutral);
-	  if(charged.size()<6) continue;
-	  // at most 1 |p|>2.5
-	  vector<FourMomentum> mom;
-	  mom.reserve(neutral.size()+charged.size());
-	  unsigned int nHigh(0);
-	  for(const Particle & p : charged) {
-	    mom.push_back(boost.transform(p.momentum()));
-	    if(mom.back().p3().mod()>2.5) ++nHigh;
-	  }
-	  if(nHigh>1) continue;
-	  for(const Particle & p : neutral) {
-	    mom.push_back(boost.transform(p.momentum()));
-	  }
-	  Thrust thrust;
-	  thrust.calc(mom);
-	  _h_T_Ups->fill(thrust.thrust());
-	  Sphericity sphericity;
-	  sphericity.calc(mom);
-	  _h_S_Ups->fill(sphericity.sphericity());
-	}
+          if(charged.size()<6) continue;
+          // at most 1 |p|>2.5
+          vector<FourMomentum> mom;
+          mom.reserve(neutral.size()+charged.size());
+          unsigned int nHigh(0);
+          for(const Particle & p : charged) {
+            mom.push_back(boost.transform(p.momentum()));
+            if(mom.back().p3().mod()>2.5) ++nHigh;
+          }
+          if(nHigh>1) continue;
+          for(const Particle & p : neutral) {
+            mom.push_back(boost.transform(p.momentum()));
+          }
+          Thrust thrust;
+          thrust.calc(mom);
+          _h_T_Ups->fill(thrust.thrust());
+          Sphericity sphericity;
+          sphericity.calc(mom);
+          _h_S_Ups->fill(sphericity.sphericity());
+        }
       }
     }
 
@@ -108,12 +108,12 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       if(_h_T_cont) {
-	normalize(_h_T_cont);
-	normalize(_h_S_cont);
+        normalize(_h_T_cont);
+        normalize(_h_S_cont);
       }
       if(_h_T_Ups->numEntries()!=0.) {
-	normalize(_h_T_Ups);
-	normalize(_h_S_Ups);
+        normalize(_h_T_Ups);
+        normalize(_h_S_Ups);
       }
     }
 

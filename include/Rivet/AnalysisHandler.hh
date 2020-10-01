@@ -4,6 +4,7 @@
 
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Particle.hh"
+// #include "Rivet/Event.hh"
 #include "Rivet/AnalysisLoader.hh"
 #include "Rivet/Tools/RivetYODA.hh"
 
@@ -36,7 +37,7 @@ namespace Rivet {
     ~AnalysisHandler();
 
 
-    /// @name Run properties and weights
+    /// @name Run properties
     /// @{
 
     /// Get the name of this run.
@@ -54,11 +55,14 @@ namespace Rivet {
     /// Access to the sum of squared-weights
     double sumW2() const { return _eventCounter->sumW2(); }
 
+    /// @}
+
+
+    /// @name Event weights
+    /// @{
+
     /// Names of event weight categories
     const vector<string>& weightNames() const { return _weightNames; }
-
-    /// Indices of the weights in the original weight matrix
-    //const vector<size_t> weightIndices() const { return _weightIndices; }
 
     /// Are any of the weights non-numeric?
     size_t numWeights() const { return _weightNames.size(); }
@@ -75,20 +79,20 @@ namespace Rivet {
     /// Set the weight cap
     void setWeightCap(const double maxWeight) { _weightCap = maxWeight; }
 
+    /// Set the name of the nominal weight stream
+    void setNominalWeightName(const std::string& name) { _nominalWeightName = name; }
+
+    /// Ignore all weight streams other than the nominal
+    void skipMultiWeights(bool skip=false) { _skipMultiWeights = skip; }
+
+    /// Specify weight-name patterns to accept
+    void matchWeightNames(const std::string& patterns) { _matchWeightNames = patterns; }
+
+    /// Specify weight-name patterns to reject
+    void unmatchWeightNames(const std::string& patterns) { _unmatchWeightNames = patterns; }
+
     /// Set the relative width of the NLO smearing window.
     void setNLOSmearing(double frac) { _NLOSmearing = frac; }
-
-    /// Setter for _skipWeights
-    void skipMultiWeights(bool ignore=false);
-
-    /// Setter for _matchWeightNames
-    void selectMultiWeights(std::string patterns="");
-
-    /// Setter for _unmatchWeightNames
-    void deselectMultiWeights(std::string patterns="");
-
-    /// Setter for _nominalWeightName
-    void setNominalWeightName(std::string name="");
 
     /// @}
 
@@ -107,17 +111,7 @@ namespace Rivet {
     }
 
     /// Get the nominal cross-section
-    double nominalCrossSection() const {
-      _xs.get()->setActiveWeightIdx(_rivetDefaultWeightIdx);
-      const YODA::Scatter1D::Points& ps = _xs->points();
-      if (ps.size() != 1) {
-        string errMsg = "value missing when requesting nominal cross-section";
-        throw Error(errMsg);
-      }
-      double xs = ps[0].x();
-      _xs.get()->unsetActiveWeight();
-      return xs;
-    }
+    double nominalCrossSection() const;
 
     /// @}
 
@@ -126,29 +120,29 @@ namespace Rivet {
     /// @{
 
     /// Set the beam particles for this run
-    AnalysisHandler& setRunBeams(const ParticlePair& beams) {
-      _beams = beams;
-      MSG_DEBUG("Setting run beams = " << beams << " @ " << sqrtS()/GeV << " GeV");
-      return *this;
-    }
+    AnalysisHandler& setRunBeams(const ParticlePair& beams);
 
-    /// Get the beam particles for this run, usually determined from the first event.
-    const ParticlePair& beams() const { return _beams; }
+    /// Get the beam particles for this run, usually determined from the first event
+    const ParticlePair& runBeams() const { return _beams; }
 
-    /// Get beam IDs for this run, usually determined from the first event.
-    /// @deprecated Use standalone beamIds(ah.beams()), to clean AH interface
-    PdgIdPair beamIds() const;
+    /// Get beam IDs for this run, usually determined from the first event
+    PdgIdPair runBeamIDs() const;
 
-    /// Get energy for this run, usually determined from the first event.
-    /// @deprecated Use standalone sqrtS(ah.beams()), to clean AH interface
-    double sqrtS() const;
+    /// Get beam IDs for this run, usually determined from the first event
+    pair<double,double> runBeamEnergies() const;
 
-    /// Option to disable AH beam-consistency checks
-    /// @todo Make this the canonical name
-    void checkBeams(bool check=true) { setIgnoreBeams(check); }
-    /// Alias for checkBeams()
-    /// @deprecated Use checkBeams()
-    void setIgnoreBeams(bool ignore=true);
+    /// Get energy for this run, usually determined from the first event
+    double runSqrtS() const;
+
+    /// Option to disable analysis-compatibility checks
+    void setCheckBeams(bool check=true) { _checkBeams = check; }
+    /// @brief Alias for checkBeams()
+    [[deprecated]] void setIgnoreBeams(bool ignore=true);
+
+    /// Option to disable run-consistency checks
+    // void setCheckConsistency(bool check=true) { _checkConsistency = check; }
+    // Check event consistency with the run, usually determined from the first event
+    // bool consistentWithRun(Event& event) {
 
     /// @}
 
@@ -386,10 +380,10 @@ namespace Rivet {
     bool _initialised;
 
     /// Flag whether input event beams should be ignored in compatibility check
-    bool _ignoreBeams;
+    bool _checkBeams;
 
-    /// Flag to check if multiweights should be included
-    bool _skipWeights;
+    /// Flag to check if multiweights should be ignored
+    bool _skipMultiWeights;
 
     /// String of weight names (or regex) to select multiweights
     std::string _matchWeightNames;

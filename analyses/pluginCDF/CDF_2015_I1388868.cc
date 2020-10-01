@@ -22,11 +22,11 @@ namespace Rivet {
 
       // Energy selection
       int isqrts = -1;
-      if (fuzzyEquals(sqrtS()/GeV, 300, 1E-3)) {
+      if (beamEnergyMatch(300*GeV)) {
         isqrts = 2;
-      } else if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
+      } else if (beamEnergyMatch(900*GeV)) {
         isqrts = 1;
-      } else if (fuzzyEquals(sqrtS()/GeV, 1960, 1E-3)) {
+      } else if (beamEnergyMatch(1960*GeV)) {
         isqrts = 0;
       } else {
         throw UserError("Unexpected sqrtS ! Only 300, 900, 1960 GeV is supported by CDF_2015_I1388868");

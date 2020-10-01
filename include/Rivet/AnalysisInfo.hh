@@ -40,10 +40,10 @@ namespace Rivet {
     std::string name() const {
       if (!_name.empty()) return _name;
       if (!experiment().empty() && !year().empty()) {
-        if (!inspireId().empty()) {
-          return experiment() + "_" + year() + "_I" + inspireId();
-        } else if (!spiresId().empty()) {
-          return experiment() + "_" + year() + "_S" + spiresId();
+        if (!inspireID().empty()) {
+          return experiment() + "_" + year() + "_I" + inspireID();
+        } else if (!spiresID().empty()) {
+          return experiment() + "_" + year() + "_S" + spiresID();
         }
       }
       return "";
@@ -62,17 +62,17 @@ namespace Rivet {
     void setRefDataName(const std::string& name) { _refDataName = name; }
 
     /// Get the Inspire (SPIRES replacement) ID code for this analysis.
-    const std::string& inspireId() const { return _inspireId; }
+    const std::string& inspireID() const { return _inspireID; }
 
     /// Set the Inspire (SPIRES replacement) ID code for this analysis.
-    void setInspireId(const std::string& inspireId) { _inspireId = inspireId; }
+    void setInspireID(const std::string& inspireID) { _inspireID = inspireID; }
 
 
     /// Get the SPIRES ID code for this analysis.
-    const std::string& spiresId() const { return _spiresId; }
+    const std::string& spiresID() const { return _spiresID; }
 
     /// Set the SPIRES ID code for this analysis.
-    void setSpiresId(const std::string& spiresId) { _spiresId = spiresId; }
+    void setSpiresID(const std::string& spiresID) { _spiresID = spiresID; }
 
 
     /// @brief Names & emails of paper/analysis authors.
@@ -116,10 +116,10 @@ namespace Rivet {
 
 
     /// Beam particle types
-    const std::vector<PdgIdPair>& beams() const { return _beams; }
+    const std::vector<PdgIdPair>& beamIDs() const { return _beams; }
 
     /// Set beam particle types
-    void setBeams(const std::vector<PdgIdPair>& beams) { _beams = beams; }
+    void setBeamIDs(const std::vector<PdgIdPair>& beamids) { _beams = beamids; }
 
 
     /// Sets of valid beam energies
@@ -299,7 +299,7 @@ namespace Rivet {
 
     std::string _name;
     std::string _refDataName;
-    std::string _spiresId, _inspireId;
+    std::string _spiresID, _inspireID;
     std::vector<std::string> _authors;
     std::string _summary;
     std::string _description;
@@ -329,8 +329,8 @@ namespace Rivet {
     void clear() {
       _name = "";
       _refDataName = "";
-      _spiresId = "";
-      _inspireId = "";
+      _spiresID = "";
+      _inspireID = "";
       _authors.clear();
       _summary = "";
       _description = "";

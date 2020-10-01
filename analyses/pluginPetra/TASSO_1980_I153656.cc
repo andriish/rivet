@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief pi, K and proton spectra at 12 and 30 GeV
+  /// pi, K and proton spectra at 12 and 30 GeV
   class TASSO_1980_I153656 : public Analysis {
   public:
 
@@ -26,14 +26,9 @@ namespace Rivet {
 
       // Book histograms
       _iHist=-1;
-      if(fuzzyEquals(sqrtS()/GeV, 12., 1e-3)) {
-	_iHist = 0;
-      }
-      else if (fuzzyEquals(sqrtS()/GeV, 30., 1e-3)) {
-	_iHist = 1;
-      }
-      else
-	MSG_ERROR("Beam energy not supported!");
+      if      (beamEnergyMatch(12*GeV)) _iHist = 0;
+      else if (beamEnergyMatch(30*GeV)) _iHist = 1;
+      else MSG_ERROR("Beam energy not supported!");
 
       book(_h_p_pi,3*_iHist+2,1,1);
       book(_h_x_pi,3*_iHist+2,1,2);
@@ -48,7 +43,6 @@ namespace Rivet {
       book(_d_K ,"TMP/d_K" ,refData(3*_iHist+ 9,1,1));
       book(_n_p ,"TMP/n_p" ,refData(3*_iHist+10,1,1));
       book(_d_p ,"TMP/d_p" ,refData(3*_iHist+10,1,1));
-
     }
 
 
@@ -70,29 +64,29 @@ namespace Rivet {
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
-      
+
       for( const Particle& p : fs.particles()) {
-	double modp = p.p3().mod();
-	_d_pi->fill(modp);
-	_d_K->fill(modp);
-	_d_p ->fill(modp);
-	double beta = modp/p.E();
-	double xE = p.E()/meanBeamMom;
-	if(abs(p.pid())==211) {
-	  _h_p_pi->fill(modp);
-	  _h_x_pi->fill(xE  , 1./beta);
-	  _n_pi->fill(modp);
-	}
-	else if(abs(p.pid())==321) {
-	  _h_p_K->fill(modp);
-	  _h_x_K->fill(xE  ,1./beta);
-	  _n_K->fill(modp);
-	}
-	else if(abs(p.pid())==2212) {
-	  _h_p_p->fill(modp);
-	  _h_x_p->fill(xE  ,1./beta);
-	  _n_p ->fill(modp);
-	}
+        double modp = p.p3().mod();
+        _d_pi->fill(modp);
+        _d_K->fill(modp);
+        _d_p ->fill(modp);
+        double beta = modp/p.E();
+        double xE = p.E()/meanBeamMom;
+        if(abs(p.pid())==211) {
+          _h_p_pi->fill(modp);
+          _h_x_pi->fill(xE  , 1./beta);
+          _n_pi->fill(modp);
+        }
+        else if(abs(p.pid())==321) {
+          _h_p_K->fill(modp);
+          _h_x_K->fill(xE  ,1./beta);
+          _n_K->fill(modp);
+        }
+        else if(abs(p.pid())==2212) {
+          _h_p_p->fill(modp);
+          _h_x_p->fill(xE  ,1./beta);
+          _n_p ->fill(modp);
+        }
 
       }
     }
@@ -112,7 +106,7 @@ namespace Rivet {
       book(temp1,3*_iHist+ 8,1,1);
       book(temp2,3*_iHist+ 9,1,1);
       book(temp3,3*_iHist+10,1,1);
-      
+
       divide(_n_pi,_d_pi, temp1);
       divide(_n_K ,_d_K , temp2);
       divide(_n_p ,_d_p , temp3);

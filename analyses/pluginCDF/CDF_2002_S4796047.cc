@@ -27,10 +27,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    CDF_2002_S4796047()
-      : Analysis("CDF_2002_S4796047")
-    {
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2002_S4796047);
 
 
     /// @name Analysis methods
@@ -43,10 +40,10 @@ namespace Rivet {
       declare(cfs, "FS");
 
       // Histos
-      if (fuzzyEquals(sqrtS()/GeV, 630)) {
+      if (beamEnergyMatch(630*GeV)) {
         book(_hist_multiplicity  ,1, 1, 1);
         book(_hist_pt_vs_multiplicity  ,3, 1, 1);
-      } else if (fuzzyEquals(sqrtS()/GeV, 1800)) {
+      } else if (beamEnergyMatch(1800*GeV)) {
         book(_hist_multiplicity ,2, 1, 1);
         book(_hist_pt_vs_multiplicity ,4, 1, 1);
       }
@@ -89,9 +86,9 @@ namespace Rivet {
       // legend of the plot in the paper. Have a look at
       // figure 1 and everything immediately becomes clear.
       // DON'T TRY TO REPAIR THIS, YOU WILL BREAK IT.
-      if (fuzzyEquals(sqrtS()/GeV, 630)) {
+      if (beamEnergyMatch(630*GeV)) {
         normalize(_hist_multiplicity, 3.21167); // fixed norm OK
-      } else if (fuzzyEquals(sqrtS()/GeV, 1800)) {
+      } else if (beamEnergyMatch(1800*GeV)) {
         normalize(_hist_multiplicity, 4.19121); // fixed norm OK
       }
     }
