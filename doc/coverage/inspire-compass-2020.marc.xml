@@ -11,6 +11,18 @@
     <subfield code="9">arXiv</subfield>
     <subfield code="a">oai:arXiv.org:2006.05342</subfield>
   </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02886954</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2719624</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA20-kp26ck</subfield>
+  </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
     <subfield code="a">arXiv:2006.05342</subfield>
@@ -30,6 +42,11 @@
 </record>
 <record>
   <controlfield tag="001">1788430</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1016/j.physletb.2020.135600</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Alexeev:2020jia</subfield>
@@ -56,7 +73,7 @@
     <subfield code="a">CERN-EP-2020-041</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
+    <subfield code="9">Elsevier</subfield>
     <subfield code="a">Antiproton over proton and K$^-$ over K$^+$ multiplicity ratios at high $z$ in DIS</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">

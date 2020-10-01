@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief baryon rates and spectra
   class BELLE_2017_I1606201 : public Analysis {
   public:
 
@@ -21,8 +21,10 @@ namespace Rivet {
       // Initialise and register projections
       declare(UnstableParticles(), "UFS");
       // Book histograms
-      for(unsigned int ix=1;ix<16;++ix)
-	book(_h[ix], ix, 1, 1);
+      for(unsigned int ix=1;ix<16;++ix) {
+	book(_h[ix], ix, 1,  1);
+	book(_r[ix], 16, 1, ix);
+      }
     }
 
 
@@ -33,41 +35,71 @@ namespace Rivet {
       for (const Particle& p : ufs.particles()) {
 	const Vector3 mom3 = p.p3();
 	double pp = mom3.mod();
-	double xp = 2.*pp/sqrtS();
+	double xp = pp/sqrt(0.25*sqr(sqrtS())-sqr(p.mass()));
 	int id = abs(p.pid());
-	if(id==3122)
+	if(id==3122) {
 	  _h[ 1]->fill(xp);
-	else if(id==3212)
+	  _r[ 1]->fill(0.5);
+	}
+	else if(id==3212) {
 	  _h[ 2]->fill(xp);
-	else if(id==3224)
+	  _r[ 2]->fill(0.5);
+	}
+	else if(id==3224) {
 	  _h[ 3]->fill(xp);
-	else if(id==3124)
+	  _r[ 3]->fill(0.5);
+	}
+	else if(id==3124) {
 	  _h[ 4]->fill(xp);
-	else if(id==3312)
+	  _r[ 4]->fill(0.5);
+	}
+	else if(id==3312) {
 	  _h[ 5]->fill(xp);
-	else if(id==3334)
+	  _r[ 5]->fill(0.5);
+	}
+	else if(id==3334) {
 	  _h[ 6]->fill(xp);
-	else if(id==3324)
+	  _r[ 6]->fill(0.5);
+	}
+	else if(id==3324) {
 	  _h[ 7]->fill(xp);
-	else if(id==4122)
+	  _r[ 7]->fill(0.5);
+	}
+	else if(id==4122) {
 	  _h[ 8]->fill(xp);
-	else if(id==14122)
+	  _r[ 8]->fill(0.5);
+	}
+	else if(id==14122) {
 	  _h[ 9]->fill(xp);
-	else if(id==4124)
+	  _r[ 9]->fill(0.5);
+	}
+	else if(id==4124) {
 	  _h[10]->fill(xp);
-	else if(id==4112)
+	  _r[10]->fill(0.5);
+	}
+	else if(id==4112) {
 	  _h[11]->fill(xp);
-	else if(id==4114)
+	  _r[11]->fill(0.5);
+	}
+	else if(id==4114) {
 	  _h[12]->fill(xp);
+	  _r[12]->fill(0.5);
+	}
 	else if(id==4332) {
-	  if(isDecay(p,{3334,-211})) 
+	  if(isDecay(p,{3334,-211})) {
 	    _h[13]->fill(xp);
+	    _r[13]->fill(0.5);
+	  }
 	}
 	else if(id==4132) {
-	  if(isDecay(p,{3312,211}))
+	  if(isDecay(p,{3312,211})) {
 	    _h[14]->fill(xp);
-	  else if(isDecay(p,{3334,321}))
+	    _r[14]->fill(0.5);
+	  }
+	  else if(isDecay(p,{3334,321})) {
 	    _h[15]->fill(xp);
+	    _r[15]->fill(0.5);
+	  }
 	}
       }
     }
@@ -93,6 +125,7 @@ namespace Rivet {
 	  scale(_h[ix], crossSection()/nanobarn/sumOfWeights());
 	else
 	  scale(_h[ix], crossSection()/picobarn/sumOfWeights());
+	scale(_r[ix], crossSection()/picobarn/sumOfWeights());
       }
     }
 
@@ -101,7 +134,7 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    Histo1DPtr _h[16];
+    Histo1DPtr _h[16],_r[16];
     //@}
 
 

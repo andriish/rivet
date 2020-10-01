@@ -24,8 +24,22 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
       // book histos
       book(_h_x,2,1,1);
+      book(_r,3,1,1);
+      book(_c_xi,"TMP/c_xi");
     }
 
+    // Check for explicit decay into pdgids
+    bool isDecay(const Particle& mother, vector<int> ids) {
+      if(mother.pid()<0) {
+	for(unsigned int ix=0;ix<ids.size();++ix)
+	  ids[ix] *= -1;
+      }
+      // Trivial check to ignore any other decays but the one in question modulo photons
+      const Particles children = mother.children(Cuts::pid!=PID::PHOTON);
+      if (children.size()!=ids.size()) return false;
+      // Check for the explicit decay
+      return all(ids, [&](int i){return count(children, hasPID(i))==1;});
+    }
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
@@ -37,19 +51,27 @@ namespace Rivet {
       for (const Particle& p : ufs.particles(Cuts::abspid==idXi)) {
 	double xp = p.momentum().p3().mod()/Pmax;
 	_h_x->fill(xp);
+	int sign = p.pid()/p.abspid();
+	if(isDecay(p,{sign*4232,-sign*211})) {
+	  _r->fill(0.5);
+	}
       }
+      unsigned int nxi = ufs.particles(Cuts::abspid==4232).size();
+      _c_xi->fill(nxi);
     }
 
     /// Normalise histograms etc., after the run
     void finalize() {
       normalize(_h_x);
+      scale(_r, 1./ *_c_xi);
     }
     ///@}
 
 
     /// @name Histograms
     ///@{
-    Histo1DPtr _h_x;
+    Histo1DPtr _h_x,_r;
+    CounterPtr _c_xi;
     ///@}
 
 

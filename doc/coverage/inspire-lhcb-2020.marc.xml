@@ -1,6 +1,236 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search-Engine-Total-Number-Of-Results: 17 -->
+<!-- Search-Engine-Total-Number-Of-Results: 23 -->
 <collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <controlfield tag="001">1808540</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Aaij:2020wtg</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2007.12096</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2724850</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2007.12096</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2020-129</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">LHCb-PAPER-2020-016</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">First branching fraction measurement of the suppressed decay $\Xi_c^0\to \pi^-\Lambda_c^+$</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">LHCb</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1808401</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Aaij:2020mlx</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2007.11292</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2724728</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2007.11292</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">LHCb-PAPER-2020-012</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2020-124</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">First observation of the decay $\Lambda_b^0 \to \eta_c(1S) p K^-$</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">LHCb</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1806797</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Aaij:2020smi</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2007.06945</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2723727</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D20-kj30ab</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2007.06945</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">LHCb-PAPER-2020-010</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2020-119</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Observation of enhanced double parton scattering in proton-lead collisions at $\sqrt{s_\mathrm{NN}}=8.16$ TeV</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">LHCb</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1805777</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Aaij:2020ikh</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2007.03923</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2722971</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02905970</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2007.03923</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">LHCb-PAPER-2020-013</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2020-114</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Searches for low-mass dimuon resonances</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">LHCb</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1805775</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Aaij:2020qup</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2007.04280</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2723312</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02905969</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2007.04280</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">LHCb-PAPER-2020-015</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2020-112</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">First observation of the decay $B^0 \rightarrow D^0 \overline{D}{}^0 K^+ \pi^-$</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">LHCb</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">1804391</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Aaij:2020fnh</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:2006.16957</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2722544</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02899170</subfield>
+    <subfield code="9">HAL</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D20-kj28z</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:2006.16957</subfield>
+    <subfield code="c">hep-ex</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">CERN-EP-2020-115</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv:reportnumber</subfield>
+    <subfield code="a">LHCb-PAPER-2020-011</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Observation of structure in the $J/\psi$-pair mass spectrum</subfield>
+  </datafield>
+  <datafield tag="710" ind1=" " ind2=" ">
+    <subfield code="g">LHCb</subfield>
+  </datafield>
+</record>
 <record>
   <controlfield tag="001">1799606</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -12,12 +242,16 @@
     <subfield code="a">oai:arXiv.org:2006.03145</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">2720229</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">DESY</subfield>
     <subfield code="z">D20-kj24af</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02886944</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2720229</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -167,6 +401,17 @@
 </record>
 <record>
   <controlfield tag="001">1792130</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1007/JHEP06(2020)110</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1007/JHEP06(2020)110</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Aaij:2020vzk</subfield>
@@ -176,16 +421,16 @@
     <subfield code="a">oai:arXiv.org:2004.10563</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">2715807</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">hal-02564619</subfield>
-    <subfield code="9">HAL</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">DESY</subfield>
     <subfield code="z">D20-kj19g</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02564619</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2715807</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -210,6 +455,12 @@
 </record>
 <record>
   <controlfield tag="001">1791633</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1007/JHEP07(2020)123</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Aaij:2020jrx</subfield>
@@ -219,16 +470,16 @@
     <subfield code="a">oai:arXiv.org:2004.08163</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">2715508</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">hal-02564582</subfield>
-    <subfield code="9">HAL</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">DESY</subfield>
     <subfield code="z">D20-kj19g</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02564582</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2715508</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -345,6 +596,17 @@
 </record>
 <record>
   <controlfield tag="001">1784890</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1103/PhysRevLett.125.011802</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevLett.125.011802</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Aaij:2020nrf</subfield>
@@ -354,16 +616,16 @@
     <subfield code="a">oai:arXiv.org:2003.04831</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">2712641</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">hal-02527129</subfield>
-    <subfield code="9">HAL</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">DESY</subfield>
     <subfield code="z">D20-kj12k</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02527129</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2712641</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -388,6 +650,17 @@
 </record>
 <record>
   <controlfield tag="001">1784811</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1007/JHEP06(2020)129</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1007/JHEP06(2020)129</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Aaij:2020mqb</subfield>
@@ -397,16 +670,16 @@
     <subfield code="a">oai:arXiv.org:2003.04352</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">2712703</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">DESY</subfield>
     <subfield code="z">D20-kj12m</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">hal-02527180</subfield>
     <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02527180</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2712703</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -422,7 +695,7 @@
     <subfield code="a">CERN-EP-2020-020</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
+    <subfield code="9">Springer</subfield>
     <subfield code="a">Search for the lepton flavour violating decay $B^+ \rightarrow K^+ \mu^- \tau^+$ using $B_{s2}^{*0}$ decays</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
@@ -518,9 +791,6 @@
     <subfield code="a">LHCB-PAPER-2019-044</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="a">CERN-EP-2020-015</subfield>
-  </datafield>
-  <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="a">LHCB-PAPER-2019-044-003</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
@@ -541,6 +811,10 @@
 </record>
 <record>
   <controlfield tag="001">1781408</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevD.102.012011</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Aaij:2020qfw</subfield>
@@ -584,6 +858,17 @@
 </record>
 <record>
   <controlfield tag="001">1779848</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1007/JHEP06(2020)136</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1007/JHEP06(2020)136</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Aaij:2020rkw</subfield>
@@ -593,16 +878,16 @@
     <subfield code="a">oai:arXiv.org:2002.05112</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="9">CDS</subfield>
-    <subfield code="a">2709407</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">hal-02491272</subfield>
-    <subfield code="9">HAL</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">DESY</subfield>
     <subfield code="z">D20-kj08j</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02491272</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">CDS</subfield>
+    <subfield code="a">2709407</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -618,8 +903,8 @@
     <subfield code="a">LHCb-PAPER-2019-045</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">Observation of a new baryon state in the $\Lambda_b^0\pi^+\pi^-$ mass spectrum</subfield>
+    <subfield code="9">Springer</subfield>
+    <subfield code="a">Observation of a new baryon state in the $ {\Lambda}_{\mathrm{b}}^0{\pi}^{+}{\pi}^{-} $ mass spectrum</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">LHCb</subfield>

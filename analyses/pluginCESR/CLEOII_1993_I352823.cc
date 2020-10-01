@@ -25,8 +25,13 @@ namespace Rivet {
       // book histos
       book(_h_x     ,3,1,1);
       book(_h_cTheta,4,1,1);
+      book(_r[0],2,1,1);
+      book(_r[1],2,1,2);
     }
 
+    bool isK0(int id) {
+      return id==310 || id==130 || abs(id)==311;
+    }
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
@@ -52,9 +57,20 @@ namespace Rivet {
 		p.children()[0].pid()==sign*321) {
 	  Dstar = p.children()[1];
 	}
+	else if(p.children()[0].pid()==sign*413 &&
+		isK0(p.children()[1].pid())) {
+	  _r[1]->fill(0.5);
+	  continue;
+      	}
+      	else if(p.children()[1].pid()==sign*413 &&
+      		isK0(p.children()[0].pid())) {
+	  _r[1]->fill(0.5);
+	  continue;
+      	}
 	else {
 	  continue;
 	}
+	_r[0]->fill(0.5);
 	if(Dstar.children().size()!=2) continue;
 	Particle pion;
 	if(Dstar.children()[0].pid()== 111 && 
@@ -86,6 +102,8 @@ namespace Rivet {
     void finalize() {
       normalize(_h_x     );
       normalize(_h_cTheta);
+      scale(_r[0],crossSection()/sumOfWeights()/picobarn);
+      scale(_r[1],crossSection()/sumOfWeights()/picobarn);
     }
 
     ///@}
@@ -94,6 +112,7 @@ namespace Rivet {
     /// @name Histograms
     ///@{
     Histo1DPtr _h_x,_h_cTheta;
+    Histo1DPtr _r[2];
     ///@}
 
 

@@ -27,6 +27,8 @@ namespace Rivet {
       book(_h_D2_x     ,1,1,1);
       book(_h_D1_cTheta,2,1,2);
       book(_h_D1_x     ,1,1,2);
+      for(unsigned int ix=0;ix<3;++ix)
+	book(_r[ix],3,1,ix+1);
     }
 
 
@@ -53,6 +55,7 @@ namespace Rivet {
 	int sign = p.pid()/p.abspid();
 	Particle Dstar;
 	if(p.children().size()!=2) continue;
+	
 	if(p.children()[0].pid()==sign*413 &&
 	   p.children()[1].pid()==-sign*211) {
 	  Dstar = p.children()[0];
@@ -61,9 +64,23 @@ namespace Rivet {
 		p.children()[0].pid()==-sign*211) {
 	  Dstar = p.children()[1];
 	}
+	else if(p.children()[0].pid()==sign*411 &&
+		p.children()[1].pid()==-sign*211) {
+	  if(p.abspid()!=idD1) _r[0]->fill(0.5);
+	  continue;
+	}
+	else if(p.children()[1].pid()==sign*411 &&
+		p.children()[0].pid()==-sign*211) {
+	  if(p.abspid()!=idD1) _r[0]->fill(0.5);
+	  continue;
+	}
 	else {
 	  continue;
 	}
+	if(p.abspid()==idD1)
+	  _r[2]->fill(0.5);
+	else
+	  _r[1]->fill(0.5);
 	if(Dstar.children().size()!=2) continue;
 	Particle pion;
 	if(Dstar.children()[0].pid()== sign*211 && 
@@ -98,7 +115,9 @@ namespace Rivet {
       normalize(_h_D2_cTheta);
       normalize(_h_D2_x     );
       normalize(_h_D1_cTheta);
-      normalize(_h_D1_x     );     
+      normalize(_h_D1_x     );
+      for(unsigned int ix=0;ix<3;++ix)
+	scale(_r[ix],crossSection()/sumOfWeights()/picobarn);
     }
 
     ///@}
@@ -107,6 +126,7 @@ namespace Rivet {
     /// @name Histograms
     ///@{
     Histo1DPtr _h_D2_cTheta,_h_D2_x,_h_D1_cTheta,_h_D1_x;
+    Histo1DPtr _r[3];
     ///@}
 
 
