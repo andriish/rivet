@@ -74,7 +74,7 @@ namespace Rivet {
     void guess(const Params & p) {
       _pop.push_back(p);
       limit01(_pop.back());
-      _fit.push_back(-1.0);
+      _fit.push_back(f(_pop.back()));
     }
 
 
