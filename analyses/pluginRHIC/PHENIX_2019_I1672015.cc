@@ -9,12 +9,13 @@
 namespace Rivet {
 
 
-  /// Drell Yan production at low masses at $\sqrt{s} = 200$ GeV
+  /// Drell Yan production at low masses at sqrt{(s) = 200 GeV
   class PHENIX_2019_I1672015 : public Analysis {
   public:
 
     /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(PHENIX_2019_I1672015);
+
 
     /// @name Analysis methods
     ///@{
@@ -43,10 +44,9 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      double sqrts_tol = 10. ;
-      if (!fuzzyEquals(sqrtS()/GeV, 200., sqrts_tol)) {
+      if (!beamEnergyMatch(200*GeV)) {
         MSG_ERROR("Incorrect beam energy used: " << sqrtS()/GeV);
-        throw Error("Unexpected sqrtS ! Only 200 GeV is supported");
+        throw UserError("Unexpected sqrtS ! Only 200 GeV is supported");
       }
       const ZFinder& zfinder = applyProjection<ZFinder>(event, "ZFinder");
       if (zfinder.particles().size() < 1) vetoEvent;

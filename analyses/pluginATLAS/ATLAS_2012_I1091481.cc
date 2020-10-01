@@ -5,13 +5,12 @@
 namespace Rivet {
 
 
+  /// Azimuthal ordering of charged hadrons
   class ATLAS_2012_I1091481 : public Analysis {
   public:
 
     /// Constructor
-    ATLAS_2012_I1091481()
-      : Analysis("ATLAS_2012_I1091481")
-    {   }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2012_I1091481);
 
 
     /// Book histograms and initialise projections before the run
@@ -24,8 +23,8 @@ namespace Rivet {
 
       // collision energy
       int isqrts = -1;
-      if (fuzzyEquals(sqrtS(), 900*GeV)) isqrts = 2;
-      if (fuzzyEquals(sqrtS(),   7*TeV)) isqrts = 1;
+      if (beamEnergyMatch(900*GeV)) isqrts = 2;
+      if (beamEnergyMatch(  7*TeV)) isqrts = 1;
       assert(isqrts > 0);
 
       book(_sE_10_100   ,isqrts, 1, 1);

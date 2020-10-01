@@ -11,9 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    CMS_2011_S8978280()
-      : Analysis("CMS_2011_S8978280")
-    { }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2011_S8978280);
 
 
     void init() {
@@ -21,7 +19,7 @@ namespace Rivet {
       declare(ufs, "UFS");
 
       // Particle distributions versus rapidity and transverse momentum
-      if (fuzzyEquals(sqrtS()/GeV, 900*GeV)){
+      if (beamEnergyMatch(900*GeV)){
         book(_h_dNKshort_dy  ,1, 1, 1);
         book(_h_dNKshort_dpT ,2, 1, 1);
         book(_h_dNLambda_dy  ,3, 1, 1);
@@ -34,7 +32,7 @@ namespace Rivet {
         book(_h_Lamy_Ky   , 9, 1, 1);
         book(_h_Xiy_Lamy  , 10, 1, 1);
 
-      } else if (fuzzyEquals(sqrtS()/GeV, 7000*GeV)){
+      } else if (beamEnergyMatch(7000*GeV)){
         book(_h_dNKshort_dy  ,1, 1, 2);
         book(_h_dNKshort_dpT ,2, 1, 2);
         book(_h_dNLambda_dy  ,3, 1, 2);

@@ -25,28 +25,24 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      // Book histograms
-      if(fuzzyEquals(sqrtS()/GeV, 14., 1e-3)) {
-	book(_h_kaon_x  ,  1,1,1);
-	book(_h_lambda_x,  4,1,1);
-	book(_h_kaon_p  ,  7,1,1);
-	book(_h_lambda_p, 10,1,1);
+      if (beamEnergyMatch(14*GeV)) {
+        book(_h_kaon_x  ,  1,1,1);
+        book(_h_lambda_x,  4,1,1);
+        book(_h_kaon_p  ,  7,1,1);
+        book(_h_lambda_p, 10,1,1);
+      } else if (beamEnergyMatch(22*GeV)) {
+        book(_h_kaon_x  ,  2,1,1);
+        book(_h_lambda_x,  5,1,1);
+        book(_h_kaon_p  ,  8,1,1);
+        book(_h_lambda_p, 11,1,1);
+      } else if (beamEnergyMatch(34*GeV)) {
+        book(_h_kaon_x  , 3,1,1);
+        book(_h_lambda_x, 6,1,1);
+        book(_h_kaon_p  , 9,1,1);
+        book(_h_lambda_p,12,1,1);
+      } else {
+        MSG_ERROR("Beam energy not supported!");
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 22., 1e-3)) {
-	book(_h_kaon_x  ,  2,1,1);
-	book(_h_lambda_x,  5,1,1);
-	book(_h_kaon_p  ,  8,1,1);
-	book(_h_lambda_p, 11,1,1);
-      }
-      else if (fuzzyEquals(sqrtS()/GeV, 34., 1e-3)) {
-	book(_h_kaon_x  , 3,1,1);
-	book(_h_lambda_x, 6,1,1);
-	book(_h_kaon_p  , 9,1,1);
-	book(_h_lambda_p,12,1,1);
-      }
-      else
-	MSG_ERROR("Beam energy not supported!");
-	
     }
 
 
@@ -59,18 +55,18 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       for (const Particle& p : apply<UnstableParticles>(event, "UFS").
-	       particles(Cuts::abspid==PID::LAMBDA or Cuts::pid==130 or Cuts::pid==310)) {
-	double xE = p.E()/meanBeamMom;
-	double modp = p.p3().mod();
-	double beta = modp/p.E();
-	if(abs(p.pid())==PID::LAMBDA) {
-	  _h_lambda_x->fill(xE,1./beta);
-	  _h_lambda_p->fill(modp,1.);
-	}
-	else {
-	  _h_kaon_x->fill(xE,1./beta);	 
-	  _h_kaon_p->fill(modp,1.);
-	}
+             particles(Cuts::abspid==PID::LAMBDA or Cuts::pid==130 or Cuts::pid==310)) {
+        double xE = p.E()/meanBeamMom;
+        double modp = p.p3().mod();
+        double beta = modp/p.E();
+        if(abs(p.pid())==PID::LAMBDA) {
+          _h_lambda_x->fill(xE,1./beta);
+          _h_lambda_p->fill(modp,1.);
+        }
+        else {
+          _h_kaon_x->fill(xE,1./beta);
+          _h_kaon_p->fill(modp,1.);
+        }
       }
     }
 

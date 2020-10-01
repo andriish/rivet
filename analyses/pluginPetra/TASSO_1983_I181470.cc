@@ -24,22 +24,20 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(FinalState(), "FS");
 
+      // Book histograms with index offsets depending on sqrt(s)
       vector<int> hist1,hist2;
-      if(fuzzyEquals(sqrtS()/GeV, 14., 1e-3)) {
-	hist1 = {19,21,23};
-	hist2 = {20,22,24};
+      if (beamEnergyMatch(14*GeV)) {
+        hist1 = {19,21,23};
+        hist2 = {20,22,24};
+      } else if (beamEnergyMatch(22*GeV)) {
+        hist1 = {25,27,11};
+        hist2 = {26,10,12};
+      } else if (beamEnergyMatch(34*GeV)) {
+        hist1 = {13,15,17};
+        hist2 = {14,16,18};
+      } else {
+        MSG_ERROR("Beam energy not supported!");
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 22., 1e-3)) {
-	hist1 = {25,27,11};
-	hist2 = {26,10,12};
-      }
-      else if (fuzzyEquals(sqrtS()/GeV, 34., 1e-3)) {
-	hist1 = {13,15,17};
-	hist2 = {14,16,18};
-      }
-      else
-	MSG_ERROR("Beam energy not supported!");
-      
       book(_h_p_pi , hist1[0],1,1);
       book(_h_p_K  , hist1[1],1,1);
       book(_h_p_p  , hist1[2],1,1);
@@ -68,21 +66,21 @@ namespace Rivet {
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
-      
+
       for (const Particle& p : fs.particles()) {
-	double xE = p.E()/meanBeamMom;
-	if(abs(p.pid())==211) {
-	  _h_p_pi->fill(p.p3().mod());
-	  _h_x_pi->fill(xE          );
-	}
-	else if(abs(p.pid())==321) {
-	  _h_p_K->fill(p.p3().mod());
-	  _h_x_K->fill(xE          );
-	}
-	else if(abs(p.pid())==2212) {
-	  _h_p_p->fill(p.p3().mod());
-	  _h_x_p->fill(xE          );
-	}
+        double xE = p.E()/meanBeamMom;
+        if(abs(p.pid())==211) {
+          _h_p_pi->fill(p.p3().mod());
+          _h_x_pi->fill(xE          );
+        }
+        else if(abs(p.pid())==321) {
+          _h_p_K->fill(p.p3().mod());
+          _h_x_K->fill(xE          );
+        }
+        else if(abs(p.pid())==2212) {
+          _h_p_p->fill(p.p3().mod());
+          _h_x_p->fill(xE          );
+        }
       }
     }
 
@@ -92,14 +90,14 @@ namespace Rivet {
 
       double fact1 = crossSection()/nanobarn/sumOfWeights();
       double fact2 = sqr(sqrtS())/GeV2*crossSection()/microbarn/sumOfWeights();
-      
-      scale(_h_p_pi, fact1); 
-      scale(_h_p_K , fact1); 
+
+      scale(_h_p_pi, fact1);
+      scale(_h_p_K , fact1);
       scale(_h_p_p , fact1);
-      
-      scale(_h_x_pi, fact2); 
-      scale(_h_x_K , fact2); 
-      scale(_h_x_p , fact2); 
+
+      scale(_h_x_pi, fact2);
+      scale(_h_x_K , fact2);
+      scale(_h_x_p , fact2);
     }
 
     //@}

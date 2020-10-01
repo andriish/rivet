@@ -11,9 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    CDF_1988_S1865951()
-      : Analysis("CDF_1988_S1865951")
-    {}
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_1988_S1865951);
 
 
     /// @name Analysis methods
@@ -27,14 +25,14 @@ namespace Rivet {
       declare(cfs, "CFS");
 
       // Book histo
-      if (fuzzyEquals(sqrtS()/GeV, 1800, 1E-3)) {
+      if (beamEnergyMatch(1800*GeV)) {
         book(_hist_pt ,1, 1, 1);
-      } else if (fuzzyEquals(sqrtS()/GeV, 630, 1E-3)) {
+      } else if (beamEnergyMatch(630*GeV)) {
         book(_hist_pt ,2, 1, 1);
       }
 
       book(_sumWTrig, "sumWTrig");
-    
+
     }
 
 

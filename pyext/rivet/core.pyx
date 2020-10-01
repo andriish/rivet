@@ -17,17 +17,19 @@ cdef class AnalysisHandler:
     def __del__(self):
         del self._ptr
 
+    def setCheckBeams(self, check):
+        self._ptr.setCheckBeams(check)
     def setIgnoreBeams(self, ignore=True):
-        self._ptr.setIgnoreBeams(ignore)
+        self.setCheckBeams(not ignore)
 
     def skipMultiWeights(self, ignore=True):
         self._ptr.skipMultiWeights(ignore)
 
-    def selectMultiWeights(self, patterns=""):
-        self._ptr.selectMultiWeights(patterns.encode('utf-8'))
+    def matchWeightNames(self, patterns=""):
+        self._ptr.matchWeightNames(patterns.encode('utf-8'))
 
-    def deselectMultiWeights(self, patterns=""):
-        self._ptr.deselectMultiWeights(patterns.encode('utf-8'))
+    def unmatchWeightNames(self, patterns=""):
+        self._ptr.unmatchWeightNames(patterns.encode('utf-8'))
 
     def setNominalWeightName(self, name=""):
         self._ptr.setNominalWeightName(name.encode('utf-8'))
@@ -122,11 +124,11 @@ cdef class Analysis:
     def __init__(self):
         raise RuntimeError('This class cannot be instantiated')
 
-    def requiredBeams(self):
-        return deref(self._ptr).requiredBeams()
+    def requiredBeamIDs(self):
+        return deref(self._ptr).requiredBeamIDs()
 
-    def requiredEnergies(self):
-        return deref(self._ptr).requiredEnergies()
+    def requiredBeamEnergies(self):
+        return deref(self._ptr).requiredBeamEnergies()
 
     def keywords(self):
         kws = deref(self._ptr).keywords()
@@ -165,11 +167,11 @@ cdef class Analysis:
     def experiment(self):
         return deref(self._ptr).experiment().decode('utf-8')
 
-    def inspireId(self):
-        return deref(self._ptr).inspireId().decode('utf-8')
+    def inspireID(self):
+        return deref(self._ptr).inspireID().decode('utf-8')
 
-    def spiresId(self):
-        return deref(self._ptr).spiresId().decode('utf-8')
+    def spiresID(self):
+        return deref(self._ptr).spiresID().decode('utf-8')
 
     def runInfo(self):
         return deref(self._ptr).runInfo().decode('utf-8')

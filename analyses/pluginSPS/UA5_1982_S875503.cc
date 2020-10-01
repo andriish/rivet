@@ -24,7 +24,7 @@ namespace Rivet {
       declare(ChargedFinalState((Cuts::etaIn(-3.5, 3.5))), "CFS");
 
       // Book histos based on pp or ppbar beams
-      if (beamIds().first == beamIds().second) {
+      if (beamIDs().first == beamIDs().second) {
         book(_hist_nch ,2,1,1);
         book(_hist_eta ,3,1,1);
       } else {
@@ -59,7 +59,7 @@ namespace Rivet {
 
     void finalize() {
       /// @todo Why the factor of 2 on Nch for ppbar?
-      if (beamIds().first == beamIds().second) {
+      if (beamIDs().first == beamIDs().second) {
         scale(_hist_nch, 1.0 / *_sumWTrig);
       } else {
         scale(_hist_nch, 0.5 / *_sumWTrig);

@@ -46,13 +46,13 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      PdgIdPair beamp = beamIds();
+      PdgIdPair beamp = beamIDs();
       const UnstableParticles& upProj = apply<UnstableParticles>(event, "upProj");
 
       // PDG code IDs used in the code: 2212 = p+, 4122 = Lc, 421 = D0, 1000822080 = Pb
       if (beamp.first == PID::PROTON && beamp.second == PID::PROTON) {
         // pp cycle
-        if (fuzzyEquals(sqrtS(), 5020*GeV)) { // pp 5.02 TeV
+        if (beamEnergyMatch(5020*GeV)) { // pp 5.02 TeV
           for (const Particle& p : upProj.particles()) {
             if (p.fromBottom()) continue;
             if (p.rap() < 0.04 && p.rap() > -0.96) {

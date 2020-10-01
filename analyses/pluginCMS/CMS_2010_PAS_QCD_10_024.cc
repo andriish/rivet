@@ -13,9 +13,10 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    CMS_2010_PAS_QCD_10_024() : Analysis("CMS_2010_PAS_QCD_10_024"),
-		       _weight_pt05_eta08(0.), _weight_pt10_eta08(0.),
-		       _weight_pt05_eta24(0.), _weight_pt10_eta24(0.) {  }
+    CMS_2010_PAS_QCD_10_024()
+      : Analysis("CMS_2010_PAS_QCD_10_024"),
+        _weight_pt05_eta08(0.), _weight_pt10_eta08(0.),
+        _weight_pt05_eta24(0.), _weight_pt10_eta24(0.) {  }
 
 
     void init() {
@@ -25,8 +26,8 @@ namespace Rivet {
       declare(ChargedFinalState((Cuts::etaIn(-2.4, 2.4) && Cuts::pT >=  1.0*GeV)), "CFS_24_10");
 
       size_t offset = 0;
-      if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) offset = 0;
-      if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) offset = 4;
+      if (beamEnergyMatch(7000*GeV)) offset = 0;
+      if (beamEnergyMatch(900*GeV)) offset = 4;
       book(_hist_dNch_deta_pt05_eta08 ,1+offset, 1, 1);
       book(_hist_dNch_deta_pt10_eta08 ,2+offset, 1, 1);
       book(_hist_dNch_deta_pt05_eta24 ,3+offset, 1, 1);

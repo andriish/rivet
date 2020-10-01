@@ -15,7 +15,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    CMS_2011_S9120041() : Analysis("CMS_2011_S9120041") {}
+    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2011_S9120041);
 
 
     void init() {
@@ -26,7 +26,7 @@ namespace Rivet {
       const FastJets jetpro(cfsforjet, FastJets::SISCONE, 0.5);
       declare(jetpro, "Jets");
 
-      if (fuzzyEquals(sqrtS(), 7.0*TeV)) {
+      if (beamEnergyMatch(7.0*TeV)) {
         book(_h_Nch_vs_pT ,1, 1, 1); // Nch vs. pT_max
         book(_h_Sum_vs_pT ,2, 1, 1); // sum(pT) vs. pT_max
         book(_h_pT3_Nch   ,5, 1, 1);   // transverse Nch,     pT_max > 3GeV
@@ -37,7 +37,7 @@ namespace Rivet {
         book(_h_pT20_pT   ,10, 1, 1);  // transverse pT,      pT_max > 20GeV
       }
 
-      if (fuzzyEquals(sqrtS(), 0.9*TeV)) {
+      if (beamEnergyMatch(0.9*TeV)) {
         book(_h_Nch_vs_pT ,3, 1, 1); // Nch vs. pT_max
         book(_h_Sum_vs_pT ,4, 1, 1); // sum(pT) vs. pT_max
         book(_h_pT3_Nch   ,11, 1, 1);  // transverse Nch,     pT_max > 3GeV
@@ -54,7 +54,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
- 
+
       // Find the lead jet, applying a restriction that the jets must be within |eta| < 2.
       FourMomentum p_lead;
       for (const Jet& j : apply<FastJets>(event, "Jets").jetsByPt(1.0*GeV)) {
@@ -80,7 +80,7 @@ namespace Rivet {
           ptSumTransverse += pT;
 
           if (pTlead > 3.0*GeV) _h_pT3_pT->fill(pT);
-          if (fuzzyEquals(sqrtS(), 7.0*TeV) && pTlead > 20.0*GeV) _h_pT20_pT->fill(pT);
+          if (beamEnergyMatch(7.0*TeV) && pTlead > 20.0*GeV) _h_pT20_pT->fill(pT);
         }
       }
 
@@ -93,7 +93,7 @@ namespace Rivet {
         sumOfWeights3->fill();
         _nch_tot_pT3->fill(nTransverse);
       }
-      if (fuzzyEquals(sqrtS(), 7.0*TeV) && pTlead > 20.0*GeV) {
+      if (beamEnergyMatch(7.0*TeV) && pTlead > 20.0*GeV) {
         _h_pT20_Nch->fill(nTransverse);
         _h_pT20_Sum->fill(ptSumTransverse);
         sumOfWeights20->fill();
@@ -109,7 +109,7 @@ namespace Rivet {
       normalize(_h_pT3_Sum);
       if (sumOfWeights3->val() != 0.0) normalize(_h_pT3_pT, *_nch_tot_pT3 / *sumOfWeights3);
 
-      if (fuzzyEquals(sqrtS(), 7.0*TeV)) {
+      if (beamEnergyMatch(7.0*TeV)) {
         normalize(_h_pT20_Nch);
         normalize(_h_pT20_Sum);
         if (sumOfWeights20->val() != 0.0) normalize(_h_pT20_pT, *_nch_tot_pT20 / *sumOfWeights20);
@@ -141,4 +141,3 @@ namespace Rivet {
   // This global object acts as a hook for the plugin system
   DECLARE_RIVET_PLUGIN(CMS_2011_S9120041);
 }
-

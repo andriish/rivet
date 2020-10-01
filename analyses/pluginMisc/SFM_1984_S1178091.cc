@@ -18,20 +18,20 @@ namespace Rivet {
 
     void init() {
       // Projections
-      // 
+      //
       declare(ChargedFinalState(Cuts::absrap<5 && Cuts::pT>250*MeV && Cuts::pT<3*GeV), "FS");
 
       // Histograms
-      if (fuzzyEquals(sqrtS()/GeV, 30.4, 1E-1)) {
+      if (beamEnergyMatch(30.4*GeV)) {
         book(_hist_multiplicity_inel ,1, 1, 1);
         book(_hist_multiplicity_nsd ,2, 1, 1);
-      } else if (fuzzyEquals(sqrtS(), 44.5, 1E-1)) {
+      } else if (beamEnergyMatch(44.5*GeV)) {
         book(_hist_multiplicity_inel ,1, 1, 2);
         book(_hist_multiplicity_nsd ,2, 1, 2);
-      } else if (fuzzyEquals(sqrtS(), 52.2, 1E-1)) {
+      } else if (beamEnergyMatch(52.2*GeV)) {
         book(_hist_multiplicity_inel ,1, 1, 3);
         book(_hist_multiplicity_nsd ,2, 1, 3);
-      } else if (fuzzyEquals(sqrtS(), 62.2, 1E-1)) {
+      } else if (beamEnergyMatch(62.2*GeV)) {
         book(_hist_multiplicity_inel ,1, 1, 4);
         book(_hist_multiplicity_nsd ,2, 1, 4);
       }
@@ -46,7 +46,7 @@ namespace Rivet {
       // Trigger
       if (fs.particles().size() <1 ) vetoEvent;
 
-      // Event classification: 
+      // Event classification:
       int n_left(0), n_right(0), n_large_x(0);
       for (const Particle& p : fs.particles()) {
         // Calculate the particles' Feynman x
@@ -62,7 +62,7 @@ namespace Rivet {
                 << "N_right: " << n_right << ", "
                 << "N_large_x: " << n_large_x);
 
-      
+
       // Single diffractive: either one large x particle or 0 particles in the one hemisphere but more than 7 in the other hemisphere
       bool isDiffractive = (n_large_x == 1) ||  ( ((n_left==0) && (fs.particles().size() < 7)) || ((n_right==0) && (fs.particles().size() < 7)) );
 

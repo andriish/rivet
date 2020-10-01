@@ -8,7 +8,7 @@
 namespace Rivet {
 
 
-  /// @brief jet masses for 14, 22, 34.8 and 43,5 GeV
+  /// @brief Jet masses for 14, 22, 34.8 and 43,5 GeV
   class TASSO_1989_I279165 : public Analysis {
   public:
 
@@ -24,22 +24,18 @@ namespace Rivet {
 
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
-      // Thrust
       const Thrust thrust(cfs);
       declare(thrust, "Thrust");
       declare(Hemispheres(thrust), "Hemispheres");
-      
+
+      // Compute histogram indexes from beam energy
       int offset = 0;
-      if (fuzzyEquals(sqrtS()/GeV,14.,1e-3 ))
-	offset=1;
-      else if(fuzzyEquals(sqrtS()/GeV, 22.0, 1e-2))
-	offset=2;
-      else if(fuzzyEquals(sqrtS()/GeV,34.8,1e-3 ))
-	offset=3;
-      else if(fuzzyEquals(sqrtS()/GeV,43.5,1e-2))
-	offset=4;
-      else
-	MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
+      if      (beamEnergyMatch(14.0*GeV)) offset=1;
+      else if (beamEnergyMatch(22.0*GeV)) offset=2;
+      else if (beamEnergyMatch(34.8*GeV)) offset=3;
+      else if (beamEnergyMatch(43.5*GeV)) offset=4;
+      else MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
+
       // Book histograms
       book(_h_diff , 1, 1, offset);
       book(_h_heavy, 2, 1, offset);
@@ -65,7 +61,7 @@ namespace Rivet {
     void finalize() {
       normalize(_h_diff );
       normalize(_h_heavy);
-      normalize(_h_light); 
+      normalize(_h_light);
     }
     //@}
 

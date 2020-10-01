@@ -10,6 +10,41 @@
 
 	* Submission of ATLAS_2019_I1762584 and ATLAS_2019_I1772062
 
+2020-08-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add re-setting of null cross-section to 1e-10 pb before finalize, to allow reweighting.
+
+	* Fix handling of no-weights and no-xsec events.
+
+	* Detect events with no beam particles, and allow their use with explicit beam-check disabling.
+
+2020-08-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add AnalysisHandler::runBeamEnergies() and
+	Analysis::beamEnergies(), beamEnergies(const ParticlePair&), and
+	energies(const ParticlePair&) and moms(const ParticlePair&).
+
+2020-08-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Using beamEnergyMatch for standardised beam-energy checking in analyses.
+
+2020-08-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Rationalising Id -> ID naming in ParticleName and Analysis & AnalysisHandler interfaces. PdgId next...
+
+2020-08-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use a common set of standalone functions, via explicitly named
+	user-facing methods, for Analysis and AnalysisHandler checks on
+	permitted and expected beams.
+
+	* Remove Projection beam constraint functionality.
+
+	* Rework Tools/BeamConstraints.hh functions with more explicit
+	names and PID + energy coverage.
+
+	* Move standalone beam methods out of Projections/Beam.hh.
+
 2020-08-06  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add warnings and physicality checks to PartonicTops

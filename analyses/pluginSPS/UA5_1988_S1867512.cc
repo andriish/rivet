@@ -19,9 +19,7 @@ namespace Rivet {
   class UA5_1988_S1867512 : public Analysis {
   public:
 
-    UA5_1988_S1867512()
-      : Analysis("UA5_1988_S1867512")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(UA5_1988_S1867512);
 
 
     /// @name Analysis methods
@@ -54,14 +52,14 @@ namespace Rivet {
       declare(ChargedFinalState((Cuts::etaIn(-4.0, -3.0))), "CFS40B");
 
       // Histogram booking, we have sqrt(s) = 200, 546 and 900 GeV
-      // TODO use Scatter2D to be able to output errors
-      if (fuzzyEquals(sqrtS()/GeV, 200.0, 1E-4)) {
+      /// @todo: Use Scatter2D to be able to output errors
+      if (beamEnergyMatch(200*GeV)) {
         book(_hist_correl, 2, 1, 1);
         book(_hist_correl_asym, 3, 1, 1);
-      } else if (fuzzyEquals(sqrtS()/GeV, 546.0, 1E-4)) {
+      } else if (beamEnergyMatch(546*GeV)) {
         book(_hist_correl, 2, 1, 2);
         book(_hist_correl_asym, 3, 1, 2);
-      } else if (fuzzyEquals(sqrtS()/GeV, 900.0, 1E-4)) {
+      } else if (beamEnergyMatch(900*GeV)) {
         book(_hist_correl, 2, 1, 3);
         book(_hist_correl_asym, 3, 1, 3);
       }

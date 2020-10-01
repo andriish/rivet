@@ -1,6 +1,6 @@
 Name: STAR_2017_I1510593
 Year: 2017
-Summary: Bulk Properties of the medium produced in Relativistic Heavy-Ion Collisions from the Beam Energy Scan Program
+Summary: Bulk properties of the medium produced in relativistic heavy-ion collisions from the STAR beam-energy scan program
 Experiment: STAR
 Collider: RHIC
 InspireID: 1510593
@@ -22,10 +22,10 @@ Beams: [1000791970, 1000791970]
 Energies: [1516.9, 2265.5, 3861.2, 5319, 7683]
 Reentrant: True
 Description:
-  'Results of measurements of bulk properties of the matter in Au+Au 
+  'Results of measurements of bulk properties of the matter in Au+Au
    collisions at energies of the Beam Energy Scan program, using
-   pions, kaons and protons identified : $\frac{dN}{dy}$ spectras, 
-   $\langle \pT \rangle$ spectras and particles ratios are shown.'  
+   pions, kaons and protons identified : $\frac{dN}{dy}$ spectras,
+   $\langle \pT \rangle$ spectras and particles ratios are shown.'
 BibKey: Adamczyk:2017iwn
 BibTeX: '@article{Adamczyk:2017iwn,
       author         = "Adamczyk, L. and others",

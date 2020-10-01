@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Average multiplcity at a range of energies
+  /// Average particle multiplicity at a range of energies
   class JADE_1983_I190818 : public Analysis {
   public:
 
@@ -20,12 +20,9 @@ namespace Rivet {
     void init() {
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
-      if( !(fuzzyEquals(sqrtS()/GeV,12.0) ||
-	    fuzzyEquals(sqrtS()/GeV,30.0) ||
-	    fuzzyEquals(sqrtS()/GeV,35.0) )) {
+      if (!beamEnergyMatch(12*GeV) || beamEnergyMatch(30*GeV) || beamEnergyMatch(35*GeV))
         MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
                     << " doesn't match any available analysis energy .");
-      }
       book(_counter, "/TMP/MULT");
       book(_mult, 1, 1, 1);
     }
@@ -45,9 +42,9 @@ namespace Rivet {
 
       double val = _counter->val();
       double err = _counter->err();
-      
+
       Scatter2D tempScat(refData(1, 1, 1));
-      
+
       for (size_t b = 0; b < tempScat.numPoints(); b++) {
         const double x  = tempScat.point(b).x();
         pair<double,double> ex = tempScat.point(b).xErrs();

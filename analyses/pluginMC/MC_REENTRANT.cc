@@ -38,16 +38,16 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      if (fuzzyEquals(sqrtS()/GeV, 900))
+      if (beamEnergyMatch(900*GeV))
         fill09 = true;
-      else if (fuzzyEquals(sqrtS()/GeV, 7000))
+      else if (beamEnergyMatch(7000*GeV))
         fill70 = true;
 
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       for (const Particle& p : cfs.particles()) {
-        if (fuzzyEquals(sqrtS()/GeV, 900))
+        if (beamEnergyMatch(900*GeV))
           _histEta09->fill(p.eta());
-        else if (fuzzyEquals(sqrtS()/GeV, 7000))
+        else if (beamEnergyMatch(7000*GeV))
           _histEta70->fill(p.eta());
       }
     }
@@ -73,7 +73,7 @@ namespace Rivet {
     //@}
 
     bool fill09, fill70;
-    
+
   };
 
 

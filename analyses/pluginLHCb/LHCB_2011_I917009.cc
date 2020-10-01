@@ -8,9 +8,6 @@ namespace Rivet {
   class LHCB_2011_I917009 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
     LHCB_2011_I917009()
       : Analysis("LHCB_2011_I917009"),
@@ -20,10 +17,6 @@ namespace Rivet {
         rap_max(0.0), dsShift(0)
     {   }
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{
@@ -32,11 +25,11 @@ namespace Rivet {
     void init() {
       int y_nbins = 4;
       fillMap(partLftMap);
-      if (fuzzyEquals(sqrtS(), 0.9*TeV)) {
+      if (beamEnergyMatch(0.9*TeV)) {
         rap_beam = 6.87;
         rap_max = 4.;
         pt_min = 0.25;
-      } else if (fuzzyEquals(sqrtS(), 7*TeV)) {
+      } else if (beamEnergyMatch(7*TeV)) {
         rap_beam = 8.92;
         rap_max = 4.5;
         pt_min = 0.15;
@@ -50,7 +43,7 @@ namespace Rivet {
       for (size_t i = 0; i < 12; ++i)  book(_tmphistos[i], "TMP/"+to_str(i), y_nbins, rap_min, rap_max);
       for (size_t i = 12; i < 15; ++i) book(_tmphistos[i], "TMP/"+to_str(i), refData(dsShift+5, 1, 1));
       for (size_t i = 15; i < 18; ++i) book(_tmphistos[i], "TMP/"+to_str(i), y_nbins, rap_beam - rap_max, rap_beam - rap_min);
- 
+
       int dsId = dsShift + 1;
       for (size_t j = 0; j < 3; ++j) {
         book(s1[j], dsId, 1, j+1);
@@ -168,9 +161,9 @@ namespace Rivet {
       ConstGenParticlePtr part = p.genParticle();
       ConstGenVertexPtr ivtx = part->production_vertex();
       while (ivtx) {
-        
+
           vector<ConstGenParticlePtr> part_in = HepMCUtils::particles(ivtx, Relatives::PARENTS);
-        
+
           if (part_in.size() < 1) { lftSum = -1.; break; };
           ConstGenParticlePtr part = part_in.at(0);//(*iPart_invtx);
           if ( !(part) ) { lftSum = -1.; break; };

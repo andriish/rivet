@@ -61,8 +61,8 @@ namespace Rivet {
     TRY_GETINFO("Experiment", experiment);
     TRY_GETINFO("Collider", collider);
     TRY_GETINFO("Year", year);
-    TRY_GETINFO("SpiresID", spiresId);
-    TRY_GETINFO("InspireID", inspireId);
+    TRY_GETINFO("SpiresID", spiresID);
+    TRY_GETINFO("InspireID", inspireID);
     TRY_GETINFO("BibKey", bibKey);
     TRY_GETINFO("BibTeX", bibTeX);
     TRY_GETINFO_DBL_DEFAULT("Luminosity_fb", luminosityfb, -1);

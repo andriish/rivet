@@ -22,14 +22,8 @@ namespace Rivet {
   class CDF_2004_S5839831 : public Analysis {
   public:
 
-    /// Constructor: cuts on charged final state are \f$ -1 < \eta < 1 \f$
-    /// and \f$ p_T > 0.4 \f$ GeV.
-    CDF_2004_S5839831()
-      : Analysis("CDF_2004_S5839831")
-    {    }
-
-
-  private:
+    /// Constructor
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2004_S5839831);
 
 
     /// @cond CONEUE_DETAIL
@@ -114,7 +108,7 @@ namespace Rivet {
       declare(FastJets(cheesefs, FastJets::CDFJETCLU, 0.7), "CheeseJets");
 
       // Book histograms
-      if (fuzzyEquals(sqrtS()/GeV, 1800, 1E-3)) {
+      if (beamEnergyMatch(1800*GeV)) {
         book(_pt90MaxAvg1800 ,1, 1, 1);
         book(_pt90MinAvg1800 ,1, 1, 2);
         book(_pt90Max1800 ,2, 1, 1);
@@ -132,7 +126,7 @@ namespace Rivet {
         book(_pt90Dbn1800Et200 ,3, 1, 5);
         book(_numTracksDbn1800MB ,5, 1, 1);
         book(_ptDbn1800MB ,6, 1, 1);
-      } else if (fuzzyEquals(sqrtS()/GeV, 630, 1E-3)) {
+      } else if (beamEnergyMatch(630*GeV)) {
         book(_pt90Max630 ,8, 1, 1);
         book(_pt90Min630 ,8, 1, 2);
         book(_pt90Diff630 ,8, 1, 3);
@@ -301,7 +295,7 @@ namespace Rivet {
     void finalize() {
       /// @todo Take these normalisations from the data histo (it can't come from just the MC)
 
-      if (fuzzyEquals(sqrtS()/GeV, 1800, 1E-3)) {
+      if (beamEnergyMatch(1800*GeV)) {
         // Normalize to actual number of entries in pT dbn histos...
         normalize(_pt90Dbn1800Et40,  1656.75); // norm OK
         normalize(_pt90Dbn1800Et80,  4657.5); // norm OK
@@ -311,10 +305,10 @@ namespace Rivet {
       }
 
       // ...and for min bias distributions:
-      if (fuzzyEquals(sqrtS()/GeV, 1800, 1E-3)) {
+      if (beamEnergyMatch(1800*GeV)) {
         normalize(_numTracksDbn1800MB, 309718.25); // norm OK
         normalize(_ptDbn1800MB, 33600.0); // norm OK
-      } else if (fuzzyEquals(sqrtS()/GeV, 630, 1E-3)) {
+      } else if (beamEnergyMatch(630*GeV)) {
         normalize(_numTracksDbn630MB, 1101024.0); // norm OK
         normalize(_ptDbn630MB, 105088.0); // norm OK
       }

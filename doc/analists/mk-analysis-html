@@ -87,12 +87,12 @@ for aname in sorted(list(all_analyses)):
     page += "<h3 id='%s'>%s</h3>\n" % (aname, aname)
     page += "<b>%s</b><br/>\n" %  htmlify(ana.summary())
     page += "<b>Experiment:</b> %s (%s)<br/>\n" % (ana.experiment(), ana.collider())
-    if ana.inspireId():
-        url = "https://inspirehep.net/literature/{}".format(ana.inspireId())
-        page += "<b>Inspire ID:</b> <a href='%s'>%s</a><br/>\n" % (url, ana.inspireId())
-    elif ana.spiresId():
-        url = "https://inspirehep.net/literature?q={}".format(ana.spiresId())
-        page += "<b>Spires ID:</b> <a href='%s'>%s</a><br/>\n" % (url, ana.spiresId())
+    if ana.inspireID():
+        url = "https://inspirehep.net/literature/{}".format(ana.inspireID())
+        page += "<b>Inspire ID:</b> <a href='%s'>%s</a><br/>\n" % (url, ana.inspireID())
+    elif ana.spiresID():
+        url = "https://inspirehep.net/literature?q={}".format(ana.spiresID())
+        page += "<b>Spires ID:</b> <a href='%s'>%s</a><br/>\n" % (url, ana.spiresID())
     page += "<b>Status:</b> %s<br/>\n" % ana.status()
 
     ## Authors
@@ -132,7 +132,7 @@ for aname in sorted(list(all_analyses)):
         page += "<b>No references listed</b><br/>\n"
 
     ## Beams
-    if ana.requiredBeams():
+    if ana.requiredBeamIDs():
         def pid_to_str(pid):
             if pid == 11:
                 return "e-"
@@ -147,13 +147,13 @@ for aname in sorted(list(all_analyses)):
             else:
                 return str(pid)
         beamstrs = []
-        for bp in ana.requiredBeams():
+        for bp in ana.requiredBeamIDs():
             beamstrs.append(pid_to_str(bp[0]) + " " + pid_to_str(bp[1]))
         page += "<b>Beams:</b> %s<br/>\n" % ", ".join(beamstrs)
 
     page += "<b>Beam energies:</b> "
-    if ana.requiredEnergies():
-        page += "; ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.requiredEnergies()])
+    if ana.requiredBeamEnergies():
+        page += "; ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.requiredBeamEnergies()])
         page += "&nbsp;GeV"
     else:
         page += "ANY"

@@ -18,9 +18,9 @@ namespace Rivet {
 
       // Book (energy-specific) histograms
       int isqrts = -1;
-      if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) isqrts = 1;
-      else if (fuzzyEquals(sqrtS()/GeV, 2760, 1E-3)) isqrts = 2;
-      else if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) isqrts = 3;
+      if (beamEnergyMatch(900*GeV)) isqrts = 1;
+      else if (beamEnergyMatch(2760*GeV)) isqrts = 2;
+      else if (beamEnergyMatch(7000*GeV)) isqrts = 3;
       assert(isqrts > 0);
 
       book(_h_frac_sd_inel, 1, 1, isqrts);

@@ -23,7 +23,7 @@ namespace Rivet {
       declare(ChargedFinalState(), "CFS");
       declare(Beam(),"Beam");
 
-      switch ( beamIds().first ) {
+      switch ( beamIDs().first ) {
       case PID::PIPLUS:
         book(_h_cpos_xF ,1, 1, 1);
         book(_h_cpos_eta ,3, 1, 1);

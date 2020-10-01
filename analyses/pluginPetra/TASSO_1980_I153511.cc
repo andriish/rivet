@@ -20,28 +20,22 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      declare(Beam(), "Beams");
 
+      // Projections
+      declare(Beam(), "Beams");
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
-      
-      // Thrust and sphericity
       declare(Sphericity(cfs), "Sphericity");
-      // Book histograms
-      unsigned int ihist=0;
-      if      (fuzzyEquals(sqrtS()/GeV, 12., 1e-3)) {
-	ihist=1;
-      }
-      else if (fuzzyEquals(sqrtS()/GeV, 30., 1e-3)) {
-	ihist=2;
-      }
-      else
-	MSG_ERROR("Beam energy not supported!");
 
+      // Book histograms
+      unsigned int ihist = 0;
+      if      (fuzzyEquals(sqrtS()/GeV, 12., 1e-3)) ihist=1;
+      else if (fuzzyEquals(sqrtS()/GeV, 30., 1e-3)) ihist=2;
+      else MSG_ERROR("Beam energy not supported!");
+      //
       book(_h_S ,   ihist, 1, 1);
       book(_h_A , 2+ihist, 1, 1);
       book(_h_x , 4+ihist, 1, 1);
-
     }
 
 

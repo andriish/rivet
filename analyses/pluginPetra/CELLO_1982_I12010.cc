@@ -18,24 +18,18 @@ namespace Rivet {
     //@{
 
     /// Book histograms and initialise projections before the run
-    void init() {      
+    void init() {
       // Initialise and register projections
       declare(FinalState(), "FS");
 
       // Book histograms
       unsigned int iloc(0);
-      if(fuzzyEquals(sqrtS()/GeV, 22., 1e-3)) {
-	iloc=1;
-      }
-      else if (fuzzyEquals(sqrtS()/GeV, 34., 1e-3)) {
-	iloc=2;
-      }
-      else
-	MSG_ERROR("Beam energy not supported!");
+      if      (beamEnergyMatch(22*GeV)) iloc=1;
+      else if (beamEnergyMatch(34*GeV)) iloc=2;
+      else MSG_ERROR("Beam energy not supported!");
       book(_histEEC  , 1, 1, iloc);
       book(_histAEEC , 3, 1, iloc);
       book(_weightSum, "TMP/weightSum");
-
     }
 
 
@@ -66,7 +60,7 @@ namespace Rivet {
           const double energy_j = p_j->momentum().E();
           const double thetaij = mom3_i.unit().angle(mom3_j.unit());
           double eec = (energy_i*energy_j) / Evis2;
-	  if(p_i != p_j) eec *= 2.;
+          if(p_i != p_j) eec *= 2.;
           _histEEC->fill(thetaij, eec);
           if (thetaij <0.5*M_PI)
             _histAEEC->fill( thetaij, -eec);

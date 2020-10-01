@@ -23,21 +23,12 @@ namespace Rivet {
       declare(FinalState(), "FS");
 
       // Book histograms
-      unsigned int iloc(0);
-      if(fuzzyEquals(sqrtS()/GeV, 14., 1e-2)) {
-	iloc=1;
-      }
-      else if (fuzzyEquals(sqrtS()/GeV, 22., 1e-2)) {
-	iloc=2;
-      }
-      else if (fuzzyEquals(sqrtS()/GeV, 34.8, 1e-2)) {
-	iloc=3;
-      }
-      else if (fuzzyEquals(sqrtS()/GeV, 43.5, 1e-2)) {
-	iloc=4;
-      }
-      else
-	MSG_ERROR("Beam energy not supported!");
+      unsigned int iloc = 0;
+      if      (beamEnergyMatch(14.0*GeV)) iloc = 1;
+      else if (beamEnergyMatch(22.0*GeV)) iloc = 2;
+      else if (beamEnergyMatch(34.8*GeV)) iloc = 3;
+      else if (beamEnergyMatch(43.5*GeV)) iloc = 4;
+      else MSG_ERROR("Beam energy not supported!");
       book(_histEEC, iloc, 1, 1);
       book(_weightSum, "TMP/weightSum");
     }
@@ -70,7 +61,7 @@ namespace Rivet {
           const double energy_j = p_j->momentum().E();
           const double cosij = dot(mom3_i.unit(), mom3_j.unit());
           double eec = (energy_i*energy_j) / Evis2;
-	  if(p_i != p_j) eec *= 2.;
+          if(p_i != p_j) eec *= 2.;
           _histEEC->fill(cosij, eec);
         }
       }

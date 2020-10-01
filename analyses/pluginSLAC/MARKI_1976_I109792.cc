@@ -21,20 +21,13 @@ namespace Rivet {
       const ChargedFinalState fs;
       declare(fs, "FS");
       unsigned int iloc(0);
-      if(fuzzyEquals(sqrtS()/GeV, 3.0 , 1E-3))
-	iloc = 8;
-      else if(fuzzyEquals(sqrtS()/GeV, 4.8 , 1E-3))
-	iloc = 7;
-      else if(fuzzyEquals(sqrtS()/GeV, 5.8 , 1E-3))
-	iloc = 6;
-      else if(fuzzyEquals(sqrtS()/GeV, 6.2 , 1E-3))
-	iloc = 5;
-      else if(fuzzyEquals(sqrtS()/GeV, 6.6 , 1E-3))
-	iloc = 4;
-      else if(fuzzyEquals(sqrtS()/GeV, 7.0 , 1E-3))
-	iloc = 3;
-      else if(fuzzyEquals(sqrtS()/GeV, 7.4 , 1E-3))
-	iloc = 2;
+      if      (beamEnergyMatch(3.0*GeV)) iloc = 8;
+      else if (beamEnergyMatch(4.8*GeV)) iloc = 7;
+      else if (beamEnergyMatch(5.8*GeV)) iloc = 6;
+      else if (beamEnergyMatch(6.2*GeV)) iloc = 5;
+      else if (beamEnergyMatch(6.6*GeV)) iloc = 4;
+      else if (beamEnergyMatch(7.0*GeV)) iloc = 3;
+      else if (beamEnergyMatch(7.4*GeV)) iloc = 2;
       assert(iloc!=0);
       book(_h_x, iloc   ,1,1);
     }
@@ -44,13 +37,13 @@ namespace Rivet {
     void analyze(const Event& event) {
       const ChargedFinalState& fs = apply<ChargedFinalState>(event, "FS");
       if(fs.particles().size()==2 &&
-	 abs(fs.particles()[0].pid())==13 &&
-	 abs(fs.particles()[1].pid())==13) vetoEvent;
+         fs.particles()[0].abspid()==PID::MUON &&
+         fs.particles()[1].abspid()==PID::MUON) vetoEvent;
       for (const Particle& p : fs.particles()) {
-	const Vector3 mom3 = p.p3();
-	double pp = mom3.mod();
-	double x = 2.*pp/sqrtS();
-	_h_x->fill(x);
+        const Vector3 mom3 = p.p3();
+        double pp = mom3.mod();
+        double x = 2.*pp/sqrtS();
+        _h_x->fill(x);
       }
     }
 

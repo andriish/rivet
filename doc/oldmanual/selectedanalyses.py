@@ -97,7 +97,7 @@ for aname in sorted(list(analyses)):
     for para in ana.description().split("\n\n"):
         page += "\n\\noindent " + para + "\n\n"
 
-    if ana.requiredBeams():
+    if ana.requiredBeamIDs():
         def pid_to_str(pid):
             if pid == 11:
                 return "$e^-$"
@@ -112,25 +112,25 @@ for aname in sorted(list(analyses)):
             else:
                 return str(pid)
         beamstrs = []
-        for bp in ana.requiredBeams():
+        for bp in ana.requiredBeamIDs():
             beamstrs.append(pid_to_str(bp[0]) + "\\," + pid_to_str(bp[1]))
         page += "\\noindent\\textsc{Beams:} %s \\newline\n" % ", ".join(beamstrs)
-    if ana.requiredEnergies():
+    if ana.requiredBeamEnergies():
         page += "\\textsc{Energies:} %s GeV \\newline\n" % \
-            ", ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.requiredEnergies()])
+            ", ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.requiredBeamEnergies()])
     if ana.experiment():
         page += "\\textsc{Experiment:} %s" % ana.experiment()
         if ana.collider():
             page += " (%s)" % ana.collider()
         page += "\\newline\n"
-    if ana.inspireId():
+    if ana.inspireID():
         spiresbase = "http://inspire-hep.net/record"
         page += "\\textsc{Inspire ID:} \\href{%s+%s}{%s}\\newline\n" % \
-            (spiresbase, ana.inspireId(), ana.inspireId())
-    elif ana.spiresId():
+            (spiresbase, ana.inspireID(), ana.inspireID())
+    elif ana.spiresID():
         spiresbase = "http://inspire-hep.net/search?p=find+key"
         page += "\\textsc{Spires ID:} \\href{%s+%s}{%s}\\newline\n" % \
-            (spiresbase, ana.spiresId(), ana.spiresId())
+            (spiresbase, ana.spiresID(), ana.spiresID())
     page += "\\textsc{Status:} %s\\newline\n" % ana.status()
 
     if ana.authors():

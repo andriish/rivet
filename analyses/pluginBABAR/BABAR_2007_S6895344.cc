@@ -36,7 +36,7 @@ namespace Rivet {
       const FourMomentum mom_tot = beams.first.momentum() + beams.second.momentum();
       const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(mom_tot.betaVec());
       const double s = sqr(beamproj.sqrtS());
-      const bool onresonance = fuzzyEquals(beamproj.sqrtS(), 10.58, 2E-3);
+      const bool onresonance = fuzzyEquals(beamproj.sqrtS(), 10.58*GeV, 2E-3);
 
       // Particle masses from PDGlive (accessed online 16. Nov. 2009).
       for (const Particle& p : ufs.particles()) {

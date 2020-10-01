@@ -8,18 +8,9 @@ namespace Rivet {
   class ALICE_2010_S8624100 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
-    ALICE_2010_S8624100()
-      : Analysis("ALICE_2010_S8624100")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2010_S8624100);
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{
@@ -34,11 +25,11 @@ namespace Rivet {
       declare(cfs10, "CFS10");
       declare(cfs13, "CFS13");
 
-      if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
+      if (beamEnergyMatch(900*GeV)) {
         book(_h_dN_dNch_05    ,11, 1, 1);
         book(_h_dN_dNch_10    ,12, 1, 1);
         book(_h_dN_dNch_13    ,13, 1, 1);
-      } else if (fuzzyEquals(sqrtS()/GeV, 2360, 1E-3)) {
+      } else if (beamEnergyMatch(2360*GeV)) {
         book(_h_dN_dNch_05    ,17, 1, 1);
         book(_h_dN_dNch_10    ,18, 1, 1);
         book(_h_dN_dNch_13    ,19, 1, 1);
@@ -49,7 +40,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-       const ChargedFinalState& charged_05 = apply<ChargedFinalState>(event, "CFS05");
+      const ChargedFinalState& charged_05 = apply<ChargedFinalState>(event, "CFS05");
       const ChargedFinalState& charged_10 = apply<ChargedFinalState>(event, "CFS10");
       const ChargedFinalState& charged_13 = apply<ChargedFinalState>(event, "CFS13");
 

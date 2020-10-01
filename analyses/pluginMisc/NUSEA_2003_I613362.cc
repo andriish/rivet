@@ -64,8 +64,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double sqrts_tol = 10.;
-      if (!fuzzyEquals(sqrtS()/GeV, 38.8, sqrts_tol)) {
+      if (!beamEnergyMatch(38.8*GeV)) {
         MSG_ERROR("Incorrect beam energy used: " << sqrtS()/GeV);
         throw Error("Unexpected sqrtS ! Only 38.8 GeV is supported");
       }
