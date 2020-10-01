@@ -23,7 +23,7 @@ Energies: [13000]
 PtCuts: [300]
 Description:
     'Jet substructure quantities are measured using jets groomed with the soft-drop grooming procedure in dijet events from
-    32.9 fb$^{-1}$ of $pp$ collisions collected with the ATLAS detector at $\sqrt{s} = 13$ TeV. These observables are sensitive 
+    32.9 fb$^{-1}$ of $pp$ collisions collected with the ATLAS detector at $\sqrt{s} = 13$ TeV. These observables are sensitive 
     to a wide range of QCD phenomena. Some observables, such as the jet mass and opening angle between the two subjets which 
     pass the soft-drop condition, can be described by a high-order (resummed) series in the strong coupling constant $\alpha_s$. 
     Other observables, such as the momentum sharing between the two subjets, are nearly independent of $\alpha_s$. 
