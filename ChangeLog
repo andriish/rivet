@@ -39,6 +39,10 @@
 
 	* Allow user to specify nominal weight. Also do not write out weight name it skip weights is selected
 
+2020-07-13 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add SND_2020_I1806118 e+e- > K+K-pi0
+
 2020-07-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Release 3.1.2
@@ -61,6 +65,23 @@
 	projections. Currently each AnalysisHandler need sto be created
 	and run completely within the same separate thread.
 
+2020-06-19 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2015_I1377201 azimuthal asymmetries
+
+2020-06-16 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2019_I1718551 double differential in z and pT
+	* Add BELLE_2020_I1777678 scaled momentum dists
+
+2020-06-15 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2020_I1800404 charged particle mult in J/psi, chi_c decays
+
+2020-06-12 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add SND_2020_I1800477 e+e- > eta pi0 gamma
+
 2020-06-11  Christian Gutschow  <chris.g@cern.ch>
 
 	* Allow + and - in AO paths
@@ -82,10 +103,18 @@
 	* Add ATLAS_2018_I163527 (W+jets at 8 TeV)
 	* Add InvisibleFinalState projection
 
+2020-05-21 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CELLO_1992_I345437 gamma gamma > pi+ pi-
+
 2020-05-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* HTML sectioning and float/overflow/scrollbar improvements in
 	rivet-mkhtml output.
+
+2020-05-13 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2020_I1795949 e+e- > Ds(*) Ds1
 
 2020-05-08  Andy Buckley  <andy.buckley@cern.ch>
 
@@ -193,6 +222,15 @@
 
 	* Teach plotting scripts how to treat a specific variation as though it was the nominal
 
+2020-04-02  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add missing rates to various analyses
+
+2020-04-02  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add PDG_R, compilation of measurements of R
+	* Add SND_2020_I1789269 e+e- > pi+pi-
+
 2020-04-01  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add a public AnalysisHandler::getYodaAOs() function and use it to implement writeData().
@@ -201,6 +239,48 @@
 
 	* Fix band combination in rivet-cmphistos
 
+2020-04-01  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2017_I1607562, hadron spectra
+	* Add BELLE_2018_I1698390 Xi_c+->Xi-pi+pi+
+
+2020-03-31  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2005_I686014 charm hadrons
+	* Add BESIII_2020_I1788734 eta' phi
+	* Add BELLE_2006_I725750 tau -> phi K
+
+2020-03-30  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2006_I724557 Omega_c* production
+
+2020-03-29  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add distributions to BESIII_2020_I1775344
+
+2020-03-27  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CLEOC_2008_I779705 D0 -> eta pi+pi-
+
+2020-03-26  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add rates to BELLE_2017_I1606201
+	* Add rates to CLEO analyses
+	* Add BELLE_2004_I668024, Sigma_c(2800)
+
+2020-03-25  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2014_I1286317 antideutron production
+
+2020-03-23  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2020_I1769654 e+e- > KS0 KL0
+	* Add BESIII_2020_I1775344 e+e- > K+K- 2pi0
+
+2020-03-22  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CLEOC_2006_I1728043 eta, eta', phi in D decays
+
 2020-03-18  Christian Gutschow  <chris.g@cern.ch>
 
 	* Allow "Nominal" as a potential default weight name
@@ -208,7 +288,7 @@
 2020-03-16  Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add ARGUS_1990_I283027 anti-deuteron spectrum in Upsilon(1S) decays
-	* Add ARGUS_1990_I283027 Delta++ spectrum in Upsilon(1S) decays
+	* Add ARGUS_1989_I278932 Delta++ spectrum in Upsilon(1S) decays
 
 2020-03-12  Peter Richardson <peter.richardson@durham.ac.uk>
 
@@ -239,12 +319,6 @@
 
 	* Add BELLE_2010_I835104 B-> eta Xs
 	* Add BABAR_2002_I582184 D_s spectra
-
-2020-03-06  Andy Buckley  <andy.buckley@cern.ch>
-
-	* Make AnalysisObject pointer wrapper objects throw an exception
-	(and helpful error message) if being dereferenced to a null
-	pointer.
 
 2020-03-06  Andy Buckley  <andy.buckley@cern.ch>
 

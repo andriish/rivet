@@ -24,6 +24,11 @@ namespace Rivet {
       book(_h_p_0,3,1,2);
       book(_h_p_p,3,1,1);
       book(_h_ctheta,4,1,1);
+      book(_b_p,1,1,1);
+      book(_b_0,1,1,2);
+      book(_r_p,2,1,1);
+      book(_r_0,2,1,2);
+      book(_ups,"/TMP/ups");
     }
 
     void findChildren(Particle parent, unsigned int & nStable,
@@ -50,10 +55,13 @@ namespace Rivet {
     void analyze(const Event& event) {
       static const int id0 = 4312, idp = 4322;
       const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      bool ups = !ufs.particles(Cuts::pid==300553).empty();
+      if(ups) _ups->fill();
       for (const Particle& p : ufs.particles(Cuts::abspid==idp or Cuts::abspid==id0)) {
 	int idXic=4232;
-	if(p.abspid()==idp)
+	if(p.abspid()==idp) {
 	  _h_p_p->fill(p.momentum().p3().mod());
+	}
 	else {
 	  _h_p_0->fill(p.momentum().p3().mod());
 	  idXic=4132;
@@ -80,6 +88,19 @@ namespace Rivet {
 	if( !(p.abspid()==idp && nPi==2 && nStable==3) &&
 	    !(p.abspid()==id0 && nPi==1 && nStable==2) )
 	  continue;
+	if(p.abspid()==idp) {
+	  if(ups)
+	    _b_p->fill(0.5);
+	  else
+	    _r_p->fill(0.5);
+	}
+	else {
+	  if(ups)
+	    _b_0->fill(0.5);
+	  else
+	    _r_0->fill(0.5);
+	  idXic=4132;
+	}
 	// boost to Xi'_c rest frame
 	LorentzTransform boost1 = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
 	FourMomentum pXic = boost1.transform(Xi_c.momentum());
@@ -100,6 +121,12 @@ namespace Rivet {
       normalize(_h_p_0   );
       normalize(_h_p_p   );
       normalize(_h_ctheta);
+      if(_ups->effNumEntries()!=0) {
+	scale(_b_p,0.5/ *_ups);
+	scale(_b_0,0.5/ *_ups);
+      }
+      scale(_r_p,crossSection()/sumOfWeights()/femtobarn);
+      scale(_r_0,crossSection()/sumOfWeights()/femtobarn);
     }
 
     ///@}
@@ -108,6 +135,9 @@ namespace Rivet {
     /// @name Histograms
     ///@{
     Histo1DPtr _h_p_0,_h_p_p,_h_ctheta;
+    Histo1DPtr _b_p,_b_0;
+    Histo1DPtr _r_p,_r_0;
+    CounterPtr _ups;
     ///@}
 
 

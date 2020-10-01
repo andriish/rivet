@@ -414,7 +414,7 @@ namespace Rivet {
     template <typename T=YODA::Scatter2D>
     const T& refData(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
       const string hname = mkAxisCode(datasetId, xAxisId, yAxisId);
-      return refData(hname);
+      return refData<T>(hname);
     }
 
     /// @}

@@ -3,6 +3,11 @@
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record>
   <controlfield tag="001">1783943</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1007/JHEP07(2020)016</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Adriani:2020ujx</subfield>
@@ -33,8 +38,8 @@
     <subfield code="a">CERN-EP-2020-029</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">Measurement of energy flow, cross section and average inelasticity of forward neutrons generated in $\mathrm{\sqrt{s} = 13 TeV}$ proton-proton collisions with the LHCf Arm2 detector</subfield>
+    <subfield code="9">Springer</subfield>
+    <subfield code="a">Measurement of energy flow, cross section and average inelasticity of forward neutrons produced in $ \sqrt{s} $ = 13 TeV proton-proton collisions with the LHCf Arm2 detector</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">LHCf</subfield>
