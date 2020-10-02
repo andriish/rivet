@@ -49,10 +49,12 @@ namespace Rivet {
       // everything else
       else {
       	_c_hadrons->fill();
-	for (const Particle& p : fs.particles()) {
-	  if(PID::isCharged(p.pid())) {
-	    double x = 2.*p.p3().mod()/sqrtS();
-	    _h_charged->fill(x);
+	if(_h_charged) {
+	  for (const Particle& p : fs.particles()) {
+	    if(PID::isCharged(p.pid())) {
+	      double x = 2.*p.p3().mod()/sqrtS();
+	      _h_charged->fill(x);
+	    }
 	  }
 	}
       }
