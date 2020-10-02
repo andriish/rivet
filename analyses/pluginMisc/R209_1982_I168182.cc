@@ -28,12 +28,12 @@ namespace Rivet {
       declare(zfinder, "ZFinder");
 
       // Book histograms
-      if (fuzzyEquals(sqrtS()/GeV, 62, sqrts_tol)) {
+      if (fuzzyEquals(sqrtS()/GeV, 62., sqrts_tol)) {
         MSG_DEBUG("R209: running with 62: " << sqrtS()/GeV);
         book(_hist_M,1, 1, 1);
         book(_hist_pT ,2, 1, 1);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 44, sqrts_tol)) {
+      else if (fuzzyEquals(sqrtS()/GeV, 44., sqrts_tol)) {
         MSG_DEBUG("R209: running with 44: " << sqrtS()/GeV);
         book(_hist_M,1, 1, 2);
       }
@@ -97,7 +97,7 @@ namespace Rivet {
     ///@}
 
     /// Energy comparison tolerance
-    const double sqrts_tol = 10.;
+    const double sqrts_tol = 0.1;
 
   };
 
