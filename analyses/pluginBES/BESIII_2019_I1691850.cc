@@ -40,8 +40,8 @@ namespace Rivet {
       
       book(_h_cThetaL,"cThetaL",20,-1.,1.);
       
-      book(_h_mu_p, "mu_p",20,-1.,1.);
-      book(_h_mu_n, "mu_n",20,-1.,1.);
+      book(_h_mu_p, 2,1,1);
+      book(_h_mu_n, 2,1,2);
       book(_wsum_p,"TMP/wsum_p");
       book(_wsum_n,"TMP/wsum_n");
     }
@@ -136,6 +136,7 @@ namespace Rivet {
 	  mode=1;
 	}
       }
+      if(mode<0) vetoEvent;
       // boost to the Lambda rest frame
       LorentzTransform boost1 = LorentzTransform::mkFrameTransformFromBeta(Lambda.momentum().betaVec());
       Vector3 e1z = Lambda.momentum().p3().unit();
@@ -240,15 +241,14 @@ namespace Rivet {
       scale(_h_T3_p,1./ *_wsum_p);
       scale(_h_T4_p,1./ *_wsum_p);
       scale(_h_T5_p,1./ *_wsum_p);
+      scale(_h_mu_p,0.04/ *_wsum_p);
       
       scale(_h_T1_n,1./ *_wsum_n);
       scale(_h_T2_n,1./ *_wsum_n);
       scale(_h_T3_n,1./ *_wsum_n);
       scale(_h_T4_n,1./ *_wsum_n);
       scale(_h_T5_n,1./ *_wsum_n);
-      
-      scale(_h_mu_p,1./ *_wsum_p);
-      scale(_h_mu_n,1./ *_wsum_n);
+      scale(_h_mu_n,0.04/ *_wsum_n);
 
       // calculate alpha0
       pair<double,pair<double,double> > alpha0 = calcAlpha0(_h_cThetaL);

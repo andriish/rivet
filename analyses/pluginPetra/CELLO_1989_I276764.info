@@ -2,6 +2,8 @@ Name: CELLO_1989_I276764
 Year: 1989
 Summary:  Photon, $\pi^0$ and $\eta$ spectra at 35 GeV
 Experiment: CELLO
+Collider: Petra
+InspireID: 276764
 Status: VALIDATED
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>

@@ -34,8 +34,8 @@ BEGIN PLOT /BESIII_2019_I1691850/T5_p
 Title=$T_5$ for $\Lambda\to p^+\pi^-$
 YLabel=$T_5$
 END PLOT
-BEGIN PLOT /BESIII_2019_I1691850/mu_p
-Title=$\mu$ for $\Lambda\to p^+\pi^-$
+BEGIN PLOT /BESIII_2019_I1691850/d02-x01-y01
+Title=$\mu$ for $\Lambda\to p^+\pi^-$ (N.B. data not corrected)
 YLabel=$\mu$
 END PLOT
 
@@ -59,8 +59,8 @@ BEGIN PLOT /BESIII_2019_I1691850/T5_n
 Title=$T_5$ for $\Lambda\to n\pi^0$
 YLabel=$T_5$
 END PLOT
-BEGIN PLOT /BESIII_2019_I1691850/mu_n
-Title=$\mu$ for $\Lambda\to n\pi^0$
+BEGIN PLOT /BESIII_2019_I1691850/d02-x01-y02
+Title=$\mu$ for $\Lambda\to n\pi^0$ (N.B. data not corrected)
 YLabel=$\mu$
 END PLOT
 BEGIN PLOT /BESIII_2019_I1691850/d01-x01-y01

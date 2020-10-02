@@ -11,6 +11,10 @@
     <subfield code="9">arXiv</subfield>
     <subfield code="a">oai:arXiv.org:2007.14005</subfield>
   </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D20-kj33t</subfield>
+  </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
     <subfield code="a">arXiv:2007.14005</subfield>
@@ -76,6 +80,11 @@
 </record>
 <record>
   <controlfield tag="001">1802752</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1016/j.physletb.2020.135728</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Adam:2020ymj</subfield>
@@ -94,8 +103,8 @@
     <subfield code="c">nucl-ex</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">Investigation of the linear and mode-coupled flow harmonics in Au+Au collisions at \roots = 200 GeV</subfield>
+    <subfield code="9">Elsevier</subfield>
+    <subfield code="a">Investigation of the linear and mode-coupled flow harmonics in Au+Au collisions at $\sqrt {S_{NN}}$ = 200 GeV</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">STAR</subfield>
@@ -185,9 +194,9 @@
 <record>
   <controlfield tag="001">1792394</controlfield>
   <datafield tag="024" ind1="7" ind2=" ">
-    <subfield code="a">10.1007/JHEP07(2020)178</subfield>
     <subfield code="2">DOI</subfield>
     <subfield code="9">bibmatch</subfield>
+    <subfield code="a">10.1007/JHEP07(2020)178</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
@@ -202,8 +211,8 @@
     <subfield code="z">D20-kj19g</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">ins1792394</subfield>
     <subfield code="9">HEPDATA</subfield>
+    <subfield code="a">ins1792394</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -220,21 +229,27 @@
 </record>
 <record>
   <controlfield tag="001">1791591</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1016/j.physletb.2020.135663</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Adam:2020ozo</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
     <subfield code="a">oai:arXiv.org:2003.12136</subfield>
-  </datafield>
-  <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">Adam:2020ozo</subfield>
-    <subfield code="9">INSPIRETeX</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">DESY</subfield>
     <subfield code="z">D20-kj17k</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">ins1791591</subfield>
     <subfield code="9">HEPDATA</subfield>
+    <subfield code="a">ins1791591</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -278,6 +293,16 @@
 </record>
 <record>
   <controlfield tag="001">1776194</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevC.102.024903</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">10.1103/PhysRevC.102.024903</subfield>
+    <subfield code="q">publication</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Adam:2020kzk</subfield>

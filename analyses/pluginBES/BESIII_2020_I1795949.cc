@@ -106,6 +106,7 @@ namespace Rivet {
 	    break;
 	  }
 	}
+	if(matched) break;
       }
     }
 
