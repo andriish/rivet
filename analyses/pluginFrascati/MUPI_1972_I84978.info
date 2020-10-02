@@ -18,7 +18,6 @@ Description:
    The muonic cross section is also outputted to the yoda file
    so that ratio $R$ can be recalcuated if runs are combined.'
 Keywords: []
-InspireID: 84978
 BibKey: Ceradini:1973pr
 BibTeX: '@article{Ceradini:1973pr,
       author         = "Ceradini, F. and Santonico, R. and Conversi, M. and

@@ -16,7 +16,7 @@ Energies: [3.1]
 Description:
   'Analysis of the angular distribution of the baryons, and decay products, produced in
    $e^+e^-\to J/\psi \to \Lambda^0\bar\Lambda^0$.
-   Gives information about the decay and is useful for testing correlations in hadron decays.'
+   Gives information about the decay and is useful for testing correlations in hadron decays. N.B. the moment data is not corrected and should only be used qualatively.'
 Keywords: []
 BibKey: Ablikim:2018zay
 BibTeX: '@article{Ablikim:2018zay,

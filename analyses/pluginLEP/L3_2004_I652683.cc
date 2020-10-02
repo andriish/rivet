@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/Beam.hh"
+#include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/Thrust.hh"
@@ -9,6 +10,7 @@
 
 #define I_KNOW_THE_INITIAL_QUARKS_PROJECTION_IS_DODGY_BUT_NEED_TO_USE_IT
 #include "Rivet/Projections/InitialQuarks.hh"
+#include "fastjet/EECambridgePlugin.hh"
 
 namespace Rivet {
 
@@ -34,6 +36,11 @@ namespace Rivet {
       declare(ParisiTensor(FS), "Parisi");
       declare(Hemispheres(thrust), "Hemispheres");
       declare(InitialQuarks(), "initialquarks");
+      FastJets jadeJets = FastJets(FS, FastJets::JADE, 0.7, JetAlg::Muons::ALL, JetAlg::Invisibles::DECAY);
+      FastJets durhamJets = FastJets(FS, FastJets::DURHAM, 0.7, JetAlg::Muons::ALL, JetAlg::Invisibles::DECAY);
+      FastJets cambridgeJets = FastJets(FS, FastJets::CAM, 0.7, JetAlg::Muons::ALL, JetAlg::Invisibles::DECAY);
+      declare(jadeJets, "JadeJets");
+      declare(durhamJets, "DurhamJets");
 
       // Book the histograms
       if(fuzzyEquals(sqrtS()/GeV, 91.2, 1e-3)) {
@@ -138,22 +145,22 @@ namespace Rivet {
 	book(_h_D      , 44+i1,1,i2);
 	book(_h_N      , "/TMP/NCHARGED", 22, 9, 53);
 	book(_h_xi     , 66+i1,1,i2);
-	// todo add the jets
-	// int i3 = 3*i1+i2;
-	// _h_y_2_JADE   = bookHisto1D(   i3,1,1);
-	// _h_y_3_JADE   = bookHisto1D(   i3,1,2);
-	// _h_y_4_JADE   = bookHisto1D(   i3,1,3);
-	// _h_y_5_JADE   = bookHisto1D(   i3,1,4);
-	// _h_y_2_Durham = bookHisto1D( 9+i3,1,1);
-	// _h_y_3_Durham = bookHisto1D( 9+i3,1,2);
-	// _h_y_4_Durham = bookHisto1D( 9+i3,1,3);
-	// _h_y_5_Durham = bookHisto1D( 9+i3,1,4);
-	// if(i3==8||i3==9) {
-	//   _h_y_2_Cambridge = bookHisto1D(10+i3,1,1);
-	//   _h_y_3_Cambridge = bookHisto1D(10+i3,1,2);
-	//   _h_y_4_Cambridge = bookHisto1D(10+i3,1,3);
-	//   _h_y_5_Cambridge = bookHisto1D(10+i3,1,4);
-	// }
+	// and the jets
+	int i3 = 3*i1+i2;
+	book(_h_y_2_JADE  ,   i3,1,1);
+	book(_h_y_3_JADE  ,   i3,1,2);
+	book(_h_y_4_JADE  ,   i3,1,3);
+	book(_h_y_5_JADE  ,   i3,1,4);
+	book(_h_y_2_Durham, 9+i3,1,1);
+	book(_h_y_3_Durham, 9+i3,1,2);
+	book(_h_y_4_Durham, 9+i3,1,3);
+	book(_h_y_5_Durham, 9+i3,1,4);
+	if(i3==8||i3==9) {
+	  book(_h_y_2_Cambridge,11+i3,1,1);
+	  book(_h_y_3_Cambridge,11+i3,1,2);
+	  book(_h_y_4_Cambridge,11+i3,1,3);
+	  book(_h_y_5_Cambridge,11+i3,1,4);
+	}
       }
 
       book(_sumW_udsc, "_sumW_udsc");
@@ -288,7 +295,106 @@ namespace Rivet {
         _h_B_T->fill(hemisphere.Bsum());
         _h_B_W->fill(hemisphere.Bmax());
       }
-
+      // jade jet rates
+      if(_h_y_2_JADE) {
+	const FastJets& jadejet = apply<FastJets>(event, "JadeJets");
+	if (jadejet.clusterSeq()) {
+	  const double y_23 = jadejet.clusterSeq()->exclusive_ymerge_max(2);
+	  const double y_34 = jadejet.clusterSeq()->exclusive_ymerge_max(3);
+	  const double y_45 = jadejet.clusterSeq()->exclusive_ymerge_max(4);
+	  const double y_56 = jadejet.clusterSeq()->exclusive_ymerge_max(5);
+	  for (size_t i = 0; i < _h_y_2_JADE->numBins(); ++i) {
+	    double ycut = _h_y_2_JADE->bin(i).xMid();
+	    double width = _h_y_2_JADE->bin(i).width();
+	    if (y_23 < ycut) _h_y_2_JADE->fillBin(i,width);
+	  }
+	  for (size_t i = 0; i < _h_y_3_JADE->numBins(); ++i) {
+	    double ycut = _h_y_3_JADE->bin(i).xMid();
+	    double width = _h_y_3_JADE->bin(i).width();
+	    if (y_34 < ycut && y_23 > ycut) {
+	      _h_y_3_JADE->fillBin(i,width);
+	    }
+	  }
+	  for (size_t i = 0; i < _h_y_4_JADE->numBins(); ++i) {
+	    double ycut = _h_y_4_JADE->bin(i).xMid();
+	    double width = _h_y_4_JADE->bin(i).width();
+	    if (y_45 < ycut && y_34 > ycut) {
+	      _h_y_4_JADE->fillBin(i,width);
+	    }
+	  }
+	  for (size_t i = 0; i < _h_y_5_JADE->numBins(); ++i) {
+	    double ycut = _h_y_5_JADE->bin(i).xMid();
+	    double width = _h_y_5_JADE->bin(i).width();
+	    if (y_56 < ycut && y_45 > ycut) {
+	      _h_y_5_JADE->fillBin(i,width);
+	    }
+	  }
+	}
+      }
+      // Durham jet rates
+      if(_h_y_2_Durham) {
+	const FastJets& durhamjet = apply<FastJets>(event, "DurhamJets");
+	if (durhamjet.clusterSeq()) {
+	  const double y_23 = durhamjet.clusterSeq()->exclusive_ymerge_max(2);
+	  const double y_34 = durhamjet.clusterSeq()->exclusive_ymerge_max(3);
+	  const double y_45 = durhamjet.clusterSeq()->exclusive_ymerge_max(4);
+	  const double y_56 = durhamjet.clusterSeq()->exclusive_ymerge_max(5);
+	  for (size_t i = 0; i < _h_y_2_Durham->numBins(); ++i) {
+	    double ycut = _h_y_2_Durham->bin(i).xMid();
+	    double width = _h_y_2_Durham->bin(i).width();
+	    if (y_23 < ycut) _h_y_2_Durham->fillBin(i,width);
+	  }
+	  for (size_t i = 0; i < _h_y_3_Durham->numBins(); ++i) {
+	    double ycut = _h_y_3_Durham->bin(i).xMid();
+	    double width = _h_y_3_Durham->bin(i).width();
+	    if (y_34 < ycut && y_23 > ycut) {
+	      _h_y_3_Durham->fillBin(i,width);
+	    }
+	  }
+	  for (size_t i = 0; i < _h_y_4_Durham->numBins(); ++i) {
+	    double ycut = _h_y_4_Durham->bin(i).xMid();
+	    double width = _h_y_4_Durham->bin(i).width();
+	    if (y_45 < ycut && y_34 > ycut) {
+	      _h_y_4_Durham->fillBin(i,width);
+	    }
+	  }
+	  for (size_t i = 0; i < _h_y_5_Durham->numBins(); ++i) {
+	    double ycut = _h_y_5_Durham->bin(i).xMid();
+	    double width = _h_y_5_Durham->bin(i).width();
+	    if (y_56 < ycut && y_45 > ycut) {
+	      _h_y_5_Durham->fillBin(i,width);
+	    }
+	  }
+	}
+      }
+      // Cambridge
+      if(_h_y_2_Cambridge) {
+	PseudoJets pjs;
+	const FinalState& fs = applyProjection<FinalState>(event, "FS");
+	for (size_t i = 0; i < fs.particles().size(); ++i) {
+	  fastjet::PseudoJet pj = fs.particles()[i];
+	  pjs.push_back(pj);
+	}
+	for (size_t i = 0; i < _h_y_2_Cambridge->numBins(); ++i) {
+	  double ycut = _h_y_2_Cambridge->bin(i).xMid();
+	  double width = _h_y_2_Cambridge->bin(i).width();
+	  fastjet::EECambridgePlugin plugin(ycut);
+	  fastjet::JetDefinition jdef(&plugin);
+	  fastjet::ClusterSequence cseq(pjs, jdef);
+	  unsigned int njet = cseq.inclusive_jets().size();
+	  if(njet==2)
+	    _h_y_2_Cambridge->fillBin(i,width);
+	  else if(njet==3) {
+	    if(i<_h_y_3_Cambridge->numBins()) _h_y_3_Cambridge->fillBin(i,width);
+	  }
+	  else if(njet==4) {
+	    if(i<_h_y_4_Cambridge->numBins()) _h_y_4_Cambridge->fillBin(i,width);
+	  }
+	  else if(njet==5) {
+	    if(i<_h_y_5_Cambridge->numBins()) _h_y_5_Cambridge->fillBin(i,width);
+	  }
+	}
+      }
     }
     
     Scatter2DPtr convertHisto(unsigned int ix,unsigned int iy, unsigned int iz, Histo1DPtr histo) {
@@ -312,13 +418,13 @@ namespace Rivet {
         scale(_h_Thrust_udsc,  1/_sumW_udsc->sumW());
         scale(_h_heavyJetmass_udsc,  1/_sumW_udsc->sumW());
         scale(_h_totalJetbroad_udsc, 1/_sumW_udsc->sumW());
-	      scale(_h_wideJetbroad_udsc, 1/_sumW_udsc->sumW());
+	scale(_h_wideJetbroad_udsc, 1/_sumW_udsc->sumW());
         scale(_h_Cparameter_udsc, 1/_sumW_udsc->sumW());
         scale(_h_Dparameter_udsc, 1/_sumW_udsc->sumW());
         scale(_h_Thrust_bottom, 1./_sumW_b->sumW());
         scale(_h_heavyJetmass_bottom, 1./_sumW_b->sumW());
         scale(_h_totalJetbroad_bottom, 1./_sumW_b->sumW());
-	      scale(_h_wideJetbroad_bottom, 1./_sumW_b->sumW());
+	scale(_h_wideJetbroad_bottom, 1./_sumW_b->sumW());
         scale(_h_Cparameter_bottom, 1./_sumW_b->sumW());
         scale(_h_Dparameter_bottom, 1./_sumW_b->sumW());
         scale(_h_Ncharged, 1./_sumW_ch->sumW());
@@ -373,10 +479,25 @@ namespace Rivet {
 	    convertHisto(62, 1, 3, _h_N);
 	  }
 	}
-	// todo add the jets
-	// Histo1DPtr _h_y_2_JADE,_h_y_3_JADE,_h_y_4_JADE,_h_y_5_JADE;
-	// Histo1DPtr _h_y_2_Durham,_h_y_3_Durham,_h_y_4_Durham,_h_y_5_Durham;
-	// Histo1DPtr _h_y_2_Cambridge,_h_y_3_Cambridge,_h_y_4_Cambridge,_h_y_5_Cambridge;
+	// // the jets
+	if(_h_y_2_JADE) {
+	  scale(_h_y_2_JADE, 1./ sumOfWeights());
+	  scale(_h_y_3_JADE, 1./ sumOfWeights());
+	  scale(_h_y_4_JADE, 1./ sumOfWeights());
+	  scale(_h_y_5_JADE, 1./ sumOfWeights());
+	}
+	if(_h_y_2_Durham) {
+	  scale(_h_y_2_Durham, 1./ sumOfWeights());
+	  scale(_h_y_3_Durham, 1./ sumOfWeights());
+	  scale(_h_y_4_Durham, 1./ sumOfWeights());
+	  scale(_h_y_5_Durham, 1./ sumOfWeights());
+	}
+	if(_h_y_2_Cambridge) {
+	  scale(_h_y_2_Cambridge, 1./ sumOfWeights());
+	  scale(_h_y_3_Cambridge, 1./ sumOfWeights());
+	  scale(_h_y_4_Cambridge, 1./ sumOfWeights());
+	  scale(_h_y_5_Cambridge, 1./ sumOfWeights());
+	}
       }
     }
 
@@ -397,10 +518,10 @@ namespace Rivet {
     Histo1DPtr _h_scaledMomentum, _h_scaledMomentum_udsc, _h_scaledMomentum_bottom;
     // at other enegies
     Histo1DPtr _h_thrust,_h_rho,_h_B_T,_h_B_W,_h_C,_h_D,_h_N,_h_xi;
-    // todo add the jets
-    // Histo1DPtr _h_y_2_JADE,_h_y_3_JADE,_h_y_4_JADE,_h_y_5_JADE;
-    // Histo1DPtr _h_y_2_Durham,_h_y_3_Durham,_h_y_4_Durham,_h_y_5_Durham;
-    // Histo1DPtr _h_y_2_Cambridge,_h_y_3_Cambridge,_h_y_4_Cambridge,_h_y_5_Cambridge;
+    // and the jets
+    Histo1DPtr _h_y_2_JADE,_h_y_3_JADE,_h_y_4_JADE,_h_y_5_JADE;
+    Histo1DPtr _h_y_2_Durham,_h_y_3_Durham,_h_y_4_Durham,_h_y_5_Durham;
+    Histo1DPtr _h_y_2_Cambridge,_h_y_3_Cambridge,_h_y_4_Cambridge,_h_y_5_Cambridge;
     //@}
 
   };

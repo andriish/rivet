@@ -67,7 +67,9 @@ from . import HRS_1988_I250824
 from . import HRS_1990_I280958
 from . import HRS_1992_I339573
 from . import JADE_1984_I202785
+from . import JADE_1985_I213948
 from . import JADE_1990_I282847
+from . import L3_1990_I298078
 from . import L3_1995_I381046
 from . import L3_1997_I427107
 from . import L3_2004_I652683
