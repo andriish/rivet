@@ -84,7 +84,7 @@ namespace Rivet {
     void fillHistos(int ip,bool strong,bool same,bool opp,
 		    const Particle & p1, const Particle & p2) {
       for(unsigned int def=0;def<3;++def) {
-	double z1,z2;
+	double z1 = 0., z2 = 0.;
 	if(def==0) {
 	  z1 = 2.*p1.momentum().t()/sqrtS();
 	  z2 = 2.*p2.momentum().t()/sqrtS();
