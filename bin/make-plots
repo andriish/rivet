@@ -140,6 +140,7 @@ class InputData(Described):
         self.histomangler = {}
         self.special = {}
         self.functions = {}
+        self.nPanels = 10
 
         self.description = {}
         self.pathdescriptions = []
@@ -219,7 +220,7 @@ class InputData(Described):
         if not self.attr_bool('MainPlot',1):
             ## Ratio, no main
             self.description['PlotSizeY'] = 0.
-        for i in [""] + [str(idx) for idx in range(1,9)]:
+        for i in [""] + [str(idx) for idx in range(1,self.nPanels)]:
             if self.attr_bool('RatioPlot'+i):
                 if self.has_attr('RatioPlot'+i+'YSize') and self.attr('RatioPlot'+i+'YSize') != '':
                     self.description['RatioPlot'+i+'SizeY'] = self.attr_float('RatioPlot'+i+'YSize')
@@ -255,7 +256,7 @@ class InputData(Described):
             sortedhistolist.extend(histoordermap[i])
         self.description['DrawOnly']=sortedhistolist
 
-        for i in [""] + [str(idx) for idx in range(1,9)]:
+        for i in [""] + [str(idx) for idx in range(1,self.nPanels)]:
             refhistoordermap = {}
             refhistolist = list(self.histos.keys())
             if 'RatioPlot'+i+'DrawOnly' in self.description:
@@ -659,7 +660,7 @@ class Plot(object):
                      inputdata.description['LeftMargin'] + inputdata.description['RightMargin']
         papersizey = inputdata.description['PlotSizeY'] + 0.1 + \
                      inputdata.description['TopMargin'] + inputdata.description['BottomMargin']
-        for i in [""] + [str(idx) for idx in range(1,9)]:
+        for i in [""] + [str(idx) for idx in range(1,inputdata.nPanels)]:
             papersizey += inputdata.attr_float('RatioPlot'+i+'SizeY',0.)
         out = ""
         out += '\\documentclass{article}\n'
@@ -832,8 +833,11 @@ class MainPlot(Plot):
         if not inputdata.attr_bool('DrawFunctionFirst', False):
             for f in inputdata.functions.values():
                 out += f.draw(self.coors,inputdata)
+        if not inputdata.attr_bool('DrawSpecialFirst', False):
+            for s in inputdata.special.values():
+                 out += s.draw(self.coors,inputdata)
 
-        for i in [""] + [str(idx) for idx in range(1,9)]:
+        for i in [""] + [str(idx) for idx in range(1,inputdata.nPanels)]:
             if inputdata.attr_bool('Legend'+i, False):
                 legend = Legend(inputdata.description,inputdata.histos,inputdata.functions,'Legend'+i,(1 if i=="" else int(i)))
                 out += legend.draw()
@@ -869,7 +873,7 @@ class MainPlot(Plot):
         drawlabels = True
         if 'PlotTickLabels' in inputdata.description and inputdata.description['PlotTickLabels']=='0':
             drawlabels=False
-        for i in [""] + [str(idx) for idx in range(1,9)]:
+        for i in [""] + [str(idx) for idx in range(1,inputdata.nPanels)]:
             if inputdata.attr_bool('RatioPlot'+i,0):
                 drawlabels=False
 
@@ -1183,7 +1187,7 @@ class RatioPlot(Plot):
         drawlabels = True
         if (inputdata.description.get(self.name+'TickLabels','')=='0'):
             drawlabels=False
-        for i in range(self.number+1,10):
+        for i in range(self.number+1,inputdata.nPanels):
             if inputdata.description.get('RatioPlot'+str(i), '')=='1':
                 drawlabels=False
         out += xticks.draw(custommajortickmarks=xcustommajortickmarks,
@@ -1217,7 +1221,7 @@ class RatioPlot(Plot):
                            custommajorticks=ycustommajorticks,
                            customminorticks=ycustomminorticks)
 
-        for i in [""] + [str(idx) for idx in range(1,9)]:
+        for i in [""] + [str(idx) for idx in range(1,inputdata.nPanels)]:
             if inputdata.attr_bool(self.name+'Legend'+i, False):
                 legend = Legend(inputdata.description,inputdata.histos,inputdata.functions,self.name+'Legend'+i,(1 if i=="" else int(i)))
                 out += legend.draw()
@@ -3238,7 +3242,7 @@ def process_datfile(datfile):
         if inputdata.attr_bool("RatioPlot", True) and inputdata.attr("RatioPlotReference"): # is not None:
             rp = RatioPlot(inputdata,0)
             texfile.write(rp.draw(inputdata))
-        for i in range(1,9):
+        for i in range(1,inputdata.nPanels):
             if inputdata.attr_bool('RatioPlot'+str(i), False): # and inputdata.attr('RatioPlot'+str(i)+'Reference'):
                 rp = RatioPlot(inputdata,i)
                 texfile.write(rp.draw(inputdata))

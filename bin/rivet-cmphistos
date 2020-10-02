@@ -239,10 +239,11 @@ def mkOutput(hpath, aos, plot=None, special=None):
         output += str(plot)
 
     if special is not None:
-        output += "\n"
-        output += "# BEGIN SPECIAL %s\n" % hpath
-        output += special
-        output += "# END SPECIAL\n\n"
+        for k, v in special.items():
+            output += "\n"
+            output += "# BEGIN SPECIAL %s\n" % k
+            output += v
+            output += "# END SPECIAL\n\n"
 
     from io import StringIO
     sio = StringIO()
@@ -461,7 +462,7 @@ if __name__ == '__main__':
                 exit(1)
 
         ## Get a special object, if there is one for this path
-        special = plotparser.getSpecial(hpath)
+        special = plotparser.getSpecials(hpath)
 
 
         ## Handle reference data histogram, if there is one
