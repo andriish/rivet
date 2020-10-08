@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief e+e- > hyperons
   class BABAR_2007_I760730 : public Analysis {
   public:
 

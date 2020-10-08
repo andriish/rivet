@@ -31,10 +31,10 @@ namespace Rivet {
         book(_h_frag_06_10[i] ,3+i, 2, 1);
         book(_h_frag_10_15[i] ,3+i, 3, 1);
         book(_h_frag_15_24[i] ,3+i, 4, 1);
-        book(_njets_04_06[i], "njets_04_06");
-        book(_njets_06_10[i], "njets_06_10");
-        book(_njets_10_15[i], "njets_10_15");
-        book(_njets_15_24[i], "njets_15_24");
+        book(_njets_04_06[i], "njets_04_06_"+to_string(i));
+        book(_njets_06_10[i], "njets_06_10_"+to_string(i));
+        book(_njets_10_15[i], "njets_10_15_"+to_string(i));
+        book(_njets_15_24[i], "njets_15_24_"+to_string(i));
       }
     }
 

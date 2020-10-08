@@ -12,8 +12,6 @@ References:
 RunInfo:
   $e^+ e^-$ analysis near the $\Upsilon(4S)$ resonance
 NumEvents: 1000000
-SpiresID: 6265367
-InspireID: 645209
 Beams: [e+, e-]
 Energies: [10.52]
 PtCuts: [0]

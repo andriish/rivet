@@ -15,6 +15,10 @@
     <subfield code="a">hal-02870822</subfield>
     <subfield code="9">HAL</subfield>
   </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">D20-kj25u</subfield>
+  </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
     <subfield code="a">arXiv:2005.14686</subfield>
@@ -41,6 +45,10 @@
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">DESY</subfield>
     <subfield code="z">D20-kj24ae</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">hal-02886948</subfield>
+    <subfield code="9">HAL</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -115,6 +123,10 @@
 </record>
 <record>
   <controlfield tag="001">1789851</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="2">DOI</subfield>
+    <subfield code="a">10.1103/PhysRevD.102.032001</subfield>
+  </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
     <subfield code="9">INSPIRETeX</subfield>
     <subfield code="a">Acharya:2020fgb</subfield>
@@ -128,8 +140,12 @@
     <subfield code="z">D20-kj16l</subfield>
   </datafield>
   <datafield tag="035" ind1=" " ind2=" ">
-    <subfield code="a">hal-02628786</subfield>
     <subfield code="9">HAL</subfield>
+    <subfield code="a">hal-02628786</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">HEPDATA</subfield>
+    <subfield code="a">ins1789851</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
     <subfield code="9">arXiv</subfield>
@@ -137,8 +153,8 @@
     <subfield code="c">hep-ex</subfield>
   </datafield>
   <datafield tag="245" ind1=" " ind2=" ">
-    <subfield code="9">arXiv</subfield>
-    <subfield code="a">Measurement of charged pion double spin asymmetries at midrapidity in longitudinally polarized $p+p$ collisions at $\sqrt{s}=510$ GeV</subfield>
+    <subfield code="9">APS</subfield>
+    <subfield code="a">Measurement of charged pion double spin asymmetries at midrapidity in longitudinally polarized $p+p$ collisions at $\sqrt {s}$ = 510  GeV</subfield>
   </datafield>
   <datafield tag="710" ind1=" " ind2=" ">
     <subfield code="g">PHENIX</subfield>

@@ -69,12 +69,18 @@ if not os.path.exists(output_name):
     os.makedirs(output_name)
 
 # Get mapping between INSPIRE IDs and Rivet analysis names.
-analyses_url = 'http://rivet.hepforge.org/analyses'
-response = requests.get(analyses_url + version().replace('.', '') + '.json')
-# Fallback if version-specific analyses.json file not available.
-if response.status_code != requests.codes.ok:
-    response = requests.get(analyses_url + '.json')
-analyses = response.json()
+# use local file is available (needed for development of patches at same time as analysis)
+if os.path.isfile("doc/analists/analyses.json") :
+    import json
+    with open("doc/analists/analyses.json") as jf:
+        analyses = json.load(jf)
+else :
+    analyses_url = 'http://rivet.hepforge.org/analyses'
+    response = requests.get(analyses_url + version().replace('.', '') + '.json')
+    # Fallback if version-specific analyses.json file not available.
+    if response.status_code != requests.codes.ok:
+        response = requests.get(analyses_url + '.json')
+    analyses = response.json()
 
 # Loop over INSPIRE IDs and collect compatible and incompatible analyses.
 # Sort analyses dict by the Rivet analysis name.
