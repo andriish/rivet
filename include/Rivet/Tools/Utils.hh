@@ -222,6 +222,18 @@ namespace Rivet {
     return dirs;
   }
 
+  /// Left-pad the given string @a s to width @a width
+  inline string lpad(const string& s, size_t width, const string& padchar=" ") {
+    if (s.size() >= width) return s;
+    return string(width - s.size(), padchar[0]) + s;
+  }
+
+  /// Right-pad the given string @a s to width @a width
+  inline string rpad(const string& s, size_t width, const string& padchar=" ") {
+    if (s.size() >= width) return s;
+    return s + string(width - s.size(), padchar[0]);
+  }
+
   /// @}
 
 
