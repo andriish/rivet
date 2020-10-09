@@ -293,6 +293,32 @@ namespace Rivet {
   }
 
 
+  /// @brief Make a list of values equally spaced by @a step between @a start and @a end inclusive.
+  ///
+  /// The values will start at @a start and be equally spaced up to the highest
+  /// increment less than or equal to @a end. If @a include_end is given, the @a
+  /// end value will be appended if distinct by @a tol times @a step.
+  ///
+  /// @note The arg ordering is "Rivet-like", cf. linspace() and logspace(),
+  /// as opposed to the Numpy/Matlab arange() function (whose name inspired this,
+  /// but we preferred to keep the "space" nomenclature for consistence.)
+  inline vector<double> aspace(double step, double start, double end, bool include_end=true, double tol=1e-2) {
+    assert(end >= start);
+    assert(step > 0);
+    vector<double> rtn;
+    double next = start;
+    while (true) {
+      if (next > end) break;
+      rtn.push_back(next);
+      next += step;
+    }
+    if (include_end) {
+      if (end - rtn[rtn.size()-1] > tol*step) rtn.push_back(end);
+    }
+    return rtn;
+  }
+
+
   /// @brief Make a list of @a nbins + 1 values exponentially spaced between @a start and @a end inclusive.
   ///
   /// @note The arg ordering and the meaning of the nbins variable is "histogram-like",

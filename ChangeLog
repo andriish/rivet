@@ -1,3 +1,11 @@
+2020-10-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add aspace() and l/rpad() utility functions.
+
+	* Rename the little-used in-place sortBy() functions to isortBy()
+	cf. ifilter() and friends, since the behaviour should not change
+	wildly just based on the constness status of an argument.
+
 2020-10-01 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add JADE_1985_I213948 gamma, pi0 and eta spectra at 14, 22.5 and 34.4 GeV
@@ -34,7 +42,7 @@
 
 2020-09-24  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Add client-side plot display filtering to rivet-mkhtml output.
+	* Add client-side plot display filtering and and -m/-M pattern (un)matching fags to rivet-mkhtml.
 
 2020-09-24 Peter Richardson <peter.richardson@durham.ac.uk>
 
