@@ -656,9 +656,9 @@ class Plot(object):
             inputdata.description['BottomMargin'] = 0.95
         if inputdata.description['is2dim']:
             inputdata.description['RightMargin'] += 1.8
-        papersizex = inputdata.description['PlotSizeX'] + 0.1 + \
+        papersizex = inputdata.attr_float('PlotSizeX') + 0.1 + \
                      inputdata.description['LeftMargin'] + inputdata.description['RightMargin']
-        papersizey = inputdata.description['PlotSizeY'] + 0.1 + \
+        papersizey = inputdata.attr_float('PlotSizeY') + 0.1 + \
                      inputdata.description['TopMargin'] + inputdata.description['BottomMargin']
         for i in [""] + [str(idx) for idx in range(1,inputdata.nPanels)]:
             papersizey += inputdata.attr_float('RatioPlot'+i+'SizeY',0.)
@@ -1020,7 +1020,7 @@ class RatioPlot(Plot):
             sys.exit(1)
         inputdata.description.setdefault('RatioPlotYOffset', inputdata.description['PlotSizeY'])
         inputdata.description.setdefault(self.name+'SameStyle', '1')
-        self.yoffset = inputdata.description['RatioPlotYOffset'] + inputdata.description[self.name+'SizeY']
+        self.yoffset = inputdata.attr_float('RatioPlotYOffset') + inputdata.attr_float(self.name+'SizeY')
         inputdata.description['PlotStage'] = self.name
         inputdata.description['RatioPlotYOffset'] = self.yoffset
         inputdata.description['PlotSizeY'] = inputdata.description[self.name+'SizeY']
@@ -1278,11 +1278,11 @@ class Legend(Described):
         out = ""
         out += '\n%\n% Legend\n%\n'
         out += '\\rput[tr](%s,%s){%%\n' % (self.getLegendXPos(), self.getLegendYPos())
-        ypos = -0.05*6/self.description['PlotSizeY']
+        ypos = -0.05*6/self.attr_float('PlotSizeY')
         if (self.name+'Title') in self.description:
             for i in self.description[self.name+'Title'].strip().split('\\\\'):
                 out += '\\rput[Bl](0.,'+ str(ypos) + '){' + i + '}\n'
-                ypos -= 0.075*6/self.description['PlotSizeY']
+                ypos -= 0.075*6/self.attr_float('PlotSizeY')
         offset = float(self.description.get(self.name+'EntryOffset', 0))
         separation = float(self.description.get(self.name+'EntrySeparation', 0))
         hline = self.description.get(self.name+'HorizontalLine', '1') != '0'
@@ -1319,8 +1319,8 @@ class Legend(Described):
                 titlelines=[]
                 for i in title.strip().split('\\\\'):
                     titlelines.append(i)
-                ypos -= 0.075*6/self.description['PlotSizeY']*separation
-                boxtop     = 0.045*(6./self.description['PlotSizeY'])
+                ypos -= 0.075*6/self.attr_float('PlotSizeY')*separation
+                boxtop     = 0.045*(6./self.attr_float('PlotSizeY'))
                 boxbottom  = 0.
                 lineheight = 0.5*(boxtop-boxbottom)
                 out += ('\\rput[B%s](%s,%s){%s\n' %(self.getLegendAlign(),rel_xpos_sign*0.1,ypos,'%'))
@@ -1378,14 +1378,14 @@ class Legend(Described):
                     else:
                         out += ('](%s, %s)\n' % (xposc, lineheight))
                 out += ('}\n')
-                ypos -= 0.075*6/self.description['PlotSizeY']*offset
+                ypos -= 0.075*6/self.attr_float('PlotSizeY')*offset
                 for i in titlelines:
                     out += ('\\rput[B%s](%s,%s){%s}\n' %(self.getLegendAlign(),xpostext,ypos,i))
-                    ypos -= 0.075*6/self.description['PlotSizeY']
+                    ypos -= 0.075*6/self.attr_float('PlotSizeY')
         if 'CustomLegend' in self.description:
             for i in self.description['CustomLegend'].strip().split('\\\\'):
                 out += ('\\rput[B%s](%s,%s){%s}\n' %(self.getLegendAlign(),xpostext,ypos,i))
-                ypos -= 0.075*6/self.description['PlotSizeY']
+                ypos -= 0.075*6/self.attr_float('PlotSizeY')
         out += ('}\n')
         return out
 
