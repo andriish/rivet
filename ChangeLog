@@ -1,3 +1,7 @@
+2020-10-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add bare-lepton origin position to DressedLepton constructors.
+
 2020-10-06  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add aspace() and l/rpad() utility functions.

@@ -124,7 +124,7 @@ namespace Rivet {
 
       if (_dRmax <= 0) {
         for (const Particle& bl : bareleptons) {
-          Particle dl(bl.pid(), bl.momentum(), bl.genParticle());
+          Particle dl(bl.pid(), bl.momentum(), bl.genParticle(), bl.origin());
           dl.setConstituents({bl});
           allClusteredLeptons += dl;
         }
@@ -134,7 +134,7 @@ namespace Rivet {
           const Particles leps = sortByPt(lepjet.particles(isChargedLepton));
           if (leps.empty()) continue;
           Particles constituents = {leps[0]}; //< note no dressing for subleading leptons
-          Particle dl(leps[0].pid(), leps[0].momentum(), leps[0].genParticle());
+          Particle dl(leps[0].pid(), leps[0].momentum(), leps[0].genParticle(), leps[0].origin());
           constituents += lepjet.particles(isPhoton);
           dl.setConstituents(constituents);
           allClusteredLeptons += dl;
