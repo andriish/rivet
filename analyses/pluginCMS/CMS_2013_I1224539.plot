@@ -7,7 +7,7 @@ XMin=0.0
 XMax=150.0
 # END PLOT
 
-# BEGIN PLOT /CMS_2013_I1224539_DIJET/d0*
+# BEGIN PLOT /CMS_2013_I1224539/d0*
 XLabel=$(m_1 + m_2) / 2$ [GeV]
 YLabel=$1000/\sigma \, 2\mathrm{d}\sigma)/\mathrm{d}(m_1 + m_2)$ [1/GeV]
 RatioPlotYMin=0.0
@@ -16,7 +16,7 @@ XMin=0.0
 XMax=300.0
 # END PLOT
 
-# BEGIN PLOT /CMS_2013_I1224539_DIJET/d1*
+# BEGIN PLOT /CMS_2013_I1224539/d1*
 XLabel=$(m_1 + m_2) / 2$ [GeV]
 YLabel=$1000/\sigma \, 2\mathrm{d}\sigma)/\mathrm{d}(m_1 + m_2)$ [1/GeV]
 RatioPlotYMin=0.0
@@ -25,7 +25,7 @@ XMin=0.0
 XMax=300.0
 # END PLOT
 
-# BEGIN PLOT /CMS_2013_I1224539_DIJET/d2*
+# BEGIN PLOT /CMS_2013_I1224539/d2*
 XLabel=$(m_1 + m_2) / 2$ [GeV]
 YLabel=$1000/\sigma \, 2\mathrm{d}\sigma)/\mathrm{d}(m_1 + m_2)$ [1/GeV]
 RatioPlotYMin=0.0
