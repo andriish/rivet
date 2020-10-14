@@ -20,13 +20,17 @@ echo -e "\n\n"
 
 tag2="hepstore/rivet-herwig:${RIVET_VERSION}-${HERWIG_VERSION}-py2"
 echo "Building $tag2"
-$BUILD -f Dockerfile.ubuntu -t $tag2
+$BUILD -f Dockerfile.ubuntu-py2 -t $tag2
 
 docker tag $tag2 hepstore/rivet-herwig:$RIVET_VERSION
 docker tag $tag2 hepstore/rivet-herwig:latest
 
 if [[ "$PUSH" = 1 ]]; then
+    docker push $tag3
+    sleep 1m
     docker push $tag2
+    sleep 1m
     docker push hepstore/rivet-herwig:$RIVET_VERSION
+    sleep 1m
     docker push hepstore/rivet-herwig:latest
 fi
