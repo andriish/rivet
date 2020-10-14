@@ -31,8 +31,9 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && update-alternatives --install /usr/bin/python python /usr/bin/python3 2 \
     && update-alternatives --install /usr/bin/python-config python-config /usr/bin/python3-config 2 \
     && wget --no-verbose https://bootstrap.pypa.io/get-pip.py -O get-pip.py \
-    && python get-pip.py \
+    && python3 get-pip.py \
     && pip install matplotlib requests Cython \
+    && apt-get -y autoremove \
     && apt-get -y autoclean
 
 RUN export DEBIAN_FRONTEND=noninteractive \
