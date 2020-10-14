@@ -24,7 +24,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && if test "$FC_CMD" = "flang"; then update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/flang 2; fi \
     && apt-get install -y apt-utils tzdata \
     && apt-get install -y \
-      make automake autoconf libtool cmake \
+      make automake autoconf libtool cmake rsync \
       git wget tar less bzip2 findutils nano file \
       zlib1g-dev libgsl-dev \
     && apt-get remove -y python3 \
