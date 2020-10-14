@@ -540,7 +540,7 @@ if __name__ == '__main__':
                                             PDFset = lhapdf.mkPDF(lhapdfID).set()
                             # compute PDF uncertainty
                             if PDFset:
-                                PDFvars = map(list, zip(*PDFvars)) # transpose
+                                PDFvars = list(map(list, zip(*PDFvars))) # transpose
                                 # TODO: would be nice if I could ask LHAPDF to give me the tuple straightaway
                                 uncertainties = [ PDFset.uncertainty(binVars) for binVars in PDFvars ]
                                 errors = [ (unc.errminus, unc.errplus) for unc in uncertainties ]
