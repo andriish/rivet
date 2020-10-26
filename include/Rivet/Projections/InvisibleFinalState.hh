@@ -20,8 +20,10 @@ namespace Rivet {
     //@{
 
     /// Constructor with specific FinalState.
-    InvisibleFinalState(bool requirepromptness=false)
-      : _requirePromptness(requirepromptness)
+    InvisibleFinalState(bool requirepromptness=false, bool allow_from_direct_tau=false, bool allow_from_direct_mu=false)
+      : _requirePromptness(requirepromptness), 
+        _allow_from_direct_tau(allow_from_direct_tau), 
+        _allow_from_direct_mu(allow_from_direct_mu)
     {
       setName("InvisibleFinalState");
       declare(FinalState(), "FS");
@@ -33,7 +35,11 @@ namespace Rivet {
     //@}
 
     /// Require accepted particles to be prompt
-    void requirePromptness(bool acc=true) { _requirePromptness = acc; }
+    void requirePromptness(bool acc=true, bool allow_from_direct_tau=false, bool allow_from_direct_mu=false) {
+      _requirePromptness = acc;
+      _allow_from_direct_tau = allow_from_direct_tau;
+      _allow_from_direct_mu = allow_from_direct_mu;
+    }
 
     /// Apply the projection on the supplied event.
     void project(const Event& e);
@@ -43,7 +49,7 @@ namespace Rivet {
 
     private:
 
-      bool _requirePromptness;
+      bool _requirePromptness, _allow_from_direct_tau, _allow_from_direct_mu;
   };
 
 
