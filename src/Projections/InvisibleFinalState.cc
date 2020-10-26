@@ -13,7 +13,7 @@ namespace Rivet {
     _theParticles.clear();
     std::remove_copy_if(fs.particles().begin(), fs.particles().end(),
                         std::back_inserter(_theParticles), [&](const Particle& p){
-                          return p.isVisible() || (_requirePromptness && !p.isDirect()); 
+                          return p.isVisible() || (_requirePromptness && !p.isDirect(_allow_from_direct_tau, _allow_from_direct_mu)); 
                         });
     MSG_DEBUG("Number of visible final-state particles = " << _theParticles.size());
   }

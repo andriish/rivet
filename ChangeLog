@@ -1,3 +1,7 @@
+2020-10-24  Christian Gutschow  <chris.g@cern.ch>
+
+	* Submission of ATLAS_2019_I1750330
+
 2020-10-08  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add bare-lepton origin position to DressedLepton constructors.
