@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python2
 
 from __future__ import division, print_function
 
@@ -230,12 +230,14 @@ if args.NOHEAVYION:
 
 
 ## Web page rendering
+# TODO: argh, there's a conflicting html system package in Py3... rewrite?!?
 try:
     import html
     OUT = html.HTML("html")
-except :
+except: #< attempt to load the Py2 package
     import imp
-    html = imp.load_source('html', '/usr/local/lib/python2.7/dist-packages/html.py')
+    # TODO: handle non-system (e.g. user and venv) installs... maybe call Py2 to get the path?!? Won't work on Py3-only systems
+    html = imp.load_source("html", "/usr/local/lib/python2.7/dist-packages/html.py")
     OUT = html.HTML("html")
 
 title = "Rivet analysis coverage"
@@ -247,7 +249,8 @@ head.meta(charset="utf-8")
 head.title(title)
 head.link("", rel="stylesheet", href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css")
 head.script("MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]} });", type="text/x-mathjax-config")
-head.script("", type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", async="async")
+#head.script("", type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML")
+head.script("", type="text/javascript", **{"src" : "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", "async" : "async"})
 head.script("", type="text/javascript", src="https://code.jquery.com/jquery-3.3.1.js", integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=", crossorigin="anonymous")
 head.script("", type="text/javascript", src="https://code.jquery.com/ui/1.12.1/jquery-ui.js", integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=", crossorigin="anonymous")
 head.script("""
