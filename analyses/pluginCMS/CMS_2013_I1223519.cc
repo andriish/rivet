@@ -9,7 +9,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Searches for SUSY using $\alpha_T$ and $b$-quark multiplicity at 8~\TeV
   class CMS_2013_I1223519 : public Analysis {
   public:
 
