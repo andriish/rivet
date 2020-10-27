@@ -1443,7 +1443,7 @@ namespace Rivet {
   /// Sort a container of momenta by pT (decreasing) and return by reference for non-const inputs
   template<typename MOMS>
   inline MOMS& isortByPt(MOMS& pbs) {
-    return sortBy(pbs, cmpMomByPt);
+    return isortBy(pbs, cmpMomByPt);
   }
   /// Sort a container of momenta by pT (decreasing) and return by value for const inputs
   template<typename MOMS>
@@ -1454,7 +1454,7 @@ namespace Rivet {
   /// Sort a container of momenta by E (decreasing) and return by reference for non-const inputs
   template<typename MOMS>
   inline MOMS& isortByE(MOMS& pbs) {
-    return sortBy(pbs, cmpMomByE);
+    return isortBy(pbs, cmpMomByE);
   }
   /// Sort a container of momenta by E (decreasing) and return by value for const inputs
   template<typename MOMS>
@@ -1465,7 +1465,7 @@ namespace Rivet {
   /// Sort a container of momenta by Et (decreasing) and return by reference for non-const inputs
   template<typename MOMS>
   inline MOMS& isortByEt(MOMS& pbs) {
-    return sortBy(pbs, cmpMomByEt);
+    return isortBy(pbs, cmpMomByEt);
   }
   /// Sort a container of momenta by Et (decreasing) and return by value for const inputs
   template<typename MOMS>
