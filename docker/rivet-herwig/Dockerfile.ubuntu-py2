@@ -41,7 +41,8 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y autoclean
 
 RUN export DEBIAN_FRONTEND=noninteractive \
-    && python -m venv /herwig \
+    && pip install virtualenv \
+    && virtualenv /herwig \
     && mkdir -p /herwig/etc/bash_completion.d \
     && . /herwig/bin/activate \
     && pip install Cython six \
