@@ -510,7 +510,7 @@ if __name__ == '__main__':
                     for bandType, bandContribs in poptions.items():
                         for curvegroup in bandContribs.split(' '):
                             isPDF = 'PDF' in bandType
-                            errors = None; PDFset = None; PDFvars = [ ]
+                            errors = None; PDFset = None; nPDF = None; nomVals = None; PDFvars = [ ]
                             for varname in sorted(hmcs.keys()):
                                 isNominal = (str(varname) == defaultWeightName)
                                 # accept nominal and variations matching any of the specified patterns
@@ -525,7 +525,11 @@ if __name__ == '__main__':
                                     central_values = [ p.y() for p in thisobj.points() ]
                                     # update envelope
                                     if isPDF:
-                                        if not isNominal:
+                                        # generator may or may not count
+                                        # nominal as PDF variation
+                                        if isNominal:
+                                            nomVals = list(central_values)
+                                        else:
                                             PDFvars.append(central_values)
                                     elif errors == None:
                                         errors = [ list(central_values), list(central_values) ]
@@ -538,8 +542,13 @@ if __name__ == '__main__':
                                         if isPDF and PDFset == None:
                                             lhapdfID = int(re.search('PDF[0-9]*', varname).group(0)[3:])
                                             PDFset = lhapdf.mkPDF(lhapdfID).set()
+                                            nPDF = int(PDFset.size)
                             # compute PDF uncertainty
                             if PDFset:
+                                # if the number of PDF variations is off by 1,
+                                # probably needs the nominal
+                                if len(PDFvars) == nPDF - 1:
+                                    PDFvars.append(nomVals)
                                 PDFvars = list(map(list, zip(*PDFvars))) # transpose
                                 # TODO: would be nice if I could ask LHAPDF to give me the tuple straightaway
                                 uncertainties = [ PDFset.uncertainty(binVars) for binVars in PDFvars ]
