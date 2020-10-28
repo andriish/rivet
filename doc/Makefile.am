@@ -9,8 +9,8 @@ DOCS += analists/analyses.html
 DOCDIRS += analists/analyses
 analists/analyses.html: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-html
 	cd analists && \
-	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
-    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
+	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(LD_LIBRARY_PATH) \
+    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
     $(PYTHON) $(abs_srcdir)/analists/mk-analysis-html || true
@@ -19,8 +19,8 @@ analists/analyses.html: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-ht
 DOCS += analists/analyses.json
 analists/analyses.json: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-json
 	cd analists && \
-	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
-    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
+	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(LD_LIBRARY_PATH) \
+    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
     $(PYTHON) $(abs_srcdir)/analists/mk-analysis-json || true
@@ -29,8 +29,8 @@ analists/analyses.json: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-js
 DOCS += analists/analyses.dat
 analists/analyses.dat: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-txt
 	cd analists && \
-	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
-    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
+	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(LD_LIBRARY_PATH) \
+    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
     $(PYTHON) $(abs_srcdir)/analists/mk-analysis-txt || true
@@ -44,8 +44,8 @@ DOCS += coverage/rivet-coverage.html \
   coverage/rivet-coverage-nosearches-noheavyion.html
 coverage/rivet-coverage.html: $(wildcard $(srcdir)/coverage/inspire*.json) $(wildcard $(srcdir)/coverage/*.rank) $(top_srcdir)/analyses $(srcdir)/coverage/mk-coverage-html
 	cd coverage && \
-    LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
-    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
+    LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(LD_LIBRARY_PATH) \
+    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
     $(abs_srcdir)/coverage/mk-coverage-htmls || true
