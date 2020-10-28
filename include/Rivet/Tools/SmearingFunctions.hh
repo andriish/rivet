@@ -694,7 +694,7 @@ namespace Rivet {
   /// @defgroup smearing_jet Jet efficiency and smearing functions
   /// @{
 
-  /// Return the ATLAS Run 1 jet flavour tagging efficiency for the given Jet
+  /// Return the ATLAS Run 1 jet flavour tagging efficiency for the given Jet, from Delphes
   inline double JET_BTAG_ATLAS_RUN1(const Jet& j) {
     /// @todo This form drops past ~100 GeV, asymptotically to zero efficiency... really?!
     if (j.abseta() > 2.5) return 0;
@@ -704,7 +704,7 @@ namespace Rivet {
     return 0.002 + 7.3e-6*j.pT()/GeV;
   }
 
-  /// Return the ATLAS Run 2 MC2c20 jet flavour tagging efficiency for the given Jet
+  /// Return the ATLAS Run 2 MC2c20 77% WP jet flavour tagging efficiency for the given Jet
   inline double JET_BTAG_ATLAS_RUN2_MV2C20(const Jet& j) {
     if (j.abseta() > 2.5) return 0;
     if (j.bTagged(Cuts::pT > 5*GeV)) return 0.77;
@@ -712,7 +712,7 @@ namespace Rivet {
     return 1/140.;
   }
 
-  /// Return the ATLAS Run 2 MC2c10 jet flavour tagging efficiency for the given Jet
+  /// Return the ATLAS Run 2 MC2c10 77% WP jet flavour tagging efficiency for the given Jet
   inline double JET_BTAG_ATLAS_RUN2_MV2C10(const Jet& j) {
     if (j.abseta() > 2.5) return 0;
     if (j.bTagged(Cuts::pT > 5*GeV)) return 0.77;
