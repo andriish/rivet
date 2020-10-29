@@ -167,7 +167,7 @@ namespace Rivet {
           _weightNames[i] = "";
           _rivetDefaultWeightIdx = _defaultWeightIdx = i;
         }
-        ++nDefaults;
+        nDefaults += 1;
       }
     }
 
@@ -180,7 +180,7 @@ namespace Rivet {
             _weightNames[i] = "";
             _rivetDefaultWeightIdx = _defaultWeightIdx = i;
           }
-          ++nDefaults;
+          nDefaults += 1;
         }
       }
     }
@@ -188,6 +188,7 @@ namespace Rivet {
     // Warn user that no nominal weight could be identified
     if (nDefaults == 0) {
       MSG_WARNING("Could not identify nominal weight. Will continue assuming variations-only run.");
+      MSG_WARNING("Candidate weight names:\n  " << join(_weightNames, "\n  "));
     }
     // Warn if multiple weight names were acceptable alternatives
     if (nDefaults > 1) {
