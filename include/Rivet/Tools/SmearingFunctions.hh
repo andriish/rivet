@@ -12,7 +12,7 @@ namespace Rivet {
   /// @defgroup smearing Detector smearing & efficiency functions
   /// @{
 
-  /// @defgroup smearing_elec Electron efficiency and smearing functions
+  /// @defgroup smearing_elec Experiment-specific electron efficiency and smearing functions
   /// @{
 
   /// ATLAS Run 1 electron reconstruction efficiency
@@ -282,7 +282,7 @@ namespace Rivet {
 
 
 
-  /// @defgroup smearing_photon Photon efficiency and smearing functions
+  /// @defgroup smearing_photon Experiment-specific photon efficiency and smearing functions
   /// @{
 
   /// @brief ATLAS Run 2 photon reco efficiency
@@ -371,7 +371,7 @@ namespace Rivet {
 
 
 
-  /// @defgroup smearing_muon Muon efficiency and smearing functions
+  /// @defgroup smearing_muon Experiment-specific muon efficiency and smearing functions
   /// @{
 
   /// ATLAS Run 1 muon reco efficiency
@@ -497,7 +497,7 @@ namespace Rivet {
 
 
 
-  /// @defgroup smearing_tau Tau efficiency and smearing functions
+  /// @defgroup smearing_tau Experiment-specific tau efficiency and smearing functions
   /// @{
 
   /// @brief ATLAS Run 1 8 TeV tau efficiencies (medium working point)
@@ -691,7 +691,7 @@ namespace Rivet {
 
 
 
-  /// @defgroup smearing_jet Jet efficiency and smearing functions
+  /// @defgroup smearing_jet Experiment-specific jet efficiency and smearing functions
   /// @{
 
   /// Return the ATLAS Run 1 jet flavour tagging efficiency for the given Jet, from Delphes
@@ -764,7 +764,7 @@ namespace Rivet {
   /// @}
 
 
-  /// @defgroup smearing_elec Missing ET smearing functions
+  /// @defgroup smearing_met Experiment-specific missing-ET smearing functions
   /// @{
 
   inline Vector3 MET_SMEAR_IDENTITY(const Vector3& met, double) { return met; }
@@ -831,7 +831,7 @@ namespace Rivet {
   /// @}
 
 
-  /// @defgroup smearing_trk Tracking efficiency and smearing functions
+  /// @defgroup smearing_trk Experiment-specific tracking efficiency and smearing functions
   /// @{
 
   /// ATLAS Run 1 tracking efficiency
