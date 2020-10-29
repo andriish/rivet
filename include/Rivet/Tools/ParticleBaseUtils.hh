@@ -595,7 +595,7 @@ namespace Rivet {
   inline PBCONTAINER1 selectIfAnyDeltaRLess(const PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dR) {
     PBCONTAINER1 selected;
     for (const ParticleBase& f : tofilter) {
-      if (count(tocompare, deltaRLess(f, dR)) > 0) selected += f;
+      if (any(tocompare, deltaRLess(f, dR))) selected += f;
     }
     return selected;
   }
@@ -610,7 +610,7 @@ namespace Rivet {
   inline PBCONTAINER1 selectIfAnyDeltaPhiLess(const PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dphi) {
     PBCONTAINER1 selected;
     for (const ParticleBase& f : tofilter) {
-      if (count(tocompare, deltaPhiLess(f, dphi)) > 0) selected += f;
+      if (any(tocompare, deltaPhiLess(f, dphi))) selected += f;
     }
     return selected;
   }
