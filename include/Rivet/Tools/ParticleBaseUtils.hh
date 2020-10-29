@@ -481,8 +481,9 @@ namespace Rivet {
   inline void idiscardIfAny(PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare,
                             typename std::function<bool(const typename PBCONTAINER1::value_type&,
                                                         const typename PBCONTAINER2::value_type&)> fn) {
-    for (const auto& pbcmp : tocompare)
+    for (const auto& pbcmp : tocompare) {
       ifilter_discard(tofilter, [&](const typename PBCONTAINER1::value_type& pbfilt){ return fn(pbfilt, pbcmp); });
+    }
   }
 
   template<typename PBCONTAINER1, typename PBCONTAINER2>
@@ -494,21 +495,25 @@ namespace Rivet {
     return tmp;
   }
 
-  template<typename PBCONTAINER1, typename PBCONTAINER2>
-  inline void iselectIfAny(PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare,
-                           typename std::function<bool(const typename PBCONTAINER1::value_type&,
-                                                       const typename PBCONTAINER2::value_type&)> fn) {
-    for (const auto& pbcmp : tocompare)
-      ifilter_select(tofilter, [&](const typename PBCONTAINER1::value_type& pbfilt){ return fn(pbfilt, pbcmp); });
-  }
 
   template<typename PBCONTAINER1, typename PBCONTAINER2>
   inline PBCONTAINER1 selectIfAny(const PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare,
                                   typename std::function<bool(const typename PBCONTAINER1::value_type&,
                                                               const typename PBCONTAINER2::value_type&)> fn) {
-    PBCONTAINER1 tmp{tofilter};
-    iselectIfAny(tmp, tocompare, fn);
-    return tmp;
+    PBCONTAINER1 selected;
+    for (const auto& pbfilt : tofilter) {
+      if (any(tocompare, [&](const typename PBCONTAINER2::value_type& pbcmp){ return fn(pbfilt, pbcmp); })) {
+        selected += pbfilt;
+      }
+    }
+    return selected;
+  }
+
+  template<typename PBCONTAINER1, typename PBCONTAINER2>
+  inline void iselectIfAny(PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare,
+                           typename std::function<bool(const typename PBCONTAINER1::value_type&,
+                                                       const typename PBCONTAINER2::value_type&)> fn) {
+    tofilter = selectIfAny(tofilter, tocompare, fn);
   }
 
 
@@ -519,8 +524,7 @@ namespace Rivet {
                                                                const typename PBCONTAINER2::value_type&)> fn) {
     PBCONTAINER1 selected;
     for (const auto& pbfilt : tofilter) {
-      // @todo Boolean logic: ALL(f) == !ANY(!f). Convert to use all(), if this optimisation is used there
-      if (any(tocompare, [&](const typename PBCONTAINER2::value_type& pbcmp){ return !fn(pbfilt, pbcmp); })) {
+      if (!all(tocompare, [&](const typename PBCONTAINER2::value_type& pbcmp){ return fn(pbfilt, pbcmp); })) {
         selected += pbfilt;
       }
     }
@@ -555,8 +559,6 @@ namespace Rivet {
     tofilter = selectIfAll(tofilter, tocompare, fn);
   }
 
-
-
   //@}
 
 
@@ -565,8 +567,9 @@ namespace Rivet {
 
   template<typename PBCONTAINER1, typename PBCONTAINER2>
   inline void idiscardIfAnyDeltaRLess(PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dR) {
-    for (const ParticleBase& pb : tocompare)
+    for (const ParticleBase& pb : tocompare) {
       ifilter_discard(tofilter, deltaRLess(pb, dR));
+    }
   }
 
   template<typename PBCONTAINER1, typename PBCONTAINER2>
@@ -578,8 +581,9 @@ namespace Rivet {
 
   template<typename PBCONTAINER1, typename PBCONTAINER2>
   inline void idiscardIfAnyDeltaPhiLess(PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dphi) {
-    for (const ParticleBase& pb : tocompare)
+    for (const ParticleBase& pb : tocompare) {
       ifilter_discard(tofilter, deltaPhiLess(pb, dphi));
+    }
   }
 
   template<typename PBCONTAINER1, typename PBCONTAINER2>
@@ -619,6 +623,9 @@ namespace Rivet {
   inline void iselectIfAnyDeltaPhiLess(PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dphi) {
     tofilter = selectIfAnyDeltaPhiLess(tofilter, tocompare, dphi);
   }
+
+
+  /// @todo Add 'all' variants
 
   /// @}
 
