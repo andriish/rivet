@@ -2,6 +2,8 @@ FROM hepstore/rivet:3.1.2
 LABEL maintainer="rivet-developers@cern.ch"
 SHELL ["/bin/bash", "-c"]
 
+ARG PY8_VERSION=8303
+
 # TODO: remove with next hepbase/rivet image version
 RUN export DEBIAN_FRONTEND=noninteractive \
     && mkdir /code && cd /code \
@@ -13,7 +15,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 RUN export DEBIAN_FRONTEND=noninteractive \
     && mkdir /code && cd /code \
     && apt-get -y install rsync && apt-get autoclean \
-    && wget --no-verbose http://home.thep.lu.se/~torbjorn/pythia8/pythia8303.tgz -O- | tar xz \
+    && wget --no-verbose http://home.thep.lu.se/~torbjorn/pythia8/pythia${PY8_VERSION}.tgz -O- | tar xz \
     && cd pythia*/ && ./configure --enable-shared --{prefix,with-{hepmc2,lhapdf6,rivet}}=/usr/local \
     && make -j $(nproc --ignore=1) && make install \
     && cd examples \

@@ -15,6 +15,10 @@ RUN mkdir /code && cd /code \
     && echo "source /usr/local/share/YODA/yoda-completion" > /etc/profile.d/yoda-completion.sh \
     && texhash \
     && rm -rf /code
+
+# TODO: remove when hepbase includes this
+RUN sed -i '/disable ghostscript format types/,+6d' /etc/ImageMagick-6/policy.xml
+
 ADD bash.bashrc /etc/
 
 WORKDIR /work

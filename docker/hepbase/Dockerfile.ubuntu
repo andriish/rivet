@@ -68,6 +68,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
       apt-get install -y texlive-latex-recommended texlive-fonts-recommended; \
       apt-get install -y texlive-latex-extra texlive-pstricks imagemagick; \
       sed -i 's/^.*policy.*coder.*none.*(PS|PDF).*//' /etc/ImageMagick-6/policy.xml; \
+      sed -i '/disable ghostscript format types/,+6d' /etc/ImageMagick-6/policy.xml; \
     fi
 
 ENV LD_LIBRARY_PATH /usr/local/lib

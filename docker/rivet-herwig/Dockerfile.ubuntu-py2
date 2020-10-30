@@ -60,7 +60,8 @@ RUN apt-get update -y \
     && apt-get install -y texlive-latex-recommended texlive-fonts-recommended \
     && apt-get install -y texlive-latex-extra texlive-pstricks imagemagick \
     && apt-get install -y imagemagick \
-    && sed -i 's/^.*policy.*coder.*none.*(PS|PDF).*//' /etc/ImageMagick-6/policy.xml
+    && sed -i 's/^.*policy.*coder.*none.*(PS|PDF).*//' /etc/ImageMagick-6/policy.xml \
+    && sed -i '/disable ghostscript format types/,+6d' /etc/ImageMagick-6/policy.xml
 
 RUN true \
     && echo ". /herwig/bin/activate" >> /etc/bash.bashrc \
