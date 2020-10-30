@@ -31,7 +31,7 @@ namespace Rivet {
       FinalState tmuons(Cuts::abspid == PID::MUON && Cuts::abseta < 2.5);
       MissingMomentum tmet(fs);
       //
-      SmearedJets rjets(tjets, JET_SMEAR_CMS_RUN2, JET_BTAG_EFFS(0.55, 0.12, 0.016));
+      SmearedJets rjets(tjets, JET_SMEAR_CMS_RUN2, JET_BTAG_EFFS(0.7, 0.1, 1/120.));
       SmearedParticles relecs(telecs,
                               [](const Particle& e){
                                 return 0.85 * (1-sqr(e.eta()/5)) * (1 - 0.1*exp(10 - e.pT()/2/GeV));

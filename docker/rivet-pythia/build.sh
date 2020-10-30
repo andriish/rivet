@@ -17,6 +17,8 @@ docker tag $tag hepstore/rivet-pythia:latest
 
 if [[ "$PUSH" = 1 ]]; then
     docker push $tag
+    sleep 1m
     docker push hepstore/rivet-pythia:latest
+    sleep 1m
     docker push hepstore/rivet-pythia:$RIVET_VERSION
 fi

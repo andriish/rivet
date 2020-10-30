@@ -17,6 +17,8 @@ docker tag $tag hepstore/rivet-mg5amcnlo:latest
 
 if [[ "$PUSH" = 1 ]]; then
     docker push $tag
+    sleep 1m
     docker push hepstore/rivet-mg5amcnlo:latest
+    sleep 1m
     docker push hepstore/rivet-mg5amcnlo:$RIVET_VERSION
 fi
