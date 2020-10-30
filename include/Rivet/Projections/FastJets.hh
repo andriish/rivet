@@ -210,6 +210,7 @@ namespace Rivet {
 
     /// Trim (filter) a jet, keeping tag and constituent info in the resulting jet
     Jet trimJet(const Jet& input, const fastjet::Filter& trimmer) const;
+    /// @todo Add Transformer version (and an automatic Transformer*) list
 
     //@}
 
