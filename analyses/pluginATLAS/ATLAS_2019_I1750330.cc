@@ -513,7 +513,7 @@ namespace Rivet {
       _h["boosted_rc_chi_tt"]->fill(chi_ttbar);
       _h["boosted_rc_HT"]->fill(HT_ttbar/GeV);
       _h["hadTop_boosted_rc_subjets"]->fill(new_subjets_multi);
-      _h["boosted_rc_extrajet"]->fill(new_extrajet_multi);
+      _h["boosted_rc_extrajet"]->fill(new_extrajet_multi+1);
       _h["ttbar_boosted_rc_m"]->fill(pttbar.mass()/GeV);
       _h["ttbar_boosted_rc_pt"]->fill(pttbar.pt()/GeV);
       _h["ttbar_boosted_rc_Rapidity"]->fill(pttbar.absrapidity());
@@ -525,8 +525,8 @@ namespace Rivet {
       _h["boosted_rc_Pout_lep_norm"]->fill(absPout_lep);
       _h["boosted_rc_chi_tt_norm"]->fill(chi_ttbar);
       _h["boosted_rc_HT_norm"]->fill(HT_ttbar/GeV);
-      _h["hadTop_boosted_rc_subjets_norm"]->fill(new_subjets_multi) ;
-      _h["boosted_rc_extrajet_norm"]->fill(new_extrajet_multi) ;
+      _h["hadTop_boosted_rc_subjets_norm"]->fill(new_subjets_multi);
+      _h["boosted_rc_extrajet_norm"]->fill(new_extrajet_multi+1);
       _h["ttbar_boosted_rc_m_norm"]->fill(pttbar.mass()/GeV);
       _h["ttbar_boosted_rc_pt_norm"]->fill(pttbar.pt()/GeV);
       _h["ttbar_boosted_rc_Rapidity_norm"]->fill(pttbar.absrap()) ;
