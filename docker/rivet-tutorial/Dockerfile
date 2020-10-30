@@ -1,4 +1,4 @@
-FROM hepstore/rivet-pythia:3.1.1-8244
+FROM hepstore/rivet-pythia:3.1.2-8303
 LABEL maintainer="rivet-developers@cern.ch"
 
 CMD /bin/bash
