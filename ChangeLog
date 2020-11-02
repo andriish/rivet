@@ -1,3 +1,12 @@
+2020-10-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add missing 'inline' declarations to all high-level filter functions.
+
+	* Add missing (i)discard/selectIfAll high-level filtering functions.
+
+	* Correct logical bugs in (i)selectIfAnyDeltaR/Phi function logic:
+	it's not just the equivalent of the discard versions.
+
 2020-10-24  Christian Gutschow  <chris.g@cern.ch>
 
 	* Submission of ATLAS_2019_I1750330

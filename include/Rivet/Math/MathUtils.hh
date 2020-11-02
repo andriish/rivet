@@ -9,6 +9,9 @@
 namespace Rivet {
 
 
+  /// @defgroup mathutils Maths utilities
+
+
   /// @name Comparison functions for safe (floating point) equality tests
   //@{
 
