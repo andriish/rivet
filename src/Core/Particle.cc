@@ -300,6 +300,20 @@ namespace Rivet {
     return rtn;
   }
 
+  /// Particle appending operator
+  Particles& Particles::operator += (const Particle& p) {
+    vector<Particle>& v(*this);
+    v += p;
+    return *this;
+  }
+
+  /// Particles in-place concatenation operator
+  Particles& Particles::operator += (const Particles& ps) {
+    vector<Particle>& v(*this);
+    v += ps;
+    return *this;
+  }
+
   /// Particles concatenation operator
   Particles operator + (const Particles& a, const Particles& b) {
     Particles rtn(a);

@@ -31,6 +31,8 @@ namespace Rivet {
     Particles(const std::vector<Particle>& vps);
     FourMomenta moms() const; //< implementation in Particle.cc
     inline operator FourMomenta () const { return moms(); }
+    Particles& operator += (const Particle& p);
+    Particles& operator += (const Particles& ps);
     /// @todo Add conversion to PseudoJets
   };
 

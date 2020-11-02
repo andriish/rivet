@@ -567,7 +567,7 @@ namespace Rivet {
 
   template<typename PBCONTAINER1, typename PBCONTAINER2>
   inline void idiscardIfAnyDeltaRLess(PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dR) {
-    for (const ParticleBase& pb : tocompare) {
+    for (const typename PBCONTAINER2::value_type& pb : tocompare) {
       ifilter_discard(tofilter, deltaRLess(pb, dR));
     }
   }
@@ -581,7 +581,7 @@ namespace Rivet {
 
   template<typename PBCONTAINER1, typename PBCONTAINER2>
   inline void idiscardIfAnyDeltaPhiLess(PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dphi) {
-    for (const ParticleBase& pb : tocompare) {
+    for (const typename PBCONTAINER2::value_type& pb : tocompare) {
       ifilter_discard(tofilter, deltaPhiLess(pb, dphi));
     }
   }
@@ -598,8 +598,8 @@ namespace Rivet {
   template<typename PBCONTAINER1, typename PBCONTAINER2>
   inline PBCONTAINER1 selectIfAnyDeltaRLess(const PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dR) {
     PBCONTAINER1 selected;
-    for (const ParticleBase& f : tofilter) {
-      if (any(tocompare, deltaRLess(f, dR))) selected += f;
+    for (const typename PBCONTAINER1::value_type& f : tofilter) {
+      if (any(tocompare, deltaRLess(f, dR))) selected.push_back(f);
     }
     return selected;
   }
@@ -613,8 +613,8 @@ namespace Rivet {
   template<typename PBCONTAINER1, typename PBCONTAINER2>
   inline PBCONTAINER1 selectIfAnyDeltaPhiLess(const PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dphi) {
     PBCONTAINER1 selected;
-    for (const ParticleBase& f : tofilter) {
-      if (any(tocompare, deltaPhiLess(f, dphi))) selected += f;
+    for (const typename PBCONTAINER1::value_type& f : tofilter) {
+      if (any(tocompare, deltaPhiLess(f, dphi))) selected.push_back(f);
     }
     return selected;
   }

@@ -217,6 +217,20 @@ namespace Rivet {
     return rtn;
   }
 
+  /// Jet appending operator
+  Jets& Jets::operator += (const Jet& j) {
+    vector<Jet>& v(*this);
+    v += j;
+    return *this;
+  }
+
+  /// Jets in-place concatenation operator
+  Jets& Jets::operator += (const Jets& js) {
+    vector<Jet>& v(*this);
+    v += js;
+    return *this;
+  }
+
   /// Jets concatenation operator
   Jets operator + (const Jets& a, const Jets& b) {
     Jets rtn(a);
