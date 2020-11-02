@@ -1,5 +1,7 @@
 2020-10-29  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Tidy jet distance measure enums, introducing convenience AKT, CA, and CAMBRIDGE aliases.
+
 	* Add missing 'inline' declarations to all high-level filter functions.
 
 	* Add missing (i)discard/selectIfAll high-level filtering functions.
