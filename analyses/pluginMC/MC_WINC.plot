@@ -23,6 +23,12 @@ XLabel=$m_{\text{W}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}m_{\text{W}}$ [pb/GeV]
 # END PLOT
 
+# BEGIN PLOT /MC_WINC/W_mT
+Title=W transverse mass
+XLabel=$m^{\text{W}}_{\text{T}}$ [GeV]
+YLabel=$\text{d}\sigma/\text{d}m^{\text{W}}_{\text{T}}$ [pb/GeV]
+# END PLOT
+
 # BEGIN PLOT /MC_WINC/W_pT$
 Title=W boson $p_\perp$
 XLabel=$p_\perp^{\text{W}}$ [GeV]
