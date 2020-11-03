@@ -11,18 +11,18 @@ namespace Rivet {
   public:
 
     /// Default constructor
-    MC_ZINC(string name="MC_ZINC")
-		 : Analysis(name) {
-		 _dR=0.2;
-		 _lepton=PID::ELECTRON;
-	 }
-
+    DEFAULT_RIVET_ANALYSIS_CTOR(MC_ZINC);
 
     /// @name Analysis methods
     //@{
 
     /// Book histograms
     void init() {
+		  _dR=0.2;
+      if (getOption("SCHEME") == "BARE")  _dR = 0.0;
+		  _lepton=PID::ELECTRON;
+      if (getOption("LMODE") == "MU")  _lepton = PID::MUON;
+
       FinalState fs;
       Cut cut = Cuts::abseta < 3.5 && Cuts::pT > 25*GeV;
       ZFinder zfinder(fs, cut, _lepton, 65.0*GeV, 115.0*GeV, _dR, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::YES);
@@ -44,17 +44,16 @@ namespace Rivet {
     void analyze(const Event & e) {
       const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size() != 1) vetoEvent;
-      const double weight = 1.0;
 
       FourMomentum zmom(zfinder.bosons()[0].momentum());
-      _h_Z_mass->fill(zmom.mass()/GeV, weight);
-      _h_Z_pT->fill(zmom.pT()/GeV, weight);
-      _h_Z_pT_peak->fill(zmom.pT()/GeV, weight);
-      _h_Z_y->fill(zmom.rapidity(), weight);
-      _h_Z_phi->fill(zmom.phi(), weight);
+      _h_Z_mass->fill(zmom.mass()/GeV);
+      _h_Z_pT->fill(zmom.pT()/GeV);
+      _h_Z_pT_peak->fill(zmom.pT()/GeV);
+      _h_Z_y->fill(zmom.rapidity());
+      _h_Z_phi->fill(zmom.phi());
       for (const Particle& l : zfinder.constituents()) {
-        _h_lepton_pT->fill(l.pT()/GeV, weight);
-        _h_lepton_eta->fill(l.eta(), weight);
+        _h_lepton_pT->fill(l.pT()/GeV);
+        _h_lepton_eta->fill(l.eta());
       }
     }
 
@@ -98,44 +97,6 @@ namespace Rivet {
 
   };
 
-
-
-  struct MC_ZINC_EL : public MC_ZINC {
-    MC_ZINC_EL() : MC_ZINC("MC_ZINC_EL") {
-      _dR = 0.2;
-      _lepton = PID::ELECTRON;
-    }
-  };
-
-  struct MC_ZINC_EL_BARE : public MC_ZINC {
-    MC_ZINC_EL_BARE() : MC_ZINC("MC_ZINC_EL_BARE") {
-      _dR = 0;
-      _lepton = PID::ELECTRON;
-    }
-  };
-
-  struct MC_ZINC_MU : public MC_ZINC {
-    MC_ZINC_MU() : MC_ZINC("MC_ZINC_MU") {
-      _dR = 0.2;
-      _lepton = PID::MUON;
-    }
-  };
-
-  struct MC_ZINC_MU_BARE : public MC_ZINC {
-    MC_ZINC_MU_BARE() : MC_ZINC("MC_ZINC_MU_BARE") {
-      _dR = 0;
-      _lepton = PID::MUON;
-    }
-  };
-
-
-
   // The hooks for the plugin system
   DECLARE_RIVET_PLUGIN(MC_ZINC);
-  DECLARE_RIVET_PLUGIN(MC_ZINC_EL);
-  DECLARE_RIVET_PLUGIN(MC_ZINC_EL_BARE);
-  DECLARE_RIVET_PLUGIN(MC_ZINC_MU);
-  DECLARE_RIVET_PLUGIN(MC_ZINC_MU_BARE);
-
-
 }

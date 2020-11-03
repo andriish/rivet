@@ -1,3 +1,8 @@
+2020-11-03  Christian Gutschow  <chris.g@cern.ch>
+
+	* Add mT plot to MC_WINC
+	* Use options for MC_VINC, MC_VJETS, MC_VKTSPLITTINGS
+
 2020-10-29  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Tidy jet distance measure enums, introducing convenience AKT, CA, and CAMBRIDGE aliases.
