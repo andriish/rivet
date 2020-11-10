@@ -1,0 +1,10 @@
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2018_I1662483/d01-x01-y01
+Path=/REF/LHCB_2018_I1662483/d01-x01-y01
+Title= 
+Type=Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+13.000000e+03	5.000000e-01	5.000000e-01	0.126	0.025	0.025
+END YODA_SCATER2D_V2
+
+
