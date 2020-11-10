@@ -94,6 +94,24 @@ namespace Rivet {
     return a < b || fuzzyEquals(a, b, tolerance);
   }
 
+  /// @brief Get the minimum of two numbers
+  template <typename N1, typename N2>
+  inline typename std::enable_if<
+    std::is_arithmetic<N1>::value && std::is_arithmetic<N2>::value,
+    typename std::common_type<N1,N2>::type >::type
+  min(N1 a, N2 b) {
+    return a > b ? b : a;
+  }
+
+  /// @brief Get the maximum of two numbers
+  template <typename N1, typename N2>
+  inline typename std::enable_if<
+    std::is_arithmetic<N1>::value && std::is_arithmetic<N2>::value,
+    typename std::common_type<N1,N2>::type >::type
+  max(N1 a, N2 b) {
+    return a > b ? a : b;
+  }
+
   //@}
 
 
