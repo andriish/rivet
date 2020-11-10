@@ -1,6 +1,7 @@
 2020-11-10  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Add mixed-arithmetic-type min(n1,n2) and max(n1,n2) functions, using std::common_type.
+	* Add mixed-arithmetic-type min(n1,n2) and max(n1,n2) functions,
+	using std::common_type.
 
 	* Adding CMS_2018_I1620050 (dileptonic ttbar at 13 TeV) and
 	CMS_2019_I1744604 (t-channel single top at 13 TeV). Thanks to
