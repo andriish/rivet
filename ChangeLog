@@ -1,5 +1,8 @@
 2020-11-10  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add LHCB_2018_I1662483 (forward dilepton top-pair production
+	cross-section). Thanks to Alex Grecu!
+
 	* Add mixed-arithmetic-type min(n1,n2) and max(n1,n2) functions,
 	using std::common_type.
 
