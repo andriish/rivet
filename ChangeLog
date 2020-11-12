@@ -1,3 +1,7 @@
+2020-11-11  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a GROOM option to MC_JETS.
+
 2020-11-10  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add LHCB_2018_I1662483 (forward dilepton top-pair production
@@ -15,6 +19,14 @@
 	* Add mT plot to MC_WINC
 
 	* Use options for MC_VINC, MC_VJETS, MC_VKTSPLITTINGS
+
+2020-11-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a list of fastjet::Transformer to FastJets, to be applied in
+	order. Transformers don't currently have a comparison operator, so
+	if this list is non-empty, we have to report the projection as
+	non-equivalent and recompute duplicates -- for now -- but it
+	works, and we can feed back that improvement (again).
 
 2020-10-29  Andy Buckley  <andy.buckley@cern.ch>
 
