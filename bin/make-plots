@@ -657,9 +657,9 @@ class Plot(object):
         if inputdata.description['is2dim']:
             inputdata.description['RightMargin'] += 1.8
         papersizex = inputdata.attr_float('PlotSizeX') + 0.1 + \
-                     inputdata.description['LeftMargin'] + inputdata.description['RightMargin']
+                     float(inputdata.description['LeftMargin']) + float(inputdata.description['RightMargin'])
         papersizey = inputdata.attr_float('PlotSizeY') + 0.1 + \
-                     inputdata.description['TopMargin'] + inputdata.description['BottomMargin']
+                     float(inputdata.description['TopMargin']) + float(inputdata.description['BottomMargin'])
         for i in [""] + [str(idx) for idx in range(1,inputdata.nPanels)]:
             papersizey += inputdata.attr_float('RatioPlot'+i+'SizeY',0.)
         out = ""
@@ -2652,6 +2652,7 @@ class Ticks(object):
         self.majorticklength    = self.getMajorTickLength()
         self.minorticklength    = self.getMinorTickLength()
         self.majorticklabelcolor = self.getMajorTickLabelColor()
+        self.majorticklabelsep   = self.getMajorTickLabelSeparation()
         self.coors = coors
         self.decimal            = 0
         self.framelinewidth     = '0.3pt'
@@ -2852,6 +2853,12 @@ class Ticks(object):
     def getMajorTickLength(self):
         pass
 
+    def getMajorTickLabelSeparation(self):
+        pass
+
+    def getMajorLabelOrientation(self):
+        pass
+
 
 
 class XTicks(Ticks):
@@ -2912,7 +2919,7 @@ class XTicks(Ticks):
             label = self.get_ticklabel(value, int(self.description['LogX']) and self.coors.xmin() > 0 and self.coors.xmax() > 0)
         labelparts = label.split("\\n")
         labelcode = label if len(labelparts) == 1 else ("\\shortstack{" + "\\\\ ".join(labelparts) +  "}")
-        rtn = "\\rput(" + self.coors.strphys2frameX(value) + ", 0){\\rput[t](0,-\\labelsep){\\textcolor{"  +self.majorticklabelcolor + "}{" + labelcode + "}}}\n"
+        rtn = "\\rput(" + self.coors.strphys2frameX(value) + ", 0){\\rput[t]{" + self.getMajorLabelOrientation() + "}(0,-" + self.getMajorTickLabelSeparation() + "\\labelsep){\\textcolor{"  +self.majorticklabelcolor + "}{" + labelcode + "}}}\n"
         return rtn
 
     def draw_break(self, pos, twosided):
@@ -2942,6 +2949,12 @@ class XTicks(Ticks):
 
     def getMajorTickLabelColor(self):
         return self.description.get('XMajorTickLabelColor', 'black')
+
+    def getMajorTickLabelSeparation(self):
+        return self.description.get('XMajorTickLabelSeparation', '')
+
+    def getMajorLabelOrientation(self):
+        return self.description.get('XMajorLabelOrientation', '0')
 
 
 
@@ -3012,7 +3025,7 @@ class YTicks(Ticks):
         else:
             labelparts = label.split("\\n")
             labelcode = label if len(labelparts) == 1 else ("\\shortstack{" + "\\\\ ".join(labelparts) +  "}")
-            rtn = "\\rput(0, " + self.coors.strphys2frameY(value) + "){\\rput[r](-\\labelsep,0){\\textcolor{"+self.majorticklabelcolor+"}{" + labelcode + "}}}\n"
+            rtn = "\\rput(0, " + self.coors.strphys2frameY(value) + "){\\rput[r]{" + self.getMajorLabelOrientation() +"}(-" + self.getMajorTickLabelSeparation() + "\\labelsep,0){\\textcolor{"+self.majorticklabelcolor+"}{" + labelcode + "}}}\n"
         return rtn
 
 
@@ -3043,6 +3056,12 @@ class YTicks(Ticks):
 
     def getMajorTickLabelColor(self):
         return self.description.get('YMajorTickLabelColor', 'black')
+
+    def getMajorTickLabelSeparation(self):
+        return self.description.get('YMajorTickLabelSeparation', '')
+
+    def getMajorLabelOrientation(self):
+        return self.description.get('YMajorLabelOrientation', '0')
 
 
 
