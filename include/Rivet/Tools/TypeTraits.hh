@@ -56,7 +56,7 @@ namespace Rivet {
   // template <typename T>
   // struct Iterable<T, SFINAE::void_t< decltype(*std::declval<T>())> > : std::true_type {};
   template <typename T>
-  using ConstIterable = pretty_print::is_container<T>
+  using ConstIterable = pretty_print::is_container<T>;
 
 
   /// @endcond
