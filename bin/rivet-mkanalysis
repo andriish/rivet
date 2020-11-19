@@ -14,6 +14,7 @@ rivet.util.check_python_version()
 rivet.util.set_process_name(os.path.basename(__file__))
 import logging
 
+
 ## Handle command line
 import argparse
 parser = argparse.ArgumentParser(usage=__doc__)
@@ -21,12 +22,14 @@ parser.add_argument("ANANAMES", nargs="+", help="names of analyses to make")
 parser.add_argument("--srcroot", metavar="DIR", dest="SRCROOT", default=None,
                     help="install the templates into the Rivet source tree (rooted " +
                     "at directory DIR) rather than just creating all in the current dir")
+parser.add_argument("-i", "--inline-info", dest="INLINE", action="store_true",
+                    default=False, help="put analysis info into the source file instead of a separate data-file")
+parser.add_argument("--no-downloads", dest="DOWNLOADS", action="store_false",
+                    default=True, help="don't try to get metadata or reference data from online sources")
 parser.add_argument("-q", "--quiet", dest="LOGLEVEL", default=logging.INFO,
                     action="store_const", const=logging.WARNING, help="only write out warning and error messages")
 parser.add_argument("-v", "--verbose", dest="LOGLEVEL", default=logging.INFO,
                     action="store_const", const=logging.DEBUG, help="provide extra debugging messages")
-parser.add_argument("-i", "--inline-info", dest="INLINE", action="store_true",
-                    default=False, help="Put analysis info into source file instead of separate data file.")
 args = parser.parse_args()
 logging.basicConfig(format="%(msg)s", level=args.LOGLEVEL)
 ANANAMES = args.ANANAMES
@@ -126,7 +129,7 @@ for ANANAME in ANANAMES:
 
 
     ## Try to download YODA data file from HepData
-    if STDANA:
+    if STDANA and args.DOWNLOAD:
         try:
             try:
                 from urllib.request import urlretrieve
@@ -152,6 +155,7 @@ for ANANAME in ANANAMES:
             logging.warning("Problem encountered retrieving from HepData: %s" % hdurl)
             logging.warning("No reference data file written")
             logging.debug("HepData oops: %s: %s" % (str(type(e)), e))
+
 
     INLINEMETHODS = ""
     if args.INLINE:

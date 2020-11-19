@@ -1,3 +1,7 @@
+2020-11-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a --no-downloads flag to rivet-mkanalysis.
+
 2020-11-11  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add a GROOM option to MC_JETS.
