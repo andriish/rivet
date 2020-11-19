@@ -7,4 +7,8 @@ WORKDIR /work
 #RUN wget --no-verbose https://launchpad.net/mg5amcnlo/2.0/2.8.x/+download/MG5_aMC_v2.8.1.tar.gz -O- | tar xz
 RUN wget --no-verbose https://launchpad.net/mg5amcnlo/2.0/2.7.x/+download/MG5_aMC_v2.7.3.tar.gz -O- | tar xz
 
+RUN cd MG5_aMC_v2_* \
+  && echo "set auto_update 0" | bin/mg5 \
+  && echo "install pythia8" | bin/mg5
+
 WORKDIR /work
