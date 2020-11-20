@@ -91,8 +91,13 @@ namespace Rivet {
 
     _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
 
-    // Set the cross section based on what is reported by this event.
-    if ( ge.cross_section() ) setCrossSection(HepMCUtils::crossSection(ge));
+    // Set the cross section based on what is reported by this event, else zero
+    if (ge.cross_section()) {
+      setCrossSection(HepMCUtils::crossSection(ge));
+    } else {
+      MSG_DEBUG("No cross-section detected in first event: setting default to 0 pb");
+      setCrossSection({0.0, 0.0});
+    }
 
     // Check that analyses are beam-compatible, and remove those that aren't
     const size_t num_anas_requested = analysisNames().size();
@@ -285,11 +290,16 @@ namespace Rivet {
 
     // Ensure that beam details match those from the first event (if we're checking beams)
     if ( !_ignoreBeams ) {
-      const PdgIdPair beams = Rivet::beamIds(ge);
+      const PdgIdPair evtbeams = Rivet::beamIds(ge);
       const double sqrts = Rivet::sqrtS(ge);
-      if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
+      MSG_DEBUG("Event beams = " << evtbeams << " at sqrt(s) = " << sqrts/GeV << " GeV");
+      if (evtbeams.first == PID::ANY && evtbeams.second == PID::ANY) {
+        MSG_ERROR("No event beams found: please fix the events, or run with beam-checking disabled");
+        exit(1);
+      }
+      if (!compatible(evtbeams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
         cerr << "Event beams mismatch: "
-             << PID::toBeamsString(beams) << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
+             << PID::toBeamsString(evtbeams) << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
              << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
         exit(1);
       }
@@ -301,8 +311,8 @@ namespace Rivet {
     bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
     Event event(ge, _weightIndices, strip);
 
-    // Set the cross section based on what is reported by this event.
-    if ( ge.cross_section() ) setCrossSection(HepMCUtils::crossSection(ge));
+    // Set the cross section based on what is reported by this event
+    if (ge.cross_section()) setCrossSection(HepMCUtils::crossSection(ge));
 
     // If the event number has changed, sync the sub-event analysis objects to persistent
     // NB. Won't happen for first event because _eventNumber is set in init()
