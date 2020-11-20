@@ -1,5 +1,7 @@
 2020-11-20  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Relax some restrictions on Sphericity calculation.
+
 	* Backport master-branch tolerance of no-beam events and no-xsec runs to 3.1.x.
 
 2020-11-11  Andy Buckley  <andy.buckley@cern.ch>
