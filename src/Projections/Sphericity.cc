@@ -110,11 +110,11 @@ namespace Rivet {
       mMom += regfactor * mMomPart;
     }
 
-    if (mMom.get(2,0) == 0 && mMom.get(2,1) == 0 && mMom.get(2,2) == 0) {
-    	MSG_DEBUG("No longitudinal momenta given...");
-    	clear();
-        return;
-    }
+    // if (mMom.get(2,0) == 0 && mMom.get(2,1) == 0 && mMom.get(2,2) == 0) {
+    //   MSG_DEBUG("No longitudinal momenta given...");
+    //   clear();
+    //   return;
+    // }
 
     // Normalise to total (regulated) momentum.
     mMom /= totalMomentum;
@@ -134,7 +134,7 @@ namespace Rivet {
     // Eigenvalues
     const double q = mMom.trace()/3.;
     const double p1 = mMom.get(0,1)*mMom.get(0,1) + mMom.get(0,2)*mMom.get(0,2) + mMom.get(1,2)*mMom.get(1,2);
-    const double p2 = (mMom.get(0,0) - q)*(mMom.get(0,0) - q) 
+    const double p2 = (mMom.get(0,0) - q)*(mMom.get(0,0) - q)
         + (mMom.get(1,1) - q)*(mMom.get(1,1) - q) +  (mMom.get(2,2) - q)*(mMom.get(2,2) - q) + 2.*p1;
     const double p = sqrt(p2/6.);
 
@@ -150,8 +150,9 @@ namespace Rivet {
     const double l3 = q + 2 * p * cos(phi + (2*M_PI/3.));
     const double l2 = 3 * q - l1 - l3;
 
-    if (l1 == 0 || l2 == 0 || l3 == 0) {
-    	MSG_DEBUG("Zero eigenvalue...");
+    // Check that not all eigenvalues are null
+    if (l1 == 0 && l2 == 0 && l3 == 0) {
+    	MSG_WARNING("All eigenvalues are zero");
     	clear();
         return;
     }
