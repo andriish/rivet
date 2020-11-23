@@ -1,0 +1,3 @@
+SUSY:all = on
+SLHA:file = gg_g1500_chi100_g-ttchi.slha
+Main:writeHepMC = on
