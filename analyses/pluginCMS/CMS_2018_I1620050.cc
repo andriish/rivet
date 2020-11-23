@@ -43,7 +43,7 @@ namespace Rivet {
       declare(dressedLeptons, "DressedLeptons");
 
       // Projection for jets
-      VetoedFinalState fs_jets(FinalState(Cuts::open()));
+      VetoedFinalState fs_jets(fs);
       fs_jets.addVetoOnThisFinalState(dressedLeptons);
       fs_jets.vetoNeutrinos();
       declare(FastJets(fs_jets, FastJets::ANTIKT, 0.4), "ak4jets");
