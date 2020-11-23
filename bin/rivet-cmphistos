@@ -621,7 +621,7 @@ if __name__ == '__main__':
                             ratioreference = fullpath
                         ## For 2D, plot each histo now (since overlay makes no sense)
                         if is2d:
-                            suffix=(infile.split("/")[-1].replace(".yoda",""))
+                            suffix=(infile.split("/")[-1].replace(".yoda.gz", "").replace(".yoda",""))
                             s = mkOutput(hpath, [hmc], plot, special)
                             writeOutput(s, "%s_%s" % (hpath,suffix))
                     styleidx += 1
