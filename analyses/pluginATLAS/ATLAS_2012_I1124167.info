@@ -23,6 +23,8 @@ Description:
    Events with at least six charged particles are selected by a minimum-bias trigger.
    In addition to the differential distributions, the evolution of each event shape variable as a function of
    the leading charged-particle transverse momentum, charged-particle multiplicity, and summed transverse momentum is presented.'
+ReleaseTests:
+ - $A LHC-7-MinBias
 BibKey: Aad:2012fza
 BibTeX: '@article{Aad:2012fza,
       author         = "Aad, Georges and others",
