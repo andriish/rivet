@@ -1,3 +1,7 @@
+2020-11-23  Jon Butterworth <J.Butterworth@cern.ch>
+
+	* Use more numerically robust x and y defintions in DISKinematics
+
 2020-11-20  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Relax some restrictions on Sphericity calculation.
