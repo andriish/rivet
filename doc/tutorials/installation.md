@@ -26,7 +26,7 @@ export PATH=/cvmfs/sft.cern.ch/lcg/external/texlive/2016/bin/x86_64-linux:$PATH
 1. **Download the bootstrap script** into a temporary working directory, and make it executable:
 ```
   cd /scratch/rivet
-  wget https://gitlab.com/hepcedar/rivetbootstrap/raw/3.1.0/rivet-bootstrap
+  wget https://gitlab.com/hepcedar/rivetbootstrap/raw/3.1.2/rivet-bootstrap
   chmod +x rivet-bootstrap
 ```
 (Replace the version string as appropriate if you want to install other versions of Rivet.)
