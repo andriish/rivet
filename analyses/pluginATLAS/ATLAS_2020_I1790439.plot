@@ -97,7 +97,7 @@ END PLOT
 BEGIN PLOT /ATLAS_2020_I1790439/d30-x01-y01
 XLabel=subleading jet $p_\text{T}$ [GeV]
 YLabel=d$\sigma$/d$p_\text{T}$ [fb/GeV]
-XCustomMajorTicks=15.  $N_\text{jets}\leq0\qquad\qquad$  30.  30  60.  60  120.  120  350.  350
+XCustomMajorTicks=15.  $N_\text{jets}\leq1\qquad\qquad$  30.  30  60.  60  120.  120  350.  350
 LogY=1
 END PLOT
 
@@ -111,14 +111,14 @@ END PLOT
 BEGIN PLOT /ATLAS_2020_I1790439/d34-x01-y01
 XLabel=$\Delta\eta_{jj}$
 YLabel=d$\sigma$/d$\Delta\eta_{jj}$ [fb]
-XCustomMajorTicks=-0.5  $N_\text{jets}\leq0\qquad\qquad$  0.  0  1.  1  2.5  2.5  9.  9
+XCustomMajorTicks=-0.5  $N_\text{jets}\leq1\qquad\qquad$  0.  0  1.  1  2.5  2.5  9.  9
 LogY=1
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d36-x01-y01
 XLabel=$\Delta\phi_{jj}$
 YLabel=d$\sigma$/d$\Delta\phi_{jj}$ [fb]
-XCustomMajorTicks=-0.5  $N_\text{jets}\leq0\qquad\qquad$  0.  0  1.57  $\pi/2$  3.14  $\pi$  4.71  $3\pi/2$  6.28  $2\pi$
+XCustomMajorTicks=-0.5  $N_\text{jets}\leq1\qquad\qquad$  0.  0  1.57  $\pi/2$  3.14  $\pi$  4.71  $3\pi/2$  6.28  $2\pi$
 LogY=1
 END PLOT
 
@@ -132,7 +132,7 @@ END PLOT
 BEGIN PLOT /ATLAS_2020_I1790439/d40-x01-y01
 XLabel=$p_\text{T}^{4\ell jj}$ [GeV]
 YLabel=d$\sigma$/d$p_\text{T}^{4\ell jj}$ [fb/GeV]
-XCustomMajorTicks=-30.  $N_\text{jets}\leq0\qquad\qquad$  0.  0  60.  60  120  120  350  350
+XCustomMajorTicks=-30.  $N_\text{jets}\leq1\qquad\qquad$  0.  0  60.  60  120  120  350  350
 LogY=1
 END PLOT
 
@@ -146,7 +146,7 @@ END PLOT
 BEGIN PLOT /ATLAS_2020_I1790439/d44-x01-y01
 XLabel=$m_{4\ell jj}$ [GeV]
 YLabel=d$\sigma$/d$m_{4\ell jj}$ [fb/GeV]
-XCustomMajorTicks=60.  $N_\text{jets}\leq0\qquad\qquad$  180  180  400  400  600  600  1000  1000  2500  2500
+XCustomMajorTicks=60.  $N_\text{jets}\leq1\qquad\qquad$  180  180  400  400  600  600  1000  1000  2500  2500
 LogY=1
 RatioPlotYMax=1.7
 END PLOT
