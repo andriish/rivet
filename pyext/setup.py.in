@@ -3,6 +3,7 @@
 from distutils.core import setup
 from distutils.extension import Extension
 from glob import glob
+import platform
 
 ## Extension definition
 import os.path
@@ -23,6 +24,8 @@ if "RIVET_LOCAL" in os.environ:
 else:
   BASE_LINK_ARGS = ["-L@prefix@/lib"]
   
+## this needs to be passed seperately on Mac, otherwise HepMC3 library won't be found
+@ENABLE_HEPMC_3_TRUE@if platform.system()=="Darwin":BASE_LINK_ARGS.append('-Wl,-rpath,@HEPMC3LIBPATH@')
 
 
 ## Be careful with extracting the GSL path from the flags string
@@ -52,6 +55,7 @@ def ext(name, depends=[], statics=[]):
         @ENABLE_HEPMC_3_TRUE@libraries=["HepMC3", "fastjet", "YODA", "Rivet"])
         @ENABLE_HEPMC_3_FALSE@libraries=["HepMC", "fastjet", "YODA", "Rivet"])
         # libraries=["gsl", "HepMC", "fastjet", "YODA", "Rivet"])
+
 
 #header_files = glob("../include/Rivet/*.h") + glob("../include/Rivet/Utils/*.h")
 
