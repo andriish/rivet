@@ -28,6 +28,12 @@ for vhepmc in 2 3; do
         test "$PUSH" = 1 && docker push $tag && sleep 1m
         echo -e "\n\n\n"
 
+        echo "@@ $MSG on CentOS with GCC compilers"
+        tag=hepstore/hepbase-centos-gcc-hepmc${vhepmc}-py3$TEXSUFFIX
+        $BUILD . -f Dockerfile.centos $GCCARGS -t $tag
+        test "$PUSH" = 1 && docker push $tag && sleep 1m
+        echo -e "\n\n\n"
+
         echo "@@ $MSG on Ubuntu with clang compilers"
         tag=hepstore/hepbase-ubuntu-clang-hepmc${vhepmc}-py3$TEXSUFFIX
         $BUILD . -f Dockerfile.ubuntu ${CLANGARGS/gfortran/flang} -t $tag

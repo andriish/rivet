@@ -1,5 +1,5 @@
-ARG FEDORA_IMAGE=fedora:32
-FROM ${FEDORA_IMAGE}
+ARG CENTOS_IMAGE=centos:8
+FROM ${CENTOS_IMAGE}
 LABEL maintainer="rivet-developers@cern.ch"
 
 ARG HEPMC_VERSION=2
@@ -28,7 +28,7 @@ RUN true \
       git wget tar less bzip2 findutils which nano file diffutils \
       zlib-devel gsl-devel \
     && dnf install -y python3 python3-devel \
-    && alternatives --install /usr/bin/python python /usr/bin/python3 2 \
+    && alternatives --set python /usr/bin/python3 \
     && alternatives --install /usr/bin/python-config python-config /usr/bin/python3-config 2 \
     && wget --no-verbose https://bootstrap.pypa.io/get-pip.py -O get-pip.py \
     && python get-pip.py \
