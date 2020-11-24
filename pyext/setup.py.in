@@ -25,8 +25,7 @@ else:
   BASE_LINK_ARGS = ["-L@prefix@/lib"]
   
 ## this needs to be passed seperately on Mac, otherwise HepMC3 library won't be found
-if platform.system()=="Darwin":
-  @ENABLE_HEPMC_3_TRUE@BASE_LINK_ARGS.append('-Wl,-rpath,@HEPMC3LIBPATH@')
+@ENABLE_HEPMC_3_TRUE@if platform.system()=="Darwin":BASE_LINK_ARGS.append('-Wl,-rpath,@HEPMC3LIBPATH@')
 
 
 ## Be careful with extracting the GSL path from the flags string
