@@ -374,9 +374,12 @@ AC_SUBST(RIVET_SETUP_PY_PATH)
 if test x$enable_pyext == xyes; then
   AM_CHECK_CYTHON([0.24.0], [:], [:])
   if test x$CYTHON_FOUND = xyes; then
-    AC_MSG_NOTICE([Cython >= 0.24 found: Python extension source can be rebuilt (for developers)])
-    # Force rebuild since we have a sufficient Cython
-    test -f pyext/rivet/core.pyx && touch pyext/rivet/core.pyx
+    AC_PATH_PROGS(CYTHON, [cython-$PYTHON_MAJOR_VERSION cython])
+    if test x$CYTHON != x; then
+        AC_MSG_NOTICE([Cython >= 0.24 found at $CYTHON: Python extension source can be rebuilt (for developers)])
+        # Force rebuild since we have a sufficient Cython
+        test -f pyext/rivet/core.pyx && touch pyext/rivet/core.pyx
+    fi
   fi
 
   AC_CHECK_FILE([pyext/rivet/core.cpp],

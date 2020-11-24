@@ -1,3 +1,7 @@
+2020-11-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add an explicit configure test and override variable for the cython executable.
+
 2020-11-23  Jon Butterworth <J.Butterworth@cern.ch>
 
 	* Use more numerically robust x and y definitions in DISKinematics
