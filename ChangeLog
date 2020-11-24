@@ -32,6 +32,18 @@
 	CMS_2019_I1744604 (t-channel single top at 13 TeV). Thanks to
 	Markus Seidel and Matthias Komm.
 
+2020-11-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Move the experiment-specific smearing functions into
+	ExptSmearingFunctions.hh, with SmearingFunctions.hh retained for
+	UI simplicity and backward compatibility.
+
+	* Improve the ATLAS Run 2 MET smearing function to incorporate the
+	Run 2 linearity and resolution dependences.
+
+	* Refine the ATLAS and CMS MET functions to avoid a peak at MET=0
+	from negative Gaussian smearing.
+
 2020-11-03  Christian Gutschow  <chris.g@cern.ch>
 
 	* Add mT plot to MC_WINC
