@@ -129,7 +129,7 @@ for ANANAME in ANANAMES:
 
 
     ## Try to download YODA data file from HepData
-    if STDANA and args.DOWNLOAD:
+    if STDANA and args.DOWNLOADS:
         try:
             try:
                 from urllib.request import urlretrieve
