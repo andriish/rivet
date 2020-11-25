@@ -1,3 +1,7 @@
+2020-11-25  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add LHCB_2016_I1454404 (W/Z at 8 TeV).
+
 2020-11-24  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add an explicit configure test and override variable for the cython executable.

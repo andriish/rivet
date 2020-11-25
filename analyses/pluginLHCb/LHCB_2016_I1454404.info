@@ -4,7 +4,7 @@ Summary: Measurement of forward W and Z boson production in association with jet
 Experiment: LHCB
 Collider: LHC
 InspireID: 1454404
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Abbie Jane Chadwick <abbie.jane.chadwick@cern.ch>
  - Stephen Farry <stephen.farry@cern.ch>
@@ -39,4 +39,3 @@ BibTeX: '@article{AbellanBeteta:2016ugk,
       reportNumber   = "CERN-EP-2016-092, LHCB-PAPER-2016-011",
       SLACcitation   = "%%CITATION = ARXIV:1605.00951;%%"
 }'
-
