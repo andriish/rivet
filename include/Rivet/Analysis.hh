@@ -1450,21 +1450,43 @@ namespace Rivet {
 /// @defgroup anamacros Analysis macros
 /// @{
 
+/// @def RIVET_DECLARE_PLUGIN
+/// Preprocessor define to prettify the global-object plugin hook mechanism
+#define RIVET_DECLARE_PLUGIN(clsname) ::Rivet::AnalysisBuilder<clsname> plugin_ ## clsname
+
+/// @def RIVET_DECLARE_ALIASED_PLUGIN
+/// Preprocessor define to prettify the global-object plugin hook mechanism, with an extra alias name for this analysis
+#define RIVET_DECLARE_ALIASED_PLUGIN(clsname, alias) RIVET_DECLARE_PLUGIN(clsname)( #alias )
+
+/// @def RIVET_DEFAULT_ANALYSIS_CTOR
+/// Preprocessor define to prettify the awkward constructor with name string argument
+#define RIVET_DEFAULT_ANALYSIS_CTOR(clsname) clsname() : Analysis(# clsname) {}
+
+
+
 /// @def DECLARE_RIVET_PLUGIN
-/// Preprocessor define to prettify the global-object plugin hook mechanism.
+/// Preprocessor define to prettify the global-object plugin hook mechanism
+///
+/// @deprecated Prefer the RIVET_DECLARE_PLUGIN version with predictable RIVET_ prefix
 #define DECLARE_RIVET_PLUGIN(clsname) ::Rivet::AnalysisBuilder<clsname> plugin_ ## clsname
 
 /// @def DECLARE_ALIASED_RIVET_PLUGIN
-/// Preprocessor define to prettify the global-object plugin hook mechanism, with an extra alias name for this analysis.
+/// Preprocessor define to prettify the global-object plugin hook mechanism, with an extra alias name for this analysis
+///
+/// @deprecated Prefer the RIVET_DECLARE_ALIASED_PLUGIN version with predictable RIVET_ prefix
 // #define DECLARE_ALIASED_RIVET_PLUGIN(clsname, alias) Rivet::AnalysisBuilder<clsname> plugin_ ## clsname ## ( ## #alias ## )
 #define DECLARE_ALIASED_RIVET_PLUGIN(clsname, alias) DECLARE_RIVET_PLUGIN(clsname)( #alias )
 
 /// @def DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR
-/// Preprocessor define to prettify the manky constructor with name string argument
+/// Preprocessor define to prettify the awkward constructor with name string argument
+///
+/// @deprecated Prefer the "CTOR" version
 #define DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR(clsname) clsname() : Analysis(# clsname) {}
 
 /// @def DEFAULT_RIVET_ANALYSIS_CTOR
-/// Slight abbreviation for DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR
+/// Preprocessor define to prettify the awkward constructor with name string argument
+///
+/// @deprecated Prefer the RIVET_DEFAULT_ANALYSIS_CTOR version with predictable RIVET_ prefix
 #define DEFAULT_RIVET_ANALYSIS_CTOR(clsname) DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR(clsname)
 
 /// @}

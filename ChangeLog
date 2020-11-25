@@ -1,5 +1,8 @@
 2020-11-25  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add consistently 'RIVET_'-prefixed versions of the CTOR and
+	PLUGIN macros, to be the preferred future form from 3.2.0 onwards.
+
 	* Add LHCB_2016_I1454404 (W/Z at 8 TeV), and LHCB_2015_I1396331 &
 	LHCB_2016_I1490663 (open charm). Thanks to Alex Grecu and others in LHCb.
 
