@@ -10,20 +10,12 @@ namespace Rivet {
   class LHCB_2016_I1490663 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
-    LHCB_2016_I1490663()
-      : Analysis("LHCB_2016_I1490663")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(LHCB_2016_I1490663);
 
-    //@}
-
-    //TODO: test for 1M events remotely w/ pythia 8.303 !!!
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -32,6 +24,7 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       /// Book histograms
+      /// @todo Make this interface nicer!
       {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add(2.0, 2.5, book(tmp, 1, 1, 1));}
       {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add(2.5, 3.0, book(tmp, 1, 1, 2));}
       {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add(3.0, 3.5, book(tmp, 1, 1, 3));}
@@ -137,17 +130,21 @@ namespace Rivet {
 
     }
 
+
     /// Normalise histograms etc., after the run
     void finalize() {
+
       /// Factor of 0.5 to correct for the abs(rapidity) used above
       const double scale_factor = 0.5 * crossSection()/microbarn / sumOfWeights();
+
       /// Avoid the implicit division by the bin width in the BinnedHistogram::scale method.
+      /// @todo Another thing to make nicer / more flexible in BinnedHisto
       for (Histo1DPtr h : _h_pdg411_Dplus_pT_y.histos()) h->scaleW(scale_factor);
       for (Histo1DPtr h : _h_pdg421_Dzero_pT_y.histos()) h->scaleW(scale_factor);
       for (Histo1DPtr h : _h_pdg431_Dsplus_pT_y.histos()) h->scaleW(scale_factor);
       for (Histo1DPtr h : _h_pdg413_Dstarplus_pT_y.histos()) h->scaleW(scale_factor);
 
-      // do ratios
+      // Do ratios
       for (int i = 0; i < 5; ++i) {
       	book(hr_DplusDzero[i], 9, 1, i+1, true);
       	book(hr_DsDzero[i], 10, 1, i+1, true);
@@ -168,17 +165,17 @@ namespace Rivet {
       	hr_DsDplus[i]->scaleY(100.);
       	hr_DstarDplus[i]->scaleY(100.);
       	hr_DsDstar[i]->scaleY(100.);
-      };
+      }
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     void ratioScatterBins(Histo1DPtr& hn, Histo1DPtr& hd, Scatter2DPtr &s) {
-    	std::vector<double> sedges;
+    	vector<double> sedges;
     	// extract bin edges from Scatter2D
     	for (auto p=s->points().begin(); p != s->points().end(); ++p) {
     		sedges.push_back((*p).xMin());
@@ -195,8 +192,9 @@ namespace Rivet {
     	delete hnc; delete hdc;
     }
 
+
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _h_pdg411_Dplus_pT_y, _hbr_Dplus;
     BinnedHistogram _h_pdg421_Dzero_pT_y, _hbr_Dzero;
     BinnedHistogram _h_pdg431_Dsplus_pT_y, _hbr_Ds;
@@ -207,14 +205,11 @@ namespace Rivet {
     Scatter2DPtr hr_DsDplus[5];
     Scatter2DPtr hr_DstarDplus[5];
     Scatter2DPtr hr_DsDstar[5];
-
-    //@}
-
+    /// @}
 
   };
 
 
-  // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(LHCB_2016_I1490663);
 
 }

@@ -1,5 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
+#include "Rivet/Tools/BinnedHistogram.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
@@ -8,19 +9,12 @@ namespace Rivet {
   class LHCB_2015_I1396331 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
-    LHCB_2015_I1396331()
-      : Analysis("LHCB_2015_I1396331")
-    {    }
-
-    //@}
+    DEFAULT_RIVET_ANALYSIS_CTOR(LHCB_2015_I1396331);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -137,10 +131,11 @@ namespace Rivet {
 
     }
 
+
     /// Normalise histograms etc., after the run
     void finalize() {
-    	Histo1DPtr h;
-    	Histo1DPtr hden;
+      Histo1DPtr h;
+      Histo1DPtr hden;
       /// Factor of 0.5 to correct for the abs(rapidity) used above
       const double scale_factor = 0.5 * crossSection()/microbarn / sumOfWeights();
       /// Avoid the implicit division by the bin width in the BinnedHistogram::scale method.
@@ -149,7 +144,7 @@ namespace Rivet {
       for (Histo1DPtr h : _h_pdg413_Dstarplus_pT_y.histos()) h->scaleW(scale_factor);
       for (Histo1DPtr h : _h_pdg421_Dzero_pT_y.histos()) h->scaleW(scale_factor);
 
-      // do ratios
+      // Do ratios
       for (size_t i = 0; i < 5; ++i) {
       	// book final ratio plots
         book(hr_DplusDzero[i], 9, 1, i+1, true);
@@ -172,35 +167,36 @@ namespace Rivet {
       	hr_DsDplus[i]->scaleY(100.);
       	hr_DstarDplus[i]->scaleY(100.);
       	hr_DsDstar[i]->scaleY(100.);
-      };
+      }
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     // rebin histos to scatter and take ratio
     void ratioScatterBins(Histo1DPtr& hn, Histo1DPtr& hd, Scatter2DPtr &s) {
-    	std::vector<double> sedges;
-    	// extract bin edges from Scatter2D
-    	for (auto p=s->points().begin(); p != s->points().end(); ++p) {
-    		sedges.push_back((*p).xMin());
-    		// MSG_INFO("Scatter2D bin: " << (*p).xMin() << " - " << (*p).xMax());
-    	};
-    	sedges.push_back(s->points().back().xMax());
-    	// make deep-copies as rebinning changes bins each time - any smarter alternative ?!
-    	Histo1D *hnc, *hdc;
-    	hnc = new YODA::Histo1D(hn->bins(), hn->totalDbn(), hn->underflow(), hn->overflow());
-    	hdc = new YODA::Histo1D(hd->bins(), hd->totalDbn(), hd->underflow(), hd->overflow());
-    	hnc->rebinTo(sedges);
-    	hdc->rebinTo(sedges);
-    	divide(*hnc, *hdc, s);
-    	delete hnc; delete hdc;
+      vector<double> sedges;
+      // extract bin edges from Scatter2D
+      for (auto p=s->points().begin(); p != s->points().end(); ++p) {
+        sedges.push_back((*p).xMin());
+        // MSG_INFO("Scatter2D bin: " << (*p).xMin() << " - " << (*p).xMax());
+      }
+      sedges.push_back(s->points().back().xMax());
+      // make deep-copies as rebinning changes bins each time - any smarter alternative ?!
+      Histo1D *hnc, *hdc;
+      hnc = new YODA::Histo1D(hn->bins(), hn->totalDbn(), hn->underflow(), hn->overflow());
+      hdc = new YODA::Histo1D(hd->bins(), hd->totalDbn(), hd->underflow(), hd->overflow());
+      hnc->rebinTo(sedges);
+      hdc->rebinTo(sedges);
+      divide(*hnc, *hdc, s);
+      delete hnc; delete hdc;
     }
 
+
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _h_pdg411_Dplus_pT_y, _hbr_Dplus;
     BinnedHistogram _h_pdg421_Dzero_pT_y, _hbr_Dzero;
     BinnedHistogram _h_pdg431_Dsplus_pT_y, _hbr_Ds;
@@ -211,13 +207,11 @@ namespace Rivet {
     Scatter2DPtr hr_DsDplus[5];
     Scatter2DPtr hr_DstarDplus[5];
     Scatter2DPtr hr_DsDstar[5];
-    //@}
-
+    /// @}
 
   };
 
 
-  // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(LHCB_2015_I1396331);
 
 }
