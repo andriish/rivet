@@ -198,12 +198,13 @@ get_test_hepmc:
       - local_$ARCH/
       - test_$ARCH/
       - val_$ARCH/VALDIR/Make*
-      - val_$ARCH/VALDIR/*yoda
-      - val_$ARCH/VALDIR/*html
-      - val_$ARCH/VALDIR/*diff
-      - val_$ARCH/VALDIR/tmp/*log
+      - val_$ARCH/VALDIR/*.yoda
+      - val_$ARCH/VALDIR/*.html
+      - val_$ARCH/VALDIR/*.diff
+      - val_$ARCH/VALDIR/tmp/*.log
+      - val_$ARCH/VALDIR/*_*_*/*.*
     #exclude:
-    #  - test_$ARCH/VALDIR/*/*gz
+    #  - test_$ARCH/VALDIR/*/*.gz
     expire_in: 36 hrs
 
 

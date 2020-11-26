@@ -1,3 +1,7 @@
+2020-11-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Release 3.1.3
+
 2020-11-25  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add consistently 'RIVET_'-prefixed versions of the CTOR and
