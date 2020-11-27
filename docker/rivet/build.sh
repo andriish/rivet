@@ -2,7 +2,7 @@
 
 set -e
 
-VERSION=3.1.2
+VERSION=3.1.3
 BUILD="docker build . -f Dockerfile --build-arg RIVET_VERSION=$VERSION" # --squash"
 test "$TEST" && BUILD="echo $BUILD"
 

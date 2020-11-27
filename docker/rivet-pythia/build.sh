@@ -2,10 +2,10 @@
 
 set -e
 
-RIVET_VERSION=3.1.2
+RIVET_VERSION=3.1.3
 PY8_VERSION=8303
 
-BUILD="docker build ."
+BUILD="docker build . --build-arg RIVET_VERSION=${RIVET_VERSION}"
 test "$TEST" && BUILD="echo $BUILD"
 
 tag="hepstore/rivet-pythia:${RIVET_VERSION}-${PY8_VERSION}"

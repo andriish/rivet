@@ -6,7 +6,7 @@ ARG HEPMC_VERSION=2
 ARG CXX_CMD=g++
 ARG CC_CMD=gcc
 ARG FC_CMD=gfortran
-ARG RIVET_VERSION=3.1.2
+ARG RIVET_VERSION
 
 ENV CXX=${CXX_CMD}
 ENV CC=${CC_CMD}
@@ -38,7 +38,7 @@ RUN true \
 RUN true \
     && dnf install -y libXft libXpm libXext libsqlite3x uuid-devel \
     && cd /usr/local \
-    && wget --no-verbose https://root.cern/download/root_v6.20.06.Linux-fedora31-x86_64-gcc9.2.tar.gz -O- | tar xz \
+    && wget --no-verbose https://root.cern/download/root_v6.22.02.Linux-fedora32-x86_64-gcc10.2.tar.gz -O- | tar xz \
     && echo "source /usr/local/root/bin/thisroot.sh" > /etc/profile.d/01-cernroot \
     && echo "source /usr/local/root/bin/thisroot.sh" >> /root/.bashrc \
     && dnf clean all

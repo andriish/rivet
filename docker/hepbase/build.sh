@@ -11,7 +11,7 @@ for vhepmc in 2 3; do
 
         MSG="Building hepbase image with HepMC=$vhepmc and TeX=$tex"
 
-        BASEARGS="--build-arg HEPMC_VERSION=$vhepmc --build-arg LATEX=$tex"
+        BASEARGS="--build-arg RIVET_VERSION=3.1.3 --build-arg HEPMC_VERSION=$vhepmc --build-arg LATEX=$tex"
         GCCARGS="$BASEARGS --build-arg CXX_CMD=g++ --build-arg CC_CMD=gcc --build-arg FC_CMD=gfortran"
         CLANGARGS="$BASEARGS --build-arg CXX_CMD=clang++ --build-arg CC_CMD=clang --build-arg FC_CMD=gfortran"
         if [[ "$tex" = 1 ]]; then TEXSUFFIX="-latex"; else TEXSUFFIX=""; fi

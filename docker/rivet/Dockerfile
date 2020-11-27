@@ -3,7 +3,7 @@ FROM hepstore/hepbase-${ARCH}-latex
 LABEL maintainer="rivet-developers@cern.ch"
 SHELL ["/bin/bash", "-c"]
 
-ARG RIVET_VERSION=3.1.2
+ARG RIVET_VERSION
 RUN mkdir /code && cd /code \
     && texhash \
     && wget --no-verbose https://rivet.hepforge.org/downloads/?f=Rivet-${RIVET_VERSION}.tar.gz -O Rivet-${RIVET_VERSION}.tar.gz \
@@ -16,8 +16,8 @@ RUN mkdir /code && cd /code \
     && texhash \
     && rm -rf /code
 
-# TODO: remove when hepbase includes this
-RUN sed -i '/disable ghostscript format types/,+6d' /etc/ImageMagick-6/policy.xml
+# # TODO: remove when hepbase includes this
+# RUN sed -i '/disable ghostscript format types/,+6d' /etc/ImageMagick-6/policy.xml
 
 ADD bash.bashrc /etc/
 
