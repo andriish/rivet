@@ -3,22 +3,28 @@
 set -e
 
 RIVET_VERSION=3.1.3
-PY8_VERSION=8303
+PYTHIA_VERSION=8303
 
-BUILD="docker build . --build-arg RIVET_VERSION=${RIVET_VERSION}"
+BUILD="docker build ."
+BUILD="$BUILD --build-arg RIVET_VERSION=${RIVET_VERSION}"
+BUILD="$BUILD --build-arg PYTHIA_VERSION=${PYTHIA_VERSION}"
 test "$TEST" && BUILD="echo $BUILD"
 
-tag="hepstore/rivet-pythia:${RIVET_VERSION}-${PY8_VERSION}"
+tag="hepstore/rivet-pythia:${RIVET_VERSION}-${PYTHIA_VERSION}"
 echo "Building $tag"
 $BUILD -f Dockerfile -t $tag
 
 docker tag $tag hepstore/rivet-pythia:$RIVET_VERSION
-docker tag $tag hepstore/rivet-pythia:latest
+if [[ "$LATEST" = 1 ]]; then
+    docker tag $tag hepstore/rivet-pythia:latest
+fi
 
 if [[ "$PUSH" = 1 ]]; then
     docker push $tag
     sleep 1m
-    docker push hepstore/rivet-pythia:latest
-    sleep 1m
     docker push hepstore/rivet-pythia:$RIVET_VERSION
+    if [[ "$LATEST" = 1 ]]; then
+        sleep 1m
+        docker push hepstore/rivet-pythia:latest
+    fi
 fi

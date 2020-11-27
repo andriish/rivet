@@ -2,11 +2,6 @@ FROM ubuntu:20.04
 LABEL maintainer="rivet-developers@cern.ch"
 SHELL ["/bin/bash", "-c"]
 
-ARG RIVET_VERSION=3.1.2
-ARG YODA_VERSION=1.8.3
-ARG THEPEG_VERSION=2.2.1
-ARG HERWIG_VERSION=7.2.1
-
 ARG CXX_CMD=g++
 ARG CC_CMD=gcc
 ARG FC_CMD=gfortran
@@ -39,6 +34,10 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y autoremove \
     && apt-get -y autoclean
 
+ARG RIVET_VERSION
+ARG YODA_VERSION
+ARG THEPEG_VERSION
+ARG HERWIG_VERSION
 RUN export DEBIAN_FRONTEND=noninteractive \
     && python -m venv /herwig \
     && mkdir -p /herwig/etc/bash_completion.d \

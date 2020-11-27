@@ -1,4 +1,6 @@
-FROM hepstore/rivet-pythia:3.1.2-8303
+ARG RIVET_VERSION
+ARG PYTHIA_VERSION
+FROM hepstore/rivet-pythia:${RIVET_VERSION}-${PYTHIA_VERSION}
 LABEL maintainer="rivet-developers@cern.ch"
 
 CMD /bin/bash
