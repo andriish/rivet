@@ -15,20 +15,18 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y libtool texinfo libsqlite3-dev swig openmpi-bin libopenmpi-dev \
     && mkdir /code && cd /code \
     && git clone -b v${SHERPA_VERSION} https://gitlab.com/sherpa-team/sherpa.git \
-    && cd sherpa && autoreconf -fi
-
-
-# && ./configure --prefix=/usr/local \
-#       --enable-lhapdf=/usr/local --enable-fastjet=/usr/local \
-#       --enable-hepmc2=/usr/local --enable-openloops=/usr/local/OpenLoops \
-#       --enable-pyext --enable-gzip --enable-analysis \
-#       --enable-mpi CC=mpicc CXX=mpic++ \
-#     && make -j $(nproc --ignore=1) CXXFLAGS="-O2" AM_CXXFLAGS="-O2" \
-#     && make install \
-#     && mkdir /usr/local/Sherpa \
-#     && mv Examples /usr/local/Sherpa
-
-# && cd ../.. && rm -r /code
+    && cd sherpa && autoreconf -fi \
+    && ./configure --prefix=/usr/local \
+      --enable-lhapdf=/usr/local --enable-fastjet=/usr/local \
+      --enable-hepmc2=/usr/local --enable-openloops=/usr/local/OpenLoops \
+      --enable-rivet=/usr/local --enable-analysis \
+      --enable-pyext --enable-gzip \
+      --enable-mpi CC=mpicc CXX=mpic++ \
+    && make -j $(nproc --ignore=1) CXXFLAGS="-O2" AM_CXXFLAGS="-O2" \
+    && make install \
+    && mkdir /usr/local/Sherpa \
+    && mv Examples /usr/local/Sherpa \
+    && cd / && rm -r /code
 
 
 # RUN apt-get update; \

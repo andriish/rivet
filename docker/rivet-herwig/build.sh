@@ -25,7 +25,9 @@ echo "Building $tag2"
 $BUILD -f Dockerfile.ubuntu-py2 -t $tag2
 
 docker tag $tag2 hepstore/rivet-herwig:$RIVET_VERSION
-docker tag $tag2 hepstore/rivet-herwig:latest
+if [[ "$LATEST" = 1 ]]; then
+    docker tag $tag2 hepstore/rivet-herwig:latest
+fi
 
 if [[ "$PUSH" = 1 ]]; then
     docker push $tag3
@@ -33,6 +35,8 @@ if [[ "$PUSH" = 1 ]]; then
     docker push $tag2
     sleep 1m
     docker push hepstore/rivet-herwig:$RIVET_VERSION
-    sleep 1m
-    docker push hepstore/rivet-herwig:latest
+    if [[ "$LATEST" = 1 ]]; then
+        sleep 1m
+        docker push hepstore/rivet-herwig:latest
+    fi
 fi
