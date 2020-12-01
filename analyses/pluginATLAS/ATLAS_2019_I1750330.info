@@ -18,7 +18,7 @@ Keywords:
 Options:
  - TYPE=BOOSTED,RESOLVED,BOTH
 RunInfo:
-  pp -> semileptonic ttbar production at 13 TeV
+  pp -> non-allhadronic ttbar production at 13 TeV
 Luminosity_fb: 36
 Beams: [p+, p+]
 Energies: [13000]
