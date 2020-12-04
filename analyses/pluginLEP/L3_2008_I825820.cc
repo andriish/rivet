@@ -1,5 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
+#include "Rivet/Projections/Beam.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/Thrust.hh"
 #include "Rivet/Projections/Hemispheres.hh"
 #include "Rivet/Projections/ParisiTensor.hh"
