@@ -8,10 +8,11 @@ Status: VALIDATED
 Authors:
  - Rongkun Wang <rongkun.wang@cern.ch>
  - Neil Warrack <neil.warrack@cern.ch>
+ - Roger Naranjo
 References:
 - 'arXiv:2004.03969'
 - submitted to EPJC
-RunInfo: routine expects Higgs to 4l processes including ggH, VBF, VH and ttH. The total production cross section including tau decays should be passed and the routine applies branching ratios. 
+RunInfo: routine expects Higgs to 4l processes including ggH, VBF, VH and ttH. The total production cross section including tau decays should be passed and the routine applies branching ratios.
 Beams: [p+, p+]
 Energies: [13000]
 Luminosity_fb: 139
@@ -26,16 +27,16 @@ Description:
     Standard Model particles. For fiducial cross sections, different bin represents cross section measurement in different channels.
     For opposite-flavor cross sections, the branching ratio of Higgs to $4\ell$ of 1.18e$^{-4}$ is used while for same-flavor cross sections,
     1.3e$^{-4}$ is used, which takes interference into consideration. For all other cross sections, a combined branching ratio of
-    1.24e$^{-4}$ is used.  In the routine, a Matrix Element calculation based on LO MG is used to assist the pairing of leptons. 
-    The Higgs to $ZZ$ branching ratio of 0.02641 is multiplied by the $ZZ$ to four lepton branching ratio 0.004736842 and used to scale 
-    all the histograms except for the $\mathtt{xs\_flavor}$ histograms where bins are scaled by the Higgs to four same flavour leptons branching 
+    1.24e$^{-4}$ is used.  In the routine, a Matrix Element calculation based on LO MG is used to assist the pairing of leptons.
+    The Higgs to $ZZ$ branching ratio of 0.02641 is multiplied by the $ZZ$ to four lepton branching ratio 0.004736842 and used to scale
+    all the histograms except for the $\mathtt{xs\_flavor}$ histograms where bins are scaled by the Higgs to four same flavour leptons branching
     ratio 0.00013 or the Higgs to $ee\mu\mu$ branching ratio 0.000118.'
 Keywords:
  - HIGGS
  - LEPTONS
  - MULTIBOSON
 BibKey: ATLAS:2020wny
-BibTeX: 
+BibTeX:
   '@article{ATLAS:2020wny,
     archivePrefix = "arXiv",
     collaboration = "ATLAS",
@@ -48,4 +49,3 @@ BibTeX:
   }'
 ReleaseTests:
  - $A pp-13000-llll
-
