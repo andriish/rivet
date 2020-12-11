@@ -1,6 +1,12 @@
+2020-12-11  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Make rivet-merge work for analyses with sqrt(s)-dependent
+	binnings, by allowing the first preloaded-AO hookup to overwrite
+	the registered AO if there's a binning mismatch.
+
 2020-11-30  Christian Gutschow  <chris.g@cern.ch>
 
-	* support whitespace in white names
+	* Support whitespace in weight names
 
 2020-11-26  Andy Buckley  <andy.buckley@cern.ch>
 

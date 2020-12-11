@@ -555,7 +555,7 @@ namespace Rivet {
     // Go through all files and collect information
     for ( auto file : aofiles ) {
       allaos.push_back(AOMap());
-      AOMap & aomap = allaos.back();
+      AOMap& aomap = allaos.back();
       vector<YODA::AnalysisObject*> aos_raw;
       try {
         YODA::read(file, aos_raw);
@@ -671,18 +671,28 @@ namespace Rivet {
       xsec.reset();
       xsec.addPoint(Point1D(xs, xserr));
 
-      // Go through alla analyses and add stuff to their analysis objects;
+      // Go through all analyses and add stuff to their analysis objects;
       for (AnaHandle a : analyses()) {
         for (const auto & ao : a->analysisObjects()) {
           ao.get()->setActiveWeightIdx(iW);
           YODA::AnalysisObjectPtr yao = ao.get()->activeYODAPtr();
+          int nmerge = 0;
           for ( int i = 0, N = sows.size(); i < N; ++i ) {
             if ( !sows[i] || !xsecs[i] ) continue;
-            auto range = allaos[i].equal_range(yao->path());
+            auto range = allaos[i].equal_range(yao->path()); //< @todo Why more than one match?
             for ( auto aoit = range.first; aoit != range.second; ++aoit ) {
-              if ( !addaos(yao, aoit->second, scales[i]) )
-                MSG_WARNING("Cannot merge objects with path " << yao->path()
-                            <<" of type " << yao->annotation("Type") );
+              nmerge += 1;
+              // MSG_INFO("Merging " << aoit->first << " iteration " << nmerge);
+              if ( !addaos(yao, aoit->second, scales[i]) ) {
+                MSG_DEBUG("Overwriting incompatible starting version of " << aoit->first);
+                if (nmerge == 1) {
+                  copyao(aoit->second, yao, scales[i]);
+                } else {
+                  MSG_DEBUG("Cannot merge objects with path " << yao->path()
+                            << " of type " << yao->annotation("Type")
+                            << ", iteration " << nmerge);
+                }
+              }
             }
           }
           a->rawHookIn(yao);

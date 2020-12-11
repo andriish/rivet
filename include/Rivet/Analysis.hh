@@ -299,7 +299,7 @@ namespace Rivet {
     /// Centre of mass energy for this run
     double sqrtS() const;
 
-    /// Check if we are running rivet-merge.
+    /// Check if we are running rivet-merge
     bool merging() const {
       return sqrtS() <= 0.0;
     }
@@ -656,12 +656,15 @@ namespace Rivet {
 
     /// @name Allow RAW histograms to be read in to local objects.
     /// @todo Should be protected, not public?
+    /// @todo Why is the function body written this way? To avoid the virtual function being optimised away?
     virtual void rawHookIn(YODA::AnalysisObjectPtr yao) {
       (void) yao;
     }
 
     /// @name Provide access to RAW histograms before writing out to file.
     /// @todo Should be protected, not public?
+    /// @todo Signature should pass the vector by reference?
+    /// @todo Why is the function body written this way? To avoid the virtual function being optimised away?
     virtual void rawHookOut(vector<MultiweightAOPtr> raos, size_t iW) {
       (void) raos;
       (void) iW;

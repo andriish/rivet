@@ -47,17 +47,45 @@ extragroup.add_argument("-o", "--output-file", dest="OUTPUTFILE",
                         default="Rivet.yoda", help="specify the output histo file path (default = %(default)s)")
 extragroup.add_argument("-e", "--equiv", dest="EQUIV", action="store_true", default=False,
                         help="assume that the yoda files are equivalent but statistically independent (default= assume that different files contains different processes)")
+# TODO: could the merge- and add-options settings be specified in the info file in a MergeSettings heading?
 extragroup.add_argument("-O", "--merge-option", dest="MERGEOPTIONS", action="append",
                         default=[], help="specify an analysis option name where different options should be merged into the default analysis.")
 extragroup.add_argument("-a", "--add-option", dest="ADDOPTIONS", action="append", default=[], help="specify an analysis option in the format ANALYSIS:NAME=VALUE that should be added in the merging.")
 extragroup.add_argument("--pwd", dest="ANALYSIS_PATH_PWD", action="store_true", default=False,
                       help="append the current directory (pwd) to the analysis/data search paths (cf. $RIVET_ANALYSIS_PATH).")
 
+verbgroup = parser.add_argument_group("Verbosity control")
+parser.add_argument("-l", dest="NATIVE_LOG_STRS", action="append",
+                    default=[], help="set a log level in the Rivet library")
+verbgroup.add_argument("-v", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
+                       default=logging.INFO, help="print debug (very verbose) messages")
+verbgroup.add_argument("-q", "--quiet", action="store_const", const=logging.WARNING, dest="LOGLEVEL",
+                       default=logging.INFO, help="be very quiet")
 
 args = parser.parse_args()
 
 
-############################
+## Configure logging
+logging.basicConfig(level=args.LOGLEVEL, format="%(message)s")
+for l in args.NATIVE_LOG_STRS:
+    name, level = None, None
+    try:
+        name, level = l.split("=")
+    except:
+        name = "Rivet"
+        level = l
+    ## Fix name
+    if name != "Rivet" and not name.startswith("Rivet."):
+        name = "Rivet." + name
+    try:
+        ## Get right error type
+        level = rivet.LEVELS.get(level.upper(), None)
+        logging.debug("Setting log level: %s %d" % (name, level))
+        rivet.setLogLevel(name, level)
+    except:
+        logging.warning("Couldn't process logging string '%s'" % l)
+
+
 ## Actual analysis runs
 
 
