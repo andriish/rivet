@@ -290,9 +290,10 @@ namespace Rivet {
     /// statistically independent) Rivet runs. The corresponding analyses will
     /// be loaded and their analysis objects will be filled with the merged
     /// result. finalize() will be run on each relevant analysis. The resulting
-    /// YODA file can then be rwitten out by writeData(). If @a delopts is
-    /// non-empty, it is assumed to contain names different options to be merged
-    /// into the same analysis objects.
+    /// YODA file can then be written out by writeData().
+    ///
+    /// If @a delopts is non-empty, it is assumed to contain names of different
+    /// options to be merged into the same analysis objects.
     ///
     /// @todo Shouldn't this be private? Why is the Cython interface calling it?
     void mergeYodas(const vector<string>& aofiles,
