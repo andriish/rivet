@@ -74,16 +74,16 @@ namespace Rivet {
 
     /// @brief An extra event weight scaling per event file.
     /// Useful for e.g. AlpGen n-parton event file combination.
-    double _fileweight;
+    double _fileweight = 1.0;
 
     /// Cross-section from command line.
-    double _xs;
+    double _xs = NAN;
 
     //@}
 
 
     /// Flag to show list of analyses
-    bool _listAnalyses;
+    bool _listAnalyses = false;
 
 
     /// @name HepMC I/O members
