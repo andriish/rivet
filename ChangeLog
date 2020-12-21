@@ -1,3 +1,9 @@
+2020-12-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a stream-based AH::writeData variant, and map it to Python.
+
+	* Add missing list-analyses flag initialisation to Run.
+
 2020-12-11  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Make rivet-merge work for analyses with sqrt(s)-dependent

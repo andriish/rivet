@@ -259,6 +259,11 @@ namespace Rivet {
       return it->second;
     }
 
+    /// @brief Write all analyses' plots (via getData) to the given stream.
+    ///
+    /// Use the @a fmt flag to specify the YODA output format (yoda, yoda.gz, yoda.h5, ...)
+    void writeData(std::ostream& ostr, const string& fmt) const;
+
     /// Write all analyses' plots (via getData) to the named file.
     void writeData(const string& filename) const;
 
