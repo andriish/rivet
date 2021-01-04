@@ -20,7 +20,7 @@ endif
 ## bash completion
 if ENABLE_PYEXT
 dist_pkgdata_DATA = rivet-completion
-bashcomp_dir = $(DESTDIR)$(prefix)/etc/bash_completion.d
+bashcomp_dir = $(DESTDIR)$(sysconfdir)/bash_completion.d
 install-data-local:
 	$(mkdir_p) $(bashcomp_dir)
 	$(install_sh_DATA) $(srcdir)/rivet-completion $(bashcomp_dir)/
