@@ -37,7 +37,7 @@ Description:
   detector effects, are compared to the predictions of various Monte Carlo event generators. They are also compared between the
   large-radius jets originating from light quarks or gluons, and hadronically decaying top quarks and $W$ bosons.'
 BibKey: Aaboud:2019aii
-BibTex: '@article{Aaboud:2019aii,
+BibTeX: '@article{Aaboud:2019aii,
       author         = "Aaboud, Morad and others",
       title          = "{Measurement of jet-substructure observables in top
                         quark, $W$ boson and light jet production in proton-proton

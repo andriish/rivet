@@ -29,6 +29,7 @@ Description:
   photon selection criteria. The results are compared with
   next-to-leading order perturbative QCD calculations and found to be in
   good agreement over four orders of magnitude in cross-section.'
+BibKey: Aad:2011tw
 BibTeX: '@article{Aad:2011tw,
       author         = "Aad, Georges and others",
       title          = "{Measurement of the inclusive isolated prompt photon cross-section in $pp$ collisions at $\sqrt{s}=7$ TeV using 35 pb$^{-1}$ of ATLAS data}",
@@ -42,9 +43,8 @@ BibTeX: '@article{Aad:2011tw,
       archivePrefix  = "arXiv",
       primaryClass   = "hep-ex",
       reportNumber   = "CERN-PH-EP-2011-115",
-      SLACcitation   = "%%CITATION = ARXIV:1108.0253;%%",
+      SLACcitation   = "%%CITATION = ARXIV:1108.0253;%%"
 }'
-
 ReleaseTests:
  - $A LHC-7-PromptPhoton-1
  - $A-2 LHC-7-PromptPhoton-2
