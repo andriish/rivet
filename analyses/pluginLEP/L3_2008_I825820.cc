@@ -1,7 +1,5 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/Thrust.hh"
 #include "Rivet/Projections/Hemispheres.hh"
@@ -14,7 +12,7 @@
 namespace Rivet {
 
 
-  /// @brief event shapes at 197 GeV
+  /// @brief Event shapes at 197 GeV
   class L3_2008_I825820 : public Analysis {
   public:
 
@@ -30,15 +28,15 @@ namespace Rivet {
       // Projections to use
       const FinalState FS;
       declare(FS, "FS");
-      declare(Beam(), "beams");
       const ChargedFinalState CFS;
       declare(CFS, "CFS");
       const Thrust thrust(FS);
-      declare(thrust, "thrust");
+      declare(thrust, "Thrust");
       declare(ParisiTensor(FS), "Parisi");
       declare(Hemispheres(thrust), "Hemispheres");
-      declare(InitialQuarks(), "initialquarks");
+      declare(InitialQuarks(), "InitialQuarks");
       declare(FastJets(FS, FastJets::JADE, 0.7), "Jets");
+
       // histograms
       book(_h_T         ,1,1,1);
       book(_h_T_udsc    ,1,1,2);
@@ -65,37 +63,40 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
+
       int flavour = 0;
-      const InitialQuarks& iqf = apply<InitialQuarks>(event, "initialquarks");
+      const InitialQuarks& iqf = apply<InitialQuarks>(event, "InitialQuarks");
       Particles quarks;
       if ( iqf.particles().size() == 2 ) {
-	flavour = iqf.particles().front().abspid();
-	quarks  = iqf.particles();
+        flavour = iqf.particles().front().abspid();
+        quarks  = iqf.particles();
       } else {
-	map<int, Particle> quarkmap;
-	for (const Particle& p : iqf.particles()) {
-	  if (quarkmap.find(p.pid()) == quarkmap.end()) quarkmap[p.pid()] = p;
-	  else if (quarkmap[p.pid()].E() < p.E()) quarkmap[p.pid()] = p;
-	}
-	double max_energy = 0.;
-	for (int i = 1; i <= 5; ++i) {
-	  double energy = 0.;
-	  if (quarkmap.find(i) != quarkmap.end())
-	    energy += quarkmap[ i].E();
-	  if (quarkmap.find(-i) != quarkmap.end())
-	    energy += quarkmap[-i].E();
-	  if (energy > max_energy)
-	    flavour = i;
-	}
-	if (quarkmap.find(flavour) != quarkmap.end())
-	  quarks.push_back(quarkmap[flavour]);
-	if (quarkmap.find(-flavour) != quarkmap.end())
-	  quarks.push_back(quarkmap[-flavour]);
+        map<int, Particle> quarkmap;
+        for (const Particle& p : iqf.particles()) {
+          if (quarkmap.find(p.pid()) == quarkmap.end()) quarkmap[p.pid()] = p;
+          else if (quarkmap[p.pid()].E() < p.E()) quarkmap[p.pid()] = p;
+        }
+        double max_energy = 0.;
+        for (int i = 1; i <= 5; ++i) {
+          double energy = 0.;
+          if (quarkmap.find(i) != quarkmap.end())
+            energy += quarkmap[ i].E();
+          if (quarkmap.find(-i) != quarkmap.end())
+            energy += quarkmap[-i].E();
+          if (energy > max_energy)
+            flavour = i;
+        }
+        if (quarkmap.find(flavour) != quarkmap.end())
+          quarks.push_back(quarkmap[flavour]);
+        if (quarkmap.find(-flavour) != quarkmap.end())
+          quarks.push_back(quarkmap[-flavour]);
       }
+
       // Flavour label
-       int iflav = (flavour == PID::DQUARK || flavour == PID::UQUARK ||
-		    flavour == PID::SQUARK || flavour == PID::CQUARK) ?
-	 1 : (flavour == PID::BQUARK) ? 5 : 0;
+      int iflav = (flavour == PID::DQUARK || flavour == PID::UQUARK ||
+                   flavour == PID::SQUARK || flavour == PID::CQUARK) ?
+        1 : (flavour == PID::BQUARK) ? 5 : 0;
+
       // Update weight sums
       if (iflav == 1) {
         _sumW_udsc->fill();
@@ -104,7 +105,7 @@ namespace Rivet {
       }
 
       // Thrust
-      const Thrust& thrust = applyProjection<Thrust>(event, "thrust");
+      const Thrust& thrust = applyProjection<Thrust>(event, "Thrust");
       if (iflav == 1) {
         _h_T_udsc->fill(thrust.thrust());
       } else if (iflav == 5) {
@@ -112,7 +113,7 @@ namespace Rivet {
       }
       _h_T->fill(thrust.thrust());
 
-      
+
       // The hemisphere variables
       const Hemispheres& hemisphere = applyProjection<Hemispheres>(event, "Hemispheres");
       if (iflav == 1) {
@@ -130,7 +131,7 @@ namespace Rivet {
 
       const ParisiTensor& parisi = applyProjection<ParisiTensor>(event, "Parisi");
       if (iflav == 1) {
-	_h_C_udsc->fill(parisi.C());
+        _h_C_udsc->fill(parisi.C());
       } else if (iflav == 5) {
         _h_C_bottom->fill(parisi.C());
       }
@@ -139,13 +140,13 @@ namespace Rivet {
       const FastJets& durjet = apply<FastJets>(event, "Jets");
       const double y23 = durjet.clusterSeq()->exclusive_ymerge_max(2);
       if (iflav == 1) {
-	_h_y23_udsc->fill(y23);
+        _h_y23_udsc->fill(y23);
       } else if (iflav == 5) {
         _h_y23_bottom->fill(y23);
       }
       _h_y23->fill(y23);
     }
-    
+
     void finalize() {
       scale(_h_T_udsc  , 1./ *_sumW_udsc);
       scale(_h_T_bottom, 1./ *_sumW_b   );

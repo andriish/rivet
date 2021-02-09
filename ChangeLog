@@ -16,6 +16,14 @@
 	binnings, by allowing the first preloaded-AO hookup to overwrite
 	the registered AO if there's a binning mismatch.
 
+2020-12-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add behaviour overrides for rivet-build to force no
+	concatenation, or maximal concatenation, of analysis source files,
+	and use them in specific and full CI validation runs so both modes
+	are tested before release. Fix analyses with missing includes,
+	flagged by the no-cat build.
+
 2020-11-30  Christian Gutschow  <chris.g@cern.ch>
 
 	* Support whitespace in weight names
