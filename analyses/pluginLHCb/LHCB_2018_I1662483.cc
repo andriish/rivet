@@ -100,7 +100,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale(_h_fiducial_xsect, crossSection()/picobarn/sumOfWeights()); // norm to cross section
+      scale(_h_fiducial_xsect, crossSection()/femtobarn/sumOfWeights()); // norm to cross section
     }
 
 
