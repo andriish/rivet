@@ -25,8 +25,8 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-
-      declare(UnstableParticles(), "UFS");
+    	// select phi mesons in fiducial phase-space (symmetrical LHCb)
+      declare(UnstableParticles(Cuts::abspid == 333 && Cuts::absrapIn(2.44, 4.06) && Cuts::ptIn(0.6*GeV, 5.0*GeV)), "phiFS");
 
       {Histo1DPtr tmp; _h_Phi_pT_y.add(  2.44, 2.62, book(tmp, 2, 1, 1));}
       {Histo1DPtr tmp; _h_Phi_pT_y.add(  2.62, 2.80, book(tmp, 2, 1, 2));}
@@ -44,31 +44,22 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze (const Event& event) {
-      const double weight = 1;
-      const UnstableParticles& ufs = apply<UnstableFinalState> (event, "UFS");
+      const double weight = 1.;
+      const UnstableParticles& ufs = apply<UnstableParticles> (event, "phiFS");
 
       for (const Particle& p : ufs.particles()) {
-        const PdgId id = p.abspid();
-
-        if (id == 333) { // id 333 = phi-meson
-          double y  = p.rapidity();
-          double pT = p.perp();
-
-          if (pT < 0.6*GeV || pT > 5.0*GeV || y < 2.44 || y > 4.06) {
-            continue;
-          }
-
-          _h_Phi_y->fill (y, weight);
-          _h_Phi_pT->fill (pT/MeV, weight);
-          _h_Phi_pT_y.fill(y, pT/GeV, weight);
-        }
+      	double y  = p.rapidity();
+        double pT = p.pt();
+        _h_Phi_y->fill (y, weight);
+        _h_Phi_pT->fill (pT/MeV, weight);
+        _h_Phi_pT_y.fill(y, pT/GeV, weight);
       }
     }
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
-      double scale_factor = crossSectionPerEvent()/microbarn;
+    	// correct for symmetrical detector
+      double scale_factor = crossSectionPerEvent()/microbarn/2.;
       scale (_h_Phi_y, scale_factor);
       scale (_h_Phi_pT, scale_factor);
       _h_Phi_pT_y.scale(scale_factor/1000., this);
