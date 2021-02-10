@@ -20,7 +20,9 @@ namespace Rivet {
     void init() {
 
       /// Initialise and register projections
-      declare(UnstableParticles(), "UPDs");
+      Cut selection = (Cuts::abspid == 411 || Cuts::abspid == 421 || Cuts::abspid == 431 || Cuts::abspid == 413) \
+                       && Cuts::pT < 15.0 && Cuts::absrapIn(2.0, 4.5);
+      declare(UnstableParticles(selection), "UPDs");
 
       /// Book histograms
       {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add(2.0, 2.5, book(tmp, 1, 1, 1));}
@@ -65,27 +67,14 @@ namespace Rivet {
       const UnstableParticles &ufs = apply<UnstableParticles> (event, "UPDs");
       for (const Particle& p : ufs.particles()) {
 
-        // We're only interested in charm hadrons
-        // if (!p.isHadron() || !p.hasCharm()) continue;
-
-        PdgId apid = p.abspid();
-
-        // process only D-hadrons - use instead of the Cuts?!
-        if ((apid != 411) || (apid != 421) || (apid != 431) || (apid != 413)) continue;
-
-        /// Experimental selection removes non-prompt charm hadrons: we ignore those from b decays
         if (p.fromBottom()) continue;
 
-        // Kinematic acceptance
+        const PdgId apid = p.abspid();
         const double y = p.absrap(); ///< Double analysis efficiency with a "two-sided LHCb"
         const double pT = p.pT()/GeV;
 
-        // Fiducial acceptance of the measurements
-        if (pT > 15.0 || y < 2.0 || y > 4.5) continue;
-
-        Particles daus;
-
         // select inclusive decay modes
+        Particles daus;
         switch (apid) {
         case 411:
           _h_pdg411_Dplus_pT_y.fill(y, pT);
