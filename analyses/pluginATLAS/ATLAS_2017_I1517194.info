@@ -32,7 +32,7 @@ Description:
   The measurements are sensitive to the production of a $W$ boson via a triple-gauge-boson vertex and include both
   the fiducial and differential cross sections of the electroweak process.'
 BibKey: Aaboud:2017fye
-BibTex: '@article{Aaboud:2017fye,
+BibTeX: '@article{Aaboud:2017fye,
       author         = "Aaboud, Morad and others",
       title          = "{Measurements of electroweak $Wjj$ production and
                         constraints on anomalous gauge couplings with the ATLAS

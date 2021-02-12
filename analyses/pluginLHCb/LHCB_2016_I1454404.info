@@ -15,11 +15,16 @@ References:
 RunInfo: p+ p+ -> W/Z + jet + X
 Beams: [p+, p+]
 Energies: [8000]
+NeedCrossSection: True
 Luminosity_fb: 1.98
 Options:
  - MODE=WpJET,WmJET,ZJET,WJET,ALL
 Description:
-  'Measurements are made of forward W and Z production in association with jets in the forward region. Muons and jets are required to have transverse momentum in excess of 20 Gev, and to have a pseudorapidity between 2.0 and 4.5 for muons, and between 2.2 and 4.2 for jets. A single muon is required in the case of $W$ production, and two opposite sign muons with a combined invariant mass of between 60 and 120 GeV is required for $W$ production. The leptons and jets are required to be separated by a radius of 0.5 in ($\eta$, $\phi$) space.'
+  'Measurements are made of forward W and Z production in association with jets in the forward region. 
+  Muons and jets are required to have transverse momentum in excess of 20 Gev, and to have a pseudorapidity 
+  between 2.0 and 4.5 for muons, and between 2.2 and 4.2 for jets. A single muon is required in the case of 
+  $W$ production, and two opposite sign muons with a combined invariant mass of between 60 and 120 GeV are 
+  required for $W$ production. The leptons and jets are required to be separated by a radius of 0.5 in ($\eta$, $\phi$) space.'
 Keywords: []
 BibKey: AbellanBeteta:2016ugk
 BibTeX: '@article{AbellanBeteta:2016ugk,

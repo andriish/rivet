@@ -84,10 +84,9 @@ namespace Rivet {
         book(_h_rwpm, 2,1,4);
         book(_h_aw, 3,1,1);
         // this is a temporary histogram to construct rwz later
-        book(_h_wj, "tmp/wj", refData(1,1,1));
+        book(_h_wj, "TMP/wj", refData(1,1,1));
       }
     }
-
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
@@ -111,7 +110,7 @@ namespace Rivet {
             const double etaj = cleanedJetsZ[0].eta(); //histogram 8
             const double ptj  = cleanedJetsZ[0].pT()/GeV; //histogram 9
             double dphi_tmp = abs(Zmom.phi() - cleanedJetsZ[0].phi());
-            const double dphi = dphi_tmp < 3.14165 ? dphi_tmp : 2*3.14165 - dphi_tmp;
+            const double dphi = dphi_tmp < Rivet::pi ? dphi_tmp : Rivet::twopi - dphi_tmp;
             _h_zj->fill(sqrtS()/GeV);
             _h_dphi_zj->fill(dphi);
             _h_yz_zj->fill(yZ); // boson rapidity vs diff cross section
@@ -127,7 +126,7 @@ namespace Rivet {
         //////////////////////////////////////////////////////////
 
         const WFinder& wfinder = apply<WFinder>(event, "WFinder");
-        if (wfinder.bosons().size() ==1){
+        if (wfinder.bosons().size() == 1) {
           const Particles Muons = wfinder.constituentLeptons();
           const FourMomentum muonmom = Muons[0].momentum();
           const Jets jetsW = apply<FastJets>(event, "JetsW").jetsByPt(jetSel);
@@ -159,20 +158,19 @@ namespace Rivet {
       }
     }
 
-
     /// Normalise histograms etc., after the run
     void finalize() {
 
       double scalefactor = crossSection()/picobarn/sumOfWeights();
 
       if(_mode == 0 || _mode == 1 || _mode == 4) {
-        scale({_h_wpj, _h_eta_wpj, _h_etaj_wpj, _h_ptj_wpj}   , scalefactor);
+        scale({_h_wpj, _h_eta_wpj, _h_etaj_wpj, _h_ptj_wpj}, scalefactor);
       }
       if(_mode == 0 || _mode == 2 || _mode == 4) {
-        scale({_h_wmj, _h_eta_wmj, _h_etaj_wmj, _h_ptj_wmj}   , scalefactor);
+        scale({_h_wmj, _h_eta_wmj, _h_etaj_wmj, _h_ptj_wmj}, scalefactor);
       }
       if(_mode == 0 || _mode == 3) {
-        scale({_h_zj, _h_yz_zj, _h_etaj_zj, _h_ptj_zj, _h_dphi_zj}     , scalefactor);
+        scale({_h_zj, _h_yz_zj, _h_etaj_zj, _h_ptj_zj, _h_dphi_zj}, scalefactor);
       }
       if (_mode == 0 ) {
         scale({_h_wj}, scalefactor); // need to scale this for consistency
@@ -184,12 +182,12 @@ namespace Rivet {
       if (_mode == 0 || _mode == 4) {
         divide(_h_wpj, _h_wmj, _h_rwpm);
         asymm(_h_wpj, _h_wmj, _h_aw);
-
       }
 
+      // removing booked intermediary histos (they tend to appear in plots when multiple predictions are compared)
+      removeAnalysisObject(_h_wj);
 
     }
-
 
   protected:
 
@@ -201,7 +199,6 @@ namespace Rivet {
     Scatter2DPtr _h_rwz, _h_rwpz, _h_rwmz, _h_rwpm, _h_aw;
     Histo1DPtr _h_eta_wpj, _h_eta_wmj, _h_etaj_wpj, _h_etaj_wmj, _h_ptj_wpj, _h_ptj_wmj;
     Histo1DPtr _h_yz_zj, _h_etaj_zj, _h_ptj_zj, _h_dphi_zj;
-
   };
 
 

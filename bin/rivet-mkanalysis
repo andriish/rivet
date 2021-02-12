@@ -24,7 +24,7 @@ parser.add_argument("--srcroot", metavar="DIR", dest="SRCROOT", default=None,
                     "at directory DIR) rather than just creating all in the current dir")
 parser.add_argument("-i", "--inline-info", dest="INLINE", action="store_true",
                     default=False, help="put analysis info into the source file instead of a separate data-file")
-parser.add_argument("--no-downloads", dest="DOWNLOADS", action="store_false",
+parser.add_argument("--no-downloads", dest="DOWNLOAD", action="store_false",
                     default=True, help="don't try to get metadata or reference data from online sources")
 parser.add_argument("-q", "--quiet", dest="LOGLEVEL", default=logging.INFO,
                     action="store_const", const=logging.WARNING, help="only write out warning and error messages")

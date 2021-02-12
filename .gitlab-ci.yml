@@ -36,8 +36,8 @@ stages:
     - if (echo $ARCH | grep -q hepmc3); then CONF=${CONF/with-hepmc/with-hepmc3}; fi
     - echo $CONF
     - $CONF
-    - $MAKE
-    - $MAKE check
+    - $MAKE RIVET_BUILD_ALLCAT=1
+    - $MAKE check || (cat test/test-suite.log && false)
     - $MAKE install
     - cp rivetenv.sh rivetenv.csh $INSTALL_PREFIX/
     ## Basic testing
@@ -51,7 +51,7 @@ stages:
         find analyses | grep MC_TTBAR | grep cc  >> anasToCompile.txt # need at least one!
         cat anasToCompile.txt | sort --unique > anasToCompile.tmp ; mv anasToCompile.tmp anasToCompile.txt
         echo rivet-build `cat anasToCompile.txt`
-        rivet-build RivetModifiedAnas.so `cat anasToCompile.txt`
+        RIVET_BUILD_NOCAT=1 rivet-build RivetModifiedAnas.so `cat anasToCompile.txt`
         mkdir -p ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/lib/Rivet/.
         mkdir -p ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/.
         cp RivetModifiedAnas.so ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/lib/Rivet/.

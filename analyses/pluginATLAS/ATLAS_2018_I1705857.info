@@ -38,7 +38,7 @@ Description:
   uncertainties in the predictions. Comparisons of state-of-the-art theoretical predictions with the differential measurements are
   shown and good agreement with data is found for most of them.'
 BibKey: Aaboud:2018eki
-BibTex: '@article{Aaboud:2018eki,
+BibTeX: '@article{Aaboud:2018eki,
       author         = "Aaboud, Morad and others",
       title          = "{Measurements of fiducial and differential cross-sections
                         of $t\bar{t}$ production with additional heavy-flavour

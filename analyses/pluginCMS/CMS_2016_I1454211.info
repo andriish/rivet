@@ -60,7 +60,7 @@ Description:
   addition to the parton-level semileptonic requirement. The highest-$p_\mathrm{T}$ top
   jet candidate is defined as the particle-level $t$ jet.'
 BibKey: Khachatryan:2016gxp
-BibTex: '@article{Khachatryan:2016gxp,
+BibTeX: '@article{Khachatryan:2016gxp,
       author         = "Khachatryan, Vardan and others",
       title          = "{Measurement of the integrated and differential t-tbar
                         production cross sections for high-pt top quarks in pp

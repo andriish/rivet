@@ -39,7 +39,7 @@ Description:
   uncertainties cancel out, improving the measurement precision by up to a factor of nine. The observables and ratios selected 
   for this paper provide valuable input for the up quark, down quark, and gluon parton distribution functions of the proton.'
 BibKey: Aaboud:2017soa
-BibTex: '@article{Aaboud:2017soa,
+BibTeX: '@article{Aaboud:2017soa,
     author = "Aaboud, Morad and others",
     collaboration = "ATLAS",
     title = "{Measurement of differential cross sections and $W^+/W^-$ cross-section ratios for $W$ boson production in association with jets at $\sqrt{s}=8$ TeV with the ATLAS detector}",

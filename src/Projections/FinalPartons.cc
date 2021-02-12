@@ -14,7 +14,7 @@ namespace Rivet {
 
     // Accept partons if they end on a standard hadronization vertex
     if (p.genParticle()->end_vertex() != nullptr && p.genParticle()->end_vertex()->id() == 5)
-      return true;
+      return _cuts->accept(p);
 
     // Reject if p has a parton child.
     for (const Particle& c : p.children())

@@ -130,10 +130,11 @@ class Described(object):
 
 class InputData(Described):
 
-    def __init__(self, filename):
+    def __init__(self, filename, conffiles, fullrange):
         self.filename=filename
         if not self.filename.endswith(".dat"):
           self.filename += ".dat"
+        self.conffiles = conffiles
         self.normalized=False
         self.histos = {}
         self.ratiohistos = {}
@@ -145,6 +146,7 @@ class InputData(Described):
         self.description = {}
         self.pathdescriptions = []
 
+        self.description['FullRange'] = fullrange
         self.description['_OptSubs'] = { }
         self.description['is2dim'] = False
         f = open(filename)
@@ -194,7 +196,7 @@ class InputData(Described):
 #                self.read_path_based_input(line)
         f.close()
 
-        self.apply_config_files(args.CONFIGFILES)
+        self.apply_config_files(self.conffiles)
 
         self.description.setdefault('PlotSizeX', 10.)
         self.description.setdefault('PlotSizeY', 6.)
@@ -581,7 +583,6 @@ class Plot(object):
                             self.ymax = 1
                         ymins.append(2e-7*self.ymax)
                     minymin = min(ymins)
-                    fullrange = args.FULL_RANGE
                     if inputdata.has_attr('FullRange'):
                         fullrange = inputdata.attr_bool('FullRange')
                     self.ymin = minymin/1.7 if fullrange else max(minymin/1.7, 2e-7*self.ymax)
@@ -619,7 +620,7 @@ class Plot(object):
                             self.zmax = 1
                         zmins.append(2e-7*self.zmax)
                     minzmin = min(zmins)
-                    fullrange = inputdata.attr_bool("FullRange", args.FULL_RANGE)
+                    fullrange = inputdata.attr_bool("FullRange")
                     self.zmin = minzmin/1.7 if fullrange else max(minzmin/1.7, 2e-7*self.zmax)
 
                 if self.zmin == self.zmax:
@@ -637,7 +638,7 @@ class Plot(object):
         pass
 
 
-    def write_header(self,inputdata):
+    def write_header(self,inputdata, outfont, outformat, latexpkgs, has_new_policy):
         if inputdata.description.get('LeftMargin', '') != '':
             inputdata.description['LeftMargin'] = float(inputdata.description['LeftMargin'])
         else:
@@ -664,22 +665,22 @@ class Plot(object):
             papersizey += inputdata.attr_float('RatioPlot'+i+'SizeY',0.)
         out = ""
         out += '\\documentclass{article}\n'
-        if args.OUTPUT_FONT == "MINION":
+        if outfont == "MINION":
             out += ('\\usepackage{minion}\n')
-        elif args.OUTPUT_FONT == "PALATINO_OSF":
+        elif outfont == "PALATINO_OSF":
             out += ('\\usepackage[osf,sc]{mathpazo}\n')
-        elif args.OUTPUT_FONT == "PALATINO":
+        elif outfont == "PALATINO":
             out += ('\\usepackage{mathpazo}\n')
-        elif args.OUTPUT_FONT == "TIMES":
+        elif outfont == "TIMES":
             out += ('\\usepackage{mathptmx}\n')
-        elif args.OUTPUT_FONT == "HELVETICA":
+        elif outfont == "HELVETICA":
             out += ('\\renewcommand{\\familydefault}{\\sfdefault}\n')
             out += ('\\usepackage{sfmath}\n')
             out += ('\\usepackage{helvet}\n')
             out += ('\\usepackage[symbolgreek]{mathastext}\n')
             out += ('\\usepackage{sansmath}\n')
             out += ('\\sansmath\n')
-        for pkg in args.LATEXPKGS:
+        for pkg in latexpkgs:
             out += ('\\usepackage{%s}\n' % pkg)
         out += ('\\usepackage[dvipsnames]{xcolor}\n')
         out += ('\\usepackage{pstricks}\n')
@@ -711,6 +712,10 @@ class Plot(object):
         out += ('\\newcommand{\\GeV}{\\text{Ge\\kern-0.15ex V}}\n')
         out += ('\\newcommand{\\TeV}{\\text{Te\\kern-0.15ex V}}\n')
         out += '\n'
+        #
+        # GhostScript-9.53 hack: https://tex.stackexchange.com/questions/453780/pgfs-and-pstrickss-opacity-is-not-working
+        if "PDF" in outformat and has_new_policy:
+          out += ('\\special{ps: /.setopacityalpha {dup .setfillconstantalpha  .setstrokeconstantalpha} bind def}\n')
         #
         out += ('\\begin{document}\n')
         out += ('\\pagestyle{empty}\n')
@@ -3212,10 +3217,10 @@ class Coordinates(object):
 
 ####################
 
+import shutil, subprocess
 
 def try_cmd(args):
     "Run the given command + args and return True/False if it succeeds or not"
-    import subprocess
     try:
         subprocess.check_output(args, stderr=subprocess.STDOUT)
         return True
@@ -3225,17 +3230,30 @@ def try_cmd(args):
 def have_cmd(cmd):
     return try_cmd(["which", cmd])
 
+def has_new_opacity_policy():
+    """Check if GhostScript uses old/new opacity policy"""
+    try:
+        with open(os.devnull, 'w') as devnull:
+          v = subprocess.check_output(["gs", "--version"], stderr=devnull).decode('utf-8')
+        return float(v[:v.find('.', 2)]) >= 9.52
+    except:
+        return False
+    return
 
-import shutil, subprocess
-def process_datfile(datfile):
-    global opts
+
+
+def process_wrapper(datargs):
+    df, kwargs = datargs
+    return process_datfile(df, **kwargs)
+
+def process_datfile(datfile, **kwargs):
     if not os.access(datfile, os.R_OK):
         raise Exception("Could not read data file '%s'" % datfile)
 
     datpath = os.path.abspath(datfile)
     datfile = os.path.basename(datpath)
     datdir = os.path.dirname(datpath)
-    outdir = args.OUTPUT_DIR if args.OUTPUT_DIR else datdir
+    outdir = kwargs.get('OUTPUT_DIR') if kwargs.get('OUTPUT_DIR') else datdir
     filename = datfile.replace('.dat','')
 
     ## Create a temporary directory
@@ -3243,17 +3261,19 @@ def process_datfile(datfile):
     tempdir = tempfile.mkdtemp('.make-plots')
     tempdatpath = os.path.join(tempdir, datfile)
     shutil.copy(datpath, tempdir)
-    if args.NO_CLEANUP:
+    if kwargs.get('NO_CLEANUP'):
         logging.info('Keeping temp-files in %s' % tempdir)
 
     ## Make TeX file
-    inputdata = InputData(datpath)
+    inputdata = InputData(datpath, kwargs.get('CONFIGFILES'), kwargs.get('FULL_RANGE'))
     if inputdata.attr_bool('IgnorePlot', False):
       return
     texpath = os.path.join(tempdir, '%s.tex' % filename)
     texfile = open(texpath, 'w')
     p = Plot(inputdata)
-    texfile.write(p.write_header(inputdata))
+    newOpacityPolicy = has_new_opacity_policy()
+    texfile.write(p.write_header(inputdata, kwargs.get('OUTPUT_FONT'), kwargs.get('OUTPUT_FORMAT'), 
+                                 kwargs.get('LATEXPKGS'), newOpacityPolicy))
     if inputdata.attr_bool("MainPlot", True):
         mp = MainPlot(inputdata)
         texfile.write(mp.draw(inputdata))
@@ -3268,7 +3288,7 @@ def process_datfile(datfile):
     texfile.write(p.write_footer())
     texfile.close()
 
-    if args.OUTPUT_FORMAT != ["TEX"]:
+    if kwargs.get('OUTPUT_FORMAT') != ["TEX"]:
 
         ## Check for the required programs
         latexavailable = have_cmd("latex")
@@ -3323,25 +3343,29 @@ def process_datfile(datfile):
         if not logging.getLogger().isEnabledFor(logging.DEBUG):
             dvcmd.append("-q")
         ## Handle Minion Font
-        if args.OUTPUT_FONT == "MINION":
+        if kwargs.get('OUTPUT_FONT') == "MINION":
             dvcmd.append('-Pminion')
 
         ## Choose format
         # TODO: Rationalise... this is a mess! Maybe we can use tex2pix?
-        if "PS" in args.OUTPUT_FORMAT:
+        outformat = kwargs.get('OUTPUT_FORMAT')
+        if "PS" in outformat:
             dvcmd += ["-o", "%s.ps" % filename]
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
             dvproc.wait()
-        if "PDF" in args.OUTPUT_FORMAT:
+        if "PDF" in outformat:
             dvcmd.append("-f")
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-            cnvproc = subprocess.Popen(["ps2pdf", "-dNOSAFER", "-"], stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
+            cnvcmd = ["ps2pdf", "-dNOSAFER" ]
+            if newOpacityPolicy:
+              cnvcmd += ["-dALLOWPSTRANSPARENCY",]
+            cnvproc = subprocess.Popen(cnvcmd + ["-"], stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
             f = open(os.path.join(tempdir, "%s.pdf" % filename), "wb")
             f.write(cnvproc.communicate()[0])
             f.close()
-        if "EPS" in args.OUTPUT_FORMAT:
+        if "EPS" in outformat:
             dvcmd.append("-f")
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
@@ -3349,19 +3373,23 @@ def process_datfile(datfile):
             f = open(os.path.join(tempdir, "%s.eps" % filename), "wb")
             f.write(cnvproc.communicate()[0])
             f.close()
-        if "PNG" in args.OUTPUT_FORMAT:
-            dvcmd.append("-f")
-            logging.debug(" ".join(dvcmd))
-            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-            #pngcmd = ["convert", "-flatten", "-density", "110", "-", "-quality", "100", "-sharpen", "0x1.0", "%s.png" % filename]
-            pngcmd = mkpngcmd("-", "%s.png" % filename)
+        if "PNG" in outformat:
+            pngcmd = ""
+            if "PDF" in outformat:
+              pngcmd = mkpngcmd("%s.pdf" % filename, "%s.png" % filename)
+            else:
+              dvcmd.append("-f")
+              logging.debug(" ".join(dvcmd))
+              dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+              #pngcmd = ["convert", "-flatten", "-density", "110", "-", "-quality", "100", "-sharpen", "0x1.0", "%s.png" % filename]
+              pngcmd = mkpngcmd("-", "%s.png" % filename)
             logging.debug(" ".join(pngcmd))
             pngproc = subprocess.Popen(pngcmd, stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
             pngproc.wait()
         logging.debug(os.listdir(tempdir))
 
     ## Copy results back to main dir
-    for fmt in args.OUTPUT_FORMAT:
+    for fmt in kwargs.get('OUTPUT_FORMAT'):
         outname = "%s.%s" % (filename, fmt.lower())
         outpath = os.path.join(tempdir, outname)
         if os.path.exists(outpath):
@@ -3370,11 +3398,15 @@ def process_datfile(datfile):
             logging.error("No output file '%s' from processing %s" % (outname, datfile))
 
     ## Clean up
-    if not args.NO_CLEANUP:
+    if not kwargs.get('NO_CLEANUP'):
         shutil.rmtree(tempdir, ignore_errors=True)
 
 
 ####################
+
+def init_worker():
+    import signal
+    signal.signal(signal.SIGINT, signal.SIG_IGN)
 
 
 if __name__ == '__main__':
@@ -3528,9 +3560,15 @@ if __name__ == '__main__':
         except Exception as e:
             logging.warning("Problem while testing for external packages. I'm going to try and continue without testing, but don't hold your breath...")
 
-    def init_worker():
-        import signal
-        signal.signal(signal.SIGINT, signal.SIG_IGN)
+
+    datargs = { }
+    datargs['OUTPUT_DIR'] = args.OUTPUT_DIR if args.OUTPUT_DIR else None
+    datargs['NO_CLEANUP'] = args.NO_CLEANUP
+    datargs['FULL_RANGE'] = args.FULL_RANGE
+    datargs['CONFIGFILES'] = args.CONFIGFILES
+    datargs['OUTPUT_FORMAT'] = args.OUTPUT_FORMAT
+    datargs['OUTPUT_FONT'] = args.OUTPUT_FONT
+    datargs['LATEXPKGS'] = args.LATEXPKGS
 
     ## Run rendering jobs
     datfiles = args.DATFILES
@@ -3540,11 +3578,12 @@ if __name__ == '__main__':
         init_worker()
         for i, df in enumerate(datfiles):
             logging.info("Plotting %s (%d/%d remaining)" % (df, len(datfiles)-i, len(datfiles)))
-            process_datfile(df)
+            process_datfile(df, **datargs)
     else:
         pool = multiprocessing.Pool(args.NUM_THREADS, init_worker)
+        process_args = [ (datfile, datargs) for datfile in datfiles ]
         try:
-            for i, _ in enumerate(pool.imap(process_datfile, datfiles)):
+            for i, _ in enumerate(pool.imap(process_wrapper, process_args)):
                 logging.info("Plotting %s (%d/%d remaining)" % (datfiles[i], len(datfiles)-i, len(datfiles)))
             pool.close()
         except KeyboardInterrupt:

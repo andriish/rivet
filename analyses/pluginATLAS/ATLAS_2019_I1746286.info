@@ -33,7 +33,7 @@ Description:
   underlying event has been made. The production of neutral strange particles in $t\bar{t}$ dileptonic events is found to be well 
   described by current Monte Carlo models for $K^0_S$ ans $\Lambda^0$ production within jets, but not for those produced outside jets.'
 BibKey: Aad:2019xek
-BibTex: '@article{Aad:2019xek,
+BibTeX: '@article{Aad:2019xek,
       author         = "Aad, Georges and others",
       title          = "{Measurement of $K_S^0$ and $\Lambda^0$ production in $t
                         \bar{t}$ dileptonic events in $pp$ collisions at $\sqrt{s}

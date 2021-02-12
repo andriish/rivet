@@ -75,6 +75,8 @@ done
 ## Remove options
 shift $((OPTIND-1))
 
+if [[ -n "$RIVET_BUILD_ALLCAT" ]]; then num_jobs=1; fi
+
 ## Check num_jobs is a number
 if [[ ! $num_jobs -eq $num_jobs ]]; then
 	echo "Unknown argument to -j" >&2; exit 1
@@ -157,7 +159,7 @@ if [[ -n "@RIVETCXXFLAGS@" ]]; then
 fi
 
 ## Get Rivet system C preprocessor flags (duplicating that in rivet-config.in)
-if [[ -n "$RIVET_BUILDPLUGIN_BEFORE_INSTALL" ]]; then
+if [[ -n "$RIVET_BUILD_BEFORE_INSTALL" ]]; then
     irivet="@top_srcdir@/include"
 else
     irivet="@includedir@"
@@ -176,7 +178,7 @@ test -n "$ifjcontrib" && mycppflags="$mycppflags ${ifjcontrib}"
 
 ## Get Rivet system linker flags (duplicating that in rivet-config.in)
 myldflags=""
-if [[ -n "$RIVET_BUILDPLUGIN_BEFORE_INSTALL" ]]; then
+if [[ -n "$RIVET_BUILD_BEFORE_INSTALL" ]]; then
     lrivet="@top_builddir@/src/.libs"
 else
     lrivet="@libdir@"
@@ -213,7 +215,11 @@ do
 	if [[ -s "$src" ]]; then
         sources="$sources $src"
 		buckets[$idx]="${buckets[$idx]} $src"
-		let idx=(idx%$num_jobs)+1
+        if [[ -n $RIVET_BUILD_NOCAT ]]; then
+		    let idx=idx+1
+        else
+            let idx=(idx%$num_jobs)+1
+        fi
 	else
 		if [[ ${src:0:1} == "-" ]]; then
 			## Found a user option
@@ -235,16 +241,18 @@ fi
 ## Loop over buckets
 for idx in $(seq 1 $num_buckets); do
 
-	# DO NOT SIMPLIFY, the OS X mktemp can't deal with suffixes directly
+	## DO NOT SIMPLIFY, the OS X mktemp can't deal with suffixes directly
 	tmpfile="$(mktemp tmp.XXXXXXXX)"
 	mv "$tmpfile" "$tmpfile.cc"
 	tmpfile="$tmpfile.cc"
 
+    ## Concatenate the analysis codes into a single .cc, with separator lines to fool the preprocessor!
 	for i in $(echo ${buckets[$idx]}); do #< find the real way to do this!
 		echo "#line 1 \"$i\"" >> "$tmpfile"
 		cat "$i" >> "$tmpfile"
 	done
 
+    ## Record the concatenated temp-file path
 	if [[ -s "$tmpfile" ]]; then
 		srcnames[$idx]="$tmpfile"
 	fi

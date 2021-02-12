@@ -27,7 +27,7 @@ Description:
     $B = 7.65 \pm 0.34$ GeV$^{-2}$. Interpreted in the framework of triple Regge phenomenology, the $\xi$ dependence leads 
     to a pomeron intercept of $\alpha(0) = 1.07 \pm 0.09$.'
 BibKey: Aad:2019tek
-BibTex: '@article{Aad:2019tek,
+BibTeX: '@article{Aad:2019tek,
     author = "Aad, Georges and others",
     collaboration = "ATLAS",
     title = "{Measurement of differential cross sections for single diffractive dissociation in $\sqrt{s} = 8$ TeV $pp$ collisions using the ATLAS ALFA spectrometer}",

@@ -24,7 +24,7 @@ Description:
   jet rapidities have the same or the opposite sign.
   The measurement uses 37 pb$^{-1}$ of integrated luminosity collected with the ATLAS detector.'
 NeedCrossSection: yes
-BibKey: Aad:2012ar
+BibKey: ATLAS:2012ar
 BibTeX: '@article{ATLAS:2012ar,
       author         = "Aad, Georges and others",
       title          = "{Measurement of the production cross section of an

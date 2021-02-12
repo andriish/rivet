@@ -27,7 +27,7 @@ namespace Rivet {
       book(_h_q2   ,2,1,1);
       book(_nB,"/TMP/nB");
     }
-    
+
     void findChildren(const Particle & p, unsigned int &ncount,
 		      Particles & pi, Particles & ell, Particles & nu) {
       _nB->fill();

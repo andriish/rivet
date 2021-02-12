@@ -34,7 +34,7 @@ Description:
     which are then used to extract quark and gluon jet shapes using the predicted quark and gluon fractions in each region. 
     All of the parton shower and analytical calculations provide an excellent description of the data in most regions of phase space.'
 BibKey: Aad:2019vyi
-BibTex: '@article{Aad:2019vyi,
+BibTeX: '@article{Aad:2019vyi,
       author         = "Aad, Georges and others",
       title          = "{A measurement of soft-drop jet observables in $pp$ collisions with the ATLAS detector at $\sqrt{s}$ =13 TeV}",
       collaboration  = "ATLAS",
