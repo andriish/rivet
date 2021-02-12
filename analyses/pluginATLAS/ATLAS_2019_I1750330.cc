@@ -95,7 +95,7 @@ namespace Rivet {
       std::vector<double> n_jet_Pout_bins = {-0.5,1.5,3.5};
       std::vector<double> n_jet_mtt_bins = {-0.5,0.5,1.5,2.5};
 
-      //Resolved histograms
+      //Resolved histograms (digits correspond to "Table ID" from HepData)
       book2D("ttbar_m_top_had_pt_multi_norm", ttbar_m_2D_bins,54);
       book2D("ttbar_m_top_had_pt_multi", ttbar_m_2D_bins, 74);
 
@@ -158,7 +158,7 @@ namespace Rivet {
       book_hist("abs_y_boost",45);
       book_hist("chi_tt",49);
 
-      //Boosted histograms
+      //Boosted histograms (digits correspond to "Table ID" from HepData)
       book2D("boosted_rc_pttop_etatop_multi", eta_2D_bins, 922);
       book2D("boosted_rc_pttop_etattbar_multi", eta_2D_bins, 912);
       book2D("boosted_rc_pttop_ptttbar_multi", pttbar_2D_bins, 898);
@@ -596,12 +596,16 @@ namespace Rivet {
     void book2D(string name, std::vector<double>& doubleDiff_bins, size_t table){
       for (size_t i = 0; i < doubleDiff_bins.size() - 1; ++i) {
         string nbin = std::to_string(i);
+        // HepData entry has dummy "Table of Contents", 
+        // so need to offset everything by one unit
         { Histo1DPtr tmp; _h_multi[name].add(doubleDiff_bins[i], doubleDiff_bins[i+1], book(tmp, table+1+i, 1, 1)); }
       }
     }
 
 
     void book_hist(string name, size_t table) {
+      // HepData entry has dummy "Table of Contents", 
+      // so need to offset everything by one unit
       book(_h[name], table+3, 1, 1);
       book(_h[name+"_norm"], table+1, 1, 1);
     }
