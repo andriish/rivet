@@ -42,7 +42,7 @@ DOCS += coverage/rivet-coverage.html \
   coverage/rivet-coverage-searchesonly.html \
   coverage/rivet-coverage-nosearches.html \
   coverage/rivet-coverage-nosearches-noheavyion.html
-coverage/rivet-coverage.html: $(wildcard $(srcdir)/coverage/inspire*.json) $(wildcard $(srcdir)/coverage/*.rank) $(top_srcdir)/analyses $(srcdir)/coverage/mk-coverage-html
+coverage/rivet-coverage.html: analists $(wildcard $(srcdir)/coverage/inspire*.json) $(wildcard $(srcdir)/coverage/*.rank) $(top_srcdir)/analyses $(srcdir)/coverage/mk-coverage-html
 	cd coverage && \
     LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(LD_LIBRARY_PATH) \
     DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(DYLD_LIBRARY_PATH) \
@@ -61,7 +61,7 @@ dox: doxygen/html
 	@true
 doxygen/html: doxygen/Doxyfile doxygen/index.dox $(top_srcdir)/analyses $(top_srcdir)/include/Rivet $(top_srcdir)/src
 	@cd  $(builddir)/doxygen/ && $(DOXYGEN) Doxyfile || true
-	@cp doxygen/dynsections.js doxygen/html/
+	@cp $(abs_srcdir)/doxygen/dynsections.js doxygen/html/
 install-dox:
 	$(install_sh_DATA) doxygen/html/* $(DESTDIR)$(pkgdatadir)/doc/doxygen/
 endif
@@ -69,8 +69,8 @@ endif
 
 ## Analyses diffs between releases
 DOCS += anadiff/anadiffs.txt
-anadiff/anadiffs.txt: $(top_srcdir)/analyses $(srcdir)/anadiff/diffanas
-	cd anadiff && ./diffanas > anadiffs.txt
+anadiff/anadiffs.txt: $(top_srcdir)/analyses $(abs_srcdir)/anadiff/diffanas
+	cd anadiff && $(abs_srcdir)/anadiff/diffanas > anadiffs.txt
 
 
 ## TODO: Add a Markdown compiler and README.md + tutorials/: (py)pandoc?
