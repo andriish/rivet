@@ -1,4 +1,4 @@
-#! /usr/bin/env python2
+#! /usr/bin/env python
 
 from __future__ import division, print_function
 
@@ -121,6 +121,7 @@ for rankfilestr in args.RANKFILES:
 
 
 ## Add rankings/tags to the record
+tmp = {}
 for ins, rec in records.items():
 
     ## Sanitise title and experiment
@@ -152,11 +153,13 @@ for ins, rec in records.items():
     rm |= args.ONLYHEAVYION and not "heavyion" in code
     rm |= args.NOHEAVYION and "heavyion" in code
 
-    if rm:
-        del records[ins]
-    else:
-        rec.append(code)
-
+    #if rm:
+    #    del records[ins]
+    #else:
+    #    rec.append(code)
+    if not rm:
+        tmp[ins] = rec + [code]
+records = tmp
 
 ## Group and count records by experiment (and update rank file if requested)
 ex_records = {}
@@ -232,8 +235,8 @@ if args.NOHEAVYION:
 ## Web page rendering
 # TODO: argh, there's a conflicting html system package in Py3... rewrite?!?
 try:
-    import html
-    OUT = html.HTML("html")
+    from simplehtml import HTML
+    OUT = HTML("html")
 except: #< attempt to load the Py2 package
     import imp
     # TODO: handle non-system (e.g. user and venv) installs... maybe call Py2 to get the path?!? Won't work on Py3-only systems
@@ -433,5 +436,5 @@ if not outfile.endswith(".html"):
     outfile += ".html"
 print("Writing output to {} {}".format(outfile, exclstr))
 with open(outfile, "wb") as hf:
-    a = unicode(OUT)
+    a = str(OUT)
     hf.write(a.encode("UTF-8"))
