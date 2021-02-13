@@ -16,9 +16,6 @@ RUN mkdir /code && cd /code \
     && texhash \
     && rm -rf /code
 
-# # TODO: remove when hepbase includes this
-# RUN sed -i '/disable ghostscript format types/,+6d' /etc/ImageMagick-6/policy.xml
-
 ADD bash.bashrc /etc/
 
 WORKDIR /work
