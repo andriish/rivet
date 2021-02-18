@@ -13,6 +13,8 @@ References:
 RunInfo:
  Inclusive Z to \mu\mu events
 Beams: [p+, p+]
+Options:
+ - LMODE=EL,MU
 Energies: [[6500,6500]]
 Luminosity_fb: 3.2
 Description:
