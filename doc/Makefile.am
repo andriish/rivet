@@ -8,7 +8,7 @@ if ENABLE_PYEXT
 DOCS += analists/analyses.html
 DOCDIRS += analists/analyses
 analists/analyses.html: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-html
-	cd analists && \
+	$(mkdir_p) analist && cd analists && \
 	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(LD_LIBRARY_PATH) \
     DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
@@ -18,7 +18,7 @@ analists/analyses.html: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-ht
 ## Analysis-list JSON file
 DOCS += analists/analyses.json
 analists/analyses.json: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-json
-	cd analists && \
+	$(mkdir_p) analists && cd analists && \
 	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(LD_LIBRARY_PATH) \
     DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
@@ -28,7 +28,7 @@ analists/analyses.json: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-js
 ## Analysis-list text file
 DOCS += analists/analyses.dat
 analists/analyses.dat: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-txt
-	cd analists && \
+	$(mkdir_p) analists && cd analists && \
 	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(LD_LIBRARY_PATH) \
     DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
@@ -43,7 +43,7 @@ DOCS += coverage/rivet-coverage.html \
   coverage/rivet-coverage-nosearches.html \
   coverage/rivet-coverage-nosearches-noheavyion.html
 coverage/rivet-coverage.html: analists $(wildcard $(srcdir)/coverage/inspire*.json) $(wildcard $(srcdir)/coverage/*.rank) $(top_srcdir)/analyses $(srcdir)/coverage/mk-coverage-html
-	cd coverage && \
+	$(mkdir_p) coverage && cd coverage && \
     LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(LD_LIBRARY_PATH) \
     DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
