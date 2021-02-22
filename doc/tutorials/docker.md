@@ -97,4 +97,4 @@ You now can use the following commands from your host system's terminal:
 * `rivet-build`        --- this compiles your own analysis code
 * `rivet-mkhtml`       --- this is used for plotting the output histograms
 
-This should allow you to follow eg. the [firstrun.md](First run) tutorial on your host system.
+This should allow you to follow eg. the [firstrun.md](https://gitlab.com/hepcedar/rivet/-/blob/release-3-1-x/doc/tutorials/firstrun.md) tutorial on your host system.
