@@ -4,6 +4,7 @@ XTwosidedTicks=1
 YTwosidedTicks=1
 LeftMargin=1.9
 YLabelSep=8.0
+LogY=1
 RatioPlotYMin=0.4
 RatioPlotYMax=1.6
 Title=combined lepton channels

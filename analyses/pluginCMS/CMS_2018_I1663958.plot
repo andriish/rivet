@@ -1,3 +1,6 @@
+# BEGIN PLOT /CMS_2018_I1663958/*
+LogY=1
+
 # BEGIN PLOT /CMS_2018_I1663958/d01-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=$p_\mathrm{T}(\mathrm{t}_\mathrm{h})$ [GeV]
@@ -230,7 +233,6 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
-LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d33-x01-y01
@@ -242,7 +244,6 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
-LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d34-x01-y01
@@ -254,7 +255,6 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
-LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d35-x01-y01
@@ -266,7 +266,6 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
-LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d37-x01-y01
@@ -458,6 +457,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d57-x01-y01
@@ -469,6 +469,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d58-x01-y01
@@ -480,6 +481,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d59-x01-y01
@@ -491,6 +493,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d60-x01-y01
@@ -502,6 +505,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d61-x01-y01
@@ -513,6 +517,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d62-x01-y01
@@ -524,6 +529,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d63-x01-y01
@@ -535,6 +541,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d65-x01-y01
@@ -546,6 +553,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d66-x01-y01
@@ -557,6 +565,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d67-x01-y01
@@ -579,6 +588,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d69-x01-y01
@@ -590,6 +600,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d70-x01-y01
@@ -601,6 +612,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d71-x01-y01
@@ -612,6 +624,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d72-x01-y01
@@ -623,6 +636,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d74-x01-y01
@@ -634,6 +648,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d75-x01-y01
@@ -645,6 +660,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d76-x01-y01
@@ -667,6 +683,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d78-x01-y01
@@ -678,6 +695,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d79-x01-y01
@@ -689,6 +707,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d80-x01-y01
@@ -700,6 +719,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d81-x01-y01
@@ -711,6 +731,7 @@ RatioPlotYMin=0.5
 RatioPlotYMax=1.5
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
+LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d83-x01-y01
