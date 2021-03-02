@@ -18,7 +18,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      Cut c_photons = Cuts::pT >= 5.0*GeV && (Cuts::etaIn(-2.5, 1.4) || Cuts::etaIn(1.6, 2.5));
+      Cut c_photons = Cuts::pT >= 5.0*GeV && Cuts::abseta < 2.5 && !(Cuts::absetaIn(1.4, 1.6));
       IdentifiedFinalState photons(c_photons);
       photons.acceptId(PID::PHOTON);
       declare(photons, "PHOTFS");
