@@ -20,11 +20,12 @@ namespace Rivet {
     DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2019_I1772062);
 
 
-    void getQuarkGluon(Rivet::Histo1DPtr hForward, Rivet::Histo1DPtr hCentral, Rivet::Histo1DPtr hQuark, Rivet::Histo1DPtr hGluon, int ptbin, string parName) {
+    void getQuarkGluon(Rivet::Histo1DPtr hForward, Rivet::Histo1DPtr hCentral, Rivet::Histo1DPtr hQuark, Rivet::Histo1DPtr hGluon, int ptbin, string parName, size_t beta) {
 
       int nBins = rhoBins.size() - 1;
       if (parName == "rg" || parName == "trg") nBins = rgBins.size()-1;
-      if (parName == "zg" || parName == "tzg") nBins = zgBins.size()-1;
+      if ((parName == "zg" || parName == "tzg") && beta == 0) nBins = zgBinsBeta0.size()-1;
+      if ((parName == "zg" || parName == "tzg") && beta != 0) nBins = zgBins.size()-1;
 
       double FGC = gluonFractionCentral[ptbin];
       double FGF = gluonFractionForward[ptbin];
@@ -46,7 +47,7 @@ namespace Rivet {
       histNorm(hGluon, parName);
     }
 
-    void ptNorm(Rivet::Histo1DPtr ptBinnedHist, std::string var) {
+    void ptNorm(Rivet::Histo1DPtr ptBinnedHist, std::string var, size_t beta) {
       size_t varNormBin1 = 0;
       size_t varNormBin2 = 0;
       size_t nBins = 10;
@@ -56,8 +57,14 @@ namespace Rivet {
         varNormBin2 = normBin2;
       }
       if (var=="zg" || var=="tzg") {
-        varNormBin2 = zgBins.size()-1;
-        nBins = zgBins.size()-1;
+        if(beta==0){
+          varNormBin2 = zgBinsBeta0.size()-1;
+          nBins = zgBinsBeta0.size()-1;
+        }
+        else {
+          varNormBin2 = zgBins.size()-1;
+          nBins = zgBins.size()-1;
+        }
       }
       if (var=="rg" || var=="trg") {
         varNormBin2 = rgBins.size()-1;
@@ -73,7 +80,12 @@ namespace Rivet {
             binWidth = rhoBins[j+1] - rhoBins[j];
           }
           if (var=="zg" || var=="tzg") {
-            binWidth = zgBins[j+1]- zgBins[j];
+            if(beta==0){
+              binWidth = zgBinsBeta0[j+1]- zgBinsBeta0[j];
+            }
+            else {
+              binWidth = zgBins[j+1]- zgBins[j];
+            }
           }
 
           if (var=="rg" || var=="trg") {
@@ -122,7 +134,7 @@ namespace Rivet {
     }
 
 
-    int return_bin(float pT, float rho, std::string whichvar) {
+    int return_bin(float pT, float rho, std::string whichvar, size_t beta) {
       // First thing's first
       if (pT < ptBins[0]) return -100;
 
@@ -165,7 +177,21 @@ namespace Rivet {
         }
 
       // zg
-      else if ((whichvar=="zg")||(whichvar=="tzg"))
+      else if (((whichvar=="zg")||(whichvar=="tzg")) && beta == 0)
+        {
+          if (rho < 0.10) return -10;
+          else if (rho < 0.15) rhobin = 1;
+          else if (rho < 0.20) rhobin = 2;
+          else if (rho < 0.25) rhobin = 3;
+          else if (rho < 0.30) rhobin = 4;
+          else if (rho < 0.35) rhobin = 5;
+          else if (rho < 0.40) rhobin = 6;
+          else if (rho < 0.45) rhobin = 7;
+          else if (rho < 0.50) rhobin = 8;
+          else rhobin = 8;
+          return rhobin*1. + (pTbin*1.-1.)*8.-1;
+        }
+      else if (((whichvar=="zg")||(whichvar=="tzg")) && beta != 0)
         {
           if (rho < 0.00) return -10;
           else if (rho < 0.05) rhobin = 1;
@@ -217,6 +243,7 @@ namespace Rivet {
       gluonFractionForward = {0.70, 0.64, 0.57, 0.51, 0.43};
       rgBins = {-1.2, -1.0, -0.8, -0.6, -0.4, -0.2, -0.1};
       zgBins = {0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5};
+      zgBinsBeta0 = {0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5};
       rhoBins = {-4.5, -4.1, -3.7, -3.3, -2.9, -2.5, -2.1, -1.7, -1.3, -0.9, -0.5};
       ptBins = {300, 400, 600, 800, 1000, 2000};
 
@@ -461,13 +488,13 @@ namespace Rivet {
           double rg_charged             = sdJet.structure_of<fastjet::contrib::SoftDrop>().delta_R();
           rg_charged = (rg_charged > 0) ? log(rg_charged) / log(10.) : -100;
 
-          double pt_log10rho2 = return_bin(myJets[i].pT()/GeV, rho2, "m");
-          double pt_zg = return_bin(myJets[i].pT()/GeV, zg, "zg");
-          double pt_rg = return_bin(myJets[i].pT()/GeV, rg, "rg");
+          double pt_log10rho2 = return_bin(myJets[i].pT()/GeV, rho2, "m", ibeta);
+          double pt_zg = return_bin(myJets[i].pT()/GeV, zg, "zg", ibeta);
+          double pt_rg = return_bin(myJets[i].pT()/GeV, rg, "rg", ibeta);
 
-          double pt_log10rho2_charged = return_bin(myJets[i].pT()/GeV, rho2_charged, "tm");
-          double pt_zg_charged = return_bin(myJets[i].pT()/GeV,        zg_charged,   "tzg");
-          double pt_rg_charged = return_bin(myJets[i].pT()/GeV,        rg_charged,   "trg");
+          double pt_log10rho2_charged = return_bin(myJets[i].pT()/GeV, rho2_charged, "tm", ibeta);
+          double pt_zg_charged = return_bin(myJets[i].pT()/GeV,        zg_charged,   "tzg", ibeta);
+          double pt_rg_charged = return_bin(myJets[i].pT()/GeV,        rg_charged,   "trg", ibeta);
 
 
           if (ibeta==0)  {
@@ -695,91 +722,91 @@ namespace Rivet {
       histNorm(_h["_h_Table54"], "rg");
 
 
-      ptNorm(_h["_h_Table55"], "m");
-      ptNorm(_h["_h_Table56"], "m");
-      ptNorm(_h["_h_Table57"], "m");
-      ptNorm(_h["_h_Table58"], "m");
-      ptNorm(_h["_h_Table59"], "m");
-      ptNorm(_h["_h_Table60"], "m");
-      ptNorm(_h["_h_Table61"], "zg");
-      ptNorm(_h["_h_Table62"], "zg");
-      ptNorm(_h["_h_Table63"], "zg");
-      ptNorm(_h["_h_Table64"], "zg");
-      ptNorm(_h["_h_Table65"], "zg");
-      ptNorm(_h["_h_Table66"], "zg");
-      ptNorm(_h["_h_Table67"], "rg");
-      ptNorm(_h["_h_Table68"], "rg");
-      ptNorm(_h["_h_Table69"], "rg");
-      ptNorm(_h["_h_Table70"], "rg");
-      ptNorm(_h["_h_Table71"], "rg");
-      ptNorm(_h["_h_Table72"], "rg");
+      ptNorm(_h["_h_Table55"], "m", 0);
+      ptNorm(_h["_h_Table56"], "m", 0);
+      ptNorm(_h["_h_Table57"], "m", 1);
+      ptNorm(_h["_h_Table58"], "m", 1);
+      ptNorm(_h["_h_Table59"], "m", 2);
+      ptNorm(_h["_h_Table60"], "m", 2);
+      ptNorm(_h["_h_Table61"], "zg", 0);
+      ptNorm(_h["_h_Table62"], "zg", 0);
+      ptNorm(_h["_h_Table63"], "zg", 1);
+      ptNorm(_h["_h_Table64"], "zg", 1);
+      ptNorm(_h["_h_Table65"], "zg", 2);
+      ptNorm(_h["_h_Table66"], "zg", 2);
+      ptNorm(_h["_h_Table67"], "rg", 0);
+      ptNorm(_h["_h_Table68"], "rg", 0);
+      ptNorm(_h["_h_Table69"], "rg", 1);
+      ptNorm(_h["_h_Table70"], "rg", 1);
+      ptNorm(_h["_h_Table71"], "rg", 2);
+      ptNorm(_h["_h_Table72"], "rg", 2);
 
-      ptNorm(_h["_h_Table73"], "m");
-      ptNorm(_h["_h_Table74"], "m");
-      ptNorm(_h["_h_Table75"], "m");
-      ptNorm(_h["_h_Table76"], "m");
-      ptNorm(_h["_h_Table77"], "m");
-      ptNorm(_h["_h_Table78"], "m");
-      ptNorm(_h["_h_Table79"], "zg");
-      ptNorm(_h["_h_Table80"], "zg");
-      ptNorm(_h["_h_Table81"], "zg");
-      ptNorm(_h["_h_Table82"], "zg");
-      ptNorm(_h["_h_Table83"], "zg");
-      ptNorm(_h["_h_Table84"], "zg");
-      ptNorm(_h["_h_Table85"], "rg");
-      ptNorm(_h["_h_Table86"], "rg");
-      ptNorm(_h["_h_Table87"], "rg");
-      ptNorm(_h["_h_Table88"], "rg");
-      ptNorm(_h["_h_Table89"], "rg");
-      ptNorm(_h["_h_Table90"], "rg");
-
-
-      ptNorm(_h["_h_Table91"], "m");
-      ptNorm(_h["_h_Table92"], "m");
-      ptNorm(_h["_h_Table93"], "m");
-      ptNorm(_h["_h_Table94"], "m");
-      ptNorm(_h["_h_Table95"], "m");
-      ptNorm(_h["_h_Table96"], "m");
-      ptNorm(_h["_h_Table97"], "zg");
-      ptNorm(_h["_h_Table98"], "zg");
-      ptNorm(_h["_h_Table99"], "zg");
-      ptNorm(_h["_h_Table100"], "zg");
-      ptNorm(_h["_h_Table101"], "zg");
-      ptNorm(_h["_h_Table102"], "zg");
-      ptNorm(_h["_h_Table103"], "rg");
-      ptNorm(_h["_h_Table104"], "rg");
-      ptNorm(_h["_h_Table105"], "rg");
-      ptNorm(_h["_h_Table106"], "rg");
-      ptNorm(_h["_h_Table107"], "rg");
-      ptNorm(_h["_h_Table108"], "rg");
+      ptNorm(_h["_h_Table73"], "m", 0);
+      ptNorm(_h["_h_Table74"], "m", 0);
+      ptNorm(_h["_h_Table75"], "m", 1);
+      ptNorm(_h["_h_Table76"], "m", 1);
+      ptNorm(_h["_h_Table77"], "m", 2);
+      ptNorm(_h["_h_Table78"], "m", 2);
+      ptNorm(_h["_h_Table79"], "zg", 0);
+      ptNorm(_h["_h_Table80"], "zg", 0);
+      ptNorm(_h["_h_Table81"], "zg", 1);
+      ptNorm(_h["_h_Table82"], "zg", 1);
+      ptNorm(_h["_h_Table83"], "zg", 2);
+      ptNorm(_h["_h_Table84"], "zg", 2);
+      ptNorm(_h["_h_Table85"], "rg", 0);
+      ptNorm(_h["_h_Table86"], "rg", 0);
+      ptNorm(_h["_h_Table87"], "rg", 1);
+      ptNorm(_h["_h_Table88"], "rg", 1);
+      ptNorm(_h["_h_Table89"], "rg", 2);
+      ptNorm(_h["_h_Table90"], "rg", 2);
 
 
+      ptNorm(_h["_h_Table91"], "m", 0);
+      ptNorm(_h["_h_Table92"], "m", 0);
+      ptNorm(_h["_h_Table93"], "m", 1);
+      ptNorm(_h["_h_Table94"], "m", 1);
+      ptNorm(_h["_h_Table95"], "m", 2);
+      ptNorm(_h["_h_Table96"], "m", 2);
+      ptNorm(_h["_h_Table97"], "zg", 0);
+      ptNorm(_h["_h_Table98"], "zg", 0);
+      ptNorm(_h["_h_Table99"], "zg", 1);
+      ptNorm(_h["_h_Table100"], "zg", 1);
+      ptNorm(_h["_h_Table101"], "zg", 2);
+      ptNorm(_h["_h_Table102"], "zg", 2);
+      ptNorm(_h["_h_Table103"], "rg", 0);
+      ptNorm(_h["_h_Table104"], "rg", 0);
+      ptNorm(_h["_h_Table105"], "rg", 1);
+      ptNorm(_h["_h_Table106"], "rg", 1);
+      ptNorm(_h["_h_Table107"], "rg", 2);
+      ptNorm(_h["_h_Table108"], "rg", 2);
 
-      getQuarkGluon(_h["_h_Table91"], _h["_h_Table73"], _h["_h_Table109"], _h["_h_Table127"], 2, "m");
-      getQuarkGluon(_h["_h_Table92"], _h["_h_Table74"], _h["_h_Table110"], _h["_h_Table128"], 2, "m");
-      getQuarkGluon(_h["_h_Table93"], _h["_h_Table75"], _h["_h_Table111"], _h["_h_Table129"], 2, "m");
-      getQuarkGluon(_h["_h_Table94"], _h["_h_Table76"], _h["_h_Table112"], _h["_h_Table130"], 2, "m");
-      getQuarkGluon(_h["_h_Table95"], _h["_h_Table77"], _h["_h_Table113"], _h["_h_Table131"], 2, "m");
-      getQuarkGluon(_h["_h_Table96"], _h["_h_Table78"], _h["_h_Table114"], _h["_h_Table132"], 2, "m");
-      getQuarkGluon(_h["_h_Table97"], _h["_h_Table79"], _h["_h_Table115"], _h["_h_Table133"], 2, "zg");
-      getQuarkGluon(_h["_h_Table98"], _h["_h_Table80"], _h["_h_Table116"], _h["_h_Table134"], 2, "zg");
-      getQuarkGluon(_h["_h_Table99"], _h["_h_Table81"], _h["_h_Table117"], _h["_h_Table135"], 2, "zg");
-      getQuarkGluon(_h["_h_Table100"], _h["_h_Table82"], _h["_h_Table118"], _h["_h_Table136"], 2, "zg");
-      getQuarkGluon(_h["_h_Table101"], _h["_h_Table83"], _h["_h_Table119"], _h["_h_Table137"], 2, "zg");
-      getQuarkGluon(_h["_h_Table102"], _h["_h_Table84"], _h["_h_Table120"], _h["_h_Table138"], 2, "zg");
-      getQuarkGluon(_h["_h_Table103"], _h["_h_Table85"], _h["_h_Table121"], _h["_h_Table139"], 2, "rg");
-      getQuarkGluon(_h["_h_Table104"], _h["_h_Table86"], _h["_h_Table122"], _h["_h_Table140"], 2, "rg");
-      getQuarkGluon(_h["_h_Table105"], _h["_h_Table87"], _h["_h_Table123"], _h["_h_Table141"], 2, "rg");
-      getQuarkGluon(_h["_h_Table106"], _h["_h_Table88"], _h["_h_Table124"], _h["_h_Table142"], 2, "rg");
-      getQuarkGluon(_h["_h_Table107"], _h["_h_Table89"], _h["_h_Table125"], _h["_h_Table143"], 2, "rg");
-      getQuarkGluon(_h["_h_Table108"], _h["_h_Table90"], _h["_h_Table126"], _h["_h_Table144"], 2, "rg");
+
+
+      getQuarkGluon(_h["_h_Table91"], _h["_h_Table73"], _h["_h_Table109"], _h["_h_Table127"], 2, "m", 0);
+      getQuarkGluon(_h["_h_Table92"], _h["_h_Table74"], _h["_h_Table110"], _h["_h_Table128"], 2, "m", 0);
+      getQuarkGluon(_h["_h_Table93"], _h["_h_Table75"], _h["_h_Table111"], _h["_h_Table129"], 2, "m", 1);
+      getQuarkGluon(_h["_h_Table94"], _h["_h_Table76"], _h["_h_Table112"], _h["_h_Table130"], 2, "m", 1);
+      getQuarkGluon(_h["_h_Table95"], _h["_h_Table77"], _h["_h_Table113"], _h["_h_Table131"], 2, "m", 2);
+      getQuarkGluon(_h["_h_Table96"], _h["_h_Table78"], _h["_h_Table114"], _h["_h_Table132"], 2, "m", 2);
+      getQuarkGluon(_h["_h_Table97"], _h["_h_Table79"], _h["_h_Table115"], _h["_h_Table133"], 2, "zg", 0);
+      getQuarkGluon(_h["_h_Table98"], _h["_h_Table80"], _h["_h_Table116"], _h["_h_Table134"], 2, "zg", 0);
+      getQuarkGluon(_h["_h_Table99"], _h["_h_Table81"], _h["_h_Table117"], _h["_h_Table135"], 2, "zg", 1);
+      getQuarkGluon(_h["_h_Table100"], _h["_h_Table82"], _h["_h_Table118"], _h["_h_Table136"], 2, "zg", 1);
+      getQuarkGluon(_h["_h_Table101"], _h["_h_Table83"], _h["_h_Table119"], _h["_h_Table137"], 2, "zg", 2);
+      getQuarkGluon(_h["_h_Table102"], _h["_h_Table84"], _h["_h_Table120"], _h["_h_Table138"], 2, "zg", 2);
+      getQuarkGluon(_h["_h_Table103"], _h["_h_Table85"], _h["_h_Table121"], _h["_h_Table139"], 2, "rg", 0);
+      getQuarkGluon(_h["_h_Table104"], _h["_h_Table86"], _h["_h_Table122"], _h["_h_Table140"], 2, "rg", 0);
+      getQuarkGluon(_h["_h_Table105"], _h["_h_Table87"], _h["_h_Table123"], _h["_h_Table141"], 2, "rg", 1);
+      getQuarkGluon(_h["_h_Table106"], _h["_h_Table88"], _h["_h_Table124"], _h["_h_Table142"], 2, "rg", 1);
+      getQuarkGluon(_h["_h_Table107"], _h["_h_Table89"], _h["_h_Table125"], _h["_h_Table143"], 2, "rg", 2);
+      getQuarkGluon(_h["_h_Table108"], _h["_h_Table90"], _h["_h_Table126"], _h["_h_Table144"], 2, "rg", 2);
     }
 
   protected:
 
     size_t normBin1, normBin2;
     vector<double> gluonFractionCentral, gluonFractionForward;
-    vector<double> rgBins, zgBins, rhoBins, ptBins;
+    vector<double> rgBins, zgBins, rhoBins, ptBins, zgBinsBeta0;
 
   private:
     map<string, Histo1DPtr> _h;
