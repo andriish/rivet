@@ -53,3 +53,7 @@ BibTeX: '@article{Aaboud:2017rwm,
       reportNumber   = "CERN-EP-2017-163",
       SLACcitation   = "%%CITATION = ARXIV:1709.07703;%%"
 }'
+
+ReleaseTests:
+ - $A pp-13000-llll
+
