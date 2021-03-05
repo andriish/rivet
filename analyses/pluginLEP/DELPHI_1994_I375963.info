@@ -19,7 +19,7 @@ Luminosity_fb: 0.0405
 Description:
   'Differential cross sections of the radiative photons as a function of photon energy and of the angle between the photon and the muon. Data points were digitized from the note, +8% photon efficiency uncertainty (as described in thesis), and divided by bin width for the Rivet analysis.'
 ReleaseTests:
- - $A LEP-91
+ - $A pp-91-lly
 Keywords: []
 BibKey: Abreu:1994ria
 BibTeX: '@article{Abreu:1994ria,
