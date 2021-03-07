@@ -559,7 +559,7 @@ class Plot(object):
         self.xmax = inputdata.xmax
         if self.xmax is None:
             xmaxs = [inputdata.histos[h].getXMax() for h in inputdata.description['DrawOnly']]
-            self.xmax = min(xmaxs) if xmaxs else 1.0
+            self.xmax = max(xmaxs) if xmaxs else 1.0
 
 
     def set_ymin(self,inputdata):
@@ -2125,11 +2125,11 @@ class Histogram(DrawableObject, Described):
                 except ZeroDivisionError:
                     self.data[i].val = 0.0
                 try:
-                    self.data[i].err[0] /= name.data[i].err[0]
+                    self.data[i].err[0] /= (name.data[i].err[0]+self.data[i].err[0])
                 except ZeroDivisionError:
                     self.data[i].err[0] = 0.0
                 try:
-                    self.data[i].err[1] /= name.data[i].err[1]
+                    self.data[i].err[1] /= (name.data[i].err[1]+self.data[i].err[1])
                 except ZeroDivisionError:
                     self.data[i].err[1] = 0.0
             else:
