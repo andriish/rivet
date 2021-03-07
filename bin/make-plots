@@ -2125,11 +2125,11 @@ class Histogram(DrawableObject, Described):
                 except ZeroDivisionError:
                     self.data[i].val = 0.0
                 try:
-                    self.data[i].err[0] /= name.data[i].err[0]
+                    self.data[i].err[0] /= (name.data[i].err[0]+self.data[i].err[0])
                 except ZeroDivisionError:
                     self.data[i].err[0] = 0.0
                 try:
-                    self.data[i].err[1] /= name.data[i].err[1]
+                    self.data[i].err[1] /= (name.data[i].err[1]+self.data[i].err[1])
                 except ZeroDivisionError:
                     self.data[i].err[1] = 0.0
             else:
