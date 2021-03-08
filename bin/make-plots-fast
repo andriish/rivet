@@ -2205,10 +2205,10 @@ class Ticks(object):
         prefix = ''
         if plotlog:
             bar = int(log10(value))
-	    if bar < 0:
-	        sign='-'
-	    else:
-	        sign='\\,'
+            if bar < 0:
+                sign='-'
+            else:
+                sign='\\,'
             if minor: # The power of ten is only to be added to the last minor tick label
                 if lastminor:
                     label = str(int(value/(10**bar))) + "\\cdot" + '10$^{'+sign+'\\text{'+str(abs(bar))+'}}$'
