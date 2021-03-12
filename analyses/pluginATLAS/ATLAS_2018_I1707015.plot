@@ -4,6 +4,7 @@ XLabel=$p^{\gamma}_T$ [GeV]
 YLabel=$1$/$\sigma$ d$\sigma$/d$p^{\gamma}_T$
 RatioPlotYMin=0.7
 RatioPlotYMax=1.3
+LogY=1
 END PLOT
 
 BEGIN PLOT /ATLAS_2018_I1707015/d04-x01-y01
@@ -28,6 +29,7 @@ BEGIN PLOT /ATLAS_2018_I1707015/d06-x01-y01
 Title=dilepton channel: photon pT
 XLabel=$p^{\gamma}_T$ [GeV]
 YLabel=$1$/$\sigma$ d$\sigma$/d$p^{\gamma}_T$
+LogY=1
 END PLOT
 
 BEGIN PLOT /ATLAS_2018_I1707015/d07-x01-y01

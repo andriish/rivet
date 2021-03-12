@@ -44,6 +44,7 @@ LeftMargin=1.5
 Title=$WW \rightarrow e\mu$
 XLabel=leading $p_\text{T}^\ell$ [GeV]
 YLabel=$1 / \sigma \; \text{d}\sigma/\text{d} p_\text{T}^\ell$ [1/GeV]
+LogY=1
 LeftMargin=1.5
 # END PLOT
 
@@ -51,6 +52,7 @@ LeftMargin=1.5
 Title=$WW \rightarrow e\mu$
 XLabel=$p_\text{T}^{\ell\ell}$ [GeV]
 YLabel=$\text{d}\sigma / \text{d}p_\text{T}^{\ell\ell}$ [fb/GeV]
+LogY=1
 LeftMargin=1.5
 # END PLOT
 
@@ -58,6 +60,7 @@ LeftMargin=1.5
 Title=$WW \rightarrow e\mu$
 XLabel=$p_\text{T}^{\ell\ell}$ [GeV]
 YLabel=$1 / \sigma \; \text{d}\sigma / \text{d}p_\text{T}^{\ell\ell}$ [1/GeV]
+LogY=1
 LeftMargin=1.5
 # END PLOT
 
@@ -65,6 +68,7 @@ LeftMargin=1.5
 Title=$WW \rightarrow e\mu$
 XLabel=$m_\text{T}^{\ell\ell}$ [GeV]
 YLabel=$\text{d}\sigma / \text{d}m_\text{T}^{\ell\ell}$ [fb/GeV]
+LogY=1
 LeftMargin=1.5
 # END PLOT
 
@@ -72,6 +76,7 @@ LeftMargin=1.5
 Title=$WW \rightarrow e\mu$
 XLabel=$m_\text{T}^{\ell\ell}$ [GeV]
 YLabel=$1 / \sigma \; \text{d}\sigma / \text{d}m_\text{T}^{\ell\ell}$ [1/GeV]
+LogY=1
 LeftMargin=1.5
 # END PLOT
 

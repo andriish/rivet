@@ -1,3 +1,8 @@
+# BEGIN PLOT /ATLAS_2013_I1230812/.*
+LogY=1
+# END PLOT
+
+
 # BEGIN PLOT /ATLAS_2013_I1230812.*/d01-x01-y.*
 Title=Inclusive jet multiplicity
 XLabel=$N_\text{jet}$
@@ -11,7 +16,6 @@ XMinorTickMarks=0
 Title=Inclusive jet multiplicity ratio
 XLabel=$N_\text{jet}$
 YLabel=$\sigma(\geq N_\text{jet})/\sigma(\geq N_\text{jet}-1)$
-LogY=0
 LegendYPos=0.4
 XMinorTickMarks=0
 # END PLOT
@@ -29,7 +33,6 @@ XMinorTickMarks=0
 Title=Exclusive jet multiplicity ratio
 XLabel=$N_\text{jet}$
 YLabel=$\sigma(N_\text{jet})/\sigma(N_\text{jet}-1)$
-LogY=0
 LegendYPos=0.4
 XMinorTickMarks=0
 # END PLOT
@@ -47,7 +50,6 @@ XMinorTickMarks=0
 Title=Exclusive jet multiplicity ratio ($p_\perp^\text{jet1}>150$ GeV)
 XLabel=$N_\text{jet}$
 YLabel=$\sigma(N_\text{jet})/\sigma(N_\text{jet}-1)$
-LogY=0
 LegendAlign=r
 XMinorTickMarks=0
 # END PLOT
@@ -65,7 +67,6 @@ XMinorTickMarks=0
 Title=Exclusive jet multiplicity ratio (VBF selection)
 XLabel=$N_\text{jet}$
 YLabel=$\sigma(N_\text{jet})/\sigma(N_\text{jet}-1)$
-LogY=0
 LegendYPos=0.4
 XMinorTickMarks=0
 XMajorTickMarks=10
@@ -135,6 +136,7 @@ YLabel=d$\sigma$/d$|y|$ [pb]
 LegendAlign=l
 LegendYPos=0.5
 LegendXPos=0.05
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2013_I1230812.*/d18-x01-y.*
@@ -144,6 +146,7 @@ YLabel=d$\sigma$/d$|y|$ [pb]
 LegendAlign=l
 LegendYPos=0.5
 LegendXPos=0.05
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2013_I1230812.*/d19-x01-y.*
@@ -153,6 +156,7 @@ YLabel=d$\sigma$/d$|y|$ [pb]
 LegendAlign=l
 LegendYPos=0.5
 LegendXPos=0.05
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2013_I1230812.*/d20-x01-y.*
@@ -162,6 +166,7 @@ YLabel=d$\sigma$/d$|y|$ [pb]
 LegendAlign=l
 LegendYPos=0.5
 LegendXPos=0.05
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2013_I1230812.*/d21-x01-y.*
@@ -171,6 +176,7 @@ YLabel=d$\sigma$/d$|\Delta y|$ [pb]
 LegendAlign=l
 LegendYPos=0.5
 LegendXPos=0.05
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2013_I1230812.*/d22-x01-y.*
@@ -211,6 +217,7 @@ YLabel=d$\sigma$/d$|y|$ [pb]
 LegendAlign=l
 LegendXPos=0.05
 LegendYPos=0.5
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2013_I1230812.*/d27-x01-y.*

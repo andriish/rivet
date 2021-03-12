@@ -21,6 +21,7 @@ XLabel={\large Particle-level t jet ${\rm p_{T}}$ (GeV)}
 YLabel={\large ${\rm d}\sigma/{\rm dp_{T} \ (fb / GeV)}$}
 YMin=0.015
 YMax=10.0
+LogY=1
 RatioPlotYMin=0.45
 RatioPlotYMax=1.55
 #END PLOT
@@ -63,6 +64,7 @@ XLabel={\large Particle-level t jet ${\rm p_{T}}$ (GeV)}
 YLabel={\large ${\rm d}\sigma/{\rm dp_{T} \ (fb / GeV)}$}
 YMin=0.015
 YMax=10.0
+LogY=1
 RatioPlotYMin=0.45
 RatioPlotYMax=1.55
 #END PLOT
