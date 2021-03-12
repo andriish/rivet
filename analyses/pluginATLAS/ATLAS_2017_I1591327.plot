@@ -2,6 +2,7 @@
 XTwosidedTicks=1
 YTwosidedTicks=1
 LegendAlign=r
+LogY=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2017_I1591327/d02-x01-y01
@@ -37,6 +38,7 @@ YLabel=$\mathrm{d}\sigma/\mathrm{d}|\cos\theta_{\eta}^\ast|$ [fb]
 LegendYPos=0.3
 LegendXPos=0.05
 LegendAlign=l
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2017_I1591327/d07-x01-y01

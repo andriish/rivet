@@ -138,7 +138,11 @@ class PlotParser(object):
                 tag, pathpat = m.group(2,3)
                 # pathpat could be a regex
                 if pathpat not in self.pat_paths:
-                    self.pat_paths[pathpat] = re.compile(pathpat)
+                    try:
+                        self.pat_paths[pathpat] = re.compile(pathpat)
+                    except TypeError:
+                        print("Error reading plot file for {}. Skipping.".format(plotfile))
+                        return
                 if tag == section:
                     m2 = self.pat_paths[pathpat].match(hpath)
                     if m2:

@@ -8,5 +8,6 @@ LegendXPos=0.95
 LegendAlign=r
 RatioPlotYMax=2.1
 RatioPlotYMin=0.1
+LogY=1
 # END PLOT
 

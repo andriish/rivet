@@ -13,6 +13,7 @@ Title=Combined lepton channels
 # BEGIN PLOT /ATLAS_2015_I1404878/d01
 XLabel=$m_{t\bar{t}}$ [GeV]
 YLabel=$\text{d}\sigma / \text{d}m_{t\bar{t}}$ [pb/GeV]
+LogY=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2015_I1404878/d02
@@ -23,6 +24,7 @@ YLabel=$1/\sigma$ $\text{d}\sigma / \text{d}m_{t\bar{t}}$ [1/GeV]
 # BEGIN PLOT /ATLAS_2015_I1404878/d03
 XLabel=$p_\text{T}^{t\bar{t}}$ [GeV]
 YLabel=$\text{d}\sigma / \text{d}p_\text{T}^{t\bar{t}}$ [pb/GeV]
+LogY=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2015_I1404878/d04
@@ -49,6 +51,7 @@ LegendAlign=l
 # BEGIN PLOT /ATLAS_2015_I1404878/d07
 XLabel=$p_\text{T}^{t,\text{had}}$ [GeV]
 YLabel=$\text{d}\sigma / \text{d}p_\text{T}^{t,\text{had}}$ [pb/GeV]
+LogY=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2015_I1404878/d08
@@ -75,6 +78,7 @@ LegendAlign=l
 # BEGIN PLOT /ATLAS_2015_I1404878/d11
 XLabel=$|p_\text{out}^{t\bar{t}}|$ [GeV]
 YLabel=$\text{d}\sigma / \text{d}|p_\text{out}^{t\bar{t}}|$ [pb/GeV]
+LogY=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2015_I1404878/d12
@@ -99,6 +103,7 @@ LegendAlign=l
 # BEGIN PLOT /ATLAS_2015_I1404878/d15
 XLabel=$H_\text{T}^{t\bar{t}}$ [GeV]
 YLabel=$\text{d}\sigma / \text{d}H_\text{T}^{t\bar{t}}$ [pb/GeV]
+LogY=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2015_I1404878/d16
@@ -125,6 +130,7 @@ LegendAlign=l
 # BEGIN PLOT /ATLAS_2015_I1404878/d19
 XLabel=$\chi_{t\bar{t}}$
 YLabel=$\text{d}\sigma / \text{d}\chi_{t\bar{t}}$ [pb]
+LogY=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2015_I1404878/d20
@@ -135,6 +141,7 @@ YLabel=$1/\sigma$ $\text{d}\sigma / \text{d}\chi_{t\bar{t}}$
 # BEGIN PLOT /ATLAS_2015_I1404878/d21
 XLabel=$R_{Wt}$
 YLabel=$\text{d}\sigma / \text{d}R_{Wt}$ [pb]
+LogY=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2015_I1404878/d22

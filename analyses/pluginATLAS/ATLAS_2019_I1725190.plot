@@ -1,6 +1,7 @@
 BEGIN PLOT /ATLAS_2019_I1725190/.*
 YLabel=Entries / 10 GeV
 LogX=1
+LogY=1
 RatioPlotYMin=1
 RatioPlotYMax=5.9
 END PLOT
