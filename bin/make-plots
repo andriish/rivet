@@ -2113,20 +2113,27 @@ class Histogram(DrawableObject, Described):
 
     def deviation(self, other):
         for bin_subtrahend, bin_minuend in self.zip_bins(self, other):
-            bin_subtrahend.val -= bin_minuend.val
-            try:
-                bin_subtrahend.val /= 0.5*sqrt((bin_minuend.err[0] + bin_minuend.err[1])**2 + \
+
+            if self==other:
+                # if this is the reference histogram, should be zero and one by definition.
+                bin_subtrahend.val=0
+                bin_subtrahend.err[0]=1.0
+                bin_subtrahend.err[1]=1.0
+            else:
+                bin_subtrahend.val -= bin_minuend.val
+                try:
+                    bin_subtrahend.val /= 0.5*sqrt((bin_minuend.err[0] + bin_minuend.err[1])**2 + \
                                                (bin_subtrahend.err[0] + bin_subtrahend.err[1])**2)
-            except ZeroDivisionError:
-                bin_subtrahend.val = 0.0
-            try:
-                bin_subtrahend.err[0] /= sqrt(bin_minuend.err[0]**2 + bin_subtrahend.err[0]**2)
-            except ZeroDivisionError:
-                bin_subtrahend.err[0] = 0.0
-            try:
-                bin_subtrahend.err[1] /= sqrt(bin_minuend.err[1]**2 + bin_subtrahend.err[1]**2)
-            except ZeroDivisionError:
-                bin_subtrahend.err[1] = 0.0
+                except ZeroDivisionError:
+                    bin_subtrahend.val = 0.0
+                try:
+                    bin_subtrahend.err[0] /= sqrt(bin_minuend.err[0]**2 + bin_subtrahend.err[0]**2)
+                except ZeroDivisionError:
+                    bin_subtrahend.err[0] = 0.0
+                try:
+                    bin_subtrahend.err[1] /= sqrt(bin_minuend.err[1]**2 + bin_subtrahend.err[1]**2)
+                except ZeroDivisionError:
+                    bin_subtrahend.err[1] = 0.0
 
     def delta(self,name):
         self.divide(name)
