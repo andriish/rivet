@@ -1,9 +1,18 @@
+2021-03-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix the analysis-keyword matching logic: thanks to Christian
+	Holm Christensen and Dmitri Kalinkin.
+
 2021-03-18  Christian Gutschow  <chris.g@cern.ch>
-	* Add some more debug info to AnalysisHandler
-	* do not add empty Scatter1DPtr for cross-section unless equiv is true 
-	* Thanks to Christian Holm Christensen
+
+	* Add some more debug info to AnalysisHandler.
+
+	* Do not add empty Scatter1DPtr for cross-section unless equiv is true.
+
+	* Thanks to Christian Holm Christensen.
 
 2021-03-15  Christian Gutschow  <chris.g@cern.ch>
+
 	* Submission of ATLAS_2020_I1788444 (Z + b(b) at 13 TeV)
 
 2021-02-09  Christian Gutschow  <chris.g@cern.ch>
