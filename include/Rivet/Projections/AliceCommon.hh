@@ -25,7 +25,9 @@ namespace Rivet {
     class V0Multiplicity : public SingleValueProjection {
     public:
       V0Multiplicity() : SingleValueProjection() {
-        setName("ALICE::V0Multiplicity");
+        setName(MODE<0 ? "ALICE::V0CMultiplicity":
+		MODE>0 ? "ALICE::V0AMultiplicity":
+		"ALICE::V0MMultiplicity");
         Cut cut;
         if      (MODE < 0) cut = V0Cacceptance;
         else if (MODE > 0) cut = V0Aacceptance;
@@ -69,12 +71,12 @@ namespace Rivet {
     /// Convenience typedef for A-side multiplicity
     ///
     /// @ingroup alice_rivet
-    typedef V0Multiplicity<-1> V0AMultiplicity;
+    typedef V0Multiplicity<+1> V0AMultiplicity;
 
     /// Convenience typedef for C-side multiplicity
     ///
     /// @ingroup alice_rivet
-    typedef V0Multiplicity<+1> V0CMultiplicity;
+    typedef V0Multiplicity<-1> V0CMultiplicity;
 
     /// Convenience typedef for A & C multiplicity
     ///
