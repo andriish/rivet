@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 """\
-Merge together yoda files produced by Rivet.
+Merge together YODA files produced by Rivet
 
 Examples:
 
@@ -45,6 +45,8 @@ extragroup = parser.add_argument_group("Run settings")
 extragroup.add_argument("YODAFILES", nargs="+", help="data files to merge")
 extragroup.add_argument("-o", "--output-file", dest="OUTPUTFILE",
                         default="Rivet.yoda", help="specify the output histo file path (default = %(default)s)")
+extragroup.add_argument("-p", "--preload-file", dest="PRELOADFILE",
+                        default=None, help="specify a YODA file to initialize (default = %(default)s)")
 extragroup.add_argument("-e", "--equiv", dest="EQUIV", action="store_true", default=False,
                         help="assume that the yoda files are equivalent but statistically independent (default= assume that different files contains different processes)")
 # TODO: could the merge- and add-options settings be specified in the info file in a MergeSettings heading?
@@ -86,18 +88,18 @@ for l in args.NATIVE_LOG_STRS:
         logging.warning("Couldn't process logging string '%s'" % l)
 
 
-## Actual analysis runs
-
-
 ## Set up analysis handler
 try:
     ah = rivet.AnalysisHandler("Merging")
     if args.ANALYSIS_PATH_PWD:
         rivet.addAnalysisLibPath(os.path.abspath("."))
         rivet.addAnalysisDataPath(os.path.abspath("."))
+    if args.PRELOADFILE is not None:
+        ah.readData(args.PRELOADFILE)
 
     ah.mergeYodas(args.YODAFILES, args.MERGEOPTIONS, args.ADDOPTIONS, args.EQUIV)
     ah.writeData(args.OUTPUTFILE)
+
 except:
     # Python3 and Cython3 might require explicit byte strings
     ah = rivet.AnalysisHandler(b"Merging")
@@ -107,5 +109,8 @@ except:
     yfiles = [y.encode() for y in args.YODAFILES]
     moptions = [m.encode() for m in args.MERGEOPTIONS]
     aoptions = [a.encode() for a in args.ADDOPTIONS]
+    if args.PRELOADFILE is not None:
+        ah.readData([p.encode() for p in args.PRELOADFILE])
+
     ah.mergeYodas(yfiles, moptions, aoptions, args.EQUIV)
     ah.writeData(args.OUTPUTFILE)
