@@ -554,8 +554,7 @@ namespace Rivet {
 
     // Go through all files and collect information
     for ( auto file : aofiles ) {
-      allaos.push_back(AOMap());
-      AOMap& aomap = allaos.back();
+      MSG_DEBUG("Reading in data from " << file);
       vector<YODA::AnalysisObject*> aos_raw;
       try {
         YODA::read(file, aos_raw);
@@ -563,12 +562,21 @@ namespace Rivet {
       catch (...) { //< YODA::ReadError&
         throw UserError("Unexpected error in reading file: " + file);
       }
+      if (aos_raw.empty()) {
+        MSG_WARNING("No AOs read from file: " << file);
+        continue;
+      }
+      
+      allaos.push_back(AOMap());
+      AOMap& aomap = allaos.back();
       for (YODA::AnalysisObject* aor : aos_raw) {
         YODA::AnalysisObjectPtr ao(aor);
         AOPath path(ao->path());
         if ( !path )
           throw UserError("Invalid path name in file: " + file);
         if ( !path.isRaw() ) continue;
+
+        MSG_DEBUG(" " << ao->path());
 
         foundWeightNames.insert(path.weight());
         // Now check if any options should be removed
@@ -610,7 +618,7 @@ namespace Rivet {
         exit(1);
       }
       MSG_TRACE("Done initialising analysis: " << a->name());
-    }
+    } // analyses
     _stage = Stage::OTHER;
     _initialised = true;
 
@@ -620,30 +628,54 @@ namespace Rivet {
       for (const auto & ao : a->analysisObjects()) {
         raos.push_back(ao);
       }
-    }
+    } // analyses
 
     // Collect global weights and cross sections and fix scaling for all files
+    MSG_DEBUG("Getting event counter and cross-section from "
+              << weightNames().size() << " " << numWeights());
     _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
+    MSG_DEBUG("EVTCOUNT: " << _eventCounter.get());
     _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
+    MSG_DEBUG("XSEC: " << _xs.get());
     for (size_t iW = 0; iW < numWeights(); iW++) {
+      MSG_DEBUG("Weight # " << iW << " of " << numWeights());
       _eventCounter.get()->setActiveWeightIdx(iW);
       _xs.get()->setActiveWeightIdx(iW);
       YODA::Counter & sumw = *_eventCounter;
       YODA::Scatter1D & xsec = *_xs;
       vector<YODA::Scatter1DPtr> xsecs;
       vector<YODA::CounterPtr> sows;
-      for ( auto & aomap : allaos ) {
+      for (auto & aomap : allaos) {
+        if (getLog().isActive(Log::DEBUG)) {
+          for (auto& kv : aomap) {
+            std::cout << kv.first << std::endl;
+          }
+        }
         auto xit = aomap.find(xsec.path());
-        if ( xit != aomap.end() )
+        MSG_DEBUG("Looking for " << xsec.path() << " in all objects => "
+                  << (xit != aomap.end()));
+        if ( xit != aomap.end() ) {
           xsecs.push_back(dynamic_pointer_cast<YODA::Scatter1D>(xit->second));
-        else
+        }
+        else if (equiv) {
           xsecs.push_back(YODA::Scatter1DPtr());
+        }
+        else {
+          throw UserError("Missing cross-section, needed for non-equivalent merging");
+        }
         xit = aomap.find(sumw.path());
-        if ( xit != aomap.end() )
+        MSG_DEBUG("Looking for " << sumw.path() << " in all objects => "
+                  << (xit != aomap.end()));
+        if ( xit != aomap.end() ) {
           sows.push_back(dynamic_pointer_cast<YODA::Counter>(xit->second));
-        else
+        }
+        else if (equiv) {
           sows.push_back(YODA::CounterPtr());
-      }
+        }
+        else {
+          throw UserError("Missing event counter, needed for non-equivalent merging");
+        }
+      } // allaos 
       double xs = 0.0, xserr = 0.0;
       for ( int i = 0, N = sows.size(); i < N; ++i ) {
         if ( !sows[i] || !xsecs[i] ) continue;
@@ -656,9 +688,11 @@ namespace Rivet {
       }
       vector<double> scales(sows.size(), 1.0);
       if ( equiv ) {
+        MSG_DEBUG("Equivalent mode: scale by numEntries"); 
         xs /= sumw.numEntries();
         xserr = sqrt(xserr)/sumw.numEntries();
       } else {
+        MSG_DEBUG("Non-equivalent mode: stack"); 
         xserr = sqrt(xserr);
         for ( int i = 0, N = sows.size(); i < N; ++i ) {
           if ( sumw.sumW() == 0.0 || xsecs[i]->point(0).x() == 0.0 )

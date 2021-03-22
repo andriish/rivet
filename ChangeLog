@@ -1,5 +1,9 @@
-2021-03-15  Christian Gutschow  <chris.g@cern.ch>
+2021-03-18  Christian Gutschow  <chris.g@cern.ch>
+	* Add some more debug info to AnalysisHandler
+	* do not add empty Scatter1DPtr for cross-section unless equiv is true 
+	* Thanks to Christian Holm Christensen
 
+2021-03-15  Christian Gutschow  <chris.g@cern.ch>
 	* Submission of ATLAS_2020_I1788444 (Z + b(b) at 13 TeV)
 
 2021-02-09  Christian Gutschow  <chris.g@cern.ch>
