@@ -1,5 +1,8 @@
 2021-03-22  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Fix the Run GZip-testing byte magic to use 2 rather than 4
+	bytes. Thanks again to Christian Holm Christensen.
+
 	* Fix the analysis-keyword matching logic: thanks to Christian
 	Holm Christensen and Dmitri Kalinkin.
 
