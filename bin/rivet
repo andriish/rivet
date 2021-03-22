@@ -198,7 +198,7 @@ def getAnalysesByKeyword(alist, kstring):
 
     for a in alist:
         kwds = set([i.lower() for i in rivet.AnalysisLoader.getAnalysis(a).keywords()])
-        if kwds.intersection(veto) and len(kwds.intersection(add)) == len(list(add)):
+        if len(kwds.intersection(veto)) == 0 and len(kwds.intersection(add)) == len(list(add)):
             ret.append(a)
     return ret
 
