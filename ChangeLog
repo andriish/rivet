@@ -18,6 +18,12 @@
 
 	* Submission of ATLAS_2020_I1788444 (Z + b(b) at 13 TeV)
 
+2021-03-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add protection against accidental double-slashes in built paths
+	passed to TeX's kpathsea library. Thanks to Martin Habedank for
+	the report.
+
 2021-02-09  Christian Gutschow  <chris.g@cern.ch>
 
 	* Submission of ATLAS_2019_I1736531 (UE in Z @ 13 TeV)

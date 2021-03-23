@@ -534,7 +534,7 @@ def logNEvt(n, starttime, maxevtnum):
         logging.log(nevtloglevel, msg)
 
 
-## Do some checks on output histo file, before we stat the event loop
+## Do some checks on output histo file, before we start the event loop
 histo_parentdir = os.path.dirname(os.path.abspath(args.HISTOFILE))
 if not os.path.exists(histo_parentdir):
   logging.error('Parent path of output histogram file does not exist: %s\nExiting.' % histo_parentdir)
@@ -552,7 +552,7 @@ ah.skipMultiWeights(args.SKIP_WEIGHTS)
 ah.selectMultiWeights(args.MATCH_WEIGHTS)
 ah.deselectMultiWeights(args.UNMATCH_WEIGHTS)
 ah.setNominalWeightName(args.NOMINAL_WEIGHT)
-if args.WEIGHT_CAP != None:
+if args.WEIGHT_CAP is not None:
     ah.setWeightCap(args.WEIGHT_CAP)
 
 ah.setNLOSmearing(args.NLO_SMEARING)
