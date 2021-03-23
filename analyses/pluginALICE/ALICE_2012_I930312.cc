@@ -67,7 +67,7 @@ namespace Rivet {
         if (beamOpt=="PP") isHI = false;
         else if (beamOpt=="HI") isHI = true;
         else {
-          MSG_ERROR("Beam error (option)!");
+          MSG_ERROR("Beam option error. You have specified an unsupported beam.");
           return;
       	}
       }
@@ -77,8 +77,7 @@ namespace Rivet {
         else if (beam.first.pid() == PID::LEAD && beam.second.pid() == PID::LEAD)
           isHI = true;
         else {
-          MSG_ERROR("Beam error (found)!");
-          return;
+          MSG_WARNING("Beam unspecified. Assuming you are running rivet-merge.");
         }
       }
 
