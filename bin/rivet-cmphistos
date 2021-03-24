@@ -120,8 +120,9 @@ def parseArgs(args):
     for a in args:
         asplit = a.split(':')
         path = asplit[0]
-        filelist.append(path)
-        filenames.append(path)
+        if path != "PLOT":
+            filelist.append(path)
+            filenames.append(path)
         plotoptions[path] = []
         has_title = False
         has_name = ""
@@ -132,7 +133,7 @@ def parseArgs(args):
             if asplit[i].startswith('Title='):
                 has_title = True
             plotoptions[path].append(asplit[i])
-            if asplit[i].startswith('Name='):
+            if asplit[i].startswith('Name=') and path != "PLOT":
                 has_name = asplit[i].split('=', 1)[1]
                 filenames[-1] = has_name
         if has_name != "":
@@ -354,10 +355,6 @@ if __name__ == '__main__':
     ## Split the input file names and the associated plotting options
     ## given on the command line into two separate lists
     filelist, filenames, plotoptions = parseArgs(args.ARGS)
-
-    ## Remove the PLOT dummy file from the file list
-    if "PLOT" in filelist:
-        filelist.remove("PLOT")
 
     ## Check that the files exist
     for f in filelist:

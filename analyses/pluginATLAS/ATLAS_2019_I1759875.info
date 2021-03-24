@@ -32,7 +32,7 @@ Description:
     at different energies. The same event sample is used to measure absolute and normalised differential cross-sections as functions 
     of single-lepton and dilepton kinematic variables, and the results are compared with predictions from various Monte Carlo event
     generators.'
-BibKey: Aad:2019hzw,
+BibKey: Aad:2019hzw
 BibTeX: '@article{Aad:2019hzw,
       author         = "Aad, Georges and others",
       title          = "{Measurement of the $t\bar{t}$ production cross-section

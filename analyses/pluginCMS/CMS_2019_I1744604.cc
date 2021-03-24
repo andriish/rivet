@@ -413,7 +413,7 @@ namespace Rivet {
       } else {
 
         // there are only complex solutions; set pz=0 and vary px/py such
-        // that mt=mW while keeping px^2+py^2 close to the original pt^2
+        // that mT=mW while keeping px^2+py^2 close to the original pT^2
         double ptlep = sqrt(pxlep * pxlep + pylep * pylep);
 
         double EquationA = 1;

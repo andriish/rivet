@@ -4,6 +4,7 @@ YTwosidedTicks=1
 XLabel=$E_\text{T}^\gamma$ [GeV]
 YLabel=$\text{d}\sigma / \text{d}E_\text{T}^\gamma$ [pb GeV${}^{-1}$]
 LogX=1
+LogY=1
 YMax=5.5E02
 YMin=3.0E-06
 LegendYPos=0.30

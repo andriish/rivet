@@ -14,9 +14,11 @@ BUILD="$BUILD --build-arg THEPEG_VERSION=${THEPEG_VERSION}"
 BUILD="$BUILD --build-arg HERWIG_VERSION=${HERWIG_VERSION}"
 test "$TEST" && BUILD="echo $BUILD"
 
-tag3="hepstore/rivet-herwig:${RIVET_VERSION}-${HERWIG_VERSION}"
-echo "Building $tag3"
-$BUILD -f Dockerfile.ubuntu -t $tag3
+tag3a="hepstore/rivet-herwig:${RIVET_VERSION}-${HERWIG_VERSION}"
+tag3b="$tag3a-py3"
+echo "Building $tag3a"
+$BUILD -f Dockerfile.ubuntu -t $tag3a
+docker tag $tag3a $tag3b
 
 echo -e "\n\n"
 
@@ -24,13 +26,15 @@ tag2="hepstore/rivet-herwig:${RIVET_VERSION}-${HERWIG_VERSION}-py2"
 echo "Building $tag2"
 $BUILD -f Dockerfile.ubuntu-py2 -t $tag2
 
-docker tag $tag2 hepstore/rivet-herwig:$RIVET_VERSION
+docker tag $tag3b hepstore/rivet-herwig:$RIVET_VERSION
 if [[ "$LATEST" = 1 ]]; then
-    docker tag $tag2 hepstore/rivet-herwig:latest
+    docker tag $tag3b hepstore/rivet-herwig:latest
 fi
 
 if [[ "$PUSH" = 1 ]]; then
-    docker push $tag3
+    docker push $tag3a
+    sleep 30s
+    docker push $tag3b
     sleep 1m
     docker push $tag2
     sleep 1m

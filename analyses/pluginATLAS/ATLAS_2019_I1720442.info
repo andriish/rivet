@@ -48,3 +48,8 @@ BibTeX: '@article{Aaboud:2019lxo,
       reportNumber   = "CERN-EP-2018-318",
       SLACcitation   = "%%CITATION = ARXIV:1902.05892;%%"
 }'
+
+
+ReleaseTests:
+ - $A pp-13000-llll
+

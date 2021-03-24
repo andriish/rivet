@@ -2,6 +2,7 @@
 XLabel=$E_T$ [GeV]
 YLabel=$\mathrm{d}\sigma / \mathrm{d}E_T$ [pb/GeV]
 LogX=0
+LogY=1
 # END PLOT
 
 # BEGIN PLOT /CMS_2015_I1346843/d01-x01-y01
@@ -27,6 +28,7 @@ Title=CMS, $Z \leftarrow \mu\mu\gamma$, $\sqrt{s}$ = 7 TeV , Photon $E_T$ ($q_T 
 # BEGIN PLOT /CMS_2015_I1346843/d02-.*
 XLabel=$\Delta R_{\gamma\mu}$
 YLabel=$\mathrm{d}\sigma / \mathrm{d}\Delta R_{\gamma\mu}$ [pb]
+LogY=1
 # END PLOT
 
 # BEGIN PLOT /CMS_2015_I1346843/d02-x01-y01

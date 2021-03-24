@@ -15,10 +15,12 @@ namespace Rivet {
 
     void init() {
    
-   //Projections 
+      // Get options from the new option system
+      PdgId flav = (getOption("LMODE") == "EL")? PID::ELECTRON : PID::MUON;
 
+      //Projections 
       FinalState fs;
-      ZFinder zfinder(fs, Cuts::abseta<2.4 && Cuts::pT>25.0*GeV, PID::MUON, 66*GeV, 116*GeV, 0.1, ZFinder::ClusterPhotons::NODECAY);
+      ZFinder zfinder(fs, Cuts::abseta<2.4 && Cuts::pT>25.0*GeV, flav, 66*GeV, 116*GeV, 0.1, ZFinder::ClusterPhotons::NODECAY);
       declare(zfinder, "ZFinder");      
       ChargedFinalState cfs(zfinder.remainingFinalState() );
       declare(cfs, "cfs");

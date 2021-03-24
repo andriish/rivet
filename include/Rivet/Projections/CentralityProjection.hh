@@ -27,7 +27,7 @@ class CentralityProjection: public SingleValueProjection {
 public:
 
   /// Default constructor
-  CentralityProjection() {}
+  CentralityProjection() { setName("CentralityProjection"); }
 
 
   DEFAULT_RIVET_PROJ_CLONE(CentralityProjection);
@@ -67,12 +67,19 @@ public:
   CmpState compare(const Projection& p) const {
     const CentralityProjection* other = dynamic_cast<const CentralityProjection*>(&p);
     if (other->_projNames.size() == 0) return CmpState::NEQ;
+    // cholm: This is not enough.  The contained projections may be
+    // different but have the same names.  We need to compare the
+    // projections directly.
     for (string pname : _projNames) {
+      auto& proj = getProjection(pname);
       bool hasPname = true;
       for (string p2name : other->_projNames){
         if (pname != p2name) hasPname = false;
       }
       if (!hasPname) return CmpState::NEQ;
+
+      auto& oth = other->getProjection(pname);
+      if (proj.compare(oth) != CmpState::EQ) return CmpState::NEQ;
     }
     return CmpState::EQ;
   }
