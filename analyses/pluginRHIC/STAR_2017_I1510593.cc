@@ -52,7 +52,7 @@ namespace Rivet {
       if (fuzzyEquals(sqrtS() / 197. / GeV, energies[0])) enebinfig = 0;
       if (fuzzyEquals(sqrtS() / 197. / GeV, energies[4])) enebinfig = 1;
 
-      // Book all histograms for all energies in order to do re-entrant finalize
+      // Book all histograms for all energies in order to use re-entrant finalize
       /// @todo Raw arrays would be a *lot* easier to read here (and N_cent is fixed)
       _h_dpT_Piplus = vector<vector<Histo1DPtr> >(energies.size(), vector<Histo1DPtr>(centralities.size()));
       _h_dpT_Pi = vector<vector<Histo1DPtr> >(energies.size(), vector<Histo1DPtr>(centralities.size()));
