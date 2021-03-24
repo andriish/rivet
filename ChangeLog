@@ -2,6 +2,13 @@
 
 	* Add a preload option to rivet-merge.
 
+2021-03-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a --font=euler option to the make-plots scripts.
+
+	* Remove use of the mathastext package in make-plots Helvetica
+	plotting mode, using sansmath's eulergreek option instead.
+
 2021-03-22  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix the Run GZip-testing byte magic to use 2 rather than 4
