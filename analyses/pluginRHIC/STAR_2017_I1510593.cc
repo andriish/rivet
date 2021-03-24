@@ -53,6 +53,7 @@ namespace Rivet {
       if (fuzzyEquals(sqrtS() / 197. / GeV, energies[4])) enebinfig = 1;
 
       // Book all histograms for all energies in order to use re-entrant finalize
+      /// @todo Raw arrays would be a *lot* easier to read here (and N_cent is fixed)
       _h_dpT_Piplus = vector<vector<Histo1DPtr> >(energies.size(), vector<Histo1DPtr>(centralities.size()));
       _h_dpT_Pi = vector<vector<Histo1DPtr> >(energies.size(), vector<Histo1DPtr>(centralities.size()));
       _h_dpT_Kaonplus = vector<vector<Histo1DPtr> >(energies.size(), vector<Histo1DPtr>(centralities.size()));
@@ -119,7 +120,7 @@ namespace Rivet {
         book(_h_npart_KaMinus[i],17, 4, i+1);
         book(_h_npart_Proton[i],17, 5, i+1);
         book(_h_npart_AntiProton[i],17, 6, i+1);
-        // ...and the weights.
+        // ...and the weights
         book(_wght_npart_PiPlus[i],coStr(17, 1, i+1));
         book(_wght_npart_PiMinus[i],coStr(17, 1, i+1));
         book(_wght_npart_KaonPlus[i],coStr(17, 1, i+1));
