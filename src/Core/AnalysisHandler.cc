@@ -519,9 +519,10 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::mergeYodas(const vector<string> & aofiles,
-                                   const vector<string> & delopts,
-                                   const vector<string> & addopts,
+  /// @todo Change to mergeYodas(vector<pair<string,double>> aofilesweights, ...), with this as a unit-weights syntactic sugar
+  void AnalysisHandler::mergeYodas(const vector<string>& aofiles,
+                                   const vector<string>& delopts,
+                                   const vector<string>& addopts,
                                    bool equiv) {
 
     // Convenience typedef
@@ -535,6 +536,7 @@ namespace Rivet {
 
     // Store all analysis objects here
     vector<AOMap> allaos;
+    vector<double> fileweights;
 
     // Parse option adding.
     vector<string> optAnas;
@@ -553,8 +555,25 @@ namespace Rivet {
     }
 
     // Go through all files and collect information
-    for ( auto file : aofiles ) {
+    /// @todo Move this to the script interface, with the API working in terms
+    ///   of <real_filename,weight> pairs rather than decoding a CLI convention in C++
+    for (string file : aofiles) {
       MSG_DEBUG("Reading in data from " << file);
+      // Check for user-supplied scaling, assign 1 otherwise
+      /// @todo
+      size_t colonpos = file.rfind(":");
+      if (colonpos != string::npos) {
+        try {
+          double fweight = std::stod(file.substr(colonpos+1));
+          file = file.substr(0, colonpos);
+          fileweights.push_back(fweight);
+        } catch (...) {
+          throw UserError("Unexpected error in processing argument " + file + " with file:scale format");
+        }
+      } else {
+        fileweights.push_back(1.0);
+      }
+
       vector<YODA::AnalysisObject*> aos_raw;
       try {
         YODA::read(file, aos_raw);
@@ -566,7 +585,7 @@ namespace Rivet {
         MSG_WARNING("No AOs read from file: " << file);
         continue;
       }
-      
+
       allaos.push_back(AOMap());
       AOMap& aomap = allaos.back();
       for (YODA::AnalysisObject* aor : aos_raw) {
@@ -595,6 +614,9 @@ namespace Rivet {
         aomap.insert(make_pair(path.path(), ao));
       }
     }
+    // reverse ordering of user-supplied weights,
+    // so we can just pop them later
+    std::reverse(fileweights.begin(), fileweights.end());
 
     // Now make analysis handler aware of the weight names present
     _weightNames.clear();
@@ -645,17 +667,22 @@ namespace Rivet {
       YODA::Scatter1D & xsec = *_xs;
       vector<YODA::Scatter1DPtr> xsecs;
       vector<YODA::CounterPtr> sows;
-      for (auto & aomap : allaos) {
+      for (auto & aomap : allaos) { // one per input file
+
         if (getLog().isActive(Log::DEBUG)) {
           for (auto& kv : aomap) {
             std::cout << kv.first << std::endl;
           }
         }
         auto xit = aomap.find(xsec.path());
+        const double sf = fileweights.back();
+        fileweights.pop_back();
         MSG_DEBUG("Looking for " << xsec.path() << " in all objects => "
                   << (xit != aomap.end()));
         if ( xit != aomap.end() ) {
           xsecs.push_back(dynamic_pointer_cast<YODA::Scatter1D>(xit->second));
+          MSG_DEBUG("Apply user-supplied weight: " << sf);
+          xsecs.back()->scaleX(sf);
         }
         else if (equiv) {
           xsecs.push_back(YODA::Scatter1DPtr());
@@ -675,7 +702,7 @@ namespace Rivet {
         else {
           throw UserError("Missing event counter, needed for non-equivalent merging");
         }
-      } // allaos 
+      } // allaos
       double xs = 0.0, xserr = 0.0;
       for ( int i = 0, N = sows.size(); i < N; ++i ) {
         if ( !sows[i] || !xsecs[i] ) continue;
@@ -688,11 +715,11 @@ namespace Rivet {
       }
       vector<double> scales(sows.size(), 1.0);
       if ( equiv ) {
-        MSG_DEBUG("Equivalent mode: scale by numEntries"); 
+        MSG_DEBUG("Equivalent mode: scale by numEntries");
         xs /= sumw.numEntries();
         xserr = sqrt(xserr)/sumw.numEntries();
       } else {
-        MSG_DEBUG("Non-equivalent mode: stack"); 
+        MSG_DEBUG("Non-equivalent mode: stack");
         xserr = sqrt(xserr);
         for ( int i = 0, N = sows.size(); i < N; ++i ) {
           if ( sumw.sumW() == 0.0 || xsecs[i]->point(0).x() == 0.0 )
