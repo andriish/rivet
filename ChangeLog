@@ -2,6 +2,11 @@
 
 	* Add a preload option to rivet-merge.
 
+2021-03-23  Christian Gutschow  <chris.g@cern.ch>
+
+	* Tweak AnalysisHandler to allow rivet-merge with
+	user-supplied cross-sections per file
+
 2021-03-23  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add a --font=euler option to the make-plots scripts.
