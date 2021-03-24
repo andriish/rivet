@@ -672,13 +672,15 @@ class Plot(object):
             out += ('\\usepackage{mathpazo}\n')
         elif outfont == "TIMES":
             out += ('\\usepackage{mathptmx}\n')
-        elif outfont == "HELVETICA":
+        elif args.OUTPUT_FONT == "HELVETICA":
+            out += ('\\renewcommand{\\familydefault}{\\sfdefault}\n')
+            out += ('\\usepackage{helvet}\n')
+            out += ('\\usepackage[eulergreek]{sansmath}\n')
+            out += ('\\sansmath\n')
+        elif args.OUTPUT_FONT == "EULER":
             out += ('\\renewcommand{\\familydefault}{\\sfdefault}\n')
             out += ('\\usepackage{sfmath}\n')
-            out += ('\\usepackage{helvet}\n')
-            out += ('\\usepackage[symbolgreek]{mathastext}\n')
-            out += ('\\usepackage{sansmath}\n')
-            out += ('\\sansmath\n')
+            out += ('\\usepackage{euler}\n')
         for pkg in latexpkgs:
             out += ('\\usepackage{%s}\n' % pkg)
         out += ('\\usepackage[dvipsnames]{xcolor}\n')
@@ -3272,7 +3274,7 @@ def process_datfile(datfile, **kwargs):
     texfile = open(texpath, 'w')
     p = Plot(inputdata)
     newOpacityPolicy = has_new_opacity_policy()
-    texfile.write(p.write_header(inputdata, kwargs.get('OUTPUT_FONT'), kwargs.get('OUTPUT_FORMAT'), 
+    texfile.write(p.write_header(inputdata, kwargs.get('OUTPUT_FONT'), kwargs.get('OUTPUT_FORMAT'),
                                  kwargs.get('LATEXPKGS'), newOpacityPolicy))
     if inputdata.attr_bool("MainPlot", True):
         mp = MainPlot(inputdata)
@@ -3441,7 +3443,7 @@ if __name__ == '__main__':
                         default=numcores, help="max number of threads to be used [%s]" % numcores)
     parser.add_argument("-o", "--outdir", dest="OUTPUT_DIR", default=None,
                         help="choose the output directory (default = .dat dir)")
-    parser.add_argument("--font", dest="OUTPUT_FONT", choices="palatino,cm,times,helvetica,minion".split(","),
+    parser.add_argument("--font", dest="OUTPUT_FONT", choices="palatino,cm,times,helvetica,euler,minion".split(","),
                         default="palatino", help="choose the font to be used in the plots")
     parser.add_argument("--palatino", dest="OUTPUT_FONT", action="store_const", const="palatino", default="palatino",
                         help="use Palatino as font (default). DEPRECATED: Use --font")
