@@ -106,14 +106,14 @@ void init() {
       book(_h_dpT_Kaonplus[j][i], 12 + j, 3, 1 + i);
       book(_h_dpT_Kaon[j][i], 12 + j, 4, 1 + i);
       book(_h_dpT_Proton[j][i], 12 + j, 5, 1 + i);
-      book(_h_dpT_AntiProton[j][i], 12 + j, 5, 1 + i);
+      book(_h_dpT_AntiProton[j][i], 12 + j, 6, 1 + i);
       // Book ditto sum of weights.
       book(_wght_PiPlus[j][i], coStr(12 + j, 1, 1 + i));
       book(_wght_Pi[j][i], coStr(12 + j, 2, 1 + i));
       book(_wght_KaonPlus[j][i], coStr(12 + j, 3, 1 + i));
       book(_wght_Kaon[j][i], coStr(12 + j, 4, 1 + i));
       book(_wght_Proton[j][i], coStr(12 + j, 5, 1 + i));
-      book(_wght_AntiProton[j][i], coStr(12 + j, 5, 1 + i));
+      book(_wght_AntiProton[j][i], coStr(12 + j, 6, 1 + i));
     }
     /// Booking npart histograms
     for (int i = 0, N = energies.size(); i < N; ++i) {
@@ -125,11 +125,11 @@ void init() {
       book(_h_npart_AntiProton[i],17, 6, i+1);
       // ...and the weights.
       book(_wght_npart_PiPlus[i],coStr(17, 1, i+1));
-      book(_wght_npart_PiMinus[i],coStr(17, 1, i+1));
-      book(_wght_npart_KaonPlus[i],coStr(17, 1, i+1));
-      book(_wght_npart_KaonMinus[i],coStr(17, 1, i+1));
-      book(_wght_npart_Proton[i],coStr(17, 1, i+1));
-      book(_wght_npart_AntiProton[i],coStr(17, 1, i+1));
+      book(_wght_npart_PiMinus[i],coStr(17, 2, i+1));
+      book(_wght_npart_KaonPlus[i],coStr(17, 3, i+1));
+      book(_wght_npart_KaonMinus[i],coStr(17, 4, i+1));
+      book(_wght_npart_Proton[i],coStr(17, 5, i+1));
+      book(_wght_npart_AntiProton[i],coStr(17, 6, i+1));
       // ... and the profiles.
       book(_h_npart_pT_PiPlus[i], 18, 1, i+1);
       book(_h_npart_pT_PiMinus[i], 18, 2, i+1);
