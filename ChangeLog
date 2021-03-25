@@ -1,3 +1,8 @@
+2021-03-25  Christian Gutschow  <chris.g@cern.ch>
+
+	* Submission of ATLAS_2021_I1852328 (WW production at 13 TeV)
+	and ATLAS_2020_I1808726 (multijet event shapes at 13 TeV)
+
 2021-03-25  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix a finalize crash if there are no analyses, due to lack of
