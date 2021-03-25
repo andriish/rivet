@@ -81,17 +81,20 @@ namespace Rivet {
     MSG_DEBUG("Initialising the analysis handler");
     _eventNumber = ge.event_number();
 
+    // Assemble the weight streams to be used
     setWeightNames(ge);
-    if (_skipWeights)
+    if (_skipWeights) {
         MSG_INFO("Only using nominal weight. Variation weights will be ignored.");
-    else if (haveNamedWeights())
+    } else if (haveNamedWeights()) {
         MSG_INFO("Using named weights");
-    else
+    } else {
         MSG_INFO("NOT using named weights. Using first weight as nominal weight");
+    }
 
+    // Create the multi-weighted event counter
     _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
 
-    // Set the cross section based on what is reported by this event, else zero
+    // Set the cross section based on what is reported by the init-event, else zero
     if (ge.cross_section()) {
       setCrossSection(HepMCUtils::crossSection(ge));
     } else {
@@ -99,7 +102,7 @@ namespace Rivet {
       setCrossSection({0.0, 0.0});
     }
 
-    // Check that analyses are beam-compatible, and remove those that aren't
+    // Check that analyses are beam-compatible, and note those that aren't
     const size_t num_anas_requested = analysisNames().size();
     vector<string> anamestodelete;
     for (const AnaHandle& a : analyses()) {
@@ -108,13 +111,14 @@ namespace Rivet {
         anamestodelete.push_back(a->name());
       }
     }
+    // Remove incompatible analyses from the run
     for (const string& aname : anamestodelete) {
       MSG_WARNING("Analysis '" << aname << "' is incompatible with the provided beams: removing");
       removeAnalysis(aname);
     }
     if (num_anas_requested > 0 && analysisNames().empty()) {
-      cerr << "All analyses were incompatible with the first event's beams\n"
-           << "Exiting, since this probably wasn't intentional!" << endl;
+      MSG_ERROR("All analyses were incompatible with the first event's beams\n"
+                << "Exiting, since this probably wasn't intentional!");
       exit(1);
     }
 
@@ -406,9 +410,11 @@ namespace Rivet {
     // Copy all histos to finalize versions.
     _eventCounter.get()->pushToFinal();
     _xs.get()->pushToFinal();
-    for (const AnaHandle& a : analyses())
-      for (auto ao : a->analysisObjects())
+    for (const AnaHandle& a : analyses()) {
+      for (auto ao : a->analysisObjects()) {
         ao.get()->pushToFinal();
+      }
+    }
 
     for (AnaHandle a : analyses()) {
       if ( _dumping && !a->info().reentrant() )  {
@@ -419,8 +425,9 @@ namespace Rivet {
       for (size_t iW = 0; iW < numWeights(); iW++) {
         _eventCounter.get()->setActiveFinalWeightIdx(iW);
         _xs.get()->setActiveFinalWeightIdx(iW);
-        for (auto ao : a->analysisObjects())
+        for (auto ao : a->analysisObjects()) {
           ao.get()->setActiveFinalWeightIdx(iW);
+        }
         try {
           MSG_TRACE("running " << a->name() << "::finalize() for weight " << iW << ".");
           a->finalize();
@@ -432,6 +439,8 @@ namespace Rivet {
     }
 
     // Print out number of events processed
+    _eventCounter.get()->setActiveFinalWeightIdx(defaultWeightIndex());
+    _xs.get()->setActiveFinalWeightIdx(defaultWeightIndex());
     if (!_dumping) {
       const int nevts = numEvents();
       MSG_DEBUG("Processed " << nevts << " event" << (nevts != 1 ? "s" : ""));

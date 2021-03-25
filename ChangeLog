@@ -1,3 +1,8 @@
+2021-03-25  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix a finalize crash if there are no analyses, due to lack of
+	active weight stream for the global event counter.
+
 2021-03-24  Christian Holm Christensen  <cholm@cern.ch>
 
 	* Add a preload option to rivet-merge.

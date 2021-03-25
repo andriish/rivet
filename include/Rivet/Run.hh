@@ -4,6 +4,7 @@
 
 #include "Rivet/Tools/RivetSTL.hh"
 #include "Rivet/Tools/RivetHepMC.hh"
+#include "Rivet/Tools/Logging.hh"
 
 namespace Rivet {
 
@@ -16,20 +17,15 @@ namespace Rivet {
   class Run {
   public:
 
-    /// @name Standard constructors and destructors. */
-    //@{
-    /// The standard constructor.
+    /// Standard constructor.
     Run(AnalysisHandler& ah);
 
-    /// The destructor
+    /// Destructor
     ~Run();
-    //@}
 
-
-  public:
 
     /// @name Set run properties
-    //@{
+    /// @{
 
     /// Get the cross-section for this run.
     Run& setCrossSection(double xs);
@@ -37,11 +33,11 @@ namespace Rivet {
     /// Declare whether to list available analyses
     Run& setListAnalyses(bool dolist);
 
-    //@}
+    /// @}
 
 
     /// @name File processing stages
-    //@{
+    /// @{
 
     /// Set up HepMC file readers (using the appropriate file weight for the first file)
     bool init(const std::string& evtfile, double weight=1.0);
@@ -61,16 +57,19 @@ namespace Rivet {
     /// Close up HepMC I/O
     bool finalize();
 
-    //@}
+    /// @}
 
 
   private:
+
+    /// Get a Log object
+    Log& getLog() const;
 
     /// AnalysisHandler object
     AnalysisHandler& _ah;
 
     /// @name Run variables obtained from events or command line
-    //@{
+    /// @{
 
     /// @brief An extra event weight scaling per event file.
     /// Useful for e.g. AlpGen n-parton event file combination.
@@ -79,7 +78,7 @@ namespace Rivet {
     /// Cross-section from command line.
     double _xs;
 
-    //@}
+    /// @}
 
 
     /// Flag to show list of analyses
@@ -87,7 +86,7 @@ namespace Rivet {
 
 
     /// @name HepMC I/O members
-    //@{
+    /// @{
 
     /// Current event
     std::shared_ptr<GenEvent> _evt;
@@ -98,7 +97,7 @@ namespace Rivet {
     /// HepMC reader
     std::shared_ptr<HepMC_IO_type> _hepmcReader;
 
-    //@}
+    /// @}
 
   };
 
