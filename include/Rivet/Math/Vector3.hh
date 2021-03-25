@@ -148,7 +148,7 @@ namespace Rivet {
       return polarRadius();
     }
 
-    /// Angle subtended by the vector's projection in x-y and the x-axis.
+    /// @brief Angle subtended by the vector's projection in x-y and the x-axis.
     ///
     /// @note Returns zero in the case of a vector with null x and y components.
     /// @todo Would it be better to return NaN in the null-perp case? Or throw?!
@@ -182,7 +182,7 @@ namespace Rivet {
       return polarAngle();
     }
 
-    /// Purely geometric approximation to rapidity
+    /// @brief Purely geometric approximation to rapidity
     ///
     /// Also invariant under z-boosts, equal to y for massless particles.
     ///
@@ -208,27 +208,33 @@ namespace Rivet {
 
 
   public:
-    Vector3& operator*=(const double a) {
+
+    /// In-place scalar multiplication operator
+    Vector3& operator *= (const double a) {
       _vec = multiply(a, *this)._vec;
       return *this;
     }
 
-    Vector3& operator/=(const double a) {
+    /// In-place scalar division operator
+    Vector3& operator /= (const double a) {
       _vec = multiply(1.0/a, *this)._vec;
       return *this;
     }
 
-    Vector3& operator+=(const Vector3& v) {
+    /// In-place addition operator
+    Vector3& operator += (const Vector3& v) {
       _vec = add(*this, v)._vec;
       return *this;
     }
 
-    Vector3& operator-=(const Vector3& v) {
+    /// In-place subtraction operator
+    Vector3& operator -= (const Vector3& v) {
       _vec = subtract(*this, v)._vec;
       return *this;
     }
 
-    Vector3 operator-() const {
+    /// In-place negation operator
+    Vector3 operator - () const {
       Vector3 rtn;
       rtn._vec = -_vec;
       return rtn;
@@ -237,54 +243,64 @@ namespace Rivet {
   };
 
 
-
+  /// Unbound dot-product function
   inline double dot(const Vector3& a, const Vector3& b) {
     return a.dot(b);
   }
 
+  /// Unbound cross-product function
   inline Vector3 cross(const Vector3& a, const Vector3& b) {
     return a.cross(b);
   }
 
+  /// Unbound scalar-product function
   inline Vector3 multiply(const double a, const Vector3& v) {
     Vector3 result;
     result._vec = a * v._vec;
     return result;
   }
 
+  /// Unbound scalar-product function
   inline Vector3 multiply(const Vector3& v, const double a) {
     return multiply(a, v);
   }
 
-  inline Vector3 operator*(const double a, const Vector3& v) {
+  /// Unbound scalar multiplication operator
+  inline Vector3 operator * (const double a, const Vector3& v) {
     return multiply(a, v);
   }
 
-  inline Vector3 operator*(const Vector3& v, const double a) {
+  /// Unbound scalar multiplication operator
+  inline Vector3 operator * (const Vector3& v, const double a) {
     return multiply(a, v);
   }
 
-  inline Vector3 operator/(const Vector3& v, const double a) {
+  /// Unbound scalar division operator
+  inline Vector3 operator / (const Vector3& v, const double a) {
     return multiply(1.0/a, v);
   }
 
+  /// Unbound vector addition function
   inline Vector3 add(const Vector3& a, const Vector3& b) {
     Vector3 result;
     result._vec = a._vec + b._vec;
     return result;
   }
 
+  /// Unbound vector subtraction function
   inline Vector3 subtract(const Vector3& a, const Vector3& b) {
     Vector3 result;
     result._vec = a._vec - b._vec;
     return result;
   }
 
-  inline Vector3 operator+(const Vector3& a, const Vector3& b) {
+  /// Unbound vector addition operator
+  inline Vector3 operator + (const Vector3& a, const Vector3& b) {
     return add(a, b);
   }
 
-  inline Vector3 operator-(const Vector3& a, const Vector3& b) {
+  /// Unbound vector subtraction operator
+  inline Vector3 operator - (const Vector3& a, const Vector3& b) {
     return subtract(a, b);
   }
 
@@ -295,10 +311,12 @@ namespace Rivet {
     return a.angle(b);
   }
 
+
   /////////////////////////////////////////////////////
 
-  /// @name \f$ |\Delta eta| \f$ calculations from 3-vectors
-  //@{
+
+  /// @defgroup momutils_vec3_deta \f$ |\Delta eta| \f$ calculations from 3-vectors
+  /// @{
 
   /// Calculate the difference in pseudorapidity between two spatial vectors.
   inline double deltaEta(const Vector3& a, const Vector3& b, bool sign=false) {
@@ -315,11 +333,11 @@ namespace Rivet {
     return deltaEta(eta1, v.pseudorapidity(), sign);
   }
 
-  //@}
+  /// @}
 
 
-  /// @name \f$ \Delta phi \f$ calculations from 3-vectors
-  //@{
+  /// @defgroup momutils_vec3_dphi \f$ \Delta phi \f$ calculations from 3-vectors
+  /// @{
 
   /// Calculate the difference in azimuthal angle between two spatial vectors.
   inline double deltaPhi(const Vector3& a, const Vector3& b, bool sign=false) {
@@ -336,11 +354,11 @@ namespace Rivet {
     return deltaPhi(phi1, v.azimuthalAngle(), sign);
   }
 
-  //@}
+  /// @}
 
 
-  /// @name \f$ \Delta R \f$ calculations from 3-vectors
-  //@{
+  /// @defgroup momutils_vec3_dr \f$ \Delta R \f$ calculations from 3-vectors
+  /// @{
 
   /// Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two spatial vectors.
   inline double deltaR2(const Vector3& a, const Vector3& b) {
@@ -373,7 +391,20 @@ namespace Rivet {
     return sqrt(deltaR2(eta1, phi1, v));
   }
 
-  //@}
+  /// @}
+
+
+  /// @defgroup momutils_vec3_mt MT calculation
+  /// @{
+
+  /// Calculate transverse mass of a visible and an invisible 3-vector
+  inline double mT(const Vector3& vis, const Vector3& invis) {
+    // return sqrt(2*vis.perp()*invis.perp() * (1 - cos(deltaPhi(vis, invis))) );
+    return mT(vis.perp(), invis.perp(), deltaPhi(vis, invis));
+  }
+
+  /// @}
+
 
 }
 
