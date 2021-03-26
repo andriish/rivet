@@ -85,7 +85,6 @@ namespace Rivet {
       _h_npart_pT_Proton = vector<Profile1DPtr>(energies.size());
       _h_npart_pT_AntiProton = vector<Profile1DPtr>(energies.size());
 
-
       _h_npart_Piratio = vector<Profile1DPtr>(energies.size());
       _h_npart_Karatio = vector<Profile1DPtr>(energies.size());
       _h_npart_Pratio = vector<Profile1DPtr>(energies.size());
@@ -102,16 +101,17 @@ namespace Rivet {
           book(_h_dpT_Kaonplus[j][i], 12 + j, 3, 1 + i);
           book(_h_dpT_Kaon[j][i], 12 + j, 4, 1 + i);
           book(_h_dpT_Proton[j][i], 12 + j, 5, 1 + i);
-          book(_h_dpT_AntiProton[j][i], 12 + j, 5, 1 + i);
+          book(_h_dpT_AntiProton[j][i], 12 + j, 6, 1 + i);
           // Book ditto sum of weights.
           book(_wght_PiPlus[j][i], coStr(12 + j, 1, 1 + i));
           book(_wght_Pi[j][i], coStr(12 + j, 2, 1 + i));
           book(_wght_KaonPlus[j][i], coStr(12 + j, 3, 1 + i));
           book(_wght_Kaon[j][i], coStr(12 + j, 4, 1 + i));
           book(_wght_Proton[j][i], coStr(12 + j, 5, 1 + i));
-          book(_wght_AntiProton[j][i], coStr(12 + j, 5, 1 + i));
+          book(_wght_AntiProton[j][i], coStr(12 + j, 6, 1 + i));
         }
       }
+
       /// Booking npart histograms
       for (size_t i = 0, N = energies.size(); i < N; ++i) {
         book(_h_npart_PiPlus[i],17, 1, i+1);
@@ -120,13 +120,13 @@ namespace Rivet {
         book(_h_npart_KaMinus[i],17, 4, i+1);
         book(_h_npart_Proton[i],17, 5, i+1);
         book(_h_npart_AntiProton[i],17, 6, i+1);
-        // ...and the weights
+        // ...and the weights.
         book(_wght_npart_PiPlus[i],coStr(17, 1, i+1));
-        book(_wght_npart_PiMinus[i],coStr(17, 1, i+1));
-        book(_wght_npart_KaonPlus[i],coStr(17, 1, i+1));
-        book(_wght_npart_KaonMinus[i],coStr(17, 1, i+1));
-        book(_wght_npart_Proton[i],coStr(17, 1, i+1));
-        book(_wght_npart_AntiProton[i],coStr(17, 1, i+1));
+        book(_wght_npart_PiMinus[i],coStr(17, 2, i+1));
+        book(_wght_npart_KaonPlus[i],coStr(17, 3, i+1));
+        book(_wght_npart_KaonMinus[i],coStr(17, 4, i+1));
+        book(_wght_npart_Proton[i],coStr(17, 5, i+1));
+        book(_wght_npart_AntiProton[i],coStr(17, 6, i+1));
         // ... and the profiles.
         book(_h_npart_pT_PiPlus[i], 18, 1, i+1);
         book(_h_npart_pT_PiMinus[i], 18, 2, i+1);
@@ -206,8 +206,8 @@ namespace Rivet {
 
       /// Loop over all charged particles of the CFS
       for (const Particle& p : cfs.particles()) {
-        double pT = p.pT() * GeV;
-        double mass = p.mass() * GeV;
+        double pT = p.pT()/GeV;
+        double mass = p.mass()/GeV;
         double mTm = sqrt(pT * pT + mass * mass) - mass;
         if (p.absrap() < 0.1) {
           const PdgId id = p.pid();
@@ -327,9 +327,10 @@ namespace Rivet {
 
       /// Particle Yields
       if (enebinfig == 0 || enebinfig == 1) {
-        for (int i = 0; i < 10; i++)
+        for (size_t i = 0; i < 10; i++) {
           if (nparts[i] > 1e-6)
             _h_yields[enebinfig]->fill(i + 1, nparts[i], 5);
+        }
         if (nparts[0] > 1e-6)
           _h_ratios[enebinfig]->fill(1, nparts[1] / nparts[0], 5);
         if (nparts[2] > 1e-6)
@@ -376,6 +377,7 @@ namespace Rivet {
         _wght_npart_AntiProton[enebin]->fill();
       }
     }
+
 
     /// Normalise histograms etc., after the run
     void finalize() {
