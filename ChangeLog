@@ -53,6 +53,7 @@
 2021-03-01  Markus Seidel  <markus.seidel@cern.ch>
 
 	* Submission of CMS_2017_I1608166 (Identified particles in MB @ 13 TeV).
+	NOTE: ratio output disabled until ratio plots are in HepData.
 
 	* Submission of CMS_2017_I1471281 (W and Z pt @ 8 TeV)
 
