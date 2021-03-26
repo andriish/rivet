@@ -50,6 +50,13 @@
 	passed to TeX's kpathsea library. Thanks to Martin Habedank for
 	the report.
 
+2021-03-01  Markus Seidel  <markus.seidel@cern.ch>
+
+	* Submission of CMS_2017_I1608166 (Identified particles in MB @ 13 TeV).
+	NOTE: ratio output disabled until ratio plots are in HepData.
+
+	* Submission of CMS_2017_I1471281 (W and Z pt @ 8 TeV)
+
 2021-02-09  Christian Gutschow  <chris.g@cern.ch>
 
 	* Submission of ATLAS_2019_I1736531 (UE in Z @ 13 TeV)
