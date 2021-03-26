@@ -1,6 +1,59 @@
+2021-03-25  Christian Gutschow  <chris.g@cern.ch>
+
+	* Submission of ATLAS_2021_I1852328 (WW production at 13 TeV)
+	and ATLAS_2020_I1808726 (multijet event shapes at 13 TeV)
+
+2021-03-25  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix a finalize crash if there are no analyses, due to lack of
+	active weight stream for the global event counter.
+
+2021-03-24  Christian Holm Christensen  <cholm@cern.ch>
+
+	* Add a preload option to rivet-merge.
+
+2021-03-23  Christian Gutschow  <chris.g@cern.ch>
+
+	* Tweak AnalysisHandler to allow rivet-merge with
+	user-supplied cross-sections per file
+
+2021-03-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a --font=euler option to the make-plots scripts.
+
+	* Remove use of the mathastext package in make-plots Helvetica
+	plotting mode, using sansmath's eulergreek option instead.
+
+2021-03-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix the Run GZip-testing byte magic to use 2 rather than 4
+	bytes. Thanks again to Christian Holm Christensen.
+
+	* Fix the analysis-keyword matching logic: thanks to Christian
+	Holm Christensen and Dmitri Kalinkin.
+
+2021-03-18  Christian Gutschow  <chris.g@cern.ch>
+
+	* Add some more debug info to AnalysisHandler.
+
+	* Do not add empty Scatter1DPtr for cross-section unless equiv is true.
+
+	* Thanks to Christian Holm Christensen.
+
+2021-03-15  Christian Gutschow  <chris.g@cern.ch>
+
+	* Submission of ATLAS_2020_I1788444 (Z + b(b) at 13 TeV)
+
+2021-03-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add protection against accidental double-slashes in built paths
+	passed to TeX's kpathsea library. Thanks to Martin Habedank for
+	the report.
+
 2021-03-01  Markus Seidel  <markus.seidel@cern.ch>
 
-	* Submission of CMS_2017_I1608166 (Identified particles in MB @ 13 TeV)
+	* Submission of CMS_2017_I1608166 (Identified particles in MB @ 13 TeV).
+
 	* Submission of CMS_2017_I1471281 (W and Z pt @ 8 TeV)
 
 2021-02-09  Christian Gutschow  <chris.g@cern.ch>

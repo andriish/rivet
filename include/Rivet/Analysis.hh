@@ -368,6 +368,9 @@ namespace Rivet {
   protected:
 
     /// @defgroup analysis_histopaths Histogram paths
+    ///
+    /// @todo Add "tmp" flags to return /ANA/TMP/foo/bar paths
+    ///
     /// @{
 
     /// Get the canonical histogram "directory" path for this analysis.
@@ -421,6 +424,9 @@ namespace Rivet {
 
 
     /// @defgroup analysis_cbook Counter booking
+    ///
+    /// @todo Add "tmp" flags to book in standard temporary paths
+    ///
     /// @{
 
     /// Book a counter.

@@ -49,16 +49,12 @@ pat_property = re.compile('^(\w+?)=(.*)$')
 pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
 
 
-def fuzzyeq(a, b, tolerance=1e-6):
-    "Fuzzy equality comparison function for floats, with given fractional tolerance"
-    # if type(a) is not float or type(a) is not float:
-    #     print(a, b)
-    if (a == 0 and abs(b) < 1e-12) or (b == 0 and abs(a) < 1e-12):
-        return True
-    return 2.0*abs(a-b)/abs(a+b) < tolerance
-
-def inrange(x, a, b):
-    return x >= a and x < b
+if sys.version_info >= (3, 5):
+    def fuzzyeq(a, b, rel_tol=1e-6):
+        return isclose(a, b, rel_tol=rel_tol)
+else:
+    def fuzzyeq(a, b, rel_tol=1e-6):
+        return abs(a - b) <= (rel_tol * max(abs(a), abs(b)))
 
 def floatify(x):
     if type(x) is str:
@@ -511,7 +507,7 @@ class Plot(object):
         self.xmax = inputdata.xmax
         if self.xmax is None:
             xmaxs = [inputdata.histos[h].getXMax() for h in inputdata.description['DrawOnly']]
-            self.xmax = min(xmaxs) if xmaxs else 1.0
+            self.xmax = max(xmaxs) if xmaxs else 1.0
 
 
     def set_ymin(self,inputdata):
@@ -1571,85 +1567,79 @@ class Histogram(DrawableObject, Described):
                 newdata.append(BinData(self.data[i].xmin, self.data[i+rebin-1].xmax, newcentral, newerror))
             self.data = newdata
 
-    def add(self, name):
-        if len(self.data) != len(name.data):
-            print('+++ Error in Histogram.add() for %s: different numbers of bins' % self.path)
-        for i in range(len(self.data)):
-            if fuzzyeq(self.data[i].xmin, name.data[i].xmin) and \
-               fuzzyeq(self.data[i].xmax, name.data[i].xmax):
-                self.data[i].val += name.data[i].val
-                self.data[i].err[0] = sqrt(self.data[i].err[0]**2 + name.data[i].err[0]**2)
-                self.data[i].err[1] = sqrt(self.data[i].err[1]**2 + name.data[i].err[1]**2)
-            else:
-                print('+++ Error in Histogram.add() for %s: binning of histograms differs' % self.path)
+    @staticmethod
+    def zip_bins(hist1, hist2):
+        if len(hist1.data) != len(hist1.data):
+            print('+++ Error in Histogram.zip_bins(): different numbers of bins in %s and %s' % (hist1.path, hist2.path))
+        bins1 = hist1.data
+        bins1_rem = set(bins1)
+        bins2_rem = set(hist2.data)
+        for bin1 in bins1:
+            for bin2 in bins2_rem:
+                if fuzzyeq(bin1.xmin, bin2.xmin) and \
+                   fuzzyeq(bin1.xmax, bin2.xmax):
+                    bins1_rem.remove(bin1)
+                    bins2_rem.remove(bin2)
+                    yield (bin1, bin2)
+                    break
+        for bin1 in bins1_rem:
+            print('+++ Error in Histogram.zip_bins(): no matching bin in %s for (%f, %f) from %s' % (hist2.path, bin1.xmin, bin1.xmax, hist1.path))
+        for bin2 in bins2_rem:
+            print('+++ Error in Histogram.zip_bins(): no matching bin in %s for (%f, %f) from %s' % (hist1.path, bin2.xmin, bin2.xmax, hist2.path))
 
-    def divide(self, name):
-        #print(name.path, self.path)
-        if len(self.data) != len(name.data):
-            print('+++ Error in Histogram.divide() for %s: different numbers of bins' % self.path)
-        for i in range(len(self.data)):
-            if fuzzyeq(self.data[i].xmin, name.data[i].xmin) and \
-               fuzzyeq(self.data[i].xmax, name.data[i].xmax):
-                try:
-                    self.data[i].err[0] /= name.data[i].val
-                except ZeroDivisionError:
-                    self.data[i].err[0]=0.
-                try:
-                    self.data[i].err[1] /= name.data[i].val
-                except ZeroDivisionError:
-                    self.data[i].err[1]=0.
-                try:
-                    self.data[i].val /= name.data[i].val
-                except ZeroDivisionError:
-                    self.data[i].val=1.
-#                self.data[i].err[0] = sqrt(self.data[i].err[0]**2 + name.data[i].err[0]**2)
-#                self.data[i].err[1] = sqrt(self.data[i].err[1]**2 + name.data[i].err[1]**2)
-            else:
-                print('+++ Error in Histogram.divide() for %s: binning of histograms differs' % self.path)
+    def add(self, other):
+        for bin_addend1, bin_addend2 in self.zip_bins(self, other):
+            bin_addend1.val += bin_addend2.val
+            bin_addend1.err[0] = sqrt(bin_addend1.err[0]**2 + bin_addend2.err[0]**2)
+            bin_addend1.err[1] = sqrt(bin_addend1.err[1]**2 + bin_addend2.err[1]**2)
 
-    def dividereverse(self, name):
-        if len(self.data) != len(name.data):
-            print('+++ Error in Histogram.dividereverse() for %s: different numbers of bins' % self.path)
-        for i in range(len(self.data)):
-            if fuzzyeq(self.data[i].xmin, name.data[i].xmin) and \
-               fuzzyeq(self.data[i].xmax, name.data[i].xmax):
-                try:
-                    self.data[i].err[0] = name.data[i].err[0]/self.data[i].val
-                except ZeroDivisionError:
-                    self.data[i].err[0]=0.
-                try:
-                    self.data[i].err[1] = name.data[i].err[1]/self.data[i].val
-                except ZeroDivisionError:
-                    self.data[i].err[1]=0.
-                try:
-                    self.data[i].val = name.data[i].val/self.data[i].val
-                except ZeroDivisionError:
-                    self.data[i].val=1.
-            else:
-                print('+++ Error in Histogram.dividereverse(): binning of histograms differs')
+    def divide(self, other):
+        for bin_numerator, bin_denominator in self.zip_bins(self, other):
+            try:
+                bin_numerator.err[0] /= bin_denominator.val
+            except ZeroDivisionError:
+                bin_numerator.err[0]=0.
+            try:
+                bin_numerator.err[1] /= bin_denominator.val
+            except ZeroDivisionError:
+                bin_numerator.err[1]=0.
+            try:
+                bin_numerator.val /= bin_denominator.val
+            except ZeroDivisionError:
+                bin_numerator.val=1.
 
-    def deviation(self, name):
-        if len(self.data) != len(name.data):
-            print('+++ Error in Histogram.deviation() for %s: different numbers of bins' % self.path)
-        for i in range(len(self.data)):
-            if fuzzyeq(self.data[i].xmin, name.data[i].xmin) and \
-               fuzzyeq(self.data[i].xmax, name.data[i].xmax):
-                self.data[i].val -= name.data[i].val
-                try:
-                    self.data[i].val /= 0.5*sqrt((name.data[i].err[0] + name.data[i].err[1])**2 + \
-                                                        (self.data[i].err[0] + self.data[i].err[1])**2)
-                except ZeroDivisionError:
-                    self.data[i].val = 0.0
-                try:
-                    self.data[i].err[0] /= name.data[i].err[0]
-                except ZeroDivisionError:
-                    self.data[i].err[0] = 0.0
-                try:
-                    self.data[i].err[1] /= name.data[i].err[1]
-                except ZeroDivisionError:
-                    self.data[i].err[1] = 0.0
-            else:
-                print('+++ Error in Histogram.deviation() for %s: binning of histograms differs' % self.path)
+    def dividereverse(self, other):
+        for bin_denominator, bin_numerator in self.zip_bins(self, other):
+            bin_output = bin_denominator
+            try:
+                bin_output.err[0] = bin_numerator.err[0] / bin_denominator.val
+            except ZeroDivisionError:
+                bin_output.err[0] = 0.
+            try:
+                bin_output.err[1] = bin_numerator.err[1] / bin_denominator.val
+            except ZeroDivisionError:
+                bin_output.err[1] = 0.
+            try:
+                bin_output.val = bin_numerator.val / bin_denominator.val
+            except ZeroDivisionError:
+                bin_output.val = 1.
+
+    def deviation(self, other):
+        for bin_subtrahend, bin_minuend in self.zip_bins(self, other):
+            bin_subtrahend.val -= bin_minuend.val
+            try:
+                bin_subtrahend.val /= 0.5*sqrt((bin_minuend.err[0] + bin_minuend.err[1])**2 + \
+                                               (bin_subtrahend.err[0] + bin_subtrahend.err[1])**2)
+            except ZeroDivisionError:
+                bin_subtrahend.val = 0.0
+            try:
+                bin_subtrahend.err[0] /= sqrt(bin_minuend.err[0]**2 + bin_subtrahend.err[0]**2)
+            except ZeroDivisionError:
+                bin_subtrahend.err[0] = 0.0
+            try:
+                bin_subtrahend.err[1] /= sqrt(bin_minuend.err[1]**2 + bin_subtrahend.err[1]**2)
+            except ZeroDivisionError:
+                bin_subtrahend.err[1] = 0.0
 
     def getChi2(self, name):
         chi2 = 0.
@@ -2205,10 +2195,10 @@ class Ticks(object):
         prefix = ''
         if plotlog:
             bar = int(log10(value))
-	    if bar < 0:
-	        sign='-'
-	    else:
-	        sign='\\,'
+            if bar < 0:
+                sign='-'
+            else:
+                sign='\\,'
             if minor: # The power of ten is only to be added to the last minor tick label
                 if lastminor:
                     label = str(int(value/(10**bar))) + "\\cdot" + '10$^{'+sign+'\\text{'+str(abs(bar))+'}}$'
@@ -2496,7 +2486,7 @@ if __name__ == '__main__':
                         default=numcores, help="max number of threads to be used [%s]" % numcores)
     parser.add_argument("-o", "--outdir", dest="OUTPUT_DIR", default=None,
                         help="choose the output directory (default = .dat dir)")
-    parser.add_argument("--font", dest="OUTPUT_FONT", choices="palatino,cm,times,helvetica,minion".split(","),
+    parser.add_argument("--font", dest="OUTPUT_FONT", choices="palatino,cm,times,helvetica,euler,minion".split(","),
                         default="palatino", help="choose the font to be used in the plots")
     parser.add_argument("--palatino", dest="OUTPUT_FONT", action="store_const", const="palatino", default="palatino",
                         help="use Palatino as font (default). DEPRECATED: Use --font")
@@ -2670,11 +2660,13 @@ if __name__ == '__main__':
         out += ('\\usepackage{mathptmx}\n')
     elif args.OUTPUT_FONT == "HELVETICA":
         out += ('\\renewcommand{\\familydefault}{\\sfdefault}\n')
-        out += ('\\usepackage{sfmath}\n')
         out += ('\\usepackage{helvet}\n')
-        out += ('\\usepackage[symbolgreek]{mathastext}\n')
-        out += ('\\usepackage{sansmath}\n')
+        out += ('\\usepackage[eulergreek]{sansmath}\n')
         out += ('\\sansmath\n')
+    elif args.OUTPUT_FONT == "EULER":
+        out += ('\\renewcommand{\\familydefault}{\\sfdefault}\n')
+        out += ('\\usepackage{sfmath}\n')
+        out += ('\\usepackage{euler}\n')
     for pkg in args.LATEXPKGS:
         out += ('\\usepackage{%s}\n' % pkg)
     out += ('\\usepackage{pstricks}\n')

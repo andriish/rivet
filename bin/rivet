@@ -80,7 +80,7 @@ extragroup = parser.add_argument_group("Extra run settings")
 extragroup.add_argument("-o", "-H", "--histo-file", dest="HISTOFILE",
                         default="Rivet.yoda", help="specify the output histo file path (default = %(default)s)")
 extragroup.add_argument("-p", "--preload-file", dest="PRELOADFILE",
-                        default=None, help="specify and old yoda file to initialize (default = %(default)s)")
+                        default=None, help="specify a pre-existing YODA file to read in, to initialize the histograms (default = %(default)s)")
 extragroup.add_argument("--no-histo-file", dest="WRITE_DATA", action="store_false", default=True,
                         help="don't write out any histogram file at the end of the run (default = write)")
 extragroup.add_argument("-x", "--cross-section", dest="CROSS_SECTION",
@@ -198,7 +198,7 @@ def getAnalysesByKeyword(alist, kstring):
 
     for a in alist:
         kwds = set([i.lower() for i in rivet.AnalysisLoader.getAnalysis(a).keywords()])
-        if kwds.intersection(veto) and len(kwds.intersection(add)) == len(list(add)):
+        if kwds.isdisjoint(veto) and add.issubset(kwds):
             ret.append(a)
     return ret
 
@@ -534,7 +534,7 @@ def logNEvt(n, starttime, maxevtnum):
         logging.log(nevtloglevel, msg)
 
 
-## Do some checks on output histo file, before we stat the event loop
+## Do some checks on output histo file, before we start the event loop
 histo_parentdir = os.path.dirname(os.path.abspath(args.HISTOFILE))
 if not os.path.exists(histo_parentdir):
   logging.error('Parent path of output histogram file does not exist: %s\nExiting.' % histo_parentdir)
@@ -552,7 +552,7 @@ ah.skipMultiWeights(args.SKIP_WEIGHTS)
 ah.selectMultiWeights(args.MATCH_WEIGHTS)
 ah.deselectMultiWeights(args.UNMATCH_WEIGHTS)
 ah.setNominalWeightName(args.NOMINAL_WEIGHT)
-if args.WEIGHT_CAP != None:
+if args.WEIGHT_CAP is not None:
     ah.setWeightCap(args.WEIGHT_CAP)
 
 ah.setNLOSmearing(args.NLO_SMEARING)

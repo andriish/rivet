@@ -1,6 +1,7 @@
 # BEGIN PLOT /ATLAS_2017_I1614149/d.
 XTwosidedTicks=1
 YTwosidedTicks=1
+LogY=1
 LeftMargin=1.9
 LegendXPos=0.95
 LegendAlign=r
@@ -33,6 +34,7 @@ YLabel=$1/\sigma$ $\text{d}\sigma / \text{d}p_\text{T}^{t\bar{t}}$ [1/GeV]
 # BEGIN PLOT /ATLAS_2017_I1614149/d21
 XLabel=$|y_{t\bar{t}}|$
 YLabel=$\text{d}\sigma / \text{d}|y_{t\bar{t}}|$ [pb]
+LogY=0
 LegendXPos=0.05
 LegendYPos=0.3
 LegendAlign=l
@@ -41,6 +43,7 @@ LegendAlign=l
 # BEGIN PLOT /ATLAS_2017_I1614149/d22
 XLabel=$|y_{t\bar{t}}|$
 YLabel=$1/\sigma$ $\text{d}\sigma / \text{d}|y_{t\bar{t}}|$
+LogY=0
 LegendXPos=0.05
 LegendYPos=0.3
 LegendAlign=l
@@ -59,6 +62,7 @@ YLabel=$1/\sigma$ $\text{d}\sigma / \text{d}p_\text{T}^{t,\text{had}}$ [1/GeV]
 # BEGIN PLOT /ATLAS_2017_I1614149/d17
 XLabel=$|y_{t,\text{had}}|$
 YLabel=$\text{d}\sigma / \text{d}|y_{t,\text{had}}|$ [pb]
+LogY=0
 LegendXPos=0.05
 LegendYPos=0.3
 LegendAlign=l
@@ -67,6 +71,7 @@ LegendAlign=l
 # BEGIN PLOT /ATLAS_2017_I1614149/d18
 XLabel=$|y_{t,\text{had}}|$
 YLabel=$1/\sigma$ $\text{d}\sigma / \text{d}|y_{t,\text{had}}|$
+LogY=0
 LegendXPos=0.05
 LegendYPos=0.3
 LegendAlign=l
@@ -87,6 +92,7 @@ Title=Combined lepton channels, boosted
 # BEGIN PLOT /ATLAS_2017_I1614149/d27
 XLabel=$|y_{t,\text{had}}|$
 YLabel=$\text{d}\sigma / \text{d}|y_{t,\text{had}}|$ [pb]
+LogY=0
 LegendXPos=0.05
 LegendYPos=0.3
 LegendAlign=l
@@ -96,6 +102,7 @@ Title=Combined lepton channels, boosted
 # BEGIN PLOT /ATLAS_2017_I1614149/d28
 XLabel=$|y_{t,\text{had}}|$
 YLabel=$1/\sigma$ $\text{d}\sigma / \text{d}|y_{t,\text{had}}|$
+LogY=0
 LegendXPos=0.05
 LegendYPos=0.3
 LegendAlign=l

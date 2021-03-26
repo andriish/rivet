@@ -370,6 +370,8 @@ namespace Rivet {
     std::string _runname;
 
     /// Event counter
+    ///
+    /// @todo Document why it's mutable (to allow switching of active ptr?)
     mutable CounterPtr _eventCounter;
 
     /// Cross-section known to AH

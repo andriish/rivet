@@ -16,8 +16,8 @@ namespace Rivet {
 
   /// Byte/number conversion via union, for HepMC file inspection
   union magic_t {
-    uint8_t bytes[4];
-    uint32_t number;
+    uint8_t bytes[2];
+    uint16_t number;
   };
 
 
@@ -41,12 +41,17 @@ namespace Rivet {
   }
 
 
+  Log& Run::getLog() const {
+    return Log::getLog("Rivet.Run");
+  }
+
+
   // Fill event and check for a bad read state
   bool Run::readEvent() {
     /// @todo Clear rather than new the GenEvent object per-event?
     _evt.reset(new GenEvent());
     if (!HepMCUtils::readEvent(_hepmcReader, _evt)) {
-      Log::getLog("Rivet.Run") << Log::DEBUG << "Read failed. End of file?" << endl;
+      MSG_DEBUG("Read failed. End of file?");
       return false;
     }
     // Rescale event weights by file-level weight, if scaling is non-trivial
@@ -84,22 +89,22 @@ namespace Rivet {
       // Check if the file is compressed, if the deduction fails
       /// @todo Can we move this into the RivetHepMC.hh header? This is a *lot* of HepMC-specific noise for the Run manager class
       if (!_hepmcReader) {
-        Log::getLog("Rivet.Run") << Log::INFO<< "No success with deduction of file type. Test if the file is compressed"<<std::endl;
+        MSG_INFO("No success with deduction of file type. Test if the file is compressed");
         std::ifstream file_test(evtfile);
-        magic_t my_magic = {{0x1f, 0x8b, 0x08, 0x08}};
+        magic_t my_magic = {{0x1f, 0x8b}};
         magic_t file_magic;
         file_test.read((char *) file_magic.bytes, sizeof(file_magic));
         if (file_magic.number == my_magic.number) {
-          Log::getLog("Rivet.Run") << Log::INFO<< "File is compressed"<<std::endl;
+          MSG_INFO("File is compressed");
           #ifdef HAVE_LIBZ
           _istr = make_shared<zstr::ifstream>(evtfile);
           _hepmcReader = RivetHepMC::deduce_reader(*_istr);
           #else
-          Log::getLog("Rivet.Run") << Log::INFO<< "No zlib support.");
+          MSG_INFO("No zlib support.");
           #endif
         } else {
           // File is not compressed. Open stream and let the code below to handle it
-          Log::getLog("Rivet.Run") << Log::INFO<< "File is not compressed. No succes with deduction of file type."<<std::endl;
+          MSG_INFO("File is not compressed. No succes with deduction of file type.");
           _istr = make_shared<std::ifstream>(evtfile);
         }
       }
@@ -123,11 +128,11 @@ namespace Rivet {
           backnonempty++;
         }
       }
-      if (!_istr) Log::getLog("Rivet.Run") << Log::INFO<< "Info in deduce_reader: input stream is too short or invalid."<<std::endl;
+      if (!_istr) MSG_INFO("Info in deduce_reader: input stream is too short or invalid.");
       for (size_t i = 0; i < back; ++i) _istr->unget();
       if (strncmp(head.at(0).c_str(), "HepMC::Version", 14) == 0 &&
           strncmp(head.at(1).c_str(), "HepMC::CompressedAsciiv3-START_EVENT_LISTING", 44) == 0) {
-        Log::getLog("Rivet.Run") << Log::INFO<< "Info in deduce_reader: Attempt CompressedAsciiv3"<<std::endl;
+        MSG_INFO("Info in deduce_reader: Attempt CompressedAsciiv3");
         //_hepmcReader= make_shared<Rivet::RivetHepMC::ReaderCompressedAscii>(_istr);
       }
     }
@@ -142,9 +147,7 @@ namespace Rivet {
     // Check that it worked.
     #endif
     if (_hepmcReader == nullptr) {
-      Log::getLog("Rivet.Run")
-        << Log::ERROR << "Read error in file '" << evtfile << "' "
-        << errormessage << endl;
+      MSG_ERROR("Read error in file '" << evtfile << "' " << errormessage);
       return false;
     }
     return true;
@@ -158,7 +161,7 @@ namespace Rivet {
     bool ok = readEvent();
     if (!ok) return false;
     if(HepMCUtils::particles(_evt).size() == 0){
-      Log::getLog("Rivet.Run") << Log::ERROR << "Empty first event." << endl;
+      MSG_ERROR("Empty first event.");
       return false;
     }
 
@@ -167,9 +170,7 @@ namespace Rivet {
 
     // Set cross-section from command line
     if (!std::isnan(_xs)) {
-      Log::getLog("Rivet.Run")
-        << Log::DEBUG << "Setting user cross-section = " << _xs << " pb" << endl;
-
+      MSG_DEBUG("Setting user cross-section = " << _xs << " pb");
       _ah.setCrossSection(make_pair(_xs, 0.0), true);
     }
 
@@ -185,18 +186,14 @@ namespace Rivet {
 
 
   bool Run::processEvent() {
-    // Analyze event
     _ah.analyze(*_evt);
-
     return true;
   }
 
 
   bool Run::finalize() {
     _evt.reset();
-
     _ah.finalize();
-
     return true;
   }
 

@@ -2,6 +2,7 @@
 RatioPlotYMax=2.0
 RatioPlotYMin=0.0
 LegendAlign=r
+LogY=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2017_I1517194/d11-x01-y01
