@@ -120,8 +120,9 @@ def parseArgs(args):
     for a in args:
         asplit = a.split(':')
         path = asplit[0]
-        filelist.append(path)
-        filenames.append(path)
+        if path != "PLOT":
+            filelist.append(path)
+            filenames.append(path)
         plotoptions[path] = []
         has_title = False
         has_name = ""
@@ -132,7 +133,7 @@ def parseArgs(args):
             if asplit[i].startswith('Title='):
                 has_title = True
             plotoptions[path].append(asplit[i])
-            if asplit[i].startswith('Name='):
+            if asplit[i].startswith('Name=') and path != "PLOT":
                 has_name = asplit[i].split('=', 1)[1]
                 filenames[-1] = has_name
         if has_name != "":
@@ -239,10 +240,11 @@ def mkOutput(hpath, aos, plot=None, special=None):
         output += str(plot)
 
     if special is not None:
-        output += "\n"
-        output += "# BEGIN SPECIAL %s\n" % hpath
-        output += special
-        output += "# END SPECIAL\n\n"
+        for k, v in special.items():
+            output += "\n"
+            output += "# BEGIN SPECIAL %s\n" % k
+            output += v
+            output += "# END SPECIAL\n\n"
 
     from io import StringIO
     sio = StringIO()
@@ -354,10 +356,6 @@ if __name__ == '__main__':
     ## given on the command line into two separate lists
     filelist, filenames, plotoptions = parseArgs(args.ARGS)
 
-    ## Remove the PLOT dummy file from the file list
-    if "PLOT" in filelist:
-        filelist.remove("PLOT")
-
     ## Check that the files exist
     for f in filelist:
         if not os.access(f, os.R_OK):
@@ -461,7 +459,7 @@ if __name__ == '__main__':
                 exit(1)
 
         ## Get a special object, if there is one for this path
-        special = plotparser.getSpecial(hpath)
+        special = plotparser.getSpecials(hpath)
 
 
         ## Handle reference data histogram, if there is one
@@ -501,7 +499,7 @@ if __name__ == '__main__':
                     BANDNAME = '_VarBand'
                     defaultWeightName = getDefaultVariation(plotoptions[infile])
                     if defaultWeightName not in hmcs:
-                        print ("WARNING: Weight \"%s\" not found in file!" % defaultWeightName)
+                        raise NameError("No default weight found in file!")
                     obj_type = str(hmcs[defaultWeightName])
                     construct_band = 'Histo1D' in obj_type or 'Scatter2D' in obj_type
                     componentNames = ['BandComponentPDF', 'BandComponentEnv']
@@ -509,7 +507,7 @@ if __name__ == '__main__':
                     for bandType, bandContribs in poptions.items():
                         for curvegroup in bandContribs.split(' '):
                             isPDF = 'PDF' in bandType
-                            errors = None; PDFset = None; PDFvars = [ ]
+                            errors = None; PDFset = None; nPDF = None; nomVals = None; PDFvars = [ ]
                             for varname in sorted(hmcs.keys()):
                                 isNominal = (str(varname) == defaultWeightName)
                                 # accept nominal and variations matching any of the specified patterns
@@ -524,7 +522,11 @@ if __name__ == '__main__':
                                     central_values = [ p.y() for p in thisobj.points() ]
                                     # update envelope
                                     if isPDF:
-                                        if not isNominal:
+                                        # generator may or may not count
+                                        # nominal as PDF variation
+                                        if isNominal:
+                                            nomVals = list(central_values)
+                                        else:
                                             PDFvars.append(central_values)
                                     elif errors == None:
                                         errors = [ list(central_values), list(central_values) ]
@@ -537,9 +539,14 @@ if __name__ == '__main__':
                                         if isPDF and PDFset == None:
                                             lhapdfID = int(re.search('PDF[0-9]*', varname).group(0)[3:])
                                             PDFset = lhapdf.mkPDF(lhapdfID).set()
+                                            nPDF = int(PDFset.size)
                             # compute PDF uncertainty
                             if PDFset:
-                                PDFvars = map(list, zip(*PDFvars)) # transpose
+                                # if the number of PDF variations is off by 1,
+                                # probably needs the nominal
+                                if len(PDFvars) == nPDF - 1:
+                                    PDFvars.append(nomVals)
+                                PDFvars = list(map(list, zip(*PDFvars))) # transpose
                                 # TODO: would be nice if I could ask LHAPDF to give me the tuple straightaway
                                 uncertainties = [ PDFset.uncertainty(binVars) for binVars in PDFvars ]
                                 errors = [ (unc.errminus, unc.errplus) for unc in uncertainties ]
@@ -611,7 +618,7 @@ if __name__ == '__main__':
                             ratioreference = fullpath
                         ## For 2D, plot each histo now (since overlay makes no sense)
                         if is2d:
-                            suffix=(infile.split("/")[-1].replace(".yoda",""))
+                            suffix=(infile.split("/")[-1].replace(".yoda.gz", "").replace(".yoda",""))
                             s = mkOutput(hpath, [hmc], plot, special)
                             writeOutput(s, "%s_%s" % (hpath,suffix))
                     styleidx += 1

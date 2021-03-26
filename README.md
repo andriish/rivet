@@ -1,99 +1,85 @@
-# Rivet quickstart guide
+# Welcome
 
-Assuming you've got a copy of Rivet installed on your machine, you'll now want
-to know how to use it. Here's an example session with the `rivet` command, which
-should be illustrative.
+Rivet is a system for preservation of particle-collider analysis logic, analysis
+reinterpretation via MC simulations, and the validation and improvement of Monte
+Carlo event generator codes. It covers all aspects of collider physics, from
+unfolded precision measurements to reconstruction-level searches, and physics
+from the Standard Model to BSM theories, and from perturbative jet, boson and
+top-quarks to hadron decays, inclusive QCD, and Heavy Ion physics.
 
+Rivet is the most widespread way by which analysis code from the LHC and other
+high-energy collider experiments is preserved for comparison to and development
+of future theory models. It is used by phenomenologists, MC generator
+developers, and experimentalists on the LHC and other facilities. Coding
+analyses in Rivet is a great way to publish executable code that extends the
+longevity, relevance, and impact of your publications!
 
-## Generating and analysing
+These short guides will help you with everything from installation, to first
+runs of existing analyses, to writing, running, and plotting results, as well as
+how to implement and contribute your own analyses.
 
-The main interface to Rivet is the `rivet` command. We will demonstrate how to use
-this to analyse HepMC events from a text file in the `IO_GenEvent` HepMC format.
+Alternatively, feel free to checkout one of the self-guided tutorials (listed towards the
+bottom) used for  summer schools and similar. They are suitable for beginners, 
+and differently themed depending on the original audience.
 
-Firstly, we recommend using a filesystem pipe (or 'FIFO') so that your events
-don't create a huge file that takes all your disk space. The idea is that the
-generator will push events into what looks like a file, and Rivet will read from
-the same 'file'. In fact, though, the 'file' is a disguised pipe between the two
-processes, so no slow filesystem access needs to take place, and the system will
-automatically balance the data flow between the writing and reading processes:
-the generator will only write more event data when Rivet has read that currently
-available in the FIFO buffer. All this is completely transparent to the user:
-good old Unix!  Here's how you do it:
-
-```
-mkfifo hepmc.fifo
-my-generator --num-events=500000 --hepmc-output=hepmc.fifo &
-rivet --analysis=ANALYSIS_NAME hepmc.fifo
-```
-
-The backgrounding of the generator process is important: the generator will wait
-until the `hepmc.fifo` pipe is being read by Rivet, so unless it is backgrounded
-you will never get the terminal focus back to run `rivet`!
-
-The generator used above can be anything which writes HepMC text output to the
-specified FIFO. As a concrete example, you could use a Pythia 8 main program to
-write events to the FIFO, and pick them up on the other end with `rivet`:
-
-```
-./main42 py8config.cfg hepmc.fifo &
-rivet --analysis=CDF_2001_S4751469 hepmc.fifo
-```
-
-The rivet command provides extensive command line documentation when called
-with the `-h`/`--help` flag.
+Get in touch via the developer mailing list if you need any assistance: [rivet-support@cern.ch](mailto:rivet-support@cern.ch)
 
 
-## Checking the data
+## Getting started
 
-Rivet outputs its histograms in the YODA format. You can read it directly, but
-more conveniently there are a variety of command-line utilities whose names
-start with `yoda`, for viewing and manipulating these files' contents.
+[Installation](doc/tutorials/installation.md)
 
-There is also a `yoda2root` command which provides the data as `ROOT` `TGraph`
-objects for those of a `ROOT`y disposition. Due to a `ROOT` bug, for `TGraphs` to
-display properly you will have to specify the `AP` option in the top right-hand
-box of the `ROOT` `TBrowser` or alternatively draw the `TGraph` programmatically using
-`myTGraph->Draw("AP")`. This isn't a Rivet bug: it's ROOT forgetting to draw the
-graph axes!
+[Rivet via Docker](doc/tutorials/docker.md)
+
+[First rivet run](doc/tutorials/firstrun.md)
 
 
-PLOTTING
+## Plotting and run merging
 
-Rivet comes with two commands --- `rivet-cmphistos` and `make-plots` --- for comparing
-and plotting our output data. These
-commands respectively combine many YODA files in (usually) convenient ways, to make
-`.dat` files describing plots to be made, and then render those plots to publication
-quality PDFs. This way you can tweak the .dat file for optimal aesthetics without
-re-running the data processing steps. `rivet-cmphistos` also accepts various
-command-line modifiers to change major rendering features. The most convenient way
-to make plots from Rivet YODA files, however, is with the `rivet-mkhtml` script:
+[Plotting with `rivet-mkhtml`](doc/tutorials/plotting.md)
 
-```
-rivet-mkhtml path/to/CDF_2001_S4751469.yoda py.yoda:'Pythia 6.418' hw.yoda:'Herwig++ 2.3.0'
-```
+[Customize plots with `make-plots`](doc/tutorials/makeplots.md)
 
-will create a `rivet-plots` directory containing a set of web pages with thumbnail
-plot images, linked to full PDF versions of the plots.
-
-[In detail, this command compared the three named data files (ending in `.yoda`),
-identified which plots are available in them, and combined the MC and reference
-plots appropriately into a set of plot data files ending with `.dat`. The strings
-after the `:` for the MC files are specifying ID strings to appear in the plot
-legends. You can also run rivet-mkhtml to just compare MC-MC data files. More
-options are described by running `rivet-mkhtml --help`.]
-
-Incidentally, the reference files for each Rivet analysis are to be found in the
-installed Rivet shared data directory. You can find the location of this by
-using the `rivet-config` command:
-
-```
-rivet-config --datadir
-```
+[Merging histograms with `yodamerge` and `rivet-merge`](doc/tutorials/merging.md)
 
 
-## That's all!
+## Advanced running and plotting
 
-We hope this was useful as a quick guide to getting started with running Rivet's
-built-in analyses for Monte Carlo generator validation. Get in touch via the developer
-mailing list if you need any assistance:  [rivet-support@cern.ch](mailto:rivet-support@cern.ch)
+[Using analysis options](doc/tutorials/anaoptions.md)
 
+[Preload files, centrality calibration (work in progress)](doc/tutorials/calibration.md)
+
+[Merging separate physics runs with `rivet-merge` (work in progress)](doc/tutorials/merging2.md)
+
+[Running on a subset of available multiweights](doc/tutorials/multiweights_running.md)
+
+[Fun with multiweights when plotting YODA files (work in progress)](doc/tutorials/multiweights_plotting.md)
+
+
+## Writing a Rivet analysis
+[What is an Analysis?](doc/tutorials/what-analysis.md)
+
+[What is a Projection?](doc/tutorials/projection.md)
+
+[How does Rivet histograms work?](doc/tutorials/rivet-histograms.md)
+
+[Writing a simple analysis](doc/tutorials/simple-analysis.md)
+
+[Writing an analysis with FastJet](doc/tutorials/fastjet.md)
+
+[Contributing a routine](doc/tutorials/anacontrib.md)
+
+[Migrating from Rivet v2 to Rivet v3](doc/tutorials/mig2to3.md)
+
+
+## Developer topics
+
+[Working with development source (work in progress)](doc/tutorials/developer.md)
+
+[Coding style](doc/tutorials/codingstyle.md)
+
+## Self-guided tutorials
+
+[Resonances, jet physics & weight variations at LHC](doc/tutorials/lhc-basic-tutorial)
+
+[DIS kinematics and final states & analysis options at EIC](doc/tutorials/eic-basic-tutorial)

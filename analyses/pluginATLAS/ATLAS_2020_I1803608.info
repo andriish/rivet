@@ -40,7 +40,7 @@ Description:
  scattering amplitudes and provides a direct test of charge-conjugation and parity invariance in the weak-boson self-interactions.
  Note that the default entry point is for the inclusive Z+2jet selections. For the EW-only measurement use the option TYPE=EW_ONLY.
  In both cases, electron and muon channels are to be summed.'
-BibKey: Aad:2020sle,
+BibKey: Aad:2020sle
 BibTeX: '@article{Aad:2020sle,
     author = "Aad, Georges and others",
     collaboration = "ATLAS",

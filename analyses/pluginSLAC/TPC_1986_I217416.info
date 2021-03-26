@@ -3,6 +3,7 @@ Year: 1986
 Summary: $D^{*\pm}$ spectrum at 29 GeV
 Experiment: TPC
 Collider: PEP
+InspireID: 217416
 Status: VALIDATED
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>

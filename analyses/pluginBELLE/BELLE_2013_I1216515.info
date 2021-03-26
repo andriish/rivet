@@ -1,6 +1,6 @@
 Name: BELLE_2013_I1216515
 Summary: Pion and kaon identified particle spectra at $\sqrt{s}=10.52$~\GeV
-Status: VALIDATED
+Status: VALIDATED SUPERSEEDED
 Experiment: Belle
 Collider: KEKB
 Authors:
@@ -21,7 +21,7 @@ Energies: [[3.5,7.91]]
 PtCuts: [0]
 Description:
   Analysis of the identified particle spectra for charged pions and kaons at 10.52 GeV. This
-  is continuum data below the $\Upsilon(4S)$ resonance.
+  is continuum data below the $\Upsilon(4S)$ resonance. Superseeded by BELLE_2020_I1777678.
 BibKey: Leitgab:2013qh
 BibTeX: '@article{Leitgab:2013qh,
       author         = "Leitgab, M. and others",

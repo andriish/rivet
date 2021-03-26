@@ -1,0 +1,5 @@
+SUSY:all = on
+SLHA:file = gg_g1500_chi100_g-ttchi.slha
+Main:writeHepMC = on
+Main:runRivet = on
+Main:analyses = MC_JETS

@@ -35,7 +35,7 @@ Description:
   The data are unfolded to correct for detector effects and compared to precise QCD calculations and leading-logarithm particle-level
   Monte Carlo simulations.'
 BibKey: Aaboud:2017qwh
-BibTex: '@article{Aaboud:2017qwh,
+BibTeX: '@article{Aaboud:2017qwh,
       author         = "Aaboud, Morad and others",
       title          = "{Measurement of the Soft-Drop Jet Mass in pp Collisions
                         at $\sqrt{s} = 13$  TeV with the ATLAS Detector}",

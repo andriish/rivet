@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief measurement of R
   class DESY147_1980_I153896 : public Analysis {
   public:
 

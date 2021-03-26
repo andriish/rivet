@@ -1,34 +1,33 @@
-FROM hepstore/rivet:3.1.1
+ARG RIVET_VERSION
+FROM hepstore/rivet:${RIVET_VERSION}-ubuntu-gcc-hepmc2-py2
 LABEL maintainer="rivet-developers@cern.ch"
 
-RUN mkdir /code && cd /code \
-    && wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.2.3.tar.gz -O- | tar xz \
-    && cd LHAPDF-*/ && ./configure --prefix=/usr/local \
-    && make -j $(nproc --ignore=1) && make install \
-    && cd ../.. && rm -r /code
-
-RUN dnf install -y rsync git pypy \
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get install -y rsync pypy \
     && cd /usr/local \
     && git clone https://gitlab.com/openloops/OpenLoops.git \
     && cd OpenLoops && ./scons \
     && ./openloops libinstall ppll pptt
 
-RUN dnf install -y libtool texinfo sqlite-devel swig pypy openmpi openmpi-devel
+ARG SHERPA_VERSION
 ENV PATH="${PATH}:/usr/lib64/openmpi/bin"
-
-RUN mkdir /code && cd /code \
-    && git clone -b rel-2-2-7 https://gitlab.com/sherpa-team/sherpa.git && cd sherpa && autoreconf -fi \
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get install -y libtool texinfo libsqlite3-dev swig openmpi-bin libopenmpi-dev \
+    && mkdir /code && cd /code \
+    && git clone -b v${SHERPA_VERSION} https://gitlab.com/sherpa-team/sherpa.git \
+    && cd sherpa && autoreconf -fi \
     && ./configure --prefix=/usr/local \
       --enable-lhapdf=/usr/local --enable-fastjet=/usr/local \
       --enable-hepmc2=/usr/local --enable-openloops=/usr/local/OpenLoops \
-      --enable-pyext --enable-gzip --enable-analysis \
+      --enable-rivet=/usr/local --enable-analysis \
+      --enable-pyext --enable-gzip \
       --enable-mpi CC=mpicc CXX=mpic++ \
-    && make -j $(nproc --ignore=1) CXXFLAGS="-O2 -std=c++11" AM_CXXFLAGS="-O2 -std=c++11" \
+    && make -j $(nproc --ignore=1) CXXFLAGS="-O2" AM_CXXFLAGS="-O2" \
     && make install \
     && mkdir /usr/local/Sherpa \
     && mv Examples /usr/local/Sherpa \
-    && cd ../.. && rm -r /code
-# wget https://sherpa.hepforge.org/downloads/?f=SHERPA-MC-2.2.9.tar.gz -O - | tar xf && cd SHERPA-MC-2.2.9
+    && cd / && rm -r /code
+
 
 # RUN apt-get update; \
 # apt-get -q -y --no-install-recommends install pypy; \

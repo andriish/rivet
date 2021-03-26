@@ -155,6 +155,7 @@ nobase_pkginclude_HEADERS += \
   Tools/MomentumSmearingFunctions.hh \
   Tools/ParticleSmearingFunctions.hh \
   Tools/JetSmearingFunctions.hh \
+  Tools/ExptSmearingFunctions.hh \
   Tools/TypeTraits.hh \
   Tools/WriterCompressedAscii.hh \
   Tools/Utils.hh

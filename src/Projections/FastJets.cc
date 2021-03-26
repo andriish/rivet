@@ -26,10 +26,10 @@ namespace Rivet {
     MSG_DEBUG("Seed threshold = " << seed_threshold);
     if (alg == KT) {
       _jdef = fastjet::JetDefinition(fastjet::kt_algorithm, rparameter, fastjet::E_scheme);
-    } else if (alg == CAM) {
-      _jdef = fastjet::JetDefinition(fastjet::cambridge_algorithm, rparameter, fastjet::E_scheme);
     } else if (alg == ANTIKT) {
       _jdef = fastjet::JetDefinition(fastjet::antikt_algorithm, rparameter, fastjet::E_scheme);
+    } else if (alg == CAM) {
+      _jdef = fastjet::JetDefinition(fastjet::cambridge_algorithm, rparameter, fastjet::E_scheme);
     } else if (alg == DURHAM) {
       _jdef = fastjet::JetDefinition(fastjet::ee_kt_algorithm, fastjet::E_scheme);
     } else if (alg == GENKTEE) {
@@ -43,7 +43,6 @@ namespace Rivet {
         string msg = "Using own c++ version of PxCone, since FastJet doesn't install it by default. ";
         msg += "Please notify the Rivet authors if this behaviour should be changed.";
         MSG_WARNING(msg);
-        //        _plugin.reset(new fastjet::PxConePlugin(rparameter));
         _plugin.reset(new Rivet::PxConePlugin(rparameter));
       } else if (alg == ATLASCONE) {
         const double OVERLAP_THRESHOLD = 0.5;
@@ -71,7 +70,7 @@ namespace Rivet {
 
   CmpState FastJets::compare(const Projection& p) const {
     const FastJets& other = dynamic_cast<const FastJets&>(p);
-    return \
+    CmpState rtn =
       cmp(_useMuons, other._useMuons) ||
       cmp(_useInvisibles, other._useInvisibles) ||
       mkNamedPCmp(other, "FS") ||
@@ -80,6 +79,15 @@ namespace Rivet {
       cmp(_jdef.plugin(), other._jdef.plugin()) ||
       cmp(_jdef.R(), other._jdef.R()) ||
       cmp(_adef, other._adef);
+    if (rtn != CmpState::EQ) return rtn; //< shortcut transformer comparison if aleady different
+
+    // Compare the transformers list
+    if (_trfs.empty() && other._trfs.empty()) return CmpState::EQ;
+    /// @todo Improve fastjet::Transformer to add a virtual operator==, and use all()
+    // if (_trfs.size() != other._trfs.size()) return CmpState::NEQ;
+    // for (size_t it = 0; it < _trfs.size(); ++it) {
+
+    return CmpState::NEQ;
   }
 
 
@@ -165,6 +173,8 @@ namespace Rivet {
     const Particles chadrons = applyProjection<HeavyHadrons>(e, "HFHadrons").cHadrons();
     const Particles bhadrons = applyProjection<HeavyHadrons>(e, "HFHadrons").bHadrons();
     const Particles taus = applyProjection<FinalState>(e, "Taus").particles();
+
+    // Run the calculation
     calc(fsparticles, chadrons+bhadrons+taus);
   }
 
@@ -214,7 +224,17 @@ namespace Rivet {
 
 
   PseudoJets FastJets::pseudoJets(double ptmin) const {
-    return clusterSeq() ? clusterSeq()->inclusive_jets(ptmin) : PseudoJets();
+    // Get the base set of pseudo-jets
+    PseudoJets rtn = clusterSeq() ? clusterSeq()->inclusive_jets(ptmin) : PseudoJets();
+
+    // Run the jet groomers on each jet
+    for (PseudoJet& pj : rtn) {
+      for (auto& t : _trfs) {
+        pj = t->result(pj);
+      }
+    }
+
+    return rtn;
   }
 
 

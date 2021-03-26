@@ -43,7 +43,7 @@ now = datetime.datetime.now()
 ## Experiment (grouping) names and regex patterns
 import re
 EXPTS = ["ALICE", "ATLAS", "CMS", "LHCb", "Forward", "HERA", "EE-HIGH", "EE-LOW", "Tevatron", "RHIC", "SPS", "Other"]
-EXPT_PATTS = ["ALICE", "ATLAS", "CMS", "LHCb", "LHCF|TOTEM", "H1|ZEUS|HERMES", "ALEPH|DELPHI|L3|OPAL|SLD|LEP|TASSO|JADE|AMY|TOPAZ|MAC|VENUS|CELLO|TPC|HRS|PLUTO|MARK-J|MARK-II", "BABAR|BELLE|CLEO|CUSB|ARGUS|SND|CMD|DM1|DM2|KLOE|BES|OLYA|FENICE|LENA|DASP|MARK-I|MUPI|NMD|DESY147|MD1|CRYSTAL|ND|GAMMAGAMMA|BBAR|AACHEN-DESY-ANNECY(LAPP)-MIT-NIKHEF-BEIJING", "CDF|D0|E735", "STAR|PHENIX", "COMPASS|NA48|NA49|EHS/NA22|NA22"]
+EXPT_PATTS = ["ALICE", "ATLAS", "CMS", "LHCb", "LHCF|TOTEM", "H1|ZEUS|HERMES", "ALEPH|DELPHI|L3|OPAL|SLD|LEP|TASSO|JADE|AMY|TOPAZ|MAC|VENUS|CELLO|TPC|HRS|PLUTO|MARK-J|MARK-II", "BABAR|KEDR|DESY-HAMBURG-HEIDELBERG-MUNICH|AACHEN-DESY-ANNECY(LAPP)-MIT-NIKHEF-BEIJING|BELLE|CLEO|CUSB|ARGUS|SND|CMD|DM1|DM2|KLOE|BES|OLYA|FENICE|LENA|DASP|MARK-I|MUPI|NMD|DESY147|MD1|CRYSTAL|ND|GAMMAGAMMA|BBAR|AACHEN-DESY-ANNECY(LAPP)-MIT-NIKHEF-BEIJING", "CDF|D0|E735", "STAR|PHENIX", "COMPASS|NA48|NA49|EHS/NA22|NA22"]
 EXPT_REOBJS = [re.compile(patt, re.I) for patt in EXPT_PATTS]
 
 ## Add the rivet Python module build dir(s) to the Python module path, then import
@@ -121,6 +121,7 @@ for rankfilestr in args.RANKFILES:
 
 
 ## Add rankings/tags to the record
+tmp = {}
 for ins, rec in records.items():
 
     ## Sanitise title and experiment
@@ -152,11 +153,13 @@ for ins, rec in records.items():
     rm |= args.ONLYHEAVYION and not "heavyion" in code
     rm |= args.NOHEAVYION and "heavyion" in code
 
-    if rm:
-        del records[ins]
-    else:
-        rec.append(code)
-
+    #if rm:
+    #    del records[ins]
+    #else:
+    #    rec.append(code)
+    if not rm:
+        tmp[ins] = rec + [code]
+records = tmp
 
 ## Group and count records by experiment (and update rank file if requested)
 ex_records = {}
@@ -230,12 +233,14 @@ if args.NOHEAVYION:
 
 
 ## Web page rendering
+# TODO: argh, there's a conflicting html system package in Py3... rewrite?!?
 try:
-    import html
-    OUT = html.HTML("html")
-except :
+    from simplehtml import HTML
+    OUT = HTML("html")
+except: #< attempt to load the Py2 package
     import imp
-    html = imp.load_source('html', '/usr/local/lib/python2.7/dist-packages/html.py')
+    # TODO: handle non-system (e.g. user and venv) installs... maybe call Py2 to get the path?!? Won't work on Py3-only systems
+    html = imp.load_source("html", "/usr/local/lib/python2.7/dist-packages/html.py")
     OUT = html.HTML("html")
 
 title = "Rivet analysis coverage"
@@ -247,7 +252,8 @@ head.meta(charset="utf-8")
 head.title(title)
 head.link("", rel="stylesheet", href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css")
 head.script("MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]} });", type="text/x-mathjax-config")
-head.script("", type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", async="async")
+#head.script("", type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML")
+head.script("", type="text/javascript", **{"src" : "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", "async" : "async"})
 head.script("", type="text/javascript", src="https://code.jquery.com/jquery-3.3.1.js", integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=", crossorigin="anonymous")
 head.script("", type="text/javascript", src="https://code.jquery.com/ui/1.12.1/jquery-ui.js", integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=", crossorigin="anonymous")
 head.script("""
@@ -430,5 +436,5 @@ if not outfile.endswith(".html"):
     outfile += ".html"
 print("Writing output to {} {}".format(outfile, exclstr))
 with open(outfile, "wb") as hf:
-    a = unicode(OUT)
+    a = str(OUT)
     hf.write(a.encode("UTF-8"))

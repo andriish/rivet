@@ -4,6 +4,7 @@ YTwosidedTicks=1
 LegendYPos=0.3
 LegendXPos=0.05
 LogX=1
+LogY=1
 YLabel=$1/\sigma$ $\text{d}\sigma/\text{d} p_\text{T}^{\ell\ell}$
 XLabel=$p_\text{T}^{\ell\ell}$ [GeV]
 # END PLOT

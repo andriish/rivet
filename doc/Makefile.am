@@ -8,9 +8,9 @@ if ENABLE_PYEXT
 DOCS += analists/analyses.html
 DOCDIRS += analists/analyses
 analists/analyses.html: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-html
-	cd analists && \
-	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
-    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
+	$(mkdir_p) analist && cd analists && \
+	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(LD_LIBRARY_PATH) \
+    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
     $(PYTHON) $(abs_srcdir)/analists/mk-analysis-html || true
@@ -18,9 +18,9 @@ analists/analyses.html: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-ht
 ## Analysis-list JSON file
 DOCS += analists/analyses.json
 analists/analyses.json: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-json
-	cd analists && \
-	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
-    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
+	$(mkdir_p) analists && cd analists && \
+	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(LD_LIBRARY_PATH) \
+    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
     $(PYTHON) $(abs_srcdir)/analists/mk-analysis-json || true
@@ -28,9 +28,9 @@ analists/analyses.json: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-js
 ## Analysis-list text file
 DOCS += analists/analyses.dat
 analists/analyses.dat: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-txt
-	cd analists && \
-	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
-    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
+	$(mkdir_p) analists && cd analists && \
+	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(LD_LIBRARY_PATH) \
+    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
     $(PYTHON) $(abs_srcdir)/analists/mk-analysis-txt || true
@@ -42,10 +42,10 @@ DOCS += coverage/rivet-coverage.html \
   coverage/rivet-coverage-searchesonly.html \
   coverage/rivet-coverage-nosearches.html \
   coverage/rivet-coverage-nosearches-noheavyion.html
-coverage/rivet-coverage.html: $(wildcard $(srcdir)/coverage/inspire*.json) $(wildcard $(srcdir)/coverage/*.rank) $(top_srcdir)/analyses $(srcdir)/coverage/mk-coverage-html
-	cd coverage && \
-    LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
-    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
+coverage/rivet-coverage.html: analists $(wildcard $(srcdir)/coverage/inspire*.json) $(wildcard $(srcdir)/coverage/*.rank) $(top_srcdir)/analyses $(srcdir)/coverage/mk-coverage-html
+	$(mkdir_p) coverage && cd coverage && \
+    LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(LD_LIBRARY_PATH) \
+    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
     $(abs_srcdir)/coverage/mk-coverage-htmls || true
@@ -61,7 +61,7 @@ dox: doxygen/html
 	@true
 doxygen/html: doxygen/Doxyfile doxygen/index.dox $(top_srcdir)/analyses $(top_srcdir)/include/Rivet $(top_srcdir)/src
 	@cd  $(builddir)/doxygen/ && $(DOXYGEN) Doxyfile || true
-	@cp doxygen/dynsections.js doxygen/html/
+	@cp $(abs_srcdir)/doxygen/dynsections.js doxygen/html/
 install-dox:
 	$(install_sh_DATA) doxygen/html/* $(DESTDIR)$(pkgdatadir)/doc/doxygen/
 endif
@@ -69,8 +69,8 @@ endif
 
 ## Analyses diffs between releases
 DOCS += anadiff/anadiffs.txt
-anadiff/anadiffs.txt: $(top_srcdir)/analyses $(srcdir)/anadiff/diffanas
-	cd anadiff && ./diffanas > anadiffs.txt
+anadiff/anadiffs.txt: $(top_srcdir)/analyses $(abs_srcdir)/anadiff/diffanas
+	cd anadiff && $(abs_srcdir)/anadiff/diffanas > anadiffs.txt
 
 
 ## TODO: Add a Markdown compiler and README.md + tutorials/: (py)pandoc?

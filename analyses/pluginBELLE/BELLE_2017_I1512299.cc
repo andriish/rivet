@@ -74,11 +74,11 @@ namespace Rivet {
           _h_w->fill(recoilW(p));
           // Get the necessary momenta for the angles
           bool foundDdecay=false;
-          for (const Particle c : p.children()) {
+          for (const Particle & c : p.children()) {
             if ( (c.pid() == PID::DSTARPLUS)  && (analyzeDecay(c, {PID::PIPLUS, PID::D0}) || analyzeDecay(c, {PID::PI0, PID::DPLUS})) ) {
               foundDdecay=true;
               pDs = c.momentum();
-              for (const Particle dc : c.children()) {
+              for (const Particle & dc : c.children()) {
                 if (dc.hasCharm()) pD = dc.momentum(); 
                 else ppi = dc.momentum(); 
               }

@@ -83,7 +83,7 @@ namespace Rivet {
     MSG_DEBUG("Initialising the analysis handler");
     _eventNumber = ge.event_number();
 
-    // Handle weights
+    // Assemble the weight streams to be used
     setWeightNames(ge);
     if (_skipMultiWeights) {
       MSG_INFO("Only using nominal weight: variation weights will be ignored");
@@ -92,9 +92,11 @@ namespace Rivet {
     } else {
       MSG_WARNING("NOT using named weights: assuming first weight is nominal");
     }
+
+    // Create the multi-weighted event counter
     _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
 
-    // Set the cross section based on what is reported by this event, else zero
+    // Set the cross section based on what is reported by the init-event, else zero
     if (ge.cross_section()) {
       setCrossSection(HepMCUtils::crossSection(ge));
     } else {
@@ -102,24 +104,25 @@ namespace Rivet {
       setCrossSection({0.0, 0.0});
     }
 
-    // Check that analyses are beam-compatible, and remove those that aren't
+    // Check that analyses are beam-compatible, and note those that aren't
     const size_t num_anas_requested = analysisNames().size();
     vector<string> anamestodelete;
     for (const AnaHandle& a : analyses()) {
       if (_checkBeams && !a->compatibleWithRun()) anamestodelete += a->name();
     }
+    // Remove incompatible analyses from the run
     for (const string& aname : anamestodelete) {
       MSG_WARNING("Analysis '" << aname << "' is incompatible with the provided beams: removing");
       removeAnalysis(aname);
     }
     if (num_anas_requested > 0 && analysisNames().empty()) {
-      cerr << "All analyses were incompatible with the first event's beams\n"
-           << "Exiting, since this probably wasn't intentional!" << endl;
+      MSG_ERROR("All analyses were incompatible with the first event's beams\n"
+                << "Exiting, since this probably wasn't intentional!");
       exit(1);
     }
 
     // Warn if any analysis' status is not unblemished
-    for (const AnaHandle a : analyses()) {
+    for (const AnaHandle& a : analyses()) {
       if ( a->info().preliminary() ) {
         MSG_WARNING("Analysis '" << a->name() << "' is preliminary: be careful, it may change and/or be renamed!");
       } else if ( a->info().obsolete() ) {
@@ -181,7 +184,7 @@ namespace Rivet {
           _weightNames[i] = "";
           _rivetDefaultWeightIdx = _defaultWeightIdx = i;
         }
-        ++nDefaults;
+        nDefaults += 1;
       }
     }
 
@@ -194,7 +197,7 @@ namespace Rivet {
             _weightNames[i] = "";
             _rivetDefaultWeightIdx = _defaultWeightIdx = i;
           }
-          ++nDefaults;
+          nDefaults += 1;
         }
       }
     }
@@ -202,6 +205,7 @@ namespace Rivet {
     // Warn user that no nominal weight could be identified
     if (nDefaults == 0) {
       MSG_WARNING("Could not identify nominal weight. Will continue assuming variations-only run.");
+      MSG_WARNING("Candidate weight names:\n  " << join(_weightNames, "\n  "));
     }
     // Warn if multiple weight names were acceptable alternatives
     if (nDefaults > 1) {
@@ -431,9 +435,11 @@ namespace Rivet {
     // Copy all histos to finalize versions.
     _eventCounter.get()->pushToFinal();
     _xs.get()->pushToFinal();
-    for (const AnaHandle& a : analyses())
-      for (auto ao : a->analysisObjects())
+    for (const AnaHandle& a : analyses()) {
+      for (auto ao : a->analysisObjects()) {
         ao.get()->pushToFinal();
+      }
+    }
 
     for (AnaHandle a : analyses()) {
       if ( _dumping && !a->info().reentrant() )  {
@@ -444,8 +450,9 @@ namespace Rivet {
       for (size_t iW = 0; iW < numWeights(); iW++) {
         _eventCounter.get()->setActiveFinalWeightIdx(iW);
         _xs.get()->setActiveFinalWeightIdx(iW);
-        for (auto ao : a->analysisObjects())
+        for (auto ao : a->analysisObjects()) {
           ao.get()->setActiveFinalWeightIdx(iW);
+        }
         try {
           MSG_TRACE("running " << a->name() << "::finalize() for weight " << iW << ".");
           a->finalize();
@@ -457,6 +464,8 @@ namespace Rivet {
     }
 
     // Print out number of events processed
+    _eventCounter.get()->setActiveFinalWeightIdx(defaultWeightIndex());
+    _xs.get()->setActiveFinalWeightIdx(defaultWeightIndex());
     if (!_dumping) {
       const int nevts = numEvents();
       MSG_DEBUG("Processed " << nevts << " event" << (nevts != 1 ? "s" : ""));
@@ -544,9 +553,10 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::mergeYodas(const vector<string> & aofiles,
-                                   const vector<string> & delopts,
-                                   const vector<string> & addopts,
+  /// @todo Change to mergeYodas(vector<pair<string,double>> aofilesweights, ...), with this as a unit-weights syntactic sugar
+  void AnalysisHandler::mergeYodas(const vector<string>& aofiles,
+                                   const vector<string>& delopts,
+                                   const vector<string>& addopts,
                                    bool equiv) {
 
     // Convenience typedef
@@ -560,6 +570,7 @@ namespace Rivet {
 
     // Store all analysis objects here
     vector<AOMap> allaos;
+    vector<double> fileweights;
 
     // Parse option adding.
     vector<string> optAnas;
@@ -578,9 +589,25 @@ namespace Rivet {
     }
 
     // Go through all files and collect information
-    for ( auto file : aofiles ) {
-      allaos.push_back(AOMap());
-      AOMap & aomap = allaos.back();
+    /// @todo Move this to the script interface, with the API working in terms
+    ///   of <real_filename,weight> pairs rather than decoding a CLI convention in C++
+    for (string file : aofiles) {
+      MSG_DEBUG("Reading in data from " << file);
+      // Check for user-supplied scaling, assign 1 otherwise
+      /// @todo
+      size_t colonpos = file.rfind(":");
+      if (colonpos != string::npos) {
+        try {
+          double fweight = std::stod(file.substr(colonpos+1));
+          file = file.substr(0, colonpos);
+          fileweights.push_back(fweight);
+        } catch (...) {
+          throw UserError("Unexpected error in processing argument " + file + " with file:scale format");
+        }
+      } else {
+        fileweights.push_back(1.0);
+      }
+
       vector<YODA::AnalysisObject*> aos_raw;
       try {
         YODA::read(file, aos_raw);
@@ -588,12 +615,21 @@ namespace Rivet {
       catch (...) { //< YODA::ReadError&
         throw UserError("Unexpected error in reading file: " + file);
       }
+      if (aos_raw.empty()) {
+        MSG_WARNING("No AOs read from file: " << file);
+        continue;
+      }
+
+      allaos.push_back(AOMap());
+      AOMap& aomap = allaos.back();
       for (YODA::AnalysisObject* aor : aos_raw) {
         YODA::AnalysisObjectPtr ao(aor);
         AOPath path(ao->path());
         if ( !path )
           throw UserError("Invalid path name in file: " + file);
         if ( !path.isRaw() ) continue;
+
+        MSG_DEBUG(" " << ao->path());
 
         foundWeightNames.insert(path.weight());
         // Now check if any options should be removed
@@ -612,6 +648,9 @@ namespace Rivet {
         aomap.insert(make_pair(path.path(), ao));
       }
     }
+    // reverse ordering of user-supplied weights,
+    // so we can just pop them later
+    std::reverse(fileweights.begin(), fileweights.end());
 
     // Now make analysis handler aware of the weight names present
     _weightNames.clear();
@@ -635,7 +674,7 @@ namespace Rivet {
         exit(1);
       }
       MSG_TRACE("Done initialising analysis: " << a->name());
-    }
+    } // analyses
     _stage = Stage::OTHER;
     _initialised = true;
 
@@ -645,32 +684,74 @@ namespace Rivet {
       for (const auto & ao : a->analysisObjects()) {
         raos.push_back(ao);
       }
-    }
+    } // analyses
 
     // Collect global weights and cross-sections and fix scaling for all files
+    MSG_DEBUG("Getting event counter and cross-section from " << weightNames().size() << " " << numWeights());
     _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
+    MSG_DEBUG("EVTCOUNT: " << _eventCounter.get());
     _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
+    MSG_DEBUG("XSEC: " << _xs.get());
     for (size_t iW = 0; iW < numWeights(); iW++) {
+      MSG_DEBUG("Weight # " << iW << " of " << numWeights());
       _eventCounter.get()->setActiveWeightIdx(iW);
       _xs.get()->setActiveWeightIdx(iW);
       YODA::Counter & sumw = *_eventCounter;
       YODA::Scatter1D & xsec = *_xs;
       vector<YODA::Scatter1DPtr> xsecs;
       vector<YODA::CounterPtr> sows;
-      for (auto& aomap : allaos) {
+
+      // for (auto& aomap : allaos) {
+      //   auto xit = aomap.find(xsec.path());
+      //   if ( xit != aomap.end() ) {
+      //     xsecs.push_back(dynamic_pointer_cast<YODA::Scatter1D>(xit->second));
+      //   } else {
+      //     xsecs.push_back(YODA::Scatter1DPtr());
+      //   }
+      //   xit = aomap.find(sumw.path());
+      //   if ( xit != aomap.end() ) {
+      //     sows.push_back(dynamic_pointer_cast<YODA::Counter>(xit->second));
+      //   } else {
+      //     sows.push_back(YODA::CounterPtr());
+      //   }
+      // }
+      for (auto & aomap : allaos) { // one per input file
+
+        if (getLog().isActive(Log::DEBUG)) {
+          for (auto& kv : aomap) {
+            std::cout << kv.first << std::endl;
+          }
+        }
         auto xit = aomap.find(xsec.path());
+        const double sf = fileweights.back();
+        fileweights.pop_back();
+        MSG_DEBUG("Looking for " << xsec.path() << " in all objects => "
+                  << (xit != aomap.end()));
         if ( xit != aomap.end() ) {
           xsecs.push_back(dynamic_pointer_cast<YODA::Scatter1D>(xit->second));
-        } else {
+          MSG_DEBUG("Apply user-supplied weight: " << sf);
+          xsecs.back()->scaleX(sf);
+        }
+        else if (equiv) {
           xsecs.push_back(YODA::Scatter1DPtr());
         }
+        else {
+          throw UserError("Missing cross-section, needed for non-equivalent merging");
+        }
         xit = aomap.find(sumw.path());
+        MSG_DEBUG("Looking for " << sumw.path() << " in all objects => "
+                  << (xit != aomap.end()));
         if ( xit != aomap.end() ) {
           sows.push_back(dynamic_pointer_cast<YODA::Counter>(xit->second));
-        } else {
+        }
+        else if (equiv) {
           sows.push_back(YODA::CounterPtr());
         }
-      }
+        else {
+          throw UserError("Missing event counter, needed for non-equivalent merging");
+        }
+      } // allaos
+
       double xs = 0.0, xserr = 0.0;
       for ( int i = 0, N = sows.size(); i < N; ++i ) {
         if ( !sows[i] || !xsecs[i] ) continue;
@@ -683,9 +764,11 @@ namespace Rivet {
       }
       vector<double> scales(sows.size(), 1.0);
       if ( equiv ) {
+        MSG_DEBUG("Equivalent mode: scale by numEntries");
         xs /= sumw.numEntries();
         xserr = sqrt(xserr)/sumw.numEntries();
       } else {
+        MSG_DEBUG("Non-equivalent mode: stack");
         xserr = sqrt(xserr);
         for ( int i = 0, N = sows.size(); i < N; ++i ) {
           if ( sumw.sumW() == 0.0 || xsecs[i]->point(0).x() == 0.0 ) {
@@ -703,13 +786,22 @@ namespace Rivet {
         for (const auto & ao : a->analysisObjects()) {
           ao.get()->setActiveWeightIdx(iW);
           YODA::AnalysisObjectPtr yao = ao.get()->activeYODAPtr();
+          int nmerge = 0;
           for ( int i = 0, N = sows.size(); i < N; ++i ) {
             if ( !sows[i] || !xsecs[i] ) continue;
-            auto range = allaos[i].equal_range(yao->path());
+            auto range = allaos[i].equal_range(yao->path()); //< @todo Why more than one match?
             for ( auto aoit = range.first; aoit != range.second; ++aoit ) {
+              nmerge += 1;
+              // MSG_INFO("Merging " << aoit->first << " iteration " << nmerge);
               if ( !addaos(yao, aoit->second, scales[i]) ) {
-                MSG_WARNING("Cannot merge objects with path " << yao->path()
-                            <<" of type " << yao->annotation("Type") );
+                MSG_DEBUG("Overwriting incompatible starting version of " << aoit->first);
+                if (nmerge == 1) {
+                  copyao(aoit->second, yao, scales[i]);
+                } else {
+                  MSG_DEBUG("Cannot merge objects with path " << yao->path()
+                            << " of type " << yao->annotation("Type")
+                            << ", iteration " << nmerge);
+                }
               }
             }
           }

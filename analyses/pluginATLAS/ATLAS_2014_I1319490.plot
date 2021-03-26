@@ -4,6 +4,7 @@ YTwosidedTicks=1
 LeftMargin=1.5
 LegendYPos=0.3
 LegendXPos=0.1
+LogY=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1319490/d..-x01-y01
@@ -74,12 +75,14 @@ YLabel=$\text{d}\sigma_{W + \geq 5j} / \text{d}p^j_\text{T}$
 
 # BEGIN PLOT /ATLAS_2014_I1319490/d13
 XLabel=$|y^j|$ (leading jet)
+LogY=0
 YLabel=$\text{d}\sigma_{W + \geq 1j} / \text{d}y^j$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1319490/d14
 XLabel=$|y^j|$ (subleading jet)
 YLabel=$\text{d}\sigma_{W + \geq 2j} / \text{d}y^j$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1319490/d1[5-9]
@@ -131,6 +134,7 @@ LegendYPos=0.9
 # BEGIN PLOT /ATLAS_2014_I1319490/d24
 XLabel=$\Delta y_{j1,j2}$
 YLabel=$\text{d}\sigma_{W + \geq 2j} / \text{d}y_{j1,j2}$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1319490/d25
@@ -146,16 +150,19 @@ YLabel=$\text{d}\sigma_{W + \geq 2j} / \text{d}m_{12}$
 # BEGIN PLOT /ATLAS_2014_I1319490/d27
 XLabel=$|y^j|$ (3rd leading jet)
 YLabel=$\text{d}\sigma_{W + \geq 3j} / \text{d}y^j$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1319490/d28
 XLabel=$|y^j|$ (4th leading jet)
 YLabel=$\text{d}\sigma_{W + \geq 4j} / \text{d}y^j$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1319490/d29
 XLabel=$|y^j|$ (5th leading jet)
 YLabel=$\text{d}\sigma_{W + \geq 5j} / \text{d}y^j$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1319490/d3[0-6]

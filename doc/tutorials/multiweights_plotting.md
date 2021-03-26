@@ -33,7 +33,10 @@ Some basic/frequently used options are available in the scripts, but as always â
 things will require the user to write their own scripts e.g. using the excellent YODA Python API 
 to combine the histograms prior to the plotting step.
 
-For simple things, two options are available:
+For simple things, two options are available which can be used several times for a given curve.
+All band uncertainty components will currently be added in quadrature together with the 
+MC statistical uncertainty in order to produce a single "total uncertainty band" for the given curve.
+The options are:
 
 ### Envelopes
 

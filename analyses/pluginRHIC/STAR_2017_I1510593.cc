@@ -14,11 +14,10 @@
 namespace Rivet {
 
 
-  /// Bulk properties of the medium produced in relativistic heavy-ion collisions from the STAR beam-energy scan program
+  /// pT distributions, ratios and production yields of hadrons in STAR
   class STAR_2017_I1510593 : public Analysis {
   public:
 
-    /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(STAR_2017_I1510593);
 
 
@@ -37,20 +36,20 @@ namespace Rivet {
 
       // Energy bins
       energies = {7.7, 11.5, 19.6, 27.0, 39.0};
-      for (int i = 0, N = energies.size(); i < N; ++i)
-        if (fuzzyEquals(sqrtS()/GeV / 197, energies[i]))
-          enebin = i;
+      for (size_t i = 0, N = energies.size(); i < N; ++i) {
+        if (fuzzyEquals(sqrtS() / 197. / GeV, energies[i])) enebin = i;
+      }
+
       // Centrality bins
       centralities = {5, 10, 20, 30, 40, 50, 60, 70, 80};
 
       // Energy bins for Fig. 25
       enebinfig = -1;
-      if (fuzzyEquals(sqrtS()/GeV / 197, energies[0]))
-        enebinfig = 0;
-      if (fuzzyEquals(sqrtS()/GeV / 197, energies[4]))
-        enebinfig = 1;
-      // Book all histograms for all energies in order to
-      // do reentrant finalize.
+      if (fuzzyEquals(sqrtS() / 197. / GeV, energies[0])) enebinfig = 0;
+      if (fuzzyEquals(sqrtS() / 197. / GeV, energies[4])) enebinfig = 1;
+
+      // Book all histograms for all energies in order to use re-entrant finalize
+      /// @todo Raw arrays would be a *lot* easier to read here (and N_cent is fixed)
       _h_dpT_Piplus = vector<vector<Histo1DPtr> >(energies.size(), vector<Histo1DPtr>(centralities.size()));
       _h_dpT_Pi = vector<vector<Histo1DPtr> >(energies.size(), vector<Histo1DPtr>(centralities.size()));
       _h_dpT_Kaonplus = vector<vector<Histo1DPtr> >(energies.size(), vector<Histo1DPtr>(centralities.size()));
@@ -82,7 +81,6 @@ namespace Rivet {
       _h_npart_pT_Proton = vector<Profile1DPtr>(energies.size());
       _h_npart_pT_AntiProton = vector<Profile1DPtr>(energies.size());
 
-
       _h_npart_Piratio = vector<Profile1DPtr>(energies.size());
       _h_npart_Karatio = vector<Profile1DPtr>(energies.size());
       _h_npart_Pratio = vector<Profile1DPtr>(energies.size());
@@ -91,25 +89,27 @@ namespace Rivet {
       _h_npart_KaPiplus = vector<Profile1DPtr>(energies.size());
       _h_npart_PPiplus = vector<Profile1DPtr>(energies.size());
 
-      for (int j = 0, N = energies.size(); j < N; ++j)
-        for (int i = 0, M = centralities.size(); i < M; ++i) {
+      for (size_t j = 0, N = energies.size(); j < N; ++j) {
+        for (size_t i = 0, M = centralities.size(); i < M; ++i) {
           // Book [energy][centrality] histograms.
           book(_h_dpT_Piplus[j][i], 12 + j, 1, 1 + i);
           book(_h_dpT_Pi[j][i], 12 + j, 2, 1 + i);
           book(_h_dpT_Kaonplus[j][i], 12 + j, 3, 1 + i);
           book(_h_dpT_Kaon[j][i], 12 + j, 4, 1 + i);
           book(_h_dpT_Proton[j][i], 12 + j, 5, 1 + i);
-          book(_h_dpT_AntiProton[j][i], 12 + j, 5, 1 + i);
+          book(_h_dpT_AntiProton[j][i], 12 + j, 6, 1 + i);
           // Book ditto sum of weights.
           book(_wght_PiPlus[j][i], _coStr(12 + j, 1, 1 + i));
           book(_wght_Pi[j][i], _coStr(12 + j, 2, 1 + i));
           book(_wght_KaonPlus[j][i], _coStr(12 + j, 3, 1 + i));
           book(_wght_Kaon[j][i], _coStr(12 + j, 4, 1 + i));
           book(_wght_Proton[j][i], _coStr(12 + j, 5, 1 + i));
-          book(_wght_AntiProton[j][i], _coStr(12 + j, 5, 1 + i));
+          book(_wght_AntiProton[j][i], _coStr(12 + j, 6, 1 + i));
         }
+      }
+
       /// Booking npart histograms
-      for (int i = 0, N = energies.size(); i < N; ++i) {
+      for (size_t i = 0, N = energies.size(); i < N; ++i) {
         book(_h_npart_PiPlus[i],17, 1, i+1);
         book(_h_npart_PiMinus[i],17, 2, i+1);
         book(_h_npart_KaPlus[i],17, 3, i+1);
@@ -118,11 +118,11 @@ namespace Rivet {
         book(_h_npart_AntiProton[i],17, 6, i+1);
         // ...and the weights.
         book(_wght_npart_PiPlus[i],_coStr(17, 1, i+1));
-        book(_wght_npart_PiMinus[i],_coStr(17, 1, i+1));
-        book(_wght_npart_KaonPlus[i],_coStr(17, 1, i+1));
-        book(_wght_npart_KaonMinus[i],_coStr(17, 1, i+1));
-        book(_wght_npart_Proton[i],_coStr(17, 1, i+1));
-        book(_wght_npart_AntiProton[i],_coStr(17, 1, i+1));
+        book(_wght_npart_PiMinus[i],_coStr(17, 2, i+1));
+        book(_wght_npart_KaonPlus[i],_coStr(17, 3, i+1));
+        book(_wght_npart_KaonMinus[i],_coStr(17, 4, i+1));
+        book(_wght_npart_Proton[i],_coStr(17, 5, i+1));
+        book(_wght_npart_AntiProton[i],_coStr(17, 6, i+1));
         // ... and the profiles.
         book(_h_npart_pT_PiPlus[i], 18, 1, i+1);
         book(_h_npart_pT_PiMinus[i], 18, 2, i+1);
@@ -138,7 +138,6 @@ namespace Rivet {
         book(_h_npart_AntiPPi[i], 20, 2, i+1);
         book(_h_npart_KaPiplus[i], 20, 3, i+1);
         book(_h_npart_PPiplus[i], 20, 4, i+1);
-
       }
 
       book(_h_snn_npart_PiPlus, 21, 1, 1);
@@ -163,16 +162,16 @@ namespace Rivet {
 
       _h_yields = vector<Profile1DPtr>(2);
       _h_ratios = vector<Profile1DPtr>(2);
-      for (int i = 0; i < 2; ++i) {
+      for (size_t i = 0; i < 2; ++i) {
         book(_h_yields[i], 25, i + 1, 1);
         book(_h_ratios[i], 25, i + 3, 1);
       }
     }
 
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const ChargedFinalState& cfs =
-        applyProjection<ChargedFinalState>(event, "CFS");
+      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
       // Require at least two charged particles for the analysis to
       // make sense. No further triggers are described in the paper.
       const Particles& particles = cfs.particles();
@@ -180,8 +179,7 @@ namespace Rivet {
       if (nprtcl < 2) return;
 
       /// Determine the centrality
-      const CentralityProjection& cent =
-        apply<CentralityProjection>(event, "CMULT");
+      const CentralityProjection& cent = apply<CentralityProjection>(event, "CMULT");
       const double c = cent();
 
       /// Determine the impact parameter
@@ -189,14 +187,11 @@ namespace Rivet {
       const double Npart = hi.Npart_targ();
 
       /// Determine the centrality bin
-      if (c < 5)
-        cenbin = 0;
-      else
-        cenbin = c / 10 + 1;
+      cenbin = (c < 5) ? 0 : c / 10 + 1;
 
       /// Initializing for each event
-      for (int i = 0; i < 10; ++i) nparts[i] = 0;
-      for (int i = 0, N = energies.size(); i < N; ++i) {
+      for (size_t i = 0; i < 10; ++i) nparts[i] = 0;
+      for (size_t i = 0, N = energies.size(); i < N; ++i) {
         nPi[i] = 0;
         nPiPlus[i] = 0;
         nKaon[i] = 0;
@@ -207,8 +202,8 @@ namespace Rivet {
 
       /// Loop over all charged particles of the CFS
       for (const Particle& p : cfs.particles()) {
-        double pT = p.pT() * GeV;
-        double mass = p.mass() * GeV;
+        double pT = p.pT()/GeV;
+        double mass = p.mass()/GeV;
         double mTm = sqrt(pT * pT + mass * mass) - mass;
         if (p.absrap() < 0.1) {
           const PdgId id = p.pid();
@@ -308,40 +303,41 @@ namespace Rivet {
       }
 
       /// Particle Ratios
-      //"if( > 0.000001)" because "> 0" or "!= 0" can cause errors
-      if (nPiPlus[enebin] > 0.000001) {
+      //"if( > 1e-6)" because "> 0" or "!= 0" can cause errors
+      if (nPiPlus[enebin] > 1e-6) {
         _h_npart_Piratio[enebin]->fill(Npart, nPi[enebin] / nPiPlus[enebin], 5);
         _h_npart_KaPiplus[enebin]->fill(Npart, nKaonPlus[enebin] / nPiPlus[enebin], 5);
         _h_npart_PPiplus[enebin]->fill(Npart, nProton[enebin] / nPiPlus[enebin], 5);
       }
 
-      if (nPi[enebin] > 0.000001) {
+      if (nPi[enebin] > 1e-6) {
         _h_npart_KaPi[enebin]->fill(Npart, nKaon[enebin] / nPi[enebin], 5);
         _h_npart_AntiPPi[enebin]->fill(Npart, nAntiProton[enebin] / nPi[enebin], 5);
       }
 
-      if (nKaonPlus[enebin] > 0.000001)
+      if (nKaonPlus[enebin] > 1e-6)
         _h_npart_Karatio[enebin]->fill(Npart, nKaon[enebin] / nKaonPlus[enebin], 5);
 
-      if (nProton[enebin] > 0.000001)
+      if (nProton[enebin] > 1e-6)
         _h_npart_Pratio[enebin]->fill(Npart, nAntiProton[enebin] / nProton[enebin], 5);
 
       /// Particle Yields
       if (enebinfig == 0 || enebinfig == 1) {
-        for (int i = 0; i < 10; i++)
-          if (nparts[i] > 0.000001)
+        for (size_t i = 0; i < 10; i++) {
+          if (nparts[i] > 1e-6)
             _h_yields[enebinfig]->fill(i + 1, nparts[i], 5);
-        if (nparts[0] > 0.000001)
+        }
+        if (nparts[0] > 1e-6)
           _h_ratios[enebinfig]->fill(1, nparts[1] / nparts[0], 5);
-        if (nparts[2] > 0.000001)
+        if (nparts[2] > 1e-6)
           _h_ratios[enebinfig]->fill(2, nparts[3] / nparts[2], 5);
-        if (nparts[4] > 0.000001)
+        if (nparts[4] > 1e-6)
           _h_ratios[enebinfig]->fill(3, nparts[5] / nparts[4], 5);
-        if (nparts[6] > 0.000001)
+        if (nparts[6] > 1e-6)
           _h_ratios[enebinfig]->fill(4, nparts[7] / nparts[6], 5);
-        if (nparts[8] > 0.000001)
+        if (nparts[8] > 1e-6)
           _h_ratios[enebinfig]->fill(5, nparts[9] / nparts[8], 5);
-        if (nparts[1] > 0.000001) {
+        if (nparts[1] > 1e-6) {
           _h_ratios[enebinfig]->fill(6, nparts[3] / nparts[1], 5);
           _h_ratios[enebinfig]->fill(7, nparts[5] / nparts[1], 5);
           _h_ratios[enebinfig]->fill(8, nparts[6] / nparts[1], 5);
@@ -349,16 +345,16 @@ namespace Rivet {
         }
       }
 
-      if (nparts[0] > 0.000001) {
+      if (nparts[0] > 1e-6) {
         _h_snn_Piratio->fill(energies[enebin], nparts[1] / nparts[0], 5);
         _h_snn_KaPiplus->fill(energies[enebin], nparts[2] / nparts[0], 5);
       }
 
-      if (nparts[1] > 0.000001)
+      if (nparts[1] > 1e-6)
         _h_snn_KaPiminus->fill(energies[enebin],nparts[3] / nparts[1], 5);
-      if (nparts[2] > 0.000001)
+      if (nparts[2] > 1e-6)
         _h_snn_Karatio->fill(energies[enebin],nparts[3] / nparts[2], 5);
-      if (nparts[4] > 0.000001)
+      if (nparts[4] > 1e-6)
         _h_snn_Pratio->fill(energies[enebin],nparts[5] / nparts[4], 5);
 
       /// Sum the weight of the event
@@ -378,11 +374,12 @@ namespace Rivet {
       }
     }
 
+
     /// Normalise histograms etc., after the run
     void finalize() {
       /// Normalisation
-      for (int j = 0; j < 5; ++j) {
-        for (int i = 0; i < 9; ++i) {
+      for (size_t j = 0; j < 5; ++j) {
+        for (size_t i = 0; i < 9; ++i) {
           if (_h_dpT_Pi[j][i]->integral() != 0 && _wght_Pi[j][i]->sumW() != 0)
             scale(_h_dpT_Pi[j][i], 1. / (TWOPI * 0.2 * _wght_Pi[j][i]->sumW()));
           if (_h_dpT_Piplus[j][i]->integral() != 0 && _wght_PiPlus[j][i]->sumW() != 0)
@@ -401,58 +398,58 @@ namespace Rivet {
       /// Filling the bins with a value (here out of the defined
       /// screening range of the plot) when it has not been filled by
       /// anything, otherwise it won't want to plot
-      for (int j = 0, N = energies.size(); j < N; ++j) {
-        for (int i = 0, M = _h_npart_PiPlus[j]->numBins(); i < M; ++i)
+      for (size_t j = 0, N = energies.size(); j < N; ++j) {
+        for (size_t i = 0, M = _h_npart_PiPlus[j]->numBins(); i < M; ++i)
           if (_h_npart_PiPlus[j]->bin(i).numEntries() == 0)
             _h_npart_PiPlus[j]->fillBin(i, -0.1);
 
-        for (int i = 0, M = _h_npart_PiMinus[j]->numBins(); i < M; ++i)
+        for (size_t i = 0, M = _h_npart_PiMinus[j]->numBins(); i < M; ++i)
           if (_h_npart_PiMinus[j]->bin(i).numEntries() == 0)
             _h_npart_PiMinus[j]->fillBin(i, -0.1);
 
-        for (int i = 0, M = _h_npart_KaPlus[j]->numBins(); i < M; ++i)
+        for (size_t i = 0, M = _h_npart_KaPlus[j]->numBins(); i < M; ++i)
           if (_h_npart_KaPlus[j]->bin(i).numEntries() == 0)
             _h_npart_KaPlus[j]->fillBin(i, -0.1);
 
-        for (int i = 0, M = _h_npart_KaMinus[j]->numBins(); i < M; ++i)
+        for (size_t i = 0, M = _h_npart_KaMinus[j]->numBins(); i < M; ++i)
           if (_h_npart_KaMinus[j]->bin(i).numEntries() == 0)
             _h_npart_KaMinus[j]->fillBin(i, -0.1);
 
-        for (int i = 0, M = _h_npart_Proton[j]->numBins(); i < M; ++i)
+        for (size_t i = 0, M = _h_npart_Proton[j]->numBins(); i < M; ++i)
           if (_h_npart_Proton[j]->bin(i).numEntries() == 0)
             _h_npart_Proton[j]->fillBin(i, -0.1);
 
-        for (int i = 0, M = _h_npart_AntiProton[j]->numBins(); i < M; ++i)
+        for (size_t i = 0, M = _h_npart_AntiProton[j]->numBins(); i < M; ++i)
           if (_h_npart_AntiProton[j]->bin(i).numEntries() == 0)
             _h_npart_AntiProton[j]->fillBin(i, -0.1);
 
-        for (int i = 0, M = _h_npart_pT_PiPlus[j]->numBins(); i < M; ++i)
+        for (size_t i = 0, M = _h_npart_pT_PiPlus[j]->numBins(); i < M; ++i)
           if (_h_npart_pT_PiPlus[j]->bin(i).numEntries() == 0)
             _h_npart_pT_PiPlus[j]->fillBin(i, -0.1);
 
-        for (int i = 0, M = _h_npart_pT_PiMinus[j]->numBins(); i < M; ++i)
+        for (size_t i = 0, M = _h_npart_pT_PiMinus[j]->numBins(); i < M; ++i)
           if (_h_npart_pT_PiMinus[j]->bin(i).numEntries() == 0)
             _h_npart_pT_PiMinus[j]->fillBin(i, -0.1);
 
-        for (int i = 0, M = _h_npart_pT_KaPlus[j]->numBins(); i < M; ++i)
+        for (size_t i = 0, M = _h_npart_pT_KaPlus[j]->numBins(); i < M; ++i)
           if (_h_npart_pT_KaPlus[j]->bin(i).numEntries() == 0)
             _h_npart_pT_KaPlus[j]->fillBin(i, -0.1);
 
-        for (int i = 0, M = _h_npart_pT_KaMinus[j]->numBins(); i < M; ++i)
+        for (size_t i = 0, M = _h_npart_pT_KaMinus[j]->numBins(); i < M; ++i)
           if (_h_npart_pT_KaMinus[j]->bin(i).numEntries() == 0)
             _h_npart_pT_KaMinus[j]->fillBin(i, -0.1);
 
-        for (int i = 0, M = _h_npart_pT_Proton[j]->numBins(); i < M; ++i)
+        for (size_t i = 0, M = _h_npart_pT_Proton[j]->numBins(); i < M; ++i)
           if (_h_npart_pT_Proton[j]->bin(i).numEntries() == 0)
             _h_npart_pT_Proton[j]->fillBin(i, -0.1);
 
-        for (int i = 0, M = _h_npart_pT_AntiProton[j]->numBins(); i < M; ++i)
+        for (size_t i = 0, M = _h_npart_pT_AntiProton[j]->numBins(); i < M; ++i)
           if (_h_npart_pT_AntiProton[j]->bin(i).numEntries() == 0)
             _h_npart_pT_AntiProton[j]->fillBin(i, -0.1);
       }
 
-      for (int j = 0; j < 5; ++j)
-        for (int i = 0; i < 9; ++i) {
+      for (size_t j = 0; j < 5; ++j)
+        for (size_t i = 0; i < 9; ++i) {
           if (_h_npart_Piratio[j]->bin(i).numEntries() == 0)
             _h_npart_Piratio[j]->fillBin(i, -0.1);
 
@@ -476,16 +473,16 @@ namespace Rivet {
         }
 
 
-      for (int j = 0; j < 2; ++j) {
-        for (int i = 0, N = _h_ratios[j]->numBins(); i < N; ++i)
+      for (size_t j = 0; j < 2; ++j) {
+        for (size_t i = 0, N = _h_ratios[j]->numBins(); i < N; ++i)
           if (_h_ratios[j]->bin(i).numEntries() == 0)
             _h_ratios[j]->fillBin(i, -0.1);
-        for (int i = 0, N = _h_yields[j]->numBins(); i < N; ++i)
+        for (size_t i = 0, N = _h_yields[j]->numBins(); i < N; ++i)
           if (_h_yields[j]->bin(i).numEntries() == 0)
             _h_yields[j]->fillBin(i, -0.1);
       }
 
-      for (int i = 0, N = energies.size(); i < N; ++i) {
+      for (size_t i = 0, N = energies.size(); i < N; ++i) {
         if (_h_snn_npart_PiPlus->bin(i).numEntries() == 0)
           _h_snn_npart_PiPlus->fillBin(i, -0.1);
 
@@ -539,16 +536,16 @@ namespace Rivet {
       }
     }
 
-    //@}
 
+  private:
 
     /// Temporary analysis-object path builder
     string _coStr(int i, int j, int k) {
-      return "/TMP/d"+std::to_string(i)+"x"+std::to_string(j)+"y"+std::to_string(k);
+      return "/TMP/d" + toString(i) + "x" + toString(j) + "y" + toString(k);
     }
 
     /// @name Histograms
-    //@{
+    /// @{
     vector<vector<Histo1DPtr>> _h_dpT_Pi;
     vector<vector<Histo1DPtr>> _h_dpT_Piplus;
     vector<vector<Histo1DPtr>> _h_dpT_Kaon;
@@ -611,9 +608,10 @@ namespace Rivet {
     Profile1DPtr _h_snn_Piratio;
     Profile1DPtr _h_snn_Karatio;
     Profile1DPtr _h_snn_Pratio;
-    //@}
+    /// @}
 
-    /// Variables
+    /// @name Variables
+    /// @{
     vector<double> energies;
     vector<double> centralities;
     int cenbin, enebin = 0, enebinfig = 0;
@@ -623,9 +621,11 @@ namespace Rivet {
     // Fig. 25. In the right order : pi+, pi-, K+, K-, p, Antip, Lambda,
     // AntiLambda, Xi, AntiXi
     double nparts[10];
+    /// @}
+
   };
 
-  // The hook for the plugin system
+
   DECLARE_RIVET_PLUGIN(STAR_2017_I1510593);
 
-}  // namespace Rivet
+}

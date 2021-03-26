@@ -9,6 +9,9 @@
 namespace Rivet {
 
 
+  /// @defgroup mathutils Maths utilities
+
+
   /// @name Comparison functions for safe (floating point) equality tests
   //@{
 
@@ -89,6 +92,24 @@ namespace Rivet {
     std::is_arithmetic<N1>::value && std::is_arithmetic<N2>::value, bool>::type
   fuzzyLessEquals(N1 a, N2 b, double tolerance=1e-5) {
     return a < b || fuzzyEquals(a, b, tolerance);
+  }
+
+  /// @brief Get the minimum of two numbers
+  template <typename N1, typename N2>
+  inline typename std::enable_if<
+    std::is_arithmetic<N1>::value && std::is_arithmetic<N2>::value,
+    typename std::common_type<N1,N2>::type >::type
+  min(N1 a, N2 b) {
+    return a > b ? b : a;
+  }
+
+  /// @brief Get the maximum of two numbers
+  template <typename N1, typename N2>
+  inline typename std::enable_if<
+    std::is_arithmetic<N1>::value && std::is_arithmetic<N2>::value,
+    typename std::common_type<N1,N2>::type >::type
+  max(N1 a, N2 b) {
+    return a > b ? a : b;
   }
 
   //@}
@@ -289,6 +310,32 @@ namespace Rivet {
     }
     assert(rtn.size() == nbins);
     if (include_end) rtn.push_back(end); //< exact end, not result of n * interval
+    return rtn;
+  }
+
+
+  /// @brief Make a list of values equally spaced by @a step between @a start and @a end inclusive.
+  ///
+  /// The values will start at @a start and be equally spaced up to the highest
+  /// increment less than or equal to @a end. If @a include_end is given, the @a
+  /// end value will be appended if distinct by @a tol times @a step.
+  ///
+  /// @note The arg ordering is "Rivet-like", cf. linspace() and logspace(),
+  /// as opposed to the Numpy/Matlab arange() function (whose name inspired this,
+  /// but we preferred to keep the "space" nomenclature for consistence.)
+  inline vector<double> aspace(double step, double start, double end, bool include_end=true, double tol=1e-2) {
+    assert(end >= start);
+    assert(step > 0);
+    vector<double> rtn;
+    double next = start;
+    while (true) {
+      if (next > end) break;
+      rtn.push_back(next);
+      next += step;
+    }
+    if (include_end) {
+      if (end - rtn[rtn.size()-1] > tol*step) rtn.push_back(end);
+    }
     return rtn;
   }
 

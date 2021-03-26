@@ -21,9 +21,9 @@ Beams: [p+, p+]
 Energies: [8000]
 PtCuts: [0]
 Description:
- 'The inclusive cross-section for jet production in association with a Z boson decaying into an electron-positron pair is 
+ 'The inclusive cross-section for jet production in association with a $Z$ boson decaying into an electron-positron pair is 
   measured as a function of the transverse momentum and the absolute rapidity of jets using 
-  19.9 fb$^{−1}$ of $\sqrt{s}=8$ TeV proton-proton collision data collected with the ATLAS detector 
+  19.9 fb$^{-1}$ of $\sqrt{s}=8$ TeV proton-proton collision data collected with the ATLAS detector 
   at the Large Hadron Collider. 
   The measured Z+ jets cross-section is unfolded to the particle level. 
   The cross-section is compared with state-of-the-art Standard Model calculations, 

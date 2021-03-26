@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief e+e- -> omega eta
   class SND_2016_I1473343 : public Analysis {
   public:
 

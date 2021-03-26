@@ -1,6 +1,6 @@
 Name: STAR_2017_I1510593
 Year: 2017
-Summary: Bulk properties of the medium produced in relativistic heavy-ion collisions from the STAR beam-energy scan program
+Summary: Bulk properties of identified hadrons in the Au Au medium from the RHIC beam-energy scan
 Experiment: STAR
 Collider: RHIC
 InspireID: 1510593
@@ -43,5 +43,6 @@ BibTeX: '@article{Adamczyk:2017iwn,
       primaryClass   = "nucl-ex",
       SLACcitation   = "%%CITATION = ARXIV:1701.07065;%%"
 }'
-ToDo:
- - Implement the analysis, test it, remove this ToDo, and mark as VALIDATED :-)
+Keywords:
+ - hadrons
+ - heavyion

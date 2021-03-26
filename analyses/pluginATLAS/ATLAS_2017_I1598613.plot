@@ -24,6 +24,7 @@ YLabel=$1/\text{d}\sigma \; \text{d}\sigma / \text{d} |\Delta y(J/\psi,\mu)|$
 XLabel=$|\Delta y_\text{boost}(J/\psi,\mu)|$
 YLabel=$1/\text{d}\sigma \; \text{d}\sigma / \text{d} |\Delta y_\text{boost}(J/\psi,\mu)|$
 LegendAlign=l
+LogY=0
 LegendXPos=0.05
 LegendYPos=0.35
 # END PLOT

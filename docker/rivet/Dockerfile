@@ -3,7 +3,7 @@ FROM hepstore/hepbase-${ARCH}-latex
 LABEL maintainer="rivet-developers@cern.ch"
 SHELL ["/bin/bash", "-c"]
 
-ARG RIVET_VERSION=3.1.2
+ARG RIVET_VERSION
 RUN mkdir /code && cd /code \
     && texhash \
     && wget --no-verbose https://rivet.hepforge.org/downloads/?f=Rivet-${RIVET_VERSION}.tar.gz -O Rivet-${RIVET_VERSION}.tar.gz \
@@ -15,6 +15,7 @@ RUN mkdir /code && cd /code \
     && echo "source /usr/local/share/YODA/yoda-completion" > /etc/profile.d/yoda-completion.sh \
     && texhash \
     && rm -rf /code
+
 ADD bash.bashrc /etc/
 
 WORKDIR /work

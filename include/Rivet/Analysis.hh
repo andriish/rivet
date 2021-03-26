@@ -393,7 +393,10 @@ namespace Rivet {
 
   protected:
 
-    /// @name Histogram paths
+    /// @defgroup analysis_histopaths Histogram paths
+    ///
+    /// @todo Add "tmp" flags to return /ANA/TMP/foo/bar paths
+    ///
     /// @{
 
     /// Get the canonical histogram "directory" path for this analysis.
@@ -438,15 +441,18 @@ namespace Rivet {
     /// Get reference data for a numbered histo
     /// @todo SFINAE to ensure that the type inherits from YODA::AnalysisObject?
     template <typename T=YODA::Scatter2D>
-    const T& refData(unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) const {
-      const string hname = mkAxisCode(datasetID, xAxisID, yAxisID);
-      return refData(hname);
+    const T& refData(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+      const string hname = mkAxisCode(datasetId, xAxisId, yAxisId);
+      return refData<T>(hname);
     }
 
     /// @}
 
 
-    /// @name Counter booking
+    /// @defgroup analysis_cbook Counter booking
+    ///
+    /// @todo Add "tmp" flags to book in standard temporary paths
+    ///
     /// @{
 
     /// Book a counter.
@@ -682,12 +688,15 @@ namespace Rivet {
 
     /// @name Allow RAW histograms to be read in to local objects.
     /// @todo Should be protected, not public?
+    /// @todo Why is the function body written this way? To avoid the virtual function being optimised away?
     virtual void rawHookIn(YODA::AnalysisObjectPtr yao) {
       (void) yao;
     }
 
     /// @name Provide access to RAW histograms before writing out to file.
     /// @todo Should be protected, not public?
+    /// @todo Signature should pass the vector by reference?
+    /// @todo Why is the function body written this way? To avoid the virtual function being optimised away?
     virtual void rawHookOut(vector<MultiweightAOPtr> raos, size_t iW) {
       (void) raos;
       (void) iW;
@@ -1476,21 +1485,43 @@ namespace Rivet {
 /// @defgroup anamacros Analysis macros
 /// @{
 
+/// @def RIVET_DECLARE_PLUGIN
+/// Preprocessor define to prettify the global-object plugin hook mechanism
+#define RIVET_DECLARE_PLUGIN(clsname) ::Rivet::AnalysisBuilder<clsname> plugin_ ## clsname
+
+/// @def RIVET_DECLARE_ALIASED_PLUGIN
+/// Preprocessor define to prettify the global-object plugin hook mechanism, with an extra alias name for this analysis
+#define RIVET_DECLARE_ALIASED_PLUGIN(clsname, alias) RIVET_DECLARE_PLUGIN(clsname)( #alias )
+
+/// @def RIVET_DEFAULT_ANALYSIS_CTOR
+/// Preprocessor define to prettify the awkward constructor with name string argument
+#define RIVET_DEFAULT_ANALYSIS_CTOR(clsname) clsname() : Analysis(# clsname) {}
+
+
+
 /// @def DECLARE_RIVET_PLUGIN
-/// Preprocessor define to prettify the global-object plugin hook mechanism.
+/// Preprocessor define to prettify the global-object plugin hook mechanism
+///
+/// @deprecated Prefer the RIVET_DECLARE_PLUGIN version with predictable RIVET_ prefix
 #define DECLARE_RIVET_PLUGIN(clsname) ::Rivet::AnalysisBuilder<clsname> plugin_ ## clsname
 
 /// @def DECLARE_ALIASED_RIVET_PLUGIN
-/// Preprocessor define to prettify the global-object plugin hook mechanism, with an extra alias name for this analysis.
+/// Preprocessor define to prettify the global-object plugin hook mechanism, with an extra alias name for this analysis
+///
+/// @deprecated Prefer the RIVET_DECLARE_ALIASED_PLUGIN version with predictable RIVET_ prefix
 // #define DECLARE_ALIASED_RIVET_PLUGIN(clsname, alias) Rivet::AnalysisBuilder<clsname> plugin_ ## clsname ## ( ## #alias ## )
 #define DECLARE_ALIASED_RIVET_PLUGIN(clsname, alias) DECLARE_RIVET_PLUGIN(clsname)( #alias )
 
 /// @def DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR
-/// Preprocessor define to prettify the manky constructor with name string argument
+/// Preprocessor define to prettify the awkward constructor with name string argument
+///
+/// @deprecated Prefer the "CTOR" version
 #define DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR(clsname) clsname() : Analysis(# clsname) {}
 
 /// @def DEFAULT_RIVET_ANALYSIS_CTOR
-/// Slight abbreviation for DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR
+/// Preprocessor define to prettify the awkward constructor with name string argument
+///
+/// @deprecated Prefer the RIVET_DEFAULT_ANALYSIS_CTOR version with predictable RIVET_ prefix
 #define DEFAULT_RIVET_ANALYSIS_CTOR(clsname) DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR(clsname)
 
 /// @}

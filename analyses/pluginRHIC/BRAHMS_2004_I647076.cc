@@ -41,16 +41,16 @@ namespace Rivet {
       // Book histograms
       piPlus.resize(rapIntervalsPi.size());
       piMinus.resize(rapIntervalsPi.size());
-      for (int i = 1, N = rapIntervalsPi.size(); i <= N; ++i) {
-        book(piPlus[i], 1, 1, i);
-        book(piMinus[i], 1, 1, 14 + i);
+      for (int i = 0, N = rapIntervalsPi.size(); i < N; ++i) {
+        book(piPlus[i], 1, 1, 1 + i);
+        book(piMinus[i], 1, 1, 15 + i);
       }
 
       kPlus.resize(rapIntervalsK.size());
       kMinus.resize(rapIntervalsK.size());
-      for (int i = 1, N = rapIntervalsK.size(); i <= N; ++i) {
-        book(kPlus[i], 2, 1, i);
-        book(kMinus[i], 2, 1, 12 + i);
+      for (int i = 0, N = rapIntervalsK.size(); i < N; ++i) {
+        book(kPlus[i], 2, 1, 1 + i);
+        book(kMinus[i], 2, 1, 13 + i);
       }
       // Counter for accepted sum of weights (centrality cut).
       book(centSow, "centSow");

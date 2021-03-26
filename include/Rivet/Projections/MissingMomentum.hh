@@ -22,18 +22,17 @@ namespace Rivet {
   class MissingMomentum : public METFinder {
   public:
 
-    /// Default constructor with optional cut.
-    MissingMomentum(const Cut& c=Cuts::open()) {
+    /// Canonical constructor taking a FinalState as argument
+    MissingMomentum(const FinalState& fs) {
       setName("MissingMomentum");
-      FinalState fs(c);
       declare(fs, "FS");
       declare(VisibleFinalState(fs), "VisibleFS");
     }
 
-    /// Simple constructor
-    MissingMomentum(const FinalState& fs)
-      : MissingMomentum()
-    { }
+    /// Default constructor with optional cut
+    MissingMomentum(const Cut& c=Cuts::open())
+      : MissingMomentum(FinalState(c))
+    {    }
 
 
     /// Clone on the heap

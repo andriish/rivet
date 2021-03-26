@@ -1,4 +1,5 @@
 # BEGIN PLOT /ATLAS_2019_I1744201/d*
+LogY=0
 XLabel= $|y_\text{jet}|$
 YLabel= $\text{d}^2\sigma/\text{d}p_\text{T}\text{d}|y|$
 # END PLOT
@@ -24,5 +25,5 @@ Title=300 GeV $< p_\text{T}^\text{jet} <$ 400 GeV
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1744201/d07
-Title=300 GeV $< p_\text{T}^\text{jet} <$ 1050 GeV
+Title=400 GeV $< p_\text{T}^\text{jet} <$ 1050 GeV
 # END PLOT

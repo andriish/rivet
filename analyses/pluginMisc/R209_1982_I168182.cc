@@ -84,20 +84,17 @@ namespace Rivet {
       scale(_hist_M,crossSection()/nanobarn/(sumOfWeights()));
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _hist_pT, _hist_M ;
     Histo1DPtr _h_m_DiMuon ;
     Histo1DPtr _h_pT_DiMuon;
     Histo1DPtr _h_y_DiMuon;
     Histo1DPtr _h_xF_DiMuon;
-    ///@}
-
-    /// Energy comparison tolerance
-    const double sqrts_tol = 10.;
+    /// @}
 
   };
 

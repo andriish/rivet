@@ -1,3 +1,8 @@
+# BEGIN PLOT /ATLAS_2014_I1279489/d.
+LogY=1
+# END PLOT
+
+
 ## MJJ BASELINE
 # BEGIN PLOT /ATLAS_2014_I1279489/d01-x01-y01
 Title=$m_{jj}$ in the baseline region

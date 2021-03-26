@@ -27,9 +27,10 @@ public:
   PercentileProjection(const SingleValueProjection & sv, const Histo1D& calhist,
                   bool increasing = false)
     : _calhist("EMPTY"), _increasing(increasing) {
+    setName("PercentileProjection");
     declare(sv, "OBSERVABLE");
     //if ( !calhist ) return;
-    MSG_INFO("Constructing PercentileProjection from " << calhist.path());
+    MSG_DEBUG("Constructing PercentileProjection from " << calhist.path());
     _calhist = calhist.path();
     int N = calhist.numBins();
     double sum = calhist.sumW();
@@ -49,6 +50,15 @@ public:
         _table.insert(make_pair(calhist.bin(i).xEdges().first, 100.0*acc/sum));
       }
     }
+    if (getLog().isActive(Log::DEBUG)) {
+      MSG_DEBUG("Mapping from observable to percentile:");
+      for (auto p : _table) {
+	std::cout << std::setw(16) << p.first << " -> "
+		  << std::setw(16) << p.second << "%" << std::endl;
+	if (not increasing and p.second <= 0) break;
+	if (increasing and p.second >= 100) break;
+      }
+    }
   }
 
   // Constructor taking a SingleValueProjection and a calibration
@@ -60,7 +70,7 @@ public:
     declare(sv, "OBSERVABLE");
 
     //if ( !calscat ) return;
-    MSG_INFO("Constructing PercentileProjection from " << calscat.path());
+    MSG_DEBUG("Constructing PercentileProjection from " << calscat.path());
     _calhist = calscat.path();
     int N = calscat.numPoints();
     double sum = 0.0;
@@ -92,9 +102,13 @@ public:
   void project(const Event& e) {
     clear();
     if ( _table.empty() ) return;
-    double obs = apply<SingleValueProjection>(e, "OBSERVABLE")();
+    auto&  pobs = apply<SingleValueProjection>(e, "OBSERVABLE");
+    double obs  = pobs();
     double pcnt = lookup(obs);
     if ( pcnt >= 0.0 ) set(pcnt);
+    MSG_DEBUG("Observable(" << pobs.name() << ")="
+	      << std::setw(16) << obs 
+	      << "-> Percentile=" << std::setw(16) << pcnt << "%");
   }
 
 

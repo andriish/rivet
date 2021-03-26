@@ -792,7 +792,6 @@ namespace Rivet {
   template <> struct ReferenceTraits<Profile2D> { typedef Scatter3D RefT; };
   template <> struct ReferenceTraits<Scatter3D> { typedef Scatter3D RefT; };
 
-
   /// If @a dst and @a src both are of same subclass T, copy the
   /// contents of @a src into @a dst and return true. Otherwise return
   /// false.
@@ -806,6 +805,17 @@ namespace Rivet {
     return true;
   }
 
+  /// If @a dst and @a src both are of same subclass T, copy the
+  /// contents of @a src into @a dst and return true. Otherwise return
+  /// false. The @a scale argument will be ued to scale the weights of
+  /// non-scatter types, cf. aoadd().
+  template <typename T>
+  inline bool aocopy(YODA::AnalysisObjectPtr src, YODA::AnalysisObjectPtr dst, double scale) {
+    if (!aocopy<T>(src, dst)) return false;
+    dynamic_pointer_cast<T>(dst)->scaleW(scale);
+    return true;
+  }
+
   /// If @a dst and @a src both are of same subclass T, add the
   /// contents of @a src into @a dst and return true. Otherwise return
   /// false.
@@ -815,14 +825,18 @@ namespace Rivet {
     if ( !tsrc ) return false;
     shared_ptr<T> tdst = dynamic_pointer_cast<T>(dst);
     if ( !tdst ) return false;
-    tsrc->scaleW(scale);
-    *tdst += *tsrc;
+    tsrc->scaleW(scale); //< note semi-accidental modification of the input
+    try {
+      *tdst += *tsrc;
+    } catch (YODA::LogicError&) {
+      return false;
+    }
     return true;
   }
 
   /// If @a dst is the same subclass as @a src, copy the contents of @a
   /// src into @a dst and return true. Otherwise return false.
-  bool copyao(YODA::AnalysisObjectPtr src, YODA::AnalysisObjectPtr dst);
+  bool copyao(YODA::AnalysisObjectPtr src, YODA::AnalysisObjectPtr dst, double scale=1.0);
 
   /// If @a dst is the same subclass as @a src, scale the contents of
   /// @a src with @a scale and add it to @a dst and return true. Otherwise

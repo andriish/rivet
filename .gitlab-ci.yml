@@ -36,8 +36,8 @@ stages:
     - if (echo $ARCH | grep -q hepmc3); then CONF=${CONF/with-hepmc/with-hepmc3}; fi
     - echo $CONF
     - $CONF
-    - $MAKE
-    - $MAKE check
+    - $MAKE RIVET_BUILD_ALLCAT=1
+    - $MAKE check || (cat test/test-suite.log && false)
     - $MAKE install
     - cp rivetenv.sh rivetenv.csh $INSTALL_PREFIX/
     ## Basic testing
@@ -51,7 +51,7 @@ stages:
         find analyses | grep MC_TTBAR | grep cc  >> anasToCompile.txt # need at least one!
         cat anasToCompile.txt | sort --unique > anasToCompile.tmp ; mv anasToCompile.tmp anasToCompile.txt
         echo rivet-build `cat anasToCompile.txt`
-        rivet-build RivetModifiedAnas.so `cat anasToCompile.txt`
+        RIVET_BUILD_NOCAT=1 rivet-build RivetModifiedAnas.so `cat anasToCompile.txt`
         mkdir -p ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/lib/Rivet/.
         mkdir -p ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/.
         cp RivetModifiedAnas.so ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/lib/Rivet/.
@@ -198,12 +198,13 @@ get_test_hepmc:
       - local_$ARCH/
       - test_$ARCH/
       - val_$ARCH/VALDIR/Make*
-      - val_$ARCH/VALDIR/*yoda
-      - val_$ARCH/VALDIR/*html
-      - val_$ARCH/VALDIR/*diff
-      - val_$ARCH/VALDIR/tmp/*log
+      - val_$ARCH/VALDIR/*.yoda
+      - val_$ARCH/VALDIR/*.html
+      - val_$ARCH/VALDIR/*.diff
+      - val_$ARCH/VALDIR/tmp/*.log
+      - val_$ARCH/VALDIR/*_*_*/*.*
     #exclude:
-    #  - test_$ARCH/VALDIR/*/*gz
+    #  - test_$ARCH/VALDIR/*/*.gz
     expire_in: 36 hrs
 
 
@@ -268,6 +269,14 @@ check_plugin_ubuntu_gcc_hepmc3_py2:
     - TEST_PREFIX="$CI_PROJECT_DIR/test_$ARCH"
     - source $INSTALL_PREFIX/rivetenv.sh
     - cd $TEST_PREFIX
+    - ls /usr/local/lib64
+    - echo $LD_LIBRARY_PATH
+    -  |
+       if [ ! -f "/usr/local/lib64/libHepMC3search.so.4" ]; then
+         if [ -f "/usr/local/lib64/libHepMC3search.so.3" ]; then
+           mv /usr/local/lib64/libHepMC3search.so.3 /usr/local/lib64/libHepMC3search.so.4;
+         fi
+       fi
     - rivet-mkhtml --errs -o ttbar_test_plots ttbar_test_run.yoda
   artifacts:
     when: always

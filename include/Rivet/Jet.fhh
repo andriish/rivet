@@ -31,7 +31,9 @@ namespace Rivet {
     Jets();
     Jets(const std::vector<Jet>& vjs);
     FourMomenta moms() const; //< implementation in Jet.cc
-    inline operator FourMomenta () const { return moms(); }
+    operator FourMomenta () const { return moms(); }
+    Jets& operator += (const Jet& j);
+    Jets& operator += (const Jets& js);
     /// @todo Add conversion to PseudoJets
   };
 

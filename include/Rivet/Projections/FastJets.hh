@@ -17,8 +17,9 @@
 #include "fastjet/D0RunIIConePlugin.hh"
 #include "fastjet/TrackJetPlugin.hh"
 #include "fastjet/JadePlugin.hh"
-//#include "fastjet/PxConePlugin.hh"
+
 #include "Rivet/Projections/PxConePlugin.hh"
+#include "Rivet/Tools/TypeTraits.hh"
 
 namespace Rivet {
 
@@ -29,14 +30,17 @@ namespace Rivet {
 
     /// Wrapper enum for selected FastJet jet algorithms.
     /// @todo Move to JetAlg and alias here?
-    enum Algo { KT, CAM, SISCONE, ANTIKT, PXCONE,
-                      ATLASCONE, CMSCONE,
-                      CDFJETCLU, CDFMIDPOINT, D0ILCONE,
-                      JADE, DURHAM, TRACKJET, GENKTEE };
+    enum Algo { KT=0,
+                AKT=1, ANTIKT=1,
+                CA=2, CAM=2, CAMBRIDGE=2,
+                SISCONE, PXCONE,
+                ATLASCONE, CMSCONE,
+                CDFJETCLU, CDFMIDPOINT, D0ILCONE,
+                JADE, DURHAM, TRACKJET, GENKTEE };
 
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor from a FastJet JetDefinition
     ///
@@ -147,11 +151,11 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(FastJets);
 
-    //@}
+    /// @}
 
 
     /// @name Static helper functions for FastJet interaction, with tagging
-    //@{
+    /// @{
 
     /// Make PseudoJets for input to a ClusterSequence, with user_index codes for constituent- and tag-particle linking
     static PseudoJets mkClusterInputs(const Particles& fsparticles, const Particles& tagparticles=Particles());
@@ -160,12 +164,15 @@ namespace Rivet {
     /// Convert a whole list of PseudoJets to a list of Jets, with mkJet-style unpacking
     static Jets mkJets(const PseudoJets& pjs, const Particles& fsparticles, const Particles& tagparticles=Particles());
 
-    //@}
+    /// @}
 
 
     /// Reset the projection. Jet def, etc. are unchanged.
     void reset();
 
+
+    /// @name Jet-area calculations
+    /// @{
 
     /// @brief Use provided jet area definition
     ///
@@ -174,6 +181,47 @@ namespace Rivet {
     void useJetArea(fastjet::AreaDefinition* adef) {
       _adef.reset(adef);
     }
+
+    /// Don't calculate a jet area
+    void clearJetArea() {
+      _adef.reset();
+    }
+
+    /// @}
+
+
+    /// @name Jet grooming
+    /// @{
+
+    /// @brief Add a grooming transformer (base class of fastjet::Filter, etc.)
+    ///
+    /// @warning The provided pointer must be heap-allocated: it will be stored/deleted via a shared_ptr.
+    /// @note Provide an adef null pointer to re-disable jet area calculation
+    void addTrf(fastjet::Transformer* trf) {
+      _trfs.push_back(shared_ptr<fastjet::Transformer>(trf));
+    }
+
+    /// @brief Add a list of grooming transformers
+    ///
+    /// @warning The provided pointers must be heap-allocated: they will be stored/deleted via a shared_ptr.
+    /// @note Provide an adef null pointer to re-disable jet area calculation
+    template<typename TRFS, typename TRF=typename TRFS::value_type>
+    typename std::enable_if<Derefable<TRF>::value, void>::type
+    addTrfs(const TRFS& trfs) {
+      for (auto& trf : trfs) addTrf(trf);
+    }
+
+    /// Don't apply any jet transformers
+    void clearTrfs() {
+      _trfs.clear();
+    }
+
+    /// @brief Trim (filter) a jet, keeping tag and constituent info in the resulting jet
+    ///
+    /// @deprecated Use the built-in transformers system, e.g. addTrf(), instead
+    Jet trimJet(const Jet& input, const fastjet::Filter& trimmer) const;
+
+    /// @}
 
 
     /// @name Access to the jets
@@ -207,9 +255,6 @@ namespace Rivet {
     }
     /// Alias
     PseudoJets pseudojetsByRapidity(double ptmin=0.0) const { return pseudoJetsByRapidity(ptmin); }
-
-    /// Trim (filter) a jet, keeping tag and constituent info in the resulting jet
-    Jet trimJet(const Jet& input, const fastjet::Filter& trimmer) const;
 
     //@}
 
@@ -278,6 +323,9 @@ namespace Rivet {
 
     /// FastJet external plugin
     std::shared_ptr<fastjet::JetDefinition::Plugin> _plugin;
+
+    /// List of jet groomers to be applied
+    std::vector< std::shared_ptr<fastjet::Transformer> > _trfs;
 
     /// Map of vectors of y scales. This is mutable so we can use caching/lazy evaluation.
     mutable std::map<int, vector<double> > _yscales;

@@ -38,8 +38,15 @@ namespace Rivet {
     const FourMomentum tothad = pGamma + pHad;
     _theQ2 = -pGamma.mass2();
     _theW2 = tothad.mass2();
-    _theX = Q2()/(2.0 * pGamma * pHad);
-    _theY = (pGamma * pHad) / (pLepIn * pHad);
+
+    //_theX = Q2()/(2.0*(pGamma * pHad));
+    //_theY = (pGamma * pHad) / (pLepIn * pHad);
+    //std::cout << "Old: " << x() << "," << y() << std::endl;
+    // use this expression rather than the above for numerical safety. Neglects mass of incoming particles.
+    _theX = Q2()/(Q2()+W2());
+    _theY = Q2() / ( (pLepIn * pHad) * 2.0 * x());
+    //std::cout << "New: " << x() << "," << y() << std::endl;
+
     _theS = invariant(pLepIn + pHad);
 
     // Calculate boost vector for boost into HCM-system

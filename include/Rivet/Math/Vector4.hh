@@ -1428,7 +1428,7 @@ namespace Rivet {
 
   /// Sort a container of momenta by cmp and return by reference for non-const inputs
   template<typename MOMS, typename CMP>
-  inline MOMS& sortBy(MOMS& pbs, const CMP& cmp) {
+  inline MOMS& isortBy(MOMS& pbs, const CMP& cmp) {
     std::sort(pbs.begin(), pbs.end(), cmp);
     return pbs;
   }
@@ -1442,8 +1442,8 @@ namespace Rivet {
 
   /// Sort a container of momenta by pT (decreasing) and return by reference for non-const inputs
   template<typename MOMS>
-  inline MOMS& sortByPt(MOMS& pbs) {
-    return sortBy(pbs, cmpMomByPt);
+  inline MOMS& isortByPt(MOMS& pbs) {
+    return isortBy(pbs, cmpMomByPt);
   }
   /// Sort a container of momenta by pT (decreasing) and return by value for const inputs
   template<typename MOMS>
@@ -1453,8 +1453,8 @@ namespace Rivet {
 
   /// Sort a container of momenta by E (decreasing) and return by reference for non-const inputs
   template<typename MOMS>
-  inline MOMS& sortByE(MOMS& pbs) {
-    return sortBy(pbs, cmpMomByE);
+  inline MOMS& isortByE(MOMS& pbs) {
+    return isortBy(pbs, cmpMomByE);
   }
   /// Sort a container of momenta by E (decreasing) and return by value for const inputs
   template<typename MOMS>
@@ -1464,8 +1464,8 @@ namespace Rivet {
 
   /// Sort a container of momenta by Et (decreasing) and return by reference for non-const inputs
   template<typename MOMS>
-  inline MOMS& sortByEt(MOMS& pbs) {
-    return sortBy(pbs, cmpMomByEt);
+  inline MOMS& isortByEt(MOMS& pbs) {
+    return isortBy(pbs, cmpMomByEt);
   }
   /// Sort a container of momenta by Et (decreasing) and return by value for const inputs
   template<typename MOMS>
@@ -1478,12 +1478,6 @@ namespace Rivet {
 
   /// @defgroup momutils_mt MT calculation
   /// @{
-
-  /// Calculate transverse mass of a visible and an invisible 3-vector
-  inline double mT(const Vector3& vis, const Vector3& invis) {
-    // return sqrt(2*vis.perp()*invis.perp() * (1 - cos(deltaPhi(vis, invis))) );
-    return mT(vis.perp(), invis.perp(), deltaPhi(vis, invis));
-  }
 
   /// Calculate transverse mass of a visible and an invisible 4-vector
   inline double mT(const FourMomentum& vis, const FourMomentum& invis) {
