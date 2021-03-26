@@ -1,3 +1,8 @@
+2021-03-26  Johannes Jahan  <johannes.jahan@subatech.in2p3.fr>
+
+	* Fixes to histogram double-booking in STAR_2017_I1510593.
+	Some residual inconsistencies with HepData uncertainties.
+
 2021-03-25  Christian Gutschow  <chris.g@cern.ch>
 
 	* Submission of ATLAS_2021_I1852328 (WW production at 13 TeV)
