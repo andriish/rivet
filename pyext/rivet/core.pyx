@@ -83,7 +83,7 @@ cdef class AnalysisHandler:
             self._ptr.writeData_FILE(file_or_filename.encode('utf-8'))
         else:
             self._ptr.writeData_OSTR(oss, fmt.encode('utf-8'))
-            file_or_filename.write(oss.str().encode('utf-8'))
+            file_or_filename.write(oss.str().decode('utf-8'))
 
 
     def nominalCrossSection(self):
