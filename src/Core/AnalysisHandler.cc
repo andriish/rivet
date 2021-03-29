@@ -5,9 +5,11 @@
 #include "Rivet/Tools/ParticleName.hh"
 #include "Rivet/Tools/BeamConstraint.hh"
 #include "Rivet/Tools/RivetPaths.hh"
+#include "Rivet/Tools/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "YODA/IO.h"
+#include "YODA/WriterYODA.h"
 #include <iostream>
 #include <regex>
 
@@ -848,11 +850,23 @@ namespace Rivet {
   }
 
 
+  void AnalysisHandler::writeData(std::ostream& ostr, const string& fmt) const {
+
+    const vector<YODA::AnalysisObjectPtr> output = getYodaAOs(true);
+    try {
+      YODA::write(ostr, begin(output), end(output), fmt);
+    } catch (...) { //< YODA::WriteError&
+      throw UserError("Unexpected error in writing output");
+    }
+
+  }
+
+
   void AnalysisHandler::writeData(const string& filename) const {
 
     const vector<YODA::AnalysisObjectPtr> output = getYodaAOs(true);
     try {
-      YODA::write(filename, output.begin(), output.end());
+      YODA::write(filename, begin(output), end(output));
     } catch (...) { //< YODA::WriteError&
       throw UserError("Unexpected error in writing file: " + filename);
     }

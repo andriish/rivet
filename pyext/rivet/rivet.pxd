@@ -8,6 +8,11 @@ from libcpp.memory cimport unique_ptr
 ctypedef int PdgId
 ctypedef pair[PdgId,PdgId] PdgIdPair
 
+cdef extern from "<sstream>" namespace "std":
+    cdef cppclass ostringstream:
+        ostringstream()
+        string& str()
+
 cdef extern from "Rivet/AnalysisHandler.hh" namespace "Rivet":
     cdef cppclass AnalysisHandler:
         void setIgnoreBeams(bool)
@@ -21,7 +26,8 @@ cdef extern from "Rivet/AnalysisHandler.hh" namespace "Rivet":
         vector[string] analysisNames() const
         vector[string] stdAnalysisNames() const
         # Analysis* analysis(string)
-        void writeData(string&)
+        void writeData_FILE "writeData" (string&) except +
+        void writeData_OSTR "writeData" (ostringstream&, string&) except +
         void readData(string&)
         double nominalCrossSection()
         void finalize()

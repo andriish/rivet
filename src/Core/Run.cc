@@ -22,7 +22,7 @@ namespace Rivet {
 
 
   Run::Run(AnalysisHandler& ah)
-    : _ah(ah), _fileweight(1.0), _xs(NAN)
+    : _ah(ah)
   { }
 
 
