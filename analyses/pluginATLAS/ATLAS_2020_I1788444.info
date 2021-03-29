@@ -38,7 +38,7 @@ Description:
     N.B.: Data correspond to average of electron and muon channel. 
     Use LMODE=EL,MU to run on individual channels.'
 BibKey: Aad:2020gfi
-BibTex: '@article{Aad:2020gfi,
+BibTeX: '@article{Aad:2020gfi,
     author = "Aad, Georges and others",
     collaboration = "ATLAS",
     title = "{Measurements of the production cross-section for a $Z$ boson in association with $b$-jets in proton-proton collisions at $\sqrt{s} = 13$ TeV with the ATLAS detector}",
