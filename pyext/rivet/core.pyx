@@ -82,7 +82,7 @@ cdef class AnalysisHandler:
         if type(file_or_filename) is str:
             self._ptr.writeData_FILE(file_or_filename.encode('utf-8'))
         else:
-            self._ptr.writeData_OSTR(oss, fmt)
+            self._ptr.writeData_OSTR(oss, fmt.encode('utf-8'))
             file_or_filename.write(oss.str())
 
 
