@@ -3,6 +3,7 @@ XLabel=$p_\text{T}$ [GeV]
 YLabel=$\text{d}^2\sigma / \text{d}p_\text{T}\text{d}y$ [pb/GeV]
 LogY=1
 LogX=1
+YMin=0.000001
 END PLOT
 
 # BEGIN PLOT /ATLAS_2018_I1634970/d02-x01-y.*
