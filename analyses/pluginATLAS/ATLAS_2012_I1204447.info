@@ -5,7 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1204447
 Status: VALIDATED
-Reentrant: false
+Reentrant: true
 Authors:
  - Joern Mahlstedt <joern.mahlstedt@cern.ch>
 References:

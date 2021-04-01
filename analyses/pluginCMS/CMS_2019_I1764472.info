@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1764472
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Dennis Schwarz <dennis.schwarz@desy.de>
  - Roman Kogler

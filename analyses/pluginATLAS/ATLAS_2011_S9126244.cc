@@ -310,7 +310,6 @@ namespace Rivet {
         }
 
         for (size_t x = 0; x < plots._h_gapVsPtBarVeto.histos().size(); x++) {
-          Scatter2DPtr tmp;
           divide(plots._h_gapVsPtBarVeto.histos()[x], plots._h_gapVsPtBarInc.histos()[x],
                  plots._ratio_PtBar[x]);
         }

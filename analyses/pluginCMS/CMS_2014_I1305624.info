@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1305624
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Sunanda Banerjee <Sunanda.Banerjee@cern.ch>
  - Sandeep Bhowmik <Sandeep.Bhowmik@cern.ch>

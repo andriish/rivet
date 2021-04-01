@@ -6,6 +6,7 @@ Collider: LHC
 SpiresID: 8941262
 InspireID: 884811
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Wolfram Erdmann <wolfram.erdmann@psi.ch>
 References:

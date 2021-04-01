@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1753680
 Status: VALIDATED
+Reentrant: true
 Authors:
  - cms-pag-conveners-smp@cern.ch
  - Jay Lawhorn <jay.mathew.lawhorn@cern.ch>

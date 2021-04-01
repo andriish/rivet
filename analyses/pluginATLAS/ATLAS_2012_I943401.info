@@ -5,7 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 943401
 Status: VALIDATED
-Reentrant: false
+Reentrant: true
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>
 References:

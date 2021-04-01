@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1272853
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Sunil Bansal <sunil.bansal@cern.ch>
 References:

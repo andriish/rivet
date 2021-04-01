@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1711625
 Status: VALIDATED
+Reentrant: true
 Authors:
  - cms-pag-conveners-smp@cern.ch
  - Kyeongpil Lee <kplee@cern.ch>

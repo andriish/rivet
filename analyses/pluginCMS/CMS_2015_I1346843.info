@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1346843
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Andrew Kubik  <Andrew.Michael.Kubik@cern.ch>
  - Michael Schmitt  <schmittm@lotus.phys.northwestern.edu>

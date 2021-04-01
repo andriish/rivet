@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1256943
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Lorenzo Viliani <lorenzo.viliani@cern.ch>
  - Piergiulio Lenzi <piergiulio.lenzi@cern.ch>

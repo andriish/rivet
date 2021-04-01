@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1430892
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Jacob Linacre <jacob.linacre@cern.ch>
 References:

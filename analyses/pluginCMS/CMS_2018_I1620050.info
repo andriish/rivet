@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1620050
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Youn Jung Roh <youn.jung.roh@cern.ch>,
  - Suyong Choi <su.yong.choi@cern.ch>, 

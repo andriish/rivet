@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1087342
 Status: VALIDATED
+Reentrant: true
 Authors:
   - Albert Knutsson <albert.knutsson@cern.ch>
   - Rasmus Sloth Hansen <rsh07@phys.au.dk>
