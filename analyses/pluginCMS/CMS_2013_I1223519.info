@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1223519
 Status: UNVALIDATED
+Reentrant: true
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>
 References:

@@ -66,10 +66,10 @@ namespace Rivet {
           // fill pt spectra
           _h[p.pid()]->fill(p.pt() / GeV);
           // fill tmp histos for ratios
-          if (p.abspid() != PID::PROTON)
-            _hkpi[p.abspid()]->fill(p.pt() / GeV);
-          if (p.abspid() != PID::KPLUS)
-            _hppi[p.abspid()]->fill(p.pt() / GeV);
+          //if (p.abspid() != PID::PROTON)
+          //  _hkpi[p.abspid()]->fill(p.pt() / GeV);
+          //if (p.abspid() != PID::KPLUS)
+          //  _hppi[p.abspid()]->fill(p.pt() / GeV);
         }
 
       }
@@ -88,7 +88,7 @@ namespace Rivet {
       // divide(_hkpi[PID::KPLUS],  _hkpi[PID::PIPLUS], _s["k/pi"]);
       // divide(_hppi[PID::PROTON], _hppi[PID::PIPLUS], _s["p/pi"]);
 
-      scale({_h[PID::PIPLUS], _h[PID::KPLUS], _h[PID::PROTON], _h[PID::PIMINUS], _h[PID::KMINUS], _h[PID::PBAR], }, 1./2./sumOfWeights());
+      scale(_h, 1./2./sumOfWeights());
 
     }
 

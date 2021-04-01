@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1218372
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Samantha Dooling <samantha.dooling@desy.de>
 References:

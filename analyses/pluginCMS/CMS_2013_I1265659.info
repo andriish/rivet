@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1265659
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Maxime Gouzevitch <mgouzevi@cern.ch>
  - Chawon Park <parknkim@gmail.com>

@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1491950
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Regina Demina <R.Demina@cern.ch>
  - Yi-Ting Duh <kaliduh@gmail.com>

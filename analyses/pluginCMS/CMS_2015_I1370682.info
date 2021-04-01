@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1370682
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Javier Fernandez <Javier.Fernandez@cern.ch>
  - Jungwan John Goh <Junghwan.Goh@cern.ch>

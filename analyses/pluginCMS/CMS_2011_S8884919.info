@@ -6,6 +6,7 @@ Collider: LHC
 SpiresID: 8884919
 InspireID: 879315
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Romain Rougny <romain.rougny@cern.ch>
 References:

@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1421646
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Giannis Flouris
  - Panos Kokkas

@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1518399
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Torben Dreyer <torben.dreyer@desy.de>
  - Roman Kogler <roman.kogler@cern.ch>

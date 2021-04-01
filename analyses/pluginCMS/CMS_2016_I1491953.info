@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1491953
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Emanuela Barberis <Emanuela.Barberis@cern.ch>
  - B. Bhawandeep <b.bhawandeep@cern.ch>

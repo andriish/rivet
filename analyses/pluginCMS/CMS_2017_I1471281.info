@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1471281
 Status: VALIDATED
+Reentrant: true
 Authors:
  - SangEun Lee	<d4space@google.com>
  - Khakimjan Butanov	<khakimjan@yahoo.com>

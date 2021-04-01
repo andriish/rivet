@@ -6,7 +6,7 @@ Collider: LHC
 SpiresID: 8918562
 InspireID: 882098
 Status: VALIDATED
-Reentrant: false
+Reentrant: true
 Authors:
  - Thomas Burgess <thomas.burgess@cern.ch>
  - Andy Buckley <andy.buckley@cern.ch>

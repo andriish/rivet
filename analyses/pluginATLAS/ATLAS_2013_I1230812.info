@@ -5,7 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1230812
 Status: VALIDATED
-Reentrant: false
+Reentrant: true
 Authors:
  - Katharina Bierwagen <katharina.bierwagen@cern.ch>
  - Frank Siegert <frank.siegert@cern.ch>
