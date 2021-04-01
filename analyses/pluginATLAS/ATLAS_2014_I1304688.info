@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1304688
 Status: VALIDATED
+Reentrant: true
 Authors:
  - W. H. Bell <W.Bell@cern.ch>
  - A. Grohsjean <alexander.grohsjean@cern.ch>

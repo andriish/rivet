@@ -6,6 +6,7 @@ Collider: LHC
 SpiresID: 9041966
 InspireID: 897002
 Status: OBSOLETE
+Reentrant: false
 Authors:
  - Angela Chen <aqchen@fas.harvard.edu>
 References:

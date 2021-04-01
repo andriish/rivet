@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1487726
 Status: VALIDATED
+Reentrant: true
 Authors:
  - marek.schoenherr@cern.ch
  - mileswu@uchicago.edu

@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC 7TeV
 InspireID: 1119557
 Status: VALIDATED
+Reentrant: false
 Authors:
  - Lily Asquith <lasquith@hep.anl.gov>
  - Roman Lysak <lysak@fzu.cz>

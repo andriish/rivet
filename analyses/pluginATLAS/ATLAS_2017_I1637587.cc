@@ -6,11 +6,11 @@
 
 namespace Rivet {
 
+  /// @brief Soft drop mass at 13 TeV
   class ATLAS_2017_I1637587: public Analysis {
   public:
 
     /// Constructor
-    /// @brief Soft drop mass at 13 TeV
     DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2017_I1637587);
 
     /// Book cuts and projections

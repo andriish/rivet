@@ -1,6 +1,7 @@
 Name: MC_HINC
 Summary: Monte Carlo validation observables for $h[\tau^+ \, \tau^-]$ production
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>
 RunInfo:

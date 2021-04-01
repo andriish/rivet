@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1707015
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Yichen Li <yichen.li@cern.ch>
  - Andy Buckley <andy.buckley@cern.ch>

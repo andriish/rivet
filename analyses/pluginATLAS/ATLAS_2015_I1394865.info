@@ -4,7 +4,8 @@ Summary: Inclusive 4-lepton lineshape
 Experiment: ATLAS
 Collider: LHC
 InspireID: 1394865
-Status: VALIDATED
+Status: True
+Reentrant: false
 Authors:
  - Bing Li <bing.li@cern.ch>
 References:

@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1467230
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Roman Lysak <roman.lysak@cern.ch>
 References:

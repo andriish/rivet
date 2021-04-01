@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1326641
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Aliaksei Hrynevich <aliaksei.hrynevich@cern.ch>
  - Pavel Starovoitov <pavel.starovoitov@cern.ch>

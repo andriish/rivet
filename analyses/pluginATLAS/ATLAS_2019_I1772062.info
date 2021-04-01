@@ -3,8 +3,8 @@ Year: 2020
 Summary: Soft-drop observables
 Experiment: ATLAS
 Collider: LHC
-Status: VALIDATED 
-Reentrant: True
+Status: VALIDATED
+Reentrant: true
 Authors:
  - Jennifer Roloff <jroloff2@gmail.com>
 References:

@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1676551
 Status: VALIDATED NOTREENTRY SINGLEWEIGHT
+Reentrant: false
 Authors:
  - Derek Yeung
  - Andy Buckley <andy.buckley@cern.ch>

@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1444991
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Kathrin Becker <kathrin.becker@cern.ch>
 References: 

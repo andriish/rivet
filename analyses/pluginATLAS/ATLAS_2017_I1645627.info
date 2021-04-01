@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1645627
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Ana Rosario Cueto Gomez <ana.rosario.cueto.gomez@cern.ch>
  - Christian Gutschow <chris.g@cern.ch>

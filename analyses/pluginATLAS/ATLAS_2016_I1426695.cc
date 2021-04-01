@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Track-based minimum bias at 8 TeV
   class ATLAS_2016_I1426695 : public Analysis {
   public:
 

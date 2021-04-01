@@ -8,7 +8,7 @@
 namespace Rivet {
 
 
-  /// Measurement of forward W and Z boson production with jets in pp collisions at 8 TeV
+  /// @brief Measurement of forward W and Z boson production with jets in pp collisions at 8 TeV
   class LHCB_2016_I1454404 : public Analysis {
   public:
 
@@ -84,7 +84,7 @@ namespace Rivet {
         book(_h_rwpm, 2,1,4);
         book(_h_aw, 3,1,1);
         // this is a temporary histogram to construct rwz later
-        book(_h_wj, "TMP/wj", refData(1,1,1));
+        book(_h_wj, "_temp_wj", refData(1,1,1));
       }
     }
 
@@ -173,7 +173,7 @@ namespace Rivet {
         scale({_h_zj, _h_yz_zj, _h_etaj_zj, _h_ptj_zj, _h_dphi_zj}, scalefactor);
       }
       if (_mode == 0 ) {
-        scale({_h_wj}, scalefactor); // need to scale this for consistency
+        scale(_h_wj, scalefactor); // need to scale this for consistency
         divide(_h_wpj, _h_zj, _h_rwpz);
         divide(_h_wmj, _h_zj, _h_rwmz);
         divide(_h_wj, _h_zj, _h_rwz);
@@ -183,9 +183,6 @@ namespace Rivet {
         divide(_h_wpj, _h_wmj, _h_rwpm);
         asymm(_h_wpj, _h_wmj, _h_aw);
       }
-
-      // removing booked intermediary histos (they tend to appear in plots when multiple predictions are compared)
-      removeAnalysisObject(_h_wj);
 
     }
 

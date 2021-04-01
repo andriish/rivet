@@ -5,6 +5,7 @@ Experiment: LHCB
 Collider: LHC
 InspireID: 1454404
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Abbie Jane Chadwick <abbie.jane.chadwick@cern.ch>
  - Stephen Farry <stephen.farry@cern.ch>

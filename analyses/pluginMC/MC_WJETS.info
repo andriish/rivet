@@ -1,6 +1,7 @@
 Name: MC_WJETS
 Summary: Monte Carlo validation observables for $W[e \, \nu]$ + jets production
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>
  - Christian Gutschow <chris.g@cern.ch>

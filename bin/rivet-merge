@@ -45,8 +45,6 @@ extragroup = parser.add_argument_group("Run settings")
 extragroup.add_argument("YODAFILES", nargs="+", help="data files to merge")
 extragroup.add_argument("-o", "--output-file", dest="OUTPUTFILE",
                         default="Rivet.yoda", help="specify the output histo file path (default = %(default)s)")
-extragroup.add_argument("-p", "--preload-file", dest="PRELOADFILE",
-                        default=None, help="specify a YODA file to initialize (default = %(default)s)")
 extragroup.add_argument("-e", "--equiv", dest="EQUIV", action="store_true", default=False,
                         help="assume that the yoda files are equivalent but statistically independent (default= assume that different files contains different processes)")
 # TODO: could the merge- and add-options settings be specified in the info file in a MergeSettings heading?

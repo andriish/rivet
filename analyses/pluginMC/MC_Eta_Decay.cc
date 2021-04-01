@@ -25,27 +25,27 @@ namespace Rivet {
       // Book histograms
       double meta[2]={547.45, 957.78};
       for(unsigned int ix=0;ix<2;++ix) {
-	std::ostringstream title; title << "_" << ix;
-	_mgammagamma.push_back(Histo1DPtr());
-	book(_mgammagamma.back(), "mgammagamma" +title.str(),200,0.,meta[ix]);
-	_mpi0gamma.push_back(Histo1DPtr());
-	book(_mpi0gamma.back(), "mpi0gamma"   +title.str(),200,0.,meta[ix]);
-	_mpipgamma.push_back(Histo1DPtr());
-	book(_mpipgamma.back(), "mpipgamma"   +title.str(),200,0.,meta[ix]);
-	_mpimgamma.push_back(Histo1DPtr());
-	book(_mpimgamma.back(), "mpimgamma"   +title.str(),200,0.,meta[ix]);
-	_photonenergy.push_back(Histo1DPtr());
-	book(_photonenergy.back(), "photonenergy"+title.str(),200,0.,meta[ix]);
-	_mpippim.push_back(Histo1DPtr());
-	book(_mpippim.back(), "mpippim"     +title.str(),200,0.,meta[ix]);
-	_dpippim.push_back(Histo1DPtr());
-	book(_dpippim.back(), "dpippim"     +title.str(),200,200.,meta[ix]);
-	_dpi0pi0.push_back(Histo1DPtr());
-	book(_dpi0pi0.back(), "dpi0pi0"     +title.str(),200,200.,meta[ix]);
-	_dpi0pip.push_back(Histo1DPtr());
-	book(_dpi0pip.back(), "dpi0pip"     +title.str(),200,200.,meta[ix]);
-	_dpi0pim.push_back(Histo1DPtr());
-	book(_dpi0pim.back(), "dpi0pim"     +title.str(),200,200.,meta[ix]);
+        std::ostringstream title; title << "_" << ix;
+        _mgammagamma.push_back(Histo1DPtr());
+        book(_mgammagamma.back(), "mgammagamma" +title.str(),200,0.,meta[ix]);
+        _mpi0gamma.push_back(Histo1DPtr());
+        book(_mpi0gamma.back(), "mpi0gamma"   +title.str(),200,0.,meta[ix]);
+        _mpipgamma.push_back(Histo1DPtr());
+        book(_mpipgamma.back(), "mpipgamma"   +title.str(),200,0.,meta[ix]);
+        _mpimgamma.push_back(Histo1DPtr());
+        book(_mpimgamma.back(), "mpimgamma"   +title.str(),200,0.,meta[ix]);
+        _photonenergy.push_back(Histo1DPtr());
+        book(_photonenergy.back(), "photonenergy"+title.str(),200,0.,meta[ix]);
+        _mpippim.push_back(Histo1DPtr());
+        book(_mpippim.back(), "mpippim"     +title.str(),200,0.,meta[ix]);
+        _dpippim.push_back(Histo1DPtr());
+        book(_dpippim.back(), "dpippim"     +title.str(),200,200.,meta[ix]);
+        _dpi0pi0.push_back(Histo1DPtr());
+        book(_dpi0pi0.back(), "dpi0pi0"     +title.str(),200,200.,meta[ix]);
+        _dpi0pip.push_back(Histo1DPtr());
+        book(_dpi0pip.back(), "dpi0pip"     +title.str(),200,200.,meta[ix]);
+        _dpi0pim.push_back(Histo1DPtr());
+        book(_dpi0pim.back(), "dpi0pim"     +title.str(),200,200.,meta[ix]);
       }
       _dpi0pi0.push_back(Histo1DPtr());
       book(_dpi0pi0.back(), "dpi0pi0_2",200,200.,500.   );
@@ -147,16 +147,16 @@ namespace Rivet {
 
       // normalize to unity
       for(unsigned int ix=0;ix<2;++ix) {
-	normalize(_mgammagamma[ix]);
-	normalize(_mpi0gamma[ix]);
-	normalize(_mpipgamma[ix]);
-	normalize(_mpimgamma[ix]);
-	normalize(_mpippim[ix]);
-	normalize(_photonenergy[ix]);
-	normalize(_dpippim[ix]);
-	normalize(_dpi0pi0[ix]);
-	normalize(_dpi0pip[ix]);
-	normalize(_dpi0pim[ix]);
+        normalize(_mgammagamma[ix]);
+        normalize(_mpi0gamma[ix]);
+        normalize(_mpipgamma[ix]);
+        normalize(_mpimgamma[ix]);
+        normalize(_mpippim[ix]);
+        normalize(_photonenergy[ix]);
+        normalize(_dpippim[ix]);
+        normalize(_dpi0pi0[ix]);
+        normalize(_dpi0pip[ix]);
+        normalize(_dpi0pim[ix]);
       }
       normalize(_dpi0pi0[2]);
       normalize(_dpippim[2]);

@@ -4,7 +4,8 @@ Summary: A simple analysis using the DISKinematics projection.
 
 Collider: HERA
 
-Status: UNVALIDATED REENTRANT
+Status: UNVALIDATED
+Reentrant: true
 
 Authors:
  - Hannes Jung <hannes.jung@desy.de>

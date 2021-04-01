@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1307243
 Status: VALIDATED
+Reentrant: true
 Authors:
  - James Robinson <james.robinson@cern.ch>
 References:

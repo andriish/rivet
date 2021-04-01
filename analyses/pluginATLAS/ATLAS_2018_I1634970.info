@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1634970
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Jonathan Bossio <jonathan.bossio@cern.ch>
  - Zdenek Hubacek  <zdenek.hubacek@cern.ch>

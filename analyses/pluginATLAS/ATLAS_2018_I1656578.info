@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1656578
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Francesco La Ruffa <francesco.la.ruffa@cern.ch>
  - Christian Gutschow <chris.g@cern.ch>

@@ -101,8 +101,13 @@ namespace Rivet {
     }
 
     // Check if reentrant
-    if ( ai->statuscheck("REENTRANT") && !ai->statuscheck("NOTREENTRY") )
-      ai->_reentrant = true;
+    try {
+      if (doc["Reentrant"]) ai->_reentrant = doc["Reentrant"].as<bool>();
+    } catch(...) {
+      if ( ai->statuscheck("REENTRANT") && !ai->statuscheck("NOTREENTRY") ) {
+        ai->_reentrant = true;
+      }
+    }
 
     // Beam particle identities
     try {

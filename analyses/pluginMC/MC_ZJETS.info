@@ -1,6 +1,7 @@
 Name: MC_ZJETS
 Summary: Monte Carlo validation observables for $Z[\ell^+ \, \ell^-]$ + jets production
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>
  - Christian Gutschow <chris.g@cern.ch>

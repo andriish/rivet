@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC 7TeV
 InspireID: 954993
 Status: VALIDATED
+Reentrant: false
 Authors:
  - Lynn Marx   <Lynn.Marx@hep.manchester.ac.uk>
  - Roman Lysak <lysak@fzu.cz>

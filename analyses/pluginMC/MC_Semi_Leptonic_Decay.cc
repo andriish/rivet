@@ -250,59 +250,59 @@ namespace Rivet {
     void analyze(const Event& event) {
       // loop over unstable particles
       for(const Particle& meson : apply<UnstableParticles>(event, "UFS").particles()) {
-	int id = meson.pid();
-	// spin 0 mesons
-	if(!PID::isMeson(id)) continue;
-	if(abs(id)%10!=1) continue;
-	unsigned int nstable(0);
-	Particles lp, lm, nu, nub, out;
-	findDecayProducts(meson,nstable,lp,lm,nu,nub,out);
-	if(nstable!=3 || out.size()!=1) continue;
-	int ilep=0;
-	FourMomentum plep,pmnu=out[0].momentum();
-	double me2(0.);
-	if( lp.size()==1 && nu.size()==1 && out.size()==1 ) {
-	  if(nu[0].pid()  != -lp[0].pid()+1) continue;
-	  ilep =  lp[0].pid();
-	  plep = nu[0].momentum()+lp[0].momentum();
-	  pmnu += nu[0].momentum();
-	  me2 = lp[0].mass2();
-	}
-	else if( lm.size()==1 && nub.size()==1 && out.size()==1 ) {
-	  if(nub[0].pid() != -lm[0].pid()-1) continue;
-	  ilep =  lm[0].pid();
-	  plep = nub[0].momentum()+lm[0].momentum();
-	  pmnu += nub[0].momentum();
-	  me2 = lm[0].mass2();
-	}
-	else
-	  continue;
-	// check if histos already exist
-	unsigned int iloc=0;
-	bool found(false);
-	while(!found&&iloc<_incoming.size()) {
-	  if(_incoming[iloc] == id  &&
-	     _outgoing[iloc] == out[0].pid() &&
-	     ilep==_outgoingL[iloc]) found=true; 
-	  else ++iloc;
-	}
-	if(!found) {
-	  MSG_WARNING("MC_Semi_Leptonic_Decay" << id << " " << out[0].pid() << " " << " " << ilep << " "
-		      << meson.mass() << "\n");
-	  continue;
-	}
-	// add the results to the histogram
-	_scale[iloc]->fill(plep.mass()/MeV);
-	double ee = 0.5/meson.mass()*(meson.mass2()-pmnu.mass2()+me2);
-	_energy[iloc]->fill(ee/MeV);
+        int id = meson.pid();
+        // spin 0 mesons
+        if(!PID::isMeson(id)) continue;
+        if(abs(id)%10!=1) continue;
+        unsigned int nstable(0);
+        Particles lp, lm, nu, nub, out;
+        findDecayProducts(meson,nstable,lp,lm,nu,nub,out);
+        if(nstable!=3 || out.size()!=1) continue;
+        int ilep=0;
+        FourMomentum plep,pmnu=out[0].momentum();
+        double me2(0.);
+        if( lp.size()==1 && nu.size()==1 && out.size()==1 ) {
+          if(nu[0].pid()  != -lp[0].pid()+1) continue;
+          ilep =  lp[0].pid();
+          plep = nu[0].momentum()+lp[0].momentum();
+          pmnu += nu[0].momentum();
+          me2 = lp[0].mass2();
+        }
+        else if( lm.size()==1 && nub.size()==1 && out.size()==1 ) {
+          if(nub[0].pid() != -lm[0].pid()-1) continue;
+          ilep =  lm[0].pid();
+          plep = nub[0].momentum()+lm[0].momentum();
+          pmnu += nub[0].momentum();
+          me2 = lm[0].mass2();
+        }
+        else
+          continue;
+        // check if histos already exist
+        unsigned int iloc=0;
+        bool found(false);
+        while(!found&&iloc<_incoming.size()) {
+          if(_incoming[iloc] == id  &&
+             _outgoing[iloc] == out[0].pid() &&
+             ilep==_outgoingL[iloc]) found=true; 
+          else ++iloc;
+        }
+        if(!found) {
+          MSG_WARNING("MC_Semi_Leptonic_Decay" << id << " " << out[0].pid() << " " << " " << ilep << " "
+                << meson.mass() << "\n");
+          continue;
+        }
+        // add the results to the histogram
+        _scale[iloc]->fill(plep.mass()/MeV);
+        double ee = 0.5/meson.mass()*(meson.mass2()-pmnu.mass2()+me2);
+        _energy[iloc]->fill(ee/MeV);
       }
     }
 
     /// Normalise histograms etc., after the run
     void finalize() {
       for(unsigned int ix=0;ix<_energy.size();++ix) {
-	normalize(_energy);
-	normalize(_scale );
+        normalize(_energy);
+        normalize(_scale );
       }
     }
 

@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1734263
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Kristin Lohwasser <kristin.lohwasser@cern.ch>
  - Christian Gutschow <chris.g@cern.ch>

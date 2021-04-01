@@ -186,12 +186,12 @@ namespace Rivet {
       normalize(_dalitz3);
       // omega/phi
       for(unsigned int ix=0;ix<2;++ix) {
-	normalize(_h_xhist [ix]);
-	normalize(_h_yhist [ix]);
-	normalize(_h_mplus [ix]);
-	normalize(_h_mminus[ix]);
-	normalize(_h_m0    [ix]);
-	normalize(_h_dalitz[ix]);
+        normalize(_h_xhist [ix]);
+        normalize(_h_yhist [ix]);
+        normalize(_h_mplus [ix]);
+        normalize(_h_mminus[ix]);
+        normalize(_h_m0    [ix]);
+        normalize(_h_dalitz[ix]);
       }
     }
 

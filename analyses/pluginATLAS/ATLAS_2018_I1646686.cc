@@ -248,7 +248,7 @@ namespace Rivet {
         LorentzTransform centreOfMassTrans;
         ttbar.setX(0);
         ttbar.setY(0);
-	if (ttbar.betaVec().mod2() > 1) return -99;
+        if (ttbar.betaVec().mod2() > 1) return -99;
         centreOfMassTrans.setBetaVec( -ttbar.betaVec() );
         FourMomentum t1_star = centreOfMassTrans.transform(t1);
         double cosThetaStar;
@@ -295,10 +295,10 @@ namespace Rivet {
           book(_h[name], index, 1, 1 );
           book(_h[name + "_norm"], index + 13, 1, 1 );
         }
-	if (_mode != 0) {
-	  book(_h[name + "_parton"], index + 82, 1, 1 );
-	  book(_h[name + "_parton_norm"], index + 97, 1, 1 );
-	}
+        if (_mode != 0) {
+          book(_h[name + "_parton"], index + 82, 1, 1 );
+          book(_h[name + "_parton_norm"], index + 97, 1, 1 );
+        }
       }
 
   };

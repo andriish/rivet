@@ -557,54 +557,54 @@ namespace Rivet {
       normalize(_h_2B_mKK   );
       // 3 hadrons
       for(unsigned int ix=0;ix<4;++ix) {
-	if(ix<3) {
-	  normalize(_h_3B_pippimpim  [ix]);
-	  normalize(_h_3B_pi0pi0pim  [ix]);
-	  normalize(_h_3B_pi0pi0km   [ix]);
-	  normalize(_h_3B_kspimks    [ix]);
-	  normalize(_h_3B_klpimkl    [ix]);
-	}
-	normalize(_h_3B_kmpimkp    [ix]);
-	normalize(_h_3B_kmpi0k0    [ix]);
-	normalize(_h_3B_kmpimpip   [ix]);
-	normalize(_h_3B_pimk0pi0   [ix]);
-	normalize(_h_3B_pimpi0eta  [ix]);
-	normalize(_h_3B_pimpi0gamma[ix]);
-	normalize(_h_3B_kspimkl    [ix]);
+        if(ix<3) {
+          normalize(_h_3B_pippimpim  [ix]);
+          normalize(_h_3B_pi0pi0pim  [ix]);
+          normalize(_h_3B_pi0pi0km   [ix]);
+          normalize(_h_3B_kspimks    [ix]);
+          normalize(_h_3B_klpimkl    [ix]);
+        }
+        normalize(_h_3B_kmpimkp    [ix]);
+        normalize(_h_3B_kmpi0k0    [ix]);
+        normalize(_h_3B_kmpimpip   [ix]);
+        normalize(_h_3B_pimk0pi0   [ix]);
+        normalize(_h_3B_pimpi0eta  [ix]);
+        normalize(_h_3B_pimpi0gamma[ix]);
+        normalize(_h_3B_kspimkl    [ix]);
       }
       // 4 pion decays
       for(unsigned int ix=0;ix<5;++ix) {
-	normalize(_h_4B_pipi  [ix]);
-	normalize(_h_4B_pipipi[ix]);
+        normalize(_h_4B_pipi  [ix]);
+        normalize(_h_4B_pipipi[ix]);
       }
       normalize(_h_4B_pipi[5]);
       for(unsigned int ix=0;ix<2;++ix) {
-	normalize(_h_4B_pipipipi[ix]);
+        normalize(_h_4B_pipipipi[ix]);
       }
       // 5 pions
       normalize(_h_5B_q1);
       for(unsigned int ix=0;ix<5;++ix) {
-	normalize(_h_5B_pipi1);
-	normalize(_h_5B_pipipi1);
+        normalize(_h_5B_pipi1);
+        normalize(_h_5B_pipipi1);
       }
       for(unsigned int ix=0;ix<3;++ix) {
-	normalize(_h_5B_pipipipi1);
+        normalize(_h_5B_pipipipi1);
       }
       // 4 pi0  pi-
       normalize(_h_5B_q2);
       for(unsigned int ix=0;ix<2;++ix) {
-	normalize(_h_5B_pipi2);
-	normalize(_h_5B_pipipi2);
-	normalize(_h_5B_pipipipi2);
+        normalize(_h_5B_pipi2);
+        normalize(_h_5B_pipipi2);
+        normalize(_h_5B_pipipipi2);
       }
       // 3 pi- 2 pi+
       normalize(_h_5B_q3);
       for(unsigned int ix=0;ix<3;++ix) {
-	normalize(_h_5B_pipi3);
-	normalize(_h_5B_pipipi3);
+        normalize(_h_5B_pipi3);
+        normalize(_h_5B_pipipi3);
       }
       for(unsigned int ix=0;ix<2;++ix) {
-	normalize(_h_5B_pipipipi3);
+        normalize(_h_5B_pipipipi3);
       }
     }
 

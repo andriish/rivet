@@ -212,10 +212,10 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       if (_mode != 2){
-	scale(_h_fiducial_3l, crossSection()/sumOfWeights()/femtobarn);
+        scale(_h_fiducial_3l, crossSection()/sumOfWeights()/femtobarn);
       }
       if (_mode != 1){
-	scale(_h_2l2j, crossSection()/sumOfWeights()/femtobarn);
+        scale(_h_2l2j, crossSection()/sumOfWeights()/femtobarn);
       }
     }
 

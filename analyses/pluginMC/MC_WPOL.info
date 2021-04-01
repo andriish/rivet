@@ -1,6 +1,7 @@
 Name: MC_WPOL
 Summary: Monte Carlo validation observables for $W$ polarisation
 Status: VALIDATED
+Reentrant: true
 Authors:
 - Frank Siegert <frank.siegert@cern.ch>
 References:

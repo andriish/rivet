@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1282441
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Tim Martin <tim.martin@cern.ch>
  - Kiran Joshi <kiran.joshi@cern.ch>

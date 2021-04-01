@@ -7,6 +7,7 @@
 namespace Rivet {
 
 
+  ///@brief: Electroweak Wjj production at 8 TeV
   class ATLAS_2017_I1517194 : public Analysis {
   public:
 
@@ -14,7 +15,6 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    ///@brief: Electroweak Wjj production at 8 TeV
     DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2017_I1517194);
     //@}
 

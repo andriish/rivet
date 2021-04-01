@@ -1057,7 +1057,7 @@ class RatioPlot(Plot):
 
         if (self.name+'YLabel') in inputdata.description:
             inputdata.description['YLabel']=inputdata.description[self.name+'YLabel']
-        inputdata.description['YLabel']='\\rput(-%s,0){%s}'%(0.5*inputdata.description['PlotSizeY']/inputdata.description['PlotSizeX'],inputdata.description['YLabel'])
+        inputdata.description['YLabel']='\\rput(-%s,0){%s}'%(0.5*inputdata.attr_float('PlotSizeY')/inputdata.attr_float('PlotSizeX'),inputdata.description['YLabel'])
         if (self.name+'YMin') in inputdata.description:
             inputdata.description['YMin']=inputdata.description[self.name+'YMin']
         if (self.name+'YMax') in inputdata.description:
@@ -3360,7 +3360,7 @@ def process_datfile(datfile, **kwargs):
             dvcmd.append("-f")
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-            cnvcmd = ["ps2pdf", "-dNOSAFER" ]
+            cnvcmd = ["ps2pdf", "-dNOSAFER", "-dAutoRotatePages=/None" ]
             if newOpacityPolicy:
               cnvcmd += ["-dALLOWPSTRANSPARENCY",]
             cnvproc = subprocess.Popen(cnvcmd + ["-"], stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
