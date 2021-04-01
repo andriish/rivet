@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1266056
 Status: UNVALIDATED
+Reentrant: true
 Authors:
  - David Grellscheid <david.grellscheid@durham.ac.uk>
 References:

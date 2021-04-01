@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1610623
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Emanuela Barberis <Emanuela.Barberis@cern.ch>
  - Apichart Hortiangtham <apichart.hortiangtham@cern.ch>

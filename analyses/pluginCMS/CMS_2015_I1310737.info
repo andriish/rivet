@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1310737
 Status: VALIDATED
+Reentrant: true
 Authors:
 - Fabio Cossutti <fabio.cossutti@ts.infn.it>
 - Chiara La Licata <chiara.lalicata@ts.infn.it>

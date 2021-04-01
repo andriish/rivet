@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1224539
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Salvatore Rappoccio <salvatore.rappoccio@cern.ch>
  - Nhan Tran <ntran@fnal.gov>

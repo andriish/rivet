@@ -5,6 +5,7 @@ Experiment: STAR
 Collider: RHIC
 InspireID: 1510593
 Status: UNVALIDATED
+Reentrant: true
 Authors:
  - Johannes Jahan <johannes.jahan@subatech.in2p3.fr>
  - Gabriela Pokropska <g.pokropska@gmail.com>
@@ -20,7 +21,6 @@ Options:
 Beams: [1000791970, 1000791970]
 # This is _total_ energy of beams, so this becomes 197*7.7=1516.9 etc.
 Energies: [1516.9, 2265.5, 3861.2, 5319, 7683]
-Reentrant: True
 Description:
   'Results of measurements of bulk properties of the matter in Au+Au
    collisions at energies of the Beam Energy Scan program, using

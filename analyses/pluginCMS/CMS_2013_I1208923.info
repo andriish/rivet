@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1208923
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Markus Radziej <radziej@physik.rwth-aachen.de>
  - Samatha Dooling <samantha.dooling@desy.de>

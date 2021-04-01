@@ -75,9 +75,6 @@ namespace Rivet {
       // Print summary info
       const double xs_pb(crossSection() / picobarn);
       const double sumw(sumOfWeights());
-      MSG_DEBUG("Cross-Section/pb: " << xs_pb      );
-      MSG_DEBUG("Sum of weights  : " << sumw       );
-      MSG_DEBUG("nEvents         : " << numEvents());
 
       // Normalise, scale and otherwise manipulate histograms here
       const double sf(0.5 * xs_pb / sumw); // 0.5 accounts for rapidity bin width

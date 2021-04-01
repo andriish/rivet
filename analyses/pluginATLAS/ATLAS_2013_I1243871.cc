@@ -261,6 +261,10 @@ namespace Rivet {
 
     }
 
+    /// @todo why does this routine not have a finalize method? 
+    /// not clear how you would combine different samples slices 
+    /// correctly if you don't weight by cross-section
+
 
   private:
 

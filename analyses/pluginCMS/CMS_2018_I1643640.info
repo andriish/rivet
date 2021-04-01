@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1643640
 Status: VALIDATED
+Reentrant: true
 Authors:
  - cms-pag-conveners-smp@cern.ch
  - Hannes Jung

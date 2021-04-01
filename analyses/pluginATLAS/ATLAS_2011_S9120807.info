@@ -6,7 +6,7 @@ Collider: LHC 7TeV
 SpiresID: 9120807
 InspireID: 916832
 Status: VALIDATED
-Reentrant: false
+Reentrant: true
 Authors:
  - Giovanni Marchiori <giovanni.marchiori@cern.ch>
 References:

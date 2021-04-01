@@ -9,15 +9,14 @@ namespace Rivet {
 
 
   /// Measurement of the W and Z bosons pT produced in pp collisions at sqrt(s)=8 TeV
-  class CMS_2017_I1471281 : public Analysis {
+  class CMS_2016_I1471281 : public Analysis {
     public:
 
       /// Constructor
-      CMS_2017_I1471281(std::string name="CMS_2017_I1471281")
+      CMS_2016_I1471281(std::string name="CMS_2016_I1471281")
         : Analysis(name)
         {
           _mode = 0; // init 
-          //setNeedsCrossSection(true);
         }
 
 
@@ -117,6 +116,6 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2017_I1471281);
+  DECLARE_RIVET_PLUGIN(CMS_2016_I1471281);
 
 }

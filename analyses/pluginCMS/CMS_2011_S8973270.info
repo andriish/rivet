@@ -6,6 +6,7 @@ Collider: LHC
 SpiresID: 8973270
 InspireID: 889807
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Lukas Wehrli <wehrlilu@cern.ch>
 References:

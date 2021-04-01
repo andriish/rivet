@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1511284
 Status: VALIDATED
+Reentrant: true
 Authors:
  - cms-pag-conveners-fsq@cern.ch
  - Sebastian Baur <sebastian.baur@cern.ch>

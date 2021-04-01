@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 #SpiresID:
 Status: VALIDATED
+Reentrant: true
 Authors:
  - P. Katsas <panagiotis.katsas@cern.ch>
  - A. Knutsson <albert.knutsson@cern.ch>

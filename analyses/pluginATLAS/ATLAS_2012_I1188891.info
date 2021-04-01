@@ -5,7 +5,7 @@ Experiment: ATLAS
 Collider: LHC 7TeV
 InspireID: 1188891
 Status: VALIDATED
-Reentrant: false
+Reentrant: true
 Authors:
  - Cecile Lapoire <clapoire@cern.ch>
  - Roman Lysak <lysak@fzu.cz>

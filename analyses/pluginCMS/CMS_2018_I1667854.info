@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1667854
 Status: VALIDATED
+Reentrant: true
 Authors:
   - cms-pag-conveners-smp@cern.ch
   - Philippe Gras <philippe.gras@cern.ch>
