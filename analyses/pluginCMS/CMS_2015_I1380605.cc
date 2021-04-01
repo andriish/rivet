@@ -71,9 +71,9 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       const double norm_t0 = _h_tracks->bin(7).height()/2.056170e-03;
-      const double norm_t1 = _h_tracks->bin(7).sumW()/2.056170e-03;
+      //const double norm_t1 = _h_tracks->bin(7).sumW()/2.056170e-03;
       const double norm_j0 = _h_jets->bin(13).height()/3.575290e-03;
-      const double norm_j1 = _h_jets->bin(13).sumW()/3.575290e-03;
+      //const double norm_j1 = _h_jets->bin(13).sumW()/3.575290e-03;
       if (norm_t0 > 0 ) scale(_h_tracks, 1./ norm_t0);
       if (norm_j0 > 0 ) scale(_h_jets, 1./ norm_j0);
     }
