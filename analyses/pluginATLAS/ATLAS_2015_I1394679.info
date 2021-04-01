@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1394679
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Sabrina Sacerdoti <Sabrina.Sacerdoti@cern.ch>
 References:

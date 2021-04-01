@@ -7,6 +7,7 @@
 namespace Rivet {
 
 
+  /// @brief dileptonic e-mu ttbar
   class ATLAS_2016_I1468168 : public Analysis {
   public:
 

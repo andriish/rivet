@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 944826
 Status: VALIDATED
+Reentrant: false
 Authors:
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>
 References:

@@ -6,6 +6,7 @@ Collider: LHC
 SpiresID: 9225137
 InspireID: 939504
 Status: VALIDATED
+Reentrant: false
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:

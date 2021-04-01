@@ -193,6 +193,7 @@ namespace Rivet {
     void finalize() {
       const double sf(crossSection()/femtobarn/sumOfWeights());
       // scale histogram by binwidth, as bin content is actually a integrated fiducial cross section
+      // @todo revisit when new YODA binned-object type drops
       scale(_h["jetveto"], 5.);
       // scale to cross section
       for (auto& hist : _h) {

@@ -5,6 +5,7 @@ Experiment: E288
 Collider: Fermilab p-N
 InspireID: 153009
 Status: VALIDATED REENTRANT
+Reentrant: True
 Authors:
   Hannes Jung <hannes.jung@desy.de>
 References:

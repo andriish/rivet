@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1190187
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Oldrich Kepka <oldrich.kepka@cern.ch>
  - Katerina Moudra <katerina.moudra@cern.ch>

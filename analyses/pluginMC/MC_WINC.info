@@ -1,6 +1,7 @@
 Name: MC_WINC
 Summary: Monte Carlo validation observables for inclusive $W[\ell \, \nu]$ production
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>
  - Christian Gutschow <chris.g@cern.ch>

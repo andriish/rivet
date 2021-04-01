@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1635273
 Status: VALIDATED
+Reentrant: true
 Authors: 
  - Valerie Lang <valerie.lang@desy.de>
  - Christian Gutschow <chris.g@cern.ch>

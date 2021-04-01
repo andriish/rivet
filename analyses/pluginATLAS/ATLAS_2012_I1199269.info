@@ -1,5 +1,6 @@
 Name: ATLAS_2012_I1199269
 Summary: Inclusive diphoton $+ X$ events at $\sqrt{s} = 7$~TeV
+Reentrant: false
 Authors:
  - Giovanni Marchiori <giovanni.marchiori@cern.ch>
 Status: VALIDATED

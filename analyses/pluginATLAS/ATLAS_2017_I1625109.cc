@@ -9,11 +9,11 @@
 namespace Rivet {
 
 
+  /// @brief measurement of on-shell ZZ at 13 TeV
   class ATLAS_2017_I1625109 : public Analysis {
   public:
 
     /// Constructor
-    /// @brief measurement of on-shell ZZ at 13 TeV
     DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2017_I1625109);
 
     /// @name Analysis methods
@@ -289,9 +289,7 @@ namespace Rivet {
     void finalize() {
       // Normalise histograms to cross section
       const double sf = crossSectionPerEvent() / femtobarn;
-      for (map<string, Histo1DPtr>::iterator it = _h.begin(); it != _h.end(); ++it) {
-        scale(it->second, sf);
-      }
+      scale(_h, sf);
     }
     //@}
 

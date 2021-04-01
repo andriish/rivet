@@ -100,8 +100,8 @@ namespace Rivet {
       }
       for (size_t iM = 0; iM < kNmeas; ++iM) {
         for (size_t iB = 0; iB < kNbins; ++iB) {
-      book(    _h_dEta_asym[iM][iB],  "dEta_asym_" + measStr[iM] + "_bin" + rangeStr[iM][iB],  2,  -10., 10.);
-      book(    _h_dY_asym  [iM][iB],  "dY_asym_"   + measStr[iM] + "_bin" + rangeStr[iM][iB],  2,  -10., 10.);
+          book(    _h_dEta_asym[iM][iB],  "_dEta_asym_" + measStr[iM] + "_bin" + rangeStr[iM][iB],  2,  -10., 10.);
+          book(    _h_dY_asym  [iM][iB],  "_dY_asym_"   + measStr[iM] + "_bin" + rangeStr[iM][iB],  2,  -10., 10.);
         }
       }
 
@@ -233,9 +233,6 @@ namespace Rivet {
       // Build asymm scatters
       for (size_t iM = 0; iM < kNmeas; ++iM) {
         for (size_t iB = 0; iB < kNbins; ++iB) {
-          removeAnalysisObject(_h_dEta_asym[iM][iB]);
-          removeAnalysisObject(_h_dY_asym[iM][iB]);
-
           // Only one bin for inclusive measurement
           if ( (iM == kInclMeas) && (iB != 0)) continue;
 

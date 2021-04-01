@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1502620
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Jan Kretzschmar <jan.kretzschmar@cern.ch>
  - Christian Gutschow <chris.g@cern.ch>

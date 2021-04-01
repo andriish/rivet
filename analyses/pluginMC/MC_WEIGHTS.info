@@ -1,6 +1,7 @@
 Name: MC_WEIGHTS
 Summary: MC analysis for distributions of event weights
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>
  - Christian Gutschow <chris.g@cern.ch>

@@ -8,10 +8,10 @@
 namespace Rivet {
 
 
+/// @brief ttbb at 13 TeV
 class ATLAS_2018_I1705857 : public Analysis {
  public:
    /// Constructor
-   /// @brief ttbb at 13 TeV
    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2018_I1705857);
 
     void init() {

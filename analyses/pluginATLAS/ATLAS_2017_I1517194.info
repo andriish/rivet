@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1517194
 Status: VALIDATED
+Reentrant: true
 Authors:
   - Christian Johnson <christian.johnson@cern.ch>
   - Christian Gutschow <chris.g@cern.ch>

@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1667046
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Shalini Epari <shalinivssv@gmail.com>
  - Andy Buckley <andy.buckley@cern.ch>

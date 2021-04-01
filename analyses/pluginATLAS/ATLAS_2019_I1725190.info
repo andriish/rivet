@@ -4,7 +4,8 @@ Summary: Dilepton mass spectrum in 13 TeV pp collisions with 139/fb Run 2 datase
 Experiment: ATLAS
 Collider: LHC
 InspireID: 1725190
-Status: VALIDATED SINGLEWEIGHT
+Status: VALIDATED SINGLEWEIGHT NOREENTRY
+Reentrant: false
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>
 References:

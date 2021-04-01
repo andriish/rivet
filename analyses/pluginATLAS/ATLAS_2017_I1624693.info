@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1624693
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Sharka Todorova-Nova <sarka.todorova@cern.ch>
  - Christian Gutschow <chris.g@cern.ch>

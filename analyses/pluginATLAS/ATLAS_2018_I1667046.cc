@@ -118,6 +118,7 @@ namespace Rivet {
       normalize(_h_sigmaM, expected/sumOfWeights());
       normalize(_h_modeta, expected/sumOfWeights());
       // _flows.scale(99.7/numEvents());
+      // @todo suppress output in reentrant mode?
       MSG_INFO(_flows);
     }
 

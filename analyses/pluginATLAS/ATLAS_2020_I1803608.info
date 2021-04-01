@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1803608
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Stephen Weber <stephen.albert.weber@cern.ch>
  - Dag Gillberg <dag.gillberg@cern.ch>

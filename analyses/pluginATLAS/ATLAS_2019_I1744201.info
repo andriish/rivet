@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1744201
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Aliaksei Hrynevich <aliaksei.hrynevich@cern.ch>
  - Deepak Kar <deepak.kar@cern.ch>

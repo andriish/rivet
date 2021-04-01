@@ -4,7 +4,7 @@ Summary: Hadronic event shapes in multijet final states
 Experiment: ATLAS
 Collider: LHC
 Status: VALIDATED
-Reentrant: False
+Reentrant: true
 Authors:
  - Javier Llorente <javier.llorente.merino@cern.ch>
  - Deepak Kar <deepak.kar@cern.ch>

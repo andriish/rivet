@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 925932
 Status: VALIDATED
+Reentrant: false
 Authors:
  - Elena Yatsenko <elena.yatsenko@desy.de>
  - Judith Katzy <jkatzy@mail.cern.ch>

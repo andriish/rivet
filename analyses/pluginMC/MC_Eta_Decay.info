@@ -1,6 +1,7 @@
 Name: MC_Eta_Decay
 Summary: Analysis of Kinematic distributions in $\eta$ and $\eta^\prime$ meson decays
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 RunInfo: Any type of process producing eta/eta prime mesons

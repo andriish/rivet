@@ -536,8 +536,6 @@ namespace Rivet {
                                    const vector<string>& addopts,
                                    bool equiv) {
 
-    // Convenience typedef
-    typedef multimap<string, YODA::AnalysisObjectPtr> AOMap;
 
     // Store all found weights here
     set<string> foundWeightNames;
@@ -546,8 +544,10 @@ namespace Rivet {
     set<string> foundAnalyses;
 
     // Store all analysis objects here
-    vector<AOMap> allaos;
-    vector<double> fileweights;
+    map<string, YODA::AnalysisObjectPtr> allaos;
+
+    // Store all cross-sections + errors here
+    map<string, pair<double,double> > allxsecs;
 
     // Parse option adding.
     vector<string> optAnas;
@@ -573,21 +573,25 @@ namespace Rivet {
       // Check for user-supplied scaling, assign 1 otherwise
       /// @todo
       size_t colonpos = file.rfind(":");
+      double fileweight = 1.0;
       if (colonpos != string::npos) {
         try {
-          double fweight = std::stod(file.substr(colonpos+1));
+          fileweight = std::stod(file.substr(colonpos+1));
           file = file.substr(0, colonpos);
-          fileweights.push_back(fweight);
         } catch (...) {
           throw UserError("Unexpected error in processing argument " + file + " with file:scale format");
         }
-      } else {
-        fileweights.push_back(1.0);
-      }
+      } 
 
+      // try to read the file and build path-AO map 
+      // @todo move this map construction into YODA?
       vector<YODA::AnalysisObject*> aos_raw;
+      map<string,YODA::AnalysisObject*> raw_map;
       try {
         YODA::read(file, aos_raw);
+        for (YODA::AnalysisObject* aor : aos_raw) {
+          raw_map[aor->path()] = aor;
+        }
       }
       catch (...) { //< YODA::ReadError&
         throw UserError("Unexpected error in reading file: " + file);
@@ -597,21 +601,61 @@ namespace Rivet {
         continue;
       }
 
-      allaos.push_back(AOMap());
-      AOMap& aomap = allaos.back();
+
+      map<string, double> scales;
       for (YODA::AnalysisObject* aor : aos_raw) {
         YODA::AnalysisObjectPtr ao(aor);
         AOPath path(ao->path());
-        if ( !path )
+        if ( !path ) {
           throw UserError("Invalid path name in file: " + file);
+        }
+        // skip everything that isn't pre-finalize
         if ( !path.isRaw() ) continue;
 
         MSG_DEBUG(" " << ao->path());
 
         foundWeightNames.insert(path.weight());
+        const string& wname = path.weightComponent();
+        if ( scales.find(wname) == scales.end() ) {
+          scales[wname] = 1.0;
+          // get the sum of weights and number of entries for the current weight
+          double evts = 0, sumw = 1;
+          auto ec_it = raw_map.find("/RAW/_EVTCOUNT" + wname);
+          if ( ec_it != raw_map.end() ) { 
+            YODA::Counter* cPtr = static_cast<YODA::Counter*>(ec_it->second);
+            evts = cPtr->numEntries();
+            sumw = cPtr->sumW()? cPtr->sumW() : 1;
+          }
+          else if (!equiv) {
+            throw UserError("Missing event counter, needed for non-equivalent merging!");
+          }
+          // in stacking mode: add up all the cross sections
+          // in equivalent mode: weight the cross-sections 
+          // estimates by the corresponding number of entries
+          const string xspath = "/RAW/_XSEC" + wname;
+          auto xs_it = raw_map.find(xspath);
+          if ( xs_it != raw_map.end() ) { 
+            YODA::Scatter1D* xsec = static_cast<YODA::Scatter1D*>(xs_it->second);
+            MSG_DEBUG("Apply user-supplied weight: " << fileweight);
+            xsec->scaleX(fileweight);
+            // get iterator to the existing (or newly created) key-value pair
+            auto xit = allxsecs.insert( make_pair(xspath, make_pair(0,0)) ).first;
+            // update cross-sections, possibly weighted by number of entries
+            xit->second.first  += (equiv? evts : 1.0) * xsec->point(0).x();
+            xit->second.second += (equiv? sqr(evts) : 1.0) * sqr(xsec->point(0).xErrAvg());
+            // only in stacking mode: multiply each AO by cross-section / sumW
+            if (!equiv)  scales[wname] = xsec->point(0).x() / sumw;
+          }
+          else if (!equiv) {
+            throw UserError("Missing cross-section, needed for non-equivalent merging!");
+          }
+        }
+
+
         // Now check if any options should be removed
-        for ( string delopt : delopts )
-          if ( path.hasOption(delopt) ) path.removeOption(delopt);
+        for ( const string& delopt : delopts ) {
+          if ( path.hasOption(delopt) )  path.removeOption(delopt);
+        }
         // ...or added
         for (size_t i = 0; i < optAnas.size(); ++i) {
           if (path.path().find(optAnas[i]) != string::npos ) {
@@ -620,22 +664,34 @@ namespace Rivet {
           }
         }
         path.setPath();
-        if ( path.analysisWithOptions() != "" )
+        if ( path.analysisWithOptions() != "" ) {
           foundAnalyses.insert(path.analysisWithOptions());
-        aomap.insert(make_pair(path.path(), ao));
-      }
-    }
-    // reverse ordering of user-supplied weights,
-    // so we can just pop them later
-    std::reverse(fileweights.begin(), fileweights.end());
+        }
+
+        // merge AOs
+        const string& key = path.path();
+        const double sf = key.find("_EVTCOUNT") != string::npos? 1 : scales[wname];
+        if (allaos.find(key) == allaos.end()) {
+          MSG_DEBUG("Copy first occurrence of " << key
+                    << " from file " << file << " using scale " << sf);
+          allaos[key] = ao; // TODO would be nice to combine these two?
+          copyao(ao, allaos[key], sf);
+        }
+        else if ( !addaos(allaos[key], ao, sf) ) {
+          MSG_DEBUG("Cannot merge objects with path " << key
+                    << " of type " << ao->annotation("Type")
+                    << " from file " << file << " using scale " << sf);
+        } // end of merge attempt
+      } // loop over all AOs ends
+    } // loop over all input files ends
 
     // Now make analysis handler aware of the weight names present
     _weightNames.clear();
     _rivetDefaultWeightIdx = _defaultWeightIdx = 0;
-    for ( string name : foundWeightNames ) _weightNames.push_back(name);
+    _weightNames = vector<string>(foundWeightNames.begin(), foundWeightNames.end());
 
     // Then we create and initialize all analyses
-    for ( string ananame : foundAnalyses ) addAnalysis(ananame);
+    for (const string& ananame : foundAnalyses ) { addAnalysis(ananame); }
     _stage = Stage::INIT;
     for (AnaHandle a : analyses() ) {
       MSG_TRACE("Initialising analysis: " << a->name());
@@ -655,14 +711,6 @@ namespace Rivet {
     _stage = Stage::OTHER;
     _initialised = true;
 
-    // Now get all booked analysis objects
-    vector<MultiweightAOPtr> raos;
-    for (AnaHandle a : analyses()) {
-      for (const auto & ao : a->analysisObjects()) {
-        raos.push_back(ao);
-      }
-    } // analyses
-
     // Collect global weights and cross sections and fix scaling for all files
     MSG_DEBUG("Getting event counter and cross-section from "
               << weightNames().size() << " " << numWeights());
@@ -670,102 +718,54 @@ namespace Rivet {
     MSG_DEBUG("EVTCOUNT: " << _eventCounter.get());
     _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
     MSG_DEBUG("XSEC: " << _xs.get());
-    for (size_t iW = 0; iW < numWeights(); iW++) {
+    vector<double> scales(numWeights(), 1.0);
+    for (size_t iW = 0; iW < numWeights(); ++iW) {
       MSG_DEBUG("Weight # " << iW << " of " << numWeights());
       _eventCounter.get()->setActiveWeightIdx(iW);
       _xs.get()->setActiveWeightIdx(iW);
-      YODA::Counter & sumw = *_eventCounter;
       YODA::Scatter1D & xsec = *_xs;
-      vector<YODA::Scatter1DPtr> xsecs;
-      vector<YODA::CounterPtr> sows;
-      for (auto & aomap : allaos) { // one per input file
+      // set the sum of weights
+      auto aoit = allaos.find(_eventCounter->path());
+      if (aoit != allaos.end()) {
+        *_eventCounter += *dynamic_pointer_cast<YODA::Counter>(aoit->second);
+      }
 
-        if (getLog().isActive(Log::DEBUG)) {
-          for (auto& kv : aomap) {
-            std::cout << kv.first << std::endl;
-          }
+      const auto xit = allxsecs.find(xsec.path());
+      if ( xit != allxsecs.end() ) {
+        double xs = xit->second.first;
+        double xserr = sqrt(xit->second.second);
+        if ( equiv ) {
+          MSG_DEBUG("Equivalent mode: scale by numEntries");
+          const double nentries = _eventCounter->numEntries();
+          xs /= nentries;
+          xserr /= nentries;
         }
-        auto xit = aomap.find(xsec.path());
-        const double sf = fileweights.back();
-        fileweights.pop_back();
-        MSG_DEBUG("Looking for " << xsec.path() << " in all objects => "
-                  << (xit != aomap.end()));
-        if ( xit != aomap.end() ) {
-          xsecs.push_back(dynamic_pointer_cast<YODA::Scatter1D>(xit->second));
-          MSG_DEBUG("Apply user-supplied weight: " << sf);
-          xsecs.back()->scaleX(sf);
+        else if (xs) {
+          // in stacking mode: need to unscale prior to finalize
+          scales[iW] = _eventCounter->sumW()/xs;
         }
-        else if (equiv) {
-          xsecs.push_back(YODA::Scatter1DPtr());
-        }
-        else {
-          throw UserError("Missing cross-section, needed for non-equivalent merging");
-        }
-        xit = aomap.find(sumw.path());
-        MSG_DEBUG("Looking for " << sumw.path() << " in all objects => "
-                  << (xit != aomap.end()));
-        if ( xit != aomap.end() ) {
-          sows.push_back(dynamic_pointer_cast<YODA::Counter>(xit->second));
-        }
-        else if (equiv) {
-          sows.push_back(YODA::CounterPtr());
-        }
-        else {
-          throw UserError("Missing event counter, needed for non-equivalent merging");
-        }
-      } // allaos
-      double xs = 0.0, xserr = 0.0;
-      for ( int i = 0, N = sows.size(); i < N; ++i ) {
-        if ( !sows[i] || !xsecs[i] ) continue;
-        double xseci = xsecs[i]->point(0).x();
-        double xsecerri = sqr(xsecs[i]->point(0).xErrAvg());
-        sumw += *sows[i];
-        double effnent = sows[i]->numEntries();
-        xs += (equiv? effnent: 1.0)*xseci;
-        xserr += (equiv? sqr(effnent): 1.0)*xsecerri;
+        xsec.reset(); 
+        xsec.addPoint( Point1D(xs,xserr) );
       }
-      vector<double> scales(sows.size(), 1.0);
-      if ( equiv ) {
-        MSG_DEBUG("Equivalent mode: scale by numEntries");
-        xs /= sumw.numEntries();
-        xserr = sqrt(xserr)/sumw.numEntries();
-      } else {
-        MSG_DEBUG("Non-equivalent mode: stack");
-        xserr = sqrt(xserr);
-        for ( int i = 0, N = sows.size(); i < N; ++i ) {
-          if ( sumw.sumW() == 0.0 || xsecs[i]->point(0).x() == 0.0 )
-            scales[i] = 0.0;
-          else
-            scales[i] = (sumw.sumW()/sows[i]->sumW())*
-              (xsecs[i]->point(0).x()/xs);
-        }
+      else {
+        throw UserError("Missing cross-section for " + xsec.path());
       }
-      xsec.reset();
-      xsec.addPoint(Point1D(xs, xserr));
 
       // Go through all analyses and add stuff to their analysis objects;
       for (AnaHandle a : analyses()) {
-        for (const auto & ao : a->analysisObjects()) {
+        for (const auto& ao : a->analysisObjects()) {
           ao.get()->setActiveWeightIdx(iW);
           YODA::AnalysisObjectPtr yao = ao.get()->activeYODAPtr();
-          int nmerge = 0;
-          for ( int i = 0, N = sows.size(); i < N; ++i ) {
-            if ( !sows[i] || !xsecs[i] ) continue;
-            auto range = allaos[i].equal_range(yao->path()); //< @todo Why more than one match?
-            for ( auto aoit = range.first; aoit != range.second; ++aoit ) {
-              nmerge += 1;
-              // MSG_INFO("Merging " << aoit->first << " iteration " << nmerge);
-              if ( !addaos(yao, aoit->second, scales[i]) ) {
-                MSG_DEBUG("Overwriting incompatible starting version of " << aoit->first);
-                if (nmerge == 1) {
-                  copyao(aoit->second, yao, scales[i]);
-                } else {
-                  MSG_DEBUG("Cannot merge objects with path " << yao->path()
-                            << " of type " << yao->annotation("Type")
-                            << ", iteration " << nmerge);
-                }
-              }
+          auto aoit = allaos.find(yao->path());
+          if (aoit != allaos.end()) {
+            if ( !addaos(yao, aoit->second, scales[iW]) ) {
+              MSG_DEBUG("Overwriting incompatible starting version of " << yao->path());
+              copyao(aoit->second, yao, scales[iW]);
             }
+          }
+          else {
+            MSG_DEBUG("Cannot merge objects with path " << yao->path()
+                      << " of type " << yao->annotation("Type"));
           }
           a->rawHookIn(yao);
           ao.get()->unsetActiveWeight();

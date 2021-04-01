@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1457605
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Mark Stockton <chris.g@cern.ch>
 References:

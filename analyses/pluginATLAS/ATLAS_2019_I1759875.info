@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1759875
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Richard Hawkings <richard.hawkings@cern.ch>
 References:

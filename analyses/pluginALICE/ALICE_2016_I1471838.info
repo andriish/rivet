@@ -5,6 +5,7 @@ Experiment: ALICE
 Collider: LHC
 InspireID: 1471838
 Status: UNVALIDATED REENTRANT
+Reentrant: true
 Authors:
  - Christian Bierlich <christian.bierlich@thep.lu.se>
 References:
