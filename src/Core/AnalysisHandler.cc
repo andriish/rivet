@@ -715,9 +715,7 @@ namespace Rivet {
     MSG_DEBUG("Getting event counter and cross-section from "
               << weightNames().size() << " " << numWeights());
     _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
-    MSG_DEBUG("EVTCOUNT: " << _eventCounter.get());
     _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
-    MSG_DEBUG("XSEC: " << _xs.get());
     vector<double> scales(numWeights(), 1.0);
     for (size_t iW = 0; iW < numWeights(); ++iW) {
       MSG_DEBUG("Weight # " << iW << " of " << numWeights());
