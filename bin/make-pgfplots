@@ -2573,7 +2573,6 @@ def process_datfile(datfile):
 
         ## Check for the required programs
         latexavailable = have_cmd("latex")
-        dvilualatexavailable = have_cmd("dvilualatex")
         dvipsavailable = have_cmd("dvips")
         convertavailable = have_cmd("convert")
         ps2pnmavailable = have_cmd("ps2pnm")
@@ -2607,13 +2606,7 @@ def process_datfile(datfile):
 
         ## Run LaTeX (in no-stop mode)
         logging.debug(os.listdir(tempdir))
-        if dvilualatexavailable:
-            texcmd = ["dvilualatex"]
-        elif latexavailable:
-            texcmd = ["latex"]
-        else:
-            raise RuntimeError("LaTeX commands not found")
-        texcmd += [r"\scrollmode\input", texpath]
+        texcmd = ["latex", "\scrollmode\input", texpath]
         logging.debug("TeX command: " + " ".join(texcmd))
         texproc = subprocess.Popen(texcmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=tempdir)
         logging.debug(texproc.communicate()[0])
@@ -2752,8 +2745,8 @@ if __name__ == '__main__':
     if args.OUTPUT_FORMAT != ["TEX"]:
         try:
             ## latex
-            if not (have_cmd("latex") or have_cmd("dvilualatex")):
-                logging.error("ERROR: required program 'dvilualatex' or 'latex' could not be found. Exiting...")
+            if not have_cmd("latex"):
+                logging.error("ERROR: required program 'latex' could not be found. Exiting...")
                 sys.exit(1)
             ## dvips
             if not have_cmd("dvips"):
