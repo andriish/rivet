@@ -759,8 +759,9 @@ namespace Rivet {
           auto aoit = allaos.find(yao->path());
           if (aoit != allaos.end()) {
             if ( !addaos(yao, aoit->second, scales[iW]) ) {
-              MSG_DEBUG("Overwriting incompatible starting version of " << yao->path());
-              copyao(aoit->second, yao, scales[iW]);
+              MSG_DEBUG("Overwriting incompatible starting version of " << yao->path()
+                        << " using scale " << scales[iW]);
+              copyao(aoit->second, yao, 1.0); // input already scaled by addaos
             }
           }
           else {
