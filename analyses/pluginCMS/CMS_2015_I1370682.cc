@@ -37,31 +37,30 @@ namespace Rivet {
         else if ( _mode1 != CH_HADRON && _mode2 != CH_HADRON) return CH_FULLLEPTON;
         else return CH_SEMILEPTON;
       }
-      DecayMode mode1() const {return _mode1;}
-      DecayMode mode2() const {return _mode2;}
+      virtual const DecayMode& mode1() const {return _mode1;}
+      virtual const DecayMode& mode2() const {return _mode2;}
 
       /// Clone on the heap.
-      virtual unique_ptr<Projection> clone() const {
-        return unique_ptr<Projection>(new PseudoTop(*this));
-      }
+      DEFAULT_RIVET_PROJ_CLONE(PseudoTop);
 
       //@}
 
     public:
-      Particle t1() const {return _t1;}
-      Particle t2() const {return _t2;}
-      Particle b1() const {return _b1;}
-      Particle b2() const {return _b2;}
-      Particles wDecays1() const {return _wDecays1;}
-      Particles wDecays2() const {return _wDecays2;}
-      Jets jets() const {return _jets;}
-      Jets bjets() const {return _bjets;}
-      Jets ljets() const {return _ljets;}
+      virtual const Particle& t1() const {return _t1;}
+      virtual const Particle& t2() const {return _t2;}
+      virtual const Particle& b1() const {return _b1;}
+      virtual const Particle& b2() const {return _b2;}
+      virtual const Particles& wDecays1() const {return _wDecays1;}
+      virtual const Particles& wDecays2() const {return _wDecays2;}
+      virtual const Jets& jets() const {return _jets;}
+      virtual const Jets& bjets() const {return _bjets;}
+      virtual const Jets& ljets() const {return _ljets;}
 
-    protected:
       // Apply the projection to the event
       void project(const Event& e); // override; ///< @todo Re-enable when C++11 allowed
       void cleanup(std::map<double, std::pair<size_t, size_t> >& v, const bool doCrossCleanup=false) const;
+      CmpState compare(const Projection& p) const;
+
 
     private:
       const double _lepR, _lepMinPt, _lepMaxEta;
@@ -304,6 +303,29 @@ namespace Rivet {
     double PseudoTop::_tMass = 172.5*GeV;
     double PseudoTop::_wMass = 80.4*GeV;
 
+    CmpState PseudoTop::compare(const Projection& p) const {
+      const PCmp fscmp = mkNamedPCmp(p, "FS");
+      if (fscmp != CmpState::EQ) return fscmp;
+ 
+      const PseudoTop& other = dynamic_cast<const PseudoTop&>(p);
+      CmpState cs_lepR = cmp(_lepR, other._lepR);
+      if (cs_lepR != CmpState::EQ) return cs_lepR;
+
+      CmpState cs_jetR = cmp(_jetR, other._jetR);
+      if (cs_jetR != CmpState::EQ) return cs_jetR;
+
+      CmpState cs_lepMinPt = cmp(_lepMinPt, other._lepMinPt);
+      if (cs_lepMinPt != CmpState::EQ) return cs_lepMinPt;
+
+      CmpState cs_jetMinPt = cmp(_jetMinPt, other._jetMinPt);
+      if (cs_jetMinPt != CmpState::EQ) return cs_jetMinPt;
+
+      CmpState cs_lepMaxEta = cmp(_lepMaxEta, other._lepMaxEta);
+      if (cs_lepMaxEta != CmpState::EQ) return cs_lepMaxEta;
+
+      CmpState cs_jetMaxEta = cmp(_jetMaxEta, other._jetMaxEta);
+      return cs_jetMaxEta;
+    }
 
     void PseudoTop::cleanup(map<double, pair<size_t, size_t> >& v, const bool doCrossCleanup) const {
       vector<map<double, pair<size_t, size_t> >::iterator> toErase;
@@ -357,7 +379,6 @@ namespace Rivet {
       // t candidate : select Wb pairs which minimise |mtop1-172.5|+|mtop2-172.5|
 
       _isValid = false;
-      _theParticles.clear();
       _wDecays1.clear();
       _wDecays2.clear();
       _jets.clear();
