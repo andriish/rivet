@@ -32,7 +32,7 @@ namespace Rivet {
 
       // Persistent histograms
       book(_h_jet_multi_inclusive ,1, 1, 1);
-      book(_h_jet_multi_ratio, 2, 1, 1);
+      book(_h_jet_multi_ratio, 2, 1, 1, true);
       _h_jet_pT.resize(4);
       book(_h_jet_pT[0] ,3, 1, 1);
       book(_h_jet_pT[1] ,4, 1, 1);
@@ -52,24 +52,24 @@ namespace Rivet {
       book(_h_HT2_R04_ratio, 17, 1, 1);
 
       // Temporary histograms to be divided for the dsigma3/dsigma2 ratios
-      book(_h_tmp_pTlead_R06_60_2 , "TMP/pTlead_R06_60_2 ", refData(10, 1, 1));
-      book(_h_tmp_pTlead_R06_80_2 , "TMP/pTlead_R06_80_2 ", refData(11, 1, 1));
-      book(_h_tmp_pTlead_R06_110_2, "TMP/pTlead_R06_110_2", refData(12, 1, 1));
-      book(_h_tmp_pTlead_R06_60_3 , "TMP/pTlead_R06_60_3 ", refData(10, 1, 1));
-      book(_h_tmp_pTlead_R06_80_3 , "TMP/pTlead_R06_80_3 ", refData(11, 1, 1));
-      book(_h_tmp_pTlead_R06_110_3, "TMP/pTlead_R06_110_3", refData(12, 1, 1));
+      book(_h_tmp_pTlead_R06_60_2 , "_pTlead_R06_60_2",  refData(10, 1, 1));
+      book(_h_tmp_pTlead_R06_80_2 , "_pTlead_R06_80_2",  refData(11, 1, 1));
+      book(_h_tmp_pTlead_R06_110_2, "_pTlead_R06_110_2", refData(12, 1, 1));
+      book(_h_tmp_pTlead_R06_60_3 , "_pTlead_R06_60_3",  refData(10, 1, 1));
+      book(_h_tmp_pTlead_R06_80_3 , "_pTlead_R06_80_3",  refData(11, 1, 1));
+      book(_h_tmp_pTlead_R06_110_3, "_pTlead_R06_110_3", refData(12, 1, 1));
       //
-      book(_h_tmp_pTlead_R04_60_2 , "TMP/pTlead_R04_60_2 ", refData(13, 1, 1));
-      book(_h_tmp_pTlead_R04_80_2 , "TMP/pTlead_R04_80_2 ", refData(14, 1, 1));
-      book(_h_tmp_pTlead_R04_110_2, "TMP/pTlead_R04_110_2", refData(15, 1, 1));
-      book(_h_tmp_pTlead_R04_60_3 , "TMP/pTlead_R04_60_3 ", refData(13, 1, 1));
-      book(_h_tmp_pTlead_R04_80_3 , "TMP/pTlead_R04_80_3 ", refData(14, 1, 1));
-      book(_h_tmp_pTlead_R04_110_3, "TMP/pTlead_R04_110_3", refData(15, 1, 1));
+      book(_h_tmp_pTlead_R04_60_2 , "_pTlead_R04_60_2",  refData(13, 1, 1));
+      book(_h_tmp_pTlead_R04_80_2 , "_pTlead_R04_80_2",  refData(14, 1, 1));
+      book(_h_tmp_pTlead_R04_110_2, "_pTlead_R04_110_2", refData(15, 1, 1));
+      book(_h_tmp_pTlead_R04_60_3 , "_pTlead_R04_60_3",  refData(13, 1, 1));
+      book(_h_tmp_pTlead_R04_80_3 , "_pTlead_R04_80_3",  refData(14, 1, 1));
+      book(_h_tmp_pTlead_R04_110_3, "_pTlead_R04_110_3", refData(15, 1, 1));
       //
-      book(_h_tmp_HT2_R06_2, "TMP/HT2_R06_2", refData(16, 1, 1));
-      book(_h_tmp_HT2_R06_3, "TMP/HT2_R06_3", refData(16, 1, 1));
-      book(_h_tmp_HT2_R04_2, "TMP/HT2_R04_2", refData(17, 1, 1));
-      book(_h_tmp_HT2_R04_3, "TMP/HT2_R04_3", refData(17, 1, 1));
+      book(_h_tmp_HT2_R06_2, "_HT2_R06_2", refData(16, 1, 1));
+      book(_h_tmp_HT2_R06_3, "_HT2_R06_3", refData(16, 1, 1));
+      book(_h_tmp_HT2_R04_2, "_HT2_R04_2", refData(17, 1, 1));
+      book(_h_tmp_HT2_R04_3, "_HT2_R04_3", refData(17, 1, 1));
     }
 
 
@@ -145,21 +145,6 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
 
-      // Fill inclusive jet multiplicity ratio
-      Histo1D temphisto(refData(2, 1, 1));
-      for (size_t b = 0; b < temphisto.numBins(); ++b) {
-	const double x   = temphisto.bin(b).xMid();
-	const double ex  = temphisto.bin(b).xWidth()/2.;
-        if (_h_jet_multi_inclusive->bin(b).sumW() != 0) {
-          const double val = _h_jet_multi_inclusive->bin(b+1).sumW() / _h_jet_multi_inclusive->bin(b).sumW();
-          const double err = ( _h_jet_multi_inclusive->bin(b+1).relErr() + _h_jet_multi_inclusive->bin(b).relErr() ) * val;
-          _h_jet_multi_ratio->addPoint(x, val, ex, err);
-        }
-	else {
-          _h_jet_multi_ratio->addPoint(x, 0., ex, 0.);
-	}
-      }
-
       // Normalize std histos
       scale(_h_jet_multi_inclusive, crossSectionPerEvent());
       scale(_h_jet_pT[0], crossSectionPerEvent());
@@ -169,6 +154,38 @@ namespace Rivet {
       scale(_h_HT_2, crossSectionPerEvent());
       scale(_h_HT_3, crossSectionPerEvent());
       scale(_h_HT_4, crossSectionPerEvent());
+
+      scale(_h_tmp_pTlead_R06_60_2 , crossSectionPerEvent());
+      scale(_h_tmp_pTlead_R06_80_2 , crossSectionPerEvent());
+      scale(_h_tmp_pTlead_R06_110_2, crossSectionPerEvent());
+      scale(_h_tmp_pTlead_R06_60_3 , crossSectionPerEvent());
+      scale(_h_tmp_pTlead_R06_80_3 , crossSectionPerEvent());
+      scale(_h_tmp_pTlead_R06_110_3, crossSectionPerEvent());
+
+      scale(_h_tmp_pTlead_R04_60_2 , crossSectionPerEvent());
+      scale(_h_tmp_pTlead_R04_80_2 , crossSectionPerEvent());
+      scale(_h_tmp_pTlead_R04_110_2, crossSectionPerEvent());
+      scale(_h_tmp_pTlead_R04_60_3 , crossSectionPerEvent());
+      scale(_h_tmp_pTlead_R04_80_3 , crossSectionPerEvent());
+      scale(_h_tmp_pTlead_R04_110_3, crossSectionPerEvent());
+
+      scale(_h_tmp_HT2_R06_2, crossSectionPerEvent());
+      scale(_h_tmp_HT2_R06_3, crossSectionPerEvent());
+      scale(_h_tmp_HT2_R04_2, crossSectionPerEvent());
+      scale(_h_tmp_HT2_R04_3, crossSectionPerEvent());
+
+      // Fill inclusive jet multiplicity ratio
+      for (size_t b = 0; b < _h_jet_multi_ratio->numPoints(); ++b) {
+        if (_h_jet_multi_inclusive->bin(b).sumW() != 0) {
+          const double val = _h_jet_multi_inclusive->bin(b+1).sumW() / _h_jet_multi_inclusive->bin(b).sumW();
+          // @todo Shouldn't these be added in quadrature??
+          const double err = ( _h_jet_multi_inclusive->bin(b+1).relErr() + _h_jet_multi_inclusive->bin(b).relErr() ) * val;
+          _h_jet_multi_ratio->point(b).setY(val, err);
+        }
+        else {
+          _h_jet_multi_ratio->point(b).setY(0., 0.);
+        }
+      }
 
       /// Create ratio histograms
       divide(_h_tmp_pTlead_R06_60_3,_h_tmp_pTlead_R06_60_2, _h_pTlead_R06_60_ratio);

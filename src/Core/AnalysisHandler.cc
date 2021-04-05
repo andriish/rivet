@@ -715,9 +715,7 @@ namespace Rivet {
     MSG_DEBUG("Getting event counter and cross-section from "
               << weightNames().size() << " " << numWeights());
     _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
-    MSG_DEBUG("EVTCOUNT: " << _eventCounter.get());
     _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
-    MSG_DEBUG("XSEC: " << _xs.get());
     vector<double> scales(numWeights(), 1.0);
     for (size_t iW = 0; iW < numWeights(); ++iW) {
       MSG_DEBUG("Weight # " << iW << " of " << numWeights());
@@ -759,8 +757,9 @@ namespace Rivet {
           auto aoit = allaos.find(yao->path());
           if (aoit != allaos.end()) {
             if ( !addaos(yao, aoit->second, scales[iW]) ) {
-              MSG_DEBUG("Overwriting incompatible starting version of " << yao->path());
-              copyao(aoit->second, yao, scales[iW]);
+              MSG_DEBUG("Overwriting incompatible starting version of " << yao->path()
+                        << " using scale " << scales[iW]);
+              copyao(aoit->second, yao, 1.0); // input already scaled by addaos
             }
           }
           else {

@@ -6,7 +6,7 @@ Collider: LHC
 SpiresID: 8547297
 InspireID: 845323
 Status: VALIDATED
-Reentrant: true
+Reentrant: false
 Authors:
  - A. Knutsson
 References:

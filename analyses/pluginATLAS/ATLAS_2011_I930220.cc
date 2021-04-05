@@ -36,14 +36,13 @@ namespace Rivet {
       book(_dijet_chi_110_370 ,9, 1, 1);
       book(_dijet_chi_370_850 ,10, 1, 1);
 
-      _chiCounter1 = 0.0;
-      _chiCounter2 = 0.0;
-      _phiCounter  = 0.0;
+      book(_chiCounter1, "_chiCounter1");
+      book(_chiCounter2, "_chiCounter2");
+      book(_phiCounter, "_phiCounter1");
     }
 
 
     void analyze(const Event& evt) {
-      const double weight = 1.0;
 
       const Particles& bHadrons = apply<HeavyHadrons>(evt, "BHadrons").bHadrons();
       const Jets& jets = apply<JetAlg>(evt, "Jets").jetsByPt(15*GeV);
@@ -66,9 +65,9 @@ namespace Rivet {
             subJet = (hasB && j.pT() > 40*GeV) ? 2 : 1;
           }
           if (hasB) {
-            _bjetpT_SV0.fill(j.absrap(), j.pT()/GeV, weight);
-            _bjetpT_SV0_All->fill(j.pT()/GeV, weight);
-            _bjetpT_pTRel->fill(j.pT()/GeV, weight);
+            _bjetpT_SV0.fill(j.absrap(), j.pT()/GeV);
+            _bjetpT_SV0_All->fill(j.pT()/GeV);
+            _bjetpT_pTRel->fill(j.pT()/GeV);
           }
         }
       }
@@ -76,13 +75,13 @@ namespace Rivet {
       // Di-b-jet plots require both the leading and subleading jets to be b-tagged and have pT > 40 GeV
       if (leadJet == 2 && subJet == 2) {
         const double mass = FourMomentum( leadingJet + subleadingJet ).mass();
-        _dijet_mass->fill(mass/GeV, weight);
+        _dijet_mass->fill(mass/GeV);
 
         // Plot dphi for high-mass di-b-jets
         if (mass > 110*GeV) {
-          _phiCounter += weight;
+          _phiCounter->fill();
           const double d_phi = deltaPhi( leadingJet.phi(), subleadingJet.phi() );
-          _dijet_phi->fill(fabs(d_phi), weight);
+          _dijet_phi->fill(fabs(d_phi));
         }
 
         // Plot chi for low y_boost di-b-jets (in two high-mass bins)
@@ -90,11 +89,11 @@ namespace Rivet {
         const double chi = exp( fabs( leadingJet.rapidity() - subleadingJet.rapidity() ) );
         if ( fabs(y_boost) < 1.1 ) {
           if (inRange(mass/GeV, 110, 370)) {
-            _chiCounter1 += weight;
-            _dijet_chi_110_370->fill(chi, weight);
+            _chiCounter1->fill();
+            _dijet_chi_110_370->fill(chi);
           } else if (inRange(mass/GeV, 370, 850)) {
-            _chiCounter2 += weight;
-            _dijet_chi_370_850->fill(chi, weight);
+            _chiCounter2->fill();
+            _dijet_chi_370_850->fill(chi);
           }
         }
       }
@@ -105,9 +104,9 @@ namespace Rivet {
       // Normalizing to cross-section and mass
       // Additional factors represent the division by rapidity
       const double xsec = crossSectionPerEvent()/(picobarn);
-      const double chiScale1 = 1 / _chiCounter1 / 260.0;
-      const double chiScale2 = 1 / _chiCounter2 / 480.0;
-      const double phiScale  = 1 / _phiCounter;
+      const double chiScale1 = 1 / dbl(*_chiCounter1) / 260.0;
+      const double chiScale2 = 1 / dbl(*_chiCounter2) / 480.0;
+      const double phiScale  = 1 / dbl(*_phiCounter);
 
       _bjetpT_SV0.scale(xsec/2, this);
       scale(_bjetpT_SV0_All, xsec);
@@ -130,9 +129,9 @@ namespace Rivet {
     Histo1DPtr _dijet_chi_110_370;
     Histo1DPtr _dijet_chi_370_850;
 
-    double _chiCounter1;
-    double _chiCounter2;
-    double _phiCounter;
+    CounterPtr _chiCounter1;
+    CounterPtr _chiCounter2;
+    CounterPtr _phiCounter;
   };
 
 
