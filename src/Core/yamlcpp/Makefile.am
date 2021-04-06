@@ -1,7 +1,7 @@
-## How to make our mangled yaml-cpp from the yaml-cpp-0.6.0.tar.gz tarball
-# tar xf yaml-cpp-0.6.0.tar.gz
-# for i in `find yaml-cpp-* -type f -name "*.h" -o -name "*.cpp"`; do \
-#   sed -e 's/namespace YAML/namespace RIVET_YAML/' -e 's/YAML::/RIVET_YAML::/g' -i; done
+## How to make our mangled yaml-cpp from the yaml-cpp tarball
+# tar xf yaml-cpp-0.6.3.tar.gz
+# for i in `find yaml-cpp-yaml-cpp-0.6.3/ -type f -name "*.h" -o -name "*.cpp"`; do \
+#   sed -e 's/namespace YAML/namespace RIVET_YAML/' -e 's/YAML::/RIVET_YAML::/g' -i "$i"; done
 
 EXTRA_DIST = yaml-cpp
 noinst_LTLIBRARIES = librivet-yaml-cpp.la

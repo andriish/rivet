@@ -1,3 +1,7 @@
+2021-04-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Update bundled yaml-cpp to version 0.6.3
+
 2021-04-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Release 3.1.4
