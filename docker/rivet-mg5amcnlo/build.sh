@@ -2,7 +2,7 @@
 
 set -e
 
-RIVET_VERSION=3.1.3
+RIVET_VERSION=3.1.4
 MG5_VERSION=2.7.3   #< also edit in Dockerfile, for now
 
 BUILD="docker build ."

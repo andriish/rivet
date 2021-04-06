@@ -15,10 +15,12 @@ The simplest Rivet installation uses a "bootstrap" script to install Rivet and a
 Python header files are required. On Ubuntu and other Debian Linux derivatives,
 you can use this command to install the necessary files system-wide: `sudo apt-get install python-dev`.
 You will also need a C++ compiler capable of building the C++14 dialect: on systems like
-CERN lxplus you can get such an environment (and also a fixed LaTeX for plotting) with:
+CERN lxplus you can get such an environment with:
+```sh
+source /cvmfs/sft.cern.ch/lcg/releases/LCG_99/ROOT/v6.22.06/x86_64-centos7-gcc10-opt/ROOT-env.sh
 ```
-source /cvmfs/sft.cern.ch/lcg/releases/LCG_96/Python/2.7.16/x86_64-centos7-gcc62-opt/Python-env.sh
-export PATH=/cvmfs/sft.cern.ch/lcg/external/texlive/2016/bin/x86_64-linux:$PATH
+*(OBSOLETE? A different LaTeX setup can be similarly acquired from CVMFS by setting e.g.
+`export PATH=/cvmfs/sft.cern.ch/lcg/external/texlive/2016/bin/x86_64-linux:$PATH`)*
 ```
 
 ### Installation
@@ -26,7 +28,7 @@ export PATH=/cvmfs/sft.cern.ch/lcg/external/texlive/2016/bin/x86_64-linux:$PATH
 1. **Download the bootstrap script** into a temporary working directory, and make it executable:
 ```
   cd /scratch/rivet
-  wget https://gitlab.com/hepcedar/rivetbootstrap/raw/3.1.3/rivet-bootstrap
+  wget https://gitlab.com/hepcedar/rivetbootstrap/raw/3.1.4/rivet-bootstrap
   chmod +x rivet-bootstrap
 ```
 (Replace the version string as appropriate if you want to install other versions of Rivet.)
