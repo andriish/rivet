@@ -736,14 +736,6 @@ namespace Rivet {
     _stage = Stage::OTHER;
     _initialised = true;
 
-    // Now get all booked analysis objects
-    vector<MultiweightAOPtr> raos;
-    for (AnaHandle a : analyses()) {
-      for (const auto & ao : a->analysisObjects()) {
-        raos.push_back(ao);
-      }
-    } // analyses
-
     // Collect global weights and cross sections and fix scaling for all files
     MSG_DEBUG("Getting event counter and cross-section from "
               << weightNames().size() << " " << numWeights());
@@ -755,110 +747,25 @@ namespace Rivet {
       _eventCounter.get()->setActiveWeightIdx(iW);
       _xs.get()->setActiveWeightIdx(iW);
       YODA::Scatter1D & xsec = *_xs;
-      /// @TODO **** INCOMING FROM RELEASE BRANCH... WHY SUCH A BIG DIFFERENCE? HOW TO MERGE? ****
-      //<<<<<<< HEAD (i.e. already on master before merge)
-      vector<YODA::Scatter1DPtr> xsecs;
-      vector<YODA::CounterPtr> sows;
-
-      // for (auto& aomap : allaos) {
-      //   auto xit = aomap.find(xsec.path());
-      //   if ( xit != aomap.end() ) {
-      //     xsecs.push_back(dynamic_pointer_cast<YODA::Scatter1D>(xit->second));
-      //   } else {
-      //     xsecs.push_back(YODA::Scatter1DPtr());
-      //   }
-      //   xit = aomap.find(sumw.path());
-      //   if ( xit != aomap.end() ) {
-      //     sows.push_back(dynamic_pointer_cast<YODA::Counter>(xit->second));
-      //   } else {
-      //     sows.push_back(YODA::CounterPtr());
-      //   }
-      // }
-      for (auto & aomap : allaos) { // one per input file
-
-        if (getLog().isActive(Log::DEBUG)) {
-          for (auto& kv : aomap) {
-            std::cout << kv.first << std::endl;
-          }
-        }
-        auto xit = aomap.find(xsec.path());
-        const double sf = fileweights.back();
-        fileweights.pop_back();
-        MSG_DEBUG("Looking for " << xsec.path() << " in all objects => "
-                  << (xit != aomap.end()));
-        if ( xit != aomap.end() ) {
-          xsecs.push_back(dynamic_pointer_cast<YODA::Scatter1D>(xit->second));
-          MSG_DEBUG("Apply user-supplied weight: " << sf);
-          xsecs.back()->scaleX(sf);
-        }
-        else if (equiv) {
-          xsecs.push_back(YODA::Scatter1DPtr());
-        }
-        else {
-          throw UserError("Missing cross-section, needed for non-equivalent merging");
-        }
-        xit = aomap.find(sumw.path());
-        MSG_DEBUG("Looking for " << sumw.path() << " in all objects => "
-                  << (xit != aomap.end()));
-        if ( xit != aomap.end() ) {
-          sows.push_back(dynamic_pointer_cast<YODA::Counter>(xit->second));
-        }
-        else if (equiv) {
-          sows.push_back(YODA::CounterPtr());
-        }
-        else {
-          throw UserError("Missing event counter, needed for non-equivalent merging");
-        }
-      } // allaos
-
-      double xs = 0.0, xserr = 0.0;
-      for ( int i = 0, N = sows.size(); i < N; ++i ) {
-        if ( !sows[i] || !xsecs[i] ) continue;
-        double xseci = xsecs[i]->point(0).x();
-        double xsecerri = sqr(xsecs[i]->point(0).xErrAvg());
-        sumw += *sows[i];
-        double effnent = sows[i]->numEntries();
-        xs += (equiv? effnent: 1.0)*xseci;
-        xserr += (equiv? sqr(effnent): 1.0)*xsecerri;
+      // set the sum of weights
+      auto aoit = allaos.find(_eventCounter->path());
+      if (aoit != allaos.end()) {
+        *_eventCounter += *dynamic_pointer_cast<YODA::Counter>(aoit->second);
       }
-      vector<double> scales(sows.size(), 1.0);
-      if ( equiv ) {
-        MSG_DEBUG("Equivalent mode: scale by numEntries");
-        xs /= sumw.numEntries();
-        xserr = sqrt(xserr)/sumw.numEntries();
-      } else {
-        MSG_DEBUG("Non-equivalent mode: stack");
-        xserr = sqrt(xserr);
-        for ( int i = 0, N = sows.size(); i < N; ++i ) {
-          if ( sumw.sumW() == 0.0 || xsecs[i]->point(0).x() == 0.0 ) {
-            scales[i] = 0.0;
-          } else {
-            scales[i] = (sumw.sumW()/sows[i]->sumW()) * (xsecs[i]->point(0).x()/xs);
-          }
 
-      // ================= the following was incoming from the release branch
-      // ================= keep the above as more "advanced"? Fixes from this block to be propagated above?
-      //
-      // // set the sum of weights
-      // auto aoit = allaos.find(_eventCounter->path());
-      // if (aoit != allaos.end()) {
-      //   *_eventCounter += *dynamic_pointer_cast<YODA::Counter>(aoit->second);
-      // }
-
-      // const auto xit = allxsecs.find(xsec.path());
-      // if ( xit != allxsecs.end() ) {
-      //   double xs = xit->second.first;
-      //   double xserr = sqrt(xit->second.second);
-      //   if ( equiv ) {
-      //     MSG_DEBUG("Equivalent mode: scale by numEntries");
-      //     const double nentries = _eventCounter->numEntries();
-      //     xs /= nentries;
-      //     xserr /= nentries;
-      //   }
-      //   else if (xs) {
-      //     // in stacking mode: need to unscale prior to finalize
-      //     scales[iW] = _eventCounter->sumW()/xs;
-      // >>>>>>>>>>>>>>>>   end of merge
+      const auto xit = allxsecs.find(xsec.path());
+      if ( xit != allxsecs.end() ) {
+        double xs = xit->second.first;
+        double xserr = sqrt(xit->second.second);
+        if ( equiv ) {
+          MSG_DEBUG("Equivalent mode: scale by numEntries");
+          const double nentries = _eventCounter->numEntries();
+          xs /= nentries;
+          xserr /= nentries;
+        }
+        else if (xs) {
+          // in stacking mode: need to unscale prior to finalize
+          scales[iW] = _eventCounter->sumW()/xs;
         }
         xsec.reset();
         xsec.addPoint( Point1D(xs,xserr) );
