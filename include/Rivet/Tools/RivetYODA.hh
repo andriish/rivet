@@ -903,6 +903,12 @@ namespace Rivet {
     /// The weight name.
     string weight() const { return _weight; }
 
+    /// The weight component of the path
+    string weightComponent() const { 
+      if (_weight == "")  return _weight;
+      return "[" + _weight + "]";
+    }
+
     /// Is This a RAW (filling) object?
     bool   isRaw() const { return _raw; }
 

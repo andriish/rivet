@@ -5,6 +5,7 @@ Experiment: PHENIX
 Collider: RHIC
 InspireID: 1672015
 Status: VALIDATED REENTRANT
+Reentrant: true
 Authors:
  - Hannes Jung hannes.jung@desy.de
 References:

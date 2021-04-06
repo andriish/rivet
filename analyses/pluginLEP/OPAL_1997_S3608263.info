@@ -6,6 +6,7 @@ Collider: LEP 1
 SpiresID: 3608263
 InspireID: 447146
 Status: VALIDATED
+Reentrant: false
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>
 References:

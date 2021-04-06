@@ -116,24 +116,8 @@ namespace Rivet {
       _fidWeights->fill();
     }
 
-
-    /// @todo Add to the YODA output rather than print to log
     void finalize() {
-
-      // Compute selection efficiency & statistical error
-      const double eff = _fidWeights->val()/sumOfWeights();
-      const double err = sqrt(eff*(1-eff)/numEvents());
-
-      // Compute fiducial cross-section in fb
-      const double fidCrossSection = eff * crossSection()/femtobarn;
-
-      // Print out result
-      MSG_INFO("==================================================");
-      MSG_INFO("==== Total cross-section: " << crossSection()/femtobarn<< " fb");
-      MSG_INFO("==== Fiducial cross-section: " << fidCrossSection << " fb");
-      MSG_INFO("==================================================");
-      MSG_INFO("==== Selection efficiency: " << eff << " +/- " << err << " (statistical error)");
-      MSG_INFO("==================================================");
+      scale(_fidWeights, crossSectionPerEvent()/femtobarn);
     }
 
     //@}

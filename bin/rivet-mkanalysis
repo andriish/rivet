@@ -348,7 +348,8 @@ Summary: <A one-line informative %(ANANAME)s headline>
 Experiment: %(ANAEXPT)s
 Collider: %(ANACOLLIDER)s
 %(ANAREFREPO)sID: %(ANAINSPIREID)s
-Status: UNVALIDATED NOTREENTRY NOHEPDATA SINGLEWEIGHT UNPHYSICAL
+Status: UNVALIDATED NOHEPDATA SINGLEWEIGHT UNPHYSICAL
+Reentrant: False
 Authors:
  - Your Name <your@email.address>
 References:

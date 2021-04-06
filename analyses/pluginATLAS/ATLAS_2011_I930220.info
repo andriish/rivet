@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 930220
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Stephen Paul Bieniek <stephen.paul.bieniek@cern.ch>
 References:

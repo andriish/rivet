@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1385107
 Status: VALIDATED
+Reentrant: false
 Authors:
  - Wei Yang Wang <wei.yang.wang@cern.ch>
  - Xavier Janssen <xavier.janssen@cern.ch>

@@ -1,6 +1,7 @@
 Name: MC_Onium_PiPi_Decay
 Summary: Analysis of kinematics in $\mathcal{O}\to\mathcal{O}^\prime\pi\pi$ decays
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 RunInfo: Any type of process producing bottom or charmonium mesons

@@ -390,7 +390,9 @@ namespace Rivet {
         else                                                scale(it->second, sf_fb);
       }
       for (map<string, Scatter2DPtr>::iterator it = _s.begin(); it != _s.end(); ++it) {
+        // @todo replace with new YODA object?
         makeScatterWithoutDividingByBinwidth(it->first);
+        // @todo need this to disappear if we want reentrant safety
         removeAnalysisObject(_h[it->first]);
       }
     }

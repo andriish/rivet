@@ -4,7 +4,8 @@ Summary: Differential single diffractive cross sections at 8 TeV
 Experiment: ATLAS, ALFA
 Collider: LHC
 InspireID: 1762584
-Status: VALIDATED 
+Status: VALIDATED
+Reentrant: true
 Authors:
  - Felix Kling <fkling@slac.stanford.edu>
 References:

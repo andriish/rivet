@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Inclusive jets at 8 TeV
   class ATLAS_2017_I1604271 : public Analysis {
   public:
 

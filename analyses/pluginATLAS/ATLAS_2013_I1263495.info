@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC 7TeV
 InspireID: 1263495
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Giovanni Marchiori <giovanni.marchiori@cern.ch>
 References:

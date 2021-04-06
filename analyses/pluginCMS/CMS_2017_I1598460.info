@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1598460
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Klaus Rabbertz <klaus.rabbertz@cern.ch>
  - Georg Sieber

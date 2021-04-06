@@ -58,8 +58,8 @@ namespace Rivet {
       h_jetpT.resize(jetFinders.size());
       for (size_t i = 0; i < jetFinders.size(); ++i) {
         string s = jetFinders[i];
-	book(h_zpT[i], s + "zpT",logspace(50, 1.0,1000));
-	book(h_jetpT[i], s + "jetpT",logspace(50, 1.0,1000));
+        book(h_zpT[i], s + "zpT",logspace(50, 1.0,1000));
+        book(h_jetpT[i], s + "jetpT",logspace(50, 1.0,1000));
       }
       book(incSow, "incSow");
 
@@ -139,17 +139,17 @@ namespace Rivet {
 
 
   private:
-  vector<string> jetFinders;
-  // Centrality inclusive histograms
-  vector<Histo1DPtr> h_zpT;
-  vector<Histo1DPtr> h_jetpT;
-  CounterPtr incSow;
-  // Centrality intervals
-  vector<double> centData;
-  // Centrality binned histograms
-  map<double, Histo1DPtr> c_jetpT;
-  map<double, Histo1DPtr> c_zpT;
-  map<double, CounterPtr> sow;
+    vector<string> jetFinders;
+    // Centrality inclusive histograms
+    vector<Histo1DPtr> h_zpT;
+    vector<Histo1DPtr> h_jetpT;
+    CounterPtr incSow;
+    // Centrality intervals
+    vector<double> centData;
+    // Centrality binned histograms
+    map<double, Histo1DPtr> c_jetpT;
+    map<double, Histo1DPtr> c_zpT;
+    map<double, CounterPtr> sow;
 
   };
 

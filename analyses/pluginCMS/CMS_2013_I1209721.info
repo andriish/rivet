@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1209721
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Io Odderskov <io.odderskov@gmail.com>
 References:

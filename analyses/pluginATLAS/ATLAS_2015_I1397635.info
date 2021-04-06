@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1397635
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Reinhard Schwienhorst <schwier@cern.ch>
 References:

@@ -6,6 +6,7 @@ Collider: LHC
 SpiresID: 8919674
 InspireID: 882534
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>
 References:

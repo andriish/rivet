@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1476015
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Alexis Descroix
  - Frederik Schaaf

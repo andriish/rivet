@@ -6,6 +6,7 @@ Collider: LHC
 SpiresID: 9120041
 InspireID: 916908
 Status: VALIDATED
+Reentrant: false
 Authors:
  - Mohammed Zakaria <mzakaria@ufl.edu>
 References:

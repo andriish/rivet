@@ -6,6 +6,7 @@ Collider: LHC 7TeV
 SpiresID: 8914702
 InspireID: 882463
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Mike Hance <michael.hance@cern.ch>
 References:

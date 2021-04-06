@@ -1,5 +1,7 @@
 # distutils: language = c++
 
+import sys
+
 cimport rivet as c
 from cython.operator cimport dereference as deref
 # Need to be careful with memory management -- perhaps use the base object that
@@ -7,6 +9,20 @@ from cython.operator cimport dereference as deref
 
 cdef extern from "<utility>" namespace "std" nogil:
     cdef c.unique_ptr[c.Analysis] move(c.unique_ptr[c.Analysis])
+
+# ## Write a string to a file
+# ## The file argument can either be a file object, filename, or special "-" reference to stdout
+# def _str_to_file(s, file_or_filename):
+#     s = s.decode('utf-8')
+#     if hasattr(file_or_filename, 'write'):
+#         file_or_filename.write(s)
+#     elif file_or_filename == "-":
+#         sys.stdout.write(s)
+#     else:
+#         with open(file_or_filename, "w") as f:
+#             f.write(s)
+
+
 
 cdef class AnalysisHandler:
     cdef c.AnalysisHandler *_ptr
@@ -63,8 +79,14 @@ cdef class AnalysisHandler:
     def readData(self, name):
         self._ptr.readData(name.encode('utf-8'))
 
-    def writeData(self, name):
-        self._ptr.writeData(name.encode('utf-8'))
+    def writeData(self, file_or_filename, fmt="yoda"):
+        cdef c.ostringstream oss
+        if type(file_or_filename) is str:
+            self._ptr.writeData_FILE(file_or_filename.encode('utf-8'))
+        else:
+            self._ptr.writeData_OSTR(oss, fmt.encode('utf-8'))
+            file_or_filename.write(oss.str().decode('utf-8'))
+
 
     def nominalCrossSection(self):
         return self._ptr.nominalCrossSection()

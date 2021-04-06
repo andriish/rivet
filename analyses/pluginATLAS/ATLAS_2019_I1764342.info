@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1764342
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Ruchi Gupta <ruchi.gupta@desy.de>
 References:

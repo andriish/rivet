@@ -197,7 +197,7 @@ namespace Rivet {
     }
 
 
-    void applyTransferFnAndNorm(HistoHandler handler) { ///< @todo Pass as const reference?
+    void applyTransferFnAndNorm(HistoHandler &handler) { ///< @todo Pass as const reference?
       // Load transfer function from reference data file
       const YODA::Scatter2D& myTransferFn = refData(handler.d, handler.x, handler.y);
       double area = 0.0;

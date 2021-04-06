@@ -27,21 +27,21 @@ namespace Rivet {
       _runZ = true;
       _runW = true;
       if ( getOption("LMODE") == "EL" || 
-	   getOption("LMODE") == "ZEL" ||
-	   getOption("LMODE") == "WEL" ) 
-	_mode = 1;
+           getOption("LMODE") == "ZEL" ||
+           getOption("LMODE") == "WEL" ) 
+        _mode = 1;
       if ( getOption("LMODE") == "MU" || 
-	   getOption("LMODE") == "ZMU" ||
-	   getOption("LMODE") == "WMU" ) 
-	_mode = 2;
+           getOption("LMODE") == "ZMU" ||
+           getOption("LMODE") == "WMU" ) 
+        _mode = 2;
       if ( getOption("LMODE") == "Z" || 
-	   getOption("LMODE") == "ZEL" || 
-	   getOption("LMODE") == "ZMU" ) 
-	_runW = false;
+           getOption("LMODE") == "ZEL" || 
+           getOption("LMODE") == "ZMU" ) 
+        _runW = false;
       if ( getOption("LMODE") == "W" || 
-	   getOption("LMODE") == "WEL" || 
-	   getOption("LMODE") == "WMU" ) 
-	_runZ = false;
+           getOption("LMODE") == "WEL" || 
+           getOption("LMODE") == "WMU" ) 
+        _runZ = false;
 
 
 
@@ -71,17 +71,17 @@ namespace Rivet {
 
       /// Book histograms here      
       if (_runW) {
-	book(_h_Wp_eta,  9, 1, 1);
-	book(_h_Wm_eta, 10, 1, 1);
-	book(_h_W_asym, 35, 1, 1);
+        book(_h_Wp_eta,  9, 1, 1);
+        book(_h_Wm_eta, 10, 1, 1);
+        book(_h_W_asym, 35, 1, 1);
       }
 
       if (_runZ) {
-	book(_h_Zcenlow_y_dressed,  11, 1, 1);
-	book(_h_Zcenpeak_y_dressed, 12, 1, 1);
-	book(_h_Zcenhigh_y_dressed, 13, 1, 1);
-	book(_h_Zfwdpeak_y_dressed, 14, 1, 1);
-	book(_h_Zfwdhigh_y_dressed, 15, 1, 1);
+        book(_h_Zcenlow_y_dressed,  11, 1, 1);
+        book(_h_Zcenpeak_y_dressed, 12, 1, 1);
+        book(_h_Zcenhigh_y_dressed, 13, 1, 1);
+        book(_h_Zfwdpeak_y_dressed, 14, 1, 1);
+        book(_h_Zfwdhigh_y_dressed, 15, 1, 1);
       }
     }
 

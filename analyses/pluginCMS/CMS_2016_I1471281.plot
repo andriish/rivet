@@ -1,4 +1,4 @@
-# BEGIN PLOT /CMS_2017_I1471281_W/d01-x01-y01
+# BEGIN PLOT /CMS_2016_I1471281/d08-x01-y01
 Title=CMS, 8 TeV, W boson pT distribution in muon channel
 XLabel=${p_{T}^{W}}$ [GeV]
 YLabel=${{1/\sigma}$ ${d\sigma}$/${dp_{T}^{W}}}$ [$GeV^{-1}$]
@@ -13,7 +13,7 @@ RatioPlotYMax=1.3
 # END PLOT
 
 
-# BEGIN PLOT /CMS_2017_I1471281_Z/d02-x01-y01
+# BEGIN PLOT /CMS_2016_I1471281/d09-x01-y01
 Title=CMS, 8 TeV, Z boson pT distribution in Di-muon channel
 XLabel=${p_{T}^{Z}}$ [GeV]
 YLabel=${{1/\sigma}$ ${d\sigma}$/${dp_{T}^{Z}}}$ [$GeV^{-1}$]

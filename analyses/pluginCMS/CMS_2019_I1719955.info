@@ -4,6 +4,7 @@ Summary: Azimuthal separation in nearly back-to-back jet topologies in inclusive
 Experiment: CMS
 Collider: LHC
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Armando Bermudez Martinez <armando.bermudez.martinez@desy.de>
  - SMP conveners <cms-phys-conveners-smp@NOSPAMcernNOSPAMPLEASE.ch>

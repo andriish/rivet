@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 941555
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Luca Perrozzi <luca.perrozzi@cern.ch>
  - Justin Hugon <justin.hugon@cern.ch>

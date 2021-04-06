@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1662081
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Doug Burns <Douglas.Burns@cern.ch>
  - Emyr Clement <Emyr.Clement@bristol.ac.uk>

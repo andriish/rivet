@@ -20,7 +20,8 @@ export TEXINPUTS="$texdatadir/Rivet/texmf/tex//:$TEXINPUTS"
 export LATEXINPUTS="$texdatadir/Rivet/texmf/tex//:$LATEXINPUTS"
 
 if (complete &> /dev/null); then
-    test -e "@datadir@/Rivet/rivet-completion" && source "@datadir@/Rivet/rivet-completion"
+    comppath="@sysconfdir@/bash_completion.d/rivet-completion"
+    test -e $comppath && source $comppath
 fi
 
 unset YODA_PYTHONPATH

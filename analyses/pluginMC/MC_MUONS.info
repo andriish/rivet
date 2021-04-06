@@ -1,6 +1,7 @@
 Name: MC_MUONS
 Summary: Monte Carlo validation observables for muon production
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>
 NumEvents: 10000

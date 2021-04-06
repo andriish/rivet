@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1459051
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Paolo Gunnellini <paolo.gunnellini@desy.de>
 References:

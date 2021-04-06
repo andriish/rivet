@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1384119
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Hannes Jung <hannes.jung@desy.de>
 References:

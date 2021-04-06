@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: ATLAS
 InspireID: 1790439
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Rongkun Wang <rongkun.wang@cern.ch>
  - Neil Warrack <neil.warrack@cern.ch>

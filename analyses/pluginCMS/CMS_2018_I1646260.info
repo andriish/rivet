@@ -4,7 +4,8 @@ Summary: Search for BSM with 2 soft leptons + MET at 13 TeV
 Experiment: ATLAS
 Collider: LHC
 InspireID: 1646260
-Status: VALIDATED NOTREENTRY NOHEPDATA
+Status: VALIDATED NOHEPDATA
+Reentrant: true
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>
  - Derek Yeung

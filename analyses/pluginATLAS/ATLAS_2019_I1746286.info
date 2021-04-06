@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1746286
 Status: VALIDATED
+Reentrant: true
 Authors: 
  - Sergio Calvente <sergio.calvente.lopez@cern.ch>
  - Fernando Barreiro <fernando.barreriro@uam.es>

@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1298023
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Simone Pagan Griso <simone.pagan.griso@cern.ch>
  - Christian Gutschow <chris.g@cern.ch>

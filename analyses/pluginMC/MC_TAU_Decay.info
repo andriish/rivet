@@ -1,6 +1,7 @@
 Name: MC_TAU_Decay
 Summary: Analysis of Kinematic distributions for $\tau$ lepton decays
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 RunInfo: Any type of process producing tau leptons

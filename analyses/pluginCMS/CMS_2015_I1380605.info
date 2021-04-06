@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1380605
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Anastasia Grebenyuk <Anastasia.Grebenyuk@cern.ch>
  - Hannes Jung <hannes.jung@desy.de>

@@ -7,6 +7,7 @@
 
 namespace Rivet {       
 
+  /// @brief Underlying event in Z events
   class ATLAS_2019_I1736531 : public Analysis {
   public:
   

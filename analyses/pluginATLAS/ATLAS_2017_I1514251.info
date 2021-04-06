@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1514251
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Gavin Hesketh <gavin.hesketh@cern.ch>
 References:

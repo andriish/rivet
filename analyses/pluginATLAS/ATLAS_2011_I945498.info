@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 945498
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Evelin Meoni <evelin.meoni@cern.ch>
  - Holger Schulz <holger.schulz@fnal.gov>

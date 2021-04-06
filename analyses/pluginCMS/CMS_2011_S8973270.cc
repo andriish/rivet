@@ -31,12 +31,12 @@ namespace Rivet {
       book(_h_dsigma_dPhi_84GeV ,5,1,1);
       book(_h_dsigma_dPhi_120GeV ,6,1,1);
 
-      _countMCDR56 = 0;
-      _countMCDR84 = 0;
-      _countMCDR120 = 0;
-      _countMCDPhi56 = 0;
-      _countMCDPhi84 = 0;
-      _countMCDPhi120 = 0;
+      book(_c["MCDR56"],     "_MCDR56");
+      book(_c["MCDR84"],     "_MCDR84");
+      book(_c["MCDR120"],    "_MCDR120");
+      book(_c["MCDPhi56"],   "_MCDPhi56");
+      book(_c["MCDPhi84"],   "_MCDPhi84");
+      book(_c["MCDPhi120"], "_MCDPhi120");
     }
 
 
@@ -91,12 +91,12 @@ namespace Rivet {
           MSG_DEBUG("DR/DPhi " << dR << " " << dPhi);
 
           // MC counters
-          if (dR > 2.4) _countMCDR56 += weight;
-          if (dR > 2.4 && ljpT > 84*GeV) _countMCDR84 += weight;
-          if (dR > 2.4 && ljpT > 120*GeV) _countMCDR120 += weight;
-          if (dPhi > 3.*PI/4.) _countMCDPhi56 += weight;
-          if (dPhi > 3.*PI/4. && ljpT > 84*GeV) _countMCDPhi84 += weight;
-          if (dPhi > 3.*PI/4. && ljpT > 120*GeV) _countMCDPhi120 += weight;
+          if (dR > 2.4) _c["MCDR56"]->fill();
+          if (dR > 2.4 && ljpT > 84*GeV) _c["MCDR84"]->fill();
+          if (dR > 2.4 && ljpT > 120*GeV) _c["MCDR120"]->fill();
+          if (dPhi > 3.*PI/4.) _c["MCDPhi56"]->fill();
+          if (dPhi > 3.*PI/4. && ljpT > 84*GeV) _c["MCDPhi84"]->fill();
+          if (dPhi > 3.*PI/4. && ljpT > 120*GeV) _c["MCDPhi120"]->fill();
 
           _h_dsigma_dR_56GeV->fill(dR, weight);
           if (ljpT > 84*GeV) _h_dsigma_dR_84GeV->fill(dR, weight);
@@ -124,12 +124,12 @@ namespace Rivet {
       double nDataDPhi56 = 24220.00;
       double nDataDPhi84 = 4964.00;
       double nDataDPhi120 = 919.10;
-      double normDR56 = (_countMCDR56 > 0.) ? nDataDR56/_countMCDR56 : crossSection()/sumOfWeights();
-      double normDR84 = (_countMCDR84 > 0.) ? nDataDR84/_countMCDR84 : crossSection()/sumOfWeights();
-      double normDR120 = (_countMCDR120 > 0.) ? nDataDR120/_countMCDR120 : crossSection()/sumOfWeights();
-      double normDPhi56 = (_countMCDPhi56 > 0.) ? nDataDPhi56/_countMCDPhi56 : crossSection()/sumOfWeights();
-      double normDPhi84 = (_countMCDPhi84 > 0.) ? nDataDPhi84/_countMCDPhi84 : crossSection()/sumOfWeights();
-      double normDPhi120 = (_countMCDPhi120 > 0.) ? nDataDPhi120/_countMCDPhi120 : crossSection()/sumOfWeights();
+      double normDR56 = safediv(nDataDR56, dbl(*_c["MCDR56"]), crossSection()/sumOfWeights());
+      double normDR84 = safediv(nDataDR84, dbl(*_c["MCDR84"]), crossSection()/sumOfWeights());
+      double normDR120 = safediv(nDataDR120, dbl(*_c["MCDR120"]), crossSection()/sumOfWeights());
+      double normDPhi56 = safediv(nDataDPhi56, dbl(*_c["MCDPhi56"]), crossSection()/sumOfWeights());
+      double normDPhi84 = safediv(nDataDPhi84, dbl(*_c["MCDPhi84"]), crossSection()/sumOfWeights());
+      double normDPhi120 = safediv(nDataDPhi120, dbl(*_c["MCDPhi120"]), crossSection()/sumOfWeights());
       scale(_h_dsigma_dR_56GeV, normDR56*DRbin);
       scale(_h_dsigma_dR_84GeV, normDR84*DRbin);
       scale(_h_dsigma_dR_120GeV, normDR120*DRbin);
@@ -145,8 +145,7 @@ namespace Rivet {
 
     /// @name Counters
     //@{
-    double _countMCDR56, _countMCDR84, _countMCDR120;
-    double _countMCDPhi56, _countMCDPhi84, _countMCDPhi120;
+    map<string, CounterPtr> _c;
     //@}
 
     /// @name Histograms

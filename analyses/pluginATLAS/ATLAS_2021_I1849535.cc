@@ -28,7 +28,6 @@ namespace Rivet {
         muons.acceptTauDecays(true);
 
 
-        // @TODO truth isolation
         // Final state including all charged particles
         declare(ChargedFinalState(), "CFS");
 

@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1744604
 Status: VALIDATED REENTRANT
+Reentrant: true
 Authors:
  - Matthias Komm <Matthias.Komm@cern.ch>
 References:
@@ -17,7 +18,7 @@ RunInfo:
 Beams: [p+, p+]
 Energies: [13000]
 Luminosity_fb: 35.9
-Reentrant: True
+Reentrant: true
 Description:
     'Abstract:
     A measurement is presented of differential cross sections for $t$-channel single top quark and antiquark production in

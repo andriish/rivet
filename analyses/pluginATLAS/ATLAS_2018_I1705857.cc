@@ -8,10 +8,10 @@
 namespace Rivet {
 
 
+/// @brief ttbb at 13 TeV
 class ATLAS_2018_I1705857 : public Analysis {
  public:
    /// Constructor
-   /// @brief ttbb at 13 TeV
    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2018_I1705857);
 
     void init() {
@@ -154,7 +154,7 @@ class ATLAS_2018_I1705857 : public Analysis {
       FourMomentum jsum = bjets[0].momentum() + bjets[1].momentum();
       double dr_leading = deltaR(bjets[0], bjets[1]);
 
-      size_t ind1, ind2; double mindr = 999.;
+      size_t ind1 = 0, ind2 = 0; double mindr = 999.;
       for (size_t i = 0; i < bjets.size(); ++i) {
         for (size_t j = 0; j < bjets.size(); ++j) {
           if (i == j)  continue;

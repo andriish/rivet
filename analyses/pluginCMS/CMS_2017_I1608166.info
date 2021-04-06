@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1608166
 Status: VALIDATED REENTRANT
+Reentrant: true
 Authors:
  - Markus Seidel <markus.seidel@cern.ch>
 References:

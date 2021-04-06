@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1682495
 Status: VALIDATED
+Reentrant: true
 Authors:
  - cms-pag-conveners-smp@cern.ch
  - Andy Buckley <andy.buckley@cern.ch>

@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 929691
 Status: VALIDATED
+Reentrant: false
 Authors:
  - Stefan von Buddenbrock <stef.von.b@cern.ch>
 References:

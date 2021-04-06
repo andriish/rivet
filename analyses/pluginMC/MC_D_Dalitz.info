@@ -1,6 +1,7 @@
 Name: MC_D_Dalitz
 Summary: MC analysis of Dalitz plots in three-body $D$-meson decays
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 RunInfo: Any process producing D mesons

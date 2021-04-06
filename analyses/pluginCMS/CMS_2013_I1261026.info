@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1261026
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Maxim Azarkin <Maksim.Azarkin@cern.ch>
 References:

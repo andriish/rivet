@@ -1,4 +1,5 @@
-FROM ubuntu:20.04
+ARG UBUNTU_IMAGE=ubuntu:20.04
+FROM ${UBUNTU_IMAGE}
 LABEL maintainer="rivet-developers@cern.ch"
 
 ARG HEPMC_VERSION=2
@@ -31,7 +32,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y python2 python2-dev \
     && update-alternatives --install /usr/bin/python python /usr/bin/python2 2 \
     && update-alternatives --install /usr/bin/python-config python-config /usr/bin/python2-config 2 \
-    && wget --no-verbose https://bootstrap.pypa.io/2.7/get-pip.py -O get-pip.py \
+    && wget --no-verbose https://bootstrap.pypa.io/pip/2.7/get-pip.py -O get-pip.py \
     && python2 get-pip.py \
     && pip install matplotlib requests Cython \
     && apt-get -y autoremove \

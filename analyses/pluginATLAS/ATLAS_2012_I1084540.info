@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC 7TeV
 InspireID: 1084540
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Oldrich Kepka <kepkao@fzu.cz>
  - Tim Martin <tim.martin@cern.ch>

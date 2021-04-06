@@ -840,7 +840,7 @@ namespace Rivet {
     MSG_TRACE("Normalizing histo " << histo->path() << " to " << double(norm));
     try {
       const double hint = histo->integral(includeoverflows);
-      if (hint == 0)  MSG_WARNING("Skipping histo with null area " << histo->path());
+      if (hint == 0)  MSG_DEBUG("Skipping histo with null area " << histo->path());
       else            histo->normalize(norm, includeoverflows);
     } catch (YODA::Exception& we) {
       MSG_WARNING("Could not normalize histo " << histo->path());
@@ -876,7 +876,7 @@ namespace Rivet {
     MSG_TRACE("Normalizing histo " << histo->path() << " to " << double(norm));
     try {
       const double hint = histo->integral(includeoverflows);
-      if (hint == 0)  MSG_WARNING("Skipping histo with null area " << histo->path());
+      if (hint == 0)  MSG_DEBUG("Skipping histo with null area " << histo->path());
       else            histo->normalize(norm, includeoverflows);
     } catch (YODA::Exception& we) {
       MSG_WARNING("Could not normalize histo " << histo->path());

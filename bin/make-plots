@@ -1057,7 +1057,7 @@ class RatioPlot(Plot):
 
         if (self.name+'YLabel') in inputdata.description:
             inputdata.description['YLabel']=inputdata.description[self.name+'YLabel']
-        inputdata.description['YLabel']='\\rput(-%s,0){%s}'%(0.5*inputdata.description['PlotSizeY']/inputdata.description['PlotSizeX'],inputdata.description['YLabel'])
+        inputdata.description['YLabel']='\\rput(-%s,0){%s}'%(0.5*inputdata.attr_float('PlotSizeY')/inputdata.attr_float('PlotSizeX'),inputdata.description['YLabel'])
         if (self.name+'YMin') in inputdata.description:
             inputdata.description['YMin']=inputdata.description[self.name+'YMin']
         if (self.name+'YMax') in inputdata.description:
@@ -3294,7 +3294,6 @@ def process_datfile(datfile, **kwargs):
 
         ## Check for the required programs
         latexavailable = have_cmd("latex")
-        dvilualatexavailable = False #have_cmd("dvilualatex")
         dvipsavailable = have_cmd("dvips")
         convertavailable = have_cmd("convert")
         ps2pnmavailable = have_cmd("ps2pnm")
@@ -3328,13 +3327,7 @@ def process_datfile(datfile, **kwargs):
 
         ## Run LaTeX (in no-stop mode)
         logging.debug(os.listdir(tempdir))
-        if dvilualatexavailable:
-            texcmd = ["dvilualatex"]
-        elif latexavailable:
-            texcmd = ["latex"]
-        else:
-            raise RuntimeError("LaTeX commands not found")
-        texcmd += [r"\scrollmode\input", texpath]
+        texcmd = ["latex", "\scrollmode\input", texpath]
         logging.debug("TeX command: " + " ".join(texcmd))
         texproc = subprocess.Popen(texcmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=tempdir)
         logging.debug(texproc.communicate()[0])
@@ -3360,7 +3353,7 @@ def process_datfile(datfile, **kwargs):
             dvcmd.append("-f")
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-            cnvcmd = ["ps2pdf", "-dNOSAFER" ]
+            cnvcmd = ["ps2pdf", "-dNOSAFER", "-dAutoRotatePages=/None" ]
             if newOpacityPolicy:
               cnvcmd += ["-dALLOWPSTRANSPARENCY",]
             cnvproc = subprocess.Popen(cnvcmd + ["-"], stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
@@ -3511,8 +3504,8 @@ if __name__ == '__main__':
     if args.OUTPUT_FORMAT != ["TEX"]:
         try:
             ## latex
-            if not (have_cmd("latex") or have_cmd("dvilualatex")):
-                logging.error("ERROR: required program 'dvilualatex' or 'latex' could not be found. Exiting...")
+            if not have_cmd("latex"):
+                logging.error("ERROR: required program 'latex' could not be found. Exiting...")
                 sys.exit(1)
             ## dvips
             if not have_cmd("dvips"):

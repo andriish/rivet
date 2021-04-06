@@ -5,6 +5,7 @@ Experiment: CMS
 Collider: LHC
 InspireID: 1663958
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Otto Hindrichs <otto.heinz.hindrichs@cern.ch>
 References:

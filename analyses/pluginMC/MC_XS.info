@@ -1,6 +1,7 @@
 Name: MC_XS
 Summary: MC analysis for process total cross section
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Marek Schoenherr <marek.schoenherr@tu-dresden.de>
  - Christian Gutschow <chris.g@cern.ch>

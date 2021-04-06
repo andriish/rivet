@@ -3,15 +3,13 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 
-/// @todo Include more projections as required, e.g. ChargedFinalState, FastJets, ZFinder...
-
 namespace Rivet {
 
+  /// @brief Study of ordered hadron chains at 7 TeV
   class ATLAS_2017_I1624693 : public Analysis {
   public:
 
     /// Constructor
-    /// @brief Study of ordered hadron chains at 7 TeV
     DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2017_I1624693);
 
     /// @name Analysis methods

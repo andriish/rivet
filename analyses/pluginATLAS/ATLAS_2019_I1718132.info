@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1718132
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Louie Corpe <lcorpe@cern.ch>
  - Christian Gutschow <chris.g@cern.ch>

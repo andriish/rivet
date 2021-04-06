@@ -1,6 +1,7 @@
 Name: MC_ELECTRONS
 Summary: Monte Carlo validation observables for electron production
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>
 NumEvents: 10000

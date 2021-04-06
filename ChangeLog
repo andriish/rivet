@@ -1,3 +1,15 @@
+2021-04-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Update bundled yaml-cpp to version 0.6.3
+
+2021-04-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Release 3.1.4
+
+2021-03-27  Christian Gutschow  <chris.g@cern.ch>
+
+	* Implement pair-wise version of rivet-merge
+
 2021-03-26  Johannes Jahan  <johannes.jahan@subatech.in2p3.fr>
 
 	* Fixes to histogram double-booking in STAR_2017_I1510593.
@@ -73,6 +85,12 @@
 2021-01-31  Christian Gutschow  <chris.g@cern.ch>
 
 	* v2 HepData sync for ATLAS_2018_I1635273
+
+2020-12-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a stream-based AH::writeData variant, and map it to Python.
+
+	* Add missing list-analyses flag initialisation to Run.
 
 2020-12-11  Andy Buckley  <andy.buckley@cern.ch>
 

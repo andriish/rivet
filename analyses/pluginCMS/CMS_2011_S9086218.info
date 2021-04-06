@@ -6,6 +6,7 @@ Collider: LHC
 SpiresID: 9086218
 InspireID: 902309
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Rasmus Sloth Hansen<rsh07@phys.au.dk>
 References:

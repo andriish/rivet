@@ -188,15 +188,15 @@ namespace Rivet {
       
       // normalize to unity V->P
       for(unsigned int ix=0;ix<_mff_V.size();++ix) {
-	normalize(_mff_V);
-	normalize(_mPf);
-	normalize(_mPfbar);
+        normalize(_mff_V);
+        normalize(_mPf);
+        normalize(_mPfbar);
       }
       // normalize to unity P->V
       for(unsigned int ix=0;ix<_mff_P.size();++ix) {
-	normalize(_mff_P);
-	normalize(_mVf);
-	normalize(_mVfbar);
+        normalize(_mff_P);
+        normalize(_mVf);
+        normalize(_mVfbar);
       }
 
     }

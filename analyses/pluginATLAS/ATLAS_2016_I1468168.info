@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1468168
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Tom Neep <tom.neep@cern.ch>
  - Barbara Alvarez Gonzalez <barbara.alvarez.gonzalez@cern.ch>

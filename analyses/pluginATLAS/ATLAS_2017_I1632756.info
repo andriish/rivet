@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 InspireID: 1632756
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Sebastien Prince <sebastien.prince@cern.ch>
 References:

@@ -1,6 +1,7 @@
 Name: MC_Cent_pPb_Eta
 Summary: Template analysis for ontaining eta distributions binned in centrality
-Status: UNVALIDATED REENTRANT
+Status: UNVALIDATED
+Reentrant: true
 Authors:
  - Leif Lönnblad <leif.lonnblad@thep.lu.se>
 Options:

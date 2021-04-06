@@ -101,8 +101,7 @@ namespace Rivet {
 
     /// Post-run processing
     void finalize() {
-      for (auto& key_hist : _hists)
-        normalize(key_hist.second);
+      normalize(_hists);
     }
 
     //@}
