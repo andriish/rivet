@@ -85,42 +85,44 @@ objects, although this can often still be dealt with using a few lines of Python
 
 In essence, a reentrant-safe analysis is one that, once interrupted mid-run,
 has enough information in the output file to be able to pick up where it left off.
-The `rivet-merge` script will call the `init()` method of an analysis to 
-instantiate its objects, replace all the booked objects with the merged version 
-from the combined input files and then run `finalize()` method once more. 
-With that in mind, all fillable-type objects must be booked in the `init()` method, 
+The `rivet-merge` script will call the `init()` method of an analysis to book 
+its objects into memory, replace all the emoty booked objects with the merged version 
+from the combined input files and then run the `finalize()` method once more. 
+With that in mind, all fillable objects must be booked in the `init()` method, 
 i.e. histograms, profiles, counters. Scatter-type objects can be booked in either 
-the `init()` or the `finalize()` method. The vast majority of analyses shipped with 
-Rivet are reentrant safe. Nevertheless, there are a few pitfalls worth highlighting:
+the `init()` or the `finalize()` method.
+
+The vast majority of analyses shipped with Rivet are reentrant safe. 
+Nevertheless, there are a few pitfalls worth highlighting:
 
  * If an analysis is meant to write out a scatter-type objects, such as
    a ratio or an efficiency, it must book the corresponding numerator 
    and denomintor histograms in the `init()` method in order to be 
    reentrate safe.
- * If the number histograms booked in the default `init()` method
+ * If the number of histograms booked in the default `init()` method
    depends on the sample (e.g. a beam-energy-dependent booking),
-   the routine is not reentrant safe because it is not guaranteed
-   that there is always a one-to-one match between the booked 
-   analysis objects and the objects written out to file, 
-   for any given run. In such a case, it is preferable to use 
+   the routine is not reentrant safe because, for any given run,
+   it is not guaranteed that there is always a one-to-one match 
+   between the booked analysis objects and the objects written 
+   out to file. In such a case, it is preferable to use 
    Rivet's [options mechanism](anaoptions.md) to steer the 
    histogram booking, which ensures that an analysis will
    always be initialised with the right set of objects.
  * It's not possible to use a simple `double` to add up 
-   event weights in the main event loop and use the sum 
-   to normalise a histogram for two reasons: 
+   event weights in the main event loop and use the 
+   resulting sum to normalise a histogram. There are two reasons: 
    First of all, many Monte Carlo samples will have multiple
-   event weights, so by using a `double` you are probably
+   event weights, and so by using a `double` you are probably
    not correctly accounting for the different sum of weights.
    Secondly, when merging files, the main event loop is not 
    executed and so these simple `double` counters will retain
    their initialisation values (usually 0) and the merged result
-   will not receive the intended normalisation. In these cases,
-   it is preferable to fill an auxiliary `Counter` object and 
-   write it out to file, so that it can be loaded back in.
-   The advantage is that it automatically takes care of the multiweights
-   and if it's booked with a leading underscore, it will be ignored
-   by the plotting scripts too. An example might look like:
+   cannot receive the intended normalisation. In these cases,
+   it is preferable to fill an auxiliary `Counter` object, which
+   is then written out to the file, so that it can be loaded back in later.
+   The advantage is that this automatically takes care of the multiweights
+   and if it's booked with a leading underscore, it will also be ignored
+   by the plotting scripts. An example might look like this:
    ```
    CounterPtr mycounter
    book(mycounter, "_auxCounter");
