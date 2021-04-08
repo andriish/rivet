@@ -32,16 +32,17 @@ it will be impossible to merge the files "correctly". An average might come clos
 but is often not satisfactory.
 
 This is where `rivet-merge` comes in. This script does not make any assumptions about 
-how to combine `Scatter*D` objects at all, and instead makes use of re-entrant histogramming,
+how to combine `Scatter*D` objects at all, and instead makes use of reentrant histogramming,
 which starts of combining the pre-finalized versions of the histograms, which are saved to the
 output with the prefix `/RAW` prepended to the path. Once combined, the script can then call 
 the `finalize()` method of the parent analysis of each analysis object directly in order to correctly 
 combine the merged `RAW` histograms into the final `Scatter*D`s.
 
-As a result, `rivet-merge` can **only be used with re-entrant safe routines**. To be re-entrant-safe, 
-the `finalize()` method of an analysis should be self-consistent and not book additonal analysis objects:
-everything that should end up in the output file must be booked in the initialisation phase.
-If you try to merge `yoda` files from non-re-entrant plugins, the script will warn you that the result
+As a result, `rivet-merge` can **only be used with reentrant safe routines**. 
+To be [reentrant-safe](#Reentrant-safety), the `finalize()` method of an analysis 
+should be self-consistent: everything that is required to produce the desired objects 
+in the output file must be booked in the initialisation phase. If you try to merge 
+`yoda` files from non-reentrant plugins, the script will warn you that the result
 will be unpredictable. 
 
 As a rule of thumb, `rivet-merge` is the more sophisticated merging tool, since it has access to the
