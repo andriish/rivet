@@ -39,7 +39,7 @@ the `finalize()` method of the parent analysis of each analysis object directly 
 combine the merged `RAW` histograms into the final `Scatter*D`s.
 
 As a result, `rivet-merge` can **only be used with reentrant safe routines**. 
-To be [reentrant-safe](merging2.md#Reentrant-safety), the `finalize()` method of an analysis 
+To be [reentrant-safe](merging2.md#reentrant-safety), the `finalize()` method of an analysis 
 should be self-consistent: everything that is required to produce the desired objects 
 in the output file must be booked in the initialisation phase. If you try to merge 
 `yoda` files from non-reentrant plugins, the script will warn you that the result
