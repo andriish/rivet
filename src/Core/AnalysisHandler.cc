@@ -534,6 +534,8 @@ namespace Rivet {
   void AnalysisHandler::mergeYodas(const vector<string>& aofiles,
                                    const vector<string>& delopts,
                                    const vector<string>& addopts,
+                                   const vector<string>& matches,
+                                   const vector<string>& unmatches,
                                    bool equiv) {
 
 
@@ -611,6 +613,21 @@ namespace Rivet {
         }
         // skip everything that isn't pre-finalize
         if ( !path.isRaw() ) continue;
+
+        // object path filtering
+        const string& ana = path.analysis();
+        bool skip = false;
+        if (ana != "") {
+          if (matches.size()) {
+            skip = !std::any_of(matches.begin(), matches.end(), [&](const string &exp){
+                                return std::regex_match(ana, std::regex(exp));} );
+          }
+          if (unmatches.size()) {
+            skip |= std::any_of(matches.begin(), matches.end(), [&](const string &exp){
+                               return std::regex_match(ana, std::regex(exp));} );
+          }
+        }
+        if (skip)  continue;
 
         MSG_DEBUG(" " << ao->path());
 
