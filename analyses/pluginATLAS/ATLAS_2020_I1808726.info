@@ -5,6 +5,7 @@ Experiment: ATLAS
 Collider: LHC
 Status: VALIDATED
 Reentrant: true
+InspireID: 1808726
 Authors:
  - Javier Llorente <javier.llorente.merino@cern.ch>
  - Deepak Kar <deepak.kar@cern.ch>
@@ -32,7 +33,7 @@ Description:
    At high jet multiplicities, the shapes are better described but discrepancies 
    in the normalisation are observed.'
 BibKey: Aad:2020fch
-BibTex: '@article{Aad:2020fch,
+BibTeX: '@article{Aad:2020fch,
     author = "Aad, Georges and others",
     collaboration = "ATLAS",
     title = "{Measurement of hadronic event shapes in multijet final states at $\sqrt{s}=13$ TeV with the ATLAS detector}",
