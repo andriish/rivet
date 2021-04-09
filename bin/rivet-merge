@@ -54,7 +54,11 @@ extragroup.add_argument("-a", "--add-option", dest="ADDOPTIONS", action="append"
 extragroup.add_argument("--pwd", dest="ANALYSIS_PATH_PWD", action="store_true", default=False,
                       help="append the current directory (pwd) to the analysis/data search paths (cf. $RIVET_ANALYSIS_PATH).")
 extragroup.add_argument("-p", "--preload-file", dest="PRELOADFILE",
-                        default=None, help="specify and old yoda file to initialize or load calibrations, etc. (default = %(default)s)")
+                        default=None, help="specify an old yoda file to initialize or load calibrations, etc. (default = %(default)s)")
+extragroup.add_argument("-m", "--match", dest="MATCH", action="append", default=[],
+                         help="only write out histograms whose path matches this regex")
+extragroup.add_argument("-M", "--unmatch", dest="UNMATCH", action="append", default=[],
+                        help="exclude histograms whose path matches this regex")
 
 verbgroup = parser.add_argument_group("Verbosity control")
 parser.add_argument("-l", dest="NATIVE_LOG_STRS", action="append",
@@ -97,7 +101,8 @@ try:
     if args.PRELOADFILE is not None:
         ah.readData(args.PRELOADFILE)
 
-    ah.mergeYodas(args.YODAFILES, args.MERGEOPTIONS, args.ADDOPTIONS, args.EQUIV)
+    ah.mergeYodas(args.YODAFILES, args.MERGEOPTIONS, args.ADDOPTIONS, 
+                  args.MATCH, args.UNMATCH, args.EQUIV)
     ah.writeData(args.OUTPUTFILE)
 
 except:
@@ -109,8 +114,10 @@ except:
     yfiles = [y.encode() for y in args.YODAFILES]
     moptions = [m.encode() for m in args.MERGEOPTIONS]
     aoptions = [a.encode() for a in args.ADDOPTIONS]
+    matchexp = [e.encode() for e in args.MATCH]
+    unmatch  = [e.encode() for e in args.UNMATCH]
     if args.PRELOADFILE is not None:
         ah.readData([p.encode() for p in args.PRELOADFILE])
 
-    ah.mergeYodas(yfiles, moptions, aoptions, args.EQUIV)
+    ah.mergeYodas(yfiles, moptions, aoptions, matchexp, unmatch, args.EQUIV)
     ah.writeData(args.OUTPUTFILE)
