@@ -873,8 +873,6 @@ namespace Rivet {
     /// @todo Should really be protected: only public to keep BinnedHistogram happy for now...
     /// @{
 
-    /// @todo Add functions for converting histos and profiles to scatters (with bin-width and focus control, over syst variations)
-
     /// Multiplicatively scale the given counter, @a cnt, by factor @a factor.
     void scale(CounterPtr cnt, CounterAdapter factor);
 
@@ -987,6 +985,20 @@ namespace Rivet {
     void scale(const Histo2DPtr (&histos)[array_size], CounterAdapter factor) {
       for (auto& h : histos) scale(h, factor);
     }
+
+
+    /// @todo Add in-place conversions
+
+
+    /// Helper for histogram conversion to an inert scatter type
+    ///
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
+    void barchart(Histo1DPtr h, Scatter2DPtr s, bool usefocus=false) const;
+
+    /// Helper for histogram conversion to an inert scatter type
+    ///
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
+    void barchart(Histo2DPtr h, Scatter3DPtr s, bool usefocus=false) const;
 
 
     /// Helper for counter division.
