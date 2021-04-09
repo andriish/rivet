@@ -11,8 +11,8 @@ RUN mkdir /code && cd /code \
     && if [[ -d /usr/local/include/HepMC3 ]]; then HEPMC_FLAG="--with-hepmc3=/usr/local"; fi \
     && ./configure $HEPMC_FLAG && make -j $(nproc --ignore=1) && make install \
     && texhash \
-    && echo "source /usr/local/share/Rivet/rivet-completion" > /etc/profile.d/rivet-completion.sh \
-    && echo "source /usr/local/share/YODA/yoda-completion" > /etc/profile.d/yoda-completion.sh \
+    && echo "source /usr/local/etc/bash_completion.d/rivet-completion" > /etc/profile.d/rivet-completion.sh \
+    && echo "source /usr/local/etc/bash_completion.d/yoda-completion" > /etc/profile.d/yoda-completion.sh \
     && texhash \
     && rm -rf /code
 
