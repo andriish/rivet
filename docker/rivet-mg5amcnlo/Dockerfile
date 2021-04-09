@@ -9,7 +9,7 @@ RUN wget --no-verbose https://launchpad.net/mg5amcnlo/3.0/3.1.x/+download/MG5_aM
 #RUN wget --no-verbose https://launchpad.net/mg5amcnlo/2.0/2.7.x/+download/MG5_aMC_v2.7.3.tar.gz -O- | tar xz
 
 RUN true \
-  && apt-get update -y && apt-get install -y gnuplot && apt-get autoclean -y \
+  && apt-get update -y && apt-get install -y gnuplot-nox && apt-get autoclean -y \
   && cd MG5_aMC_v* \
   && echo -e "set auto_update 0\ninstall pythia8\n" > mg5setup.txt \
   && bin/mg5_aMC mg5setup.txt \
