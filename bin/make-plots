@@ -2831,7 +2831,7 @@ class Ticks(object):
         else:
             if fabs(value) < 1e-10:
                 value = 0
-            label = '%.3g' % value
+            label = '%.4g' % value
             if "e" in label:
                 a, b = label.split("e")
                 astr = "%2.1f" % float(a)
