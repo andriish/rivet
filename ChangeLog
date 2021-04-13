@@ -1,3 +1,7 @@
+2021-04-13  Christian Gutschow  <chris.g@cern.ch>
+
+	* Adding 0-division protection in AH::setCrossSection (spotted by P. Ilten, thanks!)
+
 2021-04-12  Christian Gutschow  <chris.g@cern.ch>
 
 	* Submission of MC_HFDECAYS (MC-only validation 

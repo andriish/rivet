@@ -951,9 +951,10 @@ namespace Rivet {
     const double nomwt2 = sumW2();
     for (size_t iW = 0; iW < numWeights(); ++iW) {
       _eventCounter.get()->setActiveWeightIdx(iW);
-      const double s = sumW() / nomwgt;
+      const double s  = nomwgt? (sumW() / nomwgt) : 1.0;
+      const double s2 = nomwt2? sqrt(sumW2() / nomwt2) : 1.0;
       _xs.get()->setActiveWeightIdx(iW);
-      _xs->addPoint(xsec.first*s, xsec.second*sqrt(sumW2()/nomwt2));
+      _xs->addPoint(xsec.first*s, xsec.second*s2);
     }
     _eventCounter.get()->unsetActiveWeight();
     _xs.get()->unsetActiveWeight();
