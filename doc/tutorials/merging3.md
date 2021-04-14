@@ -6,16 +6,22 @@ The basic syntax of `yodamerge` is:
 ```
 yodamerge -o newyoda.yoda file1.yoda file2.yoda # file3.yoda... etc
 ```
-This creates a new file `newyoda.yoda` in which any `Histo*D`, `Profile*D`, and `Counter` objects are correctly statistically combined, by undoing any scaling which has been applied, then summing the objects and re-apply the required scaling. 
-```
-yodamerge --add -o newyoda.yoda file1.yoda file2.yoda # file3.yoda... etc
-```
-This does the same as the previous example, but forces simple stacking of `Histo` objects and other types, without applying the unscaling-rescaling procedure described (briefly) above. This will literally just add the numbers in each bin of `Histo` objects, and not worry that one run may be larger than the other (normally a weighted average is taken). .
+This creates a new file `newyoda.yoda` in which any `Histo*D`, `Profile*D`, and `Counter` objects are correctly statistically
+combined, by undoing any scaling which has been applied, then summing the objects and re-applying the required scaling. 
 
 ```
-yodamerge --add -o newyoda.yoda file1.yoda:1.23 file2.yoda:4.56 # file3.yoda:7.89... etc
+yodastack -o newyoda.yoda file1.yoda file2.yoda # file3.yoda... etc
 ```
-Another useful feature shown above is that one can specify a custom scaling of the individual files, using the `<file name>:<scaling float>` convention.
+This does the same as the previous example, but forces simple stacking of histogram objects and other types, 
+without applying the unscaling-rescaling procedure described (briefly) above. This will literally just add 
+the numbers in each bin of histogram objects, 
+and not worry that one run may be larger than the other (normally a weighted average is taken).
+
+```
+yodastack -o newyoda.yoda file1.yoda:1.23 file2.yoda:4.56 # file3.yoda:7.89... etc
+```
+Another useful feature shown above is that one can specify a custom scaling of the individual files, 
+using the `<file name>:<scaling float>` convention.
 
 In all these cases, assumption have been made here for `Scatter*D` objects. See below for details of how to modify those assumptions.
 
@@ -63,5 +69,7 @@ By default, empty (sumW=0) data objects are not written out to the final `yoda` 
 
 ## Do it yourself!
 
-If you need features which are not implemented here, or have your own specific mergign requirements, then you can make a local copy of `yodamerge` and use the very powerful `Python` API to write in your own merging prescriptions. 
+If you need features which are not implemented here, or have your own specific mergign requirements, 
+then you could also make a local copy of `yodamerge` and use the very powerful `Python` API to implement
+your own merging prescriptions. 
 

@@ -6,8 +6,8 @@ or outputs from multiple jobs for the same process.
 Unfortunately, the devil is in the detail, and simply adding the files
 is often not enough to get it right. 
 Two utilities are at your disposal to help with the merging:
- * `yodamerge` is a general-purpose script which works for any `yoda`-format file 
- (but has some built-in assumptions), with usage documented below. 
+ * `yodamerge`/`yodastack` are general-purpose scripts which work for any `yoda`-format file 
+ (but have some built-in assumptions), with usage documented below. 
  [\[basic tutorial\]](merging3.md)
  * `rivet-merge` delegates merging of files back to the `Rivet` analyses which produced them.
  [\[basic tutorial\]](merging2.md)
@@ -16,8 +16,8 @@ and its limitations.
 
 ## Should I use `yodamerge` or `rivet-merge`?
 
-`yodamerge` is a script built into `yoda` (technically a standalone package from `Rivet`)
-which works for any `yoda`-format file. This script does a statistically-correct merging of 
+`yodamerge` and `yodastack` are scripts built into `yoda` (technically a standalone package from `Rivet`)
+which works for any `yoda`-format file. These scripts implement a statistically-correct merging of 
 histogram- and profile-type objects. However, when it comes to scatter-type objects,
 there are some assumptions/choices which need to be made when merging the `Scatter*D` objects: 
  * should the values of each point simply be added together? 
@@ -48,7 +48,7 @@ will be unpredictable.
 As a rule of thumb, `rivet-merge` is the more sophisticated merging tool, since it has access to the
 analysis logic and can actually re-run Rivet over the merged result. 
 Please see the [corresponding tutorial](merging2.md) for some examples.
-That said, `yodamerge` is good a baseline merging tool that can get far, and in combination with 
-a little Python-based post-processing script, anything is possible.
+That said, `yodamerge` and `yodastack` are good baseline merging tools that can get far, and in 
+combination with a little Python-based post-processing script, anything is possible.
 Please see the [corresponding tutorial](merging3.md) for some examples.
 
