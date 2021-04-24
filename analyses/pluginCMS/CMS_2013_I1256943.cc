@@ -55,7 +55,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& e) {
 
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
       const ZFinder& zfindermu = apply<ZFinder>(e, "ZFinderMu");
       const ZFinder& zfinderel = apply<ZFinder>(e, "ZFinderEl");
 

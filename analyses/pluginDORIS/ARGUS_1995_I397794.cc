@@ -36,7 +36,7 @@ namespace Rivet {
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double Emax = ( beams.first.p3().mod() + beams.second.p3().mod() ) / 2.0;
       const double Pmax = sqrt(sqr(Emax)-sqr(2.625));
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::abspid==idDs2)) {
 	double xp = p.momentum().p3().mod()/Pmax;
 	_h_x->fill(xp);

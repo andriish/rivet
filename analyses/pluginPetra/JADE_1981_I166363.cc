@@ -43,7 +43,7 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      for (const Particle& p : apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==-2212 or Cuts::pid==-3122)) {
+      for (const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==-2212 or Cuts::pid==-3122)) {
 	if(p.pid()==-2212)
 	  _h_pbar->fill(p.p3().mod());
 	else

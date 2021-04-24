@@ -73,7 +73,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for(const Particle & p : ufs.particles(Cuts::abspid==511 || Cuts::abspid==521)) {
       	if(p.abspid()==511)
       	  _c_Bbar0->fill();

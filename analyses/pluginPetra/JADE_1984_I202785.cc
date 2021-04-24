@@ -38,7 +38,7 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       Vector3 axis = beams.first.pid() == PID::EMINUS ?
 	beams.first.p3().unit() : beams.second.p3().unit();
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::abspid==413)) {
 	double modp = p.p3().mod();
 	double xP =modp/meanBeamMom;

@@ -118,7 +118,7 @@ namespace Rivet {
 	axis = beams.second.momentum().p3().unit();
 
       // Final state of unstable particles to get particle spectra
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
 
       for (const Particle& p : ufs.particles(Cuts::abspid==313)) {
 	double xp = p.p3().mod()/meanBeamMom;

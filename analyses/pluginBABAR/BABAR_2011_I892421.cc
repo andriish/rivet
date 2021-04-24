@@ -32,7 +32,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       static const int DsID = 10433;
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::abspid==DsID)) {
 	// decay angle
 	int sign = p.pid()/DsID;

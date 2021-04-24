@@ -290,7 +290,7 @@ namespace Rivet {
       }
 
       // Find hadrons in the event
-      const UnstableParticles& fs = apply<UnstableFinalState>(event, "hadrons");
+      const UnstableParticles& fs = apply<UnstableParticles>(event, "hadrons");
 
       /// FIND Different channels
       // 1: wcjet

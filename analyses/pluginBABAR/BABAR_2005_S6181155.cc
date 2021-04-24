@@ -26,7 +26,7 @@ namespace Rivet {
 
     void analyze(const Event& e) {
       // Loop through unstable FS particles and look for charmed mesons/baryons
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
 
       const Beam beamproj = apply<Beam>(e, "Beams");
       const ParticlePair& beams = beamproj.beams();

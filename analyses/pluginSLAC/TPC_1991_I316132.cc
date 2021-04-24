@@ -63,7 +63,7 @@ namespace Rivet {
       else
 	axis = beams.second.momentum().p3().unit();
 
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for  (const Particle& p : ufs.particles(Cuts::abspid==413)) {
 	if(p.children().size()!=2) continue;
 	int sign = p.pid()/413;

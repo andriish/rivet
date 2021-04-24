@@ -73,7 +73,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {    
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::pid==300553)) {
         _weightSum->fill();
         const LorentzTransform boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());

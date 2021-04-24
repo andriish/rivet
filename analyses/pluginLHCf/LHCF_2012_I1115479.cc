@@ -29,7 +29,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
 
       const double dphi = TWOPI;
 

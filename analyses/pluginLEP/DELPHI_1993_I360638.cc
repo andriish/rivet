@@ -45,7 +45,7 @@ namespace Rivet {
       const size_t numParticles = fs.particles().size();
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (numParticles < 2) vetoEvent;
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       // lambda
       Particles lambda    = ufs.particles(Cuts::pid== PID::LAMBDA);
       Particles lambdabar = ufs.particles(Cuts::pid==-PID::LAMBDA);

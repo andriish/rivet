@@ -40,7 +40,7 @@ namespace Rivet {
 
 
       }
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle & p : ufs.particles(Cuts::pid==PID::PI0)) {
         const double x = 2.*p.momentum().p3().mod()/sqrtS();
 	_h_pi0_x ->fill(x);

@@ -97,7 +97,7 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       // thrust, to define an axis
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
 
       for(const Particle & lambda : ufs.particles(Cuts::abspid==3122)) {
 	double xE = lambda.momentum().t()/meanBeamMom;

@@ -45,7 +45,7 @@ namespace Rivet {
       const double weight = 1.0;
 
       const Jets& jets = apply<FastJets>(event,"Jets").jetsByPt();
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
 
       // Find the leading jet pT and eta
       if (jets.size() == 0) vetoEvent;
