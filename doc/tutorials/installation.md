@@ -21,7 +21,6 @@ source /cvmfs/sft.cern.ch/lcg/releases/LCG_99/ROOT/v6.22.06/x86_64-centos7-gcc10
 ```
 *(OBSOLETE? A different LaTeX setup can be similarly acquired from CVMFS by setting e.g.
 `export PATH=/cvmfs/sft.cern.ch/lcg/external/texlive/2016/bin/x86_64-linux:$PATH`)*
-```
 
 ### Installation
 
