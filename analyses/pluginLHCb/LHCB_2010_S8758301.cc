@@ -6,8 +6,6 @@
 
 namespace Rivet {
 
-  using namespace std;
-
 
   class LHCB_2010_S8758301 : public Analysis {
   public:
@@ -15,8 +13,6 @@ namespace Rivet {
   	const double MIN_PT = 0.0001; // [GeV/c]
 
 
-    /// @name Constructors etc.
-    //@{
     /// Constructor
     LHCB_2010_S8758301()
       : Analysis("LHCB_2010_S8758301"), _mode(0),
@@ -26,9 +22,9 @@ namespace Rivet {
     {  }
 
 
-    //@}
     /// @name Analysis methods
-    //@{
+    /// @{
+
     /// Book histograms and initialise projections before the run
     void init() {
     	// only interested in Ks0 particles
@@ -129,14 +125,14 @@ namespace Rivet {
       scale(_h_K0s_pt_y_all, xsection_factor/1.5/1.6/millibarn);
     }
 
-    //@}
-  protected:
+    /// @}
+
+
+    /// Mode switch
     size_t _mode;
 
-  private:
-
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_K0s_pt_y_30;         // histogram for 2.5 < y < 3.0 (d2sigma)
     Histo1DPtr _h_K0s_pt_y_35;         // histogram for 3.0 < y < 3.5 (d2sigma)
     Histo1DPtr _h_K0s_pt_y_40;         // histogram for 3.5 < y < 4.0 (d2sigma)
@@ -153,11 +149,10 @@ namespace Rivet {
     size_t sumKs0_outdwn;                       // Nb of mesons with y < 2.5
     size_t sum_low_pt_loss;                     // Nb of mesons with very low pT (indicates when units are mixed-up)
     size_t sum_high_pt_loss;                    // Nb of mesons with pT > 1.6 GeV/c
-    //@}
+    /// @}
   };
 
 
-  // Hook for the plugin system
-  DECLARE_RIVET_PLUGIN(LHCB_2010_S8758301);
+  DECLARE_ALIASED_RIVET_PLUGIN(LHCB_2010_S8758301, LHCB_2010_I865584);
 
 }
