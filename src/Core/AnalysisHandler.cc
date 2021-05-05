@@ -976,10 +976,8 @@ namespace Rivet {
     MSG_TRACE("Setting nominal cross-section = " << xsec.first << " +- " << xsec.second << " pb");
     _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
     _eventCounter.get()->setActiveWeightIdx(_rivetDefaultWeightIdx);
-    const double nomwt = sumW2() ? sumW() : 1.0; //< if no weights so far, use 1
-    const double nomwt2 = sumW2() ? sumW2() : 1.0; //< if no weights so far, use 1
-    MSG_TRACE("xsec nominal weights = " << nomwt << ", " << nomwt2);
-    MSG_TRACE("xsec weights: " << numWeights() << "; " << weightNames());
+    const double nomwgt = sumW();
+    const double nomwt2 = sumW2();
     for (size_t iW = 0; iW < numWeights(); ++iW) {
       _eventCounter.get()->setActiveWeightIdx(iW);
       const double s  = nomwgt? (sumW() / nomwgt) : 1.0;
