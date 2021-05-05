@@ -718,6 +718,19 @@ namespace Rivet {
 
   /////////////////////
 
+  void Analysis::barchart(Histo1DPtr h, Scatter2DPtr s, bool usefocus) const {
+    const string path = s->path();
+    *s = mkScatter(*h, usefocus, false); //< do NOT divide by bin width cf. a differential dsigma/dX histogram
+    s->setPath(path);
+  }
+
+
+  void Analysis::barchart(Histo2DPtr h, Scatter3DPtr s, bool usefocus) const {
+    const string path = s->path();
+    *s = mkScatter(*h, usefocus, false); //< do NOT divide by bin area cf. a differential d^2sigma/dXdY histogram
+    s->setPath(path);
+  }
+
 
   void Analysis::divide(CounterPtr c1, CounterPtr c2, Scatter1DPtr s) const {
     const string path = s->path();

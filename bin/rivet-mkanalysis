@@ -294,7 +294,7 @@ namespace Rivet {
     void finalize() {
 
       normalize(_h["XXXX"]); // normalize to unity
-      normalize(_h["YYYY"], crossSection()/picobarn); // normalize to generated cross-section in fb (no cuts)
+      normalize(_h["YYYY"], crossSection()/picobarn); // normalize to generated cross-section in pb (no cuts)
       scale(_h["ZZZZ"], crossSection()/picobarn/sumW()); // norm to generated cross-section in pb (after cuts)
 
     }

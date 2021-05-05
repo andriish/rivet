@@ -2,7 +2,7 @@
 
 set -e
 
-RIVET_VERSION=3.1.3
+RIVET_VERSION=3.1.4
 PYTHIA_VERSION=8303
 
 BUILD="docker build ."

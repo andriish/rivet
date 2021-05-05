@@ -300,6 +300,8 @@ namespace Rivet {
     void mergeYodas(const vector<string>& aofiles,
                     const vector<string>& delopts=vector<string>(),
                     const vector<string>& addopts=vector<string>(),
+                    const vector<string>& matches=vector<string>(),
+                    const vector<string>& unmatches=vector<string>(),
                     bool equiv=false);
 
     /// @}

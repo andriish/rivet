@@ -559,6 +559,8 @@ namespace Rivet {
   void AnalysisHandler::mergeYodas(const vector<string>& aofiles,
                                    const vector<string>& delopts,
                                    const vector<string>& addopts,
+                                   const vector<string>& matches,
+                                   const vector<string>& unmatches,
                                    bool equiv) {
 
 
@@ -636,6 +638,21 @@ namespace Rivet {
         }
         // skip everything that isn't pre-finalize
         if ( !path.isRaw() ) continue;
+
+        // object path filtering
+        const string& ana = path.analysis();
+        bool skip = false;
+        if (ana != "") {
+          if (matches.size()) {
+            skip = !std::any_of(matches.begin(), matches.end(), [&](const string &exp){
+                                return std::regex_match(ana, std::regex(exp));} );
+          }
+          if (unmatches.size()) {
+            skip |= std::any_of(matches.begin(), matches.end(), [&](const string &exp){
+                               return std::regex_match(ana, std::regex(exp));} );
+          }
+        }
+        if (skip)  continue;
 
         MSG_DEBUG(" " << ao->path());
 
@@ -965,15 +982,10 @@ namespace Rivet {
     MSG_TRACE("xsec weights: " << numWeights() << "; " << weightNames());
     for (size_t iW = 0; iW < numWeights(); ++iW) {
       _eventCounter.get()->setActiveWeightIdx(iW);
+      const double s  = nomwgt? (sumW() / nomwgt) : 1.0;
+      const double s2 = nomwt2? sqrt(sumW2() / nomwt2) : 1.0;
       _xs.get()->setActiveWeightIdx(iW);
-      double xs_i = xsec.first;
-      double xserr_i = xsec.second;
-      if (iW != _rivetDefaultWeightIdx || sumW2() != 0) {
-        xs_i *= sumW()/nomwt;
-        xserr_i *= sqrt(sumW2()/nomwt2);
-      }
-      MSG_TRACE("xsec[" << iW << "] = " << xs_i << " +- " << xserr_i);
-      _xs->addPoint(xs_i, xserr_i);
+      _xs->addPoint(xsec.first*s, xsec.second*s2);
     }
     _eventCounter.get()->unsetActiveWeight();
     _xs.get()->unsetActiveWeight();

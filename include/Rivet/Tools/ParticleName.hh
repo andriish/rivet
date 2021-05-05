@@ -141,14 +141,23 @@ namespace Rivet {
     static const PdgId SIGMA0 = 3212;
     static const PdgId SIGMAPLUS = 3222;
     static const PdgId SIGMAMINUS = 3112;
+    static const PdgId SIGMAB = 5212;
+    static const PdgId SIGMABPLUS = 5222;
+    static const PdgId SIGMABMINUS = 5112;
     static const PdgId LAMBDACPLUS = 4122;
     static const PdgId LAMBDACMINUS = 4122;
     static const PdgId LAMBDAB = 5122;
     static const PdgId XI0 = 3322;
     static const PdgId XIMINUS = 3312;
     static const PdgId XIPLUS = -XIMINUS;
+    static const PdgId XI0B = 5232;
+    static const PdgId XIBMINUS = 5132;
+    static const PdgId XI0C = 4132;
+    static const PdgId XICPLUS = 4232;
     static const PdgId OMEGAMINUS = 3334;
     static const PdgId OMEGAPLUS = -OMEGAMINUS;
+    static const PdgId OMEGABMINUS = 5332;
+    static const PdgId OMEGA0C = 4332;
     //@}
 
     /// @name Exotic/weird stuff
