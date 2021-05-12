@@ -31,19 +31,17 @@ namespace Rivet {
       book(_h[PID::PBAR],    "d02-x01-y03");
 
       // negative/positive ratios
-      /// @todo Reinstate when ratios in HepData
-      // book(_s["pi-/pi+"], "d100-x01-y01");
-      // book(_s["k-/k+"],   "d100-x01-y02");
-      // book(_s["p~/p"],    "d100-x01-y03");
+      book(_s["pi-/pi+"], "d43-x01-y01");
+      book(_s["k-/k+"],   "d44-x01-y01");
+      book(_s["p~/p"],    "d45-x01-y01");
 
       // k/pi and p/pi ratios
-      /// @todo Reinstate when ratios in HepData
-      // book(_hkpi[PID::PIPLUS], "TMP/hkpi/pi", refData(101, 1, 1));
-      // book(_hkpi[PID::KPLUS],  "TMP/hkpi/k",  refData(101, 1, 1));
-      // book(_hppi[PID::PIPLUS], "TMP/hppi/pi", refData(101, 1, 2));
-      // book(_hppi[PID::PROTON], "TMP/hppi/p",  refData(101, 1, 2));
-      // book(_s["k/pi"],    "d101-x01-y01");
-      // book(_s["p/pi"],    "d101-x01-y02");
+      book(_hkpi[PID::PIPLUS], "TMP/hkpi/pi", refData(46, 1, 1));
+      book(_hkpi[PID::KPLUS],  "TMP/hkpi/k",  refData(46, 1, 1));
+      book(_hppi[PID::PIPLUS], "TMP/hppi/pi", refData(47, 1, 1));
+      book(_hppi[PID::PROTON], "TMP/hppi/p",  refData(47, 1, 1));
+      book(_s["k/pi"],    "d46-x01-y01");
+      book(_s["p/pi"],    "d47-x01-y01");
     }
 
 
@@ -66,10 +64,10 @@ namespace Rivet {
           // fill pt spectra
           _h[p.pid()]->fill(p.pt() / GeV);
           // fill tmp histos for ratios
-          //if (p.abspid() != PID::PROTON)
-          //  _hkpi[p.abspid()]->fill(p.pt() / GeV);
-          //if (p.abspid() != PID::KPLUS)
-          //  _hppi[p.abspid()]->fill(p.pt() / GeV);
+          if (p.abspid() != PID::PROTON)
+            _hkpi[p.abspid()]->fill(p.pt() / GeV);
+          if (p.abspid() != PID::KPLUS)
+            _hppi[p.abspid()]->fill(p.pt() / GeV);
         }
 
       }
@@ -79,14 +77,12 @@ namespace Rivet {
 
     void finalize() {
 
-      /// @todo Reinstate when ratios in HepData
-      // divide(_h[PID::PIMINUS], _h[PID::PIPLUS], _s["pi-/pi+"]);
-      // divide(_h[PID::KMINUS],  _h[PID::KPLUS],  _s["k-/k+"]);
-      // divide(_h[PID::PBAR],    _h[PID::PROTON], _s["p~/p"]);
+      divide(_h[PID::PIMINUS], _h[PID::PIPLUS], _s["pi-/pi+"]);
+      divide(_h[PID::KMINUS],  _h[PID::KPLUS],  _s["k-/k+"]);
+      divide(_h[PID::PBAR],    _h[PID::PROTON], _s["p~/p"]);
 
-      /// @todo Reinstate when ratios in HepData
-      // divide(_hkpi[PID::KPLUS],  _hkpi[PID::PIPLUS], _s["k/pi"]);
-      // divide(_hppi[PID::PROTON], _hppi[PID::PIPLUS], _s["p/pi"]);
+      divide(_hkpi[PID::KPLUS],  _hkpi[PID::PIPLUS], _s["k/pi"]);
+      divide(_hppi[PID::PROTON], _hppi[PID::PIPLUS], _s["p/pi"]);
 
       scale(_h, 1./2./sumOfWeights());
 
@@ -97,8 +93,7 @@ namespace Rivet {
 
     map<int, Histo1DPtr> _h;
     map<int, Histo1DPtr> _hkpi, _hppi;
-    /// @todo Reinstate when ratios in HepData
-    // map<string, Scatter2DPtr> _s;
+    map<string, Scatter2DPtr> _s;
 
   };
 
