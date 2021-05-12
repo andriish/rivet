@@ -672,12 +672,12 @@ class Plot(object):
             out += ('\\usepackage{mathpazo}\n')
         elif outfont == "TIMES":
             out += ('\\usepackage{mathptmx}\n')
-        elif args.OUTPUT_FONT == "HELVETICA":
+        elif outfont == "HELVETICA":
             out += ('\\renewcommand{\\familydefault}{\\sfdefault}\n')
             out += ('\\usepackage{helvet}\n')
             out += ('\\usepackage[eulergreek]{sansmath}\n')
             out += ('\\sansmath\n')
-        elif args.OUTPUT_FONT == "EULER":
+        elif outfont == "EULER":
             out += ('\\renewcommand{\\familydefault}{\\sfdefault}\n')
             out += ('\\usepackage{sfmath}\n')
             out += ('\\usepackage{euler}\n')
