@@ -52,7 +52,7 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Final state of unstable particles to get particle spectra
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
 
       for (const Particle& p : ufs.particles(Cuts::abspid==313 or Cuts::pid==333)) {
         const int id = p.abspid();

@@ -39,7 +39,7 @@ namespace Rivet {
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       if (cfs.size() < 5) vetoEvent;
 
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
 
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();

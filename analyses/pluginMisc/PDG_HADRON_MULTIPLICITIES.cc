@@ -36,7 +36,7 @@ namespace Rivet {
       MSG_DEBUG("sqrt(s) = " << sqrtS()/GeV << " GeV");
 
       // Final state of unstable particles to get particle spectra
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
 
       if (sqrtS()/GeV >= 9.5 && sqrtS()/GeV <= 10.5) {
         for (const Particle& p : ufs.particles()) {

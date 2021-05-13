@@ -28,7 +28,7 @@ namespace Rivet {
       // Find the upsilons
       Particles upsilons;
       // First in unstable final state
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
       for (const Particle& p : ufs.particles())
         if (p.pid()==300553) upsilons.push_back(p);
       // Then in whole event if fails

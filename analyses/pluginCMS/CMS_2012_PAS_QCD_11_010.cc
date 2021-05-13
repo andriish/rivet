@@ -40,7 +40,7 @@ namespace Rivet {
       FourMomentum p_lead = jets[0].momentum();
       const double pTlead  = p_lead.pT();
 
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
 
       int numTrans_Kaon = 0;
       int numTrans_Lambda = 0;

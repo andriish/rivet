@@ -142,7 +142,7 @@ namespace Rivet {
       _sum_w_passed->fill();
 
       // This ufs holds all the Kaons and Lambdas
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
 
       // Some conters
       int n_KS0 = 0;

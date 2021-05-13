@@ -46,7 +46,7 @@ namespace Rivet {
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
       // Get Bottom hadrons
       const Particles bhads = filter_select(ufs.particles(), isBottomHadron);
 

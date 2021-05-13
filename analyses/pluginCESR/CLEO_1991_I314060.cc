@@ -53,7 +53,7 @@ namespace Rivet {
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       // loop over D*+ mesons
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p: ufs.particles(Cuts::abspid==413)) {
 	// calc x+
 	double x = (p.momentum().E()+p.momentum().z())/(meanBeamMom + sqrt(sqr(meanBeamMom)+p.mass2()));

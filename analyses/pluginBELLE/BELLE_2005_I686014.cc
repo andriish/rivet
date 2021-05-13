@@ -45,7 +45,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // unstable particles
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       if(_mode==2 && ufs.particles(Cuts::pid==300553).size()!=1)
 	vetoEvent;
       _c->fill();

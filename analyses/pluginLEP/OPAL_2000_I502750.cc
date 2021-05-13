@@ -91,7 +91,7 @@ namespace Rivet {
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       // loop over rho and omega mesons
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::abspid==213 || Cuts::abspid==223)) {
 	double xE = p.momentum().t()/meanBeamMom;
 	Vector3 e1z = p.momentum().p3().unit();

@@ -65,7 +65,7 @@ namespace Rivet {
       const double weight = 1.0;
 
       /// @todo Use PrimaryHadrons to avoid double counting and automatically remove the contributions from unstable?
-      const UnstableParticles &ufs = apply<UnstableFinalState> (event, "UFS");
+      const UnstableParticles &ufs = apply<UnstableParticles> (event, "UFS");
       for (const Particle& p : ufs.particles() ) {
 
         // We're only interested in charm hadrons

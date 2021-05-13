@@ -46,7 +46,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for(const Particle & p : ufs.particles(Cuts::pid==-4122 or Cuts::pid==-411 or Cuts::pid==-421)) {
 	long id1 = p.pid();
 	double mom1 = p.p3().mod();

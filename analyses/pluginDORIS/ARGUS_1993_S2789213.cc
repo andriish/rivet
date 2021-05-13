@@ -50,7 +50,7 @@ namespace Rivet {
     void analyze(const Event& e) {
       // Find the upsilons
       // First in unstable final state
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
       Particles upsilons = ufs.particles(Cuts::pid==553 || Cuts::pid==300553);
       // continuum
       if (upsilons.empty()) { 

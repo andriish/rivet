@@ -188,7 +188,7 @@ namespace Rivet {
         }
       }
 
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
       for (const Particle& p : ufs.particles()) {
         const double xp = p.p3().mod()/meanBeamMom;
         // if in quark or antiquark hemisphere
