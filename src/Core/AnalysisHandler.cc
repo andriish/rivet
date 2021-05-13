@@ -570,6 +570,7 @@ namespace Rivet {
     // Go through all files and collect information
     /// @todo Move this to the script interface, with the API working in terms
     ///   of <real_filename,weight> pairs rather than decoding a CLI convention in C++
+    bool overwrite_xsec = false;
     for (string file : aofiles) {
       MSG_DEBUG("Reading in data from " << file);
       // Check for user-supplied scaling, assign 1 otherwise
@@ -577,8 +578,21 @@ namespace Rivet {
       size_t colonpos = file.rfind(":");
       double fileweight = 1.0;
       if (colonpos != string::npos) {
+        string suffix = file.substr(colonpos+1);
         try {
-          fileweight = std::stod(file.substr(colonpos+1));
+          if (suffix.at(0) == '=') {
+            // case I: file.yoda:=1.23 
+            //-> set cross-section to 1.23
+            overwrite_xsec = true;
+            suffix = suffix.substr(1);
+          }
+          else if (suffix.at(0) == 'x') {
+            // case II: file.yoda:x1.23 
+            // (same as file.yoda:1.23)
+            //-> multiply cross-section with 1.23
+            suffix = suffix.substr(1);
+          }
+          fileweight = std::stod(suffix);
           file = file.substr(0, colonpos);
         } catch (...) {
           throw UserError("Unexpected error in processing argument " + file + " with file:scale format");
@@ -653,8 +667,14 @@ namespace Rivet {
           auto xs_it = raw_map.find(xspath);
           if ( xs_it != raw_map.end() ) { 
             YODA::Scatter1D* xsec = static_cast<YODA::Scatter1D*>(xs_it->second);
-            MSG_DEBUG("Apply user-supplied weight: " << fileweight);
-            xsec->scaleX(fileweight);
+            if (overwrite_xsec) {
+              MSG_DEBUG("Set user-supplied weight: " << fileweight);
+              xsec->point(0).setX(fileweight);
+            }
+            else {
+              MSG_DEBUG("Multiply user-supplied weight: " << fileweight);
+              xsec->scaleX(fileweight);
+            }
             // get iterator to the existing (or newly created) key-value pair
             auto xit = allxsecs.insert( make_pair(xspath, make_pair(0,0)) ).first;
             // update cross-sections, possibly weighted by number of entries
