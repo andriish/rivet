@@ -1,19 +1,14 @@
 12010 . Analysis of the Energy Weighted Angular Correlations in Hadronic $e^+ e^-$ Annihilations at 22-{GeV} and 34-{GeV} #implemented#
 15366 . Leptonic Structure Functions of the Photon #figs#
 17849 . {Bose-Einstein} Correlations Observed in $e^+ e^-$ Annihilation at a Center-of-mass Energy of 34-{GeV} #???#
-18502 . Study of Quark Fragmentation in e+ e- Annihilation at 29-GeV: Charged Particle Multiplicity and Single Particle Rapidity Distributions #implemented#
 18545 X A Search for Single Photons at {PETRA} #search#
-19342 X ALEPH: Technical Report 1983 #detector#
 20715 X Search for Wrong Sign D0 Decays #limit#
-23223 X EVIDENCE FOR ETA(c) PRODUCTION IN TWO PHOTON COLLISIONS #conference#
-23360 . Production Cross-section and Electroweak Asymmetry of $D^*$ and $D$ Mesons Produced in $e^+ e^-$ Annihilations at 29-{GeV} #implementable#
 23570 X Study of Multi - Hadron Events With Isolated Leptons in $e^+ e^-$ Annihilation at $50\le \sqrt{s} \le 55$-{GeV} #search#
 27985 . Rho0 production in the reaction gamma gamma ---> 3 pi+ 3 pi- and search for gamma gamma ---> rho0 rho0 (1700) #data#
 39496 . Measurement of the forward - backward asymmetries for charm and bottom quark pair productions at S**(1/2) = 58-GeV with electron tagging #data#
 39718 X Comparison of a new calculation of energy-energy correlations with e+ e- ---> hadrons data at the Z0 resonance #superseeded#
 109891 X Observation of Associated K0(s) electron Production in e+ e- Annihilation #not implementable#
 110272 . The Total Hadronic Cross-Section for e+ e- Annihilation Between 3.1-GeV and 4.8-GeV Center-Of-Mass Energy #implemented#
-114352 X Data on e+ e- Collisions, Taken with the Magnetic Detector PLUTO #conference#
 118873 . Inclusive K0(s) Production in e+ e- Annihilation at Energies of 3.6-GeV to 5.0-GeV #implement#
 119149 . Inclusive J/psi Production in e+ e- Annihilation in the Energy Range from 4.0-GeV to 5.0-GeV #???#
 119637 X Anomalous Muon Production in e+ e- Annihilation as Evidence for Heavy Leptons #search?#
@@ -30,26 +25,18 @@
 140294 . Cross-Sections and Event Topologies in e+ e- Annihilation at 13-GeV and 17-GeV Observed with the PLUTO Detector #implemented#
 140303 . Properties of Hadron Final States in e+ e- Annihilation at 13-GeV and 17-GeV Center-Of-Mass Energies #implemented#
 140818 . Measurement of Leptonic Branching Ratios of the $\Upsilon$ (9.46) #implemented#
-142030 X Experimental search for $\Upsilon$ decay into 3 gluons #conference#
 142123 X Evidence for Planar Events in e+ e- Annihilation at High-Energies #not implementable#
-142275 . The hadronic final state in $e^{+}e^{-}$ annihilation at c.m. energies of 13, 17 and 27.4 GeV #measurement of R, implement?#
 142517 . Search for a 'Top' Threshold in Hadronic $e^+ e^-$ Annihilation at Energies Between 22-{GeV} and 31.6-{GeV} #implemented#
-142614 . TASSO RESULTS ON e+ e- ANNIHILATION BETWEEN 13-GeV AND 31.6-GeV AND EVIDENCE FOR THREE JET EVENTS #measurement of R, implement?#
 142632 X Evidence for Gluon Bremsstrahlung in e+ e- Annihilations at High-Energies #not implementable#
 142873 X Spin Parity Analysis of the Decay $\tau \to$ Neutrino $\rho \pi$ #superseeded by more recent experiments#
 142874 . Total Cross-Section for Hadron Production by e+ e- Annihilation at PETRA Energies #implemented, but superseeded#
 142875 . Hadron Production From Photon - Photon Interactions in the Center-of-mass Energy Range From 1-{GeV} to 5-{GeV} #data#
 143195 X Search for New Flavor Production at {PETRA} #search#
 143198 X Energy Scan for Narrow States in $e^+ e^-$ Annihilation at Center-of-mass Energies Between 29.90-{GeV} and 31.46-{GeV} #not implementable#
-143353 X First Results from JADE #conference#
 143690 . E+ e- Annihilation at High-Energies and Search for the t-Quark Continuum Contribution #implemented#
 143691 . Rapid Growth of Charged Particle Multiplicity in High-Energy e+ e- Annihilations #implement#
-143939 . CHARMED MESON PRODUCTION AND DECAY PROPERTIES AT THE psi-prime-prime (3770) #implemented#
 143985 ? Observation of Planar Three Jet Events in e+ e- Annihilation and Evidence for Gluon Bremsstrahlung #data elsewhere?#
 144112 X Two Particle Correlations in $e^+ e^-$ Annihilation #superseeded#
-144382 . DECAYS OF THE psi-prime (3684) TO OTHER CHARMONIUM STATES #implemented#
-148976 X Results from pluto at petra #data elsewhere#
-149219 X HADRON PRODUCTION IN E+ E- INTERACTIONS OBSERVED WITH PLUTO DETECTOR AT PETRA ENERGIES. #conference#
 152289 . Test of {QED} in the Reactions $e^+ e^- \to e^+ e^-$ and $e^+ e^- \to \mu^+ \mu^-$ at {CMS} Energies From 9.4-{GeV} to 31.6-{GeV} #table#
 152290 . Search for Narrow Resonances in $e^+ e^-$ Annihilation at c.m. Energies Between 29.90-{GeV} and 31.46-{GeV} #R#
 152291 . Search for Narrow Resonances in $e^+ e^-$ Annihilation at {PETRA} #implemented#
@@ -70,34 +57,28 @@
 155032 X Prompt Muons in Multiparticle Events From $e^+ e^-$ Annihilation at {PETRA} #superseeded#
 155318 X A Study of Multi-Jet Events in e+ e- Annihilation #data elsewhere#
 155594 . INELASTIC ELECTRON PHOTON SCATTERING AT MODERATE FOUR MOMENTUM TRANSFERS #data#
-156315 . Energy-energy Correlations in $e^+ e^-$ Annihilation Into Hadrons #implement#
+156315 . Energy-energy Correlations in $e^+ e^-$ Annihilation Into Hadrons
 156511 . Observation of {QCD} Effects in Transverse Momenta of $e^+ e^-$ Jets #???#
 156513 X Search for New Sequential Leptons in $e^+ e^-$ Annihilation at {PETRA} Energies #search#
 156659 . Topology of the $\Upsilon$ Decay #dists#
 156660 . Experimental Test of Electroweak Effects at {PETRA} Energies #data#
-156809 X CELLO: A NEW DETECTOR AT PETRA #detector#
 156813 . Experimental Limits on the Strength of Weak Neutral Currents in Lepton Pair Production at {PETRA} Energies #dists#
-158857 . PHYSICS WITH HIGH-ENERGY ELECTRON POSITRON COLLIDING BEAMS WITH THE MARK-J DETECTOR #implemented#
-160964 X JET PRODUCTION IN THE TASSO DETECTOR. #conference#
+158857 . PHYSICS WITH HIGH-ENERGY ELECTRON POSITRON COLLIDING BEAMS WITH THE MARK-J DETECTOR
 164117 . Evidence for Charged Primary Partons in e+ e- ---> Two Jets #dists#
 164302 X Lepton Pair Production and Search for a New Heavy Lepton in $e^+ e^-$ Annihilation #search#
 164319 . Search for Narrow Resonances in $e^+ e^-$ Annihilation at $c$.m. Energies Between 33.0-{GeV} and 36.72-{GeV} #R#
 164399 . Experimental Study of Jets in electron - Positron Annihilation #????#
-164812 . A Determination of Quark Weak Couplings at {PETRA} Energies #R#
 165122 . Inclusive $K^0$ Production in $e^+ e^-$ Annihilation for 9.3-{GeV} $<\sqrt{s}<$  31.6-{GeV} #implement#
 165288 . Measurement of $e^+ e^- \to e^+ e^-$ and $e^+ e^- \to \gamma \gamma$ at Energies Up to 36.7-{GeV} #data#
 165769 X Two Photon Excitation of the Tensor Meson F0 (1270) #not implementable#
 165785 . Energy Carried by $\gamma$ Rays and Neutral Particles in Multi - Hadron Final States at {PETRA} #????#
 166363 . Baryon Production in e+ e- Annihilation at PETRA #implement#
-166365 . SEARCH FOR NARROW QUARKONIUM STATES AND PAIR PRODUCTION OF NEW HEAVY QUARKS AT c.m. ENERGIES FROM 33-GeV TO 36.7-GeV #implemented#
+166365 . SEARCH FOR NARROW QUARKONIUM STATES AND PAIR PRODUCTION OF NEW HEAVY QUARKS AT c.m. ENERGIES FROM 33-GeV TO 36.7-GeV
 166367 . $\Lambda$, $\bar{\Lambda}$ Production in $e^+ e^-$ Annihilation at 33-{GeV} Center-of-mass Energy #fig 3?#
-166369 . Measurement of Hadron Production and Three Jet Event Properties at {PETRA} {MIT} #implemented#
-166799 . Review of $e^+ e^-$ Experiments With Pluto From 3-{GeV} to 31-{GeV} #implemented#
 167417 . High $p_T$ Hadron Production in Photon - Photon Collisions #data#
 167419 . Observation of High $p_T$ Jets in Two Photon Interactions #fig 3?#
 167679 . Exclusive Proton - Anti-proton Production in Two Photon Collisions #data#
 167681 . First Measurement of the Photon Structure Function F2 #data#
-167989 X ENERGY DEPENDENCE OF EVENT SHAPES IN e+ e- ANNIHILATION AT center-of-mass ENERGIES FROM 7.7-GeV TO 31.6-GeV #conference#
 168232 . $\pi^0$ Production by $e^+ e^-$ Annihilation at 14-{GeV} and 34-{GeV} Center-of-mass Energy #implement#
 168234 . Observation of a Charge Asymmetry in $e^+ e^- \to \mu^+ \mu^-$ #data#
 169193 . Energy Dependence of Jet Measures in $e^+ e^-$ Annihilation #data missing from HEPdata??#
@@ -111,30 +92,24 @@
 177174 . Scale Breaking in Inclusive Charged Particle Production by $e^+ e^-$ Annihilation #implement#
 177210 . Observation of Four - Jet Structure in $e^+ e^-$ Annihilation at $\sqrt{s}=33$-{GeV} #dists?#
 177212 X Measurement of Inclusive $\gamma$ and $\pi^0$ Spectra and a Comparison of the Neutral and Charged Components in Hadronic Events in $e^+ e^-$ Annihilation at 34-{GeV} #superseeded#
-177215 X Upper Limit on Beauty Lifetime and Lower Limit on Weak Mixing Angles #superseeded#
 177216 . Measurement of the Reaction $e^+ e^- \to \mu^+ \mu^-$ for 14-{GeV} $\le \sqrt{s} \le$ 36.4-{GeV} #data#
 177219 X Scalar Lepton Search with the CELLO Detector at PETRA #search#
 177224 . Measurement of $e^+ e^- \to \tau^+ \tau^-$ at High-energy and Properties of the $\tau$ Lepton #data#
 177228 X An Analysis of the Charged and Neutral Energy Flow in $e^+ e^-$ Hadronic Annihilation at 34-{GeV}, and a Determination of the {QCD} Effective Coupling Constant #not implementable#
-177301 X RECENT RESULTS FROM MAC #conference#
 177466 X A Search for Charged Scalar Particles Pair Produced in $e^+ e^-$ Annihilation #search#
 178495 . Electroweak Coupling Constants in the Leptonic Reactions e+ e- ---> e+ e- and e+ e- ---> mu+ mu- and Search for Scalar Leptons #data#
-178502 X Some Recent Results from the MAC Detector at PEP #conference#
 179022 . Inclusive $\rho^0$ Production in $e^+ e^-$ Annihilation at High-energy #implement#
 179446 X Observation of Topologically Isolated Energetic Electrons in $e^+ e^-$ Interactions #not implementable#
 179447 X The Influence of Fragmentation Models on the Determination of the Strong Coupling Constant in $e^+ e^-$ Annihilation Into Hadrons #data in 12010 as well#
-179973 X SLD: LETTER OF INTENT #detector#
 180033 . Differential Three Jet Cross-section in $e^+ e^-$ Annihilation and Comparison With Second Order Predictions of {QCD} and Abelian Vector Theory #fig 1?#
 180048 X Measurement of the $\tau$ Lifetime #lifetime#
 180052 . A Measurement of Charge Properties of Quark Jets at {PETRA} #????#
-180103 X Physics with the MAC Detector #conference#
 180755 . Angular Correlations in gamma Gamma ---> rho0 rho0 Near Threshold #data#
 180756 . Coupling Strengths of Weak Neutral Currents From Leptonic Final States at 22-{GeV} and 34-{GeV} #data#
 180758 . Experimental Study of the Photon Structure Function F(2) in the High $Q^2$ Region #data#
 181468 . Production of $K \bar{K}$ Pairs in Photon-photon Collisions and the Excitation of the Tensor Meson F-prime (1515) #data#
 181469 X Search for Charged Higgs and Technipions at {PETRA} #search#
 181470 . Charged Hadron Composition of the Final State in e+ e- Annihilation at High-Energies #implemented#
-182337 . Search for Top Quark and a Test of Models Without Top Quark at the Highest {PETRA} Energies #implemented#
 182584 . Experimental Evidence for Differences in $p_T$ Between Quark Jets and Gluon Jets #???#
 182585 . Investigation of Two Photon Final States in $e^+ e^-$ Annihilation at $\sqrt{s}=34$.2-{GeV} #data#
 182983 X PERFORMANCE OF THE SIGNAL PROCESSING SYSTEM FOR THE TIME PROJECTION CHAMBER. (TALK) #detector#
@@ -142,31 +117,19 @@
 182985 X SPATIAL RESOLUTION OF THE PEP-4 TIME PROJECTION CHAMBER #detector#
 182986 X MEASUREMENT OF IONIZATION LOSS IN THE RELATIVISTIC RISE REGION WITH THE TIME PROJECTION CHAMBER #detector#
 188750 X A Search for Heavy Leptons at {PETRA} #search#
-189545 X $\tau$ Branching Ratios and Polarization Limits in $e^+ e^-$ Interactions at $\sqrt{s}=34$-{GeV} #conference#
 189546 . Lepton Pair Production in Deep Inelastic $e \gamma$ Scattering #????#
-190810 X ENERGY MOMENTS FOR QUARK JETS AT PETRA #conference#
 190818 . Charged Particle and Neutral Kaon Production in e+ e- Annihilation at PETRA #implemented#
 191159 . Precise Measurement of Total Cross-Sections for the Process e+ e- ---> Multi-Hadrons in the Center-Of-Mass Energy Range Between 12.0-GeV and 36.4-GeV #measurement of R#
-191161 . Measurement of Transverse Momenta in $e^+ e^-$ Annihilation Jets at {PETRA} #implement#
+191161 . Measurement of Transverse Momenta in $e^+ e^-$ Annihilation Jets at {PETRA}
 191231 . Measurement of the Processes $e^+ e^- \to e^+ e^-$ and $e^+ e^- \to \gamma \gamma$ at {PETRA} #data#
-191232 X Inclusive Production of Electrons and Muons in Multi - Hadronic Events at {PETRA} #not implementable#
 191415 . Inclusive $\gamma$ and $\pi^0$ Production in $e^+ e^-$ Annihilation at 14-{GeV}, 22-{GeV}, and 34-{GeV} Center-of-mass Energy #implemented#
 191416 X Observation of Inclusive $\eta$ Production in $e^+ e^-$ Annihilation at {CM} Energies of 34-{GeV} #spectra in paper, but superseeded by 213948#
 191417 . Differential Cross-sections for $\gamma \gamma \to p \bar{p}$ in the Center-of-mass Energy Range From 2.0-{GeV} to 3.1-{GeV} #data#
 191536 . Inclusive $D$ and $D^*$ Production in $e^+ e^-$ Annihilation at 29-{GeV} #fractions in PDG, spectra in paper but low stats#
-191578 . Measurement of the Reaction gamma gamma ---> pi+ pi+ pi- pi- at PETRA #data#
-191643 X ON THE MODEL DEPENDENCE OF THE DETERMINATION OF THE STRONG COUPLING CONSTANT IN SECOND ORDER FROM e+ e- ANNIHILATION INTO HADRONS #conference#
 192072 . Observation of Xi-, Anti-xi- Production in $e^+ e^-$ Annihilation #implement#
-192097 X INCLUSIVE D AND D* PRODUCTION IN e+ e- ANNIHILATION AT 29-GeV #conference#
-192098 X PROPERTIES OF D* PRODUCTION IN e+ e- ANNIHILATION AT 29-GeV #conference#
-192099 X STUDY OF QUARK FRAGMENTATION AT 29-GeV #conference#
-192100 X HADRON PRODUCTION IN e+ e- ANNIHILATIONS AT S**(1/2) = 29-GeV #conference#
-192101 X TESTS OF QED AT 29-GeV CENTER-OF-MASS ENERGY #conference#
-192307 X STUDY OF QUARK FRAGMENTATION AT 29-GeV #conference#
 192311 . Particle Distribution in Three Jet Events Produced by e+ e- Annihilation #???#
 192312 . Test of Fragmentation Models by Comparison with Three Jet Events Produced in e+ e- ---> Hadrons #data elsewhere?#
 192316 X A Search for Flavor Changing Neutral Currents in $b$ Decay at {PETRA} #search#
-193274 X Proposal to upgrade the Cello Detector #detector#
 193285 . Measurement of the Muon Pair Asymmetry in $e^+ e^-$ Annihilation at $\sqrt{s}=34$.7-{GeV} #dist#
 193787 . An Improved Measurement of Electroweak Couplings From $e^+ e^- \to e^+ e^-$ and $e^+ e^- \to \mu^+ \mu^-$ #data#
 194050 . Properties of Charm Jets Produced in $e^+ e^-$ Annihilation Near 34-{GeV} #dists#
@@ -178,7 +141,7 @@
 195332 X On the Model Dependence of the Determination of the Strong Coupling Constant in Second Order {QCD} From $e^+ e^-$ Annihilation Into Hadrons #data in 12010 as well#
 195333 . Jet Production and Fragmentation in e+ e- Annihilation at 12-GeV to 43-GeV #implemented#
 195994 X Charged hadron production in $e^+e^-$ annihilation at 29-GeV #superseeded by TPC_1988_I262143#
-196567 . A Summary of Recent Experimental Results From Mark-$J$: High-energy $e^+ e^-$ Collisions at {PETRA} #implemented#
+196567 . A Summary of Recent Experimental Results From Mark-$J$: High-energy $e^+ e^-$ Collisions at {PETRA}
 196842 . D*+- Production by e+ e- Annihilation Near 34.4-GeV Center-Of-Mass Energy #FB#
 196859 X A MUON DETECTION SYSTEM FOR THE PEP-4 FACILITY. (TALK) #conference#
 196865 X Geiger Mode Calorimeter for PEP-4 #detector#
@@ -198,23 +161,16 @@
 200106 X Search for $q = 2/3 e$ and $q = 1/3 e$ particles produced in $e^+e^-$ annihilations #search#
 200238 X PERFORMANCE OF THE HEXAGONAL CALORIMETER AT PEP-4 #detector#
 201376 . Measurement of the Photon Structure Function F2 (x, Q**2) #data#
-201377 X Measurement of Deep Inelastic Electron Scattering Off Virtual Photons #conference#
 201475 . Characteristics of proton production in jets from $e^+e^-$ annihilation at 29-GeV #fig 2?#
-201482 . Study of Quark Fragmentation at 29-GeV: Global Jet Parameters and Single Particle Distributions #implementable#
-201595 X RECENT RESULTS FROM THE PEP-4 TPC #conference#
 201702 X Search for New Neutral Particles in $e^+ e^-$ Annihilations at 29-{GeV} #search#
 201708 . Measurement of Exclusive $\eta^\prime$ Production in $\gamma \gamma$ Reactions #fig 4?#
 202546 X A Search for the Supersymmetric Partner of the $\Z^0$ in $e^+ e^-$ Annihilation at {PETRA} #search#
-202547 X Experimental Study of the Photon Structure Function F(2) at Q**2 from 10-GeV**2 to 220-GeV**2 #conference#
 202639 X tau LEPTON BRANCHING FRACTIONS #BR#
-202640 X BARYON PRODUCTION IN e+ e- ANNIHILATION AT 29-GeV #conference#
 202642 X Observation of Radiative $e^+ e^-$ Annihilation Into $\mu \mu \gamma$ and $\mu \mu \gamma \gamma$ #conference#
 202782 . Inclusive Electron Production From Heavy Quarks in $e^+ e^-$ Annihilation at 34.6-{GeV} Center-of-mass Energy #FB#
 202783 . Search for New Heavy Quarks in $e^+ e^-$ Collisions Up to 46.78-{GeV} Center-of-mass Energy #implemented#
 202784 . Measurements of Energy Correlations in $e^+ e^- \to$ Hadrons #implemented#
 202785 . Charged $D^*$ Production in $e^+ e^-$ Annihilation #implement#
-202885 X RESULTS ON HADRONIC EVENTS FROM THE MAC DETECTOR AT PEP. 1. DIRECT PHOTON PRODUCTION. 2. PRECISION MEASUREMENT AND ENERGY-ENERGY CORRELATIONS #conference#
-202924 . A Measurement of Energy-energy Correlations in $e^+ e^- \to$ Hadrons at $\sqrt{s}=29$-{GeV} #implemetable#
 203142 X Upper Limits on the Production Rate of the Decuplet Baryons $\Delta$ and $\Sigma^*$ in $e^+ e^-$ Annihilation at 34.4-{GeV} #limit#
 203143 ? Determination of $\alpha_s$ in First and Second Order {QCD} From $e^+ e^-$ Annihilation Into Hadrons #dists, elsewhere?#
 203144 . A Measurement of the Electroweak Induced Charge Asymmetry in e+ e- ---> B anti-B #FB#
@@ -240,9 +196,7 @@
 205869 . $K^{*0}$ and $K^0_s$ meson production in $e^+e^-$ annihilations at 29-GeV #implementable#
 205870 . Study of bose-einstein correlations in $e^+e^-$ annihilation at 29-GeV #fig 1?#
 205871 . Tests of models for parton fragmentation using three jet events in $e^+e^-$ annihiliation at $\sqrt{s} = 29$ GeV #fig 2#
-205905 X A STUDY OF FINAL STATES WITH FOUR CHARGED LEPTONS IN e+ e- INTERACTIONS #not pulbished#
 205908 . An Investigation of the Process $e^+ e^- \to \mu^+ \mu^- \gamma$ #???#
-206052 . Precision Measurement of the Total Cross-section for $e^+ e^- \to$ Hadrons at a Center-of-mass Energy of 29-{GeV} #implemented#
 206144 X Tests of models for quark and gluon fragmentation in $e^+e^-$ annihilation $\sqrt{s} = 29$ GeV #not implementable#
 207430 X Search for Supersymmetric Partners of Electrons #search#
 207431 X Search for Scalar Muons #search#
@@ -253,8 +207,6 @@
 213239 X A Search for Monojet Events Produced by Virtual $\Z^0$ Bosons in $e^+ e^-$ Annihilation at {PETRA} #search#
 213241 . Measurements of Tau Lepton Production and Decay #data#
 213402 . Exclusive production of $K^+ K^- \pi^+ \pi^-$ in photon-photon collisions #data#
-213548 X Experimental Limits on Monojet Production in $e^+ e^-$ Annihilation at 29-{GeV} #conference#
-213818 X THE HIGH RESOLUTION SPECTROMETER IN STUDIES OF e+ e- ANNIHILATION AT the s**(1/2) = 29-GeV #detector#
 213948 . A Study of Photon Production in Hadronic $e^+ e^-$ Annihilation #spectra#
 214133 X Baryon production in $e^+e^-$ annihilation at $\sqrt{s}=29$ GeV: clusters, diquarks, popcorn? #not implementable#
 214359 X A measurement of the η radiative width Γ η→γγ #just width no sigma#
@@ -266,7 +218,6 @@
 217416 . Charged $D^*$ meson production in $e^+e^-$ annihilation at $\sqrt{s}=29$ GeV #implementable#
 217503 . A study of $\eta$ formation in photon-photon collisions at PEP #data#
 220695 . Tau Lepton Production and Decay at {PETRA} Energies #data#
-220907 . EVIDENCE FOR IOTA PRODUCTION IN HIGH-ENERGY e+ e- ANNIHILATION #sigmaxBR#
 220909 . Particle Correlation Observed in e$^{+} $e$^{-}$ Annihilations Into Hadrons at c.m. Energies Between 29-{GeV} and 37-{GeV} #dists#
 220910 . A Study of Three Jet Events in e+ e- Annihilation Into Hadrons at 34.6-GeV Center-Of-Mass Energy #dists#
 220911 . Study of the Reaction $\gamma \gamma \to 2 \pi^+ 2 \pi^- \pi^0$ and Upper Limits on the Production of $\gamma \gamma \to \omega \omega$ and $\gamma \gamma \to \rho^0 \omega$ #data#
@@ -275,42 +226,25 @@
 221005 X A Measurement of the Mean Semimuonic Branching Ratio of $B$ Hadrons Produced at {PETRA} #BR#
 221066 X EXCITED LEPTON SEARCH #search#
 221432 . Jet Production at High Transverse Momenta by Interactions of Two Quasireal Photons #dists#
-221767 X INCLUSIVE PI0 PRODUCTION BY E+ E- ANNIHILATION AT 34.6-GEV CENTER-OF-MASS ENERGY #conference#
 222566 . Tests of the Standard Model in Leptonic Reactions at {PETRA} Energies #data#
 222609 X Evidence for Exclusive $\eta_c$ Production in $\gamma \gamma$ Interactions #not implementable#
-227257 X The Topaz Time Projection Chamber #detector#
 227275 X An experimental limit on $\iota\to \gamma\gamma$ and the interpretation of the $\iota$ as a glueball #search#
 227325 . Lepton Pair Production in Double Tagged Two Photon Interactions #dists#
 227326 X Determination of the $B$ Lifetime #lifetime#
 228072 . Pion and Kaon Pair Production in Photon-Photon Collisions #data#
-228249 . Radiative $\tau$ Pair Production and Search for New Particles Decaying Into $\tau$ #dists#
 228250 . Vector Meson Production in the Final State $K^+ K^- \pi^+ \pi^-$ Photon-photon Collisions #data#
 228251 . Measurement of the Photon Structure Function f(2)Gamma at Q**2 from 7-GeV/c**2 to 70-GeV/c**2 #data#
 228876 . Measurement of the Radiative Width of the A(2) (1320) in Two Photon Interactions #data#
 229894 X A Measurement of the D0 Lifetime #lifetime#
-230091 X STUDIES OF PARTON FRAGMENTATION AND BARYON PRODUCTION WITH THE TPC AT PEP #conference#
-230224 X Comparison of the particle flow in $q\bar{q}g$ and $q\bar{q}\gamma$ events in $e^+e^-$ annihilation #conference#
-230240 X UPPER LIMIT ON THE D* (2010) DECAY WIDTH #conference#
-230241 X SEARCH FOR SPIN DEPENDENT EFFECTS IN c QUARK FRAGMENTATION #conference#
-230242 X OBSERVATION OF THE DECAYS tau ---> eta X, tau ---> omega X #conference#
-230243 X MULTIPLICITY DISTRIBUTIONS IN e+ e- ANNIHILATION AT 29-GeV: A COMPARISON WITH HADRONIC DATA #conference#
-230244 X MEASUREMENT OF THE ELECTROWEAK ASYMMETRY IN THE REACTION e+ e- ---> tau+ tau- AT 29-GeV #conference#
-230297 . Study of Hadron and Inclusive Muon Production From Electron Positron Annihilation at 39.79-{GeV} $\le \sqrt{s} \le$ 46.78-{GeV} #conference#
-230410 X PION AND KAON MULTIPLICITIES IN HEAVY QUARK JETS #conference#
-230411 X MEASUREMENT OF tau BRANCHING RATIOS #conference, BR#
-230592 . Measurement and QCD Analysis of the Photon Structure Function F2 (x, Q**2) #data#
+230297 . Study of Hadron and Inclusive Muon Production From Electron Positron Annihilation at 39.79-{GeV} $\le \sqrt{s} \le$ 46.78-{GeV}
 230950 . Inclusive $\pi^0$ Production by $e^+ e^-$ Annihilation at 34.6-{GeV} Center-of-mass Energy #implement#
 231101 X Evidence for a Spin One Particle Produced by Two Photons #search#
 231405 X Search for Light Leptoquark Bosons #search#
 231554 . Exclusive Production of Proton Anti-proton Pairs in Photon-photon Collisions #data#
-232554 X Experimental Studies on Multi-Jet Production in e+ e- Annihilation at PETRA Energies #conference#
 233422 X Measurement of the inclusive branching fraction $\tau^- \to \nu_\tau \pi^-\pi^0$ neutral meson(s) #BR#
-233536 X Measurement of the Branching Fractions for $\tau \to e \nu_e \nu_\tau$, $\tau \to \mu \nu_\mu \nu_\tau$ and $\tau \to \pi \nu_\tau$ #BR#
 233537 X Search for Excited Quarks in $e^+ e^-$ Interactions With the Cello Detector #search#
 233595 . Observation of scaling of the photon structure function $F_2^\gamma$ at low $Q^2$ #data#
-234578 . Measurement of the photon structure function $F_2^\gamma(x,Q^2)$ in the region $0.2< Q^2 < 7$ GeV$^2$ #conf but data#
 234749 . Jet Production in Photon-photon Interactions #implementable??#
-234905 . E+ e- Physics with the JADE Detector at PETRA #implemented#
 235694 . Pion and kaon multiplicities in heavy quark jets from $e^+e^-$ annihilation at 29-GeV #implemented#
 235695 X Measurement of $\tau$ branching ratios #BR#
 235696 . Observation of Charmed Mesons in Photon-photon Collisions #????#
@@ -319,16 +253,10 @@
 236264 X A Measurement of the $D(s$) Lifetime #lifetime#
 236981 . Determination of alpha-s and sin**2theta(w) from Measurements of the Total Hadronic Cross-Section in e+ e- Annihilation #implemented#
 236983 X Determination of Semimuonic Branching Ratios and Fragmentation Functions of Heavy Quarks in $e^+ e^-$ Annihilation at $s^*$*(1.2) = 34.6-{GeV} #not worth doing given 202785#
-238004 X LIMIT ON TAU DECAY TO 7 CHARGED TRACKS #conference#
-238164 X MEASUREMENT OF THE D0 MESON LIFETIME #conference#
-238661 X STUDY OF THE F MESON IN e+ e- COLLISIONS AT 29-GeV #conference#
-238696 X CHARM D PRODUCTION IN e+ e- ANNIHILATION AT 29-GeV #conference#
 239032 X SEARCH FOR HIGH MASS NARROW RESONANCES IN VIRTUAL PHOTON PHOTON INTERACTIONS #search#
-241275 X PRODUCTION AND FRAGMENTATION OF THE D*0 MESON IN e+ e- ANNIHILATION AT S**(1/2) = 29-GeV #conference#
 242454 . A study of $\eta^\prime$ formation in photon-photon collisions #???#
 244835 . A Measurement of the Muon Pair Production in $e^+ e^-$ Annihilation at 38.3-{GeV} $\le \sqrt{s} \le$ 46.8-{GeV} #data#
 245241 X Searches for Supersymmetric Particles With the Cello Detector at {PETRA} #search#
-245571 . Measurement of the Polarization of $\tau$ Leptons Produced in $e^+ e^-$ Annihilation at $\sqrt{s}=29$-{GeV}
 245612 X Measurement of the Tau Lepton Lifetime #lifetime#
 245732 X A Search for Hadronic Events With Low Thrust and an Isolated Lepton #search#
 246181 X Precise Measurement of the Lifetime of the Tau Lepton #lifetime#
@@ -339,16 +267,7 @@
 247769 X Additional Evidence for B0 - Anti-b0 Mixing #mixing#
 248660 . A Study of Energy-energy Correlations Between 12-{GeV} and 46.8-{GeV} {CM} Energies #implement#
 249557 . A Study of Bhabha Scattering at {PETRA} Energies #data#
-249755 X THE FIRST RESULTS FROM TOPAZ AT TRISTAN #conference#
-249757 X Properties of $e^+e^-$ interactions at $\sqrt{s} = 50$ GeV and 52 GeV #conference#
-250125 X FIRST RESULTS FROM e+ e- REACTION AT TRISTAN #conference#
 250274 X Upper Limit for the Decay $\tau \to \eta \pi$ Neutrino #limit#
-250501 X STUDY OF TWO PHOTON PRODUCTION OF RHO0 OMEGA IN E+ E- INTERACTIONS #conference#
-250502 X A MEASUREMENT OF A20 (1320) FORMATION IN PHOTON PHOTON COLLISIONS #conference#
-250503 X AN EXPERIMENTAL STUDY OF SPIN 1 MESONS PRODUCED IN TWO PHOTON REACTIONS #conference#
-250504 X MEASUREMENT OF THE PHOTON STRUCTURE FUNCTION F(2) (GAMMA) (X, Q**2) BETWEEN 10-GEV**2 < Q**2 < 60-GEV**2 #conference#
-250568 X EVIDENCE FOR QUARK BREMSSTRAHLUNG #conference#
-250569 X COMPARISON OF THE CHARGED MULTIPLICITY DISTRIBUTIONS TO THE NEGATIVE BINOMIAL DISTRIBUTIONS #conference#
 250570 . Measurement of the Two Photon Reaction $\gamma \gamma \to \pi^+ \pi^- \pi^+ \pi^-$ at Large Values of $Q^2$ #data#
 250823 . Measurement of the Spin Density Matrix of $D^*$ Mesons Produced in $e^+ e^-$ Annihilations #spin?#
 250824 . Production of $\eta$ Mesons in $e^+ e^-$ Annihilations at $\sqrt{s}=29$-{GeV} #implemented#
@@ -365,16 +284,8 @@
 251921 . Measurement of the Processes $e^+ e^- \to e^+ e^-$ and $e^+ e^- \to \gamma \gamma$ at $\sqrt{s}=52$-{GeV} #data#
 252222 X Charmonium Production in Photon-photon Collisions #not implementable#
 252439 X Measurements of Tau Decays to Three Pions #BR#
-252443 X LIMITS ON HEAVY LEPTONS WITH MASSIVE NEUTRINOS #conference#
-252452 X EVIDENCE FOR B0 ANTI-B0 MIXING FROM MAC #conference#
 252632 . Measurement and Analysis of the Reaction $\gamma \gamma \to \pi^+ \pi^- \pi^+ \pi^-$ #data#
 252969 X Search for isolated leptons in low thrust $e^+e^-$ annihilation events at $\sqrt{s} = 50$ GeV and 52-GeV #search#
-253402 X INCLUSIVE D*+- PRODUCTION IN PHOTON PHOTON COLLISIONS. #conference#
-253404 X A MEASUREMENT OF THE TAU LIFETIME. #conference#
-253406 X MULTICLUSTER ANALYSIS OF HADRONIC DATA AT C.M. ENERGIES BETWEEN 12-GEV AND 46.8-GEV #conference#
-253407 X DETERMINATION OF THE D0 LIFETIME. #conference#
-253409 X DETERMINATION OF THE AVERAGE LIFETIME OF BOTTOM HADRONS. #conference#
-255543 X SEARCH FOR D*0 ---> D+ pi- #conference#
 260635 X A Search for Particles With Magnetic Charge Produced in $e^+ e^-$ Annihilations at $\sqrt{s}=35$-{GeV} #search#
 260716 . A Study of Jets From $b$ Quarks Produced in $e^+ e^-$ Annihilations at $\sqrt{s}=35$-{GeV} to 46-{GeV}. #implementable?#
 260834 . Comparison of the Particle Flow in $q \bar{q} \gamma$ and $q \bar{q} g$ Events From $e^+ e^-$ Annihilations at {PETRA} #figs#
@@ -383,7 +294,6 @@
 261049 X A Measurement of the $\tau$ Lifetime #lifetime#
 261486 . Analysis of Multi - Jet Final States in $e^+ e^-$ Annihilation #data#
 261630 . Production of Four Prong Final States in Photon-photon Collisions #data#
-261656 X CHARGED HADRON PRODUCTION IN e+ e- ANNIHILATION AT S**(1/2) = 29-GeV #not published#
 261668 . A Measurement of Muon Pair Production in $e^+ e^-$ Annihilation at Center-of-mass Energies 35-{GeV} $\le \sqrt{s} \le$ 46.8-{GeV} #data#
 261669 X Study of $\eta_c$ Production in Two Photon Collisions #BR#
 261670 X Neutrino Counting With the Cello Detector and Search for Supersymmetric Particles #search#
@@ -396,18 +306,9 @@
 263579 . Experimental Investigation of the Energy Dependence of the Strong Coupling Strength #data on jet rates#
 263859 . Jet Fragmentation and {QCD} Models in $e^+ e^-$ Annihilation at $c$.m. Energies Between 12-{GeV} and 41.5-{GeV} #implement#
 264345 X A Search for Excited Electrons in the $e^+ e^-$ Reactions Up to the $\sqrt{s}$ of 56-{GeV} #search#
-264608 X A SEARCH FOR MARK-J EVENTS AT TRISTAN #conference#
-264609 X A SEARCH FOR NEW HEAVY QUARKS USING HADRONIC EVENTS CONTAINING LEPTONS #conference#
-264611 X A search for charged and neutral heavy leptons in $e^+e^-$ annihilations at $\sqrt{s}=56$ GeV #conference#
-264612 X Measurements of $R$ and a search for heavy quark production in $e^+e^-$ annihilation for $\sqrt{s}$ from 50 GeV to 56 GeV #conference#
-264613 X Measurement of cross-sections and charge asymmetry for $e^+e^- \to \tau^+ \tau^-$ and $e^+e^- \to \mu^+ \mu^-$ for $\sqrt{s}= 52$ GeV, 55-GeV and 56-GeV #conference#
-264614 X THE PHYSICS OF JETS PRODUCED IN ELECTRON - POSITRON COLLISIONS AT CENTER-OF-MASS ENERGIES FROM 50-GeV TO 56-GeV #conference#
-264615 X Hadron production in $\gamma \gamma$ collisions at large $q^2$ at AMY #conference#
-264616 X A study of qed processes in the electron - positron interactions and search for excited leptons at $\sqrt{s}=50$ GeV to 56-GeV #conference#
 265797 . Measurements of cross-sections and charge asymmetries for $e^+e^- \to \tau^+ \tau^-$ and $e^+e^- \to \mu^+ \mu^-$ for $\sqrt{s}$ from 52 GeV to 57-GeV #data#
 266409 X A Measurement of the $\tau$ Lepton Lifetime #lifetime#
 266414 . $K^0(s$) $K \pi$ Production in Tagged and Untagged $\gamma \gamma$ Interactions #data#
-266431 X A Status Report on the Sld Data Acquisition System #detector#
 266893 . Strange Baryon Production in e+ e- Annihilation #implement#
 266894 X Measurement of the Average Lifetime of B Hadrons #lifetime#
 267079 X Search for SUSY Particles in e+ e- Annihilation at Tristan #search#
@@ -436,27 +337,16 @@
 278856 . Production and Decay of Charmed Mesons in $e^+ e^-$ Annihilation at $\sqrt{s}$ > 28-{GeV} #implement#
 278937 . A Measurement of the Charmed Quark Asymmetry in $e^+ e^-$ Annihilation #FB#
 279165 . Experimental Study of Jet Masses in $e^+ e^-$ Annihilation at $c$.m. Energies Between 12-{GeV} and 43.5-{GeV} #implement#
-279235 X SEARCH FOR NEW PARTICLES IN e+ e- ANNIHILATION AT TRISTAN #conference#
 279349 . Exclusive production of $p\bar{p}\pi^+\pi^-$ in photon-photon collisions #data#
-279572 X Multi - hadronic event properties in $e^+e^-$ annihilation at $\sqrt{s} = 52$ GeV to 57 GeV #conference#
 279575 . Measurements of $\alpha^- s$ in $e^+ e^-$ Annihilation at $\sqrt{s}=53$.3-{GeV} and 59.5-{GeV} #implementable#
 279824 . A measurement of $e^+e^- \to b\bar{b}$ forward - backward charge asymmetry between $\sqrt{s} = 52$ GeV and 57-GeV #FB, data#
-279825 X A SEARCH FOR A CHARGE -1/3 QUARK BY ISOLATED PHOTONS FROM FLAVOR CHANGING NEUTRAL CURRENT AT TRISTAN #conference#
 279827 X A search for unstable heavy neutral leptons in $e^+e^-$ annihilations at $\sqrt{s}$ from 50 GeV to 60.8 GeV #search#
-279828 X A search for heavy leptons and new particles beyond the standard model in $e^+e^-$ annihilations at $\sqrt{s} = 50$ GeV to 60.8 GeV #conference#
 279829 . A comparison of quark and gluon jets produced in high-energy $e^+e^-$ annihilations #interest but could it be implemented?#
-279876 X Search for a Fourth Generation Charge -1/3 Quark #conference#
 279900 X Search for nonminimal higgs production in $e^+e^-$ annihilations at $\sqrt{s}$ approximately = 56 GeV #search#
-279901 X Measurements of $R$ for $e^+e^-$ annihilation at TRISTAN #conference#
 280026 X NEW LIMITS ON NEUTRAL SCALAR BOSONS #search#
-280029 . Measurements of the cross-section for $e^+e^- \to \gamma \gamma$ at TRISTAN #conference but data#
 280383 X A STUDY ON SINGLE PHOTON PRODUCTION AT s**(1/2) = 54-GeV TO 61.4-GeV #search#
-280664 X Determination of the QCD renormalization scale and $\Lambda_{MS}$ from multi - jet events produced in electron - positron collisions #conference#
-280667 X A study of multi - hadron events with isolated leptons produced in $e^+e^-$ annihilations at $\sqrt{s} = 50$ GeV to 61.4 GeV #conference#
-280668 X A study of $e^+e^-$ annihilation into four lepton final states #conference#
 280669 . Measurement of the Differential Cross-sections of $e^+ e^- \to \gamma \gamma$ and $e^+ e^- \to \gamma \gamma \gamma$ at $\sqrt{s}=55$-{GeV}, 56-{GeV}, 56.5-{GeV} and 57-{GeV} and Search for Unstable Photino Pair Production #data#
 280958 . QUARK HADRONIZATION PROBED BY K0 MESONS #implementable#
-280975 X A measurement of the photon structure function $F_2$ at an average $q^2$ of 67 GeV/c$^2$ #conference#
 281159 . Study of Intermittency in Electron - Positron Annihilation Into Hadrons #???#
 281231 X A Search for a Fourth Generation Charge -1/3 ($b^\prime$) Quark Using Inclusive Muons in $e^+ e^-$ Annihilations at $\sqrt{s}=56$.5-{GeV} to 60.8-{GeV} #search#
 281245 . Charge Asymmetry of Hadron Jets and Limits on the Compositeness Scales in e$^{+} $e$^{-} \To $q$ \Bar{$q$}$ Reaction at $\Sqrt{$s$}=57$.6-{GeV} #FB#
@@ -475,7 +365,6 @@
 282905 . Measurement of the Mass and Width of the $Z^0$ Particle from Multi - Hadronic Final States Produced in $e^{+} e^{-}$ Annihilations #data#
 283003 . Measurement of the Total Hadronic Cross-sections in e$^{+} $e$^{-}$ Annihilation and Determination of the Standard Model Parameters #implemented#
 283026 . Inclusive Strange Particle Production in $e^+ e^-$ Annihilation #implementable#
-283082 . Forward - backward charge asymmetry in $e^+e^- \to$ hadron jets #FB#
 283084 X A Study of Pion Pair Production in Two Photon Process #not implementable#
 283146 X Measurement of the Decay of the $\Z^0$ Into Lepton Pairs #superseeded#
 283337 . Multi - hadron event properties in $e^+e^-$ annihilation at $\sqrt{s} = 52$ GeV to 57-GeV #implementable#
@@ -498,15 +387,14 @@
 284560 . Final Results on $\mu$ and Tau Pair Production by the Jade Collaboration at {PETRA} #data#
 284970 X A Search for a $b^\prime$ Quark With Flavor Changing Neutral Current Decay Modes at Tristan #search#
 285181 X Mass Limits for a Standard Model Higgs Boson in $e^+ e^-$ Collisions at {LEP} #search#
-285182 X A SEARCH FOR NEW CHARGED HEAVY LEPTONS WITH THE OPAL DETECTOR AT LEP #search#
 285183 X A Search for Acoplanar Pairs of Leptons or Jets in $\Z^0$ Decays: Mass Limits on Supersymmetric Particles #search#
 286423 X Measurement of $\Z^0$ Decays to Hadrons and a Precise Determination of the Number of Neutrino Species #superseeded#
 286923 X Search for Isolated Photons From Flavor Changing Neutral Current Decay of a New Quark at the {KEK} $e^+ e^-$ Collider Tristan #search#
+289140 . The Construction of the L3 Experiment
 294346 . Investigation of the electromagnetic structure of $\eta$ and $\eta^\prime$ mesons by two photon interactions #worth doing ??#
 294474 X A Direct Search for New Charged Heavy Leptons at {LEP} #search#
 294521 X Search for the Neutral Higgs Boson From $\Z^0$ Decay in the Higgs Mass Range Between 11-{GeV} and 24-{GeV} #search#
 294525 . Measurements of $R$ for $e^+e^-$ annihilation at TRISTAN #implemented#
-294576 X A MEASUREMENT OF THE Z0 LEPTONIC PARTIAL WIDTHS AND THE FORWARD - BACKWARD ASYMMETRY #superseeded#
 294597 . Production of Charmed Mesons in $\gamma \gamma$ Interactions #data#
 294672 . Measurement of the Reactions $e^+ e^- \to \mu^+ \mu^-$ and $e^+ e^- \to \tau^+ \tau^-$ Between $\sqrt{s}=50$-{GeV} and 60.8-{GeV} #data#
 294755 . Global Jet Properties at 14-{GeV} to 44-{GeV} Center-of-mass Energy in $e^+ e^-$ Annihilation #implemented#
@@ -520,7 +408,7 @@
 295102 X Search for Decays of the $\Z^0$ Into a Photon and a Pseudoscalar Meson #search#
 295160 . Charged hadron multiplicities in $e^+e^-$ annihilations at $\sqrt{s} = 50$ GeV - 61.4 GeV #implemented#
 295180 . Measurement of Resonance Productions in the Reactions $\gamma \gamma \to \pi^0 \pi^0$ and $\gamma \gamma \to \pi^0 \eta$ #data#
-295286 . Measurement of the Total Hadronic Cross-section in $e^+ e^-$ Annihilation at $\sqrt{s}=29$-{GeV} #data, implement?#
+295286 . Measurement of the Total Hadronic Cross-section in $e^+ e^-$ Annihilation at $\sqrt{s}=29$-{GeV}
 295407 X A Search for Technipions and Charged Higgs Bosons at {LEP} #search#
 295500 . Study of the Leptonic Decays of the $Z^0$ Boson #data#
 295501 . A Precise Measurement of the $Z$ Resonance Parameters Through Its Hadronic Decays #data#
@@ -541,7 +429,6 @@
 296526 X Limits on neutral heavy lepton production from Z0 decay #search#
 296680 X Mass limits of charged Higgs at large $\tan(\beta)$ from $e^+e^-$ annihilations at $\sqrt{s} = 50$ GeV - 60.8 GeV #search#
 296684 . Determination of the QCD scale parameter Lambda (ms) with QCD cascade on the basis of the next-to-leading logarithmic approximation #jet rates with data, but uncorrected#
-296918 X Study of intermittency in e+ e- annihilations at 29-GeV #conference#
 296997 X Search for scalar quarks in $Z^0$ decays #search#
 296998 . A Study of intermittency in hadronic Z0 decays #data in tables#
 297067 X A search for charged Higgs bosons at TRISTAN #search#
@@ -549,9 +436,7 @@
 297170 X Search for the neutral higgs boson in $Z^0$ decay #search#
 297171 X Mass limits for excited electrons and muons from Z0 decay #search#
 297172 X A Determination of electroweak parameters from Z0 ---> mu+ mu- (gamma) #superseeded#
-297256 X Measurement of the $e^+e^- \to b\bar{b}$ cross-section and forward - backward charge asymmetry at a center-of-mass energy of 57.2 GeV #search#
 297258 . Experimental study on color degree of freedom of gluons in e+ e- annihilation at s**(1/2) around 60-GeV #four jet angles, plots only, worth doing?#
-297480 X Bose-Einstein correlations in pion production at TRISTAN #conference#
 297561 X A Study of angular correlations in 4-jet final states of hadronic Z0 decays #superseeded#
 297562 X A Direct search for neutralino production at LEP #search#
 297564 X A Study of coherence of soft gluons in hadron jets #superseeded#
@@ -565,33 +450,25 @@
 298078 . Determination of alpha-s from jet multiplicities measured on the Z0 resonance #data#
 298079 X A Precision measurement of the number of neutrino species #cross section scan, but supersseded by 314418#
 298080 . A Test of QCD based on four jet events from Z0 decays #figs 3,4#
-298238 . Measurement of the polarization of $\tau$ leptons from $e^+e^-$ at $\sqrt{s} = 57$ GeV #onference#
-298246 . A Comparison of measured jet cross-sections with QCD calculations for e+ e- annihilation #superseeded by JADE/OPAL ??#
+298238 . Measurement of the polarization of $\tau$ leptons from $e^+e^-$ at $\sqrt{s} = 57$ GeV
 298414 X Measurement of electroweak parameters from Z decays into Fermion pairs #superseeded#
 298642 X The OPAL detector at LEP #detector#
 298682 X Limits on a light Higgs boson in e+ e- collisions at LEP #search#
 298707 X A Measurement of energy correlations and a determination of alpha-s (M2 (Z0)) in e+ e- annihilations at s**(1/2) = 91-GeV #superseeded#
 298839 X Search for excited neutrinos in Z decay #search#
-298840 X DELPHI results on the Z0 resonance parameters through its hadronic and leptonic decay modes #conference#
-298841 X A Measurement of the partial width of the Z0 boson into b quark pairs #conference#
 298843 X Test of QED in e+ e- ---> gamma gamma at LEP #data, but superseeded 336900#
 298845 X Search for excited taus from Z0 decay #search#
 299056 . A Measurement of the photon structure function $F_2$ #data#
-299103 X Comparison of quark and gluon jets using three jet events from $e^+e^-$ annihilation at TRISTAN #conference#
-299104 X A Search for charged Higgs bosons in $e^+e^-$ annihilation using the AMY detector at $\sqrt{s} = 50$ GeV - 61.4 GeV #conference#
 299105 X A Search for inclusive production of heavy stable particles by the TOPAZ detector at TRISTAN #search#
-299114 X Comparison of the next-to-leading logarithm QCD approximation with TRISTAN data and a determination of $\Lambda_{MS}$ #conference#
 299248 X Search for the neutral Higgs bosons of the minimal supersymmetric standard model from Z0 decays #search#
 299250 X A Search for heavy charged and neutral leptons from Z0 decays #search#
 299253 X A Determination of electroweak parameters from Z0 decays into charged leptons #superseeded#
 299282 . A Measurement of the pi0, eta and eta-prime electromagnetic form-factors #data#
 299393 X Search for pair produced stable singly charged heavy particles in Z0 decays #search#
-299521 X Charged multiplicity and rapidity distributions in Z0 hadronic decays #conference#
 299662 . Inclusive $D^{*\pm}$ production in photon-photon collisions #data#
 299781 X A Measurement of the $\Z^0$ Leptonic Partial Widths and the Vector and Axial Vector Coupling Constants. #superseeded#
 299833 . A Study of the recombination scheme dependence of jet production rates and of alpha-s (m(Z0)) in hadronic Z0 decays #???#
 299835 X A Search for lepton flavor violation in Z0 decays #search#
-299847 X Measurements of heavy quark fragmentation at TRISTAN #conference#
 300102 . Fractal dimensions from a three-dimensional intermittency analysis in e+ e- annihilation #????#
 300161 X Energy-energy correlations in hadronic final states from Z0 decays #superseeded#
 300162 . Measurement of the partial width of the decay of the Z0 into charm quark pairs #FC#
@@ -601,8 +478,6 @@
 300438 X Search for a low mass neutral Higgs boson in Z0 decay #search#
 300439 X Search for excited neutrinos from Z0 decays #search#
 301065 . Cross-section measurement and spin parity analysis of the reaction gamma gamma ---> omega rho #gamma gamma cross section#
-301654 X Search for Higgs bosons using the Delphi detector #conference#
-301656 X Search for nonstandard Z0 decays in two particle final states #conference#
 301657 . Charged particle multiplicity distributions in Z0 hadronic decays #implemented#
 301659 X Experimental study of the triple gluon vertex #superseeded#
 301661 X Measurement of the strong coupling constant alpha-s from global event shape variables of hadronic Z decays #superseeded#
@@ -615,7 +490,6 @@
 302770 X Measurement of the B hadron lifetime #superseeded#
 302771 X Measurement of alpha-s from the structure of particle clusters produced in hadronic Z decays #superseeded#
 302936 X Search for low mass Higgs bosons produced in Z0 decays #search#
-314056 X Searches for the standard Higgs boson produced in the reaction e+ e- ---> H0 Z* #search#
 314203 . Charge asymmetry of hadronic events in $e^{+} e^{-}$ annihilation at $\sqrt{s}$ = 57.9-GeV #data#
 314256 ? Studies of multi - hadronic final states in photon-photon interactions #no data, not worth doing?#
 314333 X A Model independent observation of the string effect using quark tagging at LEP #superseeded#
@@ -708,7 +582,6 @@
 334186 . A Test of higher order electroweak theory in Z0 decays to two leptons with an associated pair of charged particles #???#
 334322 X Search for a very light CP odd neutral Higgs boson of the MSSM #search#
 334323 X Measurement of B - anti-B mixing at the Z using a jet charge method #lifetime#
-334468 X First QCD results from SLD #conference#
 334473 X Measurement of the tau topological branching ratios at LEP #BR#
 334575 X Measurement of the production rates of eta and eta-prime in hadronic Z decays #superseeded#
 334577 X Properties of hadronic Z decays and test of QCD generators #superseeded#
@@ -742,7 +615,6 @@
 339575 . Studies of e+ e- ---> gamma gamma and gamma-gamma-gamma reactions #data#
 339967 X A Measurement of the b baryon lifetime #lifetime#
 340583 X Measurements of mean lifetime and branching fractions of b hadrons decaying to J / psi #BR#
-340855 X QCD studies of hadronic decays of Z$^0$ bosons by SLD #superseeded#
 340878 X Searches for nonminimal Higgs bosons in Z0 decays #search#
 340879 X Search for isosinglet neutral heavy leptons in Z0 decays #search#
 340880 . High mass photon pairs in lepton+ lepton- gamma gamma events at LEP #figs 2,3,6#
@@ -755,21 +627,17 @@
 341723 X Measurement of the b ---> tau- anti-tau-neutrino X branching ratio #BR#
 341725 X A Precise measurement of the tau lepton lifetime #lifetime#
 342707 ? Study of chi(c2) production in photon-photon collisions #low stats, not worth implementing#
-342764 X Measurements of spin sensitive quantities in hadronic decays of Z0 bosons produced in e+ e- annihilations #conference#
 342766 . A Measurement of K*+- (892) production in hadronic Z0 decays #implemented#
 342768 X A Study of the electric charge distributions of quark and gluon jets in hadronic Z0 decays #superseeded#
 342800 X Measurement of inclusive production of light meson resonances in hadronic decays of the Z0 #superseeded#
 342801 X A Search for lepton flavor violation in Z0 decays #search#
-343018 X First results from SLD with polarized electron beam at SLC #conference#
 343082 . QCD coherence studies using two particle azimuthal correlations #???#
 343083 X A Study of $B^0$ - $\bar{B}^0$ mixing using semileptonic decays of $B$ hadrons produced from $Z^0$ #mixing#
 343181 . Studies of strong and electroweak interactions using final state photon emission in hadronic Z0 decays #implemented#
 343700 X Search for particles with unexpected mass and charge in Z decays #search#
 344328 X Search for anomalous production of single photon events in e+ e- annihilations at the Z resonance #search#
 344329 . Determination of quark electroweak couplings from direct photon production in hadronic Z decays #fig 1??#
-344556 X A Preliminary measurement of R(b) = Gamma (Z0 ---> b anti-b) / Gamma (Z0 ---> hadrons) at SLD #conference#
 345437 . An Experimental study of the process gamma gamma ---> pi+ pi- #data#
-349385 X Search for anomalous gamma gamma production at TRISTAN #conference#
 352667 X First measurement of the left-right cross-section asymmetry in Z boson production by e+ e- collisions #superseeded#
 352696 X Precision measurements of the neutral current from hadron and lepton production at LEP #superseeded#
 352789 X A Study of differences between quark and gluon jets using vertex tagging of quark jets #superseeded#
@@ -808,7 +676,6 @@
 356099 X Search for massive, unstable photinos that violate R-parity #search#
 356100 X Measurement of the average b hadron lifetime in Z0 decays #lifetime#
 356288 X First measurement of the left-right asymmetry in Z boson production #conference#
-356293 X Studies of QCD B physics and jet handedness at SLD #conference#
 356468 X Measurement of alpha-s from the moment of particle momenta within jets from e+ e- annihilation #alhpa s only#
 356730 X Search for high mass photon pairs in e+ e- ---> f anti-f gamma gamma (f = e, mu, tau, neutrino, q) at LEP #search#
 356731 . An Experimental study of gamma gamma ---> hadrons at LEP #???#
@@ -816,15 +683,12 @@
 356733 X A Measurement of the mean lifetimes of charged and neutral B hadrons #lifetime#
 356734 X Search for Z0 decays to two leptons and a charged particle - anti-particle pair #search#
 356912 X A Measurement of alpha-s from jet rates at the Z0 resonance #superseeded#
-357406 X SLD results from the study of polarized Z0 produced at the SLC #conference#
 357422 X Search for the Standard Model Higgs boson #search#
 357423 X Search for a nonminimal Higgs boson produced in the reaction $e^{+} e^{-} \to$ h $Z^{*}$ #search#
 357424 X Measurement of the b hadron lifetime with the dipole method #lifetime#
-357480 X Measurements of inclusive jet production in almost real gamma gamma collisions at TRISTAN #conference#
 357742 X Measurement of the B(s)0 lifetime #lifetime#
 357748 X Measurement of the $B^0$ - $\bar{B}^0$ mixing, Gamma (Z0 $\to b \bar{b}$) / Gamma (Z0 $\to$ hadrons) and semileptonic branching ratios for $b$ flavored hadrons in hadronic z0 decays #mixing#
 357751 X Observation of the time dependence of B(d)0 - anti-B(d)0 mixing #mixing#
-357776 . Measurement of the D*+- cross-section in a two photon process #data#
 357822 X First measurement of the B(S) meson mass #mass#
 357910 . Improved measurements of the neutral current from hadron and lepton production at LEP #AFB etc#
 357912 . A test of the flavor independence of the strong interaction for five flavors #?????#
@@ -839,12 +703,9 @@
 358528 X Inclusive search for the charmless radiative decay of the b quark (b ---> s gamma) #search#
 358862 . Measurement of Gamma (Z0 ---> b anti-b) / Gamma (Z0 ---> hadrons) using impact parameters and leptons #RB#
 358863 . Measurement of the photon structure function F2 (gamma) in the reaction e+ e- ---> e+ e- + hadrons at LEP #data#
-358910 X A Measurement of R(b) = Gamma (Z0 ---> b anti-b) / Gamma (Z0 ---> hadrons) at SLD #conference#
 359401 X Studies of charged particle multiplicity in b quark events #superseeded 393953#
 359459 X Limits on the production of scalar leptoquarks from Z0 decays at LEP #search#
-359493 X A Study of jet handedness at the Z0 resonance #conference#
 359973 . Measurement of open charm production in two photon processes with detection of electron inclusive events #???#
-360299 X Studies of e+ e- annihilation multi - hadron events including muons at s**(1/2) = 57.8-GeV #conference#
 360333 X Measurement of the charged multiplicity of Z0 ---> b anti-b events #superseeded#
 360334 X An S matrix analysis of the Z resonance #not implementable#
 360335 X Search for lepton flavor violation in Z decays #search#
@@ -863,8 +724,6 @@
 363342 X Measurement of the $B_s^0$ lifetime #lifetime#
 363343 X An Investigation of $B_d^0$ and $B_s^0$ oscillation #superseeded#
 363727 X Measurement of the B0 - anti-B0 mixing using the average electric charge of hadron jets in Z0 decays #search#
-367726 X Measurements of the inclusive jet cross-section in photon photon interactions at TRISTAN #conference#
-367731 X Measurement of the D*+- cross-section using a soft-pion analysis in two photon processes #conference#
 371498 X Search for a light scalar top in e+ e- reaction at E(cm) = 58-GeV #search#
 371909 ? A Study of single photon production in e+ e- annihilation at S**(1/2) = 58-GeV #search#
 372139 . Measurement of the D*+- cross-section using a soft pion analysis in two photon processes #data#
@@ -887,8 +746,6 @@
 373119 X Heavy flavor production and decay with prompt leptons in the ALEPH detector #superseeded#
 373120 X Heavy quark tagging with leptons in the ALEPH detector #detector#
 373121 . $Z$ production cross-sections and lepton pair forward - backward asymmetries #???#
-373403 X Precise determination of the weak mixing angle from a measurement of A(LR) in e+ e- ---> Z0 #conference#
-373660 X Measuring A(b) with polarized beams at SLC #conference#
 373751 . One prong tau decays into charged kaons #????#
 373752 . K0 production in one prong tau decays #?????#
 373856 . Measurement of the photon structure function F2(gamma) and jet production at TRISTAN #data#
@@ -916,34 +773,23 @@
 375965 X J / psi production in the hadronic decays of the Z #PDG#
 376541 X Measurement of the tau lepton polarization and its forward - backward asymmetry from Z0 decays #superseeded 554583#
 376916 . Polarized Bhabha scattering a precision measurement of the electron neutral current couplings #EW#
-377105 X A Search for jet handedness in hadronic Z0 decays #conference#
 377106 X Measurement of the B0 - anti-B0 mixing parameter and the Z ---> b anti-b forward - backward asymmetry #BR#
 377273 X Updated measurement of the tau lifetime #lifetime#
 377274 . A Measurement of the QCD color factor ratios C(A) / C(F) and T(F) / C(F) from angular correlations in four jet events #getting the data???#
-377388 X Measurement of alpha-s from hadronic event observables at the Z0 resonance #conference#
-377392 X Measurement of the b ---> tau- anti-tau-neutrino X inclusive / exclusive branching ratios #BR#
 377487 . Production characteristics of K0 and light meson resonances in hadronic decays of the Z0 #implemented#
 377489 . Measurement of the Gamma (b anti-b) / Gamma (hadron) branching ratio of the Z by double hemisphere tagging #RB#
 377490 X Measurement of time dependent B(d)0 - anti-B(d)0 mixing #search#
 377805 . K0 (anti-K0) production in two photon processes at TRISTAN #data#
 378075 . Measurement of inclusive electron cross-section in gamma gamma collisions at TRISTAN #data#
 378295 X The L3 silicon microvertex detector #detector#
-378339 X A Preliminary, precise measurement of the average B hadron lifetime #conference#
-378340 X Measurement of the average lifetime of B hadrons at SLD #conference#
 378342 . Measurement of A(b) and A(c) from the left-right forward - backward asymmetry of leptons in hadronic events at the Z0 resonance #EW#
 378343 . A Search for jet handedness in hadronic Z0 decays #not sure#
 378344 . Measurement of A(b) from the left-right forward - backward asymmetry of b quark production in Z0 decays using a momentum weighted track charge technique #EW#
 378545 . Measurement of alpha-s (M(Z)**2) from hadronic event observables at the Z0 resonance #event shape data#
 378569 . Forward - backward charge asymmetry of quark pairs produced at the KEK TRISTAN e+ e- collider #data#
 379212 . Determination of event shape distributions and alpha-s(b) from Z0 ---> b anti-b events at LEP #interesting, but implementable??#
-379691 X A Preliminary measurement of the average B hadron lifetime #conference#
-379692 X Electroweak coupling measurements from polarized Bhabha scattering at SLD #conference#
-379694 X Precision standard model tests with polarized $e^+ e^-$ beams #conference#
-379696 X Heavy quark physics at SLD (preliminary results) #conference#
-379698 X Measurement of alpha-s in e+ e- annihilation at E(cm) = 29-GeV #conference#
 380423 X Measurement of the b ---> tau- anti-tau-neutrino X branching ratio and an upper limit on B- ---> tau- anti-tau-neutrino #BR#
 380424 . Study of the four fermion final state at the Z resonance #implementable#
-380425 X A Study of K(s), Lambda and anti-Lambda production in hadronic Z0 decays #conference#
 381044 X A Measurement of tau polarization at LEP #superseeded 467929#
 381046 . B* production in Z decays at LEP #ratio B* to B#
 381075 . Energy and particle flow in three jet and radiative two jet events from hadronic Z decays #???#
@@ -954,7 +800,6 @@
 381665 X A Study of D*+ pi- production in semileptonic B decay #BR#
 381777 . Measurement of the total hadronic cross-section and determination of gamma - Z interference in e+ e- annihilation #implemented#
 381900 . Measurement of inclusive particle spectra and test of MLLA prediction in e+ e- annihilation at s**(1/2) = 58-GeV #implementable#
-381998 X A Measurement of the left-right, forward - backward asymmetry for charm quarks using D*+ and D+ mesons #conference#
 382002 X A Test of the flavor independence of strong interactions #superseeded#
 382035 . Measurement of the forward - backward asymmetry of e+ e- ---> Z ---> b anti-b using prompt leptons and a lifetime tag #FB#
 382036 . First evidence of hard scattering processes in single tagged gamma gamma collisions #figs#
@@ -977,7 +822,6 @@
 392529 . Measurement of the weak charged current structure in semileptonic b hadron decays at the Z peak #fig 4??#
 392530 . Measurement of Gamma ($b \bar{b}$) / Gamma (hadrons) using impact parameter measurements and lepton identification #RB#
 392538 X Measurement of the leptonic branching ratios of the tau lepton #BR#
-392701 . A High Q**2 measurement of the photon structure function F2(gamma) #data#
 392864 X A Study of $B$ meson oscillations using dilepton events #BR#
 392865 X An Upper limit for the tau-neutrino mass from tau --> 5 pi (pi0) tau-neutrino decays #mass#
 392889 . Comparisons of the properties of final state photons in hadronic Z0 decays with predictions from matrix element calculations #data, but overcorrected?#
@@ -986,7 +830,7 @@
 393292 X Improved measurements of the $B^0$ and $B^{+}$ meson lifetimes #lifetime#
 393293 X An Improved measurement of the $B_s^0$ lifetime #lifetime#
 393413 X Improved tau polarization measurement #superseeded#
-393414 . Measurement of the hadronic decay current in tau- --> pi- pi- pi+ tau-neutrino #data#
+393414 . Measurement of the Hadronic Decay Current in tau- --> pi- pi- pi+ tau-neutrino #data#
 393416 . Test of the flavor independence of alpha-s #increasing but dists?#
 393503 . The Production of neutral kaons in Z0 decays and their Bose-Einstein correlations #implemeted#
 393504 X Search for heavy charged particles and for particles with anomalous charge in $e^{+} e^{-}$ collisions at LEP #search#
@@ -1025,12 +869,9 @@
 397145 X Search for exclusive charmless B meson decays with the DELPHI detector at LEP #search#
 397391 . Study of prompt photon production in hadronic Z0 decays #implement#
 397395 X Measurement of the average $b$ baryon lifetime and the product branching ratio f ($b \to Lambda_b$ ) x BR (Lambda($b$) $\to \Lambda \ell^-$ anti-neutrino $X^{)}$ #BR#
-398189 X Measurement of alpha-s from hadronic event observables at the Z0 resonance #conference#
-398190 X The Production of pi+-, K+-, p, K0 and Lambda0 in hadronic Z0 decays #conference#
 398193 . First measurement of the quark to photon fragmentation function #implemented#
 398194 X Measurement of D(s)+ meson production in Z decays and of the anti-B(s)0 lifetime #lifetime#
 398195 . Measurement of alpha-s from scaling violations in fragmentation functions in e+ e- annihilation #implementable#
-398301 X Measurement of the polarized forward - backward asymmetry of Z0 ---> b anti-b using a lifetime tag and momentum weighted track charge #conference#
 398317 X Inclusive production of neutral vector mesons in hadronic Z decays #superseeded, in big summary paper#
 398319 X Measurement of the effective b quark fragmentation function at the Z resonance #superseeded#
 398320 . Delta++ production in hadronic Z0 decays #implemented#
@@ -1053,7 +894,6 @@
 401102 X Tau leptonic branching ratios #BR#
 401106 X Measurement of the average $B$ hadron lifetime in $Z^0$ decays using reconstructed vertices #lifetime#
 401554 X A Precise measurement of the average $b$ hadron lifetime #lifetime#
-401598 X Production of charm and beauty in e+ e- with polarized electron beam #conference#
 401601 X Measurement of the tau- ---> e- anti-electron-neutrino tau-neutrino branching ratio #BR#
 401603 X Tau hadronic branching ratios #BR#
 401612 X Search for promptly produced heavy quarkonium states in hadronic Z decays #search#
@@ -1065,7 +905,6 @@
 403973 . Observation of highly virtual photon-photon collisions to hadrons at TRISTAN #tables#
 403978 X New limits on the masses of the selectron and photino #search#
 404106 . Measurement of the heavy quark forward - backward asymmetries and average $B$ mixing using leptons in multi - hadronic events #forward-backward#
-404166 ? Preliminary measurements of B0 and B+ lifetimes at SLD #conference#
 404272 . Measurement of the left-right forward - backward asymmetry for charm quarks with D*+ and D+ mesons #data, implementable?#
 404562 . Quark and gluon jet properties in symmetric three jet events #implementable??#
 404602 . Measurement of eta production in two and three jet events from hadronic Z decays at LEP #implement#
@@ -1078,13 +917,6 @@
 404916 X Study of the structure of hadronic events and determination of alpha-s at s**(1/2) = 130-GeV and 136-GeV #superseeded#
 405739 . First study of rapidity gaps in e+ e- annihilation #figs#
 406129 . A Determination of alpha-s in e+ e- annihilation at s**(1/2) = 57.3-GeV #jets data implementable#
-406555 X Production of pi+-, K+-, p, K0 and Lambda0 in hadronic Z0 decays #conference#
-406556 X An Improved limit on jet handedness in Z0 decays #conference#
-406557 X A Study of the orientation and energy partition of three jet events in hadronic Z0 decays #conference#
-406558 X First measurement of the triple product correlation in polarized Z0 decays to three jets #conference#
-406559 X Measurement of the charged multiplicities of b, c and light quark events from Z0 decays #conference#
-406560 X A Study of rapidity gaps in e+ e- ---> Z0 events #conference#
-406561 X Factorial and cumulant moments in e+ e- ---> hadrons at the Z0 resonance #conference#
 406593 . A Study of single photon production in e+ e- collisions at s**(1/2) = 58-GeV with the TOPAZ detector at TRISTAN #data#
 407273 . Study of two particle azimuthal correlations in e+ e- annihilation at s**(1/2) = 58-GeV #figs 2,3 intereesting, data?#
 415576 . Factorial and cumulant moments in e+ e- ---> hadrons at the Z0 resonance #implement?#
@@ -1129,7 +961,6 @@
 418709 . Measurement of the forward - backward asymmetry in $e^{+} e^{-} \to b \bar{b}$ and the $b$ quark branching ratio to muons at TRISTAN using neural networks #FB#
 418937 X Search for anomalous production of single photons at $\sqrt{s}$ = 130-GeV and 136-GeV #search#
 418939 X Study of radiative leptonic events with hard photons and search for excited charged leptons at S**(1/2) = 130-GeV - 136-GeV #not implementable#
-419256 X Tau Lorentz structure with polarization at SLD #conference#
 419685 . Measurement of D*+- production in two photon processes at TRISTAN #data#
 419905 . Measurement of the b forward - backward asymmetry and mixing using high p(T) leptons #FB#
 419908 X Prompt J / psi production in hadronic Z0 decays #prodcution fraction#
@@ -1167,12 +998,7 @@
 421994 X Search for neutralinos, scalar leptons and scalar quarks in e+ e- interactions at s**(1/2) = 130-GeV and 136-GeV. #search#
 421995 . A Measurement of the charm and bottom forward - backward asymmetries using D mesons at LEP #forward-backward?#
 421997 . Test of the four fermion contact interaction in e+ e- collisions at 130-GeV - 140-GeV #data#
-422168 X Preliminary measurement of the charged multiplicities in b, c and light quark events from Z0 decays #conference#
-422169 X Preliminary measurement of leading particle effects in hadronic Z0 decays #conference#
-422170 X A Preliminary measurement of the b quark fragmentation function in hadronic Z0 decays #conference#
-422171 X Preliminary measurements of production of pi+-, K+-, p, K0 and Lambda0 in hadronic Z0 decays #conference#
 422172 . Measurement of the charged multiplicities in b, c and light quark events from Z0 decays #implemented#
-422652 X Measurement of A(b) and A(c) at the Z0 resonance using a lepton tag #conference#
 423034 X Observation of charmless hadronic b decays #BR#
 423486 . Test of QCD analytic predictions for the multiplicity ratio between gluon and quark jets #implementable??#
 423574 X Measurement of the branching fraction of the radiative decay tau- ---> mu- anti-muon-neutrino tau-neutrino gamma #BR#
@@ -1193,8 +1019,6 @@
 425320 . Measurement of the mass of the $W$ boson in $e^{+} e^{-}$ collisions at $S^{(1/2)}$ = 161-GeV #mass, but sigma value#
 425867 X Search for exclusive $B$ decays to $J/\psi$ and $\eta$ or $\pi^0$ with the L3 detector #search#
 425868 X Search for neutral $B$ meson decays to two charged leptons #search#
-425928 X Updated measurement of the tau lifetime at SLD #conference#
-425929 X Preliminary measurement of time dependent B(d)0 - anti-B(d)0 mixing using topology and charge selected semileptonic B decays #conference#
 425943 X Measurements of |V(cb)|, form-factors and branching fractions in the decays anti-B0 ---> D*+ lepton- anti-lepton-neutrino and anti-B0 ---> D+ lepton- anti-lepton-neutrino #more recent, better data#
 426122 . An improved measurement of the left-right $Z^0$ cross-section asymmetry #EW#
 426207 . Measurement of the QED longitudinal structure function of the photon using azimuthal correlations at LEP #data#
@@ -1221,14 +1045,10 @@
 428228 . Identified particles in quark and gluon jets #worth doing?#
 428274 X Search for charged scalar leptons using the OPAL detector at s**(1/2) = 161-GeV #search#
 428470 X Measurement of D(s)- ---> tau- anti-tau-neutrino and a new limit for B- ---> tau- anti-tau-neutrino #BR#
-428484 X Measurement of the $B^{+}$ and $B^0$ lifetimes using topological vertexing #lifetime#
 428492 X Search for CP violation in Z0 ---> tau+ tau- and an upper limit on the weak dipole moment of the tau lepton #search#
 428493 . B* production in Z0 decays #implemented#
-429039 X Measurement of the Z0 - lepton coupling asymmetries A(lepton) #conference#
-429856 X Preliminary measurement of D* / D production and D* spin alignment at the Z0 resonance #conference#
 439797 . The Topology dependence of charged particle multiplicities in three jet events #implementable??#
 439997 X Measurement of the tau-neutrino helicity and the Michel parameters in polarized e+ e- collisions #not implementable#
-440040 X Measurement of the $B^{+}$ and $B^0$ lifetimes from semileptonic decays #lifetime#
 440051 . A Measurement of the QCD color factors and a limit on the light gluino #???#
 440102 . Measurement of the triple gauge boson coupling $\alpha$ (w $\phi^{)}$ from $W^{+} W^{-}$ production in $e^{+} e^{-}$ collisions at $\sqrt{s}$ = 161-GeV #data#
 440103 . Study of phi (1020), D*+- and B* spin alignment in hadronic Z0 decays #implemented#
@@ -1241,7 +1061,6 @@
 440447 . Measurement of the electromagnetic coupling at large momentum transfer #not implementable#
 440588 X Measurement of the spectral functions of vector current hadronic tau decays #superseeded#
 440589 X Measurement of the tau lepton lifetime with the three-dimensional impact parameter method #lifetime#
-440596 X Measurement of the polarized forward backward asymmetry of Z0 ---> b anti-b using a mass tag and momentum weighted track charge #conference#
 440721 . QCD studies with e+ e- annihilation data at 161-GeV #data#
 440724 . A Measurement of R(b) using a lifetime mass tag #RB#
 440725 . A Measurement of R(b) using mutually exclusive tags #RB#
@@ -1284,11 +1103,6 @@
 445325 . Resonance formation in the pi+ pi- pi0 final state in two photon collisions #figs#
 445326 . Measurement of the branching fractions and forward - backward asymmetries of the Z0 into light quarks #FB#
 445331 X Search for the neutral Higgs bosons of the MSSM in e+ e- collisions at s**(1/2) from 130-GeV to 172-GeV #search#
-445644 X Symmetry tests in polarized Z0 decays to b anti-b g #conference#
-445645 X Production of pi+-, K+-, K0, K*0, phi, p and Lambda0 in hadronic Z0 decays #conference#
-445646 X A Preliminary study of the structure of b anti-b g events using Z0 decays #conference#
-445647 X A Preliminary improved test of the flavor independence of strong interactions #conference#
-445648 X Preliminary measurement of prompt D+- and D*+- meson production and D*+- spin alignment in hadronic Z0 decays #conference#
 445998 X Study of hadronic events and measurements of alpha-s between 30-GeV and 91-GeV #superseeded#
 445999 X Search for heavy neutral and charged leptons in e+ e- annihilation at s**(1/2) = 161-GeV and s**(1/2) = 172-GeV #search#
 446000 . Single and multiphoton events with missing energy in e+ e- collisions at 161-GeV < s**(1/2) < 172-GeV #data#
@@ -1301,7 +1115,6 @@
 446673 . Measurement of the Q**2 evolution of the photon structure function F2(gamma) #data#
 446719 X Searches for scalar top and scalar bottom quarks at LEP-2 #search#
 446783 X Missing mass spectra in hadronic events from e+ e- collisions at s**(1/2) = 161-GeV - 172-GeV and limits on invisible Higgs decay #search#
-446881 X A Preliminary measurement of R(b) using the upgrade SLD vertex detector #conference#
 446939 X Updated measurement of the tau lepton lifetime #lifetime#
 446940 . Measurement of the W pair cross-section in e+ e- collisions at 172-GeV #data#
 447145 . Measurement of f(c ---> D*+ X), f(b ---> D*+ X) and Gamma (c anti-c) / Gamma (hadronic) using D*+- mesons #???#
@@ -1315,7 +1128,7 @@
 447268 . A Measurement of R(b) using a vertex mass tag #RB#
 447353 X Search for R-parity breaking sneutrino exchange at LEP #search#
 447377 . Multiplicity distributions of gluon and quark jets and tests of QCD analytic predictions #figs#
-447560 . A Study of event shapes and determinations of alpha-s using data of e+ e- annihilations at s**(1/2) = 22-GeV to 44-GeV #implemented#
+447560 . A Study of event shapes and determinations of alpha-s using data of e+ e- annihilations at s**(1/2) = 22-GeV to 44-GeV
 447944 . Neutral current four fermion production in e+ e- interactions at 130-GeV <= s**(1/2) <= 172-GeV #tables?#
 447945 . Measurement of eta-prime (958) formation in two photon collisions at LEP-1 #data#
 448033 . Multiphoton final states in e+ e- collisions at s**(1/2) = 130-GeV - 172-GeV #???#
@@ -1325,7 +1138,6 @@
 448154 X Measurement of the $B$ baryon lifetime and branching fractions in $Z$ decays #lifetime, BR#
 448370 . Measurement of the quark and gluon fragmentation functions in Z0 hadronic decays #data, worth looking at#
 448436 X Measurement of the triple gluon vertex from double quark tagged four jet events #not implementable#
-448507 X QCD Studies at SLD: Identified hadron production in jets of different flavors #conference#
 448664 X Search for a massive di-photon resonance at S**(1/2) = 91-GeV - 172-GeV #search#
 448725 . Measurement of triple gauge boson couplings from $W^{+} W^{-}$ production at $S^{(1/2)}$ = 172-GeV #implementable?#
 448729 X Search for unstable heavy and excited leptons in e+ e- collisions at S**(1/2) = 170-GeV - 172-GeV #search#
@@ -1336,22 +1148,14 @@
 449592 X Search for charged Higgs bosons in e+ e- collisions at center-of-mass energies from 130-GeV to 172-GeV #search#
 449593 X Measurement of the average lifetime of $b$ hadrons in $Z$ decays #lifetime#
 449594 X Search for scalar leptons, charginos and neutralinos in $e^{+} e^{-}$ collisions at $\sqrt{s}$ = 161-GeV to 172-GeV #search#
-449679 X Measurement of the B+ and B0 lifetimes using topological vertexing at SLD #conference#
 449704 X Measurement of the $B^{+}$ and $B^0$ lifetimes using topological reconstruction of inclusive and semileptonic decays #lifetime#
 449730 X Searches for charginos and neutralinos in $e^{+} e^{-}$ collisions at $\sqrt{s}$ = 161-GeV and 172-GeV #search#
-449925 X A Preliminary measurement of R(c) using the SLD detector #conference#
-449928 X Properties of the b anti-b g vertex #conference#
-450154 X A Preliminary inclusive measurement of A(c) using the SLD detectors #conference#
-450686 X Direct measurement of A(b) and A(c) at the Z0 pole using a lepton tag #conference#
 450757 X Search for anomalous production of photonic events with missing energy in e+ e- collisions at s**(1/2) = 130-GeV to 172-GeV #search#
 450758 X An Upper limit on the tau-neutrino mass from three-prong and five-prong tau decays #mass#
 450872 . m(b) at M(Z) #fig 2?#
-451935 X Measurement of A(b) from left right forward backward asymmetry in Z0 decays using charged kaon tagging #conference#
 452097 . Precise measurement of the e+ e- ---> mu+ mu- reaction at s**(1/2) = 57.77-GeV #data#
 452178 X Search for supersymmetry with a dominant R-parity violating L L anti-E coupling in e+ e- collisions at center-of-mass energies of 130-GeV to 172-GeV #search#
 452500 X Search for charged Higgs bosons in e+ e- collisions at S**(1/2) = 172-GeV #search#
-452796 X Search for CP violation and b ---> sg in inclusive B decays #conference#
-452927 X Tests of QCD using Z0 ---> b anti-b g events #conference#
 453111 X Measurement of the one prong hadronic tau branching ratios at LEP #BR#
 453112 X A Measurement of the semileptonic branching ratio BR(b-baryon ---> p lepton anti-neutrino X) and a study of inclusive pi+-, K+-, (p,anti-p) production in Z decays #BR#
 453113 . Four jet final state production in e+ e- collisions at center-of-mass energies ranging from 130-GeV to 184-GeV #??#
@@ -1368,7 +1172,6 @@
 453761 . Local multiplicity fluctuations in hadronic Z decay #??#
 454183 . Charged particle multiplicities of quark and gluon jets in e+ e- annihilation at TRISTAN #data#
 455114 X Measurement of alpha(s) using NLLA + O (alpha-s**2) in e+ e- annihilation at s**(1/2) = 58-GeV #just alpha s vals#
-458432 X Searches for R-parity violating supersymmetry at LEP-2 #search#
 465983 X Search for the $B_c$ meson in hadronic $Z^0$ decays #search#
 466503 X Investigation of CP violation in $B^0 \to J/\psi K^0_{S}$ decays at LEP #BR#
 466841 X Measurement of the inclusive charmless and double charm B branching ratios #br#
@@ -1429,43 +1232,28 @@
 473409 . pi+-, K+-, p and anti-p production in Z0 ---> q anti-q, Z0 ---> b anti-b, Z0 ---> u anti-u, d anti-d, s anti-s #implemented#
 473410 . Measurement of radiative Bhabha and quasireal Compton scattering #data#
 473411 . A Measurement of the gluon splitting rate into b anti-b pairs in hadronic Z decays #implement if possible#
-473588 X An Improved direct measurement of leptonic coupling asymmetries with polarized Z0's #conference#
-473591 X An Improved inclusive measurement of A(c) using the SLD detector #conference#
 473699 . Tests of the standard model and constraints on new physics from measurements of fermion pair production at 183-GeV at LEP #data#
 473700 X Search for scalar top and scalar bottom quarks at $S^{(1/2)}$ = 183-GeV at LEP #search#
 473701 X Production of chi (c2) mesons in photon-photon collisions at LEP #rate#
-473718 X A Measurement of R(c) using the SLD detector #conference#
-473758 X Measurement of A(b) at the Z0 resonance using a jet charged technique #conference#
-473944 X Inclusive search for b ---> sg #conference#
 473948 X Search for B0(s) oscillations using inclusive lepton events #BR#
 474009 . Dijet production in photon-photon collisions at $S^{(1/2)}$ (ee) = 161-GeV and 172-GeV #data#
 474010 . A Study of parton fragmentation in hadronic Z0 decays using Lambda anti-Lambda correlations #implement#
 474011 X Study of D0 anti-D0 mixing and D0 doubly Cabibbo suppressed decays #BR#
 474012 . Measurement of the average polarization of b baryons in hadronic Z0 decays #implemented#
 474013 . First measurement of Z / gamma* production in Compton scattering of quasireal photons #data#
-474070 X Time dependent B0(s) - anti-B0(s) mixing using inclusive and semileptonic B decays at SLD #conference#
-474071 X Measurement of the $B^{+}$ and $B^0$ lifetimes using topological vertexing at SLD #conference#
-474241 X A Preliminary study of the structure of b anti-b g events using Z0 decays #conference#
-474243 X Symmetry tests in polarized Z0 decays to b anti-b g #conference#
-474244 X A Study of correlations between identified charged hadrons in hadronic Z0 decays #conference#
-474245 X A Preliminary direct measurement of the parity violating coupling of the Z0 to strange quarks, A(s) #conference#
-474247 X A Preliminary improved measurement of the B hadron energy distribution in Z0 decays #conference#
 474662 X Measurement of |V(cs)| using W decays at LEP-2 #not implementable#
 474663 . Measurement of $W$ pair cross-sections in $e^{+} e^{-}$ interactions at $S^{(1/2)}$ = 183-GeV and $W$ decay branching fractions #data but over corrected?#
 474664 X Search for acoplanar lepton pair events in e+ e- collisions at S**(1/2) = 161-GeV, 172-GeV and 183-GeV #search#
 474665 X Measurement of the Michel parameters and the average tau-neutrino helicity from tau decays at LEP #number#
 474666 . Measurement of the longitudinal cross-section using the direction of the thrust axis in hadronic events at LEP #data#
-475040 X Heavy quark mass effects and improved tests of the flavor independence of strong interactions #conference#
 475701 X Measurement of the running of effective QED coupling at large momentum transfer in the space - like region #not implementable#
 476583 X Upper limit on the lifetime difference of shortlived and longlived $B^0_{s}$ mesons #limit#
 476784 . Measurement of the effective weak mixing angle by jet charge asymmetry in hadronic decays of the Z boson #FB#
 476785 X Searches for scalar top and scalar bottom quarks in e+ e- interactions at 161-GeV less than equal to S**(1/2) less than equal to 183-GeV #search#
 476786 . A Measurement of R(b) using a double tagging method #RB#
 477045 X Search for chargino and neutralino production at S**(1/2) = 181-GeV - 184-GeV at LEP #search#
-477372 . QCD tests using b anti-b g events and a new measurement of the B hadron energy distribution #??#
 477517 X Measurement of the semileptonic branching ratio of charm hadrons produced in Z0 ---> c anti-c decays #BR#
 477626 . Search for anomalous photonic events with missing energy in e+ e- collisions at S**(1/2) = 130-GeV, 136-GeV and 183-GeV #search but data#
-477681 X Charmless and double charm B decays at SLD #conference#
 477802 X Search for scalar fermions and longlived scalar leptons at center-of-mass energies of 130-GeV to 172-GeV #search#
 477803 . Two particle angular correlations in e+ e- interactions compared with QCD predictions #table 1?#
 477804 X Search for pair produced neutralinos in events with photons and missing energy from $e^{+} e^{-}$ collisions at $S^{(1/2)}$ = 130-GeV to 183-GeV #search#
@@ -1475,7 +1263,6 @@
 477808 X QCD results from studies of hadronic events produced in e+ e- annihilations at S**(1/2) = 183-GeV #superseeded#
 477809 X Search for charged Higgs bosons in e+ e- collisions at center-of-mass energies between 130-GeV and 183-GeV #search#
 477810 X Single and multiphoton events with missing energy in e+ e- collisions at S**(1/2) = 183-GeV #search#
-478068 X Identified hadron production and light quark fragmentation in Z0 decays #conference#
 478185 . Measurement of the e+ e- --> Z ---> b anti-b forward - backward asymmetry and the B0 anti-B0 mixing parameter using prompt leptons #FB#
 478903 X Search for composite and exotic fermions at LEP-2 #search#
 478904 X Search for lightest neutralino and stau pair production in light gravitino scenarios with stau NLSP #search#
@@ -1499,7 +1286,6 @@
 482170 X Measurement of the $B^{+}$ and $B^0$ lifetimes and search for CP($T$) violation using reconstructed secondary vertices #lifetime#
 482314 . Color reconnection studies in e+ e- ---> W+ W- at S**(1/2) = 183-GeV #data#
 482345 X Measurement of the $W$ mass and width in $e^{+} e^{-}$ collisions at 183-GeV #mass and width#
-482462 X Physics results from SLD using the CRID #conference#
 482477 . Study of neutral current four fermion and Z Z production in e+ e- collisions at S**(1/2) = 183-GeV #sigma#
 482478 . Measurement of the cross-section for the process gamma* gamma* ---> hadrons at LEP #data#
 482479 X Heavy quarkonium production in $Z$ decays #BR#
@@ -1507,7 +1293,6 @@
 482650 X Study of the four-jet anomaly observed at LEP center-of-mass energies of 130-GeV and 136-GeV #not implementable#
 482816 . Measurement of inclusive rho0, f(0)(980), f(2)(1270), K*0(2)(1430) and f-prime(2)(1525) production in Z0 decays #implemented#
 482963 . An experimental study of the process e+ e- --> e+ e- mu+ mu- #dists? gamma gamma#
-483184 X Heavy flavor fragmentation and decay at SLD #conference#
 484833 . Direct measurement of A(b) in Z0 decays using charged kaon tagging #FB#
 494502 . Measurement of the jet width in $\gamma \gamma$ collisions and in $e^{+} e^{-}$ annihilation process at TRISTAN #not sure#
 495313 . Intermittency and correlations in hadronic Z0 decays #figs#
@@ -1520,14 +1305,12 @@
 495464 . Measurement of the forward backward asymmetry of c and b quarks at the Z pole using reconstructed D mesons #FB, data#
 495805 X Search for charginos and neutralinos in $e^{+} e^{-}$ collisions at center-of-mass energies near 183-GeV and constraints on the MSSM parameter space #search#
 495806 . Measurement of mass and width of the $W$ boson at LEP #figs but unfolded?#
-496237 X A Preliminary direct measurement of the parity violating coupling of the Z0 to strange quarks, A(s) #conference#
 496238 X First study of the structure of e+ e- ---> b anti-b g events and limits on the anomalous chromomagnetic coupling of the b quark #superseeded#
 496399 X Search for scalar leptons in e+ e- collisions at S**(1/2) = 183-GeV #search#
 496400 X Search for R-parity violating chargino and neutralino decays in e+ e- collisions up to S**(1/2) = 183-GeV #search#
 496586 X One prong tau decays with kaons #BR#
 496587 . Study of tau decays involving kaons, spectral functions and determination of the strange quark mass #implement?#
 496755 . Experimental properties of gluon and quark jets from a point source #data, implement?#
-497051 X B decay studies at SLD #conference#
 497105 . Measurement of W pair production in e+ e- collisions at 183-GeV #data#
 497256 X Search for charginos nearly mass - degenerate with the lightest neutralino #search#
 497260 X Measurement of the $W$ mass in $e^{+} e^{-}$ collisions at 183-GeV #mass#
@@ -1536,7 +1319,6 @@
 498246 . Test of the flavor independence of alpha(s) using next-to-leading order calculations for heavy quarks #figs 4,5,6 interesting but no numbers#
 498282 X Measurement of the lifetime of $b$ - baryons #lifetime#
 498297 X Search for R-parity violating decays of scalar fermions at LEP #search#
-498726 X Light quark fragmentation and a measurement of $A_s$ at the SLD #conference#
 499180 X Search for supersymmetry with R-parity violating L L anti-E couplings at S**(1/2) = 183-GeV #search#
 499181 . W pair production cross-section and W branching fractions in e+ e- interactions at 183-GeV #data but overcorrected?#
 499182 X Measurements of the leptonic branching fractions of the tau #BR#
@@ -1545,10 +1327,6 @@
 499917 . Measurement of the hadronic photon structure function at LEP-1 for (Q**2) values between 9.9-GeV**2 and 284-GeV**2 #data#
 500042 . Multiplicity fluctuations in one-dimensional and two-dimensional angular intervals compared with analytic QCD calculations #table 1?#
 500179 . Precise measurement of the total hadronic cross-section in e+ e- annihilation at s**(1/2) = 57.77-GeV #implemented#
-500457 X Measurement of Z0 to heavy quark couplings at SLD #conference#
-500546 X Tests of QCD using Heavy Flavors in $Z^0$ Decays at SLD #conference#
-500779 X An Improved measurement of the b quark fragmentation function in Z0 decays #conference#
-500782 X A Preliminary measurement of the gluon splitting rate into b anti-b pairs in hadronic Z0 decays #superseeded#
 501369 . Formation of the $eta_c$ in two photon collisions at LEP #figs#
 501453 . Energy dependence of inclusive spectra in e+ e- annihilation #is the data elsewhere?#
 501454 X Search for the Higgs boson in events with isolated photons at LEP-2 #search#
@@ -1557,7 +1335,6 @@
 501457 . Measurements of the Z partial decay width into c anti-c and multiplicity of charm quarks per b decay #implement?#
 501458 . Determination of P(c ---> D*+) and BR(c ---> lepton+) at LEP-1 #fig 9?#
 502360 . Direct measurement of A(b) and A(c) at the Z0 pole using a lepton tag #FB#
-502361 X Measurements of Z0 electroweak couplings at SLD #conference#
 502548 . Total hadronic cross-section of photon-photon interactions at LEP #data#
 502683 X Measurements of inclusive semileptonic branching fractions of b hadrons in Z0 decays #BR#
 502747 X Search for heavy neutral and charged leptons in $e^{+} e^{-}$ annihilation at $S^{(1/2)}$ = 183-GeV and 189-GeV #search#
@@ -1565,31 +1342,16 @@
 502749 X Search for Standard Model Higgs boson in $e^{+} e^{-}$ interactions at $S^{(1/2)}$ = 189-GeV #search#
 502750 . A Study of spin alignment of rho(770)+- and omega(782) mesons in hadronic Z0 decays #implemented#
 503551 . A Study of single $W$ production in $e^{+} e^{-}$ collisions at $S^{(1/2)}$ = 161-GeV to 183-GeV #data#
-503554 X Measurement of the b quark fragmentation function in Z0 decays #conference#
-503676 X A Preliminary direct measurement of the parity violating coupling of the Z0 to strange quarks, A(s) #conference#
-503753 X Study of the structure of e+ e- ---> b anti-b g events and improved limits on the anomalous chromomagnetic coupling of the b quark #conference#
-503754 X Symmetry tests in polarized Z0 decays to b anti-b g #conference#
-503909 X Measurement of the probability for gluon splitting into b anti-b in Z0 decays #conference#
-503910 X Production of charged pi+-, K+- and p / anti-p in hadronic Z0 decays #conference#
-503988 X A Study of correlations between identified charged hadronic Z0 decays #conference#
 504104 . Measurement of the rate of b anti-b b anti-b events in hadronic Z decays and the extraction of the gluon splitting into b anti-b #implement?#
 504106 X Search for heavy isosinglet neutrinos in $e^{+} e^{-}$ annihilation at 130-GeV less than $S^{(1/2)}$ less than 189-GeV #search#
 504107 X Measurement of the mass of the W boson using direct reconstruction at S**(1/2) = 183-GeV #not implementable#
-504116 X Direct measurement of the neutral weak dipole moments of the tau lepton #conference#
-504117 X Measurement of A(c) with charmed mesons at SLD #conference#
-504118 X Direct measurement of A(c) using inclusive charm tagging at the SLD detector #conference#
-504120 X Direct measurement of A(b) using charged kaons at the SLD detector #conference#
 504170 X Determination of the LEP center-of-mass energy from Z gamma events #not implementable#
-504294 X New measurement of A(b) at the Z0 resonance using a vertex charge technique #conference#
-504583 X Measurement of the $B^{+}$ and $B^0$ lifetimes using topological vertexing at SLD #conference#
 504716 X Search for R-parity violating decays of supersymmetric particles in $e^{+} e^{-}$ collisions at center-of-mass energies near 183-GeV #search#
 504733 X Search for Higgs bosons and other massive states decaying into two photons in e+ e- collisions at 189-GeV #search#
 504734 X A Study of B0(S) meson oscillation using hadronic Z0 decays containing leptons #BR#
-504736 X Combined SLD measurement of A(b) at the Z0 resonance using various techniques #conference#
 504780 . Multiphoton production in e+ e- collisions at S**(1/2) = 189-GeV #figs#
 504923 . Measurement of the production rate of charm quark pairs from gluons in hadronic Z0 decays #implement if possible#
 504924 X Search for neutral Higgs bosons in e+ e- collisions at S**(1/2) approximately equals 189-GeV #search#
-504987 X An Improved direct measurement of leptonic coupling asymmetries with polarized Z0s #conference#
 504988 X Search for pair produced leptoquarks in $e^{+} e^{-}$ interactions at $S^{(1/2)}$ approximately = 183-GeV #search#
 504989 . Tests of the standard model and constraints on new physics from measurements of fermion pair production at 189-GeV at LEP #data#
 505110 X A Study of three prong tau decays with charged kaons #BRs and too much background in figs#
@@ -1597,7 +1359,6 @@
 506060 X Measurement of the Z resonance parameters at LEP #EW, not implementable#
 506982 X Measurement of the spectroscopy of orbitally excited $B$ mesons at LEP #BR#
 506983 X Search for low scale gravity effects in $e^{+} e^{-}$ collisions at LEP #search#
-507359 X Time dependent B0(s) - anti-B0(s) mixing using inclusive and semileptonic B decays at SLD #conference#
 507422 . Study of charm production in Z decays #implemented#
 507531 . Inclusive production of pi0, eta, eta-prime (958), K0(S) and lambda in two jet and three jet events from hadronic Z decays #implement#
 507735 X Search for an invisibly decaying Higgs boson in e+ e- collisions at 189-GeV #search#
@@ -1605,18 +1366,15 @@
 507737 . Measurement of R($b$) and Br($b \to$ lepton neutrino $X$) at LEP using double tag methods #???#
 507738 X Search for charged Higgs bosons in $e^{+} e^{-}$ collisions at $\sqrt{s}$ = 189-GeV #search#
 507739 . Study of $Z$ Boson Pair Production in $e^{+} e^{-}$ collisions at LEP at $S^{(1/2)}$ = 189-GeV #data#
-507820 X Recent tests of QCD at SLD #conference#
 507867 X Search for chargino pair production in scenarios with gravitino LSP and stau NLSP at S**(1/2) approximately equal to 183-GeV at LEP #search#
 507874 X Search for chargino and neutralino production at S**(1/2) = 189-GeV at LEP #search#
 507875 X Search for anomalous production of acoplanar di-lepton events in e+ e- collisions at S**(1/2) = 183-GeV and 189-GeV #search#
-507923 X Hadron production in quark and anti-quark jets #conference#
 508076 X Search for scalar leptons in $e^{+} e^{-}$ collisions at $\sqrt{S}$ = 189-GeV #search#
 508077 X Search for charginos and neutralinos in $e^{+} e^{-}$ collisions at $\sqrt{S}$ = 189-GeV #search#
 508078 . Measurement of triple gauge boson couplings of the $W$ boson at LEP #data#
 508079 ? Single and multiphoton events with missing energy in $e^{+} e^{-}$ collisions at $\sqrt{S}$ - 189-GeV #not implementable?#
 508408 X Searches for scalar quarks in $e^{+} e^{-}$ interactions at $\sqrt{S}$ = 189-GeV #search#
 508409 X Search for excited leptons at $\sqrt{S}$ = 189-GeV #search#
-508478 X QCD with SLD #conference#
 509034 X Search for charmless hadronic decays of B mesons with the SLD detector #search#
 509037 ? Search for neutral Higgs bosons of the minimal supersymmetric standard model in $e^{+} e^{-}$ interactions at $\sqrt{S}$ = 189-GeV #search#
 509099 ? Search for extra dimensions in boson and fermion pair production in $e^{+} e^{-}$ interactions at LEP #search#
@@ -1627,7 +1385,6 @@
 509442 X Searches for sleptons and squarks in e+ e- collisions at 189-GeV #search#
 509581 . Direct observation of longitudinally polarized $W^\pm$ bosons #not implementable?#
 510061 . Measurement of the probability of gluon splitting into charmed quarks in hadronic $Z$ decays #data#
-510213 X Searches for anomalous effects in the b anti-b g coupling #conference#
 510272 X Search for the glueball candidates f(0)(1500) and f(J)(1710) in gamma gamma collisions #search#
 510530 X Tau decays with neutral kaons #BR#
 510531 . Inclusive production of D*+- mesons in photon-photon collisions at S**(1/2)(ee) = 183-GeV and 189-GeV and a first measurement of F**gamma(2,c) #data#
@@ -1647,7 +1404,7 @@
 513476 . QCD studies with e+ e- annihilation data at 172-GeV - 189-GeV #data#
 513607 . Measurements of R(b), A**b(FB), and A**c(FB) in e+ e- collisions at 130-GeV - 189-GeV #AFB#
 513614 . Lambda(b) polarization in Z0 decays at LEP #fig 6?#
-513615 X Measurement of the anti-B ---> D* pi lepton anti-neutrino(lepton) branching fraction #BR#
+513615 X Measurement of the $\overline{B} \to D^{(*)}\pi l\overline{\nu}_l$ Branching Fraction #BR#
 513676 . Measurement of hadron and lepton pair production at 130-GeV less than $\sqrt{S}$ less than 189-GeV at LEP #data, cross sections#
 522656 . Consistent measurements of alpha(s) from precise oriented event shape distributions #implement?#
 523127 . Bose-Einstein correlations in K+- K+- pairs from Z0 decays into two hadronic jets #implementable?#
@@ -1656,7 +1413,7 @@
 523976 X Search for charginos with a small mass difference with the lightest supersymmetric particle at $\sqrt{S}$ = 189-GeV #search#
 524027 . Measurements of cross-sections and forward backward asymmetries at the $Z$ resonance and determination of electroweak parameters #data,fb#
 524306 . Transverse and longitudinal Bose Einstein correlations in hadronic Z0 decays #implementable?#
-524450 X Inclusive $\sigma^{+}$ and $\sigma^0$ production in hadronic $Z$ decays #BR#
+524450 X Inclusive $\Sigma^{+}$ and $\Sigma^0$ production in hadronic $Z$ decays #BR#
 524679 X Determination of |V(ub)| / |V(cb)| with DELPHI at LEP #BR#
 524682 X Search for the neutral Higgs bosons of the standard model and the MSSM in e+ e- collisions at S**(1/2) = 189-GeV #search#
 524688 X Search for supersymmetric particles in scenarios with a gravitino LSP and stau NLSP #search#
@@ -1675,7 +1432,6 @@
 526222 . W pair production cross-section and W branching fractions in e+ e- interactions at 189-GeV #data, over corrected?#
 526223 X Searches for neutral Higgs bosons in e+ e- collisions around s**(1/2) = 189-GeV #search#
 526448 . A High precision measurement of the left-right Z boson cross-section asymmetry #EW#
-526728 X Measurements of Z0 electroweak couplings at SLD #conference#
 526776 . Photonic events with missing energy in e+ e- collisions at S**(1/2) = 189-GeV #search but data#
 526854 X A Measurement of the tau mass and the first CPT test with tau leptons #mass#
 527337 . Measurements of the $b \bar{b}$ production cross-section and forward backward asymmetry at center-of-mass energies above the $Z$ pole at LEP #data#
@@ -1696,7 +1452,6 @@
 529899 . Measurement of the low x behavior of the photon structure function F(2)gamma #data#
 530069 X Search for gamma gamma decays of a Higgs boson produced in association with a fermion pair in e+ e- collisions at LEP #search#
 530544 X Two Higgs doublet model and model independent interpretation of neutral Higgs boson searches #search#
-530860 . First symmetry tests in polarized Z0 decays to b anti-b g #????#
 530949 X Search for a scalar top almost degenerate with the lightest neutralino in e+ e- collisions at s**(1/2) up to 202-GeV #search#
 530950 X Search for charged Higgs bosons in e+ e- collisions at energies up to S**(1/2) = 189-GeV #search#
 531457 X Search for a Higgs boson decaying into two photons in $e^{+} e^{-}$ interactions at $\sqrt{S}$ = 189-GeV #search#
@@ -1705,9 +1460,7 @@
 531568 . Rapidity-rank structure of p anti-p pairs in hadronic Z0 decays #figs 3,5?#
 531570 . Measurement of the $W^{+} W^{-} \gamma$ cross-section and direct limits on anomalous quartic gauge boson couplings at LEP #figs 2,3??#
 531571 X Search for anomalous couplings in the Higgs sector at LEP #search#
-531656 X Light quark fragmentation in polarized Z0 decays at SLD #conference#
 531668 X Measurement of Bose-Einstein correlations in $e^{+} e^{-} \to W^{+} W^{-}$ at $\sqrt{S}$ approximately = 189-GeV #uncorrected#
-531741 X Direct measurement of A(b) using charged vertices #conference#
 531766 . Measurement of the $W$ pair production cross-section and $W$ decay branching fractions in $e^{+} e^{-}$ interactions at $\sqrt{S}$ = 189-GeV #overcrrected?#
 531853 X Investigation of inclusive CP asymmetries in B0 decays #BR#
 532903 X Search for charged Higgs bosons in $e^{+} e^{-}$ collisions at center center-of-mass energies up to 202-GeV #search#
@@ -1717,54 +1470,40 @@
 533111 . A Measurement of the rate of charm production in $W$ decays #ratio implementable ?#
 533112 . Measurement of $W$ boson polarizations and CP violating triple gauge couplings from $W^{+} W^{-}$ production at LEP #implementable?#
 533113 . Measurement of triple gauge boson couplings from $W^{+} W^{-}$ production at LEP energies up to 189-GeV #impleentable?#
-533148 X Improved measurement of the b quark fragmentation function in Z0 decays #conference#
-533257 X A Study of the structure of e+ e- b anti-b g events and improved limits on the anomalous chromomagnetic coupling of the b quark #conference#
 533360 X Search for single top production in e+ e- collisions at s**(1/2) = 189-GeV - 202-GeV #search#
 533573 . Measurement of A(c) with charmed mesons at SLD #AC#
-533716 X Improved measurement of the probability for gluon splitting into b anti-b in Z0 decays #conference#
 533961 X Study of the CP asymmetry of $B^0 \to J/\psi K^0_{S}$ decays in ALEPH #BR#
-534253 X Production of charged pi+-, K+- and p / anti-p in hadronic Z0 decays #conference#
 534257 . Determination of the e+ e- --> gamma gamma (gamma) cross-section at centre-of-mass energies ranging from 189-GeV to 202-GeV #data#
 534258 X Limits on the masses of supersymmetric particles at s**(1/2) = 189-GeV #search#
-534383 X Direct measurement of A(b) at the Z0 pole using a lepton tag #conference#
-534434 X Measurements of parity violation parameters at SLD #conference#
 534435 . Study of $Z$ boson pair production in $e^{+} e^{-}$ interactions at $\sqrt{s}$ = 192-GeV - 202-GeV #data, overcorrected?#
 534657 X Measurement of the $B^0$ lifetime and oscillation frequency using $\bar{B}^0 \to D^{*+} \ell^{-}$ anti-neutrino decays #BR#
 534735 . An Improved direct measurement of leptonic coupling asymmetries with polarized Z bosons #EW#
-534817 X Electroweak measurements with heavy quarks at SLD #conference#
 534887 X Measurements of BR (b ---> tau- anti-nu(tau) X) and BR (b ---> tau- anti-nu(tau) D*+- X) and upper limits on BR (B- ---> tau- anti-nu(tau)) and BR (b---> s nu anti-nu) #BR#
 535059 . Production rates of b anti-b quark pairs from gluons and b anti-b b anti-b events in hadronic Z0 decays #implement if possible#
 535061 X Investigation of the decay of orbitally excited B mesons and first measurement of the branching ratio BR(B*(J) ---> B*pi(X)) #br and masses#
 535180 X Study of B0(S) anti-B0(S) oscillations and B0(S) lifetimes using hadronic decays of B0(S) mesons #mixing#
 535620 X Searches for neutral Higgs bosons in e+ e- collisions at center-of-mass energies from 192-GeV to 202-GeV #search#
 535683 X Search for the sgoldstino at s**(1/2) from 189-GeV to 202-GeV #search#
-536071 X Studies of hadronic decays of Z0 bosons at SLD #conference#
 536138 X Search for R-parity violating decays of supersymmetric particles in $e^{+} e^{-}$ collisions at center-of-mass energies from 189-GeV to 202-GeV #search#
 536266 . Charged multiplicities in Z decays into u, d, and s quarks #implement#
-536484 ? B(s) mixing at SLD #conference#
 536690 . Light resonances in $K^0_{S} K^\pm \pi^\mp$ and $\eta \pi^{+} \pi^{-}$ final states in $\gamma \gamma$ collisions at LEP #figs 4,6#
 536692 . $K^0_{S} K^0_{S}$ final state in two photon collisions and implications for glueballs #figs 3,4,5#
-536814 ? Time dependent B0(s) - anti-B0(s) oscillations using exclusively reconstructed D+(s) decays at SLD #conference#
 536816 X Higgs candidates in $e^{+} e^{-}$ interactions at $\sqrt{s}$ = 206.6-GeV #search#
 536864 X Search for R-parity violating decays of supersymmetric particles in $e^{+} e^{-}$ collisions at $\sqrt{s}$ = 189-GeV #search#
-536865 X A search for invisible Higgs bosons produced in e+ e- interactions up to s**(1/2) = 189-GeV #search#
 536902 X Observation of an excess in the search for the standard model Higgs boson at ALEPH #search#
 536904 X Search for supersymmetric particles in $e^{+} e^{-}$ collisions at $\sqrt{s}$ up to 202-GeV and mass limit for the lightest neutralino #search#
 537026 X A Study of $B_s$ meson oscillation using $D_s$ - lepton correlations #BR#
 537232 X Search for excited leptons in $e^{+} e^{-}$ interactions at $\sqrt{s}$ = 192-GeV to 202-GeV #search#
 537234 . Measurements of the cross-sections for open charm and beauty production in $\gamma \gamma$ collisions at $\sqrt{s}$ = 189-GeV to 202-GeV #data#
-537718 X Z quark coupling measurements at SLD #conference#
 537913 . Photon events with missing energy at s**(1/2) = 183-GeV to 189-GeV #data#
 538107 X Search for neutral Higgs bosons of the minimal supersymmetric standard model in $e^{+} e^{-}$ interactions at $\sqrt{s}$ = 192-GeV - 202-GeV #search#
 538108 . Precise determination of the Z resonance parameters at LEP: 'Zedometry' #EW, implentable?#
 538109 X Search for the standard model Higgs boson in $e^{+} e^{-}$ collisions at $\sqrt{s}$ up to 202-GeV #search#
 538542 . Measurement of the cross-section and forward - backward charge asymmetry for the b and c quark in e+ e- annihilation with inclusive muons at s**(1/2) = 58-GeV #data#
-538925 X Time dependent B0(s) - anti-B0(s) mixing using inclusive and semileptonic B decays at SLD #conference#
 539640 . Measurement of the Z Z cross-section in e+ e- interactions at 183-GeV - 189-GeV #data, overcorrected?#
 539641 X Search for neutralino pair production at s**(1/2) = 189-GeV #search#
 539642 . Study of dimuon production in photon-photon collisions and measurement of QED photon structure functions at LEP #data#
 539860 X Search for the standard model Higgs boson in e+ e- collisions at s**(1/2) approximately = 192-GeV - 209-GeV #search#
-539873 X Production of pi+-, K+-, p and anti-p in quark, anti-quark and gluon jets #conference#
 539946 . Measurement of the charm production cross-section in $\gamma \gamma$ collisions at LEP #data#
 540015 X Search for spontaneous R-parity violation at s**(1/2) = 183-GeV and 189-GeV #search#
 540208 X Search for sleptons in e+ e- collisions at s**(1/2) = 183-GeV to 189-GeV #search#
@@ -1775,7 +1514,6 @@
 540888 X Search for heavy stable and longlived particles in e+ e- collisions at s**(1/2) = 189-GeV #search#
 541614 X A Study of the Lorentz structure in tau decays #theoretcial numbers#
 541615 X Measurement of the $B^0_{s}$ lifetime and study of $B^0_{s} - \bar{B}^0_s$ oscillations using $D_s \ell$ events #lifetime#
-543481 X Experimental study of J / psi production in two photon process at TRISTAN #limit#
 552446 . A Simultaneous measurement of the QCD color factors and the strong coupling #implemented#
 552447 X A Search for a narrow radial excitation of the D*+- meson #search#
 552756 . Improved measurement of the probability for gluon splitting into b anti-b in Z0 decays #implement?#
@@ -1783,7 +1521,7 @@
 552996 . Study of the $e^{+} e^{-} \to Z \gamma \gamma \to q \bar{q} \gamma \gamma$ process at LEP #data#
 552997 . Total cross-section in $\gamma \gamma$ collisions at LEP #data#
 553305 X Update of the search for supersymmetric particles in scenarios with gravitino LSP and sleptons NLSP #search#
-553351 X Measurement of trilinear gauge boson couplings WWV, (V = Z, gamma) in e+ e- collisions at 189-GeV #not implementable#
+553351 X Measurement of trilinear gauge boson couplings $WWV, (V \equiv Z, \gamma)$ in $e^+ e^-$ collisions at 189-GeV #not implementable#
 553945 X Measurement of the branching ratio for D(s)- ---> tau- anti-nu(tau) decays #BR#
 554583 . Precision neutral current asymmetry parameter measurements from the tau polarization at LEP #implementable?#
 555429 X Search for a fermiophobic Higgs at LEP-2 #search#
@@ -1791,7 +1529,6 @@
 555574 . Measurement of triple gauge boson couplings at LEP energies up to 189-GeV #data#
 555653 . Measurement of the tau polarization at LEP #data#
 555901 X Measurement of the mass and width of the $W$ boson in $e^{+} e^{-}$ collisions at $\sqrt{s}$ = 189-GeV #not implementable#
-556589 X Production of $\pi^{±}, K^{±}$, p and $\bar{p}$ in quark, anti-quark and gluon jets #conference#
 556769 . Determination of the b quark mass at the Z mass scale #interesting ratio but over or under corrected?#
 556817 X A Measurement of the tau topological branching ratios #BR#
 557178 X Measurement of the semileptonic b branching fractions and average b mixing parameter in Z decays #BR#
@@ -1812,10 +1549,7 @@
 562543 X Search for lepton flavor violation in e+ e- collisions at s**(1/2) = 189-GeV - 209-GeV #search#
 563334 . Bose-Einstein correlations of neutral and charged pions in hadronic $Z$ decays #fig 4?#
 563335 . Inclusive $\pi^0$ and $K^0_{S}$ production in two photon collisions at LEP #data#
-563707 X Production of charged pi+-, K+- and p / anti-p in hadronic Z0 decays #conference#
-563708 X Measurement of the b quark fragmentation function in Z0 decays and first measurement of B - anti-B energy correlations #conference#
 563730 . Measurement of the hadronic cross-section for the scattering of two virtual photons at LEP #data#
-563771 X An Improved study of the structure of e+ e- ---> b anti-b g events and limits on the anomalous chromomagnetic coupling of the b quark #conference#
 563782 X Search for single top quark production at LEP-2 #search#
 564486 X Search for technicolor with DELPHI #search#
 564487 X Search for charged Higgs bosons in e+ e- collisions at s**(1/2) = 189-GeV - 202-GeV #search#
@@ -1829,8 +1563,6 @@
 565973 . Improved direct measurement of A(b) and A(c) at the Z0 pole using a lepton tag #EW#
 565988 . Study of the $W^{+} W^{-} \gamma$ process and limits on anomalous quartic gauge boson couplings at LEP #implementable?#
 566837 X Search for doubly charged Higgs bosons with the OPAL detector at LEP #search#
-567155 X Fragmentation and hadronization in e+ e- collisions #conference#
-567400 ? Recent tests of QCD at SLD #conference#
 567914 X Production of D**(s) mesons in hadronic Z decays #rate#
 567915 X Search for scalar leptons in e+ e- collisions at center-of-mass energies up to 209-GeV #search#
 568505 X Search for leptoquarks in electron photon scattering at s($e e) ^{(1/2)}$ up to 209-GeV at LEP #search#
@@ -1877,7 +1609,6 @@
 594920 X Search for scalar top and scalar bottom quarks at LEP #search#
 595335 . Charged particle momentum spectra in e+ e- annihilation at s**(1/2) = 192-GeV to 209-GeV #implemented#
 595836 . Measurement of the cross-section for the process gamma gamma ---> p anti-p at s(e e)**(1/2) = 183-GeV to 189-GeV at LEP #data#
-595993 X Measurement of the double inclusive b anti-b quark fragmentation function in Z0 decays and first measurement of angle dependent B - anti-B energy correlations #conference#
 596551 X Search for anomalous weak dipole moments of the tau lepton #search#
 596553 X Search for a low mass CP odd Higgs boson in e+ e- collisions with the OPAL detector at LEP-2 #search#
 598112 . Measurement of the b quark forward backward asymmetry around the Z0 peak using an inclusive tag #FB#
@@ -1898,8 +1629,6 @@
 606066 . Measurement of W polarisation at LEP #figs?#
 606391 . Study of the $e^{+} e^{-} \to Z e^{+} e^{-}$ process at LEP #fig 4?#
 606568 X Search for supersymmetric particles in light gravitino scenarios and sleptons NLSP #search#
-606922 . A Study of correlations between identified charged hadrons in hadronic Z0 decays #conference but interesting#
-606925 X Production of charged pi+-, K+- and p / anti-p in hadronic Z0 decays #conference#
 606944 X Inclusive b decays to wrong sign charmed mesons #BR#
 606945 X Search for resonant $\widetilde\nu$ production at $\sqrt{s}$ = 183 to 208 GeV #search#
 608565 X b tagging in DELPHI at LEP #detector#
@@ -1915,7 +1644,6 @@
 619462 X Search for stable hadronizing squarks and gluinos in e+ e- collisions up to s**(1/2) = 209-GeV #search#
 619533 . Measurement of isolated prompt photon production in photon photon collisions at s(ee)**(1/2) = 183 GeV - 209-GeV #data#
 619620 . Measurement of exclusive $\rho^0 \rho^0$ production in two photon collisions at high $Q^{2}$ at LEP #data#
-619958 . Study of hadronic final states from double tagged gamma gamma events at LEP #data#
 620250 . A Study of the energy evolution of event shape distributions and their means with the DELPHI detector at LEP #implemented#
 620387 X Search for excited leptons at LEP #search#
 620433 . $p\bar{p}$ pair production in two photon collisions at LEP #data#
@@ -1939,7 +1667,7 @@
 629157 X Search for doubly charged Higgs bosons at LEP #search#
 629858 X Search for scalar leptons and scalar quarks at LEP #search#
 630099 . Study of Z pair production and anomalous couplings in e+ e- collisions at s**(1/2) between 190-GeV and 209-GeV #data, overcorrected?#
-630327 . Production of pi+, pi-, K+, K-, p and anti-p in light (uds), c and b jets from Z0 decays #implemented#
+630327 . Production of $\pi^+$, $\pi^-$, $K^+$, $K^-$, p and $\bar{\rm p}$                                                                                        in Light ($uds$), $c$ and $b$ Jets from $Z^0$ Decays #implemented#
 631231 . Measurement of the hadronic photon structure function F2(gamma)(x, Q**2) in two-photon collisions at LEP #data#
 631361 . Experimental studies of unbiased gluon jets from $e^{+} e^{-}$ annihilations using the jet boost algorithm #implemented#
 631529 X Search for R parity violating decays of scalar fermions at LEP #search#
@@ -1974,7 +1702,6 @@
 638218 . Photon events with missing energy in e+ e- collisions at s**(1/2) = 130-GeV to 209-GeV #basically a search but fig3?#
 638858 X A Precise measurement of the tau lifetime #lifetime#
 639484 . Study of spin and decay-plane correlations of $W$ bosons in the $e^{+} e^{-} \to W^{+} W^{-}$ process at LEP #figs?#
-639734 X Measurement of branching fractions of $\tau$ hadronic decays #BR#
 640204 X A Measurement of the tau hadronic branching ratios #BR#
 642852 X Measurement of |V(cb)| using the semileptonic decay anti-B0(d) ---> D*+ l- anti-nu(l) #BR#
 644313 X Constraints on anomalous QGC's in e+ e- interactions from 183-GeV to 209-GeV #search#
@@ -2008,7 +1735,6 @@
 662030 . Direct measurements of A(b) and A(c) using vertex/kaon charge tags at SLD #EW#
 662724 . Measurement of the energy dependence of hadronic jet rates and the strong coupling alpha(s) from the four-jet rate with the DELPHI detector at LEP #interesting but only figs#
 662726 . Measurement of exclusive rho0 rho0 production in mid-virtuality two-photon interactions at LEP #data#
-662728 . Coherent soft particle production in Z decays into three jets #conference but interesting#
 664766 . Bose-Einstein correlations in W-pair decays with an event-mixing technique #implementable??#
 665729 . Determination of A**b(FB) at the Z pole using inclusive charge reconstruction and lifetime tagging #FB#
 668596 X Search for an invisibly-decaying Higgs boson at LEP #search#
@@ -2093,19 +1819,13 @@
 845287 X Measurements of CP-conserving Trilinear Gauge Boson Couplings WWV (V = gamma,Z) in e+e- Collisions at LEP2 #not implementable#
 846927 X Observation of a VHE cosmic-ray flare-signal with the L3+C muon spectrometer #not implementable#
 847547 X Search for neutral Higgs bosons decaying into four taus at LEP2 #search#
-851373 . Study of the Dependence of Direct Soft Photon Production on the Jet Characteristics in Hadronic Z^0 Decays #interesting, tables#
+851373 . Study of the Dependence of Direct Soft Photon Production on the Jet Characteristics in Hadronic $Z^0$ Decays #interesting, tables#
 883680 X Determination of $alpha_s$ using OPAL hadronic event shapes at $\sqrt{s}=91$ - 209 GeV and resummed NNLO calculations #not implementable#
 890364 X Search for single top quark production via contact interactions at LEP2 #search#
 890503 . A study of the b-quark fragmentation function with the DELPHI detector at LEP I and an averaged distribution obtained at the Z Pole #implemented#
 901059 . Test of the \boldmath{$\tau$}-Model of Bose-Einstein Correlations and Reconstruction of the Source Function in Hadronic Z-boson Decay at LEP #tables 8,9?#
 1216295 X Search for Charged Higgs bosons: Combined Results Using LEP Data #search#
 1219330 . Electroweak Measurements in Electron-Positron Collisions at W-Boson-Pair Energies at LEP #EW summary#
-1267648 . Update of the ALEPH non-strange spectral functions from hadronic $\tau$ decays #implemented#
-1312293 X Studies of QCD in e+ e- ---> hadrons at E(cm) = 130-GeV and 136-GeV #conference#
-1312299 X A Measurement of the $Z^{0}$ Invisible Width by Single-Photon Counting #conference#
-1312311 X Measurement of the $Z^0$ Mass and Width with the OPAL Detector at LEP #conference#
 1313438 . Measurement of the electron structure function F$\frac{e}{2}$ at LEP energies #tables#
 1389624 . Study of the $e^+ e^-\to\mu^+ \mu^- \gamma$ reaction at center-of-mass energies between 54 and 64 GeV #sigma and assymmetry ??#
-1492968 . Observation of an excess at 30 GeV in the opposite sign di-muon spectra of ${\rm Z} \to b\overline{ b} + {\rm X}$ events recorded by the ALEPH experiment at LEP #implemented#
 1649622 . A Search for $\eta'_c$ Production in Photon-Photon Fusion at LEP #dists#
-1659845 X Search for Supersymmetry with R-parity violating decays via  \lambda  couplings at  sqrt(s)  = 183 GeV #conference#

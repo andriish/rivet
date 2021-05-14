@@ -1,6 +1,3 @@
-218022 X ZEUS, A DETECTOR FOR HERA: LETTER OF INTENT
-222773 X Letter of intent for an experiment at HERA: H1 Collaboration
-229042 X THE ZEUS DETECTOR: TECHNICAL PROPOSAL
 339275 . A Measurement of sigma(tot) (gamma p) at s**(1/2) = 210-GeV
 339388 X Observation of hard scattering in photoproduction at HERA
 340136 X Hard scattering in gamma p interactions
@@ -17,7 +14,6 @@
 355921 X The H1 liquid argon calorimeter system
 356445 . Observation of events with a large rapidity gap in deep inelastic scattering at HERA
 356741 . Measurement of inclusive jet cross-sections in photoproduction at HERA
-356907 X The H1 detector at HERA
 357414 X Measurement of the proton structure function F2 in e p scattering at HERA
 357797 X Measurement of the proton structure function F2 (x, Q**2) in the low x region at HERA
 359105 . A Measurement of multi - jet rates in deep inelastic scattering at HERA
@@ -39,22 +35,7 @@
 379633 X Extraction of the gluon density of the proton at small x
 380162 . Observation of hard processes in rapidity gap events in gamma p interactions at HERA
 380248 . Observation of hard scattering in photoproduction events with a large rapidity gap at HERA
-380480 . Search for leptoquarks in e p collisions at s**(1/2) = 296-GeV
-380481 . Observation of vector meson production in electron proton DIS at HERA
-380482 . Properties and cross-section of diffractive events produced in deep inelastic e p scattering at HERA
-380483 X First measurements with the ZEUS leading proton spectrometer
-380484 . Study of neutral strange particle production in deep inelastic scattering at HERA
-380485 . Initial study of leading neutrons in e p collisions at HERA
-380486 . Observation of photoproduction of Phi mesons at HERA
-380487 . Measurement of the elastic rho0 photoproduction cross-section at HERA
-380488 . Measurement of two jet cross-sections in photoproduction at HERA
-380489 . Multi - jet production in deep inelastic e p scattering at HERA
-380490 . Two jet production in deep inelastic scattering neutral current events at HERA and search for a resolved photon contribution
-380496 . Observation of D* production in e p collisions at HERA
-380497 . Cross-section measurement of the process e p ---> e p J / psi at HERA
 380945 . Determination of the strong coupling constant from jet rates in deep inelastic scattering
-382261 . Observation of an e+ p ---> mu+ X event with high transverse momenta at HERA
-385728 . Search for leptoquarks in e p collisions at s**(1/2) = 296-GeV
 392037 . Inclusive transverse momentum distributions of charged particles in diffractive and nondiffractive photoproduction at HERA
 392038 . Study of the photon remnant in resolved photoproduction at HERA
 392386 . Measurement of multiplicity and momentum spectra in the current fragmentation region of the Breit frame at HERA
@@ -117,7 +98,6 @@
 440126 . Diffraction dissociation in photoproduction at HERA
 440536 ? Comparison of ZEUS data with standard model predictions for $e^{+} p \to e^{+} X$ scattering at high x and $Q^{2}$
 440537 . Observation of events at very high $Q^{2}$ in $e p$ collisions at HERA
-440904 . Measurement of the neutron spin structure function g1(n) with a polarized He-3 internal target
 441088 . Differential cross-sections of D*+- photoproduction in e p collisions at HERA
 441392 X A Measurement of the proton structure function f2 (x, q**2) at low x and low q**2 at HERA
 442287 . Study of photon dissociation in diffractive photoproduction at HERA
@@ -268,7 +248,6 @@
 588263 . Measurement of inclusive jet cross-sections in deep inelastic ep scattering at HERA
 589474 . Search for odderon induced contributions to exclusive pi0 photoproduction at HERA
 590618 . Search for excited electrons at HERA
-590665 . Measurement of R = sigma(L) / sigma(T) in deep inelastic scattering on nuclei
 593048 X A ZEUS next-to-leading-order QCD analysis of data on deep inelastic scattering
 593409 . Inclusive jet cross-sections in the Breit frame in neutral current deep inelastic scattering at HERA and determination of alpha(s)
 593481 . Measurement of high Q**2 e- p neutral current cross-sections at HERA and the extraction of xF(3)
@@ -309,7 +288,6 @@
 632942 . Bose-Einstein correlations in one and two-dimensions in deep inelastic scattering
 635665 . Evidence for a narrow |S| = 1 baryon state at a mass of 1528-MeV in quasireal photoproduction
 635791 . Search for QCD instanton induced events in deep inelastic ep scattering at HERA
-635847 . Search for single-top production in e p collisions at HERA. (Addendum)
 636222 . Beauty photoproduction measured using decays into muons in dijet events in e p collisions at s**(1/2) = 318-GeV
 636641 . High Q**2 neutral current cross-sections in e+ p deep inelastic scattering at s**(1/2) = 318-GeV
 636690 . Search for contact interactions, large extra dimensions and finite quark radius in e p collisions at HERA
@@ -409,7 +387,6 @@
 754622 . Cross-sections for hard exclusive electroproduction of pi+ mesons on a hydrogen target
 756364 . Forward-jet production in deep inelastic ep scattering at HERA
 756660 . Three- and four-jet final states in photoproduction at HERA
-757973 . Dijet production in diffractive deep inelastic scattering at HERA
 757991 . Exclusive rho0 production in deep inelastic scattering at HERA
 759012 . Dijet Cross Sections and Parton Densities in Diffractive DIS at HERA
 761990 . Measurement of deeply virtual Compton scattering and its t-dependence at HERA
@@ -448,7 +425,7 @@
 810292 . Events with Isolated Leptons and Missing Transverse Momentum and Measurement of $W$ Production at HERA
 810392 . Spin Density Matrix Elements in Exclusive rho0 Electroproduction on H-1 and H-2 Targets at 27.5-GeV Beam Energy
 811152 . Measurement of high-Q**2 neutral current deep inelastic e- p scattering cross sections with a longitudinally polarised electron beam at HERA
-817368 . Measurement of the Inclusive ep Scattering Cross Section at Low Q^2 and x at HERA
+817368 . Measurement of the Inclusive $ep$ Scattering Cross Section at Low $Q^2$ and $x$ at HERA
 817462 . Measurement of the Longitudinal Proton Structure Function at HERA
 818502 . Search for Excited Quarks in ep Collisions at HERA
 818528 . Scaled momentum distributions of charged particles in dijet photoproduction at HERA
@@ -504,10 +481,10 @@
 894023 . Search for Lepton Flavour Violation at HERA
 894309 . Inclusive Measurements of Inelastic Electron and Positron Scattering from Unpolarized Hydrogen and Deuterium Targets
 897420 . Measurement of heavy-quark jet photoproduction at HERA
-912665 . Measurement of D^{*\pm} Meson Production and Determination of F_2^{ccbar} at low Q2 in Deep-Inelastic Scattering at HERA
+912665 . Measurement of $D^{*\pm}$ Meson Production and Determination of $F_2^{c\barc}$ at low $Q^2$ in Deep-Inelastic Scattering at HERA
 913712 . Measurement of double-spin asymmetries associated with deeply virtual Compton scattering on a transversely polarized hydrogen target
 916222 . Measurement of Photon Production in the Very Forward Direction in Deep-Inelastic Scattering at HERA
-918292 . Search for Contact Interactions in e^{\pm}p Collisions at HERA
+918292 . Search for Contact Interactions in $e^{\pm}p$ Collisions at HERA
 918944 . Multidimensional Study of Hadronization in Nuclei
 918972 . Measurement of the Diffractive Longitudinal Structure Function $F_L^D$ at HERA
 919140 . Search for first generation leptoquarks in  $ep$ collisions at HERA
@@ -573,8 +550,9 @@
 1601508 . Studies of the diffractive photoproduction of isolated photons at HERA
 1624691 . Determination of the strong coupling constant $\alpha_s(m_Z)$ in next-to-next-to-leading order QCD using H1 jet cross section measurements
 1642730 . Further studies of isolated photon production with a jet in deep inelastic scattering at HERA
-1649636 . Measurement of the cross-section ratio sigma_{psi(2S)}/sigma_{J/psi(1S)} in deep inelastic exclusive ep scattering at HERA
+1649636 . Measurement of the cross-section ratio $\sigma_{\psi(2S)}/\sigma_{J/\psi(1S)}$ in deep inelastic exclusive $ep$ scattering at HERA
 1665693 . Combination and QCD analysis of charm and beauty production cross-section measurements in deep inelastic $ep$ scattering at HERA
 1676227 . Determination of electroweak parameters in polarised deep-inelastic scattering at HERA
 1719174 . Limits on contact interactions and leptoquarks at HERA
 1798511 . Measurement of Exclusive $\pi^{+}\pi^{-}$ and $\rho^0$ Meson Photoproduction at HERA
+1827840 . Measurement of charged particle multiplicity distributions in DIS at HERA and its implication to entanglement entropy of partons
