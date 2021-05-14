@@ -1,0 +1,62 @@
+{
+    "872067": [
+        "Measurements of dihadron correlations relative to the event plane in Au+Au collisions at $\\sqrt{s_{NN}}=200$ GeV", 
+        "STAR", 
+        "10.1088/1674-1137/abdf3f", 
+        null, 
+        "1010.0690", 
+        null, 
+        null, 
+        []
+    ], 
+    "1809043": [
+        "Flow and interferometry results from Au+Au collisions at $\\sqrt{s_{NN}} = 4.5$ GeV", 
+        "STAR", 
+        "10.1103/PhysRevC.103.034908", 
+        null, 
+        "2007.14005", 
+        null, 
+        null, 
+        []
+    ], 
+    "1829350": [
+        "Measurements of $W$ and $Z/\\gamma^*$ cross sections and their ratios in p+p collisions at RHIC", 
+        "STAR", 
+        "10.1103/PhysRevD.103.012001", 
+        null, 
+        "2011.04708", 
+        "ins1829350", 
+        null, 
+        []
+    ], 
+    "1836342": [
+        "Comparison of transverse single-spin asymmetries for forward $\\pi^{0}$ production in polarized $pp$, $p\\rm{Al}$ and $p\\rm{Au}$ collisions at nucleon pair c.m. energy $\\sqrt{s_{\\mathrm{NN}}}= 200$ GeV", 
+        "STAR", 
+        "10.1103/PhysRevD.103.072005", 
+        null, 
+        "2012.07146", 
+        null, 
+        null, 
+        []
+    ], 
+    "1838481": [
+        "Global polarization of $\\Xi$ and $\\Omega$ hyperons in Au+Au collisions at $\\sqrt{s_{_{NN}}}$ = 200 GeV", 
+        "STAR", 
+        "10.1103/PhysRevLett.126.162301", 
+        null, 
+        "2012.13601", 
+        null, 
+        null, 
+        []
+    ], 
+    "1850675": [
+        "Nonmonotonic Energy Dependence of Net-Proton Number Fluctuations", 
+        "STAR", 
+        "10.1103/PhysRevLett.126.092301", 
+        null, 
+        "2001.02852", 
+        null, 
+        null, 
+        []
+    ]
+}

@@ -2,7 +2,7 @@
 
 DIR=`dirname $0`
 RANKFILES=$(echo ${DIR}/*.rank)
-BASECMD='${DIR}/mk-coverage-html ${DIR}/inspire-*.json -r "$RANKFILES" -R'
+BASECMD='${DIR}/mk-coverage-html ${DIR}/inspire-*.rhd.json -r "$RANKFILES" -R'
 test -n "$UPDATE" && UPDATE='--update-ranking'
 test -n "$V" && VERB="-v"
 

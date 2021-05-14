@@ -1,0 +1,96 @@
+{
+    "1797443": [
+        "Production of light-flavor hadrons in pp collisions at $\\sqrt{s}~=~7\\text { and }\\sqrt{s} = 13 \\, \\text { TeV} $", 
+        "ALICE", 
+        "10.1140/epjc/s10052-020-08690-5", 
+        "2715072", 
+        "2005.11120", 
+        "ins1797443", 
+        null, 
+        [
+            "CERN-EP-2020-059"
+        ]
+    ], 
+    "1797450": [
+        "Elliptic flow of electrons from beauty-hadron decays in Pb-Pb collisions at $\\sqrt{s_{\\rm NN}}$ = 5.02 TeV", 
+        "ALICE", 
+        "10.1103/PhysRevLett.126.162001", 
+        "2718162", 
+        "2005.11130", 
+        "ins1797450", 
+        null, 
+        [
+            "CERN-EP-2020-085"
+        ]
+    ], 
+    "1797463": [
+        "Transverse-momentum and event-shape dependence of D-meson flow harmonics in Pb\u2013Pb collisions at $\\sqrt {s_{NN}}$ = 5.02 TeV", 
+        "ALICE", 
+        "10.1016/j.physletb.2020.136054", 
+        "2718040", 
+        "2005.11131", 
+        null, 
+        null, 
+        [
+            "CERN-EP-2020-082"
+        ]
+    ], 
+    "1797469": [
+        "First measurement of quarkonium polarization in nuclear collisions at the LHC", 
+        "ALICE", 
+        "10.1016/j.physletb.2021.136146", 
+        "2718646", 
+        "2005.11128", 
+        "ins1797469", 
+        null, 
+        [
+            "CERN-EP-2020-092"
+        ]
+    ], 
+    "1807511": [
+        "Pion-kaon femtoscopy and the lifetime of the hadronic phase in Pb$-$Pb collisions at $\\sqrt{s_{\\rm{NN}}}$ = 2.76 TeV", 
+        "ALICE", 
+        "10.1016/j.physletb.2020.136030", 
+        "2723226", 
+        "2007.08315", 
+        null, 
+        null, 
+        [
+            "CERN-EP-2020-126"
+        ]
+    ], 
+    "1811102": [
+        "Centrality dependence of J/$\\psi$ and $\\psi$(2S) production and nuclear modification in p-Pb collisions at $\\sqrt{s_{\\rm NN}} =$ 8.16 TeV", 
+        "ALICE", 
+        "10.1007/JHEP02(2021)002", 
+        "2723714", 
+        "2008.04806", 
+        "ins1811102", 
+        null, 
+        [
+            "CERN-EP-2020-133"
+        ]
+    ], 
+    "1837171": [
+        "The upgrade of the ALICE TPC with GEMs and continuous readout", 
+        "ALICE TPC", 
+        "10.1088/1748-0221/16/03/P03022", 
+        "2758225", 
+        "2012.09518", 
+        null, 
+        null, 
+        []
+    ], 
+    "1840600": [
+        "First measurement of the ${\\mathbf{|\\textit t|}}$-dependence of coherent $\\mathbf{\\rm{J/\\psi}}$ photonuclear production", 
+        "ALICE", 
+        "10.1016/j.physletb.2021.136280", 
+        "2748586", 
+        "2101.04623", 
+        "ins1840600", 
+        null, 
+        [
+            "CERN-EP-2021-003"
+        ]
+    ]
+}
