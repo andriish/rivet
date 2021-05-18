@@ -382,36 +382,43 @@ for ex in EXPTS:
 
         ## Inspire ID and link
         p = cell.p()
-        sp = p.span("Inspire: ")
+        sp = p.span("Inspire:")
+        sp += "&nbsp;"
         sp.a(str(ins), href="http://inspirehep.net/record/{}".format(ins))
 
         ## arXiv ID and link
         if rec[4]:
-            p += "&ensp;&middot;&ensp;"
-            sp = p.span("arXiv: ")
+            p += "&ensp;&middot;&ensp; "
+            sp = p.span("arXiv:")
+            sp += "&nbsp;"
             sp.a(str(rec[4]), href="https://arxiv.org/abs/{}".format(rec[4]))
 
         ## DOI
         if rec[2]:
             p += "&ensp;&middot;&ensp;"
-            sp = p.span("DOI/journal: ")
+            sp = p.span("DOI/journal:")
+            sp += "&nbsp;"
             sp.a(str(rec[2]), href="http://dx.doi.org/{}".format(rec[2]))
 
         ## CDS
         if rec[3]:
-            p += "&ensp;&middot;&ensp;"
-            sp = p.span("CDS: ")
+            p += "&ensp;&middot;&ensp; "
+            sp = p.span("CDS:")
+            sp += "&nbsp;"
             sp.a(str(rec[3]), href="https://cds.cern.ch/record/{}".format(rec[3]))
 
         ## HepData
         if rec[5]:
-            p += "&ensp;&middot;&ensp;"
-            sp = p.span("HepData: ")
+            p += "&ensp;&middot;&ensp; "
+            sp = p.span("HepData:")
+            sp += "&nbsp;"
             sp.a(str(rec[5]), href="https://hepdata.net/record/{}".format(rec[5]))
 
         if rec[7]:
-            p += "&ensp;&middot;&ensp;"
-            p.span(u" Report IDs: " + u", ".join(rec[7]))
+            p += "&ensp;&middot;&ensp; "
+            sp = p.span("Report IDs:")
+            sp += "&nbsp;"
+            sp += u", ".join(rec[7])
 
 
         ## Rivet
