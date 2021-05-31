@@ -1,3 +1,7 @@
+2021-05-30  Christian Gutschow  <chris.g@cern.ch>
+
+	* Improve error message for when the calibration file has been forgotten
+
 2021-05-06  Christian Gutschow  <chris.g@cern.ch>
 
 	* Allowing file.yoda:x1.23 and file.yoda:=1.23 as rivet-merge arguments

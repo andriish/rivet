@@ -920,7 +920,18 @@ namespace Rivet {
 
     if ( sel == "REF" ) {
       YODA::Scatter2DPtr refscat;
-      auto refmap = getRefData(calAnaName);
+      map<string, YODA::AnalysisObjectPtr> refmap;
+      try {
+        refmap = getRefData(calAnaName);
+      } catch (...) {
+        MSG_ERROR("No reference calibration file for CentralityProjection "
+                   << calAnaName << " found.\nDid you mean to generate one yourself?\n"
+                   << "Once generated, you can preload the calibration file using the "
+                   << "-p flag\nand steer the routine logic using the 'cent' option "
+                   << "with the appropriate value (e.g. =GEN).");
+        exit(1);
+
+      }
       if ( refmap.find(calHistName) != refmap.end() )
         refscat = dynamic_pointer_cast<Scatter2D>(refmap.find(calHistName)->second);
 

@@ -75,7 +75,7 @@ namespace Rivet {
     const string path2 = findAnalysisRefFile(papername + ".yoda.gz");
     if (!path2.empty()) return path2;
     throw Rivet::Error("Couldn't find a ref data file for '" + papername +
-                       " in data path, '" + getRivetDataPath() + "', or '.'");
+                       "' in data path, '" + getRivetDataPath() + "', or '.'");
   }
 
 
