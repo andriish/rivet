@@ -1,3 +1,7 @@
+2021-05-31  Christian Gutschow  <chris.g@cern.ch>
+
+	* catch low-stats crash in LHCB_2013_I1208105 reported by Jan Kretzschmar
+
 2021-05-30  Christian Gutschow  <chris.g@cern.ch>
 
 	* Improve error message for when the calibration file has been forgotten
