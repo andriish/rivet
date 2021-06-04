@@ -5,17 +5,14 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 
-using namespace std;
-
 namespace Rivet {
 
 
-  // UE charged particles vs. leading jet
+  /// UE charged particles vs. leading jet
   class CMS_2011_S9120041 : public Analysis {
   public:
 
-    /// Constructor
-    CMS_2011_S9120041() : Analysis("CMS_2011_S9120041") {}
+    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2011_S9120041);
 
 
     void init() {
@@ -54,7 +51,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
- 
+
       // Find the lead jet, applying a restriction that the jets must be within |eta| < 2.
       FourMomentum p_lead;
       for (const Jet& j : apply<FastJets>(event, "Jets").jetsByPt(1.0*GeV)) {
@@ -102,7 +99,6 @@ namespace Rivet {
     }
 
 
-
     /// Normalise histograms etc., after the run
     void finalize() {
       normalize(_h_pT3_Nch);
@@ -120,6 +116,7 @@ namespace Rivet {
 
   private:
 
+    /// @{
     CounterPtr sumOfWeights3;
     CounterPtr sumOfWeights20;
 
@@ -134,11 +131,12 @@ namespace Rivet {
     Histo1DPtr _h_pT20_Nch;
     Histo1DPtr _h_pT20_Sum;
     Histo1DPtr _h_pT20_pT;
+    /// @}
 
   };
 
 
-  // This global object acts as a hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2011_S9120041);
-}
 
+  DECLARE_ALIASED_RIVET_PLUGIN(CMS_2011_S9120041, CMS_2011_I916908);
+
+}

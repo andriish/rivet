@@ -131,7 +131,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TASSO_1990_S2148048);
+  DECLARE_ALIASED_RIVET_PLUGIN(TASSO_1990_S2148048, TASSO_1990_I294755);
 
 }

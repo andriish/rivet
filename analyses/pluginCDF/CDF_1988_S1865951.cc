@@ -10,10 +10,7 @@ namespace Rivet {
   class CDF_1988_S1865951 : public Analysis {
   public:
 
-    /// Constructor
-    CDF_1988_S1865951()
-      : Analysis("CDF_1988_S1865951")
-    {}
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_1988_S1865951);
 
 
     /// @name Analysis methods
@@ -34,7 +31,7 @@ namespace Rivet {
       }
 
       book(_sumWTrig, "sumWTrig");
-    
+
     }
 
 
@@ -65,21 +62,16 @@ namespace Rivet {
 
   private:
 
-    /// @name Counters
-    //@{
+    /// Counter
     CounterPtr _sumWTrig;
-    //@}
 
-    /// @name Histos
-    //@{
+    /// Histo
     Histo1DPtr _hist_pt;
-    //@}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_1988_S1865951);
+  DECLARE_ALIASED_RIVET_PLUGIN(CDF_1988_S1865951, CDF_1988_I263320);
 
 }

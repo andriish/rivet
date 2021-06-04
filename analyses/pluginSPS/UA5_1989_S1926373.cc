@@ -6,17 +6,16 @@
 namespace Rivet {
 
 
-  /// @brief UA5 min bias charged multiplicities in central \f$ \eta \f$ ranges
+  /// UA5 min bias charged multiplicities in central \f$ \eta \f$ ranges
   class UA5_1989_S1926373 : public Analysis {
   public:
 
     /// Constructor
-    UA5_1989_S1926373() : Analysis("UA5_1989_S1926373") {
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(UA5_1989_S1926373);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and projections
     void init() {
@@ -42,7 +41,7 @@ namespace Rivet {
         book(_hist_nch_eta50  ,10, 1, 1);
         book(_hist_mean_nch   ,12, 1, 1);
       }
-	book(_sumWPassed, "SumW");
+      book(_sumWPassed, "SumW");
       /// @todo Moments of distributions
     }
 
@@ -80,31 +79,28 @@ namespace Rivet {
       scale(_hist_mean_nch, 1.0 / *_sumWPassed);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
-    /// @name Counters
-    //@{
+    /// Weight counter
     CounterPtr _sumWPassed;
-    //@}
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _hist_nch;
     Histo1DPtr _hist_nch_eta05;
     Histo1DPtr _hist_nch_eta15;
     Histo1DPtr _hist_nch_eta30;
     Histo1DPtr _hist_nch_eta50;
     Histo1DPtr _hist_mean_nch;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(UA5_1989_S1926373);
+  DECLARE_ALIASED_RIVET_PLUGIN(UA5_1989_S1926373, UA5_1989_I267179);
 
 }

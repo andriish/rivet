@@ -8,23 +8,15 @@
 namespace Rivet {
 
 
-  /// @brief D0 dijet angular distributions
+  /// D0 dijet angular distributions
   class D0_2009_S8320160 : public Analysis {
   public:
 
-    /// @name Construction
-    //@{
-
-    /// Constructor
-    D0_2009_S8320160() : Analysis("D0_2009_S8320160")
-    {
-    }
-
-    //@}
+    DEFAULT_RIVET_ANALYSIS_CTOR(D0_2009_S8320160);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     // Book histograms
     void init() {
@@ -43,7 +35,6 @@ namespace Rivet {
       {Histo1DPtr tmp; _h_chi_dijet.add(1000.,1100.,book(tmp, 9, 1, 1));}
       {Histo1DPtr tmp; _h_chi_dijet.add(1100.,1960, book(tmp, 10, 1, 1));}
     }
-
 
 
     /// Do the analysis
@@ -66,7 +57,6 @@ namespace Rivet {
     }
 
 
-
     /// Finalize
     void finalize() {
       for (Histo1DPtr hist : _h_chi_dijet.histos()) {
@@ -74,21 +64,20 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _h_chi_dijet;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(D0_2009_S8320160);
+  DECLARE_ALIASED_RIVET_PLUGIN(D0_2009_S8320160, D0_2009_I824127);
 
 }

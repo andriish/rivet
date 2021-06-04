@@ -9,24 +9,22 @@ namespace Rivet {
 
 
   /// @brief OPAL strange baryon paper
+  ///
   /// @author Peter Richardson
   class OPAL_1997_S3396100 : public Analysis {
   public:
 
-    /// Constructor
-    OPAL_1997_S3396100()
-      : Analysis("OPAL_1997_S3396100")
-    {}
+    DEFAULT_RIVET_ANALYSIS_CTOR(OPAL_1997_S3396100);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      
+
       book(_histXpLambda         , 1, 1, 1);
       book(_histXiLambda         , 2, 1, 1);
       book(_histXpXiMinus        , 3, 1, 1);
@@ -114,30 +112,30 @@ namespace Rivet {
       scale(_histXiLambda1520    , fact);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
-    Histo1DPtr _histXpLambda        ;
-    Histo1DPtr _histXiLambda        ;
-    Histo1DPtr _histXpXiMinus       ;
-    Histo1DPtr _histXiXiMinus       ;
-    Histo1DPtr _histXpSigma1385Plus ;
-    Histo1DPtr _histXiSigma1385Plus ;
+    /// @{
+    Histo1DPtr _histXpLambda;
+    Histo1DPtr _histXiLambda;
+    Histo1DPtr _histXpXiMinus;
+    Histo1DPtr _histXiXiMinus;
+    Histo1DPtr _histXpSigma1385Plus;
+    Histo1DPtr _histXiSigma1385Plus;
     Histo1DPtr _histXpSigma1385Minus;
     Histo1DPtr _histXiSigma1385Minus;
-    Histo1DPtr _histXpXi1530        ;
-    Histo1DPtr _histXiXi1530        ;
-    Histo1DPtr _histXpLambda1520    ;
-    Histo1DPtr _histXiLambda1520    ;
-    //@}
+    Histo1DPtr _histXpXi1530;
+    Histo1DPtr _histXiXi1530;
+    Histo1DPtr _histXpLambda1520;
+    Histo1DPtr _histXiLambda1520;
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OPAL_1997_S3396100);
+  DECLARE_ALIASED_RIVET_PLUGIN(OPAL_1997_S3396100, OPAL_1997_I421978);
 
 }

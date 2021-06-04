@@ -9,18 +9,16 @@ namespace Rivet {
 
 
   /// @brief OPAL K0 fragmentation function paper
+  ///
   /// @author Peter Richardson
   class OPAL_2000_S4418603 : public Analysis {
   public:
 
-    /// Constructor
-    OPAL_2000_S4418603()
-      : Analysis("OPAL_2000_S4418603")
-    {}
+    DEFAULT_RIVET_ANALYSIS_CTOR(OPAL_2000_S4418603);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       declare(Beam(), "Beams");
@@ -66,18 +64,18 @@ namespace Rivet {
       scale(_histXeK0, 1./sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
 
-      Histo1DPtr _histXeK0;
-    //@}
+    /// Histogram
+    Histo1DPtr _histXeK0;
 
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OPAL_2000_S4418603);
+
+  DECLARE_ALIASED_RIVET_PLUGIN(OPAL_2000_S4418603, OPAL_2000_I529898);
 
 }

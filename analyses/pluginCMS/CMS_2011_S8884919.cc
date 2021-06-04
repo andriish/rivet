@@ -6,12 +6,12 @@ using namespace std;
 
 namespace Rivet {
 
+
+  /// Measurement of the NSD charged particle multiplicity at 0.9, 2.36, and 7 TeV
   class CMS_2011_S8884919 : public Analysis {
   public:
 
-    CMS_2011_S8884919()
-      : Analysis("CMS_2011_S8884919")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2011_S8884919);
 
 
     void init() {
@@ -27,7 +27,7 @@ namespace Rivet {
 
       if (fuzzyEquals(sqrtS()/GeV, 900)) {
         for (size_t ietabin=0; ietabin < _etabins.size(); ietabin++) {
-          _h_dNch_dn.push_back( Histo1DPtr() ); 
+          _h_dNch_dn.push_back( Histo1DPtr() );
           book( _h_dNch_dn.back(), 2 + ietabin, 1, 1);
         }
         book(_h_dNch_dn_pt500_eta24 ,20, 1, 1);
@@ -55,7 +55,6 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = 1.0;
 
       // Get the charged particles
       const ChargedFinalState& charged = apply<ChargedFinalState>(event, "CFS");
@@ -84,15 +83,15 @@ namespace Rivet {
 
       // Filling multiplicity-dependent histogramms
       for (size_t ietabin = 0; ietabin < _etabins.size(); ietabin++) {
-        _h_dNch_dn[ietabin]->fill(_nch_in_Evt[ietabin], weight);
+        _h_dNch_dn[ietabin]->fill(_nch_in_Evt[ietabin]);
       }
 
       // Do only if eta bins are the needed ones
       if (_etabins[4] == 2.4 && _etabins[0] == 0.5) {
         if (_nch_in_Evt[4] != 0) {
-          _h_dmpt_dNch_eta24->fill(_nch_in_Evt[4], sumpt/GeV / _nch_in_Evt[4], weight);
+          _h_dmpt_dNch_eta24->fill(_nch_in_Evt[4], sumpt/GeV / _nch_in_Evt[4]);
         }
-        _h_dNch_dn_pt500_eta24->fill(_nch_in_Evt_pt500[4], weight);
+        _h_dNch_dn_pt500_eta24->fill(_nch_in_Evt_pt500[4]);
       } else {
         MSG_WARNING("You changed the number of eta bins, but forgot to propagate it everywhere !!");
       }
@@ -109,16 +108,18 @@ namespace Rivet {
 
   private:
 
+    /// @{
     vector<Histo1DPtr> _h_dNch_dn;
     Histo1DPtr _h_dNch_dn_pt500_eta24;
     Profile1DPtr _h_dmpt_dNch_eta24;
+    /// @}
 
     vector<double> _etabins;
 
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2011_S8884919);
+
+  DECLARE_ALIASED_RIVET_PLUGIN(CMS_2011_S8884919, CMS_2011_I879315);
 
 }

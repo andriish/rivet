@@ -14,13 +14,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ATLAS_2011_S8924791()
-      : Analysis("ATLAS_2011_S8924791")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2011_S8924791);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Set up projections
@@ -87,18 +85,13 @@ namespace Rivet {
       }
     }
 
-
-    // Finalize
-    void finalize() {
-    }
-
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Analysis data
-    //@{
+    /// @{
 
     /// Jet \f$ p_\perp\f$ bins.
     vector<double> _ptedges; // This can't be a raw array if we want to initialise it non-painfully
@@ -107,19 +100,19 @@ namespace Rivet {
     /// JetShape projection name for each \f$p_\perp\f$ bin.
     string _jsnames_pT[11][6];
 
-    //@}
+    ///@}
+
 
     /// @name Histograms
-    //@{
+    /// @{
     Profile1DPtr _profhistRho_pT[11][6];
     Profile1DPtr _profhistPsi_pT[11][6];
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_S8924791);
+  DECLARE_ALIASED_RIVET_PLUGIN(ATLAS_2011_S8924791, ATLAS_2011_I882984);
 
 }

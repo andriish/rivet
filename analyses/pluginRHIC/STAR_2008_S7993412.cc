@@ -5,17 +5,15 @@
 namespace Rivet {
 
 
-  /// @brief STAR di-hadron correlations in d-Au at 200 GeV
+  /// STAR di-hadron correlations in d-Au at 200 GeV
   class STAR_2008_S7993412 : public Analysis {
   public:
 
-    STAR_2008_S7993412() : Analysis("STAR_2008_S7993412")
-    {
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(STAR_2008_S7993412);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book projections and histograms
     void init() {
@@ -55,25 +53,23 @@ namespace Rivet {
 
 
     /// Finalize
-    void finalize() {
-    }
+    // void finalize() {    }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Profile1DPtr _h_Y_jet_trigger;
     Profile1DPtr _h_Y_jet_associated;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(STAR_2008_S7993412);
+  DECLARE_ALIASED_RIVET_PLUGIN(STAR_2008_S7993412, STAR_2008_I810030);
 
 }

@@ -6,21 +6,12 @@
 
 namespace Rivet {
 
+
   class ALEPH_1999_S4193598 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
+    DEFAULT_RIVET_ANALYSIS_CTOR(ALEPH_1999_S4193598);
 
-    /// Constructor
-    ALEPH_1999_S4193598()
-      : Analysis("ALEPH_1999_S4193598")
-    { }
-
-    //@}
-
-
-  public:
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -34,7 +25,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
- 
+
       // Trigger condition
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       if (cfs.size() < 5) vetoEvent;
@@ -63,15 +54,14 @@ namespace Rivet {
       scale(_h_Xe_Ds, 1./sumOfWeights()*br*1000.);
     }
 
-  private:
 
+    /// Histogram
     Histo1DPtr _h_Xe_Ds;
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALEPH_1999_S4193598);
+  DECLARE_ALIASED_RIVET_PLUGIN(ALEPH_1999_S4193598, ALEPH_1999_I507422);
 
 }

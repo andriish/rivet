@@ -7,13 +7,12 @@
 namespace Rivet {
 
 
-  /// @brief UA5 \f$ \eta \f$ distributions at 200 and 900 GeV
+  /// UA5 \f$ \eta \f$ distributions at 200 and 900 GeV
   class UA5_1986_S1583476 : public Analysis {
   public:
 
     /// Constructor
-    UA5_1986_S1583476() : Analysis("UA5_1986_S1583476") {
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(UA5_1986_S1583476);
 
 
     /// @name Analysis methods
@@ -117,7 +116,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(UA5_1986_S1583476);
+  DECLARE_ALIASED_RIVET_PLUGIN(UA5_1986_S1583476, UA5_1986_I233599);
 
 }

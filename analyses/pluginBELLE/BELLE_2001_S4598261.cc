@@ -7,13 +7,12 @@ namespace Rivet {
 
 
   /// @brief BELLE pi0 spectrum at Upsilon(4S)
+  ///
   /// @author Peter Richardson
   class BELLE_2001_S4598261 : public Analysis {
   public:
 
-    BELLE_2001_S4598261()
-      : Analysis("BELLE_2001_S4598261")
-    { }
+    DEFAULT_RIVET_ANALYSIS_CTOR(BELLE_2001_S4598261);
 
 
     void init() {
@@ -93,10 +92,9 @@ namespace Rivet {
       }
     }
 
-
   };
 
 
-  DECLARE_RIVET_PLUGIN(BELLE_2001_S4598261);
+  DECLARE_ALIASED_RIVET_PLUGIN(BELLE_2001_S4598261, BELLE_2001_I554520);
 
 }

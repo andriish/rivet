@@ -11,10 +11,7 @@ namespace Rivet {
   class CDF_2005_S6080774 : public Analysis {
   public:
 
-    /// Constructor
-    CDF_2005_S6080774()
-      : Analysis("CDF_2005_S6080774")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2005_S6080774);
 
 
     /// @name Analysis methods
@@ -93,12 +90,10 @@ namespace Rivet {
     std::array<Histo1DPtr,4> _h_dphi_PP;
     //@}
 
-
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2005_S6080774);
+  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2005_S6080774, CDF_2005_I667384);
 
 }

@@ -1,6 +1,6 @@
 Name: CMS_2011_S8957746
 Year: 2011
-Summary: Event shapes
+Summary: Event shapes at 7 TeV
 Experiment: CMS
 Collider: LHC
 SpiresID: 8957746
@@ -44,4 +44,3 @@ ReleaseTests:
  - $A LHC-7-Jets-3
  - $A-2 LHC-7-Jets-4
  - $A-3 LHC-7-Jets-5
-

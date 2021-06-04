@@ -6,16 +6,11 @@
 
 namespace Rivet {
 
-  
-
 
   class D0_2010_S8821313 : public Analysis {
   public:
 
-    /// Constructor
-    D0_2010_S8821313()
-      : Analysis("D0_2010_S8821313")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(D0_2010_S8821313);
 
 
     /// @name Analysis methods
@@ -99,7 +94,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(D0_2010_S8821313);
+  DECLARE_ALIASED_RIVET_PLUGIN(D0_2010_S8821313, D0_2010_I871787);
 
 }

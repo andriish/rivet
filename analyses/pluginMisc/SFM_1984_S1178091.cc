@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    SFM_1984_S1178091() : Analysis("SFM_1984_S1178091") {}
+    DEFAULT_RIVET_ANALYSIS_CTOR(SFM_1984_S1178091);
 
 
     /// @name Analysis methods
@@ -18,7 +18,7 @@ namespace Rivet {
 
     void init() {
       // Projections
-      // 
+      //
       declare(ChargedFinalState(Cuts::absrap<5 && Cuts::pT>250*MeV && Cuts::pT<3*GeV), "FS");
 
       // Histograms
@@ -46,7 +46,7 @@ namespace Rivet {
       // Trigger
       if (fs.particles().size() <1 ) vetoEvent;
 
-      // Event classification: 
+      // Event classification:
       int n_left(0), n_right(0), n_large_x(0);
       for (const Particle& p : fs.particles()) {
         // Calculate the particles' Feynman x
@@ -62,7 +62,7 @@ namespace Rivet {
                 << "N_right: " << n_right << ", "
                 << "N_large_x: " << n_large_x);
 
-      
+
       // Single diffractive: either one large x particle or 0 particles in the one hemisphere but more than 7 in the other hemisphere
       bool isDiffractive = (n_large_x == 1) ||  ( ((n_left==0) && (fs.particles().size() < 7)) || ((n_right==0) && (fs.particles().size() < 7)) );
 
@@ -93,7 +93,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(SFM_1984_S1178091);
+  DECLARE_ALIASED_RIVET_PLUGIN(SFM_1984_S1178091, SFM_1984_I196601);
 
 }

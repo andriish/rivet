@@ -7,13 +7,12 @@
 namespace Rivet {
 
 
-  /// @brief UA1 minbias track multiplicities, \f$ p_\perp \f$ and \f$ E_\perp \f$
+  /// UA1 minbias track multiplicities, \f$ p_\perp \f$ and \f$ E_\perp \f$
   class UA1_1990_S2044935 : public Analysis {
   public:
 
     /// Constructor
-    UA1_1990_S2044935() : Analysis("UA1_1990_S2044935") {
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(UA1_1990_S2044935);
 
 
     /// @name Analysis methods
@@ -55,7 +54,7 @@ namespace Rivet {
       // book(_sumwTrig08, "TMP/sumwTrig08");
       // book(_sumwTrig40, "TMP/sumwTrig40");
       // book(_sumwTrig80, "TMP/sumwTrig80");
- 
+
     }
 
 
@@ -170,7 +169,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(UA1_1990_S2044935);
+  DECLARE_ALIASED_RIVET_PLUGIN(UA1_1990_S2044935, UA1_1990_I280412);
 
 }

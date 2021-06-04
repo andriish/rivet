@@ -10,10 +10,7 @@ namespace Rivet {
   class STAR_2006_S6500200 : public Analysis {
   public:
 
-    /// Constructor
-    STAR_2006_S6500200()
-      : Analysis("STAR_2006_S6500200")
-    {  }
+    DEFAULT_RIVET_ANALYSIS_CTOR(STAR_2006_S6500200);
 
 
     /// Book projections and histograms
@@ -93,16 +90,17 @@ namespace Rivet {
 
   private:
 
+    /// @{
     CounterPtr _sumWeightSelected;
     Histo1DPtr _h_pT_piplus, _h_pT_piminus, _h_pT_proton, _h_pT_antiproton;
     Histo1DPtr _tmp_pT_piplus, _tmp_pT_piminus;
     Scatter2DPtr _s_piminus_piplus, _s_antipr_pr, _s_pr_piplus, _s_antipr_piminus;
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(STAR_2006_S6500200);
+  DECLARE_ALIASED_RIVET_PLUGIN(STAR_2006_S6500200, STAR_2006_I709170);
 
 }

@@ -7,13 +7,12 @@ namespace Rivet {
 
 
   /// @brief BABAR Lambda_c from fragmentation
+  ///
   /// @author Peter Richardson
   class BABAR_2007_S6895344 : public Analysis {
   public:
 
-    BABAR_2007_S6895344()
-      : Analysis("BABAR_2007_S6895344")
-    { }
+    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2007_S6895344);
 
 
     void init() {
@@ -68,17 +67,16 @@ namespace Rivet {
 
   private:
 
-    //@{
     // Histograms for the continuum cross sections
     Histo1DPtr _sigmaOn ;
     Histo1DPtr _sigmaOff;
     Histo1DPtr _histOn  ;
     Histo1DPtr _histOff ;
-    //@}
 
   };
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BABAR_2007_S6895344);
+
+
+  DECLARE_ALIASED_RIVET_PLUGIN(BABAR_2007_S6895344, BABAR_2007_I725377);
 
 }

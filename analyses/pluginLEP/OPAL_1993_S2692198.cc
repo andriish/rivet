@@ -10,18 +10,16 @@ namespace Rivet {
 
 
   /// @brief OPAL photon production
+  ///
   /// @author Peter Richardson
   class OPAL_1993_S2692198 : public Analysis {
   public:
 
-    /// Constructor
-    OPAL_1993_S2692198()
-      : Analysis("OPAL_1993_S2692198")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(OPAL_1993_S2692198);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void analyze(const Event& e) {
       // Extract the photons
@@ -141,7 +139,8 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
+
 
   private:
 
@@ -154,7 +153,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OPAL_1993_S2692198);
+  DECLARE_ALIASED_RIVET_PLUGIN(OPAL_1993_S2692198, OPAL_1993_I343181);
 
 }

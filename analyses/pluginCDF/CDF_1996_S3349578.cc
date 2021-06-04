@@ -11,7 +11,6 @@ namespace Rivet {
   class CDF_1996_S3349578 : public Analysis {
   public:
 
-    /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(CDF_1996_S3349578);
 
 
@@ -69,7 +68,6 @@ namespace Rivet {
       book(_h_5_fB ,23, 1, 1);
       book(_h_5_fC ,24, 1, 1);
       book(_h_5_fD ,25, 1, 1);
-
     }
 
 
@@ -151,8 +149,6 @@ namespace Rivet {
     }
 
 
-
-
     void _fourJetAnalysis(const Jets& jets) {
       MSG_DEBUG("4 jet analysis");
 
@@ -216,8 +212,6 @@ namespace Rivet {
       _h_4_fA->fill(fA);
       _h_4_fB->fill(fB);
     }
-
-
 
 
     void _fiveJetAnalysis(const Jets& jets) {
@@ -338,9 +332,8 @@ namespace Rivet {
 
 
   private:
-    vector<FourMomentum> _reduce(const vector<FourMomentum>& jets,
-                                 FourMomentum& combined1,
-                                 FourMomentum& combined2) {
+
+    vector<FourMomentum> _reduce(const vector<FourMomentum>& jets, FourMomentum& combined1, FourMomentum& combined2) {
       double minMass2 = 1e9;
       size_t idx1(jets.size()), idx2(jets.size());
       for (size_t i=0; i<jets.size(); ++i) {
@@ -362,6 +355,7 @@ namespace Rivet {
       return newjets;
     }
 
+
     FourMomentum _avg_beam_in_lab(const double& m, const double& y) {
       const double mt = m/2.0;
       FourMomentum beam1(mt, 0, 0, mt);
@@ -375,12 +369,14 @@ namespace Rivet {
       return (beam1.E() > beam2.E()) ? beam1-beam2 : beam2-beam1;
     }
 
+
     double _psi(const FourMomentum& p1, const FourMomentum& p2,
                 const FourMomentum& p3, const FourMomentum& p4) {
       Vector3 p1xp2 = p1.p3().cross(p2.p3());
       Vector3 p3xp4 = p3.p3().cross(p4.p3());
       return mapAngle0ToPi(acos(p1xp2.unit().dot(p3xp4.unit())));
     }
+
 
     double _safeMass(const FourMomentum& p) {
       double mass2=p.mass2();
@@ -441,7 +437,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_1996_S3349578);
+  DECLARE_ALIASED_RIVET_PLUGIN(CDF_1996_S3349578, CDF_1996_I418504);
 
 }

@@ -12,18 +12,12 @@
 namespace Rivet {
 
 
-  /// @brief ALEPH jet rates and event shapes at LEP 1 and 2
+  /// ALEPH jet rates and event shapes at LEP 1 and 2
   class ALEPH_2004_S5765862 : public Analysis {
   public:
 
-    ALEPH_2004_S5765862()
-      : Analysis("ALEPH_2004_S5765862") , _initialisedJets(false),
-        _initialisedSpectra(false)
-    {
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ALEPH_2004_S5765862);
 
-
-  public:
 
     void init() {
       _initialisedJets    = true;
@@ -139,7 +133,7 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
- 
+
       const Thrust& thrust = apply<Thrust>(e, "Thrust");
       const Sphericity& sphericity = apply<Sphericity>(e, "Sphericity");
 
@@ -268,8 +262,8 @@ namespace Rivet {
 
       Histo1D temphisto(refData(1, 1, 1));
       const double avgNumParts = dbl(*_weightedTotalChargedPartNum) / sumOfWeights();
-      
-     
+
+
       for (size_t b = 0; b < temphisto.numBins(); b++) {
         const double x  = temphisto.bin(b).xMid();
         const double ex = temphisto.bin(b).xWidth()/2.;
@@ -289,13 +283,13 @@ namespace Rivet {
       }
     }
 
+
   private:
 
-    bool _initialisedJets;
-    bool _initialisedSpectra;
+    bool _initialisedJets = false;
+    bool _initialisedSpectra = false;
 
     Scatter2DPtr mult;
-
     Histo1DPtr _h_xp;
     Histo1DPtr _h_xi;
     Histo1DPtr _h_xe;
@@ -325,7 +319,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALEPH_2004_S5765862);
+  DECLARE_ALIASED_RIVET_PLUGIN(ALEPH_2004_S5765862, ALEPH_2004_I636645);
 
 }

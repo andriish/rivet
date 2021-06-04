@@ -9,18 +9,16 @@ namespace Rivet {
 
 
   /// @brief ALEPH eta/omega fragmentation function paper
+  ///
   /// @author Peter Richardson
   class ALEPH_2002_S4823664 : public Analysis {
   public:
 
-    /// Constructor
-    ALEPH_2002_S4823664()
-      : Analysis("ALEPH_2002_S4823664")
-    {}
+    DEFAULT_RIVET_ANALYSIS_CTOR(ALEPH_2002_S4823664);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       declare(Beam(), "Beams");
@@ -65,24 +63,22 @@ namespace Rivet {
     }
 
 
-    /// Finalize
     void finalize() {
       scale(_histXpEta  , 1./sumOfWeights());
       scale(_histXpOmega, 1./sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
 
-      Histo1DPtr _histXpEta;
-      Histo1DPtr _histXpOmega;
-    //@}
+    Histo1DPtr _histXpEta;
+    Histo1DPtr _histXpOmega;
 
   };
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALEPH_2002_S4823664);
+
+  DECLARE_ALIASED_RIVET_PLUGIN(ALEPH_2002_S4823664, ALEPH_2002_I569165);
 
 }

@@ -6,19 +6,16 @@ namespace Rivet {
 
 
   /// @brief ALEPH LEP1 charged multiplicity in hadronic Z decay
+  ///
   /// @author Andy Buckley
   class ALEPH_1991_S2435284 : public Analysis {
   public:
 
-    /// Constructor.
-    ALEPH_1991_S2435284()
-      : Analysis("ALEPH_1991_S2435284")
-    {
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ALEPH_1991_S2435284);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book projections and histogram
     void init() {
@@ -45,22 +42,19 @@ namespace Rivet {
       scale(_histAver , 1./sumOfWeights());
     }
 
-    //@}
+    /// @}
 
-
-  private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histChTot;
     Histo1DPtr _histAver;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALEPH_1991_S2435284);
+  DECLARE_ALIASED_RIVET_PLUGIN(ALEPH_1991_S2435284, ALEPH_1991_I319520);
 
 }

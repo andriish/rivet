@@ -8,14 +8,12 @@
 namespace Rivet {
 
 
-  /// @brief  J/psi production at ATLAS
+  /// J/psi production at ATLAS
   class ATLAS_2011_S9035664: public Analysis {
   public:
 
     /// Constructor
-    ATLAS_2011_S9035664()
-      : Analysis("ATLAS_2011_S9035664")
-    {}
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2011_S9035664);
 
 
     /// @name Analysis methods
@@ -124,11 +122,10 @@ namespace Rivet {
     Histo1DPtr _IncRapMedHigh;
     Histo1DPtr _IncRapMedLow;
     Histo1DPtr _IncRapLow;
-    //@}
 
   };
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_S9035664);
+
+  DECLARE_ALIASED_RIVET_PLUGIN(ATLAS_2011_S9035664, ATLAS_2011_I896268);
 
 }

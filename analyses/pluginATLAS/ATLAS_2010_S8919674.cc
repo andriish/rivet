@@ -11,21 +11,12 @@ namespace Rivet {
   class ATLAS_2010_S8919674 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
-    ATLAS_2010_S8919674()
-      : Analysis("ATLAS_2010_S8919674")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2010_S8919674);
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -128,27 +119,25 @@ namespace Rivet {
       scale(_h_mu_pT_jet2, normfac);
     }
 
-    //@}
+    ///@}
 
 
   private:
 
     /// @name Histograms
-    //@{
-
+    /// @{
     Histo1DPtr _h_el_njet_inclusive;
     Histo1DPtr _h_mu_njet_inclusive;
     Histo1DPtr _h_el_pT_jet1;
     Histo1DPtr _h_mu_pT_jet1;
     Histo1DPtr _h_el_pT_jet2;
     Histo1DPtr _h_mu_pT_jet2;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2010_S8919674);
+  DECLARE_ALIASED_RIVET_PLUGIN(ATLAS_2010_S8919674, ATLAS_2010_I882534);
 
 }

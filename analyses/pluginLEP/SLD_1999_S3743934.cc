@@ -13,6 +13,7 @@ namespace Rivet {
 
 
   /// @brief SLD flavour-dependent fragmentation paper
+  ///
   /// @author Peter Richardson
   class SLD_1999_S3743934 : public Analysis {
   public:
@@ -732,7 +733,8 @@ namespace Rivet {
       Scatter2DPtr tmp42;
   };
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(SLD_1999_S3743934);
+
+
+  DECLARE_ALIASED_RIVET_PLUGIN(SLD_1999_S3743934, SLD_1999_I469925);
 
 }

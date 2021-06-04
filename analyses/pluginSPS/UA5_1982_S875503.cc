@@ -6,13 +6,12 @@
 namespace Rivet {
 
 
-  /// @brief UA5 multiplicity and \f$ \eta \f$ distributions
+  /// UA5 multiplicity and \f$ \eta \f$ distributions
   class UA5_1982_S875503 : public Analysis {
   public:
 
     /// Default constructor
-    UA5_1982_S875503() : Analysis("UA5_1982_S875503") {
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(UA5_1982_S875503);
 
 
     /// @name Analysis methods
@@ -88,6 +87,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(UA5_1982_S875503);
+  DECLARE_ALIASED_RIVET_PLUGIN(UA5_1982_S875503, UA5_1982_I176647);
 
 }

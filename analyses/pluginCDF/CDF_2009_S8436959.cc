@@ -10,18 +10,8 @@ namespace Rivet {
   class CDF_2009_S8436959 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2009_S8436959);
 
-    /// Constructor
-    CDF_2009_S8436959()
-      : Analysis("CDF_2009_S8436959")
-    {    }
-
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{
@@ -72,16 +62,13 @@ namespace Rivet {
 
   private:
 
-    /// @name Histograms
-    //@{
+    /// Histogram
     Histo1DPtr _h_Et_photon;
-    //@}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2009_S8436959);
+  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2009_S8436959, CDF_2009_I834437);
 
 }

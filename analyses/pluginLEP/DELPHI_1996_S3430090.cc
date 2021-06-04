@@ -13,33 +13,28 @@
 namespace Rivet {
 
 
-  /**
-   * @brief DELPHI event shapes and identified particle spectra
-   * @author Andy Buckley
-   * @author Hendrik Hoeth
-   *
-   * This is the paper which was used for the original PROFESSOR MC tuning
-   * study. It studies a wide range of e+ e- event shape variables, differential
-   * jet rates in the Durham and JADE schemes, and incorporates identified
-   * particle spectra, from other LEP analyses.
-   *
-   * @par Run conditions
-   *
-   * @arg LEP1 beam energy: \f$ \sqrt{s} = \f$ 91.2 GeV
-   * @arg Run with generic QCD events.
-   * @arg No \f$ p_\perp^\text{min} \f$ cutoff is required
-   */
+  /// @brief DELPHI event shapes and identified particle spectra
+  /// @author Andy Buckley
+  /// @author Hendrik Hoeth
+  ///
+  /// This is the paper which was used for the original PROFESSOR MC tuning
+  /// study. It studies a wide range of e+ e- event shape variables, differential
+  /// jet rates in the Durham and JADE schemes, and incorporates identified
+  /// particle spectra, from other LEP analyses.
+  ///
+  /// @par Run conditions
+  ///
+  /// @arg LEP1 beam energy: \f$ \sqrt{s} = \f$ 91.2 GeV
+  /// @arg Run with generic QCD events.
+  /// @arg No \f$ p_\perp^\text{min} \f$ cutoff is required
   class DELPHI_1996_S3430090 : public Analysis {
   public:
 
-    /// Constructor
-    DELPHI_1996_S3430090()
-      : Analysis("DELPHI_1996_S3430090")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(DELPHI_1996_S3430090);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       declare(Beam(), "Beams");
@@ -141,7 +136,6 @@ namespace Rivet {
       book(_passedCut5WeightSum, "_passedCut5WeightSum");
 
     }
-
 
 
     void analyze(const Event& e) {
@@ -280,7 +274,6 @@ namespace Rivet {
 
       // Final state of unstable particles to get particle spectra
       const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
-
       for (const Particle& p : ufs.particles()) {
         int id = p.abspid();
         switch (id) {
@@ -367,7 +360,6 @@ namespace Rivet {
     }
 
 
-
     // Finalize
     void finalize() {
       // Normalize inclusive single particle distributions to the average number
@@ -448,7 +440,7 @@ namespace Rivet {
       scale(_histDiffRate4Jade, 1.0 / *_passedCut5WeightSum);
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -459,15 +451,15 @@ namespace Rivet {
     CounterPtr _weightedTotalPartNum;
 
     /// @name Sums of weights past various cuts
-    //@{
+    /// @{
     CounterPtr _passedCutWeightSum;
     CounterPtr _passedCut3WeightSum;
     CounterPtr _passedCut4WeightSum;
     CounterPtr _passedCut5WeightSum;
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histPtTIn;
     Histo1DPtr _histPtTOut;
     Histo1DPtr _histPtSIn;
@@ -541,13 +533,12 @@ namespace Rivet {
     Histo1DPtr _histMultiSigma1385Plus;
     Histo1DPtr _histMultiXi1530_0;
     Histo1DPtr _histMultiLambdaB0;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(DELPHI_1996_S3430090);
+  DECLARE_ALIASED_RIVET_PLUGIN(DELPHI_1996_S3430090, DELPHI_1996_I424112);
 
 }

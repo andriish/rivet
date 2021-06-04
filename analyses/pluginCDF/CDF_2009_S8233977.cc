@@ -8,6 +8,7 @@ namespace Rivet {
 
 
   /// @brief CDF Run II min-bias cross-section
+  ///
   /// @author Hendrik Hoeth
   ///
   /// Measurement of \f$ \langle p_T \rangle \f$ vs. \f$ n_\text{ch} \f$,
@@ -23,10 +24,7 @@ namespace Rivet {
   class CDF_2009_S8233977 : public Analysis {
   public:
 
-    /// Constructor
-    CDF_2009_S8233977()
-      : Analysis("CDF_2009_S8233977")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2009_S8233977);
 
 
     /// @name Analysis methods
@@ -44,7 +42,6 @@ namespace Rivet {
 
       book(_sumWeightSelected,"_sumWeightSelected");
     }
-
 
 
     /// Do the analysis
@@ -93,7 +90,6 @@ namespace Rivet {
     }
 
 
-
     /// Normalize histos
     void finalize() {
       scale(_hist_sumEt, crossSection()/millibarn/(4*M_PI*dbl(*_sumWeightSelected)));
@@ -116,7 +112,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2009_S8233977);
+  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2009_S8233977, CDF_2009_I817466);
 
 }

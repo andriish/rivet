@@ -12,6 +12,7 @@ namespace Rivet {
 
   /// @brief CDF Run II analysis: jet \f$ p_T \f$ and \f$ \eta \f$
   ///   distributions in Z + (b) jet production
+  ///
   /// @author Lars Sonnenschein
   ///
   /// This CDF analysis provides \f$ p_T \f$ and \f$ \eta \f$ distributions of
@@ -20,17 +21,14 @@ namespace Rivet {
   public:
 
     /// Constructor
-    CDF_2006_S6653332()
-      : Analysis("CDF_2006_S6653332"),
-        _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5), _Lep1PtCut(18.), _Lep2PtCut(10.), _LepEtaCut(1.1)
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2006_S6653332);
 
 
     /// @name Analysis methods
     //@{
 
     void init() {
-      const FinalState fs((Cuts::etaIn(-3.6, 3.6)));
+      const FinalState fs(Cuts::abseta < 3.6);
       declare(fs, "FS");
 
       // Create a final state with any e+e- or mu+mu- pair with
@@ -52,8 +50,6 @@ namespace Rivet {
       book(_sigmaBJet ,1, 1, 1);
       book(_ratioBJetToZ ,2, 1, 1);
       book(_ratioBJetToJet ,3, 1, 1);
-
-     
       book(_sumWeightsWithZ, "sumWeightsWithZ");
       book(_sumWeightsWithZJet, "sumWeightsWithZJet");
     }
@@ -87,7 +83,7 @@ namespace Rivet {
       /// @todo Use jet contents rather than accessing quarks directly
       Particles bquarks;
       /// @todo is this HepMC wrangling necessary?
-      for(ConstGenParticlePtr p: HepMCUtils::particles(event.genEvent())){
+      for (ConstGenParticlePtr p: HepMCUtils::particles(event.genEvent())) {
         if ( std::abs(p->pdg_id()) == PID::BQUARK ) {
           bquarks.push_back(Particle(*p));
         }
@@ -150,31 +146,32 @@ namespace Rivet {
   private:
 
     /// @name Cuts and counters
-    //@{
-    double _Rjet;
-    double _JetPtCut;
-    double _JetEtaCut;
-    double _Lep1PtCut;
-    double _Lep2PtCut;
-    double _LepEtaCut;
+    /// @{
+    const double _Rjet = 0.7;
+    const double _JetPtCut = 20.;
+    const double _JetEtaCut = 1.5;
+    const double _Lep1PtCut = 18.;
+    const double _Lep2PtCut = 10.;
+    const double _LepEtaCut = 1.1;
+    /// @}
 
+    /// @name Cuts and counters
+    /// @{
     CounterPtr _sumWeightsWithZ;
     CounterPtr _sumWeightsWithZJet;
-
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _sigmaBJet;
     Histo1DPtr _ratioBJetToZ;
     Histo1DPtr _ratioBJetToJet;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2006_S6653332);
+  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2006_S6653332, CDF_2006_I717572);
 
 }

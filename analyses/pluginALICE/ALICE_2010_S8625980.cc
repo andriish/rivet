@@ -8,21 +8,12 @@ namespace Rivet {
   class ALICE_2010_S8625980 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
-    ALICE_2010_S8625980()
-      : Analysis("ALICE_2010_S8625980")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2010_S8625980);
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -73,25 +64,22 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
-
+    /// @{
     Histo1DPtr _h_dN_deta;
     Histo1DPtr _h_dN_dNch;
     CounterPtr _Nevt_after_cuts;
-    //@}
-
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALICE_2010_S8625980);
+  DECLARE_ALIASED_RIVET_PLUGIN(ALICE_2010_S8625980, ALICE_2010_I852264);
 
 }

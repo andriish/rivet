@@ -12,13 +12,14 @@ namespace Rivet {
 
 
   /// @brief SLD flavour-dependent fragmentation paper
+  ///
   /// @author Peter Richardson
   class SLD_2004_S5693039 : public Analysis {
   public:
 
     /// Constructor
-    SLD_2004_S5693039() : Analysis("SLD_2004_S5693039")
-    {}
+    DEFAULT_RIVET_ANALYSIS_CTOR(SLD_2004_S5693039);
+
 
     /// @name Analysis methods
     //@{
@@ -246,7 +247,7 @@ namespace Rivet {
 
       // Ratios: used as target of divide() later
       book(_s_PiM_PiP,  9, 1, 3);
-      book(_s_KM_KP	 , 10, 1, 3);
+      book(_s_KM_KP  , 10, 1, 3);
       book(_s_Pr_PBar, 11, 1, 3);
 
       book(_weightedTotalChargedPartNumLight, "_weightedTotalChargedPartNumLight");
@@ -335,26 +336,17 @@ namespace Rivet {
 
 
   private:
-      Scatter2DPtr tmp1;
-      Scatter2DPtr tmp2;
-      Scatter2DPtr tmp3;
-      Scatter2DPtr tmp4;
-      Scatter2DPtr tmp5;
 
-    /// @name Multiplicities
-    //@{
-    CounterPtr _weightedTotalChargedPartNumLight;
-    CounterPtr _weightedTotalChargedPartNumCharm;
-    CounterPtr _weightedTotalChargedPartNumBottom;
-    //@}
+    Scatter2DPtr tmp1, tmp2, tmp3, tmp4, tmp5;
 
-    /// @name Weights
-    //@{
+    /// Multiplicities
+    CounterPtr _weightedTotalChargedPartNumLight, _weightedTotalChargedPartNumCharm, _weightedTotalChargedPartNumBottom;
+
+    /// Weights
     CounterPtr _weightLight, _weightCharm, _weightBottom;
-    //@}
 
     // Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_PCharged;
     Histo1DPtr _h_XpPiPlus, _h_XpKPlus, _h_XpProton;
     Histo1DPtr _h_XpPiPlusTotal, _h_XpKPlusTotal, _h_XpProtonTotal;
@@ -368,12 +360,12 @@ namespace Rivet {
     Histo1DPtr _h_RPiPlus, _h_RPiMinus, _h_RKPlus;
     Histo1DPtr _h_RKMinus, _h_RProton, _h_RPBar;
     Scatter2DPtr _s_PiM_PiP, _s_KM_KP, _s_Pr_PBar;
-    //@}
+    /// @}
 
   };
 
 
-  // Hook for the plugin system
-  DECLARE_RIVET_PLUGIN(SLD_2004_S5693039);
+
+  DECLARE_ALIASED_RIVET_PLUGIN(SLD_2004_S5693039, SLD_2004_I630327);
 
 }

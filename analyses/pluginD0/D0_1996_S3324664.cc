@@ -7,20 +7,15 @@
 namespace Rivet {
 
 
-  /// @brief D0 azimuthal correlation of jets widely separated in rapidity
+  /// D0 azimuthal correlation of jets widely separated in rapidity
   class D0_1996_S3324664 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
-    /// Constructor
-    D0_1996_S3324664() : Analysis("D0_1996_S3324664")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(D0_1996_S3324664);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       const FinalState fs;
@@ -80,23 +75,22 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_deta;
     BinnedHistogram _h_dphi;
     Profile1DPtr _h_cosdphi_deta;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(D0_1996_S3324664);
+  DECLARE_ALIASED_RIVET_PLUGIN(D0_1996_S3324664, D0_1996_I416886);
 
 }

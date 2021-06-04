@@ -10,9 +10,7 @@ namespace Rivet {
   class CDF_2007_S7057202 : public Analysis {
   public:
 
-    CDF_2007_S7057202()
-      : Analysis("CDF_2007_S7057202")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2007_S7057202);
 
 
     void init() {
@@ -58,22 +56,21 @@ namespace Rivet {
       _binnedHistosD07.scale(xSec/2.0, this);
     }
 
+
   private:
 
     BinnedHistogram _binnedHistosD07;
 
-    // Single histogram for the \f$R=0.5\f$ \f$k_\perp\f$ jets
+    /// Single histogram for the \f$R=0.5\f$ \f$k_\perp\f$ jets
     Histo1DPtr _histoD05;
 
-    // Single histogram for the \f$R=1.0\f$ \f$k_\perp\f$ jets
+    /// Single histogram for the \f$R=1.0\f$ \f$k_\perp\f$ jets
     Histo1DPtr _histoD10;
-    //@}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2007_S7057202);
+  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2007_S7057202, CDF_2007_I743342);
 
 }

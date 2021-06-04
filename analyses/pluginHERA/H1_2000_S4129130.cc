@@ -16,9 +16,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    H1_2000_S4129130()
-      : Analysis("H1_2000_S4129130")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(H1_2000_S4129130);
 
 
     /// @name Analysis methods
@@ -231,27 +229,27 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     vector<Histo1DPtr> _histETLowQa;
     vector<Histo1DPtr> _histETHighQa;
     vector<Histo1DPtr> _histETLowQb;
     vector<Histo1DPtr> _histETHighQb;
     Profile1DPtr _histAverETCentral;
     Profile1DPtr _histAverETFrag;
-    //@}
+    /// @}
 
-    /// @name storage of weights for normalisation
-    //@{
+    /// @name Storage of weights for normalisation
+    /// @{
     array<CounterPtr,17> _weightETLowQa;
     array<CounterPtr, 7> _weightETHighQa;
     array<CounterPtr, 5> _weightETLowQb;
     array<CounterPtr, 3> _weightETHighQb;
-    //@}
+    /// @}
 
   };
 
 
 
-  DECLARE_RIVET_PLUGIN(H1_2000_S4129130);
+  DECLARE_ALIASED_RIVET_PLUGIN(H1_2000_S4129130, H1_2000_I503947);
 
 }

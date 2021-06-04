@@ -12,12 +12,7 @@ namespace Rivet {
   class CDF_2008_S8095620 : public Analysis {
   public:
 
-    /// Constructor.
-    /// jet cuts: |eta| <= 1.5
-    CDF_2008_S8095620()
-      : Analysis("CDF_2008_S8095620"),
-        _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5), _Lep1PtCut(18.), _Lep2PtCut(10.), _LepEtaCut(3.2)
-    { }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2008_S8095620);
 
 
     /// @name Analysis methods
@@ -50,7 +45,7 @@ namespace Rivet {
       book(_dSdNbJet ,6, 1, 1);
 
       book(_sumWeightSelected,"sumWeightSelected");
-     }
+    }
 
 
     // Do the analysis
@@ -136,7 +131,6 @@ namespace Rivet {
     }
 
 
-
     // Finalize
     void finalize() {
       // normalise histograms
@@ -158,30 +152,33 @@ namespace Rivet {
 
   private:
 
-    double _Rjet;
-    double _JetPtCut;
-    double _JetEtaCut;
-    double _Lep1PtCut;
-    double _Lep2PtCut;
-    double _LepEtaCut;
+    /// @name Cuts
+    /// @{
+    const double _Rjet = 0.7;
+    const double _JetPtCut = 20;
+    const double _JetEtaCut = 1.5;
+    const double _Lep1PtCut = 18;
+    const double _Lep2PtCut = 10;
+    const double _LepEtaCut = 3.2;
+    /// @}
+
+    /// Counter
     CounterPtr _sumWeightSelected;
 
-    //@{
-    /// Histograms
+    /// @name Histograms
+    /// @{
     Histo1DPtr _dStot;
     Histo1DPtr _dSdET;
     Histo1DPtr _dSdETA;
     Histo1DPtr _dSdNJet;
     Histo1DPtr _dSdNbJet;
     Histo1DPtr _dSdZpT;
-
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2008_S8095620);
+  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2008_S8095620, CDF_2008_I806082);
 
 }

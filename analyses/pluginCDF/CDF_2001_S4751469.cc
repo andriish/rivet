@@ -24,11 +24,7 @@ namespace Rivet {
   class CDF_2001_S4751469 : public Analysis {
   public:
 
-    /// Constructor: cuts on final state are \f$ -1 < \eta < 1 \f$
-    /// and \f$ p_T > 0.5 \f$ GeV.
-    CDF_2001_S4751469()
-      : Analysis("CDF_2001_S4751469")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2001_S4751469);
 
 
     /// @name Analysis methods
@@ -258,7 +254,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2001_S4751469);
+  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2001_S4751469, CDF_2001_I564673);
 
 }

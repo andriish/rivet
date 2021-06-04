@@ -10,10 +10,7 @@ namespace Rivet {
   class CDF_2008_S8093652 : public Analysis {
   public:
 
-    /// Constructor
-    CDF_2008_S8093652()
-      : Analysis("CDF_2008_S8093652")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2008_S8093652);
 
 
     /// @name Analysis methods
@@ -51,21 +48,19 @@ namespace Rivet {
     void finalize() {
       scale(_h_m_dijet, crossSection()/sumOfWeights());
     }
+
     //@}
 
 
   private:
 
-    /// @name Histograms
-    //@{
+    /// Histogram
     Histo1DPtr _h_m_dijet;
-    //@}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2008_S8093652);
+  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2008_S8093652, CDF_2008_I805902);
 
 }

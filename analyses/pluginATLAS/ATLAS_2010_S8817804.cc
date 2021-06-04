@@ -11,16 +11,11 @@ namespace Rivet {
   class ATLAS_2010_S8817804: public Analysis {
   public:
 
-    ATLAS_2010_S8817804() : Analysis("ATLAS_2010_S8817804")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2010_S8817804);
 
-
-  private:
-
+    /// Choice of jet algorithm
     enum Alg { AKT4=0, AKT6=1 };
 
-
-  public:
 
     void init() {
       FinalState fs;
@@ -36,21 +31,21 @@ namespace Rivet {
       for (size_t alg = 0; alg < 2; ++alg) {
         for (size_t i = 0; i < 5; ++i) {
           Histo1DPtr tmp;
-          book(tmp, i + 1 + ptDsOffset, 1, 1); 
+          book(tmp, i + 1 + ptDsOffset, 1, 1);
           _pThistos[alg].add(ybins[i], ybins[i+1], tmp);
         }
         ptDsOffset += 5;
 
         for (size_t i = 0; i < 5; ++i) {
           Histo1DPtr tmp;
-          book(tmp, i + 1 + massDsOffset, 1, 1); 
+          book(tmp, i + 1 + massDsOffset, 1, 1);
           _massVsY[alg].add(ybins[i], ybins[i+1], tmp);
         }
         massDsOffset += 5;
 
         for (size_t i = 0; i < 3; ++i) {
           Histo1DPtr tmp;
-          book(tmp, i + 1 + chiDsOffset, 1, 1); 
+          book(tmp, i + 1 + chiDsOffset, 1, 1);
           _chiVsMass[alg].add(massBinsForChi[i], massBinsForChi[i+1], tmp);
         }
         chiDsOffset += 3;
@@ -122,7 +117,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2010_S8817804);
+  DECLARE_ALIASED_RIVET_PLUGIN(ATLAS_2010_S8817804, ATLAS_2010_I871366);
 
 }

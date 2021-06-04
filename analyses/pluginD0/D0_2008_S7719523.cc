@@ -8,15 +8,6 @@
 namespace Rivet {
 
 
-  // A local scope function for division, handling the div-by-zero case
-  /// @todo Why isn't the math divide() function being found?
-  namespace {
-    inline double _safediv(double a, double b, double result_if_err) {
-      return (b != 0) ? a/b : result_if_err;
-    }
-  }
-
-
   /// @brief Measurement of isolated gamma + jet + X differential cross-sections
   ///
   /// Inclusive isolated gamma + jet cross-sections, differential in pT(gamma), for
@@ -27,19 +18,11 @@ namespace Rivet {
   class D0_2008_S7719523 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
-    /// Constructor
-    D0_2008_S7719523()
-      : Analysis("D0_2008_S7719523")
-    {    }
-
-    //@}
+    DEFAULT_RIVET_ANALYSIS_CTOR(D0_2008_S7719523);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Set up projections and book histograms
     void init() {
@@ -171,12 +154,19 @@ namespace Rivet {
       scale(_h_forward_opp_cross_section, 2.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_forward);
     }
 
-    //@}
+    /// @}
+
 
   private:
 
+    // A local scope function for division, handling the div-by-zero case
+    /// @todo Why isn't the math divide() function being found?
+    double _safediv(double a, double b, double result_if_err) {
+      return (b != 0) ? a/b : result_if_err;
+    }
+
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_central_same_cross_section;
     Histo1DPtr _h_central_opp_cross_section;
     Histo1DPtr _h_forward_same_cross_section;
@@ -188,13 +178,12 @@ namespace Rivet {
     Scatter2DPtr _h_cen_opp_fwd_same;
     Scatter2DPtr _h_cen_same_fwd_opp;
     Scatter2DPtr _h_cen_opp_fwd_opp;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(D0_2008_S7719523);
+  DECLARE_ALIASED_RIVET_PLUGIN(D0_2008_S7719523, D0_2008_I782968);
 
 }

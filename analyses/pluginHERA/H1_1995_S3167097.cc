@@ -16,9 +16,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    H1_1995_S3167097()
-      : Analysis("H1_1995_S3167097")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(H1_1995_S3167097);
 
 
     /// @name Analysis methods
@@ -32,7 +30,7 @@ namespace Rivet {
 
       // Histograms
       /// @todo Convert to use autobooking and correspond to HepData data tables
-      
+
       _hEtFlow.resize(9);
       for (size_t i = 0; i < 9; ++i) {
         book(_sumw[i], "sumW_" + to_str(i));
@@ -102,9 +100,6 @@ namespace Rivet {
       book(s22, "22");
       divide(_tmphAvQ2,_tmphN,s23);
       book(s23, "23");
-      // addAnalysisObject(make_shared<Scatter2D>(_tmphAvEt/_tmphN, histoPath("21")) );
-      // addAnalysisObject(make_shared<Scatter2D>(_tmphAvX/_tmphN,  histoPath("22")) );
-      // addAnalysisObject(make_shared<Scatter2D>(_tmphAvQ2/_tmphN, histoPath("23")) );
     }
 
     //@}
@@ -124,7 +119,7 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(H1_1995_S3167097);
+
+  DECLARE_ALIASED_RIVET_PLUGIN(H1_1995_S3167097, H1_1995_I396365);
 
 }
