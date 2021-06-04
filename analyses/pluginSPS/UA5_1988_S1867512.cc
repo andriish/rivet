@@ -7,14 +7,6 @@
 namespace Rivet {
 
 
-  namespace {
-    /// @brief Helper function to fill correlation points into scatter plot
-    Point2D correlation_helper(double x, double xerr, const vector<int> & nf, const vector<int> & nb, CounterPtr sumWPassed) {
-      return Point2D(x, correlation(nf, nb), xerr, correlation_err(nf, nb)/sqrt(sumWPassed->val()));
-    }
-  }
-
-
   /// @brief UA5 charged particle correlations at 200, 546 and 900 GeV
   class UA5_1988_S1867512 : public Analysis {
   public:
@@ -148,48 +140,35 @@ namespace Rivet {
 
   private:
 
-    /// @name Counters
-    //@{
+    /// Helper function to fill correlation points into scatter plot
+    Point2D correlation_helper(double x, double xerr, const vector<int>& nf, const vector<int>& nb, CounterPtr sumWPassed) {
+      return Point2D(x, correlation(nf, nb), xerr, correlation_err(nf, nb)/sqrt(sumWPassed->val()));
+    }
+
+    /// Counter
     CounterPtr _sumWPassed;
-    //@}
 
 
     /// @name Vectors for storing the number of particles in the different eta intervals per event.
-    /// @todo Is there a better way?
-    //@{
-    std::vector<int> n_10f;
-    std::vector<int> n_15f;
-    std::vector<int> n_20f;
-    std::vector<int> n_25f;
-    std::vector<int> n_30f;
-    std::vector<int> n_35f;
-    std::vector<int> n_40f;
-    //
-    std::vector<int> n_10b;
-    std::vector<int> n_15b;
-    std::vector<int> n_20b;
-    std::vector<int> n_25b;
-    std::vector<int> n_30b;
-    std::vector<int> n_35b;
-    std::vector<int> n_40b;
-    //
-    std::vector<int> n_05;
-    //@}
+    /// @todo A better way is needed to make this re-entrant
+    /// @{
+    vector<int> n_10f, n_15f, n_20f, n_25f, n_30f, n_35f, n_40f;
+    vector<int> n_10b, n_15b, n_20b, n_25b, n_30b, n_35b, n_40b;
+    vector<int> n_05;
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     // Symmetric eta intervals
     Scatter2DPtr _hist_correl;
     // For asymmetric eta intervals
     Scatter2DPtr _hist_correl_asym;
-    //@}
+    /// @}
 
   };
 
 
-
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(UA5_1988_S1867512);
+  DECLARE_ALIASED_RIVET_PLUGIN(UA5_1988_S1867512, UA5_1988_I263399);
 
 }

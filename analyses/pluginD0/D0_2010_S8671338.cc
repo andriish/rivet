@@ -5,18 +5,14 @@
 
 namespace Rivet {
 
-  
-
 
   /// @brief Measurement of Z(->muon muon) pT differential cross-section
+  ///
   /// @author Flavia Dias
   class D0_2010_S8671338 : public Analysis {
   public:
 
-    /// Constructor
-    D0_2010_S8671338()
-      : Analysis("D0_2010_S8671338")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(D0_2010_S8671338);
 
 
     ///@name Analysis methods
@@ -63,7 +59,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(D0_2010_S8671338);
+  DECLARE_ALIASED_RIVET_PLUGIN(D0_2010_S8671338, D0_2010_I856972);
 
 }

@@ -8,36 +8,25 @@
 namespace Rivet {
 
 
-  /* @brief D0 Run II angular correlations in di-jet events
-   * @author Lars Sonnenschein
-   *
-   * Measurement of angular correlations in di-jet events.
-   *
-   * @par Run conditions
-   *
-   * @arg \f$ \sqrt{s} = \f$ 1960 GeV
-   * @arg Run with generic QCD events.
-   * @arg Several \f$ p_\perp^\text{min} \f$ cutoffs are probably required to fill the histograms:
-   *   @arg \f$ p_\perp^\text{min} = \f$ 50, 75, 100, 150 GeV for the four pT ranges respecively
-   *
-   */
+  /// @brief D0 Run II angular correlations in di-jet events
+  /// @author Lars Sonnenschein
+  ///
+  /// Measurement of angular correlations in di-jet events.
+  ///
+  /// @par Run conditions
+  /// @arg \f$ \sqrt{s} = \f$ 1960 GeV
+  /// @arg Run with generic QCD events.
+  /// @arg Several \f$ p_\perp^\text{min} \f$ cutoffs are probably required to fill the histograms:
+  /// @arg \f$ p_\perp^\text{min} = \f$ 50, 75, 100, 150 GeV for the four pT ranges respecively
+  ///
   class D0_2004_S5992206 : public Analysis {
-
   public:
 
-    /// @name Constructors etc.
-    //@{
-
-    /// Constructor.
-    D0_2004_S5992206()
-      : Analysis("D0_2004_S5992206")
-    {  }
-
-    //@}
+    DEFAULT_RIVET_ANALYSIS_CTOR(D0_2004_S5992206);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Final state for jets, mET etc.
@@ -114,24 +103,23 @@ namespace Rivet {
       normalize(_histJetAzimuth_pTmax180_);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histJetAzimuth_pTmax75_100;
     Histo1DPtr _histJetAzimuth_pTmax100_130;
     Histo1DPtr _histJetAzimuth_pTmax130_180;
     Histo1DPtr _histJetAzimuth_pTmax180_;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(D0_2004_S5992206);
+  DECLARE_ALIASED_RIVET_PLUGIN(D0_2004_S5992206, D0_2004_I659398);
 
 }

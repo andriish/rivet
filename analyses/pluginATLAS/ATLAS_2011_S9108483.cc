@@ -11,19 +11,9 @@ namespace Rivet {
   class ATLAS_2011_S9108483 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
-    ATLAS_2011_S9108483()
-      : Analysis("ATLAS_2011_S9108483")
-    {
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2011_S9108483);
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{
@@ -194,8 +184,7 @@ namespace Rivet {
 
   };
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_S9108483);
 
+  DECLARE_ALIASED_RIVET_PLUGIN(ATLAS_2011_S9108483, ATLAS_2011_I914491);
 
 }

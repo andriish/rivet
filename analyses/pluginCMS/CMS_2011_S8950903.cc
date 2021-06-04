@@ -6,11 +6,11 @@
 
 namespace Rivet {
 
-  // CMS azimuthal decorrelations
+  /// CMS azimuthal decorrelations
   class CMS_2011_S8950903 : public Analysis {
   public:
 
-    CMS_2011_S8950903() : Analysis("CMS_2011_S8950903") {}
+    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2011_S8950903);
 
 
     void init() {
@@ -42,10 +42,9 @@ namespace Rivet {
 
 
     void finalize() {
-      for (Histo1DPtr histo : _h_deltaPhi.histos()) {
-        normalize(histo, 1.);
-      }
+      normalize(_h_deltaPhi.histos(), 1.);
     }
+
 
   private:
 
@@ -53,8 +52,8 @@ namespace Rivet {
 
   };
 
-  // This global object acts as a hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2011_S8950903);
+
+
+  DECLARE_ALIASED_RIVET_PLUGIN(CMS_2011_S8950903, CMS_2011_I885663);
 
 }
-

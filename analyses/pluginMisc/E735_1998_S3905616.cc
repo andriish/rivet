@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    E735_1998_S3905616() : Analysis("E735_1998_S3905616") {}
+    DEFAULT_RIVET_ANALYSIS_CTOR(E735_1998_S3905616);
 
 
     /// @name Analysis methods
@@ -27,7 +27,7 @@ namespace Rivet {
       // Histo
       book(_hist_multiplicity ,1, 1, 1);
       book(_sumWTrig, "TMP/sumWtrig");
-    
+
     }
 
 
@@ -51,21 +51,16 @@ namespace Rivet {
 
   private:
 
-    /// @name Weight counter
-    //@{
+    /// Weight counter
     CounterPtr _sumWTrig;
-    //@}
 
-    /// @name Histograms
-    //@{
+    /// Histograms
     Histo1DPtr _hist_multiplicity;
-    //@}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(E735_1998_S3905616);
+  DECLARE_ALIASED_RIVET_PLUGIN(E735_1998_S3905616, E735_1998_I480349);
 
 }

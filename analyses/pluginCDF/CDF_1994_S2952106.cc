@@ -9,22 +9,20 @@ namespace Rivet {
 
 
   /// @brief CDF Run I color coherence analysis
+  ///
   /// @author Andy Buckley
   /// @author Lars Sonnenschein
   class CDF_1994_S2952106 : public Analysis {
   public:
 
-    /// Constructor
-    CDF_1994_S2952106() : Analysis("CDF_1994_S2952106")
-    {
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_1994_S2952106);
 
 
     /// @name Analysis methods
     //@{
 
     void init() {
-      const FinalState fs((Cuts::etaIn(-4.2, 4.2)));
+      const FinalState fs(Cuts::abseta < 4.2);
       declare(fs, "FS");
       declare(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
 
@@ -43,7 +41,6 @@ namespace Rivet {
       book(_tmphistR23, "TMP/R23",     refData(4,1,1));
       book(_tmphistAlpha, "TMP/Alpha",   refData(5,1,1));
     }
-
 
 
     // Do the analysis
@@ -176,13 +173,8 @@ namespace Rivet {
 
   private:
 
-    /// @name Event weight counters
-    //@{
-
+    /// Event weight counter
     CounterPtr _sumw;
-
-    //@}
-
 
     /// @name Histograms
     //@{
@@ -193,7 +185,7 @@ namespace Rivet {
     /// Output histos which need to have correction factors applied
     Scatter2DPtr _histR23, _histJet3eta, _histAlpha;
 
-    /// Temporary histos, to be converted to DPSes
+    /// Temporary histos, to be converted to scatters
     Histo1DPtr _tmphistR23, _tmphistJet3eta, _tmphistAlpha;
 
     //@}
@@ -202,7 +194,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_1994_S2952106);
+  DECLARE_ALIASED_RIVET_PLUGIN(CDF_1994_S2952106, CDF_1994_I374155);
 
 }

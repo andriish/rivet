@@ -7,6 +7,7 @@ namespace Rivet {
 
 
   /// @brief CLEO charmed mesons and baryons from fragmentation
+  ///
   /// @author Peter Richardson
   class CLEO_2004_S5809304 : public Analysis {
   public:
@@ -133,7 +134,6 @@ namespace Rivet {
 
   private:
 
-    //@{
     // Histograms for the continuum cross sections
     Histo1DPtr _sigmaDPlus     ;
     Histo1DPtr _sigmaD0A       ;
@@ -143,7 +143,7 @@ namespace Rivet {
     Histo1DPtr _sigmaDStar0A   ;
     Histo1DPtr _sigmaDStar0B   ;
 
-    // histograms for continuum data
+    // Histograms for continuum data
     Histo1DPtr _histXpDplus     ;
     Histo1DPtr _histXpD0A       ;
     Histo1DPtr _histXpD0B       ;
@@ -152,11 +152,10 @@ namespace Rivet {
     Histo1DPtr _histXpDStar0A   ;
     Histo1DPtr _histXpDStar0B   ;
     Histo1DPtr _histXpTotal     ;
-    //@}
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(CLEO_2004_S5809304);
+  DECLARE_ALIASED_RIVET_PLUGIN(CLEO_2004_S5809304, CLEO_2004_I645209);
 
 }

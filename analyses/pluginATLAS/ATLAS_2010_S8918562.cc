@@ -9,24 +9,6 @@ namespace Rivet {
   class ATLAS_2010_S8918562 : public Analysis {
   public:
 
-    /// Helper for collectively filling Nch, pT, eta, and pT vs. Nch histograms
-    void fillPtEtaNch(const ChargedFinalState& cfs, const int nchcut, const string& label) {
-      // Get number of particles and skip if event fails cut
-      const int nch = cfs.size();
-      if (nch < nchcut) return;
-
-      // Fill nch
-      _h[label + "_nch"]->fill(nch);
-      // Loop over particles, fill pT, eta and ptnch
-      for (const Particle& p : cfs.particles()) {
-        const double pt = p.pT();
-        _h[label + "_pt"]->fill(pt/GeV, 1.0/pt);
-        _h[label + "_eta"]->fill(p.eta());
-        if (_p[label + "_ptnch"])  _p[label + "_ptnch"]->fill(nch, pt/GeV);
-      }
-    }
-
-
     /// Default constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2010_S8918562);
 
@@ -167,13 +149,29 @@ namespace Rivet {
 
   private:
 
+    /// Helper for collectively filling Nch, pT, eta, and pT vs. Nch histograms
+    void fillPtEtaNch(const ChargedFinalState& cfs, const int nchcut, const string& label) {
+      // Get number of particles and skip if event fails cut
+      const int nch = cfs.size();
+      if (nch < nchcut) return;
+
+      // Fill nch
+      _h[label + "_nch"]->fill(nch);
+      // Loop over particles, fill pT, eta and ptnch
+      for (const Particle& p : cfs.particles()) {
+        const double pt = p.pT();
+        _h[label + "_pt"]->fill(pt/GeV, 1.0/pt);
+        _h[label + "_eta"]->fill(p.eta());
+        if (_p[label + "_ptnch"])  _p[label + "_ptnch"]->fill(nch, pt/GeV);
+      }
+    }
+
     map<string, Histo1DPtr> _h;
     map<string, Profile1DPtr> _p;
 
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2010_S8918562);
+  DECLARE_ALIASED_RIVET_PLUGIN(ATLAS_2010_S8918562, ATLAS_2010_I882098);
 
 }

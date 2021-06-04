@@ -6,14 +6,12 @@ namespace Rivet {
 
 
   /// @brief CMS strange particle spectra (Ks, Lambda, Cascade) in pp at 900 and 7000 GeV
+  ///
   /// @author Kevin Stenson
   class CMS_2011_S8978280 : public Analysis {
   public:
 
-    /// Constructor
-    CMS_2011_S8978280()
-      : Analysis("CMS_2011_S8978280")
-    { }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2011_S8978280);
 
 
     void init() {
@@ -51,29 +49,28 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = 1.0;
 
       const UnstableParticles& parts = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : parts.particles()) {
         switch (p.abspid()) {
         case PID::K0S:
-          _h_dNKshort_dy->fill(p.absrap(), weight);
-          _h_dNKshort_dpT->fill(p.pT(), weight);
+          _h_dNKshort_dy->fill(p.absrap());
+          _h_dNKshort_dpT->fill(p.pT()/GeV);
           break;
 
         case PID::LAMBDA:
           // Lambda should not have Cascade or Omega ancestors since they should not decay. But just in case...
           if ( !( p.hasAncestor(3322) || p.hasAncestor(-3322) || p.hasAncestor(3312) || p.hasAncestor(-3312) || p.hasAncestor(3334) || p.hasAncestor(-3334) ) ) {
-            _h_dNLambda_dy->fill(p.absrap(), weight);
-            _h_dNLambda_dpT->fill(p.pT(), weight);
+            _h_dNLambda_dy->fill(p.absrap());
+            _h_dNLambda_dpT->fill(p.pT()/GeV);
           }
           break;
 
         case PID::XIMINUS:
           // Cascade should not have Omega ancestors since it should not decay.  But just in case...
           if ( !( p.hasAncestor(3334) || p.hasAncestor(-3334) ) ) {
-            _h_dNXi_dy->fill(p.absrap(), weight);
-            _h_dNXi_dpT->fill(p.pT(), weight);
+            _h_dNXi_dy->fill(p.absrap());
+            _h_dNXi_dpT->fill(p.pT()/GeV);
           }
           break;
         }
@@ -100,15 +97,16 @@ namespace Rivet {
 
   private:
 
-    // Particle distributions versus rapidity and transverse momentum
+    /// @name Particle distributions versus rapidity and transverse momentum
+    /// @{
     Histo1DPtr _h_dNKshort_dy, _h_dNKshort_dpT, _h_dNLambda_dy, _h_dNLambda_dpT, _h_dNXi_dy, _h_dNXi_dpT;
     Scatter2DPtr _h_LampT_KpT, _h_XipT_LampT, _h_Lamy_Ky, _h_Xiy_Lamy;
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2011_S8978280);
+  DECLARE_ALIASED_RIVET_PLUGIN(CMS_2011_S8978280, CMS_2011_I890166);
 
 }

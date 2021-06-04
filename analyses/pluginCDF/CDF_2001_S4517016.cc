@@ -11,25 +11,15 @@ namespace Rivet {
   class CDF_2001_S4517016 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2001_S4517016);
 
-    /// Constructor
-    CDF_2001_S4517016()
-      : Analysis("CDF_2001_S4517016")
-    {    }
-
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{
 
     /// Book histograms and initialise projections before the run
     void init() {
-      FinalState fs((Cuts::etaIn(-4.2, 4.2)));
+      FinalState fs(Cuts::abseta < 4.2);
       declare(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
 
       {Histo1DPtr tmp; _h_ET.add(0.1, 0.7, book(tmp, 1, 1, 1));}
@@ -68,16 +58,13 @@ namespace Rivet {
 
   private:
 
-    /// @name Histograms
-    //@{
+    /// Histograms
     BinnedHistogram _h_ET;
-    //@}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2001_S4517016);
+  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2001_S4517016, CDF_2001_I538041);
 
 }

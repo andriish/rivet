@@ -14,16 +14,16 @@ namespace Rivet {
 
 
   /// @brief ALEPH QCD study with event shapes and identified particles
+  ///
   /// @author Holger Schulz
   class ALEPH_1996_S3486095 : public Analysis {
-
   public:
 
-    /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(ALEPH_1996_S3486095);
 
+
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Set up projections
@@ -390,17 +390,18 @@ namespace Rivet {
       scale(_histMeanMultiOmegaOmegaBar, 1.0/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
+
     /// Store the weighted sums of numbers of charged / charged+neutral
     /// particles - used to calculate average number of particles for the
     /// inclusive single particle distributions' normalisations.
     CounterPtr _weightedTotalPartNum;
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histSphericity;
     Histo1DPtr _histAplanarity;
 
@@ -467,13 +468,12 @@ namespace Rivet {
     Histo1DPtr _histMeanMultiSigma1385Plus;
     Histo1DPtr _histMeanMultiXi1530_0;
     Histo1DPtr _histMeanMultiOmegaOmegaBar;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALEPH_1996_S3486095);
+  DECLARE_ALIASED_RIVET_PLUGIN(ALEPH_1996_S3486095, ALEPH_1996_I428072);
 
 }

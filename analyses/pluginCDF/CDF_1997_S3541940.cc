@@ -242,7 +242,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_1997_S3541940);
+  DECLARE_ALIASED_RIVET_PLUGIN(CDF_1997_S3541940, CDF_1997_I442265);
 
 }

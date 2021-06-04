@@ -7,13 +7,13 @@ namespace Rivet {
 
 
   /// @brief BABAR Xi_c baryons from fragmentation
+  ///
   /// @author Peter Richardson
   class BABAR_2005_S6181155 : public Analysis {
   public:
 
-    BABAR_2005_S6181155()
-      : Analysis("BABAR_2005_S6181155")
-    { }
+    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2005_S6181155);
+
 
     void init() {
       declare(Beam(), "Beams");
@@ -23,6 +23,7 @@ namespace Rivet {
       book(_histOffResonance, 2,1,2);
       book(_sigma,            3,1,1);
     }
+
 
     void analyze(const Event& e) {
       // Loop through unstable FS particles and look for charmed mesons/baryons
@@ -68,13 +69,14 @@ namespace Rivet {
 
   private:
 
-    //@{
-    /// Histograms
+    /// @name Histograms
+    /// @{
     Histo1DPtr _histOnResonanceA;
     Histo1DPtr _histOnResonanceB;
     Histo1DPtr _histOffResonance;
     Histo1DPtr _sigma;
-    //@}
+    /// @}
+
 
     bool checkDecay(ConstGenParticlePtr p) {
       unsigned int nstable = 0, npip = 0, npim = 0;
@@ -90,6 +92,7 @@ namespace Rivet {
       }
       return false;
     }
+
 
     void findDecayProducts(ConstGenParticlePtr p,
                            unsigned int& nstable,
@@ -120,7 +123,6 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BABAR_2005_S6181155);
+  DECLARE_ALIASED_RIVET_PLUGIN(BABAR_2005_S6181155, BABAR_2005_I679961);
 
 }

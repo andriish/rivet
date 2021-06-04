@@ -7,25 +7,15 @@
 namespace Rivet {
 
 
-  /// @brief D0 dijet invariant mass measurement
+  /// D0 dijet invariant mass measurement
   class D0_2010_S8566488 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
+    DEFAULT_RIVET_ANALYSIS_CTOR(D0_2010_S8566488);
 
-    /// Constructor
-    D0_2010_S8566488()
-      : Analysis("D0_2010_S8566488")
-    {    }
-
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -62,21 +52,20 @@ namespace Rivet {
       _h_m_dijet.scale(crossSection()/sumOfWeights(), this);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _h_m_dijet;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(D0_2010_S8566488);
+  DECLARE_ALIASED_RIVET_PLUGIN(D0_2010_S8566488, D0_2010_I846483);
 
 }

@@ -10,9 +10,7 @@ namespace Rivet {
   class ATLAS_2010_S8591806 : public Analysis {
   public:
 
-    ATLAS_2010_S8591806()
-      : Analysis("ATLAS_2010_S8591806")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2010_S8591806);
 
 
     void init() {
@@ -65,7 +63,6 @@ namespace Rivet {
   };
 
 
-  //DECLARE_RIVET_PLUGIN(ATLAS_2010_S8591806);
   DECLARE_ALIASED_RIVET_PLUGIN(ATLAS_2010_S8591806, ATLAS_2010_I849050);
 
 }

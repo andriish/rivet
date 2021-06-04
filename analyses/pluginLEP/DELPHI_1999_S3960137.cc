@@ -9,18 +9,16 @@ namespace Rivet {
 
 
   /// @brief DELPHI rho,f_0 and f_2 fragmentation function paper
+  ///
   /// @author Peter Richardson
   class DELPHI_1999_S3960137 : public Analysis {
   public:
 
-    /// Constructor
-    DELPHI_1999_S3960137()
-      : Analysis("DELPHI_1999_S3960137")
-    {}
+    DEFAULT_RIVET_ANALYSIS_CTOR(DELPHI_1999_S3960137);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       declare(Beam(), "Beams");
@@ -78,7 +76,7 @@ namespace Rivet {
       scale(_histXpRho, 1./sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -86,11 +84,10 @@ namespace Rivet {
       Histo1DPtr _histXpf0;
       Histo1DPtr _histXpf2;
       Histo1DPtr _histXpRho;
-    //@}
-
   };
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(DELPHI_1999_S3960137);
+
+
+  DECLARE_ALIASED_RIVET_PLUGIN(DELPHI_1999_S3960137, DELPHI_1999_I482816);
 
 }

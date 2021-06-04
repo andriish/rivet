@@ -8,15 +8,14 @@ namespace Rivet {
 
 
   /// @brief H1 energy flow and charged particle spectra
+  ///
   /// @author Peter Richardson
   /// Based on the equivalent HZTool analysis
   class H1_1994_S2919893 : public Analysis {
   public:
 
     /// Constructor
-    H1_1994_S2919893()
-      : Analysis("H1_1994_S2919893")
-    {}
+    DEFAULT_RIVET_ANALYSIS_CTOR(H1_1994_S2919893);
 
 
     /// @name Analysis methods
@@ -210,22 +209,22 @@ namespace Rivet {
     }
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histEnergyFlowLowX, _histEnergyFlowHighX;
     Histo1DPtr _histEECLowX, _histEECHighX;
     Histo1DPtr _histSpectraW77, _histSpectraW122, _histSpectraW169, _histSpectraW117;
     Profile1DPtr _histPT2;
-    //@}
+    /// @}
 
     /// @name Storage of weights to calculate averages for normalisation
-    //@{
+    /// @{
     pair<CounterPtr,CounterPtr> _w77, _w122, _w169, _w117, _wEnergy;
-    //@}
+    /// @}
 
   };
 
 
 
-  DECLARE_RIVET_PLUGIN(H1_1994_S2919893);
+  DECLARE_ALIASED_RIVET_PLUGIN(H1_1994_S2919893, H1_1994_I372350);
 
 }

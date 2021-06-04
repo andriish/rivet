@@ -64,7 +64,7 @@ namespace Rivet {
       FourMomentum jet0boosted(cms_boost.transform(SJets[0].momentum()));
       double costheta0 = fabs(cos(jet0boosted.theta()));
 
-      if (costheta0 < 2.0/3.0) _h_m[SJets.size()-2]->fill(mass);      
+      if (costheta0 < 2.0/3.0) _h_m[SJets.size()-2]->fill(mass);
       if (mass > 600.) _h_costheta[SJets.size()-2]->fill(costheta0);
       if (costheta0 < 2.0/3.0 && mass > 600.) {
         for (const Jet& jet : SJets) _h_pT[SJets.size()-2]->fill(jet.pT());
@@ -91,18 +91,15 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-
     Histo1DPtr _h_m[5];
     Histo1DPtr _h_costheta[5];
     Histo1DPtr _h_pT[5];
-
     //@}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_1996_S3108457);
+  DECLARE_ALIASED_RIVET_PLUGIN(CDF_1996_S3108457, CDF_1996_I393345);
 
 }

@@ -6,12 +6,12 @@ namespace Rivet {
 
 
   /// @brief ARGUS pi+/-, K+/- and proton/antiproton spectrum at Upsilon(4S)
+  ///
   /// @author Peter Richardson
   class ARGUS_1993_S2653028 : public Analysis {
   public:
 
-    ARGUS_1993_S2653028()
-      : Analysis("ARGUS_1993_S2653028"){ }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ARGUS_1993_S2653028);
 
 
     void analyze(const Event& e) {
@@ -92,7 +92,7 @@ namespace Rivet {
       book(_multpB  ,11, 1, 1);
 
       book(_weightSum, "TMP/weightSum");
-    } // init
+    }
 
 
   private:
@@ -140,7 +140,7 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ARGUS_1993_S2653028);
+
+  DECLARE_ALIASED_RIVET_PLUGIN(ARGUS_1993_S2653028, ARGUS_1993_I340894);
 
 }

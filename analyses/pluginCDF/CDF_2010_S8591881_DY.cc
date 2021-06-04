@@ -5,10 +5,9 @@
 
 namespace Rivet {
 
-  
-
 
   /// @brief CDF Run II underlying event in Drell-Yan
+  ///
   /// @author Hendrik Hoeth
   ///
   /// Measurement of the underlying event in Drell-Yan
@@ -27,10 +26,7 @@ namespace Rivet {
   class CDF_2010_S8591881_DY : public Analysis {
   public:
 
-    /// Constructor
-    CDF_2010_S8591881_DY() : Analysis("CDF_2010_S8591881_DY")
-    {
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2010_S8591881_DY);
 
 
     /// @name Analysis methods
@@ -38,8 +34,8 @@ namespace Rivet {
 
     void init() {
       // Set up projections
-      const ChargedFinalState cfs((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  0.5*GeV));
-      const ChargedFinalState clfs((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  20*GeV));
+      const ChargedFinalState cfs(Cuts::abseta < 1.0 && Cuts::pT >= 0.5*GeV);
+      const ChargedFinalState clfs(Cuts::abseta < 1.0 && Cuts::pT >= 20*GeV);
       declare(cfs, "FS");
       declare(ChargedLeptons(clfs), "CL");
 
@@ -171,8 +167,7 @@ namespace Rivet {
     }
 
 
-    void finalize() {
-    }
+    // void finalize() {    }
 
     //@}
 
@@ -203,7 +198,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2010_S8591881_DY);
+  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2010_S8591881_DY, CDF_2010_I849042_DY);
 
 }

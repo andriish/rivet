@@ -22,75 +22,7 @@ namespace Rivet {
   class CDF_2004_S5839831 : public Analysis {
   public:
 
-    /// Constructor: cuts on charged final state are \f$ -1 < \eta < 1 \f$
-    /// and \f$ p_T > 0.4 \f$ GeV.
-    CDF_2004_S5839831()
-      : Analysis("CDF_2004_S5839831")
-    {    }
-
-
-  private:
-
-
-    /// @cond CONEUE_DETAIL
-
-    struct ConesInfo {
-      ConesInfo() : numMax(0), numMin(0), ptMax(0), ptMin(0), ptDiff(0) {}
-      unsigned int numMax, numMin;
-      double ptMax, ptMin, ptDiff;
-    };
-
-    /// @endcond
-
-    ConesInfo _calcTransCones(const double etaLead, const double phiLead,
-                              const Particles& tracks) {
-      const double phiTransPlus = mapAngle0To2Pi(phiLead + PI/2.0);
-      const double phiTransMinus = mapAngle0To2Pi(phiLead - PI/2.0);
-      MSG_DEBUG("phi_lead = " << phiLead
-               << " -> trans = (" << phiTransPlus
-               << ", " << phiTransMinus << ")");
-
-      unsigned int numPlus(0), numMinus(0);
-      double ptPlus(0), ptMinus(0);
-      // Run over all charged tracks
-      for (const Particle& t : tracks) {
-        FourMomentum trackMom = t.momentum();
-        const double pt = trackMom.pT();
-
-        // Find if track mom is in either transverse cone
-        if (deltaR(trackMom, etaLead, phiTransPlus) < 0.7) {
-          ptPlus += pt;
-          numPlus += 1;
-        } else if (deltaR(trackMom, etaLead, phiTransMinus) < 0.7) {
-          ptMinus += pt;
-          numMinus += 1;
-        }
-      }
-
-      ConesInfo rtn;
-      // Assign N_{min,max} from N_{plus,minus}
-      rtn.numMax = (ptPlus >= ptMinus) ? numPlus : numMinus;
-      rtn.numMin = (ptPlus >= ptMinus) ? numMinus : numPlus;
-      // Assign pT_{min,max} from pT_{plus,minus}
-      rtn.ptMax = (ptPlus >= ptMinus) ? ptPlus : ptMinus;
-      rtn.ptMin = (ptPlus >= ptMinus) ? ptMinus : ptPlus;
-      rtn.ptDiff = fabs(rtn.ptMax - rtn.ptMin);
-
-      MSG_DEBUG("Min cone has " << rtn.numMin << " tracks -> "
-               << "pT_min = " << rtn.ptMin/GeV << " GeV");
-      MSG_DEBUG("Max cone has " << rtn.numMax << " tracks -> "
-               << "pT_max = " << rtn.ptMax/GeV << " GeV");
-
-      return rtn;
-    }
-
-
-    ConesInfo _calcTransCones(const FourMomentum& leadvec,
-                              const Particles& tracks) {
-      const double etaLead = leadvec.eta();
-      const double phiLead = leadvec.phi();
-      return _calcTransCones(etaLead, phiLead, tracks);
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2004_S5839831);
 
 
     /// @name Analysis methods
@@ -100,16 +32,16 @@ namespace Rivet {
       // Set up projections
       declare(TriggerCDFRun0Run1(), "Trigger");
       declare(Beam(), "Beam");
-      const FinalState calofs((Cuts::etaIn(-1.2, 1.2)));
+      const FinalState calofs(Cuts::abseta < 1.2);
       declare(calofs, "CaloFS");
       declare(FastJets(calofs, FastJets::CDFJETCLU, 0.7), "Jets");
-      const ChargedFinalState trackfs((Cuts::etaIn(-1.2, 1.2) && Cuts::pT >=  0.4*GeV));
+      const ChargedFinalState trackfs(Cuts::abseta < 1.2 && Cuts::pT >= 0.4*GeV);
       declare(trackfs, "TrackFS");
       // Restrict tracks to |eta| < 0.7 for the min bias part.
-      const ChargedFinalState mbfs((Cuts::etaIn(-0.7, 0.7) && Cuts::pT >=  0.4*GeV));
+      const ChargedFinalState mbfs(Cuts::abseta < 0.7 && Cuts::pT >= 0.4*GeV);
       declare(mbfs, "MBFS");
       // Restrict tracks to |eta| < 1 for the Swiss-Cheese part.
-      const ChargedFinalState cheesefs((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  0.4*GeV));
+      const ChargedFinalState cheesefs(Cuts::abseta < 1.0 && Cuts::pT >= 0.4*GeV);
       declare(cheesefs, "CheeseFS");
       declare(FastJets(cheesefs, FastJets::CDFJETCLU, 0.7), "CheeseJets");
 
@@ -325,8 +257,77 @@ namespace Rivet {
 
   private:
 
+
+    /// @name Cone machinery
+    /// @{
+
+    /// @cond CONEUE_DETAIL
+
+    struct ConesInfo {
+      ConesInfo() : numMax(0), numMin(0), ptMax(0), ptMin(0), ptDiff(0) {}
+      unsigned int numMax, numMin;
+      double ptMax, ptMin, ptDiff;
+    };
+
+    /// @endcond
+
+
+    ConesInfo _calcTransCones(const double etaLead, const double phiLead,
+                              const Particles& tracks) {
+      const double phiTransPlus = mapAngle0To2Pi(phiLead + PI/2.0);
+      const double phiTransMinus = mapAngle0To2Pi(phiLead - PI/2.0);
+      MSG_DEBUG("phi_lead = " << phiLead
+               << " -> trans = (" << phiTransPlus
+               << ", " << phiTransMinus << ")");
+
+      unsigned int numPlus(0), numMinus(0);
+      double ptPlus(0), ptMinus(0);
+      // Run over all charged tracks
+      for (const Particle& t : tracks) {
+        FourMomentum trackMom = t.momentum();
+        const double pt = trackMom.pT();
+
+        // Find if track mom is in either transverse cone
+        if (deltaR(trackMom, etaLead, phiTransPlus) < 0.7) {
+          ptPlus += pt;
+          numPlus += 1;
+        } else if (deltaR(trackMom, etaLead, phiTransMinus) < 0.7) {
+          ptMinus += pt;
+          numMinus += 1;
+        }
+      }
+
+      ConesInfo rtn;
+      // Assign N_{min,max} from N_{plus,minus}
+      rtn.numMax = (ptPlus >= ptMinus) ? numPlus : numMinus;
+      rtn.numMin = (ptPlus >= ptMinus) ? numMinus : numPlus;
+      // Assign pT_{min,max} from pT_{plus,minus}
+      rtn.ptMax = (ptPlus >= ptMinus) ? ptPlus : ptMinus;
+      rtn.ptMin = (ptPlus >= ptMinus) ? ptMinus : ptPlus;
+      rtn.ptDiff = fabs(rtn.ptMax - rtn.ptMin);
+
+      MSG_DEBUG("Min cone has " << rtn.numMin << " tracks -> "
+               << "pT_min = " << rtn.ptMin/GeV << " GeV");
+      MSG_DEBUG("Max cone has " << rtn.numMax << " tracks -> "
+               << "pT_max = " << rtn.ptMax/GeV << " GeV");
+
+      return rtn;
+    }
+
+
+    ConesInfo _calcTransCones(const FourMomentum& leadvec,
+                              const Particles& tracks) {
+      const double etaLead = leadvec.eta();
+      const double phiLead = leadvec.phi();
+      return _calcTransCones(etaLead, phiLead, tracks);
+    }
+
+    /// @}
+
+
     /// @name Histogram collections
-    //@{
+    /// @{
+
     /// Profile histograms, binned in the \f$ E_T \f$ of the leading jet, for
     /// the average \f$ p_T \f$ in the toward, transverse and away regions at
     /// \f$ \sqrt{s} = 1800 \text{GeV} \f$.
@@ -372,13 +373,13 @@ namespace Rivet {
     /// Figure 10, and HepData tables 10 & 11.
     Histo1DPtr _numTracksDbn1800MB, _ptDbn1800MB;
     Histo1DPtr _numTracksDbn630MB, _ptDbn630MB;
-    //@}
+
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2004_S5839831);
+  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2004_S5839831, CDF_2004_I647490);
 
 }

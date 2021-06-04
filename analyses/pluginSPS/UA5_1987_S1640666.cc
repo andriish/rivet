@@ -6,15 +6,13 @@
 namespace Rivet {
 
 
+  /// UA5 charged multiplicity measurements at 546 GeV
   class UA5_1987_S1640666 : public Analysis {
   public:
 
     /// Constructor
-    UA5_1987_S1640666()
-      : Analysis("UA5_1987_S1640666")
-    {
+    DEFAULT_RIVET_ANALYSIS_CTOR(UA5_1987_S1640666);
 
-    }
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -54,6 +52,7 @@ namespace Rivet {
 
     }
 
+
   private:
 
     CounterPtr _sumWPassed;
@@ -65,8 +64,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(UA5_1987_S1640666);
-
+  DECLARE_ALIASED_RIVET_PLUGIN(UA5_1987_S1640666, UA5_1987_I244829);
 
 }

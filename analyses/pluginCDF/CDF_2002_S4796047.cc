@@ -8,6 +8,7 @@ namespace Rivet {
 
 
   /// @brief CDF Run I charged multiplicity measurement
+  ///
   /// @author Hendrik Hoeth
   ///
   /// This analysis measures the charged multiplicity distribution
@@ -26,11 +27,7 @@ namespace Rivet {
   class CDF_2002_S4796047 : public Analysis {
   public:
 
-    /// Constructor
-    CDF_2002_S4796047()
-      : Analysis("CDF_2002_S4796047")
-    {
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2002_S4796047);
 
 
     /// @name Analysis methods
@@ -39,7 +36,7 @@ namespace Rivet {
     /// Book projections and histograms
     void init() {
       declare(TriggerCDFRun0Run1(), "Trigger");
-      const ChargedFinalState cfs((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  0.4*GeV));
+      const ChargedFinalState cfs(Cuts::abseta < 1.0 && Cuts::pT >= 0.4*GeV);
       declare(cfs, "FS");
 
       // Histos
@@ -101,10 +98,8 @@ namespace Rivet {
 
   private:
 
-    /// @name Counter
-    //@{
+    /// Counter
     CounterPtr _sumWTrig;
-    //@}
 
     /// @name Histos
     //@{
@@ -116,7 +111,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2002_S4796047);
+  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2002_S4796047, CDF_2002_I567774);
 
 }

@@ -8,12 +8,9 @@ namespace Rivet {
   class ALICE_2011_S8909580 : public Analysis {
   public:
 
-    ALICE_2011_S8909580()
-      : Analysis("ALICE_2011_S8909580")
-    {}
+    DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2011_S8909580);
 
 
-  public:
     void init() {
       const UnstableParticles ufs(Cuts::abseta < 15);
       declare(ufs, "UFS");
@@ -96,7 +93,6 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALICE_2011_S8909580);
+  DECLARE_ALIASED_RIVET_PLUGIN(ALICE_2011_S8909580, ALICE_2011_I881474);
 
 }

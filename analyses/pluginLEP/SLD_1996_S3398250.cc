@@ -17,18 +17,17 @@ namespace Rivet {
 
 
   /// @brief SLD multiplicities at mZ
+  ///
   /// @author Peter Richardson
   class SLD_1996_S3398250 : public Analysis {
   public:
 
     /// Constructor
-    SLD_1996_S3398250()
-      : Analysis("SLD_1996_S3398250")
-    {}
+    DEFAULT_RIVET_ANALYSIS_CTOR(SLD_1996_S3398250);
+
 
     /// @name Analysis methods
-    //@{
-
+    /// @{
 
     void init() {
       // Projections
@@ -115,27 +114,22 @@ namespace Rivet {
       multiplicity_subtract(_h_bottom, _h_light, scatter_b);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
+    /// Histograms
     Scatter2DPtr scatter_c, scatter_b;
-    /// @name Weights
-    //@{
-    CounterPtr _weightLight;
-    CounterPtr _weightCharm;
-    CounterPtr _weightBottom;
-    //@}
+    Histo1DPtr _h_bottom, _h_charm, _h_light;
 
-    Histo1DPtr _h_bottom;
-    Histo1DPtr _h_charm;
-    Histo1DPtr _h_light;
+    /// Weights
+    CounterPtr _weightLight, _weightCharm, _weightBottom;
 
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(SLD_1996_S3398250);
+
+  DECLARE_ALIASED_RIVET_PLUGIN(SLD_1996_S3398250, SLD_1996_I422172);
 
 }

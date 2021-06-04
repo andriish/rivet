@@ -8,7 +8,7 @@ namespace Rivet {
   class ATLAS_2010_S8894728 : public Analysis {
   public:
 
-    ATLAS_2010_S8894728() : Analysis("ATLAS_2010_S8894728") {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2010_S8894728);
 
 
     void init() {
@@ -334,7 +334,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2010_S8894728);
+  DECLARE_ALIASED_RIVET_PLUGIN(ATLAS_2010_S8894728, ATLAS_2010_I879407);
 
 }

@@ -7,22 +7,17 @@ namespace Rivet {
 
 
   /// @brief D0 Run I differential W/Z boson cross-section analysis
+  ///
   /// @author Lars Sonnenschein
   /// @author Andy Buckley
   class D0_2001_S4674421 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
-    /// Constructor.
-    D0_2001_S4674421()
-      : Analysis("D0_2001_S4674421")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(D0_2001_S4674421);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Final state projection
@@ -58,7 +53,6 @@ namespace Rivet {
       book(_h_dsigdpt_z ,1, 1, 2);
       book(_h_dsigdpt_scaled_z, 2, 1, 1);
     }
-
 
 
     void analyze(const Event& event) {
@@ -119,7 +113,6 @@ namespace Rivet {
     }
 
 
-
     void finalize() {
       // Get cross-section per event (i.e. per unit weight) from generator
       const double xSecPerEvent = crossSectionPerEvent()/picobarn;
@@ -161,29 +154,28 @@ namespace Rivet {
       normalize(_h_dsigdpt_z, xSecZ);
     }
 
+    /// @}
 
-    //@}
 
   private:
 
     /// @name Event counters for cross section normalizations
-    //@{
+    /// @{
     CounterPtr _eventsFilledW;
     CounterPtr _eventsFilledZ;
-    //@}
+    /// @}
 
-    //@{
+    /// @{
     /// Histograms
     Histo1DPtr  _h_dsigdpt_w;
     Histo1DPtr  _h_dsigdpt_z;
     Scatter2DPtr _h_dsigdpt_scaled_z;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(D0_2001_S4674421);
+  DECLARE_ALIASED_RIVET_PLUGIN(D0_2001_S4674421, D0_2001_I559624);
 
 }

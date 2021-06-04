@@ -5,12 +5,13 @@
 namespace Rivet {
 
 
+  /// @brief Calo-based underlying event at 900 GeV and 7 TeV in ATLAS
+  ///
   /// @author Jinlong Zhang
   class ATLAS_2011_S8994773 : public Analysis {
   public:
 
-    ATLAS_2011_S8994773()
-      : Analysis("ATLAS_2011_S8994773") {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2011_S8994773);
 
 
     void init() {
@@ -100,10 +101,6 @@ namespace Rivet {
     }
 
 
-    void finalize() {
-    }
-
-
   private:
 
     // Little helper function to identify Delta(phi) regions
@@ -115,7 +112,6 @@ namespace Rivet {
     }
 
 
-  private:
     int isqrts;
 
     Profile1DPtr _hist_N_transverse_500;
@@ -130,7 +126,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_S8994773);
+  DECLARE_ALIASED_RIVET_PLUGIN(ATLAS_2011_S8994773, ATLAS_2011_I891834);
 
 }

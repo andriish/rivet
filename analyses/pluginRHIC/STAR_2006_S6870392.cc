@@ -6,18 +6,15 @@
 namespace Rivet {
 
 
-  /// @brief STAR inclusive jet cross-section in pp at 200 GeV
+  /// STAR inclusive jet cross-section in pp at 200 GeV
   class STAR_2006_S6870392 : public Analysis {
   public:
 
-    /// Constructor
-    STAR_2006_S6870392()
-      : Analysis("STAR_2006_S6870392")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(STAR_2006_S6870392);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book projections and histograms
     void init() {
@@ -57,7 +54,6 @@ namespace Rivet {
     }
 
 
-
     /// Finalize
     void finalize() {
       double normalisation = crossSection()/picobarn/sumOfWeights()/(2*0.6*2*M_PI);
@@ -65,22 +61,21 @@ namespace Rivet {
       scale(_h_jet_pT_HT, normalisation);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_jet_pT_MB;
     Histo1DPtr _h_jet_pT_HT;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(STAR_2006_S6870392);
+  DECLARE_ALIASED_RIVET_PLUGIN(STAR_2006_S6870392, STAR_2006_I723509);
 
 }

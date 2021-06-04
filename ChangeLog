@@ -1,3 +1,7 @@
+2021-06-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Remove raw int baryon counter from STAR_2006_S6860818.
+
 2021-05-31  Christian Gutschow  <chris.g@cern.ch>
 
 	* catch low-stats crash in LHCB_2013_I1208105 reported by Jan Kretzschmar

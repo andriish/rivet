@@ -9,29 +9,19 @@ namespace Rivet {
 
 
   /// @brief D0 differential jet cross sections
+  ///
   /// @author Andy Buckley
   /// @author Gavin Hesketh
   class D0_2008_S7662670 : public Analysis {
-
   public:
 
-    /// @name Constructors etc.
-    //@{
-
-    /// Constructor
-    D0_2008_S7662670()
-      : Analysis("D0_2008_S7662670")
-    {    }
-
-    //@}
+    DEFAULT_RIVET_ANALYSIS_CTOR(D0_2008_S7662670);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
-    void init()
-    {
-
+    void init() {
       // Full final state
       FinalState fs;
       declare(fs, "FS");
@@ -48,7 +38,6 @@ namespace Rivet {
       book(_h_dsigdptdy_y16_20 ,5, 1, 1);
       book(_h_dsigdptdy_y20_24 ,6, 1, 1);
     }
-
 
 
     /// Do the analysis
@@ -98,25 +87,25 @@ namespace Rivet {
       scale(_h_dsigdptdy_y20_24, scalefactor);
     }
 
-    //@}
+    /// @}
+
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_dsigdptdy_y00_04;
     Histo1DPtr _h_dsigdptdy_y04_08;
     Histo1DPtr _h_dsigdptdy_y08_12;
     Histo1DPtr _h_dsigdptdy_y12_16;
     Histo1DPtr _h_dsigdptdy_y16_20;
     Histo1DPtr _h_dsigdptdy_y20_24;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(D0_2008_S7662670);
+  DECLARE_ALIASED_RIVET_PLUGIN(D0_2008_S7662670, D0_2008_I779574);
 
 }

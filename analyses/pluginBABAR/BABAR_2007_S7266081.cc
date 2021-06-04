@@ -1,5 +1,4 @@
 // -*- C++ -*-
-#include <iostream>
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
 
@@ -7,13 +6,12 @@ namespace Rivet {
 
 
   /// @brief BABAR tau lepton to three charged hadrons
+  ///
   /// @author Peter Richardson
   class BABAR_2007_S7266081 : public Analysis {
   public:
 
-    BABAR_2007_S7266081()
-      : Analysis("BABAR_2007_S7266081")
-    {   }
+    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2007_S7266081);
 
 
     void init() {
@@ -39,7 +37,7 @@ namespace Rivet {
       book(tmp11, 11, 1, 1, true);
       book(tmp12, 12, 1, 1, true);
       book(tmp13, 13, 1, 1, true);
-      book(tmp14, 14, 1, 1, true);      
+      book(tmp14, 14, 1, 1, true);
     }
 
 
@@ -126,9 +124,8 @@ namespace Rivet {
 
   private:
 
-    //@{
     Scatter2DPtr tmp11, tmp12, tmp13, tmp14;
- 
+
     // Histograms
     Histo1DPtr _hist_pipipi_pipipi, _hist_pipipi_pipi;
     Histo1DPtr _hist_Kpipi_Kpipi, _hist_Kpipi_Kpi, _hist_Kpipi_pipi;
@@ -138,7 +135,6 @@ namespace Rivet {
     // Weights counters
     CounterPtr _weight_total, _weight_pipipi, _weight_Kpipi, _weight_KpiK, _weight_KKK;
 
-    //@}
 
     void findDecayProducts(const Particle &mother,
                            unsigned int & nstable,
@@ -173,11 +169,9 @@ namespace Rivet {
       }
     }
 
-
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BABAR_2007_S7266081);
+  DECLARE_ALIASED_RIVET_PLUGIN(BABAR_2007_S7266081, BABAR_2007_I756323);
 
 }
