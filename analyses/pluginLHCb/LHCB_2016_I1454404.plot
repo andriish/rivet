@@ -28,7 +28,7 @@ YLabel=$\sigma(Zj)$ [pb]
 # END PLOT
 
 # BEGIN PLOT /LHCB_2016_I1454404/d02-x01-y01
-Title=Ratio of $W^\pmj$ to $Zj$ production
+Title=Ratio of $W^\pm j$ to $Zj$ production
 XLabel=$\sqrt{s}$
 YLabel=$R_{WZ}$
 # END PLOT

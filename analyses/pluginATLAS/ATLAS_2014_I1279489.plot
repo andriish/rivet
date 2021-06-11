@@ -53,7 +53,7 @@ LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1279489/d11-x01-y01
-Title=$\lange N_\text{jet}^\text{gap}\rangle$ vs. $|\Delta y|$ in the baseline region
+Title=$\langle N_\text{jet}^\text{gap}\rangle$ vs. $|\Delta y|$ in the baseline region
 XLabel=$|\Delta y|$
 YLabel=$\langle N_\text{jet}^\text{gap}\rangle$
 LogY=0
@@ -77,7 +77,7 @@ LogY=0
 
 # BEGIN PLOT /ATLAS_2014_I1279489/d22-x01-y01
 Title=$p_\text{T}^\text{balance}$ cut efficiency vs. $m_{jj}$ in the high-$p_\text{T}$ region
-XLabel=$m_{jj}}$ [GeV]
+XLabel=$m_{jj}$ [GeV]
 YLabel=$p_\text{T}^\text{balance}$
 LogY=0
 # END PLOT

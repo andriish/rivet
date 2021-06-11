@@ -1,7 +1,7 @@
 BEGIN PLOT /LENA_1981_I164397/d03-x01-y01
 Title=Average charged particle multiplicity
 XLabel=$\sqrt{s}$ GeV
-YLabel=\langle N_{\text{charged}}\rangle$
+YLabel=$\langle N_{\text{charged}}\rangle$
 LogY=0
 ConnectGaps=1
 XMax=10.2

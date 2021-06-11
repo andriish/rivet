@@ -143,7 +143,7 @@ Title=$y_{23}$ at 189 GeV
 END PLOT
 BEGIN PLOT /OPAL_2000_I513476/d13-x01-y0
 XLabel=$N_{\text{charged}}$
-YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_{\texT{charged}}$ [$\%$]
+YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_{\text{charged}}$ [$\%$]
 END PLOT
 BEGIN PLOT /OPAL_2000_I513476/d13-x01-y01
 Title=Charged Particle Multiplicity at 172 GeV

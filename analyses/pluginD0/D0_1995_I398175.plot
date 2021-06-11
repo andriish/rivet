@@ -16,7 +16,7 @@ Title=Jet shape $\rho$ for $p_\perp \in 105$--140\,GeV, $\eta \in 0.0$--0.2
 # END PLOT
 
 # BEGIN PLOT /D0_1995_I398175/d04-x01-y01
-Title=Jet shape $\rho$ for $p_\perp > 140\,GeV, $\eta \in 0.0$--0.2
+Title=Jet shape $\rho$ for $p_\perp > 140$\,GeV, $\eta \in 0.0$--0.2
 # END PLOT
 
 # BEGIN PLOT /D0_1995_I398175/d05-x01-y01

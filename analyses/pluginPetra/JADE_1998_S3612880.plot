@@ -6,7 +6,7 @@ YLabel=$1/\sigma \text{d}\sigma/\text{d}(1-T)$
 
 # BEGIN PLOT /JADE_1998_S3612880/d03-x01-y01
 Title=Heavy Jet Mass, $\sqrt{s}=44$ GeV
-XLabel=$M_H/\sqrts{s}$
+XLabel=$M_H/ \sqrt{s}$
 YLabel=$1/\sigma \text{d}\sigma/\text{d}(M_H/\sqrt{s})$
 # END PLOT
 
@@ -30,7 +30,7 @@ YLabel=$1/\sigma \text{d}\sigma/\text{d}(1-T)$
 
 # BEGIN PLOT /JADE_1998_S3612880/d07-x01-y01
 Title=Heavy Jet Mass, $\sqrt{s}=35$ GeV
-XLabel=$M_H/\sqrts{s}$
+XLabel=$M_H/ \sqrt{s}$
 YLabel=$1/\sigma \text{d}\sigma/\text{d}(M_H/\sqrt{s})$
 # END PLOT
 

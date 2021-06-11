@@ -54,7 +54,7 @@ LogY=1
 END PLOT
 
 BEGIN PLOT /CMS_2019_I1744604/d23-x01-y01
-Title=CMS, 13\,TeV, $\textrm{t}+\bar{\textrm{t}}, $\textrm{e}/\mu +\mathrm{jets}$
+Title=CMS, 13\,TeV, $\textrm{t}+\bar{\textrm{t}}$, $\textrm{e}/\mu +\mathrm{jets}$
 XLabel=Particle-level $\cos\theta_{\textrm{pol}}^{\star}$
 YLabel=$\textrm{d}\sigma_{\textrm{t+}\bar{\textrm{t}}}/\textrm{d}\cos\theta_{\textrm{pol}}^{\star} ~\textrm{(pb)}$
 YMin=0.0
@@ -123,7 +123,7 @@ LogY=1
 END PLOT
 
 BEGIN PLOT /CMS_2019_I1744604/d47-x01-y01
-Title=CMS, 13\,TeV, $\textrm{t}+\bar{\textrm{t}}, $\textrm{e}/\mu +\mathrm{jets}$
+Title=CMS, 13\,TeV, $\textrm{t}+\bar{\textrm{t}}$, $\textrm{e}/\mu +\mathrm{jets}$
 XLabel=Particle-level $\cos\theta_{\textrm{pol}}^{\star}$
 YLabel=$1/\sigma_{\textrm{t+}\bar{\textrm{t}}}\times\textrm{d}\sigma_{\textrm{t+}\bar{\textrm{t}}}/\textrm{d}\cos\theta_{\textrm{pol}}^{\star}$
 YMin=0.0

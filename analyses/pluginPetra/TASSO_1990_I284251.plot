@@ -26,7 +26,7 @@ END PLOT
 
 BEGIN PLOT /TASSO_1990_I284251/d04-x01-y01
 Title=$K^0,\bar{K}^0$ multiplicity
-XLabel=$\sqrt{s}$ [GeV}
+XLabel=$\sqrt{s}$ [GeV]
 YLabel=$N_{K^0,\bar{K}^0}$
 ConnectGaps=1
 END PLOT
@@ -100,7 +100,7 @@ END PLOT
 
 BEGIN PLOT /TASSO_1990_I284251/d09-x01-y01
 Title=$K^{*\pm}$ multiplicity
-XLabel=$\sqrt{s}$ [GeV}
+XLabel=$\sqrt{s}$ [GeV]
 YLabel=$N_{K^{*\pm}}$
 ConnectGaps=1
 END PLOT

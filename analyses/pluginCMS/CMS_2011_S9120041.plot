@@ -31,15 +31,15 @@ YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_\text{ch}$
 # END PLOT
 
 # BEGIN PLOT /CMS_2011_S9120041/d05-x01-y01
-Title=Transverse charged multiplicity, $p_\perp^\text{jet 1} > \text{3~GeV}, $\sqrt{s} = \text{7000~GeV}$
+Title=Transverse charged multiplicity, $p_\perp^\text{jet 1} > \text{3~GeV}$, $\sqrt{s} = \text{7000~GeV}$
 # END PLOT
 
 # BEGIN PLOT /CMS_2011_S9120041/d08-x01-y01
-Title=Transverse charged multiplicity, $p_\perp^\text{jet 1} > \text{20~GeV}, $\sqrt{s} = \text{7000~GeV}$
+Title=Transverse charged multiplicity, $p_\perp^\text{jet 1} > \text{20~GeV}$, $\sqrt{s} = \text{7000~GeV}$
 # END PLOT
 
 # BEGIN PLOT /CMS_2011_S9120041/d11-x01-y01
-Title=Transverse charged multiplicity, $p_\perp^\text{jet 1} > \text{3~GeV}, $\sqrt{s} = \text{900~GeV}$
+Title=Transverse charged multiplicity, $p_\perp^\text{jet 1} > \text{3~GeV}$, $\sqrt{s} = \text{900~GeV}$
 # END PLOT
 
 
@@ -50,15 +50,15 @@ YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}\sum p_\perp$ [GeV$^{-1}$]
 # END PLOT
 
 # BEGIN PLOT /CMS_2011_S9120041/d06-x01-y01
-Title=Transverse $\sum{p_\perp}$, $p_\perp^\text{jet 1} > \text{3~GeV}, $\sqrt{s} = \text{7000~GeV}$
+Title=Transverse $\sum{p_\perp}$, $p_\perp^\text{jet 1} > \text{3~GeV}$, $\sqrt{s} = \text{7000~GeV}$
 # END PLOT
 
 # BEGIN PLOT /CMS_2011_S9120041/d09-x01-y01
-Title=Transverse $\sum{p_\perp}$, $p_\perp^\text{jet 1} > \text{20~GeV}, $\sqrt{s} = \text{7000~GeV}$
+Title=Transverse $\sum{p_\perp}$, $p_\perp^\text{jet 1} > \text{20~GeV}$, $\sqrt{s} = \text{7000~GeV}$
 # END PLOT
 
 # BEGIN PLOT /CMS_2011_S9120041/d12-x01-y01
-Title=Transverse $\sum{p_\perp}$, $p_\perp^\text{jet 1} > \text{3~GeV}, $\sqrt{s} = \text{900~GeV}$
+Title=Transverse $\sum{p_\perp}$, $p_\perp^\text{jet 1} > \text{3~GeV}$, $\sqrt{s} = \text{900~GeV}$
 # END PLOT
 
 
@@ -69,14 +69,14 @@ YLabel=$1/N_\text{ev} \, \mathrm{d}N_\text{ch} / \mathrm{d}p_\perp$ [GeV$^{-1}$]
 # END PLOT
 
 # BEGIN PLOT /CMS_2011_S9120041/d07-x01-y01
-Title=Transverse $p_\perp$, $p_\perp^\text{jet 1} > \text{3~GeV}, $\sqrt{s} = \text{7000~GeV}$
+Title=Transverse $p_\perp$, $p_\perp^\text{jet 1} > \text{3~GeV}$, $\sqrt{s} = \text{7000~GeV}$
 # END PLOT
 
 # BEGIN PLOT /CMS_2011_S9120041/d10-x01-y01
-Title=Transverse $p_\perp$, $p_\perp^\text{jet 1} > \text{20~GeV}, $\sqrt{s} = \text{7000~GeV}$
+Title=Transverse $p_\perp$, $p_\perp^\text{jet 1} > \text{20~GeV}$, $\sqrt{s} = \text{7000~GeV}$
 # END PLOT
 
 # BEGIN PLOT /CMS_2011_S9120041/d13-x01-y01
-Title=Transverse $p_\perp$, $p_\perp^\text{jet 1} > \text{3~GeV}, $\sqrt{s} = \text{900~GeV}$
+Title=Transverse $p_\perp$, $p_\perp^\text{jet 1} > \text{3~GeV}$, $\sqrt{s} = \text{900~GeV}$
 # END PLOT
 

@@ -1,6 +1,6 @@
 # BEGIN PLOT /MC_HHJETS/H_jet1_dR
 Title=Separation between Higgs boson and leading jet
-XLabel=$\Delta{R}(H, \text{1st jet}})$
+XLabel=$\Delta{R}(H, \text{1st jet})$
 YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(H, \text{1st jet})$ [pb]
 RatioPlotYMin=0.1
 RatioPlotYMax=1.8

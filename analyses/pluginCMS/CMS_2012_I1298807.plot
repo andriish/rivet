@@ -43,7 +43,7 @@ LogY=0
 # BEGIN PLOT /CMS_2012_I1298807/d01-x01-y06
 Title=$\text{CMS, }\sqrt s\text{ = 8 TeV, ZZ }\to 4\mu, 4e, 2e2\mu$
 XLabel=$\Delta R (Z_{1},Z_{2})$
-YLabel=1/$\sigma_{\text{fid}}$ d $\sigma_{\test{fid}}$/d($\Delta R (Z_{1},Z_{2})$)
+YLabel=1/$\sigma_{\text{fid}}$ d $\sigma_{\text{fid}}$/d($\Delta R (Z_{1},Z_{2})$)
 LogY=0
 # + any additional plot settings you might like, see make-plots documentation
 # END PLOT
