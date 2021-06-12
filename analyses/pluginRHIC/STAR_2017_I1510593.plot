@@ -4280,7 +4280,7 @@ END PLOT
 
 BEGIN PLOT /STAR_2017_I1510593/d23-x02-y01
 Title=$K^{-}/K^{+}$ (Au+Au 0-5$\%$ centrality)
-XLabel=$\frac{s_{NN}}$ (GeV)
+XLabel=$\sqrt{s_{NN}}$ (GeV)
 YLabel=$K^{-}/K^{+}$
 LogX=1
 LogY=0

@@ -50,7 +50,7 @@ END PLOT
 BEGIN PLOT /MC_D_Dalitz/h_Kpihigh3
 Title=Higher $K^-\pi^+$ mass distribution in $D^+\to K^-\pi^+\pi^+$
 XLabel=${m^{\rm high}_{K^-\pi^+}}^2$ [$\rm{GeV}^{-2}$]
-YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d}{m^{\rm high}_{K^-\pi^+}}^$ [$\rm{GeV}^{-2}$]
+YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d}{m^{\rm high}_{K^-\pi^+}}^2$ [$\rm{GeV}^{-2}$]
 END PLOT
 BEGIN PLOT /MC_D_Dalitz/h_Kpiall3
 Title=All $K^-\pi^+$ mass distribution in $D^+\to K^-\pi^+\pi^+$

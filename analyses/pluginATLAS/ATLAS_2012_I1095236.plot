@@ -5,7 +5,7 @@ YLabel=Number of Events
 LogY=0
 # END PLOT
 # BEGIN PLOT /ATLAS_2012_I1095236/count_SR0_B1
-Title=Number of events in the SR\0-B1 signal region
+Title=Number of events in the SR0-B1 signal region
 XLabel=
 YLabel=Number of Events
 LogY=0

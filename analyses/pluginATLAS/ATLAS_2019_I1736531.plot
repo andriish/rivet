@@ -2150,7 +2150,7 @@ XLabel=$Z p_{T}$ [GeV]
 
 # BEGIN PLOT /ATLAS_2019_I1736531/d01
 Title=Toward region (inclusive)
-YLabel=$<\sum p_T$/d\eta d\phi>$ [GeV]
+YLabel=$<\sum p_T/d\eta d\phi>$ [GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1736531/d02
@@ -2226,7 +2226,7 @@ YLabel=$<mean p_T/d\eta d\phi>$ [GeV]
 
 # BEGIN PLOT /ATLAS_2019_I1736531/d16-x*
 Title=Toward region (low thrust)
-YLabel=$<\sum p_T$/d\eta d\phi>$ [GeV]
+YLabel=$<\sum p_T/d\eta d\phi>$ [GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1736531/d17-x*
@@ -2301,7 +2301,7 @@ YLabel=$<mean p_T/d\eta d\phi>$ [GeV]
 
 # BEGIN PLOT /ATLAS_2019_I1736531/d31-x*
 Title=Toward region (high thrust)
-YLabel=$<\sum p_T$/d\eta d\phi>$ [GeV]
+YLabel=$<\sum p_T/d\eta d\phi>$ [GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1736531/d32-x*
@@ -2326,7 +2326,7 @@ YLabel=$<\sum p_T/d\eta d\phi>$ [GeV]
 
 # BEGIN PLOT /ATLAS_2019_I1736531/d36-x*
 Title=Toward region (high thrust)
-YLabel=$<N_{ch}/d\etad\phi>$
+YLabel=$<N_{ch}/d\eta d\phi>$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1736531/d37-x*
@@ -2336,7 +2336,7 @@ YLabel=$<N_{ch}/d\eta d\phi>$
 
 # BEGIN PLOT /ATLAS_2019_I1736531/d38-x*
 Title=Transmin region high thrust)
-YLabel=$<N_{ch}/d\etad\phi>$
+YLabel=$<N_{ch}/d\eta d\phi>$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1736531/d39-x*
@@ -2366,7 +2366,7 @@ YLabel=$<mean p_T/d\eta d\phi>$ [GeV]
 
 # BEGIN PLOT /ATLAS_2019_I1736531/d44-x*
 Title=Transmax region (high thrust)
-YLabel=$<mean p_T/d\etad\phi>$ [GeV]
+YLabel=$<mean p_T/d\eta d\phi>$ [GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1736531/d45-x*

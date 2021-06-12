@@ -6,7 +6,7 @@ LegendYPos=0.4
 # BEGIN PLOT /CMS_2017_I1635889/d0[1-3]
 XLabel=$p_\perp(\mu\mu)$ [GeV]
 YLabel=$\langle\mathrm{d}^2 N_\text{chg}/\mathrm{d}\eta\mathrm{d}\phi\rangle$
-Title=CMS, 13 TeV, pp \rightarrow Z + X \rightarrow \mu^{+}\mu^{-} + X
+Title=$CMS, 13 TeV, pp \rightarrow Z + X \rightarrow \mu^{+}\mu^{-} + X$
 # END PLOT
 
 # BEGIN PLOT /CMS_2017_I1635889/d01-x01-y01

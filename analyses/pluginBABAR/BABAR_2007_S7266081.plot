@@ -65,24 +65,24 @@ LogY=0
 # BEGIN PLOT /BABAR_2007_S7266081/d11-x01-y01
 Title=Branching ratio for $\tau^-\to\pi^-\pi^-\pi^+\nu_\tau$ decays
 XLabel=
-YLabel=$\matrhcal{B}(\tau^-\to\pi^-\pi^-\pi^+\nu_\tau)$ [\%]
+YLabel=$\mathcal{B}(\tau^-\to\pi^-\pi^-\pi^+\nu_\tau)$ [\%]
 LogY=0
 # END PLOT
 # BEGIN PLOT /BABAR_2007_S7266081/d12-x01-y01
 Title=Branching ratio for $\tau^-\to K^-\pi^-\pi^+\nu_\tau$ decays
 XLabel=
-YLabel=$\matrhcal{B}(\tau^-\to K^-\pi^-\pi^+\nu_\tau)$ [\%]
+YLabel=$\mathcal{B}(\tau^-\to K^-\pi^-\pi^+\nu_\tau)$ [\%]
 LogY=0
 # END PLOT
 # BEGIN PLOT /BABAR_2007_S7266081/d13-x01-y01
 Title=Branching ratio for $\tau^-\to K^-\pi^-K^+\nu_\tau$ decays
 XLabel=
-YLabel=$\matrhcal{B}(\tau^-\to K^-\pi^-K^+\nu_\tau)$ [\%]
+YLabel=$\mathcal{B}(\tau^-\to K^-\pi^-K^+\nu_\tau)$ [\%]
 LogY=0
 # END PLOT
 # BEGIN PLOT /BABAR_2007_S7266081/d14-x01-y01
 Title=Branching ratio for $\tau^-\to K^-K^-K^+\nu_\tau$ decays
 XLabel=
-YLabel=$\matrhcal{B}(\tau^-\to K^-K^-K^+\nu_\tau)$ [\%]
+YLabel=$\mathcal{B}(\tau^-\to K^-K^-K^+\nu_\tau)$ [\%]
 LogY=0
 # END PLOT

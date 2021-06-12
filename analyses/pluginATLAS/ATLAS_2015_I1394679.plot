@@ -210,8 +210,8 @@ LogX= 0
 
 # BEGIN PLOT /ATLAS_2015_I1394679/d31-x01-y01
 Title=$\Delta y_{2j}^\text{max} > 1, p_\text{T}^{(1)} > 100$ GeV
-XLabel=$\Sum p_\text{T}^\text{central}$ [GeV]
-YLabel=$\text{d}\sigma / \text{d} (\Sum p_\text{T}^\text{central})$ [fb/GeV]
+XLabel=$\sum p_\text{T}^\text{central}$ [GeV]
+YLabel=$\text{d}\sigma / \text{d} (\sum p_\text{T}^\text{central})$ [fb/GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2015_I1394679/d32-x01-y01

@@ -110,7 +110,7 @@ YLabel=$\text{d}^2\sigma / \text{d}|\eta|\text{d}m^{e\mu}$ [fb]
 
 # BEGIN PLOT /ATLAS_2019_I1759875/d18
 LogY=1
-XLabel=Lepton $|\eta|$\times m^{e\mu}$ 
+XLabel=Lepton $|\eta|\times m^{e\mu}$ 
 YLabel=$1 / \sigma \; \text{d}^2\sigma / \text{d}|\eta|\text{d}m^{e\mu}$
 # END PLOT
 
