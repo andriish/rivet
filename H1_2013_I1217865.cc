@@ -9,7 +9,7 @@
 namespace Rivet {
 
 
-  /// Charged particle production in deep-inelastic ep scattering at H1 
+  /// @brief Charged particle production in deep-inelastic ep scattering at H1 
   class H1_2013_I1217865 : public Analysis {
   public:
 
