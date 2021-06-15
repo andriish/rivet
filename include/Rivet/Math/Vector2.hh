@@ -10,6 +10,8 @@ namespace Rivet {
 
   class Vector2;
   typedef Vector2 TwoVector;
+  typedef Vector2 V2;
+
   //class Matrix2;
 
   Vector2 multiply(const double, const Vector2&);
@@ -34,8 +36,8 @@ namespace Rivet {
   public:
     Vector2() : Vector<2>() { }
 
-    template<typename V2>
-    Vector2(const V2& other) {
+    template<typename V2TYPE>
+    Vector2(const V2TYPE& other) {
       this->setX(other.x());
       this->setY(other.y());
     }

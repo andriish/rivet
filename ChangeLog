@@ -10,6 +10,18 @@
 
 	* Improve error message for when the calibration file has been forgotten
 
+2021-05-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Remove numerical epsilon cutoff for pseudorapidity calculation:
+	inf is a perfectly good value for beamline momenta. Regression
+	test updated.
+
+2021-05-13  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add convenience V2, V3, V4, and P4 alias names for the vector types.
+
+	* Add tests for eta and rapidity values calculated in particular for +-z vectors.
+
 2021-05-06  Christian Gutschow  <chris.g@cern.ch>
 
 	* Allowing file.yoda:x1.23 and file.yoda:=1.23 as rivet-merge arguments
