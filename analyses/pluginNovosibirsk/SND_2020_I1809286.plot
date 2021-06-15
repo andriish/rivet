@@ -37,23 +37,23 @@ BEGIN PLOT /SND_2020_I1809286/d04-x01-y01
 Title=$x_1$ distribution for $\sqrt{s}=1.42-1.48$ GeV
 LogY=0
 XLabel=$x_1$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x_1$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x_1$
 END PLOT
 BEGIN PLOT /SND_2020_I1809286/d04-x01-y02
 Title=$x_1$ distribution for $\sqrt{s}=1.65-1.68$ GeV
 LogY=0
 XLabel=$x_1$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x_1$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x_1$
 END PLOT
 BEGIN PLOT /SND_2020_I1809286/d04-x01-y03
 Title=$\pi^+\pi^-$ mass distribution for $\sqrt{s}=1.42-1.48$ GeV
 LogY=0
 XLabel=$m_{\pi^+\pi^-}$ [MeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}m_{\pi^+\pi^-}$ [$\text{MeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}m_{\pi^+\pi^-}$ [$\mathrm{MeV}^{-1}$]
 END PLOT
 BEGIN PLOT /SND_2020_I1809286/d04-x01-y04
 Title=$\pi^+\pi^-$ mass distribution for $\sqrt{s}=1.65-1.68$ GeV
 LogY=0
 XLabel=$m_{\pi^+\pi^-}$ [MeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}m_{\pi^+\pi^-}$ [$\text{MeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}m_{\pi^+\pi^-}$ [$\mathrm{MeV}^{-1}$]
 END PLOT

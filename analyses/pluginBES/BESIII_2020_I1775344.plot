@@ -44,31 +44,31 @@ END PLOT
 BEGIN PLOT /BESIII_2020_I1775344/d07-x01-y01
 Title=$m_{K^+K^-}$ in $e^+e^-\to K^+K^-\pi^0\pi^0$ for $\sqrt{s}=2.125$ GeV
 XLabel=$m_{K^+K^-}$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}m_{K^+K^-}$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}m_{K^+K^-}$ [$\mathrm{GeV}^{-1}$]
 LogY=0
 END PLOT
 BEGIN PLOT /BESIII_2020_I1775344/d07-x01-y02
 Title=$m_{\pi^0\pi^0}$ in $e^+e^-\to K^+K^-\pi^0\pi^0$ for $\sqrt{s}=2.125$ GeV
 XLabel=$m_{\pi^0\pi^0}$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}m_{\pi^0\pi^0}$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}m_{\pi^0\pi^0}$ [$\mathrm{GeV}^{-1}$]
 LogY=0
 END PLOT
 BEGIN PLOT /BESIII_2020_I1775344/d07-x01-y03
 Title=$m_{K^\pm\pi^0}$ in $e^+e^-\to K^+K^-\pi^0\pi^0$ for $\sqrt{s}=2.125$ GeV
 XLabel=$m_{K^\pm\pi^0}$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}m_{K^\pm\pi^0}$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}m_{K^\pm\pi^0}$ [$\mathrm{GeV}^{-1}$]
 LogY=0
 END PLOT
 BEGIN PLOT /BESIII_2020_I1775344/d07-x01-y04
 Title=$m_{K^+K^-\pi^0}$ in $e^+e^-\to K^+K^-\pi^0\pi^0$ for $\sqrt{s}=2.125$ GeV
 XLabel=$m_{K^+K^-\pi^0}$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}m_{K^+K^-\pi^0}$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}m_{K^+K^-\pi^0}$ [$\mathrm{GeV}^{-1}$]
 LogY=0
 END PLOT
 BEGIN PLOT /BESIII_2020_I1775344/d07-x01-y05
 Title=$m_{K^\pm\pi^0\pi^0}$ in $e^+e^-\to K^+K^-\pi^0\pi^0$ for $\sqrt{s}=2.125$ GeV
 XLabel=$m_{K^\pm\pi^0\pi^0}$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}m_{K^\pm\pi^0\pi^0}$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}m_{K^\pm\pi^0\pi^0}$ [$\mathrm{GeV}^{-1}$]
 LogY=0
 END PLOT
 
@@ -76,30 +76,30 @@ END PLOT
 BEGIN PLOT /BESIII_2020_I1775344/d08-x01-y01
 Title=$m_{K^+K^-}$ in $e^+e^-\to K^+K^-\pi^0\pi^0$ for $\sqrt{s}=2.396$ GeV
 XLabel=$m_{K^+K^-}$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}m_{K^+K^-}$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}m_{K^+K^-}$ [$\mathrm{GeV}^{-1}$]
 LogY=0
 END PLOT
 BEGIN PLOT /BESIII_2020_I1775344/d08-x01-y02
 Title=$m_{\pi^0\pi^0}$ in $e^+e^-\to K^+K^-\pi^0\pi^0$ for $\sqrt{s}=2.396$ GeV
 XLabel=$m_{\pi^0\pi^0}$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}m_{\pi^0\pi^0}$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}m_{\pi^0\pi^0}$ [$\mathrm{GeV}^{-1}$]
 LogY=0
 END PLOT
 BEGIN PLOT /BESIII_2020_I1775344/d08-x01-y03
 Title=$m_{K^\pm\pi^0}$ in $e^+e^-\to K^+K^-\pi^0\pi^0$ for $\sqrt{s}=2.396$ GeV
 XLabel=$m_{K^\pm\pi^0}$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}m_{K^\pm\pi^0}$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}m_{K^\pm\pi^0}$ [$\mathrm{GeV}^{-1}$]
 LogY=0
 END PLOT
 BEGIN PLOT /BESIII_2020_I1775344/d08-x01-y04
 Title=$m_{K^+K^-\pi^0}$ in $e^+e^-\to K^+K^-\pi^0\pi^0$ for $\sqrt{s}=2.396$ GeV
 XLabel=$m_{K^+K^-\pi^0}$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}m_{K^+K^-\pi^0}$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}m_{K^+K^-\pi^0}$ [$\mathrm{GeV}^{-1}$]
 LogY=0
 END PLOT
 BEGIN PLOT /BESIII_2020_I1775344/d08-x01-y05
 Title=$m_{K^\pm\pi^0\pi^0}$ in $e^+e^-\to K^+K^-\pi^0\pi^0$ for $\sqrt{s}=2.396$ GeV
 XLabel=$m_{K^\pm\pi^0\pi^0}$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}m_{K^\pm\pi^0\pi^0}$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}m_{K^\pm\pi^0\pi^0}$ [$\mathrm{GeV}^{-1}$]
 LogY=0
 END PLOT

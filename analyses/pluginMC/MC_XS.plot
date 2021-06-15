@@ -1,7 +1,7 @@
 # BEGIN PLOT /MC_XS/XS
 Title=Total generated cross section
 XLabel=
-YLabel=$\sigma_\text{total}$ [pb]
+YLabel=$\sigma_\mathrm{total}$ [pb]
 LogY=0
 ShowZero=0
 XCustomMajorTicks=0.	$\quad$
@@ -24,9 +24,9 @@ LegendYPos=0.15
 
 # BEGIN PLOT /MC_XS/pmXS
 Title=Fraction of positive and negative weighted events
-XLabel=$\text{sgn}(w)$
+XLabel=$\mathrm{sgn}(w)$
 XCustomMajorTicks=-0.5	$w<0$	0.5	$w\geq0$
-YLabel=$\text{d}\sigma/\text{d sgn}(w)$ [pb]
+YLabel=$\mathrm{d}\sigma/\mathrm{d sgn}(w)$ [pb]
 LogY=0
 ShowZero=0
 XMinorTickMarks=0
@@ -37,7 +37,7 @@ LegendXPos=0.05
 
 # BEGIN PLOT /MC_XS/pmN
 Title=Number of positive and negative weighted events
-XLabel=$\text{sgn}(w)$
+XLabel=$\mathrm{sgn}(w)$
 YLabel=$N_\pm$
 LogY=0
 ShowZero=0

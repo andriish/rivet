@@ -15,8 +15,8 @@ LogY=1
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d05-x01-y01
-XLabel=$p_\text{T}^{4l}$ [GeV]
-YLabel=d$\sigma$/d$p_\text{T}^{4l}$ [fb/GeV]
+XLabel=$p_\mathrm{T}^{4l}$ [GeV]
+YLabel=d$\sigma$/d$p_\mathrm{T}^{4l}$ [fb/GeV]
 XMin=1
 LogX=1
 END PLOT
@@ -68,35 +68,35 @@ YLabel=d$\sigma$/d$\phi_1$ [fb]
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d23-x01-y01
-XLabel=$N_\text{jets}$
-YLabel=d$\sigma$/d$N_\text{jets}$ [fb]
+XLabel=$N_\mathrm{jets}$
+YLabel=d$\sigma$/d$N_\mathrm{jets}$ [fb]
 XMinorTickMarks=0
 XCustomMajorTicks=0.0  $=0$  1.0  $=1$  2.0  $=2$  3.0  $\geq3$
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d25-x01-y01
-XLabel=$N_\text{jets}$
-YLabel=d$\sigma$/d$N_\text{jets}$ [fb]
+XLabel=$N_\mathrm{jets}$
+YLabel=d$\sigma$/d$N_\mathrm{jets}$ [fb]
 XMinorTickMarks=0
 XCustomMajorTicks=0.0  $\geq0$  1.0  $\geq1$  2.0  $\geq2$  3.0  $\geq3$
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d26-x01-y01
-YLabel=d$\sigma$/d$N_{b-\text{jets}}$ [fb]
+YLabel=d$\sigma$/d$N_{b-\mathrm{jets}}$ [fb]
 XMinorTickMarks=0
 XCustomMajorTicks=1.0  $N_\text{jets}=0$  2.0  $N_{b-\text{jets}}=0$  3.0  $N_{b-\text{jets}}\geq1$
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d28-x01-y01
-XLabel=leading jet $p_\text{T}$ [GeV]
-YLabel=d$\sigma$/d$p_\text{T}$ [fb/GeV]
+XLabel=leading jet $p_\mathrm{T}$ [GeV]
+YLabel=d$\sigma$/d$p_\mathrm{T}$ [fb/GeV]
 XCustomMajorTicks=15.  $N_\text{jets}=0\qquad\qquad$  30.  30  60.  60  120.  120  350.  350
 LogY=1
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d30-x01-y01
-XLabel=subleading jet $p_\text{T}$ [GeV]
-YLabel=d$\sigma$/d$p_\text{T}$ [fb/GeV]
+XLabel=subleading jet $p_\mathrm{T}$ [GeV]
+YLabel=d$\sigma$/d$p_\mathrm{T}$ [fb/GeV]
 XCustomMajorTicks=15.  $N_\text{jets}\leq1\qquad\qquad$  30.  30  60.  60  120.  120  350.  350
 LogY=1
 END PLOT
@@ -123,15 +123,15 @@ LogY=1
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d38-x01-y01
-XLabel=$p_\text{T}^{4\ell j}$ [GeV]
-YLabel=d$\sigma$/d$p_\text{T}^{4\ell j}$ [fb/GeV]
+XLabel=$p_\mathrm{T}^{4\ell j}$ [GeV]
+YLabel=d$\sigma$/d$p_\mathrm{T}^{4\ell j}$ [fb/GeV]
 XCustomMajorTicks=-30.  $N_\text{jets}=0\qquad\qquad$  0.  0  60.  60  120  120  350  350
 LogY=1
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d40-x01-y01
-XLabel=$p_\text{T}^{4\ell jj}$ [GeV]
-YLabel=d$\sigma$/d$p_\text{T}^{4\ell jj}$ [fb/GeV]
+XLabel=$p_\mathrm{T}^{4\ell jj}$ [GeV]
+YLabel=d$\sigma$/d$p_\mathrm{T}^{4\ell jj}$ [fb/GeV]
 XCustomMajorTicks=-30.  $N_\text{jets}\leq1\qquad\qquad$  0.  0  60.  60  120  120  350  350
 LogY=1
 END PLOT
@@ -180,91 +180,91 @@ END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d51-x01-y01
 Title=$0.0<|y_{4\ell}|<0.5$
-XLabel=$p_\text{T}^{4\ell}$
+XLabel=$p_\mathrm{T}^{4\ell}$
 YLabel=d$\sigma$/d$p_{T}^{4\ell}$ [fb]
 LogY=1
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d51-x01-y03
 Title=$0.5<|y_{4\ell}|<1.0$
-XLabel=$p_\text{T}^{4\ell}$
+XLabel=$p_\mathrm{T}^{4\ell}$
 YLabel=d$\sigma$/d$p_{T}^{4\ell}$ [fb]
 LogY=1
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d51-x01-y05
 Title=$1.0<|y_{4\ell}|<1.5$
-XLabel=$p_\text{T}^{4\ell}$
+XLabel=$p_\mathrm{T}^{4\ell}$
 YLabel=d$\sigma$/d$p_{T}^{4\ell}$ [fb]
 LogY=1
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d51-x01-y07
 Title=$1.5<|y_{4\ell}|<2.5$
-XLabel=$p_\text{T}^{4\ell}$
+XLabel=$p_\mathrm{T}^{4\ell}$
 YLabel=d$\sigma$/d$p_{T}^{4\ell}$ [fb]
 LogY=1
 RatioPlotYMax=1.9
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d53-x01-y01
-Title=$N_\text{jets}=0$
-XLabel=$p_\text{T}^{4\ell}$
+Title=$N_\mathrm{jets}=0$
+XLabel=$p_\mathrm{T}^{4\ell}$
 YLabel=d$\sigma$/d$p_{T}^{4\ell}$ [fb]
 LogY=1
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d53-x01-y03
-Title=$N_\text{jets}=1$
-XLabel=$p_\text{T}^{4\ell}$
+Title=$N_\mathrm{jets}=1$
+XLabel=$p_\mathrm{T}^{4\ell}$
 YLabel=d$\sigma$/d$p_{T}^{4\ell}$ [fb]
 LogY=1
 RatioPlotYMax=1.9
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d53-x01-y05
-Title=$N_\text{jets}=2$
-XLabel=$p_\text{T}^{4\ell}$
+Title=$N_\mathrm{jets}=2$
+XLabel=$p_\mathrm{T}^{4\ell}$
 YLabel=d$\sigma$/d$p_{T}^{4\ell}$ [fb]
 LogY=1
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d53-x01-y07
-Title=$N_\text{jets}\geq 3$
-XLabel=$p_\text{T}^{4\ell}$
+Title=$N_\mathrm{jets}\geq 3$
+XLabel=$p_\mathrm{T}^{4\ell}$
 YLabel=d$\sigma$/d$p_{T}^{4\ell}$ [fb]
 LogY=1
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d55-x01-y01
-XLabel=$p_\text{T}^{4\ell}$ vs $p_\text{T}^{4\ell j}$
-YLabel=d$^2\sigma$/d$p_\text{T}^{4\ell}$d$p_\text{T}^{4\ell j}$ [fb]
+XLabel=$p_\mathrm{T}^{4\ell}$ vs $p_\mathrm{T}^{4\ell j}$
+YLabel=d$^2\sigma$/d$p_\mathrm{T}^{4\ell}$d$p_\mathrm{T}^{4\ell j}$ [fb]
 XMinorTickMarks=0
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d57-x01-y01
-XLabel=$p_\text{T}^{4\ell}$ vs $m_{4\ell j}$
-YLabel=d$^2\sigma$/d$p_\text{T}^{4\ell}$d$m_{4\ell j}$ [fb]
+XLabel=$p_\mathrm{T}^{4\ell}$ vs $m_{4\ell j}$
+YLabel=d$^2\sigma$/d$p_\mathrm{T}^{4\ell}$d$m_{4\ell j}$ [fb]
 XMinorTickMarks=0
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d59-x01-y01
-XLabel=$p_\text{T}^{4\ell}$ vs $p_\text{T}^\text{jet1}$
-YLabel=d$^2\sigma$/d$p_\text{T}^{4\ell}$d$p_\text{T}^\text{jet1}$ [fb]
+XLabel=$p_\mathrm{T}^{4\ell}$ vs $p_\mathrm{T}^\mathrm{jet1}$
+YLabel=d$^2\sigma$/d$p_\mathrm{T}^{4\ell}$d$p_\mathrm{T}^\mathrm{jet1}$ [fb]
 XMinorTickMarks=0
 RatioPlotYMin=0.3
 RatioPlotYMax=1.7
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d61-x01-y01
-XLabel=$p_\text{T}^{\text{jet1}}$ vs $|y^\text{jet1}|$
-YLabel=d$^2\sigma$/d$p_\text{T}^{\text{jet1}}$d$|y^\text{jet1}|$ [fb]
+XLabel=$p_\mathrm{T}^{\mathrm{jet1}}$ vs $|y^\mathrm{jet1}|$
+YLabel=d$^2\sigma$/d$p_\mathrm{T}^{\mathrm{jet1}}$d$|y^\mathrm{jet1}|$ [fb]
 XMinorTickMarks=0
 END PLOT
 
 BEGIN PLOT /ATLAS_2020_I1790439/d63-x01-y01
-XLabel=$p_\text{T}^{\text{jet1}}$ vs $p_\text{T}^\text{jet2}$
-YLabel=d$^2sigma$/d$p_\text{T}^{\text{jet1}}$d$p_\text{T}^\text{jet2}$ [fb]
+XLabel=$p_\mathrm{T}^{\mathrm{jet1}}$ vs $p_\mathrm{T}^\mathrm{jet2}$
+YLabel=d$^2sigma$/d$p_\mathrm{T}^{\mathrm{jet1}}$d$p_\mathrm{T}^\mathrm{jet2}$ [fb]
 XMinorTickMarks=0
 END PLOT
 
