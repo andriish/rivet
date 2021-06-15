@@ -45,8 +45,29 @@ int main() {
   b.setPy(2).setPz(3).setE(6);
   cout << b << ": mass = " << b.mass2() << endl;
   assert(fuzzyEquals(b.mass2(), 23));
-  cout << b << ": vector = " << b.vector3() << endl << endl;
+  cout << b << ": vector = " << b.vector3() << endl;
+  cout << endl;
 
+  // Test "extreme" vectors
+  P4 vnull(0,0,0,0);
+  P4 vzplus(1,0,0,1);
+  P4 vzminus(1,0,0,-1);
+  P4 v45(1.0001,0,1/sqrt(2),1/sqrt(2));
+  cout << "Vnull eta, rap = " << vnull.eta() << ", " << vnull.rap() << endl;
+  cout << "Vzplus eta, rap = " << vzplus.eta() << ", " << vzplus.rap() << endl;
+  cout << "Vzminus eta, rap = " << vzminus.eta() << ", " << vzminus.rap() << endl;
+  cout << "V45 eta, rap = " << v45.eta() << ", " << v45.rap() << endl;
+  assert(vnull.eta() == 0);
+  assert(std::isnan(vnull.rap()));
+  assert(std::isinf(vzplus.eta()));
+  assert(std::isinf(vzplus.rap()));
+  assert(std::isinf(vzminus.eta()));
+  assert(std::isinf(vzminus.rap()));
+  assert(fuzzyEquals(v45.eta(), 0.881, 1e-2));
+  assert(fuzzyEquals(v45.rap(), 0.881, 1e-2));
+  cout << endl;
+
+  cout << "Matrices:" << endl;
   Matrix3 m;
   m.set(0, 0, 7/4.0);
   m.set(0, 1, 3 * sqrt(3)/4.0);
@@ -56,7 +77,6 @@ int main() {
   cout << m << endl << endl;
   // EigenSystem<3> es = diagonalize(m);
 
-  cout << "Matrices:" << endl;
   cout << Matrix3() << endl;
   cout << Matrix3::mkIdentity() << endl;
   const Matrix3 I3 = Matrix3::mkIdentity();
