@@ -1,5 +1,7 @@
 2021-06-01  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Fix dressed-lepton origin position for the standard, non-jet-clustering mode.
+
 	* Remove raw int baryon counter from STAR_2006_S6860818.
 
 2021-05-31  Christian Gutschow  <chris.g@cern.ch>
