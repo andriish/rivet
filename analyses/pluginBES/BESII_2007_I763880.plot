@@ -35,27 +35,27 @@ XMax=3.8
 END PLOT
 
 BEGIN PLOT /BESII_2007_I763880/d01-x01-y05
-Title=$\sigma(e^+e^-\to K^+K^-\rho^+\pi^-+\text{c.c.})$
+Title=$\sigma(e^+e^-\to K^+K^-\rho^+\pi^-+\mathrm{c.c.})$
 XLabel=$\sqrt{s}$/GeV
-YLabel=$\sigma(e^+e^-\to K^+K^-\rho^+\pi^-+\text{c.c.})$/pb
+YLabel=$\sigma(e^+e^-\to K^+K^-\rho^+\pi^-+\mathrm{c.c.})$/pb
 ConnectGaps=1
 XMin=3.6
 XMax=3.8
 END PLOT
 
 BEGIN PLOT /BESII_2007_I763880/d01-x01-y06
-Title=$\sigma(e^+e^-\to K^{*0}K^-\pi^+\pi^0+\text{c.c.})$
+Title=$\sigma(e^+e^-\to K^{*0}K^-\pi^+\pi^0+\mathrm{c.c.})$
 XLabel=$\sqrt{s}$/GeV
-YLabel=$\sigma(e^+e^-\to K^{*0}K^-\pi^+\pi^0+\text{c.c.})$/pb
+YLabel=$\sigma(e^+e^-\to K^{*0}K^-\pi^+\pi^0+\mathrm{c.c.})$/pb
 ConnectGaps=1
 XMin=3.6
 XMax=3.8
 END PLOT
 
 BEGIN PLOT /BESII_2007_I763880/d01-x01-y07
-Title=$\sigma(e^+e^-\to K^{*+}K^-\pi^+\pi^-+\text{c.c.})$
+Title=$\sigma(e^+e^-\to K^{*+}K^-\pi^+\pi^-+\mathrm{c.c.})$
 XLabel=$\sqrt{s}$/GeV
-YLabel=$\sigma(e^+e^-\to K^{*+}K^-\pi^+\pi^-+\text{c.c.})$/pb
+YLabel=$\sigma(e^+e^-\to K^{*+}K^-\pi^+\pi^-+\mathrm{c.c.})$/pb
 ConnectGaps=1
 XMin=3.6
 XMax=3.8

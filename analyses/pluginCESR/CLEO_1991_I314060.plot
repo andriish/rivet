@@ -21,7 +21,7 @@ END PLOT
 
 BEGIN PLOT /CLEO_1991_I314060/d02
 XLabel=$\cos\theta_H$
-YLabel=$1/N\text{d}N\text{d}\cos\theta_H$
+YLabel=$1/N\mathrm{d}N\mathrm{d}\cos\theta_H$
 END PLOT
 BEGIN PLOT /CLEO_1991_I314060/d02-x01-y01
 Title=$\cos\theta_H$ for $0.25<x^+<0.45$

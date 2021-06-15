@@ -1,6 +1,6 @@
 BEGIN PLOT /BELLE_2019_I1718551/
 XLabel=$p_\perp$ [GeV]
-YLabel=$\text{d}\sigma/\text{d}p_\perp/\text{d}x_E$ [$\text{fb}/\text{GeV}$]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp/\mathrm{d}x_E$ [$\mathrm{fb}/\mathrm{GeV}$]
 END PLOT
 
 BEGIN PLOT /BELLE_2019_I1718551/d01-x01-y01

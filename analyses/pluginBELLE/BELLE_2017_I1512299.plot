@@ -33,8 +33,8 @@ YMax=1e-14
 
 # BEGIN PLOT /BELLE_2017_I1512299/d05-x01-y01
 Title=Correlations
-XLabel=$\text{Bin}~i$
-YLabel=$\text{Bin}~j$
+XLabel=$\mathrm{Bin}~i$
+YLabel=$\mathrm{Bin}~j$
 ZLabel=$\rho_{ij}$
 LogY=0
 LogZ=0

@@ -5,37 +5,37 @@ END PLOT
 BEGIN PLOT /CMS_2017_I1608166/d01-x01-y01
 Title=CMS, 13 TeV, MB, $\pi^{+}$
 XLabel=$p_{T}$ [GeV]
-YLabel=$(1/N_\text{events})\; d^{2}N\,/dy\, dp_{T}$
+YLabel=$(1/N_\mathrm{events})\; d^{2}N\,/dy\, dp_{T}$
 END PLOT
 
 BEGIN PLOT /CMS_2017_I1608166/d01-x01-y02
 Title=CMS, 13 TeV, MB, $K^{+}$
 XLabel=$p_{T}$ [GeV]
-YLabel=$(1/N_\text{events})\; d^{2}N\,/dy\, dp_{T}$
+YLabel=$(1/N_\mathrm{events})\; d^{2}N\,/dy\, dp_{T}$
 END PLOT
 
 BEGIN PLOT /CMS_2017_I1608166/d01-x01-y03
 Title=CMS, 13 TeV, MB, $p$
 XLabel=$p_{T}$ [GeV]
-YLabel=$(1/N_\text{events})\; d^{2}N\,/dy\, dp_{T}$
+YLabel=$(1/N_\mathrm{events})\; d^{2}N\,/dy\, dp_{T}$
 END PLOT
 
 BEGIN PLOT /CMS_2017_I1608166/d02-x01-y01
 Title=CMS, 13 TeV, MB, $\pi^{-}$
 XLabel=$p_{T}$ [GeV]
-YLabel=$(1/N_\text{events})\; d^{2}N\,/dy\, dp_{T}$
+YLabel=$(1/N_\mathrm{events})\; d^{2}N\,/dy\, dp_{T}$
 END PLOT
 
 BEGIN PLOT /CMS_2017_I1608166/d02-x01-y02
 Title=CMS, 13 TeV, MB, $K^{-}$
 XLabel=$p_{T}$ [GeV]
-YLabel=$(1/N_\text{events})\; d^{2}N\,/dy\, dp_{T}$
+YLabel=$(1/N_\mathrm{events})\; d^{2}N\,/dy\, dp_{T}$
 END PLOT
 
 BEGIN PLOT /CMS_2017_I1608166/d02-x01-y03
 Title=CMS, 13 TeV, MB, $\bar{p}$
 XLabel=$p_{T}$ [GeV]
-YLabel=$(1/N_\text{events})\; d^{2}N\,/dy\, dp_{T}$
+YLabel=$(1/N_\mathrm{events})\; d^{2}N\,/dy\, dp_{T}$
 END PLOT
 
 BEGIN PLOT /CMS_2017_I1608166/d100-x01-y01

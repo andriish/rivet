@@ -126,7 +126,7 @@ PlotSize=10.7,7.2
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d20-x01-y01
-Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$: $\ge$3 additional jets
+Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$: $\geq$3 additional jets
 XLabel=$M(\mathrm{t}\bar{\mathrm{t}})$ [GeV]
 YLabel=$\frac{{d}\sigma}{{d}M(\mathrm{t}\bar{\mathrm{t}})}$ [pb GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
@@ -170,7 +170,7 @@ PlotSize=10.7,7.2
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d25-x01-y01
-Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$: $\ge$3 additional jets
+Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$: $\geq$3 additional jets
 XLabel=$p_\mathrm{T}(\mathrm{t}_\mathrm{h})$ [GeV]
 YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{t}_\mathrm{h})}$ [pb GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
@@ -214,7 +214,7 @@ PlotSize=10.7,7.2
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d30-x01-y01
-Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$: $\ge$3 additional jets
+Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$: $\geq$3 additional jets
 XLabel=$p_\mathrm{T}(\mathrm{t}\bar{\mathrm{t}})$ [GeV]
 YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{t}\bar{\mathrm{t}})}$ [pb GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
@@ -859,7 +859,7 @@ PlotSize=10.7,7.2
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d102-x01-y01
-Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$: $\ge$3 additional jets
+Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$: $\geq$3 additional jets
 XLabel=$M(\mathrm{t}\bar{\mathrm{t}})$ [GeV]
 YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}M(\mathrm{t}\bar{\mathrm{t}})}$ [GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
@@ -903,7 +903,7 @@ PlotSize=10.7,7.2
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d107-x01-y01
-Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$: $\ge$3 additional jets
+Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$: $\geq$3 additional jets
 XLabel=$p_\mathrm{T}(\mathrm{t}_\mathrm{h})$ [GeV]
 YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{t}_\mathrm{h})}$ [GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
@@ -947,7 +947,7 @@ PlotSize=10.7,7.2
 #END PLOT
 
 # BEGIN PLOT /CMS_2018_I1663958/d112-x01-y01
-Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$: $\ge$3 additional jets
+Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$: $\geq$3 additional jets
 XLabel=$p_\mathrm{T}(\mathrm{t}\bar{\mathrm{t}})$ [GeV]
 YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{t}\bar{\mathrm{t}})}$ [GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$

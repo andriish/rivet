@@ -1,6 +1,6 @@
 BEGIN PLOT /BABAR_2006_I719111
 XLabel=$P^*$ [GeV]
-YLabel=$\text{d}B/\text{d}p^*$ [$\%/GeV$]
+YLabel=$\mathrm{d}B/\mathrm{d}p^*$ [$\%/GeV$]
 END PLOT
 
 BEGIN PLOT /BABAR_2006_I719111/d01-x01-y01

@@ -1,89 +1,89 @@
 # BEGIN PLOT /SLD_2004_S5693039/d01-x01-y01
 Title=Charged Particle Momentum
 XLabel=$p$ [GeV]
-YLabel=$\text{d}N/\text{d}p$ [$\text{GeV}^{-1}$]
+YLabel=$\mathrm{d}N/\mathrm{d}p$ [$\mathrm{GeV}^{-1}$]
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d02-x01-y02
 Title=$\pi^\pm$ scaled Momentum
 XLabel=$x_p$
-YLabel=$\text{d}N/\text{d}x_p$
+YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d03-x01-y02
 Title=$K^\pm$ scaled Momentum
 XLabel=$x_p$
-YLabel=$\text{d}N/\text{d}x_p$
+YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d04-x01-y02
 Title=$p,\bar p$ scaled Momentum
 XLabel=$x_p$
-YLabel=$\text{d}N/\text{d}x_p$
+YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 # END PLOT
 
 # BEGIN PLOT /SLD_2004_S5693039/d05-x01-y01
 Title=$\pi^\pm$ scaled Momentum, ($uds$) events
 XLabel=$x_p$
-YLabel=$\text{d}N/\text{d}x_p$
+YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d05-x01-y02
 Title=$\pi^\pm$ scaled Momentum, $c$ events
 XLabel=$x_p$
-YLabel=$\text{d}N/\text{d}x_p$
+YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d05-x01-y03
 Title=$\pi^\pm$ scaled Momentum, $b$ events
 XLabel=$x_p$
-YLabel=$\text{d}N/\text{d}x_p$
+YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d06-x01-y01
 Title=$K^\pm$ scaled Momentum, ($uds$) events
 XLabel=$x_p$
-YLabel=$\text{d}N/\text{d}x_p$
+YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d06-x01-y02
 Title=$K^\pm$ scaled Momentum, $c$ events
 XLabel=$x_p$
-YLabel=$\text{d}N/\text{d}x_p$
+YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d06-x01-y03
 Title=$K^\pm$ scaled Momentum, $b$ events
 XLabel=$x_p$
-YLabel=$\text{d}N/\text{d}x_p$
+YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d07-x01-y01
 Title=$p,\bar p$ scaled Momentum, ($uds$) events
 XLabel=$x_p$
-YLabel=$\text{d}N/\text{d}x_p$
+YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d07-x01-y02
 Title=$p,\bar p$ scaled Momentum, $c$ events
 XLabel=$x_p$
-YLabel=$\text{d}N/\text{d}x_p$
+YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d07-x01-y03
 Title=$p,\bar p$ scaled Momentum, $b$ events
 XLabel=$x_p$
-YLabel=$\text{d}N/\text{d}x_p$
+YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d08-x01-y01
 Title=Charged particle scaled Momentum, ($uds$) events
 XLabel=$x_p$
-YLabel=$\text{d}N/\text{d}x_p$
+YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d08-x01-y02
 Title=Charged particle scaled Momentum, $c$ events
 XLabel=$x_p$
-YLabel=$\text{d}N/\text{d}x_p$
+YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d08-x01-y03
 Title=Charged particle scaled Momentum, $b$ events
 XLabel=$x_p$
-YLabel=$\text{d}N/\text{d}x_p$
+YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 # END PLOT
 
 # BEGIN PLOT /SLD_2004_S5693039/d02-x02-y02
 Title=$\pi^\pm$ multiplicity
 XLabel=$x_p$
-YLabel=$\text{d}N/\text{d}x_p$
+YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 LegendXPos=0.60
 LegendYPos=0.5
 FullRange=1
@@ -92,7 +92,7 @@ LogY=0
 # BEGIN PLOT /SLD_2004_S5693039/d03-x02-y02
 Title=$K^\pm$  multiplicity
 XLabel=$x_p$
-YLabel=$\text{d}N/\text{d}x_p$
+YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 LegendXPos=0.60
 LegendYPos=0.5
 FullRange=1
@@ -101,7 +101,7 @@ LogY=0
 # BEGIN PLOT /SLD_2004_S5693039/d04-x02-y02
 Title=$p,\bar p$ multiplicity
 XLabel=$x_p$
-YLabel=$\text{d}N/\text{d}x_p$
+YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 LegendXPos=0.60
 LegendYPos=0.5
 FullRange=1
@@ -193,7 +193,7 @@ LogY=0
 # BEGIN PLOT /SLD_2004_S5693039/d08-x02-y01
 Title=Charged particle multiplicity, ($uds$) events
 XLabel=
-YLabel=$N_{\text{charged}}$
+YLabel=$N_{\mathrm{charged}}$
 LegendXPos=0.60
 LegendYPos=0.5
 FullRange=1
@@ -202,7 +202,7 @@ LogY=0
 # BEGIN PLOT /SLD_2004_S5693039/d08-x02-y02
 Title=Charged particle multiplicity, $c$ events
 XLabel=
-YLabel=$N_{\text{charged}}$
+YLabel=$N_{\mathrm{charged}}$
 LegendXPos=0.60
 LegendYPos=0.5
 FullRange=1
@@ -211,7 +211,7 @@ LogY=0
 # BEGIN PLOT /SLD_2004_S5693039/d08-x02-y03
 Title=Charged particle multiplicity, $b$ events
 XLabel=
-YLabel=$N_{\text{charged}}$
+YLabel=$N_{\mathrm{charged}}$
 LegendXPos=0.60
 LegendYPos=0.5
 FullRange=1
@@ -238,7 +238,7 @@ LogY=0
 # END PLOT
 
 # BEGIN PLOT /SLD_2004_S5693039/d09-x01-y01
-Title=$R^q_{\pi^+}=\frac1{2N_{\rm events}}\frac{\text{d}}{\text{d}x_p}\left[N(q\to\pi^+)+N(\bar q\to\pi^-)\right]$
+Title=$R^q_{\pi^+}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to\pi^+)+N(\bar q\to\pi^-)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{\pi^+}$
 LegendXPos=0.60
@@ -247,7 +247,7 @@ FullRange=1
 LogY=1
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d09-x01-y02
-Title=$R^q_{\pi^-}=\frac1{2N_{\rm events}}\frac{\text{d}}{\text{d}x_p}\left[N(q\to\pi^-)+N(\bar q\to\pi^+)\right]$
+Title=$R^q_{\pi^-}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to\pi^-)+N(\bar q\to\pi^+)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{\pi^-}$
 LegendXPos=0.60
@@ -265,7 +265,7 @@ FullRange=1
 LogY=0
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d10-x01-y01
-Title=$R^q_{K^+}=\frac1{2N_{\rm events}}\frac{\text{d}}{\text{d}x_p}\left[N(q\to K^+)+N(\bar q\to K^-)\right]$
+Title=$R^q_{K^+}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to K^+)+N(\bar q\to K^-)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{K^+}$
 LegendXPos=0.60
@@ -274,7 +274,7 @@ FullRange=1
 LogY=1
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d10-x01-y02
-Title=$R^q_{K^-}=\frac1{2N_{\rm events}}\frac{\text{d}}{\text{d}x_p}\left[N(q\to K^-)+N(\bar q\to K^+)\right]$
+Title=$R^q_{K^-}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to K^-)+N(\bar q\to K^+)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{K^-}$
 LegendXPos=0.60
@@ -292,7 +292,7 @@ FullRange=1
 LogY=0
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d11-x01-y01
-Title=$R^q_{p}=\frac1{2N_{\rm events}}\frac{\text{d}}{\text{d}x_p}\left[N(q\to p)+N(\bar q\to \bar p)\right]$
+Title=$R^q_{p}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to p)+N(\bar q\to \bar p)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{p}$
 LegendXPos=0.60
@@ -301,7 +301,7 @@ FullRange=1
 LogY=1
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d11-x01-y02
-Title=$R^q_{\bar p}=\frac1{2N_{\rm events}}\frac{\text{d}}{\text{d}x_p}\left[N(q\to \bar p)+N(\bar q\to p)\right]$
+Title=$R^q_{\bar p}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to \bar p)+N(\bar q\to p)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{\bar p}$
 LegendXPos=0.60

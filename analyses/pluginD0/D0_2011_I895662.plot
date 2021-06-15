@@ -1,6 +1,6 @@
 # BEGIN PLOT /D0_2011_I895662/d.*
-XLabel=$m_\text{3jet}$ [GeV]
-YLabel=$d\sigma_\text{3jet} / dm_\text{3jet}$ [pb/GeV]
+XLabel=$m_\mathrm{3jet}$ [GeV]
+YLabel=$d\sigma_\mathrm{3jet} / dm_\mathrm{3jet}$ [pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /D0_2011_I895662/d01-x01-y01

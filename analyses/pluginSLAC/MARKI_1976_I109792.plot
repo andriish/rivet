@@ -1,6 +1,6 @@
 BEGIN PLOT /MARKI_1976_I109792/
 XLabel=$x_p$
-YLabel=$s/\sigma\text{d}\sigma/\text{d}x_p$ [$\mu\text{b}\text{GeV}^2$]
+YLabel=$s/\sigma\mathrm{d}\sigma/\mathrm{d}x_p$ [$\mu\mathrm{b}\mathrm{GeV}^2$]
 END PLOT
 BEGIN PLOT /MARKI_1976_I109792/d02-x01-y01
 Title=Charged Particle Momentum at 3.0 GeV

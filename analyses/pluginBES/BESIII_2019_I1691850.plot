@@ -11,7 +11,7 @@ BEGIN PLOT /BESIII_2019_I1691850/cThetaL
 Title=Cross section vs polar angle
 LogY=0
 XLabel=$\cos\theta_\Lambda$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}\cos\theta_L$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}\cos\theta_L$
 END PLOT
 
 BEGIN PLOT /BESIII_2019_I1691850/T1_p

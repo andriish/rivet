@@ -26,8 +26,8 @@ LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_IDENTIFIED/Mults.*PIDs
-XLabel=$|\text{PID}|$
-YLabel=$\langle N_\text{PID} \rangle$
+XLabel=$|\mathrm{PID}|$
+YLabel=$\langle N_\mathrm{PID} \rangle$
 LogY=1
 # END PLOT
 

@@ -64,9 +64,9 @@ XMin=3.6
 XMax=3.8
 END PLOT
 BEGIN PLOT /BESII_2007_I762901/d01-x01-y10
-Title=$\sigma(e^+e^-\to K^{*0}K^-\pi^++\text{c.c.})$
+Title=$\sigma(e^+e^-\to K^{*0}K^-\pi^++\mathrm{c.c.})$
 XLabel=$\sqrt{s}$/GeV
-YLabel=$\sigma(e^+e^-\to K^{*0}K^-\pi^++\text{c.c.})$/pb
+YLabel=$\sigma(e^+e^-\to K^{*0}K^-\pi^++\mathrm{c.c.})$/pb
 ConnectGaps=1
 XMin=3.6
 XMax=3.8

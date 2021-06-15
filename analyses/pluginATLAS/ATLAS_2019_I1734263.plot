@@ -7,7 +7,7 @@ LegendXPos=0.95
 
 # BEGIN PLOT /ATLAS_2019_I1734263/d01-x01-y01
 Title=$pp \rightarrow e^{\pm}\mu^{\mp}\nu\nu$
-XLabel=veto-jet $p_\text{T}$ [GeV]
+XLabel=veto-jet $p_\mathrm{T}$ [GeV]
 YLabel=$\sigma$ [fb]
 LogY=0
 LeftMargin=1.5
@@ -18,8 +18,8 @@ RatioPlotYMin=0.83
 
 # BEGIN PLOT /ATLAS_2019_I1734263/d04-x01-y01
 Title=$pp \rightarrow e^{\pm}\mu^{\mp}\nu\nu$
-XLabel=leading $p_\text{T}^\ell$ [GeV]
-YLabel=$\text{d}\sigma/\text{d} p_\text{T}^\ell$ [fb/GeV]
+XLabel=leading $p_\mathrm{T}^\ell$ [GeV]
+YLabel=$\mathrm{d}\sigma/\mathrm{d} p_\mathrm{T}^\ell$ [fb/GeV]
 LogY=1
 LogX=1
 LeftMargin=1.5
@@ -27,8 +27,8 @@ LeftMargin=1.5
 
 # BEGIN PLOT /ATLAS_2019_I1734263/d22-x01-y01
 Title=$pp \rightarrow e^{\pm}\mu^{\mp}\nu\nu$
-XLabel=leading $p_\text{T}^\ell$ [GeV]
-YLabel=$1 / \sigma \; \text{d}\sigma/\text{d} p_\text{T}^\ell$ [1/GeV]
+XLabel=leading $p_\mathrm{T}^\ell$ [GeV]
+YLabel=$1 / \sigma \; \mathrm{d}\sigma/\mathrm{d} p_\mathrm{T}^\ell$ [1/GeV]
 LogY=1
 LogX=1
 LeftMargin=1.5
@@ -37,7 +37,7 @@ LeftMargin=1.5
 # BEGIN PLOT /ATLAS_2019_I1734263/d07-x01-y01
 Title=$pp \rightarrow e^{\pm}\mu^{\mp}\nu\nu$
 XLabel=$m^{\ell\ell}$ [GeV]
-YLabel=$\text{d}\sigma / \text{d}m^{\ell\ell}$ [fb/GeV]
+YLabel=$\mathrm{d}\sigma / \mathrm{d}m^{\ell\ell}$ [fb/GeV]
 LogY=1
 LogX=1
 LeftMargin=1.5
@@ -46,7 +46,7 @@ LeftMargin=1.5
 # BEGIN PLOT /ATLAS_2019_I1734263/d25-x01-y01
 Title=$pp \rightarrow e^{\pm}\mu^{\mp}\nu\nu$
 XLabel=$m^{\ell\ell}$ [GeV]
-YLabel=$1 / \sigma \; \text{d}\sigma / \text{d}m^{\ell\ell}$ [1/GeV]
+YLabel=$1 / \sigma \; \mathrm{d}\sigma / \mathrm{d}m^{\ell\ell}$ [1/GeV]
 LogY=1
 LogX=1
 LeftMargin=1.5
@@ -54,8 +54,8 @@ LeftMargin=1.5
 
 # BEGIN PLOT /ATLAS_2019_I1734263/d10-x01-y01
 Title=$pp \rightarrow e^{\pm}\mu^{\mp}\nu\nu$
-XLabel=$p_\text{T}^{\ell\ell}$ [GeV]
-YLabel=$\text{d}\sigma / \text{d}p_\text{T}^{\ell\ell}$ [fb/GeV]
+XLabel=$p_\mathrm{T}^{\ell\ell}$ [GeV]
+YLabel=$\mathrm{d}\sigma / \mathrm{d}p_\mathrm{T}^{\ell\ell}$ [fb/GeV]
 LogY=1
 LogX=1
 LeftMargin=1.5
@@ -63,8 +63,8 @@ LeftMargin=1.5
 
 # BEGIN PLOT /ATLAS_2019_I1734263/d28-x01-y01
 Title=$pp \rightarrow e^{\pm}\mu^{\mp}\nu\nu$
-XLabel=$p_\text{T}^{\ell\ell}$ [GeV]
-YLabel=$1 / \sigma \; \text{d}\sigma / \text{d}p_\text{T}^{\ell\ell}$ [1/GeV]
+XLabel=$p_\mathrm{T}^{\ell\ell}$ [GeV]
+YLabel=$1 / \sigma \; \mathrm{d}\sigma / \mathrm{d}p_\mathrm{T}^{\ell\ell}$ [1/GeV]
 LogY=1
 LogX=1
 LeftMargin=1.5
@@ -74,14 +74,14 @@ LeftMargin=1.5
 # BEGIN PLOT /ATLAS_2019_I1734263/d13-x01-y01
 Title=$pp \rightarrow e^{\pm}\mu^{\mp}\nu\nu$
 XLabel=$\left|y_{\ell\ell}\right|$
-YLabel=$\text{d}\sigma / \text{d} \left|y_{\ell\ell}\right|$ [fb]
+YLabel=$\mathrm{d}\sigma / \mathrm{d} \left|y_{\ell\ell}\right|$ [fb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1734263/d31-x01-y01
 Title=$pp \rightarrow e^{\pm}\mu^{\mp}\nu\nu$
 XLabel=$\left|y_{\ell\ell}\right|$
-YLabel=$1 / \sigma \; \text{d}\sigma / \text{d} \left|y_{\ell\ell}\right|$
+YLabel=$1 / \sigma \; \mathrm{d}\sigma / \mathrm{d} \left|y_{\ell\ell}\right|$
 LogY=0
 # END PLOT
 
@@ -89,7 +89,7 @@ LogY=0
 # BEGIN PLOT /ATLAS_2019_I1734263/d16-x01-y01
 Title=$pp \rightarrow e^{\pm}\mu^{\mp}\nu\nu$
 XLabel=$\Delta \phi_{\ell\ell}$
-YLabel=$\text{d}\sigma / \text{d} \Delta \phi_{\ell\ell}$ [fb]
+YLabel=$\mathrm{d}\sigma / \mathrm{d} \Delta \phi_{\ell\ell}$ [fb]
 LegendXPos=0.05
 LegendAlign=l
 LogY=0
@@ -98,7 +98,7 @@ LogY=0
 # BEGIN PLOT /ATLAS_2019_I1734263/d34-x01-y01
 Title=$pp \rightarrow e^{\pm}\mu^{\mp}\nu\nu$
 XLabel=$\Delta \phi_{\ell\ell}$
-YLabel=$1 / \sigma \; \text{d}\sigma / \text{d} \Delta \phi_{\ell\ell}$
+YLabel=$1 / \sigma \; \mathrm{d}\sigma / \mathrm{d} \Delta \phi_{\ell\ell}$
 LegendXPos=0.05
 LegendAlign=l
 LogY=0
@@ -107,21 +107,21 @@ LogY=0
 # BEGIN PLOT /ATLAS_2019_I1734263/d19-x01-y01
 Title=$pp \rightarrow e^{\pm}\mu^{\mp}\nu\nu$
 XLabel=$\cos(\theta^\ast)$
-YLabel=$\text{d}\sigma / \text{d}\cos(\theta^\ast)$ [fb]
+YLabel=$\mathrm{d}\sigma / \mathrm{d}\cos(\theta^\ast)$ [fb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1734263/d37-x01-y01
 Title=$pp \rightarrow e^{\pm}\mu^{\mp}\nu\nu$
 XLabel=$\cos(\theta^\ast)$
-YLabel=$1 / \sigma \; \text{d}\sigma / \text{d}\cos(\theta^\ast)$
+YLabel=$1 / \sigma \; \mathrm{d}\sigma / \mathrm{d}\cos(\theta^\ast)$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1734263/d41-x01-y01
 Title=$pp \rightarrow e^{\pm}\mu^{\mp}\nu\nu$ (extrapolated to simplified phase space)
-XLabel=leading $p_\text{T}^\ell$ [GeV]
-YLabel=$\text{d}\sigma/\text{d} p_\text{T}^\ell$ [fb/GeV]
+XLabel=leading $p_\mathrm{T}^\ell$ [GeV]
+YLabel=$\mathrm{d}\sigma/\mathrm{d} p_\mathrm{T}^\ell$ [fb/GeV]
 LogY=1
 LogX=1
 LeftMargin=1.5
@@ -130,7 +130,7 @@ LeftMargin=1.5
 # BEGIN PLOT /ATLAS_2019_I1734263/d42-x01-y01
 Title=$pp \rightarrow e^{\pm}\mu^{\mp}\nu\nu$ (extrapolated to simplified phase space)
 XLabel=$m^{\ell\ell}$ [GeV]
-YLabel=$\text{d}\sigma / \text{d}m^{\ell\ell}$ [fb/GeV]
+YLabel=$\mathrm{d}\sigma / \mathrm{d}m^{\ell\ell}$ [fb/GeV]
 LeftMargin=1.5
 LogY=1
 LogX=1
@@ -138,8 +138,8 @@ LogX=1
 
 # BEGIN PLOT /ATLAS_2019_I1734263/d43-x01-y01
 Title=$pp \rightarrow e^{\pm}\mu^{\mp}\nu\nu$ (extrapolated to simplified phase space)
-XLabel=$p_\text{T}^{\ell\ell}$ [GeV]
-YLabel=$\text{d}\sigma / \text{d}p_\text{T}^{\ell\ell}$ [fb/GeV]
+XLabel=$p_\mathrm{T}^{\ell\ell}$ [GeV]
+YLabel=$\mathrm{d}\sigma / \mathrm{d}p_\mathrm{T}^{\ell\ell}$ [fb/GeV]
 LeftMargin=1.5
 LogY=1
 LogX=1
