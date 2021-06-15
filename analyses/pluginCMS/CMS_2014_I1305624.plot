@@ -1,7 +1,7 @@
 # BEGIN PLOT /CMS_2014_I1305624/d01-x01-y01
 Title=Transverse thrust for $110 < p_\mathrm{T,1} < 170 \,\, \mathrm{and} \mid\eta\mid < 2.4$
-XLabel=$\ln(\tau_{{\perp^}})$
-YLabel=$1/N \,\, \mathrm{d}N/\mathrm{d}\,\ln(\tau_{_{\perp^}})$
+XLabel=$\ln(\tau_{{\perp}})$
+YLabel=$1/N \,\, \mathrm{d}N/\mathrm{d}\,\ln(\tau_{_{\perp}})$
 LogY=0
 #XLabelSep=4.5
 #YLabelSep=4.5
@@ -12,8 +12,8 @@ LegendYPos=0.70
 
 # BEGIN PLOT /CMS_2014_I1305624/d01-x01-y02
 Title=Transverse thrust for $170 < p_\mathrm{T,1} < 250 \,\, \mathrm{and} \mid\eta\mid < 2.4$
-XLabel=$\ln(\tau_{{\perp^}})$
-YLabel=$1/N \,\, \mathrm{d}N/\mathrm{d}\,\ln(\tau_{_{\perp^}})$
+XLabel=$\ln(\tau_{{\perp}})$
+YLabel=$1/N \,\, \mathrm{d}N/\mathrm{d}\,\ln(\tau_{_{\perp}})$
 LogY=0
 LegendXPos=0.20
 LegendYPos=0.70
@@ -21,8 +21,8 @@ LegendYPos=0.70
 
 # BEGIN PLOT /CMS_2014_I1305624/d01-x01-y03
 Title=Transverse thrust for $250 < p_\mathrm{T,1} < 320 \,\, \mathrm{and} \mid\eta\mid < 2.4$
-XLabel=$\ln(\tau_{{\perp^}})$
-YLabel=$1/N \,\, \mathrm{d}N/\mathrm{d}\,\ln(\tau_{_{\perp^}})$
+XLabel=$\ln(\tau_{{\perp}})$
+YLabel=$1/N \,\, \mathrm{d}N/\mathrm{d}\,\ln(\tau_{_{\perp}})$
 LogY=0
 LegendXPos=0.20
 LegendYPos=0.70
@@ -30,8 +30,8 @@ LegendYPos=0.70
 
 # BEGIN PLOT /CMS_2014_I1305624/d01-x01-y04
 Title=Transverse thrust for $320 < p_\mathrm{T,1} < 390 \,\, \mathrm{and} \mid\eta\mid < 2.4$
-XLabel=$\ln(\tau_{{\perp^}})$
-YLabel=$1/N \,\, \mathrm{d}N/\mathrm{d}\,\ln(\tau_{_{\perp^}})$
+XLabel=$\ln(\tau_{{\perp}})$
+YLabel=$1/N \,\, \mathrm{d}N/\mathrm{d}\,\ln(\tau_{_{\perp}})$
 LogY=0
 LegendXPos=0.20
 LegendYPos=0.70
@@ -39,8 +39,8 @@ LegendYPos=0.70
 
 # BEGIN PLOT /CMS_2014_I1305624/d01-x01-y05
 Title=Transverse thrust for $p_\mathrm{T,1} > 390 \,\, \mathrm{and} \mid\eta\mid < 2.4$
-XLabel=$\ln(\tau_{{\perp^}})$
-YLabel=$1/N \,\, \mathrm{d}N/\mathrm{d}\,\ln(\tau_{_{\perp^}})$
+XLabel=$\ln(\tau_{{\perp}})$
+YLabel=$1/N \,\, \mathrm{d}N/\mathrm{d}\,\ln(\tau_{_{\perp}})$
 LogY=0
 LegendXPos=0.20
 LegendYPos=0.70
