@@ -1,5 +1,7 @@
 2021-06-01  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Fix dressed-lepton origin position for the standard, non-jet-clustering mode.
+
 	* Remove raw int baryon counter from STAR_2006_S6860818.
 
 2021-05-31  Christian Gutschow  <chris.g@cern.ch>
@@ -9,6 +11,18 @@
 2021-05-30  Christian Gutschow  <chris.g@cern.ch>
 
 	* Improve error message for when the calibration file has been forgotten
+
+2021-05-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Remove numerical epsilon cutoff for pseudorapidity calculation:
+	inf is a perfectly good value for beamline momenta. Regression
+	test updated.
+
+2021-05-13  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add convenience V2, V3, V4, and P4 alias names for the vector types.
+
+	* Add tests for eta and rapidity values calculated in particular for +-z vectors.
 
 2021-05-06  Christian Gutschow  <chris.g@cern.ch>
 

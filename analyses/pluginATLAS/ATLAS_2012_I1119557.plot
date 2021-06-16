@@ -50,6 +50,6 @@ LogY=0
 # BEGIN PLOT /ATLAS_2012_I1119557/d05-x01-y01
 Title=Anti-$k_T$ jets, $R = 0.6$, $p_T > 300$\;GeV, $|\eta|<0.7$, $100 < M < 130$\;GeV
 XLabel=Angularity $\tau_{-2}$
-YLabel=$1/N\cdot \text{d}N/\text{d}$\tau_{-2}$
+YLabel=$1/N\cdot \text{d}N/\text{d}\tau_{-2}$
 LogY=0
 # END PLOT

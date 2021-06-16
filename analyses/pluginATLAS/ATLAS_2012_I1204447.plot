@@ -22,7 +22,7 @@ XLabel=$E_T^\text{miss} [GeV]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2012_I1204447/Meff_all
-Title=Scalar sum of $E_T^\text{miss}, $H_T^\text{jets}, $H_T^\text{jets}$ and $H_T^\text{leptons}$
+Title=Scalar sum of $E_T^\text{miss}$, $H_T^\text{jets}$, $H_T^\text{jets}$ and $H_T^\text{leptons}$
 XLabel=$m_\text{eff} [GeV]$
 # END PLOT
 

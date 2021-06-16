@@ -596,7 +596,7 @@ LogY=0
 # BEGIN PLOT /MC_VH2BB/R05_VBbb_Delta_phi
 Title= $\Delta\phi$ between Higgs candidate and W (anti-$k_t$ $R=0.5$ jets without cuts)
 XLabel= $\Delta\phi$
-YLabel= $\text{d}\sigma/\text{d\Delta\phi}$ [pb]
+YLabel= $\text{d}\sigma/\text{d}\Delta\phi$ [pb]
 LogY=0
 # END PLOT
 

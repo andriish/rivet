@@ -69,7 +69,7 @@ YLabel=$d\sigma/d\Delta y_{\textrm{bb}}$
 
 # BEGIN PLOT /ATLAS_2020_I1788444/d12-x01-y01
 Title=$ \ge 2$ btag events
-XLabel=$\m_{\textrm{bb}}$
+XLabel=$m_{\textrm{bb}}$
 YLabel=$d\sigma/dm_{\textrm{bb}}$
 LogY=1
 # END PLOT
@@ -90,7 +90,7 @@ LogY=1
 
 # BEGIN PLOT /ATLAS_2020_I1788444/d01-x01-y01
 Title=$ \ge 1$  and $ \ge 2$ btag events
-XLabel=N_{\textrm{bjets}}$
+XLabel=$N_{\textrm{bjets}}$
 YLabel=$d\sigma/dN_{\textrm{bjets}}$
 # END PLOT
 

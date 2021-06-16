@@ -45,7 +45,7 @@ XLabel=$m_{K^-\pi^0}$/GeV
 YLabel=$1/\Gamma{\rm d}\Gamma/{\rm d}m_{K^-\pi^0}$\,$[{\rm GeV}^{-1}]\nu_\tau$
 END PLOT
 BEGIN PLOT /MC_TAU_Decay/h_2B_mKpiA 
-Title=Mass distribution of the hadrons for $\tau^-\toK^-\pi^0\nu_\tau$
+Title=Mass distribution of the hadrons for $\tau^-\to K^-\pi^0\nu_\tau$
 XLabel=$m^2_{K^-\pi^0}$/GeV
 YLabel=$1/\Gamma{\rm d}\Gamma/{\rm d}m^2_{K^-\pi^0}$\,$[{\rm GeV}^{-2}]$
 END PLOT

@@ -68,7 +68,7 @@ Title=Jet $p_\text{T}$ spectrum, $|\eta^\text{ch.jet}| < 1.9$, $50 < N_\text{ch}
 # END PLOT
 
 # BEGIN PLOT /CMS_2013_I1261026/d11-x01-y01
-Title=Jet $\textp_\text{T}$ spectrum, $|\eta^\text{ch.jet}| < 1.9$, $80 < N_\text{ch} \le 110$
+Title=Jet $\text p_\text{T}$ spectrum, $|\eta^\text{ch.jet}| < 1.9$, $80 < N_\text{ch} \le 110$
 # END PLOT
 
 # BEGIN PLOT /CMS_2013_I1261026/d12-x01-y01

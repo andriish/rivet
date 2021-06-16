@@ -346,22 +346,22 @@ BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_511p_313p_11_mVfbar
 Title=${K^*}^0e^+$ mass distribution in the decay $B^0\to{K^*}^0 e^+e^-$
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_511m_313m_13_mff
-Title=$\mu^+\mu^-$ mass distribution in the decay $\bar{B}^0\to{\bar{K}^*}^0\mu^+\mu^-$
+Title=$\mu^+\mu^-$ mass distribution in the decay $\bar{B}^0\to\bar{K}^{*0}\mu^+\mu^-$
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_511m_313m_13_mVf
-Title=${\bar{K}^*}^0\mu^-$ mass distribution in the decay $\bar{B}^0\to{\bar{K}^*}^0\mu^+\mu^-$
+Title=$\bar{K}^{*0}\mu^-$ mass distribution in the decay $\bar{B}^0\to\bar{K}^{*0}\mu^+\mu^-$
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_511m_313m_13_mVfbar
-Title=${\bar{K}^*}^0\mu^+$ mass distribution in the decay $\bar{B}^0\to{\bar{K}^*}^0\mu^+\mu^-$
+Title=$\bar{K}^{*0}\mu^+$ mass distribution in the decay $\bar{B}^0\to\bar{K}^{*0}\mu^+\mu^-$
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_511m_313m_11_mff
-Title=$e^+e^-$ mass distribution in the decay $\bar{B}^0\to{\bar{K}^*}^0 e^+e^-$
+Title=$e^+e^-$ mass distribution in the decay $\bar{B}^0\to\bar{K}^{*0} e^+e^-$
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_511m_313m_11_mVf
-Title=${\bar{K}^*}^0e^-$ mass distribution in the decay $\bar{B}^0\to{\bar{K}^*}^0 e^+e^-$
+Title=$\bar{K}^{*0}e^-$ mass distribution in the decay $\bar{B}^0\to\bar{K}^{*0} e^+e^-$
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_511m_313m_11_mVfbar
-Title=${\bar{K}^*}^0e^+$ mass distribution in the decay $\bar{B}^0\to{\bar{K}^*}^0 e^+e^-$
+Title=$\bar{K}^{*0}e^+$ mass distribution in the decay $\bar{B}^0\to\bar{K}^{*0} e^+e^-$
 END PLOT
 
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_421m_313p_13_mff
@@ -383,20 +383,20 @@ BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_421m_313p_11_mVfbar
 Title=${K^*}^0e^+$ mass distribution in the decay $\bar{D}^0\to{K^*}^0 e^+e^-$
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_421p_313m_13_mff
-Title=$\mu^+\mu^-$ mass distribution in the decay $D^0\to{\bar{K}^*}^0\mu^+\mu^-$
+Title=$\mu^+\mu^-$ mass distribution in the decay $D^0\to\bar{K}^{*0}\mu^+\mu^-$
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_421p_313m_13_mVf
-Title=${\bar{K}^*}^0\mu^-$ mass distribution in the decay $D^0\to{\bar{K}^*}^0\mu^+\mu^-$
+Title=$\bar{K}^{*0}\mu^-$ mass distribution in the decay $D^0\to\bar{K}^{*0}\mu^+\mu^-$
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_421p_313m_13_mVfbar
-Title=${\bar{K}^*}^0\mu^+$ mass distribution in the decay $D^0\to{\bar{K}^*}^0\mu^+\mu^-$
+Title=$\bar{K}^{*0}\mu^+$ mass distribution in the decay $D^0\to\bar{K}^{*0}\mu^+\mu^-$
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_421p_313m_11_mff
-Title=$e^+e^-$ mass distribution in the decay $D^0\to{\bar{K}^*}^0 e^+e^-$
+Title=$e^+e^-$ mass distribution in the decay $D^0\to\bar{K}^{*0} e^+e^-$
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_421p_313m_11_mVf
-Title=${\bar{K}^*}^0e^-$ mass distribution in the decay $D^0\to{\bar{K}^*}^0 e^+e^-$
+Title=$\bar{K}^{*0}e^-$ mass distribution in the decay $D^0\to\bar{K}^{*0} e^+e^-$
 END PLOT
 BEGIN PLOT /MC_Meson_Meson_Leptons_Decay/h2_421p_313m_11_mVfbar
-Title=${\bar{K}^*}^0e^+$ mass distribution in the decay $D^0\to{\bar{K}^*}^0 e^+e^-$
+Title=$\bar{K}^{*0}e^+$ mass distribution in the decay $D^0\to\bar{K}^{*0} e^+e^-$
 END PLOT

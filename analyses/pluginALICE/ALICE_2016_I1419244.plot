@@ -54,42 +54,42 @@ RatioPlotYMax=1.5
 # END PLOT
 # BEGIN PLOT /ALICE_2016_I1419244/d08-x01-y01
 Title=Flow coefficient $v_2\{2, |\Delta \eta > 1.|\}(p_\perp)$, 30-40\% centrality
-XLabel=p_\perp [GeV]
+XLabel=$p_\perp$ [GeV]
 YLabel=$v_2\{2, |\Delta \eta > 1.|\}(p_\perp)$
 LogX=0
 LogY=0
 # END PLOT
 # BEGIN PLOT /ALICE_2016_I1419244/d08-x01-y02
 Title=Flow coefficient $v_3\{2, |\Delta \eta > 1.|\}(p_\perp)$, 30-40\% centrality
-XLabel=p_\perp [GeV]
+XLabel=$p_\perp$ [GeV]
 YLabel=$v_3\{2, |\Delta \eta > 1.|\}(p_\perp)$
 LogX=0
 LogY=0
 # END PLOT
 # BEGIN PLOT /ALICE_2016_I1419244/d08-x01-y03
 Title=Flow coefficient $v_4\{2, |\Delta \eta > 1.|\}(p_\perp)$, 30-40\% centrality
-XLabel=p_\perp [GeV]
+XLabel=$p_\perp$ [GeV]
 YLabel=$v_4\{2, |\Delta \eta > 1.|\}(p_\perp)$
 LogX=0
 LogY=0
 # END PLOT
 # BEGIN PLOT /ALICE_2016_I1419244/d09-x01-y01
 Title=Flow coefficient $v_2\{4\}(p_\perp)$, 0-10\% centrality
-XLabel=p_\perp [GeV]
+XLabel=$p_\perp$ [GeV]
 YLabel=$v_2\{4\}(p_\perp)$
 LogX=0
 LogY=0
 # END PLOT
 # BEGIN PLOT /ALICE_2016_I1419244/d09-x01-y02
 Title=Flow coefficient $v_2\{4\}(p_\perp)$, 10-20\% centrality
-XLabel=p_\perp [GeV]
+XLabel=$p_\perp$ [GeV]
 YLabel=$v_2\{4\}(p_\perp)$
 LogX=0
 LogY=0
 # END PLOT
 # BEGIN PLOT /ALICE_2016_I1419244/d09-x01-y03
 Title=Flow coefficient $v_2\{4\}(p_\perp)$, 20-30\% centrality
-XLabel=p_\perp [GeV]
+XLabel=$p_\perp$ [GeV]
 YLabel=$v_2\{4\}(p_\perp)$
 LogX=0
 LogY=0

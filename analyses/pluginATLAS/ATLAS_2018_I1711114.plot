@@ -7,7 +7,7 @@ YTwosidedTicks=1
 
 # BEGIN PLOT /ATLAS_2018_I1711114/d01
 XLabel=$\Delta R(b,b)$
-YLabel=$(1/\sigma) \text{d}\sigma / \text{d}\DeltaR(b,b)$
+YLabel=$(1/\sigma) \text{d}\sigma / \text{d}\Delta R(b,b)$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2018_I1711114/d02

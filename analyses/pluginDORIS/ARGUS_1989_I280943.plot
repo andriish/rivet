@@ -25,13 +25,13 @@ END PLOT
 
 
 BEGIN PLOT /ARGUS_1989_I280943/d01-x01-y01
-Title=Cross section for $D_1(2420)^0$ with $D_1(2420)^0\toD^{*+}\pi^-$
+Title=Cross section for $D_1(2420)^0$ with $D_1(2420)^0\to D^{*+}\pi^-$
 XLabel=$\sqrt{s}$ [GeV]
 YLabel=$\sigma$ [pb]
 LogY=0
 END PLOT
 BEGIN PLOT /ARGUS_1989_I280943/d01-x01-y02
-Title=Cross section for $D_2^*(2420)^0$ with $D_2^*(2420)^0\toD^{*+}\pi^-$
+Title=Cross section for $D_2^*(2420)^0$ with $D_2^*(2420)^0\to D^{*+}\pi^-$
 XLabel=$\sqrt{s}$ [GeV]
 YLabel=$\sigma$ [pb]
 LogY=0

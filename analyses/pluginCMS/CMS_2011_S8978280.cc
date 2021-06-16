@@ -17,9 +17,21 @@ namespace Rivet {
     void init() {
       UnstableParticles ufs(Cuts::absrap < 2);
       declare(ufs, "UFS");
-
+      int beamEnergy = -1;
+      if (fuzzyEquals(sqrtS()/GeV, 900*GeV)) beamEnergy = 1;
+      else if (fuzzyEquals(sqrtS()/GeV, 7000*GeV)) beamEnergy = 2;
+      else {
+        MSG_INFO("Suspicious beam energy. You're probably running rivet-merge. Fetching beam energy from option.");
+        double bOpt = getOption<double>("energy", 0);
+	if (fuzzyEquals(bOpt, 900)) beamEnergy = 1;
+	else if (fuzzyEquals(bOpt, 7000)) beamEnergy = 2;
+	else {
+	  MSG_WARNING("Could not decipher beam energy. For rivet-merge set -a CMS_2011_S8978280:energy=OPT, where OPT is 900 or 7000 (GeV is implied).");
+	}
+      }
+      
       // Particle distributions versus rapidity and transverse momentum
-      if (fuzzyEquals(sqrtS()/GeV, 900*GeV)){
+      if (beamEnergy == 1){
         book(_h_dNKshort_dy  ,1, 1, 1);
         book(_h_dNKshort_dpT ,2, 1, 1);
         book(_h_dNLambda_dy  ,3, 1, 1);
@@ -32,7 +44,7 @@ namespace Rivet {
         book(_h_Lamy_Ky   , 9, 1, 1);
         book(_h_Xiy_Lamy  , 10, 1, 1);
 
-      } else if (fuzzyEquals(sqrtS()/GeV, 7000*GeV)){
+      } else if (beamEnergy == 2){
         book(_h_dNKshort_dy  ,1, 1, 2);
         book(_h_dNKshort_dpT ,2, 1, 2);
         book(_h_dNLambda_dy  ,3, 1, 2);
@@ -44,6 +56,8 @@ namespace Rivet {
         book(_h_XipT_LampT, 8, 1, 2);
         book(_h_Lamy_Ky   , 9, 1, 2);
         book(_h_Xiy_Lamy  , 10, 1, 2);
+      } else {
+        MSG_WARNING("Could not initialize properly.");
       }
     }
 

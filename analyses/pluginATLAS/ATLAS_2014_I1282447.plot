@@ -30,7 +30,7 @@ YLabel=$\sigma_\text{fid}^\text{OS-SS} (W^+ \bar{c}\text{-jet}) / \sigma_\text{f
 
 # BEGIN PLOT /ATLAS_2014_I1282447/d02-x01-y02
 Title=$WD^{(*)}$
-YLabel=$\sigma_\text{fid}^\text{OS-SS} ($W^+ D^{(*)-}) / \sigma_\text{fid}^\text{OS-SS}(W^- D^{(*)+}$
+YLabel=$\sigma_\text{fid}^\text{OS-SS} (W^+ D^{(*)-}) / \sigma_\text{fid}^\text{OS-SS}(W^- D^{(*)+}$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1282447/d0[34]-.*

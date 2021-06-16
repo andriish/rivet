@@ -87,6 +87,6 @@ Title=Log of the scaled momentum at 161 GeV
 END PLOT
 BEGIN PLOT /OPAL_1997_I440721/d26-x01-y01
 XLabel=$N_{\text{charged}}$
-YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_{\texT{charged}}$ [$\%$]
+YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_{\text{charged}}$ [$\%$]
 Title=Charged Particle Multiplicity at 161 GeV
 END PLOT
