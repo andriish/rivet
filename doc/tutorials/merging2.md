@@ -68,6 +68,7 @@ It is possible to stack the files and pass the cross-section on the fly as follo
 rivet-merge -o ttbar.yoda.gz ttbar_dilep.yoda.gz:72.592 ttbar_singlep.yoda.gz:302.06 ttbar_hadronic.yoda.gz:314.12
 ```
 
+where the cross-section values are specified in picobarns.
 Note that if the HepMC `GenEvent` does not include the cross-section information
 and the user also didn't supply a cross-section, the finalised histograms
 will have 0 area and the on-the-fly scaling from the above example cannot work.
