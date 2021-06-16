@@ -9,4 +9,4 @@ NumEvents: 5000
 RunInfo: Any!
 Description:
   Generic analysis of typical per-particle distributions such as $\eta$, $y$,
-  $pT$, $\phi$\dots
+  $pT$, $\phi$, etc.
