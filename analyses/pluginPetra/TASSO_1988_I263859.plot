@@ -1,15 +1,15 @@
 BEGIN PLOT /TASSO_1988_I263859/d01-x01-y01
-Title=Sphericity ($\sqrt{s}=\unit{35}{GeV}$)
+Title=Sphericity ($\sqrt{s}=35~\mathrm{GeV}$)
 XLabel=$S$
 YLabel=$1/\sigma \mathrm{d}\sigma/\mathrm{d}S$
 END PLOT
 BEGIN PLOT /TASSO_1988_I263859/d02-x01-y01
-Title=Aplanarity ($\sqrt{s}=\unit{35}{GeV}$)
+Title=Aplanarity ($\sqrt{s}=35~\mathrm{GeV}$)
 XLabel=$A$
 YLabel=$1/\sigma \mathrm{d}\sigma/\mathrm{d}A$
 END PLOT
 BEGIN PLOT /TASSO_1988_I263859/d03-x01-y01
-Title=Thrust ($\sqrt{s}=\unit{35}{GeV}$)
+Title=Thrust ($\sqrt{s}=35~\mathrm{GeV}$)
 XLabel=$T$
 YLabel=$1/\sigma \mathrm{d}\sigma/\mathrm{d}T$
 END PLOT
@@ -44,7 +44,7 @@ XLabel=$p_{\perp}$ [GeV]
 YLabel=$1/\sigma \mathrm{d}\sigma\mathrm{d}p_{\perp}$ [$\mathrm{GeV}^{-1}$]
 END PLOT
 BEGIN PLOT /TASSO_1988_I263859/d10-x01-y01
-Title=Scaled momentum distribution ($\sqrt{s}=\unit{35}{GeV}$)
+Title=Scaled momentum distribution ($\sqrt{s}=35~\mathrm{GeV}$)
 XLabel=$x_p$
 YLabel=$1/\sigma \mathrm{d}\sigma/\mathrm{d}x_p$
 END PLOT
