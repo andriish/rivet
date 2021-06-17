@@ -17,7 +17,7 @@ RatioPlotYMin=0.9
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1449082/d02-x01-y01
-Title=$\Delta |y| = |y|_{\rm top} - |y|_{\rm antitop}$
+Title=$\Delta |y| = |y|_\mathrm{top} - |y|_\mathrm{antitop}$
 XLabel=$\Delta |y|$
 YLabel=$1/\sigma  \mathrm{d}\sigma / \mathrm{d}\Delta |y|$
 RatioPlotYMax=1.15

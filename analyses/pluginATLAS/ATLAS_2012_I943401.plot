@@ -60,13 +60,13 @@ LogY=1
 # END PLOT
 # BEGIN PLOT /ATLAS_2012_I943401/d02-x01-y01
 Title=Missing Transverse Energy for same-sign events (data)
-XLabel=$E^{\rm miss}_{\mathrm{T}}$ [GeV]
+XLabel=$E^\mathrm{miss}_{\mathrm{T}}$ [GeV]
 YLabel=$\mathrm{Events}/20$$\,$GeV
 LogY=1
 # END PLOT
 # BEGIN PLOT /ATLAS_2012_I943401/d02-x01-y02
 Title=Missing Transverse Energy for same-sign events (back)
-XLabel=$E^{\rm miss}_{\mathrm{T}}$ [GeV]
+XLabel=$E^\mathrm{miss}_{\mathrm{T}}$ [GeV]
 YLabel=$\mathrm{Events}/20$$\,$GeV
 LogY=1
 # END PLOT
@@ -156,37 +156,37 @@ LogY=1
 # END PLOT
 # BEGIN PLOT /ATLAS_2012_I943401/d11-x01-y01
 Title=Missing Transverse Energy for opposite-sign events (data)
-XLabel=$E^{\rm miss}_{\mathrm{T}}$ [GeV]
+XLabel=$E^\mathrm{miss}_{\mathrm{T}}$ [GeV]
 YLabel=$\mathrm{Events}/10$$\,$GeV
 LogY=1
 # END PLOT
 # BEGIN PLOT /ATLAS_2012_I943401/d11-x01-y02
 Title=Missing Transverse Energy for opposite-sign events (back)
-XLabel=$E^{\rm miss}_{\mathrm{T}}$ [GeV]
+XLabel=$E^\mathrm{miss}_{\mathrm{T}}$ [GeV]
 YLabel=$\mathrm{Events}/10$$\,$GeV
 LogY=1
 # END PLOT
 # BEGIN PLOT /ATLAS_2012_I943401/d12-x01-y01
 Title=Missing Transverse Energy for opposite-sign events with 3 jets (data)
-XLabel=$E^{\rm miss}_{\mathrm{T}}$ [GeV]
+XLabel=$E^\mathrm{miss}_{\mathrm{T}}$ [GeV]
 YLabel=$\mathrm{Events}/10$$\,$GeV
 LogY=1
 # END PLOT
 # BEGIN PLOT /ATLAS_2012_I943401/d12-x01-y02
 Title=Missing Transverse Energy for opposite-sign events  with 3 jets (back)
-XLabel=$E^{\rm miss}_{\mathrm{T}}$ [GeV]
+XLabel=$E^\mathrm{miss}_{\mathrm{T}}$ [GeV]
 YLabel=$\mathrm{Events}/10$$\,$GeV
 LogY=1
 # END PLOT
 # BEGIN PLOT /ATLAS_2012_I943401/d13-x01-y01
 Title=Missing Transverse Energy for opposite-sign events with 4 jets (data)
-XLabel=$E^{\rm miss}_{\mathrm{T}}$ [GeV]
+XLabel=$E^\mathrm{miss}_{\mathrm{T}}$ [GeV]
 YLabel=$\mathrm{Events}/10$$\,$GeV
 LogY=1
 # END PLOT
 # BEGIN PLOT /ATLAS_2012_I943401/d13-x01-y02
 Title=Missing Transverse Energy for opposite-sign events  with 4 jets (back)
-XLabel=$E^{\rm miss}_{\mathrm{T}}$ [GeV]
+XLabel=$E^\mathrm{miss}_{\mathrm{T}}$ [GeV]
 YLabel=$\mathrm{Events}/10$$\,$GeV
 LogY=1
 # END PLOT

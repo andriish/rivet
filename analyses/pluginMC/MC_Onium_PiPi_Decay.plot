@@ -1,22 +1,22 @@
 BEGIN PLOT /MC_Onium_PiPi_Decay/h_.*_mpi0pi0
 XLabel=$m_{\pi^0\pi^0}$ [GeV]
-YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d}m_{\pi^0\pi^0}$ [${\rm GeV}^{-1}$]
+YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m_{\pi^0\pi^0}$ [$\mathrm{GeV}^{-1}$]
 LogY=0
 END PLOT
 BEGIN PLOT /MC_Onium_PiPi_Decay/h_.*_mpippim
 XLabel=$m_{\pi^+\pi^-}$ [GeV]
-YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d}m_{\pi^+\pi^-}$ [${\rm GeV}^{-1}$] 
+YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m_{\pi^+\pi^-}$ [$\mathrm{GeV}^{-1}$] 
 LogY=0
 END PLOT
 
 BEGIN PLOT /MC_Onium_PiPi_Decay/h_.*_hpi0pi0
 XLabel=$\cos\chi$
-YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d}\cos\chi$ 
+YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}\cos\chi$ 
 LogY=0
 END PLOT
 BEGIN PLOT /MC_Onium_PiPi_Decay/h_.*_hpippim
 XLabel=$\cos\chi$
-YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d}\cos\chi$ 
+YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}\cos\chi$ 
 LogY=0
 END PLOT
 

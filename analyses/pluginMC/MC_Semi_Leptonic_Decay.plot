@@ -1,42 +1,42 @@
 BEGIN PLOT /MC_Semi_Leptonic_Decay/h_.*_13m_energy
 XLabel=$E_{\mu^+}$ [Me]V
-YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d}E_{\mu^+}$ [${\rm MeV}^{-1}$]
+YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}E_{\mu^+}$ [$\mathrm{MeV}^{-1}$]
 LogY=0
 END PLOT
 BEGIN PLOT /MC_Semi_Leptonic_Decay/h_.*_13m_scale
 XLabel=$m_{\mu^+\nu_\mu}$ [MeV]
-YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d}m_{\mu^+\nu_\mu}$ [${\rm MeV}^{-1}$] 
+YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m_{\mu^+\nu_\mu}$ [$\mathrm{MeV}^{-1}$] 
 LogY=0
 END PLOT
 BEGIN PLOT /MC_Semi_Leptonic_Decay/h_.*_13p_energy
 XLabel=$E_{\mu^-}$ [MeV]
-YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d}E_{\mu^-}$ [${\rm MeV}^{-1}$]
+YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}E_{\mu^-}$ [$\mathrm{MeV}^{-1}$]
 LogY=0
 END PLOT
 BEGIN PLOT /MC_Semi_Leptonic_Decay/h_.*_13p_scale
 XLabel=$m_{\mu^-\bar\nu_\mu}$ [MeV]
-YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d}m_{\mu^-\bar\nu_\mu}$ [${\rm MeV}^{-1}$] 
+YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m_{\mu^-\bar\nu_\mu}$ [$\mathrm{MeV}^{-1}$] 
 LogY=0
 END PLOT
 
 BEGIN PLOT /MC_Semi_Leptonic_Decay/h_.*_11m_energy
 XLabel=$E_{e^+}$ [MeV]
-YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d}E_{e^+}$ [${\rm MeV}^{-1}$]
+YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}E_{e^+}$ [$\mathrm{MeV}^{-1}$]
 LogY=0
 END PLOT
 BEGIN PLOT /MC_Semi_Leptonic_Decay/h_.*_11m_scale
 XLabel=$m_{e^+\nu_e}$ [MeV]
-YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d}m_{e^+\nu_e}$ [${\rm MeV}^{-1}$] 
+YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m_{e^+\nu_e}$ [$\mathrm{MeV}^{-1}$] 
 LogY=0
 END PLOT
 BEGIN PLOT /MC_Semi_Leptonic_Decay/h_.*_11p_energy
 XLabel=$E_{e^-}$ [MeV]
-YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d}E_{e^-}$ [${\rm MeV}^{-1}$]
+YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}E_{e^-}$ [$\mathrm{MeV}^{-1}$]
 LogY=0
 END PLOT
 BEGIN PLOT /MC_Semi_Leptonic_Decay/h_.*_11p_scale
 XLabel=$m_{e^-\bar\nu_e}$ [MeV]
-YLabel=$1/\Gamma{\rm d} \Gamma/{\rm d}m_{e^-\bar\nu_e}$ [${\rm MeV}^{-1}$] 
+YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m_{e^-\bar\nu_e}$ [$\mathrm{MeV}^{-1}$] 
 LogY=0
 END PLOT
 

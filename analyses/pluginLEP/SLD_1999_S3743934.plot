@@ -1,7 +1,7 @@
 # BEGIN PLOT /SLD_1999_S3743934/d01-x01-y01
-Title=Ratio $N_{\pi^+}/N_{\rm charged}$ 
+Title=Ratio $N_{\pi^+}/N_\mathrm{charged}$ 
 XLabel=$x_p$
-YLabel=$\mathrm{d}\left(N_{\pi^+}/N_{\rm charged}\right)/\mathrm{d}x_p$
+YLabel=$\mathrm{d}\left(N_{\pi^+}/N_\mathrm{charged}\right)/\mathrm{d}x_p$
 # END PLOT
 
 # BEGIN PLOT /SLD_1999_S3743934/d01-x01-y02
@@ -11,9 +11,9 @@ YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 # END PLOT
 
 # BEGIN PLOT /SLD_1999_S3743934/d02-x01-y01
-Title=Ratio $N_{K^+}/N_{\rm charged}$ 
+Title=Ratio $N_{K^+}/N_\mathrm{charged}$ 
 XLabel=$x_p$
-YLabel=$\mathrm{d}\left(N_{K^+}/N_{\rm charged}\right)/\mathrm{d}x_p$
+YLabel=$\mathrm{d}\left(N_{K^+}/N_\mathrm{charged}\right)/\mathrm{d}x_p$
 # END PLOT
 
 # BEGIN PLOT /SLD_1999_S3743934/d02-x01-y02
@@ -23,9 +23,9 @@ YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 # END PLOT
 
 # BEGIN PLOT /SLD_1999_S3743934/d03-x01-y01
-Title=Ratio $N_{p^+}/N_{\rm charged}$ 
+Title=Ratio $N_{p^+}/N_\mathrm{charged}$ 
 XLabel=$x_p$
-YLabel=$\mathrm{d}\left(N_{p^+}/N_{\rm charged}\right)/\mathrm{d}x_p$
+YLabel=$\mathrm{d}\left(N_{p^+}/N_\mathrm{charged}\right)/\mathrm{d}x_p$
 # END PLOT
 
 # BEGIN PLOT /SLD_1999_S3743934/d03-x01-y02
@@ -246,7 +246,7 @@ YLabel=$\mathrm{d}N/\mathrm{d}x_p$
 # END PLOT
 
 # BEGIN PLOT /SLD_1999_S3743934/d26-x01-y01
-Title=$R^q_{\pi^+}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to\pi^+)+N(\bar q\to\pi^-)\right]$
+Title=$R^q_{\pi^+}=\frac{1}{2N_\mathrm{events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to\pi^+)+N(\bar q\to\pi^-)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{\pi^+}$
 LegendXPos=0.60
@@ -255,7 +255,7 @@ FullRange=1
 LogY=1
 # END PLOT
 # BEGIN PLOT /SLD_1999_S3743934/d26-x01-y02
-Title=$R^q_{\pi^-}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to\pi^-)+N(\bar q\to\pi^+)\right]$
+Title=$R^q_{\pi^-}=\frac{1}{2N_\mathrm{events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to\pi^-)+N(\bar q\to\pi^+)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{\pi^-}$
 LegendXPos=0.60
@@ -274,7 +274,7 @@ LogY=0
 # END PLOT
 
 # BEGIN PLOT /SLD_1999_S3743934/d28-x01-y01
-Title=$R^q_{K^{*0}}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to K^{*0})+N(\bar q\to \bar K^{*0})\right]$
+Title=$R^q_{K^{*0}}=\frac{1}{2N_\mathrm{events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to K^{*0})+N(\bar q\to \bar K^{*0})\right]$
 XLabel=$x_p$
 YLabel=$R^q_{K^{*0}}$
 LegendXPos=0.60
@@ -283,7 +283,7 @@ FullRange=1
 LogY=1
 # END PLOT
 # BEGIN PLOT /SLD_1999_S3743934/d28-x01-y02
-Title=$R^q_{\bar K^{*0}}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to \bar K^{*0})+N(\bar q\to K^{*0})\right]$
+Title=$R^q_{\bar K^{*0}}=\frac{1}{2N_\mathrm{events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to \bar K^{*0})+N(\bar q\to K^{*0})\right]$
 XLabel=$x_p$
 YLabel=$R^q_{\bar K^{*0}}$
 LegendXPos=0.60
@@ -302,7 +302,7 @@ LogY=0
 # END PLOT
 
 # BEGIN PLOT /SLD_1999_S3743934/d30-x01-y01
-Title=$R^q_{K^+}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to K^+)+N(\bar q\to K^-)\right]$
+Title=$R^q_{K^+}=\frac{1}{2N_\mathrm{events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to K^+)+N(\bar q\to K^-)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{K^+}$
 LegendXPos=0.60
@@ -311,7 +311,7 @@ FullRange=1
 LogY=1
 # END PLOT
 # BEGIN PLOT /SLD_1999_S3743934/d30-x01-y02
-Title=$R^q_{K^-}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to K^-)+N(\bar q\to K^+)\right]$
+Title=$R^q_{K^-}=\frac{1}{2N_\mathrm{events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to K^-)+N(\bar q\to K^+)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{K^-}$
 LegendXPos=0.60
@@ -330,7 +330,7 @@ LogY=0
 # END PLOT
 
 # BEGIN PLOT /SLD_1999_S3743934/d32-x01-y01
-Title=$R^q_{p}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to p)+N(\bar q\to \bar p)\right]$
+Title=$R^q_{p}=\frac{1}{2N_\mathrm{events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to p)+N(\bar q\to \bar p)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{p}$
 LegendXPos=0.60
@@ -339,7 +339,7 @@ FullRange=1
 LogY=1
 # END PLOT
 # BEGIN PLOT /SLD_1999_S3743934/d32-x01-y02
-Title=$R^q_{\bar p}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to \bar p)+N(\bar q\to p)\right]$
+Title=$R^q_{\bar p}=\frac{1}{2N_\mathrm{events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to \bar p)+N(\bar q\to p)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{\bar p}$
 LegendXPos=0.60
@@ -358,7 +358,7 @@ LogY=0
 # END PLOT
 
 # BEGIN PLOT /SLD_1999_S3743934/d34-x01-y01
-Title=$R^q_{\Lambda^0}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to \Lambda^0)+N(\bar q\to \bar \Lambda^0)\right]$
+Title=$R^q_{\Lambda^0}=\frac{1}{2N_\mathrm{events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to \Lambda^0)+N(\bar q\to \bar \Lambda^0)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{\Lambda^0}$
 LegendXPos=0.60
@@ -367,7 +367,7 @@ FullRange=1
 LogY=1
 # END PLOT
 # BEGIN PLOT /SLD_1999_S3743934/d34-x01-y02
-Title=$R^q_{\bar \Lambda^0}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to \bar \Lambda^0)+N(\bar q\to \Lambda^0)\right]$
+Title=$R^q_{\bar \Lambda^0}=\frac{1}{2N_\mathrm{events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to \bar \Lambda^0)+N(\bar q\to \Lambda^0)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{\bar \Lambda^0}$
 LegendXPos=0.60

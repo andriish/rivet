@@ -238,7 +238,7 @@ LogY=0
 # END PLOT
 
 # BEGIN PLOT /SLD_2004_S5693039/d09-x01-y01
-Title=$R^q_{\pi^+}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to\pi^+)+N(\bar q\to\pi^-)\right]$
+Title=$R^q_{\pi^+}=\frac{1}{2N_\mathrm{events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to\pi^+)+N(\bar q\to\pi^-)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{\pi^+}$
 LegendXPos=0.60
@@ -247,7 +247,7 @@ FullRange=1
 LogY=1
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d09-x01-y02
-Title=$R^q_{\pi^-}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to\pi^-)+N(\bar q\to\pi^+)\right]$
+Title=$R^q_{\pi^-}=\frac{1}{2N_\mathrm{events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to\pi^-)+N(\bar q\to\pi^+)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{\pi^-}$
 LegendXPos=0.60
@@ -265,7 +265,7 @@ FullRange=1
 LogY=0
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d10-x01-y01
-Title=$R^q_{K^+}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to K^+)+N(\bar q\to K^-)\right]$
+Title=$R^q_{K^+}=\frac{1}{2N_\mathrm{events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to K^+)+N(\bar q\to K^-)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{K^+}$
 LegendXPos=0.60
@@ -274,7 +274,7 @@ FullRange=1
 LogY=1
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d10-x01-y02
-Title=$R^q_{K^-}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to K^-)+N(\bar q\to K^+)\right]$
+Title=$R^q_{K^-}=\frac{1}{2N_\mathrm{events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to K^-)+N(\bar q\to K^+)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{K^-}$
 LegendXPos=0.60
@@ -292,7 +292,7 @@ FullRange=1
 LogY=0
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d11-x01-y01
-Title=$R^q_{p}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to p)+N(\bar q\to \bar p)\right]$
+Title=$R^q_{p}=\frac{1}{2N_\mathrm{events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to p)+N(\bar q\to \bar p)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{p}$
 LegendXPos=0.60
@@ -301,7 +301,7 @@ FullRange=1
 LogY=1
 # END PLOT
 # BEGIN PLOT /SLD_2004_S5693039/d11-x01-y02
-Title=$R^q_{\bar p}=\frac{1}{2N_{\rm events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to \bar p)+N(\bar q\to p)\right]$
+Title=$R^q_{\bar p}=\frac{1}{2N_\mathrm{events}}\frac{\mathrm{d}}{\mathrm{d}x_p}\left[N(q\to \bar p)+N(\bar q\to p)\right]$
 XLabel=$x_p$
 YLabel=$R^q_{\bar p}$
 LegendXPos=0.60
