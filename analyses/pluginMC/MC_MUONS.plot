@@ -5,18 +5,18 @@ LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_MUONS/muons_dR_12
-XLabel=$\Delta{R}(\mu\mathrm{1, }\mu\mathrm{2})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(\mu\mathrm{1, }\mu\mathrm{2})$ [pb]
+XLabel=$\Delta{R}(\mu\mathrm{1,~}\mu\mathrm{2})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(\mu\mathrm{1,~}\mu\mathrm{2})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_MUONS/muons_dR_13
-XLabel=$\Delta{R}(\mu\mathrm{1, }\mu\mathrm{3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(\mu\mathrm{1, }\mu\mathrm{3})$ [pb]
+XLabel=$\Delta{R}(\mu\mathrm{1,~}\mu\mathrm{3})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(\mu\mathrm{1,~}\mu\mathrm{3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_MUONS/muons_dR_23
-XLabel=$\Delta{R}(\mu\mathrm{2, }\mu\mathrm{3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(\mu\mathrm{2, }\mu\mathrm{3})$ [pb]
+XLabel=$\Delta{R}(\mu\mathrm{2,~}\mu\mathrm{3})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(\mu\mathrm{2,~}\mu\mathrm{3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_MUONS/muons_deta_
@@ -26,18 +26,18 @@ LegendXPos=0.30
 # END PLOT
 
 # BEGIN PLOT /MC_MUONS/muons_deta_12
-XLabel=$\Delta\eta(\mu\mathrm{1, }\mu\mathrm{2})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\eta(\mu\mathrm{1, }\mu\mathrm{2})$ [pb]
+XLabel=$\Delta\eta(\mu\mathrm{1,~}\mu\mathrm{2})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\eta(\mu\mathrm{1,~}\mu\mathrm{2})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_MUONS/muons_deta_13
-XLabel=$\Delta\eta(\mu\mathrm{1, }\mu\mathrm{3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\eta(\mu\mathrm{1, }\mu\mathrm{3})$ [pb]
+XLabel=$\Delta\eta(\mu\mathrm{1,~}\mu\mathrm{3})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\eta(\mu\mathrm{1,~}\mu\mathrm{3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_MUONS/muons_deta_23
-XLabel=$\Delta\eta(\mu\mathrm{2, }\mu\mathrm{3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\eta(\mu\mathrm{2, }\mu\mathrm{3})$ [pb]
+XLabel=$\Delta\eta(\mu\mathrm{2,~}\mu\mathrm{3})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\eta(\mu\mathrm{2,~}\mu\mathrm{3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_MUONS/muons_dphi_
@@ -46,18 +46,18 @@ LegendXPos=0.1
 # END PLOT
 
 # BEGIN PLOT /MC_MUONS/muons_dphi_12
-XLabel=$\Delta\phi(\mu\mathrm{1, }\mu\mathrm{2})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\phi(\mu\mathrm{1, }\mu\mathrm{2})$ [pb]
+XLabel=$\Delta\phi(\mu\mathrm{1,~}\mu\mathrm{2})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\phi(\mu\mathrm{1,~}\mu\mathrm{2})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_MUONS/muons_dphi_13
-XLabel=$\Delta\phi(\mu\mathrm{1, }\mu\mathrm{3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\phi(\mu\mathrm{1, }\mu\mathrm{3})$ [pb]
+XLabel=$\Delta\phi(\mu\mathrm{1,~}\mu\mathrm{3})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\phi(\mu\mathrm{1,~}\mu\mathrm{3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_MUONS/muons_dphi_23
-XLabel=$\Delta\phi(\mu\mathrm{2, }\mu\mathrm{3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\phi(\mu\mathrm{2, }\mu\mathrm{3})$ [pb]
+XLabel=$\Delta\phi(\mu\mathrm{2,~}\mu\mathrm{3})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\phi(\mu\mathrm{2,~}\mu\mathrm{3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_MUONS/muon_eta_1

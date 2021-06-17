@@ -5,18 +5,18 @@ LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_ELECTRONS/electrons_dR_12
-XLabel=$\Delta{R}(\mathrm{e1, e2})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(\mathrm{e1, e2})$ [pb]
+XLabel=$\Delta{R}(\mathrm{e1,~e2})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(\mathrm{e1,~e2})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_ELECTRONS/electrons_dR_13
-XLabel=$\Delta{R}(\mathrm{e1, e3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(\mathrm{e1, e3})$ [pb]
+XLabel=$\Delta{R}(\mathrm{e1,~e3})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(\mathrm{e1,~e3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_ELECTRONS/electrons_dR_23
-XLabel=$\Delta{R}(\mathrm{e2, e3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(\mathrm{e2, e3})$ [pb]
+XLabel=$\Delta{R}(\mathrm{e2,~e3})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(\mathrm{e2,~e3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_ELECTRONS/electrons_deta_
@@ -26,18 +26,18 @@ LegendXPos=0.30
 # END PLOT
 
 # BEGIN PLOT /MC_ELECTRONS/electrons_deta_12
-XLabel=$\Delta\eta(\mathrm{e1, e2})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\eta(\mathrm{e1, e2})$ [pb]
+XLabel=$\Delta\eta(\mathrm{e1,~e2})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\eta(\mathrm{e1,~e2})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_ELECTRONS/electrons_deta_13
-XLabel=$\Delta\eta(\mathrm{e1, e3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\eta(\mathrm{e1, e3})$ [pb]
+XLabel=$\Delta\eta(\mathrm{e1,~e3})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\eta(\mathrm{e1,~e3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_ELECTRONS/electrons_deta_23
-XLabel=$\Delta\eta(\mathrm{e2, e3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\eta(\mathrm{e2, e3})$ [pb]
+XLabel=$\Delta\eta(\mathrm{e2,~e3})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\eta(\mathrm{e2,~e3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_ELECTRONS/electrons_dphi_
@@ -46,18 +46,18 @@ LegendXPos=0.1
 # END PLOT
 
 # BEGIN PLOT /MC_ELECTRONS/electrons_dphi_12
-XLabel=$\Delta\phi(\mathrm{e1, e2})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\phi(\mathrm{e1, e2})$ [pb]
+XLabel=$\Delta\phi(\mathrm{e1,~e2})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\phi(\mathrm{e1,~e2})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_ELECTRONS/electrons_dphi_13
-XLabel=$\Delta\phi(\mathrm{e1, e3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\phi(\mathrm{e1, e3})$ [pb]
+XLabel=$\Delta\phi(\mathrm{e1,~e3})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\phi(\mathrm{e1,~e3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_ELECTRONS/electrons_dphi_23
-XLabel=$\Delta\phi(\mathrm{e2, e3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\phi(\mathrm{e2, e3})$ [pb]
+XLabel=$\Delta\phi(\mathrm{e2,~e3})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\phi(\mathrm{e2,~e3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_ELECTRONS/electron_eta_1

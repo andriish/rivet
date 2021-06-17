@@ -1,35 +1,35 @@
 # BEGIN PLOT /CDF_2001_S4751469/d01-x01-y01
-Title=$\langle N_\mathrm{ch}\rangle$ vs. $\Delta\phi$ from leading jet ($p_\perp^\mathrm{lead} > 2\mathrm{ GeV}$) 
+Title=$\langle N_\mathrm{ch}\rangle$ vs. $\Delta\phi$ from leading jet ($p_\perp^\mathrm{lead} > 2\mathrm{~GeV}$) 
 XLabel=$\Delta\phi$ / degrees
 YLabel=$\langle N_\mathrm{ch}\rangle$
 # END PLOT
 
 # BEGIN PLOT /CDF_2001_S4751469/d01-x01-y02
-Title=$\langle N_\mathrm{ch}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\mathrm{lead} > 5\mathrm{ GeV}$) 
+Title=$\langle N_\mathrm{ch}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\mathrm{lead} > 5\mathrm{~GeV}$) 
 XLabel=$\Delta\phi$ / degrees
 YLabel=$\langle N_\mathrm{ch}\rangle$
 # END PLOT
 
 # BEGIN PLOT /CDF_2001_S4751469/d01-x01-y03
-Title=$\langle N_\mathrm{ch}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\mathrm{lead} > 30\mathrm{ GeV}$) 
+Title=$\langle N_\mathrm{ch}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\mathrm{lead} > 30\mathrm{~GeV}$) 
 XLabel=$\Delta\phi$ / degrees
 YLabel=$\langle N_\mathrm{ch}\rangle$
 # END PLOT
 
 # BEGIN PLOT /CDF_2001_S4751469/d02-x01-y01
-Title=$\langle p_\perp^\mathrm{sum}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\mathrm{lead} > 2\mathrm{ GeV}$) 
+Title=$\langle p_\perp^\mathrm{sum}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\mathrm{lead} > 2\mathrm{~GeV}$) 
 XLabel=$\Delta\phi$ / degrees
 YLabel=$\langle p_\perp^\mathrm{sum}\rangle$
 # END PLOT
 
 # BEGIN PLOT /CDF_2001_S4751469/d02-x01-y02
-Title=$\langle p_\perp^\mathrm{sum}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\mathrm{lead} > 5\mathrm{ GeV}$) 
+Title=$\langle p_\perp^\mathrm{sum}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\mathrm{lead} > 5\mathrm{~GeV}$) 
 XLabel=$\Delta\phi$ / degrees
 YLabel=$\langle p_\perp^\mathrm{sum}\rangle$
 # END PLOT
 
 # BEGIN PLOT /CDF_2001_S4751469/d02-x01-y03
-Title=$\langle p_\perp^\mathrm{sum}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\mathrm{lead} > 30\mathrm{ GeV}$) 
+Title=$\langle p_\perp^\mathrm{sum}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\mathrm{lead} > 30\mathrm{~GeV}$) 
 XLabel=$\Delta\phi$ / degrees
 YLabel=$\langle p_\perp^\mathrm{sum}\rangle$
 # END PLOT
@@ -130,14 +130,14 @@ LogY=0
 # END PLOT
 
 # BEGIN PLOT /CDF_2001_S4751469/d07-x01-y01
-Title=$p_\perp$ distribution (transverse, $p_\perp^\mathrm{lead} > 2\mathrm{ GeV}$)
+Title=$p_\perp$ distribution (transverse, $p_\perp^\mathrm{lead} > 2\mathrm{~GeV}$)
 XLabel=$p_\perp$ / GeV
 YLabel=$1/\sigma \, \mathrm{d}{\sigma}/\mathrm{d}{p_\perp}$
 FullRange=1
 # END PLOT
 
 # BEGIN PLOT /CDF_2001_S4751469/d07-x01-y02
-Title=$p_\perp$ distribution (transverse, $p_\perp^\mathrm{lead} > 5\mathrm{ GeV}$)
+Title=$p_\perp$ distribution (transverse, $p_\perp^\mathrm{lead} > 5\mathrm{~GeV}$)
 XLabel=$p_\perp$ / GeV
 YLabel=$1/\sigma \, \mathrm{d}{\sigma}/\mathrm{d}{p_\perp}$
 FullRange=1

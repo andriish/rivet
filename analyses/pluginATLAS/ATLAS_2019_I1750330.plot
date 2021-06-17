@@ -1379,39 +1379,39 @@ YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} m^{t\bar{t}} \mathrm{d}  |y^{t\bar{t}}|
 
 # BEGIN PLOT /ATLAS_2019_I1750330/d984-x01-y01
 Title=Boosted l+jets
-XLabel=$p^{t,\mathrm{had}}_{\mathrm{T}} [\mathrm{GeV}], N^{\mathrm{extra jet}} < 2 $ 
-YLabel=$1 / \sigma \;\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra jet}} \mathrm{d} p^{t,\mathrm{had}}_{\mathrm{T}}$ [1/GeV]
+XLabel=$p^{t,\mathrm{had}}_{\mathrm{T}} [\mathrm{GeV}], N^{\mathrm{extra~jet}} < 2 $ 
+YLabel=$1 / \sigma \;\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra~jet}} \mathrm{d} p^{t,\mathrm{had}}_{\mathrm{T}}$ [1/GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1750330/d985-x01-y01
 Title=Boosted l+jets
-XLabel=$p^{t,\mathrm{had}}_{\mathrm{T}} [\mathrm{GeV}], N^{\mathrm{extra jet}} = 2$ 
-YLabel=$1 / \sigma \;\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra jet}} \mathrm{d} p^{t,\mathrm{had}}_{\mathrm{T}}$ [1/GeV]
+XLabel=$p^{t,\mathrm{had}}_{\mathrm{T}} [\mathrm{GeV}], N^{\mathrm{extra~jet}} = 2$ 
+YLabel=$1 / \sigma \;\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra~jet}} \mathrm{d} p^{t,\mathrm{had}}_{\mathrm{T}}$ [1/GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1750330/d986-x01-y01
 Title=Boosted l+jets
-XLabel=$p^{t,\mathrm{had}}_{\mathrm{T}} [\mathrm{GeV}], N^{\mathrm{extra jet}} \geq 3$ 
-YLabel=$1 / \sigma \;\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra jet}} \mathrm{d} p^{t,\mathrm{had}}_{\mathrm{T}}$ [1/GeV]
+XLabel=$p^{t,\mathrm{had}}_{\mathrm{T}} [\mathrm{GeV}], N^{\mathrm{extra~jet}} \geq 3$ 
+YLabel=$1 / \sigma \;\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra~jet}} \mathrm{d} p^{t,\mathrm{had}}_{\mathrm{T}}$ [1/GeV]
 # END PLOT
 
 
 # BEGIN PLOT /ATLAS_2019_I1750330/d993-x01-y01
 Title=Boosted l+jets
-XLabel=$p^{t,\mathrm{had}}_{\mathrm{T}} [\mathrm{GeV}], N^{\mathrm{extra jet}} < 2 $ 
-YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra jet}} \mathrm{d} p^{t,\mathrm{had}}_{\mathrm{T}}$ [pb/GeV]
+XLabel=$p^{t,\mathrm{had}}_{\mathrm{T}} [\mathrm{GeV}], N^{\mathrm{extra~jet}} < 2 $ 
+YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra~jet}} \mathrm{d} p^{t,\mathrm{had}}_{\mathrm{T}}$ [pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1750330/d994-x01-y01
 Title=Boosted l+jets
-XLabel=$p^{t,\mathrm{had}}_{\mathrm{T}} [\mathrm{GeV}], N^{\mathrm{extra jet}} = 2 $ 
-YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra jet}} \mathrm{d} p^{t,\mathrm{had}}_{\mathrm{T}}$ [pb/GeV]
+XLabel=$p^{t,\mathrm{had}}_{\mathrm{T}} [\mathrm{GeV}], N^{\mathrm{extra~jet}} = 2 $ 
+YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra~jet}} \mathrm{d} p^{t,\mathrm{had}}_{\mathrm{T}}$ [pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1750330/d995-x01-y01
 Title=Boosted l+jets
-XLabel=$p^{t,\mathrm{had}}_{\mathrm{T}} [\mathrm{GeV}], N^{\mathrm{extra jet}} \geq 3 $ 
-YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra jet}} \mathrm{d} p^{t,\mathrm{had}}_{\mathrm{T}}$ [pb/GeV]
+XLabel=$p^{t,\mathrm{had}}_{\mathrm{T}} [\mathrm{GeV}], N^{\mathrm{extra~jet}} \geq 3 $ 
+YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra~jet}} \mathrm{d} p^{t,\mathrm{had}}_{\mathrm{T}}$ [pb/GeV]
 # END PLOT
 
 
@@ -1420,26 +1420,26 @@ YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra jet}} \mathrm{d} p^{t,
 
 # BEGIN PLOT /ATLAS_2019_I1750330/d1002-x01-y01
 Title=Boosted l+jets
-XLabel=$p_{\mathrm{T}}^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra jet}} < 2$ 
-YLabel=$1 / \sigma \;\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra jet}} \mathrm{d} p_{\mathrm{T}}^{t\bar{t}}$ [1/GeV]
+XLabel=$p_{\mathrm{T}}^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra~jet}} < 2$ 
+YLabel=$1 / \sigma \;\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra~jet}} \mathrm{d} p_{\mathrm{T}}^{t\bar{t}}$ [1/GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1750330/d1003-x01-y01
 Title=Boosted l+jets
-XLabel=$p_{\mathrm{T}}^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra jet}} \geq 2$ 
-YLabel=$1 / \sigma \;\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra jet}} \mathrm{d} p_{\mathrm{T}}^{t\bar{t}}$ [1/GeV]
+XLabel=$p_{\mathrm{T}}^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra~jet}} \geq 2$ 
+YLabel=$1 / \sigma \;\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra~jet}} \mathrm{d} p_{\mathrm{T}}^{t\bar{t}}$ [1/GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1750330/d1007-x01-y01
 Title=Boosted l+jets
-XLabel=$p_{\mathrm{T}}^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra jet}} < 2 $ 
-YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra jet}} \mathrm{d} p_{\mathrm{T}}^{t\bar{t}}$ [pb/GeV]
+XLabel=$p_{\mathrm{T}}^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra~jet}} < 2 $ 
+YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra~jet}} \mathrm{d} p_{\mathrm{T}}^{t\bar{t}}$ [pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1750330/d1008-x01-y01
 Title=Boosted l+jets
-XLabel=$p_{\mathrm{T}}^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra jet}} \geq 2 $ 
-YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra jet}} \mathrm{d} p_{\mathrm{T}}^{t\bar{t}}$ [pb/GeV]
+XLabel=$p_{\mathrm{T}}^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra~jet}} \geq 2 $ 
+YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra~jet}} \mathrm{d} p_{\mathrm{T}}^{t\bar{t}}$ [pb/GeV]
 # END PLOT
 
 
@@ -1447,38 +1447,38 @@ YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra jet}} \mathrm{d} p_{\m
 
 # BEGIN PLOT /ATLAS_2019_I1750330/d1012-x01-y01
 Title=Boosted l+jets
-XLabel=$m^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra jet}} = 0$ 
-YLabel=$1 / \sigma \;\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra jet}} \mathrm{d} m^{t\bar{t}}$ [1/GeV]
+XLabel=$m^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra~jet}} = 0$ 
+YLabel=$1 / \sigma \;\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra~jet}} \mathrm{d} m^{t\bar{t}}$ [1/GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1750330/d1013-x01-y01
 Title=Boosted l+jets
-XLabel=$m^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra jet}} = 1$ 
-YLabel=$1 / \sigma \;\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra jet}} \mathrm{d} m^{t\bar{t}}$ [1/GeV]
+XLabel=$m^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra~jet}} = 1$ 
+YLabel=$1 / \sigma \;\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra~jet}} \mathrm{d} m^{t\bar{t}}$ [1/GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1750330/d1014-x01-y01
 Title=Boosted l+jets
-XLabel=$m^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra jet}} \geq 2$ 
-YLabel=$1 / \sigma \;\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra jet}} \mathrm{d} m^{t\bar{t}}$ [1/GeV]
+XLabel=$m^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra~jet}} \geq 2$ 
+YLabel=$1 / \sigma \;\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra~jet}} \mathrm{d} m^{t\bar{t}}$ [1/GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1750330/d1021-x01-y01
 Title=Boosted l+jets
-XLabel=$m^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra jet}} = 0 $ 
-YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra jet}} \mathrm{d} m^{t\bar{t}}$ [pb/GeV]
+XLabel=$m^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra~jet}} = 0 $ 
+YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra~jet}} \mathrm{d} m^{t\bar{t}}$ [pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1750330/d1022-x01-y01
 Title=Boosted l+jets
-XLabel=$m^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra jet}} = 1 $ 
-YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra jet}} \mathrm{d} m^{t\bar{t}}$ [pb/GeV]
+XLabel=$m^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra~jet}} = 1 $ 
+YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra~jet}} \mathrm{d} m^{t\bar{t}}$ [pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1750330/d1023-x01-y01
 Title=Boosted l+jets
-XLabel=$m^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra jet}} \geq 2 $ 
-YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra jet}} \mathrm{d} m^{t\bar{t}}$ [pb/GeV]
+XLabel=$m^{t\bar{t}} [\mathrm{GeV}], N^{\mathrm{extra~jet}} \geq 2 $ 
+YLabel=$\mathrm{d}^2\sigma /  \mathrm{d} N^{\mathrm{extra~jet}} \mathrm{d} m^{t\bar{t}}$ [pb/GeV]
 # END PLOT
 
 

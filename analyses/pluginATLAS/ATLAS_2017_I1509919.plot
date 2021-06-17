@@ -5,7 +5,7 @@ LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2017_I1509919/d01-x01-y01
-Title=Unit-normalised distribution of $p_\perp^\mathrm{lead}$, $p_\perp^\mathrm{lead} > \mathrm{1 GeV}$
+Title=Unit-normalised distribution of $p_\perp^\mathrm{lead}$, $p_\perp^\mathrm{lead} > \mathrm{1~GeV}$
 XLabel=$p_\perp^\mathrm{lead} [GeV]$
 YLabel=$1/N_\mathrm{ev}\ \mathrm{d} N_\mathrm{ev}/\mathrm{d}p_\perp^\mathrm{lead} [\mathrm{GeV}^{-1}]$
 LogY=1
@@ -84,44 +84,44 @@ YLabel=$\langle \mathrm{mean}\ p_\perp \rangle \mathrm{[GeV]}$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2017_I1509919/d14-x01-y01
-Title=Unit-normalised distribution of $p_\perp^\mathrm{lead}$, $p_\perp^\mathrm{lead} > \mathrm{5 GeV}$
+Title=Unit-normalised distribution of $p_\perp^\mathrm{lead}$, $p_\perp^\mathrm{lead} > \mathrm{5~GeV}$
 XLabel=$p_\perp^\mathrm{lead} [GeV]$
 YLabel=$1/N_\mathrm{ev}\ \mathrm{d} N_\mathrm{ev}/\mathrm{d}p_\perp^\mathrm{lead} [\mathrm{GeV}^{-1}]$
 LogY=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2017_I1509919/d15-x01-y01
-Title=Mean charged-particle multiplicity density, $p_\perp^\mathrm{lead} > \mathrm{1 GeV}$.
+Title=Mean charged-particle multiplicity density, $p_\perp^\mathrm{lead} > \mathrm{1~GeV}$.
 XLabel=$|\Delta \phi|$ [degrees]
 YLabel=$\langle N_\mathrm{ch}/ \delta\eta\ \delta\phi \rangle$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2017_I1509919/d16-x01-y01
-Title=Mean charged-particle multiplicity density, $p_\perp^\mathrm{lead} > \mathrm{5 GeV}$.
+Title=Mean charged-particle multiplicity density, $p_\perp^\mathrm{lead} > \mathrm{5~GeV}$.
 XLabel=$|\Delta \phi|$ [degrees]
 YLabel=$\langle N_\mathrm{ch}/ \delta\eta\ \delta\phi \rangle$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2017_I1509919/d17-x01-y01
-Title=Mean charged-particle multiplicity density, $p_\perp^\mathrm{lead} > \mathrm{10 GeV}$.
+Title=Mean charged-particle multiplicity density, $p_\perp^\mathrm{lead} > \mathrm{10~GeV}$.
 XLabel=$|\Delta \phi|$ [degrees]
 YLabel=$\langle N_\mathrm{ch}/ \delta\eta\ \delta\phi \rangle$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2017_I1509919/d18-x01-y01
-Title=Mean  $\sum p_\perp$ density, $p_\perp^\mathrm{lead} > \mathrm{1 GeV}$.
+Title=Mean  $\sum p_\perp$ density, $p_\perp^\mathrm{lead} > \mathrm{1~GeV}$.
 XLabel=$|\Delta \phi|$ [degrees]
 YLabel=$\langle \sum p_\perp / \delta\eta\ \delta\phi \rangle$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2017_I1509919/d19-x01-y01
-Title=Mean  $\sum p_\perp$ density, $p_\perp^\mathrm{lead} > \mathrm{5 GeV}$.
+Title=Mean  $\sum p_\perp$ density, $p_\perp^\mathrm{lead} > \mathrm{5~GeV}$.
 XLabel=$|\Delta \phi|$ [degrees]
 YLabel=$\langle \sum p_\perp / \delta\eta\ \delta\phi \rangle$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2017_I1509919/d20-x01-y01
-Title=Mean  $\sum p_\perp$ density, $p_\perp^\mathrm{lead} > \mathrm{10 GeV}$.
+Title=Mean  $\sum p_\perp$ density, $p_\perp^\mathrm{lead} > \mathrm{10~GeV}$.
 XLabel=$|\Delta \phi|$ [degrees]
 YLabel=$\langle \sum p_\perp / \delta\eta\ \delta\phi \rangle$
 # END PLOT

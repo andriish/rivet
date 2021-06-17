@@ -15,7 +15,7 @@ FullRange=1
 LogX=0
 LogY=1
 XLabel=\large{Exclusive Jet Multiplicity}
-YLabel=\large{$\sigma(\mathrm{Z}/\gamma*\rightarrow \mathrm{ll} + N \mathrm{ jets})$ [pb]}
+YLabel=\large{$\sigma(\mathrm{Z}/\gamma*\rightarrow \mathrm{ll} + N \mathrm{~jets})$ [pb]}
 LegendXPos=0.5
 LegendYPos=0.9
 # END PLOT
@@ -28,7 +28,7 @@ FullRange=1
 LogX=0
 LogY=1
 XLabel=\large{Inclusive Jet Multiplicity}
-YLabel=\large{$\sigma(\mathrm{Z}/\gamma*\rightarrow \mathrm{ll} + \geq N \mathrm{ jets})$ [pb]}
+YLabel=\large{$\sigma(\mathrm{Z}/\gamma*\rightarrow \mathrm{ll} + \geq N \mathrm{~jets})$ [pb]}
 LegendXPos=0.5
 LegendYPos=0.9
 # END PLOT

@@ -4,43 +4,43 @@ LogY=0
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d01
 Title=Dijet selection, Calorimeter Based, Soft Drop $\beta$ = 0.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 YMax=2
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d02
 Title=Dijet selection, Track Based, Soft Drop $\beta$ = 0.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 YMax=2
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d03
 Title=Dijet selection, Cluster Based, Soft Drop $\beta$ = 1.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 YMax=1.9
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d04
 Title=Dijet selection, Track Based, Soft Drop $\beta$ = 1.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 YMax=2.2
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d05
 Title=Dijet selection, Cluster Based, Soft Drop $\beta$ = 2.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 YMax=2.8
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d06
 Title=Dijet selection, Track Based, Soft Drop $\beta$ = 2.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 YMax=3.1
 # END PLOT
 
@@ -136,38 +136,38 @@ YMax=2.8
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d19
 Title=Dijet selection, Central jet, Calorimeter Based, Soft Drop $\beta$ = 0.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d20
 Title=Dijet selection, Central jet, Track Based, Soft Drop $\beta$ = 0.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d21
 Title=Dijet selection, Central jet, Cluster Based, Soft Drop $\beta$ = 1.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d22
 Title=Dijet selection, Central jet, Track Based, Soft Drop $\beta$ = 1.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d23
 Title=Dijet selection, Central jet, Cluster Based, Soft Drop $\beta$ = 2.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d24
 Title=Dijet selection, Central jet, Track Based, Soft Drop $\beta$ = 2.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 
@@ -251,38 +251,38 @@ YLabel=(1/$\sigma$) d$\sigma$/d $r_g$
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d37
 Title=Dijet selection, Forward jet, Calorimeter Based, Soft Drop $\beta$ = 0.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d38
 Title=Dijet selection, Forward jet, Track Based, Soft Drop $\beta$ = 0.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d39
 Title=Dijet selection, Forward jet, Cluster Based, Soft Drop $\beta$ = 1.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d40
 Title=Dijet selection, Forward jet, Track Based, Soft Drop $\beta$ = 1.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d41
 Title=Dijet selection, Forward jet, Cluster Based, Soft Drop $\beta$ = 2.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d42
 Title=Dijet selection, Forward jet, Track Based, Soft Drop $\beta$ = 2.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 
@@ -366,38 +366,38 @@ YLabel=(1/$\sigma$) d$\sigma$/d $r_g$
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d55
 Title=Dijet selection, Calorimeter Based, Soft Drop $\beta$ = 0.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d56
 Title=Dijet selection, Track Based, Soft Drop $\beta$ = 0.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d57
 Title=Dijet selection, Cluster Based, Soft Drop $\beta$ = 1.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d58
 Title=Dijet selection, Track Based, Soft Drop $\beta$ = 1.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d59
 Title=Dijet selection, Cluster Based, Soft Drop $\beta$ = 2.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d60
 Title=Dijet selection, Track Based, Soft Drop $\beta$ = 2.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 
@@ -482,38 +482,38 @@ YLabel=(1/$\sigma$) d$\sigma$/d $r_g$
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d73
 Title=Dijet selection, Central jet, Calorimeter Based, Soft Drop $\beta$ = 0.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d74
 Title=Dijet selection, Central jet, Track Based, Soft Drop $\beta$ = 0.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d75
 Title=Dijet selection, Central jet, Cluster Based, Soft Drop $\beta$ = 1.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d76
 Title=Dijet selection, Central jet, Track Based, Soft Drop $\beta$ = 1.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d77
 Title=Dijet selection, Central jet, Cluster Based, Soft Drop $\beta$ = 2.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d78
 Title=Dijet selection, Central jet, Track Based, Soft Drop $\beta$ = 2.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 
@@ -597,38 +597,38 @@ YLabel=(1/$\sigma$) d$\sigma$/d $r_g$
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d91
 Title=Dijet selection, Forward jet, Calorimeter Based, Soft Drop $\beta$ = 0.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d92
 Title=Dijet selection, Forward jet, Track Based, Soft Drop $\beta$ = 0.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d93
 Title=Dijet selection, Forward jet, Cluster Based, Soft Drop $\beta$ = 1.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d94
 Title=Dijet selection, Forward jet, Track Based, Soft Drop $\beta$ = 1.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d95
 Title=Dijet selection, Forward jet, Cluster Based, Soft Drop $\beta$ = 2.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d96
 Title=Dijet selection, Forward jet, Track Based, Soft Drop $\beta$ = 2.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 
@@ -713,38 +713,38 @@ YLabel=(1/$\sigma$) d$\sigma$/d $r_g$
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d109
 Title=Dijet selection, Quark extraction, Calorimeter Based, Soft Drop $\beta$ = 0.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d110
 Title=Dijet selection, Quark extraction, Track Based, Soft Drop $\beta$ = 0.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d111
 Title=Dijet selection, Quark extraction, Cluster Based, Soft Drop $\beta$ = 1.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d112
 Title=Dijet selection, Quark extraction, Track Based, Soft Drop $\beta$ = 1.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d113
 Title=Dijet selection, Quark extraction, Cluster Based, Soft Drop $\beta$ = 2.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d114
 Title=Dijet selection, Quark extraction, Track Based, Soft Drop $\beta$ = 2.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 
@@ -828,38 +828,38 @@ YLabel=(1/$\sigma$) d$\sigma$/d $r_g$
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d127
 Title=Dijet selection, Gluon extraction, Calorimeter Based, Soft Drop $\beta$ = 0.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d128
 Title=Dijet selection, Gluon extraction, Track Based, Soft Drop $\beta$ = 0.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d129
 Title=Dijet selection, Gluon extraction, Cluster Based, Soft Drop $\beta$ = 1.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d130
 Title=Dijet selection, Gluon extraction, Track Based, Soft Drop $\beta$ = 1.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d131
 Title=Dijet selection, Gluon extraction, Cluster Based, Soft Drop $\beta$ = 2.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d132
 Title=Dijet selection, Gluon extraction, Track Based, Soft Drop $\beta$ = 2.0, $z_{cut}$ = 0.1
-XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
-YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+XLabel=$\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
+YLabel=(1/$\sigma_{\mathrm{resum}}$) d$\sigma$/d $\mathrm{log}_{10}[(m^{\mathrm{soft~drop}}/p_{T}^{\mathrm{ungroomed}})^2]$
 # END PLOT
 
 

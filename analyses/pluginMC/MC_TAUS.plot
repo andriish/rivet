@@ -5,18 +5,18 @@ LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_TAUS/taus_dR_12
-XLabel=$\Delta{R}(\tau\mathrm{1, }\tau\mathrm{2})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(\tau\mathrm{1, }\tau\mathrm{2})$ [pb]
+XLabel=$\Delta{R}(\tau\mathrm{1,~}\tau\mathrm{2})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(\tau\mathrm{1,~}\tau\mathrm{2})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_TAUS/taus_dR_13
-XLabel=$\Delta{R}(\tau\mathrm{1, }\tau\mathrm{3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(\tau\mathrm{1, }\tau\mathrm{3})$ [pb]
+XLabel=$\Delta{R}(\tau\mathrm{1,~}\tau\mathrm{3})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(\tau\mathrm{1,~}\tau\mathrm{3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_TAUS/taus_dR_23
-XLabel=$\Delta{R}(\tau\mathrm{2, }\tau\mathrm{3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(\tau\mathrm{2, }\tau\mathrm{3})$ [pb]
+XLabel=$\Delta{R}(\tau\mathrm{2,~}\tau\mathrm{3})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{R}(\tau\mathrm{2,~}\tau\mathrm{3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_TAUS/taus_deta_
@@ -26,18 +26,18 @@ LegendXPos=0.30
 # END PLOT
 
 # BEGIN PLOT /MC_TAUS/taus_deta_12
-XLabel=$\Delta\eta(\tau\mathrm{1, }\tau\mathrm{2})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\eta(\tau\mathrm{1, }\tau\mathrm{2})$ [pb]
+XLabel=$\Delta\eta(\tau\mathrm{1,~}\tau\mathrm{2})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\eta(\tau\mathrm{1,~}\tau\mathrm{2})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_TAUS/taus_deta_13
-XLabel=$\Delta\eta(\tau\mathrm{1, }\tau\mathrm{3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\eta(\tau\mathrm{1, }\tau\mathrm{3})$ [pb]
+XLabel=$\Delta\eta(\tau\mathrm{1,~}\tau\mathrm{3})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\eta(\tau\mathrm{1,~}\tau\mathrm{3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_TAUS/taus_deta_23
-XLabel=$\Delta\eta(\tau\mathrm{3, }\tau\mathrm{3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\eta(\tau\mathrm{3, }\tau\mathrm{3})$ [pb]
+XLabel=$\Delta\eta(\tau\mathrm{3,~}\tau\mathrm{3})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\eta(\tau\mathrm{3,~}\tau\mathrm{3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_TAUS/taus_dphi_
@@ -46,18 +46,18 @@ LegendXPos=0.1
 # END PLOT
 
 # BEGIN PLOT /MC_TAUS/taus_dphi_12
-XLabel=$\Delta\phi(\tau\mathrm{1, }\tau\mathrm{2})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\phi(\tau\mathrm{1, }\tau\mathrm{2})$ [pb]
+XLabel=$\Delta\phi(\tau\mathrm{1,~}\tau\mathrm{2})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\phi(\tau\mathrm{1,~}\tau\mathrm{2})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_TAUS/taus_dphi_13
-XLabel=$\Delta\phi(\tau\mathrm{1, }\tau\mathrm{3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\phi(\tau\mathrm{1, }\tau\mathrm{3})$ [pb]
+XLabel=$\Delta\phi(\tau\mathrm{1,~}\tau\mathrm{3})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\phi(\tau\mathrm{1,~}\tau\mathrm{3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_TAUS/taus_dphi_23
-XLabel=$\Delta\phi(\tau\mathrm{2, }\tau\mathrm{3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\phi(\tau\mathrm{2, }\tau\mathrm{3})$ [pb]
+XLabel=$\Delta\phi(\tau\mathrm{2,~}\tau\mathrm{3})$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta\phi(\tau\mathrm{2,~}\tau\mathrm{3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_TAUS/tau_eta_1

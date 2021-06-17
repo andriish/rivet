@@ -1,13 +1,13 @@
 # BEGIN PLOT /CMS_2017_I1610623/d01-x01-y01
 Title=CMS, sqrt(s) = 13 TeV, W+jets
 XLabel=EXCLUSIVE JET MULTIPLICITY
-YLabel=$\sigma(W\rightarrow \mu \nu + N \mathrm{ jets})$ [PB]
+YLabel=$\sigma(W\rightarrow \mu \nu + N \mathrm{~jets})$ [PB]
 # END PLOT
 
 # BEGIN PLOT /CMS_2017_I1610623/d02-x01-y01
 Title=CMS, sqrt(s) = 13 TeV, W+jets
 XLabel=INCLUSIVE JET MULTIPLICITY
-YLabel=$\sigma(W\rightarrow \mu \nu + \geq N \mathrm{ jets})$ [PB]
+YLabel=$\sigma(W\rightarrow \mu \nu + \geq N \mathrm{~jets})$ [PB]
 # END PLOT
 
 # BEGIN PLOT /CMS_2017_I1610623/d03-x01-y01

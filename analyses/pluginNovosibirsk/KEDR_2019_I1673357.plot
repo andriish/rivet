@@ -1,5 +1,5 @@
 BEGIN PLOT /KEDR_2019_I1673357/d01-x01-y01
-Title=$R_{uds}=\sigma(e^+e^-\to \mathrm{light hadrons})/\sigma(e^+e^-\to \mu^+\mu^-)$
+Title=$R_{uds}=\sigma(e^+e^-\to \mathrm{light~hadrons})/\sigma(e^+e^-\to \mu^+\mu^-)$
 XLabel=$\sqrt{s}$/MeV
 YLabel=$R_{uds}$
 LogY=0

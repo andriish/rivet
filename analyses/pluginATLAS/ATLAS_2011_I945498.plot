@@ -63,37 +63,37 @@ YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp (\mathrm{jet})$~[pb/GeV]
 
 # BEGIN PLOT /ATLAS_2011_I945498/d04-x01-y01
 Title= $Z\to e^+ e^-$,  $p_\perp(\mathrm{jet})>30$~GeV, $|y_\mathrm{jet}|<4.4$
-XLabel=$p_\perp^\mathrm{leading jet}$~[GeV]
+XLabel=$p_\perp^\mathrm{leading~jet}$~[GeV]
 YLabel=$(1/\sigma_{Z\to e^+e^-}) \mathrm{d}\sigma/\mathrm{d}p_\perp$~[1/GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2011_I945498/d04-x01-y02
 Title= $Z\to \mu^+ \mu^-$,  $p_\perp(\mathrm{jet})>30$~GeV, $|y_\mathrm{jet}|<4.4$
-XLabel=$p_\perp^\mathrm{leading jet}$~[GeV]
+XLabel=$p_\perp^\mathrm{leading~jet}$~[GeV]
 YLabel=$(1/\sigma_{Z\to \mu^+\mu^-})\mathrm{d}\sigma/\mathrm{d}p_\perp$~[1/GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2011_I945498/d04-x01-y03
 Title= $Z\to\ell^+\ell^-$,  $p_\perp(\mathrm{jet})>30$~GeV, $|y_\mathrm{jet}|<4.4$
-XLabel=$p_\perp^\mathrm{leading jet}$~[GeV]
+XLabel=$p_\perp^\mathrm{leading~jet}$~[GeV]
 YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp$~[pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2011_I945498/d05-x01-y01
 Title= $Z\to e^+ e^-$,  $p_\perp(\mathrm{jet})>30$~GeV, $|y_\mathrm{jet}|<4.4$
-XLabel=$p_\perp^\mathrm{2nd leading jet}$~[GeV]
+XLabel=$p_\perp^\mathrm{2nd~leading~jet}$~[GeV]
 YLabel=$(1/\sigma_{Z\to e^+e^-}) \mathrm{d}\sigma/\mathrm{d}p_\perp $~[1/GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2011_I945498/d05-x01-y02
 Title= $Z\to\mu^+\mu^-$,  $p_\perp(\mathrm{jet})>30$~GeV, $|y_\mathrm{jet}|<4.4$
-XLabel=$p_\perp^\mathrm{2nd leading jet}$~[GeV]
+XLabel=$p_\perp^\mathrm{2nd~leading~jet}$~[GeV]
 YLabel=$(1/\sigma_{Z\to \mu^+\mu^-})\mathrm{d}\sigma/\mathrm{d}p_\perp $~[1/GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2011_I945498/d05-x01-y03
 Title= $Z\to\ell^+\ell^-$,  $p_\perp(\mathrm{jet})>30$~GeV, $|y_\mathrm{jet}|<4.4$
-XLabel=$p_\perp^\mathrm{2nd leading jet}$~[GeV]
+XLabel=$p_\perp^\mathrm{2nd~leading~jet}$~[GeV]
 YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp $~[pb/GeV]
 # END PLOT
 
@@ -117,38 +117,38 @@ YLabel=$\mathrm{d}\sigma/\mathrm{d}\left|y^\mathrm{jet}\right|$~[pb]
 
 # BEGIN PLOT /ATLAS_2011_I945498/d07-x01-y01
 Title= $Z\to e^+ e^-$,  $p_\perp(\mathrm{jet})>30$~GeV, $|y_\mathrm{jet}|<4.4$
-XLabel=$\left|y^\mathrm{leading jet}\right|$
-YLabel=$(1/\sigma_{Z\to e^+e^-}) \mathrm{d}\sigma/\mathrm{d}\left|y^\mathrm{leading jet}\right|$
+XLabel=$\left|y^\mathrm{leading~jet}\right|$
+YLabel=$(1/\sigma_{Z\to e^+e^-}) \mathrm{d}\sigma/\mathrm{d}\left|y^\mathrm{leading~jet}\right|$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2011_I945498/d07-x01-y02
 Title= $Z\to \mu^+ \mu^-$,  $p_\perp(\mathrm{jet})>30$~GeV, $|y_\mathrm{jet}|<4.4$
-XLabel=$\left|y^\mathrm{leading jet}\right|$
-YLabel=$(1/\sigma_{Z\to \mu^+\mu^-})\mathrm{d}\sigma/\mathrm{d}\left|y^\mathrm{leading jet}\right|$
+XLabel=$\left|y^\mathrm{leading~jet}\right|$
+YLabel=$(1/\sigma_{Z\to \mu^+\mu^-})\mathrm{d}\sigma/\mathrm{d}\left|y^\mathrm{leading~jet}\right|$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2011_I945498/d07-x01-y03
 Title= $Z\to\ell^+\ell^-$,  $p_\perp(\mathrm{jet})>30$~GeV, $|y_\mathrm{jet}|<4.4$
-XLabel=$\left|y^\mathrm{leading jet}\right|$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\left|y^\mathrm{leading jet}\right|$~[pb]
+XLabel=$\left|y^\mathrm{leading~jet}\right|$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\left|y^\mathrm{leading~jet}\right|$~[pb]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2011_I945498/d08-x01-y01
 Title= $Z\to e^+ e^-$,  $p_\perp(\mathrm{jet})>30$~GeV, $|y_\mathrm{jet}|<4.4$
-XLabel=$\left|y^\mathrm{2nd leading jet}\right|$
-YLabel=$(1/\sigma_{Z\to e^+e^-}) \mathrm{d}\sigma/\mathrm{d}\left|y^\mathrm{2nd leading jet}\right|$
+XLabel=$\left|y^\mathrm{2nd~leading~jet}\right|$
+YLabel=$(1/\sigma_{Z\to e^+e^-}) \mathrm{d}\sigma/\mathrm{d}\left|y^\mathrm{2nd~leading~jet}\right|$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2011_I945498/d08-x01-y02
 Title= $Z\to\mu^+\mu^-$,  $p_\perp(\mathrm{jet})>30$~GeV, $|y_\mathrm{jet}|<4.4$
-XLabel=$\left|y^\mathrm{2nd leading jet}\right|$
-YLabel=$(1/\sigma_{Z\to \mu^+\mu^-})\mathrm{d}\sigma/\mathrm{d}\left|y^\mathrm{2nd leading jet}\right|$
+XLabel=$\left|y^\mathrm{2nd~leading~jet}\right|$
+YLabel=$(1/\sigma_{Z\to \mu^+\mu^-})\mathrm{d}\sigma/\mathrm{d}\left|y^\mathrm{2nd~leading~jet}\right|$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2011_I945498/d08-x01-y03
 Title= $Z\to\ell^+\ell^-$,  $p_\perp(\mathrm{jet})>30$~GeV, $|y_\mathrm{jet}|<4.4$
-XLabel=$\left|y^\mathrm{2nd leading jet}\right|$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\left|y^\mathrm{2nd leading jet}\right|$~[pb]
+XLabel=$\left|y^\mathrm{2nd~leading~jet}\right|$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\left|y^\mathrm{2nd~leading~jet}\right|$~[pb]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2011_I945498/d09-x01-y01

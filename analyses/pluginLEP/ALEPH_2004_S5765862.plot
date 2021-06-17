@@ -1404,14 +1404,14 @@ LegendYPos=0.4
 # BEGIN PLOT /ALEPH_2004_S5765862/d187-x01-y01
 Title=1-jet fraction ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$\ln(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{1 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{1~jet})/\sigma(\mathrm{inclusive})$
 LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /ALEPH_2004_S5765862/d188-x01-y01
 Title=1-jet fraction ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{1 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{1~jet})/\sigma(\mathrm{inclusive})$
 LegendYPos=0.8
 LegendXPos=0.05
 # END PLOT
@@ -1419,7 +1419,7 @@ LegendXPos=0.05
 # BEGIN PLOT /ALEPH_2004_S5765862/d189-x01-y01
 Title=1-jet fraction ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{1 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{1~jet})/\sigma(\mathrm{inclusive})$
 LegendYPos=0.8
 LegendXPos=0.05
 # END PLOT
@@ -1427,7 +1427,7 @@ LegendXPos=0.05
 # BEGIN PLOT /ALEPH_2004_S5765862/d190-x01-y01
 Title=1-jet fraction ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{1 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{1~jet})/\sigma(\mathrm{inclusive})$
 LegendYPos=0.8
 LegendXPos=0.05
 # END PLOT
@@ -1435,7 +1435,7 @@ LegendXPos=0.05
 # BEGIN PLOT /ALEPH_2004_S5765862/d191-x01-y01
 Title=1-jet fraction ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{1 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{1~jet})/\sigma(\mathrm{inclusive})$
 LegendYPos=0.8
 LegendXPos=0.05
 # END PLOT
@@ -1443,7 +1443,7 @@ LegendXPos=0.05
 # BEGIN PLOT /ALEPH_2004_S5765862/d192-x01-y01
 Title=1-jet fraction ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{1 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{1~jet})/\sigma(\mathrm{inclusive})$
 LegendYPos=0.8
 LegendXPos=0.05
 # END PLOT
@@ -1451,7 +1451,7 @@ LegendXPos=0.05
 # BEGIN PLOT /ALEPH_2004_S5765862/d193-x01-y01
 Title=1-jet fraction ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{1 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{1~jet})/\sigma(\mathrm{inclusive})$
 LegendYPos=0.8
 LegendXPos=0.05
 # END PLOT
@@ -1459,7 +1459,7 @@ LegendXPos=0.05
 # BEGIN PLOT /ALEPH_2004_S5765862/d194-x01-y01
 Title=1-jet fraction ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{1 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{1~jet})/\sigma(\mathrm{inclusive})$
 LegendYPos=0.8
 LegendXPos=0.05
 # END PLOT
@@ -1467,63 +1467,63 @@ LegendXPos=0.05
 # BEGIN PLOT /ALEPH_2004_S5765862/d195-x01-y01
 Title=2-jet fraction ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$\ln(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{2 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{2~jet})/\sigma(\mathrm{inclusive})$
 LegendYPos=0.6
 # END PLOT
 
 # BEGIN PLOT /ALEPH_2004_S5765862/d196-x01-y01
 Title=2-jet fraction ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{2 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{2~jet})/\sigma(\mathrm{inclusive})$
 LegendYPos=0.6
 # END PLOT
 
 # BEGIN PLOT /ALEPH_2004_S5765862/d197-x01-y01
 Title=2-jet fraction ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{2 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{2~jet})/\sigma(\mathrm{inclusive})$
 LegendYPos=0.6
 # END PLOT
 
 # BEGIN PLOT /ALEPH_2004_S5765862/d198-x01-y01
 Title=2-jet fraction ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{2 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{2~jet})/\sigma(\mathrm{inclusive})$
 LegendYPos=0.6
 # END PLOT
 
 # BEGIN PLOT /ALEPH_2004_S5765862/d199-x01-y01
 Title=2-jet fraction ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{2 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{2~jet})/\sigma(\mathrm{inclusive})$
 LegendYPos=0.6
 # END PLOT
 
 # BEGIN PLOT /ALEPH_2004_S5765862/d200-x01-y01
 Title=2-jet fraction ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{2 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{2~jet})/\sigma(\mathrm{inclusive})$
 LegendYPos=0.6
 # END PLOT
 
 # BEGIN PLOT /ALEPH_2004_S5765862/d201-x01-y01
 Title=2-jet fraction ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{2 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{2~jet})/\sigma(\mathrm{inclusive})$
 LegendYPos=0.6
 # END PLOT
 
 # BEGIN PLOT /ALEPH_2004_S5765862/d202-x01-y01
 Title=2-jet fraction ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{2 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{2~jet})/\sigma(\mathrm{inclusive})$
 LegendYPos=0.6
 # END PLOT
 
 # BEGIN PLOT /ALEPH_2004_S5765862/d203-x01-y01
 Title=3-jet fraction ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$\ln(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{3 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{3~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.25
 LegendYPos=0.6
 # END PLOT
@@ -1531,7 +1531,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d204-x01-y01
 Title=3-jet fraction ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{3 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{3~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.25
 LegendYPos=0.6
 # END PLOT
@@ -1539,7 +1539,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d205-x01-y01
 Title=3-jet fraction ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{3 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{3~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.25
 LegendYPos=0.6
 # END PLOT
@@ -1547,7 +1547,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d206-x01-y01
 Title=3-jet fraction ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{3 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{3~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.25
 LegendYPos=0.6
 # END PLOT
@@ -1555,7 +1555,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d207-x01-y01
 Title=3-jet fraction ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{3 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{3~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.25
 LegendYPos=0.6
 # END PLOT
@@ -1563,7 +1563,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d208-x01-y01
 Title=3-jet fraction ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{3 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{3~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.25
 LegendYPos=0.6
 # END PLOT
@@ -1571,7 +1571,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d209-x01-y01
 Title=3-jet fraction ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{3 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{3~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.25
 LegendYPos=0.6
 # END PLOT
@@ -1579,7 +1579,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d210-x01-y01
 Title=3-jet fraction ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{3 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{3~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.25
 LegendYPos=0.6
 # END PLOT
@@ -1587,7 +1587,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d211-x01-y01
 Title=4-jet fraction ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$\ln(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{4 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{4~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.15
 LegendYPos=0.6
 # END PLOT
@@ -1595,7 +1595,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d212-x01-y01
 Title=4-jet fraction ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{4 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{4~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
@@ -1603,7 +1603,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d213-x01-y01
 Title=4-jet fraction ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{4 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{4~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
@@ -1611,7 +1611,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d214-x01-y01
 Title=4-jet fraction ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{4 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{4~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
@@ -1619,7 +1619,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d215-x01-y01
 Title=4-jet fraction ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{4 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{4~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
@@ -1627,7 +1627,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d216-x01-y01
 Title=4-jet fraction ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{4 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{4~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
@@ -1635,7 +1635,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d217-x01-y01
 Title=4-jet fraction ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{4 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{4~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
@@ -1643,7 +1643,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d218-x01-y01
 Title=4-jet fraction ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{4 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{4~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
@@ -1651,7 +1651,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d219-x01-y01
 Title=5-jet fraction ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$\ln(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{5 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{5~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.15
 LegendYPos=0.6
 # END PLOT
@@ -1659,7 +1659,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d220-x01-y01
 Title=5-jet fraction ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{5 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{5~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
@@ -1667,7 +1667,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d221-x01-y01
 Title=5-jet fraction ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{5 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{5~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
@@ -1675,7 +1675,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d222-x01-y01
 Title=5-jet fraction ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{5 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{5~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
@@ -1683,7 +1683,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d223-x01-y01
 Title=5-jet fraction ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{5 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{5~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
@@ -1691,7 +1691,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d224-x01-y01
 Title=5-jet fraction ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{5 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{5~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
@@ -1699,7 +1699,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d225-x01-y01
 Title=5-jet fraction ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{5 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{5~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
@@ -1707,7 +1707,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d226-x01-y01
 Title=5-jet fraction ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\mathrm{5 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\mathrm{5~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
@@ -1715,7 +1715,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d227-x01-y01
 Title=$\geq$6-jet fraction ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$\ln(y_\mathrm{cut})$
-YLabel=$\sigma(\geq\mathrm{6 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\geq\mathrm{6~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
@@ -1723,7 +1723,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d228-x01-y01
 Title=$\geq$6-jet fraction ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\geq\mathrm{6 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\geq\mathrm{6~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
@@ -1731,7 +1731,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d229-x01-y01
 Title=$\geq$6-jet fraction ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\geq\mathrm{6 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\geq\mathrm{6~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
@@ -1739,7 +1739,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d230-x01-y01
 Title=$\geq$6-jet fraction ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\geq\mathrm{6 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\geq\mathrm{6~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
@@ -1747,7 +1747,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d231-x01-y01
 Title=$\geq$6-jet fraction ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\geq\mathrm{6 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\geq\mathrm{6~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
@@ -1755,7 +1755,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d232-x01-y01
 Title=$\geq$6-jet fraction ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\geq\mathrm{6 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\geq\mathrm{6~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
@@ -1763,7 +1763,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d233-x01-y01
 Title=$\geq$6-jet fraction ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\geq\mathrm{6 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\geq\mathrm{6~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
@@ -1771,7 +1771,7 @@ LegendYPos=0.6
 # BEGIN PLOT /ALEPH_2004_S5765862/d234-x01-y01
 Title=$\geq$6-jet fraction ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
-YLabel=$\sigma(\geq\mathrm{6 jet})/\sigma(\mathrm{inclusive})$
+YLabel=$\sigma(\geq\mathrm{6~jet})/\sigma(\mathrm{inclusive})$
 LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
