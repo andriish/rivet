@@ -19,37 +19,37 @@ YLabel=$\mathrm{d}\sigma/\mathrm{d}{ n_\mathrm{ch}}$ [mb]
 # BEGIN PLOT /UA1_1990_S2044935/d02-x01-y01 
 Title=$E \, \mathrm{d}^3\sigma/\mathrm{d}p^3$ at $\eta =0$, $\sqrt{s} = 200~\GeV$
 XLabel=$p_\perp$ [GeV]
-YLabel=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ [\milli\barn$\,$\rpsquare\GeV]
+YLabel=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ [mb$\,\GeV^{-2}$]
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d02-x01-y02
 Title=$E \, \mathrm{d}^3\sigma/\mathrm{d}p^3$ at $\eta =0$, $\sqrt{s} = 500~\GeV$
 XLabel=$p_\perp$ [GeV]
-YLabel=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ [\milli\barn$\,$\rpsquare\GeV]
+YLabel=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ [mb$\,\GeV^{-2}$]
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d02-x01-y03
 Title=$E \, \mathrm{d}^3\sigma/\mathrm{d}p^3$ at $\eta =0$, $\sqrt{s} = 900~\GeV$
 XLabel=$p_\perp$ [GeV]
-YLabel=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ [\milli\barn$\,$\rpsquare\GeV]
+YLabel=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ [mb$\,\GeV^{-2}$]
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d03-x01-y01
 Title=$E \, \mathrm{d}^3\sigma/\mathrm{d}p^3$ at $\eta=0$, $\sqrt{s} = 900~\GeV$ ($\mathrm{d}n_\mathrm{ch}/\mathrm{d}\eta = 0.8 \dots 4$)
 XLabel=$p_\perp$ [GeV]
-YLabel=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ [\micro\barn$\,$\rpsquare\GeV]
+YLabel=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ [\micro b$\,\GeV^{-2}$]
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d04-x01-y01
 Title=$E \, \mathrm{d}^3\sigma/\mathrm{d}p^3$ at $\eta=0$, $\sqrt{s} = 900~\GeV$ ($\mathrm{d}n_\mathrm{ch}/\mathrm{d}\eta = 4 \dots 8$)
 XLabel=$p_\perp$ [GeV]
-YLabel=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ [\micro\barn$\,$\rpsquare\GeV]
+YLabel=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ [\micro b$\,\GeV^{-2}$]
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d05-x01-y01
 Title=$E \, \mathrm{d}^3\sigma/\mathrm{d}p^3$ at $\eta=0$, $\sqrt{s} = 900~\GeV$ ($\mathrm{d}n_\mathrm{ch}/\mathrm{d}\eta > 8$)
 XLabel=$p_\perp$ [GeV]
-YLabel=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ [\micro\barn$\,$\rpsquare\GeV]
+YLabel=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ [\micro b$\,\GeV^{-2}$]
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d06-x01-y01
