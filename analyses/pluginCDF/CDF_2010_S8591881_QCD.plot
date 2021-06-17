@@ -1,5 +1,5 @@
 # BEGIN PLOT /CDF_2010_S8591881_QCD/d
-XLabel=$p_T(\mathrm{leading jet})$ / GeV
+XLabel=$p_T(\mathrm{leading~jet})$ / GeV
 LogY=0
 # END PLOT
 

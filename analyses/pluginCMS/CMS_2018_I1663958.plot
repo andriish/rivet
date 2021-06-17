@@ -363,7 +363,7 @@ PlotSize=10.7,7.2
 # BEGIN PLOT /CMS_2018_I1663958/d47-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=$p_\mathrm{T}(\mathrm{b}_\mathrm{l})$ [GeV]
-YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{b}_\mathrm{l}})}$ [pb GeV$^{-1}$]
+YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{b}_\mathrm{l}b}_\mathrm{l}})}$ [pb GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -374,7 +374,7 @@ PlotSize=10.7,7.2
 # BEGIN PLOT /CMS_2018_I1663958/d48-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=$p_\mathrm{T}(\mathrm{b}_\mathrm{h})$ [GeV]
-YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{b}_\mathrm{h}})}$ [pb GeV$^{-1}$]
+YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{b}_\mathrm{h}b}_\mathrm{h}})}$ [pb GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -385,7 +385,7 @@ PlotSize=10.7,7.2
 # BEGIN PLOT /CMS_2018_I1663958/d49-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=$p_\mathrm{T}(\mathrm{j}_\mathrm{W1})$ [GeV]
-YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{W1}})}$ [pb GeV$^{-1}$]
+YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{W1}j}_\mathrm{W1}})}$ [pb GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -396,7 +396,7 @@ PlotSize=10.7,7.2
 # BEGIN PLOT /CMS_2018_I1663958/d50-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=$p_\mathrm{T}(\mathrm{j}_\mathrm{W2})$ [GeV]
-YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{W2}})}$ [pb GeV$^{-1}$]
+YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{W2}j}_\mathrm{W2}})}$ [pb GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -407,7 +407,7 @@ PlotSize=10.7,7.2
 # BEGIN PLOT /CMS_2018_I1663958/d51-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=$p_\mathrm{T}(\mathrm{j}_\mathrm{1})$ [GeV]
-YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{1}})}$ [pb GeV$^{-1}$]
+YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{1}j}_\mathrm{1}})}$ [pb GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -418,7 +418,7 @@ PlotSize=10.7,7.2
 # BEGIN PLOT /CMS_2018_I1663958/d52-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=$p_\mathrm{T}(\mathrm{j}_\mathrm{2})$ [GeV]
-YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{2}})}$ [pb GeV$^{-1}$]
+YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{2}j}_\mathrm{2}})}$ [pb GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -429,7 +429,7 @@ PlotSize=10.7,7.2
 # BEGIN PLOT /CMS_2018_I1663958/d53-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=$p_\mathrm{T}(\mathrm{j}_\mathrm{3})$ [GeV]
-YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{3}})}$ [pb GeV$^{-1}$]
+YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{3}j}_\mathrm{3}})}$ [pb GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -440,7 +440,7 @@ PlotSize=10.7,7.2
 # BEGIN PLOT /CMS_2018_I1663958/d54-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=$p_\mathrm{T}(\mathrm{j}_\mathrm{4})$ [GeV]
-YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{4}})}$ [pb GeV$^{-1}$]
+YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{4}j}_\mathrm{4}})}$ [pb GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -450,8 +450,8 @@ PlotSize=10.7,7.2
 
 # BEGIN PLOT /CMS_2018_I1663958/d56-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$|\eta(\mathrm{\mathrm{b}_\mathrm{l}})|$
-YLabel=$\frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{b}_\mathrm{l}})}$ [pb]
+XLabel=$|\eta(\mathrm{\mathrm{b}_\mathrm{l}b}_\mathrm{l}})|$
+YLabel=$\frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{b}_\mathrm{l}b}_\mathrm{l}})}$ [pb]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -462,8 +462,8 @@ LogY=0
 
 # BEGIN PLOT /CMS_2018_I1663958/d57-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$|\eta(\mathrm{\mathrm{b}_\mathrm{h}})|$
-YLabel=$\frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{b}_\mathrm{h}})}$ [pb]
+XLabel=$|\eta(\mathrm{\mathrm{b}_\mathrm{h}b}_\mathrm{h}})|$
+YLabel=$\frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{b}_\mathrm{h}b}_\mathrm{h}})}$ [pb]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -474,8 +474,8 @@ LogY=0
 
 # BEGIN PLOT /CMS_2018_I1663958/d58-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{W1}})|$
-YLabel=$\frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{W1}})}$ [pb]
+XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{W1}j}_\mathrm{W1}})|$
+YLabel=$\frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{W1}j}_\mathrm{W1}})}$ [pb]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -486,8 +486,8 @@ LogY=0
 
 # BEGIN PLOT /CMS_2018_I1663958/d59-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{W2}})|$
-YLabel=$\frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{W2}})}$ [pb]
+XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{W2}j}_\mathrm{W2}})|$
+YLabel=$\frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{W2}j}_\mathrm{W2}})}$ [pb]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -498,8 +498,8 @@ LogY=0
 
 # BEGIN PLOT /CMS_2018_I1663958/d60-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{1}})|$
-YLabel=$\frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{1}})}$ [pb]
+XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{1}j}_\mathrm{1}})|$
+YLabel=$\frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{1}j}_\mathrm{1}})}$ [pb]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -510,8 +510,8 @@ LogY=0
 
 # BEGIN PLOT /CMS_2018_I1663958/d61-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{2}})|$
-YLabel=$\frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{2}})}$ [pb]
+XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{2}j}_\mathrm{2}})|$
+YLabel=$\frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{2}j}_\mathrm{2}})}$ [pb]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -522,8 +522,8 @@ LogY=0
 
 # BEGIN PLOT /CMS_2018_I1663958/d62-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{3}})|$
-YLabel=$\frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{3}})}$ [pb]
+XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{3}j}_\mathrm{3}})|$
+YLabel=$\frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{3}j}_\mathrm{3}})}$ [pb]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -534,8 +534,8 @@ LogY=0
 
 # BEGIN PLOT /CMS_2018_I1663958/d63-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{4}})|$
-YLabel=$\frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{4}})}$ [pb]
+XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{4}j}_\mathrm{4}})|$
+YLabel=$\frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{4}j}_\mathrm{4}})}$ [pb]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1104,7 +1104,7 @@ LogY=0
 # BEGIN PLOT /CMS_2018_I1663958/d129-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=$p_\mathrm{T}(\mathrm{b}_\mathrm{l})$ [GeV]
-YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{b}_\mathrm{l}})}$ [GeV$^{-1}$]
+YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{b}_\mathrm{l}b}_\mathrm{l}})}$ [GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1115,7 +1115,7 @@ PlotSize=10.7,7.2
 # BEGIN PLOT /CMS_2018_I1663958/d130-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=$p_\mathrm{T}(\mathrm{b}_\mathrm{h})$ [GeV]
-YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{b}_\mathrm{h}})}$ [GeV$^{-1}$]
+YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{b}_\mathrm{h}b}_\mathrm{h}})}$ [GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1126,7 +1126,7 @@ PlotSize=10.7,7.2
 # BEGIN PLOT /CMS_2018_I1663958/d131-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=$p_\mathrm{T}(\mathrm{j}_\mathrm{W1})$ [GeV]
-YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{W1}})}$ [GeV$^{-1}$]
+YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{W1}j}_\mathrm{W1}})}$ [GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1137,7 +1137,7 @@ PlotSize=10.7,7.2
 # BEGIN PLOT /CMS_2018_I1663958/d132-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=$p_\mathrm{T}(\mathrm{j}_\mathrm{W2})$ [GeV]
-YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{W2}})}$ [GeV$^{-1}$]
+YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{W2}j}_\mathrm{W2}})}$ [GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1148,7 +1148,7 @@ PlotSize=10.7,7.2
 # BEGIN PLOT /CMS_2018_I1663958/d133-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=$p_\mathrm{T}(\mathrm{j}_\mathrm{1})$ [GeV]
-YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{1}})}$ [GeV$^{-1}$]
+YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{1}j}_\mathrm{1}})}$ [GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1159,7 +1159,7 @@ PlotSize=10.7,7.2
 # BEGIN PLOT /CMS_2018_I1663958/d134-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=$p_\mathrm{T}(\mathrm{j}_\mathrm{2})$ [GeV]
-YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{2}})}$ [GeV$^{-1}$]
+YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{2}j}_\mathrm{2}})}$ [GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1170,7 +1170,7 @@ PlotSize=10.7,7.2
 # BEGIN PLOT /CMS_2018_I1663958/d135-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=$p_\mathrm{T}(\mathrm{j}_\mathrm{3})$ [GeV]
-YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{3}})}$ [GeV$^{-1}$]
+YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{3}j}_\mathrm{3}})}$ [GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1181,7 +1181,7 @@ PlotSize=10.7,7.2
 # BEGIN PLOT /CMS_2018_I1663958/d136-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=$p_\mathrm{T}(\mathrm{j}_\mathrm{4})$ [GeV]
-YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{4}})}$ [GeV$^{-1}$]
+YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{\mathrm{j}_\mathrm{4}j}_\mathrm{4}})}$ [GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1191,8 +1191,8 @@ PlotSize=10.7,7.2
 
 # BEGIN PLOT /CMS_2018_I1663958/d138-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$|\eta(\mathrm{\mathrm{b}_\mathrm{l}})|$
-YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{b}_\mathrm{l}})}$
+XLabel=$|\eta(\mathrm{\mathrm{b}_\mathrm{l}b}_\mathrm{l}})|$
+YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{b}_\mathrm{l}b}_\mathrm{l}})}$
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1202,8 +1202,8 @@ PlotSize=10.7,7.2
 
 # BEGIN PLOT /CMS_2018_I1663958/d139-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$|\eta(\mathrm{\mathrm{b}_\mathrm{h}})|$
-YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{b}_\mathrm{h}})}$
+XLabel=$|\eta(\mathrm{\mathrm{b}_\mathrm{h}b}_\mathrm{h}})|$
+YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{b}_\mathrm{h}b}_\mathrm{h}})}$
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1213,8 +1213,8 @@ PlotSize=10.7,7.2
 
 # BEGIN PLOT /CMS_2018_I1663958/d140-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{W1}})|$
-YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{W1}})}$
+XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{W1}j}_\mathrm{W1}})|$
+YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{W1}j}_\mathrm{W1}})}$
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1224,8 +1224,8 @@ PlotSize=10.7,7.2
 
 # BEGIN PLOT /CMS_2018_I1663958/d141-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{W2}})|$
-YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{W2}})}$
+XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{W2}j}_\mathrm{W2}})|$
+YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{W2}j}_\mathrm{W2}})}$
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1235,8 +1235,8 @@ PlotSize=10.7,7.2
 
 # BEGIN PLOT /CMS_2018_I1663958/d142-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{1}})|$
-YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{1}})}$
+XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{1}j}_\mathrm{1}})|$
+YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{1}j}_\mathrm{1}})}$
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1246,8 +1246,8 @@ PlotSize=10.7,7.2
 
 # BEGIN PLOT /CMS_2018_I1663958/d143-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{2}})|$
-YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{2}})}$
+XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{2}j}_\mathrm{2}})|$
+YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{2}j}_\mathrm{2}})}$
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1257,8 +1257,8 @@ PlotSize=10.7,7.2
 
 # BEGIN PLOT /CMS_2018_I1663958/d144-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{3}})|$
-YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{3}})}$
+XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{3}j}_\mathrm{3}})|$
+YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{3}j}_\mathrm{3}})}$
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1268,8 +1268,8 @@ PlotSize=10.7,7.2
 
 # BEGIN PLOT /CMS_2018_I1663958/d145-x01-y01
 Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{4}})|$
-YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{4}})}$
+XLabel=$|\eta(\mathrm{\mathrm{j}_\mathrm{4}j}_\mathrm{4}})|$
+YLabel=$\frac{1}{\sigma_\mathrm{norm}} \frac{{d}\sigma}{{d}\eta(\mathrm{\mathrm{j}_\mathrm{4}j}_\mathrm{4}})}$
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5

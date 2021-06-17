@@ -1,6 +1,6 @@
 # BEGIN PLOT /STAR_2009_UE_HELEN/d01-x01-y01
 Title=TransMAX region charged particle density
-XLabel=$p_T(\mathrm{leading jet})$ / GeV
+XLabel=$p_T(\mathrm{leading~jet})$ / GeV
 YLabel=$\langle N_\mathrm{ch} \rangle / \mathrm{d}\eta\,\mathrm{d}\phi$
 CustomLegend={\large STAR preliminary}
 LogY=0
@@ -10,7 +10,7 @@ LegendYPos=0.5
 
 # BEGIN PLOT /STAR_2009_UE_HELEN/d02-x01-y01
 Title=TransMIN region charged particle density
-XLabel=$p_T(\mathrm{leading jet})$ / GeV
+XLabel=$p_T(\mathrm{leading~jet})$ / GeV
 YLabel=$\langle N_\mathrm{ch} \rangle / \mathrm{d}\eta\,\mathrm{d}\phi$
 CustomLegend={\large STAR preliminary}
 LogY=0
@@ -18,8 +18,8 @@ LogY=0
 
 # BEGIN PLOT /STAR_2009_UE_HELEN/d03-x01-y01
 Title=Away region charged particle density
-XLabel=$p_T(\mathrm{leading jet})$ / GeV
-YLabel=$\langle N_\mathrm{ch} \rangle / \mathrm{jet area}$
+XLabel=$p_T(\mathrm{leading~jet})$ / GeV
+YLabel=$\langle N_\mathrm{ch} \rangle / \mathrm{jet~area}$
 CustomLegend={\large STAR preliminary}
 LogY=0
 LegendYPos=0.5

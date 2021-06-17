@@ -23,59 +23,59 @@ YLabel=$\mathrm{d}\sigma/\mathrm{d}E_{\perp}$ [pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /CDF_2008_S7541902/d05-x01-y01
-Title=$\sigma(1 \mathrm{ jets})/\sigma(0 \mathrm{ jets})$
+Title=$\sigma(1 \mathrm{~jets})/\sigma(0 \mathrm{~jets})$
 XLabel=$\sqrt{(}s)$ [GeV]
-YLabel=$\sigma(1 \mathrm{ jets})/\sigma(0 \mathrm{ jets})$
+YLabel=$\sigma(1 \mathrm{~jets})/\sigma(0 \mathrm{~jets})$
 LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /CDF_2008_S7541902/d05-x01-y02
-Title=$\sigma(2 \mathrm{ jets})/\sigma(1 \mathrm{ jets})$
+Title=$\sigma(2 \mathrm{~jets})/\sigma(1 \mathrm{~jets})$
 XLabel=$\sqrt{(}s)$ [GeV]
-YLabel=$\sigma(2 \mathrm{ jets})/\sigma(1 \mathrm{ jets})$
+YLabel=$\sigma(2 \mathrm{~jets})/\sigma(1 \mathrm{~jets})$
 LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /CDF_2008_S7541902/d05-x01-y03
-Title=$\sigma(3 \mathrm{ jets})/\sigma(2 \mathrm{ jets})$
+Title=$\sigma(3 \mathrm{~jets})/\sigma(2 \mathrm{~jets})$
 XLabel=$\sqrt{(}s)$ [GeV]
-YLabel=$\sigma(3 \mathrm{ jets})/\sigma(2 \mathrm{ jets})$
+YLabel=$\sigma(3 \mathrm{~jets})/\sigma(2 \mathrm{~jets})$
 # END PLOT
 
 # BEGIN PLOT /CDF_2008_S7541902/d05-x01-y04
-Title=$\sigma(4 \mathrm{ jets})/\sigma(3 \mathrm{ jets})$
+Title=$\sigma(4 \mathrm{~jets})/\sigma(3 \mathrm{~jets})$
 XLabel=$\sqrt{(}s)$ [GeV]
-YLabel=$\sigma(4 \mathrm{ jets})/\sigma(3 \mathrm{ jets})$
+YLabel=$\sigma(4 \mathrm{~jets})/\sigma(3 \mathrm{~jets})$
 # END PLOT
 
 # BEGIN PLOT /CDF_2008_S7541902/d06-x01-y01
-Title=$\sigma(1 \mathrm{ jets})$
+Title=$\sigma(1 \mathrm{~jets})$
 XLabel=$\sqrt{(}s)$ [GeV]
-YLabel=$\sigma(1 \mathrm{ jets})$
+YLabel=$\sigma(1 \mathrm{~jets})$
 LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /CDF_2008_S7541902/d07-x01-y01
-Title=$\sigma(2 \mathrm{ jets})$
+Title=$\sigma(2 \mathrm{~jets})$
 XLabel=$\sqrt{(}s)$ [GeV]
-YLabel=$\sigma(2 \mathrm{ jets})$
+YLabel=$\sigma(2 \mathrm{~jets})$
 LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /CDF_2008_S7541902/d08-x01-y01
-Title=$\sigma(3 \mathrm{ jets})$
+Title=$\sigma(3 \mathrm{~jets})$
 XLabel=$\sqrt{(}s)$ [GeV]
-YLabel=$\sigma(3 \mathrm{ jets})$
+YLabel=$\sigma(3 \mathrm{~jets})$
 # END PLOT
 
 # BEGIN PLOT /CDF_2008_S7541902/d09-x01-y01
-Title=$\sigma(4 \mathrm{ jets})$
+Title=$\sigma(4 \mathrm{~jets})$
 XLabel=$\sqrt{(}s)$ [GeV]
-YLabel=$\sigma(4 \mathrm{ jets})$
+YLabel=$\sigma(4 \mathrm{~jets})$
 # END PLOT
 
 # BEGIN PLOT /CDF_2008_S7541902/norm
-Title=$\sigma(0 \mathrm{ jets})$
+Title=$\sigma(0 \mathrm{~jets})$
 XLabel=$\sqrt{(}s)$ [GeV]
 YLabel=
 LegendYPos=0.5

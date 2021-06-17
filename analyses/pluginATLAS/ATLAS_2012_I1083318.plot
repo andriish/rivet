@@ -176,7 +176,7 @@ LegendXPos=0.05
 
 # BEGIN PLOT /ATLAS_2012_I1083318/d21-x01-y0[12]
 Title=Lepton-Jet Rapidity Difference
-XLabel=$y(\mathrm{Lepton})-y(\mathrm{First Jet})$
+XLabel=$y(\mathrm{Lepton})-y(\mathrm{First~Jet})$
 YLabel=d$\sigma$/d$\Delta y$ [pb]
 LogY=0
 RatioPlotYMin=0.0
@@ -186,7 +186,7 @@ LegendXPos=0.05
 
 # BEGIN PLOT /ATLAS_2012_I1083318/d22-x01-y0[12]
 Title=Lepton-Jet Rapidity Sum
-XLabel=$y(\mathrm{Lepton})+y(\mathrm{First Jet})$
+XLabel=$y(\mathrm{Lepton})+y(\mathrm{First~Jet})$
 YLabel=d$\sigma$/d$\Sigma y$ [pb]
 LogY=0
 RatioPlotYMin=0.25

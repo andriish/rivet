@@ -10,7 +10,7 @@ LeftMargin=1.8
 Title=Dijet selection, trimmed
 XLabel=Nsubjets
 XMinorTickMarks=0
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d Nsubjets}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~Nsubjets}}$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1724098/d03
@@ -28,13 +28,13 @@ YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d} D_2}$
 # BEGIN PLOT /ATLAS_2019_I1724098/d02
 Title=Dijet selection, trimmed
 XLabel=LHA
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d LHA}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~LHA}}$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1724098/d05
 Title=Dijet selection, trimmed
 XLabel=ECF2$^\mathrm{norm}$
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d ECF2}^\mathrm{norm}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~ECF2}^\mathrm{norm}}$
 LogY=1
 LeftMargin=2.0
 # END PLOT
@@ -42,7 +42,7 @@ LeftMargin=2.0
 # BEGIN PLOT /ATLAS_2019_I1724098/d06
 Title=Dijet selection, trimmed
 XLabel=ECF3$^\mathrm{norm}$
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d ECF3}^\mathrm{norm}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~ECF3}^\mathrm{norm}}$
 LogY=1
 LeftMargin=2.0
 # END PLOT
@@ -51,7 +51,7 @@ LeftMargin=2.0
 Title=Top selection, soft-dropped
 XLabel=Nsubjets
 XMinorTickMarks=0
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d Nsubjets}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~Nsubjets}}$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1724098/d09
@@ -73,13 +73,13 @@ YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d} D_2}$
 # BEGIN PLOT /ATLAS_2019_I1724098/d08
 Title=Top selection, soft-dropped
 XLabel=LHA
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d LHA}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~LHA}}$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1724098/d11
 Title=Top selection, soft-dropped
 XLabel=ECF2$^\mathrm{norm}$
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d ECF2}^\mathrm{norm}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~ECF2}^\mathrm{norm}}$
 LogY=1
 LeftMargin=2.0
 LegendAlign=l
@@ -90,7 +90,7 @@ LegendYPos=0.25
 # BEGIN PLOT /ATLAS_2019_I1724098/d12
 Title=Top selection, soft-dropped
 XLabel=ECF3$^\mathrm{norm}$
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d ECF3}^\mathrm{norm}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~ECF3}^\mathrm{norm}}$
 LogY=1
 LeftMargin=2.0
 LegendAlign=l
@@ -116,7 +116,7 @@ YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d} \tau_{32}^\math
 Title=$W$ selection, soft-dropped
 XLabel=Nsubjets
 XMinorTickMarks=0
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d Nsubjets}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~Nsubjets}}$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1724098/d17
@@ -136,13 +136,13 @@ YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d} D_2}$
 # BEGIN PLOT /ATLAS_2019_I1724098/d16
 Title=$W$ selection, soft-dropped
 XLabel=LHA
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d LHA}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~LHA}}$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1724098/d19
 Title=$W$ selection, soft-dropped
 XLabel=ECF2$^\mathrm{norm}$
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d ECF2}^\mathrm{norm}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~ECF2}^\mathrm{norm}}$
 LogY=1
 LeftMargin=2.0
 LegendAlign=l
@@ -153,7 +153,7 @@ LegendYPos=0.25
 # BEGIN PLOT /ATLAS_2019_I1724098/d20
 Title=$W$ selection, soft-dropped
 XLabel=ECF3$^\mathrm{norm}$
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d ECF3}^\mathrm{norm}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~ECF3}^\mathrm{norm}}$
 LogY=1
 LeftMargin=2.0
 # END PLOT
@@ -176,7 +176,7 @@ LegendXPos=0.05
 Title=Dijet selection, soft-dropped
 XLabel=Nsubjets
 XMinorTickMarks=0
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d Nsubjets}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~Nsubjets}}$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1724098/d25
@@ -194,13 +194,13 @@ YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d} D_2}$
 # BEGIN PLOT /ATLAS_2019_I1724098/d24
 Title=Dijet selection, soft-dropped
 XLabel=LHA
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d LHA}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~LHA}}$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1724098/d27
 Title=Dijet selection, soft-dropped
 XLabel=ECF2$^\mathrm{norm}$
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d ECF2}^\mathrm{norm}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~ECF2}^\mathrm{norm}}$
 LogY=1
 LeftMargin=2.0
 # END PLOT
@@ -208,7 +208,7 @@ LeftMargin=2.0
 # BEGIN PLOT /ATLAS_2019_I1724098/d28
 Title=Dijet selection, soft-dropped
 XLabel=ECF3$^\mathrm{norm}$
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d ECF3}^\mathrm{norm}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~ECF3}^\mathrm{norm}}$
 LogY=1
 LeftMargin=2.0
 # END PLOT
@@ -217,7 +217,7 @@ LeftMargin=2.0
 Title=Top selection, trimmed
 XLabel=Nsubjets
 XMinorTickMarks=0
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d Nsubjets}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~Nsubjets}}$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1724098/d31
@@ -237,13 +237,13 @@ LegendXPos=0.05
 # BEGIN PLOT /ATLAS_2019_I1724098/d30
 Title=Top selection, trimmed
 XLabel=LHA
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d LHA}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~LHA}}$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1724098/d33
 Title=Top selection, trimmed
 XLabel=ECF2$^\mathrm{norm}$
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d ECF2}^\mathrm{norm}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~ECF2}^\mathrm{norm}}$
 LogY=1
 LeftMargin=2.0
 LegendAlign=l
@@ -254,7 +254,7 @@ LegendYPos=0.25
 # BEGIN PLOT /ATLAS_2019_I1724098/d34
 Title=Top selection, trimmed
 XLabel=ECF3$^\mathrm{norm}$
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d ECF3}^\mathrm{norm}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~ECF3}^\mathrm{norm}}$
 LogY=1
 LeftMargin=2.0
 # END PLOT
@@ -277,7 +277,7 @@ YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d} \tau_{32}^\math
 Title=$W$ selection, trimmed
 XLabel=Nsubjets
 XMinorTickMarks=0
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d Nsubjets}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~Nsubjets}}$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1724098/d39
@@ -297,13 +297,13 @@ YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d} D_2}$
 # BEGIN PLOT /ATLAS_2019_I1724098/d38
 Title=$W$ selection, trimmed
 XLabel=LHA
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d LHA}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~LHA}}$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1724098/d41
 Title=$W$ selection, trimmed
 XLabel=ECF2$^\mathrm{norm}$
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d ECF2}^\mathrm{norm}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~ECF2}^\mathrm{norm}}$
 LogY=1
 LeftMargin=2.0
 LegendAlign=l
@@ -314,7 +314,7 @@ LegendYPos=0.25
 # BEGIN PLOT /ATLAS_2019_I1724098/d42
 Title=$W$ selection, trimmed
 XLabel=ECF3$^\mathrm{norm}$
-YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d ECF3}^\mathrm{norm}}$
+YLabel=$\dfrac{1}{\sigma} \; \dfrac{\mathrm{d}\sigma}{\mathrm{d~ECF3}^\mathrm{norm}}$
 LogY=1
 LeftMargin=2.0
 # END PLOT
