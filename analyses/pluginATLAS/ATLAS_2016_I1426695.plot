@@ -22,7 +22,7 @@ LogY=1
 LogX=1
 LegendAlign=r
 LeftMargin=1.6
-XLabel=$p_\mathrm{T}$ \; [GeV]
+XLabel=$p_\mathrm{T}$ $\;$ [GeV]
 YLabel=$1/N_\mathrm{ev} \, 1/(2\pi p_\mathrm{T}) \, \mathrm{d}^2 N_\mathrm{ch}/\mathrm{d}\eta\mathrm{d}p_\mathrm{T}$ [GeV$^{-2}$]
 Title=Charged particle $p_\mathrm{T}$, $p_\mathrm{T} > 100\,\mathrm{MeV}$, $|\eta| < 2.5$, for $n_\mathrm{ch} \geq 2$
 # END PLOT
@@ -32,7 +32,7 @@ LogY=1
 LogX=1
 LegendAlign=r
 LeftMargin=1.6
-XLabel=$p_\mathrm{T}$ \; [GeV]
+XLabel=$p_\mathrm{T}$ $\;$ [GeV]
 YLabel=$1/N_\mathrm{ev} \, 1/(2\pi p_\mathrm{T}) \, \mathrm{d}^2 N_\mathrm{ch}/\mathrm{d}\eta\mathrm{d}p_\mathrm{T}$ [GeV$^{-2}$]
 Title=Charged particle $p_\mathrm{T}$, $p_\mathrm{T} > 500\,\mathrm{MeV}$, $|\eta| < 2.5$, for $n_\mathrm{ch} \geq 1$
 # END PLOT
@@ -42,7 +42,7 @@ LogY=1
 LogX=1
 LegendAlign=r
 LeftMargin=1.6
-XLabel=$p_\mathrm{T}$ \; [GeV]
+XLabel=$p_\mathrm{T}$ $\;$ [GeV]
 YLabel=$1/N_\mathrm{ev} \, 1/(2\pi p_\mathrm{T}) \, \mathrm{d}^2 N_\mathrm{ch}/\mathrm{d}\eta\mathrm{d}p_\mathrm{T}$ [GeV$^{-2}$]
 Title=Charged particle $p_\mathrm{T}$, $p_\mathrm{T} > 500\,\mathrm{MeV}$, $|\eta| < 2.5$, for $n_\mathrm{ch} \geq 6$
 # END PLOT
@@ -52,7 +52,7 @@ LogY=1
 LogX=1
 LegendAlign=r
 LeftMargin=1.6
-XLabel=$p_\mathrm{T}$ \; [GeV]
+XLabel=$p_\mathrm{T}$ $\;$ [GeV]
 YLabel=$1/N_\mathrm{ev} \, 1/(2\pi p_\mathrm{T}) \, \mathrm{d}^2 N_\mathrm{ch}/\mathrm{d}\eta\mathrm{d}p_\mathrm{T}$ [GeV$^{-2}$]
 Title=Charged particle $p_\mathrm{T}$, $p_\mathrm{T} > 500\,\mathrm{MeV}$, $|\eta| < 2.5$, for $n_\mathrm{ch} \geq 20$
 # END PLOT
@@ -62,7 +62,7 @@ LogY=1
 LogX=1
 LegendAlign=r
 LeftMargin=1.6
-XLabel=$p_\mathrm{T}$ \; [GeV]
+XLabel=$p_\mathrm{T}$ $\;$ [GeV]
 YLabel=$1/N_\mathrm{ev} \, 1/(2\pi p_\mathrm{T}) \, \mathrm{d}^2 N_\mathrm{ch}/\mathrm{d}\eta\mathrm{d}p_\mathrm{T}$ [GeV$^{-2}$]
 Title=Charged particle $p_\mathrm{T}$, $p_\mathrm{T} > 500\,\mathrm{MeV}$, $|\eta| < 2.5$, for $n_\mathrm{ch} \geq 50$
 # END PLOT
@@ -124,7 +124,7 @@ FullRange=1
 LegendAlign=r
 LegendYPos=0.3
 XLabel=$n_\mathrm{ch}$
-YLabel=$\langle p_\mathrm{T}\rangle$ \; [GeV]
+YLabel=$\langle p_\mathrm{T}\rangle$ $\;$ [GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1426695/d15
@@ -134,6 +134,6 @@ FullRange=1
 LegendAlign=r
 LegendYPos=0.3
 XLabel=$n_\mathrm{ch}$
-YLabel=$\langle p_\mathrm{T}\rangle$ \; [GeV]
+YLabel=$\langle p_\mathrm{T}\rangle$ $\;$ [GeV]
 # END PLOT
 

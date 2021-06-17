@@ -258,7 +258,7 @@ LogY=1
 # BEGIN PLOT /SLD_2004_S5693039/d09-x01-y03
 Title=$D^q_{\pi^-}=(R^q_{\pi^-}-R^q_{\pi^+})/(R^q_{\pi^-}+R^q_{\pi^+})$
 XLabel=$x_p$
-YLabel=$D^q_{\pi^-}$ [\%]
+YLabel=$D^q_{\pi^-}$ [$\%$]
 LegendXPos=0.20
 LegendYPos=0.5
 FullRange=1
@@ -285,7 +285,7 @@ LogY=1
 # BEGIN PLOT /SLD_2004_S5693039/d10-x01-y03
 Title=$D^q_{K^-}=(R^q_{K^-}-R^q_{K^+})/(R^q_{K^-}+R^q_{K^+})$
 XLabel=$x_p$
-YLabel=$D^q_{K^-}$ [\%]
+YLabel=$D^q_{K^-}$ [$\%$]
 LegendXPos=0.20
 LegendYPos=0.5
 FullRange=1
@@ -312,7 +312,7 @@ LogY=1
 # BEGIN PLOT /SLD_2004_S5693039/d11-x01-y03
 Title=$D^q_{p}=(R^q_{p}-R^q_{\bar p})/(R^q_{p}+R^q_{\bar p})$
 XLabel=$x_p$
-YLabel=$D^q_{p}$ [\%]
+YLabel=$D^q_{p}$ [$\%$]
 LegendXPos=0.20
 LegendYPos=0.5
 FullRange=1

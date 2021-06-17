@@ -52,31 +52,31 @@ LogY=1
 # BEGIN PLOT /ATLAS_2012_I1112263/hist_etmiss_SR1_A
 Title=Missing Transverse Energy in SR1
 XLabel=$E^{\rm miss}_{\mathrm{T}}$ [GeV]
-YLabel=$\mathrm{Events}/20$\,GeV
+YLabel=$\mathrm{Events}/20$$\,$GeV
 LogY=0
 # END PLOT
 # BEGIN PLOT /ATLAS_2012_I1112263/hist_etmiss_SR1_B
 Title=Missing Transverse Energy in SR1
 XLabel=$E^{\rm miss}_{\mathrm{T}}$ [GeV]
-YLabel=$\mathrm{Events}/20$\,GeV
+YLabel=$\mathrm{Events}/20$$\,$GeV
 LogY=1
 # END PLOT
 # BEGIN PLOT /ATLAS_2012_I1112263/hist_etmiss_SR2_A
 Title=Missing Transverse Energy in SR2
 XLabel=$E^{\rm miss}_{\mathrm{T}}$ [GeV]
-YLabel=$\mathrm{Events}/20$\,GeV
+YLabel=$\mathrm{Events}/20$$\,$GeV
 LogY=0
 # END PLOT
 # BEGIN PLOT /ATLAS_2012_I1112263/hist_etmiss_SR2_B
 Title=Missing Transverse Energy in SR2
 XLabel=$E^{\rm miss}_{\mathrm{T}}$ [GeV]
-YLabel=$\mathrm{Events}/20$\,GeV
+YLabel=$\mathrm{Events}/20$$\,$GeV
 LogY=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2012_I1112263/hist_mSFOF
 Title=Mass of SFOF lepton pair closest to the $Z^0$ mass in SR1
 XLabel=$M_{\mathrm{SFOS}}$ [GeV]
-YLabel=$\mathrm{Events}/20$\,GeV
+YLabel=$\mathrm{Events}/20$$\,$GeV
 LogY=1
 # END PLOT

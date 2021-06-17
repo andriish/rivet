@@ -34,7 +34,7 @@ YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_\mathrm{ch}$
 Title=Charged particle $p_\perp$, $p_\perp > 500\,\mathrm{MeV}$, $|\eta| < 2.5$, $\tau > 300$ ps
 LogY=1
 LogX=1
-XLabel=$p_\perp$ \; [GeV]
+XLabel=$p_\perp$ $\;$ [GeV]
 YLabel=$1/N_\mathrm{ev} \, 1/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\mathrm{d}p_\perp$
 # END PLOT
 
@@ -42,7 +42,7 @@ YLabel=$1/N_\mathrm{ev} \, 1/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\ma
 Title=Charged particle $p_\perp$, $p_\perp > 500\,\mathrm{MeV}$, $|\eta| < 2.5$, $\tau > 30$ ps
 LogY=1
 LogX=1
-XLabel=$p_\perp$ \; [GeV]
+XLabel=$p_\perp$ $\;$ [GeV]
 YLabel=$1/N_\mathrm{ev} \, 1/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\mathrm{d}p_\perp$
 # END PLOT
 
@@ -50,7 +50,7 @@ YLabel=$1/N_\mathrm{ev} \, 1/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\ma
 Title=Charged particle $p_\perp$, $p_\perp > 500\,\mathrm{MeV}$, $|\eta| < 0.8$, $\tau > 300$ ps
 LogY=1
 LogX=1
-XLabel=$p_\perp$ \; [GeV]
+XLabel=$p_\perp$ $\;$ [GeV]
 YLabel=$1/N_\mathrm{ev} \, 1/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\mathrm{d}p_\perp$
 # END PLOT
 
@@ -58,7 +58,7 @@ YLabel=$1/N_\mathrm{ev} \, 1/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\ma
 Title=Charged particle $p_\perp$, $p_\perp > 500\,\mathrm{MeV}$, $|\eta| < 0.8$, $\tau > 30$ ps
 LogY=1
 LogX=1
-XLabel=$p_\perp$ \; [GeV]
+XLabel=$p_\perp$ $\;$ [GeV]
 YLabel=$1/N_\mathrm{ev} \, 1/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\mathrm{d}p_\perp$
 # END PLOT
 
@@ -99,7 +99,7 @@ Title=Average particle $p_T$, track $p_\perp > 500\,\mathrm{MeV}$, $|\eta| < 2.5
 LogY=0
 FullRange=1
 XLabel=$N_\mathrm{ch}$
-YLabel=$<p_T>$ \; [GeV]
+YLabel=$<p_T>$ $\;$ [GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1419652/d10
@@ -107,7 +107,7 @@ Title=Average particle $p_T$, track $p_\perp > 500\,\mathrm{MeV}$, $|\eta| < 2.5
 LogY=0
 FullRange=1
 XLabel=$N_\mathrm{ch}$
-YLabel=$<p_T>$ \; [GeV]
+YLabel=$<p_T>$ $\;$ [GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1419652/d14
@@ -115,7 +115,7 @@ Title=Average particle $p_T$, track $p_\perp > 500\,\mathrm{MeV}$, $|\eta| < 0.8
 LogY=0
 FullRange=1
 XLabel=$N_\mathrm{ch}$
-YLabel=$<p_T>$ \; [GeV]
+YLabel=$<p_T>$ $\;$ [GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1419652/d18
@@ -123,6 +123,6 @@ Title=Average particle $p_T$, track $p_\perp > 500\,\mathrm{MeV}$, $|\eta| < 0.8
 LogY=0
 FullRange=1
 XLabel=$N_\mathrm{ch}$
-YLabel=$<p_T>$ \; [GeV]
+YLabel=$<p_T>$ $\;$ [GeV]
 # END PLOT
 

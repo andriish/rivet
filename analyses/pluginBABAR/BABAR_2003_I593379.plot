@@ -1,42 +1,42 @@
 # BEGIN PLOT /BABAR_2003_I593379/d01-x01-y01
 Title=$\mathrm{Br}(B\to J/\psi)$ at the $\Upsilon(4S)$
-YLabel=$\mathrm{Br}(B\to J/\psi)$ [\%]
+YLabel=$\mathrm{Br}(B\to J/\psi)$ [$\%$]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /BABAR_2003_I593379/d01-x01-y02
 Title=$\mathrm{Br}(B\to J/\psi)$~direct at the $\Upsilon(4S)$
-YLabel=$\mathrm{Br}(B\to J/\psi)$ [\%]
+YLabel=$\mathrm{Br}(B\to J/\psi)$ [$\%$]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /BABAR_2003_I593379/d01-x01-y03
 Title=$\mathrm{Br}(B\to \chi_{c1})$ at the $\Upsilon(4S)$
-YLabel=$\mathrm{Br}(B\to \chi_{c1})$ [\%]
+YLabel=$\mathrm{Br}(B\to \chi_{c1})$ [$\%$]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /BABAR_2003_I593379/d01-x01-y04
 Title=$\mathrm{Br}(B\to \chi_{c1})$~direct at the $\Upsilon(4S)$
-YLabel=$\mathrm{Br}(B\to \chi_{c1})$ [\%]
+YLabel=$\mathrm{Br}(B\to \chi_{c1})$ [$\%$]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /BABAR_2003_I593379/d01-x01-y05
 Title=$\mathrm{Br}(B\to \chi_{c2})$ at the $\Upsilon(4S)$
-YLabel=$\mathrm{Br}(B\to \chi_{c2})$ [\%]
+YLabel=$\mathrm{Br}(B\to \chi_{c2})$ [$\%$]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /BABAR_2003_I593379/d01-x01-y06
 Title=$\mathrm{Br}(B\to \chi_{c2})$~direct at the $\Upsilon(4S)$
-YLabel=$\mathrm{Br}(B\to \chi_{c2})$ [\%]
+YLabel=$\mathrm{Br}(B\to \chi_{c2})$ [$\%$]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /BABAR_2003_I593379/d01-x01-y07
 Title=$\mathrm{Br}(B\to \psi^\prime)$ at the $\Upsilon(4S)$
-YLabel=$\mathrm{Br}(B\to \psi^\prime)$ [\%]
+YLabel=$\mathrm{Br}(B\to \psi^\prime)$ [$\%$]
 LogY=0
 # END PLOT
 

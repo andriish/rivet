@@ -35,8 +35,8 @@ RatioPlotYMax=2.0
 
 # BEGIN PLOT /MC_HHJETS/HH_pT$
 Title=Di-Higgs $p_\perp$
-XLabel=$p_\perp^{HH}$ [\GeV]
-YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp^{HH}$ [pb/\GeV]
+XLabel=$p_\perp^{HH}$ [$\GeV$]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp^{HH}$ [pb/$\GeV$]
 LogX=0
 #Rebin=4
 #XMax=900
@@ -54,16 +54,16 @@ YLabel=$\mathrm{d}\sigma/\mathrm{d}\Delta{\eta}(H, \mathrm{1st~jet})$ [pb]
 
 # BEGIN PLOT /MC_HHJETS/HH_mass
 Title=di-Higgs mass
-XLabel=$m_{HH}$ [\GeV]
-YLabel=$\mathrm{d}\sigma/\mathrm{d}m_{HH}$ [pb/\GeV]
+XLabel=$m_{HH}$ [$\GeV$]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}m_{HH}$ [pb/$\GeV$]
 #Rebin=2
 #XMax=2E+03
 # END PLOT
 
 # BEGIN PLOT /MC_HHJETS/H_pT$
 Title=Higgs boson $p_\perp$ (any Higgs)
-XLabel=$p_\perp^H$ [\GeV]
-YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp^H$ [pb/\GeV]
+XLabel=$p_\perp^H$ [$\GeV$]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp^H$ [pb/$\GeV$]
 LogX=0
 #Rebin=4
 #XMax=900
@@ -73,8 +73,8 @@ LegendYPos=0.5
 
 # BEGIN PLOT /MC_HHJETS/H_pT1$
 Title=Higgs boson $p_\perp$ (hardest Higgs)
-XLabel=$p_\perp^H$ [\GeV]
-YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp^H$ [pb/\GeV]
+XLabel=$p_\perp^H$ [$\GeV$]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp^H$ [pb/$\GeV$]
 LogX=0
 #Rebin=4
 #XMax=900
@@ -84,8 +84,8 @@ LegendYPos=0.5
 
 # BEGIN PLOT /MC_HHJETS/H_pT2$
 Title=Higgs boson $p_\perp$ (second hardest Higgs)
-XLabel=$p_\perp^H$ [\GeV]
-YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp^H$ [pb/\GeV]
+XLabel=$p_\perp^H$ [$\GeV$]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp^H$ [pb/$\GeV$]
 LogX=0
 #Rebin=4
 #XMax=900
@@ -130,15 +130,15 @@ YLabel=$\mathrm{d}\sigma/\mathrm{d}\phi_H$ [pb]
 
 # BEGIN PLOT /MC_HHJETS/lepton_pT
 Title=Lepton $p_\perp$
-XLabel=$p_\perp^\ell$ [\GeV]
-YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp^\ell$ [pb/\GeV]
+XLabel=$p_\perp^\ell$ [$\GeV$]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp^\ell$ [pb/$\GeV$]
 LogX=1
 #Rebin=2
 # END PLOT
 
 # BEGIN PLOT /MC_HHJETS/lepton_eta
 Title=Lepton $\eta$
-XLabel=$\eta_\ell$ [\GeV]
+XLabel=$\eta_\ell$ [$\GeV$]
 YLabel=$\mathrm{d}\sigma/\mathrm{d}\eta_\ell$ [pb]
 #Rebin=2
 # END PLOT
@@ -340,28 +340,28 @@ YLabel=$|y(\mathrm{jet~4}|$
 # BEGIN PLOT /MC_HHJETS/jet_mass_1
 Title=Mass of first jet
 XLabel=$m(\mathrm{jet~1})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}m(\mathrm{jet~1})$ [pb/\GeV]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}m(\mathrm{jet~1})$ [pb/$\GeV$]
 #Rebin=2
 # END PLOT
 
 # BEGIN PLOT /MC_HHJETS/jet_mass_2
 Title=Mass of second jet
 XLabel=$m(\mathrm{jet~2})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}m(\mathrm{jet~2})$ [pb/\GeV]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}m(\mathrm{jet~2})$ [pb/$\GeV$]
 #Rebin=2
 # END PLOT
 
 # BEGIN PLOT /MC_HHJETS/jet_mass_3
 Title=Mass of third jet
 XLabel=$m(\mathrm{jet~3})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}m(\mathrm{jet~3})$ [pb/\GeV]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}m(\mathrm{jet~3})$ [pb/$\GeV$]
 #Rebin=2
 # END PLOT
 
 # BEGIN PLOT /MC_HHJETS/jet_mass_4
 Title=Mass of fourth jet
 XLabel=$m(\mathrm{jet~4})$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}m(\mathrm{jet~4})$ [pb/\GeV]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}m(\mathrm{jet~4})$ [pb/$\GeV$]
 #Rebin=2
 # END PLOT
 
@@ -397,7 +397,7 @@ ErrorBands=1
 # END PLOT
 
 # BEGIN PLOT /MC_HHJETS/log10_R_0
-Title=$\log_{10}$(Integrated $0$ jet rate in $k_\perp$ [\GeV])
+Title=$\log_{10}$(Integrated $0$ jet rate in $k_\perp$ [$\GeV$])
 XLabel=$\log_{10}(d_{\mathrm{cut}}/\GeV)$
 YLabel=$R_{0}$
 #Rebin=2
@@ -407,35 +407,35 @@ LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_HHJETS/log10_R_1
-Title=$\log_{10}$(Integrated $1$ jet rate in $k_\perp$ [\GeV])
+Title=$\log_{10}$(Integrated $1$ jet rate in $k_\perp$ [$\GeV$])
 XLabel=$\log_{10}(d_{\mathrm{cut}}/\GeV)$
 YLabel=$R_{1}$
 #Rebin=2
 # END PLOT
 
 # BEGIN PLOT /MC_HHJETS/log10_R_2
-Title=$\log_{10}$(Integrated $2$ jet rate in $k_\perp$ [\GeV])
+Title=$\log_{10}$(Integrated $2$ jet rate in $k_\perp$ [$\GeV$])
 XLabel=$\log_{10}(d_{\mathrm{cut}}/\GeV)$
 YLabel=$R_{2}$
 #Rebin=2
 # END PLOT
 
 # BEGIN PLOT /MC_HHJETS/log10_R_3
-Title=$\log_{10}$(Integrated $3$ jet rate in $k_\perp$ [\GeV])
+Title=$\log_{10}$(Integrated $3$ jet rate in $k_\perp$ [$\GeV$])
 XLabel=$\log_{10}(d_{\mathrm{cut}}/\GeV)$
 YLabel=$R_{3}$
 #Rebin=2
 # END PLOT
 
 # BEGIN PLOT /MC_HHJETS/log10_R_4
-Title=$\log_{10}$(Integrated $4$ jet rate in $k_\perp$ [\GeV])
+Title=$\log_{10}$(Integrated $4$ jet rate in $k_\perp$ [$\GeV$])
 XLabel=$\log_{10}(d_{\mathrm{cut}}/\GeV)$
 YLabel=$R_{\geq4}$
 #Rebin=2
 # END PLOT
 
 # BEGIN PLOT /MC_HHJETS/log10_d_01
-Title=$\log_{10}$($k_\perp$ jet resolution $0 \to 1$ [\GeV])
+Title=$\log_{10}$($k_\perp$ jet resolution $0 \to 1$ [$\GeV$])
 XLabel=$\log_{10}(d_{01}/\GeV)$
 YLabel=$\mathrm{d}\sigma/\mathrm{d}\log_{10}(d_{01}/\GeV)$ [pb]
 LegendXPos=0.15
@@ -444,7 +444,7 @@ LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_HHJETS/log10_d_12
-Title=$\log_{10}$($k_\perp$ jet resolution $1 \to 2$ [\GeV])
+Title=$\log_{10}$($k_\perp$ jet resolution $1 \to 2$ [$\GeV$])
 XLabel=$\log_{10}(d_{12}/\GeV)$
 YLabel=$\mathrm{d}\sigma/\mathrm{d}\log_{10}(d_{12}/\GeV)$ [pb]
 LegendXPos=0.15
@@ -453,7 +453,7 @@ LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_HHJETS/log10_d_23
-Title=$\log_{10}$($k_\perp$ jet resolution $2 \to 3$ [\GeV])
+Title=$\log_{10}$($k_\perp$ jet resolution $2 \to 3$ [$\GeV$])
 XLabel=$\log_{10}(d_{23}/\GeV)$
 YLabel=$\mathrm{d}\sigma/\mathrm{d}\log_{10}(d_{23}/\GeV)$ [pb]
 LegendXPos=0.15
@@ -462,7 +462,7 @@ LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_HHJETS/log10_d_34
-Title=$\log_{10}$($k_\perp$ jet resolution $3 \to 4$ [\GeV])
+Title=$\log_{10}$($k_\perp$ jet resolution $3 \to 4$ [$\GeV$])
 XLabel=$\log_{10}(d_{34}/\GeV)$
 YLabel=$\mathrm{d}\sigma/\mathrm{d}\log_{10}(d_{34}/\GeV)$ [pb]
 LegendXPos=0.15
@@ -472,8 +472,8 @@ LegendYPos=0.5
 
 # BEGIN PLOT /MC_HHJETS/jet_pT_1
 Title=Transverse momentum of leading jet
-XLabel=$p_\perp(\mathrm{jet~1})$ [\GeV]
-YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp(\mathrm{jet~1})$ [pb/\GeV]
+XLabel=$p_\perp(\mathrm{jet~1})$ [$\GeV$]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp(\mathrm{jet~1})$ [pb/$\GeV$]
 LogX=1
 LegendXPos=0.05
 LegendYPos=0.5
@@ -486,8 +486,8 @@ RatioPlotYMax=1.6
 
 # BEGIN PLOT /MC_HHJETS/jet_pT_2
 Title=Transverse momentum of second jet
-XLabel=$p_\perp(\mathrm{jet~2})$ [\GeV]
-YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp(\mathrm{jet~2})$ [pb/\GeV]
+XLabel=$p_\perp(\mathrm{jet~2})$ [$\GeV$]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp(\mathrm{jet~2})$ [pb/$\GeV$]
 LogX=1
 LegendXPos=0.05
 LegendYPos=0.5
@@ -496,8 +496,8 @@ LegendYPos=0.5
 
 # BEGIN PLOT /MC_HHJETS/jet_pT_3
 Title=Transverse momentum of third jet
-XLabel=$p_\perp(\mathrm{jet~3})$ [\GeV]
-YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp(\mathrm{jet~3})$ [pb/\GeV]
+XLabel=$p_\perp(\mathrm{jet~3})$ [$\GeV$]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp(\mathrm{jet~3})$ [pb/$\GeV$]
 LogX=1
 LegendXPos=0.05
 LegendYPos=0.5
@@ -506,8 +506,8 @@ LegendYPos=0.5
 
 # BEGIN PLOT /MC_HHJETS/jet_pT_4
 Title=Transverse momentum of fourth jet
-XLabel=$p_\perp(\mathrm{jet~4})$ [\GeV]
-YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp(\mathrm{jet~4})$ [pb/\GeV]
+XLabel=$p_\perp(\mathrm{jet~4})$ [$\GeV$]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp(\mathrm{jet~4})$ [pb/$\GeV$]
 LogX=1
 LegendXPos=0.05
 LegendYPos=0.5
@@ -516,8 +516,8 @@ LegendYPos=0.5
 
 # BEGIN PLOT /MC_HHJETS/jet_HT
 Title=Scalar sum of jet transverse momenta ($H_T$)
-XLabel=$H_T$ [\GeV]
-YLabel=$\mathrm{d}\sigma/\mathrm{d}H_T$ [pb/\GeV]
+XLabel=$H_T$ [$\GeV$]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}H_T$ [pb/$\GeV$]
 LogX=1
 # END PLOT
 

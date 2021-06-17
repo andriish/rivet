@@ -10,7 +10,7 @@ LegendYPos=0.9
 # BEGIN PLOT /CMS_2017_I1499471/d02-x01-y01
 Title=$\mathrm{CMS,~8~TeV,~Leading~b\/inclusive~jet~transverse~momentum~ratio,~at~least~one~b~jet~over~inclusive}$
 XLabel=$p_{t}(b/j)$ GeV
-YLabel=b jet/inclusive jets $d\sigma_{fiducial}/dp_{t}(b/j)$ ratio \%
+YLabel=b jet/inclusive jets $d\sigma_{fiducial}/dp_{t}(b/j)$ ratio $\%$
 LogY = 0
 LegendXPos=0.7
 LegendYPos=0.9
@@ -28,7 +28,7 @@ LegendYPos=0.9
 # BEGIN PLOT /CMS_2017_I1499471/d04-x01-y01
 Title=$\mathrm{CMS,~8~TeV,~Leading~b/inclusive~jet~absolute~pseudorapidity~ratio,~at~least~one~b~jet~over~inclusive}$
 XLabel=$\eta(b/j)$ 
-YLabel=b jet/inclusive jets $d\sigma_{fiducial}/d\eta(b/j)$ ratio \%
+YLabel=b jet/inclusive jets $d\sigma_{fiducial}/d\eta(b/j)$ ratio $\%$
 LogY=0
 LegendXPos=0.7
 LegendYPos=0.9
@@ -46,7 +46,7 @@ LegendYPos=0.9
 # BEGIN PLOT /CMS_2017_I1499471/d06-x01-y01
 Title=$\mathrm{CMS,~8~TeV,~Z~boson~pt~ratio,~at~least~one~b~jet~over~inclusive}$
 XLabel=$p_{t}(Z)$ GeV
-YLabel=b jet/inclusive jets $d\sigma_{fiducial}/dp_{t}(Z)$ ratio \%
+YLabel=b jet/inclusive jets $d\sigma_{fiducial}/dp_{t}(Z)$ ratio $\%$
 LogY=0
 LegendXPos=0.7
 LegendYPos=0.9
@@ -64,7 +64,7 @@ LegendYPos=0.9
 # BEGIN PLOT /CMS_2017_I1499471/d08-x01-y01
 Title=$\mathrm{CMS,~8~TeV,~HT~ratio,~at~least~one~b~jet~over~inclusive}$
 XLabel=$H_{t}$ GeV
-YLabel=b jet/inclusive jets $d\sigma_{fiducial}/dH_{t}$ ratio \%
+YLabel=b jet/inclusive jets $d\sigma_{fiducial}/dH_{t}$ ratio $\%$
 LogY=0
 LegendXPos=0.7
 LegendYPos=0.9
@@ -82,7 +82,7 @@ LegendYPos=0.9
 # BEGIN PLOT /CMS_2017_I1499471/d10-x01-y01
 Title=$\mathrm{CMS,~8~TeV,~DeltaPhi_Z(b/j)~ratio,~at~least~one~b~jet~over~inclusive}$
 XLabel=$d\phi(Zb/j)$
-YLabel=b jet/inclusive jets $d\sigma_{fiducial}/d\phi(Zb/j)$ ratio \%
+YLabel=b jet/inclusive jets $d\sigma_{fiducial}/d\phi(Zb/j)$ ratio $\%$
 LogY=0
 LegendXPos=0.7
 LegendYPos=0.9

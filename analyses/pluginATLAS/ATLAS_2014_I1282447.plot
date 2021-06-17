@@ -68,7 +68,7 @@ Title=$W D$ over inclusive $W$
 XLabel=$W$-boson charge [$e$]
 XMinorTickMarks=0
 XCustomMajorTicks=-1	-1	1	1
-YLabel=$\sigma_\mathrm{fid}^\mathrm{OS-SS} (W D) / \sigma_\mathrm{fid} (W)$ [\%]
+YLabel=$\sigma_\mathrm{fid}^\mathrm{OS-SS} (W D) / \sigma_\mathrm{fid} (W)$ [$\%$]
 LogY=0
 # END PLOT
 
@@ -77,13 +77,13 @@ Title=$W D^*$ over inclusive $W$
 XLabel=$W$-boson charge [$e$]
 XMinorTickMarks=0
 XCustomMajorTicks=-1	-1	1	1
-YLabel=$\sigma_\mathrm{fid}^\mathrm{OS-SS} (W D^*) / \sigma_\mathrm{fid} (W)$ [\%]
+YLabel=$\sigma_\mathrm{fid}^\mathrm{OS-SS} (W D^*) / \sigma_\mathrm{fid} (W)$ [$\%$]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1282447/d06-x01-y0[1-2]
 XLabel=$D$-meson $p_\mathrm{T}$ [GeV]
-YLabel=$\sigma_\mathrm{fid}^\mathrm{OS-SS} (W D) / \sigma_\mathrm{fid} (W)$ [\%]
+YLabel=$\sigma_\mathrm{fid}^\mathrm{OS-SS} (W D) / \sigma_\mathrm{fid} (W)$ [$\%$]
 LogY=0
 LogX=1
 # END PLOT
@@ -98,7 +98,7 @@ Title=$W^- D^+$ over inclusive $W^-$
 
 # BEGIN PLOT /ATLAS_2014_I1282447/d06-x01-y0[3-4]
 XLabel=$D^*$-meson $p_\mathrm{T}$ [GeV]
-YLabel=$\sigma_\mathrm{fid}^\mathrm{OS-SS} (W D^*) / \sigma_\mathrm{fid} (W)$ [\%]
+YLabel=$\sigma_\mathrm{fid}^\mathrm{OS-SS} (W D^*) / \sigma_\mathrm{fid} (W)$ [$\%$]
 LogY=0
 LogX=1
 # END PLOT
