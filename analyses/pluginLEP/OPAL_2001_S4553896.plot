@@ -10,7 +10,7 @@ LegendYPos=0.9
 # END PLOT
 
 # BEGIN PLOT /OPAL_2001_S4553896/d04-x01-y01
-Title=K\"orner-Schierholz-Willrodt angle (parton level)
+Title=Körner-Schierholz-Willrodt angle (parton level)
 XLabel=$\cos(\phi_\mathrm{KSW})$
 YLabel=$1/\sigma \, \mathrm{d}{\sigma}/\mathrm{d}\,\cos(\phi_\mathrm{KSW})$
 LogY=0

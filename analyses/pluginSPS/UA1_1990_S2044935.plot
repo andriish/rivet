@@ -73,13 +73,13 @@ YLabel=$\langle p_\perp \rangle$ [GeV]
 # BEGIN PLOT /UA1_1990_S2044935/d09-x01-y01
 Title=Transverse energy cross section at $\sqrt{s} = 200~\GeV$ and $|\eta|<6$
 XLabel=$\Sigma E_\perp$ [GeV]
-YLabel=$\mathrm{d}{\sigma}/\mathrm{d}{\sum E_\perp}$ [mb$\,$\reciprocal\GeV]
+YLabel=$\mathrm{d}{\sigma}/\mathrm{d}{\sum E_\perp}$ [mb$\,\GeV^{-1}$]
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d10-x01-y01
 Title=Transverse energy cross section at $\sqrt{s} = 500~\GeV$ and $|\eta|<6$
 XLabel=$\Sigma E_\perp$ [GeV]
-YLabel=$\mathrm{d}{\sigma}/\mathrm{d}{\sum E_\perp}$ [mb$\,$\reciprocal\GeV]
+YLabel=$\mathrm{d}{\sigma}/\mathrm{d}{\sum E_\perp}$ [mb$\,\GeV^{-1}$]
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d11-x01-y01

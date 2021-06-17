@@ -1,6 +1,6 @@
 # BEGIN PLOT /D0_2000_I499943/d01-x01-y01
-Title=Leading muon \pt spectrum for $b\bar{b}$ production
-XLabel=Leading muon \pt [$\GeV$]
+Title=Leading muon $\pt$ spectrum for $b\bar{b}$ production
+XLabel=Leading muon $\pt$ [$\GeV$]
 YLabel=$\mathrm{d}\sigma \mathrm{d}\pt$ [nb/$\GeV$]
 # END PLOT
 
