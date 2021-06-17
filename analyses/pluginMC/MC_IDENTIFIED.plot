@@ -40,5 +40,5 @@ Title=Average per-event multiplicity of stable particle IDs
 # END PLOT
 
 # BEGIN PLOT /MC_IDENTIFIED/MultsAllPIDs
-Title=Average per-event multiplicity of \emph{all} (unphysical) particle IDs
+Title=Average per-event multiplicity of $\mathit{all}$ (unphysical) particle IDs
 # END PLOT
