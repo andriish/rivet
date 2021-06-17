@@ -123,7 +123,7 @@ YLabel=$\mathrm{d}\sigma / \mathrm{d}p_\mathrm{T}$ [$\mu\mathrm{b}/(\mathrm{GeV}
 # BEGIN PLOT /LHCB_2015_I1396331/d09-x01-y01
 Title=Ratio of prompt $D^+$ to $D^0$ for $2.0 < y < 2.5$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D^+ \to K^- \pi^+ \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D^+ \to K^- \pi^+ \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -131,7 +131,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d09-x01-y02
 Title=Ratio of prompt $D^+$ to $D^0$ for $2.5 < y < 3.0$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D^+ \to K^- \pi^+ \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D^+ \to K^- \pi^+ \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -139,7 +139,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d09-x01-y03
 Title=Ratio of prompt $D^+$ to $D^0$ for $3.0 < y < 3.5$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D^+ \to K^- \pi^+ \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D^+ \to K^- \pi^+ \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -147,7 +147,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d09-x01-y04
 Title=Ratio of prompt $D^+$ to $D^0$ for $3.5 < y < 4.0$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D^+ \to K^- \pi^+ \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D^+ \to K^- \pi^+ \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -155,7 +155,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d09-x01-y05
 Title=Ratio of prompt $D^+$ to $D^0$ for $4.0 < y < 4.5$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D^+ \to K^- \pi^+ \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D^+ \to K^- \pi^+ \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -163,7 +163,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d10-x01-y01
 Title=Ratio of prompt $D_s^+$ to $D^0$ for $2.0 < y < 2.5$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -171,7 +171,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d10-x01-y02
 Title=Ratio of prompt $D_s^+$ to $D^0$ for $2.5 < y < 3.0$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -179,7 +179,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d10-x01-y03
 Title=Ratio of prompt $D_s^+$ to $D^0$ for $3.0 < y < 3.5$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -187,7 +187,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d10-x01-y04
 Title=Ratio of prompt $D_s^+$ to $D^0$ for $3.5 < y < 4.0$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -195,7 +195,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d10-x01-y05
 Title=Ratio of prompt $D_s^+$ to $D^0$ for $4.0 < y < 4.5$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -203,7 +203,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d11-x01-y01
 Title=Ratio of prompt $D^{*+}$ to $D^0$ for $2.0 < y < 2.5$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -211,7 +211,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d11-x01-y02
 Title=Ratio of prompt $D^{*+}$ to $D^0$ for $2.5 < y < 3.0$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -219,7 +219,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d11-x01-y03
 Title=Ratio of prompt $D^{*+}$ to $D^0$ for $3.0 < y < 3.5$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -227,7 +227,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d11-x01-y04
 Title=Ratio of prompt $D^{*+}$ to $D^0$ for $3.5 < y < 4.0$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -235,7 +235,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d11-x01-y05
 Title=Ratio of prompt $D^{*+}$ to $D^0$ for $4.0 < y < 4.5$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^0 \to K^- \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -243,7 +243,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d12-x01-y01
 Title=Ratio of prompt $D_s^+$ to $D^+$ for $2.0 < y < 2.5$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -251,7 +251,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d12-x01-y02
 Title=Ratio of prompt $D_s^+$ to $D^+$ for $2.5 < y < 3.0$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -259,7 +259,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d12-x01-y03
 Title=Ratio of prompt $D_s^+$ to $D^+$ for $3.0 < y < 3.5$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -267,7 +267,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d12-x01-y04
 Title=Ratio of prompt $D_s^+$ to $D^+$ for $3.5 < y < 4.0$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -275,7 +275,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d12-x01-y05
 Title=Ratio of prompt $D_s^+$ to $D^+$ for $4.0 < y < 4.5$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -283,7 +283,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d13-x01-y01
 Title=Ratio of prompt $D^{*+}$ to $D^+$ for $2.0 < y < 2.5$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -291,7 +291,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d13-x01-y02
 Title=Ratio of prompt $D^{*+}$ to $D^+$ for $2.5 < y < 3.0$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -299,7 +299,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d13-x01-y03
 Title=Ratio of prompt $D^{*+}$ to $D^+$ for $3.0 < y < 3.5$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -307,7 +307,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d13-x01-y04
 Title=Ratio of prompt $D^{*+}$ to $D^+$ for $3.5 < y < 4.0$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -315,7 +315,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d13-x01-y05
 Title=Ratio of prompt $D^{*+}$ to $D^+$ for $4.0 < y < 4.5$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}{\sigma(D^+ \to K^- \pi^+ \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -323,7 +323,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d14-x01-y01
 Title=Ratio of prompt $D_s^{+}$ to $D^{*+}$ for $2.0 < y < 2.5$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -331,7 +331,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d14-x01-y02
 Title=Ratio of prompt $D_s^{+}$ to $D^{*+}$ for $2.5 < y < 3.0$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -339,7 +339,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d14-x01-y03
 Title=Ratio of prompt $D_s^{+}$ to $D^{*+}$ for $3.0 < y < 3.5$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -347,7 +347,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d14-x01-y04
 Title=Ratio of prompt $D_s^{+}$ to $D^{*+}$ for $3.5 < y < 4.0$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
@@ -355,7 +355,7 @@ LeftMargin=1.6
 # BEGIN PLOT /LHCB_2015_I1396331/d14-x01-y05
 Title=Ratio of prompt $D_s^{+}$ to $D^{*+}$ for $4.0 < y < 4.5$
 XLabel=$p_\mathrm{T}$ [$\mathrm{GeV}\!/\!c$]
-YLabel=$\frac{\sigma(\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}$ [\%]
+YLabel=$\frac{\sigma(\sigma(D_s^+ \to (K^+ K^-)_\phi \pi^+)}{\sigma(D^{*+} \to (K^- \pi^+)_{D^0} \pi^+)}$ [$\%$]
 LogY=0
 LeftMargin=1.6
 # END PLOT
