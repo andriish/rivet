@@ -5,24 +5,24 @@ END PLOT
 BEGIN PLOT /CLEOII_2002_I606309/d03-x01-y01
 Title=$J/\psi$ momentum distribution
 XLabel=$p$ [GeV]
-YLabel=$\text{d}B/\text{d}p$ [$\%/\text{GeV}$]
+YLabel=$\mathrm{d}B/\mathrm{d}p$ [$\%/\mathrm{GeV}$]
 END PLOT
 
 BEGIN PLOT /CLEOII_2002_I606309/d03-x01-y02
 Title=$\psi(2S)$ momentum distribution
 XLabel=$p$ [GeV]
-YLabel=$\text{d}B/\text{d}p$ [$\%/\text{GeV}$]
+YLabel=$\mathrm{d}B/\mathrm{d}p$ [$\%/\mathrm{GeV}$]
 END PLOT
 
 BEGIN PLOT /CLEOII_2002_I606309/d04-x01-y01
 Title=$J/\psi$ Helicity angle
 XLabel=$\cos\theta$
-YLabel=$1/B\text{d}B/\text{d}\cos\theta$
+YLabel=$1/B\mathrm{d}B/\mathrm{d}\cos\theta$
 END PLOT
 BEGIN PLOT /CLEOII_2002_I606309/d04-x01-y02
 Title=$\psi(2S)$ Helicity angle
 XLabel=$\cos\theta$
-YLabel=$1/B\text{d}B/\text{d}\cos\theta$
+YLabel=$1/B\mathrm{d}B/\mathrm{d}\cos\theta$
 END PLOT
 
 BEGIN PLOT /CLEOII_2002_I606309/d01-x01-y01

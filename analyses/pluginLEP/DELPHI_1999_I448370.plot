@@ -23,17 +23,17 @@ END PLOT
 BEGIN PLOT /DELPHI_1999_I448370/d05-x01-y01
 Title=Transverse Cross Section
 XLabel=$x_p$
-YLabel=$\sigma_T/\sigma_{\text{total}}$
+YLabel=$\sigma_T/\sigma_{\mathrm{total}}$
 END PLOT
 BEGIN PLOT /DELPHI_1999_I448370/d05-x01-y02
 Title=Longitudinal Cross Section
 XLabel=$x_p$
-YLabel=$\sigma_L/\sigma_{\text{total}}$
+YLabel=$\sigma_L/\sigma_{\mathrm{total}}$
 END PLOT
 BEGIN PLOT /DELPHI_1999_I448370/d05-x01-y03
 Title=Transverse+Longitudinal Cross Section
 XLabel=$x_p$
-YLabel=$(\sigma_T+\sigma_L)/\sigma_{\text{total}}$
+YLabel=$(\sigma_T+\sigma_L)/\sigma_{\mathrm{total}}$
 END PLOT
 
 BEGIN PLOT /DELPHI_1999_I448370/d06-x01-y01
@@ -70,10 +70,10 @@ END PLOT
 BEGIN PLOT /DELPHI_1999_I448370/d09-x01-y01
 Title=Charged Particle Multiplicity (bottom)
 LogY=0
-YLabel=$N_{\text{charged}}$
+YLabel=$N_{\mathrm{charged}}$
 END PLOT
 BEGIN PLOT /DELPHI_1999_I448370/d09-x01-y02
 Title=Charged Particle Multiplicity (uds)
 LogY=0
-YLabel=$N_{\text{charged}}$
+YLabel=$N_{\mathrm{charged}}$
 END PLOT

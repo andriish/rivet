@@ -109,112 +109,112 @@ END PLOT
 
 BEGIN PLOT /CLEO_1985_I205668/d01-x01-y01
 Title=Scaled momentum spectrum for $\pi^\pm$ in the continuum
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d02-x01-y01
 Title=Scaled momentum spectrum for $K^\pm$ in the continuum
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d03-x01-y01
 Title=Scaled momentum spectrum for $p,\bar{p}$ in the continuum
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d04-x01-y01
 Title=Scaled momentum spectrum for $\pi^0$ in the continuum
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d05-x01-y01
 Title=Scaled momentum spectrum for $K^0,\bar{K}^0$ in the continuum
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d06-x01-y01
 Title=Scaled momentum spectrum for $\Lambda,\bar{\Lambda}$ in the continuum
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d07-x01-y01
 Title=Scaled momentum spectrum for $\Xi^-,\bar{\Xi}^+$ in the continuum
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d08-x01-y01
 Title=Scaled momentum spectrum for $\rho^0$ in the continuum
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d09-x01-y01
 Title=Scaled momentum spectrum for $K^{*\pm}$ in the continuum
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d10-x01-y01
 Title=Scaled momentum spectrum for $K^{*0},\bar{K}^{*0}$ in the continuum
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d11-x01-y01
 Title=Scaled momentum spectrum for $\phi$ in the continuum
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 
 BEGIN PLOT /CLEO_1985_I205668/d01-x01-y02
 Title=Scaled momentum spectrum for $\pi^\pm$ at the $\Upsilon(1S)$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d02-x01-y02
 Title=Scaled momentum spectrum for $K^\pm$ at the $\Upsilon(1S)$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d03-x01-y02
 Title=Scaled momentum spectrum for $p,\bar{p}$ at the $\Upsilon(1S)$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d04-x01-y02
 Title=Scaled momentum spectrum for $\pi^0$ at the $\Upsilon(1S)$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d05-x01-y02
 Title=Scaled momentum spectrum for $K^0,\bar{K}^0$ at the $\Upsilon(1S)$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d06-x01-y02
 Title=Scaled momentum spectrum for $\Lambda,\bar{\Lambda}$ at the $\Upsilon(1S)$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d07-x01-y02
 Title=Scaled momentum spectrum for $\Xi^-,\bar{\Xi}^+$ at the $\Upsilon(1S)$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d08-x01-y02
 Title=Scaled momentum spectrum for $\rho^0$ at the $\Upsilon(1S)$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d09-x01-y02
 Title=Scaled momentum spectrum for $K^{*\pm}$ at the $\Upsilon(1S)$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d10-x01-y02
 Title=Scaled momentum spectrum for $K^{*0},\bar{K}^{*0}$ at the $\Upsilon(1S)$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT
 BEGIN PLOT /CLEO_1985_I205668/d11-x01-y02
 Title=Scaled momentum spectrum for $\phi$ at the $\Upsilon(1S)$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 XLabel=$x$
 END PLOT

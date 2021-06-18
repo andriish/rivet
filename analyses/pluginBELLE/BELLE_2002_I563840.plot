@@ -58,38 +58,38 @@ END PLOT
 
 BEGIN PLOT /BELLE_2002_I563840/d03-x01-y01
 Title=Spectrum for prompt $J/\psi$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}p^*$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}p^*$ [$\mathrm{GeV}^{-1}$]
 XLabel=$p^*$ [GeV]
 END PLOT
 BEGIN PLOT /BELLE_2002_I563840/d03-x01-y02
 Title=Spectrum for prompt $J/\psi$ from $\psi(2S)$ decay
-YLabel=$1/\sigma\text{d}\sigma/\text{d}p^*$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}p^*$ [$\mathrm{GeV}^{-1}$]
 XLabel=$p^*$ [GeV]
 END PLOT
 BEGIN PLOT /BELLE_2002_I563840/d03-x02-y01
 Title=Spectrum for prompt $\psi(2S)$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}p^*$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}p^*$ [$\mathrm{GeV}^{-1}$]
 XLabel=$p^*$ [GeV]
 END PLOT
 
 BEGIN PLOT /BELLE_2002_I563840/d04-x01-y01
 Title=$\cos\theta^*$ for $J/\psi$ production ($2<p^*<3.4$ GeV)
 XLabel=$\cos\theta^*$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}\cos\theta^*$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}\cos\theta^*$
 END PLOT
 BEGIN PLOT /BELLE_2002_I563840/d04-x01-y02
 Title=$\cos\theta^*$ for $J/\psi$ production ($p^*>3.4$ GeV)
 XLabel=$\cos\theta^*$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}\cos\theta^*$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}\cos\theta^*$
 END PLOT
 
 BEGIN PLOT /BELLE_2002_I563840/d04-x02-y01
 Title=$\cos\theta_H$ for $J/\psi$ production ($2<p^*<3.4$ GeV)
 XLabel=$\cos\theta_H$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}\cos\theta_H$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}\cos\theta_H$
 END PLOT
 BEGIN PLOT /BELLE_2002_I563840/d04-x02-y02
 Title=$\cos\theta_H$ for $J/\psi$ production ($p^*>3.4$ GeV)
 XLabel=$\cos\theta_H$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}\cos\theta_H$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}\cos\theta_H$
 END PLOT

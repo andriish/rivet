@@ -1,6 +1,6 @@
 BEGIN PLOT /VENUS_1997_I440852/d03
 XLabel=$x$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}x$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}x$
 LogY=0
 END PLOT
 BEGIN PLOT /VENUS_1997_I440852/d03-x01-y01

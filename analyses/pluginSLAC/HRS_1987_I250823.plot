@@ -14,8 +14,8 @@ END PLOT
 
 BEGIN PLOT /HRS_1987_I250823/d0[1,2,3]-x0[1,2,3]-y03
 XLabel=$x_E$
-YLabel=$\text{Re}\rho_{10}$
-Title=$\text{Re}\rho_{10}$ for $D^*$ production, helicity-beam frame
+YLabel=$\mathrm{Re}\rho_{10}$
+Title=$\mathrm{Re}\rho_{10}$ for $D^*$ production, helicity-beam frame
 END PLOT
 
 BEGIN PLOT /HRS_1987_I250823/d04-x01-y01
@@ -27,8 +27,8 @@ YLabel=$\rho_{1-1}$
 Title=$\rho_{1-1}$ for $D^*$ production, helicity-beam frame, ($x_E>0.4$)
 END PLOT
 BEGIN PLOT /HRS_1987_I250823/d04-x01-y03
-YLabel=$\text{Re}\rho_{10}$
-Title=$\text{Re}\rho_{10}$ for $D^*$ production, helicity-beam frame, ($x_E>0.4$)
+YLabel=$\mathrm{Re}\rho_{10}$
+Title=$\mathrm{Re}\rho_{10}$ for $D^*$ production, helicity-beam frame, ($x_E>0.4$)
 END PLOT
 
 BEGIN PLOT /HRS_1987_I250823/d05-x01-y0[1,2,3]
@@ -48,6 +48,6 @@ YLabel=$\rho_{1-1}$
 Title=$\rho_{1-1}$ for $D^*$ production, helicity-quark frame, ($x_E>0.4$)
 END PLOT
 BEGIN PLOT /HRS_1987_I250823/d0[5,6]-x01-y03
-YLabel=$\text{Re}\rho_{10}$
-Title=$\text{Re}\rho_{10}$ for $D^*$ production, helicity-quark frame, ($x_E>0.4$)
+YLabel=$\mathrm{Re}\rho_{10}$
+Title=$\mathrm{Re}\rho_{10}$ for $D^*$ production, helicity-quark frame, ($x_E>0.4$)
 END PLOT

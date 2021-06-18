@@ -142,8 +142,8 @@ BEGIN PLOT /OPAL_2000_I513476/d11-x01-y03
 Title=$y_{23}$ at 189 GeV
 END PLOT
 BEGIN PLOT /OPAL_2000_I513476/d13-x01-y0
-XLabel=$N_{\text{charged}}$
-YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_{\text{charged}}$ [$\%$]
+XLabel=$N_{\mathrm{charged}}$
+YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_{\mathrm{charged}}$ [$\%$]
 END PLOT
 BEGIN PLOT /OPAL_2000_I513476/d13-x01-y01
 Title=Charged Particle Multiplicity at 172 GeV
@@ -155,8 +155,8 @@ BEGIN PLOT /OPAL_2000_I513476/d13-x01-y03
 Title=Charged Particle Multiplicity at 189 GeV
 END PLOT
 BEGIN PLOT /OPAL_2000_I513476/d15-x01-y0
-XLabel=$p_\perp^{\text{in}}$ [GeV]
-YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{in}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{in}}$ [GeV]
+YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{in}}$ [$\mathrm{GeV}^{-1}$]
 END PLOT
 BEGIN PLOT /OPAL_2000_I513476/d15-x01-y01
 Title=In-plane transverse momentum at 172 GeV
@@ -168,8 +168,8 @@ BEGIN PLOT /OPAL_2000_I513476/d15-x01-y03
 Title=In-plane transverse momentum at 189 GeV
 END PLOT
 BEGIN PLOT /OPAL_2000_I513476/d16-x01-y0
-XLabel=$p_\perp^{\text{out}}$ [GeV]
-YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{out}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{out}}$ [GeV]
+YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{out}}$ [$\mathrm{GeV}^{-1}$]
 END PLOT
 BEGIN PLOT /OPAL_2000_I513476/d16-x01-y01
 Title=Out-plane transverse momentum at 172 GeV
@@ -223,20 +223,20 @@ END PLOT
 BEGIN PLOT /OPAL_2000_I513476/d14-x01-y01
 Title=Average Charged Multiplcity
 XLabel=$\sqrt{s}$ [GeV]
-YLabel=$\langle N_{\text{charged}}\rangle$
+YLabel=$\langle N_{\mathrm{charged}}\rangle$
 ConnectGaps=1
 END PLOT
 
 BEGIN PLOT /OPAL_2000_I513476/d20-x01-y01
 Title=Average in-plane transverse momentum
 XLabel=$\sqrt{s}$ [GeV]
-YLabel=$\langle p_\perp^{\text{in}} \rangle$ [GeV]
+YLabel=$\langle p_\perp^{\mathrm{in}} \rangle$ [GeV]
 ConnectGaps=1
 END PLOT
 BEGIN PLOT /OPAL_2000_I513476/d20-x01-y02
 Title=Average out-plane transverse momentum
 XLabel=$\sqrt{s}$ [GeV]
-YLabel=$\langle p_\perp^{\text{out}} \rangle$ [GeV]
+YLabel=$\langle p_\perp^{\mathrm{out}} \rangle$ [GeV]
 ConnectGaps=1
 END PLOT
 BEGIN PLOT /OPAL_2000_I513476/d20-x01-y03

@@ -7,7 +7,7 @@ END PLOT
 BEGIN PLOT /BESIII_2019_I1726357/d02-x01-y01
 Title=$\Lambda^0$ angle w.r.t the $e^-$ beam
 XLabel=$\cos\theta$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}\cos\theta$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}\cos\theta$
 LogY=0
 END PLOT
 

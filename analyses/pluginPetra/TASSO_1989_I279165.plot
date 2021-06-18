@@ -1,6 +1,6 @@
 BEGIN PLOT /TASSO_1989_I279165/d
 XLabel=$\rho$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}\rho$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}\rho$
 END PLOT
 
 BEGIN PLOT /TASSO_1989_I279165/d01-x01-y01

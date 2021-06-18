@@ -5,7 +5,7 @@ YTwosidedTicks=1
 LegendAlign=r
 LeftMargin=1.5
 XLabel=$m_{4\ell}$ [GeV]
-YLabel=$\text{d} \sigma^\text{fid}_{4\ell}/\text{d}m_{4\ell}$ [fb / GeV]
+YLabel=$\mathrm{d} \sigma^\mathrm{fid}_{4\ell}/\mathrm{d}m_{4\ell}$ [fb / GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1720442/d01
@@ -13,19 +13,19 @@ Title=Inclusive
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1720442/d02
-Title=$0 < p_\text{T} < 20$ GeV
+Title=$0 < p_\mathrm{T} < 20$ GeV
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1720442/d03
-Title=$20 < p_\text{T} < 50$ GeV
+Title=$20 < p_\mathrm{T} < 50$ GeV
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1720442/d04
-Title=$50 < p_\text{T} < 100$ GeV
+Title=$50 < p_\mathrm{T} < 100$ GeV
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1720442/d05
-Title=$100 < p_\text{T} < 600$ GeV
+Title=$100 < p_\mathrm{T} < 600$ GeV
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1720442/d06

@@ -37,24 +37,24 @@ END PLOT
 BEGIN PLOT /BES_1999_I508349/d02-x01-y01
 Title=Momentum Spectrum for $D^0$ production at 4.03 GeV
 XLabel=$p$ [GeV]
-YLabel=$\text{d}\sigma/\text{d}p$ [nb/GeV]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}p$ [nb/GeV]
 LogY=0
 END PLOT
 BEGIN PLOT /BES_1999_I508349/d02-x01-y02
 Title=Momentum Spectrum for $D^+$ production at 4.03 GeV
 XLabel=$p$ [GeV]
-YLabel=$\text{d}\sigma/\text{d}p$ [nb/GeV]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}p$ [nb/GeV]
 LogY=0
 END PLOT
 BEGIN PLOT /BES_1999_I508349/d03-x01-y01
 Title=Momentum Spectrum for $D^0$ production at 4.14 GeV
 XLabel=$p$ [GeV]
-YLabel=$\text{d}\sigma/\text{d}p$ [nb/GeV]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}p$ [nb/GeV]
 LogY=0
 END PLOT
 BEGIN PLOT /BES_1999_I508349/d03-x01-y02
 Title=Momentum Spectrum for $D^+$ production at 4.14 GeV
 XLabel=$p$ [GeV]
-YLabel=$\text{d}\sigma/\text{d}p$ [nb/GeV]
+YLabel=$\mathrm{d}\sigma/\mathrm{d}p$ [nb/GeV]
 LogY=0
 END PLOT

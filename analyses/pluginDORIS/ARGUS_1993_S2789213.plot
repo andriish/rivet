@@ -106,69 +106,69 @@ END PLOT
 BEGIN PLOT /ARGUS_1993_S2789213/d04-x01-y01
 Title=$K^{*+}$ scaled momentum, continuum
 XLabel=$x_p$ 
-YLabel=$1/(\sigma\beta)\text{d}\sigma/\text{d}x_p$
+YLabel=$1/(\sigma\beta)\mathrm{d}\sigma/\mathrm{d}x_p$
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1993_S2789213/d05-x01-y01
 Title=$K^{*+}$ scaled momentum, $\Upsilon(1S)$
 XLabel=$x_p$ 
-YLabel=$1/(\sigma\beta)\text{d}\sigma/\text{d}x_p$
+YLabel=$1/(\sigma\beta)\mathrm{d}\sigma/\mathrm{d}x_p$
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1993_S2789213/d06-x01-y01
 Title=$K^{*+}$ scaled momentum, $\Upsilon(4S)$
 XLabel=$x_p$ 
-YLabel=$1/(\sigma\beta)\text{d}\sigma/\text{d}x_p$
+YLabel=$1/(\sigma\beta)\mathrm{d}\sigma/\mathrm{d}x_p$
 LegendXPos=0.7
 END PLOT
 
 BEGIN PLOT /ARGUS_1993_S2789213/d07-x01-y01
 Title=$K^{*0}$ scaled momentum, continuum
 XLabel=$x_p$ 
-YLabel=$1/(\sigma\beta)\text{d}\sigma/\text{d}x_p$
+YLabel=$1/(\sigma\beta)\mathrm{d}\sigma/\mathrm{d}x_p$
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1993_S2789213/d08-x01-y01
 Title=$K^{*0}$ scaled momentum, $\Upsilon(1S)$
 XLabel=$x_p$ 
-YLabel=$1/(\sigma\beta)\text{d}\sigma/\text{d}x_p$
+YLabel=$1/(\sigma\beta)\mathrm{d}\sigma/\mathrm{d}x_p$
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1993_S2789213/d09-x01-y01
 Title=$K^{*0}$ scaled momentum, $\Upsilon(4S)$
 XLabel=$x_p$ 
-YLabel=$1/(\sigma\beta)\text{d}\sigma/\text{d}x_p$
+YLabel=$1/(\sigma\beta)\mathrm{d}\sigma/\mathrm{d}x_p$
 LegendXPos=0.7
 END PLOT
 
 BEGIN PLOT /ARGUS_1993_S2789213/d10-x01-y01
 Title=$\rho^0$ scaled momentum, continuum
 XLabel=$x_p$ 
-YLabel=$1/(\sigma\beta)\text{d}\sigma/\text{d}x_p$
+YLabel=$1/(\sigma\beta)\mathrm{d}\sigma/\mathrm{d}x_p$
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1993_S2789213/d11-x01-y01
 Title=$\rho^0$ scaled momentum, $\Upsilon(1S)$
 XLabel=$x_p$ 
-YLabel=$1/(\sigma\beta)\text{d}\sigma/\text{d}x_p$
+YLabel=$1/(\sigma\beta)\mathrm{d}\sigma/\mathrm{d}x_p$
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1993_S2789213/d12-x01-y01
 Title=$\rho^0$ scaled momentum, $\Upsilon(4S)$
 XLabel=$x_p$ 
-YLabel=$1/(\sigma\beta)\text{d}\sigma/\text{d}x_p$
+YLabel=$1/(\sigma\beta)\mathrm{d}\sigma/\mathrm{d}x_p$
 LegendXPos=0.7
 END PLOT
 
 BEGIN PLOT /ARGUS_1993_S2789213/d13-x01-y01
 Title=$\omega$ scaled momentum, continuum
 XLabel=$x_p$ 
-YLabel=$1/(\sigma\beta)\text{d}\sigma/\text{d}x_p$
+YLabel=$1/(\sigma\beta)\mathrm{d}\sigma/\mathrm{d}x_p$
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1993_S2789213/d14-x01-y01
 Title=$\omega$ scaled momentum, $\Upsilon(1S)$
 XLabel=$x_p$ 
-YLabel=$1/(\sigma\beta)\text{d}\sigma/\text{d}x_p$
+YLabel=$1/(\sigma\beta)\mathrm{d}\sigma/\mathrm{d}x_p$
 LegendXPos=0.7
 END PLOT
