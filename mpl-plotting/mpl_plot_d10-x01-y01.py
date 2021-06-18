@@ -53,7 +53,7 @@ axes[1].hlines(1, xmin, xmax, 'k', zorder=2)
 axes[1].plot(x_data, np.ones(len(x_data)), 'ko', zorder=3)
 axes[1].vlines(x_data, (data.val - data.errminus)/data.val,
                (data.val+data.errplus)/data.val, 'k', zorder=3)
-axes[1].yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.1))
+axes[1].yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.2))
 
 # Axes labels
 axes[1].set_xlabel('$p_\perp$ [GeV]')
