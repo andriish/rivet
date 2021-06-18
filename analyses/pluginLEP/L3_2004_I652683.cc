@@ -42,8 +42,15 @@ namespace Rivet {
       declare(jadeJets, "JadeJets");
       declare(durhamJets, "DurhamJets");
 
+      // Beam energy logic neccesary for rivet-merge.
+      sqs = sqrtS()/GeV;
+      if (fuzzyEquals(sqs, 0.0, 1e-3)) {
+        MSG_INFO("Suspicious beam energy. You're probably running rivet-merge. Fetching beam energy from option.");
+        sqs = getOption<double>("energy", 0);
+      }
+      
       // Book the histograms
-      if(fuzzyEquals(sqrtS()/GeV, 91.2, 1e-3)) {
+      if(fuzzyEquals(sqs, 91.2, 1e-3)) {
 	// z pole
 	book(_h_Thrust_udsc             , 47, 1, 1);
 	book(_h_Thrust_bottom           , 47, 1, 2);
@@ -64,29 +71,29 @@ namespace Rivet {
 	book(_h_scaledMomentum_udsc     , 65, 1, 2);
 	book(_h_scaledMomentum_bottom   ,  65, 1, 3);
       }
-      else if(sqrtS()/GeV<90) {
+      else if(sqs < 90) {
 	int i1(-1),i2(-1);
-	if(fuzzyEquals(sqrtS()/GeV, 41.4, 1e-2)) {
+	if(fuzzyEquals(sqs, 41.4, 1e-2)) {
 	  i1=0;
 	  i2=1;
 	}
-	else if(fuzzyEquals(sqrtS()/GeV, 55.3, 1e-2)) {
+	else if(fuzzyEquals(sqs, 55.3, 1e-2)) {
 	  i1=0;
 	  i2=2;
 	}
-	else if(fuzzyEquals(sqrtS()/GeV, 65.4, 1e-2)) {
+	else if(fuzzyEquals(sqs, 65.4, 1e-2)) {
 	  i1=0;
 	  i2=3;
 	}
-	else if(fuzzyEquals(sqrtS()/GeV, 75.7, 1e-2)) {
+	else if(fuzzyEquals(sqs, 75.7, 1e-2)) {
 	  i1=1;
 	  i2=1;
 	}
-	else if(fuzzyEquals(sqrtS()/GeV, 82.3, 1e-2)) {
+	else if(fuzzyEquals(sqs, 82.3, 1e-2)) {
 	  i1=1;
 	  i2=2;
 	}
-	else if(fuzzyEquals(sqrtS()/GeV, 85.1, 1e-2)) {
+	else if(fuzzyEquals(sqs, 85.1, 1e-2)) {
 	  i1=1;
 	  i2=3;
 	}
@@ -97,41 +104,41 @@ namespace Rivet {
 	book(_h_B_T    , 31+i1,1,i2);
 	book(_h_B_W    , 36+i1,1,i2);
       }
-      else if(sqrtS()/GeV>120) {
+      else if(sqs > 120) {
 	int i1(-1),i2(-1);
-	if(fuzzyEquals(sqrtS()/GeV, 130.1, 1e-2)) {
+	if(fuzzyEquals(sqs, 130.1, 1e-2)) {
 	  i1=0;
 	  i2=1;
 	}
-	else if(fuzzyEquals(sqrtS()/GeV, 136.1, 1e-2)) {
+	else if(fuzzyEquals(sqs, 136.1, 1e-2)) {
 	  i1=0;
 	  i2=2;
 	}
-	else if(fuzzyEquals(sqrtS()/GeV, 161.3, 1e-2)) {
+	else if(fuzzyEquals(sqs, 161.3, 1e-2)) {
 	  i1=0;
 	  i2=3;
 	}
-	else if(fuzzyEquals(sqrtS()/GeV, 172.3, 1e-2)) {
+	else if(fuzzyEquals(sqs, 172.3, 1e-2)) {
 	  i1=1;
 	  i2=1;
 	}
-	else if(fuzzyEquals(sqrtS()/GeV, 182.8, 1e-2)) {
+	else if(fuzzyEquals(sqs, 182.8, 1e-2)) {
 	  i1=1;
 	  i2=2;
 	}
-	else if(fuzzyEquals(sqrtS()/GeV, 188.6, 1e-2)) {
+	else if(fuzzyEquals(sqs, 188.6, 1e-2)) {
 	  i1=1;
 	  i2=3;
 	}
-	else if(fuzzyEquals(sqrtS()/GeV, 194.4, 1e-2)) {
+	else if(fuzzyEquals(sqs, 194.4, 1e-2)) {
 	  i1=2;
 	  i2=1;
 	}
-	else if(fuzzyEquals(sqrtS()/GeV, 200.2, 1e-2)) {
+	else if(fuzzyEquals(sqs, 200.2, 1e-2)) {
 	  i1=2;
 	  i2=2;
 	}
-	else if(fuzzyEquals(sqrtS()/GeV, 206.2, 1e-2)) {
+	else if(fuzzyEquals(sqs, 206.2, 1e-2)) {
 	  i1=2;
 	  i2=3;
 	}
@@ -451,31 +458,31 @@ namespace Rivet {
       
       Scatter2DPtr mult;
 	if(_h_N) {
-	  if(fuzzyEquals(sqrtS()/GeV, 130.1, 1e-2)) {
+	  if(fuzzyEquals(sqs, 130.1, 1e-2)) {
 	    convertHisto(60, 1, 1, _h_N);
 	  }
-	  else if(fuzzyEquals(sqrtS()/GeV, 136.1, 1e-2)) {
+	  else if(fuzzyEquals(sqs, 136.1, 1e-2)) {
 	    convertHisto(60, 1, 2, _h_N);
 	  }
-	  else if(fuzzyEquals(sqrtS()/GeV, 161.3, 1e-2)) {
+	  else if(fuzzyEquals(sqs, 161.3, 1e-2)) {
 	    convertHisto(60, 1, 3, _h_N);
 	  }
-	  else if(fuzzyEquals(sqrtS()/GeV, 172.3, 1e-2)) {
+	  else if(fuzzyEquals(sqs, 172.3, 1e-2)) {
 	    convertHisto(61, 1, 1, _h_N);
 	  }
-	  else if(fuzzyEquals(sqrtS()/GeV, 182.8, 1e-2)) {
+	  else if(fuzzyEquals(sqs, 182.8, 1e-2)) {
 	    convertHisto(61, 1, 2, _h_N);
 	  }
-	  else if(fuzzyEquals(sqrtS()/GeV, 188.6, 1e-2)) {
+	  else if(fuzzyEquals(sqs, 188.6, 1e-2)) {
 	    convertHisto(61, 1, 3, _h_N);
 	  }
-	  else if(fuzzyEquals(sqrtS()/GeV, 194.4, 1e-2)) {
+	  else if(fuzzyEquals(sqs, 194.4, 1e-2)) {
 	    convertHisto(62, 1, 1, _h_N);
 	  }
-	  else if(fuzzyEquals(sqrtS()/GeV, 200.2, 1e-2)) {
+	  else if(fuzzyEquals(sqs, 200.2, 1e-2)) {
 	    convertHisto(62, 1, 2, _h_N);
 	  }
-	  else if(fuzzyEquals(sqrtS()/GeV, 206.2, 1e-2)) {
+	  else if(fuzzyEquals(sqs, 206.2, 1e-2)) {
 	    convertHisto(62, 1, 3, _h_N);
 	  }
 	}
@@ -522,6 +529,8 @@ namespace Rivet {
     Histo1DPtr _h_y_2_JADE,_h_y_3_JADE,_h_y_4_JADE,_h_y_5_JADE;
     Histo1DPtr _h_y_2_Durham,_h_y_3_Durham,_h_y_4_Durham,_h_y_5_Durham;
     Histo1DPtr _h_y_2_Cambridge,_h_y_3_Cambridge,_h_y_4_Cambridge,_h_y_5_Cambridge;
+    // sqrts from beam or option.
+    double sqs;
     //@}
 
   };
