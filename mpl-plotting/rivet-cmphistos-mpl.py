@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 """\
+Simon Thor: Test text to see that I can commit. This line will be removed.
 Generate histogram comparison plots
 
 USAGE:
