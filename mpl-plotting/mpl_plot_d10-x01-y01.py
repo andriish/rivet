@@ -6,6 +6,8 @@ import data  # Import xlow, xhigh, val, errminus, errplus of data
 import mc1  # Import xlow, xhigh, val, errminus, errplus of mc1
 from style import style  # Import the style dictionary used for rcparams
 
+mc_error = True  # Flag to show error on MC
+
 plt.style.use(style)
 fig, axes = plt.subplots(2, 1, sharex=True,
                          gridspec_kw={'height_ratios': [2, 1]})
@@ -38,11 +40,15 @@ x_data = (data.xlow + data.xhigh)/2
 y_data = data.val
 axes[0].plot(x_data, y_data, 'ko')
 axes[0].vlines(x_data, (data.val - data.errminus),
-               (data.val+data.errplus), 'k', zorder=3)
+               (data.val+data.errplus), 'k')
 # mc1 line
 x_mc1 = np.append(mc1.xlow, mc1.xhigh[-1])
 y_mc1 = np.insert(mc1.val, 0, mc1.val[0])
 axes[0].plot(x_mc1, y_mc1, 'r', drawstyle='steps-pre', solid_joinstyle='miter')
+if mc_error:
+    axes[0].vlines(x_data, (mc1.val - mc1.errminus),
+                   (mc1.val+mc1.errplus), 'r')
+
 
 # Bottom plot
 x_ratio = x_mc1
@@ -52,7 +58,14 @@ axes[1].plot(x_ratio, y_ratio, 'r', drawstyle='steps-pre', zorder=1,
 axes[1].hlines(1, xmin, xmax, 'k', zorder=2)
 axes[1].plot(x_data, np.ones(len(x_data)), 'ko', zorder=3)
 axes[1].vlines(x_data, (data.val - data.errminus)/data.val,
-               (data.val+data.errplus)/data.val, 'k', zorder=3)
+               (data.val + data.errplus)/data.val, 'k', zorder=3)
+if mc_error:
+    axes[1].vlines(x_data, (mc1.val - mc1.errminus)/data.val,
+                   (mc1.val + mc1.errplus)/data.val, 'r', zorder=1)
+    # BUG: Plotting the MC-MC uncertainty band, but the formula is wrong
+    errminus = np.insert(mc1.errminus/mc1.val, 0, mc1.errminus[0]/mc1.val[0])
+    errplus = np.insert(mc1.errplus/mc1.val, 0, mc1.errplus[0]/mc1.val[0])
+    axes[1].fill_between(x_ratio, 1 - errminus, 1 + errplus, step='pre', alpha=0.5)
 axes[1].yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.2))
 
 # Axes labels
