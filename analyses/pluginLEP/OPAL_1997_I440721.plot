@@ -1,7 +1,7 @@
 BEGIN PLOT /OPAL_1997_I440721/d02-x01-y01
 Title=Average Charged Multiplcity
 XLabel=$\sqrt{s}$ [GeV]
-YLabel=$\langle N_{\text{charged}}\rangle$
+YLabel=$\langle N_{\mathrm{charged}}\rangle$
 LogY=0
 END PLOT
 BEGIN PLOT /OPAL_1997_I440721/d03-x01-y01
@@ -61,13 +61,13 @@ YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}y_{23}$
 Title=$y_{23}$ at 161 GeV
 END PLOT
 BEGIN PLOT /OPAL_1997_I440721/d21-x01-y01
-XLabel=$p_\perp^{\text{in}}$ [GeV]
-YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{in}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{in}}$ [GeV]
+YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{in}}$ [$\mathrm{GeV}^{-1}$]
 Title=In-plane transverse momentum at 161 GeV
 END PLOT
 BEGIN PLOT /OPAL_1997_I440721/d22-x01-y01
-XLabel=$p_\perp^{\text{out}}$ [GeV]
-YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{out}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{out}}$ [GeV]
+YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{out}}$ [$\mathrm{GeV}^{-1}$]
 Title=Out-plane transverse momentum at 161 GeV
 END PLOT
 BEGIN PLOT /OPAL_1997_I440721/d23-x01-y01
@@ -86,7 +86,7 @@ YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}\xi$
 Title=Log of the scaled momentum at 161 GeV
 END PLOT
 BEGIN PLOT /OPAL_1997_I440721/d26-x01-y01
-XLabel=$N_{\text{charged}}$
-YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_{\text{charged}}$ [$\%$]
+XLabel=$N_{\mathrm{charged}}$
+YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_{\mathrm{charged}}$ [$\%$]
 Title=Charged Particle Multiplicity at 161 GeV
 END PLOT

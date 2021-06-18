@@ -59,6 +59,6 @@ LogY=0
 # BEGIN PLOT /PDG_TAUS/d02-x03-y01
 Title=Branching fraction $\tau\to$ 5 charged particles
 XLabel=
-YLabel=$\Gamma(\tau\to 5\text{ prong})$
+YLabel=$\Gamma(\tau\to 5\mathrm{~prong})$
 LogY=0
 # END PLOT

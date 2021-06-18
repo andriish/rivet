@@ -1,7 +1,7 @@
 BEGIN PLOT /ALICE_2017_I1645239/d01-x01-y01
 Title=Prompt $\Lambda_c^+$ cross section in pp at 7 TeV ($|y|<0.5$)
 XLabel=$p_\mathrm{T}$ [GeV/$c$]
-YLabel=$\frac{\text{d}\sigma}{\text{d}p_\mathrm{T}\text{d}y}$ [$\mu$b/(GeV/$c$)]
+YLabel=$\frac{\mathrm{d}\sigma}{\mathrm{d}p_\mathrm{T}\mathrm{d}y}$ [$\mu$b/(GeV/$c$)]
 ConnectBins=0
 RatioPlotYMin=0.01
 RatioPlotYMax=1.3
@@ -10,7 +10,7 @@ END PLOT
 BEGIN PLOT /ALICE_2017_I1645239/d02-x01-y01
 Title=Prompt $\Lambda_c^+$ cross section in p-Pb at 5.02 TeV ($-0.96<y<0.04$)
 XLabel=$p_\mathrm{T}$ [GeV/$c$]
-YLabel=$\frac{\text{d}\sigma}{\text{d}p_\mathrm{T}\text{d}y}$ [$\mu$b/(GeV/$c$)]
+YLabel=$\frac{\mathrm{d}\sigma}{\mathrm{d}p_\mathrm{T}\mathrm{d}y}$ [$\mu$b/(GeV/$c$)]
 ConnectBins=0
 RatioPlotYMin=0.01
 RatioPlotYMax=1.3

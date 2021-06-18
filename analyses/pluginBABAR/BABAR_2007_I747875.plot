@@ -6,9 +6,9 @@ ConnectGaps=1
 END PLOT
 
 BEGIN PLOT /BABAR_2007_I747875/d02-x01-y01
-Title=$\sigma(e^+e^-\to K^{*0}K^+\pi^-+{\rm c.c.})$
+Title=$\sigma(e^+e^-\to K^{*0}K^+\pi^-+\mathrm{c.c.})$
 XLabel=$\sqrt{s}$/GeV
-YLabel=$\sigma(e^+e^-\to K^{*0}K^+\pi^-+{\rm c.c.})$/nb
+YLabel=$\sigma(e^+e^-\to K^{*0}K^+\pi^-+\mathrm{c.c.})$/nb
 ConnectGaps=1
 END PLOT
 

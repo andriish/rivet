@@ -11,8 +11,8 @@ YLabel=$\sigma(e^+e^-\to \Sigma\bar{\Sigma}^0)$/pb
 ConnectGaps=1
 END PLOT
 BEGIN PLOT /BABAR_2007_I760730/d03-x01-y01
-Title=$\sigma(e^+e^-\to \Lambda\bar{\Sigma}^0+\text{c.c})$
+Title=$\sigma(e^+e^-\to \Lambda\bar{\Sigma}^0+\mathrm{c.c})$
 XLabel=$\sqrt{s}$/GeV
-YLabel=$\sigma(e^+e^-\to \Lambda\bar{\Sigma}^0+\text{c.c.})$/pb
+YLabel=$\sigma(e^+e^-\to \Lambda\bar{\Sigma}^0+\mathrm{c.c.})$/pb
 ConnectGaps=1
 END PLOT

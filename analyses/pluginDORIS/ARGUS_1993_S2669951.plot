@@ -1,6 +1,6 @@
 # BEGIN PLOT /ARGUS_1993_S2669951/d0[234]-x01-y01
 XLabel=$x_p$
-YLabel=$1/(\sigma\beta)\text{d}\sigma/\text{d}x_p$
+YLabel=$1/(\sigma\beta)\mathrm{d}\sigma/\mathrm{d}x_p$
 LegendXPos=0.7
 # END PLOT
 

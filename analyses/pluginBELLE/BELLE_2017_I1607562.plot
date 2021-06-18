@@ -1,6 +1,6 @@
 BEGIN PLOT /BELLE_2017_I1607562
 XLabel=$m_{h_1h_2}$ [GeV]
-YLabel=$\text{d}^2\sigma/\text{d}z\text{d}m_{h_1h_2}$ [nb/GeV]
+YLabel=$\mathrm{d}^2\sigma/\mathrm{d}z\mathrm{d}m_{h_1h_2}$ [nb/GeV]
 END PLOT
 
 BEGIN PLOT /BELLE_2017_I1607562/d01-x01-y01

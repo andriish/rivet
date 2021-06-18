@@ -6,14 +6,14 @@ YLabel=$1/\sigma \, \mathrm{d}{\sigma}/\mathrm{d}{A}$
 
 # BEGIN PLOT /EXAMPLE/HadrTotalChMult
 Title=Total hadronic charged multiplicity
-XLabel=$N_\text{Hch}$
-YLabel=$1/\sigma \, \mathrm{d}{\sigma}/\mathrm{d}{N_\text{Hch}}$
+XLabel=$N_\mathrm{Hch}$
+YLabel=$1/\sigma \, \mathrm{d}{\sigma}/\mathrm{d}{N_\mathrm{Hch}}$
 # END PLOT
 
 # BEGIN PLOT /EXAMPLE/HadrTotalMult
 Title=Total hadronic multiplicity
-XLabel=$N_\text{H}$
-YLabel=$1/\sigma \, \mathrm{d}{\sigma}/\mathrm{d}{N_\text{H}}$
+XLabel=$N_\mathrm{H}$
+YLabel=$1/\sigma \, \mathrm{d}{\sigma}/\mathrm{d}{N_\mathrm{H}}$
 # END PLOT
 
 # BEGIN PLOT /EXAMPLE/Major
@@ -36,13 +36,13 @@ YLabel=$1/\sigma \, \mathrm{d}{\sigma}/\mathrm{d}{T}$
 
 # BEGIN PLOT /EXAMPLE/TotalChMult
 Title=Total charged multiplicity
-XLabel=$N_\text{ch}$
-YLabel=$1/\sigma \, \mathrm{d}{\sigma}/\mathrm{d}{N_\text{ch}}$
+XLabel=$N_\mathrm{ch}$
+YLabel=$1/\sigma \, \mathrm{d}{\sigma}/\mathrm{d}{N_\mathrm{ch}}$
 # END PLOT
 
 # BEGIN PLOT /EXAMPLE/TotalMult
 Title=Total multiplicity
-XLabel=$N_\text{tot}$
-YLabel=$1/\sigma \, \mathrm{d}{\sigma}/\mathrm{d}{N_\text{tot}}$
+XLabel=$N_\mathrm{tot}$
+YLabel=$1/\sigma \, \mathrm{d}{\sigma}/\mathrm{d}{N_\mathrm{tot}}$
 # END PLOT
 

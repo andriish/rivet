@@ -8,8 +8,8 @@ CustomLegend=\colorbox{cyan!50!blue!40}{Stat+Sys Uncertainty}
 #END PLOT
 
 # BEGIN PLOT /CMS_2016_I1454211/d01-x01-y01
-XLabel={\large Top quark ${\rm p_{T}}$ (GeV)}
-YLabel={\large ${\rm d}\sigma/{\rm dp_{T} \ (fb / GeV)}$}
+XLabel={\large Top quark $\mathrm{p_{T}}$ (GeV)}
+YLabel={\large $\mathrm{d}\sigma/\mathrm{dp_{T} \ (fb / GeV)}$}
 YMin=0.015 
 YMax=30.0
 RatioPlotYMin=0.45
@@ -17,8 +17,8 @@ RatioPlotYMax=1.55
 #END PLOT
 
 # BEGIN PLOT /CMS_2016_I1454211/d02-x01-y01
-XLabel={\large Particle-level t jet ${\rm p_{T}}$ (GeV)}
-YLabel={\large ${\rm d}\sigma/{\rm dp_{T} \ (fb / GeV)}$}
+XLabel={\large Particle-level t jet $\mathrm{p_{T}}$ (GeV)}
+YLabel={\large $\mathrm{d}\sigma/\mathrm{dp_{T} \ (fb / GeV)}$}
 YMin=0.015
 YMax=10.0
 LogY=1
@@ -28,7 +28,7 @@ RatioPlotYMax=1.55
 
 # BEGIN PLOT /CMS_2016_I1454211/d03-x01-y01
 XLabel={\large Top quark y}
-YLabel={\large ${\rm d}\sigma/{\rm dy \ (fb)}$}
+YLabel={\large $\mathrm{d}\sigma/\mathrm{dy \ (fb)}$}
 YMin=0.0
 YMax=900.0
 RatioPlotYMin=0.45
@@ -40,7 +40,7 @@ LogY=0
 
 # BEGIN PLOT /CMS_2016_I1454211/d04-x01-y01
 XLabel={\large Particle-level t jet y}
-YLabel={\large ${\rm d}\sigma/{\rm dy \ (fb)}$}
+YLabel={\large $\mathrm{d}\sigma/\mathrm{dy \ (fb)}$}
 YMin=0.0
 YMax=320.0
 RatioPlotYMin=0.45
@@ -51,8 +51,8 @@ LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2016_I1454211/d05-x01-y01
-XLabel={\large Top quark ${\rm p_{T}}$ (GeV)}
-YLabel={\large ${\rm d}\sigma/{\rm dp_{T} \ (fb / GeV)}$}
+XLabel={\large Top quark $\mathrm{p_{T}}$ (GeV)}
+YLabel={\large $\mathrm{d}\sigma/\mathrm{dp_{T} \ (fb / GeV)}$}
 YMin=0.015
 YMax=30.0
 RatioPlotYMin=0.45
@@ -60,8 +60,8 @@ RatioPlotYMax=1.55
 #END PLOT
 
 # BEGIN PLOT /CMS_2016_I1454211/d06-x01-y01
-XLabel={\large Particle-level t jet ${\rm p_{T}}$ (GeV)}
-YLabel={\large ${\rm d}\sigma/{\rm dp_{T} \ (fb / GeV)}$}
+XLabel={\large Particle-level t jet $\mathrm{p_{T}}$ (GeV)}
+YLabel={\large $\mathrm{d}\sigma/\mathrm{dp_{T} \ (fb / GeV)}$}
 YMin=0.015
 YMax=10.0
 LogY=1
@@ -71,7 +71,7 @@ RatioPlotYMax=1.55
 
 # BEGIN PLOT /CMS_2016_I1454211/d07-x01-y01
 XLabel={\large Top quark y}
-YLabel={\large ${\rm d}\sigma/{\rm dy \ (fb)}$}
+YLabel={\large $\mathrm{d}\sigma/\mathrm{dy \ (fb)}$}
 YMin=0.0
 YMax=900.0
 RatioPlotYMin=0.45
@@ -83,7 +83,7 @@ LogY=0
 
 # BEGIN PLOT /CMS_2016_I1454211/d08-x01-y01
 XLabel={\large Particle-level t jet y}
-YLabel={\large ${\rm d}\sigma/{\rm dy \ (fb)}$}
+YLabel={\large $\mathrm{d}\sigma/\mathrm{dy \ (fb)}$}
 YMin=0.0
 YMax=320.0
 RatioPlotYMin=0.45
@@ -94,8 +94,8 @@ LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2016_I1454211/d09-x01-y01
-XLabel={\large Top quark ${\rm p_{T}}$ (GeV)}
-YLabel={\large ${\rm d}\sigma/{\rm dp_{T} \ (fb / GeV)}$}
+XLabel={\large Top quark $\mathrm{p_{T}}$ (GeV)}
+YLabel={\large $\mathrm{d}\sigma/\mathrm{dp_{T} \ (fb / GeV)}$}
 YMin=0.015
 YMax=30.0
 RatioPlotYMin=0.45
@@ -103,8 +103,8 @@ RatioPlotYMax=1.55
 #END PLOT
 
 # BEGIN PLOT /CMS_2016_I1454211/d10-x01-y01
-XLabel={\large Particle-level t jet ${\rm p_{T}}$ (GeV)}
-YLabel={\large ${\rm d}\sigma/{\rm dp_{T} \ (fb / GeV)}$}
+XLabel={\large Particle-level t jet $\mathrm{p_{T}}$ (GeV)}
+YLabel={\large $\mathrm{d}\sigma/\mathrm{dp_{T} \ (fb / GeV)}$}
 YMin=0.015
 YMax=10.0
 RatioPlotYMin=0.45
@@ -113,7 +113,7 @@ RatioPlotYMax=1.55
 
 # BEGIN PLOT /CMS_2016_I1454211/d11-x01-y01
 XLabel={\large Top quark y}
-YLabel={\large ${\rm d}\sigma/{\rm dy \ (fb)}$}
+YLabel={\large $\mathrm{d}\sigma/\mathrm{dy \ (fb)}$}
 YMin=0.0
 YMax=900.0
 RatioPlotYMin=0.45
@@ -125,7 +125,7 @@ LogY=0
 
 # BEGIN PLOT /CMS_2016_I1454211/d12-x01-y01
 XLabel={\large Particle-level t jet y}
-YLabel={\large ${\rm d}\sigma/{\rm dy \ (fb)}$}
+YLabel={\large $\mathrm{d}\sigma/\mathrm{dy \ (fb)}$}
 YMin=0.0
 YMax=320.0
 RatioPlotYMin=0.45
@@ -136,8 +136,8 @@ LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2016_I1454211/d13-x01-y01
-XLabel={\large Top quark ${\rm p_{T}}$ (GeV)}
-YLabel={\large ${\rm 1}/\sigma \ {\rm d}\sigma/{\rm dp_{T} \ (1 / GeV)}$}
+XLabel={\large Top quark $\mathrm{p_{T}}$ (GeV)}
+YLabel={\large $\mathrm{1}/\sigma \ \mathrm{d}\sigma/\mathrm{dp_{T} \ (1 / GeV)}$}
 NormalizeToIntegral=1
 YMin=0.000015
 YMax=0.015
@@ -146,8 +146,8 @@ RatioPlotYMax=1.4
 #END PLOT
 
 # BEGIN PLOT /CMS_2016_I1454211/d14-x01-y01
-XLabel={\large Particle-level t jet ${\rm p_{T}}$ (GeV)}
-YLabel={\large ${\rm 1}/\sigma \ {\rm d}\sigma/{\rm dp_{T} \ (1 / GeV)}$}
+XLabel={\large Particle-level t jet $\mathrm{p_{T}}$ (GeV)}
+YLabel={\large $\mathrm{1}/\sigma \ \mathrm{d}\sigma/\mathrm{dp_{T} \ (1 / GeV)}$}
 NormalizeToIntegral=1
 YMin=0.00003
 YMax=0.015
@@ -157,7 +157,7 @@ RatioPlotYMax=1.4
 
 # BEGIN PLOT /CMS_2016_I1454211/d15-x01-y01
 XLabel={\large Top quark y}
-YLabel={\large ${\rm 1}/\sigma \ {\rm d}\sigma/{\rm dy} $}
+YLabel={\large $\mathrm{1}/\sigma \ \mathrm{d}\sigma/\mathrm{dy} $}
 NormalizeToIntegral=1
 YMin=0.0
 YMax=0.5
@@ -170,7 +170,7 @@ LogY=0
 
 # BEGIN PLOT /CMS_2016_I1454211/d16-x01-y01
 XLabel={\large Particle-level t jet y}
-YLabel={\large ${\rm 1}/\sigma \ {\rm d}\sigma/{\rm dy} $}
+YLabel={\large $\mathrm{1}/\sigma \ \mathrm{d}\sigma/\mathrm{dy} $}
 NormalizeToIntegral=1
 YMin=0.0
 YMax=0.5
@@ -182,8 +182,8 @@ LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2016_I1454211/d17-x01-y01
-XLabel={\large Top quark ${\rm p_{T}}$ (GeV)}
-YLabel={\large ${\rm 1}/\sigma \ {\rm d}\sigma/{\rm dp_{T} \ (1 / GeV)}$}
+XLabel={\large Top quark $\mathrm{p_{T}}$ (GeV)}
+YLabel={\large $\mathrm{1}/\sigma \ \mathrm{d}\sigma/\mathrm{dp_{T} \ (1 / GeV)}$}
 NormalizeToIntegral=1
 YMin=0.000015
 YMax=0.015
@@ -192,8 +192,8 @@ RatioPlotYMax=1.4
 #END PLOT
 
 # BEGIN PLOT /CMS_2016_I1454211/d18-x01-y01
-XLabel={\large Particle-level t jet ${\rm p_{T}}$ (GeV)}
-YLabel={\large ${\rm 1}/\sigma \ {\rm d}\sigma/{\rm dp_{T} \ (1 / GeV)}$}
+XLabel={\large Particle-level t jet $\mathrm{p_{T}}$ (GeV)}
+YLabel={\large $\mathrm{1}/\sigma \ \mathrm{d}\sigma/\mathrm{dp_{T} \ (1 / GeV)}$}
 NormalizeToIntegral=1
 YMin=0.00003
 YMax=0.015
@@ -203,7 +203,7 @@ RatioPlotYMax=1.4
 
 # BEGIN PLOT /CMS_2016_I1454211/d19-x01-y01
 XLabel={\large Top quark y}
-YLabel={\large ${\rm 1}/\sigma \ {\rm d}\sigma/{\rm dy} $}
+YLabel={\large $\mathrm{1}/\sigma \ \mathrm{d}\sigma/\mathrm{dy} $}
 NormalizeToIntegral=1
 YMin=0.0
 YMax=0.5
@@ -216,7 +216,7 @@ LogY=0
 
 # BEGIN PLOT /CMS_2016_I1454211/d20-x01-y01
 XLabel={\large Particle-level t jet y}
-YLabel={\large $1/\sigma \ {\rm d}\sigma/{\rm dy} $}
+YLabel={\large $1/\sigma \ \mathrm{d}\sigma/\mathrm{dy} $}
 NormalizeToIntegral=1
 YMin=0.0
 YMax=0.5
@@ -228,8 +228,8 @@ LogY=0
 #END PLOT
 
 # BEGIN PLOT /CMS_2016_I1454211/d21-x01-y01
-XLabel={\large Top quark ${\rm p_{T}}$ (GeV)}
-YLabel={\large $1/\sigma \ {\rm d}\sigma/{\rm dp_{T} \ (1 / GeV)}$}
+XLabel={\large Top quark $\mathrm{p_{T}}$ (GeV)}
+YLabel={\large $1/\sigma \ \mathrm{d}\sigma/\mathrm{dp_{T} \ (1 / GeV)}$}
 NormalizeToIntegral=1
 YMin=0.000015
 YMax=0.015
@@ -238,8 +238,8 @@ RatioPlotYMax=1.4
 #END PLOT
 
 # BEGIN PLOT /CMS_2016_I1454211/d22-x01-y01
-XLabel={\large Particle-level t jet ${\rm p_{T}}$ (GeV)}
-YLabel={\large $1/\sigma \ {\rm d}\sigma/{\rm dp_{T} \ (1 / GeV)}$}
+XLabel={\large Particle-level t jet $\mathrm{p_{T}}$ (GeV)}
+YLabel={\large $1/\sigma \ \mathrm{d}\sigma/\mathrm{dp_{T} \ (1 / GeV)}$}
 NormalizeToIntegral=1
 YMin=0.00003
 YMax=0.015
@@ -249,7 +249,7 @@ RatioPlotYMax=1.4
 
 # BEGIN PLOT /CMS_2016_I1454211/d23-x01-y01
 XLabel={\large Top quark y}
-YLabel={\large $1/\sigma \ {\rm d}\sigma/{\rm dy} $}
+YLabel={\large $1/\sigma \ \mathrm{d}\sigma/\mathrm{dy} $}
 NormalizeToIntegral=1
 YMin=0.0
 YMax=0.5
@@ -262,7 +262,7 @@ LogY=0
 
 # BEGIN PLOT /CMS_2016_I1454211/d24-x01-y01
 XLabel={\large Particle-level t jet y}
-YLabel={\large $1/\sigma \ {\rm d}\sigma/{\rm dy} $}
+YLabel={\large $1/\sigma \ \mathrm{d}\sigma/\mathrm{dy} $}
 NormalizeToIntegral=1
 YMin=0.0
 YMax=0.5
