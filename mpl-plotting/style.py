@@ -26,6 +26,7 @@ style = {
     "axes.linewidth": 0.3,
     "xaxis.labellocation": "right",
     "lines.markersize": 2.5,
+    "axes.formatter.min_exponent": 1,  # 10^0 should not be in sci. notation
     # axis ticks
     "xtick.major.width": 0.3,
     "ytick.major.width": 0.3,

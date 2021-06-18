@@ -31,27 +31,14 @@ axes[0].xaxis.set_major_locator(x_major)
 y_major = mpl.ticker.LogLocator(base=10.0)
 axes[0].yaxis.set_major_locator(y_major)
 
-# Change scientific notation of '10^0' to '1'
-x_tick_values = (x_major.tick_values(xmin, xmax))
-y_tick_values = (y_major.tick_values(y1min, y1max))
-fig.canvas.draw()
-if 1 in x_tick_values:  # change xlabels
-    index = np.where(x_tick_values == 1)[0][0]
-    labels = [item.get_text() for item in axes[1].get_xticklabels()]
-    labels[index] = '1'
-    axes[0].set_xticklabels(labels)
-if 1 in y_tick_values:  # change ylabels
-    index = np.where(y_tick_values == 1)[0][0]
-    labels = [item.get_text() for item in axes[0].get_yticklabels()]
-    labels[index] = '1'
-    axes[0].set_yticklabels(labels)
-
 # Top plot
 # Data line
 axes[0].hlines(data.val, data.xlow, data.xhigh, 'k')
 x_data = (data.xlow + data.xhigh)/2
 y_data = data.val
 axes[0].plot(x_data, y_data, 'ko')
+axes[0].vlines(x_data, (data.val - data.errminus),
+               (data.val+data.errplus), 'k', zorder=3)
 # mc1 line
 x_mc1 = np.append(mc1.xlow, mc1.xhigh[-1])
 y_mc1 = np.insert(mc1.val, 0, mc1.val[0])
