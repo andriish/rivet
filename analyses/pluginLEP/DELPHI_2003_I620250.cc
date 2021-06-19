@@ -25,7 +25,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      // Initialise and register projections
+      // Initialise and register projections.
       declare(Beam(), "Beams");
       const FinalState fs;
       declare(fs, "FS");
@@ -35,55 +35,64 @@ namespace Rivet {
       declare(ParisiTensor(fs), "Parisi");
       declare(Hemispheres(thrust), "Hemispheres");
 
-      // find the beam energy
+      // Histogram booking offset numbers.
       unsigned int offset = 0;
       int offset2 = -1;
-      if      (fuzzyEquals(sqrtS()/GeV, 45, 1E-3)) offset = 1;
-      else if (fuzzyEquals(sqrtS()/GeV, 66, 1E-3)) offset = 2;
-      else if (fuzzyEquals(sqrtS()/GeV, 76, 1E-3)) offset = 3;
-      else if (fuzzyEquals(sqrtS()/GeV, 183  , 1E-3)) {
+      
+      // Beam energy logic needed for rivet-merge.
+      double sqs = sqrtS()/GeV;
+      if (fuzzyEquals(sqs, 0.0, 1e-3)) {
+        MSG_INFO("Suspicious beam energy. You're probably running rivet-merge."
+		   "Fetching beam energy from option.");
+        sqs = getOption<double>("energy", 0);
+      }
+
+      if      (fuzzyEquals(sqs, 45, 1E-3)) offset = 1;
+      else if (fuzzyEquals(sqs, 66, 1E-3)) offset = 2;
+      else if (fuzzyEquals(sqs, 76, 1E-3)) offset = 3;
+      else if (fuzzyEquals(sqs, 183, 1E-3)) {
 	offset2= 0;			   
 	offset = 1;			   
       }					   
-      else if (fuzzyEquals(sqrtS()/GeV, 189  , 1E-3)) {
+      else if (fuzzyEquals(sqs, 189, 1E-3)) {
 	offset2= 0;			   
 	offset = 2;			   
       }					   
-      else if (fuzzyEquals(sqrtS()/GeV, 192  , 1E-3)) {
+      else if (fuzzyEquals(sqs, 192, 1E-3)) {
 	offset2= 0;			   
 	offset = 3;			   
       }					   
-      else if (fuzzyEquals(sqrtS()/GeV, 196  , 1E-3)) {
+      else if (fuzzyEquals(sqs, 196, 1E-3)) {
 	offset2= 0;			   
 	offset = 4;			   
       }					   
-      else if (fuzzyEquals(sqrtS()/GeV, 200  , 1E-3)) {
+      else if (fuzzyEquals(sqs, 200, 1E-3)) {
 	offset2= 1;			   
 	offset = 1;			   
       }					   
-      else if (fuzzyEquals(sqrtS()/GeV, 202  , 1E-3)) {
+      else if (fuzzyEquals(sqs, 202, 1E-3)) {
 	offset2= 1;			   
 	offset = 2;			   
       }					   
-      else if (fuzzyEquals(sqrtS()/GeV, 205  , 1E-3)) {
+      else if (fuzzyEquals(sqs, 205, 1E-3)) {
 	offset2= 1;			   
 	offset = 3;			   
       }					   
-      else if (fuzzyEquals(sqrtS()/GeV, 207  , 1E-3)) {
+      else if (fuzzyEquals(sqs, 207, 1E-3)) {
 	offset2= 1;
 	offset = 4;
       }
       else    MSG_ERROR("Beam energy not supported!");
       // Book the histograms
-      if(offset2<0) {
-	book(_h_thrust,  1, 1, offset);
-	book(_h_major ,  2, 1, offset);
-	book(_h_minor ,  3, 1, offset);
-	book(_h_sphericity,  4, 1, offset);
-	book(_h_planarity,  5, 1, offset);
-	book(_h_oblateness,  6, 1, offset);
-	book(_h_heavy_jet_mass,  7, 1, offset);
-	book(_h_light_jet_mass,  9, 1, offset);
+      if(offset2 < 0) {
+	book(_h_thrust, 1, 1, offset);
+	book(_h_major, 2, 1, offset);
+	book(_h_minor, 3, 1, offset);
+	book(_h_sphericity, 4, 1, offset);
+	book(_h_planarity, 5, 1, offset);
+	book(_h_oblateness, 6, 1, offset);
+	book(_h_heavy_jet_mass, 7, 1, offset);
+	book(_h_light_jet_mass, 9, 1, offset);
 	book(_h_diff_jet_mass, 10, 1, offset);
 	book(_h_total_jet_mass, 11, 1, offset);
 	book(_h_heavy_jet_mass_E,  8, 1, offset);
@@ -95,27 +104,27 @@ namespace Rivet {
 	book(_h_CParam, 17, 1, offset);
       }
       else {
-	book(_h_rap             , 30+offset2, 1, offset);
-	book(_h_xi              , 32+offset2, 1, offset);
-	book(_h_pTIn            , 34+offset2, 1, offset);
-	book(_h_pTOut           , 36+offset2, 1, offset);
-	book(_h_thrust          , 38+offset2, 1, offset);
-	book(_h_major           , 40+offset2, 1, offset);
-	book(_h_minor           , 42+offset2, 1, offset);
-	book(_h_oblateness      , 44+offset2, 1, offset);
-	book(_h_wide_broading   , 46+offset2, 1, offset);
-	book(_h_total_broading  , 48+offset2, 1, offset);
-	book(_h_diff_broading   , 50+offset2, 1, offset);
-	book(_h_CParam          , 52+offset2, 1, offset);
-	book(_h_DParam          , 54+offset2, 1, offset);
-	book(_h_heavy_jet_mass  , 56+offset2, 1, offset);
+	book(_h_rap, 30+offset2, 1, offset);
+	book(_h_xi, 32+offset2, 1, offset);
+	book(_h_pTIn, 34+offset2, 1, offset);
+	book(_h_pTOut, 36+offset2, 1, offset);
+	book(_h_thrust, 38+offset2, 1, offset);
+	book(_h_major, 40+offset2, 1, offset);
+	book(_h_minor, 42+offset2, 1, offset);
+	book(_h_oblateness, 44+offset2, 1, offset);
+	book(_h_wide_broading, 46+offset2, 1, offset);
+	book(_h_total_broading, 48+offset2, 1, offset);
+	book(_h_diff_broading, 50+offset2, 1, offset);
+	book(_h_CParam, 52+offset2, 1, offset);
+	book(_h_DParam, 54+offset2, 1, offset);
+	book(_h_heavy_jet_mass, 56+offset2, 1, offset);
 	book(_h_heavy_jet_mass_P, 58+offset2, 1, offset);
 	book(_h_heavy_jet_mass_E, 60+offset2, 1, offset);
-	book(_h_light_jet_mass  , 62+offset2, 1, offset);
-	book(_h_diff_jet_mass   , 64+offset2, 1, offset);
-	book(_h_sphericity      , 66+offset2, 1, offset);
-	book(_h_planarity       , 68+offset2, 1, offset);
-	book(_h_aplanarity      , 70+offset2, 1, offset);
+	book(_h_light_jet_mass, 62+offset2, 1, offset);
+	book(_h_diff_jet_mass, 64+offset2, 1, offset);
+	book(_h_sphericity, 66+offset2, 1, offset);
+	book(_h_planarity, 68+offset2, 1, offset);
+	book(_h_aplanarity, 70+offset2, 1, offset);
       }
     }
 

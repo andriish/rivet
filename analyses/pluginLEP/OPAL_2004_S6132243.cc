@@ -28,18 +28,18 @@ namespace Rivet {
     /// Energies: 91, 133, 177 (161-183), 197 (189-209) => index 0..4
     int getHistIndex(double sqrts) {
       int ih = -1;
-      if (inRange(sqrts/GeV, 89.9, 91.5)) {
+      if (inRange(sqrts, 89.9, 91.5)) {
         ih = 0;
-      } else if (fuzzyEquals(sqrts/GeV, 133)) {
+      } else if (fuzzyEquals(sqrts, 133)) {
         ih = 1;
-      } else if (fuzzyEquals(sqrts/GeV, 177)) { // (161-183)
+      } else if (fuzzyEquals(sqrts, 177)) { // (161-183)
         ih = 2;
-      } else if (fuzzyEquals(sqrts/GeV, 197)) { // (189-209)
+      } else if (fuzzyEquals(sqrts, 197)) { // (189-209)
         ih = 3;
       } else {
         stringstream ss;
         ss << "Invalid energy for OPAL_2004 analysis: "
-           << sqrts/GeV << " GeV != 91, 133, 177, or 197 GeV";
+           << sqrts << " GeV != 91, 133, 177, or 197 GeV";
         throw Error(ss.str());
       }
       assert(ih >= 0);
@@ -60,9 +60,15 @@ namespace Rivet {
       const Thrust thrust(fs);
       declare(thrust, "Thrust");
       declare(Hemispheres(thrust), "Hemispheres");
-
+      // Beam energy logic needed for rivet-merge.      
+      double sqs = sqrtS()/GeV;
+      if (fuzzyEquals(sqs, 0.0, 1e-3)) {
+        MSG_INFO("Suspicious beam energy. You're probably running rivet-merge."
+		   "Fetching beam energy from option.");
+        sqs = getOption<double>("energy", 0);
+      }
       // Get beam energy index
-      _isqrts = getHistIndex(sqrtS());
+      _isqrts = getHistIndex(sqs);
 
       // Book histograms
       book(_hist1MinusT[_isqrts]    ,1, 1, _isqrts+1);

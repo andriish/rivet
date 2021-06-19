@@ -39,19 +39,27 @@ namespace Rivet {
       unsigned int offset = 0;
       int offset2 = 0;
 
-      if (fuzzyEquals(sqrtS()/GeV, 133  , 1E-3)) {
+      // Beam energy logic needed for rivet-merge.
+      double sqs = sqrtS()/GeV;
+      if (fuzzyEquals(sqs, 0.0, 1e-3)) {
+        MSG_INFO("Suspicious beam energy. You're probably running rivet-merge."
+		   "Fetching beam energy from option.");
+        sqs = getOption<double>("energy", 0);
+      }
+
+      if (fuzzyEquals(sqs, 133, 1E-3)) {
 	offset  = 0;			   
 	offset2 = 1;			   
       }					   
-      else if (fuzzyEquals(sqrtS()/GeV, 161  , 1E-3)) {
+      else if (fuzzyEquals(sqs, 161, 1E-3)) {
 	offset  = 0;			   
 	offset2 = 2;			   
       }					   
-      else if (fuzzyEquals(sqrtS()/GeV, 172  , 1E-3)) {
+      else if (fuzzyEquals(sqs, 172, 1E-3)) {
 	offset  = 0;			   
 	offset2 = 3;			   
       }					   
-      else if (fuzzyEquals(sqrtS()/GeV, 183  , 1E-3)) {
+      else if (fuzzyEquals(sqs, 183, 1E-3)) {
 	offset  = 1;			   
 	offset2 = 1;			   
       }
