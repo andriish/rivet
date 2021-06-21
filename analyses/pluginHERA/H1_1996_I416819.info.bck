@@ -1,0 +1,31 @@
+Name: H1_1996_I416819
+Year: 1996
+Summary: A Measurement and QCD analysis of the proton structure function $F_2 (x, Q^2)$ at HERA
+Experiment: H1
+Collider: HERA
+InspireID: 416819
+Status: VALIDATED 
+Authors: Hannes Jung <hannes.jung@desy.de>
+References: 
+- Nucl.Phys.B 470 (1996) 3, DOI:10.1016/0550-3213(96)00211-88, 
+- hep-ex/9603004
+Beams: [[e+, p+],[p+,e+]]
+Energies: [[27.5,820],[820,27.5]]
+#Luminosity_fb: 139.0
+Description: 'A new measurement of the proton structure function $F_2(x,Q^2)$ is reported for momentum transfers squared $Q^2$ between 1.5 and 5000 GeV$^2$  and for Bjorken x between $3\cdot 10^{-5}$ and $0.32$ using data collected by the HERA experiment H1 in 1994. The data represent an increase in statistics by a factor of ten with respect to the analysis of the 1993 data. Substantial extension of the kinematic range towards low $Q^2$ and $x$ has been achieved using dedicated data samples and events with initial state photon radiation. The structure function is found to increase significantly with decreasing xxx, even in the lowest accessible $Q^2$ region.'
+ValidationInfo: 'Rivet plugin validated against corresponding plugin from HZTool. Note, that Q2-bins were not defined in Hepdata, for the plugin they are defined (as in HZTool) by hand from the Q2 distribution. The x-bins were defined according to the correspnding x-ranges. Be aware, the hepdata file needed manual adjustment to be useful in the plugin.'
+BibKey: 'Aid:1996au'
+BibTeX: '@article{Aid:1996au,
+    author = "Aid, S. and others",
+    collaboration = "H1",
+    title = "{A Measurement and QCD analysis of the proton structure function f2 (x, q**2) at HERA}",
+    eprint = "hep-ex/9603004",
+    archivePrefix = "arXiv",
+    reportNumber = "DESY-96-039",
+    doi = "10.1016/0550-3213(96)00211-8",
+    journal = "Nucl. Phys. B",
+    volume = "470",
+    pages = "3--40",
+    year = "1996"
+}'
+
