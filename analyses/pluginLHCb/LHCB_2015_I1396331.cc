@@ -25,17 +25,17 @@ namespace Rivet {
       declare(UnstableParticles(selection), "UPDs");
 
       /// Book histograms
-      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add(2.0, 2.5, book(tmp, 1, 1, 1));}
-      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add(2.5, 3.0, book(tmp, 1, 1, 2));}
-      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add(3.0, 3.5, book(tmp, 1, 1, 3));}
-      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add(3.5, 4.0, book(tmp, 1, 1, 4));}
-      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add(4.0, 4.5, book(tmp, 1, 1, 5));}
+      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.add(2.0, 2.5, book(tmp, 1, 1, 1));}
+      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.add(2.5, 3.0, book(tmp, 1, 1, 2));}
+      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.add(3.0, 3.5, book(tmp, 1, 1, 3));}
+      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.add(3.5, 4.0, book(tmp, 1, 1, 4));}
+      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.add(4.0, 4.5, book(tmp, 1, 1, 5));}
 
-      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.add(2.0, 2.5, book(tmp, 2, 1, 1));}
-      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.add(2.5, 3.0, book(tmp, 2, 1, 2));}
-      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.add(3.0, 3.5, book(tmp, 2, 1, 3));}
-      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.add(3.5, 4.0, book(tmp, 2, 1, 4));}
-      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.add(4.0, 4.5, book(tmp, 2, 1, 5));}
+      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add(2.0, 2.5, book(tmp, 2, 1, 1));}
+      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add(2.5, 3.0, book(tmp, 2, 1, 2));}
+      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add(3.0, 3.5, book(tmp, 2, 1, 3));}
+      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add(3.5, 4.0, book(tmp, 2, 1, 4));}
+      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add(4.0, 4.5, book(tmp, 2, 1, 5));}
 
       {Histo1DPtr tmp; _h_pdg431_Dsplus_pT_y.add(2.0, 2.5, book(tmp, 3, 1, 1));}
       {Histo1DPtr tmp; _h_pdg431_Dsplus_pT_y.add(2.5, 3.0, book(tmp, 3, 1, 2));}
@@ -127,11 +127,13 @@ namespace Rivet {
       Histo1DPtr hden;
       /// Factor of 0.5 to correct for the abs(rapidity) used above
       const double scale_factor = 0.5 * crossSection()/microbarn / sumOfWeights();
-      /// Avoid the implicit division by the bin width in the BinnedHistogram::scale method.
+      /// Avoid the implicit division by the bin width in the BinnedHistogram::scale method
+      /// since spectra are really single differential (cf. gitlab issue #222).
       for (Histo1DPtr h : _h_pdg411_Dplus_pT_y.histos()) h->scaleW(scale_factor);
       for (Histo1DPtr h : _h_pdg431_Dsplus_pT_y.histos()) h->scaleW(scale_factor);
       for (Histo1DPtr h : _h_pdg413_Dstarplus_pT_y.histos()) h->scaleW(scale_factor);
       for (Histo1DPtr h : _h_pdg421_Dzero_pT_y.histos()) h->scaleW(scale_factor);
+
 
       // Do ratios
       for (size_t i = 0; i < 5; ++i) {
