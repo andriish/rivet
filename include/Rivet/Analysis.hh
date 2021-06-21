@@ -691,26 +691,56 @@ namespace Rivet {
       return "";
     }
 
-    /// @brief Get an option for this analysis instance converted to a specific type
-    ///
-    /// The return type is given by the specified @a def value, or by an explicit template
-    /// type-argument, e.g. getOption<double>("FOO", 3).
-    template<typename T>
-    T getOption(std::string optname, T def) const {
-      if (_options.find(optname) == _options.end()) return def;
-      std::stringstream ss;
-      ss << _options.find(optname)->second;
-      T ret;
-      ss >> ret;
-      return ret;
-    }
-
     /// @brief Sane overload for literal character strings (which don't play well with stringstream)
     ///
     /// Note this isn't a template specialisation, because we can't return a non-static
     /// char*, and T-as-return-type is built into the template function definition.
     std::string getOption(std::string optname, const char* def) {
       return getOption<std::string>(optname, def);
+    }
+
+    /// @brief Get an option for this analysis instance converted to a specific type
+    ///
+    /// The return type is given by the specified @a def value, or by an explicit template
+    /// type-argument, e.g. getOption<double>("FOO", 3).
+    ///
+    /// @warning To avoid accidents, strings not convertible to the requested
+    /// type will throw a Rivet::ReadError exception.
+    template<typename T>
+    T getOption(std::string optname, T def) const {
+      if (_options.find(optname) == _options.end()) return def;
+      std::stringstream ss;
+      ss.exceptions(std::ios::failbit);
+      T ret;
+      ss << _options.find(optname)->second;
+      try {
+        ss >> ret;
+      } catch (...) {
+        throw ReadError("Could not read user-provided option into requested type");
+      }
+      return ret;
+    }
+
+    /// @brief Get an option for this analysis instance converted to a bool
+    ///
+    /// Specialisation for bool, to allow use of "yes/no", "true/false"
+    /// and "on/off" strings, with fallback casting to bool based on int
+    /// value. An empty value will be treated as false.
+    ///
+    /// @warning To avoid accidents, strings not matching one of the above
+    /// patterns will throw a Rivet::ReadError exception.
+    ///
+    /// @todo Make this a template-specialisation... needs to be outside the class body?
+    // template<>
+    // bool getOption<bool>(std::string optname, bool def) const {
+    bool getOption(std::string optname, bool def) const {
+      if (_options.find(optname) == _options.end()) return def;
+      const std::string val = getOption(optname);
+      const std::string lval = toLower(val);
+      if (lval.empty()) return false;
+      if (lval == "true" || lval == "yes" || lval == "on") return true;
+      if (lval == "false" || lval == "no" || lval == "off") return false;
+      return bool(getOption<int>(optname, 0));
     }
 
     /// @}
