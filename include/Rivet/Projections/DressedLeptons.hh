@@ -61,12 +61,12 @@ namespace Rivet {
     /// Provide a single final state projection used to select the photons and
     /// bare leptons, a photon-clustering delta(R) cone size around each bare
     /// lepton, and an optional cut on the _dressed_ leptons (i.e. the momenta
-    /// after clustering).  The final arguments control whether non-prompt
-    /// photons are to be included, and whether the matching of photons to
-    /// leptons is to be done via dR matching to the bare lepton or by a jet
-    /// clustering algorithm.  Set the clustering radius to 0 or negative to
-    /// disable clustering.
-    DressedLeptons(const FinalState& barefs,
+    /// and PID after clustering).  The final arguments control whether
+    /// non-prompt photons are to be included, and whether the matching of
+    /// photons to leptons is to be done via dR matching to the bare lepton or
+    /// by a jet clustering algorithm.  Set the clustering radius to 0 or
+    /// negative to disable clustering.
+    DressedLeptons(const FinalState& allfs,
                    double dRmax, const Cut& cut=Cuts::open(),
                    bool useDecayPhotons=false,
                    bool useJetClustering=false);
@@ -74,8 +74,8 @@ namespace Rivet {
     /// @brief Constructor with default input FinalState
     ///
     /// DressedLepton construction from a default-constructed FinalState.
-    /// Provide a photon-clustering delta(R) cone size around each bare
-    /// lepton, and an optional cut on the _dressed_ leptons (i.e. the momenta
+    /// Provide a photon-clustering delta(R) cone size around each bare lepton,
+    /// and an optional cut on the _dressed_ leptons (i.e. the momenta and PID
     /// after clustering).  The final arguments control whether non-prompt
     /// photons are to be included, and whether the matching of photons to
     /// leptons is to be done via dR matching to the bare lepton or by a jet
@@ -90,13 +90,13 @@ namespace Rivet {
     /// @brief Constructor with distinct photon and lepton finders
     ///
     /// Provide final state projections used to select the photons and bare
-    /// leptons, a
-    /// clustering delta(R) cone size around each bare lepton, and an optional
-    /// cut on the _dressed_ leptons (i.e. the momenta after clustering.)  The
-    /// final arguments control whether non-prompt photons are to be included,
-    /// and whether the matching of photons to leptons is to be done via dR
-    /// matching to the bare lepton or by a jet clustering algorithm.  Set the
-    /// clustering radius to 0 or negative to disable clustering.
+    /// leptons, a clustering delta(R) cone size around each bare lepton, and an
+    /// optional cut on the _dressed_ leptons (i.e. the momenta and PID after
+    /// clustering.)  The final arguments control whether non-prompt photons are
+    /// to be included, and whether the matching of photons to leptons is to be
+    /// done via dR matching to the bare lepton or by a jet clustering
+    /// algorithm.  Set the clustering radius to 0 or negative to disable
+    /// clustering.
     ///
     /// @note Wish we had put the first two args the other way around...
     ///

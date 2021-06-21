@@ -685,10 +685,10 @@ namespace Rivet {
     }
 
     /// Get an option for this analysis instance as a string.
-    std::string getOption(std::string optname) const {
+    std::string getOption(std::string optname, string def="") const {
       if ( _options.find(optname) != _options.end() )
         return _options.find(optname)->second;
-      return "";
+      return def;
     }
 
     /// @brief Sane overload for literal character strings (which don't play well with stringstream)
