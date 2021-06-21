@@ -9,20 +9,16 @@
 namespace Rivet {
 
 
-  /// @brief Measurements of W+W- boson pair production in proton-proton collisions at 13 TeV
+  /// @brief Measurements of W+W- boson pair production in pp collisions at 13 TeV
   class CMS_2020_I1814328 : public Analysis {
   public:
 
     /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2020_I1814328);
 
-    float totalEvents = 0;
-    float sum4p5Sel0jEvents = 0;
-    float sum2p5Sel0jEvents = 0;
-    float sumSelnjEvents = 0;
- 
+
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -71,8 +67,6 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      totalEvents++;
-
       // Apply a missing-momentum cut
       if (apply<MissingMomentum>(event, "MET").missingPt() < 20*GeV) return;
 
@@ -97,35 +91,33 @@ namespace Rivet {
 
       if (leptons.size() == 2 && leptons[0].pid() * leptons[1].pid() < 0) {
         FourMomentum dilCand = leptons[0].momentum() + leptons[1].momentum();
-        if(dilCand.mass() > 20 && dilCand.pt() > 30){
-          double ptlmax = leptons[0].pt(); double ptlmin = leptons[1].pt();
-          if(ptlmax < ptlmin) {
-            ptlmax = leptons[1].pt(); ptlmin = leptons[0].pt();
+        if (dilCand.mass() > 20*GeV && dilCand.pT() > 30*GeV){
+          double ptlmax = leptons[0].pT(); double ptlmin = leptons[1].pT();
+          if (ptlmax < ptlmin) {
+            ptlmax = leptons[1].pT(); ptlmin = leptons[0].pT();
           }
 
-          if(std::abs(leptons[0].pid()) != std::abs(leptons[1].pid())){
-            _h_WW_njets_norm ->fill(min((double)jetsNj.size()+1,2.999));
-            _h_WW_mll_norm   ->fill(min(dilCand.mass(),1499.999));
-            _h_WW_ptlmax_norm->fill(min(ptlmax,399.999));
-            _h_WW_ptlmin_norm->fill(min(ptlmin,149.999));
+          if (leptons[0].abspid() != leptons[1].abspid()) {
+            _h_WW_njets_norm ->fill(min((double)jetsNj.size()+1, 2.999));
+            _h_WW_mll_norm   ->fill(min(dilCand.mass()/GeV, 1499.999));
+            _h_WW_ptlmax_norm->fill(min(ptlmax/GeV, 399.999));
+            _h_WW_ptlmin_norm->fill(min(ptlmin/GeV, 149.999));
             _h_WW_dphill_norm->fill(deltaPhi(leptons[0], leptons[1]));
           }
 
-          if(jets25.size() == 0) _h_WW_njet0->fill(1.0);
-          if(jets30.size() == 0) _h_WW_njet0->fill(2.0);
-          if(jets35.size() == 0) _h_WW_njet0->fill(3.0);
-          if(jets45.size() == 0) _h_WW_njet0->fill(4.0);
-          if(jets60.size() == 0) _h_WW_njet0->fill(5.0);
-
-          sumSelnjEvents++;
-          if(jets30.size() == 0) sum4p5Sel0jEvents++;
-          if(jetsNj.size() == 0) sum2p5Sel0jEvents++;
+          if (jets25.size() == 0) _h_WW_njet0->fill(1.0);
+          if (jets30.size() == 0) _h_WW_njet0->fill(2.0);
+          if (jets35.size() == 0) _h_WW_njet0->fill(3.0);
+          if (jets45.size() == 0) _h_WW_njet0->fill(4.0);
+          if (jets60.size() == 0) _h_WW_njet0->fill(5.0);
 
         }
       }
 
     }
 
+
+    /// @todo Replace with barchart()
     void normalizeToSum(Histo1DPtr hist) {
       double sum = 0.;
       for (size_t i = 0; i < hist->numBins(); ++i) {
@@ -133,6 +125,7 @@ namespace Rivet {
       }
       scale(hist, 1./sum);
     }
+
 
     /// Normalise histograms etc., after the run
     void finalize() {
@@ -149,17 +142,18 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
+
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_WW_njets_norm;
     Histo1DPtr _h_WW_mll_norm, _h_WW_ptlmax_norm, _h_WW_ptlmin_norm, _h_WW_dphill_norm;
     Histo1DPtr _h_WW_njet0;
-    //@}
-
+    /// @}
 
   };
+
 
 
   DECLARE_RIVET_PLUGIN(CMS_2020_I1814328);

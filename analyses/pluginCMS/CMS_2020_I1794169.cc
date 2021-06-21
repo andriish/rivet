@@ -9,25 +9,21 @@
 namespace Rivet {
 
 
-  /// @brief Measurements of production cross sections of WZ and same-sign WW boson pairs in association with two jets in proton-proton collisions at 13 TeV
+  /// @brief Production cross-sections of WZ and same-sign WW with two jets in pp collisions at 13 TeV
   class CMS_2020_I1794169 : public Analysis {
   public:
 
     /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2020_I1794169);
 
-    float totalEvents = 0;
-    float sumSelWWEvents = 0;
-    float sumSelWZEvents = 0;
- 
+
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
 
       // Initialise and register projections
-
       _mode = 0;
       if ( getOption("LMODE") == "WZ" ) _mode = 1;
 
@@ -68,12 +64,10 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      totalEvents++;
-
       // Retrieve dressed leptons, sorted by pT
-      vector<DressedLepton> leptons = apply<DressedLeptons>(event, "leptons").dressedLeptons();
+      Particles leptons = apply<DressedLeptons>(event, "leptons").particles();
 
-      // Apply a lepton size requirement
+      // Apply a #leptons requirement
       if (leptons.size() <= 1 || leptons.size() >= 4) return;
 
       // Retrieve clustered jets, sorted by pT, with a minimum pT cut
@@ -86,54 +80,55 @@ namespace Rivet {
       if (jets50.size() < 2) return;
 
       FourMomentum dijetCand = jets50[0].momentum() + jets50[1].momentum();
-      double deltaEtaJJ = std::abs(jets50[0].eta()-jets50[1].eta());
+      double deltaEtaJJ = std::abs(jets50[0].eta() - jets50[1].eta());
 
       // Apply a mjj > 500 and detajj > 2.5 cuts
-      if (dijetCand.mass() <= 500 || deltaEtaJJ <= 2.5) return;
+      if (dijetCand.mass() <= 500*GeV || deltaEtaJJ <= 2.5) return;
 
       // W+W+ selection
       if (leptons.size() == 2 && leptons[0].pid() * leptons[1].pid() > 0 && _mode == 0) {
         FourMomentum dilCand = leptons[0].momentum() + leptons[1].momentum();
-        if(dilCand.mass() > 20){
+        if (dilCand.mass() > 20*GeV) {
           double ptlmax = leptons[0].pt(); double ptlmin = leptons[1].pt();
-          if(ptlmax < ptlmin) {
+          if (ptlmax < ptlmin) {
             ptlmax = leptons[1].pt(); ptlmin = leptons[0].pt();
           }
 
-          _h_WW_mjj   ->fill(min(dijetCand.mass(),2999.999));
-          _h_WW_mll   ->fill(min(dilCand.mass(),499.999));
-          _h_WW_ptlmax->fill(min(ptlmax,299.999));
+          _h_WW_mjj   ->fill(min(dijetCand.mass()/GeV, 2999.999));
+          _h_WW_mll   ->fill(min(dilCand.mass()/GeV, 499.999));
+          _h_WW_ptlmax->fill(min(ptlmax/GeV, 299.999));
 
-          sumSelWWEvents++;
         }
       }
+
       // WZ selection
       else if (leptons.size() == 3 && _mode == 1) {
         double mllZ = 10000; int iW = -1;
-        if(leptons[0].pid() * leptons[1].pid() < 0 && std::abs(leptons[0].pid()) == std::abs(leptons[1].pid()) &&
-           fabs((leptons[0].momentum() + leptons[1].momentum()).mass()-91.1876) < fabs(mllZ-91.1876)) {
+        if (leptons[0].pid() * leptons[1].pid() < 0 && leptons[0].abspid() == leptons[1].abspid() &&
+            fabs((leptons[0].momentum() + leptons[1].momentum()).mass() - 91.1876*GeV) < fabs(mllZ - 91.1876*GeV)) {
           mllZ = (leptons[0].momentum() + leptons[1].momentum()).mass(); iW = 2;
         }
 
-        if(leptons[0].pid() * leptons[2].pid() < 0 && std::abs(leptons[0].pid()) == std::abs(leptons[2].pid()) &&
-           fabs((leptons[0].momentum() + leptons[2].momentum()).mass()-91.1876) < fabs(mllZ-91.1876)) {
+        if (leptons[0].pid() * leptons[2].pid() < 0 && leptons[0].abspid() == leptons[2].abspid() &&
+            fabs((leptons[0].momentum() + leptons[2].momentum()).mass() - 91.1876*GeV) < fabs(mllZ - 91.1876*GeV)) {
           mllZ = (leptons[0].momentum() + leptons[2].momentum()).mass(); iW = 1;
         }
 
-        if(leptons[1].pid() * leptons[2].pid() < 0 && std::abs(leptons[1].pid()) == std::abs(leptons[2].pid()) &&
-           fabs((leptons[1].momentum() + leptons[2].momentum()).mass()-91.1876) < fabs(mllZ-91.1876)) {
+        if (leptons[1].pid() * leptons[2].pid() < 0 && leptons[1].abspid() == leptons[2].abspid() &&
+            fabs((leptons[1].momentum() + leptons[2].momentum()).mass() - 91.1876*GeV) < fabs(mllZ - 91.1876*GeV)) {
           mllZ = (leptons[1].momentum() + leptons[2].momentum()).mass(); iW = 0;
         }
 
-        if(iW >= 0 && fabs(mllZ-91.1876) < 15){
-          _h_WZ_mjj->fill(min(dijetCand.mass(),2999.999));
- 
-          sumSelWZEvents++;
+        // Plot
+        if (iW >= 0 && fabs(mllZ - 91.1876*GeV) < 15*GeV) {
+          _h_WZ_mjj->fill(min(dijetCand.mass()/GeV, 2999.999));
         }
       }
 
     }
 
+
+    /// @todo Replace with barchart()
     void normalizeToSum(Histo1DPtr hist) {
       double sum = 0.;
       for (size_t i = 0; i < hist->numBins(); ++i) {
@@ -143,6 +138,7 @@ namespace Rivet {
       }
       if(hist->integral() > 0) scale(hist, 1./hist->integral());
     }
+
 
     /// Normalise histograms etc., after the run
     void finalize() {
@@ -158,18 +154,19 @@ namespace Rivet {
 
     //@}
 
-  protected:
-
-    size_t _mode;
 
   private:
-    /// @name Histograms
-    //@{
-    Histo1DPtr _h_WW_mjj, _h_WW_mll, _h_WW_ptlmax, _h_WZ_mjj;
-    //@}
 
+    /// Lepton-mode flag
+    size_t _mode;
+
+    /// @name Histograms
+    /// @{
+    Histo1DPtr _h_WW_mjj, _h_WW_mll, _h_WW_ptlmax, _h_WZ_mjj;
+    /// @}
 
   };
+
 
 
   DECLARE_RIVET_PLUGIN(CMS_2020_I1794169);

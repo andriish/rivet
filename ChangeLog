@@ -1,3 +1,13 @@
+2021-06-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* New CMS analyses: CMS_2020_I1794169 (WZ and same-sign WW boson
+	pairs), CMS_2020_I1814328 (W+W- boson pair production), and
+	CMS_2020_I1837084 (Z-boson differential production cross section
+	using its invisible decay mode; NB: runs on Z->mumu sample)
+
+	* Improve option handling for booleans, and exception emission
+	with incompatible casts.
+
 2021-06-04  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add a default-value argument to the string version of getOption().
