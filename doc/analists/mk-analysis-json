@@ -27,7 +27,7 @@ for d in glob(dirpatt):
 ## Build analysis Inspire -> [Ana, Ana, ...] dict
 # TODO: any papers without Inspire IDs?
 ins_anas = {}
-for aname in sorted(rivet.AnalysisLoader.analysisNames()):
+for aname in sorted(rivet.AnalysisLoader.analysisNames()): #< NOTE: no alias entries
     ana = rivet.AnalysisLoader.getAnalysis(aname)
     iid = ana.inspireId()
     #print(aname, ":", iid, ":", ana.summary())

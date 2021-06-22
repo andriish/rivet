@@ -12,7 +12,7 @@ References:
  - arXiv:1111.1297v2 [hep-ex]
  - Phys.Rev. D85 (2012) 012001
 RunInfo:
-  QCD events, 900\;GeV and 7\;TeV. $\Lambda$ and $K_S$ must be able to decay.
+  QCD events, 900~GeV and 7~TeV. $\Lambda$ and $K_S$ must be able to decay.
   Allow only charged decay modes to improve efficiency.
 NumEvents: 1000000
 NeedCrossSection: no

@@ -31,7 +31,7 @@ BibKey: Aad:2011gn
 BibTeX: '@article{Aad:2011gn,
       author         = "Aad, Georges and others",
       title          = "{Properties of jets measured from tracks in proton--proton
-                        collisions at center-of-mass energy $\sqrt{s} = 7$\;TeV with
+                        collisions at center-of-mass energy $\sqrt{s} = 7$~TeV with
                         the ATLAS detector}",
       collaboration  = "ATLAS",
       year           = "2011",
