@@ -13,7 +13,7 @@ References:
  - Phys. Rev. Lett. 106 (2011) 122003
  - arXiv:1101.5029 [hep-ex]
 RunInfo:
-   Inclusive QCD at $\sqrt{s} = 7\;\TeV$, $\hat{\pT} (or equivalent) greater than 20 GeV
+   Inclusive QCD at $\sqrt{s} = 7~\TeV$, $\hat{\pT} (or equivalent) greater than 20 GeV
 NumEvents: 100k
 Beams: [p+, p+]
 Energies: [7000]

@@ -10,7 +10,7 @@ Authors:
 References:
  - https://link.springer.com/article/10.1140/epjc/s2005-02391-9
 RunInfo:
-  $pp$ collisions at 17.3\;GeV. Minimum bias events.
+  $pp$ collisions at 17.3~GeV. Minimum bias events.
 NumEvents: 4800000
 Beams: [p+, p+]
 Energies: [17.3]

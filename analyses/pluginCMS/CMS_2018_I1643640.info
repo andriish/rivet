@@ -15,7 +15,7 @@ References:
  - 10.1140/epjc/s10052-018-6033-4
  - arxiv:1712.05471
  - CMS-SMP-16-014
-RunInfo: QCD at $\sqrt{s} = 13\;\TeV$
+RunInfo: QCD at $\sqrt{s} = 13~\TeV$
 NumEvents: 1000000
 NeedCrossSection: no
 Beams: [p+, p+]

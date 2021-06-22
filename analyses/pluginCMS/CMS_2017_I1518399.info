@@ -15,7 +15,7 @@ References:
  - arXiv:1703.06330
  - Submitted to Eur. Phys. J. C.
 RunInfo:
- '$t\bar{t}$ events at $\sqrt{s}=8\;\TeV$. Boosted topology requires high statistics in a single run or custom merging of the YODA files.'
+ '$t\bar{t}$ events at $\sqrt{s}=8~\TeV$. Boosted topology requires high statistics in a single run or custom merging of the YODA files.'
 Luminosity: 19.7 /fb
 Beams: [p+, p+]
 Energies: [8000]
@@ -37,10 +37,10 @@ Description:
   Definition of the particle level phase space:
   - only ${\rm t\bar{t}}$ decays with one top quark decaying hadronically and one top quark
     decaying leptonically including an electron or muon from the W decay.
-  - lepton $\pt > 45\;\GeV$ and $|\eta| < 2.1$
-  - at least one jet with $\pt > 400\;\GeV$ and $|\eta| < 2.5$
-  - a second jet with $\pt > 150\;\GeV$ and $|\eta| < 2.5$
-  - veto on additional jets with $\pt > 150\;\GeV$ and $|\eta| < 2.5$
+  - lepton $\pt > 45~\GeV$ and $|\eta| < 2.1$
+  - at least one jet with $\pt > 400~\GeV$ and $|\eta| < 2.5$
+  - a second jet with $\pt > 150~\GeV$ and $|\eta| < 2.5$
+  - veto on additional jets with $\pt > 150~\GeV$ and $|\eta| < 2.5$
   - distance between the second jet and the lepton in the eta-phi plane $\Delta R(jet2, lepton)$ smaller 1.2
   - invariant mass of the leading jet larger than the invariant mass of the combination of the second jet and lepton
 

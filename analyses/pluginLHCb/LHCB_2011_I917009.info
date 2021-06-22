@@ -21,7 +21,7 @@ Description:
   This paper presents the production ratios for $\bar{\Lambda}/\Lambda$ and
   $\bar{\Lambda}/K_{s}^{0}$ measured by LHCb detector in 2010 at $\sqrt{s} = 0.9$
   TeV and 7 TeV as functions of the transverse momentum $p_\perp$ and the rapidity $y$
-  in the ranges $0.15 < p_\perp < 2.50\;\GeV/c$ and $2.0 < y < 4.5$, respectively.
+  in the ranges $0.15 < p_\perp < 2.50~\GeV/c$ and $2.0 < y < 4.5$, respectively.
   The results for the two energies are merged and represented as a function of
   rapidity loss $\Delta y = y_{\mathrm{beam}} - y$.
 NeedsCrossSection: true

@@ -13,8 +13,8 @@ References:
  - doi:10.1007/s100520000287
  - arXiv:hep-ex/9907027
 RunInfo:
-  $e^+ p$ deep inelastic scattering with $p$ at 820\;GeV,
-  $e^+$ at 27.5 GeV \to $\sqrt{s} = 300\;\GeV$
+  $e^+ p$ deep inelastic scattering with $p$ at 820~GeV,
+  $e^+$ at 27.5 GeV \to $\sqrt{s} = 300~\GeV$
 NumEvents: 1000000
 Beams: [p+, e+]
 Energies: [[820, 27.5]]

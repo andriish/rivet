@@ -15,7 +15,7 @@ References:
  - 10.1016/j.physletb.2013.11.020
  - arXiv:1307.6796 [nucl-ex]
 RunInfo:
-  Hadron multiplicity studies in proton-lead collisions at $\sqrt{s} = 5.02\;\TeV$
+  Hadron multiplicity studies in proton-lead collisions at $\sqrt{s} = 5.02~\TeV$
 NeedCrossSection: no
 Options:
  - cent=REF,GEN,IMP,USR,RAW
