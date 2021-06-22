@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-
+# GSoC TODO: It is better if this only supports python 3. Supporting python 2 is bad practice.
 """\
 Generate histogram comparison plots
 
@@ -19,14 +19,15 @@ from __future__ import print_function
 import rivet, yoda, sys, os, math, re
 rivet.util.check_python_version()
 rivet.util.set_process_name(os.path.basename(__file__))
+print(sys.executable)
 
-
+# GSoC TODO: remove once .plot files are outdated
 class Plot(dict):
     "A tiny Plot object to help writing out the head in the .dat file"
     def __repr__(self):
         return "# BEGIN PLOT\n" + "\n".join("%s=%s" % (k,v) for k,v in self.items()) + "\n# END PLOT\n\n"
 
-
+# GSoC TODO: keep
 def sanitiseString(s):
     #s = s.replace('_','\\_')
     #s = s.replace('^','\\^{}')
@@ -36,6 +37,7 @@ def sanitiseString(s):
     return s
 
 
+# GSoC TODO: keep as is for now. Improve with better "regex" support if time permits 
 def getHistos(filelist, filenames):
     """Loop over all input files. Only use the first occurrence of any REF-histogram
     and the first occurrence in each MC file for every MC-histogram."""
@@ -81,6 +83,7 @@ def getHistos(filelist, filenames):
     return refhistos, mchistos
 
 
+# GSoC TODO: keep
 def getRivetRefData(anas=None):
     "Find all Rivet reference data files"
     refhistos = {}
@@ -110,6 +113,8 @@ def getRivetRefData(anas=None):
     return refhistos
 
 
+# GSoC TODO: keep but also add options for yml files.
+#     Alternatively create a program that converts .plot files to yml and remove .plot compatibility
 def parseArgs(args):
     """Look at the argument list and split it at colons, in order to separate
     the file names from the plotting options. Store the file names and
@@ -144,6 +149,7 @@ def parseArgs(args):
     return filelist, filenames, plotoptions
 
 
+# GSoC TODO: Replace to ouptut matplotlib args (rcparams etc) instead
 def setStyle(ao, istyle, variation=False):
     """Set default plot styles (color and line width) colors borrowed from Google Ngrams"""
     # LINECOLORS = ['{[HTML]{EE3311}}',  # red (Google uses 'DC3912')
@@ -174,6 +180,7 @@ def setStyle(ao, istyle, variation=False):
     ao.setAnnotation('LineColor', '%s' % c)
 
 
+# GSoC TODO: output new dat format instead
 def setOptions(ao, options, isBand):
     "Set arbitrary annotations"
     for opt in options:
@@ -197,9 +204,10 @@ def setOptions(ao, options, isBand):
             ao.setAnnotation('ErrorBandOpacity', '0.5')
 
 
+# GSoC TODO: keep
 def getFileOptions(options, tags):
     ret = { }
-    if 'list' not in str(type(tags)):
+    if 'list' not in str(type(tags)):    # GSoC TODO: Why is this not just `if isinstance(tags, list):`?
       tags = [ tags ]
     for opt in options:
         key, val = opt.split('=', 1)
@@ -208,6 +216,7 @@ def getFileOptions(options, tags):
     return ret
 
 
+# GSoC TODO: keep
 def getDefaultVariation(options):
     name = "0"
     for val in getFileOptions(options, "DefaultWeight").values():
@@ -215,6 +224,7 @@ def getDefaultVariation(options):
     return name
 
 
+# GSoC TODO: keep
 # TODO: move to rivet.utils
 def mkoutdir(outdir):
     "Function to make output directories"
@@ -229,6 +239,7 @@ def mkoutdir(outdir):
         raise Exception(msg)
 
 
+# GSoC TODO: remove special but keep rest
 def mkOutput(hpath, aos, plot=None, special=None):
     """
     Make the .dat file string. We can't use "yoda.writeFLAT(anaobjects, 'foobar.dat')"
@@ -254,6 +265,7 @@ def mkOutput(hpath, aos, plot=None, special=None):
     return output
 
 
+# GSoC TODO: probably keep
 def writeOutput(output, h):
     "Choose output file name and dir"
     if args.HIER_OUTPUT:
