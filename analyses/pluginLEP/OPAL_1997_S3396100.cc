@@ -63,31 +63,35 @@ namespace Rivet {
 
       for (const Particle& p : ufs.particles()) {
         const int id = p.abspid();
-        double xp = p.p3().mod()/meanBeamMom;
-        double xi = -log(xp);
+        if (!inRange(id, 3000, 3999)) continue;
+
+        const double xE = p.E()/meanBeamMom;
+        const double xp = p.p3().mod()/(2*meanBeamMom);
+        const double xi = -log(xp);
+
         switch (id) {
         case 3312:
-          _histXpXiMinus->fill(xp);
+          _histXpXiMinus->fill(xE);
           _histXiXiMinus->fill(xi);
           break;
         case 3224:
-          _histXpSigma1385Plus->fill(xp);
+          _histXpSigma1385Plus->fill(xE);
           _histXiSigma1385Plus->fill(xi);
           break;
         case 3114:
-          _histXpSigma1385Minus->fill(xp);
+          _histXpSigma1385Minus->fill(xE);
           _histXiSigma1385Minus->fill(xi);
           break;
         case 3122:
-          _histXpLambda->fill(xp);
+          _histXpLambda->fill(xE);
           _histXiLambda->fill(xi);
           break;
         case 3324:
-          _histXpXi1530->fill(xp);
+          _histXpXi1530->fill(xE);
           _histXiXi1530->fill(xi);
           break;
         case 3124:
-          _histXpLambda1520->fill(xp);
+          _histXpLambda1520->fill(xE);
           _histXiLambda1520->fill(xi);
           break;
         }
@@ -117,6 +121,7 @@ namespace Rivet {
 
   private:
 
+    /// @name Histograms
     /// @{
     Histo1DPtr _histXpLambda;
     Histo1DPtr _histXiLambda;

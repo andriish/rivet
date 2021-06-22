@@ -1,3 +1,7 @@
+2021-06-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Correction to use xE rather than xP in OPAL_1997_S3396100, by Adil Jueid.
+
 2021-06-21  Andy Buckley  <andy.buckley@cern.ch>
 
 	* New CMS analyses: CMS_2020_I1794169 (WZ and same-sign WW boson
