@@ -1523,8 +1523,8 @@ PlotSize=10.7,7.2
 
 # BEGIN PLOT /CMS_2018_I1663958/d174-x01-y01
 Title=CMS, 13$\,$TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$p_\mathrm{T}(\PQt_\mathrm{high})$ [GeV]
-YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\PQt_\mathrm{high})}$ [pb GeV$^{-1}$]
+XLabel=$p_\mathrm{T}(\mathrm{t}_\mathrm{high})$ [GeV]
+YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{t}_\mathrm{high})}$ [pb GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1534,8 +1534,8 @@ PlotSize=10.7,7.2
 
 # BEGIN PLOT /CMS_2018_I1663958/d176-x01-y01
 Title=CMS, 13$\,$TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$p_\mathrm{T}(\PQt_\mathrm{low})$ [GeV]
-YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\PQt_\mathrm{low})}$ [pb GeV$^{-1}$]
+XLabel=$p_\mathrm{T}(\mathrm{t}_\mathrm{low})$ [GeV]
+YLabel=$\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{t}_\mathrm{low})}$ [pb GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1765,8 +1765,8 @@ PlotSize=10.7,7.2
 
 # BEGIN PLOT /CMS_2018_I1663958/d207-x01-y01
 Title=CMS, 13$\,$TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$p_\mathrm{T}(\PQt_\mathrm{high})$ [GeV]
-YLabel=$\frac{1}{\sigma_\mathrm{norm}}\frac{{d}\sigma}{{d}p_\mathrm{T}(\PQt_\mathrm{high})}$ [GeV$^{-1}$]
+XLabel=$p_\mathrm{T}(\mathrm{t}_\mathrm{high})$ [GeV]
+YLabel=$\frac{1}{\sigma_\mathrm{norm}}\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{t}_\mathrm{high})}$ [GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
@@ -1776,8 +1776,8 @@ PlotSize=10.7,7.2
 
 # BEGIN PLOT /CMS_2018_I1663958/d209-x01-y01
 Title=CMS, 13$\,$TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
-XLabel=$p_\mathrm{T}(\PQt_\mathrm{low})$ [GeV]
-YLabel=$\frac{1}{\sigma_\mathrm{norm}}\frac{{d}\sigma}{{d}p_\mathrm{T}(\PQt_\mathrm{low})}$ [GeV$^{-1}$]
+XLabel=$p_\mathrm{T}(\mathrm{t}_\mathrm{low})$ [GeV]
+YLabel=$\frac{1}{\sigma_\mathrm{norm}}\frac{{d}\sigma}{{d}p_\mathrm{T}(\mathrm{t}_\mathrm{low})}$ [GeV$^{-1}$]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
 RatioPlotYMin=0.5
 RatioPlotYMax=1.5
