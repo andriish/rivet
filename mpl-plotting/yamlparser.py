@@ -14,7 +14,7 @@ def _get_matching_plot_configs_from_file(hpath, plotfilepath): # TODO: better va
     """
     plot_configs = {}
     if not os.access(plotfilepath, os.R_OK):
-        return
+        return {}
         
     # TODO: do some preprocessing (or processing at the same time) with variables.
     with open(plotfilepath, 'r') as plot_config_file:
@@ -25,8 +25,8 @@ def _get_matching_plot_configs_from_file(hpath, plotfilepath): # TODO: better va
 
 
 # TODO: turn this into a class?
-def get_plot_configs(hpath, plotdirs=[], extra_files=[]):
-    """Get all settings for the hpath analysis by reading through the settings of plotdirs and extra_files
+def get_plot_configs(hpath, plotdirs=[], config_files=[]):
+    """Get all settings for the hpath analysis by reading through the settings of plotdirs and config_files
     
     Parameters
     ----------
@@ -34,7 +34,7 @@ def get_plot_configs(hpath, plotdirs=[], extra_files=[]):
         The histogram path, with format /AnalysisID/HistogramID .
     plotdirs : list[str]
         Directories containing .plot files. The settings in the files with name AnalysisID.plot will be parsed and added to plot_configs.
-    extra_files : Iterable[str]
+    config_files : Iterable[str]
         Extra .plot files with settings. If there are sections in these yaml files with name /AnalysisID/HistogramID, these settings will be added to plot_configs.
     
     Returns
@@ -59,7 +59,7 @@ def get_plot_configs(hpath, plotdirs=[], extra_files=[]):
         plotfile_configs = _get_matching_plot_configs_from_file(hpath, plotfilepath)   # TODO: Can I pass hpath here or will that cause problems with /REF?
         plot_configs.update(plotfile_configs)
         
-    for plotfilepath in extra_files:
+    for plotfilepath in config_files:
         plotfile_configs = _get_matching_plot_configs_from_file(hpath, plotfilepath)   # TODO: Can I pass hpath here or will that cause problems with /REF?
         plot_configs.update(plotfile_configs)
         
