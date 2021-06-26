@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-# GSoC TODO: It is better if this only supports python 3. Supporting python 2 is bad practice.
+
 """\
 Generate histogram comparison plots
 
@@ -15,13 +15,12 @@ ENVIRONMENT:
  * RIVET_DATA_PATH: list of paths to be searched for data files
 """
 
+# GSoC TODO: remove this import once only python 3 is supported 
 from __future__ import print_function
 import rivet, yoda, sys, os, math, re
 rivet.util.check_python_version()
 rivet.util.set_process_name(os.path.basename(__file__))
-print(sys.executable)
 
-# GSoC TODO: remove once .plot files are outdated
 class Plot(dict):
     "A tiny Plot object to help writing out the head in the .dat file"
     def __repr__(self):
@@ -37,7 +36,7 @@ def sanitiseString(s):
     return s
 
 
-# GSoC TODO: keep as is for now. Improve with better "regex" support if time permits 
+# GSoC TODO: keep as is for now. Improve with better "regex" support if time permits. Maybe this kind of regex should only be a "feature" for the API? 
 def getHistos(filelist, filenames):
     """Loop over all input files. Only use the first occurrence of any REF-histogram
     and the first occurrence in each MC file for every MC-histogram."""
@@ -113,8 +112,13 @@ def getRivetRefData(anas=None):
     return refhistos
 
 
-# GSoC TODO: keep but also add options for yml files.
-#     Alternatively create a program that converts .plot files to yml and remove .plot compatibility
+# GSoC TODO: one should be able to specify plot options here but as matplotlib args.
+#     Old plot options should be converted to matplotlib plot options.
+#     These might just be kwargs passed to the underlying plotting function.  
+#     As before, the `PLOT` argument specifies args for all yoda files.
+#     Example: `rivet-cmphistos mc1.yoda:label='first monte carlo generator' mc2.yoda PLOT:linestyle='--'`
+# Problem: some matplotlib line styles contain ':', which would not work with current code. Might have to rewrite.
+# TODO: rewrite to return dict[dict[str]] as plotoptions instead of dict[list[str]]. filenames feels redundant
 def parseArgs(args):
     """Look at the argument list and split it at colons, in order to separate
     the file names from the plotting options. Store the file names and
@@ -208,7 +212,7 @@ def setOptions(ao, options, isBand):
 def getFileOptions(options, tags):
     ret = { }
     if 'list' not in str(type(tags)):    # GSoC TODO: Why is this not just `if isinstance(tags, list):`?
-      tags = [ tags ]
+        tags = [ tags ]
     for opt in options:
         key, val = opt.split('=', 1)
         if key in tags:
@@ -326,6 +330,7 @@ if __name__ == '__main__':
                           "(useful when the plot description should only be given in a caption)")
     stygroup.add_argument("--style", dest="STYLE", default="default",
                           help="change plotting style: default|bw|talk")
+    # This should now also accept yaml files maybe
     stygroup.add_argument("-c", "--config", dest="CONFIGFILES", action="append", default=["~/.make-plots"],
                           help="additional plot config file(s). Settings will be included in the output configuration.")
     stygroup.add_argument("--remove-options", help="remove options label from legend", dest="REMOVE_OPTIONS",
@@ -355,6 +360,8 @@ if __name__ == '__main__':
                           dest="PATHUNPATTERNS")
     selgroup.add_argument("--no-weights", help="prevent multiweights from being plotted", dest="NO_WEIGHTS",
                           action="store_true", default=False)
+    mplgroup = parser.add_argument_group("Options for the matplotlib-based backend (experimental)")
+    mplgroup.add_argument("-y", "--yaml", dest="YAML", help="YAML files used in the same way as .plot files.")
                          
 
     args = parser.parse_args()
@@ -384,6 +391,7 @@ if __name__ == '__main__':
     except IOError as e:
         print("File reading error: ", e.strerror)
         exit(1)
+
     hpaths, h2ds = [], []
     for aos in mchistos.values():
         for p in aos.keys():
@@ -397,8 +405,6 @@ if __name__ == '__main__':
 
     # Unique list of analyses
     anas = list(set([x.split("/")[1] for x in hpaths]))
-    #print (anas)
-
     ## Take reference data from the Rivet search paths, if there is not already
     if args.RIVETREFS:
         try:
@@ -413,8 +419,9 @@ if __name__ == '__main__':
     keylist = list(refhistos.keys()) # can't modify for-loop target
     for refhpath in keylist:
         if refhpath not in hpaths:
+            print(refhpath)
             del refhistos[refhpath]
-
+    exit()
     ## Now loop over all MC histograms and plot them
     # TODO: factorize much of this into a rivet.utils mkplotfile(mchists, refhist, kwargs, is2d=False) function
     for hpath in hpaths:
