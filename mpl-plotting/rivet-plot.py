@@ -92,7 +92,7 @@ file_style = {'Title': 'Charged particle $p_\perp$ at 7 TeV, track $p_\perp > 50
               # 'FillColor'=<color>
               # 'FillOpacity'=<opacity>
               # 'HatchColor'=<color>
-              'ErrorBars': 1,  # TODO: This doesn't work yet
+              'ErrorBars': 1,
               # 'ErrorBands'=<0|1>
               # 'ErrorBandColor'=<color>
               # 'ErrorBandOpacity'=<opacity>
@@ -143,7 +143,7 @@ def rivet_plot(yaml_file):
     x_data = (data.xlow + data.xhigh)/2
     y_data = data.val
     ax.plot(x_data, y_data, 'ko')
-    if file_style.get('ErrorBars'):
+    if file_style.get('ErrorBars') and data.errminus is not None:
         ax.vlines(x_data, (data.val - data.errminus),
                   (data.val+data.errplus), 'k')
     # mc1 line
@@ -151,11 +151,13 @@ def rivet_plot(yaml_file):
     y_mc1 = np.insert(mc1.val, 0, mc1.val[0])
     ax.plot(x_mc1, y_mc1, 'r', drawstyle='steps-pre',
             solid_joinstyle='miter')
-    if mc_error:  # TODO: convert mc_error flag to file_style param
+    if file_style.get('ErrorBars') and mc1.errminus is not None:
         ax.vlines(x_data, (mc1.val - mc1.errminus),
                   (mc1.val+mc1.errplus), 'r')
 
-    if file_style.get('RatioPlot'):
+    if file_style.get('RatioPlot'):  # TODO: Check if errorbar/errorbands
+        ax_ratio.yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.1))
+        ax_ratio.set_ylabel(file_style.get('RatioPlotYLabel', 'MC/Data'))
         RatioPlotYMin = file_style.get('RatioPlotYMin', 0.5)
         RatioPlotYMax = file_style.get('RatioPlotYMax', 1.4999)
         ax_ratio.set_ylim(RatioPlotYMin, RatioPlotYMax)
@@ -166,48 +168,48 @@ def rivet_plot(yaml_file):
                       solid_joinstyle='miter')
         ax_ratio.hlines(1, XMin, XMax, 'k', zorder=2)
         ax_ratio.plot(x_data, np.ones(len(x_data)), 'ko', zorder=3)
-        if mc_error:
-            ax_ratio.vlines(x_data, (mc1.val - mc1.errminus)/data.val,
-                            (mc1.val + mc1.errplus)/data.val, 'r', zorder=1)
-            errminus = np.insert((data.val - data.errminus)/data.val, 0,
-                                 ((data.val - data.errminus)/data.val)[0])
-            errplus = np.insert((data.val + data.errplus)/data.val, 0,
-                                ((data.val + data.errplus)/data.val)[0])
+        ax_ratio.vlines(x_data, (mc1.val - mc1.errminus)/data.val,
+                        (mc1.val + mc1.errplus)/data.val, 'r', zorder=1)
 
-            ax_ratio.fill_between(
-                x_ratio, errminus, errplus, step='pre', alpha=0.5)
-        ax_ratio.yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.1))
-        ax_ratio.set_ylabel(file_style.get('RatioPlotYLabel', 'MC/Data'))
+        errbandminus = np.insert((data.val - data.errminus)/data.val, 0,
+                                 ((data.val - data.errminus)/data.val)[0])
+        errbandplus = np.insert((data.val + data.errplus)/data.val, 0,
+                                ((data.val + data.errplus)/data.val)[0])
+        ax_ratio.fill_between(x_ratio, errbandminus, errbandplus,
+                              step='pre', alpha=0.5, zorder=0)
 
     # Legend
     # TODO: Find a better way to implement the custom Data legend graphic
 
-    class AnyObject(object):
-        """Necessary for custom legend handler."""
-        pass
-
-    class AnyObjectHandler(object):
-        """Creates custom legend handler for Data."""
-
-        def legend_artist(self, legend, orig_handle, fontsize, handlebox):
-            x0, y0 = handlebox.xdescent, handlebox.ydescent
-            width, height = handlebox.width, handlebox.height
-            patch = mpl.patches.Circle(
-                (x0+width/2, y0+height/2), (2.5)**0.5, facecolor='black')
-            handlebox.add_artist(patch)
-            patch = mpl.patches.Rectangle(
-                (-0.4, 3), width+0.8, 0.8, facecolor='black')
-            handlebox.add_artist(patch)
-            patch = mpl.patches.Rectangle(
-                (width/2-0.4, 0), 0.8, height, facecolor='black')
-            handlebox.add_artist(patch)
-            return patch
     if file_style.get('Legend'):
         handler_mc1 = mpl.lines.Line2D([], [], color='red')
         ax.legend([AnyObject(), handler_mc1], ['Data', 'mc1'],
                   handler_map={AnyObject: AnyObjectHandler()}, loc=[0.52, 0.77])
 
     plt.savefig(os.path.join(sys.path[0], 'mpl_d10-x01-y01.pdf'), dpi=500)
+
+
+class AnyObject(object):
+    """Necessary for custom legend handler."""
+    pass
+
+
+class AnyObjectHandler(object):
+    """Creates custom legend handler for Data."""
+
+    def legend_artist(self, legend, orig_handle, fontsize, handlebox):
+        x0, y0 = handlebox.xdescent, handlebox.ydescent
+        width, height = handlebox.width, handlebox.height
+        patch = mpl.patches.Circle(
+            (x0+width/2, y0+height/2), (2.5)**0.5, facecolor='black')
+        handlebox.add_artist(patch)
+        patch = mpl.patches.Rectangle(
+            (-0.4, 3), width+0.8, 0.8, facecolor='black')
+        handlebox.add_artist(patch)
+        patch = mpl.patches.Rectangle(
+            (width/2-0.4, 0), 0.8, height, facecolor='black')
+        handlebox.add_artist(patch)
+        return patch
 
 
 if __name__ == '__main__':
