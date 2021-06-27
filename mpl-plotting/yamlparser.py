@@ -14,7 +14,7 @@ def _get_matching_plot_configs_from_file(hpath, plotfilepath): # TODO: better va
     """
     plot_configs = {}
     if not os.access(plotfilepath, os.R_OK):
-        return
+        return {}
         
     # TODO: do some preprocessing (or processing at the same time) with variables.
     with open(plotfilepath, 'r') as plot_config_file:
@@ -23,9 +23,10 @@ def _get_matching_plot_configs_from_file(hpath, plotfilepath): # TODO: better va
                 plot_configs.update(configs[plot_setting_key])
     return plot_configs
 
+
 # TODO: turn this into a class?
-def get_plot_configs(hpath, plotdirs=[], extra_files=[], add_default_dirs=True):
-    """Get all settings for the hpath analysis by reading through the settings of plotdirs and extra_files
+def get_plot_configs(hpath, plotdirs=[], config_files=[]):
+    """Get all settings for the hpath analysis by reading through the settings of plotdirs and config_files
     
     Parameters
     ----------
@@ -33,10 +34,8 @@ def get_plot_configs(hpath, plotdirs=[], extra_files=[], add_default_dirs=True):
         The histogram path, with format /AnalysisID/HistogramID .
     plotdirs : list[str]
         Directories containing .plot files. The settings in the files with name AnalysisID.plot will be parsed and added to plot_configs.
-    extra_files : Iterable[str]
+    config_files : Iterable[str]
         Extra .plot files with settings. If there are sections in these yaml files with name /AnalysisID/HistogramID, these settings will be added to plot_configs.
-    add_default_dirs : bool
-        If True, The directories from `rivet.getAnalysisPlotPaths()` will be added automatically. 
     
     Returns
     -------
@@ -49,9 +48,6 @@ def get_plot_configs(hpath, plotdirs=[], extra_files=[], add_default_dirs=True):
     As an example, is multiple .plot files have the `xlabel` setting, the xlabel specified in the last file will be used. 
     I hope this is an expected behavior. TODO: ask mentors
     """
-    
-    if add_default_dirs: 
-        plotdirs += rivet.getAnalysisPlotPaths()
     # Remove duplicates
     plotdirs = list(set(plotdirs))
     
@@ -63,7 +59,7 @@ def get_plot_configs(hpath, plotdirs=[], extra_files=[], add_default_dirs=True):
         plotfile_configs = _get_matching_plot_configs_from_file(hpath, plotfilepath)   # TODO: Can I pass hpath here or will that cause problems with /REF?
         plot_configs.update(plotfile_configs)
         
-    for plotfilepath in extra_files:
+    for plotfilepath in config_files:
         plotfile_configs = _get_matching_plot_configs_from_file(hpath, plotfilepath)   # TODO: Can I pass hpath here or will that cause problems with /REF?
         plot_configs.update(plotfile_configs)
         
@@ -72,4 +68,4 @@ def get_plot_configs(hpath, plotdirs=[], extra_files=[], add_default_dirs=True):
 # Test code
 if __name__ == '__main__':
     # TODO: plotdirs will be changed to rivet.getAnalysisPlotPaths() once .plot files have been put there
-    print(get_plot_configs('/ALICE_2010_S8625980/d03-x01-y01', [os.getcwd()], add_default_dirs=False))
+    print(get_plot_configs('/ALICE_2010_S8625980/d03-x01-y01', [os.getcwd()]))
