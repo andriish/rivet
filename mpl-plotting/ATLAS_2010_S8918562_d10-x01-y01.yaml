@@ -133,7 +133,7 @@ histograms:
         3.000000e+01	5.000000e+01	5.289575e-10	1.886248e-10	1.886248e-10
         # END HISTO1D
 
-plot_style:
+plot_features:
     Title: 'Charged particle $p_\perp$ at 7 TeV, track $p_\perp > 500$ MeV, for $N_\mathrm{ch} \geq 1$'
     XLabel: '$p_\perp$ [GeV]'
     YLabel: '$1/N_\mathrm{ev} \, $1$/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\mathrm{d}p_\perp$'
@@ -229,5 +229,7 @@ plot_style:
     # 'Scale'=<factor>
     # 'Rebin'=<nbins>
     # 'ErrorType'=<stat|env>
+
+plot_style: rivet
 
 rcParams: {}

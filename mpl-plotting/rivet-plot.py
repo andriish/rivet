@@ -9,6 +9,13 @@ import yoda
 from ruamel.yaml import YAML
 
 
+def apply_style(yaml_dicts):
+    # TODO: add other styles and perform error checks
+    plot_style = yaml_dicts['plot_style'] + '.mplstyle'
+    plt.style.use((os.path.join(sys.path[0], plot_style),
+                   yaml_dicts['rcParams']))
+
+
 def parse_yoda_hist(yaml_dicts):
     # TODO: There is probably a more elegant approach
     histograms = []
@@ -29,32 +36,31 @@ def rivet_plot(yaml_file):
     # Parse yaml file for rcParams, histogram data, and plot style.
     with open(yaml_file) as file:
         yaml_dicts = YAML(typ='safe').load(file)
-    plt.style.use((os.path.join(sys.path[0], 'rivet.mplstyle'),
-                   yaml_dicts['rcParams']))
+    apply_style(yaml_dicts)
     histograms = parse_yoda_hist(yaml_dicts)
-    plot_style = yaml_dicts['plot_style']
+    plot_features = yaml_dicts['plot_features']
 
-    if plot_style.get('RatioPlot'):
+    if plot_features.get('RatioPlot'):
         fig, (ax, ax_ratio) = plt.subplots(2, 1, sharex=True,
                                            gridspec_kw={'height_ratios': (2, 1)})
     else:
         fig, ax = plt.subplots(1, 1)
-    ax.set_xlabel(plot_style.get('XLabel'))
-    ax.set_ylabel(plot_style.get('YLabel'), loc='top')
-    ax.set_title(plot_style.get('Title'), loc='left')
+    ax.set_xlabel(plot_features.get('XLabel'))
+    ax.set_ylabel(plot_features.get('YLabel'), loc='top')
+    ax.set_title(plot_features.get('Title'), loc='left')
 
-    XMin = plot_style.get('XMin', min([h.xMin() for h in histograms]))
-    XMax = plot_style.get('XMax', max([h.xMax() for h in histograms]))
+    XMin = plot_features.get('XMin', min([h.xMin() for h in histograms]))
+    XMax = plot_features.get('XMax', max([h.xMax() for h in histograms]))
     ax.set_xlim(XMin, XMax)
-    YMin = plot_style.get('YMin', min([h.yMin() for h in histograms]))
-    YMax = plot_style.get('YMax', max([h.yMax() for h in histograms]))
+    YMin = plot_features.get('YMin', min([h.yMin() for h in histograms]))
+    YMax = plot_features.get('YMax', max([h.yMax() for h in histograms]))
     ax.set_ylim(YMin, YMax)
 
     # Set log scale
-    if plot_style.get('LogX'):
+    if plot_features.get('LogX'):
         ax.set_xscale('log')
         ax.xaxis.set_major_locator(mpl.ticker.LogLocator(base=10.0))
-    if plot_style.get('LogY'):
+    if plot_features.get('LogY'):
         ax.set_yscale('log')
         ax.yaxis.set_major_locator(mpl.ticker.LogLocator(base=10.0))
 
@@ -68,7 +74,7 @@ def rivet_plot(yaml_file):
     ax.hlines(data_yVals, histograms[0].xMins(),
               histograms[0].xMaxs(), 'k')
     ax.plot(x_points, data_yVals, 'ko')
-    if plot_style.get('ErrorBars'):
+    if plot_features.get('ErrorBars'):
         data_errminus = [err[0] for err in histograms[0].yErrs()]
         data_errplus = [err[1] for err in histograms[0].yErrs()]
         ax.vlines(x_points, (data_yVals - data_errminus),
@@ -80,18 +86,18 @@ def rivet_plot(yaml_file):
         y_mc = np.insert(mc.yVals(), 0, mc.yVals()[0])
         ax.plot(x_bins, y_mc, color, drawstyle='steps-pre',
                 solid_joinstyle='miter')
-        if plot_style.get('ErrorBars'):
+        if plot_features.get('ErrorBars'):
             mc_errminus = [err[0] for err in mc.yErrs()]
             mc_errplus = [err[1] for err in mc.yErrs()]
             ax.vlines(x_points, (mc.yVals() - mc_errminus),
                       (mc.yVals() + mc_errplus), color)
 
     # Create ratio plot
-    if plot_style.get('RatioPlot'):  # TODO: Check if errorbar/errorbands
+    if plot_features.get('RatioPlot'):  # TODO: Check if errorbar/errorbands
         ax_ratio.yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.1))
-        ax_ratio.set_ylabel(plot_style.get('RatioPlotYLabel', 'MC/Data'))
-        RatioPlotYMin = plot_style.get('RatioPlotYMin', 0.5)
-        RatioPlotYMax = plot_style.get('RatioPlotYMax', 1.4999)
+        ax_ratio.set_ylabel(plot_features.get('RatioPlotYLabel', 'MC/Data'))
+        RatioPlotYMin = plot_features.get('RatioPlotYMin', 0.5)
+        RatioPlotYMax = plot_features.get('RatioPlotYMax', 1.4999)
         ax_ratio.set_ylim(RatioPlotYMin, RatioPlotYMax)
 
         # Plot data
@@ -119,7 +125,7 @@ def rivet_plot(yaml_file):
     # Legend
     # TODO: Find a better way to implement the custom Data legend graphic
 
-    if plot_style.get('Legend'):
+    if plot_features.get('Legend'):
         handles = [AnyObject()]
         labels = ['Data']
         for i, mc in enumerate(histograms[1:]):
