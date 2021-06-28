@@ -32,7 +32,7 @@ cdef extern from "Rivet/AnalysisHandler.hh" namespace "Rivet":
         double nominalCrossSection()
         void finalize()
         void dump(string, int)
-        void mergeYodas(vector[string], vector[string], vector[string], vector[string], vector[string], bool)
+        void mergeYodas(vector[string]&, vector[string]&, vector[string]&, vector[string]&, vector[string]&, bool)
 
 cdef extern from "Rivet/Run.hh" namespace "Rivet":
     cdef cppclass Run:

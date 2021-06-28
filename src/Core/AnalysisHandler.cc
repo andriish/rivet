@@ -637,7 +637,7 @@ namespace Rivet {
                                 return std::regex_match(ana, std::regex(exp));} );
           }
           if (unmatches.size()) {
-            skip |= std::any_of(matches.begin(), matches.end(), [&](const string &exp){
+            skip |= std::any_of(unmatches.begin(), unmatches.end(), [&](const string &exp){
                                return std::regex_match(ana, std::regex(exp));} );
           }
         }
