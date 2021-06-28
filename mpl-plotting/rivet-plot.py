@@ -1,190 +1,133 @@
 """Module creates a rivet-style plot as a pdf."""
-import sys
 import os
+import sys
+
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
-import data  # Import xlow, xhigh, val, errminus, errplus of data
-import mc1  # Import xlow, xhigh, val, errminus, errplus of mc1
+import yoda
+from ruamel.yaml import YAML
 
-mc_error = True  # TODO: Replace this with file_style key
 
-file_style = {'Title': 'Charged particle $p_\perp$ at 7 TeV, track $p_\perp > 500$ MeV, for $N_\mathrm{ch} \geq 1$',
-              'XLabel': '$p_\perp$ [GeV]',
-              'YLabel': '$1/N_\mathrm{ev} \, $1$/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\mathrm{d}p_\perp$',
-              # 'ZLabel' = '...'
-              # 'XLabelSep' = <distance >,
-              # 'YLabelSep' = <distance >,
-              # 'ZLabelSep' = <distance >,
-              # 'XMajorTickMarks' = <last_digit > ,
-              # 'YMajorTickMarks' = <last_digit > ,
-              # 'ZMajorTickMarks' = <last_digit > ,
-              # 'XMinorTickMarks' = <nticks > ,
-              # 'YMinorTickMarks' = <nticks > ,
-              # 'ZMinorTickMarks' = <nticks > ,
-              # 'XTwosidedTicks'=<0|1>,
-              # 'YTwosidedTicks'=<0|1>,
-              # 'XCustomMajorTicks'=<list>
-              # 'YCustomMajorTicks'=<list>
-              # 'ZCustomMajorTicks'=<list>
-              # 'XCustomMinorTicks'=<list>
-              # 'YCustomMinorTicks'=<list>
-              # 'ZCustomMinorTicks'=<list>
-              # 'PlotXTickLabels'=<0|1>
-              # 'RatioPlotTickLabels'=<0|1>
-              'LogX': 1,
-              'LogY': 1,
-              # 'LogZ'=<0|1>
-              'XMin': min(data.xlow),
-              'XMax': 50,
-              'YMin': 6e-7,
-              'YMax': 3,
-              # 'ZMin'=<value>
-              # 'ZMax'=<value>
-              # 'FullRange'=<0|1>
-              # 'ShowZero'=<0|1>
-              # 'NormalizeToIntegral'=<1|0>
-              # 'NormalizeToSum'=<1|0>
-              # 'Scale'=<factor>
-              # 'Rebin'=<nbins>
-              # 'PlotSize'=<xsize,ysize>
-              # 'LeftMargin'=<size>
-              # 'RightMargin'=<size>
-              # 'TopMargin'=<size>
-              # 'BottomMargin'=<size>
-              # 'FrameColor'=<color>
-              'Legend': 1,
-              # 'CustomLegend'=<text>
-              # 'LegendXPos'=<pos>
-              # 'LegendYPos'=<pos>
-              # 'LegendAlign'=<align>
-              # 'LegendOnly'=<list>
-              # 'DrawOnly'=<list>
-              # 'Stack'=<list>
-              # 'DrawSpecialFirst'=<0|1>
-              # 'DrawFunctionFirst'=<0|1>
-              # 'ConnectGaps'=<0|1>
-              'RatioPlot': 1,
-              # 'RatioPlotReference'=<histogram_ID>
-              # 'RatioPlotMode'=<default|deviation|datamc>
-              'RatioPlotYLabel': 'MC/Data',
-              'RatioPlotYMin': 0.5,
-              'RatioPlotYMax': 1.4999,
-              # 'RatioPlotYSize'=<size>
-              # 'RatioPlotErrorBandColor'=<color>
-              # 'RatioPlotSameStyle'=1
-              # 'MainPlot'=0
-              # 'GofType'=chi2
-              # 'GofReference'=<histogram_ID>
-              # 'GofLegend'=<0|1>
-              # 'GofFrame'=<histogram_ID>
-              # 'GofFrameColor'=<colorthresholds>
-              # 'ColorSeries'={rgb}{last}[rgb]{1,0.97,0.94}[rgb]{0.6,0.0,0.05}
-              # 'LineStyle'=<style>
-              # 'LineColor'=<color>
-              # 'LineOpacity'=<opacity>
-              # 'LineWidth'=<width>
-              # 'LineDash'=<dashstyle>
-              # 'ConnectBins'=<0|1>
-              # 'ConnectGaps'=<0|1>
-              # 'SmoothLine'=<0|1>
-              # 'FillStyle'=<style>
-              # 'FillColor'=<color>
-              # 'FillOpacity'=<opacity>
-              # 'HatchColor'=<color>
-              'ErrorBars': 1,
-              # 'ErrorBands'=<0|1>
-              # 'ErrorBandColor'=<color>
-              # 'ErrorBandOpacity'=<opacity>
-              # 'PolyMarker'=<dotstyle>
-              # 'DotSize'=<size>
-              # 'DotScale'=<factor>
-              # 'NormalizeToIntegral'=<1|0>
-              # 'NormalizeToSum'=<1|0>
-              # 'Scale'=<factor>
-              # 'Rebin'=<nbins>
-              # 'ErrorType'=<stat|env>
-              }
+def parse_yoda_hist(yaml_dicts):
+    # TODO: There is probably a more elegant approach
+    histograms = []
+    for hist_data in yaml_dicts['histograms'].values():
+        temp_file = open("temp_file.txt", "w")
+        temp_file.write(hist_data)
+        temp_file.close()
+        histograms.append(list(yoda.readFLAT("temp_file.txt").values())[0])
+        os.remove("temp_file.txt")
+    return histograms
 
 
 def rivet_plot(yaml_file):
-    # Parse yaml_file to return 1. rcparams dict, 2. plot params, 3. data dict,
-    # TODO: add custom rcparams
-    plt.style.use(os.path.join(sys.path[0], 'rivet.mplstyle'))
+    """Create plot from yaml file dictionaries. 
 
-    if file_style.get('RatioPlot'):
+    The yaml file contains rcParams for mpl, histogram data, and plot styles.
+    """
+    # Parse yaml file for rcParams, histogram data, and plot style.
+    with open(yaml_file) as file:
+        yaml_dicts = YAML(typ='safe').load(file)
+    plt.style.use((os.path.join(sys.path[0], 'rivet.mplstyle'),
+                   yaml_dicts['rcParams']))
+    histograms = parse_yoda_hist(yaml_dicts)
+    plot_style = yaml_dicts['plot_style']
+
+    if plot_style.get('RatioPlot'):
         fig, (ax, ax_ratio) = plt.subplots(2, 1, sharex=True,
                                            gridspec_kw={'height_ratios': (2, 1)})
     else:
         fig, ax = plt.subplots(1, 1)
-    ax.set_xlabel(file_style.get('XLabel'))
-    ax.set_ylabel(file_style.get('YLabel'), loc='top')
-    ax.set_title(file_style.get('Title'), loc='left')
+    ax.set_xlabel(plot_style.get('XLabel'))
+    ax.set_ylabel(plot_style.get('YLabel'), loc='top')
+    ax.set_title(plot_style.get('Title'), loc='left')
 
-    XMin = file_style.get('XMin', min(data.xlow))
-    XMax = file_style.get('XMax', max(data.xhigh))
+    XMin = plot_style.get('XMin', min([h.xMin() for h in histograms]))
+    XMax = plot_style.get('XMax', max([h.xMax() for h in histograms]))
     ax.set_xlim(XMin, XMax)
-    # TODO: the hist_y defaults probably need to allow more space?
-    YMin = file_style.get('YMin', min(data.val))
-    YMax = file_style.get('YMax', max(data.val))
+    YMin = plot_style.get('YMin', min([h.yMin() for h in histograms]))
+    YMax = plot_style.get('YMax', max([h.yMax() for h in histograms]))
     ax.set_ylim(YMin, YMax)
 
     # Set log scale
-    if file_style.get('LogX'):
+    if plot_style.get('LogX'):
         ax.set_xscale('log')
         ax.xaxis.set_major_locator(mpl.ticker.LogLocator(base=10.0))
-    if file_style.get('LogY'):
+    if plot_style.get('LogY'):
         ax.set_yscale('log')
         ax.yaxis.set_major_locator(mpl.ticker.LogLocator(base=10.0))
 
-    # hist plot
-    # Data line
-    ax.hlines(data.val, data.xlow, data.xhigh, 'k')
-    x_data = (data.xlow + data.xhigh)/2
-    y_data = data.val
-    ax.plot(x_data, y_data, 'ko')
-    if file_style.get('ErrorBars') and data.errminus is not None:
-        ax.vlines(x_data, (data.val - data.errminus),
-                  (data.val+data.errplus), 'k')
-    # mc1 line
-    x_mc1 = np.append(mc1.xlow, mc1.xhigh[-1])
-    y_mc1 = np.insert(mc1.val, 0, mc1.val[0])
-    ax.plot(x_mc1, y_mc1, 'r', drawstyle='steps-pre',
-            solid_joinstyle='miter')
-    if file_style.get('ErrorBars') and mc1.errminus is not None:
-        ax.vlines(x_data, (mc1.val - mc1.errminus),
-                  (mc1.val+mc1.errplus), 'r')
+    # Create useful variables
+    colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
+    x_points = (histograms[0].xMins() + histograms[0].xMaxs())/2
+    x_bins = np.append(histograms[0].xMins(), histograms[0].xMax())
+    data_yVals = histograms[0].yVals()
 
-    if file_style.get('RatioPlot'):  # TODO: Check if errorbar/errorbands
+    # Plot data
+    ax.hlines(data_yVals, histograms[0].xMins(),
+              histograms[0].xMaxs(), 'k')
+    ax.plot(x_points, data_yVals, 'ko')
+    if plot_style.get('ErrorBars'):
+        data_errminus = [err[0] for err in histograms[0].yErrs()]
+        data_errplus = [err[1] for err in histograms[0].yErrs()]
+        ax.vlines(x_points, (data_yVals - data_errminus),
+                  (data_yVals + data_errplus), 'k')
+
+    # Plot mcs
+    for i, mc in enumerate(histograms[1:]):
+        color = colors[i % len(colors)]
+        y_mc = np.insert(mc.yVals(), 0, mc.yVals()[0])
+        ax.plot(x_bins, y_mc, color, drawstyle='steps-pre',
+                solid_joinstyle='miter')
+        if plot_style.get('ErrorBars'):
+            mc_errminus = [err[0] for err in mc.yErrs()]
+            mc_errplus = [err[1] for err in mc.yErrs()]
+            ax.vlines(x_points, (mc.yVals() - mc_errminus),
+                      (mc.yVals() + mc_errplus), color)
+
+    # Create ratio plot
+    if plot_style.get('RatioPlot'):  # TODO: Check if errorbar/errorbands
         ax_ratio.yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.1))
-        ax_ratio.set_ylabel(file_style.get('RatioPlotYLabel', 'MC/Data'))
-        RatioPlotYMin = file_style.get('RatioPlotYMin', 0.5)
-        RatioPlotYMax = file_style.get('RatioPlotYMax', 1.4999)
+        ax_ratio.set_ylabel(plot_style.get('RatioPlotYLabel', 'MC/Data'))
+        RatioPlotYMin = plot_style.get('RatioPlotYMin', 0.5)
+        RatioPlotYMax = plot_style.get('RatioPlotYMax', 1.4999)
         ax_ratio.set_ylim(RatioPlotYMin, RatioPlotYMax)
 
-        x_ratio = x_mc1
-        y_ratio = y_mc1/np.insert(y_data, 0, y_data[0])
-        ax_ratio.plot(x_ratio, y_ratio, 'r', drawstyle='steps-pre', zorder=1,
-                      solid_joinstyle='miter')
+        # Plot data
         ax_ratio.hlines(1, XMin, XMax, 'k', zorder=2)
-        ax_ratio.plot(x_data, np.ones(len(x_data)), 'ko', zorder=3)
-        ax_ratio.vlines(x_data, (mc1.val - mc1.errminus)/data.val,
-                        (mc1.val + mc1.errplus)/data.val, 'r', zorder=1)
-
-        errbandminus = np.insert((data.val - data.errminus)/data.val, 0,
-                                 ((data.val - data.errminus)/data.val)[0])
-        errbandplus = np.insert((data.val + data.errplus)/data.val, 0,
-                                ((data.val + data.errplus)/data.val)[0])
-        ax_ratio.fill_between(x_ratio, errbandminus, errbandplus,
+        ax_ratio.plot(x_points, np.ones(len(x_points)), 'ko', zorder=3)
+        errbandminus = np.insert((data_yVals - data_errminus)/data_yVals, 0,
+                                 ((data_yVals - data_errminus)/data_yVals)[0])
+        errbandplus = np.insert((data_yVals + data_errplus)/data_yVals, 0,
+                                ((data_yVals + data_errplus)/data_yVals)[0])
+        ax_ratio.fill_between(x_bins, errbandminus, errbandplus,
                               step='pre', alpha=0.5, zorder=0)
+
+        # Plot mcs
+        for i, mc in enumerate(histograms[1:]):
+            color = colors[i % len(colors)]
+            y_ratio = (np.insert(mc.yVals(), 0, mc.yVals()[0])
+                       / np.insert(data_yVals, 0, data_yVals[0]))
+            ax_ratio.plot(x_bins, y_ratio, color, drawstyle='steps-pre', zorder=1,
+                          solid_joinstyle='miter')
+            mc_errminus = [err[0] for err in mc.yErrs()]
+            mc_errplus = [err[1] for err in mc.yErrs()]
+            ax_ratio.vlines(x_points, (mc.yVals() - mc_errminus)/data_yVals,
+                            (mc.yVals() + mc_errplus)/data_yVals, color, zorder=1)
 
     # Legend
     # TODO: Find a better way to implement the custom Data legend graphic
 
-    if file_style.get('Legend'):
-        handler_mc1 = mpl.lines.Line2D([], [], color='red')
-        ax.legend([AnyObject(), handler_mc1], ['Data', 'mc1'],
-                  handler_map={AnyObject: AnyObjectHandler()}, loc=[0.52, 0.77])
+    if plot_style.get('Legend'):
+        handles = [AnyObject()]
+        labels = ['Data']
+        for i, mc in enumerate(histograms[1:]):
+            color = colors[i % len(colors)]
+            handles.append(mpl.lines.Line2D([], [], color=color))
+            labels.append('mc{}'.format(i+1))
+        ax.legend(handles, labels, loc='upper left', bbox_to_anchor=[0.5, 0.97],
+                  handler_map={AnyObject: AnyObjectHandler()})
 
     plt.savefig(os.path.join(sys.path[0], 'mpl_d10-x01-y01.pdf'), dpi=500)
 
@@ -213,4 +156,4 @@ class AnyObjectHandler(object):
 
 
 if __name__ == '__main__':
-    rivet_plot(sys.argv[0])
+    rivet_plot('ATLAS_2010_S8918562_d10-x01-y01.yaml')
