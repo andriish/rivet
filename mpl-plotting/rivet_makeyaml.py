@@ -5,8 +5,9 @@ import yamlparser
 # TODO: move all yaml-related things to a yamlio.py file so that if parser needs to be changed, it is only in that file?
 from ruamel import yaml
 
-# This makes it so that all objects with type literal will be printed to a .yaml file as a string block. 
+# TODO: add more descriptive docstrings to all functions.
 
+# This class, function and call to add_representer makes it so that all objects with type literal will be printed to a .yaml file as a string block. 
 class literal(str):
     """A small wrapper class used to print histograms as multiline strings in a .yaml file."""
     pass
@@ -16,18 +17,12 @@ def literal_presenter(dumper, data):
 
 yaml.add_representer(literal, literal_presenter)
 
-
-# GSoC TODO: keep
 def sanitiseString(s):
-    #s = s.replace('_','\\_')
-    #s = s.replace('^','\\^{}')
-    #s = s.replace('$','\\$')
     s = s.replace('#','\\#')
     s = s.replace('%','\\%')
     return s
 
 
-# GSoC TODO: keep
 def getDefaultVariation(options):
     name = "0"
     for val in getFileOptions(options, "DefaultWeight").values():
@@ -35,7 +30,6 @@ def getDefaultVariation(options):
     return name
 
 
-# GSoC TODO: keep
 def getFileOptions(options, tags):
     ret = { }
     if 'list' not in str(type(tags)):    # GSoC TODO: Why is this not just `if isinstance(tags, list):`?
@@ -47,16 +41,43 @@ def getFileOptions(options, tags):
     return ret
 
 
-# GSoC TODO: one should be able to specify plot options here but as matplotlib args.
-#     Old plot options should be converted to matplotlib plot options.
-#     These might just be kwargs passed to the underlying plotting function.  
-#     As before, the `PLOT` argument specifies args for all yoda files.
-#     Example: `rivet-cmphistos mc1.yoda:label='first monte carlo generator' mc2.yoda PLOT:linestyle='--'`
-# Problem: some matplotlib line styles contain ':', which would not work with current code. Might have to rewrite.
 def _parse_args(args):
     """Look at the argument list and split it at colons, in order to separate
     the file names from the plotting options. Store the file names and
-    file specific plotting options."""
+    file specific plotting options.
+    
+    Parameters
+    ----------
+    args : list[str]
+        List of arguments which were previously passed to `rivet-cmphistos`. Will be ['filename.yoda:key=value', ..., 'PLOT:key=value:key=value'
+    
+    Returns
+    -------
+    filelist : list[str]
+        Raw names of the files, i.e. the first part of each string in args.
+    filenames : list[str]
+        Names of the files. If Name=value is passed as a plot option after a file name, this will become the filename. Otherwise, it will use the same value as in filelist.
+    plotoptions : dict[str, list[str]]
+        Dictionary of plot options. 
+        The key will be the file name (i.e., same value as in filenames) and the value will be a list of strings with plot options. 
+        One of the keys will also be PLOT (if it was passed in as an argument to args, which contains all plot options that will be applied to all input files.
+    
+    Examples
+    --------
+    >>> _parse_args(['mc1.yoda:Title=example title:Name=example name 1', 'mc2.yoda', 'PLOT:LogX=1'])
+    (['mc1.yoda', 'mc2.yoda'],
+     ['example name 1', 'mc2.yoda'],
+     {
+         'example name 1': ['Title=example title', 'Name=example name 1'],
+         'mc2.yoda': ['Title=mc2'],
+         'PLOT': ['LogX=1']
+     })
+     
+    Note
+    ----
+    Some matplotlib line styles contain ':', which would not work with current code. TODO:  change delimiter?
+    """
+    
     filelist = []
     filenames = []
     plotoptions = {}
@@ -87,8 +108,7 @@ def _parse_args(args):
     return filelist, filenames, plotoptions
 
 
-# GSoC TODO: keep as is for now. Improve with better "regex" support if time permits. Maybe this kind of regex should only be a "feature" for the API? 
-def _get_histos(filelist, filenames, plotoptions={}, path_patterns=(), path_unpatterns=()):
+def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns):
     """Loop over all input files. Only use the first occurrence of any REF-histogram
     and the first occurrence in each MC file for every MC-histogram."""
     refhistos, mchistos = {}, {}
@@ -131,8 +151,8 @@ def _get_histos(filelist, filenames, plotoptions={}, path_patterns=(), path_unpa
     return refhistos, mchistos
 
 
-def _get_rivet_ref_data(anas=None, path_patterns=(), path_unpatterns=()):
-    "Find all Rivet reference data files"
+def _get_rivet_ref_data(anas, path_patterns, path_unpatterns):
+    """Find all Rivet reference data files"""
     refhistos = {}
     rivet_data_dirs = rivet.getAnalysisRefPaths()
     dirlist = []
@@ -159,8 +179,55 @@ def _get_rivet_ref_data(anas=None, path_patterns=(), path_unpatterns=()):
     return refhistos
 
 
+def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle, filelist, filenames, plotoptions):
+    """
+    Create output dictionary for the plot_id.
+    
+    Parameters
+    ----------
+    plot_id : str
+    
+    plotdirs : list[str]
+    
+    config_files : list[str]
+    
+    mchistos : dict
+    
+    refhsitos : dict
+    
+    filelist : list[str]
+    
+    filenames : list[str]
+    
+    plotoptions : dict[str, list[str]]
+    
+    Returns
+    -------
+    outputdict : dict
+        
+    """
+    outputdict = {'rivet': yamlparser.get_plot_configs(plot_id, plotdirs=plotdirs, config_files=config_files)}
+    # TODO: Will there ever be preexisting histograms?
+    outputdict['histograms'] = {}
+    if plot_id in refhistos:
+        with io.StringIO() as filelike_str:
+            yoda.writeFLAT(refhistos[plot_id], filelike_str)
+            outputdict['histograms'][reftitle] = literal(filelike_str.getvalue())
+
+    for filename, mchistos_in_file in mchistos.items():
+        # TODO: will there ever be multiple histograms with same ID here? Rewrite _get_histos?
+        for histogram in mchistos_in_file[plot_id].values():
+            # TODO: add annotation here to add name of the histogram, plotoptions etc. Check rivet-cmphistos 
+            #     Move annotations to separate function?
+            with io.StringIO() as filelike_str:
+                yoda.writeFLAT(histogram, filelike_str)
+                # TODO: change name of histogram here
+                outputdict['histograms'][filename] = literal(filelike_str.getvalue())
+    return outputdict
+
+    
 def mkoutdir(outdir):
-    "Function to make output directories"
+    """Function to make output directories"""
     if not os.path.exists(outdir):
         try:
             os.makedirs(outdir)
@@ -172,14 +239,13 @@ def mkoutdir(outdir):
         raise Exception(msg)
 
 
-# TODO docstr 
-def _write_output(output, h, hier_output=False, outdir='rivet-plots'):
+def _write_output(output, h, hier_output, outdir):
     "Choose output file name and dir"
     if hier_output:
         hparts = h.strip("/").split("/", 1)
         ana = "_".join(hparts[:-1]) if len(hparts) > 1 else "ANALYSIS"
         outdir = os.path.join(outdir, ana)
-        outfile = '%s.dat' % hparts[-1].replace("/", "_")
+        outfile = '%s.yaml' % hparts[-1].replace("/", "_")
     else:
         hparts = h.strip("/").split("/")
         outfile = '%s.yaml' % "_".join(hparts)
@@ -192,9 +258,9 @@ def _write_output(output, h, hier_output=False, outdir='rivet-plots'):
 def make_yamlfiles(args, path_pwd=True, reftitle='Data', 
                    rivetrefs=True, path_patterns=(), 
                    path_unpatterns=(), plotinfodirs=[], 
-                   config_files=[], hier_output=False,
-                   rivetplotpaths=True,
-                   **kwargs):
+                   config_files=[], hier_output=False, outdir='.',
+                   rivetplotpaths=True
+                  ):
     """
     Create .yaml files that can be parsed by rivet-make-plot
     Each output .yaml file corresponds to one analysis which contains all MC histograms and a reference data histogram.
@@ -202,8 +268,8 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     
     Parameters
     ----------
-    args : list[str]
-        Non-keyword arguments that were previously passed to plot. 
+    args : Iterable[str]
+        Non-keyword arguments that were previously passed to rivet-cmphistos. E.g., ['mc1.yoda', 'mc2.yoda:Title=example title'] 
         TODO: change this input to filelist, filenames, plotoptions instead?
     path_pwd : bool
         Search for plot files and reference data files in current directory.
@@ -219,12 +285,15 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     plotinfodirs : list[str]
         Directory which may contain plot header information (in addition to standard Rivet search paths).
     config_files : list[str]
-        Additional plot config file(s). Settings will be included in the output configuration. ~/.make-plots will automatically be added.
+        Additional plot config file(s). 
+        Settings will be included in the output configuration. 
+        ~/.make-plots will automatically be added.
     hier_output : bool
         Write output dat files into a directory hierarchy which matches the analysis paths.
+    outdir : str
+        Write yaml files into this directory.
     rivetplotpaths : bool
-    kwargs : 
-        options that will be added in the future, such as style (e.g., ATLAS), extra plotting options, hierout option, and extra files with plotting options.
+        Search for .plot files in the standard Rivet plot paths.
         
     Returns
     -------
@@ -247,7 +316,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     config_files.append('~/.make-plots')
     ## Split the input file names and the associated plotting options
     ## given on the command line into two separate lists
-    # TODO: keep as is for now. Add support for plotoptions
+    # TODO: Add support for plotoptions
     filelist, filenames, plotoptions = _parse_args(args)
     
     ## Check that the files exist
@@ -255,14 +324,12 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
         if not os.access(f, os.R_OK):
             raise IOError("Error: cannot read from %s" % f)
     
-    # TODO: add rivet.getAnalysisPath?
     plotdirs = plotinfodirs + [os.path.abspath(os.path.dirname(f)) for f in filelist] + (rivet.getAnalysisPlotPaths() if rivetplotpaths else [])
 
     ## Create a list of all histograms to be plotted, and identify if they are 2D histos (which need special plotting)
-    refhistos, mchistos = _get_histos(filelist, filenames, plotoptions)
+    refhistos, mchistos = _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns)
         
-    # h2ds is currently not used
-    hpaths, h2ds = [], []
+    hpaths = []
     for aos in mchistos.values():
         for p in aos.keys():
             ps = rivet.stripOptions(p)
@@ -270,16 +337,13 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
                 hpaths.append(ps)
             # Only use the first histogram
             firstaop = aos[p][sorted(aos[p].keys())[0]]
-            # TODO: Would be nicer to test via isHisto and dim or similar, or yoda.Scatter/Histo/Profile base classes
-            if type(firstaop) in (yoda.Histo2D, yoda.Profile2D, yoda.Scatter3D) and ps not in h2ds:
-                h2ds.append(ps)
 
     # Unique list of analyses
     anas = list(set([x.split("/")[1] for x in hpaths]))
 
     ## Take reference data from the Rivet search paths, if there is not already
     if rivetrefs:
-        refhistos2 = _get_rivet_ref_data(anas)
+        refhistos2 = _get_rivet_ref_data(anas, path_patterns, path_unpatterns)
         refhistos2.update(refhistos)
         refhistos = refhistos2
 
@@ -291,31 +355,13 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     # <<< end of code from rivet-cmphistos
     
     # Write each file 
-    # TODO: rename plot_id
     for plot_id in hpaths:
-        # TODO: move to separate function?
-        outputdict = {'rivet': yamlparser.get_plot_configs(plot_id, plotdirs=plotdirs, config_files=config_files)} # TODO: add config_files and plotdirs from args
-        # Will there ever be preexisting histograms?
-        outputdict['histograms'] = {}
-        # TODO: add option to rename Data here
-        if plot_id in refhistos:
-            with io.StringIO() as filelike_str:
-                yoda.writeFLAT(refhistos[plot_id], filelike_str)
-                outputdict['histograms'][reftitle] = literal(filelike_str.getvalue())
+        outputdict = _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle, filelist, filenames, plotoptions)
         
-        for filename, mchistos_in_file in mchistos.items():
-            # TODO: move this section to separate function
-            # TODO: will there ever be multiple histograms with same ID here? Rewrite _get_histos?
-            for histogram in mchistos_in_file[plot_id].values():
-                with io.StringIO() as filelike_str:
-                    yoda.writeFLAT(histogram, filelike_str)
-                    # TODO: change name of histogram here
-                    outputdict['histograms'][filename] = literal(filelike_str.getvalue())
-
         ## Make the output and write to file
-        _write_output(outputdict, plot_id)
+        _write_output(outputdict, plot_id, hier_output=hier_output, outdir=outdir)
 
 
 # Test code
 if __name__ == '__main__':
-    make_yamlfiles(['mc1.yoda', 'mc2.yoda'], hier_out=True, rivetplotpaths=False)
+    make_yamlfiles(['mc1.yoda:Name=example', 'mc2.yoda'], hier_output=True, rivetplotpaths=False, outdir='rivet-plots')
