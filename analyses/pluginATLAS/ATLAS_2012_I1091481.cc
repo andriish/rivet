@@ -22,10 +22,17 @@ namespace Rivet {
       ChargedFinalState cfs500(Cuts::abseta < 2.5 && Cuts::pT > 0.5*GeV);
       declare(cfs500,"CFS500");
 
+      // Beam energy logic neccesary for rivet-merge.
+      sqs = sqrtS()/GeV;
+      if (fuzzyEquals(sqs, 0.0, 1e-3)) {
+        MSG_INFO("Suspicious beam energy. You're probably running rivet-merge. Fetching beam energy from option.");
+        sqs = getOption<double>("energy", 0);
+      }
+
       // collision energy
       int isqrts = -1;
-      if (fuzzyEquals(sqrtS(), 900*GeV)) isqrts = 2;
-      if (fuzzyEquals(sqrtS(),   7*TeV)) isqrts = 1;
+      if (fuzzyEquals(sqs, 900*GeV)) isqrts = 2;
+      if (fuzzyEquals(sqs,   7*TeV)) isqrts = 1;
       assert(isqrts > 0);
 
       book(_sE_10_100   ,isqrts, 1, 1);
@@ -153,6 +160,9 @@ namespace Rivet {
       scale(_sEta_10_500, 1.0/ *norm_pt500);
     }
 
+    /// @name sqrtS from beam or option
+    //@{
+    double sqs;
     //@}
 
 
