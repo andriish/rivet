@@ -5,12 +5,10 @@ import yamlparser
 # TODO: move all yaml-related things to a yamlio.py file so that if parser needs to be changed, it is only in that file?
 from ruamel import yaml
 
-# TODO: replace exits with raise exception instead since this is a function, not a command line tool.
-
 # This makes it so that all objects with type literal will be printed to a .yaml file as a string block. 
 
 class literal(str):
-    """A small wrapper class used to print histograms as string blocks in a .yaml file."""
+    """A small wrapper class used to print histograms as multiline strings in a .yaml file."""
     pass
 
 def literal_presenter(dumper, data):
@@ -231,6 +229,11 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     Returns
     -------
     None
+    
+    Raises
+    ------
+    IOError
+        If the program does not have read access to .plot or .yoda files, or if it cannot write the output .yaml files.
     """
     # Code from rivet-cmphistos >>> 
     # TODO: clean and refactor rivet-cmphistos code
@@ -256,11 +259,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     plotdirs = plotinfodirs + [os.path.abspath(os.path.dirname(f)) for f in filelist] + (rivet.getAnalysisPlotPaths() if rivetplotpaths else [])
 
     ## Create a list of all histograms to be plotted, and identify if they are 2D histos (which need special plotting)
-    try:
-        refhistos, mchistos = _get_histos(filelist, filenames, plotoptions)
-    except IOError as e:
-        print("File reading error: ", e.strerror)
-        exit(1)
+    refhistos, mchistos = _get_histos(filelist, filenames, plotoptions)
         
     # h2ds is currently not used
     hpaths, h2ds = [], []
@@ -280,11 +279,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
 
     ## Take reference data from the Rivet search paths, if there is not already
     if rivetrefs:
-        try:
-            refhistos2 = _get_rivet_ref_data(anas)
-        except IOError as e:
-            print("File reading error: ", e.strerror)
-            exit(1)
+        refhistos2 = _get_rivet_ref_data(anas)
         refhistos2.update(refhistos)
         refhistos = refhistos2
 
