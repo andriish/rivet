@@ -23,8 +23,15 @@ namespace Rivet {
       const ChargedFinalState cfs2500(Cuts::abseta < 2.5 && Cuts::pT > 2500*MeV);
       declare(cfs2500, "CFS2500");
 
+      // Beam energy logic neccesary for rivet-merge.
+      sqs = sqrtS()/GeV;
+      if (fuzzyEquals(sqs, 0.0, 1e-3)) {
+        MSG_INFO("Suspicious beam energy. You're probably running rivet-merge. Fetching beam energy from option.");
+        sqs = getOption<double>("energy", 0);
+      }
+
       // Book histograms
-      if (fuzzyEquals(sqrtS()/GeV, 900)) {
+      if (fuzzyEquals(sqs, 900)) {
         book(_h["pt100_nch2_nch"],   18, 1, 1);
         book(_h["pt100_nch2_pt"],    11, 1, 1);
         book(_h["pt100_nch2_eta"],    4, 1, 1);
@@ -48,14 +55,14 @@ namespace Rivet {
         book(_h["pt2500_nch1_eta"],   28, 1, 1);
         book(_p["pt2500_nch1_ptnch"], 38, 1, 1);
 
-      } else if (fuzzyEquals(sqrtS()/GeV, 2360)) {
+      } else if (fuzzyEquals(sqs, 2360)) {
 
         book(_h["pt500_nch1_nch"], 16, 1, 1);
         book(_h["pt500_nch1_pt"],   9, 1, 1);
         book(_h["pt500_nch1_eta"],  2, 1, 1);
         _p["pt500_nch1_ptnch"] = nullptr;
 
-      } else if (fuzzyEquals(sqrtS()/GeV, 7000)) {
+      } else if (fuzzyEquals(sqs, 7000)) {
 
         book(_h["pt100_nch2_nch"],   19, 1, 1);
         book(_h["pt100_nch2_pt"],    12, 1, 1);
@@ -168,6 +175,8 @@ namespace Rivet {
 
     map<string, Histo1DPtr> _h;
     map<string, Profile1DPtr> _p;
+
+    double sqs;
 
   };
 
