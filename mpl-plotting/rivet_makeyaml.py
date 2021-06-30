@@ -7,6 +7,10 @@ from ruamel import yaml
 
 # TODO: add more descriptive docstrings to all functions.
 
+# TODO: remove these variables once the names have been properly decided
+histogram_str_name = 'flat'
+
+
 # This class, function and call to add_representer makes it so that all objects with type literal will be printed to a .yaml file as a string block. 
 class literal(str):
     """A small wrapper class used to print histograms as multiline strings in a .yaml file."""
@@ -16,6 +20,7 @@ def literal_presenter(dumper, data):
     return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
 
 yaml.add_representer(literal, literal_presenter)
+
 
 def sanitiseString(s):
     s = s.replace('#','\\#')
@@ -32,7 +37,7 @@ def getDefaultVariation(options):
 
 def getFileOptions(options, tags):
     ret = { }
-    if 'list' not in str(type(tags)):    # GSoC TODO: Why is this not just `if isinstance(tags, list):`?
+    if not isinstance(tags, list):
         tags = [ tags ]
     for opt in options:
         key, val = opt.split('=', 1)
@@ -213,19 +218,24 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
         with io.StringIO() as filelike_str:
             yoda.writeFLAT(refhistos[plot_id], filelike_str)
             outputdict['histograms'][reftitle] = literal(filelike_str.getvalue())
+            # TODO: add plot options here as well.
+            # TODO: refactor so that same function is applied to refhistos and mchistos
 
     for filename, mchistos_in_file in mchistos.items():
         # TODO: will there ever be multiple histograms with same ID here? Rewrite _get_histos?
-        for histogram in mchistos_in_file[plot_id].values():
-            # TODO: add annotation here to add name of the histogram, plotoptions etc. Check rivet-cmphistos 
-            #     Move annotations to separate function?
+        for histogram in mchistos_in_file[plot_id].items():
+            # TODO: add name of the histogram, plotoptions etc. as keys to the histogram dict. 
+            #       Filename can probably not be used as key here
+            outputdict['histograms'][filename].update(plotoptions[filename])
+            outputdict['histograms'][filename].update(plotoptions['PLOT'])
+
             with io.StringIO() as filelike_str:
                 yoda.writeFLAT(histogram, filelike_str)
-                # TODO: change name of histogram here
-                outputdict['histograms'][filename] = literal(filelike_str.getvalue())
+                # TODO: Check with rivet-cmphistos that the name change is correct
+                outputdict['histograms'][filename]['flat'] = literal(filelike_str.getvalue())
     return outputdict
 
-    
+
 def mkoutdir(outdir):
     """Function to make output directories"""
     if not os.path.exists(outdir):
@@ -282,6 +292,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
         The argument may also be a text file.
     path_unpatterns : Iterable[str]
         Exclude histograms whose $path/$name string matches these regexes
+    TODO: path_patterns, path_unpatterns have probably not been implemented yet.
     plotinfodirs : list[str]
         Directory which may contain plot header information (in addition to standard Rivet search paths).
     config_files : list[str]
@@ -364,4 +375,4 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
 
 # Test code
 if __name__ == '__main__':
-    make_yamlfiles(['mc1.yoda:Name=example', 'mc2.yoda'], hier_output=True, rivetplotpaths=False, outdir='rivet-plots')
+    make_yamlfiles(['mc1.yoda:Name=example name', 'mc2.yoda'], hier_output=True, rivetplotpaths=False, outdir='rivet-plots')
