@@ -222,12 +222,14 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
             # TODO: refactor so that same function is applied to refhistos and mchistos
 
     for filename, mchistos_in_file in mchistos.items():
+        outputdict['histograms'][filename] = {}
         # TODO: will there ever be multiple histograms with same ID here? Rewrite _get_histos?
-        for histogram in mchistos_in_file[plot_id].items():
+        for histogram in mchistos_in_file[plot_id].values():
             # TODO: add name of the histogram, plotoptions etc. as keys to the histogram dict. 
             #       Filename can probably not be used as key here
-            outputdict['histograms'][filename].update(plotoptions[filename])
-            outputdict['histograms'][filename].update(plotoptions['PLOT'])
+            #       Probably exists a more efficient way of doing this. Just looping over all settings maybe.  
+            outputdict['histograms'][filename].update({setting[:setting.index('=')]: setting[setting.index('=')+1:] for setting in plotoptions.get(filename, [])})
+            outputdict['histograms'][filename].update(plotoptions.get('PLOT', []))
 
             with io.StringIO() as filelike_str:
                 yoda.writeFLAT(histogram, filelike_str)
@@ -295,12 +297,15 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     TODO: path_patterns, path_unpatterns have probably not been implemented yet.
     plotinfodirs : list[str]
         Directory which may contain plot header information (in addition to standard Rivet search paths).
+    style : str
+        Set the style of all plots. 
+        Can either be a .yaml file name, a name of a builtin style (e.g. 'default') or key=value:key2=value2... (similar to args)
     config_files : list[str]
         Additional plot config file(s). 
         Settings will be included in the output configuration. 
         ~/.make-plots will automatically be added.
     hier_output : bool
-        Write output dat files into a directory hierarchy which matches the analysis paths.
+        Write output .yaml files into a directory hierarchy which matches the analysis paths.
     outdir : str
         Write yaml files into this directory.
     rivetplotpaths : bool
@@ -337,9 +342,10 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     
     plotdirs = plotinfodirs + [os.path.abspath(os.path.dirname(f)) for f in filelist] + (rivet.getAnalysisPlotPaths() if rivetplotpaths else [])
 
-    ## Create a list of all histograms to be plotted, and identify if they are 2D histos (which need special plotting)
+    # Create a list of all histograms to be plotted, and identify if they are 2D histos (which need special plotting)
+    # TODO: implement 2D histogram special settings. 
     refhistos, mchistos = _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns)
-        
+    
     hpaths = []
     for aos in mchistos.values():
         for p in aos.keys():
@@ -371,8 +377,3 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
         
         ## Make the output and write to file
         _write_output(outputdict, plot_id, hier_output=hier_output, outdir=outdir)
-
-
-# Test code
-if __name__ == '__main__':
-    make_yamlfiles(['mc1.yoda:Name=example name', 'mc2.yoda'], hier_output=True, rivetplotpaths=False, outdir='rivet-plots')
