@@ -28,24 +28,6 @@ def sanitiseString(s):
     return s
 
 
-def getDefaultVariation(options):
-    name = "0"
-    for val in getFileOptions(options, "DefaultWeight").values():
-        name = val
-    return name
-
-
-def getFileOptions(options, tags):
-    ret = { }
-    if not isinstance(tags, list):
-        tags = [ tags ]
-    for opt in options:
-        key, val = opt.split('=', 1)
-        if key in tags:
-            ret[key] = val
-    return ret
-
-
 def _parse_args(args):
     """Look at the argument list and split it at colons, in order to separate
     the file names from the plotting options. Store the file names and
@@ -76,13 +58,13 @@ def _parse_args(args):
          'example name 1': ['Title=example title', 'Name=example name 1'],
          'mc2.yoda': ['Title=mc2'],
          'PLOT': ['LogX=1']
-     })
-     
+    })
+    
     Note
     ----
     Some matplotlib line styles contain ':', which would not work with current code. TODO:  change delimiter?
     """
-    
+    # TODO: remove filenames since they exist as keys in plotoptions?
     filelist = []
     filenames = []
     plotoptions = {}
@@ -92,7 +74,7 @@ def _parse_args(args):
         if path != "PLOT":
             filelist.append(path)
             filenames.append(path)
-        plotoptions[path] = []
+        plotoptions[path] = {}
         has_title = False
         has_name = ""
         for i in range(1, len(asplit)):
@@ -101,7 +83,8 @@ def _parse_args(args):
                 asplit[i] = 'Title=%s' % asplit[i]
             if asplit[i].startswith('Title='):
                 has_title = True
-            plotoptions[path].append(asplit[i])
+            key, value = asplit[i].split('=', 1)
+            plotoptions[path][key] = value
             if asplit[i].startswith('Name=') and path != "PLOT":
                 has_name = asplit[i].split('=', 1)[1]
                 filenames[-1] = has_name
@@ -109,7 +92,7 @@ def _parse_args(args):
             plotoptions[has_name] = plotoptions[path]
             del plotoptions[path]
         if path != "PLOT" and not has_title:
-            plotoptions[has_name if has_name != "" else path].append('Title=%s' % sanitiseString(os.path.basename( os.path.splitext(path)[0] )) )
+            plotoptions[has_name if has_name != "" else path]['Title'] = sanitiseString(os.path.basename( os.path.splitext(path)[0] ))
     return filelist, filenames, plotoptions
 
 
@@ -146,7 +129,7 @@ def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns
 
             ## Add it to the ref or mc paths, if this path isn't already known
             basepath = aop.basepath(keepref=False)
-            defaultWeightName = getDefaultVariation(plotoptions[inname])
+            defaultWeightName = plotoptions[inname].get('DefaultWeight', '0')
             if aop.isref() and basepath not in refhistos:
                 ao.setPath(aop.varpath(keepref=False, defaultvarid=defaultWeightName))
                 refhistos[basepath] = ao
@@ -191,20 +174,22 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     Parameters
     ----------
     plot_id : str
-    
+        ID, usually of the format AnalysisID/HistogramID.
     plotdirs : list[str]
-    
+        All directories to look for .plot files at.
     config_files : list[str]
-    
+        Additional plot settings that will be applied to all figures.
     mchistos : dict
-    
+        Dictionary of the Monte Carlo YODA histograms.
+        The structure is {filename: {plot_id: {"0": yoda_histogram1, "1": yoda_histogram2, ...}}}
+        Usually only "0" exists as the innermost key.
     refhsitos : dict
-    
+        Dictionary of the reference analysis data YODA histograms.
     filelist : list[str]
-    
+
     filenames : list[str]
     
-    plotoptions : dict[str, list[str]]
+    plotoptions : dict[str, dict[str, str]]
     
     Returns
     -------
@@ -217,7 +202,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     if plot_id in refhistos:
         with io.StringIO() as filelike_str:
             yoda.writeFLAT(refhistos[plot_id], filelike_str)
-            outputdict['histograms'][reftitle] = literal(filelike_str.getvalue())
+            outputdict['histograms'][reftitle] = {histogram_str_name: literal(filelike_str.getvalue())}
             # TODO: add plot options here as well.
             # TODO: refactor so that same function is applied to refhistos and mchistos
 
@@ -225,16 +210,14 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
         outputdict['histograms'][filename] = {}
         # TODO: will there ever be multiple histograms with same ID here? Rewrite _get_histos?
         for histogram in mchistos_in_file[plot_id].values():
-            # TODO: add name of the histogram, plotoptions etc. as keys to the histogram dict. 
-            #       Filename can probably not be used as key here
-            #       Probably exists a more efficient way of doing this. Just looping over all settings maybe.  
-            outputdict['histograms'][filename].update({setting[:setting.index('=')]: setting[setting.index('=')+1:] for setting in plotoptions.get(filename, [])})
-            outputdict['histograms'][filename].update(plotoptions.get('PLOT', []))
+            # TODO: Probably exists a more efficient way of doing this. Just looping over all settings maybe.
+            outputdict['histograms'][filename].update(plotoptions.get(filename, {}))
+            outputdict['histograms'][filename].update(plotoptions.get('PLOT', {}))
 
             with io.StringIO() as filelike_str:
                 yoda.writeFLAT(histogram, filelike_str)
                 # TODO: Check with rivet-cmphistos that the name change is correct
-                outputdict['histograms'][filename]['flat'] = literal(filelike_str.getvalue())
+                outputdict['histograms'][filename][histogram_str_name] = literal(filelike_str.getvalue())
     return outputdict
 
 
@@ -270,8 +253,9 @@ def _write_output(output, h, hier_output, outdir):
 def make_yamlfiles(args, path_pwd=True, reftitle='Data', 
                    rivetrefs=True, path_patterns=(), 
                    path_unpatterns=(), plotinfodirs=[], 
+                   style='default', plot_features='',
                    config_files=[], hier_output=False, outdir='.',
-                   rivetplotpaths=True
+                   rivetplotpaths=True, rc_params={}
                   ):
     """
     Create .yaml files that can be parsed by rivet-make-plot
@@ -281,7 +265,8 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     Parameters
     ----------
     args : Iterable[str]
-        Non-keyword arguments that were previously passed to rivet-cmphistos. E.g., ['mc1.yoda', 'mc2.yoda:Title=example title'] 
+        Non-keyword arguments that were previously passed to rivet-cmphistos. 
+        E.g., ['mc1.yoda', 'mc2.yoda:Title=example title'] 
         TODO: change this input to filelist, filenames, plotoptions instead?
     path_pwd : bool
         Search for plot files and reference data files in current directory.
@@ -297,9 +282,12 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     TODO: path_patterns, path_unpatterns have probably not been implemented yet.
     plotinfodirs : list[str]
         Directory which may contain plot header information (in addition to standard Rivet search paths).
-    style : str
+    style : str TODO
         Set the style of all plots. 
-        Can either be a .yaml file name, a name of a builtin style (e.g. 'default') or key=value:key2=value2... (similar to args)
+        Either a .yaml file name or a name of a builtin style (e.g. 'default')
+    plot_features : str TODO
+        Settings that will be included in the "plot features" section of the YAML file.
+        The string has the format "key=value:key2=value2"..., i.e., a similar format as the strings in args.
     config_files : list[str]
         Additional plot config file(s). 
         Settings will be included in the output configuration. 
@@ -310,7 +298,8 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
         Write yaml files into this directory.
     rivetplotpaths : bool
         Search for .plot files in the standard Rivet plot paths.
-        
+    rc_params : dict[str, str] TODO
+        Additional rc params added to all output .yaml files. 
     Returns
     -------
     None
@@ -332,7 +321,6 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     config_files.append('~/.make-plots')
     ## Split the input file names and the associated plotting options
     ## given on the command line into two separate lists
-    # TODO: Add support for plotoptions
     filelist, filenames, plotoptions = _parse_args(args)
     
     ## Check that the files exist
