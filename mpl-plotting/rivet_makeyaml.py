@@ -167,9 +167,10 @@ def _get_rivet_ref_data(anas, path_patterns, path_unpatterns):
     return refhistos
 
 
-def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle, filelist, filenames, plotoptions):
-    """
-    Create output dictionary for the plot_id.
+def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle, plotoptions,
+                 style, rc_params, plot_features_dict
+                ):
+    """Create output dictionary for the plot_id.
     
     Parameters
     ----------
@@ -184,27 +185,39 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
         The structure is {filename: {plot_id: {"0": yoda_histogram1, "1": yoda_histogram2, ...}}}
         Usually only "0" exists as the innermost key.
     refhsitos : dict
-        Dictionary of the reference analysis data YODA histograms.
-    filelist : list[str]
-
-    filenames : list[str]
-    
+        Dictionary of the reference analysis data YODA histograms.    
     plotoptions : dict[str, dict[str, str]]
-    
+
+    style : str
+        See the `make_yamlfiles` function.
+    rc_params : dict[str, str]
+        See the `make_yamlfiles` function.
+    plot_features_dict : dict[str, str]
+        All parameters that will be added to the "plot features" section of the .yaml file.
     Returns
     -------
     outputdict : dict
-        
+        Correctly formatted dictionary that can be passed to `yaml.dump` to write to an output file.
     """
-    outputdict = {'rivet': yamlparser.get_plot_configs(plot_id, plotdirs=plotdirs, config_files=config_files)}
+    outputdict = {}
+    plot_configs = yamlparser.get_plot_configs(plot_id, plotdirs=plotdirs, config_files=config_files),
+    if plot_configs:
+        outputdict['rivet'] = plot_configs
+    if plot_features_dict:
+        outputdict['plot features'] = plot_features_dict
+    if style:
+        outputdict['style'] = style # TODO: preprocess this one (not inside this function though) if input is a file name
+    if rc_params:
+        outputdict['rcParams'] = rc_params
+
     # TODO: Will there ever be preexisting histograms?
     outputdict['histograms'] = {}
     if plot_id in refhistos:
         with io.StringIO() as filelike_str:
             yoda.writeFLAT(refhistos[plot_id], filelike_str)
             outputdict['histograms'][reftitle] = {histogram_str_name: literal(filelike_str.getvalue())}
-            # TODO: add plot options here as well.
-            # TODO: refactor so that same function is applied to refhistos and mchistos
+            # TODO: add plot options here as well?
+            #   If so, refactor so that same function is applied to refhistos and mchistos
 
     for filename, mchistos_in_file in mchistos.items():
         outputdict['histograms'][filename] = {}
@@ -257,8 +270,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
                    config_files=[], hier_output=False, outdir='.',
                    rivetplotpaths=True, rc_params={}
                   ):
-    """
-    Create .yaml files that can be parsed by rivet-make-plot
+    """Create .yaml files that can be parsed by rivet-make-plot
     Each output .yaml file corresponds to one analysis which contains all MC histograms and a reference data histogram.
     Warning: still in development.
     
@@ -267,7 +279,6 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     args : Iterable[str]
         Non-keyword arguments that were previously passed to rivet-cmphistos. 
         E.g., ['mc1.yoda', 'mc2.yoda:Title=example title'] 
-        TODO: change this input to filelist, filenames, plotoptions instead?
     path_pwd : bool
         Search for plot files and reference data files in current directory.
     reftitle : str
@@ -298,7 +309,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
         Write yaml files into this directory.
     rivetplotpaths : bool
         Search for .plot files in the standard Rivet plot paths.
-    rc_params : dict[str, str] TODO
+    rc_params : dict[str, str] TODO: Implement. Maybe this should be a file name or key=value str instead?
         Additional rc params added to all output .yaml files. 
     Returns
     -------
@@ -361,7 +372,10 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     
     # Write each file 
     for plot_id in hpaths:
-        outputdict = _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle, filelist, filenames, plotoptions)
+        outputdict = _make_output(plot_id, plotdirs, config_files, 
+                                  mchistos, refhistos, reftitle, 
+                                  plotoptions, style, rc_params, plot_features_dict
+                                  )
         
         ## Make the output and write to file
         _write_output(outputdict, plot_id, hier_output=hier_output, outdir=outdir)
