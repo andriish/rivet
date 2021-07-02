@@ -74,9 +74,9 @@ def rivet_plot(yaml_file):
     ax.hlines(data_yVals, histograms[0].xMins(),
               histograms[0].xMaxs(), 'k')
     ax.plot(x_points, data_yVals, 'ko')
+    data_errminus = [err[0] for err in histograms[0].yErrs()]
+    data_errplus = [err[1] for err in histograms[0].yErrs()]
     if plot_features.get('ErrorBars'):
-        data_errminus = [err[0] for err in histograms[0].yErrs()]
-        data_errplus = [err[1] for err in histograms[0].yErrs()]
         ax.vlines(x_points, (data_yVals - data_errminus),
                   (data_yVals + data_errplus), 'k')
 
@@ -103,12 +103,16 @@ def rivet_plot(yaml_file):
         # Plot data
         ax_ratio.hlines(1, XMin, XMax, 'k', zorder=2)
         ax_ratio.plot(x_points, np.ones(len(x_points)), 'ko', zorder=3)
-        errbandminus = np.insert((data_yVals - data_errminus)/data_yVals, 0,
-                                 ((data_yVals - data_errminus)/data_yVals)[0])
-        errbandplus = np.insert((data_yVals + data_errplus)/data_yVals, 0,
-                                ((data_yVals + data_errplus)/data_yVals)[0])
-        ax_ratio.fill_between(x_bins, errbandminus, errbandplus,
-                              step='pre', alpha=0.5, zorder=0)
+        if plot_features.get('ErrorBands'):
+            errbandminus = np.insert((data_yVals - data_errminus)/data_yVals, 0,
+                                     ((data_yVals - data_errminus)/data_yVals)[0])
+            errbandplus = np.insert((data_yVals + data_errplus)/data_yVals, 0,
+                                    ((data_yVals + data_errplus)/data_yVals)[0])
+            ax_ratio.fill_between(x_bins, errbandminus, errbandplus,
+                                  step='pre', alpha=0.5, zorder=0)
+        elif plot_features.get('ErrorBars'):
+            ax_ratio.vlines(x_points, (data_yVals - data_errminus)/data_yVals,
+                            (data_yVals + data_errplus)/data_yVals, 'k')
 
         # Plot mcs
         for i, mc in enumerate(histograms[1:]):
@@ -117,10 +121,11 @@ def rivet_plot(yaml_file):
                        / np.insert(data_yVals, 0, data_yVals[0]))
             ax_ratio.plot(x_bins, y_ratio, color, drawstyle='steps-pre', zorder=1,
                           solid_joinstyle='miter')
-            mc_errminus = [err[0] for err in mc.yErrs()]
-            mc_errplus = [err[1] for err in mc.yErrs()]
-            ax_ratio.vlines(x_points, (mc.yVals() - mc_errminus)/data_yVals,
-                            (mc.yVals() + mc_errplus)/data_yVals, color, zorder=1)
+            if plot_features.get('ErrorBars'):
+                mc_errminus = [err[0] for err in mc.yErrs()]
+                mc_errplus = [err[1] for err in mc.yErrs()]
+                ax_ratio.vlines(x_points, (mc.yVals() - mc_errminus)/data_yVals,
+                                (mc.yVals() + mc_errplus)/data_yVals, color, zorder=1)
 
     # Legend
     # TODO: Find a better way to implement the custom Data legend graphic

@@ -218,7 +218,7 @@ plot_features:
     # 'FillOpacity'=<opacity>
     # 'HatchColor'=<color>
     ErrorBars: 1
-    # 'ErrorBands'=<0|1>
+    ErrorBands: 0  # Adds errorband for data in ratio plot
     # 'ErrorBandColor'=<color>
     # 'ErrorBandOpacity'=<opacity>
     # 'PolyMarker'=<dotstyle>
