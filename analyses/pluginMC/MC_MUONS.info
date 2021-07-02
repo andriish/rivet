@@ -13,7 +13,7 @@ Description:
   the main use of DRESSED is to *disable* lepton dressing in DIRECT=1 mode.
 ToDo:
  - Add PTMIN and ETAMAX options?
- NeedCrossSection: yes
+NeedCrossSection: yes
 Options:
  - DIRECT=0,1
  - DRESSED=0,1
