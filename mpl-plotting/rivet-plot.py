@@ -64,14 +64,17 @@ def rivet_plot(yaml_file):
     if plot_features.get('XCustomMajorTicks'):
         ax.set_xticks(plot_features.get('XCustomMajorTicks')[::2])
         ax.set_xticklabels(plot_features.get('XCustomMajorTicks')[1::2])
-        ax.xaxis.set_tick_params(which='minor', top=False, bottom=False)
+        ax.set_xticks([], minor=True)  # Turn off minor xticks
         if plot_features.get('RatioPlot'):
-            ax_ratio.xaxis.set_tick_params(which='minor', top=False,
-                                           bottom=False)
+            ax_ratio.set_xticks([], minor=True)
     if plot_features.get('YCustomMajorTicks'):
         ax.set_yticks(plot_features.get('YCustomMajorTicks')[::2])
         ax.set_yticklabels(plot_features.get('YCustomMajorTicks')[1::2])
-        ax.yaxis.set_tick_params(which='minor', left=False, right=False)
+        ax.set_yticks([], minor=True)  # Turn off minor yticks
+    if plot_features.get('XCustomMinorTicks'):
+        ax.set_xticks(plot_features.get('XCustomMinorTicks'), minor=True)
+    if plot_features.get('YCustomMinorTicks'):
+        ax.set_yticks(plot_features.get('YCustomMinorTicks'), minor=True)
 
     # Set plot lims
     XMin = plot_features.get('XMin', min([h.xMin() for h in histograms]))
@@ -110,7 +113,7 @@ def rivet_plot(yaml_file):
                       (mc.yVals() + mc_errplus), color)
 
     # Create ratio plot
-    if plot_features.get('RatioPlot'):  # TODO: Check if errorbar/errorbands
+    if plot_features.get('RatioPlot'):
         ax_ratio.yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.1))
         ax_ratio.set_ylabel(plot_features.get('RatioPlotYLabel', 'MC/Data'))
         RatioPlotYMin = plot_features.get('RatioPlotYMin', 0.5)

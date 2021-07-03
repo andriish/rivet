@@ -152,8 +152,8 @@ plot_features:
 #    XCustomMajorTicks: [0.01, 'a', 0.1, 'b', 1, 'c']
 #    YCustomMajorTicks: [0.001, 'e', 0.01, 'f', 0.1, 'g', 1, 'h']
     # 'ZCustomMajorTicks'=<list>
-    # 'XCustomMinorTicks'=<list>
-    # 'YCustomMinorTicks'=<list>
+#    XCustomMinorTicks: [1, 2, 3]
+#    YCustomMinorTicks: [.1, .2, .3]
     # 'ZCustomMinorTicks'=<list>
     # 'PlotXTickLabels'=<0|1>
     # 'RatioPlotTickLabels'=<0|1>
