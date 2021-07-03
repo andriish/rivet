@@ -48,7 +48,12 @@ def rivet_plot(yaml_file):
                                            gridspec_kw={'height_ratios': (2, 1)})
     else:
         fig, ax = plt.subplots(1, 1)
-    ax.set_xlabel(plot_features.get('XLabel'))
+
+    # Set text labels
+    if plot_features.get('RatioPlot'):
+        ax_ratio.set_xlabel(plot_features.get('XLabel'))
+    else:
+        ax.set_xlabel(plot_features.get('XLabel'))
     ax.set_ylabel(plot_features.get('YLabel'), loc='top')
     ax.set_title(plot_features.get('Title'), loc='left')
 
