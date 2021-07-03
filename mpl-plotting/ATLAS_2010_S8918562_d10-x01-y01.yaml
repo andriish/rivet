@@ -149,8 +149,8 @@ plot_features:
     # 'ZMinorTickMarks' = <nticks > 
     XTwosidedTicks: 1  # Default is 1
     YTwosidedTicks: 1  # Default is 1
-    # 'XCustomMajorTicks'=<list>
-    # 'YCustomMajorTicks'=<list>
+#    XCustomMajorTicks: [0.01, 'a', 0.1, 'b', 1, 'c']
+#    YCustomMajorTicks: [0.001, 'e', 0.01, 'f', 0.1, 'g', 1, 'h']
     # 'ZCustomMajorTicks'=<list>
     # 'XCustomMinorTicks'=<list>
     # 'YCustomMinorTicks'=<list>

@@ -52,13 +52,6 @@ def rivet_plot(yaml_file):
     ax.set_ylabel(plot_features.get('YLabel'), loc='top')
     ax.set_title(plot_features.get('Title'), loc='left')
 
-    XMin = plot_features.get('XMin', min([h.xMin() for h in histograms]))
-    XMax = plot_features.get('XMax', max([h.xMax() for h in histograms]))
-    ax.set_xlim(XMin, XMax)
-    YMin = plot_features.get('YMin', min([h.yMin() for h in histograms]))
-    YMax = plot_features.get('YMax', max([h.yMax() for h in histograms]))
-    ax.set_ylim(YMin, YMax)
-
     # Set log scale
     if plot_features.get('LogX'):
         ax.set_xscale('log')
@@ -66,6 +59,27 @@ def rivet_plot(yaml_file):
     if plot_features.get('LogY'):
         ax.set_yscale('log')
         ax.yaxis.set_major_locator(mpl.ticker.LogLocator(base=10.0))
+
+    # Add custom ticks
+    if plot_features.get('XCustomMajorTicks'):
+        ax.set_xticks(plot_features.get('XCustomMajorTicks')[::2])
+        ax.set_xticklabels(plot_features.get('XCustomMajorTicks')[1::2])
+        ax.xaxis.set_tick_params(which='minor', top=False, bottom=False)
+        if plot_features.get('RatioPlot'):
+            ax_ratio.xaxis.set_tick_params(which='minor', top=False,
+                                           bottom=False)
+    if plot_features.get('YCustomMajorTicks'):
+        ax.set_yticks(plot_features.get('YCustomMajorTicks')[::2])
+        ax.set_yticklabels(plot_features.get('YCustomMajorTicks')[1::2])
+        ax.yaxis.set_tick_params(which='minor', left=False, right=False)
+
+    # Set plot lims
+    XMin = plot_features.get('XMin', min([h.xMin() for h in histograms]))
+    XMax = plot_features.get('XMax', max([h.xMax() for h in histograms]))
+    ax.set_xlim(XMin, XMax)
+    YMin = plot_features.get('YMin', min([h.yMin() for h in histograms]))
+    YMax = plot_features.get('YMax', max([h.yMax() for h in histograms]))
+    ax.set_ylim(YMin, YMax)
 
     # Create useful variables
     colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
