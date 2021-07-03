@@ -87,14 +87,25 @@ def rivet_plot(yaml_file):
     XMin = plot_features.get('XMin', min([h.xMin() for h in histograms]))
     XMax = plot_features.get('XMax', max([h.xMax() for h in histograms]))
     ax.set_xlim(XMin, XMax)
-    # TODO: Check make-plot to determine default ymin and ymax, currently wrong
-    YMax = plot_features.get('YMax', max([h.yMax() for h in histograms]))
-    if plot_features.get('FullRange') or plot_features.get('ShowZero') == 0:
-        YMin = plot_features.get('YMin', min([h.yMin() for h in histograms]))
+
+    if plot_features.get('YMax') is not None:
+        YMax = plot_features.get('YMax')
     elif plot_features.get('LogY'):
-        YMin = plot_features.get('YMin', 2e-4*YMax)
+        YMax = 1.7*max([h.yMax() for h in histograms])
     else:
-        YMin = plot_features.get('YMin', 0)
+        YMax = 1.1*max([h.yMax() for h in histograms])
+
+    minymin = min([h.yMin() for h in histograms])
+    if plot_features.get('YMin') is not None:
+        YMin = plot_features.get('YMin')
+    elif plot_features.get('LogY'):
+        YMin = (minymin/1.7 if plot_features.get('FullRange')
+                else max(minymin/1.7, 2e-7*YMax))
+    elif plot_features.get('ShowZero'):
+        YMin = 0 if minymin > -1e-4 else 1.1*minymin
+    else:
+        YMin = (1.1*minymin if minymin < -1e-4 else 0 if minymin < 1e-4
+                else 0.9*minymin)
     ax.set_ylim(YMin, YMax)
 
     # Create useful variables
@@ -118,12 +129,12 @@ def rivet_plot(yaml_file):
         color = colors[i % len(colors)]
         y_mc = np.insert(mc.yVals(), 0, mc.yVals()[0])
         ax.plot(x_bins, y_mc, color, drawstyle='steps-pre',
-                solid_joinstyle='miter')
+                solid_joinstyle='miter', zorder=5+i)
         if plot_features.get('ErrorBars'):
             mc_errminus = [err[0] for err in mc.yErrs()]
             mc_errplus = [err[1] for err in mc.yErrs()]
             ax.vlines(x_points, (mc.yVals() - mc_errminus),
-                      (mc.yVals() + mc_errplus), color)
+                      (mc.yVals() + mc_errplus), color, zorder=5+i)
 
     # Create ratio plot
     if plot_features.get('RatioPlot'):
