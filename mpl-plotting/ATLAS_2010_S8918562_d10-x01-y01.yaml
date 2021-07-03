@@ -166,8 +166,8 @@ plot_features:
     YMax: 3
     # 'ZMin'=<value>
     # 'ZMax'=<value>
-    # 'FullRange'=<0|1>
-    # 'ShowZero'=<0|1>
+    FullRange: 1  # TODO: Should this override YMin?
+    ShowZero: 0 # This does the same as FullRange
     # 'NormalizeToIntegral'=<1|0>
     # 'NormalizeToSum'=<1|0>
     # 'Scale'=<factor>

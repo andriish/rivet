@@ -87,8 +87,14 @@ def rivet_plot(yaml_file):
     XMin = plot_features.get('XMin', min([h.xMin() for h in histograms]))
     XMax = plot_features.get('XMax', max([h.xMax() for h in histograms]))
     ax.set_xlim(XMin, XMax)
-    YMin = plot_features.get('YMin', min([h.yMin() for h in histograms]))
+    # TODO: Check make-plot to determine default ymin and ymax, currently wrong
     YMax = plot_features.get('YMax', max([h.yMax() for h in histograms]))
+    if plot_features.get('FullRange') or plot_features.get('ShowZero') == 0:
+        YMin = plot_features.get('YMin', min([h.yMin() for h in histograms]))
+    elif plot_features.get('LogY'):
+        YMin = plot_features.get('YMin', 2e-4*YMax)
+    else:
+        YMin = plot_features.get('YMin', 0)
     ax.set_ylim(YMin, YMax)
 
     # Create useful variables
