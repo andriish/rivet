@@ -80,6 +80,8 @@ def rivet_plot(yaml_file):
         ax.set_xticks(plot_features.get('XCustomMinorTicks'), minor=True)
     if plot_features.get('YCustomMinorTicks'):
         ax.set_yticks(plot_features.get('YCustomMinorTicks'), minor=True)
+    if plot_features.get('PlotXTickLabels') == 0:
+        ax.set_xticklabels([])
 
     # Set plot lims
     XMin = plot_features.get('XMin', min([h.xMin() for h in histograms]))
