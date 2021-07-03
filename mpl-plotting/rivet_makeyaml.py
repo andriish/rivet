@@ -1,26 +1,12 @@
 from __future__ import print_function
 import rivet, yoda
 import os, glob, io
-import yamlparser 
-# TODO: move all yaml-related things to a yamlio.py file so that if parser needs to be changed, it is only in that file?
-from ruamel import yaml
+import yamlio 
 
 # TODO: add more descriptive docstrings to all functions.
 
 # TODO: remove these variables once the names have been properly decided
 histogram_str_name = 'flat'
-
-
-# This class, function and call to add_representer makes it so that all objects with type literal will be printed to a .yaml file as a string block. 
-class literal(str):
-    """A small wrapper class used to print histograms as multiline strings in a .yaml file."""
-    pass
-
-def literal_presenter(dumper, data):
-    return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
-
-yaml.add_representer(literal, literal_presenter)
-
 
 def sanitiseString(s):
     s = s.replace('#','\\#')
@@ -200,7 +186,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
         Correctly formatted dictionary that can be passed to `yaml.dump` to write to an output file.
     """
     outputdict = {}
-    plot_configs = yamlparser.get_plot_configs(plot_id, plotdirs=plotdirs, config_files=config_files),
+    plot_configs = yamlio.get_plot_configs(plot_id, plotdirs=plotdirs, config_files=config_files),
     if plot_configs:
         outputdict['rivet'] = plot_configs
     if plot_features_dict:
@@ -215,7 +201,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     if plot_id in refhistos:
         with io.StringIO() as filelike_str:
             yoda.writeFLAT(refhistos[plot_id], filelike_str)
-            outputdict['histograms'][reftitle] = {histogram_str_name: literal(filelike_str.getvalue())}
+            outputdict['histograms'][reftitle] = {histogram_str_name: yamlio.literal(filelike_str.getvalue())}
             # TODO: add plot options here as well?
             #   If so, refactor so that same function is applied to refhistos and mchistos
 
@@ -230,7 +216,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
             with io.StringIO() as filelike_str:
                 yoda.writeFLAT(histogram, filelike_str)
                 # TODO: Check with rivet-cmphistos that the name change is correct
-                outputdict['histograms'][filename][histogram_str_name] = literal(filelike_str.getvalue())
+                outputdict['histograms'][filename][histogram_str_name] = yamlio.literal(filelike_str.getvalue())
     return outputdict
 
 
@@ -245,22 +231,6 @@ def mkoutdir(outdir):
     if not os.access(outdir, os.W_OK):
         msg = "Can't write to output directory '%s'" % outdir
         raise Exception(msg)
-
-
-def _write_output(output, h, hier_output, outdir):
-    "Choose output file name and dir"
-    if hier_output:
-        hparts = h.strip("/").split("/", 1)
-        ana = "_".join(hparts[:-1]) if len(hparts) > 1 else "ANALYSIS"
-        outdir = os.path.join(outdir, ana)
-        outfile = '%s.yaml' % hparts[-1].replace("/", "_")
-    else:
-        hparts = h.strip("/").split("/")
-        outfile = '%s.yaml' % "_".join(hparts)
-    mkoutdir(outdir)
-    outfilepath = os.path.join(outdir, outfile)
-    with open(outfilepath, 'w') as yaml_file:
-        yaml.dump(output, yaml_file, indent=4,  default_flow_style=False)
 
         
 def make_yamlfiles(args, path_pwd=True, reftitle='Data', 
@@ -374,8 +344,8 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     for plot_id in hpaths:
         outputdict = _make_output(plot_id, plotdirs, config_files, 
                                   mchistos, refhistos, reftitle, 
-                                  plotoptions, style, rc_params, plot_features_dict
+                                  plotoptions, style, rc_params, plot_features_dict # TODO: implement this
                                   )
         
         ## Make the output and write to file
-        _write_output(outputdict, plot_id, hier_output=hier_output, outdir=outdir)
+        yamlio.write_output(outputdict, plot_id, hier_output=hier_output, outdir=outdir)

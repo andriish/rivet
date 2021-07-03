@@ -8,6 +8,16 @@ name_key = 'name'
 plot_setting_key = 'rivet'
 file_extension = '.plot'
 
+# This class, function and call to add_representer makes it so that all objects with type literal will be printed to a .yaml file as a string block. 
+class literal(str):
+    """A small wrapper class used to print histograms as multiline strings in a .yaml file."""
+    pass
+
+def literal_presenter(dumper, data):
+    return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
+
+yaml.add_representer(literal, literal_presenter)
+
 
 def _get_matching_plot_configs_from_file(hpath, plotfilepath): # TODO: better variable names
     """Open plotfilepath, which is a .plot file with yaml syntax, parse it and get the settings with the hpath ID.
@@ -64,6 +74,23 @@ def get_plot_configs(hpath, plotdirs=[], config_files=[]):
         plot_configs.update(plotfile_configs)
         
     return plot_configs
+
+
+def write_output(output, h, hier_output, outdir):
+    "Choose output file name and dir"
+    if hier_output:
+        hparts = h.strip("/").split("/", 1)
+        ana = "_".join(hparts[:-1]) if len(hparts) > 1 else "ANALYSIS"
+        outdir = os.path.join(outdir, ana)
+        outfile = '%s.yaml' % hparts[-1].replace("/", "_")
+    else:
+        hparts = h.strip("/").split("/")
+        outfile = '%s.yaml' % "_".join(hparts)
+    mkoutdir(outdir)
+    outfilepath = os.path.join(outdir, outfile)
+    with open(outfilepath, 'w') as yaml_file:
+        yaml.dump(output, yaml_file, indent=4,  default_flow_style=False)
+
 
 # Test code
 if __name__ == '__main__':
