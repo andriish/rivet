@@ -138,17 +138,17 @@ plot_features:
     XLabel: '$p_\perp$ [GeV]'
     YLabel: '$1/N_\mathrm{ev} \, $1$/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\mathrm{d}p_\perp$'
     # 'ZLabel' = '...'
-    # 'XLabelSep' = <distance >
-    # 'YLabelSep' = <distance >
+    # 'XLabelSep' = <distance >  # alt: ax.xaxis.labelpad
+    # 'YLabelSep' = <distance >  # alt: ax.yaxis.labelpad
     # 'ZLabelSep' = <distance >
-    # 'XMajorTickMarks' = <last_digit > 
+    # 'XMajorTickMarks' = <last_digit >  # 1, 2, 5, 10
     # 'YMajorTickMarks' = <last_digit > 
     # 'ZMajorTickMarks' = <last_digit > 
     # 'XMinorTickMarks' = <nticks > 
     # 'YMinorTickMarks' = <nticks > 
     # 'ZMinorTickMarks' = <nticks > 
-    # 'XTwosidedTicks'=<0|1>
-    # 'YTwosidedTicks'=<0|1>
+    XTwosidedTicks: 1  # Default is 1
+    YTwosidedTicks: 1  # Default is 1
     # 'XCustomMajorTicks'=<list>
     # 'YCustomMajorTicks'=<list>
     # 'ZCustomMajorTicks'=<list>

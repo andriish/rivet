@@ -40,6 +40,9 @@ def rivet_plot(yaml_file):
     histograms = parse_yoda_hist(yaml_dicts)
     plot_features = yaml_dicts['plot_features']
 
+    plt.rcParams['xtick.top'] = plot_features.get('XTwosidedTicks', True)
+    plt.rcParams['ytick.right'] = plot_features.get('YTwosidedTicks', True)
+
     if plot_features.get('RatioPlot'):
         fig, (ax, ax_ratio) = plt.subplots(2, 1, sharex=True,
                                            gridspec_kw={'height_ratios': (2, 1)})
