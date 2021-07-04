@@ -5,6 +5,7 @@ Experiment: ZEUS
 Collider: HERA
 InspireID: 420332
 Status: VALIDATED
+Reentrant: true
 Authors:  
 - Hannes Jung <hannes.jung@desy.de>
 References: 
