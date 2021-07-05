@@ -5,6 +5,7 @@ Experiment: H1
 Collider: <Insert the collider name>
 InspireID: 1377206
 Status: VALIDATED
+Reentrant: true
 Authors: 
  - Hannes Jung (DESY) <hannes.jung@desy.de> 
  - Tymoteusz Strozniak <tymoteusz.strozniak@desy.de>
