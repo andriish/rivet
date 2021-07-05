@@ -144,8 +144,8 @@ plot_features:
 #    XMajorTickMarks: 2
 #    YMajorTickMarks: 10
     # 'ZMajorTickMarks' = <last_digit > 
-    # 'XMinorTickMarks' = <nticks > 
-    # 'YMinorTickMarks' = <nticks > 
+#    XMinorTickMarks: 5
+#    YMinorTickMarks: 5
     # 'ZMinorTickMarks' = <nticks > 
     XTwosidedTicks: 1  # Default is 1
     YTwosidedTicks: 1  # Default is 1

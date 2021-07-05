@@ -100,6 +100,13 @@ def rivet_plot(yaml_file):
         base = plot_features.get('YMajorTickMarks')*10**(int(np.log10(YMax))-1)
         ax.yaxis.set_major_locator(mpl.ticker.MultipleLocator(base))
 
+    if plot_features.get('XMinorTickMarks') is not None and not plot_features.get('LogX'):
+        ax.xaxis.set_minor_locator(mpl.ticker.AutoMinorLocator(
+            1+plot_features.get('XMinorTickMarks')))
+    if plot_features.get('YMinorTickMarks') is not None and not plot_features.get('LogY'):
+        ax.yaxis.set_minor_locator(mpl.ticker.AutoMinorLocator(
+            1+plot_features.get('YMinorTickMarks')))
+
     # Add custom ticks
     if plot_features.get('XCustomMajorTicks') is not None:
         ax.set_xticks(plot_features.get('XCustomMajorTicks')[::2])
