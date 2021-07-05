@@ -182,7 +182,7 @@ plot_features:
     # 'CustomLegend'=<text>
 #    LegendXPos: 0.5
 #    LegendYPos: 0.5
-    # 'LegendAlign'=<align>
+#    LegendAlign: l
     # 'LegendOnly'=<list>
     # 'DrawOnly'=<list>
     # 'Stack'=<list>

@@ -181,10 +181,16 @@ def rivet_plot(yaml_file):
             color = colors[i % len(colors)]
             handles.append(mpl.lines.Line2D([], [], color=color))
             labels.append('mc{}'.format(i+1))
-        legend_pos = (plot_features.get('LegendXPos', 0.5), 
-                      plot_features.get('LegendYPos', 0.97))
-        ax.legend(handles, labels, loc='upper left', bbox_to_anchor=legend_pos,
-                  handler_map={AnyObject: AnyObjectHandler()})
+        if plot_features.get('LegendAlign') is None or plot_features.get('LegendAlign') == 'l':
+            legend_pos = (plot_features.get('LegendXPos', 0.5),
+                          plot_features.get('LegendYPos', 0.97))
+            ax.legend(handles, labels, loc='upper left', bbox_to_anchor=legend_pos,
+                      handler_map={AnyObject: AnyObjectHandler()})
+        if plot_features.get('LegendAlign') == 'r':
+            legend_pos = (plot_features.get('LegendXPos', 0.97),
+                          plot_features.get('LegendYPos', 0.97))
+            ax.legend(handles, labels, loc='upper right', bbox_to_anchor=legend_pos,
+                      handler_map={AnyObject: AnyObjectHandler()}, markerfirst=False)
 
     plt.savefig(os.path.join(sys.path[0], 'mpl_d10-x01-y01.pdf'), dpi=500)
 
