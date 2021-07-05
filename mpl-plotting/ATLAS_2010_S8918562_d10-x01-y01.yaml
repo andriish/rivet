@@ -180,8 +180,8 @@ plot_features:
     # 'FrameColor'=<color>
     Legend: 1
     # 'CustomLegend'=<text>
-    # 'LegendXPos'=<pos>
-    # 'LegendYPos'=<pos>
+#    LegendXPos: 0.5
+#    LegendYPos: 0.5
     # 'LegendAlign'=<align>
     # 'LegendOnly'=<list>
     # 'DrawOnly'=<list>
