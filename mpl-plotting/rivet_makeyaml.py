@@ -51,6 +51,7 @@ def _parse_args(args):
     Some matplotlib line styles contain ':', which would not work with current code. TODO:  change delimiter?
     """
     # TODO: remove filenames since they exist as keys in plotoptions?
+    # TODO: Modify so that parts of it can be used for plot_features, style etc. 
     filelist = []
     filenames = []
     plotoptions = {}
@@ -80,6 +81,26 @@ def _parse_args(args):
         if path != "PLOT" and not has_title:
             plotoptions[has_name if has_name != "" else path]['Title'] = sanitiseString(os.path.basename( os.path.splitext(path)[0] ))
     return filelist, filenames, plotoptions
+
+
+def _preprocess_plot_features(plot_features):
+    """Create a dict from the plote_features string
+
+    Parameters
+    ----------
+    plot_features : str
+        Input string, originally from the command line.
+        Can either be a .yaml file or a key=value:key2=value2... string or a combination, i.e., file.yaml:key=value...
+    
+    Returns
+    -------
+    plot_features_dict : dict
+        Dict based on the input yaml file name or the string.
+    """
+
+    plot_features_dict = _parse_args(plot_features)
+
+    return plot_features_dict
 
 
 def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns):
@@ -154,8 +175,7 @@ def _get_rivet_ref_data(anas, path_patterns, path_unpatterns):
 
 
 def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle, plotoptions,
-                 style, rc_params, plot_features_dict
-                ):
+                 style, rc_params, plot_features_dict):
     """Create output dictionary for the plot_id.
     
     Parameters
@@ -192,7 +212,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     if plot_features_dict:
         outputdict['plot features'] = plot_features_dict
     if style:
-        outputdict['style'] = style # TODO: preprocess this one (not inside this function though) if input is a file name
+        outputdict['style'] = style
     if rc_params:
         outputdict['rcParams'] = rc_params
 
@@ -232,7 +252,7 @@ def mkoutdir(outdir):
         msg = "Can't write to output directory '%s'" % outdir
         raise Exception(msg)
 
-        
+
 def make_yamlfiles(args, path_pwd=True, reftitle='Data', 
                    rivetrefs=True, path_patterns=(), 
                    path_unpatterns=(), plotinfodirs=[], 
@@ -263,7 +283,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     TODO: path_patterns, path_unpatterns have probably not been implemented yet.
     plotinfodirs : list[str]
         Directory which may contain plot header information (in addition to standard Rivet search paths).
-    style : str TODO
+    style : str
         Set the style of all plots. 
         Either a .yaml file name or a name of a builtin style (e.g. 'default')
     plot_features : str TODO
@@ -290,6 +310,8 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     IOError
         If the program does not have read access to .plot or .yoda files, or if it cannot write the output .yaml files.
     """
+    plot_features_dict = _preprocess_plot_features(plot_features)
+
     # Code from rivet-cmphistos >>> 
     # TODO: clean and refactor rivet-cmphistos code
 

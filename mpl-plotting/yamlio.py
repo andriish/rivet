@@ -5,7 +5,7 @@ import rivet
 
 # TODO: remove these variables once the names have been properly decided
 name_key = 'name'
-plot_setting_key = 'rivet'
+plot_setting_key = 'plot features'
 file_extension = '.plot'
 
 # This class, function and call to add_representer makes it so that all objects with type literal will be printed to a .yaml file as a string block. 
