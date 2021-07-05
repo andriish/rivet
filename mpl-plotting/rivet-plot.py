@@ -29,7 +29,7 @@ def parse_yoda_hist(yaml_dicts):
 
 
 def rivet_plot(yaml_file):
-    """Create plot from yaml file dictionaries. 
+    """Create plot from yaml file dictionaries.
 
     The yaml file contains rcParams for mpl, histogram data, and plot styles.
     """
@@ -57,34 +57,6 @@ def rivet_plot(yaml_file):
     ax.set_ylabel(plot_features.get('YLabel'), loc='top')
     ax.set_title(plot_features.get('Title'), loc='left')
 
-    # Set log scale
-    if plot_features.get('LogX'):
-        ax.set_xscale('log')
-        ax.xaxis.set_major_locator(mpl.ticker.LogLocator(numticks=np.inf))
-    if plot_features.get('LogY'):
-        ax.set_yscale('log')
-        ax.yaxis.set_major_locator(mpl.ticker.LogLocator(numticks=np.inf))
-        ax.yaxis.set_minor_locator(mpl.ticker.LogLocator(
-            base=10.0, subs=[i for i in np.arange(0, 1, 0.1)], numticks=np.inf))
-
-    # Add custom ticks
-    if plot_features.get('XCustomMajorTicks'):
-        ax.set_xticks(plot_features.get('XCustomMajorTicks')[::2])
-        ax.set_xticklabels(plot_features.get('XCustomMajorTicks')[1::2])
-        ax.set_xticks([], minor=True)  # Turn off minor xticks
-        if plot_features.get('RatioPlot'):
-            ax_ratio.set_xticks([], minor=True)
-    if plot_features.get('YCustomMajorTicks'):
-        ax.set_yticks(plot_features.get('YCustomMajorTicks')[::2])
-        ax.set_yticklabels(plot_features.get('YCustomMajorTicks')[1::2])
-        ax.set_yticks([], minor=True)  # Turn off minor yticks
-    if plot_features.get('XCustomMinorTicks'):
-        ax.set_xticks(plot_features.get('XCustomMinorTicks'), minor=True)
-    if plot_features.get('YCustomMinorTicks'):
-        ax.set_yticks(plot_features.get('YCustomMinorTicks'), minor=True)
-    if plot_features.get('PlotXTickLabels') == 0:
-        ax.set_xticklabels([])
-
     # Set plot lims
     XMin = plot_features.get('XMin', min([h.xMin() for h in histograms]))
     XMax = plot_features.get('XMax', max([h.xMax() for h in histograms]))
@@ -109,6 +81,42 @@ def rivet_plot(yaml_file):
         YMin = (1.1*minymin if minymin < -1e-4 else 0 if minymin < 1e-4
                 else 0.9*minymin)
     ax.set_ylim(YMin, YMax)
+
+    # Set log scale
+    if plot_features.get('LogX'):
+        ax.set_xscale('log')
+        ax.xaxis.set_major_locator(mpl.ticker.LogLocator(numticks=np.inf))
+    if plot_features.get('LogY'):
+        ax.set_yscale('log')
+        ax.yaxis.set_major_locator(mpl.ticker.LogLocator(numticks=np.inf))
+        ax.yaxis.set_minor_locator(mpl.ticker.LogLocator(
+            base=10.0, subs=[i for i in np.arange(0, 1, 0.1)], numticks=np.inf))
+
+    # Set tick marks frequency
+    if plot_features.get('XMajorTickMarks') is not None and not plot_features.get('LogX'):
+        base = plot_features.get('XMajorTickMarks')*10**(int(np.log10(XMax))-1)
+        ax.xaxis.set_major_locator(mpl.ticker.MultipleLocator(base))
+    if plot_features.get('YMajorTickMarks') is not None and not plot_features.get('LogY'):
+        base = plot_features.get('YMajorTickMarks')*10**(int(np.log10(YMax))-1)
+        ax.yaxis.set_major_locator(mpl.ticker.MultipleLocator(base))
+
+    # Add custom ticks
+    if plot_features.get('XCustomMajorTicks') is not None:
+        ax.set_xticks(plot_features.get('XCustomMajorTicks')[::2])
+        ax.set_xticklabels(plot_features.get('XCustomMajorTicks')[1::2])
+        ax.set_xticks([], minor=True)  # Turn off minor xticks
+        if plot_features.get('RatioPlot'):
+            ax_ratio.set_xticks([], minor=True)
+    if plot_features.get('YCustomMajorTicks') is not None:
+        ax.set_yticks(plot_features.get('YCustomMajorTicks')[::2])
+        ax.set_yticklabels(plot_features.get('YCustomMajorTicks')[1::2])
+        ax.set_yticks([], minor=True)  # Turn off minor yticks
+    if plot_features.get('XCustomMinorTicks') is not None:
+        ax.set_xticks(plot_features.get('XCustomMinorTicks'), minor=True)
+    if plot_features.get('YCustomMinorTicks') is not None:
+        ax.set_yticks(plot_features.get('YCustomMinorTicks'), minor=True)
+    if plot_features.get('PlotXTickLabels') == 0:
+        ax.set_xticklabels([])
 
     # Create useful variables
     colors = plt.rcParams['axes.prop_cycle'].by_key()['color']

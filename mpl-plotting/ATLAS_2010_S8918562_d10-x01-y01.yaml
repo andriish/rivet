@@ -141,8 +141,8 @@ plot_features:
     # 'XLabelSep' = <distance >  # alt: ax.xaxis.labelpad
     # 'YLabelSep' = <distance >  # alt: ax.yaxis.labelpad
     # 'ZLabelSep' = <distance >
-    # 'XMajorTickMarks' = <last_digit >  # 1, 2, 5, 10
-    # 'YMajorTickMarks' = <last_digit > 
+#    XMajorTickMarks: 2
+#    YMajorTickMarks: 10
     # 'ZMajorTickMarks' = <last_digit > 
     # 'XMinorTickMarks' = <nticks > 
     # 'YMinorTickMarks' = <nticks > 
