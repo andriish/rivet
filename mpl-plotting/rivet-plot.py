@@ -60,10 +60,12 @@ def rivet_plot(yaml_file):
     # Set log scale
     if plot_features.get('LogX'):
         ax.set_xscale('log')
-        ax.xaxis.set_major_locator(mpl.ticker.LogLocator(base=10.0))
+        ax.xaxis.set_major_locator(mpl.ticker.LogLocator(numticks=np.inf))
     if plot_features.get('LogY'):
         ax.set_yscale('log')
-        ax.yaxis.set_major_locator(mpl.ticker.LogLocator(base=10.0))
+        ax.yaxis.set_major_locator(mpl.ticker.LogLocator(numticks=np.inf))
+        ax.yaxis.set_minor_locator(mpl.ticker.LogLocator(
+            base=10.0, subs=[i for i in np.arange(0, 1, 0.1)], numticks=np.inf))
 
     # Add custom ticks
     if plot_features.get('XCustomMajorTicks'):
