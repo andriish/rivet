@@ -2,6 +2,7 @@ from __future__ import print_function
 import rivet, yoda
 import os, glob, io
 import yamlio 
+import constants
 
 # TODO: add more descriptive docstrings to all functions.
 
@@ -51,7 +52,6 @@ def _parse_args(args):
     Some matplotlib line styles contain ':', which would not work with current code. TODO:  change delimiter?
     """
     # TODO: remove filenames since they exist as keys in plotoptions?
-    # TODO: Modify so that parts of it can be used for plot_features, style etc. 
     filelist = []
     filenames = []
     plotoptions = {}
@@ -83,24 +83,16 @@ def _parse_args(args):
     return filelist, filenames, plotoptions
 
 
-def _preprocess_plot_features(plot_features):
-    """Create a dict from the plote_features string
+def _preprocess_rcparams(rc_params):
+    """Create a dictionary from the string input
 
     Parameters
     ----------
-    plot_features : str
-        Input string, originally from the command line.
-        Can either be a .yaml file or a key=value:key2=value2... string or a combination, i.e., file.yaml:key=value...
-    
-    Returns
-    -------
-    plot_features_dict : dict
-        Dict based on the input yaml file name or the string.
+    rc_params : str
+        String of the format key=value:key2=value2..., similar to the format of args.
+    TODO: refactor so that code in _parse_args can be used here?
     """
-
-    plot_features_dict = _parse_args(plot_features)
-
-    return plot_features_dict
+    return {key_val.split('=', 1)[0]: key_val.split('=', 1)[1] for key_val in rc_params.split(':')}
 
 
 def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns):
@@ -195,9 +187,9 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     plotoptions : dict[str, dict[str, str]]
 
     style : str
-        See the `make_yamlfiles` function.
+        TODO
     rc_params : dict[str, str]
-        See the `make_yamlfiles` function.
+        TODO
     plot_features_dict : dict[str, str]
         All parameters that will be added to the "plot features" section of the .yaml file.
     Returns
@@ -207,14 +199,10 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     """
     outputdict = {}
     plot_configs = yamlio.get_plot_configs(plot_id, plotdirs=plotdirs, config_files=config_files),
-    if plot_configs:
-        outputdict['rivet'] = plot_configs
-    if plot_features_dict:
-        outputdict['plot features'] = plot_features_dict
-    if style:
-        outputdict['style'] = style
-    if rc_params:
-        outputdict['rcParams'] = rc_params
+    outputdict[constants.plot_setting_key] = plot_configs
+    outputdict[constants.plot_setting_key].update(plotoptions.get('PLOT', {}))
+    outputdict['style'] = style
+    outputdict['rcParams'] = rc_params
 
     # TODO: Will there ever be preexisting histograms?
     outputdict['histograms'] = {}
@@ -222,8 +210,6 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
         with io.StringIO() as filelike_str:
             yoda.writeFLAT(refhistos[plot_id], filelike_str)
             outputdict['histograms'][reftitle] = {histogram_str_name: yamlio.literal(filelike_str.getvalue())}
-            # TODO: add plot options here as well?
-            #   If so, refactor so that same function is applied to refhistos and mchistos
 
     for filename, mchistos_in_file in mchistos.items():
         outputdict['histograms'][filename] = {}
@@ -231,34 +217,28 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
         for histogram in mchistos_in_file[plot_id].values():
             # TODO: Probably exists a more efficient way of doing this. Just looping over all settings maybe.
             outputdict['histograms'][filename].update(plotoptions.get(filename, {}))
-            outputdict['histograms'][filename].update(plotoptions.get('PLOT', {}))
 
             with io.StringIO() as filelike_str:
                 yoda.writeFLAT(histogram, filelike_str)
                 # TODO: Check with rivet-cmphistos that the name change is correct
                 outputdict['histograms'][filename][histogram_str_name] = yamlio.literal(filelike_str.getvalue())
+    
+    # Remove all sections of the output_dict that do not contain any information.
+    # A list of keys is first created. Otherwise, it will raise an error since the size of the dict changes.
+    dict_keys = list(outputdict.keys())
+    for key in dict_keys:
+        if not outputdict[key]:
+            del outputdict[key]
+
     return outputdict
-
-
-def mkoutdir(outdir):
-    """Function to make output directories"""
-    if not os.path.exists(outdir):
-        try:
-            os.makedirs(outdir)
-        except:
-            msg = "Can't make output directory '%s'" % outdir
-            raise Exception(msg)
-    if not os.access(outdir, os.W_OK):
-        msg = "Can't write to output directory '%s'" % outdir
-        raise Exception(msg)
 
 
 def make_yamlfiles(args, path_pwd=True, reftitle='Data', 
                    rivetrefs=True, path_patterns=(), 
                    path_unpatterns=(), plotinfodirs=[], 
-                   style='default', plot_features='',
-                   config_files=[], hier_output=False, outdir='.',
-                   rivetplotpaths=True, rc_params={}
+                   style='default', config_files=[], 
+                   hier_output=False, outdir='.',
+                   rivetplotpaths=True, rc_params=''
                   ):
     """Create .yaml files that can be parsed by rivet-make-plot
     Each output .yaml file corresponds to one analysis which contains all MC histograms and a reference data histogram.
@@ -268,7 +248,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     ----------
     args : Iterable[str]
         Non-keyword arguments that were previously passed to rivet-cmphistos. 
-        E.g., ['mc1.yoda', 'mc2.yoda:Title=example title'] 
+        E.g., ['mc1.yoda', 'mc2.yoda:Title=example title', 'PLOT:LogX=1'] 
     path_pwd : bool
         Search for plot files and reference data files in current directory.
     reftitle : str
@@ -286,9 +266,6 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     style : str
         Set the style of all plots. 
         Either a .yaml file name or a name of a builtin style (e.g. 'default')
-    plot_features : str TODO
-        Settings that will be included in the "plot features" section of the YAML file.
-        The string has the format "key=value:key2=value2"..., i.e., a similar format as the strings in args.
     config_files : list[str]
         Additional plot config file(s). 
         Settings will be included in the output configuration. 
@@ -299,8 +276,9 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
         Write yaml files into this directory.
     rivetplotpaths : bool
         Search for .plot files in the standard Rivet plot paths.
-    rc_params : dict[str, str] TODO: Implement. Maybe this should be a file name or key=value str instead?
-        Additional rc params added to all output .yaml files. 
+    rc_params : str
+        Additional rc params added to all output .yaml files. Format is key=value:key2=value2...
+        TODO: make this a part of style instead?
     Returns
     -------
     None
@@ -310,8 +288,8 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     IOError
         If the program does not have read access to .plot or .yoda files, or if it cannot write the output .yaml files.
     """
-    plot_features_dict = _preprocess_plot_features(plot_features)
-
+    rc_params_dict = _preprocess_rcparams(rc_params)
+    style = _preprocess_style()
     # Code from rivet-cmphistos >>> 
     # TODO: clean and refactor rivet-cmphistos code
 
@@ -366,7 +344,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     for plot_id in hpaths:
         outputdict = _make_output(plot_id, plotdirs, config_files, 
                                   mchistos, refhistos, reftitle, 
-                                  plotoptions, style, rc_params, plot_features_dict # TODO: implement this
+                                  plotoptions, style, rc_params_dict, plot_features_dict # TODO: implement this
                                   )
         
         ## Make the output and write to file

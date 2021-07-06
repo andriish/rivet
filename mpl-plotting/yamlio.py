@@ -2,11 +2,8 @@ from __future__ import print_function
 import os, re
 from ruamel import yaml
 import rivet
+import constants
 
-# TODO: remove these variables once the names have been properly decided
-name_key = 'name'
-plot_setting_key = 'plot features'
-file_extension = '.plot'
 
 # This class, function and call to add_representer makes it so that all objects with type literal will be printed to a .yaml file as a string block. 
 class literal(str):
@@ -29,8 +26,8 @@ def _get_matching_plot_configs_from_file(hpath, plotfilepath): # TODO: better va
     # TODO: do some preprocessing (or processing at the same time) with variables.
     with open(plotfilepath, 'r') as plot_config_file:
         for configs in yaml.safe_load_all(plot_config_file):
-            if hpath == configs[name_key]:   # TODO: change to regex later
-                plot_configs.update(configs[plot_setting_key])
+            if hpath == configs[constants.name_key]:   # TODO: change to regex later
+                plot_configs.update(configs[constants.plot_setting_key])
     return plot_configs
 
 
@@ -65,7 +62,7 @@ def get_plot_configs(hpath, plotdirs=[], config_files=[]):
 
     plot_configs = {}
     for plotdir in plotdirs:
-        plotfilepath = os.path.join(plotdir, id_parts[0] + file_extension)
+        plotfilepath = os.path.join(plotdir, id_parts[0] + constants.file_extension)
         plotfile_configs = _get_matching_plot_configs_from_file(hpath, plotfilepath)   # TODO: Can I pass hpath here or will that cause problems with /REF?
         plot_configs.update(plotfile_configs)
         
@@ -74,6 +71,19 @@ def get_plot_configs(hpath, plotdirs=[], config_files=[]):
         plot_configs.update(plotfile_configs)
         
     return plot_configs
+
+
+def _mkoutdir(outdir):
+    """Function to make output directories"""
+    if not os.path.exists(outdir):
+        try:
+            os.makedirs(outdir)
+        except:
+            msg = "Can't make output directory '%s'" % outdir
+            raise Exception(msg)
+    if not os.access(outdir, os.W_OK):
+        msg = "Can't write to output directory '%s'" % outdir
+        raise Exception(msg)
 
 
 def write_output(output, h, hier_output, outdir):
@@ -86,7 +96,7 @@ def write_output(output, h, hier_output, outdir):
     else:
         hparts = h.strip("/").split("/")
         outfile = '%s.yaml' % "_".join(hparts)
-    mkoutdir(outdir)
+    _mkoutdir(outdir)
     outfilepath = os.path.join(outdir, outfile)
     with open(outfilepath, 'w') as yaml_file:
         yaml.dump(output, yaml_file, indent=4,  default_flow_style=False)
