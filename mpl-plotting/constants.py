@@ -4,3 +4,5 @@ plot_setting_key = 'plot features'
 file_extension = '.plot'
 rcParam_key = 'rcParams'
 style_key = 'style'
+histogram_str_name = 'flat'
+

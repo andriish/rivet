@@ -6,9 +6,6 @@ import constants
 
 # TODO: add more descriptive docstrings to all functions.
 
-# TODO: remove these variables once the names have been properly decided
-histogram_str_name = 'flat'
-
 def sanitiseString(s):
     s = s.replace('#','\\#')
     s = s.replace('%','\\%')
@@ -213,7 +210,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     if plot_id in refhistos:
         with io.StringIO() as filelike_str:
             yoda.writeFLAT(refhistos[plot_id], filelike_str)
-            outputdict['histograms'][reftitle] = {histogram_str_name: yamlio.literal(filelike_str.getvalue())}
+            outputdict['histograms'][reftitle] = {constants.histogram_str_name: yamlio.literal(filelike_str.getvalue())}
 
     for filename, mchistos_in_file in mchistos.items():
         outputdict['histograms'][filename] = {}
@@ -225,7 +222,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
             with io.StringIO() as filelike_str:
                 yoda.writeFLAT(histogram, filelike_str)
                 # TODO: Check with rivet-cmphistos that the name change is correct
-                outputdict['histograms'][filename][histogram_str_name] = yamlio.literal(filelike_str.getvalue())
+                outputdict['histograms'][filename][constants.histogram_str_name] = yamlio.literal(filelike_str.getvalue())
     
     # Remove all sections of the output_dict that do not contain any information.
     # A list of keys is first created. Otherwise, it will raise an error since the size of the dict changes.
@@ -264,7 +261,6 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
         The argument may also be a text file.
     path_unpatterns : Iterable[str]
         Exclude histograms whose $path/$name string matches these regexes
-    TODO: path_patterns, path_unpatterns have probably not been implemented yet.
     plotinfodirs : list[str]
         Directory which may contain plot header information (in addition to standard Rivet search paths).
     style : str
