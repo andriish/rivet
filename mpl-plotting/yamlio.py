@@ -102,6 +102,30 @@ def write_output(output, h, hier_output, outdir):
         yaml.dump(output, yaml_file, indent=4,  default_flow_style=False)
 
 
+def read_yamlfile(filename):
+    """Read a .yaml file with a single section inside it (i.e., no multiple sections).
+
+    Parameters
+    ----------
+    filename : 
+        Name of yaml file.
+    
+    Returns
+    -------
+    content : Any
+        Content of the yaml file.
+
+    Note
+    ----
+    This is a thin wrapper around the yaml backend. 
+    This function exists so that the yaml-reading backend can be switched (e.g., if one backend does not support python 2).
+    This function might therefore be removed in the future.
+    """
+    with open(filename) as file:
+        content = yaml.safe_load(file)
+    return content
+    
+
 # Test code
 if __name__ == '__main__':
     # TODO: plotdirs will be changed to rivet.getAnalysisPlotPaths() once .plot files have been put there
