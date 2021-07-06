@@ -2,3 +2,5 @@
 name_key = 'name'
 plot_setting_key = 'plot features'
 file_extension = '.plot'
+rcParam_key = 'rcParams'
+style_key = 'style'

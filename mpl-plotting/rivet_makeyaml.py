@@ -91,9 +91,11 @@ def _preprocess_rcparams(rc_params):
     rc_params : str
         String of the format key=value:key2=value2..., similar to the format of args.
     TODO: refactor so that code in _parse_args can be used here?
+    Returns
+    -------
     """
     return {key_val.split('=', 1)[0]: key_val.split('=', 1)[1] for key_val in rc_params.split(':')}
-
+    
 
 def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns):
     """Loop over all input files. Only use the first occurrence of any REF-histogram
@@ -167,7 +169,7 @@ def _get_rivet_ref_data(anas, path_patterns, path_unpatterns):
 
 
 def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle, plotoptions,
-                 style, rc_params, plot_features_dict):
+                 style, rc_params):
     """Create output dictionary for the plot_id.
     
     Parameters
@@ -186,12 +188,11 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
         Dictionary of the reference analysis data YODA histograms.    
     plotoptions : dict[str, dict[str, str]]
 
-    style : str
-        TODO
+    style : Union[str, dict[str, str]]
+        Either a predefined name of a style or a dict of rcParams, loaded from .
     rc_params : dict[str, str]
         TODO
-    plot_features_dict : dict[str, str]
-        All parameters that will be added to the "plot features" section of the .yaml file.
+
     Returns
     -------
     outputdict : dict
@@ -201,8 +202,11 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     plot_configs = yamlio.get_plot_configs(plot_id, plotdirs=plotdirs, config_files=config_files),
     outputdict[constants.plot_setting_key] = plot_configs
     outputdict[constants.plot_setting_key].update(plotoptions.get('PLOT', {}))
-    outputdict['style'] = style
-    outputdict['rcParams'] = rc_params
+    outputdict[constants.rcParam_key] = rc_params
+    if isinstance(style, dict):
+        outputdict[constants.rcParam_key].update(style)
+    else:
+        outputdict[constants.style_key] = style
 
     # TODO: Will there ever be preexisting histograms?
     outputdict['histograms'] = {}
@@ -238,7 +242,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
                    path_unpatterns=(), plotinfodirs=[], 
                    style='default', config_files=[], 
                    hier_output=False, outdir='.',
-                   rivetplotpaths=True, rc_params=''
+                   rivetplotpaths=True, rc_params='', analysispaths=[]
                   ):
     """Create .yaml files that can be parsed by rivet-make-plot
     Each output .yaml file corresponds to one analysis which contains all MC histograms and a reference data histogram.
@@ -289,7 +293,9 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
         If the program does not have read access to .plot or .yoda files, or if it cannot write the output .yaml files.
     """
     rc_params_dict = _preprocess_rcparams(rc_params)
-    style = _preprocess_style()
+    if style.endswith('.yaml'):
+        style = yamlio.read_yamlfile(style) # Will be a dict
+    
     # Code from rivet-cmphistos >>> 
     # TODO: clean and refactor rivet-cmphistos code
 
@@ -297,6 +303,9 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     if path_pwd:
         rivet.addAnalysisLibPath(os.path.abspath("."))
         rivet.addAnalysisDataPath(os.path.abspath("."))
+    for path in analysispaths:
+        rivet.addAnalysisLibPath(os.path.abspath(path))
+        rivet.addAnalysisDataPath(os.path.abspath(path))
     
     # Add .make-plots which contains extra plotting configurations.
     config_files.append('~/.make-plots')
@@ -344,7 +353,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     for plot_id in hpaths:
         outputdict = _make_output(plot_id, plotdirs, config_files, 
                                   mchistos, refhistos, reftitle, 
-                                  plotoptions, style, rc_params_dict, plot_features_dict # TODO: implement this
+                                  plotoptions, style, rc_params_dict
                                   )
         
         ## Make the output and write to file
