@@ -90,6 +90,17 @@ def _preprocess_rcparams(rc_params):
     TODO: refactor so that code in _parse_args can be used here?
     Returns
     -------
+    rc_params_dict : dict
+        The rc_params string converted to a dict.
+    
+    Examples
+    --------
+    >>> _preprocess_rcparams('key=value:key2=multiword value:multiword key=multiword value again')
+    {'key': 'value', 'key2': 'multiword value', 'multiword key': 'multiword value again'}
+
+    Note
+    ----
+    This function will not check if a rcParam is valid or not. TODO Maybe the function should be renamed?  
     """
     return {key_val.split('=', 1)[0]: key_val.split('=', 1)[1] for key_val in rc_params.split(':')}
     
@@ -185,10 +196,10 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
         Dictionary of the reference analysis data YODA histograms.    
     plotoptions : dict[str, dict[str, str]]
 
-    style : Union[str, dict[str, str]]
-        Either a predefined name of a style or a dict of rcParams, loaded from .
+    style : str
+        A predefined name of a style.
     rc_params : dict[str, str]
-        TODO
+        Dict of rcParams that will be added to the rcParams section of the output .yaml file.
 
     Returns
     -------
@@ -200,10 +211,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     outputdict[constants.plot_setting_key] = plot_configs
     outputdict[constants.plot_setting_key].update(plotoptions.get('PLOT', {}))
     outputdict[constants.rcParam_key] = rc_params
-    if isinstance(style, dict):
-        outputdict[constants.rcParam_key].update(style)
-    else:
-        outputdict[constants.style_key] = style
+    outputdict[constants.style_key] = style
 
     # TODO: Will there ever be preexisting histograms?
     outputdict['histograms'] = {}
@@ -264,8 +272,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     plotinfodirs : list[str]
         Directory which may contain plot header information (in addition to standard Rivet search paths).
     style : str
-        Set the style of all plots. 
-        Either a .yaml file name or a name of a builtin style (e.g. 'default')
+        Set the style of all plots. Must be a name of a builtin style (e.g. 'default')
     config_files : list[str]
         Additional plot config file(s). 
         Settings will be included in the output configuration. 
@@ -289,8 +296,6 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
         If the program does not have read access to .plot or .yoda files, or if it cannot write the output .yaml files.
     """
     rc_params_dict = _preprocess_rcparams(rc_params)
-    if style.endswith('.yaml'):
-        style = yamlio.read_yamlfile(style) # Will be a dict
     
     # Code from rivet-cmphistos >>> 
     # TODO: clean and refactor rivet-cmphistos code
