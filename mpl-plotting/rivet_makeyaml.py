@@ -1,6 +1,6 @@
 from __future__ import print_function
 import rivet, yoda
-import os, glob, io
+import os, glob, io, logging
 import yamlio 
 import constants
 
@@ -110,6 +110,7 @@ def _preprocess_rcparams(rc_params):
 def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns):
     """Loop over all input files. Only use the first occurrence of any REF-histogram
     and the first occurrence in each MC file for every MC-histogram."""
+    # TODO: rewrite function
     refhistos, mchistos = {}, {}
     for infile, inname in zip(filelist, filenames):
         mchistos.setdefault(inname, {})
@@ -224,14 +225,13 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
 
     for filename, mchistos_in_file in mchistos.items():
         outputdict['histograms'][filename] = {}
-        # TODO: will there ever be multiple histograms with same ID here? Rewrite _get_histos?
+        # TODO: will there ever be multiple histograms with same ID here?
         for histogram in mchistos_in_file[plot_id].values():
-            # TODO: Probably exists a more efficient way of doing this. Just looping over all settings maybe.
             outputdict['histograms'][filename].update(plotoptions.get(filename, {}))
 
             with io.StringIO() as filelike_str:
                 yoda.writeFLAT(histogram, filelike_str)
-                # TODO: Check with rivet-cmphistos that the name change is correct
+                # Name might not be correct here
                 outputdict['histograms'][filename][constants.histogram_str_name] = yamlio.Literal(filelike_str.getvalue())
     
     # Remove all sections of the output_dict that do not contain any information.
@@ -249,7 +249,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
                    path_unpatterns=(), plotinfodirs=[], 
                    style='default', config_files=[], 
                    hier_output=False, outdir='.',
-                   rivetplotpaths=True, rc_params='', analysispaths=[]
+                   rivetplotpaths=True, rc_params='', analysispaths=[], verbose=False
                   ):
     """Create .yaml files that can be parsed by rivet-make-plot
     Each output .yaml file corresponds to one analysis which contains all MC histograms and a reference data histogram.
@@ -288,6 +288,8 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     rc_params : str
         Additional rc params added to all output .yaml files. Format is key=value:key2=value2...
         TODO: make this a part of style instead?
+    verbose : bool
+        If True, write more information to stdout.
     Returns
     -------
     None
@@ -297,9 +299,13 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     IOError
         If the program does not have read access to .plot or .yoda files, or if it cannot write the output .yaml files.
     """
+
+    if verbose:
+        logging.basicConfig(level=logging.DEBUG)
+
     rc_params_dict = _preprocess_rcparams(rc_params)
     
-    # Code from rivet-cmphistos >>> 
+    # Code from rivet-cmphistos (modified) >>> 
     # TODO: clean and refactor rivet-cmphistos code
 
     ## Add pwd to search paths
@@ -312,8 +318,8 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     
     # Add .make-plots which contains extra plotting configurations.
     config_files.append('~/.make-plots')
-    ## Split the input file names and the associated plotting options
-    ## given on the command line into two separate lists
+
+    # Split the input file names and the associated plotting options given on the command line into two separate lists
     filelist, filenames, plotoptions = _parse_args(args)
     
     ## Check that the files exist
@@ -354,10 +360,11 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     
     # Write each file 
     for plot_id in hpaths:
-        outputdict = _make_output(plot_id, plotdirs, config_files, 
-                                  mchistos, refhistos, reftitle, 
-                                  plotoptions, style, rc_params_dict
-                                  )
+        outputdict = _make_output(
+            plot_id, plotdirs, config_files, 
+            mchistos, refhistos, reftitle, 
+            plotoptions, style, rc_params_dict
+        )
         
         ## Make the output and write to file
         yamlio.write_output(outputdict, plot_id, hier_output=hier_output, outdir=outdir)
