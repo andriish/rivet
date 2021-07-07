@@ -88,9 +88,10 @@ def _preprocess_rcparams(rc_params):
     rc_params : str
         String of the format key=value:key2=value2..., similar to the format of args.
     TODO: refactor so that code in _parse_args can be used here?
+
     Returns
     -------
-    rc_params_dict : dict
+    dict
         The rc_params string converted to a dict.
     
     Examples
@@ -218,7 +219,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     if plot_id in refhistos:
         with io.StringIO() as filelike_str:
             yoda.writeFLAT(refhistos[plot_id], filelike_str)
-            outputdict['histograms'][reftitle] = {constants.histogram_str_name: yamlio.literal(filelike_str.getvalue())}
+            outputdict['histograms'][reftitle] = {constants.histogram_str_name: yamlio.Literal(filelike_str.getvalue())}
 
     for filename, mchistos_in_file in mchistos.items():
         outputdict['histograms'][filename] = {}
@@ -230,7 +231,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
             with io.StringIO() as filelike_str:
                 yoda.writeFLAT(histogram, filelike_str)
                 # TODO: Check with rivet-cmphistos that the name change is correct
-                outputdict['histograms'][filename][constants.histogram_str_name] = yamlio.literal(filelike_str.getvalue())
+                outputdict['histograms'][filename][constants.histogram_str_name] = yamlio.Literal(filelike_str.getvalue())
     
     # Remove all sections of the output_dict that do not contain any information.
     # A list of keys is first created. Otherwise, it will raise an error since the size of the dict changes.
