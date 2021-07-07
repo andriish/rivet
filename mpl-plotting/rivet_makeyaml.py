@@ -20,7 +20,8 @@ def _parse_args(args):
     Parameters
     ----------
     args : list[str]
-        List of arguments which were previously passed to `rivet-cmphistos`. Will be ['filename.yoda:key=value', ..., 'PLOT:key=value:key=value'
+        List of arguments which were previously passed to `rivet-cmphistos`. 
+        Format will be ['filename.yoda:key=value', ..., 'PLOT:key=value:key=value']
     
     Returns
     -------
@@ -28,10 +29,10 @@ def _parse_args(args):
         Raw names of the files, i.e. the first part of each string in args.
     filenames : list[str]
         Names of the files. If Name=value is passed as a plot option after a file name, this will become the filename. Otherwise, it will use the same value as in filelist.
-    plotoptions : dict[str, list[str]]
+    plotoptions : dict[str, dict[str, str]]
         Dictionary of plot options. 
-        The key will be the file name (i.e., same value as in filenames) and the value will be a list of strings with plot options. 
-        One of the keys will also be PLOT (if it was passed in as an argument to args, which contains all plot options that will be applied to all input files.
+        The key will be the file name (i.e., same value as in filenames) and the value will be a dict of strings with plot options. 
+        One of the keys will also be PLOT (if it was passed in as an argument to args, which contains all plot options that will be applied to the entire figure.
     
     Examples
     --------
@@ -39,9 +40,9 @@ def _parse_args(args):
     (['mc1.yoda', 'mc2.yoda'],
      ['example name 1', 'mc2.yoda'],
      {
-         'example name 1': ['Title=example title', 'Name=example name 1'],
-         'mc2.yoda': ['Title=mc2'],
-         'PLOT': ['LogX=1']
+         'example name 1': {'Title': 'example title', 'Name': 'example name 1'},
+         'mc2.yoda': {'Title': 'mc2'},
+         'PLOT': {'LogX': '1'}
     })
     
     Note
