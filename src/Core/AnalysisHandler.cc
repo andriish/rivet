@@ -199,7 +199,8 @@ namespace Rivet {
     // Warn user that no nominal weight could be identified
     if (nDefaults == 0) {
       MSG_WARNING("Could not identify nominal weight. Will continue assuming variations-only run.");
-      MSG_WARNING("Candidate weight names:\n  " << join(_weightNames, "\n  "));
+      // Note quoting for clarity, given the indents:
+      MSG_WARNING("Candidate weight names:\n    '" << join(_weightNames, "'\n    '") << "'");
     }
     // Warn if multiple weight names were acceptable alternatives
     if (nDefaults > 1) {
@@ -581,13 +582,13 @@ namespace Rivet {
         string suffix = file.substr(colonpos+1);
         try {
           if (suffix.at(0) == '=') {
-            // case I: file.yoda:=1.23 
+            // case I: file.yoda:=1.23
             //-> set cross-section to 1.23
             overwrite_xsec = true;
             suffix = suffix.substr(1);
           }
           else if (suffix.at(0) == 'x') {
-            // case II: file.yoda:x1.23 
+            // case II: file.yoda:x1.23
             // (same as file.yoda:1.23)
             //-> multiply cross-section with 1.23
             suffix = suffix.substr(1);
@@ -597,9 +598,9 @@ namespace Rivet {
         } catch (...) {
           throw UserError("Unexpected error in processing argument " + file + " with file:scale format");
         }
-      } 
+      }
 
-      // try to read the file and build path-AO map 
+      // try to read the file and build path-AO map
       // @todo move this map construction into YODA?
       vector<YODA::AnalysisObject*> aos_raw;
       map<string,YODA::AnalysisObject*> raw_map;
@@ -652,7 +653,7 @@ namespace Rivet {
           // get the sum of weights and number of entries for the current weight
           double evts = 0, sumw = 1;
           auto ec_it = raw_map.find("/RAW/_EVTCOUNT" + wname);
-          if ( ec_it != raw_map.end() ) { 
+          if ( ec_it != raw_map.end() ) {
             YODA::Counter* cPtr = static_cast<YODA::Counter*>(ec_it->second);
             evts = cPtr->numEntries();
             sumw = cPtr->sumW()? cPtr->sumW() : 1;
@@ -661,11 +662,11 @@ namespace Rivet {
             throw UserError("Missing event counter, needed for non-equivalent merging!");
           }
           // in stacking mode: add up all the cross sections
-          // in equivalent mode: weight the cross-sections 
+          // in equivalent mode: weight the cross-sections
           // estimates by the corresponding number of entries
           const string xspath = "/RAW/_XSEC" + wname;
           auto xs_it = raw_map.find(xspath);
-          if ( xs_it != raw_map.end() ) { 
+          if ( xs_it != raw_map.end() ) {
             YODA::Scatter1D* xsec = static_cast<YODA::Scatter1D*>(xs_it->second);
             if (overwrite_xsec) {
               MSG_DEBUG("Set user-supplied weight: " << fileweight);
@@ -779,7 +780,7 @@ namespace Rivet {
           // in stacking mode: need to unscale prior to finalize
           scales[iW] = _eventCounter->sumW()/xs;
         }
-        xsec.reset(); 
+        xsec.reset();
         xsec.addPoint( Point1D(xs,xserr) );
       }
       else {
