@@ -92,7 +92,7 @@ def _preprocess_rcparams(rc_params):
 
     Returns
     -------
-    dict
+    rc_params_dict : dict
         The rc_params string converted to a dict.
     
     Examples
@@ -104,7 +104,16 @@ def _preprocess_rcparams(rc_params):
     ----
     This function will not check if a rcParam is valid or not. TODO Maybe the function should be renamed?  
     """
-    return {key_val.split('=', 1)[0]: key_val.split('=', 1)[1] for key_val in rc_params.split(':')}
+    # TODO: maybe there is a better way. Check how _parse_args does it.
+    if not rc_params:
+        return {}
+
+    rc_params_dict = {}
+    for key_val in rc_params.split(':'):
+        key, val = key_val.split('=', 1)
+        rc_params_dict[key] = val
+
+    return rc_params_dict
     
 
 def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns):
@@ -180,7 +189,7 @@ def _get_rivet_ref_data(anas, path_patterns, path_unpatterns):
 
 
 def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle, plotoptions,
-                 style, rc_params):
+                 style, rc_params, mc_errs):
     """Create output dictionary for the plot_id.
     
     Parameters
@@ -198,7 +207,9 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     refhsitos : dict
         Dictionary of the reference analysis data YODA histograms.    
     plotoptions : dict[str, dict[str, str]]
-
+        Dict containing all plot options for all histograms and all plots.
+    mc_errs : bool
+        See make_yamlfiles
     style : str
         A predefined name of a style.
     rc_params : dict[str, str]
@@ -210,7 +221,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
         Correctly formatted dictionary that can be passed to `yaml.dump` to write to an output file.
     """
     outputdict = {}
-    plot_configs = yamlio.get_plot_configs(plot_id, plotdirs=plotdirs, config_files=config_files),
+    plot_configs = yamlio.get_plot_configs(plot_id, plotdirs=plotdirs, config_files=config_files)
     outputdict[constants.plot_setting_key] = plot_configs
     outputdict[constants.plot_setting_key].update(plotoptions.get('PLOT', {}))
     outputdict[constants.rcParam_key] = rc_params
@@ -228,7 +239,8 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
         # TODO: will there ever be multiple histograms with same ID here?
         for histogram in mchistos_in_file[plot_id].values():
             outputdict['histograms'][filename].update(plotoptions.get(filename, {}))
-
+            # Maybe add this mc_errs option to the plotoptions dict and only pass the plotoptions dict to the function?
+            outputdict['histograms'][filename].update('ErrorBars') = mc_errs
             with io.StringIO() as filelike_str:
                 yoda.writeFLAT(histogram, filelike_str)
                 # Name might not be correct here
@@ -248,7 +260,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
                    rivetrefs=True, path_patterns=(), 
                    path_unpatterns=(), plotinfodirs=[], 
                    style='default', config_files=[], 
-                   hier_output=False, outdir='.',
+                   hier_output=False, outdir='.', mc_errs=True,
                    rivetplotpaths=True, rc_params='', analysispaths=[], verbose=False
                   ):
     """Create .yaml files that can be parsed by rivet-make-plot
@@ -283,11 +295,13 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
         Write output .yaml files into a directory hierarchy which matches the analysis paths.
     outdir : str
         Write yaml files into this directory.
+    mc_errs : bool
+        If True, add the errors of the Monte-Carlo histograms. 
     rivetplotpaths : bool
         Search for .plot files in the standard Rivet plot paths.
     rc_params : str
         Additional rc params added to all output .yaml files. Format is key=value:key2=value2...
-        TODO: make this a part of style instead?
+        TODO: make this a part of style instead
     verbose : bool
         If True, write more information to stdout.
     Returns
@@ -363,7 +377,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
         outputdict = _make_output(
             plot_id, plotdirs, config_files, 
             mchistos, refhistos, reftitle, 
-            plotoptions, style, rc_params_dict
+            plotoptions, style, rc_params_dict, mc_errs
         )
         
         ## Make the output and write to file
