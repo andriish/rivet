@@ -9,18 +9,33 @@
 
 namespace Rivet {
 
+  using namespace std;
 
+
+  // Initialise static ptr collection
+  AnalysisLoader::AnalysisBuilderMap AnalysisLoader::_ptrs;
+
+
+  // Provide a logger function
   namespace {
     inline Log& getLog() {
       return Log::getLog("Rivet.AnalysisLoader");
     }
   }
 
-  // Initialise static ptr collection
-  AnalysisLoader::AnalysisBuilderMap AnalysisLoader::_ptrs;
-
 
   vector<string> AnalysisLoader::analysisNames() {
+    _loadAnalysisPlugins();
+    vector<string> names;
+    for (const AnalysisBuilderMap::value_type& p : _ptrs) {
+      const string cname = p.second->name();
+      if (!contains(names, cname)) names += cname; //< avoid duplicates from alias entries in the map
+    }
+    return names;
+  }
+
+
+  vector<string> AnalysisLoader::allAnalysisNames() {
     _loadAnalysisPlugins();
     vector<string> names;
     for (const AnalysisBuilderMap::value_type& p : _ptrs) names += p.first;
@@ -28,25 +43,26 @@ namespace Rivet {
   }
 
 
-  set<string> AnalysisLoader::allAnalysisNames() {
-    set<string> anaset;
-    vector<string> anas = analysisNames();
-    for (const string& ana : anas) {
-      anaset.insert(ana);
-    }
-    return anaset;
-  }
-
-
-  std::vector<std::string> AnalysisLoader::stdAnalysisNames() {
-    std::vector<std::string> rtn;
+  vector<string> AnalysisLoader::stdAnalysisNames() {
+    vector<string> rtn;
     const string anadatpath = findAnalysisDataFile("analyses.dat");
     if (fileexists(anadatpath)) {
-      std::ifstream anadat(anadatpath);
+      ifstream anadat(anadatpath);
       string ananame;
       while (anadat >> ananame) rtn += ananame;
     }
     return rtn;
+  }
+
+
+  map<string,string> AnalysisLoader::analysisNameAliases() {
+    _loadAnalysisPlugins();
+    map<string,string> alias_names;
+    for (const AnalysisBuilderMap::value_type& p : _ptrs) {
+      const string alias = p.second->alias();
+      if (alias != "") alias_names[alias] = p.second->name();
+    }
+    return alias_names;
   }
 
 
@@ -71,6 +87,8 @@ namespace Rivet {
 
   void AnalysisLoader::_registerBuilder(const AnalysisBuilderBase* ab) {
     if (!ab) return;
+
+    // Register by canonical name
     const string name = ab->name();
     if (_ptrs.find(name) != _ptrs.end()) {
       // Duplicate analyses will be ignored... loudly
@@ -81,6 +99,7 @@ namespace Rivet {
       _ptrs[name] = ab;
     }
 
+    // Register by alias name
     const string aname = ab->alias();
     if (!aname.empty()) {
       //MSG_WARNING("ALIAS!!! " << aname);

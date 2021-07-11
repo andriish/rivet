@@ -11,7 +11,7 @@ References:
  - CMS-PAS-QCD-11-010
  - http://cdsweb.cern.ch/record/1463352
 RunInfo:
-   Inelastic events (non-diffractive and inelastic diffractive) at $\sqrt{s} = 7$\;TeV.
+   Inelastic events (non-diffractive and inelastic diffractive) at $\sqrt{s} = 7$~TeV.
 NumEvents: 500000
 NeedCrossSection: no
 Beams: [p+, p+]
@@ -20,10 +20,10 @@ PtCuts: [0]
 Description:
   'Measurements of the production of $K^0_S$, $\Lambda$ and $\bar{\Lambda}$ particles
    in the underlying activity of events with a $\pT$ scale ranging from 1 to 50 GeV/$c$
-   in $pp$ collisions at $\sqrt{s} = 7$\;TeV.'
+   in $pp$ collisions at $\sqrt{s} = 7$~TeV.'
 BibKey: CMS-PAS-QCD-11-010
 BibTeX: '@article{CMS-PAS-QCD-11-010,
-   title = "Measurement of strange particle production in underlying event in proton--proton collisions at $\sqrt{s} = 7$\;TeV",
+   title = "Measurement of strange particle production in underlying event in proton--proton collisions at $\sqrt{s} = 7$~TeV",
    year  = "2012",
 }'
 

@@ -204,7 +204,7 @@ def getAnalysesByKeyword(alist, kstring):
 
 
 ## List of analyses
-all_analyses = rivet.AnalysisLoader.analysisNames()
+all_analyses = rivet.AnalysisLoader.analysisNames() #< excludes aliases
 if args.LIST_ANALYSES:
     ## Treat args as case-insensitive regexes if present
     regexes = None

@@ -188,6 +188,7 @@ def setOptions(ao, options, isBand):
     if isBand:
         ao.setAnnotation('ErrorBars',  '0')
         ao.setAnnotation('ErrorBands', '1')
+        ao.setAnnotation('ErrorType', 'env')
         if 'ErrorBandColor' not in ao.annotations():
             c = ao.annotation('LineColor')
             if 'byte' in str(type(c)):

@@ -76,10 +76,23 @@ namespace Rivet {
       	norm2+=_h_Table3->bin(i).height();
       }
 
-      _h_Table1->scaleW(1.0/norm0);
-      _h_Table2->scaleW(1.0/norm1);
-      _h_Table3->scaleW(1.0/norm2);
+      if (norm0 != 0) {
+	_h_Table1->scaleW(1.0/norm0);
+      } else {
+	MSG_WARNING("Zero entries, cannot normalise Table 1");
+      }
 
+      if (norm1 != 0) {
+	_h_Table2->scaleW(1.0/norm1);
+      } else {
+	MSG_WARNING("Zero entries, cannot normalise Table 2");
+      }
+
+      if (norm2 != 0) {
+	_h_Table3->scaleW(1.0/norm2);
+      } else {
+	MSG_WARNING("Zero entries, cannot normalise Table 3");
+      }
 
       ptNorm( _h_Table4 );
       ptNorm( _h_Table5 );

@@ -1,6 +1,7 @@
 from __future__ import print_function
 import os, re
 from .util import texpand
+import sys
 
 class PlotParser(object):
     """

@@ -92,6 +92,26 @@ for l in args.NATIVE_LOG_STRS:
         logging.warning("Couldn't process logging string '%s'" % l)
 
 
+## Set up signal handling
+RECVD_KILL_SIGNAL = None
+def handleKillSignal(signum, frame):
+    "Declare us as having been signalled, and return to default handling behaviour"
+    global RECVD_KILL_SIGNAL
+    logging.critical("Signal handler called with signal " + str(signum))
+    RECVD_KILL_SIGNAL = signum
+    signal.signal(signum, signal.SIG_DFL)
+## Signals to handle
+signal.signal(signal.SIGTERM, handleKillSignal);
+signal.signal(signal.SIGHUP,  handleKillSignal);
+signal.signal(signal.SIGINT,  handleKillSignal);
+signal.signal(signal.SIGUSR1, handleKillSignal);
+signal.signal(signal.SIGUSR2, handleKillSignal);
+try:
+    signal.signal(signal.SIGXCPU, handleKillSignal);
+except:
+    pass
+
+
 ## Set up analysis handler
 try:
     ah = rivet.AnalysisHandler("Merging")

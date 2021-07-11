@@ -1,6 +1,6 @@
 Name: CMS_2016_I1487277
 Year: 2016
-Summary: Measurement and QCD analysis of double-differential inclusive jet cross sections in $pp$ collisions at $\sqrt{s} = 8\;\TeV$  and cross-section ratios to 2.76 and 7 TeV
+Summary: Measurement and QCD analysis of double-differential inclusive jet cross sections in $pp$ collisions at $\sqrt{s} = 8~\TeV$  and cross-section ratios to 2.76 and 7 TeV
 Experiment: CMS
 Collider: LHC
 InspireID: 1487277
@@ -12,7 +12,7 @@ References:
  - DOI:10.1007/JHEP03(2017)156
  - arXiv:1609.05331
  - CMS-SMP-14-001
-RunInfo: QCD at $\sqrt{s} = 8\;\TeV$
+RunInfo: QCD at $\sqrt{s} = 8~\TeV$
 NumEvents: 1000000
 NeedCrossSection: no
 Beams: [p+, p+]

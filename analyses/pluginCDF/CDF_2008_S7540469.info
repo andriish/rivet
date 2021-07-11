@@ -29,7 +29,7 @@ BibKey: :2007cp
 BibTeX: '@Article{:2007cp,
      author    = "Aaltonen, T. and others",
      collaboration = "CDF",
-     title     = "{Measurement of inclusive jet cross-sections in $Z/\gamma^* \to e^+ e^-$ + jets production in $p \bar{p}$ collisions at $\sqrt{s}$ = 1.96\;TeV}",
+     title     = "{Measurement of inclusive jet cross-sections in $Z/\gamma^* \to e^+ e^-$ + jets production in $p \bar{p}$ collisions at $\sqrt{s}$ = 1.96~TeV}",
      journal   = "Phys. Rev. Lett.",
      volume    = "100",
      year      = "2008",

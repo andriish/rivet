@@ -572,8 +572,13 @@ namespace Rivet {
     /// @todo Move this to the script interface, with the API working in terms
     ///   of <real_filename,weight> pairs rather than decoding a CLI convention in C++
     bool overwrite_xsec = false;
+    size_t nfiles = 0, nfilestot = aofiles.size();
     for (string file : aofiles) {
+      ++nfiles;
+      std::cout << "Merging data file " << file << " [" << nfiles << "/" << nfilestot << "]\r";
+      std::cout.flush();
       MSG_DEBUG("Reading in data from " << file);
+
       // Check for user-supplied scaling, assign 1 otherwise
       /// @todo
       size_t colonpos = file.rfind(":");
@@ -638,7 +643,7 @@ namespace Rivet {
                                 return std::regex_match(ana, std::regex(exp));} );
           }
           if (unmatches.size()) {
-            skip |= std::any_of(matches.begin(), matches.end(), [&](const string &exp){
+            skip |= std::any_of(unmatches.begin(), unmatches.end(), [&](const string &exp){
                                return std::regex_match(ana, std::regex(exp));} );
           }
         }
@@ -722,6 +727,7 @@ namespace Rivet {
         } // end of merge attempt
       } // loop over all AOs ends
     } // loop over all input files ends
+    std::cout << std::endl;
 
     // Now make analysis handler aware of the weight names present
     _weightNames.clear();

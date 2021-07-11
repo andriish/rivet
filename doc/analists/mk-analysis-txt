@@ -17,7 +17,7 @@ pydirs = [os.path.join(pybuild, d) for d in os.listdir(pybuild)
 sys.path = pydirs + sys.path
 import rivet
 
-outstr = '\n'.join(list(rivet.stdAnalysisNames()))
+outstr = '\n'.join(list(rivet.stdAnalysisNames())) #< NOTE: no alias entries, std-list only
 
 ## Write out
 if OUTFILE == "-":
@@ -26,4 +26,3 @@ else:
     f = open(OUTFILE, "w")
     f.write(outstr)
     f.close()
-

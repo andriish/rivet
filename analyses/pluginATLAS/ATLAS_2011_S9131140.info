@@ -20,7 +20,7 @@ Beams: [p+, p+]
 Energies: [7000]
 PtCuts: [20]
 Description:
-  'The Z pT at $\sqrt{s} = 7$\;TeV is measured using electron and muon $Z$ decay
+  'The Z pT at $\sqrt{s} = 7$~TeV is measured using electron and muon $Z$ decay
   channels. The dressed leptons definition uses photons clustered in a cone around
   the charged leptons, while the bare lepton definition uses the post-FSR charged
   leptons only in the $Z$ reconstruction. The data used in the bare leptons calculation
@@ -32,7 +32,7 @@ BibTeX: '@Article{Aad:2011gj,
      collaboration = "ATLAS",
      title     = "{Measurement of the transverse momentum distribution of
                   $Z/\gamma^*$ bosons in proton-proton collisions at $\sqrt{s} =
-                  7$\;TeV with the ATLAS detector}",
+                  7$~TeV with the ATLAS detector}",
      year      = "2011",
      eprint    = "1107.2381",
      archivePrefix = "arXiv",

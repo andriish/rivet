@@ -20,10 +20,17 @@ namespace Rivet {
       const FinalState fslead((Cuts::etaIn(-2.5, 2.5) && Cuts::pT >=  1.0*GeV));
       declare(fslead, "FSlead");
 
+      // Beam energy logic neccesary for rivet-merge.
+      sqs = sqrtS()/GeV;
+      if (fuzzyEquals(sqs, 0.0, 1e-3)) {
+        MSG_INFO("Suspicious beam energy. You're probably running rivet-merge. Fetching beam energy from option.");
+        sqs = getOption<double>("energy", 0);
+      }
+
       // Get an index for the beam energy
       isqrts = -1;
-      if (fuzzyEquals(sqrtS(), 900*GeV)) isqrts = 0;
-      else if (fuzzyEquals(sqrtS(), 7*TeV)) isqrts = 1;
+      if (fuzzyEquals(sqs, 900*GeV)) isqrts = 0;
+      else if (fuzzyEquals(sqs, 7*TeV)) isqrts = 1;
       assert(isqrts >= 0);
 
       // N profiles, 500 MeV pT cut
@@ -113,6 +120,8 @@ namespace Rivet {
 
 
     int isqrts;
+
+    double sqs;
 
     Profile1DPtr _hist_N_transverse_500;
 

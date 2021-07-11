@@ -14,7 +14,7 @@ References:
  - 10.1016/j.physletb.2013.11.048
  - arXiv:1307.5543 [nucl-ex]
 RunInfo:
-   Analysis of multi-strange baryon production at $\sqrt{s} = 2.76\;\mathrm{TeV}$ for Pb-Pb collisions.
+   Analysis of multi-strange baryon production at $\sqrt{s} = 2.76~\mathrm{TeV}$ for Pb-Pb collisions.
 NeedCrossSection: no
 Beams: [Pb, Pb]
 # This is _total_ energy of beams, so this becomes 208*2760=574080
