@@ -23,7 +23,6 @@ def _get_matching_plot_configs_from_file(hpath, plotfilepath): # TODO: better va
     if not os.access(plotfilepath, os.R_OK):
         return {}
         
-    # TODO: do some preprocessing (or processing at the same time) with variables.
     with open(plotfilepath, 'r') as plot_config_file:
         for configs in yaml.safe_load_all(plot_config_file):
             if re.match(configs[constants.name_key], hpath):   # TODO: old code uses match instead of fullmatch. Is this intentional?
@@ -123,9 +122,4 @@ def read_yamlfile(filename):
     with open(filename) as file:
         content = yaml.safe_load(file)
     return content
-    
 
-# Test code
-if __name__ == '__main__':
-    # TODO: plotdirs will be changed to rivet.getAnalysisPlotPaths() once .plot files have been put there
-    print(get_plot_configs('/ALICE_2010_S8625980/d03-x01-y01', [os.getcwd()]))
