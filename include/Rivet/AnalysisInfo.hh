@@ -15,19 +15,11 @@ namespace Rivet {
     /// Static factory method: returns null pointer if no metadata found
     static unique_ptr<AnalysisInfo> make(const std::string& name);
 
-    /// @name Standard constructors and destructors.
-    //@{
-
-    /// The default constructor.
+    /// Default constructor
     AnalysisInfo() { clear(); }
 
-    /// The destructor.
     ~AnalysisInfo() { }
 
-    //@}
-
-
-  public:
 
     /// @defgroup anainfo_metadata Metadata
     ///
@@ -69,13 +61,18 @@ namespace Rivet {
 
 
     /// Get the SPIRES ID code for this analysis.
+    ///
+    /// @deprecated SPIRES itself is gone. Remove when all analyses migrated to I-names.
     const std::string& spiresId() const { return _spiresId; }
 
     /// Set the SPIRES ID code for this analysis.
+    ///
+    /// @deprecated SPIRES itself is gone. Remove when all analyses migrated to I-names.
     void setSpiresId(const std::string& spiresId) { _spiresId = spiresId; }
 
 
     /// @brief Names & emails of paper/analysis authors.
+    ///
     /// Names and email of authors in 'NAME \<EMAIL\>' format. The first
     /// name in the list should be the primary contact person.
     const std::vector<std::string>& authors() const { return _authors; }
@@ -85,6 +82,7 @@ namespace Rivet {
 
 
     /// @brief Get a short description of the analysis.
+    ///
     /// Short (one sentence) description used as an index entry.
     /// Use @a description() to provide full descriptive paragraphs
     /// of analysis details.
@@ -95,6 +93,7 @@ namespace Rivet {
 
 
     /// @brief Get a full description of the analysis.
+    ///
     /// Full textual description of this analysis, what it is useful for,
     /// what experimental techniques are applied, etc. Should be treated
     /// as a chunk of restructuredText (http://docutils.sourceforge.net/rst.html),
@@ -144,6 +143,7 @@ namespace Rivet {
 
 
     /// @brief When the original experimental analysis was published.
+    ///
     /// When the refereed paper on which this is based was published,
     /// according to SPIRES.
     const std::string& year() const { return _year; }

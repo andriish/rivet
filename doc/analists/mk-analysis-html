@@ -80,6 +80,7 @@ ccfiles = glob(ccpatt)
 #print(ccfiles)
 
 summaries = {}
+reentries = {}
 pages = []
 def anasort(a):
     "A sort-key function that should push SPIRES-named analyses to the end"
@@ -100,6 +101,7 @@ for aname in sorted(all_analyses, key=anasort):
         ## Summary and biblio links
         ana = rivet.AnalysisLoader.getAnalysis(aname)
         summaries[aname] = ana.summary()
+        reentries[aname] = ana.reentrant()
         page += "<b>%s</b><br/>\n" %  htmlify(ana.summary())
         page += "<b>Experiment:</b> %s (%s)<br/>\n" % (ana.experiment(), ana.collider())
         if ana.inspireId():
@@ -224,14 +226,17 @@ for aname in sorted(all_analyses, key=anasort):
 
 ## Write out HTML toc file(s)
 toc = "<h3>Contents</h3>\n"
+toc += "<p>&reg; = analysis supports re-entrant finalize</p>\n"
 toc += "<ul style=\"white-space: nowrap;\">\n"
 for a in all_analyses: # TODO: change to only show can_analyses in ToC when all S-names are aliases
     ## NB. initial links designed for linking from inside the OUTDIR
     summ = "No summary"
-    if a in summaries:
-        summ = htmlify(summaries[a])
-    elif a in aliases:
-        summ = htmlify(summaries[aliases[a]])
+    key = a if a in summaries else aliases[a]
+    summ = htmlify(summaries[key])
+    if reentries[key]:
+        # print(a + " = REENTRANT")
+        summ = "&reg;&nbsp;" + summ
+        # summ = "R&nbsp;" + summ
     toc += '<li><a id="%s" href="../%s/%s.html">%s</a> &ndash; %s</li>\n' % (a, OUTDIR, a, a, summ)
 toc += "</ul>\n"
 outstr = head + toc + foot
