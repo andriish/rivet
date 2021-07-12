@@ -76,7 +76,7 @@ stygroup.add_argument("--pdf", dest="VECTORFORMAT", action="store_const", const=
 stygroup.add_argument("--ps", dest="VECTORFORMAT", action="store_const", const="PS",
                       default="PDF", help="use PostScript as the vector plot format. DEPRECATED")
 stygroup.add_argument("--booklet", dest="BOOKLET", action="store_true",
-                      default=False, help="create booklet (currently only available for PDF with pdftk or pdfmerge).")
+                      default=False, help="create booklet (currently only available for PDF with pdftk, pdfunite or pdfmerge).")
 stygroup.add_argument("--font", dest="OUTPUT_FONT", choices="palatino,cm,times,helvetica,minion".split(","),
                       default="palatino", help="choose the font to be used in the plots")
 stygroup.add_argument("--palatino", dest="OUTPUT_FONT", action="store_const", const="palatino", default="palatino",
@@ -545,13 +545,21 @@ if datfiles:
         print(" ".join(mp_cmd))
     if not args.DRY_RUN:
         Popen(mp_cmd).wait()
-        if args.BOOKLET and args.VECTORFORMAT=="PDF":
+        if args.BOOKLET and args.VECTORFORMAT == "PDF":
             if which("pdftk") is not None:
                 bookletcmd = ["pdftk"]
                 for analysis in analyses:
                     anapath = os.path.join(args.OUTPUTDIR, analysis)
                     bookletcmd += sorted(glob.glob("%s/*.pdf" % anapath))
                 bookletcmd += ["cat", "output", "%s/booklet.pdf" % args.OUTPUTDIR]
+                print(bookletcmd)
+                Popen(bookletcmd).wait()
+            elif which("pdfunite") is not None:
+                bookletcmd = ["pdfunite"]
+                for analysis in analyses:
+                    anapath = os.path.join(args.OUTPUTDIR, analysis)
+                    bookletcmd += sorted(glob.glob("%s/*.pdf" % anapath))
+                bookletcmd += ["%s/booklet.pdf" % args.OUTPUTDIR]
                 print(bookletcmd)
                 Popen(bookletcmd).wait()
             elif which("pdfmerge") is not None:
@@ -563,4 +571,4 @@ if datfiles:
                 print(bookletcmd)
                 Popen(bookletcmd).wait()
             else:
-                print("Neither pdftk nor pdfmerge available --- not booklet output possible")
+                print("None of pdftk, pdfunit or pdfmerge available --- booklet output not possible")
