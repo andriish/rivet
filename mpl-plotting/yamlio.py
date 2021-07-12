@@ -3,6 +3,7 @@ import os, re
 from ruamel import yaml
 import rivet
 import constants
+from old_plotfile_converter import parse_old_plotfile
 
 
 # This class, function and call to add_representer makes it so that all objects with type Literal will be printed to a .yaml file as a string block. 
@@ -16,17 +17,83 @@ def literal_presenter(dumper, data):
 yaml.add_representer(Literal, literal_presenter)
 
 
-def _get_matching_plot_configs_from_file(hpath, plotfilepath): # TODO: better variable names
-    """Open plotfilepath, which is a .plot file with yaml syntax, parse it and get the settings with the hpath ID.
+def _parse_yaml_plotfile(filename, hpath):
+    """Parse a .plot file with the yaml format and return the settings.
+
+    Parameters
+    ----------
+    filename : str
+        The name of a .plot file with yaml-like syntax.
+    hpath : str
+        The histogram path, usually with the format /AnalysisID/HistogramID .
+    
+    Returns
+    -------
+    plotfile_configs : dict
+        All the settings from the file
+    """
+    plotfile_configs = {}
+    with open(filename, 'r') as file:
+        for configs in yaml.safe_load_all(file):
+            if re.match(configs[constants.name_key], hpath):   # TODO: old code uses match instead of fullmatch. Is this intentional?
+                plotfile_configs.update(configs[constants.plot_setting_key])
+    return plotfile_configs
+
+
+def _is_old_format(filename):
+    """Check if a file contains the old .plot format or the new yaml format.
+
+    Parameters
+    ----------
+    filename : str
+        Path to the .plot file that will be checked.
+    
+    Returns
+    -------
+    is_old : bool
+        True if the file is the old format. False otherwise.
+
+    Notes
+    -----
+    This does not make an explicit check that the format is correct yaml syntax.
+    Instead, it only checks whether the file contains #BEGIN PLOT or not.
+    TODO: optimize if needed. Current implementation is probably slow.
+    """
+    is_old = False
+    with open(filename) as file:
+        for line in file:
+            if re.match(r'^(#*\s*)?BEGIN (\w+) ?(\S+)? ?(\w+)?', line):
+                is_old = True
+                break
+    return is_old
+
+
+def _get_matching_plot_configs_from_file(hpath, plotfilepath):
+    """Open plotfilepath and get the settings with the corresponding hpath ID.
+    
+    Parameters
+    ----------
+    hpath : str
+        The histogram path, usually with the format /AnalysisID/HistogramID.
+    plotfilepath : str
+        The path to a .plot file, either with yaml syntax or in the old format.
+
+    Returns
+    -------
+    plot_configs : dict
+        Dictionary of settings for the corresponding histogram from the .plot file.
+        Will return an empty dict if the hpath could not be found in the file.
     """
     plot_configs = {}
     if not os.access(plotfilepath, os.R_OK):
         return {}
         
-    with open(plotfilepath, 'r') as plot_config_file:
-        for configs in yaml.safe_load_all(plot_config_file):
-            if re.match(configs[constants.name_key], hpath):   # TODO: old code uses match instead of fullmatch. Is this intentional?
-                plot_configs.update(configs[constants.plot_setting_key])
+    if _is_old_format(plotfilepath):
+        new_plot_settings = parse_old_plotfile(plotfilepath, hpath)
+    else:
+        new_plot_settings = _parse_yaml_plotfile(plotfilepath, hpath)
+    plot_configs.update(new_plot_settings)
+
     return plot_configs
 
 
@@ -36,7 +103,7 @@ def get_plot_configs(hpath, plotdirs=[], config_files=[]):
     Parameters
     ----------
     hpath : str
-        The histogram path, with format /AnalysisID/HistogramID .
+        The histogram path,  usually with the format /AnalysisID/HistogramID .
     plotdirs : list[str]
         Directories containing .plot files. The settings in the files with name AnalysisID.plot will be parsed and added to plot_configs.
     config_files : Iterable[str]
