@@ -51,13 +51,12 @@ def parse_old_plotfile(filename, hpath, section='PLOT'):
         return {}
 
     ## Assemble the list of headers from any matching plotinfo paths and additional style files
-    plotfile = aop.basepathparts()[0] + ".plot"
-
+    plotfile = hpath#aop.basepathparts()[0] + ".plot"
     pat_paths = {}
     ret = {}
 
     if not os.access(plotfile, os.R_OK):
-        return
+        return {}
     startreading = False
     with open(plotfile) as f:
         msec = None
@@ -105,5 +104,5 @@ def parse_old_plotfile(filename, hpath, section='PLOT'):
             if vm:
                 prop, value = vm.group(1,2)
                 ret[section]['ReplaceOption[' + prop + ']'] = texpand(value)
-
+    print('The returned dictionary:', ret)  # TODO: Remove later
     return ret

@@ -240,7 +240,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
         for histogram in mchistos_in_file[plot_id].values():
             outputdict['histograms'][filename].update(plotoptions.get(filename, {}))
             # Maybe add this mc_errs option to the plotoptions dict and only pass the plotoptions dict to the function?
-            outputdict['histograms'][filename].update('ErrorBars') = mc_errs
+            #outputdict['histograms'][filename].update('ErrorBars') = mc_errs  # BUG This causes an error.
             with io.StringIO() as filelike_str:
                 yoda.writeFLAT(histogram, filelike_str)
                 # Name might not be correct here

@@ -89,7 +89,7 @@ def _get_matching_plot_configs_from_file(hpath, plotfilepath):
         return {}
         
     if _is_old_format(plotfilepath):
-        new_plot_settings = parse_old_plotfile(plotfilepath, hpath)
+        new_plot_settings = parse_old_plotfile(hpath, plotfilepath)  # BUG: Were these accidentally switched?
     else:
         new_plot_settings = _parse_yaml_plotfile(plotfilepath, hpath)
     plot_configs.update(new_plot_settings)

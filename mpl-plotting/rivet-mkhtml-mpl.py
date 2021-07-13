@@ -21,6 +21,7 @@ ENVIRONMENT:
 from __future__ import print_function
 
 import rivet, sys, os
+import rivet_makeyaml
 rivet.util.check_python_version()
 rivet.util.set_process_name(os.path.basename(__file__))
 COMMAND = " ".join([os.path.basename(sys.argv[0])] + sys.argv[1:])
@@ -54,6 +55,15 @@ parser.add_argument("--no-subproc", dest="NO_SUBPROC", action="store_true", defa
                     help="don't use subprocesses to render the plots in parallel -- useful for debugging")
 parser.add_argument("--pwd", dest="PATH_PWD", action="store_true", default=False,
                     help="append the current directory (pwd) to the analysis/data search paths (cf. $RIVET_ANALYSIS_PATH)")
+#TODO: Add rcparams option
+rc_params = ''
+#TODO: Add style  option
+style = 'default'
+#TODO: Rivetplotpaths?
+rivetplotpaths = True
+#TODO: Add analysispaths... what does this do?
+analysispaths = []  # Temp disabled
+
 
 stygroup = parser.add_argument_group("Style options")
 stygroup.add_argument("-t", "--title", dest="TITLE",
@@ -227,7 +237,21 @@ analyses = sorted(analyses, key=anasort)
 
 ## Run rivet-cmphistos to get plain .dat files from .yoda
 ## We do this here since it also makes the necessary directories
-ch_cmd = ["rivet-cmphistos"]
+configfiles = []
+for configfile in args.CONFIGFILES:# TODO: Not sure if this is necessary
+    configfile = os.path.abspath(os.path.expanduser(configfile))
+    if os.access(configfile, os.R_OK): 
+        configfiles.append(configfile)
+
+rivet_makeyaml.make_yamlfiles(args.YODAFILES, args.PATH_PWD, args.REFTITLE,
+                              args.RIVETREFS, args.PATHPATTERNS,
+                              args.PATHUNPATTERNS, [os.path.abspath("../")],
+                              style, configfiles,
+                              True, args.OUTPUTDIR, args.MC_ERRS,
+                              rivetplotpaths, rc_params, analysispaths, args.VERBOSE)
+print('called rivet_makeyaml')
+"""
+ch_cmd = ["rivet-makeyaml"]
 if args.MC_ERRS:
     ch_cmd.append("--mc-errs")
 if not args.SHOW_RATIO:
@@ -292,7 +316,7 @@ if not args.DRY_RUN:
     if retcode != 0:
         print('Crash in rivet-cmphistos code = ', retcode, ' exiting')
         exit(retcode)
-
+"""
 
 
 ## Write web page containing all (matched) plots
