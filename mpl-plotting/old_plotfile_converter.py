@@ -51,14 +51,13 @@ def parse_old_plotfile(filename, hpath, section='PLOT'):
         return {}
 
     ## Assemble the list of headers from any matching plotinfo paths and additional style files
-    plotfile = hpath#aop.basepathparts()[0] + ".plot"
     pat_paths = {}
     ret = {}
 
-    if not os.access(plotfile, os.R_OK):
+    if not os.access(filename, os.R_OK):
         return {}
     startreading = False
-    with open(plotfile) as f:
+    with open(filename) as f:
         msec = None
         for line in f:
             m = pat_begin_block.match(line)
@@ -69,7 +68,7 @@ def parse_old_plotfile(filename, hpath, section='PLOT'):
                     try:
                         pat_paths[pathpat] = re.compile(pathpat)
                     except TypeError:
-                        logging.debug("Error reading plot file for {}. Skipping.".format(plotfile))
+                        logging.debug("Error reading plot file for {}. Skipping.".format(filename))
                         return
                 if tag == section:
                     m2 = pat_paths[pathpat].match(hpath)
@@ -104,5 +103,4 @@ def parse_old_plotfile(filename, hpath, section='PLOT'):
             if vm:
                 prop, value = vm.group(1,2)
                 ret[section]['ReplaceOption[' + prop + ']'] = texpand(value)
-    print('The returned dictionary:', ret)  # TODO: Remove later
     return ret
