@@ -21,7 +21,8 @@ ENVIRONMENT:
 from __future__ import print_function
 
 import rivet, sys, os
-import rivet_makeyaml
+from rivet_makeyaml import make_yamlfiles
+from rivet_plot import rivet_plot
 rivet.util.check_python_version()
 rivet.util.set_process_name(os.path.basename(__file__))
 COMMAND = " ".join([os.path.basename(sys.argv[0])] + sys.argv[1:])
@@ -59,8 +60,8 @@ parser.add_argument("--pwd", dest="PATH_PWD", action="store_true", default=False
 rc_params = ''
 #TODO: Add style  option
 style = 'default'
-#TODO: Rivetplotpaths?
-rivetplotpaths = True
+#TODO: Set rivetplotpaths True to parse .plot features, not implemented yet
+rivetplotpaths = False
 #TODO: Add analysispaths... what does this do?
 analysispaths = []  # Temp disabled
 
@@ -243,12 +244,12 @@ for configfile in args.CONFIGFILES:# TODO: Not sure if this is necessary
     if os.access(configfile, os.R_OK): 
         configfiles.append(configfile)
 
-rivet_makeyaml.make_yamlfiles(args.YODAFILES, args.PATH_PWD, args.REFTITLE,
-                              args.RIVETREFS, args.PATHPATTERNS,
-                              args.PATHUNPATTERNS, [os.path.abspath("../")],
-                              style, configfiles,
-                              True, args.OUTPUTDIR, args.MC_ERRS,
-                              rivetplotpaths, rc_params, analysispaths, args.VERBOSE)
+make_yamlfiles(args.YODAFILES, args.PATH_PWD, args.REFTITLE,
+               args.RIVETREFS, args.PATHPATTERNS,
+               args.PATHUNPATTERNS, [os.path.abspath("../")],
+               style, configfiles,
+               True, args.OUTPUTDIR, args.MC_ERRS,
+               rivetplotpaths, rc_params, analysispaths, args.VERBOSE)
 print('called rivet_makeyaml')
 """
 ch_cmd = ["rivet-makeyaml"]
@@ -473,11 +474,11 @@ if not args.DRY_RUN:
         # anaindex.write('<span style="background-color:00cc00; border:2px solid #009933; padding:2px; border-radius:2px;"\n onclick="var patt = document.getElementById(\'patt_{ana}\').value; filterPlots(\'{ana}\', patt);">Filter</span>\n'.format(ana=analysis))
         anaindex.write('</form>\n\n')
 
-        datfiles = glob.glob("%s/*.dat" % anapath)
+        yamlfiles = glob.glob("%s/*.yaml" % anapath)
         #print(datfiles)
         # anaindex.write('<div style="float:none; overflow:auto; width:100%">\n')
-        for datfile in sorted(datfiles):
-            obsname = os.path.basename(datfile).replace(".dat", "")
+        for yamlfile in sorted(yamlfiles):
+            obsname = os.path.basename(yamlfile).replace(".yaml", "")
             pngfile = obsname+".png"
             vecfile = obsname+"."+args.VECTORFORMAT.lower()
             srcfile = obsname+".dat"
@@ -526,6 +527,17 @@ def which(program):
 
     return None
 
+# Plot files
+for analysis in analyses:
+    anapath = os.path.join(args.OUTPUTDIR, analysis)
+    anadatfiles = glob.glob("%s/*.yaml" % anapath)
+    for yamlfile in sorted(anadatfiles):
+        print(yamlfile)
+        if yamlfile == './rivet-plots/ALICE_2010_S8625980/Nevt_after_cuts.yaml':
+            continue  # BUG: This file doesn't work
+        rivet_plot(yamlfile)
+
+"""
 ## Run make-plots on all generated .dat files
 # sys.exit(0)
 mp_cmd = ["make-plots"]
@@ -588,3 +600,4 @@ if datfiles:
                 Popen(bookletcmd).wait()
             else:
                 print("Neither pdftk nor pdfmerge available --- not booklet output possible")
+"""

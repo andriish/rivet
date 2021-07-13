@@ -9,19 +9,22 @@ import yoda
 from ruamel.yaml import YAML
 
 
-def apply_style(yaml_dicts):
+def _apply_style(yaml_dicts):
     # TODO: add other styles and perform error checks
-    plot_style = yaml_dicts['plot_style'] + '.mplstyle'
-    plt.style.use((os.path.join(sys.path[0], plot_style),
-                   yaml_dicts['rcParams']))
+    plot_style = yaml_dicts['style'] + '.mplstyle'
+    if yaml_dicts.get('rcParams'):
+        plt.style.use((os.path.join(sys.path[0], plot_style),
+                       yaml_dicts['rcParams']))
+    else:
+        plt.style.use((os.path.join(sys.path[0], plot_style)))
 
 
-def parse_yoda_hist(yaml_dicts):
+def _parse_yoda_hist(yaml_dicts):
     # TODO: There is probably a more elegant approach
     histograms = []
     for hist_data in yaml_dicts['histograms'].values():
         temp_file = open("temp_file.txt", "w")
-        temp_file.write(hist_data)
+        temp_file.write(hist_data['flat'])
         temp_file.close()
         histograms.append(list(yoda.readFLAT("temp_file.txt").values())[0])
         os.remove("temp_file.txt")
@@ -36,9 +39,13 @@ def rivet_plot(yaml_file):
     # Parse yaml file for rcParams, histogram data, and plot style.
     with open(yaml_file) as file:
         yaml_dicts = YAML(typ='safe').load(file)
-    apply_style(yaml_dicts)
-    histograms = parse_yoda_hist(yaml_dicts)
-    plot_features = yaml_dicts['plot_features']
+    _apply_style(yaml_dicts)
+    histograms = _parse_yoda_hist(yaml_dicts)
+
+    if yaml_dicts.get('plot_features') is None:
+        plot_features = {}
+    else:
+        plot_features = yaml_dicts.get('plot_features')
 
     plt.rcParams['xtick.top'] = plot_features.get('XTwosidedTicks', True)
     plt.rcParams['ytick.right'] = plot_features.get('YTwosidedTicks', True)
@@ -209,7 +216,9 @@ def rivet_plot(yaml_file):
             ax.legend(handles, labels, loc='upper right', bbox_to_anchor=legend_pos,
                       handler_map={AnyObject: AnyObjectHandler()}, markerfirst=False)
 
-    plt.savefig(os.path.join(sys.path[0], 'mpl_d10-x01-y01.pdf'), dpi=500)
+    fig.savefig(yaml_file[:-4]+'pdf', dpi=500)
+    fig.savefig(yaml_file[:-4]+'png', dpi=500)
+    plt.close()
 
 
 class AnyObject(object):
