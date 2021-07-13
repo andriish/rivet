@@ -4,7 +4,7 @@ from ruamel import yaml
 import rivet
 import constants
 from old_plotfile_converter import parse_old_plotfile
-
+import logging
 
 # This class, function and call to add_representer makes it so that all objects with type Literal will be printed to a .yaml file as a string block. 
 class Literal(str):
@@ -92,6 +92,10 @@ def _get_matching_plot_configs_from_file(hpath, plotfilepath):
         new_plot_settings = parse_old_plotfile(plotfilepath, hpath)
     else:
         new_plot_settings = _parse_yaml_plotfile(plotfilepath, hpath)
+    
+    if new_plot_settings:
+        logging.debug('Found file {} with plot settings for histogram with ID {}'.format(plotfilepath, hpath))
+    
     plot_configs.update(new_plot_settings)
 
     return plot_configs

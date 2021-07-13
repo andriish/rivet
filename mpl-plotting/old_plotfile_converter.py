@@ -1,8 +1,8 @@
+# Convert the old plot file format to a dict that can be parsed by yamlio.py and rivet_makeyaml.py.
+# Based on https://gitlab.com/hepcedar/rivet/-/blob/release-3-1-x/pyext/rivet/plotinfo.py
 from __future__ import print_function
 import os, re, logging
-from rivet.aopaths import AOPath
 from rivet.util import texpand
-# TODO: make it a class, as it was originally, instead?
 
 pat_begin_block = re.compile(r'^(#*\s*)?BEGIN (\w+) ?(\S+)?')
 pat_begin_name_block = re.compile(r'^(#*\s*)?BEGIN (\w+) ?(\S+)? ?(\w+)?')
@@ -34,21 +34,21 @@ def parse_old_plotfile(filename, hpath, section='PLOT'):
     -------
     plot_settings : dict
         Dict with of the same format and style as the new .plot files.
+        Returns an empty dict if nothing was found.
 
+    Raises
+    ------
+    ValueError
+        If section is not PLOT or HISTOGRAM. 
+        This includes the SPECIAL and FUNCTION sections, which could be parsed before.
+    
     Notes
     -----
-    The SPECIAL and FUNCTION sections of a file cannot be parsed by the new matplotlib backend. 
-    If these These will therefore be ignored.
+    TODO: numbers in the .plot file (e.g. the 1 in LogX=1) will currently be added to the output dict as a str instead of an int.
+        This should be fixed.
     """
     if section not in ('PLOT', 'HISTOGRAM'):
         raise ValueError('Expected section to be PLOT or HISTOGRAM but got {}.'.format(section))
-
-    # Decompose the histo path and remove the /REF prefix if necessary
-    try:
-        aop = AOPath(hpath)
-    except:
-        logging.debug("Found analysis object with non-standard path structure:", hpath, "... skipping")
-        return {}
 
     ## Assemble the list of headers from any matching plotinfo paths and additional style files
     pat_paths = {}
@@ -69,14 +69,12 @@ def parse_old_plotfile(filename, hpath, section='PLOT'):
                         pat_paths[pathpat] = re.compile(pathpat)
                     except TypeError:
                         logging.debug("Error reading plot file for {}. Skipping.".format(filename))
-                        return
+                        return {}
                 if tag == section:
                     m2 = pat_paths[pathpat].match(hpath)
                     if m2:
                         msec = m2
                         startreading = True
-                        if section in ['SPECIAL']:
-                            ret[section] = ''
                         continue
             if not startreading:
                 continue
@@ -98,9 +96,10 @@ def parse_old_plotfile(filename, hpath, section='PLOT'):
                         value = msec.expand(value)
                     except Exception as e: # TODO: bad exception handling
                         value = oldval #< roll back escapes if it goes wrong
-                ret[section][prop] = texpand(value) #< expand TeX shorthands
+                ret[prop] = texpand(value) #< expand TeX shorthands
             vm = pat_property_opt.match(line)
             if vm:
                 prop, value = vm.group(1,2)
-                ret[section]['ReplaceOption[' + prop + ']'] = texpand(value)
+                ret['ReplaceOption[' + prop + ']'] = texpand(value)
+
     return ret
