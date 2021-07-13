@@ -20,15 +20,15 @@ def _apply_style(yaml_dicts):
 
 
 def _parse_yoda_hist(yaml_dicts):
-    # TODO: There is probably a more elegant approach
-    histograms = []
-    for hist_data in yaml_dicts['histograms'].values():
+    # TODO: There is probably a more elegant approach than using temp file
+    hist_data = []
+    for hist_dict in yaml_dicts['histograms'].values():
         temp_file = open("temp_file.txt", "w")
-        temp_file.write(hist_data['flat'])
+        temp_file.write(hist_dict['flat'])
         temp_file.close()
-        histograms.append(list(yoda.readFLAT("temp_file.txt").values())[0])
+        hist_data.append(list(yoda.readFLAT("temp_file.txt").values())[0])
         os.remove("temp_file.txt")
-    return histograms
+    return hist_data
 
 
 def _parse_yoda_plot_features(yaml_dicts):
@@ -54,20 +54,21 @@ def rivet_plot(yaml_file):
     with open(yaml_file) as file:
         yaml_dicts = YAML(typ='safe').load(file)
     _apply_style(yaml_dicts)
-    histograms = _parse_yoda_hist(yaml_dicts)
+    hist_data = _parse_yoda_hist(yaml_dicts)
+    hist_features = [val for val in yaml_dicts['histograms'].values()]
     plot_features = _parse_yoda_plot_features(yaml_dicts)
 
     plt.rcParams['xtick.top'] = plot_features.get('XTwosidedTicks', True)
     plt.rcParams['ytick.right'] = plot_features.get('YTwosidedTicks', True)
 
-    if plot_features.get('RatioPlot'):
+    if plot_features.get('RatioPlot', 1):
         fig, (ax, ax_ratio) = plt.subplots(2, 1, sharex=True,
                                            gridspec_kw={'height_ratios': (2, 1)})
     else:
         fig, ax = plt.subplots(1, 1)
 
     # Set text labels
-    if plot_features.get('RatioPlot'):
+    if plot_features.get('RatioPlot', 1):
         ax_ratio.set_xlabel(plot_features.get('XLabel'))
     else:
         ax.set_xlabel(plot_features.get('XLabel'))
@@ -75,18 +76,18 @@ def rivet_plot(yaml_file):
     ax.set_title(plot_features.get('Title'), loc='left')
 
     # Set plot lims
-    XMin = plot_features.get('XMin', min([h.xMin() for h in histograms]))
-    XMax = plot_features.get('XMax', max([h.xMax() for h in histograms]))
+    XMin = plot_features.get('XMin', min([h.xMin() for h in hist_data]))
+    XMax = plot_features.get('XMax', max([h.xMax() for h in hist_data]))
     ax.set_xlim(XMin, XMax)
 
     if plot_features.get('YMax') is not None:
         YMax = plot_features.get('YMax')
     elif plot_features.get('LogY'):
-        YMax = 1.7*max([h.yMax() for h in histograms])
+        YMax = 1.7*max([h.yMax() for h in hist_data])
     else:
-        YMax = 1.1*max([h.yMax() for h in histograms])
+        YMax = 1.1*max([h.yMax() for h in hist_data])
 
-    minymin = min([h.yMin() for h in histograms])
+    minymin = min([h.yMin() for h in hist_data])
     if plot_features.get('YMin') is not None:
         YMin = plot_features.get('YMin')
     elif plot_features.get('LogY'):
@@ -129,7 +130,7 @@ def rivet_plot(yaml_file):
         ax.set_xticks(plot_features.get('XCustomMajorTicks')[::2])
         ax.set_xticklabels(plot_features.get('XCustomMajorTicks')[1::2])
         ax.set_xticks([], minor=True)  # Turn off minor xticks
-        if plot_features.get('RatioPlot'):
+        if plot_features.get('RatioPlot', 1):
             ax_ratio.set_xticks([], minor=True)
     if plot_features.get('YCustomMajorTicks') is not None:
         ax.set_yticks(plot_features.get('YCustomMajorTicks')[::2])
@@ -144,34 +145,34 @@ def rivet_plot(yaml_file):
 
     # Create useful variables
     colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
-    x_points = (histograms[0].xMins() + histograms[0].xMaxs())/2
-    x_bins = np.append(histograms[0].xMins(), histograms[0].xMax())
-    data_yVals = histograms[0].yVals()
+    x_points = (hist_data[0].xMins() + hist_data[0].xMaxs())/2
+    x_bins = np.append(hist_data[0].xMins(), hist_data[0].xMax())
+    data_yVals = hist_data[0].yVals()
 
     # Plot data
-    ax.hlines(data_yVals, histograms[0].xMins(),
-              histograms[0].xMaxs(), 'k')
+    ax.hlines(data_yVals, hist_data[0].xMins(),
+              hist_data[0].xMaxs(), 'k')
     ax.plot(x_points, data_yVals, 'ko')
-    data_errminus = [err[0] for err in histograms[0].yErrs()]
-    data_errplus = [err[1] for err in histograms[0].yErrs()]
-    if plot_features.get('ErrorBars'):
+    data_errminus = [err[0] for err in hist_data[0].yErrs()]
+    data_errplus = [err[1] for err in hist_data[0].yErrs()]
+    if hist_features[0].get('ErrorBars', 1):
         ax.vlines(x_points, (data_yVals - data_errminus),
                   (data_yVals + data_errplus), 'k')
 
     # Plot mcs
-    for i, mc in enumerate(histograms[1:]):
+    for i, mc in enumerate(hist_data[1:]):
         color = colors[i % len(colors)]
         y_mc = np.insert(mc.yVals(), 0, mc.yVals()[0])
         ax.plot(x_bins, y_mc, color, drawstyle='steps-pre',
                 solid_joinstyle='miter', zorder=5+i)
-        if plot_features.get('ErrorBars'):
+        if hist_features[i].get('ErrorBars'):
             mc_errminus = [err[0] for err in mc.yErrs()]
             mc_errplus = [err[1] for err in mc.yErrs()]
             ax.vlines(x_points, (mc.yVals() - mc_errminus),
                       (mc.yVals() + mc_errplus), color, zorder=5+i)
 
     # Create ratio plot
-    if plot_features.get('RatioPlot'):
+    if plot_features.get('RatioPlot', 1):
         ax_ratio.yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.1))
         ax_ratio.set_ylabel(plot_features.get('RatioPlotYLabel', 'MC/Data'))
         RatioPlotYMin = plot_features.get('RatioPlotYMin', 0.5)
@@ -188,18 +189,18 @@ def rivet_plot(yaml_file):
                                     ((data_yVals + data_errplus)/data_yVals)[0])
             ax_ratio.fill_between(x_bins, errbandminus, errbandplus,
                                   step='pre', alpha=0.5, zorder=0)
-        elif plot_features.get('ErrorBars'):
+        elif hist_features[0].get('ErrorBars', 1):
             ax_ratio.vlines(x_points, (data_yVals - data_errminus)/data_yVals,
                             (data_yVals + data_errplus)/data_yVals, 'k')
 
         # Plot mcs
-        for i, mc in enumerate(histograms[1:]):
+        for i, mc in enumerate(hist_data[1:]):
             color = colors[i % len(colors)]
             y_ratio = (np.insert(mc.yVals(), 0, mc.yVals()[0])
                        / np.insert(data_yVals, 0, data_yVals[0]))
             ax_ratio.plot(x_bins, y_ratio, color, drawstyle='steps-pre', zorder=1,
                           solid_joinstyle='miter')
-            if plot_features.get('ErrorBars'):
+            if hist_features[i].get('ErrorBars'):
                 mc_errminus = [err[0] for err in mc.yErrs()]
                 mc_errplus = [err[1] for err in mc.yErrs()]
                 ax_ratio.vlines(x_points, (mc.yVals() - mc_errminus)/data_yVals,
@@ -208,13 +209,13 @@ def rivet_plot(yaml_file):
     # Legend
     # TODO: Find a better way to implement the custom Data legend graphic
 
-    if plot_features.get('Legend'):
+    if plot_features.get('Legend', 1):
         handles = [AnyObject()]
-        labels = ['Data']
-        for i, mc in enumerate(histograms[1:]):
+        labels = [hist_features[0].get('Title', 'Data')]
+        for i, mc in enumerate(hist_data[1:]):
             color = colors[i % len(colors)]
             handles.append(mpl.lines.Line2D([], [], color=color))
-            labels.append('mc{}'.format(i+1))
+            labels.append(hist_features[0].get('Title', 'mc{}'.format(i+1)))
         if plot_features.get('LegendAlign') is None or plot_features.get('LegendAlign') == 'l':
             legend_pos = (plot_features.get('LegendXPos', 0.5),
                           plot_features.get('LegendYPos', 0.97))
