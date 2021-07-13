@@ -165,7 +165,7 @@ def rivet_plot(yaml_file):
         y_mc = np.insert(mc.yVals(), 0, mc.yVals()[0])
         ax.plot(x_bins, y_mc, color, drawstyle='steps-pre',
                 solid_joinstyle='miter', zorder=5+i)
-        if hist_features[i].get('ErrorBars'):
+        if hist_features[i].get('ErrorBars', 1):
             mc_errminus = [err[0] for err in mc.yErrs()]
             mc_errplus = [err[1] for err in mc.yErrs()]
             ax.vlines(x_points, (mc.yVals() - mc_errminus),
@@ -200,7 +200,7 @@ def rivet_plot(yaml_file):
                        / np.insert(data_yVals, 0, data_yVals[0]))
             ax_ratio.plot(x_bins, y_ratio, color, drawstyle='steps-pre', zorder=1,
                           solid_joinstyle='miter')
-            if hist_features[i].get('ErrorBars'):
+            if hist_features[i].get('ErrorBars', 1):
                 mc_errminus = [err[0] for err in mc.yErrs()]
                 mc_errplus = [err[1] for err in mc.yErrs()]
                 ax_ratio.vlines(x_points, (mc.yVals() - mc_errminus)/data_yVals,
