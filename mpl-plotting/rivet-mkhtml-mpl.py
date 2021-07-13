@@ -61,7 +61,7 @@ rc_params = ''
 #TODO: Add style  option
 style = 'default'
 #TODO: Set rivetplotpaths True to parse .plot features, not implemented yet
-rivetplotpaths = False
+rivetplotpaths = True
 #TODO: Add analysispaths... what does this do?
 analysispaths = []  # Temp disabled
 

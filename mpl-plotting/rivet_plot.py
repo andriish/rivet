@@ -31,6 +31,20 @@ def _parse_yoda_hist(yaml_dicts):
     return histograms
 
 
+def _parse_yoda_plot_features(yaml_dicts):
+    if yaml_dicts.get('plot features') is None:
+        return {}
+    plot_features = yaml_dicts.get('plot features')
+    str_keys = ['Title', 'XLabel', 'YLabel', 'ZLabel', 'RatioPlotYLabel',
+                'RatioPlotErrorBandColor', 'LineStyle', 'LineColor', 'LineDash',
+                'FillStyle', 'FillColor', 'HatchColor', 'ErrorBandColor']
+    # TODO: add all string keys to list
+    for key in plot_features.keys():  # Change str dict vals to float
+        if key not in str_keys and plot_features.get(key) is not None:
+            plot_features[key] = float(plot_features[key])
+    return plot_features
+
+
 def rivet_plot(yaml_file):
     """Create plot from yaml file dictionaries.
 
@@ -41,11 +55,7 @@ def rivet_plot(yaml_file):
         yaml_dicts = YAML(typ='safe').load(file)
     _apply_style(yaml_dicts)
     histograms = _parse_yoda_hist(yaml_dicts)
-
-    if yaml_dicts.get('plot_features') is None:
-        plot_features = {}
-    else:
-        plot_features = yaml_dicts.get('plot_features')
+    plot_features = _parse_yoda_plot_features(yaml_dicts)
 
     plt.rcParams['xtick.top'] = plot_features.get('XTwosidedTicks', True)
     plt.rcParams['ytick.right'] = plot_features.get('YTwosidedTicks', True)
