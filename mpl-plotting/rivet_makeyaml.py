@@ -231,7 +231,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     outputdict['histograms'] = {}
     if plot_id in refhistos:
         with io.StringIO() as filelike_str:
-            yoda.writeFLAT(refhistos[plot_id], filelike_str)
+            yoda.writeYODA(refhistos[plot_id], filelike_str)
             outputdict['histograms'][reftitle] = {constants.histogram_str_name: yamlio.Literal(filelike_str.getvalue())}
 
     for filename, mchistos_in_file in mchistos.items():
@@ -242,7 +242,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
             # Maybe add this mc_errs option to the plotoptions dict and only pass the plotoptions dict to the function?
             outputdict['histograms'][filename]['ErrorBars'] = mc_errs
             with io.StringIO() as filelike_str: 
-                yoda.writeFLAT(histogram, filelike_str)
+                yoda.writeYODA(histogram, filelike_str)
                 # Name might not be correct here
                 outputdict['histograms'][filename][constants.histogram_str_name] = yamlio.Literal(filelike_str.getvalue())
     
