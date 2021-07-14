@@ -85,7 +85,8 @@ namespace Rivet {
       const double m10 = (leptons[1].mom() + bjets[0].mom()).mass();
       const double m01 = (leptons[0].mom() + bjets[1].mom()).mass();
       const double m11 = (leptons[1].mom() + bjets[1].mom()).mass();
-      const double minimax = min( max(m00,m11), max(m10,m01) );
+      double minimax = min( max(m00,m11), max(m10,m01) );
+      minimax = min(minimax, 419.); // put overflow in the last bin
       _h->fill(minimax/GeV);
     }
 
