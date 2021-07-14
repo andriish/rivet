@@ -6,8 +6,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import yoda
-from ruamel.yaml import YAML
-
+from yamlio import read_yamlfile
 
 def _apply_style(yaml_dicts):
     # TODO: add other styles and perform error checks
@@ -51,8 +50,7 @@ def rivet_plot(yaml_file):
     The yaml file contains rcParams for mpl, histogram data, and plot styles.
     """
     # Parse yaml file for rcParams, histogram data, and plot style.
-    with open(yaml_file) as file:
-        yaml_dicts = YAML(typ='safe').load(file)
+    yaml_dicts = read_yamlfile(yaml_file)
     _apply_style(yaml_dicts)
     hist_data = _parse_yoda_hist(yaml_dicts)
     hist_features = [val for val in yaml_dicts['histograms'].values()]
