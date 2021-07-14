@@ -9,6 +9,7 @@ import numpy as np
 import yoda
 from yamlio import read_yamlfile
 
+
 def _apply_style(yaml_dicts):
     # TODO: add other styles and perform error checks
     plot_style = yaml_dicts['style'] + '.mplstyle'
@@ -22,7 +23,7 @@ def _apply_style(yaml_dicts):
 def _parse_yoda_hist(yaml_dicts):
     hist_data = []
     for hist_dict in yaml_dicts['histograms'].values():
-        with io.StringIO(hist_dict['flat']) as file_like:
+        with io.StringIO(hist_dict['yoda']) as file_like:
             hist_data.append(yoda.read(file_like, asdict=False)[0])
     return hist_data
 
@@ -161,8 +162,9 @@ def rivet_plot(yaml_file):
         ax.plot(x_bins, y_mc, color, drawstyle='steps-pre',
                 solid_joinstyle='miter', zorder=5+i)
         if hist_features[i].get('ErrorBars', 1):
-            mc_errminus = [err[0] for err in mc.yErrs()]
-            mc_errplus = [err[1] for err in mc.yErrs()]
+            # BUG: what if yerr- != yerr+? mc.yErrs() only returns len N array
+            mc_errminus = [err for err in mc.yErrs()]
+            mc_errplus = [err for err in mc.yErrs()]
             ax.vlines(x_points, (mc.yVals() - mc_errminus),
                       (mc.yVals() + mc_errplus), color, zorder=5+i)
 
@@ -196,8 +198,6 @@ def rivet_plot(yaml_file):
             ax_ratio.plot(x_bins, y_ratio, color, drawstyle='steps-pre', zorder=1,
                           solid_joinstyle='miter')
             if hist_features[i].get('ErrorBars', 1):
-                mc_errminus = [err[0] for err in mc.yErrs()]
-                mc_errplus = [err[1] for err in mc.yErrs()]
                 ax_ratio.vlines(x_points, (mc.yVals() - mc_errminus)/data_yVals,
                                 (mc.yVals() + mc_errplus)/data_yVals, color, zorder=1)
 
