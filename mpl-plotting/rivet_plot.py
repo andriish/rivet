@@ -1,6 +1,7 @@
 """Module creates a rivet-style plot as a pdf."""
 import os
 import sys
+import io
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -19,14 +20,10 @@ def _apply_style(yaml_dicts):
 
 
 def _parse_yoda_hist(yaml_dicts):
-    # TODO: There is probably a more elegant approach than using temp file
     hist_data = []
     for hist_dict in yaml_dicts['histograms'].values():
-        temp_file = open("temp_file.txt", "w")
-        temp_file.write(hist_dict['flat'])
-        temp_file.close()
-        hist_data.append(list(yoda.readFLAT("temp_file.txt").values())[0])
-        os.remove("temp_file.txt")
+        with io.StringIO(hist_dict['flat']) as file_like:
+            hist_data.append(yoda.read(file_like, asdict=False)[0])
     return hist_data
 
 
