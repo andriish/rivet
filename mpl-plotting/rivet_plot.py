@@ -24,7 +24,7 @@ def _parse_yoda_hist(yaml_dicts):
     hist_data = []
     for hist_dict in yaml_dicts['histograms'].values():
         with io.StringIO(hist_dict['yoda']) as file_like:
-            hist_data.append(yoda.read(file_like, asdict=False)[0])
+            hist_data.append(yoda.readYODA(file_like, asdict=False)[0])
     return hist_data
 
 
