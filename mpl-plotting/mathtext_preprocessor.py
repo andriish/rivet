@@ -1,4 +1,4 @@
-# TODO: check that these macros have the correct replacement
+# TODO: check that these macros are correct
 macros = [['\GeV', r'\mathrm{Ge\!V}'], ['\TeV', r'\mathrm{Te\!V}'], 
           ['\pt', r'{\mathrm{p}_T}'], ['\pT', r'{\mathrm{p}_T}']]   # {} is added around to ensure that additional _ can be added in the label
 def preprocess(s: str) -> str:
