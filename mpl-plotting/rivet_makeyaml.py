@@ -50,6 +50,7 @@ def _parse_args(args):
     Some matplotlib line styles contain ':', which would not work with current code. TODO:  change delimiter?
     """
     # TODO: remove filenames since they exist as keys in plotoptions?
+    # TODO: type conversion. Use type_conversion from old_plotfile_converter.py
     filelist = []
     filenames = []
     plotoptions = {}
@@ -83,12 +84,13 @@ def _parse_args(args):
 
 def _preprocess_rcparams(rc_params):
     """Create a dictionary from the string input
-
+    TODO: refactor so that _parse_args uses this function.
+    TODO: repurpose function to be more general.
     Parameters
     ----------
     rc_params : str
         String of the format key=value:key2=value2..., similar to the format of args.
-    TODO: refactor so that code in _parse_args can be used here?
+
 
     Returns
     -------
@@ -99,21 +101,8 @@ def _preprocess_rcparams(rc_params):
     --------
     >>> _preprocess_rcparams('key=value:key2=multiword value:multiword key=multiword value again')
     {'key': 'value', 'key2': 'multiword value', 'multiword key': 'multiword value again'}
-
-    Note
-    ----
-    This function will not check if a rcParam is valid or not. TODO Maybe the function should be renamed?  
     """
-    # TODO: maybe there is a better way. Check how _parse_args does it.
-    if not rc_params:
-        return {}
-
-    rc_params_dict = {}
-    for key_val in rc_params.split(':'):
-        key, val = key_val.split('=', 1)
-        rc_params_dict[key] = val
-
-    return rc_params_dict
+    pass
     
 
 def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns):
@@ -261,7 +250,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
                    path_unpatterns=(), plotinfodirs=[], 
                    style='default', config_files=[], 
                    hier_output=False, outdir='.', mc_errs=True,
-                   rivetplotpaths=True, rc_params='', analysispaths=[], verbose=False
+                   rivetplotpaths=True, analysispaths=[], verbose=False
                   ):
     """Create .yaml files that can be parsed by rivet-make-plot
     Each output .yaml file corresponds to one analysis which contains all MC histograms and a reference data histogram.
@@ -286,7 +275,11 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     plotinfodirs : list[str]
         Directory which may contain plot header information (in addition to standard Rivet search paths).
     style : str
-        Set the style of all plots. Must be a name of a builtin style (e.g. 'default')
+        Set the style of all plots and additional rcParams.
+        Format is style:key=value:key2=value2...
+        The first part of the string must be a name of a builtin style (e.g. 'default').
+        The other keys and values must be valid rcParams.
+        However, the validity is not checked by this function.
     config_files : list[str]
         Additional plot config file(s). 
         Settings will be included in the output configuration. 
@@ -299,9 +292,6 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
         If True, add the errors of the Monte-Carlo histograms. 
     rivetplotpaths : bool
         Search for .plot files in the standard Rivet plot paths.
-    rc_params : str
-        Additional rc params added to all output .yaml files. Format is key=value:key2=value2...
-        TODO: make this a part of style instead
     verbose : bool
         If True, write more information to stdout.
     Returns
@@ -317,8 +307,11 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     if verbose:
         logging.basicConfig(level=logging.DEBUG)
 
-    rc_params_dict = _preprocess_rcparams(rc_params)
-    
+    # TODO: more elegant solution for getting rc_params by refactoring _parse_args and making it more generalized.
+    stylename, _, rc_params_dict = _parse_args([style])
+    stylename = stylename[0]    # Convert list to str
+    rc_params_dict = rc_params_dict[stylename]  # Convert dict of dicts to dict
+    del rc_params_dict['Title']
     # Code from rivet-cmphistos (modified) >>> 
     # TODO: clean and refactor rivet-cmphistos code
 
@@ -377,7 +370,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
         outputdict = _make_output(
             plot_id, plotdirs, config_files, 
             mchistos, refhistos, reftitle, 
-            plotoptions, style, rc_params_dict, mc_errs
+            plotoptions, stylename, rc_params_dict, mc_errs
         )
         
         ## Make the output and write to file
