@@ -3,10 +3,11 @@ import rivet, yoda
 import os, glob, io, logging
 import yamlio 
 import constants
+from old_plotfile_converter import type_conversion
 
 # TODO: add more descriptive docstrings to all functions.
 
-def sanitiseString(s):
+def _sanitise_string(s):
     s = s.replace('#','\\#')
     s = s.replace('%','\\%')
     return s
@@ -50,7 +51,6 @@ def _parse_args(args):
     Some matplotlib line styles contain ':', which would not work with current code. TODO:  change delimiter?
     """
     # TODO: remove filenames since they exist as keys in plotoptions?
-    # TODO: type conversion. Use type_conversion from old_plotfile_converter.py
     filelist = []
     filenames = []
     plotoptions = {}
@@ -70,7 +70,7 @@ def _parse_args(args):
             if asplit[i].startswith('Title='):
                 has_title = True
             key, value = asplit[i].split('=', 1)
-            plotoptions[path][key] = value
+            plotoptions[path][key] = type_conversion(value)
             if asplit[i].startswith('Name=') and path != "PLOT":
                 has_name = asplit[i].split('=', 1)[1]
                 filenames[-1] = has_name
@@ -78,7 +78,7 @@ def _parse_args(args):
             plotoptions[has_name] = plotoptions[path]
             del plotoptions[path]
         if path != "PLOT" and not has_title:
-            plotoptions[has_name if has_name != "" else path]['Title'] = sanitiseString(os.path.basename( os.path.splitext(path)[0] ))
+            plotoptions[has_name if has_name != "" else path]['Title'] = _sanitise_string(os.path.basename( os.path.splitext(path)[0] ))
     return filelist, filenames, plotoptions
 
 

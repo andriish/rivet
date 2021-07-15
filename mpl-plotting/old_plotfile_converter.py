@@ -4,6 +4,7 @@ from __future__ import print_function
 import os, re, logging
 from rivet.util import texpand
 
+
 pat_begin_block = re.compile(r'^(#*\s*)?BEGIN (\w+) ?(\S+)?')
 pat_begin_name_block = re.compile(r'^(#*\s*)?BEGIN (\w+) ?(\S+)? ?(\w+)?')
 pat_end_block =   re.compile(r'^(#*\s*)?END (\w+)')
@@ -12,12 +13,15 @@ pat_property = re.compile(r'^(\w+?)\s*=\s*(.*)$')
 pat_property_opt = re.compile('^ReplaceOption\[(\w+=\w+)\]=(.*)$')
 pat_path_property  = re.compile(r'^(\S+?)::(\w+?)=(.*)$')
 
+
 def _is_end_marker(line, blockname):
     m = pat_end_block.match(line)
     return m and m.group(2) == blockname
 
+
 def _is_comment(line):
     return pat_comment.match(line) is not None
+
 
 def type_conversion(value):
     """Convert the value of a property into the correct type.
@@ -37,6 +41,7 @@ def type_conversion(value):
     ------
     TypeError
         If value is not of type str.
+    TODO: move function somewhere else?
     """
     if not isinstance(value, str):
         raise TypeError('Expected value to be of type str but got type {}'.format(type(value)))
