@@ -12,14 +12,14 @@ pat_property = re.compile(r'^(\w+?)\s*=\s*(.*)$')
 pat_property_opt = re.compile('^ReplaceOption\[(\w+=\w+)\]=(.*)$')
 pat_path_property  = re.compile(r'^(\S+?)::(\w+?)=(.*)$')
 
-def isEndMarker(line, blockname):
+def _is_end_marker(line, blockname):
     m = pat_end_block.match(line)
     return m and m.group(2) == blockname
 
-def isComment(line):
+def _is_comment(line):
     return pat_comment.match(line) is not None
 
-def _type_conversion(value):
+def type_conversion(value):
     """Convert the value of a property into the correct type.
     Note that "1" will be converted to True and "0" to False.
 
@@ -36,7 +36,7 @@ def _type_conversion(value):
     Raises
     ------
     TypeError
-        If value is not of type str. This is not supposed to happen.
+        If value is not of type str.
     """
     if not isinstance(value, str):
         raise TypeError('Expected value to be of type str but got type {}'.format(type(value)))
@@ -77,11 +77,6 @@ def parse_old_plotfile(filename, hpath, section='PLOT'):
     ValueError
         If section is not PLOT or HISTOGRAM. 
         This includes the SPECIAL and FUNCTION sections, which could be parsed before.
-    
-    Notes
-    -----
-    TODO: numbers in the .plot file (e.g. the 1 in LogX=1) will currently be added to the output dict as a str instead of an int.
-        This should be fixed.
     """
     if section not in ('PLOT', 'HISTOGRAM'):
         raise ValueError('Expected section to be PLOT or HISTOGRAM but got {}.'.format(section))
@@ -114,10 +109,10 @@ def parse_old_plotfile(filename, hpath, section='PLOT'):
                         continue
             if not startreading:
                 continue
-            if isEndMarker(line, section):
+            if _is_end_marker(line, section):
                 startreading = False
                 continue
-            elif isComment(line):
+            elif _is_comment(line):
                 continue
             vm = pat_property.match(line)
 
@@ -132,10 +127,9 @@ def parse_old_plotfile(filename, hpath, section='PLOT'):
                         value = msec.expand(value)
                     except Exception as e: # TODO: bad exception handling
                         value = oldval #< roll back escapes if it goes wrong
-                ret[prop] = _type_conversion(texpand(value)) #< expand TeX shorthands and convert type if necessary
+                ret[prop] = type_conversion(texpand(value)) #< expand TeX shorthands and convert type if necessary
             vm = pat_property_opt.match(line)
             if vm:
                 prop, value = vm.group(1,2)
-                ret['ReplaceOption[' + prop + ']'] = _type_conversion(texpand(value))
-    # Type conversion. Might be moved to the for loop above.
+                ret['ReplaceOption[' + prop + ']'] = type_conversion(texpand(value))
     return ret

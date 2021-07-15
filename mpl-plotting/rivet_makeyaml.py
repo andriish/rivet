@@ -91,7 +91,6 @@ def _preprocess_rcparams(rc_params):
     rc_params : str
         String of the format key=value:key2=value2..., similar to the format of args.
 
-
     Returns
     -------
     rc_params_dict : dict
