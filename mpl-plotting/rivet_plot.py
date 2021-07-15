@@ -10,14 +10,26 @@ import yoda
 from yamlio import read_yamlfile
 
 
-def _apply_style(yaml_dicts):
-    # TODO: add other styles and perform error checks
-    plot_style = yaml_dicts['style'] + '.mplstyle'
-    if yaml_dicts.get('rcParams'):
-        plt.style.use((os.path.join(sys.path[0], plot_style),
-                       yaml_dicts['rcParams']))
+def rivet_plot(yaml_file):
+    """Create plot from yaml file dictionaries.
+
+    The yaml file contains rcParams for mpl, histogram data, and plot styles.
+    """
+    # Parse yaml file for rcParams, histogram data, and plot style.
+    yaml_dicts = read_yamlfile(yaml_file)
+    hist_data = _parse_yoda_hist(yaml_dicts)
+    plot_features = _parse_yoda_plot_features(yaml_dicts)
+    fig, axes = _create_plot(yaml_dicts, plot_features, hist_data)
+
+    if all(isinstance(h, (yoda.core.Scatter2D, yoda.core.Histo1D, yoda.core.Profile1D)) for h in hist_data):
+        # TODO: Figure out the differences between these classes
+        hist_features = [val for val in yaml_dicts['histograms'].values()]
+        _plot_1Dhist(hist_data, axes, hist_features, plot_features)
     else:
-        plt.style.use((os.path.join(sys.path[0], plot_style)))
+        print('Error with Class types:', [type(h) for h in hist_data])
+        raise NotImplementedError('Class type cannot be plotted yet')
+
+    _save_fig(fig, yaml_file)
 
 
 def _parse_yoda_hist(yaml_dicts):
@@ -42,29 +54,25 @@ def _parse_yoda_plot_features(yaml_dicts):
     return plot_features
 
 
-def rivet_plot(yaml_file):
-    """Create plot from yaml file dictionaries.
-
-    The yaml file contains rcParams for mpl, histogram data, and plot styles.
-    """
-    # Parse yaml file for rcParams, histogram data, and plot style.
-    yaml_dicts = read_yamlfile(yaml_file)
-    _apply_style(yaml_dicts)
-    hist_data = _parse_yoda_hist(yaml_dicts)
-    hist_features = [val for val in yaml_dicts['histograms'].values()]
-    plot_features = _parse_yoda_plot_features(yaml_dicts)
+def _create_plot(yaml_dicts, plot_features, hist_data):
+    plot_style = yaml_dicts['style'] + '.mplstyle'
+    if yaml_dicts.get('rcParams'):
+        plt.style.use((os.path.join(sys.path[0], plot_style),
+                       yaml_dicts['rcParams']))
+    else:
+        plt.style.use((os.path.join(sys.path[0], plot_style)))
 
     plt.rcParams['xtick.top'] = plot_features.get('XTwosidedTicks', True)
     plt.rcParams['ytick.right'] = plot_features.get('YTwosidedTicks', True)
 
-    if plot_features.get('RatioPlot', 1):
+    if plot_features.get('RatioPlot'):
         fig, (ax, ax_ratio) = plt.subplots(2, 1, sharex=True,
                                            gridspec_kw={'height_ratios': (2, 1)})
     else:
         fig, ax = plt.subplots(1, 1)
 
     # Set text labels
-    if plot_features.get('RatioPlot', 1):
+    if plot_features.get('RatioPlot'):
         ax_ratio.set_xlabel(plot_features.get('XLabel'))
     else:
         ax.set_xlabel(plot_features.get('XLabel'))
@@ -126,7 +134,7 @@ def rivet_plot(yaml_file):
         ax.set_xticks(plot_features.get('XCustomMajorTicks')[::2])
         ax.set_xticklabels(plot_features.get('XCustomMajorTicks')[1::2])
         ax.set_xticks([], minor=True)  # Turn off minor xticks
-        if plot_features.get('RatioPlot', 1):
+        if plot_features.get('RatioPlot'):
             ax_ratio.set_xticks([], minor=True)
     if plot_features.get('YCustomMajorTicks') is not None:
         ax.set_yticks(plot_features.get('YCustomMajorTicks')[::2])
@@ -138,12 +146,22 @@ def rivet_plot(yaml_file):
         ax.set_yticks(plot_features.get('YCustomMinorTicks'), minor=True)
     if plot_features.get('PlotXTickLabels') == 0:
         ax.set_xticklabels([])
+    if plot_features.get('RatioPlot'):
+        return fig, (ax, ax_ratio)
+    return fig, (ax,)
 
+
+def _plot_1Dhist(hist_data, axes, hist_features, plot_features):
     # Create useful variables
     colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
     x_points = (hist_data[0].xMins() + hist_data[0].xMaxs())/2
     x_bins = np.append(hist_data[0].xMins(), hist_data[0].xMax())
     data_yVals = hist_data[0].yVals()
+
+    if plot_features.get('RatioPlot'):
+        ax, ax_ratio = axes
+    else:
+        ax = axes[0]
 
     # Plot data
     ax.hlines(data_yVals, hist_data[0].xMins(),
@@ -169,7 +187,7 @@ def rivet_plot(yaml_file):
                       (mc.yVals() + mc_errplus), color, zorder=5+i)
 
     # Create ratio plot
-    if plot_features.get('RatioPlot', 1):
+    if plot_features.get('RatioPlot'):
         ax_ratio.yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.1))
         ax_ratio.set_ylabel(plot_features.get('RatioPlotYLabel', 'MC/Data'))
         RatioPlotYMin = plot_features.get('RatioPlotYMin', 0.5)
@@ -177,6 +195,8 @@ def rivet_plot(yaml_file):
         ax_ratio.set_ylim(RatioPlotYMin, RatioPlotYMax)
 
         # Plot data
+        XMin = plot_features.get('XMin', min([h.xMin() for h in hist_data]))
+        XMax = plot_features.get('XMax', max([h.xMax() for h in hist_data]))
         ax_ratio.hlines(1, XMin, XMax, 'k', zorder=2)
         ax_ratio.plot(x_points, np.ones(len(x_points)), 'ko', zorder=3)
         if plot_features.get('ErrorBands'):
@@ -222,6 +242,8 @@ def rivet_plot(yaml_file):
             ax.legend(handles, labels, loc='upper right', bbox_to_anchor=legend_pos,
                       handler_map={AnyObject: AnyObjectHandler()}, markerfirst=False)
 
+
+def _save_fig(fig, yaml_file):
     fig.savefig(yaml_file[:-4]+'pdf', dpi=500)
     fig.savefig(yaml_file[:-4]+'png', dpi=500)
     plt.close()
@@ -248,7 +270,3 @@ class AnyObjectHandler(object):
             (width/2-0.4, 0), 0.8, height, facecolor='black')
         handlebox.add_artist(patch)
         return patch
-
-
-if __name__ == '__main__':
-    rivet_plot('ATLAS_2010_S8918562_d10-x01-y01.yaml')
