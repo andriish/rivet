@@ -532,9 +532,9 @@ for analysis in analyses:
     anapath = os.path.join(args.OUTPUTDIR, analysis)
     anadatfiles = glob.glob("%s/*.yaml" % anapath)
     for yamlfile in sorted(anadatfiles):
-        print(yamlfile)
         if yamlfile == './rivet-plots/ALICE_2010_S8625980/Nevt_after_cuts.yaml':
             continue  # BUG: This file doesn't work
+        print(yamlfile)
         rivet_plot(yamlfile)
 
 """
