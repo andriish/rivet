@@ -1,5 +1,5 @@
 # Convert the old plot file format to a dict that can be parsed by yamlio.py and rivet_makeyaml.py.
-# Based on https://gitlab.com/hepcedar/rivet/-/blob/release-3-1-x/pyext/rivet/plotinfo.py
+# Based on pyext/rivet/plotinfo.py
 from __future__ import print_function
 import os, re, logging
 from rivet.util import texpand
@@ -18,6 +18,42 @@ def isEndMarker(line, blockname):
 
 def isComment(line):
     return pat_comment.match(line) is not None
+
+def _type_conversion(value):
+    """Convert the value of a property into the correct type.
+    Note that "1" will be converted to True and "0" to False.
+
+    Parameters
+    ----------
+    value : str
+        Value of a property, retrieved from a .plot file
+
+    Returns
+    -------
+    converted_val : str | float | bool
+        The input but converted to a different type.
+
+    Raises
+    ------
+    TypeError
+        If value is not of type str. This is not supposed to happen.
+    """
+    if not isinstance(value, str):
+        raise TypeError('Expected value to be of type str but got type {}'.format(type(value)))
+
+    if value == '0':
+        converted_val = False
+    elif value == '1':
+        converted_val = True
+    else:
+        try:
+            float(value)
+        except ValueError:
+            converted_val = value
+        else:
+            converted_val = float(value)
+    return converted_val
+
 
 def parse_old_plotfile(filename, hpath, section='PLOT'):
     """Parse a plot file of the old format and return a dict of the same format as the new plot files.
@@ -96,10 +132,10 @@ def parse_old_plotfile(filename, hpath, section='PLOT'):
                         value = msec.expand(value)
                     except Exception as e: # TODO: bad exception handling
                         value = oldval #< roll back escapes if it goes wrong
-                ret[prop] = texpand(value) #< expand TeX shorthands
+                ret[prop] = _type_conversion(texpand(value)) #< expand TeX shorthands and convert type if necessary
             vm = pat_property_opt.match(line)
             if vm:
                 prop, value = vm.group(1,2)
-                ret['ReplaceOption[' + prop + ']'] = texpand(value)
-
+                ret['ReplaceOption[' + prop + ']'] = _type_conversion(texpand(value))
+    # Type conversion. Might be moved to the for loop above.
     return ret
