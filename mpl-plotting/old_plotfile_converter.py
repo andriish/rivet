@@ -47,7 +47,7 @@ def type_conversion(value):
     
     try:
         return ast.literal_eval(value)
-    except ValueError:
+    except (ValueError, SyntaxError): # literal_eval might raise more errors
         return value
 
 
