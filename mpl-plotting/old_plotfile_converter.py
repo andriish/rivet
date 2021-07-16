@@ -3,7 +3,7 @@
 from __future__ import print_function
 import os, re, logging
 from rivet.util import texpand
-
+import ast
 
 pat_begin_block = re.compile(r'^(#*\s*)?BEGIN (\w+) ?(\S+)?')
 pat_begin_name_block = re.compile(r'^(#*\s*)?BEGIN (\w+) ?(\S+)? ?(\w+)?')
@@ -25,7 +25,6 @@ def _is_comment(line):
 
 def type_conversion(value):
     """Convert the value of a property into the correct type.
-    Note that "1" will be converted to True and "0" to False.
 
     Parameters
     ----------
@@ -34,7 +33,7 @@ def type_conversion(value):
 
     Returns
     -------
-    converted_val : str | float | bool
+    str | byte | number | tuple | list | dict | set | bool | None
         The input but converted to a different type.
 
     Raises
@@ -45,19 +44,11 @@ def type_conversion(value):
     """
     if not isinstance(value, str):
         raise TypeError('Expected value to be of type str but got type {}'.format(type(value)))
-
-    if value == '0':
-        converted_val = False
-    elif value == '1':
-        converted_val = True
-    else:
-        try:
-            float(value)
-        except ValueError:
-            converted_val = value
-        else:
-            converted_val = float(value)
-    return converted_val
+    
+    try:
+        return ast.literal_eval(value)
+    except ValueError:
+        return value
 
 
 def parse_old_plotfile(filename, hpath, section='PLOT'):
