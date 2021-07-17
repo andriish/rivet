@@ -56,8 +56,6 @@ parser.add_argument("--no-subproc", dest="NO_SUBPROC", action="store_true", defa
                     help="don't use subprocesses to render the plots in parallel -- useful for debugging")
 parser.add_argument("--pwd", dest="PATH_PWD", action="store_true", default=False,
                     help="append the current directory (pwd) to the analysis/data search paths (cf. $RIVET_ANALYSIS_PATH)")
-#TODO: Add rcparams option
-rc_params = ''
 #TODO: Add style  option
 style = 'default'
 #TODO: Set rivetplotpaths True to parse .plot features, not implemented yet
@@ -249,7 +247,7 @@ make_yamlfiles(args.YODAFILES, args.PATH_PWD, args.REFTITLE,
                args.PATHUNPATTERNS, [os.path.abspath("../")],
                style, configfiles,
                True, args.OUTPUTDIR, args.MC_ERRS,
-               rivetplotpaths, rc_params, analysispaths, args.VERBOSE)
+               rivetplotpaths, analysispaths, args.VERBOSE)
 print('called rivet_makeyaml')
 """
 ch_cmd = ["rivet-makeyaml"]
