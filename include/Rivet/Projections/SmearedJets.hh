@@ -28,6 +28,8 @@ namespace Rivet {
   // }
 
 
+  /// @todo Allow applying a pre-smearing cut so smearing doesn't need to be applied to below-threshold micro-jets
+
 
   /// Wrapper projection for smearing {@link Jet}s with detector resolutions and efficiencies
   class SmearedJets : public JetFinder {

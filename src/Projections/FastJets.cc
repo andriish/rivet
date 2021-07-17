@@ -188,6 +188,7 @@ namespace Rivet {
     PseudoJets pjs = mkClusterInputs(_fsparticles, _tagparticles);
 
     // Run either basic or area-calculating cluster sequence as reqd.
+    /// @todo How can we make sure these persist if we call calc multiple times?
     if (_adef) {
       _cseq.reset(new fastjet::ClusterSequenceArea(pjs, _jdef, *_adef));
     } else {
