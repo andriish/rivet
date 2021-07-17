@@ -55,10 +55,11 @@ namespace Rivet {
     void analyze(const Event& event) {
       const ChargedFinalState& bbc1 = apply<ChargedFinalState>(event, "BBC1");
       const ChargedFinalState& bbc2 = apply<ChargedFinalState>(event, "BBC2");
-      if (bbc1.size()<1 || bbc2.size()<1) {
+      if (bbc1.size() < 1 || bbc2.size() < 1) {
         MSG_DEBUG("Failed beam-beam-counter trigger");
         vetoEvent;
       }
+      _sumWeightSelected->fill();
 
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles()) {
@@ -134,8 +135,6 @@ namespace Rivet {
 
         }
       }
-
-      _sumWeightSelected->fill();
     }
 
 
