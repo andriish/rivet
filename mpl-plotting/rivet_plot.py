@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import yoda
 from yamlio import read_yamlfile
+from rivet_plot2d import _plot_2Dhist
 
 
 def rivet_plot(yaml_file):
@@ -20,11 +21,14 @@ def rivet_plot(yaml_file):
     hist_data = _parse_yoda_hist(yaml_dicts)
     plot_features = _parse_yoda_plot_features(yaml_dicts)
     fig, axes = _create_plot(yaml_dicts, plot_features, hist_data)
-
+    hist_features = [val for val in yaml_dicts['histograms'].values()]
+    
     if all(isinstance(h, (yoda.core.Scatter2D, yoda.core.Histo1D, yoda.core.Profile1D)) for h in hist_data):
         # TODO: Figure out the differences between these classes
-        hist_features = [val for val in yaml_dicts['histograms'].values()]
         _plot_1Dhist(hist_data, axes, hist_features, plot_features)
+    elif all(isinstance(h, (yoda.Histo2D, yoda.Scatter3D, yoda.Profile2D)) for h in hist_data):
+        # TODO: Figure out the differences between these classes
+        _plot_2Dhist(hist_data, axes, hist_features, plot_features)
     else:
         print('Error with Class types:', [type(h) for h in hist_data])
         raise NotImplementedError('Class type cannot be plotted yet')
