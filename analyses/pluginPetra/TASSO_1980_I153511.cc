@@ -29,14 +29,14 @@ namespace Rivet {
       declare(Sphericity(cfs), "Sphericity");
       // Book histograms
       unsigned int ihist=0;
-      if      (fuzzyEquals(sqrtS()/GeV, 12., 1e-3)) {
+      if      (isCompatibleWithSqrtS(12.)) {
 	ihist=1;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 30., 1e-3)) {
+      else if (isCompatibleWithSqrtS(30.)) {
 	ihist=2;
       }
       else
-	MSG_ERROR("Beam energy not supported!");
+	MSG_ERROR("Beam energy " << sqrtS() << " GeV not supported!");
 
       book(_h_S ,   ihist, 1, 1);
       book(_h_A , 2+ihist, 1, 1);

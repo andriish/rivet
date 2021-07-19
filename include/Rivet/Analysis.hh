@@ -322,6 +322,9 @@ namespace Rivet {
     /// Check if analysis is compatible with the provided beam particle IDs and energies
     bool isCompatible(const PdgIdPair& beams, const std::pair<double,double>& energies) const;
 
+    /// Check if sqrtS is compatible with provided value
+    bool isCompatibleWithSqrtS(const float energy, float tolerance=1E-5) const;
+
     /// @}
 
     /// Access the controlling AnalysisHandler object.

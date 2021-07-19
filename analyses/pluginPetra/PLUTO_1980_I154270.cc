@@ -21,15 +21,15 @@ namespace Rivet {
     void init() {
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
-      if (fuzzyEquals(sqrtS()/GeV,9.4 ) ||
-          fuzzyEquals(sqrtS()/GeV,12.0) ||
-          fuzzyEquals(sqrtS()/GeV,13.0) ||
-          fuzzyEquals(sqrtS()/GeV,17.0) ||
-          fuzzyEquals(sqrtS()/GeV,22.0) ||
-          fuzzyEquals(sqrtS()/GeV,27.6) ||
-          fuzzyEquals(sqrtS()/GeV,30.2) ||
-          fuzzyEquals(sqrtS()/GeV,30.7) ||
-          fuzzyEquals(sqrtS()/GeV,31.3)) {
+      if (isCompatibleWithSqrtS(9.4 ) ||
+          isCompatibleWithSqrtS(12.0) ||
+          isCompatibleWithSqrtS(13.0) ||
+          isCompatibleWithSqrtS(17.0) ||
+          isCompatibleWithSqrtS(22.0) ||
+          isCompatibleWithSqrtS(27.6) ||
+          isCompatibleWithSqrtS(30.2) ||
+          isCompatibleWithSqrtS(30.7) ||
+          isCompatibleWithSqrtS(31.3)) {
         book(_c_mult, "/TMP/cmult");
         book(_mult, 1, 1, 1);
       }

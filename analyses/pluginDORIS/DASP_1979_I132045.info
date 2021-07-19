@@ -5,15 +5,21 @@ Experiment: DASP
 Collider: Doris
 InspireID: 132045
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Nucl.Phys. B148 (1979) 189-227
-RunInfo: e+e- to hadrons between 3.6 and 5.2 GeV
+RunInfo: 
+  e+e- to hadrons between 3.6 and 5.2 GeV
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NeedCrossSection: yes
 Beams: [e-, e+]
+Options:
+ - ENERGY=*
 Description:
-  'Measurement of the pion, proton and kaon spectra in $e^+e^-$ collisions for a range of energies between 3.6 and 5.2 GeV'
+  'Measurement of the pion, proton and kaon spectra in $e^+e^-$ collisions for a range of energies between 3.6 and 5.2 GeV.
+   Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 Keywords: []
 BibKey: Brandelik:1978bz
 BibTeX: '@article{Brandelik:1978bz,

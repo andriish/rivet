@@ -31,12 +31,19 @@ namespace Rivet {
       book(_c_muons, "/TMP/sigma_muons");
       book(_h_weight, "/TMP/HWeight");
       unsigned int iloc(0);
-      if(fuzzyEquals(sqrtS()/GeV, 14 , 1E-3))
+      sqs = 1.;
+      if(isCompatibleWithSqrtS(14)) {
 	iloc = 1;
-      else if(fuzzyEquals(sqrtS()/GeV, 22 , 1E-3))
+	sqs = 14.;
+      }
+      else if(isCompatibleWithSqrtS(22)) {
 	iloc = 2;
-      else if(fuzzyEquals(sqrtS()/GeV, 34 , 1E-3))
+	sqs = 22.;
+      }
+      else if(isCompatibleWithSqrtS(34)) {
 	iloc = 3;
+	sqs = 34.;
+      }
       if(iloc!=0) {
 	book(_h_mult,  3,1,iloc);
 	book(_h_p,  5,1,iloc);
@@ -141,7 +148,7 @@ namespace Rivet {
 	pair<double,double> ex2 = ex;
 	if(ex2.first ==0.) ex2. first=0.0001;
 	if(ex2.second==0.) ex2.second=0.0001;
-	if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+	if (inRange(sqs, x-ex2.first, x+ex2.second)) {
 	  mult   ->addPoint(x, rval, ex, rerr);
 	  hadrons->addPoint(x, sig_h, ex, make_pair(err_h,err_h));
 	  muons  ->addPoint(x, sig_m, ex, make_pair(err_m,err_m));
@@ -211,7 +218,7 @@ namespace Rivet {
 	  pair<double,double> ex2 = ex;
 	  if(ex2.first ==0.) ex2. first=0.0001;
 	  if(ex2.second==0.) ex2.second=0.0001;
-	  if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+	  if (inRange(sqs, x-ex2.first, x+ex2.second)) {
 	    mult   ->addPoint(x, value, ex, make_pair(error,error));
 	  }
 	  else {
@@ -242,6 +249,7 @@ namespace Rivet {
     YODA::Dbn1D _n_charged,_n_total,_sphericity,_thrust,_p_total,
       _p_l,_pt,_pt2,_pt2_in,_pt2_out;
     CounterPtr  _h_weight;
+    double sqs;
     //@}
 
   };

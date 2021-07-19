@@ -30,12 +30,31 @@ namespace Rivet {
       // Book histograms
       book(_mult, "/TMP/mult");
       unsigned int iloc(0);
-      if(fuzzyEquals(sqrtS()/GeV, 13 , 1E-3))
+      sqs = 1.0;
+      if(isCompatibleWithSqrtS(13)) {
 	iloc = 1;
-      else if(inRange(sqrtS(),16.99,23.01))
+	sqs = 13.0;
+      }
+      else if(isCompatibleWithSqrtS(17)) {
 	iloc = 2;
-      else if(inRange(sqrtS(),27.3,31.7))
+        sqs = 17.0;
+      }	
+      else if (isCompatibleWithSqrtS(22)) {
+	iloc = 2;
+	sqs = 22.;
+      }
+      else if(isCompatibleWithSqrtS(27.6)) {
 	iloc = 3;
+	sqs = 27.6;
+      }
+      else if (isCompatibleWithSqrtS(30.3)) {
+	iloc = 3;
+	sqs = 27.6;
+      }
+      else if (isCompatibleWithSqrtS(31.2)) {
+	iloc = 3;
+	sqs = 31.2;
+      }
       else
 	MSG_ERROR("Beam energy not supported!");
 
@@ -53,7 +72,7 @@ namespace Rivet {
       for (const Particle& p : cfs.particles()) {
 	const Vector3 mom3 = p.p3();
 	double pp = mom3.mod();
-	double xP = 2.*pp/sqrtS();
+	double xP = 2.*pp/sqs;
 	_h_x->fill(xP);
         const double mom = dot(axis, mom3);
 	const double rap = 0.5 * log((p.E() + mom) /
@@ -68,7 +87,7 @@ namespace Rivet {
     void finalize() {
 
       scale(_h_rap, 1./sumOfWeights());
-      scale(_h_x  , crossSection()*sqr(sqrtS())/sumOfWeights()/microbarn);  
+      scale(_h_x  , crossSection()*sqr(sqs)/sumOfWeights()/microbarn);  
 
       scale(_mult,1./sumOfWeights());
       
@@ -81,7 +100,7 @@ namespace Rivet {
 	pair<double,double> ex2 = ex;
 	if(ex2.first ==0.) ex2. first=0.2;
 	if(ex2.second==0.) ex2.second=0.2;
-	if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+	if (inRange(sqs, x-ex2.first, x+ex2.second)) {
 	  mult   ->addPoint(x, _mult->val(), ex, make_pair(_mult->err(), _mult->err()));
 	}
 	else {
@@ -97,6 +116,7 @@ namespace Rivet {
     //@{
     Histo1DPtr _h_rap, _h_x;
     CounterPtr _mult;
+    double sqs;
     //@}
 
 

@@ -26,10 +26,10 @@ namespace Rivet {
 
       // Book histograms
       unsigned int iloc(0);
-      if(fuzzyEquals(sqrtS()/GeV, 53.3, 1e-3)) {
+      if(isCompatibleWithSqrtS(53.3)) {
 	iloc=1;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 59.5, 1e-3)) {
+      else if (isCompatibleWithSqrtS(59.5)) {
 	iloc=2;
       }
       else

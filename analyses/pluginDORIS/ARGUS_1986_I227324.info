@@ -5,15 +5,21 @@ Experiment: ARGUS
 Collider: DORIS
 InspireID: 227324
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Z.Phys. C31 (1986) 181
-RunInfo: e+e- to hadrons for continuum and any process for Upsilon decay
+RunInfo: 
+  e+e- to hadrons for continuum and any process for Upsilon decay
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 Beams: [e+, e-]
+Options:
+ - ENERGY=*
 Description:
   'Measurement of the thrust and sphericty by the ARGUS experiment in e+e- collision at
-   the $\Upsilon(1S)$ resonance and in the nearby continuum.'
+   the $\Upsilon(1S)$ resonance and in the nearby continuum. Beam energy must be specified 
+   as analysis option "ENERGY" when rivet-merging samples.'
 ValidationInfo:
   'Herwig 7 events'
 #ReleaseTests:

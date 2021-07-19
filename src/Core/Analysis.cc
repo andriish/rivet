@@ -26,7 +26,12 @@ namespace Rivet {
 
 
   double Analysis::sqrtS() const {
-    return handler().sqrtS();
+    double sqrts = handler().sqrtS();
+    if (sqrts <= 0) {
+      MSG_DEBUG("Suspicious beam energy. You're probably running rivet-merge. Fetching beam energy from option.");
+      sqrts = getOption<double>("ENERGY", 0);
+    }
+    return sqrts;
   }
 
   const ParticlePair& Analysis::beams() const {
@@ -175,6 +180,10 @@ namespace Rivet {
     return beamEnergiesOk;
   }
 
+
+  bool Analysis::isCompatibleWithSqrtS(const float energy, float tolerance) const {
+    return fuzzyEquals(sqrtS()/GeV, energy, tolerance);
+  }
 
   ///////////////////////////////////////////
 

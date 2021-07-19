@@ -40,10 +40,10 @@ namespace Rivet {
       declare(cfs, "FS");
 
       // Histos
-      if (fuzzyEquals(sqrtS()/GeV, 630)) {
+      if (isCompatibleWithSqrtS(630)) {
         book(_hist_multiplicity  ,1, 1, 1);
         book(_hist_pt_vs_multiplicity  ,3, 1, 1);
-      } else if (fuzzyEquals(sqrtS()/GeV, 1800)) {
+      } else if (isCompatibleWithSqrtS(1800)) {
         book(_hist_multiplicity ,2, 1, 1);
         book(_hist_pt_vs_multiplicity ,4, 1, 1);
       }
@@ -86,9 +86,9 @@ namespace Rivet {
       // legend of the plot in the paper. Have a look at
       // figure 1 and everything immediately becomes clear.
       // DON'T TRY TO REPAIR THIS, YOU WILL BREAK IT.
-      if (fuzzyEquals(sqrtS()/GeV, 630)) {
+      if (isCompatibleWithSqrtS(630)) {
         normalize(_hist_multiplicity, 3.21167); // fixed norm OK
-      } else if (fuzzyEquals(sqrtS()/GeV, 1800)) {
+      } else if (isCompatibleWithSqrtS(1800)) {
         normalize(_hist_multiplicity, 4.19121); // fixed norm OK
       }
     }

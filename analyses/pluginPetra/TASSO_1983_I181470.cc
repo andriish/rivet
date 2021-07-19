@@ -25,20 +25,25 @@ namespace Rivet {
       declare(FinalState(), "FS");
 
       vector<int> hist1,hist2;
-      if(fuzzyEquals(sqrtS()/GeV, 14., 1e-3)) {
+      sqs = 1.;
+      if(isCompatibleWithSqrtS(14.)) {
 	hist1 = {19,21,23};
 	hist2 = {20,22,24};
+	sqs = 14.;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 22., 1e-3)) {
+      else if (isCompatibleWithSqrtS(22.)) {
 	hist1 = {25,27,11};
 	hist2 = {26,10,12};
+	sqs = 22.;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 34., 1e-3)) {
+      else if (isCompatibleWithSqrtS(34.)) {
 	hist1 = {13,15,17};
 	hist2 = {14,16,18};
+	sqs = 34.;
       }
       else
-	MSG_ERROR("Beam energy not supported!");
+        MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
+          << " doesn't match any available analysis energy .");
       
       book(_h_p_pi , hist1[0],1,1);
       book(_h_p_K  , hist1[1],1,1);
@@ -91,7 +96,7 @@ namespace Rivet {
     void finalize() {
 
       double fact1 = crossSection()/nanobarn/sumOfWeights();
-      double fact2 = sqr(sqrtS())/GeV2*crossSection()/microbarn/sumOfWeights();
+      double fact2 = sqr(sqs)/GeV2*crossSection()/microbarn/sumOfWeights();
       
       scale(_h_p_pi, fact1); 
       scale(_h_p_K , fact1); 
@@ -109,6 +114,7 @@ namespace Rivet {
     //@{
     Histo1DPtr   _h_p_pi,_h_p_K,_h_p_p;
     Histo1DPtr   _h_x_pi,_h_x_K,_h_x_p;
+    double sqs;
     //@}
 
 

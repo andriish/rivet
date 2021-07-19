@@ -3,6 +3,7 @@ Summary: Inclusive $\Lambda_c^+$ Production in $e^+e^-$ Annihilation at $\sqrt{s
 Experiment: BaBar
 Collider: PEP-II
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>
 References:

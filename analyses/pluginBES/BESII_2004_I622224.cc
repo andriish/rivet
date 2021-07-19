@@ -21,17 +21,17 @@ namespace Rivet {
       const ChargedFinalState fs;
       declare(fs, "FS");
       unsigned int iloc(0);
-      if(fuzzyEquals(sqrtS()/GeV, 2.2 , 1E-3))
+      if(isCompatibleWithSqrtS(2.2 , 1E-3))
 	iloc = 1;
-      else if(fuzzyEquals(sqrtS()/GeV, 2.6 , 1E-3))
+      else if(isCompatibleWithSqrtS(2.6 , 1E-3))
 	iloc = 2;
-      else if(fuzzyEquals(sqrtS()/GeV, 3.0 , 1E-3))
+      else if(isCompatibleWithSqrtS(3.0 , 1E-3))
 	iloc = 3;
-      else if(fuzzyEquals(sqrtS()/GeV, 3.2 , 1E-3))
+      else if(isCompatibleWithSqrtS(3.2 , 1E-3))
 	iloc = 4;
-      else if(fuzzyEquals(sqrtS()/GeV, 4.6 , 1E-3))
+      else if(isCompatibleWithSqrtS(4.6 , 1E-3))
 	iloc = 5;
-      else if(fuzzyEquals(sqrtS()/GeV, 4.8 , 1E-3))
+      else if(isCompatibleWithSqrtS(4.8 , 1E-3))
 	iloc = 6;
       else
 	MSG_ERROR("Beam energy not supported!");

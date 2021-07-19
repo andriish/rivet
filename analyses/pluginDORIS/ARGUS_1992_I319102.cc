@@ -25,9 +25,9 @@ namespace Rivet {
       declare(FinalState(), "FS");
 
       // Book histograms
-      if(fuzzyEquals(sqrtS()/GeV, 10.47 , 1E-3)) {
-	book(_h_N, 2, 1, 1);
-	book(_h_tot_N,4,1,1);
+      if(isCompatibleWithSqrtS(10.47)) {
+        book(_h_N, 2, 1, 1);
+        book(_h_tot_N,4,1,1);
       }
       book(_h_N_Upsilon, 3, 1, 1);
       book(_h_N_tot_Upsilon,5,1,1);

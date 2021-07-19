@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief K0 and Lambda spectra at 14, 22 and 34 GeC
+  /// @brief K0 and Lambda spectra at 14, 22 and 34 GeV.
   class TASSO_1985_I205119 : public Analysis {
   public:
 
@@ -25,28 +25,31 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      // Book histograms
-      if(fuzzyEquals(sqrtS()/GeV, 14., 1e-3)) {
+      sqs = 1.;
+      if(isCompatibleWithSqrtS(14.)) {
 	book(_h_kaon_x  ,  1,1,1);
 	book(_h_lambda_x,  4,1,1);
 	book(_h_kaon_p  ,  7,1,1);
 	book(_h_lambda_p, 10,1,1);
+	sqs = 14.;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 22., 1e-3)) {
+      else if (isCompatibleWithSqrtS(22.)) {
 	book(_h_kaon_x  ,  2,1,1);
 	book(_h_lambda_x,  5,1,1);
 	book(_h_kaon_p  ,  8,1,1);
 	book(_h_lambda_p, 11,1,1);
+	sqs = 22.;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 34., 1e-3)) {
+      else if (isCompatibleWithSqrtS(34.)) {
 	book(_h_kaon_x  , 3,1,1);
 	book(_h_lambda_x, 6,1,1);
 	book(_h_kaon_p  , 9,1,1);
 	book(_h_lambda_p,12,1,1);
+	sqs = 34.;
       }
       else
-	MSG_ERROR("Beam energy not supported!");
-	
+	MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
+                    << " doesn't match any available analysis energy .");
     }
 
 
@@ -78,8 +81,8 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
 
-      scale(_h_kaon_x  , sqr(sqrtS())*crossSection()/microbarn/sumOfWeights());
-      scale(_h_lambda_x, sqr(sqrtS())*crossSection()/microbarn/sumOfWeights());
+      scale(_h_kaon_x  , sqr(sqs)*crossSection()/microbarn/sumOfWeights());
+      scale(_h_lambda_x, sqr(sqs)*crossSection()/microbarn/sumOfWeights());
       scale(_h_kaon_p  , crossSection()/nanobarn/sumOfWeights());
       scale(_h_lambda_p, crossSection()/nanobarn/sumOfWeights());
     }
@@ -90,6 +93,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_kaon_x, _h_lambda_x, _h_kaon_p, _h_lambda_p;
+    double sqs;
     //@}
 
 

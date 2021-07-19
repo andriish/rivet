@@ -26,12 +26,12 @@ namespace Rivet {
       // projections
       declare(UnstableParticles(),"UFS");
       // histos
-      if(fuzzyEquals(sqrtS(),10.52,1e-3))
-	_mode=1;
-      else if(fuzzyEquals(sqrtS(),10.58,1e-3))
-	_mode=2;
+      if(isCompatibleWithSqrtS(10.52))
+        _mode=1;
+      else if(isCompatibleWithSqrtS(10.58))
+        _mode=2;
       else
-	MSG_ERROR("Beam energy not supported!");
+        MSG_ERROR("Beam energy not supported!");
       for(unsigned int ix=0;ix<7;++ix) {
 	if(_mode==1)
 	  book(_r[ix],2,1,ix+1);

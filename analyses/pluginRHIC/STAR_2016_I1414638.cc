@@ -33,7 +33,7 @@ namespace Rivet {
 	  62.4, 200.0};
 	int energy = -1;
 	for (int i = 0, N = energies.size(); i < N; ++i) {
-	  if (fuzzyEquals(sqrtS()/197./GeV,energies[i],1E-1)) energy = i;
+	  if (isCompatibleWithSqrtS(197.*energies[i],1E-1)) energy = i;
 	}
 	if (energy == -1) MSG_ERROR("Incompatible beam energy!");
 	for (int i = 0; i < 9; ++i)

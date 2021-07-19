@@ -23,11 +23,11 @@ namespace Rivet {
       book(_nDp   ,"/TMP/nDp"   );
       book(_nDs   ,"/TMP/nDs"   );
       book(_nCharm,"/TMP/nCharm");
-      if(fuzzyEquals(sqrtS(),4.03,1e-3)) {
+      if(isCompatibleWithSqrtS(4.03,1e-3)) {
 	book(_h_D0,2,1,1);
 	book(_h_Dp,2,1,2);
       }
-      else if(fuzzyEquals(sqrtS(),4.14,1e-3)) {
+      else if(isCompatibleWithSqrtS(4.14,1e-3)) {
 	book(_h_D0,3,1,1);
 	book(_h_Dp,3,1,2);
       }
