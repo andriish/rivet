@@ -1,7 +1,7 @@
 from __future__ import print_function
 import rivet, yoda
 import os, glob, io, logging
-import yamlio 
+import yamlio
 import constants
 from old_plotfile_converter import type_conversion
 
@@ -114,7 +114,6 @@ def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns
         analysisobjects = yoda.read(infile, patterns=path_patterns, unpatterns=path_unpatterns)
         for path, ao in analysisobjects.items():
             ## We can't plot non-histograms yet
-            # TODO: support counter plotting with a faked x (or y) position and forced plot width/height
             if ao.type() not in ("Counter",
                                "Histo1D",
                                "Histo2D",
@@ -221,6 +220,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
         with io.StringIO() as filelike_str:
             yoda.writeYODA(refhistos[plot_id], filelike_str)
             outputdict['histograms'][reftitle] = {constants.histogram_str_name: yamlio.Literal(filelike_str.getvalue())}
+            outputdict['histograms'][reftitle]['IsRef'] = True
 
     for filename, mchistos_in_file in mchistos.items():
         outputdict['histograms'][filename] = {}
@@ -229,7 +229,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
             outputdict['histograms'][filename].update(plotoptions.get(filename, {}))
             # Maybe add this mc_errs option to the plotoptions dict and only pass the plotoptions dict to the function?
             outputdict['histograms'][filename]['ErrorBars'] = mc_errs
-            with io.StringIO() as filelike_str: 
+            with io.StringIO() as filelike_str:
                 yoda.writeYODA(histogram, filelike_str)
                 # Name might not be correct here
                 outputdict['histograms'][filename][constants.histogram_str_name] = yamlio.Literal(filelike_str.getvalue())
@@ -336,7 +336,6 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     plotdirs = plotinfodirs + [os.path.abspath(os.path.dirname(f)) for f in filelist] + (rivet.getAnalysisPlotPaths() if rivetplotpaths else [])
 
     # Create a list of all histograms to be plotted, and identify if they are 2D histos (which need special plotting)
-    # TODO: implement 2D histogram special settings. 
     refhistos, mchistos = _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns)
     
     hpaths = []
