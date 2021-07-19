@@ -26,14 +26,14 @@ namespace Rivet {
       declare(ChargedFinalState((Cuts::etaIn(-5.0, 5.0))), "CFS50");
 
       // NB. _hist_nch and _hist_ncheta50 use the same data but different binning
-      if (fuzzyEquals(sqrtS()/GeV, 200, 1E-3)) {
+      if (isCompatibleWithSqrtS(200)) {
         book(_hist_nch        ,1, 1, 1);
         book(_hist_nch_eta05  ,3, 1, 1);
         book(_hist_nch_eta15  ,4, 1, 1);
         book(_hist_nch_eta30  ,5, 1, 1);
         book(_hist_nch_eta50  ,6, 1, 1);
         book(_hist_mean_nch   ,11, 1, 1);
-      } else if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
+      } else if (isCompatibleWithSqrtS(900)) {
         book(_hist_nch        ,2, 1, 1);
         book(_hist_nch_eta05  ,7, 1, 1);
         book(_hist_nch_eta15  ,8, 1, 1);

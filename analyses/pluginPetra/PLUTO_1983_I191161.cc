@@ -31,22 +31,23 @@ namespace Rivet {
       const Sphericity sphericity(fs);
       declare(sphericity, "Sphericity");
       _iBin=-1;
-      if(fuzzyEquals(sqrtS(),7.7,1e-2))
-	_iBin = 0;
-      else if(fuzzyEquals(sqrtS(),9.4,1e-2))
-	_iBin = 1;
-      else if(fuzzyEquals(sqrtS(),12.,1e-2))
-	_iBin = 2;
-      else if(fuzzyEquals(sqrtS(),13.,1e-2))
-	_iBin = 3;
-      else if(fuzzyEquals(sqrtS(),17.,1e-2))
-	_iBin = 4;
-      else if(fuzzyEquals(sqrtS(),22.,1e-2))
-	_iBin = 5;
-      else if(fuzzyEquals(sqrtS(),27.6,1e-2))
-	_iBin = 6;
-      else if(fuzzyEquals(sqrtS(),30.8,1e-2))
-	_iBin = 7;
+      sqs = 1.0;
+      if(isCompatibleWithSqrtS(7.7))
+	_iBin = 0, sqs = 7.8;
+      else if(isCompatibleWithSqrtS(9.4))
+	_iBin = 1., sqs = 9.4;
+      else if(isCompatibleWithSqrtS(12.))
+	_iBin = 2, sqs = 12.;
+      else if(isCompatibleWithSqrtS(13.))
+	_iBin = 3, sqs = 13.;
+      else if(isCompatibleWithSqrtS(17.))
+	_iBin = 4, sqs = 17.;
+      else if(isCompatibleWithSqrtS(22.))
+	_iBin = 5, sqs = 22.;
+      else if(isCompatibleWithSqrtS(27.6))
+	_iBin = 6, sqs = 27.6;
+      else if(isCompatibleWithSqrtS(30.8))
+	_iBin = 7, sqs = 30.8;
       else
 	MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
       
@@ -89,14 +90,14 @@ namespace Rivet {
       	pT2_S_sum +=      pT2_S ;
       }
       if(nCharged<4) vetoEvent;
-      _p_thrust_pt      ->bins()[_iBin].fill(sqrtS(),pT_T_sum /nPart/MeV         );
-      _p_thrust_pt2     ->bins()[_iBin].fill(sqrtS(),pT2_T_sum/nPart/1e3/sqr(MeV));
-      _p_thrust_sum_pt  ->bins()[_iBin].fill(sqrtS(),pT_T_sum /GeV               );
-      _p_thrust_sum_pt2 ->bins()[_iBin].fill(sqrtS(),pT2_T_sum/GeV               );
-      _p_sphere_pt      ->bins()[_iBin].fill(sqrtS(),pT_S_sum /nPart/MeV         );
-      _p_sphere_pt2     ->bins()[_iBin].fill(sqrtS(),pT2_S_sum/nPart/1e3/sqr(MeV));
-      _p_sphere_sum_pt  ->bins()[_iBin].fill(sqrtS(),pT_S_sum /GeV               );
-      _p_sphere_sum_pt2 ->bins()[_iBin].fill(sqrtS(),pT2_S_sum/GeV               );
+      _p_thrust_pt      ->bins()[_iBin].fill(sqs,pT_T_sum /nPart/MeV         );
+      _p_thrust_pt2     ->bins()[_iBin].fill(sqs,pT2_T_sum/nPart/1e3/sqr(MeV));
+      _p_thrust_sum_pt  ->bins()[_iBin].fill(sqs,pT_T_sum /GeV               );
+      _p_thrust_sum_pt2 ->bins()[_iBin].fill(sqs,pT2_T_sum/GeV               );
+      _p_sphere_pt      ->bins()[_iBin].fill(sqs,pT_S_sum /nPart/MeV         );
+      _p_sphere_pt2     ->bins()[_iBin].fill(sqs,pT2_S_sum/nPart/1e3/sqr(MeV));
+      _p_sphere_sum_pt  ->bins()[_iBin].fill(sqs,pT_S_sum /GeV               );
+      _p_sphere_sum_pt2 ->bins()[_iBin].fill(sqs,pT2_S_sum/GeV               );
 
     }
 
@@ -114,6 +115,7 @@ namespace Rivet {
     Profile1DPtr _p_thrust_pt, _p_thrust_pt2, _p_thrust_sum_pt, _p_thrust_sum_pt2;
     Profile1DPtr _p_sphere_pt, _p_sphere_pt2, _p_sphere_sum_pt, _p_sphere_sum_pt2;
     unsigned int _iBin;
+    double sqs;
     //@}
 
 

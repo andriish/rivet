@@ -33,11 +33,11 @@ namespace Rivet {
       book(_c_hadronsY, "/TMP/sigma_hadronsY");
       book(_c_muonsY  , "/TMP/sigma_muonsY");
       book(_c_kaonsY  , "/TMP/sigma_kaonsY");
-      if      (fuzzyEquals(sqrtS()/GeV, 9.4, 1E-3)) {
-	book(_h_spectrum1, 5, 1, 1);
+      if (isCompatibleWithSqrtS(9.4)) {
+        book(_h_spectrum1, 5, 1, 1);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 30.0, 1E-2)) {
-	book(_h_spectrum1, 4, 1, 1);
+      else if (isCompatibleWithSqrtS(30.0, 1E-2)) {
+        book(_h_spectrum1, 4, 1, 1);
       }
       book(_h_spectrum2, 6, 1, 1);
     }
@@ -46,13 +46,13 @@ namespace Rivet {
     void findDecayProducts(Particle mother, Particles &kaons, Particles& stable) {
       for(const Particle & p: mother.children()) {
         const int id = p.pid();
-	if(id==130 || id ==310) {
-	  kaons.push_back(p);
-	}
-	if (id==111 or p.children().empty())
-	  stable.push_back(p);
-	else
-	  findDecayProducts(p, kaons, stable);
+        if(id==130 || id ==310) {
+          kaons.push_back(p);
+        }
+        if (id==111 or p.children().empty())
+          stable.push_back(p);
+        else
+          findDecayProducts(p, kaons, stable);
       }
     }
 

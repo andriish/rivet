@@ -4,7 +4,7 @@ Summary: Measurement of the continuum of dimuons produced in high-energy proton-
 Experiment: E288
 Collider: Fermilab p-N
 InspireID: 153009
-Status: VALIDATED REENTRANT
+Status: VALIDATED 
 Reentrant: true
 Authors:
   Hannes Jung <hannes.jung@desy.de>

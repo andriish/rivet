@@ -15,13 +15,13 @@ References:
   - arXiv:1203.0419 [hep-ex]
 RunInfo:
   QCD events with diffractives switched on.
-  Beam energy must be specified as analysis option "energy" when rivet-merge'ing samples.
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merge'ing samples.
 NumEvents: 1000000
 NeedCrossSection: no
 Beams: [p+, p+]
 Energies: [900, 7000]
 Options:
- - energy=900,7000
+ - ENERGY=900,7000
 Description:
   'Measurement of the ordering of charged hadrons in the azimuthal angle relative
    to the beam axis at the Large Hadron Collider (LHC). A spectral analysis of
@@ -32,7 +32,7 @@ Description:
    are not well described by conventional models of hadron production. The measured
    spectra show features consistent with the fragmentation of a QCD string
    represented by a helix-like ordered gluon chain.
-   Beam energy must be specified (in MeV) as analysis option "energy" when rivet-merging samples.'
+   Beam energy must be specified (in GeV) as analysis option "ENERGY" when rivet-merging samples.'
 BibKey: :2012fa
 BibTeX: '@article{:2012fa,
       author         = "Aad, Georges and others",

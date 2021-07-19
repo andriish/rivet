@@ -27,12 +27,12 @@ namespace Rivet {
       declare(FinalState(), "FS");
 	      
       // Book histograms
-      if(fuzzyEquals(sqrtS(),3.1,1e-1)) {
+      if(isCompatibleWithSqrtS(3.1,1e-1)) {
 	book(_h_xi  , 2, 1, 1);
 	book(_h_sigm, 2, 1, 2);
 	book(_h_sigp, 2, 1, 3);
       }
-      else if (fuzzyEquals(sqrtS(), 3.686, 1E-1)) {
+      else if (isCompatibleWithSqrtS(3.686, 1E-1)) {
 	book(_h_xi ,  2, 1, 4);
         book(_h_sigm, 2, 1, 5);
         book(_h_sigp, 2, 1, 6);
@@ -148,12 +148,8 @@ namespace Rivet {
     void finalize() {
       // find energy
       int ioff=-1;
-      if(fuzzyEquals(sqrtS(),3.1,1e-1)) {
-	ioff=0;
-      }
-      else if (fuzzyEquals(sqrtS(), 3.686, 1E-1)) {
-	ioff=1;
-      }
+      if(isCompatibleWithSqrtS(3.1,1e-1)) ioff=0;
+      else if (isCompatibleWithSqrtS(3.686, 1E-1)) ioff=1;
       vector< pair<double,pair<double,double> > > alpha;
       normalize(_h_xi,1.,false);
       alpha.push_back(calcAlpha(_h_xi));

@@ -40,20 +40,13 @@ namespace Rivet {
       declare(thrust, "Thrust");
       declare(Hemispheres(thrust), "Hemispheres");
 
-      // Beam energy logic needed for rivet-merge.
-      sqs = sqrtS()/GeV;
-      if (fuzzyEquals(sqs, 0.0, 1e-3)) {
-        MSG_INFO("Suspicious beam energy. You're probably running rivet-merge."
-		   "Fetching beam energy from option.");
-        sqs = getOption<double>("energy", 0);
-      }
       // Book histograms
       int ih=-1;
-      if (fuzzyEquals(sqs, 172)) {
+      if (isCompatibleWithSqrtS(172.)) {
         ih = 1;
-      } else if (fuzzyEquals(sqs, 183)) {
+      } else if (isCompatibleWithSqrtS(183.)) {
         ih = 2;
-      } else if (fuzzyEquals(sqs, 189)) {
+      } else if (isCompatibleWithSqrtS(189.)) {
         ih = 3;
       }
       else {
@@ -166,31 +159,31 @@ namespace Rivet {
       double nch_err = _h_mult->xStdErr();
       Scatter2DPtr m_ch;
       book(m_ch,14,1,1);
-      m_ch->addPoint(sqs,nch,0.,nch_err);
+      m_ch->addPoint(sqrtS()/GeV,nch,0.,nch_err);
       // mean ptIn
       double pTin     = _h_pTin->xMean();
       double pTin_err = _h_pTin->xStdErr();
       Scatter2DPtr m_pTin;
       book(m_pTin,20,1,1);
-      m_pTin->addPoint(sqs,pTin,0.,pTin_err);
+      m_pTin->addPoint(sqrtS()/GeV,pTin,0.,pTin_err);
       // mean ptOut
       double pTout     = _h_pTout->xMean();
       double pTout_err = _h_pTout->xStdErr();
       Scatter2DPtr m_pTout;
       book(m_pTout,20,1,2);
-      m_pTout->addPoint(sqs,pTout,0.,pTout_err);
+      m_pTout->addPoint(sqrtS()/GeV,pTout,0.,pTout_err);
       // mean y
       double y     = _h_y->xMean();
       double y_err = _h_y->xStdErr();
       Scatter2DPtr m_y;
       book(m_y,20,1,3);
-      m_y->addPoint(sqs,y,0.,y_err);
+      m_y->addPoint(sqrtS()/GeV,y,0.,y_err);
       // mean x
       double x     = _h_x->xMean();
       double x_err = _h_x->xStdErr();
       Scatter2DPtr m_x;
       book(m_x,20,1,4);
-      m_x->addPoint(sqs,x,0.,x_err);
+      m_x->addPoint(sqrtS()/GeV,x,0.,x_err);
     }
 
     //@}
@@ -201,7 +194,6 @@ namespace Rivet {
     Histo1DPtr _h_thrust,_h_major,_h_minor,_h_aplanarity,_h_oblateness,_h_C,_h_rhoH,_h_sphericity;
     Histo1DPtr _h_totalB,_h_wideB,_h_y23,_h_mult,_h_pTin,_h_pTout,_h_y,_h_x,_h_xi;
     CounterPtr _sumW;
-    double sqs;
     //@}
 
 

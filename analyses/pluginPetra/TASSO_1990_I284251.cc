@@ -32,21 +32,21 @@ namespace Rivet {
 
       // Book histograms
       _ih=-1; _iy=-1;
-      if(fuzzyEquals(sqrtS()/GeV, 14.8, 1e-3)) {
+      if(isCompatibleWithSqrtS(14.8)) {
 	_ih=1;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 21.5, 1e-3)) {
+      else if (isCompatibleWithSqrtS(21.5)) {
 	_ih=2;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 34.5, 1e-3)) {
+      else if (isCompatibleWithSqrtS(34.5)) {
 	_ih=0;
 	_iy=3;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 35.0, 1e-3)) {
+      else if (isCompatibleWithSqrtS(35.0)) {
 	_ih=0;
 	_iy=2;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 42.6, 1e-3)) {
+      else if (isCompatibleWithSqrtS(42.6)) {
 	_ih=0;
 	_iy=1;
       }

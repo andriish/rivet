@@ -4,7 +4,7 @@ Summary: Drell Yan production at low masses $4.8 < m_{\mu^+\mu^-} < 8.2 $ GeV at
 Experiment: PHENIX
 Collider: RHIC
 InspireID: 1672015
-Status: VALIDATED REENTRANT
+Status: VALIDATED
 Reentrant: true
 Authors:
  - Hannes Jung hannes.jung@desy.de

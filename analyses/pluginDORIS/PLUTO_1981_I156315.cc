@@ -24,29 +24,29 @@ namespace Rivet {
       declare(FinalState(), "FS");
       // Book histograms
       unsigned int iloc(0);
-      if(fuzzyEquals(sqrtS()/GeV, 7.7, 1e-3)) {
-	iloc=1;
+      if(isCompatibleWithSqrtS(7.7)) {
+        iloc=1;
       }
-      else if(fuzzyEquals(sqrtS()/GeV, 9.4, 1e-3)) {
-	iloc=2;
+      else if(isCompatibleWithSqrtS(9.4)) {
+        iloc=2;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 12., 1e-3)) {
-	iloc=3;
+      else if (isCompatibleWithSqrtS(12.)) {
+        iloc=3;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 13., 1e-3)) {
-	iloc=4;
+      else if (isCompatibleWithSqrtS(13.)) {
+        iloc=4;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 17., 1e-3)) {
-	iloc=5;
+      else if (isCompatibleWithSqrtS(17.)) {
+        iloc=5;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 22., 1e-3)) {
-	iloc=6;
+      else if (isCompatibleWithSqrtS(22.)) {
+        iloc=6;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 27.6, 1e-3)) {
-	iloc=7;
+      else if (isCompatibleWithSqrtS(27.6)) {
+        iloc=7;
       }
-      else if (inRange(sqrtS()/GeV,30,31.6)) {
-	iloc=8;
+      else if (isCompatibleWithSqrtS(30,31.6)) {
+        iloc=8;
       }
       else
 	MSG_ERROR("Beam energy not supported!");

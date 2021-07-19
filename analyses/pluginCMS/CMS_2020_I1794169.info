@@ -36,6 +36,3 @@ BibTeX: '@article{Sirunyan:2020gyx,
     pages = "135710",
     year = "2020"
 }'
-ReleaseTests:
- - $A LHC-13-WW-ll
- - $A-2 LHC-WZ

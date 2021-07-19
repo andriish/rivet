@@ -33,7 +33,7 @@ namespace Rivet {
       fillMap(_partLftMap);
 
       int id_shift = 0;
-      if (fuzzyEquals(sqrtS(), 7*TeV)) id_shift = 1;
+      if (isCompatibleWithSqrtS(7000)) id_shift = 1;
       // define ratios if second pdgid in pair is -1, it means that is a antiparticle/particle ratio
 
       _ratiotype["pbarp"]         = make_pair(2212, -1);

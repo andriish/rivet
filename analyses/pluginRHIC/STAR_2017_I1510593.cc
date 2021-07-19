@@ -41,7 +41,7 @@ namespace Rivet {
       // Energy bins
       energies = {7.7, 11.5, 19.6, 27.0, 39.0};
       for (size_t i = 0, N = energies.size(); i < N; ++i) {
-        if (fuzzyEquals(sqrtS() / 197. / GeV, energies[i])) enebin = i;
+        if (isCompatibleWithSqrtS(197.*energies[i])) enebin = i;
       }
 
       // Centrality bins
@@ -49,8 +49,8 @@ namespace Rivet {
 
       // Energy bins for Fig. 25
       enebinfig = -1;
-      if (fuzzyEquals(sqrtS() / 197. / GeV, energies[0])) enebinfig = 0;
-      if (fuzzyEquals(sqrtS() / 197. / GeV, energies[4])) enebinfig = 1;
+      if (isCompatibleWithSqrtS(197.*energies[0])) enebinfig = 0;
+      if (isCompatibleWithSqrtS(197.*energies[4])) enebinfig = 1;
 
       // Book all histograms for all energies in order to use re-entrant finalize
       /// @todo Raw arrays would be a *lot* easier to read here (and N_cent is fixed)

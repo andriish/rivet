@@ -5,14 +5,20 @@ Experiment: LENA
 Collider: DORIS
 InspireID: 164397
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - 
-RunInfo: e+e- to hadrons for continuum, or any process producing Upsilon 1S and 2S decays
+RunInfo: 
+  e+e- to hadrons for continuum, or any process producing Upsilon 1S and 2S decays
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
+Options:
+ - ENERGY=*
 Description:
   'Measurement of the charged particle  multiplicities and a thrust-like variable
-   in $\Upsilon(1S,2S)$ decays and nearby continuum. As LENA had no magnetic field the momenta of the charged particles were not measured and therefore a thrust-like variable $T^\prime$ was constructed using only the directions of the charged particles.'
+   in $\Upsilon(1S,2S)$ decays and nearby continuum. As LENA had no magnetic field the momenta of the charged particles were not measured and therefore a thrust-like variable $T^\prime$ was constructed using only the directions of the charged particles.
+   Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 ValidationInfo:
   'Herwig events'
 #ReleaseTests:

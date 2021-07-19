@@ -25,13 +25,13 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
       // find the beam energy
       int ioff=-1;
-      if(fuzzyEquals(sqrtS()/GeV,34.5,1e-3)) {
+      if(isCompatibleWithSqrtS(34.5)) {
       	ioff=0;
       }
-      else if(fuzzyEquals(sqrtS()/GeV,22.5,1e-3)) {
+      else if(isCompatibleWithSqrtS(22.5)) {
       	ioff=1;
       }
-      else if(fuzzyEquals(sqrtS()/GeV,14.0,1e-3)) {
+      else if(isCompatibleWithSqrtS(14.0)) {
       	ioff=2;
       }
       else

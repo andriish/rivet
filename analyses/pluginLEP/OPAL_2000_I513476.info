@@ -10,14 +10,14 @@ Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Eur.Phys.J. C16 (2000) 185-210
-RunInfo: e+e- to hadrons. Beam energy must be specified as analysis option "energy" when rivet-merging samples.
+RunInfo: e+e- to hadrons. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NeedCrossSection: no
 Beams: [e-, e+]
 Energies: [172,183,189]
 Options:
- - energy=172,183,189
+ - ENERGY=172,183,189
 Description:
-  'Event shapes at 172, 183 and 189 GeV. Beam energy must be specified as analysis option "energy" when rivet-merging samples.'
+  'Event shapes at 172, 183 and 189 GeV. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 Keywords: []
 BibKey: Abbiendi:1999sx
 BibTeX: '@article{Abbiendi:1999sx,

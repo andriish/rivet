@@ -20,8 +20,8 @@ public:
 
 	/// @name Analysis methods
 	//@{
-        void bookHistosPP(const double _sqrts) {
-            if (fuzzyEquals( _sqrts/GeV, 7000., 1E-3)) {
+        void bookHistosPP() {
+            if (isCompatibleWithSqrtS(7000., 1E-3)) {
                 {Histo1DPtr tmp; _h_pi0_rap_pT.add(  8.8,  9.0, book(tmp,  2, 1, 2));}
                 {Histo1DPtr tmp; _h_pi0_rap_pT.add(  9.0,  9.2, book(tmp,  3, 1, 2));}
                 {Histo1DPtr tmp; _h_pi0_rap_pT.add(  9.2,  9.4, book(tmp,  4, 1, 2));}
@@ -44,7 +44,7 @@ public:
                 book(_p_pi0_raploss_apT, 22, 1, 2);
                 book(_h_pi0_raploss,     23, 1, 2);
             } 
-            else if (fuzzyEquals( _sqrts/GeV, 2760., 1E-3)){
+            else if (isCompatibleWithSqrtS(2760., 1E-3)){
                     book(_p_pi0_rap_apT, 1, 1, 1);
 
                     {Histo1DPtr tmp; _h_pi0_rap_pT.add(  8.8, 9.0, book(tmp, 2, 1, 1));}
@@ -66,8 +66,8 @@ public:
             }
         }
 
-        void bookHistosPPb(const double _sqrts) {
-            if (fuzzyEquals(_sqrts/sqrt(208.)/GeV, 5020., 1E-3)) {
+        void bookHistosPPb() {
+            if (isCompatibleWithSqrtS(sqrt(208.)*5020., 1E-3)) {
 
                 {Histo1DPtr tmp; _h_pi0_rap_pT.add( 8.8,  9.0, book(tmp,  2, 1, 3));}
                 {Histo1DPtr tmp; _h_pi0_rap_pT.add( 9.0,  9.2, book(tmp,  3, 1, 3));}
@@ -116,12 +116,12 @@ public:
             // p-p
             if (bm1.pid()==2212 && bm2.pid()==2212) {
                 _isPP = true;
-                bookHistosPP(_sqrts);
+                bookHistosPP();
             }
             // p-Pb
             else if (bm1.pid()==PID::PROTON && bm2.pid()==PID::LEAD) {
                 _isPP = false;
-                bookHistosPPb(_sqrts);
+                bookHistosPPb();
             } 
             else MSG_WARNING("Beam PDGID out of range --- should be pp or p-Pb");
             _nevt = 0.;

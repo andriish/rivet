@@ -29,11 +29,15 @@ namespace Rivet {
       declare(Sphericity(cfs), "Sphericity");
       // Book histograms
       _ih=-1;
-      if(fuzzyEquals(sqrtS()/GeV, 34.8, 1e-3)) {
+      sqs = 1.0;
+      if(isCompatibleWithSqrtS(34.8)) {
 	_ih=0;
+	sqs = 34.8;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 42.1, 1e-3)) {
+      else if (isCompatibleWithSqrtS(42.1)) {
 	_ih=1;
+	sqs = 42.1;
+
       }
       else
 	MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
@@ -118,7 +122,7 @@ namespace Rivet {
       scale( _h_lam_pTIn , crossSection()/nanobarn/sumOfWeights());
       scale( _h_lam_pTOut, crossSection()/nanobarn/sumOfWeights());
       scale( _h_lam_rap  , crossSection()/nanobarn/sumOfWeights());
-      scale( _h_lam_x    , sqr(sqrtS())*crossSection()/nanobarn/sumOfWeights());
+      scale( _h_lam_x    , sqr(sqs)*crossSection()/nanobarn/sumOfWeights());
       Scatter2DPtr temp;
       book(temp,15+_ih,1,3);
       divide(_p_lam_S_1,_p_lam_S_2,temp);
@@ -128,7 +132,7 @@ namespace Rivet {
       	scale( _h_xi_pTIn , crossSection()/nanobarn/sumOfWeights());
       	scale( _h_xi_pTOut, crossSection()/nanobarn/sumOfWeights());
       	scale( _h_xi_rap  , crossSection()/nanobarn/sumOfWeights());
-      	scale( _h_xi_x    , sqr(sqrtS())*crossSection()/nanobarn/sumOfWeights());
+      	scale( _h_xi_x    , sqr(sqs)*crossSection()/nanobarn/sumOfWeights());
       }
     }
 
@@ -141,6 +145,7 @@ namespace Rivet {
     Profile1DPtr _p_lam_S_1, _p_lam_S_2;
     Histo1DPtr _h_xi_p, _h_xi_pL, _h_xi_pTIn, _h_xi_pTOut, _h_xi_rap, _h_xi_x;
     int _ih;
+    double sqs;
     //@}
 
 

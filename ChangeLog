@@ -1,3 +1,9 @@
+2021-07-19  Christian Gutschow  <chris.g@cern.ch>
+
+	* introduce isCompatibleWithSqrtS function for sqrtS dependent hist booking,
+  falls back to ENERGY option to make routines reentrant safe
+	* fix back for CounterPtr filling: no fill should mean no fill, not fill using weight 0
+
 2021-07-12  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add ability for mkhtml to use pdfunite in place of pdftk and

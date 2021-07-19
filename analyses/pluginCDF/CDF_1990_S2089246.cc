@@ -24,9 +24,9 @@ namespace Rivet {
       declare(ChargedFinalState((Cuts::etaIn(-3.5, 3.5))), "CFS");
 
       // Book histo
-      if (fuzzyEquals(sqrtS()/GeV, 1800, 1E-3)) {
+      if (isCompatibleWithSqrtS(1800)) {
         book(_hist_eta ,3, 1, 1);
-      } else if (fuzzyEquals(sqrtS()/GeV, 630, 1E-3)) {
+      } else if (isCompatibleWithSqrtS(630)) {
         book(_hist_eta ,4, 1, 1);
       }
       book(_sumWTrig, "sumWTrig");

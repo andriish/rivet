@@ -32,11 +32,11 @@ namespace Rivet {
     void init() {
       int y_nbins = 4;
       fillMap(partLftMap);
-      if (fuzzyEquals(sqrtS(), 0.9*TeV)) {
+      if (isCompatibleWithSqrtS(900)) {
         rap_beam = 6.87;
         rap_max = 4.;
         pt_min = 0.25;
-      } else if (fuzzyEquals(sqrtS(), 7*TeV)) {
+      } else if (isCompatibleWithSqrtS(7000.)) {
         rap_beam = 8.92;
         rap_max = 4.5;
         pt_min = 0.15;

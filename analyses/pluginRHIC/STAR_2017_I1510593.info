@@ -14,10 +14,11 @@ References:
 - 'Phys.Rev. C96 (2017) no.4, 044904'
 - 'DOI: 10.1103/PhysRevC.96.044904'
 - 'arXiv:1701.07065'
-RunInfo: Minimum bias AuAu events at various collision energies
+RunInfo: Minimum bias AuAu events at various collision energies. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NeedCrossSection: no
 Options:
  - cent=GEN,IMP,USR,RAW
+ - ENERGY=1516.9, 2265.5, 3861.2, 5319, 7683
 Beams: [1000791970, 1000791970]
 # This is _total_ energy of beams, so this becomes 197*7.7=1516.9 etc.
 Energies: [1516.9, 2265.5, 3861.2, 5319, 7683]
@@ -25,7 +26,9 @@ Description:
   'Results of measurements of bulk properties of the matter in Au+Au
    collisions at energies of the Beam Energy Scan program, using
    pions, kaons and protons identified : $\frac{dN}{dy}$ spectras,
-   $\langle \pT \rangle$ spectras and particles ratios are shown.'
+   $\langle \pT \rangle$ spectras and particles ratios are shown.
+   Beam energy must be specified as analysis option "ENERGY" when 
+   rivet-merging samples.'
 BibKey: Adamczyk:2017iwn
 BibTeX: '@article{Adamczyk:2017iwn,
       author         = "Adamczyk, L. and others",

@@ -5,6 +5,7 @@ Experiment: NUSEA
 Collider: Fermilab
 InspireID: 613362
 Status: VALIDATED
+Reentrant: true
 Authors: Hannes Jung <hannes.jung@desy.de>
 References:
  - "FERMILAB-PUB-03-302-E"

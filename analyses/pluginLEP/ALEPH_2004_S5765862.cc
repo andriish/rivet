@@ -40,18 +40,10 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(cfs, "CFS");
 
-      // Beam energy logic for rivet-merge.
-      double sqs = sqrtS()/GeV;
-      if (fuzzyEquals(sqs, 0.0, 1e-3)) {
-        MSG_INFO("Suspicious beam energy. You're probably running rivet-merge."
-		   "Fetching beam energy from option.");
-        sqs = getOption<double>("energy", 0);
-      }
-
       // Histos
       // offset for the event shapes and jets
       int offset = 0;
-      switch (int(sqs + 0.5)) {
+      switch (int(sqrtS()/GeV + 0.5)) {
         case 91: offset = 0; break;
         case 133: offset = 1; break;
         case 161: offset = 2; break;
@@ -108,7 +100,7 @@ namespace Rivet {
       }
       // offset for the charged particle distributions
       offset = 0;
-      switch (int(sqs + 0.5)) {
+      switch (int(sqrtS() + 0.5)) {
         case 133: offset = 0; break;
         case 161: offset = 1; break;
         case 172: offset = 2; break;
@@ -146,7 +138,7 @@ namespace Rivet {
       const Sphericity& sphericity = apply<Sphericity>(e, "Sphericity");
 
       if(_initialisedJets) {
-        bool LEP1 = fuzzyEquals(sqrtS(),91.2*GeV,0.01);
+        bool LEP1 = isCompatibleWithSqrtS(91.2*GeV,0.01);
         // event shapes
         double thr = LEP1 ? thrust.thrust() : 1.0 - thrust.thrust();
         _h_thrust->fill(thr);
