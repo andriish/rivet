@@ -5,16 +5,20 @@ Experiment: TASSO
 Collider: Petra
 InspireID: 284251
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Z.Phys. C47 (1990) 167-180, 1990 
-RunInfo: e+ e- to hadrons
+RunInfo: e+ e- to hadrons. Beam energy must be specified as analysis option "ENERGY" when rivet-merge'ing samples.
 NeedCrossSection: yes
 Beams: [e+, e-]
 Energies: [14.8,21.5,34.5,35.,42.6]
+Options:
+ - ENERGY=14.8,21.5,34.5,35.,42.6
 Description:
-  'Measurement of the $K^0,\bar{K}^0$ and $K^{*\pm}$ spectra in $e^+e^-$ collisions for centre-of-mass energies between 14.8 and 42.6 GeV by the TASSO experiment at Petra.'
+  Measurement of the $K^0,\bar{K}^0$ and $K^{*\pm}$ spectra in $e^+e^-$ collisions for centre-of-mass energies between 14.8 and 42.6 GeV by the TASSO experiment at Petra.
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merge'ing samples.
 Keywords: []
 BibKey: Braunschweig:1989wg
 BibTeX: '@article{Braunschweig:1989wg,

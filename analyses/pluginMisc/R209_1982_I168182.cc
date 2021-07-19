@@ -28,12 +28,12 @@ namespace Rivet {
       declare(zfinder, "ZFinder");
 
       // Book histograms
-      if (fuzzyEquals(sqrtS()/GeV, 62., sqrts_tol)) {
+      if (isCompatibleWithSqrtS(62., sqrts_tol)) {
         MSG_DEBUG("R209: running with 62: " << sqrtS()/GeV);
         book(_hist_M,1, 1, 1);
         book(_hist_pT ,2, 1, 1);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 44., sqrts_tol)) {
+      else if (isCompatibleWithSqrtS(44., sqrts_tol)) {
         MSG_DEBUG("R209: running with 44: " << sqrtS()/GeV);
         book(_hist_M,1, 1, 2);
       }
@@ -61,13 +61,13 @@ namespace Rivet {
         _h_m_DiMuon->fill(Zmass/GeV);
         _h_pT_DiMuon->fill(Zpt);
         _h_y_DiMuon->fill(Zy);
-        if (fuzzyEquals(sqrtS()/GeV, 62, sqrts_tol)) {
+        if (isCompatibleWithSqrtS(62, sqrts_tol)) {
           if (Zmass > 0) _hist_M->fill(Zmass);
           if (Zmass > 5. && Zmass < 8.) {
             if (Zpt > 0) _hist_pT->fill(Zpt,1./2./Zpt);
           }
         }
-        else if (fuzzyEquals(sqrtS()/GeV, 44, sqrts_tol)) {
+        else if (isCompatibleWithSqrtS(44, sqrts_tol)) {
           if (Zmass > 0) _hist_M->fill(Zmass);
         }
       }

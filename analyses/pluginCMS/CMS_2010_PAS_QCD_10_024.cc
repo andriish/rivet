@@ -25,8 +25,8 @@ namespace Rivet {
       declare(ChargedFinalState((Cuts::etaIn(-2.4, 2.4) && Cuts::pT >=  1.0*GeV)), "CFS_24_10");
 
       size_t offset = 0;
-      if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) offset = 0;
-      if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) offset = 4;
+      if (isCompatibleWithSqrtS(7000)) offset = 0;
+      if (isCompatibleWithSqrtS( 900)) offset = 4;
       book(_hist_dNch_deta_pt05_eta08 ,1+offset, 1, 1);
       book(_hist_dNch_deta_pt10_eta08 ,2+offset, 1, 1);
       book(_hist_dNch_deta_pt05_eta24 ,3+offset, 1, 1);

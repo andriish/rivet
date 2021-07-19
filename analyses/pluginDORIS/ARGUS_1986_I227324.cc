@@ -28,9 +28,9 @@ namespace Rivet {
       declare(Thrust(fs)    ,"Thrust");
       declare(Sphericity(fs),"Sphericity");
       // histograms
-      if(fuzzyEquals(sqrtS(),9.98,1e-2)) {
-	book(_h_T_cont ,2, 1, 2);
-	book(_h_S_cont ,1, 1, 2);
+      if(isCompatibleWithSqrtS(9.98,1e-2)) {
+        book(_h_T_cont ,2, 1, 2);
+        book(_h_S_cont ,1, 1, 2);
       }
       book(_h_T_Ups ,2, 1, 1);
       book(_h_S_Ups ,1, 1, 1);

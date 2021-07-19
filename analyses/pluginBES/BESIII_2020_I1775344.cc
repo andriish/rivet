@@ -28,14 +28,14 @@ namespace Rivet {
 	title << "TMP/c_" << ix+1;
 	book(_c[ix],title.str());
       }
-      if(fuzzyEquals(sqrtS(),2.125,1e-3)) {
+      if(isCompatibleWithSqrtS(2.125,1e-3)) {
 	book(_h_KK   ,7,1,1);
 	book(_h_pipi ,7,1,2);
 	book(_h_Kpi  ,7,1,3);
 	book(_h_KKpi ,7,1,4);
 	book(_h_Kpipi,7,1,5);
       }
-      else if(fuzzyEquals(sqrtS(),2.396,1e-3)) {
+      else if(isCompatibleWithSqrtS(2.396,1e-3)) {
 	book(_h_KK   ,8,1,1);
 	book(_h_pipi ,8,1,2);
 	book(_h_Kpi  ,8,1,3);

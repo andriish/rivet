@@ -22,33 +22,33 @@ namespace Rivet {
       // Initialise and register projections
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
-      if(fuzzyEquals(sqrtS()/GeV, 12., 1e-3)) {
+      if(isCompatibleWithSqrtS(12.)) {
 	book(_h_x2,2,1,1);
 	book(_h_x3,3,1,1);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 14., 1e-3)) {
+      else if (isCompatibleWithSqrtS(14.)) {
 	book(_h_x1,1,1,1);
 	book(_h_x2,2,1,2);
 	book(_h_x3,3,1,2);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 22., 1e-3)) {
+      else if (isCompatibleWithSqrtS(22.)) {
 	book(_h_x1,1,1,2);
 	book(_h_x2,2,1,3);
 	book(_h_x3,3,1,3);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 25., 1e-3)) {
+      else if (isCompatibleWithSqrtS(25.)) {
 	book(_h_x2,2,1,4);
 	book(_h_x3,3,1,4);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 30., 1e-3)) {
+      else if (isCompatibleWithSqrtS(30.)) {
 	book(_h_x2,2,1,5);
 	book(_h_x3,3,1,5);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 34., 1e-3)) {
+      else if (isCompatibleWithSqrtS(34.)) {
 	book(_h_x2,2,1,6);
 	book(_h_x3,3,1,6);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 35., 1e-3)) {
+      else if (isCompatibleWithSqrtS(35.)) {
         book(_h_x2, 2,1,7);
         book(_h_x3, 3,1,7);
       }

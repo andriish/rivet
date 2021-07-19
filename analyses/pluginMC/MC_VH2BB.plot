@@ -1,306 +1,306 @@
 # BEGIN PLOT /MC_VH2BB/pure_bb_Delta_eta
-Title= $\Delta\eta$ between b-hadron pair (without cuts)
+Title= $\Delta\eta$ between $b$-hadron pair (without cuts)
 XLabel= $\Delta\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_bb_Delta_phi
-Title= $\Delta\phi$ between b-hadron pair (without cuts)
-XLabel= $\Delta\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\phi$ [pb]
+Title= $\Delta\phi$ between $b$-hadron pair (without cuts)
+XLabel= $\Delta\phi/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\Delta\phi/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_bb_Delta_pT
-Title= $\Delta{p_T}$ between b-hadron pair (without cuts)
+Title= $\Delta{p_T}$ between $b$-hadron pair (without cuts)
 XLabel= $\Delta{p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{p_T}$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_bb_Delta_R
-Title= $\Delta{R}$ between b-hadron pair (without cuts)
+Title= $\Delta{R}$ between $b$-hadron pair (without cuts)
 XLabel= $\Delta{R}$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{R}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_b_eta
-Title= $\eta$ of b-hadron (without cuts)
+Title= $\eta$ of $b$-hadron (without cuts)
 XLabel= $\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_b_multiplicity
-Title= b-hadron multiplicity (without cuts)
-XLabel= $N_{b-Hadron}$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}N_{b-Hadron}$ [pb]
+Title= $b$-hadron multiplicity (without cuts)
+XLabel= $N_{$b$\mathrm{-hadron}}$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}N_{$b$\mathrm{-hadron}}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_b_phi
-Title= $\phi$ of b-hadron (without cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+Title= $\phi$ of $b$-hadron (without cuts)
+XLabel= $\phi/2\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/2\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_b_pT
-Title= ${p_T}$ of b-hadron (without cuts)
+Title= ${p_T}$ of $b$-hadron (without cuts)
 XLabel= ${p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}{p_T}$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_H_eta_using_bb
-Title= $\eta$ of Higgs candidate from b-hadron pair (without cuts)
+Title= $\eta$ of Higgs candidate from $b$-hadron pair (without cuts)
 XLabel= $\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_H_mass_using_bb
-Title= mass of Higgs candidate from b-hadron pair (without cuts)
+Title= mass of Higgs candidate from $b$-hadron pair (without cuts)
 XLabel= $m$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}m$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_H_phi_using_bb
-Title= $\phi$ of Higgs candidate from b-hadron pair (without cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+Title= $\phi$ of Higgs candidate from $b$-hadron pair (without cuts)
+XLabel= $\phi/2\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/2\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_H_pT_using_bb
-Title= ${p_T}$ of Higgs candidate from b-hadron pair (without cuts)
+Title= ${p_T}$ of Higgs candidate from $b$-hadron pair (without cuts)
 XLabel= ${p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}p_T$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_VBbb_Delta_eta
-Title= $\Delta\eta$ between Higgs candidate and W (without cuts)
+Title= $\Delta\eta$ between Higgs candidate and $W$ (without cuts)
 XLabel= $\Delta\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_VBbb_Delta_phi
-Title= $\Delta\phi$ between Higgs candidate and W (without cuts)
-XLabel= $\Delta\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\phi$ [pb]
+Title= $\Delta\phi$ between Higgs candidate and $W$ (without cuts)
+XLabel= $\Delta\phi/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\Delta\phi/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_VBbb_Delta_pT
-Title= $\Delta{p_T}$ between Higgs candidate and W (without cuts)
+Title= $\Delta{p_T}$ between Higgs candidate and $W$ (without cuts)
 XLabel= $\Delta{p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{p_T}$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_VBbb_Delta_R
-Title= $\Delta{R}$ between Higgs candidate and W (without cuts)
+Title= $\Delta{R}$ between Higgs candidate and $W$ (without cuts)
 XLabel= $\Delta{R}$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{R}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_bb_Delta_eta
-Title= $\Delta\eta$ between b-hadron pair (with cuts)
+Title= $\Delta\eta$ between $b$-hadron pair (with cuts)
 XLabel= $\Delta\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_bb_Delta_phi
-Title= $\Delta\phi$ between b-hadron pair (with cuts)
-XLabel= $\Delta\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\phi$ [pb]
+Title= $\Delta\phi$ between $b$-hadron pair (with cuts)
+XLabel= $\Delta\phi/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\Delta\phi/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_bb_Delta_pT
-Title= $\Delta{p_T}$ between b-hadron pair (with cuts)
+Title= $\Delta{p_T}$ between $b$-hadron pair (with cuts)
 XLabel= $\Delta{p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{p_T}$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_bb_Delta_R
-Title= $\Delta{R}$ between b-hadron pair (with cuts)
+Title= $\Delta{R}$ between $b$-hadron pair (with cuts)
 XLabel= $\Delta{R}$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{R}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_b_eta
-Title= $\eta$ of b-hadron (with cuts)
+Title= $\eta$ of $b$-hadron (with cuts)
 XLabel= $\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_b_phi
-Title= $\phi$ of b-hadron (with cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+Title= $\phi$ of $b$-hadron (with cuts)
+XLabel= $\phi/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_b_pT
-Title= ${p_T}$ of b-hadron (with cuts)
+Title= ${p_T}$ of $b$-hadron (with cuts)
 XLabel= ${p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}{p_T}$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_H_eta_using_bb
-Title= $\eta$ of Higgs candidate from b-hadron pair (with cuts)
+Title= $\eta$ of Higgs candidate from $b$-hadron pair (with cuts)
 XLabel= $\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_H_mass_using_bb
-Title= mass of Higgs candidate from b-hadron pair (with cuts)
+Title= mass of Higgs candidate from $b$-hadron pair (with cuts)
 XLabel= $m$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}m$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_H_phi_using_bb
-Title= $\phi$ of Higgs candidate from b-hadron pair (with cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+Title= $\phi$ of Higgs candidate from $b$-hadron pair (with cuts)
+XLabel= $\phi/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_H_pT_using_bb
-Title= ${p_T}$ of Higgs candidate from b-hadron pair (with cuts)
+Title= ${p_T}$ of Higgs candidate from $b$-hadron pair (with cuts)
 XLabel= ${p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}p_T$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_VBbb_Delta_eta
-Title= $\Delta\eta$ between Higgs candidate and W (with cuts)
+Title= $\Delta\eta$ between Higgs candidate and $W$ (with cuts)
 XLabel= $\Delta\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_VBbb_Delta_phi
-Title= $\Delta\phi$ between Higgs candidate and W (with cuts)
-XLabel= $\Delta\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\phi$ [pb]
+Title= $\Delta\phi$ between Higgs candidate and $W$ (with cuts)
+XLabel= $\Delta\phi/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\Delta\phi/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_VBbb_Delta_pT
-Title= $\Delta{p_T}$ between Higgs candidate and W (with cuts)
+Title= $\Delta{p_T}$ between Higgs candidate and $W$ (with cuts)
 XLabel= $\Delta{p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{p_T}$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_VBbb_Delta_R
-Title= $\Delta{R}$ between Higgs candidate and W (with cuts)
+Title= $\Delta{R}$ between Higgs candidate and $W$ (with cuts)
 XLabel= $\Delta{R}$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{R}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_b_multiplicity
-Title= b-hadron multiplicity (with cuts)
-XLabel= $N_{b-Hadron}$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}N_{b-Hadron}$ [pb]
+Title= $b$-hadron multiplicity (with cuts)
+XLabel= $N_{$b$\mathrm{-hadron}}$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}N_{$b$\mathrm{-hadron}}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_bb_Delta_eta
-Title= $\Delta\eta$ between b-jet pair (anti-$k_t$ $R=0.4$ jets without cuts)
+Title= $\Delta\eta$ between $b$-jet pair (anti-$k_t$ $R=0.4$ jets without cuts)
 XLabel= $\Delta\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_bb_Delta_phi
-Title= $\Delta\phi$ between b-jet pair (anti-$k_t$ $R=0.4$ jets without cuts)
-XLabel= $\Delta\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\phi$ [pb]
+Title= $\Delta\phi$ between $b$-jet pair (anti-$k_t$ $R=0.4$ jets without cuts)
+XLabel= $\Delta\phi/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\Delta\phi/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_bb_Delta_pT
-Title= $\Delta{p_T}$ between b-jet pair (anti-$k_t$ $R=0.4$ jets without cuts)
+Title= $\Delta{p_T}$ between $b$-jet pair (anti-$k_t$ $R=0.4$ jets without cuts)
 XLabel= $\Delta{p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{p_T}$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_bb_Delta_R
-Title= $\Delta{R}$ between b-jet pair (anti-$k_t$ $R=0.4$ jets without cuts)
+Title= $\Delta{R}$ between $b$-jet pair (anti-$k_t$ $R=0.4$ jets without cuts)
 XLabel= $\Delta{R}$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{R}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_b_jet_eta
-Title= $\eta$ of b-jet (anti-$k_t$ $R=0.4$ jet without cuts)
+Title= $\eta$ of $b$-jet (anti-$k_t$ $R=0.4$ jet without cuts)
 XLabel= $\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_b_jet_multiplicity
-Title= b-jet multiplicity (anti-$k_t$ $R=0.4$ jet without cuts)
-XLabel= $N_{b-jet}$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}N_{b-jet}$ [pb]
+Title= $b$-jet multiplicity (anti-$k_t$ $R=0.4$ jet without cuts)
+XLabel= $N_{$b$\mathrm{-jet}}$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}N_{b\mathrm{-jet}}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_b_jet_phi
-Title= $\phi$ of b-jet (anti-$k_t$ $R=0.4$ jet without cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+Title= $\phi$ of $b$-jet (anti-$k_t$ $R=0.4$ jet without cuts)
+XLabel= $\phi/2\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/2\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_b_jet_pT
-Title= ${p_T}$ of b-jet (anti-$k_t$ $R=0.4$ jet without cuts)
+Title= ${p_T}$ of $b$-jet (anti-$k_t$ $R=0.4$ jet without cuts)
 XLabel= ${p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}p_T$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_H_eta_using_bb
-Title= $\eta$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.4$ jets without cuts)
+Title= $\eta$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.4$ jets without cuts)
 XLabel= $\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_H_mass_using_bb
-Title= $m$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.4$ jets without cuts)
+Title= $m$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.4$ jets without cuts)
 XLabel= $m [GeV]$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}m$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_H_phi_using_bb
-Title= $\phi$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.4$ jets without cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+Title= $\phi$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.4$ jets without cuts)
+XLabel= $\phi/2\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/2\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_H_pT_using_bb
-Title= ${p_T}$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.4$ jets without cuts)
+Title= ${p_T}$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.4$ jets without cuts)
 XLabel= $p_T [GeV]$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}p_T$ [pb/GeV]
 LogY=0
@@ -322,8 +322,8 @@ LogY=0
 
 # BEGIN PLOT /MC_VH2BB/R04_jet_phi
 Title= $\phi$ of jet (anti-$k_t$ $R=0.4$ jet without cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+XLabel= $\phi/2\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/2\pi)$ [pb]
 LogY=0
 # END PLOT
 
@@ -335,224 +335,224 @@ LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_VBbb_Delta_eta
-Title= $\Delta\eta$ between Higgs candidate and W (anti-$k_t$ $R=0.4$ jets without cuts)
+Title= $\Delta\eta$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.4$ jets without cuts)
 XLabel= $\Delta\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_VBbb_Delta_phi
-Title= $\Delta\phi$ between Higgs candidate and W (anti-$k_t$ $R=0.4$ jets without cuts)
-XLabel= $\Delta\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\phi$ [pb]
+Title= $\Delta\phi$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.4$ jets without cuts)
+XLabel= $\Delta\phi/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\Delta\phi/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_VBbb_Delta_pT
-Title= $\Delta{p_T}$ between Higgs candidate and W (anti-$k_t$ $R=0.4$ jets without cuts)
+Title= $\Delta{p_T}$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.4$ jets without cuts)
 XLabel= $\Delta{p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{p_T}$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_VBbb_Delta_R
-Title= $\Delta{R}$ between Higgs candidate and W (anti-$k_t$ $R=0.4$ jets without cuts)
+Title= $\Delta{R}$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.4$ jets without cuts)
 XLabel= $\Delta{R}$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{R}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_bb_Delta_eta
-Title= $\Delta\eta$ between b-jet pair (anti-$k_t$ $R=0.4$ jets with cuts)
+Title= $\Delta\eta$ between $b$-jet pair (anti-$k_t$ $R=0.4$ jets with cuts)
 XLabel= $\Delta\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_bb_Delta_phi
-Title= $\Delta\phi$ between b-jet pair (anti-$k_t$ $R=0.4$ jets with cuts)
-XLabel= $\Delta\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\phi$ [pb]
+Title= $\Delta\phi$ between $b$-jet pair (anti-$k_t$ $R=0.4$ jets with cuts)
+XLabel= $\Delta\phi/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\Delta\phi/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_bb_Delta_pT
-Title= $\Delta{p_T}$ between b-jet pair (anti-$k_t$ $R=0.4$ jets with cuts)
+Title= $\Delta{p_T}$ between $b$-jet pair (anti-$k_t$ $R=0.4$ jets with cuts)
 XLabel= $\Delta{p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{p_T}$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_bb_Delta_R
-Title= $\Delta{R}$ between b-jet pair (anti-$k_t$ $R=0.4$ jets with cuts)
+Title= $\Delta{R}$ between $b$-jet pair (anti-$k_t$ $R=0.4$ jets with cuts)
 XLabel= $\Delta{R}$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{R}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_b_jet_eta
-Title= $\eta$ of b-jet (anti-$k_t$ $R=0.4$ jet with cuts)
+Title= $\eta$ of $b$-jet (anti-$k_t$ $R=0.4$ jet with cuts)
 XLabel= $\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_b_jet_phi
-Title= $\phi$ of b-jet (anti-$k_t$ $R=0.4$ jet with cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+Title= $\phi$ of $b$-jet (anti-$k_t$ $R=0.4$ jet with cuts)
+XLabel= $\phi/2\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/2\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_b_jet_pT
-Title= ${p_T}$ of b-jet (anti-$k_t$ $R=0.4$ jet with cuts)
+Title= ${p_T}$ of $b$-jet (anti-$k_t$ $R=0.4$ jet with cuts)
 XLabel= ${p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}p_T$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_H_eta_using_bb
-Title= $\eta$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.4$ jets with cuts)
+Title= $\eta$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.4$ jets with cuts)
 XLabel= $\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_H_mass_using_bb
-Title= $m$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.4$ jets)
+Title= $m$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.4$ jets)
 XLabel= $m [GeV]$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}m$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_H_phi_using_bb
-Title= $\phi$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.4$ jets with cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+Title= $\phi$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.4$ jets with cuts)
+XLabel= $\phi/2\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/2\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_H_pT_using_bb
-Title= ${p_T}$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.4$ jets with cuts)
+Title= ${p_T}$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.4$ jets with cuts)
 XLabel= $p_T [GeV]$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}p_T$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_VBbb_Delta_eta
-Title= $\Delta\eta$ between Higgs candidate and W (anti-$k_t$ $R=0.4$ jets with cuts)
+Title= $\Delta\eta$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.4$ jets with cuts)
 XLabel= $\Delta\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_VBbb_Delta_phi
-Title= $\Delta\phi$ between Higgs candidate and W (anti-$k_t$ $R=0.4$ jets with cuts)
-XLabel= $\Delta\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\phi$ [pb]
+Title= $\Delta\phi$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.4$ jets with cuts)
+XLabel= $\Delta\phi/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\Delta\phi/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_VBbb_Delta_pT
-Title= $\Delta{p_T}$ between Higgs candidate and W (anti-$k_t$ $R=0.4$ jets with cuts)
+Title= $\Delta{p_T}$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.4$ jets with cuts)
 XLabel= $\Delta{p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{p_T}$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_VBbb_Delta_R
-Title= $\Delta{R}$ between Higgs candidate and W (anti-$k_t$ $R=0.4$ jets with cuts)
+Title= $\Delta{R}$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.4$ jets with cuts)
 XLabel= $\Delta{R}$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{R}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_b_jet_multiplicity
-Title= b-jet multiplicity (anti-$k_t$ $R=0.4$ jet with cuts)
-XLabel= $N_{b-jet}$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}N_{b-jet}$ [pb]
+Title= $b$-jet multiplicity (anti-$k_t$ $R=0.4$ jet with cuts)
+XLabel= $N_{b\mathrm{-jet}}$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}N_{b\mathrm{-jet}}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_bb_Delta_eta
-Title= $\Delta\eta$ between b-jet pair (anti-$k_t$ $R=0.5$ jets without cuts)
+Title= $\Delta\eta$ between $b$-jet pair (anti-$k_t$ $R=0.5$ jets without cuts)
 XLabel= $\Delta\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_bb_Delta_phi
-Title= $\Delta\phi$ between b-jet pair (anti-$k_t$ $R=0.5$ jets without cuts)
-XLabel= $\Delta\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\phi$ [pb]
+Title= $\Delta\phi$ between $b$-jet pair (anti-$k_t$ $R=0.5$ jets without cuts)
+XLabel= $\Delta\phi/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\Delta\phi/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_bb_Delta_pT
-Title= $\Delta{p_T}$ between b-jet pair (anti-$k_t$ $R=0.5$ jets without cuts)
+Title= $\Delta{p_T}$ between $b$-jet pair (anti-$k_t$ $R=0.5$ jets without cuts)
 XLabel= $\Delta{p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{p_T}$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_bb_Delta_R
-Title= $\Delta{R}$ between b-jet pair (anti-$k_t$ $R=0.5$ jets without cuts)
+Title= $\Delta{R}$ between $b$-jet pair (anti-$k_t$ $R=0.5$ jets without cuts)
 XLabel= $\Delta{R}$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{R}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_b_jet_eta
-Title= $\eta$ of b-jet (anti-$k_t$ $R=0.5$ jet without cuts)
+Title= $\eta$ of $b$-jet (anti-$k_t$ $R=0.5$ jet without cuts)
 XLabel= $\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_b_jet_multiplicity
-Title= b-jet multiplicity (anti-$k_t$ $R=0.5$ jet without cuts)
-XLabel= $N_{b-jet}$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}N_{b-jet}$ [pb]
+Title= $b$-jet multiplicity (anti-$k_t$ $R=0.5$ jet without cuts)
+XLabel= $N_{b\mathrm{-jet}}$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}N_{b\mathrm{-jet}}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_b_jet_phi
-Title= $\phi$ of b-jet (anti-$k_t$ $R=0.5$ jet without cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+Title= $\phi$ of $b$-jet (anti-$k_t$ $R=0.5$ jet without cuts)
+XLabel= $\phi/2\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/2\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_b_jet_pT
-Title= ${p_T}$ of b-jet (anti-$k_t$ $R=0.5$ jet without cuts)
+Title= ${p_T}$ of $b$-jet (anti-$k_t$ $R=0.5$ jet without cuts)
 XLabel= ${p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}p_T$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_H_eta_using_bb
-Title= $\eta$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.5$ jets without cuts)
+Title= $\eta$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.5$ jets without cuts)
 XLabel= $\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_H_mass_using_bb
-Title= $m$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.5$ jets without cuts)
+Title= $m$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.5$ jets without cuts)
 XLabel= $m [GeV]$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}m$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_H_phi_using_bb
-Title= $\phi$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.5$ jets without cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+Title= $\phi$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.5$ jets without cuts)
+XLabel= $\phi/2\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/2\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_H_pT_using_bb
-Title= ${p_T}$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.5$ jets without cuts)
+Title= ${p_T}$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.5$ jets without cuts)
 XLabel= $p_T [GeV]$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}p_T$ [pb/GeV]
 LogY=0
@@ -574,8 +574,8 @@ LogY=0
 
 # BEGIN PLOT /MC_VH2BB/R05_jet_phi
 Title= $\phi$ of jet (anti-$k_t$ $R=0.5$ jet without cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+XLabel= $\phi/2\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/2\pi)$ [pb]
 LogY=0
 # END PLOT
 
@@ -587,224 +587,224 @@ LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_VBbb_Delta_eta
-Title= $\Delta\eta$ between Higgs candidate and W (anti-$k_t$ $R=0.5$ jets without cuts)
+Title= $\Delta\eta$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.5$ jets without cuts)
 XLabel= $\Delta\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_VBbb_Delta_phi
-Title= $\Delta\phi$ between Higgs candidate and W (anti-$k_t$ $R=0.5$ jets without cuts)
-XLabel= $\Delta\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\phi$ [pb]
+Title= $\Delta\phi$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.5$ jets without cuts)
+XLabel= $\Delta\phi/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\Delta\phi/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_VBbb_Delta_pT
-Title= $\Delta{p_T}$ between Higgs candidate and W (anti-$k_t$ $R=0.5$ jets without cuts)
+Title= $\Delta{p_T}$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.5$ jets without cuts)
 XLabel= $\Delta{p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{p_T}$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_VBbb_Delta_R
-Title= $\Delta{R}$ between Higgs candidate and W (anti-$k_t$ $R=0.5$ jets without cuts)
+Title= $\Delta{R}$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.5$ jets without cuts)
 XLabel= $\Delta{R}$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{R}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_bb_Delta_eta
-Title= $\Delta\eta$ between b-jet pair (anti-$k_t$ $R=0.5$ jets with cuts)
+Title= $\Delta\eta$ between $b$-jet pair (anti-$k_t$ $R=0.5$ jets with cuts)
 XLabel= $\Delta\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_bb_Delta_phi
-Title= $\Delta\phi$ between b-jet pair (anti-$k_t$ $R=0.5$ jets with cuts)
-XLabel= $\Delta\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\phi$ [pb]
+Title= $\Delta\phi$ between $b$-jet pair (anti-$k_t$ $R=0.5$ jets with cuts)
+XLabel= $\Delta\phi/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\Delta\phi/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_bb_Delta_pT
-Title= $\Delta{p_T}$ between b-jet pair (anti-$k_t$ $R=0.5$ jets with cuts)
+Title= $\Delta{p_T}$ between $b$-jet pair (anti-$k_t$ $R=0.5$ jets with cuts)
 XLabel= $\Delta{p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{p_T}$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_bb_Delta_R
-Title= $\Delta{R}$ between b-jet pair (anti-$k_t$ $R=0.5$ jets with cuts)
+Title= $\Delta{R}$ between $b$-jet pair (anti-$k_t$ $R=0.5$ jets with cuts)
 XLabel= $\Delta{R}$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{R}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_b_jet_eta
-Title= $\eta$ of b-jet (anti-$k_t$ $R=0.5$ jet with cuts)
+Title= $\eta$ of $b$-jet (anti-$k_t$ $R=0.5$ jet with cuts)
 XLabel= $\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_b_jet_phi
-Title= $\phi$ of b-jet (anti-$k_t$ $R=0.5$ jet with cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+Title= $\phi$ of $b$-jet (anti-$k_t$ $R=0.5$ jet with cuts)
+XLabel= $\phi/2\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/2\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_b_jet_pT
-Title= ${p_T}$ of b-jet (anti-$k_t$ $R=0.5$ jet with cuts)
+Title= ${p_T}$ of $b$-jet (anti-$k_t$ $R=0.5$ jet with cuts)
 XLabel= ${p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}p_T$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_H_eta_using_bb
-Title= $\eta$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.5$ jets with cuts)
+Title= $\eta$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.5$ jets with cuts)
 XLabel= $\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_H_mass_using_bb
-Title= $m$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.5$ jets with cuts)
+Title= $m$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.5$ jets with cuts)
 XLabel= $m [GeV]$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}m$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_H_phi_using_bb
-Title= $\phi$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.5$ jets with cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+Title= $\phi$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.5$ jets with cuts)
+XLabel= $\phi/2\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/2\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_H_pT_using_bb
-Title= ${p_T}$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.5$ jets with cuts)
+Title= ${p_T}$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.5$ jets with cuts)
 XLabel= $p_T [GeV]$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}p_T$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_VBbb_Delta_eta
-Title= $\Delta\eta$ between Higgs candidate and W (anti-$k_t$ $R=0.5$ jets with cuts)
+Title= $\Delta\eta$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.5$ jets with cuts)
 XLabel= $\Delta\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_VBbb_Delta_phi
-Title= $\Delta\phi$ between Higgs candidate and W (anti-$k_t$ $R=0.5$ jets with cuts)
-XLabel= $\Delta\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\phi$ [pb]
+Title= $\Delta\phi$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.5$ jets with cuts)
+XLabel= $\Delta\phi/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\Delta\phi/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_VBbb_Delta_pT
-Title= $\Delta{p_T}$ between Higgs candidate and W (anti-$k_t$ $R=0.5$ jets with cuts)
+Title= $\Delta{p_T}$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.5$ jets with cuts)
 XLabel= $\Delta{p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{p_T}$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_VBbb_Delta_R
-Title= $\Delta{R}$ between Higgs candidate and W (anti-$k_t$ $R=0.5$ jets with cuts)
+Title= $\Delta{R}$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.5$ jets with cuts)
 XLabel= $\Delta{R}$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{R}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_b_jet_multiplicity
-Title= b-jet multiplicity (anti-$k_t$ $R=0.5$ jet with cuts)
-XLabel= $N_{b-jet}$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}N_{b-jet}$ [pb]
+Title= $b$-jet multiplicity (anti-$k_t$ $R=0.5$ jet with cuts)
+XLabel= $N_{b\mathrm{-jet}}$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}N_{b\mathrm{-jet}}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_bb_Delta_eta
-Title= $\Delta\eta$ between b-jet pair (anti-$k_t$ $R=0.6$ jets without cuts)
+Title= $\Delta\eta$ between $b$-jet pair (anti-$k_t$ $R=0.6$ jets without cuts)
 XLabel= $\Delta\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_bb_Delta_phi
-Title= $\Delta\phi$ between b-jet pair (anti-$k_t$ $R=0.6$ jets without cuts)
-XLabel= $\Delta\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\phi$ [pb]
+Title= $\Delta\phi$ between $b$-jet pair (anti-$k_t$ $R=0.6$ jets without cuts)
+XLabel= $\Delta\phi/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\Delta\phi/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_bb_Delta_pT
-Title= $\Delta{p_T}$ between b-jet pair (anti-$k_t$ $R=0.6$ jets without cuts)
+Title= $\Delta{p_T}$ between $b$-jet pair (anti-$k_t$ $R=0.6$ jets without cuts)
 XLabel= $\Delta{p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{p_T}$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_bb_Delta_R
-Title= $\Delta{R}$ between b-jet pair (anti-$k_t$ $R=0.6$ jets without cuts)
+Title= $\Delta{R}$ between $b$-jet pair (anti-$k_t$ $R=0.6$ jets without cuts)
 XLabel= $\Delta{R}$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{R}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_b_jet_eta
-Title= $\eta$ of b-jet (anti-$k_t$ $R=0.6$ jet without cuts)
+Title= $\eta$ of $b$-jet (anti-$k_t$ $R=0.6$ jet without cuts)
 XLabel= $\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_b_jet_multiplicity
-Title= b-jet multiplicity (anti-$k_t$ $R=0.6$ jet without cuts)
+Title= $b$-jet multiplicity (anti-$k_t$ $R=0.6$ jet without cuts)
 XLabel= $N_{jet}$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}N_{jet}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_b_jet_phi
-Title= $\phi$ of b-jet (anti-$k_t$ $R=0.6$ jet without cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+Title= $\phi$ of $b$-jet (anti-$k_t$ $R=0.6$ jet without cuts)
+XLabel= $\phi/2\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/2\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_b_jet_pT
-Title= ${p_T}$ of b-jet (anti-$k_t$ $R=0.6$ jet without cuts)
+Title= ${p_T}$ of $b$-jet (anti-$k_t$ $R=0.6$ jet without cuts)
 XLabel= ${p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}p_T$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_H_eta_using_bb
-Title= $\eta$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.6$ jets without cuts)
+Title= $\eta$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.6$ jets without cuts)
 XLabel= $\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_H_mass_using_bb
-Title= $m$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.6$ jets without cuts)
+Title= $m$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.6$ jets without cuts)
 XLabel= $m [GeV]$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}m$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_H_phi_using_bb
-Title= $\phi$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.6$ jets without cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+Title= $\phi$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.6$ jets without cuts)
+XLabel= $\phi/2\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/2\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_H_pT_using_bb
-Title= ${p_T}$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.6$ jets without cuts)
+Title= ${p_T}$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.6$ jets without cuts)
 XLabel= $p_T [GeV]$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}p_T$ [pb/GeV]
 LogY=0
@@ -826,8 +826,8 @@ LogY=0
 
 # BEGIN PLOT /MC_VH2BB/R06_jet_phi
 Title= $\phi$ of jet (anti-$k_t$ $R=0.6$ jet without cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+XLabel= $\phi/2\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/2\pi)$ [pb]
 LogY=0
 # END PLOT
 
@@ -839,142 +839,142 @@ LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_VBbb_Delta_eta
-Title= $\Delta\eta$ between Higgs candidate and W (anti-$k_t$ $R=0.6$ jets without cuts)
+Title= $\Delta\eta$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.6$ jets without cuts)
 XLabel= $\Delta\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_VBbb_Delta_phi
-Title= $\Delta\phi$ between Higgs candidate and W (anti-$k_t$ $R=0.6$ jets without cuts)
-XLabel= $\Delta\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\phi$ [pb]
+Title= $\Delta\phi$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.6$ jets without cuts)
+XLabel= $\Delta\phi/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\Delta\phi/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_VBbb_Delta_pT
-Title= $\Delta{p_T}$ between Higgs candidate and W (anti-$k_t$ $R=0.6$ jets without cuts)
+Title= $\Delta{p_T}$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.6$ jets without cuts)
 XLabel= $\Delta{p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{p_T}$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_VBbb_Delta_R
-Title= $\Delta{R}$ between Higgs candidate and W (anti-$k_t$ $R=0.6$ jets without cuts)
+Title= $\Delta{R}$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.6$ jets without cuts)
 XLabel= $\Delta{R}$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{R}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_bb_Delta_eta
-Title= $\Delta\eta$ between b-jet pair (anti-$k_t$ $R=0.6$ jets with cuts)
+Title= $\Delta\eta$ between $b$-jet pair (anti-$k_t$ $R=0.6$ jets with cuts)
 XLabel= $\Delta\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_bb_Delta_phi
-Title= $\Delta\phi$ between b-jet pair (anti-$k_t$ $R=0.6$ jets with cuts)
-XLabel= $\Delta\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\phi$ [pb]
+Title= $\Delta\phi$ between $b$-jet pair (anti-$k_t$ $R=0.6$ jets with cuts)
+XLabel= $\Delta\phi/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\Delta\phi/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_bb_Delta_pT
-Title= $\Delta{p_T}$ between b-jet pair (anti-$k_t$ $R=0.6$ jets with cuts)
+Title= $\Delta{p_T}$ between $b$-jet pair (anti-$k_t$ $R=0.6$ jets with cuts)
 XLabel= $\Delta{p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{p_T}$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_bb_Delta_R
-Title= $\Delta{R}$ between b-jet pair (anti-$k_t$ $R=0.6$ jets with cuts)
+Title= $\Delta{R}$ between $b$-jet pair (anti-$k_t$ $R=0.6$ jets with cuts)
 XLabel= $\Delta{R}$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{R}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_b_jet_eta
-Title= $\eta$ of b-jet (anti-$k_t$ $R=0.6$ jet with cuts
+Title= $\eta$ of $b$-jet (anti-$k_t$ $R=0.6$ jet with cuts
 XLabel= $\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_b_jet_phi
-Title= $\phi$ of b-jet (anti-$k_t$ $R=0.6$ jet with cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+Title= $\phi$ of $b$-jet (anti-$k_t$ $R=0.6$ jet with cuts)
+XLabel= $\phi/2\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/2\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_b_jet_pT
-Title= ${p_T}$ of b-jet (anti-$k_t$ $R=0.6$ jet with cuts)
+Title= ${p_T}$ of $b$-jet (anti-$k_t$ $R=0.6$ jet with cuts)
 XLabel= ${p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}p_T$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_H_eta_using_bb
-Title= $\eta$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.6$ jets with cuts)
+Title= $\eta$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.6$ jets with cuts)
 XLabel= $\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_H_mass_using_bb
-Title= $m$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.6$ jets with cuts)
+Title= $m$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.6$ jets with cuts)
 XLabel= $m [GeV]$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}m$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_H_phi_using_bb
-Title= $\phi$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.6$ jets with cuts)
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+Title= $\phi$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.6$ jets with cuts)
+XLabel= $\phi/2\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/2\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_H_pT_using_bb
-Title= ${p_T}$ of Higgs candidate from b-jet pair (anti-$k_t$ $R=0.6$ jets with cuts)
+Title= ${p_T}$ of Higgs candidate from $b$-jet pair (anti-$k_t$ $R=0.6$ jets with cuts)
 XLabel= $p_T [GeV]$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}p_T$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_VBbb_Delta_eta
-Title= $\Delta\eta$ between Higgs candidate and W (anti-$k_t$ $R=0.6$ jets with cuts)
+Title= $\Delta\eta$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.6$ jets with cuts)
 XLabel= $\Delta\eta$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\eta$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_VBbb_Delta_phi
-Title= $\Delta\phi$ between Higgs candidate and W (anti-$k_t$ $R=0.6$ jets with cuts)
-XLabel= $\Delta\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta\phi$ [pb]
+Title= $\Delta\phi$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.6$ jets with cuts)
+XLabel= $\Delta\phi/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\Delta\phi/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_VBbb_Delta_pT
-Title= $\Delta{p_T}$ between Higgs candidate and W (anti-$k_t$ $R=0.6$ jets with cuts)
+Title= $\Delta{p_T}$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.6$ jets with cuts)
 XLabel= $\Delta{p_T}$ [GeV]
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{p_T}$ [pb/GeV]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_VBbb_Delta_R
-Title= $\Delta{R}$ between Higgs candidate and W (anti-$k_t$ $R=0.6$ jets with cuts)
+Title= $\Delta{R}$ between Higgs candidate and $W$ (anti-$k_t$ $R=0.6$ jets with cuts)
 XLabel= $\Delta{R}$
 YLabel= $\mathrm{d}\sigma/\mathrm{d}\Delta{R}$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_b_jet_multiplicity
-Title= b-jet multiplicity (anti-$k_t$ $R=0.6$ jet with cuts)
-XLabel= $N_{b-jet}$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}N_{b-jet}$ [pb]
+Title= $b$-jet multiplicity (anti-$k_t$ $R=0.6$ jet with cuts)
+XLabel= $N_{b\mathrm{-jet}}$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}N_{b\mathrm{-jet}}$ [pb]
 LogY=0
 # END PLOT
 
@@ -1008,8 +1008,8 @@ LogY=0
 
 # BEGIN PLOT /MC_VH2BB/VB_phi
 Title= $\phi$ of W
-XLabel= $\phi$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\phi$ [pb]
+XLabel= $\phi/2\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\phi/2\pi)$ [pb]
 LogY=0
 # END PLOT
 
@@ -1022,144 +1022,142 @@ LogY=0
 
 
 # BEGIN PLOT /MC_VH2BB/pure_bVB_angle_Hframe
-Title= $\theta_{MIN}$ between b-hadron and W, in Higgs rest frame (without cuts)
-XLabel= $\theta$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\theta$ [pb]
+Title= $\theta_{MIN}$ between $b$-hadron and $W$, in Higgs rest frame (without cuts)
+XLabel= $\theta/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\theta/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_bVB_angle_Hframe
-Title= $\theta_{MIN}$ between b-hadron and W, in Higgs rest frame (with cuts)
-XLabel= $\theta$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\theta$ [pb]
+Title= $\theta_{MIN}$ between $b$-hadron and $W$, in Higgs rest frame (with cuts)
+XLabel= $\theta/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\theta/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_bVB_angle_Hframe
-Title= $\theta_{MIN}$ between b-jet and W, in Higgs rest frame (anti-$k_t$ $R=0.4$ jets without cuts)
-XLabel= $\theta$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\theta$ [pb]
+Title= $\theta_{MIN}$ between $b$-jet and $W$, in Higgs rest frame (anti-$k_t$ $R=0.4$ jets without cuts)
+XLabel= $\theta/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\theta/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_bVB_angle_Hframe
-Title= $\theta_{MIN}$ between b-jet and W, in Higgs rest frame (anti-$k_t$ $R=0.4$ jets with cuts)
-XLabel= $\theta$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\theta$ [pb]
+Title= $\theta_{MIN}$ between $b$-jet and $W$, in Higgs rest frame (anti-$k_t$ $R=0.4$ jets with cuts)
+XLabel= $\theta/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\theta/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_bVB_angle_Hframe
-Title= $\theta_{MIN}$ between b-jet and W, in Higgs rest frame (anti-$k_t$ $R=0.5$ jets without cuts)
-XLabel= $\theta$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\theta$ [pb]
+Title= $\theta_{MIN}$ between $b$-jet and $W$, in Higgs rest frame (anti-$k_t$ $R=0.5$ jets without cuts)
+XLabel= $\theta/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\theta/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_bVB_angle_Hframe
-Title= $\theta_{MIN}$ between b-jet and W, in Higgs rest frame (anti-$k_t$ $R=0.5$ jets with cuts)
-XLabel= $\theta$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\theta$ [pb]
+Title= $\theta_{MIN}$ between $b$-jet and $W$, in Higgs rest frame (anti-$k_t$ $R=0.5$ jets with cuts)
+XLabel= $\theta/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\theta/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_bVB_angle_Hframe
-Title= $\theta_{MIN}$ between b-jet and W, in Higgs rest frame (anti-$k_t$ $R=0.6$ jets without cuts)
-XLabel= $\theta$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\theta$ [pb]
+Title= $\theta_{MIN}$ between $b$-jet and $W$, in Higgs rest frame (anti-$k_t$ $R=0.6$ jets without cuts)
+XLabel= $\theta/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\theta/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_bVB_angle_Hframe
-Title= $\theta_{MIN}$ between b-jet and W, in Higgs rest frame (anti-$k_t$ $R=0.6$ jets with cuts)
-XLabel= $\theta$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\theta$ [pb]
+Title= $\theta_{MIN}$ between $b$-jet and $W$, in Higgs rest frame (anti-$k_t$ $R=0.6$ jets with cuts)
+XLabel= $\theta/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\theta/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 
 # BEGIN PLOT /MC_VH2BB/pure_bb_angle_Hframe
-Title= $\theta$ between b-hadrons, in Higgs rest frame (without cuts)
-XLabel= $\theta$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\theta$ [pb]
+Title= $\theta$ between $b$-hadrons, in Higgs rest frame (without cuts)
+XLabel= $\theta/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\theta/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_bb_angle_Hframe
-Title= $\theta$ between b-hadrons, in Higgs rest frame (with cuts)
-XLabel= $\theta$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\theta$ [pb]
+Title= $\theta$ between $b$-hadrons, in Higgs rest frame (with cuts)
+XLabel= $\theta/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\theta/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_bb_angle_Hframe
-Title= $\theta$ between b-jets, in Higgs rest frame (anti-$k_t$ $R=0.4$ jets without cuts)
-XLabel= $\theta$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\theta$ [pb]
+Title= $\theta$ between $b$-jets, in Higgs rest frame (anti-$k_t$ $R=0.4$ jets without cuts)
+XLabel= $\theta/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\theta/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_bb_angle_Hframe
-Title= $\theta$ between b-jets, in Higgs rest frame (anti-$k_t$ $R=0.4$ jets with cuts)
-XLabel= $\theta$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\theta$ [pb]
+Title= $\theta$ between $b$-jets, in Higgs rest frame (anti-$k_t$ $R=0.4$ jets with cuts)
+XLabel= $\theta/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\theta/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_bb_angle_Hframe
-Title= $\theta$ between b-jets, in Higgs rest frame (anti-$k_t$ $R=0.5$ jets without cuts)
-XLabel= $\theta$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\theta$ [pb]
+Title= $\theta$ between $b$-jets, in Higgs rest frame (anti-$k_t$ $R=0.5$ jets without cuts)
+XLabel= $\theta/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\theta/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_bb_angle_Hframe
-Title= $\theta$ between b-jets, in Higgs rest frame (anti-$k_t$ $R=0.5$ jets with cuts)
-XLabel= $\theta$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\theta$ [pb]
+Title= $\theta$ between $b$-jets, in Higgs rest frame (anti-$k_t$ $R=0.5$ jets with cuts)
+XLabel= $\theta/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\theta/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_bb_angle_Hframe
-Title= $\theta$ between b-jets, in Higgs rest frame (anti-$k_t$ $R=0.6$ jets without cuts)
-XLabel= $\theta$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\theta$ [pb]
+Title= $\theta$ between $b$-jets, in Higgs rest frame (anti-$k_t$ $R=0.6$ jets without cuts)
+XLabel= $\theta/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\theta/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_bb_angle_Hframe
-Title= $\theta$ between b-jets, in Higgs rest frame (anti-$k_t$ $R=0.6$ jets with cuts)
-XLabel= $\theta$
-YLabel= $\mathrm{d}\sigma/\mathrm{d}\theta$ [pb]
+Title= $\theta$ between $b$-jets, in Higgs rest frame (anti-$k_t$ $R=0.6$ jets with cuts)
+XLabel= $\theta/\pi$
+YLabel= $\mathrm{d}\sigma/\mathrm{d}(\theta/\pi)$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R04_cuts_bb_deltaR_v_HpT
-Title= $\Delta{R}$ between b-jets against $p_T$ of Higgs candidate (anti-$k_t$ $R=0.4$ jets with cuts)
+Title= $\Delta{R}$ between $b$-jets against $p_T$ of Higgs candidate (anti-$k_t$ $R=0.4$ jets with cuts)
 XLabel= $p_T$ [GeV]
 YLabel= $\Delta{R}$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R05_cuts_bb_deltaR_v_HpT
-Title= $\Delta{R}$ between b-jets against $p_T$ of Higgs candidate (anti-$k_t$ $R=0.5$ jets with cuts)
+Title= $\Delta{R}$ between $b$-jets against $p_T$ of Higgs candidate (anti-$k_t$ $R=0.5$ jets with cuts)
 XLabel= $p_T$ [GeV]
 YLabel= $\Delta{R}$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/R06_cuts_bb_deltaR_v_HpT
-Title= $\Delta{R}$ between b-jets against $p_T$ of Higgs candidate (anti-$k_t$ $R=0.6$ jets with cuts)
+Title= $\Delta{R}$ between $b$-jets against $p_T$ of Higgs candidate (anti-$k_t$ $R=0.6$ jets with cuts)
 XLabel= $p_T$ [GeV]
 YLabel= $\Delta{R}$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_VH2BB/pure_cuts_bb_deltaR_v_HpT
-Title= $\Delta{R}$ between b-hadrons against $p_T$ of Higgs candidate (with cuts)
+Title= $\Delta{R}$ between $b$-hadrons against $p_T$ of Higgs candidate (with cuts)
 XLabel= $p_T$ [GeV]
 YLabel= $\Delta{R}$
 LogY=0
 # END PLOT
-
-

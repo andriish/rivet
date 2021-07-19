@@ -5,16 +5,26 @@ Experiment: CLEOC
 Collider: CESR
 InspireID: 728043
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Rev. D74 (2006) 112005
-RunInfo: e+e- to hadrons via Psi(3770) for D0,D+ or at 4.17 GeV for D_s
+RunInfo: 
+  e+e- to hadrons via Psi(3770) for D0,D+ or at 4.17 GeV for D_s
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merge'ing samples.
 Beams: [e+, e-]
 Energies: [3.77,4.17]
+Options:
+ - ENERGY=3.77,4.17
 Description:
-'Measurement of the inclusive branching ratios for  $\eta$, $\eta^\prime$ and $\phi$
-production in $D^0$, $D^+$ and $D_s^+$ decays. In addition the spectra for $\eta$ and $\phi$ production are also measured, in the CMS frame of the collision. N.B. The spetral information was really intended as part of the analysis to measure the inclusive brnaching ratios, not as a measurement, and therefore shoud be used with care. However there are few distrubtions available for D decays and therefore the spectra are still useful.'
+  Measurement of the inclusive branching ratios for  $\eta$, $\eta^\prime$ and $\phi$
+  production in $D^0$, $D^+$ and $D_s^+$ decays. In addition the spectra for $\eta$ and 
+  $\phi$ production are also measured, in the CMS frame of the collision. N.B. The spetral 
+  information was really intended as part of the analysis to measure the inclusive branching 
+  ratios, not as a measurement, and therefore shoud be used with care. However there are few 
+  distrubtions available for D decays and therefore the spectra are still useful.
+  Beam energy must be specified (in GeV) as analysis option "ENERGY" when rivet-merging samples.
 ValidationInfo:
   'Herwig 7 events using EvtGen for the decays'
 #ReleaseTests:

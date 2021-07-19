@@ -24,7 +24,7 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
       book(_n_plus ,"/TMP/NPLUS" );
       book(_n_minus,"/TMP/NMINUS");
-      if(fuzzyEquals(sqrtS(),2.396,1e-2)) {
+      if(isCompatibleWithSqrtS(2.396, 1E-2)) {
 	book(_h_cTheta_A,3,1,1);
 	book(_h_cTheta_B,3,1,2);
       }

@@ -5,16 +5,19 @@ Experiment: CELLO
 Collider: Petra
 InspireID: 191415
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Z.Phys. C20 (1983) 207, 1983
-RunInfo: e+ e- to hadrons
+RunInfo: e+ e- to hadrons. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NeedCrossSection: yes
 Beams: [e+, e-]
 Energies: [14,22,34]
+Options:
+ - ENERGY=14,22,34
 Description:
-  'Measurement of the $\gamma$ and $\pi^0$ energy fractions in $e^+e^-$ collisions for centre-of-mass energies of 14, 22 and 34 GeV by the CELLO experiment at Petra. Only the bin centroids are given in the paper and HEPdata so the bin widths have been infered.'
+  'Measurement of the $\gamma$ and $\pi^0$ energy fractions in $e^+e^-$ collisions for centre-of-mass energies of 14, 22 and 34 GeV by the CELLO experiment at Petra. Only the bin centroids are given in the paper and HEPdata so the bin widths have been infered. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 Keywords: []
 BibKey: Behrend:1983pd
 BibTeX: '@article{Behrend:1983pd,

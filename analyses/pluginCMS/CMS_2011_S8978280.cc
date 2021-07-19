@@ -18,16 +18,10 @@ namespace Rivet {
       UnstableParticles ufs(Cuts::absrap < 2);
       declare(ufs, "UFS");
       int beamEnergy = -1;
-      if (fuzzyEquals(sqrtS()/GeV, 900*GeV)) beamEnergy = 1;
-      else if (fuzzyEquals(sqrtS()/GeV, 7000*GeV)) beamEnergy = 2;
+      if (isCompatibleWithSqrtS(900.))  beamEnergy = 1;
+      else if (isCompatibleWithSqrtS(7000.))  beamEnergy = 2;
       else {
-        MSG_INFO("Suspicious beam energy. You're probably running rivet-merge. Fetching beam energy from option.");
-        double bOpt = getOption<double>("energy", 0);
-	if (fuzzyEquals(bOpt, 900)) beamEnergy = 1;
-	else if (fuzzyEquals(bOpt, 7000)) beamEnergy = 2;
-	else {
-	  MSG_WARNING("Could not decipher beam energy. For rivet-merge set -a CMS_2011_S8978280:energy=OPT, where OPT is 900 or 7000 (GeV is implied).");
-	}
+        MSG_WARNING("Could not decipher beam energy. For rivet-merge set -a CMS_2011_S8978280:energy=OPT, where OPT is 900 or 7000 (GeV is implied).");
       }
       
       // Particle distributions versus rapidity and transverse momentum

@@ -25,10 +25,10 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       int ioff=-1;
-      if(fuzzyEquals(sqrtS()/GeV,35.,1e-3)) {
+      if(isCompatibleWithSqrtS(35)) {
       	ioff=0;
       }
-      else if(fuzzyEquals(sqrtS()/GeV,44.,1e-3)) {
+      else if(isCompatibleWithSqrtS(44.)) {
       	ioff=1;
       }
       else

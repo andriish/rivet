@@ -38,14 +38,7 @@ namespace Rivet {
       declare(nstable, "nstable");
 
       
-      // Beam energy logic neccesary for rivet-merge.
-      sqs = sqrtS()/GeV;
-      if (fuzzyEquals(sqs, 0.0, 1e-3)) {
-        MSG_INFO("Suspicious beam energy. You're probably running rivet-merge. Fetching beam energy from option.");
-        sqs = getOption<double>("energy", 0);
-      }
-
-      if (fuzzyEquals(sqs, 7000, 1e-3)) {
+      if (isCompatibleWithSqrtS(7000)) {
         book(_hist_Ks_pT      ,1, 1, 1);
         book(_hist_Ks_y       ,2, 1, 1);
         book(_hist_Ks_mult    ,3, 1, 1);
@@ -60,7 +53,7 @@ namespace Rivet {
         book(_temp_lambda_v_pT, "TMP/lambda_v_pT", 18, 0.5, 4.1);
         book(_temp_lambdabar_v_pT, "TMP/lambdabar_v_pT", 18, 0.5, 4.1);
       }
-      else if (fuzzyEquals(sqs, 900, 1E-3)) {
+      else if (isCompatibleWithSqrtS(900)) {
         book(_hist_Ks_pT   ,4, 1, 1);
         book(_hist_Ks_y    ,5, 1, 1);
         book(_hist_Ks_mult ,6, 1, 1);
@@ -256,11 +249,6 @@ namespace Rivet {
     //@{
     Histo1DPtr _temp_lambda_v_y, _temp_lambdabar_v_y;
     Histo1DPtr _temp_lambda_v_pT, _temp_lambdabar_v_pT;
-    //@}
-
-    /// @name sqrtS from beam or option
-    //@{
-    double sqs;
     //@}
 
   };

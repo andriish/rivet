@@ -5,16 +5,20 @@ Experiment: TASSO
 Collider: Petra
 InspireID: 248660
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Z.Phys. C36 (1987) 349-361, 1987
-RunInfo: e+e- to hadrons at the relevant CMS energies
+RunInfo: e+e- to hadrons at the relevant CMS energies.  Beam energy must be specified as analysis option "ENERGY" when rivet-merge'ing samples.
 NeedCrossSection: no
 Beams: [e+, e-]
 Energies: [14.0,22.0,34.8,43.5]
+Options:
+ - ENERGY=14.0,22.0,34.8,43.5
 Description:
-  'Measurement of the energy-energy correlation at centre-of-mass energies between 12 and 46.8 GeV'
+  'Measurement of the energy-energy correlation at centre-of-mass energies between 12 and 46.8 GeV.
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 Keywords: []
 BibKey: Braunschweig:1987ig
 BibTeX: '@article{Braunschweig:1987ig,

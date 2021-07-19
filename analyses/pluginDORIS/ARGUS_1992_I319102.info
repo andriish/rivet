@@ -5,17 +5,23 @@ Experiment: ARGUS
 Collider: DORIS
 InspireID: 319102
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Z.Phys. C54 (1992) 13-20, 1992 
-RunInfo: e+ e- to hadrons and e+ e- to mu+ mu- (for normalization)
+RunInfo: 
+  e+ e- to hadrons and e+ e- to mu+ mu- (for normalization)
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NeedCrossSection: yes
 Beams: [e-, e+]
+Options:
+ - ENERGY=*
 Description:
   'Measurement of $R$ at 9.36 GeV and charged particle multiplcities in continuum and at the $\Upsilon(4S)$.
    The individual hadronic and muonic cross sections are also outputted to the yoda file
-   so that ratio $R$ can be recalcuated if runs are combined.'
+   so that ratio $R$ can be recalcuated if runs are combined.
+   Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 Keywords: []
 BibKey: Albrecht:1991vp
 BibTeX: '@article{Albrecht:1991vp,

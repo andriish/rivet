@@ -29,14 +29,15 @@ namespace Rivet {
       // Book histograms
       // Book histograms
       _iHist=-1;
-      if(fuzzyEquals(sqrtS()/GeV, 34., 1e-3)) {
+      if(isCompatibleWithSqrtS(34)) {
 	_iHist = 0;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 44., 1e-3)) {
+      else if (isCompatibleWithSqrtS(44.)) {
 	_iHist = 1;
       }
       else
-	MSG_ERROR("Beam energy not supported!");
+        MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
+          << " doesn't match any available analysis energy .");
 
       book(_h_x_pi, 3*_iHist+7,1,1);
       book(_h_x_K , 3*_iHist+8,1,1);

@@ -5,17 +5,20 @@ Experiment: TASSO
 Collider: Petra
 InspireID: 143691
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Lett. 89B (1980) 418-422
-RunInfo: e+ e- to hadrons and e+ e- to mu+ mu- (for normalization)
+RunInfo: e+ e- to hadrons and e+ e- to mu+ mu- (for normalization). Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NeedCrossSection: yes
 Beams: [e-, e+]
 Energies: [13,17,22,27.6,30.3,31.2]
+Options:
+ - ENERGY=13,17,22,27.6,30.3,31.2
 Description:
   'Measurement of charged particle multiplicity, rapidity and scaled momentum distributions for a range of energies
-   between 13 and 31.6 GeV'
+   between 13 and 31.6 GeV. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 Keywords: []
 BibKey: Brandelik:1979bw
 BibTeX: '@article{Brandelik:1979bw,

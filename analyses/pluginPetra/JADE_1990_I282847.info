@@ -5,16 +5,19 @@ Experiment: JADE
 Collider: Petra
 InspireID: 282847
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Z.Phys. C46 (1990) 1-7, 1990 
-RunInfo: e+ e- to hadrons
+RunInfo: e+ e- to hadrons. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NeedCrossSection: yes
 Beams: [e+, e-]
 Energies: [35,44]
+Options:
+ - ENERGY=35,44
 Description:
-  'Measurement of the Photon, $\pi^0$ and $\eta$ spectra in $e^+e^-$ collisions at 35 and 44 GeV by the JADE experiment at Petra. The isolated photon spectrum which tests ISR and FST QED radiation is not implemented. The multiplicities are not implemented as they are in the PDG averages.'
+  'Measurement of the Photon, $\pi^0$ and $\eta$ spectra in $e^+e^-$ collisions at 35 and 44 GeV by the JADE experiment at Petra. The isolated photon spectrum which tests ISR and FST QED radiation is not implemented. The multiplicities are not implemented as they are in the PDG averages. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 Keywords: []
 BibKey: Pitzl:1989qy
 BibTeX: '@article{Pitzl:1989qy,

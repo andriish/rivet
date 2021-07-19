@@ -5,17 +5,21 @@ Experiment: BESII
 Collider: BEPC
 InspireID: 622224
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Rev. D69 (2004) 072002, 2004 
-RunInfo: e+e- to hadrons
+RunInfo: e+e- to hadrons. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NeedCrossSection: yes
 Beams: [e+,e-]
 Energies: [2.2,2.6,3.0,3.2,4.6,4.8]
+Options:
+ - ENERGY=2.2,2.6,3.0,3.2,4.6,4.8
 Luminosity_fb: 
 Description:
-  'Charged particle momentum distributions for energies between 2.2 and 4.8 GeV'
+  'Charged particle momentum distributions for energies between 2.2 and 4.8 GeV.
+   Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 BibKey: Dunwoodie:2003xt
 BibTeX: '@article{Dunwoodie:2003xt,
       author         = "Dunwoodie, W. and others",

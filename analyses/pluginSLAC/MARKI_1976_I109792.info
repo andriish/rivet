@@ -5,14 +5,19 @@ Experiment: MARK-I
 Collider: SPEAR
 InspireID: 109792
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
-RunInfo: e+e- > hadrons
+RunInfo: e+e- > hadrons. Beam energy must be specified as analysis option "ENERGY" when rivet-merge'ing samples.
+
 NeedCrossSection: yes
 Beams: [e-, e+]
 Energies: [3.0,4.8,5.8,6.2,6.6,7.0,7.4]
+Options:
+ - ENERGY=3.0,4.8,5.8,6.2,6.6,7.0,7.4
 Description:
-  'Charged particle momentum distributions for energies between 3.0 and 7.4 GeV'
+  'Charged particle momentum distributions for energies between 3.0 and 7.4 GeV. Beam energy must be specified as 
+  analysis option "ENERGY" when rivet-merging samples.'
 Keywords: []
 BibKey: Hanson:1976gw
 BibTeX: '@inproceedings{Hanson:1976gw,

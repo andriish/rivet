@@ -349,7 +349,7 @@ Experiment: %(ANAEXPT)s
 Collider: %(ANACOLLIDER)s
 %(ANAREFREPO)sID: %(ANAINSPIREID)s
 Status: UNVALIDATED NOHEPDATA SINGLEWEIGHT UNPHYSICAL
-Reentrant: False
+Reentrant: false
 Authors:
  - Your Name <your@email.address>
 References:

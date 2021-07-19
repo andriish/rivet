@@ -5,15 +5,19 @@ Experiment: BES
 Collider: BEPC
 InspireID: 508349
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Rev. D62 (2000) 012002
-RunInfo: e+e- to hadrons
+RunInfo: e+e- to hadrons. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 Beams: [e+, e-]
 Energies: [4.03,4.14]
+Options:
+ - ENERGY=4.03,4.14
 Description:
-  'Measurement of the total cvharm cross section, together with the $D^0$, $D^+$ rates and spectra at 4.03 and 4.14 GeV by the BES collaboration.'
+  'Measurement of the total cvharm cross section, together with the $D^0$, $D^+$ rates and spectra at 4.03 and 4.14 GeV by the BES collaboration.
+   Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 ValidationInfo:
   'Herwig 7 events'
 #ReleaseTests:

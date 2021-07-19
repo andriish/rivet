@@ -22,28 +22,28 @@ namespace Rivet {
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
       int offset = 0;
-      if(fuzzyEquals(sqrtS()/GeV,50.0)) {
+      if(isCompatibleWithSqrtS(50.0)) {
 	offset = 1;
       }
-      else if(fuzzyEquals(sqrtS()/GeV,52.0)) {
+      else if(isCompatibleWithSqrtS(52.0)) {
 	offset = 2;
       }
-      else if(fuzzyEquals(sqrtS()/GeV,55.0)) {
+      else if(isCompatibleWithSqrtS(55.0)) {
 	offset = 3;
       }
-      else if(fuzzyEquals(sqrtS()/GeV,56.0)) {
+      else if(isCompatibleWithSqrtS(56.0)) {
 	offset = 4;
       }
-      else if(fuzzyEquals(sqrtS()/GeV,57.0)) {
+      else if(isCompatibleWithSqrtS(57.0)) {
 	offset = 5;
       }
-      else if(fuzzyEquals(sqrtS()/GeV,60.0)) {
+      else if(isCompatibleWithSqrtS(60.0)) {
 	offset = 6;
       }
-      else if(fuzzyEquals(sqrtS()/GeV,60.8)) {
+      else if(isCompatibleWithSqrtS(60.8)) {
 	offset = 7;
       }
-      else if(fuzzyEquals(sqrtS()/GeV,61.4)) {
+      else if(isCompatibleWithSqrtS(61.4)) {
 	offset = 8;
       }
       else {

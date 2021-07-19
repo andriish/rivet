@@ -27,13 +27,13 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       unsigned int iloc(0);
-      if(fuzzyEquals(sqrtS()/GeV, 14., 1e-3)) {
+      if(isCompatibleWithSqrtS(14.)) {
 	iloc=1;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 22., 1e-3)) {
+      else if (isCompatibleWithSqrtS(22.)) {
 	iloc=2;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 34., 1e-3)) {
+      else if (isCompatibleWithSqrtS(34.)) {
 	iloc=3;
       }
       else

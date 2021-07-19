@@ -34,9 +34,9 @@ namespace Rivet {
       book(_h_T5, "/TMP/T5",20,-1.,1.);
       
       book(_h_cThetaL,"/TMP/cThetaL",20,-1.,1.);
-      if(fuzzyEquals(sqrtS(),3.1,1e-2))
+      if(isCompatibleWithSqrtS(3.1,1e-2))
 	book(_h_mu,1,1,1);
-      else if(fuzzyEquals(sqrtS(),3.686,1e-2))
+      else if(isCompatibleWithSqrtS(3.686,1e-2))
 	book(_h_mu,1,1,2);
       else
 	throw Error("Unexpected sqrtS ! Only 3.1 and 3.686 GeV atr supported");
@@ -236,7 +236,7 @@ namespace Rivet {
       scale(_h_T5, 1./ *_wsum);
       scale(_h_mu, 2./ *_wsum);
       // histos for J/psi or psi(2s)
-      int ih = fuzzyEquals(sqrtS(),3.1,1e-2) ? 1 : 2;
+      int ih = isCompatibleWithSqrtS(3.1,1e-2) ? 1 : 2;
       // calculate alpha0
       pair<double,pair<double,double> > alpha0 = calcAlpha0(_h_cThetaL);
       Scatter2DPtr _h_alpha0;

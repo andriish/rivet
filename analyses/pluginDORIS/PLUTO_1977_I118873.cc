@@ -22,17 +22,17 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(UnstableParticles(), "UFS");
       
-      if      (fuzzyEquals(sqrtS()/GeV, 3.63, 1E-3)) {
-	book(_h_spectrum, 2, 1, 1);
+      if (isCompatibleWithSqrtS(3.63)) {
+        book(_h_spectrum, 2, 1, 1);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 4.03, 1E-3)) {
-	book(_h_spectrum, 3, 1, 1);
+      else if (isCompatibleWithSqrtS(4.03)) {
+        book(_h_spectrum, 3, 1, 1);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 4.5, 1E-3)) {
-	book(_h_spectrum, 4, 1, 1);
+      else if (isCompatibleWithSqrtS(4.5)) {
+        book(_h_spectrum, 4, 1, 1);
       }
       else
-	MSG_ERROR("Beam energy not supported!");
+        MSG_ERROR("Beam energy not supported!");
     }
 
 

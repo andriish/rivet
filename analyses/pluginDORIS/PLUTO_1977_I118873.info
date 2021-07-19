@@ -5,17 +5,23 @@ Experiment: PLUTO
 Collider: DORIS
 InspireID: 118873
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Lett. B104 (1981) 79-83, 1981
-RunInfo: e+ e- to hadrons and e+ e- to mu+ mu- (for normalization)
+RunInfo: 
+  e+ e- to hadrons and e+ e- to mu+ mu- (for normalization)
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NeedCrossSection: yes
 Beams: [e-, e+]
 Energies: [3.63,4.03,4.5]
+Options:
+ - ENERGY=3.63,4.03,4.5
 Description:
   'The spectra for $K^0$ production at $3.63$, $4.03$ and $4.5$ GeV measured by the PLUTO experiment.
-   The energy dependent cross section is not included as it is implemented in PLUTO_1981_I165122.'
+   The energy dependent cross section is not included as it is implemented in PLUTO_1981_I165122.
+   Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 BibKey: Burmester:1977du
 BibTeX: '@article{Burmester:1977du,
       author         = "Burmester, J. and others",
