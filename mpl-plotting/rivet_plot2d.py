@@ -2,11 +2,12 @@
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
-import yoda
 
 
 def _plot_projection(hist_data, fig, hist_features, plot_features):
-    gs = fig.add_gridspec(ncols=len(hist_data), nrows=2 if plot_features.get('RatioPlot', True) else 1)
+    ncols = len(hist_data)
+    nrows = 2 if plot_features.get('RatioPlot', True) else 1
+    gs = fig.add_gridspec(ncols=ncols, nrows=nrows)
     colorbar_tick_format = mpl.ticker.ScalarFormatter(useMathText=True)
     colorbar_tick_format.set_powerlimits(
         (-plt.rcParams.get('axes.formatter.min_exponent'), plt.rcParams.get('axes.formatter.min_exponent'))
@@ -31,19 +32,55 @@ def _plot_projection(hist_data, fig, hist_features, plot_features):
             cbar.set_label(plot_features.get('ZLabel'))
             ax.set(xlabel=plot_features.get('XLabel'), ylabel=plot_features.get('YLabel'), 
                 title=settings.get('RatioPlotTitle', '{}/{}'.format(settings['Title'], ref_settings['Title'])))
-    fig.tight_layout()
+    
+    # TODO Move code below to post_process
+    fig.set_size_inches(ncols*4, nrows*3)
 
 
 def _plot_surface(hist_data, fig, hist_features, plot_features):
-    axes = mpl.gridspec.gridspec.GridSpec(ncols=len(hist_data), nrows=2 if plot_features.get('RatioPlot', True) else 1)
-    
-    return axes
+    """Plot 3D plots with a surface representing histograms.
+
+    Parameters
+    ----------
+    hist_data : list[yoda.Histo2D | yoda.Profile2D | yoda.Scatter3D]
+        All the YODA histograms that will be plotted. Histograms will be plotted in separate axes.
+    fig : plt.figure.Figure
+        Matplotlib figure object in which all the subplots will be plotted in.
+    hist_features : list[dict]
+        Plot settings for each histogram, in the same order as hist_data
+    plot_features : dict
+        Settings that will be applied to the entire figure or each axes.
+    """
+    plot_ratio = plot_features.get('RatioPlot', True) and len(hist_data) > 1
+    gs = fig.add_gridspec(ncols=len(hist_data), nrows=2 if plot_ratio else 1)
+
+    for i, (h, settings) in enumerate(zip(hist_data, hist_features)):
+        ax = fig.add_subplot(gs[0, i], projection='3d')
+        ax.plot_surface(h.xVals(asgrid=True), h.yVals(asgrid=True), h.zVals(asgrid=True), 
+            norm=mpl.colors.Normalize(vmin=h.zMin(), vmax=h.zMax()), cmap=plt.rcParams['image.cmap'])
+        ax.set(xlabel=plot_features.get('XLabel'), ylabel=plot_features.get('YLabel'), title=settings['Title'])
+
+    if plot_features.get('RatioPlot', True):
+        ref_h, ref_settings = hist_data[0], hist_features[0]
+        for i, h in enumerate(hist_data[1:]):
+            ax = fig.add_subplot(gs[1, i+1], projection='3d')
+            z_ratio = h.zVals(asgrid=True) / ref_h.zVals(asgrid=True)
+            #z_ratio[np.isinf(np.abs(z_ratio))] = np.nan
+            ax.plot_surface(h.xVals(asgrid=True), h.yVals(asgrid=True), z_ratio,
+                cmap=plt.rcParams['image.cmap'], vmin=np.min(z_ratio[np.isfinite(z_ratio)]), vmax=np.max(z_ratio[np.isfinite(z_ratio)]))
+            # Move these kinds of settings to separate function?
+            ax.set(xlabel=plot_features.get('XLabel'), ylabel=plot_features.get('YLabel'), 
+                title=settings.get('RatioPlotTitle', '{}/{}'.format(settings['Title'], ref_settings['Title'])))
 
 
 def _plot_contour(hist_data, fig, hist_features, plot_features):
     # Set nrows=1 here when implementing
     raise NotImplementedError('2DType "contour" has not been implemented yet. '
         'Use "projection" or "surface" instead.')
+
+
+def post_process(fig):
+    fig.tight_layout()
 
 
 def _plot_2Dhist(hist_data, axes, hist_features, plot_features):
@@ -64,7 +101,8 @@ def _plot_2Dhist(hist_data, axes, hist_features, plot_features):
 
     Returns
     -------
-    None
+    fig : Figure
+        Matplotlib Figure object containing all plots.
     """
     # TODO these 2 lines will be removed when axes are always created inside the plotting function
     fig = axes[0].get_figure()
@@ -77,3 +115,7 @@ def _plot_2Dhist(hist_data, axes, hist_features, plot_features):
         _plot_contour(hist_data, fig, hist_features, plot_features)
     else:
         raise NotImplementedError('Expected 2DType to be "projection", "surface" or "contour" but got {}'.format(plot_features.get('2DType')))
+    
+    post_process(fig)
+
+    return fig
