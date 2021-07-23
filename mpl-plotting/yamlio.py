@@ -1,20 +1,34 @@
 from __future__ import print_function
-import os, re
+import os, re, io, logging
 from ruamel import yaml
 import rivet
+import yoda
 import constants
 from old_plotfile_converter import parse_old_plotfile
-import logging
 
-# This class, function and call to add_representer makes it so that all objects with type Literal will be printed to a .yaml file as a string block. 
-class Literal(str):
-    """A small wrapper class used to print histograms as multiline strings in a .yaml file."""
-    pass
 
 def literal_presenter(dumper, data):
-    return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
+    """Function that tells the yaml writer how to output yoda histograms into a yaml file.
+    Currently uses yoda.writeYODA
 
-yaml.add_representer(Literal, literal_presenter)
+    Parameters
+    ----------
+    dumper : yaml.YAML
+        The file writer
+    data : yoda histogram
+        The histogram that will be written to the file.
+
+    Returns
+    -------
+    str (?)
+        The str that will be written to the file
+    """
+    with io.StringIO() as filelike_str:
+        yoda.writeYODA(data, filelike_str)
+        output_str = filelike_str.getvalue()
+    return dumper.represent_scalar('tag:yaml.org,2002:str', output_str, style='|')
+
+yaml.add_multi_representer(yoda.AnalysisObject, literal_presenter)
 
 
 def _parse_yaml_plotfile(filename, hpath):
@@ -168,7 +182,7 @@ def write_output(output, h, hier_output, outdir):
     _mkoutdir(outdir)
     outfilepath = os.path.join(outdir, outfile)
     with open(outfilepath, 'w') as yaml_file:
-        yaml.dump(output, yaml_file, indent=4,  default_flow_style=False)
+        yaml.dump(output, yaml_file, indent=4, default_flow_style=False)
 
 
 def read_yamlfile(filename):
