@@ -46,6 +46,7 @@ def type_conversion(value):
         raise TypeError('Expected value to be of type str but got type {}'.format(type(value)))
     
     try:
+        # TODO: probably does not work for space-separated lists, such as "XCustomMajorTicks"
         return ast.literal_eval(value)
     except (ValueError, SyntaxError): # literal_eval might raise more errors
         return value
