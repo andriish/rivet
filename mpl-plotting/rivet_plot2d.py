@@ -14,57 +14,38 @@ def _configure_plot(ax, plot_features, hist_data, hist_settings=None):
     # TODO: Different settings for ratio and non-ratio?
     if hist_settings is None:
         hist_settings = {}
-    ax.set_ylabel(plot_features.get('YLabel'), loc='top')
     ax.set_title(hist_settings.get('Title'), loc='left')
     # TODO: check that this is ok. Maybe more customization is needed.
     for axis_name in 'XY':
+        getattr(ax, 'set_{}label'.format(axis_name.lower()))(plot_features.get(axis_name + 'Label'), loc='top')
+
         min_lim = plot_features.get(axis_name + 'Min', min(getattr(h, axis_name.lower() + 'Min')() for h in hist_data))
         max_lim = plot_features.get(axis_name + 'Max', max(getattr(h, axis_name.lower() + 'Max')() for h in hist_data))
         ax.set(**{axis_name.lower() + 'lim': (min_lim, max_lim)})
-    # TODO: zlim. Different when in 3D and when using color
 
-    # Set log scale
-    if plot_features.get('LogX'):
-        ax.set_xscale('log')
-        ax.xaxis.set_major_locator(mpl.ticker.LogLocator(numticks=np.inf))
-    if plot_features.get('LogY'):
-        ax.set_yscale('log')
-        ax.yaxis.set_major_locator(mpl.ticker.LogLocator(numticks=np.inf))
-
-    # Set tick marks frequency
-    if plot_features.get('XMajorTickMarks') is not None and not plot_features.get('LogX'):
-        base = plot_features.get('XMajorTickMarks')*10**(int(np.log10(XMax))-1)
-        ax.xaxis.set_major_locator(mpl.ticker.MultipleLocator(base))
-    if plot_features.get('YMajorTickMarks') is not None and not plot_features.get('LogY'):
-        base = plot_features.get('YMajorTickMarks')*10**(int(np.log10(YMax))-1)
-        ax.yaxis.set_major_locator(mpl.ticker.MultipleLocator(base))
-
-    if plot_features.get('XMinorTickMarks') is not None and not plot_features.get('LogX'):
-        ax.xaxis.set_minor_locator(mpl.ticker.AutoMinorLocator(
-            1+plot_features.get('XMinorTickMarks')))
-    if plot_features.get('YMinorTickMarks') is not None and not plot_features.get('LogY'):
-        ax.yaxis.set_minor_locator(mpl.ticker.AutoMinorLocator(
-            1+plot_features.get('YMinorTickMarks')))
-    # TODO: Z tick marks
-
-    # Add custom ticks
-    if plot_features.get('XCustomMajorTicks') is not None:
-        ax.set_xticks(plot_features.get('XCustomMajorTicks')[::2])
-        ax.set_xticklabels(plot_features.get('XCustomMajorTicks')[1::2])
-        ax.set_xticks([], minor=True)  # Turn off minor xticks
-    if plot_features.get('YCustomMajorTicks') is not None:
-        ax.set_yticks(plot_features.get('YCustomMajorTicks')[::2])
-        ax.set_yticklabels(plot_features.get('YCustomMajorTicks')[1::2])
-        ax.set_yticks([], minor=True)  # Turn off minor yticks
-    if plot_features.get('XCustomMinorTicks') is not None:
-        ax.set_xticks(plot_features.get('XCustomMinorTicks'), minor=True)
-    if plot_features.get('YCustomMinorTicks') is not None:
-        ax.set_yticks(plot_features.get('YCustomMinorTicks'), minor=True)
-    if plot_features.get('PlotXTickLabels') == 0:
-        ax.set_xticklabels([])
-
-    # TODO: Z tick labels
-    
+        # Set log scale
+        if plot_features.get('Log' + axis_name):
+            ax.set(**{axis_name.lower() + 'scale': 'log'})
+            getattr(ax, axis_name.lower() + 'axis').set_major_locator(mpl.ticker.LogLocator(numticks=np.inf))
+        
+        # Set tick marks frequency
+        if (axis_name + 'MajorTickMarks') in plot_features and not plot_features.get('Log' + axis_name):
+            base = plot_features.get(axis_name + 'MajorTickMarks')*10**(int(np.log10(max_lim))-1)
+            ax.xaxis.set_major_locator(mpl.ticker.MultipleLocator(base))
+        
+        if (axis_name + 'MinorTickMarks') in plot_features and not plot_features.get('Log' + axis_name):
+            getattr(ax, axis_name.lower() + 'axis').set_minor_locator(mpl.ticker.AutoMinorLocator(
+                1+plot_features.get(axis_name + 'MinorTickMarks')))
+        
+        # Add custom ticks
+        if (axis_name + 'CustomMajorTicks') in plot_features:
+            ax.set(**{axis_name.lower() + 'xticks': plot_features.get(axis_name + 'CustomMajorTicks')[::2],
+                axis_name.lower() + 'ticklabels': plot_features.get('XCustomMajorTicks')[1::2]})
+            getattr(ax, 'set_{}ticks'.format(axis_name))([], minor=True)  # Turn off minor ticks
+        if (axis_name + 'CustomMinorTicks') in plot_features:
+            getattr(ax, 'set_{}ticks'.format(axis_name))(plot_features.get(axis_name + 'CustomMinorTicks'), minor=True)
+        if plot_features.get('Plot{}TickLabels'.format(axis_name)) == 0:
+            ax.set(**{axis_name.lower() + 'ticklabels': []})
 
 # TODO this might not be useful if all should have separate colorbars
 def _create_norm(plot_features, default_zmin, default_zmax):
