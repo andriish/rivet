@@ -184,9 +184,8 @@ def _plot_1Dhist(hist_data, axes, hist_features, plot_features):
         ax.plot(x_bins, y_mc, color, drawstyle='steps-pre',
                 solid_joinstyle='miter', zorder=5+i)
         if hist_features[i].get('ErrorBars', 1):
-            # BUG: what if yerr- != yerr+? mc.yErrs() only returns len N array
-            mc_errminus = [err for err in mc.yErrs()]
-            mc_errplus = [err for err in mc.yErrs()]
+            mc_errminus = mc.yErrs()
+            mc_errplus = mc.yErrs()
             ax.vlines(x_points, (mc.yVals() - mc_errminus),
                       (mc.yVals() + mc_errplus), color, zorder=5+i)
 
