@@ -7,15 +7,14 @@ import numpy as np
 #     Spacing between plots and colorbar
 #   Implement ShowZero
 #   Implement contour plot
-#   Make separate mplstyle for 2d plots
-#     Ratio plots should not touch the 2D histogram
+#   Fix bug with ticks not showing up.
 #   Option to use different colormap for histograms and ratios (to make it easier to see which one is which) 
 # TODO probably remove plot_features as input and replace with individual args once the API has been defined 
 #   This will make it easy to move all functions to the yoda plotting API
 # TODO docstrings
 
 
-def format_axis(ax, axis_name, label=None, label_loc=None, lim=None, log=False, 
+def format_axis(ax, axis_name, label=None, lim=None, log=False, 
     major_ticks=None, minor_ticks=None, custom_major_ticks=None, custom_minor_ticks=None,
     plot_ticklabels=True):
     """Format an axis (e.g. x axis, **NOT** an Axes object) based on the inputs.
@@ -88,14 +87,14 @@ def _create_norm(zmin, zmax, log):
     return mpl.colors.Normalize(vmin=zmin, vmax=zmax)
 
 
-def _add_colorbar(ax, norm, plot_features):
+def _add_colorbar(ax, norm, plot_features, *args, **kwargs):
     colorbar_tick_format = mpl.ticker.ScalarFormatter(useMathText=True)
     colorbar_tick_format.set_powerlimits(
         (-plt.rcParams.get('axes.formatter.min_exponent'), plt.rcParams.get('axes.formatter.min_exponent'))
     )
     # TODO change this from rcParams to input arg
     cbar = ax.get_figure().colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=plt.rcParams['image.cmap']), 
-        ax=ax, orientation='vertical', label=plot_features.get('ZLabel'), format=colorbar_tick_format)
+        ax=ax, orientation='vertical', label=plot_features.get('ZLabel'), format=colorbar_tick_format, *args, **kwargs)
 
     return cbar
 
@@ -122,7 +121,8 @@ def _plot_projection(ax, yoda_hist, plot_features, zmin=None, zmax=None):
     format_axis(ax, 'x', plot_features.get('XLabel'), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), plot_features.get('XCustomMajorTicks'), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
     format_axis(ax, 'y', plot_features.get('YLabel'), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), plot_features.get('YCustomMajorTicks'), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
     
-    cbar = _add_colorbar(ax, norm, plot_features)
+    # TODO change fraction and pad. Add this code to other places
+    cbar = _add_colorbar(ax, norm, plot_features, fraction=0.1, pad=0.02)
     format_axis(cbar.ax, 'y', plot_features.get('ZLabel'), (zmin, zmax), plot_features.get('LogZ'), plot_features.get('ZMajorTickMarks'), plot_features.get('ZMinorTickMarks'), plot_features.get('ZCustomMajorTicks'), plot_features.get('ZCustomMinorTicks'), plot_features.get('PlotZTickLabels'))
     
     return im, cbar
@@ -208,10 +208,8 @@ def plot_2Dhist(hist_data, fig, hist_features, plot_features, filename=None, ind
             # TODO add more options here such as surface plot etc.
             #  All plot styles hopefully require the same amount of axes, where parts of an axes will be used as a colorbar.
             _plot_projection(ax, yoda_hist, plot_features, zmin, zmax)
-            if filename:
-                fig.savefig('{}-{}{}'.format(filename[:filename.rindex('.')], hist_settings['Title'], filename[filename.rindex('.'):]))
-            fig.clf()
-
+            _post_process_fig(fig, '{}-{}{}'.format(filename[:filename.rindex('.')], hist_settings['Title'], filename[filename.rindex('.'):]), plot_features.get('Title'))
+            
         if ratio:
             # TODO more code sharing between projection and ratio? Keep as is for now
             ref_hist = hist_data[0]
@@ -219,10 +217,8 @@ def plot_2Dhist(hist_data, fig, hist_features, plot_features, filename=None, ind
                 ax = fig.add_subplot(111)
                 # TODO add more options here such as surface plot etc. See comment above.
                 _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin=zmin, zmax=zmax)
-                fig.suptitle(plot_features.get('Title'))
-                if filename:
-                    fig.savefig('{}-{}-ratio{}'.format(filename[:filename.rindex('.')], hist_settings['Title'], filename[filename.rindex('.'):]))
-                fig.clf()
+                _post_process_fig(fig, '{}-{}-ratio{}'.format(filename[:filename.rindex('.')], hist_settings['Title'], filename[filename.rindex('.'):]), plot_features.get('Title'))
+
     else:
         # TODO: change size of last one
         gs = fig.add_gridspec(ncols=len(hist_data), nrows=1 + ratio, width_ratios=[1] * (len(hist_data) - 1) + [1.3])
@@ -235,8 +231,7 @@ def plot_2Dhist(hist_data, fig, hist_features, plot_features, filename=None, ind
             for i, (yoda_hist, hist_settings) in enumerate(zip(hist_data[1:], hist_features[1:])):
                 ax = fig.add_subplot(gs[1, i])
                 _plot_ratio(ax, ref_hist, yoda_hist, plot_features)
-        if filename:
-            fig.savefig(filename)
+        _post_process_fig(fig, filename, plot_features.get('Title'))
     
     return fig
 
