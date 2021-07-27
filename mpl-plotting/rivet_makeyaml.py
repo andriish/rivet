@@ -1,7 +1,7 @@
 from __future__ import print_function
 import rivet, yoda
 import os, glob, io, logging
-import yamlio 
+import yamlio
 import constants
 from old_plotfile_converter import type_conversion
 
@@ -114,7 +114,6 @@ def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns
         analysisobjects = yoda.read(infile, patterns=path_patterns, unpatterns=path_unpatterns)
         for path, ao in analysisobjects.items():
             ## We can't plot non-histograms yet
-            # TODO: support counter plotting with a faked x (or y) position and forced plot width/height
             if ao.type() not in ("Counter",
                                "Histo1D",
                                "Histo2D",
@@ -125,7 +124,8 @@ def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns
                                "Scatter3D"):
                 continue
 
-            ## Make a path object and ensure the path is in standard form
+            # Make a path object and ensure the path is in standard form. 
+            # TODO: raw exception is not good. Replace with more specific exception, e.g., IOError
             try:
                 aop = rivet.AOPath(path)
             except Exception as e:
@@ -215,12 +215,10 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     outputdict[constants.rcParam_key] = rc_params
     outputdict[constants.style_key] = style
 
-    # TODO: Will there ever be preexisting histograms?
     outputdict['histograms'] = {}
     if plot_id in refhistos:
-        with io.StringIO() as filelike_str:
-            yoda.writeYODA(refhistos[plot_id], filelike_str)
-            outputdict['histograms'][reftitle] = {constants.histogram_str_name: yamlio.Literal(filelike_str.getvalue())}
+        outputdict['histograms'][reftitle] = {constants.histogram_str_name: refhistos[plot_id]}
+        outputdict['histograms'][reftitle]['IsRef'] = True
 
     for filename, mchistos_in_file in mchistos.items():
         outputdict['histograms'][filename] = {}
@@ -229,10 +227,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
             outputdict['histograms'][filename].update(plotoptions.get(filename, {}))
             # Maybe add this mc_errs option to the plotoptions dict and only pass the plotoptions dict to the function?
             outputdict['histograms'][filename]['ErrorBars'] = mc_errs
-            with io.StringIO() as filelike_str: 
-                yoda.writeYODA(histogram, filelike_str)
-                # Name might not be correct here
-                outputdict['histograms'][filename][constants.histogram_str_name] = yamlio.Literal(filelike_str.getvalue())
+            outputdict['histograms'][filename][constants.histogram_str_name] = histogram
     
     # Remove all sections of the output_dict that do not contain any information.
     # A list of keys is first created. Otherwise, it will raise an error since the size of the dict changes.
@@ -249,7 +244,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
                    path_unpatterns=(), plotinfodirs=[], 
                    style='default', config_files=[], 
                    hier_output=False, outdir='.', mc_errs=True,
-                   rivetplotpaths=True, analysispaths=[], verbose=False
+                   rivetplotpaths=True, analysispaths=[], verbose=False, writefiles=False
                   ):
     """Create .yaml files that can be parsed by rivet-make-plot
     Each output .yaml file corresponds to one analysis which contains all MC histograms and a reference data histogram.
@@ -293,9 +288,14 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
         Search for .plot files in the standard Rivet plot paths.
     verbose : bool
         If True, write more information to stdout.
+    writefiles : bool
+        If True, write the created dicts to yaml files. 
+        This is used if one wants the intermediate format for later use or if one only calls this function and not rivet-mkhtml.
+
     Returns
     -------
-    None
+    yamldicts : dict[str, dict]
+        A dict containing all dicts that are usually written to the yaml file. The key is the analysis ID.
     
     Raises
     ------
@@ -336,7 +336,6 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     plotdirs = plotinfodirs + [os.path.abspath(os.path.dirname(f)) for f in filelist] + (rivet.getAnalysisPlotPaths() if rivetplotpaths else [])
 
     # Create a list of all histograms to be plotted, and identify if they are 2D histos (which need special plotting)
-    # TODO: implement 2D histogram special settings. 
     refhistos, mchistos = _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns)
     
     hpaths = []
@@ -365,12 +364,18 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     # <<< end of code from rivet-cmphistos
     
     # Write each file 
+    yamldicts = {}
     for plot_id in hpaths:
         outputdict = _make_output(
             plot_id, plotdirs, config_files, 
             mchistos, refhistos, reftitle, 
             plotoptions, stylename, rc_params_dict, mc_errs
         )
-        
-        ## Make the output and write to file
-        yamlio.write_output(outputdict, plot_id, hier_output=hier_output, outdir=outdir)
+        # TODO: make key the actual file name, i.e., analysisID/histoID if nested, analysisID_histoID if not?
+        #   In that case, refactor parts of write_output to separate function called e.g. create_filename
+        yamldicts[plot_id] = outputdict
+        if writefiles:
+            # Make the output and write to file
+            yamlio.write_output(outputdict, plot_id, hier_output=hier_output, outdir=outdir)
+    
+    return yamldicts

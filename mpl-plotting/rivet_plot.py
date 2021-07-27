@@ -19,7 +19,7 @@ def rivet_plot(yaml_file):
     # Parse yaml file for rcParams, histogram data, and plot style.
     yaml_dicts = read_yamlfile(yaml_file)
     hist_data = _parse_yoda_hist(yaml_dicts)
-    plot_features = _parse_yoda_plot_features(yaml_dicts)
+    plot_features = yaml_dicts.get('plot features', {})
     fig, axes = _create_plot(yaml_dicts, plot_features, hist_data)
     hist_features = [val for val in yaml_dicts['histograms'].values()]
     
@@ -42,20 +42,6 @@ def _parse_yoda_hist(yaml_dicts):
         with io.StringIO(hist_dict['yoda']) as file_like:
             hist_data.append(yoda.readYODA(file_like, asdict=False)[0])
     return hist_data
-
-
-def _parse_yoda_plot_features(yaml_dicts):
-    if yaml_dicts.get('plot features') is None:
-        return {}
-    plot_features = yaml_dicts.get('plot features')
-    str_keys = ['Title', 'XLabel', 'YLabel', 'ZLabel', 'RatioPlotYLabel',
-                'RatioPlotErrorBandColor', 'LineStyle', 'LineColor', 'LineDash',
-                'FillStyle', 'FillColor', 'HatchColor', 'ErrorBandColor']
-    # TODO: add all string keys to list
-    for key in plot_features.keys():  # Change str dict vals to float
-        if key not in str_keys and plot_features.get(key) is not None:
-            plot_features[key] = float(plot_features[key])
-    return plot_features
 
 
 def _create_plot(yaml_dicts, plot_features, hist_data):
