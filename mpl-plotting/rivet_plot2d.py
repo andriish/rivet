@@ -3,11 +3,9 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 # TODO
-#   Only have 1 colorbar per row
-#     Spacing between plots and colorbar
+#   Spacing between plots and colorbar
 #   Implement ShowZero
 #   Implement contour plot
-#   Fix bug with ticks not showing up.
 #   Option to use different colormap for histograms and ratios (to make it easier to see which one is which) 
 # TODO probably remove plot_features as input and replace with individual args once the API has been defined 
 #   This will make it easy to move all functions to the yoda plotting API
@@ -121,7 +119,7 @@ def _plot_projection(ax, yoda_hist, plot_features, zmin=None, zmax=None):
     format_axis(ax, 'x', plot_features.get('XLabel'), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), plot_features.get('XCustomMajorTicks'), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
     format_axis(ax, 'y', plot_features.get('YLabel'), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), plot_features.get('YCustomMajorTicks'), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
     
-    # TODO change fraction and pad. Add this code to other places
+    # TODO change fraction and pad. Add this code to other places or move out of _plot_projection
     cbar = _add_colorbar(ax, norm, plot_features, fraction=0.1, pad=0.02)
     format_axis(cbar.ax, 'y', plot_features.get('ZLabel'), (zmin, zmax), plot_features.get('LogZ'), plot_features.get('ZMajorTickMarks'), plot_features.get('ZMinorTickMarks'), plot_features.get('ZCustomMajorTicks'), plot_features.get('ZCustomMinorTicks'), plot_features.get('PlotZTickLabels'))
     
@@ -191,11 +189,10 @@ def plot_2Dhist(hist_data, fig, hist_features, plot_features, filename=None, ind
     fig : matplotlib.figure.Figure
         Matplotlib Figure object containing all plots.
     """
-    # TODO maybe even create fig inside here
+    # TODO maybe even create fig inside function
     
     # Styling to be applied in conjuction with the rivet default style. Might move this to .mplstyle file
-    plt.rcParams.update({'figure.subplot.hspace': plt.rcParams['figure.subplot.wspace'], 
-        'axes.axisbelow': True, 'yaxis.labellocation': 'top', 'image.cmap': 'jet'})
+    plt.rcParams.update({'yaxis.labellocation': 'top', 'image.cmap': 'jet', 'figure.subplot.hspace': plt.rcParams['figure.subplot.wspace']})
 
     zmin = plot_features.get('ZMin', min(h.zMin() for h in hist_data))
     zmax = plot_features.get('ZMax', max(h.zMax() for h in hist_data))
