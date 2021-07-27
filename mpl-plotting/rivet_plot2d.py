@@ -3,140 +3,242 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 # TODO
-#   Only have 1 colorbar per row (?)
+#   Only have 1 colorbar per row
 #     Spacing between plots and colorbar
 #   Implement ShowZero
 #   Implement contour plot
-#   Should the ratio plots touch the 2D histogram?
-#   Make separate mplstyle for 2d plots?
+#   Make separate mplstyle for 2d plots
+#     Ratio plots should not touch the 2D histogram
+#   Option to use different colormap for histograms and ratios (to make it easier to see which one is which) 
+# TODO probably remove plot_features as input and replace with individual args once the API has been defined 
+#   This will make it easy to move all functions to the yoda plotting API
+# TODO docstrings
 
-def _configure_plot(ax, plot_features, hist_data, hist_settings=None):
-    # TODO: Different settings for ratio and non-ratio?
-    if hist_settings is None:
-        hist_settings = {}
-    ax.set_title(hist_settings.get('Title'), loc='left')
-    # TODO: check that this is ok. Maybe more customization is needed.
-    for axis_name in 'XY':
-        getattr(ax, 'set_{}label'.format(axis_name.lower()))(plot_features.get(axis_name + 'Label'), loc='top')
 
-        min_lim = plot_features.get(axis_name + 'Min', min(getattr(h, axis_name.lower() + 'Min')() for h in hist_data))
-        max_lim = plot_features.get(axis_name + 'Max', max(getattr(h, axis_name.lower() + 'Max')() for h in hist_data))
-        ax.set(**{axis_name.lower() + 'lim': (min_lim, max_lim)})
-
-        # Set log scale
-        if plot_features.get('Log' + axis_name):
-            ax.set(**{axis_name.lower() + 'scale': 'log'})
-            getattr(ax, axis_name.lower() + 'axis').set_major_locator(mpl.ticker.LogLocator(numticks=np.inf))
-        
-        # Set tick marks frequency
-        if (axis_name + 'MajorTickMarks') in plot_features and not plot_features.get('Log' + axis_name):
-            base = plot_features.get(axis_name + 'MajorTickMarks')*10**(int(np.log10(max_lim))-1)
-            ax.xaxis.set_major_locator(mpl.ticker.MultipleLocator(base))
-        
-        if (axis_name + 'MinorTickMarks') in plot_features and not plot_features.get('Log' + axis_name):
-            getattr(ax, axis_name.lower() + 'axis').set_minor_locator(mpl.ticker.AutoMinorLocator(
-                1+plot_features.get(axis_name + 'MinorTickMarks')))
-        
-        # Add custom ticks
-        if (axis_name + 'CustomMajorTicks') in plot_features:
-            ax.set(**{axis_name.lower() + 'xticks': plot_features.get(axis_name + 'CustomMajorTicks')[::2],
-                axis_name.lower() + 'ticklabels': plot_features.get('XCustomMajorTicks')[1::2]})
-            getattr(ax, 'set_{}ticks'.format(axis_name))([], minor=True)  # Turn off minor ticks
-        if (axis_name + 'CustomMinorTicks') in plot_features:
-            getattr(ax, 'set_{}ticks'.format(axis_name))(plot_features.get(axis_name + 'CustomMinorTicks'), minor=True)
-        if plot_features.get('Plot{}TickLabels'.format(axis_name)) == 0:
-            ax.set(**{axis_name.lower() + 'ticklabels': []})
-
-# TODO this might not be useful if all should have separate colorbars
-def _create_norm(plot_features, default_zmin, default_zmax):
-    zmin = plot_features.get('ZMin', default_zmin)
-    zmax = plot_features.get('ZMax', default_zmax)
+def format_axis(ax, axis_name, label=None, label_loc=None, lim=None, log=False, 
+    major_ticks=None, minor_ticks=None, custom_major_ticks=None, custom_minor_ticks=None,
+    plot_ticklabels=True):
+    """Format an axis (e.g. x axis, **NOT** an Axes object) based on the inputs.
+    If an optional input variable is None, the default setting in matplotlib will be used.
+    
+    Parameters
+    ----------
+    ax : matplotlib.axes.Axes
+        The Axes object containing the axis.
+    axis_name : str
+        x, y or z. Either upper or lower case.
+        TODO make this an axis object as input instead?
+    label : str, optional
+        Axis label.
+    label_loc : str
+        Location of the label. TODO it is probably not good to add this option, since one has to add many options then. Either allow dicts of kwargs to be passed or change afterwards.
+    lim : tuple, optional
+        Lower and upper limits of axis, in that order.
+    log : bool, optional
+        If True, set the scale of the axis to log scale. By default False
+    TODO rest of docstring
+    major_ticks : [type], optional
+        [description], by default None
+    minor_ticks : [type], optional
+        [description], by default None
+    custom_major_ticks : [type], optional
+        [description], by default None
+    custom_minor_ticks : [type], optional
+        [description], by default None
+    plot_ticklabels : bool, optional
+        [description], by default True
+    """
+    axis_name = axis_name.lower()
+    # TODO Move loc='top' to somewhere else or make it an input parameter
+    getattr(ax, 'set_{}label'.format(axis_name))(label)
+    getattr(ax, 'set_{}lim'.format(axis_name))(lim)
 
     # Set log scale
-    if plot_features.get('LogZ'):
-        norm = mpl.colors.LogNorm(vmin=zmin, vmax=zmax)
-    else:
-        norm = mpl.colors.Normalize(vmin=zmin, vmax=zmax)
-    return norm
+    if log:
+        ax.set(**{axis_name + 'scale': 'log'})
+        getattr(ax, axis_name + 'axis').set_major_locator(mpl.ticker.LogLocator(numticks=np.inf))
+    
+    # Set tick marks frequency
+    if major_ticks and not log:
+        base = major_ticks*10**(int(np.log10(lim[1]))-1)
+        getattr(ax, axis_name + 'axis').set_major_locator(mpl.ticker.MultipleLocator(base))
+    
+    if minor_ticks and not log:
+        getattr(ax, axis_name + 'axis').set_minor_locator(mpl.ticker.AutoMinorLocator(
+            1+minor_ticks))
+    
+    # Add custom ticks
+    if custom_major_ticks:
+        ax.set(**{axis_name + 'ticks': custom_major_ticks[::2],
+            axis_name + 'ticklabels': custom_major_ticks[1::2]})
+        getattr(ax, 'set_{}ticks'.format(axis_name))([], minor=True)  # Turn off minor ticks
+    if custom_minor_ticks:
+        getattr(ax, 'set_{}ticks'.format(axis_name))(custom_minor_ticks, minor=True)
+    if plot_ticklabels == 0:
+        ax.set(**{axis_name + 'ticklabels': []})
 
 
-def _create_colorbar(ax, norm, plot_features):
+def _create_norm(zmin, zmax, log):
+    """Create a mpl norm that is used as the limits for the colorbar and pcolormesh."""
+
+    # Set log scale
+    if log:
+        return mpl.colors.LogNorm(vmin=zmin, vmax=zmax)
+    
+    return mpl.colors.Normalize(vmin=zmin, vmax=zmax)
+
+
+def _add_colorbar(ax, norm, plot_features):
     colorbar_tick_format = mpl.ticker.ScalarFormatter(useMathText=True)
     colorbar_tick_format.set_powerlimits(
         (-plt.rcParams.get('axes.formatter.min_exponent'), plt.rcParams.get('axes.formatter.min_exponent'))
     )
+    # TODO change this from rcParams to input arg
     cbar = ax.get_figure().colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=plt.rcParams['image.cmap']), 
-        cax=ax, orientation='vertical', label=plot_features.get('ZLabel'), format=colorbar_tick_format)
-
-    # Set tick marks frequency
-    if 'ZMinorTickMarks' in plot_features and not plot_features.get('LogZ'):
-        ax.yaxis.set_minor_locator(mpl.ticker.AutoMinorLocator(
-            1+plot_features.get('ZMinorTickMarks')))
-
-    if 'ZMajorTickMarks' in plot_features and not plot_features.get('LogZ'):
-        base = plot_features.get('ZMajorTickMarks')*10**(int(np.log10(zmax))-1)
-        ax.yaxis.set_major_locator(mpl.ticker.MultipleLocator(base))
-
-    if plot_features.get('PlotZTickLabels') == 0:
-        ax.set_yticklabels([])
-
-    # Add custom ticks
-    if 'ZCustomMajorTicks' in plot_features:
-        cbar.set_ticks(plot_features.get('ZCustomMajorTicks')[::2])
-        cbar.set_ticklabels(plot_features.get('ZCustomMajorTicks')[1::2])
-    if plot_features.get('ZCustomMinorTicks') is not None:
-        ax.yaxis.set_ticks(plot_features.get('ZCustomMinorTicks'), minor=True)
+        ax=ax, orientation='vertical', label=plot_features.get('ZLabel'), format=colorbar_tick_format)
 
     return cbar
 
 
-def _plot_projection(hist_data, fig, hist_features, plot_features):
-    plot_ratio = plot_features.get('RatioPlot', True) and len(hist_data) > 1
-    ncols = len(hist_data) + 1
-    nrows = 2 if plot_ratio else 1
-    # TODO Try different values for size of colorbar
-    width_ratios = np.array([1] * len(hist_data) + [0.0526])
-    # TODO hopefully remove constant
-    fig.set_size_inches(np.sum(width_ratios) * plt.rcParams['figure.figsize'][0] * 1.5, plt.rcParams['figure.figsize'][1] * ncols)
-    
-    gs = fig.add_gridspec(ncols=ncols, nrows=nrows, width_ratios=width_ratios)
-    
-    zmin, zmax = min(h.zMin() for h in hist_data), max(h.zMax() for h in hist_data)
-    normalizer = _create_norm(plot_features, min(h.zMin() for h in hist_data), max(h.zMax() for h in hist_data))
-    
-    for i, (h, settings) in enumerate(zip(hist_data, hist_features)):
-        ax = fig.add_subplot(gs[0, i])
-        x_edges, y_edges = np.meshgrid(h.xEdges(), h.yEdges())
-        # TODO: should colorbar have min and max for all of them instead? In this case, only one colorbar is used.
-        im = ax.pcolormesh(x_edges, y_edges, h.zVals(asgrid=True).T, norm=normalizer)    
-        _configure_plot(ax, plot_features, hist_data)
-        ax.set_title(settings['Title'])
+def _plot_projection(ax, yoda_hist, plot_features, zmin=None, zmax=None):
+    """Plot a projection plot using pcolormesh.
 
-    _create_colorbar(fig.add_subplot(gs[0, -1]), normalizer, plot_features)
-
-    if plot_features.get('RatioPlot', True):
-        ref_h = hist_data[0]
-        zmin = zmax = np.nan
-        for i, h in enumerate(hist_data[1:]):
-            ax = fig.add_subplot(gs[1, i+1])
-            x_edges, y_edges = np.meshgrid(h.xEdges(), h.yEdges())
-            
-            z_ratio = (h.zVals(asgrid=True) / ref_h.zVals(asgrid=True)).T
-            z_ratio[~np.isfinite(z_ratio)] = np.nan
-            zmin_new, zmax_new = np.nanmin(z_ratio), np.nanmax(z_ratio)
-            zmin, zmax = np.nanmin([zmin, zmin_new]), np.nanmax([zmax, zmax_new])            
-            im = ax.pcolormesh(x_edges, y_edges, z_ratio)
-            # TODO format ratio plot
-            #  axis limits cannot be set here since it is unknown
-        # TODO: format colorbar
-        # TODO move
-        colorbar_tick_format = mpl.ticker.ScalarFormatter(useMathText=True)
-        colorbar_tick_format.set_powerlimits(
-            (-plt.rcParams.get('axes.formatter.min_exponent'), plt.rcParams.get('axes.formatter.min_exponent'))
-        )
+    Parameters
+    ----------
+    ax : matplotlib Axes
+        [description]
+    yoda_hist : yoda Scatter
+        [description]
+    plot_features : dict
+        TODO remove this and turn into individual kwargs once API has been establited.
+    """
+    norm = _create_norm(zmin, zmax, plot_features.get('LogZ'))
     
-        cbar = fig.colorbar(im, cax=fig.add_subplot(gs[1, -1]), format=colorbar_tick_format)
-        cbar.set_label(plot_features.get('ZLabel'))
+    # TODO xEdges etc might not work with Scatter.
+    x_edges, y_edges = np.meshgrid(yoda_hist.xEdges(), yoda_hist.yEdges())
+    im = ax.pcolormesh(x_edges, y_edges, yoda_hist.zVals(asgrid=True).T, norm=norm)    
+
+    # TODO probably move out of this function
+    format_axis(ax, 'x', plot_features.get('XLabel'), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), plot_features.get('XCustomMajorTicks'), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
+    format_axis(ax, 'y', plot_features.get('YLabel'), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), plot_features.get('YCustomMajorTicks'), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
+    
+    cbar = _add_colorbar(ax, norm, plot_features)
+    format_axis(cbar.ax, 'y', plot_features.get('ZLabel'), (zmin, zmax), plot_features.get('LogZ'), plot_features.get('ZMajorTickMarks'), plot_features.get('ZMinorTickMarks'), plot_features.get('ZCustomMajorTicks'), plot_features.get('ZCustomMinorTicks'), plot_features.get('PlotZTickLabels'))
+    
+    return im, cbar
+
+
+def _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin=None, zmax=None):
+    # TODO code is quite similar to plot_projection. Make into the same function with just data as input? 
+    norm = _create_norm(zmin, zmax, plot_features)
+
+    x_edges, y_edges = np.meshgrid(yoda_hist.xEdges(), yoda_hist.yEdges())
+    z_ratio = (yoda_hist.zVals(asgrid=True) / ref_hist.zVals(asgrid=True)).T
+    # TODO depending on ShowZero?
+    z_ratio[~np.isfinite(z_ratio)] = np.nan
+    zmin_new, zmax_new = np.nanmin(z_ratio), np.nanmax(z_ratio)
+    zmin, zmax = np.nanmin([zmin, zmin_new]), np.nanmax([zmax, zmax_new])       
+    im = ax.pcolormesh(x_edges, y_edges, z_ratio, norm=norm)
+
+    # TODO probably move out of this function
+    format_axis(ax, 'x', plot_features.get('XLabel'), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), plot_features.get('XCustomMajorTicks'), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
+    format_axis(ax, 'y', plot_features.get('YLabel'), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), plot_features.get('YCustomMajorTicks'), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
+    
+    cbar = _add_colorbar(ax, norm, plot_features)
+    # TODO add additional settings for RatioPlot to rivet that are currently not supported?
+    # format_axis(cbar.ax, 'y', plot_features.get('RatioZLabel'), (zmin, zmax), plot_features.get('LogZ'), plot_features.get('ZMajorTickMarks'), plot_features.get('ZMinorTickMarks'), plot_features.get('ZCustomMajorTicks'), plot_features.get('ZCustomMinorTicks'), plot_features.get('PlotZTickLabels'))
+    
+    return im, cbar
+
+
+def _post_process_fig(fig, filename, title):
+    """Save close, and add title to figure.
+
+    Parameters
+    ----------
+    fig : matplotlib.figure.Figure
+        [description]
+    filename : str
+        [description]
+    title : str
+        [description]
+    """
+    fig.suptitle(title)
+    if filename:
+        fig.savefig(filename)
+    fig.clf()
+
+
+def plot_2Dhist(hist_data, fig, hist_features, plot_features, filename=None, individual=True):
+    """Plot 2D histogram in hist_data based 
+
+    Parameters
+    ----------
+    hist_data : list[yoda.Histo2D | yoda.Profile2D | yoda.Scatter3D] TODO only make it work with Scatter in future?
+        All histograms that will be plotted.
+    axes : matplotlib.axes.Axes
+        The axes object in which the histogram(s) will be plotted.
+        TODO axes will have to be created inside this function later.
+    hist_features : dict
+        Plot settings for each histogram.
+        TODO: currently only supports the "Title" setting but more should be added. 
+    plot_features : dict
+        Plot settings for the entire axes.
+    individual : bool
+        TODO make this part of plot_features.
+    Returns
+    -------
+    fig : matplotlib.figure.Figure
+        Matplotlib Figure object containing all plots.
+    """
+    # TODO maybe even create fig inside here
+    
+    # Styling to be applied in conjuction with the rivet default style. Might move this to .mplstyle file
+    plt.rcParams.update({'figure.subplot.hspace': plt.rcParams['figure.subplot.wspace'], 
+        'axes.axisbelow': True, 'yaxis.labellocation': 'top', 'image.cmap': 'jet'})
+
+    zmin = plot_features.get('ZMin', min(h.zMin() for h in hist_data))
+    zmax = plot_features.get('ZMax', max(h.zMax() for h in hist_data))
+    ratio = plot_features.get('RatioPlot', True) and len(hist_data) > 1
+    
+    # TODO: probably separate functions for both of these cases.
+    if individual:
+        for yoda_hist, hist_settings in zip(hist_data, hist_features):
+            ax = fig.add_subplot(111)
+            # TODO add more options here such as surface plot etc.
+            #  All plot styles hopefully require the same amount of axes, where parts of an axes will be used as a colorbar.
+            _plot_projection(ax, yoda_hist, plot_features, zmin, zmax)
+            if filename:
+                fig.savefig('{}-{}{}'.format(filename[:filename.rindex('.')], hist_settings['Title'], filename[filename.rindex('.'):]))
+            fig.clf()
+
+        if ratio:
+            # TODO more code sharing between projection and ratio? Keep as is for now
+            ref_hist = hist_data[0]
+            for yoda_hist, hist_settings in zip(hist_data[1:], hist_features[1:]):
+                ax = fig.add_subplot(111)
+                # TODO add more options here such as surface plot etc. See comment above.
+                _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin=zmin, zmax=zmax)
+                fig.suptitle(plot_features.get('Title'))
+                if filename:
+                    fig.savefig('{}-{}-ratio{}'.format(filename[:filename.rindex('.')], hist_settings['Title'], filename[filename.rindex('.'):]))
+                fig.clf()
+    else:
+        # TODO: change size of last one
+        gs = fig.add_gridspec(ncols=len(hist_data), nrows=1 + ratio, width_ratios=[1] * (len(hist_data) - 1) + [1.3])
+        for i, (yoda_hist, hist_settings) in enumerate(zip(hist_data, hist_features)):
+            ax = fig.add_subplot(gs[0, i])
+            _plot_projection(ax, yoda_hist, hist_settings, plot_features)
+
+        if ratio:
+            ref_hist = hist_data[0]
+            for i, (yoda_hist, hist_settings) in enumerate(zip(hist_data[1:], hist_features[1:])):
+                ax = fig.add_subplot(gs[1, i])
+                _plot_ratio(ax, ref_hist, yoda_hist, plot_features)
+        if filename:
+            fig.savefig(filename)
+    
+    return fig
 
 
 def _plot_surface(hist_data, fig, hist_features, plot_features):
@@ -215,7 +317,8 @@ def _plot_2Dhist(hist_data, axes, hist_features, plot_features):
     elif plot_features.get('2DType') == 'contour':
         _plot_contour(hist_data, fig, hist_features, plot_features)
     else:
-        raise NotImplementedError('Expected 2DType to be "projection", "surface" or "contour" but got {}'.format(plot_features.get('2DType')))
+        raise NotImplementedError('Expected 2DType to be "projection", "surface" or "contour" '
+            'but got {}'.format(plot_features.get('2DType')))
     
     fig.suptitle(plot_features.get('Title'))
     # _configure_plot(fig)
