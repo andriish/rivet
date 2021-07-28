@@ -11,18 +11,24 @@ from yamlio import read_yamlfile
 from rivet_plot2d import _plot_2Dhist
 
 
-def rivet_plot(yaml_file):
+def rivet_plot(yaml_file, plot_name, outputdir='.'):
     """Create plot from yaml file dictionaries.
 
     The yaml file contains rcParams for mpl, histogram data, and plot styles.
     """
     # Parse yaml file for rcParams, histogram data, and plot style.
-    yaml_dicts = read_yamlfile(yaml_file)
-    hist_data = _parse_yoda_hist(yaml_dicts)
+    if isinstance(yaml_file, str):
+        yaml_dicts = read_yamlfile(yaml_file)
+        hist_data = _parse_yoda_hist(yaml_dicts)
+    else:
+        yaml_dicts = yaml_file
+        hist_data = [hist_dict['yoda']
+                     for hist_dict in yaml_dicts.get('histograms').values()]
+
     plot_features = yaml_dicts.get('plot features', {})
     fig, axes = _create_plot(yaml_dicts, plot_features, hist_data)
     hist_features = [val for val in yaml_dicts['histograms'].values()]
-    
+
     if all(isinstance(h, (yoda.core.Scatter2D, yoda.core.Histo1D, yoda.core.Profile1D)) for h in hist_data):
         # TODO: Figure out the differences between these classes
         _plot_1Dhist(hist_data, axes, hist_features, plot_features)
@@ -32,8 +38,7 @@ def rivet_plot(yaml_file):
     else:
         print('Error with Class types:', [type(h) for h in hist_data])
         raise NotImplementedError('Class type cannot be plotted yet')
-
-    _save_fig(fig, yaml_file)
+    _save_fig(fig, os.path.join(outputdir, plot_name.strip('/')))
 
 
 def _parse_yoda_hist(yaml_dicts):
@@ -232,9 +237,9 @@ def _plot_1Dhist(hist_data, axes, hist_features, plot_features):
                       handler_map={AnyObject: AnyObjectHandler()}, markerfirst=False)
 
 
-def _save_fig(fig, yaml_file):
-    fig.savefig(yaml_file[:-4]+'pdf', dpi=500)
-    fig.savefig(yaml_file[:-4]+'png', dpi=500)
+def _save_fig(fig, plot_name):
+    fig.savefig(plot_name+'.pdf', dpi=500)
+    fig.savefig(plot_name+'.png', dpi=500)
     plt.close()
 
 

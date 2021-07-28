@@ -62,7 +62,8 @@ style = 'default'
 rivetplotpaths = True
 #TODO: Add analysispaths... what does this do?
 analysispaths = []  # Temp disabled
-
+#TODO: optional write files flag
+writefiles = True
 
 stygroup = parser.add_argument_group("Style options")
 stygroup.add_argument("-t", "--title", dest="TITLE",
@@ -242,12 +243,12 @@ for configfile in args.CONFIGFILES:# TODO: Not sure if this is necessary
     if os.access(configfile, os.R_OK): 
         configfiles.append(configfile)
 
-make_yamlfiles(args.YODAFILES, args.PATH_PWD, args.REFTITLE,
-               args.RIVETREFS, args.PATHPATTERNS,
-               args.PATHUNPATTERNS, [os.path.abspath("../")],
-               style, configfiles,
-               True, args.OUTPUTDIR, args.MC_ERRS,
-               rivetplotpaths, analysispaths, args.VERBOSE)
+yaml_dicts = make_yamlfiles(args.YODAFILES, args.PATH_PWD, args.REFTITLE,
+                            args.RIVETREFS, args.PATHPATTERNS,
+                            args.PATHUNPATTERNS, [os.path.abspath("../")],
+                            style, configfiles,
+                            True, args.OUTPUTDIR, args.MC_ERRS,
+                            rivetplotpaths, analysispaths, args.VERBOSE, writefiles=writefiles)
 print('called rivet_makeyaml')
 """
 ch_cmd = ["rivet-makeyaml"]
@@ -525,15 +526,11 @@ def which(program):
 
     return None
 
-# Plot files
-for analysis in analyses:
-    anapath = os.path.join(args.OUTPUTDIR, analysis)
-    anadatfiles = glob.glob("%s/*.yaml" % anapath)
-    for yamlfile in sorted(anadatfiles):
-        if yamlfile == './rivet-plots/ALICE_2010_S8625980/Nevt_after_cuts.yaml':
-            continue  # BUG: This file doesn't work
-        print(yamlfile)
-        rivet_plot(yamlfile)
+for file_name in yaml_dicts:
+    print(file_name)
+    if file_name == '/ALICE_2010_S8625980/Nevt_after_cuts':
+        continue  # BUG: This file doesn't work yet
+    rivet_plot(yaml_dicts[file_name], file_name, args.OUTPUTDIR)
 
 """
 ## Run make-plots on all generated .dat files
