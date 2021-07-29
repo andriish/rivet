@@ -1,4 +1,5 @@
 """Create a rivet-style plot with 2D histograms."""
+import os, sys
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
@@ -120,7 +121,7 @@ def _plot_projection(ax, yoda_hist, plot_features, zmin=None, zmax=None):
     format_axis(ax, 'x', plot_features.get('XLabel'), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), plot_features.get('XCustomMajorTicks'), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
     format_axis(ax, 'y', plot_features.get('YLabel'), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), plot_features.get('YCustomMajorTicks'), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
     
-    cbar = _add_colorbar(ax, norm, plot_features, fraction=0.08, pad=0.02)
+    cbar = _add_colorbar(ax, norm, plot_features, fraction=0.075, pad=0.02, aspect=25)
     format_axis(cbar.ax, 'y', plot_features.get('ZLabel'), (zmin, zmax), plot_features.get('LogZ'), plot_features.get('ZMajorTickMarks'), plot_features.get('ZMinorTickMarks'), plot_features.get('ZCustomMajorTicks'), plot_features.get('ZCustomMinorTicks'), plot_features.get('PlotZTickLabels'))
     
     return im, cbar
@@ -166,7 +167,29 @@ def _post_process_fig(fig, filename, title):
     fig.clf()
 
 
-def plot_2Dhist(hist_data, fig, hist_features, plot_features, filename=None, individual=True):
+def _prepare_mpl(plot_features):
+    # Styling to be applied in conjuction with the rivet default style. Might move this to .mplstyle file
+    rc2d = {
+        'yaxis.labellocation': 'top', 'image.cmap': 'jet', 
+        'figure.figsize': (4.5, 4.41), 'figure.subplot.hspace': plt.rcParams['figure.subplot.wspace'],
+        'figure.subplot.bottom': 0.085, 'figure.subplot.top': 0.94, 'figure.subplot.left': 0.12462526766, 'figure.subplot.right': 0.89
+    }
+
+    if 'style' in plot_features:
+        plot_style = plot_features['style'] + '.mplstyle'
+    else:
+        plot_style = 'default.mplstyle'
+    
+    if plot_features.get('rcParams'):
+        plt.style.use((os.path.join(sys.path[0], plot_style), rc2d, plot_features['rcParams']))
+    else:
+        plt.style.use((os.path.join(sys.path[0], plot_style)))
+
+    plt.rcParams['xtick.top'] = plot_features.get('XTwosidedTicks', True)
+    plt.rcParams['ytick.right'] = plot_features.get('YTwosidedTicks', True)
+
+
+def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individual=True):
     """Plot 2D histogram in hist_data based 
 
     Parameters
@@ -187,23 +210,17 @@ def plot_2Dhist(hist_data, fig, hist_features, plot_features, filename=None, ind
     -------
     fig : matplotlib.figure.Figure
         Matplotlib Figure object containing all plots.
-    """
-    # TODO maybe even create fig inside function
-    
-    # Styling to be applied in conjuction with the rivet default style. Might move this to .mplstyle file
-    # For a better look without a label on the Z axis, 'figure.figsize': (4.2, 4.41) is preferred. 
-    # This figsize does not work when plotting multiple 2D histograms in one figure.
-    plt.rcParams.update({'yaxis.labellocation': 'top', 'image.cmap': 'jet', 'figure.subplot.hspace': plt.rcParams['figure.subplot.wspace'],
-        'figure.figsize': (4.5, 4.41)}) # figure.figsize has no effect since fig is already created. Is is kept here in case it is moved to a .mplstyle file
-    
+    """    
+    _prepare_mpl(plot_features)
+
     zmin = plot_features.get('ZMin', min(h.zMin() for h in hist_data))
     zmax = plot_features.get('ZMax', max(h.zMax() for h in hist_data))
     ratio = plot_features.get('RatioPlot', True) and len(hist_data) > 1
     
     # TODO: probably separate functions for both of these cases.
+    # TODO individual should be part of plot_features instead.
     if individual:
-        # Preprocess figure. TODO move to separate function once necessary. Create figure here?
-        fig.set_size_inches(plt.rcParams['figure.figsize'])
+        fig = plt.figure()
 
         for yoda_hist, hist_settings in zip(hist_data, hist_features):
             ax = fig.add_subplot(111)
@@ -222,11 +239,11 @@ def plot_2Dhist(hist_data, fig, hist_features, plot_features, filename=None, ind
                 _post_process_fig(fig, '{}-{}-ratio{}'.format(filename[:filename.rindex('.')], hist_settings['Title'], filename[filename.rindex('.'):]), plot_features.get('Title'))
 
     else:
-        # Preprocess figure. TODO move to separate function once necessary. Create figure here?
         ncols = len(hist_data)
         nrows = 1 + ratio
         width_ratios = [1] * (len(hist_data) - 1) + [1.3]
-        fig.set_size_inches(np.array(plt.rcParams['figure.figsize']) * np.array([ncols * sum(width_ratios), nrows]))
+
+        fig = plt.figure(figsize=np.array(plt.rcParams['figure.figsize']) * np.array([ncols * sum(width_ratios), nrows]))
         # TODO: change size of last one
         gs = fig.add_gridspec(ncols=ncols, nrows=nrows, width_ratios=width_ratios)
         for i, (yoda_hist, hist_settings) in enumerate(zip(hist_data, hist_features)):
@@ -240,6 +257,7 @@ def plot_2Dhist(hist_data, fig, hist_features, plot_features, filename=None, ind
                 _plot_ratio(ax, ref_hist, yoda_hist, plot_features)
         _post_process_fig(fig, filename, plot_features.get('Title'))
     
+    # TODO this does not return anything useful when individual=True.
     return fig
 
 
