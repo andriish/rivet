@@ -173,7 +173,7 @@ def _post_process_fig(fig, filename, title, sup_title_kw=None, savefig_kw=None, 
     fig.clf(**clf_kw)
 
 
-def _prepare_mpl(plot_features, style_path):
+def _prepare_mpl(yaml_dict, plot_features, style_path):
     # Styling to be applied in conjuction with the rivet default style. Might move this to .mplstyle file
     # TODO axes.labelpad is different for x, y axis. Personally, this setting looks better than original rivet style. 
     #   Maybe directly modify using format_axis, specifically set_xlabel(labelpad=something)?
@@ -183,13 +183,8 @@ def _prepare_mpl(plot_features, style_path):
         'figure.subplot.bottom': 0.085, 'figure.subplot.top': 0.94, 'figure.subplot.left': 0.12462526766, 'figure.subplot.right': 0.89
     }
 
-    if 'style' in plot_features:
-        plot_style = plot_features['style'] + '.mplstyle'
-    else:
-        plot_style = 'default.mplstyle'
-    
-    plt.style.use((os.path.join(style_path, plot_style), rc2d, plot_features.get('rcParams', {})))
-    
+    plot_style = yaml_dict.get('style', 'default') + '.mplstyle'
+    plt.style.use((os.path.join(style_path, plot_style), rc2d, yaml_dict.get('rcParams', {})))
     plt.rcParams['xtick.top'] = plot_features.get('XTwosidedTicks', True)
     plt.rcParams['ytick.right'] = plot_features.get('YTwosidedTicks', True)
 
@@ -234,7 +229,7 @@ def _get_zlim(hist_data, plot_features):
     return zmin, zmax
 
 
-def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individual=True, style_path='.'):
+def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, individual=True, style_path='.'):
     """Plot 2D histogram in hist_data based 
 
     Parameters
@@ -244,8 +239,8 @@ def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individu
     hist_features : dict
         Plot settings for each histogram.
         TODO: currently only supports the "Title" setting but more should be added. 
-    plot_features : dict
-        Plot settings for the entire axes.
+    yaml_dict : dict
+        Plot settings for the entire figure.
     individual : bool
         TODO make this part of plot_features.
     style_path : str
@@ -256,7 +251,8 @@ def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individu
     fig : matplotlib.figure.Figure
         Matplotlib Figure object containing all plots.
     """
-    _prepare_mpl(plot_features, style_path)
+    plot_features = yaml_dict.get('plot features', {})
+    _prepare_mpl(yaml_dict, plot_features, style_path)
 
     # TODO Change this depending on ShowZero, LogY, FullRange
     zmin, zmax = _get_zlim(hist_data, plot_features)
@@ -274,7 +270,7 @@ def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individu
             # TODO add more options here such as surface plot etc.
             #  All plot styles hopefully require the same amount of axes, where parts of an axes will be used as a colorbar.
             _plot_projection(ax, yoda_hist, plot_features, zmin, zmax)
-            _post_process_fig(fig, '{}-{}{}'.format(filename[:filename.rindex('.')], hist_settings['Title'], filename[filename.rindex('.'):]), plot_features.get('Title'))
+            _post_process_fig(fig, '{}-{}{}'.format(filename, hist_settings['Title'], '.png'), plot_features.get('Title'))
             
         if ratio:
             ref_hist = hist_data[0]
@@ -282,7 +278,7 @@ def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individu
                 ax = fig.add_subplot(111)
                 # TODO add more options here such as surface plot etc. See comment above.
                 _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin=ratio_zmin, zmax=ratio_zmax)
-                _post_process_fig(fig, '{}-{}-ratio{}'.format(filename[:filename.rindex('.')], hist_settings['Title'], filename[filename.rindex('.'):]), plot_features.get('Title'))
+                _post_process_fig(fig, '{}-{}-ratio{}'.format(filename, hist_settings['Title'], '.png'), plot_features.get('Title'))
 
     else:
         ncols = len(hist_data)

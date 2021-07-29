@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import yoda
 from yamlio import read_yamlfile
-from rivet_plot2d import _plot_2Dhist
+from rivet_plot2d import plot_2Dhist
 
 
 def rivet_plot(yaml_file, plot_name, outputdir='.'):
@@ -25,20 +25,23 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
         hist_data = [hist_dict['yoda']
                      for hist_dict in yaml_dicts.get('histograms').values()]
 
-    plot_features = yaml_dicts.get('plot features', {})
-    fig, axes = _create_plot(yaml_dicts, plot_features, hist_data)
+    # TODO the first element in hist_data and hist_features should have IsRef==1
     hist_features = [val for val in yaml_dicts['histograms'].values()]
+    output_filename = os.path.join(outputdir, plot_name.strip('/'))
 
     if all(isinstance(h, (yoda.core.Scatter2D, yoda.core.Histo1D, yoda.core.Profile1D)) for h in hist_data):
         # TODO: Figure out the differences between these classes
+        plot_features = yaml_dicts.get('plot features', {})
+        fig, axes = _create_plot(yaml_dicts, plot_features, hist_data)
         _plot_1Dhist(hist_data, axes, hist_features, plot_features)
+        _save_fig(fig, output_filename)
+
     elif all(isinstance(h, (yoda.Histo2D, yoda.Scatter3D, yoda.Profile2D)) for h in hist_data):
-        # TODO: Figure out the differences between these classes
-        _plot_2Dhist(hist_data, axes, hist_features, plot_features)
+        plot_2Dhist(hist_data, hist_features, yaml_dicts, output_filename)
+    
     else:
         print('Error with Class types:', [type(h) for h in hist_data])
         raise NotImplementedError('Class type cannot be plotted yet')
-    _save_fig(fig, os.path.join(outputdir, plot_name.strip('/')))
 
 
 def _parse_yoda_hist(yaml_dicts):
