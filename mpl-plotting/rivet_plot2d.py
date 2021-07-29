@@ -4,7 +4,6 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 # TODO
-#   Colorbar label and size of 2D histogram subplot
 #   Implement ShowZero
 #   Implement contour plot
 #   Implement surface plot
@@ -129,23 +128,21 @@ def _plot_projection(ax, yoda_hist, plot_features, zmin=None, zmax=None):
 
 def _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin=None, zmax=None):
     # TODO code is quite similar to plot_projection. Make into the same function with just data as input? 
-    norm = _create_norm(zmin, zmax, plot_features)
+    norm = _create_norm(zmin, zmax, log=False)
 
     x_edges, y_edges = np.meshgrid(yoda_hist.xEdges(), yoda_hist.yEdges())
     z_ratio = (yoda_hist.zVals(asgrid=True) / ref_hist.zVals(asgrid=True)).T
     # TODO depending on ShowZero?
     z_ratio[~np.isfinite(z_ratio)] = np.nan
-    zmin_new, zmax_new = np.nanmin(z_ratio), np.nanmax(z_ratio)
-    zmin, zmax = np.nanmin([zmin, zmin_new]), np.nanmax([zmax, zmax_new])       
     im = ax.pcolormesh(x_edges, y_edges, z_ratio, norm=norm)
 
     # TODO probably move out of this function
     format_axis(ax, 'x', plot_features.get('XLabel'), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), plot_features.get('XCustomMajorTicks'), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
     format_axis(ax, 'y', plot_features.get('YLabel'), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), plot_features.get('YCustomMajorTicks'), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
     
-    cbar = _add_colorbar(ax, norm, plot_features)
-    # TODO add additional settings for RatioPlot to rivet that are currently not supported?
-    # format_axis(cbar.ax, 'y', plot_features.get('RatioZLabel'), (zmin, zmax), plot_features.get('LogZ'), plot_features.get('ZMajorTickMarks'), plot_features.get('ZMinorTickMarks'), plot_features.get('ZCustomMajorTicks'), plot_features.get('ZCustomMinorTicks'), plot_features.get('PlotZTickLabels'))
+    # TODO colormap setting here. Must remove _add_colorbar plot_features as input for custom cmap to work.
+    cbar = _add_colorbar(ax, norm, plot_features, fraction=0.075, pad=0.02, aspect=25)
+    format_axis(cbar.ax, 'y', plot_features.get('RatioPlotZLabel', 'MC/Data'), (zmin, zmax), major_ticks=1, plot_ticklabels=plot_features.get('RatioPlotTickLabels'))
     
     return im, cbar
 
@@ -177,8 +174,10 @@ def _post_process_fig(fig, filename, title, sup_title_kw=None, savefig_kw=None, 
 
 def _prepare_mpl(plot_features, style_path):
     # Styling to be applied in conjuction with the rivet default style. Might move this to .mplstyle file
+    # TODO axes.labelpad is different for x, y axis.
+    #  Maybe directly modify using format_axis, specifically set_xlabel(labelpad=something)?
     rc2d = {
-        'yaxis.labellocation': 'top', 'image.cmap': 'jet', 
+        'yaxis.labellocation': 'top', 'image.cmap': 'jet', 'axes.labelpad': 0.7,
         'figure.figsize': (4.5, 4.41), 'figure.subplot.hspace': plt.rcParams['figure.subplot.wspace'],
         'figure.subplot.bottom': 0.085, 'figure.subplot.top': 0.94, 'figure.subplot.left': 0.12462526766, 'figure.subplot.right': 0.89
     }
@@ -218,10 +217,12 @@ def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individu
     """
     _prepare_mpl(plot_features, style_path)
 
+    # TODO move?
     zmin = plot_features.get('ZMin', min(h.zMin() for h in hist_data))
     zmax = plot_features.get('ZMax', max(h.zMax() for h in hist_data))
     ratio = plot_features.get('RatioPlot', True) and len(hist_data) > 1
-    
+    ratio_zmin = plot_features.get('RatioPlotZMin', 0.5)
+    ratio_zmax = plot_features.get('RatioPlotZMax', 1.4999)
     # TODO remove/replace with something else after testing
     tmp_savefig_kw = dict(transparent=False)
 
@@ -242,8 +243,9 @@ def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individu
             ref_hist = hist_data[0]
             for yoda_hist, hist_settings in zip(hist_data[1:], hist_features[1:]):
                 ax = fig.add_subplot(111)
+                # TODO some or many styles are not applied to ratio plot.
                 # TODO add more options here such as surface plot etc. See comment above.
-                _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin=zmin, zmax=zmax)
+                _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin=ratio_zmin, zmax=ratio_zmax)
                 _post_process_fig(fig, '{}-{}-ratio{}'.format(filename[:filename.rindex('.')], hist_settings['Title'], filename[filename.rindex('.'):]), plot_features.get('Title'), savefig_kw=tmp_savefig_kw)
 
     else:
