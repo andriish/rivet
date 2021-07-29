@@ -110,9 +110,13 @@ def _plot_projection(ax, yoda_hist, plot_features, zmin=None, zmax=None):
     """
     norm = _create_norm(zmin, zmax, plot_features.get('LogZ'))
     
+    z_vals = yoda_hist.zVals(asgrid=True).T
+    if not plot_features.get('ShowZero', True):
+        z_vals[z_vals==0] = np.nan
+        
     # TODO xEdges etc might not work with Scatter.
     x_edges, y_edges = np.meshgrid(yoda_hist.xEdges(), yoda_hist.yEdges())
-    im = ax.pcolormesh(x_edges, y_edges, yoda_hist.zVals(asgrid=True).T, norm=norm)    
+    im = ax.pcolormesh(x_edges, y_edges, z_vals, norm=norm)    
 
     # TODO probably move out of this function
     format_axis(ax, 'x', plot_features.get('XLabel'), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), plot_features.get('XCustomMajorTicks'), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
@@ -130,8 +134,8 @@ def _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin=None, zmax=None):
 
     x_edges, y_edges = np.meshgrid(yoda_hist.xEdges(), yoda_hist.yEdges())
     z_ratio = (yoda_hist.zVals(asgrid=True) / ref_hist.zVals(asgrid=True)).T
-    # TODO depending on ShowZero?
-    z_ratio[~np.isfinite(z_ratio)] = np.nan
+    if not plot_features.get('ShowZero', True):
+        z_ratio[z_ratio==0] = np.nan
     im = ax.pcolormesh(x_edges, y_edges, z_ratio, norm=norm)
 
     # TODO probably move out of this function
@@ -190,6 +194,46 @@ def _prepare_mpl(plot_features, style_path):
     plt.rcParams['ytick.right'] = plot_features.get('YTwosidedTicks', True)
 
 
+def _get_zlim(hist_data, plot_features):
+    """
+    Calculate zlim based on histograms and plot_features.
+
+    Parameters
+    ----------
+    hist_data : list
+        All histograms
+    plot_features : dict
+        TODO replace with individual input args later.
+
+    Returns
+    -------
+    zmin, zmax : float
+        Limits to the z axis.
+    """
+    if plot_features.get('ZMax') is not None:
+        zmax = plot_features.get('ZMax')
+    # TODO remove 1.7 and 1.1?
+    elif plot_features.get('LogZ'):
+        zmax = 1.7*max(h.zMax() for h in hist_data)
+    else:
+        zmax = 1.1*max(h.zMax() for h in hist_data)
+
+    # TODO why do these constants exist?
+    minzmin = min(h.zMin() for h in hist_data)
+    if plot_features.get('ZMin') is not None:
+        zmin = plot_features.get('ZMin')
+    elif plot_features.get('LogZ'):
+        zmin = (minzmin/1.7 if plot_features.get('FullRange')
+                else max(minzmin/1.7, 2e-7*zmax))
+    elif plot_features.get('ShowZero'):
+        zmin = 0 if minzmin > -1e-4 else 1.1*minzmin
+    else:
+        zmin = (1.1*minzmin if minzmin < -1e-4 else 0 if minzmin < 1e-4
+                else 0.9*minzmin)
+    
+    return zmin, zmax
+
+
 def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individual=True, style_path='.'):
     """Plot 2D histogram in hist_data based 
 
@@ -214,8 +258,9 @@ def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individu
     """
     _prepare_mpl(plot_features, style_path)
 
-    zmin = plot_features.get('ZMin', min(h.zMin() for h in hist_data))
-    zmax = plot_features.get('ZMax', max(h.zMax() for h in hist_data))
+    # TODO Change this depending on ShowZero, LogY, FullRange
+    zmin, zmax = _get_zlim(hist_data, plot_features)
+    
     ratio = plot_features.get('RatioPlot', True) and len(hist_data) > 1
     ratio_zmin = plot_features.get('RatioPlotZMin', 0.5)
     ratio_zmax = plot_features.get('RatioPlotZMax', 1.4999)
@@ -293,7 +338,6 @@ def _plot_surface(hist_data, fig, hist_features, plot_features):
         for i, h in enumerate(hist_data[1:]):
             ax = fig.add_subplot(gs[1, i+1], projection='3d')
             z_ratio = h.zVals(asgrid=True) / ref_h.zVals(asgrid=True)
-            z_ratio[~np.isfinite(z_ratio)] = np.nan
             ax.plot_surface(h.xVals(asgrid=True), h.yVals(asgrid=True), z_ratio,
                 cmap=plt.rcParams['image.cmap'], vmin=np.min(z_ratio[np.isfinite(z_ratio)]), vmax=np.max(z_ratio[np.isfinite(z_ratio)]))
             # TODO Move these kinds of settings to separate function, similar to rivet_plot._create_plot 
