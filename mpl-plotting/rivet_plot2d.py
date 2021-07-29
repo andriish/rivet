@@ -28,23 +28,20 @@ def format_axis(ax, axis_name, label=None, lim=None, log=False,
         TODO make this an axis object as input instead?
     label : str, optional
         Axis label.
-    label_loc : str
-        Location of the label. TODO it is probably not good to add this option, since one has to add many options then. Either allow dicts of kwargs to be passed or change afterwards.
     lim : tuple, optional
         Lower and upper limits of axis, in that order.
     log : bool, optional
         If True, set the scale of the axis to log scale. By default False
-    TODO rest of docstring
-    major_ticks : [type], optional
-        TODO change format of this? Currently assumes the rivet format
-    minor_ticks : [type], optional
+    major_ticks : int, optional
+        Digit of the major ticks, by default None
+    minor_ticks : int, optional
+        Number of minor ticks, by default None
+    custom_major_ticks : Sequence, optional
         [description], by default None
-    custom_major_ticks : [type], optional
-        [description], by default None
-    custom_minor_ticks : [type], optional
+    custom_minor_ticks : Sequence[float], optional
         [description], by default None
     plot_ticklabels : bool, optional
-        [description], by default True
+        If False, do not plot any tick labels, by default True
     """
     axis_name = axis_name.lower()
     # TODO Move loc='top' to somewhere else or make it an input parameter
@@ -127,7 +124,7 @@ def _plot_projection(ax, yoda_hist, plot_features, zmin=None, zmax=None):
 
 
 def _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin=None, zmax=None):
-    # TODO code is quite similar to plot_projection. Make into the same function with just data as input? 
+    # TODO code is quite similar to plot_projection. Make into the same function with just data as input? Keep as is for now
     norm = _create_norm(zmin, zmax, log=False)
 
     x_edges, y_edges = np.meshgrid(yoda_hist.xEdges(), yoda_hist.yEdges())
@@ -167,15 +164,14 @@ def _post_process_fig(fig, filename, title, sup_title_kw=None, savefig_kw=None, 
         clf_kw = {}
 
     fig.suptitle(title, **sup_title_kw)
-    # TODO remove args here
     fig.savefig(filename, **savefig_kw)
     fig.clf(**clf_kw)
 
 
 def _prepare_mpl(plot_features, style_path):
     # Styling to be applied in conjuction with the rivet default style. Might move this to .mplstyle file
-    # TODO axes.labelpad is different for x, y axis.
-    #  Maybe directly modify using format_axis, specifically set_xlabel(labelpad=something)?
+    # TODO axes.labelpad is different for x, y axis. Personally, this setting looks better than original rivet style. 
+    #   Maybe directly modify using format_axis, specifically set_xlabel(labelpad=something)?
     rc2d = {
         'yaxis.labellocation': 'top', 'image.cmap': 'jet', 'axes.labelpad': 0.7,
         'figure.figsize': (4.5, 4.41), 'figure.subplot.hspace': plt.rcParams['figure.subplot.wspace'],
@@ -223,11 +219,8 @@ def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individu
     ratio = plot_features.get('RatioPlot', True) and len(hist_data) > 1
     ratio_zmin = plot_features.get('RatioPlotZMin', 0.5)
     ratio_zmax = plot_features.get('RatioPlotZMax', 1.4999)
-    # TODO remove/replace with something else after testing
-    tmp_savefig_kw = dict(transparent=False)
 
     # TODO: probably separate functions for both of these cases.
-    # TODO individual should be part of plot_features instead.
     if individual:
         fig = plt.figure()
 
@@ -236,17 +229,15 @@ def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individu
             # TODO add more options here such as surface plot etc.
             #  All plot styles hopefully require the same amount of axes, where parts of an axes will be used as a colorbar.
             _plot_projection(ax, yoda_hist, plot_features, zmin, zmax)
-            _post_process_fig(fig, '{}-{}{}'.format(filename[:filename.rindex('.')], hist_settings['Title'], filename[filename.rindex('.'):]), plot_features.get('Title'), savefig_kw=tmp_savefig_kw)
+            _post_process_fig(fig, '{}-{}{}'.format(filename[:filename.rindex('.')], hist_settings['Title'], filename[filename.rindex('.'):]), plot_features.get('Title'))
             
         if ratio:
-            # TODO more code sharing between projection and ratio? Keep as is for now
             ref_hist = hist_data[0]
             for yoda_hist, hist_settings in zip(hist_data[1:], hist_features[1:]):
                 ax = fig.add_subplot(111)
-                # TODO some or many styles are not applied to ratio plot.
                 # TODO add more options here such as surface plot etc. See comment above.
                 _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin=ratio_zmin, zmax=ratio_zmax)
-                _post_process_fig(fig, '{}-{}-ratio{}'.format(filename[:filename.rindex('.')], hist_settings['Title'], filename[filename.rindex('.'):]), plot_features.get('Title'), savefig_kw=tmp_savefig_kw)
+                _post_process_fig(fig, '{}-{}-ratio{}'.format(filename[:filename.rindex('.')], hist_settings['Title'], filename[filename.rindex('.'):]), plot_features.get('Title'))
 
     else:
         ncols = len(hist_data)
@@ -267,7 +258,7 @@ def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individu
                 _plot_ratio(ax, ref_hist, yoda_hist, plot_features)
         _post_process_fig(fig, filename, plot_features.get('Title'))
     
-    # TODO this does not return anything useful when individual=True.
+    # TODO this does not return anything useful when individual=True. Keep as is?
     return fig
 
 
