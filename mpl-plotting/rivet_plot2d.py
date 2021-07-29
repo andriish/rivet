@@ -4,11 +4,12 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 # TODO
+#   Implement multiple plots in one figure
 #   Implement ShowZero
-#   Implement contour plot
 #   Implement surface plot
+#   Implement contour plot
 #   Option to use different colormap for histograms and ratios (to make it easier to see which one is which) 
-# TODO probably remove plot_features as input and replace with individual args once the API has been defined 
+# TODO probably remove plot_features as input arg at many places and replace with individual args once the API has been defined
 #   This will make it easy to move all functions to the yoda plotting API
 # TODO docstrings
 
@@ -213,7 +214,6 @@ def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individu
     """
     _prepare_mpl(plot_features, style_path)
 
-    # TODO move?
     zmin = plot_features.get('ZMin', min(h.zMin() for h in hist_data))
     zmax = plot_features.get('ZMax', max(h.zMax() for h in hist_data))
     ratio = plot_features.get('RatioPlot', True) and len(hist_data) > 1
