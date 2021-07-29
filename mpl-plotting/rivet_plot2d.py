@@ -1,5 +1,5 @@
 """Create a rivet-style plot with 2D histograms."""
-import os, sys
+import os
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
@@ -150,7 +150,7 @@ def _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin=None, zmax=None):
     return im, cbar
 
 
-def _post_process_fig(fig, filename, title):
+def _post_process_fig(fig, filename, title, sup_title_kw=None, savefig_kw=None, clf_kw=None):
     """Save close, and add title to figure.
 
     Parameters
@@ -162,12 +162,20 @@ def _post_process_fig(fig, filename, title):
     title : str
         [description]
     """
-    fig.suptitle(title)
-    fig.savefig(filename, transparent=False)
-    fig.clf()
+    if sup_title_kw is None:
+        sup_title_kw = {}
+    if savefig_kw is None:
+        savefig_kw = {}
+    if clf_kw is None:
+        clf_kw = {}
+
+    fig.suptitle(title, **sup_title_kw)
+    # TODO remove args here
+    fig.savefig(filename, **savefig_kw)
+    fig.clf(**clf_kw)
 
 
-def _prepare_mpl(plot_features):
+def _prepare_mpl(plot_features, style_path):
     # Styling to be applied in conjuction with the rivet default style. Might move this to .mplstyle file
     rc2d = {
         'yaxis.labellocation': 'top', 'image.cmap': 'jet', 
@@ -180,25 +188,19 @@ def _prepare_mpl(plot_features):
     else:
         plot_style = 'default.mplstyle'
     
-    if plot_features.get('rcParams'):
-        plt.style.use((os.path.join(sys.path[0], plot_style), rc2d, plot_features['rcParams']))
-    else:
-        plt.style.use((os.path.join(sys.path[0], plot_style)))
-
+    plt.style.use((os.path.join(style_path, plot_style), rc2d, plot_features.get('rcParams', {})))
+    
     plt.rcParams['xtick.top'] = plot_features.get('XTwosidedTicks', True)
     plt.rcParams['ytick.right'] = plot_features.get('YTwosidedTicks', True)
 
 
-def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individual=True):
+def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individual=True, style_path='.'):
     """Plot 2D histogram in hist_data based 
 
     Parameters
     ----------
     hist_data : list[yoda.Histo2D | yoda.Profile2D | yoda.Scatter3D] TODO only make it work with Scatter in future?
         All histograms that will be plotted.
-    axes : matplotlib.axes.Axes
-        The axes object in which the histogram(s) will be plotted.
-        TODO axes will have to be created inside this function later.
     hist_features : dict
         Plot settings for each histogram.
         TODO: currently only supports the "Title" setting but more should be added. 
@@ -206,17 +208,23 @@ def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individu
         Plot settings for the entire axes.
     individual : bool
         TODO make this part of plot_features.
+    style_path : str
+        Path to the directory with the rivet mplstyle file(s).
+        TODO this is a temporary argument and will likely become a constant in rivet instead.
     Returns
     -------
     fig : matplotlib.figure.Figure
         Matplotlib Figure object containing all plots.
-    """    
-    _prepare_mpl(plot_features)
+    """
+    _prepare_mpl(plot_features, style_path)
 
     zmin = plot_features.get('ZMin', min(h.zMin() for h in hist_data))
     zmax = plot_features.get('ZMax', max(h.zMax() for h in hist_data))
     ratio = plot_features.get('RatioPlot', True) and len(hist_data) > 1
     
+    # TODO remove/replace with something else after testing
+    tmp_savefig_kw = dict(transparent=False)
+
     # TODO: probably separate functions for both of these cases.
     # TODO individual should be part of plot_features instead.
     if individual:
@@ -227,7 +235,7 @@ def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individu
             # TODO add more options here such as surface plot etc.
             #  All plot styles hopefully require the same amount of axes, where parts of an axes will be used as a colorbar.
             _plot_projection(ax, yoda_hist, plot_features, zmin, zmax)
-            _post_process_fig(fig, '{}-{}{}'.format(filename[:filename.rindex('.')], hist_settings['Title'], filename[filename.rindex('.'):]), plot_features.get('Title'))
+            _post_process_fig(fig, '{}-{}{}'.format(filename[:filename.rindex('.')], hist_settings['Title'], filename[filename.rindex('.'):]), plot_features.get('Title'), savefig_kw=tmp_savefig_kw)
             
         if ratio:
             # TODO more code sharing between projection and ratio? Keep as is for now
@@ -236,7 +244,7 @@ def plot_2Dhist(hist_data, hist_features, plot_features, filename=None, individu
                 ax = fig.add_subplot(111)
                 # TODO add more options here such as surface plot etc. See comment above.
                 _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin=zmin, zmax=zmax)
-                _post_process_fig(fig, '{}-{}-ratio{}'.format(filename[:filename.rindex('.')], hist_settings['Title'], filename[filename.rindex('.'):]), plot_features.get('Title'))
+                _post_process_fig(fig, '{}-{}-ratio{}'.format(filename[:filename.rindex('.')], hist_settings['Title'], filename[filename.rindex('.'):]), plot_features.get('Title'), savefig_kw=tmp_savefig_kw)
 
     else:
         ncols = len(hist_data)
