@@ -5,10 +5,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 # TODO
 #   Implement multiple plots in one figure
-#   Implement ShowZero
+#   Option to use different colormap for histograms and ratios (to make it easier to see which one is which) 
 #   Implement surface plot
 #   Implement contour plot
-#   Option to use different colormap for histograms and ratios (to make it easier to see which one is which) 
+#   Convert all input histograms to Scatter using mkScatter
 # TODO probably remove plot_features as input arg at many places and replace with individual args once the API has been defined
 #   This will make it easy to move all functions to the yoda plotting API
 # TODO docstrings
@@ -229,7 +229,7 @@ def _get_zlim(hist_data, plot_features):
     return zmin, zmax
 
 
-def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, individual=True, style_path='.'):
+def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.'):
     """Plot 2D histogram in hist_data based 
 
     Parameters
@@ -238,11 +238,9 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, individual=True, 
         All histograms that will be plotted.
     hist_features : dict
         Plot settings for each histogram.
-        TODO: currently only supports the "Title" setting but more should be added. 
+        Currently only supports the "Title" setting but more should be added. 
     yaml_dict : dict
         Plot settings for the entire figure.
-    individual : bool
-        TODO make this part of plot_features.
     style_path : str
         Path to the directory with the rivet mplstyle file(s).
         TODO this is a temporary argument and will likely become a constant in rivet instead.
@@ -261,15 +259,21 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, individual=True, 
     ratio_zmin = plot_features.get('RatioPlotZMin', 0.5)
     ratio_zmax = plot_features.get('RatioPlotZMax', 1.4999)
 
+    if plot_features.get('2DType', 'projection') == 'projection':
+        plot_function = _plot_projection
+        # TODO determine ratio plotting function here too
+    else:
+        raise NotImplementedError('Only "projection" 2DType is allowed for now.')
+    
     # TODO: probably separate functions for both of these cases.
-    if individual:
+    if plot_features.get('2DIndividual', True):
         fig = plt.figure()
 
         for yoda_hist, hist_settings in zip(hist_data, hist_features):
             ax = fig.add_subplot(111)
             # TODO add more options here such as surface plot etc.
             #  All plot styles hopefully require the same amount of axes, where parts of an axes will be used as a colorbar.
-            _plot_projection(ax, yoda_hist, plot_features, zmin, zmax)
+            plot_function(ax, yoda_hist, plot_features, zmin, zmax)
             _post_process_fig(fig, '{}-{}{}'.format(filename, hist_settings['Title'], '.png'), plot_features.get('Title'))
             
         if ratio:
@@ -290,7 +294,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, individual=True, 
         gs = fig.add_gridspec(ncols=ncols, nrows=nrows, width_ratios=width_ratios)
         for i, (yoda_hist, hist_settings) in enumerate(zip(hist_data, hist_features)):
             ax = fig.add_subplot(gs[0, i])
-            _plot_projection(ax, yoda_hist, hist_settings, plot_features)
+            plot_function(ax, yoda_hist, hist_settings, plot_features)
 
         if ratio:
             ref_hist = hist_data[0]
@@ -299,7 +303,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, individual=True, 
                 _plot_ratio(ax, ref_hist, yoda_hist, plot_features)
         _post_process_fig(fig, filename, plot_features.get('Title'))
     
-    # TODO this does not return anything useful when individual=True. Keep as is?
+    # TODO this does not return anything useful when 2DIndividual==True. Keep as is anyway?
     return fig
 
 
