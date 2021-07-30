@@ -4,7 +4,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 # TODO
-#   Implement multiple plots in one figure
+#   Fix figure size bug for multiple plots in one figure
 #   Implement surface plot
 #   Implement contour plot
 #   Convert all input histograms to Scatter using mkScatter
