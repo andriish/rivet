@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 # TODO
 #   Implement multiple plots in one figure
-#   Option to use different colormap for histograms and ratios (to make it easier to see which one is which) 
 #   Implement surface plot
 #   Implement contour plot
 #   Convert all input histograms to Scatter using mkScatter
