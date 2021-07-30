@@ -74,12 +74,9 @@ def format_axis(ax, axis_name, label=None, lim=None, log=False,
 
 
 def _create_norm(zmin, zmax, log):
-    """Create a mpl norm that is used as the limits for the colorbar and pcolormesh."""
-
-    # Set log scale
+    """Small wrapper function to create mpl norm that is used as the limits for the colorbar and pcolormesh."""
     if log:
         return mpl.colors.LogNorm(vmin=zmin, vmax=zmax)
-    
     return mpl.colors.Normalize(vmin=zmin, vmax=zmax)
 
 
@@ -125,7 +122,7 @@ def _plot_projection(ax, yoda_hist, plot_features, zmin=None, zmax=None):
     plot_features : dict
         TODO remove this and turn into individual kwargs once API has been establited.
     """
-    norm = _create_norm(zmin, zmax, plot_features.get('LogZ'))
+    norm = _create_norm(zmin, zmax, plot_features.get('LogZ', False))
     
     z_vals = yoda_hist.zVals(asgrid=True).T
     if not plot_features.get('ShowZero', True):
@@ -133,19 +130,19 @@ def _plot_projection(ax, yoda_hist, plot_features, zmin=None, zmax=None):
         
     # TODO xEdges etc might not work with Scatter.
     x_edges, y_edges = np.meshgrid(yoda_hist.xEdges(), yoda_hist.yEdges())
-    im = ax.pcolormesh(x_edges, y_edges, z_vals, norm=norm)    
+    im = ax.pcolormesh(x_edges, y_edges, z_vals, norm=norm, cmap=plot_features.get('2DColormap', 'jet'))
 
     # TODO probably move out of this function
     format_axis(ax, 'x', plot_features.get('XLabel'), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), plot_features.get('XCustomMajorTicks'), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
     format_axis(ax, 'y', plot_features.get('YLabel'), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), plot_features.get('YCustomMajorTicks'), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
     
     cbar = _add_colorbar(ax, norm, cmap=plot_features.get('2DColormap', 'jet'), fraction=0.075, pad=0.02, aspect=25)
-    format_axis(cbar.ax, 'y', plot_features.get('ZLabel'), (zmin, zmax), plot_features.get('LogZ'), plot_features.get('ZMajorTickMarks'), plot_features.get('ZMinorTickMarks'), plot_features.get('ZCustomMajorTicks'), plot_features.get('ZCustomMinorTicks'), plot_features.get('PlotZTickLabels'))
+    format_axis(cbar.ax, 'y', plot_features.get('ZLabel'), (zmin, zmax), plot_features.get('LogZ', False), plot_features.get('ZMajorTickMarks'), plot_features.get('ZMinorTickMarks'), plot_features.get('ZCustomMajorTicks'), plot_features.get('ZCustomMinorTicks'), plot_features.get('PlotZTickLabels'))
     
     return im, cbar
 
 
-def _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin=None, zmax=None):
+def _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin, zmax):
     # TODO code is quite similar to plot_projection. Make into the same function with just data as input? Keep as is for now
     norm = _create_norm(zmin, zmax, log=False)
 
@@ -153,7 +150,7 @@ def _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin=None, zmax=None):
     z_ratio = (yoda_hist.zVals(asgrid=True) / ref_hist.zVals(asgrid=True)).T
     if not plot_features.get('ShowZero', True):
         z_ratio[z_ratio==0] = np.nan
-    im = ax.pcolormesh(x_edges, y_edges, z_ratio, norm=norm)
+    im = ax.pcolormesh(x_edges, y_edges, z_ratio, norm=norm, cmap=plot_features.get('2DRatioColormap', 'jet'))
 
     # TODO probably move out of this function
     format_axis(ax, 'x', plot_features.get('XLabel'), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), plot_features.get('XCustomMajorTicks'), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
@@ -311,14 +308,14 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.'):
         gs = fig.add_gridspec(ncols=ncols, nrows=nrows, width_ratios=width_ratios)
         for i, (yoda_hist, hist_settings) in enumerate(zip(hist_data, hist_features)):
             ax = fig.add_subplot(gs[0, i])
-            plot_function(ax, yoda_hist, hist_settings, plot_features)
+            plot_function(ax, yoda_hist, plot_features, zmin, zmax)
 
         if ratio:
             ref_hist = hist_data[0]
             for i, (yoda_hist, hist_settings) in enumerate(zip(hist_data[1:], hist_features[1:])):
-                ax = fig.add_subplot(gs[1, i])
-                _plot_ratio(ax, ref_hist, yoda_hist, plot_features)
-        _post_process_fig(fig, filename, plot_features.get('Title'))
+                ax = fig.add_subplot(gs[1, i+1])
+                _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin=ratio_zmin, zmax=ratio_zmax)
+        _post_process_fig(fig, filename + '.png', plot_features.get('Title'))
     
     # TODO this does not return anything useful when 2DIndividual==True. Keep as is anyway?
     return fig
