@@ -84,14 +84,32 @@ def _create_norm(zmin, zmax, log):
     return mpl.colors.Normalize(vmin=zmin, vmax=zmax)
 
 
-def _add_colorbar(ax, norm, plot_features, *args, **kwargs):
+def _add_colorbar(ax, norm, cmap, *args, **kwargs):
+    """Small wrapper function to create a colorbar
+
+    Parameters
+    ----------
+    ax : mpl.axes.Axes
+        Axes object that the matplotlib will take a part of to create a colorbar.
+    norm : norm
+        Contains information about min, max and scale (log, lin etc) of colorbar.
+    cmap : str
+        Colormap for the colorbar
+    args, kwargs
+        Additional arguments passed to plt.colorbar. See its documentation.
+
+    Returns
+    -------
+    Colorbar
+    """
+    # BUG exponent (i.e. 10^x) placement is weird
     colorbar_tick_format = mpl.ticker.ScalarFormatter(useMathText=True)
     colorbar_tick_format.set_powerlimits(
         (-plt.rcParams.get('axes.formatter.min_exponent'), plt.rcParams.get('axes.formatter.min_exponent'))
     )
     # TODO change this from rcParams to input arg
-    cbar = ax.get_figure().colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=plt.rcParams['image.cmap']), 
-        ax=ax, orientation='vertical', label=plot_features.get('ZLabel'), format=colorbar_tick_format, *args, **kwargs)
+    cbar = ax.get_figure().colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap),
+        ax=ax, orientation='vertical', format=colorbar_tick_format, *args, **kwargs)
 
     return cbar
 
@@ -122,7 +140,7 @@ def _plot_projection(ax, yoda_hist, plot_features, zmin=None, zmax=None):
     format_axis(ax, 'x', plot_features.get('XLabel'), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), plot_features.get('XCustomMajorTicks'), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
     format_axis(ax, 'y', plot_features.get('YLabel'), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), plot_features.get('YCustomMajorTicks'), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
     
-    cbar = _add_colorbar(ax, norm, plot_features, fraction=0.075, pad=0.02, aspect=25)
+    cbar = _add_colorbar(ax, norm, cmap=plot_features.get('2DColormap', 'jet'), fraction=0.075, pad=0.02, aspect=25)
     format_axis(cbar.ax, 'y', plot_features.get('ZLabel'), (zmin, zmax), plot_features.get('LogZ'), plot_features.get('ZMajorTickMarks'), plot_features.get('ZMinorTickMarks'), plot_features.get('ZCustomMajorTicks'), plot_features.get('ZCustomMinorTicks'), plot_features.get('PlotZTickLabels'))
     
     return im, cbar
@@ -142,8 +160,8 @@ def _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin=None, zmax=None):
     format_axis(ax, 'x', plot_features.get('XLabel'), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), plot_features.get('XCustomMajorTicks'), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
     format_axis(ax, 'y', plot_features.get('YLabel'), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), plot_features.get('YCustomMajorTicks'), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
     
-    # TODO colormap setting here. Must remove _add_colorbar plot_features as input for custom cmap to work.
-    cbar = _add_colorbar(ax, norm, plot_features, fraction=0.075, pad=0.02, aspect=25)
+    # TODO change default cmap for ratio so that ratio plots look different?
+    cbar = _add_colorbar(ax, norm, cmap=plot_features.get('2DRatioColormap', 'jet'), fraction=0.075, pad=0.02, aspect=25)
     format_axis(cbar.ax, 'y', plot_features.get('RatioPlotZLabel', 'MC/Data'), (zmin, zmax), major_ticks=1, plot_ticklabels=plot_features.get('RatioPlotTickLabels'))
     
     return im, cbar
