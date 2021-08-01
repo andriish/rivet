@@ -12,15 +12,22 @@ from rivet_plot2d import plot_2Dhist
 
 
 def rivet_plot(yaml_file, plot_name, outputdir='.'):
-    """Create plot from yaml file dictionaries.
+    """Create plot from the yaml file.
 
-    The yaml file contains rcParams for mpl, histogram data, and plot styles.
+    Parameters
+    ----------
+    yaml_file : str or dict
+        Either the file name of the yaml file or a dictionary object containing the plot data.
+    plot_name : str
+        Name of the created plot file.
+    outputdir : str, optional
+        Name of the relative output directory. Default is the current directory.
     """
-    # Parse yaml file for rcParams, histogram data, and plot style.
-    if isinstance(yaml_file, str):
+    # Parse yaml file for histogram data
+    if isinstance(yaml_file, str):  # If the file name of the yaml file is passed
         yaml_dicts = read_yamlfile(yaml_file)
         hist_data = _parse_yoda_hist(yaml_dicts)
-    else:
+    else:  # If the dictionary object is passed
         yaml_dicts = yaml_file
         hist_data = [hist_dict['yoda']
                      for hist_dict in yaml_dicts.get('histograms').values()]
@@ -30,7 +37,7 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
     output_filename = os.path.join(outputdir, plot_name.strip('/'))
 
     if all(isinstance(h, (yoda.core.Scatter2D, yoda.core.Histo1D, yoda.core.Profile1D)) for h in hist_data):
-        # TODO: Figure out the differences between these classes
+        # TODO: Refactor code so 1Dhist and 2Dhist calls are similar
         plot_features = yaml_dicts.get('plot features', {})
         fig, axes = _create_plot(yaml_dicts, plot_features, hist_data)
         _plot_1Dhist(hist_data, axes, hist_features, plot_features)
@@ -38,13 +45,14 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
 
     elif all(isinstance(h, (yoda.Histo2D, yoda.Scatter3D, yoda.Profile2D)) for h in hist_data):
         plot_2Dhist(hist_data, hist_features, yaml_dicts, output_filename)
-    
+
     else:
         print('Error with Class types:', [type(h) for h in hist_data])
         raise NotImplementedError('Class type cannot be plotted yet')
 
 
 def _parse_yoda_hist(yaml_dicts):
+    """Read yoda string and return yoda object."""
     hist_data = []
     for hist_dict in yaml_dicts['histograms'].values():
         with io.StringIO(hist_dict['yoda']) as file_like:
@@ -53,7 +61,9 @@ def _parse_yoda_hist(yaml_dicts):
 
 
 def _create_plot(yaml_dicts, plot_features, hist_data):
-    plot_style = yaml_dicts['style'] + '.mplstyle'
+    """Create and return Matplotlib fig and axes objects with modified plot features."""
+    plot_style = yaml_dicts['style'] + \
+        '.mplstyle'  # TODO: Change location of mplstyle file
     if yaml_dicts.get('rcParams'):
         plt.style.use((os.path.join(sys.path[0], plot_style),
                        yaml_dicts['rcParams']))
@@ -82,27 +92,31 @@ def _create_plot(yaml_dicts, plot_features, hist_data):
     XMax = plot_features.get('XMax', max([h.xMax() for h in hist_data]))
     ax.set_xlim(XMin, XMax)
 
+    # Use maximum y value from all hist datasets
+    max_ymax = max([h.yMax() for h in hist_data])
     if plot_features.get('YMax') is not None:
         YMax = plot_features.get('YMax')
     elif plot_features.get('LogY'):
-        YMax = 1.7*max([h.yMax() for h in hist_data])
+        YMax = 1.7*max_ymax
     else:
-        YMax = 1.1*max([h.yMax() for h in hist_data])
+        YMax = 1.1*max_ymax
 
-    minymin = min([h.yMin() for h in hist_data])
+    # Use minimum y value from all hist datasets
+    min_ymin = min([h.yMin() for h in hist_data])
     if plot_features.get('YMin') is not None:
         YMin = plot_features.get('YMin')
     elif plot_features.get('LogY'):
-        YMin = (minymin/1.7 if plot_features.get('FullRange')
-                else max(minymin/1.7, 2e-7*YMax))
+        YMin = (min_ymin/1.7 if plot_features.get('FullRange')
+                else max(min_ymin/1.7, 2e-7*YMax))
     elif plot_features.get('ShowZero'):
-        YMin = 0 if minymin > -1e-4 else 1.1*minymin
+        YMin = 0 if min_ymin > -1e-4 else 1.1*min_ymin
     else:
-        YMin = (1.1*minymin if minymin < -1e-4 else 0 if minymin < 1e-4
-                else 0.9*minymin)
+        YMin = (1.1*min_ymin if min_ymin < -1e-4 else 0 if min_ymin < 1e-4
+                else 0.9*min_ymin)
+
     ax.set_ylim(YMin, YMax)
 
-    # Set log scale
+    # Set log scale and log tick marks frequency
     if plot_features.get('LogX'):
         ax.set_xscale('log')
         ax.xaxis.set_major_locator(mpl.ticker.LogLocator(numticks=np.inf))
@@ -112,7 +126,7 @@ def _create_plot(yaml_dicts, plot_features, hist_data):
         ax.yaxis.set_minor_locator(mpl.ticker.LogLocator(
             base=10.0, subs=[i for i in np.arange(0, 1, 0.1)], numticks=np.inf))
 
-    # Set tick marks frequency
+    # Set tick marks frequency given the last digit in the tick mark precision for non-log plots
     if plot_features.get('XMajorTickMarks') is not None and not plot_features.get('LogX'):
         base = plot_features.get('XMajorTickMarks')*10**(int(np.log10(XMax))-1)
         ax.xaxis.set_major_locator(mpl.ticker.MultipleLocator(base))
@@ -127,7 +141,7 @@ def _create_plot(yaml_dicts, plot_features, hist_data):
         ax.yaxis.set_minor_locator(mpl.ticker.AutoMinorLocator(
             1+plot_features.get('YMinorTickMarks')))
 
-    # Add custom ticks
+    # Add custom ticks for x and y axes
     if plot_features.get('XCustomMajorTicks') is not None:
         ax.set_xticks(plot_features.get('XCustomMajorTicks')[::2])
         ax.set_xticklabels(plot_features.get('XCustomMajorTicks')[1::2])
@@ -150,34 +164,36 @@ def _create_plot(yaml_dicts, plot_features, hist_data):
 
 
 def _plot_1Dhist(hist_data, axes, hist_features, plot_features):
+    """Plot the 1D historgram data."""
     # Create useful variables
     colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
     x_points = (hist_data[0].xMins() + hist_data[0].xMaxs())/2
     x_bins = np.append(hist_data[0].xMins(), hist_data[0].xMax())
     data_yVals = hist_data[0].yVals()
 
+    # Create local variables for the list of axes
     if plot_features.get('RatioPlot'):
         ax, ax_ratio = axes
     else:
         ax = axes[0]
 
-    # Plot data
+    # Plot the reference histogram data
     ax.hlines(data_yVals, hist_data[0].xMins(),
-              hist_data[0].xMaxs(), 'k')
-    ax.plot(x_points, data_yVals, 'ko')
+              hist_data[0].xMaxs(), 'k')  # Plot reference data as horizontal lines
+    ax.plot(x_points, data_yVals, 'ko')  # Plot black dot in the middle of line
     data_errminus = [err[0] for err in hist_data[0].yErrs()]
     data_errplus = [err[1] for err in hist_data[0].yErrs()]
-    if hist_features[0].get('ErrorBars', 1):
+    if hist_features[0].get('ErrorBars', 1):  # Plot ref data error bars by default
         ax.vlines(x_points, (data_yVals - data_errminus),
                   (data_yVals + data_errplus), 'k')
 
-    # Plot mcs
+    # Plot the MC histogram data
     for i, mc in enumerate(hist_data[1:]):
-        color = colors[i % len(colors)]
+        color = colors[i % len(colors)]  # Cycle through colors for MC hists
         y_mc = np.insert(mc.yVals(), 0, mc.yVals()[0])
         ax.plot(x_bins, y_mc, color, drawstyle='steps-pre',
-                solid_joinstyle='miter', zorder=5+i)
-        if hist_features[i].get('ErrorBars', 1):
+                solid_joinstyle='miter', zorder=5+i)  # Plot MC hist data
+        if hist_features[i].get('ErrorBars', 1):  # Plot MC error bars by default
             mc_errminus = mc.yErrs()
             mc_errplus = mc.yErrs()
             ax.vlines(x_points, (mc.yVals() - mc_errminus),
@@ -185,13 +201,15 @@ def _plot_1Dhist(hist_data, axes, hist_features, plot_features):
 
     # Create ratio plot
     if plot_features.get('RatioPlot'):
+        # Ratio plot has y range of 0.5 to 1.5
         ax_ratio.yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.1))
         ax_ratio.set_ylabel(plot_features.get('RatioPlotYLabel', 'MC/Data'))
         RatioPlotYMin = plot_features.get('RatioPlotYMin', 0.5)
-        RatioPlotYMax = plot_features.get('RatioPlotYMax', 1.4999)
+        RatioPlotYMax = plot_features.get(
+            'RatioPlotYMax', 1.4999)  # Don't plot 1.5
         ax_ratio.set_ylim(RatioPlotYMin, RatioPlotYMax)
 
-        # Plot data
+        # Plot reference histogram data
         XMin = plot_features.get('XMin', min([h.xMin() for h in hist_data]))
         XMax = plot_features.get('XMax', max([h.xMax() for h in hist_data]))
         ax_ratio.hlines(1, XMin, XMax, 'k', zorder=2)
@@ -207,7 +225,7 @@ def _plot_1Dhist(hist_data, axes, hist_features, plot_features):
             ax_ratio.vlines(x_points, (data_yVals - data_errminus)/data_yVals,
                             (data_yVals + data_errplus)/data_yVals, 'k')
 
-        # Plot mcs
+        # Plot MCs histogram data
         for i, mc in enumerate(hist_data[1:]):
             color = colors[i % len(colors)]
             y_ratio = (np.insert(mc.yVals(), 0, mc.yVals()[0])
