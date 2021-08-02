@@ -259,8 +259,8 @@ def _plot_1Dhist(hist_data, axes, hist_features, plot_features):
 
 
 def _save_fig(fig, plot_name):
-    fig.savefig(plot_name+'.pdf', dpi=500)
-    fig.savefig(plot_name+'.png', dpi=500)
+    fig.savefig(plot_name+'.pdf')
+    fig.savefig(plot_name+'.png')
     plt.close()
 
 
