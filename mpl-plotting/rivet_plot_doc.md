@@ -1,67 +1,26 @@
-# make-plots
+# rivet-plot
 
-The plots produced with `rivet-mkhtml` are really rendered with the command `make-plots`, which is called under the hood. The `make-plots` command can also be used to create figures from the simple .dat text format produced by `rivet-cmphistos` directly.
-The `make-plots` script is quite powerful, and includes several options to modify plotting style, adding curves or fits and more. For use with Rivet, the syntax documented in this document should be provided in the .plot file.
-Internally, `make-plots` the simple text format and converts them into PostScript or PDF files by creating a LaTeX file and running `latex`, `dvips`, and maybe `ps2pdf`.
+The plots produced with `rivet-mkhtml` are really rendered with the command `rivet-plot`, which is called under the hood. The `rivet-plot` command can also be used to create figures from the simple .yaml text format produced by `rivet-make-yaml` directly.
+The `rivet-plot` script is quite powerful, and includes several options to modify plotting style, adding curves or fits and more. For use with Rivet, the syntax documented in this document should be provided in the .plot file.
+Internally, `rivet-plot` uses the matplotlib Python plotting package to create the plots.
 
 ## Usage
 
-To run `make-plots` call
+To run `rivet-plot` call
 
 ```
-     make-plots [options] file.dat [file2.dat ...]
+     rivet-plot [options] file.yaml [file2.yaml ...]
 ```
 
 All available options can be listed by running
 
 ```
-     make-plots --help
+     rivet-plot --help
 ```
 
-### Configuration files
+### Configuration yaml files
 
-
-`make-plots` typically takes the plotting instructions and settings from the input ascii files as described in the "Input Format" chapter. It is also possible though to pass a global configuration file to `make-plots` (cf. `--help`) which allows to specify/overwrite settings for certain plots or histograms in a plot on top of what the input files specify. This could be useful if the ascii files are generated automatically (e.g. with `rivet-mkhtml` or `compare-histos`) and you still want to apply custom plotting options.
-
-An example for this looks like:
-
-```
-    # BEGIN PLOT figures/MC_WJETS/W_mass.dat
-    XMin=60.0
-    XMax=100.0
-    LegendXPos=0.65
-    # END PLOT
-
-    .*myLOrun.yoda/D0_2008_S7554427/d01-x01-y01::Scale=1.0
-
-```
-
-Here first the options in the `PLOT` section of a specific ascii file are being amended/overwritten. The second part shows how to overwrite the `Scale` property of one specific histogram line using the ID of the histogram.
-
-## Input Format
-
-The ascii files which can be read by `make-plots` are divided into sections. There are four types of sections which are called `PLOT`, `HISTOGRAM`, `FUNCTION`, and `SPECIAL`. Every file must contain exactly one `PLOT` section and at least one section of the other three types. There may be multiple `HISTOGRAM`, `FUNCTION`, and `SPECIAL` sections.
-
-Empty lines and lines starting with `#` are ignored, except for the section delimiters described below.
-
-### PLOT
-
-The `PLOT` section starts with
-
-```
-    # BEGIN PLOT
-
-```
-and ends with
-
-
-```
-    # END PLOT
-
-```
-
-Every file must have exactly one `PLOT` section. In this section global parameters are specified, like the axis labels, the plot title, size, … An empty `PLOT` section is perfectly legal, though.
-In this section the following parameters can be set:
+TODO
 
 #### Titles, Labels
 
@@ -97,7 +56,7 @@ Distance between the axis label and the plot in units of `\labelsep`.
     ZMinorTickMarks=<nticks>
 ```
 
-`make-plots` tries to guess the distance between tickmarks automatically. If you are not satisfied with its result, you can override this by setting `<last_digit>` to 1, 2, 5, or 10, and `<nticks>` to the number of minor ticks you like. _Note_: These options are not available for logarithmic axes.
+`rivet-plot` tries to guess the distance between tickmarks automatically. If you are not satisfied with its result, you can override this by setting `<last_digit>` to 1, 2, 5, or 10, and `<nticks>` to the number of minor ticks you like. _Note_: These options are not available for logarithmic axes.
 
 ```
     XTwosidedTicks=<0|1>
@@ -115,8 +74,6 @@ Draw tickmarks also on the upper and/or right side of the plot.
 
 To specify major ticks at arbitrary positions and/or with arbitrary labels. `<list>` is a whitespace-separated list of format `value1 <spaces_or_tabs> label1 <spaces_or_tabs> value2 <spaces_or_tabs> label2 ...`.
 
-
-[//]: # TODO: allow use of YAML-style list syntax to clarify delimiters?
 
 ```
     XCustomMinorTicks=<list>
@@ -287,7 +244,7 @@ If you only want the ratio plot without showing the actual data distribution, yo
 #### Goodness of Fit
 
 
-`make-plots` can calculate the goodness of fit between histograms and display the result in the legend. It is also possible to change the color of the margin around the plot depending on the GoF. This is useful to provide a quick overview when looking at many plots.
+`rivet-plot` can calculate the goodness of fit between histograms and display the result in the legend. It is also possible to change the color of the margin around the plot depending on the GoF. This is useful to provide a quick overview when looking at many plots.
 
 
 ```
@@ -488,7 +445,7 @@ Rebin the histogram. Starting with the lowest bin `<nbins>` bins are combined in
 
 ### FUNCTION
 
-`make-plots` can draw arbitrary functions. These functions are defined as python code sniplets which are evaluated by `make-plots`. The code sniplet must come after all other options in a `FUNCTION` section and are preceded by `Code=` on a single line. An example `FUNCTION` section might look like this:
+`rivet-plot` can draw arbitrary functions. These functions are defined as python code sniplets which are evaluated by `rivet-plot`. The code sniplet must come after all other options in a `FUNCTION` section and are preceded by `Code=` on a single line. An example `FUNCTION` section might look like this:
 
 ```
     # BEGIN FUNCTION f_cc
