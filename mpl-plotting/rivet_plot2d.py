@@ -4,10 +4,10 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 # TODO
-#   Fix figure size bug for multiple plots in one figure
 #   Implement surface plot
 #   Implement contour plot
 #   Convert all input histograms to Scatter using mkScatter
+#   Add support for other file format outputs.
 # TODO probably remove plot_features as input arg at many places and replace with individual args once the API has been defined
 #   This will make it easy to move all functions to the yoda plotting API
 # TODO docstrings
@@ -110,7 +110,7 @@ def _add_colorbar(ax, norm, cmap, *args, **kwargs):
     return cbar
 
 
-def _plot_projection(ax, yoda_hist, plot_features, zmin=None, zmax=None):
+def _plot_projection(ax, yoda_hist, plot_features, zmin=None, zmax=None, colorbar=True):
     """Plot a projection plot using pcolormesh.
 
     Parameters
@@ -136,13 +136,15 @@ def _plot_projection(ax, yoda_hist, plot_features, zmin=None, zmax=None):
     format_axis(ax, 'x', plot_features.get('XLabel'), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), plot_features.get('XCustomMajorTicks'), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
     format_axis(ax, 'y', plot_features.get('YLabel'), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), plot_features.get('YCustomMajorTicks'), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
     
-    cbar = _add_colorbar(ax, norm, cmap=plot_features.get('2DColormap', 'jet'), fraction=0.075, pad=0.02, aspect=25)
-    format_axis(cbar.ax, 'y', plot_features.get('ZLabel'), (zmin, zmax), plot_features.get('LogZ', False), plot_features.get('ZMajorTickMarks'), plot_features.get('ZMinorTickMarks'), plot_features.get('ZCustomMajorTicks'), plot_features.get('ZCustomMinorTicks'), plot_features.get('PlotZTickLabels'))
+    if colorbar:
+        cbar = _add_colorbar(ax, norm, cmap=plot_features.get('2DColormap', 'jet'), fraction=0.075, pad=0.02, aspect=25)
+        format_axis(cbar.ax, 'y', plot_features.get('ZLabel'), (zmin, zmax), plot_features.get('LogZ', False), plot_features.get('ZMajorTickMarks'), plot_features.get('ZMinorTickMarks'), plot_features.get('ZCustomMajorTicks'), plot_features.get('ZCustomMinorTicks'), plot_features.get('PlotZTickLabels'))
+        return im, cbar
     
-    return im, cbar
+    return im
 
 
-def _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin, zmax):
+def _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin, zmax, colorbar=True):
     # TODO code is quite similar to plot_projection. Make into the same function with just data as input? Keep as is for now
     norm = _create_norm(zmin, zmax, log=False)
 
@@ -156,11 +158,13 @@ def _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin, zmax):
     format_axis(ax, 'x', plot_features.get('XLabel'), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), plot_features.get('XCustomMajorTicks'), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
     format_axis(ax, 'y', plot_features.get('YLabel'), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), plot_features.get('YCustomMajorTicks'), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
     
-    # TODO change default cmap for ratio so that ratio plots look different?
-    cbar = _add_colorbar(ax, norm, cmap=plot_features.get('2DRatioColormap', 'jet'), fraction=0.075, pad=0.02, aspect=25)
-    format_axis(cbar.ax, 'y', plot_features.get('RatioPlotZLabel', 'MC/Data'), (zmin, zmax), major_ticks=1, plot_ticklabels=plot_features.get('RatioPlotTickLabels'))
+    if colorbar:
+        # TODO change default cmap for ratio so that ratio plots look different?
+        cbar = _add_colorbar(ax, norm, cmap=plot_features.get('2DRatioColormap', 'jet'), fraction=0.075, pad=0.02, aspect=25)
+        format_axis(cbar.ax, 'y', plot_features.get('RatioPlotZLabel', 'MC/Data'), (zmin, zmax), major_ticks=1, plot_ticklabels=plot_features.get('RatioPlotTickLabels'))
+        return im, cbar
     
-    return im, cbar
+    return im
 
 
 def _post_process_fig(fig, filename, title, sup_title_kw=None, savefig_kw=None, clf_kw=None):
@@ -301,20 +305,20 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.'):
     else:
         ncols = len(hist_data)
         nrows = 1 + ratio
-        width_ratios = [1] * (len(hist_data) - 1) + [1.3]
-
-        fig = plt.figure(figsize=np.array(plt.rcParams['figure.figsize']) * np.array([ncols * sum(width_ratios), nrows]))
         # TODO: change size of last one
+        width_ratios = [1] * (len(hist_data) - 1) + [1.2]
+        fig = plt.figure(figsize=np.array(plt.rcParams['figure.figsize']) * np.array([sum(width_ratios), nrows]))
         gs = fig.add_gridspec(ncols=ncols, nrows=nrows, width_ratios=width_ratios)
+
         for i, (yoda_hist, hist_settings) in enumerate(zip(hist_data, hist_features)):
             ax = fig.add_subplot(gs[0, i])
-            plot_function(ax, yoda_hist, plot_features, zmin, zmax)
+            plot_function(ax, yoda_hist, plot_features, zmin, zmax, colorbar=len(hist_data)-1 == i)
 
         if ratio:
             ref_hist = hist_data[0]
             for i, (yoda_hist, hist_settings) in enumerate(zip(hist_data[1:], hist_features[1:])):
                 ax = fig.add_subplot(gs[1, i+1])
-                _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin=ratio_zmin, zmax=ratio_zmax)
+                _plot_ratio(ax, ref_hist, yoda_hist, plot_features, zmin=ratio_zmin, zmax=ratio_zmax, colorbar=len(hist_data)-2 == i)
         _post_process_fig(fig, filename + '.png', plot_features.get('Title'))
     
     # TODO this does not return anything useful when 2DIndividual==True. Keep as is anyway?
