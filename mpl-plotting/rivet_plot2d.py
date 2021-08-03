@@ -168,31 +168,6 @@ def _plot_ratio_projection(ax, ref_hist, yoda_hist, plot_features, zmin, zmax, c
     return im
 
 
-def _plot_ratio_surface(ax, ref_hist, yoda_hist, plot_features, zmin, zmax, *args, **kwargs):
-    # args, kwargs will be ignored and are there for compatibility reasons. 
-    #   Later, I might move colorbar function out of _plot_*_projection and this might not be needed.
-    # TODO code is quite similar to plot_surface.
-    z_ratio = yoda_hist.zVals(asgrid=True) / ref_hist.zVals(asgrid=True)
-    if not plot_features.get('ShowZero', True):
-        z_ratio[z_ratio==0] = np.nan
-    im = ax.plot_surface(yoda_hist.xVals(asgrid=True), yoda_hist.yVals(asgrid=True), z_ratio, cmap=plot_features.get('2DRatioColormap', 'jet'))
-
-    # TODO probably move out of this function
-    format_axis(ax, 'x', plot_features.get('XLabel'), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), plot_features.get('XCustomMajorTicks'), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
-    format_axis(ax, 'y', plot_features.get('YLabel'), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), plot_features.get('YCustomMajorTicks'), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
-    format_axis(ax, 'z', plot_features.get('RatioPlotZLabel', 'MC/Data'), (zmin, zmax), major_ticks=1, plot_ticklabels=plot_features.get('RatioPlotTickLabels'))
-    
-    # TODO rename keywords?
-    if 'RatioPlot3DAzim' in plot_features:
-        ax.azim = plot_features['RatioPlot3DAzim']
-    if 'RatioPlot3DDist' in plot_features:
-        ax.dist = plot_features['RatioPlot3DDist']
-    if 'RatioPlot3DElev' in plot_features:
-        ax.elev = plot_features['RatioPlot3DElev']
-
-    return im
-
-
 def _plot_surface(ax, yoda_hist, plot_features, zmin, zmax, *args, **kwargs):
     """Plot 3D plot with a surface representing a histogram.
 
@@ -217,12 +192,27 @@ def _plot_surface(ax, yoda_hist, plot_features, zmin, zmax, *args, **kwargs):
     format_axis(ax, 'z', plot_features.get('ZLabel'), (zmin, zmax), plot_features.get('LogZ', False), plot_features.get('ZMajorTickMarks'), plot_features.get('ZMinorTickMarks'), plot_features.get('ZCustomMajorTicks'), plot_features.get('ZCustomMinorTicks'), plot_features.get('PlotZTickLabels'))
     
     # TODO rename keywords?
-    if '3DAzim' in plot_features:
-        ax.azim = plot_features['3DAzim']
-    if '3DDist' in plot_features:
-        ax.dist = plot_features['3DDist']
-    if '3DElev' in plot_features:
-        ax.elev = plot_features['3DElev']
+    ax.view_init(elev=plot_features.get('3DElev'), azim=plot_features.get('3DAzim'))
+
+    return im
+
+
+def _plot_ratio_surface(ax, ref_hist, yoda_hist, plot_features, zmin, zmax, *args, **kwargs):
+    # args, kwargs will be ignored and are there for compatibility reasons. 
+    #   Later, I might move colorbar function out of _plot_*_projection and this might not be needed.
+    # TODO code is quite similar to plot_surface.
+    z_ratio = yoda_hist.zVals(asgrid=True) / ref_hist.zVals(asgrid=True)
+    if not plot_features.get('ShowZero', True):
+        z_ratio[z_ratio==0] = np.nan
+    im = ax.plot_surface(yoda_hist.xVals(asgrid=True), yoda_hist.yVals(asgrid=True), z_ratio, cmap=plot_features.get('2DRatioColormap', 'jet'))
+
+    # TODO probably move out of this function
+    format_axis(ax, 'x', plot_features.get('XLabel'), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), plot_features.get('XCustomMajorTicks'), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
+    format_axis(ax, 'y', plot_features.get('YLabel'), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), plot_features.get('YCustomMajorTicks'), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
+    format_axis(ax, 'z', plot_features.get('RatioPlotZLabel', 'MC/Data'), (zmin, zmax), major_ticks=1, plot_ticklabels=plot_features.get('RatioPlotTickLabels'))
+    
+    # TODO rename keywords?
+    ax.view_init(elev=plot_features.get('RatioPlot3DElev'), azim=plot_features.get('RatioPlot3DAzim'))
 
     return im
 
