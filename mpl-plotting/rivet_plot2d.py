@@ -6,7 +6,6 @@ from mpl_toolkits import mplot3d
 import numpy as np
 # TODO
 #   Convert all input histograms to Scatter using mkScatter
-#   Make ax arg optional. If optional, use plt.cla(projection=...)
 #   Use mathtext preprocessor on all labels
 #   Refactor
 #   Probably remove plot_features as input arg at many places and replace with individual args once the API has been defined
@@ -48,7 +47,6 @@ def format_axis(axis_name, ax=None, label=None, lim=None, log=False,
         ax = plt.gca()
     
     axis_name = axis_name.lower()
-    # TODO Move loc='top' to somewhere else or make it an input parameter
     getattr(ax, 'set_{}label'.format(axis_name))(label)
     getattr(ax, 'set_{}lim'.format(axis_name))(lim)
 
@@ -111,7 +109,6 @@ def _add_colorbar(norm, cmap, ax=None, *args, **kwargs):
     colorbar_tick_format.set_powerlimits(
         (-plt.rcParams.get('axes.formatter.min_exponent'), plt.rcParams.get('axes.formatter.min_exponent'))
     )
-    # TODO change this from rcParams to input arg
     cbar = ax.get_figure().colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap),
         ax=ax, orientation='vertical', format=colorbar_tick_format, *args, **kwargs)
 
@@ -126,7 +123,7 @@ def _plot_projection(yoda_hist, plot_features, ax=None, zmin=None, zmax=None, co
     yoda_hist : yoda Scatter
         [description]
     plot_features : dict
-        TODO remove this and turn into individual kwargs once API has been establited.
+        [description]
     ax : matplotlib.axes.Axes
         [description]
     """
@@ -173,7 +170,7 @@ def _plot_ratio_projection(ref_hist, yoda_hist, plot_features, ax=None, zmin=Non
     format_axis('y', ax, plot_features.get('YLabel'), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), plot_features.get('YCustomMajorTicks'), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
     
     if colorbar:
-        # TODO change default cmap for ratio so that ratio plots look different?
+        # TODO change default cmap from jet to something else so that ratio plots look different?
         cbar = _add_colorbar(norm, cmap=plot_features.get('2DRatioColormap', 'jet'), ax=ax, fraction=0.075, pad=0.02, aspect=25)
         format_axis('y', cbar.ax, plot_features.get('RatioPlotZLabel', 'MC/Data'), (zmin, zmax), major_ticks=1, plot_ticklabels=plot_features.get('RatioPlotTickLabels'))
         return im, cbar
@@ -262,7 +259,7 @@ def _post_process_fig(fig, filename, title, sup_title_kw=None, savefig_kw=None, 
 
 def _prepare_mpl(yaml_dict, plot_features, style_path):
     # Styling to be applied in conjuction with the rivet default style. Might move this to .mplstyle file
-    # TODO axes.labelpad is different for x, y axis. Personally, this setting looks better than original rivet style. 
+    # axes.labelpad is different for x, y axis. Personally, this setting looks better than original rivet style. 
     #   Maybe directly modify using format_axis, specifically set_xlabel(labelpad=something)?
     rc2d = {
         'yaxis.labellocation': 'top', 'image.cmap': 'jet', 'axes.labelpad': 0.7,
@@ -294,13 +291,12 @@ def _get_zlim(hist_data, plot_features):
     """
     if plot_features.get('ZMax') is not None:
         zmax = plot_features.get('ZMax')
-    # TODO remove 1.7 and 1.1?
+    # TODO why do the constants 1.7, 1.1, 2e-7, 1e-4, 0.9 exist?
     elif plot_features.get('LogZ'):
         zmax = 1.7*max(h.zMax() for h in hist_data)
     else:
         zmax = 1.1*max(h.zMax() for h in hist_data)
 
-    # TODO why do these constants exist?
     minzmin = min(h.zMin() for h in hist_data)
     if plot_features.get('ZMin') is not None:
         zmin = plot_features.get('ZMin')
@@ -369,7 +365,6 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.', o
             ref_hist = hist_data[0]
             for yoda_hist, hist_settings in zip(hist_data[1:], hist_features[1:]):
                 ax = fig.add_subplot(111, **subplot_kw)
-                # TODO add more options here such as surface plot etc.
                 ratio_function(ref_hist, yoda_hist, plot_features, ax=ax, zmin=ratio_zmin, zmax=ratio_zmax)
                 _post_process_fig(fig, '{}-{}-ratio.{}'.format(filename, hist_settings['Title'], outputfileformat), plot_features.get('Title'))
 
