@@ -132,12 +132,12 @@ def _plot_projection(yoda_hist, plot_features, ax=None, zmin=None, zmax=None, co
 
     norm = _create_norm(zmin, zmax, plot_features.get('LogZ', False))
     
-    z_vals = yoda_hist.zVals(asgrid=True).T
+    z_vals = yoda_hist.zVals(asgrid=True)
     if not plot_features.get('ShowZero', True):
         z_vals[z_vals==0] = np.nan
         
     # TODO xEdges etc might not work with Scatter.
-    x_edges, y_edges = np.meshgrid(yoda_hist.xEdges(), yoda_hist.yEdges())
+    y_edges, x_edges = np.meshgrid(yoda_hist.yEdges(), yoda_hist.xEdges())
     im = ax.pcolormesh(x_edges, y_edges, z_vals, norm=norm, cmap=plot_features.get('2DColormap', 'jet'))
 
     # TODO probably move out of this function
@@ -159,8 +159,8 @@ def _plot_ratio_projection(ref_hist, yoda_hist, plot_features, ax=None, zmin=Non
 
     norm = _create_norm(zmin, zmax, log=False)
 
-    x_edges, y_edges = np.meshgrid(yoda_hist.xEdges(), yoda_hist.yEdges())
-    z_ratio = (yoda_hist.zVals(asgrid=True) / ref_hist.zVals(asgrid=True)).T
+    y_edges, x_edges = np.meshgrid(yoda_hist.yEdges(), yoda_hist.xEdges())
+    z_ratio = yoda_hist.zVals(asgrid=True) / ref_hist.zVals(asgrid=True)
     if not plot_features.get('ShowZero', True):
         z_ratio[z_ratio==0] = np.nan
     im = ax.pcolormesh(x_edges, y_edges, z_ratio, norm=norm, cmap=plot_features.get('2DRatioColormap', 'jet'))
