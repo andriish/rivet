@@ -371,8 +371,8 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.', o
     else:
         ncols = len(hist_data)
         nrows = 1 + ratio
-        # TODO: change size of last one
-        width_ratios = [1] * (len(hist_data) - 1) + [1.2]
+        # The last column is intentionally made 10% larger, since it will contain the color bar as well.
+        width_ratios = [1] * (len(hist_data) - 1) + [1.1]
         fig = plt.figure(figsize=np.array(plt.rcParams['figure.figsize']) * np.array([sum(width_ratios), nrows]))
         gs = fig.add_gridspec(ncols=ncols, nrows=nrows, width_ratios=width_ratios)
 
