@@ -5,12 +5,46 @@ import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
 import numpy as np
 # TODO
-#   Convert all input histograms to Scatter using mkScatter
 #   Use mathtext preprocessor on all labels
 #   Refactor
 #   Probably remove plot_features as input arg at many places and replace with individual args once the API has been defined
 #       This will make it easy to move all functions to the yoda plotting API
 #   docstrings
+
+def _scatter_to_2d(hs, xy_type):
+    """Convert a yoda.Scatter3D into 2D arrays corresponding to x, y, and z.
+
+    Parameters
+    ----------
+    hs : yoda.Scatter3D
+        The scatter object from which the edges z values will be extracted
+    xy_type : str
+        Either "edge" or "mid". If "edge", return the edges of the of the original bins in the histogram. 
+        If "mid", return the midpoints of the x and y bins.
+    
+    Returns
+    -------
+    x, y : 2D np.ndarray
+        The edges or midpoints of the original histogram, as a 2D array, similar to the output of np.meshgrid. 
+        If xy_type is "edge", the shapes of x and y are (n+1, m+1). If xy_type is "mid", the shapes are (n, m).
+        Here, n is the number of x bins and m is the number of y bins in the histogram.
+    z : 2D np.ndarray
+        The z values in each bin of the original histogram, as a 2D array.
+        Shape: (n, m), where n is the number of x bins and m is the number of y bins in the histogram.
+    Notes
+    -----
+    TODO code works using meshgrid but probably slower and not as clean as using reshape
+    """
+    nrows = np.argmax(hs.yMins()) + 1
+    if xy_type == 'edge':
+        y_1d = np.append(hs.yMins()[:nrows], hs.yMax())
+        x_1d = np.append(hs.xMins()[::nrows], hs.xMax())
+    elif xy_type == 'mid':
+        y_1d = hs.yVals()[:nrows]
+        x_1d = hs.xVals()[::nrows]
+    y, x = np.meshgrid(y_1d, x_1d)
+    z = hs.zVals().reshape((-1, nrows))
+    return x, y, z
 
 
 def format_axis(axis_name, ax=None, label=None, lim=None, log=False, 
@@ -120,8 +154,8 @@ def _plot_projection(yoda_hist, plot_features, ax=None, zmin=None, zmax=None, co
 
     Parameters
     ----------
-    yoda_hist : yoda Scatter
-        [description]
+    yoda_hist : yoda.Scatter3D
+        Yoda scatter that will be plotted.
     plot_features : dict
         [description]
     ax : matplotlib.axes.Axes
@@ -132,12 +166,11 @@ def _plot_projection(yoda_hist, plot_features, ax=None, zmin=None, zmax=None, co
 
     norm = _create_norm(zmin, zmax, plot_features.get('LogZ', False))
     
-    z_vals = yoda_hist.zVals(asgrid=True)
+    x_edges, y_edges, z_vals = _scatter_to_2d(yoda_hist, 'edge')
+    
     if not plot_features.get('ShowZero', True):
         z_vals[z_vals==0] = np.nan
         
-    # TODO xEdges etc might not work with Scatter.
-    y_edges, x_edges = np.meshgrid(yoda_hist.yEdges(), yoda_hist.xEdges())
     im = ax.pcolormesh(x_edges, y_edges, z_vals, norm=norm, cmap=plot_features.get('2DColormap', 'jet'))
 
     # TODO probably move out of this function
@@ -159,10 +192,13 @@ def _plot_ratio_projection(ref_hist, yoda_hist, plot_features, ax=None, zmin=Non
 
     norm = _create_norm(zmin, zmax, log=False)
 
-    y_edges, x_edges = np.meshgrid(yoda_hist.yEdges(), yoda_hist.xEdges())
-    z_ratio = yoda_hist.zVals(asgrid=True) / ref_hist.zVals(asgrid=True)
+    x_edges, y_edges, mc_z = _scatter_to_2d(yoda_hist, 'edge')
+    _, _, ref_z = _scatter_to_2d(ref_hist, 'edge')
+    z_ratio = mc_z / ref_z
+
     if not plot_features.get('ShowZero', True):
         z_ratio[z_ratio==0] = np.nan
+
     im = ax.pcolormesh(x_edges, y_edges, z_ratio, norm=norm, cmap=plot_features.get('2DRatioColormap', 'jet'))
 
     # TODO probably move out of this function
@@ -183,21 +219,26 @@ def _plot_surface(yoda_hist, plot_features, ax=None, zmin=None, zmax=None, *args
 
     Parameters
     ----------
+    yoda_hist : yoda.Scatter3D
+        Yoda scatter that will be plotted.
     plot_features : dict
         Settings that will be applied to the entire figure or each axes.
+    ax : mpl_toolkits.mplot3d.Axes3D
+        The axes in which the surface plot will be plotted in. If None, use the latest used 3D axes.
+        Later, I might move colorbar function out of _plot_*_projection and this might not be needed.
+    args, kwargs
+        Will be ignored. Are only there for compatibility reasons.
     """
-    # args, kwargs will be ignored and are there for compatibility reasons. 
-    #   Later, I might move colorbar function out of _plot_*_projection and this might not be needed.
     # TODO code is quite similar to plot_surface.
     if ax is None:
         ax = plt.gca(projection='3d')
 
-    z_vals = yoda_hist.zVals(asgrid=True)
+    x_mids, y_mids, z_vals = _scatter_to_2d(yoda_hist, 'mid')
+
     if not plot_features.get('ShowZero', True):
         z_vals[z_vals==0] = np.nan
         
-    # TODO xEdges etc might not work with Scatter.
-    im = ax.plot_surface(yoda_hist.xVals(asgrid=True), yoda_hist.yVals(asgrid=True), z_vals, cmap=plot_features.get('2DColormap', 'jet'))
+    im = ax.plot_surface(x_mids, y_mids, z_vals, cmap=plot_features.get('2DColormap', 'jet'))
 
     # TODO probably move out of this function
     format_axis('x', ax, plot_features.get('XLabel'), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), plot_features.get('XCustomMajorTicks'), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
@@ -211,23 +252,26 @@ def _plot_surface(yoda_hist, plot_features, ax=None, zmin=None, zmax=None, *args
 
 
 def _plot_ratio_surface(ref_hist, yoda_hist, plot_features, ax=None, zmin=None, zmax=None, *args, **kwargs):
-    # args, kwargs will be ignored and are there for compatibility reasons. 
-    #   Later, I might move colorbar function out of _plot_*_projection and this might not be needed.
+    # args, kwargs will be ignored and are there for compatibility reasons. See _plot_surface
     # TODO code is quite similar to plot_surface.
     if ax is None:
         ax = plt.gca(projection='3d')
 
-    z_ratio = yoda_hist.zVals(asgrid=True) / ref_hist.zVals(asgrid=True)
+    x_mids, y_mids, mc_z = _scatter_to_2d(yoda_hist, 'mid')
+    _, _, ref_z = _scatter_to_2d(ref_hist, 'mid')
+    z_ratio = mc_z / ref_z
+    
     if not plot_features.get('ShowZero', True):
         z_ratio[z_ratio==0] = np.nan
-    im = ax.plot_surface(yoda_hist.xVals(asgrid=True), yoda_hist.yVals(asgrid=True), z_ratio, cmap=plot_features.get('2DRatioColormap', 'jet'))
+    
+    im = ax.plot_surface(x_mids, y_mids, z_ratio, cmap=plot_features.get('2DRatioColormap', 'jet'))
 
     # TODO probably move out of this function
     format_axis('x', ax, plot_features.get('XLabel'), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), plot_features.get('XCustomMajorTicks'), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
     format_axis('y', ax, plot_features.get('YLabel'), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), plot_features.get('YCustomMajorTicks'), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
     format_axis('z', ax, plot_features.get('RatioPlotZLabel', 'MC/Data'), (zmin, zmax), major_ticks=1, plot_ticklabels=plot_features.get('RatioPlotTickLabels'))
     
-    # TODO rename keywords?
+    # TODO remove these parameters and use the same as for main plots?
     ax.view_init(elev=plot_features.get('RatioPlot3DElev'), azim=plot_features.get('RatioPlot3DAzim'))
 
     return im
@@ -317,7 +361,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.', o
 
     Parameters
     ----------
-    hist_data : list[yoda.Histo2D | yoda.Profile2D | yoda.Scatter3D] TODO only make it work with Scatter in future?
+    hist_data : list[yoda.Scatter3D]
         All histograms that will be plotted.
     hist_features : dict
         Plot settings for each histogram.

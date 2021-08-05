@@ -37,7 +37,8 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
         _save_fig(fig, output_filename)
 
     elif all(isinstance(h, (yoda.Histo2D, yoda.Scatter3D, yoda.Profile2D)) for h in hist_data):
-        plot_2Dhist(hist_data, hist_features, yaml_dicts, output_filename)
+        hist_data_scatter = [h.mkScatter() for h in hist_data]
+        plot_2Dhist(hist_data_scatter, hist_features, yaml_dicts, output_filename)
     
     else:
         print('Error with Class types:', [type(h) for h in hist_data])
