@@ -36,15 +36,16 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
     hist_features = [val for val in yaml_dicts['histograms'].values()]
     output_filename = os.path.join(outputdir, plot_name.strip('/'))
 
+    hist_data_scatter = [h.mkScatter() for h in hist_data]
+    
     if all(isinstance(h, (yoda.core.Scatter2D, yoda.core.Histo1D, yoda.core.Profile1D)) for h in hist_data):
         # TODO: Refactor code so 1Dhist and 2Dhist calls are similar
         plot_features = yaml_dicts.get('plot features', {})
-        fig, axes = _create_plot(yaml_dicts, plot_features, hist_data)
-        _plot_1Dhist(hist_data, axes, hist_features, plot_features)
+        fig, axes = _create_plot(yaml_dicts, plot_features, hist_data_scatter)
+        _plot_1Dhist(hist_data_scatter, axes, hist_features, plot_features)
         _save_fig(fig, output_filename)
 
     elif all(isinstance(h, (yoda.Histo2D, yoda.Scatter3D, yoda.Profile2D)) for h in hist_data):
-        hist_data_scatter = [h.mkScatter() for h in hist_data]
         plot_2Dhist(hist_data_scatter, hist_features, yaml_dicts, output_filename)
     
     else:
@@ -195,8 +196,8 @@ def _plot_1Dhist(hist_data, axes, hist_features, plot_features):
         ax.plot(x_bins, y_mc, color, drawstyle='steps-pre',
                 solid_joinstyle='miter', zorder=5+i)  # Plot MC hist data
         if hist_features[i].get('ErrorBars', 1):  # Plot MC error bars by default
-            mc_errminus = mc.yErrs()
-            mc_errplus = mc.yErrs()
+            mc_errminus =  [err[0] for err in mc.yErrs()]
+            mc_errplus = [err[1] for err in mc.yErrs()]
             ax.vlines(x_points, (mc.yVals() - mc_errminus),
                       (mc.yVals() + mc_errplus), color, zorder=5+i)
 
