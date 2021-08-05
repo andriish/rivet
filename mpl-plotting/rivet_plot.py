@@ -37,17 +37,15 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
     output_filename = os.path.join(outputdir, plot_name.strip('/'))
 
     hist_data_scatter = [h.mkScatter() for h in hist_data]
-    
+
     if all(isinstance(h, (yoda.core.Scatter2D, yoda.core.Histo1D, yoda.core.Profile1D)) for h in hist_data):
-        # TODO: Refactor code so 1Dhist and 2Dhist calls are similar
-        plot_features = yaml_dicts.get('plot features', {})
-        fig, axes = _create_plot(yaml_dicts, plot_features, hist_data_scatter)
-        _plot_1Dhist(hist_data_scatter, axes, hist_features, plot_features)
-        _save_fig(fig, output_filename)
+        _plot_1Dhist(hist_data_scatter, hist_features,
+                     yaml_dicts, output_filename)
 
     elif all(isinstance(h, (yoda.Histo2D, yoda.Scatter3D, yoda.Profile2D)) for h in hist_data):
-        plot_2Dhist(hist_data_scatter, hist_features, yaml_dicts, output_filename)
-    
+        plot_2Dhist(hist_data_scatter, hist_features,
+                    yaml_dicts, output_filename)
+
     else:
         print('Error with Class types:', [type(h) for h in hist_data])
         raise NotImplementedError('Class type cannot be plotted yet')
@@ -165,8 +163,11 @@ def _create_plot(yaml_dicts, plot_features, hist_data):
     return fig, (ax,)
 
 
-def _plot_1Dhist(hist_data, axes, hist_features, plot_features):
+def _plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename):
     """Plot the 1D historgram data."""
+    plot_features = yaml_dicts.get('plot features', {})
+    fig, axes = _create_plot(yaml_dicts, plot_features, hist_data)
+
     # Create useful variables
     colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
     x_points = (hist_data[0].xMins() + hist_data[0].xMaxs())/2
@@ -196,7 +197,7 @@ def _plot_1Dhist(hist_data, axes, hist_features, plot_features):
         ax.plot(x_bins, y_mc, color, drawstyle='steps-pre',
                 solid_joinstyle='miter', zorder=5+i)  # Plot MC hist data
         if hist_features[i].get('ErrorBars', 1):  # Plot MC error bars by default
-            mc_errminus =  [err[0] for err in mc.yErrs()]
+            mc_errminus = [err[0] for err in mc.yErrs()]
             mc_errplus = [err[1] for err in mc.yErrs()]
             ax.vlines(x_points, (mc.yVals() - mc_errminus),
                       (mc.yVals() + mc_errplus), color, zorder=5+i)
@@ -259,10 +260,8 @@ def _plot_1Dhist(hist_data, axes, hist_features, plot_features):
             ax.legend(handles, labels, loc='upper right', bbox_to_anchor=legend_pos,
                       handler_map={AnyObject: AnyObjectHandler()}, markerfirst=False)
 
-
-def _save_fig(fig, plot_name):
-    fig.savefig(plot_name+'.pdf')
-    fig.savefig(plot_name+'.png')
+    fig.savefig(output_filename+'.pdf')
+    fig.savefig(output_filename+'.png')
     plt.close()
 
 
