@@ -5,7 +5,11 @@ import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
 import numpy as np
 # TODO
-#   Use mathtext preprocessor on all labels
+#   Use mathtext preprocessor on all labels. Some options for where this should be done:
+#   - Modify the dict directly once it has been read
+#   - Change labels directly inside the plotting functions
+#   - Change labels right before passing them into the plotting functions
+#   - Change labels in rivet_makeyaml
 #   Refactor
 #   Probably remove plot_features as input arg at many places and replace with individual args once the API has been defined
 #       This will make it easy to move all functions to the yoda plotting API
@@ -31,6 +35,7 @@ def _scatter_to_2d(hs, xy_type):
     z : 2D np.ndarray
         The z values in each bin of the original histogram, as a 2D array.
         Shape: (n, m), where n is the number of x bins and m is the number of y bins in the histogram.
+    
     Notes
     -----
     TODO code works using meshgrid but probably slower and not as clean as using reshape
