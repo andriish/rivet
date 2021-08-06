@@ -7,15 +7,10 @@ import numpy as np
 
 from mathtext_preprocessor import preprocess
 # TODO
-#   Use mathtext preprocessor on all labels. Some options for where this should be done:
-#   - Modify the dict directly once it has been read
-#   - Change labels directly inside the plotting functions
-#   - Change labels right before passing them into the plotting functions
-#   - Change labels in rivet_makeyaml
-#   Refactor
-#   Probably remove plot_features as input arg at many places and replace with individual args once the API has been defined
+#   Remove plot_features as input arg at many places and replace with individual args once the API has been defined
 #       This will make it easy to move all functions to the yoda plotting API
-#   docstrings
+#   Docstrings
+#   Performance improvements
 
 def _scatter_to_2d(hs, xy_type):
     """Convert a yoda.Scatter3D into 2D arrays corresponding to x, y, and z.
@@ -64,7 +59,6 @@ def format_axis(axis_name, ax=None, label=None, lim=None, log=False,
     ----------
     axis_name : str
         x, y or z. Either upper or lower case.
-        TODO make this an axis object as input instead?
     ax : matplotlib.axes.Axes
         The Axes object containing the axis. If None, uses plt.gca()
     label : str, optional
@@ -96,15 +90,15 @@ def format_axis(axis_name, ax=None, label=None, lim=None, log=False,
     if log:
         ax.set(**{axis_name + 'scale': 'log'})
         getattr(ax, axis_name + 'axis').set_major_locator(mpl.ticker.LogLocator(numticks=np.inf))
-    
-    # Set tick marks frequency
-    if major_ticks and not log:
-        base = major_ticks*10**(int(np.log10(lim[1]))-1)
-        getattr(ax, axis_name + 'axis').set_major_locator(mpl.ticker.MultipleLocator(base))
-    
-    if minor_ticks and not log:
-        getattr(ax, axis_name + 'axis').set_minor_locator(mpl.ticker.AutoMinorLocator(
-            1+minor_ticks))
+    else:
+        # Set tick marks frequency
+        if major_ticks:
+            base = major_ticks*10**(int(np.log10(lim[1]))-1)
+            getattr(ax, axis_name + 'axis').set_major_locator(mpl.ticker.MultipleLocator(base))
+        
+        if minor_ticks:
+            getattr(ax, axis_name + 'axis').set_minor_locator(mpl.ticker.AutoMinorLocator(
+                1+minor_ticks))
     
     # Add custom ticks
     if custom_major_ticks:
@@ -148,9 +142,9 @@ def _add_colorbar(norm, cmap, ax=None, *args, **kwargs):
 
     # BUG exponent (i.e. 10^x) placement is weird
     colorbar_tick_format = mpl.ticker.ScalarFormatter(useMathText=True)
-    colorbar_tick_format.set_powerlimits(
-        (-plt.rcParams.get('axes.formatter.min_exponent'), plt.rcParams.get('axes.formatter.min_exponent'))
-    )
+    # colorbar_tick_format.set_powerlimits(
+    #     (-plt.rcParams.get('axes.formatter.min_exponent'), plt.rcParams.get('axes.formatter.min_exponent'))
+    # )
     cbar = ax.get_figure().colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap),
         ax=ax, orientation='vertical', format=colorbar_tick_format, *args, **kwargs)
 
@@ -234,10 +228,20 @@ def _plot_ratio_projection(ref_hist, yoda_hist, plot_features, ax=None, zmin=Non
     if colorbar:
         # TODO change default cmap from jet to something else so that ratio plots look different?
         cbar = _add_colorbar(norm, cmap=plot_features.get('2DRatioColormap', 'jet'), ax=ax, fraction=0.075, pad=0.02, aspect=25)
-        format_axis('y', cbar.ax, preprocess(plot_features.get('RatioPlotZLabel', 'MC/Data')), (zmin, zmax), major_ticks=1, plot_ticklabels=plot_features.get('RatioPlotTickLabels'))
+        format_axis('y', cbar.ax, preprocess(plot_features.get('RatioPlotZLabel', 'MC/Data')), (zmin, zmax), major_ticks=1, plot_ticklabels=plot_features.get('RatioPlotTickLabels', True))
         return im, cbar
     
     return im
+
+
+def _log_tick_formatter(val, pos=None):
+    return r"$10^{%.0f}$" % val
+    
+def _set_log_axis_3d(axis_name, ax):
+    axis_name = axis_name.lower()
+    getattr(ax, axis_name + 'axis').set_major_formatter(mpl.ticker.FuncFormatter(_log_tick_formatter))
+    # TODO Add minor ticks
+    getattr(ax, axis_name + 'axis').set_major_locator(mpl.ticker.MultipleLocator(1))
 
 
 def _plot_surface(yoda_hist, plot_features, ax=None, zmin=None, zmax=None, *args, **kwargs):
@@ -259,18 +263,27 @@ def _plot_surface(yoda_hist, plot_features, ax=None, zmin=None, zmax=None, *args
     if ax is None:
         ax = plt.gca(projection='3d')
 
-    x_mids, y_mids, z_vals = _scatter_to_2d(yoda_hist, 'mid')
+    surface_coordinates = list(_scatter_to_2d(yoda_hist, 'mid'))
 
     if not plot_features.get('ShowZero', True):
-        z_vals[z_vals==0] = np.nan
-        
-    im = ax.plot_surface(x_mids, y_mids, z_vals, cmap=plot_features.get('2DColormap', 'jet'))
-
-    # TODO probably move out of this function
-    format_axis('x', ax, preprocess(plot_features.get('XLabel')), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), _preprocess_custom_ticks(plot_features.get('XCustomMajorTicks')), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
-    format_axis('y', ax, preprocess(plot_features.get('YLabel')), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), _preprocess_custom_ticks(plot_features.get('YCustomMajorTicks')), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
-    format_axis('z', ax, preprocess(plot_features.get('ZLabel')), (zmin, zmax), plot_features.get('LogZ', False), plot_features.get('ZMajorTickMarks'), plot_features.get('ZMinorTickMarks'), _preprocess_custom_ticks(plot_features.get('ZCustomMajorTicks')), plot_features.get('ZCustomMinorTicks'), plot_features.get('PlotZTickLabels'))
+        surface_coordinates[2][surface_coordinates[2]==0] = np.nan
     
+    im = ax.plot_surface(*surface_coordinates, cmap=plot_features.get('2DColormap', 'jet'))
+    
+    # If an axis is log/scaled, change axis scale and change axis limits and ticks accordingly.
+    # This is a workaround for this 10+ year old bug in matplotlib: https://github.com/matplotlib/matplotlib/issues/209
+    # TODO move this out of plot_surface?
+    for i, (axis_name, lim) in enumerate(zip('XYZ', ((plot_features.get('XMin'), plot_features.get('XMax')), 
+                                                     (plot_features.get('YMin'), plot_features.get('YMax')), 
+                                                     (zmin, zmax)))):
+        if plot_features.get('Log' + axis_name):
+            surface_coordinates[i] = np.log10(surface_coordinates[i])
+            _set_log_axis_3d(axis_name.lower(), ax)
+            log_lim = [np.log10(j) if j is not None else j for j in lim]
+            format_axis(axis_name, ax, label=preprocess(plot_features.get(axis_name + 'Label')), lim=log_lim, custom_major_ticks=_preprocess_custom_ticks(plot_features.get(axis_name + 'CustomMajorTicks')), custom_minor_ticks=plot_features.get(axis_name+'CustomMinorTicks'), plot_ticklabels=plot_features.get('Plot{}TickLabels'.format(axis_name)))
+        else:
+            format_axis(axis_name, ax, preprocess(plot_features.get(axis_name + 'Label')), lim=lim, major_ticks=plot_features.get(axis_name + 'MajorTickMarks'), minor_ticks=plot_features.get(axis_name + 'MinorTickMarks'), custom_major_ticks=_preprocess_custom_ticks(plot_features.get(axis_name + 'CustomMajorTicks')), custom_minor_ticks=plot_features.get(axis_name + 'CustomMinorTicks'), plot_ticklabels=plot_features.get('Plot{}TickLabels'.format(axis_name)))
+
     # TODO rename keywords?
     ax.view_init(elev=plot_features.get('3DElev'), azim=plot_features.get('3DAzim'))
 
@@ -295,7 +308,7 @@ def _plot_ratio_surface(ref_hist, yoda_hist, plot_features, ax=None, zmin=None, 
     # TODO probably move out of this function
     format_axis('x', ax, preprocess(plot_features.get('XLabel')), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), _preprocess_custom_ticks(plot_features.get('XCustomMajorTicks')), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
     format_axis('y', ax, preprocess(plot_features.get('YLabel')), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), _preprocess_custom_ticks(plot_features.get('YCustomMajorTicks')), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
-    format_axis('z', ax, preprocess(plot_features.get('RatioPlotZLabel', 'MC/Data')), (zmin, zmax), major_ticks=1, plot_ticklabels=plot_features.get('RatioPlotTickLabels'))
+    format_axis('z', ax, preprocess(plot_features.get('RatioPlotZLabel', 'MC/Data')), (zmin, zmax), major_ticks=1, plot_ticklabels=plot_features.get('RatioPlotTickLabels', True))
     
     # TODO remove these parameters and use the same as for main plots?
     ax.view_init(elev=plot_features.get('RatioPlot3DElev'), azim=plot_features.get('RatioPlot3DAzim'))
@@ -352,16 +365,15 @@ def _get_zlim(hist_data, plot_features):
     hist_data : list
         All histograms
     plot_features : dict
-        TODO replace with individual input args later.
 
     Returns
     -------
     zmin, zmax : float
         Limits to the z axis.
     """
+    # TODO change/remove constants to make plot look better in log scale
     if plot_features.get('ZMax') is not None:
         zmax = plot_features.get('ZMax')
-    # TODO why do the constants 1.7, 1.1, 2e-7, 1e-4, 0.9 exist?
     elif plot_features.get('LogZ'):
         zmax = 1.7*max(h.zMax() for h in hist_data)
     else:
@@ -459,5 +471,6 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.', o
                 ax.set_title(preprocess('{}/{}'.format(hist_settings['Title'], hist_features[0]['Title'])))
         _post_process_fig(fig, '{}.{}'.format(filename, outputfileformat), preprocess(plot_features.get('Title')))
     
-    # TODO this does not return anything useful when 2DIndividual==True. Keep as is anyway?
+    # TODO this does not return anything useful when 2DIndividual==True.
+    #  Close figure instead?
     return fig
