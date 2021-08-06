@@ -29,21 +29,19 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
         hist_data = _parse_yoda_hist(yaml_dicts)
     else:  # If the dictionary object is passed
         yaml_dicts = yaml_file
-        hist_data = [hist_dict['yoda']
+        hist_data = [hist_dict['yoda'].mkScatter()
                      for hist_dict in yaml_dicts.get('histograms').values()]
 
     # TODO the first element in hist_data and hist_features should have IsRef==1
     hist_features = [val for val in yaml_dicts['histograms'].values()]
     output_filename = os.path.join(outputdir, plot_name.strip('/'))
 
-    hist_data_scatter = [h.mkScatter() for h in hist_data]
-
-    if all(isinstance(h, (yoda.core.Scatter2D, yoda.core.Histo1D, yoda.core.Profile1D)) for h in hist_data):
-        _plot_1Dhist(hist_data_scatter, hist_features,
+    if all(isinstance(h, yoda.Scatter2D) for h in hist_data):
+        _plot_1Dhist(hist_data, hist_features,
                      yaml_dicts, output_filename)
 
-    elif all(isinstance(h, (yoda.Histo2D, yoda.Scatter3D, yoda.Profile2D)) for h in hist_data):
-        plot_2Dhist(hist_data_scatter, hist_features,
+    elif all(isinstance(h, yoda.Scatter3D) for h in hist_data):
+        plot_2Dhist(hist_data, hist_features,
                     yaml_dicts, output_filename)
 
     else:
@@ -56,7 +54,7 @@ def _parse_yoda_hist(yaml_dicts):
     hist_data = []
     for hist_dict in yaml_dicts['histograms'].values():
         with io.StringIO(hist_dict['yoda']) as file_like:
-            hist_data.append(yoda.readYODA(file_like, asdict=False)[0])
+            hist_data.append(yoda.readYODA(file_like, asdict=False)[0].mkScatter())
     return hist_data
 
 
