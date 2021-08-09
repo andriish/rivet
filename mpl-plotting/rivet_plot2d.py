@@ -189,14 +189,14 @@ def _plot_projection(yoda_hist, plot_features, ax=None, zmin=None, zmax=None, co
     if not plot_features.get('ShowZero', True):
         z_vals[z_vals==0] = np.nan
         
-    im = ax.pcolormesh(x_edges, y_edges, z_vals, norm=norm, cmap=plot_features.get('2DColormap', 'jet'))
+    im = ax.pcolormesh(x_edges, y_edges, z_vals, norm=norm, cmap=plot_features.get('2DColormap', plt.rcParams['image.cmap']))
 
     # TODO probably move out of this function
     format_axis('x', ax, preprocess(plot_features.get('XLabel')), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), _preprocess_custom_ticks(plot_features.get('XCustomMajorTicks')), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
     format_axis('y', ax, preprocess(plot_features.get('YLabel')), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), _preprocess_custom_ticks(plot_features.get('YCustomMajorTicks')), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
     
     if colorbar:
-        cbar = _add_colorbar(norm, cmap=plot_features.get('2DColormap', 'jet'), ax=ax, fraction=0.075, pad=0.02, aspect=25)
+        cbar = _add_colorbar(norm, cmap=plot_features.get('2DColormap', plt.rcParams['image.cmap']), ax=ax, fraction=0.075, pad=0.02, aspect=25)
         format_axis('y', cbar.ax, preprocess(plot_features.get('ZLabel')), (zmin, zmax), plot_features.get('LogZ', False), plot_features.get('ZMajorTickMarks'), plot_features.get('ZMinorTickMarks'), _preprocess_custom_ticks(plot_features.get('ZCustomMajorTicks')), plot_features.get('ZCustomMinorTicks'), plot_features.get('PlotZTickLabels'))
         return im, cbar
     
@@ -216,15 +216,15 @@ def _plot_ratio_projection(ref_hist, yoda_hist, plot_features, ax=None, zmin=Non
     if not plot_features.get('ShowZero', True):
         z_ratio[z_ratio==0] = np.nan
 
-    im = ax.pcolormesh(x_edges, y_edges, z_ratio, norm=norm, cmap=plot_features.get('2DRatioColormap', 'jet'))
+    im = ax.pcolormesh(x_edges, y_edges, z_ratio, norm=norm, cmap=plot_features.get('2DRatioColormap', plt.rcParams['image.cmap']))
 
     # TODO probably move out of this function
     format_axis('x', ax, preprocess(plot_features.get('XLabel')), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), _preprocess_custom_ticks(plot_features.get('XCustomMajorTicks')), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
     format_axis('y', ax, preprocess(plot_features.get('YLabel')), (plot_features.get('YMin'), plot_features.get('YMax')), plot_features.get('LogY'), plot_features.get('YMajorTickMarks'), plot_features.get('YMinorTickMarks'), _preprocess_custom_ticks(plot_features.get('YCustomMajorTicks')), plot_features.get('YCustomMinorTicks'), plot_features.get('PlotYTickLabels'))
     
     if colorbar:
-        # TODO change default cmap from jet to something else so that ratio plots look different?
-        cbar = _add_colorbar(norm, cmap=plot_features.get('2DRatioColormap', 'jet'), ax=ax, fraction=0.075, pad=0.02, aspect=25)
+        # TODO change default cmap to something else so that ratio plots look different?
+        cbar = _add_colorbar(norm, cmap=plot_features.get('2DRatioColormap', plt.rcParams['image.cmap']), ax=ax, fraction=0.075, pad=0.02, aspect=25)
         format_axis('y', cbar.ax, preprocess(plot_features.get('RatioPlotZLabel', 'MC/Data')), (zmin, zmax), major_ticks=1, plot_ticklabels=plot_features.get('RatioPlotTickLabels', True))
         return im, cbar
     
@@ -240,7 +240,6 @@ def _set_log_axis_3d(axis_name, ax):
         "Use a projection 2D plot instead.".format(axis_name))
     axis_name = axis_name.lower()
     getattr(ax, axis_name + 'axis').set_major_formatter(mpl.ticker.FuncFormatter(_log_tick_formatter))
-    # TODO Add minor ticks
     getattr(ax, axis_name + 'axis').set_major_locator(mpl.ticker.MultipleLocator(1))
 
 
@@ -277,7 +276,7 @@ def _plot_surface(yoda_hist, plot_features, ax=None, zmin=None, zmax=None, *args
     surface_coordinates = [np.log10(surface_coordinates[i]) if plot_features.get('Log' + axis_name) else surface_coordinates[i] 
         for i, axis_name in enumerate('XYZ')]
     
-    im = ax.plot_surface(*surface_coordinates, cmap=plot_features.get('2DColormap', 'jet'))
+    im = ax.plot_surface(*surface_coordinates, cmap=plot_features.get('2DColormap', plt.rcParams['image.cmap']))
     
     # If an axis is log/scaled, change axis scale and change axis limits and ticks accordingly.
     # See Notes in docstring.
@@ -309,7 +308,7 @@ def _plot_ratio_surface(ref_hist, yoda_hist, plot_features, ax=None, zmin=None, 
     if not plot_features.get('ShowZero', True):
         z_ratio[z_ratio==0] = np.nan
     
-    im = ax.plot_surface(x_mids, y_mids, z_ratio, cmap=plot_features.get('2DRatioColormap', 'jet'))
+    im = ax.plot_surface(x_mids, y_mids, z_ratio, cmap=plot_features.get('2DRatioColormap', plt.rcParams['image.cmap']))
 
     # TODO probably move out of this function
     format_axis('x', ax, preprocess(plot_features.get('XLabel')), (plot_features.get('XMin'), plot_features.get('XMax')), plot_features.get('LogX'), plot_features.get('XMajorTickMarks'), plot_features.get('XMinorTickMarks'), _preprocess_custom_ticks(plot_features.get('XCustomMajorTicks')), plot_features.get('XCustomMinorTicks'), plot_features.get('PlotXTickLabels'))
