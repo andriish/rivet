@@ -55,7 +55,7 @@ def format_axis(axis_name, ax=None, label=None, lim=None, log=False,
     major_ticks=None, minor_ticks=None, custom_major_ticks=None, custom_minor_ticks=None,
     plot_ticklabels=True):
     """Format an axis (e.g. x axis, **NOT** an Axes object) based on the inputs.
-    If an optional input variable is None, the default setting in matplotlib will be used.
+    If an optional input variable is None, the option will be ignored, unless a different behavior is specified.
     
     Parameters
     ----------
@@ -75,9 +75,8 @@ def format_axis(axis_name, ax=None, label=None, lim=None, log=False,
         Number of minor ticks, by default None
     custom_major_ticks : Sequence, optional
         Location of tick, followed by the corresponding tick label.
-        If None, ignore and use default matplotlib settings.
     custom_minor_ticks : Sequence[float], optional
-        [description], by default None
+        A list of the locations of minor ticks at arbitrary positions. 
     plot_ticklabels : bool, optional
         If False, do not plot any tick labels, by default True
     """
@@ -321,30 +320,6 @@ def _plot_ratio_surface(ref_hist, yoda_hist, plot_features, ax=None, zmin=None, 
     return im
 
 
-def _post_process_fig(fig, filename, title, sup_title_kw=None, savefig_kw=None, clf_kw=None):
-    """Save close, and add title to figure.
-
-    Parameters
-    ----------
-    fig : matplotlib.figure.Figure
-        [description]
-    filename : str
-        [description]
-    title : str
-        [description]
-    """
-    if sup_title_kw is None:
-        sup_title_kw = {}
-    if savefig_kw is None:
-        savefig_kw = {}
-    if clf_kw is None:
-        clf_kw = {}
-
-    fig.suptitle(title, **sup_title_kw)
-    fig.savefig(filename, **savefig_kw)
-    fig.clf(**clf_kw)
-
-
 def _prepare_mpl(yaml_dict, plot_features, style_path):
     # Styling to be applied in conjuction with the rivet default style. Might move this to .mplstyle file
     # axes.labelpad is different for x, y axis. Personally, this setting looks better than original rivet style. 
@@ -359,6 +334,33 @@ def _prepare_mpl(yaml_dict, plot_features, style_path):
     plt.style.use((os.path.join(style_path, plot_style), rc2d, yaml_dict.get('rcParams', {})))
     plt.rcParams['xtick.top'] = plot_features.get('XTwosidedTicks', True)
     plt.rcParams['ytick.right'] = plot_features.get('YTwosidedTicks', True)
+
+
+def _post_process_fig(fig, filename, fileformats, title, sup_title_kw=None, savefig_kw=None, clf_kw=None):
+    """Save close, and add title to figure.
+
+    Parameters
+    ----------
+    fig : matplotlib.figure.Figure
+        [description]
+    filename : str
+        [description]
+    fileformats : Iterable[str]
+        See outputfileformats in plot_2Dhist
+    title : str
+        [description]
+    """
+    if sup_title_kw is None:
+        sup_title_kw = {}
+    if savefig_kw is None:
+        savefig_kw = {}
+    if clf_kw is None:
+        clf_kw = {}
+
+    fig.suptitle(title, **sup_title_kw)
+    for ext in fileformats:
+        fig.savefig('{}.{}'.format(filename, ext), **savefig_kw)
+    fig.clf(**clf_kw)
 
 
 def _get_zlim(hist_data, plot_features):
@@ -403,7 +405,7 @@ def _get_zlim(hist_data, plot_features):
     return zmin, zmax
 
 
-def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.', outputfileformat='png'):
+def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.', outputfileformats=('png',)):
     """Plot 2D histogram in hist_data based 
 
     Parameters
@@ -418,6 +420,8 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.', o
     style_path : str
         Path to the directory with the rivet mplstyle file(s).
         TODO this is a temporary argument and will likely become a constant in rivet instead.
+    outputfileformats : Iterable[str]
+        All the file formats, e.g., png, pdf, svg, in which the figure(s) will be exported as.
     Returns
     -------
     fig : matplotlib.figure.Figure
@@ -441,7 +445,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.', o
         ratio_function = _plot_ratio_surface
         subplot_kw = dict(projection='3d')
     else:
-        raise ValueError('Expected "2DType" in the input file to be "projection" or "surface" but was {}'.format(plot_features['2DType']))
+        raise ValueError('Expected "2DType" in the input file to be "projection" or "surface" but was "{}".'.format(plot_features['2DType']))
     
     # TODO: probably separate functions for both of these cases.
     if plot_features.get('2DIndividual', True):
@@ -450,14 +454,14 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.', o
         for yoda_hist, hist_settings in zip(hist_data, hist_features):
             ax = fig.add_subplot(111, **subplot_kw)
             plot_function(yoda_hist, plot_features, ax=ax, zmin=zmin, zmax=zmax)
-            _post_process_fig(fig, '{}-{}.{}'.format(filename, hist_settings['Title'], outputfileformat), preprocess(plot_features.get('Title')))
+            _post_process_fig(fig, '{}-{}'.format(filename, hist_settings['Title']), outputfileformats, preprocess(plot_features.get('Title')))
             
         if ratio:
             ref_hist = hist_data[0]
             for yoda_hist, hist_settings in zip(hist_data[1:], hist_features[1:]):
                 ax = fig.add_subplot(111, **subplot_kw)
                 ratio_function(ref_hist, yoda_hist, plot_features, ax=ax, zmin=ratio_zmin, zmax=ratio_zmax)
-                _post_process_fig(fig, '{}-{}-ratio.{}'.format(filename, hist_settings['Title'], outputfileformat), preprocess(plot_features.get('Title')))
+                _post_process_fig(fig, '{}-{}-ratio'.format(filename, hist_settings['Title']), outputfileformats, preprocess(plot_features.get('Title')))
 
     else:
         ncols = len(hist_data)
@@ -478,8 +482,6 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.', o
                 ratio_function(ref_hist, yoda_hist, plot_features, ax=ax, zmin=ratio_zmin, zmax=ratio_zmax, colorbar=len(hist_data)-2 == i)
                 # TODO Make this label customizable? 
                 ax.set_title(preprocess('{}/{}'.format(hist_settings['Title'], hist_features[0]['Title'])))
-        _post_process_fig(fig, '{}.{}'.format(filename, outputfileformat), preprocess(plot_features.get('Title')))
+        _post_process_fig(fig, filename, outputfileformats, preprocess(plot_features.get('Title')))
     
-    # TODO this does not return anything useful when 2DIndividual==True.
-    #  Close figure instead?
-    return fig
+    plt.close(fig)
