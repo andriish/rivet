@@ -36,8 +36,14 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
     hist_features = [val for val in yaml_dicts['histograms'].values()]
     output_filename = os.path.join(outputdir, plot_name.strip('/'))
 
+    # TODO: Add Scatter1D plotting function
+
+    if all(isinstance(h, yoda.Scatter1D) for h in hist_data):
+        _plot_Scatter1D(hist_data, hist_features,
+                        yaml_dicts, output_filename)
+
     if all(isinstance(h, yoda.Scatter2D) for h in hist_data):
-        _plot_1Dhist(hist_data, hist_features,
+        rivet_plot1D(hist_data, hist_features,
                      yaml_dicts, output_filename)
 
     elif all(isinstance(h, yoda.Scatter3D) for h in hist_data):
@@ -54,12 +60,14 @@ def _parse_yoda_hist(yaml_dicts):
     hist_data = []
     for hist_dict in yaml_dicts['histograms'].values():
         with io.StringIO(hist_dict['yoda']) as file_like:
-            hist_data.append(yoda.readYODA(file_like, asdict=False)[0].mkScatter())
+            hist_data.append(yoda.readYODA(
+                file_like, asdict=False)[0].mkScatter())
     return hist_data
 
 
-def _create_plot(yaml_dicts, plot_features, hist_data):
-    """Create and return Matplotlib fig and axes objects with modified plot features."""
+def rivet_plot1D(hist_data, hist_features, yaml_dicts, output_filename):
+    """Plot the 1D histogram data."""
+    plot_features = yaml_dicts.get('plot features', {})
     plot_style = yaml_dicts['style'] + \
         '.mplstyle'  # TODO: Change location of mplstyle file
     if yaml_dicts.get('rcParams'):
@@ -156,27 +164,12 @@ def _create_plot(yaml_dicts, plot_features, hist_data):
         ax.set_yticks(plot_features.get('YCustomMinorTicks'), minor=True)
     if plot_features.get('PlotXTickLabels') == 0:
         ax.set_xticklabels([])
-    if plot_features.get('RatioPlot'):
-        return fig, (ax, ax_ratio)
-    return fig, (ax,)
-
-
-def _plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename):
-    """Plot the 1D historgram data."""
-    plot_features = yaml_dicts.get('plot features', {})
-    fig, axes = _create_plot(yaml_dicts, plot_features, hist_data)
 
     # Create useful variables
     colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
     x_points = (hist_data[0].xMins() + hist_data[0].xMaxs())/2
     x_bins = np.append(hist_data[0].xMins(), hist_data[0].xMax())
     data_yVals = hist_data[0].yVals()
-
-    # Create local variables for the list of axes
-    if plot_features.get('RatioPlot'):
-        ax, ax_ratio = axes
-    else:
-        ax = axes[0]
 
     # Plot the reference histogram data
     ax.hlines(data_yVals, hist_data[0].xMins(),
@@ -200,6 +193,7 @@ def _plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename):
             ax.vlines(x_points, (mc.yVals() - mc_errminus),
                       (mc.yVals() + mc_errplus), color, zorder=5+i)
 
+    # TODO: Add to YODA API
     # Create ratio plot
     if plot_features.get('RatioPlot'):
         # Ratio plot has y range of 0.5 to 1.5
@@ -284,3 +278,8 @@ class AnyObjectHandler(object):
             (width/2-0.4, 0), 0.8, height, facecolor='black')
         handlebox.add_artist(patch)
         return patch
+
+
+def _plot_Scatter1D(hist_data, hist_features, yaml_dicts, output_filename):
+    """Plot the 1D Scatter data."""
+    pass
