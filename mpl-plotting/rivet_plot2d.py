@@ -1,5 +1,7 @@
 """Create a rivet-style plot with 2D histograms."""
 import os
+import logging
+
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
@@ -206,7 +208,6 @@ def _plot_projection(yoda_hist, plot_features, ax=None, zmin=None, zmax=None, co
 
 
 def _plot_ratio_projection(ref_hist, yoda_hist, plot_features, ax=None, zmin=None, zmax=None, colorbar=True):
-    # TODO code is quite similar to plot_projection. Make into the same function with just data as input? Keep as is for now
     if ax is None:
         ax = plt.gca()
 
@@ -238,6 +239,9 @@ def _log_tick_formatter(val, pos=None):
     return r"$10^{%.0f}$" % val
     
 def _set_log_axis_3d(axis_name, ax):
+    logging.warn("The {} axis is set to log scale for a surface plot. "
+        "This might cause unexpected behavior and is not recommended. "
+        "Use a projection 2D plot instead.".format(axis_name))
     axis_name = axis_name.lower()
     getattr(ax, axis_name + 'axis').set_major_formatter(mpl.ticker.FuncFormatter(_log_tick_formatter))
     # TODO Add minor ticks
@@ -258,8 +262,14 @@ def _plot_surface(yoda_hist, plot_features, ax=None, zmin=None, zmax=None, *args
         Later, I might move colorbar function out of _plot_*_projection and this might not be needed.
     args, kwargs
         Will be ignored. Are only there for compatibility reasons.
+
+    Notes
+    -----
+    Log axis does work but has limited functionality, since it does not use the builtin matplotlib log plotting.
+    This is caused by a 10+ year old bug in matplotlib: https://github.com/matplotlib/matplotlib/issues/209
+    Custom axis labels and ticks are therefore not recommended when using log.
+    The log feature might be removed until the matplotlib bug is fixed.
     """
-    # TODO code is quite similar to plot_surface.
     if ax is None:
         ax = plt.gca(projection='3d')
 
@@ -268,16 +278,18 @@ def _plot_surface(yoda_hist, plot_features, ax=None, zmin=None, zmax=None, *args
     if not plot_features.get('ShowZero', True):
         surface_coordinates[2][surface_coordinates[2]==0] = np.nan
     
+    surface_coordinates = [np.log10(surface_coordinates[i]) if plot_features.get('Log' + axis_name) else surface_coordinates[i] 
+        for i, axis_name in enumerate('XYZ')]
+    
     im = ax.plot_surface(*surface_coordinates, cmap=plot_features.get('2DColormap', 'jet'))
     
     # If an axis is log/scaled, change axis scale and change axis limits and ticks accordingly.
-    # This is a workaround for this 10+ year old bug in matplotlib: https://github.com/matplotlib/matplotlib/issues/209
-    # TODO move this out of plot_surface?
+    # See Notes in docstring.
+    # TODO move this out of plot_surface? Remove?
     for i, (axis_name, lim) in enumerate(zip('XYZ', ((plot_features.get('XMin'), plot_features.get('XMax')), 
                                                      (plot_features.get('YMin'), plot_features.get('YMax')), 
                                                      (zmin, zmax)))):
         if plot_features.get('Log' + axis_name):
-            surface_coordinates[i] = np.log10(surface_coordinates[i])
             _set_log_axis_3d(axis_name.lower(), ax)
             log_lim = [np.log10(j) if j is not None else j for j in lim]
             format_axis(axis_name, ax, label=preprocess(plot_features.get(axis_name + 'Label')), lim=log_lim, custom_major_ticks=_preprocess_custom_ticks(plot_features.get(axis_name + 'CustomMajorTicks')), custom_minor_ticks=plot_features.get(axis_name+'CustomMinorTicks'), plot_ticklabels=plot_features.get('Plot{}TickLabels'.format(axis_name)))
@@ -292,7 +304,6 @@ def _plot_surface(yoda_hist, plot_features, ax=None, zmin=None, zmax=None, *args
 
 def _plot_ratio_surface(ref_hist, yoda_hist, plot_features, ax=None, zmin=None, zmax=None, *args, **kwargs):
     # args, kwargs will be ignored and are there for compatibility reasons. See _plot_surface
-    # TODO code is quite similar to plot_surface.
     if ax is None:
         ax = plt.gca(projection='3d')
 
@@ -372,25 +383,10 @@ def _get_zlim(hist_data, plot_features):
         Limits to the z axis.
     """
     # TODO change/remove constants to make plot look better in log scale
-    if plot_features.get('ZMax') is not None:
-        zmax = plot_features.get('ZMax')
-    elif plot_features.get('LogZ'):
-        zmax = 1.7*max(h.zMax() for h in hist_data)
-    else:
-        zmax = 1.1*max(h.zMax() for h in hist_data)
+    zmin = plot_features.get('ZMin', min(h.zMin() for h in hist_data))
+    zmax = plot_features.get('ZMax', max(h.zMax() for h in hist_data))
+    # TODO this ignores FullRange and ShowZero
 
-    minzmin = min(h.zMin() for h in hist_data)
-    if plot_features.get('ZMin') is not None:
-        zmin = plot_features.get('ZMin')
-    elif plot_features.get('LogZ'):
-        zmin = (minzmin/1.7 if plot_features.get('FullRange')
-                else max(minzmin/1.7, 2e-7*zmax))
-    elif plot_features.get('ShowZero'):
-        zmin = 0 if minzmin > -1e-4 else 1.1*minzmin
-    else:
-        zmin = (1.1*minzmin if minzmin < -1e-4 else 0 if minzmin < 1e-4
-                else 0.9*minzmin)
-    
     return zmin, zmax
 
 
