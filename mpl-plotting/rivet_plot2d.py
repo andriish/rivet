@@ -142,11 +142,7 @@ def _add_colorbar(norm, cmap, ax=None, *args, **kwargs):
     if ax is None:
         ax = plt.gca()
 
-    # BUG exponent (i.e. 10^x) placement is weird
     colorbar_tick_format = mpl.ticker.ScalarFormatter(useMathText=True)
-    # colorbar_tick_format.set_powerlimits(
-    #     (-plt.rcParams.get('axes.formatter.min_exponent'), plt.rcParams.get('axes.formatter.min_exponent'))
-    # )
     cbar = ax.get_figure().colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap),
         ax=ax, orientation='vertical', format=colorbar_tick_format, *args, **kwargs)
 
@@ -275,8 +271,7 @@ def _plot_surface(yoda_hist, plot_features, ax=None, zmin=None, zmax=None, *args
 
     surface_coordinates = list(_scatter_to_2d(yoda_hist, 'mid'))
 
-    # TODO remove LogZ?
-    if (not plot_features.get('ShowZero', True)) or plot_features.get('LogZ', False):
+    if not plot_features.get('ShowZero', True):
         surface_coordinates[2][surface_coordinates[2]==0] = np.nan
     
     surface_coordinates = [np.log10(surface_coordinates[i]) if plot_features.get('Log' + axis_name) else surface_coordinates[i] 
@@ -400,7 +395,7 @@ def _get_zlim(hist_data, plot_features):
     elif plot_features.get('LogZ'):
         zmin = (minzmin/1.7 if plot_features.get('FullRange')
                 else max(minzmin/1.7, 2e-7*zmax))
-    elif plot_features.get('ShowZero'):
+    elif plot_features.get('ShowZero', True):
         zmin = 0 if minzmin > -1e-4 else 1.1*minzmin
     else:
         zmin = (1.1*minzmin if minzmin < -1e-4 else 0 if minzmin < 1e-4
