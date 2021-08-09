@@ -265,17 +265,18 @@ def _plot_surface(yoda_hist, plot_features, ax=None, zmin=None, zmax=None, *args
 
     Notes
     -----
-    Log axis does work but has limited functionality, since it does not use the builtin matplotlib log plotting.
+    Log axis does work but is very buggy, since it does not use the builtin matplotlib log plotting.
     This is caused by a 10+ year old bug in matplotlib: https://github.com/matplotlib/matplotlib/issues/209
     Custom axis labels and ticks are therefore not recommended when using log.
-    The log feature might be removed until the matplotlib bug is fixed.
+    TODO The log feature will probably be removed until the matplotlib bug is fixed.
     """
     if ax is None:
         ax = plt.gca(projection='3d')
 
     surface_coordinates = list(_scatter_to_2d(yoda_hist, 'mid'))
 
-    if not plot_features.get('ShowZero', True):
+    # TODO remove LogZ?
+    if (not plot_features.get('ShowZero', True)) or plot_features.get('LogZ', False):
         surface_coordinates[2][surface_coordinates[2]==0] = np.nan
     
     surface_coordinates = [np.log10(surface_coordinates[i]) if plot_features.get('Log' + axis_name) else surface_coordinates[i] 
@@ -285,7 +286,6 @@ def _plot_surface(yoda_hist, plot_features, ax=None, zmin=None, zmax=None, *args
     
     # If an axis is log/scaled, change axis scale and change axis limits and ticks accordingly.
     # See Notes in docstring.
-    # TODO move this out of plot_surface? Remove?
     for i, (axis_name, lim) in enumerate(zip('XYZ', ((plot_features.get('XMin'), plot_features.get('XMax')), 
                                                      (plot_features.get('YMin'), plot_features.get('YMax')), 
                                                      (zmin, zmax)))):
@@ -381,11 +381,30 @@ def _get_zlim(hist_data, plot_features):
     -------
     zmin, zmax : float
         Limits to the z axis.
+    
+    Notes
+    -----
+    This code is a modified version of the original ylim-calculating code in make-plots.
     """
-    # TODO change/remove constants to make plot look better in log scale
-    zmin = plot_features.get('ZMin', min(h.zMin() for h in hist_data))
-    zmax = plot_features.get('ZMax', max(h.zMax() for h in hist_data))
-    # TODO this ignores FullRange and ShowZero
+    # TODO change/remove constants?
+    if plot_features.get('ZMax') is not None:
+        zmax = plot_features.get('ZMax')
+    elif plot_features.get('LogZ'):
+        zmax = 1.7*max(h.zMax() for h in hist_data)
+    else:
+        zmax = 1.1*max(h.zMax() for h in hist_data)
+
+    minzmin = min(h.zMin() for h in hist_data)
+    if plot_features.get('ZMin') is not None:
+        zmin = plot_features.get('ZMin')
+    elif plot_features.get('LogZ'):
+        zmin = (minzmin/1.7 if plot_features.get('FullRange')
+                else max(minzmin/1.7, 2e-7*zmax))
+    elif plot_features.get('ShowZero'):
+        zmin = 0 if minzmin > -1e-4 else 1.1*minzmin
+    else:
+        zmin = (1.1*minzmin if minzmin < -1e-4 else 0 if minzmin < 1e-4
+                else 0.9*minzmin)
 
     return zmin, zmax
 
