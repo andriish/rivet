@@ -263,7 +263,7 @@ def _proj_base(x_edges, y_edges, z_vals, ax=None, showzero=True, colorbar=True, 
     # Replace None with an empty dict
     pcm_kw, cbar_kw, xaxis_kw, yaxis_kw, zaxis_kw = [({} if kw is None else kw) for kw in (pcm_kw, cbar_kw, xaxis_kw, yaxis_kw, zaxis_kw)]
 
-    norm = _create_norm(*zaxis_kw.get('lim', ()), zaxis_kw.get('log'))
+    norm = _create_norm(*zaxis_kw.get('lim', (None, None)), zaxis_kw.get('log'))
     
     if not showzero:
         z_vals[z_vals==0] = np.nan
@@ -294,6 +294,8 @@ def surf(yoda_hist, ax=None, showzero=True, cmap=None, **kwargs):
         If None, use `plt.gca(projection='3d')`.
     showzero : bool
         If True, plot 0-count bins. If False, do not plot them.
+        Surface plots in matplotlib do not officially support masked values.
+        Setting this to False might therefore cause unexpected behavior.
     cmap
         Colormap that will be used for the surface plot.
         Can be of any type that matplotlib accepts.
@@ -318,6 +320,11 @@ def surf(yoda_hist, ax=None, showzero=True, cmap=None, **kwargs):
     -------
     im
         The matplotlib artist returned by `ax.plot_surface`.
+
+    Notes
+    -----
+    Logarithmic axes do not work for surface plots, due to a bug in matplotlib.
+    If this feature is crucial, it is advised to use `proj` instead.
     """
     # TODO test showzero
     x, y, z = list(_scatter_to_2d(yoda_hist, 'mid'))
@@ -339,6 +346,8 @@ def ratio_surf(main_hist, ref_hist, ax=None, showzero=True, cmap=None, **kwargs)
         If None, use `plt.gca(projection='3d')`.
     showzero : bool
         If True, plot 0-count bins. If False, do not plot them.
+        Surface plots in matplotlib do not officially support masked values.
+        Setting this to False might therefore cause unexpected behavior.
     cmap
         Colormap that will color the surface.
         Can be of any type that matplotlib accepts.
@@ -352,6 +361,11 @@ def ratio_surf(main_hist, ref_hist, ax=None, showzero=True, cmap=None, **kwargs)
     -------
     im
         The matplotlib artist returned by `ax.plot_surface`.
+    
+    Notes
+    -----
+    Logarithmic axes do not work for surface plots, due to a bug in matplotlib.
+    If this feature is crucial, it is advised to use `proj` instead.
     """
     x, y, main_z = _scatter_to_2d(main_hist, 'mid')
     ref_z = ref_hist.zVals().reshape(main_z.shape)
