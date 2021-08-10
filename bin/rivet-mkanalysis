@@ -26,6 +26,8 @@ parser.add_argument("-i", "--inline-info", dest="INLINE", action="store_true",
                     default=False, help="put analysis info into the source file instead of a separate data-file")
 parser.add_argument("--no-downloads", dest="DOWNLOAD", action="store_false",
                     default=True, help="don't try to get metadata or reference data from online sources")
+parser.add_argument("-m","--minimal", dest="MINIMAL", action="store_true",
+                    default=False, help="fill implementation with a minimal template (empty methods)")
 parser.add_argument("-q", "--quiet", dest="LOGLEVEL", default=logging.INFO,
                     action="store_const", const=logging.WARNING, help="only write out warning and error messages")
 parser.add_argument("-v", "--verbose", dest="LOGLEVEL", default=logging.INFO,
@@ -203,7 +205,56 @@ for ANANAME in ANANAMES:
     ANASRCFILE = os.path.join(ANASRCDIR, ANANAME+".cc")
     logging.debug("Writing implementation template to %s" % ANASRCFILE)
     f = open(ANASRCFILE, "w")
-    src = '''\
+    if args.MINIMAL:
+        src = '''\
+// -*- C++ -*-
+#include "Rivet/Analysis.hh"
+
+namespace Rivet {
+
+
+  /// @brief Add a short analysis description here
+  class %(ANANAME)s : public Analysis {
+  public:
+
+    /// Constructor
+    RIVET_DEFAULT_ANALYSIS_CTOR(%(ANANAME)s);
+
+    /// @name Analysis methods
+    ///@{
+
+    /// Book histograms and initialise projections before the run
+    void init() {
+
+    }
+
+
+    /// Perform the per-event analysis
+    void analyze(const Event& event) {
+
+    }
+
+
+    /// Normalise histograms etc., after the run
+    void finalize() {
+
+    }
+
+    ///@}
+
+    /// @name Histograms
+    ///@{
+    ///@}
+
+  };
+
+
+  RIVET_DECLARE_PLUGIN(%(ANANAME)s);
+
+}
+''' % KEYWORDS
+    else:
+        src = '''\
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
