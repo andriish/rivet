@@ -29,12 +29,14 @@ def _scatter_to_2d(hs, xy_type):
     TODO code works using meshgrid but is probably slower and not as clean as using reshape
     """
     nrows = np.argmax(hs.yMins()) + 1
+
     if xy_type == 'edge':
         y_1d = np.append(hs.yMins()[:nrows], hs.yMax())
         x_1d = np.append(hs.xMins()[::nrows], hs.xMax())
     elif xy_type == 'mid':
         y_1d = hs.yVals()[:nrows]
         x_1d = hs.xVals()[::nrows]
+    
     y, x = np.meshgrid(y_1d, x_1d)
     z = hs.zVals().reshape((-1, nrows))
     return x, y, z
@@ -132,7 +134,7 @@ def _add_colorbar(norm, cmap, ax=None, *args, **kwargs):
 
     colorbar_tick_format = mpl.ticker.ScalarFormatter(useMathText=True)
     cbar = ax.get_figure().colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap),
-        ax=ax, orientation='vertical', format=colorbar_tick_format, *args, **kwargs)
+        ax=ax, format=colorbar_tick_format, *args, **kwargs)
 
     return cbar
 
@@ -184,7 +186,6 @@ def _proj_base(x_edges, y_edges, z_vals, ax=None, showzero=True, colorbar=True, 
         cbar = _add_colorbar(norm, cmap=cmap, ax=ax, **cbar_kw)
         format_axis('y', cbar.ax, **zaxis_kw)
         return im, cbar
-    
 
     return im
 
