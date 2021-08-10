@@ -7,8 +7,7 @@ import numpy as np
 
 import yoda_plot2d as yp
 from mathtext_preprocessor import preprocess
-#   Docstrings
-#   Performance improvements
+# TODO Docstrings
 
 def _preprocess_custom_ticks(ticks):
     """Apply the mathtext preprocessor on a custom tick list.
@@ -45,7 +44,7 @@ def _prepare_mpl(yaml_dict, plot_features, style_path):
 
 
 def _post_process_fig(fig, filename, fileformats, title, sup_title_kw=None, savefig_kw=None, clf_kw=None):
-    """Save close, and add title to figure.
+    """Save, add title to figure and finally clear the figure.
 
     Parameters
     ----------
