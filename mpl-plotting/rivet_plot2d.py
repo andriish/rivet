@@ -7,8 +7,6 @@ import numpy as np
 
 import yoda_plot2d as yp
 from mathtext_preprocessor import preprocess
-# TODO
-#   Refactor plot_2Dhist
 #   Docstrings
 #   Performance improvements
 
@@ -166,7 +164,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.', o
     # Ratio plots will not have a log z axis 
     ratio_axis_kw[2]['log'] = False
 
-    # TODO if possible, refactor this code for less code duplication
+    # TODO if possible, refactor this for less code duplication
     if plot_features.get('2DIndividual', True):
         fig = plt.figure()
         for yoda_hist, hist_settings in zip(hist_data, hist_features):

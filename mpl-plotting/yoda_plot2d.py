@@ -104,7 +104,20 @@ def format_axis(axis_name, ax=None, label=None, lim=None, log=False,
 
 
 def _create_norm(zmin, zmax, log):
-    """Small wrapper function to create mpl norm that is used as the limits for the colorbar and pcolormesh."""
+    """Small wrapper function to create a matplotlib norm object that is used as the limits for e.g. a colorbar.
+    
+    Parameters
+    ----------
+    zmin, zmax : float
+        Minimum and maximum value of the norm
+    log : bool
+        If True, use a logarithmic norm.
+    
+    Returns
+    -------
+    Union[mpl.colors.LogNorm, mpl.colors.Normalize]
+        The norm object that has been created.
+    """
     if log:
         return mpl.colors.LogNorm(vmin=zmin, vmax=zmax)
     return mpl.colors.Normalize(vmin=zmin, vmax=zmax)
@@ -123,7 +136,7 @@ def _add_colorbar(norm, cmap, ax=None, *args, **kwargs):
         Axes object that the matplotlib will take a part of to create a colorbar.
         If None, uses plt.gca().
     args, kwargs
-        Additional arguments passed to plt.colorbar. See its documentation.
+        Additional arguments passed to plt.colorbar. See the documentation of fig.colorbar.
 
     Returns
     -------
@@ -140,36 +153,115 @@ def _add_colorbar(norm, cmap, ax=None, *args, **kwargs):
 
 
 def proj(yoda_hist, ax=None, showzero=True, colorbar=True, cmap=None, **kwargs):
-    """Plot a 2D projection plot of a yoda Scatter3D object.
+    """Plot a 2D projection plot of a yoda.Scatter3D object.
 
     Parameters
     ----------
     yoda_hist : yoda.Scatter3D
         Yoda scatter that will be plotted.
-    
     ax : matplotlib.axes.Axes
-        Axes 
+        Axes object in which the 2D projection plot will be plotted in. 
+        If None, use plt.gca().
+    showzero : bool
+        If True, plot 0-count bins. If False, do not color them.
+    colorbar : bool
+        If True, plot a color bar.
+    cmap
+        Colormap that will be used for the projection plot and the color bar.
+        Can be of any type that matplotlib accepts.
+        If None, the default settings in matplotlib will be used.
+    
+    Other Parameters
+    ----------------
+    pcm_kw : Optional[dict]
+        Additional keyword arguments, as a dict, directly passed to ax.pcolormesh, which is called under the hood.
+        If None, nothing passed to the funciton.
+    cbar_kw : Optional[dict]
+        Additional  keyword arguments, besides cmap and ax, passed to `fig.colorbar`.
+        Here, fig is the figure that contains ax.
+    xaxis_kw, yaxis_kw, zaxis_kw : Optional[dict]
+        Additional keyword arguments passed to `format_axis`. 
+        See its documentation for which arguments are allowed.
+    
+    Returns
+    -------
+    im
+        The matplotlib artist returned by `ax.pcolormesh`.
+    cbar
+        The colorbar object created. Only returned if colorbar is True. 
     """
     x_edges, y_edges, z_vals = _scatter_to_2d(yoda_hist, 'edge')
 
     return _proj_base(x_edges, y_edges, z_vals, ax=ax, showzero=showzero, colorbar=colorbar, cmap=cmap, **kwargs)
 
 
-def ratio_proj(yoda_hist, ref_hist, ax=None, showzero=True, colorbar=True, cmap=None, **kwargs):
+def ratio_proj(main_hist, ref_hist, ax=None, showzero=True, colorbar=True, cmap=None, **kwargs):
+    """Plot a 2D projection plot of the ratio between 2 histograms.
+    The ratio is calculated as main_hist / ref_hist.
 
-    x_edges, y_edges, mc_z = _scatter_to_2d(yoda_hist, 'edge')
-    ref_z = ref_hist.zVals().reshape(mc_z.shape) # TODO might not work
+    Parameters
+    ----------
+    main_hist : yoda.Scatter3D
+        Yoda histogram that will be the dividend.
+    ref_hist : yoda.Scatter3D
+        Yoda histogram that will be the divisor, i.e. the reference histogram.
+    ax : matplotlib.axes.Axes
+        Axes object in which the 2D projection plot will be plotted in. 
+        If None, use plt.gca().
+    showzero : bool
+        If True, plot 0-count bins. If False, do not color them.
+    colorbar : bool
+        If True, plot a color bar.
+    cmap
+        Colormap that will be used for the projection plot and the color bar.
+        Can be of any type that matplotlib accepts.
+        If None, the default settings in matplotlib will be used.
+    
+    Other Parameters
+    ----------------
+    The same parameters used in `proj`. See its documentation.
 
-    z_ratio = mc_z / ref_z
+    Returns
+    -------
+    im
+        The matplotlib artist returned by `ax.pcolormesh`.
+    cbar
+        The colorbar object created. Only returned if colorbar is True. 
+    """
+    # TODO remove or add parts of the documentation, since it is a duplicate of `proj`?
+
+    x_edges, y_edges, main_z = _scatter_to_2d(main_hist, 'edge')
+    ref_z = ref_hist.zVals().reshape(main_z.shape)
+
+    z_ratio = main_z / ref_z
     
     return _proj_base(x_edges, y_edges, z_ratio, ax=ax, showzero=showzero, colorbar=colorbar, cmap=cmap, **kwargs)
     
 
 def _proj_base(x_edges, y_edges, z_vals, ax=None, showzero=True, colorbar=True, cmap=None, 
     pcm_kw=None, cbar_kw=None, xaxis_kw=None, yaxis_kw=None, zaxis_kw=None):
+    """The base function used for all projection plotting functions.
+
+    Parameters
+    ----------
+    x_edges, y_edges : array-like
+        The x and y coordinates of the edges of the 2D histogram that will be plotted. 
+        Have shape (n+1, m+1).
+    z_vals : array-like
+        Z values that will be plotted in the projection plot.
+        For a histogram, this corresponds to the counts in each bin.
+        Has shape (n, m).
+        
+    The documentation for the other parameters can be seen in `proj`.
+
+    Returns
+    -------
+    The documentation for the return arguments can be seen in `proj`.
+    """
     if ax is None:
         ax = plt.gca()
-    pcm_kw, cbar_kw, xaxis_kw, yaxis_kw, zaxis_kw = [{} if kw is None else kw for kw in (pcm_kw, cbar_kw, xaxis_kw, yaxis_kw, zaxis_kw)]
+    # Replace None with an empty dict
+    pcm_kw, cbar_kw, xaxis_kw, yaxis_kw, zaxis_kw = [({} if kw is None else kw) for kw in (pcm_kw, cbar_kw, xaxis_kw, yaxis_kw, zaxis_kw)]
 
     norm = _create_norm(*zaxis_kw.get('lim', ()), zaxis_kw.get('log'))
     
@@ -191,31 +283,98 @@ def _proj_base(x_edges, y_edges, z_vals, ax=None, showzero=True, colorbar=True, 
 
 
 def surf(yoda_hist, ax=None, showzero=True, cmap=None, **kwargs):
-    """Plot 3D plot with a surface representing a histogram.
+    """Create a 3D plot with a surface representing a histogram.
 
     Parameters
     ----------
     yoda_hist : yoda.Scatter3D
         Yoda scatter that will be plotted.
-    plot_features : dict
-        Settings that will be applied to the entire figure or each axes.
-    ax : mpl_toolkits.mplot3d.Axes3D
-        The axes in which the surface plot will be plotted in. If None, use the latest used 3D axes.
-        Later, I might move colorbar function out of _plot_*_projection and this might not be needed.
+    ax : Axes3D object
+        Axes object in which the surface plot will be plotted in. Must be a 3D axes object.
+        If None, use `plt.gca(projection='3d')`.
+    showzero : bool
+        If True, plot 0-count bins. If False, do not plot them.
+    cmap
+        Colormap that will be used for the surface plot.
+        Can be of any type that matplotlib accepts.
+        If None, the default settings in matplotlib will be used.
+    
+    Other Parameters
+    ----------------    
+    elev : Optional[float]
+        The elevation angle, i.e. the "camera position" when viewing the plot. Measured in degrees.
+        If None, use the default setting in matplotlib.
+    azim : Optional[float]
+        The azimuthal angle, i.e. the "camera position" when viewing the plot. Measured in degrees.
+        If None, use the default setting in matplotlib.
+    psurf_kw : Optional[dict]
+        Additional keyword arguments, as a dict, directly passed to ax.plot_surface, which is called under the hood.
+        If None, nothing is passed to the funciton.
+    xaxis_kw, yaxis_kw, zaxis_kw : Optional[dict]
+        Additional keyword arguments passed to `format_axis`. 
+        See its documentation for which arguments are allowed.
+    
+    Returns
+    -------
+    im
+        The matplotlib artist returned by `ax.plot_surface`.
     """
+    # TODO test showzero
     x, y, z = list(_scatter_to_2d(yoda_hist, 'mid'))
 
     return _surf_base(x, y, z, ax, showzero=showzero, cmap=cmap, **kwargs)
 
 
-def ratio_surf(ref_hist, yoda_hist, ax=None, showzero=True, cmap=None, **kwargs):
-    x, y, mc_z = _scatter_to_2d(yoda_hist, 'mid')
-    ref_z = ref_hist.zVals().reshape(mc_z.shape)
-    z = mc_z / ref_z
+def ratio_surf(main_hist, ref_hist, ax=None, showzero=True, cmap=None, **kwargs):
+    """Create a 3D plot with a surface representing a ratio between main_hist and ref_hist.
+
+    Parameters
+    ----------
+    main_hist : yoda.Scatter3D
+        Yoda histogram that will be the dividend.
+    yoda_hist : yoda.Scatter3D
+        Yoda histogram that will be the divisor, i.e. the reference histogram.
+    ax : Axes3D object
+        Axes object in which the surface plot will be plotted in. Must be a 3D axes object.
+        If None, use `plt.gca(projection='3d')`.
+    showzero : bool
+        If True, plot 0-count bins. If False, do not plot them.
+    cmap
+        Colormap that will color the surface.
+        Can be of any type that matplotlib accepts.
+        If None, the default settings in matplotlib will be used.
+    
+    Other Parameters
+    ----------------
+    The same parameters used in `surf`. See its documentation.
+
+    Returns
+    -------
+    im
+        The matplotlib artist returned by `ax.plot_surface`.
+    """
+    x, y, main_z = _scatter_to_2d(main_hist, 'mid')
+    ref_z = ref_hist.zVals().reshape(main_z.shape)
+    z = main_z / ref_z
     return _surf_base(x, y, z, ax, showzero=showzero, cmap=cmap, **kwargs)
 
 
-def _surf_base(x, y, z, ax=None, showzero=True, cmap=None, psurf_kw=None, xaxis_kw=None, yaxis_kw=None, zaxis_kw=None, elev=None, azim=None):
+def _surf_base(x, y, z, ax=None, showzero=True, cmap=None, elev=None, azim=None, psurf_kw=None, xaxis_kw=None, yaxis_kw=None, zaxis_kw=None):
+    """The base function used for all surface plotting functions.
+
+    Parameters
+    ----------
+    x, y, z : array-like
+        The x, y, and z coordinates of the points on the surface that will be plotted. 
+        Have shape (n, m).
+        
+    The documentation for the other parameters can be seen in `surf`.
+
+    Returns
+    -------
+    The documentation for the return arguments can be seen in `surf`.
+    """
+    
     if ax is None:
         ax = plt.gca(projection='3d')
     psurf_kw, xaxis_kw, yaxis_kw, zaxis_kw = [{} if kw is None else kw for kw in (psurf_kw, xaxis_kw, yaxis_kw, zaxis_kw)]
