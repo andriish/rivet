@@ -64,7 +64,8 @@ if(foo==bar){
  * Loop over containers using the colon-separated "range for" loop, with a (const) reference as loop variable.
  * It is ok, perhaps even recommended, to make everything in an analysis code `public`, since there is no header, no client code, and therefore visibility levels have no effect.
  * Use the `MSG_DEBUG(...)`, `MSG_INFO(...)` etc. macros in place of `getLog() << ... << endl;`.
- * 
+ * For the most part, do not use the `std::` prefix on STL types: they are already included without namespace into the `Analysis` scope.
+ * Use the convenience types and functions to improve readability, e.g. `p.abseta()` rather than `fabs(p.eta())`, `Particles` and `Jets` rather than `vector<Particle>` and `vector<Jet>`, etc. (There are also `strings`, `doubles` and `ints` typedefs for `vector<those_types>`)
  * If your analysis includes the same sets of plots (binnings and cuts can differ), then don't register histograms for each energy, e.g. `_hist_blah_900GeV`, `_hist_blah_7000GeV`, etc.: just make one `_hist_blah` and use the `sqrtS()` function in the `init()` method of the analysis to book it from the appropriate histogram code. Then in the `analyze()` method, you can just call `fill()` without having to work out which variable you should be filling. This can save a ''lot'' of repetitive copy 'n' paste code, and we will reject supplied analyses which should do this and haven't, since otherwise they are a maintenance nightmare.
 
 
