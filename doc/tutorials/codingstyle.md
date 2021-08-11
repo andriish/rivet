@@ -48,14 +48,23 @@ if(foo==bar){
  * Use line wrapping sensibly rather than religiously - 80 characters is a good default length, but if wrapping your 110 character line (e.g. a for loop using lengthy iterator names) obscures the code structure then you'll need to make a choice. Maybe it can be reduced by using a sensible `typedef`, or a temporary variable - often sensible anyway;
  * Don't comment the `#endif`s in header guards - it just leads to inconsistencies when new header files are made by "copy and paste". Similarly, don't use comments which mention the filename: they lead to inconsistencies via renamings and copyings, and if you need to print the source then the IDE/editor will probably attach the filename to the printout anyway.
  * Try to minimise the {{{#include}}} entries in header files, especially if they refer to external library objects: binary library link dependencies are one thing, but header dependencies are usually one step too far. This may require storing member variables as pointers, so that a forward declaration of the variable's class can be used rather than a header `#include` that might induce a transitive dependency.
+ * Only use the `auto` keyword where the true type is obscure, unknown, or too lengthy to type. When it is known that the type will be e.g. `Jet` or `Particle`, use that name explicitly: it makes the code far more readable.
 
 
 ### Analysis coding style
 
  * Prefer not to use pointers ''at all'' in projection and analysis code. The one exception to this is YODA histograms, where you have no option but to use pointers. See below for more information.
- * Histogram objects should be private and their names should start with "`_hist`";
+ * Histogram objects should be private and their names should start with "`_hist`" or "`_h`" (and similar for profiles and counters);
  * All Rivet analyses are plugins via the `Analysis` interface, and virtually no analyses inherit from any base class other than `Analysis`. Hence there is no need for header files, and analyses should be written completely inline with the implementations as part of the class definition, all in the `.cc` file.
+ * Use the `DEFAULT_ANALYSIS_CTOR()` and similar macros for boilerplate code.
+ * Analysis class names should be ALL-CAPS unless there is good reason not to.
+ * Variables should start with lower-case letters, type names as MixedCase, and constants as ALL_CAPS.
+ * Use the `const` keyword to protect your code against accidental modifications.
+ * Pass complex objects by reference to any utility functions.
+ * Loop over containers using the colon-separated "range for" loop, with a (const) reference as loop variable.
+ * It is ok, perhaps even recommended, to make everything in an analysis code `public`, since there is no header, no client code, and therefore visibility levels have no effect.
  * Use the `MSG_DEBUG(...)`, `MSG_INFO(...)` etc. macros in place of `getLog() << ... << endl;`.
+ * 
  * If your analysis includes the same sets of plots (binnings and cuts can differ), then don't register histograms for each energy, e.g. `_hist_blah_900GeV`, `_hist_blah_7000GeV`, etc.: just make one `_hist_blah` and use the `sqrtS()` function in the `init()` method of the analysis to book it from the appropriate histogram code. Then in the `analyze()` method, you can just call `fill()` without having to work out which variable you should be filling. This can save a ''lot'' of repetitive copy 'n' paste code, and we will reject supplied analyses which should do this and haven't, since otherwise they are a maintenance nightmare.
 
 
