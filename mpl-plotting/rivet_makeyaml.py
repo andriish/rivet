@@ -1,6 +1,6 @@
 from __future__ import print_function
 import rivet, yoda
-import os, glob, io, logging
+import os, glob, logging
 import yamlio
 import constants
 from old_plotfile_converter import type_conversion
@@ -125,7 +125,8 @@ def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns
                 continue
 
             # Make a path object and ensure the path is in standard form. 
-            # TODO: raw exception is not good. Replace with more specific exception, e.g., IOError
+            # TODO: rivet.AOPath raises Exception. 
+            # Its error class should be more specific, e.g., ValueError, IOError
             try:
                 aop = rivet.AOPath(path)
             except Exception as e:
