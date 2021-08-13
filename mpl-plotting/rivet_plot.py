@@ -9,10 +9,11 @@ import numpy as np
 import yoda
 from yamlio import read_yamlfile
 from rivet_plot2d import plot_2Dhist
+import yoda_plot1d
 
 
 def rivet_plot(yaml_file, plot_name, outputdir='.'):
-    """Create plot from the yaml file.
+    """Create plot from the yaml file in the Rivet style.
 
     Parameters
     ----------
@@ -37,19 +38,12 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
     output_filename = os.path.join(outputdir, plot_name.strip('/'))
 
     # TODO: Add Scatter1D plotting function
-
     if all(isinstance(h, yoda.Scatter1D) for h in hist_data):
-        _plot_Scatter1D(hist_data, hist_features,
-                        yaml_dicts, output_filename)
-
-    if all(isinstance(h, yoda.Scatter2D) for h in hist_data):
-        rivet_plot1D(hist_data, hist_features,
-                     yaml_dicts, output_filename)
-
+        _plot_Scatter1D(hist_data, hist_features, yaml_dicts, output_filename)
+    elif all(isinstance(h, yoda.Scatter2D) for h in hist_data):
+        plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename)  # TODO: Rename Scatter2D?
     elif all(isinstance(h, yoda.Scatter3D) for h in hist_data):
-        plot_2Dhist(hist_data, hist_features,
-                    yaml_dicts, output_filename)
-
+        plot_2Dhist(hist_data, hist_features, yaml_dicts, output_filename)  # TODO: Rename Scatter3D?
     else:
         print('Error with Class types:', [type(h) for h in hist_data])
         raise NotImplementedError('Class type cannot be plotted yet')
@@ -65,28 +59,40 @@ def _parse_yoda_hist(yaml_dicts):
     return hist_data
 
 
-def rivet_plot1D(hist_data, hist_features, yaml_dicts, output_filename):
-    """Plot the 1D histogram data."""
+def plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename):
+    """Plot the 1D histogram data using Rivet styles.
+
+    Parameters
+    ----------
+    hist_data : list[yoda.Scatter2D]
+        All histograms that will be plotted.
+    hist_features : dict
+        Plot settings for each histogram.
+        Currently only supports the "Title" setting but more should be added. 
+    yaml_dicts : dict
+        Plot settings for the entire figure.
+    output_filename : str
+        Name of the saved plot file. 
+    """
     plot_features = yaml_dicts.get('plot features', {})
-    plot_style = yaml_dicts['style'] + \
-        '.mplstyle'  # TODO: Change location of mplstyle file
-    if yaml_dicts.get('rcParams'):
-        plt.style.use((os.path.join(sys.path[0], plot_style),
-                       yaml_dicts['rcParams']))
+    plot_style = os.path.join('plot_styles', yaml_dicts['style'] + '.mplstyle')
+    if not os.path.isfile(plot_style):
+        raise NotImplementedError('Plot style file not found.')
+    if yaml_dicts.get('rcParams'):  # Apply rcParams to mpl
+        plt.style.use((plot_style, yaml_dicts.get('rcParams')))
     else:
-        plt.style.use((os.path.join(sys.path[0], plot_style)))
+        plt.style.use(plot_style)
 
     plt.rcParams['xtick.top'] = plot_features.get('XTwosidedTicks', True)
     plt.rcParams['ytick.right'] = plot_features.get('YTwosidedTicks', True)
 
-    if plot_features.get('RatioPlot'):
-        fig, (ax, ax_ratio) = plt.subplots(2, 1, sharex=True,
-                                           gridspec_kw={'height_ratios': (2, 1)})
+    if plot_features.get('RatioPlot', 1):  # TODO: Remove default 1?
+        fig, (ax, ax_ratio) = plt.subplots(2, 1, sharex=True, gridspec_kw={'height_ratios': (2, 1)})
     else:
         fig, ax = plt.subplots(1, 1)
 
     # Set text labels
-    if plot_features.get('RatioPlot'):
+    if plot_features.get('RatioPlot', 1):
         ax_ratio.set_xlabel(plot_features.get('XLabel'))
     else:
         ax.set_xlabel(plot_features.get('XLabel'))
@@ -114,7 +120,7 @@ def rivet_plot1D(hist_data, hist_features, yaml_dicts, output_filename):
     elif plot_features.get('LogY'):
         YMin = (min_ymin/1.7 if plot_features.get('FullRange')
                 else max(min_ymin/1.7, 2e-7*YMax))
-    elif plot_features.get('ShowZero'):
+    elif plot_features.get('ShowZero', 1):  # defaul ShowZero is True
         YMin = 0 if min_ymin > -1e-4 else 1.1*min_ymin
     else:
         YMin = (1.1*min_ymin if min_ymin < -1e-4 else 0 if min_ymin < 1e-4
@@ -152,7 +158,7 @@ def rivet_plot1D(hist_data, hist_features, yaml_dicts, output_filename):
         ax.set_xticks(plot_features.get('XCustomMajorTicks')[::2])
         ax.set_xticklabels(plot_features.get('XCustomMajorTicks')[1::2])
         ax.set_xticks([], minor=True)  # Turn off minor xticks
-        if plot_features.get('RatioPlot'):
+        if plot_features.get('RatioPlot', 1):
             ax_ratio.set_xticks([], minor=True)
     if plot_features.get('YCustomMajorTicks') is not None:
         ax.set_yticks(plot_features.get('YCustomMajorTicks')[::2])
@@ -165,79 +171,13 @@ def rivet_plot1D(hist_data, hist_features, yaml_dicts, output_filename):
     if plot_features.get('PlotXTickLabels') == 0:
         ax.set_xticklabels([])
 
-    # Create useful variables
+    plot_errorbars = [h.get('ErrorBars', 1) for h in hist_features]
     colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
-    x_points = (hist_data[0].xMins() + hist_data[0].xMaxs())/2
-    x_bins = np.append(hist_data[0].xMins(), hist_data[0].xMax())
-    data_yVals = hist_data[0].yVals()
-
-    # Plot the reference histogram data
-    ax.hlines(data_yVals, hist_data[0].xMins(),
-              hist_data[0].xMaxs(), 'k')  # Plot reference data as horizontal lines
-    ax.plot(x_points, data_yVals, 'ko')  # Plot black dot in the middle of line
-    data_errminus = [err[0] for err in hist_data[0].yErrs()]
-    data_errplus = [err[1] for err in hist_data[0].yErrs()]
-    if hist_features[0].get('ErrorBars', 1):  # Plot ref data error bars by default
-        ax.vlines(x_points, (data_yVals - data_errminus),
-                  (data_yVals + data_errplus), 'k')
-
-    # Plot the MC histogram data
-    for i, mc in enumerate(hist_data[1:]):
-        color = colors[i % len(colors)]  # Cycle through colors for MC hists
-        y_mc = np.insert(mc.yVals(), 0, mc.yVals()[0])
-        ax.plot(x_bins, y_mc, color, drawstyle='steps-pre',
-                solid_joinstyle='miter', zorder=5+i)  # Plot MC hist data
-        if hist_features[i].get('ErrorBars', 1):  # Plot MC error bars by default
-            mc_errminus = [err[0] for err in mc.yErrs()]
-            mc_errplus = [err[1] for err in mc.yErrs()]
-            ax.vlines(x_points, (mc.yVals() - mc_errminus),
-                      (mc.yVals() + mc_errplus), color, zorder=5+i)
-
-    # TODO: Add to YODA API
-    # Create ratio plot
-    if plot_features.get('RatioPlot'):
-        # Ratio plot has y range of 0.5 to 1.5
-        ax_ratio.yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.1))
-        ax_ratio.set_ylabel(plot_features.get('RatioPlotYLabel', 'MC/Data'))
-        RatioPlotYMin = plot_features.get('RatioPlotYMin', 0.5)
-        RatioPlotYMax = plot_features.get(
-            'RatioPlotYMax', 1.4999)  # Don't plot 1.5
-        ax_ratio.set_ylim(RatioPlotYMin, RatioPlotYMax)
-
-        # Plot reference histogram data
-        XMin = plot_features.get('XMin', min([h.xMin() for h in hist_data]))
-        XMax = plot_features.get('XMax', max([h.xMax() for h in hist_data]))
-        ax_ratio.hlines(1, XMin, XMax, 'k', zorder=2)
-        ax_ratio.plot(x_points, np.ones(len(x_points)), 'ko', zorder=3)
-        if plot_features.get('ErrorBands'):
-            errbandminus = np.insert((data_yVals - data_errminus)/data_yVals, 0,
-                                     ((data_yVals - data_errminus)/data_yVals)[0])
-            errbandplus = np.insert((data_yVals + data_errplus)/data_yVals, 0,
-                                    ((data_yVals + data_errplus)/data_yVals)[0])
-            ax_ratio.fill_between(x_bins, errbandminus, errbandplus,
-                                  step='pre', alpha=0.5, zorder=0)
-        elif hist_features[0].get('ErrorBars', 1):
-            ax_ratio.vlines(x_points, (data_yVals - data_errminus)/data_yVals,
-                            (data_yVals + data_errplus)/data_yVals, 'k')
-
-        # Plot MCs histogram data
-        for i, mc in enumerate(hist_data[1:]):
-            color = colors[i % len(colors)]
-            y_ratio = (np.insert(mc.yVals(), 0, mc.yVals()[0])
-                       / np.insert(data_yVals, 0, data_yVals[0]))
-            ax_ratio.plot(x_bins, y_ratio, color, drawstyle='steps-pre', zorder=1,
-                          solid_joinstyle='miter')
-            if hist_features[i].get('ErrorBars', 1):
-                ax_ratio.vlines(x_points, (mc.yVals() - mc_errminus)/data_yVals,
-                                (mc.yVals() + mc_errplus)/data_yVals, color, zorder=1)
-
-    # Legend
-    # TODO: Find a better way to implement the custom Data legend graphic
 
     if plot_features.get('Legend', 1):
         handles = [AnyObject()]
         labels = [hist_features[0].get('Title', 'Data')]
-        for i, mc in enumerate(hist_data[1:]):
+        for i, _ in enumerate(hist_data[1:]):
             color = colors[i % len(colors)]
             handles.append(mpl.lines.Line2D([], [], color=color))
             labels.append(hist_features[0].get('Title', 'mc{}'.format(i+1)))
@@ -251,6 +191,20 @@ def rivet_plot1D(hist_data, hist_features, yaml_dicts, output_filename):
                           plot_features.get('LegendYPos', 0.97))
             ax.legend(handles, labels, loc='upper right', bbox_to_anchor=legend_pos,
                       handler_map={AnyObject: AnyObjectHandler()}, markerfirst=False)
+
+    # Plot histogram using Yoda function
+    yoda_plot1d.plot_hist(hist_data[0], hist_data[1:], ax=ax, ErrorBars=plot_errorbars, colors=colors)
+
+    if plot_features.get('RatioPlot', 1):  # TODO: Remove default 1?
+        # Ratio plot has y range of 0.5 to 1.5
+        ax_ratio.yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.1))
+        ax_ratio.set_ylabel(plot_features.get('RatioPlotYLabel', 'MC/Data'))
+        RatioPlotYMin = plot_features.get('RatioPlotYMin', 0.5)
+        RatioPlotYMax = plot_features.get('RatioPlotYMax', 1.4999)  # Don't plot 1.5
+        ax_ratio.set_ylim(RatioPlotYMin, RatioPlotYMax)
+        # Plot ratio using Yoda function
+        yoda_plot1d.plot_ratio(hist_data[0], hist_data[1:], ax=ax_ratio,
+                               ErrorBars=plot_errorbars, ErrorBands=plot_features.get('ErrorBands'), colors=colors)
 
     fig.savefig(output_filename+'.pdf')
     fig.savefig(output_filename+'.png')
@@ -282,4 +236,37 @@ class AnyObjectHandler(object):
 
 def _plot_Scatter1D(hist_data, hist_features, yaml_dicts, output_filename):
     """Plot the 1D Scatter data."""
-    pass
+    fig, ax = plt.subplots(1, 1)
+    plot_features = yaml_dicts.get('plot features', {})
+
+    # Use maximum y value from all hist datasets
+    max_ymax = max([h.points()[0].val(1) for h in hist_data])
+    if plot_features.get('YMax') is not None:
+        YMax = plot_features.get('YMax')
+    elif plot_features.get('LogY'):
+        YMax = 1.7*max_ymax
+    else:
+        YMax = 1.1*max_ymax
+
+    # Use minimum y value from all hist datasets
+    min_ymin = min([h.points()[0].val(1) for h in hist_data])
+    if plot_features.get('YMin') is not None:
+        YMin = plot_features.get('YMin')
+    elif plot_features.get('LogY'):
+        YMin = (min_ymin/1.7 if plot_features.get('FullRange')
+                else max(min_ymin/1.7, 2e-7*YMax))
+    elif plot_features.get('ShowZero', 1):  # defaul ShowZero is True
+        YMin = 0 if min_ymin > -1e-4 else 1.1*min_ymin
+    else:
+        YMin = (1.1*min_ymin if min_ymin < -1e-4 else 0 if min_ymin < 1e-4
+                else 0.9*min_ymin)
+
+    ax.set_ylim(YMin, YMax)
+
+    
+    colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
+    yoda_plot1d.plot_scatter1D(hist_data, ax=ax)
+    fig.savefig(output_filename+'.pdf')
+    fig.savefig(output_filename+'.png')
+    plt.close()
+
