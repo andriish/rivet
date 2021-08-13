@@ -20,6 +20,8 @@ ENVIRONMENT:
 
 from __future__ import print_function
 
+from ruamel import yaml
+
 import rivet, sys, os
 from rivet_makeyaml import make_yamlfiles
 from rivet_plot import rivet_plot
@@ -249,75 +251,6 @@ yaml_dicts = make_yamlfiles(args.YODAFILES, args.PATH_PWD, args.REFTITLE,
                             style, configfiles,
                             True, args.OUTPUTDIR, args.MC_ERRS,
                             rivetplotpaths, analysispaths, args.VERBOSE, writefiles=writefiles)
-print('called rivet_makeyaml')
-"""
-ch_cmd = ["rivet-makeyaml"]
-if args.MC_ERRS:
-    ch_cmd.append("--mc-errs")
-if not args.SHOW_RATIO:
-    ch_cmd.append("--no-ratio")
-if not args.RIVETREFS:
-    ch_cmd.append("--no-rivet-refs")
-if args.NOPLOTTITLE:
-    ch_cmd.append("--no-plottitle")
-if args.REMOVE_OPTIONS:
-    ch_cmd.append("--remove-options")
-if args.NO_WEIGHTS:
-    ch_cmd.append("--no-weights")
-# if args.REF_ID is not None:
-#     ch_cmd.append("--refid=%s" % os.path.abspath(args.REF_ID))
-if args.REFTITLE:
-    ch_cmd.append("--reftitle=%s" % args.REFTITLE )
-if args.PATHPATTERNS:
-    for patt in args.PATHPATTERNS:
-        ch_cmd += ["-m", patt] #"'"+patt+"'"]
-if args.PATHUNPATTERNS:
-    for patt in args.PATHUNPATTERNS:
-        ch_cmd += ["-M", patt] #"'"+patt+"'"]
-ch_cmd.append("--hier-out")
-# TODO: Need to be able to override this: provide a --plotinfodir cmd line option?
-ch_cmd.append("--plotinfodir=%s" % os.path.abspath("../"))
-for af in yodafiles:
-    yodafilepath = os.path.abspath(af.split(":")[0])
-    if af.startswith("PLOT:"):
-        yodafilepath = "PLOT"
-    elif not os.access(yodafilepath, os.R_OK):
-        continue
-    newarg = yodafilepath
-    if ":" in af:
-        newarg += ":" + af.split(":", 1)[1]
-    # print(newarg)
-    ch_cmd.append(newarg)
-
-## Pass rivet-mkhtml -c args to rivet-cmphistos
-for configfile in args.CONFIGFILES:
-    configfile = os.path.abspath(os.path.expanduser(configfile))
-    if os.access(configfile, os.R_OK):
-        ch_cmd += ["-c", configfile]
-
-if args.VERBOSE:
-    ch_cmd.append("--verbose")
-    print("Calling rivet-cmphistos with the following command:")
-    print(" ".join(ch_cmd))
-
-## Run rivet-cmphistos in a subdir, after fixing any relative paths in Rivet env vars
-if not args.DRY_RUN:
-    for var in ("RIVET_ANALYSIS_PATH", "RIVET_DATA_PATH", "RIVET_REF_PATH", "RIVET_INFO_PATH", "RIVET_PLOT_PATH"):
-        if var in os.environ:
-            abspaths = [os.path.abspath(p) for p in os.environ[var].split(":")]
-            os.environ[var] = ":".join(abspaths)
-    subproc = Popen(ch_cmd, cwd=args.OUTPUTDIR, stdout=PIPE, stderr=PIPE)
-    out, err = subproc.communicate()
-    retcode = subproc.returncode
-    if args.VERBOSE or retcode != 0:
-        print('Output from rivet-cmphistos:\n', out.decode("utf-8"))
-    if err :
-        print('Errors from rivet-cmphistos:\n', err.decode("utf-8"))
-    if retcode != 0:
-        print('Crash in rivet-cmphistos code = ', retcode, ' exiting')
-        exit(retcode)
-"""
-
 
 ## Write web page containing all (matched) plots
 ## Make web pages first so that we can load it locally in
@@ -526,73 +459,8 @@ def which(program):
 
     return None
 
-for file_name in yaml_dicts:
-    print(file_name)
-    if file_name == '/ALICE_2010_S8625980/Nevt_after_cuts':
-        continue  # BUG: This file doesn't work yet
+num_plots = len(yaml_dicts)
+print("Making {} plots".format(num_plots))
+for i, file_name in enumerate(yaml_dicts):
+    print("Plotting", args.OUTPUTDIR+file_name, "({}/{} remaining)".format(num_plots-i, num_plots))
     rivet_plot(yaml_dicts[file_name], file_name, args.OUTPUTDIR)
-
-"""
-## Run make-plots on all generated .dat files
-# sys.exit(0)
-mp_cmd = ["make-plots"]
-for configfile in args.CONFIGFILES:
-    configfile = os.path.abspath(os.path.expanduser(configfile))
-    if os.access(configfile, os.R_OK):
-        mp_cmd.append("--config=%s" % configfile)
-if args.NUMTHREADS:
-    mp_cmd.append("--num-threads=%d" % args.NUMTHREADS)
-if args.NO_CLEANUP:
-    mp_cmd.append("--no-cleanup")
-if args.NO_SUBPROC:
-    mp_cmd.append("--no-subproc")
-if args.VECTORFORMAT == "PDF":
-    mp_cmd.append("--pdfpng")
-elif args.VECTORFORMAT == "PS":
-    mp_cmd.append("--pspng")
-if args.OUTPUT_FONT:
-    mp_cmd.append("--font=%s" % args.OUTPUT_FONT)
-# if args.OUTPUT_FONT.upper() == "PALATINO":
-#     mp_cmd.append("--palatino")
-# if args.OUTPUT_FONT.upper() == "CM":
-#     mp_cmd.append("--cm")
-# elif args.OUTPUT_FONT.upper() == "TIMES":
-#     mp_cmd.append("--times")
-# elif args.OUTPUT_FONT.upper() == "HELVETICA":
-#     mp_cmd.append("--helvetica")
-# elif args.OUTPUT_FONT.upper() == "MINION":
-#     mp_cmd.append("--minion")
-datfiles = []
-for analysis in analyses:
-    anapath = os.path.join(args.OUTPUTDIR, analysis)
-    #print(anapath)
-    anadatfiles = glob.glob("%s/*.dat" % anapath)
-    datfiles += sorted(anadatfiles)
-if datfiles:
-    mp_cmd += datfiles
-    if args.VERBOSE:
-        mp_cmd.append("--verbose")
-        print("Calling make-plots with the following options:")
-        print(" ".join(mp_cmd))
-    if not args.DRY_RUN:
-        Popen(mp_cmd).wait()
-        if args.BOOKLET and args.VECTORFORMAT=="PDF":
-            if which("pdftk") is not None:
-                bookletcmd = ["pdftk"]
-                for analysis in analyses:
-                    anapath = os.path.join(args.OUTPUTDIR, analysis)
-                    bookletcmd += sorted(glob.glob("%s/*.pdf" % anapath))
-                bookletcmd += ["cat", "output", "%s/booklet.pdf" % args.OUTPUTDIR]
-                print(bookletcmd)
-                Popen(bookletcmd).wait()
-            elif which("pdfmerge") is not None:
-                bookletcmd = ["pdfmerge"]
-                for analysis in analyses:
-                    anapath = os.path.join(args.OUTPUTDIR, analysis)
-                    bookletcmd += sorted(glob.glob("%s/*.pdf" % anapath))
-                bookletcmd += ["%s/booklet.pdf" % args.OUTPUTDIR]
-                print(bookletcmd)
-                Popen(bookletcmd).wait()
-            else:
-                print("Neither pdftk nor pdfmerge available --- not booklet output possible")
-"""
