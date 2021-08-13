@@ -85,7 +85,6 @@ def _parse_args(args):
 def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns):
     """Loop over all input files. Only use the first occurrence of any REF-histogram
     and the first occurrence in each MC file for every MC-histogram."""
-    # TODO: rewrite function
     refhistos, mchistos = {}, {}
     for infile, inname in zip(filelist, filenames):
         mchistos.setdefault(inname, {})
@@ -285,7 +284,8 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     if verbose:
         logging.basicConfig(level=logging.DEBUG)
 
-    # TODO: more elegant solution for getting rc_params by refactoring _parse_args and making it more generalized.
+    # TODO: more elegant solution for getting rc_params by refactoring _parse_args. 
+    #  Then the 4 lines below can be replaced by 1 line
     stylename, _, rc_params_dict = _parse_args([style])
     stylename = stylename[0]    # Convert list to str
     rc_params_dict = rc_params_dict[stylename]  # Convert dict of dicts to dict
@@ -350,8 +350,6 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
             mchistos, refhistos, reftitle, 
             plotoptions, stylename, rc_params_dict, mc_errs
         )
-        # TODO: make key the actual file name, i.e., analysisID/histoID if nested, analysisID_histoID if not?
-        #   In that case, refactor parts of write_output to separate function called e.g. create_filename
         yamldicts[plot_id] = outputdict
         if writefiles:
             # Make the output and write to file

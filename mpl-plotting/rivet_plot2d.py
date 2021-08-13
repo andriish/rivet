@@ -7,7 +7,7 @@ import numpy as np
 
 import yoda_plot2d as yp
 from mathtext_preprocessor import preprocess
-# TODO Docstrings
+
 
 def _preprocess_custom_ticks(ticks):
     """Apply the mathtext preprocessor on a custom tick list.
@@ -28,8 +28,19 @@ def _preprocess_custom_ticks(ticks):
 
 
 def _prepare_mpl(yaml_dict, plot_features, style_path):
-    # Styling to be applied in conjuction with the rivet default style. Might move this to .mplstyle file
-    # axes.labelpad is different for x, y axis. Personally, this setting looks better than original rivet style. 
+    """Change rcParams for matplotlib so that plots get a rivet-style look. 
+
+    Parameters
+    ----------
+    yaml_dict : dict 
+        The dictionary created from .yoda and .plot files. Contains all info about rcParams
+    plot_features : dict
+        The "plot features" section of the yaml_dict.
+    style_path : str
+        Path to the mplstyle file. See plot_2Dhist for its default value.
+    """
+    # rc2d is styling to be applied in conjuction with the rivet default style. Might move this to .mplstyle file
+    # TODO axes.labelpad is different for x, y axis. Personally, this setting looks better than original rivet style. 
     #   Maybe directly modify using format_axis, specifically set_xlabel(labelpad=something)?
     rc2d = {
         'yaxis.labellocation': 'top', 'image.cmap': 'jet', 'axes.labelpad': 0.7,
@@ -49,13 +60,16 @@ def _post_process_fig(fig, filename, fileformats, title, sup_title_kw=None, save
     Parameters
     ----------
     fig : matplotlib.figure.Figure
-        [description]
+        The matplotlib figure object that will be saved 
     filename : str
-        [description]
+        The output file name, without the file extension.
     fileformats : Iterable[str]
-        See outputfileformats in plot_2Dhist
+        See outputfileformats in plot_2Dhist.
     title : str
-        [description]
+        The title of the entire figure.
+    suptitle_kw, savefig_kw, clf_kw : dict
+        Additional kwargs passed to its respective matplotlib functions.
+        If None, nothing is passed to the functions.
     """
     if sup_title_kw is None:
         sup_title_kw = {}
@@ -89,7 +103,7 @@ def _get_zlim(hist_data, plot_features):
     -----
     This code is a modified version of the original ylim-calculating code in make-plots.
     """
-    # TODO change/remove constants?
+    # TODO change/remove constants
     if plot_features.get('ZMax') is not None:
         zmax = plot_features.get('ZMax')
     elif plot_features.get('LogZ'):
@@ -113,6 +127,23 @@ def _get_zlim(hist_data, plot_features):
 
 
 def _get_axis_kw(zmin, zmax, plot_features):
+    """Create the xaxis_kw, yaxis_kw, zaxis_kw arguments that will be passed to the yoda plotting API.
+
+    Parameters
+    ----------
+    zmin : float
+        Lower limit of the z axis.
+    zmax : float
+        Upper limit of the z axis.
+    plot_features : dict
+        Dict containing all settings for the plot. 
+        Some of these settings will be passed to xaxis_kw etc.
+
+    Returns
+    -------
+    axis_kw : list[dict[str, Any]]
+        The x, y, and z axis_kw dicts, returned in that order.
+    """
     axis_kw = []
     for a in 'XYZ':
         if a == 'Z':
@@ -163,7 +194,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.', o
     # Ratio plots will not have a log z axis 
     ratio_axis_kw[2]['log'] = False
 
-    # TODO if possible, refactor this for less code duplication
+    # TODO if possible, refactor this entire if-else-statement for less code duplication
     if plot_features.get('2DIndividual', True):
         fig = plt.figure()
         for yoda_hist, hist_settings in zip(hist_data, hist_features):
