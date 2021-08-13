@@ -86,7 +86,7 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename):
     plt.rcParams['xtick.top'] = plot_features.get('XTwosidedTicks', True)
     plt.rcParams['ytick.right'] = plot_features.get('YTwosidedTicks', True)
 
-    if plot_features.get('RatioPlot', 1):  # TODO: Remove default 1?
+    if plot_features.get('RatioPlot', 1):
         fig, (ax, ax_ratio) = plt.subplots(2, 1, sharex=True, gridspec_kw={'height_ratios': (2, 1)})
     else:
         fig, ax = plt.subplots(1, 1)
@@ -108,7 +108,7 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename):
     max_ymax = max([h.yMax() for h in hist_data])
     if plot_features.get('YMax') is not None:
         YMax = plot_features.get('YMax')
-    elif plot_features.get('LogY'):
+    elif plot_features.get('LogY', 1):
         YMax = 1.7*max_ymax
     else:
         YMax = 1.1*max_ymax
@@ -117,7 +117,7 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename):
     min_ymin = min([h.yMin() for h in hist_data])
     if plot_features.get('YMin') is not None:
         YMin = plot_features.get('YMin')
-    elif plot_features.get('LogY'):
+    elif plot_features.get('LogY', 1):
         YMin = (min_ymin/1.7 if plot_features.get('FullRange')
                 else max(min_ymin/1.7, 2e-7*YMax))
     elif plot_features.get('ShowZero', 1):  # defaul ShowZero is True
@@ -132,7 +132,7 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename):
     if plot_features.get('LogX'):
         ax.set_xscale('log')
         ax.xaxis.set_major_locator(mpl.ticker.LogLocator(numticks=np.inf))
-    if plot_features.get('LogY'):
+    if plot_features.get('LogY', 1):
         ax.set_yscale('log')
         ax.yaxis.set_major_locator(mpl.ticker.LogLocator(numticks=np.inf))
         ax.yaxis.set_minor_locator(mpl.ticker.LogLocator(
@@ -142,14 +142,14 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename):
     if plot_features.get('XMajorTickMarks') is not None and not plot_features.get('LogX'):
         base = plot_features.get('XMajorTickMarks')*10**(int(np.log10(XMax))-1)
         ax.xaxis.set_major_locator(mpl.ticker.MultipleLocator(base))
-    if plot_features.get('YMajorTickMarks') is not None and not plot_features.get('LogY'):
+    if plot_features.get('YMajorTickMarks') is not None and not plot_features.get('LogY', 1):
         base = plot_features.get('YMajorTickMarks')*10**(int(np.log10(YMax))-1)
         ax.yaxis.set_major_locator(mpl.ticker.MultipleLocator(base))
 
     if plot_features.get('XMinorTickMarks') is not None and not plot_features.get('LogX'):
         ax.xaxis.set_minor_locator(mpl.ticker.AutoMinorLocator(
             1+plot_features.get('XMinorTickMarks')))
-    if plot_features.get('YMinorTickMarks') is not None and not plot_features.get('LogY'):
+    if plot_features.get('YMinorTickMarks') is not None and not plot_features.get('LogY', 1):
         ax.yaxis.set_minor_locator(mpl.ticker.AutoMinorLocator(
             1+plot_features.get('YMinorTickMarks')))
 
@@ -243,7 +243,7 @@ def _plot_Scatter1D(hist_data, hist_features, yaml_dicts, output_filename):
     max_ymax = max([h.points()[0].val(1) for h in hist_data])
     if plot_features.get('YMax') is not None:
         YMax = plot_features.get('YMax')
-    elif plot_features.get('LogY'):
+    elif plot_features.get('LogY', 1):
         YMax = 1.7*max_ymax
     else:
         YMax = 1.1*max_ymax
@@ -252,7 +252,7 @@ def _plot_Scatter1D(hist_data, hist_features, yaml_dicts, output_filename):
     min_ymin = min([h.points()[0].val(1) for h in hist_data])
     if plot_features.get('YMin') is not None:
         YMin = plot_features.get('YMin')
-    elif plot_features.get('LogY'):
+    elif plot_features.get('LogY', 1):
         YMin = (min_ymin/1.7 if plot_features.get('FullRange')
                 else max(min_ymin/1.7, 2e-7*YMax))
     elif plot_features.get('ShowZero', 1):  # defaul ShowZero is True
