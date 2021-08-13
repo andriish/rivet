@@ -82,28 +82,6 @@ def _parse_args(args):
     return filelist, filenames, plotoptions
 
 
-def _preprocess_rcparams(rc_params):
-    """Create a dictionary from the string input
-    TODO: refactor so that _parse_args uses this function.
-    TODO: repurpose function to be more general.
-    Parameters
-    ----------
-    rc_params : str
-        String of the format key=value:key2=value2..., similar to the format of args.
-
-    Returns
-    -------
-    rc_params_dict : dict
-        The rc_params string converted to a dict.
-    
-    Examples
-    --------
-    >>> _preprocess_rcparams('key=value:key2=multiword value:multiword key=multiword value again')
-    {'key': 'value', 'key2': 'multiword value', 'multiword key': 'multiword value again'}
-    """
-    pass
-    
-
 def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns):
     """Loop over all input files. Only use the first occurrence of any REF-histogram
     and the first occurrence in each MC file for every MC-histogram."""
