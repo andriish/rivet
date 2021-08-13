@@ -1,7 +1,17 @@
+2021-08-13  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Provide more options to specify the Cython command to be
+	used. Thanks to Christian Holm Christensen.
+
+	* Separate the DESTDIR from prefix in the Python module
+	installation, to clean up FreeBSD packaging. Thanks to Dmitry
+	Kalinkin.
+
 2021-07-19  Christian Gutschow  <chris.g@cern.ch>
 
 	* introduce isCompatibleWithSqrtS function for sqrtS dependent hist booking,
-  falls back to ENERGY option to make routines reentrant safe
+	falls back to ENERGY option to make routines reentrant safe
+
 	* fix back for CounterPtr filling: no fill should mean no fill, not fill using weight 0
 
 2021-07-12  Andy Buckley  <andy.buckley@cern.ch>
