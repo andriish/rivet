@@ -37,7 +37,6 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
     hist_features = [val for val in yaml_dicts['histograms'].values()]
     output_filename = os.path.join(outputdir, plot_name.strip('/'))
 
-    # TODO: Add Scatter1D plotting function
     if all(isinstance(h, yoda.Scatter1D) for h in hist_data):
         _plot_Scatter1D(hist_data, hist_features, yaml_dicts, output_filename)
     elif all(isinstance(h, yoda.Scatter2D) for h in hist_data):
@@ -75,6 +74,22 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename):
         Name of the saved plot file. 
     """
     plot_features = yaml_dicts.get('plot features', {})
+    
+    # Create fig and axes
+    if plot_features.get('RatioPlot', 1):
+        fig, (ax, ax_ratio) = plt.subplots(2, 1, sharex=True, gridspec_kw={'height_ratios': (2, 1)})
+    else:
+        fig, ax = plt.subplots(1, 1)
+    
+    plot_errorbars = [h.get('ErrorBars', 1) for h in hist_features]
+    colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
+        
+    # Plot histogram and ratio using Yoda function
+    yoda_plot1d.plot_hist(hist_data[0], hist_data[1:], ax=ax, ErrorBars=plot_errorbars, colors=colors)
+    if plot_features.get('RatioPlot', 1):
+        yoda_plot1d.plot_ratio(hist_data[0], hist_data[1:], ax=ax_ratio,
+                               ErrorBars=plot_errorbars, ErrorBands=plot_features.get('ErrorBands'), colors=colors)
+        
     plot_style = os.path.join('plot_styles', yaml_dicts['style'] + '.mplstyle')
     if not os.path.isfile(plot_style):
         raise NotImplementedError('Plot style file not found.')
@@ -85,11 +100,6 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename):
 
     plt.rcParams['xtick.top'] = plot_features.get('XTwosidedTicks', True)
     plt.rcParams['ytick.right'] = plot_features.get('YTwosidedTicks', True)
-
-    if plot_features.get('RatioPlot', 1):
-        fig, (ax, ax_ratio) = plt.subplots(2, 1, sharex=True, gridspec_kw={'height_ratios': (2, 1)})
-    else:
-        fig, ax = plt.subplots(1, 1)
 
     # Set text labels
     if plot_features.get('RatioPlot', 1):
@@ -103,6 +113,14 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename):
     XMin = plot_features.get('XMin', min([h.xMin() for h in hist_data]))
     XMax = plot_features.get('XMax', max([h.xMax() for h in hist_data]))
     ax.set_xlim(XMin, XMax)
+    
+    if plot_features.get('RatioPlot', 1):
+        # Ratio plot has y range of 0.5 to 1.5
+        ax_ratio.yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.1))
+        ax_ratio.set_ylabel(plot_features.get('RatioPlotYLabel', 'MC/Data'))
+        RatioPlotYMin = plot_features.get('RatioPlotYMin', 0.5)
+        RatioPlotYMax = plot_features.get('RatioPlotYMax', 1.4999)  # Don't plot 1.5
+        ax_ratio.set_ylim(RatioPlotYMin, RatioPlotYMax)
 
     # Use maximum y value from all hist datasets
     max_ymax = max([h.yMax() for h in hist_data])
@@ -171,9 +189,6 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename):
     if plot_features.get('PlotXTickLabels') == 0:
         ax.set_xticklabels([])
 
-    plot_errorbars = [h.get('ErrorBars', 1) for h in hist_features]
-    colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
-
     if plot_features.get('Legend', 1):
         handles = [AnyObject()]
         labels = [hist_features[0].get('Title', 'Data')]
@@ -191,20 +206,6 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename):
                           plot_features.get('LegendYPos', 0.97))
             ax.legend(handles, labels, loc='upper right', bbox_to_anchor=legend_pos,
                       handler_map={AnyObject: AnyObjectHandler()}, markerfirst=False)
-
-    # Plot histogram using Yoda function
-    yoda_plot1d.plot_hist(hist_data[0], hist_data[1:], ax=ax, ErrorBars=plot_errorbars, colors=colors)
-
-    if plot_features.get('RatioPlot', 1):  # TODO: Remove default 1?
-        # Ratio plot has y range of 0.5 to 1.5
-        ax_ratio.yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.1))
-        ax_ratio.set_ylabel(plot_features.get('RatioPlotYLabel', 'MC/Data'))
-        RatioPlotYMin = plot_features.get('RatioPlotYMin', 0.5)
-        RatioPlotYMax = plot_features.get('RatioPlotYMax', 1.4999)  # Don't plot 1.5
-        ax_ratio.set_ylim(RatioPlotYMin, RatioPlotYMax)
-        # Plot ratio using Yoda function
-        yoda_plot1d.plot_ratio(hist_data[0], hist_data[1:], ax=ax_ratio,
-                               ErrorBars=plot_errorbars, ErrorBands=plot_features.get('ErrorBands'), colors=colors)
 
     fig.savefig(output_filename+'.pdf')
     fig.savefig(output_filename+'.png')
@@ -236,8 +237,9 @@ class AnyObjectHandler(object):
 
 def _plot_Scatter1D(hist_data, hist_features, yaml_dicts, output_filename):
     """Plot the 1D Scatter data."""
-    fig, ax = plt.subplots(1, 1)
     plot_features = yaml_dicts.get('plot features', {})
+    fig, ax = plt.subplots(1, 1)
+    yoda_plot1d.plot_scatter1D(hist_data, ax=ax)
 
     # Use maximum y value from all hist datasets
     max_ymax = max([h.points()[0].val(1) for h in hist_data])
@@ -263,9 +265,6 @@ def _plot_Scatter1D(hist_data, hist_features, yaml_dicts, output_filename):
 
     ax.set_ylim(YMin, YMax)
 
-    
-    colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
-    yoda_plot1d.plot_scatter1D(hist_data, ax=ax)
     fig.savefig(output_filename+'.pdf')
     fig.savefig(output_filename+'.png')
     plt.close()
