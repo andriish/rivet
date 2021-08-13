@@ -350,6 +350,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
             mchistos, refhistos, reftitle, 
             plotoptions, stylename, rc_params_dict, mc_errs
         )
+        # TODO file name here might always include a / rather than being the actual file name.
         yamldicts[plot_id] = outputdict
         if writefiles:
             # Make the output and write to file

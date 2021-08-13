@@ -45,7 +45,7 @@ def _prepare_mpl(yaml_dict, plot_features, style_path):
     rc2d = {
         'yaxis.labellocation': 'top', 'image.cmap': 'jet', 'axes.labelpad': 0.7,
         'figure.figsize': (4.5, 4.41), 'figure.subplot.hspace': plt.rcParams['figure.subplot.wspace'],
-        'figure.subplot.bottom': 0.085, 'figure.subplot.top': 0.94, 'figure.subplot.left': 0.12462526766, 'figure.subplot.right': 0.89
+        'figure.subplot.bottom': 0.085, 'figure.subplot.top': 0.9, 'figure.subplot.left': 0.12462526766, 'figure.subplot.right': 0.89
     }
 
     plot_style = yaml_dict.get('style', 'default') + '.mplstyle'
@@ -159,8 +159,8 @@ def _get_axis_kw(zmin, zmax, plot_features):
     return axis_kw
 
 
-def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.', outputfileformats=('png',)):
-    """Plot 2D histogram in hist_data based 
+def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_styles/', outputfileformats=('png','pdf')):
+    """Plot 2D histograms in hist_data by formatting the figure according to the specified settings. 
 
     Parameters
     ----------
@@ -171,15 +171,13 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.', o
         Currently only supports the "Title" setting but more should be added. 
     yaml_dict : dict
         Plot settings for the entire figure.
+    filename : str
+        The output file name, without the file extension.
     style_path : str
         Path to the directory with the rivet mplstyle file(s).
         TODO this is a temporary argument and will likely become a constant in rivet instead.
     outputfileformats : Iterable[str]
         All the file formats, e.g., png, pdf, svg, in which the figure(s) will be exported as.
-    Returns
-    -------
-    fig : matplotlib.figure.Figure
-        Matplotlib Figure object containing all plots.
     """
     plot_features = yaml_dict.get('plot features', {})
     _prepare_mpl(yaml_dict, plot_features, style_path)
@@ -187,7 +185,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.', o
     zmin, zmax = _get_zlim(hist_data, plot_features)
     axis_kw = _get_axis_kw(zmin, zmax, plot_features)
     
-    ratio = plot_features.get('RatioPlot', True) and len(hist_data) > 1
+    ratio = plot_features.get('RatioPlot', False) and len(hist_data) > 1
     ratio_zmin = plot_features.get('RatioPlotZMin', 0.5)
     ratio_zmax = plot_features.get('RatioPlotZMax', 1.4999)
     ratio_axis_kw = _get_axis_kw(ratio_zmin, ratio_zmax, plot_features)
@@ -195,7 +193,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.', o
     ratio_axis_kw[2]['log'] = False
 
     # TODO if possible, refactor this entire if-else-statement for less code duplication
-    if plot_features.get('2DIndividual', True):
+    if plot_features.get('2DIndividual', True):    # TODO when this is True, the figures are not shown in the html file.
         fig = plt.figure()
         for yoda_hist, hist_settings in zip(hist_data, hist_features):
             if plot_features.get('2DType', 'projection') == 'projection':
@@ -220,7 +218,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.', o
                         cbar_kw=dict(fraction=0.075, pad=0.02, aspect=25), xaxis_kw=ratio_axis_kw[0], yaxis_kw=ratio_axis_kw[1], zaxis_kw=ratio_axis_kw[2])
                 elif plot_features.get('2DType') == 'surface':
                     ax = fig.add_subplot(111, projection='3d')
-                    yp.ratio_surf(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('RatioPlot2DColormap', plt.rcParams['image.cmap']),
+                    yp.ratio_surf(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('RatioPlot2DColormap', plt.rcParams['image.cmap']), # Use diverging colormap
                         elev=plot_features.get('3DRatioPlotElev'), azim=plot_features.get('RatioPlot3DAzim'), xaxis_kw=ratio_axis_kw[0], yaxis_kw=ratio_axis_kw[1], zaxis_kw=ratio_axis_kw[2])
                 _post_process_fig(fig, '{}-{}-ratio'.format(filename, hist_settings['Title']), outputfileformats, preprocess(plot_features.get('Title')))
 
@@ -229,6 +227,8 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='.', o
         nrows = 1 + ratio
         # The last column is intentionally made larger, since it will contain the color bar as well.
         width_ratios = [1] * (len(hist_data) - 1) + [1.1]
+        # BUG when only one plot is created, the figure title overlaps over the axes title. 
+        #  Either make more space using e.g. top padding or remove the axes title.
         fig = plt.figure(figsize=np.array(plt.rcParams['figure.figsize']) * np.array([sum(width_ratios), nrows]))
         gs = fig.add_gridspec(ncols=ncols, nrows=nrows, width_ratios=width_ratios)
 

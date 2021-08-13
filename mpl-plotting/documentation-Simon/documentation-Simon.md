@@ -92,7 +92,7 @@ Due to limitations to the old plotting backend (i.e. `make-plots`), multiple 2D 
 The new plotting backend can plot multiple 2D histograms in the same figure (see the [2D histograms section](#2D-histograms) below). No hacky behavior is therefore needed inside `rivet_makeyaml` and all 2D histograms will therefore be included in the same output yaml file, just like how 1D histograms behave. 
 
 ## Updated flags for rivet-cmphistos
-- `rivet-cmphistos` has been renamed `rivet_makeyaml` (name not final) and will mainly be called as a python function by `rivet-mkhtml`. In other words, it might not remain as a stand-alone bash command that can be called. Howver, if this is desired, it is easy to add a thin wrapper around rivet_makeyaml to make a CLI.
+- `rivet-cmphistos` has been renamed `rivet_makeyaml` (name not final) and will mainly be called as a python function by `rivet-mkhtml`. In other words, it might not remain as a stand-alone bash command that can be called. However, if this is desired, it is easy to add a thin wrapper around rivet_makeyaml to make a CLI.
 - Since everything will be controlled by `rivet-mkhtml`, all command line arguments will be passed to `rivet-mkhtml`. A subset of these will then be passed to the `make_yamlfiles` function.
 - See [this table](https://docs.google.com/spreadsheets/d/1GUpjXIZToN0vr4dkPfJBvTReHq9j3AqRx5v5Yeel95U/edit?usp=sharing) of all new and old arguments.
 
