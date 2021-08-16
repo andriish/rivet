@@ -20,8 +20,6 @@ ENVIRONMENT:
 
 from __future__ import print_function
 
-from ruamel import yaml
-
 import rivet, sys, os
 from rivet_makeyaml import make_yamlfiles
 from rivet_plot import rivet_plot
