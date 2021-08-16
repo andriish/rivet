@@ -350,7 +350,8 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
             mchistos, refhistos, reftitle, 
             plotoptions, stylename, rc_params_dict, mc_errs
         )
-        # TODO file name here might always include a / rather than being the actual file name.
+        # TODO file name here always includes a / rather than being the actual file name.
+        #  When hier_output == False, / should be replaced by _. See content of yamlio.write_output
         yamldicts[plot_id] = outputdict
         if writefiles:
             # Make the output and write to file

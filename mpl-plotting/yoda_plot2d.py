@@ -152,13 +152,45 @@ def _add_colorbar(norm, cmap, ax=None, *args, **kwargs):
     return cbar
 
 
-def heatmap(yoda_hist, ax=None, showzero=True, colorbar=True, cmap=None, **kwargs):
-    """Plot a 2D heatmap plot of a yoda.Scatter3D object.
+def get_axis_kw(kwargs):
+    """Create 3 separate dicts of kwargs that can be passed to format_axis.
+    The function also removes the format_axis elements from kwargs. 
 
     Parameters
     ----------
-    yoda_hist : yoda.Scatter3D
-        Yoda scatter that will be plotted.
+    kwargs : dict
+        Keyword arguments from a plotting function, e.g. `heatmap`.
+
+    Returns
+    -------
+    all_axis_kw : list[dict[str, Any]]
+        A list with dicts of keyword arguments for format_axis.
+        The elements correspond to kwargs for the x, y, and z axis respectively.
+    """
+    all_axis_kws = []
+    format_axis_kw_names = {
+        'label': '%slabel', 'lim': '%slim', 'log': 'log%s',
+        'major_ticks': '%smajor_ticks', 'minor_ticks': '%sminor_ticks', 
+        'custom_major_ticks': '%scustom_major_ticks', 'custom_minor_ticks': '%scustom_minor_ticks', 
+        'plot_ticklabels': 'plot_%sticklabels'
+    }
+    for axis_name in 'xyz':
+        axis_kws = {}
+        for format_axis_name, plot_kw_name in format_axis_kw_names.items():
+            kw = plot_kw_name % axis_name
+            if kw in kwargs:
+                axis_kws[format_axis_name] = kwargs.pop(kw)
+        all_axis_kws.append(axis_kws)
+    return all_axis_kws
+
+
+def heatmap(yoda_hist, ax=None, showzero=True, colorbar=True, cmap=None, **kwargs):
+    """Plot a 2D heatmap plot of a yoda 2D histogram.
+
+    Parameters
+    ----------
+    yoda_hist : Union[yoda.Scatter3D, yoda.Histo2D, yoda.Profile2D]
+        Yoda 2D histogram that will be plotted.
     ax : matplotlib.axes.Axes
         Axes object in which the 2D heatmap plot will be plotted in. 
         If None, use plt.gca().
@@ -216,9 +248,9 @@ def ratio_heatmap(main_hist, ref_hist, ax=None, showzero=True, colorbar=True, cm
 
     Parameters
     ----------
-    main_hist : yoda.Scatter3D
+    main_hist : Union[yoda.Scatter3D, yoda.Histo2D, yoda.Profile2D]
         Yoda histogram that will be the dividend.
-    ref_hist : yoda.Scatter3D
+    ref_hist : Union[yoda.Scatter3D, yoda.Histo2D, yoda.Profile2D]
         Yoda histogram that will be the divisor, i.e. the reference histogram.
     ax : matplotlib.axes.Axes
         Axes object in which the 2D heatmap plot will be plotted in. 
@@ -252,38 +284,6 @@ def ratio_heatmap(main_hist, ref_hist, ax=None, showzero=True, colorbar=True, cm
     z_ratio = main_z / ref_z
     
     return _heatmap_base(x_edges, y_edges, z_ratio, ax=ax, showzero=showzero, colorbar=colorbar, cmap=cmap, **kwargs)
-
-
-def get_axis_kw(kwargs):
-    """Create 3 separate dicts of kwargs that can be passed to format_axis.
-    The function also removes the format_axis elements from kwargs. 
-
-    Parameters
-    ----------
-    kwargs : dict
-        Keyword arguments from a plotting function, e.g. `heatmap`.
-
-    Returns
-    -------
-    all_axis_kw : list[dict[str, Any]]
-        A list with dicts of keyword arguments for format_axis.
-        The elements correspond to kwargs for the x, y, and z axis respectively.
-    """
-    all_axis_kws = []
-    format_axis_kw_names = {
-        'label': '%slabel', 'lim': '%slim', 'log': 'log%s',
-        'major_ticks': '%smajor_ticks', 'minor_ticks': '%sminor_ticks', 
-        'custom_major_ticks': '%scustom_major_ticks', 'custom_minor_ticks': '%scustom_minor_ticks', 
-        'plot_ticklabels': 'plot_%sticklabels'
-    }
-    for axis_name in 'xyz':
-        axis_kws = {}
-        for format_axis_name, plot_kw_name in format_axis_kw_names.items():
-            kw = plot_kw_name % axis_name
-            if kw in kwargs:
-                axis_kws[format_axis_name] = kwargs.pop(kw)
-        all_axis_kws.append(axis_kws)
-    return all_axis_kws
 
 
 def _heatmap_base(x_edges, y_edges, z_vals, ax=None, showzero=True, colorbar=True, cmap=None, 
@@ -338,8 +338,8 @@ def surface(yoda_hist, ax=None, showzero=True, cmap=None, **kwargs):
 
     Parameters
     ----------
-    yoda_hist : yoda.Scatter3D
-        Yoda scatter that will be plotted.
+    yoda_hist : Union[yoda.Scatter3D, yoda.Histo2D, yoda.Profile2D]
+        Yoda 2D histogram that will be plotted.
     ax : Axes3D object
         Axes object in which the surface plot will be plotted in. Must be a 3D axes object.
         If None, use `plt.gca(projection='3d')`.
@@ -385,9 +385,9 @@ def ratio_surface(main_hist, ref_hist, ax=None, showzero=True, cmap=None, **kwar
 
     Parameters
     ----------
-    main_hist : yoda.Scatter3D
+    main_hist : Union[yoda.Scatter3D, yoda.Histo2D, yoda.Profile2D]
         Yoda histogram that will be the dividend.
-    ref_hist : yoda.Scatter3D
+    ref_hist : Union[yoda.Scatter3D, yoda.Histo2D, yoda.Profile2D]
         Yoda histogram that will be the divisor, i.e. the reference histogram.
     ax : Axes3D object
         Axes object in which the surface plot will be plotted in. Must be a 3D axes object.
