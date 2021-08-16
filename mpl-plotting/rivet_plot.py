@@ -1,6 +1,5 @@
 """Module creates a rivet-style plot as a pdf."""
 import os
-import sys
 import io
 
 import matplotlib as mpl
@@ -40,7 +39,7 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
     if all(isinstance(h, yoda.Scatter1D) for h in hist_data):
         _plot_Scatter1D(hist_data, hist_features, yaml_dicts, output_filename)
     elif all(isinstance(h, yoda.Scatter2D) for h in hist_data):
-        plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename)  # TODO: Rename Scatter2D?
+        plot_Scatter2D(hist_data, hist_features, yaml_dicts, output_filename)
     elif all(isinstance(h, yoda.Scatter3D) for h in hist_data):
         plot_2Dhist(hist_data, hist_features, yaml_dicts, output_filename)  # TODO: Rename Scatter3D?
     else:
@@ -58,7 +57,42 @@ def _parse_yoda_hist(yaml_dicts):
     return hist_data
 
 
-def plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename):
+def _plot_Scatter1D(hist_data, hist_features, yaml_dicts, output_filename):
+    """Plot the 1D Scatter data."""
+    plot_features = yaml_dicts.get('plot features', {})
+    fig, ax = plt.subplots(1, 1)
+    yoda_plot1d.plot_scatter1D(hist_data, ax=ax)
+
+    # Use maximum y value from all hist datasets
+    max_ymax = max([h.points()[0].val(1) for h in hist_data])
+    if plot_features.get('YMax') is not None:
+        YMax = plot_features.get('YMax')
+    elif plot_features.get('LogY', 1):
+        YMax = 1.7*max_ymax
+    else:
+        YMax = 1.1*max_ymax
+
+    # Use minimum y value from all hist datasets
+    min_ymin = min([h.points()[0].val(1) for h in hist_data])
+    if plot_features.get('YMin') is not None:
+        YMin = plot_features.get('YMin')
+    elif plot_features.get('LogY', 1):
+        YMin = (min_ymin/1.7 if plot_features.get('FullRange')
+                else max(min_ymin/1.7, 2e-7*YMax))
+    elif plot_features.get('ShowZero', 1):  # defaul ShowZero is True
+        YMin = 0 if min_ymin > -1e-4 else 1.1*min_ymin
+    else:
+        YMin = (1.1*min_ymin if min_ymin < -1e-4 else 0 if min_ymin < 1e-4
+                else 0.9*min_ymin)
+
+    ax.set_ylim(YMin, YMax)
+
+    fig.savefig(output_filename+'.pdf')
+    fig.savefig(output_filename+'.png')
+    plt.close()
+
+
+def plot_Scatter2D(hist_data, hist_features, yaml_dicts, output_filename):
     """Plot the 1D histogram data using Rivet styles.
 
     Parameters
@@ -74,22 +108,22 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename):
         Name of the saved plot file. 
     """
     plot_features = yaml_dicts.get('plot features', {})
-    
+
     # Create fig and axes
     if plot_features.get('RatioPlot', 1):
         fig, (ax, ax_ratio) = plt.subplots(2, 1, sharex=True, gridspec_kw={'height_ratios': (2, 1)})
     else:
         fig, ax = plt.subplots(1, 1)
-    
+
     plot_errorbars = [h.get('ErrorBars', 1) for h in hist_features]
     colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
-        
+
     # Plot histogram and ratio using Yoda function
     yoda_plot1d.plot_hist(hist_data[0], hist_data[1:], ax=ax, ErrorBars=plot_errorbars, colors=colors)
     if plot_features.get('RatioPlot', 1):
         yoda_plot1d.plot_ratio(hist_data[0], hist_data[1:], ax=ax_ratio,
                                ErrorBars=plot_errorbars, ErrorBands=plot_features.get('ErrorBands'), colors=colors)
-        
+
     plot_style = os.path.join('plot_styles', yaml_dicts['style'] + '.mplstyle')
     if not os.path.isfile(plot_style):
         raise NotImplementedError('Plot style file not found.')
@@ -113,7 +147,7 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename):
     XMin = plot_features.get('XMin', min([h.xMin() for h in hist_data]))
     XMax = plot_features.get('XMax', max([h.xMax() for h in hist_data]))
     ax.set_xlim(XMin, XMax)
-    
+
     if plot_features.get('RatioPlot', 1):
         # Ratio plot has y range of 0.5 to 1.5
         ax_ratio.yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.1))
@@ -233,39 +267,3 @@ class AnyObjectHandler(object):
             (width/2-0.4, 0), 0.8, height, facecolor='black')
         handlebox.add_artist(patch)
         return patch
-
-
-def _plot_Scatter1D(hist_data, hist_features, yaml_dicts, output_filename):
-    """Plot the 1D Scatter data."""
-    plot_features = yaml_dicts.get('plot features', {})
-    fig, ax = plt.subplots(1, 1)
-    yoda_plot1d.plot_scatter1D(hist_data, ax=ax)
-
-    # Use maximum y value from all hist datasets
-    max_ymax = max([h.points()[0].val(1) for h in hist_data])
-    if plot_features.get('YMax') is not None:
-        YMax = plot_features.get('YMax')
-    elif plot_features.get('LogY', 1):
-        YMax = 1.7*max_ymax
-    else:
-        YMax = 1.1*max_ymax
-
-    # Use minimum y value from all hist datasets
-    min_ymin = min([h.points()[0].val(1) for h in hist_data])
-    if plot_features.get('YMin') is not None:
-        YMin = plot_features.get('YMin')
-    elif plot_features.get('LogY', 1):
-        YMin = (min_ymin/1.7 if plot_features.get('FullRange')
-                else max(min_ymin/1.7, 2e-7*YMax))
-    elif plot_features.get('ShowZero', 1):  # defaul ShowZero is True
-        YMin = 0 if min_ymin > -1e-4 else 1.1*min_ymin
-    else:
-        YMin = (1.1*min_ymin if min_ymin < -1e-4 else 0 if min_ymin < 1e-4
-                else 0.9*min_ymin)
-
-    ax.set_ylim(YMin, YMax)
-
-    fig.savefig(output_filename+'.pdf')
-    fig.savefig(output_filename+'.png')
-    plt.close()
-

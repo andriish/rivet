@@ -1,143 +1,215 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import yoda
+from collections import Sequence
+from yoda_plot2d import format_axis, _get_axis_kw
 
-#TODO: implement `format_axes` from yoda_plot2d.py when it's complete
 
-def plot_hist(ref_hist, mc_hists=None, ax=None, ErrorBars=True, colors=None):
+def plot_hist(
+        hists, plot_ref=True, ax=None, error_bars=True, colors=None, line_styles=['-', '--', '-.', ':'], **kwargs):
     """Create a histogram plot. 
 
     Parameters
     ----------
-    ref_hist : yoda.Scatter2D
-        Yoda scatter that will be plotted as reference data.
-    mc_hists : List[yoda.Scatter2D]
-        Yoda scatter objects that will be plotted as MC data.
+    hists : yoda histogram object or List[yoda histogram object]
+        Yoda scatter objects that will be plotted.
+    plot_ref : Bool
+        Determines whether the first index in `hists` is plotted as reference data.
     ax : Axes object
         Axes object for plotting the histogram.
         If None, use `plt.gca()`.
-    ErrorBars : bool or List[bool]
+    error_bars : bool or List[bool]
         Determines whether the error bars are shown on the plot. A single bool value corresponds to
-        all the scatter objects. Otherwise, a list of bool values can be passed where the first element
-        corresponds to the `ref_hist` object, and the remaining values correspond to the `mc_hists` list.
+        all the scatter objects. Otherwise, a list of bool values can be passed where each element
+        corresponds to the Scatter2D objects in `hists`.
     colors : List[str]
-        The list of colors to be used for plotting the scatter objects in the `mc_hists` list.
+        The list of colors to be used for plotting the scatter objects in the `hists` list.
         If None, the default matplotlib colors are used. 
+    line_styles : List[str]
+        The list of line styles to be used in the `mc_hists` list.
+
+    Other Parameters
+    ----------------
+    xlabel, ylabel : str, optional
+        Axis label.
+    xlim, ylim : tuple, optional
+        Lower and upper limits of axis, in that order.
+    logx, logy : bool, optional
+        If True, set the scale of the axis to log scale. By default False
+    xmajor_ticks, ymajor_ticks : int, optional
+        Digit of the major ticks, by default None
+    xminor_ticks, yminor_ticks : int, optional
+        Number of minor ticks, by default None
+    xcustom_major_ticks, ycustom_major_ticks : Sequence, optional
+        Location of tick, followed by the corresponding tick label.
+    xcustom_minor_ticks, ycustom_minor_ticks : Sequence[float], optional
+        A list of the locations of minor ticks at arbitrary positions. 
+    plot_xticklabels, plot_yticklabels : bool, optional
+        If False, do not plot any tick labels, by default True
+    **kwargs : Any
+        Additional parameters passed to `ax.set`, e.g., `title`.
 
     Returns
     -------
     ax
         The matplotlib axes object.
     """
+    if not isinstance(hists, Sequence):  # Convert single hist object to list
+        hists = [hists]
+    # Convert all histogram objects to Scatter2D
+    hists = [h.mkScatter() if not isinstance(h, yoda.Scatter2D) else h for h in hists]
     if ax is None:
         ax = plt.gca()
-    if isinstance(ErrorBars, bool):  # Convert to list of bool vals
-        if mc_hists is not None:
-            ErrorBars = [ErrorBars] * (len(mc_hists)+1)
-        else:
-            ErrorBars = [ErrorBars]
+    # Format x and y axes
+    x_axis, y_axis, _ = _get_axis_kw(kwargs)
+    if x_axis.get('lim') is None:
+        x_axis['lim'] = [min([h.xMin() for h in hists]), max([h.xMax() for h in hists])]
+    format_axis('x', ax, **x_axis)
+    format_axis('y', ax, **y_axis)
+
+    if isinstance(error_bars, bool):  # Convert to list of bool vals
+        error_bars = [error_bars] * len(hists)
     if colors is None:  # Use default mpl prop cycle vals
         colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
-    x_points = (ref_hist.xMins() + ref_hist.xMaxs())/2
-    x_bins = np.append(ref_hist.xMins(), ref_hist.xMax())
-    data_yVals = ref_hist.yVals()
+    line_properties = LineProperties(colors, line_styles)
+
+    # Define useful variables
+    x_points = (hists[0].xMins() + hists[0].xMaxs())/2
+    x_bins = np.append(hists[0].xMins(), hists[0].xMax())
+    ref_yvals = hists[0].yVals()
 
     # Plot the reference histogram data
-    ax.hlines(data_yVals, ref_hist.xMins(),
-              ref_hist.xMaxs(), 'k')  # Plot reference data as horizontal lines
-    ax.plot(x_points, data_yVals, 'ko')  # Plot black dot in the middle of line
-    data_errminus = [err[0] for err in ref_hist.yErrs()]
-    data_errplus = [err[1] for err in ref_hist.yErrs()]
-    if ErrorBars[0]:
-        ax.vlines(x_points, (data_yVals - data_errminus),
-                  (data_yVals + data_errplus), 'k')
+    if plot_ref:
+        ax.hlines(ref_yvals, hists[0].xMins(),
+                  hists[0].xMaxs(), 'k')  # Plot reference data as horizontal lines
+        ax.plot(x_points, ref_yvals, 'ko')  # Plot black dot in the middle of line
+        ref_errminus = [err[0] for err in hists[0].yErrs()]
+        ref_errplus = [err[1] for err in hists[0].yErrs()]
+        if error_bars[0]:
+            ax.vlines(x_points, (ref_yvals - ref_errminus),
+                      (ref_yvals + ref_errplus), 'k')
 
-    # Plot the MC histogram data
-    if mc_hists is not None:
-        for i, mc in enumerate(mc_hists):
-            # Cycle through colors for MC hists
-            color = colors[i % len(colors)]
-            y_mc = np.insert(mc.yVals(), 0, mc.yVals()[0])
-            ax.plot(x_bins, y_mc, color, drawstyle='steps-pre',
-                    solid_joinstyle='miter', zorder=5+i)  # Plot MC hist data
-            if ErrorBars[i+1]:  # Plot MC error bars by default
-                mc_errminus = [err[0] for err in mc.yErrs()]
-                mc_errplus = [err[1] for err in mc.yErrs()]
-                ax.vlines(x_points, (mc.yVals() - mc_errminus),
-                          (mc.yVals() + mc_errplus), color, zorder=5+i)
-    #TODO: Add Legend
+    for i, hist in enumerate(hists):
+        if plot_ref and i == 0:
+            continue
+        color, linestyle = next(line_properties)
+        hist_yvals = np.insert(hist.yVals(), 0, hist.yVals()[0])
+        ax.plot(x_bins, hist_yvals, color, linestyle=linestyle, drawstyle='steps-pre',
+                solid_joinstyle='miter', zorder=5+i)
+        if error_bars[i]:
+            errminus = [err[0] for err in hist.yErrs()]
+            errplus = [err[1] for err in hist.yErrs()]
+            ax.vlines(x_points, (hist.yVals() - errminus),
+                      (hist.yVals() + errplus), color, zorder=5+i, linestyle=linestyle)
+    # TODO: Add Legend
     return ax
 
 
-def plot_ratio(ref_hist, mc_hists=None, ax=None, ErrorBars=True, ErrorBands=False, colors=None):
+def plot_ratio(
+        hists, ax=None, error_bars=True, error_bands=False, colors=None, line_styles=['-', '--', '-.', ':'],
+        **kwargs):
     """Create a ratio plot of the reference and MC histograms.
 
     Parameters
     ----------
-    ref_hist : yoda.Scatter2D
-        Yoda scatter that will be plotted as reference data.
-    mc_hists : List[yoda.Scatter2D]
-        Yoda scatter objects that will be plotted as MC data.
+    hists : yoda histogram object or List[yoda histogram object]
+        Yoda scatter objects that will be plotted where first element is reference data.
     ax : Axes object
         Axes object for plotting the histogram.
         If None, use `plt.gca()`.
-    ErrorBars : bool or List[bool]
+    error_bars : bool or List[bool]
         Determines whether the error bars are shown on the plot. A single bool value corresponds to
         all the scatter objects. Otherwise, a list of bool values can be passed where the first element
         corresponds to the `ref_hist` object, and the remaining values correspond to the `mc_hists` list.
+    error_bands : bool
+        Determine whether the reference error is plotted as a band.
     colors : List[str]
         The list of colors to be used for plotting the scatter objects in the `mc_hists` list.
-        If None, the default matplotlib colors are used. 
+        If None, the default matplotlib colors are used.
+    line_styles : List[str]
+        The list of line styles to be used in the `mc_hists` list.
+
+    Other Parameters
+    ----------------
+    xlabel, ylabel : str, optional
+        Axis label.
+    xlim, ylim : tuple, optional
+        Lower and upper limits of axis, in that order.
+    logx, logy : bool, optional
+        If True, set the scale of the axis to log scale. By default False
+    xmajor_ticks, ymajor_ticks : int, optional
+        Digit of the major ticks, by default None
+    xminor_ticks, yminor_ticks : int, optional
+        Number of minor ticks, by default None
+    xcustom_major_ticks, ycustom_major_ticks : Sequence, optional
+        Location of tick, followed by the corresponding tick label.
+    xcustom_minor_ticks, ycustom_minor_ticks : Sequence[float], optional
+        A list of the locations of minor ticks at arbitrary positions. 
+    plot_xticklabels, plot_yticklabels : bool, optional
+        If False, do not plot any tick labels, by default True
+    **kwargs : Any
+        Additional parameters passed to `ax.set`, e.g., `title`.
 
     Returns
     -------
     ax
         The matplotlib axes object.
     """
+    if not isinstance(hists, Sequence):  # Convert single hist object to list
+        hists = [hists]
+    # Convert all histogram objects to Scatter2D
+    hists = [h.mkScatter() if not isinstance(h, yoda.Scatter2D) else h for h in hists]
     if ax is None:
         ax = plt.gca()
-    if isinstance(ErrorBars, bool):  # Convert to list of bool vals
-        if mc_hists is not None:
-            ErrorBars = [ErrorBars] * (len(mc_hists)+1)
-        else:
-            ErrorBars = [ErrorBars]
+    # Format x and y axes
+    x_axis, y_axis, _ = _get_axis_kw(kwargs)
+    if x_axis.get('lim') is None:
+        x_axis['lim'] = [min([h.xMin() for h in hists]), max([h.xMax() for h in hists])]
+    format_axis('x', ax, **x_axis)
+    format_axis('y', ax, **y_axis)
+
+    if isinstance(error_bars, bool):  # Convert to list of bool vals
+        error_bars = [error_bars] * len(hists)
     if colors is None:  # Use default mpl prop cycle vals
         colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
+    line_properties = LineProperties(colors, line_styles)
 
-    x_points = (ref_hist.xMins() + ref_hist.xMaxs())/2
-    x_bins = np.append(ref_hist.xMins(), ref_hist.xMax())
-    data_yVals = ref_hist.yVals()
+    # Define useful variables
+    x_points = (hists[0].xMins() + hists[0].xMaxs())/2
+    x_bins = np.append(hists[0].xMins(), hists[0].xMax())
+    ref_yvals = hists[0].yVals()
 
-    ax.hlines(1, ref_hist.xMin(), ref_hist.xMax(), 'k', zorder=2)
+    # Plot the reference data
+    ax.hlines(1, hists[0].xMin(), hists[0].xMax(), 'k', zorder=2)
     ax.plot(x_points, np.ones(len(x_points)), 'ko', zorder=3)
-    if ErrorBars[0]:
-        data_errminus = [err[0] for err in ref_hist.yErrs()]
-        data_errplus = [err[1] for err in ref_hist.yErrs()]
-        if ErrorBands:
-            errbandminus = np.insert((data_yVals - data_errminus)/data_yVals, 0,
-                                     ((data_yVals - data_errminus)/data_yVals)[0])
-            errbandplus = np.insert((data_yVals + data_errplus)/data_yVals, 0,
-                                    ((data_yVals + data_errplus)/data_yVals)[0])
+    if error_bars[0]:
+        data_errminus = [err[0] for err in hists[0].yErrs()]
+        data_errplus = [err[1] for err in hists[0].yErrs()]
+        if error_bands:
+            errbandminus = np.insert((ref_yvals - data_errminus)/ref_yvals, 0,
+                                     ((ref_yvals - data_errminus)/ref_yvals)[0])
+            errbandplus = np.insert((ref_yvals + data_errplus)/ref_yvals, 0,
+                                    ((ref_yvals + data_errplus)/ref_yvals)[0])
             ax.fill_between(x_bins, errbandminus, errbandplus,
                             step='pre', alpha=0.5, zorder=0)
         else:
-            ax.vlines(x_points, (data_yVals - data_errminus)/data_yVals,
-                      (data_yVals + data_errplus)/data_yVals, 'k')
+            ax.vlines(x_points, (ref_yvals - data_errminus)/ref_yvals,
+                      (ref_yvals + data_errplus)/ref_yvals, 'k')
 
-    # Plot MCs histogram data
-    if mc_hists is not None:
-        for i, mc in enumerate(mc_hists):
-            color = colors[i % len(colors)]
-            #TODO: Add line style: -, --, .-, :
-            y_ratio = (np.insert(mc.yVals(), 0, mc.yVals()[0])
-                       / np.insert(data_yVals, 0, data_yVals[0]))
-            ax.plot(x_bins, y_ratio, color, drawstyle='steps-pre', zorder=1,
-                    solid_joinstyle='miter')
-            if ErrorBars[i+1]:  # Plot MC error bars by default
-                mc_errminus = [err[0] for err in mc.yErrs()]
-                mc_errplus = [err[1] for err in mc.yErrs()]
-                ax.vlines(x_points, (mc.yVals() - mc_errminus)/data_yVals,
-                          (mc.yVals() + mc_errplus)/data_yVals, color, zorder=1)
+    # Plot the ratio data
+    for i, hist in enumerate(hists[1:]):
+        color, linestyle = next(line_properties)
+        y_ratio = (np.insert(hist.yVals(), 0, hist.yVals()[0])
+                   / np.insert(ref_yvals, 0, ref_yvals[0]))
+        ax.plot(x_bins, y_ratio, color, linestyle=linestyle, drawstyle='steps-pre', zorder=1,
+                solid_joinstyle='miter')
+        if error_bars[i+1]:
+            errminus = [err[0] for err in hist.yErrs()]
+            errplus = [err[1] for err in hist.yErrs()]
+            ax.vlines(x_points, (hist.yVals() - errminus)/ref_yvals,
+                      (hist.yVals() + errplus)/ref_yvals, color, zorder=1, linestyle=linestyle)
     return ax
+
 
 def plot_scatter1D(scatter1D, ax=None, colors=None):
     """Create a plot of scatter1D objects. 
@@ -173,3 +245,24 @@ def plot_scatter1D(scatter1D, ax=None, colors=None):
         ax.xaxis.set_visible(False)
     return ax
 
+
+class LineProperties:
+
+    def __init__(self, colors, linestyles):
+        self.colors = colors
+        self.linestyles = linestyles
+        self.color_index = 0
+        self.style_index = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        vals = (self.colors[self.color_index], self.linestyles[self.style_index])
+        self.color_index += 1
+        if self.color_index == len(self.colors):
+            self.color_index = 0
+            self.style_index += 1
+            if self.style_index == len(self.linestyles):
+                self.style_index = 0
+        return vals
