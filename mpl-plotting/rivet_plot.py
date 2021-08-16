@@ -107,6 +107,14 @@ def plot_Scatter2D(hist_data, hist_features, yaml_dicts, output_filename):
     output_filename : str
         Name of the saved plot file. 
     """
+    plot_style = os.path.join('plot_styles', yaml_dicts['style'] + '.mplstyle')
+    if not os.path.isfile(plot_style):
+        raise NotImplementedError('Plot style file not found.')
+    if yaml_dicts.get('rcParams'):  # Apply rcParams to mpl
+        plt.style.use((plot_style, yaml_dicts.get('rcParams')))
+    else:
+        plt.style.use(plot_style)
+
     plot_features = yaml_dicts.get('plot features', {})
 
     # Create fig and axes
@@ -117,20 +125,10 @@ def plot_Scatter2D(hist_data, hist_features, yaml_dicts, output_filename):
 
     plot_errorbars = [h.get('ErrorBars', 1) for h in hist_features]
     colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
-
     # Plot histogram and ratio using Yoda function
-    yoda_plot1d.plot_hist(hist_data[0], hist_data[1:], ax=ax, ErrorBars=plot_errorbars, colors=colors)
+    yoda_plot1d.plot_hist(hist_data, True, ax, plot_errorbars, colors)
     if plot_features.get('RatioPlot', 1):
-        yoda_plot1d.plot_ratio(hist_data[0], hist_data[1:], ax=ax_ratio,
-                               ErrorBars=plot_errorbars, ErrorBands=plot_features.get('ErrorBands'), colors=colors)
-
-    plot_style = os.path.join('plot_styles', yaml_dicts['style'] + '.mplstyle')
-    if not os.path.isfile(plot_style):
-        raise NotImplementedError('Plot style file not found.')
-    if yaml_dicts.get('rcParams'):  # Apply rcParams to mpl
-        plt.style.use((plot_style, yaml_dicts.get('rcParams')))
-    else:
-        plt.style.use(plot_style)
+        yoda_plot1d.plot_ratio(hist_data, ax_ratio, plot_errorbars, plot_features.get('ErrorBands'), colors)
 
     plt.rcParams['xtick.top'] = plot_features.get('XTwosidedTicks', True)
     plt.rcParams['ytick.right'] = plot_features.get('YTwosidedTicks', True)

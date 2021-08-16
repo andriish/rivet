@@ -5,8 +5,8 @@ from collections import Sequence
 from yoda_plot2d import format_axis, _get_axis_kw
 
 
-def plot_hist(
-        hists, plot_ref=True, ax=None, error_bars=True, colors=None, line_styles=['-', '--', '-.', ':'], **kwargs):
+def plot_hist(hists, plot_ref=True, ax=None, error_bars=True,
+              colors=None, line_styles=['-', '--', '-.', ':'], **kwargs):
     """Create a histogram plot. 
 
     Parameters
@@ -105,9 +105,8 @@ def plot_hist(
     return ax
 
 
-def plot_ratio(
-        hists, ax=None, error_bars=True, error_bands=False, colors=None, line_styles=['-', '--', '-.', ':'],
-        **kwargs):
+def plot_ratio(hists, ax=None, error_bars=True, error_bands=False,
+               colors=None, line_styles=['-', '--', '-.', ':'], **kwargs):
     """Create a ratio plot of the reference and MC histograms.
 
     Parameters
