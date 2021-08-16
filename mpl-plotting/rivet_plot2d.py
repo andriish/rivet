@@ -101,25 +101,17 @@ def _get_zlim(hist_data, plot_features):
     -----
     This code is a modified version of the original ylim-calculating code in make-plots.
     """
-    # TODO change/remove constants
-    if plot_features.get('ZMax') is not None:
-        zmax = plot_features.get('ZMax')
-    elif plot_features.get('LogZ'):
-        zmax = 1.7*max(h.zMax() for h in hist_data)
-    else:
-        zmax = 1.1*max(h.zMax() for h in hist_data)
-
-    minzmin = min(h.zMin() for h in hist_data)
-    if plot_features.get('ZMin') is not None:
+    zmax = plot_features.get('ZMax', max(h.zMax() for h in hist_data))
+    
+    minzmin = plot_features.get('ZMin', min(h.zMin() for h in hist_data))
+    if 'ZMin' not in plot_features:
         zmin = plot_features.get('ZMin')
     elif plot_features.get('LogZ'):
-        zmin = (minzmin/1.7 if plot_features.get('FullRange')
-                else max(minzmin/1.7, 2e-7*zmax))
+        zmin = minzmin if plot_features.get('FullRange', True) else max(minzmin, 2e-7*zmax)
     elif plot_features.get('ShowZero', True):
-        zmin = 0 if minzmin > -1e-4 else 1.1*minzmin
+        zmin = min(0, minzmin)
     else:
-        zmin = (1.1*minzmin if minzmin < -1e-4 else 0 if minzmin < 1e-4
-                else 0.9*minzmin)
+        zmin = minzmin
 
     return zmin, zmax
 
@@ -180,7 +172,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
         The output file name, without the file extension.
     style_path : str
         Path to the directory with the rivet mplstyle file(s).
-        TODO this is a temporary argument and will likely become a constant in rivet instead.
+        TODO this is a temporary argument and will likely become an env variable in rivet instead.
     outputfileformats : Iterable[str]
         All the file formats, e.g., png, pdf, svg, in which the figure(s) will be exported as.
     """

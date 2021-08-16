@@ -3,7 +3,6 @@ import os, re, io, logging
 from ruamel import yaml
 import rivet
 import yoda
-import constants
 from old_plotfile_converter import parse_old_plotfile
 
 
