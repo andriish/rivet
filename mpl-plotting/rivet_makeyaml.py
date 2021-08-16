@@ -2,7 +2,6 @@ from __future__ import print_function
 import rivet, yoda
 import os, glob, logging
 import yamlio
-import constants
 from old_plotfile_converter import type_conversion
 
 # TODO: add more descriptive docstrings to all functions.
@@ -188,14 +187,14 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     """
     outputdict = {}
     plot_configs = yamlio.get_plot_configs(plot_id, plotdirs=plotdirs, config_files=config_files)
-    outputdict[constants.plot_setting_key] = plot_configs
-    outputdict[constants.plot_setting_key].update(plotoptions.get('PLOT', {}))
-    outputdict[constants.rcParam_key] = rc_params
-    outputdict[constants.style_key] = style
+    outputdict['plot features'] = plot_configs
+    outputdict['plot features'].update(plotoptions.get('PLOT', {}))
+    outputdict['rcParams'] = rc_params
+    outputdict['style'] = style
 
     outputdict['histograms'] = {}
     if plot_id in refhistos:
-        outputdict['histograms'][reftitle] = {constants.histogram_str_name: refhistos[plot_id]}
+        outputdict['histograms'][reftitle] = {'yoda': refhistos[plot_id]}
         outputdict['histograms'][reftitle]['IsRef'] = True
 
     for filename, mchistos_in_file in mchistos.items():
@@ -205,7 +204,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
             outputdict['histograms'][filename].update(plotoptions.get(filename, {}))
             # Maybe add this mc_errs option to the plotoptions dict and only pass the plotoptions dict to the function?
             outputdict['histograms'][filename]['ErrorBars'] = mc_errs
-            outputdict['histograms'][filename][constants.histogram_str_name] = histogram
+            outputdict['histograms'][filename]['yoda'] = histogram
     
     # Remove all sections of the output_dict that do not contain any information.
     # A list of keys is first created. Otherwise, it will raise an error since the size of the dict changes.
