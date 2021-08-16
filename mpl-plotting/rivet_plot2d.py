@@ -211,11 +211,11 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
             for yoda_hist, hist_settings in zip(hist_data[1:], hist_features[1:]):
                 if plot_features.get('2DType', 'heatmap') == 'heatmap':
                     ax = fig.add_subplot(111)
-                    yp.ratio_proj(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), colorbar=True, cmap=plot_features.get('RatioPlot2DColormap'),
+                    yp.ratio_heatmap(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), colorbar=True, cmap=plot_features.get('RatioPlot2DColormap'),
                         cbar_kw=dict(fraction=0.075, pad=0.02, aspect=25), **ratio_axis_kw)
                 elif plot_features.get('2DType') == 'surface':
                     ax = fig.add_subplot(111, projection='3d')
-                    yp.ratio_surf(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('RatioPlot2DColormap', plt.rcParams['image.cmap']), # Use diverging colormap
+                    yp.ratio_surface(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('RatioPlot2DColormap', plt.rcParams['image.cmap']), # Use diverging colormap
                         elev=plot_features.get('3DRatioPlotElev'), azim=plot_features.get('RatioPlot3DAzim'), **ratio_axis_kw)
                 else:
                     raise_2dtype_error(plot_features['2DType'])
@@ -248,11 +248,11 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
             for i, (yoda_hist, hist_settings) in enumerate(zip(hist_data[1:], hist_features[1:])):
                 if plot_features.get('2DType', 'heatmap') == 'heatmap':
                     ax = fig.add_subplot(gs[1, i+1])
-                    yp.ratio_proj(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), colorbar=len(hist_data)-1 == i+1, cmap=plot_features.get('RatioPlot2DColormap', plt.rcParams['image.cmap']),
+                    yp.ratio_heatmap(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), colorbar=len(hist_data)-1 == i+1, cmap=plot_features.get('RatioPlot2DColormap', plt.rcParams['image.cmap']),
                         cbar_kw=dict(fraction=0.075, pad=0.02, aspect=25), **ratio_axis_kw)
                 elif plot_features.get('2DType') == 'surface':
                     ax = fig.add_subplot(gs[1, i+1], projection='3d')
-                    yp.ratio_surf(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('RatioPlot2DColormap', plt.rcParams['image.cmap']),
+                    yp.ratio_surface(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('RatioPlot2DColormap', plt.rcParams['image.cmap']),
                     elev=plot_features.get('RatioPlot3DElev'), azim=plot_features.get('RatioPlot3DAzim'), **ratio_axis_kw)
                 else: 
                     raise_2dtype_error(plot_features['2DType'])
