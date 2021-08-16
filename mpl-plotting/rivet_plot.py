@@ -57,7 +57,7 @@ def _parse_yoda_hist(yaml_dicts):
 
 
 def _rivet_Scatter(hist_data, hist_features, yaml_dicts, output_filename):
-    """Plot the 1D histogram data using Rivet styles.
+    """Plot the Scatter1D and Scatter2D objects using Rivet styles.
 
     Parameters
     ----------
@@ -220,9 +220,10 @@ def _rivet_Scatter(hist_data, hist_features, yaml_dicts, output_filename):
                           plot_features.get('LegendYPos', 0.97))
             ax.legend(handles, labels, loc='upper right', bbox_to_anchor=legend_pos,
                       handler_map={AnyObject: AnyObjectHandler()}, markerfirst=False)
-
+    if plot_features.get('RatioPlot', 1) and yoda_type == 'hist':
+        fig.align_ylabels((ax, ax_ratio))
     fig.savefig(output_filename+'.pdf')
-    fig.savefig(output_filename+'.png')
+    fig.savefig(output_filename+'.png', bbox_inches="tight")
     plt.close()
 
 
