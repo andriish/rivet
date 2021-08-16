@@ -197,7 +197,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
     ratio_axis_kw = _get_axis_kw(ratio_zmin, ratio_zmax, plot_features)
     # Ratio plots will never have a log z axis 
     ratio_axis_kw['logz'] = False
-    default_camera_angle = (plot_features.get('3DElev'), plot_features.get('3DAzim')
+    default_camera_angle = (plot_features.get('3DElev'), plot_features.get('3DAzim'))
 
     # TODO if possible, refactor this entire if-else-statement for less code duplication
     if plot_features.get('2DIndividual', True):
