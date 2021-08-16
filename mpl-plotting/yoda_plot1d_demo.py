@@ -10,12 +10,11 @@ h1, h2, h3 = yoda.Histo1D(10, -1, 5), yoda.Histo1D(10, -1, 5), yoda.Histo1D(10, 
 for h in (h1, h2, h3):
     for event in rng.normal(1.5, 1, size=(nevents, 2)):
         h.fill(event[0], event[1])
-#h1, h2, h3 = h1.mkScatter(), h2.mkScatter(), h3.mkScatter()
 
 # Plot objects using "yoda"
-ax = yp.plot_hist((h1, h2, h3), plot_ref=False, error_bars=[True, True, True], colors=None, line_styles=['--'], xlabel='hi')
+ax = yp.plot_hist((h1, h2, h3), plot_ref=False, error_bars=[True, True, True], colors=None, line_styles=['--'], legend=True, xlabel='hi')
 plt.savefig('yoda1D_hist.jpg')
 plt.close()
 
-ax = yp.plot_ratio((h1, h2, h3, h1), error_bars=[False, True, True, False], colors=['green'], line_styles=['--'])
+ax = yp.plot_ratio((h1, h2, h3, h1), error_bars=[False, True, True, False], colors=['green'], line_styles=['--'], legend=True)
 plt.savefig('yoda1D_ratio.jpg')

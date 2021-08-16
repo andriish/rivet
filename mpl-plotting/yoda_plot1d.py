@@ -6,7 +6,7 @@ from yoda_plot2d import format_axis, _get_axis_kw
 
 
 def plot_hist(hists, plot_ref=True, ax=None, error_bars=True,
-              colors=None, line_styles=['-', '--', '-.', ':'], **kwargs):
+              colors=None, line_styles=['-', '--', '-.', ':'], legend=False, **kwargs):
     """Create a histogram plot. 
 
     Parameters
@@ -27,6 +27,8 @@ def plot_hist(hists, plot_ref=True, ax=None, error_bars=True,
         If None, the default matplotlib colors are used. 
     line_styles : List[str]
         The list of line styles to be used in the `mc_hists` list.
+    legend : Bool
+        Determines whether to show a legend
 
     Other Parameters
     ----------------
@@ -60,12 +62,6 @@ def plot_hist(hists, plot_ref=True, ax=None, error_bars=True,
     hists = [h.mkScatter() if not isinstance(h, yoda.Scatter2D) else h for h in hists]
     if ax is None:
         ax = plt.gca()
-    # Format x and y axes
-    x_axis, y_axis, _ = _get_axis_kw(kwargs)
-    if x_axis.get('lim') is None:
-        x_axis['lim'] = [min([h.xMin() for h in hists]), max([h.xMax() for h in hists])]
-    format_axis('x', ax, **x_axis)
-    format_axis('y', ax, **y_axis)
 
     if isinstance(error_bars, bool):  # Convert to list of bool vals
         error_bars = [error_bars] * len(hists)
@@ -89,6 +85,7 @@ def plot_hist(hists, plot_ref=True, ax=None, error_bars=True,
             ax.vlines(x_points, (ref_yvals - ref_errminus),
                       (ref_yvals + ref_errplus), 'k')
 
+    # Plot MC histogram data
     for i, hist in enumerate(hists):
         if plot_ref and i == 0:
             continue
@@ -101,12 +98,30 @@ def plot_hist(hists, plot_ref=True, ax=None, error_bars=True,
             errplus = [err[1] for err in hist.yErrs()]
             ax.vlines(x_points, (hist.yVals() - errminus),
                       (hist.yVals() + errplus), color, zorder=5+i, linestyle=linestyle)
-    # TODO: Add Legend
+
+    if legend:
+        legend_labels = []
+        for i, _ in enumerate(hists):
+            if i == 0:
+                legend_labels.append('Data')
+            else:
+                legend_labels.append('mc{}'.format(i))
+        ax.legend(legend_labels)
+
+    # Format x and y axes
+    x_axis, y_axis, _ = _get_axis_kw(kwargs)
+    if x_axis.get('lim') is None:
+        ax.set_xlim([min([h.xMin() for h in hists]), max([h.xMax() for h in hists])])
+    if y_axis.get('lim') is None:
+        ax.set_ylim(0)
+    format_axis('x', ax, **x_axis)
+    format_axis('y', ax, **y_axis)
+    
     return ax
 
 
 def plot_ratio(hists, ax=None, error_bars=True, error_bands=False,
-               colors=None, line_styles=['-', '--', '-.', ':'], **kwargs):
+               colors=None, line_styles=['-', '--', '-.', ':'], legend=False, **kwargs):
     """Create a ratio plot of the reference and MC histograms.
 
     Parameters
@@ -127,6 +142,8 @@ def plot_ratio(hists, ax=None, error_bars=True, error_bands=False,
         If None, the default matplotlib colors are used.
     line_styles : List[str]
         The list of line styles to be used in the `mc_hists` list.
+    legend : Bool
+        Determines whether to show a legend
 
     Other Parameters
     ----------------
@@ -207,11 +224,21 @@ def plot_ratio(hists, ax=None, error_bars=True, error_bands=False,
             errplus = [err[1] for err in hist.yErrs()]
             ax.vlines(x_points, (hist.yVals() - errminus)/ref_yvals,
                       (hist.yVals() + errplus)/ref_yvals, color, zorder=1, linestyle=linestyle)
+
+    if legend:
+        legend_labels = []
+        for i, _ in enumerate(hists):
+            if i == 0:
+                legend_labels.append('Data')
+            else:
+                legend_labels.append('mc{}'.format(i))
+        ax.legend(legend_labels)
+
     return ax
 
 
 def plot_scatter1D(scatter1D, ax=None, colors=None):
-    """Create a plot of scatter1D objects. 
+    """Create a plot of Scatter1D objects. 
 
     Parameters
     ----------

@@ -37,9 +37,9 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
     output_filename = os.path.join(outputdir, plot_name.strip('/'))
 
     if all(isinstance(h, yoda.Scatter1D) for h in hist_data):
-        _plot_Scatter1D(hist_data, hist_features, yaml_dicts, output_filename)
+        _rivet_Scatter1D(hist_data, hist_features, yaml_dicts, output_filename)
     elif all(isinstance(h, yoda.Scatter2D) for h in hist_data):
-        plot_Scatter2D(hist_data, hist_features, yaml_dicts, output_filename)
+        _rivet_Scatter2D(hist_data, hist_features, yaml_dicts, output_filename)
     elif all(isinstance(h, yoda.Scatter3D) for h in hist_data):
         plot_2Dhist(hist_data, hist_features, yaml_dicts, output_filename)  # TODO: Rename Scatter3D?
     else:
@@ -57,7 +57,7 @@ def _parse_yoda_hist(yaml_dicts):
     return hist_data
 
 
-def _plot_Scatter1D(hist_data, hist_features, yaml_dicts, output_filename):
+def _rivet_Scatter1D(hist_data, hist_features, yaml_dicts, output_filename):
     """Plot the 1D Scatter data."""
     plot_features = yaml_dicts.get('plot features', {})
     fig, ax = plt.subplots(1, 1)
@@ -92,7 +92,7 @@ def _plot_Scatter1D(hist_data, hist_features, yaml_dicts, output_filename):
     plt.close()
 
 
-def plot_Scatter2D(hist_data, hist_features, yaml_dicts, output_filename):
+def _rivet_Scatter2D(hist_data, hist_features, yaml_dicts, output_filename):
     """Plot the 1D histogram data using Rivet styles.
 
     Parameters
@@ -226,7 +226,7 @@ def plot_Scatter2D(hist_data, hist_features, yaml_dicts, output_filename):
         for i, _ in enumerate(hist_data[1:]):
             color = colors[i % len(colors)]
             handles.append(mpl.lines.Line2D([], [], color=color))
-            labels.append(hist_features[0].get('Title', 'mc{}'.format(i+1)))
+            labels.append(hist_features[i].get('Title', 'mc{}'.format(i+1)))
         if plot_features.get('LegendAlign') is None or plot_features.get('LegendAlign') == 'l':
             legend_pos = (plot_features.get('LegendXPos', 0.5),
                           plot_features.get('LegendYPos', 0.97))
