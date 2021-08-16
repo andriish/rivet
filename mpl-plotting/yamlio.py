@@ -3,7 +3,6 @@ import os, re, io, logging
 from ruamel import yaml
 import rivet
 import yoda
-import constants
 from old_plotfile_converter import parse_old_plotfile
 
 
@@ -49,8 +48,8 @@ def _parse_yaml_plotfile(filename, hpath):
     plotfile_configs = {}
     with open(filename, 'r') as file:
         for configs in yaml.safe_load_all(file):
-            if re.match(configs[constants.name_key], hpath):   # TODO: old code uses match instead of fullmatch. Is this intentional?
-                plotfile_configs.update(configs[constants.plot_setting_key])
+            if re.match(configs['name'], hpath):   # TODO: old code uses match instead of fullmatch. Is this intentional?
+                plotfile_configs.update(configs['plot features'])
     return plotfile_configs
 
 
@@ -145,7 +144,7 @@ def get_plot_configs(hpath, plotdirs=[], config_files=[]):
 
     plot_configs = {}
     for plotdir in plotdirs:
-        plotfilepath = os.path.join(plotdir, id_parts[0] + constants.file_extension)
+        plotfilepath = os.path.join(plotdir, id_parts[0] + '.plot')
         plotfile_configs = _get_matching_plot_configs_from_file(hpath, plotfilepath)   # TODO: Can I pass hpath here or will that cause problems with /REF?
         plot_configs.update(plotfile_configs)
         

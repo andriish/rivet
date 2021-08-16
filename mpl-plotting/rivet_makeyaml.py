@@ -2,7 +2,6 @@ from __future__ import print_function
 import rivet, yoda
 import os, glob, logging
 import yamlio
-import constants
 from old_plotfile_converter import type_conversion
 
 # TODO: add more descriptive docstrings to all functions.
@@ -82,32 +81,9 @@ def _parse_args(args):
     return filelist, filenames, plotoptions
 
 
-def _preprocess_rcparams(rc_params):
-    """Create a dictionary from the string input
-    TODO: refactor so that _parse_args uses this function.
-    TODO: repurpose function to be more general.
-    Parameters
-    ----------
-    rc_params : str
-        String of the format key=value:key2=value2..., similar to the format of args.
-
-    Returns
-    -------
-    rc_params_dict : dict
-        The rc_params string converted to a dict.
-    
-    Examples
-    --------
-    >>> _preprocess_rcparams('key=value:key2=multiword value:multiword key=multiword value again')
-    {'key': 'value', 'key2': 'multiword value', 'multiword key': 'multiword value again'}
-    """
-    pass
-    
-
 def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns):
     """Loop over all input files. Only use the first occurrence of any REF-histogram
     and the first occurrence in each MC file for every MC-histogram."""
-    # TODO: rewrite function
     refhistos, mchistos = {}, {}
     for infile, inname in zip(filelist, filenames):
         mchistos.setdefault(inname, {})
@@ -211,14 +187,14 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     """
     outputdict = {}
     plot_configs = yamlio.get_plot_configs(plot_id, plotdirs=plotdirs, config_files=config_files)
-    outputdict[constants.plot_setting_key] = plot_configs
-    outputdict[constants.plot_setting_key].update(plotoptions.get('PLOT', {}))
-    outputdict[constants.rcParam_key] = rc_params
-    outputdict[constants.style_key] = style
+    outputdict['plot features'] = plot_configs
+    outputdict['plot features'].update(plotoptions.get('PLOT', {}))
+    outputdict['rcParams'] = rc_params
+    outputdict['style'] = style
 
     outputdict['histograms'] = {}
     if plot_id in refhistos:
-        outputdict['histograms'][reftitle] = {constants.histogram_str_name: refhistos[plot_id]}
+        outputdict['histograms'][reftitle] = {'yoda': refhistos[plot_id]}
         outputdict['histograms'][reftitle]['IsRef'] = True
 
     for filename, mchistos_in_file in mchistos.items():
@@ -228,7 +204,7 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
             outputdict['histograms'][filename].update(plotoptions.get(filename, {}))
             # Maybe add this mc_errs option to the plotoptions dict and only pass the plotoptions dict to the function?
             outputdict['histograms'][filename]['ErrorBars'] = mc_errs
-            outputdict['histograms'][filename][constants.histogram_str_name] = histogram
+            outputdict['histograms'][filename]['yoda'] = histogram
     
     # Remove all sections of the output_dict that do not contain any information.
     # A list of keys is first created. Otherwise, it will raise an error since the size of the dict changes.
@@ -307,7 +283,8 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     if verbose:
         logging.basicConfig(level=logging.DEBUG)
 
-    # TODO: more elegant solution for getting rc_params by refactoring _parse_args and making it more generalized.
+    # TODO: more elegant solution for getting rc_params by refactoring _parse_args. 
+    #  Then the 4 lines below can be replaced by 1 line
     stylename, _, rc_params_dict = _parse_args([style])
     stylename = stylename[0]    # Convert list to str
     rc_params_dict = rc_params_dict[stylename]  # Convert dict of dicts to dict
@@ -372,8 +349,8 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
             mchistos, refhistos, reftitle, 
             plotoptions, stylename, rc_params_dict, mc_errs
         )
-        # TODO: make key the actual file name, i.e., analysisID/histoID if nested, analysisID_histoID if not?
-        #   In that case, refactor parts of write_output to separate function called e.g. create_filename
+        # TODO file name here always includes a / rather than being the actual file name.
+        #  When hier_output == False, / should be replaced by _. See content of yamlio.write_output
         yamldicts[plot_id] = outputdict
         if writefiles:
             # Make the output and write to file
