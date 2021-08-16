@@ -197,6 +197,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
     ratio_axis_kw = _get_axis_kw(ratio_zmin, ratio_zmax, plot_features)
     # Ratio plots will never have a log z axis 
     ratio_axis_kw['logz'] = False
+    default_camera_angle = (plot_features.get('3DElev'), plot_features.get('3DAzim')
 
     # TODO if possible, refactor this entire if-else-statement for less code duplication
     if plot_features.get('2DIndividual', True):
@@ -209,7 +210,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
             elif plot_features.get('2DType') == 'surface':
                 ax = fig.add_subplot(111, projection='3d')
                 yp.surface(yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('2DColormap', plt.rcParams['image.cmap']),
-                    elev=plot_features.get('3DElev'), azim=plot_features.get('3DAzim'), **axis_kw)
+                    elev=default_camera_angle[0], azim=default_camera_angle[1], **axis_kw)
             else:
                 raise_2dtype_error(plot_features['2DType'])
     
@@ -225,7 +226,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
                 elif plot_features.get('2DType') == 'surface':
                     ax = fig.add_subplot(111, projection='3d')
                     yp.ratio_surface(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('RatioPlot2DColormap', 'PRGn'),
-                        elev=plot_features.get('3DRatioPlotElev'), azim=plot_features.get('RatioPlot3DAzim'), **ratio_axis_kw)
+                        elev=plot_features.get('RatioPlot3DElev', default_camera_angle[0]), azim=plot_features.get('RatioPlot3DAzim', default_camera_angle[1]), **ratio_axis_kw)
                 else:
                     raise_2dtype_error(plot_features['2DType'])
 
@@ -247,7 +248,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
             elif plot_features.get('2DType') == 'surface':
                 ax = fig.add_subplot(gs[0, i], projection='3d')
                 yp.surface(yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('2DColormap', plt.rcParams['image.cmap']),
-                    elev=plot_features.get('3DElev'), azim=plot_features.get('3DAzim'), **axis_kw)
+                    elev=default_camera_angle[0], azim=default_camera_angle[1], **axis_kw)
             else:
                 raise_2dtype_error(plot_features['2DType'])
 
@@ -262,7 +263,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
                 elif plot_features.get('2DType') == 'surface':
                     ax = fig.add_subplot(gs[1, i+1], projection='3d')
                     yp.ratio_surface(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('RatioPlot2DColormap', 'PRGn'),
-                    elev=plot_features.get('RatioPlot3DElev'), azim=plot_features.get('RatioPlot3DAzim'), **ratio_axis_kw)
+                    elev=plot_features.get('RatioPlot3DElev', default_camera_angle[0]), azim=plot_features.get('RatioPlot3DAzim', default_camera_angle[1]), **ratio_axis_kw)
                 else: 
                     raise_2dtype_error(plot_features['2DType'])
                 # TODO Make this label customizable? 

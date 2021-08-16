@@ -89,12 +89,12 @@ The content will be replaced to better fit the new matplotlib backend. It curren
 
 ## New behavior for 2D histograms
 Due to limitations to the old plotting backend (i.e. `make-plots`), multiple 2D histograms could not be plotted in the same figure. To circumvent this, `rivet-cmphistos` would output 2D histograms with the same path (i.e. `analysis ID/histogram ID`) into separate .dat files. 
-The new plotting backend can plot multiple 2D histograms in the same figure (see the [2D histograms section](#2D-histograms) below). No hacky behavior is therefore needed inside `rivet_makeyaml` and all 2D histograms will therefore be included in the same output yaml file, just like how 1D histograms behave. 
+The new plotting backend can plot multiple 2D histograms in the same figure (see the [2D histograms section](#2D-histograms) below). No hacky behavior is therefore needed inside `rivet_makeyaml` and all 2D histograms will therefore be included in the same output yaml file, just like how 1D histograms behave.
 
 ## Updated flags for rivet-cmphistos
 - `rivet-cmphistos` has been renamed `rivet_makeyaml` (name not final) and will mainly be called as a python function by `rivet-mkhtml`. In other words, it might not remain as a stand-alone bash command that can be called. However, if this is desired, it is easy to add a thin wrapper around rivet_makeyaml to make a CLI.
 - Since everything will be controlled by `rivet-mkhtml`, all command line arguments will be passed to `rivet-mkhtml`. A subset of these will then be passed to the `make_yamlfiles` function.
-- See [this table](https://docs.google.com/spreadsheets/d/1GUpjXIZToN0vr4dkPfJBvTReHq9j3AqRx5v5Yeel95U/edit?usp=sharing) of all new and old arguments.
+- See [this table](https://docs.google.com/spreadsheets/d/1GUpjXIZToN0vr4dkPfJBvTReHq9j3AqRx5v5Yeel95U/edit?usp=sharing) of all new and old arguments. TODO move this table to this document as a md table. 
 
 ## YAML file parsing (only important for developers)
 All IO of yaml files is in yamlio.py. This way, if we need to change backend, only that file and the import needs to be changed there.
@@ -111,7 +111,7 @@ In this section, "output file" means an image, i.e., a png, pdf, svg etc.
 - Save all 2D histograms and ratio plots in the same output file as a grid of subplots
 
 ### Visualization mode
-- Plot 2D histograms and ratio plots as projections on the x-y plane, with the color of each bin indicating its "height" (default)
+- Plot 2D histograms and ratio plots as heatmaps on the x-y plane, with the color of each bin indicating its "height" (default)
 - Plot 2D histograms and ratio plots as surface plots.
 
 The 2 output file modes can be combined with the 2 visualization modes. 
@@ -122,7 +122,6 @@ The code for plotting 2D histograms is in `rivet_plot2d.py` (name not final). Th
 Parts of the code will be moved to yoda and become a part of its plotting API. these will then become functions that will likely take yoda histograms and plot unformatted plots. Rivet then builds upon this by using the yoda plotting API and adding formatting options using both the plotting API and some raw matplotlib. 
 
 ## Examples
-TODO
-
-# YODA Python API
-TODO write once it is done and move to separate documentation.
+```bash
+rivet-mkhtml mc1.yoda mc2.yoda
+```
