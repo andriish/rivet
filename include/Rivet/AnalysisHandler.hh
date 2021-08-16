@@ -137,7 +137,7 @@ namespace Rivet {
     /// Option to disable analysis-compatibility checks
     void setCheckBeams(bool check=true) { _checkBeams = check; }
     /// @brief Alias for checkBeams()
-    [[deprecated]] void setIgnoreBeams(bool ignore=true);
+    [[deprecated]] void setIgnoreBeams(bool ignore=true) { setCheckBeams(!ignore); }
 
     /// Option to disable run-consistency checks
     // void setCheckConsistency(bool check=true) { _checkConsistency = check; }
