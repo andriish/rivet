@@ -1,15 +1,18 @@
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
+# If desired, the lines below can be uncommented to supress the warning created by surface plots. TODO uncomment or remove?
+# import warnings
+# warnings.filterwarnings('UserWarning: Z contains NaN values. This may result in rendering artifacts.')
 
 
-def _scatter_to_2d(hs, xy_type):
-    """Convert a yoda.Scatter3D into 2D arrays corresponding to x, y, and z.
+def _histo2d_to_np(h, xy_type):
+    """Convert a yoda 2D histogram into 2D arrays corresponding to x, y, and z.
 
     Parameters
     ----------
-    hs : yoda.Scatter3D
-        The scatter object from which the edges z values will be extracted
+    h : Union[yoda.Scatter3D, yoda.Histo2D, yoda.Profile2D]
+        The 2D histogram object from which the edges and z values will be extracted
     xy_type : str
         Either "edge" or "mid". If "edge", return the edges of the of the original bins in the histogram. 
         If "mid", return the midpoints of the x and y bins.
@@ -24,10 +27,17 @@ def _scatter_to_2d(hs, xy_type):
         The z values in each bin of the original histogram, as a 2D array.
         Shape: (n, m), where n is the number of x bins and m is the number of y bins in the histogram.
     
+    Raises
+    ------
+    ValueError
+        If the value of xy_type is invalid.
+    
     Notes
     -----
     TODO code works using meshgrid but is probably slower and not as clean as using reshape
     """
+    hs = h.mkScatter()
+
     nrows = np.argmax(hs.yMins()) + 1
 
     if xy_type == 'edge':
@@ -36,6 +46,8 @@ def _scatter_to_2d(hs, xy_type):
     elif xy_type == 'mid':
         y_1d = hs.yVals()[:nrows]
         x_1d = hs.xVals()[::nrows]
+    else:
+        raise ValueError('Expected the input parameter of "xy_type" to be "mid" or "edge" but got "{}".'.format(xy_type))
     
     y, x = np.meshgrid(y_1d, x_1d)
     z = hs.zVals().reshape((-1, nrows))
@@ -54,27 +66,15 @@ def format_axis(axis_name, ax=None, label=None, lim=None, log=False,
         x, y or z. Either upper or lower case.
     ax : matplotlib.axes.Axes
         The Axes object containing the axis. If None, uses plt.gca()
-    label : str, optional
-        Axis label.
-    lim : tuple, optional
-        Lower and upper limits of axis, in that order.
-    log : bool, optional
-        If True, set the scale of the axis to log scale. By default False
-    major_ticks : int, optional
-        Digit of the major ticks, by default None
-    minor_ticks : int, optional
-        Number of minor ticks, by default None
-    custom_major_ticks : Sequence, optional
-        Location of tick, followed by the corresponding tick label.
-    custom_minor_ticks : Sequence[float], optional
-        A list of the locations of minor ticks at arbitrary positions. 
-    plot_ticklabels : bool, optional
-        If False, do not plot any tick labels, by default True
+    **kwargs
+        All settings for axis. See docstring in `heatmap` but remove the axis name from the argument.
+        E.g., xlabel passed to `heatmap` is equvalent to label in `format_axis`.
     """
     if ax is None:
         ax = plt.gca()
     
     axis_name = axis_name.lower()
+    # TODO remove these 2 since they are redundant?
     getattr(ax, 'set_{}label'.format(axis_name))(label)
     getattr(ax, 'set_{}lim'.format(axis_name))(lim)
 
@@ -152,36 +152,51 @@ def _add_colorbar(norm, cmap, ax=None, *args, **kwargs):
     return cbar
 
 
-def proj(yoda_hist, ax=None, showzero=True, colorbar=True, cmap=None, **kwargs):
-    """Plot a 2D projection plot of a yoda.Scatter3D object.
+def heatmap(yoda_hist, ax=None, showzero=True, colorbar=True, cmap=None, **kwargs):
+    """Plot a 2D heatmap plot of a yoda.Scatter3D object.
 
     Parameters
     ----------
     yoda_hist : yoda.Scatter3D
         Yoda scatter that will be plotted.
     ax : matplotlib.axes.Axes
-        Axes object in which the 2D projection plot will be plotted in. 
+        Axes object in which the 2D heatmap plot will be plotted in. 
         If None, use plt.gca().
     showzero : bool
         If True, plot 0-count bins. If False, do not color them.
     colorbar : bool
         If True, plot a color bar.
     cmap
-        Colormap that will be used for the projection plot and the color bar.
+        Colormap that will be used for the heatmap plot and the color bar.
         Can be of any type that matplotlib accepts.
         If None, the default settings in matplotlib will be used.
-    
-    Other Parameters
-    ----------------
     pcm_kw : Optional[dict]
         Additional keyword arguments, as a dict, directly passed to ax.pcolormesh, which is called under the hood.
         If None, nothing passed to the funciton.
     cbar_kw : Optional[dict]
         Additional  keyword arguments, besides cmap and ax, passed to `fig.colorbar`.
         Here, fig is the figure that contains ax.
-    xaxis_kw, yaxis_kw, zaxis_kw : Optional[dict]
-        Additional keyword arguments passed to `format_axis`. 
-        See its documentation for which arguments are allowed.
+
+    Other Parameters
+    ----------------
+    xlabel, ylabel, zlabel : str, optional
+        Axis label.
+    xlim, ylim, zlim : tuple, optional
+        Lower and upper limits of axis, in that order.
+    logx, logy, logz : bool, optional
+        If True, set the scale of the axis to log scale. By default False
+    xmajor_ticks, ymajor_ticks, zmajor_ticks : int, optional
+        Digit of the major ticks, by default None
+    xminor_ticks, yminor_ticks, zminor_ticks : int, optional
+        Number of minor ticks, by default None
+    xcustom_major_ticks, ycustom_major_ticks, zcustom_major_ticks : Sequence, optional
+        Location of tick, followed by the corresponding tick label.
+    xcustom_minor_ticks, ycustom_minor_ticks, zcustom_minor_ticks : Sequence[float], optional
+        A list of the locations of minor ticks at arbitrary positions. 
+    plot_xticklabels, plot_yticklabels, plot_zticklabels : bool, optional
+        If False, do not plot any tick labels, by default True
+    **kwargs : Any
+        Additional parameters passed to `ax.set`, e.g., `title`.
     
     Returns
     -------
@@ -190,13 +205,13 @@ def proj(yoda_hist, ax=None, showzero=True, colorbar=True, cmap=None, **kwargs):
     cbar
         The colorbar object created. Only returned if colorbar is True. 
     """
-    x_edges, y_edges, z_vals = _scatter_to_2d(yoda_hist, 'edge')
+    x_edges, y_edges, z_vals = _histo2d_to_np(yoda_hist, 'edge')
 
-    return _proj_base(x_edges, y_edges, z_vals, ax=ax, showzero=showzero, colorbar=colorbar, cmap=cmap, **kwargs)
+    return _heatmap_base(x_edges, y_edges, z_vals, ax=ax, showzero=showzero, colorbar=colorbar, cmap=cmap, **kwargs)
 
 
-def ratio_proj(main_hist, ref_hist, ax=None, showzero=True, colorbar=True, cmap=None, **kwargs):
-    """Plot a 2D projection plot of the ratio between 2 histograms.
+def ratio_heatmap(main_hist, ref_hist, ax=None, showzero=True, colorbar=True, cmap=None, **kwargs):
+    """Plot a 2D heatmap plot of the ratio between 2 histograms.
     The ratio is calculated as main_hist / ref_hist.
 
     Parameters
@@ -206,20 +221,20 @@ def ratio_proj(main_hist, ref_hist, ax=None, showzero=True, colorbar=True, cmap=
     ref_hist : yoda.Scatter3D
         Yoda histogram that will be the divisor, i.e. the reference histogram.
     ax : matplotlib.axes.Axes
-        Axes object in which the 2D projection plot will be plotted in. 
+        Axes object in which the 2D heatmap plot will be plotted in. 
         If None, use plt.gca().
     showzero : bool
         If True, plot 0-count bins. If False, do not color them.
     colorbar : bool
         If True, plot a color bar.
     cmap
-        Colormap that will be used for the projection plot and the color bar.
+        Colormap that will be used for the heatmap plot and the color bar.
         Can be of any type that matplotlib accepts.
         If None, the default settings in matplotlib will be used.
     
     Other Parameters
     ----------------
-    The same parameters used in `proj`. See its documentation.
+    The same parameters used in `heatmap`. See its documentation.
 
     Returns
     -------
@@ -228,19 +243,52 @@ def ratio_proj(main_hist, ref_hist, ax=None, showzero=True, colorbar=True, cmap=
     cbar
         The colorbar object created. Only returned if colorbar is True. 
     """
-    # TODO remove or add parts of the documentation, since it is a duplicate of `proj`?
+    # TODO remove or add parts of the documentation, since it is a duplicate of `heatmap`?
 
-    x_edges, y_edges, main_z = _scatter_to_2d(main_hist, 'edge')
+    x_edges, y_edges, main_z = _histo2d_to_np(main_hist, 'edge')
     ref_z = ref_hist.zVals().reshape(main_z.shape)
-
+    # Set delimiter to nan if they are 0 to remove error.
+    ref_z[ref_z == 0]  = np.nan
     z_ratio = main_z / ref_z
     
-    return _proj_base(x_edges, y_edges, z_ratio, ax=ax, showzero=showzero, colorbar=colorbar, cmap=cmap, **kwargs)
-    
+    return _heatmap_base(x_edges, y_edges, z_ratio, ax=ax, showzero=showzero, colorbar=colorbar, cmap=cmap, **kwargs)
 
-def _proj_base(x_edges, y_edges, z_vals, ax=None, showzero=True, colorbar=True, cmap=None, 
-    pcm_kw=None, cbar_kw=None, xaxis_kw=None, yaxis_kw=None, zaxis_kw=None):
-    """The base function used for all projection plotting functions.
+
+def get_axis_kw(kwargs):
+    """Create 3 separate dicts of kwargs that can be passed to format_axis.
+    The function also removes the format_axis elements from kwargs. 
+
+    Parameters
+    ----------
+    kwargs : dict
+        Keyword arguments from a plotting function, e.g. `heatmap`.
+
+    Returns
+    -------
+    all_axis_kw : list[dict[str, Any]]
+        A list with dicts of keyword arguments for format_axis.
+        The elements correspond to kwargs for the x, y, and z axis respectively.
+    """
+    all_axis_kws = []
+    format_axis_kw_names = {
+        'label': '%slabel', 'lim': '%slim', 'log': 'log%s',
+        'major_ticks': '%smajor_ticks', 'minor_ticks': '%sminor_ticks', 
+        'custom_major_ticks': '%scustom_major_ticks', 'custom_minor_ticks': '%scustom_minor_ticks', 
+        'plot_ticklabels': 'plot_%sticklabels'
+    }
+    for axis_name in 'xyz':
+        axis_kws = {}
+        for format_axis_name, plot_kw_name in format_axis_kw_names.items():
+            kw = plot_kw_name % axis_name
+            if kw in kwargs:
+                axis_kws[format_axis_name] = kwargs.pop(kw)
+        all_axis_kws.append(axis_kws)
+    return all_axis_kws
+
+
+def _heatmap_base(x_edges, y_edges, z_vals, ax=None, showzero=True, colorbar=True, cmap=None, 
+    pcm_kw=None, cbar_kw=None, **kwargs):
+    """The base function used for all heatmap plotting functions.
 
     Parameters
     ----------
@@ -248,41 +296,44 @@ def _proj_base(x_edges, y_edges, z_vals, ax=None, showzero=True, colorbar=True, 
         The x and y coordinates of the edges of the 2D histogram that will be plotted. 
         Have shape (n+1, m+1).
     z_vals : array-like
-        Z values that will be plotted in the projection plot.
+        Z values that will be plotted in the heatmap plot.
         For a histogram, this corresponds to the counts in each bin.
         Has shape (n, m).
-        
-    The documentation for the other parameters can be seen in `proj`.
+    
+    The documentation for the other parameters can be seen in `heatmap`.
 
     Returns
     -------
-    The documentation for the return arguments can be seen in `proj`.
+    The documentation for the return arguments can be seen in `heatmap`.
     """
     if ax is None:
         ax = plt.gca()
     # Replace None with an empty dict
-    pcm_kw, cbar_kw, xaxis_kw, yaxis_kw, zaxis_kw = [({} if kw is None else kw) for kw in (pcm_kw, cbar_kw, xaxis_kw, yaxis_kw, zaxis_kw)]
+    pcm_kw, cbar_kw = [({} if kw is None else kw) for kw in (pcm_kw, cbar_kw)]
 
-    norm = _create_norm(*zaxis_kw.get('lim', (None, None)), zaxis_kw.get('log'))
+    norm = _create_norm(*kwargs.get('zlim', (None, None)), kwargs.get('logz'))
     
     if not showzero:
         z_vals[z_vals==0] = np.nan
         
     im = ax.pcolormesh(x_edges, y_edges, z_vals, norm=norm, cmap=cmap, **pcm_kw)
 
-    # TODO ask for preference about keeping format_axis in here
-    format_axis('x', ax, **xaxis_kw)
-    format_axis('y', ax, **yaxis_kw)
-    
+    all_axis_kws = get_axis_kw(kwargs)
+    format_axis('x', ax, **all_axis_kws[0])
+    format_axis('y', ax, **all_axis_kws[1])
+
     if colorbar:
         cbar = _add_colorbar(norm, cmap=cmap, ax=ax, **cbar_kw)
-        format_axis('y', cbar.ax, **zaxis_kw)
-        return im, cbar
+        format_axis('y', cbar.ax, **all_axis_kws[2])
+        return_args = im, cbar
+    else:
+        return_args = im
+    ax.set(**kwargs)
 
-    return im
+    return return_args
 
 
-def surf(yoda_hist, ax=None, showzero=True, cmap=None, **kwargs):
+def surface(yoda_hist, ax=None, showzero=True, cmap=None, **kwargs):
     """Create a 3D plot with a surface representing a histogram.
 
     Parameters
@@ -300,9 +351,6 @@ def surf(yoda_hist, ax=None, showzero=True, cmap=None, **kwargs):
         Colormap that will be used for the surface plot.
         Can be of any type that matplotlib accepts.
         If None, the default settings in matplotlib will be used.
-    
-    Other Parameters
-    ----------------    
     elev : Optional[float]
         The elevation angle, i.e. the "camera position" when viewing the plot. Measured in degrees.
         If None, use the default setting in matplotlib.
@@ -312,10 +360,11 @@ def surf(yoda_hist, ax=None, showzero=True, cmap=None, **kwargs):
     psurf_kw : Optional[dict]
         Additional keyword arguments, as a dict, directly passed to ax.plot_surface, which is called under the hood.
         If None, nothing is passed to the funciton.
-    xaxis_kw, yaxis_kw, zaxis_kw : Optional[dict]
-        Additional keyword arguments passed to `format_axis`. 
-        See its documentation for which arguments are allowed.
     
+    Other Parameters
+    ----------------    
+    See the `Other Parameters` section in `heatmap`.
+
     Returns
     -------
     im
@@ -324,22 +373,21 @@ def surf(yoda_hist, ax=None, showzero=True, cmap=None, **kwargs):
     Notes
     -----
     Logarithmic axes do not work for surface plots, due to a bug in matplotlib.
-    If this feature is crucial, it is advised to use `proj` instead.
+    If this feature is crucial, it is advised to use `heatmap` instead.
     """
-    # TODO test showzero
-    x, y, z = list(_scatter_to_2d(yoda_hist, 'mid'))
+    x, y, z = list(_histo2d_to_np(yoda_hist, 'mid'))
 
-    return _surf_base(x, y, z, ax, showzero=showzero, cmap=cmap, **kwargs)
+    return _surface_base(x, y, z, ax, showzero=showzero, cmap=cmap, **kwargs)
 
 
-def ratio_surf(main_hist, ref_hist, ax=None, showzero=True, cmap=None, **kwargs):
+def ratio_surface(main_hist, ref_hist, ax=None, showzero=True, cmap=None, **kwargs):
     """Create a 3D plot with a surface representing a ratio between main_hist and ref_hist.
 
     Parameters
     ----------
     main_hist : yoda.Scatter3D
         Yoda histogram that will be the dividend.
-    yoda_hist : yoda.Scatter3D
+    ref_hist : yoda.Scatter3D
         Yoda histogram that will be the divisor, i.e. the reference histogram.
     ax : Axes3D object
         Axes object in which the surface plot will be plotted in. Must be a 3D axes object.
@@ -352,10 +400,8 @@ def ratio_surf(main_hist, ref_hist, ax=None, showzero=True, cmap=None, **kwargs)
         Colormap that will color the surface.
         Can be of any type that matplotlib accepts.
         If None, the default settings in matplotlib will be used.
-    
-    Other Parameters
-    ----------------
-    The same parameters used in `surf`. See its documentation.
+    **kwargs
+        The same parameters used in `surface`. See its documentation.
 
     Returns
     -------
@@ -365,15 +411,17 @@ def ratio_surf(main_hist, ref_hist, ax=None, showzero=True, cmap=None, **kwargs)
     Notes
     -----
     Logarithmic axes do not work for surface plots, due to a bug in matplotlib.
-    If this feature is crucial, it is advised to use `proj` instead.
+    If this feature is crucial, it is advised to use `heatmap` instead.
     """
-    x, y, main_z = _scatter_to_2d(main_hist, 'mid')
+    x, y, main_z = _histo2d_to_np(main_hist, 'mid')
     ref_z = ref_hist.zVals().reshape(main_z.shape)
+    # Set delimiter to nan if they are 0 to remove error.
+    ref_z[ref_z == 0]  = np.nan
     z = main_z / ref_z
-    return _surf_base(x, y, z, ax, showzero=showzero, cmap=cmap, **kwargs)
+    return _surface_base(x, y, z, ax, showzero=showzero, cmap=cmap, **kwargs)
 
 
-def _surf_base(x, y, z, ax=None, showzero=True, cmap=None, elev=None, azim=None, psurf_kw=None, xaxis_kw=None, yaxis_kw=None, zaxis_kw=None):
+def _surface_base(x, y, z, ax=None, showzero=True, cmap=None, elev=None, azim=None, psurf_kw=None, **kwargs):
     """The base function used for all surface plotting functions.
 
     Parameters
@@ -382,25 +430,27 @@ def _surf_base(x, y, z, ax=None, showzero=True, cmap=None, elev=None, azim=None,
         The x, y, and z coordinates of the points on the surface that will be plotted. 
         Have shape (n, m).
         
-    The documentation for the other parameters can be seen in `surf`.
+    The documentation for the other parameters can be seen in `surface`.
 
     Returns
     -------
-    The documentation for the return arguments can be seen in `surf`.
+    The documentation for the return arguments can be seen in `surface`.
     """
     
     if ax is None:
         ax = plt.gca(projection='3d')
-    psurf_kw, xaxis_kw, yaxis_kw, zaxis_kw = [{} if kw is None else kw for kw in (psurf_kw, xaxis_kw, yaxis_kw, zaxis_kw)]
+    psurf_kw = {} if psurf_kw is None else psurf_kw
 
     if not showzero:
         z[z==0] = np.nan
     
+    all_axis_kws = get_axis_kw(kwargs)
     im = ax.plot_surface(x, y, z, cmap=cmap, **psurf_kw)
     
-    for axis_name, format_axis_kw in zip('xyz', (xaxis_kw, yaxis_kw, zaxis_kw)):
+    for axis_name, format_axis_kw in zip('xyz', all_axis_kws):
         format_axis(axis_name, ax, **format_axis_kw)
 
     ax.view_init(elev=elev, azim=azim)
+    ax.set(**kwargs)
 
     return im
