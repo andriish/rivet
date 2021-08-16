@@ -56,8 +56,8 @@ parser.add_argument("--dry-run", help="don't actually do any plotting or HTML bu
 #                    help="don't use subprocesses to render the plots in parallel -- useful for debugging")
 parser.add_argument("--pwd", dest="PATH_PWD", action="store_true", default=False,
                     help="append the current directory (pwd) to the analysis/data search paths (cf. $RIVET_ANALYSIS_PATH)")
-parser.add_argument("--style", dest="STYLE", action="Choose the plotting style", default='default')
-parser.add_argument("--write-files", dest="WRITE_FILES", action="Choose to write YAML files", default=True)
+parser.add_argument("--style", dest="STYLE", help="Choose the plotting style", default='default')
+parser.add_argument("--write-files", dest="WRITE_FILES", help="Choose to write YAML files", default=True)
 
 stygroup = parser.add_argument_group("Style options")
 stygroup.add_argument("-t", "--title", dest="TITLE",

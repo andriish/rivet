@@ -116,7 +116,7 @@ def plot_hist(hists, plot_ref=True, ax=None, error_bars=True,
         ax.set_ylim(0)
     format_axis('x', ax, **x_axis)
     format_axis('y', ax, **y_axis)
-    
+
     return ax
 
 
@@ -237,7 +237,7 @@ def plot_ratio(hists, ax=None, error_bars=True, error_bands=False,
     return ax
 
 
-def plot_scatter1D(scatter1D, ax=None, colors=None):
+def plot_scatter1D(scatter1D, ax=None, colors=None, line_styles=['-', '--', '-.', ':'], legend=False, **kwargs):
     """Create a plot of Scatter1D objects. 
 
     Parameters
@@ -256,19 +256,29 @@ def plot_scatter1D(scatter1D, ax=None, colors=None):
     ax
         The matplotlib axes object.
     """
+    if not isinstance(scatter1D, Sequence):  # Convert single hist object to list
+        scatter1D = [scatter1D]
+    # Convert all histogram objects to Scatter2D
+    scatter1D = [h.mkScatter() if not isinstance(h, yoda.Scatter1D) else h for h in scatter1D]
     if ax is None:
         ax = plt.gca()
+
     if colors is None:  # Use default mpl prop cycle vals
         colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
-    x_bins = np.append(scatter1D[0].xMins(), scatter1D[0].xMax())
+    line_properties = LineProperties(colors, line_styles)
 
     # Plot the MC histogram data
     for i, mc in enumerate(scatter1D):
         # Cycle through colors for MC hists
-        color = colors[i % len(colors)]
-        ax.hlines(mc.points()[0].val(1), 0, 1, color)
+        color, linestyle = next(line_properties)
+        ax.hlines(mc.points()[0].val(1), 0, 1, color, linestyle=linestyle)
         ax.set_xlim(0, 1)
         ax.xaxis.set_visible(False)
+
+    if legend:
+        legend_labels = ['mc{}'.format(i+1) for i in range(len(scatter1D))]
+        ax.legend(legend_labels)
+
     return ax
 
 
