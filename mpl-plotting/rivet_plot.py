@@ -32,7 +32,6 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
         hist_data = [hist_dict['yoda'].mkScatter() if not isinstance(hist_dict, (yoda.Scatter1D, yoda.Scatter2D, yoda.Scatter3D))
                      else hist_dict['yoda'] for hist_dict in yaml_dicts.get('histograms').values()]
 
-    # TODO the first element in hist_data and hist_features should have IsRef==1
     hist_features = [val for val in yaml_dicts['histograms'].values()]
     output_filename = os.path.join(outputdir, plot_name.strip('/'))
 
@@ -41,7 +40,7 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
     elif all(isinstance(h, yoda.Scatter2D) for h in hist_data):
         _rivet_Scatter2D(hist_data, hist_features, yaml_dicts, output_filename)
     elif all(isinstance(h, yoda.Scatter3D) for h in hist_data):
-        plot_2Dhist(hist_data, hist_features, yaml_dicts, output_filename)  # TODO: Rename Scatter3D?
+        plot_2Dhist(hist_data, hist_features, yaml_dicts, output_filename)  # TODO: Rename _rivet_Scatter3D?
     else:
         print('Error with Class types:', [type(h) for h in hist_data])
         raise NotImplementedError('Class type cannot be plotted yet')

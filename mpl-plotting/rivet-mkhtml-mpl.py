@@ -38,8 +38,8 @@ parser.add_argument("-o", "--outputdir", dest="OUTPUTDIR",
                     default="./rivet-plots", help="directory for Web page output")
 parser.add_argument("-c", "--config", dest="CONFIGFILES", action="append", default=["~/.make-plots"],
                     help="plot config file(s) to be used with rivet-cmphistos")
-parser.add_argument("-n", "--num-threads", metavar="NUMTHREADS", dest="NUMTHREADS", type=int,
-                    default=None, help="request make-plots to use a specific number of threads")
+#parser.add_argument("-n", "--num-threads", metavar="NUMTHREADS", dest="NUMTHREADS", type=int,
+#                    default=None, help="request make-plots to use a specific number of threads")
 parser.add_argument("--ignore-missing", dest="IGNORE_MISSING", action="store_true",
                     default=False, help="ignore missing YODA files")
 parser.add_argument("-i", "--ignore-unvalidated", dest="IGNORE_UNVALIDATED", action="store_true",
@@ -50,33 +50,27 @@ parser.add_argument("--no-rivet-refs", dest="RIVETREFS", action="store_false",
                         default=True, help="don't use Rivet reference data files")
 parser.add_argument("--dry-run", help="don't actually do any plotting or HTML building", dest="DRY_RUN",
                     action="store_true", default=False)
-parser.add_argument("--no-cleanup", dest="NO_CLEANUP", action="store_true", default=False,
-                    help="keep plotting temporary directory")
-parser.add_argument("--no-subproc", dest="NO_SUBPROC", action="store_true", default=False,
-                    help="don't use subprocesses to render the plots in parallel -- useful for debugging")
+#parser.add_argument("--no-cleanup", dest="NO_CLEANUP", action="store_true", default=False,
+#                    help="keep plotting temporary directory")
+#parser.add_argument("--no-subproc", dest="NO_SUBPROC", action="store_true", default=False,
+#                    help="don't use subprocesses to render the plots in parallel -- useful for debugging")
 parser.add_argument("--pwd", dest="PATH_PWD", action="store_true", default=False,
                     help="append the current directory (pwd) to the analysis/data search paths (cf. $RIVET_ANALYSIS_PATH)")
-#TODO: Add style  option
-style = 'default'
-#TODO: Set rivetplotpaths True to parse .plot features, not implemented yet
-rivetplotpaths = True
-#TODO: Add analysispaths... what does this do?
-analysispaths = []  # Temp disabled
-#TODO: optional write files flag
-writefiles = True
+parser.add_argument("--style", dest="STYLE", action="Choose the plotting style", default='default')
+parser.add_argument("--write-files", dest="WRITE_FILES", action="Choose to write YAML files", default=True)
 
 stygroup = parser.add_argument_group("Style options")
 stygroup.add_argument("-t", "--title", dest="TITLE",
                       default="Plots from Rivet analyses", help="title to be displayed on the main web page")
 stygroup.add_argument("--reftitle", dest="REFTITLE",
                       default="Data", help="legend entry for reference data")
-stygroup.add_argument("--no-plottitle", dest="NOPLOTTITLE", action="store_true",
-                      default=False, help="don't show the plot title on the plot "
-                      "(useful when the plot description should only be given in a caption)")
+#stygroup.add_argument("--no-plottitle", dest="NOPLOTTITLE", action="store_true",
+#                      default=False, help="don't show the plot title on the plot "
+#                      "(useful when the plot description should only be given in a caption)")
 stygroup.add_argument("-s", "--single", dest="SINGLE", action="store_true",
                       default=False, help="display plots on single webpage.")
-stygroup.add_argument("--no-ratio", dest="SHOW_RATIO", action="store_false",
-                      default=True, help="don't draw a ratio plot under each main plot.")
+#stygroup.add_argument("--no-ratio", dest="SHOW_RATIO", action="store_false",
+#                      default=True, help="don't draw a ratio plot under each main plot.")
 stygroup.add_argument("--errs", "--mcerrs", "--mc-errs", dest="MC_ERRS", action="store_true",
                       default=False, help="plot error bars.")
 stygroup.add_argument("--offline", dest="OFFLINE", action="store_true",
@@ -87,6 +81,7 @@ stygroup.add_argument("--ps", dest="VECTORFORMAT", action="store_const", const="
                       default="PDF", help="use PostScript as the vector plot format. DEPRECATED")
 stygroup.add_argument("--booklet", dest="BOOKLET", action="store_true",
                       default=False, help="create booklet (currently only available for PDF with pdftk or pdfmerge).")
+"""
 stygroup.add_argument("--font", dest="OUTPUT_FONT", choices="palatino,cm,times,helvetica,minion".split(","),
                       default="palatino", help="choose the font to be used in the plots")
 stygroup.add_argument("--palatino", dest="OUTPUT_FONT", action="store_const", const="palatino", default="palatino",
@@ -101,6 +96,7 @@ stygroup.add_argument("--minion", dest="OUTPUT_FONT", action="store_const", cons
                       help="use Adobe Minion Pro as font. DEPRECATED: Use --font")
 stygroup.add_argument("--remove-options", help="remove options label from legend", dest="REMOVE_OPTIONS",
                     action="store_true", default=False)
+"""
 
 selgroup = parser.add_argument_group("Selective plotting")
 selgroup.add_argument("-m", "--match", action="append", dest="PATHPATTERNS", default=[],
@@ -111,8 +107,8 @@ selgroup.add_argument("--ana-match", action="append", dest="ANAPATTERNS", defaul
                       help="only write out histograms from analyses whose name matches any of these regexes")
 selgroup.add_argument("--ana-unmatch", action="append", dest="ANAUNPATTERNS", default=[],
                       help="exclude histograms from analyses whose name matches any of these regexes")
-selgroup.add_argument("--no-weights", help="prevent multiweights from being plotted", dest="NO_WEIGHTS",
-                    action="store_true", default=False)
+#selgroup.add_argument("--no-weights", help="prevent multiweights from being plotted", dest="NO_WEIGHTS",
+#                    action="store_true", default=False)
 
 vrbgroup = parser.add_argument_group("Verbosity control")
 vrbgroup.add_argument("-v", "--verbose", help="add extra debug messages", dest="VERBOSE",
@@ -120,6 +116,8 @@ vrbgroup.add_argument("-v", "--verbose", help="add extra debug messages", dest="
 
 args = parser.parse_args()
 yodafiles = args.YODAFILES
+style = args.STYLE
+writefiles = args.WRITE_FILES
 
 ## Add pwd to search paths
 if args.PATH_PWD:
@@ -248,7 +246,7 @@ yaml_dicts = make_yamlfiles(args.YODAFILES, args.PATH_PWD, args.REFTITLE,
                             args.PATHUNPATTERNS, [os.path.abspath("../")],
                             style, configfiles,
                             True, args.OUTPUTDIR, args.MC_ERRS,
-                            rivetplotpaths, analysispaths, args.VERBOSE, writefiles=writefiles)
+                            True, [], args.VERBOSE, writefiles=writefiles)
 
 ## Write web page containing all (matched) plots
 ## Make web pages first so that we can load it locally in
