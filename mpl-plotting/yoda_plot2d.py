@@ -76,7 +76,8 @@ def format_axis(axis_name, ax=None, label=None, lim=None, log=False,
     axis_name = axis_name.lower()
     # TODO remove these 2 since they are redundant?
     getattr(ax, 'set_{}label'.format(axis_name))(label)
-    getattr(ax, 'set_{}lim'.format(axis_name))(lim)
+    if lim is not None:
+        getattr(ax, 'set_{}lim'.format(axis_name))(lim)
 
     # Set log scale
     if log:
