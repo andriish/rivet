@@ -64,6 +64,7 @@ def plot_hist(ref_hist, mc_hists=None, ax=None, ErrorBars=True, colors=None):
                 mc_errplus = [err[1] for err in mc.yErrs()]
                 ax.vlines(x_points, (mc.yVals() - mc_errminus),
                           (mc.yVals() + mc_errplus), color, zorder=5+i)
+    #TODO: Add Legend
     return ax
 
 
@@ -126,6 +127,7 @@ def plot_ratio(ref_hist, mc_hists=None, ax=None, ErrorBars=True, ErrorBands=Fals
     if mc_hists is not None:
         for i, mc in enumerate(mc_hists):
             color = colors[i % len(colors)]
+            #TODO: Add line style: -, --, .-, :
             y_ratio = (np.insert(mc.yVals(), 0, mc.yVals()[0])
                        / np.insert(data_yVals, 0, data_yVals[0]))
             ax.plot(x_bins, y_ratio, color, drawstyle='steps-pre', zorder=1,
