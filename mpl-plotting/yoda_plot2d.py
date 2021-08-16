@@ -239,9 +239,6 @@ def heatmap(yoda_hist, ax=None, showzero=True, colorbar=True, cmap=None, **kwarg
         The colorbar object created. Only returned if colorbar is True. 
     """
     x_edges, y_edges, z_vals = _histo2d_to_np(yoda_hist, 'edge')
-
-    if not showzero:
-        z_vals[z_vals==0] = np.nan
     
     return _heatmap_base(x_edges, y_edges, z_vals, ax=ax, showzero=showzero, colorbar=colorbar, cmap=cmap, **kwargs)
 
@@ -313,7 +310,10 @@ def _heatmap_base(x_edges, y_edges, z_vals, ax=None, showzero=True, colorbar=Tru
         ax = plt.gca()
     # Replace None with an empty dict
     pcm_kw, cbar_kw = [({} if kw is None else kw) for kw in (pcm_kw, cbar_kw)]
-
+    
+    if not showzero:
+        z_vals[z_vals==0] = np.nan
+    
     norm = _create_norm(*kwargs.get('zlim', (None, None)), kwargs.get('logz'))
     im = ax.pcolormesh(x_edges, y_edges, z_vals, norm=norm, cmap=cmap, **pcm_kw)
 
@@ -375,9 +375,6 @@ def surface(yoda_hist, ax=None, showzero=True, cmap=None, **kwargs):
     If this feature is crucial, it is advised to use `heatmap` instead.
     """
     x, y, z = list(_histo2d_to_np(yoda_hist, 'mid'))
-
-    if not showzero:
-        z[z==0] = np.nan
     
     return _surface_base(x, y, z, ax, showzero=showzero, cmap=cmap, **kwargs)
 
@@ -442,6 +439,9 @@ def _surface_base(x, y, z, ax=None, showzero=True, cmap=None, elev=None, azim=No
     if ax is None:
         ax = plt.gca(projection='3d')
     psurf_kw = {} if psurf_kw is None else psurf_kw
+    
+    if not showzero:
+        z[z==0] = np.nan
     
     if np.any(np.isnan(z)):
         warnings.warn('Plotting ratios of histograms with 0-count bins as surface plots can result in unexpected rendering results or even errors.\n'
