@@ -152,7 +152,7 @@ def _add_colorbar(norm, cmap, ax=None, *args, **kwargs):
     return cbar
 
 
-def get_axis_kw(kwargs):
+def _get_axis_kw(kwargs):
     """Create 3 separate dicts of kwargs that can be passed to format_axis.
     The function also removes the format_axis elements from kwargs. 
 
@@ -318,7 +318,7 @@ def _heatmap_base(x_edges, y_edges, z_vals, ax=None, showzero=True, colorbar=Tru
         
     im = ax.pcolormesh(x_edges, y_edges, z_vals, norm=norm, cmap=cmap, **pcm_kw)
 
-    all_axis_kws = get_axis_kw(kwargs)
+    all_axis_kws = _get_axis_kw(kwargs)
     format_axis('x', ax, **all_axis_kws[0])
     format_axis('y', ax, **all_axis_kws[1])
 
@@ -444,7 +444,7 @@ def _surface_base(x, y, z, ax=None, showzero=True, cmap=None, elev=None, azim=No
     if not showzero:
         z[z==0] = np.nan
     
-    all_axis_kws = get_axis_kw(kwargs)
+    all_axis_kws = _get_axis_kw(kwargs)
     im = ax.plot_surface(x, y, z, cmap=cmap, **psurf_kw)
     
     for axis_name, format_axis_kw in zip('xyz', all_axis_kws):

@@ -40,8 +40,6 @@ def _prepare_mpl(yaml_dict, plot_features, style_path):
         Path to the mplstyle file. See plot_2Dhist for its default value.
     """
     # rc2d is styling to be applied in conjuction with the rivet default style. Might move this to .mplstyle file
-    # TODO axes.labelpad is different for x, y axis. Personally, this setting looks better than original rivet style. 
-    #   Maybe directly modify using format_axis, specifically set_xlabel(labelpad=something)?
     rc2d = {
         'yaxis.labellocation': 'top', 'image.cmap': 'jet', 'axes.labelpad': 0.7,
         'figure.figsize': (4.5, 4.41), 'figure.subplot.hspace': plt.rcParams['figure.subplot.wspace'],
@@ -144,19 +142,26 @@ def _get_axis_kw(zmin, zmax, plot_features):
     axis_kw : list[dict[str, Any]]
         The x, y, and z axis_kw dicts, returned in that order.
     """
-    axis_kw = []
+    axis_kw = {}
     for a in 'XYZ':
         if a == 'Z':
             lim = (zmin, zmax)
         else:
             lim = (plot_features.get(a+'Min'), plot_features.get(a+'Max'))
-        axis_kw.append(
-            dict(label=preprocess(plot_features.get(a+'Label')), lim=lim, log=plot_features.get('Log'+a), 
-                major_ticks=plot_features.get(a+'MajorTickMarks'), minor_ticks=plot_features.get(a+'MinorTickMarks'), 
-                custom_major_ticks=_preprocess_custom_ticks(plot_features.get(a+'CustomMajorTicks')), 
-                custom_minor_ticks=plot_features.get(a+'CustomMinorTicks'), plot_ticklabels=plot_features.get('Plot%sTickLabels' % a))
+        axis_kw.update(
+            {
+                a.lower()+'label': preprocess(plot_features.get(a+'Label')), a.lower()+'lim': lim, 'log'+a.lower(): plot_features.get('Log'+a), 
+                a.lower()+'major_ticks': plot_features.get(a+'MajorTickMarks'), a.lower()+'minor_ticks': plot_features.get(a+'MinorTickMarks'), 
+                a.lower()+'custom_major_ticks': _preprocess_custom_ticks(plot_features.get(a+'CustomMajorTicks')), 
+                a.lower()+'custom_minor_ticks': plot_features.get(a+'CustomMinorTicks'), 'plot_%sticklabels' % a.lower(): plot_features.get('Plot%sTickLabels' % a)
+            }
         )
     return axis_kw
+
+
+def raise_2dtype_error(wrong_type):
+    """Small wrapper to raise the 2DType error for easier refactoring."""
+    raise ValueError('Expected "2DType" in the input file to be "heatmap" or "surface" but was "{}".'.format(wrong_type))
 
 
 def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_styles/', outputfileformats=('png','pdf')):
@@ -190,36 +195,39 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
     ratio_zmax = plot_features.get('RatioPlotZMax', 1.4999)
     ratio_axis_kw = _get_axis_kw(ratio_zmin, ratio_zmax, plot_features)
     # Ratio plots will not have a log z axis 
-    ratio_axis_kw[2]['log'] = False
+    ratio_axis_kw['logz'] = False
 
     # TODO if possible, refactor this entire if-else-statement for less code duplication
     if plot_features.get('2DIndividual', True):    # TODO when this is True, the figures are not shown in the html file.
         fig = plt.figure()
         for yoda_hist, hist_settings in zip(hist_data, hist_features):
-            if plot_features.get('2DType', 'projection') == 'projection':
+            if plot_features.get('2DType', 'heatmap') == 'heatmap':
                 ax = fig.add_subplot(111)
-                yp.proj(yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), colorbar=True, cmap=plot_features.get('2DColormap', plt.rcParams['image.cmap']),
-                    cbar_kw=dict(fraction=0.075, pad=0.02, aspect=25), xaxis_kw=axis_kw[0], yaxis_kw=axis_kw[1], zaxis_kw=axis_kw[2])
+                yp.heatmap(yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), colorbar=True, cmap=plot_features.get('2DColormap', plt.rcParams['image.cmap']),
+                    cbar_kw=dict(fraction=0.075, pad=0.02, aspect=25), **axis_kw)
             elif plot_features.get('2DType') == 'surface':
                 ax = fig.add_subplot(111, projection='3d')
-                yp.surf(yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('2DColormap', plt.rcParams['image.cmap']),
-                    elev=plot_features.get('3DElev'), azim=plot_features.get('3DAzim'), xaxis_kw=axis_kw[0], yaxis_kw=axis_kw[1], zaxis_kw=axis_kw[2])
+                yp.surface(yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('2DColormap', plt.rcParams['image.cmap']),
+                    elev=plot_features.get('3DElev'), azim=plot_features.get('3DAzim'), **axis_kw)
             else:
-                raise ValueError('Expected "2DType" in the input file to be "projection" or "surface" but was "{}".'.format(plot_features['2DType']))
+                raise_2dtype_error(plot_features['2DType'])
     
             _post_process_fig(fig, '{}-{}'.format(filename, hist_settings['Title']), outputfileformats, preprocess(plot_features.get('Title')))
 
         if ratio:
             ref_hist = hist_data[0]
             for yoda_hist, hist_settings in zip(hist_data[1:], hist_features[1:]):
-                if plot_features.get('2DType', 'projection') == 'projection':
+                if plot_features.get('2DType', 'heatmap') == 'heatmap':
                     ax = fig.add_subplot(111)
                     yp.ratio_proj(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), colorbar=True, cmap=plot_features.get('RatioPlot2DColormap'),
-                        cbar_kw=dict(fraction=0.075, pad=0.02, aspect=25), xaxis_kw=ratio_axis_kw[0], yaxis_kw=ratio_axis_kw[1], zaxis_kw=ratio_axis_kw[2])
+                        cbar_kw=dict(fraction=0.075, pad=0.02, aspect=25), **ratio_axis_kw)
                 elif plot_features.get('2DType') == 'surface':
                     ax = fig.add_subplot(111, projection='3d')
                     yp.ratio_surf(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('RatioPlot2DColormap', plt.rcParams['image.cmap']), # Use diverging colormap
-                        elev=plot_features.get('3DRatioPlotElev'), azim=plot_features.get('RatioPlot3DAzim'), xaxis_kw=ratio_axis_kw[0], yaxis_kw=ratio_axis_kw[1], zaxis_kw=ratio_axis_kw[2])
+                        elev=plot_features.get('3DRatioPlotElev'), azim=plot_features.get('RatioPlot3DAzim'), **ratio_axis_kw)
+                else:
+                    raise_2dtype_error(plot_features['2DType'])
+
                 _post_process_fig(fig, '{}-{}-ratio'.format(filename, hist_settings['Title']), outputfileformats, preprocess(plot_features.get('Title')))
 
     else:
@@ -227,35 +235,35 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
         nrows = 1 + ratio
         # The last column is intentionally made larger, since it will contain the color bar as well.
         width_ratios = [1] * (len(hist_data) - 1) + [1.1]
-        # BUG when only one plot is created, the figure title overlaps over the axes title. 
-        #  Either make more space using e.g. top padding or remove the axes title.
         fig = plt.figure(figsize=np.array(plt.rcParams['figure.figsize']) * np.array([sum(width_ratios), nrows]))
         gs = fig.add_gridspec(ncols=ncols, nrows=nrows, width_ratios=width_ratios)
 
         for i, (yoda_hist, hist_settings) in enumerate(zip(hist_data, hist_features)):
-            if plot_features.get('2DType', 'projection') == 'projection':
+            if plot_features.get('2DType', 'heatmap') == 'heatmap':
                 ax = fig.add_subplot(gs[0, i])
-                yp.proj(yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), colorbar=len(hist_data)-1 == i, cmap=plot_features.get('2DColormap', plt.rcParams['image.cmap']),
-                    cbar_kw=dict(fraction=0.075, pad=0.02, aspect=25), xaxis_kw=axis_kw[0], yaxis_kw=axis_kw[1], zaxis_kw=axis_kw[2])
+                yp.heatmap(yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), colorbar=len(hist_data)-1 == i, cmap=plot_features.get('2DColormap', plt.rcParams['image.cmap']),
+                    cbar_kw=dict(fraction=0.075, pad=0.02, aspect=25), **axis_kw)
             elif plot_features.get('2DType') == 'surface':
                 ax = fig.add_subplot(gs[0, i], projection='3d')
-                yp.surf(yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('2DColormap', plt.rcParams['image.cmap']),
-                    elev=plot_features.get('3DElev'), azim=plot_features.get('3DAzim'), xaxis_kw=axis_kw[0], yaxis_kw=axis_kw[1], zaxis_kw=axis_kw[2])
+                yp.surface(yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('2DColormap', plt.rcParams['image.cmap']),
+                    elev=plot_features.get('3DElev'), azim=plot_features.get('3DAzim'), **axis_kw)
             else:
-                raise ValueError('Expected "2DType" in the input file to be "projection" or "surface" but was "{}".'.format(plot_features['2DType']))
+                raise_2dtype_error(plot_features['2DType'])
 
             ax.set_title(preprocess(hist_settings['Title']))
         if ratio:
             ref_hist = hist_data[0]
             for i, (yoda_hist, hist_settings) in enumerate(zip(hist_data[1:], hist_features[1:])):
-                if plot_features.get('2DType', 'projection') == 'projection':
+                if plot_features.get('2DType', 'heatmap') == 'heatmap':
                     ax = fig.add_subplot(gs[1, i+1])
                     yp.ratio_proj(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), colorbar=len(hist_data)-1 == i+1, cmap=plot_features.get('RatioPlot2DColormap', plt.rcParams['image.cmap']),
-                        cbar_kw=dict(fraction=0.075, pad=0.02, aspect=25), xaxis_kw=ratio_axis_kw[0], yaxis_kw=ratio_axis_kw[1], zaxis_kw=ratio_axis_kw[2])
+                        cbar_kw=dict(fraction=0.075, pad=0.02, aspect=25), **ratio_axis_kw)
                 elif plot_features.get('2DType') == 'surface':
                     ax = fig.add_subplot(gs[1, i+1], projection='3d')
                     yp.ratio_surf(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('RatioPlot2DColormap', plt.rcParams['image.cmap']),
-                    elev=plot_features.get('RatioPlot3DElev'), azim=plot_features.get('RatioPlot3DAzim'), xaxis_kw=ratio_axis_kw[0], yaxis_kw=ratio_axis_kw[1], zaxis_kw=ratio_axis_kw[2])
+                    elev=plot_features.get('RatioPlot3DElev'), azim=plot_features.get('RatioPlot3DAzim'), **ratio_axis_kw)
+                else: 
+                    raise_2dtype_error(plot_features['2DType'])
                 # TODO Make this label customizable? 
                 ax.set_title(preprocess('{}/{}'.format(hist_settings['Title'], hist_features[0]['Title'])))
         _post_process_fig(fig, filename, outputfileformats, preprocess(plot_features.get('Title')))
