@@ -1,5 +1,6 @@
 """Create a rivet-style plot with 2D histograms."""
 import os
+import logging
 
 import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
@@ -176,10 +177,11 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
     outputfileformats : Iterable[str]
         All the file formats, e.g., png, pdf, svg, in which the figure(s) will be exported as.
     """
+    logging.captureWarnings(True)
     plot_features = yaml_dict.get('plot features', {})
     # Set default scale of z axis to log. This is to have a similar behavior to the y axis scale 
     # This if statement must be kept here rather than using plot_features.get('LogZ', True) everywhere.
-    # Otherwise would be compicated to get the LogZ value independently of LogX, LogZ in e.g., _get_axis_kw 
+    # Otherwise it would be complicated to get the LogZ value independently of LogX, LogZ in e.g., _get_axis_kw 
     # TODO change this default value based on whether the bin-value quantiles fit better to an exp or linear model? 
     if 'LogZ' not in plot_features:
         plot_features['LogZ'] = True
@@ -193,11 +195,11 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
     ratio_zmin = plot_features.get('RatioPlotZMin', 0.5)
     ratio_zmax = plot_features.get('RatioPlotZMax', 1.4999)
     ratio_axis_kw = _get_axis_kw(ratio_zmin, ratio_zmax, plot_features)
-    # Ratio plots will not have a log z axis 
+    # Ratio plots will never have a log z axis 
     ratio_axis_kw['logz'] = False
 
     # TODO if possible, refactor this entire if-else-statement for less code duplication
-    if plot_features.get('2DIndividual', True):    # TODO when this is True, the figures are not shown in the html file.
+    if plot_features.get('2DIndividual', True):
         fig = plt.figure()
         for yoda_hist, hist_settings in zip(hist_data, hist_features):
             if plot_features.get('2DType', 'heatmap') == 'heatmap':
