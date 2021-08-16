@@ -155,16 +155,15 @@ def plot_Scatter2D(hist_data, hist_features, yaml_dicts, output_filename):
         ax_ratio.set_ylim(RatioPlotYMin, RatioPlotYMax)
 
     # Use maximum y value from all hist datasets
-    max_ymax = max([h.yMax() for h in hist_data])
+    max_ymax = max([max(h.yVals()) for h in hist_data])
     if plot_features.get('YMax') is not None:
         YMax = plot_features.get('YMax')
     elif plot_features.get('LogY', 1):
         YMax = 1.7*max_ymax
     else:
         YMax = 1.1*max_ymax
-
     # Use minimum y value from all hist datasets
-    min_ymin = min([h.yMin() for h in hist_data])
+    min_ymin = min([min(h.yVals()) for h in hist_data])
     if plot_features.get('YMin') is not None:
         YMin = plot_features.get('YMin')
     elif plot_features.get('LogY', 1):
