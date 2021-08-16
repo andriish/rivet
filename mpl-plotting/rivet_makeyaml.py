@@ -47,7 +47,7 @@ def _parse_args(args):
     
     Note
     ----
-    Some matplotlib line styles contain ':', which would not work with current code. TODO:  change delimiter?
+    Some matplotlib line styles contain ':', which would not work with current code. TODO: change delimiter?
     """
     # TODO: remove filenames since they exist as keys in plotoptions?
     filelist = []
@@ -101,8 +101,6 @@ def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns
                 continue
 
             # Make a path object and ensure the path is in standard form. 
-            # TODO: rivet.AOPath raises Exception. 
-            # Its error class should be more specific, e.g., ValueError, IOError
             try:
                 aop = rivet.AOPath(path)
             except Exception as e:

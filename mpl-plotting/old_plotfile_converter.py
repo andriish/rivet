@@ -40,7 +40,6 @@ def type_conversion(value):
     ------
     TypeError
         If value is not of type str.
-    TODO: move function somewhere else?
     """
     if not isinstance(value, str):
         raise TypeError('Expected value to be of type str but got type {}'.format(type(value)))
