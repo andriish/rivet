@@ -29,8 +29,8 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
         hist_data = _parse_yoda_hist(yaml_dicts)
     else:  # If the dictionary object is passed
         yaml_dicts = yaml_file
-        hist_data = [hist_dict['yoda'].mkScatter()
-                     for hist_dict in yaml_dicts.get('histograms').values()]
+        hist_data = [hist_dict['yoda'].mkScatter() if not isinstance(hist_dict, (yoda.Scatter1D, yoda.Scatter2D, yoda.Scatter3D))
+                     else hist_dict['yoda'] for hist_dict in yaml_dicts.get('histograms').values()]
 
     # TODO the first element in hist_data and hist_features should have IsRef==1
     hist_features = [val for val in yaml_dicts['histograms'].values()]
