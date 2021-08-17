@@ -3298,6 +3298,8 @@ def process_datfile(datfile, **kwargs):
         convertavailable = have_cmd("convert")
         ps2pnmavailable = have_cmd("ps2pnm")
         pnm2pngavailable = have_cmd("pnm2png")
+        pdf2svgavailable = have_cmd("pdf2svg")
+        pdftocairoavailable = have_cmd("pdftocairo")
 
         # TODO: It'd be nice to be able to control the size of the PNG between thumb and full-size...
         #   currently defaults (and is used below) to a size suitable for thumbnails
@@ -3324,6 +3326,17 @@ def process_datfile(datfile, **kwargs):
             #     p2.wait()
             # else:
             #     raise Exception("Required PNG maker programs (convert, or ps2pnm and pnm2png) not found")
+        
+        # convert pdf to svg
+        def mksvgcmd(infile, outfile):
+            if pdftocairoavailable:
+                svgcmd = ["pdftocairo", infile, "-svg"]
+                return svgcmd
+            elif pdf2svgavailable:
+                svgcmd = ["pdf2svg", infile, outfile]
+                return svgcmd
+            else:
+                raise Exception("Required SVG maker program (pdftocairo/pdf2svg) not found")
 
         ## Run LaTeX (in no-stop mode)
         logging.debug(os.listdir(tempdir))
@@ -3349,7 +3362,7 @@ def process_datfile(datfile, **kwargs):
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
             dvproc.wait()
-        if "PDF" in outformat:
+        if "PDF" in outformat or "SVG" in outformat:
             dvcmd.append("-f")
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
@@ -3381,6 +3394,12 @@ def process_datfile(datfile, **kwargs):
             logging.debug(" ".join(pngcmd))
             pngproc = subprocess.Popen(pngcmd, stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
             pngproc.wait()
+        if "SVG" in outformat:
+            ## convert PDF to SVG
+            svgcmd = mksvgcmd("%s.pdf" % filename, "%s.svg" % filename)
+            logging.debug(" ".join(svgcmd))
+            svgproc = subprocess.Popen(svgcmd, stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
+            svgproc.wait()
         logging.debug(os.listdir(tempdir))
 
     ## Copy results back to main dir
@@ -3525,6 +3544,12 @@ if __name__ == '__main__':
             if "PNG" in args.OUTPUT_FORMAT:
                 if not have_cmd("convert"):
                     logging.error("ERROR: required program 'convert' (for PNG output) could not be found. Exiting...")
+                    sys.exit(1)
+            ## SVG output converter
+            if "SVG" in args.OUTPUT_FORMAT:
+                # "pdf2svg", "pdftocairo"
+                if not have_cmd("pdftocairo") and not have_cmd("pdf2svg"):
+                    logging.error("ERROR: required program 'pdftocairo' or 'pdf2svg' (for SVG output) could not be found. Exiting...")
                     sys.exit(1)
 
             ## kpsewhich: required for LaTeX package testing
