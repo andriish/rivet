@@ -64,6 +64,32 @@
             "CERN-EP-2020-190"
         ]
     ], 
+    "1827313": [
+        "Observation of new excited ${B} ^0_{s} $ states", 
+        "LHCb", 
+        "10.1140/epjc/s10052-021-09305-3", 
+        "2743367", 
+        "2010.15931", 
+        null, 
+        null, 
+        [
+            "LHCb-PAPER-2020-026", 
+            "CERN-EP-2020-185"
+        ]
+    ], 
+    "1827570": [
+        "Searches for 25 rare and forbidden decays of $D^{+}$ and $ {D}_s^{+} $ mesons", 
+        "LHCb", 
+        "10.1007/JHEP06(2021)044", 
+        "2743479", 
+        "2011.00217", 
+        null, 
+        null, 
+        [
+            "LHCb-PAPER-2020-007", 
+            "CERN-EP-2020-140"
+        ]
+    ], 
     "1827842": [
         "Study of $B^0_s \\to J\\psi \\pi^+\\pi^-K^+K^-$ decays", 
         "LHCb", 
@@ -222,16 +248,81 @@
         ]
     ], 
     "1838196": [
-        "Angular analysis of the $B^{+}\\rightarrow K^{\\ast+}\\mu^{+}\\mu^{-}$ decay", 
+        "Angular Analysis of the  $B^{+}\\rightarrow K^{\\ast+}\\mu^{+}\\mu^{-}$ Decay", 
         "LHCb", 
         "10.1103/PhysRevLett.126.161802", 
-        "2748330", 
+        "2748571", 
         "2012.13241", 
-        null, 
+        "ins1838196", 
         null, 
         [
             "LHCb-PAPER-2020-041", 
             "CERN-EP-2020-239"
+        ]
+    ], 
+    "1850626": [
+        "Observation of the decay $\\Lambda_b^0\\rightarrow\\chi_{c1}p\\pi^-$", 
+        "LHCb", 
+        "10.1007/JHEP05(2021)095", 
+        "2754043", 
+        "2103.04949", 
+        null, 
+        null, 
+        [
+            "CERN-EP-2021-037", 
+            "LHCb-PAPER-2021-003"
+        ]
+    ], 
+    "1851454": [
+        "Measurement of prompt-production cross-section ratio $\\sigma(\\chi_{c2})/\\sigma(\\chi_{c1})$ in $p$Pb collisions at $\\sqrt{s_{NN}}$ = 8.16 TeV", 
+        "LHCb", 
+        "10.1103/PhysRevC.103.064905", 
+        "2755993", 
+        "2103.07349", 
+        null, 
+        null, 
+        [
+            "LHCb-PAPER-2020-048", 
+            "CERN-EP-2021-024F"
+        ]
+    ], 
+    "1852815": [
+        "Search for $CP$ violation in $D_{(s)}^{+}\\rightarrow h^{+}\\pi^{0}$ and $D_{(s)}^{+}\\rightarrow h^{+}\\eta$ decays", 
+        "LHCb", 
+        "10.1007/JHEP06(2021)019", 
+        "2758622", 
+        "2103.11058", 
+        null, 
+        null, 
+        [
+            "LHCb-PAPER-2021-001", 
+            "CERN-EP-2021-036"
+        ]
+    ], 
+    "1862311": [
+        "Angular analysis of $ {B}^0\\to {D}^{\\ast -}{D}_s^{\\ast +} $ with $ {D}_s^{\\ast +}\\to {D}_s^{+}\\gamma $ decays", 
+        "LHCb", 
+        "10.1007/JHEP06(2021)177", 
+        "2766014", 
+        "2105.02596", 
+        null, 
+        null, 
+        [
+            "LHCb-PAPER-2021-006", 
+            "CERN-EP-2021-056"
+        ]
+    ], 
+    "1872884": [
+        "Evidence of a $J/\\psi\\Lambda$ structure and observation of excited $\\Xi^-$ states in the $\\Xi^-_b \\to J/\\psi\\Lambda K^-$ decay", 
+        "LHCb", 
+        "10.1016/j.scib.2021.02.030", 
+        "2748444", 
+        "2012.10380", 
+        null, 
+        null, 
+        [
+            "LHCb-PAPER-2020-039", 
+            "CERN-EP-2020-233"
         ]
     ]
 }

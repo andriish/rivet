@@ -5,10 +5,10 @@ THISYEAR=$(date +"%Y")
 rm inspire-*-$THISYEAR.*.json
 
 ## Get any missing Inspire-JSON files
-./get-json-inspire *.ins.json
+./get-json-inspire
 
 ## Process the ins.json files into rhd.json ones with the minimal info for Rivet/HD coverage
-./get-rivethd-json
+./get-rivethd-json *.ins.json
 
 ## Refresh the missing-analyses list
 mv inspire-missing.ins.json{,.bak}
