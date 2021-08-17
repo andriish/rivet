@@ -3362,8 +3362,7 @@ def process_datfile(datfile, **kwargs):
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
             dvproc.wait()
-        ## Used to generate a PDF file
-        def mkPDF(filename, tempdir, newOpacityPolicy, dvcmd):
+        if "PDF" in outformat or "SVG" in outformat:
             dvcmd.append("-f")
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
@@ -3374,8 +3373,6 @@ def process_datfile(datfile, **kwargs):
             f = open(os.path.join(tempdir, "%s.pdf" % filename), "wb")
             f.write(cnvproc.communicate()[0])
             f.close()
-        if "PDF" in outformat:
-            mkPDF(filename, tempdir, newOpacityPolicy, dvcmd)
         if "EPS" in outformat:
             dvcmd.append("-f")
             logging.debug(" ".join(dvcmd))
@@ -3398,14 +3395,9 @@ def process_datfile(datfile, **kwargs):
             pngproc = subprocess.Popen(pngcmd, stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
             pngproc.wait()
         if "SVG" in outformat:
-            svgcmd = ""
-            if "PDF" not in outformat:
-                # First generate the PDF
-                mkPDF(filename, tempdir, newOpacityPolicy, dvcmd)
             ## convert PDF to SVG
             svgcmd = mksvgcmd("%s.pdf" % filename, "%s.svg" % filename)
             logging.debug(" ".join(svgcmd))
-            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
             svgproc = subprocess.Popen(svgcmd, stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
             svgproc.wait()
         logging.debug(os.listdir(tempdir))
