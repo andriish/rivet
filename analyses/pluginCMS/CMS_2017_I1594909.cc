@@ -108,7 +108,8 @@ namespace Rivet {
 
       // Find and isolate jets
       const Jets jets = apply<JetAlg>(event, "Jets").jetsByPt(Cuts::pT > 30*GeV);
-      const Jets isojets = filter_select(jets, Cuts::abseta < 2.4); //< @todo Isolation from leptons?!?
+      const Jets cjets = filter_select(jets, Cuts::abseta < 2.4);
+      const Jets isojets = cjets; //discardIfAnyDeltaRLess(cjets, elecs+mus, 0.4);
       const int njets = isojets.size();
       const Jets isobjets = filter_select(isojets, hasBTag());
       const int nbjets = isobjets.size();
