@@ -60,7 +60,7 @@ def getHistos(filelist, filenames):
             ## Make a path object and ensure the path is in standard form
             try:
                 aop = rivet.AOPath(path)
-            except Exception as e:
+            except ValueError as e:
                 #print(e)
                 print("Found analysis object with non-standard path structure:", path, "... skipping")
                 continue

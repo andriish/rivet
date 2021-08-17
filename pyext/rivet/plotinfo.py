@@ -64,7 +64,7 @@ class PlotParser(object):
         from rivet.aopaths import AOPath
         try:
             aop = AOPath(hpath)
-        except:
+        except ValueError:
             print("Found analysis object with non-standard path structure:", hpath, "... skipping")
             return None
 
@@ -105,7 +105,7 @@ class PlotParser(object):
         from rivet.aopaths import AOPath
         try:
             aop = AOPath(hpath)
-        except:
+        except ValueError:
             print("Found analysis object with non-standard path structure:", hpath, "... skipping")
             return None
 

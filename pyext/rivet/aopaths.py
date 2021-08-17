@@ -61,11 +61,10 @@ class AOPath(object):
     re_aopath = re.compile(r"^(/[^\[\]\@\#]+)(\[[A-Za-z\d\._=\s+-]+\])?(#\d+|@[\d\.]+)?$")
 
     def __init__(self, path):
-        import os
         self.origpath = path
         m = self.re_aopath.match(path)
         if not m:
-            raise Exception("Supplied path '%s' does not meet required structure" % path)
+            raise ValueError("Supplied path '%s' does not meet required structure" % path)
         self._basepath = m.group(1)
         self._varid = m.group(2).lstrip("[").rstrip("]") if m.group(2) else None
         self._binid = int(m.group(3).lstrip("#")) if m.group(3) else None
@@ -100,6 +99,7 @@ class AOPath(object):
 
     def dirname(self, keepref=False):
         "The non-final (i.e. dir-like) part of the basepath"
+        import os
         return os.path.dirname(self.basepath(keepref))
 
     def dirnameparts(self, keepref=False):
@@ -108,6 +108,7 @@ class AOPath(object):
 
     def basename(self):
         "The final (i.e. file-like) part of the basepath"
+        import os
         return os.path.basename(self._basepath)
 
     def varid(self, default=None):
