@@ -47,7 +47,7 @@ def _parse_args(args):
     
     Note
     ----
-    Some matplotlib line styles contain ':', which would not work with current code. TODO:  change delimiter?
+    Some matplotlib line styles contain ':', which would not work with current code. TODO: change delimiter?
     """
     # TODO: remove filenames since they exist as keys in plotoptions?
     filelist = []
@@ -101,8 +101,6 @@ def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns
                 continue
 
             # Make a path object and ensure the path is in standard form. 
-            # TODO: rivet.AOPath raises Exception. 
-            # Its error class should be more specific, e.g., ValueError, IOError
             try:
                 aop = rivet.AOPath(path)
             except Exception as e:
@@ -223,7 +221,7 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
                    hier_output=False, outdir='.', mc_errs=True,
                    rivetplotpaths=True, analysispaths=[], verbose=False, writefiles=False
                   ):
-    """Create .yaml files that can be parsed by rivet-make-plot
+    """Create .yaml files that can be parsed by rivet-plot
     Each output .yaml file corresponds to one analysis which contains all MC histograms and a reference data histogram.
     Warning: still in development.
     
@@ -278,6 +276,12 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     ------
     IOError
         If the program does not have read access to .plot or .yoda files, or if it cannot write the output .yaml files.
+    
+    Notes
+    -----
+    The keys in the returned dict always includes a / rather than being the actual output file name.
+    The keys will therefore differ from the actual output file names when hier_output == False.
+    To get the actual file names, / should be replaced by _ when hier_output == False.
     """
 
     if verbose:
@@ -322,8 +326,6 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
             ps = rivet.stripOptions(p)
             if ps and ps not in hpaths:
                 hpaths.append(ps)
-            # Only use the first histogram
-            firstaop = aos[p][sorted(aos[p].keys())[0]]
 
     # Unique list of analyses
     anas = list(set([x.split("/")[1] for x in hpaths]))
@@ -349,8 +351,6 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
             mchistos, refhistos, reftitle, 
             plotoptions, stylename, rc_params_dict, mc_errs
         )
-        # TODO file name here always includes a / rather than being the actual file name.
-        #  When hier_output == False, / should be replaced by _. See content of yamlio.write_output
         yamldicts[plot_id] = outputdict
         if writefiles:
             # Make the output and write to file

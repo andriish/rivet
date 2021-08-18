@@ -70,7 +70,6 @@ def _is_old_format(filename):
     -----
     This does not make an explicit check that the format is correct yaml syntax.
     Instead, it only checks whether the file contains #BEGIN PLOT or not.
-    TODO: optimize if needed. Current implementation is probably slow.
     """
     is_old = False
     with open(filename) as file:
@@ -133,9 +132,8 @@ def get_plot_configs(hpath, plotdirs=[], config_files=[]):
     
     Note
     ----
-    Warning: if a key exists in multiple configs, the last setting will included in plot_configs. 
+    If a key exists in multiple configs, the last setting will included in plot_configs. 
     As an example, is multiple .plot files have the `xlabel` setting, the xlabel specified in the last file will be used. 
-    I hope this is an expected behavior. TODO: ask mentors
     """
     # Remove duplicates
     plotdirs = list(set(plotdirs))

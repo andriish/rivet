@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
-# If desired, the lines below can be uncommented to supress the warning created by surface plots. TODO uncomment or remove?
-# import warnings
-# warnings.filterwarnings('UserWarning: Z contains NaN values. This may result in rendering artifacts.')
+# The code below is used to suppress ratio_surface warning. Another more clear warning will be included instead. 
+import warnings
+warnings.filterwarnings('ignore', r'.*Z contains NaN values\. This may result in rendering artifacts\..*')
 
 
 def _histo2d_to_np(h, xy_type):
@@ -239,7 +239,7 @@ def heatmap(yoda_hist, ax=None, showzero=True, colorbar=True, cmap=None, **kwarg
         The colorbar object created. Only returned if colorbar is True. 
     """
     x_edges, y_edges, z_vals = _histo2d_to_np(yoda_hist, 'edge')
-
+    
     return _heatmap_base(x_edges, y_edges, z_vals, ax=ax, showzero=showzero, colorbar=colorbar, cmap=cmap, **kwargs)
 
 
@@ -276,8 +276,7 @@ def ratio_heatmap(main_hist, ref_hist, ax=None, showzero=True, colorbar=True, cm
     cbar
         The colorbar object created. Only returned if colorbar is True. 
     """
-    # TODO remove or add parts of the documentation, since it is a duplicate of `heatmap`?
-
+    
     x_edges, y_edges, main_z = _histo2d_to_np(main_hist, 'edge')
     ref_z = ref_hist.zVals().reshape(main_z.shape)
     # Set delimiter to nan if they are 0 to remove error.
@@ -311,12 +310,11 @@ def _heatmap_base(x_edges, y_edges, z_vals, ax=None, showzero=True, colorbar=Tru
         ax = plt.gca()
     # Replace None with an empty dict
     pcm_kw, cbar_kw = [({} if kw is None else kw) for kw in (pcm_kw, cbar_kw)]
-
-    norm = _create_norm(*kwargs.get('zlim', (None, None)), kwargs.get('logz'))
     
     if not showzero:
         z_vals[z_vals==0] = np.nan
-        
+    
+    norm = _create_norm(*kwargs.get('zlim', (None, None)), kwargs.get('logz'))
     im = ax.pcolormesh(x_edges, y_edges, z_vals, norm=norm, cmap=cmap, **pcm_kw)
 
     all_axis_kws = _get_axis_kw(kwargs)
@@ -377,7 +375,7 @@ def surface(yoda_hist, ax=None, showzero=True, cmap=None, **kwargs):
     If this feature is crucial, it is advised to use `heatmap` instead.
     """
     x, y, z = list(_histo2d_to_np(yoda_hist, 'mid'))
-
+    
     return _surface_base(x, y, z, ax, showzero=showzero, cmap=cmap, **kwargs)
 
 
@@ -441,9 +439,13 @@ def _surface_base(x, y, z, ax=None, showzero=True, cmap=None, elev=None, azim=No
     if ax is None:
         ax = plt.gca(projection='3d')
     psurf_kw = {} if psurf_kw is None else psurf_kw
-
+    
     if not showzero:
         z[z==0] = np.nan
+    
+    if np.any(np.isnan(z)):
+        warnings.warn('Plotting ratios of histograms with 0-count bins as surface plots can result in unexpected rendering results or even errors.\n'
+            'It is recommended to use it carefully or to plot a heatmap instead.')
     
     all_axis_kws = _get_axis_kw(kwargs)
     im = ax.plot_surface(x, y, z, cmap=cmap, **psurf_kw)

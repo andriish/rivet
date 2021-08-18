@@ -10,7 +10,7 @@ pat_begin_name_block = re.compile(r'^(#*\s*)?BEGIN (\w+) ?(\S+)? ?(\w+)?')
 pat_end_block =   re.compile(r'^(#*\s*)?END (\w+)')
 pat_comment = re.compile(r'^\s*#|^\s*$')
 pat_property = re.compile(r'^(\w+?)\s*=\s*(.*)$')
-pat_property_opt = re.compile('^ReplaceOption\[(\w+=\w+)\]=(.*)$')
+pat_property_opt = re.compile(r'^ReplaceOption\[(\w+=\w+)\]=(.*)$')
 pat_path_property  = re.compile(r'^(\S+?)::(\w+?)=(.*)$')
 
 
@@ -40,7 +40,6 @@ def type_conversion(value):
     ------
     TypeError
         If value is not of type str.
-    TODO: move function somewhere else?
     """
     if not isinstance(value, str):
         raise TypeError('Expected value to be of type str but got type {}'.format(type(value)))

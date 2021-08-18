@@ -1,5 +1,6 @@
 """Create a rivet-style plot with 2D histograms."""
 import os
+import logging
 
 import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
@@ -41,7 +42,7 @@ def _prepare_mpl(yaml_dict, plot_features, style_path):
     """
     # rc2d is styling to be applied in conjuction with the rivet default style. Might move this to .mplstyle file
     rc2d = {
-        'yaxis.labellocation': 'top', 'image.cmap': 'jet', 'axes.labelpad': 0.7,
+        'yaxis.labellocation': 'top', 'image.cmap': 'viridis', 'axes.labelpad': 0.7,
         'figure.figsize': (4.5, 4.41), 'figure.subplot.hspace': plt.rcParams['figure.subplot.wspace'],
         'figure.subplot.bottom': 0.085, 'figure.subplot.top': 0.9, 'figure.subplot.left': 0.12462526766, 'figure.subplot.right': 0.89
     }
@@ -106,7 +107,7 @@ def _get_zlim(hist_data, plot_features):
     minzmin = plot_features.get('ZMin', min(h.zMin() for h in hist_data))
     if 'ZMin' not in plot_features:
         zmin = plot_features.get('ZMin')
-    elif plot_features.get('LogZ'):
+    elif plot_features.get('LogZ', True):
         zmin = minzmin if plot_features.get('FullRange', True) else max(minzmin, 2e-7*zmax)
     elif plot_features.get('ShowZero', True):
         zmin = min(0, minzmin)
@@ -176,7 +177,15 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
     outputfileformats : Iterable[str]
         All the file formats, e.g., png, pdf, svg, in which the figure(s) will be exported as.
     """
+    logging.captureWarnings(True)
     plot_features = yaml_dict.get('plot features', {})
+    # Set default scale of z axis to log. This is to have a similar behavior to the y axis scale 
+    # This if statement must be kept here rather than using plot_features.get('LogZ', True) everywhere.
+    # Otherwise it would be complicated to get the LogZ value independently of LogX, LogZ in e.g., _get_axis_kw 
+    # TODO change this default value based on whether the bin-value quantiles fit better to an exp or linear model? 
+    if 'LogZ' not in plot_features:
+        plot_features['LogZ'] = True
+    
     _prepare_mpl(yaml_dict, plot_features, style_path)
 
     zmin, zmax = _get_zlim(hist_data, plot_features)
@@ -186,11 +195,12 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
     ratio_zmin = plot_features.get('RatioPlotZMin', 0.5)
     ratio_zmax = plot_features.get('RatioPlotZMax', 1.4999)
     ratio_axis_kw = _get_axis_kw(ratio_zmin, ratio_zmax, plot_features)
-    # Ratio plots will not have a log z axis 
+    # Ratio plots will never have a log z axis 
     ratio_axis_kw['logz'] = False
+    default_camera_angle = (plot_features.get('3DElev'), plot_features.get('3DAzim'))
 
     # TODO if possible, refactor this entire if-else-statement for less code duplication
-    if plot_features.get('2DIndividual', True):    # TODO when this is True, the figures are not shown in the html file.
+    if plot_features.get('2DIndividual', True):
         fig = plt.figure()
         for yoda_hist, hist_settings in zip(hist_data, hist_features):
             if plot_features.get('2DType', 'heatmap') == 'heatmap':
@@ -200,7 +210,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
             elif plot_features.get('2DType') == 'surface':
                 ax = fig.add_subplot(111, projection='3d')
                 yp.surface(yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('2DColormap', plt.rcParams['image.cmap']),
-                    elev=plot_features.get('3DElev'), azim=plot_features.get('3DAzim'), **axis_kw)
+                    elev=default_camera_angle[0], azim=default_camera_angle[1], **axis_kw)
             else:
                 raise_2dtype_error(plot_features['2DType'])
     
@@ -211,12 +221,12 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
             for yoda_hist, hist_settings in zip(hist_data[1:], hist_features[1:]):
                 if plot_features.get('2DType', 'heatmap') == 'heatmap':
                     ax = fig.add_subplot(111)
-                    yp.ratio_proj(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), colorbar=True, cmap=plot_features.get('RatioPlot2DColormap'),
+                    yp.ratio_heatmap(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), colorbar=True, cmap=plot_features.get('RatioPlot2DColormap', 'PRGn'),
                         cbar_kw=dict(fraction=0.075, pad=0.02, aspect=25), **ratio_axis_kw)
                 elif plot_features.get('2DType') == 'surface':
                     ax = fig.add_subplot(111, projection='3d')
-                    yp.ratio_surf(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('RatioPlot2DColormap', plt.rcParams['image.cmap']), # Use diverging colormap
-                        elev=plot_features.get('3DRatioPlotElev'), azim=plot_features.get('RatioPlot3DAzim'), **ratio_axis_kw)
+                    yp.ratio_surface(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('RatioPlot2DColormap', 'PRGn'),
+                        elev=plot_features.get('RatioPlot3DElev', default_camera_angle[0]), azim=plot_features.get('RatioPlot3DAzim', default_camera_angle[1]), **ratio_axis_kw)
                 else:
                     raise_2dtype_error(plot_features['2DType'])
 
@@ -238,7 +248,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
             elif plot_features.get('2DType') == 'surface':
                 ax = fig.add_subplot(gs[0, i], projection='3d')
                 yp.surface(yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('2DColormap', plt.rcParams['image.cmap']),
-                    elev=plot_features.get('3DElev'), azim=plot_features.get('3DAzim'), **axis_kw)
+                    elev=default_camera_angle[0], azim=default_camera_angle[1], **axis_kw)
             else:
                 raise_2dtype_error(plot_features['2DType'])
 
@@ -248,12 +258,12 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
             for i, (yoda_hist, hist_settings) in enumerate(zip(hist_data[1:], hist_features[1:])):
                 if plot_features.get('2DType', 'heatmap') == 'heatmap':
                     ax = fig.add_subplot(gs[1, i+1])
-                    yp.ratio_proj(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), colorbar=len(hist_data)-1 == i+1, cmap=plot_features.get('RatioPlot2DColormap', plt.rcParams['image.cmap']),
+                    yp.ratio_heatmap(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), colorbar=len(hist_data)-1 == i+1, cmap=plot_features.get('RatioPlot2DColormap', 'PRGn'),
                         cbar_kw=dict(fraction=0.075, pad=0.02, aspect=25), **ratio_axis_kw)
                 elif plot_features.get('2DType') == 'surface':
                     ax = fig.add_subplot(gs[1, i+1], projection='3d')
-                    yp.ratio_surf(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('RatioPlot2DColormap', plt.rcParams['image.cmap']),
-                    elev=plot_features.get('RatioPlot3DElev'), azim=plot_features.get('RatioPlot3DAzim'), **ratio_axis_kw)
+                    yp.ratio_surface(ref_hist, yoda_hist, ax=ax, showzero=plot_features.get('ShowZero', True), cmap=plot_features.get('RatioPlot2DColormap', 'PRGn'),
+                    elev=plot_features.get('RatioPlot3DElev', default_camera_angle[0]), azim=plot_features.get('RatioPlot3DAzim', default_camera_angle[1]), **ratio_axis_kw)
                 else: 
                     raise_2dtype_error(plot_features['2DType'])
                 # TODO Make this label customizable? 
