@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import yoda
 from collections import Sequence
-from yoda_plot2d import format_axis, _get_axis_kw
+from .format_axis import format_axis, _get_axis_kw
 
 
 def plot_hist(hists, plot_ref=True, ax=None, error_bars=True,

@@ -1,4 +1,4 @@
-import yoda_plot1d as yp
+import yoda_plot as yp
 import yoda
 import matplotlib.pyplot as plt
 import numpy as np

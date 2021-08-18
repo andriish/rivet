@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
 import numpy as np
 
-import yoda_plot2d as yp
+import yoda_plot as yp
 from mathtext_preprocessor import preprocess
 
 

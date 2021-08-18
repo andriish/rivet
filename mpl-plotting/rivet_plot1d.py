@@ -1,11 +1,10 @@
 import os
-import io
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import yoda
-import yoda_plot1d
+import yoda_plot
 
 
 def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
@@ -43,11 +42,11 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
     colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
     # Plot histogram and ratio using Yoda function
     if yoda_type == 'scatter':
-        yoda_plot1d.plot_scatter1D(hist_data, ax=ax)
+        yoda_plot.plot_scatter1D(hist_data, ax=ax)
     else:
-        yoda_plot1d.plot_hist(hist_data, True, ax, plot_errorbars, colors)
+        yoda_plot.plot_hist(hist_data, True, ax, plot_errorbars, colors)
         if plot_features.get('RatioPlot', 1):
-            yoda_plot1d.plot_ratio(hist_data, ax_ratio, plot_errorbars, plot_features.get('ErrorBands'), colors)
+            yoda_plot.plot_ratio(hist_data, ax_ratio, plot_errorbars, plot_features.get('ErrorBands'), colors)
 
     plt.rcParams['xtick.top'] = plot_features.get('XTwosidedTicks', True)
     plt.rcParams['ytick.right'] = plot_features.get('YTwosidedTicks', True)
