@@ -21,14 +21,13 @@ ENVIRONMENT:
 from __future__ import print_function
 
 import rivet, sys, os
-from rivet_makeyaml import make_yamlfiles
+from rivet_mkdat import rivet_mkdat
 from rivet_plot import rivet_plot
 rivet.util.check_python_version()
 rivet.util.set_process_name(os.path.basename(__file__))
 COMMAND = " ".join([os.path.basename(sys.argv[0])] + sys.argv[1:])
 
 import glob, shutil
-from subprocess import Popen,PIPE
 
 
 import argparse
@@ -241,7 +240,7 @@ for configfile in args.CONFIGFILES:# TODO: Not sure if this is necessary
     if os.access(configfile, os.R_OK): 
         configfiles.append(configfile)
 
-yaml_dicts = make_yamlfiles(args.YODAFILES, args.PATH_PWD, args.REFTITLE,
+yaml_dicts = rivet_mkdat(args.YODAFILES, args.PATH_PWD, args.REFTITLE,
                             args.RIVETREFS, args.PATHPATTERNS,
                             args.PATHUNPATTERNS, [os.path.abspath("../")],
                             style, configfiles,
@@ -402,11 +401,11 @@ if not args.DRY_RUN:
         # anaindex.write('<span style="background-color:00cc00; border:2px solid #009933; padding:2px; border-radius:2px;"\n onclick="var patt = document.getElementById(\'patt_{ana}\').value; filterPlots(\'{ana}\', patt);">Filter</span>\n'.format(ana=analysis))
         anaindex.write('</form>\n\n')
 
-        yamlfiles = glob.glob("%s/*.yaml" % anapath)
+        yamlfiles = glob.glob("%s/*.dat" % anapath)
         #print(datfiles)
         # anaindex.write('<div style="float:none; overflow:auto; width:100%">\n')
         for yamlfile in sorted(yamlfiles):
-            obsname = os.path.basename(yamlfile).replace(".yaml", "")
+            obsname = os.path.basename(yamlfile).replace(".dat", "")
             pngfile = obsname+".png"
             vecfile = obsname+"."+args.VECTORFORMAT.lower()
             srcfile = obsname+".dat"

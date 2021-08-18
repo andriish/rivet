@@ -172,11 +172,11 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     plotoptions : dict[str, dict[str, str]]
         Dict containing all plot options for all histograms and all plots.
     mc_errs : bool
-        See make_yamlfiles
+        See rivet_mkdat
     style : str
         A predefined name of a style.
     rc_params : dict[str, str]
-        Dict of rcParams that will be added to the rcParams section of the output .yaml file.
+        Dict of rcParams that will be added to the rcParams section of the output .dat file.
 
     Returns
     -------
@@ -214,15 +214,15 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     return outputdict
 
 
-def make_yamlfiles(args, path_pwd=True, reftitle='Data', 
+def rivet_mkdat(args, path_pwd=True, reftitle='Data', 
                    rivetrefs=True, path_patterns=(), 
                    path_unpatterns=(), plotinfodirs=[], 
                    style='default', config_files=[], 
                    hier_output=False, outdir='.', mc_errs=True,
                    rivetplotpaths=True, analysispaths=[], verbose=False, writefiles=False
                   ):
-    """Create .yaml files that can be parsed by rivet-plot
-    Each output .yaml file corresponds to one analysis which contains all MC histograms and a reference data histogram.
+    """Create .dat files that can be parsed by rivet-plot
+    Each output .dat file corresponds to one analysis which contains all MC histograms and a reference data histogram.
     Warning: still in development.
     
     Parameters
@@ -254,9 +254,9 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
         Settings will be included in the output configuration. 
         ~/.make-plots will automatically be added.
     hier_output : bool
-        Write output .yaml files into a directory hierarchy which matches the analysis paths.
+        Write output .dat files into a directory hierarchy which matches the analysis paths.
     outdir : str
-        Write yaml files into this directory.
+        Write dat files into this directory.
     mc_errs : bool
         If True, add the errors of the Monte-Carlo histograms. 
     rivetplotpaths : bool
@@ -264,22 +264,22 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     verbose : bool
         If True, write more information to stdout.
     writefiles : bool
-        If True, write the created dicts to yaml files. 
+        If True, write the created dicts to dat files. 
         This is used if one wants the intermediate format for later use or if one only calls this function and not rivet-mkhtml.
 
     Returns
     -------
-    yamldicts : dict[str, dict]
-        A dict containing all dicts that are usually written to the yaml file. The key is the analysis ID.
+    dict[str, dict]
+        A dict containing all dicts that are usually written to the dat file. The key is the analysis ID.
     
     Raises
     ------
     IOError
-        If the program does not have read access to .plot or .yoda files, or if it cannot write the output .yaml files.
+        If the program does not have read access to .plot or .yoda files, or if it cannot write the output .dat files.
     
     Notes
     -----
-    The keys in the returned dict always includes a / rather than being the actual output file name.
+    TODO The keys in the returned dict always includes a / rather than being the actual output file name.
     The keys will therefore differ from the actual output file names when hier_output == False.
     To get the actual file names, / should be replaced by _ when hier_output == False.
     """
@@ -344,16 +344,16 @@ def make_yamlfiles(args, path_pwd=True, reftitle='Data',
     # <<< end of code from rivet-cmphistos
     
     # Write each file 
-    yamldicts = {}
+    plot_info_dicts = {}
     for plot_id in hpaths:
         outputdict = _make_output(
             plot_id, plotdirs, config_files, 
             mchistos, refhistos, reftitle, 
             plotoptions, stylename, rc_params_dict, mc_errs
         )
-        yamldicts[plot_id] = outputdict
+        plot_info_dicts[plot_id] = outputdict
         if writefiles:
             # Make the output and write to file
             yamlio.write_output(outputdict, plot_id, hier_output=hier_output, outdir=outdir)
     
-    return yamldicts
+    return plot_info_dicts

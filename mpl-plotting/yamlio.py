@@ -172,10 +172,10 @@ def write_output(output, h, hier_output, outdir):
         hparts = h.strip("/").split("/", 1)
         ana = "_".join(hparts[:-1]) if len(hparts) > 1 else "ANALYSIS"
         outdir = os.path.join(outdir, ana)
-        outfile = '%s.yaml' % hparts[-1].replace("/", "_")
+        outfile = '%s.dat' % hparts[-1].replace("/", "_")
     else:
         hparts = h.strip("/").split("/")
-        outfile = '%s.yaml' % "_".join(hparts)
+        outfile = '%s.dat' % "_".join(hparts)
     _mkoutdir(outdir)
     outfilepath = os.path.join(outdir, outfile)
     with open(outfilepath, 'w') as yaml_file:

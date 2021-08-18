@@ -72,14 +72,14 @@ def test_error_rivet_plot2d(hist_data, hist_features, plot_features, error):
 @pytest.mark.parametrize(
     'filename',
     [
-        io_file_dir + 'log-axis.yaml', 
-        io_file_dir + 'only-ref.yaml',
-        io_file_dir + 'all-default.yaml',
-        io_file_dir + 'surface.yaml',
-        io_file_dir + 'one-figure.yaml',
-        io_file_dir + 'one-figure-custom-cmap.yaml',
-        io_file_dir + 'one-figure-surface.yaml',
-        io_file_dir + 'one-figure-surface-view.yaml'
+        io_file_dir + 'log-axis.dat', 
+        io_file_dir + 'only-ref.dat',
+        io_file_dir + 'all-default.dat',
+        io_file_dir + 'surface.dat',
+        io_file_dir + 'one-figure.dat',
+        io_file_dir + 'one-figure-custom-cmap.dat',
+        io_file_dir + 'one-figure-surface.dat',
+        io_file_dir + 'one-figure-surface-view.dat'
     ]
 )
 def test_no_error_rivet_plot(filename):
@@ -88,7 +88,7 @@ def test_no_error_rivet_plot(filename):
     Parameters
     ----------
     filename : str
-        File name of a yaml file that will be plotted.
+        File name of a dat file that will be plotted.
     
     Raises
     ------
@@ -100,7 +100,7 @@ def test_no_error_rivet_plot(filename):
     This test function (or a variant) can later be used in conjuction with pytest-mpl
     """
     # outputdir is '/' because file names are absolute paths.
-    rivet_plot(filename, filename.rstrip('.yaml'), outputdir='/')
+    rivet_plot(filename, filename.rstrip('.dat'), outputdir='/')
 
 
 # To profile code, run: 
