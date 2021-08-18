@@ -38,8 +38,10 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
     # Ensure reference histogram is first in list since dicts are not ordered in Python 2, not needed for Python 3
     for i, h in enumerate(hist_features):
         if h.get('IsRef'):
-            hist_data.insert(0, hist_data.pop(i))
-            hist_features.insert(0, hist_features.pop(i))
+            if i != 0:  # Not necessary since the reference histogram is already the first element
+                hist_data.insert(0, hist_data.pop(i))
+                hist_features.insert(0, hist_features.pop(i))
+            break
 
     if all(isinstance(h, yoda.Scatter1D) for h in hist_data) or all(isinstance(h, yoda.Scatter2D) for h in hist_data):
         plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename)
