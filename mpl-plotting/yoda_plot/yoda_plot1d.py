@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import yoda
-from collections import Sequence
+from collections.abc import Sequence
 from .format_axis import format_axis, _get_axis_kw
 
 
