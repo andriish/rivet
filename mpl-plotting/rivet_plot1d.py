@@ -7,16 +7,16 @@ import numpy as np
 import yoda
 import yoda_plot1d
 
+
 def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
     """Plot the Scatter1D and Scatter2D objects using Rivet styles.
 
     Parameters
     ----------
     hist_data : list[yoda.Scatter2D]
-        All histograms that will be plotted.
-    hist_features : dict
+        All histograms that will be plotted, where the reference hist is the first element.
+    hist_features : list[dict]
         Plot settings for each histogram.
-        Currently only supports the "Title" setting but more should be added.
     yaml_dicts : dict
         Plot settings for the entire figure.
     filename : str

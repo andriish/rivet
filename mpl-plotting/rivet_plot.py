@@ -29,10 +29,17 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
         hist_data = [
             hist_dict['yoda'].mkScatter()
             if not isinstance(hist_dict, (yoda.Scatter1D, yoda.Scatter2D, yoda.Scatter3D)) else hist_dict['yoda']
-            for hist_dict in yaml_dicts.get('histograms').values()]
+            for hist_dict in yaml_dicts['histograms'].values()
+        ]
 
     hist_features = [val for val in yaml_dicts['histograms'].values()]
     output_filename = os.path.join(outputdir, plot_name.strip('/'))
+
+    # Ensure reference histogram is first in list since dicts are not ordered in Python 2, not needed for Python 3
+    for i, h in enumerate(hist_features):
+        if h.get('IsRef'):
+            hist_data.insert(0, hist_data.pop(i))
+            hist_features.insert(0, hist_features.pop(i))
 
     if all(isinstance(h, yoda.Scatter1D) for h in hist_data) or all(isinstance(h, yoda.Scatter2D) for h in hist_data):
         plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename)
