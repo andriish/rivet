@@ -152,7 +152,7 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
         for i, _ in enumerate(hist_data[1:]):
             color = colors[i % len(colors)]
             handles.append(mpl.lines.Line2D([], [], color=color))
-            labels.append(hist_features[i].get('Title', 'mc{}'.format(i+1)))
+            labels.append(hist_features[i+1].get('Title', 'mc{}'.format(i+1)))
     if plot_features.get('Legend', 1) and yoda_type == 'scatter':
         handles = []
         labels = []
@@ -171,6 +171,7 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
                           plot_features.get('LegendYPos', 0.97))
             ax.legend(handles, labels, loc='upper right', bbox_to_anchor=legend_pos,
                       handler_map={AnyObject: AnyObjectHandler()}, markerfirst=False)
+
     if plot_features.get('RatioPlot', 1) and yoda_type == 'hist':
         fig.align_ylabels((ax, ax_ratio))
     fig.savefig(filename+'.pdf')
