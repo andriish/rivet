@@ -2,7 +2,11 @@ lines.linewidth: 0.8
 # font and font sizes
 font.family: serif
 font.serif: URW Palladio L
-mathtext.fontset: cm
+mathtext.fontset: custom
+mathtext.rm: PazoMath
+mathtext.bf: PazoMath:bold 
+mathtext.it: PazoMath:italic 
+mathtext.default: it
 font.size: 10
 axes.titlesize: 10
 axes.labelsize: 10
