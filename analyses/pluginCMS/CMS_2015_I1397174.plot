@@ -4,7 +4,7 @@ LogX=0
 XTwosidedTicks=1
 YTwosidedTicks=1
 LegendXPos=0.4
-Title=\Large \textbf{CMS} \hspace{10em} \large $19.7\,\mathrm{fb}^{-\mathrm{1}}$ (8 TeV)
+Title=\textbf{CMS} \hspace{10em} $19.7\,\mathrm{fb}^{-\mathrm{1}}$ (8 TeV)
 #RatioPlotYMin=0.5
 #RatioPlotYMax=1.5
 # END PLOT
