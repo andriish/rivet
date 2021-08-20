@@ -1,7 +1,6 @@
 import numpy as np
 import pytest
 import yoda
-
 from rivet_plot import rivet_plot
 from rivet_plot2d import plot_2Dhist
 
@@ -20,8 +19,8 @@ def filled_hists(size, nevents=1000, histo_args=(30, -1, 2, 20, -1, 1)):
     hists = []
     np.random.seed(1)
 
-    for data in np.stack((np.random.normal(np.mean(histo_args[1:2]), 1, size=(size, nevents)), 
-                          np.random.normal(np.mean(histo_args[4:5]), 1, size=(size, nevents))), 
+    for data in np.stack((np.random.normal(np.mean(histo_args[1:3]), 1, size=(size, nevents)), 
+                          np.random.normal(np.mean(histo_args[4:6]), 1, size=(size, nevents))), 
                         axis=-1):
         h = yoda.Histo2D(*histo_args)
         for event in data:
@@ -39,6 +38,7 @@ def empty_dicts(size):
     [
         (filled_hists(3), default_hist_features(3), {'RatioPlot': True, 'LogZ': False}, '3-filled-hists'),
         (filled_hists(3), default_hist_features(3), {'ShowZero': False, 'LogZ': False}, '3-filled-hists-no-showzero'),
+        (filled_hists(3, 100_000), default_hist_features(3), {'2DType': 'surface', '2DIndividual': False, 'RatioPlot': True, 'LogZ': False}, '3-filled-hists-no2dindividual'),
         (filled_hists(4), default_hist_features(4), {'LogZ': False}, '4-filled-hists'),
         (
             filled_hists(3, 100, histo_args=(5, 1, 2, 6, 0.09, 1.1)), default_hist_features(3), 
@@ -101,7 +101,3 @@ def test_no_error_rivet_plot(filename):
     """
     # outputdir is '/' because file names are absolute paths.
     rivet_plot(filename, filename.rstrip('.dat'), outputdir='/')
-
-
-# To profile code, run: 
-#  python -m cProfile -o rivet_plot.pstat test_rivet_plot2d.py
