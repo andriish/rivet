@@ -111,9 +111,9 @@ def plot_hist(hists, plot_ref=True, ax=None, error_bars=True,
     # Format x and y axes
     x_axis, y_axis, _ = _get_axis_kw(kwargs)
     if x_axis.get('lim') is None:
-        ax.set_xlim([min([h.xMin() for h in hists]), max([h.xMax() for h in hists])])
-    if y_axis.get('lim') is None:
-        ax.set_ylim(0)
+        x_axis['lim'] = [min([h.xMin() for h in hists]), max([h.xMax() for h in hists])]
+    if y_axis.get('lim') is None and not y_axis.get('log'):
+        y_axis['lim'] = 0
     format_axis('x', ax, **x_axis)
     format_axis('y', ax, **y_axis)
 

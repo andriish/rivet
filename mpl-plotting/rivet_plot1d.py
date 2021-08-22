@@ -32,21 +32,13 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
     plot_features = yaml_dicts.get('plot features', {})
     yoda_type = 'hist' if isinstance(hist_data[0], yoda.Scatter2D) else 'scatter'
 
+    ax_format = {}  # Stores the items for formatting the axes in a dict
+
     # Create fig and axes
     if plot_features.get('RatioPlot', 1) and yoda_type == 'hist':
         fig, (ax, ax_ratio) = plt.subplots(2, 1, sharex=True, gridspec_kw={'height_ratios': (2, 1)})
     else:
         fig, ax = plt.subplots(1, 1)
-
-    plot_errorbars = [h.get('ErrorBars', 1) for h in hist_features]
-    colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
-    # Plot histogram and ratio using Yoda function
-    if yoda_type == 'scatter':
-        yoda_plot.plot_scatter1D(hist_data, ax=ax)
-    else:
-        yoda_plot.plot_hist(hist_data, True, ax, plot_errorbars, colors)
-        if plot_features.get('RatioPlot', 1):
-            yoda_plot.plot_ratio(hist_data, ax_ratio, plot_errorbars, plot_features.get('ErrorBands'), colors)
 
     plt.rcParams['xtick.top'] = plot_features.get('XTwosidedTicks', True)
     plt.rcParams['ytick.right'] = plot_features.get('YTwosidedTicks', True)
@@ -63,7 +55,7 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
     if yoda_type == 'hist':
         XMin = plot_features.get('XMin', min([h.xMin() for h in hist_data]))
         XMax = plot_features.get('XMax', max([h.xMax() for h in hist_data]))
-        ax.set_xlim(XMin, XMax)
+        ax_format['xlim'] = (XMin, XMax)
 
     if plot_features.get('RatioPlot', 1) and yoda_type == 'hist':
         # Ratio plot has y range of 0.5 to 1.5
@@ -100,51 +92,40 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
         YMin = (1.1*min_ymin if min_ymin < -1e-4 else 0 if min_ymin < 1e-4
                 else 0.9*min_ymin)
 
-    ax.set_ylim(YMin, YMax)
-
-    # Set log scale and log tick marks frequency
-    if plot_features.get('LogX'):
-        ax.set_xscale('log')
-        ax.xaxis.set_major_locator(mpl.ticker.LogLocator(numticks=np.inf))
-    if plot_features.get('LogY', 1):
-        ax.set_yscale('log')
-        ax.yaxis.set_major_locator(mpl.ticker.LogLocator(numticks=np.inf))
+    ax_format['ylim'] = (YMin, YMax)
+    ax_format['logx'] = plot_features.get('LogX')
+    ax_format['logy'] = plot_features.get('LogY', 1)
+    if ax_format['logy']:
         ax.yaxis.set_minor_locator(mpl.ticker.LogLocator(
             base=10.0, subs=[i for i in np.arange(0, 1, 0.1)], numticks=np.inf))
+    ax_format['xmajor_ticks'] = plot_features.get('XMajorTickMarks')
+    ax_format['ymajor_ticks'] = plot_features.get('YMajorTickMarks')
+    ax_format['xminor_ticks'] = plot_features.get('XMinorTickMarks')
+    ax_format['yminor_ticks'] = plot_features.get('YMinorTickMarks')
+    ax_format['xcustom_major_ticks'] = plot_features.get('XMajorTickMarks')
 
-    # Set tick marks frequency given the last digit in the tick mark precision for non-log plots
-    if plot_features.get('XMajorTickMarks') is not None and not plot_features.get('LogX'):
-        base = plot_features.get('XMajorTickMarks')*10**(int(np.log10(XMax))-1)
-        ax.xaxis.set_major_locator(mpl.ticker.MultipleLocator(base))
-    if plot_features.get('YMajorTickMarks') is not None and not plot_features.get('LogY', 1):
-        base = plot_features.get('YMajorTickMarks')*10**(int(np.log10(YMax))-1)
-        ax.yaxis.set_major_locator(mpl.ticker.MultipleLocator(base))
-
-    if plot_features.get('XMinorTickMarks') is not None and not plot_features.get('LogX'):
-        ax.xaxis.set_minor_locator(mpl.ticker.AutoMinorLocator(
-            1+plot_features.get('XMinorTickMarks')))
-    if plot_features.get('YMinorTickMarks') is not None and not plot_features.get('LogY', 1):
-        ax.yaxis.set_minor_locator(mpl.ticker.AutoMinorLocator(
-            1+plot_features.get('YMinorTickMarks')))
 
     # Add custom ticks for x and y axes
     if plot_features.get('XCustomMajorTicks') is not None:
-        ax.set_xticks(plot_features.get('XCustomMajorTicks')[::2])
-        ax.set_xticklabels(plot_features.get('XCustomMajorTicks')[1::2])
-        ax.set_xticks([], minor=True)  # Turn off minor xticks
+        ax_format['xcustom_major_ticks'] = plot_features.get('XMajorTickMarks')
         if plot_features.get('RatioPlot', 1):
             ax_ratio.set_xticks([], minor=True)
-    if plot_features.get('YCustomMajorTicks') is not None:
-        ax.set_yticks(plot_features.get('YCustomMajorTicks')[::2])
-        ax.set_yticklabels(plot_features.get('YCustomMajorTicks')[1::2])
-        ax.set_yticks([], minor=True)  # Turn off minor yticks
-    if plot_features.get('XCustomMinorTicks') is not None:
-        ax.set_xticks(plot_features.get('XCustomMinorTicks'), minor=True)
-    if plot_features.get('YCustomMinorTicks') is not None:
-        ax.set_yticks(plot_features.get('YCustomMinorTicks'), minor=True)
-    if plot_features.get('PlotXTickLabels') == 0:
-        ax.set_xticklabels([])
+    ax_format['ycustom_major_ticks'] = plot_features.get('YMajorTickMarks')
+    ax_format['ycustom_minor_ticks'] = plot_features.get('YMajorTickMarks')
+    ax_format['ycustom_minor_ticks'] = plot_features.get('YMajorTickMarks')
+    ax_format['plot_xticklabels'] = plot_features.get('PlotXTickLabels') 
+        
+    plot_errorbars = [h.get('ErrorBars', 1) for h in hist_features]
+    colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
+    # Plot histogram and ratio using Yoda function
+    if yoda_type == 'scatter':
+        yoda_plot.plot_scatter1D(hist_data, ax=ax)
+    else:
+        yoda_plot.plot_hist(hist_data, True, ax, plot_errorbars, colors, **ax_format)
+        if plot_features.get('RatioPlot', 1):
+            yoda_plot.plot_ratio(hist_data, ax_ratio, plot_errorbars, plot_features.get('ErrorBands'), colors)
 
+    # Create legend
     if plot_features.get('Legend', 1) and yoda_type == 'hist':
         handles = [AnyObject()]
         labels = [hist_features[0].get('Title', 'Data')]
