@@ -63,6 +63,15 @@ def plot_hist(hists, plot_ref=True, ax=None, error_bars=True,
     if ax is None:
         ax = plt.gca()
 
+    # Format x and y axes
+    x_axis, y_axis, _ = _get_axis_kw(kwargs)
+    if x_axis.get('lim') is None:
+        x_axis['lim'] = [min([h.xMin() for h in hists]), max([h.xMax() for h in hists])]
+    if y_axis.get('lim') is None and not y_axis.get('log'):
+        y_axis['lim'] = 0
+    format_axis('x', ax, **x_axis)
+    format_axis('y', ax, **y_axis)
+
     if isinstance(error_bars, bool):  # Convert to list of bool vals
         error_bars = [error_bars] * len(hists)
     if colors is None:  # Use default mpl prop cycle vals
@@ -107,15 +116,6 @@ def plot_hist(hists, plot_ref=True, ax=None, error_bars=True,
             else:
                 legend_labels.append('mc{}'.format(i))
         ax.legend(legend_labels)
-
-    # Format x and y axes
-    x_axis, y_axis, _ = _get_axis_kw(kwargs)
-    if x_axis.get('lim') is None:
-        x_axis['lim'] = [min([h.xMin() for h in hists]), max([h.xMax() for h in hists])]
-    if y_axis.get('lim') is None and not y_axis.get('log'):
-        y_axis['lim'] = 0
-    format_axis('x', ax, **x_axis)
-    format_axis('y', ax, **y_axis)
 
     return ax
 
@@ -177,6 +177,7 @@ def plot_ratio(hists, ax=None, error_bars=True, error_bands=False,
     hists = [h.mkScatter() if not isinstance(h, yoda.Scatter2D) else h for h in hists]
     if ax is None:
         ax = plt.gca()
+        
     # Format x and y axes
     x_axis, y_axis, _ = _get_axis_kw(kwargs)
     if x_axis.get('lim') is None:
@@ -262,6 +263,11 @@ def plot_scatter1D(scatter1D, ax=None, colors=None, line_styles=['-', '--', '-.'
     scatter1D = [h.mkScatter() if not isinstance(h, yoda.Scatter1D) else h for h in scatter1D]
     if ax is None:
         ax = plt.gca()
+        
+    # Format x and y axes
+    x_axis, y_axis, _ = _get_axis_kw(kwargs)
+    format_axis('x', ax, **x_axis)
+    format_axis('y', ax, **y_axis)
 
     if colors is None:  # Use default mpl prop cycle vals
         colors = plt.rcParams['axes.prop_cycle'].by_key()['color']

@@ -66,7 +66,7 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
         ax_ratio.set_ylim(RatioPlotYMin, RatioPlotYMax)
 
     # Use maximum y value from all hist datasets
-    if all(isinstance(h, yoda.Scatter1D) for h in hist_data):
+    if yoda_type == 'scatter':
         max_ymax = max([h.points()[0].val(1) for h in hist_data])
     else:
         max_ymax = max([max(h.yVals()) for h in hist_data])
@@ -77,7 +77,7 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
     else:
         YMax = 1.1*max_ymax
     # Use minimum y value from all hist datasets
-    if all(isinstance(h, yoda.Scatter1D) for h in hist_data):
+    if yoda_type == 'scatter':
         min_ymin = min([h.points()[0].val(1) for h in hist_data])
     else:
         min_ymin = min([min(h.yVals()) for h in hist_data])
@@ -119,7 +119,7 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
     colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
     # Plot histogram and ratio using Yoda function
     if yoda_type == 'scatter':
-        yoda_plot.plot_scatter1D(hist_data, ax=ax)
+        yoda_plot.plot_scatter1D(hist_data, ax, colors, **ax_format)
     else:
         yoda_plot.plot_hist(hist_data, True, ax, plot_errorbars, colors, **ax_format)
         if plot_features.get('RatioPlot', 1):
