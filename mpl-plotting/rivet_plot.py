@@ -6,6 +6,7 @@ import yoda
 from yamlio import read_yamlfile
 from rivet_plot1d import plot_1Dhist
 from rivet_plot2d import plot_2Dhist
+from mathtext_preprocessor import preprocess
 
 
 def rivet_plot(yaml_file, plot_name, outputdir='.'):
@@ -35,6 +36,8 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
     hist_features = [val for val in yaml_dicts['histograms'].values()]
     output_filename = os.path.join(outputdir, plot_name.strip('/'))
 
+    _preprocess_text(yaml_dicts)
+
     # Ensure reference histogram is first in list since dicts are not ordered in Python 2, not needed for Python 3
     for i, h in enumerate(hist_features):
         if h.get('IsRef'):
@@ -60,3 +63,17 @@ def _parse_yoda_hist(yaml_dicts):
             hist_data.append(yoda.readYODA(
                 file_like, asdict=False)[0].mkScatter())
     return hist_data
+
+
+def _preprocess_text(yaml_dicts):
+    """Preprocess text to convert convenient hepunits to mathtext."""
+    if yaml_dicts.get('plot features') is None:
+        yaml_dicts['plot features'] = {}
+    plot_features = yaml_dicts['plot features']
+
+    for plot_property in ('Title', 'xlabel', 'ylabel', 'zlabel'):
+        if plot_features.get(plot_property):
+            plot_features[plot_property] = preprocess(plot_features[plot_property])
+    for custom_major_ticks in ('xCustomMajorTicks', 'yCustomMajorTicks', 'zCustomMajorTicks'):
+        if plot_features.get(custom_major_ticks):
+            plot_features = [preprocess(tick) for tick in custom_major_ticks]
