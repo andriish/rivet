@@ -243,6 +243,7 @@ def _heatmap_base(x_edges, y_edges, z_vals, ax=None, showzero=True, colorbar=Tru
     if colorbar:
         cbar = _add_colorbar(norm, cmap=cmap, ax=ax, **cbar_kw)
         format_axis('y', cbar.ax, **all_axis_kws[2])
+        # TODO set custom ticks using cbar.set_ticks rather than calling format_axis
         return_args = im, cbar
     else:
         return_args = im
