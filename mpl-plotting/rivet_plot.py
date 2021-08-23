@@ -71,7 +71,7 @@ def _preprocess_text(yaml_dicts):
         yaml_dicts['plot features'] = {}
     plot_features = yaml_dicts['plot features']
 
-    for plot_property in ('Title', 'XLabel', 'YLabel', 'ZLabel'):
+    for plot_property in ('Title', 'XLabel', 'YLabel', 'ZLabel', 'RatioPlotYLabel'):
         if plot_property in plot_features:
             plot_features[plot_property] = preprocess(plot_features[plot_property])
     for custom_major_ticks in ('XCustomMajorTicks', 'YCustomMajorTicks', 'ZCustomMajorTicks'):
