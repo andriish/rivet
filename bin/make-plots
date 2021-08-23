@@ -3230,7 +3230,9 @@ def try_cmd(args):
         return False
 
 def have_cmd(cmd):
-    return try_cmd(["which", cmd])
+    if shutil.which(cmd) is not None:
+        return True
+    return False
 
 def has_new_opacity_policy():
     """Check if GhostScript uses old/new opacity policy"""

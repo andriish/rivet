@@ -2523,11 +2523,14 @@ def try_cmd(args):
     except:
         return False
 
+import shutil
 def have_cmd(cmd):
-    return try_cmd(["which", cmd])
+    if shutil.which(cmd) is not None:
+        return True
+    return False
 
 
-import shutil, subprocess
+import subprocess
 def process_datfile(datfile):
     global opts
     if not os.access(datfile, os.R_OK):
