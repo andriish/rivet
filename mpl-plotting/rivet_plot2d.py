@@ -7,25 +7,6 @@ from mpl_toolkits import mplot3d
 import numpy as np
 
 import yoda_plot as yp
-from mathtext_preprocessor import preprocess
-
-
-def _preprocess_custom_ticks(ticks):
-    """Apply the mathtext preprocessor on a custom tick list.
-
-    Parameters
-    ----------
-    ticks : Iterable
-        An iterable of ticks in the format of XCustomMajorTicks, i.e. [<tick value 1>, <tick label 1>, <tick value 2>, <tick value 2>, ...]
-
-    Returns
-    -------
-    list
-        A list of the tick labels, where all labels that are strings have been preprocessed to work in mathtext.
-    """
-    if ticks is None:
-        return None
-    return [preprocess(tick) for tick in ticks]
 
 
 def _prepare_mpl(yaml_dict, plot_features, style_path):
@@ -143,9 +124,9 @@ def _get_axis_kw(zmin, zmax, plot_features):
             lim = (plot_features.get(a+'Min'), plot_features.get(a+'Max'))
         axis_kw.update(
             {
-                a.lower()+'label': preprocess(plot_features.get(a+'Label')), a.lower()+'lim': lim, 'log'+a.lower(): plot_features.get('Log'+a), 
+                a.lower()+'label': plot_features.get(a+'Label'), a.lower()+'lim': lim, 'log'+a.lower(): plot_features.get('Log'+a), 
                 a.lower()+'major_ticks': plot_features.get(a+'MajorTickMarks'), a.lower()+'minor_ticks': plot_features.get(a+'MinorTickMarks'), 
-                a.lower()+'custom_major_ticks': _preprocess_custom_ticks(plot_features.get(a+'CustomMajorTicks')), 
+                a.lower()+'custom_major_ticks': plot_features.get(a+'CustomMajorTicks'), 
                 a.lower()+'custom_minor_ticks': plot_features.get(a+'CustomMinorTicks'), 'plot_%sticklabels' % a.lower(): plot_features.get('Plot%sTickLabels' % a)
             }
         )
@@ -173,12 +154,12 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
         The output file name, without the file extension.
     style_path : str
         Path to the directory with the rivet mplstyle file(s).
-        TODO this is a temporary argument and will likely become an env variable in rivet instead.
+        TODO this is a temporary argument and will likely be removed once mplstyle files are added to mplconfigdir.
     outputfileformats : Iterable[str]
         All the file formats, e.g., png, pdf, svg, in which the figure(s) will be exported as.
     """
     logging.captureWarnings(True)
-    plot_features = yaml_dict.get('plot features', {})
+    plot_features = yaml_dict['plot features']
     # Set default scale of z axis to log. This is to have a similar behavior to the y axis scale 
     # This if statement must be kept here rather than using plot_features.get('LogZ', True) everywhere.
     # Otherwise it would be complicated to get the LogZ value independently of LogX, LogZ in e.g., _get_axis_kw 
@@ -214,7 +195,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
             else:
                 raise_2dtype_error(plot_features['2DType'])
     
-            _post_process_fig(fig, '{}-{}'.format(filename, hist_settings['Title']), outputfileformats, preprocess(plot_features.get('Title')))
+            _post_process_fig(fig, '{}-{}'.format(filename, hist_settings['Title']), outputfileformats, plot_features.get('Title'))
 
         if ratio:
             ref_hist = hist_data[0]
@@ -230,7 +211,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
                 else:
                     raise_2dtype_error(plot_features['2DType'])
 
-                _post_process_fig(fig, '{}-{}-ratio'.format(filename, hist_settings['Title']), outputfileformats, preprocess(plot_features.get('Title')))
+                _post_process_fig(fig, '{}-{}-ratio'.format(filename, hist_settings['Title']), outputfileformats, plot_features.get('Title'))
 
     else:
         ncols = len(hist_data)
@@ -252,7 +233,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
             else:
                 raise_2dtype_error(plot_features['2DType'])
 
-            ax.set_title(preprocess(hist_settings['Title']))
+            ax.set_title(hist_settings['Title'])
         if ratio:
             ref_hist = hist_data[0]
             for i, (yoda_hist, hist_settings) in enumerate(zip(hist_data[1:], hist_features[1:])):
@@ -267,7 +248,7 @@ def plot_2Dhist(hist_data, hist_features, yaml_dict, filename, style_path='plot_
                 else: 
                     raise_2dtype_error(plot_features['2DType'])
                 # TODO Make this label customizable? 
-                ax.set_title(preprocess('{}/{}'.format(hist_settings['Title'], hist_features[0]['Title'])))
-        _post_process_fig(fig, filename, outputfileformats, preprocess(plot_features.get('Title')))
+                ax.set_title('{}/{}'.format(hist_settings['Title'], hist_features[0]['Title']))
+        _post_process_fig(fig, filename, outputfileformats, plot_features.get('Title'))
     
     plt.close(fig)

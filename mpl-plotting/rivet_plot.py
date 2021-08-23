@@ -67,13 +67,17 @@ def _parse_yoda_hist(yaml_dicts):
 
 def _preprocess_text(yaml_dicts):
     """Preprocess text to convert convenient hepunits to mathtext."""
-    if yaml_dicts.get('plot features') is None:
+    if 'plot features' not in yaml_dicts:
         yaml_dicts['plot features'] = {}
     plot_features = yaml_dicts['plot features']
 
-    for plot_property in ('Title', 'xlabel', 'ylabel', 'zlabel'):
-        if plot_features.get(plot_property):
+    for plot_property in ('Title', 'XLabel', 'YLabel', 'ZLabel'):
+        if plot_property in plot_features:
             plot_features[plot_property] = preprocess(plot_features[plot_property])
-    for custom_major_ticks in ('xCustomMajorTicks', 'yCustomMajorTicks', 'zCustomMajorTicks'):
-        if plot_features.get(custom_major_ticks):
-            plot_features = [preprocess(tick) for tick in custom_major_ticks]
+    for custom_major_ticks in ('XCustomMajorTicks', 'YCustomMajorTicks', 'ZCustomMajorTicks'):
+        if custom_major_ticks in plot_features:
+            plot_features[custom_major_ticks] = [preprocess(tick) for tick in plot_features[custom_major_ticks]]
+
+    for hist_setting in yaml_dicts['histograms'].values():
+        if 'Title' in hist_setting:
+            hist_setting['Title'] = preprocess(hist_setting['Title'])
