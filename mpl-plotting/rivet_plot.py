@@ -66,7 +66,7 @@ def _parse_yoda_hist(yaml_dicts):
 
 
 def _preprocess_text(yaml_dicts):
-    """Preprocess text to convert convenient hepunits to mathtext."""
+    """Preprocess text to convert convenient HEP units and other symbols to mathtext."""
     if 'plot features' not in yaml_dicts:
         yaml_dicts['plot features'] = {}
     plot_features = yaml_dicts['plot features']
