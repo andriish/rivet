@@ -47,5 +47,3 @@ ytick.right: True
 # legend
 legend.frameon: False
 legend.labelspacing: 0.2
-# 2D histogram settings
-image.cmap: jet

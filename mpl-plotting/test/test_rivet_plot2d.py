@@ -78,6 +78,7 @@ def test_error_rivet_plot2d(hist_data, hist_features, plot_features, error):
         io_file_dir + 'surface.dat',
         io_file_dir + 'one-figure.dat',
         io_file_dir + 'one-figure-custom-cmap.dat',
+        io_file_dir + 'one-figure-mathtext.dat',
         io_file_dir + 'one-figure-surface.dat',
         io_file_dir + 'one-figure-surface-view.dat'
     ]
@@ -100,4 +101,8 @@ def test_no_error_rivet_plot(filename):
     This test function (or a variant) can later be used in conjuction with pytest-mpl
     """
     # outputdir is '/' because file names are absolute paths.
-    rivet_plot(filename, filename.rstrip('.dat'), outputdir='/')
+    rivet_plot(filename, filename[:-len('.dat')], outputdir='/')
+
+
+if __name__ == '__main__':
+    test_no_error_rivet_plot(io_file_dir + 'one-figure-mathtext.dat')
