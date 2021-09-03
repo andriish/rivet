@@ -10,7 +10,7 @@ Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Z.Phys. C36 (1987) 349-361, 1987
-RunInfo: e+e- to hadrons at the relevant CMS energies.  Beam energy must be specified as analysis option "ENERGY" when rivet-merge'ing samples.
+RunInfo: e+e- to hadrons at the relevant CMS energies.  Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NeedCrossSection: no
 Beams: [e+, e-]
 Energies: [14.0,22.0,34.8,43.5]

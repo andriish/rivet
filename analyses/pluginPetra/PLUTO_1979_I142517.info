@@ -16,7 +16,7 @@ Description:
   'Measurement of $R$ in $e^+e^-$ collisions for energies between 22 and 31.6 GeV.
    The hadronic cross section is also measured in the $\Upsilon$ region, 9.3 to 9.48 GeV.
    The individual hadronic and muonic cross sections are also outputted to the yoda file
-   so that ratio $R$ can be recalcuated if runs are combined.'
+   so that ratio $R$ can be recalculated if runs are combined.'
 Keywords: []
 BibKey: Berger:1979wn
 BibTeX: '@article{Berger:1979wn,

@@ -33,7 +33,7 @@ Description:
   one b-jet are selected. Neural network algorithms are used to separate the signal from the
   backgrounds. The differential cross-sections are measured as a function of photon transverse
   momentum, photon absolute pseudorapidity, and angular distance between the photon and its closest
-  lepton in both channels, as well asazimuthal opening angle and absolute pseudorapidity difference
+  lepton in both channels, as well azimuthal opening angle and absolute pseudorapidity difference
   between the two leptons in the dilepton channel.'
 BibKey: 'Aaboud:2018hip'
 BibTeX: '@article{Aaboud:2018hip,

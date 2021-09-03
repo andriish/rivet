@@ -18,7 +18,7 @@ Beams: [[e+, p+],[p+,e+],[e-, p+],[p+,e-]]
 #Energies: [[27.5,920],[920,27.5],[27.5,920],[920,27.5]]
 #Luminosity_fb: <Insert integrated luminosity, in inverse fb>
 Description: 'A combination is presented of all inclusive deep inelastic cross sections previously published by the H1 and ZEUS collaborations at HERA for neutral and charged current ep scattering for zero beam polarisation. The data were taken at proton beam energies of 920, 820, 575 and 460 GeV and an electron beam energy of 27.5GeV. The data correspond to an integrated luminosity of about 1 fb^-1 and span six orders of magnitude in negative four-momentum-transfer squared, Q2, and Bjorken x . The correlations of the systematic uncertainties were evaluated and taken into account for the combination. The combined cross sections were input to QCD analyses at leading order, next-to-leading order and at next-to-next-to-leading order, providing a new set of parton distribution functions, called HERAPDF2.0.'
-ValidationInfo: 'Note, that Q2-bins were not defined in Hepdata, for the plugin they are defined by hand from the Q2 distribution. The x-bins were defined according to the correspnding x-ranges. Be aware, the hepdata file needed manual adjustment to be useful in the plugin.'
+ValidationInfo: 'Note, that Q2-bins were not defined in Hepdata, for the plugin they are defined by hand from the Q2 distribution. The x-bins were defined according to the corresponding x-ranges. Be aware, the hepdata file needed manual adjustment to be useful in the plugin.'
 # Keywords:[]
 BibKey: Abramowicz:2015mha
 BibTeX: '@article{Abramowicz:2015mha,

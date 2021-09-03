@@ -12,7 +12,7 @@ References:
 - Z.Phys. C45 (1989) 193
 RunInfo: 
   Hadronic e+ e- events generated below the Z pole. Beam energy 
-  must be specified as analysis option "ENERGY" when rivet-merge'ing samples.
+  must be specified as analysis option "ENERGY" when rivet-merging samples.
  
 NumEvents: 1000000
 Beams: [e+, e-]
@@ -23,7 +23,7 @@ PtCuts: [0]
 Description:
   The charged particle multiplicity distribution of hadronic $e^+e^-$ events
   as measured between 14 and 43.6 GeV using the TASSO detector at PEP.
-  Beam energy must be specified as analysis option "ENERGY" when rivet-merge'ing samples.
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 
 BibKey: Braunschweig:1989bp
 BibTeX: '@article{Braunschweig:1989bp,

@@ -10,7 +10,7 @@ Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Z.Phys. C22 (1984) 307-340, 1984 
-RunInfo: e+ e- to hadrons and e+ e- to mu+ mu- (for normalization). Beam energy must be specified as analysis option "ENERGY" when rivet-merge'ing samples.
+RunInfo: e+ e- to hadrons and e+ e- to mu+ mu- (for normalization). Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NeedCrossSection: yes
 Beams: [e-, e+]
 Energies: [12, 14, 22, 34, 43]
@@ -21,7 +21,7 @@ Description:
    The average charged particle multiplicity, thrust and sphericity are measured for a range of energies. The distributions
    are available for 12, 22 and 34 GeV.
    The individual hadronic and muonic cross sections are also outputted to the yoda file
-   so that ratio $R$ can be recalcuated if runs are combined.
+   so that ratio $R$ can be recalculated if runs are combined.
    Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 Keywords: []
 BibKey: Althoff:1983ew

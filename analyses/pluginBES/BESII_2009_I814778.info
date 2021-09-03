@@ -15,7 +15,7 @@ Beams: [e-, e+]
 Description:
   'Measurement of $R$ in $e^+e^-$ collisions by BESII for energies between 2.6 and 3.65 GeV.
    The individual hadronic and muonic cross sections are also outputted to the yoda file
-   so that ratio $R$ can be recalcuated if runs are combined.'
+   so that ratio $R$ can be recalculated if runs are combined.'
 BibKey: Ablikim:2009ad
 BibTeX: '@article{Ablikim:2009ad,
       author         = "Ablikim, M. and others",

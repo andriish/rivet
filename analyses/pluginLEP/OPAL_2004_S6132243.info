@@ -15,7 +15,7 @@ References:
 RunInfo:
   Hadronic $e^+ e^-$ events at 4 representative energies (91, 133, 177, 197).
   Runs need to have ISR suppressed, since the analysis was done using a cut of
-  $\sqrt{s} - \sqrt{s_\text{reco}} < 1\,\text{GeV}$. Particles with a livetime
+  $\sqrt{s} - \sqrt{s_\text{reco}} < 1\,\text{GeV}$. Particles with a lifetime
   $> 3 \cdot 10^{-10}\,\text{s}$ are considered to be stable. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NumEvents: 200000
 Beams: [e+, e-]

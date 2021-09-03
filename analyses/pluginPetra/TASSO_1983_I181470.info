@@ -16,7 +16,7 @@ Energies: [14,22,34]
 Options:
  - ENERGY=14, 22, 34
 Description:
-  'Measurement of the $\pi^\pm$, $K^\pm$ and $p,\bar{p}$ spectra in $e^+e^-$ collisions for centre-of-mass energyes of 14, 22 and 34 GeV by the TASSO experiment at Petra.
+  'Measurement of the $\pi^\pm$, $K^\pm$ and $p,\bar{p}$ spectra in $e^+e^-$ collisions for centre-of-mass energies of 14, 22 and 34 GeV by the TASSO experiment at Petra.
   Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 Keywords: []
 BibKey: Althoff:1982dh
