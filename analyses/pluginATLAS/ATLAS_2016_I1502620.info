@@ -39,7 +39,7 @@ Description:
   the sensitivity range of the data. A new measurement of the CKM matrix element $|V_{cs}|$ is also provided.
   N.B.: Use :LMODE to choose specify the signature decay channel directly. 
         Default, run everything, assuming all decay modes are generated 
-        Contains Z (W): fill only Z (W) signature histgrams
+        Contains Z (W): fill only Z (W) signature histograms
         Contains EL (MU): assume only electron (muon) decay modes are being generated.'
 BibKey: Aaboud:2016btc
 BibTeX: '@article{Aaboud:2016btc,

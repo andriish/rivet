@@ -16,7 +16,7 @@ Keywords:
  - drellyan
  - vjets
 RunInfo:
-  Drell-Yan production in $pp$ collisons at 8 TeV, leptonic $Z$ decays
+  Drell-Yan production in $pp$ collisions at 8 TeV, leptonic $Z$ decays
 Luminosity_fb: 20.3
 Beams: [p+, p+]
 Energies: [8000]

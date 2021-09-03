@@ -15,7 +15,7 @@ NumEvents: 1000000
 Beams: [e+, e-]
 Energies: [91.2]
 Description:
-  The charged multplicity distribution in hadron $Z^0$ decays for different numbers of final state jets. 
+  The charged multiplicity distribution in hadron $Z^0$ decays for different numbers of final state jets. 
 BibKey: Abreu:1992gp
 BibTeX: '@article{Abreu:1992gp,
       author         = "Abreu, P. and others",

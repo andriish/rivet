@@ -14,7 +14,7 @@ NeedCrossSection: yes
 Beams: [e+, e-]
 Energies: [35]
 Description:
-  'Measurement of the $\gamma$, $\pi^0$ and $\eta$ energy fractions in $e^+e^-$ collisions for centre-of-mass energy of 35 GeV by the CELLO experiment at Petra. Only the bin centroids are given in the paper and HEPdata so the bin widths have been infered.'
+  'Measurement of the $\gamma$, $\pi^0$ and $\eta$ energy fractions in $e^+e^-$ collisions for centre-of-mass energy of 35 GeV by the CELLO experiment at Petra. Only the bin centroids are given in the paper and HEPdata so the bin widths have been inferred.'
 Keywords: []
 BibKey: Behrend:1989gn
 BibTeX: '@article{Behrend:1989gn,
