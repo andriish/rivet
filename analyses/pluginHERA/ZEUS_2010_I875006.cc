@@ -132,7 +132,7 @@ namespace Rivet {
       const double eta2 = orientation*jet2.eta();
       const double etastar = abs(eta1 - eta2)/2;
 
-      const double logZeta = log10(xbj*(1 + pow(Mjj,2))/Q2);
+      const double logZeta = log10(xbj*(1 + pow(Mjj,2)/Q2));
 
       //Fill histograms
       _h_Q2->fill(Q2);
