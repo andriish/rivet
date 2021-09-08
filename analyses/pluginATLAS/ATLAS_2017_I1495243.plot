@@ -65,7 +65,7 @@ LogY=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2017_I1495243/d07-x01-y01
-XLabel=Leading additonal jet $p_\mathrm{T}$ [GeV]
+XLabel=Leading additional jet $p_\mathrm{T}$ [GeV]
 YLabel=$\frac{1}{\sigma} \frac{\mathrm{d}\sigma}{\mathrm{d}p^\mathrm{jet}_\mathrm{T}}$ [GeV$^{-1}$]
 LeftMargin=1.5
 LogX=1

@@ -25,8 +25,8 @@ Energies: [1516.9, 2265.5, 3861.2, 5319, 7683]
 Description:
   'Results of measurements of bulk properties of the matter in Au+Au
    collisions at energies of the Beam Energy Scan program, using
-   pions, kaons and protons identified : $\frac{dN}{dy}$ spectras,
-   $\langle \pT \rangle$ spectras and particles ratios are shown.
+   pions, kaons and protons identified : $\frac{dN}{dy}$ spectra,
+   $\langle \pT \rangle$ spectra and particles ratios are shown.
    Beam energy must be specified as analysis option "ENERGY" when 
    rivet-merging samples.'
 BibKey: Adamczyk:2017iwn

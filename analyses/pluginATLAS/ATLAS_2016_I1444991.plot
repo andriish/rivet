@@ -57,7 +57,7 @@ YLabel=$1/\sigma$ $\mathrm{d}\sigma_\mathrm{fid} / \mathrm{d} p_\mathrm{T}^{j_1}
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1444991/d10-x01-y01
-Title=Leading jet veto efficieny
+Title=Leading jet veto efficiency
 XLabel=$p_\mathrm{T}^\mathrm{jet}$ threshold [GeV]
 YLabel=$\epsilon_0$
 LogY=0

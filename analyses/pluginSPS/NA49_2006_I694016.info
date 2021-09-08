@@ -17,7 +17,7 @@ Energies: [17.3]
 Description:
    'Charged pion production in fixed target, $p_{\mathrm{lab}} = $158 GeV/c.
    The elastic trigger is implemented by looking for elastic final states with only 2 particles, 
-   instead of attemting to reproduce the experimental trigger, which cannot be directly unfolded.'
+   instead of attempting to reproduce the experimental trigger, which cannot be directly unfolded.'
 BibKey: 2005-02391-9
 BibTeX: '@article{2005-02391-9,
       title        = "Inclusive production of charged pions in p+p collisions at 158 GeV/c beam momentum",

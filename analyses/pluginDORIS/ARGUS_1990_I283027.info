@@ -13,7 +13,7 @@ RunInfo: Upsilon(1S) decays (originally e+e- production)
 Description:
   'Measurement of the anti-deuteron spectrum in $\Upsilon(1S)$ decays. The measurement was original an average of
    both $\Upsilon(1S)$ and $\Upsilon(2S)$ decays but the $\Upsilon(2S)$ sample
-   is rescaled to the  $\Upsilon(1S)$.'
+   is re-scaled to the  $\Upsilon(1S)$.'
 ValidationInfo:
   'Herwig 7 events with protons relabelled as did not have anything making deuterons'
 #ReleaseTests:

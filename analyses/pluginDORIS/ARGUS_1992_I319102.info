@@ -1,6 +1,6 @@
 Name: ARGUS_1992_I319102
 Year: 1992
-Summary: Measurement of $R$ at 9.36 GeV and charged particle multiplcities in continuum and at the $\Upsilon(4S)$
+Summary: Measurement of $R$ at 9.36 GeV and charged particle multiplicities in continuum and at the $\Upsilon(4S)$
 Experiment: ARGUS
 Collider: DORIS
 InspireID: 319102
@@ -18,9 +18,9 @@ Beams: [e-, e+]
 Options:
  - ENERGY=*
 Description:
-  'Measurement of $R$ at 9.36 GeV and charged particle multiplcities in continuum and at the $\Upsilon(4S)$.
+  'Measurement of $R$ at 9.36 GeV and charged particle multiplicities in continuum and at the $\Upsilon(4S)$.
    The individual hadronic and muonic cross sections are also outputted to the yoda file
-   so that ratio $R$ can be recalcuated if runs are combined.
+   so that ratio $R$ can be recalculated if runs are combined.
    Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 Keywords: []
 BibKey: Albrecht:1991vp

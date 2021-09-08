@@ -16,7 +16,7 @@ Description:
   'Measurement of $R$ in $e^+e^-$ collisions by the Crystal Ball experiment
    for 9.39  GeV.
    The individual hadronic and muonic cross sections are also outputted to the yoda file
-   so that ratio $R$ can be recalcuated if runs are combined.'
+   so that ratio $R$ can be recalculated if runs are combined.'
 Keywords: []
 BibKey: Jakubowski:1988cd
 BibTeX: '@article{Jakubowski:1988cd,

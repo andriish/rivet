@@ -9,7 +9,7 @@ XLabel=$x_p$
 YLabel=$F_L$
 END PLOT
 BEGIN PLOT /DELPHI_1999_I448370/d03-x01-y01
-Title=Assymmetric charged particle fragmentation function
+Title=Asymmetric charged particle fragmentation function
 XLabel=$x_p$
 YLabel=$\tilde{F}_A$
 LogY=0
