@@ -15,7 +15,7 @@ Beams: [e-, e+]
 Description:
   'Measurement of $R$ in $e^+e^-$ collisions by DASP in the $\Upsilon$ region, 9.42 GeV.
    The individual hadronic and muonic cross sections are also outputted to the yoda file
-   so that ratio $R$ can be recalcuated if runs are combined.'
+   so that ratio $R$ can be recalculated if runs are combined.'
 BibKey: Albrecht:1982bq
 BibTeX: '@article{Albrecht:1982bq,
       author         = "Albrecht, H. and others",

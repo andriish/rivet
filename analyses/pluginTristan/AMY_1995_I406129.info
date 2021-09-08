@@ -14,7 +14,7 @@ NeedCrossSection: no
 Beams: [e-, e+]
 Energies: [57.7]
 Description:
-  'Measurement of the differential 2-jet rate in $e^+e^-$ collisions at $57.7$ GeV by the AMY colloboration. The Durham algorithm, together with 3 variants of the JADE algorithm are used. The JADE E-scheme results are significiantly different from the other approaches.'
+  'Measurement of the differential 2-jet rate in $e^+e^-$ collisions at $57.7$ GeV by the AMY Collaboration. The Durham algorithm, together with 3 variants of the JADE algorithm are used. The JADE E-scheme results are significantly different from the other approaches.'
 Keywords: []
 BibKey: Li:1995av
 BibTeX: '@article{Li:1995av,

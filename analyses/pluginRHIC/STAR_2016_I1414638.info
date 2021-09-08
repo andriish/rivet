@@ -25,7 +25,7 @@ Description:
   'Results of harmonic decomposition of two-particle azimuthal correlations
    in AuAu collisions, in energies recorded in the beam energy scan. For MC
    purposes, note that the lowest energies might be too low for standard
-   generators to even initialize. Beam energy must be specified as analysis 
+   generators to even initialise. Beam energy must be specified as analysis 
    option "ENERGY" when rivet-merging samples.'
 BibKey: Adamczyk:2016exq
 BibTeX: '@article{Adamczyk:2016exq,
