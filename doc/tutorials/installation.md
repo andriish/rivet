@@ -104,12 +104,26 @@ system for variations. Once confirmed, put
 `export PYTHONPATH=$INSTALL_PREFIX/lib/pythonX.Y/site-packages:$PYTHONPATH`
 into your shell environment, and then run the installer.
 
-### Mac untrusted binaries
+### Mac: untrusted binaries
 
-The second issue is specific to Macs, on which the system Python is configured
+The second Python issue is specific to Macs, on which the system Python is configured
 to refuse to load modules that load "untrusted" binary libraries... like `libRivet`.
 We have not found a satisfactory workaround for this restriction, which seems
 designed under the assumption that Mac users will not be developers of Python
 extensions to compiled non-system libraries. Since this is unrealistic for
-HEP use, we recommend avoiding the Mac system Python and compiler suite entirely,
+HEP use, we recommend avoiding the Mac-system Python and compiler suite entirely,
 in favour of developer packages from e.g. Homebrew or Conda.
+
+### Mac: Rivet cannot find HepMC2 lib
+
+On recent version macOS, the bootstrap script fails to install Rivet against
+HepMC2 with an error message similar to:
+
+```
+from rivet.core import * 
+ImportError: dlopen(/.../rivet/core.so, 10): Library not loaded: libHepMC.4.dylib
+```
+
+This issue seems to have disappeared with HepMC3, so unless HepMC2 is strictly required,
+a simple workaround is to change `HEPMC_VERSION` to a recent HepMC3 version in the bootstrap script.
+
