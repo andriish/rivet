@@ -196,7 +196,7 @@ class InputData(Described):
                         self.histos[newname] = copy.deepcopy(self.histos[path])
                         del self.histos[path]
                 elif name == 'FUNCTION':
-                    self.functions[path] = Function(f)
+                    self.functions[path] = Function(f, p=path)
 #            elif is_comment(line):
 #                continue
 #            else:
@@ -1749,12 +1749,14 @@ class DrawableObject(Described):
 
 class Function(DrawableObject):
 
-    def __init__(self, f):
+    def __init__(self, f, p=None):
         self.description = {}
         self.read_input(f)
         if 'Location' not in self.description:
             self.description['Location']='MainPlot'
         self.description['Location']=self.description['Location'].split('\t')
+        self.path = p
+
 
     def read_input(self, f):
         self.code='def plotfunction(x):\n'
