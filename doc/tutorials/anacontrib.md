@@ -15,12 +15,13 @@ the relevant files should go) or just open an issue on our issue tracker.**
     Note that it's not necessary to actually tar up the `rivet-mkhtml` 
     output, the yoda file used to produce this is fully sufficient.
 
-4.  Please identify a suitable sample in our 
-    [suite of HepMC validation files](https://rivetval.web.cern.ch/rivetval/HEPMC/)
-    and specify its name in the info file e.g. like so
+4.  Additionally, please identify a suitable sample in our 
+    [suite of HepMC validation files](https://rivetval.web.cern.ch/rivetval/HEPMC/),
+    specify its name in the info file e.g. like so
     ```
     ReleaseTests:
      - $A LHC-13-Top-L
     ```
-    These files only have 1000 events and are mainly used for numerical regression tests.
+    and provide the output `yoda` file. These files only have 1000 events 
+    and are mainly used for numerical regression tests.
     
