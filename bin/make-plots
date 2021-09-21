@@ -184,9 +184,17 @@ class InputData(Described):
                 elif name == 'HISTOGRAMMANGLER':
                     self.histomangler[path] = PlotFunction(f)
                 elif name == 'COUNTER':
-                  self.histos[path] = Counter(f, p=path)
+                    self.histos[path] = Counter(f, p=path)
+                    if not self.histos[path].getName() == '':
+                        newname = self.histos[path].getName()
+                        self.histos[newname] = copy.deepcopy(self.histos[path])
+                        del self.histos[path]
                 elif name == 'VALUE':
-                  self.histos[path] = Value(f, p=path)
+                    self.histos[path] = Value(f, p=path)
+                    if not self.histos[path].getName() == '':
+                        newname = self.histos[path].getName()
+                        self.histos[newname] = copy.deepcopy(self.histos[path])
+                        del self.histos[path]
                 elif name == 'FUNCTION':
                     self.functions[path] = Function(f)
 #            elif is_comment(line):
@@ -1107,6 +1115,8 @@ class RatioPlot(Plot):
             if i!=self.refdata:
                 if rpmode == 'deviation':
                     inputdata.ratiohistos[i].deviation(inputdata.ratiohistos[self.refdata])
+                    inputdata.ratiohistos[i].description['ErrorBars']=0
+                    inputdata.ratiohistos[i].description['ErrorBands']=0
                 elif rpmode == 'delta':
                     inputdata.ratiohistos[i].delta(inputdata.ratiohistos[self.refdata])
                 elif rpmode == 'deltapercent':
@@ -1768,7 +1778,7 @@ class Function(DrawableObject):
             print('++++++++++ ERROR: No code in function')
         else:
             foo = compile(self.code, '<string>', 'exec')
-            exec(foo)
+            exec(foo,globals())
             self.plotfunction = plotfunction
 
 
