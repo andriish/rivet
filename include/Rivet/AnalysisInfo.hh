@@ -152,9 +152,9 @@ namespace Rivet {
     void setYear(const std::string& year) { _year = year; }
 
     /// The integrated data luminosity of the data set in 1/fb
-    const double luminosityfb() const { return _luminosityfb; }
+    double luminosityfb() const { return _luminosityfb; }
     /// The integrated data luminosity of the data set in 1/pb
-    const double luminosity() const { return 1000*_luminosityfb; }
+    double luminosity() const { return 1000*_luminosityfb; }
 
     /// Set the integrated data luminosity of the data set
     void setLuminosityfb(const double luminosityfb) { _luminosityfb = luminosityfb; }
