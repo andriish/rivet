@@ -1,6 +1,7 @@
 #ifndef RIVET_MATH_VECTOR4
 #define RIVET_MATH_VECTOR4
 
+#include "Rivet/Tools/TypeTraits.hh"
 #include "Rivet/Math/MathConstants.hh"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/VectorN.hh"
@@ -33,7 +34,7 @@ namespace Rivet {
 
     FourVector() : Vector<4>() { }
 
-    template<typename V4TYPE>
+    template<typename V4TYPE, typename std::enable_if<HasXYZT<V4TYPE>::value, int>::type DUMMY=0>
     FourVector(const V4TYPE& other) {
       this->setT(other.t());
       this->setX(other.x());
@@ -311,7 +312,7 @@ namespace Rivet {
   public:
     FourMomentum() { }
 
-    template<typename V4TYPE>
+   template<typename V4TYPE, typename std::enable_if<HasXYZT<V4TYPE>::value, int>::type DUMMY=0>
     FourMomentum(const V4TYPE& other) {
       this->setE(other.t());
       this->setPx(other.x());
