@@ -27,7 +27,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && cat /etc/profile.d/01-buildtools.sh >> /root/.bashrc
 
 RUN export DEBIAN_FRONTEND=noninteractive \
-    && source /etc/profile \
     && if [[ "$BUILD_TOOLS" = "LLVM" ]]; then \
           update-alternatives --install /usr/bin/g++ g++ $(which clang++) 2 && \
           update-alternatives --install /usr/bin/c++ c++ $(which clang++) 2 && \
@@ -49,7 +48,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y autoclean
 
 RUN export DEBIAN_FRONTEND=noninteractive \
-    && source /etc/profile \
     && if [[ "$BUILD_TOOLS" != "Intel" ]]; then \
          apt-get install -y python3 python3-dev && \
          update-alternatives --install /usr/bin/python python /usr/bin/python3 2 && \
@@ -62,7 +60,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && pip install matplotlib requests Cython
 
 RUN export DEBIAN_FRONTEND=noninteractive \
-    && source /etc/profile \
     && if [[ "$BUILD_TOOLS" != "Intel" ]]; then \
          apt-get update -y && \
          apt-get install -y libxft2 libxpm4 libpthread-stubs0-dev libsqlite3-dev uuid-dev && \
@@ -76,21 +73,16 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 ARG HEPMC_VERSION
 ARG RIVETBS_VERSION
 RUN export DEBIAN_FRONTEND=noninteractive \
-    && source /etc/profile \
     && mkdir /code && cd /code \
     && wget --no-verbose https://gitlab.com/hepcedar/rivetbootstrap/raw/${RIVETBS_VERSION}/rivet-bootstrap \
     && chmod +x rivet-bootstrap \
     && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_VERSION} MAKE="make -j $(nproc --ignore=1)" ./rivet-bootstrap \
-    && rm -rf /code
-
-# TODO: merge
-RUN export DEBIAN_FRONTEND=noninteractive \
+    && rm -rf /code \
     && echo "LD_LIBRARY_PATH=\"\$LD_LIBRARY_PATH:/usr/local/lib\"" >> /etc/profile.d/05-usrlocal.sh \
     && echo "PYTHONPATH=\"\$PYTHONPATH:$(ls /usr/local/lib*/python*/*-packages/ -d | head -1)\"" >> /etc/profile.d/05-usrlocal.sh
 
 ARG LHAPDF_VERSION=6.4.0
 RUN export DEBIAN_FRONTEND=noninteractive \
-    && source /etc/profile \
     && mkdir /code && cd /code \
     && wget --no-verbose https://lhapdf.hepforge.org/downloads/?f=LHAPDF-${LHAPDF_VERSION}.tar.gz -O- | tar xz \
     && cd LHAPDF-*/ && ./configure --prefix=/usr/local \
@@ -99,7 +91,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 
 ARG LATEX=0
 RUN export DEBIAN_FRONTEND=noninteractive \
-    && source /etc/profile \
     && if test "$LATEX" = "1"; then \
       apt-get update -y && \
       apt-get install -y texlive-latex-recommended texlive-fonts-recommended && \

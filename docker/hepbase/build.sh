@@ -34,11 +34,11 @@ for vhepmc in 3.2.4  2.06.11; do
         test "$PUSH" = 1 && docker push $tag && sleep 1m
         echo -e "\n\n\n"
 
-        # echo "@@ $MSG on Fedora with GCC compilers"
-        # tag=hepstore/hepbase-fedora-gcc-hepmc${vhepmc:0:1}-py3$TEXSUFFIX
-        # $BUILD . -f Dockerfile.fedora $GCCARGS -t $tag
-        # test "$PUSH" = 1 && docker push $tag && sleep 1m
-        # echo -e "\n\n\n"
+        echo "@@ $MSG on Fedora with GCC compilers"
+        tag=hepstore/hepbase-fedora-gcc-hepmc${vhepmc:0:1}-py3$TEXSUFFIX
+        $BUILD . -f Dockerfile.fedora $GCCARGS -t $tag
+        test "$PUSH" = 1 && docker push $tag && sleep 1m
+        echo -e "\n\n\n"
 
         # echo "@@ $MSG on Ubuntu with GCC compilers and Python 2"
         # tag=hepstore/hepbase-ubuntu-gcc-hepmc${vhepmc:0:1}-py2$TEXSUFFIX
