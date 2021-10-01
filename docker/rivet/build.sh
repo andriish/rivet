@@ -3,7 +3,7 @@
 set -e
 
 ## Last branch name -> latest
-for RIVET_BRANCH in release-3-1-x rivet-3.1.4; do
+for RIVET_BRANCH in release-3-1-x; do # rivet-3.1.4; do
     RIVET_VERSION=${RIVET_BRANCH#rivet-}
 
     BUILD="docker build . -f Dockerfile"
@@ -12,8 +12,7 @@ for RIVET_BRANCH in release-3-1-x rivet-3.1.4; do
 
     MSG="Building Rivet $RIVET_VERSION image with architecture ="
     for vhepmc in 3; do   # 2
-        #for arch in ubuntu-intel-hepmc$vhepmc-py3 ubuntu-gcc-hepmc$vhepmc-py3 ubuntu-gcc-hepmc$vhepmc-py3 ubuntu-clang-hepmc$vhepmc-py3 ubuntu-gcc-hepmc$vhepmc-py2; do
-        for arch in ubuntu-intel-hepmc$vhepmc-py3; do
+        for arch in ubuntu-intel-hepmc$vhepmc-py3 ubuntu-gcc-hepmc$vhepmc-py3 ubuntu-gcc-hepmc$vhepmc-py3 ubuntu-clang-hepmc$vhepmc-py3 ubuntu-gcc-hepmc$vhepmc-py2; do
 
             echo "@@ $MSG $arch"
             tag="hepstore/rivet:$RIVET_VERSION-$arch"
