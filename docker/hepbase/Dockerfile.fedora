@@ -58,6 +58,7 @@ RUN if test "$LATEX" = "1"; then \
         texlive-relsize texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended \
         ghostscript ImageMagick texlive-dvips; \
       dnf clean all; \
+      texhash; \
     fi
 
 RUN mkdir /code && cd /code \
