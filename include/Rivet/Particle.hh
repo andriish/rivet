@@ -149,7 +149,7 @@ namespace Rivet {
     }
 
     /// Cast operator for conversion to GenParticle*
-    /// @note Not implicit since that would enable accidental Particl::operator== comparisons
+    /// @note Not implicit since that would enable accidental Particle::operator== comparisons
     explicit operator ConstGenParticlePtr () const { return genParticle(); }
 
     //@}
