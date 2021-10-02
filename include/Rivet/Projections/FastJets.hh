@@ -36,7 +36,8 @@ namespace Rivet {
                 SISCONE, PXCONE,
                 ATLASCONE, CMSCONE,
                 CDFJETCLU, CDFMIDPOINT, D0ILCONE,
-                JADE, DURHAM, TRACKJET, GENKTEE };
+                JADE, DURHAM, TRACKJET, GENKTEE ,
+                KTET, ANTIKTET };
 
 
     /// @name Constructors etc.
