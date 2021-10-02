@@ -34,6 +34,11 @@ namespace Rivet {
       _jdef = fastjet::JetDefinition(fastjet::ee_kt_algorithm, fastjet::E_scheme);
     } else if (alg == GENKTEE) {
       _jdef = fastjet::JetDefinition(fastjet::ee_genkt_algorithm, rparameter, -1);
+    } else if (alg == KTET) {
+      _jdef = fastjet::JetDefinition(fastjet::kt_algorithm, rparameter, fastjet::Et_scheme);
+    } else if (alg == ANTIKTET) {
+      _jdef = fastjet::JetDefinition(fastjet::antikt_algorithm, rparameter, fastjet::Et_scheme);
+
     } else {
       // Plugins:
       if (alg == SISCONE) {
