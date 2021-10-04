@@ -50,7 +50,7 @@ namespace Rivet {
       for (size_t i = 0; i < 12; ++i)  book(_tmphistos[i], "TMP/"+to_str(i), y_nbins, rap_min, rap_max);
       for (size_t i = 12; i < 15; ++i) book(_tmphistos[i], "TMP/"+to_str(i), refData(dsShift+5, 1, 1));
       for (size_t i = 15; i < 18; ++i) book(_tmphistos[i], "TMP/"+to_str(i), y_nbins, rap_beam - rap_max, rap_beam - rap_min);
- 
+
       int dsId = dsShift + 1;
       for (size_t j = 0; j < 3; ++j) {
         book(s1[j], dsId, 1, j+1);
@@ -161,16 +161,16 @@ namespace Rivet {
     }
 
     // Data members like post-cuts event weight counters go here
-    const double getMotherLifeTimeSum(const Particle& p) {
+    double getMotherLifeTimeSum(const Particle& p) {
       if (p.genParticle() == nullptr) return -1.;
       double lftSum = 0.;
       double plft = 0.;
       ConstGenParticlePtr part = p.genParticle();
       ConstGenVertexPtr ivtx = part->production_vertex();
       while (ivtx) {
-        
+
           vector<ConstGenParticlePtr> part_in = HepMCUtils::particles(ivtx, Relatives::PARENTS);
-        
+
           if (part_in.size() < 1) { lftSum = -1.; break; };
           ConstGenParticlePtr part = part_in.at(0);//(*iPart_invtx);
           if ( !(part) ) { lftSum = -1.; break; };
