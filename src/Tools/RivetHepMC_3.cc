@@ -278,7 +278,10 @@ namespace Rivet {
 
 
     std::valarray<double> weights(const GenEvent& ge) {
-      return std::valarray<double>(&ge.weights()[0], ge.weights().size());
+      // std::valarray<double> rtn(ge.weights().size());
+      // for (size_t i = 0; i < ge.weights().size(); ++i) rtn[i] = ge.weights()[i];
+      // return rtn;
+      return std::valarray<double>(ge.weights().data(), ge.weights().size());
     }
 
 
