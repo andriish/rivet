@@ -90,7 +90,7 @@ namespace Rivet {
     /// @brief 1/-1 multiplier indicating (respectively) whether the event has conventional orientation or not
     ///
     /// Conventional DIS orientation has the hadron travelling in the +z direction
-    const int orientation() const {
+    int orientation() const {
       return sign(_inHadron.pz());
     }
 

@@ -38,7 +38,7 @@ namespace Rivet {
 
       declare(dressedelectron_fs, "Electrons");
       declare(dressedmuon_fs, "Muons");
-      
+
       // FS excluding the leading photon
       VetoedFinalState vfs;
       vfs.addVetoOnThisFinalState(photon_fs);
@@ -47,7 +47,7 @@ namespace Rivet {
       declare(vfs, "isolatedFS");
 
       // Histograms
-      book(_hist_EgammaT,     2, 1, 1); // dSigma / dE^gamma_T 
+      book(_hist_EgammaT,     2, 1, 1); // dSigma / dE^gamma_T
       book(_hist_etagamma,    3, 1, 1);
       book(_hist_mZgamma,     4, 1, 1); // dSigma / dm^{Zgamma}
       book(_hist_EZgammaT,    5, 1, 1);
@@ -125,8 +125,8 @@ namespace Rivet {
 
   private:
 
-    /// Mode flag
-    size_t _mode;
+    // /// Mode flag
+    // size_t _mode;
 
     /// Histograms
     Histo1DPtr _hist_EgammaT;
@@ -136,7 +136,7 @@ namespace Rivet {
     Histo1DPtr _hist_dPhiZgamma;
     Histo1DPtr _hist_ETbyMZgamma;
 
-  }; 
+  };
 
 
   DECLARE_RIVET_PLUGIN(ATLAS_2019_I1764342);
