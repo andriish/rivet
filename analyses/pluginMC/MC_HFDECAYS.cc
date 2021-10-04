@@ -7,6 +7,7 @@
 
 namespace Rivet {
 
+
     class MC_HFDECAYS : public Analysis {
     public:
 
@@ -31,10 +32,10 @@ namespace Rivet {
         string suff = "_" + to_string(int(ptbin.xMin())) + "_" + to_string(int(ptbin.xMax()));
         { Histo1DPtr tmp; _b[name].add(ptbin.xMin(), ptbin.xMax(), book(tmp, name+suff, nbins, lo, hi)); }
       }
-    
+
       /// Book histograms and initialise projections before the run
       void init() {
-        
+
         declare(HeavyHadrons(),"HA");
 
         FastJets jetpro(FinalState(), FastJets::ANTIKT, 0.4, JetAlg::Muons::DECAY, JetAlg::Invisibles::DECAY);
@@ -60,7 +61,7 @@ namespace Rivet {
         book(_h["b_jet_high_pT"], "high_pT_frag_B_jet", 46, 0., 1.);
         book(_h["c_jet_high_pT"], "high_pT_frag_C_jet", 46, 0., 1.);
         book(_h["b_jet_high_pT_1H"], "high_pT_frag_B_jet_1H", 46, 0., 1.);
-        book(_h["c_jet_high_pT_1H"], "high_pT_frag_C_jet_1H", 46, 0., 1.);        
+        book(_h["c_jet_high_pT_1H"], "high_pT_frag_C_jet_1H", 46, 0., 1.);
 
 
         book(_h["ch_B0"         ], "B0_charged_mult",          30, 0.5, 30.5);
@@ -71,7 +72,7 @@ namespace Rivet {
         book(_h["ch_DPLUS"      ], "DPLUS_charged_multh",      16, 0.5, 16.5);
         book(_h["ch_DSPLUS"     ], "DSPLUS_charged_mult",      16, 0.5, 16.5);
         book(_h["ch_LAMBDACPLUS"], "LAMBDACPLUS_charged_mult", 16, 0.5, 16.5);
-        
+
         book(_h["st_B0"         ], "B0_stable_mult",          40, 0.5, 40.5);
         book(_h["st_BPLUS"      ], "BPLUS_stable_mult",       40, 0.5, 40.5);
         book(_h["st_B0S"        ], "B0S_stable_mult",         40, 0.5, 40.5);
@@ -80,7 +81,7 @@ namespace Rivet {
         book(_h["st_DPLUS"      ], "DPLUS_stable_mult",       20, 0.5, 20.5);
         book(_h["st_DSPLUS"     ], "DSPLUS_stable_mult",      20, 0.5, 20.5);
         book(_h["st_LAMBDACPLUS"], "LAMBDACPLUS_stable_mult", 20, 0.5, 20.5);
-        
+
         book(_h["pt_B0"         ], "B0_pT",          10, 25., 425.);
         book(_h["pt_BPLUS"      ], "BPLUS_pT",       10, 25., 425.);
         book(_h["pt_B0S"        ], "B0S_pT",         10, 25., 425.);
@@ -89,16 +90,16 @@ namespace Rivet {
         book(_h["pt_DPLUS"      ], "DPLUS_pT",       10, 25., 425.);
         book(_h["pt_DSPLUS"     ], "DSPLUS_pT",      10, 25., 425.);
         book(_h["pt_LAMBDACPLUS"], "LAMBDACPLUS_pT", 10, 25., 425.);
-        
+
         book(_h["b_jet_ch_mult"], "charged_mult_B_jets", 40, 0.5, 40.5);
         book(_h["c_jet_ch_mult"], "charged_mult_C_jets", 40, 0.5, 40.5);
-        
+
         book(_h["b_jet_l_pTrel"], "lepton_pTrel_B_jets", 8, 0., 15.);
         book(_h["c_jet_l_pTrel"], "lepton_pTrel_C_jets", 8, 0., 10.);
 
         book(_h["b_jet_l_pT"], "lepton_pT_B_jets", 10, 0., 100.);
         book(_h["c_jet_l_pT"], "lepton_pT_C_jets", 10, 0., 100.);
-        
+
         // double-differentials
         ptaxis = YODA::Histo1DAxis({25, 30, 50, 70, 100, 150, 300, 500, 1000});
         for (size_t i = 0; i < ptaxis.numBins(); ++i) {
@@ -125,8 +126,8 @@ namespace Rivet {
 
       double p_annulus(const Jet &jet, const double a, const double b) const {
         // calculate the total momentum inside an annulus with a <= R < b
-        return sum(filter_select(jet.particles(), [&](const Particle &p) { 
-          const double dr = deltaR(p, jet); 
+        return sum(filter_select(jet.particles(), [&](const Particle &p) {
+          const double dr = deltaR(p, jet);
           return (dr < b && dr >= a);
         }), Kin::pT, 0.)/GeV;
       }
@@ -138,9 +139,10 @@ namespace Rivet {
         _h["ch_"+whoDis(p.pid())]->fill(nch);
       }
 
-      const double pTrel (const Jet& jet, const Particle& p) const {
+      double pTrel (const Jet& jet, const Particle& p) const {
         return (p.p3().cross(jet.p3())).mod()/(jet.p3().mod());
       }
+
 
       /// Perform the per-event analysis
       void analyze(const Event& event) {
@@ -180,7 +182,7 @@ namespace Rivet {
           else if (p.pid() == PID::SIGMABPLUS)   _h["b_frac"]->fill(11);
         }
 
-        for (const Particle &p : ha.cHadrons()) { 
+        for (const Particle &p : ha.cHadrons()) {
           const string name = "pt_" + whoDis(p.pid());
           if (p.pid() == PID::DPLUS) {
             count_mult(p);
@@ -206,7 +208,7 @@ namespace Rivet {
           else if (p.pid() == PID::XI0C)     _h["c_frac"]->fill(6);
           else if (p.pid() == PID::OMEGA0C)  _h["c_frac"]->fill(7);
         }
-        
+
         Jets jets = apply<FastJets>(event, "Jets").jetsByPt(Cuts::pT > 25.*GeV && Cuts::absrap < 2.5);
         if (jets.empty()) vetoEvent;
 
@@ -245,7 +247,7 @@ namespace Rivet {
               _h["c_jet_frag"]->fill(z);
               if (inRange(thisJet.pT(), 500*GeV, 1000*GeV)) {
                 _h["c_jet_high_pT"]->fill(z);
-                if (cjets.size() == 1) {  
+                if (cjets.size() == 1) {
                   _h["c_jet_high_pT_1H"]->fill(z);
                 }
               }
@@ -260,7 +262,7 @@ namespace Rivet {
               }
             }
           }
-          
+
           if (bjets.size()) {
             double W_num = 0., W_den = 0.;
             long N_charged = 0;
@@ -270,7 +272,7 @@ namespace Rivet {
                 W_den += pp.pT();
                 if (pp.isCharged())  ++N_charged;
               }
-              if(pp.isLepton()) { 
+              if(pp.isLepton()) {
                 _h["b_jet_l_pT"]->fill(pp.pT()/GeV);
                 _h["b_jet_l_pTrel"]->fill(pTrel(thisJet,pp)/GeV);
                 _b["avg_B_jet_l_pTrel"].fill(thisJet.pT()/GeV, pTrel(thisJet,pp)/GeV);
@@ -278,7 +280,7 @@ namespace Rivet {
             }
             if (W_den)  _h["bar_b_jet_width"]->fill(W_num/W_den);
             _h["b_jet_pT"]->fill(thisJet.pT()/GeV);
-            if (N_charged) {  
+            if (N_charged) {
               _h["b_jet_ch_mult"]->fill(N_charged);
               _b["avg_B_jet_ch_mult"].fill(thisJet.pT()/GeV, N_charged);
             }
@@ -300,14 +302,14 @@ namespace Rivet {
             }
             if (W_den)  _h["bar_c_jet_width"]->fill(W_num/W_den);
             _h["c_jet_pT"]->fill(thisJet.pT()/GeV);
-            if (N_charged) {  
+            if (N_charged) {
               _h["c_jet_ch_mult"]->fill(N_charged);
               _b["avg_C_jet_ch_mult"].fill(thisJet.pT()/GeV, N_charged);
             }
           }
         }
       }
-      
+
       /// Normalise histograms etc., after the run
       void finalize() {
         for (const auto &hit : _h) {
@@ -327,7 +329,6 @@ namespace Rivet {
       YODA::Histo1DAxis ptaxis;
 
   };
-  
+
   DECLARE_RIVET_PLUGIN(MC_HFDECAYS);
 }
-
