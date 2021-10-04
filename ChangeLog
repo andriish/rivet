@@ -1,5 +1,8 @@
 2021-10-01  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Remove many const return-by-value signatures, and other sloppy
+	or meaningless C++ antipatterns flagged by the icpc build.
+
 	* Add SFINAE x/y/z/t() method detection to Vector4 constructors,
 	and explicit .pseudojet() calls to Particles and Jets passed to
 	PseudoJet constructors (since those live in external code and we

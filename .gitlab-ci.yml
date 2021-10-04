@@ -37,6 +37,7 @@ stages:
     - echo $CONF
     - $CONF
     - $MAKE RIVET_BUILD_ALLCAT=1
+    - echo @$LD_LIBRARY_PATH@
     - $MAKE check || (cat test/test-suite.log && false)
     - $MAKE install
     - cp rivetenv.sh rivetenv.csh $INSTALL_PREFIX/
@@ -72,19 +73,10 @@ stages:
     expire_in: 36 hrs
 
 
-build_ubuntu_gcc_hepmc2_py3:
-  variables:
-    ARCH: ubuntu-gcc-hepmc2-py3
-  <<: *build_template
 
 build_ubuntu_gcc_hepmc3_py3:
   variables:
     ARCH: ubuntu-gcc-hepmc3-py3
-  <<: *build_template
-
-build_ubuntu_clang_hepmc2_py3:
-  variables:
-    ARCH: ubuntu-clang-hepmc2-py3
   <<: *build_template
 
 build_ubuntu_clang_hepmc3_py3:
@@ -92,10 +84,26 @@ build_ubuntu_clang_hepmc3_py3:
     ARCH: ubuntu-clang-hepmc3-py3
   <<: *build_template
 
-build_fedora_gcc_hepmc2_py3:
+build_ubuntu_intel_hepmc3_py3:
   variables:
-    ARCH: fedora-gcc-hepmc2-py3
+    ARCH: ubuntu-gcc-hepmc3-py3
+  #only: [schedules]
   <<: *build_template
+
+build_ubuntu_gcc_hepmc2_py3:
+  variables:
+    ARCH: ubuntu-gcc-hepmc2-py3
+  <<: *build_template
+
+# build_ubuntu_clang_hepmc2_py3:
+#   variables:
+#     ARCH: ubuntu-clang-hepmc2-py3
+#   <<: *build_template
+
+# build_ubuntu_intel_hepmc2_py3:
+#   variables:
+#     ARCH: ubuntu-intel-hepmc2-py3
+#   <<: *build_template
 
 build_fedora_gcc_hepmc3_py3:
   variables:
@@ -103,16 +111,21 @@ build_fedora_gcc_hepmc3_py3:
   #only: [schedules]
   <<: *build_template
 
-build_ubuntu_gcc_hepmc2_py2:
-  variables:
-    ARCH: ubuntu-gcc-hepmc2-py2
-  <<: *build_template
-
 build_ubuntu_gcc_hepmc3_py2:
   variables:
     ARCH: ubuntu-gcc-hepmc3-py2
   #only: [schedules]
   <<: *build_template
+
+# build_fedora_gcc_hepmc2_py3:
+#   variables:
+#     ARCH: fedora-gcc-hepmc2-py3
+#   <<: *build_template
+
+# build_ubuntu_gcc_hepmc2_py2:
+#   variables:
+#     ARCH: ubuntu-gcc-hepmc2-py2
+#   <<: *build_template
 
 
 get_test_hepmc:
@@ -208,22 +221,10 @@ get_test_hepmc:
     expire_in: 36 hrs
 
 
-check_plugin_ubuntu_gcc_hepmc2_py3:
-  variables:
-    ARCH: ubuntu-gcc-hepmc2-py3
-  needs: [build_ubuntu_gcc_hepmc2_py3, get_test_hepmc]
-  <<: *check_plugin_template
-
 check_plugin_ubuntu_gcc_hepmc3_py3:
   variables:
     ARCH: ubuntu-gcc-hepmc3-py3
   needs: [build_ubuntu_gcc_hepmc3_py3, get_test_hepmc]
-  <<: *check_plugin_template
-
-check_plugin_ubuntu_clang_hepmc2_py3:
-  variables:
-    ARCH: ubuntu-clang-hepmc2-py3
-  needs: [build_ubuntu_clang_hepmc2_py3, get_test_hepmc]
   <<: *check_plugin_template
 
 check_plugin_ubuntu_clang_hepmc3_py3:
@@ -232,11 +233,23 @@ check_plugin_ubuntu_clang_hepmc3_py3:
   needs: [build_ubuntu_clang_hepmc3_py3, get_test_hepmc]
   <<: *check_plugin_template
 
-check_plugin_fedora_gcc_hepmc2_py3:
+check_plugin_ubuntu_intel_hepmc3_py3:
   variables:
-    ARCH: fedora-gcc-hepmc2-py3
-  needs: [build_fedora_gcc_hepmc2_py3, get_test_hepmc]
+    ARCH: ubuntu-intel-hepmc3-py3
+  needs: [build_ubuntu_intel_hepmc3_py3, get_test_hepmc]
   <<: *check_plugin_template
+
+check_plugin_ubuntu_gcc_hepmc2_py3:
+  variables:
+    ARCH: ubuntu-gcc-hepmc2-py3
+  needs: [build_ubuntu_gcc_hepmc2_py3, get_test_hepmc]
+  <<: *check_plugin_template
+
+# check_plugin_ubuntu_clang_hepmc2_py3:
+#   variables:
+#     ARCH: ubuntu-clang-hepmc2-py3
+#   needs: [build_ubuntu_clang_hepmc2_py3, get_test_hepmc]
+#   <<: *check_plugin_template
 
 check_plugin_fedora_gcc_hepmc3_py3:
   variables:
@@ -245,18 +258,25 @@ check_plugin_fedora_gcc_hepmc3_py3:
   needs: [build_fedora_gcc_hepmc3_py3, get_test_hepmc]
   <<: *check_plugin_template
 
-check_plugin_ubuntu_gcc_hepmc2_py2:
-  variables:
-    ARCH: ubuntu-gcc-hepmc2-py2
-  needs: [build_ubuntu_gcc_hepmc2_py2, get_test_hepmc]
-  <<: *check_plugin_template
-
 check_plugin_ubuntu_gcc_hepmc3_py2:
   variables:
     ARCH: ubuntu-gcc-hepmc3-py2
   #only: [schedules]
   needs: [build_ubuntu_gcc_hepmc3_py2, get_test_hepmc]
   <<: *check_plugin_template
+
+# check_plugin_fedora_gcc_hepmc2_py3:
+#   variables:
+#     ARCH: fedora-gcc-hepmc2-py3
+#   needs: [build_fedora_gcc_hepmc2_py3, get_test_hepmc]
+#   <<: *check_plugin_template
+
+# check_plugin_ubuntu_gcc_hepmc2_py2:
+#   variables:
+#     ARCH: ubuntu-gcc-hepmc2-py2
+#   needs: [build_ubuntu_gcc_hepmc2_py2, get_test_hepmc]
+#   <<: *check_plugin_template
+
 
 
 
@@ -290,24 +310,12 @@ check_plugin_ubuntu_gcc_hepmc3_py2:
     expire_in: 36 hrs
 
 
-make_plots_ubuntu_gcc_hepmc2_py3:
-  variables:
-    ARCH: ubuntu-gcc-hepmc2-py3
-  needs: [check_plugin_ubuntu_gcc_hepmc2_py3]
-  <<: *make_plots_template
 
 make_plots_ubuntu_gcc_hepmc3_py3:
   variables:
     ARCH: ubuntu-gcc-hepmc3-py3
-  only: [schedules]
+  #only: [schedules]
   needs: [check_plugin_ubuntu_gcc_hepmc3_py3]
-  <<: *make_plots_template
-
-make_plots_ubuntu_clang_hepmc2_py3:
-  variables:
-    ARCH: ubuntu-clang-hepmc2-py3
-  only: [schedules]
-  needs: [check_plugin_ubuntu_clang_hepmc2_py3]
   <<: *make_plots_template
 
 make_plots_ubuntu_clang_hepmc3_py3:
@@ -317,11 +325,33 @@ make_plots_ubuntu_clang_hepmc3_py3:
   needs: [check_plugin_ubuntu_clang_hepmc3_py3]
   <<: *make_plots_template
 
-make_plots_fedora_gcc_hepmc2_py3:
+make_plots_ubuntu_intel_hepmc3_py3:
   variables:
-    ARCH: fedora-gcc-hepmc2-py3
-  needs: [check_plugin_fedora_gcc_hepmc2_py3]
+    ARCH: ubuntu-intel-hepmc3-py3
+  only: [schedules]
+  needs: [check_plugin_ubuntu_intel_hepmc3_py3]
   <<: *make_plots_template
+
+make_plots_ubuntu_gcc_hepmc2_py3:
+  variables:
+    ARCH: ubuntu-gcc-hepmc2-py3
+  only: [schedules]
+  needs: [check_plugin_ubuntu_gcc_hepmc2_py3]
+  <<: *make_plots_template
+
+# make_plots_ubuntu_clang_hepmc2_py3:
+#   variables:
+#     ARCH: ubuntu-clang-hepmc2-py3
+#   only: [schedules]
+#   needs: [check_plugin_ubuntu_clang_hepmc2_py3]
+#   <<: *make_plots_template
+
+# make_plots_ubuntu_intel_hepmc2_py3:
+#   variables:
+#     ARCH: ubuntu-intel-hepmc2-py3
+#   only: [schedules]
+#   needs: [check_plugin_ubuntu_intel_hepmc2_py3]
+#   <<: *make_plots_template
 
 make_plots_fedora_gcc_hepmc3_py3:
   variables:
@@ -330,15 +360,21 @@ make_plots_fedora_gcc_hepmc3_py3:
   needs: [check_plugin_fedora_gcc_hepmc3_py3]
   <<: *make_plots_template
 
-make_plots_ubuntu_gcc_hepmc2_py2:
-  variables:
-    ARCH: ubuntu-gcc-hepmc2-py2
-  needs: [check_plugin_ubuntu_gcc_hepmc2_py2]
-  <<: *make_plots_template
-
 make_plots_ubuntu_gcc_hepmc3_py2:
   variables:
     ARCH: ubuntu-gcc-hepmc3-py2
   #only: [schedules]
   needs: [check_plugin_ubuntu_gcc_hepmc3_py2]
   <<: *make_plots_template
+
+# make_plots_fedora_gcc_hepmc2_py3:
+#   variables:
+#     ARCH: fedora-gcc-hepmc2-py3
+#   needs: [check_plugin_fedora_gcc_hepmc2_py3]
+#   <<: *make_plots_template
+
+# make_plots_ubuntu_gcc_hepmc2_py2:
+#   variables:
+#     ARCH: ubuntu-gcc-hepmc2-py2
+#   needs: [check_plugin_ubuntu_gcc_hepmc2_py2]
+#   <<: *make_plots_template

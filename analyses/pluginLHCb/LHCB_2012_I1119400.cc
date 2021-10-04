@@ -182,16 +182,16 @@ namespace Rivet {
     }
 
     // Data members like post-cuts event weight counters go here
-    const double getMotherLifeTimeSum(const Particle& p) {
+    double getMotherLifeTimeSum(const Particle& p) {
       if (p.genParticle() == nullptr) return -1.;
       double lftSum = 0.;
       double plft = 0.;
       ConstGenParticlePtr part = p.genParticle();
       ConstGenVertexPtr ivtx = part->production_vertex();
       while(ivtx){
-        
+
         vector<ConstGenParticlePtr> part_in = HepMCUtils::particles(ivtx, Relatives::PARENTS);
-        
+
         if (part_in.size() < 1) { lftSum = -1.; break; };
         part = part_in.at(0);
         if ( !(part) ) { lftSum = -1.; break; };

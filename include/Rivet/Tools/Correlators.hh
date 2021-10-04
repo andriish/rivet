@@ -244,7 +244,7 @@ namespace Rivet {
       virtual ~CorBinBase() {};
       // Derived class should have fill and mean defined.
       virtual void fill(const pair<double, double>& cor, const double& weight = 1.0) = 0;
-      virtual const double mean() const = 0;
+      virtual double mean() const = 0;
     };
 
 
@@ -279,28 +279,28 @@ namespace Rivet {
       }
 
       /// Mean
-      const double mean() const {
+      double mean() const {
         if (_sumW < 1e-10) return 0;
         return _sumWX / _sumW;
       }
 
       /// Sum of weights
-      const double sumW() const {
+      double sumW() const {
         return _sumW;
       }
 
       /// Sum of weights-squared
-      const double sumW2() const {
+      double sumW2() const {
         return _sumW2;
       }
 
       /// Sum of weight * X
-      const double sumWX() const {
+      double sumWX() const {
         return _sumWX;
       }
 
       /// Number of entries
-      const double numEntries() const {
+      double numEntries() const {
         return _numEntries;
       }
 
@@ -350,7 +350,7 @@ namespace Rivet {
       }
 
       /// Calculate the total sample mean with all available statistics
-      const double mean() const {
+      double mean() const {
         double sow = 0;
         double sowx = 0;
         for (auto b : bins) {
@@ -362,16 +362,15 @@ namespace Rivet {
       }
 
       /// Return a copy of the bins
-      const vector<CorSingleBin> getBins() const {
+      vector<CorSingleBin> getBins() const {
         return bins;
       }
 
       /// Return the bins as pointers to the base class
       template<class T=CorBinBase>
-      const vector<T*> getBinPtrs() {
+      vector<T*> getBinPtrs() {
         vector<T*> ret(bins.size());
-        transform(bins.begin(), bins.end(), ret.begin(),
-                  [](CorSingleBin& b) {return &b;});
+        transform(bins.begin(), bins.end(), ret.begin(), [](CorSingleBin& b) {return &b;});
         return ret;
       }
 
@@ -479,29 +478,29 @@ namespace Rivet {
       }
 
       /// Get a copy of the bin contents
-      const vector<CorBin> getBins() const {
+      vector<CorBin> getBins() const {
         return binContent;
       }
 
       /// Return the bins as pointers to the base class
-      const vector<CorBinBase*> getBinPtrs() {
+      vector<CorBinBase*> getBinPtrs() {
         vector<CorBinBase*> ret(binContent.size());
         transform(binContent.begin(), binContent.end(), ret.begin(), [](CorBin& b) {return &b;});
         return ret;
       }
 
       /// Get a copy of the bin x-values
-      const vector<double> getBinX() const {
+      vector<double> getBinX() const {
         return binX;
       }
 
       /// Get a copy of the @a h1 harmonic vector
-      const vector<int> getH1() const {
+      vector<int> getH1() const {
         return h1;
       }
 
       /// Get a copy of the @a h2 harmonic vector
-      const vector<int> getH2() const {
+      vector<int> getH2() const {
         return h2;
       }
 
@@ -511,7 +510,7 @@ namespace Rivet {
       }
 
       /// Extract the reference flow from a differential event averaged correlator.
-      const CorBin getReference() const {
+      CorBin getReference() const {
         if (reference.mean() < 1e-10)
           cout << "Warning: ECorrelator, reference bin is zero." << endl;
         return reference;
@@ -527,28 +526,28 @@ namespace Rivet {
       bool fillFromProfile(YODA::AnalysisObjectPtr yao, string name) {
         auto refs = reference.getBinPtrs<CorSingleBin>();
         for (size_t i = 0; i < profs.size(); ++i) {
-	  if (yao->path() == "/RAW/"+name+"/TMP/"+profs[i]) {
+          if (yao->path() == "/RAW/"+name+"/TMP/"+profs[i]) {
             YODA::Profile1DPtr pPtr = dynamic_pointer_cast<YODA::Profile1D>(yao);
-	    for (size_t j = 0; j < binX.size() - 1; ++j) {
+            for (size_t j = 0; j < binX.size() - 1; ++j) {
               const YODA::ProfileBin1D& pBin = pPtr->binAt(binX[j]);
               auto tmp  = binContent[j].getBinPtrs<CorSingleBin>();
               tmp[i]->addContent(pBin.numEntries(), pBin.sumW(), pBin.sumW2(),
-                pBin.sumWY());
+                                 pBin.sumWY());
             }
             // Get the reference flow from the underflow bin of the histogram.
             const YODA::Dbn2D& uBin = pPtr->underflow();
             refs[i]->addContent(uBin.numEntries(), uBin.sumW(), uBin.sumW2(),
-              uBin.sumWY());
-	    return true;
-	  }
+                                uBin.sumWY());
+            return true;
+          }
         } // End loop of bootstrapped correlators.
-	return false;
+        return false;
       }
 
     private:
 
       // Get correct bin index for a given @param obs value
-      const int getBinIndex(const double& obs) const {
+      int getBinIndex(const double& obs) const {
         // Find the correct index of binContent.
         // If we are in overflow, just skip.
         if (obs >= binX.back()) return -1;
@@ -587,7 +586,7 @@ namespace Rivet {
       }
       if (harmVecs.size() == 0) {
         cout << "Warning: You tried to extract max values from harmonic "
-	      "vectors, but have not booked any." << endl;
+          "vectors, but have not booked any." << endl;
         return pair<int,int>();
       }
       return Correlators::getMaxValues(harmVecs);
@@ -612,7 +611,7 @@ namespace Rivet {
       vector<string> eCorrProfs;
       for (int i = 0; i < BOOT_BINS; ++i) {
         Profile1DPtr tmp;
-	book(tmp,"TMP/"+name+"-"+to_string(i),binIn);
+        book(tmp,"TMP/"+name+"-"+to_string(i),binIn);
         eCorrProfs.push_back(name+"-"+to_string(i));
       }
       ecPtr->setProfs(eCorrProfs);
@@ -635,7 +634,7 @@ namespace Rivet {
       eCorrPtrs.push_back(ecPtr);
       return ecPtr;
     }
-    
+
     /// @brief Book a gapped ECorrelator with two harmonic vectors
     /// @todo Rename to book(ECorrPtr, ...)
     ECorrPtr bookECorrelator(const string name, const vector<int>& h1,
@@ -646,12 +645,12 @@ namespace Rivet {
       return bookECorrelator(name, h1, h2, binIn);
     }
 
-    /// Shorthand for gapped correlators, splitting the harmonic vector into negative and 
+    /// Shorthand for gapped correlators, splitting the harmonic vector into negative and
     /// positive components.
     ///
     /// @todo Rename to book(ECorrPtr, ...)
     ECorrPtr bookECorrelatorGap(const string name, const vector<int>& h,
-                                 const YODA::Scatter2D& hIn) {
+                                const YODA::Scatter2D& hIn) {
       const vector<int> h1(h.begin(), h.begin() + h.size() / 2);
       const vector<int> h2(h.begin() + h.size() / 2, h.end());
       return bookECorrelator(name, h1, h2, hIn);
@@ -681,11 +680,11 @@ namespace Rivet {
     /// @todo Rename to book(ECorrPtr, ...)
     template<unsigned int N, unsigned int M>
     ECorrPtr bookECorrelatorGap(const string name, const YODA::Scatter2D& hIn) {
-      const vector<int> h = Correlators::hVec(N,M); 
+      const vector<int> h = Correlators::hVec(N,M);
       const vector<int> h1(h.begin(), h.begin() + h.size() / 2);
       const vector<int> h2(h.begin() + h.size() / 2, h.end());
       return bookECorrelator(name, h1, h2, hIn);
-	    
+
     }
 
   protected:
@@ -720,11 +719,11 @@ namespace Rivet {
         double xMid = (binx[i] + binx[i + 1]) / 2.0;
         double xeMin = fabs(xMid - binx[i]);
         double xeMax = fabs(xMid - binx[i + 1]);
-	if (hasBins) {
-	  xMid = h->points()[i].x();
-	  xeMin = h->points()[i].xErrMinus();
-	  xeMax = h->points()[i].xErrPlus();
-	}
+        if (hasBins) {
+          xMid = h->points()[i].x();
+          xeMin = h->points()[i].xErrMinus();
+          xeMax = h->points()[i].xErrPlus();
+        }
         double yVal = func(i);
         if (std::isnan(yVal)) yVal = 0.;
         double yErr = 0;
@@ -743,8 +742,8 @@ namespace Rivet {
     /// analysis if a user wants to perform an unforseen transformation from
     /// correlators to Scatter2D.
     template<typename F>
-    const void fillScatter(Scatter2DPtr h, vector<double>& binx, F func,
-                           vector<pair<double, double> >& yErr) const {
+    void fillScatter(Scatter2DPtr h, vector<double>& binx, F func,
+                     vector<pair<double, double> >& yErr) const {
       vector<YODA::Point2D> points;
       // Test if we have proper bins from a booked histogram.
       bool hasBins = (h->points().size() > 0);
@@ -752,11 +751,11 @@ namespace Rivet {
         double xMid = (binx[i] + binx[i + 1]) / 2.0;
         double xeMin = fabs(xMid - binx[i]);
         double xeMax = fabs(xMid - binx[i + 1]);
-	if (hasBins) {
-	  xMid = h->points()[i].x();
-	  xeMin = h->points()[i].xErrMinus();
-	  xeMax = h->points()[i].xErrPlus();
-	}
+        if (hasBins) {
+          xMid = h->points()[i].x();
+          xeMin = h->points()[i].xErrMinus();
+          xeMax = h->points()[i].xErrPlus();
+        }
         double yVal = func(i);
         if (std::isnan(yVal))
           points.push_back(YODA::Point2D(xMid, 0., xeMin, xeMax,0., 0.));
@@ -766,7 +765,7 @@ namespace Rivet {
       }
       h->reset();
       h->points().clear();
-      
+
       for (int i = 0, N = points.size(); i < N; ++i)
         h->addPoint(points[i]);
     }
@@ -895,7 +894,7 @@ namespace Rivet {
 
 
     /// Two-particle integrated cn
-    const void cnTwoInt(Scatter2DPtr h, ECorrPtr e2) const {
+    void cnTwoInt(Scatter2DPtr h, ECorrPtr e2) const {
       vector<CorBin> bins = e2->getBins();
       vector<double> binx = e2->getBinX();
       // Assert bin size.
@@ -918,7 +917,7 @@ namespace Rivet {
 
 
     /// Two particle integrated vn
-    const void vnTwoInt(Scatter2DPtr h, ECorrPtr e2) const {
+    void vnTwoInt(Scatter2DPtr h, ECorrPtr e2) const {
       cnTwoInt(h, e2);
       nthPow(h, 0.5);
     }
@@ -927,20 +926,20 @@ namespace Rivet {
     /// @brief Put an event-averaged correlator into a Scatter2D
     ///
     /// Reduces to cnTwoInt, but better with a proper name.
-    const void corrPlot(Scatter2DPtr h, ECorrPtr e) const {
+    void corrPlot(Scatter2DPtr h, ECorrPtr e) const {
       cnTwoInt(h, e);
     }
-  
-    
-     
-    
+
+
+
+
     // TODO Use full path for lookup, change to single AU in output, rename.
     void rawHookIn(YODA::AnalysisObjectPtr yao) final {
       // Fill the corresponding ECorrelator.
       for (auto ec : eCorrPtrs) if(ec->fillFromProfile(yao, name())) break;;
     }
-    
-    /// @brief Transform RAW ECorrelator Profiles to have content 
+
+    /// @brief Transform RAW ECorrelator Profiles to have content
     /// before writing them.
     /// Overloaded method from Analysis base class should not be
     /// overridden further.
@@ -956,16 +955,16 @@ namespace Rivet {
           cout << "corrPlot: Bin size (x,y) differs!" << endl;
           return;
         }
-	// Loop over the booked histograms using their names.
+        // Loop over the booked histograms using their names.
         for (int i = 0, N = ec->profs.size(); i < N; ++i) {
-	  for (auto rao : raos) {
-	    if (rao->path() == "/"+name()+"/TMP/"+ec->profs[i]) {
-	      // Get a pointer to the active profile. 
-	      rao.get()->setActiveWeightIdx(iW);
-  	      YODA::Profile1DPtr pPtr = dynamic_pointer_cast<YODA::Profile1D>(
-	        rao.get()->activeYODAPtr());
-	      // New bins.
-	      vector<YODA::ProfileBin1D> profBins;
+          for (auto rao : raos) {
+            if (rao->path() == "/"+name()+"/TMP/"+ec->profs[i]) {
+              // Get a pointer to the active profile.
+              rao.get()->setActiveWeightIdx(iW);
+              YODA::Profile1DPtr pPtr = dynamic_pointer_cast<YODA::Profile1D>(
+                                                                              rao.get()->activeYODAPtr());
+              // New bins.
+              vector<YODA::ProfileBin1D> profBins;
               // Numbers for the summary distribution
               double ne = 0., sow = 0., sow2 = 0.;
               for (size_t j = 0, N = binx.size() - 1; j < N; ++j) {
@@ -975,31 +974,31 @@ namespace Rivet {
                 // (and no desire to add it) of sumWX of the profile, so really
                 // we should use a Dbn1D - but that does not work for Profile1D's.
                 profBins.push_back( YODA::ProfileBin1D(pPtr->bin(j).xEdges(),
-                  YODA::Dbn2D( binPtrs[i]->numEntries(), binPtrs[i]->sumW(),
-                  binPtrs[i]->sumW2(), 0., 0., binPtrs[i]->sumWX(), 0, 0)));
+                                                       YODA::Dbn2D( binPtrs[i]->numEntries(), binPtrs[i]->sumW(),
+                                                                    binPtrs[i]->sumW2(), 0., 0., binPtrs[i]->sumWX(), 0, 0)));
                 ne += binPtrs[i]->numEntries();
                 sow += binPtrs[i]->sumW();
                 sow2 += binPtrs[i]->sumW2();
               }
-	      // Put the ECorrelator into the raw histogram.
-	      pPtr->reset();
-	      pPtr->bins().clear();
-	      // Add the bins.
-	      pPtr->addBins(profBins);
-	      // Set the total distribution.
+              // Put the ECorrelator into the raw histogram.
+              pPtr->reset();
+              pPtr->bins().clear();
+              // Add the bins.
+              pPtr->addBins(profBins);
+              // Set the total distribution.
               pPtr->setTotalDbn(YODA::Dbn2D(ne,sow,sow2,0.,0.,0.,0.,0.));
               // And reference flow in the underflow bin.
-	      pPtr->setUnderflow(YODA::Dbn2D(refBins[i]->numEntries(),
-                refBins[i]->sumW(), refBins[i]->sumW2(), 0., 0.,
-                refBins[i]->sumWX(), 0., 0.));
-	    }
-	  }
-	}
+              pPtr->setUnderflow(YODA::Dbn2D(refBins[i]->numEntries(),
+                                             refBins[i]->sumW(), refBins[i]->sumW2(), 0., 0.,
+                                             refBins[i]->sumWX(), 0., 0.));
+            }
+          }
+        }
       }
     }
 
     // @brief Four particle integrated cn.
-    const void cnFourInt(Scatter2DPtr h, ECorrPtr e2, ECorrPtr e4) const {
+    void cnFourInt(Scatter2DPtr h, ECorrPtr e2, ECorrPtr e4) const {
       auto e2bins = e2->getBins();
       auto e4bins = e4->getBins();
       auto binx = e2->getBinX();
@@ -1032,15 +1031,15 @@ namespace Rivet {
 
 
     ///Four particle integrated vn
-    const void vnFourInt(Scatter2DPtr h, ECorrPtr e2, ECorrPtr e4) const {
+    void vnFourInt(Scatter2DPtr h, ECorrPtr e2, ECorrPtr e4) const {
       cnFourInt(h, e2, e4);
       nthPow(h, 0.25, -1.0);
     }
 
 
     /// Six particle integrated cn
-    const void cnSixInt(Scatter2DPtr h, ECorrPtr e2, ECorrPtr e4,
-                        ECorrPtr e6) const {
+    void cnSixInt(Scatter2DPtr h, ECorrPtr e2, ECorrPtr e4,
+                  ECorrPtr e6) const {
       auto e2bins = e2->getBins();
       auto e4bins = e4->getBins();
       auto e6bins = e6->getBins();
@@ -1078,16 +1077,16 @@ namespace Rivet {
 
 
     /// Six particle integrated vn
-    const void vnSixInt(Scatter2DPtr h, ECorrPtr e2, ECorrPtr e4,
-                        ECorrPtr e6) const {
+    void vnSixInt(Scatter2DPtr h, ECorrPtr e2, ECorrPtr e4,
+                  ECorrPtr e6) const {
       cnSixInt(h, e2, e4, e6);
       nthPow(h, 1./6., 0.25);
     }
 
 
     /// Eight particle integrated cn
-    const void cnEightInt(Scatter2DPtr h, ECorrPtr e2, ECorrPtr e4,
-                          ECorrPtr e6, ECorrPtr e8) const {
+    void cnEightInt(Scatter2DPtr h, ECorrPtr e2, ECorrPtr e4,
+                    ECorrPtr e6, ECorrPtr e8) const {
       auto e2bins = e2->getBins();
       auto e4bins = e4->getBins();
       auto e6bins = e6->getBins();
@@ -1111,8 +1110,7 @@ namespace Rivet {
         double e24 = e22 * e22;
         double e42 = e4binPtrs[i]->mean() * e4binPtrs[i]->mean();
         return e8binPtrs[i]->mean() - 16. * e6binPtrs[i]->mean() *
-        e2binPtrs[i]->mean() - 18. * e42 + 144. * e4binPtrs[i]->mean()*e22
-        - 144. * e24;
+        e2binPtrs[i]->mean() - 18. * e42 + 144. * e4binPtrs[i]->mean()*e22 - 144. * e24;
       };
       // Error calculation.
       vector<pair<double, double> > yErr;
@@ -1133,14 +1131,14 @@ namespace Rivet {
 
 
     /// Eight particle integrated vn
-    const void vnEightInt(Scatter2DPtr h, ECorrPtr e2, ECorrPtr e4, ECorrPtr e6, ECorrPtr e8) const {
+    void vnEightInt(Scatter2DPtr h, ECorrPtr e2, ECorrPtr e4, ECorrPtr e6, ECorrPtr e8) const {
       cnEightInt(h, e2, e4, e6, e8);
       nthPow(h, 1./8., -1./33.);
     }
 
 
     /// Two particle differential vn
-    const void vnTwoDiff(Scatter2DPtr h, ECorrPtr e2Dif) const {
+    void vnTwoDiff(Scatter2DPtr h, ECorrPtr e2Dif) const {
       auto e2bins = e2Dif->getBins();
       auto ref = e2Dif->getReference();
       auto binx = e2Dif->getBinX();
@@ -1175,7 +1173,7 @@ namespace Rivet {
 
 
     /// Four particle differential vn
-    const void vnFourDiff(Scatter2DPtr h, ECorrPtr e2Dif, ECorrPtr e4Dif) const {
+    void vnFourDiff(Scatter2DPtr h, ECorrPtr e2Dif, ECorrPtr e4Dif) const {
       auto e2bins = e2Dif->getBins();
       auto e4bins = e4Dif->getBins();
       auto ref2 = e2Dif->getReference();

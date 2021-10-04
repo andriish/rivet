@@ -191,7 +191,7 @@ namespace Rivet {
 
 
     // Get sum of all ancestor particles
-    const double getAncestorSumLifetime(const Particle& p) {
+    double getAncestorSumLifetime(const Particle& p) {
       double lftSum = 0.;
       double plft = 0.;
       ConstGenParticlePtr part = p.genParticle();
