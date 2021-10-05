@@ -56,6 +56,7 @@ namespace Rivet {
 
     typedef map<string, const AnalysisBuilderBase*> AnalysisBuilderMap;
     static AnalysisBuilderMap _ptrs;
+    static AnalysisBuilderMap _aliasptrs;
 
   };
 

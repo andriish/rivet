@@ -14,6 +14,7 @@ namespace Rivet {
 
   // Initialise static ptr collection
   AnalysisLoader::AnalysisBuilderMap AnalysisLoader::_ptrs;
+  AnalysisLoader::AnalysisBuilderMap AnalysisLoader::_aliasptrs;
 
 
   // Provide a logger function
@@ -28,8 +29,9 @@ namespace Rivet {
     _loadAnalysisPlugins();
     vector<string> names;
     for (const AnalysisBuilderMap::value_type& p : _ptrs) {
-      const string cname = p.second->name();
-      if (!contains(names, cname)) names += cname; //< avoid duplicates from alias entries in the map
+      names += p.second->name();
+      // const string cname = p.second->name();
+      // if (!contains(names, cname)) names += cname; //< avoid duplicates from alias entries in the map
     }
     return names;
   }
@@ -39,6 +41,7 @@ namespace Rivet {
     _loadAnalysisPlugins();
     vector<string> names;
     for (const AnalysisBuilderMap::value_type& p : _ptrs) names += p.first;
+    for (const AnalysisBuilderMap::value_type& p : _aliasptrs) names += p.first;
     return names;
   }
 
@@ -70,7 +73,12 @@ namespace Rivet {
   unique_ptr<Analysis> AnalysisLoader::getAnalysis(const string& analysisname) {
     _loadAnalysisPlugins();
     AnalysisBuilderMap::const_iterator ai = _ptrs.find(analysisname);
-    if (ai == _ptrs.end()) return nullptr;
+    if (ai == _ptrs.end()) {
+      ai = _aliasptrs.find(analysisname);
+      if (ai == _aliasptrs.end()) return nullptr;
+      MSG_WARNING("Instantiating analysis '" << ai->second->name() << "' via alias '"
+                  << analysisname << "'. Using the canonical name is recommended");
+    }
     return ai->second->mkAnalysis();
   }
 
@@ -105,9 +113,11 @@ namespace Rivet {
       //MSG_WARNING("ALIAS!!! " << aname);
       if (_ptrs.find(aname) != _ptrs.end()) {
         MSG_WARNING("Ignoring duplicate plugin analysis alias '" << aname << "'");
+      } else if (_aliasptrs.find(aname) != _aliasptrs.end()) {
+        MSG_WARNING("Ignoring duplicate plugin analysis alias '" << aname << "'");
       } else {
         MSG_TRACE("Registering a plugin analysis via alias '" << aname << "'");
-        _ptrs[aname] = ab;
+        _aliasptrs[aname] = ab;
       }
     }
   }
