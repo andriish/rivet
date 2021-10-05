@@ -236,6 +236,7 @@ check_plugin_ubuntu_clang_hepmc3_py3:
 check_plugin_ubuntu_intel_hepmc3_py3:
   variables:
     ARCH: ubuntu-intel-hepmc3-py3
+  only: [schedules]
   needs: [build_ubuntu_intel_hepmc3_py3, get_test_hepmc]
   <<: *check_plugin_template
 
