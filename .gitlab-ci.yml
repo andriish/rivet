@@ -86,7 +86,7 @@ build_ubuntu_clang_hepmc3_py3:
 
 build_ubuntu_intel_hepmc3_py3:
   variables:
-    ARCH: ubuntu-gcc-hepmc3-py3
+    ARCH: ubuntu-intel-hepmc3-py3
   #only: [schedules]
   <<: *build_template
 
