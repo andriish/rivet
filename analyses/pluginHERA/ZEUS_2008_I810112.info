@@ -4,13 +4,14 @@ Summary: Measurement of $D^{\pm}$ and $D^0$ production in deep inelastic scatter
 Experiment: ZEUS
 Collider: HERA
 InspireID: 810112
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  -  Andrii Verbytskyi  andrii.verbytskyi@mpp.mpg.de
 References:
  - Eur.Phys.J.C 63 (2009) 171-188
  - DOI:10.1140/epjc/s10052-009-1088-x
  - arXiv:0812.3775 [hep-ex]
+Reentrant: true
 RunInfo: Inclusive DIS
 NeedCrossSection: yes
 Beams: [[e+, p+],[p+,e+],[e-, p+],[p+,e-]]
