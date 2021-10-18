@@ -13,7 +13,7 @@ namespace Rivet {
   class CMS_2013_I1261026 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2013_I1261026);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2013_I1261026);
 
     void init() {
       const ChargedFinalState cfs(Cuts::abseta < 2.4 && Cuts::pT > 0.25*GeV);
@@ -168,6 +168,6 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2013_I1261026);
+  RIVET_DECLARE_PLUGIN(CMS_2013_I1261026);
 
 }

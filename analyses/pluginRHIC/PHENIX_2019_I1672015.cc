@@ -14,7 +14,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(PHENIX_2019_I1672015);
+    RIVET_DEFAULT_ANALYSIS_CTOR(PHENIX_2019_I1672015);
 
     /// @name Analysis methods
     ///@{
@@ -92,6 +92,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(PHENIX_2019_I1672015);
+  RIVET_DECLARE_PLUGIN(PHENIX_2019_I1672015);
 
 }

@@ -18,7 +18,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ZEUS_2008_I763404);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ZEUS_2008_I763404);
 
     /// @name Analysis methods
     //@{
@@ -176,6 +176,6 @@ namespace Rivet {
     int nVeto0, nVeto1, nVeto2, nVeto3, nVeto4;
   };
 
-  DECLARE_RIVET_PLUGIN(ZEUS_2008_I763404);
+  RIVET_DECLARE_PLUGIN(ZEUS_2008_I763404);
 
 }

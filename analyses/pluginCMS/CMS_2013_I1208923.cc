@@ -75,5 +75,5 @@ namespace Rivet {
   };
 
   // This global object acts as a hook for the plugin system.
-  DECLARE_RIVET_PLUGIN(CMS_2013_I1208923);
+  RIVET_DECLARE_PLUGIN(CMS_2013_I1208923);
 }

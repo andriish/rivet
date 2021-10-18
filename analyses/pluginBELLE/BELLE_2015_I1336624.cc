@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BELLE_2015_I1336624);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2015_I1336624);
 
 
     /// @name Analysis methods
@@ -158,6 +158,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(BELLE_2015_I1336624);
+  RIVET_DECLARE_PLUGIN(BELLE_2015_I1336624);
 
 }

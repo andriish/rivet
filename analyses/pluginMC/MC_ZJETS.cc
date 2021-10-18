@@ -90,5 +90,5 @@ namespace Rivet {
   };
 
   // The hooks for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_ZJETS);
+  RIVET_DECLARE_PLUGIN(MC_ZJETS);
 }

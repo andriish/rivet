@@ -60,7 +60,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALICE_2015_PBPBCentrality);
+  RIVET_DECLARE_PLUGIN(ALICE_2015_PBPBCentrality);
 
 }
 

@@ -10,7 +10,7 @@ class ATLAS_PBPB_CENTRALITY : public Analysis {
 
 public:
 
-  DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_PBPB_CENTRALITY);
+  RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_PBPB_CENTRALITY);
 
   /// Book histograms and initialise projections before the run
   void init() {
@@ -65,6 +65,6 @@ private:
 
 
 // The hook for the plugin system
-DECLARE_RIVET_PLUGIN(ATLAS_PBPB_CENTRALITY);
+RIVET_DECLARE_PLUGIN(ATLAS_PBPB_CENTRALITY);
 
 }

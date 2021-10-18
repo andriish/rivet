@@ -70,6 +70,6 @@ namespace Rivet {
 
 
   // Hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMSTOTEM_2014_I1294140);
+  RIVET_DECLARE_PLUGIN(CMSTOTEM_2014_I1294140);
 
 }

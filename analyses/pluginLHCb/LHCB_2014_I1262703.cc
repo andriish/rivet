@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Default constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(LHCB_2014_I1262703);
+    RIVET_DEFAULT_ANALYSIS_CTOR(LHCB_2014_I1262703);
 
 
     /// Initialise histograms and projections
@@ -105,6 +105,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(LHCB_2014_I1262703);
+  RIVET_DECLARE_PLUGIN(LHCB_2014_I1262703);
 
 }

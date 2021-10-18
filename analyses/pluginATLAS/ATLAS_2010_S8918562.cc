@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// Default constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2010_S8918562);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2010_S8918562);
 
 
     /// Initialization, called once before running
@@ -172,6 +172,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(ATLAS_2010_S8918562, ATLAS_2010_I882098);
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2010_S8918562, ATLAS_2010_I882098);
 
 }

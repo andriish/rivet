@@ -146,7 +146,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_PHOTONS);
+  RIVET_DECLARE_PLUGIN(MC_PHOTONS);
 
 
 }

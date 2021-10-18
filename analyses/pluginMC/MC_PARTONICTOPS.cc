@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(MC_PARTONICTOPS);
+    RIVET_DEFAULT_ANALYSIS_CTOR(MC_PARTONICTOPS);
 
 
     /// @name Analysis methods
@@ -121,6 +121,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(MC_PARTONICTOPS);
+  RIVET_DECLARE_PLUGIN(MC_PARTONICTOPS);
 
 }

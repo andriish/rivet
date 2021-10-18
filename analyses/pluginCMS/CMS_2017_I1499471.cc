@@ -14,7 +14,7 @@ namespace Rivet {
   public:
     
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2017_I1499471);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2017_I1499471);
     
     /// Book histograms and initialise projections before the run
     void init() {
@@ -292,6 +292,6 @@ namespace Rivet {
   
   
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2017_I1499471);
+  RIVET_DECLARE_PLUGIN(CMS_2017_I1499471);
   
 }

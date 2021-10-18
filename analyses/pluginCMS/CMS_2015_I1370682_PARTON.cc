@@ -8,7 +8,7 @@ namespace Rivet {
   class CMS_2015_I1370682_PARTON : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2015_I1370682_PARTON);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2015_I1370682_PARTON);
 
 
     /// Book projections and histograms
@@ -108,6 +108,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(CMS_2015_I1370682_PARTON);
+  RIVET_DECLARE_PLUGIN(CMS_2015_I1370682_PARTON);
 
 }

@@ -69,6 +69,6 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_WKTSPLITTINGS);
+  RIVET_DECLARE_PLUGIN(MC_WKTSPLITTINGS);
 
 }

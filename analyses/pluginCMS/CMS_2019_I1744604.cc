@@ -17,7 +17,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2019_I1744604);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2019_I1744604);
 
 
     /// @brief Book histograms and initialise projections before the run
@@ -548,6 +548,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(CMS_2019_I1744604);
+  RIVET_DECLARE_PLUGIN(CMS_2019_I1744604);
 
 }

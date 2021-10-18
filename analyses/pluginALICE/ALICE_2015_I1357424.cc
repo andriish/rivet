@@ -93,6 +93,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALICE_2015_I1357424);
+  RIVET_DECLARE_PLUGIN(ALICE_2015_I1357424);
 
 }

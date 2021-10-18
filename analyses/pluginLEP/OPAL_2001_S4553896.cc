@@ -10,7 +10,7 @@ namespace Rivet {
   class OPAL_2001_S4553896 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(OPAL_2001_S4553896);
+    RIVET_DEFAULT_ANALYSIS_CTOR(OPAL_2001_S4553896);
 
 
     /// @name Analysis methods
@@ -133,6 +133,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_ALIASED_RIVET_PLUGIN(OPAL_2001_S4553896, OPAL_2001_I552446);
+  RIVET_DECLARE_ALIASED_PLUGIN(OPAL_2001_S4553896, OPAL_2001_I552446);
 
 }

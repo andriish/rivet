@@ -24,7 +24,7 @@ namespace Rivet {
 
 
     /// Default constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2016_I1467230);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2016_I1467230);
 
 
     /// Initialization, called once before running
@@ -128,6 +128,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2016_I1467230);
+  RIVET_DECLARE_PLUGIN(ATLAS_2016_I1467230);
 
 }

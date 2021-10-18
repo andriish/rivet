@@ -291,7 +291,7 @@ namespace Rivet {
 
 
 
-  DECLARE_RIVET_PLUGIN(CMS_2015_I1370682);
+  RIVET_DECLARE_PLUGIN(CMS_2015_I1370682);
 
 
   ///////////////

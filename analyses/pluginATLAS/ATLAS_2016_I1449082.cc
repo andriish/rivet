@@ -25,7 +25,7 @@ namespace Rivet {
 
 
     /// Constructor
-    //DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2016_I1449082);
+    //RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2016_I1449082);
     ATLAS_2016_I1449082() : Analysis("ATLAS_2016_I1449082"),
                             // inclusive (dummy), mtt [GeV], beta, pTtt
                             bins{ { 0., 1., 2. }, { 0., 500., 2000.}, { 0., 0.6 , 1.0}, { 0., 30. , 1000.} },
@@ -311,5 +311,5 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2016_I1449082);
+  RIVET_DECLARE_PLUGIN(ATLAS_2016_I1449082);
 }

@@ -207,6 +207,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(PDG_TAUS);
+  RIVET_DECLARE_PLUGIN(PDG_TAUS);
 
 }

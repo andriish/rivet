@@ -9,7 +9,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2012_I1116147);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2012_I1116147);
 
 
     /// Initialise projections and histograms
@@ -81,6 +81,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ALICE_2012_I1116147);
+  RIVET_DECLARE_PLUGIN(ALICE_2012_I1116147);
 
 }

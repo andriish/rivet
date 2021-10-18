@@ -17,7 +17,7 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2013_I1230812);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2013_I1230812);
     //@}
 
 
@@ -290,6 +290,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ATLAS_2013_I1230812);
+  RIVET_DECLARE_PLUGIN(ATLAS_2013_I1230812);
 
 }

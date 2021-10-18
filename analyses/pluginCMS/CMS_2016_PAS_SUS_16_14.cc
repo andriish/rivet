@@ -17,7 +17,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2016_PAS_SUS_16_14);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2016_PAS_SUS_16_14);
 
 
     /// @name Analysis methods
@@ -213,6 +213,6 @@ namespace Rivet {
 
 
 
-  DECLARE_RIVET_PLUGIN(CMS_2016_PAS_SUS_16_14);
+  RIVET_DECLARE_PLUGIN(CMS_2016_PAS_SUS_16_14);
 
 }

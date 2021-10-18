@@ -21,7 +21,7 @@ namespace Rivet {
   class ATLAS_2019_I1724098: public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2019_I1724098);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2019_I1724098);
 
   private:
 
@@ -567,5 +567,5 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2019_I1724098);
+  RIVET_DECLARE_PLUGIN(ATLAS_2019_I1724098);
 }

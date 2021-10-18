@@ -17,7 +17,7 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(MC_JET_IN_HI);
+    RIVET_DEFAULT_ANALYSIS_CTOR(MC_JET_IN_HI);
 
     //@}
 
@@ -155,6 +155,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_JET_IN_HI);
+  RIVET_DECLARE_PLUGIN(MC_JET_IN_HI);
 
 }

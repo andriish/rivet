@@ -16,7 +16,7 @@ namespace Rivet {
   class ATLAS_2019_I1750330 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2019_I1750330);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2019_I1750330);
 
     void init() {
 
@@ -647,6 +647,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ATLAS_2019_I1750330);
+  RIVET_DECLARE_PLUGIN(ATLAS_2019_I1750330);
 
 }

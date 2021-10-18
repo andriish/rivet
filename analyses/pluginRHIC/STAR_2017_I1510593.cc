@@ -18,7 +18,7 @@ namespace Rivet {
   class STAR_2017_I1510593 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(STAR_2017_I1510593);
+    RIVET_DEFAULT_ANALYSIS_CTOR(STAR_2017_I1510593);
 
     string coStr(int i, int j, int k) {
       return "/TMP/d" + toString(i) + "x" + toString(j) + "y" + toString(k);
@@ -625,6 +625,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(STAR_2017_I1510593);
+  RIVET_DECLARE_PLUGIN(STAR_2017_I1510593);
 
 }

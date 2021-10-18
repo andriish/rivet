@@ -255,6 +255,6 @@ namespace Rivet {
 
 
   // This global object acts as a hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_VH2BB);
+  RIVET_DECLARE_PLUGIN(MC_VH2BB);
 
 }

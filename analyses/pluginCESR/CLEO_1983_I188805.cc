@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEO_1983_I188805);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEO_1983_I188805);
 
 
     /// @name Analysis methods
@@ -81,7 +81,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CLEO_1983_I188805);
+  RIVET_DECLARE_PLUGIN(CLEO_1983_I188805);
 
 
 }

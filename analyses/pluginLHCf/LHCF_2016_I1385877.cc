@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(LHCF_2016_I1385877);
+    RIVET_DEFAULT_ANALYSIS_CTOR(LHCF_2016_I1385877);
 
 
     // In some models there can be very small-value pT but greater than 0.
@@ -205,6 +205,6 @@ namespace Rivet {
 
 
 
-  DECLARE_RIVET_PLUGIN(LHCF_2016_I1385877);
+  RIVET_DECLARE_PLUGIN(LHCF_2016_I1385877);
 
 }

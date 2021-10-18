@@ -88,6 +88,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(STAR_2016_I1414638);
+  RIVET_DECLARE_PLUGIN(STAR_2016_I1414638);
 
 }

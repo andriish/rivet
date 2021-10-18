@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(OLYA_1981_I173076);
+    RIVET_DEFAULT_ANALYSIS_CTOR(OLYA_1981_I173076);
 
 
     /// @name Analysis methods
@@ -77,7 +77,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OLYA_1981_I173076);
+  RIVET_DECLARE_PLUGIN(OLYA_1981_I173076);
 
 
 }

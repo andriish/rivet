@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2018_I1711114);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2018_I1711114);
 
 
     /// Book cuts and projections
@@ -110,6 +110,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ATLAS_2018_I1711114);
+  RIVET_DECLARE_PLUGIN(ATLAS_2018_I1711114);
 
 }

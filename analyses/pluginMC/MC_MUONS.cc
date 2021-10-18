@@ -47,6 +47,6 @@ namespace Rivet {
 
 
 
-  DECLARE_RIVET_PLUGIN(MC_MUONS);
+  RIVET_DECLARE_PLUGIN(MC_MUONS);
 
 }

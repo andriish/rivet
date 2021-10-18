@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Default constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(UA5_1982_S875503);
+    RIVET_DEFAULT_ANALYSIS_CTOR(UA5_1982_S875503);
 
 
     /// @name Analysis methods
@@ -87,6 +87,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_ALIASED_RIVET_PLUGIN(UA5_1982_S875503, UA5_1982_I176647);
+  RIVET_DECLARE_ALIASED_PLUGIN(UA5_1982_S875503, UA5_1982_I176647);
 
 }

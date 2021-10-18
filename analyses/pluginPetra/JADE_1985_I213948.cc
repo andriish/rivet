@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(JADE_1985_I213948);
+    RIVET_DEFAULT_ANALYSIS_CTOR(JADE_1985_I213948);
 
 
     /// @name Analysis methods
@@ -87,6 +87,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(JADE_1985_I213948);
+  RIVET_DECLARE_PLUGIN(JADE_1985_I213948);
 
 }

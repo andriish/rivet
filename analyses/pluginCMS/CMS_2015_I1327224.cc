@@ -9,7 +9,7 @@ namespace Rivet {
   class CMS_2015_I1327224 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2015_I1327224);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2015_I1327224);
 
 
     void init() {
@@ -56,5 +56,5 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2015_I1327224);
+  RIVET_DECLARE_PLUGIN(CMS_2015_I1327224);
 }

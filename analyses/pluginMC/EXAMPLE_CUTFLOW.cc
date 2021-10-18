@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(EXAMPLE_CUTFLOW);
+    RIVET_DEFAULT_ANALYSIS_CTOR(EXAMPLE_CUTFLOW);
 
 
     /// @name Analysis methods
@@ -79,6 +79,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(EXAMPLE_CUTFLOW);
+  RIVET_DECLARE_PLUGIN(EXAMPLE_CUTFLOW);
 
 }

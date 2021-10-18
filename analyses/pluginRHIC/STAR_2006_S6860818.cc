@@ -11,7 +11,7 @@ namespace Rivet {
   class STAR_2006_S6860818 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(STAR_2006_S6860818);
+    RIVET_DEFAULT_ANALYSIS_CTOR(STAR_2006_S6860818);
 
     /// Book projections and histograms
     void init() {
@@ -173,6 +173,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(STAR_2006_S6860818, STAR_2006_I722757);
+  RIVET_DECLARE_ALIASED_PLUGIN(STAR_2006_S6860818, STAR_2006_I722757);
 
 }

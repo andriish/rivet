@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(GAMMAGAMMA_1979_I133588);
+    RIVET_DEFAULT_ANALYSIS_CTOR(GAMMAGAMMA_1979_I133588);
 
 
     /// @name Analysis methods
@@ -96,7 +96,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(GAMMAGAMMA_1979_I133588);
+  RIVET_DECLARE_PLUGIN(GAMMAGAMMA_1979_I133588);
 
 
 }

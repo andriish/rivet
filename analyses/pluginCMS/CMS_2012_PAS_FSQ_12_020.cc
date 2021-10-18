@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2012_PAS_FSQ_12_020);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2012_PAS_FSQ_12_020);
 
 
     /// Book histograms and initialise projections before the run
@@ -103,6 +103,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2012_PAS_FSQ_12_020);
+  RIVET_DECLARE_PLUGIN(CMS_2012_PAS_FSQ_12_020);
 
 }
