@@ -278,5 +278,5 @@ namespace Rivet {
   };
 
   // This global object acts as a hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2015_PAS_FSQ_15_007);
+  RIVET_DECLARE_PLUGIN(CMS_2015_PAS_FSQ_15_007);
 }  // namespace Rivet

@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(FOCUS_2006_I693639);
+    RIVET_DEFAULT_ANALYSIS_CTOR(FOCUS_2006_I693639);
 
 
     /// @name Analysis methods
@@ -113,7 +113,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(FOCUS_2006_I693639);
+  RIVET_DECLARE_PLUGIN(FOCUS_2006_I693639);
 
 
 }

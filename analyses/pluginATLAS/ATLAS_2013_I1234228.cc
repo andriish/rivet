@@ -12,7 +12,7 @@ namespace Rivet {
 
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2013_I1234228);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2013_I1234228);
 
     /// @name Analysis methods
     //@{
@@ -60,6 +60,6 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2013_I1234228);
+  RIVET_DECLARE_PLUGIN(ATLAS_2013_I1234228);
 
 }

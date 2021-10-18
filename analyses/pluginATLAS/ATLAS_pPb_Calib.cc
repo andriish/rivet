@@ -11,7 +11,7 @@ class ATLAS_pPb_Calib : public Analysis {
 
 public:
 
-  DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_pPb_Calib);
+  RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_pPb_Calib);
 
   /// Book histograms and initialise projections before the run
   void init() {
@@ -67,6 +67,6 @@ private:
 
 
 // The hook for the plugin system
-DECLARE_RIVET_PLUGIN(ATLAS_pPb_Calib);
+RIVET_DECLARE_PLUGIN(ATLAS_pPb_Calib);
 
 }

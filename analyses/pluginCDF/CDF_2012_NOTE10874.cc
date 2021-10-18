@@ -87,6 +87,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2012_NOTE10874);
+  RIVET_DECLARE_PLUGIN(CDF_2012_NOTE10874);
 
 }

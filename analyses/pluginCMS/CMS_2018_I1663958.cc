@@ -13,7 +13,7 @@ namespace Rivet {
   class CMS_2018_I1663958 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2018_I1663958);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2018_I1663958);
 
     void init() {
 
@@ -297,5 +297,5 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(CMS_2018_I1663958);
+  RIVET_DECLARE_PLUGIN(CMS_2018_I1663958);
 }

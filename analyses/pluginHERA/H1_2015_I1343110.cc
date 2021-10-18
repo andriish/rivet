@@ -293,7 +293,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(H1_2015_I1343110);
+    RIVET_DEFAULT_ANALYSIS_CTOR(H1_2015_I1343110);
 
     typedef H1_2015_I1343110_PROJECTIONS::RapidityGap RapidityGap;
     typedef H1_2015_I1343110_PROJECTIONS::BoostedXSystem BoostedXSystem;
@@ -589,6 +589,6 @@ namespace Rivet {
     int  nPHO, nDIS;
   };
 
-  DECLARE_RIVET_PLUGIN(H1_2015_I1343110);
+  RIVET_DECLARE_PLUGIN(H1_2015_I1343110);
 
 }

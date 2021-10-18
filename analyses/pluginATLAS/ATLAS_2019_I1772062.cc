@@ -17,7 +17,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2019_I1772062);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2019_I1772062);
 
 
     void getQuarkGluon(Rivet::Histo1DPtr hForward, Rivet::Histo1DPtr hCentral, Rivet::Histo1DPtr hQuark, Rivet::Histo1DPtr hGluon, int ptbin, string parName, size_t beta) {
@@ -813,5 +813,5 @@ namespace Rivet {
 
   };
 
-  DECLARE_RIVET_PLUGIN(ATLAS_2019_I1772062);
+  RIVET_DECLARE_PLUGIN(ATLAS_2019_I1772062);
 }

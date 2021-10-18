@@ -84,6 +84,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2012_PAS_QCD_11_010);
+  RIVET_DECLARE_PLUGIN(CMS_2012_PAS_QCD_11_010);
 
 }

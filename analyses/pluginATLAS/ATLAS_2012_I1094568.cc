@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2012_I1094568);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2012_I1094568);
 
     struct Plots {
       // Track which veto region this is, to match the autobooked histograms
@@ -273,5 +273,5 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2012_I1094568);
+  RIVET_DECLARE_PLUGIN(ATLAS_2012_I1094568);
 }

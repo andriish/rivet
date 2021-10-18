@@ -11,7 +11,7 @@ namespace Rivet {
   class CMS_2018_I1643640 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2018_I1643640);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2018_I1643640);
 
     void init() {
       FinalState fs;
@@ -167,6 +167,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(CMS_2018_I1643640);
+  RIVET_DECLARE_PLUGIN(CMS_2018_I1643640);
 
 }

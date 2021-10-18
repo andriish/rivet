@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ARGUS_1997_I440304);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ARGUS_1997_I440304);
 
 
     /// @name Analysis methods
@@ -90,6 +90,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ARGUS_1997_I440304);
+  RIVET_DECLARE_PLUGIN(ARGUS_1997_I440304);
 
 }

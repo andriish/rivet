@@ -12,7 +12,7 @@ namespace Rivet {
     public:
 
       /// Constructor
-      DEFAULT_RIVET_ANALYSIS_CTOR(MC_HFDECAYS);
+      RIVET_DEFAULT_ANALYSIS_CTOR(MC_HFDECAYS);
 
       const string whoDis(const int pid) const {
         switch (pid) {
@@ -330,5 +330,5 @@ namespace Rivet {
 
   };
 
-  DECLARE_RIVET_PLUGIN(MC_HFDECAYS);
+  RIVET_DECLARE_PLUGIN(MC_HFDECAYS);
 }

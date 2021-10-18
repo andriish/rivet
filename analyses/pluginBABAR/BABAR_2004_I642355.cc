@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2004_I642355);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2004_I642355);
 
 
     /// @name Analysis methods
@@ -106,6 +106,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(BABAR_2004_I642355);
+  RIVET_DECLARE_PLUGIN(BABAR_2004_I642355);
 
 }

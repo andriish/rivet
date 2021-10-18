@@ -12,7 +12,7 @@ namespace Rivet {
   class CLEO_2004_S5809304 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEO_2004_S5809304);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEO_2004_S5809304);
 
     void init() {
       declare(Beam(), "Beams");
@@ -156,6 +156,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(CLEO_2004_S5809304, CLEO_2004_I645209);
+  RIVET_DECLARE_ALIASED_PLUGIN(CLEO_2004_S5809304, CLEO_2004_I645209);
 
 }

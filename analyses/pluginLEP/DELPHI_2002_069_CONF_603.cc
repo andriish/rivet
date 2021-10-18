@@ -122,6 +122,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(DELPHI_2002_069_CONF_603);
+  RIVET_DECLARE_PLUGIN(DELPHI_2002_069_CONF_603);
 
 }

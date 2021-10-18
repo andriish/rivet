@@ -10,7 +10,7 @@ namespace Rivet {
   class ALEPH_1999_S4193598 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(ALEPH_1999_S4193598);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALEPH_1999_S4193598);
 
 
     /// Book histograms and initialise projections before the run
@@ -62,6 +62,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(ALEPH_1999_S4193598, ALEPH_1999_I507422);
+  RIVET_DECLARE_ALIASED_PLUGIN(ALEPH_1999_S4193598, ALEPH_1999_I507422);
 
 }

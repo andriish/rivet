@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(DASP_1978_I129715);
+    RIVET_DEFAULT_ANALYSIS_CTOR(DASP_1978_I129715);
 
 
     /// @name Analysis methods
@@ -96,7 +96,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(DASP_1978_I129715);
+  RIVET_DECLARE_PLUGIN(DASP_1978_I129715);
 
 
 }

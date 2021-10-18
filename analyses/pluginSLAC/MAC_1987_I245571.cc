@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(MAC_1987_I245571);
+    RIVET_DEFAULT_ANALYSIS_CTOR(MAC_1987_I245571);
 
 
     /// @name Analysis methods
@@ -159,6 +159,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(MAC_1987_I245571);
+  RIVET_DECLARE_PLUGIN(MAC_1987_I245571);
 
 }

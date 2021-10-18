@@ -10,7 +10,7 @@ class MC_Cent_pPb_Eta : public Analysis {
 
 public:
 
-  DEFAULT_RIVET_ANALYSIS_CTOR(MC_Cent_pPb_Eta);
+  RIVET_DEFAULT_ANALYSIS_CTOR(MC_Cent_pPb_Eta);
 
   /// Book histograms and initialise projections before the run
   void init() {
@@ -73,6 +73,6 @@ private:
 
 
 // The hook for the plugin system
-DECLARE_RIVET_PLUGIN(MC_Cent_pPb_Eta);
+RIVET_DECLARE_PLUGIN(MC_Cent_pPb_Eta);
 
 }

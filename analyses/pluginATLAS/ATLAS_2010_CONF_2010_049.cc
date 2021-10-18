@@ -120,6 +120,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2010_CONF_2010_049);
+  RIVET_DECLARE_PLUGIN(ATLAS_2010_CONF_2010_049);
 
 }

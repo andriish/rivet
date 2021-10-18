@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(MC_DIS_Check);
+    RIVET_DEFAULT_ANALYSIS_CTOR(MC_DIS_Check);
 
 
     /// @name Analysis methods
@@ -75,7 +75,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_DIS_Check);
+  RIVET_DECLARE_PLUGIN(MC_DIS_Check);
 
 
 }

@@ -57,6 +57,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TOTEM_2012_I1115294);
+  RIVET_DECLARE_PLUGIN(TOTEM_2012_I1115294);
 
 }

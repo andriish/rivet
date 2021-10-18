@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(UA5_1987_S1640666);
+    RIVET_DEFAULT_ANALYSIS_CTOR(UA5_1987_S1640666);
 
 
     /// Book histograms and initialise projections before the run
@@ -64,6 +64,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(UA5_1987_S1640666, UA5_1987_I244829);
+  RIVET_DECLARE_ALIASED_PLUGIN(UA5_1987_S1640666, UA5_1987_I244829);
 
 }

@@ -13,7 +13,7 @@ class ATLAS_2016_I1487726 : public Analysis {
 
     /// Constructor
     /// @brief Collinear W emissions at 8 TeV
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2016_I1487726);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2016_I1487726);
 
     public:
 
@@ -98,6 +98,6 @@ class ATLAS_2016_I1487726 : public Analysis {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2016_I1487726);
+  RIVET_DECLARE_PLUGIN(ATLAS_2016_I1487726);
 }
 

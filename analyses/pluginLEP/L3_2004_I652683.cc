@@ -20,7 +20,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(L3_2004_I652683);
+    RIVET_DEFAULT_ANALYSIS_CTOR(L3_2004_I652683);
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -513,6 +513,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(L3_2004_I652683);
+  RIVET_DECLARE_PLUGIN(L3_2004_I652683);
 
 }

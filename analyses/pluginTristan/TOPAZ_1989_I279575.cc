@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TOPAZ_1989_I279575);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TOPAZ_1989_I279575);
 
 
     /// @name Analysis methods
@@ -104,7 +104,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TOPAZ_1989_I279575);
+  RIVET_DECLARE_PLUGIN(TOPAZ_1989_I279575);
 
 
 }

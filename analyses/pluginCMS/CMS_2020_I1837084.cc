@@ -15,7 +15,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2020_I1837084);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2020_I1837084);
 
 
     /// @name Analysis methods
@@ -84,6 +84,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(CMS_2020_I1837084);
+  RIVET_DECLARE_PLUGIN(CMS_2020_I1837084);
 
 }

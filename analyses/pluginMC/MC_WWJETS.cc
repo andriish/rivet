@@ -124,6 +124,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_WWJETS);
+  RIVET_DECLARE_PLUGIN(MC_WWJETS);
 
 }

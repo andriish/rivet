@@ -297,7 +297,7 @@ namespace Rivet {
     typedef H1_2007_I746380_PROJECTIONS::BoostedXSystem BoostedXSystem;
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(H1_2007_I746380);
+    RIVET_DEFAULT_ANALYSIS_CTOR(H1_2007_I746380);
 
     /// @name Analysis methods
     //@{
@@ -539,6 +539,6 @@ namespace Rivet {
     int nPHO, nDIS;
   };
 
-  DECLARE_RIVET_PLUGIN(H1_2007_I746380);
+  RIVET_DECLARE_PLUGIN(H1_2007_I746380);
 
 }

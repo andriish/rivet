@@ -16,7 +16,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(DELPHI_1996_I401100);
+    RIVET_DEFAULT_ANALYSIS_CTOR(DELPHI_1996_I401100);
 
 
     /// @name Analysis methods
@@ -114,7 +114,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(DELPHI_1996_I401100);
+  RIVET_DECLARE_PLUGIN(DELPHI_1996_I401100);
 
 
 }

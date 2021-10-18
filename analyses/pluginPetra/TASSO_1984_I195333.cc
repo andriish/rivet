@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TASSO_1984_I195333);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TASSO_1984_I195333);
 
 
     /// @name Analysis methods
@@ -255,6 +255,6 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TASSO_1984_I195333);
+  RIVET_DECLARE_PLUGIN(TASSO_1984_I195333);
 
 }

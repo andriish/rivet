@@ -11,7 +11,7 @@ namespace Rivet {
   class CMS_2016_I1421646 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2016_I1421646);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2016_I1421646);
 
 
     /// Book projections and histograms
@@ -57,6 +57,6 @@ namespace Rivet {
 
 
   // A hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2016_I1421646);
+  RIVET_DECLARE_PLUGIN(CMS_2016_I1421646);
 
 }

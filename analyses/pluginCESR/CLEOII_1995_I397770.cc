@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEOII_1995_I397770);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEOII_1995_I397770);
 
 
     /// @name Analysis methods
@@ -78,6 +78,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(CLEOII_1995_I397770);
+  RIVET_DECLARE_PLUGIN(CLEOII_1995_I397770);
 
 }

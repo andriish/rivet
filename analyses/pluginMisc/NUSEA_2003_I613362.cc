@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(NUSEA_2003_I613362);
+    RIVET_DEFAULT_ANALYSIS_CTOR(NUSEA_2003_I613362);
 
 
     /// @name Analysis methods
@@ -127,6 +127,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(NUSEA_2003_I613362);
+  RIVET_DECLARE_PLUGIN(NUSEA_2003_I613362);
 
 }

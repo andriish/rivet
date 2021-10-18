@@ -27,7 +27,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(EXAMPLE_MINIMIZE);
+    RIVET_DEFAULT_ANALYSIS_CTOR(EXAMPLE_MINIMIZE);
 
 
     /// @name Analysis methods
@@ -68,6 +68,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(EXAMPLE_MINIMIZE);
+  RIVET_DECLARE_PLUGIN(EXAMPLE_MINIMIZE);
 
 }
