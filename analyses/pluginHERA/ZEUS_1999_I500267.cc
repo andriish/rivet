@@ -10,7 +10,7 @@ namespace Rivet {
 class ZEUS_1999_I500267 : public Analysis {
 public:
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ZEUS_1999_I500267);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ZEUS_1999_I500267);
 
     /// @name Analysis methods
     ///@{
@@ -60,7 +60,7 @@ public:
 };
 
 // The hook for the plugin system
-DECLARE_RIVET_PLUGIN(ZEUS_1999_I500267);
+RIVET_DECLARE_PLUGIN(ZEUS_1999_I500267);
 
 
 }

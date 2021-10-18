@@ -14,7 +14,7 @@ class ZEUS_2008_I810112 : public Analysis {
 public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ZEUS_2008_I810112);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ZEUS_2008_I810112);
 
     /// @name Analysis methods
     ///@{
@@ -156,7 +156,7 @@ public:
 
 };
 /// The hook for the plugin system
-DECLARE_RIVET_PLUGIN(ZEUS_2008_I810112);
+RIVET_DECLARE_PLUGIN(ZEUS_2008_I810112);
 
 
 }
