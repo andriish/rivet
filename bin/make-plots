@@ -3242,8 +3242,15 @@ def try_cmd(args):
         return False
 
 def have_cmd(cmd):
-    if shutil.which(cmd) is not None:
-        return True
+    try:
+        x = shutil.which(cmd)
+        return x is not None
+    except AttributeError as ae:
+        try:
+            subprocess.check_output(["which", cmd], stderr=subprocess.STDOUT)
+            return True
+        except subprocess.CalledProcessError as cpe:
+            return False
     return False
 
 def has_new_opacity_policy():
@@ -3340,7 +3347,7 @@ def process_datfile(datfile, **kwargs):
             #     p2.wait()
             # else:
             #     raise Exception("Required PNG maker programs (convert, or ps2pnm and pnm2png) not found")
-        
+
         # convert pdf to svg
         def mksvgcmd(infile, outfile):
             if pdftocairoavailable:
