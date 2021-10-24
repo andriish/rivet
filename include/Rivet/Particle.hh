@@ -19,7 +19,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors
-    //@{
+    /// @{
 
     /// Default constructor.
     /// @note A particle without info is useless. This only exists to keep STL containers happy.
@@ -59,10 +59,10 @@ namespace Rivet {
       : Particle(HepMCUtils::getParticlePtr(gp))
     {   }
 
-    //@}
+    /// @}
 
     /// @name Kinematic properties
-    //@{
+    /// @{
 
     /// The momentum.
     const FourMomentum& momentum() const {
@@ -88,7 +88,7 @@ namespace Rivet {
 
 
     /// @name Positional properties
-    //@{
+    /// @{
 
     /// The origin position (and time).
     const FourVector& origin() const {
@@ -105,10 +105,10 @@ namespace Rivet {
       return *this;
     }
 
-    //@}
+    /// @}
 
     /// @name Displacement-projection properties
-    //@{
+    /// @{
 
     /// Find the point of closest approach to the primary vertex
     Vector3 closestApproach() const {
@@ -122,11 +122,11 @@ namespace Rivet {
       return Vector3(x0, y0, z0);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Other representations and implicit casts to momentum-like objects
-    //@{
+    /// @{
 
     /// Converter to FastJet3 PseudoJet
     virtual fastjet::PseudoJet pseudojet() const {
@@ -152,22 +152,22 @@ namespace Rivet {
     /// @note Not implicit since that would enable accidental Particle::operator== comparisons
     explicit operator ConstGenParticlePtr () const { return genParticle(); }
 
-    //@}
+    /// @}
 
 
     /// @name Particle ID code accessors
-    //@{
+    /// @{
 
     /// This Particle's PDG ID code.
     PdgId pid() const { return _id; }
     /// Absolute value of the PDG ID code.
     PdgId abspid() const { return std::abs(_id); }
 
-    //@}
+    /// @}
 
 
     /// @name Charge
-    //@{
+    /// @{
 
     /// The charge of this Particle.
     double charge() const { return PID::charge(pid()); }
@@ -184,11 +184,11 @@ namespace Rivet {
     /// Is this Particle charged?
     bool isCharged() const { return charge3() != 0; }
 
-    //@}
+    /// @}
 
 
     /// @name Particle species
-    //@{
+    /// @{
 
     /// Is this a hadron?
     bool isHadron() const { return PID::isHadron(pid()); }
@@ -223,11 +223,11 @@ namespace Rivet {
     /// Is this a parton? (Hopefully not very often... fiducial FTW)
     bool isParton() const { return PID::isParton(pid()); }
 
-    //@}
+    /// @}
 
 
     /// @name Constituents (for composite particles)
-    //@{
+    /// @{
 
     /// Set direct constituents of this particle
     virtual void setConstituents(const Particles& cs, bool setmom=false);
@@ -314,11 +314,11 @@ namespace Rivet {
       return sortBy(rawConstituents(selector), sorter);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Ancestry (for fundamental particles with a HepMC link)
-    //@{
+    /// @{
 
     /// Get a list of the direct parents of the current particle (with optional selection Cut)
     ///
@@ -519,11 +519,11 @@ namespace Rivet {
       return isDirect(allow_from_prompt_tau, allow_from_prompt_mu);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Decay info
-    //@{
+    /// @{
 
     /// Whether this particle is stable according to the generator
     bool isStable() const;
@@ -651,14 +651,16 @@ namespace Rivet {
     bool hasStableDescendantWithout(const Cut& c) const;
 
 
-    /// Flight length (divide by mm or cm to get the appropriate units)
+    /// Flight length of the particle from origin to decay
+    ///
+    /// @note Divide by mm or cm as usual to get the appropriate units.
     double flightLength() const;
 
-    //@}
+    /// @}
 
 
     /// @name Duplicate testing
-    //@{
+    /// @{
 
     /// @brief Determine whether a particle is the first in a decay chain to meet the function requirement
     inline bool isFirstWith(const ParticleSelector& f) const {
@@ -684,11 +686,11 @@ namespace Rivet {
       return isLastWith([&](const Particle& p){ return !f(p); });
     }
 
-    //@}
+    /// @}
 
 
     /// @name Comparison
-    //@{
+    /// @{
 
     /// Compare particles, based on "external" characteristics, with a little angular tolerance
     ///
@@ -700,7 +702,7 @@ namespace Rivet {
       return true;
     }
 
-    //@}
+    /// @}
 
 
   protected:
@@ -728,7 +730,7 @@ namespace Rivet {
 
 
   /// @name String representation and streaming support
-  //@{
+  /// @{
 
   /// Allow a Particle to be passed to an ostream.
   std::ostream& operator << (std::ostream& os, const Particle& p);
@@ -736,7 +738,7 @@ namespace Rivet {
   /// Allow ParticlePair to be passed to an ostream.
   std::ostream& operator << (std::ostream& os, const ParticlePair& pp);
 
-  //@}
+  /// @}
 
 }
 
