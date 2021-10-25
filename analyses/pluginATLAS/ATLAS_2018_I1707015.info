@@ -22,6 +22,7 @@ RunInfo:
 NeedCrossSection: no
 Beams: [p+, p+]
 Energies: [13000]
+Luminosity_fb: 36.1
 Options:
  - LMODE=SINGLE,DILEPTON,ALL
 Description:

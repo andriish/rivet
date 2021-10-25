@@ -16,6 +16,7 @@ RunInfo:
    Inclusive hard QCD at 13 TeV center-of-mass energy, and ptHat (or equivalent) greater than 90 GeV
 NumEvents: 200k
 Beams: [p+, p+]
+Luminosity_fb: 0.071
 Energies: [13000]
 PtCuts: Jet pT higher than 114 GeV
 Description:
