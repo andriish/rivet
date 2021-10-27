@@ -19,6 +19,7 @@ RunInfo:
   $pp$ QCD interactions at $\sqrt{s} = 13$ TeV. Data collected by CMS during the year 2015.
 Beams: [p+, p+]
 Energies: [13000]
+Luminosity_fb: 2.3
 PtCuts: [200]
 NeedCrossSection: yes
 Description:

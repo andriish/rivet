@@ -25,6 +25,7 @@ NeedCrossSection: True
 Beams: [p+, p+]
 Energies: [13000]
 PtCuts: [25.]
+Luminosity_fb: 3.2
 Description:
   'Measurements of differential cross-sections of top-quark pair production in fiducial phase-spaces are presented as a function of
   top-quark and $t\bar{t}$ system kinematic observables in proton-proton collisions at a centre-of-mass energy of $\sqrt{s} = 13$ TeV.

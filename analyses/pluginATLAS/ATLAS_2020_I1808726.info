@@ -18,6 +18,7 @@ RunInfo:
   Jet production at 13000 GeV. 
 Beams: [p+, p+]
 Energies: [13000]
+Luminosity_fb: 139.0
 PtCuts: [100.0]
 Description:
    'A measurement of event-shape variables in proton−proton collisions at large momentum transfer 

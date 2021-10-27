@@ -18,6 +18,7 @@ RunInfo:
 NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [13000]
+Luminosity_fb: 2.19
 Options:
  - LMODE=EL,MU,EMU
 Description:
