@@ -53,7 +53,6 @@ int main() {
   P4 vzplus(1,0,0,1);
   P4 vzminus(1,0,0,-1);
   P4 v45(1.0001,0,1/sqrt(2),1/sqrt(2));
-  cout << "Vnull eta, rap = " << vnull.eta() << ", " << vnull.rap() << endl;
   cout << "Vzplus eta, rap = " << vzplus.eta() << ", " << vzplus.rap() << endl;
   cout << "Vzminus eta, rap = " << vzminus.eta() << ", " << vzminus.rap() << endl;
   cout << "V45 eta, rap = " << v45.eta() << ", " << v45.rap() << endl;
@@ -66,6 +65,21 @@ int main() {
   assert(fuzzyEquals(v45.eta(), 0.881, 1e-2));
   assert(fuzzyEquals(v45.rap(), 0.881, 1e-2));
   cout << endl;
+
+  // Test numerically off-shell vectors
+  P4 vvirt(5.0,3,0,4.0+1e-10);
+  cout << "Vvirt m2, m, eta, rap = " << vvirt.mass2() << ", " << vvirt.mass() << ", " << vvirt.eta() << ", " << vvirt.rap() << endl;
+  assert(!std::isnan(vvirt.mass()));
+  assert(!std::isinf(vvirt.mass()));
+  assert(!std::isnan(vvirt.rap()));
+  assert(!std::isinf(vvirt.eta()));
+  assert(!std::isnan(vvirt.rap()));
+  assert(!std::isinf(vvirt.eta()));
+  assert(!std::isnan(vvirt.rap()));
+  P4 vvirt2(5.0,3,0,4.5);
+  cout << "Vvirt2 m2, m, eta, rap = " << vvirt2.mass2() << ", " << vvirt2.mass() << ", " << vvirt2.eta() << ", " << vvirt2.rap() << endl;
+  cout << endl;
+
 
   cout << "Matrices:" << endl;
   Matrix3 m;
