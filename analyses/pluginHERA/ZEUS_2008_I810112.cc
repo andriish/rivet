@@ -25,7 +25,7 @@ public:
         FinalState fs;
         const DISKinematics& diskin = DISKinematics();
         declare(diskin,"Kinematics");
-        declare(UnstableFinalState(), "UFS");
+        declare(UnstableParticles(), "UPS");
 
 
         book(_h_Dp_q2, 3, 1, 1);
@@ -80,7 +80,7 @@ public:
         int bin = _getbinQ2_OK(dk);
         if ( bin < 0 ) vetoEvent;
 
-        const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
+        const UnstableParticles& ufs = apply<UnstableParticles>(event, "UPS");
 
         /// Get \f$D^0$\f particles
         for (const Particle& p : filter_select(ufs.particles(), Cuts::abspid == PID::D0)) {

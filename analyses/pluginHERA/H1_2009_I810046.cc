@@ -2,7 +2,7 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/DISKinematics.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -22,7 +22,7 @@ public:
     void init() {
         const DISKinematics& diskin = DISKinematics();
         declare(diskin, "Kinematics");
-        declare(UnstableParticles(), "UFS");
+        declare(UnstableParticles(), "UPS");
 
         book(_h_K0S_q2, 4, 1, 1);
         book(_h_K0S_x, 5, 1, 1);
@@ -47,7 +47,7 @@ public:
 
         if (!inRange(q2/GeV2, 2.0, 100.0)) vetoEvent;
         if (!inRange(y, 0.1, 0.6)) vetoEvent;
-        const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
+        const UnstableParticles& ufs = apply<UnstableParticles>(event, "UPS");
 
         for (const Particle& p: filter_select(ufs.particles(), Cuts::abspid == abs(PID::K0S))) {
             if (!inRange(p.pt()/GeV, 0.5, 3.5)) continue;
