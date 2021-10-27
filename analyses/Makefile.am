@@ -56,10 +56,11 @@ install-data-local: $(PLUGIN_DATAFILES)
 	$(mkdir_p) $(DESTDIR)$(pkgdatadir)
 	for pdir in $(srcdir)/plugin*; do $(FCP) $${pdir}/*.{info,plot,yoda*} $(DESTDIR)$(pkgdatadir)/; done
 
+# TODO: remove entire pkglibdir and pkgdatadir?
 uninstall-local:
 	cd $(DESTDIR)$(libdir) && rm -f $(PLUGIN_LIBS)
 	@echo "Uninstalling analysis data files..."
-	rm -f $(DESTDIR)$(pkgdatadir)/Rivet*.so
+	rm -f $(DESTDIR)$(pkglibdir)/Rivet*.so
 	rm -f $(DESTDIR)$(pkgdatadir)/*.info
 	rm -f $(DESTDIR)$(pkgdatadir)/*.plot
 	rm -f $(DESTDIR)$(pkgdatadir)/*.yoda*
