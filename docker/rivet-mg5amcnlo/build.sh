@@ -3,10 +3,11 @@
 set -e
 
 RIVET_VERSION=3.1.4
-MG5_VERSION=2.7.3   #< also edit in Dockerfile, for now
+MG5_VERSION=3.1.0
+MG5_URL=https://launchpad.net/mg5amcnlo/3.0/3.1.x/+download/MG5_aMC_v3.1.0.tar.gz
 
 BUILD="docker build ."
-BUILD="$BUILD --build-arg RIVET_VERSION=${RIVET_VERSION}"
+BUILD="$BUILD --build-arg RIVET_VERSION=${RIVET_VERSION} --build-arg MG5_URL=${MG5_URL}"
 test "$TEST" && BUILD="echo $BUILD"
 
 tag="hepstore/rivet-mg5amcnlo:${RIVET_VERSION}-${MG5_VERSION}"

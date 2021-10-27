@@ -4,7 +4,9 @@ LABEL maintainer="rivet-developers@cern.ch"
 
 WORKDIR /work
 
-RUN wget --no-verbose https://launchpad.net/mg5amcnlo/3.0/3.1.x/+download/MG5_aMC_v3.1.0.tar.gz -O- | tar xz
+ARG MG5_URL
+RUN wget --no-verbose $MG5_URL -O- | tar xz
+#RUN wget --no-verbose https://launchpad.net/mg5amcnlo/3.0/3.1.x/+download/MG5_aMC_v3.1.0.tar.gz -O- | tar xz
 #RUN wget --no-verbose https://launchpad.net/mg5amcnlo/2.0/2.8.x/+download/MG5_aMC_v2.8.1.tar.gz -O- | tar xz
 #RUN wget --no-verbose https://launchpad.net/mg5amcnlo/2.0/2.7.x/+download/MG5_aMC_v2.7.3.tar.gz -O- | tar xz
 

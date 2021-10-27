@@ -75,7 +75,7 @@ RUN true \
     && echo "LD_LIBRARY_PATH=\"\$LD_LIBRARY_PATH:/usr/local/lib\"" >> /etc/profile.d/05-usrlocal.sh \
     && echo "PYTHONPATH=\"\$PYTHONPATH:$(ls /usr/local/lib*/python*/*-packages/ -d | head -1)\"" >> /etc/profile.d/05-usrlocal.sh
 
-ARG LHAPDF_VERSION=6.4.0
+ARG LHAPDF_VERSION
 RUN true \
     && mkdir /code && cd /code \
     && wget --no-verbose https://lhapdf.hepforge.org/downloads/?f=LHAPDF-${LHAPDF_VERSION}.tar.gz -O- | tar xz \
@@ -83,7 +83,7 @@ RUN true \
     && make -j $(nproc --ignore=1) && make install \
     && rm -r /code
 
-ARG LATEX=0
+ARG LATEX
 RUN if test "$LATEX" = "1"; then \
       dnf install -y \
         texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow \

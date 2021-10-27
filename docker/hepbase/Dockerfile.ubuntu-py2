@@ -82,7 +82,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && echo "LD_LIBRARY_PATH=\"\$LD_LIBRARY_PATH:/usr/local/lib\"" >> /etc/profile.d/05-usrlocal.sh \
     && echo "PYTHONPATH=\"\$PYTHONPATH:$(ls /usr/local/lib*/python*/*-packages/ -d | head -1)\"" >> /etc/profile.d/05-usrlocal.sh
 
-ARG LHAPDF_VERSION=6.4.0
+ARG LHAPDF_VERSION
 RUN export DEBIAN_FRONTEND=noninteractive \
     && mkdir /code && cd /code \
     && wget --no-verbose https://lhapdf.hepforge.org/downloads/?f=LHAPDF-${LHAPDF_VERSION}.tar.gz -O- | tar xz \
@@ -90,7 +90,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && make -j $(nproc --ignore=1) && make install \
     && rm -r /code
 
-ARG LATEX=0
+ARG LATEX
 RUN export DEBIAN_FRONTEND=noninteractive \
     && if test "$LATEX" = "1"; then \
       apt-get update -y && \

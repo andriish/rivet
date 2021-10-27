@@ -5,12 +5,19 @@ set -e
 BUILD="docker build" # --squash"
 test "$TEST" && BUILD="echo $BUILD"
 
+RIVETBS_VERSION=3.1.4
+LHAPDF_VERSION=6.4.0
+
 for vhepmc in 3.2.4  2.06.11; do
     for tex in 0 1; do
 
         MSG="Building hepbase image with HepMC=$vhepmc and TeX=$tex"
 
-        BASEARGS="--build-arg RIVETBS_VERSION=3.1.4 --build-arg HEPMC_VERSION=$vhepmc --build-arg LATEX=$tex"
+        BASEARGS="--build-arg RIVETBS_VERSION=$RIVETBS_VERSION"
+        BASEARGS="$BASEARGS --build-arg HEPMC_VERSION=$vhepmc"
+        BASEARGS="$BASEARGS --build-arg LHAPDF_VERSION=$LHAPDF_VERSION"
+        BASEARGS="$BASEARGS --build-arg LATEX=$tex"
+
         GCCARGS="$BASEARGS --build-arg BUILD_TOOLS=GCC"
         CLANGARGS="$BASEARGS --build-arg BUILD_TOOLS=LLVM"
         INTELARGS="$BASEARGS --build-arg BUILD_TOOLS=Intel"
