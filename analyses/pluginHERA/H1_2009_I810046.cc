@@ -36,6 +36,7 @@ namespace Rivet {
 
     }
 
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       /// DIS kinematics
@@ -59,9 +60,9 @@ namespace Rivet {
       }
 
       for (const Particle& p: filter_select(ufs.particles(), Cuts::abspid == abs(PID::LAMBDA))) {
-        if (!Inrange(p.pt()/GeV, 0.5, 3.5)) continue;
+        if (!inRange(p.pt()/GeV, 0.5, 3.5)) continue;
         if (!inRange(p.eta(), -1.3, 1.3)) continue;
-        _H_LAMBDA_q2->fill(q2/GeV2);
+        _h_LAMBDA_q2->fill(q2/GeV2);
         _h_LAMBDA_x->fill(x);
         _h_LAMBDA_pt->fill(p.pt()/GeV);
         _h_LAMBDA_eta->fill(p.eta()*orientation);
