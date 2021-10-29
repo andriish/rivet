@@ -9,6 +9,10 @@
 	can't SFINAE-protect them). These were breaking the build on Intel
 	compilers -- thanks to Chris Chang for the report.
 
+2021-08-30  Christian Gutschow  <chris.g@cern.ch>
+
+	* submission of ATLAS_2019_I1768911 (Z pT and phi* and at 13 TeV)
+
 2021-08-13  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Provide more options to specify the Cython command to be
