@@ -14,22 +14,22 @@
 
 namespace Rivet {
 
-  /// @brief energy asymmetry in ttj @ 13 TeV
+
+  /// @brief Energy asymmetry in ttj at 13 TeV
   class ATLAS_2021_I1941095 : public Analysis {
   public:
 
     /// Constructor
     RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2021_I1941095);
 
+
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
 
-      // --------------------------------------------------
       // Declare projections
-      // --------------------------------------------------
 
       // Photons
       PromptFinalState promptphotons(Cuts::abspid == PID::PHOTON, false);
@@ -56,42 +56,38 @@ namespace Rivet {
       declare(jets,"jets");
 
       // AntiKt10TruthTrimmedPtFrac5SmallR20Jets
-      FinalState fs(Cuts::abseta < 5.0); 
+      FinalState fs(Cuts::abseta < 5.0);
       FastJets fjets(fs, FastJets::ANTIKT, 1.0, JetAlg::Muons::NONE, JetAlg::Invisibles::NONE);
       _trimmer = fastjet::Filter(fastjet::JetDefinition(fastjet::kt_algorithm, 0.2), fastjet::SelectorPtFractionMin(0.05));
       declare(fjets,"fjets");
 
-      // MissingMomentum
+      // Missing momentum
       declare(MissingMomentum(), "MissingMomentum");
 
       // Parton level top quarks after FSR
       // options are: decaymode, emu_from_prompt_tau, include_hadronic_taus
-      declare(PartonicTops(PartonicTops::DecayMode::E_MU, true, false), "PartonicTops_EMU");  
+      declare(PartonicTops(PartonicTops::DecayMode::E_MU, true, false), "PartonicTops_EMU");
       declare(PartonicTops(PartonicTops::DecayMode::E_MU, false, false), "PartonicTops_EMU_notau");
       declare(PartonicTops(PartonicTops::DecayMode::HADRONIC, false, true), "PartonicTops_HADRONIC");
       declare(PartonicTops(PartonicTops::DecayMode::HADRONIC, false, false), "PartonicTops_HADRONIC_notau");
 
-      // --------------------------------------------------
       // Book histograms
-      // --------------------------------------------------
-
-      //std::vector< double > binedges_thetaj = { 0.0, 5.0/20.0*pi, 12.0/20.0*pi, pi};
       const Scatter2D& ref_asymm = refData(1, 1, 1);
       book(_h["pos"], "_thetaj_opt_depos", ref_asymm);
       book(_h["neg"], "_thetaj_opt_deneg", ref_asymm);
       book(_asymm, 1, 1, 1, true);
 
-    } // end function init
+    }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      
+
       // Parton-level top quarks // after FSR
       const Particles partonicTops_EMU = apply<ParticleFinder>(event, "PartonicTops_EMU").particlesByPt();
-      const Particles partonicTops_EMU_notau = apply<ParticleFinder>(event, "PartonicTops_EMU_notau").particlesByPt();      
+      const Particles partonicTops_EMU_notau = apply<ParticleFinder>(event, "PartonicTops_EMU_notau").particlesByPt();
       const Particles partonicTops_HADRONIC = apply<ParticleFinder>(event, "PartonicTops_HADRONIC").particlesByPt();
-      const Particles partonicTops_HADRONIC_notau = apply<ParticleFinder>(event, "PartonicTops_HADRONIC_notau").particlesByPt();      
+      const Particles partonicTops_HADRONIC_notau = apply<ParticleFinder>(event, "PartonicTops_HADRONIC_notau").particlesByPt();
 
       // Filter semi-leptonic (e,mu,tau) events: Veto dileptonic/nonleptonic events and events with 2 taus
       int nLeptons = partonicTops_EMU.size() + partonicTops_HADRONIC.size() - partonicTops_HADRONIC_notau.size();
@@ -130,48 +126,48 @@ namespace Rivet {
       DressedLepton lepton = (n_el_27 == 1)? electrons[0] : muons[0];
       FourMomentum l = lepton.mom();
       int lep_charge = lepton.charge();
-      
+
       // Neutrino nu
       FourMomentum nu = getNeutrino(l, met);
 
       // Hadronic top candidate jh
-      int jh_idx = -1; 
+      int jh_idx = -1;
       for (size_t ijet = 0; ijet < ljets.size(); ++ijet) {
         Jet ljet = Jet(ljets[ijet]);
         if (ljet.pT() < 350*GeV)     continue;
         if (ljet.abseta() > 2.0)     continue;
-        if (ljet.mass() < 140*GeV)   continue; 
+        if (ljet.mass() < 140*GeV)   continue;
         if (deltaPhi(ljet,l) < 1.0)  continue;
         bool btagged = false;
         for (const Jet& jet : jets) {
           if ( jet.bTagged(Cuts::pT > 5*GeV) ) {
             if ( deltaR(ljet, jet) < 1.0 ) {
-              btagged = true; 
+              btagged = true;
               break;
             }
           }
         }
-        if (btagged) { 
+        if (btagged) {
           jh_idx = ijet;
           break;
         }
       }
       if ( jh_idx == -1 ) vetoEvent;
       FourMomentum jh = Jet(ljets[jh_idx]).mom();
-      
+
       // Leptonic top b-jet candidate jl
       int jl_idx = -1;
       for (size_t ijet = 0; ijet < jets.size(); ++ijet) {
         if ( !jets[ijet].bTagged(Cuts::pT > 5*GeV) ) continue;
-        if ( deltaR(jets[ijet],  l) > 2.0 ) continue; 
-        if ( deltaR(jets[ijet], jh) < 1.5 ) continue; 
+        if ( deltaR(jets[ijet],  l) > 2.0 ) continue;
+        if ( deltaR(jets[ijet], jh) < 1.5 ) continue;
         jl_idx = ijet;
         break;
       }
       if ( jl_idx == -1) {
         for (size_t ijet = 0; ijet < jets.size(); ++ijet) {
-          if ( deltaR(jets[ijet],  l) > 2.0 ) continue; 
-          if ( deltaR(jets[ijet], jh) < 1.5 ) continue; 
+          if ( deltaR(jets[ijet],  l) > 2.0 ) continue;
+          if ( deltaR(jets[ijet], jh) < 1.5 ) continue;
           jl_idx = ijet;
           break;
         }
@@ -187,10 +183,10 @@ namespace Rivet {
       }
       if ( jets[jl_idx].bTagged(Cuts::pT > 5*GeV) )  ++n_btagged_matched;
       if ( n_btagged >= 2 && n_btagged_matched < 2 )  vetoEvent;
-      
+
       // Associated jet candidate ja
       int ja_idx = -1;
-      for (size_t ijet = 0; ijet < jets.size(); ++ijet) {
+      for (int ijet = 0; ijet < int(jets.size()); ++ijet) {
         if ( ijet == jl_idx ) continue;
         if ( jets[ijet].pT() < 100*GeV ) continue;
         if ( deltaR(jets[ijet], jh) < 1.5 ) continue;
@@ -217,14 +213,15 @@ namespace Rivet {
       FourMomentum tbar_boosted = lt_boost.transform( tbar );
       FourMomentum ja_boosted = lt_boost.transform( ja );
 
-      // Get observables 
+      // Get observables
       const double deltaE = top_boosted.E() - tbar_boosted.E();
       const double thetaj_opt = ttj.rapidity() > 0 ? ja_boosted.theta() : pi - ja_boosted.theta();
 
       // Fill auxiliary histograms
-      _h[deltaE> 0? "pos" : "neg"]->fill(thetaj_opt);
+      _h[deltaE > 0 ? "pos" : "neg"]->fill(thetaj_opt);
 
-    } // end function analyze
+    }
+
 
     /// Normalise histograms etc., after the run
     void finalize() {
@@ -234,17 +231,20 @@ namespace Rivet {
       // Calculate differential energy asymmetry
       asymm(_h["pos"], _h["neg"], _asymm);
 
-    } // end function finalize()
+    }
 
-    //@}
+    /// @}
+
 
   private:
 
     fastjet::Filter _trimmer;
+
     // Histograms
     map<string, Histo1DPtr> _h;
     Scatter2DPtr _asymm;
-    
+
+
     static double delta2_fcn(const MendelMin::Params& p, const MendelMin::Params& pfix) {
       double delta2 = 0;
       double alpha = p[0]*6.30-3.15; // Map p[0] in [0,1] to alpha in [-3.15,3.15]
@@ -261,7 +261,8 @@ namespace Rivet {
       neut_new.setE(neut_new.p());
       delta2 = pow((neut_new.px() - neut.px()), 2) + pow((neut_new.py() - neut.py()), 2);
       return delta2;
-    } // end delta2_fcn
+    }
+
 
     FourMomentum getNeutrino(const FourMomentum& lepton, const FourMomentum& met) {
       const double m_mWpdg = 80.4*GeV;
@@ -269,7 +270,7 @@ namespace Rivet {
       double pyNu = met.py();
       double ptNu = met.pt();
       double pzNu;
-      
+
       double c1 = pow(m_mWpdg,2) - pow(lepton.mass(),2) + 2 * (lepton.px() * pxNu + lepton.py() * pyNu);
       double b1 = 2 * lepton.pz();
       double A = 4*pow(lepton.E(),2) - b1*b1;
@@ -281,10 +282,10 @@ namespace Rivet {
       if (discr > 0){
         sol1 = (-B + sqrt(discr)) / (2*A);
         sol2 = (-B - sqrt(discr)) / (2*A);
-      } 
+      }
       else {
         // fitAlpha
-        std::valarray<double> pfix  = { (m_mWpdg * m_mWpdg - lepton.mass() * lepton.mass()) / (2 * ptNu), met.phi() - lepton.phi(), 
+        std::valarray<double> pfix  = { (m_mWpdg * m_mWpdg - lepton.mass() * lepton.mass()) / (2 * ptNu), met.phi() - lepton.phi(),
                                         lepton.pt(), lepton.mass(), pxNu, pyNu };
         MendelMin mm(delta2_fcn, 1, pfix);
         mm.evolve(100);
@@ -315,9 +316,11 @@ namespace Rivet {
       FourMomentum nu( sqrt(sqr(pxNu) + sqr(pyNu) + sqr(pzNu)), pxNu, pyNu, pzNu);
 
       return nu;
-    } // end function computeneutrinoz_Rotation
-    
+    }
+
   };
 
+
   RIVET_DECLARE_PLUGIN(ATLAS_2021_I1941095);
+
 }
