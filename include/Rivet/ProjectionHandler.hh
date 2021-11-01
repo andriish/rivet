@@ -81,10 +81,12 @@ namespace Rivet {
     ~ProjectionHandler() = default;
 
     /// The assignment operator is hidden.
-    ProjectionHandler& operator = (const ProjectionHandler&) = delete;
+    //Not for thread-safety
+    //ProjectionHandler& operator = (const ProjectionHandler&) = delete;
 
     /// The copy constructor is hidden.
-    ProjectionHandler(const ProjectionHandler&) = delete;
+    //Not for thread safety
+    //ProjectionHandler(const ProjectionHandler&) = delete;
 
     /// The standard constructor.
     ProjectionHandler() = default;

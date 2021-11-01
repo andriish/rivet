@@ -10,7 +10,8 @@ namespace Rivet {
   // NB. Allow proj registration in constructor by default -- explicitly disable for Analysis
   ProjectionApplier::ProjectionApplier()
     : _allowProjReg(true), _owned(false),
-      _projhandler(ProjectionHandler::getInstance())
+    _projhandler(nullptr)
+      //_projhandler(ProjectionHandler::getInstance())
   {  }
 
 
@@ -45,5 +46,20 @@ namespace Rivet {
     return reg;
   }
 
-
+  void ProjectionApplier::setProjectionHandler(ProjectionHandler& projectionHandler) {
+    /// Problem with reference reassignment: see comment below on _projhandler member declaration
+    //_projhandler = projHandler;
+    _projhandler = &projectionHandler;
+    /// @todo AB: Move this into a _syncDeclQueue function to be called both by setProjectionHandler() and declare() - [AK] Why we need to call below from declare?
+    while (!_declQueue.empty()) {
+      /// @todo AB: only use auto when the type is genuinely awkward to express: here it's just - done
+      pair<Projection*, string> obj = _declQueue.front();
+      /// @todo AB: should the order be switched, to set the PH on the Proj
+      /// *about* to be declared first? That way the setting will cascade up
+      /// from deepest level to top-level, as currently. Maybe safer that way?
+      const Projection& ret = declareProjection(*(obj.first), obj.second);
+      const_cast<Projection&>(ret).setProjectionHandler(projectionHandler);
+      _declQueue.pop();
+    }
+  }
 }

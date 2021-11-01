@@ -2,6 +2,8 @@
 #ifndef RIVET_ProjectionApplier_HH
 #define RIVET_ProjectionApplier_HH
 
+#include <queue>
+
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Projection.fhh"
 #include "Rivet/ProjectionHandler.hh"
@@ -139,7 +141,7 @@ namespace Rivet {
 
     /// Get a reference to the ProjectionHandler for this thread.
     ProjectionHandler& getProjHandler() const {
-      return _projhandler;
+      return *_projhandler;
     }
 
 
@@ -167,11 +169,25 @@ namespace Rivet {
     /// @brief Register a contained projection (user-facing version)
     /// @todo Add SFINAE to require that PROJ inherit from Projection
     template <typename PROJ>
-    const PROJ& declare(const PROJ& proj, const std::string& name) { return declareProjection(proj, name); }
+    const PROJ& declare(const PROJ& proj, const std::string& name) {
+      if(_projhandler){
+          return declareProjection(proj, name);
+        }      
+        std::unique_ptr<Projection> projClone = proj.clone();
+      _declQueue.push(make_pair(projClone.get(), name));
+      return proj;
+   }
     /// @brief Register a contained projection (user-facing, arg-reordered version)
     /// @todo Add SFINAE to require that PROJ inherit from Projection
     template <typename PROJ>
-    const PROJ& declare(const std::string& name, const PROJ& proj) { return declareProjection(proj, name); }
+    const PROJ& declare(const std::string& name, const PROJ& proj) {
+      if(_projhandler){
+        return declareProjection(proj, name);
+      }
+      std::unique_ptr<Projection> projClone = proj.clone();
+      _declQueue.push(make_pair(projClone.get(), name));
+      return proj;
+    }
 
 
     /// Untemplated function to do the work...
@@ -189,6 +205,10 @@ namespace Rivet {
     const Projection& _applyProjection(const Event& evt, const Projection& proj) const;
 
 
+    /// @todo AB: Add Doxygen comment, follow surrounding coding style
+    /// @todo AB: Changes to this header force a rebuild of everything: put the implementation in the .cc file
+    void setProjectionHandler(ProjectionHandler& projectionHandler);
+  
     /// Flag to forbid projection registration in analyses until the init phase
     bool _allowProjReg;
 
@@ -199,7 +219,13 @@ namespace Rivet {
     mutable bool _owned;
 
     /// Pointer to projection handler.
-    ProjectionHandler& _projhandler;
+    /// @todo AB: I don't think this can work: what's the null value on construction?   
+    //ProjectionHandler& _projhandler;
+    ProjectionHandler* _projhandler;
+    //std::shared_ptr<ProjectionHandler&> _projhandler;
+    /// @todo AB: You can't store references... how does this work????
+    /// @todo AB: What's the string for? - declare receives reference to a Projection and name, so we need to store both as long as we delays the declareProjection
+    std::queue<pair<Projection*, string>> _declQueue;
 
   };
 
