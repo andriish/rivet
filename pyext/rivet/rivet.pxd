@@ -65,11 +65,14 @@ cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
         string spiresId()
         string runInfo()
         string status()
+        string warning()
         string summary()
         string year()
         double luminosity()
         double luminosityfb()
         string refFile()
+        string refMatch()
+        string refUnmatch()
 
 
 # Might need to translate the following errors, although I believe 'what' is now
