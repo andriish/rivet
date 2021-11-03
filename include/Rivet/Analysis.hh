@@ -228,6 +228,11 @@ namespace Rivet {
       return (info().status().empty()) ? "UNVALIDATED" : info().status();
     }
 
+    /// A warning message from the info file, if there is one
+    virtual std::string warning() const {
+      return info().warning();
+    }
+
     /// Any work to be done on this analysis.
     virtual std::vector<std::string> todos() const {
       return info().todos();
@@ -247,6 +252,16 @@ namespace Rivet {
     /// Location of reference data YODA file
     virtual std::string refFile() const {
       return info().refFile();
+    }
+
+    /// Positive filtering regex for ref-data HepData sync
+    virtual std::string refMatch() const {
+      return info().refMatch();
+    }
+
+    /// Negative filtering regex for ref-data HepData sync
+    virtual std::string refUnmatch() const {
+      return info().refUnmatch();
     }
 
 

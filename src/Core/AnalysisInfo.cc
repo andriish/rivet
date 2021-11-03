@@ -65,6 +65,9 @@ namespace Rivet {
     TRY_GETINFO("InspireID", inspireId);
     TRY_GETINFO("BibKey", bibKey);
     TRY_GETINFO("BibTeX", bibTeX);
+    TRY_GETINFO_DEFAULT("Warning", warning, "");
+    TRY_GETINFO_DEFAULT("RefMatch", refmatch, "");
+    TRY_GETINFO_DEFAULT("RefUnmatch", refunmatch, "");
     TRY_GETINFO_DBL_DEFAULT("Luminosity_fb", luminosityfb, -1);
     #undef TRY_GETINFO
     #undef TRY_GETINFO_DEFAULT

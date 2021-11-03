@@ -201,6 +201,9 @@ cdef class Analysis:
     def status(self):
         return deref(self._ptr).status().decode('utf-8')
 
+    def warning(self):
+        return deref(self._ptr).warning().decode('utf-8')
+
     def summary(self):
         return deref(self._ptr).summary().decode('utf-8')
 
@@ -213,9 +216,15 @@ cdef class Analysis:
     def luminosityfb(self):
         return deref(self._ptr).luminosityfb()
 
+    def refMatch(self):
+        return deref(self._ptr).refMatch().decode('utf-8')
+
+    def refUnmatch(self):
+        return deref(self._ptr).refUnmatch().decode('utf-8')
+
     def refFile(self):
         #return findAnalysisRefFile(self.name() + ".yoda")
-        return deref(self._ptr).refFile()
+        return deref(self._ptr).refFile().decode('utf-8')
 
     def refData(self, asdict=True, patterns=None, unpatterns=None):
         """Get this analysis' reference data, cf. yoda.read()
@@ -254,7 +263,10 @@ cdef class AnalysisLoader:
 
     @staticmethod
     def getAnalysis(name):
-        name = name.encode('utf-8')
+        try:
+          name = name.encode('utf-8')
+        except AttributeError:
+          pass
         cdef c.unique_ptr[c.Analysis] ptr = c.AnalysisLoader_getAnalysis(name)
         cdef Analysis pyobj = Analysis.__new__(Analysis)
         if not ptr:
