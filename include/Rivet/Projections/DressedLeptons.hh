@@ -45,14 +45,19 @@ namespace Rivet {
 
   /// @brief Cluster photons from a given FS to all charged particles (typically leptons)
   ///
-  /// This stores the original (bare) charged particles and photons as
-  /// particles() while the newly created clustered lepton objects are
-  /// accessible as dressedLeptons(). The clustering is done by a delta(R) cone
-  /// around each bare lepton or by jet clustering. In both modes, double
-  /// counting is avoided: for the dR clustering, a photon is only added to the
-  /// _closest_ bare lepton if it happens to be within the capture radius of
-  /// more than one; for the jet clustering, only the bare lepton with the
-  /// highest pT is retained if more than one is clustered into a jet.
+  /// The clustering is done by a delta(R) cone around each bare lepton or by
+  /// jet clustering. In both modes, double counting is avoided: for the dR
+  /// clustering, a photon is only added to the _closest_ bare lepton if it
+  /// happens to be within the capture radius of more than one; for the jet
+  /// clustering, only the bare lepton with the highest pT is retained if more
+  /// than one is clustered into a jet.
+  ///
+  /// @note The particles() and dressedLeptons() methods both return the
+  /// composite clustered-lepton objects, just with a few extra helper methods
+  /// on the special DressedLepton type returned by the latter. The constituent
+  /// bare leptons and photons are returned by rawParticles() (inherited from
+  /// ParticleFinder)
+  ///
   class DressedLeptons : public FinalState {
   public:
 
@@ -113,6 +118,7 @@ namespace Rivet {
 
 
     /// @brief Retrieve the dressed leptons
+    ///
     /// @note Like particles() but with helper functions
     vector<DressedLepton> dressedLeptons() const {
       vector<DressedLepton> rtn;
@@ -122,6 +128,7 @@ namespace Rivet {
     }
 
     /// @brief Retrieve the dressed leptons ordered by supplied sorting functor
+    ///
     /// @note Like particles() but with helper functions
     vector<DressedLepton> dressedLeptons(const ParticleSorter& sorter) const {
       vector<DressedLepton> rtn;
