@@ -344,7 +344,7 @@ if __name__ == '__main__':
                           dest="PATHUNPATTERNS")
     selgroup.add_argument("--no-weights", help="prevent multiweights from being plotted", dest="NO_WEIGHTS",
                           action="store_true", default=False)
-                         
+
 
     args = parser.parse_args()
 

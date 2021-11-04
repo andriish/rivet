@@ -93,85 +93,85 @@ namespace Rivet {
       _h_npart_KaPiplus = vector<Profile1DPtr>(energies.size());
       _h_npart_PPiplus = vector<Profile1DPtr>(energies.size());
 
-      for (size_t j = 0, N = energies.size(); j < N; ++j) {
-        for (size_t i = 0, M = centralities.size(); i < M; ++i) {
-          // Book [energy][centrality] histograms.
-          book(_h_dpT_Piplus[j][i], 12 + j, 1, 1 + i);
-          book(_h_dpT_Pi[j][i], 12 + j, 2, 1 + i);
-          book(_h_dpT_Kaonplus[j][i], 12 + j, 3, 1 + i);
-          book(_h_dpT_Kaon[j][i], 12 + j, 4, 1 + i);
-          book(_h_dpT_Proton[j][i], 12 + j, 5, 1 + i);
-          book(_h_dpT_AntiProton[j][i], 12 + j, 6, 1 + i);
-          // Book ditto sum of weights.
-          book(_wght_PiPlus[j][i], coStr(12 + j, 1, 1 + i));
-          book(_wght_Pi[j][i], coStr(12 + j, 2, 1 + i));
-          book(_wght_KaonPlus[j][i], coStr(12 + j, 3, 1 + i));
-          book(_wght_Kaon[j][i], coStr(12 + j, 4, 1 + i));
-          book(_wght_Proton[j][i], coStr(12 + j, 5, 1 + i));
-          book(_wght_AntiProton[j][i], coStr(12 + j, 6, 1 + i));
+      for (int j = 0, N = energies.size(); j < N; ++j) {		
+        for (int i = 0, M = centralities.size(); i < M; ++i) {
+          /// Book [energy][centrality] histograms.
+          book(_h_dpT_Pi[j][i], 2+j*6, 1, i+1);
+          book(_h_dpT_Piplus[j][i], 3+j*6, 1, i+1);
+          book(_h_dpT_Kaon[j][i], 4+j*6, 1, i+1);
+          book(_h_dpT_Kaonplus[j][i], 5+j*6, 1, i+1);
+          book(_h_dpT_AntiProton[j][i], 6+j*6, 1, i+1);
+          book(_h_dpT_Proton[j][i], 7+j*6, 1, i+1);
+          /// ...and the weights
+          book(_wght_Pi[j][i], coStr(2+j*6, 1, i+1));
+          book(_wght_PiPlus[j][i], coStr(3+j*6, 1, i+1));
+          book(_wght_Kaon[j][i], coStr(4+j*6, 1, i+1));
+          book(_wght_KaonPlus[j][i], coStr(5+j*6, 1, i+1));
+          book(_wght_AntiProton[j][i], coStr(6+j*6, 1, i+1));
+          book(_wght_Proton[j][i], coStr(7+j*6, 1, i+1));
         }
       }
-
+		
       /// Booking npart histograms
-      for (size_t i = 0, N = energies.size(); i < N; ++i) {
-        book(_h_npart_PiPlus[i],17, 1, i+1);
-        book(_h_npart_PiMinus[i],17, 2, i+1);
-        book(_h_npart_KaPlus[i],17, 3, i+1);
-        book(_h_npart_KaMinus[i],17, 4, i+1);
-        book(_h_npart_Proton[i],17, 5, i+1);
-        book(_h_npart_AntiProton[i],17, 6, i+1);
-        // ...and the weights.
-        book(_wght_npart_PiPlus[i],coStr(17, 1, i+1));
-        book(_wght_npart_PiMinus[i],coStr(17, 2, i+1));
-        book(_wght_npart_KaonPlus[i],coStr(17, 3, i+1));
-        book(_wght_npart_KaonMinus[i],coStr(17, 4, i+1));
-        book(_wght_npart_Proton[i],coStr(17, 5, i+1));
-        book(_wght_npart_AntiProton[i],coStr(17, 6, i+1));
-        // ... and the profiles.
-        book(_h_npart_pT_PiPlus[i], 18, 1, i+1);
-        book(_h_npart_pT_PiMinus[i], 18, 2, i+1);
-        book(_h_npart_pT_KaPlus[i], 18, 3, i+1);
-        book(_h_npart_pT_KaMinus[i], 18, 4, i+1);
-        book(_h_npart_pT_Proton[i], 18, 5, i+1);
-        book(_h_npart_pT_AntiProton[i], 18, 6, i+1);
+      for (int i = 0, N = energies.size(); i < N; ++i) {
+        book(_h_npart_PiMinus[i], 32+i, 1, 1);
+        book(_h_npart_PiPlus[i], 32+i, 1, 2);
+        book(_h_npart_KaMinus[i], 32+i, 1, 3);
+        book(_h_npart_KaPlus[i], 32+i, 1, 4);
+        book(_h_npart_AntiProton[i], 32+i, 1, 5);
+        book(_h_npart_Proton[i], 32+i, 1, 6);
+        /// ...and the weights.
+        book(_wght_npart_PiMinus[i],coStr(32+i, 1, 1));
+        book(_wght_npart_PiPlus[i],coStr(32+i, 1, 2));
+        book(_wght_npart_KaonMinus[i],coStr(32+i, 1, 3));
+        book(_wght_npart_KaonPlus[i],coStr(32+i, 1, 4));
+        book(_wght_npart_AntiProton[i],coStr(32+i, 1, 5));
+        book(_wght_npart_Proton[i],coStr(32+i, 1, 6));
+        /// ... and the profiles.
+        book(_h_npart_pT_PiMinus[i], 37+i, 1, 1);
+        book(_h_npart_pT_PiPlus[i], 37+i, 1, 2);
+        book(_h_npart_pT_KaMinus[i], 37+i, 1, 3);
+        book(_h_npart_pT_KaPlus[i], 37+i, 1, 4);
+        book(_h_npart_pT_AntiProton[i], 37+i, 1, 5);
+        book(_h_npart_pT_Proton[i], 37+i, 1, 6);
 
-        book(_h_npart_Piratio[i], 19, 1, i+1);
-        book(_h_npart_Karatio[i], 19, 2, i+1);
-        book(_h_npart_Pratio[i], 19, 3, i+1);
-        book(_h_npart_KaPi[i], 20, 1, i+1);
-        book(_h_npart_AntiPPi[i], 20, 2, i+1);
-        book(_h_npart_KaPiplus[i], 20, 3, i+1);
-        book(_h_npart_PPiplus[i], 20, 4, i+1);
+        book(_h_npart_Piratio[i], 42+i, 1, 1);
+        book(_h_npart_Karatio[i], 42+i, 1, 2);
+        book(_h_npart_Pratio[i], 42+i, 1, 3);
+        book(_h_npart_KaPi[i], 47+i, 1, 1);
+        book(_h_npart_AntiPPi[i], 47+i, 1, 2);
+        book(_h_npart_KaPiplus[i], 47+i, 1, 3);
+        book(_h_npart_PPiplus[i], 47+i, 1, 4);
+
       }
 
-      book(_h_snn_npart_PiPlus, 21, 1, 1);
-      book(_h_snn_npart_PiMinus, 21, 1, 2);
-      book(_h_snn_npart_KaPlus, 21, 2, 1);
-      book(_h_snn_npart_KaMinus, 21, 2, 2);
-      book(_h_snn_npart_Proton, 21, 3, 1);
-      book(_h_snn_npart_AntiProton, 21, 3, 2);
+      book(_h_snn_npart_PiMinus, 52, 1, 1);
+      book(_h_snn_npart_PiPlus, 52, 1, 2);
+      book(_h_snn_npart_KaMinus, 52, 1, 3);
+      book(_h_snn_npart_KaPlus, 52, 1, 4);
+      book(_h_snn_npart_AntiProton, 52, 1, 5);
+      book(_h_snn_npart_Proton, 52, 1, 6);
 
-      book(_h_snn_mt_PiPlus, 22, 1, 1);
-      book(_h_snn_mt_PiMinus, 22, 1, 2);
-      book(_h_snn_mt_KaPlus, 22, 2, 1);
-      book(_h_snn_mt_KaMinus, 22, 2, 2);
-      book(_h_snn_mt_Proton, 22, 3, 1);
-      book(_h_snn_mt_AntiProton, 22, 3, 2);
+      book(_h_snn_mt_PiPlus, 53, 1, 1);
+      book(_h_snn_mt_PiMinus, 53, 1, 2);
+      book(_h_snn_mt_KaPlus, 53, 1, 3);
+      book(_h_snn_mt_KaMinus, 53, 1, 4);
+      book(_h_snn_mt_Proton, 53, 1, 5);
+      book(_h_snn_mt_AntiProton, 53, 1, 6);
 
-      book(_h_snn_Piratio, 23, 1, 1);
-      book(_h_snn_Karatio, 23, 2, 1);
-      book(_h_snn_Pratio, 23, 3, 1);
-      book(_h_snn_KaPiplus, 24, 1, 1);
-      book(_h_snn_KaPiminus, 24, 1, 2);
+      book(_h_snn_Piratio, 54, 1, 1);
+      book(_h_snn_Karatio, 54, 1, 2);
+      book(_h_snn_Pratio, 54, 1, 3);
+      book(_h_snn_KaPiplus, 55, 1, 1);
+      book(_h_snn_KaPiminus, 55, 1, 2);
 
       _h_yields = vector<Profile1DPtr>(2);
       _h_ratios = vector<Profile1DPtr>(2);
-      for (size_t i = 0; i < 2; ++i) {
-        book(_h_yields[i], 25, i + 1, 1);
-        book(_h_ratios[i], 25, i + 3, 1);
+      for (int i = 0; i < 2; ++i) {
+        book(_h_yields[i], 56, 1, 1+i);
+        book(_h_ratios[i], 57, 1, 1+i);
       }
     }
-
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
@@ -615,7 +615,7 @@ namespace Rivet {
     vector<double> centralities;
     int cenbin, enebin = 0, enebinfig = 0;
     double nprtcl, nPi[5], nPiPlus[5], nKaon[5], nKaonPlus[5], nProton[5],
-      nAntiProton[5];
+    nAntiProton[5];
     // The following vector contains the counters for all particles used in
     // Fig. 25. In the right order : pi+, pi-, K+, K-, p, Antip, Lambda,
     // AntiLambda, Xi, AntiXi

@@ -40,7 +40,6 @@ namespace Rivet {
       }
       return "";
     }
-
     /// Set the name of the analysis.
     void setName(const std::string& name) { _name = name; }
 
@@ -49,37 +48,30 @@ namespace Rivet {
       if (!_refDataName.empty())  return _refDataName;
       return name();
     }
-
     /// Set the reference data name of the analysis (if different from plugin name).
     void setRefDataName(const std::string& name) { _refDataName = name; }
 
     /// Get the Inspire (SPIRES replacement) ID code for this analysis.
     const std::string& inspireId() const { return _inspireId; }
-
     /// Set the Inspire (SPIRES replacement) ID code for this analysis.
     void setInspireId(const std::string& inspireId) { _inspireId = inspireId; }
-
 
     /// Get the SPIRES ID code for this analysis.
     ///
     /// @deprecated SPIRES itself is gone. Remove when all analyses migrated to I-names.
     const std::string& spiresId() const { return _spiresId; }
-
     /// Set the SPIRES ID code for this analysis.
     ///
     /// @deprecated SPIRES itself is gone. Remove when all analyses migrated to I-names.
     void setSpiresId(const std::string& spiresId) { _spiresId = spiresId; }
-
 
     /// @brief Names & emails of paper/analysis authors.
     ///
     /// Names and email of authors in 'NAME \<EMAIL\>' format. The first
     /// name in the list should be the primary contact person.
     const std::vector<std::string>& authors() const { return _authors; }
-
     /// Set the author list.
     void setAuthors(const std::vector<std::string>& authors) { _authors = authors; }
-
 
     /// @brief Get a short description of the analysis.
     ///
@@ -87,10 +79,8 @@ namespace Rivet {
     /// Use @a description() to provide full descriptive paragraphs
     /// of analysis details.
     const std::string& summary() const { return _summary; }
-
     /// Set the short description for this analysis.
     void setSummary(const std::string& summary) { _summary = summary; }
-
 
     /// @brief Get a full description of the analysis.
     ///
@@ -99,53 +89,41 @@ namespace Rivet {
     /// as a chunk of restructuredText (http://docutils.sourceforge.net/rst.html),
     /// with equations to be rendered as LaTeX with amsmath operators.
     const std::string& description() const { return _description; }
-
     /// Set the full description for this analysis.
     void setDescription(const std::string& description) { _description = description; }
 
-
     /// @brief Information about the events needed as input for this analysis.
+    ///
     /// Event types, energies, kinematic cuts, particles to be considered
     /// stable, etc. etc. Should be treated as a restructuredText bullet list
     /// (http://docutils.sourceforge.net/rst.html)
     const std::string& runInfo() const { return _runInfo; }
-
     /// Set the full description for this analysis.
     void setRunInfo(const std::string& runInfo) { _runInfo = runInfo; }
 
-
     /// Beam particle types
     const std::vector<PdgIdPair>& beams() const { return _beams; }
-
     /// Set beam particle types
     void setBeams(const std::vector<PdgIdPair>& beams) { _beams = beams; }
 
-
     /// Sets of valid beam energies
     const std::vector<std::pair<double,double> >& energies() const { return _energies; }
-
     /// Set the valid beam energies
     void setEnergies(const std::vector<std::pair<double, double> >& energies) { _energies = energies; }
 
-
     /// Experiment which performed and published this analysis.
     const std::string& experiment() const { return _experiment; }
-
     /// Set the experiment which performed and published this analysis.
     void setExperiment(const std::string& experiment) { _experiment = experiment; }
 
-
     /// Collider on which the experiment ran.
     const std::string& collider() const { return _collider; }
-
     /// Set the collider on which the experiment ran.
     void setCollider(const std::string& collider) { _collider = collider; }
 
-
     /// @brief When the original experimental analysis was published.
     ///
-    /// When the refereed paper on which this is based was published,
-    /// according to SPIRES.
+    /// When the refereed paper on which this is based was published, according to Inspire-HEP.
     const std::string& year() const { return _year; }
 
     /// Set the year in which the original experimental analysis was published.
@@ -161,30 +139,37 @@ namespace Rivet {
 
     /// Journal and preprint references.
     const std::vector<std::string>& references() const { return _references; }
-
     /// Set the journal and preprint reference list.
     void setReferences(const std::vector<std::string>& references) { _references = references; }
 
-    /// Analysis Keywords for grouping etc
+    /// Analysis keywords, for grouping etc.
     const std::vector<std::string>& keywords() const { return _keywords; }
+    void setKeywords(const std::vector<std::string>& keywords) { _keywords = keywords; }
+
+    /// Any warning message
+    const std::string& warning() const { return _warning; }
+    void setWarning(const std::string warning) { _warning = warning; }
+
+    /// Positive filtering regex for ref-data HepData sync
+    const std::string& refMatch() const { return _refmatch; }
+    void setRefMatch(const std::string refmatch) { _refmatch = refmatch; }
+
+    /// Negative filtering regex for ref-data HepData sync
+    const std::string& refUnmatch() const { return _refunmatch; }
+    void setRefUnmatch(const std::string refunmatch) { _refunmatch = refunmatch; }
 
     /// BibTeX citation key for this article.
-    const std::string& bibKey() const { return _bibKey;}
-
+    const std::string& bibKey() const { return _bibKey; }
     /// Set the BibTeX citation key for this article.
     void setBibKey(const std::string& bibKey) { _bibKey = bibKey; }
 
-
     /// BibTeX citation entry for this article.
     const std::string& bibTeX() const { return _bibTeX; }
-
     /// Set the BibTeX citation entry for this article.
     void setBibTeX(const std::string& bibTeX) { _bibTeX = bibTeX; }
 
-
     /// Any work to be done on this analysis.
     const std::vector<std::string>& todos() const { return _todos; }
-
     /// Set the to-do list.
     void setTodos(const std::vector<std::string>& todos) { _todos = todos; }
 
@@ -217,15 +202,13 @@ namespace Rivet {
 
     /// Whether this analysis is trusted (in any way!)
     const std::string& status() const { return _status; }
-
     /// Set the analysis code status.
     void setStatus(const std::string& status) { _status = status; }
 
     /// Return true if finalize() can be run multiple times for this analysis.
     bool reentrant() const { return _reentrant; }
-
-    /// setReentrant
-    void setReentrant(bool ree = true) { _reentrant = ree; }
+    /// Set re-entrant status
+    void setReentrant(bool ree=true) { _reentrant = ree; }
 
     /// Return true if validated
     bool validated() const {
@@ -252,8 +235,7 @@ namespace Rivet {
       return statuscheck("RANDOM");
     }
 
-    /// Return true if the analysis uses generator-dependent
-    /// information.
+    /// Return true if the analysis uses generator-dependent information.
     bool unphysical() const {
       return statuscheck("UNPHYSICAL");
     }
@@ -263,13 +245,13 @@ namespace Rivet {
       return !statuscheck("NOHEPDATA");
     }
 
-    /// Check if This analysis can handle mulltiple weights.
+    /// Check if this analysis can handle multiple weights.
     bool multiweight() const {
       return !statuscheck("SINGLEWEIGHT");
     }
 
-    /// ?
-    bool statuscheck(string word) const {
+    /// Helper function for checking status-string contents
+    bool statuscheck(const string& word) const {
       auto pos =_status.find(word);
       if ( pos == string::npos ) return false;
       if ( pos > 0 && isalnum(_status[pos - 1]) ) return false;
@@ -290,12 +272,14 @@ namespace Rivet {
     }
 
     /// Return true if this analysis needs to know the process cross-section.
+    ///
     /// @deprecated Cross-section should now always be available from the HepMC
     bool needsCrossSection() const { return _needsCrossSection; }
 
 
-
   private:
+
+    // std::map<string,string> _yamldict;
 
     std::string _name;
     std::string _refDataName;
@@ -316,6 +300,9 @@ namespace Rivet {
     std::string _bibTeX;
     //std::string _bibTeXBody; ///< Was thinking of avoiding duplication of BibKey...
     std::string _status;
+    std::string _warning;
+    std::string _refmatch;
+    std::string _refunmatch;
     std::vector<std::string> _todos;
     bool _needsCrossSection;
 
@@ -327,6 +314,7 @@ namespace Rivet {
     bool _reentrant;
 
     void clear() {
+      //_yamldict.clear();
       _name = "";
       _refDataName = "";
       _spiresId = "";
@@ -347,6 +335,9 @@ namespace Rivet {
       _bibTeX = "";
       //_bibTeXBody = "";
       _status = "";
+      _warning = "";
+      _refmatch = "";
+      _refunmatch = "";
       _todos.clear();
       _needsCrossSection = false;
       _options.clear();
