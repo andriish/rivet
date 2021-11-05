@@ -16,7 +16,7 @@ References:
  - Submitted to Eur. Phys. J. C.
 RunInfo:
  '$t\bar{t}$ events at $\sqrt{s}=8~\TeV$. Boosted topology requires high statistics in a single run or custom merging of the YODA files.'
-Luminosity: 19.7 /fb
+Luminosity_fb: 19.7
 Beams: [p+, p+]
 Energies: [8000]
 

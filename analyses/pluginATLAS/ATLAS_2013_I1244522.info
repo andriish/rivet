@@ -17,6 +17,7 @@ RunInfo:
 NumEvents: 1000000
 Beams: [p+, p+]
 Energies: [7000]
+Luminosity_fb: 0.037
 PtCuts: [45,40]
 NeedCrossSection: True
 Description:

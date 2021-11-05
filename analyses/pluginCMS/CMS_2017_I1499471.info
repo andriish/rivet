@@ -21,6 +21,7 @@ NumEvents: 20000000
 NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [8000]
+Luminosity_fb: 19.8
 Description:
 'Measurements of the associated production of a Z boson with at least
 one jet originating from a b quark in proton-proton collisions
