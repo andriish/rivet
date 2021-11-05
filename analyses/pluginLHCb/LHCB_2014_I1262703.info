@@ -19,6 +19,7 @@ NumEvents: 100000
 NeedCrossSection: no
 Beams: [p+, p+]
 Energies: [7000]
+Luminosity_fb: 1.0
 PtCuts: [20.]
 Description:
   'A study of forward $Z +$ jet production in $pp$ collisions at $\sqrt{s}=7$ TeV is presented.

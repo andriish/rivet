@@ -17,6 +17,7 @@ NumEvents: 1000000
 NeedCrossSection: no
 Beams: [p+, p+]
 Energies: [8000]
+Luminosity_fb: 19.7
 Description:
   'A measurement of the double-differential inclusive jet cross section as a function of the jet transverse momentum $\pt$ and the absolute jet rapidity $\abs{y}$ is presented.
 Data from LHC proton-proton collisions at $\sqrt{s}=8\TeV$, corresponding to an integrated luminosity of 19.7 fb^{-1}, have been collected with the CMS detector.

@@ -17,7 +17,7 @@ Keywords:
  - zboson
 RunInfo:
   p + p -> Z + X ( Z -> e e )
-Luminosity_fb: 4.9
+Luminosity_fb: 4.6
 Beams: [p+, p+]
 Energies: [7000]
 PtCuts: [20]

@@ -15,6 +15,7 @@ NumEvents: 1000000
 NeedCrossSection: yes
 Beams: [p, p]
 Energies: [7000]
+Luminosity_fb: 5.0
 PtCuts: [20]
 Description:
   'The single jet differential cross section has been measured as a function of
@@ -22,7 +23,7 @@ Description:
   dijet mass. The data has been recorded by the CMS detector at the center of
   mass energy of 7 TeV. To reconstruct the jets, the anti-$k_T$ algorithm with a
   cone radius of $R = 0.7$ (AK7) has been used. The results are split into five
-  rapditiy bins, ranging from 0.0 to 2.5 with a width of 0.5 each.'
+  rapidity bins, ranging from 0.0 to 2.5 with a width of 0.5 each.'
 BibKey: Chatrchyan:2012bja
 BibTeX: '@article{Chatrchyan:2012bja,
       author         = "Chatrchyan, Serguei and others",

@@ -15,6 +15,7 @@ RunInfo:
 NumEvents: 1000000
 Beams: [p+, p+]
 Energies: [7000]
+Luminosity_fb: 0.037
 Description:
   'A measurement of the production cross section for isolated photons in association with jets
   in $pp$ collisions at $\sqrt{s} = 7$ TeV.
