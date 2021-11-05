@@ -25,7 +25,7 @@ Description:
 Keywords: []
 ReleaseTests:
  - $A LHC-5020-pPb :beam=pPb
- - $A-2 LHC-5044-XeXe :beam=XeXe
+# - $A-2 LHC-5044-XeXe :beam=XeXe
  - $A-3 LHC-5020-PbPb :beam=PbPb
 BibKey: Acharya:2019vdf
 BibTeX: '@article{Acharya:2019vdf,

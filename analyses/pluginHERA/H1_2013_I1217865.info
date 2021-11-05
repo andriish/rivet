@@ -16,7 +16,7 @@ RunInfo: Inclusive DIS
 NeedCrossSection: yes
 Beams: [[e+, p+],[p+,e+],[e-, p+],[p+,e-]]
 Energies_GeV: [[27.5,920],[920,27.5],[27.5,920],[920,27.5]]
-Luminosity_pb: 88.6
+Luminosity_fb: 0.0886
 Description: Charged particle production in deep-inelastic ep scattering is measured with the H1 detector at HERA. The kinematic range of the analysis covers low photon virtualities, 5 < Q2 < 100 GeV2 and small values of Bjorken-x, 10**-2 < x < 10**-2. The analysis is performed in the hadronic centre-of-mass system. The charged particle densities are measured as a function of pseudorapidity eta* and transverse momentum pT* in the range 0 <eta* <5 and 0 < pT* < 10 GeV in bins of x and Q2. 
 # Keywords: []
 BibKey: Alexa:2013vkv

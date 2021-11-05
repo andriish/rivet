@@ -59,8 +59,8 @@ namespace Rivet {
    /// Perform the per-event analysis
    void analyze(const Event& event) {
      // Get objects
-     Particles electrons = apply<DressedLeptons>(event, "Electrons").particles();
-     Particles muons = apply<DressedLeptons>(event, "Muons").particles();
+     Particles electrons = apply<DressedLeptons>(event, "Electrons").particlesByPt();
+     Particles muons = apply<DressedLeptons>(event, "Muons").particlesByPt();
      const Particles& photons = apply<PromptFinalState>(event, "Photons").particlesByPt();
 
      if (photons.empty())  vetoEvent;
