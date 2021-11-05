@@ -1,9 +1,13 @@
 # BEGIN PLOT /ATLAS_2016_I1467230/*
-LogY=1
 FullRange=1
+LegendAlign=r
+# END PLOT
+
+
+# BEGIN PLOT /ATLAS_2016_I1467230/d01-*
+LogY=1
 XLabel=$n_\mathrm{ch}$
 YLabel=$1/N_\mathrm{ev} \, \mathrm{d} N_\mathrm{ev}/\mathrm{d}n_\mathrm{ch}$
-LegendAlign=r
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1467230/d01-x01-y01
@@ -62,7 +66,3 @@ Title=average particle $p_T$, track $p_\mathrm{T} > 100\,\mathrm{MeV}$, $|\eta| 
 # BEGIN PLOT /ATLAS_2016_I1467230/d04-x01-y02
 Title=average particle $p_T$, track $p_\mathrm{T} > 100\,\mathrm{MeV}$, $|\eta| < 2.5$, $\tau > 30$ ps
 # END PLOT
-
-
-
-
