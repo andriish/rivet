@@ -231,17 +231,19 @@ AC_ARG_WITH([fjcontrib],
 if test -n "$with_fjcontrib"; then
   AC_MSG_NOTICE([FastJet Contrib base path given: $with_fjcontrib])
   FJCONTRIBINCPATH=$with_fjcontrib/include
-if  [[  -f  "$with_fjcontrib/lib64/libfastjettools.so"  ]] || [[ -f  "$with_fjcontrib/lib64/libfastjettools.dyld"  ]]; then
-  FJCONTRIBLIBPATH=$with_fjcontrib/lib64
-else
   FJCONTRIBLIBPATH=$with_fjcontrib/lib
-fi
+  if [[ -f "$with_fjcontrib/lib64/libfastjettools.so" || -f "$with_fjcontrib/lib64/libfastjettools.dyld" ]]; then
+    FJCONTRIBLIBPATH=$with_fjcontrib/lib64
+  fi
   FJCONTRIBCPPFLAGS=-I$FJCONTRIBINCPATH
   AC_SUBST(FJCONTRIBINCPATH)
   AC_SUBST(FJCONTRIBLIBPATH)
   AC_SUBST(FJCONTRIBCPPFLAGS)
   FASTJETLIBADD="$FASTJETLIBADD -L$FJCONTRIBLIBPATH"
   FASTJETLDFLAGS="$FASTJETLDFLAGS -L$FJCONTRIBLIBPATH"
+else
+  FJCONTRIBINCPATH=$FASTJETINCPATH
+  FJCONTRIBLIBPATH=$FASTJETLIBPATH
 fi
 FASTJETLIBADD="$FASTJETLIBADD -lfastjetcontribfragile -lfastjettools"
 AC_SUBST(FASTJETLIBADD)
