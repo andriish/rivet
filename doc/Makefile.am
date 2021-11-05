@@ -120,9 +120,12 @@ install-data-local:
 	@true
 
 clean-local:
-	rm -rf coverage/rivet-coverage-*.html $(DOCS) $(DOCDIRS)
-	rm -rf $(builddir)/doxy
+	@rm -rf coverage/rivet-coverage-*.html $(DOCS) $(DOCDIRS)
+	@rm -rf $(builddir)/doxy
 
 uninstall-local:
-	@rm -rf $(DESTDIR)$(pkgdatadir)/doc; \
-	test ! -d $(DESTDIR)$(pkgdatadir) || rmdir $(DESTDIR)$(pkgdatadir) || true
+	@rm -rf $(DESTDIR)$(pkgdatadir)/doc
+	@rm -rf $(DESTDIR)$(pkgdatadir)/analyses
+	@rm -f $(DESTDIR)$(pkgdatadir)/analyses.*
+	@rm -rf $(DESTDIR)$(pkgdatadir)/refyodas
+	@test ! -d $(DESTDIR)$(pkgdatadir) || rmdir $(DESTDIR)$(pkgdatadir) || true
