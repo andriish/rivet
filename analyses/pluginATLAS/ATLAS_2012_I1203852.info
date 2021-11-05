@@ -16,6 +16,7 @@ RunInfo:
 NumEvents: 100k
 Beams: [p+, p+]
 Energies: [7000]
+Luminosity_fb: 4.6
 PtCuts: [20]
 Options:
  - LMODE=LL,LNU,BOTH

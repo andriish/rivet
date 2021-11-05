@@ -18,6 +18,7 @@ RunInfo:
 NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [7000]
+Luminosity_fb: 4.51
 PtCuts: [150,100,50]
 Description:
    Double-differential three-jet production cross-sections have been measured in proton-proton collisions at a centre-of-mass energy of

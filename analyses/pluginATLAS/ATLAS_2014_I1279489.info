@@ -17,6 +17,7 @@ NumEvents: 10000000
 NeedCrossSection: no
 Beams: [p+, p+]
 Energies: [8000]
+Luminosity_fb: 20.3
 PtCuts: [55, 45]
 Description:
   'Measurements differential distributions for inclusive $Z$-boson-plus-dijet production are performed

@@ -17,6 +17,7 @@ NeedCrossSection: True
 NumEvents: 10000000
 Beams: [p+, p+]
 Energies: [7000]
+Luminosity_fb: 4.5
 PtCuts: [100,50]
 Description:
   'Double-differential dijet cross sections measured in pp collisions

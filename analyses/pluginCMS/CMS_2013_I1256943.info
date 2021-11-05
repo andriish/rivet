@@ -24,6 +24,7 @@ NumEvents: 1000000
 NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [7000]
+Luminosity_fb: 5.2
 Description:
   'A study of proton-proton collisions in which two $b$-hadrons
   are produced in association with a $Z$ boson is reported. The

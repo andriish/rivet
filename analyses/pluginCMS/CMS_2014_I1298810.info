@@ -21,6 +21,7 @@ NumEvents: 500000
 NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [7000]
+Luminosity_fb: 5.0
 PtCuts: [56]
 Description:
   'Ratios of jet transverse momentum spectra. The jets objects are defined

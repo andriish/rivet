@@ -15,6 +15,7 @@ Collider: LHC
 InspireID: 1199269
 Beams: [p+, p+]
 Energies: [7000]
+Luminosity_fb: 4.9
 PtCuts: [25, 22]
 Description:
   'The ATLAS experiment at the LHC has measured the production cross
