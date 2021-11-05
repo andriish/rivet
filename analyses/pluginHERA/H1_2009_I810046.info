@@ -17,7 +17,7 @@ RunInfo:
 NumEvents: 1000000
 NeedCrossSection: yes
 Beams: [[p+, e-], [p+, e+]]
-Reenterant: true
+Reentrant: true
 Energies: [318]
 Description:
   The production of neutral strange hadrons is investigated using deep-inelastic 
@@ -48,6 +48,9 @@ BibTeX: '@article{Aaron:2008ck,
       SLACcitation   = "%%CITATION = ARXIV:0810.4036;%%"
 }'
 
-ReleaseTests:
- - $A DIS-e+-HighQ2
- - $A-2 DIS-e+-LowQ2
+# ToDo: generate some regression inputs 
+# at the correct beam energy, the ones
+# below don't work
+#ReleaseTests:
+# - $A DIS-e+-HighQ2
+# - $A-2 DIS-e+-LowQ2

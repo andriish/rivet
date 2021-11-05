@@ -6,7 +6,7 @@ Collider: HERA
 InspireID: 945935
 Status: VALIDATED
 Reenterant: true
-Luminosity_pb: 330
+Luminosity_fb: 0.330
 Authors:
  - Andrii Verbytskyi andrii.verbytskyi@mpp.mpg.de
 References:
