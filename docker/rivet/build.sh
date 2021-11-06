@@ -3,7 +3,7 @@
 set -e
 
 ## Last branch name -> latest
-for RIVET_BRANCH in release-3-1-x; do # rivet-3.1.4; do
+for RIVET_BRANCH in release-3-1-x rivet-3.1.5; do
     RIVET_VERSION=${RIVET_BRANCH#rivet-}
 
     BUILD="docker build . -f Dockerfile"
