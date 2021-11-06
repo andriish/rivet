@@ -8,7 +8,7 @@ test "$TEST" && BUILD="echo $BUILD"
 FEDORA_IMAGE=fedora:32
 UBUNTU_IMAGE=ubuntu:20.04
 
-RIVETBS_VERSION=3.1.4
+RIVETBS_VERSION=3.1.5
 LHAPDF_VERSION=6.4.0
 
 for vhepmc in 3.2.4  2.06.11; do
