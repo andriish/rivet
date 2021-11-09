@@ -261,7 +261,7 @@ namespace Rivet {
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
-#include "Rivet/Projections/PromptFinalState.hh"
+#include "Rivet/Projections/DirectFinalState.hh"
 
 namespace Rivet {
 
@@ -293,11 +293,11 @@ namespace Rivet {
       FastJets jetfs(fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::NONE, JetAlg::Invisibles::NONE);
       declare(jetfs, "jets");
 
-      // FinalState of prompt photons and bare muons and electrons in the event
-      PromptFinalState photons(Cuts::abspid == PID::PHOTON);
-      PromptFinalState bare_leps(Cuts::abspid == PID::MUON || Cuts::abspid == PID::ELECTRON);
+      // FinalState of direct photons and bare muons and electrons in the event
+      DirectFinalState photons(Cuts::abspid == PID::PHOTON);
+      DirectFinalState bare_leps(Cuts::abspid == PID::MUON || Cuts::abspid == PID::ELECTRON);
 
-      // Dress the prompt bare leptons with prompt photons within dR < 0.1,
+      // Dress the bare direct leptons with direct photons within dR < 0.1,
       // and apply some fiducial cuts on the dressed leptons
       Cut lepton_cuts = Cuts::abseta < 2.5 && Cuts::pT > 20*GeV;
       DressedLeptons dressed_leps(photons, bare_leps, 0.1, lepton_cuts);
