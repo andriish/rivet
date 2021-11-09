@@ -28,8 +28,8 @@ for RIVET_BRANCH in release-3-1-x rivet-3.1.5; do
 done
 
 ## Convenience tags
-docker tag hepstore/rivet:$RIVET_VERSION{-ubuntu-gcc-hepmc2-py3,}
 docker tag hepstore/rivet:$RIVET_VERSION{-ubuntu-gcc-hepmc3-py3,-hepmc3}
+docker tag hepstore/rivet:$RIVET_VERSION{-hepmc3,}
 if [[ "$LATEST" = 1 ]]; then
     docker tag hepstore/rivet:{$RIVET_VERSION,latest}
 fi
