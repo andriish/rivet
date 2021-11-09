@@ -111,7 +111,7 @@ namespace Rivet {
       const Particles& isopars = apply<VetoedFinalState>(event, "IsoParticles").particles();
       const Particles& dressedleptons = apply<DressedLeptons>(event, "MyLeptons").particles();
       for (const Particle& lep : dressedleptons) {
-        double isolation = sum(filter_select(isopars, deltaRLess(lep, 0.4)), pT, 0.);
+        double isolation = sum(filter_select(isopars, deltaRLess(lep, 0.4)), Kin::pT, 0.);
         isolation = isolation/lep.pt();
         if (isolation > 0.35) continue;
         if (lep.pt() > 30*GeV && lep.abseta() < 2.4) leptons += lep;
@@ -249,7 +249,7 @@ namespace Rivet {
         for (size_t nb = 0 ; nb < _b[tag].histo(hn)->numBins() ; ++nb) {
           const double bl = _b[tag].histo(njet+3)->bin(nb).xMin();
           const double bh = _b[tag].histo(njet+3)->bin(nb).xMax();
-          const double bc = 0.5*(bh+bl); 
+          const double bc = 0.5*(bh+bl);
           hgap->addPoint(bc, gf, bc-bl, bh-bc, 0., 0.);
           acc += _b[tag].histo(njet+3)->bin(nb).area();
           gf = acc/total;
