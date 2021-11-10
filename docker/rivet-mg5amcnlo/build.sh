@@ -2,9 +2,9 @@
 
 set -e
 
-RIVET_VERSION=3.1.4
-MG5_VERSION=3.1.0
-MG5_URL=https://launchpad.net/mg5amcnlo/3.0/3.1.x/+download/MG5_aMC_v3.1.0.tar.gz
+RIVET_VERSION=3.1.5
+MG5_VERSION=3.2.0
+MG5_URL=https://launchpad.net/mg5amcnlo/3.0/3.2.x/+download/MG5_aMC_v3.2.0.tar.gz
 
 BUILD="docker build ."
 BUILD="$BUILD --build-arg RIVET_VERSION=${RIVET_VERSION} --build-arg MG5_URL=${MG5_URL}"
