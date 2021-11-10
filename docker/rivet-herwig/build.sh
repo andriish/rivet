@@ -22,9 +22,9 @@ docker tag $tag3a $tag3b
 
 echo -e "\n\n"
 
-tag2="hepstore/rivet-herwig:${RIVET_VERSION}-${HERWIG_VERSION}-py2"
-echo "Building $tag2"
-$BUILD -f Dockerfile.ubuntu-py2 -t $tag2
+# tag2="hepstore/rivet-herwig:${RIVET_VERSION}-${HERWIG_VERSION}-py2"
+# echo "Building $tag2"
+# $BUILD -f Dockerfile.ubuntu-py2 -t $tag2
 
 docker tag $tag3b hepstore/rivet-herwig:$RIVET_VERSION
 if [[ "$LATEST" = 1 ]]; then
@@ -35,8 +35,8 @@ if [[ "$PUSH" = 1 ]]; then
     docker push $tag3a
     sleep 30s
     docker push $tag3b
-    sleep 1m
-    docker push $tag2
+    # sleep 1m
+    # docker push $tag2
     sleep 1m
     docker push hepstore/rivet-herwig:$RIVET_VERSION
     if [[ "$LATEST" = 1 ]]; then
