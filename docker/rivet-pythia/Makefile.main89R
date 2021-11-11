@@ -1,0 +1,11 @@
+
+# RIVET with optional ROOT (if RIVET, use C++14).
+main89R: $(PYTHIA) $$@.cc $(if $(filter true,$(ROOT_USE)),main89R.so)
+ifeq ($(RIVET_USE),true)
+	$(CXX) $@.cc -o $@ -w $(CXX_COMMON:c++11=c++14) -Wl,-rpath,./\
+	 $(if $(filter true,$(ROOT_USE)),main89R.so -DPY8ROOT\
+	  $(ROOT_LIB) `$(ROOT_CONFIG) --cflags --glibs`)\
+	`$(RIVET_BIN)$(RIVET_CONFIG) --cppflags --libs` $(RIVET_RPATH)
+else
+	$(error Error: $@ requires RIVET)
+endif
