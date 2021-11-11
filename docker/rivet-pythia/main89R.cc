@@ -22,8 +22,12 @@
 // output file. This example requires HepMC2 or HepMC3.
 
 #include "Pythia8/Pythia.h"
-#include "Pythia8Plugins/HepMC2.h"
 
+#ifndef HEPMC2
+#include "Pythia8Plugins/HepMC3.h"
+#else
+#include "Pythia8Plugins/HepMC2.h"
+#endif
 
 #include "Pythia8Plugins/Pythia8Rivet.h"
 #include "main93.h"
@@ -51,12 +55,12 @@ int main( int argc, char* argv[] ){
          << " Program stopped. " << endl;
     return 1;
   }
-  
+
   string out = "";
 
 
   Pythia pythia;
-  
+
   // UserHooks wrapper
   auto userHooksWrapper = make_shared<UserHooksWrapper>();
   userHooksWrapper->additionalSettings(&pythia.settings);
@@ -78,7 +82,7 @@ int main( int argc, char* argv[] ){
 
   // Deactivate AUX_ weight output
   pythia.readString("Weights:suppressAUX = on");
-  
+
   const bool hepmc = pythia.flag("Main:writeHepMC");
   const bool root = pythia.flag("Main:writeRoot");
   const bool runRivet = pythia.flag("Main:runRivet");
@@ -88,7 +92,7 @@ int main( int argc, char* argv[] ){
   const vector<string> rAnalyses = pythia.settings.wvec("Main:analyses");
   const vector<string> rPreload = pythia.settings.wvec("Main:preload");
   int nError = pythia.mode("Main:timesAllowErrors");
-  
+
   // Rivet initialization.
   Pythia8Rivet rivet(pythia,(out == "" ? "Rivet.yoda" : out + ".yoda"));
   for(int i = 0, N = rAnalyses.size(); i < N; ++i){
@@ -123,7 +127,7 @@ int main( int argc, char* argv[] ){
   for(int i = 0, N = rPreload.size(); i < N; ++i)
     rivet.addPreload(rPreload[i]);
   rivet.addRunName(rivetrName);
-  
+
   // Check if jet matching should be applied.
   bool doMatch   = pythia.settings.flag("JetMatching:merge");
 
