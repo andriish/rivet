@@ -20,6 +20,7 @@ NumEvents: 20000
 NeedCrossSection: no
 Beams: [p+, p+]
 Energies: [8000]
+Luminosity_fb: 18.4
 Options:
  - VMODE=BOTH,W,Z
 Description:
