@@ -3,6 +3,9 @@
 set -e
 
 BUILD="docker build" # --squash"
+
+test "$FORCE" && BUILD="$BUILD --force-rm"
+
 test "$TEST" && BUILD="echo $BUILD"
 
 FEDORA_IMAGE=fedora:32
