@@ -8,7 +8,7 @@ MG5_URL=https://launchpad.net/mg5amcnlo/3.0/3.2.x/+download/MG5_aMC_v3.2.0.tar.g
 
 BUILD="docker build ."
 
-test "$FORCE" && BUILD="$BUILD --force-rm"
+test "$FORCE" && BUILD="$BUILD --no-cache"
 
 BUILD="$BUILD --build-arg RIVET_VERSION=${RIVET_VERSION} --build-arg MG5_URL=${MG5_URL}"
 test "$TEST" && BUILD="echo $BUILD"

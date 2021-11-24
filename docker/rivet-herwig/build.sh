@@ -9,7 +9,7 @@ HERWIG_VERSION=7.2.2
 
 BUILD="docker build ."
 
-test "$FORCE" && BUILD="$BUILD --force-rm"
+test "$FORCE" && BUILD="$BUILD --no-cache"
 
 BUILD="$BUILD --build-arg RIVET_VERSION=${RIVET_VERSION}"
 BUILD="$BUILD --build-arg YODA_VERSION=${YODA_VERSION}"

@@ -4,7 +4,7 @@ set -e
 
 BUILD="docker build" # --squash"
 
-test "$FORCE" && BUILD="$BUILD --force-rm"
+test "$FORCE" && BUILD="$BUILD --no-cache"
 
 test "$TEST" && BUILD="echo $BUILD"
 
