@@ -1,8 +1,6 @@
 AUTOMAKE_OPTIONS = -Wno-portability
 SHELL := bash -O extglob
 
-if ENABLE_ANALYSES
-
 PLUGIN_DIRS = $(shell ls -d $(srcdir)/plugin*)
 PLUGIN_NAMES = $(notdir $(subst plugin,,$(PLUGIN_DIRS)))
 PLUGIN_LIBS = $(patsubst %,Rivet%Analyses.so,$(PLUGIN_NAMES))
@@ -42,6 +40,9 @@ RivetSLACAnalyses.so: $(filter-out $(srcdir)/pluginSLAC/tmp*.cc, $(wildcard $(sr
 RivetSPSAnalyses.so: $(filter-out $(srcdir)/pluginSPS/tmp*.cc, $(wildcard $(srcdir)/pluginSPS/*.cc))
 RivetTOTEMAnalyses.so: $(filter-out $(srcdir)/pluginTOTEM/tmp*.cc, $(wildcard $(srcdir)/pluginTOTEM/*.cc))
 RivetTristanAnalyses.so: $(filter-out $(srcdir)/pluginTristan/tmp*.cc, $(wildcard $(srcdir)/pluginTristan/*.cc))
+
+
+if ENABLE_ANALYSES
 
 all-local: $(PLUGIN_LIBS) $(PLUGIN_DATAFILES)
 	mkdir -p $(builddir)/data
