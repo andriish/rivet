@@ -1,17 +1,17 @@
 lines.linewidth: 0.8
 # font and font sizes
 font.family: serif
-font.serif: URW Palladio L
+font.serif: Palatino
 mathtext.fontset: custom
-mathtext.rm: PazoMath
-mathtext.bf: PazoMath:bold 
-mathtext.it: PazoMath:italic 
+mathtext.rm: Palatino
+mathtext.bf: Palatino:bold 
+mathtext.it: Palatino:italic 
 mathtext.default: it
 font.size: 10
-axes.titlesize: 10
+axes.titlesize: 9
 axes.labelsize: 10
-xtick.labelsize: 10
-ytick.labelsize: 10
+xtick.labelsize: 8
+ytick.labelsize: 8
 legend.fontsize: 10
 figure.titlesize:  10
 # figure layout
@@ -30,6 +30,7 @@ lines.markersize: 2.5
 axes.formatter.min_exponent: 1  # 10^0 should not be in sci. notation
 axes.prop_cycle : cycler(color=['EE3311', '3366FF', '109618', 'FF9900', '990099'])
 # axis ticks
+
 xtick.major.width: 0.3
 ytick.major.width: 0.3
 xtick.minor.width: 0.3

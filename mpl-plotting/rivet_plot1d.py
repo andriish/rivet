@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import yoda
 import yoda_plot
-
+import math
 
 def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
     """Plot the Scatter1D and Scatter2D objects using Rivet styles.
@@ -43,14 +43,6 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
     plt.rcParams['xtick.top'] = plot_features.get('XTwosidedTicks', True)
     plt.rcParams['ytick.right'] = plot_features.get('YTwosidedTicks', True)
 
-    # Set text labels
-    if plot_features.get('RatioPlot', 1) and yoda_type == 'hist':
-        ax_ratio.set_xlabel(plot_features.get('XLabel'))
-    else:
-        ax.set_xlabel(plot_features.get('XLabel'))
-    ax.set_ylabel(plot_features.get('YLabel'), loc='top')
-    ax.set_title(plot_features.get('Title'), loc='left')
-
     # Set plot lims
     if yoda_type == 'hist':
         XMin = plot_features.get('XMin', min([h.xMin() for h in hist_data]))
@@ -65,7 +57,7 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
         RatioPlotYMax = plot_features.get('RatioPlotYMax', 1.4999)  # Don't plot 1.5
         ax_ratio.set_ylim(RatioPlotYMin, RatioPlotYMax)
 
-    # Use maximum y value from all hist datasets
+    # set maximum Y value from all hist datasets 
     if yoda_type == 'scatter':
         max_ymax = max([h.points()[0].val(1) for h in hist_data])
     else:
@@ -73,19 +65,21 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
     if plot_features.get('YMax') is not None:
         YMax = plot_features.get('YMax')
     elif plot_features.get('LogY', 1):
-        YMax = 1.7*max_ymax
+        # round off highest number in the histograms to next power of 10
+        YMax = 10**(math.ceil(math.log10(max_ymax)))
     else:
         YMax = 1.1*max_ymax
+    
     # Use minimum y value from all hist datasets
     if yoda_type == 'scatter':
-        min_ymin = min([h.points()[0].val(1) for h in hist_data])
+        min_ymin = min([h.points()[0].val(1) for h in hist_data]) # TO DO -- where does this come from??
     else:
         min_ymin = min([min(h.yVals()) for h in hist_data])
     if plot_features.get('YMin') is not None:
         YMin = plot_features.get('YMin')
     elif plot_features.get('LogY', 1):
-        YMin = (min_ymin/1.7 if plot_features.get('FullRange')
-                else max(min_ymin/1.7, 2e-7*YMax))
+        # round off lowest number in the histograms to lower power of 10
+        YMin = 10**(math.floor(math.log10(min_ymin))) if min_ymin !=0 else 2e-7*YMax # TO DO: come up with a better solution to deal with min_ymin=0
     elif plot_features.get('ShowZero', 1):  # defaul ShowZero is True
         YMin = 0 if min_ymin > -1e-4 else 1.1*min_ymin
     else:
@@ -104,12 +98,20 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
     ax_format['yminor_ticks'] = plot_features.get('YMinorTickMarks')
     ax_format['xcustom_major_ticks'] = plot_features.get('XMajorTickMarks')
 
-
     # Add custom ticks for x and y axes
     if plot_features.get('XCustomMajorTicks') is not None:
         ax_format['xcustom_major_ticks'] = plot_features.get('XMajorTickMarks')
         if plot_features.get('RatioPlot', 1):
             ax_ratio.set_xticks([], minor=True)
+
+            # set number of minor ticks between major ticks in ratio plot
+            nMinorTicks = 1
+            if nMinorTicks == 0:
+                divider = 1
+            else:
+                divider = 0.1/(nMinorTicks+1)
+            ax_ratio.yaxis.set_minor_locator(mpl.ticker.MultipleLocator(divider))    
+
     ax_format['ycustom_major_ticks'] = plot_features.get('YMajorTickMarks')
     ax_format['ycustom_minor_ticks'] = plot_features.get('YMajorTickMarks')
     ax_format['ycustom_minor_ticks'] = plot_features.get('YMajorTickMarks')
@@ -152,8 +154,22 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
             ax.legend(handles, labels, loc='upper right', bbox_to_anchor=legend_pos,
                       handler_map={AnyObject: AnyObjectHandler()}, markerfirst=False)
 
+    # Set text labels on axes
+    if plot_features.get('RatioPlot', 1) and yoda_type == 'hist':
+        ax_ratio.set_xlabel(plot_features.get('XLabel'))
+    else:
+        ax.set_xlabel(plot_features.get('XLabel'))
+    ax.set_ylabel(plot_features.get('YLabel'), loc='top')
+    ax.set_title(plot_features.get('Title'), loc='left')
+      
     if plot_features.get('RatioPlot', 1) and yoda_type == 'hist':
         fig.align_ylabels((ax, ax_ratio))
+
+    # remove trailing decimal zeroes for ticks, e.g. display "20" instead of "20.0"
+    if not plot_features.get('LogY', 1): plt.gca().xaxis.set_major_formatter(mpl.ticker.FormatStrFormatter('%g'))
+    # maximum number of x-axis labels       
+    plt.gca().xaxis.set_major_locator(mpl.ticker.AutoLocator())
+
     fig.savefig(filename+'.pdf')
     fig.savefig(filename+'.png', bbox_inches="tight")
     plt.close()

@@ -456,6 +456,6 @@ def which(program):
 
 num_plots = len(yaml_dicts)
 print("Making {} plots".format(num_plots))
-for i, file_name in enumerate(yaml_dicts):
+for i, (refFile,yaml_dict) in enumerate(yaml_dicts.items()):
     print("Plotting", args.OUTPUTDIR+file_name, "({}/{} remaining)".format(num_plots-i, num_plots))
-    rivet_plot(yaml_dicts[file_name], file_name, args.OUTPUTDIR)
+    rivet_plot(yaml_dict, refFile, args.OUTPUTDIR)

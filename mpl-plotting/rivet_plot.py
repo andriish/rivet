@@ -35,7 +35,6 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
 
     hist_features = [val for val in yaml_dicts['histograms'].values()]
     output_filename = os.path.join(outputdir, plot_name.strip('/'))
-
     _preprocess_text(yaml_dicts)
 
     # Ensure reference histogram is first in list since dicts are not ordered in Python 2, not needed for Python 3
@@ -70,7 +69,6 @@ def _preprocess_text(yaml_dicts):
     if 'plot features' not in yaml_dicts:
         yaml_dicts['plot features'] = {}
     plot_features = yaml_dicts['plot features']
-
     for plot_property in ('Title', 'XLabel', 'YLabel', 'ZLabel', 'RatioPlotYLabel'):
         if plot_property in plot_features:
             plot_features[plot_property] = preprocess(plot_features[plot_property])
