@@ -10,10 +10,8 @@
 namespace Rivet {
 
 
-  /// @brief Get the incoming and outgoing hadron in a diffractive ep
-  /// event.
+  /// @brief Get the incoming and outgoing hadron in a diffractive ep event
   class DISRapidityGap : public Projection {
-
   public:
 
     /// Type of DIS boost to apply
