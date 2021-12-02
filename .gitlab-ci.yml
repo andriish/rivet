@@ -29,6 +29,15 @@ stages:
     ## Build the core library
     # - export CPPFLAGS="$CPPFLAGS -DNDEBUG"
     #- export PATH=$INSTALL_PREFIX/bin:$PATH
+    ## Build YODA
+    - git clone --depth 1 --branch release-1-9-x https://gitlab.com/hepcedar/yoda.git yoda/
+    - cd yoda/
+    - autoreconf -i
+    - ./configure --prefix=$INSTALL_PREFIX
+    - $MAKE
+    - $MAKE install
+    - cd ..
+    ## Build Rivet
     - autoreconf -i
     - cd $BUILD_PREFIX
     - if [[ "$ALLANAS" != "1" ]]; then ANAOPT="--disable-analyses"; fi
