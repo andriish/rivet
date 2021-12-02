@@ -23,9 +23,6 @@ RUN mkdir /code && cd /code \
     && texhash \
     && rm -rf /code
 
-# && wget --no-verbose https://rivet.hepforge.org/downloads/?f=Rivet-${RIVET_VERSION}.tar.gz -O Rivet-${RIVET_VERSION}.tar.gz \
-# && tar xf Rivet-${RIVET_VERSION}.tar.gz && cd Rivet-${RIVET_VERSION}/ \
-
 ADD bash.bashrc /etc/
 
 WORKDIR /work
