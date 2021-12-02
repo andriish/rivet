@@ -48,7 +48,7 @@ RUN true \
     && mkdir /code && cd /code \
     && wget https://gitlab.com/hepcedar/rivetbootstrap/raw/${RIVET_VERSION}/rivet-bootstrap \
     && chmod +x rivet-bootstrap \
-    && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_FULL_VERSION} MAKE="make -j $(nproc --ignore=1)" ./rivet-bootstrap \
+    && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_YODA=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_FULL_VERSION} MAKE="make -j $(nproc --ignore=1)" ./rivet-bootstrap \
     && rm -rf /code
 
 ARG LATEX=0

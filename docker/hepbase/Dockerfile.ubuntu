@@ -76,7 +76,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && mkdir /code && cd /code \
     && wget --no-verbose https://gitlab.com/hepcedar/rivetbootstrap/raw/${RIVETBS_VERSION}/rivet-bootstrap \
     && chmod +x rivet-bootstrap \
-    && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_VERSION} MAKE="make -j $(nproc --ignore=1)" ./rivet-bootstrap \
+    && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_YODA=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_VERSION} MAKE="make -j $(nproc --ignore=1)" ./rivet-bootstrap \
     && rm -rf /code \
     && echo "LD_LIBRARY_PATH=\"\$LD_LIBRARY_PATH:/usr/local/lib\"" >> /etc/profile.d/05-usrlocal.sh \
     && echo "PYTHONPATH=\"\$PYTHONPATH:$(ls /usr/local/lib*/python*/*-packages/ -d | head -1)\"" >> /etc/profile.d/05-usrlocal.sh

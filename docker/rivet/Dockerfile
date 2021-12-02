@@ -3,9 +3,15 @@ FROM hepstore/hepbase-${ARCH}-latex
 LABEL maintainer="rivet-developers@cern.ch"
 SHELL ["/bin/bash", "--login", "-c"]
 
+ARG YODA_BRANCH
 ARG RIVET_BRANCH
 RUN mkdir /code && cd /code \
     && texhash \
+    && git clone --depth 1 --branch $YODA_BRANCH https://gitlab.com/hepcedar/yoda.git yoda/ \
+    && cd yoda/ \
+    && autoreconf -i \
+    && ./configure && make -j $(nproc --ignore=1) && make install \
+    && cd .. \
     && git clone --depth 1 --branch $RIVET_BRANCH https://gitlab.com/hepcedar/rivet.git rivet/ \
     && cd rivet/ \
     && autoreconf -i \
