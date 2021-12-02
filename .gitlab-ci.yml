@@ -41,7 +41,7 @@ stages:
     - autoreconf -i
     - cd $BUILD_PREFIX
     - if [[ "$ALLANAS" != "1" ]]; then ANAOPT="--disable-analyses"; fi
-    - CONF="./configure --prefix=$INSTALL_PREFIX $ANAOPT --with-yoda=/usr/local --with-hepmc=/usr/local --with-fastjet=/usr/local"
+    - CONF="./configure --prefix=$INSTALL_PREFIX $ANAOPT --with-yoda=$INSTALL_PREFIX --with-hepmc=/usr/local --with-fastjet=/usr/local"
     - if (echo $ARCH | grep -q hepmc3); then CONF=${CONF/with-hepmc/with-hepmc3}; fi
     - echo $CONF
     - $CONF

@@ -97,7 +97,7 @@ namespace Rivet {
       book(_h["ttpt_norm"],   93, 1, 1);
       book(_h["tty_norm"],    95, 1, 1);
       book(_h["njet_norm"],   97, 1, 1);
-      /// @todo Memory leak
+      /// @todo Memory leak?
       book(m_hist_gap1, "d165-x01-y01");
       book(m_hist_gap2, "d167-x01-y01");
     }
