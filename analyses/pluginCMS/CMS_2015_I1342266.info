@@ -1,0 +1,38 @@
+Name: CMS_2015_I1342266
+Year: 2015
+Summary: Measurements of the $\Upsilon(1S)$, $\Upsilon(2S)$, and $\Upsilon(3S)$ differential cross sections in pp collisions at $\sqrt{s} =​ 7$ TeV
+Experiment: CMS
+Collider: LHC
+InspireID: 1342266
+Status: UNVALIDATED NOTREENTRY NOHEPDATA SINGLEWEIGHT UNPHYSICAL
+Authors:
+ - Daniel Clarke <daniel.a.clarke@durham.ac.uk>
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Lett.B 749 (2015) 14-34
+RunInfo: Upsilon production at LHC energies
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+  'Measurement of the transverse momentum distribtions for $\Upsilon(1S)$, $\Upsilon(2S)$, and $\Upsilon(3S)$ production in three rapidity intervals.
+   The production ratios are also measured.'
+ValidationInfo:
+  'Plots of distributions with Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CMS:2015xqv
+BibTeX: '@article{CMS:2015xqv,
+    author = "Khachatryan, Vardan and others",
+    collaboration = "CMS",
+    title = "{Measurements of the $\Upsilon$(1S), $\Upsilon$(2S), and $\Upsilon$(3S) differential cross sections in pp collisions at $\sqrt{s} =$ 7 TeV}",
+    eprint = "1501.07750",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CMS-BPH-12-006, CERN-PH-EP-2015-007",
+    doi = "10.1016/j.physletb.2015.07.037",
+    journal = "Phys. Lett. B",
+    volume = "749",
+    pages = "14--34",
+    year = "2015"
+}'
