@@ -93,12 +93,12 @@ build_ubuntu_clang_hepmc3_py3:
     ARCH: ubuntu-clang-hepmc3-py3
   <<: *build_template
 
-build_ubuntu_intel_hepmc3_py3:
-  # tags: [intel-compat]
-  variables:
-    ARCH: ubuntu-intel-hepmc3-py3
-  # only: [schedules]
-  <<: *build_template
+# build_ubuntu_intel_hepmc3_py3:
+#   # tags: [intel-compat]
+#   variables:
+#     ARCH: ubuntu-intel-hepmc3-py3
+#   # only: [schedules]
+#   <<: *build_template
 
 build_ubuntu_gcc_hepmc2_py3:
   variables:
