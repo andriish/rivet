@@ -94,10 +94,10 @@ build_ubuntu_clang_hepmc3_py3:
   <<: *build_template
 
 # build_ubuntu_intel_hepmc3_py3:
-#   # tags: [intel-compat]
+#   tags: [intel-compat]
 #   variables:
 #     ARCH: ubuntu-intel-hepmc3-py3
-#   # only: [schedules]
+#   only: [schedules]
 #   <<: *build_template
 
 build_ubuntu_gcc_hepmc2_py3:
@@ -245,13 +245,13 @@ check_plugin_ubuntu_clang_hepmc3_py3:
   needs: [build_ubuntu_clang_hepmc3_py3, get_test_hepmc]
   <<: *check_plugin_template
 
-check_plugin_ubuntu_intel_hepmc3_py3:
-  tags: [intel-compat]
-  variables:
-    ARCH: ubuntu-intel-hepmc3-py3
-  only: [schedules]
-  needs: [build_ubuntu_intel_hepmc3_py3, get_test_hepmc]
-  <<: *check_plugin_template
+# check_plugin_ubuntu_intel_hepmc3_py3:
+#   tags: [intel-compat]
+#   variables:
+#     ARCH: ubuntu-intel-hepmc3-py3
+#   only: [schedules]
+#   needs: [build_ubuntu_intel_hepmc3_py3, get_test_hepmc]
+#   <<: *check_plugin_template
 
 check_plugin_ubuntu_gcc_hepmc2_py3:
   variables:
@@ -339,13 +339,13 @@ make_plots_ubuntu_clang_hepmc3_py3:
   needs: [check_plugin_ubuntu_clang_hepmc3_py3]
   <<: *make_plots_template
 
-make_plots_ubuntu_intel_hepmc3_py3:
-  tags: [intel-compat]
-  variables:
-    ARCH: ubuntu-intel-hepmc3-py3
-  only: [schedules]
-  needs: [check_plugin_ubuntu_intel_hepmc3_py3]
-  <<: *make_plots_template
+# make_plots_ubuntu_intel_hepmc3_py3:
+#   tags: [intel-compat]
+#   variables:
+#     ARCH: ubuntu-intel-hepmc3-py3
+#   only: [schedules]
+#   needs: [check_plugin_ubuntu_intel_hepmc3_py3]
+#   <<: *make_plots_template
 
 make_plots_ubuntu_gcc_hepmc2_py3:
   variables:
