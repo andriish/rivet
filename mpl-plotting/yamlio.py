@@ -168,6 +168,7 @@ def _mkoutdir(outdir):
 
 def write_output(output, h, hier_output, outdir):
     "Choose output file name and dir"
+    #print(output)
     if hier_output:
         hparts = h.strip("/").split("/", 1)
         ana = "_".join(hparts[:-1]) if len(hparts) > 1 else "ANALYSIS"
@@ -178,7 +179,68 @@ def write_output(output, h, hier_output, outdir):
         outfile = '%s.dat' % "_".join(hparts)
     _mkoutdir(outdir)
     outfilepath = os.path.join(outdir, outfile)
+
+    # try:
+    #     #print(type(ao.xerrs()[0].y()))
+    #     print("xErrs: {}".format(ao.xErrs()))
+    #     print("xErrs: {}".format(ao.yErrs()))
+    #     print("Points: {}".format(ao.xpoints()))
+    # except:
+    #     print("##### Oops...")
+
+    # write histogram objects
+    #print(output)
     with open(outfilepath, 'w') as yaml_file:
+        for something in output:
+            if something != 'histograms':
+                if type(output[something]) is dict:
+                    yaml_file.write("{}:\n".format(something))
+                    for k,v in output[something].items(): 
+                        yaml_file.write("   {} : {}\n".format(k,v))
+                    yaml_file.write("\n")
+                else:
+                    yaml_file.write("{} : {}\n\n".format(something, output[something]))
+            
+            # open the histograms and pick info
+            else:
+
+                # TODO put this in a separate function
+                yaml_file.write("{}\n".format(something))
+                for scatterName, scatterObject in output['histograms'].items():
+                    xs = [point.x() for point in scatterObject['yoda'].points()]
+                    xErrDown =  [point.xErrs().minus for point in scatterObject['yoda'].points()]
+                    xErrUp =  [point.xErrs().plus for point in scatterObject['yoda'].points()]
+                    
+                    # yList = [point.y() for point in scatterObject['yoda'].points()] # TODO only do this for 2D objects
+                    yaml_file.write("   {}\n".format(scatterName))
+                    if scatterName == "Data":
+                        #print(dir(scatterObject['yoda']))
+                        yaml_file.write("   Title: {}\n".format(scatterObject['yoda'].title()))
+                    #yaml_file.write("   Path: {}\n".format(scatterObject['yoda'].path()))
+                    #yaml_file.write("      x: {}\n".format(xs))
+                    #yaml_file.write("      xErrDown: {}\n".format(xErrDown))
+                    #yaml_file.write("      xErrUp: {}\n".format(xErrUp))
+
+                    if scatterObject['yoda'].type() in ("Scatter2D", "Scatter3D"):
+                        ys = [point.y() for point in scatterObject['yoda'].points()]    
+                        yErrDown =  [point.yErrs().minus for point in scatterObject['yoda'].points()]
+                        yErrUp =  [point.yErrs().plus for point in scatterObject['yoda'].points()]
+                     #   yaml_file.write("      y: {}\n".format(ys))
+                     #   yaml_file.write("      yErrDown: {}\n".format(yErrDown))
+                      #  yaml_file.write("      yErrUp: {}\n".format(yErrUp))
+                        yaml_file.write('       {:<15} {:<15} {:<15} {:<15} {:<15} {:<15} \n'.format("x", "xup", "xdown", "y", "yup", "ydown"))
+                        for i in range(len(scatterObject['yoda'].points())):
+                            yaml_file.write('       {:<15.3e} {:<15.3e} {:<15.3e} {:<15.3e} {:<15.3e} {:<15.3e} \n'.format(xs[i], xErrDown[i], xErrUp[i], ys[i], yErrDown[i], yErrUp[i]))
+                    
+
+                    # yaml_file.write("      x: {}\n".format(yList))
+
+        
+
+    # output .dat file written here TODO where is ErrorBreakdown coming from?
+    #print("OUTPUT\n\n {} \n\nEND OUTOUT".format(output))
+    with open(outfilepath.split(".dat")[0]+"__dump.dat", 'w') as yaml_file:
+        #yaml_file.write("test")
         yaml.dump(output, yaml_file, indent=4, default_flow_style=False)
 
 
