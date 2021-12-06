@@ -57,6 +57,7 @@ parser.add_argument("--pwd", dest="PATH_PWD", action="store_true", default=False
                     help="append the current directory (pwd) to the analysis/data search paths (cf. $RIVET_ANALYSIS_PATH)")
 parser.add_argument("--style", dest="STYLE", help="Choose the plotting style", default='default')
 parser.add_argument("--write-files", dest="WRITE_FILES", help="Choose to write YAML files", default=True)
+parser.add_argument("--nRatioTicks", dest="NRATIOTICKS", help="Modify number of minor ticks between major ticks on ratio plot.", default=1)
 
 stygroup = parser.add_argument_group("Style options")
 stygroup.add_argument("-t", "--title", dest="TITLE",
@@ -245,7 +246,7 @@ yaml_dicts = rivet_mkdat(args.YODAFILES, args.PATH_PWD, args.REFTITLE,
                             args.PATHUNPATTERNS, [os.path.abspath("../")],
                             style, configfiles,
                             True, args.OUTPUTDIR, args.MC_ERRS,
-                            True, [], args.VERBOSE, writefiles=writefiles)
+                            True, [], args.VERBOSE, writefiles=writefiles, nRatioTicks=args.NRATIOTICKS)
 
 ## Write web page containing all (matched) plots
 ## Make web pages first so that we can load it locally in
@@ -457,5 +458,7 @@ def which(program):
 num_plots = len(yaml_dicts)
 print("Making {} plots".format(num_plots))
 for i, (refFile,yaml_dict) in enumerate(yaml_dicts.items()):
-    print("Plotting", args.OUTPUTDIR+file_name, "({}/{} remaining)".format(num_plots-i, num_plots))
+    #print(yaml_dict)
+    #if "LHCB_2014_I1281685/d04-x01-y04" not in refFile: continue
+    print("Plotting", args.OUTPUTDIR+refFile, "({}/{} remaining)".format(num_plots-i, num_plots))
     rivet_plot(yaml_dict, refFile, args.OUTPUTDIR)

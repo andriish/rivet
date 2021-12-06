@@ -97,21 +97,14 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
     ax_format['xminor_ticks'] = plot_features.get('XMinorTickMarks')
     ax_format['yminor_ticks'] = plot_features.get('YMinorTickMarks')
     ax_format['xcustom_major_ticks'] = plot_features.get('XMajorTickMarks')
+    #if plot_features.get('nRatioTicks'): print("NRATIOTICKS: ", plot_features.get('nRatioTicks'))
 
-    # Add custom ticks for x and y axes
     if plot_features.get('XCustomMajorTicks') is not None:
         ax_format['xcustom_major_ticks'] = plot_features.get('XMajorTickMarks')
         if plot_features.get('RatioPlot', 1):
             ax_ratio.set_xticks([], minor=True)
 
-            # set number of minor ticks between major ticks in ratio plot
-            nMinorTicks = 1
-            if nMinorTicks == 0:
-                divider = 1
-            else:
-                divider = 0.1/(nMinorTicks+1)
-            ax_ratio.yaxis.set_minor_locator(mpl.ticker.MultipleLocator(divider))    
-
+            
     ax_format['ycustom_major_ticks'] = plot_features.get('YMajorTickMarks')
     ax_format['ycustom_minor_ticks'] = plot_features.get('YMajorTickMarks')
     ax_format['ycustom_minor_ticks'] = plot_features.get('YMajorTickMarks')
@@ -164,6 +157,15 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
       
     if plot_features.get('RatioPlot', 1) and yoda_type == 'hist':
         fig.align_ylabels((ax, ax_ratio))
+
+    # set number of minor ticks between major ticks in ratio plot
+    if plot_features.get('RatioPlot') == 1:
+        nMinorTicks = int(plot_features.get('nRatioTicks')) if plot_features.get('nRatioTicks') else 1
+        if nMinorTicks == 0:
+            divider = 1
+        else:
+            divider = 0.1/(nMinorTicks+1)
+        ax_ratio.yaxis.set_minor_locator(mpl.ticker.MultipleLocator(divider))
 
     # remove trailing decimal zeroes for ticks, e.g. display "20" instead of "20.0"
     if not plot_features.get('LogY', 1): plt.gca().xaxis.set_major_formatter(mpl.ticker.FormatStrFormatter('%g'))

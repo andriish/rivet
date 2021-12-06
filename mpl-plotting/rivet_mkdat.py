@@ -111,6 +111,19 @@ def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns
             if aop.istmp() or aop.israw():
                 continue
 
+            # Convert non-scatter objects to scatter
+            if "Scatter" not in ao.type():
+                ao = ao.mkScatter()
+
+            # try:
+            #     #print(type(ao.xerrs()[0].y()))
+            #     print("xErrs: {}".format(ao.xErrs()))
+            #     print("xErrs: {}".format(ao.yErrs()))
+            #     print("Points: {}".format(ao.xpoints()))
+            # except:
+            #     print("##### Oops...")
+            
+            
             ## Add it to the ref or mc paths, if this path isn't already known
             basepath = aop.basepath(keepref=False)
             defaultWeightName = plotoptions[inname].get('DefaultWeight', '0')
@@ -152,7 +165,7 @@ def _get_rivet_ref_data(anas, path_patterns, path_unpatterns):
 
 
 def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle, plotoptions,
-                 style, rc_params, mc_errs):
+                 style, rc_params, mc_errs, nRatioTicks):
     """Create output dictionary for the plot_id.
     
     Parameters
@@ -186,19 +199,30 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     outputdict = {}
     plot_configs = yamlio.get_plot_configs(plot_id, plotdirs=plotdirs, config_files=config_files)
     outputdict['plot features'] = plot_configs
+
+    # only write extra info to the .dat file if specified by user
+    if nRatioTicks !=1: outputdict['plot features'].update({"nRatioTicks": nRatioTicks}) 
+
     outputdict['plot features'].update(plotoptions.get('PLOT', {}))
     outputdict['rcParams'] = rc_params
     outputdict['style'] = style
-
     outputdict['histograms'] = {}
+
     if plot_id in refhistos:
-        outputdict['histograms'][reftitle] = {'yoda': refhistos[plot_id]}
+        #print(refhistos[plot_id])
+        outputdict['histograms'][reftitle] = {'yoda': refhistos[plot_id]} # this is where ErrorBreakdown is included?
+        #print(refhistos[plot_id])
+        # outputdict['histograms'][reftitle]['TESTING'] = "Hello"
         outputdict['histograms'][reftitle]['IsRef'] = True
 
     for filename, mchistos_in_file in mchistos.items():
         outputdict['histograms'][filename] = {}
         # TODO: will there ever be multiple histograms with same ID here?
         for histogram in mchistos_in_file[plot_id].values():
+            #if not isinstance(histogram, yoda.Histo1D): 
+            #print(histogram.numBinsX())
+            #    print("NO 1d")
+            #print("\n HISTOGRAM \n --- \n {} \n --- \n END HISTOGRAM".format(histogram))
             outputdict['histograms'][filename].update(plotoptions.get(filename, {}))
             # Maybe add this mc_errs option to the plotoptions dict and only pass the plotoptions dict to the function?
             outputdict['histograms'][filename]['ErrorBars'] = mc_errs
@@ -219,7 +243,8 @@ def rivet_mkdat(args, path_pwd=True, reftitle='Data',
                    path_unpatterns=(), plotinfodirs=[], 
                    style='default', config_files=[], 
                    hier_output=False, outdir='.', mc_errs=True,
-                   rivetplotpaths=True, analysispaths=[], verbose=False, writefiles=False
+                   rivetplotpaths=True, analysispaths=[], verbose=False, writefiles=False,
+                   nRatioTicks=1
                   ):
     """Create .dat files that can be parsed by rivet-plot
     Each output .dat file corresponds to one analysis which contains all MC histograms and a reference data histogram.
@@ -266,6 +291,8 @@ def rivet_mkdat(args, path_pwd=True, reftitle='Data',
     writefiles : bool
         If True, write the created dicts to dat files. 
         This is used if one wants the intermediate format for later use or if one only calls this function and not rivet-mkhtml.
+    nRatioTicks: int
+        Number of minor ticks between major ticks, can be specified in rivet-mkhtml
 
     Returns
     -------
@@ -333,9 +360,10 @@ def rivet_mkdat(args, path_pwd=True, reftitle='Data',
     ## Take reference data from the Rivet search paths, if there is not already
     if rivetrefs:
         refhistos2 = _get_rivet_ref_data(anas, path_patterns, path_unpatterns)
+        #print(refhistos2)
         refhistos2.update(refhistos)
         refhistos = refhistos2
-
+        # print(refhistos)
     ## Purge unmatched ref data entries to save memory
     keylist = list(refhistos.keys())
     for refhpath in keylist:
@@ -349,7 +377,8 @@ def rivet_mkdat(args, path_pwd=True, reftitle='Data',
         outputdict = _make_output(
             plot_id, plotdirs, config_files, 
             mchistos, refhistos, reftitle, 
-            plotoptions, stylename, rc_params_dict, mc_errs
+            plotoptions, stylename, rc_params_dict, mc_errs,
+            nRatioTicks
         )
         plot_info_dicts[plot_id] = outputdict
         if writefiles:
