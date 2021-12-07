@@ -9,15 +9,12 @@ namespace Rivet {
 
 
   /// @brief Measurement differential Z/\f$ \gamma^* \f$ + jet + \f$ X \f$ cross sections
+  ///
   /// @author Frank Siegert
   class CDF_2008_S7540469 : public Analysis {
-
   public:
 
-    /// Constructor
-    CDF_2008_S7540469()
-      : Analysis("CDF_2008_S7540469")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2008_S7540469);
 
 
     /// @name Analysis methods
@@ -169,7 +166,7 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2008_S7540469);
+
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_2008_S7540469, CDF_2008_I768451);
 
 }

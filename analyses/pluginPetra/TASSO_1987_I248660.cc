@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TASSO_1987_I248660);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TASSO_1987_I248660);
 
 
     /// @name Analysis methods
@@ -23,12 +23,23 @@ namespace Rivet {
       declare(FinalState(), "FS");
 
       // Book histograms
-      unsigned int iloc = 0;
-      if      (beamEnergyMatch(14.0*GeV)) iloc = 1;
-      else if (beamEnergyMatch(22.0*GeV)) iloc = 2;
-      else if (beamEnergyMatch(34.8*GeV)) iloc = 3;
-      else if (beamEnergyMatch(43.5*GeV)) iloc = 4;
-      else MSG_ERROR("Beam energy not supported!");
+      unsigned int iloc(0);
+      if(isCompatibleWithSqrtS(14.)) {
+	iloc=1;
+      }
+      else if (isCompatibleWithSqrtS(22.)) {
+	iloc=2;
+      }
+      else if (isCompatibleWithSqrtS(34.8)) {
+	iloc=3;
+      }
+      else if (isCompatibleWithSqrtS(43.5)) {
+	iloc=4;
+      }
+      else
+	MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
+                    << " doesn't match any available analysis energy .");
+      assert(iloc!=0);
       book(_histEEC, iloc, 1, 1);
       book(_weightSum, "TMP/weightSum");
     }
@@ -61,7 +72,7 @@ namespace Rivet {
           const double energy_j = p_j->momentum().E();
           const double cosij = dot(mom3_i.unit(), mom3_j.unit());
           double eec = (energy_i*energy_j) / Evis2;
-          if(p_i != p_j) eec *= 2.;
+	  if(p_i != p_j) eec *= 2.;
           _histEEC->fill(cosij, eec);
         }
       }
@@ -87,7 +98,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TASSO_1987_I248660);
+  RIVET_DECLARE_PLUGIN(TASSO_1987_I248660);
 
 
 }

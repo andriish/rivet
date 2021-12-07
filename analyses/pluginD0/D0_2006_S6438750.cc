@@ -8,25 +8,17 @@ namespace Rivet {
 
 
   /// @brief D0 inclusive isolated photon cross-section vs. \f$ p_\perp(gamma) \f$.
+  ///
   /// @author Andy Buckley
   /// @author Gavin Hesketh
   class D0_2006_S6438750 : public Analysis {
-
   public:
 
-    /// @name Constructors etc.
-    //@{
-
-    /// Default constructor.
-    D0_2006_S6438750()
-      : Analysis("D0_2006_S6438750")
-    {    }
-
-    //@}
+    RIVET_DEFAULT_ANALYSIS_CTOR(D0_2006_S6438750);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // General FS for photon isolation
@@ -73,7 +65,6 @@ namespace Rivet {
     }
 
 
-
     // Finalize
     void finalize() {
       const double lumi_gen = sumOfWeights()/crossSection();
@@ -81,21 +72,20 @@ namespace Rivet {
       scale(_h_pTgamma, 1/lumi_gen * 1/1.8);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_pTgamma;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(D0_2006_S6438750);
+  RIVET_DECLARE_ALIASED_PLUGIN(D0_2006_S6438750, D0_2006_I698784);
 
 }

@@ -9,24 +9,22 @@ namespace Rivet {
 
 
   /// @brief OPAL strange baryon paper
+  ///
   /// @author Peter Richardson
   class OPAL_1997_S3396100 : public Analysis {
   public:
 
-    /// Constructor
-    OPAL_1997_S3396100()
-      : Analysis("OPAL_1997_S3396100")
-    {}
+    RIVET_DEFAULT_ANALYSIS_CTOR(OPAL_1997_S3396100);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      
+
       book(_histXpLambda         , 1, 1, 1);
       book(_histXiLambda         , 2, 1, 1);
       book(_histXpXiMinus        , 3, 1, 1);
@@ -61,35 +59,39 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Final state of unstable particles to get particle spectra
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
 
       for (const Particle& p : ufs.particles()) {
         const int id = p.abspid();
-        double xp = p.p3().mod()/meanBeamMom;
-        double xi = -log(xp);
+        if (!inRange(id, 3000, 3999)) continue;
+
+        const double xE = p.E()/meanBeamMom;
+        const double xp = p.p3().mod()/(2*meanBeamMom);
+        const double xi = -log(xp);
+
         switch (id) {
         case 3312:
-          _histXpXiMinus->fill(xp);
+          _histXpXiMinus->fill(xE);
           _histXiXiMinus->fill(xi);
           break;
         case 3224:
-          _histXpSigma1385Plus->fill(xp);
+          _histXpSigma1385Plus->fill(xE);
           _histXiSigma1385Plus->fill(xi);
           break;
         case 3114:
-          _histXpSigma1385Minus->fill(xp);
+          _histXpSigma1385Minus->fill(xE);
           _histXiSigma1385Minus->fill(xi);
           break;
         case 3122:
-          _histXpLambda->fill(xp);
+          _histXpLambda->fill(xE);
           _histXiLambda->fill(xi);
           break;
         case 3324:
-          _histXpXi1530->fill(xp);
+          _histXpXi1530->fill(xE);
           _histXiXi1530->fill(xi);
           break;
         case 3124:
-          _histXpLambda1520->fill(xp);
+          _histXpLambda1520->fill(xE);
           _histXiLambda1520->fill(xi);
           break;
         }
@@ -114,30 +116,31 @@ namespace Rivet {
       scale(_histXiLambda1520    , fact);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
-    Histo1DPtr _histXpLambda        ;
-    Histo1DPtr _histXiLambda        ;
-    Histo1DPtr _histXpXiMinus       ;
-    Histo1DPtr _histXiXiMinus       ;
-    Histo1DPtr _histXpSigma1385Plus ;
-    Histo1DPtr _histXiSigma1385Plus ;
+    /// @name Histograms
+    /// @{
+    Histo1DPtr _histXpLambda;
+    Histo1DPtr _histXiLambda;
+    Histo1DPtr _histXpXiMinus;
+    Histo1DPtr _histXiXiMinus;
+    Histo1DPtr _histXpSigma1385Plus;
+    Histo1DPtr _histXiSigma1385Plus;
     Histo1DPtr _histXpSigma1385Minus;
     Histo1DPtr _histXiSigma1385Minus;
-    Histo1DPtr _histXpXi1530        ;
-    Histo1DPtr _histXiXi1530        ;
-    Histo1DPtr _histXpLambda1520    ;
-    Histo1DPtr _histXiLambda1520    ;
-    //@}
+    Histo1DPtr _histXpXi1530;
+    Histo1DPtr _histXiXi1530;
+    Histo1DPtr _histXpLambda1520;
+    Histo1DPtr _histXiLambda1520;
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OPAL_1997_S3396100);
+  RIVET_DECLARE_ALIASED_PLUGIN(OPAL_1997_S3396100, OPAL_1997_I421978);
 
 }

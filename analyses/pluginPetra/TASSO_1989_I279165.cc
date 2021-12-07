@@ -8,12 +8,12 @@
 namespace Rivet {
 
 
-  /// @brief Jet masses for 14, 22, 34.8 and 43,5 GeV
+  /// @brief jet masses for 14, 22, 34.8 and 43,5 GeV
   class TASSO_1989_I279165 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TASSO_1989_I279165);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TASSO_1989_I279165);
 
 
     /// @name Analysis methods
@@ -24,18 +24,22 @@ namespace Rivet {
 
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
+      // Thrust
       const Thrust thrust(cfs);
       declare(thrust, "Thrust");
       declare(Hemispheres(thrust), "Hemispheres");
-
-      // Compute histogram indexes from beam energy
+      
       int offset = 0;
-      if      (beamEnergyMatch(14.0*GeV)) offset=1;
-      else if (beamEnergyMatch(22.0*GeV)) offset=2;
-      else if (beamEnergyMatch(34.8*GeV)) offset=3;
-      else if (beamEnergyMatch(43.5*GeV)) offset=4;
-      else MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
-
+      if (isCompatibleWithSqrtS(14.0))
+	offset=1;
+      else if(isCompatibleWithSqrtS(22.0))
+	offset=2;
+      else if(isCompatibleWithSqrtS(34.8))
+	offset=3;
+      else if(isCompatibleWithSqrtS(43.5))
+	offset=4;
+      else
+	MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
       // Book histograms
       book(_h_diff , 1, 1, offset);
       book(_h_heavy, 2, 1, offset);
@@ -61,7 +65,7 @@ namespace Rivet {
     void finalize() {
       normalize(_h_diff );
       normalize(_h_heavy);
-      normalize(_h_light);
+      normalize(_h_light); 
     }
     //@}
 
@@ -76,7 +80,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TASSO_1989_I279165);
+  RIVET_DECLARE_PLUGIN(TASSO_1989_I279165);
 
 
 }

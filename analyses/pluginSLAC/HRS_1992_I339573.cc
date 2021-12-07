@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(HRS_1992_I339573);
+    RIVET_DEFAULT_ANALYSIS_CTOR(HRS_1992_I339573);
 
 
     /// @name Analysis methods
@@ -49,7 +49,7 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Final state to get particle spectra
-      for( const Particle& p : apply<UnstableFinalState>(event, "UFS").particles(Cuts::abspid==3122)) {
+      for( const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==3122)) {
 	double xE = p.E()/meanBeamMom;
 	_h_lambda->fill(xE);
       }
@@ -77,7 +77,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(HRS_1992_I339573);
+  RIVET_DECLARE_PLUGIN(HRS_1992_I339573);
 
 
 }

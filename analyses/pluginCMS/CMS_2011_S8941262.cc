@@ -6,11 +6,11 @@
 namespace Rivet {
 
 
+  /// Production cross-sections of muons from $b$ hadron decays in $pp$ collisions
   class CMS_2011_S8941262 : public Analysis {
   public:
 
-    /// Constructor
-    CMS_2011_S8941262() : Analysis("CMS_2011_S8941262") {  }
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2011_S8941262);
 
 
     /// Book histograms and initialise projections before the run
@@ -61,16 +61,19 @@ namespace Rivet {
 
   private:
 
+    /// @todo Convert to counters?
     double nbtot, nbmutot;
 
+    /// @{
     Histo1DPtr _h_total;
     Histo1DPtr _h_mupt;
     Histo1DPtr _h_mueta;
+    /// @}
 
   };
 
 
-  // Hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2011_S8941262);
+
+  RIVET_DECLARE_ALIASED_PLUGIN(CMS_2011_S8941262, CMS_2011_I884811);
 
 }

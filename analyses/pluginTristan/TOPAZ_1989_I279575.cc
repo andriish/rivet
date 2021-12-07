@@ -6,29 +6,34 @@
 namespace Rivet {
 
 
-  /// Energy-energy correlation at E_CMS = 53.3 and 59.5 GeV
+  /// @brief Add a short analysis description here
   class TOPAZ_1989_I279575 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TOPAZ_1989_I279575);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TOPAZ_1989_I279575);
 
 
     /// @name Analysis methods
     //@{
 
     /// Book histograms and initialise projections before the run
-    void init() {
+    void init() {   
+
 
       // Initialise and register projections
       declare(FinalState(), "FS");
 
       // Book histograms
-      int iloc = -1;
-      if (beamEnergyMatch(53.3*GeV)) iloc = 1;
-      else if (beamEnergyMatch(59.5*GeV)) iloc = 2;
-      else MSG_ERROR("Beam energy not supported!");
-      //
+      unsigned int iloc(0);
+      if(isCompatibleWithSqrtS(53.3)) {
+	iloc=1;
+      }
+      else if (isCompatibleWithSqrtS(59.5)) {
+	iloc=2;
+      }
+      else
+	MSG_ERROR("Beam energy not supported!");
       book(_histEEC   , iloc, 1, 1);
       book(_histEEC_Pi, iloc, 1, 2);
       book(_histAEEC  , iloc, 1, 3);
@@ -64,15 +69,15 @@ namespace Rivet {
           const double energy_j = p_j->momentum().E();
           const double thetaij = mom3_i.unit().angle(mom3_j.unit())/M_PI*180.;
           double eec = (energy_i*energy_j) / Evis2;
-          if(p_i != p_j) eec *= 2.;
+	  if(p_i != p_j) eec *= 2.;
           if (thetaij < 90.) {
-            _histEEC ->fill(thetaij,  eec);
+	    _histEEC ->fill(thetaij,  eec);
             _histAEEC->fill(thetaij, -eec);
-          }
+	  }
           else {
-            _histEEC_Pi->fill(180.-thetaij, eec);
+	    _histEEC_Pi->fill(180.-thetaij, eec);
             _histAEEC  ->fill(180.-thetaij, eec);
-          }
+	  }
         }
       }
     }
@@ -99,7 +104,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TOPAZ_1989_I279575);
+  RIVET_DECLARE_PLUGIN(TOPAZ_1989_I279575);
 
 
 }

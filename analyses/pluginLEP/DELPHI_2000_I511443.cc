@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(DELPHI_2000_I511443);
+    RIVET_DEFAULT_ANALYSIS_CTOR(DELPHI_2000_I511443);
 
 
     /// @name Analysis methods
@@ -189,6 +189,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(DELPHI_2000_I511443);
+  RIVET_DECLARE_PLUGIN(DELPHI_2000_I511443);
 
 }

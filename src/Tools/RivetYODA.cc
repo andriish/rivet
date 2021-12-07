@@ -75,7 +75,7 @@ namespace Rivet {
     const string path2 = findAnalysisRefFile(papername + ".yoda.gz");
     if (!path2.empty()) return path2;
     throw Rivet::Error("Couldn't find a ref data file for '" + papername +
-                       " in data path, '" + getRivetDataPath() + "', or '.'");
+                       "' in data path, '" + getRivetDataPath() + "', or '.'");
   }
 
 
@@ -545,17 +545,32 @@ namespace Rivet {
   template <>
   void Wrapper<YODA::Counter>::pushToPersistent(const vector<valarray<double> >& weight,
                    double) {
-    for ( size_t m = 0; m < _persistent.size(); ++m ) {
-      vector<double> sumfw(1, 0.0);
-      for ( size_t n = 0; n < _evgroup.size(); ++n ) {
-        const auto& fills = _evgroup[n]->fills();
-        if ( fills.size() > sumfw.size() ) sumfw.resize(fills.size(), 0.0);
-        int fi = 0;
-        for ( const auto& f : _evgroup[n]->fills() )
-          sumfw[fi++] += f.second * weight[n][m];
+
+    // Have we had subevents at all?
+    const bool have_subevents = _evgroup.size() > 1;
+    if (!have_subevents) {
+      // Simple replay of all tuple entries: each recorded fill is inserted into all persistent weightname histos
+      for (const auto& f : _evgroup[0]->fills()) {
+        for (size_t m = 0; m < _persistent.size(); ++m) { //< m is the variation index
+          _persistent[m]->fill( f.second * weight[0][m] );
+        }
       }
-      for ( double fw : sumfw )
-        _persistent[m]->fill(fw);
+    }
+    else {
+      vector<double> sumfw(1, 0.0);
+      for ( size_t m = 0; m < _persistent.size(); ++m ) {
+        for ( size_t n = 0; n < _evgroup.size(); ++n ) {
+          const auto& fills = _evgroup[n]->fills();
+          if ( fills.size() > sumfw.size() ) sumfw.resize(fills.size(), 0.0);
+          int fi = 0;
+          for ( const auto& f : _evgroup[n]->fills() ) {
+            sumfw[fi++] += f.second * weight[n][m];
+          }
+        }
+        for ( double fw : sumfw ) {
+          _persistent[m]->fill(fw);
+        }
+      }
     }
     _evgroup.clear();
     _active.reset();

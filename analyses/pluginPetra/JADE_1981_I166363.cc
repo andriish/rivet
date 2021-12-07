@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(JADE_1981_I166363);
+    RIVET_DEFAULT_ANALYSIS_CTOR(JADE_1981_I166363);
 
 
     /// @name Analysis methods
@@ -43,7 +43,7 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      for (const Particle& p : apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==-2212 or Cuts::pid==-3122)) {
+      for (const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==-2212 or Cuts::pid==-3122)) {
 	if(p.pid()==-2212)
 	  _h_pbar->fill(p.p3().mod());
 	else
@@ -72,7 +72,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(JADE_1981_I166363);
+  RIVET_DECLARE_PLUGIN(JADE_1981_I166363);
 
 
 }

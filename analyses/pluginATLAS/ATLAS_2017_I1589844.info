@@ -24,7 +24,7 @@ PtCuts: [25, 25, 0.4]
 Options:
 - LMODE=EL,MU
 Description:
-  'A measurement of the splitting scales occuring in the $k_\text{t}$ jet-clustering algorithm is presented for final states containing
+  'A measurement of the splitting scales occurring in the $k_\text{t}$ jet-clustering algorithm is presented for final states containing
   a $Z$ boson. The measurement is done using 20.2 fb$^{-1}$ of proton-proton collision data collected at a centre-of-mass energy of
   $\sqrt{s} = 8$ TeV by the ATLAS experiment at the LHC in 2012. The measurement is based on charged-particle track information,
   which is measured with excellent precision in the $p_\text{T}$ region relevant for the transition between the perturbative and the

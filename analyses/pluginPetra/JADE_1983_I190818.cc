@@ -5,12 +5,12 @@
 namespace Rivet {
 
 
-  /// Average particle multiplicity at a range of energies
+  /// @brief Average multiplcity at a range of energies
   class JADE_1983_I190818 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(JADE_1983_I190818);
+    RIVET_DEFAULT_ANALYSIS_CTOR(JADE_1983_I190818);
 
 
     /// @name Analysis methods
@@ -20,9 +20,12 @@ namespace Rivet {
     void init() {
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
-      if (!beamEnergyMatch(12*GeV) || beamEnergyMatch(30*GeV) || beamEnergyMatch(35*GeV))
+      if( !(isCompatibleWithSqrtS(12.0) ||
+	    isCompatibleWithSqrtS(30.0) ||
+	    isCompatibleWithSqrtS(35.0) )) {
         MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
                     << " doesn't match any available analysis energy .");
+      }
       book(_counter, "/TMP/MULT");
       book(_mult, 1, 1, 1);
     }
@@ -42,9 +45,9 @@ namespace Rivet {
 
       double val = _counter->val();
       double err = _counter->err();
-
+      
       Scatter2D tempScat(refData(1, 1, 1));
-
+      
       for (size_t b = 0; b < tempScat.numPoints(); b++) {
         const double x  = tempScat.point(b).x();
         pair<double,double> ex = tempScat.point(b).xErrs();
@@ -70,6 +73,6 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(JADE_1983_I190818);
+  RIVET_DECLARE_PLUGIN(JADE_1983_I190818);
 
 }

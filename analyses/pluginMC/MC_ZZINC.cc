@@ -178,6 +178,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_ZZINC);
+  RIVET_DECLARE_PLUGIN(MC_ZZINC);
 
 }

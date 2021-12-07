@@ -11,7 +11,7 @@ class ALICE_2015_PPBCentrality : public Analysis {
 
 public:
 
-  DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2015_PPBCentrality);
+  RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2015_PPBCentrality);
 
   /// Book histograms and initialise projections before the run
   void init() {
@@ -67,6 +67,6 @@ private:
 
 
 // The hook for the plugin system
-DECLARE_RIVET_PLUGIN(ALICE_2015_PPBCentrality);
+RIVET_DECLARE_PLUGIN(ALICE_2015_PPBCentrality);
 
 }

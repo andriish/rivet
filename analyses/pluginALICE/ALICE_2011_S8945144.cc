@@ -8,12 +8,8 @@ namespace Rivet {
   class ALICE_2011_S8945144 : public Analysis {
   public:
 
-    ALICE_2011_S8945144()
-      : Analysis("ALICE_2011_S8945144")
-    {}
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2011_S8945144);
 
-
-  public:
 
     void init() {
       const ChargedFinalState cfs((Cuts::etaIn(-15, 15)));
@@ -98,7 +94,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALICE_2011_S8945144);
+  RIVET_DECLARE_ALIASED_PLUGIN(ALICE_2011_S8945144, ALICE_2011_I885104);
 
 }

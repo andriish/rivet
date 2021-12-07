@@ -7,23 +7,15 @@
 namespace Rivet {
 
 
-  /// @brief D0 Z+jets angular distributions
+  /// D0 Z+jets angular distributions
   class D0_2009_S8349509 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
-    /// Constructor
-    D0_2009_S8349509()
-      : Analysis("D0_2009_S8349509")
-    {    }
-
-    //@}
+    RIVET_DEFAULT_ANALYSIS_CTOR(D0_2009_S8349509);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -124,16 +116,13 @@ namespace Rivet {
       scale(_h_yboost_jet_Z45_xs, crossSectionPerEvent());
     }
 
-    //@}
+    /// @}
 
-  private:
-
-    // Data members like post-cuts event weight counters go here
 
   private:
 
     /// @name Histograms (normalised)
-    //@{
+    /// @{
     Histo1DPtr _h_dphi_jet_Z25;
     Histo1DPtr _h_dphi_jet_Z45;
 
@@ -142,10 +131,10 @@ namespace Rivet {
 
     Histo1DPtr _h_yboost_jet_Z25;
     Histo1DPtr _h_yboost_jet_Z45;
-    //@}
+    /// @}
 
     /// @name Histograms (absolute cross sections)
-    //@{
+    /// @{
     Histo1DPtr _h_dphi_jet_Z25_xs;
     Histo1DPtr _h_dphi_jet_Z45_xs;
 
@@ -154,7 +143,7 @@ namespace Rivet {
 
     Histo1DPtr _h_yboost_jet_Z25_xs;
     Histo1DPtr _h_yboost_jet_Z45_xs;
-    //@}
+    /// @}
 
     CounterPtr _inclusive_Z_sumofweights;
 
@@ -162,7 +151,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(D0_2009_S8349509);
+  RIVET_DECLARE_ALIASED_PLUGIN(D0_2009_S8349509, D0_2009_I826756);
 
 }

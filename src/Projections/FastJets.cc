@@ -34,6 +34,11 @@ namespace Rivet {
       _jdef = fastjet::JetDefinition(fastjet::ee_kt_algorithm, fastjet::E_scheme);
     } else if (alg == GENKTEE) {
       _jdef = fastjet::JetDefinition(fastjet::ee_genkt_algorithm, rparameter, -1);
+    } else if (alg == KTET) {
+      _jdef = fastjet::JetDefinition(fastjet::kt_algorithm, rparameter, fastjet::Et_scheme);
+    } else if (alg == ANTIKTET) {
+      _jdef = fastjet::JetDefinition(fastjet::antikt_algorithm, rparameter, fastjet::Et_scheme);
+
     } else {
       // Plugins:
       if (alg == SISCONE) {
@@ -188,6 +193,7 @@ namespace Rivet {
     PseudoJets pjs = mkClusterInputs(_fsparticles, _tagparticles);
 
     // Run either basic or area-calculating cluster sequence as reqd.
+    /// @todo How can we make sure these persist if we call calc multiple times?
     if (_adef) {
       _cseq.reset(new fastjet::ClusterSequenceArea(pjs, _jdef, *_adef));
     } else {

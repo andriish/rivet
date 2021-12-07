@@ -19,7 +19,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2015_I1345452);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2015_I1345452);
 
 
     void init() {
@@ -282,6 +282,6 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2015_I1345452);
+  RIVET_DECLARE_PLUGIN(ATLAS_2015_I1345452);
 
 }

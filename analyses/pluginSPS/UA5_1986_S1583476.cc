@@ -7,12 +7,12 @@
 namespace Rivet {
 
 
-  /// @brief UA5 \f$ \eta \f$ distributions at 200 and 900 GeV
+  /// UA5 \f$ \eta \f$ distributions at 200 and 900 GeV
   class UA5_1986_S1583476 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(UA5_1986_S1583476);
+    RIVET_DEFAULT_ANALYSIS_CTOR(UA5_1986_S1583476);
 
 
     /// @name Analysis methods
@@ -25,7 +25,7 @@ namespace Rivet {
       declare(ChargedFinalState((Cuts::etaIn(-5.0, 5.0))), "CFS50");
 
       // Histograms
-      if (beamEnergyMatch(200*GeV)) {
+      if (isCompatibleWithSqrtS(200.0)) {
         book(_hist_eta_nsd       ,1,1,1);
         book(_hist_eta_inelastic ,1,1,2);
         _hists_eta_nsd.resize(6);
@@ -34,7 +34,7 @@ namespace Rivet {
           book(_sumWn.back(), "TMP/sumWn"+to_str(i));
           book(_hists_eta_nsd[i-1],2,1,i);
         }
-      } else if (beamEnergyMatch(900*GeV)) {
+      } else if (isCompatibleWithSqrtS(900.0)) {
         book(_hist_eta_nsd       ,1,1,3);
         book(_hist_eta_inelastic ,1,1,4);
         _hists_eta_nsd.resize(9);
@@ -46,6 +46,7 @@ namespace Rivet {
       }
       book(_sumWTrig, "sumWtrig");
       book(_sumWTrigNSD, "sumWtrigNSD");
+
     }
 
 
@@ -115,7 +116,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(UA5_1986_S1583476);
+  RIVET_DECLARE_ALIASED_PLUGIN(UA5_1986_S1583476, UA5_1986_I233599);
 
 }

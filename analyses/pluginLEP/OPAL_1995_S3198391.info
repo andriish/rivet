@@ -16,7 +16,7 @@ NumEvents: 1000000
 Beams: [e+, e-]
 Energies: [91.2]
 PtCuts: [0]
-Description: The production of $\Delta^{++}$ baryons measured using 3.5 millon $Z^0$ events
+Description: The production of $\Delta^{++}$ baryons measured using 3.5 million $Z^0$ events
    by the OPAL experiment at LEP. Only the fragmentation function is implemented.
 BibKey: Alexander:1995gq
 BibTeX: '@Article{Alexander:1995gq,

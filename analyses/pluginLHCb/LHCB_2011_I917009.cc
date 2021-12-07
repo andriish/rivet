@@ -8,6 +8,9 @@ namespace Rivet {
   class LHCB_2011_I917009 : public Analysis {
   public:
 
+    /// @name Constructors etc.
+    //@{
+
     /// Constructor
     LHCB_2011_I917009()
       : Analysis("LHCB_2011_I917009"),
@@ -17,6 +20,10 @@ namespace Rivet {
         rap_max(0.0), dsShift(0)
     {   }
 
+    //@}
+
+
+  public:
 
     /// @name Analysis methods
     //@{
@@ -25,11 +32,11 @@ namespace Rivet {
     void init() {
       int y_nbins = 4;
       fillMap(partLftMap);
-      if (beamEnergyMatch(0.9*TeV)) {
+      if (isCompatibleWithSqrtS(900)) {
         rap_beam = 6.87;
         rap_max = 4.;
         pt_min = 0.25;
-      } else if (beamEnergyMatch(7*TeV)) {
+      } else if (isCompatibleWithSqrtS(7000.)) {
         rap_beam = 8.92;
         rap_max = 4.5;
         pt_min = 0.15;
@@ -63,7 +70,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       double ancestor_lftsum = 0.0;
       double y, pT;
       int id;
@@ -154,7 +161,7 @@ namespace Rivet {
     }
 
     // Data members like post-cuts event weight counters go here
-    const double getMotherLifeTimeSum(const Particle& p) {
+    double getMotherLifeTimeSum(const Particle& p) {
       if (p.genParticle() == nullptr) return -1.;
       double lftSum = 0.;
       double plft = 0.;
@@ -322,6 +329,6 @@ namespace Rivet {
 
 
   // Hook for the plugin system
-  DECLARE_RIVET_PLUGIN(LHCB_2011_I917009);
+  RIVET_DECLARE_PLUGIN(LHCB_2011_I917009);
 
 }

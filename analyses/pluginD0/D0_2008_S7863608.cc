@@ -5,22 +5,18 @@
 
 namespace Rivet {
 
-  
-
 
   /// @brief D0 differential Z/\f$ \gamma^* \f$ + jet + \f$ X \f$ cross sections
+  ///
   /// @author Gavin Hesketh, Andy Buckley, Frank Siegert
   class D0_2008_S7863608 : public Analysis {
   public:
 
-    /// Constructor
-    D0_2008_S7863608()
-      : Analysis("D0_2008_S7863608")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(D0_2008_S7863608);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -102,13 +98,13 @@ namespace Rivet {
       scale(_h_Z_y_normalised, factor);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_jet_pT_cross_section;
     Histo1DPtr _h_jet_y_cross_section;
     Histo1DPtr _h_Z_pT_cross_section;
@@ -118,7 +114,7 @@ namespace Rivet {
     Histo1DPtr _h_jet_y_normalised;
     Histo1DPtr _h_Z_pT_normalised;
     Histo1DPtr _h_Z_y_normalised;
-    //@}
+    /// @}
 
     CounterPtr _sum_of_weights_inclusive;
 
@@ -126,7 +122,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(D0_2008_S7863608);
+  RIVET_DECLARE_ALIASED_PLUGIN(D0_2008_S7863608, D0_2008_I792812);
 
 }

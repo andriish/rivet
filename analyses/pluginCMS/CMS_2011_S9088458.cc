@@ -10,9 +10,7 @@ namespace Rivet {
    class CMS_2011_S9088458 : public Analysis {
    public:
 
-
-     CMS_2011_S9088458()
-       : Analysis("CMS_2011_S9088458") {  }
+     RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2011_S9088458);
 
 
      void init() {
@@ -50,13 +48,15 @@ namespace Rivet {
 
    private:
 
+     /// @{
      Histo1DPtr _h_tmp_dijet, _h_tmp_trijet;
      Scatter2DPtr _h_r32;
+     /// @}
 
   };
 
 
-  // A hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2011_S9088458);
+
+  RIVET_DECLARE_ALIASED_PLUGIN(CMS_2011_S9088458, CMS_2011_I912560);
 
 }

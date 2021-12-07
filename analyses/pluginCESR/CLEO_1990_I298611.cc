@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEO_1990_I298611);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEO_1990_I298611);
 
 
     /// @name Analysis methods
@@ -36,7 +36,7 @@ namespace Rivet {
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double Emax = ( beams.first.p3().mod() + beams.second.p3().mod() ) / 2.0;
       const double Pmax = sqrt(sqr(Emax)-sqr(2.28646));
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::abspid==4122)) {
 	double xp = p.momentum().p3().mod()/Pmax;
         for(unsigned int ix=0;ix<6;++ix)
@@ -66,6 +66,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(CLEO_1990_I298611);
+  RIVET_DECLARE_PLUGIN(CLEO_1990_I298611);
 
 }

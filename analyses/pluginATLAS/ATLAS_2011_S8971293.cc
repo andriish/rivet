@@ -10,18 +10,9 @@ namespace Rivet {
   class ATLAS_2011_S8971293 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
-    ATLAS_2011_S8971293()
-      : Analysis("ATLAS_2011_S8971293")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_S8971293);
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{
@@ -32,6 +23,7 @@ namespace Rivet {
       declare(FastJets(FinalState(), FastJets::ANTIKT, 0.6), "AntiKtJets06");
 
       /// Book histograms
+      /// @todo Provide a nicer way!
       {Histo1DPtr tmp; _h_deltaPhi.add(110., 160., book(tmp, 1, 1, 1));}
       {Histo1DPtr tmp; _h_deltaPhi.add(160., 210., book(tmp, 1, 1, 2));}
       {Histo1DPtr tmp; _h_deltaPhi.add(210., 260., book(tmp, 1, 1, 3));}
@@ -70,22 +62,18 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
 
-    /// @name Histograms
-    //@{
+    /// Histograms
     BinnedHistogram _h_deltaPhi;
-    //@}
-
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_S8971293);
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2011_S8971293, ATLAS_2011_I889546);
 
 }

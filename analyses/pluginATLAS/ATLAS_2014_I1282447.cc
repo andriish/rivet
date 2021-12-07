@@ -290,7 +290,7 @@ namespace Rivet {
       }
 
       // Find hadrons in the event
-      const UnstableParticles& fs = apply<UnstableFinalState>(event, "hadrons");
+      const UnstableParticles& fs = apply<UnstableParticles>(event, "hadrons");
 
       /// FIND Different channels
       // 1: wcjet
@@ -595,6 +595,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2014_I1282447);
+  RIVET_DECLARE_PLUGIN(ATLAS_2014_I1282447);
 
 }

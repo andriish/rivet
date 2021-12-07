@@ -11,17 +11,16 @@ namespace Rivet {
 
 
   /// @brief OPAL flavour-dependent fragmentation paper
+  ///
   /// @author Hendrik Hoeth
   class OPAL_1998_S3780481 : public Analysis {
   public:
 
-    /// Constructor
-    OPAL_1998_S3780481() : Analysis("OPAL_1998_S3780481") {
-    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(OPAL_1998_S3780481);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void analyze(const Event& e) {
       // First, veto on leptonic events by requiring at least 4 charged FS particles
@@ -156,7 +155,7 @@ namespace Rivet {
       scale(_histMultiChargedall, 1.0/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -164,6 +163,7 @@ namespace Rivet {
     /// Store the weighted sums of numbers of charged / charged+neutral
     /// particles - used to calculate average number of particles for the
     /// inclusive single particle distributions' normalisations.
+    /// @{
     CounterPtr _weightedTotalPartNum;
 
     CounterPtr _SumOfudsWeights;
@@ -182,14 +182,12 @@ namespace Rivet {
     Histo1DPtr _histMultiChargedc;
     Histo1DPtr _histMultiChargedb;
     Histo1DPtr _histMultiChargedall;
-
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OPAL_1998_S3780481);
+  RIVET_DECLARE_ALIASED_PLUGIN(OPAL_1998_S3780481, OPAL_1998_I472637);
 
 }

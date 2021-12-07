@@ -5,17 +5,14 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 
-using namespace std;
-
 namespace Rivet {
 
 
-  // UE charged particles vs. leading jet
+  /// UE charged particles vs. leading jet
   class CMS_2011_S9120041 : public Analysis {
   public:
 
-    /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2011_S9120041);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2011_S9120041);
 
 
     void init() {
@@ -26,7 +23,7 @@ namespace Rivet {
       const FastJets jetpro(cfsforjet, FastJets::SISCONE, 0.5);
       declare(jetpro, "Jets");
 
-      if (beamEnergyMatch(7.0*TeV)) {
+      if (isCompatibleWithSqrtS(7000.)) {
         book(_h_Nch_vs_pT ,1, 1, 1); // Nch vs. pT_max
         book(_h_Sum_vs_pT ,2, 1, 1); // sum(pT) vs. pT_max
         book(_h_pT3_Nch   ,5, 1, 1);   // transverse Nch,     pT_max > 3GeV
@@ -37,7 +34,7 @@ namespace Rivet {
         book(_h_pT20_pT   ,10, 1, 1);  // transverse pT,      pT_max > 20GeV
       }
 
-      if (beamEnergyMatch(0.9*TeV)) {
+      if (isCompatibleWithSqrtS(900.)) {
         book(_h_Nch_vs_pT ,3, 1, 1); // Nch vs. pT_max
         book(_h_Sum_vs_pT ,4, 1, 1); // sum(pT) vs. pT_max
         book(_h_pT3_Nch   ,11, 1, 1);  // transverse Nch,     pT_max > 3GeV
@@ -80,7 +77,7 @@ namespace Rivet {
           ptSumTransverse += pT;
 
           if (pTlead > 3.0*GeV) _h_pT3_pT->fill(pT);
-          if (beamEnergyMatch(7.0*TeV) && pTlead > 20.0*GeV) _h_pT20_pT->fill(pT);
+          if (isCompatibleWithSqrtS(7000.) && pTlead > 20.0*GeV) _h_pT20_pT->fill(pT);
         }
       }
 
@@ -93,7 +90,7 @@ namespace Rivet {
         sumOfWeights3->fill();
         _nch_tot_pT3->fill(nTransverse);
       }
-      if (beamEnergyMatch(7.0*TeV) && pTlead > 20.0*GeV) {
+      if (isCompatibleWithSqrtS(7000.) && pTlead > 20.0*GeV) {
         _h_pT20_Nch->fill(nTransverse);
         _h_pT20_Sum->fill(ptSumTransverse);
         sumOfWeights20->fill();
@@ -102,14 +99,13 @@ namespace Rivet {
     }
 
 
-
     /// Normalise histograms etc., after the run
     void finalize() {
       normalize(_h_pT3_Nch);
       normalize(_h_pT3_Sum);
       if (sumOfWeights3->val() != 0.0) normalize(_h_pT3_pT, *_nch_tot_pT3 / *sumOfWeights3);
 
-      if (beamEnergyMatch(7.0*TeV)) {
+      if (isCompatibleWithSqrtS(7000.)) {
         normalize(_h_pT20_Nch);
         normalize(_h_pT20_Sum);
         if (sumOfWeights20->val() != 0.0) normalize(_h_pT20_pT, *_nch_tot_pT20 / *sumOfWeights20);
@@ -120,6 +116,7 @@ namespace Rivet {
 
   private:
 
+    /// @{
     CounterPtr sumOfWeights3;
     CounterPtr sumOfWeights20;
 
@@ -134,10 +131,12 @@ namespace Rivet {
     Histo1DPtr _h_pT20_Nch;
     Histo1DPtr _h_pT20_Sum;
     Histo1DPtr _h_pT20_pT;
+    /// @}
 
   };
 
 
-  // This global object acts as a hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2011_S9120041);
+
+  RIVET_DECLARE_ALIASED_PLUGIN(CMS_2011_S9120041, CMS_2011_I916908);
+
 }

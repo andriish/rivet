@@ -11,25 +11,31 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CELLO_1982_I12010);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CELLO_1982_I12010);
 
 
     /// @name Analysis methods
     //@{
 
     /// Book histograms and initialise projections before the run
-    void init() {
+    void init() {      
       // Initialise and register projections
       declare(FinalState(), "FS");
 
       // Book histograms
       unsigned int iloc(0);
-      if      (beamEnergyMatch(22*GeV)) iloc=1;
-      else if (beamEnergyMatch(34*GeV)) iloc=2;
-      else MSG_ERROR("Beam energy not supported!");
+      if(isCompatibleWithSqrtS(22.)) {
+	iloc=1;
+      }
+      else if (isCompatibleWithSqrtS(34.)) {
+	iloc=2;
+      }
+      else
+	MSG_ERROR("Beam energy not supported!");
       book(_histEEC  , 1, 1, iloc);
       book(_histAEEC , 3, 1, iloc);
       book(_weightSum, "TMP/weightSum");
+
     }
 
 
@@ -60,7 +66,7 @@ namespace Rivet {
           const double energy_j = p_j->momentum().E();
           const double thetaij = mom3_i.unit().angle(mom3_j.unit());
           double eec = (energy_i*energy_j) / Evis2;
-          if(p_i != p_j) eec *= 2.;
+	  if(p_i != p_j) eec *= 2.;
           _histEEC->fill(thetaij, eec);
           if (thetaij <0.5*M_PI)
             _histAEEC->fill( thetaij, -eec);
@@ -91,7 +97,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CELLO_1982_I12010);
+  RIVET_DECLARE_PLUGIN(CELLO_1982_I12010);
 
 
 }

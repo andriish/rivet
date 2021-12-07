@@ -8,14 +8,12 @@
 namespace Rivet {
 
 
-  /// @brief  J/psi production at ATLAS
+  /// J/psi production at ATLAS
   class ATLAS_2011_S9035664: public Analysis {
   public:
 
     /// Constructor
-    ATLAS_2011_S9035664()
-      : Analysis("ATLAS_2011_S9035664")
-    {}
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_S9035664);
 
 
     /// @name Analysis methods
@@ -41,7 +39,7 @@ namespace Rivet {
     void analyze(const Event& e) {
 
       // Final state of unstable particles to get particle spectra
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
 
       for (const Particle& p : ufs.particles()) {
         if (p.abspid() != 443) continue;
@@ -124,11 +122,10 @@ namespace Rivet {
     Histo1DPtr _IncRapMedHigh;
     Histo1DPtr _IncRapMedLow;
     Histo1DPtr _IncRapLow;
-    //@}
 
   };
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_S9035664);
+
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2011_S9035664, ATLAS_2011_I896268);
 
 }

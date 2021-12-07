@@ -68,15 +68,25 @@ It is possible to stack the files and pass the cross-section on the fly as follo
 rivet-merge -o ttbar.yoda.gz ttbar_dilep.yoda.gz:72.592 ttbar_singlep.yoda.gz:302.06 ttbar_hadronic.yoda.gz:314.12
 ```
 
+where the cross-section values are specified in picobarns.
+Note that if the HepMC `GenEvent` does not include the cross-section information
+and the user also didn't supply a cross-section, the finalised histograms
+will have 0 area and the on-the-fly scaling from the above example cannot work.
+In this case, it is still possibly to forcibly set a cross-section 
+by using a syntax like `ttbar_dilep.yoda.gz:=72.592`. 
+To ease scripting and readability,
+the syntax `ttbar_dilep.yoda.gz:x72.592` (equivalent to `ttbar_dilep.yoda.gz:72.592`)
+for multiplicative scaling will also be accepted.
+
 ### Technical note
 
 The final cross-section will be given by the sum of the individual cross-sections.
 
 Note that the `yodamerge` script would really only perform a simple stacking here. 
 This is fine when the histogram is normalised to cross-section and the components 
-really just need to be added up, but for a unit-normalised histogram, one would first 
+simply just need to be added up, but for a unit-normalised histogram, one would first 
 have to undo the divsion by area, add the components with their respective 
-cross-section weight, and renormalise the stack to unity. This is why `yodamerge` 
+cross-section weight, and renormalise the stacked histogram to unity. This is why `yodamerge` 
 tends to struggle with files that contain a mix of unit- and cross-section-normalised 
 objects, although this can often still be dealt with using a few lines of Python.
 

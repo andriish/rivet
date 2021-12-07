@@ -6,12 +6,13 @@ namespace Rivet {
 
 
   /// @brief CDF leading track underlying event at 300, 900 and 1960 GeV
+  ///
   /// @author Orestes Tumbarell Aranda (Havana), Hannes Jung (DESY)
   class CDF_2015_I1388868 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2015_I1388868);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2015_I1388868);
 
 
     /// @name Analysis methods
@@ -22,11 +23,11 @@ namespace Rivet {
 
       // Energy selection
       int isqrts = -1;
-      if (beamEnergyMatch(300*GeV)) {
+      if (isCompatibleWithSqrtS(300)) {
         isqrts = 2;
-      } else if (beamEnergyMatch(900*GeV)) {
+      } else if (isCompatibleWithSqrtS(900)) {
         isqrts = 1;
-      } else if (beamEnergyMatch(1960*GeV)) {
+      } else if (isCompatibleWithSqrtS(1960)) {
         isqrts = 0;
       } else {
         throw UserError("Unexpected sqrtS ! Only 300, 900, 1960 GeV is supported by CDF_2015_I1388868");
@@ -123,6 +124,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2015_I1388868);
+  RIVET_DECLARE_PLUGIN(CDF_2015_I1388868);
 
 }

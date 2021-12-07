@@ -7,14 +7,11 @@
 namespace Rivet {
 
 
-  /// @brief D0 direct photon pair production
+  /// D0 direct photon pair production
   class D0_2010_S8570965 : public Analysis {
   public:
 
-
-    D0_2010_S8570965()
-      : Analysis("D0_2010_S8570965")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(D0_2010_S8570965);
 
 
     void init() {
@@ -139,7 +136,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(D0_2010_S8570965);
+  RIVET_DECLARE_ALIASED_PLUGIN(D0_2010_S8570965, D0_2010_I846997);
 
 }

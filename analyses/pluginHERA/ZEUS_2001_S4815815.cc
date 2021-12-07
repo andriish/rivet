@@ -20,7 +20,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ZEUS_2001_S4815815);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ZEUS_2001_S4815815);
 
 
     /// @name Analysis methods
@@ -33,7 +33,7 @@ namespace Rivet {
       /// @todo Acceptance
       // checking recombination scheme and radius checked with original code from M.Wing
       FinalState fs;
-      declare(FastJets(fs, fastjet::JetAlgorithm::kt_algorithm, fastjet::RecombinationScheme::Et_scheme, 1.0), "Jets"); 
+      declare(FastJets(fs, fastjet::JetAlgorithm::kt_algorithm, fastjet::RecombinationScheme::Et_scheme, 1.0), "Jets");
       declare(DISKinematics(), "Kinematics");
 
       // Table 1
@@ -168,6 +168,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ZEUS_2001_S4815815);
+  RIVET_DECLARE_ALIASED_PLUGIN(ZEUS_2001_S4815815, ZEUS_2001_I568665);
 
 }

@@ -7,20 +7,18 @@ namespace Rivet {
 
 
   /// @brief D0 Run II Z \f$ p_\perp \f$ differential cross-section shape
+  ///
   /// @author Andy Buckley
   /// @author Gavin Hesketh
   /// @author Frank Siegert
   class D0_2008_S7554427 : public Analysis {
   public:
 
-    /// Default constructor.
-    D0_2008_S7554427()
-      : Analysis("D0_2008_S7554427")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(D0_2008_S7554427);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -54,20 +52,20 @@ namespace Rivet {
       normalize(_h_forward_ZpT);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_ZpT, _h_forward_ZpT;
-    //@}
+    /// @}
 
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(D0_2008_S7554427);
+
+  RIVET_DECLARE_ALIASED_PLUGIN(D0_2008_S7554427, D0_2008_I769689);
 
 }

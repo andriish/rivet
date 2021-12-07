@@ -11,18 +11,16 @@ namespace Rivet {
 
 
   /// @brief OPAL multiplicities at various energies
+  ///
   /// @author Peter Richardson
   class OPAL_2002_S5361494 : public Analysis {
   public:
 
-    /// Constructor
-    OPAL_2002_S5361494()
-      : Analysis("OPAL_2002_S5361494")
-    {}
+    RIVET_DEFAULT_ANALYSIS_CTOR(OPAL_2002_S5361494);
+
 
     /// @name Analysis methods
-    //@{
-
+    /// @{
 
     void init() {
       // Projections
@@ -30,21 +28,20 @@ namespace Rivet {
       declare(ChargedFinalState(), "CFS");
       declare(InitialQuarks(), "IQF");
 
+      // Histograms
       book(_cLight, "TMP/CLIGHT" );
       book(_wLight, "TMP/WLIGHT" );
       book(_cCharm, "TMP/CCHARM" );
       book(_wCharm, "TMP/WCHARM" );
       book(_cBottom, "TMP/CBOTTOM");
       book(_wBottom, "TMP/WBOTTOM");
-
     }
 
 
     void analyze(const Event& event) {
-       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
+      // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       if (cfs.size() < 2) vetoEvent;
-
 
       int flavour = 0;
       const InitialQuarks& iqf = apply<InitialQuarks>(event, "IQF");
@@ -96,60 +93,60 @@ namespace Rivet {
 
       // fill the histograms
       for (unsigned int ix=1;ix<5;++ix) {
-	double val(0.), err(0.0);
-	if(ix==1) {
-	  val = _cBottom->val();
-	  err = _cBottom->err();
-	}
-	else if(ix==2) {
-	  val = _cCharm->val();
-	  err = _cCharm->err();
-	}
-	else if(ix==3) {
-	  val = _cLight->val();
-	  err = _cLight->err();
-	}
-	else if(ix==4) {
-	  val = _cDiff.val();
-	  err = _cDiff.err();
-	}
+        double val(0.), err(0.0);
+        if(ix==1) {
+          val = _cBottom->val();
+          err = _cBottom->err();
+        }
+        else if(ix==2) {
+          val = _cCharm->val();
+          err = _cCharm->err();
+        }
+        else if(ix==3) {
+          val = _cLight->val();
+          err = _cLight->err();
+        }
+        else if(ix==4) {
+          val = _cDiff.val();
+          err = _cDiff.err();
+        }
 
         /// @todo TIDY!
-	Scatter2D temphisto(refData(1, 1, ix));
+        Scatter2D temphisto(refData(1, 1, ix));
         Scatter2DPtr mult;
         book(mult, 1, 1, ix);
-	for (size_t b = 0; b < temphisto.numPoints(); b++) {
-	  const double x  = temphisto.point(b).x();
-	  pair<double,double> ex = temphisto.point(b).xErrs();
-	  pair<double,double> ex2 = ex;
-	  if(ex2.first ==0.) ex2. first=0.0001;
-	  if(ex2.second==0.) ex2.second=0.0001;
-	  if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
-	    mult->addPoint(x, val, ex, make_pair(err,err));
-	  } else {
-	    mult->addPoint(x, 0., ex, make_pair(0.,.0));
-	  }
-	}
+        for (size_t b = 0; b < temphisto.numPoints(); b++) {
+          const double x  = temphisto.point(b).x();
+          pair<double,double> ex = temphisto.point(b).xErrs();
+          pair<double,double> ex2 = ex;
+          if(ex2.first ==0.) ex2. first=0.0001;
+          if(ex2.second==0.) ex2.second=0.0001;
+          if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+            mult->addPoint(x, val, ex, make_pair(err,err));
+          } else {
+            mult->addPoint(x, 0., ex, make_pair(0.,.0));
+          }
+        }
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Multiplicities
     /// @todo Don't we have a Dbn1D-like type that can do both at once?
-    //@{
+    /// @{
     CounterPtr _cLight, _wLight;
     CounterPtr _cCharm, _wCharm;
     CounterPtr _cBottom, _wBottom;
-    //@}
+    /// @}
 
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OPAL_2002_S5361494);
+
+  RIVET_DECLARE_ALIASED_PLUGIN(OPAL_2002_S5361494, OPAL_2002_I601225);
 
 }

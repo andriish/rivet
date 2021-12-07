@@ -189,18 +189,17 @@ namespace Rivet {
     }
 
 
-    pair<double,double> crossSection(const GenEvent & ge) {
+    pair<double,double> crossSection(const GenEvent& ge) {
       return make_pair(ge.cross_section()->cross_section(),
                        ge.cross_section()->cross_section_error());
     }
 
 
-    std::valarray<double> weights(const GenEvent & ge) {
-      const size_t W = ge.weights().size();
-      std::valarray<double> wts(W);
-      for (unsigned int iw = 0; iw < W; ++iw)
-        wts[iw] = ge.weights()[iw];
-      return wts;
+    std::valarray<double> weights(const GenEvent& ge) {
+      std::valarray<double> rtn(ge.weights().size());
+      for (size_t i = 0; i < ge.weights().size(); ++i) rtn[i] = ge.weights()[i];
+      return rtn;
+      // return std::valarray<double>(ge.weights().data(), ge.weights().size());
     }
 
 

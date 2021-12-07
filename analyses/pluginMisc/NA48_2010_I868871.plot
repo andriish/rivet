@@ -1,6 +1,6 @@
 BEGIN PLOT /NA48_2010_I868871/c
 XLabel=$\cos\theta$
-YLabel=$1/N\text{d}N/\text{d}\cos\theta$
+YLabel=$1/N\mathrm{d}N/\mathrm{d}\cos\theta$
 LogY=0
 END PLOT
 BEGIN PLOT /NA48_2010_I868871/d

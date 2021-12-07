@@ -15,11 +15,11 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    MC_CORRELATORS_EXAMPLE() : CumulantAnalysis("MC_CORRELATORS_EXAMPLE") {
-    }
+    MC_CORRELATORS_EXAMPLE()
+      : CumulantAnalysis("MC_CORRELATORS_EXAMPLE")
+    {   }
     //@}
 
-  public:
 
     /// @name Analysis methods
     //@{
@@ -36,10 +36,11 @@ namespace Rivet {
       ec22 = bookECorrelator<2,2>("ec22",*h_c22);
       ec23 = bookECorrelator<3,2>("ec32",*h_c22);
       ec22pT = bookECorrelator<2,2>("ec22pT",*h_v22pT);
-      pair<int, int> max = getMaxValues(); 
+      pair<int, int> max = getMaxValues();
       // Declare correlator projections.
       declare(Correlators(pp, max.first, max.second, *h_v22pT),"CRS");
     }
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const Correlators& c = apply<Correlators>(event,"CRS");
@@ -47,6 +48,7 @@ namespace Rivet {
       ec23->fill(apply<ChargedFinalState>(event,"CFS").particles().size(), c);
       ec22pT->fill(c);
     }
+
     /// Normalise histograms etc., after the run
     void finalize() {
       cnTwoInt(h_c22,ec22);
@@ -55,10 +57,10 @@ namespace Rivet {
 
     }
 
-
     //@}
-  private:
 
+
+  private:
 
     /// @name Histograms
     //@{
@@ -75,6 +77,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_CORRELATORS_EXAMPLE);
+  RIVET_DECLARE_PLUGIN(MC_CORRELATORS_EXAMPLE);
 
 }

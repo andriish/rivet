@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2013_I1256943);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2013_I1256943);
 
 
     /// Add projections and book histograms
@@ -55,7 +55,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& e) {
 
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
       const ZFinder& zfindermu = apply<ZFinder>(e, "ZFinderMu");
       const ZFinder& zfinderel = apply<ZFinder>(e, "ZFinderEl");
 
@@ -177,6 +177,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(CMS_2013_I1256943);
+  RIVET_DECLARE_PLUGIN(CMS_2013_I1256943);
 
 }

@@ -11,21 +11,13 @@
 namespace Rivet {
 
 
+  /// High-jet-multiplicity squark and gluino search
   class ATLAS_2011_S9225137 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
-    ATLAS_2011_S9225137()
-      : Analysis("ATLAS_2011_S9225137")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_S9225137);
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{
@@ -425,7 +417,8 @@ namespace Rivet {
 
   };
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_S9225137);
+
+
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2011_S9225137, ATLAS_2011_I939504);
 
 }

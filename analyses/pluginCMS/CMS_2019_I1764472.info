@@ -15,7 +15,7 @@ References:
 - 'Phys.Rev.Lett. 124 (2020) 20, 202001'
 - 'arXiv:1911.03800'
 RunInfo: ttbar events at sqrt(s) = 13 TeV, lepton+jets selection at particle level
-Luminosity: 35.9 / fb
+Luminosity_fb: 35.9
 Beams: [p+, p+]
 Energies: [13000]
 Description:

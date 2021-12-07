@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BELLE_2008_I757220);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2008_I757220);
 
 
     /// @name Analysis methods
@@ -131,7 +131,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BELLE_2008_I757220);
+  RIVET_DECLARE_PLUGIN(BELLE_2008_I757220);
 
 
 }

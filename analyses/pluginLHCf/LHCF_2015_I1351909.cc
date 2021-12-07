@@ -10,7 +10,7 @@ class LHCF_2015_I1351909 : public Analysis {
 public:
 
 	/// Constructor
-	DEFAULT_RIVET_ANALYSIS_CTOR(LHCF_2015_I1351909);
+	RIVET_DEFAULT_ANALYSIS_CTOR(LHCF_2015_I1351909);
 
 	static constexpr bool lhcf_like = true;
 	static constexpr int ndecay = 1;
@@ -297,7 +297,7 @@ private:
 
 
 // The hook for the plugin system
-DECLARE_RIVET_PLUGIN(LHCF_2015_I1351909);
+RIVET_DECLARE_PLUGIN(LHCF_2015_I1351909);
 
 
 }

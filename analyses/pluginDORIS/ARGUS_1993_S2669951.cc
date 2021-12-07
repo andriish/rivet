@@ -6,17 +6,17 @@ namespace Rivet {
 
 
   /// @brief Production of the $\eta'(958)$ and $f_0(980)$ in $e^+e^-$ annihilation in the Upsilon region
+  ///
   /// @author Peter Richardson
   class ARGUS_1993_S2669951 : public Analysis {
   public:
 
-    ARGUS_1993_S2669951()
-      : Analysis("ARGUS_1993_S2669951")
-    {   }
+    RIVET_DEFAULT_ANALYSIS_CTOR(ARGUS_1993_S2669951);
+
 
     void init() {
       declare(UnstableParticles(), "UFS");
-      
+
       book(_weightSum_cont, "TMP/weightSum_cont");
       book(_weightSum_Ups1, "TMP/weightSum_Ups1");
       book(_weightSum_Ups2, "TMP/weightSum_Ups2");
@@ -39,7 +39,7 @@ namespace Rivet {
       const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
       Particles upsilons = ufs.particles(Cuts::pid==553 or Cuts::pid==100553);
       // Continuum
-      if (upsilons.empty()) { 
+      if (upsilons.empty()) {
         MSG_DEBUG("No Upsilons found => continuum event");
         _weightSum_cont->fill();
         for (const Particle& p : ufs.particles()) {
@@ -143,10 +143,10 @@ namespace Rivet {
   private:
 
     /// @name Counters
-    //@{
+    /// @{
     array<CounterPtr,3> _count_etaPrime_highZ, _count_etaPrime_allZ, _count_f0;
     CounterPtr _weightSum_cont,_weightSum_Ups1,_weightSum_Ups2;
-    //@}
+    /// @}
 
 
     /// Histos
@@ -168,7 +168,7 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ARGUS_1993_S2669951);
+
+  RIVET_DECLARE_ALIASED_PLUGIN(ARGUS_1993_S2669951, ARGUS_1993_I342061);
 
 }

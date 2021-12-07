@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(DELPHI_2000_I524694);
+    RIVET_DEFAULT_ANALYSIS_CTOR(DELPHI_2000_I524694);
 
 
     /// @name Analysis methods
@@ -37,7 +37,7 @@ namespace Rivet {
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles()) {
         const int id = p.abspid();
         double xp = p.p3().mod()/meanBeamMom;
@@ -75,7 +75,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(DELPHI_2000_I524694);
+  RIVET_DECLARE_PLUGIN(DELPHI_2000_I524694);
 
 
 }

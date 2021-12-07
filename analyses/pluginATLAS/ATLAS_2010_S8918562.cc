@@ -9,26 +9,8 @@ namespace Rivet {
   class ATLAS_2010_S8918562 : public Analysis {
   public:
 
-    /// Helper for collectively filling Nch, pT, eta, and pT vs. Nch histograms
-    void fillPtEtaNch(const ChargedFinalState& cfs, const int nchcut, const string& label) {
-      // Get number of particles and skip if event fails cut
-      const int nch = cfs.size();
-      if (nch < nchcut) return;
-
-      // Fill nch
-      _h[label + "_nch"]->fill(nch);
-      // Loop over particles, fill pT, eta and ptnch
-      for (const Particle& p : cfs.particles()) {
-        const double pt = p.pT();
-        _h[label + "_pt"]->fill(pt/GeV, 1.0/pt);
-        _h[label + "_eta"]->fill(p.eta());
-        if (_p[label + "_ptnch"])  _p[label + "_ptnch"]->fill(nch, pt/GeV);
-      }
-    }
-
-
     /// Default constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2010_S8918562);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2010_S8918562);
 
 
     /// Initialization, called once before running
@@ -42,7 +24,7 @@ namespace Rivet {
       declare(cfs2500, "CFS2500");
 
       // Book histograms
-      if (beamEnergyMatch(900*GeV)) {
+      if (isCompatibleWithSqrtS(900)) {
         book(_h["pt100_nch2_nch"],   18, 1, 1);
         book(_h["pt100_nch2_pt"],    11, 1, 1);
         book(_h["pt100_nch2_eta"],    4, 1, 1);
@@ -66,14 +48,14 @@ namespace Rivet {
         book(_h["pt2500_nch1_eta"],   28, 1, 1);
         book(_p["pt2500_nch1_ptnch"], 38, 1, 1);
 
-      } else if (beamEnergyMatch(2360*GeV)) {
+      } else if (isCompatibleWithSqrtS(2360)) {
 
         book(_h["pt500_nch1_nch"], 16, 1, 1);
         book(_h["pt500_nch1_pt"],   9, 1, 1);
         book(_h["pt500_nch1_eta"],  2, 1, 1);
         _p["pt500_nch1_ptnch"] = nullptr;
 
-      } else if (beamEnergyMatch(7000*GeV)) {
+      } else if (isCompatibleWithSqrtS(7000)) {
 
         book(_h["pt100_nch2_nch"],   19, 1, 1);
         book(_h["pt100_nch2_pt"],    12, 1, 1);
@@ -106,10 +88,8 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const bool is2360 = beamEnergyMatch(2360*GeV);
-
       // 100 GeV final states
-      if (!is2360) {
+      if (!isCompatibleWithSqrtS(2360)) {
         const ChargedFinalState& cfs100 = apply<ChargedFinalState>(event, "CFS100");
         // nch>=2
         fillPtEtaNch(cfs100, 2, "pt100_nch2");
@@ -122,12 +102,12 @@ namespace Rivet {
       // nch>=1
       fillPtEtaNch(cfs500, 1, "pt500_nch1");
       // nch>=6
-      if (!is2360) {
+      if (!isCompatibleWithSqrtS(2360)) {
         fillPtEtaNch(cfs500, 6, "pt500_nch6");
       }
 
       // 2500 GeV final states
-      if (!is2360) {
+      if (!isCompatibleWithSqrtS(2360)) {
         const ChargedFinalState& cfs2500 = apply<ChargedFinalState>(event, "CFS2500");
         // nch>=1
         fillPtEtaNch(cfs2500, 1, "pt2500_nch1");
@@ -137,14 +117,13 @@ namespace Rivet {
 
 
     void finalize() {
-      const bool is2360 = beamEnergyMatch(2360*GeV);
 
       double sf = safediv(1.0, _h["pt500_nch1_nch"]->integral(true), 1.0);
       scale(_h["pt500_nch1_nch"], sf);
       scale(_h["pt500_nch1_pt"],  sf/TWOPI/5);
       scale(_h["pt500_nch1_eta"], sf);
 
-      if (!is2360) {
+      if (!isCompatibleWithSqrtS(2360)) {
         sf = safediv(1.0, _h["pt100_nch2_nch"]->integral(true), 1.0);
         scale(_h["pt100_nch2_nch"], sf);
         scale(_h["pt100_nch2_pt"],  sf/TWOPI/5);
@@ -170,13 +149,29 @@ namespace Rivet {
 
   private:
 
+    /// Helper for collectively filling Nch, pT, eta, and pT vs. Nch histograms
+    void fillPtEtaNch(const ChargedFinalState& cfs, const int nchcut, const string& label) {
+      // Get number of particles and skip if event fails cut
+      const int nch = cfs.size();
+      if (nch < nchcut) return;
+
+      // Fill nch
+      _h[label + "_nch"]->fill(nch);
+      // Loop over particles, fill pT, eta and ptnch
+      for (const Particle& p : cfs.particles()) {
+        const double pt = p.pT();
+        _h[label + "_pt"]->fill(pt/GeV, 1.0/pt);
+        _h[label + "_eta"]->fill(p.eta());
+        if (_p[label + "_ptnch"])  _p[label + "_ptnch"]->fill(nch, pt/GeV);
+      }
+    }
+
     map<string, Histo1DPtr> _h;
     map<string, Profile1DPtr> _p;
 
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2010_S8918562);
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2010_S8918562, ATLAS_2010_I882098);
 
 }

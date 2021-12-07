@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(JADE_1998_S3612880);
+    RIVET_DEFAULT_ANALYSIS_CTOR(JADE_1998_S3612880);
 
 
     /// Book histograms and initialise projections before the run
@@ -105,12 +105,10 @@ namespace Rivet {
 
     Histo1DPtr _h_thrust, _h_MH, _h_BT, _h_BW, _h_y23;
 
-
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(JADE_1998_S3612880);
+  RIVET_DECLARE_ALIASED_PLUGIN(JADE_1998_S3612880, JADE_1998_I447560);
 
 }

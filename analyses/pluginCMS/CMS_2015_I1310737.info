@@ -22,6 +22,7 @@ RunInfo:
 NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [7000]
+Luminosity_fb: 4.9
 Description:
   'Measurements of differential cross sections are presented for
    the production of a Z boson and at least one hadronic jet in

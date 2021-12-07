@@ -9,18 +9,16 @@ namespace Rivet {
 
 
   /// @brief OPAL Delta++ fragmentation function paper
+  ///
   /// @author Peter Richardson
   class OPAL_1995_S3198391 : public Analysis {
   public:
 
-    /// Constructor
-    OPAL_1995_S3198391()
-      : Analysis("OPAL_1995_S3198391")
-    {}
+    RIVET_DEFAULT_ANALYSIS_CTOR(OPAL_1995_S3198391);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       declare(Beam(), "Beams");
@@ -49,7 +47,7 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Final state of unstable particles to get particle spectra
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
 
       for (const Particle& p : ufs.particles()) {
         if(p.abspid()==2224) {
@@ -65,17 +63,17 @@ namespace Rivet {
       scale(_histXpDelta, 1./sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
 
       Histo1DPtr _histXpDelta;
-    //@}
 
   };
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OPAL_1995_S3198391);
+
+
+  RIVET_DECLARE_ALIASED_PLUGIN(OPAL_1995_S3198391, OPAL_1995_I398320);
 
 }

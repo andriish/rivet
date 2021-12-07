@@ -9,19 +9,17 @@ namespace Rivet {
 
 
   /// @brief D0 Run II measurement of W charge asymmetry
+  ///
   /// @author Andy Buckley
   /// @author Gavin Hesketh
   class D0_2008_S7837160 : public Analysis {
   public:
 
-    /// Default constructor.
-    D0_2008_S7837160()
-      : Analysis("D0_2008_S7837160")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(D0_2008_S7837160);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     // Book histograms and set up projections
     void init() {
@@ -67,17 +65,6 @@ namespace Rivet {
     }
 
 
-    /// @name Helper functions for constructing asymmetry histograms in finalize()
-    //@{
-    void calc_asymm(const Histo1DPtr plus, const Histo1DPtr minus, Scatter2DPtr target) {
-      divide(*plus - *minus, *plus + *minus, target);
-    }
-    void calc_asymm(const Histo1DPtr histos[2], Scatter2DPtr target) {
-      calc_asymm(histos[0], histos[1], target);
-    }
-    //@}
-
-
     /// @brief Finalize
     ///
     /// Construct asymmetry: (dsig+/deta - dsig-/deta) / (dsig+/deta + dsig-/deta) for each ET region
@@ -90,22 +77,33 @@ namespace Rivet {
       _h_asym3->scaleY(100.);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
+    /// @name Helper functions for constructing asymmetry histograms in finalize()
+    /// @{
+    void calc_asymm(const Histo1DPtr plus, const Histo1DPtr minus, Scatter2DPtr target) {
+      divide(*plus - *minus, *plus + *minus, target);
+    }
+    void calc_asymm(const Histo1DPtr histos[2], Scatter2DPtr target) {
+      calc_asymm(histos[0], histos[1], target);
+    }
+    /// @}
+
+
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _hs_dsigpm_deta_25_35[2], _hs_dsigpm_deta_35[2], _hs_dsigpm_deta_25[2];
     Scatter2DPtr _h_asym1, _h_asym2, _h_asym3;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(D0_2008_S7837160);
+
+  RIVET_DECLARE_ALIASED_PLUGIN(D0_2008_S7837160, D0_2008_I791230);
 
 }

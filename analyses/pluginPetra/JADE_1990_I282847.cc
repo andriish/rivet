@@ -7,12 +7,12 @@
 namespace Rivet {
 
 
-  /// JADE gamma, pi0 and eta spectra at 35 and 44 GeV
+  /// @brief gamma, pi0 and eta spectra at 35 and 44 GeV
   class JADE_1990_I282847 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(JADE_1990_I282847);
+    RIVET_DEFAULT_ANALYSIS_CTOR(JADE_1990_I282847);
 
 
     /// @name Analysis methods
@@ -24,10 +24,15 @@ namespace Rivet {
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
 
-      int ioff = -1;
-      if      (beamEnergyMatch(35*GeV)) ioff = 0;
-      else if (beamEnergyMatch(44*GeV)) ioff = 1;
-      else MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
+      int ioff=-1;
+      if(isCompatibleWithSqrtS(35)) {
+      	ioff=0;
+      }
+      else if(isCompatibleWithSqrtS(44.)) {
+      	ioff=1;
+      }
+      else
+      	MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
       // Book histograms
       book(_h_gamma, 1+ioff, 1, 1);
       book(_h_pi0  , 3+ioff, 1, 1);
@@ -79,7 +84,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(JADE_1990_I282847);
+  RIVET_DECLARE_PLUGIN(JADE_1990_I282847);
 
 
 }

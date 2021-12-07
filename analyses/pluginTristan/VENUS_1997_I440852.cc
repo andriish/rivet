@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(VENUS_1997_I440852);
+    RIVET_DEFAULT_ANALYSIS_CTOR(VENUS_1997_I440852);
 
 
     /// @name Analysis methods
@@ -163,6 +163,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(VENUS_1997_I440852);
+  RIVET_DECLARE_PLUGIN(VENUS_1997_I440852);
 
 }

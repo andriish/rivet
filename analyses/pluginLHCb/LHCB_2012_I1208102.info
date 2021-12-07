@@ -19,6 +19,7 @@ NumEvents: 500000
 NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [7000]
+Luminosity_fb: 0.94
 PtCuts: [20.]
 Description:
   'Measurement of the $pp \to \mathrm{Z}^0$ cross-section in the $\mathrm{Z}/\gamma \to e^{+}e^{-}$ mode at

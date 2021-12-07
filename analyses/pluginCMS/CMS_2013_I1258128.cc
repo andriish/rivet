@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     // Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2013_I1258128);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2013_I1258128);
 
 
     void init() {
@@ -160,6 +160,6 @@ book(	  _hist2YDif	,8, 1, 1);
 
 
   // Plugin system hook
-  DECLARE_RIVET_PLUGIN(CMS_2013_I1258128);
+  RIVET_DECLARE_PLUGIN(CMS_2013_I1258128);
 
 }

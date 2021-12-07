@@ -17,18 +17,16 @@ namespace Rivet {
 
 
   /// @brief DELPHI multiplicities at various energies
+  ///
   /// @author Peter Richardson
   class DELPHI_2000_S4328825 : public Analysis {
   public:
 
-    /// Constructor
-    DELPHI_2000_S4328825()
-      : Analysis("DELPHI_2000_S4328825")
-    {}
+    RIVET_DEFAULT_ANALYSIS_CTOR(DELPHI_2000_S4328825);
+
 
     /// @name Analysis methods
-    //@{
-
+    /// @{
 
     void init() {
       // Projections
@@ -95,7 +93,6 @@ namespace Rivet {
         _cBottom->fill(numParticles);
         break;
       }
-
     }
 
 
@@ -105,7 +102,7 @@ namespace Rivet {
       if(_wLight->val()  != 0.)  scale(_cLight,  1./(*_wLight));
       if(_wCharm->val()  != 0.)  scale(_cCharm,  1./(*_wCharm));
       if(_wBottom->val() != 0.)  scale(_cBottom, 1./(*_wBottom));
-      Counter _cDiff = *_cBottom - *_cLight;    
+      Counter _cDiff = *_cBottom - *_cLight;
 
       // fill the histograms
       for (unsigned int ix=1; ix < 5; ++ix) {
@@ -144,32 +141,31 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
-
     vector<Scatter2DPtr> _mult;
 
-
     /// @name Multiplicities
-    //@{
+    /// @{
     CounterPtr _cLight;
     CounterPtr _cCharm;
     CounterPtr _cBottom;
-    //@}
+    /// @}
 
     /// @name Weights
-    //@{
+    /// @{
     CounterPtr _wLight;
     CounterPtr _wCharm;
     CounterPtr _wBottom;
-    //@}
+    /// @}
+
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(DELPHI_2000_S4328825);
+
+  RIVET_DECLARE_ALIASED_PLUGIN(DELPHI_2000_S4328825, DELPHI_2000_I524693);
 
 }

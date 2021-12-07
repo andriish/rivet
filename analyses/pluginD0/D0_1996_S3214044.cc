@@ -7,20 +7,15 @@
 namespace Rivet {
 
 
-  /// @brief D0 topological distributions of 3- and 4-jet events.
+  /// D0 topological distributions of 3- and 4-jet events.
   class D0_1996_S3214044 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
-    /// Constructor
-    D0_1996_S3214044() : Analysis("D0_1996_S3214044")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(D0_1996_S3214044);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -119,13 +114,13 @@ namespace Rivet {
       normalize(_h_4j_costheta_NR, 1.0);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Helper functions
-    //@{
+    /// @{
 
     void _threeJetAnalysis(const Jets& jets) {
       // >=3 jet events
@@ -218,11 +213,13 @@ namespace Rivet {
       else return 0.0;
     }
 
+    /// @}
+
+
   private:
 
     /// @name Histograms
-    //@{
-
+    /// @{
     Histo1DPtr _h_3j_x3;
     Histo1DPtr _h_3j_x5;
     Histo1DPtr _h_3j_costheta3;
@@ -253,13 +250,12 @@ namespace Rivet {
     Histo1DPtr _h_4j_mu56;
     Histo1DPtr _h_4j_theta_BZ;
     Histo1DPtr _h_4j_costheta_NR;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(D0_1996_S3214044);
+  RIVET_DECLARE_ALIASED_PLUGIN(D0_1996_S3214044, D0_1996_I399364);
 
 }

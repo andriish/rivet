@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEO_1991_I314060);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEO_1991_I314060);
 
 
     /// @name Analysis methods
@@ -53,7 +53,7 @@ namespace Rivet {
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       // loop over D*+ mesons
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p: ufs.particles(Cuts::abspid==413)) {
 	// calc x+
 	double x = (p.momentum().E()+p.momentum().z())/(meanBeamMom + sqrt(sqr(meanBeamMom)+p.mass2()));
@@ -145,7 +145,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CLEO_1991_I314060);
+  RIVET_DECLARE_PLUGIN(CLEO_1991_I314060);
 
 
 }

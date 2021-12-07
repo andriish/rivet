@@ -7,18 +7,15 @@
 namespace Rivet {
 
 
-  /// @brief D0 Z + jet + \f$ X \f$ cross-section / \f$ p_\perp \f$ distributions
+  /// D0 Z + jet + \f$ X \f$ cross-section / \f$ p_\perp \f$ distributions
   class D0_2009_S8202443 : public Analysis {
   public:
 
-    /// Constructor
-    D0_2009_S8202443()
-      : Analysis("D0_2009_S8202443")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(D0_2009_S8202443);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -46,7 +43,6 @@ namespace Rivet {
       book(_sum_of_weights,"sum_of_weights");
       book(_sum_of_weights_constrained, "sum_of_weights_constrained");
     }
-
 
 
     // Do the analysis
@@ -99,20 +95,20 @@ namespace Rivet {
       scale(_h_jet3_pT_constrained, 1/ *_sum_of_weights_constrained);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_jet1_pT;
     Histo1DPtr _h_jet2_pT;
     Histo1DPtr _h_jet3_pT;
     Histo1DPtr _h_jet1_pT_constrained;
     Histo1DPtr _h_jet2_pT_constrained;
     Histo1DPtr _h_jet3_pT_constrained;
-    //@}
+    /// @}
 
     CounterPtr _sum_of_weights, _sum_of_weights_constrained;
 
@@ -120,7 +116,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(D0_2009_S8202443);
+  RIVET_DECLARE_ALIASED_PLUGIN(D0_2009_S8202443, D0_2009_I815094);
 
 }

@@ -13,5 +13,5 @@ END PLOT
 BEGIN PLOT /ALEPH_1995_I398426/d03-x01-y01
 Title=Decay angle for $B^*$ production
 XLabel=$\cos\theta_H$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}\cos\theta_H$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}\cos\theta_H$
 END PLOT

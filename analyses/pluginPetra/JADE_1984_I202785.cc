@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(JADE_1984_I202785);
+    RIVET_DEFAULT_ANALYSIS_CTOR(JADE_1984_I202785);
 
 
     /// @name Analysis methods
@@ -38,7 +38,7 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       Vector3 axis = beams.first.pid() == PID::EMINUS ?
 	beams.first.p3().unit() : beams.second.p3().unit();
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::abspid==413)) {
 	double modp = p.p3().mod();
 	double xP =modp/meanBeamMom;
@@ -71,7 +71,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(JADE_1984_I202785);
+  RIVET_DECLARE_PLUGIN(JADE_1984_I202785);
 
 
 }

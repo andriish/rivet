@@ -6,13 +6,12 @@
 
 namespace Rivet {
 
-  /// Rivet analysis class for CMS_2011_S8957746 dataset
+
+  /// Event shapes at 7 TeV
   class CMS_2011_S8957746 : public Analysis {
   public:
 
-    /// Constructor
-    CMS_2011_S8957746()
-      : Analysis("CMS_2011_S8957746") {  }
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2011_S8957746);
 
 
     /// Initialization, called once before running
@@ -83,18 +82,19 @@ namespace Rivet {
 
   private:
 
+    /// @{
     Histo1DPtr _hist_T_90;
     Histo1DPtr _hist_m_90;
     Histo1DPtr _hist_T_125;
     Histo1DPtr _hist_m_125;
     Histo1DPtr _hist_T_200;
     Histo1DPtr _hist_m_200;
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2011_S8957746);
+  RIVET_DECLARE_ALIASED_PLUGIN(CMS_2011_S8957746, CMS_2011_I886332);
 
 }

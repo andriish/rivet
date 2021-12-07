@@ -7,19 +7,13 @@
 namespace Rivet {
 
 
-  namespace {
-    /// @brief Helper function to fill correlation points into scatter plot
-    Point2D correlation_helper(double x, double xerr, const vector<int> & nf, const vector<int> & nb, CounterPtr sumWPassed) {
-      return Point2D(x, correlation(nf, nb), xerr, correlation_err(nf, nb)/sqrt(sumWPassed->val()));
-    }
-  }
-
-
   /// @brief UA5 charged particle correlations at 200, 546 and 900 GeV
   class UA5_1988_S1867512 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(UA5_1988_S1867512);
+    UA5_1988_S1867512()
+      : Analysis("UA5_1988_S1867512")
+    {    }
 
 
     /// @name Analysis methods
@@ -52,14 +46,14 @@ namespace Rivet {
       declare(ChargedFinalState((Cuts::etaIn(-4.0, -3.0))), "CFS40B");
 
       // Histogram booking, we have sqrt(s) = 200, 546 and 900 GeV
-      /// @todo: Use Scatter2D to be able to output errors
-      if (beamEnergyMatch(200*GeV)) {
+      // TODO use Scatter2D to be able to output errors
+      if (isCompatibleWithSqrtS(200.0)) {
         book(_hist_correl, 2, 1, 1);
         book(_hist_correl_asym, 3, 1, 1);
-      } else if (beamEnergyMatch(546*GeV)) {
+      } else if (isCompatibleWithSqrtS(546.0)) {
         book(_hist_correl, 2, 1, 2);
         book(_hist_correl_asym, 3, 1, 2);
-      } else if (beamEnergyMatch(900*GeV)) {
+      } else if (isCompatibleWithSqrtS(900.0)) {
         book(_hist_correl, 2, 1, 3);
         book(_hist_correl_asym, 3, 1, 3);
       }
@@ -146,48 +140,35 @@ namespace Rivet {
 
   private:
 
-    /// @name Counters
-    //@{
+    /// Helper function to fill correlation points into scatter plot
+    Point2D correlation_helper(double x, double xerr, const vector<int>& nf, const vector<int>& nb, CounterPtr sumWPassed) {
+      return Point2D(x, correlation(nf, nb), xerr, correlation_err(nf, nb)/sqrt(sumWPassed->val()));
+    }
+
+    /// Counter
     CounterPtr _sumWPassed;
-    //@}
 
 
     /// @name Vectors for storing the number of particles in the different eta intervals per event.
-    /// @todo Is there a better way?
-    //@{
-    std::vector<int> n_10f;
-    std::vector<int> n_15f;
-    std::vector<int> n_20f;
-    std::vector<int> n_25f;
-    std::vector<int> n_30f;
-    std::vector<int> n_35f;
-    std::vector<int> n_40f;
-    //
-    std::vector<int> n_10b;
-    std::vector<int> n_15b;
-    std::vector<int> n_20b;
-    std::vector<int> n_25b;
-    std::vector<int> n_30b;
-    std::vector<int> n_35b;
-    std::vector<int> n_40b;
-    //
-    std::vector<int> n_05;
-    //@}
+    /// @todo A better way is needed to make this re-entrant
+    /// @{
+    vector<int> n_10f, n_15f, n_20f, n_25f, n_30f, n_35f, n_40f;
+    vector<int> n_10b, n_15b, n_20b, n_25b, n_30b, n_35b, n_40b;
+    vector<int> n_05;
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     // Symmetric eta intervals
     Scatter2DPtr _hist_correl;
     // For asymmetric eta intervals
     Scatter2DPtr _hist_correl_asym;
-    //@}
+    /// @}
 
   };
 
 
-
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(UA5_1988_S1867512);
+  RIVET_DECLARE_ALIASED_PLUGIN(UA5_1988_S1867512, UA5_1988_I263399);
 
 }

@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEO_2001_I552541);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEO_2001_I552541);
 
 
     /// @name Analysis methods
@@ -46,7 +46,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for(const Particle & p : ufs.particles(Cuts::pid==-4122 or Cuts::pid==-411 or Cuts::pid==-421)) {
 	long id1 = p.pid();
 	double mom1 = p.p3().mod();
@@ -175,7 +175,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CLEO_2001_I552541);
+  RIVET_DECLARE_PLUGIN(CLEO_2001_I552541);
 
 
 }

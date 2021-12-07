@@ -11,10 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(STAR_2008_S7869363);
+    RIVET_DEFAULT_ANALYSIS_CTOR(STAR_2008_S7869363);
+
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -117,23 +118,23 @@ namespace Rivet {
       normalize(_h_dpT_Proton    , 0.016511 );
     }
 
+    /// @}
 
-  private:
 
-
+    /// @name Histograms
+    /// @{
     Histo1DPtr _h_dNch;
-
     Histo1DPtr _h_dpT_Pi, _h_dpT_Piplus;
     Histo1DPtr _h_dpT_Kaon, _h_dpT_Kaonplus;
     Histo1DPtr _h_dpT_AntiProton, _h_dpT_Proton;
-
     Profile1DPtr _h_pT_vs_Nch;
     //CounterPtr nCutsPassed, nPi, nPiPlus, nKaon, nKaonPlus, nProton, nAntiProton;
+    ///@}
+
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(STAR_2008_S7869363);
+  RIVET_DECLARE_ALIASED_PLUGIN(STAR_2008_S7869363, STAR_2008_I793126);
 
 }

@@ -8,12 +8,11 @@
 namespace Rivet {
 
 
+  /// Muon charge asymmetry in W events at 7 TeV in ATLAS
   class ATLAS_2011_S9002537 : public Analysis {
   public:
 
-    ATLAS_2011_S9002537()
-      : Analysis("ATLAS_2011_S9002537")
-    {  }
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_S9002537);
 
 
     void init() {
@@ -92,7 +91,6 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_S9002537);
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2011_S9002537, ATLAS_2011_I892704);
 
 }

@@ -19,7 +19,7 @@ namespace Rivet {
     DISKinematics(const DISLepton & lepton = DISLepton(),
                   const std::map<std::string,std::string> & opts =
                   std::map<std::string,std::string>())
-      : _theQ2(-1.0), _theW2(-1.0), _theX(-1.0), _theY(-1.0), _theS(-1.0)
+      : _theQ2(-1.0), _theW2(-1.0), _theX(-1.0), _theY(-1.0), _theS(-1.0), _theGH(-1.0)
     {
       setName("DISKinematics");
       //addPdgIdPair(ANY, hadid);
@@ -57,6 +57,9 @@ namespace Rivet {
     /// The centre of mass energy \f$s\f$
     double s() const { return _theS; }
 
+    /// The angle \$f\gamma_{had}\f$
+    double gammahad() const { return _theGH; }
+
 
 
     /// The LorentzRotation needed to boost a particle to the hadronic CM frame.
@@ -87,7 +90,7 @@ namespace Rivet {
     /// @brief 1/-1 multiplier indicating (respectively) whether the event has conventional orientation or not
     ///
     /// Conventional DIS orientation has the hadron travelling in the +z direction
-    const int orientation() const {
+    int orientation() const {
       return sign(_inHadron.pz());
     }
 
@@ -108,6 +111,9 @@ namespace Rivet {
 
     /// The centre of mass energy \f$s\f$
     double _theS;
+   /// The angle \f$\gamma_{had}\f$
+    double _theGH;
+
 
     /// Incoming and outgoing DIS particles
     Particle _inHadron, _inLepton, _outLepton;

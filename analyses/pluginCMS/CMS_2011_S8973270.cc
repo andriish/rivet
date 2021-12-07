@@ -7,12 +7,15 @@
 namespace Rivet {
 
 
+  /// B-Bbar angular correlations based on secondary vertex reconstruction
   class CMS_2011_S8973270 : public Analysis {
   public:
 
-    /// Constructor
-    CMS_2011_S8973270() : Analysis("CMS_2011_S8973270") {  }
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2011_S8973270);
 
+
+    /// @name Analysis methods
+    /// @{
 
     void init() {
       FinalState fs;
@@ -45,7 +48,7 @@ namespace Rivet {
       const double weight = 1.0;
 
       const Jets& jets = apply<FastJets>(event,"Jets").jetsByPt();
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
 
       // Find the leading jet pT and eta
       if (jets.size() == 0) vetoEvent;
@@ -138,26 +141,24 @@ namespace Rivet {
       scale(_h_dsigma_dPhi_120GeV, normDPhi120*DPhibin);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
-    /// @name Counters
-    //@{
+    /// Counters
     map<string, CounterPtr> _c;
-    //@}
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_dsigma_dR_56GeV, _h_dsigma_dR_84GeV, _h_dsigma_dR_120GeV;
     Histo1DPtr _h_dsigma_dPhi_56GeV, _h_dsigma_dPhi_84GeV, _h_dsigma_dPhi_120GeV;
-    //@}
+    /// @}
 
   };
 
 
-  // Hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2011_S8973270);
+
+  RIVET_DECLARE_ALIASED_PLUGIN(CMS_2011_S8973270, CMS_2011_I889807);
 
 }

@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TASSO_1982_I177174);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TASSO_1982_I177174);
 
 
     /// @name Analysis methods
@@ -22,43 +22,43 @@ namespace Rivet {
       // Initialise and register projections
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
-      if (beamEnergyMatch(12*GeV)) {
-        book(_h_x2,2,1,1);
-        book(_h_x3,3,1,1);
+      if(isCompatibleWithSqrtS(12.)) {
+	book(_h_x2,2,1,1);
+	book(_h_x3,3,1,1);
       }
-      else if (beamEnergyMatch(14*GeV)) {
-        book(_h_x1,1,1,1);
-        book(_h_x2,2,1,2);
-        book(_h_x3,3,1,2);
+      else if (isCompatibleWithSqrtS(14.)) {
+	book(_h_x1,1,1,1);
+	book(_h_x2,2,1,2);
+	book(_h_x3,3,1,2);
       }
-      else if (beamEnergyMatch(22*GeV)) {
-        book(_h_x1,1,1,2);
-        book(_h_x2,2,1,3);
-        book(_h_x3,3,1,3);
+      else if (isCompatibleWithSqrtS(22.)) {
+	book(_h_x1,1,1,2);
+	book(_h_x2,2,1,3);
+	book(_h_x3,3,1,3);
       }
-      else if (beamEnergyMatch(25*GeV)) {
-        book(_h_x2,2,1,4);
-        book(_h_x3,3,1,4);
+      else if (isCompatibleWithSqrtS(25.)) {
+	book(_h_x2,2,1,4);
+	book(_h_x3,3,1,4);
       }
-      else if (beamEnergyMatch(30*GeV)) {
-        book(_h_x2,2,1,5);
-        book(_h_x3,3,1,5);
+      else if (isCompatibleWithSqrtS(30.)) {
+	book(_h_x2,2,1,5);
+	book(_h_x3,3,1,5);
       }
-      else if (beamEnergyMatch(34*GeV)) {
-        book(_h_x2,2,1,6);
-        book(_h_x3,3,1,6);
+      else if (isCompatibleWithSqrtS(34.)) {
+	book(_h_x2,2,1,6);
+	book(_h_x3,3,1,6);
       }
-      else if (beamEnergyMatch(35*GeV)) {
+      else if (isCompatibleWithSqrtS(35.)) {
         book(_h_x2, 2,1,7);
         book(_h_x3, 3,1,7);
       }
 
-      if (inRange(sqrtS()/GeV, 29.9, 36.7)) {
+      if(inRange(sqrtS()/GeV, 29.9,36.7))
         book(_h_x1, 1,1,3);
-      }
 
-      if (_h_x1==Histo1DPtr() && _h_x2==Histo1DPtr() && _h_x3==Histo1DPtr())
-        MSG_ERROR("Beam energy not supported!");
+      if(_h_x1==Histo1DPtr() && _h_x2==Histo1DPtr() && _h_x3==Histo1DPtr())
+      	MSG_ERROR("Beam energy not supported!");
+
     }
 
 
@@ -80,12 +80,12 @@ namespace Rivet {
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
-
+      
       for (const Particle& p : fs.particles()) {
-        double xp = p.p3().mod()/meanBeamMom;
-        if(_h_x1!=Histo1DPtr()) _h_x1->fill(xp);
-        if(_h_x2!=Histo1DPtr()) _h_x2->fill(xp);
-        if(_h_x3!=Histo1DPtr()) _h_x3->fill(xp);
+	double xp = p.p3().mod()/meanBeamMom;
+	if(_h_x1!=Histo1DPtr()) _h_x1->fill(xp);
+	if(_h_x2!=Histo1DPtr()) _h_x2->fill(xp);
+	if(_h_x3!=Histo1DPtr()) _h_x3->fill(xp);
       }
     }
 
@@ -112,7 +112,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TASSO_1982_I177174);
+  RIVET_DECLARE_PLUGIN(TASSO_1982_I177174);
 
 
 }

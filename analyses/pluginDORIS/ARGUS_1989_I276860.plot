@@ -62,52 +62,52 @@ END PLOT
 BEGIN PLOT /ARGUS_1989_I276860/d05-x01-y01
 Title=Spectrum of $\pi^\pm$ in $\Upsilon(1S)$ decays
 XLabel=$p$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}p$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}p$ [$\mathrm{GeV}^{-1}$]
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1989_I276860/d05-x01-y02
 Title=Spectrum of $\pi^\pm$ in continuum (10 GeV)
 XLabel=$p$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}p$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}p$ [$\mathrm{GeV}^{-1}$]
 LegendXPos=0.7
 END PLOT
 
 BEGIN PLOT /ARGUS_1989_I276860/d06-x01-y01
 Title=Spectrum of $K^\pm$ in $\Upsilon(1S)$ decays
 XLabel=$p$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}p$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}p$ [$\mathrm{GeV}^{-1}$]
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1989_I276860/d06-x01-y02
 Title=Spectrum of $K^\pm$ in continuum (10 GeV)
 XLabel=$p$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}p$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}p$ [$\mathrm{GeV}^{-1}$]
 LegendXPos=0.7
 END PLOT
 
 BEGIN PLOT /ARGUS_1989_I276860/d07-x01-y01
 Title=Spectrum of $K^0_{S,L}$ in $\Upsilon(1S)$ decays
 XLabel=$p$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}p$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}p$ [$\mathrm{GeV}^{-1}$]
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1989_I276860/d07-x01-y02
 Title=Spectrum of $K^0_{S,L}$ in continuum (10 GeV)
 XLabel=$p$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}p$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}p$ [$\mathrm{GeV}^{-1}$]
 LegendXPos=0.7
 END PLOT
 
 BEGIN PLOT /ARGUS_1989_I276860/d08-x01-y01
 Title=Spectrum of $p,\bar{p}$ in $\Upsilon(1S)$ decays
 XLabel=$p$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}p$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}p$ [$\mathrm{GeV}^{-1}$]
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1989_I276860/d08-x01-y02
 Title=Spectrum of $p,\bar{p}$ in continuum (10 GeV)
 XLabel=$p$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/\text{d}p$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}p$ [$\mathrm{GeV}^{-1}$]
 LegendXPos=0.7
 END PLOT
 
@@ -117,51 +117,51 @@ END PLOT
 BEGIN PLOT /ARGUS_1989_I276860/d09-x01-y01
 Title=Spectrum of $\pi^\pm$ in $\Upsilon(1S)$ decays
 XLabel=$z$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}p$ 
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}p$ 
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1989_I276860/d09-x01-y02
 Title=Spectrum of $\pi^\pm$ in continuum (10 GeV)
 XLabel=$z$
-YLabel=$1/\sigma/\beta\text{d}\sigma/\text{d}z$ 
+YLabel=$1/\sigma/\beta\mathrm{d}\sigma/\mathrm{d}z$ 
 LegendXPos=0.7
 END PLOT
 
 BEGIN PLOT /ARGUS_1989_I276860/d10-x01-y01
 Title=Spectrum of $K^\pm$ in $\Upsilon(1S)$ decays
 XLabel=$z$
-YLabel=$1/\sigma/\beta\text{d}\sigma/\text{d}z$ 
+YLabel=$1/\sigma/\beta\mathrm{d}\sigma/\mathrm{d}z$ 
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1989_I276860/d10-x01-y02
 Title=Spectrum of $K^\pm$ in continuum (10 GeV)
 XLabel=$z$
-YLabel=$1/\sigma/\beta\text{d}\sigma/\text{d}z$ 
+YLabel=$1/\sigma/\beta\mathrm{d}\sigma/\mathrm{d}z$ 
 LegendXPos=0.7
 END PLOT
 
 BEGIN PLOT /ARGUS_1989_I276860/d11-x01-y01
 Title=Spectrum of $K^0_{S,L}$ in $\Upsilon(1S)$ decays
 XLabel=$z$
-YLabel=$1/\sigma/\beta\text{d}\sigma/\text{d}z$ 
+YLabel=$1/\sigma/\beta\mathrm{d}\sigma/\mathrm{d}z$ 
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1989_I276860/d11-x01-y02
 Title=Spectrum of $K^0_{S,L}$ in continuum (10 GeV)
 XLabel=$z$
-YLabel=$1/\sigma/\beta\text{d}\sigma/\text{d}z$ 
+YLabel=$1/\sigma/\beta\mathrm{d}\sigma/\mathrm{d}z$ 
 LegendXPos=0.7
 END PLOT
 
 BEGIN PLOT /ARGUS_1989_I276860/d12-x01-y01
 Title=Spectrum of $p,\bar{p}$ in $\Upsilon(1S)$ decays
 XLabel=$z$
-YLabel=$1/\sigma/\beta\text{d}\sigma/\text{d}z$ 
+YLabel=$1/\sigma/\beta\mathrm{d}\sigma/\mathrm{d}z$ 
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1989_I276860/d12-x01-y02
 Title=Spectrum of $p,\bar{p}$ in continuum (10 GeV)
 XLabel=$z$
-YLabel=$1/\sigma/\beta\text{d}\sigma/\text{d}z$
+YLabel=$1/\sigma/\beta\mathrm{d}\sigma/\mathrm{d}z$
 LegendXPos=0.7
 END PLOT

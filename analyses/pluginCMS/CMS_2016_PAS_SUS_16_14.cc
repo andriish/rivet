@@ -12,16 +12,16 @@
 namespace Rivet {
 
 
-  /// @brief CMS 2016 0-lepton SUSY search, from 13/fb PAS note
+  /// CMS 2016 0-lepton SUSY search, from 13/fb PAS note
   class CMS_2016_PAS_SUS_16_14 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2016_PAS_SUS_16_14);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2016_PAS_SUS_16_14);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -199,23 +199,20 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     vector<CounterPtr> _h_srcounts, _h_srcountsagg;
-    //@}
-
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2016_PAS_SUS_16_14);
-
+  RIVET_DECLARE_PLUGIN(CMS_2016_PAS_SUS_16_14);
 
 }

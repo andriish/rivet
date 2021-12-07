@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEO_2000_I526554);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEO_2000_I526554);
 
 
     /// @name Analysis methods
@@ -34,7 +34,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // Loop through unstable FS particles and look for charmed mesons
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
 
       const Beam beamproj = apply<Beam>(event, "Beams");
       const ParticlePair& beams = beamproj.beams();
@@ -108,7 +108,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CLEO_2000_I526554);
+  RIVET_DECLARE_PLUGIN(CLEO_2000_I526554);
 
 
 }

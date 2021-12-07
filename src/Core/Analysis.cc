@@ -26,7 +26,12 @@ namespace Rivet {
 
 
   double Analysis::sqrtS() const {
-    return handler().runSqrtS();
+    double sqrts = handler().runSqrtS();
+    if (sqrts <= 0) {
+      MSG_DEBUG("Suspicious beam energy. You're probably running rivet-merge. Fetching beam energy from option.");
+      sqrts = getOption<double>("ENERGY", 0);
+    }
+    return sqrts;
   }
 
   const ParticlePair& Analysis::beams() const {
@@ -251,6 +256,10 @@ namespace Rivet {
   //   return beamEnergiesOk;
   // }
 
+
+  bool Analysis::isCompatibleWithSqrtS(const float energy, float tolerance) const {
+    return fuzzyEquals(sqrtS()/GeV, energy, tolerance);
+  }
 
   ///////////////////////////////////////////
 
@@ -996,7 +1005,18 @@ namespace Rivet {
 
     if ( sel == "REF" ) {
       YODA::Scatter2DPtr refscat;
-      auto refmap = getRefData(calAnaName);
+      map<string, YODA::AnalysisObjectPtr> refmap;
+      try {
+        refmap = getRefData(calAnaName);
+      } catch (...) {
+        MSG_ERROR("No reference calibration file for CentralityProjection "
+                   << calAnaName << " found.\nDid you mean to generate one yourself?\n"
+                   << "Once generated, you can preload the calibration file using the "
+                   << "-p flag\nand steer the routine logic using the 'cent' option "
+                   << "with the appropriate value (e.g. =GEN).");
+        exit(1);
+
+      }
       if ( refmap.find(calHistName) != refmap.end() )
         refscat = dynamic_pointer_cast<Scatter2D>(refmap.find(calHistName)->second);
 

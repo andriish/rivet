@@ -17,7 +17,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2019_I1744604);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2019_I1744604);
 
 
     /// @brief Book histograms and initialise projections before the run
@@ -150,18 +150,16 @@ namespace Rivet {
       }
 
       Cut jet_cut((Cuts::abseta < 4.7) and (Cuts::pT > 40.*GeV));
-      vector<Jet> jets = applyProjection<FastJets>(
+      vector<Jet> jets = apply<FastJets>(
         event,
         "Jets"
       ).jets(jet_cut);
 
       // ignore jets that overlap with dressed leptons within dR<0.4
-      std::vector<Jet> cleanedJets;
+      Jets cleanedJets;
       DeltaRLess dRFct(dressedLeptons[0], 0.4);
-      for (const auto& jet: jets) {
-        if (not dRFct(jet)) {
-          cleanedJets.push_back(jet);
-        }
+      for (const Jet& jet: jets) {
+        if (not dRFct(jet)) cleanedJets.push_back(jet);
       }
 
       // select events with exactly two jets
@@ -169,14 +167,10 @@ namespace Rivet {
         return;
       }
 
-      vector<Particle> neutrinos = applyProjection<PromptFinalState>(
-        event,
-        "Neutrinos"
-      ).particles();
-
+      Particles neutrinos = apply<PromptFinalState>(event, "Neutrinos").particles();
       // construct missing transverse momentum by summing over all prompt neutrinos
-      FourMomentum met(0, 0, 0, 0);
-      for (const auto& neutrino: neutrinos) {
+      FourMomentum met;
+      for (const Particle& neutrino: neutrinos) {
         met += neutrino.momentum();
       }
 
@@ -554,6 +548,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(CMS_2019_I1744604);
+  RIVET_DECLARE_PLUGIN(CMS_2019_I1744604);
 
 }

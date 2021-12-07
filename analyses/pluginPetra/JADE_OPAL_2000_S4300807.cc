@@ -7,12 +7,13 @@ namespace Rivet {
 
 
   /// @brief Jet rates in \f$ e^+ e^- \f$ at OPAL and JADE
+  ///
   /// @author Frank Siegert
   class JADE_OPAL_2000_S4300807 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(JADE_OPAL_2000_S4300807)
+    RIVET_DEFAULT_ANALYSIS_CTOR(JADE_OPAL_2000_S4300807)
 
 
     /// @name Analysis methods
@@ -171,7 +172,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(JADE_OPAL_2000_S4300807);
+  RIVET_DECLARE_ALIASED_PLUGIN(JADE_OPAL_2000_S4300807, JADE_OPAL_2000_I513337);
 
 }

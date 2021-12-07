@@ -9,18 +9,16 @@ namespace Rivet {
 
 
   /// @brief OPAL J/Psi fragmentation function paper
+  ///
   /// @author Peter Richardson
   class OPAL_1996_S3257789 : public Analysis {
   public:
 
-    /// Constructor
-    OPAL_1996_S3257789()
-      : Analysis("OPAL_1996_S3257789")
-    {}
+    RIVET_DEFAULT_ANALYSIS_CTOR(OPAL_1996_S3257789);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       declare(Beam(), "Beams");
@@ -52,7 +50,7 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Final state of unstable particles to get particle spectra
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
 
       for (const Particle& p : ufs.particles()) {
         if(p.abspid()==443) {
@@ -76,21 +74,20 @@ namespace Rivet {
       scale(_multPsiPrime, 1./sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
-  private:
-
+    /// @{
     CounterPtr _weightSum;
     Histo1DPtr _histXpJPsi;
     Histo1DPtr _multJPsi;
     Histo1DPtr _multPsiPrime;
-    //@}
+    /// @}
 
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OPAL_1996_S3257789);
+
+  RIVET_DECLARE_ALIASED_PLUGIN(OPAL_1996_S3257789, OPAL_1996_I402487);
 
 }

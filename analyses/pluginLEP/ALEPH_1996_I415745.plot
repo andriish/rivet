@@ -7,7 +7,7 @@ YLabel=$A_T$
 END PLOT
 BEGIN PLOT /ALEPH_1996_I415745/ctheta
 XLabel=$\cos\theta$
-YLabel=$1/N\text{d}N/\text{d}\cos\theta$
+YLabel=$1/N\mathrm{d}N/\mathrm{d}\cos\theta$
 END PLOT
 BEGIN PLOT /ALEPH_1996_I415745/ctheta_0
 Title=$\cos\theta$ for $0.1<z<0.15$

@@ -13,7 +13,7 @@ References:
  - DOI:10.1016/j.physletb.2016.07.006
  - arXiv:1603.06221
  - https://hepdata.net/record/ins1430892
-RunInfo: 'Dilepton ttbar events at $\sqrt{s}=8\;\TeV$, where the leptons are prompt elecrons or muons (not from tau). No other cuts. All but one of the variables require top quarks in the event record.'
+RunInfo: 'Dilepton ttbar events at $\sqrt{s}=8~\TeV$, where the leptons are prompt elecrons or muons (not from tau). No other cuts. All but one of the variables require top quarks in the event record.'
 NeedCrossSection: no
 Luminosity: 19.5/fb
 Beams: [p+, p+]

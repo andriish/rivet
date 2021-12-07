@@ -7,18 +7,16 @@ namespace Rivet {
 
 
   /// @brief OPAL charged particle fragmentation functions
+  ///
   /// @author Peter Richardson
   class OPAL_1994_S2927284 : public Analysis {
   public:
 
-    /// Constructor
-    OPAL_1994_S2927284()
-      : Analysis("OPAL_1994_S2927284")
-    {   }
+    RIVET_DEFAULT_ANALYSIS_CTOR(OPAL_1994_S2927284);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void analyze(const Event& e) {
 
@@ -68,18 +66,19 @@ namespace Rivet {
       scale(_histXpProton,1./sumOfWeights());
     }
 
-    //@}
+    /// @}
+
 
   private:
 
     Histo1DPtr _histXpPiPlus;
     Histo1DPtr _histXpKPlus;
     Histo1DPtr _histXpProton;
-    //@}
 
   };
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OPAL_1994_S2927284);
+
+
+  RIVET_DECLARE_ALIASED_PLUGIN(OPAL_1994_S2927284, OPAL_1994_I372772);
 
 }

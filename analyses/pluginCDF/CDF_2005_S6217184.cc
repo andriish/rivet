@@ -14,8 +14,7 @@ namespace Rivet {
   class CDF_2005_S6217184 : public Analysis {
   public:
 
-    /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2005_S6217184);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2005_S6217184);
 
 
     /// @name Analysis methods
@@ -45,7 +44,6 @@ namespace Rivet {
       // Final histo
       book(_profhistPsi_vs_pT, 13, 1, 1, true);
     }
-
 
 
     /// Do the analysis
@@ -116,7 +114,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2005_S6217184);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_2005_S6217184, CDF_2005_I682179);
 
 }

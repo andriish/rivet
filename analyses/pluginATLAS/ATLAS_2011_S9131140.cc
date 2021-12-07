@@ -6,15 +6,13 @@ namespace Rivet {
 
 
   /// @brief ATLAS Z pT in Drell-Yan events at 7 TeV
+  ///
   /// @author Elena Yatsenko, Judith Katzy
   class ATLAS_2011_S9131140 : public Analysis {
   public:
 
     /// Constructor
-    ATLAS_2011_S9131140()
-      : Analysis("ATLAS_2011_S9131140")
-    {
-    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_S9131140);
 
 
     /// @name Analysis methods
@@ -103,7 +101,7 @@ namespace Rivet {
   };
 
 
-  // Hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_S9131140);
+
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2011_S9131140, ATLAS_2011_I917931);
 
 }

@@ -11,7 +11,7 @@ class MC_Cent_pPb_Calib : public Analysis {
 
 public:
 
-  DEFAULT_RIVET_ANALYSIS_CTOR(MC_Cent_pPb_Calib);
+  RIVET_DEFAULT_ANALYSIS_CTOR(MC_Cent_pPb_Calib);
 
   /// Book histograms and initialise projections before the run
   void init() {
@@ -75,6 +75,6 @@ private:
 
 
 // The hook for the plugin system
-DECLARE_RIVET_PLUGIN(MC_Cent_pPb_Calib);
+RIVET_DECLARE_PLUGIN(MC_Cent_pPb_Calib);
 
 }

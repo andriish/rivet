@@ -12,15 +12,11 @@
 namespace Rivet {
 
 
-  /// @brief ALEPH jet rates and event shapes at LEP 1 and 2
+  /// ALEPH jet rates and event shapes at LEP 1 and 2
   class ALEPH_2004_S5765862 : public Analysis {
   public:
 
-    ALEPH_2004_S5765862()
-      : Analysis("ALEPH_2004_S5765862"),
-        _initialisedJets(false),
-        _initialisedSpectra(false)
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALEPH_2004_S5765862);
 
 
     void init() {
@@ -78,17 +74,17 @@ namespace Rivet {
         // Durham n->m jet resolutions
         book(_h_y_Durham[0] ,offset+149, 1, 1);   // y12 d149 ... d156
         book(_h_y_Durham[1] ,offset+157, 1, 1);   // y23 d157 ... d164
-        if (offset<6) { // there is no y34, y45 and y56 for 200 gev
+        if (offset < 6) { // there is no y34, y45 and y56 for 200 gev
           book(_h_y_Durham[2] ,offset+165, 1, 1); // y34 d165 ... d172, but not 171
           book(_h_y_Durham[3] ,offset+173, 1, 1); // y45 d173 ... d179
           book(_h_y_Durham[4] ,offset+180, 1, 1); // y56 d180 ... d186
         }
-        else if (offset==6) {
+        else if (offset == 6) {
           _h_y_Durham[2] = Histo1DPtr();
           _h_y_Durham[3] = Histo1DPtr();
           _h_y_Durham[4] = Histo1DPtr();
         }
-        else if (offset==7) {
+        else if (offset == 7) {
           book(_h_y_Durham[2] ,172, 1, 1);
           book(_h_y_Durham[3] ,179, 1, 1);
           book(_h_y_Durham[4] ,186, 1, 1);
@@ -104,7 +100,7 @@ namespace Rivet {
       }
       // offset for the charged particle distributions
       offset = 0;
-      switch (int(sqrtS()/GeV + 0.5)) {
+      switch (int(sqrtS() + 0.5)) {
         case 133: offset = 0; break;
         case 161: offset = 1; break;
         case 172: offset = 2; break;
@@ -114,7 +110,7 @@ namespace Rivet {
         case 200: offset = 6; break;
         case 206: offset = 7; break;
         default:
-          _initialisedSpectra=false;
+          _initialisedSpectra = false;
       }
       if (_initialisedSpectra) {
         book(_h_xp , 2+offset, 1, 1);
@@ -142,7 +138,7 @@ namespace Rivet {
       const Sphericity& sphericity = apply<Sphericity>(e, "Sphericity");
 
       if(_initialisedJets) {
-        bool LEP1 = fuzzyEquals(sqrtS(), 91.2*GeV, 0.01);
+        bool LEP1 = isCompatibleWithSqrtS(91.2*GeV,0.01);
         // event shapes
         double thr = LEP1 ? thrust.thrust() : 1.0 - thrust.thrust();
         _h_thrust->fill(thr);
@@ -287,13 +283,13 @@ namespace Rivet {
       }
     }
 
+
   private:
 
-    bool _initialisedJets;
-    bool _initialisedSpectra;
+    bool _initialisedJets = false;
+    bool _initialisedSpectra = false;
 
     Scatter2DPtr mult;
-
     Histo1DPtr _h_xp;
     Histo1DPtr _h_xi;
     Histo1DPtr _h_xe;
@@ -323,7 +319,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALEPH_2004_S5765862);
+  RIVET_DECLARE_ALIASED_PLUGIN(ALEPH_2004_S5765862, ALEPH_2004_I636645);
 
 }

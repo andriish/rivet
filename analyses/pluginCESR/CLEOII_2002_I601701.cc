@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEOII_2002_I601701);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEOII_2002_I601701);
 
 
     /// @name Analysis methods
@@ -41,7 +41,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // find the Upsilon(1S) mesons
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       Particles upsilons = ufs.particles(Cuts::pid==553);
       if(upsilons.empty()) vetoEvent;
       // loop over them
@@ -91,6 +91,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(CLEOII_2002_I601701);
+  RIVET_DECLARE_PLUGIN(CLEOII_2002_I601701);
 
 }

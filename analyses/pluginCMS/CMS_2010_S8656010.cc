@@ -5,10 +5,11 @@
 namespace Rivet {
 
 
+  /// Charged-particle pT and pseudorapidity spectra from pp collisions at 7000 GeV
   class CMS_2010_S8656010 : public Analysis {
   public:
 
-    CMS_2010_S8656010() : Analysis("CMS_2010_S8656010") {}
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2010_S8656010);
 
 
     void init() {
@@ -75,15 +76,16 @@ namespace Rivet {
 
   private:
 
+    /// @{
     std::vector<Histo1DPtr> _h_dNch_dpT;
     Histo1DPtr _h_dNch_dpT_all;
     Histo1DPtr _h_dNch_dEta;
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2010_S8656010);
+  RIVET_DECLARE_ALIASED_PLUGIN(CMS_2010_S8656010, CMS_2010_I855299);
 
 }

@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BESIII_2018_I1697377);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2018_I1697377);
 
 
     /// @name Analysis methods
@@ -86,7 +86,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BESIII_2018_I1697377);
+  RIVET_DECLARE_PLUGIN(BESIII_2018_I1697377);
 
 
 }

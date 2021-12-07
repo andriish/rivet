@@ -15,7 +15,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BELLE_2005_I686014);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2005_I686014);
 
 
     /// @name Analysis methods
@@ -26,12 +26,12 @@ namespace Rivet {
       // projections
       declare(UnstableParticles(),"UFS");
       // histos
-      if(fuzzyEquals(sqrtS(),10.52,1e-3))
-	_mode=1;
-      else if(fuzzyEquals(sqrtS(),10.58,1e-3))
-	_mode=2;
+      if(isCompatibleWithSqrtS(10.52))
+        _mode=1;
+      else if(isCompatibleWithSqrtS(10.58))
+        _mode=2;
       else
-	MSG_ERROR("Beam energy not supported!");
+        MSG_ERROR("Beam energy not supported!");
       for(unsigned int ix=0;ix<7;++ix) {
 	if(_mode==1)
 	  book(_r[ix],2,1,ix+1);
@@ -45,7 +45,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // unstable particles
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       if(_mode==2 && ufs.particles(Cuts::pid==300553).size()!=1)
 	vetoEvent;
       _c->fill();
@@ -122,6 +122,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(BELLE_2005_I686014);
+  RIVET_DECLARE_PLUGIN(BELLE_2005_I686014);
 
 }

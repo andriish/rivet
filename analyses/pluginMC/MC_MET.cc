@@ -60,7 +60,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_MET);
+  RIVET_DECLARE_PLUGIN(MC_MET);
 
 
 }

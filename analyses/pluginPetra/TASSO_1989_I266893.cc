@@ -8,12 +8,12 @@
 namespace Rivet {
 
 
-  /// @brief Baryons at 34.8 and 42.1 GeV
+  /// @brief baryons at 34.8 and 42.1 GeV
   class TASSO_1989_I266893 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TASSO_1989_I266893);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TASSO_1989_I266893);
 
     /// @name Analysis methods
     //@{
@@ -27,12 +27,20 @@ namespace Rivet {
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
       declare(Sphericity(cfs), "Sphericity");
-
       // Book histograms
-      _ih = -1;
-      if      (beamEnergyMatch(34.8*GeV)) _ih = 0;
-      else if (beamEnergyMatch(42.1*GeV)) _ih = 1;
-      else MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
+      _ih=-1;
+      sqs = 1.0;
+      if(isCompatibleWithSqrtS(34.8)) {
+	_ih=0;
+	sqs = 34.8;
+      }
+      else if (isCompatibleWithSqrtS(42.1)) {
+	_ih=1;
+	sqs = 42.1;
+
+      }
+      else
+	MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
 
       book(_h_lam_p    ,6*_ih+3,1,1);
       book(_h_lam_pL   ,6*_ih+4,1,1);
@@ -43,12 +51,12 @@ namespace Rivet {
       book(_p_lam_S_1  ,15+_ih,1,1);
       book(_p_lam_S_2  ,15+_ih,1,2);
       if(_ih==0) {
-        book(_h_xi_p    ,18,1,1);
-        book(_h_xi_pL   ,19,1,1);
-        book(_h_xi_pTIn ,20,1,1);
-        book(_h_xi_pTOut,21,1,1);
-        book(_h_xi_rap  ,22,1,1);
-        book(_h_xi_x    ,23,1,1);
+      	book(_h_xi_p    ,18,1,1);
+      	book(_h_xi_pL   ,19,1,1);
+      	book(_h_xi_pTIn ,20,1,1);
+      	book(_h_xi_pTOut,21,1,1);
+      	book(_h_xi_rap  ,22,1,1);
+      	book(_h_xi_x    ,23,1,1);
       }
     }
 
@@ -68,38 +76,38 @@ namespace Rivet {
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
-                                   beams.second.p3().mod() ) / 2.0;
+      				   beams.second.p3().mod() ) / 2.0;
       const Sphericity& sphericity = apply<Sphericity>(event, "Sphericity");
       unsigned int nLam(0);
       UnstableParticles ufs = apply<UnstableParticles>(event,"UFS");
       for(const Particle & p : ufs.particles(Cuts::abspid==3122 or Cuts::abspid==3312)) {
-        int id = abs(p.pid());
-        double xE = p.E()/meanBeamMom;
-        Vector3 mom3 = p.p3();
+      	int id = abs(p.pid());
+      	double xE = p.E()/meanBeamMom;
+      	Vector3 mom3 = p.p3();
         const double energy = p.E();
-        double modp = mom3.mod();
-        double beta = modp/energy;
+      	double modp = mom3.mod();
+      	double beta = modp/energy;
         const double momS = dot(sphericity.sphericityAxis(), mom3);
         const double pTinS = dot(mom3, sphericity.sphericityMajorAxis());
         const double pToutS = dot(mom3, sphericity.sphericityMinorAxis());
         const double rapidityS = 0.5 * std::log((energy + momS) / (energy - momS));
-        if(id==3122) {
-          _h_lam_x->fill(xE,1./beta);
-          _h_lam_p->fill(modp/GeV);
-          _h_lam_pL   ->fill(abs(momS)/GeV  );
-          _h_lam_pTIn ->fill(abs(pTinS)/GeV );
-          _h_lam_pTOut->fill(abs(pToutS)/GeV);
-          _h_lam_rap  ->fill(abs(rapidityS) );
-          ++nLam;
-        }
-        else if(_h_xi_x) {
-          _h_xi_x->fill(xE,1./beta);
-          _h_xi_p->fill(modp/GeV);
-          _h_xi_pL   ->fill(abs(momS)/GeV  );
-          _h_xi_pTIn ->fill(abs(pTinS)/GeV );
-          _h_xi_pTOut->fill(abs(pToutS)/GeV);
-          _h_xi_rap  ->fill(abs(rapidityS) );
-        }
+      	if(id==3122) {
+      	  _h_lam_x->fill(xE,1./beta);
+      	  _h_lam_p->fill(modp/GeV);
+      	  _h_lam_pL   ->fill(abs(momS)/GeV  );
+      	  _h_lam_pTIn ->fill(abs(pTinS)/GeV );
+      	  _h_lam_pTOut->fill(abs(pToutS)/GeV);
+      	  _h_lam_rap  ->fill(abs(rapidityS) );
+	  ++nLam;
+      	}
+      	else if(_h_xi_x) {
+      	  _h_xi_x->fill(xE,1./beta);
+      	  _h_xi_p->fill(modp/GeV);
+      	  _h_xi_pL   ->fill(abs(momS)/GeV  );
+      	  _h_xi_pTIn ->fill(abs(pTinS)/GeV );
+      	  _h_xi_pTOut->fill(abs(pToutS)/GeV);
+      	  _h_xi_rap  ->fill(abs(rapidityS) );
+      	}
       }
       double sphere = sphericity.sphericity();
       _p_lam_S_1->fill(sphere,nLam);
@@ -114,17 +122,17 @@ namespace Rivet {
       scale( _h_lam_pTIn , crossSection()/nanobarn/sumOfWeights());
       scale( _h_lam_pTOut, crossSection()/nanobarn/sumOfWeights());
       scale( _h_lam_rap  , crossSection()/nanobarn/sumOfWeights());
-      scale( _h_lam_x    , sqr(sqrtS())*crossSection()/nanobarn/sumOfWeights());
+      scale( _h_lam_x    , sqr(sqs)*crossSection()/nanobarn/sumOfWeights());
       Scatter2DPtr temp;
       book(temp,15+_ih,1,3);
       divide(_p_lam_S_1,_p_lam_S_2,temp);
       if(_ih==0) {
-        scale( _h_xi_p    , crossSection()/nanobarn/sumOfWeights());
-        scale( _h_xi_pL   , crossSection()/nanobarn/sumOfWeights());
-        scale( _h_xi_pTIn , crossSection()/nanobarn/sumOfWeights());
-        scale( _h_xi_pTOut, crossSection()/nanobarn/sumOfWeights());
-        scale( _h_xi_rap  , crossSection()/nanobarn/sumOfWeights());
-        scale( _h_xi_x    , sqr(sqrtS())*crossSection()/nanobarn/sumOfWeights());
+      	scale( _h_xi_p    , crossSection()/nanobarn/sumOfWeights());
+      	scale( _h_xi_pL   , crossSection()/nanobarn/sumOfWeights());
+      	scale( _h_xi_pTIn , crossSection()/nanobarn/sumOfWeights());
+      	scale( _h_xi_pTOut, crossSection()/nanobarn/sumOfWeights());
+      	scale( _h_xi_rap  , crossSection()/nanobarn/sumOfWeights());
+      	scale( _h_xi_x    , sqr(sqs)*crossSection()/nanobarn/sumOfWeights());
       }
     }
 
@@ -137,6 +145,7 @@ namespace Rivet {
     Profile1DPtr _p_lam_S_1, _p_lam_S_2;
     Histo1DPtr _h_xi_p, _h_xi_pL, _h_xi_pTIn, _h_xi_pTOut, _h_xi_rap, _h_xi_x;
     int _ih;
+    double sqs;
     //@}
 
 
@@ -144,7 +153,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TASSO_1989_I266893);
+  RIVET_DECLARE_PLUGIN(TASSO_1989_I266893);
 
 
 }

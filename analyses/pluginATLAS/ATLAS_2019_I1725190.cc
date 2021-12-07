@@ -17,7 +17,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2019_I1725190);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2019_I1725190);
 
 
     /// @name Analysis methods
@@ -134,10 +134,13 @@ namespace Rivet {
     }
 
 
-    /// Normalise histograms etc., after the run
+    /// Normalise histograms etc., after the run.
+    //  The plot is expressed as number of events in a 10 GeV bin.
+    //  Multiply by luminosity*cross section (in same units!) to get number
+    //  of events a 1 GeV bin, then by 10 to get number of events in a 10 GeV.
     void finalize() {
-      scale(_h_mee, crossSection()*luminosity()/femtobarn/sumOfWeights());
-      scale(_h_mmm, crossSection()*luminosity()/femtobarn/sumOfWeights());
+      scale(_h_mee, 10.*crossSection()*luminosity()/sumOfWeights());
+      scale(_h_mmm, 10.*crossSection()*luminosity()/sumOfWeights());
     }
 
     //@}
@@ -152,6 +155,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ATLAS_2019_I1725190);
+  RIVET_DECLARE_PLUGIN(ATLAS_2019_I1725190);
 
 }

@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TASSO_1989_I278856);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TASSO_1989_I278856);
 
 
     /// @name Analysis methods
@@ -38,7 +38,7 @@ namespace Rivet {
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::abspid==413)) {
 	double modp = p.p3().mod();
 	double xE = p.E()/meanBeamMom;
@@ -73,7 +73,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TASSO_1989_I278856);
+  RIVET_DECLARE_PLUGIN(TASSO_1989_I278856);
 
 
 }

@@ -9,18 +9,16 @@ namespace Rivet {
 
 
   /// @brief DELPHI strange baryon paper
+  ///
   /// @author Hendrik Hoeth
   class DELPHI_1995_S3137023 : public Analysis {
   public:
 
-    /// Constructor
-    DELPHI_1995_S3137023()
-      : Analysis("DELPHI_1995_S3137023")
-    {}
+    RIVET_DEFAULT_ANALYSIS_CTOR(DELPHI_1995_S3137023);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       declare(Beam(), "Beams");
@@ -31,7 +29,7 @@ namespace Rivet {
       book(_histXpSigma1385Plus ,3, 1, 1);
       book(_weightedTotalNumXiMinus, "_weightedTotalNumXiMinus");
       book(_weightedTotalNumSigma1385Plus, "_weightedTotalNumSigma1385Plus");
-    
+
     }
 
 
@@ -54,7 +52,7 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Final state of unstable particles to get particle spectra
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
 
       for (const Particle& p : ufs.particles()) {
         const int id = p.abspid();
@@ -79,7 +77,7 @@ namespace Rivet {
       normalize(_histXpSigma1385Plus , dbl(*_weightedTotalNumSigma1385Plus)/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -92,13 +90,11 @@ namespace Rivet {
 
     Histo1DPtr _histXpXiMinus;
     Histo1DPtr _histXpSigma1385Plus;
-    //@}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(DELPHI_1995_S3137023);
+  RIVET_DECLARE_ALIASED_PLUGIN(DELPHI_1995_S3137023, DELPHI_1995_I394716);
 
 }

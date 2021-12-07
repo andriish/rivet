@@ -65,7 +65,7 @@ namespace Rivet {
         if ( jet.abseta() < 2.5 ) jets.push_back(jet);
       }
       // get the D* mesons
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       Particles Dstar;
       for (const Particle& p : ufs.particles()) {
         const int id = p.abspid();
@@ -145,6 +145,6 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2012_I1082009);
+  RIVET_DECLARE_PLUGIN(ATLAS_2012_I1082009);
 
 }

@@ -11,8 +11,7 @@ namespace Rivet {
   class ATLAS_2011_S8994773 : public Analysis {
   public:
 
-    ATLAS_2011_S8994773()
-      : Analysis("ATLAS_2011_S8994773") {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_S8994773);
 
 
     void init() {
@@ -23,8 +22,8 @@ namespace Rivet {
 
       // Get an index for the beam energy
       isqrts = -1;
-      if (beamEnergyMatch(900*GeV)) isqrts = 0;
-      else if (beamEnergyMatch(7*TeV)) isqrts = 1;
+      if (isCompatibleWithSqrtS(900)) isqrts = 0;
+      else if (isCompatibleWithSqrtS( 7000)) isqrts = 1;
       assert(isqrts >= 0);
 
       // N profiles, 500 MeV pT cut
@@ -102,22 +101,16 @@ namespace Rivet {
     }
 
 
-    void finalize() {
-    }
-
-
   private:
 
-    /// Little helper function to identify Delta(phi) regions
-    int region_index(double dphi) {
+    // Little helper function to identify Delta(phi) regions
+    inline int region_index(double dphi) {
       assert(inRange(dphi, 0.0, PI, CLOSED, CLOSED));
       if (dphi < PI/3.0) return 0;
       if (dphi < 2*PI/3.0) return 1;
       return 2;
     }
 
-
-  private:
 
     int isqrts;
 
@@ -133,6 +126,6 @@ namespace Rivet {
 
 
 
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_S8994773);
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2011_S8994773, ATLAS_2011_I891834);
 
 }

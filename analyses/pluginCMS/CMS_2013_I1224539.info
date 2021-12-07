@@ -20,6 +20,7 @@ Options:
  - JMODE=W,Z,DIJET
 Beams: [p+, p+]
 Energies: [7000]
+Luminosity_fb: 5.0
 Description:
   'Measurements of the mass spectra of the jets in dijet and $W/Z$+jet events from proton--proton
   collisions at a centre-of-mass energy of 7 TeV using a data sample of integrated luminosity of

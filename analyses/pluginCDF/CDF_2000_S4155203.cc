@@ -6,14 +6,12 @@ namespace Rivet {
 
 
   /// @brief CDF Run I Z \f$ p_\perp \f$ in Drell-Yan events
+  ///
   /// @author Hendrik Hoeth
   class CDF_2000_S4155203 : public Analysis {
   public:
 
-    /// Constructor
-    CDF_2000_S4155203()
-      : Analysis("CDF_2000_S4155203")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2000_S4155203);
 
 
     /// @name Analysis methods
@@ -65,7 +63,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2000_S4155203);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_2000_S4155203, CDF_2000_I505738);
 
 }

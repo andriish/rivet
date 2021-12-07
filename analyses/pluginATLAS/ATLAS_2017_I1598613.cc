@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2017_I1598613);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2017_I1598613);
 
     struct HistoHandler {
       Histo1DPtr histo;
@@ -247,6 +247,6 @@ namespace Rivet {
 
 
   // Hooks for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2017_I1598613);
+  RIVET_DECLARE_PLUGIN(ATLAS_2017_I1598613);
 
 }

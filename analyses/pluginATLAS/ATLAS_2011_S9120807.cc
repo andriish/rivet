@@ -16,9 +16,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ATLAS_2011_S9120807()
-      : Analysis("ATLAS_2011_S9120807")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_S9120807);
 
 
     /// Book histograms and initialise projections before the run
@@ -139,8 +137,6 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_S9120807);
-
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2011_S9120807, ATLAS_2011_I916832);
 
 }

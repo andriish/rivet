@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(PLUTO_1977_I118873);
+    RIVET_DEFAULT_ANALYSIS_CTOR(PLUTO_1977_I118873);
 
 
     /// @name Analysis methods
@@ -21,11 +21,18 @@ namespace Rivet {
     void init() {
       declare(Beam(), "Beams");
       declare(UnstableParticles(), "UFS");
-
-      if (beamEnergyMatch(3.63*GeV)) book(_h_spectrum, 2, 1, 1);
-      else if (beamEnergyMatch(4.03*GeV)) book(_h_spectrum, 3, 1, 1);
-      else if (beamEnergyMatch(4.5*GeV)) book(_h_spectrum, 4, 1, 1);
-      else MSG_ERROR("Beam energy not supported!");
+      
+      if (isCompatibleWithSqrtS(3.63)) {
+        book(_h_spectrum, 2, 1, 1);
+      }
+      else if (isCompatibleWithSqrtS(4.03)) {
+        book(_h_spectrum, 3, 1, 1);
+      }
+      else if (isCompatibleWithSqrtS(4.5)) {
+        book(_h_spectrum, 4, 1, 1);
+      }
+      else
+        MSG_ERROR("Beam energy not supported!");
     }
 
 
@@ -37,10 +44,11 @@ namespace Rivet {
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       // unstable particles
-      for (const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::K0S)) {
-        double xp = p.E()/meanBeamMom;
-        double beta = p.p3().mod()/p.E();
-        _h_spectrum->fill(xp,1./beta);
+      for (const Particle& p : apply<UnstableParticles>(event, "UFS").
+	       particles(Cuts::pid==PID::K0S)) {
+	double xp = p.E()/meanBeamMom;
+	double beta = p.p3().mod()/p.E();
+	_h_spectrum->fill(xp,1./beta);
       }
     }
 
@@ -63,7 +71,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(PLUTO_1977_I118873);
+  RIVET_DECLARE_PLUGIN(PLUTO_1977_I118873);
 
 
 }

@@ -55,7 +55,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
 
       // safe to do this as container has only Ks0
       sumKs0_all += ufs.particles().size();
@@ -153,6 +153,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(LHCB_2010_S8758301, LHCB_2010_I865584);
+  RIVET_DECLARE_ALIASED_PLUGIN(LHCB_2010_S8758301, LHCB_2010_I865584);
 
 }

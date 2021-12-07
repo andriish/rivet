@@ -28,7 +28,7 @@ YLabel=$\sigma(Zj)$ [pb]
 # END PLOT
 
 # BEGIN PLOT /LHCB_2016_I1454404/d02-x01-y01
-Title=Ratio of $W^\pmj$ to $Zj$ production
+Title=Ratio of $W^\pm j$ to $Zj$ production
 XLabel=$\sqrt{s}$
 YLabel=$R_{WZ}$
 # END PLOT
@@ -71,52 +71,52 @@ YLabel=$\sigma(W^{-}j)$ [pb]
 # END PLOT
 
 # BEGIN PLOT /LHCB_2016_I1454404/d05-x01-y01
-Title=Cross-section for $W^+j$ production v $\eta^{\rm jet}$
-XLabel=$\eta^{\rm jet}$
+Title=Cross-section for $W^+j$ production v $\eta^\mathrm{jet}$
+XLabel=$\eta^\mathrm{jet}$
 YLabel=$\sigma(W^+j)$ [pb]
 # END PLOT
 
 # BEGIN PLOT /LHCB_2016_I1454404/d05-x01-y02
-Title=Cross-section for $W^-j$ production v $\eta^{\rm jet}_T$
-XLabel=$\eta^{\rm jet}$
+Title=Cross-section for $W^-j$ production v $\eta^\mathrm{jet}_T$
+XLabel=$\eta^\mathrm{jet}$
 YLabel=$\sigma(W^-j)$ [pb]
 # + any additional plot settings you might like, see make-plots documentation
 # END PLOT
 
 # BEGIN PLOT /LHCB_2016_I1454404/d06-x01-y01
-Title=Cross-section for $W^+j$ production v $p_{\rm T}^{\rm jet}$
-XLabel=$p^{\rm jet}_{\rm T}$ [GeV]
+Title=Cross-section for $W^+j$ production v $p_\mathrm{T}^\mathrm{jet}$
+XLabel=$p^\mathrm{jet}_\mathrm{T}$ [GeV]
 YLabel=$\sigma(W^+j)$ [pb]
 # + any additional plot settings you might like, see make-plots documentation
 # END PLOT
 
 # BEGIN PLOT /LHCB_2016_I1454404/d06-x01-y02
-Title=Cross-section for $W^-j$ production v $p_{\rm T}^{\rm jet}$
-XLabel=$p^{\rm jet}_{\rm T}$ [GeV]
+Title=Cross-section for $W^-j$ production v $p_\mathrm{T}^\mathrm{jet}$
+XLabel=$p^\mathrm{jet}_\mathrm{T}$ [GeV]
 YLabel=$\sigma(W^-j)$ [pb]
 # END PLOT
 
 # BEGIN PLOT /LHCB_2016_I1454404/d07-x01-y01
-Title=Cross-section for $Z_j$ production v $y^{\rm Z}$
-XLabel=$y^{\rm Z}$
+Title=Cross-section for $Z_j$ production v $y^\mathrm{Z}$
+XLabel=$y^\mathrm{Z}$
 YLabel=$\sigma(Zj)$ [pb]
 # END PLOT
 
 # BEGIN PLOT /LHCB_2016_I1454404/d08-x01-y01
-Title=Cross-section for $Zj$ production v $\eta^{\rm jet}$
-XLabel=$\eta^{\rm jet}$
+Title=Cross-section for $Zj$ production v $\eta^\mathrm{jet}$
+XLabel=$\eta^\mathrm{jet}$
 YLabel=$\sigma(Zj)$ [pb]
 # END PLOT
 
 # BEGIN PLOT /LHCB_2016_I1454404/d09-x01-y01
-Title=Cross-section for $Zj$ production v $p^{\rm jet}_{\rm T}$
-XLabel=$p^{\rm jet}_{\rm T}$ [GeV]
+Title=Cross-section for $Zj$ production v $p^\mathrm{jet}_\mathrm{T}$
+XLabel=$p^\mathrm{jet}_\mathrm{T}$ [GeV]
 YLabel=$\sigma(Zj)$ [pb]
 # END PLOT
 
 # BEGIN PLOT /LHCB_2016_I1454404/d10-x01-y01
-Title=Cross-section for $Z_j$ production v $\Delta\phi(Z,{\rm jet})$
-XLabel=$\Delta\phi(Z,{\rm jet})$ [rad]
+Title=Cross-section for $Z_j$ production v $\Delta\phi(Z,\mathrm{jet})$
+XLabel=$\Delta\phi(Z,\mathrm{jet})$ [rad]
 YLabel=$\sigma(Zj)$ [pb]
 LogY=1
 # END PLOT

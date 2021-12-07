@@ -13,17 +13,10 @@ namespace Rivet {
   ///
   /// This CDF analysis provides jet pT distributions for 4 jet multiplicity bins
   /// as well as the jet multiplicity distribution in W + jets events.
-  /// e-Print: arXiv:0711.4044 [hep-ex]
   class CDF_2008_S7541902 : public Analysis {
   public:
 
-    /// Constructor
-    CDF_2008_S7541902()
-      : Analysis("CDF_2008_S7541902"),
-        _electronETCut(20.0*GeV), _electronETACut(1.1),
-        _eTmissCut(30.0*GeV), _mTCut(20.0*GeV),
-        _jetEtCutA(20.0*GeV),  _jetEtCutB(25.0*GeV), _jetETA(2.0)
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2008_S7541902);
 
 
     /// @name Analysis methods
@@ -117,7 +110,6 @@ namespace Rivet {
     }
 
 
-
     /// Finalize
     void finalize() {
 
@@ -157,22 +149,20 @@ namespace Rivet {
 
     /// @name Cuts
     //@{
-
     /// Cut on the electron ET:
-    double _electronETCut;
+    double _electronETCut = 20*GeV;
     /// Cut on the electron ETA:
-    double _electronETACut;
+    double _electronETACut = 1.1;
     /// Cut on the missing ET
-    double _eTmissCut;
+    double _eTmissCut = 30*GeV;
     /// Cut on the transverse mass squared
-    double _mTCut;
+    double _mTCut = 20*GeV;
     /// Cut on the jet ET for differential cross sections
-    double _jetEtCutA;
+    double _jetEtCutA = 20*GeV;
     /// Cut on the jet ET for jet multiplicity
-    double _jetEtCutB;
+    double _jetEtCutB = 25*GeV;
     /// Cut on the jet ETA
-    double _jetETA;
-
+    double _jetETA = 2.0;
     //@}
 
     /// @name Histograms
@@ -188,7 +178,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2008_S7541902);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_2008_S7541902, CDF_2008_I768579);
 
 }

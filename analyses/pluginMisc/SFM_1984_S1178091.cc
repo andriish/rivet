@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    SFM_1984_S1178091() : Analysis("SFM_1984_S1178091") {}
+    RIVET_DEFAULT_ANALYSIS_CTOR(SFM_1984_S1178091);
 
 
     /// @name Analysis methods
@@ -22,16 +22,16 @@ namespace Rivet {
       declare(ChargedFinalState(Cuts::absrap<5 && Cuts::pT>250*MeV && Cuts::pT<3*GeV), "FS");
 
       // Histograms
-      if (beamEnergyMatch(30.4*GeV)) {
+      if (isCompatibleWithSqrtS(30.4, 1E-1)) {
         book(_hist_multiplicity_inel ,1, 1, 1);
         book(_hist_multiplicity_nsd ,2, 1, 1);
-      } else if (beamEnergyMatch(44.5*GeV)) {
+      } else if (isCompatibleWithSqrtS(44.5, 1E-1)) {
         book(_hist_multiplicity_inel ,1, 1, 2);
         book(_hist_multiplicity_nsd ,2, 1, 2);
-      } else if (beamEnergyMatch(52.2*GeV)) {
+      } else if (isCompatibleWithSqrtS(52.2, 1E-1)) {
         book(_hist_multiplicity_inel ,1, 1, 3);
         book(_hist_multiplicity_nsd ,2, 1, 3);
-      } else if (beamEnergyMatch(62.2*GeV)) {
+      } else if (isCompatibleWithSqrtS(62.2, 1E-1)) {
         book(_hist_multiplicity_inel ,1, 1, 4);
         book(_hist_multiplicity_nsd ,2, 1, 4);
       }
@@ -93,7 +93,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(SFM_1984_S1178091);
+  RIVET_DECLARE_ALIASED_PLUGIN(SFM_1984_S1178091, SFM_1984_I196601);
 
 }

@@ -10,8 +10,7 @@ namespace Rivet {
   class CDF_1988_S1865951 : public Analysis {
   public:
 
-    /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_1988_S1865951);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_1988_S1865951);
 
 
     /// @name Analysis methods
@@ -25,9 +24,9 @@ namespace Rivet {
       declare(cfs, "CFS");
 
       // Book histo
-      if (beamEnergyMatch(1800*GeV)) {
+      if (isCompatibleWithSqrtS(1800)) {
         book(_hist_pt ,1, 1, 1);
-      } else if (beamEnergyMatch(630*GeV)) {
+      } else if (isCompatibleWithSqrtS(630)) {
         book(_hist_pt ,2, 1, 1);
       }
 
@@ -63,21 +62,16 @@ namespace Rivet {
 
   private:
 
-    /// @name Counters
-    //@{
+    /// Counter
     CounterPtr _sumWTrig;
-    //@}
 
-    /// @name Histos
-    //@{
+    /// Histo
     Histo1DPtr _hist_pt;
-    //@}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_1988_S1865951);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_1988_S1865951, CDF_1988_I263320);
 
 }

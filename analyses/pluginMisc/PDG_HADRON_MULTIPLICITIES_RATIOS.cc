@@ -35,7 +35,7 @@ namespace Rivet {
       MSG_DEBUG("sqrt(S) = " << sqrtS()/GeV << " GeV");
 
       // Final state of unstable particles to get particle spectra
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
 
       if (sqrtS()/GeV >= 9.5 && sqrtS()/GeV <= 10.5) {
         for (const Particle& p : ufs.particles()) {
@@ -756,6 +756,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(PDG_HADRON_MULTIPLICITIES_RATIOS);
+  RIVET_DECLARE_PLUGIN(PDG_HADRON_MULTIPLICITIES_RATIOS);
 
 }

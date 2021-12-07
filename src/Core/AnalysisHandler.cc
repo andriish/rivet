@@ -207,7 +207,8 @@ namespace Rivet {
     // Warn user that no nominal weight could be identified
     if (nDefaults == 0) {
       MSG_WARNING("Could not identify nominal weight. Will continue assuming variations-only run.");
-      MSG_WARNING("Candidate weight names:\n  " << join(_weightNames, "\n  "));
+      // Note quoting for clarity, given the indents:
+      MSG_WARNING("Candidate weight names:\n    '" << join(_weightNames, "'\n    '") << "'");
     }
     // Warn if multiple weight names were acceptable alternatives
     if (nDefaults > 1) {
@@ -595,15 +596,34 @@ namespace Rivet {
     // Go through all files and collect information
     /// @todo Move this to the script interface, with the API working in terms
     ///   of <real_filename,weight> pairs rather than decoding a CLI convention in C++
+    bool overwrite_xsec = false;
+    size_t nfiles = 0, nfilestot = aofiles.size();
     for (string file : aofiles) {
+      ++nfiles;
+      std::cout << "Merging data file " << file << " [" << nfiles << "/" << nfilestot << "]\r";
+      std::cout.flush();
       MSG_DEBUG("Reading in data from " << file);
+
       // Check for user-supplied scaling, assign 1 otherwise
       /// @todo
       size_t colonpos = file.rfind(":");
       double fileweight = 1.0;
       if (colonpos != string::npos) {
+        string suffix = file.substr(colonpos+1);
         try {
-          fileweight = std::stod(file.substr(colonpos+1));
+          if (suffix.at(0) == '=') {
+            // case I: file.yoda:=1.23
+            //-> set cross-section to 1.23
+            overwrite_xsec = true;
+            suffix = suffix.substr(1);
+          }
+          else if (suffix.at(0) == 'x') {
+            // case II: file.yoda:x1.23
+            // (same as file.yoda:1.23)
+            //-> multiply cross-section with 1.23
+            suffix = suffix.substr(1);
+          }
+          fileweight = std::stod(suffix);
           file = file.substr(0, colonpos);
         } catch (...) {
           throw UserError("Unexpected error in processing argument " + file + " with file:scale format");
@@ -648,7 +668,7 @@ namespace Rivet {
                                 return std::regex_match(ana, std::regex(exp));} );
           }
           if (unmatches.size()) {
-            skip |= std::any_of(matches.begin(), matches.end(), [&](const string &exp){
+            skip |= std::any_of(unmatches.begin(), unmatches.end(), [&](const string &exp){
                                return std::regex_match(ana, std::regex(exp));} );
           }
         }
@@ -678,8 +698,14 @@ namespace Rivet {
           auto xs_it = raw_map.find(xspath);
           if ( xs_it != raw_map.end() ) {
             YODA::Scatter1D* xsec = static_cast<YODA::Scatter1D*>(xs_it->second);
-            MSG_DEBUG("Apply user-supplied weight: " << fileweight);
-            xsec->scaleX(fileweight);
+            if (overwrite_xsec) {
+              MSG_DEBUG("Set user-supplied weight: " << fileweight);
+              xsec->point(0).setX(fileweight);
+            }
+            else {
+              MSG_DEBUG("Multiply user-supplied weight: " << fileweight);
+              xsec->scaleX(fileweight);
+            }
             // get iterator to the existing (or newly created) key-value pair
             auto xit = allxsecs.insert( make_pair(xspath, make_pair(0,0)) ).first;
             // update cross-sections, possibly weighted by number of entries
@@ -726,6 +752,7 @@ namespace Rivet {
         } // end of merge attempt
       } // loop over all AOs ends
     } // loop over all input files ends
+    std::cout << std::endl;
 
     // Now make analysis handler aware of the weight names present
     _weightNames.clear();

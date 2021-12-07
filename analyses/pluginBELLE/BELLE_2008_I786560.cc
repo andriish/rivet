@@ -26,7 +26,7 @@ namespace Rivet {
     void analyze(const Event& e) {
       // Find the taus
       Particles taus;
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
       for (const Particle& p : ufs.particles()) {
         if (p.abspid() != PID::TAU) continue;
         _weight_total->fill();
@@ -99,6 +99,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(BELLE_2008_I786560);
+  RIVET_DECLARE_PLUGIN(BELLE_2008_I786560);
 
 }

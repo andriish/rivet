@@ -7,12 +7,12 @@ namespace Rivet {
 
 
   /// @brief CDF pseudorapidity analysis at 630 and 1800 GeV
+  ///
   /// @author Andy Buckley
   class CDF_1990_S2089246 : public Analysis {
   public:
 
-    /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_1990_S2089246);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_1990_S2089246);
 
 
     /// @name Analysis methods
@@ -24,9 +24,9 @@ namespace Rivet {
       declare(ChargedFinalState((Cuts::etaIn(-3.5, 3.5))), "CFS");
 
       // Book histo
-      if (beamEnergyMatch(1800*GeV)) {
+      if (isCompatibleWithSqrtS(1800)) {
         book(_hist_eta ,3, 1, 1);
-      } else if (beamEnergyMatch(630*GeV)) {
+      } else if (isCompatibleWithSqrtS(630)) {
         book(_hist_eta ,4, 1, 1);
       }
       book(_sumWTrig, "sumWTrig");
@@ -61,21 +61,16 @@ namespace Rivet {
 
   private:
 
-    /// @name Weight counter
-    //@{
+    /// Counter
     CounterPtr _sumWTrig;
-    //@}
 
-    /// @name Histogram collections
-    //@{
+    /// Histogram
     Histo1DPtr _hist_eta;
-    //@}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_1990_S2089246);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_1990_S2089246, CDF_1990_I283352);
 
 }

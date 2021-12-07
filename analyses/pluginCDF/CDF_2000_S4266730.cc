@@ -10,18 +10,8 @@ namespace Rivet {
   class CDF_2000_S4266730 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2000_S4266730);
 
-    /// Constructor
-    CDF_2000_S4266730()
-      : Analysis("CDF_2000_S4266730")
-    {    }
-
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{
@@ -67,8 +57,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2000_S4266730);
-
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_2000_S4266730, CDF_2000_I511377);
 
 }

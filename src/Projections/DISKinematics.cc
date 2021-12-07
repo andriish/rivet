@@ -48,6 +48,8 @@ namespace Rivet {
     //std::cout << "New: " << x() << "," << y() << std::endl;
 
     _theS = invariant(pLepIn + pHad);
+    double cosgammah = ( (1 - _theY) * _theX * pHad.E() - _theY * pLepIn.E() )/( (1 - _theY) * _theX * pHad.E() + _theY * pLepIn.E());
+    _theGH = acos(cosgammah);
 
     // Calculate boost vector for boost into HCM-system
     LorentzTransform tmp;

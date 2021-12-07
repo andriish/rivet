@@ -12,9 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    CDF_2008_S7782535() : Analysis("CDF_2008_S7782535")
-    {
-    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2008_S7782535);
 
 
     /// @name Analysis methods
@@ -114,13 +112,10 @@ namespace Rivet {
 
     /// @name Analysis data
     //@{
-
     /// Jet \f$ p_\perp\f$ bins.
     vector<double> _ptedges; // This can't be a raw array if we want to initialise it non-painfully
-
     /// JetShape projection name for each \f$p_\perp\f$ bin.
     string _jsnames_pT[4];
-
     //@}
 
 
@@ -134,7 +129,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2008_S7782535);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_2008_S7782535, CDF_2008_I787780);
 
 }

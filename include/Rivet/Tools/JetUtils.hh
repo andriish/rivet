@@ -15,22 +15,19 @@ namespace Rivet {
 
   inline PseudoJets mkPseudoJets(const Particles& ps) {
     PseudoJets rtn; rtn.reserve(ps.size());
-    for (const Particle& p : ps)
-      rtn.push_back(p);
+    for (const Particle& p : ps) rtn.push_back(p.pseudojet());
     return rtn;
   }
 
   inline PseudoJets mkPseudoJets(const Jets& js) {
     PseudoJets rtn; rtn.reserve(js.size());
-    for (const Jet& j : js)
-      rtn.push_back(j);
+    for (const Jet& j : js) rtn.push_back(j.pseudojet());
     return rtn;
   }
 
   inline Jets mkJets(const PseudoJets& pjs) {
     Jets rtn; rtn.reserve(pjs.size());
-    for (const PseudoJet& pj : pjs)
-      rtn.push_back(pj);
+    for (const PseudoJet& pj : pjs) rtn.push_back(pj);
     return rtn;
   }
 

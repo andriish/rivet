@@ -10,24 +10,27 @@ namespace Rivet {
   class CDF_2012_NOTE10874 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2012_NOTE10874);
+    CDF_2012_NOTE10874()
+      : Analysis("CDF_2012_NOTE10874")
+    {}
 
+
+  public:
 
     void init() {
       const ChargedFinalState cfs((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  0.5*GeV));
       declare(cfs, "CFS");
 
       int isqrts = -1;
-      if (beamEnergyMatch(300*GeV)) isqrts = 1;
-      else if (beamEnergyMatch(900*GeV)) isqrts = 2;
-      else if (beamEnergyMatch(1960*GeV)) isqrts = 3;
+      if (isCompatibleWithSqrtS(300)) isqrts = 1;
+      else if (isCompatibleWithSqrtS(900)) isqrts = 2;
+      else if (isCompatibleWithSqrtS(1960)) isqrts = 3;
       assert(isqrts >= 0);
 
       book(_h_nch_transverse ,1,1,isqrts);
       book(_h_ptSumDen ,2,1,isqrts);
       book(_h_avePt ,3,1,isqrts);
     }
-
 
     // Little helper function to identify Delta(phi) regions
     inline int region_index(double dphi) {
@@ -84,6 +87,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2012_NOTE10874);
+  RIVET_DECLARE_PLUGIN(CDF_2012_NOTE10874);
 
 }

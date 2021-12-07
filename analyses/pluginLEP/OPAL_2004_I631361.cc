@@ -33,7 +33,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(OPAL_2004_I631361);
+    RIVET_DEFAULT_ANALYSIS_CTOR(OPAL_2004_I631361);
 
     /// @name Analysis methods
     //@{
@@ -347,6 +347,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OPAL_2004_I631361);
+  RIVET_DECLARE_PLUGIN(OPAL_2004_I631361);
 
 }

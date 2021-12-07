@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2007_I722622);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2007_I722622);
 
 
     /// @name Analysis methods
@@ -19,7 +19,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       // Initialise and register projections
-      declare(UnstableFinalState(),"UFS");
+      declare(UnstableParticles(),"UFS");
       // Book histograms
       book(_h_p_0,3,1,2);
       book(_h_p_p,3,1,1);
@@ -54,7 +54,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       static const int id0 = 4312, idp = 4322;
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       bool ups = !ufs.particles(Cuts::pid==300553).empty();
       if(ups) _ups->fill();
       for (const Particle& p : ufs.particles(Cuts::abspid==idp or Cuts::abspid==id0)) {
@@ -144,6 +144,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(BABAR_2007_I722622);
+  RIVET_DECLARE_PLUGIN(BABAR_2007_I722622);
 
 }

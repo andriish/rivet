@@ -43,7 +43,7 @@ function _rivet() {
     fi
 
     if (echo ${prev} | egrep -- "-\<a\>|--\<analysis\>|--\<analyses\>|--\<show-analysis\>|--\<show-analyses\>|--\<list-analyses\>" &> /dev/null); then
-        anas=$(rivet --list-analyses --quiet)
+        anas=$(rivet --list-analyses --quiet) #< excludes aliases
         COMPREPLY=( $(compgen -W "$anas" -- ${cur}) )
         return 0
     fi

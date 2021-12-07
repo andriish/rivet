@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BESIII_2020_I1814783);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2020_I1814783);
 
 
     /// @name Analysis methods
@@ -24,7 +24,7 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
       book(_n_plus ,"/TMP/NPLUS" );
       book(_n_minus,"/TMP/NMINUS");
-      if(fuzzyEquals(sqrtS(),2.396,1e-2)) {
+      if(isCompatibleWithSqrtS(2.396, 1E-2)) {
 	book(_h_cTheta_A,3,1,1);
 	book(_h_cTheta_B,3,1,2);
       }
@@ -165,6 +165,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(BESIII_2020_I1814783);
+  RIVET_DECLARE_PLUGIN(BESIII_2020_I1814783);
 
 }

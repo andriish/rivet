@@ -15,7 +15,7 @@ namespace Rivet {
   public:
 
     /// Minimal constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(MC_TTBAR);
+    RIVET_DEFAULT_ANALYSIS_CTOR(MC_TTBAR);
 
 
     /// @name Analysis methods
@@ -309,6 +309,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_TTBAR);
+  RIVET_DECLARE_PLUGIN(MC_TTBAR);
 
 }

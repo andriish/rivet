@@ -7,11 +7,12 @@ namespace Rivet {
 
 
   /// @brief BABAR Xi_c baryons from fragmentation
+  ///
   /// @author Peter Richardson
   class BABAR_2005_S6181155 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2005_S6181155);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2005_S6181155);
 
 
     void init() {
@@ -23,9 +24,10 @@ namespace Rivet {
       book(_sigma,            3,1,1);
     }
 
+
     void analyze(const Event& e) {
       // Loop through unstable FS particles and look for charmed mesons/baryons
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
 
       const Beam beamproj = apply<Beam>(e, "Beams");
       const ParticlePair& beams = beamproj.beams();
@@ -37,6 +39,7 @@ namespace Rivet {
 
       for (const Particle& p : ufs.particles()) {
         // 3-momentum in CMS frame
+
         const double mom = cms_boost.transform(p.momentum()).vector3().mod();
         // Only looking at Xi_c^0
         if (p.abspid() != 4132 ) continue;
@@ -66,13 +69,14 @@ namespace Rivet {
 
   private:
 
-    //@{
-    /// Histograms
+    /// @name Histograms
+    /// @{
     Histo1DPtr _histOnResonanceA;
     Histo1DPtr _histOnResonanceB;
     Histo1DPtr _histOffResonance;
     Histo1DPtr _sigma;
-    //@}
+    /// @}
+
 
     bool checkDecay(ConstGenParticlePtr p) {
       unsigned int nstable = 0, npip = 0, npim = 0;
@@ -88,6 +92,7 @@ namespace Rivet {
       }
       return false;
     }
+
 
     void findDecayProducts(ConstGenParticlePtr p,
                            unsigned int& nstable,
@@ -118,7 +123,6 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BABAR_2005_S6181155);
+  RIVET_DECLARE_ALIASED_PLUGIN(BABAR_2005_S6181155, BABAR_2005_I679961);
 
 }

@@ -5,17 +5,20 @@
 namespace Rivet {
 
 
+  /// Charged-particle pT and pseudorapidity spectra from pp collisions at 900 and 2360 GeV
   class CMS_2010_S8547297 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2010_S8547297);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2010_S8547297);
 
+
+    /// @{
 
     void init() {
       ChargedFinalState cfs((Cuts::etaIn(-2.5, 2.5)));
       declare(cfs, "CFS");
 
-      if (beamEnergyMatch(900*GeV)) {
+      if (isCompatibleWithSqrtS(900)) {
         for (int d=1; d<=3; d++) {
           for (int y=1; y<=4; y++) {
             _h_dNch_dpT.push_back(Histo1DPtr());
@@ -24,7 +27,7 @@ namespace Rivet {
         }
         book(_h_dNch_dpT_all ,7, 1, 1);
         book(_h_dNch_dEta ,8, 1, 1);
-      } else if (beamEnergyMatch(2360*GeV)) {
+      } else if (isCompatibleWithSqrtS(2360)) {
         for (int d=4; d<=6; d++) {
           for (int y=1; y<=4; y++) {
             _h_dNch_dpT.push_back(Histo1DPtr());
@@ -82,18 +85,21 @@ namespace Rivet {
       scale(_h_dNch_dEta, normfac);
     }
 
+    /// @}
+
 
   private:
 
+    /// @{
     std::vector<Histo1DPtr> _h_dNch_dpT;
     Histo1DPtr _h_dNch_dpT_all;
     Histo1DPtr _h_dNch_dEta;
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2010_S8547297);
+  RIVET_DECLARE_ALIASED_PLUGIN(CMS_2010_S8547297, CMS_2010_I845323);
 
 }

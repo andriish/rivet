@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(OPAL_1995_I382219);
+    RIVET_DEFAULT_ANALYSIS_CTOR(OPAL_1995_I382219);
 
 
     /// @name Analysis methods
@@ -31,7 +31,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
@@ -75,7 +75,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OPAL_1995_I382219);
+  RIVET_DECLARE_PLUGIN(OPAL_1995_I382219);
 
 
 }

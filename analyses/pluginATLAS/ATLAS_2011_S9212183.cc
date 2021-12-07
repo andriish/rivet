@@ -9,16 +9,14 @@
 namespace Rivet {
 
 
-
-
+  /// @brief 0-lepton squark and gluino search
+  ///
   /// @author Chris Wymant
   class ATLAS_2011_S9212183 : public Analysis {
   public:
 
     /// Constructor
-    ATLAS_2011_S9212183()
-      : Analysis("ATLAS_2011_S9212183")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_S9212183);
 
 
     /// @name Analysis methods
@@ -317,7 +315,6 @@ namespace Rivet {
   };
 
 
-  // This global object acts as a hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_S9212183);
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2011_S9212183, ATLAS_2011_I930002);
 
 }

@@ -5,16 +5,20 @@ Experiment: TASSO
 Collider: Petra
 InspireID: 177174
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Lett. 114B (1982) 65
-RunInfo: e+ e- to hadrons
+RunInfo: e+ e- to hadrons. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NeedCrossSection: yes
 Beams: [e+, e-]
 Energies: [12, 14, 22, 25, 30, 34, 35]
+Options:
+ - ENERGY=12, 14, 22, 25, 30, 34, 35
 Description:
-  'Measurement of the charged particle spectra in $e^+e^-$ collisions in $e^+e^-$ at 12, 14, 22, 25, 30, 34 and 35 GeV by the TASSO experiment at Petra.'
+  'Measurement of the charged particle spectra in $e^+e^-$ collisions in $e^+e^-$ at 12, 14, 22, 25, 30, 34 and 35 GeV by the TASSO experiment at Petra.
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 Keywords: []
 BibKey: Brandelik:1982di
 BibTeX: '@article{Brandelik:1982di,

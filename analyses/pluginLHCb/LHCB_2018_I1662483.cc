@@ -21,7 +21,7 @@ namespace Rivet {
   public:
 
     /// Default constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(LHCB_2018_I1662483);
+    RIVET_DEFAULT_ANALYSIS_CTOR(LHCB_2018_I1662483);
 
 
     /// @name Analysis methods
@@ -110,6 +110,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(LHCB_2018_I1662483);
+  RIVET_DECLARE_PLUGIN(LHCB_2018_I1662483);
 
 }

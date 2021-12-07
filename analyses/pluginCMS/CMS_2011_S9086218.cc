@@ -6,15 +6,17 @@
 
 namespace Rivet {
 
+
   // Inclusive jet pT
   class CMS_2011_S9086218 : public Analysis {
   public:
 
-    // Constructor
-    CMS_2011_S9086218() : Analysis("CMS_2011_S9086218") {}
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2011_S9086218);
 
 
-    // Book histograms and initialize projections:
+    /// @{
+
+    /// Book histograms and initialize projections:
     void init() {
       const FinalState fs;
 
@@ -30,7 +32,7 @@ namespace Rivet {
       {Histo1DPtr tmp; _hist_sigma.add(2.5, 3.0, book(tmp, 6, 1, 1));}
     }
 
-    // Analysis
+    /// Analysis
     void analyze(const Event &event) {
       const double weight = 1.0;
       const FastJets& fj = apply<FastJets>(event,"Jets");
@@ -42,16 +44,22 @@ namespace Rivet {
       }
     }
 
-    // Finalize
+    /// Finalize
     void finalize() {
       _hist_sigma.scale(crossSection()/sumOfWeights()/2.0, this);
     }
 
+    /// @}
+
+
   private:
+
     BinnedHistogram _hist_sigma;
+
   };
 
-  // This global object acts as a hook for the plugin system.
-  DECLARE_RIVET_PLUGIN(CMS_2011_S9086218);
+
+
+  RIVET_DECLARE_ALIASED_PLUGIN(CMS_2011_S9086218, CMS_2011_I902309);
 
 }

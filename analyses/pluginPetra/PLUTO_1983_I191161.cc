@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(PLUTO_1983_I191161);
+    RIVET_DEFAULT_ANALYSIS_CTOR(PLUTO_1983_I191161);
 
 
     /// @name Analysis methods
@@ -25,23 +25,32 @@ namespace Rivet {
       // Initialise and register projections
       const FinalState fs;
       declare(fs, "FS");
+      // Thrust
       const Thrust thrust(fs);
       declare(thrust, "Thrust");
       const Sphericity sphericity(fs);
       declare(sphericity, "Sphericity");
-
-      // Histograms
-      _iBin = -1;
-      if      (beamEnergyMatch( 7.7*GeV)) _iBin = 0;
-      else if (beamEnergyMatch( 9.4*GeV)) _iBin = 1;
-      else if (beamEnergyMatch(12.0*GeV)) _iBin = 2;
-      else if (beamEnergyMatch(13.0*GeV)) _iBin = 3;
-      else if (beamEnergyMatch(17.0*GeV)) _iBin = 4;
-      else if (beamEnergyMatch(22.0*GeV)) _iBin = 5;
-      else if (beamEnergyMatch(27.6*GeV)) _iBin = 6;
-      else if (beamEnergyMatch(30.8*GeV)) _iBin = 7;
-      else MSG_ERROR("Beam energy " << sqrtS()/GeV << " GeV not supported!");
-
+      _iBin=-1;
+      sqs = 1.0;
+      if(isCompatibleWithSqrtS(7.7))
+	_iBin = 0, sqs = 7.8;
+      else if(isCompatibleWithSqrtS(9.4))
+	_iBin = 1., sqs = 9.4;
+      else if(isCompatibleWithSqrtS(12.))
+	_iBin = 2, sqs = 12.;
+      else if(isCompatibleWithSqrtS(13.))
+	_iBin = 3, sqs = 13.;
+      else if(isCompatibleWithSqrtS(17.))
+	_iBin = 4, sqs = 17.;
+      else if(isCompatibleWithSqrtS(22.))
+	_iBin = 5, sqs = 22.;
+      else if(isCompatibleWithSqrtS(27.6))
+	_iBin = 6, sqs = 27.6;
+      else if(isCompatibleWithSqrtS(30.8))
+	_iBin = 7, sqs = 30.8;
+      else
+	MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
+      
       // Book histograms
       book(_p_thrust_pt     , 1, 1, 1);
       book(_p_thrust_pt2    , 1, 1, 2);
@@ -71,7 +80,7 @@ namespace Rivet {
         const double pTinT = dot(mom3, thrust.thrustMajorAxis());
         const double pToutT = dot(mom3, thrust.thrustMinorAxis());
         const double pTinS = dot(mom3, sphericity.sphericityMajorAxis());
-        const double pToutS = dot(mom3, sphericity.sphericityMinorAxis());
+        const double pToutS = dot(mom3, sphericity.sphericityMinorAxis()); 
         const double pT2_T = sqr(pTinT) + sqr(pToutT);
         const double pT2_S = sqr(pTinS) + sqr(pToutS);
 	if(PID::isCharged(p.pid())) ++nCharged;
@@ -81,14 +90,14 @@ namespace Rivet {
       	pT2_S_sum +=      pT2_S ;
       }
       if(nCharged<4) vetoEvent;
-      _p_thrust_pt      ->bins()[_iBin].fill(sqrtS(),pT_T_sum /nPart/MeV         );
-      _p_thrust_pt2     ->bins()[_iBin].fill(sqrtS(),pT2_T_sum/nPart/1e3/sqr(MeV));
-      _p_thrust_sum_pt  ->bins()[_iBin].fill(sqrtS(),pT_T_sum /GeV               );
-      _p_thrust_sum_pt2 ->bins()[_iBin].fill(sqrtS(),pT2_T_sum/GeV               );
-      _p_sphere_pt      ->bins()[_iBin].fill(sqrtS(),pT_S_sum /nPart/MeV         );
-      _p_sphere_pt2     ->bins()[_iBin].fill(sqrtS(),pT2_S_sum/nPart/1e3/sqr(MeV));
-      _p_sphere_sum_pt  ->bins()[_iBin].fill(sqrtS(),pT_S_sum /GeV               );
-      _p_sphere_sum_pt2 ->bins()[_iBin].fill(sqrtS(),pT2_S_sum/GeV               );
+      _p_thrust_pt      ->bins()[_iBin].fill(sqs,pT_T_sum /nPart/MeV         );
+      _p_thrust_pt2     ->bins()[_iBin].fill(sqs,pT2_T_sum/nPart/1e3/sqr(MeV));
+      _p_thrust_sum_pt  ->bins()[_iBin].fill(sqs,pT_T_sum /GeV               );
+      _p_thrust_sum_pt2 ->bins()[_iBin].fill(sqs,pT2_T_sum/GeV               );
+      _p_sphere_pt      ->bins()[_iBin].fill(sqs,pT_S_sum /nPart/MeV         );
+      _p_sphere_pt2     ->bins()[_iBin].fill(sqs,pT2_S_sum/nPart/1e3/sqr(MeV));
+      _p_sphere_sum_pt  ->bins()[_iBin].fill(sqs,pT_S_sum /GeV               );
+      _p_sphere_sum_pt2 ->bins()[_iBin].fill(sqs,pT2_S_sum/GeV               );
 
     }
 
@@ -106,6 +115,7 @@ namespace Rivet {
     Profile1DPtr _p_thrust_pt, _p_thrust_pt2, _p_thrust_sum_pt, _p_thrust_sum_pt2;
     Profile1DPtr _p_sphere_pt, _p_sphere_pt2, _p_sphere_sum_pt, _p_sphere_sum_pt2;
     unsigned int _iBin;
+    double sqs;
     //@}
 
 
@@ -113,7 +123,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(PLUTO_1983_I191161);
+  RIVET_DECLARE_PLUGIN(PLUTO_1983_I191161);
 
 
 }

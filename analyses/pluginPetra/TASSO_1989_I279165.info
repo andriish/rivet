@@ -5,16 +5,20 @@ Experiment: TASSO
 Collider: Petra
 InspireID: 279165
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Z.Phys. C45 (1989) 11
-RunInfo: $e^+ e^- \to$ hadrons
+RunInfo: $e^+ e^- \to$ hadrons. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NumEvents: 100000
 Beams: [e-, e+]
 Energies: [14., 22, 34.8, 43.5]
+Options:
+ - ENERGY=14,22,34.8,43.5
 Description:
    Light, heavy jet masses and their difference at 14, 22, 34.8, and 43.5 measured by the TASSO experiment.
+   Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 BibKey: Braunschweig:1989ef
 BibTeX: '@article{Braunschweig:1989ef,
       author         = "Braunschweig, W. and others",

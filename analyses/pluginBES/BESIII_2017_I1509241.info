@@ -14,7 +14,7 @@ Beams: [e+, e-]
 Description:
   'Cross section for $e^+e^-\to p \bar{p} \pi^0$ at energies between 4.008 and 4.600 GeV measured by the BESIII collaboration.'
 ValidationInfo:
-  'Validated using Heriwg 7 events'
+  'Validated using Herwig 7 events'
 #ReleaseTests:
 # - $A my-hepmc-prefix :MODE=some_rivet_flag
 Keywords: []

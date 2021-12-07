@@ -14,37 +14,32 @@ namespace Rivet {
 
 
   /// @brief OPAL event shapes and moments at 91, 133, 177, and 197 GeV
+  ///
   /// @author Andy Buckley
   class OPAL_2004_S6132243 : public Analysis {
   public:
 
-    /// Constructor
-    OPAL_2004_S6132243()
-      : Analysis("OPAL_2004_S6132243"),
-        _isqrts(-1)
-    {
-      //
-    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(OPAL_2004_S6132243);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Energies: 91, 133, 177 (161-183), 197 (189-209) => index 0..4
-    int getHistIndex(double sqrts) {
+    int getHistIndex() {
       int ih = -1;
-      if (inRange(sqrts/GeV, 89.9, 91.5)) {
+      if (inRange(sqrtS()/GeV, 89.9, 91.5)) {
         ih = 0;
-      } else if (fuzzyEquals(sqrts/GeV, 133)) {
+      } else if (isCompatibleWithSqrtS(133.)) {
         ih = 1;
-      } else if (fuzzyEquals(sqrts/GeV, 177)) { // (161-183)
+      } else if (isCompatibleWithSqrtS(177.)) { // (161-183)
         ih = 2;
-      } else if (fuzzyEquals(sqrts/GeV, 197)) { // (189-209)
+      } else if (isCompatibleWithSqrtS(197.)) { // (189-209)
         ih = 3;
       } else {
         stringstream ss;
         ss << "Invalid energy for OPAL_2004 analysis: "
-           << sqrts/GeV << " GeV != 91, 133, 177, or 197 GeV";
+           << sqrtS() << " GeV != 91, 133, 177, or 197 GeV";
         throw Error(ss.str());
       }
       assert(ih >= 0);
@@ -65,9 +60,7 @@ namespace Rivet {
       const Thrust thrust(fs);
       declare(thrust, "Thrust");
       declare(Hemispheres(thrust), "Hemispheres");
-
-      // Get beam energy index
-      _isqrts = getHistIndex(sqrtS());
+      _isqrts = getHistIndex();
 
       // Book histograms
       book(_hist1MinusT[_isqrts]    ,1, 1, _isqrts+1);
@@ -217,21 +210,21 @@ namespace Rivet {
       scale(_histY23DurhamMom[_isqrts], 1.0 / *_sumWJet3);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// Beam energy index for histograms
-    int _isqrts;
+    int _isqrts = -1;
 
-    /// @name Counters of event weights passing the cuts
-    //@{
+    /// Counters of event weights passing the cuts
+    /// @{
     CounterPtr _sumWTrack2, _sumWJet3;
-    //@}
+    /// @}
 
     /// @name Event shape histos at 4 energies
-    //@{
+    /// @{
     Histo1DPtr _hist1MinusT[4];
     Histo1DPtr _histHemiMassH[4];
     Histo1DPtr _histCParam[4];
@@ -246,10 +239,10 @@ namespace Rivet {
     Histo1DPtr _histHemiMassL[4];
     Histo1DPtr _histHemiBroadN[4];
     Histo1DPtr _histDParam[4];
-    //@}
+    /// @}
 
     /// @name Event shape moment histos at 4 energies
-    //@{
+    /// @{
     Histo1DPtr _hist1MinusTMom[4];
     Histo1DPtr _histHemiMassHMom[4];
     Histo1DPtr _histCParamMom[4];
@@ -262,13 +255,12 @@ namespace Rivet {
     Histo1DPtr _histOblatenessMom[4];
     Histo1DPtr _histHemiMassLMom[4];
     Histo1DPtr _histHemiBroadNMom[4];
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OPAL_2004_S6132243);
+  RIVET_DECLARE_ALIASED_PLUGIN(OPAL_2004_S6132243, OPAL_2004_I669402);
 
 }

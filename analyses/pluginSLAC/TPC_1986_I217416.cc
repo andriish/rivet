@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TPC_1986_I217416);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TPC_1986_I217416);
 
 
     /// @name Analysis methods
@@ -50,7 +50,7 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Final state of unstable particles to get particle spectra
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
 
       for( const Particle& p : ufs.particles(Cuts::abspid==413)) {
         double xE = p.E()/meanBeamMom;
@@ -81,7 +81,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TPC_1986_I217416);
+  RIVET_DECLARE_PLUGIN(TPC_1986_I217416);
 
 
 }

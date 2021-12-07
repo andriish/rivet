@@ -8,11 +8,12 @@
 namespace Rivet {
 
 
+  /// Forward energy flow in MB and dijet events at 0.9 and 7 TeV
   class CMS_2011_S9215166 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2011_S9215166);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2011_S9215166);
 
 
     void init() {
@@ -26,16 +27,16 @@ namespace Rivet {
       declare(fsv, "fsv");
 
       // For the MB ND selection
-      const ChargedFinalState fschrgd((Cuts::etaIn(-6.0,6.0)));
+      const ChargedFinalState fschrgd(Cuts::abseta < 6.0);
       declare(fschrgd, "fschrgd");
       VetoedFinalState fschrgdv(fschrgd);
       fschrgdv.vetoNeutrinos();
       declare(fschrgdv, "fschrgdv");
 
-      if (beamEnergyMatch(900*GeV)) {
+      if (isCompatibleWithSqrtS(900)) {
         book(_hist_mb      ,1, 1, 1); // energy flow in MB, 0.9 TeV
         book(_hist_dijet ,2, 1, 1); // energy flow in dijet events, 0.9 TeV
-      } else if (beamEnergyMatch(7000*GeV)) {
+      } else if (isCompatibleWithSqrtS(7000)) {
         book(_hist_mb      ,3, 1, 1); // energy flow in MB, 7 TeV
         book(_hist_dijet ,4, 1, 1); // energy flow in dijet events, 7 TeV
       }
@@ -71,8 +72,8 @@ namespace Rivet {
 
       // DIJET EVENTS
       double PTCUT = -1.0;
-      if (beamEnergyMatch(900*GeV)) PTCUT = 8.0*GeV;
-      else if (beamEnergyMatch(7000*GeV)) PTCUT = 20.0*GeV;
+      if (isCompatibleWithSqrtS(900)) PTCUT = 8.0*GeV;
+      else if (isCompatibleWithSqrtS(7000)) PTCUT = 20.0*GeV;
       const FastJets& jetpro = apply<FastJets>(event, "Jets");
       const Jets jets = jetpro.jetsByPt(PTCUT);
       if (jets.size() >= 2) {
@@ -100,13 +101,15 @@ namespace Rivet {
 
   private:
 
+    /// @{
     Histo1DPtr _hist_mb, _hist_dijet;
     CounterPtr _weightMB, _weightDiJet;
+    /// @}
 
   };
 
 
-  // Hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2011_S9215166);
+
+  RIVET_DECLARE_ALIASED_PLUGIN(CMS_2011_S9215166, CMS_2011_I930319);
 
 }

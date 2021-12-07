@@ -10,7 +10,7 @@ Authors:
 References:
  - Z.Phys. C67 (1995) 27-44, 1995
 RunInfo:
-  Hadronic $Z$ decays at 91.2\;GeV.
+  Hadronic $Z$ decays at 91.2~GeV.
 NumEvents: 1000000
 NeedCrossSection: no
 Beams: [e+, e-]

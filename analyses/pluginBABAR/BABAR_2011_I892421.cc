@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2011_I892421);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2011_I892421);
 
 
     /// @name Analysis methods
@@ -32,7 +32,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       static const int DsID = 10433;
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::abspid==DsID)) {
 	// decay angle
 	int sign = p.pid()/DsID;
@@ -97,6 +97,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(BABAR_2011_I892421);
+  RIVET_DECLARE_PLUGIN(BABAR_2011_I892421);
 
 }

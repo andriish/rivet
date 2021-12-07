@@ -319,6 +319,6 @@ namespace Rivet {
 
 
   // Declare the class as a hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2014_I1304688);
+  RIVET_DECLARE_PLUGIN(ATLAS_2014_I1304688);
 
 }

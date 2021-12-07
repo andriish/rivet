@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ARGUS_1990_I296522);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ARGUS_1990_I296522);
 
 
     /// @name Analysis methods
@@ -55,7 +55,7 @@ namespace Rivet {
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double Emax = ( beams.first.p3().mod() + beams.second.p3().mod() ) / 2.0;
       const double Pmax = sqrt(sqr(Emax)-sqr(2.468));
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::abspid==idXip or Cuts::abspid==idXi0)) {
 	double xp = p.momentum().p3().mod()/Pmax;
 	_h_x->fill(xp);
@@ -102,6 +102,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ARGUS_1990_I296522);
+  RIVET_DECLARE_PLUGIN(ARGUS_1990_I296522);
 
 }

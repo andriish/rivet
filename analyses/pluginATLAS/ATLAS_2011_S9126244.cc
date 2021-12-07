@@ -2,7 +2,6 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-
 #include "Rivet/Tools/BinnedHistogram.hh"
 
 namespace Rivet {
@@ -49,17 +48,14 @@ namespace Rivet {
 
 
   /// ATLAS dijet production with central jet veto
+  ///
   /// @todo Make sure that temp histos are removed
   class ATLAS_2011_S9126244 : public Analysis {
   public:
 
     /// Constructor
-    ATLAS_2011_S9126244()
-      : Analysis("ATLAS_2011_S9126244")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_S9126244);
 
-
-  public:
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -345,7 +341,6 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_S9126244);
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2011_S9126244, ATLAS_2011_I917526);
 
 }

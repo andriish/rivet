@@ -11,7 +11,7 @@ namespace Rivet {
   class ATLAS_2016_I1468168 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2016_I1468168);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2016_I1468168);
 
     void init() {
       // Eta ranges
@@ -81,6 +81,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2016_I1468168);
+  RIVET_DECLARE_PLUGIN(ATLAS_2016_I1468168);
 
 }

@@ -1,6 +1,7 @@
 #ifndef RIVET_MATH_VECTOR4
 #define RIVET_MATH_VECTOR4
 
+#include "Rivet/Tools/TypeTraits.hh"
 #include "Rivet/Math/MathConstants.hh"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/VectorN.hh"
@@ -10,9 +11,13 @@ namespace Rivet {
 
 
   class FourVector;
-  class FourMomentum;
-  class LorentzTransform;
   typedef FourVector Vector4;
+  typedef FourVector V4;
+
+  class FourMomentum;
+  typedef FourMomentum P4;
+
+  class LorentzTransform;
   FourVector transform(const LorentzTransform& lt, const FourVector& v4);
 
 
@@ -29,8 +34,8 @@ namespace Rivet {
 
     FourVector() : Vector<4>() { }
 
-    template<typename V4>
-    FourVector(const V4& other) {
+    template<typename V4TYPE, typename std::enable_if<HasXYZT<V4TYPE>::value, int>::type DUMMY=0>
+    FourVector(const V4TYPE& other) {
       this->setT(other.t());
       this->setX(other.x());
       this->setY(other.y());
@@ -307,8 +312,8 @@ namespace Rivet {
   public:
     FourMomentum() { }
 
-    template<typename V4>
-    FourMomentum(const V4& other) {
+   template<typename V4TYPE, typename std::enable_if<HasXYZT<V4TYPE>::value, int>::type DUMMY=0>
+    FourMomentum(const V4TYPE& other) {
       this->setE(other.t());
       this->setPx(other.x());
       this->setPy(other.y());
@@ -813,7 +818,6 @@ namespace Rivet {
 
 
   };
-
 
 
   inline FourMomentum multiply(const double a, const FourMomentum& v) {

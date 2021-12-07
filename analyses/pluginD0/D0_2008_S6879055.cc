@@ -6,18 +6,15 @@
 namespace Rivet {
 
 
-  /// @brief D0 measurement of the ratio \f$ \sigma(Z/\gamma^* + n \text{ jets})/\sigma(Z/\gamma^*) \f$
+  /// D0 measurement of the ratio \f$ \sigma(Z/\gamma^* + n \text{ jets})/\sigma(Z/\gamma^*) \f$
   class D0_2008_S6879055 : public Analysis {
   public:
 
-    /// Default constructor.
-    D0_2008_S6879055()
-      : Analysis("D0_2008_S6879055")
-    {    }
-    // DEFAULT_RIVET_ANA_CONSTRUCTOR(D0_2008_S6879055);
+    RIVET_DEFAULT_ANALYSIS_CTOR(D0_2008_S6879055);
+
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     // Book histograms
     void init() {
@@ -34,7 +31,6 @@ namespace Rivet {
       book(_pTjet2 ,3, 1, 1);
       book(_pTjet3 ,4, 1, 1);
     }
-
 
 
     /// Do the analysis
@@ -85,7 +81,6 @@ namespace Rivet {
     }
 
 
-
     /// Finalize
     void finalize() {
       // Now divide by the inclusive result
@@ -99,24 +94,23 @@ namespace Rivet {
       normalize(_pTjet3, 217); // fixed norm OK
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _crossSectionRatio;
     Histo1DPtr _pTjet1;
     Histo1DPtr _pTjet2;
     Histo1DPtr _pTjet3;
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(D0_2008_S6879055);
+  RIVET_DECLARE_ALIASED_PLUGIN(D0_2008_S6879055, D0_2008_I724239);
 
 }

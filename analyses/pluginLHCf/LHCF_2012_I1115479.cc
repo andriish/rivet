@@ -29,7 +29,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
 
       const double dphi = TWOPI;
 
@@ -59,6 +59,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(LHCF_2012_I1115479);
+  RIVET_DECLARE_PLUGIN(LHCF_2012_I1115479);
 
 }

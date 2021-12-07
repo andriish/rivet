@@ -52,6 +52,6 @@ namespace Rivet {
   
   };
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BRAHMS_2004_AUAUCentrality);
+  RIVET_DECLARE_PLUGIN(BRAHMS_2004_AUAUCentrality);
 
  }

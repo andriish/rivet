@@ -9,18 +9,16 @@
 namespace Rivet {
 
 
-  /// @brief ALEPH measurement of quark-to-photon fragmentation function
+  /// ALEPH measurement of quark-to-photon fragmentation function
   class ALEPH_1996_S3196992 : public Analysis {
   public:
 
     /// Constructor
-    ALEPH_1996_S3196992()
-      : Analysis("ALEPH_1996_S3196992")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALEPH_1996_S3196992);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Set up projections
@@ -132,23 +130,22 @@ namespace Rivet {
       scale(_h_z_4jet_001, 1000.0/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_z_2jet_001, _h_z_2jet_006, _h_z_2jet_01, _h_z_2jet_033;
     Histo1DPtr _h_z_3jet_001, _h_z_3jet_006, _h_z_3jet_01;
     Histo1DPtr _h_z_4jet_001;
-    //@}
+    /// @}
 
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALEPH_1996_S3196992);
 
+  RIVET_DECLARE_ALIASED_PLUGIN(ALEPH_1996_S3196992, ALEPH_1996_I398193);
 
 }

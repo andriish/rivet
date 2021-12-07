@@ -8,26 +8,17 @@ namespace Rivet {
 
 
   /// @brief DELPHI b-fragmentation measurement
+  ///
   /// @author Hendrik Hoeth
   class ALEPH_2001_S4656318 : public Analysis {
   public:
 
-    /// Constructor
-   ALEPH_2001_S4656318()
-      : Analysis("ALEPH_2001_S4656318")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALEPH_2001_S4656318);
 
-
-    /// @name Helper functions
-    /// @note The PID:: namespace functions would be preferable, but don't have exactly the same behaviour. Preserving the original form.
-    //@{
-    bool isParton(int id) { return abs(id) <= 100 && abs(id) != 22 && (abs(id) < 11 || abs(id) > 18); }
-    // bool isBHadron(int id) { return ((abs(id)/100)%10 == 5) || (abs(id) >= 5000 && abs(id) <= 5999); }
-    //@}
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book projections and histograms
     void init() {
@@ -40,6 +31,7 @@ namespace Rivet {
     }
 
 
+    /// Analyse each event
     void analyze(const Event& e) {
       const FinalState& fs = apply<FinalState>(e, "FS");
       const size_t numParticles = fs.particles().size();
@@ -95,32 +87,39 @@ namespace Rivet {
     }
 
 
-    // Finalize
+    /// Finalize the histograms
     void finalize() {
       normalize(_histXbprim);
       normalize(_histXbweak);
     }
 
+    /// @}
 
-  private:
 
+    /// @name Helper functions
+    /// @note The PID:: namespace functions would be preferable, but don't have exactly the same behaviour. Preserving the original form.
+    /// @{
+    bool isParton(int id) { return abs(id) <= 100 && abs(id) != 22 && (abs(id) < 11 || abs(id) > 18); }
+    // bool isBHadron(int id) { return ((abs(id)/100)%10 == 5) || (abs(id) >= 5000 && abs(id) <= 5999); }
+    /// @}
+
+
+    /// @name Histograms
+    ///
     /// Store the weighted sums of numbers of charged / charged+neutral
     /// particles - used to calculate average number of particles for the
     /// inclusive single particle distributions' normalisations.
-
+    /// @{
     Histo1DPtr _histXbprim;
     Histo1DPtr _histXbweak;
-
     Profile1DPtr _histMeanXbprim;
     Profile1DPtr _histMeanXbweak;
-
-    //@}
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALEPH_2001_S4656318);
+  RIVET_DECLARE_ALIASED_PLUGIN(ALEPH_2001_S4656318, ALEPH_2001_I558327);
 
 }

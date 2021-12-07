@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(DASP_1979_I132045);
+    RIVET_DEFAULT_ANALYSIS_CTOR(DASP_1979_I132045);
 
 
     /// @name Analysis methods
@@ -24,18 +24,34 @@ namespace Rivet {
       declare(FinalState(), "FS");
 
       // find the hists based on beam energies
-      /// @todo Use the beamEnergyMatch function instead
       int ihist=-1;
-      if      (inRange(sqrtS()/GeV,3.6,3.67)) ihist=0;
-      else if (inRange(sqrtS()/GeV,3.98,4.1)) ihist=1;
-      else if (inRange(sqrtS()/GeV,4.1,4.24)) ihist=2;
-      else if (inRange(sqrtS()/GeV,4.24,4.36)) ihist=3;
-      else if (inRange(sqrtS()/GeV,4.36,4.46)) ihist=4;
-      else if (inRange(sqrtS()/GeV,4.46,4.98)) ihist=5;
-      else if (fuzzyEquals(sqrtS(), 5.0, 1E-3)) ihist=6;
-      else if (fuzzyEquals(sqrtS(), 5.2, 1E-3)) ihist=7;
-      else MSG_ERROR("Beam energy not supported!");
-
+      if (inRange(sqrtS()/GeV,3.6,3.67)) {
+	ihist=0;
+      }
+      else if (inRange(sqrtS()/GeV,3.98,4.1)) {
+	ihist=1;
+      }
+      else if (inRange(sqrtS()/GeV,4.1,4.24)) {
+	ihist=2;
+      }
+      else if (inRange(sqrtS()/GeV,4.24,4.36)) {
+	ihist=3;
+      }
+      else if (inRange(sqrtS()/GeV,4.36,4.46)) {
+	ihist=4;
+      }
+      else if (inRange(sqrtS()/GeV,4.46,4.98)) {
+	ihist=5;
+      }
+      else if (isCompatibleWithSqrtS(5.0)) {
+	ihist=6;
+      }
+      else if (isCompatibleWithSqrtS(5.2)) {
+	ihist=7;
+      }
+      else {
+	MSG_ERROR("Beam energy not supported!");
+      }
       // Book histograms
       book(_h_pi_p    ,  1,1,1+ihist);
       book(_h_K_p     ,  2+ihist,1,1);
@@ -50,22 +66,22 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       for (const Particle& p : apply<FinalState>(event, "FS").particles()) {
-        const int id = p.abspid();
-        const double modp = p.p3().mod();
-        const double xp = 2.*modp/sqrtS();
-        const double beta = modp / p.E();
-        if(id==211) {
-          _h_pi_p->fill(modp);
-          _h_pi_x->fill(xp  ,1./beta);
-        }
-        else if(id==321) {
-          _h_K_p->fill(modp);
-          _h_K_x->fill(xp  ,1./beta);
-        }
-        else if(id==2212) {
-          _h_proton_p->fill(modp);
-          _h_proton_x->fill(xp  ,1./beta);
-        }
+	const int id = p.abspid();
+	const double modp = p.p3().mod();
+	const double xp = 2.*modp/sqrtS();
+	const double beta = modp / p.E();
+	if(id==211) {
+	  _h_pi_p->fill(modp);
+	  _h_pi_x->fill(xp  ,1./beta);
+	}
+	else if(id==321) {
+	  _h_K_p->fill(modp);
+	  _h_K_x->fill(xp  ,1./beta);
+	}
+	else if(id==2212) {
+	  _h_proton_p->fill(modp);
+	  _h_proton_x->fill(xp  ,1./beta);
+	}
       }
     }
 
@@ -96,7 +112,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(DASP_1979_I132045);
+  RIVET_DECLARE_PLUGIN(DASP_1979_I132045);
 
 
 }

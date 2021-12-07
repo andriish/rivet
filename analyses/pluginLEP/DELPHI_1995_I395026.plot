@@ -10,7 +10,7 @@ END PLOT
 BEGIN PLOT /DELPHI_1995_I395026/d04-x01-y01
 Title=Scaled $B^*$ energy spectrum
 XLabel=$x_E$
-YLabel=$1/\sigma_{\text{hadrons}} \text{d}\sigma/\text{t}x_E$
+YLabel=$1/\sigma_{\mathrm{hadrons}} \mathrm{d}\sigma/\mathrm{t}x_E$
 LogY=0
 END PLOT
 
@@ -28,5 +28,5 @@ END PLOT
 BEGIN PLOT /DELPHI_1995_I395026/d05-x01-y01
 Title=Decay angle for $B^*$ production
 XLabel=$\cos\theta_H$
-YLabel=$1/\sigma\text{d}\sigma/\text{d}\cos\theta_H$
+YLabel=$1/\sigma\mathrm{d}\sigma/\mathrm{d}\cos\theta_H$
 END PLOT

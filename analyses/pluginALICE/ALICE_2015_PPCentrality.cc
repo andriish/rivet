@@ -8,7 +8,7 @@ namespace Rivet {
 
   class ALICE_2015_PPCentrality : public Analysis {
   public:
-     DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2015_PPCentrality);
+     RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2015_PPCentrality);
 
      // Book histograms, initialize projections.
     void init() {
@@ -45,6 +45,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALICE_2015_PPCentrality);
+  RIVET_DECLARE_PLUGIN(ALICE_2015_PPCentrality);
 
 }

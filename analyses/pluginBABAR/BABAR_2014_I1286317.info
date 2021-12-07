@@ -16,7 +16,7 @@ Description:
   'Measurement of the branching ratios momentum spectra for anti-deuteron production in $\Upsilon(1,2,3S)$ decays,
    together with the cross section and momentum spectrum for anti-deuteron production in the continuum'
 ValidationInfo:
-  'Herwig 7 events, relabeling antiprotons as nothing to make deuterons'
+  'Herwig 7 events, relabelling antiprotons as nothing to make deuterons'
 #ReleaseTests:
 # - $A my-hepmc-prefix :MODE=some_rivet_flag
 Keywords: []

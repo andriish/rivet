@@ -10,6 +10,8 @@ namespace Rivet {
 
   class Vector3;
   typedef Vector3 ThreeVector;
+  typedef Vector3 V3;
+
   class Matrix3;
 
   Vector3 multiply(const double, const Vector3&);
@@ -34,8 +36,8 @@ namespace Rivet {
   public:
     Vector3() : Vector<3>() { }
 
-    template<typename V3>
-    Vector3(const V3& other) {
+    template<typename V3TYPE>
+    Vector3(const V3TYPE& other) {
       this->setX(other.x());
       this->setY(other.y());
       this->setZ(other.z());
@@ -184,16 +186,16 @@ namespace Rivet {
 
     /// @brief Purely geometric approximation to rapidity
     ///
+    /// eta = -ln[ tan(theta/2) ]
+    ///
     /// Also invariant under z-boosts, equal to y for massless particles.
     ///
-    /// @note A cut-off is applied such that |eta| < log(2/DBL_EPSILON)
+    /// Implemented using the tan half-angle formula
+    /// tan(theta/2) = sin(theta) / [1 + cos(theta)] = pT / (p + pz)
     double pseudorapidity() const {
-      const double epsilon = DBL_EPSILON;
-      double m = mod();
-      if ( m == 0.0 ) return  0.0;
-      double pt = max(epsilon*m, perp());
-      double rap = std::log((m + fabs(z()))/pt);
-      return z() > 0.0 ? rap: -rap;
+      if (mod() == 0.0) return 0.0;
+      const double eta = std::log((mod() + fabs(z())) / perp());
+      return std::copysign(eta, z());
     }
 
     /// Synonym for pseudorapidity
@@ -241,6 +243,7 @@ namespace Rivet {
     }
 
   };
+
 
 
   /// Unbound dot-product function

@@ -8,6 +8,7 @@ namespace Rivet {
 
 
   /// @brief CDF Run II underlying event in leading jet events
+  ///
   /// @author Hendrik Hoeth
   ///
   /// Rick Field's measurement of the underlying event in "leading jet" events.
@@ -27,11 +28,7 @@ namespace Rivet {
   class CDF_2010_S8591881_QCD : public Analysis {
   public:
 
-    /// Constructor
-    CDF_2010_S8591881_QCD()
-      : Analysis("CDF_2010_S8591881_QCD")
-    {
-    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2010_S8591881_QCD);
 
 
     /// @name Analysis methods
@@ -39,12 +36,12 @@ namespace Rivet {
 
     void init() {
       // Final state for the jet finding
-      const FinalState fsj((Cuts::etaIn(-4.0, 4.0)));
+      const FinalState fsj(Cuts::abseta < 4.0);
       declare(fsj, "FSJ");
       declare(FastJets(fsj, FastJets::CDFMIDPOINT, 0.7), "MidpointJets");
 
       // Charged final state for the distributions
-      const ChargedFinalState cfs((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  0.5*GeV));
+      const ChargedFinalState cfs(Cuts::abseta < 1.0 && Cuts::pT >= 0.5*GeV);
       declare(cfs, "CFS");
 
       // Book histograms
@@ -157,8 +154,7 @@ namespace Rivet {
     }
 
 
-    void finalize() {
-    }
+    // void finalize() {    }
 
     //@}
 
@@ -184,7 +180,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2010_S8591881_QCD);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_2010_S8591881_QCD, CDF_2010_I849042_QCD);
 
 }

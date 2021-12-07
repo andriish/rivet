@@ -1,37 +1,37 @@
 BEGIN PLOT /ARGUS_1993_S2653028/d01-x01-y01
 Title=$\pi^+$ momentum, no $\Lambda$, $K^0_S$
 XLabel=$p$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/dp$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/dp$ [$\mathrm{GeV}^{-1}$]
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1993_S2653028/d02-x01-y01
 Title=$\pi^+$ momentum, including $\Lambda$, $K^0_S$
 XLabel=$p$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/dp$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/dp$ [$\mathrm{GeV}^{-1}$]
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1993_S2653028/d04-x01-y01
 Title=Proton momentum, no $\Lambda$, $K^0_S$
 XLabel=$p$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/dp$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/dp$ [$\mathrm{GeV}^{-1}$]
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1993_S2653028/d05-x01-y01
 Title=Proton momentum, including $\Lambda$, $K^0_S$
 XLabel=$p$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/dp$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/dp$ [$\mathrm{GeV}^{-1}$]
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1993_S2653028/d03-x01-y01
 Title=$K^+$ momentum
 XLabel=$p$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/dp$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/dp$ [$\mathrm{GeV}^{-1}$]
 LegendXPos=0.7
 END PLOT
 BEGIN PLOT /ARGUS_1993_S2653028/d06-x01-y01
 Title=$K^+$ momentum from time-of-flight
 XLabel=$p$ [GeV]
-YLabel=$1/\sigma\text{d}\sigma/dp$ [$\text{GeV}^{-1}$]
+YLabel=$1/\sigma\mathrm{d}\sigma/dp$ [$\mathrm{GeV}^{-1}$]
 LegendXPos=0.7
 END PLOT
 

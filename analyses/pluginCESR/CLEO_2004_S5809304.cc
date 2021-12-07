@@ -7,11 +7,12 @@ namespace Rivet {
 
 
   /// @brief CLEO charmed mesons and baryons from fragmentation
+  ///
   /// @author Peter Richardson
   class CLEO_2004_S5809304 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEO_2004_S5809304);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEO_2004_S5809304);
 
     void init() {
       declare(Beam(), "Beams");
@@ -41,7 +42,7 @@ namespace Rivet {
 
     void analyze(const Event& e) {
       // Loop through unstable FS particles and look for charmed mesons/baryons
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
 
       const Beam beamproj = apply<Beam>(e, "Beams");
       const ParticlePair& beams = beamproj.beams();
@@ -133,7 +134,6 @@ namespace Rivet {
 
   private:
 
-    //@{
     // Histograms for the continuum cross sections
     Histo1DPtr _sigmaDPlus     ;
     Histo1DPtr _sigmaD0A       ;
@@ -143,7 +143,7 @@ namespace Rivet {
     Histo1DPtr _sigmaDStar0A   ;
     Histo1DPtr _sigmaDStar0B   ;
 
-    // histograms for continuum data
+    // Histograms for continuum data
     Histo1DPtr _histXpDplus     ;
     Histo1DPtr _histXpD0A       ;
     Histo1DPtr _histXpD0B       ;
@@ -152,11 +152,10 @@ namespace Rivet {
     Histo1DPtr _histXpDStar0A   ;
     Histo1DPtr _histXpDStar0B   ;
     Histo1DPtr _histXpTotal     ;
-    //@}
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(CLEO_2004_S5809304);
+  RIVET_DECLARE_ALIASED_PLUGIN(CLEO_2004_S5809304, CLEO_2004_I645209);
 
 }

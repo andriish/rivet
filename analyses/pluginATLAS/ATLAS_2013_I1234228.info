@@ -16,7 +16,7 @@ Keywords:
  - drellyan
  - vjets
 RunInfo:
-  Drell-Yan production in pp collisons at 7 TeV
+  Drell-Yan production in pp collisions at 7 TeV
 Luminosity_fb: 4.9
 Beams: [p+, p+]
 Energies: [7000]

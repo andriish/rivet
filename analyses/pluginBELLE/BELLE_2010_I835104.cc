@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BELLE_2010_I835104);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2010_I835104);
 
 
     /// @name Analysis methods
@@ -55,7 +55,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for(const Particle & p : ufs.particles(Cuts::pid==300553)) {
 	_w_ups4->fill();
         const LorentzTransform boost = LorentzTransform::mkFrameTransformFromBeta(p.mom().betaVec());
@@ -105,6 +105,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(BELLE_2010_I835104);
+  RIVET_DECLARE_PLUGIN(BELLE_2010_I835104);
 
 }

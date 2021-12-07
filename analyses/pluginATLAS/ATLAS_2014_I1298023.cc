@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2014_I1298023);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2014_I1298023);
 
 
     /// @name Analysis methods
@@ -113,6 +113,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ATLAS_2014_I1298023);
+  RIVET_DECLARE_PLUGIN(ATLAS_2014_I1298023);
 
 }

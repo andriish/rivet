@@ -53,7 +53,9 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      if (!beamEnergyMatch(27.4*GeV)) {
+
+      const double sqrts_tol = 10. ;
+      if (!isCompatibleWithSqrtS(27.4, sqrts_tol)) {
         MSG_ERROR("Incorrect beam energy used: " << sqrtS()/GeV);
         throw Error("Unexpected sqrtS ! Only 27.4 GeV is supported");
       }
@@ -109,6 +111,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(E288_1981_I153009);
+  RIVET_DECLARE_PLUGIN(E288_1981_I153009);
 
 }

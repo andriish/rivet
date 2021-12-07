@@ -149,53 +149,93 @@ namespace Rivet {
 
 
     void finalize() {
-      for (size_t i = 0; i < _s_totEF_minbias->numPoints(); ++i) {
-        const double val = _tp_totEF_minbias->bin(i).mean() * _th_totN_minbias->bin(i).height();
-        const double err = (_tp_totEF_minbias->bin(i).mean() * _th_totN_minbias->bin(i).heightErr() +
-                            _tp_totEF_minbias->bin(i).stdErr() * _th_totN_minbias->bin(i).height());
-        _s_totEF_minbias->point(i).setY(val/_mbSumW->val(), err/_mbSumW->val());
+      if (_mbSumW->sumW()) {
+        for (size_t i = 0; i < _s_totEF_minbias->numPoints(); ++i) {
+          double val = 0., err = 0.;
+          if (_tp_totEF_minbias->bin(i).effNumEntries() > 1) {
+            val = _tp_totEF_minbias->bin(i).mean() * _th_totN_minbias->bin(i).height();
+            err = (_tp_totEF_minbias->bin(i).mean() * _th_totN_minbias->bin(i).heightErr() +
+                   _tp_totEF_minbias->bin(i).stdErr() * _th_totN_minbias->bin(i).height());
+          }
+          _s_totEF_minbias->point(i).setY(val/_mbSumW->val(), err/_mbSumW->val());
+        }
       }
-      for (size_t i = 0; i < _s_totEF_hard->numPoints(); ++i) {
-        const double val = _tp_totEF_hard->bin(i).mean() * _th_totN_hard->bin(i).height();
-        const double err = (_tp_totEF_hard->bin(i).mean() * _th_totN_hard->bin(i).heightErr() +
-                            _tp_totEF_hard->bin(i).stdErr() * _th_totN_hard->bin(i).height());
-        _s_totEF_hard->point(i).setY(val/_hdSumW->val(), err/_hdSumW->val());
+      if (_hdSumW->sumW()) {
+        for (size_t i = 0; i < _s_totEF_hard->numPoints(); ++i) {
+          double val = 0., err = 0.;
+          if (_tp_totEF_minbias->bin(i).effNumEntries() > 1) {
+            val = _tp_totEF_hard->bin(i).mean() * _th_totN_hard->bin(i).height();
+            err = (_tp_totEF_hard->bin(i).mean() * _th_totN_hard->bin(i).heightErr() +
+                   _tp_totEF_hard->bin(i).stdErr() * _th_totN_hard->bin(i).height());
+          }
+          _s_totEF_hard->point(i).setY(val/_hdSumW->val(), err/_hdSumW->val());
+        }
       }
-      for (size_t i = 0; i < _s_totEF_diff->numPoints(); ++i) {
-        const double val = _tp_totEF_diff->bin(i).mean() * _th_totN_diff->bin(i).height();
-        const double err = (_tp_totEF_diff->bin(i).mean() * _th_totN_diff->bin(i).heightErr() +
-                                   _tp_totEF_diff->bin(i).stdErr() * _th_totN_diff->bin(i).height());
-        _s_totEF_diff->point(i).setY(val/_dfSumW->val(), err/_dfSumW->val());
+      if (_dfSumW->sumW()) {
+        for (size_t i = 0; i < _s_totEF_diff->numPoints(); ++i) {
+          double val = 0., err = 0.;
+          if (_tp_totEF_diff->bin(i).effNumEntries() > 1) {
+            val = _tp_totEF_diff->bin(i).mean() * _th_totN_diff->bin(i).height();
+            err = (_tp_totEF_diff->bin(i).mean() * _th_totN_diff->bin(i).heightErr() +
+                   _tp_totEF_diff->bin(i).stdErr() * _th_totN_diff->bin(i).height());
+          }
+          _s_totEF_diff->point(i).setY(val/_dfSumW->val(), err/_dfSumW->val());
+        }
       }
-      for (size_t i = 0; i < _s_totEF_nondiff->numPoints(); ++i) {
-        const double val = _tp_totEF_nondiff->bin(i).mean() * _th_totN_nondiff->bin(i).height();
-        const double err = (_tp_totEF_nondiff->bin(i).mean() * _th_totN_nondiff->bin(i).heightErr() +
-                            _tp_totEF_nondiff->bin(i).stdErr() * _th_totN_nondiff->bin(i).height());
-        _s_totEF_nondiff->point(i).setY(val/_ndSumW->val(), err/_ndSumW->val());
+      if (_ndSumW->sumW()) {
+        for (size_t i = 0; i < _s_totEF_nondiff->numPoints(); ++i) {
+          double val = 0., err = 0.;
+          if (_tp_totEF_nondiff->bin(i).effNumEntries() > 1) {
+            val = _tp_totEF_nondiff->bin(i).mean() * _th_totN_nondiff->bin(i).height();
+            err = (_tp_totEF_nondiff->bin(i).mean() * _th_totN_nondiff->bin(i).heightErr() +
+                   _tp_totEF_nondiff->bin(i).stdErr() * _th_totN_nondiff->bin(i).height());
+            _s_totEF_nondiff->point(i).setY(val/_ndSumW->val(), err/_ndSumW->val());
+         }
+        }
       }
-      for (size_t i = 0; i < _s_chEF_minbias->numPoints(); ++i) {
-        const double val = _tp_chEF_minbias->bin(i).mean() * _th_chN_minbias->bin(i).height();
-        const double err = (_tp_chEF_minbias->bin(i).mean() * _th_chN_minbias->bin(i).heightErr() +
-                            _tp_chEF_minbias->bin(i).stdErr() * _th_chN_minbias->bin(i).height());
-        _s_chEF_minbias->point(i).setY(val/_mbchSumW->val(), err/_mbchSumW->val());
+      if (_mbchSumW->sumW()) {
+        for (size_t i = 0; i < _s_chEF_minbias->numPoints(); ++i) {
+          double val = 0., err = 0.;
+          if (_tp_chEF_minbias->bin(i).effNumEntries() > 1) {
+            val = _tp_chEF_minbias->bin(i).mean() * _th_chN_minbias->bin(i).height();
+            err = (_tp_chEF_minbias->bin(i).mean() * _th_chN_minbias->bin(i).heightErr() +
+                   _tp_chEF_minbias->bin(i).stdErr() * _th_chN_minbias->bin(i).height());
+          }
+          _s_chEF_minbias->point(i).setY(val/_mbchSumW->val(), err/_mbchSumW->val());
+        }
       }
-      for (size_t i = 0; i < _s_chEF_hard->numPoints(); ++i) {
-        const double val = _tp_chEF_hard->bin(i).mean() * _th_chN_hard->bin(i).height();
-        const double err = (_tp_chEF_hard->bin(i).mean() * _th_chN_hard->bin(i).heightErr() +
-                            _tp_chEF_hard->bin(i).stdErr() * _th_chN_hard->bin(i).height());
-        _s_chEF_hard->point(i).setY(val/_hdchSumW->val(), err/_hdchSumW->val());
+      if (_hdchSumW->sumW()) {
+        for (size_t i = 0; i < _s_chEF_hard->numPoints(); ++i) {
+          double val = 0., err = 0.;
+          if (_tp_chEF_hard->bin(i).effNumEntries() > 1) {
+            val = _tp_chEF_hard->bin(i).mean() * _th_chN_hard->bin(i).height();
+            err = (_tp_chEF_hard->bin(i).mean() * _th_chN_hard->bin(i).heightErr() +
+                   _tp_chEF_hard->bin(i).stdErr() * _th_chN_hard->bin(i).height());
+          }
+          _s_chEF_hard->point(i).setY(val/_hdchSumW->val(), err/_hdchSumW->val());
+        }
       }
-      for (size_t i = 0; i < _s_chEF_diff->numPoints(); ++i) {
-        const double val = _tp_chEF_diff->bin(i).mean() * _th_chN_diff->bin(i).height();
-        const double err = (_tp_chEF_diff->bin(i).mean() * _th_chN_diff->bin(i).heightErr() +
-                            _tp_chEF_diff->bin(i).stdErr() * _th_chN_diff->bin(i).height());
-        _s_chEF_diff->point(i).setY(val/_dfchSumW->val(), err/_dfchSumW->val());
+      if (_dfchSumW->sumW()) {
+        for (size_t i = 0; i < _s_chEF_diff->numPoints(); ++i) {
+          double val = 0., err = 0.;
+          if (_tp_chEF_diff->bin(i).effNumEntries() > 1) {
+            val = _tp_chEF_diff->bin(i).mean() * _th_chN_diff->bin(i).height();
+            err = (_tp_chEF_diff->bin(i).mean() * _th_chN_diff->bin(i).heightErr() +
+                   _tp_chEF_diff->bin(i).stdErr() * _th_chN_diff->bin(i).height());
+          }
+          _s_chEF_diff->point(i).setY(val/_dfchSumW->val(), err/_dfchSumW->val());
+        }
       }
-      for (size_t i = 0; i < _s_chEF_nondiff->numPoints(); ++i) {
-        const double val = _tp_chEF_nondiff->bin(i).mean() * _th_chN_nondiff->bin(i).height();
-        const double err = (_tp_chEF_nondiff->bin(i).mean() * _th_chN_nondiff->bin(i).heightErr() +
-                            _tp_chEF_nondiff->bin(i).stdErr() * _th_chN_nondiff->bin(i).height());
-        _s_chEF_nondiff->point(i).setY(val/_ndchSumW->val(), err/_ndchSumW->val());
+      if (_ndchSumW->sumW()) {
+        for (size_t i = 0; i < _s_chEF_nondiff->numPoints(); ++i) {
+          double val = 0., err = 0.;
+          if (_tp_chEF_nondiff->bin(i).effNumEntries() > 1) {
+            val = _tp_chEF_nondiff->bin(i).mean() * _th_chN_nondiff->bin(i).height();
+            err = (_tp_chEF_nondiff->bin(i).mean() * _th_chN_nondiff->bin(i).heightErr() +
+                   _tp_chEF_nondiff->bin(i).stdErr() * _th_chN_nondiff->bin(i).height());
+          }
+          _s_chEF_nondiff->point(i).setY(val/_ndchSumW->val(), err/_ndchSumW->val());
+        }
       }
     }
 
@@ -230,6 +270,6 @@ namespace Rivet {
 
 
   // Hook for the plugin system
-  DECLARE_RIVET_PLUGIN(LHCB_2013_I1208105);
+  RIVET_DECLARE_PLUGIN(LHCB_2013_I1208105);
 
 }

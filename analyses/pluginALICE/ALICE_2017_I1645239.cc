@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2017_I1645239);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2017_I1645239);
 
 
     /// @name Analysis methods
@@ -52,7 +52,7 @@ namespace Rivet {
       // PDG code IDs used in the code: 2212 = p+, 4122 = Lc, 421 = D0, 1000822080 = Pb
       if (beamp.first == PID::PROTON && beamp.second == PID::PROTON) {
         // pp cycle
-        if (beamEnergyMatch(5020*GeV)) { // pp 5.02 TeV
+        if (isCompatibleWithSqrtS(5020)) { // pp 5.02 TeV
           for (const Particle& p : upProj.particles()) {
             if (p.fromBottom()) continue;
             if (p.rap() < 0.04 && p.rap() > -0.96) {
@@ -144,6 +144,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALICE_2017_I1645239);
+  RIVET_DECLARE_PLUGIN(ALICE_2017_I1645239);
 
 }

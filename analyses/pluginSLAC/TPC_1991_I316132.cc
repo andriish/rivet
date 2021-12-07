@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TPC_1991_I316132);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TPC_1991_I316132);
 
 
     /// @name Analysis methods
@@ -63,7 +63,7 @@ namespace Rivet {
       else
 	axis = beams.second.momentum().p3().unit();
 
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for  (const Particle& p : ufs.particles(Cuts::abspid==413)) {
 	if(p.children().size()!=2) continue;
 	int sign = p.pid()/413;
@@ -219,7 +219,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TPC_1991_I316132);
+  RIVET_DECLARE_PLUGIN(TPC_1991_I316132);
 
 
 }

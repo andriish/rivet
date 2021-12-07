@@ -7,13 +7,12 @@ namespace Rivet {
 
 
   /// @brief BELLE pi0 spectrum at Upsilon(4S)
+  ///
   /// @author Peter Richardson
   class BELLE_2001_S4598261 : public Analysis {
   public:
 
-    BELLE_2001_S4598261()
-      : Analysis("BELLE_2001_S4598261")
-    { }
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2001_S4598261);
 
 
     void init() {
@@ -28,7 +27,7 @@ namespace Rivet {
       // Find the upsilons
       Particles upsilons;
       // First in unstable final state
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
       for (const Particle& p : ufs.particles())
         if (p.pid()==300553) upsilons.push_back(p);
       // Then in whole event if fails
@@ -93,10 +92,9 @@ namespace Rivet {
       }
     }
 
-
   };
 
 
-  DECLARE_RIVET_PLUGIN(BELLE_2001_S4598261);
+  RIVET_DECLARE_ALIASED_PLUGIN(BELLE_2001_S4598261, BELLE_2001_I554520);
 
 }

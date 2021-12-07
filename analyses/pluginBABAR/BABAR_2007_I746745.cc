@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2007_I746745);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2007_I746745);
 
 
     /// @name Analysis methods
@@ -29,7 +29,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       static const int idOmega = 4332;
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       bool ups = !ufs.particles(Cuts::pid==300553).empty();
       if(ups) _ups->fill();
       for (const Particle& p : ufs.particles(Cuts::abspid==idOmega)) {
@@ -69,6 +69,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(BABAR_2007_I746745);
+  RIVET_DECLARE_PLUGIN(BABAR_2007_I746745);
 
 }

@@ -33,7 +33,7 @@ namespace Rivet {
 
     void analyze(const Event& event) {
 
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
 
       for (const Particle& p : ufs.particles()) {
 
@@ -82,6 +82,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ALICE_2017_I1512110);
+  RIVET_DECLARE_PLUGIN(ALICE_2017_I1512110);
 
 }

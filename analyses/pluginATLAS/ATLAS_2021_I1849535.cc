@@ -13,7 +13,7 @@ namespace Rivet {
     public:
 
       /// Constructor
-      DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2021_I1849535);
+      RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2021_I1849535);
 
       void init() {
 
@@ -363,5 +363,5 @@ namespace Rivet {
 
   };  // end class ATLAS_2021_I1849535
 
-  DECLARE_RIVET_PLUGIN(ATLAS_2021_I1849535);
+  RIVET_DECLARE_PLUGIN(ATLAS_2021_I1849535);
 }  // end namespace rivet

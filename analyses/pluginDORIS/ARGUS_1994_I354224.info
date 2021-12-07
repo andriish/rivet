@@ -10,7 +10,7 @@ Authors:
 References:
  - Z.Phys. C62 (1994) 371-382, 1994 
 RunInfo:
-  In principle any process producting $B^\pm$ and $B^0,\bar{B}^0$, bot original at Upsilon 4S 
+  In principle any process producing $B^\pm$ and $B^0,\bar{B}^0$, bot original at Upsilon 4S 
 NumEvents: 1000000
 Description: Measurement of the spectrum for $K^0_S$ production in $B$ decays. The original measurement was done by ARGUS at the $\Upsilon(4S)$ resonance and therefore represents that admixture of  $B^\pm$ and $B^0,\bar{B}^0$.
 BibKey: Albrecht:1993cd

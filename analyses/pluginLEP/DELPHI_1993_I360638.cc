@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(DELPHI_1993_I360638);
+    RIVET_DEFAULT_ANALYSIS_CTOR(DELPHI_1993_I360638);
 
 
     /// @name Analysis methods
@@ -45,7 +45,7 @@ namespace Rivet {
       const size_t numParticles = fs.particles().size();
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (numParticles < 2) vetoEvent;
-      const UnstableParticles& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       // lambda
       Particles lambda    = ufs.particles(Cuts::pid== PID::LAMBDA);
       Particles lambdabar = ufs.particles(Cuts::pid==-PID::LAMBDA);
@@ -113,7 +113,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(DELPHI_1993_I360638);
+  RIVET_DECLARE_PLUGIN(DELPHI_1993_I360638);
 
 
 }

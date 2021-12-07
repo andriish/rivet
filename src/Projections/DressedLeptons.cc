@@ -80,10 +80,10 @@ namespace Rivet {
 
 
   // Single-FS version
-  DressedLeptons::DressedLeptons(const FinalState& barefs,
+  DressedLeptons::DressedLeptons(const FinalState& allfs,
                                  double dRmax, const Cut& cut,
                                  bool useDecayPhotons, bool useJetClustering)
-    : DressedLeptons(barefs, barefs, dRmax, cut, useDecayPhotons, useJetClustering)
+    : DressedLeptons(allfs, allfs, dRmax, cut, useDecayPhotons, useJetClustering)
   {     }
 
 
@@ -119,9 +119,9 @@ namespace Rivet {
     vector<Particle> allClusteredLeptons;
     allClusteredLeptons.reserve(bareleptons.size());
 
-    // If the radius is 0 or negative, don't even attempt to cluster
     if (_useJetClustering) {
 
+      // If the radius is 0 or negative, don't even attempt to cluster
       if (_dRmax <= 0) {
         for (const Particle& bl : bareleptons) {
           Particle dl(bl.pid(), bl.momentum(), bl.genParticle(), bl.origin());
@@ -144,10 +144,12 @@ namespace Rivet {
     } else {
 
       for (const Particle& bl : bareleptons) {
-        Particle dl(bl.pid(), bl.momentum(), bl.genParticle());
+        Particle dl(bl.pid(), bl.momentum(), bl.genParticle(), bl.origin());
         dl.setConstituents({bl});
         allClusteredLeptons += dl;
       }
+
+      // If the radius is 0 or negative, don't even attempt to cluster
       if (_dRmax > 0) {
         // Match each photon to its closest charged lepton within the dR cone
         const FinalState& photons = applyProjection<FinalState>(e, "Photons");
@@ -155,7 +157,6 @@ namespace Rivet {
           // Ignore photon if it's from a hadron/tau decay and we're avoiding those
           /// @todo Already removed via the PromptFinalState conversion above?
           if (!_fromDecay && !photon.isDirect()) continue;
-          const FourMomentum& p_P = photon.momentum();
           double dRmin = _dRmax;
           int idx = -1;
           for (size_t i = 0; i < bareleptons.size(); ++i) {
@@ -163,13 +164,19 @@ namespace Rivet {
             // Only cluster photons around *charged* signal particles
             if (bl.charge3() == 0) continue;
             // Find the closest lepton
-            double dR = deltaR(bl, p_P);
+            const double dR = deltaR(bl, photon);
             if (dR < dRmin) {
               dRmin = dR;
               idx = i;
             }
           }
-          if (idx > -1) allClusteredLeptons[idx].addConstituent(photon, true);
+          // Escape if no lepton found within the dRmax range
+          if (idx < 0) continue;
+
+          // Attach the photon to the closest in-range lepton
+          Particle& dl = allClusteredLeptons[idx];
+          MSG_DEBUG("Adding photon " << photon << " to dressed lepton #" << idx << ": " << dl);
+          dl.addConstituent(photon, true);
         }
       }
     }

@@ -1,5 +1,5 @@
 BEGIN PLOT /DELPHI_1991_I324035/d
-XLabel=$n_{\text{charged}}$
+XLabel=$n_{\mathrm{charged}}$
 YLabel=$P_n\times 1000$
 END PLOT
 BEGIN PLOT /DELPHI_1991_I324035/d01-x01-y01

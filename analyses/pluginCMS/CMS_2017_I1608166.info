@@ -4,7 +4,7 @@ Summary: Measurement of charged pion, kaon, and proton production in proton-prot
 Experiment: CMS
 Collider: LHC
 InspireID: 1608166
-Status: VALIDATED REENTRANT
+Status: VALIDATED
 Reentrant: true
 Authors:
  - Markus Seidel <markus.seidel@cern.ch>

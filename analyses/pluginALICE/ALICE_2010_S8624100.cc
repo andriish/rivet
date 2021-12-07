@@ -9,11 +9,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2010_S8624100);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2010_S8624100);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -25,11 +25,11 @@ namespace Rivet {
       declare(cfs10, "CFS10");
       declare(cfs13, "CFS13");
 
-      if (beamEnergyMatch(900*GeV)) {
+      if (isCompatibleWithSqrtS(900)) {
         book(_h_dN_dNch_05    ,11, 1, 1);
         book(_h_dN_dNch_10    ,12, 1, 1);
         book(_h_dN_dNch_13    ,13, 1, 1);
-      } else if (beamEnergyMatch(2360*GeV)) {
+      } else if (isCompatibleWithSqrtS(2360)) {
         book(_h_dN_dNch_05    ,17, 1, 1);
         book(_h_dN_dNch_10    ,18, 1, 1);
         book(_h_dN_dNch_13    ,19, 1, 1);
@@ -40,7 +40,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const ChargedFinalState& charged_05 = apply<ChargedFinalState>(event, "CFS05");
+       const ChargedFinalState& charged_05 = apply<ChargedFinalState>(event, "CFS05");
       const ChargedFinalState& charged_10 = apply<ChargedFinalState>(event, "CFS10");
       const ChargedFinalState& charged_13 = apply<ChargedFinalState>(event, "CFS13");
 
@@ -52,32 +52,27 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
       normalize(_h_dN_dNch_05);
       normalize(_h_dN_dNch_10);
       normalize(_h_dN_dNch_13);
-
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
-
+    /// @{
     Histo1DPtr _h_dN_dNch_05;
     Histo1DPtr _h_dN_dNch_10;
     Histo1DPtr _h_dN_dNch_13;
-    //@}
+    /// @}
 
 
   };
 
 
-
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALICE_2010_S8624100);
+  RIVET_DECLARE_ALIASED_PLUGIN(ALICE_2010_S8624100, ALICE_2010_I852450);
 
 }

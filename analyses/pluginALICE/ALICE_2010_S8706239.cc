@@ -8,32 +8,23 @@ namespace Rivet {
   class ALICE_2010_S8706239 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
-    ALICE_2010_S8706239()
-      : Analysis("ALICE_2010_S8706239")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2010_S8706239);
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
 
-      ChargedFinalState cfs((Cuts::etaIn(-0.8, 0.8) && Cuts::pT >=  0.15));
+      ChargedFinalState cfs((Cuts::etaIn(-0.8, 0.8) && Cuts::pT >= 0.15));
       declare(cfs, "CFS");
 
-      book(_h_pT ,4, 1, 1);
+      book(_h_pT, 4, 1, 1);
 
-      book(_h_pT_Nch_015 ,11, 1, 1);
-      book(_h_pT_Nch_05  ,12, 1, 1);
+      book(_h_pT_Nch_015, 11, 1, 1);
+      book(_h_pT_Nch_05,  12, 1, 1);
 
       book(_Nevt_after_cuts,"Nevt_after_cuts");
 
@@ -73,28 +64,23 @@ namespace Rivet {
       scale(_h_pT, 1.0/ *_Nevt_after_cuts);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
-
+    /// @{
     Histo1DPtr _h_pT;
-
-    Profile1DPtr _h_pT_Nch_015 ;
-    Profile1DPtr _h_pT_Nch_05  ;
-
+    Profile1DPtr _h_pT_Nch_015;
+    Profile1DPtr _h_pT_Nch_05;
     CounterPtr _Nevt_after_cuts;
-    //@}
-
+    /// @}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALICE_2010_S8706239);
+  RIVET_DECLARE_ALIASED_PLUGIN(ALICE_2010_S8706239, ALICE_2010_I860416);
 
 }

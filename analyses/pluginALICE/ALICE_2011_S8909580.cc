@@ -8,12 +8,9 @@ namespace Rivet {
   class ALICE_2011_S8909580 : public Analysis {
   public:
 
-    ALICE_2011_S8909580()
-      : Analysis("ALICE_2011_S8909580")
-    {}
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2011_S8909580);
 
 
-  public:
     void init() {
       const UnstableParticles ufs(Cuts::abseta < 15);
       declare(ufs, "UFS");
@@ -30,7 +27,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
 
       for (const Particle& p : ufs.particles()) {
         const double absrap = p.absrap();
@@ -96,7 +93,6 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALICE_2011_S8909580);
+  RIVET_DECLARE_ALIASED_PLUGIN(ALICE_2011_S8909580, ALICE_2011_I881474);
 
 }

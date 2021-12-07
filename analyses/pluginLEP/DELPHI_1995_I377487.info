@@ -14,7 +14,7 @@ RunInfo:
 NumEvents: 1000000
 Beams: [e+, e-]
 Energies: [91.2]
-Description: DELPHI results for the spectra for $K^0,\bar{K}^0$ and $K^{*\pm}$  production in hadronic $Z^0$ decays. The other spectra in the paper are superseeded by those in DELPHI_1999_S3960137 and are therefore not implemented.
+Description: DELPHI results for the spectra for $K^0,\bar{K}^0$ and $K^{*\pm}$  production in hadronic $Z^0$ decays. The other spectra in the paper are superseded by those in DELPHI_1999_S3960137 and are therefore not implemented.
 BibKey: Abreu:1994rg
 BibTeX: '@article{Abreu:1994rg,
       author         = "Abreu, P. and others",

@@ -2447,8 +2447,9 @@ def try_cmd(args):
         return False
 
 def have_cmd(cmd):
-    return try_cmd(["which", cmd])
-
+    if shutil.which(cmd) is not None:
+        return True
+    return False
 
 
 ####################
@@ -2555,7 +2556,7 @@ if __name__ == '__main__':
         try:
             ## latex
             if not have_cmd("pdflatex"):
-                logging.error("ERROR: required program 'latex' could not be found. Exiting...")
+                logging.error("ERROR: required program 'pdflatex' could not be found. Exiting...")
                 sys.exit(1)
             # ## dvips
             # if not have_cmd("dvips"):

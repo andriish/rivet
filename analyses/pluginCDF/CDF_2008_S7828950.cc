@@ -14,10 +14,7 @@ namespace Rivet {
   class CDF_2008_S7828950 : public Analysis {
   public:
 
-    /// Constructor
-    CDF_2008_S7828950()
-      : Analysis("CDF_2008_S7828950")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2008_S7828950);
 
 
     /// @name Analysis methods
@@ -33,7 +30,6 @@ namespace Rivet {
       {Histo1DPtr tmp; _binnedHistosR07.add(0.7, 1.1, book(tmp, 3, 1, 1));}
       {Histo1DPtr tmp; _binnedHistosR07.add(1.1, 1.6, book(tmp, 4, 1, 1));}
       {Histo1DPtr tmp; _binnedHistosR07.add(1.6, 2.1, book(tmp, 5, 1, 1));}
-
     }
 
 
@@ -62,7 +58,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2008_S7828950);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_2008_S7828950, CDF_2008_I790693);
 
 }

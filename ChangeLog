@@ -1,3 +1,128 @@
+2021-12-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Allow manual use of analysis-plugin make-targets after
+	configuring with --disable-analyses.
+
+2021-11-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Release 3.1.5
+
+2021-11-05  Johannes Jahan <jahan.johannes@gmail.com>
+
+	* Changed the first labelling in ATLAS_2016_I1467230 from "/*" to "/d01-*"
+
+2021-10-28  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use the new Ref(Un)match regex info to filter unwanted objects
+	from ref files during HepData sync.
+
+	* Add support for Warning, RefMatch, and RefUnmatch keys in
+	analysis info files, mapped to the Analysis and AnalysisInfo APIs.
+
+2021-10-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add testing, warning messages, and unit tests for negative-virtuality FS particles.
+
+	* Fix the analysis-plugin uninstall target.
+
+2021-10-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Remove many const return-by-value signatures, and other sloppy
+	or meaningless C++ antipatterns flagged by the icpc build.
+
+	* Add SFINAE x/y/z/t() method detection to Vector4 constructors,
+	and explicit .pseudojet() calls to Particles and Jets passed to
+	PseudoJet constructors (since those live in external code and we
+	can't SFINAE-protect them). These were breaking the build on Intel
+	compilers -- thanks to Chris Chang for the report.
+
+2021-08-30  Christian Gutschow  <chris.g@cern.ch>
+
+	* submission of ATLAS_2019_I1768911 (Z pT and phi* and at 13 TeV)
+
+2021-08-13  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Provide more options to specify the Cython command to be
+	used. Thanks to Christian Holm Christensen.
+
+	* Separate the DESTDIR from prefix in the Python module
+	installation, to clean up FreeBSD packaging. Thanks to Dmitry
+	Kalinkin.
+
+2021-07-19  Christian Gutschow  <chris.g@cern.ch>
+
+	* introduce isCompatibleWithSqrtS function for sqrtS dependent hist booking,
+	falls back to ENERGY option to make routines reentrant safe
+
+	* fix back for CounterPtr filling: no fill should mean no fill, not fill using weight 0
+
+2021-07-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add ability for mkhtml to use pdfunite in place of pdftk and
+	pdfmerge for making a booklet.
+
+
+2021-06-26  Christian Gutschow  <chris.g@cern.ch>
+
+	* fix indentation in MC_MUONS.info
+
+	* add per-file print out to rivet-merge
+
+	* support keyboard interruption in rivet-merge
+
+2021-06-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Correction to use xE rather than xP in OPAL_1997_S3396100, by Adil Jueid.
+
+2021-06-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* New CMS analyses: CMS_2020_I1794169 (WZ and same-sign WW boson
+	pairs), CMS_2020_I1814328 (W+W- boson pair production), and
+	CMS_2020_I1837084 (Z-boson differential production cross section
+	using its invisible decay mode; NB: runs on Z->mumu sample)
+
+	* Improve option handling for booleans, and exception emission
+	with incompatible casts.
+
+2021-06-04  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a default-value argument to the string version of getOption().
+
+	* Change the DressedLepton single-FS name from barefs to allfs, to reduce confusion.
+
+	* Add DIRECT and DRESSED options to MC_ELECTRONS and MC_MUONS.
+
+2021-06-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix dressed-lepton origin position for the standard, non-jet-clustering mode.
+
+	* Remove raw int baryon counter from STAR_2006_S6860818.
+
+2021-05-31  Christian Gutschow  <chris.g@cern.ch>
+
+	* catch low-stats crash in LHCB_2013_I1208105 reported by Jan Kretzschmar
+
+2021-05-30  Christian Gutschow  <chris.g@cern.ch>
+
+	* Improve error message for when the calibration file has been forgotten
+
+2021-05-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Remove numerical epsilon cutoff for pseudorapidity calculation:
+	inf is a perfectly good value for beamline momenta. Regression
+	test updated.
+
+2021-05-13  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add convenience V2, V3, V4, and P4 alias names for the vector types.
+
+	* Add tests for eta and rapidity values calculated in particular for +-z vectors.
+
+2021-05-06  Christian Gutschow  <chris.g@cern.ch>
+
+	* Allowing file.yoda:x1.23 and file.yoda:=1.23 as rivet-merge arguments
+	to multiply or overwrite the cross-section respectively
+
 2021-05-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add LHCB_2010_S8758301 -> LHCB_2010_I865584 alias, requested by LHCb.

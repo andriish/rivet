@@ -1,4 +1,13 @@
+// Samantha Dooling DESY
+// February 2012
+//
 // -*- C++ -*-
+// =============================
+//
+// Ratio of the energy deposited in the pseudorapidity range
+// -6.6 < eta < -5.2 for events with a charged particle jet
+//
+// =============================
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
@@ -9,21 +18,21 @@
 namespace Rivet {
 
 
-  /// Ratio of the energy deposited in the pseudorapidity range -6.6 < eta < -5.2 for events with a charged particle jet
   class CMS_2013_I1218372 : public Analysis {
   public:
 
-    /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2013_I1218372);
-
+  /// Constructor
+  CMS_2013_I1218372()
+    : Analysis("CMS_2013_I1218372")
+    { }
 
     void init() {
 
-      // Gives the range of eta and min pT for the final state from which I get the jets
+      // gives the range of eta and min pT for the final state from which I get the jets
       FastJets jetpro (ChargedFinalState((Cuts::etaIn(-2.5, 2.5) && Cuts::pT >=  0.3*GeV)), FastJets::ANTIKT, 0.5);
       declare(jetpro, "Jets");
 
-      // Skip Neutrinos and Muons
+      // skip Neutrinos and Muons
       VetoedFinalState fsv(FinalState((Cuts::etaIn(-7.0, -4.0))));
       fsv.vetoNeutrinos();
       fsv.addVetoPairId(PID::MUON);
@@ -45,9 +54,9 @@ namespace Rivet {
       // Temporary histograms to fill the energy flow for leading jet events.
       // Ratios are calculated in finalyze().
       int id = 0;
-      if (beamEnergyMatch( 900*GeV)) id=1;
-      if (beamEnergyMatch(2760*GeV)) id=2;
-      if (beamEnergyMatch(7000*GeV)) id=3;
+      if (isCompatibleWithSqrtS( 900)) id=1;
+      if (isCompatibleWithSqrtS(2760)) id=2;
+      if (isCompatibleWithSqrtS(7000)) id=3;
       book(_h_ratio, id, 1, 1);
       book(_tmp_jet , "TMP/eflow_jet"  ,refData(id, 1, 1));  // Leading jet energy flow in pt
       book(_tmp_njet, "TMP/number_jet" ,refData(id, 1, 1)); // Number of events in pt
@@ -100,9 +109,9 @@ namespace Rivet {
 
       // combine the selection: xi cuts
       bool passedHadronCuts = false;
-      if (beamEnergyMatch( 900*GeV) && (xix > 0.1  || xiy > 0.4 || xidd > 0.5)) passedHadronCuts = true;
-      if (beamEnergyMatch(2760*GeV) && (xix > 0.07 || xiy > 0.2 || xidd > 0.5)) passedHadronCuts = true;
-      if (beamEnergyMatch(7000*GeV) && (xix > 0.04 || xiy > 0.1 || xidd > 0.5)) passedHadronCuts = true;
+      if (isCompatibleWithSqrtS( 900) && (xix > 0.1  || xiy > 0.4 || xidd > 0.5)) passedHadronCuts = true;
+      if (isCompatibleWithSqrtS(2760) && (xix > 0.07 || xiy > 0.2 || xidd > 0.5)) passedHadronCuts = true;
+      if (isCompatibleWithSqrtS(7000) && (xix > 0.04 || xiy > 0.1 || xidd > 0.5)) passedHadronCuts = true;
       if (!passedHadronCuts) vetoEvent;
 
       //  ============================== MINIMUM BIAS EVENTS
@@ -151,6 +160,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2013_I1218372);
+  RIVET_DECLARE_PLUGIN(CMS_2013_I1218372);
 
 }

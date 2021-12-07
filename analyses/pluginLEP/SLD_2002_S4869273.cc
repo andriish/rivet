@@ -9,14 +9,13 @@ namespace Rivet {
 
 
   /// @brief SLD b-fragmentation measurement
+  ///
   /// @author Peter Richardson
   class SLD_2002_S4869273 : public Analysis {
   public:
 
     /// Constructor
-    SLD_2002_S4869273()
-      : Analysis("SLD_2002_S4869273")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(SLD_2002_S4869273);
 
 
     /// @name Helper functions
@@ -100,7 +99,6 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(SLD_2002_S4869273);
+  RIVET_DECLARE_ALIASED_PLUGIN(SLD_2002_S4869273, SLD_2002_I582951);
 
 }

@@ -11,12 +11,8 @@ namespace Rivet {
 
 
   /// 1-lepton and 2-lepton search for first or second generation leptoquarks
-  /// @todo Clean up the debug stuff
   class ATLAS_2011_S9041966 : public Analysis {
   public:
-
-    /// @name Constructors etc.
-    //@{
 
     /// Constructor
     ATLAS_2011_S9041966()
@@ -36,13 +32,6 @@ namespace Rivet {
         enuW2CR(0), enuttCR(0)
     {    }
 
-    //@}
-
-
-  public:
-
-    /// @name Analysis methods
-    //@{
 
     /// Book histograms and initialize projections before the run
     void init() {
@@ -58,7 +47,7 @@ namespace Rivet {
       veto_elecs.acceptIdPair(PID::ELECTRON);
       declare(veto_elecs, "veto_elecs");
 
-      ///DEBUG
+      /// @todo Clean up DEBUG
       // projection to find all leptons
       IdentifiedFinalState all_mu_e;
       all_mu_e.acceptIdPair(PID::MUON);
@@ -565,18 +554,16 @@ namespace Rivet {
       // << mTev << " (evjj mT cut). "
       // << '\n'<<'\n'
       // ;
-
-      // cerr << "CR - " << "mumu Z: " << mumuZCR << "  ee Z: " << eeZCR << "  munu W+2jets: " << munuW2CR << "  munu tt: " << munuttCR << "  enu W+2jets: " << enuW2CR << "  enu tt: " << enuttCR << '\n';
-
-      // cerr << "mumujj: " << mumujj << "      eejj: " << eejj << "      muvjj: " << muvjj << "      evjj: " << evjj << '\n';
-
+      // cerr << "CR - " << "mumu Z: " << mumuZCR << " ee Z: " << eeZCR << "
+      // munu W+2jets: " << munuW2CR << " munu tt: " << munuttCR << " enu
+      // W+2jets: " << enuW2CR << " enu tt: " << enuttCR << '\n';
+      // cerr << "mumujj: " << mumujj << " eejj: " << eejj << " muvjj: " <<
+      // muvjj << " evjj: " << evjj << '\n';
 
       scale( _hist_St_ee, 120. * 35. * crossSection()/sumOfWeights() );
       scale( _hist_St_mumu, 120. * 35. * crossSection()/sumOfWeights() );
       scale( _hist_MLQ_muv, 50. * 35. * crossSection()/sumOfWeights() );
       scale( _hist_MLQ_ev, 50. * 35. * crossSection()/sumOfWeights() );
-
-
 
       scale( _hist_St_mumu_ZCR, 20. * 35. * crossSection()/sumOfWeights() );
       scale( _hist_St_ee_ZCR, 20. * 35. * crossSection()/sumOfWeights() );
@@ -585,16 +572,15 @@ namespace Rivet {
       scale( _hist_MLQ_munu_ttCR, 20. * 35. * crossSection()/sumOfWeights() );
       scale( _hist_MLQ_enu_ttCR, 20. * 35. * crossSection()/sumOfWeights() );
 
-      /*
-        scale( _hist_eTmiss_mu, binwidth*luminosity* crossSection()/sumOfWeights() );
-      */
+      // scale( _hist_eTmiss_mu, binwidth*luminosity* crossSection()/sumOfWeights() );
 
     }
+
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _count_mumujj;
     Histo1DPtr _count_eejj;
     Histo1DPtr _count_muvjj;
@@ -611,53 +597,21 @@ namespace Rivet {
     Histo1DPtr _hist_MLQ_enu_W2CR;
     Histo1DPtr _hist_MLQ_munu_ttCR;
     Histo1DPtr _hist_MLQ_enu_ttCR;
-
-
-
-
-    //@}
+    /// @}
 
 
     // DEBUG VARIABLES
-    int count;
-    int vetoe;
-    int Njetscut;
-    //int dilept;
-    int candmumujj;
-    int candeejj;
-    //int onelept;
-    int eTmisscut;
-    int candmvjj;
-    int candevjj;
-    int mumujj;
-    int eejj;
-    int mTonelept;
-    int MLQonelept;
-    int MtLQonelept;
-    int Stvonelept;
-    int mTev;
-    int MLQev;
-    int MtLQev;
-    int Stvev;
-    int muvjj;
-    int evjj;
-    int emuvjj;
-    int cande;
-    int candmu;
-    int tmpe;
-    int tmpmu;
-    int mumuZCR;
-    int eeZCR;
-    int munuW2CR;
-    int munuttCR;
-    int enuW2CR;
-    int enuttCR;
+    int count, vetoe, Njetscut;
+    int candmumujj, candeejj, eTmisscut, candmvjj, candevjj, mumujj, eejj;
+    int mTonelept, MLQonelept, MtLQonelept, Stvonelept;
+    int mTev, MLQev, MtLQev, Stvev;
+    int muvjj, evjj, emuvjj, cande, candmu, tmpe, tmpmu;
+    int mumuZCR, eeZCR, munuW2CR, munuttCR, enuW2CR, enuttCR;
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_S9041966);
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2011_S9041966, ATLAS_2011_I897002);
 
 }

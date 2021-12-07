@@ -7,13 +7,12 @@ namespace Rivet {
 
 
   /// @brief BABAR Lambda_c from fragmentation
+  ///
   /// @author Peter Richardson
   class BABAR_2007_S6895344 : public Analysis {
   public:
 
-    BABAR_2007_S6895344()
-      : Analysis("BABAR_2007_S6895344")
-    { }
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2007_S6895344);
 
 
     void init() {
@@ -29,7 +28,7 @@ namespace Rivet {
 
     void analyze(const Event& e) {
       // Loop through unstable FS particles and look for charmed mesons/baryons
-      const UnstableParticles& ufs = apply<UnstableFinalState>(e, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(e, "UFS");
 
       const Beam beamproj = apply<Beam>(e, "Beams");
       const ParticlePair& beams = beamproj.beams();
@@ -68,17 +67,16 @@ namespace Rivet {
 
   private:
 
-    //@{
     // Histograms for the continuum cross sections
     Histo1DPtr _sigmaOn ;
     Histo1DPtr _sigmaOff;
     Histo1DPtr _histOn  ;
     Histo1DPtr _histOff ;
-    //@}
 
   };
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BABAR_2007_S6895344);
+
+
+  RIVET_DECLARE_ALIASED_PLUGIN(BABAR_2007_S6895344, BABAR_2007_I725377);
 
 }

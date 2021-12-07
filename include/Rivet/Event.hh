@@ -123,7 +123,6 @@ namespace Rivet {
     double weight() const { return 1.0; }
     //@}
 
-
     /// @name Projection running
     //@{
 
@@ -142,10 +141,9 @@ namespace Rivet {
     /// guaranteed if they aren't, thanks to the ProjectionHandler registry
     template <typename PROJ>
     const PROJ& applyProjection(PROJ& p) const {
-      Log& log = Log::getLog("Rivet.Event");
       static bool docaching = getEnvParam("RIVET_CACHE_PROJECTIONS", true);
       if (docaching) {
-        log << Log::TRACE << "Applying projection " << &p << " (" << p.name() << ") -> comparing to projections " << _projections << std::endl;
+        MSG_TRACE("Applying projection " << &p << " (" << p.name() << ") -> comparing to projections " << _projections);
         // First search for this projection *or an equivalent* in the already-executed list
         const Projection* cpp(&p);
         /// @note Currently using reint cast to integer type to bypass operator==(Proj*, Proj*)
@@ -155,13 +153,13 @@ namespace Rivet {
         for (; old != _projections.end(); ++old)
           if (reinterpret_cast<std::uintptr_t>(*old) == recpp) break;
         if (old != _projections.end()) {
-          log << Log::TRACE << "Equivalent projection found -> returning already-run projection " << *old << std::endl;
+          MSG_TRACE("Equivalent projection found -> returning already-run projection " << *old);
           const Projection& pRef = **old;
           return pcast<PROJ>(pRef);
         }
-        log << Log::TRACE << "No equivalent projection in the already-run list -> projecting now" << std::endl;
+        MSG_TRACE("No equivalent projection in the already-run list -> projecting now");
       } else {
-        log << Log::TRACE << "Applying projection " << &p << " (" << p.name() << ") WITHOUT projection caching & comparison" << std::endl;
+        MSG_TRACE("Applying projection " << &p << " (" << p.name() << ") WITHOUT projection caching & comparison");
       }
       // If this one hasn't been run yet on this event, run it and add to the list
       Projection* pp = const_cast<Projection*>(&p);
@@ -186,6 +184,13 @@ namespace Rivet {
 
     /// Tweak the GenEvent to Rivet's expected standards if necessary
     void _fixGenEvent();
+
+    /// Get a Log object for Event
+    Log& getLog() const;
+
+    /// @brief Actual (shared) implementation of the constructors from GenEvents
+    void _init(const GenEvent& ge);
+
 
     // /// @brief Remove uninteresting or unphysical particles in the
     // /// GenEvent to speed up searches
@@ -216,6 +221,9 @@ namespace Rivet {
 
     /// The set of Projection objects applied so far
     mutable std::set<ConstProjectionPtr> _projections;
+
+    /// A cached set of event weights (a single unit weight if the original weight vector was empty)
+    mutable std::valarray<double> _weights;
 
   };
 

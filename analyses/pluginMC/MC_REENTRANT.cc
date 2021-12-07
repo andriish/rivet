@@ -14,7 +14,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(MC_REENTRANT);
+    RIVET_DEFAULT_ANALYSIS_CTOR(MC_REENTRANT);
 
 
     /// @name Analysis methods
@@ -38,16 +38,16 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      if (beamEnergyMatch(900*GeV))
+      if (isCompatibleWithSqrtS(900))
         fill09 = true;
-      else if (beamEnergyMatch(7000*GeV))
+      else if (isCompatibleWithSqrtS(7000))
         fill70 = true;
 
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       for (const Particle& p : cfs.particles()) {
-        if (beamEnergyMatch(900*GeV))
+        if (isCompatibleWithSqrtS(900))
           _histEta09->fill(p.eta());
-        else if (beamEnergyMatch(7000*GeV))
+        else if (isCompatibleWithSqrtS(7000))
           _histEta70->fill(p.eta());
       }
     }
@@ -73,11 +73,11 @@ namespace Rivet {
     //@}
 
     bool fill09, fill70;
-
+    
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_REENTRANT);
+  RIVET_DECLARE_PLUGIN(MC_REENTRANT);
 
 }

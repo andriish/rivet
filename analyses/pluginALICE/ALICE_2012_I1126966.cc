@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2012_I1126966);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2012_I1126966);
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -140,7 +140,7 @@ namespace Rivet {
 
 
     // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALICE_2012_I1126966);
+  RIVET_DECLARE_PLUGIN(ALICE_2012_I1126966);
 
 
 }

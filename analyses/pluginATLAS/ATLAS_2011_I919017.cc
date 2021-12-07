@@ -1215,6 +1215,6 @@ namespace Rivet {
 
 
   // This global object acts as a hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_I919017);
+  RIVET_DECLARE_PLUGIN(ATLAS_2011_I919017);
 
 }

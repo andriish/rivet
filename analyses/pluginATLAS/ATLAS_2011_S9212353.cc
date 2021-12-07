@@ -10,13 +10,12 @@
 namespace Rivet {
 
 
+  /// Single-lepton search for supersymmetry
   class ATLAS_2011_S9212353 : public Analysis {
   public:
 
     /// Constructor
-    ATLAS_2011_S9212353()
-      : Analysis("ATLAS_2011_S9212353")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_S9212353);
 
 
     /// @name Analysis methods
@@ -486,16 +485,12 @@ namespace Rivet {
     Histo1DPtr _4jl_hist_m_eff_mu_final;
     Histo1DPtr _4jt_hist_m_eff_e_final;
     Histo1DPtr _4jt_hist_m_eff_mu_final;
-
-
     //@}
-
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_S9212353);
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2011_S9212353, ATLAS_2011_I930005);
 
 }

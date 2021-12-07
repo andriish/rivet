@@ -6,14 +6,11 @@
 namespace Rivet {
 
 
-  /// @brief CDF Inclusive jet cross-section differential in \f$ p_\perp \f$
+  /// @brief CDF inclusive-jet cross-section differential in \f$ p_\perp \f$
   class CDF_2006_S6450792 : public Analysis {
   public:
 
-    /// Constructor
-    CDF_2006_S6450792()
-      : Analysis("CDF_2006_S6450792")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2006_S6450792);
 
 
     /// @name Analysis methods
@@ -45,17 +42,13 @@ namespace Rivet {
 
   private:
 
-    /// @name Histograms
-    //@{
-
+    /// Histogram
     Histo1DPtr _h_jet_pt;
-    //@}
 
   };
 
 
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2006_S6450792);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_2006_S6450792, CDF_2006_I699933);
 
 }

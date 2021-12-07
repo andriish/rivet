@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CELLO_1983_I191415);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CELLO_1983_I191415);
 
 
     /// @name Analysis methods
@@ -26,18 +26,18 @@ namespace Rivet {
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
 
-      unsigned int iloc = 0;
-      if(beamEnergyMatch(14.*GeV)) {
-        iloc=1;
+      unsigned int iloc(0);
+      if(isCompatibleWithSqrtS(14.)) {
+	iloc=1;
       }
-      else if (beamEnergyMatch(22.*GeV)) {
-        iloc=2;
+      else if (isCompatibleWithSqrtS(22.)) {
+	iloc=2;
       }
-      else if (beamEnergyMatch(34.*GeV)) {
-        iloc=3;
+      else if (isCompatibleWithSqrtS(34.)) {
+	iloc=3;
       }
       else
-        MSG_ERROR("Beam energy not supported!");
+	MSG_ERROR("Beam energy not supported!");
       // Book histograms
       book(_h_gamma, iloc  , 1, 1);
       book(_h_pi0  , iloc+3, 1, 1);
@@ -63,13 +63,13 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Final state to get particle spectra
-      for (const Particle& p : apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==111)) {
-        double xE = p.E()/meanBeamMom;
-        _h_pi0->fill(xE);
+      for (const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==111)) {
+	double xE = p.E()/meanBeamMom;
+	_h_pi0->fill(xE);
       }
       for (const Particle& p : apply<FinalState>(event, "FS").particles(Cuts::pid==22)) {
-        double xE = p.E()/meanBeamMom;
-        _h_gamma->fill(xE);
+	double xE = p.E()/meanBeamMom;
+	_h_gamma->fill(xE);
       }
     }
 
@@ -78,8 +78,8 @@ namespace Rivet {
     void finalize() {
 
       double fact = sqr(sqrtS())/GeV2*crossSection()/microbarn/sumOfWeights();
-      scale(_h_gamma, fact);
-      scale(_h_pi0  , fact);
+      scale(_h_gamma, fact); 
+      scale(_h_pi0  , fact); 
 
     }
 
@@ -96,7 +96,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CELLO_1983_I191415);
+  RIVET_DECLARE_PLUGIN(CELLO_1983_I191415);
 
 
 }

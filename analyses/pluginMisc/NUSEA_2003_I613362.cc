@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(NUSEA_2003_I613362);
+    RIVET_DEFAULT_ANALYSIS_CTOR(NUSEA_2003_I613362);
 
 
     /// @name Analysis methods
@@ -64,7 +64,8 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      if (!beamEnergyMatch(38.8*GeV)) {
+      const double sqrts_tol = 10.;
+      if (!isCompatibleWithSqrtS(38.8, sqrts_tol)) {
         MSG_ERROR("Incorrect beam energy used: " << sqrtS()/GeV);
         throw Error("Unexpected sqrtS ! Only 38.8 GeV is supported");
       }
@@ -126,6 +127,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(NUSEA_2003_I613362);
+  RIVET_DECLARE_PLUGIN(NUSEA_2003_I613362);
 
 }

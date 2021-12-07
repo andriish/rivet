@@ -8,6 +8,9 @@ namespace Rivet {
   class LHCB_2012_I1119400 : public Analysis {
     public:
 
+    /// @name Constructors etc.
+    //@{
+
     /// Constructor
     LHCB_2012_I1119400() : Analysis("LHCB_2012_I1119400"),
       _p_min(5.0),
@@ -17,6 +20,10 @@ namespace Rivet {
       _eta_max(4.5)
     {   }
 
+    //@}
+
+
+    public:
 
     /// @name Analysis methods
     //@{
@@ -26,7 +33,7 @@ namespace Rivet {
       fillMap(_partLftMap);
 
       int id_shift = 0;
-      if (beamEnergyMatch(7*TeV)) id_shift = 1;
+      if (isCompatibleWithSqrtS(7000)) id_shift = 1;
       // define ratios if second pdgid in pair is -1, it means that is a antiparticle/particle ratio
 
       _ratiotype["pbarp"]         = make_pair(2212, -1);
@@ -36,7 +43,7 @@ namespace Rivet {
       _ratiotype["kpi"]           = make_pair(321, 211);
       _ratiotype["pk"]            = make_pair(2212, 321);
 
-      map<string, int > _hepdataid;
+      std::map<string, int > _hepdataid;
       _hepdataid["pbarp"]         =  1 + id_shift;
       _hepdataid["kminuskplus"]   =  3 + id_shift;
       _hepdataid["piminuspiplus"] =  5 + id_shift;
@@ -44,7 +51,7 @@ namespace Rivet {
       _hepdataid["kpi"]           =  9 + id_shift;
       _hepdataid["pk"]            = 11 + id_shift;
 
-      map<string, pair<int, int> >::iterator it;
+      std::map<std::string, std::pair<int, int> >::iterator it;
 
       // booking histograms
       for (it=_ratiotype.begin(); it!=_ratiotype.end(); it++) {
@@ -86,7 +93,7 @@ namespace Rivet {
         double eta = qmom.eta();
         double pT  = qmom.pT();
 
-        map<string, pair<int, int> >::iterator it;
+        std::map<std::string, std::pair<int, int> >::iterator it;
 
         for (it=_ratiotype.begin(); it!=_ratiotype.end(); it++) {
           // check what type of ratio is
@@ -133,7 +140,7 @@ namespace Rivet {
 
     // Generate the ratio histograms
     void finalize() {
-      map<string, pair<int, int> >::iterator it;
+      std::map<std::string, std::pair<int, int> >::iterator it;
 
       // booking histograms
       for (it=_ratiotype.begin(); it!=_ratiotype.end(); it++) {
@@ -175,7 +182,7 @@ namespace Rivet {
     }
 
     // Data members like post-cuts event weight counters go here
-    const double getMotherLifeTimeSum(const Particle& p) {
+    double getMotherLifeTimeSum(const Particle& p) {
       if (p.genParticle() == nullptr) return -1.;
       double lftSum = 0.;
       double plft = 0.;
@@ -212,27 +219,27 @@ namespace Rivet {
     double _eta_max;
 
     // Map between PDG id and particle lifetimes in seconds
-    map<int, double> _partLftMap;
+    std::map<int, double> _partLftMap;
 
     // Set of PDG Ids for stable particles (PDG Id <= 100 are considered stable)
     static const int _stablePDGIds[205];
 
     // Define histograms
     // ratio
-    map<string, Scatter2DPtr > _h_ratio_lowpt;
-    map<string, Scatter2DPtr > _h_ratio_midpt;
-    map<string, Scatter2DPtr > _h_ratio_highpt;
+    std::map<std::string, Scatter2DPtr > _h_ratio_lowpt;
+    std::map<std::string, Scatter2DPtr > _h_ratio_midpt;
+    std::map<std::string, Scatter2DPtr > _h_ratio_highpt;
     // numerator
-    map<string, Histo1DPtr > _h_num_lowpt;
-    map<string, Histo1DPtr > _h_num_midpt;
-    map<string, Histo1DPtr > _h_num_highpt;
+    std::map<std::string, Histo1DPtr > _h_num_lowpt;
+    std::map<std::string, Histo1DPtr > _h_num_midpt;
+    std::map<std::string, Histo1DPtr > _h_num_highpt;
     // denominator
-    map<string, Histo1DPtr > _h_den_lowpt;
-    map<string, Histo1DPtr > _h_den_midpt;
-    map<string, Histo1DPtr > _h_den_highpt;
+    std::map<std::string, Histo1DPtr > _h_den_lowpt;
+    std::map<std::string, Histo1DPtr > _h_den_midpt;
+    std::map<std::string, Histo1DPtr > _h_den_highpt;
 
     // Map of ratios and IDs of numerator and denominator
-    map<string, pair<int,int> > _ratiotype;
+    std::map<string, pair<int,int> > _ratiotype;
 
     // Fill the PDG Id to Lifetime[seconds] map
     // Data was extracted from LHCb Particle Table through LHCb::ParticlePropertySvc
@@ -345,6 +352,6 @@ namespace Rivet {
 
 
   // Plugin hook
-  DECLARE_RIVET_PLUGIN(LHCB_2012_I1119400);
+  RIVET_DECLARE_PLUGIN(LHCB_2012_I1119400);
 
 }
