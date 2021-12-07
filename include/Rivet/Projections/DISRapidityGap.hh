@@ -25,42 +25,79 @@ namespace Rivet {
 
     DEFAULT_RIVET_PROJ_CLONE(DISRapidityGap);
 
-    const double M2X()               const {return _M2X;}
-    const double M2Y()               const {return _M2Y;}
-    const double t()                 const {return _t;}
-    const double gap()               const {return _gap;}
-    const double gapUpp()            const {return _gapUpp;}
-    const double gapLow()            const {return _gapLow;}
-    const double EpPzX(Frame f) const {
+    /// @todo Document
+    double t() const { return _t; }
+
+    /// The absolute size of the largest rapidity gap
+    double gap() const { return _gap; }
+
+    /// The upper edge of the largest gap, relative to the DIS event orientation
+    double gapUpper() const { return _gapUpp; }
+
+    /// The lower edge of the largest gap, relative to the DIS event orientation
+    double gapLower() const { return _gapLow; }
+
+    /// @todo Document
+    double epPzX(Frame f) const {
       if (f == LAB) return _ePpzX_LAB;
       else if (f == XCM) return _ePpzX_XCM;
       else return _ePpzX_HCM;
     }
-    const double EmPzX(Frame f) const {
+
+    /// @todo Document
+    const double emPzX(Frame f) const {
       if (f == LAB) return _eMpzX_LAB;
       else if (f == XCM) return _eMpzX_XCM;
       else return _eMpzX_HCM;
     }
-    const FourMomentum pX(Frame f) const {
-      if (f == LAB) return _momX_LAB;
-      else if (f == XCM) return _momX_XCM;
-      else return _momX_HCM;
-    }
-    const FourMomentum pY(Frame f) const {
-      if (f == LAB) return _momY_LAB;
-      else if (f == XCM) return _momY_XCM;
-      else return _momY_HCM;
-    }
+
+
+    /// The particles defining system X
+    ///
+    /// @todo Document
     const Particles& systemX(Frame f) const {
       if (f == LAB) return _pX_LAB;
       else if (f == XCM) return _pX_XCM;
       else return _pX_HCM;
     }
+
+    /// The particles defining system Y
+    ///
+    /// @todo Document
     const Particles& systemY(Frame f) const {
       if (f == LAB) return _pY_LAB;
       else if (f == XCM) return _pY_XCM;
       else return _pY_HCM;
     }
+
+    /// Four-momentum of system X
+    ///
+    /// @todo Document
+    const FourMomentum pX(Frame f) const {
+      if (f == LAB) return _momX_LAB;
+      else if (f == XCM) return _momX_XCM;
+      else return _momX_HCM;
+    }
+
+    /// Four-momentum of system Y
+    ///
+    /// @todo Document
+    const FourMomentum pY(Frame f) const {
+      if (f == LAB) return _momY_LAB;
+      else if (f == XCM) return _momY_XCM;
+      else return _momY_HCM;
+    }
+
+    /// Mass^2 of system X
+    ///
+    /// @todo Document
+    double m2X() const { return _M2X; }
+
+    /// Mass^2 of system Y
+    ///
+    /// @todo Document
+    double m2Y() const { return _M2Y; }
+
 
   protected:
 
@@ -68,9 +105,10 @@ namespace Rivet {
 
     virtual void project(const Event& e);
 
-    void clearAll();
+    void clear();
 
-    void findgap(const Particles& particles, const DISKinematics& diskin);
+    void findGap(const Particles& particles, const DISKinematics& diskin);
+
 
   private:
 
@@ -86,7 +124,7 @@ namespace Rivet {
 
   };
 
-}
 
+}
 
 #endif
