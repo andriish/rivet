@@ -258,10 +258,12 @@ namespace Rivet {
 
 
   bool Analysis::isCompatibleWithSqrtS(const float energy, float tolerance) const {
-    return fuzzyEquals(sqrtS()/GeV, energy, tolerance);
+    return fuzzyEquals(sqrtS()/GeV, energy/GeV, tolerance);
   }
 
+
   ///////////////////////////////////////////
+
 
   double Analysis::crossSection() const {
     const YODA::Scatter1D::Points& ps = handler().crossSection()->points();

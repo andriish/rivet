@@ -23,11 +23,11 @@ namespace Rivet {
       // Book histograms
       book(_c_hadrons, "/TMP/sigma_hadrons");
       book(_c_muons, "/TMP/sigma_muons");
-      if(isCompatibleWithSqrtS(3.))
+      if(isCompatibleWithSqrtS(3*GeV))
       	book(_h_charged, 3, 1, 1);
-      else if(isCompatibleWithSqrtS(4.8))
+      else if(isCompatibleWithSqrtS(4.8*GeV))
         book(_h_charged, 3, 1, 2);
-      else if(isCompatibleWithSqrtS(7.4))
+      else if(isCompatibleWithSqrtS(7.4*GeV))
         book(_h_charged, 3, 1, 3);
     }
 

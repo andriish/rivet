@@ -25,7 +25,7 @@ namespace Rivet {
       _etabins.push_back(2.0);
       _etabins.push_back(2.4) ;
 
-      if (isCompatibleWithSqrtS(900)) {
+      if (isCompatibleWithSqrtS(900*GeV)) {
         for (size_t ietabin=0; ietabin < _etabins.size(); ietabin++) {
           _h_dNch_dn.push_back( Histo1DPtr() );
           book( _h_dNch_dn.back(), 2 + ietabin, 1, 1);
@@ -34,7 +34,7 @@ namespace Rivet {
         book(_h_dmpt_dNch_eta24 ,23, 1, 1);
       }
 
-      if (isCompatibleWithSqrtS(2360)) {
+      if (isCompatibleWithSqrtS(2360*GeV)) {
         for (size_t ietabin=0; ietabin < _etabins.size(); ietabin++) {
           _h_dNch_dn.push_back( Histo1DPtr() );
           book(_h_dNch_dn.back(), 7 + ietabin, 1, 1);
@@ -43,7 +43,7 @@ namespace Rivet {
         book(_h_dmpt_dNch_eta24 ,24, 1, 1);
       }
 
-      if (isCompatibleWithSqrtS(7000)) {
+      if (isCompatibleWithSqrtS(7000*GeV)) {
         for (size_t ietabin=0; ietabin < _etabins.size(); ietabin++) {
           _h_dNch_dn.push_back( Histo1DPtr() );
           book(_h_dNch_dn.back(), 12 + ietabin, 1, 1);

@@ -22,16 +22,16 @@ namespace Rivet {
       declare(cfs, "CFS");
 
       int offset = 0;
-      if(isCompatibleWithSqrtS(14.0)) {
+      if(isCompatibleWithSqrtS(14.0*GeV)) {
 	offset = 1;
       }
-      else if(isCompatibleWithSqrtS(22.0)) {
+      else if(isCompatibleWithSqrtS(22.0*GeV)) {
 	offset = 2;
       }
-      else if(isCompatibleWithSqrtS(34.8)) {
+      else if(isCompatibleWithSqrtS(34.8*GeV)) {
 	offset = 3;
       }
-      else if(isCompatibleWithSqrtS(43.6)) {
+      else if(isCompatibleWithSqrtS(43.6*GeV)) {
 	offset = 4;
       }
       else {

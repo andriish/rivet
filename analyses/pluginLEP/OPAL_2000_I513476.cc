@@ -42,11 +42,11 @@ namespace Rivet {
 
       // Book histograms
       int ih=-1;
-      if (isCompatibleWithSqrtS(172.)) {
+      if (isCompatibleWithSqrtS(172*GeV)) {
         ih = 1;
-      } else if (isCompatibleWithSqrtS(183.)) {
+      } else if (isCompatibleWithSqrtS(183*GeV)) {
         ih = 2;
-      } else if (isCompatibleWithSqrtS(189.)) {
+      } else if (isCompatibleWithSqrtS(189*GeV)) {
         ih = 3;
       }
       else {

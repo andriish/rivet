@@ -55,7 +55,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       const double sqrts_tol = 10. ;
-      if (!isCompatibleWithSqrtS(27.4, sqrts_tol)) {
+      if (!isCompatibleWithSqrtS(27.4*GeV, sqrts_tol)) {
         MSG_ERROR("Incorrect beam energy used: " << sqrtS()/GeV);
         throw Error("Unexpected sqrtS ! Only 27.4 GeV is supported");
       }

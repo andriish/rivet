@@ -29,10 +29,10 @@ namespace Rivet {
       // Book histograms
       // Book histograms
       _iHist=-1;
-      if(isCompatibleWithSqrtS(34)) {
+      if(isCompatibleWithSqrtS(34*GeV)) {
 	_iHist = 0;
       }
-      else if (isCompatibleWithSqrtS(44.)) {
+      else if (isCompatibleWithSqrtS(44*GeV)) {
 	_iHist = 1;
       }
       else

@@ -26,21 +26,21 @@ namespace Rivet {
 
       // Book histograms
       sqs = 1.;
-      if(isCompatibleWithSqrtS(14.)) {
+      if(isCompatibleWithSqrtS(14*GeV)) {
 	book(_h_kaon_x  ,  1,1,1);
 	book(_h_lambda_x,  4,1,1);
 	book(_h_kaon_p  ,  7,1,1);
 	book(_h_lambda_p, 10,1,1);
 	sqs = 14.;
       }
-      else if (isCompatibleWithSqrtS(22.)) {
+      else if (isCompatibleWithSqrtS(22*GeV)) {
 	book(_h_kaon_x  ,  2,1,1);
 	book(_h_lambda_x,  5,1,1);
 	book(_h_kaon_p  ,  8,1,1);
 	book(_h_lambda_p, 11,1,1);
 	sqs = 22.;
       }
-      else if (isCompatibleWithSqrtS(34.)) {
+      else if (isCompatibleWithSqrtS(34*GeV)) {
 	book(_h_kaon_x  , 3,1,1);
 	book(_h_lambda_x, 6,1,1);
 	book(_h_kaon_p  , 9,1,1);

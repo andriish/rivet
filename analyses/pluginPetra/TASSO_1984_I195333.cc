@@ -32,15 +32,15 @@ namespace Rivet {
       book(_h_weight, "/TMP/HWeight");
       unsigned int iloc(0);
       sqs = 1.;
-      if(isCompatibleWithSqrtS(14)) {
+      if(isCompatibleWithSqrtS(14*GeV)) {
 	iloc = 1;
 	sqs = 14.;
       }
-      else if(isCompatibleWithSqrtS(22)) {
+      else if(isCompatibleWithSqrtS(22*GeV)) {
 	iloc = 2;
 	sqs = 22.;
       }
-      else if(isCompatibleWithSqrtS(34)) {
+      else if(isCompatibleWithSqrtS(34*GeV)) {
 	iloc = 3;
 	sqs = 34.;
       }

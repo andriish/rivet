@@ -1,3 +1,7 @@
+2021-12-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use explicit energy-unit factors when calling Analysis::isCompatibleWithSqrtS().
+
 2021-12-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Allow manual use of analysis-plugin make-targets after

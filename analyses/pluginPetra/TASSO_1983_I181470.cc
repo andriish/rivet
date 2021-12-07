@@ -26,17 +26,17 @@ namespace Rivet {
 
       vector<int> hist1,hist2;
       sqs = 1.;
-      if(isCompatibleWithSqrtS(14.)) {
+      if(isCompatibleWithSqrtS(14*GeV)) {
 	hist1 = {19,21,23};
 	hist2 = {20,22,24};
 	sqs = 14.;
       }
-      else if (isCompatibleWithSqrtS(22.)) {
+      else if (isCompatibleWithSqrtS(22*GeV)) {
 	hist1 = {25,27,11};
 	hist2 = {26,10,12};
 	sqs = 22.;
       }
-      else if (isCompatibleWithSqrtS(34.)) {
+      else if (isCompatibleWithSqrtS(34*GeV)) {
 	hist1 = {13,15,17};
 	hist2 = {14,16,18};
 	sqs = 34.;

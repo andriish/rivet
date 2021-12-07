@@ -25,11 +25,11 @@ namespace Rivet {
       declare(cfs10, "CFS10");
       declare(cfs13, "CFS13");
 
-      if (isCompatibleWithSqrtS(900)) {
+      if (isCompatibleWithSqrtS(900*GeV)) {
         book(_h_dN_dNch_05    ,11, 1, 1);
         book(_h_dN_dNch_10    ,12, 1, 1);
         book(_h_dN_dNch_13    ,13, 1, 1);
-      } else if (isCompatibleWithSqrtS(2360)) {
+      } else if (isCompatibleWithSqrtS(2360*GeV)) {
         book(_h_dN_dNch_05    ,17, 1, 1);
         book(_h_dN_dNch_10    ,18, 1, 1);
         book(_h_dN_dNch_13    ,19, 1, 1);

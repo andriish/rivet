@@ -22,9 +22,9 @@ namespace Rivet {
       declare(cfs, "CFS");
 
       int isqrts = -1;
-      if (isCompatibleWithSqrtS(300)) isqrts = 1;
-      else if (isCompatibleWithSqrtS(900)) isqrts = 2;
-      else if (isCompatibleWithSqrtS(1960)) isqrts = 3;
+      if (isCompatibleWithSqrtS(300*GeV)) isqrts = 1;
+      else if (isCompatibleWithSqrtS(900*GeV)) isqrts = 2;
+      else if (isCompatibleWithSqrtS(1960*GeV)) isqrts = 3;
       assert(isqrts >= 0);
 
       book(_h_nch_transverse ,1,1,isqrts);

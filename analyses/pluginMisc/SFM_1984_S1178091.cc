@@ -22,16 +22,16 @@ namespace Rivet {
       declare(ChargedFinalState(Cuts::absrap<5 && Cuts::pT>250*MeV && Cuts::pT<3*GeV), "FS");
 
       // Histograms
-      if (isCompatibleWithSqrtS(30.4, 1E-1)) {
+      if (isCompatibleWithSqrtS(30.4*GeV, 1E-1)) {
         book(_hist_multiplicity_inel ,1, 1, 1);
         book(_hist_multiplicity_nsd ,2, 1, 1);
-      } else if (isCompatibleWithSqrtS(44.5, 1E-1)) {
+      } else if (isCompatibleWithSqrtS(44.5*GeV, 1E-1)) {
         book(_hist_multiplicity_inel ,1, 1, 2);
         book(_hist_multiplicity_nsd ,2, 1, 2);
-      } else if (isCompatibleWithSqrtS(52.2, 1E-1)) {
+      } else if (isCompatibleWithSqrtS(52.2*GeV, 1E-1)) {
         book(_hist_multiplicity_inel ,1, 1, 3);
         book(_hist_multiplicity_nsd ,2, 1, 3);
-      } else if (isCompatibleWithSqrtS(62.2, 1E-1)) {
+      } else if (isCompatibleWithSqrtS(62.2*GeV, 1E-1)) {
         book(_hist_multiplicity_inel ,1, 1, 4);
         book(_hist_multiplicity_nsd ,2, 1, 4);
       }

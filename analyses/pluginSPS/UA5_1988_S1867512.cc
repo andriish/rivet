@@ -47,13 +47,13 @@ namespace Rivet {
 
       // Histogram booking, we have sqrt(s) = 200, 546 and 900 GeV
       // TODO use Scatter2D to be able to output errors
-      if (isCompatibleWithSqrtS(200.0)) {
+      if (isCompatibleWithSqrtS(200.0*GeV)) {
         book(_hist_correl, 2, 1, 1);
         book(_hist_correl_asym, 3, 1, 1);
-      } else if (isCompatibleWithSqrtS(546.0)) {
+      } else if (isCompatibleWithSqrtS(546.0*GeV)) {
         book(_hist_correl, 2, 1, 2);
         book(_hist_correl_asym, 3, 1, 2);
-      } else if (isCompatibleWithSqrtS(900.0)) {
+      } else if (isCompatibleWithSqrtS(900.0*GeV)) {
         book(_hist_correl, 2, 1, 3);
         book(_hist_correl_asym, 3, 1, 3);
       }

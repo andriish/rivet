@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Based on BABAR_2015_I1334693
+  /// @brief Exclusive $D^0\to K^-,\pi^-e^+\nu_e$ decays
   class BESIII_2015_I1391138 : public Analysis {
   public:
 
@@ -28,12 +28,14 @@ namespace Rivet {
       book(nD0, "TMP/DCounter");
     }
 
+
     // Calculate the Q2 using mother and daugher meson
     double q2(const Particle& B, int mesonID) {
       FourMomentum q = B.mom() - filter_select(B.children(), Cuts::pid==mesonID)[0];
       return q*q;
     }
-    
+
+
     // Check for explicit decay into pdgids
     bool isSemileptonicDecay(const Particle& mother, vector<int> ids) {
       // Trivial check to ignore any other decays but the one in question modulo photons
@@ -43,20 +45,22 @@ namespace Rivet {
       return all(ids, [&](int i){return count(children, hasPID(i))==1;});
     }
 
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
       // Loop over D0 mesons
       for (const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::D0)) {
-	nD0->fill();
+        nD0->fill();
         if (isSemileptonicDecay(p, {PID::PIMINUS, PID::POSITRON, PID::NU_E})) {
           _h_q2_pi->fill(q2(p, PID::PIMINUS));
         }
-	else if(isSemileptonicDecay(p, {PID::KMINUS, PID::POSITRON, PID::NU_E})) {
+        else if(isSemileptonicDecay(p, {PID::KMINUS, PID::POSITRON, PID::NU_E})) {
           _h_q2_K ->fill(q2(p, PID::KMINUS));
         }
       }
     }
+
 
     /// Normalise histograms etc., after the run
     void finalize() {
@@ -65,6 +69,7 @@ namespace Rivet {
       scale(_h_q2_K , 1./nD0->sumW()/410.1e-6*0.1);
       scale(_h_q2_pi, 1./nD0->sumW()/410.1e-6*0.2);
     }
+
     //@}
 
 
@@ -74,12 +79,9 @@ namespace Rivet {
     CounterPtr nD0;
     //@}
 
-
   };
 
 
-  // The hook for the plugin system
   RIVET_DECLARE_PLUGIN(BESIII_2015_I1391138);
-
 
 }

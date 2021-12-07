@@ -33,10 +33,10 @@ namespace Rivet {
       book(_c_hadronsY, "/TMP/sigma_hadronsY");
       book(_c_muonsY  , "/TMP/sigma_muonsY");
       book(_c_kaonsY  , "/TMP/sigma_kaonsY");
-      if (isCompatibleWithSqrtS(9.4)) {
+      if (isCompatibleWithSqrtS(9.4*GeV)) {
         book(_h_spectrum1, 5, 1, 1);
       }
-      else if (isCompatibleWithSqrtS(30.0, 1E-2)) {
+      else if (isCompatibleWithSqrtS(30.0*GeV, 1E-2)) {
         book(_h_spectrum1, 4, 1, 1);
       }
       book(_h_spectrum2, 6, 1, 1);

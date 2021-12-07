@@ -24,8 +24,8 @@ namespace Rivet {
 
       // collision energy
       int isqrts = -1;
-      if (isCompatibleWithSqrtS(900))  isqrts = 2;
-      if (isCompatibleWithSqrtS(7000)) isqrts = 1;
+      if (isCompatibleWithSqrtS(900*GeV))  isqrts = 2;
+      if (isCompatibleWithSqrtS(7000*GeV)) isqrts = 1;
       assert(isqrts > 0);
 
       book(_sE_10_100   ,isqrts, 1, 1);

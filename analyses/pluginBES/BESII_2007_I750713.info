@@ -1,6 +1,6 @@
 Name: BESII_2007_I750713
 Year: 2007
-Summary: Cross sections for light hadrons at 3.773, 3.650 GeV
+Summary: Cross-sections for light hadrons at 3.773, 3.650 GeV
 Experiment: BESII
 Collider: BEPC II
 InspireID: 750713
@@ -8,7 +8,7 @@ Status: VALIDATED
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
- - Phys.Lett. B650 (2007) 111-118, 2007 
+ - Phys.Lett. B650 (2007) 111-118, 2007
 RunInfo: e+e- to hadrons
 NeedCrossSection: yes
 Beams: [e+, e-]

@@ -6,6 +6,7 @@
 namespace Rivet {
 
 
+  /// @brief Pseudorapidity distributions of charged particles at sqrt{s} = 0.9 and 7 TeV
   class CMS_2010_PAS_QCD_10_024 : public Analysis {
   public:
 
@@ -14,19 +15,19 @@ namespace Rivet {
 
     /// Constructor
     CMS_2010_PAS_QCD_10_024() : Analysis("CMS_2010_PAS_QCD_10_024"),
-		       _weight_pt05_eta08(0.), _weight_pt10_eta08(0.),
-		       _weight_pt05_eta24(0.), _weight_pt10_eta24(0.) {  }
+                                _weight_pt05_eta08(0.), _weight_pt10_eta08(0.),
+                                _weight_pt05_eta24(0.), _weight_pt10_eta24(0.) {  }
 
 
     void init() {
-      declare(ChargedFinalState((Cuts::etaIn(-0.8, 0.8) && Cuts::pT >=  0.5*GeV)), "CFS_08_05");
-      declare(ChargedFinalState((Cuts::etaIn(-0.8, 0.8) && Cuts::pT >=  1.0*GeV)), "CFS_08_10");
-      declare(ChargedFinalState((Cuts::etaIn(-2.4, 2.4) && Cuts::pT >=  0.5*GeV)), "CFS_24_05");
-      declare(ChargedFinalState((Cuts::etaIn(-2.4, 2.4) && Cuts::pT >=  1.0*GeV)), "CFS_24_10");
+      declare(ChargedFinalState((Cuts::etaIn(-0.8, 0.8) && Cuts::pT >= 0.5*GeV)), "CFS_08_05");
+      declare(ChargedFinalState((Cuts::etaIn(-0.8, 0.8) && Cuts::pT >= 1.0*GeV)), "CFS_08_10");
+      declare(ChargedFinalState((Cuts::etaIn(-2.4, 2.4) && Cuts::pT >= 0.5*GeV)), "CFS_24_05");
+      declare(ChargedFinalState((Cuts::etaIn(-2.4, 2.4) && Cuts::pT >= 1.0*GeV)), "CFS_24_10");
 
       size_t offset = 0;
-      if (isCompatibleWithSqrtS(7000)) offset = 0;
-      if (isCompatibleWithSqrtS( 900)) offset = 4;
+      if (isCompatibleWithSqrtS(7000*GeV)) offset = 0;
+      if (isCompatibleWithSqrtS(900*GeV)) offset = 4;
       book(_hist_dNch_deta_pt05_eta08 ,1+offset, 1, 1);
       book(_hist_dNch_deta_pt10_eta08 ,2+offset, 1, 1);
       book(_hist_dNch_deta_pt05_eta24 ,3+offset, 1, 1);
@@ -47,14 +48,14 @@ namespace Rivet {
       for (const Particle& p : cfs_24_05.particles()) {
         _hist_dNch_deta_pt05_eta24->fill(p.eta(), weight);
         if(!cfs_08_05.particles().empty())
-	  _hist_dNch_deta_pt05_eta08->fill(p.eta(), weight);
+          _hist_dNch_deta_pt05_eta08->fill(p.eta(), weight);
       }
       if(!cfs_08_10.particles().empty()) _weight_pt10_eta08 += weight;
       if(!cfs_24_10.particles().empty()) _weight_pt10_eta24 += weight;
       for (const Particle& p : cfs_24_10.particles()) {
         _hist_dNch_deta_pt10_eta24->fill(p.eta(), weight);
-	if(!cfs_08_10.particles().empty())
-	  _hist_dNch_deta_pt10_eta08->fill(p.eta(), weight);
+        if(!cfs_08_10.particles().empty())
+          _hist_dNch_deta_pt10_eta08->fill(p.eta(), weight);
       }
     }
 
@@ -78,7 +79,6 @@ namespace Rivet {
   };
 
 
-  // Hook for the plugin system
   RIVET_DECLARE_PLUGIN(CMS_2010_PAS_QCD_10_024);
 
 }

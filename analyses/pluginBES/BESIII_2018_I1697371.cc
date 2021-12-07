@@ -31,7 +31,7 @@ namespace Rivet {
       FourMomentum q = B.mom() - filter_select(B.children(), Cuts::pid==mesonID)[0];
       return q*q;
     }
-    
+
     // Check for explicit decay into pdgids
     bool isSemileptonicDecay(const Particle& mother, vector<int> ids) {
       // Trivial check to ignore any other decays but the one in question modulo photons

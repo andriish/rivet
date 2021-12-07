@@ -21,11 +21,11 @@ namespace Rivet {
       ChargedFinalState cfs((Cuts::etaIn(-1.0, 1.0)));
       declare(cfs, "CFS");
 
-      if (isCompatibleWithSqrtS(900)) {
+      if (isCompatibleWithSqrtS(900*GeV)) {
         book(_h_dN_deta    ,4, 1, 1);
-      } else if (isCompatibleWithSqrtS(2360)) {
+      } else if (isCompatibleWithSqrtS(2360*GeV)) {
         book(_h_dN_deta    ,5, 1, 1);
-      } else if (isCompatibleWithSqrtS(7000)) {
+      } else if (isCompatibleWithSqrtS(7000*GeV)) {
         book(_h_dN_deta    ,6, 1, 1);
         book(_h_dN_dNch    ,3, 1, 1);
       }
@@ -48,7 +48,7 @@ namespace Rivet {
         _h_dN_deta->fill(eta);
       }
 
-      if (isCompatibleWithSqrtS(7000)) {
+      if (isCompatibleWithSqrtS(7000*GeV)) {
         _h_dN_dNch->fill(charged.size());
       }
     }
@@ -57,7 +57,7 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
 
-      if (isCompatibleWithSqrtS(7000)) {
+      if (isCompatibleWithSqrtS(7000*GeV)) {
         normalize(_h_dN_dNch);
       }
       scale(_h_dN_deta, 1.0/ *_Nevt_after_cuts);

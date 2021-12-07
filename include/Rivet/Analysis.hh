@@ -363,7 +363,7 @@ namespace Rivet {
     bool beamEnergyMatch(double sqrts) const;
 
     /// Check if sqrtS is compatible with provided value
-    bool isCompatibleWithSqrtS(const float energy, float tolerance=1E-5) const;
+    bool isCompatibleWithSqrtS(const float energy, float tolerance=1e-5) const;
 
     /// @}
 

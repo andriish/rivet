@@ -55,8 +55,8 @@ namespace Rivet {
       // Ratios are calculated in finalyze().
       int id = 0;
       if (isCompatibleWithSqrtS( 900)) id=1;
-      if (isCompatibleWithSqrtS(2760)) id=2;
-      if (isCompatibleWithSqrtS(7000)) id=3;
+      if (isCompatibleWithSqrtS(2760*GeV)) id=2;
+      if (isCompatibleWithSqrtS(7000*GeV)) id=3;
       book(_h_ratio, id, 1, 1);
       book(_tmp_jet , "TMP/eflow_jet"  ,refData(id, 1, 1));  // Leading jet energy flow in pt
       book(_tmp_njet, "TMP/number_jet" ,refData(id, 1, 1)); // Number of events in pt
@@ -110,8 +110,8 @@ namespace Rivet {
       // combine the selection: xi cuts
       bool passedHadronCuts = false;
       if (isCompatibleWithSqrtS( 900) && (xix > 0.1  || xiy > 0.4 || xidd > 0.5)) passedHadronCuts = true;
-      if (isCompatibleWithSqrtS(2760) && (xix > 0.07 || xiy > 0.2 || xidd > 0.5)) passedHadronCuts = true;
-      if (isCompatibleWithSqrtS(7000) && (xix > 0.04 || xiy > 0.1 || xidd > 0.5)) passedHadronCuts = true;
+      if (isCompatibleWithSqrtS(2760*GeV) && (xix > 0.07 || xiy > 0.2 || xidd > 0.5)) passedHadronCuts = true;
+      if (isCompatibleWithSqrtS(7000*GeV) && (xix > 0.04 || xiy > 0.1 || xidd > 0.5)) passedHadronCuts = true;
       if (!passedHadronCuts) vetoEvent;
 
       //  ============================== MINIMUM BIAS EVENTS

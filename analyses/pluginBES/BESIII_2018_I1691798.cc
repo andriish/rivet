@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Cross-section for $K^0_SK^\pm\pi^\mp$ between 3.8 and 4.6 GeV
   class BESIII_2018_I1691798 : public Analysis {
   public:
 
@@ -31,14 +31,14 @@ namespace Rivet {
       map<long,int> nCount;
       int ntotal(0);
       for (const Particle& p : fs.particles()) {
-	nCount[p.pid()] += 1;
-	++ntotal;
+        nCount[p.pid()] += 1;
+        ++ntotal;
       }
 
       if(ntotal==3 && nCount[310]==1 &&
-	 ((nCount[ 321]=1 &&  nCount[-211] ==1) ||
-	  (nCount[-321]=1 &&  nCount[ 211] ==1)))
-	_nKKpi->fill();
+         ((nCount[ 321]=1 &&  nCount[-211] ==1) ||
+          (nCount[-321]=1 &&  nCount[ 211] ==1)))
+        _nKKpi->fill();
     }
 
 
@@ -47,22 +47,22 @@ namespace Rivet {
       double sigma = _nKKpi->val();
       double error = _nKKpi->err();
       sigma *= crossSection()/ sumOfWeights() /picobarn;
-      error *= crossSection()/ sumOfWeights() /picobarn; 
+      error *= crossSection()/ sumOfWeights() /picobarn;
       Scatter2D temphisto(refData(1, 1, 1));
       Scatter2DPtr  mult;
       book(mult, 1, 1, 1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
-	const double x  = temphisto.point(b).x();
-	pair<double,double> ex = temphisto.point(b).xErrs();
-	pair<double,double> ex2 = ex;
-	if(ex2.first ==0.) ex2. first=0.0001;
-	if(ex2.second==0.) ex2.second=0.0001;
-	if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
-	  mult->addPoint(x, sigma, ex, make_pair(error,error));
-	}
-	else {
-	  mult->addPoint(x, 0., ex, make_pair(0.,.0));
-	}
+        const double x  = temphisto.point(b).x();
+        pair<double,double> ex = temphisto.point(b).xErrs();
+        pair<double,double> ex2 = ex;
+        if(ex2.first ==0.) ex2. first=0.0001;
+        if(ex2.second==0.) ex2.second=0.0001;
+        if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+          mult->addPoint(x, sigma, ex, make_pair(error,error));
+        }
+        else {
+          mult->addPoint(x, 0., ex, make_pair(0.,.0));
+        }
       }
     }
 

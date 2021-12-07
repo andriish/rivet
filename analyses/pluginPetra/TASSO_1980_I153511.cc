@@ -29,10 +29,10 @@ namespace Rivet {
       declare(Sphericity(cfs), "Sphericity");
       // Book histograms
       unsigned int ihist=0;
-      if      (isCompatibleWithSqrtS(12.)) {
+      if      (isCompatibleWithSqrtS(12*GeV)) {
 	ihist=1;
       }
-      else if (isCompatibleWithSqrtS(30.)) {
+      else if (isCompatibleWithSqrtS(30*GeV)) {
 	ihist=2;
       }
       else

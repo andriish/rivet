@@ -24,17 +24,10 @@ namespace Rivet {
 
       // Book histograms
       unsigned int iloc(0);
-      if(isCompatibleWithSqrtS( 14.)) {
-	iloc=1;
-      }
-      else if(isCompatibleWithSqrtS( 22.)) {
-	iloc=2;
-      }
-      else if (isCompatibleWithSqrtS( 34.)) {
-	iloc=3;
-      }
-      else
-	MSG_ERROR("Beam energy not supported!");
+      if (isCompatibleWithSqrtS( 14.)) iloc=1;
+      else if(isCompatibleWithSqrtS( 22.)) iloc=2;
+      else if (isCompatibleWithSqrtS( 34.)) iloc=3;
+      else MSG_ERROR("Beam energy not supported!");
       book(_histEEC , 1, 1, iloc);
       book(_histAEEC, 2, 1, iloc);
       book(_weightSum, "TMP/weightSum");
@@ -68,14 +61,14 @@ namespace Rivet {
           const double energy_j = p_j->momentum().E();
           const double thetaij = mom3_i.unit().angle(mom3_j.unit())/M_PI*180.;
           double eec = (energy_i*energy_j) / Evis2;
-	  if(p_i != p_j) eec *= 2.;
-	  _histEEC ->fill(thetaij,  eec);
+          if(p_i != p_j) eec *= 2.;
+          _histEEC ->fill(thetaij,  eec);
           if (thetaij < 90.) {
             _histAEEC->fill(thetaij, -eec);
-	  }
+          }
           else {
             _histAEEC  ->fill(180.-thetaij, eec);
-	  }
+          }
         }
       }
     }
@@ -100,8 +93,6 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
   RIVET_DECLARE_PLUGIN(JADE_1984_I202784);
-
 
 }

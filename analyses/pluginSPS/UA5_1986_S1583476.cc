@@ -25,7 +25,7 @@ namespace Rivet {
       declare(ChargedFinalState((Cuts::etaIn(-5.0, 5.0))), "CFS50");
 
       // Histograms
-      if (isCompatibleWithSqrtS(200.0)) {
+      if (isCompatibleWithSqrtS(200.0*GeV)) {
         book(_hist_eta_nsd       ,1,1,1);
         book(_hist_eta_inelastic ,1,1,2);
         _hists_eta_nsd.resize(6);
@@ -34,7 +34,7 @@ namespace Rivet {
           book(_sumWn.back(), "TMP/sumWn"+to_str(i));
           book(_hists_eta_nsd[i-1],2,1,i);
         }
-      } else if (isCompatibleWithSqrtS(900.0)) {
+      } else if (isCompatibleWithSqrtS(900.0*GeV)) {
         book(_hist_eta_nsd       ,1,1,3);
         book(_hist_eta_inelastic ,1,1,4);
         _hists_eta_nsd.resize(9);

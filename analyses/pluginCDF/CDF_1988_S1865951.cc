@@ -24,9 +24,9 @@ namespace Rivet {
       declare(cfs, "CFS");
 
       // Book histo
-      if (isCompatibleWithSqrtS(1800)) {
+      if (isCompatibleWithSqrtS(1800*GeV)) {
         book(_hist_pt ,1, 1, 1);
-      } else if (isCompatibleWithSqrtS(630)) {
+      } else if (isCompatibleWithSqrtS(630*GeV)) {
         book(_hist_pt ,2, 1, 1);
       }
 

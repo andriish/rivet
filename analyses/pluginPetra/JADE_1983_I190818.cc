@@ -20,9 +20,9 @@ namespace Rivet {
     void init() {
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
-      if( !(isCompatibleWithSqrtS(12.0) ||
-	    isCompatibleWithSqrtS(30.0) ||
-	    isCompatibleWithSqrtS(35.0) )) {
+      if( !(isCompatibleWithSqrtS(12.0*GeV) ||
+	    isCompatibleWithSqrtS(30.0*GeV) ||
+	    isCompatibleWithSqrtS(35.0*GeV) )) {
         MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
                     << " doesn't match any available analysis energy .");
       }

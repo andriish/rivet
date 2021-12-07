@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Measurement of R for energies between 2.6 and 5 GeV
   class BESII_2000_I505323 : public Analysis {
   public:
 
@@ -34,16 +34,15 @@ namespace Rivet {
       map<long,int> nCount;
       int ntotal(0);
       for (const Particle& p : fs.particles()) {
-	nCount[p.pid()] += 1;
-	++ntotal;
+        nCount[p.pid()] += 1;
+        ++ntotal;
       }
       // mu+mu- + photons
-      if(nCount[-13]==1 and nCount[13]==1 &&
-	 ntotal==2+nCount[22])
-	_c_muons->fill();
+      if (nCount[-13]==1 && nCount[13]==1 && ntotal==2+nCount[22])
+        _c_muons->fill();
       // everything else
       else
-	_c_hadrons->fill();
+        _c_hadrons->fill();
     }
 
 
@@ -65,21 +64,21 @@ namespace Rivet {
       Scatter2DPtr     mult;
       book(mult, 1, 1, 1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
-	const double x  = temphisto.point(b).x();
-	pair<double,double> ex = temphisto.point(b).xErrs();
-	pair<double,double> ex2 = ex;
-	if(ex2.first ==0.) ex2. first=0.0001;
-	if(ex2.second==0.) ex2.second=0.0001;
-	if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
-	  mult   ->addPoint(x, rval, ex, rerr);
-	  hadrons->addPoint(x, sig_h, ex, make_pair(err_h,err_h));
-	  muons  ->addPoint(x, sig_m, ex, make_pair(err_m,err_m));
-	}
-	else {
-	  mult   ->addPoint(x, 0., ex, make_pair(0.,.0));
-	  hadrons->addPoint(x, 0., ex, make_pair(0.,.0));
-	  muons  ->addPoint(x, 0., ex, make_pair(0.,.0));
-	}
+        const double x  = temphisto.point(b).x();
+        pair<double,double> ex = temphisto.point(b).xErrs();
+        pair<double,double> ex2 = ex;
+        if(ex2.first ==0.) ex2. first=0.0001;
+        if(ex2.second==0.) ex2.second=0.0001;
+        if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+          mult   ->addPoint(x, rval, ex, rerr);
+          hadrons->addPoint(x, sig_h, ex, make_pair(err_h,err_h));
+          muons  ->addPoint(x, sig_m, ex, make_pair(err_m,err_m));
+        }
+        else {
+          mult   ->addPoint(x, 0., ex, make_pair(0.,.0));
+          hadrons->addPoint(x, 0., ex, make_pair(0.,.0));
+          muons  ->addPoint(x, 0., ex, make_pair(0.,.0));
+        }
       }
     }
 
@@ -95,8 +94,6 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
   RIVET_DECLARE_PLUGIN(BESII_2000_I505323);
-
 
 }

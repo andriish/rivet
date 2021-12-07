@@ -20,44 +20,29 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      // Initialise and register projections
+      // Initialise and register projection
       declare(FinalState(), "FS");
+
       // Book histograms
-      unsigned int iloc(0);
-      if(isCompatibleWithSqrtS(7.7)) {
-        iloc=1;
-      }
-      else if(isCompatibleWithSqrtS(9.4)) {
-        iloc=2;
-      }
-      else if (isCompatibleWithSqrtS(12.)) {
-        iloc=3;
-      }
-      else if (isCompatibleWithSqrtS(13.)) {
-        iloc=4;
-      }
-      else if (isCompatibleWithSqrtS(17.)) {
-        iloc=5;
-      }
-      else if (isCompatibleWithSqrtS(22.)) {
-        iloc=6;
-      }
-      else if (isCompatibleWithSqrtS(27.6)) {
-        iloc=7;
-      }
-      else if (isCompatibleWithSqrtS(30,31.6)) {
-        iloc=8;
-      }
-      else
-	MSG_ERROR("Beam energy not supported!");
+      unsigned int iloc = 0;
+      if (isCompatibleWithSqrtS(7.7*GeV)) iloc=1;
+      else if (isCompatibleWithSqrtS(9.4*GeV)) iloc=2;
+      else if (isCompatibleWithSqrtS(12*GeV)) iloc=3;
+      else if (isCompatibleWithSqrtS(13*GeV)) iloc=4;
+      else if (isCompatibleWithSqrtS(17*GeV)) iloc=5;
+      else if (isCompatibleWithSqrtS(22*GeV)) iloc=6;
+      else if (isCompatibleWithSqrtS(27.6*GeV)) iloc=7;
+      else if (isCompatibleWithSqrtS(30*GeV,31.6)) iloc=8;
+      else MSG_ERROR("Beam energy not supported!");
+
       // Book histograms
       book(_h_EEC, 1, 1, iloc);
       if(iloc==7||iloc==8) {
-	book(_h_AEEC, 5, 1, 1);
-	// _h_opposite = bookHisto1D(2, 1, 1);
+        book(_h_AEEC, 5, 1, 1);
+        // _h_opposite = bookHisto1D(2, 1, 1);
+      } else if(iloc==21 ||iloc==2) {
+        book(_h_AEEC,4, 1, 1);
       }
-      else if(iloc==21 ||iloc==2)
-	book(_h_AEEC,4, 1, 1);
       book(_weightSum,"TMP/weightSum");
     }
 
@@ -89,17 +74,17 @@ namespace Rivet {
           const double energy_j = p_j->momentum().E();
           const double thetaij = mom3_i.unit().angle(mom3_j.unit())/M_PI*180.;
           double eec = (energy_i*energy_j) / Evis2;
-	  if(p_i != p_j) eec *= 2.;
-	  _h_EEC ->fill(thetaij,  eec);
-	  // if(_h_opposite) _h_opposite ->fill(mom3_i.unit().dot(mom3_j.unit()),  eec);
-	  if(_h_AEEC) {
-	    if (thetaij < 90.) {
-	      _h_AEEC->fill(thetaij, -eec);
-	    }
-	    else {
-	      _h_AEEC  ->fill(180.-thetaij, eec);
-	    }
-	  }
+          if(p_i != p_j) eec *= 2.;
+          _h_EEC ->fill(thetaij,  eec);
+          // if(_h_opposite) _h_opposite ->fill(mom3_i.unit().dot(mom3_j.unit()),  eec);
+          if(_h_AEEC) {
+            if (thetaij < 90.) {
+              _h_AEEC->fill(thetaij, -eec);
+            }
+            else {
+              _h_AEEC  ->fill(180.-thetaij, eec);
+            }
+          }
         }
       }
 
@@ -111,7 +96,6 @@ namespace Rivet {
       scale(_h_EEC , 360.0/M_PI/ *_weightSum);
       scale(_h_AEEC, 360.0/M_PI/ *_weightSum);
       // scale(_h_opposite, 2./ *_weightSum);
-
     }
 
     //@}
@@ -125,8 +109,6 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
   RIVET_DECLARE_PLUGIN(PLUTO_1981_I156315);
-
 
 }

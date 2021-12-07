@@ -39,38 +39,38 @@ namespace Rivet {
       unsigned int offset = 0;
       int offset2 = -1;
       
-      if      (isCompatibleWithSqrtS(45)) offset = 1;
-      else if (isCompatibleWithSqrtS(66)) offset = 2;
-      else if (isCompatibleWithSqrtS(76)) offset = 3;
-      else if (isCompatibleWithSqrtS(183)) {
+      if      (isCompatibleWithSqrtS(45*GeV)) offset = 1;
+      else if (isCompatibleWithSqrtS(66*GeV)) offset = 2;
+      else if (isCompatibleWithSqrtS(76*GeV)) offset = 3;
+      else if (isCompatibleWithSqrtS(183*GeV)) {
 	offset2= 0;			   
 	offset = 1;			   
       }					   
-      else if (isCompatibleWithSqrtS(189)) {
+      else if (isCompatibleWithSqrtS(189*GeV)) {
 	offset2= 0;			   
 	offset = 2;			   
       }					   
-      else if (isCompatibleWithSqrtS(192)) {
+      else if (isCompatibleWithSqrtS(192*GeV)) {
 	offset2= 0;			   
 	offset = 3;			   
       }					   
-      else if (isCompatibleWithSqrtS(196)) {
+      else if (isCompatibleWithSqrtS(196*GeV)) {
 	offset2= 0;			   
 	offset = 4;			   
       }					   
-      else if (isCompatibleWithSqrtS(200)) {
+      else if (isCompatibleWithSqrtS(200*GeV)) {
 	offset2= 1;			   
 	offset = 1;			   
       }					   
-      else if (isCompatibleWithSqrtS(202)) {
+      else if (isCompatibleWithSqrtS(202*GeV)) {
 	offset2= 1;			   
 	offset = 2;			   
       }					   
-      else if (isCompatibleWithSqrtS(205)) {
+      else if (isCompatibleWithSqrtS(205*GeV)) {
 	offset2= 1;			   
 	offset = 3;			   
       }					   
-      else if (isCompatibleWithSqrtS(207)) {
+      else if (isCompatibleWithSqrtS(207*GeV)) {
 	offset2= 1;
 	offset = 4;
       }

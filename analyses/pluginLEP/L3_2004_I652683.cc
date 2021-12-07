@@ -43,7 +43,7 @@ namespace Rivet {
       declare(durhamJets, "DurhamJets");
 
       // Book the histograms
-      if (isCompatibleWithSqrtS(91.2)) {
+      if (isCompatibleWithSqrtS(91.2*GeV)) {
         // z pole
         book(_h_Thrust_udsc             , 47, 1, 1);
         book(_h_Thrust_bottom           , 47, 1, 2);
@@ -66,22 +66,22 @@ namespace Rivet {
       }
       else if(sqrtS()/GeV < 90) {
         int i1(-1),i2(-1);
-        if(isCompatibleWithSqrtS(41.4)) {
+        if(isCompatibleWithSqrtS(41.4*GeV)) {
           i1=0; i2=1;
         }
-        else if(isCompatibleWithSqrtS(55.3)) {
+        else if(isCompatibleWithSqrtS(55.3*GeV)) {
           i1=0; i2=2;
         }
-        else if(isCompatibleWithSqrtS(65.4)) {
+        else if(isCompatibleWithSqrtS(65.4*GeV)) {
           i1=0; i2=3;
         }
-        else if(isCompatibleWithSqrtS(75.7)) {
+        else if(isCompatibleWithSqrtS(75.7*GeV)) {
           i1=1; i2=1;
         }
-        else if(isCompatibleWithSqrtS(82.3)) {
+        else if(isCompatibleWithSqrtS(82.3*GeV)) {
           i1=1; i2=2;
         }
-        else if(isCompatibleWithSqrtS(85.1)) {
+        else if(isCompatibleWithSqrtS(85.1*GeV)) {
           i1=1; i2=3;
         }
         else
@@ -93,31 +93,31 @@ namespace Rivet {
       }
       else if(sqrtS()/GeV > 120) {
         int i1(-1),i2(-1);
-        if(isCompatibleWithSqrtS(130.1)) {
+        if(isCompatibleWithSqrtS(130.1*GeV)) {
           i1=0; i2=1;
         }
-        else if(isCompatibleWithSqrtS(136.1)) {
+        else if(isCompatibleWithSqrtS(136.1*GeV)) {
           i1=0; i2=2;
         }
-        else if(isCompatibleWithSqrtS(161.3)) {
+        else if(isCompatibleWithSqrtS(161.3*GeV)) {
           i1=0; i2=3;
         }
-        else if(isCompatibleWithSqrtS(172.3)) {
+        else if(isCompatibleWithSqrtS(172.3*GeV)) {
           i1=1; i2=1;
         }
-        else if(isCompatibleWithSqrtS(182.8)) {
+        else if(isCompatibleWithSqrtS(182.8*GeV)) {
           i1=1; i2=2;
         }
-        else if(isCompatibleWithSqrtS(188.6)) {
+        else if(isCompatibleWithSqrtS(188.6*GeV)) {
           i1=1; i2=3;
         }
-        else if(isCompatibleWithSqrtS(194.4)) {
+        else if(isCompatibleWithSqrtS(194.4*GeV)) {
           i1=2; i2=1;
         }
-        else if(isCompatibleWithSqrtS(200.2)) {
+        else if(isCompatibleWithSqrtS(200.2*GeV)) {
           i1=2; i2=2;
         }
-        else if(isCompatibleWithSqrtS(206.2)) {
+        else if(isCompatibleWithSqrtS(206.2*GeV)) {
           i1=2; i2=3;
         }
         else
@@ -436,31 +436,31 @@ namespace Rivet {
       
       Scatter2DPtr mult;
 	if(_h_N) {
-    if(isCompatibleWithSqrtS(130.1)) {
+    if(isCompatibleWithSqrtS(130.1*GeV)) {
 	    convertHisto(60, 1, 1, _h_N);
 	  }
-	  else if(isCompatibleWithSqrtS(136.1)) {
+	  else if(isCompatibleWithSqrtS(136.1*GeV)) {
 	    convertHisto(60, 1, 2, _h_N);
 	  }
-	  else if(isCompatibleWithSqrtS(161.3)) {
+	  else if(isCompatibleWithSqrtS(161.3*GeV)) {
 	    convertHisto(60, 1, 3, _h_N);
 	  }
-	  else if(isCompatibleWithSqrtS(172.3)) {
+	  else if(isCompatibleWithSqrtS(172.3*GeV)) {
 	    convertHisto(61, 1, 1, _h_N);
 	  }
-	  else if(isCompatibleWithSqrtS(182.8)) {
+	  else if(isCompatibleWithSqrtS(182.8*GeV)) {
 	    convertHisto(61, 1, 2, _h_N);
 	  }
-	  else if(isCompatibleWithSqrtS(188.6)) {
+	  else if(isCompatibleWithSqrtS(188.6*GeV)) {
 	    convertHisto(61, 1, 3, _h_N);
 	  }
-	  else if(isCompatibleWithSqrtS(194.4)) {
+	  else if(isCompatibleWithSqrtS(194.4*GeV)) {
 	    convertHisto(62, 1, 1, _h_N);
 	  }
-	  else if(isCompatibleWithSqrtS(200.2)) {
+	  else if(isCompatibleWithSqrtS(200.2*GeV)) {
 	    convertHisto(62, 1, 2, _h_N);
 	  }
-	  else if(isCompatibleWithSqrtS(206.2)) {
+	  else if(isCompatibleWithSqrtS(206.2*GeV)) {
 	    convertHisto(62, 1, 3, _h_N);
 	  }
 	}

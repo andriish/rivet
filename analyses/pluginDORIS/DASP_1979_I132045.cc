@@ -43,10 +43,10 @@ namespace Rivet {
       else if (inRange(sqrtS()/GeV,4.46,4.98)) {
 	ihist=5;
       }
-      else if (isCompatibleWithSqrtS(5.0)) {
+      else if (isCompatibleWithSqrtS(5.0*GeV)) {
 	ihist=6;
       }
-      else if (isCompatibleWithSqrtS(5.2)) {
+      else if (isCompatibleWithSqrtS(5.2*GeV)) {
 	ihist=7;
       }
       else {

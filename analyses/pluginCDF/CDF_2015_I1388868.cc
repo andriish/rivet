@@ -23,11 +23,11 @@ namespace Rivet {
 
       // Energy selection
       int isqrts = -1;
-      if (isCompatibleWithSqrtS(300)) {
+      if (isCompatibleWithSqrtS(300*GeV)) {
         isqrts = 2;
-      } else if (isCompatibleWithSqrtS(900)) {
+      } else if (isCompatibleWithSqrtS(900*GeV)) {
         isqrts = 1;
-      } else if (isCompatibleWithSqrtS(1960)) {
+      } else if (isCompatibleWithSqrtS(1960*GeV)) {
         isqrts = 0;
       } else {
         throw UserError("Unexpected sqrtS ! Only 300, 900, 1960 GeV is supported by CDF_2015_I1388868");

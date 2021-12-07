@@ -38,7 +38,7 @@ namespace Rivet {
       declare(nstable, "nstable");
 
       
-      if (isCompatibleWithSqrtS(7000)) {
+      if (isCompatibleWithSqrtS(7000*GeV)) {
         book(_hist_Ks_pT      ,1, 1, 1);
         book(_hist_Ks_y       ,2, 1, 1);
         book(_hist_Ks_mult    ,3, 1, 1);
@@ -53,7 +53,7 @@ namespace Rivet {
         book(_temp_lambda_v_pT, "TMP/lambda_v_pT", 18, 0.5, 4.1);
         book(_temp_lambdabar_v_pT, "TMP/lambdabar_v_pT", 18, 0.5, 4.1);
       }
-      else if (isCompatibleWithSqrtS(900)) {
+      else if (isCompatibleWithSqrtS(900*GeV)) {
         book(_hist_Ks_pT   ,4, 1, 1);
         book(_hist_Ks_y    ,5, 1, 1);
         book(_hist_Ks_mult ,6, 1, 1);

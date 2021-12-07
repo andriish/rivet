@@ -26,10 +26,10 @@ namespace Rivet {
 
       // Book histograms
       unsigned int iloc(0);
-      if(isCompatibleWithSqrtS(53.3)) {
+      if(isCompatibleWithSqrtS(53.3*GeV)) {
 	iloc=1;
       }
-      else if (isCompatibleWithSqrtS(59.5)) {
+      else if (isCompatibleWithSqrtS(59.5*GeV)) {
 	iloc=2;
       }
       else

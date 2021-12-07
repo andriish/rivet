@@ -31,27 +31,27 @@ namespace Rivet {
       book(_mult, "/TMP/mult");
       unsigned int iloc(0);
       sqs = 1.0;
-      if(isCompatibleWithSqrtS(13)) {
+      if(isCompatibleWithSqrtS(13*GeV)) {
 	iloc = 1;
 	sqs = 13.0;
       }
-      else if(isCompatibleWithSqrtS(17)) {
+      else if(isCompatibleWithSqrtS(17*GeV)) {
 	iloc = 2;
         sqs = 17.0;
       }	
-      else if (isCompatibleWithSqrtS(22)) {
+      else if (isCompatibleWithSqrtS(22*GeV)) {
 	iloc = 2;
 	sqs = 22.;
       }
-      else if(isCompatibleWithSqrtS(27.6)) {
+      else if(isCompatibleWithSqrtS(27.6*GeV)) {
 	iloc = 3;
 	sqs = 27.6;
       }
-      else if (isCompatibleWithSqrtS(30.3)) {
+      else if (isCompatibleWithSqrtS(30.3*GeV)) {
 	iloc = 3;
 	sqs = 27.6;
       }
-      else if (isCompatibleWithSqrtS(31.2)) {
+      else if (isCompatibleWithSqrtS(31.2*GeV)) {
 	iloc = 3;
 	sqs = 31.2;
       }

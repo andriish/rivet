@@ -33,10 +33,10 @@ namespace Rivet {
       fschrgdv.vetoNeutrinos();
       declare(fschrgdv, "fschrgdv");
 
-      if (isCompatibleWithSqrtS(900)) {
+      if (isCompatibleWithSqrtS(900*GeV)) {
         book(_hist_mb      ,1, 1, 1); // energy flow in MB, 0.9 TeV
         book(_hist_dijet ,2, 1, 1); // energy flow in dijet events, 0.9 TeV
-      } else if (isCompatibleWithSqrtS(7000)) {
+      } else if (isCompatibleWithSqrtS(7000*GeV)) {
         book(_hist_mb      ,3, 1, 1); // energy flow in MB, 7 TeV
         book(_hist_dijet ,4, 1, 1); // energy flow in dijet events, 7 TeV
       }
@@ -72,8 +72,8 @@ namespace Rivet {
 
       // DIJET EVENTS
       double PTCUT = -1.0;
-      if (isCompatibleWithSqrtS(900)) PTCUT = 8.0*GeV;
-      else if (isCompatibleWithSqrtS(7000)) PTCUT = 20.0*GeV;
+      if (isCompatibleWithSqrtS(900*GeV)) PTCUT = 8.0*GeV;
+      else if (isCompatibleWithSqrtS(7000*GeV)) PTCUT = 20.0*GeV;
       const FastJets& jetpro = apply<FastJets>(event, "Jets");
       const Jets jets = jetpro.jetsByPt(PTCUT);
       if (jets.size() >= 2) {

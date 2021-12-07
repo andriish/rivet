@@ -44,7 +44,7 @@ namespace Rivet {
       declare(FastJets(cheesefs, FastJets::CDFJETCLU, 0.7), "CheeseJets");
 
       // Book histograms
-      if (isCompatibleWithSqrtS(1800)) {
+      if (isCompatibleWithSqrtS(1800*GeV)) {
         book(_pt90MaxAvg1800 ,1, 1, 1);
         book(_pt90MinAvg1800 ,1, 1, 2);
         book(_pt90Max1800 ,2, 1, 1);
@@ -62,7 +62,7 @@ namespace Rivet {
         book(_pt90Dbn1800Et200 ,3, 1, 5);
         book(_numTracksDbn1800MB ,5, 1, 1);
         book(_ptDbn1800MB ,6, 1, 1);
-      } else if (isCompatibleWithSqrtS(630)) {
+      } else if (isCompatibleWithSqrtS(630*GeV)) {
         book(_pt90Max630 ,8, 1, 1);
         book(_pt90Min630 ,8, 1, 2);
         book(_pt90Diff630 ,8, 1, 3);
@@ -98,11 +98,11 @@ namespace Rivet {
             // Multiplicity & pT distributions for sqrt(s) = 630 GeV, 1800 GeV
             const Particles tracks = apply<FinalState>(event, "TrackFS").particles();
             const ConesInfo cones = _calcTransCones(leadingjet.momentum(), tracks);
-            if (isCompatibleWithSqrtS(630)) {
+            if (isCompatibleWithSqrtS(630*GeV)) {
               _pt90Max630->fill(ETlead/GeV, cones.ptMax/GeV);
               _pt90Min630->fill(ETlead/GeV, cones.ptMin/GeV);
               _pt90Diff630->fill(ETlead/GeV, cones.ptDiff/GeV);
-            } else if (isCompatibleWithSqrtS(1800)) {
+            } else if (isCompatibleWithSqrtS(1800*GeV)) {
               _num90Max1800->fill(ETlead/GeV, cones.numMax);
               _num90Min1800->fill(ETlead/GeV, cones.numMin);
               _pt90Max1800->fill(ETlead/GeV, cones.ptMax/GeV);
@@ -134,9 +134,9 @@ namespace Rivet {
       {
         MSG_DEBUG("Running min bias multiplicity analysis");
         const Particles mbtracks = apply<FinalState>(event, "MBFS").particles();
-        if (isCompatibleWithSqrtS(1800)) {
+        if (isCompatibleWithSqrtS(1800*GeV)) {
           _numTracksDbn1800MB->fill(mbtracks.size());
-        } else if (isCompatibleWithSqrtS(630)) {
+        } else if (isCompatibleWithSqrtS(630*GeV)) {
           _numTracksDbn630MB->fill(mbtracks.size());
         }
         // Run over all charged tracks
@@ -144,9 +144,9 @@ namespace Rivet {
           FourMomentum trackMom = t.momentum();
           const double pt = trackMom.pT();
           // Plot total pT distribution for min bias
-          if (isCompatibleWithSqrtS(1800)) {
+          if (isCompatibleWithSqrtS(1800*GeV)) {
             _ptDbn1800MB->fill(pt/GeV);
-          } else if (isCompatibleWithSqrtS(630)) {
+          } else if (isCompatibleWithSqrtS(630*GeV)) {
             _ptDbn630MB->fill(pt/GeV);
           }
         }
@@ -212,10 +212,10 @@ namespace Rivet {
           }
 
           // Swiss Cheese sub 2,3 jets distributions for sqrt(s) = 630 GeV, 1800 GeV
-          if (isCompatibleWithSqrtS(630)) {
+          if (isCompatibleWithSqrtS(630*GeV)) {
             if (!isZero(ptSumSub2)) _pTSum630_2Jet->fill(cheeseETlead/GeV, ptSumSub2/GeV);
             if (!isZero(ptSumSub3))_pTSum630_3Jet->fill(cheeseETlead/GeV, ptSumSub3/GeV);
-          } else if (isCompatibleWithSqrtS(1800)) {
+          } else if (isCompatibleWithSqrtS(1800*GeV)) {
             if (!isZero(ptSumSub2))_pTSum1800_2Jet->fill(cheeseETlead/GeV, ptSumSub2/GeV);
             if (!isZero(ptSumSub3))_pTSum1800_3Jet->fill(cheeseETlead/GeV, ptSumSub3/GeV);
           }
@@ -229,7 +229,7 @@ namespace Rivet {
     void finalize() {
       /// @todo Take these normalisations from the data histo (it can't come from just the MC)
 
-      if (isCompatibleWithSqrtS(1800)) {
+      if (isCompatibleWithSqrtS(1800*GeV)) {
         // Normalize to actual number of entries in pT dbn histos...
         normalize(_pt90Dbn1800Et40,  1656.75); // norm OK
         normalize(_pt90Dbn1800Et80,  4657.5); // norm OK
@@ -239,10 +239,10 @@ namespace Rivet {
       }
 
       // ...and for min bias distributions:
-      if (isCompatibleWithSqrtS(1800)) {
+      if (isCompatibleWithSqrtS(1800*GeV)) {
         normalize(_numTracksDbn1800MB, 309718.25); // norm OK
         normalize(_ptDbn1800MB, 33600.0); // norm OK
-      } else if (isCompatibleWithSqrtS(630)) {
+      } else if (isCompatibleWithSqrtS(630*GeV)) {
         normalize(_numTracksDbn630MB, 1101024.0); // norm OK
         normalize(_ptDbn630MB, 105088.0); // norm OK
       }

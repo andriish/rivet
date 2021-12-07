@@ -26,9 +26,9 @@ namespace Rivet {
       // projections
       declare(UnstableParticles(),"UFS");
       // histos
-      if(isCompatibleWithSqrtS(10.52))
+      if(isCompatibleWithSqrtS(10.52*GeV))
         _mode=1;
-      else if(isCompatibleWithSqrtS(10.58))
+      else if(isCompatibleWithSqrtS(10.58*GeV))
         _mode=2;
       else
         MSG_ERROR("Beam energy not supported!");

@@ -22,33 +22,33 @@ namespace Rivet {
       // Initialise and register projections
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
-      if(isCompatibleWithSqrtS(12.)) {
+      if(isCompatibleWithSqrtS(12*GeV)) {
 	book(_h_x2,2,1,1);
 	book(_h_x3,3,1,1);
       }
-      else if (isCompatibleWithSqrtS(14.)) {
+      else if (isCompatibleWithSqrtS(14*GeV)) {
 	book(_h_x1,1,1,1);
 	book(_h_x2,2,1,2);
 	book(_h_x3,3,1,2);
       }
-      else if (isCompatibleWithSqrtS(22.)) {
+      else if (isCompatibleWithSqrtS(22*GeV)) {
 	book(_h_x1,1,1,2);
 	book(_h_x2,2,1,3);
 	book(_h_x3,3,1,3);
       }
-      else if (isCompatibleWithSqrtS(25.)) {
+      else if (isCompatibleWithSqrtS(25*GeV)) {
 	book(_h_x2,2,1,4);
 	book(_h_x3,3,1,4);
       }
-      else if (isCompatibleWithSqrtS(30.)) {
+      else if (isCompatibleWithSqrtS(30*GeV)) {
 	book(_h_x2,2,1,5);
 	book(_h_x3,3,1,5);
       }
-      else if (isCompatibleWithSqrtS(34.)) {
+      else if (isCompatibleWithSqrtS(34*GeV)) {
 	book(_h_x2,2,1,6);
 	book(_h_x3,3,1,6);
       }
-      else if (isCompatibleWithSqrtS(35.)) {
+      else if (isCompatibleWithSqrtS(35*GeV)) {
         book(_h_x2, 2,1,7);
         book(_h_x3, 3,1,7);
       }

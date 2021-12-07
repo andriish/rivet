@@ -28,7 +28,7 @@ namespace Rivet {
       declare(Thrust(fs)    ,"Thrust");
       declare(Sphericity(fs),"Sphericity");
       // histograms
-      if(isCompatibleWithSqrtS(9.98,1e-2)) {
+      if(isCompatibleWithSqrtS(9.98*GeV,1e-2)) {
         book(_h_T_cont ,2, 1, 2);
         book(_h_S_cont ,1, 1, 2);
       }

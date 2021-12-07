@@ -25,7 +25,7 @@ namespace Rivet {
       declare(FinalState(), "FS");
 
       // Book histograms
-      if(isCompatibleWithSqrtS(10.47)) {
+      if(isCompatibleWithSqrtS(10.47*GeV)) {
         book(_h_N, 2, 1, 1);
         book(_h_tot_N,4,1,1);
       }

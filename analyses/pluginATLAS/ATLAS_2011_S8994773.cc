@@ -22,7 +22,7 @@ namespace Rivet {
 
       // Get an index for the beam energy
       isqrts = -1;
-      if (isCompatibleWithSqrtS(900)) isqrts = 0;
+      if (isCompatibleWithSqrtS(900*GeV)) isqrts = 0;
       else if (isCompatibleWithSqrtS( 7000)) isqrts = 1;
       assert(isqrts >= 0);
 

@@ -24,7 +24,7 @@ namespace Rivet {
     /// @name Analysis methods
     /// @{
     void bookHistosPP() {
-      if (isCompatibleWithSqrtS(7000., 1e-3)) {
+      if (isCompatibleWithSqrtS(7000*GeV, 1e-3)) {
         {Histo1DPtr tmp; _h_pi0_rap_pT.add(  8.8,  9.0, book(tmp,  2, 1, 2));}
         {Histo1DPtr tmp; _h_pi0_rap_pT.add(  9.0,  9.2, book(tmp,  3, 1, 2));}
         {Histo1DPtr tmp; _h_pi0_rap_pT.add(  9.2,  9.4, book(tmp,  4, 1, 2));}
@@ -47,7 +47,7 @@ namespace Rivet {
         book(_p_pi0_raploss_apT, 22, 1, 2);
         book(_h_pi0_raploss,     23, 1, 2);
       }
-      else if (isCompatibleWithSqrtS(2760., 1e-3)) {
+      else if (isCompatibleWithSqrtS(2760*GeV, 1e-3)) {
         book(_p_pi0_rap_apT, 1, 1, 1);
 
         {Histo1DPtr tmp; _h_pi0_rap_pT.add(  8.8, 9.0, book(tmp, 2, 1, 1));}
@@ -71,7 +71,7 @@ namespace Rivet {
 
 
     void bookHistosPPb() {
-      if (isCompatibleWithSqrtS(sqrt(208.)*5020., 1e-3)) {
+      if (isCompatibleWithSqrtS(sqrt(208)*5020*GeV, 1e-3)) {
 
         {Histo1DPtr tmp; _h_pi0_rap_pT.add( 8.8,  9.0, book(tmp,  2, 1, 3));}
         {Histo1DPtr tmp; _h_pi0_rap_pT.add( 9.0,  9.2, book(tmp,  3, 1, 3));}

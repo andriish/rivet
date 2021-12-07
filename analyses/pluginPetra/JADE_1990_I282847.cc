@@ -25,10 +25,10 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       int ioff=-1;
-      if(isCompatibleWithSqrtS(35)) {
+      if(isCompatibleWithSqrtS(35*GeV)) {
       	ioff=0;
       }
-      else if(isCompatibleWithSqrtS(44.)) {
+      else if(isCompatibleWithSqrtS(44*GeV)) {
       	ioff=1;
       }
       else

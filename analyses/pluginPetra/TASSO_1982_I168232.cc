@@ -26,13 +26,13 @@ namespace Rivet {
       
       // Book histograms
       sqs = 1.0;
-      if(isCompatibleWithSqrtS(14.)) {
+      if(isCompatibleWithSqrtS(14*GeV)) {
 	book(_h_E, 2,1,1);
 	book(_h_p, 2,2,2);
 	book(_h_x, 2,3,3);
 	sqs = 14.0;
       }
-      else if (isCompatibleWithSqrtS(34.)) {
+      else if (isCompatibleWithSqrtS(34*GeV)) {
 	book(_h_E, 3,1,1);
 	book(_h_p, 3,2,2);
 	book(_h_x, 3,3,3);

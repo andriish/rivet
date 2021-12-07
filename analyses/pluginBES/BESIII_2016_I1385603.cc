@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Cross section for $e^+e^-\to \pi^+\pi^-$ between 0.6 and 0.9 GeV
   class BESIII_2016_I1385603 : public Analysis {
   public:
 
@@ -34,7 +34,7 @@ namespace Rivet {
       const FinalState& fs = apply<FinalState>(event, "FS");
       if(fs.particles().size()!=2) vetoEvent;
       for (const Particle& p : fs.particles()) {
-	if(abs(p.pid())!=PID::PIPLUS) vetoEvent;
+        if(abs(p.pid())!=PID::PIPLUS) vetoEvent;
       }
       _npion->fill();
     }
@@ -50,18 +50,18 @@ namespace Rivet {
       Scatter2DPtr  mult;
       book(mult, 1, 1, 1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
-	const double x  = temphisto.point(b).x();
-	pair<double,double> ex = temphisto.point(b).xErrs();
-	pair<double,double> ex2 = ex;
-	if(ex2.first ==0.) ex2. first=0.0001;
-	if(ex2.second==0.) ex2.second=0.0001;
-	if (inRange(sqrtS()/MeV, x-ex2.first, x+ex2.second)) {
-	  mult->addPoint(x, sigma, ex, make_pair(error,error));
-	}
-	else {
-	  mult->addPoint(x, 0., ex, make_pair(0.,.0));
-	}
-      } 
+        const double x  = temphisto.point(b).x();
+        pair<double,double> ex = temphisto.point(b).xErrs();
+        pair<double,double> ex2 = ex;
+        if(ex2.first ==0.) ex2. first=0.0001;
+        if(ex2.second==0.) ex2.second=0.0001;
+        if (inRange(sqrtS()/MeV, x-ex2.first, x+ex2.second)) {
+          mult->addPoint(x, sigma, ex, make_pair(error,error));
+        }
+        else {
+          mult->addPoint(x, 0., ex, make_pair(0.,.0));
+        }
+      }
     }
 
     //@}

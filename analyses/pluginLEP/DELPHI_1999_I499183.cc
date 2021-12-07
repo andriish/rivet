@@ -39,19 +39,19 @@ namespace Rivet {
       unsigned int offset = 0;
       int offset2 = 0;
 
-      if (isCompatibleWithSqrtS(133)) {
+      if (isCompatibleWithSqrtS(133*GeV)) {
 	offset  = 0;			   
 	offset2 = 1;			   
       }					   
-      else if (isCompatibleWithSqrtS(161)) {
+      else if (isCompatibleWithSqrtS(161*GeV)) {
 	offset  = 0;			   
 	offset2 = 2;			   
       }					   
-      else if (isCompatibleWithSqrtS(172)) {
+      else if (isCompatibleWithSqrtS(172*GeV)) {
 	offset  = 0;			   
 	offset2 = 3;			   
       }					   
-      else if (isCompatibleWithSqrtS(183)) {
+      else if (isCompatibleWithSqrtS(183*GeV)) {
 	offset  = 1;			   
 	offset2 = 1;			   
       }

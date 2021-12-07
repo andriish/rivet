@@ -1,7 +1,4 @@
 // -*- C++ -*-
-#include <complex>
-#include <iostream>
-#include <string>
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/FinalState.hh"
@@ -39,13 +36,9 @@ namespace Rivet {
 
 
       // Energy bins
-      energies = {7.7, 11.5, 19.6, 27.0, 39.0};
       for (size_t i = 0, N = energies.size(); i < N; ++i) {
-        if (isCompatibleWithSqrtS(197.*energies[i])) enebin = i;
+        if (isCompatibleWithSqrtS(197*energies[i]*GeV)) enebin = i;
       }
-
-      // Centrality bins
-      centralities = {5, 10, 20, 30, 40, 50, 60, 70, 80};
 
       // Energy bins for Fig. 25
       enebinfig = -1;
@@ -93,7 +86,7 @@ namespace Rivet {
       _h_npart_KaPiplus = vector<Profile1DPtr>(energies.size());
       _h_npart_PPiplus = vector<Profile1DPtr>(energies.size());
 
-      for (int j = 0, N = energies.size(); j < N; ++j) {		
+      for (int j = 0, N = energies.size(); j < N; ++j) {
         for (int i = 0, M = centralities.size(); i < M; ++i) {
           /// Book [energy][centrality] histograms.
           book(_h_dpT_Pi[j][i], 2+j*6, 1, i+1);
@@ -111,7 +104,7 @@ namespace Rivet {
           book(_wght_Proton[j][i], coStr(7+j*6, 1, i+1));
         }
       }
-		
+
       /// Booking npart histograms
       for (int i = 0, N = energies.size(); i < N; ++i) {
         book(_h_npart_PiMinus[i], 32+i, 1, 1);
@@ -611,15 +604,18 @@ namespace Rivet {
 
     /// @name Variables
     /// @{
-    vector<double> energies;
-    vector<double> centralities;
     int cenbin, enebin = 0, enebinfig = 0;
-    double nprtcl, nPi[5], nPiPlus[5], nKaon[5], nKaonPlus[5], nProton[5],
-    nAntiProton[5];
+    double nprtcl, nPi[5], nPiPlus[5], nKaon[5], nKaonPlus[5], nProton[5], nAntiProton[5];
     // The following vector contains the counters for all particles used in
     // Fig. 25. In the right order : pi+, pi-, K+, K-, p, Antip, Lambda,
     // AntiLambda, Xi, AntiXi
     double nparts[10];
+    /// @}
+
+    /// @name Bin edges
+    /// @{
+    const doubles energies = {7.7, 11.5, 19.6, 27.0, 39.0};
+    const doubles centralities = {5, 10, 20, 30, 40, 50, 60, 70, 80};
     /// @}
 
   };
