@@ -472,7 +472,7 @@ namespace Rivet {
 
     // Check whether particle comes from b-decay
     bool isFromBDecay(const Particle& p) {
-      
+
       /// @todo I think we can just replicated the original behaviour with this call
       /// Note slight difference to Rivet's native Particle::fromBottom method!
       return p.hasAncestorWith([](const Particle &p)->bool{return p.hasBottom();});

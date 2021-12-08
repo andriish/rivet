@@ -25,7 +25,7 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
       declare(InitialQuarks(), "IQF");
-      
+
       // Book histograms
        book(_h_F_T       , 1, 1, 1);
        book(_h_F_L       , 2, 1, 1);
@@ -40,7 +40,7 @@ namespace Rivet {
        book(_h_light_F_L , 8, 1, 2);
        book(_n_bottom    , 9, 1, 1);
        book(_n_light     , 9, 1, 2);
-      
+
        book(_c_light , "/TMP/wLight");
        book(_c_bottom, "/TMP/wBottom");
        book(_c_total , "/TMP/wTotal");

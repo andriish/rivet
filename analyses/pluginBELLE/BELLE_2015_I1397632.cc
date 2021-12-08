@@ -38,7 +38,7 @@ namespace Rivet {
       // Check for the explicit decay
       return all(ids, [&](int i){return count(children, hasPID(i))==1;});
     }
-    
+
     // Calculate the recoil w using mother and daugher meson
     double recoilW(const Particle& B, int mesonID) {
       // TODO why does that not work with const?
@@ -66,9 +66,9 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
 
-      normalize(_h_B_Denu);     
-      normalize(_h_B_Dmunu);    
-      normalize(_h_B_Deplusnu); 
+      normalize(_h_B_Denu);
+      normalize(_h_B_Dmunu);
+      normalize(_h_B_Deplusnu);
       normalize(_h_B_Dmuplusnu);
 
     }

@@ -55,7 +55,7 @@ namespace Rivet {
 	int sign = p.pid()/p.abspid();
 	Particle Dstar;
 	if(p.children().size()!=2) continue;
-	
+
 	if(p.children()[0].pid()==sign*413 &&
 	   p.children()[1].pid()==-sign*211) {
 	  Dstar = p.children()[0];
@@ -83,11 +83,11 @@ namespace Rivet {
 	  _r[1]->fill(0.5);
 	if(Dstar.children().size()!=2) continue;
 	Particle pion;
-	if(Dstar.children()[0].pid()== sign*211 && 
+	if(Dstar.children()[0].pid()== sign*211 &&
 	   Dstar.children()[1].pid()== sign*421) {
 	  pion = Dstar.children()[0];
 	}
-	else if(Dstar.children()[1].pid()== sign*211 && 
+	else if(Dstar.children()[1].pid()== sign*211 &&
 		Dstar.children()[0].pid()== sign*421) {
 	  pion = Dstar.children()[1];
 	}

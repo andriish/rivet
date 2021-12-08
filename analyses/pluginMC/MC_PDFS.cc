@@ -54,7 +54,7 @@ namespace Rivet {
       _histPdfQ->fill(pdfi.scale, weight); // always in GeV?
       _histPdfXQ->fill(pdfi.x[0], pdfi.scale, weight); // always in GeV?
       _histPdfXQ->fill(pdfi.x[1], pdfi.scale, weight); // always in GeV?
-      
+
 #else
       MSG_DEBUG("PDF Q = " << pdfi.scalePDF() << " for (id, x) = "
                 << "(" << pdfi.id1() << ", " << pdfi.x1() << ") "

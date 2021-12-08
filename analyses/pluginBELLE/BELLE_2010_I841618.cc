@@ -62,7 +62,7 @@ namespace Rivet {
           ++nstable;
       }
     }
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
@@ -91,10 +91,10 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
 
-      normalize(_h_3pi); 
-      normalize(_h_Kpipi); 
-      normalize(_h_KKpi); 
-      normalize(_h_3K); 
+      normalize(_h_3pi);
+      normalize(_h_Kpipi);
+      normalize(_h_KKpi);
+      normalize(_h_3K);
 
     }
 

@@ -49,7 +49,7 @@ namespace Rivet {
 
     // Find the pT histogram bin index for value pt (in GeV), to hack a 2D histogram equivalent
     /// @todo Use a YODA axis/finder alg when available
-    size_t findPtBin(double ptJ) {      
+    size_t findPtBin(double ptJ) {
       for (size_t ibin = 0; ibin < N_PT_BINS_dj; ++ibin) {
         if (inRange(ptJ, ptBins_dj[ibin], ptBins_dj[ibin+1])) return ibin;
       }

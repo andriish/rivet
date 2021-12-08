@@ -101,7 +101,7 @@ namespace Rivet {
 	  error = _nDp->err();
 	}
     	sigma *= crossSection()/ sumOfWeights() /nanobarn;
-    	error *= crossSection()/ sumOfWeights() /nanobarn; 
+    	error *= crossSection()/ sumOfWeights() /nanobarn;
 	Scatter2D temphisto(refData(1, 1, ix));
     	Scatter2DPtr  mult;
         book(mult, 1, 1, ix);

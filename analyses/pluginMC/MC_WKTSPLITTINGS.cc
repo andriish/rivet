@@ -5,7 +5,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// @brief MC validation analysis for kt splitting scales in W + jets events

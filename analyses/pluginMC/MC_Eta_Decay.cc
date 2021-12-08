@@ -18,10 +18,10 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      
+
       // Initialise and register projections
       declare(UnstableParticles(), "UFS");
-      
+
       // Book histograms
       double meta[2]={547.45, 957.78};
       for(unsigned int ix=0;ix<2;++ix) {
@@ -175,13 +175,13 @@ namespace Rivet {
      * Histogram for the mass of \f$\gamma\gamma\f$
      */
     vector<Histo1DPtr> _mgammagamma;
-    
+
     /**
      * Histogrma for the mass of \f$\pi^0\gamma\f$
      */
     vector<Histo1DPtr> _mpi0gamma;
     //@}
-    
+
     /**
      *  Histograms for the decay \f$\eta\to\pi^+\pi^-\gamma\f$
      */
@@ -190,23 +190,23 @@ namespace Rivet {
      *  Histogram for the mass of \f$\pi^+\gamma\f$
      */
     vector<Histo1DPtr> _mpipgamma;
-    
+
     /**
      *  Histogram for the mass of \f$\pi^-\gamma\f$
      */
     vector<Histo1DPtr> _mpimgamma;
-    
+
     /**
      *  Histogram for the mass of \f$\pi^+\pi^-\f$
      */
     vector<Histo1DPtr> _mpippim;
-    
+
     /**
      *  Histogram for the photon energy
      */
     vector<Histo1DPtr> _photonenergy;
     //@}
-    
+
     /**
      * Histograms for the decay \f$\eta\pi\pi\pi\f$ and \f$\eta'\to\eta\pi\pi\f$.
      */
@@ -215,38 +215,38 @@ namespace Rivet {
      *  Histogram for the mass of \f$\pi^+\pi^-\f$
      */
     vector<Histo1DPtr> _dpippim;
-    
+
     /**
      *  Histogram for the mass of \f$\pi^0\pi^0\f$
      */
     vector<Histo1DPtr> _dpi0pi0;
-    
+
     /**
      *  Histogram for the mass of \f$\pi^0\pi^+\f$
      */
     vector<Histo1DPtr> _dpi0pip;
-    
+
     /**
      *  Histogram for the mass of \f$\pi^0\pi^-\f$
      */
     vector<Histo1DPtr> _dpi0pim;
-    
+
     /**
      *  Histogram for the mass of \f$\pi^+\eta\f$
      */
     Histo1DPtr  _dpipeta;
-    
+
     /**
      *  Histogram for the mass of \f$\pi^-\eta\f$
      */
     Histo1DPtr  _dpimeta;
-    
+
     /**
      *  Histogram for the mass of \f$\pi^0\eta\f$
      */
     Histo1DPtr  _dpi0eta;
     //@}
-    
+
 
   };
 

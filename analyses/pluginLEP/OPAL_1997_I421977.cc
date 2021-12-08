@@ -43,7 +43,7 @@ namespace Rivet {
         vetoEvent;
       }
       MSG_DEBUG("Passed leptonic event cut");
-      
+
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
@@ -68,7 +68,7 @@ namespace Rivet {
       double fact=1./sumOfWeights();
       scale(_h_plus , fact);
       scale(_h_minus, fact);
-      
+
     }
 
     //@}

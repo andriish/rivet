@@ -30,7 +30,7 @@ namespace Rivet {
       vector<ConstGenParticlePtr> children = HepMCUtils::particles(p.genParticle(), Relatives::CHILDREN);
       if (hasBottom(p)) {
         bool has_b_child = false;
-        
+
         for (ConstGenParticlePtr p2 : children) {
           if (PID::hasBottom(p2->pdg_id())) {
             has_b_child = true;

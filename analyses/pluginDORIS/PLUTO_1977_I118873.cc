@@ -21,7 +21,7 @@ namespace Rivet {
     void init() {
       declare(Beam(), "Beams");
       declare(UnstableParticles(), "UFS");
-      
+
       if (isCompatibleWithSqrtS(3.63*GeV)) {
         book(_h_spectrum, 2, 1, 1);
       }

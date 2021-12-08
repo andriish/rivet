@@ -23,7 +23,7 @@ namespace Rivet {
       else {
         MSG_WARNING("Could not decipher beam energy. For rivet-merge set -a CMS_2011_S8978280:energy=OPT, where OPT is 900 or 7000 (GeV is implied).");
       }
-      
+
       // Particle distributions versus rapidity and transverse momentum
       if (beamEnergy == 1){
         book(_h_dNKshort_dy  ,1, 1, 1);

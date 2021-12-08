@@ -36,23 +36,23 @@ namespace Rivet {
       declare(photonfs, "photons");
 
       // Jets
-      FastJets jetpro(fs,  FastJets::ANTIKT, 0.4, JetAlg::Muons::NONE, JetAlg::Invisibles::NONE);       
+      FastJets jetpro(fs,  FastJets::ANTIKT, 0.4, JetAlg::Muons::NONE, JetAlg::Invisibles::NONE);
       declare(jetpro, "Jets");
 
 
-      vector<string> observables = {"ETGamma", "pTjet", "RapJet","DeltaRapGammaJet", 
-                                    "DeltaPhiGammaJet", "DeltaRapJetJet", "DeltaPhiJetJet", 
+      vector<string> observables = {"ETGamma", "pTjet", "RapJet","DeltaRapGammaJet",
+                                    "DeltaPhiGammaJet", "DeltaRapJetJet", "DeltaPhiJetJet",
                                     "MassJetJet", "MassGammaJetJet"};
       vector<string> regions = {"Inclusive","Fragmentation", "Direct"};
 
       int i=0;
-      for (const string& region : regions){ 
+      for (const string& region : regions){
         int j = 1;
 	      for (const string& name : observables) {
 	        book(_h[name+region], 9*i+j, 1, 1);
 	        ++j;
 	      }
-	      ++i;    
+	      ++i;
       }
     }
 
@@ -147,7 +147,7 @@ namespace Rivet {
       _h["DeltaPhiJetJetInclusive"]->fill(jetjet_dphi);
       _h["DeltaRapJetJetInclusive"]->fill(jetjet_drap);
       _h["MassGammaJetJetInclusive"]->fill(mphjetjet);
-      
+
       if (photon_pt>jet_pt1) {
         _h["ETGammaDirect"]->fill(photon_pt);
         _h["pTjetDirect"]->fill(jet_pt1);

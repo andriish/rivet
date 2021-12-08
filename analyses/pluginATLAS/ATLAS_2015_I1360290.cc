@@ -29,10 +29,10 @@ namespace Rivet {
       // The measured final state.
       declare(ChargedFinalState (Cuts::abseta < 2. &&
         Cuts::pT > 0.5*GeV && Cuts::pT < 150.0*GeV), "CFS");
-      
+
       taa = {26.3, 20.6, 14.4, 8.73, 5.05, 2.70, 1.34, 0.41};
       centData = {5., 10., 20., 30., 40., 50., 60., 80.};
-      
+
       for (int i = 0, N = centData.size(); i < N; ++i) {
 	// eta hists starts from table 55 ( first 1.7 < pT < 2.0)
         book(histEta1[centData[i]], 55 + i, 1, 1);
@@ -80,7 +80,7 @@ namespace Rivet {
 	else if (pT > 19.9 && pT < 22.8) hItr3->second->fill(eta, 0.5);
 	else if (pT > 59.8 && pT < 94.8) hItr4->second->fill(eta, 0.5);
 	if (eta < 2) hpTItr->second->fill(pT, 1.0/2./M_PI/pT/4.);
-      
+
       }
 
     }

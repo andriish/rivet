@@ -59,7 +59,7 @@ namespace Rivet {
 	  error = _npion2->err();
 	}
 	sigma *= crossSection()/ sumOfWeights() /nanobarn;
-	error *= crossSection()/ sumOfWeights() /nanobarn; 
+	error *= crossSection()/ sumOfWeights() /nanobarn;
 	Scatter2D temphisto(refData(ix, 1, 1));
 	Scatter2DPtr mult;
 	book(mult, ix, 1, 1);
@@ -76,7 +76,7 @@ namespace Rivet {
 	    mult->addPoint(x, 0., ex, make_pair(0.,.0));
 	  }
 	}
-      }	
+      }
     }
 
     //@}

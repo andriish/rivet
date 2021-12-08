@@ -381,7 +381,7 @@ namespace Rivet {
 	}
       }
     }
-    
+
     Scatter2DPtr convertHisto(unsigned int ix,unsigned int iy, unsigned int iz, Histo1DPtr histo) {
       Scatter2D temphisto(refData(ix, iy, iz));
       Scatter2DPtr mult;
@@ -432,8 +432,8 @@ namespace Rivet {
 	if(_h_D) normalize(_h_D);
 	if(_h_N) normalize(_h_N);
 	if(_h_xi) scale(_h_xi,1./sumOfWeights());
-	
-      
+
+
       Scatter2DPtr mult;
 	if(_h_N) {
     if(isCompatibleWithSqrtS(130.1*GeV)) {

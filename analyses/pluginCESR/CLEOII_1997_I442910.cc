@@ -48,7 +48,7 @@ namespace Rivet {
         LorentzTransform boost;
         if (p.p3().mod() > 1*MeV)
           boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
-	
+
 	for(const Particle & xi : Xic) {
 	  double Emax = sqrt(0.25*sqr(p.mass())-sqr(xi.mass()));
 	  double xp = boost.transform(xi.momentum()).vector3().mod()/Emax;

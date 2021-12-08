@@ -79,7 +79,7 @@ namespace Rivet {
 	  else if(nRes[321]==1 && nRes[-321]==1) {
 	    if(p.pid()==553)
 	      _nUps1KK->fill();
-	  }	  
+	  }
 	}
       }
     }

@@ -56,11 +56,11 @@ namespace Rivet {
 	_h_c->fill(cTheta);
 	if(Dstar.children().size()!=2) continue;
 	Particle D0;
-	if(Dstar.children()[0].pid()== sign*211 && 
+	if(Dstar.children()[0].pid()== sign*211 &&
 	   Dstar.children()[1].pid()== sign*421) {
 	  D0 = Dstar.children()[1];
 	}
-	else if(Dstar.children()[1].pid()== sign*211 && 
+	else if(Dstar.children()[1].pid()== sign*211 &&
 		Dstar.children()[0].pid()== sign*421) {
 	  D0 = Dstar.children()[0];
 	}

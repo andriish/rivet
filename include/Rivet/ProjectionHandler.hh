@@ -106,7 +106,7 @@ namespace Rivet {
       std::unique_lock<std::mutex> lock(mtx);
       static map<std::thread::id,ProjectionHandler> _instances;
       return _instances[std::this_thread::get_id()];
-      
+
     }
 
 

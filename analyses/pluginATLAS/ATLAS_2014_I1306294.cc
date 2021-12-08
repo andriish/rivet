@@ -32,7 +32,7 @@ namespace Rivet {
       FinalState fs;
       Cut cuts = Cuts::abseta < 2.5 && Cuts::pT > 20*GeV;
 
-      ZFinder zfinder(fs, cuts, _mode==1? PID::ELECTRON : PID::MUON, 76.0*GeV, 106.0*GeV, 0.1, 
+      ZFinder zfinder(fs, cuts, _mode==1? PID::ELECTRON : PID::MUON, 76.0*GeV, 106.0*GeV, 0.1,
                       ZFinder::ChargedLeptons::ALL, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::NO);
       declare(zfinder, "ZFinder");
 
@@ -64,7 +64,7 @@ namespace Rivet {
       // Check we have a Z:
       const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size() != 1) vetoEvent;
-      
+
       const Particles boson_s =  zfinder.bosons();
       const Particle boson_f =  boson_s[0];
       const Particles zleps   =  zfinder.constituents();

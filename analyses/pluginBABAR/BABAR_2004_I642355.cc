@@ -48,7 +48,7 @@ namespace Rivet {
 	  K0.push_back(p);
 	}
 	else if(!p.children().empty()) {
-	  findDecay(p,charm,etaP,pi0,pip,Kp,K0); 
+	  findDecay(p,charm,etaP,pi0,pip,Kp,K0);
 	}
       }
     }
@@ -82,7 +82,7 @@ namespace Rivet {
 	  if(pi0.size()==1)
 	    pX+=pi0[0].momentum();
 	  _h_X->fill(pX.mass());
-	  
+
 	}
       }
     }

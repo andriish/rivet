@@ -16,7 +16,7 @@ namespace Rivet {
     friend istream& operator>> (istream& is, A& a);
     friend ostream& operator<< (ostream& os, const A& a);
   };
-  
+
   // Custom class must be streamable.
   istream& operator>> (istream& is, A& a) {
     is >> a.a;
@@ -45,7 +45,7 @@ namespace Rivet {
       double f = getOption<double>("foo", 1.0);
       // A string.
       string s = getOption<string>("bar", "");
-      // A custom object. 
+      // A custom object.
       A a = getOption<A>("baz", A());
 
       cout << "foo = " << f << endl;
@@ -64,7 +64,7 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-    
+
     }
 
     //@}
@@ -77,7 +77,7 @@ namespace Rivet {
     Histo1DPtr h;
     //@}
     double value;
-    
+
   };
 
 

@@ -25,7 +25,7 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      
+
       // Book histograms
       book(_c_hadrons , "/TMP/sigma_hadrons");
       book(_c_muons   , "/TMP/sigma_muons");
@@ -166,7 +166,7 @@ namespace Rivet {
 	    pair<double,double> ex2 = ex;
 	    if(ex2.first ==0.) ex2. first=0.0001;
 	    if(ex2.second==0.) ex2.second=0.0001;
-	    
+
 	    if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
 	      mult   ->addPoint(x, rval, ex, rerr);
 	    }

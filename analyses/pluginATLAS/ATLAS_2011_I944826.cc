@@ -22,7 +22,7 @@ namespace Rivet {
       book(_sum_w_ks    , "ks");
       book(_sum_w_lambda, "lambda");
       book(_sum_w_passed, "passed");
-    
+
       UnstableParticles ufs(Cuts::pT > 100*MeV);
       declare(ufs, "UFS");
 
@@ -37,7 +37,7 @@ namespace Rivet {
         .acceptIdPair(PID::PROTON);
       declare(nstable, "nstable");
 
-      
+
       if (isCompatibleWithSqrtS(7000*GeV)) {
         book(_hist_Ks_pT      ,1, 1, 1);
         book(_hist_Ks_y       ,2, 1, 1);

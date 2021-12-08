@@ -249,7 +249,7 @@ namespace Rivet {
 	  ++nstable;
       }
     }
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       for(const Particle& tau : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==PID::TAU)) {
@@ -267,7 +267,7 @@ namespace Rivet {
 	  swap(nu_mu,nu_mubar);
 	}
 	// cerr << "testing before loop " << nstable << " "
-	//      << pip.size() << " " << pim.size() << " " << pi0.size() << " " 
+	//      << pip.size() << " " << pim.size() << " " << pi0.size() << " "
 	//      << Kp.size() << " " << Km.size() << " " << K0S.size() << " " <<  K0L.size() << "\n";
 	// 2 hadrons
         if(nstable==2) {
@@ -460,7 +460,7 @@ namespace Rivet {
 	    _h_5B_pipipi1[2]->fill((pim[1].momentum()+pi0[1].momentum()-ptotal).mass());
 	    _h_5B_pipipi1[3]->fill((pip[0].momentum()+pi0[0].momentum()-ptotal).mass());
 	    _h_5B_pipipi1[3]->fill((pip[0].momentum()+pi0[1].momentum()-ptotal).mass());
-	    _h_5B_pipipi1[4]->fill((pi0[0].momentum()+pi0[1].momentum()-ptotal).mass());	    
+	    _h_5B_pipipi1[4]->fill((pi0[0].momentum()+pi0[1].momentum()-ptotal).mass());
 	    _h_5B_pipipipi1[0]->fill((ptotal-pim[0].momentum()).mass());
 	    _h_5B_pipipipi1[0]->fill((ptotal-pim[1].momentum()).mass());
 	    _h_5B_pipipipi1[1]->fill((ptotal-pip[0].momentum()).mass());
@@ -624,23 +624,23 @@ namespace Rivet {
     Histo1DPtr _h_2B_m2Keta,_h_2B_mKeta;
     Histo1DPtr _h_2B_m2KK,_h_2B_mKK;
     // histograms for 3 hadronc decay
-    //  Histograms for tau^- -> nu_tau pi^+pi^-pi^-  
+    //  Histograms for tau^- -> nu_tau pi^+pi^-pi^-
     vector<Histo1DPtr> _h_3B_pippimpim;
-    //Histograms for tau^- -> nu_tau pi^0pi^0pi^-  
+    //Histograms for tau^- -> nu_tau pi^0pi^0pi^-
     vector<Histo1DPtr> _h_3B_pi0pi0pim;
-    //  Histograms for tau^- -> nu_tau K^-K^+pi^-      
+    //  Histograms for tau^- -> nu_tau K^-K^+pi^-
     vector<Histo1DPtr> _h_3B_kmpimkp;
-    //  Histograms for tau^- -> nu_tau K^-K^0pi^0      
+    //  Histograms for tau^- -> nu_tau K^-K^0pi^0
     vector<Histo1DPtr> _h_3B_kmpi0k0;
-    //  Histograms for tau^- -> nu_tau pi^0pi^0K^-   
+    //  Histograms for tau^- -> nu_tau pi^0pi^0K^-
     vector<Histo1DPtr> _h_3B_pi0pi0km;
-    //  Histograms for tau^- -> nu_tau K^-pi^-pi^+    
-    vector<Histo1DPtr> _h_3B_kmpimpip; 
-    //  Histograms for tau^- -> nu_tau pi^-K^0pi^0    
+    //  Histograms for tau^- -> nu_tau K^-pi^-pi^+
+    vector<Histo1DPtr> _h_3B_kmpimpip;
+    //  Histograms for tau^- -> nu_tau pi^-K^0pi^0
     vector<Histo1DPtr> _h_3B_pimk0pi0;
-    //  Histograms for tau^- -> nu_tau pi^-pi^0eta   
+    //  Histograms for tau^- -> nu_tau pi^-pi^0eta
     vector<Histo1DPtr> _h_3B_pimpi0eta;
-    //  Histograms for tau^- -> nu_tau pi^-pi^0gamma 
+    //  Histograms for tau^- -> nu_tau pi^-pi^0gamma
     vector<Histo1DPtr> _h_3B_pimpi0gamma;
     //  Histograms for tau^- -> nu_tau K^0_SK^0_Spi^-
     vector<Histo1DPtr> _h_3B_kspimks;

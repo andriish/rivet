@@ -47,7 +47,7 @@ namespace Rivet {
 	  break;
 	}
       }
-      
+
       // mu+mu- + photons
       if(nCount[-13]==1 and nCount[13]==1 &&
 	 ntotal==2+nCount[22])

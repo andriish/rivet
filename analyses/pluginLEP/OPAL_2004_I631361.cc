@@ -44,7 +44,7 @@ namespace Rivet {
       _mode = 0;
       if ( getOption("PROCESS") == "GG" ) _mode = 0;
       if ( getOption("PROCESS") == "QQ" ) _mode = 1;
-      // projections we need for both cases      
+      // projections we need for both cases
       const FinalState fs;
       declare(fs, "FS");
       const ChargedFinalState cfs;
@@ -95,7 +95,7 @@ namespace Rivet {
         _h_chMult_qq.add( 9.5, 13.0, book(dummy, 2,1,2));
         _h_chMult_qq.add(13.0, 16.0, book(dummy, 3,1,1));
         _h_chMult_qq.add(16.0, 20.0, book(dummy, 3,1,2));
-	
+
         _h_chFragFunc_qq.add(13.0, 16.0, book(dummy, 5,1,1));
         _h_chFragFunc_qq.add(16.0, 20.0, book(dummy, 5,1,2));
 
@@ -150,7 +150,7 @@ namespace Rivet {
       else {
         // cut on the number of charged particles
         const Particles& chParticles = applyProjection<FinalState>(event, "CFS").particles();
-        if(chParticles.size() < 5) vetoEvent;  
+        if(chParticles.size() < 5) vetoEvent;
         // cluster the jets
         const Particles& particles = applyProjection<FinalState>(event, "FS").particles();
         fastjet::JetDefinition ee_kt_def(fastjet::ee_kt_algorithm, &p_scheme);
@@ -184,9 +184,9 @@ namespace Rivet {
             }
           }
         }
-        
-        int QUARK1 = 0, QUARK2 = 1, GLUON = 2; 
-        
+
+        int QUARK1 = 0, QUARK2 = 1, GLUON = 2;
+
         if(jets[QUARK2].E() > jets[QUARK1].E()) swap(QUARK1, QUARK2);
         if(jets[GLUON].E() > jets[QUARK1].E())  swap(QUARK1,  GLUON);
         if(!bTagged[QUARK2]) {
@@ -194,20 +194,20 @@ namespace Rivet {
           else swap(QUARK2, GLUON);
         }
         if(bTagged[GLUON]) vetoEvent;
-        
+
         // exclude collinear or soft jets
         double k1 = jets[QUARK1].E()*min(angle(jets[QUARK1].momentum(),jets[QUARK2].momentum()),
-                 angle(jets[QUARK1].momentum(),jets[GLUON].momentum())); 
+                 angle(jets[QUARK1].momentum(),jets[GLUON].momentum()));
         double k2 = jets[QUARK2].E()*min(angle(jets[QUARK2].momentum(),jets[QUARK1].momentum()),
                  angle(jets[QUARK2].momentum(),jets[GLUON].momentum()));
         if(k1<8.0*GeV || k2<8.0*GeV) vetoEvent;
-        
+
         double sqg = (jets[QUARK1].momentum()+jets[GLUON].momentum()).mass2();
         double sgq = (jets[QUARK2].momentum()+jets[GLUON].momentum()).mass2();
         double s = (jets[QUARK1].momentum()+jets[QUARK2].momentum()+jets[GLUON].momentum()).mass2();
-        
+
         double Eg = 0.5*sqrt(sqg*sgq/s);
-        
+
         if(Eg < 5.0 || Eg > 46.) { vetoEvent; }
         else if(Eg > 9.5) {
           //requirements for experimental reconstructability raise as energy raises
@@ -215,16 +215,16 @@ namespace Rivet {
             vetoEvent;
           }
         }
-        
+
         // all cuts applied, increment sum of weights
         _sumWEbin[getEbin(Eg)]->fill();
-        
-        
+
+
         // transform to frame with event in y-z and glue jet in z direction
         Matrix3 glueTOz(jets[GLUON].momentum().vector3(), Vector3(0,0,1));
         Vector3 transQuark = glueTOz*jets[QUARK2].momentum().vector3();
         Matrix3 quarksTOyz(Vector3(transQuark.x(), transQuark.y(), 0), Vector3(0,1,0));
-        
+
         // work out transformation to symmetric frame
         array<double, 3> x_cm;
         array<double, 3> x_cm_y;
@@ -242,13 +242,13 @@ namespace Rivet {
         double gamma = (x_pr[QUARK1] + x_pr[GLUON] + x_pr[QUARK2])/2;
         double beta_z = x_pr[GLUON]/(gamma*x_cm[GLUON]) - 1;
         double beta_y = (x_pr[QUARK2]/gamma - x_cm[QUARK2] - beta_z*x_cm_z[QUARK2])/x_cm_y[QUARK2];
-        
+
         LorentzTransform toSymmetric = LorentzTransform::mkObjTransformFromBeta(Vector3(0.,beta_y,beta_z)).
           postMult(quarksTOyz*glueTOz);
-        
+
         FourMomentum transGlue = toSymmetric.transform(jets[GLUON].momentum());
         double cutAngle = angle(toSymmetric.transform(jets[QUARK2].momentum()), transGlue)/2;
-        
+
         int nCh = 0;
         for (const Particle& chP : chParticles ) {
           FourMomentum pSymmFrame = toSymmetric.transform(FourMomentum(chP.p3().mod(), chP.px(), chP.py(), chP.pz()));

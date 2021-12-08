@@ -65,7 +65,7 @@ namespace Rivet {
 
       normalize(_h_thrust);
       normalize(_h_rho);
-      normalize(_h_y23); 
+      normalize(_h_y23);
 
     }
 

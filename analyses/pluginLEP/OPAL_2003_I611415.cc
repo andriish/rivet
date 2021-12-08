@@ -49,7 +49,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // need at least two jets with |eta|<2 and pT>3 
+      // need at least two jets with |eta|<2 and pT>3
       Jets jets = apply<FastJets>(event, "Jets").jetsByPt(Cuts::Et > 3.*GeV and Cuts::abseta < 2.);
       if(jets.size()<2) vetoEvent;
       if(jets[0].Et()<jets[1].Et()) swap(jets[0],jets[1]);

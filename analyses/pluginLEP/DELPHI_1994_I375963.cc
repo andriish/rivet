@@ -35,25 +35,25 @@ namespace Rivet {
 
       Particles muons = apply<PromptFinalState>(event, "muons").particles();
       Particles photons = apply<PromptFinalState>(event, "photons").particles();
-      
+
       ifilter_select(muons, [](const Particle& muon) {
         double theta = muon.theta()/M_PI * 180.;
         return (theta > 20. && theta < 160.);
       });
-      
+
       ifilter_select(photons, [](const Particle& photon) {
         double theta = photon.theta()/M_PI * 180.;
         double phi = photon.phi()/M_PI * 180.;
-        
+
         bool femc = (theta > 10. && theta < 36.5) || (theta > 143.5 && theta < 170.);
         bool hpc = theta > 43. && theta < 137. && abs(fmod(phi, 15.)) > 1.5 && abs(theta-90.) > 2.;
-        
+
         return (femc || hpc);
       });
-            
+
       if (muons.size() != 2) vetoEvent;
       if (photons.size() == 0) vetoEvent;
-      
+
       for (const Particle& photon : photons) {
         double minAngle = 1000.;
         for (const Particle& muon : muons) {

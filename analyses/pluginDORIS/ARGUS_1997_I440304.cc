@@ -28,7 +28,7 @@ namespace Rivet {
       book(_h_x,2,1,1);
     }
 
-    
+
     void findDecayProducts(Particle parent, Particles & Lambda_c, Particles & pions,unsigned int & nstable) {
       for(const Particle & p : parent.children()) {
 	if(p.abspid()==4122) {

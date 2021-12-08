@@ -38,7 +38,7 @@ namespace Rivet {
       {Histo1DPtr temp; _h_ctheta.add(0.3 ,0.4 ,book(temp, "/TMP/ctheta_3",20,-1.,1.));}
       {Histo1DPtr temp; _h_ctheta.add(0.4 ,1.  ,book(temp, "/TMP/ctheta_4",20,-1.,1.));}
       book(_h_ctheta_large,"/TMP/ctheta_large",20,-1.,1.);
-      
+
       {Histo1DPtr temp; _h_plus_cphi .add(0.3,0.6,book(temp, "/TMP/cphiP_0",10,0.,1.));}
       {Histo1DPtr temp; _h_plus_cphi .add(0.6,0.9,book(temp, "/TMP/cphiP_1",10,0.,1.));}
       {Histo1DPtr temp; _h_plus_cphi .add(0.9,1.2,book(temp, "/TMP/cphiP_2",10,0.,1.));}
@@ -59,7 +59,7 @@ namespace Rivet {
       {Histo1DPtr temp; _h_plus_lam.add(0.2 ,0.3 ,book(temp, "/TMP/lamP_2",20,-1.,1.));}
       {Histo1DPtr temp; _h_plus_lam.add(0.3 ,0.4 ,book(temp, "/TMP/lamP_3",20,-1.,1.));}
       {Histo1DPtr temp; _h_plus_lam.add(0.4 ,1.  ,book(temp, "/TMP/lamP_4",20,-1.,1.));}
-      
+
       {Histo1DPtr temp; _h_minus_lam.add(0.1 ,0.15,book(temp, "/TMP/lamM_0",20,-1.,1.));}
       {Histo1DPtr temp; _h_minus_lam.add(0.15,0.2 ,book(temp, "/TMP/lamM_1",20,-1.,1.));}
       {Histo1DPtr temp; _h_minus_lam.add(0.2 ,0.3 ,book(temp, "/TMP/lamM_2",20,-1.,1.));}
@@ -83,7 +83,7 @@ namespace Rivet {
       else {
 	beamAxis = beams.second.momentum().p3().unit();
       }
-	
+
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       // thrust, to define an axis
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
@@ -102,12 +102,12 @@ namespace Rivet {
 	if(lambda.children().size()!=2) continue;
 	// look at the decay products
 	Particle proton,pion;
-	if(lambda.children()[0].pid()==sign*2212 && 
+	if(lambda.children()[0].pid()==sign*2212 &&
 	   lambda.children()[1].pid()==-sign*211) {
 	  proton = lambda.children()[0];
 	  pion   = lambda.children()[1];
 	}
-	else if(lambda.children()[1].pid()==sign*2212 && 
+	else if(lambda.children()[1].pid()==sign*2212 &&
 		lambda.children()[0].pid()==-sign*211) {
 	  proton = lambda.children()[1];
 	  pion   = lambda.children()[0];
@@ -132,7 +132,7 @@ namespace Rivet {
 	    axis2 =-thrust.thrustAxis();
 	  }
 	  Vector3 axis3 = axis2.cross(axis1).unit();
-	  
+
 	  double pT = sqrt(sqr(thrust.thrustMajorAxis().dot(lambda.momentum().p3()))+
 			   sqr(thrust.thrustMinorAxis().dot(lambda.momentum().p3())));
 	  double cPhi = axis3.dot(pproton.p3().unit());
@@ -172,7 +172,7 @@ namespace Rivet {
       }
       return make_pair(sum2/sum1,sqrt(1./sum1));
     }
-    
+
     pair<double,double> calcAsymmetry(Scatter2DPtr hist,unsigned int mode) {
       double sum1(0.),sum2(0.);
       for (auto bin : hist->points() ) {
@@ -205,7 +205,7 @@ namespace Rivet {
 	alpha.first  /=aLam;
 	alpha.second /=aLam;
 	h_long->addPoint(x_val[ipoint], alpha.first, make_pair(x_err[ipoint],x_err[ipoint]),
-			   make_pair(alpha.second,alpha.second) );	
+			   make_pair(alpha.second,alpha.second) );
 	++ipoint;
       }
       normalize(_h_ctheta_large);
@@ -243,7 +243,7 @@ namespace Rivet {
       Scatter2DPtr h_trans_low;
       book(h_trans_low,2,3,1);
       h_trans_low->addPoint(5.15, alpha.first, make_pair(4.85,4.85), make_pair(alpha.second,alpha.second) );
-      
+
       Scatter2DPtr sMid;
       book(sMid,"/TMP/a_cphi_mid");
       asymm(_h_plus_cphi_mid,_h_minus_cphi_mid,sMid);
@@ -253,7 +253,7 @@ namespace Rivet {
       Scatter2DPtr h_trans_mid;
       book(h_trans_mid,2,4,1);
       h_trans_mid->addPoint(5.3, alpha.first, make_pair(4.7,4.7), make_pair(alpha.second,alpha.second) );
-      
+
       Scatter2DPtr sHigh;
       book(sHigh,"/TMP/a_cphi_high");
       asymm(_h_plus_cphi_high,_h_minus_cphi_high,sHigh);
@@ -286,7 +286,7 @@ namespace Rivet {
 
     //@}
 
-    
+
     /// @name Histograms
     //@{
     BinnedHistogram _h_ctheta,_h_plus_cphi,_h_minus_cphi,_h_plus_lam,_h_minus_lam;

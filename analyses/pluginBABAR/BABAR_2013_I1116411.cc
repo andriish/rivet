@@ -26,7 +26,7 @@ namespace Rivet {
       book(_h_q2 ,1, 1, 1);
 
     }
-    
+
     // Calculate the Q2 using mother and daughter charged lepton
     double q2(const Particle& B) {
       const Particle chlept = filter_select(B.children(), Cuts::pid==PID::POSITRON || Cuts::pid==PID::ANTIMUON)[0];

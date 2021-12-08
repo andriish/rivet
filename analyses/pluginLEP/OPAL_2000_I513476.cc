@@ -80,12 +80,12 @@ namespace Rivet {
       if (cfs.size() < 2) vetoEvent;
 
       _sumW->fill();
-      
+
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
-      
+
       // Thrust related
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
       _h_thrust    ->fill(thrust.thrust()     );
@@ -97,7 +97,7 @@ namespace Rivet {
       const Sphericity& sphericity = apply<Sphericity>(event, "Sphericity");
       _h_sphericity->fill(sphericity.sphericity());
       _h_aplanarity->fill(sphericity.aplanarity());
-      
+
       // C parameter
       const ParisiTensor& parisi = apply<ParisiTensor>(event, "Parisi");
       _h_C->fill(parisi.C());
@@ -108,7 +108,7 @@ namespace Rivet {
       _h_rhoH  ->fill(hemi.scaledMhigh());
       _h_wideB ->fill(hemi.Bmax());
       _h_totalB->fill(hemi.Bsum());
-      
+
       // Jets
       const FastJets& durjet = apply<FastJets>(event, "DurhamJets");
       const double y23 = durjet.clusterSeq()->exclusive_ymerge_max(2);

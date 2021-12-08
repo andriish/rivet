@@ -72,7 +72,7 @@ namespace Rivet {
     }
 
     /// Perform the per-event analysis
-    void analyze(const Event& event) {    
+    void analyze(const Event& event) {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::pid==300553)) {
         _weightSum->fill();
@@ -109,7 +109,7 @@ namespace Rivet {
 	}
       }
     }
-    
+
     pair<double,pair<double,double> > calcAlpha(Histo1DPtr hist) {
       if(hist->numEntries()==0.) return make_pair(0.,make_pair(0.,0.));
       double d = 3./(pow(hist->xMax(),3)-pow(hist->xMin(),3));
@@ -132,7 +132,7 @@ namespace Rivet {
       // and error
       double cc = -pow((sum3 + sqr(c)*sum4 - 2*c*sum5),3);
       double bb = -2*sqr(sum3 + sqr(c)*sum4 - 2*c*sum5)*(sum1 - c*sum2 + c*sum4 - sum5);
-      double aa =  sqr(sum1 - c*sum2 + c*sum4 - sum5)*(-sum3 - sqr(c)*sum4 + sqr(sum1 - c*sum2 + c*sum4 - sum5) + 2*c*sum5);      
+      double aa =  sqr(sum1 - c*sum2 + c*sum4 - sum5)*(-sum3 - sqr(c)*sum4 + sqr(sum1 - c*sum2 + c*sum4 - sum5) + 2*c*sum5);
       double dis = sqr(bb)-4.*aa*cc;
       if(dis>0.) {
 	dis = sqrt(dis);

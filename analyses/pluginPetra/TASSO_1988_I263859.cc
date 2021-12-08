@@ -48,7 +48,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
-      
+
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
@@ -84,7 +84,7 @@ namespace Rivet {
 	_h_pT   ->fill(pT/GeV         );
 	_h_rap  ->fill(abs(rapidityS) );
 
-	
+
       }
       unsigned int nCharged = cfs.particles().size();
       _h_pTin2 ->fill(pTin2sum /nCharged);

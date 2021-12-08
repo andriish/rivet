@@ -11,7 +11,7 @@ namespace Rivet {
 
 
   /// @brief Brahms pT spectra for id particles (pi+, pi-, K+, K-)
-  //  in small bins of rapidity, 5% central collisions. 
+  //  in small bins of rapidity, 5% central collisions.
   //  System: AuAu @ 200GeV/nn.
   class BRAHMS_2004_I647076 : public Analysis {
   public:
@@ -60,7 +60,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // Reject all non-central events. The paper does not speak of 
+      // Reject all non-central events. The paper does not speak of
       // any other event trigger, which in any case should matter
       // little for central events.
       if(apply<CentralityProjection>(event,"BCEN")() > 5.0) return;
@@ -75,7 +75,7 @@ namespace Rivet {
 	// First pions.
 	if (abs(id) == 211) {
           // Protect against decaying K0S and Lambda
-	  if (p.hasAncestor(310) || p.hasAncestor(-310) || 
+	  if (p.hasAncestor(310) || p.hasAncestor(-310) ||
 	    p.hasAncestor(3122) || p.hasAncestor(3122)) continue;
 	  for (int i = 0, N = rapIntervalsPi.size(); i < N; ++i) {
 	    if (y > rapIntervalsPi[i].first && y <= rapIntervalsPi[i].second) {
@@ -85,7 +85,7 @@ namespace Rivet {
 	      else piMinus[i]->fill(pT, nWeight);
 	      break;
 	    }
-	  } 
+	  }
 	}
 	// Then kaons.
 	else if (abs(id) == 321) {
@@ -97,7 +97,7 @@ namespace Rivet {
 	      else kMinus[i]->fill(pT, nWeight);
 	      break;
 	    }
-	  } 
+	  }
 	}
       }
     }

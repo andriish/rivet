@@ -40,22 +40,22 @@ namespace Rivet {
       int offset2 = 0;
 
       if (isCompatibleWithSqrtS(133*GeV)) {
-	offset  = 0;			   
-	offset2 = 1;			   
-      }					   
-      else if (isCompatibleWithSqrtS(161*GeV)) {
-	offset  = 0;			   
-	offset2 = 2;			   
-      }					   
-      else if (isCompatibleWithSqrtS(172*GeV)) {
-	offset  = 0;			   
-	offset2 = 3;			   
-      }					   
-      else if (isCompatibleWithSqrtS(183*GeV)) {
-	offset  = 1;			   
-	offset2 = 1;			   
+	offset  = 0;
+	offset2 = 1;
       }
-      
+      else if (isCompatibleWithSqrtS(161*GeV)) {
+	offset  = 0;
+	offset2 = 2;
+      }
+      else if (isCompatibleWithSqrtS(172*GeV)) {
+	offset  = 0;
+	offset2 = 3;
+      }
+      else if (isCompatibleWithSqrtS(183*GeV)) {
+	offset  = 1;
+	offset2 = 1;
+      }
+
       book(_h_thrust          , 13+offset, 1, offset2);
       book(_h_major           , 15+offset, 1, offset2);
       book(_h_minor           , 17+offset, 1, offset2);

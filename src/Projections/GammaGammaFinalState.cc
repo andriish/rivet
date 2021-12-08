@@ -26,7 +26,7 @@ namespace Rivet {
     ConstGenParticlePtr lep1 = gglep.out().first .genParticle();
     ConstGenParticlePtr lep2 = gglep.out().second.genParticle();
     // Ensure that we skip the GammaGamma leptons
-    for (const Particle& p : fs.particles()) { 
+    for (const Particle& p : fs.particles()) {
       if (p.genParticle() != lep1 &&
 	  p.genParticle() != lep2)  _theParticles.push_back(p);
     }

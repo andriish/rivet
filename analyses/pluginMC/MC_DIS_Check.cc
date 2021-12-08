@@ -30,7 +30,7 @@ namespace Rivet {
       declare(DISKinematics(lepton), "Kinematics");
 
       // Book histograms
-	
+
       book(_hist_Q2, "Q2",logspace(100,0.1, 1000.0));
       book(_hist_y, "y",100,0.,1.);
       book(_hist_x, "xBj",logspace(100,0.00001, 1.0));

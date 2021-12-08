@@ -59,7 +59,7 @@ namespace Rivet {
         else  ++nstable;
       }
     }
-    
+
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {

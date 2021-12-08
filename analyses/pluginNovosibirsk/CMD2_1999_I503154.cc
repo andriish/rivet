@@ -19,14 +19,14 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      
+
       // Initialise and register projections
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
       book(_numEtaGamma, "TMP/EtaGamma");
     }
 
-    
+
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
       for (const Particle &child : p.children()) {
 	if(child.children().empty()) {
@@ -40,16 +40,16 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      
+
       const FinalState& fs = apply<FinalState>(event, "FS");
-      
+
       map<long,int> nCount;
       int ntotal(0);
       for (const Particle& p : fs.particles()) {
 	nCount[p.pid()] += 1;
 	++ntotal;
       }
-      
+
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
@@ -77,7 +77,7 @@ namespace Rivet {
 	    _numEtaGamma->fill();
 	}
       }
-      
+
     }
 
 
@@ -86,7 +86,7 @@ namespace Rivet {
       double sigma = _numEtaGamma->val();
       double error = _numEtaGamma->err();
       sigma *= crossSection()/ sumOfWeights() /nanobarn;
-      error *= crossSection()/ sumOfWeights() /nanobarn; 
+      error *= crossSection()/ sumOfWeights() /nanobarn;
       Scatter2D temphisto(refData(1, 1, 1));
       Scatter2DPtr mult;
       book(mult, 1, 1, 1);

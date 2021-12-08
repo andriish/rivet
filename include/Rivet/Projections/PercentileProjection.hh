@@ -107,7 +107,7 @@ public:
     double pcnt = lookup(obs);
     if ( pcnt >= 0.0 ) set(pcnt);
     MSG_DEBUG("Observable(" << pobs.name() << ")="
-	      << std::setw(16) << obs 
+	      << std::setw(16) << obs
 	      << "-> Percentile=" << std::setw(16) << pcnt << "%");
   }
 

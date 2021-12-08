@@ -45,9 +45,9 @@ namespace Rivet {
 
       double val = _counter->val();
       double err = _counter->err();
-      
+
       Scatter2D tempScat(refData(1, 1, 1));
-      
+
       for (size_t b = 0; b < tempScat.numPoints(); b++) {
         const double x  = tempScat.point(b).x();
         pair<double,double> ex = tempScat.point(b).xErrs();

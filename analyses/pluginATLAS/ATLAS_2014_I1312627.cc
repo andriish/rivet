@@ -51,12 +51,12 @@ namespace Rivet {
 
       // Boson finders
       FinalState fs;
-      WFinder wfinder(fs, cuts, _mode > 1? PID::MUON : PID::ELECTRON, 40*GeV, 8*TeV, 0., 0.1, 
-				              WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::NODECAY, 
+      WFinder wfinder(fs, cuts, _mode > 1? PID::MUON : PID::ELECTRON, 40*GeV, 8*TeV, 0., 0.1,
+				              WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::NODECAY,
                       WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
       declare(wfinder, "WF");
 
-      ZFinder zfinder(fs, cuts, _mode > 1? PID::MUON : PID::ELECTRON, 66*GeV, 116*GeV, 0.1, 
+      ZFinder zfinder(fs, cuts, _mode > 1? PID::MUON : PID::ELECTRON, 66*GeV, 116*GeV, 0.1,
                       ZFinder::ChargedLeptons::PROMPT, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::NO);
       declare(zfinder, "ZF");
 

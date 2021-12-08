@@ -47,7 +47,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // Loop over D mesons 
+      // Loop over D mesons
       for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==PID::D0 or
 									       Cuts::abspid==PID::DPLUS )) {
         if (p.abspid()==PID::D0) {

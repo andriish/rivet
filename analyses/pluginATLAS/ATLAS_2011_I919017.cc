@@ -904,7 +904,7 @@ namespace Rivet {
       safeinvscale(_h_N06_00_19_15_24, _numjets06_00_19_15_24->val());
       safeinvscale(_h_N04_00_19_24_40, _numjets04_00_19_24_40->val());
       safeinvscale(_h_N06_00_19_24_40, _numjets06_00_19_24_40->val());
-      
+
       // z histos: 1/N_jet dN_track / dz_track->val()
       safeinvscale(_h_z04_00_05_04_06, _numjets04_00_05_04_06->val());
       safeinvscale(_h_z06_00_05_04_06, _numjets06_00_05_04_06->val());

@@ -33,7 +33,7 @@ namespace Rivet {
       book(_hist_ups2_lambda , 4,1,1);
       book(_hist_cont_lambda1, 5,1,1);
       book(_hist_cont_lambda2, 6,1,1);
-           
+
       book(_hist_ups1_xi     , 7,1,1);
       book(_hist_ups2_xi     , 8,1,1);
       book(_hist_cont_xi     , 9,1,1);
@@ -61,7 +61,7 @@ namespace Rivet {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       Particles upsilons = ufs.particles(Cuts::pid==553 || Cuts::pid==100553);
       // continuum
-      if (upsilons.empty()) { 
+      if (upsilons.empty()) {
         _weightSum_cont->fill();
         for (const Particle& p : ufs.particles()) {
           int id = p.abspid();

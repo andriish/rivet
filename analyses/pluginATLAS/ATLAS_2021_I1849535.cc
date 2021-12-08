@@ -18,7 +18,7 @@ namespace Rivet {
       void init() {
 
         // Selection
-        Cut el_fid_sel = (Cuts::abseta < 2.47) && (Cuts::pT > 7*GeV); 
+        Cut el_fid_sel = (Cuts::abseta < 2.47) && (Cuts::pT > 7*GeV);
         Cut mu_fid_sel = (Cuts::abseta < 2.7) && (Cuts::pT > 5*GeV);
 
         PromptFinalState photons(Cuts::abspid == PID::PHOTON);
@@ -42,7 +42,7 @@ namespace Rivet {
         book(_h["m4l_4e_paper"],   3,1,1);
         book(_h["m4l_2e2mu_paper"],4,1,1);
 
-        book(_h["mZ1_Z_paper"],5,1,1);  
+        book(_h["mZ1_Z_paper"],5,1,1);
         book(_h["mZ1_H_paper"],6,1,1);
         book(_h["mZ1_offshell_paper"],7,1,1);
         book(_h["mZ1_ZZ_paper"],8,1,1);
@@ -54,7 +54,7 @@ namespace Rivet {
 
         book(_h["ptZ1_Z_paper"],13,1,1);
         book(_h["ptZ1_H_paper"],14,1,1);
-        book(_h["ptZ1_offshell_paper"],15,1,1); 
+        book(_h["ptZ1_offshell_paper"],15,1,1);
         book(_h["ptZ1_ZZ_paper"],16,1,1);
 
         book(_h["ptZ2_Z_paper"],17,1,1);
@@ -124,7 +124,7 @@ namespace Rivet {
         Dilepton _z1, _z2;
         FlavCombi type() const {
           if (     _z1.flavour() == 13 && _z2.flavour() == 13) { return FlavCombi::mm; }
-          else if (_z1.flavour() == 11 && _z2.flavour() == 11) { return FlavCombi::ee; } 
+          else if (_z1.flavour() == 11 && _z2.flavour() == 11) { return FlavCombi::ee; }
           else if (_z1.flavour() == 13 && _z2.flavour() == 11) { return FlavCombi::me; }
           else if (_z1.flavour() == 11 && _z2.flavour() == 13) { return FlavCombi::em; }
           else  return FlavCombi::undefined;
@@ -144,7 +144,7 @@ namespace Rivet {
               pTinCone += track.pT();
           }
           for (const Particle& tlep: truthLeptons) {
-            float dR= deltaR(lep.momentum(),  tlep.momentum()); 
+            float dR= deltaR(lep.momentum(),  tlep.momentum());
             if ( dR>0 && dR < 0.3)
               pTinCone -= tlep.pT();
           }
@@ -163,9 +163,9 @@ namespace Rivet {
         std::vector<Quadruplet> quads {};
 
         size_t n_parts = particles.size();
-        if (n_parts < 4)  return quads; 
+        if (n_parts < 4)  return quads;
 
-        // STEP 1: find SFOS pairs 
+        // STEP 1: find SFOS pairs
         std::vector<Dilepton> SFOS;
         for (size_t i = 0; i < n_parts; ++i) {
           for (size_t j = 0; j < i; ++j) {
@@ -202,7 +202,7 @@ namespace Rivet {
 
             //think technically this should happen before quad formation now and with all leptons not just those in quad so commenting out
             //std::vector<double> lep_pt { SFOS[k].pTl1(), SFOS[k].pTl2(), SFOS[l].pTl1(), SFOS[l].pTl2() };
-            //std::sort(lep_pt.begin(), lep_pt.end(), std::greater<double>()); 
+            //std::sort(lep_pt.begin(), lep_pt.end(), std::greater<double>());
             //if (!(lep_pt[0] > _pt_lep1*GeV && lep_pt[1] > _pt_lep2*GeV && lep_pt[2] > _pt_lep3*GeV)) continue;
             quads.push_back( Quadruplet(SFOS[k], SFOS[l]) );
           }
@@ -242,7 +242,7 @@ namespace Rivet {
         if (!passPtLeptons(dressed_leptons)) vetoEvent;
 
         auto foundDressed = getBestQuads(dressed_leptons);
-        // if we don't find any quad, we can stop here 
+        // if we don't find any quad, we can stop here
         if (foundDressed.empty())  vetoEvent;
         if (!passesTruthIsolation(foundDressed[0], charged_tracks, dressed_leptons)) vetoEvent;
 
@@ -262,7 +262,7 @@ namespace Rivet {
         else if (pt4l <  20.)	  _h["m4l_ptslice2_paper"]->fill(m4l);
         else if (pt4l < 50.)	  _h["m4l_ptslice3_paper"]->fill(m4l);
         else if (pt4l < 100.)	  _h["m4l_ptslice4_paper"]->fill(m4l);
-        else if (pt4l < 600.)	  _h["m4l_ptslice5_paper"]->fill(m4l); 
+        else if (pt4l < 600.)	  _h["m4l_ptslice5_paper"]->fill(m4l);
 
         if (y4l < 0.3)	  _h["m4l_yslice1_paper"]->fill(m4l);
         else if (y4l < 0.6)	  _h["m4l_yslice2_paper"]->fill(m4l);

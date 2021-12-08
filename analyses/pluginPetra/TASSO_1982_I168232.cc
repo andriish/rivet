@@ -23,7 +23,7 @@ namespace Rivet {
 
       declare(Beam(), "Beams");
       declare(UnstableParticles(), "UFS");
-      
+
       // Book histograms
       sqs = 1.0;
       if(isCompatibleWithSqrtS(14*GeV)) {

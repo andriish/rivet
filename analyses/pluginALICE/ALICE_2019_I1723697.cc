@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ALICE_2019_I1723697() : 
+    ALICE_2019_I1723697() :
       CumulantAnalysis("ALICE_2019_I1723697") {}
 
 
@@ -40,7 +40,7 @@ namespace Rivet {
         else if (bOpt == "pPb") sysType = pPb;
         else if (bOpt == "XeXe") sysType = XeXe;
         else if (bOpt == "PbPb") sysType = PbPb;
-        else MSG_ERROR("Could not decipher beam type. For rivet-merge, set -a ALICE_2019_I1723697:beam=OPT, where opt is pp, pPb, XeXe or PbPb.");        
+        else MSG_ERROR("Could not decipher beam type. For rivet-merge, set -a ALICE_2019_I1723697:beam=OPT, where opt is pp, pPb, XeXe or PbPb.");
         MSG_WARNING("Setting beam type to "+bOpt);
       }
       // Sanity check
@@ -51,10 +51,10 @@ namespace Rivet {
       // Initialise and register projections
       // Declare the trigger projection.
       declare<ALICE::V0AndTrigger>(ALICE::V0AndTrigger(),"V0-AND");
-      
+
       // Centrality projection for high multiplicity trigger in pp.
       if (sysType == pp)
-        declareCentrality(ALICE::V0MMultiplicity(), 
+        declareCentrality(ALICE::V0MMultiplicity(),
 	  "ALICE_2015_PPCentrality", "V0M","V0M");
 
       // The full central charged final state.
@@ -104,15 +104,15 @@ namespace Rivet {
       book(h_c26, "c26", refData(5 + n1 + n2, 1, 1));
       if (sysType == XeXe || sysType == PbPb)
         book(h_c28, "c28", refData(6 + n1 + n2 + n3, 1, 1));
-     
+
       // Book correlators. First the ungapped ones.
       ec22 = bookECorrelator<2,2>("ec22", refData(4 + n1, 1, 1));
       ec24 = bookECorrelator<2,4>("ec24", refData(4 + n1, 1, 1));
-      
+
       ec622 = bookECorrelator<2,2>("ec622", refData(5 + n1 + n2, 1, 1));
       ec624 = bookECorrelator<2,4>("ec624", refData(5 + n1 + n2, 1, 1));
       ec626 = bookECorrelator<2,6>("ec626", refData(5 + n1 + n2, 1, 1));
-      
+
       // And the ones just valid for XeXe and PbPb.
       if (sysType == XeXe || sysType == PbPb) {
 	    ec822 = bookECorrelator<2,2>("ec822", refData(6 + n1 + n2 + n3, 1, 1));
@@ -142,11 +142,11 @@ namespace Rivet {
       if (!apply<ALICE::V0AndTrigger>(event, "V0-AND")() ) vetoEvent;
 
       // High multiplicity trigger for pp.
-      if (sysType == pp && apply<CentralityProjection>(event, "V0M")() > 0.1) 
+      if (sysType == pp && apply<CentralityProjection>(event, "V0M")() > 0.1)
         vetoEvent;
       // Number of charged particles.
       const double nch = apply<ChargedFinalState>(event, "CFS").size();
-      
+
       // The correlators projections.
       const Correlators& c = applyProjection<Correlators>(event,"Correlators");
       const Correlators& cp10 =
@@ -165,7 +165,7 @@ namespace Rivet {
       ec622->fill(nch, c);
       ec624->fill(nch, c);
       ec626->fill(nch, c);
-      
+
       if (sysType == XeXe || sysType == PbPb) {
         ec822->fill(nch, c);
         ec824->fill(nch, c);
@@ -197,7 +197,7 @@ namespace Rivet {
       vnTwoInt(h_v22gap, ec22gap);
       vnTwoInt(h_v32gap, ec32gap);
       vnTwoInt(h_v42gap, ec42gap);
-      
+
       if (sysType != pp)
         vnFourInt(h_v24, ec22, ec24);
       vnSixInt(h_v26, ec622, ec624, ec626);
@@ -235,7 +235,7 @@ namespace Rivet {
     ECorrPtr ec622;
     ECorrPtr ec624;
     ECorrPtr ec626;
-    
+
     ECorrPtr ec822;
     ECorrPtr ec824;
     ECorrPtr ec826;

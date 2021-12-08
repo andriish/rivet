@@ -6,7 +6,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// Generic analysis looking at kt splitting scales of partons

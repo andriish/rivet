@@ -99,7 +99,7 @@ namespace Rivet {
         else if (abs_photon_eta < 2.5)  _h_phveryforward_jetforward->fill(photon_pt);
       }
     }
-    
+
 
 
     /// Normalise histograms etc., after the run

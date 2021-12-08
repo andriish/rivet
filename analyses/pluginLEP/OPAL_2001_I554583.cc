@@ -174,7 +174,7 @@ namespace Rivet {
       	normalize(hmu);
       	pair<double,double> P_mu = calcP(hmu,1);
       	s1 += P_mu.first/sqr(P_mu.second);
-      	s2 += 1./sqr(P_mu.second);	
+      	s2 += 1./sqr(P_mu.second);
 	Histo1DPtr hpi = ix<10 ? _h_pi  .histos()[ix] : _t_pi;
       	normalize(hpi);
   	pair<double,double> P_pi = calcP(hpi,0);

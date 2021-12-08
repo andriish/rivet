@@ -8,7 +8,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   class MC_TTBAR : public Analysis {
@@ -139,7 +139,7 @@ namespace Rivet {
       else if (_mode == 3 && nLeps == 2 && jets.size() < 2)  vetoEvent;
       MSG_DEBUG("Event failed jet multiplicity cut");
 
-      // Fill histograms for inclusive jet kinematics 
+      // Fill histograms for inclusive jet kinematics
       _h["njets"]->fill(jets.size(), weight);
       if (jets.size() > 0)  _h["jet_1_pT"]->fill(jets[0].pT()/GeV, weight);
       if (jets.size() > 1)  _h["jet_2_pT"]->fill(jets[1].pT()/GeV, weight);

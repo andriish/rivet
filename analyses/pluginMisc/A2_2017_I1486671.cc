@@ -27,7 +27,7 @@ namespace Rivet {
       book(_weight_omega,"TMP/weight_omega");
     }
 
-    void findDecayProducts(const Particle & mother, unsigned int & nstable, unsigned int & npi, 
+    void findDecayProducts(const Particle & mother, unsigned int & nstable, unsigned int & npi,
                            unsigned int & nep, unsigned int & nem, unsigned int & ngamma,
 			   FourMomentum & ptot) {
       for(const Particle & p : mother.children()) {

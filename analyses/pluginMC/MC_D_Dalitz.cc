@@ -207,7 +207,7 @@ namespace Rivet {
     Histo1DPtr _h_pipi1;
     // Dalitz plot
     Histo2DPtr _dalitz1;
-    
+
     // Histograms for D^0\to K^-\pi^+\pi^0
     // Histogram for the K^-\pi^+ mass
     Histo1DPtr _h_minus2;

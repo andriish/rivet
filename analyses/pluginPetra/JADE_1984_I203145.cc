@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief rho0 and K*+/- spectra at 35 GeV 
+  /// @brief rho0 and K*+/- spectra at 35 GeV
   class JADE_1984_I203145 : public Analysis {
   public:
 

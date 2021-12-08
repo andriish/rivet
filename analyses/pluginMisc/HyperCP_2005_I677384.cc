@@ -37,12 +37,12 @@ namespace Rivet {
 	int sign = Omega.pid()/3334;
 	if(Omega.children().size()!=2) continue;
 	Particle Lambda,kaon;
-	if(Omega.children()[0].pid()==sign*3122 && 
+	if(Omega.children()[0].pid()==sign*3122 &&
 	   Omega.children()[1].pid()==-sign*321) {
 	  Lambda = Omega.children()[0];
 	  kaon   = Omega.children()[1];
 	}
-	else if(Omega.children()[1].pid()==sign*3122 && 
+	else if(Omega.children()[1].pid()==sign*3122 &&
 		Omega.children()[0].pid()==-sign*321) {
 	  Lambda = Omega.children()[1];
 	  kaon   = Omega.children()[0];
@@ -51,12 +51,12 @@ namespace Rivet {
 	  continue;
 	if(Lambda.children().size()!=2) continue;
 	Particle proton,pion;
-	if(Lambda.children()[0].pid()==sign*2212 && 
+	if(Lambda.children()[0].pid()==sign*2212 &&
 	   Lambda.children()[1].pid()==-sign*211) {
 	  proton = Lambda.children()[0];
 	  pion   = Lambda.children()[1];
 	}
-	else if(Lambda.children()[1].pid()==sign*2212 && 
+	else if(Lambda.children()[1].pid()==sign*2212 &&
 		Lambda.children()[0].pid()==-sign*211) {
 	  proton = Lambda.children()[1];
 	  pion   = Lambda.children()[0];

@@ -79,7 +79,7 @@ namespace Rivet {
     void finalize() {
 
       normalize(_hist_pipi);
-      
+
     }
 
     //@}

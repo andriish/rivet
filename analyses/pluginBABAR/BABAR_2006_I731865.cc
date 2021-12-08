@@ -83,7 +83,7 @@ namespace Rivet {
       double error = _nPhiEta->err();
       sigma *= crossSection()/ sumOfWeights() /femtobarn;
       error *= crossSection()/ sumOfWeights() /femtobarn;
-      
+
       Scatter2D temphisto(refData(1, 1, 2));
       Scatter2DPtr  mult;
       book(mult, 1, 1, 2);

@@ -35,7 +35,7 @@ namespace Rivet {
 	}
 	else if(!p.children().empty()) {
 	  analyzeDecay(p,kaons);
-	} 
+	}
       }
     }
 

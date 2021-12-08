@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief pi+- K+- K0S pbar spectra continuum and Upsilon 1s 
+  /// @brief pi+- K+- K0S pbar spectra continuum and Upsilon 1s
   class ARGUS_1989_I276860 : public Analysis {
   public:
 
@@ -28,17 +28,17 @@ namespace Rivet {
       book(_h_pi_cont_p,  5, 1, 2);
       book(_h_pi_ups1_z,  9, 1, 1);
       book(_h_pi_cont_z,  9, 1, 2);
-           
+
       book(_h_Kp_ups1_p,  6, 1, 1);
       book(_h_Kp_cont_p,  6, 1, 2);
       book(_h_Kp_ups1_z, 10, 1, 1);
       book(_h_Kp_cont_z, 10, 1, 2);
-           
+
       book(_h_KS_ups1_p,  7, 1, 1);
       book(_h_KS_cont_p,  7, 1, 2);
       book(_h_KS_ups1_z, 11, 1, 1);
       book(_h_KS_cont_z, 11, 1, 2);
-           
+
       book(_h_pt_ups1_p,  8, 1, 1);
       book(_h_pt_cont_p,  8, 1, 2);
       book(_h_pt_ups1_z, 12, 1, 1);
@@ -61,7 +61,7 @@ namespace Rivet {
       book(_weightSum_cont,"/TMP/weightSum_cont");
       book(_weightSum_Ups1,"/TMP/weightSum_Ups1");
     }
-    
+
    /// Recursively walk the decay tree to find decay products of @a p
     void findDecayProducts(Particle mother, Particles& unstable) {
       for(const Particle & p: mother.children()) {
@@ -82,7 +82,7 @@ namespace Rivet {
       const FinalState & fs = apply<FinalState>(event, "FS");
       Particles upsilons = ufs.particles(Cuts::pid==553);
       // Continuum
-      if (upsilons.empty()) { 
+      if (upsilons.empty()) {
         MSG_DEBUG("No Upsilons found => continuum event");
         _weightSum_cont->fill();
 	// stable particles
@@ -127,7 +127,7 @@ namespace Rivet {
 	}
       }
       // Upsilon(s) found
-      else { 
+      else {
         MSG_DEBUG("Upsilons found => resonance event");
         for (const Particle& ups : upsilons) {
 	  _weightSum_Ups1->fill();
@@ -241,7 +241,7 @@ namespace Rivet {
     //@{
     Histo1DPtr _h_pi_ups1_p, _h_pi_cont_p, _h_pi_ups1_z, _h_pi_cont_z;
     Histo1DPtr _h_Kp_ups1_p, _h_Kp_cont_p, _h_Kp_ups1_z, _h_Kp_cont_z;
-    Histo1DPtr _h_KS_ups1_p, _h_KS_cont_p, _h_KS_ups1_z, _h_KS_cont_z; 
+    Histo1DPtr _h_KS_ups1_p, _h_KS_cont_p, _h_KS_ups1_z, _h_KS_cont_z;
     Histo1DPtr _h_pt_ups1_p, _h_pt_cont_p, _h_pt_ups1_z, _h_pt_cont_z;
 
       // Counters

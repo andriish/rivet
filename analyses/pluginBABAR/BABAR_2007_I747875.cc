@@ -32,8 +32,8 @@ namespace Rivet {
       book(_cKpKmpi0pi0  , "TMP/KpKmpi0pi0");
       book(_cphif0pi0pi0 , "TMP/phif0pi0pi0");
       book(_c2Kp2Km      , "TMP/2Kp2Km");
-      
-    } 
+
+    }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
       for(const Particle &child : p.children()) {
@@ -45,7 +45,7 @@ namespace Rivet {
 	  findChildren(child,nRes,ncount);
       }
     }
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const FinalState& fs = apply<FinalState>(event, "FS");

@@ -5,7 +5,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// ATLAS Z phi* measurement

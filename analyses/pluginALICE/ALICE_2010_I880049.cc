@@ -10,7 +10,7 @@
 namespace Rivet {
 
   /// @brief ALICE PbPb at 2.76 TeV multiplicity at mid-rapidity
-  class ALICE_2010_I880049 : public Analysis {    
+  class ALICE_2010_I880049 : public Analysis {
   public:
 
     /// Constructor
@@ -84,7 +84,7 @@ namespace Rivet {
       }
     }
 
-    
+
     /// Normalise histograms etc., after the run
     //void finalize() {   }
 

@@ -65,7 +65,7 @@ namespace Rivet {
 	_histos[116]->fill(10.579,double(ncount[3312]+ncount[-3312]));
       }
     }
-    
+
     void findDecayProducts(const Particle & mother,
 			   map<int,unsigned int> & ncount) {
       for(const Particle & p : mother.children()) {

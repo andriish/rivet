@@ -39,7 +39,7 @@ namespace Rivet {
       }
     }
 
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       for(const Particle & ups : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==553) ) {

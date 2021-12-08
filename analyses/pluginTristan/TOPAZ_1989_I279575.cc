@@ -18,7 +18,7 @@ namespace Rivet {
     //@{
 
     /// Book histograms and initialise projections before the run
-    void init() {   
+    void init() {
 
 
       // Initialise and register projections

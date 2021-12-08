@@ -16,7 +16,7 @@ namespace Rivet {
       CMS_2016_I1471281(std::string name="CMS_2016_I1471281")
         : Analysis(name)
         {
-          _mode = 0; // init 
+          _mode = 0; // init
         }
 
 
@@ -25,7 +25,7 @@ namespace Rivet {
 
       /// Book histograms and initialise projections before the run
       void init() {
-        
+
         // Get options from the new option system
         // default to both.
         if ( getOption("VMODE") == "BOTH" ) _mode = 0;
@@ -41,7 +41,7 @@ namespace Rivet {
         WFinder wmunu_Finder(fs, cut_mu, PID::MUON, 0*GeV, YODA::MAXDOUBLE, 0*GeV, 0, WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
         declare(wmunu_Finder, "Wmunu_Finder");
 
-        // Dressed Zs ... 
+        // Dressed Zs ...
         ZFinder zmumu_Finder(fs, cut_mu, PID::MUON, 60*GeV, 120*GeV, 0, ZFinder::ChargedLeptons::PROMPT, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::NO);
         declare(zmumu_Finder, "Zmumu_Finder");
 
@@ -93,7 +93,7 @@ namespace Rivet {
         if (_mode == 0 || _mode == 2) {
           normalize(_hist_ZtoMuMuPt);
         }
-              
+
 
       }
 

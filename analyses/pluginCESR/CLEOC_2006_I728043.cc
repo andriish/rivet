@@ -63,7 +63,7 @@ namespace Rivet {
 	}
       }
     }
-    
+
     void findDecayProducts(const Particle & mother, Particles & ssbar) {
       for(const Particle & p : mother.children()) {
         int id = p.pid();

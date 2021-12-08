@@ -82,8 +82,8 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      normalize(_histTot); normalize(_histChTot); normalize(_histHadrTot); 
-      normalize(_histHadrChTot); normalize(_histThrust); normalize(_histMajor); 
+      normalize(_histTot); normalize(_histChTot); normalize(_histHadrTot);
+      normalize(_histHadrChTot); normalize(_histThrust); normalize(_histMajor);
       normalize(_histSphericity); normalize(_histAplanarity);
     }
 

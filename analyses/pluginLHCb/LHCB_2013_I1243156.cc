@@ -28,7 +28,7 @@ namespace Rivet {
 
     }
 
-    
+
     /// Recursively walk the decay tree to find decay products of @a p
     void findDecayProducts(Particle mother, Particles & dstar, Particles & d0, Particles & pi,unsigned int & ncount) {
       for(const Particle & p: mother.children()) {

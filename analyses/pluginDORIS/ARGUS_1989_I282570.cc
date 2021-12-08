@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Spectrum for D_s1 
+  /// @brief Spectrum for D_s1
   class ARGUS_1989_I282570 : public Analysis {
   public:
 

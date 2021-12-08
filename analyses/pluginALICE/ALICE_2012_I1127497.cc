@@ -52,7 +52,7 @@ namespace Rivet {
         // in some cases in this analysis the binning differ from each other,
         // so this is easy-to-implement way to account for that.
         std::string namePP = mkAxisCode(ihist+1,1,1) + "-pp";
-        
+
         // The binning is taken from the reference data
         book(_histNch[PP][ihist], namePP, refData(ihist+1, 1, 1));
 

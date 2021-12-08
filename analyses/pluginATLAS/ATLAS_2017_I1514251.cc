@@ -7,13 +7,13 @@
 namespace Rivet {
 
 
-  /// Z + jets in pp at 13 TeV 
+  /// Z + jets in pp at 13 TeV
   class ATLAS_2017_I1514251 : public Analysis {
   public:
-    
+
     /// Constructor
     RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2017_I1514251);
-    
+
     /// Book histograms and initialise projections before the run
     void init() {
 
@@ -25,21 +25,21 @@ namespace Rivet {
       if ( getOption("LMODE") == "EMU" ) _mode = 2;
 
       const FinalState fs;
-      
+
       Cut cuts = (Cuts::pT > 25*GeV) && (Cuts::abseta < 2.5);
-      
+
       ZFinder zeefinder(fs, cuts, PID::ELECTRON, 71*GeV, 111*GeV);
       ZFinder zmumufinder(fs, cuts, PID::MUON, 71*GeV, 111*GeV);
       declare(zeefinder, "zeefinder");
       declare(zmumufinder, "zmumufinder");
-      
+
       // Define veto FS in order to prevent Z-decay products entering the jet algorithm
       VetoedFinalState had_fs;
       had_fs.addVetoOnThisFinalState(zeefinder);
       had_fs.addVetoOnThisFinalState(zmumufinder);
       FastJets jets(had_fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::ALL, JetAlg::Invisibles::DECAY);
       declare(jets, "jets");
-      
+
       // individual channels
       book(_h_Njets_excl,  _mode + 1, 1, 1);
       book(_h_Njets,       _mode + 4, 1, 1);
@@ -56,19 +56,19 @@ namespace Rivet {
       book(_h_jet_mass             , _mode + 34, 1, 1);
 
     }
-    
-    
+
+
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
       const ZFinder& zeefinder = apply<ZFinder>(event, "zeefinder");
       const ZFinder& zmumufinder = apply<ZFinder>(event, "zmumufinder");
-      
+
       const Particles& zees = zeefinder.bosons();
       const Particles& zmumus = zmumufinder.bosons();
 
-      //Veto Z->mumu in electron mode, and vice versa:      
+      //Veto Z->mumu in electron mode, and vice versa:
       if (_mode==0 && (zees.size()!=1 || zmumus.size() ) )  vetoEvent;
 
       if (_mode==1 && (zees.size() || zmumus.size()!=1 ) )  vetoEvent;
@@ -84,13 +84,13 @@ namespace Rivet {
       if (leptons.size() != 2) vetoEvent;
 
       Jets jets =  apply<JetAlg>(event, "jets").jetsByPt(Cuts::pT > 30*GeV && Cuts::absrap < 2.5);
-      
+
       bool veto = false;
       for(const Jet& j : jets)  {
         for(const Particle& l : leptons) { veto |= deltaR(j, l) < 0.4; }
       }
       if (veto) vetoEvent;
-      
+
       double HT=0;
       for(const Particle& l : leptons) { HT += l.pT(); }
 
@@ -100,7 +100,7 @@ namespace Rivet {
 
       if (Njets < 1)  vetoEvent;
 
-      
+
       for(size_t i = 0; i < Njets; ++i) { HT += jets[i].pT(); }
       const double pT = jets[0].pT();
       const double rap = jets[0].rapidity();
@@ -176,7 +176,7 @@ namespace Rivet {
     Histo1DPtr   _h_leading_jet_pT_4jet;
     Histo1DPtr   _h_jet_dphi;
     Histo1DPtr   _h_jet_mass;
-  
+
   };
 
 

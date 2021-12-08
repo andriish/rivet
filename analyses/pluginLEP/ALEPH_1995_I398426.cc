@@ -55,7 +55,7 @@ namespace Rivet {
 	if(p.abspid()==511 || p.abspid()==521) {
 	  if(p.parents()[0].abspid()==p.abspid()) continue;
 	  if(p.parents()[0].abspid()==513 || p.parents()[0].abspid()==523) continue;
-	  _c_B->fill(); 
+	  _c_B->fill();
 	}
 	// B*
 	else {
@@ -63,18 +63,18 @@ namespace Rivet {
 	  Particle decay;
 	  if(p.children().size()!=2) continue;
 	  int mid = p.abspid()-2;
-	  if(p.children()[0].pid()==sign*mid && 
+	  if(p.children()[0].pid()==sign*mid &&
 	     p.children()[1].pid()==22) {
 	    decay = p.children()[1];
 	  }
-	  else if(p.children()[1].pid()==sign*mid && 
+	  else if(p.children()[1].pid()==sign*mid &&
 		  p.children()[0].pid()==22) {
 	    decay = p.children()[0];
 	  }
 	  else
 	    continue;
 	  LorentzTransform boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
-	  Vector3 e1z = p.p3().unit();	
+	  Vector3 e1z = p.p3().unit();
 	  FourMomentum pp = boost.transform(decay.momentum());
 	  Vector3 axis1 = boost.transform(decay.momentum()).p3().unit();
 	  double ctheta = e1z.dot(axis1);
@@ -83,7 +83,7 @@ namespace Rivet {
 	}
       }
     }
-    
+
     pair<double,double> calcRho(Histo1DPtr hist) {
       if(hist->numEntries()==0.) return make_pair(0.,0.);
       double sum1(0.),sum2(0.);

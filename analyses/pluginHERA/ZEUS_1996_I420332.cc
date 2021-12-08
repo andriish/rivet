@@ -8,7 +8,7 @@ namespace Rivet {
 
 
   /// @brief   F2 structure function in DIS e+ p (ZEUS)
-  
+
   class ZEUS_1996_I420332 : public Analysis {
   public:
 
@@ -26,10 +26,10 @@ namespace Rivet {
       // Initialise and register projections
       declare(DISLepton(), "Lepton");
       declare(DISKinematics(), "Kinematics");
-		
-	
+
+
        Histo1DPtr dummy;
-	 _h_f2.add( 3.2,    4.0,book(dummy,1,1,1)); 
+	 _h_f2.add( 3.2,    4.0,book(dummy,1,1,1));
 	 _h_f2.add( 4.0,    5.0,book(dummy,2,1,1));
 	 _h_f2.add( 5.0,    7.0,book(dummy,3,1,1));
 	 _h_f2.add( 7.0,    9.0,book(dummy,5,1,1));
@@ -78,7 +78,7 @@ namespace Rivet {
       double x  = dk.x();
       double y = dk.y();
       double Q2 = dk.Q2()/GeV;
-	
+
 	// Flux factor
 	const double alpha = 7.29927e-3;
 	double F = x*pow(Q2,2.)/(2.0*M_PI*pow(alpha,2.)*(1.0+pow((1.-y),2.)));

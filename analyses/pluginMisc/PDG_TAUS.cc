@@ -149,7 +149,7 @@ namespace Rivet {
     void analyzeRadiativeDecay(Particle mother, vector<int> ids, CounterPtr &w_incl, bool absolute, Histo1DPtr h_ratio) {
       // w_incl   ... reference to a global weight counter for all leptonic tau decays
       // h_ratio  ... pointer to ratio histo
-    	
+
       // There is no point in looking for decays with less particles than to be analysed
       if (mother.children().size() >= ids.size()) {
         bool decayfound = true;

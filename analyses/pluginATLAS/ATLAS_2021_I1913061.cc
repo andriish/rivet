@@ -34,7 +34,7 @@ namespace Rivet {
       VetoedFinalState vfs(FinalState(Cuts::abseta < 4.5));
       vfs.addVetoOnThisFinalState(all_dressed_el);
       vfs.addVetoOnThisFinalState(all_dressed_mu);
-      
+
       FastJets jets(vfs, FastJets::ANTIKT, 0.4, JetAlg::Muons::ALL, JetAlg::Invisibles::DECAY);
       declare(jets, "JETS");
 
@@ -55,9 +55,9 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      
+
       const Jets& jets = apply<FastJets>(event, "JETS").jetsByPt(7.0*GeV);
-      const Particles& bpmFS = apply<UnstableParticles>(event, "BPM_FS").particlesByPt();      
+      const Particles& bpmFS = apply<UnstableParticles>(event, "BPM_FS").particlesByPt();
 
       //Preselect B mesons in J/psi K decay channel
       Particles goodHadrons;
@@ -71,7 +71,7 @@ namespace Rivet {
         const Particles& bDecays = p.children();
 
         for (const Particle& s : bDecays){
-          
+
           if (s.abspid() == PID::KPLUS && s.pt() > 4*GeV) passKaon = 1;
           if (s.abspid() == PID::JPSI) {
 
@@ -87,14 +87,14 @@ namespace Rivet {
 
         if (passKaon && passMuon1 && passMuon2) goodHadrons += p;
       }
-          
+
       //Preselect jets passing kinematic cuts
       Jets goodJets;
       for (size_t i = 0; i < jets.size() - 1; ++i) {
         const Jet& j1 = jets[i];
         if (j1.pt() <= 20*GeV) continue;
         if (j1.abseta() >= 2.1) continue;
-        
+
         bool isOverlap = false;
         for (size_t j = i + 1; j < jets.size(); ++j) {
           if (jets[j].pt() > 20.0*GeV && deltaR(j1,jets[j]) < 0.8) {
@@ -120,10 +120,10 @@ namespace Rivet {
           Vector3 jetVector = momentum3(thisJet); Vector3 jetVector0 = jetVector;
           Vector3 hadronVector = momentum3(jetHadron);
           Vector3 kaonVector; Vector3 muonVector1; Vector3 muonVector2;
-          
+
           const Particles& bDecays = jetHadron.children();
           for (const Particle& s : bDecays){
-            
+
             if (s.abspid() == PID::KPLUS) kaonVector = momentum3(s);
             if (s.abspid() == PID::JPSI) {
 
@@ -148,11 +148,11 @@ namespace Rivet {
           //Longitudinal and transverse profiles
           double zFrag = hadronVector.dot(jetVector)/jetVector.mod2();
           double ptRel = (hadronVector.cross(jetVector)).mod()/jetVector.mod();
-          
+
           if (jetVector.perp() >= 50*GeV && jetVector.perp() < 70*GeV) {
             if (zFrag <= 0.23) zFrag = 0.24;
             if (zFrag >= 1.00) zFrag = 0.99;
-            if (ptRel >= 8.00) ptRel = 7.90; 
+            if (ptRel >= 8.00) ptRel = 7.90;
 
             _h["zFrag_pt01"]->fill(zFrag);
             _h["ptRel_pt01"]->fill(ptRel);
@@ -178,8 +178,8 @@ namespace Rivet {
 
           double ptFill = jetVector.perp()/GeV;
           if (ptFill >= 150.)  ptFill = 125.;
-		
-          // For pTrel, we need to weight the mean by 1/binWidth 
+
+          // For pTrel, we need to weight the mean by 1/binWidth
           // (what is being plotted is the mean of the histogram, not the variable!)
           // This doesn't apply to z since all bins have the same width.
           double binWidth = 0.0;
@@ -195,13 +195,13 @@ namespace Rivet {
         }
       }
     }
-    
+
     void finalize() {
       normalize(_h);
     }
-    
+
   private:
-  
+
     //Histograms
     map<string, Histo1DPtr> _h;
     map<string, Profile1DPtr> _p;

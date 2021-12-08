@@ -86,11 +86,11 @@ namespace Rivet {
 
 
       void finalize() {
-        normalize(_hSL_topPt); normalize(_hSL_topPtTtbarSys); normalize(_hSL_topY); 
-        normalize(_hSL_ttbarDelPhi); normalize(_hSL_topPtLead); normalize(_hSL_topPtSubLead); 
+        normalize(_hSL_topPt); normalize(_hSL_topPtTtbarSys); normalize(_hSL_topY);
+        normalize(_hSL_ttbarDelPhi); normalize(_hSL_topPtLead); normalize(_hSL_topPtSubLead);
         normalize(_hSL_ttbarPt); normalize(_hSL_ttbarY); normalize(_hSL_ttbarMass);
-        normalize(_hDL_topPt); normalize(_hDL_topPtTtbarSys); normalize(_hDL_topY); 
-        normalize(_hDL_ttbarDelPhi); normalize(_hDL_topPtLead); normalize(_hDL_topPtSubLead); 
+        normalize(_hDL_topPt); normalize(_hDL_topPtTtbarSys); normalize(_hDL_topY);
+        normalize(_hDL_ttbarDelPhi); normalize(_hDL_topPtLead); normalize(_hDL_topPtSubLead);
         normalize(_hDL_ttbarPt); normalize(_hDL_ttbarY); normalize(_hDL_ttbarMass);
       }
 

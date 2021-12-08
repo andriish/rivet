@@ -18,7 +18,7 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      
+
       // Initialise and register projections
       declare(UnstableParticles(), "UFS" );
       // Book histograms
@@ -35,12 +35,12 @@ namespace Rivet {
 	if(baryon.children().size()!=2) continue;
 	Particle baryon1,meson1;
 	if(baryon.abspid()==4132) {
-	  if(baryon.children()[0].pid()==sign*3334 && 
+	  if(baryon.children()[0].pid()==sign*3334 &&
 	     baryon.children()[1].pid()==sign*321) {
 	    baryon1 = baryon.children()[0];
 	    meson1  = baryon.children()[1];
 	  }
-	  else if(baryon.children()[1].pid()==sign*3332 && 
+	  else if(baryon.children()[1].pid()==sign*3332 &&
 		  baryon.children()[0].pid()==sign*321) {
 	    baryon1 = baryon.children()[1];
 	    meson1  = baryon.children()[0];
@@ -49,12 +49,12 @@ namespace Rivet {
 	    continue;
 	}
 	else {
-	  if(baryon.children()[0].pid()==sign*3334 && 
+	  if(baryon.children()[0].pid()==sign*3334 &&
 	     baryon.children()[1].pid()==sign*211) {
 	    baryon1 = baryon.children()[0];
 	    meson1  = baryon.children()[1];
 	  }
-	  else if(baryon.children()[1].pid()==sign*3334 && 
+	  else if(baryon.children()[1].pid()==sign*3334 &&
 		  baryon.children()[0].pid()==sign*211) {
 	    baryon1 = baryon.children()[1];
 	    meson1  = baryon.children()[0];
@@ -63,12 +63,12 @@ namespace Rivet {
 	    continue;
 	}
 	Particle baryon2,meson2;
-	if(baryon1.children()[0].pid()== sign*3122 && 
+	if(baryon1.children()[0].pid()== sign*3122 &&
 	   baryon1.children()[1].pid()==-sign*321) {
 	  baryon2 = baryon1.children()[0];
 	  meson2  = baryon1.children()[1];
 	}
-	else if(baryon1.children()[1].pid()== sign*3122 && 
+	else if(baryon1.children()[1].pid()== sign*3122 &&
 		baryon1.children()[0].pid()==-sign*321) {
 	  baryon2 = baryon1.children()[1];
 	  meson2  = baryon1.children()[0];
@@ -87,8 +87,8 @@ namespace Rivet {
 	double cTheta = pp.p3().unit().dot(axis);
 	if(baryon.abspid()==4132)
 	  _h_ctheta_xic->fill(cTheta,1.);
-	else 
-	  _h_ctheta_omegac->fill(cTheta,1.);	
+	else
+	  _h_ctheta_omegac->fill(cTheta,1.);
       }
     }
 

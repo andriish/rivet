@@ -475,8 +475,8 @@ namespace Rivet {
    Histo1DPtr _histnorm_ttpt_ttm_1;
    Histo1DPtr _histnorm_ttpt_ttm_2;
    Histo1DPtr _histnorm_ttpt_ttm_3;
-   Histo1DPtr _histnorm_ttpt_ttm_4;   
-   
+   Histo1DPtr _histnorm_ttpt_ttm_4;
+
  };
 
 

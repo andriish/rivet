@@ -70,7 +70,7 @@ namespace Rivet {
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
-      
+
       for (const Particle& p : fs.particles()) {
       	double xP = p.p3().mod()/meanBeamMom;
       	_d_pi->fill(xP);
@@ -108,7 +108,7 @@ namespace Rivet {
       book(temp1,3*_iHist+1,1,1);
       book(temp2,3*_iHist+2,1,1);
       book(temp3,3*_iHist+3,1,1);
-      
+
       divide(_n_pi,_d_pi, temp1);
       divide(_n_K ,_d_K , temp2);
       divide(_n_p ,_d_p , temp3);

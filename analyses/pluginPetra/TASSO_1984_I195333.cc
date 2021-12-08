@@ -25,7 +25,7 @@ namespace Rivet {
       declare(fs, "FS");
       declare(Sphericity(fs), "Sphericity");
       declare(Thrust(fs), "Thrust");
-      
+
       // counters for R
       book(_c_hadrons, "/TMP/sigma_hadrons");
       book(_c_muons, "/TMP/sigma_muons");
@@ -74,7 +74,7 @@ namespace Rivet {
       }
       // mu+mu- + photons
       if(nCount[-13]==1 and nCount[13]==1 &&
-	 ntotal==2+nCount[22]) {	
+	 ntotal==2+nCount[22]) {
 	_c_muons->fill();
 	return;
       }

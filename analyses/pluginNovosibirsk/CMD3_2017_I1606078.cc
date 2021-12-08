@@ -52,7 +52,7 @@ namespace Rivet {
 	nCount[p.pid()] += 1;
 	++ntotal;
       }
-      // find omega/phi + eta 
+      // find omega/phi + eta
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       bool found = false, foundOmegaPhi = false;
       for (const Particle& p : ufs.particles()) {

@@ -21,7 +21,7 @@ namespace Rivet {
     void init() {
       declare(Beam(), "Beams");
       declare(UnstableParticles(), "UFS");
-      
+
       // Book histograms
       book(_h_Ds_star1  , 1, 1, 1);
       book(_h_Ds        , 2, 1, 1);

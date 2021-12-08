@@ -123,7 +123,7 @@ namespace Rivet {
 	  else if(D.size()==1&&pi0.size()==1&&gamma.size()==1) {
 	    if(Ds.abspid()==20433)
 	      _r_2460_2->fill(10.58);
-	  }							  
+	  }
 	}
       }
     }
@@ -154,8 +154,8 @@ namespace Rivet {
 	  findDecayProducts(p,Ds,pip,pi0,gamma,nstable);
       }
     }
-    
-    
+
+
     /// Normalise histograms etc., after the run
     void finalize() {
       normalize(_s_2317  ,1.,false);

@@ -74,9 +74,9 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      
+
       scale(_histChTotal, 200.0/sumOfWeights()); // bin width (2) and %age (100)
-      if(_histAver) 
+      if(_histAver)
 	scale(_histChAver, 200.0/sumOfWeights());
     }
 

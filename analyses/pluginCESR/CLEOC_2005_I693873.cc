@@ -41,7 +41,7 @@ namespace Rivet {
 	++ntotal;
       }
       if(ntotal!=2) vetoEvent;
-      
+
       if(nCount[211]==1 && nCount[-211]==1)
 	_npipi->fill();
       else if(nCount[321]==1 && nCount[-321]==1)

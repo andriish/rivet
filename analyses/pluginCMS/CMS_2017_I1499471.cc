@@ -6,23 +6,23 @@
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/ZFinder.hh"
 
-//#define DebugLog 
+//#define DebugLog
 
 namespace Rivet {
 
   class CMS_2017_I1499471 : public Analysis {
   public:
-    
+
     /// Constructor
     RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2017_I1499471);
-    
+
     /// Book histograms and initialise projections before the run
     void init() {
 
 #ifdef DebugLog
       // set optionally the verbosity for the internal Rivet message system
       getLog().setLevel(0);
-#endif      
+#endif
 
       FinalState fs; ///< @todo No cuts?
       VisibleFinalState visfs(fs);
@@ -39,21 +39,21 @@ namespace Rivet {
 
       FastJets akt05Jets(jetConstits, FastJets::ANTIKT, 0.5);
       declare(akt05Jets, "AntiKt05Jets");
-      
+
       //Histograms booking
-      
+
       book(_h_first_bjet_pt_b ,1,1,1);
       book(_h_first_bjet_abseta_b ,3,1,1);
       book(_h_Z_pt_b ,5,1,1);
       book(_h_HT_b ,7,1,1);
       book(_h_Dphi_Zb_b ,9,1,1);
-      
+
       book(_h_first_jet_pt_ratio ,2,1,1);
       book(_h_first_jet_abseta_ratio ,4,1,1);
       book(_h_Z_pt_ratio ,6,1,1);
       book(_h_HT_ratio ,8,1,1);
       book(_h_Dphi_Zj_ratio ,10,1,1);
-      
+
       book(_h_first_jet_pt, "first_jet_pt", refData(1,1,1) ); // (*_h_first_bjet_pt_b);
       book(_h_first_jet_abseta, "first_jet_abseta", refData(3,1,1) ); // (*_h_first_bjet_abseta_b);
       book(_h_Z_pt, "Z_pt", refData(5,1,1) ); // (*_h_Z_pt_b);
@@ -73,11 +73,11 @@ namespace Rivet {
       book(_h_bjet_multiplicity ,20,1,1);
 
     }
-                
-        
+
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-            
+
       const ZFinder& zeeFS = applyProjection<ZFinder>(event, "ZeeFinder");
       const ZFinder& zmumuFS = applyProjection<ZFinder>(event, "ZmumuFinder");
 
@@ -93,7 +93,7 @@ namespace Rivet {
       //event identification depending on mass window
       bool ee_event=false;
       bool mm_event=false;
-            
+
       if (zees.size() == 1) { ee_event = true; }
       if (zmumus.size() == 1) { mm_event = true; }
       const Particles& theLeptons = zees.size() ? zeeFS.constituents() : zmumuFS.constituents();
@@ -130,20 +130,20 @@ namespace Rivet {
       }
 
       Jets jb_final;
-            
+
       //identification of bjets
-            
+
       for (const Jet& j : goodjets) {
         if ( j.bTagged() ) { jb_final.push_back(j); }
       }
-            
+
       //Event weight
       const double w = 0.5;
-            
+
       //histogram filling
 
       if ((ee_event || mm_event) && goodjets.size() > 0) {
-        
+
         FourMomentum j1(goodjets[0].momentum());
 
         _h_first_jet_pt->fill(j1.pt(),w);
@@ -153,8 +153,8 @@ namespace Rivet {
         _h_HT->fill(Ht,w);
         if ( ee_event ) _h_Dphi_Zj->fill(deltaPhi(zees[0], j1),w);
         if ( mm_event ) _h_Dphi_Zj->fill(deltaPhi(zmumus[0], j1),w);
-        
-        if ( jb_final.size() > 0 ) { 
+
+        if ( jb_final.size() > 0 ) {
 
           FourMomentum b1(jb_final[0].momentum());
 
@@ -214,14 +214,14 @@ namespace Rivet {
             _h_A_DR_Zb_bb->fill(A_Zbb,w);
 
           }
-          
+
         }
-                                           
+
       }
 
     }
-   
-        
+
+
     /// Normalise histograms etc., after the run
     void finalize() {
 
@@ -268,7 +268,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    
+
     Histo1DPtr     _h_first_jet_pt, _h_first_bjet_pt_b;
     Histo1DPtr     _h_first_jet_abseta, _h_first_bjet_abseta_b;
     Histo1DPtr     _h_Z_pt, _h_Z_pt_b;
@@ -280,18 +280,18 @@ namespace Rivet {
     Scatter2DPtr     _h_Z_pt_ratio;
     Scatter2DPtr     _h_HT_ratio;
     Scatter2DPtr     _h_Dphi_Zj_ratio;
-    
+
     Histo1DPtr     _h_first_bjet_pt_bb, _h_second_bjet_pt_bb;
     Histo1DPtr     _h_Z_pt_bb;
     Histo1DPtr     _h_bb_mass_bb, _h_Zbb_mass_bb;
     Histo1DPtr     _h_Dphi_bb, _h_DR_bb, _h_DR_Zbmin_bb, _h_A_DR_Zb_bb;
-    
+
     Histo1DPtr     _h_bjet_multiplicity;
 
   };
-  
-  
+
+
   // The hook for the plugin system
   RIVET_DECLARE_PLUGIN(CMS_2017_I1499471);
-  
+
 }

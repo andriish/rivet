@@ -18,7 +18,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      // Get options 
+      // Get options
       _mode = 0;
       if ( getOption("LMODE") == "EL" ) _mode = 1;
       if ( getOption("LMODE") == "MU" ) _mode = 2;

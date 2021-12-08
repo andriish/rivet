@@ -83,7 +83,7 @@ namespace Rivet {
 	double fact = 1.-(3.+rhad)*Bmumu;
 	scale(_r_ups, 1./fact / *_w_ups);
 	scale(_h_p  , 100./fact / *_w_ups);
-      }	
+      }
     }
 
     ///@}

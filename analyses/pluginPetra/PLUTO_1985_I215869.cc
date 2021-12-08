@@ -18,7 +18,7 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      
+
       // Initialise and register projections
       declare(FinalState(), "FS");
       // Book histograms

@@ -28,8 +28,8 @@ namespace Rivet {
       // Jet schemes checked with oringal code, M.Wing, A.Geiser
       FinalState fs;
       double jet_radius = 1.0;
-      declare(FastJets(fs, fastjet::JetAlgorithm::kt_algorithm, fastjet::RecombinationScheme::Et_scheme, jet_radius), "Jets"); 
-      declare(FastJets(fs, fastjet::JetAlgorithm::antikt_algorithm, fastjet::RecombinationScheme::Et_scheme, jet_radius), "Jets_akt"); 
+      declare(FastJets(fs, fastjet::JetAlgorithm::kt_algorithm, fastjet::RecombinationScheme::Et_scheme, jet_radius), "Jets");
+      declare(FastJets(fs, fastjet::JetAlgorithm::antikt_algorithm, fastjet::RecombinationScheme::Et_scheme, jet_radius), "Jets_akt");
 
       // bit of messing about to use the correct recombnation scheme for SISCone.
       double overlap_threshold = 0.75;
@@ -37,53 +37,53 @@ namespace Rivet {
       plugin->set_use_jet_def_recombiner(true);
       JetDefinition siscone(plugin);
       siscone.set_recombination_scheme(fastjet::RecombinationScheme::Et_scheme);
-      declare(FastJets(fs, siscone), "Jets_sis"); 
+      declare(FastJets(fs, siscone), "Jets_sis");
 
-      
+
       declare(DISKinematics(), "Kinematics");
-      
+
       // all eta
       book(_h_etjet[0], 1, 1, 1);
-      
+
       // two ET cuts.
       book(_h_etajet[0], 2, 1, 1);
       book(_h_etajet[1], 3, 1, 1);
-      
+
       // in eta regions
       book(_h_etjet[1], 4, 1, 1);
       book(_h_etjet[2], 5, 1, 1);
       book(_h_etjet[3], 6, 1, 1);
       book(_h_etjet[4], 7, 1, 1);
       book(_h_etjet[5], 8, 1, 1);
-      
+
       // antiKT
       book(_h_etjet[6], 9, 1, 1);
       book(_h_etajet[2], 11, 1, 1);
-      
+
       // SiSCone
       book(_h_etjet[7], 10, 1, 1);
       book(_h_etajet[3], 12, 1, 1);
-      
+
     }
-    
-    
+
+
     // Do the analysis
     void analyze(const Event& event) {
-      
+
       // Determine kinematics, including event orientation since ZEUS coord system is for +z = proton direction
       const DISKinematics& kin = apply<DISKinematics>(event, "Kinematics");
       const int orientation = kin.orientation();
-      
+
       // Q2 and inelasticity cuts
       if (kin.Q2() > 1*GeV2) vetoEvent;
       if (!inRange(sqrt(kin.W2()), 142.0, 293.0)) vetoEvent;
-      
+
       // Jet selection
       // @TODO check the recombination scheme
       const Jets jets = apply<FastJets>(event, "Jets")			\
         .jets(Cuts::Et > 17*GeV && Cuts::etaIn(-1*orientation, 2.5*orientation), cmpMomByEt);
       MSG_DEBUG("kT Jet multiplicity = " << jets.size());
-      
+
       const Jets jets_akt = apply<FastJets>(event, "Jets_akt")		\
         .jets(Cuts::Et > 17*GeV && Cuts::etaIn(-1*orientation, 2.5*orientation), cmpMomByEt);
 
@@ -98,15 +98,15 @@ namespace Rivet {
 	if (jet.pt()>21*GeV) {
 	  _h_etajet[1]->fill(orientation*jet.eta());
 	}
-	if (orientation*jet.eta() < 0) { 
+	if (orientation*jet.eta() < 0) {
 	  _h_etjet[1]->fill(jet.pt());
-	} else if (orientation*jet.eta() < 1) { 
+	} else if (orientation*jet.eta() < 1) {
 	  _h_etjet[2]->fill(jet.pt());
-	} else if (orientation*jet.eta() < 1.5) { 
+	} else if (orientation*jet.eta() < 1.5) {
 	  _h_etjet[3]->fill(jet.pt());
-	} else if (orientation*jet.eta() < 2) { 
+	} else if (orientation*jet.eta() < 2) {
 	  _h_etjet[4]->fill(jet.pt());
-	} else { 
+	} else {
 	  _h_etjet[5]->fill(jet.pt());
 	}
       }
@@ -135,18 +135,18 @@ namespace Rivet {
     }
 
     //@}
-    
+
 
   private:
 
     /// @name Histograms
     //@{
-    Histo1DPtr _h_etjet[8], _h_etajet[4]; 
+    Histo1DPtr _h_etjet[8], _h_etajet[4];
     //@}
 
     };
-  
-  
+
+
   RIVET_DECLARE_PLUGIN(ZEUS_2012_I1116258);
-  
+
 }

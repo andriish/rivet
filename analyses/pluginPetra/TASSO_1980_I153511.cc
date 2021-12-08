@@ -24,7 +24,7 @@ namespace Rivet {
 
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
-      
+
       // Thrust and sphericity
       declare(Sphericity(cfs), "Sphericity");
       // Book histograms

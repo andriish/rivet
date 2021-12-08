@@ -132,7 +132,7 @@ class ZEUS_2008_I810112 : public Analysis {
           scale(_h_D0_eta, sf);
           scale(_h_D0_q2, sf);
           scale(_h_D0_x, sf);
-          
+
           for (size_t i = 0; i < 3; i++) {
               scale(_h_D0_yinq2[i], sf);
               barchart(_h_D0_yinq2[i], _s_D0_yinq2[i], false);
@@ -154,7 +154,7 @@ class ZEUS_2008_I810112 : public Analysis {
       _h_Dp_q2,
       _h_Dp_x,
       _h_Dp_yinq2[3];
-      
+
       Scatter2DPtr _s_Dp_yinq2[3];
       Scatter2DPtr _s_D0_yinq2[3];
 

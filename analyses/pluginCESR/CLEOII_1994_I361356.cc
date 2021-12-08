@@ -51,7 +51,7 @@ namespace Rivet {
 	if(Sigma.empty()) continue;
         LorentzTransform boost;
         if (p.p3().mod() > 1*MeV)
-          boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());	
+          boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
 	for(const Particle & sig : Sigma) {
 	  double mom = boost.transform(sig.momentum()).vector3().mod();
 	  if(sig.abspid()==4222) {

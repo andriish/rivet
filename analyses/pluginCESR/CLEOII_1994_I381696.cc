@@ -30,7 +30,7 @@ namespace Rivet {
       book(_c_lam,"TMP/c_lam");
     }
 
-   
+
 
     void findDecayProducts(const Particle& mother, unsigned int & npip,
 			   unsigned int & npim, unsigned int & nlam) {

@@ -49,7 +49,7 @@ namespace Rivet {
       }
       if(ntotal==2 && nCount[2212]==1 && nCount[-2212]==1)
 	_nProton->fill();
-      
+
       // find the Lambdas
       const FinalState& ufs = apply<UnstableParticles>(event, "UFS");
       for(unsigned int ix=0;ix<ufs.particles().size();++ix) {

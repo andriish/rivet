@@ -61,7 +61,7 @@ namespace Rivet {
     void finalize() {
 
       double fact = sqr(sqrtS())/GeV2*crossSection()/nanobarn/sumOfWeights();
-      scale(_h_lambda, fact); 
+      scale(_h_lambda, fact);
     }
 
     //@}

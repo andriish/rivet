@@ -5,7 +5,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// @brief MC validation analysis for single photon events

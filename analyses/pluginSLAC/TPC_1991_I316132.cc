@@ -87,7 +87,7 @@ namespace Rivet {
 	double phi = atan2(e1y.dot(axis1),e1x.dot(axis1));
 	_h_phi.fill(xE,phi);
 	_h_01.fill(xE,ctheta,cos(phi));
-	
+
 	if(xE>0.3) {
 	  _h_ctheta_all->fill(ctheta);
 	  _h_phi_all->fill(phi);
@@ -145,7 +145,7 @@ namespace Rivet {
       // and error
       double cc = -pow((sum3 + sqr(c)*sum4 - 2*c*sum5),3);
       double bb = -2*sqr(sum3 + sqr(c)*sum4 - 2*c*sum5)*(sum1 - c*sum2 + c*sum4 - sum5);
-      double aa =  sqr(sum1 - c*sum2 + c*sum4 - sum5)*(-sum3 - sqr(c)*sum4 + sqr(sum1 - c*sum2 + c*sum4 - sum5) + 2*c*sum5);      
+      double aa =  sqr(sum1 - c*sum2 + c*sum4 - sum5)*(-sum3 - sqr(c)*sum4 + sqr(sum1 - c*sum2 + c*sum4 - sum5) + 2*c*sum5);
       double dis = sqr(bb)-4.*aa*cc;
       if(dis>0.) {
 	dis = sqrt(dis);
@@ -155,7 +155,7 @@ namespace Rivet {
 	return make_pair(alpha,make_pair(0.,0.));
       }
     }
-    
+
     /// Normalise histograms etc., after the run
     void finalize() {
       vector<double> x = {0.3,0.4,0.5,0.6,0.7,0.8,1.};

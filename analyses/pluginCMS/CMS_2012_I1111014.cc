@@ -91,7 +91,7 @@ namespace Rivet {
           }
         }
       }
-      
+
       // Get jets and require at least one to pass pT and y cuts
       Jets jets5 = apply<FastJets>(evt, "Jets5")
         .jetsByPt(Cuts::ptIn(50*GeV, 1000*GeV) && Cuts::absrap < 2.0);

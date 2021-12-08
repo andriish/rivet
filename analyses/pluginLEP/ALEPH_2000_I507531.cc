@@ -86,7 +86,7 @@ namespace Rivet {
 	fs.push_back(part);
 	findDecayProducts(part,decay);
       }
-      // FS particles    
+      // FS particles
       for(const Particle & part : apply<FinalState>(event, "FS").particles()) {
 	bool skip=false;
 	for(const Particle & dec :decay) {

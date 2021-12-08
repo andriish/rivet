@@ -32,7 +32,7 @@ namespace Rivet {
     void init() {
 
         // default to widest cut, electrons and muons.
-        _mode = 0;      
+        _mode = 0;
         if ( getOption("BMODE") == "BB" )  _mode = 1;
 
       // Get the particles needed for each running mode:

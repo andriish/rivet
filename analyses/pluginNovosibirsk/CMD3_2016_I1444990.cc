@@ -19,7 +19,7 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      
+
       declare(FinalState(), "FS");
       book(_nK0K0, "TMP/K0K0");
 

@@ -116,7 +116,7 @@ namespace Rivet {
 	_p_K0_S_2->fill(sphere,cfs.particles().size());
       }
       if(_p_Kstar_S_1!=Profile1DPtr()) {
-	_p_Kstar_S_1->fill(sphere,nKstar);		    
+	_p_Kstar_S_1->fill(sphere,nKstar);
 	_p_Kstar_S_2->fill(sphere,cfs.particles().size());
       }
     }

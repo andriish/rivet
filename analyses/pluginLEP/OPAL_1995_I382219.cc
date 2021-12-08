@@ -22,7 +22,7 @@ namespace Rivet {
     void init() {
       declare(Beam(), "Beams");
       declare(UnstableParticles(), "UFS");
-      
+
       book(_h_Xe_Ds  , 3, 1, 1);
       book(_h_Xe_Ds_b, 4, 1, 1);
       book(_h_Xe_Ds_c, 5, 1, 1);
@@ -32,14 +32,14 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
-      
+
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0/GeV;
       // check if b hadrons or not
       unsigned int nB= (filter_select(ufs.particles(), isBottomHadron)).size();
-      // Accept all D*+- decays. 
+      // Accept all D*+- decays.
       for (const Particle& p : filter_select(ufs.particles(), Cuts::abspid==PID::DSTARPLUS)) {
 	// Scaled energy.
 	const double energy = p.E()/GeV;

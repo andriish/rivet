@@ -64,7 +64,7 @@ namespace Rivet {
 	  break;
 	}
       }
-      if(found) 
+      if(found)
 	_c_D_star->fill();
     }
 

@@ -32,7 +32,7 @@ namespace Rivet {
       }
       book(_norm,"TMP/norm");
     }
-    
+
     void findDecayProducts(const Particle & mother, unsigned int & nstable,
 			   Particles &pi0, Particles &pip, Particles &pim) {
       for(const Particle & p : mother.children()) {

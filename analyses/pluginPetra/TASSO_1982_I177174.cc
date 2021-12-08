@@ -80,7 +80,7 @@ namespace Rivet {
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
-      
+
       for (const Particle& p : fs.particles()) {
 	double xp = p.p3().mod()/meanBeamMom;
 	if(_h_x1!=Histo1DPtr()) _h_x1->fill(xp);

@@ -16,7 +16,7 @@ public:
   void init() {
 
     MSG_INFO("CENT parameter set to " << getOption<string>("cent","REF"));
-              
+
     // The centrality projection.
     declareCentrality(MC_SumETFwdPbCentrality(),
                       "MC_Cent_pPb_Calib", "SumETPb", "CENT");
@@ -27,7 +27,7 @@ public:
     // The particles to be analysed.
     declare(ChargedFinalState(Cuts::eta > -2.7 && Cuts::eta < 2.7 &&
                               Cuts::pT > 0.1*GeV), "CFS");
-    
+
     // The centrality bins and the corresponding histograms.
     std::vector< std::pair<float, float> > centralityBins =
       { {0, 1}, {1, 5}, {5, 10}, {10, 20},
@@ -54,7 +54,7 @@ public:
       _hEta->fill(p.eta());
 
   }
-    
+
   /// Finalize
   void finalize() {
 

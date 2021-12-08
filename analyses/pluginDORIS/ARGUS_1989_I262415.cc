@@ -53,7 +53,7 @@ namespace Rivet {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       Particles upsilons = ufs.particles(Cuts::pid==553);
       // Continuum
-      if (upsilons.empty()) { 
+      if (upsilons.empty()) {
         MSG_DEBUG("No Upsilons found => continuum event");
         _weightSum_cont->fill();
         for (const Particle& p : ufs.particles(Cuts::abspid==3124)) {
@@ -65,7 +65,7 @@ namespace Rivet {
 	}
       }
       // Upsilon(s) found
-      else { 
+      else {
         MSG_DEBUG("Upsilons found => resonance event");
         for (const Particle& ups : upsilons) {
 	  _weightSum_Ups1->fill();

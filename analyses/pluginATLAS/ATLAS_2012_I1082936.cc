@@ -49,7 +49,7 @@ namespace Rivet {
       size_t ptDsOffset(0), massDsOffset(2);
       for (size_t alg = 0; alg < 2; ++alg) {
         for (size_t i = 0; i < 7; ++i) {
-          Histo1DPtr tmp; 
+          Histo1DPtr tmp;
           _pThistos[alg].add(ybins[i], ybins[i+1], book(tmp, 1 + ptDsOffset, 1, i+1));
         }
         ptDsOffset += 1;

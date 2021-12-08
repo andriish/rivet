@@ -89,19 +89,19 @@ IMPLEMENTATION_NO_HEPMC2(int, Nspec_targ_p, -1)
 
 map<int,double> HepMCHeavyIon::participant_plane_angles() const {
 #ifdef RIVET_ENABLE_HEPMC_3
-  return _hi? _hi->participant_plane_angles: map<int,double>(); 
+  return _hi? _hi->participant_plane_angles: map<int,double>();
 #else
   MSG_WARNING("HeavyIon::participant_plane_angles is only avialable in HepMC3");
-  return map<int,double>(); 
+  return map<int,double>();
 #endif
 }
 
 map<int,double> HepMCHeavyIon::eccentricities() const {
 #ifdef RIVET_ENABLE_HEPMC_3
-  return _hi? _hi->eccentricities: map<int,double>(); 
+  return _hi? _hi->eccentricities: map<int,double>();
 #else
   MSG_WARNING("HeavyIon::eccentricities is only avialable in HepMC3");
-  return map<int,double>(); 
+  return map<int,double>();
 #endif
 }
 

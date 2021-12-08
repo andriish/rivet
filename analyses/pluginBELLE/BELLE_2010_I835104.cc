@@ -48,7 +48,7 @@ namespace Rivet {
 	  K0.push_back(p);
 	}
 	else if(!p.children().empty()) {
-	  findDecay(p,charm,eta,pi0,pip,Kp,K0); 
+	  findDecay(p,charm,eta,pi0,pip,Kp,K0);
 	}
       }
     }

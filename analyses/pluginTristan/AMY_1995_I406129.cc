@@ -33,7 +33,7 @@ class E0_scheme : public JetDefinition::Recombiner {
   }
   void preprocess(PseudoJet & p) const {
     double fact = p.E()/sqrt(p.px()*p.px()+p.py()*p.py()+p.pz()*p.pz());
-  
+
     p.reset_momentum(fact*p.px(), fact*p.py(), fact*p.pz(), p.E());
   }
   ~E0_scheme() { }
@@ -130,7 +130,7 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    Histo1DPtr _h_jade_P, _h_jade_E, _h_jade_E0, _h_durham; 
+    Histo1DPtr _h_jade_P, _h_jade_E, _h_jade_E0, _h_durham;
     //@}
 
 

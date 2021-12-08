@@ -27,11 +27,11 @@ namespace Rivet {
       book(_h_z_K  ,1, 1, 2);
       book(_h_z_p  ,1, 1, 3);
       book(_h_z_all,1, 1, 4);
-      
+
       book(_h_z2_pi, 5, 1, 1);
       book(_h_z2_K , 5, 1, 2);
       book(_h_z2_p , 5, 1, 3);
-      
+
       book(_n_pi,"TMP/n_pi", refData(6,1,1));
       book(_n_K ,"TMP/n_K" , refData(6,1,2));
       book(_n_p ,"TMP/n_p" , refData(6,1,3));

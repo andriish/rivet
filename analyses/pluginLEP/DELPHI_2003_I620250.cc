@@ -38,38 +38,38 @@ namespace Rivet {
       // Histogram booking offset numbers.
       unsigned int offset = 0;
       int offset2 = -1;
-      
+
       if      (isCompatibleWithSqrtS(45*GeV)) offset = 1;
       else if (isCompatibleWithSqrtS(66*GeV)) offset = 2;
       else if (isCompatibleWithSqrtS(76*GeV)) offset = 3;
       else if (isCompatibleWithSqrtS(183*GeV)) {
-	offset2= 0;			   
-	offset = 1;			   
-      }					   
+	offset2= 0;
+	offset = 1;
+      }
       else if (isCompatibleWithSqrtS(189*GeV)) {
-	offset2= 0;			   
-	offset = 2;			   
-      }					   
+	offset2= 0;
+	offset = 2;
+      }
       else if (isCompatibleWithSqrtS(192*GeV)) {
-	offset2= 0;			   
-	offset = 3;			   
-      }					   
+	offset2= 0;
+	offset = 3;
+      }
       else if (isCompatibleWithSqrtS(196*GeV)) {
-	offset2= 0;			   
-	offset = 4;			   
-      }					   
+	offset2= 0;
+	offset = 4;
+      }
       else if (isCompatibleWithSqrtS(200*GeV)) {
-	offset2= 1;			   
-	offset = 1;			   
-      }					   
+	offset2= 1;
+	offset = 1;
+      }
       else if (isCompatibleWithSqrtS(202*GeV)) {
-	offset2= 1;			   
-	offset = 2;			   
-      }					   
+	offset2= 1;
+	offset = 2;
+      }
       else if (isCompatibleWithSqrtS(205*GeV)) {
-	offset2= 1;			   
-	offset = 3;			   
-      }					   
+	offset2= 1;
+	offset = 3;
+      }
       else if (isCompatibleWithSqrtS(207*GeV)) {
 	offset2= 1;
 	offset = 4;
@@ -194,7 +194,7 @@ namespace Rivet {
       const double mass2Against_P = p4AgainstP.mass2()/sqr(Evis);
       // fill the histograms
       if(_h_heavy_jet_mass_P) _h_heavy_jet_mass_P->fill(max(mass2With_P,mass2Against_P));
-      
+
       MSG_DEBUG("Calculating Parisi params");
       const ParisiTensor& parisi = apply<ParisiTensor>(event, "Parisi");
       _h_CParam->fill(parisi.C());
@@ -208,20 +208,20 @@ namespace Rivet {
 	  // Get momentum and energy of each particle.
 	  const Vector3 mom3 = p.p3();
 	  const double energy = p.E();
-	  
+
 	  // Scaled momenta.
 	  const double mom = mom3.mod();
 	  const double scaledMom = mom/meanBeamMom;
 	  const double logInvScaledMom = -std::log(scaledMom);
 	  _h_xi->fill(logInvScaledMom);
-	  
+
 	  // Get momenta components w.r.t. thrust and sphericity.
 	  const double momT = dot(thrust.thrustAxis(), mom3);
 	  const double pTinT = dot(mom3, thrust.thrustMajorAxis());
 	  const double pToutT = dot(mom3, thrust.thrustMinorAxis());
 	  _h_pTIn ->fill(fabs(pTinT/GeV));
 	  _h_pTOut->fill(fabs(pToutT/GeV));
-	  
+
 	  // Calculate rapidities w.r.t. thrust and sphericity.
 	  const double rapidityT = 0.5 * std::log((energy + momT) / (energy - momT));
 	  _h_rap->fill(fabs(rapidityT));

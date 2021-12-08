@@ -71,7 +71,7 @@ namespace Rivet {
 	  _h_lambda_p->fill(modp,1.);
 	}
 	else {
-	  _h_kaon_x->fill(xE,1./beta);	 
+	  _h_kaon_x->fill(xE,1./beta);
 	  _h_kaon_p->fill(modp,1.);
 	}
       }

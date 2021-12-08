@@ -37,7 +37,7 @@ namespace Rivet {
 	  findDecayProducts(child,phi);
       }
     }
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // Find the Upsilons among the unstables

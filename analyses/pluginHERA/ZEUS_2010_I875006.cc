@@ -26,8 +26,8 @@ namespace Rivet {
       // Initialise and register projections
       declare(DISKinematics(), "Kinematics");
 
-      // All final state particles boosted to Breit frame then clustered 
-      //using FastJet KT algorithm with jet radius parameter 1      
+      // All final state particles boosted to Breit frame then clustered
+      //using FastJet KT algorithm with jet radius parameter 1
       const DISFinalState DISfs(DISFinalState::BoostFrame::BREIT);
       FastJets DISjetfs(DISfs, FastJets::KT, 1.0);
       declare(DISjetfs, "DISjets");
@@ -62,7 +62,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      
+
       //First Lorentz invariant quantities in Lab frame
       DISKinematics dis = apply<DISKinematics>(event, "Kinematics");
       double Q2 = dis.Q2();
@@ -72,20 +72,20 @@ namespace Rivet {
       //Perform required cut on Q2 and y
       if (!inRange(Q2, 125*GeV2, 20000*GeV2)) vetoEvent;
       if (!inRange(y, 0.2, 0.6)) vetoEvent;
-	
-      //Get Lorentz transforms for Breit Boost and Lab Boost	
-      const LorentzTransform breitboost = dis.boostBreit();
-      const LorentzTransform labboost = breitboost.inverse();	
 
-      //Get jets clustered in Breit frame 
+      //Get Lorentz transforms for Breit Boost and Lab Boost
+      const LorentzTransform breitboost = dis.boostBreit();
+      const LorentzTransform labboost = breitboost.inverse();
+
+      //Get jets clustered in Breit frame
       Jets jets = apply<FastJets>(event, "DISjets").jetsByPt();
-	
+
       //Boost jets to lab frame
       for(std::vector<int>::size_type i=0; i<jets.size(); i++){
         jets[i].transformBy(labboost);
       }
-    
-      //Cut on Pseudorapidity in lab frame 
+
+      //Cut on Pseudorapidity in lab frame
       const int orientation = dis.orientation();
       vector<Jet> cutJets;
       for(std::vector<int>::size_type i=0; i<jets.size(); i++){
@@ -94,21 +94,21 @@ namespace Rivet {
 		cutJets.push_back(jets[i]);
 	}
       }
-          
+
       //veto event if only single jet
       if(cutJets.size()<2){
           vetoEvent;
       }
-      
-      //Boost jets to Breit frame 
+
+      //Boost jets to Breit frame
       for(std::vector<int>::size_type i=0; i<cutJets.size(); i++){
       	cutJets[i].transformBy(breitboost);
       }
-      
+
       //Sort jets by et in descending order
       std::sort(cutJets.begin(), cutJets.end(),[](const Jet& j1, const Jet& j2){
 	 return j1.Et()>j2.Et();
-      }); 
+      });
 
       //Ensure two hardest jets have Et>8GeV in Breit frame
       const Jet& jet1 = cutJets[0];
@@ -117,16 +117,16 @@ namespace Rivet {
       if(jet1.Et()<8*GeV || jet2.Et()<8*GeV){
       	  vetoEvent;
       }
-      
+
       //Extract required quantities in Breit frame
-      //Dijet mean transverse energy 
-      const double dijetEt = (jet1.Et() + jet2.Et())/2;      
+      //Dijet mean transverse energy
+      const double dijetEt = (jet1.Et() + jet2.Et())/2;
 
       //Invariant dijet mass of hardest transverse jets > 20GeV
       const double Mjj =  FourMomentum(jet1.momentum() + jet2.momentum()).mass();
       if(Mjj<20*GeV){
           vetoEvent;
-      } 
+      }
 
       const double eta1 = orientation*jet1.eta();
       const double eta2 = orientation*jet2.eta();
@@ -179,7 +179,7 @@ namespace Rivet {
       for(int i = 0; i<6;i++){
           scale(_h_ZetaQ2[i], sf);
           scale(_h_EtQ2[i],sf);
-      } 
+      }
     }
 
     ///@}
@@ -187,14 +187,14 @@ namespace Rivet {
 
     /// @name Histograms
     ///@{
-    Histo1DPtr _h_Q2;	
+    Histo1DPtr _h_Q2;
     Histo1DPtr _h_XBj;
     Histo1DPtr _h_Et;
     Histo1DPtr _h_Mjj;
-    Histo1DPtr _h_Eta;	
+    Histo1DPtr _h_Eta;
     Histo1DPtr _h_Zeta;
     Histo1DPtr _h_ZetaQ2[6];
-    Histo1DPtr _h_EtQ2[6];	
+    Histo1DPtr _h_EtQ2[6];
     ///@}
   };
 

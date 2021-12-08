@@ -94,7 +94,7 @@ namespace Rivet {
 	  error = _nhb2->err();
 	}
 	sigma *= crossSection()/ sumOfWeights() /picobarn;
-	error *= crossSection()/ sumOfWeights() /picobarn; 
+	error *= crossSection()/ sumOfWeights() /picobarn;
 	Scatter2D temphisto(refData(1, 1, ix));
 	Scatter2DPtr  mult;
         book(mult, 1, 1, ix);

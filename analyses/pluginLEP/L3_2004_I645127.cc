@@ -24,8 +24,8 @@ namespace Rivet {
       // get the mode and options
       _mode =0;
       if( getOption("PROCESS") == "EE" ) _mode = 0;
-      else if( getOption("PROCESS") == "GG") _mode = 1; 
-      
+      else if( getOption("PROCESS") == "GG") _mode = 1;
+
       // Initialise and register projections
       if(_mode==0) {
 	const GammaGammaKinematics& diskin = declare(GammaGammaKinematics(), "Kinematics");
@@ -74,12 +74,12 @@ namespace Rivet {
 	}
       }
       if( nCount[-13]==1 && nCount[13]==1 && ntotal==2+nCount[22]) {
-	if(W2<1600.*sqr(GeV)) { 
+	if(W2<1600.*sqr(GeV)) {
 	  _c_sigma_mu1->fill();
 	  if(fiducal) {
 	    _c_sigma_mu2->fill();
 	  }
-	} 
+	}
       }
       if(_mode==1) return;
       bool foundTauPlus = false, foundTauMinus = true;

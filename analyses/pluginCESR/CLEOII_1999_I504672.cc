@@ -80,7 +80,7 @@ namespace Rivet {
     Histo1DPtr _h_n;
     Histo1DPtr _n_tot,_n_lep,_n_nolep;
     CounterPtr _n_Ups_All,_n_Ups_Lep,_n_Ups_NoLep;
-    
+
     //@}
 
 

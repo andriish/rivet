@@ -75,7 +75,7 @@ namespace Rivet {
 
 
     /// Normalise histograms etc., after the run
-    void finalize() { 
+    void finalize() {
       const double sf = crossSection()/nanobarn/sumOfWeights();
       scale(_h_pTD, sf);
       scale(_h_etaD, sf);

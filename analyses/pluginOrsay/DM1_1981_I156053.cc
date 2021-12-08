@@ -37,7 +37,7 @@ namespace Rivet {
 	nCount[p.pid()] += 1;
 	++ntotal;
       }
-      
+
       if(ntotal==2 && nCount[130]==1 && nCount[310]==1)
 	_nKSKL->fill();
     }

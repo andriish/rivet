@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Spectrum for D_s1 
+  /// @brief Spectrum for D_s1
   class CLEOII_1993_I352823 : public Analysis {
   public:
 
@@ -73,11 +73,11 @@ namespace Rivet {
 	_r[0]->fill(0.5);
 	if(Dstar.children().size()!=2) continue;
 	Particle pion;
-	if(Dstar.children()[0].pid()== 111 && 
+	if(Dstar.children()[0].pid()== 111 &&
 	   Dstar.children()[1].pid()== sign*421) {
 	  pion = Dstar.children()[0];
 	}
-	else if(Dstar.children()[1].pid()== 111 && 
+	else if(Dstar.children()[1].pid()== 111 &&
 		Dstar.children()[0].pid()== sign*421) {
 	  pion = Dstar.children()[1];
 	}

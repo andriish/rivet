@@ -74,7 +74,7 @@ namespace Rivet {
 	      if(p2.abspid()==411) _h_Dp->fill(pmod);
 	      else                 _h_D0->fill(pmod);
 	    }
-	  }	
+	  }
 	}
       }
     }

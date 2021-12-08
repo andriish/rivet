@@ -56,7 +56,7 @@ namespace Rivet {
       if(ntotal==7 && nCount[211]==3 && nCount[-211]==3 && nCount[111] ==1 ) {
 	_c_all->fill();
       }
-      // find omega/phi + eta 
+      // find omega/phi + eta
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       bool found=false;
       for (const Particle& p : ufs.particles()) {

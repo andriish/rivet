@@ -11,10 +11,10 @@ namespace Rivet {
   /// @brief Measurements of differential Z boson production cross sections in proton-proton collisions at 13 TeV
   class CMS_2019_I1753680 : public Analysis {
   public:
-    
+
     /// Constructor
     RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2019_I1753680);
-    
+
 
     /// @name Analysis methods
     //@{
@@ -37,7 +37,7 @@ namespace Rivet {
       declare(zeeFind, "ZeeFind");
       ZFinder zmmFind(fs, cut, PID::MUON    , 76.1876*GeV, 106.1876*GeV, 0.1, ZFinder::ChargedLeptons::PROMPT, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::YES );
       declare(zmmFind, "ZmmFind");
-      
+
       // Book histograms
       book(_h_Zmm_absY          , 26, 1, 1);
       book(_h_Zee_absY          , 26, 1, 2);
@@ -53,7 +53,7 @@ namespace Rivet {
       book(_h_Zll_pt_Y2         , 29, 1, 3);
       book(_h_Zll_pt_Y3         , 29, 1, 4);
       book(_h_Zll_pt_Y4         , 29, 1, 5);
-      
+
       book(_h_Zll_pt_norm       , 30, 1, 1);
       book(_h_Zll_phiStar_norm  , 31, 1, 1);
       book(_h_Zll_absY_norm     , 32, 1, 1);
@@ -62,13 +62,13 @@ namespace Rivet {
       book(_h_Zll_pt_Y2_norm    , 33, 1, 3);
       book(_h_Zll_pt_Y3_norm    , 33, 1, 4);
       book(_h_Zll_pt_Y4_norm    , 33, 1, 5);
-      
+
     }
-    
+
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      
+
       const ZFinder& zeeFS = apply<ZFinder>(event, "ZeeFind");
       const ZFinder& zmumuFS = apply<ZFinder>(event, "ZmmFind");
 
@@ -84,13 +84,13 @@ namespace Rivet {
       bool ee_event=false;
       bool mm_event=false;
 
-      if (zees.size() == 1) { 
-        ee_event = true; 
+      if (zees.size() == 1) {
+        ee_event = true;
       }
-      if (zmumus.size() == 1) { 
-        mm_event = true; 
+      if (zmumus.size() == 1) {
+        mm_event = true;
       }
-      
+
       if (ee_event && _mode == 1)
         vetoEvent;
       if (mm_event && _mode == 0)
@@ -104,7 +104,7 @@ namespace Rivet {
       const double thetaStar = acos(tanh( 0.5 * (lminus.eta() - lplus.eta()) ));
       const double dPhi = M_PI - deltaPhi(lminus, lplus);
       const double phiStar = tan(0.5 * dPhi) * sin(thetaStar);
-      
+
       const Particle& zcand = ee_event ? zees[0] : zmumus[0];
 
       if (ee_event) {
@@ -147,7 +147,7 @@ namespace Rivet {
       }
 
     }
-    
+
     void normalizeToSum(Histo1DPtr hist) {
       double sum = 0.;
       for (size_t i = 0; i < hist->numBins(); ++i) {
@@ -160,18 +160,18 @@ namespace Rivet {
     void finalize() {
 
       double norm = (sumOfWeights() != 0) ? crossSection()/picobarn/sumOfWeights() : 1.0;
-      
+
       scale(_h_Zmm_pt,      norm);
       scale(_h_Zmm_absY,    norm);
       scale(_h_Zmm_phiStar, norm);
-      
+
       scale(_h_Zee_pt,      norm);
       scale(_h_Zee_absY,    norm);
       scale(_h_Zee_phiStar, norm);
-      
+
       // when running in combined mode, need to average to get lepton xsec
       if (_mode == 2) norm /= 2.;
-      
+
       scale(_h_Zll_pt,      norm);
       scale(_h_Zll_absY,    norm);
       scale(_h_Zll_phiStar, norm);
@@ -201,7 +201,7 @@ namespace Rivet {
     /// @name Histograms
 
   private:
-    
+
     Histo1DPtr   _h_Zmm_pt, _h_Zmm_phiStar, _h_Zmm_absY;
     Histo1DPtr   _h_Zee_pt, _h_Zee_phiStar, _h_Zee_absY;
 

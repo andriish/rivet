@@ -23,7 +23,7 @@ namespace Rivet {
       // Initialise and register projections
       declare(ChargedFinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      
+
       // book histos
       book(_h_e  ,"/TMP/E"  ,20, 0.,1.);
       book(_h_mu ,"/TMP/MU" ,20, 0.,1.);
@@ -94,7 +94,7 @@ namespace Rivet {
 	}
       }
     }
-    
+
     pair<double,double> calcP(Histo1DPtr hist,unsigned int imode) {
       if(hist->numEntries()==0.) return make_pair(0.,0.);
       double sum1(0.),sum2(0.);

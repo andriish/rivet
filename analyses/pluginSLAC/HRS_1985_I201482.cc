@@ -146,7 +146,7 @@ namespace Rivet {
 
 
     /// @name Histograms
-    //@{      
+    //@{
     Histo1DPtr _histSphericity, _histThrust, _histThrust2Jet, _histAplanarity,
       _histZ, _histZ2Jet, _histZScale, _histXFeyn, _histXFeyn2Jet, _histRap,
       _histRap2Jet, _histPtT, _histPtT2Jet, _histPtTIn, _histPtTOut ,_histZJet[3];

@@ -41,7 +41,7 @@ namespace Rivet {
       // The final state where jets are found
       FinalState fs(Cuts::abseta < 2.5);
       declare(fs, "FS");
- 
+
       ZFinder zfinder(fs, Cuts::abseta < 2.5 && Cuts::pT > 30*GeV, PID::MUON, 80*GeV, 100*GeV, 0.2,
                       ZFinder::ChargedLeptons::PROMPT, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::YES);
       declare(zfinder, "ZFinder");
@@ -53,7 +53,7 @@ namespace Rivet {
       declare(FastJets(zfinder.remainingFinalState(), FastJets::ANTIKT, 0.9), "JetsAK9");
 
       jetFinders = {"JetsAK3", "JetsAK5", "JetsAK7", "JetsAK9"};
-      
+
       h_zpT.resize(jetFinders.size());
       h_jetpT.resize(jetFinders.size());
       for (size_t i = 0; i < jetFinders.size(); ++i) {
@@ -80,7 +80,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      
+
       // Get the Z
       const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.bosons().size() != 1) vetoEvent;
@@ -96,13 +96,13 @@ namespace Rivet {
       auto jetpTItr = c_jetpT.upper_bound(c);
       auto zpTItr = c_zpT.upper_bound(c);
       auto sowItr = sow.upper_bound(c);
-      if (jetpTItr == c_jetpT.end() || zpTItr == c_zpT.end() || 
+      if (jetpTItr == c_jetpT.end() || zpTItr == c_zpT.end() ||
         sowItr == sow.end()) vetoEvent;
       sowItr->second->fill();
       incSow->fill();
       // Get the  jets
       for (size_t i = 0; i < jetFinders.size(); ++i ) {
-        const PseudoJets& psjets = apply<FastJets>(event, 
+        const PseudoJets& psjets = apply<FastJets>(event,
 	  jetFinders[i]).pseudoJetsByPt(30.0*GeV);
         if (!psjets.empty()) {
         // Get the leading jet and make sure it's back-to-back with the Z

@@ -46,37 +46,37 @@ namespace Rivet {
 	if(Xi.children().size()!=2) continue;
 	Particle baryon1,meson1;
 	unsigned int mode(0);
-	if(Xi.children()[0].pid()==sign*3122 && 
+	if(Xi.children()[0].pid()==sign*3122 &&
 	   Xi.children()[1].pid()==111) {
 	  baryon1 = Xi.children()[0];
 	  meson1  = Xi.children()[1];
 	  mode=1;
 	}
-	else if(Xi.children()[1].pid()==sign*3122 && 
+	else if(Xi.children()[1].pid()==sign*3122 &&
 		Xi.children()[0].pid()==111) {
 	  baryon1 = Xi.children()[1];
 	  meson1  = Xi.children()[0];
 	  mode=1;
 	}
-	else if(Xi.children()[0].pid()==sign*3122 && 
+	else if(Xi.children()[0].pid()==sign*3122 &&
 	   Xi.children()[1].pid()==22) {
 	  baryon1 = Xi.children()[0];
 	  meson1  = Xi.children()[1];
 	  mode=2;
 	}
-	else if(Xi.children()[1].pid()==sign*3122 && 
+	else if(Xi.children()[1].pid()==sign*3122 &&
 		Xi.children()[0].pid()==22) {
 	  baryon1 = Xi.children()[1];
 	  meson1  = Xi.children()[0];
 	  mode=2;
 	}
-	else if(Xi.children()[0].pid()==sign*3212 && 
+	else if(Xi.children()[0].pid()==sign*3212 &&
 	   Xi.children()[1].pid()==22) {
 	  baryon1 = Xi.children()[0];
 	  meson1  = Xi.children()[1];
 	  mode=3;
 	}
-	else if(Xi.children()[1].pid()==sign*3212 && 
+	else if(Xi.children()[1].pid()==sign*3212 &&
 		Xi.children()[0].pid()==22) {
 	  baryon1 = Xi.children()[1];
 	  meson1  = Xi.children()[0];
@@ -87,12 +87,12 @@ namespace Rivet {
 	if(baryon1.children().size()!=2) continue;
 	Particle baryon2,meson2,baryon3,meson3;
 	if(mode==1 || mode ==2) {
-	  if(baryon1.children()[0].pid()== sign*2212 && 
+	  if(baryon1.children()[0].pid()== sign*2212 &&
 	     baryon1.children()[1].pid()==-sign*211) {
 	    baryon2 = baryon1.children()[0];
 	    meson2  = baryon1.children()[1];
 	  }
-	  else if(baryon1.children()[1].pid()== sign*2212 && 
+	  else if(baryon1.children()[1].pid()== sign*2212 &&
 		  baryon1.children()[0].pid()==-sign*211) {
 	    baryon2 = baryon1.children()[1];
 	    meson2  = baryon1.children()[0];
@@ -101,24 +101,24 @@ namespace Rivet {
 	    continue;
 	}
 	else if(mode==3) {
-	  if(baryon1.children()[0].pid()== sign*3122 && 
+	  if(baryon1.children()[0].pid()== sign*3122 &&
 	     baryon1.children()[1].pid()== 22) {
 	    baryon2 = baryon1.children()[0];
 	    meson2  = baryon1.children()[1];
 	  }
-	  else if(baryon1.children()[1].pid()== sign*3122 && 
+	  else if(baryon1.children()[1].pid()== sign*3122 &&
 		  baryon1.children()[0].pid()== 22) {
 	    baryon2 = baryon1.children()[1];
 	    meson2  = baryon1.children()[0];
 	  }
 	  else
 	    continue;
-	  if(baryon2.children()[0].pid()== sign*2212 && 
+	  if(baryon2.children()[0].pid()== sign*2212 &&
 	     baryon2.children()[1].pid()==-sign*211) {
 	    baryon3 = baryon2.children()[0];
 	    meson3  = baryon2.children()[1];
 	  }
-	  else if(baryon2.children()[1].pid()== sign*2212 && 
+	  else if(baryon2.children()[1].pid()== sign*2212 &&
 		  baryon2.children()[0].pid()==-sign*211) {
 	    baryon3 = baryon2.children()[1];
 	    meson3  = baryon2.children()[0];
@@ -167,7 +167,7 @@ namespace Rivet {
       }
       return make_pair(sum2/sum1,sqrt(1./sum1));
     }
-    
+
     pair<double,double> calcAlpha(BinnedHistogram hist) {
       double sum1(0.),sum2(0.);
       double step=0.1;

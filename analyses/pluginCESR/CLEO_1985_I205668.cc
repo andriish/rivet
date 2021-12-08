@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief
   class CLEO_1985_I205668 : public Analysis {
   public:
 
@@ -58,7 +58,7 @@ namespace Rivet {
       book(_h_ups1_Kstar0,10,1,2);
       book(_h_ups1_phi   ,11,1,2);
     }
-    
+
     /// Recursively walk the decay tree to find decay products of @a p
     void findDecayProducts(Particle mother, Particles& unstable) {
       for(const Particle & p: mother.children()) {
@@ -73,7 +73,7 @@ namespace Rivet {
 	  findDecayProducts(p, unstable);
       }
     }
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // Find the upsilons
@@ -81,7 +81,7 @@ namespace Rivet {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       Particles upsilons = ufs.particles(Cuts::pid==553);
       // continuum
-      if (upsilons.empty()) { 
+      if (upsilons.empty()) {
         _weightSum_cont->fill();
 	const FinalState & fs = apply<FinalState>(event, "FS");
 	// FS particles

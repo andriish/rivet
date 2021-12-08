@@ -57,7 +57,7 @@ namespace Rivet {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       Particles upsilons = ufs.particles(Cuts::pid==553 or Cuts::pid==100553);
       if (upsilons.empty() && _h_T_cont) {
-	Particles charged = apply<ChargedFinalState>(event, "CFS").particles(); 
+	Particles charged = apply<ChargedFinalState>(event, "CFS").particles();
 	// at least 6 charged particles
 	if(charged.size()<6) vetoEvent;
 	// cut on high momentum particles

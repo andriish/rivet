@@ -51,14 +51,14 @@ namespace Rivet {
         const double phistar = tan(phi_acop/2) * sqrt(sin2thetastar);
         const FourMomentum& zmom = zfinder_mm.bosons()[0].momentum();
         if (zmom.mass()<30*GeV || zmom.mass() >500*GeV) vetoEvent;
-	
+
         if( zmom.mass()>70 && zmom.mass()<100 && zmom.absrap()<1.0) _h_phistar_mm_peak_central->fill(phistar, weight);
         if( zmom.mass()>70 && zmom.mass()<100 && zmom.absrap()>1.0  && zmom.absrap()<2.0) _h_phistar_mm_peak_forward->fill(phistar, weight);
         if( zmom.mass()>30 && zmom.mass()<60  && zmom.absrap()<1.0) _h_phistar_mm_low_central->fill(phistar, weight);
         if( zmom.mass()>30 && zmom.mass()<60 && zmom.absrap()>1.0 && zmom.absrap()<2.0) _h_phistar_mm_low_forward->fill(phistar, weight);
         if( zmom.mass()>160 && zmom.mass()<300) _h_phistar_mm_high1->fill(phistar, weight);
         if( zmom.mass()>300 && zmom.mass()<500) _h_phistar_mm_high2->fill(phistar, weight);
-	
+
       }
     }
 
@@ -90,7 +90,7 @@ namespace Rivet {
     Histo1DPtr _h_phistar_mm_peak_forward;
     Histo1DPtr _h_phistar_mm_high1;
     Histo1DPtr _h_phistar_mm_high2;
-    //@}                                        
+    //@}
   };
 
 

@@ -22,7 +22,7 @@ namespace Rivet {
     void init() {
       declare(UnstableParticles(), "UFS");
       declare(ChargedFinalState(), "FS");
-      
+
       book(_weightSum_cont, "TMP/weightSum_cont");
       book(_weightSum_Ups1, "TMP/weightSum_Ups1");
       book(_weightSum_Ups2, "TMP/weightSum_Ups2");
@@ -67,7 +67,7 @@ namespace Rivet {
       // Find the Upsilons among the unstables
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       Particles upsilons = ufs.particles(Cuts::pid==553 or Cuts::pid==100553);
-      if (upsilons.empty()) { 
+      if (upsilons.empty()) {
         MSG_DEBUG("No Upsilons found => continuum event");
         _weightSum_cont->fill();
 	Particles cfs = apply<ChargedFinalState>(event, "FS").particles();

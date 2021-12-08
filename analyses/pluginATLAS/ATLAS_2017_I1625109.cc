@@ -255,7 +255,7 @@ namespace Rivet {
 
       const auto& leadingDilepton = quadruplet.leadingDilepton.momentum();
       const auto& subleadingDilepton = quadruplet.subleadingDilepton.momentum();
-      
+
       _h["pT_4l"]->fill((leadingDilepton + subleadingDilepton).pt()/GeV);
       _h["pT_leading_dilepton"]->fill(leadingDilepton.pt()/GeV);
       _h["pT_subleading_dilepton"]->fill(subleadingDilepton.pt()/GeV);
@@ -269,15 +269,15 @@ namespace Rivet {
       _h["N_jets"]->fill(jets.size());
       _h["N_central_jets"]->fill(centralJets.size());
       _h["N_jets60"]->fill(pt60Jets.size());
-      
+
       // If at least one jet present
       if (jets.empty())  vetoEvent;
       _h["scalarpTsum_jets"]->fill(sum(jets, pT, 0.)/GeV);
       _h["abseta_jet1"]->fill(jets.front().abseta());
       _h["pT_jet1"]->fill(jets.front().pt()/GeV);
-      
+
       // If at least two jets present
-      if (jets.size() < 2)  vetoEvent; 
+      if (jets.size() < 2)  vetoEvent;
       _h["mass_dijet"]->fill((jets.at(0).mom() + jets.at(1).mom()).mass()/GeV);
       _h["deltay_dijet"]->fill(fabs(jets.at(0).rapidity() - jets.at(1).rapidity()));
       _h["abseta_jet2"]->fill(jets.at(1).abseta());

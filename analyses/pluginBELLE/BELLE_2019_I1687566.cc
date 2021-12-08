@@ -32,7 +32,7 @@ namespace Rivet {
       declare(Thrust(fs),"Thrust");
       declare(UnstableParticles(),"UFS");
       declare(InitialQuarks(), "IQF");
-      
+
       // Book histograms
       for(unsigned int ix=0;ix<4;++ix) {
       	book(_p_lam[ix]    ,1,ix+1,1);
@@ -90,7 +90,7 @@ namespace Rivet {
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       const FinalState & fs = apply<FinalState>(event, "FS");
-      
+
       if(thrust.thrust()<0.8)
 	vetoEvent;
       for(const Particle & lambda : ufs.particles(Cuts::abspid==3122)) {
@@ -98,12 +98,12 @@ namespace Rivet {
 	if(lambda.children().size()!=2) continue;
 	// look at the decay products
 	Particle proton,pion;
-	if(lambda.children()[0].pid()==sign*2212 && 
+	if(lambda.children()[0].pid()==sign*2212 &&
 	   lambda.children()[1].pid()==-sign*211) {
 	  proton = lambda.children()[0];
 	  pion   = lambda.children()[1];
 	}
-	else if(lambda.children()[1].pid()==sign*2212 && 
+	else if(lambda.children()[1].pid()==sign*2212 &&
 		lambda.children()[0].pid()==-sign*211) {
 	  proton = lambda.children()[1];
 	  pion   = lambda.children()[0];
@@ -121,7 +121,7 @@ namespace Rivet {
 	else {
 	  axis2 =-thrust.thrustAxis();
 	}
-	Vector3 axis3 = axis2.cross(axis1).unit();	
+	Vector3 axis3 = axis2.cross(axis1).unit();
 	// boost to the lambda rest frame
 	LorentzTransform boost = LorentzTransform::mkFrameTransformFromBeta(lambda.momentum().betaVec());
 	FourMomentum pproton = boost.transform(proton.momentum());

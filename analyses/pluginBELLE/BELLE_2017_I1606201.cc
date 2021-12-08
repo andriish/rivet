@@ -121,7 +121,7 @@ namespace Rivet {
     void finalize() {
       // norm to cross section
       for(unsigned int ix=1;ix<16;++ix) {
-	if( ix<=4 || (ix>=8 &&ix<=12) ) 
+	if( ix<=4 || (ix>=8 &&ix<=12) )
 	  scale(_h[ix], crossSection()/nanobarn/sumOfWeights());
 	else
 	  scale(_h[ix], crossSection()/picobarn/sumOfWeights());

@@ -44,7 +44,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      
+
       double sigma = _cKpKmpippim->val();
       double error = _cKpKmpippim->err();
       sigma *= crossSection()/ sumOfWeights() /nanobarn;

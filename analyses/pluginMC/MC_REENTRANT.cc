@@ -73,7 +73,7 @@ namespace Rivet {
     //@}
 
     bool fill09, fill70;
-    
+
   };
 
 

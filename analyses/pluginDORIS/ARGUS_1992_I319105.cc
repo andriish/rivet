@@ -32,12 +32,12 @@ namespace Rivet {
 	int sign = Lambdac.pid()/4122;
 	if(Lambdac.children().size()!=2) continue;
 	Particle baryon1,meson1;
-	if(Lambdac.children()[0].pid()==sign*3122 && 
+	if(Lambdac.children()[0].pid()==sign*3122 &&
 	   Lambdac.children()[1].pid()==sign*211) {
 	  baryon1 = Lambdac.children()[0];
 	  meson1  = Lambdac.children()[1];
 	}
-	else if(Lambdac.children()[1].pid()==sign*3122 && 
+	else if(Lambdac.children()[1].pid()==sign*3122 &&
 		Lambdac.children()[0].pid()==sign*211) {
 	  baryon1 = Lambdac.children()[1];
 	  meson1  = Lambdac.children()[0];
@@ -45,12 +45,12 @@ namespace Rivet {
 	else
 	  continue;
 	Particle baryon2,meson2;
-	if(baryon1.children()[0].pid()== sign*2212 && 
+	if(baryon1.children()[0].pid()== sign*2212 &&
 	   baryon1.children()[1].pid()==-sign*211) {
 	  baryon2 = baryon1.children()[0];
 	  meson2  = baryon1.children()[1];
 	}
-	else if(baryon1.children()[1].pid()== sign*2212 && 
+	else if(baryon1.children()[1].pid()== sign*2212 &&
 		baryon1.children()[0].pid()==-sign*211) {
 	  baryon2 = baryon1.children()[1];
 	  meson2  = baryon1.children()[0];

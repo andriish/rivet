@@ -100,7 +100,7 @@ namespace Rivet {
     void finalize() {
       const double invlumi = crossSection()/picobarn/sumOfWeights();
       normalize(_h_SumPLight);  normalize(_h_deltaphiafterlight); normalize(_h_Deltaphi_newway);
-      scale(_h_LeadingLightJetpt, invlumi); scale(_h_SubleadingLightJetpt, invlumi); 
+      scale(_h_LeadingLightJetpt, invlumi); scale(_h_SubleadingLightJetpt, invlumi);
       scale(_h_LeadingBJetpt, invlumi); scale(_h_SubleadingBJetpt, invlumi);
       scale(_h_LeadingLightJeteta, invlumi); scale(_h_SubleadingLightJeteta, invlumi);
       scale(_h_LeadingBJeteta, invlumi); scale(_h_SubleadingBJeteta, invlumi);

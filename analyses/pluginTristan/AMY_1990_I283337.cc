@@ -126,7 +126,7 @@ namespace Rivet {
 	  _histNtheta->fill(angle);
 	  ++nCharged;
 	}
-	_histEtheta->fill(angle,energy); 
+	_histEtheta->fill(angle,energy);
       }
       _histMeanPtIn2 ->fill( pTIn2/nCharged);
       _histMeanPtOut2->fill(pTOut2/nCharged);

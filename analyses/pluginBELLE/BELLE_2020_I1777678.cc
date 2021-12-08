@@ -80,7 +80,7 @@ namespace Rivet {
       }
       return weak;
     }
-    
+
     void fillHistos(int ip,bool strong,bool same,bool opp,
 		    const Particle & p1, const Particle & p2) {
       for(unsigned int def=0;def<3;++def) {

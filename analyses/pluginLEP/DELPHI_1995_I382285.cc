@@ -71,7 +71,7 @@ namespace Rivet {
 	}
       }
     }
-    
+
     pair<double,double> calcAsymmetry(Scatter2DPtr hist) {
       double sum1(0.),sum2(0.);
       for (auto bin : hist->points() ) {
@@ -84,7 +84,7 @@ namespace Rivet {
       }
       return make_pair(sum2/sum1,sqrt(1./sum1));
     }
-    
+
     /// Normalise histograms etc., after the run
     void finalize() {
        	normalize(_h_Kp);
@@ -97,7 +97,7 @@ namespace Rivet {
 	book(h_K, 1,1,1);
        	h_K->addPoint(91.2, -alpha.first, make_pair(0.5,0.5),
 		      make_pair(alpha.second,alpha.second) );
-	
+
        	normalize(_h_lm);
        	normalize(_h_lb);
        	Scatter2DPtr sLam;

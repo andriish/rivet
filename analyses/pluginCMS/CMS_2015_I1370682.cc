@@ -306,7 +306,7 @@ namespace Rivet {
     CmpState PseudoTop::compare(const Projection& p) const {
       const PCmp fscmp = mkNamedPCmp(p, "FS");
       if (fscmp != CmpState::EQ) return fscmp;
- 
+
       const PseudoTop& other = dynamic_cast<const PseudoTop&>(p);
       CmpState cs_lepR = cmp(_lepR, other._lepR);
       if (cs_lepR != CmpState::EQ) return cs_lepR;

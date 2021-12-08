@@ -98,7 +98,7 @@ namespace Rivet {
 	    else if(iy==2) cTemp = _cDown;
 	    else if(iy==3) cTemp = _cStrange;
 	    val  = cTemp->val();
-	    errs = make_pair(cTemp->err(),cTemp->err()); 
+	    errs = make_pair(cTemp->err(),cTemp->err());
 	  }
 	  else {
 	    Scatter1D temp;
@@ -106,7 +106,7 @@ namespace Rivet {
 	    else if(iy==2) temp = *_cStrange/ *_cDown;
 	    else if(iy==3) temp = *_cStrange/ *_cUp  ;
 	    val  = temp.points()[0].x();
-	    errs = temp.points()[0].xErrs(); 
+	    errs = temp.points()[0].xErrs();
 	  }
 	  Scatter2DPtr  mult;
 	  book(mult, ix, 1, iy);

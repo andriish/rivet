@@ -41,14 +41,14 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       const FinalState& fs = apply<FinalState>(event, "FS");
-      
+
       map<long,int> nCount;
       int ntotal(0);
       for (const Particle& p : fs.particles()) {
 	nCount[p.pid()] += 1;
 	++ntotal;
       }
-      
+
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
@@ -94,7 +94,7 @@ namespace Rivet {
 	  error = _numEtaPrimeGamma->err();
 	}
 	sigma *= crossSection()/ sumOfWeights() /femtobarn;
-	error *= crossSection()/ sumOfWeights() /femtobarn; 
+	error *= crossSection()/ sumOfWeights() /femtobarn;
 	Scatter2D temphisto(refData(1, 1, ix));
 	Scatter2DPtr  mult;
         book(mult, 1, 1, ix);

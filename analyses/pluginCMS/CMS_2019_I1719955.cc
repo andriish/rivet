@@ -6,15 +6,15 @@
 #include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
- 
-  /// CMS azimuthal decorrelations in back-to-back dijet events at 13 TeV 
+
+  /// CMS azimuthal decorrelations in back-to-back dijet events at 13 TeV
   class CMS_2019_I1719955 : public Analysis {
   public:
     /// Constructor
     RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2019_I1719955);
- 
 
-    /// Book projections and histograms 
+
+    /// Book projections and histograms
     void init() {
       const FinalState fs;
       declare(FastJets(fs, FastJets::ANTIKT, 0.4), "ANTIKT");
@@ -49,7 +49,7 @@ namespace Rivet {
       if (jets[0].absrap() > 2.5 || jets[1].absrap() > 2.5) vetoEvent;
 
       const double dphi = 180./M_PI*deltaPhi(jets[0].phi(), jets[1].phi());
-      _h_deltaPhi_2J.fill(jets[0].pT(), dphi);    
+      _h_deltaPhi_2J.fill(jets[0].pT(), dphi);
       if (lowjets.size() > 2) _h_deltaPhi_3J.fill(jets[0].pT(), dphi);
     }
 
@@ -60,10 +60,10 @@ namespace Rivet {
       for (Histo1DPtr histo_2J : _h_deltaPhi_2J.histos()) {
         norm_finalize[region_ptmax_2J] = histo_2J->integral();
         if (norm_finalize[region_ptmax_2J] != 0) scale(histo_2J, 1.0/norm_finalize[region_ptmax_2J]);
-        region_ptmax_2J++;  
+        region_ptmax_2J++;
       }
-      int region_ptmax_3J = 0;         
-      for (Histo1DPtr histo_3J : _h_deltaPhi_3J.histos()) {       
+      int region_ptmax_3J = 0;
+      for (Histo1DPtr histo_3J : _h_deltaPhi_3J.histos()) {
         if (norm_finalize[region_ptmax_3J] != 0) scale(histo_3J, 1.0/norm_finalize[region_ptmax_3J]);
         region_ptmax_3J++;
       }
@@ -76,7 +76,7 @@ namespace Rivet {
     BinnedHistogram _h_deltaPhi_3J;
 
   };
- 
+
 
   // The hook for the plugin system
   RIVET_DECLARE_PLUGIN(CMS_2019_I1719955);

@@ -38,7 +38,7 @@ namespace Rivet {
         MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
                     << " doesn't match any available analysis energy .");
       }
-      book(_histCh, 5, 1, offset); 
+      book(_histCh, 5, 1, offset);
       book(_histTotal, 2, 1, 1);
     }
 

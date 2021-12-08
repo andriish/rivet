@@ -45,10 +45,10 @@ namespace Rivet {
 	}
 	else {
 	  findDecay(p,nstable,pip,pim,eta);
-	}	
+	}
       }
     }
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       for(const Particle & D0 : apply<UnstableParticles>(event,"UFS").particles(Cuts::abspid==421)) {

@@ -9,7 +9,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// Underlying event activity in the Drell-Yan process at 13 TeV

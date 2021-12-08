@@ -40,7 +40,7 @@ public:
   /// @brief Constructor from ostream
   WriterCompressedAscii(std::ostream& stream,
                         shared_ptr<GenRunInfo> run = shared_ptr<GenRunInfo>());
-  
+
   /// @brief Destructor
   ~WriterCompressedAscii();
 

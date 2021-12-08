@@ -49,7 +49,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      
+
       const FinalState& fs = apply<FinalState>(event, "FS");
 
       map<long,int> nCount;

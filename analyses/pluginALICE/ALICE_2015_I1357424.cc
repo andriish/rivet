@@ -23,7 +23,7 @@ namespace Rivet {
       book(_histPtPions          ,"d01-x01-y01");    // pions
       book(_histPtKaons          ,"d01-x01-y02");    // kaons
       book(_histPtProtons        ,"d01-x01-y03");    // protons
-      book(_histPtKtoPi          ,"d02-x01-y01");  // K to pi ratio 
+      book(_histPtKtoPi          ,"d02-x01-y01");  // K to pi ratio
       book(_histPtPtoPi          ,"d03-x01-y01");  // p to pi ratio
       //
       // temp histos for ratios
@@ -43,9 +43,9 @@ namespace Rivet {
 	       p.hasAncestor(3322) || p.hasAncestor(-3322) ||     // Xi0
 	       p.hasAncestor(3122) || p.hasAncestor(-3122) ||     // Lambda
 	       p.hasAncestor(3222) || p.hasAncestor(-3222) ||     // Sigma+/-
-	       p.hasAncestor(3312) || p.hasAncestor(-3312) ||     // Xi-/+ 
-	   p.hasAncestor(3334) || p.hasAncestor(-3334) ))     // Omega-/+     
-        {  
+	       p.hasAncestor(3312) || p.hasAncestor(-3312) ||     // Xi-/+
+	   p.hasAncestor(3334) || p.hasAncestor(-3334) ))     // Omega-/+
+        {
 	  switch (abs(p.pid())) {
 	  case 211: // pi+
 	    _histPtPions->fill(p.pT()/GeV);
@@ -63,7 +63,7 @@ namespace Rivet {
 	  } // particle switch
 	} // primary pi, K, p only
       } // particle loop
-    }    
+    }
 
     void finalize() {
       divide(_histPtKaonsR,   _histPtPionsR1, _histPtKtoPi);

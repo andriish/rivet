@@ -49,12 +49,12 @@ bool PxConePlugin::_first_time = true;
 
 string PxConePlugin::description () const {
   ostringstream desc;
-  
-  desc << "PxCone jet algorithm with " 
+
+  desc << "PxCone jet algorithm with "
        << "cone_radius = "        << cone_radius        () << ", "
        << "min_jet_energy = "     << min_jet_energy     () << ", "
        << "overlap_threshold  = " << overlap_threshold  () << ", "
-       << "E_scheme_jets  = "     << E_scheme_jets      () 
+       << "E_scheme_jets  = "     << E_scheme_jets      ()
        << " (NB: non-standard version of PxCone, containing small bug fixes by Gavin Salam)";
 
   return desc.str();
@@ -64,7 +64,7 @@ string PxConePlugin::description () const {
 void PxConePlugin::run_clustering(fastjet::ClusterSequence & clust_seq) const {
   // print a banner if we run this for the first time
   //_print_banner(clust_seq.fastjet_banner_stream());
- 
+
   // only have hh mode
   int mode = 2;
 
@@ -75,7 +75,7 @@ void PxConePlugin::run_clustering(fastjet::ClusterSequence & clust_seq) const {
     ptrak[4*i+1] = clust_seq.jets()[i].py();
     ptrak[4*i+2] = clust_seq.jets()[i].pz();
     ptrak[4*i+3] = clust_seq.jets()[i].E();
-  }  
+  }
 
   // max number of allowed jets
   int mxjet = ntrak;
@@ -89,7 +89,7 @@ void PxConePlugin::run_clustering(fastjet::ClusterSequence & clust_seq) const {
   pxcone_(
     mode   ,    // 1=>e+e-, 2=>hadron-hadron
     ntrak  ,    // Number of particles
-    itkdm  ,    // First dimension of PTRAK array: 
+    itkdm  ,    // First dimension of PTRAK array:
     ptrak  ,    // Array of particle 4-momenta (Px,Py,Pz,E)
     cone_radius()  ,    // Cone size (half angle) in radians
     min_jet_energy() ,    // Minimum Jet energy (GeV)
@@ -105,7 +105,7 @@ void PxConePlugin::run_clustering(fastjet::ClusterSequence & clust_seq) const {
 
   if (ierr != 0) throw fastjet::Error("An error occurred while running PXCONE");
 
-  // now transfer information back 
+  // now transfer information back
   valarray<int> last_index_created(njet);
 
   vector<vector<int> > jet_particle_content(njet);
@@ -122,7 +122,7 @@ void PxConePlugin::run_clustering(fastjet::ClusterSequence & clust_seq) const {
   for(int ipxjet = njet-1; ipxjet >= 0; ipxjet--) {
     const vector<int> & jet_trak_list = jet_particle_content[ipxjet];
     int jet_k = jet_trak_list[0];
-  
+
     for (unsigned ilist = 1; ilist < jet_trak_list.size(); ilist++) {
       int jet_i = jet_k;
       // retrieve our misappropriated index for the jet
@@ -136,13 +136,13 @@ void PxConePlugin::run_clustering(fastjet::ClusterSequence & clust_seq) const {
       } else {
         // put in pxcone's momentum for the last recombination so that the
         // final inclusive jet corresponds exactly to PXCONE's
-        clust_seq.plugin_record_ij_recombination(jet_i, jet_j, dij, 
+        clust_seq.plugin_record_ij_recombination(jet_i, jet_j, dij,
                       fastjet::PseudoJet(pjet[5*ipxjet+0],pjet[5*ipxjet+1],
                                           pjet[5*ipxjet+2],pjet[5*ipxjet+3]),
                                                  jet_k);
       }
     }
-  
+
     // NB: put a sensible looking d_iB just to be nice...
     double d_iB = clust_seq.jets()[jet_k].perp2();
     clust_seq.plugin_record_iB_recombination(jet_k, d_iB);
@@ -175,7 +175,7 @@ void PxConePlugin::_print_banner(ostream *ostr) const{
   _first_time=false;
 
   // make sure the user has not set the banner stream to NULL
-  if (!ostr) return;  
+  if (!ostr) return;
 
   (*ostr) << "#-------------------------------------------------------------------------" << endl;
   (*ostr) << "# You are running the PxCone plugin for FastJet                           " << endl;
@@ -203,12 +203,12 @@ using namespace std;
 static int MAXV = 20000;
 static int VDIM = 3;
 
-void pxtry_(int, double *, int,  double *, double *, double *, double *, 
+void pxtry_(int, double *, int,  double *, double *, double *, double *,
 	    double *, int *, int *);
 
 void pxsorv_(int, double *, int *, char);
 
-void pxsear_(int, double *, int, double *, double *, double *, int &, int *, 
+void pxsear_(int, double *, int, double *, double *, double *, int &, int *,
              double *, int *, int *);
 
 void pxolap_(int, int, int, int *, double *, double *, double);
@@ -292,11 +292,11 @@ void pxang3(double *a, double *b, double &cost, double &thet) {
   double c = (a[0]*a[0] + a[1]*a[1] + a[2]*a[2])*
              (b[0]*b[0] + b[1]*b[1] + b[2]*b[2]);
   if (c <= 0.) return;
-  
+
   c = 1/sqrt(c);
   cost = (a[0]*b[0] + a[1]*b[1] + a[2]*b[2])*c;
   thet = acos(cost);
-  
+
 }
 
 /* ** Note that although JETLIS is assumed to be a 2d array, it */
@@ -360,7 +360,7 @@ void pxord(double epslon, int & njet, int ntrak,
     for (int i = 1; i <= njet; ++i) {
       elist[i - 1] = pj[(i << 2) + 4];
     }
-    
+
 /* ** Sort the energies... */
     pxsorv_(njet, elist, index, 'I');
 /* ** Fill PJ and JETLIS according to sort ( sort is in ascending order!!) */
@@ -385,7 +385,7 @@ void pxord(double epslon, int & njet, int ntrak,
 }
 
 // The main PXCONE function.
-void pxcone_(int mode, int ntrak, int itkdm, 
+void pxcone_(int mode, int ntrak, int itkdm,
 	const double *ptrak, double coner, double epslon, double
 	ovlim, int mxjet, int & njet, double *pjet, int *
 	ipass, int *ijmul, int *ierr)
@@ -564,7 +564,7 @@ void pxcone_(int mode, int ntrak, int itkdm,
 /* Computing 2nd power */
 	    d__3 = ptrak[i__ * ptrak_dim1 + 3];
 /* Computing 2nd power */
-	    d__2 = sqrt(ptsq + d__3 * d__3) + (d__1 = ptrak[i__ * ptrak_dim1 
+	    d__2 = sqrt(ptsq + d__3 * d__3) + (d__1 = ptrak[i__ * ptrak_dim1
 		    + 3], abs(d__1));
 	    ppsq = d__2 * d__2;
 	    if (ptsq <= ppsq * (float)4.25e-18) {
@@ -572,7 +572,7 @@ void pxcone_(int mode, int ntrak, int itkdm,
 	    } else {
 		pp[(i__ << 2) - 4] = log(ppsq / ptsq) * (float).5;
 	    }
-	    pp[(i__ << 2) - 4] = d_sign(pp[(i__ << 2) - 4], ptrak[i__ * 
+	    pp[(i__ << 2) - 4] = d_sign(pp[(i__ << 2) - 4], ptrak[i__ *
 		    ptrak_dim1 + 3]);
 	    if (ptsq == 0.) {
 		pp[(i__ << 2) - 3] = 0.;
@@ -628,7 +628,7 @@ void pxcone_(int mode, int ntrak, int itkdm,
 	for (mu = 1; mu <= 3; ++mu) {
 	    vseed[mu - 1] = pu[mu + n * 3 - 4];
 	}
-	pxsear_(mode, &cosr, ntrak, pu, pp, vseed, njet, jetlis, pj, &unstbl, 
+	pxsear_(mode, &cosr, ntrak, pu, pp, vseed, njet, jetlis, pj, &unstbl,
 		ierr);
 	if (*ierr != 0) {
 	    return;
@@ -665,7 +665,7 @@ void pxcone_(int mode, int ntrak, int itkdm,
 	    }
 /* ---ONLY BOTHER IF THEY ARE BETWEEN 1 AND 2 CONE RADII APART */
 	    if (mode != 2) {
-		cosval = vec1[0] * vec2[0] + vec1[1] * vec2[1] + vec1[2] * 
+		cosval = vec1[0] * vec2[0] + vec1[1] * vec2[1] + vec1[2] *
 			vec2[2];
 	    } else {
 		if (abs(vec1[0]) >= 20. || abs(vec2[0]) >= 20.) {
@@ -781,7 +781,7 @@ void pxnorv_(int *n, double *a, double *b, int *iterr)
 } /* pxnorv_ */
 
 
-void pxolap_(int mode, int njet, int ntrak, 
+void pxolap_(int mode, int njet, int ntrak,
 	int *jetlis, double *pj, double *pp, double ovlim)
 {
     /* Initialized data */
@@ -914,7 +914,7 @@ void pxolap_(int mode, int njet, int ntrak,
 			    i__ << 2) + 1]);
 /* GPS 25/02/07 */
 		    d__2 = pp[(n << 2) + 2] - pj[(i__ << 2) + 2];
-		    d__1 = pj[(i__ << 2) + 2] + pp[(n << 2) + 4] / (pp[(n << 
+		    d__1 = pj[(i__ << 2) + 2] + pp[(n << 2) + 4] / (pp[(n <<
 			    2) + 4] + pj[(i__ << 2) + 4]) * pxmdpi(d__2);
 		    pj[(i__ << 2) + 2] = pxmdpi(d__1);
 /*                PJ(2,I)=PJ(2,I) */
@@ -929,8 +929,8 @@ void pxolap_(int mode, int njet, int ntrak,
 
 
 /* ******************************************************************* */
-void pxsear_(int mode, double *cosr, int ntrak, 
-             double *pu, double *pp, double *vseed, int & njet, 
+void pxsear_(int mode, double *cosr, int ntrak,
+             double *pu, double *pp, double *vseed, int & njet,
              int *jetlis, double *pj, int *unstbl, int *ierr)
 {
     /* System generated locals */
@@ -969,7 +969,7 @@ void pxsear_(int mode, double *cosr, int ntrak,
 	oldlis[n - 1] = false;
     }
     for (iter = 1; iter <= 30; ++iter) {
-	pxtry_(mode, cosr, ntrak, &pu[4], &pp[5], oaxis, naxis, pnew, newlis, 
+	pxtry_(mode, cosr, ntrak, &pu[4], &pp[5], oaxis, naxis, pnew, newlis,
 		&ok);
 /* ** Return immediately if there were no particles in the cone. */
 	if (! ok) {
@@ -1112,8 +1112,8 @@ L30:
 
 /* ******************************************************************** */
 
-void pxtry_(int mode, double *cosr, int ntrak, 
-	double *pu, double *pp, double *oaxis, double *naxis, 
+void pxtry_(int mode, double *cosr, int ntrak,
+	double *pu, double *pp, double *oaxis, double *naxis,
 	double *pnew, int *newlis, int *ok)
 {
     /* System generated locals */
@@ -1162,7 +1162,7 @@ void pxtry_(int mode, double *cosr, int ntrak,
 		cosval += oaxis[mu] * pu[mu + npu];
 	    }
 	} else {
-	    if ((d__1 = pu[npu + 1], abs(d__1)) >= 20. || abs(oaxis[1]) >= 
+	    if ((d__1 = pu[npu + 1], abs(d__1)) >= 20. || abs(oaxis[1]) >=
 		    20.) {
 		cosval = -1e3;
 	    } else {
@@ -1182,14 +1182,14 @@ void pxtry_(int mode, double *cosr, int ntrak,
 		    pnew[mu] += pp[mu + npp];
 		}
 	    } else {
-		pnew[1] += pp[npp + 4] / (pp[npp + 4] + pnew[4]) * (pp[npp + 
+		pnew[1] += pp[npp + 4] / (pp[npp + 4] + pnew[4]) * (pp[npp +
 			1] - pnew[1]);
 /*                PNEW(2)=PNEW(2) */
 /*     +              + PP(4+NPP)/(PP(4+NPP)+PNEW(4)) */
 /*     +               *PXMDPI(PP(2+NPP)-PNEW(2)) */
 /* GPS 25/02/07 */
 		d__2 = pp[npp + 2] - pnew[2];
-		d__1 = pnew[2] + pp[npp + 4] / (pp[npp + 4] + pnew[4]) * 
+		d__1 = pnew[2] + pp[npp + 4] / (pp[npp + 4] + pnew[4]) *
 			pxmdpi(d__2);
 		pnew[2] = pxmdpi(d__1);
 		pnew[4] += pp[npp + 4];

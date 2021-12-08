@@ -72,7 +72,7 @@ namespace Rivet {
 	    error = _n3pi->err();
 	  }
 	  sigma *= crossSection()/ sumOfWeights() /nanobarn;
-	  error *= crossSection()/ sumOfWeights() /nanobarn; 
+	  error *= crossSection()/ sumOfWeights() /nanobarn;
 	  Scatter2D temphisto(refData(iy, 1, ix));
 	  Scatter2DPtr mult;
 	  book(mult, iy, 1, ix);
@@ -92,7 +92,7 @@ namespace Rivet {
 	}
       }
     }
-    
+
     //@}
 
 

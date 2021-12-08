@@ -9,7 +9,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// @brief MC validation analysis for SUSY events

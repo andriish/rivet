@@ -50,7 +50,7 @@ namespace Rivet {
 	if(p.abspid()==511 || p.abspid()==521) {
 	  if(p.parents()[0].abspid()==p.abspid()) continue;
 	  if(p.parents()[0].abspid()==513 || p.parents()[0].abspid()==523) continue;
-	  _c_B->fill(); 
+	  _c_B->fill();
 	}
 	// B*
 	else {

@@ -79,7 +79,7 @@ namespace Rivet {
         }
       }
       // for (LevelMap::const_iterator l = defaultLevels.begin(); l != defaultLevels.end(); ++l) {
-      // 
+      //
       // }
 
       // emplace returns pair<iterator,bool>
@@ -178,7 +178,7 @@ namespace Rivet {
 
     out += " ";
     out += message;
- 
+
     return out;
   }
 
@@ -200,7 +200,7 @@ namespace Rivet {
       		return cerr;
       	} else {
       		cout << log.formatMessage(level, "");
-      		return cout;      		
+      		return cout;
       	}
     } else {
       static ostream devNull(nullptr);

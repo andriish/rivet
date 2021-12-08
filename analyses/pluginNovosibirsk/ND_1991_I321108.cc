@@ -80,7 +80,7 @@ namespace Rivet {
 	if(nCount[211]==2&&nCount[-211]==2&&nCount[111]==1)
 	  _n5Pi->fill();
       }
-      
+
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;

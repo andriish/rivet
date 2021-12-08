@@ -102,10 +102,10 @@ namespace Rivet {
 	  sigma = _nKKpieta->val();
 	  error = _nKKpieta->err();
 	}
-	  
+
 	sigma *= crossSection()/ sumOfWeights() /nanobarn;
 	error *= crossSection()/ sumOfWeights() /nanobarn;
-	
+
 	Scatter2D temphisto(refData(ix, 1, 1));
 	Scatter2DPtr  mult;
         book(mult, ix, 1, 1);

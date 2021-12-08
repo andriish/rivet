@@ -53,7 +53,7 @@ namespace Rivet {
 	  ++nstable;
       }
     }
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // loop over unstable particles

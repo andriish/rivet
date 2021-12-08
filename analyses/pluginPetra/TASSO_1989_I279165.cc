@@ -28,7 +28,7 @@ namespace Rivet {
       const Thrust thrust(cfs);
       declare(thrust, "Thrust");
       declare(Hemispheres(thrust), "Hemispheres");
-      
+
       int offset = 0;
       if (isCompatibleWithSqrtS(14.0*GeV))
 	offset=1;
@@ -65,7 +65,7 @@ namespace Rivet {
     void finalize() {
       normalize(_h_diff );
       normalize(_h_heavy);
-      normalize(_h_light); 
+      normalize(_h_light);
     }
     //@}
 

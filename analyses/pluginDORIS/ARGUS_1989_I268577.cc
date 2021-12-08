@@ -28,7 +28,7 @@ namespace Rivet {
       book(_h_D2_ctheta, 3, 1, 1);
     }
 
-   
+
    /// Recursively walk the decay tree to find decay products of @a p
    void findDecayProducts(Particle mother, Particles & d, Particles & pi,unsigned int & ncount) {
      for(const Particle & p: mother.children()) {
