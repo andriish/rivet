@@ -16,7 +16,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(TASSO_1989_I266893);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -136,17 +136,17 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_lam_p, _h_lam_pL, _h_lam_pTIn, _h_lam_pTOut, _h_lam_rap, _h_lam_x;
     Profile1DPtr _p_lam_S_1, _p_lam_S_2;
     Histo1DPtr _h_xi_p, _h_xi_pL, _h_xi_pTIn, _h_xi_pTOut, _h_xi_rap, _h_xi_x;
     int _ih;
     double sqs;
-    //@}
+    /// @}
 
 
   };

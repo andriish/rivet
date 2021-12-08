@@ -12,10 +12,10 @@ namespace Rivet {
   class ATLAS_2020_I1788444 : public Analysis {
   public:
     /// @name Constructors etc.
-    //@{
+    /// @{
     /// Constructor
     RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2020_I1788444);
-    //@}
+    /// @}
 
     /// Book histograms and initialise projections before the run
     void init() {

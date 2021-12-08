@@ -21,7 +21,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -117,20 +117,20 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
     // The rapidity intervals.
     vector<pair<double, double> > rapIntervalsPi;
     vector<pair<double, double> > rapIntervalsK;
 
     /// @name Histograms
-    //@{
+    /// @{
     vector<Histo1DPtr> piPlus;
     vector<Histo1DPtr> piMinus;
     vector<Histo1DPtr> kPlus;
     vector<Histo1DPtr> kMinus;
     CounterPtr centSow;
-    //@}
+    /// @}
   };
 
   // The hook for the plugin system

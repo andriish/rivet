@@ -18,7 +18,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2016_I1469071);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -278,14 +278,14 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_eee;
     Histo1DPtr _h_mee;
     Histo1DPtr _h_emm;
@@ -304,7 +304,7 @@ namespace Rivet {
     Histo1DPtr _h_total;
     Histo1DPtr _h_Njets;
 
-    //@}
+    /// @}
 
     double MZ_PDG = 91.1876;
     double MW_PDG = 83.385;

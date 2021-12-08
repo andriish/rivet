@@ -13,11 +13,11 @@ namespace Rivet {
 
     /// Constructor
     RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2016_I1467454);
-    //@}
+    /// @}
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -74,7 +74,7 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// Choose to work in electron or muon mode
@@ -82,10 +82,10 @@ namespace Rivet {
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _hist_mll;
     BinnedHistogram _hist_rap, _hist_deta;
-    //@}
+    /// @}
 
   };
 

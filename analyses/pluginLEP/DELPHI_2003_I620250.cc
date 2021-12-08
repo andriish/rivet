@@ -20,7 +20,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -262,11 +262,11 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_thrust,_h_major,_h_minor;
     Histo1DPtr _h_sphericity,_h_planarity,_h_aplanarity,_h_oblateness;
     Histo1DPtr _h_heavy_jet_mass,_h_light_jet_mass,_h_diff_jet_mass,_h_total_jet_mass;
@@ -275,7 +275,7 @@ namespace Rivet {
     Histo1DPtr _h_wide_broading,_h_narrow_broading,_h_total_broading,_h_diff_broading;
     Histo1DPtr _h_CParam,_h_DParam;
     Histo1DPtr _h_xi, _h_pTIn, _h_pTOut,_h_rap;
-    //@}
+    /// @}
   };
 
 

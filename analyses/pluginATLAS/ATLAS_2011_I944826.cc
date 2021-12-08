@@ -239,17 +239,17 @@ namespace Rivet {
     CounterPtr _sum_w_ks, _sum_w_lambda, _sum_w_passed;
 
     /// @name Persistent histograms
-    //@{
+    /// @{
     Histo1DPtr _hist_Ks_pT, _hist_Ks_y, _hist_Ks_mult;
     Histo1DPtr _hist_L_pT, _hist_L_y, _hist_L_mult;
     Scatter2DPtr _hist_Ratio_v_pT, _hist_Ratio_v_y;
-    //@}
+    /// @}
 
     /// @name Temporary histograms
-    //@{
+    /// @{
     Histo1DPtr _temp_lambda_v_y, _temp_lambdabar_v_y;
     Histo1DPtr _temp_lambda_v_pT, _temp_lambdabar_v_pT;
-    //@}
+    /// @}
 
   };
 

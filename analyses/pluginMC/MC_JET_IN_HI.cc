@@ -14,12 +14,12 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     RIVET_DEFAULT_ANALYSIS_CTOR(MC_JET_IN_HI);
 
-    //@}
+    /// @}
 
 
   public:
@@ -30,7 +30,7 @@ namespace Rivet {
       return ss.str();
     }
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -135,7 +135,7 @@ namespace Rivet {
     }
 
 
-    //@}
+    /// @}
 
 
   private:

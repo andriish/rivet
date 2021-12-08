@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -68,18 +68,18 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_massMuMu;
     Histo1DPtr _h_massMuMuFiducial;
     Histo1DPtr _h_massEEFiducial;
-    //@}
+    /// @}
 
 
     // select two opposite sign leptons with highest pT & fill the histogram for full-phase space diff. x-section

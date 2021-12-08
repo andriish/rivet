@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -193,12 +193,12 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_ratio_mu, _h_ratio_el;
     Histo1DPtr _h_1prong_pinu, _h_1prong_Kpnu, _h_1prong_Kppinu, _h_1prong_pipinu, _h_1prong_pipipinu, _h_1prong_Knpinu;
     Histo1DPtr _h_3prong_pipipinu;
     Histo1DPtr _h_5prong;
-    //@}
+    /// @}
 
     CounterPtr _weights_had, _weights_mu, _weights_el;
     map<string, vector<int> > decay_pids;

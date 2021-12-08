@@ -24,7 +24,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     // Book histograms
     void init() {
@@ -293,7 +293,7 @@ namespace Rivet {
       /// @todo Normalisations
     }
 
-    //@}
+    /// @}
 
 
   private:

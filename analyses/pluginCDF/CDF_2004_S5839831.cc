@@ -25,7 +25,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Set up projections
@@ -248,7 +248,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:

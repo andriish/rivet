@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -197,36 +197,36 @@ namespace Rivet {
       divide(_h_tmp_HT2_R04_3,_h_tmp_HT2_R04_2, _h_HT2_R04_ratio);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_jet_multi_inclusive;
     Scatter2DPtr _h_jet_multi_ratio;
     vector<Histo1DPtr> _h_jet_pT;
     Histo1DPtr _h_HT_2;
     Histo1DPtr _h_HT_3;
     Histo1DPtr _h_HT_4;
-    //@}
+    /// @}
 
     /// @name Ratio histograms
-    //@{
+    /// @{
     Scatter2DPtr _h_pTlead_R06_60_ratio, _h_pTlead_R06_80_ratio, _h_pTlead_R06_110_ratio;
     Scatter2DPtr _h_pTlead_R04_60_ratio, _h_pTlead_R04_80_ratio, _h_pTlead_R04_110_ratio;
     Scatter2DPtr _h_HT2_R06_ratio, _h_HT2_R04_ratio;
-    //@}
+    /// @}
 
     /// @name Temporary histograms to be divided for the dsigma3/dsigma2 ratios
-    //@{
+    /// @{
     Histo1DPtr _h_tmp_pTlead_R06_60_2, _h_tmp_pTlead_R06_80_2, _h_tmp_pTlead_R06_110_2;
     Histo1DPtr _h_tmp_pTlead_R06_60_3, _h_tmp_pTlead_R06_80_3, _h_tmp_pTlead_R06_110_3;
     Histo1DPtr _h_tmp_pTlead_R04_60_2, _h_tmp_pTlead_R04_80_2, _h_tmp_pTlead_R04_110_2;
     Histo1DPtr _h_tmp_pTlead_R04_60_3, _h_tmp_pTlead_R04_80_3, _h_tmp_pTlead_R04_110_3;
     Histo1DPtr _h_tmp_HT2_R06_2, _h_tmp_HT2_R06_3, _h_tmp_HT2_R04_2, _h_tmp_HT2_R04_3;
-    //@}
+    /// @}
 
   };
 

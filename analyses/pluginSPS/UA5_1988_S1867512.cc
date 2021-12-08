@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Projections
@@ -135,7 +135,7 @@ namespace Rivet {
       _hist_correl_asym->addPoints(points);
     }
 
-    //@}
+    /// @}
 
 
   private:

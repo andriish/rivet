@@ -20,7 +20,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Projections
@@ -102,7 +102,7 @@ namespace Rivet {
       book(s23, "23");
     }
 
-    //@}
+    /// @}
 
 
   private:

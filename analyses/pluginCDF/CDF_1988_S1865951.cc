@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and set up projections
     void init() {
@@ -57,7 +57,7 @@ namespace Rivet {
       scale(_hist_pt, crossSectionPerEvent()/millibarn);
     }
 
-    //@}
+    /// @}
 
 
   private:

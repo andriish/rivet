@@ -139,7 +139,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -463,7 +463,7 @@ namespace Rivet {
       divide(_hist_wcjet_jets_plus, _hist_wcjet_jets_minus , _hist_wcjet_jets_ratio);
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -533,7 +533,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
 
     //d01-x01-
     Histo1DPtr   _hist_wcjet_charge;
@@ -589,7 +589,7 @@ namespace Rivet {
     Scatter2DPtr  _hist_wcjet_jets_ratio ;
     Histo1DPtr    _hist_wcjet_jets_plus ;
     Histo1DPtr    _hist_wcjet_jets_minus;
-    //@}
+    /// @}
 
   };
 

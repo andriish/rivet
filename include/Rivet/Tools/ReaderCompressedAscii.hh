@@ -62,7 +62,7 @@ private:
   std::string unescape(const std::string& s);
 
   /// @name Read helpers
-  //@{
+  /// @{
 
   /// @brief Parse event
   ///
@@ -125,7 +125,7 @@ private:
   /// sets the information in the given particle.
   bool read_momentum(GenParticlePtr p);
 
-  //@}
+  /// @}
 
 
 private:

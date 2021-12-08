@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Set up projections and book histograms
     void init() {
@@ -290,7 +290,7 @@ namespace Rivet {
       for (auto hist : _h) { scale(hist.second, sf); }
     }
 
-    //@}
+    /// @}
 
   protected:
 
@@ -300,9 +300,9 @@ namespace Rivet {
   private:
 
     // @name Histogram data members
-    //@{
+    /// @{
     map<string, Histo1DPtr> _h;
-    //@}
+    /// @}
 
   };
 

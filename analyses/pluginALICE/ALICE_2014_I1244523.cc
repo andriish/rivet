@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     int profileIndex(vector<double> cBins, double c) {
       int index = 100;
@@ -223,7 +223,7 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 private:
     vector<double> centralityBins;

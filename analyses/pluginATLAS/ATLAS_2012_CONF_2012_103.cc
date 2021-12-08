@@ -21,7 +21,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -208,7 +208,7 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
     void finalize() {
       double norm = crossSection()/femtobarn*5.8/sumOfWeights();
@@ -234,7 +234,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _etmiss_HT_7j55;
     Histo1DPtr _etmiss_HT_8j55;
     Histo1DPtr _etmiss_HT_9j55;
@@ -251,7 +251,7 @@ namespace Rivet {
     Histo1DPtr _count_6j80;
     Histo1DPtr _count_7j80;
     Histo1DPtr _count_8j80;
-    //@}
+    /// @}
 
   };
 

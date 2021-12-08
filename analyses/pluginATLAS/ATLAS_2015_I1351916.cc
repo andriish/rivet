@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -98,7 +98,7 @@ namespace Rivet {
       return sign(ll.pz()) * safediv(nom, denom); // protect against division by zero, you never know...
     }
 
-    //@}
+    /// @}
 
 
   protected:

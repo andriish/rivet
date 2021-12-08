@@ -124,9 +124,9 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histPt_elecs, _histPt_muons, _histPt_muons_full;
-    //@}
+    /// @}
 
   };
 

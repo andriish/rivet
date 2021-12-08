@@ -14,20 +14,20 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
      LHCB_2015_I1333223()
       : Analysis("LHCB_2015_I1333223")
     {    }
 
-    //@}
+    /// @}
 
 
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -66,7 +66,7 @@ namespace Rivet {
       scale(_hInelasticXs, crossSection()/sumOfWeights()/millibarn);
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -95,9 +95,9 @@ namespace Rivet {
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _hInelasticXs;
-    //@}
+    /// @}
     //
   };
 

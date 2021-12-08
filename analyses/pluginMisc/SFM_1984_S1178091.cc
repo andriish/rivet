@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Projections
@@ -77,17 +77,17 @@ namespace Rivet {
       normalize(_hist_multiplicity_nsd);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _hist_multiplicity_inel;
     Histo1DPtr _hist_multiplicity_nsd;
-    //@}
+    /// @}
 
   };
 

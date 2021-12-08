@@ -17,7 +17,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2017_I1625109);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     struct Dilepton {
       Dilepton() {};
@@ -291,14 +291,14 @@ namespace Rivet {
       const double sf = crossSectionPerEvent() / femtobarn;
       scale(_h, sf);
     }
-    //@}
+    /// @}
 
   private:
     /// @name Histograms
-    //@{
+    /// @{
     map<string, Histo1DPtr> _h;
     static constexpr double Z_mass = 91.1876;
-    //@}
+    /// @}
   };
 
 

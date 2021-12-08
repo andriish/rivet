@@ -36,7 +36,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// @brief Constructor with a reco efficiency and optional tagging efficiencies
     ///
@@ -115,7 +115,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(SmearedJets);
 
-    //@}
+    /// @}
 
 
     /// Compare to another SmearedJets

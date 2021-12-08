@@ -17,7 +17,7 @@ namespace Rivet {
   /// @{
 
   /// @defgroup particleutils_class Particle classifier functions
-  //@{
+  /// @{
 
   /// Unbound function access to PID code
   inline int pid(const Particle& p) { return p.pid(); }
@@ -766,7 +766,7 @@ namespace Rivet {
   /// @defgroup particleutils_kin Operations on collections of Particle
   ///
   /// @note This can't be done on generic collections of ParticleBase -- thanks, C++ :-/
-  ///@{
+  /// @{
   namespace Kin {
 
     inline double sumPt(const Particles& ps) {

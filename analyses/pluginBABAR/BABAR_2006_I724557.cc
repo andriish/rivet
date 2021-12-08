@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -47,13 +47,13 @@ namespace Rivet {
       divide(_c_Omega_Star,_c_Omega,ratio);
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _c_Omega,_c_Omega_Star;
-    ///@}
+    /// @}
 
 
   };

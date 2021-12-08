@@ -14,7 +14,7 @@ namespace Rivet {
   public:
 
     /// @name Plotting helper types
-    //@{
+    /// @{
 
     struct Plots {
       string ref;
@@ -22,14 +22,14 @@ namespace Rivet {
       Scatter2DPtr ratio; // Rjets plot
     };
 
-    //@}
+    /// @}
 
 
     /// Constructor
     RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2014_I1312627);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -133,11 +133,11 @@ namespace Rivet {
         divide(item.second.comp[0], item.second.comp[1], item.second.ratio);
       }
     }
-    //@}
+    /// @}
 
 
     /// Analysis helper functions
-    //@{
+    /// @{
 
     /// Histogram filling function, to avoid duplication
     void fillPlots(const Particles& leptons, Jets& jets, int isZ) {
@@ -200,7 +200,7 @@ namespace Rivet {
       book(_plots[label].ratio, pre + "1" + _suff, true);
     }
 
-    //@}
+    /// @}
 
 
   protected:

@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     LHCB_2014_I1281685()
@@ -22,11 +22,11 @@ namespace Rivet {
         _maxlft(1.0e-11)
     {    }
 
-    //@}
+    /// @}
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -169,7 +169,7 @@ namespace Rivet {
       _h_mult_pt[4]->scaleW( scalefactor*scale1k );
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -1148,13 +1148,13 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_mult_total;  // full kinematic range
     Histo1DPtr _h_mult_eta[5]; // in eta bins
     Histo1DPtr _h_mult_pt[5];  // in pT bins
     Histo1DPtr _h_dndeta;       // density dn/deta
     Histo1DPtr _h_dndpt;    // density dn/dpT
-    //@}
+    /// @}
 
 
     /// @name Private variables

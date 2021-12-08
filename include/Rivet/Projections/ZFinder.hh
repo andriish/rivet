@@ -23,7 +23,7 @@ namespace Rivet {
     enum class AddPhotons { NO, YES };
 
     /// @name Constructors
-    //@{
+    /// @{
 
     /// @brief Constructor taking cuts object
     ///
@@ -66,7 +66,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(ZFinder);
 
-    //@}
+    /// @}
 
 
     /// Access to the found bosons

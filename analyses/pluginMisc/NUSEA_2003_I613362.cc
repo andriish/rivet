@@ -111,7 +111,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    ///@{
+    /// @{
     BinnedHistogram _hist_pT_M, _hist_M_xF;
     Histo1DPtr  _h_m_DiMuon ;
     Histo1DPtr  _h_pT_DiMuon;
@@ -121,7 +121,7 @@ namespace Rivet {
     Histo1DPtr _h_yDiff_DiMuon;
     Histo1DPtr _h_dPhi_DiMuon;
     Histo1DPtr _h_xF_DiMuon;
-    ///@}
+    /// @}
 
 
   };

@@ -31,7 +31,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book projections and histograms
     void init() {
@@ -93,7 +93,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -102,10 +102,10 @@ namespace Rivet {
     CounterPtr _sumWTrig;
 
     /// @name Histos
-    //@{
+    /// @{
     Histo1DPtr _hist_multiplicity;
     Profile1DPtr _hist_pt_vs_multiplicity;
-    //@}
+    /// @}
 
   };
 

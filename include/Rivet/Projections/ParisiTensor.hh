@@ -70,17 +70,17 @@ namespace Rivet {
   public:
 
     /// @name Access the C and D params.
-    ///@{
+    /// @{
     double C() const { return _C; }
     double D() const { return _D; }
-    ///@}
+    /// @}
 
     /// @name Access the eigenvalues of \f$\theta\f$.
-    ///@{
+    /// @{
     double lambda1() const { return _lambda[0]; }
     double lambda2() const { return _lambda[1]; }
     double lambda3() const { return _lambda[2]; }
-    ///@}
+    /// @}
 
 
   private:

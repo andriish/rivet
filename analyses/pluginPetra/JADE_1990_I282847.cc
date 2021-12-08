@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -73,12 +73,12 @@ namespace Rivet {
       if(_h_eta) scale(_h_eta  , crossSection()*sqr(sqrtS())/microbarn/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_gamma, _h_pi0, _h_eta;
-    //@}
+    /// @}
 
   };
 

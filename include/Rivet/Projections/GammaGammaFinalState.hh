@@ -15,7 +15,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors
-    //@{
+    /// @{
     /// Constructor with optional FinalState
     /// @note The GammaGammaKinematics has no parameters, hence explicitly passing it as an arg shouldn't be necessary.
     GammaGammaFinalState(const FinalState& fs=FinalState(), const GammaGammaKinematics& kinematicsp=GammaGammaKinematics())
@@ -47,7 +47,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(GammaGammaFinalState);
 
-    //@}
+    /// @}
 
 
   protected:

@@ -18,7 +18,7 @@ class ZEUS_2008_I810112 : public Analysis {
       RIVET_DEFAULT_ANALYSIS_CTOR(ZEUS_2008_I810112);
 
       /// @name Analysis methods
-      ///@{
+      /// @{
 
       /// Book histograms and initialise projections before the run
       void init() {
@@ -138,7 +138,7 @@ class ZEUS_2008_I810112 : public Analysis {
               barchart(_h_D0_yinq2[i], _s_D0_yinq2[i], false);
           }
       }
-      ///@}
+      /// @}
 
     private:
 

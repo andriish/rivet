@@ -18,7 +18,7 @@ class ATLAS_2016_I1487726 : public Analysis {
     public:
 
         /// @name Analysis methods
-        //@{
+        /// @{
 
         /// Book histograms and initialise projections before the run
         void init() {
@@ -80,7 +80,7 @@ class ATLAS_2016_I1487726 : public Analysis {
           scale(h_mu_jet_dr_pt650, sf);
         }
 
-        //@}
+        /// @}
 
     protected:
 
@@ -89,11 +89,11 @@ class ATLAS_2016_I1487726 : public Analysis {
     private:
 
         /// @name Histograms
-        //@{
+        /// @{
         Histo1DPtr h_mu_jet_dr;
         Histo1DPtr h_mu_jet_dr_pt500600;
         Histo1DPtr h_mu_jet_dr_pt650;
-        //@}
+        /// @}
   };
 
 

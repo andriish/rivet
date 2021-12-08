@@ -105,7 +105,7 @@ public:
 };
 
 /** \addtogroup Geometry_Module */
-//@{
+// @{
 
 /** Concatenates a linear transformation matrix and a uniform scaling
   * \relates UniformScaling
@@ -150,7 +150,7 @@ typedef DiagonalMatrix<double,2> AlignedScaling2d;
 typedef DiagonalMatrix<float, 3> AlignedScaling3f;
 /** \deprecated */
 typedef DiagonalMatrix<double,3> AlignedScaling3d;
-//@}
+// @}
 
 template<typename Scalar>
 template<int Dim>

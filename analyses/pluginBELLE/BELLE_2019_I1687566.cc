@@ -20,7 +20,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -188,17 +188,17 @@ namespace Rivet {
     void finalize() {
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Profile1DPtr _p_lam[4],_p_bar[4];
     Profile1DPtr _p_lam_pip[4],_p_lam_pim[4],_p_lam_Kp[4],_p_lam_Km[4];
     Profile1DPtr _p_bar_pip[4],_p_bar_pim[4],_p_bar_Kp[4],_p_bar_Km[4];
     Profile1DPtr _p_lam_inc,_p_lam_prompt,_p_lam_sigma;
     Profile1DPtr _p_bar_inc,_p_bar_prompt,_p_bar_sigma;
-    //@}
+    /// @}
 
 
   };

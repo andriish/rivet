@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -151,17 +151,17 @@ namespace Rivet {
       scale(_h_jet_pT_cross_section_incl_2jet, invlumi);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_jet_multiplicity;
     Histo1DPtr _h_jet_pT_cross_section_incl_1jet;
     Histo1DPtr _h_jet_pT_cross_section_incl_2jet;
-    //@}
+    /// @}
 
   };
 

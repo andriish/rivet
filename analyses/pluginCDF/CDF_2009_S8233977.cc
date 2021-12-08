@@ -28,7 +28,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and projections
     void init() {
@@ -98,7 +98,7 @@ namespace Rivet {
       MSG_DEBUG("_sumWeightSelected = " << dbl(*_sumWeightSelected));
     }
 
-    //@}
+    /// @}
 
 
   private:

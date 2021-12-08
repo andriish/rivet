@@ -16,7 +16,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors.
-    //@{
+    /// @{
 
     /// Default constructor.
     DISDiffHadron() {
@@ -28,7 +28,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(DISDiffHadron);
 
-    //@}
+    /// @}
 
 
   protected:

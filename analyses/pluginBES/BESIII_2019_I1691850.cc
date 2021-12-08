@@ -15,7 +15,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2019_I1691850);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -370,16 +370,16 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_T1_p,_h_T2_p,_h_T3_p,_h_T4_p,_h_T5_p;
     Histo1DPtr _h_T1_n,_h_T2_n,_h_T3_n,_h_T4_n,_h_T5_n;
     Histo1DPtr _h_cThetaL;
     Histo1DPtr _h_mu_p,_h_mu_n;
     CounterPtr _wsum_p,_wsum_n;
-    //@}
+    /// @}
 
   };
 

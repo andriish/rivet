@@ -13,7 +13,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2017_I1624693);
 
     /// @name Analysis methods
-    //@{
+    /// @{
     struct usedX {
 
       int locMin;
@@ -355,7 +355,7 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
     double qq(const Particle& gp1, const Particle& gp2, bool& match) {
       match = gp1.charge() * gp2.charge() > 0;
       FourMomentum p1, p2;
@@ -425,7 +425,7 @@ namespace Rivet {
     Histo1DPtr _Delta3h;
     Histo1DPtr   _h_nch;
     Histo2DPtr _dalitz;
-    //@}
+    /// @}
   };
 
   // This global object acts as a hook for the plugin system

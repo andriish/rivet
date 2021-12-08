@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -307,15 +307,15 @@ namespace Rivet {
       _h_sigred_cc.scale(scalefactor, this);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
 	BinnedHistogram _h_sigred, _h_sigred_cc;
       Histo1DPtr _hist_Q2_10,_hist_Q2_100,_hist_Q2_1000,_hist_Q2_2000,_hist_Q2_3000;
       bool positron ;
-    //@}
+    /// @}
 
 
   };

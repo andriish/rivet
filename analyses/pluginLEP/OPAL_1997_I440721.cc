@@ -21,7 +21,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -150,15 +150,15 @@ namespace Rivet {
       m_ch->addPoint(sqrtS(),nch,0.5,nch_err);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_thrust,_h_major,_h_minor,_h_aplanarity,_h_oblateness,_h_C,_h_rhoH,_h_sphericity;
     Histo1DPtr _h_totalB,_h_wideB,_h_y23,_h_mult,_h_pTin,_h_pTout,_h_y,_h_x,_h_xi;
     CounterPtr _sumW;
-    //@}
+    /// @}
 
 
   };

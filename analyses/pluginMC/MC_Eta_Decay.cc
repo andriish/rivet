@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -164,13 +164,13 @@ namespace Rivet {
       normalize(_dpimeta);
       normalize(_dpi0eta);
     }
-    //@}
+    /// @}
 
 
     /**
      *  Histograms for the decay \f$\eta\to\pi^0\gamma\gamma\f$
      */
-    //@{
+    /// @{
     /**
      * Histogram for the mass of \f$\gamma\gamma\f$
      */
@@ -180,12 +180,12 @@ namespace Rivet {
      * Histogrma for the mass of \f$\pi^0\gamma\f$
      */
     vector<Histo1DPtr> _mpi0gamma;
-    //@}
+    /// @}
 
     /**
      *  Histograms for the decay \f$\eta\to\pi^+\pi^-\gamma\f$
      */
-    //@{
+    /// @{
     /**
      *  Histogram for the mass of \f$\pi^+\gamma\f$
      */
@@ -205,12 +205,12 @@ namespace Rivet {
      *  Histogram for the photon energy
      */
     vector<Histo1DPtr> _photonenergy;
-    //@}
+    /// @}
 
     /**
      * Histograms for the decay \f$\eta\pi\pi\pi\f$ and \f$\eta'\to\eta\pi\pi\f$.
      */
-    //@{
+    /// @{
     /**
      *  Histogram for the mass of \f$\pi^+\pi^-\f$
      */
@@ -245,7 +245,7 @@ namespace Rivet {
      *  Histogram for the mass of \f$\pi^0\eta\f$
      */
     Histo1DPtr  _dpi0eta;
-    //@}
+    /// @}
 
 
   };

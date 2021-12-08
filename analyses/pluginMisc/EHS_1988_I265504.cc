@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -99,16 +99,16 @@ namespace Rivet {
       scale(_h_cneg_eta, sf); scale(_h_cneg_pT2, sf);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     LorentzTransform _beamboost;
     double _pz_max;
     Histo1DPtr _h_cpos_xF, _h_cpos_eta, _h_cpos_pT2;
     Histo1DPtr _h_cneg_xF, _h_cneg_eta, _h_cneg_pT2;
-    //@}
+    /// @}
 
   };
 

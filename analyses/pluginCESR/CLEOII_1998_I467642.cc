@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -143,14 +143,14 @@ namespace Rivet {
       normalize(_h_pi_phi);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_charged_ex,_h_charged_inc,_h_neutral_ex;
     Histo1DPtr _h_lept_ctheta,_h_lept_phi,_h_piStar_ctheta,_h_piStar_phi,_h_pi_ctheta,_h_pi_phi;
-    //@}
+    /// @}
 
 
   };

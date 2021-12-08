@@ -140,7 +140,7 @@ namespace Rivet {
 
 
     /// @name Histogram objects
-    //@{
+    /// @{
     Profile1DPtr _h_Nchg_towards_pTmumu;
     Profile1DPtr _h_Nchg_transverse_pTmumu;
     Profile1DPtr _h_Nchg_away_pTmumu;
@@ -161,7 +161,7 @@ namespace Rivet {
     Histo1DPtr _h_pT_away_zmass_81_101;
     Histo1DPtr _h_Nchg_transverse_zpt_5;
     Histo1DPtr _h_pT_transverse_zpt_5;
-    //@}
+    /// @}
 
   };
 

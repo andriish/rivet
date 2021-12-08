@@ -28,7 +28,7 @@ namespace Rivet {
   public:
 
     /// @name Standard constructors etc.
-    //@{
+    /// @{
 
     /// The default constructor.
     Cmp(const T& t1, const T& t2)
@@ -46,7 +46,7 @@ namespace Rivet {
       return *this;
     }
 
-    //@}
+    /// @}
 
   public:
 
@@ -104,7 +104,7 @@ namespace Rivet {
   public:
 
     /// @name Standard constructors and destructors.
-    //@{
+    /// @{
     /// The default constructor.
     Cmp(const Projection& p1, const Projection& p2)
       : _value(CmpState::UNDEF), _objects(&p1, &p2)
@@ -122,7 +122,7 @@ namespace Rivet {
       _value = x;
       return *this;
     }
-    //@}
+    /// @}
 
   public:
 
@@ -188,7 +188,7 @@ namespace Rivet {
   public:
 
     /// @name Standard constructors and destructors.
-    //@{
+    /// @{
     /// The default constructor.
     Cmp(const double p1, const double p2)
       : _value(CmpState::UNDEF), _numA(p1), _numB(p2)
@@ -206,7 +206,7 @@ namespace Rivet {
       _value = x;
       return *this;
     }
-    //@}
+    /// @}
 
   public:
 

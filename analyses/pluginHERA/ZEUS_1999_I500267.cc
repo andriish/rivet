@@ -13,7 +13,7 @@ class ZEUS_1999_I500267 : public Analysis {
       RIVET_DEFAULT_ANALYSIS_CTOR(ZEUS_1999_I500267);
 
       /// @name Analysis methods
-      ///@{
+      /// @{
 
       /// Book histograms and initialise projections before the run
       void init() {

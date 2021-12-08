@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
 
@@ -86,7 +86,7 @@ namespace Rivet {
       if (_sumw_mu_bare->val()    != 0) scale(_hist_zpt_mu_bare,    1/ *_sumw_mu_bare);
     }
 
-    //@}
+    /// @}
 
 
     private:

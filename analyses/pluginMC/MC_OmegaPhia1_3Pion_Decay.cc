@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -195,10 +195,10 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
     /// @name Histograms a_1
-    //@{
+    /// @{
     // Histograms for a_10 -> pi0pi0pi0
     Histo1DPtr _hist0;
     // dalitz plot
@@ -226,10 +226,10 @@ namespace Rivet {
     Histo1DPtr _hist3B;
     // dalitz plot
     Histo2DPtr _dalitz3;
-    //@}
+    /// @}
 
     /// @name Histograms omega/phi
-    //@{
+    /// @{
     // Histogram for the x-values
     vector<Histo1DPtr> _h_xhist;
     // Histogram for the y-values
@@ -242,7 +242,7 @@ namespace Rivet {
     vector<Histo1DPtr> _h_m0;
     // Dalitz plot
     vector<Histo2DPtr> _h_dalitz;
-    //@}
+    /// @}
   };
 
 

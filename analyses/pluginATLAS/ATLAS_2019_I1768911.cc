@@ -13,7 +13,7 @@ namespace Rivet {
     DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2019_I1768911);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -69,7 +69,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {  normalize(_h);  }
-    //@}
+    /// @}
 
 
   protected:
@@ -80,9 +80,9 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     map<string, Histo1DPtr> _h;
-    //@}
+    /// @}
 
   };
 

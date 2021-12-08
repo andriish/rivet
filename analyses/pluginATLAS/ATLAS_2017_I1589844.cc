@@ -15,7 +15,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructors
     ATLAS_2017_I1589844(const string name="ATLAS_2017_I1589844",
@@ -23,11 +23,11 @@ namespace Rivet {
       setRefDataName(ref_data);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -157,7 +157,7 @@ namespace Rivet {
       for (auto& kv : _h) scale(kv.second, sf);
     }
 
-    //@}
+    /// @}
 
 
   protected:

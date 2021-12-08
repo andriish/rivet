@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -160,17 +160,17 @@ namespace Rivet {
       scale(_histRhoDiff   , 1./ *_wSum);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histRapidityT, _histScaledMom, _histPl, _histPt, _histPt2, _histPtIn, _histPtOut,
       _histMeanPtIn2, _histMeanPtOut2, _histNtheta, _histEtheta, _histThrust, _histMajor, _histMinor,
       _histOblateness, _histSphericity, _histAplanarity, _histQx, _histQ21, _histRhoLight,
       _histRhoHeavy, _histRhoDiff;
     CounterPtr _wSum;
-    //@}
+    /// @}
 
 
   };

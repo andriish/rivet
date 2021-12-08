@@ -12,11 +12,11 @@ namespace Rivet {
 
     /// Constructor
     RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2016_I1502620);
-    //@}
+    /// @}
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -205,7 +205,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   protected:
@@ -215,7 +215,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_Wp_eta, _h_Wm_eta;
     Scatter2DPtr _h_W_asym;
 
@@ -224,7 +224,7 @@ namespace Rivet {
     Histo1DPtr _h_Zcenhigh_y_dressed;
     Histo1DPtr _h_Zfwdpeak_y_dressed;
     Histo1DPtr _h_Zfwdhigh_y_dressed;
-    //@}
+    /// @}
 
   };
 

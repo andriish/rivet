@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void analyze(const Event& e) {
       // First, veto on leptonic events by requiring at least 4 charged FS particles
@@ -688,7 +688,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -749,7 +749,7 @@ namespace Rivet {
     Histo1DPtr _histMeanMultiSigma_c_PlusPlus_0;
     Histo1DPtr _histMeanMultiLambda1520;
 
-    //@}
+    /// @}
 
   };
 

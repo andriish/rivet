@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
     /// Constructor
     NA49_2009_I818217() : Analysis("NA49_2009_I818217"){}
 

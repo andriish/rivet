@@ -11,20 +11,20 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     CDF_2009_I856131()
       : Analysis("CDF_2009_I856131")
     {    }
 
-    //@}
+    /// @}
 
 
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -65,16 +65,16 @@ namespace Rivet {
       scale(_h_yZ, 0.5*crossSection()/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_yZ;
     Histo1DPtr _h_xs;
-    //@}
+    /// @}
 
   };
 

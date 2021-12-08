@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Set up projections and histograms
     void init() {
@@ -99,18 +99,18 @@ namespace Rivet {
   private:
 
     /// @name Weight counters
-    //@{
+    /// @{
     CounterPtr _sumWTrig;
     CounterPtr _sumWTrigNSD;
     vector<CounterPtr> _sumWn;
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _hist_eta_nsd;
     Histo1DPtr _hist_eta_inelastic;
     vector<Histo1DPtr> _hists_eta_nsd;
-    //@}
+    /// @}
 
   };
 

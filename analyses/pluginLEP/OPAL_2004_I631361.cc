@@ -36,7 +36,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(OPAL_2004_I631361);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
 
@@ -280,7 +280,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -336,12 +336,12 @@ namespace Rivet {
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_chMult_gg;
     Histo1DPtr _h_chFragFunc_gg;
     BinnedHistogram _h_chMult_qq;
     BinnedHistogram _h_chFragFunc_qq;
-    //@}
+    /// @}
 
   };
 

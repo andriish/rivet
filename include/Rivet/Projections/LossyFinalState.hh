@@ -18,7 +18,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors
-    //@{
+    /// @{
 
     /// Constructor from FinalState.
     LossyFinalState(const FinalState& fsp, FILTER filter)
@@ -42,7 +42,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(LossyFinalState);
 
-    //@}
+    /// @}
 
 
     /// Apply the projection on the supplied event.

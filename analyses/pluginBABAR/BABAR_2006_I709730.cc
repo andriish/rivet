@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -87,7 +87,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
     // just count the number of events of the types we're looking for
     CounterPtr _num3pip3pim,_num2pip2pim2pi0,_num2pip2pim2KpKm;

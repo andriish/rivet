@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     CMS_2010_PAS_QCD_10_024() : Analysis("CMS_2010_PAS_QCD_10_024"),

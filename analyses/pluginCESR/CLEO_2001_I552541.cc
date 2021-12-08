@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -161,14 +161,14 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _d_Dbar0[2],_d_Dm[2],_d_Lam[2];
     CounterPtr _n_Dbar0[2][2],_n_Dm[2][2],_n_Lam[2][2];
-    //@}
+    /// @}
 
 
   };

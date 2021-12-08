@@ -19,11 +19,11 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
     virtual void init();
     virtual void analyze(const Event& event);
     virtual void finalize();
-    //@}
+    /// @}
 
 
   protected:
@@ -36,10 +36,10 @@ namespace Rivet {
     const std::string m_jetpro_name;
 
     /// @name Histograms
-    //@{
+    /// @{
     std::vector<Histo1DPtr> _h_log10_d;
     std::vector<Scatter2DPtr> _h_log10_R;
-    //@}
+    /// @}
 
   };
 

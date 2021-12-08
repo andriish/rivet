@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
 
@@ -250,7 +250,7 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {    }
 
-    //@}
+    /// @}
 
   private:
 

@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -205,13 +205,13 @@ namespace Rivet {
         vnEightInt(h_v28, ec822, ec824, ec826, ec828);
     }
 
-    //@}
+    /// @}
     // System check enum.
     enum SysType {pp, pPb, XeXe, PbPb};
     SysType sysType;
 
     /// @name Histograms
-    //@{
+    /// @{
     // Flow coefficients.
     Scatter2DPtr h_v22gap;
     Scatter2DPtr h_v32gap;
@@ -246,7 +246,7 @@ namespace Rivet {
     ECorrPtr ec32gap;
     ECorrPtr ec42gap;
 
-    //@}
+    /// @}
 
 
   };

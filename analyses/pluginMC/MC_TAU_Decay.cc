@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -608,11 +608,11 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     // histograms for leptonic decay
     Histo1DPtr _h_2B_m2enu,_h_2B_menu;
     Histo1DPtr _h_2B_m2munu,_h_2B_mmunu;
@@ -671,7 +671,7 @@ namespace Rivet {
     vector<Histo1DPtr> _h_5B_pipi3;
     vector<Histo1DPtr> _h_5B_pipipi3;
     vector<Histo1DPtr> _h_5B_pipipipi3;
-    //@}
+    /// @}
 
   };
 

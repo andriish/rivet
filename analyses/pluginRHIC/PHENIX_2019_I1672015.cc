@@ -17,7 +17,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(PHENIX_2019_I1672015);
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -77,17 +77,17 @@ namespace Rivet {
 
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_pT, _h_y, _h_mass, _h_ZZZZ;
     Histo1DPtr _h_m_DiMuon;
     Histo1DPtr _h_pT_DiMuon;
     Histo1DPtr _h_y_DiMuon;
     Histo1DPtr _h_xF_DiMuon;
-    ///@}
+    /// @}
 
   };
 

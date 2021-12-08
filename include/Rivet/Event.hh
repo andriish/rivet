@@ -23,7 +23,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors and destructors.
-    //@{
+    /// @{
 
     /// Constructor from a HepMC GenEvent pointer
     ///
@@ -59,11 +59,11 @@ namespace Rivet {
         _genevent(e._genevent)
     {  }
 
-    //@}
+    /// @}
 
 
     /// @name Major event properties
-    //@{
+    /// @{
 
     /// The generated HepMC event obtained from an external event generator
     const GenEvent& hepmcEvent() const { return _genevent; }
@@ -88,11 +88,11 @@ namespace Rivet {
     /// Get the beam centre-of-mass energy per nucleon
     double asqrtS() const;
 
-    //@}
+    /// @}
 
 
     /// @name Access to event particles
-    //@{
+    /// @{
 
     /// All the raw GenEvent particles, wrapped in Rivet::Particle objects
     const Particles& allParticles() const;
@@ -121,10 +121,10 @@ namespace Rivet {
     /// @brief Obsolete weight method. Always returns 1 now.
     DEPRECATED("Event weight does not need to be included anymore. For compatibility, it's always == 1 now.")
     double weight() const { return 1.0; }
-    //@}
+    /// @}
 
     /// @name Projection running
-    //@{
+    /// @{
 
     /// @brief Add a projection @a p to this Event.
     ///
@@ -177,7 +177,7 @@ namespace Rivet {
       return applyProjection(*pp);
     }
 
-    //@}
+    /// @}
 
 
   private:

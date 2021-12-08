@@ -171,7 +171,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_Njets;
     Histo1DPtr _h_PtllMET;
     Histo1DPtr _h_Yll;

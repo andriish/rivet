@@ -18,7 +18,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(ZEUS_2012_I1116258);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     // Book projections and histograms
     void init() {
@@ -134,15 +134,15 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_etjet[8], _h_etajet[4];
-    //@}
+    /// @}
 
     };
 

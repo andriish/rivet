@@ -721,7 +721,7 @@ namespace Rivet {
     }
 
     /// @name Accessing options for this Analysis instance.
-    //@{
+    /// @{
 
     /// Return the map of all options given to this analysis.
     const std::map<std::string,std::string>& options() const {

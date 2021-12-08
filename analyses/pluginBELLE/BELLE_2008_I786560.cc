@@ -54,7 +54,7 @@ namespace Rivet {
 
   private:
 
-    //@{
+    /// @{
 
     // Histograms
     Histo1DPtr _hist_pipi;
@@ -62,7 +62,7 @@ namespace Rivet {
     // Weights counters
     CounterPtr _weight_total, _weight_pipi;
 
-    //@}
+    /// @}
 
     void findDecayProducts(const Particle &mother,
                            unsigned int & nstable,

@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -63,15 +63,15 @@ namespace Rivet {
       scale(_h_sigma_vs_phi, xs/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_sigma_vs_y, _h_sigma_vs_phi;
-    //@}
+    /// @}
 
   };
 

@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     // Book histos and set counters for number of events passed in each one
     void init() {
@@ -46,7 +46,7 @@ namespace Rivet {
       _binnedHistosR07.scale(crossSection()/nanobarn/sumOfWeights()/2.0, this);
     }
 
-    //@}
+    /// @}
 
 
   private:

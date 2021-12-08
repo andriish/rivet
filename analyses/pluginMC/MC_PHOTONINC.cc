@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -87,17 +87,17 @@ namespace Rivet {
       scale(_h_photon_y, crossSectionPerEvent());
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_photon_pT;
     Histo1DPtr _h_photon_pT_lin;
     Histo1DPtr _h_photon_y;
-    //@}
+    /// @}
 
   };
 

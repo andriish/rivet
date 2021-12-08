@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     enum CENTRAL_PARTICLES_PID {_PION, _KAON, _PROTON, _nAllowedPids};
     enum PARTICLE_CHARGE { _PLUS, _MINUS, _nSigns };
@@ -196,14 +196,14 @@ namespace Rivet {
         scale(hist.second, scalingFactor*_scaleFactor[hist.first]);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     map<string, Histo1DPtr> _h;
     map<string, double> _scaleFactor; // map with scale factors to ensure cross section units in agreement with HEPdata
-    //@}
+    /// @}
 
 
   };

@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       const FinalState fs(Cuts::abseta < 4.2);
@@ -168,7 +168,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -177,7 +177,7 @@ namespace Rivet {
     CounterPtr _sumw;
 
     /// @name Histograms
-    //@{
+    /// @{
 
     /// Straightforward output histos
     Histo1DPtr _histJet1Et, _histJet2Et;
@@ -188,7 +188,7 @@ namespace Rivet {
     /// Temporary histos, to be converted to scatters
     Histo1DPtr _tmphistR23, _tmphistJet3eta, _tmphistAlpha;
 
-    //@}
+    /// @}
 
   };
 

@@ -23,7 +23,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Charged final state, |eta|<1, pT>0.2GeV
@@ -148,7 +148,7 @@ namespace Rivet {
       //
     }
 
-    //@}
+    /// @}
 
 
   private:

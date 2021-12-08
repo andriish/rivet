@@ -117,12 +117,12 @@ namespace Rivet {
     CounterPtr _sumW[kNPartTypes][kNregions];
 
     /// @name Histogram arrays
-    //@{
+    /// @{
     Histo1DPtr   _hist_nch    [kNPartTypes][kNregions];
     Histo1DPtr   _hist_pt     [kNPartTypes][kNregions];
     Histo1DPtr   _hist_eta    [kNPartTypes][kNregions];
     Profile1DPtr _hist_ptnch  [kNPartTypes][kNregions];
-    //@}
+    /// @}
 
   };
 

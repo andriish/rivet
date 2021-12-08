@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Projections
@@ -156,17 +156,17 @@ namespace Rivet {
       for (size_t n = 0; n < 5; ++n) scale(_h_R_Durham[n], 100/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_R_Jade[5];
     Histo1DPtr _h_R_Durham[5];
     Histo1DPtr _h_y_Durham[4];
-    //@}
+    /// @}
 
   };
 

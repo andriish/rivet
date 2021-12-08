@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -311,11 +311,11 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_all_pi , _h_all_K  , _h_all_p  , _h_all_Kp , _d_all;
     Histo1DPtr _h_bot_pi , _h_bot_K  , _h_bot_p  , _h_bot_Kp , _d_bot;
     Histo1DPtr _h_lgt_pi , _h_lgt_K  , _h_lgt_p  , _h_lgt_Kp , _d_lgt;
@@ -328,7 +328,7 @@ namespace Rivet {
     CounterPtr _mult[3][5];
 
     CounterPtr _wLgt, _wBot, _wAll;
-    //@}
+    /// @}
 
   };
 

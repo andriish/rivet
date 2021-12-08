@@ -21,7 +21,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     // method to turn Hist1D into Scatter... so we can write this out witout dividing by bin width
     // since the HEPData entry corresponding to this does not divide the refData by bin width!
@@ -245,13 +245,13 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     private:
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _h_2jl, _h_2jm, _h_2jt;
     CounterPtr _h_4jt, _h_5j;
     CounterPtr _h_6jm, _h_6jt;
@@ -263,7 +263,7 @@ namespace Rivet {
     Histo1DPtr _h_temp_Meff_2jl, _h_temp_Meff_2jm, _h_temp_Meff_2jt;
     Histo1DPtr _h_temp_Meff_4jt, _h_temp_Meff_5j;
     Histo1DPtr _h_temp_Meff_6jm, _h_temp_Meff_6jt;
-    //@}
+    /// @}
 
     /// Cut-flows
     Cutflows _flows;

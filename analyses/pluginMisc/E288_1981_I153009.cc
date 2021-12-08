@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -93,11 +93,11 @@ namespace Rivet {
       _hist_pT_M_400.scale(crossSection()/femtobarn/(sumOfWeights() * M_PI), this);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _hist_pT_M_400,_hist_pT_M_300,_hist_pT_M_200;
     Histo1DPtr _h_m_DiMuon ;
     Histo1DPtr _h_pT_DiMuon;
@@ -106,7 +106,7 @@ namespace Rivet {
     Histo1DPtr _h_XXXX, _h_YYYY, _h_ZZZZ;
     Profile1DPtr _p_AAAA;
     CounterPtr _c_BBBB;
-    //@}
+    /// @}
 
   };
 

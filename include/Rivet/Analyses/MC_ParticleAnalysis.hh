@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Bookings as usual, using the particle name specified by the derived classe
     virtual void init();
@@ -32,7 +32,7 @@ namespace Rivet {
 
     /// For derived classes to call, passing the sorted particle collection that they wish to analyse
     virtual void _analyze(const Event& event, const Particles& particles);
-    //@}
+    /// @}
 
 
   protected:
@@ -44,7 +44,7 @@ namespace Rivet {
     std::string _pname;
 
     /// @name Histograms
-    //@{
+    /// @{
     std::vector<Histo1DPtr> _h_pt;
     std::vector<Histo1DPtr> _h_eta;
     std::vector<Histo1DPtr> _h_eta_plus, _h_eta_minus;
@@ -58,7 +58,7 @@ namespace Rivet {
     Histo1DPtr _h_multi_exclusive, _h_multi_inclusive;
     Histo1DPtr _h_multi_exclusive_prompt, _h_multi_inclusive_prompt;
     Scatter2DPtr _h_multi_ratio, _h_multi_ratio_prompt;
-    //@}
+    /// @}
 
   };
 

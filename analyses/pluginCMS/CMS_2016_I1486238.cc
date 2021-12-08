@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -106,13 +106,13 @@ namespace Rivet {
       scale(_h_LeadingBJeteta, invlumi); scale(_h_SubleadingBJeteta, invlumi);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
 
     Histo1DPtr _h_deltaphiafterlight, _h_Deltaphi_newway, _h_SumPLight;
     Histo1DPtr _h_LeadingBJetpt, _h_SubleadingBJetpt, _h_LeadingLightJetpt, _h_SubleadingLightJetpt;

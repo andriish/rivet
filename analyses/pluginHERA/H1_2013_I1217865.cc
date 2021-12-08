@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -194,11 +194,11 @@ namespace Rivet {
       return thel;
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
       Histo1DPtr _h_dn_dpT_2r;
       Histo1DPtr _h_dn_dpT_2l;
 
@@ -209,7 +209,7 @@ namespace Rivet {
       array<CounterPtr,9> _Nevt_after_cuts;
 
 
-    //@}
+    /// @}
 
 
   };

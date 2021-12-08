@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book projections and histograms
     void init() {
@@ -143,18 +143,18 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Weight counters
-    //@{
+    /// @{
     CounterPtr _sumwTrig; //, _sumwTrig08, _sumwTrig40, _sumwTrig80;
-    //@}
+    /// @}
 
     /// @name Histogram collections
-    //@{
+    /// @{
     Histo1DPtr _hist_Nch;
     Histo1DPtr _hist_Esigd3p;
     Histo1DPtr _hist_Esigd3p08;
@@ -163,7 +163,7 @@ namespace Rivet {
     Profile1DPtr _hist_Pt;
     Profile1DPtr _hist_Etavg;
     Histo1DPtr _hist_Et;
-    //@}
+    /// @}
 
   };
 

@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -201,12 +201,12 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
 
     /// @name Histograms for V -> P
-    //@{
+    /// @{
     /**
      *  PDG codes of the incoming particles
      */
@@ -236,10 +236,10 @@ namespace Rivet {
      *  Histograms for the masses of the pseudoscalar and the antifermion
      */
     vector<Histo1DPtr> _mPfbar;
-    //@}
+    /// @}
 
     /// @name Histograms P->V
-    //@{
+    /// @{
     /**
      *  PDG codes of the incoming_P particles
      */
@@ -269,7 +269,7 @@ namespace Rivet {
      *  Histograms for the masses of the vector and the antifermion
      */
     vector<Histo1DPtr> _mVfbar;
-    //@}
+    /// @}
 
 
   };

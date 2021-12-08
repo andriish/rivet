@@ -139,10 +139,10 @@ namespace Rivet {
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_ptCJetLead, _h_ptCHadrLead, _h_ptFracC, _h_eFracC;
     Histo1DPtr _h_ptBJetLead, _h_ptBHadrLead, _h_ptFracB, _h_eFracB;
-    ///@}
+    /// @}
 
 
   };

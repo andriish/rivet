@@ -48,7 +48,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -187,11 +187,11 @@ namespace Rivet {
       normalize(_histdy       , 1.);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
 
     CounterPtr _weight2Jet;
     CounterPtr _weight3Jet;
@@ -210,7 +210,7 @@ namespace Rivet {
 
     Histo1DPtr _histdcosTheta;
     Histo1DPtr _histdy;
-    //@}
+    /// @}
 
 
   };

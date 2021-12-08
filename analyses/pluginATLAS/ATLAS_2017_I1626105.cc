@@ -110,7 +110,7 @@ namespace Rivet {
   private:
 
     /// @name Histogram helper functions
-    //@{
+    /// @{
     void bookHistos(const std::string name, unsigned int index) {
       book(_h[name], index, 1, 1);
       book(_h["norm_" + name], index + 1, 1, 1);
@@ -122,7 +122,7 @@ namespace Rivet {
     }
 
     map<string, Histo1DPtr> _h;
-    //@}
+    /// @}
 
   };
 

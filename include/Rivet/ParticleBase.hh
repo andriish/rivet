@@ -21,17 +21,17 @@ namespace Rivet {
 
 
     // /// @name Constituent accessors
-    // //@{
+    // /// @{
 
     // /// @todo Can't do this because a) ParticleBase is pure-virtual; b) inheritance causality for Particle... urk
     // virtual const vector<ParticleBase>& constituents() const = 0;
     // virtual const vector<ParticleBase>& rawConstituents() const = 0;
 
-    // //@}
+    // /// @}
 
 
     /// @name Effective momentum accessors
-    //@{
+    /// @{
 
     /// Get equivalent single momentum four-vector (const).
     virtual const FourMomentum& momentum() const = 0;
@@ -41,11 +41,11 @@ namespace Rivet {
     /// Cast operator for conversion to FourMomentum
     operator const FourMomentum& () const { return momentum(); }
 
-    //@}
+    /// @}
 
 
     /// @name Convenience access to the effective 4-vector properties
-    //@{
+    /// @{
 
     /// Get the energy directly.
     double E() const { return momentum().E(); }
@@ -147,13 +147,13 @@ namespace Rivet {
     /// Angle between this 4-vector and another
     double dot(const FourVector& v) const { return momentum().dot(v); }
 
-    //@}
+    /// @}
 
   };
 
 
   /// @name deltaR, deltaEta, deltaPhi functions specifically for Particle/Jet arguments
-  //@{
+  /// @{
 
   inline double deltaR(const ParticleBase& p1, const ParticleBase& p2,
                        RapScheme scheme = PSEUDORAPIDITY) {
@@ -291,7 +291,7 @@ namespace Rivet {
     return deltaRap(y, p.momentum());
   }
 
-  //@}
+  /// @}
 
 
 }

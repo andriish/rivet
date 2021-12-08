@@ -23,7 +23,7 @@ namespace Rivet {
 
 
     /// @name Beam particles and kinematics
-    //@{
+    /// @{
 
     /// The pair of beam particles in the current collision
     const ParticlePair& beams() const { return _theBeams; }
@@ -47,11 +47,11 @@ namespace Rivet {
     /// Get the gamma factor vector for the Lorentz boost to the beam centre-of-mass
     Vector3 cmsGammaVec() const { return Rivet::cmsGammaVec(beams()); }
 
-    //@}
+    /// @}
 
 
     /// @name Per-nucleon beam kinematics
-    //@{
+    /// @{
 
     /// Get per-nucleon centre of mass energy, \f$ \sqrt{s}/(A_1 + A_2) \f$
     double asqrtS() const { return Rivet::asqrtS(beams()); }
@@ -65,7 +65,7 @@ namespace Rivet {
     /// Get the Lorentz transform to the per-nucleon beam centre-of-mass
     LorentzTransform acmsTransform() const { return Rivet::acmsTransform(beams()); }
 
-    //@}
+    /// @}
 
 
     /// Get the beam interaction primary vertex (PV) position

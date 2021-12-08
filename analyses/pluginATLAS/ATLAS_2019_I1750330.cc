@@ -639,10 +639,10 @@ namespace Rivet {
     }
 
     /// @name Objects that are used by the event selection decisions
-    ///@{
+    /// @{
     map<string, Histo1DPtr> _h;
     map<string, BinnedHistogram> _h_multi;
-    ///@}
+    /// @}
 
   };
 

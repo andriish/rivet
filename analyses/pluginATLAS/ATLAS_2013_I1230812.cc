@@ -14,11 +14,11 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2013_I1230812);
-    //@}
+    /// @}
 
 
     /// Book histograms and initialise projections before the run
@@ -197,7 +197,7 @@ namespace Rivet {
     }
 
     /// @name Ratio calculator util functions
-    //@{
+    /// @{
 
     /// Calculate the efficiency error, being careful about div-by-zero
     double err_incl(const HistoBin1D &M, const HistoBin1D &N, bool hasWeights) {
@@ -216,7 +216,7 @@ namespace Rivet {
       return r * sqrt(dAsquared + dBsquared);
     }
 
-    //@}
+    /// @}
 
 
     void finalize() {
@@ -249,7 +249,7 @@ namespace Rivet {
       scale(_h_ythirdlead_vbf, xs); scale(_h_ht, xs); scale(_h_st, xs);
     }
 
-    //@}
+    /// @}
 
 
   protected:

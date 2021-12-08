@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Set up projections and book histograms
     void init() {
@@ -324,7 +324,7 @@ namespace Rivet {
         scale(_hFull_addBBDR_abs, sfull);
     }
 
-    //@}
+    /// @}
 
 
     void fillWithOF(Histo1DPtr h, double x, double w) {
@@ -354,7 +354,7 @@ namespace Rivet {
 
 
     // @name Histogram data members
-    //@{
+    /// @{
 
     Histo1DPtr _hVis_nJet30_abs, _hVis_nJet60_abs, _hVis_nJet100_abs;
     Histo1DPtr _hVis_addJet1Pt_abs, _hVis_addJet1Eta_abs, _hVis_addJet2Pt_abs, _hVis_addJet2Eta_abs;
@@ -380,7 +380,7 @@ namespace Rivet {
     Profile1DPtr _h_gap_addJet2Pt, _h_gap_addJet2Pt_eta0, _h_gap_addJet2Pt_eta1, _h_gap_addJet2Pt_eta2;
     Profile1DPtr _h_gap_addJetHT, _h_gap_addJetHT_eta0, _h_gap_addJetHT_eta1, _h_gap_addJetHT_eta2;
 
-    //@}
+    /// @}
 
   };
 

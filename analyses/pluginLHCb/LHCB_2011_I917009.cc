@@ -9,7 +9,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     LHCB_2011_I917009()
@@ -20,13 +20,13 @@ namespace Rivet {
         rap_max(0.0), dsShift(0)
     {   }
 
-    //@}
+    /// @}
 
 
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -131,7 +131,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
   private:
 
@@ -184,7 +184,7 @@ namespace Rivet {
     }
 
     /// @name Private variables
-    //@{
+    /// @{
 
     // The rapidity of the beam according to the selected beam energy
     double rap_beam;
@@ -205,10 +205,10 @@ namespace Rivet {
     // Set of PDG Ids for stable particles (PDG Id <= 100 are considered stable)
     static const int stablePDGIds[205];
 
-    //@}
+    /// @}
 
     /// @name Helper histograms
-    //@{
+    /// @{
     /// Histograms are defined in the following order: anti-Lambda, Lambda and K0s.
     /// First 3 suites of 3 histograms correspond to each particle in bins of y for the 3 pT intervals. (9 histos)
     /// Next 3 histograms contain the particles in y bins for the whole pT interval (3 histos)
@@ -216,7 +216,7 @@ namespace Rivet {
     /// Last 3 histograms contain the particles in pT bins for the whole rapidity (y) interval (3 histos)
     Histo1DPtr _tmphistos[18];
     array<Scatter2DPtr,3> s1,s2,s3,s4;
-    //@}
+    /// @}
 
     // Fill the PDG Id to Lifetime[seconds] map
     // Data was extracted from LHCb Particle Table through LHCb::ParticlePropertySvc

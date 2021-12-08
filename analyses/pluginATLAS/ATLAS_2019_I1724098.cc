@@ -26,7 +26,7 @@ namespace Rivet {
   private:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
 

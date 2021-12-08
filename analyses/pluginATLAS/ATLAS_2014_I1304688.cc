@@ -196,7 +196,7 @@ namespace Rivet {
 
 
     /// @name Cut helper functions
-    //@{
+    /// @{
 
     // Event selection functions
     bool _ejets(unsigned int& cutBits) {
@@ -245,11 +245,11 @@ namespace Rivet {
       return true;
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histogram helper functions
-    //@{
+    /// @{
 
     unsigned int _thresholdLimit(unsigned int histId) {
       if (histId == 0) return 4;
@@ -269,11 +269,11 @@ namespace Rivet {
       return _hMap[hInd];
     }
 
-    //@}
+    /// @}
 
 
     /// @name Physics object helper functions
-    //@{
+    /// @{
 
     double _transMass(double ptLep, double phiLep, double met, double phiMet) {
       return sqrt(2.0*ptLep*met*(1 - cos(phiLep-phiMet)));
@@ -291,13 +291,13 @@ namespace Rivet {
       return jet_n;
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Objects that are used by the event selection decisions
-    //@{
+    /// @{
     vector<DressedLepton> _dressedelectrons;
     vector<DressedLepton> _vetodressedelectrons;
     vector<DressedLepton> _dressedmuons;
@@ -312,7 +312,7 @@ namespace Rivet {
     map<unsigned int, Histo1DPtr> _hMap;
     //unsigned int _chanLimit;
     unsigned int _histLimit;
-    //@}
+    /// @}
 
   };
 

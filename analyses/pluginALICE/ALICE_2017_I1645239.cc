@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -131,14 +131,14 @@ namespace Rivet {
       if (_h_LcRPb->numEntries() > 0 && _h_LcR->numEntries() > 0) divide(_h_LcRPb, _h_LcR, _h_RpPb);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_Lc, _h_LcPb, _h_D0, _h_D0Pb, _h_Lcint, _h_LcintPb, _h_D0int, _h_D0intPb, _h_LcR, _h_LcRPb, _h_Lcdummy,_h_LcPbdummy;
     Scatter2DPtr _h_LcD0, _h_LcD0Pb, _h_LcD0int, _h_LcD0Pbint, _h_RpPb;
-    //@}
+    /// @}
 
   };
 

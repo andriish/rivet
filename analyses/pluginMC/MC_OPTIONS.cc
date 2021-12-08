@@ -34,7 +34,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(MC_OPTIONS);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -67,15 +67,15 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr h;
-    //@}
+    /// @}
     double value;
 
   };

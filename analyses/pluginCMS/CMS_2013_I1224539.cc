@@ -14,7 +14,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     CMS_2013_I1224539()
@@ -24,13 +24,13 @@ namespace Rivet {
         _pruner(fastjet::Pruner(fastjet::cambridge_algorithm, 0.1, 0.5))
     {    }
 
-    //@}
+    /// @}
 
 
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -367,7 +367,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
   protected:
 
@@ -376,15 +376,15 @@ namespace Rivet {
   private:
 
     /// @name FastJet grooming tools (configured in constructor init list)
-    //@{
+    /// @{
     const fastjet::Filter _filter;
     const fastjet::Filter _trimmer;
     const fastjet::Pruner _pruner;
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     enum BINS_vj { PT_125_150_vj=0, PT_150_220_vj, PT_220_300_vj, PT_300_450_vj, N_PT_BINS_vj };
     // W+jet
     Histo1DPtr _h_ungroomedJetMass_AK7_wj[N_PT_BINS_vj];
@@ -408,7 +408,7 @@ namespace Rivet {
     Histo1DPtr _h_filteredAvgJetMass_dj[N_PT_BINS_dj];
     Histo1DPtr _h_trimmedAvgJetMass_dj[N_PT_BINS_dj];
     Histo1DPtr _h_prunedAvgJetMass_dj[N_PT_BINS_dj];
-    //@}
+    /// @}
 
   };
 

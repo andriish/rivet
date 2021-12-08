@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -191,14 +191,14 @@ namespace Rivet {
                            make_pair(asym2.second,asym2.second) );
       }
     }
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     vector<Histo1DPtr> _h_L,_h_U,_h_C;
     BinnedHistogram _h_pT_L,_h_pT_U,_h_pT_C;
-    //@}
+    /// @}
 
 
   };

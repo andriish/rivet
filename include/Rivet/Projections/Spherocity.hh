@@ -62,36 +62,36 @@ namespace Rivet {
   public:
 
     /// @name Spherocity scalar accessors
-    //@{
+    /// @{
     /// The spherocity scalar, \f$ S \f$, (minimum spherocity).
     double spherocity() const { return _spherocities[0]; }
-    //@}
+    /// @}
 
 
     /// @name Spherocity axis accessors
-    //@{
+    /// @{
     /// The spherocity axis.
     const Vector3& spherocityAxis() const { return _spherocityAxes[0]; }
     /// The spherocity major axis (axis of max spherocity perpendicular to spherocity axis).
     const Vector3& spherocityMajorAxis() const { return _spherocityAxes[1]; }
     /// The spherocity minor axis (axis perpendicular to spherocity and spherocity major).
     const Vector3& spherocityMinorAxis() const { return _spherocityAxes[2]; }
-    //@}
+    /// @}
 
 
     /// @name AxesDefinition axis accessors.
-    //@{
+    /// @{
     const Vector3& axis1() const { return spherocityAxis(); }
     const Vector3& axis2() const { return spherocityMajorAxis(); }
     const Vector3& axis3() const { return spherocityMinorAxis(); }
-    ///@}
+    /// @}
 
 
   public:
 
     /// @name Direct methods
     /// Ways to do the calculation directly, without engaging the caching system
-    //@{
+    /// @{
 
     /// Manually calculate the spherocity, without engaging the caching system
     void calc(const FinalState& fs);
@@ -105,7 +105,7 @@ namespace Rivet {
     /// Manually calculate the spherocity, without engaging the caching system
     void calc(const vector<Vector3>& threeMomenta);
 
-    //@}
+    /// @}
 
 
   private:

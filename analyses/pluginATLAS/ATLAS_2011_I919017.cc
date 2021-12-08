@@ -48,20 +48,20 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     ATLAS_2011_I919017()
       : Analysis("ATLAS_2011_I919017")
     {    }
 
-    //@}
+    /// @}
 
 
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -1064,7 +1064,7 @@ namespace Rivet {
       safeinvscale(_h_rdA06_00_19_24_40, _numjets06_00_19_24_40->val());
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -1098,7 +1098,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
 
     Histo1DPtr _h_pt04_00_05, _h_pt06_00_05;
     Histo1DPtr _h_N04_00_05_04_06, _h_N06_00_05_04_06;
@@ -1209,7 +1209,7 @@ namespace Rivet {
     Histo1DPtr _h_rdA04_00_19_15_24, _h_rdA06_00_19_15_24;
     Histo1DPtr _h_rdA04_00_19_24_40, _h_rdA06_00_19_24_40;
 
-    //@}
+    /// @}
 
   };
 

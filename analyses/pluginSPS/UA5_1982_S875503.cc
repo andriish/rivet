@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Set up projections and book histos
     void init() {
@@ -66,21 +66,21 @@ namespace Rivet {
       scale(_hist_eta, 0.5 / *_sumWTrig);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Counters
-    //@{
+    /// @{
     CounterPtr _sumWTrig;
-    //@}
+    /// @}
 
     /// @name Histogram collections
-    //@{
+    /// @{
     Histo1DPtr _hist_nch;
     Histo1DPtr _hist_eta;
-    //@}
+    /// @}
 
   };
 

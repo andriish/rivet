@@ -23,7 +23,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
 
@@ -181,7 +181,7 @@ namespace Rivet {
       normalize(_hist_mass_norm, 1.0, false);
     }
 
-    //@}
+    /// @}
 
 
   private:

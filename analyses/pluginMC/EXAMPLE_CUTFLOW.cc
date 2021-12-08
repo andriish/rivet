@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Set up projections and book histograms
     void init() {
@@ -68,7 +68,7 @@ namespace Rivet {
       MSG_INFO("Cut-flow:\n" << _cutflows);
     }
 
-    //@}
+    /// @}
 
 
     /// Cut-flow counters

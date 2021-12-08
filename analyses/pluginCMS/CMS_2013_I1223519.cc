@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -205,11 +205,11 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Utility functions for partitioning jet pTs into two groups and summing/diffing them
-    //@{
+    /// @{
 
     /// Sum the given values into two subsets according to the provided bitmask
     template <size_t N>
@@ -231,14 +231,14 @@ namespace Rivet {
       return diff;
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_alphaT23, _h_alphaT4;
     vector<CounterPtr> _h_srcounters;
-    //@}
+    /// @}
 
 
   };

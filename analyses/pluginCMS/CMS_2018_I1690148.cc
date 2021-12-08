@@ -37,7 +37,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
 
     /// Set up projections and book histograms
@@ -317,7 +317,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -443,12 +443,12 @@ namespace Rivet {
   private:
 
     // @name Histogram data members
-    //@{
+    /// @{
 
     Cut particle_cut, lepton_cut, jet_cut;
     Histo1DPtr _h[2][33][4];
 
-    //@}
+    /// @}
 
   };
 

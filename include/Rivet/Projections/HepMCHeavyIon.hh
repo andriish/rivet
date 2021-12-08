@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     HepMCHeavyIon();
@@ -21,7 +21,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(HepMCHeavyIon);
 
-    //@}
+    /// @}
 
 
   protected:

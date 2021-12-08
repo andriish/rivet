@@ -14,7 +14,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     FParameter(const FinalState& fsp);
@@ -22,7 +22,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(FParameter);
 
-    //@}
+    /// @}
 
 
   protected:
@@ -58,7 +58,7 @@ namespace Rivet {
 
     /// @name Direct methods
     /// Ways to do the calculation directly, without engaging the caching system
-    //@{
+    /// @{
 
     /// Manually calculate the sphericity, without engaging the caching system
     void calc(const FinalState& fs);
@@ -72,7 +72,7 @@ namespace Rivet {
     /// Manually calculate the sphericity, without engaging the caching system
     void calc(const vector<Vector3>& fsmomenta);
 
-    //@}
+    /// @}
   private:
     /// Eigenvalues.
     vector<double> _lambdas;

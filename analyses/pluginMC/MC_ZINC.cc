@@ -14,7 +14,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(MC_ZINC);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -70,22 +70,22 @@ namespace Rivet {
       scale(_h_lepton_eta, s);
     }
 
-    //@}
+    /// @}
 
 
   protected:
 
     /// @name Parameters for specialised e/mu and dressed/bare subclassing
-    //@{
+    /// @{
     double _dR;
     PdgId _lepton;
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_Z_mass;
     Histo1DPtr _h_Z_pT;
     Histo1DPtr _h_Z_pT_peak;
@@ -93,7 +93,7 @@ namespace Rivet {
     Histo1DPtr _h_Z_phi;
     Histo1DPtr _h_lepton_pT;
     Histo1DPtr _h_lepton_eta;
-    //@}
+    /// @}
 
   };
 

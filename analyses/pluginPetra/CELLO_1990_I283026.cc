@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -78,13 +78,13 @@ namespace Rivet {
       scale(_h_Lambda, 1./sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_K0, _h_Kstar, _h_Lambda;
-    //@}
+    /// @}
 
 
   };

@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -185,15 +185,15 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_spectrum1, _h_spectrum2;
     CounterPtr _c_hadrons, _c_muons, _c_kaons;
     CounterPtr _c_hadronsY, _c_muonsY, _c_kaonsY;
-    //@}
+    /// @}
 
 
   };

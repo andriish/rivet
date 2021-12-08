@@ -15,7 +15,7 @@ namespace Rivet {
     class PseudoTop : public FinalState {
     public:
       /// @name Standard constructors and destructors.
-      //@{
+      /// @{
 
       /// The default constructor. May specify the minimum and maximum
       /// pseudorapidity \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
@@ -43,7 +43,7 @@ namespace Rivet {
       /// Clone on the heap.
       DEFAULT_RIVET_PROJ_CLONE(PseudoTop);
 
-      //@}
+      /// @}
 
     public:
       virtual const Particle& t1() const {return _t1;}

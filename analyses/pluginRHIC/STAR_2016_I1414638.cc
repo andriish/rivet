@@ -63,16 +63,16 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     // void finalize() {}
 
-    //@}
+    /// @}
 
 
     /// @name Bin edges
-    //@{
+    /// @{
     /// The centrality bins
     const doubles centralityBins = {5., 10., 20., 30., 40., 50., 60., 70., 80.};
     /// The analysis energies
     const doubles energies = {7.7, 11.5, 14.5, 19.6, 27.0, 39.0, 62.4, 200.0};
-    //@}
+    /// @}
 
 
     /// The histograms

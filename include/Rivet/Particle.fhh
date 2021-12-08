@@ -9,7 +9,7 @@ namespace Rivet {
 
 
   /// @name Particle declarations
-  //@{
+  /// @{
 
   // Forward declaration
   class Particle;
@@ -44,11 +44,11 @@ namespace Rivet {
   /// @todo Make ParticlePair a custom class instead?
   typedef std::pair<Particle, Particle> ParticlePair;
 
-  //@}
+  /// @}
 
 
   /// @name Particle function/functor declarations
-  //@{
+  /// @{
 
   /// std::function instantiation for functors taking a Particle and returning a bool
   using ParticleSelector = function<bool(const Particle&)>;
@@ -56,11 +56,11 @@ namespace Rivet {
   /// std::function instantiation for functors taking two Particles and returning a bool
   using ParticleSorter = function<bool(const Particle&, const Particle&)>;
 
-  //@}
+  /// @}
 
 
   /// @name PdgId declarations
-  //@{
+  /// @{
 
   /// Typedefs for a PDG ID code.
   typedef int PdgId;
@@ -69,7 +69,7 @@ namespace Rivet {
   /// Typedef for a pair of particle names.
   typedef std::pair<PdgId, PdgId> PdgIdPair;
 
-  //@}
+  /// @}
 
 
 }

@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -306,11 +306,11 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     /**
      *  PDG codes of the decaying mesons
      */
@@ -329,7 +329,7 @@ namespace Rivet {
     /**
      *  Histograms
      */
-    //@{
+    /// @{
     /**
      *  The lepton energy
      */
@@ -339,7 +339,7 @@ namespace Rivet {
      *  The \f$q\f$ value
      */
     vector<Histo1DPtr> _scale;
-    //@}
+    /// @}
 
   };
 

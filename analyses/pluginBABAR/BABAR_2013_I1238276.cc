@@ -95,7 +95,7 @@ namespace Rivet {
 
   private:
 
-    //@{
+    /// @{
     // Histograms for continuum data (sqrt(s) = 10.52 GeV)
     // no K_S and Lambda decays
     Histo1DPtr _histPion_no_dec;
@@ -105,7 +105,7 @@ namespace Rivet {
     Histo1DPtr _histPion_dec;
     Histo1DPtr _histKaon_dec;
     Histo1DPtr _histProton_dec;
-    //@}
+    /// @}
 
   };
 

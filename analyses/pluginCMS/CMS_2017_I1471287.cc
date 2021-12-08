@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -218,7 +218,7 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
     Scatter2DPtr h_v22;
     Scatter2DPtr h_v32;
     Scatter2DPtr h_v22pT;

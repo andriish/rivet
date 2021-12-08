@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -284,16 +284,16 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _h_ctheta,_h_plus_cphi,_h_minus_cphi,_h_plus_lam,_h_minus_lam;
     Histo1DPtr _h_ctheta_large;
     Histo1DPtr _h_minus_cphi_low,_h_minus_cphi_mid,_h_minus_cphi_high;
     Histo1DPtr _h_plus_cphi_low ,_h_plus_cphi_mid ,_h_plus_cphi_high ;
-    //@}
+    /// @}
 
 
   };

@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Setup projections
@@ -56,7 +56,7 @@ namespace Rivet {
       scale(_hist_eta, 0.5/ *_sumWTrig);
     }
 
-    //@}
+    /// @}
 
 
   private:

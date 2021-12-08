@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -147,7 +147,7 @@ namespace Rivet {
       _count_beta->fill(0.5);
     }
 
-    //@}
+    /// @}
 
     void finalize() {
       double fact = crossSection()/sumOfWeights()*37;
@@ -168,7 +168,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _hist_beta;
     Histo1DPtr _hist_time;
     Histo1DPtr _hist_mass;
@@ -180,7 +180,7 @@ namespace Rivet {
     Histo1DPtr _count_110;
     Histo1DPtr _count_120;
     Histo1DPtr _count_130;
-    //@}
+    /// @}
 
   };
 

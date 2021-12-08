@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -239,18 +239,18 @@ namespace Rivet {
       scale(_h_y  ,1./_h_weight->sumW());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_mult,_h_p,_h_xp,_h_pl,_h_pt,_h_pt2,_h_xl,_h_xT,_h_S,_h_T,_h_y;
     CounterPtr _c_hadrons, _c_muons;
     YODA::Dbn1D _n_charged,_n_total,_sphericity,_thrust,_p_total,
       _p_l,_pt,_pt2,_pt2_in,_pt2_out;
     CounterPtr  _h_weight;
     double sqs;
-    //@}
+    /// @}
 
   };
 

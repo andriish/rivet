@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
     void init() {
       declare(FinalState(), "FS");
       declare(ChargedFinalState(), "CFS");
@@ -97,7 +97,7 @@ namespace Rivet {
 	if(_sumW[ix]->val()>0.) scale(_histo_xE[ix],1./ *_sumW[ix]);
       }
     }
-    //@}
+    /// @}
 
 
   private:
@@ -105,9 +105,9 @@ namespace Rivet {
     vector<CounterPtr> _sumW;
 
     /// @name Histograms
-    //@{
+    /// @{
     vector<Histo1DPtr> _histo_xE;
-    //@}
+    /// @}
 
 
   };

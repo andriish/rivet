@@ -97,14 +97,14 @@ namespace Rivet {
 
   private:
 
-    //@{
+    /// @{
     /// Count of weights
     CounterPtr _weightSum;
     /// Spectra
     Histo1DPtr _histPiA, _histPiB, _histKA, _histKB, _histpA, _histpB;
     /// Multiplicities
     Histo1DPtr _multPiA, _multPiB, _multK, _multpA, _multpB;
-    //@}
+    /// @}
 
 
     void findDecayProducts(Particle parent, Particles & pionsA, Particles & pionsB,

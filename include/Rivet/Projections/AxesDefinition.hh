@@ -25,14 +25,14 @@ namespace Rivet {
     /// Clone on the heap.
     virtual unique_ptr<Projection> clone() const = 0;
 
-    ///@{ Axis accessors, in decreasing order of significance.
+    /// @{ Axis accessors, in decreasing order of significance.
     /// The main axis.
     virtual const Vector3& axis1() const = 0;
     /// The 2nd most significant ("major") axis.
     virtual const Vector3& axis2() const = 0;
     /// The least significant ("minor") axis.
     virtual const Vector3& axis3() const = 0;
-    ///@}
+    /// @}
 
   };
 

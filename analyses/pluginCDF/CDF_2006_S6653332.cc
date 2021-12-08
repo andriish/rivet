@@ -25,7 +25,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       const FinalState fs(Cuts::abseta < 3.6);
@@ -140,7 +140,7 @@ namespace Rivet {
       scale(_ratioBJetToJet, 1.0/ *_sumWeightsWithZJet);
     }
 
-    //@}
+    /// @}
 
 
   private:

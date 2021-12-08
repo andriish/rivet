@@ -21,7 +21,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -204,13 +204,13 @@ namespace Rivet {
       MSG_INFO("CUTFLOWS:\n\n" << _cutflows);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _srcounts_ewino[3][4], _srcounts_stop[3][3];
-    //@}
+    /// @}
 
     /// Cut-flows
     int _nevtMu = 0;

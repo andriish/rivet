@@ -300,7 +300,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(H1_2007_I746380);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     // Book projections and histograms
     void init() {
@@ -508,13 +508,13 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     // Book histograms from REF data
     Histo1DPtr _h_DIS_dsigdzPom    ;
     Histo1DPtr _h_DIS_dsigdlogXpom ;
@@ -532,7 +532,7 @@ namespace Rivet {
     Histo1DPtr _h_PHO_dsigdAvgEta  ;
     Histo1DPtr _h_PHO_dsigdDeltaEta;
     Histo1DPtr _h_PHO_dsigdMjets   ;
-    //@}
+    /// @}
 
     bool isDIS;
     int  nVeto0, nVeto1, nVeto2, nVeto3, nVeto4, nVeto5;

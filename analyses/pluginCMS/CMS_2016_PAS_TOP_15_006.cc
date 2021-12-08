@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Set up projections and book histograms
     void init() {
@@ -86,7 +86,7 @@ namespace Rivet {
       normalize(_normedElectronMuonHisto);
     }
 
-    //@}
+    /// @}
 
 
     /// @brief Special dressed lepton finder

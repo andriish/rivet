@@ -44,11 +44,11 @@ namespace Rivet {
   inline bool operator == (const Cut& a, const Cut& b) { return *a == b; }
 
   /// Forbid use of the comma operator between two (or a chain of) Cuts
-  ///@{
+  /// @{
   Cut operator , (const Cut&, const Cut&) = delete;
   Cut& operator , (Cut&, Cut&) = delete;
   Cut operator , (Cut, Cut) = delete;
-  ///@}
+  /// @}
 
 
   /// Namespace used for ambiguous identifiers
@@ -66,7 +66,7 @@ namespace Rivet {
     extern const Cut& NOCUT; //= open(); //< access by constant
 
     /// @name Shortcuts for common cuts, using the Quantity enums defined above
-    //@{
+    /// @{
     Cut range(Quantity, double m, double n);
     inline Cut ptIn(double m, double n) { return range(pT, m,n); }
     inline Cut etIn(double m, double n) { return range(Et, m,n); }
@@ -76,13 +76,13 @@ namespace Rivet {
     inline Cut absrapIn(double m, double n) { return range(absrap, m,n); }
     inline Cut etaIn(double m, double n) { return range(eta, m,n); }
     inline Cut absetaIn(double m, double n) { return range(abseta, m,n); }
-    //@}
+    /// @}
 
   }
 
 
   /// @name Cut constructors
-  //@{
+  /// @{
   Cut operator == (Cuts::Quantity, double);
   Cut operator != (Cuts::Quantity, double);
   Cut operator <  (Cuts::Quantity, double);
@@ -91,7 +91,7 @@ namespace Rivet {
   Cut operator >= (Cuts::Quantity, double);
 
   /// @internal Overload helpers for integer arguments
-  //@{
+  /// @{
   inline Cut operator == (Cuts::Quantity qty, int i) { return qty ==  double(i); }
   inline Cut operator != (Cuts::Quantity qty, int i) { return qty !=  double(i); }
   // Cut operator == (Cuts::Quantity qty, int i);
@@ -100,13 +100,13 @@ namespace Rivet {
   inline Cut operator >  (Cuts::Quantity qty, int i) { return qty >  double(i); }
   inline Cut operator <= (Cuts::Quantity qty, int i) { return qty <= double(i); }
   inline Cut operator >= (Cuts::Quantity qty, int i) { return qty >= double(i); }
-  //@}
+  /// @}
 
-  //@}
+  /// @}
 
 
   /// @name Cut combiners
-  //@{
+  /// @{
 
   /// Logical AND operation on two cuts
   /// @note No comparison short-circuiting for overloaded &&!
@@ -126,7 +126,7 @@ namespace Rivet {
   /// Logical XOR operation on two cuts
   Cut operator ^ (const Cut & aptr, const Cut & bptr);
 
-  //@}
+  /// @}
 
 
   /// String representation

@@ -491,7 +491,7 @@ namespace Rivet {
     CounterPtr _sumW_udsc, _sumW_b, _sumW_ch, _sumW_ch_udsc, _sumW_ch_b;
 
     /// @name Histograms
-    //@{
+    /// @{
     // at the Z pole
     Histo1DPtr _h_Thrust_udsc, _h_Thrust_bottom;
     Histo1DPtr _h_heavyJetmass_udsc, _h_heavyJetmass_bottom;
@@ -507,7 +507,7 @@ namespace Rivet {
     Histo1DPtr _h_y_2_JADE,_h_y_3_JADE,_h_y_4_JADE,_h_y_5_JADE;
     Histo1DPtr _h_y_2_Durham,_h_y_3_Durham,_h_y_4_Durham,_h_y_5_Durham;
     Histo1DPtr _h_y_2_Cambridge,_h_y_3_Cambridge,_h_y_4_Cambridge,_h_y_5_Cambridge;
-    //@}
+    /// @}
 
   };
 

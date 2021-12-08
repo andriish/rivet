@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -61,16 +61,16 @@ namespace Rivet {
         divide(_histEta70, _histEta09, _histEtaR);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histEta09, _histEta70;
     Scatter2DPtr _histEtaR;
-    //@}
+    /// @}
 
     bool fill09, fill70;
 

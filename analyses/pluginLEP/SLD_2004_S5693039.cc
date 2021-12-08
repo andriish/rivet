@@ -22,7 +22,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void analyze(const Event& e) {
       // First, veto on leptonic events by requiring at least 2 charged FS particles
@@ -332,7 +332,7 @@ namespace Rivet {
       _s_Pr_PBar->scaleY(100.);
     }
 
-    //@}
+    /// @}
 
 
   private:

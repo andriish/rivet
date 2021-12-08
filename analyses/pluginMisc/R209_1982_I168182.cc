@@ -15,7 +15,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(R209_1982_I168182);
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -84,17 +84,17 @@ namespace Rivet {
       scale(_hist_M,crossSection()/nanobarn/(sumOfWeights()));
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _hist_pT, _hist_M ;
     Histo1DPtr _h_m_DiMuon ;
     Histo1DPtr _h_pT_DiMuon;
     Histo1DPtr _h_y_DiMuon;
     Histo1DPtr _h_xF_DiMuon;
-    ///@}
+    /// @}
 
     /// Energy comparison tolerance
     const double sqrts_tol = 0.1;

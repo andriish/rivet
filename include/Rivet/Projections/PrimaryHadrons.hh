@@ -18,7 +18,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors and destructors.
-    //@{
+    /// @{
 
     /// Constructor with cuts argument
     PrimaryHadrons(const Cut& c=Cuts::open()) {
@@ -37,7 +37,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(PrimaryHadrons);
 
-    //@}
+    /// @}
 
 
     /// Apply the projection to the event.

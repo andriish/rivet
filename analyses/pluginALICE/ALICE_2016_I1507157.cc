@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// @brief Calculate angular distance between particles.
     double phaseDif(double a1, double a2){
@@ -158,11 +158,11 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     vector<pair<int, int> > pid;
     vector<Histo1DPtr> signal;
     vector<Histo1DPtr> background;
@@ -170,7 +170,7 @@ namespace Rivet {
     vector<double> nsp;
     vector<double> nmp;
 
-    //@}
+    /// @}
 
 
   };

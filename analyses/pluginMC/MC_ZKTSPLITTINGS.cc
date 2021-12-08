@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -54,15 +54,15 @@ namespace Rivet {
       MC_JetSplittings::finalize();
     }
 
-    //@}
+    /// @}
 
   protected:
 
     /// @name Parameters for specialised e/mu and dressed/bare subclassing
-    //@{
+    /// @{
     double _dR;
     PdgId _lepton;
-    //@}
+    /// @}
 
   };
 

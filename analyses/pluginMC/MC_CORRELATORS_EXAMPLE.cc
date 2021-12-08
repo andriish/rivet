@@ -12,17 +12,17 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     MC_CORRELATORS_EXAMPLE()
       : CumulantAnalysis("MC_CORRELATORS_EXAMPLE")
     {   }
-    //@}
+    /// @}
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
     /// Book histograms and initialise projections before the run
     void init() {
 
@@ -57,20 +57,20 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Scatter2DPtr h_c22;
     Scatter2DPtr h_v22pT;
     ECorrPtr ec22;
     ECorrPtr ec22pT;
     Scatter2DPtr h_c23;
     ECorrPtr ec23;
-    //@}
+    /// @}
 
   };
 

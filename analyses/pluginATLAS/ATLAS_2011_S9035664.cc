@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       declare(UnstableParticles(), "UFS");
@@ -103,7 +103,7 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:

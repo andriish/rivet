@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -111,7 +111,7 @@ namespace Rivet {
       _PTsumPDFden1->fill(ptlead/GeV, PTsumPDFden );
     }
 
-    //@}
+    /// @}
 
 
     /// eta-phi area of the transverse region

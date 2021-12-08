@@ -22,7 +22,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -302,17 +302,17 @@ namespace Rivet {
       scale(_count_SR2, norm);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
   /// @name Histograms
-  //@{
+  /// @{
   vector<Histo1DPtr> _hist_leptonpT_SR1, _hist_leptonpT_SR2;
   Histo1DPtr _hist_etmiss_SR1_A, _hist_etmiss_SR1_B, _hist_etmiss_SR2_A, _hist_etmiss_SR2_B;
   Histo1DPtr _hist_mSFOS, _count_SR1, _count_SR2;
-  //@}
+  /// @}
 
   };
 

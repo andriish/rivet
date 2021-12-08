@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -109,7 +109,7 @@ book(	_h_Rho_pT_forward[1] ,6, 1, 1);
 
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -118,11 +118,11 @@ book(	_h_Rho_pT_forward[1] ,6, 1, 1);
     vector<double> _ptedges;
     string _jsnames_pT[4];
     /// @name Histograms
-    //@{
+    /// @{
     Profile1DPtr _h_Rho_pT_central[4];
     Profile1DPtr _h_Rho_pT_forward[2];
 
-    //@}
+    /// @}
 
 
   };

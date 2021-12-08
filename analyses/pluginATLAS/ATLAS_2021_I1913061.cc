@@ -18,7 +18,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2021_I1913061);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
 

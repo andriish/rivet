@@ -64,11 +64,11 @@ namespace Rivet {
 
   private:
 
-    //@{
+    /// @{
     // Histograms for continuum data (sqrt(s) = 10.52 GeV)
     Histo1DPtr _histPion;
     Histo1DPtr _histKaon;
-    //@}
+    /// @}
 
   };
 

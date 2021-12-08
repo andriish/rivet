@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -293,17 +293,17 @@ namespace Rivet {
 		       make_pair(alpha.second,alpha.second) );
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _h_ctheta,_h_cphi,_h_plus_lam,_h_minus_lam;
     Histo1DPtr _h_ctheta_large;
     Histo1DPtr _h_cphi_low, _h_cphi_mid, _h_cphi_high;
     Histo1DPtr _h_plus_lam_large1,_h_plus_lam_large2;
     Histo1DPtr _h_minus_lam_large1,_h_minus_lam_large2;
-    //@}
+    /// @}
 
   };
 

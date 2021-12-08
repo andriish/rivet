@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -65,13 +65,13 @@ namespace Rivet {
       normalize(_h_lepton_eta, xsec);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_H_mass;
     Histo1DPtr _h_H_pT;
     Histo1DPtr _h_H_pT_peak;
@@ -79,7 +79,7 @@ namespace Rivet {
     Histo1DPtr _h_H_phi;
     Histo1DPtr _h_lepton_pT;
     Histo1DPtr _h_lepton_eta;
-    //@}
+    /// @}
 
   };
 

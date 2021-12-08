@@ -13,7 +13,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -64,13 +64,13 @@ namespace Rivet {
       hence the added factor 2 in the normalization solves the issue (as done in the paper) */
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_D0, _h_Dplus, _h_Dstarp, _h_integ;
-    //@}
+    /// @}
 
 
   };

@@ -9,7 +9,7 @@ namespace Rivet {
     public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     LHCB_2012_I1119400() : Analysis("LHCB_2012_I1119400"),
@@ -20,13 +20,13 @@ namespace Rivet {
       _eta_max(4.5)
     {   }
 
-    //@}
+    /// @}
 
 
     public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -150,7 +150,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     private:

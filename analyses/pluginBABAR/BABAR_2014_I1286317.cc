@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -109,17 +109,17 @@ namespace Rivet {
       }
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_p[4],_h_r[5];
     CounterPtr _w[4];
 
     // deuteron id code
     static const int _did = -1000010020;
-    ///@}
+    /// @}
 
 
   };

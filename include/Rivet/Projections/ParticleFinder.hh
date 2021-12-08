@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// @name Object lifetime management
-    //@{
+    /// @{
 
     /// Construction using Cuts object
     ParticleFinder(const Cut& c=Cuts::OPEN)
@@ -25,11 +25,11 @@ namespace Rivet {
     /// Clone on the heap.
     virtual unique_ptr<Projection> clone() const = 0;
 
-    //@}
+    /// @}
 
 
     /// @name Particle accessors
-    //@{
+    /// @{
 
     /// Count the final-state particles
     size_t size() const { return particles().size(); }
@@ -115,7 +115,7 @@ namespace Rivet {
       return particles(Cuts::pT >= ptmin, cmpMomByPt);
     }
 
-    //@}
+    /// @}
 
 
     /// @todo Replace with cuts() accessor
@@ -123,7 +123,7 @@ namespace Rivet {
 
 
     /// @name For JetAlg compatibility
-    //@{
+    /// @{
 
     typedef Particle entity_type;
     typedef Particles collection_type;
@@ -131,7 +131,7 @@ namespace Rivet {
     /// Template-usable interface common to JetAlg
     const collection_type& entities() const { return particles(); }
 
-    //@}
+    /// @}
 
     /// Apply the projection to the event
     virtual void project(const Event& e) = 0;

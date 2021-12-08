@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     ///@name Analysis methods
-    //@{
+    /// @{
 
     /// Add projections and book histograms
     void init() {
@@ -46,7 +46,7 @@ namespace Rivet {
       scale(_h_Z_pT_xs, crossSection()/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:

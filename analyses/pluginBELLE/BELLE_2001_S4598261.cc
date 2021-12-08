@@ -72,13 +72,13 @@ namespace Rivet {
 
   private:
 
-    //@{
+    /// @{
     // count of weights
     CounterPtr _weightSum;
     /// Histograms
     Histo1DPtr _histdSigDp;
     Histo1DPtr _histMult;
-    //@}
+    /// @}
 
 
     void findDecayProducts(ConstGenParticlePtr p, vector<ConstGenParticlePtr>& pions) {
