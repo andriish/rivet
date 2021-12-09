@@ -285,6 +285,18 @@ CPPFLAGS=$oldCPPFLAGS
 LIBS=$oldLIBS
 
 
+## HDF5 + highfive
+AX_LIB_HDF5()
+dnl AC_MSG_WARN([$HDF5_CPPFLAGS])
+dnl AC_MSG_WARN([$HDF5_LDFLAGS])
+dnl AC_MSG_WARN([$HDF5_LIBS])
+dnl AC_CEDAR_HEADERS([highfive], , , [AC_MSG_ERROR([GSL (GNU Scientific Library) is required])])
+dnl oldCPPFLAGS=$CPPFLAGS
+dnl CPPFLAGS="$CPPFLAGS -I$HDF5_CPPFLAGS"
+dnl AC_CHECK_HEADER([gsl/gsl_vector.h], [], [AC_MSG_ERROR([GSL vectors not found.])])
+dnl CPPFLAGS=$oldCPPFLAGS
+
+
 # ## GNU Scientific Library
 # AC_SEARCH_GSL
 # AC_CEDAR_HEADERS([gsl], , , [AC_MSG_ERROR([GSL (GNU Scientific Library) is required])])

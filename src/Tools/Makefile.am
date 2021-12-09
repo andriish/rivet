@@ -11,9 +11,10 @@ libRivetTools_la_SOURCES = \
   ParticleUtils.cc \
   ParticleName.cc \
   Percentile.cc \
-  RivetYODA.cc \
+  RivetHDF5.cc \
   RivetMT2.cc \
   RivetPaths.cc \
+  RivetYODA.cc \
   Utils.cc \
   binreloc.c
 
@@ -25,4 +26,10 @@ endif
 
 dist_noinst_HEADERS = binreloc.h lester_mt2_bisect.hh
 
-libRivetTools_la_CPPFLAGS = $(AM_CPPFLAGS) -DENABLE_BINRELOC -DDEFAULTDATADIR=\"$(datadir)\" -DDEFAULTLIBDIR=\"$(libdir)\"
+libRivetTools_la_LDFLAGS = $(HDF5_LDFLAGS)
+libRivetTools_la_LIBADD = $(HDF5_LIBS)
+
+libRivetTools_la_CPPFLAGS = $(AM_CPPFLAGS) \
+  -DENABLE_BINRELOC \
+  -DDEFAULTDATADIR=\"$(datadir)\" -DDEFAULTLIBDIR=\"$(libdir)\" \
+  $(HDF5_CPPFLAGS)
