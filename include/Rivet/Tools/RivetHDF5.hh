@@ -13,7 +13,7 @@ namespace Rivet {
 
 
     /// Read HDF5 file @a filename
-    HighFive::File readFile(const string& filename) {
+    inline HighFive::File readFile(const string& filename) {
       const string filepath = findAnalysisDataFile(filename);
       if (filepath.empty()) throw IOError("Failed to load HDF5 file " + filename);
       try {
@@ -26,7 +26,7 @@ namespace Rivet {
 
     /// Read HDF5 data from dataset @a dsname in file @a filename, into the provided @a rtndata container
     template <typename T>
-    bool readData(const string& filename, const string& dsname, T& rtndata) {
+    inline bool readData(const string& filename, const string& dsname, T& rtndata) {
       try {
         HighFive::File h5file = readFile(filename);
         DataSet dataset = h5file.getDataSet(dsname);
@@ -40,7 +40,7 @@ namespace Rivet {
 
     /// Read HDF5 data from dataset @a dsname in file @a filename, into a newly constructed container
     template <typename T>
-    T readData(const string& filename, const string& dsname) {
+    inline T readData(const string& filename, const string& dsname) {
       T rtn;
       readData(filename, dsname, rtn);
       return rtn;

@@ -1,3 +1,11 @@
+2021-12-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Analysis.h: add auxFile() and auxData() methods to load and read
+	data from HDF5 analysis auxiliary-data files.
+
+	* Add RivetHDF5.hh header with convenience functions for HDF5 file
+	and dataset loading. Requires highfive.
+
 2021-12-07  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Use explicit energy-unit factors when calling Analysis::isCompatibleWithSqrtS().
