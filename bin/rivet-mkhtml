@@ -91,8 +91,8 @@ stygroup.add_argument("--helvetica", dest="OUTPUT_FONT", action="store_const", c
                       help="use Helvetica as font. DEPRECATED: Use --font")
 stygroup.add_argument("--minion", dest="OUTPUT_FONT", action="store_const", const="minion", default="palatino",
                       help="use Adobe Minion Pro as font. DEPRECATED: Use --font")
-stygroup.add_argument("--remove-options", help="remove options label from legend", dest="REMOVE_OPTIONS",
-                    action="store_true", default=False)
+stygroup.add_argument("--rmopts", "--remove-options", dest="REMOVE_OPTIONS", action="store_true", default=False
+                      help="remove options label from legend")
 
 selgroup = parser.add_argument_group("Selective plotting")
 selgroup.add_argument("-m", "--match", action="append", dest="PATHPATTERNS", default=[],
@@ -103,8 +103,8 @@ selgroup.add_argument("--ana-match", action="append", dest="ANAPATTERNS", defaul
                       help="only write out histograms from analyses whose name matches any of these regexes")
 selgroup.add_argument("--ana-unmatch", action="append", dest="ANAUNPATTERNS", default=[],
                       help="exclude histograms from analyses whose name matches any of these regexes")
-selgroup.add_argument("--no-weights", help="prevent multiweights from being plotted", dest="NO_WEIGHTS",
-                    action="store_true", default=False)
+selgroup.add_argument("--no-weights", dest="NO_WEIGHTS", action="store_true", default=False,
+                      help="prevent multiweights from being plotted")
 
 vrbgroup = parser.add_argument_group("Verbosity control")
 vrbgroup.add_argument("-v", "--verbose", help="add extra debug messages", dest="VERBOSE",
@@ -556,12 +556,12 @@ if not args.DRY_RUN:
             anaindex.write('    <a href="#%s-%s">&#9875;</a><a href="%s">&#8984</a> %s:<br/>\n' %
                            (analysis, obsname, srcfile, os.path.splitext(vecfile)[0]) )
             anaindex.write('    <a name="%s-%s"><a href="%s">\n' % (analysis, obsname, vecfile) )
-            
+
             if args.INLINE:
                 svgfile = obsname+".svg"
                 svgfile = os.path.join(args.OUTPUTDIR, analysis, svgfile)
                 # Embed the SVG code into the HTML
-                # Refs. https://vecta.io/blog/best-way-to-embed-svg  Sec.3 
+                # Refs. https://vecta.io/blog/best-way-to-embed-svg  Sec.3
                 # get the SVG code and modify it.
                 with open(svgfile, 'r') as svg:
                     svg.readline() # skip first line
@@ -589,4 +589,3 @@ if not args.DRY_RUN:
     index.write('<footer style="clear:both; margin-top:3em; padding-top:3em">\n%s\n%s\n</footer>\n\n' % (timestamp, command))
     index.write('</body>\n</html>')
     index.close()
-
