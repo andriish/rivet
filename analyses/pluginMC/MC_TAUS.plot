@@ -209,7 +209,7 @@ YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp(\tau\mathrm{2})$ [pb/GeV]
 LogX=1
 LegendXPos=0.05
 LegendYPos=0.5
-XMin=20.0
+#XMin=20.0
 # END PLOT
 
 # BEGIN PLOT /MC_TAUS/tau_pt_3
@@ -219,7 +219,7 @@ YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp(\tau\mathrm{3})$ [pb/GeV]
 LogX=1
 LegendXPos=0.05
 LegendYPos=0.5
-XMin=20.0
+#XMin=20.0
 # END PLOT
 
 # BEGIN PLOT /MC_TAUS/tau_pt_4
@@ -229,5 +229,5 @@ YLabel=$\mathrm{d}\sigma/\mathrm{d}p_\perp(\tau\mathrm{4})$ [pb/GeV]
 LogX=1
 LegendXPos=0.05
 LegendYPos=0.5
-XMin=20.0
+#XMin=20.0
 # END PLOT
