@@ -1,6 +1,7 @@
 from . import ALEPH_1991_S2435284
 from . import ALEPH_1996_I402895
 from . import ALEPH_1996_S3486095
+from . import ALICE_2021_I1898832
 from . import AMY_1990_I283337
 from . import AMY_1990_I295160
 from . import AMY_1995_I406129

@@ -1,0 +1,34 @@
+Name: ALICE_2021_I1898832
+Year: 2021
+Summary: J/$\psi$ production for midrapidity at $\sqrt{s}=13$ TeV
+Experiment: ALICE
+Collider: LHC
+InspireID: 1898832
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - arXiv:2108.01906
+RunInfo: J/;Psi production at 13 TeV
+Beams: [p+, p+]
+Energies: [[6500,6500]]
+Description:
+  'Measurement of  J/$\psi$ production for central rapidities ($|y|<0.9$$) by the ALICDE collaboration at 13 TeV.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: ALICE:2021dtt
+BibTeX: '@article{ALICE:2021dtt,
+    author = "Acharya, Shreyasi and others",
+    collaboration = "ALICE",
+    title = "{Inclusive J/$\psi$ production at midrapidity in pp collisions at $\sqrt{s}~=~13$ TeV}",
+    eprint = "2108.01906",
+    archivePrefix = "arXiv",
+    primaryClass = "nucl-ex",
+    reportNumber = "CERN-EP-2021-160",
+    month = "8",
+    year = "2021"
+}'

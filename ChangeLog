@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2022-12-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Allow linspace() and aspace() to make reversed edge-sets with start > end.
@@ -258,6 +259,11 @@
 2021-12-13  Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2019_I1736235 e+e- > n nbar
+
+2021-12-12  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add ALICE_2021_I1898832 central J/psi
+	* Add ALICE_2017_I1511865 forward J/psi, psi(2S)
 
 2021-12-05  Peter Richardson <peter.richardson@durham.ac.uk>
 

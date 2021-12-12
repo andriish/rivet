@@ -1,0 +1,40 @@
+Name: ALICE_2017_I1511865
+Year: 2017
+Summary: Forward J$/\psi$ and $\psi(2S)$ production at $13$ and $5.02$ TeV
+Experiment: ALICE
+Collider: LHC
+InspireID: 1511865
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Eur.Phys.J.C 77 (2017) 392, 2017
+RunInfo: J/Psi and psi(21S)  production
+Beams: [p+, p+]
+Energies: [5020,13000]
+Options:
+ - ENERGY=5020,13000
+Description:
+  'Measurement of forward J$/\psi$ and $\psi(2S)$ production at $13$ and $5.02$ TeV by the ALICE collaboration.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: ALICE:2017leg
+BibTeX: '@article{ALICE:2017leg,
+    author = "Acharya, Shreyasi and others",
+    collaboration = "ALICE",
+    title = "{Energy dependence of forward-rapidity $\mathrm {J}/\psi $ and $\psi \mathrm {(2S)}$ production in pp collisions at the LHC}",
+    eprint = "1702.00557",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-EP-2017-015",
+    doi = "10.1140/epjc/s10052-017-4940-4",
+    journal = "Eur. Phys. J. C",
+    volume = "77",
+    number = "6",
+    pages = "392",
+    year = "2017"
+}'
