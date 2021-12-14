@@ -1,0 +1,39 @@
+Name: CMS_2013_I1225274
+Year: 2013
+Summary: Measurements of the $\Upsilon(1S)$, $\Upsilon(2S)$, and $\Upsilon(3S)$ differential cross sections in pp collisions at $\sqrt{s} =​ 7$ TeV
+Experiment: CMS
+Collider: LHC
+InspireID: 1225274
+Status: VALIDATED
+Reentrant: True
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Lett.B 727 (2013) 101-125
+RunInfo: Upsilon production at LHC energies
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+  'Measurement of the transverse momentum distribtions for $\Upsilon(1S)$, $\Upsilon(2S)$, and $\Upsilon(3S)$ production in six rapidity intervals.
+   The production ratios are also measured. There is a more recent 7 TeV CMS measurement but this one extends to zero transverse momentum and has more rapidity intervals.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CMS:2013qur 
+BibTeX: '@article{CMS:2013qur,
+    author = "Chatrchyan, Serguei and others",
+    collaboration = "CMS",
+    title = "{Measurement of the $\Upsilon(1S), \Upsilon(2S)$, and $\Upsilon(3S)$ Cross Sections in $pp$ Collisions at $\sqrt{s}$ = 7 TeV}",
+    eprint = "1303.5900",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CMS-BPH-11-001, CERN-PH-EP-2012-373",
+    doi = "10.1016/j.physletb.2013.10.033",
+    journal = "Phys. Lett. B",
+    volume = "727",
+    pages = "101--125",
+    year = "2013"
+}
+'

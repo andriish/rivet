@@ -4,7 +4,8 @@ Summary: Measurements of the $\Upsilon(1S)$, $\Upsilon(2S)$, and $\Upsilon(3S)$ 
 Experiment: CMS
 Collider: LHC
 InspireID: 1342266
-Status: UNVALIDATED NOTREENTRY NOHEPDATA SINGLEWEIGHT UNPHYSICAL
+Status: VALIDATED
+Reentrant: True
 Authors:
  - Daniel Clarke <daniel.a.clarke@durham.ac.uk>
  - Peter Richardson <peter.richardson@durham.ac.uk>

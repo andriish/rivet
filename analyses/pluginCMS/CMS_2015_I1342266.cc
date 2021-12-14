@@ -31,7 +31,6 @@ namespace Rivet {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
 
       for (const Particle& p : ufs.particles(Cuts::pid==553 || Cuts::pid==100553 || Cuts::pid==200553)) {
-        if ( p.fromBottom() ) continue;
         double absrap = p.absrap();
         double xp = p.perp();
 	if(absrap>1.2) continue;

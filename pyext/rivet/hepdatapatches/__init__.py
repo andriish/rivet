@@ -49,6 +49,8 @@ from . import CLEO_2004_S5809304
 from . import CLEOII_1999_I504672
 from . import CLEOII_1999_I478217
 from . import CMD3_2016_I1385598
+from . import CMS_2013_I1225274
+from . import CMS_2015_I1342266
 from . import CMS_2016_I1487288
 from . import CMS_2017_I1608166
 from . import CRYSTAL_BALL_1988_I261078
