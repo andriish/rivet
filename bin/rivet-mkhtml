@@ -91,7 +91,7 @@ stygroup.add_argument("--helvetica", dest="OUTPUT_FONT", action="store_const", c
                       help="use Helvetica as font. DEPRECATED: Use --font")
 stygroup.add_argument("--minion", dest="OUTPUT_FONT", action="store_const", const="minion", default="palatino",
                       help="use Adobe Minion Pro as font. DEPRECATED: Use --font")
-stygroup.add_argument("--rmopts", "--remove-options", dest="REMOVE_OPTIONS", action="store_true", default=False
+stygroup.add_argument("--rmopts", "--remove-options", dest="REMOVE_OPTIONS", action="store_true", default=False,
                       help="remove options label from legend")
 
 selgroup = parser.add_argument_group("Selective plotting")
