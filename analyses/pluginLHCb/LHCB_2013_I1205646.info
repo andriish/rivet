@@ -1,0 +1,37 @@
+Name: LHCB_2013_I1205646
+Year: 2013
+Summary: $J/\psi$ production at 2.76 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1205646
+Status: VALIDATED
+Reentrant: True
+Authors:
+ - Peter Richardson <peter.richardson@durhama.ac.uk>
+References:
+ - JHEP 02 (2013) 041, 2013
+RunInfo: J/psi production in pp
+Beams: [p+, p+]
+Energies: [2760]
+Description:
+  'Measurement of $j/\psi$ production in the forward region by LHCb at 2.76 TeV.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2012kaz
+BibTeX: '@article{LHCb:2012kaz,
+    author = "Aaij, R and others",
+    collaboration = "LHCb",
+    title = "{Measurement of $J/\psi$ production in $pp$ collisions at $\sqrt{s}=2.76$ TeV}",
+    eprint = "1212.1045",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-PH-EP-2012-349, LHCB-PAPER-2012-039",
+    doi = "10.1007/JHEP02(2013)041",
+    journal = "JHEP",
+    volume = "02",
+    pages = "041",
+    year = "2013"
+}'

@@ -1,0 +1,38 @@
+Name: ALICE_2012_I1094079
+Year: 2012
+Summary: $J/\psi$ production at 2.76 TeV
+Experiment: ALICE
+Collider: LHC
+InspireID: 1094079
+Status: VALIDATED
+Reentrant: True
+Authors:
+ - Peter Richardson <peter.richardson@durhama.ac.uk>
+References:
+ - Phys.Lett.B 718 (2012) 295-306
+RunInfo: J/psi production in pp
+Beams: [p+, p+]
+Energies: [2760]
+Description:
+  'Measurement of $j/\psi$ production in the forward region by ALICE at 2.76 TeV. The rate in the central region is also measured, but not the differential cross section.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: ALICE:2012vup
+BibTeX: '@article{ALICE:2012vup,
+    author = "Abelev, B. and others",
+    collaboration = "ALICE",
+    title = "{Inclusive $J/\psi$ production in $pp$ collisions at $\sqrt{s} = 2.76$ TeV}",
+    eprint = "1203.3641",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-PH-EP-2012-055",
+    doi = "10.1016/j.physletb.2012.10.078",
+    journal = "Phys. Lett. B",
+    volume = "718",
+    pages = "295--306",
+    year = "2012",
+    note = "[Erratum: Phys.Lett.B 748, 472--473 (2015)]"
+}'

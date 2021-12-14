@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 2022-12-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Allow linspace() and aspace() to make reversed edge-sets with start > end.
@@ -255,6 +254,11 @@
 2021-12-14  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add strcat() variadic template function to Rivet utils.
+
+2021-12-14  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add ALICE_2012_I1094079 J/psi at 2.76 TeV
+	* Add LHCB_2013_I1205646 J/psi at 2.76 TeV
 
 2021-12-13  Peter Richardson <peter.richardson@durham.ac.uk>
 
