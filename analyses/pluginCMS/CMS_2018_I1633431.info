@@ -1,0 +1,37 @@
+Name: CMS_2018_I1633431
+Year: 2018
+Summary: Quarkonium production at 13 TeV
+Experiment: CMS
+Collider: LHC
+InspireID: 1633431
+Status: VALIDATED
+Reentrant: True
+Authors:
+ - Peter Richardson <peter.richardson@durhama.ac.uk>
+References:
+ - Phys.Lett.B 780 (2018) 251-272, 2018
+RunInfo: quarkonium production in pp
+Beams: [p+, p+]
+Energies: [[6500,6500]]
+Description:
+  'Measurement of prompt $J/\psi$, $\psi(2S)$, and $\Upsilon(1,2,3S)$ production at 13 TeV by the CMS collaboration. The transverse momentum spectra are measured in a numbver of rapidity intervals, together with the ratio of the production of the excited states to the $J/\psi$ or $\Upsilon(1S)$.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CMS:2017dju
+BibTeX: '@article{CMS:2017dju,
+    author = "Sirunyan, A. M. and others",
+    collaboration = "CMS",
+    title = "{Measurement of quarkonium production cross sections in pp collisions at $\sqrt{s}=$ 13 TeV}",
+    eprint = "1710.11002",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CMS-BPH-15-005, CERN-EP-2017-267",
+    doi = "10.1016/j.physletb.2018.02.033",
+    journal = "Phys. Lett. B",
+    volume = "780",
+    pages = "251--272",
+    year = "2018"
+}'
