@@ -73,7 +73,7 @@ namespace Rivet {
   /// Just a convenience wrapper for the more general Boost lexical_cast
   template <typename T>
   inline string to_str(const T& x) {
-    return to_string(x);
+    return lexical_cast<string>(x);
   }
 
   /// @brief Convert any object to a string
@@ -81,7 +81,7 @@ namespace Rivet {
   /// An alias for to_str() with a more "Rivety" mixedCase name.
   template <typename T>
   inline string toString(const T& x) {
-    return to_string(x);
+    return lexical_cast<string>(x);
   }
 
   /// Replace the first instance of patt with repl
@@ -160,6 +160,17 @@ namespace Rivet {
   inline bool endsWith(const string& s, const string& end) {
     if (s.length() < end.length()) return false;
     return s.substr(s.length() - end.length()) == end;
+  }
+
+
+  // Terminating version of strjoin, for empty fargs list
+  inline string strcat() { return ""; }
+  /// Make a string containing the concatenated string representations of each item in the variadic list
+  template<typename T, typename... Ts>
+  inline string strcat(T value, Ts... fargs) {
+    const string strthis = lexical_cast<string>(value);
+    const string strnext = strcat(fargs...);
+    return strnext.empty() ? strthis : strthis + strnext;
   }
 
 
