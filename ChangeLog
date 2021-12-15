@@ -1,3 +1,7 @@
+2021-12-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix the 'polarity' of the optional argument to AnalysisHandler::checkBeams().
+
 2021-12-14  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add strcat() variadic template function to Rivet utils.
