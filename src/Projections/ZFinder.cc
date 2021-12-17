@@ -28,21 +28,22 @@ namespace Rivet {
     // Identify bare leptons for dressing
     // Bit of a code nightmare -- FS projection copy constructors don't work?
     /// @todo Fix FS copy constructors!!
+    //TP Dec 21: This seems to be working now (as long as its not a runtime results issue?)
+    //Could probably even circumvent copy constructor with a long and ugly ?: if needed.
+    IdentifiedFinalState bareleptons;
     if (chLeptons == ChargedLeptons::PROMPT) {
       PromptFinalState inputfs_prompt(inputfs);
-      IdentifiedFinalState bareleptons = IdentifiedFinalState(inputfs_prompt);
-      bareleptons.acceptIdPair(_pid);
-      declare(bareleptons, "BareLeptons");
+      bareleptons = IdentifiedFinalState(inputfs_prompt);
     } else {
-      IdentifiedFinalState bareleptons = IdentifiedFinalState(inputfs);
-      bareleptons.acceptIdPair(_pid);
-      declare(bareleptons, "BareLeptons");
+      bareleptons = IdentifiedFinalState(inputfs);
     }
+    bareleptons.acceptIdPair(_pid);
+    declare(bareleptons, "BareLeptons");
 
     // Dress the bare leptons
     const bool doClustering = (clusterPhotons != ClusterPhotons::NONE);
     const bool useDecayPhotons = (clusterPhotons == ClusterPhotons::ALL);
-    DressedLeptons leptons(inputfs, get<FinalState>("BareLeptons"), (doClustering ? dRmax : -1.0), fsCut, useDecayPhotons);
+    DressedLeptons leptons(inputfs, bareleptons, (doClustering ? dRmax : -1.0), fsCut, useDecayPhotons);
     declare(leptons, "DressedLeptons");
 
     // Identify the non-Z part of the event
