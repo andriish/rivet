@@ -221,7 +221,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(%(ANANAME)s);
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -240,11 +240,11 @@ namespace Rivet {
 
     }
 
-    ///@}
+    /// @}
 
     /// @name Histograms
-    ///@{
-    ///@}
+    /// @{
+    /// @}
 
   };
 
@@ -275,7 +275,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -350,15 +350,15 @@ namespace Rivet {
 
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     map<string, Histo1DPtr> _h;
     map<string, Profile1DPtr> _p;
     map<string, CounterPtr> _c;
-    ///@}
+    /// @}
 %(INLINEMETHODS)s
 
   };
