@@ -144,9 +144,8 @@ namespace Rivet {
     double sqrtS() const;
 
     /// Option to disable AH beam-consistency checks
-    /// @todo Make this the canonical name
-    void checkBeams(bool check=true) { setIgnoreBeams(check); }
-    /// Alias for checkBeams()
+    void checkBeams(bool check=true) { setIgnoreBeams(!check); }
+    /// Opposite of checkBeams()
     /// @deprecated Use checkBeams()
     void setIgnoreBeams(bool ignore=true);
 
