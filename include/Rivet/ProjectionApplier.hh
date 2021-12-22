@@ -2,7 +2,7 @@
 #ifndef RIVET_ProjectionApplier_HH
 #define RIVET_ProjectionApplier_HH
 
-#include <queue>
+#include <deque>
 
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Projection.fhh"
@@ -56,8 +56,13 @@ namespace Rivet {
     /// @todo Add SFINAE to require that PROJ inherit from Projection
     template <typename PROJ>
     const PROJ& getProjection(const std::string& name) const {
-      const Projection& p = getProjHandler().getProjection(*this, name);
-      return pcast<PROJ>(p);
+      if (_projhandler != nullptr){
+        const Projection& p = getProjHandler().getProjection(*this, name);
+        return pcast<PROJ>(p);
+      }
+      else {
+        return getProjectionFromDeclQueue<PROJ>(name);
+      }
     }
     /// Get the named projection, specifying return type via a template argument (user-facing alias).
     /// @todo Add SFINAE to require that PROJ inherit from Projection
@@ -70,6 +75,18 @@ namespace Rivet {
       return getProjHandler().getProjection(*this, name);
     }
 
+    ///Get a named projection from this projection appliers declqueue
+    ///TODO @TP: Recursion?
+    ///TODO @TP: throw error if nothing found? can't return a null reference.
+    template <typename PROJ>
+    const PROJ& getProjectionFromDeclQueue(const std::string name) const {
+      //TODO: There's an STLy way of doing this that'll be more efficient.
+      for (const auto& pair : _declQueue){
+        if (pair.second == name){
+          return dynamic_cast<PROJ&>(*(pair.first));
+        }
+      }
+    }
     //@}
 
 
@@ -144,6 +161,13 @@ namespace Rivet {
       return *_projhandler;
     }
 
+public:
+//TODO should probs be protected (or just removed)
+    /// Get a pointer to the ProjectionHandler for this thread.
+    ProjectionHandler* getProjHandlerPointer() const {
+      return _projhandler;
+    }
+protected:
 
     /// @name Projection registration functions
     //@{
@@ -160,38 +184,41 @@ namespace Rivet {
     ///
     /// @todo Add SFINAE to require that PROJ inherit from Projection
     template <typename PROJ>
-    const PROJ& declareProjection(const PROJ& proj, const std::string& name) {
+    const PROJ& declareProjection(const PROJ& proj, const std::string& name) const {
       const Projection& reg = _declareProjection(proj, name);
       const PROJ& rtn = dynamic_cast<const PROJ&>(reg);
+      rtn.setProjectionHandler(getProjHandler());
       return rtn;
     }
 
     /// @brief Register a contained projection (user-facing version)
     /// @todo Add SFINAE to require that PROJ inherit from Projection
     template <typename PROJ>
-    const PROJ& declare(const PROJ& proj, const std::string& name) {
-      if(_projhandler){
-          return declareProjection(proj, name);
-        }      
-        std::unique_ptr<Projection> projClone = proj.clone();
-      _declQueue.push(make_pair(projClone.get(), name));
+    const PROJ& declare(const PROJ& proj, const std::string& name, bool declareForReal=false) const {
+      if(_projhandler && declareForReal){
+        proj.setProjectionHandler(getProjHandler());
+        return declareProjection(proj, name);
+      }      
+      std::shared_ptr<Projection> projClone = proj.clone();
+      _declQueue.push_back(make_pair(projClone, name));
       return proj;
    }
     /// @brief Register a contained projection (user-facing, arg-reordered version)
     /// @todo Add SFINAE to require that PROJ inherit from Projection
     template <typename PROJ>
-    const PROJ& declare(const std::string& name, const PROJ& proj) {
-      if(_projhandler){
+    const PROJ& declare(const std::string& name, const PROJ& proj, bool declareForReal=false) const {
+      if(_projhandler && declareForReal){
+        proj.setProjectionHandler(getProjHandler());
         return declareProjection(proj, name);
       }
-      std::unique_ptr<Projection> projClone = proj.clone();
-      _declQueue.push(make_pair(projClone.get(), name));
+      std::shared_ptr<Projection> projClone = proj.clone();
+      _declQueue.push_back(make_pair(projClone, name));
       return proj;
     }
 
 
     /// Untemplated function to do the work...
-    const Projection& _declareProjection(const Projection& proj, const std::string& name);
+    const Projection& _declareProjection(const Projection& proj, const std::string& name) const;
 
     //@}
 
@@ -207,7 +234,7 @@ namespace Rivet {
 
     /// @todo AB: Add Doxygen comment, follow surrounding coding style
     /// @todo AB: Changes to this header force a rebuild of everything: put the implementation in the .cc file
-    void setProjectionHandler(ProjectionHandler& projectionHandler);
+    void setProjectionHandler(ProjectionHandler& projectionHandler) const;
   
     /// Flag to forbid projection registration in analyses until the init phase
     bool _allowProjReg;
@@ -221,11 +248,31 @@ namespace Rivet {
     /// Pointer to projection handler.
     /// @todo AB: I don't think this can work: what's the null value on construction?   
     //ProjectionHandler& _projhandler;
-    ProjectionHandler* _projhandler;
+    //std::shared_ptr<ProjectionHandler> _projhandler;
+    /// @todo TP: Is this abuse of the mutable system.
+    mutable ProjectionHandler* _projhandler;
     //std::shared_ptr<ProjectionHandler&> _projhandler;
     /// @todo AB: You can't store references... how does this work????
     /// @todo AB: What's the string for? - declare receives reference to a Projection and name, so we need to store both as long as we delays the declareProjection
-    std::queue<pair<Projection*, string>> _declQueue;
+    mutable std::deque<pair<std::shared_ptr<Projection>, string>> _declQueue;
+
+protected:
+    void _syncDeclQueue() const;
+
+
+  //FOR DEBUG ONLY, DELETE WHEN THIS BRANCH DEFINITELY WORKS
+  public:
+  size_t decl_queue_size() const {
+    return _declQueue.size();
+  }
+
+  //FOR DEBUG ONLY, DELETE WHEN THIS BRANCH DEFINITELY itWORKS
+  void print_decl_queue() const {
+    MSG_TRACE("DECL_QUEUE:\n");
+      for (const auto & pair : _declQueue){
+        MSG_TRACE("\t"<<pair.second<< ", "<<pair.first);
+      }
+    }
 
   };
 

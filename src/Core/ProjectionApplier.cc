@@ -16,8 +16,10 @@ namespace Rivet {
 
 
   ProjectionApplier::~ProjectionApplier() {
-    if ( ! _owned )
+    //todo @TP: Is owned still needed now that _projhandler is a ptr?
+    if ( ! _owned && _projhandler != nullptr){
       getProjHandler().removeProjectionApplier(*this);
+    }
   }
 
 
@@ -36,30 +38,34 @@ namespace Rivet {
 
 
   const Projection& ProjectionApplier::_declareProjection(const Projection& proj,
-                                                          const string& name) {
+                                                          const string& name) const {
+    MSG_TRACE("Declaring Projection "<<&proj<<" ("<<proj.name()<<") in parent "<<this<<" ("<<this->name()<<")");
     if (!_allowProjReg) {
       std::cerr << "Trying to register projection '"
            << proj.name() << "' outside init phase in '" << this->name() << "'.\n";
       exit(2);
     }
     const Projection& reg = getProjHandler().registerProjection(*this, proj, name);
+    _syncDeclQueue();
     return reg;
   }
 
-  void ProjectionApplier::setProjectionHandler(ProjectionHandler& projectionHandler) {
+  void ProjectionApplier::setProjectionHandler(ProjectionHandler& projectionHandler) const {
     /// Problem with reference reassignment: see comment below on _projhandler member declaration
     //_projhandler = projHandler;
     _projhandler = &projectionHandler;
-    /// @todo AB: Move this into a _syncDeclQueue function to be called both by setProjectionHandler() and declare() - [AK] Why we need to call below from declare?
+    //TODO @TP: I don't think this call is needed anymore?
+    _syncDeclQueue();
+  }
+
+  void ProjectionApplier::_syncDeclQueue() const {
+    MSG_TRACE("Flushing declQueue of ProjectionApplier " << this << " (" << this->name() <<")" << std::endl);
     while (!_declQueue.empty()) {
-      /// @todo AB: only use auto when the type is genuinely awkward to express: here it's just - done
-      pair<Projection*, string> obj = _declQueue.front();
-      /// @todo AB: should the order be switched, to set the PH on the Proj
-      /// *about* to be declared first? That way the setting will cascade up
-      /// from deepest level to top-level, as currently. Maybe safer that way?
+      pair<std::shared_ptr<Projection>, string> obj = _declQueue.front();
+      obj.first->setProjectionHandler(getProjHandler());
+      _declQueue.pop_front();
       const Projection& ret = declareProjection(*(obj.first), obj.second);
-      const_cast<Projection&>(ret).setProjectionHandler(projectionHandler);
-      _declQueue.pop();
     }
   }
+  
 }

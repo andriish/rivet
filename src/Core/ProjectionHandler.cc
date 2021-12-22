@@ -201,7 +201,6 @@ namespace Rivet {
           getLog() << Log::TRACE << "REMOVE Projection at "
                    << pAsProj << " from lookup" << endl;
           _projs.erase(pi);
-
       }
     }
   }
@@ -256,9 +255,5 @@ namespace Rivet {
     // dereference the Projection pointer to a reference...
     return *(np->second);
   }
-
-// @todo all thread/mutex code belongs to a temporary fix to allow for
-// basic threading
-std::mutex ProjectionHandler::mtx;
 
 }

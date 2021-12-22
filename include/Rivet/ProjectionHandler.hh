@@ -81,12 +81,10 @@ namespace Rivet {
     ~ProjectionHandler() = default;
 
     /// The assignment operator is hidden.
-    //Not for thread-safety
-    //ProjectionHandler& operator = (const ProjectionHandler&) = delete;
+    ProjectionHandler& operator = (const ProjectionHandler&) = delete;
 
     /// The copy constructor is hidden.
-    //Not for thread safety
-    //ProjectionHandler(const ProjectionHandler&) = delete;
+    ProjectionHandler(const ProjectionHandler&) = delete;
 
     /// The standard constructor.
     ProjectionHandler() = default;
@@ -100,16 +98,21 @@ namespace Rivet {
     // private:
   public:
 
-    /// Singleton creation function
-    static std::mutex mtx;
-    static ProjectionHandler& getInstance() {
-      // static ProjectionHandler _instance;
-      // return _instance;
-      std::unique_lock<std::mutex> lock(mtx);
-      static map<std::thread::id,ProjectionHandler> _instances;
-      return _instances[std::this_thread::get_id()];
-      
+    //DEBUG ONLY:
+    bool is_namedprojs_empty() const{
+      return _namedprojs.empty();
     }
+
+    // /// Singleton creation function
+    // static std::mutex mtx;
+    // static ProjectionHandler& getInstance() {
+    //   // static ProjectionHandler _instance;
+    //   // return _instance;
+    //   std::unique_lock<std::mutex> lock(mtx);
+    //   static map<std::thread::id,ProjectionHandler> _instances;
+    //   return _instances[std::this_thread::get_id()];
+      
+    // }
 
 
   public:
