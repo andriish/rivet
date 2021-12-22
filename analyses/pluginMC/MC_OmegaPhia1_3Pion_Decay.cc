@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -27,14 +27,14 @@ namespace Rivet {
       // // dalitz plot
       book(_dalitz0, "dalitz0",50,0.2,1.5,50,0.2,1.5);
       // Histograms for a_1+ -> pi0pi0pi+
-      // Mass of the pi0pi0 pair 
+      // Mass of the pi0pi0 pair
       book(_hist1A, "hist1A",200,0.2,1.5);
       // Mass of the pi0pi+ pair
       book(_hist1B, "hist1B",200,0.2,1.5);
       // dalitz plot
       book(_dalitz1, "dalitz1",50,0.2,1.5,50,0.2,1.5);
       // Histograms for a_10 -> pi+pi-pi0
-      // Mass of the pi+pi- pair 
+      // Mass of the pi+pi- pair
       book(_hist2A, "hist2A",200,0.2,1.5);
       // Mass of the pi+pi0 pair
       book(_hist2B, "hist2B",200,0.2,1.5);
@@ -49,10 +49,10 @@ namespace Rivet {
       book(_hist3B, "hist3B",200,0.2,1.5);
       // dalitz plot
       book(_dalitz3, "dalitz3",50,0.2,1.5,50,0.2,1.5);
-      
+
       // Book histograms omega/phi
       for(unsigned int ix=0;ix<2;++ix) {
-	double mmax = ix==0 ? 0.8 : 1.0; 
+	double mmax = ix==0 ? 0.8 : 1.0;
 	std::ostringstream title1; title1 << "xhist_" << ix+1;
 	_h_xhist  .push_back(Histo1DPtr());
         book(_h_xhist.back(), title1.str(),200,-300.,300. );
@@ -146,7 +146,7 @@ namespace Rivet {
 	    _dalitz1->fill((pip[0].momentum()+pi0[1].momentum()).mass(),(pip[0].momentum()+pi0[0].momentum()).mass());
 	  }
 	  // a_10 -> pi0pi0pi0
-	  else if(pi0.size()==3) { 
+	  else if(pi0.size()==3) {
 	    _hist0->fill((pi0[0].momentum()+pi0[1].momentum()).mass());
 	    _hist0->fill((pi0[0].momentum()+pi0[2].momentum()).mass());
 	    _hist0->fill((pi0[1].momentum()+pi0[2].momentum()).mass());
@@ -195,23 +195,23 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
     /// @name Histograms a_1
-    //@{
+    /// @{
     // Histograms for a_10 -> pi0pi0pi0
     Histo1DPtr _hist0;
     // dalitz plot
     Histo2DPtr _dalitz0;
     // Histograms for a_1+ -> pi0pi0pi+
-    // Mass of the pi0pi0 pair 
+    // Mass of the pi0pi0 pair
     Histo1DPtr _hist1A;
     // Mass of the pi0pi+ pair
     Histo1DPtr _hist1B;
     // dalitz plot
     Histo2DPtr _dalitz1;
     // Histograms for a_10 -> pi+pi-pi0
-    // Mass of the pi+pi- pair 
+    // Mass of the pi+pi- pair
     Histo1DPtr _hist2A;
     // Mass of the pi+pi0 pair
     Histo1DPtr _hist2B;
@@ -226,10 +226,10 @@ namespace Rivet {
     Histo1DPtr _hist3B;
     // dalitz plot
     Histo2DPtr _dalitz3;
-    //@}
+    /// @}
 
     /// @name Histograms omega/phi
-    //@{
+    /// @{
     // Histogram for the x-values
     vector<Histo1DPtr> _h_xhist;
     // Histogram for the y-values
@@ -242,7 +242,7 @@ namespace Rivet {
     vector<Histo1DPtr> _h_m0;
     // Dalitz plot
     vector<Histo2DPtr> _h_dalitz;
-    //@}
+    /// @}
   };
 
 

@@ -20,7 +20,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialize projections before the run
     void init() {
@@ -261,7 +261,7 @@ namespace Rivet {
       const double m_T2 = mT2(pjjj1, pjjj2, pTmiss, 0.0); // zero mass invisibles
       _hist_mT2->fill(m_T2,weight);
     }
-    //@}
+    /// @}
 
 
     void finalize() {
@@ -279,7 +279,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _count_SR_A;
     Histo1DPtr _count_SR_B;
 
@@ -287,7 +287,7 @@ namespace Rivet {
     Histo1DPtr _hist_mjjj2;
     Histo1DPtr _hist_ETmiss;
     Histo1DPtr _hist_mT2;
-    //@}
+    /// @}
 
   };
 

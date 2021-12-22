@@ -292,14 +292,14 @@ if len(args.SHOW_ANALYSES) > 0:
         msg += "\n"
 
         # TODO: reduce to only show Inspire in v3
-        if ana.inspireId():
-            msg += "Inspire ID: " + ana.inspireId() + "\n"
-            msg += "Inspire URL: https://inspirehep.net/literature/" + ana.inspireId() + "\n"
-            msg += "HepData URL: https://hepdata.net/record/ins" + ana.inspireId() + "\n"
-        elif ana.spiresId():
-            msg += "Spires ID: " + ana.spiresId() + "\n"
-            msg += "Inspire URL: https://inspirehep.net/literature?q=" + ana.spiresId() + "\n"
-            msg += "HepData URL: https://hepdata.cedar.ac.uk/view/irn" + ana.spiresId() + "\n"
+        if ana.inspireID():
+            msg += "Inspire ID: " + ana.inspireID() + "\n"
+            msg += "Inspire URL: https://inspirehep.net/literature/" + ana.inspireID() + "\n"
+            msg += "HepData URL: https://hepdata.net/record/ins" + ana.inspireID() + "\n"
+        elif ana.spiresID():
+            msg += "Spires ID: " + ana.spiresID() + "\n"
+            msg += "Inspire URL: https://inspirehep.net/literature?q=" + ana.spiresID() + "\n"
+            msg += "HepData URL: https://hepdata.cedar.ac.uk/view/irn" + ana.spiresID() + "\n"
 
 
         if ana.year():
@@ -322,7 +322,7 @@ if len(args.SHOW_ANALYSES) > 0:
                 msg += "(%s)" % ana.collider()
             msg += "\n"
         # TODO: move this formatting into Analysis or a helper function?
-        if ana.requiredBeams():
+        if ana.requiredBeamIDs():
             def pid_to_str(pid):
                 if pid == 11:
                     return "e-"
@@ -351,12 +351,12 @@ if len(args.SHOW_ANALYSES) > 0:
                 else:
                     return str(pid)
             beamstrs = []
-            for bp in ana.requiredBeams():
+            for bp in ana.requiredBeamIDs():
                 beamstrs.append(pid_to_str(bp[0]) + " " + pid_to_str(bp[1]))
             msg += "Beams: " + ", ".join(beamstrs) + "\n"
 
-        if ana.requiredEnergies():
-            msg += "Beam energies: " + "; ".join(["(%0.1f, %0.1f) GeV\n" % (epair[0], epair[1]) for epair in ana.requiredEnergies()])
+        if ana.requiredBeamEnergies():
+            msg += "Beam energies: " + "; ".join(["(%0.1f, %0.1f) GeV\n" % (epair[0], epair[1]) for epair in ana.requiredBeamEnergies()])
         else:
             msg += "Beam energies: ANY\n"
 
@@ -549,8 +549,8 @@ RUNNAME = args.RUN_NAME or ""
 ah = rivet.AnalysisHandler(RUNNAME)
 ah.setIgnoreBeams(args.IGNORE_BEAMS)
 ah.skipMultiWeights(args.SKIP_WEIGHTS)
-ah.selectMultiWeights(args.MATCH_WEIGHTS)
-ah.deselectMultiWeights(args.UNMATCH_WEIGHTS)
+ah.matchWeightNames(args.MATCH_WEIGHTS)
+ah.unmatchWeightNames(args.UNMATCH_WEIGHTS)
 ah.setNominalWeightName(args.NOMINAL_WEIGHT)
 if args.WEIGHT_CAP is not None:
     ah.setWeightCap(args.WEIGHT_CAP)
@@ -709,7 +709,7 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
             sys.exit(3)
 
 ## Print end-of-loop messages
-print("\n")
+print()
 loopendtime = datetime.datetime.now().replace(microsecond=0)
 logging.info("Finished event loop at %s" % str(loopendtime))
 logging.info("Cross-section = %e pb" % ah.nominalCrossSection())

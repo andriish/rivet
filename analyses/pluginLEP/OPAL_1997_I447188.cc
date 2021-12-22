@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -41,13 +41,13 @@ namespace Rivet {
       {Histo1DPtr temp; _h_ctheta.add(0.3  , 0.4  ,book(temp, "/TMP/ctheta_7",20,-1.,1.));}
       {Histo1DPtr temp; _h_ctheta.add(0.4  , 1.0  ,book(temp, "/TMP/ctheta_8",20,-1.,1.));}
       book(_h_ctheta_large, 4,1,4);
-      
+
       {Histo1DPtr temp; _h_cphi .add(0.3,0.6,book(temp, "/TMP/cphiP_0",10,0.,1.));}
       {Histo1DPtr temp; _h_cphi .add(0.3,0.6,book(temp, 5,1,1));}
       {Histo1DPtr temp; _h_cphi .add(0.6,0.9,book(temp, 5,1,2));}
       {Histo1DPtr temp; _h_cphi .add(0.9,1.2,book(temp, "/TMP/cphiP_3",10,0.,1.));}
       {Histo1DPtr temp; _h_cphi .add(1.2,1.5,book(temp, "/TMP/cphiP_4",10,0.,1.));}
-      
+
       book(_h_cphi_low , 5,1,4);
       book(_h_cphi_mid , "/TMP/cphiP_mid" ,10,0.,1.);
       book(_h_cphi_high, 5,1,3);
@@ -61,7 +61,7 @@ namespace Rivet {
       {Histo1DPtr temp; _h_plus_lam.add(0.2  ,0.3 ,book(temp, "/TMP/lamP_6",20,-1.,1.));}
       {Histo1DPtr temp; _h_plus_lam.add(0.3  ,0.4 ,book(temp, "/TMP/lamP_7",20,-1.,1.));}
       {Histo1DPtr temp; _h_plus_lam.add(0.4  ,1.0 ,book(temp, "/TMP/lamP_8",20,-1.,1.));}
-      
+
       {Histo1DPtr temp; _h_minus_lam.add(0.027,0.05,book(temp, "/TMP/lamM_0",20,-1.,1.));}
       {Histo1DPtr temp; _h_minus_lam.add(0.05 ,0.08,book(temp, "/TMP/lamM_1",20,-1.,1.));}
       {Histo1DPtr temp; _h_minus_lam.add(0.08 ,0.09,book(temp, "/TMP/lamM_2",20,-1.,1.));}
@@ -93,7 +93,7 @@ namespace Rivet {
       else {
 	beamAxis = beams.second.momentum().p3().unit();
       }
-	
+
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       // thrust, to define an axis
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
@@ -124,12 +124,12 @@ namespace Rivet {
 	if(lambda.children().size()!=2) continue;
 	// look at the decay products
 	Particle proton,pion;
-	if(lambda.children()[0].pid()==sign*2212 && 
+	if(lambda.children()[0].pid()==sign*2212 &&
 	   lambda.children()[1].pid()==-sign*211) {
 	  proton = lambda.children()[0];
 	  pion   = lambda.children()[1];
 	}
-	else if(lambda.children()[1].pid()==sign*2212 && 
+	else if(lambda.children()[1].pid()==sign*2212 &&
 		lambda.children()[0].pid()==-sign*211) {
 	  proton = lambda.children()[1];
 	  pion   = lambda.children()[0];
@@ -151,7 +151,7 @@ namespace Rivet {
 	else {
 	  axis2 =-thrust.thrustAxis();
 	}
-	Vector3 axis3 = axis2.cross(axis1).unit();	
+	Vector3 axis3 = axis2.cross(axis1).unit();
 	double pT = sqrt(sqr(thrust.thrustMajorAxis().dot(lambda.momentum().p3()))+
 			 sqr(thrust.thrustMinorAxis().dot(lambda.momentum().p3())));
 	double cPhi = axis3.dot(pproton.p3().unit());
@@ -177,7 +177,7 @@ namespace Rivet {
       }
       return make_pair(sum2/sum1,sqrt(1./sum1));
     }
-    
+
     pair<double,double> calcAsymmetry(Scatter2DPtr hist,unsigned int mode) {
       double sum1(0.),sum2(0.);
       for (auto bin : hist->points() ) {
@@ -213,7 +213,7 @@ namespace Rivet {
 	alpha.first  /=aLam;
 	alpha.second /=aLam;
 	h_long->addPoint(x_val[ipoint], 100.*alpha.first, make_pair(x_err[ipoint],x_err[ipoint]),
-			   make_pair(100.*alpha.second,100.*alpha.second) );	
+			   make_pair(100.*alpha.second,100.*alpha.second) );
 	++ipoint;
       }
       normalize(_h_ctheta_large);
@@ -235,7 +235,7 @@ namespace Rivet {
 	alpha.first  /=aLam;
 	alpha.second /=aLam;
 	h_trans->addPoint(pT_val[ipoint], 100.*alpha.first, make_pair(pT_err[ipoint],pT_err[ipoint]),
-			   make_pair(100.*alpha.second,100.*alpha.second) );	
+			   make_pair(100.*alpha.second,100.*alpha.second) );
 	++ipoint;
       }
       normalize(_h_cphi_low);
@@ -293,17 +293,17 @@ namespace Rivet {
 		       make_pair(alpha.second,alpha.second) );
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _h_ctheta,_h_cphi,_h_plus_lam,_h_minus_lam;
     Histo1DPtr _h_ctheta_large;
     Histo1DPtr _h_cphi_low, _h_cphi_mid, _h_cphi_high;
     Histo1DPtr _h_plus_lam_large1,_h_plus_lam_large2;
     Histo1DPtr _h_minus_lam_large1,_h_minus_lam_large2;
-    //@}
+    /// @}
 
   };
 

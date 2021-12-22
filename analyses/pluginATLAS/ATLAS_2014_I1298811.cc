@@ -172,7 +172,7 @@ namespace Rivet {
   private:
 
     /// @name Histogram arrays
-    //@{
+    /// @{
 
     Profile1DPtr _p_ptsumch_vs_ptlead[2][3];
     Profile1DPtr _p_nch_vs_ptlead[2][3];
@@ -184,7 +184,7 @@ namespace Rivet {
     Histo1DPtr _h_ptsumch[4][2][3];
     Histo1DPtr _h_nch[4][2][3];
 
-    //@}
+    /// @}
 
   };
 

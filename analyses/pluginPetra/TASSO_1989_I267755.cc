@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -29,10 +29,10 @@ namespace Rivet {
       // Book histograms
       // Book histograms
       _iHist=-1;
-      if(isCompatibleWithSqrtS(34)) {
+      if(isCompatibleWithSqrtS(34*GeV)) {
 	_iHist = 0;
       }
-      else if (isCompatibleWithSqrtS(44.)) {
+      else if (isCompatibleWithSqrtS(44*GeV)) {
 	_iHist = 1;
       }
       else
@@ -70,7 +70,7 @@ namespace Rivet {
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
-      
+
       for (const Particle& p : fs.particles()) {
       	double xP = p.p3().mod()/meanBeamMom;
       	_d_pi->fill(xP);
@@ -108,21 +108,21 @@ namespace Rivet {
       book(temp1,3*_iHist+1,1,1);
       book(temp2,3*_iHist+2,1,1);
       book(temp3,3*_iHist+3,1,1);
-      
+
       divide(_n_pi,_d_pi, temp1);
       divide(_n_K ,_d_K , temp2);
       divide(_n_p ,_d_p , temp3);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_p_pi, _h_x_pi, _h_p_K, _h_x_K, _h_p_p, _h_x_p, _h_x_pi0;
     Histo1DPtr _n_pi,_d_pi,_n_K,_d_K,_n_p,_d_p;
     int _iHist;
-    //@}
+    /// @}
 
 
   };

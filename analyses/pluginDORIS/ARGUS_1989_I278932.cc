@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -83,18 +83,18 @@ namespace Rivet {
 	double fact = 1.-(3.+rhad)*Bmumu;
 	scale(_r_ups, 1./fact / *_w_ups);
 	scale(_h_p  , 100./fact / *_w_ups);
-      }	
+      }
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _r_ups,_r_cont;
     Histo1DPtr _h_p;
     CounterPtr _w_ups,_w_cont;
-    ///@}
+    /// @}
 
 
   };

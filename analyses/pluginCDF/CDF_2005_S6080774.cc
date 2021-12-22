@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       FinalState fs;
@@ -78,17 +78,17 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     std::array<Histo1DPtr,4> _h_m_PP;
     std::array<Histo1DPtr,4> _h_pT_PP;
     std::array<Histo1DPtr,4> _h_dphi_PP;
-    //@}
+    /// @}
 
   };
 

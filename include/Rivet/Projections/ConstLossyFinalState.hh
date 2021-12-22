@@ -46,7 +46,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors
-    //@{
+    /// @{
 
     /// Constructor from a FinalState.
     ConstLossyFinalState(const FinalState& fsp, double lossfraction)
@@ -65,7 +65,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(ConstLossyFinalState);
 
-    //@}
+    /// @}
 
   };
 

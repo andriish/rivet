@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
 
@@ -101,14 +101,14 @@ namespace Rivet {
       scale(_hist, scalefactor);
 
     }
-    //@}
+    /// @}
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _hist;
-    //@}
+    /// @}
 
   };
 

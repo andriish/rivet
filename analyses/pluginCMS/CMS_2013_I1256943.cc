@@ -164,15 +164,15 @@ namespace Rivet {
   private:
 
     /// @name Weight counters
-    //@{
+    /// @{
     CounterPtr _sumW, _sumW50, _sumWpT;
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_dphi_BB, _h_dR_BB, _h_min_dR_ZB, _h_A_ZBB;
     Histo1DPtr _h_dphi_BB_boost, _h_dR_BB_boost, _h_min_dR_ZB_boost, _h_A_ZBB_boost, _h_min_ZpT;
-    //@}
+    /// @}
 
   };
 

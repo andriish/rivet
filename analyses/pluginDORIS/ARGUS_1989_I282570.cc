@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Spectrum for D_s1 
+  /// @brief Spectrum for D_s1
   class ARGUS_1989_I282570 : public Analysis {
   public:
 
@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -75,13 +75,13 @@ namespace Rivet {
       scale(_h_rate2,crossSection()/sumOfWeights()/picobarn);
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_x,_h_rate1,_h_rate2;
-    ///@}
+    /// @}
 
 
   };

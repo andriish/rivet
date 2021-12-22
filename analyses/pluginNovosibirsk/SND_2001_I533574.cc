@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -72,7 +72,7 @@ namespace Rivet {
 	    error = _n3pi->err();
 	  }
 	  sigma *= crossSection()/ sumOfWeights() /nanobarn;
-	  error *= crossSection()/ sumOfWeights() /nanobarn; 
+	  error *= crossSection()/ sumOfWeights() /nanobarn;
 	  Scatter2D temphisto(refData(iy, 1, ix));
 	  Scatter2DPtr mult;
 	  book(mult, iy, 1, ix);
@@ -92,14 +92,14 @@ namespace Rivet {
 	}
       }
     }
-    
-    //@}
+
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _nKpKm,_nK0K0,_n3pi;
-    //@}
+    /// @}
 
 
   };

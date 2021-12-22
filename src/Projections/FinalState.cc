@@ -25,12 +25,14 @@ namespace Rivet {
 
   CmpState FinalState::compare(const Projection& p) const {
     const FinalState& other = dynamic_cast<const FinalState&>(p);
+
     // First check if there is a PrevFS and it it matches
     if (hasProjection("PrevFS") != other.hasProjection("PrevFS")) return CmpState::NEQ;
     if (hasProjection("PrevFS")) {
       const PCmp prevcmp = mkPCmp(other, "PrevFS");
       if (prevcmp != CmpState::EQ) return  CmpState::NEQ;
     }
+
     // Then check the extra cuts
     const bool cutcmp = _cuts == other._cuts;
     MSG_TRACE(_cuts << " VS " << other._cuts << " -> EQ == " << std::boolalpha << cutcmp);
@@ -46,13 +48,25 @@ namespace Rivet {
     // Handle "open FS" special case, which should not/cannot recurse
     if (_cuts == Cuts::OPEN) {
       MSG_TRACE("Open FS processing: should only see this once per event (" << e.genEvent()->event_number() << ")");
+      doubles offShellM2s, vtxDisps;
       for (ConstGenParticlePtr p : HepMCUtils::particles(e.genEvent())) {
         if (p->status() == 1) {
           MSG_TRACE("FS GV = " << p->production_vertex()->position());
-          _theParticles.push_back(Particle(p));
+          Particle rp(p);
+          /// @todo Complete off-shell testing with comparison to a dict of pole masses
+          const double m2 = rp.mass2();
+          if (m2 < -1*GeV) offShellM2s += m2; //< only note significantly negative m2s for now
+          /// @todo Reinstate vertex displacement warnings with a more refined primary-particles
+          /// definition: this screams about ctau0 > 10mm SM particles, which is not helpful
+          // const double disp = rp.origin().polarRadius();
+          // if (disp > 10*cm) vtxDisps += disp;
+          // if (disp > 100*cm) MSG_WARNING("Particle origin transverse-displaced by more than 1m: " << rp << " at " << rp.origin());
+          _theParticles.push_back(rp);
         }
       }
       MSG_TRACE("Number of open-FS selected particles = " << _theParticles.size());
+      if (!offShellM2s.empty()) MSG_WARNING(offShellM2s.size() << " final-state particles found with negative mass^2:" << offShellM2s);
+      if (!vtxDisps.empty()) MSG_WARNING(vtxDisps.size() << " final-state particles found with significantly transverse-displaced origin vertices:" << vtxDisps);
       return;
     }
 

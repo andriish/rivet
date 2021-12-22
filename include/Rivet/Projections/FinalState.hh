@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// @name Standard constructors etc.
-    //@{
+    /// @{
 
     /// Construction using Cuts object
     FinalState(const Cut& c=Cuts::open());
@@ -24,7 +24,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(FinalState);
 
-    //@}
+    /// @}
 
 
     /// Apply the projection to the event.

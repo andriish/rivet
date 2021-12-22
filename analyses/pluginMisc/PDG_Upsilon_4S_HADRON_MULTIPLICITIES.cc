@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -65,7 +65,7 @@ namespace Rivet {
 	_histos[116]->fill(10.579,double(ncount[3312]+ncount[-3312]));
       }
     }
-    
+
     void findDecayProducts(const Particle & mother,
 			   map<int,unsigned int> & ncount) {
       for(const Particle & p : mother.children()) {
@@ -98,16 +98,16 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     vector<int> _ihistos={29 ,30 ,31 ,32 ,33 ,34 ,48 ,50 ,51 ,53 ,60 ,61 ,62 ,63 ,
 			  64 ,65 ,87 ,88 ,89 ,90 ,92 ,96 ,104,106,110,113,116};
     map<int,Histo1DPtr> _histos;
     CounterPtr _wSum;
-    //@}
+    /// @}
 
 
   };

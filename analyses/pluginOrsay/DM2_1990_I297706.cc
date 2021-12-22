@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -49,7 +49,7 @@ namespace Rivet {
       }
       if(ntotal==2 && nCount[2212]==1 && nCount[-2212]==1)
 	_nProton->fill();
-      
+
       // find the Lambdas
       const FinalState& ufs = apply<UnstableParticles>(event, "UFS");
       for(unsigned int ix=0;ix<ufs.particles().size();++ix) {
@@ -133,12 +133,12 @@ namespace Rivet {
 	}
       }
     }
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _nProton,_nLambda;
-    //@}
+    /// @}
 
   };
 

@@ -65,7 +65,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       const double sqrts_tol = 10.;
-      if (!isCompatibleWithSqrtS(38.8, sqrts_tol)) {
+      if (!isCompatibleWithSqrtS(38.8*GeV, sqrts_tol)) {
         MSG_ERROR("Incorrect beam energy used: " << sqrtS()/GeV);
         throw Error("Unexpected sqrtS ! Only 38.8 GeV is supported");
       }
@@ -111,7 +111,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    ///@{
+    /// @{
     BinnedHistogram _hist_pT_M, _hist_M_xF;
     Histo1DPtr  _h_m_DiMuon ;
     Histo1DPtr  _h_pT_DiMuon;
@@ -121,7 +121,7 @@ namespace Rivet {
     Histo1DPtr _h_yDiff_DiMuon;
     Histo1DPtr _h_dPhi_DiMuon;
     Histo1DPtr _h_xF_DiMuon;
-    ///@}
+    /// @}
 
 
   };

@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -53,7 +53,7 @@ namespace Rivet {
       _h_ET.scale(crossSection()/nanobarn/sumOfWeights()/deta1 / 2.0, this);
     }
 
-    //@}
+    /// @}
 
 
   private:

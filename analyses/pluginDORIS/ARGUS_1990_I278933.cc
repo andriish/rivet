@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -38,7 +38,7 @@ namespace Rivet {
       book(_weightSum_cont,"/TMP/weightSum_cont");
       book(_weightSum_Ups1,"/TMP/weightSum_Ups1");
       book(_weightSum_Ups2,"/TMP/weightSum_Ups2");
-		      
+
     }
 
     /// Recursively walk the decay tree to find decay products of @a p
@@ -59,7 +59,7 @@ namespace Rivet {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       Particles upsilons = ufs.particles(Cuts::pid==553 or Cuts::pid==100553);
       // Continuum
-      if (upsilons.empty()) { 
+      if (upsilons.empty()) {
         MSG_DEBUG("No Upsilons found => continuum event");
         _weightSum_cont->fill();
         for (const Particle& p : ufs.particles(Cuts::pid==111 or Cuts::pid==221)) {
@@ -79,7 +79,7 @@ namespace Rivet {
 	}
       }
       // Upsilon(s) found
-      else { 
+      else {
         MSG_DEBUG("Upsilons found => resonance event");
         for (const Particle& ups : upsilons) {
           const int parentId = ups.pid();
@@ -121,10 +121,10 @@ namespace Rivet {
 		_n_Eta[2]->fill();
 		_h_ups2_eta->fill(xp,1./beta);
 	      }
-	    } 
+	    }
 	  }
 	}
-      }	
+      }
     }
 
 
@@ -164,16 +164,16 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_cont_pi1 , _h_cont_pi2 , _h_ups1_pi , _h_ups2_pi ;
     Histo1DPtr _h_cont_eta1, _h_cont_eta2, _h_ups1_eta, _h_ups2_eta;
     CounterPtr _n_Eta[3],_n_Pi[3];
     CounterPtr _weightSum_cont,_weightSum_Ups1,_weightSum_Ups2;
-    //@}
+    /// @}
 
 
   };

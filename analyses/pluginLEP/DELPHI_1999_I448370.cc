@@ -18,14 +18,14 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
       declare(InitialQuarks(), "IQF");
-      
+
       // Book histograms
        book(_h_F_T       , 1, 1, 1);
        book(_h_F_L       , 2, 1, 1);
@@ -40,7 +40,7 @@ namespace Rivet {
        book(_h_light_F_L , 8, 1, 2);
        book(_n_bottom    , 9, 1, 1);
        book(_n_light     , 9, 1, 2);
-      
+
        book(_c_light , "/TMP/wLight");
        book(_c_bottom, "/TMP/wBottom");
        book(_c_total , "/TMP/wTotal");
@@ -156,15 +156,15 @@ namespace Rivet {
       scale(_n_light ,1./ *_c_light);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_F_T,_h_F_L,_h_F_A,_h_F_TL,_h_b_F_T,_h_b_F_L,_h_light_F_T,_h_light_F_L,_n_light,_n_bottom;
     Histo1DPtr _h_F_T_total,_h_F_L_total,_h_F_TL_total;
     CounterPtr _c_light,_c_bottom,_c_total;
-    //@}
+    /// @}
 
 
   };

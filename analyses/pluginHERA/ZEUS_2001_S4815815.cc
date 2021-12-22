@@ -24,7 +24,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     // Book projections and histograms
     void init() {
@@ -155,15 +155,15 @@ namespace Rivet {
       for (auto& h : _h_xobsy) scale(h, sf);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_costh[2], _h_etjet1[2][6], _h_etajet2[2][3], _h_xobsy[4];
-    //@}
+    /// @}
 
   };
 

@@ -135,7 +135,7 @@ namespace Rivet {
 
         for (const Jet& j : good_jets) {
           const double k0_jetdR = deltaR(j, k);
-          if (k0_jetdR < 0.4 && k0_jetdR < minDeltaR) { 
+          if (k0_jetdR < 0.4 && k0_jetdR < minDeltaR) {
             isJetAssoc = true;
             minDeltaR = k0_jetdR;
             jetAssocE = j.E();
@@ -179,7 +179,7 @@ namespace Rivet {
       _h["out_k0_n"]->fill(n_k0_out_visible);
       _h["b_k0_n"]->fill(n_k0_b_visible);
       _h["j_k0_n"]->fill(n_k0_j_visible);
-    
+
 
       // Loop over all Lambda particles
       //size_t n_lambda_all = 0;

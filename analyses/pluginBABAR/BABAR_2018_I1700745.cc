@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -30,7 +30,7 @@ namespace Rivet {
       book(_num4PiEta    , "TMP/4PiEta");
       book(_numOmegaPiEta, "TMP/OmegaPiEta");
     }
-    
+
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
       for(const Particle &child : p.children()) {
 	if(child.children().empty()) {
@@ -132,7 +132,7 @@ namespace Rivet {
 	    }
 	  }
 	  else {
-	    if(ncount!=2) continue;	    
+	    if(ncount!=2) continue;
 	    bool matched = true;
 	    for(auto const & val : nRes) {
 	      if(abs(val.first)==111) {
@@ -178,7 +178,7 @@ namespace Rivet {
 	  error = _numOmegaPiEta->err();
 	}
 	sigma *= crossSection()/ sumOfWeights() /nanobarn;
-	error *= crossSection()/ sumOfWeights() /nanobarn; 
+	error *= crossSection()/ sumOfWeights() /nanobarn;
 	Scatter2D temphisto(refData(ix, 1, 1));
 	Scatter2DPtr  mult;
         book(mult, ix, 1, 1);
@@ -197,14 +197,14 @@ namespace Rivet {
 	}
       }
     }
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _num5Pi,_num2PiEta,_numOmegaPiPi,
       _num4PiEta,_numOmegaPiEta;
-    //@}
+    /// @}
 
   };
 

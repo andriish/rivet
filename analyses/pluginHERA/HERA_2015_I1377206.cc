@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -26,15 +26,15 @@ namespace Rivet {
       declare(FinalState(Cuts::abseta < 5 && Cuts::pT > 100*MeV), "FS");
       declare(DISLepton(), "Lepton");
       declare(DISKinematics(), "Kinematics");
-		
-	
+
+
        Histo1DPtr dummy;
       const ParticlePair& beam = beams();
       // cout << " beam id "<< beam.first.pid() << " " << beam.second.pid() << " sqrts " << sqrtS() << endl;
-      if( beam.first.pid() == PID::POSITRON || beam.second.pid() == PID::POSITRON ) { 
+      if( beam.first.pid() == PID::POSITRON || beam.second.pid() == PID::POSITRON ) {
         positron = true ;}
         else { positron = false ; }
-        
+
       double eps = 0.01 ;
       // NC e+ p at sqrts=318
       if (fuzzyEquals(sqrtS()/GeV, 318, eps) && positron  ) {
@@ -84,7 +84,7 @@ namespace Rivet {
 	 _h_sigred.add( 7000.,  9275., book(dummy,1,1,43)); // Q2=8000
 	 _h_sigred.add( 10000.,15000., book(dummy,1,1,44)); // Q2=12000
 	 _h_sigred.add( 17000.,24770., book(dummy,1,1,45)); // Q2=20000
-	 _h_sigred.add( 25000.,42000., book(dummy,1,1,46)); // Q2=30000 
+	 _h_sigred.add( 25000.,42000., book(dummy,1,1,46)); // Q2=30000
       // CC e+ p at sqrts=318
         cout << " CC e+ p sqrts = " << sqrtS() << endl ;
 	 _h_sigred_cc.add( 280.,    325., book(dummy,6,1,1)); // Q2=300
@@ -270,7 +270,7 @@ namespace Rivet {
       double x  = dk.x();
       double y = dk.y();
       double Q2 = dk.Q2()/GeV;
-	
+
 	// Flux factor
 	const double alpha = 7.29927e-3;
       // GF = 1.16638e-5 Fermi constant
@@ -286,14 +286,14 @@ namespace Rivet {
 */
 
       if (PID::isNeutrino(dl.out().abspid()) ) {
-      // fill histo for CC      
+      // fill histo for CC
 	   double F = 2.0*M_PI*x/GF2 * pow((MW2 + Q2)/MW2,2);
-	   _h_sigred_cc.fill(Q2,x,F); // fill histogram x,Q2 
+	   _h_sigred_cc.fill(Q2,x,F); // fill histogram x,Q2
       }
-      else { 
-      // fill histo for NC      
+      else {
+      // fill histo for NC
 	   double F = x*pow(Q2,2.)/(2.0*M_PI*pow(alpha,2.)*(1.0+pow((1.-y),2.)));
-	   _h_sigred.fill(Q2,x,F); // fill histogram x,Q2 
+	   _h_sigred.fill(Q2,x,F); // fill histogram x,Q2
       }
     }
 
@@ -307,15 +307,15 @@ namespace Rivet {
       _h_sigred_cc.scale(scalefactor, this);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
 	BinnedHistogram _h_sigred, _h_sigred_cc;
       Histo1DPtr _hist_Q2_10,_hist_Q2_100,_hist_Q2_1000,_hist_Q2_2000,_hist_Q2_3000;
       bool positron ;
-    //@}
+    /// @}
 
 
   };

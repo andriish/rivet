@@ -25,7 +25,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors
-    //@{
+    /// @{
 
     /// Constructor without cuts
     PromptFinalState(bool accepttaudecays=false, bool acceptmudecays=false);
@@ -42,7 +42,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(PromptFinalState);
 
-    //@}
+    /// @}
 
     /// Accept leptons from decays of prompt muons as themselves being prompt?
     void acceptMuonDecays(bool acc=true) { _acceptMuDecays = acc; }

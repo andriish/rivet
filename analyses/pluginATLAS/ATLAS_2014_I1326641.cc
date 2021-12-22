@@ -11,7 +11,7 @@ namespace Rivet {
         public:
 
             /// @name Constructors etc.
-            //@{
+            /// @{
 
             /// Constructor
             ATLAS_2014_I1326641()
@@ -20,13 +20,13 @@ namespace Rivet {
 
             }
 
-            //@}
+            /// @}
 
 
         public:
 
             /// @name Analysis methods
-            //@{
+            /// @{
 
             /// Book histograms and initialise projections before the run
             void init() {
@@ -101,7 +101,7 @@ namespace Rivet {
 
             }
 
-            //@}
+            /// @}
 
 
         private:

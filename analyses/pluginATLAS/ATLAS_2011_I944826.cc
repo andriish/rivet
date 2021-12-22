@@ -22,7 +22,7 @@ namespace Rivet {
       book(_sum_w_ks    , "ks");
       book(_sum_w_lambda, "lambda");
       book(_sum_w_passed, "passed");
-    
+
       UnstableParticles ufs(Cuts::pT > 100*MeV);
       declare(ufs, "UFS");
 
@@ -37,8 +37,8 @@ namespace Rivet {
         .acceptIdPair(PID::PROTON);
       declare(nstable, "nstable");
 
-      
-      if (isCompatibleWithSqrtS(7000)) {
+
+      if (isCompatibleWithSqrtS(7000*GeV)) {
         book(_hist_Ks_pT      ,1, 1, 1);
         book(_hist_Ks_y       ,2, 1, 1);
         book(_hist_Ks_mult    ,3, 1, 1);
@@ -53,7 +53,7 @@ namespace Rivet {
         book(_temp_lambda_v_pT, "TMP/lambda_v_pT", 18, 0.5, 4.1);
         book(_temp_lambdabar_v_pT, "TMP/lambdabar_v_pT", 18, 0.5, 4.1);
       }
-      else if (isCompatibleWithSqrtS(900)) {
+      else if (isCompatibleWithSqrtS(900*GeV)) {
         book(_hist_Ks_pT   ,4, 1, 1);
         book(_hist_Ks_y    ,5, 1, 1);
         book(_hist_Ks_mult ,6, 1, 1);
@@ -239,17 +239,17 @@ namespace Rivet {
     CounterPtr _sum_w_ks, _sum_w_lambda, _sum_w_passed;
 
     /// @name Persistent histograms
-    //@{
+    /// @{
     Histo1DPtr _hist_Ks_pT, _hist_Ks_y, _hist_Ks_mult;
     Histo1DPtr _hist_L_pT, _hist_L_y, _hist_L_mult;
     Scatter2DPtr _hist_Ratio_v_pT, _hist_Ratio_v_y;
-    //@}
+    /// @}
 
     /// @name Temporary histograms
-    //@{
+    /// @{
     Histo1DPtr _temp_lambda_v_y, _temp_lambdabar_v_y;
     Histo1DPtr _temp_lambda_v_pT, _temp_lambdabar_v_pT;
-    //@}
+    /// @}
 
   };
 

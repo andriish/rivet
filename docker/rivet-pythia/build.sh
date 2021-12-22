@@ -2,10 +2,13 @@
 
 set -e
 
-RIVET_VERSION=3.1.4
+RIVET_VERSION=3.1.5
 PYTHIA_VERSION=8306
 
 BUILD="docker build ."
+
+test "$FORCE" && BUILD="$BUILD --no-cache"
+
 BUILD="$BUILD --build-arg RIVET_VERSION=${RIVET_VERSION}"
 BUILD="$BUILD --build-arg PYTHIA_VERSION=${PYTHIA_VERSION}"
 test "$TEST" && BUILD="echo $BUILD"

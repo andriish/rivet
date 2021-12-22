@@ -15,7 +15,7 @@ References:
 RunInfo: Deep Inelastic Scattering events, 125 to 20000 GeV2
 Beams: [p+, e+]
 Energies_GeV: [[920,27.5]]
-Luminosity_pb: 374.0
+Luminosity_fb: 0.3740
 Description:
   'Single- and double-differential inclusive dijet cross sections in neutral 
 current deep inelastic ep scattering have been measured with the ZEUS detector

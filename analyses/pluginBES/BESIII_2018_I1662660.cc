@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -43,10 +43,10 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // Loop over D+ mesons 
+      // Loop over D+ mesons
       for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::DPLUS )) {
         if(p.pid()==PID::DPLUS && isSemileptonicDecay(p, {PID::ETA, PID::EPLUS, PID::NU_E}) ) {
-	  _h_q2->fill(q2(p, PID::ETA));
+          _h_q2->fill(q2(p, PID::ETA));
         }
       }
     }
@@ -57,13 +57,13 @@ namespace Rivet {
       normalize(_h_q2);
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_q2;
-    ///@}
+    /// @}
 
 
   };

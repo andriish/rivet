@@ -40,7 +40,7 @@ public:
   /// @brief Constructor from ostream
   WriterCompressedAscii(std::ostream& stream,
                         shared_ptr<GenRunInfo> run = shared_ptr<GenRunInfo>());
-  
+
   /// @brief Destructor
   ~WriterCompressedAscii();
 
@@ -160,11 +160,11 @@ private:
     /// @brief Escape '\' and '\n' characters in string
     std::string escape(const std::string& s)  const;
 
-    //@}
+    /// @}
 
 
     /// @name Write helpers
-    //@{
+    /// @{
 
     /// @brief Inline function for writing positions
     void write_position(FourVector pos);
@@ -191,7 +191,7 @@ private:
       if ( beams.empty() ) return ConstGenVertexPtr();
       return beams[0]->production_vertex();
     }
-    //@}
+    /// @}
 
 private:
 

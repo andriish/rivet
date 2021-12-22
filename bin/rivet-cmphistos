@@ -140,7 +140,8 @@ def parseArgs(args):
             plotoptions[has_name] = plotoptions[path]
             del plotoptions[path]
         if path != "PLOT" and not has_title:
-            plotoptions[has_name if has_name != "" else path].append('Title=%s' % sanitiseString(os.path.basename( os.path.splitext(path)[0] )) )
+            curveTitle = os.path.basename( os.path.splitext(path.replace('yoda.gz', ''))[0] )
+            plotoptions[has_name if has_name != "" else path].append('Title=%s' % sanitiseString(curveTitle))
     return filelist, filenames, plotoptions
 
 
@@ -344,7 +345,7 @@ if __name__ == '__main__':
                           dest="PATHUNPATTERNS")
     selgroup.add_argument("--no-weights", help="prevent multiweights from being plotted", dest="NO_WEIGHTS",
                           action="store_true", default=False)
-                         
+
 
     args = parser.parse_args()
 

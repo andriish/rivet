@@ -20,7 +20,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -39,23 +39,23 @@ namespace Rivet {
       unsigned int offset = 0;
       int offset2 = 0;
 
-      if (isCompatibleWithSqrtS(133)) {
-	offset  = 0;			   
-	offset2 = 1;			   
-      }					   
-      else if (isCompatibleWithSqrtS(161)) {
-	offset  = 0;			   
-	offset2 = 2;			   
-      }					   
-      else if (isCompatibleWithSqrtS(172)) {
-	offset  = 0;			   
-	offset2 = 3;			   
-      }					   
-      else if (isCompatibleWithSqrtS(183)) {
-	offset  = 1;			   
-	offset2 = 1;			   
+      if (isCompatibleWithSqrtS(133*GeV)) {
+	offset  = 0;
+	offset2 = 1;
       }
-      
+      else if (isCompatibleWithSqrtS(161*GeV)) {
+	offset  = 0;
+	offset2 = 2;
+      }
+      else if (isCompatibleWithSqrtS(172*GeV)) {
+	offset  = 0;
+	offset2 = 3;
+      }
+      else if (isCompatibleWithSqrtS(183*GeV)) {
+	offset  = 1;
+	offset2 = 1;
+      }
+
       book(_h_thrust          , 13+offset, 1, offset2);
       book(_h_major           , 15+offset, 1, offset2);
       book(_h_minor           , 17+offset, 1, offset2);
@@ -136,17 +136,17 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_thrust,_h_major,_h_minor;
     Histo1DPtr _h_sphericity,_h_planarity,_h_aplanarity,_h_oblateness;
     Histo1DPtr _h_heavy_jet_mass,_h_light_jet_mass,_h_diff_jet_mass;
     Histo1DPtr _h_wide_broading,_h_narrow_broading,_h_total_broading,_h_diff_broading;
     Histo1DPtr _h_CParam,_h_DParam;
-    //@}
+    /// @}
 
 
   };

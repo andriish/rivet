@@ -24,7 +24,7 @@ namespace Rivet {
       declare(cfs2500, "CFS2500");
 
       // Book histograms
-      if (isCompatibleWithSqrtS(900)) {
+      if (isCompatibleWithSqrtS(900*GeV)) {
         book(_h["pt100_nch2_nch"],   18, 1, 1);
         book(_h["pt100_nch2_pt"],    11, 1, 1);
         book(_h["pt100_nch2_eta"],    4, 1, 1);
@@ -48,14 +48,14 @@ namespace Rivet {
         book(_h["pt2500_nch1_eta"],   28, 1, 1);
         book(_p["pt2500_nch1_ptnch"], 38, 1, 1);
 
-      } else if (isCompatibleWithSqrtS(2360)) {
+      } else if (isCompatibleWithSqrtS(2360*GeV)) {
 
         book(_h["pt500_nch1_nch"], 16, 1, 1);
         book(_h["pt500_nch1_pt"],   9, 1, 1);
         book(_h["pt500_nch1_eta"],  2, 1, 1);
         _p["pt500_nch1_ptnch"] = nullptr;
 
-      } else if (isCompatibleWithSqrtS(7000)) {
+      } else if (isCompatibleWithSqrtS(7000*GeV)) {
 
         book(_h["pt100_nch2_nch"],   19, 1, 1);
         book(_h["pt100_nch2_pt"],    12, 1, 1);
@@ -89,7 +89,7 @@ namespace Rivet {
 
     void analyze(const Event& event) {
       // 100 GeV final states
-      if (!isCompatibleWithSqrtS(2360)) {
+      if (!isCompatibleWithSqrtS(2360*GeV)) {
         const ChargedFinalState& cfs100 = apply<ChargedFinalState>(event, "CFS100");
         // nch>=2
         fillPtEtaNch(cfs100, 2, "pt100_nch2");
@@ -102,12 +102,12 @@ namespace Rivet {
       // nch>=1
       fillPtEtaNch(cfs500, 1, "pt500_nch1");
       // nch>=6
-      if (!isCompatibleWithSqrtS(2360)) {
+      if (!isCompatibleWithSqrtS(2360*GeV)) {
         fillPtEtaNch(cfs500, 6, "pt500_nch6");
       }
 
       // 2500 GeV final states
-      if (!isCompatibleWithSqrtS(2360)) {
+      if (!isCompatibleWithSqrtS(2360*GeV)) {
         const ChargedFinalState& cfs2500 = apply<ChargedFinalState>(event, "CFS2500");
         // nch>=1
         fillPtEtaNch(cfs2500, 1, "pt2500_nch1");
@@ -123,7 +123,7 @@ namespace Rivet {
       scale(_h["pt500_nch1_pt"],  sf/TWOPI/5);
       scale(_h["pt500_nch1_eta"], sf);
 
-      if (!isCompatibleWithSqrtS(2360)) {
+      if (!isCompatibleWithSqrtS(2360*GeV)) {
         sf = safediv(1.0, _h["pt100_nch2_nch"]->integral(true), 1.0);
         scale(_h["pt100_nch2_nch"], sf);
         scale(_h["pt100_nch2_pt"],  sf/TWOPI/5);

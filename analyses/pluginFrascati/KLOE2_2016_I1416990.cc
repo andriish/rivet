@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -32,7 +32,7 @@ namespace Rivet {
       }
       book(_norm,"TMP/norm");
     }
-    
+
     void findDecayProducts(const Particle & mother, unsigned int & nstable,
 			   Particles &pi0, Particles &pip, Particles &pim) {
       for(const Particle & p : mother.children()) {
@@ -94,15 +94,15 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo2DPtr _dalitz;
     BinnedHistogram _h_dalitz;
     CounterPtr _norm;
-    //@}
+    /// @}
 
 
   };

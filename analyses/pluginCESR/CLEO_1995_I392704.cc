@@ -14,13 +14,13 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
       // Initialise and register projections
       declare(UnstableParticles(), "UFS" );
-      
+
       // Book histograms
       book(_h_Lambda, 1,1,1);
       book(_h_Sigma , 2,1,1);
@@ -35,20 +35,20 @@ namespace Rivet {
 	if(Lambdac.children().size()!=2) continue;
 	Particle baryon1;
 	bool lambda=true;
-	if(Lambdac.children()[0].pid()==sign*3122 && 
+	if(Lambdac.children()[0].pid()==sign*3122 &&
 	   Lambdac.children()[1].pid()==sign*211) {
 	  baryon1 = Lambdac.children()[0];
 	}
-	else if(Lambdac.children()[1].pid()==sign*3122 && 
+	else if(Lambdac.children()[1].pid()==sign*3122 &&
 		Lambdac.children()[0].pid()==sign*211) {
 	  baryon1 = Lambdac.children()[1];
 	}
-	else if(Lambdac.children()[0].pid()==sign*3222 && 
+	else if(Lambdac.children()[0].pid()==sign*3222 &&
 		Lambdac.children()[1].pid()==111) {
 	  baryon1 = Lambdac.children()[0];
 	  lambda=false;
 	}
-	else if(Lambdac.children()[1].pid()==sign*3222 && 
+	else if(Lambdac.children()[1].pid()==sign*3222 &&
 		Lambdac.children()[0].pid()==111) {
 	  baryon1 = Lambdac.children()[0];
 	  lambda=false;
@@ -57,11 +57,11 @@ namespace Rivet {
 	  continue;
 	int idMeson = lambda ? -sign*211 : 111;
 	Particle baryon2;
-	if(baryon1.children()[0].pid()== sign*2212 && 
+	if(baryon1.children()[0].pid()== sign*2212 &&
 	   baryon1.children()[1].pid()== idMeson) {
 	  baryon2 = baryon1.children()[0];
 	}
-	else if(baryon1.children()[1].pid()== sign*2212 && 
+	else if(baryon1.children()[1].pid()== sign*2212 &&
 		baryon1.children()[0].pid()== idMeson) {
 	  baryon2 = baryon1.children()[1];
 	}
@@ -115,13 +115,13 @@ namespace Rivet {
       _h_alpha2->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_Lambda, _h_Sigma;
-    //@}
+    /// @}
 
 
   };

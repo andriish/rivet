@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Set up projections and book histograms
     void init() {
@@ -82,18 +82,18 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      normalize(_histTot); normalize(_histChTot); normalize(_histHadrTot); 
-      normalize(_histHadrChTot); normalize(_histThrust); normalize(_histMajor); 
+      normalize(_histTot); normalize(_histChTot); normalize(_histHadrTot);
+      normalize(_histHadrChTot); normalize(_histThrust); normalize(_histMajor);
       normalize(_histSphericity); normalize(_histAplanarity);
     }
 
-    //@}
+    /// @}
 
 
-    //@{
+    /// @{
     /// Histograms
     Histo1DPtr _histTot, _histChTot, _histHadrTot, _histHadrChTot, _histThrust, _histMajor, _histSphericity, _histAplanarity;
-    //@}
+    /// @}
 
   };
 

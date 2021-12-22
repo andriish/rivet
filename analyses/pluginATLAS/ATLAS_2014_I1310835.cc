@@ -24,10 +24,10 @@ namespace Rivet {
       PromptFinalState bare_mu(Cuts::abspid == PID::MUON);
 
       // Selection: lepton selection
-      Cut etaranges_el = Cuts::abseta < 2.47 && Cuts::pT > 7*GeV; 
+      Cut etaranges_el = Cuts::abseta < 2.47 && Cuts::pT > 7*GeV;
       DressedLeptons electron_sel4l(photons, bare_el, 0.1, etaranges_el, false);
       declare(electron_sel4l, "electrons");
- 
+
       Cut etaranges_mu = Cuts::abseta < 2.7 && Cuts::pT > 6*GeV;
       DressedLeptons muon_sel4l(photons, bare_mu, 0.1, etaranges_mu, false);
       declare(muon_sel4l, "muons");
@@ -49,7 +49,7 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& e) {
-      
+
       ////////////////////////////////////////////////////////////////////
       // preselection of leptons for ZZ-> llll final state
       ////////////////////////////////////////////////////////////////////
@@ -64,12 +64,12 @@ namespace Rivet {
       /////////////////////////////////////////////////////////////////////////////
       /// H->ZZ->4l pairing
       /////////////////////////////////////////////////////////////////////////////
- 
+
       size_t el_p = 0;
       size_t el_n = 0;
-      size_t mu_p = 0; 
+      size_t mu_p = 0;
       size_t mu_n = 0;
-      
+
       for (const Particle& l : leptonsFS_sel4l) {
         if (l.abspid() == PID::ELECTRON) {
           if (l.pid() < 0)  ++el_n;
@@ -80,9 +80,9 @@ namespace Rivet {
           if (l.pid() > 0)  ++mu_p;
         }
       }
-            
+
       bool pass_sfos = ( (el_p >=2 && el_n >=2) || (mu_p >=2 && mu_n >=2) || (el_p >=1 && el_n >=1 && mu_p >=1 && mu_n >=1) );
-      
+
       if (!pass_sfos)  vetoEvent;
 
       Zstate Z1, Z2, Zcand;
@@ -100,7 +100,7 @@ namespace Rivet {
 
           Zcand = Zstate( ParticlePair(leptonsFS_sel4l[i], leptonsFS_sel4l[j]) );
           double mass_diff = fabs( Zcand.mom().mass() - 91.1876 );
-         
+
           if (min_mass_diff == -1 || mass_diff < min_mass_diff) {
             min_mass_diff = mass_diff;
             Z1 = Zcand;
@@ -138,17 +138,17 @@ namespace Rivet {
       ////////////////////////////////////////////////////////////////////////////
       // Kinematic Requirements
       ///////////////////////////////////////////////////////////////////////////
-      
+
       //leading lepton pT requirement
       std::vector<double> lepton_pt;
       for (const Particle& i : leptons_sel4l) lepton_pt.push_back(i.pT() / GeV);
       std::sort(lepton_pt.begin(), lepton_pt.end(), [](const double pT1, const double pT2) { return pT1 > pT2; });
-      
+
       if (!(lepton_pt[0] > 20*GeV && lepton_pt[1] > 15*GeV && lepton_pt[2] > 10*GeV))  vetoEvent;
-      
+
       //invariant mass requirements
       if (!(inRange(Z1.mom().mass(), 50*GeV, 106*GeV) && inRange(Z2.mom().mass(), 12*GeV, 115*GeV)))  vetoEvent;
-      
+
       //lepton separation requirements
       for (unsigned int i = 0; i < 4; ++i) {
         for (unsigned int j = 0; j < 4; ++j) {
@@ -169,26 +169,26 @@ namespace Rivet {
           if ((leptons_sel4l[i].momentum() + leptons_sel4l[j].momentum()).mass() <= 5*GeV)  vetoEvent;
         }
       }
- 
+
       // 4-lepton invariant mass requirement
       double m4l = (Z1.mom() + Z2.mom()).mass();
       if (!(inRange(m4l, 118*GeV, 129*GeV)))  vetoEvent;
-  
-  
+
+
       ////////////////////////////////////////////////////////////////////////////
       // Higgs observables
       ///////////////////////////////////////////////////////////////////////////
       FourMomentum Higgs = Z1.mom() + Z2.mom();
 
-      double H4l_pt       = Higgs.pt()/GeV; 
-      double H4l_rapidity = Higgs.absrap(); 
+      double H4l_pt       = Higgs.pt()/GeV;
+      double H4l_rapidity = Higgs.absrap();
       LorentzTransform HRF_boost;
       //HRF_boost.mkFrameTransformFromBeta(Higgs.betaVec());
       HRF_boost.setBetaVec(- Higgs.betaVec());
       FourMomentum Z1_in_HRF = HRF_boost.transform( Z1.mom() );
-      double H4l_costheta = fabs(cos( Z1_in_HRF.theta())); 
+      double H4l_costheta = fabs(cos( Z1_in_HRF.theta()));
       double H4l_m34      = Z2.mom().mass()/GeV;
-      
+
       ////////////////////////////////////////////////////////////////////////////
       // Jet observables
       ///////////////////////////////////////////////////////////////////////////

@@ -19,7 +19,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2016_I1492320);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -219,7 +219,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
   protected:
 
@@ -229,11 +229,11 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     const double ZMASS = 91.1876*GeV;
     CounterPtr _h_fiducial_3l;
     CounterPtr _h_2l2j;
-    //@}
+    /// @}
 
   };
 

@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -55,7 +55,7 @@ namespace Rivet {
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
-      // get the thrust 
+      // get the thrust
       const double tbins[6]={0.7,0.8,0.85,0.9,0.95,1.0};
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
       // find the thrust bin
@@ -93,13 +93,13 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _pion[6],_kaon[6],_proton[6];
-    //@}
+    /// @}
 
 
   };

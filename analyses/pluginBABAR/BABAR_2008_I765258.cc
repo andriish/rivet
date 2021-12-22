@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -43,7 +43,7 @@ namespace Rivet {
 	  findChildren(child,nRes,ncount);
       }
     }
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const FinalState& fs = apply<FinalState>(event, "FS");
@@ -55,14 +55,14 @@ namespace Rivet {
 	++ntotal;
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
-      
+
       for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
 	if(p.pid()!=221 && p.pid()!=333) continue;
 	map<long,int> nRes = nCount;
 	int ncount = ntotal;
 	findChildren(p,nRes,ncount);
-	  
+
 	if(p.pid()==221) {
 	  bool matchedKK = false;
 	  if(ncount==2) {
@@ -138,7 +138,7 @@ namespace Rivet {
 	double sigma = _nMeson[ix]->val();
 	double error = _nMeson[ix]->err();
     	sigma *= crossSection()/ sumOfWeights() /nanobarn;
-    	error *= crossSection()/ sumOfWeights() /nanobarn; 
+    	error *= crossSection()/ sumOfWeights() /nanobarn;
 	Scatter2D temphisto(refData(ix, 1, 1));
     	Scatter2DPtr  mult;
         book(mult, ix, 1, 1);
@@ -158,13 +158,13 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _nMeson[6];
-    //@}
+    /// @}
 
 
   };

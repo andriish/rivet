@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -26,17 +26,17 @@ namespace Rivet {
 
       vector<int> hist1,hist2;
       sqs = 1.;
-      if(isCompatibleWithSqrtS(14.)) {
+      if(isCompatibleWithSqrtS(14*GeV)) {
 	hist1 = {19,21,23};
 	hist2 = {20,22,24};
 	sqs = 14.;
       }
-      else if (isCompatibleWithSqrtS(22.)) {
+      else if (isCompatibleWithSqrtS(22*GeV)) {
 	hist1 = {25,27,11};
 	hist2 = {26,10,12};
 	sqs = 22.;
       }
-      else if (isCompatibleWithSqrtS(34.)) {
+      else if (isCompatibleWithSqrtS(34*GeV)) {
 	hist1 = {13,15,17};
 	hist2 = {14,16,18};
 	sqs = 34.;
@@ -44,7 +44,7 @@ namespace Rivet {
       else
         MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
           << " doesn't match any available analysis energy .");
-      
+
       book(_h_p_pi , hist1[0],1,1);
       book(_h_p_K  , hist1[1],1,1);
       book(_h_p_p  , hist1[2],1,1);
@@ -73,7 +73,7 @@ namespace Rivet {
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
-      
+
       for (const Particle& p : fs.particles()) {
 	double xE = p.E()/meanBeamMom;
 	if(abs(p.pid())==211) {
@@ -97,25 +97,25 @@ namespace Rivet {
 
       double fact1 = crossSection()/nanobarn/sumOfWeights();
       double fact2 = sqr(sqs)/GeV2*crossSection()/microbarn/sumOfWeights();
-      
-      scale(_h_p_pi, fact1); 
-      scale(_h_p_K , fact1); 
+
+      scale(_h_p_pi, fact1);
+      scale(_h_p_K , fact1);
       scale(_h_p_p , fact1);
-      
-      scale(_h_x_pi, fact2); 
-      scale(_h_x_K , fact2); 
-      scale(_h_x_p , fact2); 
+
+      scale(_h_x_pi, fact2);
+      scale(_h_x_K , fact2);
+      scale(_h_x_p , fact2);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr   _h_p_pi,_h_p_K,_h_p_p;
     Histo1DPtr   _h_x_pi,_h_x_K,_h_x_p;
     double sqs;
-    //@}
+    /// @}
 
 
   };

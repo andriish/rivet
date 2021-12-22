@@ -148,11 +148,11 @@ namespace Rivet {
       lk->scaleY(0.5);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     // Histograms ordered in centrality classes
     vector<double> centralityBins;
     vector<double> centralityBinsOmega;
@@ -181,7 +181,7 @@ namespace Rivet {
     Scatter2DPtr xpi;
     Scatter2DPtr opi;
     Scatter2DPtr lk;
-    //@}
+    /// @}
   };
 
 

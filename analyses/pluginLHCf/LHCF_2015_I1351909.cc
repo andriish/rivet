@@ -279,18 +279,18 @@ public:
 
 	}
 
-	//@}
+	// @}
 
 
 private:
 
 
 	/// @name Histograms
-	//@{
+	// @{
 	Histo1DPtr _h_n_en_eta1;
 	Histo1DPtr _h_n_en_eta2;
 	Histo1DPtr _h_n_en_eta3;
-	//@}
+	// @}
 
 
 };

@@ -16,7 +16,7 @@ namespace Rivet {
     /// Constructor
     RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2014_I1243865);
 
-    
+
     // Book histograms and projections etc.
     void init() {
       // Particles of interest.
@@ -112,9 +112,9 @@ namespace Rivet {
       const HepMCHeavyIon & hi = apply<HepMCHeavyIon>(event, "HepMC");
        if ( nPions != 0){
 	 const double npart = hi.Npart_proj() + hi.Npart_targ();
-         if (nXi != 0) 
+         if (nXi != 0)
            _histXitoPi->fill(npart, double(nXi) / double(nPions));
-         if (nOmega != 0) 
+         if (nOmega != 0)
 	   _histOmegatoPi->fill(npart, double(nOmega) / double(nPions));
 	}
      }

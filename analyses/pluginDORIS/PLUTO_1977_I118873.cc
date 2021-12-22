@@ -15,20 +15,20 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
       declare(Beam(), "Beams");
       declare(UnstableParticles(), "UFS");
-      
-      if (isCompatibleWithSqrtS(3.63)) {
+
+      if (isCompatibleWithSqrtS(3.63*GeV)) {
         book(_h_spectrum, 2, 1, 1);
       }
-      else if (isCompatibleWithSqrtS(4.03)) {
+      else if (isCompatibleWithSqrtS(4.03*GeV)) {
         book(_h_spectrum, 3, 1, 1);
       }
-      else if (isCompatibleWithSqrtS(4.5)) {
+      else if (isCompatibleWithSqrtS(4.5*GeV)) {
         book(_h_spectrum, 4, 1, 1);
       }
       else
@@ -58,13 +58,13 @@ namespace Rivet {
       scale(_h_spectrum, sqr(sqrtS())*crossSection()/nanobarn/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_spectrum;
-    //@}
+    /// @}
 
 
   };

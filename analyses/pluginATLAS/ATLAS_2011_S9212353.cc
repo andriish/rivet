@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialize projections before the run
     void init() {
@@ -420,7 +420,7 @@ namespace Rivet {
       }
      }
 
-    //@}
+    /// @}
 
 
     void finalize() {
@@ -453,7 +453,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _3jl_count_e_channel;
     Histo1DPtr _3jl_count_mu_channel;
     Histo1DPtr _3jt_count_e_channel;
@@ -485,7 +485,7 @@ namespace Rivet {
     Histo1DPtr _4jl_hist_m_eff_mu_final;
     Histo1DPtr _4jt_hist_m_eff_e_final;
     Histo1DPtr _4jt_hist_m_eff_mu_final;
-    //@}
+    /// @}
 
   };
 

@@ -19,16 +19,16 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
       // projections
       declare(UnstableParticles(),"UFS");
       // histos
-      if(isCompatibleWithSqrtS(10.52))
+      if(isCompatibleWithSqrtS(10.52*GeV))
         _mode=1;
-      else if(isCompatibleWithSqrtS(10.58))
+      else if(isCompatibleWithSqrtS(10.58*GeV))
         _mode=2;
       else
         MSG_ERROR("Beam energy not supported!");
@@ -107,16 +107,16 @@ namespace Rivet {
       }
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h[7];
     Histo1DPtr _r[7];
     CounterPtr _c;
     unsigned int _mode=0;
-    ///@}
+    /// @}
 
 
   };

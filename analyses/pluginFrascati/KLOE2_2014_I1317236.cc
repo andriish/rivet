@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -25,7 +25,7 @@ namespace Rivet {
       book(_weight,"TMP/weight");
     }
 
-    void findDecayProducts(const Particle & mother, unsigned int & nstable, unsigned int & neta, 
+    void findDecayProducts(const Particle & mother, unsigned int & nstable, unsigned int & neta,
                            unsigned int & nep, unsigned int & nem, unsigned int & ngamma,
 			   FourMomentum & ptot) {
       for(const Particle & p : mother.children()) {
@@ -88,14 +88,14 @@ namespace Rivet {
       scale(_h_m, 1.5*M_PI/alpha/ *_weight);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_m;
     CounterPtr _weight;
-    //@}
+    /// @}
 
 
   };

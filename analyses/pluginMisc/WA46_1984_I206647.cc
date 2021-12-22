@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -37,32 +37,32 @@ namespace Rivet {
 	int sign = Omega.pid()/3334;
 	if(Omega.children().size()!=2) continue;
 	Particle baryon1,meson1;
-	if(Omega.children()[0].pid()==sign*3122 && 
+	if(Omega.children()[0].pid()==sign*3122 &&
 	   Omega.children()[1].pid()==-sign*321) {
 	  baryon1 = Omega.children()[0];
 	  meson1 = Omega.children()[1];
 	}
-	else if(Omega.children()[1].pid()==sign*3122 && 
+	else if(Omega.children()[1].pid()==sign*3122 &&
 		Omega.children()[0].pid()==-sign*321) {
 	  baryon1 = Omega.children()[1];
 	  meson1 = Omega.children()[0];
 	}
-	else if(Omega.children()[0].pid()==sign*3322 && 
+	else if(Omega.children()[0].pid()==sign*3322 &&
 		Omega.children()[1].pid()==-sign*211) {
 	  baryon1 = Omega.children()[0];
 	  meson1 = Omega.children()[1];
 	}
-	else if(Omega.children()[1].pid()==sign*3322 && 
+	else if(Omega.children()[1].pid()==sign*3322 &&
 		Omega.children()[0].pid()==-sign*211) {
 	  baryon1 = Omega.children()[1];
 	  meson1 = Omega.children()[0];
 	}
-	else if(Omega.children()[0].pid()==sign*3312 && 
+	else if(Omega.children()[0].pid()==sign*3312 &&
 		Omega.children()[1].pid()==111) {
 	  baryon1 = Omega.children()[0];
 	  meson1 = Omega.children()[1];
 	}
-	else if(Omega.children()[1].pid()==sign*3312 && 
+	else if(Omega.children()[1].pid()==sign*3312 &&
 		Omega.children()[0].pid()==111) {
 	  baryon1 = Omega.children()[1];
 	  meson1 = Omega.children()[0];
@@ -72,12 +72,12 @@ namespace Rivet {
 	if(baryon1.children().size()!=2) continue;
 	Particle baryon2,meson2;
 	if(baryon1.abspid()==3122) {
-	  if(baryon1.children()[0].pid()==sign*2212 && 
+	  if(baryon1.children()[0].pid()==sign*2212 &&
 	     baryon1.children()[1].pid()==-sign*211) {
 	    baryon2 = baryon1.children()[0];
 	    meson2   = baryon1.children()[1];
 	  }
-	  else if(baryon1.children()[1].pid()==sign*2212 && 
+	  else if(baryon1.children()[1].pid()==sign*2212 &&
 		  baryon1.children()[0].pid()==-sign*211) {
 	    baryon2 = baryon1.children()[1];
 	    meson2   = baryon1.children()[0];
@@ -86,12 +86,12 @@ namespace Rivet {
 	    continue;
 	}
 	else if(baryon1.abspid()==3322) {
-	  if(baryon1.children()[0].pid()==sign*3122 && 
+	  if(baryon1.children()[0].pid()==sign*3122 &&
 	     baryon1.children()[1].pid()==111) {
 	    baryon2 = baryon1.children()[0];
 	    meson2   = baryon1.children()[1];
 	  }
-	  else if(baryon1.children()[1].pid()==sign*3122 && 
+	  else if(baryon1.children()[1].pid()==sign*3122 &&
 		  baryon1.children()[0].pid()==111) {
 	    baryon2 = baryon1.children()[1];
 	    meson2   = baryon1.children()[0];
@@ -100,12 +100,12 @@ namespace Rivet {
 	    continue;
 	}
 	else if (baryon1.abspid()==3312) {
-	  if(baryon1.children()[0].pid()==sign*3122 && 
+	  if(baryon1.children()[0].pid()==sign*3122 &&
 	     baryon1.children()[1].pid()==-sign*211) {
 	    baryon2 = baryon1.children()[0];
 	    meson2   = baryon1.children()[1];
 	  }
-	  else if(baryon1.children()[1].pid()==sign*3122 && 
+	  else if(baryon1.children()[1].pid()==sign*3122 &&
 		  baryon1.children()[0].pid()==-sign*211) {
 	    baryon2 = baryon1.children()[1];
 	    meson2   = baryon1.children()[0];
@@ -146,7 +146,7 @@ namespace Rivet {
       }
       return make_pair(sum2/sum1,sqrt(1./sum1));
     }
-    
+
     /// Normalise histograms etc., after the run
     void finalize() {
       normalize(_h_cthetalam);
@@ -167,13 +167,13 @@ namespace Rivet {
       _h_alphaXim->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_cthetalam,_h_cthetaxi0,_h_cthetaxim;
-    //@}
+    /// @}
 
 
   };

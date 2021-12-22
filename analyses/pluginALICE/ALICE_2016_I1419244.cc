@@ -18,7 +18,7 @@ namespace Rivet {
     }
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -184,11 +184,11 @@ namespace Rivet {
        }
 
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     // The integrated centrality dependent v2{n}.
     Scatter2DPtr h_v22gap;
     Scatter2DPtr h_v24;
@@ -252,7 +252,7 @@ namespace Rivet {
     ECorrPtr ec24pT30;
 
 
-    //@}
+    /// @}
 
 
   };

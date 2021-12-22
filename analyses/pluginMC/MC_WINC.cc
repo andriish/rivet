@@ -14,7 +14,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(MC_WINC);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -114,22 +114,22 @@ namespace Rivet {
       scale(_h_Wminus_pT, crossSection()/picobarn/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   protected:
 
     /// @name Parameters for specialised e/mu and dressed/bare subclassing
-    //@{
+    /// @{
     double _dR;
     PdgId _lepton;
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_W_mass;
     Histo1DPtr _h_W_mT;
     Histo1DPtr _h_W_pT;
@@ -146,7 +146,7 @@ namespace Rivet {
 
     Scatter2DPtr _h_asym;
     Scatter2DPtr _h_asym_pT;
-    //@}
+    /// @}
 
   };
 

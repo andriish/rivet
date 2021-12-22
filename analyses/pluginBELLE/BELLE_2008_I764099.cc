@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -79,7 +79,7 @@ namespace Rivet {
 	  else if(nRes[321]==1 && nRes[-321]==1) {
 	    if(p.pid()==553)
 	      _nUps1KK->fill();
-	  }	  
+	  }
 	}
       }
     }
@@ -125,12 +125,12 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _nUps1pipi,_nUps2pipi,_nUps3pipi,_nUps1KK;
-    //@}
+    /// @}
 
   };
 

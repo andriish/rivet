@@ -79,12 +79,12 @@ namespace Rivet {
 
 
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _hist_sigmaAK4;
     BinnedHistogram _hist_sigmaAK7;
     Histo1DPtr _hist_sigmaAK4Forward;
     Histo1DPtr _hist_sigmaAK7Forward;
-    //@}
+    /// @}
 
   };
 

@@ -19,7 +19,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors
-    //@{
+    /// @{
     MergedFinalState(const FinalState& fspa, const FinalState& fspb) {
       setName("MergedFinalState");
       declare(fspa, "FSA");
@@ -29,7 +29,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(MergedFinalState);
 
-    //@}
+    /// @}
 
   protected:
 

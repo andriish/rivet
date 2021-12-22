@@ -852,8 +852,8 @@
 1718558 . Search for heavy charged long-lived particles in the ATLAS detector in 36.1 fb$^{-1}$ of proton-proton collision data at $\sqrt{s} = 13$ TeV
 1719200 . Search for long-lived neutral particles in $pp$ collisions at $\sqrt{s}$ = 13 TeV that decay into displaced hadronic jets in the ATLAS calorimeter
 1720078 X Electron reconstruction and identification in the ATLAS experiment using the 2015 and 2016 LHC proton-proton collision data at $\sqrt{s}$ = 13 TeV
-1720438 ? Measurement of $W^{\pm}Z$ production cross sections and gauge boson polarisation in $pp$ collisions at $\sqrt{s} = 13$ TeV with the ATLAS detector
-1720442 . Measurement of the four-lepton invariant mass spectrum in 13 TeV proton-proton collisions with the ATLAS detector
+1720438 ! Measurement of $W^{\pm}Z$ production cross sections and gauge boson polarisation in $pp$ collisions at $\sqrt{s} = 13$ TeV with the ATLAS detector
+1720442 ! Measurement of the four-lepton invariant mass spectrum in 13 TeV proton-proton collisions with the ATLAS detector
 1720822 ? Combinations of single-top-quark production cross-section measurements and |f$_{LV}$V$_{tb}$| determinations at $ \sqrt{s} $ = 7 and 8 TeV with the ATLAS and CMS experiments
 1721072 . Searches for third-generation scalar leptoquarks in $\sqrt{s}$ = 13 TeV pp collisions with the ATLAS detector
 1722028 ! Comparison of Fragmentation Functions for Jets Dominated by Light Quarks and Gluons from $pp$ and Pb+Pb Collisions in ATLAS

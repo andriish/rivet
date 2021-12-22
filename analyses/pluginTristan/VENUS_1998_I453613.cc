@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -117,20 +117,20 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
     /// @name Multiplicities
-    //@{
+    /// @{
     CounterPtr _cLight;
     CounterPtr _cCharm;
     CounterPtr _cBottom;
-    //@}
+    /// @}
 
     /// @name Weights
-    //@{
+    /// @{
     CounterPtr _weightLight;
     CounterPtr _weightBottom;
-    //@}
+    /// @}
 
   };
 

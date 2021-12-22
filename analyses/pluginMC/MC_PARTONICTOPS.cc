@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -105,17 +105,17 @@ namespace Rivet {
       normalize(_h_tall_pt_dfirstlast);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_tall_n, _h_tall_n_first, _h_tlep_n, _h_thad_n;
     Histo1DPtr _h_tall_pt, _h_tall_pt_first, _h_tlep_pt, _h_thad_pt;
     Histo1DPtr _h_tall_y, _h_tall_y_first, _h_tlep_y, _h_thad_y;
     Histo1DPtr _h_tall_pt_dfirstlast;
     Profile1DPtr _p_tall_pt_dfirstlast;
-    //@}
+    /// @}
 
 
   };

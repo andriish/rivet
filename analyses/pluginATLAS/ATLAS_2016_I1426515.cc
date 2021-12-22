@@ -235,7 +235,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
 
     // d01 ee/mm fiducial integrated cross sections
     Histo1DPtr _hist_mm_fid_intxsec, _hist_ee_fid_intxsec;
@@ -260,7 +260,7 @@ namespace Rivet {
 
     // d15  emme fiducial differential cross section (absolute costheta* of dilepton-system costhetastar_ll + costhetastar_ll normalized)
     Histo1DPtr _hist_emme_fid_costhetastarll, _hist_emme_fid_costhetastarllnorm;
-    //@}
+    /// @}
 
   };
 

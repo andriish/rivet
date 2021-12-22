@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -52,7 +52,7 @@ namespace Rivet {
 	nCount[p.pid()] += 1;
 	++ntotal;
       }
-      // find omega/phi + eta 
+      // find omega/phi + eta
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       bool found = false, foundOmegaPhi = false;
       for (const Particle& p : ufs.particles()) {
@@ -185,13 +185,13 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _c_all, _c_omega, _c_rho, _c_other;
-    //@}
+    /// @}
 
 
   };

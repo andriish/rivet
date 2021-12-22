@@ -33,7 +33,7 @@ breakable,before skip=10pt,after skip=10pt }
 
 \begin{document}
 
-\title{\vspace*{-2em} Tutorial: Truth-level analysis using Rivet}
+\title{\vspace*{-2em} Tutorial: Truth-level analysis and multiweight variations using Rivet}
 \author{Christian G\"{u}tschow (UCL)}
 \date{\monthyeardate\today}
 \maketitle
@@ -50,7 +50,7 @@ estimate some of the associated generator-level uncertainties.
 
 Unless you have a local Rivet installation that you can use, consider installing the latest Rivet docker container, e.g.\ using
 \begin{verbatim}
-  docker pull hepstore/rivet:3.1.2
+  docker pull hepstore/rivet:3.1.4
 \end{verbatim}
 In case of problems with disk space, you may wish to consider running
 {\texttt{docker container prune}} and {\texttt{docker system prune}} first.
@@ -58,15 +58,15 @@ In order to make the executables from the docker container available on
 the command line, you can define an alias like so
 \begin{footnotesize}
 \begin{verbatim}
-  alias rivet='docker run -i --rm -u `id -u $USER`:`id -g` -v $PWD:$PWD -w $PWD hepstore/rivet:3.1.2 rivet'
+  alias rivet='docker run -i --rm -u `id -u $USER`:`id -g` -v $PWD:$PWD -w $PWD hepstore/rivet:3.1.4 rivet'
 \end{verbatim}
 \end{footnotesize}
 \noindent A number of useful short-hand commands are defined in the supplied \texttt{setup.sh} script
 which you can obtain by cloning the the repository and changing into the relevant directory as follows
 \begin{footnotesize}
 \begin{verbatim}
-  git clone https://gitlab.com/hepcedar/rivet.git
-  cd rivet/doc/tutorial/truth-analysis
+  git clone https://gitlab.com/hepcedar/mcnet-schools/dresden-2021.git
+  cd dresden-2021/rivet
   wget "https://rivetval.web.cern.ch/rivetval/TUTORIAL/truth-analysis.tar.gz" -O- | tar -xz --no-same-owner
 \end{verbatim}
 \end{footnotesize}
@@ -189,7 +189,7 @@ and finally a couple of member variables towards the end of the routine.
 This is can be compiled like any old C++ library, and Rivet provides a wrapper script
 that will add all the relevant compiler flags for you: 
 \begin{verbatim}
-  rivet-build RivetMY_ROUTINE.so MY_ROUTINE.cc
+  rivet-build RivetMY_ANALYSIS.so MY_ANALYSIS.cc
 \end{verbatim}
 where \verb|Rivet*.so| is the canonical form of a compiled Rivet plugin. 
 Provided that there are no namespace clashes, you could in principle 
@@ -203,7 +203,7 @@ you can use
   rivet --pwd -a MY_ANALYSIS input.hepmc.gz
 \end{verbatim}
 which uses the default Python script to call the Rivet libraries and tell it to run 
-the routine \verb|MY_ROUTINE| over the file \verb|input.hepmc.gz|. The first argument
+the routine \verb|MY_ANALYSIS| over the file \verb|input.hepmc.gz|. The first argument
 is to tell Rivet to also look in the present working directory.
 This is necessary in this case, since Rivet would otherwise not know where to look
 for a user-supplied routine. If you're very organised and keep your routines 
@@ -224,7 +224,7 @@ defaults to \verb|0| but could also be \verb|1| or \verb|2|, depending on what t
 The default value of an option is the empty string (\verb|""|), unless the user specifies
 a value when calling the routine, e.g. like so
 \begin{verbatim}
-  rivet -a MY_ANALYSIS:LMODE=EL,MY_ANALYSIS:LMODE=MU input.hepmc
+  rivet -a MY_ANALYSIS:LMODE=EL,MY_ANALYSIS:LMODE=MU input.hepmc.gz
 \end{verbatim}
 which would run two instances of the routine, once using the option using \verb|LMODE=EL| and
 once with \verb|LMODE=MU|. Any \verb|string|-type value is acceptable, unless
@@ -239,11 +239,12 @@ C++ type of the object \verb|_h| which is declared near the bottom of the routin
 To book a 1D histogram, simply call one of the following
 \begin{verbatim}
   book(_h["name1"], "name1", bin_edges);
-  book(_h["name2"], "name3", nBins, min_edge, max_edge);
+  book(_h["name2"], "name2", nBins, min_edge, max_edge);
+  book(_h["name3"], "name3", logspace(nBins, min_edge, max_edge));
   book(_h["name4"], 1, 2, 3);
 \end{verbatim}
 The first argument is the intended target variable for the booked histogram.
-In this case we supply a unique key to the map which in turns creates a placeholder.
+In this case we supply a unique key to the map which in turn creates a placeholder.
 The second argument is the intended histogram name that will be used when
 writing the histogram to file. This could be the same as the map key, 
 but does not need to be. The remaining arguments are to define the bin edges
@@ -268,7 +269,7 @@ but the value can always be overwritten on the command line by passing
 the \verb|--cross-section| flag (or more conveniently \verb|--x|).
 Rivet also keeps track of the total sum of event weights in the sample
 behind the scenes, so you do not have to worry about implementing a counter
-to do the boring book keeping yourself.
+to do the boring book-keeping yourself.
 
 Note that the \verb|scale| function can be called on an individual histogram
 but also an entire vector of histograms or a map with histograms as the value.
@@ -309,7 +310,7 @@ and then applied for every event in the \verb|analyze|
 method like so
 \begin{verbatim}
   const FinalState& p1 = apply<FinalState>(event, "my_first_projection");
-  const Particles& fs_particles = p2.particlesByPt();
+  const Particles& fs_particles = p1.particlesByPt();
 \end{verbatim}
 The first line takes the \verb|event| argument and applies
 the \verb|FinalState| to it. The result of the calculation
@@ -333,12 +334,12 @@ are also directly accessible via standard methods like
 \verb|phi| as well as many others, 
 including covenient short-hand methods such as \verb|abseta| and \verb|absrap|.
 
-Admittedly, the \verb|FinalState| by itself is a bit boring. 
+Admittedly, the \verb|FinalState| by itself is a bit dull. 
 You might not even care about the full final state. Let's imagine you
 are prototyping an analysis for a detector that consists of a tracker
 but does not have a calorimeter. Such a detector 
 can reconstruct the kinematics of charged particles in
-a magnetic field, e.g.\ by tracing out the silicong hits
+a magnetic field, e.g.\ by tracing out the silicon hits
 produced by charged pions in the detector, but it would
 struggle to detect neutral particles. 
 Now, we could loop over the particles we retrieved
@@ -354,7 +355,7 @@ in the \verb|init| method and using
   const Particles& cfs_particles = apply<ChargedFinalState>(event, "my_second_projection").particles();
 \end{verbatim}
 \end{footnotesize}
-which lets the projection deal with the boring bits,
+which lets the projection deal with the fiddly bits,
 so that we can concentrate on the high-level physics!
 
 Rivet has a large suite of different projections available,
@@ -389,7 +390,7 @@ That's why you should care.
 
 The advantage of projections is really threefold:
 \begin{itemize}
-\item They can be supplied with a \verb|Cuts| argument to pull a fairly boring bit of analysis logic
+\item They can be supplied with a \verb|Cuts| argument to pull a fairly laborious bit of analysis logic
       into a neat one-liner.
 \item Projections can be chained together to construct even more complex final-state subsets.
 \item When running many routines, Rivet will automatically cache the result of equivalent
@@ -530,7 +531,7 @@ near the top of the routine if it is not already included.
 
 
 \begin{exercise}
-Select events with $66\,\text{GeV} < m_{\ell\ell} < 116\,\text{GeV}$ at using letpons
+Select events with $66\,\text{GeV} < m_{\ell\ell} < 116\,\text{GeV}$ at using leptons
 defined at the dressed level.
 Using the anti-$k_\text{T}$ algorithm with a jet-radius parameter of 0.4,
 cluster all final-state particles within $|\eta| < 4.9$, 
@@ -704,7 +705,7 @@ options are also available to (de-)select weights already at run time
 Let's take a look at what sort of variation weights are included in the setup:
 \begin{verbatim}
   import rivet, yoda
-  print set([ rivet.extractWeightName(name) for name in yoda.read("Rivet.yoda") ])
+  print( set([ rivet.extractWeightName(name) for name in yoda.read('Rivet.yoda') ]) )
 \end{verbatim}
 Here we are using the Python API of YODA to load the output file, loop over all
 the objects in the file and to use Rivet's Python API to extract the weight names.
@@ -715,10 +716,10 @@ The result is then turned into a Python \verb|set| in order to remove duplicate 
 %\end{verbatim}
 You will notice that most of the scale variations
 seem to follow the pattern \verb|MUR*_MUF*_PDF261000| at their core where the wild card is either \verb|0.5|,
-\verb|1| or \verb|2|. We can use this observation to select all the variation weights
-that pass the corresponding regular expression
+\verb|1| or \verb|2|. We can use this observation to construct a regular expression that will select 
+all the relevant weights
 \begin{verbatim}
-  rivet-mkhtml --errs Rivet.yoda:"Variations=MUR.*_MUF.*_PDF261000"
+  rivet-mkhtml --errs Rivet.yoda:"Variations=MUR.*MUF.*PDF261000"
 \end{verbatim}
 This will essentially produce the same plots as above but without the outliers
 at the bottom of the canvas. Let's take it one step further and attempt to combine
@@ -726,13 +727,13 @@ the weights into a band. In general, the prescription for how to combine the
 scale and PDF variations depends on the specific setup, 
 in particular the PDF set used and the precise format of the weight names.
 The combination strategy needs to be defined by the user in the end, but Rivet
-supports some very basic prescriptions out of the box. 
-The simplest thing one could ask is to combine the weights into en uncertainty band
-based on the envelope of the variations. For instance, we could ask Rivet to work out
-the envelope for the same regular expression like so
+supports the most common prescriptions out of the box. 
+The simplest thing one could ask is to combine the weights into an uncertainty band
+based on the envelope of the scale variations. For instance, we could ask Rivet to work out
+the envelope for the same regular expression as we had above, like so
 \begin{footnotesize}
 \begin{verbatim}
-  rivet-mkhtml --errs Rivet.yoda:"Variations=MUR.*_MUF.*_PDF261000 BandComponentEnv=MUR.*_MUF.*_PDF261000"
+  rivet-mkhtml --errs Rivet.yoda":Variations=MUR.*MUF.*PDF261000:BandComponentEnv=MUR.*MUF.*PDF261000"
 \end{verbatim}
 \end{footnotesize}
 which will produce something like the following:
@@ -748,41 +749,25 @@ In particular, if we take another close look at the list of weight names availab
 for this setup, we see versions with and without an additional \verb|ME_ONLY_| prepended
 to the name. The difference between these is that the scales were only varied in
 the matrix element or coherently in both matrix element and parton shower.
-It might be interesting to separate these out into two bands.
-While this can in principle also be done on the command line, let us play around
-with the Python API a bit more and use it implement a simple weight-combination
-prescription ourselves. The goal of the next exercise is to split the output file
-into separate copies that differ in the size of their combined uncertainty,
-as indicated by the name suffix \verb|stat_only|, \verb|stat_MEonly| 
-or \verb|full_band| respectively.
+It might be interesting to separate these out into two bands\footnote{There are 
+different ways to go about this. In this tutorial, we try to keep it simple and 
+do everything via the command line using a single output file. For more complicated 
+prescriptions, it might be more convenient to play around with the Python API and 
+use it to combine the weights in more complex ways and/or to write out a separate output 
+file for different uncertainty components in order to keep things potentially more organized.}.
 
 
 \begin{exercise}
-Complete the code in the \verb|makeBands.py| skeleton.
+%Complete the code in the \verb|makeBands.py| skeleton.
+Complete the code in the \verb|plotBands.sh| skeleton.
 \end{exercise}
 
 Once the weights are combined into bands, it is straightforward
 to superimpose different bands using the usual plotting
-scripts. For clarity, it is useful to play around with different
-colours, band styles or opacity levels. One possible solution
-is the following:
-\begin{verbatim}
-  DBLUE="blue!90!white"
-  MBLUE="blue!60!white"
-  LBLUE="blue!30!white"
-  COMMON_TAGS="RatioPlotSameStyle=1:ErrorBars=0:ErrorBands=1:ErrorBandOpacity=0.5"
-  MEPS_STYLE=$COMMON_TAGS:ErrorBandColor=$LBLUE:LineColor=$LBLUE
-  ME_STYLE=$COMMON_TAGS:ErrorBandColor=$MBLUE:LineColor=$MBLUE
-  STAT_STYLE=$COMMON_TAGS:ErrorBandStyle=hlines:ErrorBandColor=$DBLUE:LineColor=$DBLUE
-
-  rivet-mkhtml --errs -o plots_with_bands \
-  Rivet_full_band.yoda:$MEPS_STYLE:"Title=ME+PS scales \$\\oplus\$ stats" \
-  Rivet_stat_MEonly.yoda:$ME_STYLE:"Title=ME scales \$\\oplus\$ stats" \
-  Rivet_stat_only.yoda:$STAT_STYLE:"Title=stats only"
-\end{verbatim}
-which you can run on the command line or copy into a bash script first.
-The above implementation also gives an idea for how to do a few more
-fancy style customisations with the plotting scripts. 
+scripts. In the example above, we also play around with different
+colours, band styles and opacity levels to give an idea
+for how to do a few more fancy style customisations 
+with the plotting scripts in general. 
 The result should look something like this
 
 \begin{center}
@@ -796,66 +781,170 @@ scale variations become relevant in the more exclusive regions of phase space.
 At this stage you should be familiar with the basics of running Rivet,
 be able to write a custom routine, make some first plots 
 and even construct uncertainty bands from the weight variations.
-If you have some spare time, feel free to have a go at the next exercise
-which plays a bit more with invisible particles and fiducial definitions.
+%If you have some spare time, feel free to have a go at the next exercise
+%which plays a bit more with invisible particles and fiducial definitions.
+If you have some spare time, feel free to have a go at the next section
+which will take you through the basics of homogeneous and heterogeneous merging.
 
 
-\section{Optional: A balancing act in the transverse plane}
+%\section{Optional: A balancing act in the transverse plane}
+%
+%In the general-purpose detectors at the LHC, a momentum imbalance 
+%in the transverse plane can be used to infer the presence
+%of particles have otherwise escaped direct detection in the detector.
+%When designing a fiducial measurement phase space, it is important 
+%to bear in mind that the imbalance could be due to SM neutrinos or BSM invisibles,
+%and that it is much preferable to avoid model-dependent assumptions 
+%about the composition of missing $p_\text{T}$ in a measurement.
+%The particle-level definition of missing $p_\text{T}$ should ideally match what is being done
+%at the detector level, where the imbalance would typically be estimated
+%by taking the negative of the vector sum over all visible particles in an event.
+%Rivet's \verb|MissingMomentum| projection calculates missing $p_\text{T}$ (or $E_\text{T}$) for you in this way. 
+%If a detector does not cover the full phase space, 
+%remember that a fiducial \verb|FinalState| can also be passed as an argument.
+%
+%\begin{exercise}
+%Imagine an experimental setup for which neutrinos are invisible, 
+%muons can be detected within $|\eta| < 2.5$, 
+%while the jets produced in association with the
+%boson can be detected within $|\eta| < 4.9$.
+%Construct the missing $p_\text{T}$ using Rivet's \verb|MissingMomentum| projection
+%(\emph{i}) from all visible particles in the event
+%(\emph{ii}) from all visible particles that can be detected by this setup.
+%Consider introducing a new option \verb|INVMODE=STRICT,FIDUCIAL| to steer the analysis logic, 
+%depending on whether the imbalance should come (\emph{i}) strictly from invisibles or
+%(\emph{ii}) anything the detector cannot `see'.
+%
+%\emph{Hint:} The following might come in handy: 
+%\begin{verbatim}
+%apply<MissingMomentum>(event, "pTmiss").missingPt()
+%\end{verbatim}
+%\end{exercise}
+%
+%Implementing the logic for this is greatly simplified when relying on
+%the \verb|MissingMomentum| projection, but since it amounts to
+%making the routine also work with $W$+jets events, 
+%it might still require a bit of thinking. 
+%Assuming the routine is run with both \verb|INVMODE| options
+%in the same run, this can be plotted in following way
+%\begin{verbatim}
+%  SUB1="ReplaceOption[INVMODE=STRICT]=invisibles only"
+%  SUB2="ReplaceOption[INVMODE=FIDUCIAL]=invisibles and out-of-acceptance muons"
+%  rivet-mkhtml --no-weights --errs wjets.yoda:"Title=" PLOT:"$SUB1:$SUB2"
+%\end{verbatim}
+%where the two \verb|ReplaceOption[option=value]=replacement string| tags could 
+%either be added directly to the \verb|plot| file or be passed on the command line like above. 
+%This is just a small cosmetical tweak to make the legend a bit more readable.
+%The result should look somewhat like this:
+%
+%\begin{center}
+%\includegraphics[width=0.49\textwidth]{figures/pTmiss.pdf}
+%\end{center}
+%
+%What does the difference between the two curves imply
+%for a measurement of missing transverse momentum?
 
-In the general-purpose detectors at the LHC, a momentum imbalance 
-in the transverse plane can be used to infer the presence
-of particles have otherwise escaped direct detection in the detector.
-When designing a fiducial measurement phase space, it is important 
-to bear in mind that the imbalance could be due to SM neutrinos or BSM invisibles,
-and that it is much preferable to avoid model-dependent assumptions 
-about the composition of missing $p_\text{T}$ in a measurement.
-The particle-level definition of missing $p_\text{T}$ should ideally match what is being done
-at the detector level, where the imbalance would typically be estimated
-by taking the negative of the vector sum over all visible particles in an event.
-Rivet's \verb|MissingMomentum| projection calculates missing $p_\text{T}$ (or $E_\text{T}$) for you in this way. 
-If a detector does not cover the full phase space, 
-remember that a fiducial \verb|FinalState| can also be passed as an argument.
+\section{Merging parallel runs and different processes}
 
-\begin{exercise}
-Imagine an experimental setup for which neutrinos are invisible, 
-muons can be detected within $|\eta| < 2.5$, 
-while the jets produced in association with the
-boson can be detected within $|\eta| < 4.9$.
-Construct the missing $p_\text{T}$ using Rivet's \verb|MissingMomentum| projection
-(\emph{i}) from all visible particles in the event
-(\emph{ii}) from all visible particles that can be detected by this setup.
-Consider introducing a new option \verb|INVMODE=STRICT,FIDUCIAL| to steer the analysis logic, 
-depending on whether the imbalance should come (\emph{i}) strictly from invisibles or
-(\emph{ii}) anything the detector cannot `see'.
+In practice, we rarely have to deal with a single event file, 
+over which we can run our analysis. Typically different processes
+are generated separately, giving rise to multiple events files
+with different process-dependent cross-sections associated with 
+each of these files. We can then run our analysis over each of
+these files and thereby estimate the contribution of the respective
+process to the region of phase space that we are interested in. 
+By stacking all contributing processes on top of each other
+-- weighted by cross-section -- we would arrive at the total prediction.
+The stacking of different processes is an additive combination that is 
+sometimes referred to as \emph{heterogeneous} or \emph{non-equivalent} merging.
 
-\emph{Hint:} The following might come in handy: 
+What is more, we might need so many events
+to be able to arrive at a smooth prediction that storing
+the events in one huge event file is just not practical
+and we find it more efficient to produce a given process
+in many parallel runs, leading to many output event files 
+for the process under consideration.
+This has the advantage that we can also run our analysis
+in a parallelised fashion, thereby reducing the overall
+processing time greatly.
+The downside is that we end up with many output histogram
+files when really we only want a single one. Combining output
+histogram files in a statistically correct way as though 
+they had come from a single run is sometimes referred to
+as \emph{homogeneous} or \emph{equivalent} merging.
+Let's take a look at both cases.
+
+
+\subsection{Equivalent merging}
+
+We can emulate a parallel run by splitting our run in half as follows
 \begin{verbatim}
-apply<MissingMomentum>(event, "pTmiss").missingPt()
+rivet --pwd -n 5000 -o part1.yoda.gz -a MY_ANALYSIS Zjets13TeV_10k.hepmc.gz
+rivet --pwd --nskip 5000 -o part2.yoda.gz -a MY_ANALYSIS Zjets13TeV_10k.hepmc.gz
 \end{verbatim}
-\end{exercise}
-
-Implementing the logic for this is greatly simplified when relying on
-the \verb|MissingMomentum| projection, but since it amounts to
-making the routine also work with $W$+jets events, 
-it might still require a bit of thinking. 
-Assuming the routine is run with both \verb|INVMODE| options
-in the same run, this can be plotted in following way
+where the first command only runs over the first 5000 events and the second skips the first 5000 events.
+In a sense, this is very similar to running the analysis multiple times on a subset of the files from a big
+pool of events files corresponding to the same process. 
+In order to merge them correctly, one should be mindful of the \verb|finalize| part of the a given routine:
+That is the part of the analysis where histgrams are normally scaled to cross-section or normalised to unity, 
+or where ratios or efficiencies are constructed. In general, these are post-processing operations that should 
+really be applied to the \emph{merged} histograms, and so the art of equivalent merging is to first undo 
+whatever scaling has been applied in the \verb|finalize| method, then to stack the 
+pre-\verb|finalize|d histograms before finally reapplying the \verb|finalize| logic to the stacked objects.
+For this reason, Rivet will write out every booked histogram twice, correspponding to the state of the object
+before and after running \verb|finalize| respectively. The pre-\verb|finalize| version will come with the 
+prefix \verb|/RAW| in the path -- check it out for yourself!\footnote{This trick also enables us to interrupt 
+a Rivet run at any point and pick it up where we left off -- also known as \emph{reentrant histogramming}.}
+In order to perform a statistically correct equivalent merging, we want to stack the raw histograms and simply
+rerun the \verb|finalize| part of the routine over the stacked objects. The following command will achieve this:
 \begin{verbatim}
-  SUB1="ReplaceOption[INVMODE=STRICT]=invisibles only"
-  SUB2="ReplaceOption[INVMODE=FIDUCIAL]=invisibles and out-of-acceptance muons"
-  rivet-mkhtml --no-weights --errs wjets.yoda:"" PLOT:"$SUB1":"$SUB2"
+rivet-merge -e -o merged.yoda.gz part1.yoda.gz part2.yoda.gz
 \end{verbatim}
-where the two \verb|ReplaceOption[option=value]=replacement string| tags could 
-either be added directly to the \verb|plot| file or be passed on the command line like above. 
-This is just a small cosmetical tweak to make the legend a bit more readable.
-The result should look somewhat like this:
+where the \verb|-e| (or \verb|--equiv|) option denotes equivalent merging.\footnote{You might notice a warning
+message about reentrant safety, which Rivet will print when it doesn't recognise a routine, 
+e.g.\ because it cannot find the associated \texttt{.info} file. 
+Reentrant histogramming can only work if all the information need to pick up the run where it was
+interrupted is provided in the output file. If the logic applied in \texttt{finalize} depends on information
+which can only be derivef from the event file, then the reentrant histogramming will not be possible.}
+We can easily verify that this gives the same result as our original output file:
+\begin{footnotesize}
+\begin{verbatim}
+rivet-mkhtml --errs --no-weights Rivet.yoda:"Title=single run" merged.yoda.gz:"Title=merged run"
+\end{verbatim}
+\end{footnotesize}
+which should give you a straight horizontal line at unity in the ratio panel.
 
-\begin{center}
-\includegraphics[width=0.49\textwidth]{figures/pTmiss.pdf}
-\end{center}
 
-What does the difference between the two curves imply
-for a measurement of missing transverse momentum?
+\subsection{Non-equivalent merging}
+
+We can use our lepton-mode option to produce separate output histogram files 
+for the electron and the muon channel as follows:
+\begin{verbatim}
+rivet --pwd -o zee.yoda.gz -a MY_ANALYSIS:LMODE=EL Zjets13TeV_10k.hepmc.gz
+rivet --pwd -o zmm.yoda.gz -a MY_ANALYSIS:LMODE=MU Zjets13TeV_10k.hepmc.gz
+\end{verbatim}
+This is almost as though we had been given separate HepMC event files for
+each lepton channel, except then we wouldn't have had to specify an option
+since the event sample would only contain one lepton flavour to begin with.
+
+In order to stack the histograms in the two output files, simply run
+\begin{verbatim}
+rivet-merge --merge-option LMODE -o zll.yoda.gz zee.yoda.gz zmm.yoda.gz
+\end{verbatim}
+where the \verb|-e| flag from the previous section is now missing 
+since non-equivalent merging is the default mode of \texttt{rivet-merge}.
+Instead we use the optional \verb|--merge-option| flag here to remove the 
+option string from the histogram path. We can again easily verify that 
+this gives the same answer as our original output file:
+\begin{footnotesize}
+\begin{verbatim}
+rivet-mkhtml --errs --no-weights Rivet.yoda:"Title=both channels" zll.yoda.gz:"Title=stacked channels"
+\end{verbatim}
+\end{footnotesize}
+where \verb|Rivet.yoda| is the output from running the routine without options
+over the HepMC event file.
+
+
 
 \section{Summary}
 
@@ -864,7 +953,7 @@ as well as common issues to do with fiducial particle-level definitions.
 A Rivet routine is a snippet of C++ code that exactly implements the analysis logic.
 We wrote a simple routine to analyse events of weak-boson production in association
 with jets using Rivet. 
-(An example solution can be found in the repository when listing also the hidden files.)
+(An example solution will be made available after the last tutorial session.)
 Along with making the measurement results publicly available on HEPData,
 providing a Rivet routine is an important aspect of analysis preservation
 that helps to maximise the impact of the analysis results as well as

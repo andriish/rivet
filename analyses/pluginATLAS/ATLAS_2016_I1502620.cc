@@ -12,11 +12,11 @@ namespace Rivet {
 
     /// Constructor
     RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2016_I1502620);
-    //@}
+    /// @}
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -26,21 +26,21 @@ namespace Rivet {
       _mode = 0;
       _runZ = true;
       _runW = true;
-      if ( getOption("LMODE") == "EL" || 
+      if ( getOption("LMODE") == "EL" ||
            getOption("LMODE") == "ZEL" ||
-           getOption("LMODE") == "WEL" ) 
+           getOption("LMODE") == "WEL" )
         _mode = 1;
-      if ( getOption("LMODE") == "MU" || 
+      if ( getOption("LMODE") == "MU" ||
            getOption("LMODE") == "ZMU" ||
-           getOption("LMODE") == "WMU" ) 
+           getOption("LMODE") == "WMU" )
         _mode = 2;
-      if ( getOption("LMODE") == "Z" || 
-           getOption("LMODE") == "ZEL" || 
-           getOption("LMODE") == "ZMU" ) 
+      if ( getOption("LMODE") == "Z" ||
+           getOption("LMODE") == "ZEL" ||
+           getOption("LMODE") == "ZMU" )
         _runW = false;
-      if ( getOption("LMODE") == "W" || 
-           getOption("LMODE") == "WEL" || 
-           getOption("LMODE") == "WMU" ) 
+      if ( getOption("LMODE") == "W" ||
+           getOption("LMODE") == "WEL" ||
+           getOption("LMODE") == "WMU" )
         _runZ = false;
 
 
@@ -52,15 +52,15 @@ namespace Rivet {
       Cut Wcuts = Cuts::pT >= 25*GeV; // minimum lepton pT
       Cut Zcuts = Cuts::pT >= 20.0*GeV;
 
-      WFinder wfinder_edressed(fs, Wcuts, PID::ELECTRON, 40*GeV, 13*TeV, 25*GeV, 0.1, 
+      WFinder wfinder_edressed(fs, Wcuts, PID::ELECTRON, 40*GeV, 13*TeV, 25*GeV, 0.1,
 				 WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
       declare(wfinder_edressed, "WFinder_edressed");
 
-      ZFinder zfindere(fs, Zcuts, PID::ELECTRON, 46.0*GeV, 150*GeV, 0.1, 
+      ZFinder zfindere(fs, Zcuts, PID::ELECTRON, 46.0*GeV, 150*GeV, 0.1,
                        ZFinder::ChargedLeptons::PROMPT, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::NO);
       declare(zfindere, "ZFindere");
 
-      WFinder wfinder_mdressed(fs, Wcuts, PID::MUON, 40*GeV, 13*TeV, 25*GeV, 0.1, 
+      WFinder wfinder_mdressed(fs, Wcuts, PID::MUON, 40*GeV, 13*TeV, 25*GeV, 0.1,
 				 WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
       declare(wfinder_mdressed, "WFinder_mdressed");
 
@@ -69,7 +69,7 @@ namespace Rivet {
       declare(zfinderm, "ZFinderm");
 
 
-      /// Book histograms here      
+      /// Book histograms here
       if (_runW) {
         book(_h_Wp_eta,  9, 1, 1);
         book(_h_Wm_eta, 10, 1, 1);
@@ -87,11 +87,11 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      
-      // W stuff 
-      const WFinder& wfindere = apply<WFinder>(event, "WFinder_edressed");	     
-      const WFinder& wfinderm = apply<WFinder>(event, "WFinder_mdressed");	     
-      
+
+      // W stuff
+      const WFinder& wfindere = apply<WFinder>(event, "WFinder_edressed");
+      const WFinder& wfinderm = apply<WFinder>(event, "WFinder_mdressed");
+
       if (wfindere.bosons().size()+wfinderm.bosons().size() == 1 && _runW) {
 
 	Particle lep;
@@ -103,37 +103,37 @@ namespace Rivet {
 	}
 
 	if (lep.charge3() == 3) {
-	  _h_Wp_eta->fill(lep.abseta()); 
+	  _h_Wp_eta->fill(lep.abseta());
 	}
 	else if (lep.charge3() == -3) {
 	  _h_Wm_eta->fill(lep.abseta());
 	}
       }
 
-      // now the Z stuff. 
+      // now the Z stuff.
       const ZFinder& zfindere = apply<ZFinder>(event, "ZFindere");
       const ZFinder& zfinderm = apply<ZFinder>(event, "ZFinderm");
-      
+
 
       // must be one and only one candidate.
       if (zfindere.bosons().size()+zfinderm.bosons().size() == 1 && _runZ) {
 
 	Particle Zboson;
 	Particles leptons;
-	
+
 	// candidate is e+e-
 	if (_mode != 2 && zfindere.bosons().size() == 1 ) {
-	  
+
 	  Zboson = zfindere.boson();
 	  leptons = zfindere.constituents();
-	}  
+	}
 
 	// candidate is mu+mu-
         else if (_mode !=1 && zfinderm.bosons().size() == 1 ) {
-	  
+
 	  Zboson = zfinderm.boson();
 	  leptons = zfinderm.constituents();
-	  
+
 	}
 
 	if (leptons.size() > 1) {
@@ -142,15 +142,15 @@ namespace Rivet {
 	  const double zmass = Zboson.mass();
 	  const double eta1 = leptons[0].abseta();
 	  const double eta2 = leptons[1].abseta();
-		
+
 	  // separation into central/forward and three mass bins
 	  if (eta1 < 2.5 && eta2 < 2.5) {
 	    if (zmass < 66.0*GeV)        _h_Zcenlow_y_dressed->fill(zrap);
 	    else if (zmass < 116.0*GeV)  _h_Zcenpeak_y_dressed->fill(zrap);
 	    else                         _h_Zcenhigh_y_dressed->fill(zrap);
-	  } 
+	  }
 	  else if ((eta1 < 2.5 && 2.5 < eta2 && eta2 < 4.9) || (eta2 < 2.5 && 2.5 < eta1 && eta1 < 4.9)) {
-	    if (zmass > 66.0*GeV) {   
+	    if (zmass > 66.0*GeV) {
 	      if (zmass < 116.0*GeV)  _h_Zfwdpeak_y_dressed->fill(zrap);
 	      else                    _h_Zfwdhigh_y_dressed->fill(zrap);
 	    }
@@ -205,7 +205,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   protected:
@@ -215,7 +215,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_Wp_eta, _h_Wm_eta;
     Scatter2DPtr _h_W_asym;
 
@@ -224,7 +224,7 @@ namespace Rivet {
     Histo1DPtr _h_Zcenhigh_y_dressed;
     Histo1DPtr _h_Zfwdpeak_y_dressed;
     Histo1DPtr _h_Zfwdhigh_y_dressed;
-    //@}
+    /// @}
 
   };
 

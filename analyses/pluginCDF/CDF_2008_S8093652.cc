@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -49,7 +49,7 @@ namespace Rivet {
       scale(_h_m_dijet, crossSection()/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:

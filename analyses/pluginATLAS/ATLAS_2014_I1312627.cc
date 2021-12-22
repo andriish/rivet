@@ -14,7 +14,7 @@ namespace Rivet {
   public:
 
     /// @name Plotting helper types
-    //@{
+    /// @{
 
     struct Plots {
       string ref;
@@ -22,14 +22,14 @@ namespace Rivet {
       Scatter2DPtr ratio; // Rjets plot
     };
 
-    //@}
+    /// @}
 
 
     /// Constructor
     RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2014_I1312627);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -51,12 +51,12 @@ namespace Rivet {
 
       // Boson finders
       FinalState fs;
-      WFinder wfinder(fs, cuts, _mode > 1? PID::MUON : PID::ELECTRON, 40*GeV, 8*TeV, 0., 0.1, 
-				              WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::NODECAY, 
+      WFinder wfinder(fs, cuts, _mode > 1? PID::MUON : PID::ELECTRON, 40*GeV, 8*TeV, 0., 0.1,
+				              WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::NODECAY,
                       WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
       declare(wfinder, "WF");
 
-      ZFinder zfinder(fs, cuts, _mode > 1? PID::MUON : PID::ELECTRON, 66*GeV, 116*GeV, 0.1, 
+      ZFinder zfinder(fs, cuts, _mode > 1? PID::MUON : PID::ELECTRON, 66*GeV, 116*GeV, 0.1,
                       ZFinder::ChargedLeptons::PROMPT, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::NO);
       declare(zfinder, "ZF");
 
@@ -133,11 +133,11 @@ namespace Rivet {
         divide(item.second.comp[0], item.second.comp[1], item.second.ratio);
       }
     }
-    //@}
+    /// @}
 
 
     /// Analysis helper functions
-    //@{
+    /// @{
 
     /// Histogram filling function, to avoid duplication
     void fillPlots(const Particles& leptons, Jets& jets, int isZ) {
@@ -200,7 +200,7 @@ namespace Rivet {
       book(_plots[label].ratio, pre + "1" + _suff, true);
     }
 
-    //@}
+    /// @}
 
 
   protected:

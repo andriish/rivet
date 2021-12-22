@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -44,7 +44,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      
+
       double sigma = _cKpKmpippim->val();
       double error = _cKpKmpippim->err();
       sigma *= crossSection()/ sumOfWeights() /nanobarn;
@@ -67,13 +67,13 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _cKpKmpippim;
-    //@}
+    /// @}
 
 
   };

@@ -20,14 +20,14 @@ namespace Rivet {
 
     /// @name Helper functions
     /// @note The PID:: namespace functions would be preferable, but don't have exactly the same behaviour. Preserving the original form.
-    //@{
+    /// @{
     bool isParton(int id) { return abs(id) <= 100 && abs(id) != 22 && (abs(id) < 11 || abs(id) > 18); }
     // bool isBHadron(int id) { return ((abs(id)/100)%10 == 5) || (abs(id) >= 5000 && abs(id) <= 5999); }
-    //@}
+    /// @}
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book projections and histograms
     void init() {
@@ -115,7 +115,7 @@ namespace Rivet {
     Profile1DPtr _histMeanXbprim;
     Profile1DPtr _histMeanXbweak;
 
-    //@}
+    /// @}
 
   };
 

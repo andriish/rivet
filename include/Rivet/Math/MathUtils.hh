@@ -13,7 +13,7 @@ namespace Rivet {
 
 
   /// @name Comparison functions for safe (floating point) equality tests
-  //@{
+  /// @{
 
   /// @brief Compare a number to zero
   ///
@@ -112,11 +112,11 @@ namespace Rivet {
     return a > b ? a : b;
   }
 
-  //@}
+  /// @}
 
 
   /// @name Ranges and intervals
-  //@{
+  /// @{
 
   /// Represents whether an interval is open (non-inclusive) or closed (inclusive).
   ///
@@ -207,11 +207,11 @@ namespace Rivet {
 
   /// @todo Add pair-based versions of the named range-boundary functions
 
-  //@}
+  /// @}
 
 
   /// @name Miscellaneous numerical helpers
-  //@{
+  /// @{
 
   /// Named number-type squaring operation.
   template <typename NUM>
@@ -269,11 +269,11 @@ namespace Rivet {
     return valsign;
   }
 
-  //@}
+  /// @}
 
 
   /// @name Physics statistical distributions
-  //@{
+  /// @{
 
   /// @brief CDF for the Breit-Wigner distribution
   inline double cdfBW(double x, double mu, double gamma) {
@@ -288,11 +288,11 @@ namespace Rivet {
     return gamma*xn + mu;
   }
 
-  //@}
+  /// @}
 
 
   /// @name Binning helper functions
-  //@{
+  /// @{
 
   /// @brief Make a list of @a nbins + 1 values equally spaced between @a start and @a end inclusive.
   ///
@@ -431,11 +431,11 @@ namespace Rivet {
     return _binIndex(val, binedges, allow_overflow);
   }
 
-  //@}
+  /// @}
 
 
   /// @name Discrete statistics functions
-  //@{
+  /// @{
 
   /// Calculate the median of a sample
   /// @todo Support multiple container types via SFINAE
@@ -558,11 +558,11 @@ namespace Rivet {
     return corr_strength_err;
   }
 
-  //@}
+  /// @}
 
 
   /// @name Angle range mappings
-  //@{
+  /// @{
 
   /// @brief Reduce any number to the range [-2PI, 2PI]
   ///
@@ -617,11 +617,11 @@ namespace Rivet {
     }
   }
 
-  //@}
+  /// @}
 
 
   /// @name Phase-space measure helpers
-  //@{
+  /// @{
 
   /// @brief Calculate the difference between two angles in radians
   ///
@@ -673,7 +673,7 @@ namespace Rivet {
     return 0.5*log((E+pz)/(E-pz));
   }
 
-  //@}
+  /// @}
 
 
   /// Calculate transverse mass of two vectors from provided pT and deltaPhi

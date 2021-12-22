@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief rho0 and K*+/- spectra at 35 GeV 
+  /// @brief rho0 and K*+/- spectra at 35 GeV
   class JADE_1984_I203145 : public Analysis {
   public:
 
@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -63,13 +63,13 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_rho, _h_kstar;
-    //@}
+    /// @}
 
 
   };

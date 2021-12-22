@@ -503,7 +503,7 @@ namespace Rivet {
 
 
     /// Helper functions
-    //@{
+    /// @{
 
     /// Function giving a list of all signal regions
     vector<string> getSignalRegions()  {
@@ -1027,18 +1027,18 @@ namespace Rivet {
       return onZ;
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_HTlep_all, _h_HTjets_all, _h_MET_all, _h_Meff_all;
     Histo1DPtr _h_pt_1_3l, _h_pt_2_3l, _h_pt_3_3l, _h_pt_1_2ltau, _h_pt_2_2ltau, _h_pt_3_2ltau;
     Histo1DPtr _h_e_n, _h_mu_n, _h_tau_n;
     Histo1DPtr _h_excluded;
-    //@}
+    /// @}
 
     /// Fiducial efficiencies to model the effects of the ATLAS detector
     bool _use_fiducial_lepton_efficiency;

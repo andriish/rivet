@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms, set up projections for W and jets
     void init() {
@@ -102,15 +102,15 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_delta_jets_n;
     Histo1DPtr _h_delta_jets;
-    //@}
+    /// @}
 
   };
 

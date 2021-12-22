@@ -50,7 +50,7 @@ namespace Rivet {
   /// @name Streaming containers as string reps
   /// @todo Make these named toStr rather than operator<<
   /// @todo Make these generic to any iterable
-  //@{
+  /// @{
 
   /// Convenient function for streaming out vectors of any streamable object.
   template<typename T>
@@ -74,18 +74,18 @@ namespace Rivet {
     return os;
   }
 
-  //@}
+  /// @}
 
   /// @name Convenience container typedefs
-  //@{
+  /// @{
   typedef vector<std::string> strings;
   typedef vector<double> doubles;
   typedef vector<float> floats;
   typedef vector<int> ints;
-  //@}
+  /// @}
 
   /// @name Boolean-return container searching
-  //@{
+  /// @{
 
   /// @todo Use SFINAE, Boost.Range, or other template trickery for more generic container matching?
 
@@ -133,7 +133,7 @@ namespace Rivet {
     return false;
   }
 
-  //@}
+  /// @}
 
 
 }
@@ -142,7 +142,7 @@ namespace std {
 
 
   /// @name Container filling and merging
-  //@{
+  /// @{
 
   /// Append a single item to vector @a v
   template <typename T>
@@ -177,11 +177,11 @@ namespace std {
     return rtn;
   }
 
-  //@}
+  /// @}
 
 
   /// @name Function helpers
-  //@{
+  /// @{
 
   /// Get a function pointer / hash integer from an std::function
   template<typename T, typename... U>
@@ -191,7 +191,7 @@ namespace std {
     return (fnPointer != nullptr) ? reinterpret_cast<uintptr_t>(*fnPointer) : 0;
   }
 
-  //@}
+  /// @}
 
 
 }

@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -411,18 +411,18 @@ namespace Rivet {
     }
 
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
 
      map<string, Histo1DPtr> _h;
      map<string, Scatter2DPtr> _s;
 
-     //@}
+     /// @}
 
      double MZ_PDG = 91.1876;
      double MW_PDG = 83.385;

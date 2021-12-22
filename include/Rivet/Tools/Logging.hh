@@ -78,7 +78,7 @@ namespace Rivet {
   protected:
 
     /// @name Hidden constructors etc.
-    //@{
+    /// @{
 
     /// Constructor 1
     Log(const std::string& name);
@@ -86,7 +86,7 @@ namespace Rivet {
     /// Constructor 2
     Log(const std::string& name, int level);
 
-    //@}
+    /// @}
 
     static std::string getColorCode(int level);
 
@@ -131,7 +131,7 @@ namespace Rivet {
     }
 
     /// @name Explicit log methods
-    //@{
+    /// @{
     void trace(const std::string& message) { log(TRACE, message); }
 
     void debug(const std::string& message) { log(DEBUG, message); }
@@ -141,7 +141,7 @@ namespace Rivet {
     void warn(const std::string& message) { log(WARN, message); }
 
     void error(const std::string& message) { log(ERROR, message); }
-    //@}
+    /// @}
 
 
   private:

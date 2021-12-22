@@ -246,7 +246,7 @@ namespace Rivet {
     ///
     /// @note Histograms correspond to charged and total EF for each class of events:
     ///  minimum bias, hard scattering, diffractive enriched and non-diffractive enriched.
-    //@{
+    /// @{
 
     // Scatters to be filled in finalize with 1/d_eta <N(eta)><E(eta)>
     Scatter2DPtr _s_totEF_minbias, _s_totEF_hard, _s_totEF_diff, _s_totEF_nondiff;
@@ -264,7 +264,7 @@ namespace Rivet {
     CounterPtr _mbSumW, _hdSumW, _dfSumW, _ndSumW;
     CounterPtr _mbchSumW, _hdchSumW, _dfchSumW, _ndchSumW;
 
-    //@}
+    /// @}
 
   };
 

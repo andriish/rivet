@@ -226,7 +226,7 @@ namespace Rivet {
 
 
     /// @name Access to the jets
-    //@{
+    /// @{
 
     /// Get the jets (unordered) with pT > ptmin.
     Jets _jets() const;
@@ -257,11 +257,11 @@ namespace Rivet {
     /// Alias
     PseudoJets pseudojetsByRapidity(double ptmin=0.0) const { return pseudoJetsByRapidity(ptmin); }
 
-    //@}
+    /// @}
 
 
     /// @name Access to the FastJet clustering objects such as jet def, area def, and cluster
-    //@{
+    /// @{
 
     /// Return the cluster sequence.
     /// @todo Care needed re. const shared_ptr<T> vs. shared_ptr<const T>
@@ -288,7 +288,7 @@ namespace Rivet {
       return _adef;
     }
 
-    //@}
+    /// @}
 
 
   private:

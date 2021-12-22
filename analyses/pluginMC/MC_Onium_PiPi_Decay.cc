@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -48,7 +48,7 @@ namespace Rivet {
       book(_hel.back().first, title.str()+"hpippim",100,-1.,1.);
       book(_hel.back().second, title.str()+"hpi0pi0",100, 0.,1.);
     }
-    
+
     void findDecayProducts(const Particle & mother,
 			   unsigned int & nstable,
 			   Particles& pip, Particles& pim,
@@ -122,8 +122,8 @@ namespace Rivet {
 	}
       }
     }
-    
-    
+
+
     /// Normalise histograms etc., after the run
     void finalize() {
 
@@ -136,23 +136,23 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
     /**
      *  Incoming onium states
      */
     vector<long> _incoming;
-    
+
     /**
      *  Outgoing onium states
      */
     vector<long> _outgoing;
-    
+
     /**
      *  Histograms for the \f$\pi^+\pi^-\f$ masses
      */
     vector<pair<Histo1DPtr,Histo1DPtr> > _mpipi;
-    
+
     /**
      *  Histmgrams for the helicity angles
      */

@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -41,7 +41,7 @@ namespace Rivet {
 	++ntotal;
       }
       if(ntotal!=2) vetoEvent;
-      
+
       if(nCount[211]==1 && nCount[-211]==1)
 	_npipi->fill();
       else if(nCount[321]==1 && nCount[-321]==1)
@@ -90,13 +90,13 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _npipi,_nKK,_nppbar;
-    //@}
+    /// @}
 
 
   };

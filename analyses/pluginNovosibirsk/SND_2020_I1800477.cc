@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -40,7 +40,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      
+
       const FinalState& fs = apply<FinalState>(event, "FS");
 
       map<long,int> nCount;
@@ -107,7 +107,7 @@ namespace Rivet {
        	else if(ix==3) {
        	  sigma = _c_total->val()*fact;
        	  error = _c_total->err()*fact;
-       	} 
+       	}
        	Scatter2D temphisto(refData(ix, 1, 1));
        	Scatter2DPtr  mult;
        	book(mult, ix, 1, 1);
@@ -127,13 +127,13 @@ namespace Rivet {
       }
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     CounterPtr _c_total,_c_omega;
-    ///@}
+    /// @}
 
 
   };

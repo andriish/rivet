@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -52,7 +52,7 @@ namespace Rivet {
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() + beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
-      
+
       for (const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==111) ) {
 	const Vector3 mom3 = p.p3();
 	const double pTinS  = abs(dot(mom3, sphericity.sphericityMajorAxis()));
@@ -71,13 +71,13 @@ namespace Rivet {
       scale(_h_out, 1./sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_x, _h_in, _h_out;
-    //@}
+    /// @}
 
 
   };

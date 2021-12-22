@@ -21,7 +21,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -94,7 +94,7 @@ namespace Rivet {
 	axis = beams.second.momentum().p3().unit();
       // thrust, to define an axis
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
-      
+
       int flavour = 0;
       const InitialQuarks& iqf = apply<InitialQuarks>(event, "IQF");
 
@@ -127,11 +127,11 @@ namespace Rivet {
 	// B*
 	if(p.abspid()==513 or p.abspid()==523) {
 	  int mid = p.abspid()-2;
-	  if(p.children()[0].pid()==sign*mid && 
+	  if(p.children()[0].pid()==sign*mid &&
 	     p.children()[1].pid()==22) {
 	    decay = p.children()[1];
 	  }
-	  else if(p.children()[1].pid()==sign*mid && 
+	  else if(p.children()[1].pid()==sign*mid &&
 		  p.children()[0].pid()==22) {
 	    decay = p.children()[0];
 	  }
@@ -143,11 +143,11 @@ namespace Rivet {
 	  // cut x_E > 0.7
 	  double xE = p.momentum().E()/meanBeamMom;
 	  if(xE<0.7) continue;
-	  if(p.children()[0].pid()== 321 && 
+	  if(p.children()[0].pid()== 321 &&
 	     p.children()[1].pid()==-321) {
 	    decay = p.children()[0];
 	  }
-	  else if(p.children()[1].pid()== 321 && 
+	  else if(p.children()[1].pid()== 321 &&
 		  p.children()[0].pid()==-321) {
 	    decay = p.children()[1];
 	  }
@@ -158,20 +158,20 @@ namespace Rivet {
 	else if(p.abspid()==413) {
 	  double xE = p.momentum().E()/meanBeamMom;
 	  if(xE<0.5 || flavour!=4) continue;
-	  if(p.children()[0].pid()==sign*421 && 
+	  if(p.children()[0].pid()==sign*421 &&
 	     p.children()[1].pid()==sign*211) {
 	    decay = p.children()[1];
 	  }
-	  else if(p.children()[1].pid()==sign*421 && 
+	  else if(p.children()[1].pid()==sign*421 &&
 		  p.children()[0].pid()==sign*211) {
 	    decay = p.children()[0];
 	  }
 	  else
 	    continue;
-	  
+
 	}
 	LorentzTransform boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
-	Vector3 e1z = p.p3().unit();	
+	Vector3 e1z = p.p3().unit();
 	FourMomentum pp = boost.transform(decay.momentum());
 	Vector3 axis1 = boost.transform(decay.momentum()).p3().unit();
 	double ctheta = e1z.dot(axis1);
@@ -212,11 +212,11 @@ namespace Rivet {
 	  _h_phi_beta2   ->fill( beta);
 	  /// counters for asymmetries
 	  double sin2H = 2.*ctheta*sqrt(1.-sqr(ctheta));
-	  if(sin2H*cos(phi)>0.) 
+	  if(sin2H*cos(phi)>0.)
 	    _c_phi_cos_plus->fill();
 	  else
 	    _c_phi_cos_neg->fill();
-	  if(sin2H*sin(phi)>0.) 
+	  if(sin2H*sin(phi)>0.)
 	    _c_phi_sin_plus->fill();
 	  else
 	    _c_phi_sin_neg->fill();
@@ -232,11 +232,11 @@ namespace Rivet {
 	    _h_phi_alpha3  ->fill(alpha);
 	    _h_phi_beta3   ->fill( beta);
 	    /// counters for asymmetries
-	    if(sin2H*cos(phi)>0.) 
+	    if(sin2H*cos(phi)>0.)
 	      _c_phi_cos_plus2->fill();
 	    else
 	      _c_phi_cos_neg2->fill();
-	    if(sin2H*sin(phi)>0.) 
+	    if(sin2H*sin(phi)>0.)
 	      _c_phi_sin_plus2->fill();
 	    else
 	      _c_phi_sin_neg2->fill();
@@ -265,20 +265,20 @@ namespace Rivet {
 	    _h_phi_beta4   ->fill( beta);
 	    /// counters for asymmetries
 	    double sin2H = 2.*ctheta*sqrt(1.-sqr(ctheta));
-	    if(sin2H*cos(phi)>0.) 
+	    if(sin2H*cos(phi)>0.)
 	      _c_phi_cos_plus3->fill();
 	    else
 	      _c_phi_cos_neg3->fill();
-	    if(sin2H*sin(phi)>0.) 
+	    if(sin2H*sin(phi)>0.)
 	      _c_phi_sin_plus3->fill();
 	    else
 	      _c_phi_sin_neg3->fill();
-	    
+
 	  }
 	}
       }
     }
-    
+
     pair<double,double> calcRho(Histo1DPtr hist,unsigned int mode) {
       if(hist->numEntries()==0.) return make_pair(0.,0.);
       double sum1(0.),sum2(0.);
@@ -405,11 +405,11 @@ namespace Rivet {
 			    make_pair(temp3.points()[0].xErrMinus(),temp3.points()[0].xErrPlus()) );
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_B,_h_B2;
     Histo1DPtr _h_phi_ctheta, _h_phi_ctheta2, _h_phi_ctheta3, _h_phi_ctheta4;
     Histo1DPtr _h_phi_alpha , _h_phi_alpha2 , _h_phi_alpha3 , _h_phi_alpha4 ;
@@ -418,7 +418,7 @@ namespace Rivet {
     CounterPtr _c_phi_sin_plus, _c_phi_sin_neg, _c_phi_sin_plus2, _c_phi_sin_neg2, _c_phi_sin_plus3, _c_phi_sin_neg3;
     Histo1DPtr _h_DS_ctheta, _h_DS_ctheta2;
     Histo1DPtr _h_DS_alpha , _h_DS_alpha2 ;
-    //@}
+    /// @}
 
 
   };

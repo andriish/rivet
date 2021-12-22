@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -328,7 +328,7 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -392,7 +392,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_3_mNJ;
     Histo1DPtr _h_3_X3;
     Histo1DPtr _h_3_X4;
@@ -431,7 +431,7 @@ namespace Rivet {
     Histo1DPtr _h_5_fB;
     Histo1DPtr _h_5_fC;
     Histo1DPtr _h_5_fD;
-    //@}
+    /// @}
 
   };
 

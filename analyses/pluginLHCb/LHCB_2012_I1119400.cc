@@ -9,7 +9,7 @@ namespace Rivet {
     public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     LHCB_2012_I1119400() : Analysis("LHCB_2012_I1119400"),
@@ -20,20 +20,20 @@ namespace Rivet {
       _eta_max(4.5)
     {   }
 
-    //@}
+    /// @}
 
 
     public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
       fillMap(_partLftMap);
 
       int id_shift = 0;
-      if (isCompatibleWithSqrtS(7000)) id_shift = 1;
+      if (isCompatibleWithSqrtS(7000*GeV)) id_shift = 1;
       // define ratios if second pdgid in pair is -1, it means that is a antiparticle/particle ratio
 
       _ratiotype["pbarp"]         = make_pair(2212, -1);
@@ -150,7 +150,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     private:

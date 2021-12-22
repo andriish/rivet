@@ -12,17 +12,18 @@
 #include "YODA/WriterYODA.h"
 #include <iostream>
 #include <regex>
-
-using std::cout;
-using std::cerr;
+using namespace std;
 
 namespace Rivet {
 
 
   AnalysisHandler::AnalysisHandler(const string& runname)
-    : _runname(runname), _userxs{NAN, NAN},
-      _initialised(false), _ignoreBeams(false),
-      _skipWeights(false), _matchWeightNames(""),
+    : _runname(runname),
+      _userxs{NAN, NAN},
+      _initialised(false),
+      _checkBeams(true),
+      _skipMultiWeights(false),
+      _matchWeightNames(""),
       _unmatchWeightNames(""),
       _nominalWeightName(""),
       _weightCap(0.),
@@ -32,13 +33,13 @@ namespace Rivet {
 
 
   AnalysisHandler::~AnalysisHandler() {
-      static bool printed = false;
+    static bool printed = false;
     // Print out MCnet boilerplate
     if (!printed && getLog().getLevel() <= 20) {
       cout << endl
            << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl
            << "Please acknowledge Rivet in results made using it, and cite https://arxiv.org/abs/1912.05451" << endl;
-           // << "https://arxiv.org/abs/1003.0694" << endl;
+      // << "https://arxiv.org/abs/1003.0694" << endl;
       printed = true;
     }
   }
@@ -77,20 +78,21 @@ namespace Rivet {
     if (_initialised)
       throw UserError("AnalysisHandler::init has already been called: cannot re-initialize!");
 
-    /// @todo Should the Rivet analysis objects know about weight names?
-
-    setRunBeams(Rivet::beams(ge));
+    // Set the Run's beams based on this first event
+    /// @todo Improve this const/ptr GenEvent mess!
+    const Event e(const_cast<GenEvent&>(ge));
+    setRunBeams(beams(e));
     MSG_DEBUG("Initialising the analysis handler");
     _eventNumber = ge.event_number();
 
     // Assemble the weight streams to be used
     setWeightNames(ge);
-    if (_skipWeights) {
-        MSG_INFO("Only using nominal weight. Variation weights will be ignored.");
+    if (_skipMultiWeights) {
+      MSG_INFO("Only using nominal weight: variation weights will be ignored");
     } else if (haveNamedWeights()) {
-        MSG_INFO("Using named weights");
+      MSG_DEBUG("Using named weights");
     } else {
-        MSG_INFO("NOT using named weights. Using first weight as nominal weight");
+      MSG_WARNING("NOT using named weights: assuming first weight is nominal");
     }
 
     // Create the multi-weighted event counter
@@ -108,10 +110,7 @@ namespace Rivet {
     const size_t num_anas_requested = analysisNames().size();
     vector<string> anamestodelete;
     for (const AnaHandle& a : analyses()) {
-      if (!_ignoreBeams && !a->isCompatible(beams())) {
-        //MSG_DEBUG(a->name() << " requires beams " << a->requiredBeams() << " @ " << a->requiredEnergies() << " GeV");
-        anamestodelete.push_back(a->name());
-      }
+      if (_checkBeams && !a->compatibleWithRun()) anamestodelete += a->name();
     }
     // Remove incompatible analyses from the run
     for (const string& aname : anamestodelete) {
@@ -157,6 +156,15 @@ namespace Rivet {
     _initialised = true;
     MSG_DEBUG("Analysis handler initialised");
   }
+
+
+  // void AnalysisHandler::init(GenEvent* ge) {
+  //   if (ge == nullptr) {
+  //     MSG_ERROR("AnalysisHandler received null pointer to GenEvent");
+  //     //throw Error("AnalysisHandler received null pointer to GenEvent");
+  //   }
+  //   init(*ge);
+  // }
 
 
   void AnalysisHandler::setWeightNames(const GenEvent& ge) {
@@ -210,7 +218,7 @@ namespace Rivet {
     }
 
     // Apply behaviours for only using the nominal weight, or all weights
-    if (_skipWeights)  {
+    if (_skipMultiWeights)  {
 
       // If running in single-weight mode, remove all bar the nominal weight
       _weightIndices = { _defaultWeightIdx };
@@ -235,14 +243,14 @@ namespace Rivet {
             _rivetDefaultWeightIdx = selected_indices.size();
             selected_indices.push_back(_weightIndices[i]);
             selected_subset.push_back(_weightNames[i]);
-            MSG_DEBUG("Selected nominal weight: " << _weightNames[i]);
+            MSG_DEBUG("Selected nominal weight: \"" << _weightNames[i] << "\"");
             continue;
           }
           for (const std::regex& re : patterns) {
             if ( std::regex_match(_weightNames[i], re) ) {
               selected_indices.push_back(_weightIndices[i]);
               selected_subset.push_back(_weightNames[i]);
-              MSG_DEBUG("Selected variation weight: " << _weightNames[i]);
+              MSG_DEBUG("Selected variation weight: \"" << _weightNames[i] << "\"");
               break;
             }
           }
@@ -292,39 +300,44 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::analyze(const GenEvent& ge) {
+  // bool AnalysisHandler::consistentWithRun(Event& event) {
+  //   const PdgIdPair beamids = beamIDs(event);
+  //   const double sqrts = sqrtS(event);
+  //   return compatibleBeams(beamids, runBeamIDs()) && compatibleBeamEnergy(sqrts, runSqrtS());
+  // }
+
+
+  void AnalysisHandler::analyze(GenEvent& ge) {
     // Call init with event as template if not already initialised
     if (!_initialised) init(ge);
     assert(_initialised);
 
+    // Create the Rivet event wrapper
+    //bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
+    const Event event(ge, _weightIndices);
+
     // Ensure that beam details match those from the first event (if we're checking beams)
-    if ( !_ignoreBeams ) {
-      const PdgIdPair evtbeams = Rivet::beamIds(ge);
-      const double sqrts = Rivet::sqrtS(ge);
-      MSG_DEBUG("Event beams = " << evtbeams << " at sqrt(s) = " << sqrts/GeV << " GeV");
-      if (evtbeams.first == PID::ANY && evtbeams.second == PID::ANY) {
+    if (_checkBeams) {
+      const ParticlePair evtbeams = beams(event);
+      MSG_DEBUG("Event beams = " << evtbeams);
+      if (evtbeams.first.pid() == PID::ANY && evtbeams.second.pid() == PID::ANY) {
         MSG_ERROR("No event beams found: please fix the events, or run with beam-checking disabled");
         exit(1);
       }
-      if (!compatible(evtbeams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
-        cerr << "Event beams mismatch: "
-             << PID::toBeamsString(evtbeams) << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
-             << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
+      if (!compatibleBeams(evtbeams, runBeams())) {
+        MSG_ERROR("Event beams mismatch with run: "
+                  << PID::toBeamsString(beamIDs(event)) << " @ " << sqrtS(event)/GeV << " GeV" << " vs. expected "
+                  << this->runBeams() << " @ " << this->runSqrtS()/GeV << " GeV");
         exit(1);
       }
     }
-
-    // Create the Rivet event wrapper
-    /// @todo Filter/normalize the event here
-    /// @todo Find a way to cache the env call
-    bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
-    Event event(ge, _weightIndices, strip);
 
     // Set the cross section based on what is reported by this event
     if (ge.cross_section()) setCrossSection(HepMCUtils::crossSection(ge));
 
     // If the event number has changed, sync the sub-event analysis objects to persistent
     // NB. Won't happen for first event because _eventNumber is set in init()
+    /// @todo Need to be able to turn this off, in the case of slightly malformed events without event numbers
     if (_eventNumber != ge.event_number()) {
       pushToPersistent();
       _eventNumber = ge.event_number();
@@ -339,9 +352,10 @@ namespace Rivet {
       }
     }
 
+    // Optionally cap large weights, to avoid spikes
     _subEventWeights.push_back(event.weights());
     if (_weightCap != 0.) {
-      MSG_DEBUG("Implementing weight cap using a maximum |weight| = " << _weightCap << " for latest subevent.");
+      MSG_DEBUG("Implementing weight cap using a maximum |weight| = " << _weightCap << " for latest subevent");
       size_t lastSub = _subEventWeights.size() - 1;
       for (size_t i = 0; i < _subEventWeights[lastSub].size(); ++i) {
         if (abs(_subEventWeights[lastSub][i]) > _weightCap) {
@@ -349,10 +363,12 @@ namespace Rivet {
         }
       }
     }
-    MSG_DEBUG("Analyzing subevent #" << _subEventWeights.size() - 1 << ".");
 
-    _eventCounter->fill();
     // Run the analyses
+    if (_subEventWeights.size() > 1) {
+      MSG_TRACE("Analyzing subevent #" << _subEventWeights.size());
+    }
+    _eventCounter->fill();
     for (AnaHandle a : analyses()) {
       MSG_TRACE("About to run analysis " << a->name());
       try {
@@ -376,7 +392,7 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::analyze(const GenEvent* ge) {
+  void AnalysisHandler::analyze(GenEvent* ge) {
     if (ge == nullptr) {
       MSG_ERROR("AnalysisHandler received null pointer to GenEvent");
       //throw Error("AnalysisHandler received null pointer to GenEvent");
@@ -411,6 +427,15 @@ namespace Rivet {
     // First push all analyses' objects to persistent and final
     MSG_TRACE("AnalysisHandler::finalize(): Pushing analysis objects to persistent.");
     pushToPersistent();
+
+    // Warn if no cross-section was set
+    if (!nominalCrossSection()) {
+      MSG_WARNING("Null nominal cross-section: setting to 10^-10 pb to allow rescaling");
+      setCrossSection(1.0e-10, 0.0);
+      // _xs.get()->setActiveWeightIdx(_rivetDefaultWeightIdx);
+      // _xs->point(0).setX(1.0, 1.0);
+      // _xs.get()->unsetActiveWeight();
+    }
 
     // Copy all histos to finalize versions.
     _eventCounter.get()->pushToFinal();
@@ -822,10 +847,9 @@ namespace Rivet {
       _xs.get()->unsetActiveWeight();
     }
 
-    // Finally we just have to finalize all analyses, leaving to the
-    // controlling program to write it out some yoda-file.
+    // Finally we just have to finalize all analyses, leaving it to the
+    // controlling program to write it out to some YODA file
     finalize();
-
   }
 
 
@@ -970,12 +994,17 @@ namespace Rivet {
 
   void AnalysisHandler::setCrossSection(const pair<double,double>& xsec, bool isUserSupplied) {
     // Update the user xsec
-    if (isUserSupplied) _userxs = xsec;
+    if (isUserSupplied) {
+      MSG_DEBUG("Setting user cross-section = " << xsec.first << " +- " << xsec.second << " pb");
+      _userxs = xsec;
+    }
 
-    // If not setting the user xsec, and a user xsec is already set, exit early
+    // If not setting the user xsec, and a user xsec is already set, do nothing and exit early
     if (!isUserSupplied && notNaN(_userxs.first)) return;
 
     // Otherwise, update the xs scatter: xs_var = xs_nom * (sumW_var/sumW_nom)
+    /// @todo Performance optimization? Overwriting the whole scatter wrapper on every event seems inefficient...
+    MSG_TRACE("Setting nominal cross-section = " << xsec.first << " +- " << xsec.second << " pb");
     _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
     _eventCounter.get()->setActiveWeightIdx(_rivetDefaultWeightIdx);
     const double nomwgt = sumW();
@@ -992,6 +1021,19 @@ namespace Rivet {
   }
 
 
+  double AnalysisHandler::nominalCrossSection() const {
+    _xs.get()->setActiveWeightIdx(_rivetDefaultWeightIdx);
+    const YODA::Scatter1D::Points& ps = _xs->points();
+    if (ps.size() != 1) {
+      string errMsg = "Value missing when requesting nominal cross-section";
+      throw Error(errMsg);
+    }
+    double xs = ps[0].x();
+    _xs.get()->unsetActiveWeight();
+    return xs;
+  }
+
+
   AnalysisHandler& AnalysisHandler::addAnalysis(Analysis* analysis) {
     analysis->_analysishandler = this;
     // _analyses.insert(AnaHandle(analysis));
@@ -1000,35 +1042,25 @@ namespace Rivet {
   }
 
 
-  PdgIdPair AnalysisHandler::beamIds() const {
-    return Rivet::beamIds(beams());
+
+  AnalysisHandler& AnalysisHandler::setRunBeams(const ParticlePair& beams) {
+    _beams = beams;
+    MSG_DEBUG("Setting run beams = " << beams << " @ " << sqrtS(beams)/GeV << " GeV");
+    return *this;
   }
 
 
-  double AnalysisHandler::sqrtS() const {
-    return Rivet::sqrtS(beams());
+  PdgIdPair AnalysisHandler::runBeamIDs() const {
+    return pids(runBeams());
   }
 
-
-  void AnalysisHandler::setIgnoreBeams(bool ignore) {
-    _ignoreBeams=ignore;
+  pair<double,double> AnalysisHandler::runBeamEnergies() const {
+    return energies(runBeams());
   }
 
-
-  void AnalysisHandler::skipMultiWeights(bool ignore) {
-    _skipWeights = ignore;
+  double AnalysisHandler::runSqrtS() const {
+    return sqrtS(runBeams());
   }
 
-  void AnalysisHandler::selectMultiWeights(std::string patterns) {
-    _matchWeightNames = patterns;
-  }
-
-  void AnalysisHandler::deselectMultiWeights(std::string patterns) {
-    _unmatchWeightNames = patterns;
-  }
-
-  void AnalysisHandler::setNominalWeightName(std::string name) {
-    _nominalWeightName = name;
-  }
 
 }

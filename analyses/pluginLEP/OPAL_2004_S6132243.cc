@@ -30,11 +30,11 @@ namespace Rivet {
       int ih = -1;
       if (inRange(sqrtS()/GeV, 89.9, 91.5)) {
         ih = 0;
-      } else if (isCompatibleWithSqrtS(133.)) {
+      } else if (isCompatibleWithSqrtS(133*GeV)) {
         ih = 1;
-      } else if (isCompatibleWithSqrtS(177.)) { // (161-183)
+      } else if (isCompatibleWithSqrtS(177*GeV)) { // (161-183)
         ih = 2;
-      } else if (isCompatibleWithSqrtS(197.)) { // (189-209)
+      } else if (isCompatibleWithSqrtS(197*GeV)) { // (189-209)
         ih = 3;
       } else {
         stringstream ss;

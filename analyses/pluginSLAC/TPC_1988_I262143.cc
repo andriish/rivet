@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -27,11 +27,11 @@ namespace Rivet {
       book(_h_z_K  ,1, 1, 2);
       book(_h_z_p  ,1, 1, 3);
       book(_h_z_all,1, 1, 4);
-      
+
       book(_h_z2_pi, 5, 1, 1);
       book(_h_z2_K , 5, 1, 2);
       book(_h_z2_p , 5, 1, 3);
-      
+
       book(_n_pi,"TMP/n_pi", refData(6,1,1));
       book(_n_K ,"TMP/n_K" , refData(6,1,2));
       book(_n_p ,"TMP/n_p" , refData(6,1,3));
@@ -123,16 +123,16 @@ namespace Rivet {
       divide(_n3_p,_d3_p, temp6);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_z_all,_h_z_pi,_h_z_K,_h_z_p;
     Histo1DPtr _h_z2_pi,_h_z2_K,_h_z2_p;
     Histo1DPtr _n_pi,_n_K,_n_p,_d_pi,_d_K,_d_p;
     Histo1DPtr _n2_K,_n2_p,_n3_p,_d2_K,_d2_p,_d3_p;
-    //@}2
+    /// @}2
 
 
   };

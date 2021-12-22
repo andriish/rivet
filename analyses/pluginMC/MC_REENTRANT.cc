@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -38,16 +38,16 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      if (isCompatibleWithSqrtS(900))
+      if (isCompatibleWithSqrtS(900*GeV))
         fill09 = true;
-      else if (isCompatibleWithSqrtS(7000))
+      else if (isCompatibleWithSqrtS(7000*GeV))
         fill70 = true;
 
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       for (const Particle& p : cfs.particles()) {
-        if (isCompatibleWithSqrtS(900))
+        if (isCompatibleWithSqrtS(900*GeV))
           _histEta09->fill(p.eta());
-        else if (isCompatibleWithSqrtS(7000))
+        else if (isCompatibleWithSqrtS(7000*GeV))
           _histEta70->fill(p.eta());
       }
     }
@@ -61,19 +61,19 @@ namespace Rivet {
         divide(_histEta70, _histEta09, _histEtaR);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histEta09, _histEta70;
     Scatter2DPtr _histEtaR;
-    //@}
+    /// @}
 
     bool fill09, fill70;
-    
+
   };
 
 

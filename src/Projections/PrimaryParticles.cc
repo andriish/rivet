@@ -10,9 +10,9 @@ namespace Rivet {
   void PrimaryParticles::project(const Event& e)
   {
     _theParticles.clear(); // Clear cache
-    bool open = _cuts == Cuts::open(); 
+    bool open = _cuts == Cuts::open();
     for (auto p : HepMCUtils::particles(e.genEvent())) {
-      if (isPrimary(p) && (open || _cuts->accept(Particle(p)))) 
+      if (isPrimary(p) && (open || _cuts->accept(Particle(p))))
 	_theParticles.push_back(Particle(*p));
     }
   }
@@ -22,7 +22,7 @@ namespace Rivet {
     if(isIgnored(p))  return false;
     if(!isPrimaryPID(p)) return false;
 
-    // Loop back over ancestors that are _not_ ignored 
+    // Loop back over ancestors that are _not_ ignored
     ConstGenParticlePtr m = p;
     while ((m = ancestor(m,true))) {
       if (isBeam(m)) return true;
@@ -35,7 +35,7 @@ namespace Rivet {
   {
     return (p->status()==0 || (p->status()>=11 && p->status()<=200));
   }
-    
+
   bool PrimaryParticles::isPrimaryPID(ConstGenParticlePtr p) const
   {
     int thisPID = abs(p->pdg_id());
@@ -47,7 +47,7 @@ namespace Rivet {
   bool PrimaryParticles::isBeam(ConstGenParticlePtr p) const
   {
     // Pythia6 uses 3 for initial state
-    return p && (p->status() == 3 || p->status() == 4); 
+    return p && (p->status() == 3 || p->status() == 4);
   }
 
   bool PrimaryParticles::hasDecayed(ConstGenParticlePtr p) const
@@ -60,12 +60,12 @@ namespace Rivet {
   {
     ConstGenVertexPtr vtx = p->production_vertex();
     if (!vtx) return 0;
-    
+
     auto parents = HepMCUtils::particles(vtx, Relatives::PARENTS);
     if ( parents.empty() ) return nullptr;
     return parents[0];
   }
-  
+
   ConstGenParticlePtr
   PrimaryParticles::ancestor(ConstGenParticlePtr p, bool) const
   {

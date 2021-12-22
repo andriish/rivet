@@ -23,43 +23,61 @@ namespace Rivet {
   public:
 
     /// @name Constructors and destructors.
-    //@{
+    /// @{
 
     /// Constructor from a HepMC GenEvent pointer
-    Event(const GenEvent* ge, const vector<size_t>& indices = {}, bool strip = false)
-      : _weightIndices(indices), _genevent_original(ge) {
-      assert(ge);
-      _genevent = *ge;
-      if ( strip ) _strip(_genevent);
-      _init(*ge);
+    ///
+    /// @note Although Rivet is an analysis system and should not modify the
+    /// *physics* of provided events, it needs to ensure that the events are
+    /// "sane" for analysis purposes, including fixing units and potentially
+    /// orientations and unphysical graph structures. The passed event pointer
+    /// is hence not const.
+    Event(GenEvent* ge, const vector<size_t>& weightindices={}) //, bool strip=false)
+      : _weightIndices(weightindices), _genevent(*ge)
+    {
+      if (!ge) throw UserError("User provided a null GenEvent pointer for analysis");
+      // if (strip) _strip(_genevent);
+      _fixGenEvent();
     }
 
     /// Constructor from a HepMC GenEvent reference
-    /// @deprecated HepMC uses pointers, so we should talk to HepMC via pointers
-    Event(const GenEvent& ge, const vector<size_t>& indices = {}, bool strip = false)
-      : _weightIndices(indices), _genevent_original(&ge), _genevent(ge) {
-        if ( strip ) _strip(_genevent);
-        _init(ge);
-      }
+    ///
+    /// @note See the pointer-based constructor for discussion of the
+    /// non-constness of the passed GenEvent.
+    ///
+    /// @deprecated HepMC uses pointers, so we should talk to HepMC via pointers: no need to duplicate.
+    Event(GenEvent& ge, const vector<size_t>& weightindices={}) //, bool strip=false)
+      : _weightIndices(weightindices), _genevent(ge)
+    {
+      // if (strip) _strip(_genevent);
+      _fixGenEvent();
+    }
 
     /// Copy constructor
     Event(const Event& e)
       : _weightIndices(e._weightIndices),
-        _genevent_original(e._genevent_original),
         _genevent(e._genevent)
     {  }
 
-    //@}
+    /// @}
 
 
     /// @name Major event properties
-    //@{
+    /// @{
 
-    /// The generated event obtained from an external event generator
+    /// The generated HepMC event obtained from an external event generator
+    const GenEvent& hepmcEvent() const { return _genevent; }
+    // /// @brief The generated HepMC event obtained from an external event generator
+    // ///
+    // /// Convenience alias for hepmcEventPtr()
+    // const GenEvent& hepmc() const { return _genevent; }
+
+    /// The generated HepMC event pointer obtained from an external event generator
+    const GenEvent* hepmcEventPtr() const { return &_genevent; }
+    /// @brief The generated HepMC event pointer obtained from an external event generator
+    ///
+    /// Backward-compatibility alias for hepmcEventPtr()
     const GenEvent* genEvent() const { return &_genevent; }
-
-    /// The generated event obtained from an external event generator
-    const GenEvent* originalGenEvent() const { return _genevent_original; }
 
     /// Get the beam particles
     ParticlePair beams() const;
@@ -70,11 +88,11 @@ namespace Rivet {
     /// Get the beam centre-of-mass energy per nucleon
     double asqrtS() const;
 
-    //@}
+    /// @}
 
 
     /// @name Access to event particles
-    //@{
+    /// @{
 
     /// All the raw GenEvent particles, wrapped in Rivet::Particle objects
     const Particles& allParticles() const;
@@ -103,10 +121,10 @@ namespace Rivet {
     /// @brief Obsolete weight method. Always returns 1 now.
     DEPRECATED("Event weight does not need to be included anymore. For compatibility, it's always == 1 now.")
     double weight() const { return 1.0; }
-    //@}
+    /// @}
 
     /// @name Projection running
-    //@{
+    /// @{
 
     /// @brief Add a projection @a p to this Event.
     ///
@@ -159,10 +177,13 @@ namespace Rivet {
       return applyProjection(*pp);
     }
 
-    //@}
+    /// @}
 
 
   private:
+
+    /// Tweak the GenEvent to Rivet's expected standards if necessary
+    void _fixGenEvent();
 
     /// Get a Log object for Event
     Log& getLog() const;
@@ -170,9 +191,12 @@ namespace Rivet {
     /// @brief Actual (shared) implementation of the constructors from GenEvents
     void _init(const GenEvent& ge);
 
-    /// @brief Remove uninteresting or unphysical particles in the
-    /// GenEvent to speed up searches.
-    void _strip(GenEvent & ge);
+
+    // /// @brief Remove uninteresting or unphysical particles in the
+    // /// GenEvent to speed up searches
+    // ///
+    // /// @todo Remove!
+    // void _strip(GenEvent& ge);
 
     // /// @brief Convert the GenEvent to use conventional alignment
     // ///
@@ -187,26 +211,11 @@ namespace Rivet {
     /// that match the specifications.
     const std::vector<size_t> _weightIndices;
 
-    /// @brief The generated event, as obtained from an external generator.
-    ///
-    /// This is the original GenEvent. In practise the version seen by users
-    /// will often/always be a modified one.
-    ///
-    /// @todo Provide access to this via an Event::originalGenEvent() method? If requested...
-    const GenEvent* _genevent_original;
-
-    /// @brief The GenEvent used by Rivet analysis projections etc.
-    ///
-    /// This version may be rotated to a "normal" alignment, have
-    /// generator-specific particles stripped out, etc.  If an analysis is
-    /// affected by these modifications, it is probably an unphysical analysis!
-    ///
-    /// Stored as a non-pointer since it may get overwritten, and memory for
-    /// copying and cleanup is neater this way.
-    /// @todo Change needed for HepMC3?
-    mutable GenEvent _genevent;
+    /// The GenEvent used by Rivet analysis projections etc.
+    const GenEvent& _genevent;
 
     /// All the GenEvent particles, wrapped as Rivet::Particles
+    ///
     /// @note To be populated lazily, hence mutability
     mutable Particles _particles;
 

@@ -20,7 +20,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -109,7 +109,7 @@ namespace Rivet {
       normalize(_hist_mass_norm, 1.0, false);
     }
 
-    //@}
+    /// @}
 
 
   private:

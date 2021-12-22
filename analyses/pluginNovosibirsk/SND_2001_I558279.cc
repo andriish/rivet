@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -23,9 +23,9 @@ namespace Rivet {
       // Book histograms
       book(_h_pm, 1, 1, 1);
       book(_h_p0, 2, 1, 1);
-      
+
     }
-    
+
     void findDecayProducts(const Particle & mother, unsigned int & nstable, Particles &pip,
 			   Particles &pim, Particles &pi0) {
       for(const Particle & p : mother.children()) {
@@ -73,13 +73,13 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_pm,_h_p0;
-    //@}
+    /// @}
 
 
   };

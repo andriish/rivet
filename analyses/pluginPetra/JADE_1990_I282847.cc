@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -25,10 +25,10 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       int ioff=-1;
-      if(isCompatibleWithSqrtS(35)) {
+      if(isCompatibleWithSqrtS(35*GeV)) {
       	ioff=0;
       }
-      else if(isCompatibleWithSqrtS(44.)) {
+      else if(isCompatibleWithSqrtS(44*GeV)) {
       	ioff=1;
       }
       else
@@ -73,12 +73,12 @@ namespace Rivet {
       if(_h_eta) scale(_h_eta  , crossSection()*sqr(sqrtS())/microbarn/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_gamma, _h_pi0, _h_eta;
-    //@}
+    /// @}
 
   };
 

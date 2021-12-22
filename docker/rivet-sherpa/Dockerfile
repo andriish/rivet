@@ -1,5 +1,5 @@
 ARG RIVET_VERSION
-FROM hepstore/rivet:${RIVET_VERSION}-ubuntu-gcc-hepmc2-py2
+FROM hepstore/rivet:${RIVET_VERSION}
 LABEL maintainer="rivet-developers@cern.ch"
 
 RUN export DEBIAN_FRONTEND=noninteractive \
@@ -18,7 +18,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && cd sherpa && autoreconf -fi \
     && ./configure --prefix=/usr/local \
       --enable-lhapdf=/usr/local --enable-fastjet=/usr/local \
-      --enable-hepmc2=/usr/local --enable-openloops=/usr/local/OpenLoops \
+      --enable-hepmc3=/usr/local --enable-openloops=/usr/local/OpenLoops \
       --enable-rivet=/usr/local --enable-analysis \
       --enable-pyext --enable-gzip \
       --enable-mpi CC=mpicc CXX=mpic++ \

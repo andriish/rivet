@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -63,17 +63,17 @@ namespace Rivet {
       divide(_htmp_chi_below_25, _htmp_chi_above_25, _h_ratio);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _h_chi;
     Histo1DPtr _htmp_chi_above_25, _htmp_chi_below_25;
     Scatter2DPtr _h_ratio;
-    //@}
+    /// @}
 
   };
 

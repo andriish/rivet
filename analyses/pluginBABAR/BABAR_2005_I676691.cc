@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -25,7 +25,7 @@ namespace Rivet {
       book(_c2pip2pim  , "TMP/2pip2pim");
       book(_cKpKmpippim, "TMP/KpKmpippim");
       book(_c2Kp2Km    , "TMP/2Kp2Km");
-      
+
     }
 
 
@@ -41,7 +41,7 @@ namespace Rivet {
       }
 
       if(ntotal!=4) vetoEvent;
-      
+
       if( nCount[211]==2 && nCount[-211]==2)
 	_c2pip2pim->fill();
       else if(nCount[321]==1 && nCount[-321]==1 && nCount[211]==1 && nCount[-211]==1)
@@ -49,11 +49,11 @@ namespace Rivet {
       else if( nCount[321]==2 && nCount[-321]==2)
 	_c2Kp2Km->fill();
     }
-    
-    
+
+
     /// Normalise histograms etc., after the run
     void finalize() {
-      
+
       for(unsigned int ix=1;ix<4;++ix) {
 	double sigma = 0., error = 0.;
 	if(ix==1) {
@@ -89,13 +89,13 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _c2pip2pim, _cKpKmpippim, _c2Kp2Km;
-    //@}
+    /// @}
 
 
   };

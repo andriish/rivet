@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -194,10 +194,10 @@ namespace Rivet {
       normalize(_h_pippim6);
       normalize(_dalitz6);
     }
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     // Histograms for D^0\to \bar{K}^0\pi^+\pi^-
     //m^2_+
     Histo1DPtr _h_plus1;
@@ -207,7 +207,7 @@ namespace Rivet {
     Histo1DPtr _h_pipi1;
     // Dalitz plot
     Histo2DPtr _dalitz1;
-    
+
     // Histograms for D^0\to K^-\pi^+\pi^0
     // Histogram for the K^-\pi^+ mass
     Histo1DPtr _h_minus2;
@@ -259,7 +259,7 @@ namespace Rivet {
     Histo1DPtr _h_pippim6;
     // Dalitz plot
     Histo2DPtr _dalitz6;
-    //@}
+    /// @}
 
   };
 

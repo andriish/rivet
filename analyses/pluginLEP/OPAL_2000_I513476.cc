@@ -21,7 +21,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -42,11 +42,11 @@ namespace Rivet {
 
       // Book histograms
       int ih=-1;
-      if (isCompatibleWithSqrtS(172.)) {
+      if (isCompatibleWithSqrtS(172*GeV)) {
         ih = 1;
-      } else if (isCompatibleWithSqrtS(183.)) {
+      } else if (isCompatibleWithSqrtS(183*GeV)) {
         ih = 2;
-      } else if (isCompatibleWithSqrtS(189.)) {
+      } else if (isCompatibleWithSqrtS(189*GeV)) {
         ih = 3;
       }
       else {
@@ -80,12 +80,12 @@ namespace Rivet {
       if (cfs.size() < 2) vetoEvent;
 
       _sumW->fill();
-      
+
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
-      
+
       // Thrust related
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
       _h_thrust    ->fill(thrust.thrust()     );
@@ -97,7 +97,7 @@ namespace Rivet {
       const Sphericity& sphericity = apply<Sphericity>(event, "Sphericity");
       _h_sphericity->fill(sphericity.sphericity());
       _h_aplanarity->fill(sphericity.aplanarity());
-      
+
       // C parameter
       const ParisiTensor& parisi = apply<ParisiTensor>(event, "Parisi");
       _h_C->fill(parisi.C());
@@ -108,7 +108,7 @@ namespace Rivet {
       _h_rhoH  ->fill(hemi.scaledMhigh());
       _h_wideB ->fill(hemi.Bmax());
       _h_totalB->fill(hemi.Bsum());
-      
+
       // Jets
       const FastJets& durjet = apply<FastJets>(event, "DurhamJets");
       const double y23 = durjet.clusterSeq()->exclusive_ymerge_max(2);
@@ -186,15 +186,15 @@ namespace Rivet {
       m_x->addPoint(sqrtS()/GeV,x,0.,x_err);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_thrust,_h_major,_h_minor,_h_aplanarity,_h_oblateness,_h_C,_h_rhoH,_h_sphericity;
     Histo1DPtr _h_totalB,_h_wideB,_h_y23,_h_mult,_h_pTin,_h_pTout,_h_y,_h_x,_h_xi;
     CounterPtr _sumW;
-    //@}
+    /// @}
 
 
   };

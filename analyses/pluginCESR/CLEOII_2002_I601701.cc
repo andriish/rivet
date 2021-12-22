@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -77,15 +77,15 @@ namespace Rivet {
       scatter->point(0).setY(_mult->val(),_mult->err());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _hist;
     CounterPtr _mult;
     CounterPtr _weightSum;
-    //@}
+    /// @}
 
 
   };

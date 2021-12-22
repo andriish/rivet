@@ -42,7 +42,7 @@ namespace Rivet {
     ///
     /// Since MC-based jet calibration (and/or particle flow) can add back in
     /// particles that weren't seen in calorimeters/trackers.
-    //@{
+    /// @{
 
     /// @brief Include (some) muons in jet construction.
     ///
@@ -70,11 +70,11 @@ namespace Rivet {
       _useInvisibles = useinvis ? Invisibles::DECAY : Invisibles::NONE;
     }
 
-    //@}
+    /// @}
 
 
     /// @name Access to jet objects
-    //@{
+    /// @{
 
     /// Get jets in no guaranteed order, with an optional Cut
     /// @note Returns a copy rather than a reference, due to cuts
@@ -145,7 +145,7 @@ namespace Rivet {
       return jets(Cuts::pT >= ptmin, cmpMomByPt);
     }
 
-    //@}
+    /// @}
 
 
   protected:

@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -40,7 +40,7 @@ namespace Rivet {
       {Histo1DPtr temp; _h_ctheta_omega.add(0.3  ,0.6 ,book(temp, "ctheta_omega_4",20,-1.,1.));}
       book(_h_ctheta_omega_all, "ctheta_omega_all",20,-1.,1.);
     }
-  
+
     pair<double,double> calcRho(Histo1DPtr hist) {
       if(hist->numEntries()==0.) return make_pair(0.,0.);
       double sum1(0.),sum2(0.);
@@ -72,7 +72,7 @@ namespace Rivet {
       }
       return true;
     }
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // First, veto on leptonic events by requiring at least 4 charged FS particles
@@ -156,14 +156,14 @@ namespace Rivet {
 			    make_pair(rho00.second,rho00.second) );
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _h_ctheta_rho,_h_ctheta_omega;
     Histo1DPtr _h_ctheta_omega_all;
-    //@}
+    /// @}
 
 
   };

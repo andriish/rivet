@@ -3,9 +3,15 @@
 set -e
 
 BUILD="docker build" # --squash"
+
+test "$FORCE" && BUILD="$BUILD --no-cache"
+
 test "$TEST" && BUILD="echo $BUILD"
 
-RIVETBS_VERSION=3.1.4
+FEDORA_IMAGE=fedora:32
+UBUNTU_IMAGE=ubuntu:20.04
+
+RIVETBS_VERSION=3.1.5
 LHAPDF_VERSION=6.4.0
 
 for vhepmc in 3.2.4  2.06.11; do
@@ -46,6 +52,18 @@ for vhepmc in 3.2.4  2.06.11; do
         $BUILD . -f Dockerfile.fedora $GCCARGS -t $tag
         test "$PUSH" = 1 && docker push $tag && sleep 1m
         echo -e "\n\n\n"
+
+        # echo "@@ $MSG on Ubuntu rolling with GCC compilers"
+        # tag=hepstore/hepbase-ubuntux-gcc-hepmc${vhepmc:0:1}-py3$TEXSUFFIX
+        # $BUILD . -f Dockerfile.ubuntu $GCCARGS --build-arg UBUNTU_IMAGE=ubuntu:rolling -t $tag
+        # test "$PUSH" = 1 && docker push $tag && sleep 1m
+        # echo -e "\n\n\n"
+
+        # echo "@@ $MSG on Fedora rawhide with GCC compilers"
+        # tag=hepstore/hepbase-fedorax-gcc-hepmc${vhepmc:0:1}-py3$TEXSUFFIX
+        # $BUILD . -f Dockerfile.fedora $GCCARGS --build-arg FEDORA_IMAGE=fedora:rawhide -t $tag
+        # test "$PUSH" = 1 && docker push $tag && sleep 1m
+        # echo -e "\n\n\n"
 
         echo "@@ $MSG on Ubuntu with GCC compilers and Python 2"
         tag=hepstore/hepbase-ubuntu-gcc-hepmc${vhepmc:0:1}-py2$TEXSUFFIX

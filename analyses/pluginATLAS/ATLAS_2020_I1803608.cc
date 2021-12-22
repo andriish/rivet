@@ -6,7 +6,7 @@
 #include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
-  
+
 
   /// VBFZ in pp at 13 TeV
   class ATLAS_2020_I1803608 : public Analysis {
@@ -126,31 +126,31 @@ namespace Rivet {
         FourMomentum j1 = jets[0].mom(), j2 = jets[1].mom();
         pTj1 = j1.pT()/GeV; pTj2 = j2.pT()/GeV;
         assert(pTj1 >= pTj2);
-        
+
         // build dilepton system
         FourMomentum ll = (l1->mom() + l2->mom());
         pTll = ll.pT(); mll = ll.mass();
-        
+
         Nj = jets.size();
         Dyjj = std::abs(j1.rap() - j2.rap());
         mjj = (j1 + j2).mass();
         Dphijj = ( j1.rap() > j2.rap() ) ? mapAngleMPiToPi(j1.phi() - j2.phi()) : mapAngleMPiToPi(j2.phi() - j1.phi());
-        
+
         Jets gjets = getGapJets(jets);
         Ngj = gjets.size();
         pTgj = Ngj? gjets[0].pT()/GeV : 0;
-        
+
         FourMomentum vecSum = (j1 + j2 + l1->mom() + l2->mom());
         double HT = j1.pT() + j2.pT() + l1->pT() + l2->pT();
-        if (Ngj) { 
-          vecSum += gjets[0].mom(); 
+        if (Ngj) {
+          vecSum += gjets[0].mom();
           HT += pTgj;
         }
         pTbal = vecSum.pT() / HT;
-        
+
         Zcent = std::abs(ll.rap() - (j1.rap() + j2.rap())/2) / Dyjj;
       }
-      
+
       double Zcent, pTj1, pTj2, pTgj, pTll, mll, Dyjj, mjj, Dphijj, pTbal;
       size_t Nj, Ngj;
 
@@ -217,7 +217,7 @@ namespace Rivet {
   };
 
 
-  
+
   RIVET_DECLARE_PLUGIN(ATLAS_2020_I1803608);
 
 }

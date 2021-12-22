@@ -15,7 +15,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ATLAS_2017_I1609448(const string name="ATLAS_2017_I1609448", 
+    ATLAS_2017_I1609448(const string name="ATLAS_2017_I1609448",
                         const string ref_data="ATLAS_2017_I1609448") : Analysis(name) {
       setRefDataName(ref_data);
     }

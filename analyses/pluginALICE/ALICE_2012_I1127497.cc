@@ -19,7 +19,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2012_I1127497);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -52,7 +52,7 @@ namespace Rivet {
         // in some cases in this analysis the binning differ from each other,
         // so this is easy-to-implement way to account for that.
         std::string namePP = mkAxisCode(ihist+1,1,1) + "-pp";
-        
+
         // The binning is taken from the reference data
         book(_histNch[PP][ihist], namePP, refData(ihist+1, 1, 1));
 
@@ -189,7 +189,7 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
   private:
 
@@ -200,12 +200,12 @@ namespace Rivet {
     static const int PBPB = 1;
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histNch[EVENT_TYPES][NHISTOS];
     CounterPtr _counterSOW[EVENT_TYPES][NHISTOS];
     CounterPtr _counterNcoll[NHISTOS];
     Scatter2DPtr _histRAA[NHISTOS];
-    //@}
+    /// @}
 
     std::vector<std::pair<double, double>> _centrRegions;
 

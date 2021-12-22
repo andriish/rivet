@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -43,10 +43,10 @@ namespace Rivet {
       else if (inRange(sqrtS()/GeV,4.46,4.98)) {
 	ihist=5;
       }
-      else if (isCompatibleWithSqrtS(5.0)) {
+      else if (isCompatibleWithSqrtS(5.0*GeV)) {
 	ihist=6;
       }
-      else if (isCompatibleWithSqrtS(5.2)) {
+      else if (isCompatibleWithSqrtS(5.2*GeV)) {
 	ihist=7;
       }
       else {
@@ -98,14 +98,14 @@ namespace Rivet {
       scale(_h_proton_x ,fact);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_pi_p, _h_K_p, _h_proton_p;
     Histo1DPtr _h_pi_x, _h_K_x, _h_proton_x;
-    //@}
+    /// @}
 
 
   };

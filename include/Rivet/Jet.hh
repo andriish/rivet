@@ -19,7 +19,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors
-    //@{
+    /// @{
 
     /// Constructor from a FastJet PseudoJet, with optional full particle constituents information.
     Jet(const fastjet::PseudoJet& pj, const Particles& particles=Particles(), const Particles& tags=Particles()) {
@@ -34,11 +34,11 @@ namespace Rivet {
     /// Default constructor -- only for STL storability
     Jet() { clear(); }
 
-    //@}
+    /// @}
 
 
     /// @name Access jet constituents
-    //@{
+    /// @{
 
     /// Number of particles in this jet.
     size_t size() const { return _particles.size(); }
@@ -76,14 +76,14 @@ namespace Rivet {
     /// Nicer alias for containsParticleId
     bool containsPID(const vector<PdgId>& pids) const { return containsParticleId(pids); }
 
-    //@}
+    /// @}
 
 
     /// @name Tagging
     ///
     /// @note General sources of tag particles are planned. The default jet finding
     /// adds b-hadron, c-hadron, and tau tags by ghost association.
-    //@{
+    /// @{
 
     /// @brief Particles which have been tag-matched to this jet
     Particles& tags() { return _tags; }
@@ -137,11 +137,11 @@ namespace Rivet {
     /// Does this jet have at least one tau-tag (that passes the supplied selector function)?
     bool tauTagged(const ParticleSelector& f) const { return !tauTags(f).empty(); }
 
-    //@}
+    /// @}
 
 
     /// @name Effective jet 4-vector properties
-    //@{
+    /// @{
 
     /// Get equivalent single momentum four-vector.
     const FourMomentum& momentum() const { return _momentum; }
@@ -160,11 +160,11 @@ namespace Rivet {
     /// Get the energy carried in this jet by hadrons.
     double hadronicEnergy() const;
 
-    //@}
+    /// @}
 
 
     /// @name Interaction with FastJet
-    //@{
+    /// @{
 
     /// Access the internal FastJet3 PseudoJet (as a const reference)
     const fastjet::PseudoJet& pseudojet() const { return _pseudojet; }
@@ -172,11 +172,11 @@ namespace Rivet {
     /// Cast operator to FastJet3 PseudoJet (as a const reference)
     operator const fastjet::PseudoJet& () const { return pseudojet(); }
 
-    //@}
+    /// @}
 
 
     /// @name Set the jet constituents and properties
-    //@{
+    /// @{
 
     /// @brief Set the jet data from a FastJet PseudoJet, with optional particle constituents and tags lists.
     ///
@@ -196,7 +196,7 @@ namespace Rivet {
     /// Reset this jet as empty.
     Jet& clear();
 
-    //@}
+    /// @}
 
 
   private:
@@ -222,12 +222,12 @@ namespace Rivet {
 
 
   /// @name String representation and streaming support
-  //@{
+  /// @{
 
   /// Allow a Jet to be passed to an ostream.
   std::ostream& operator << (std::ostream& os, const Jet& j);
 
-  //@}
+  /// @}
 
 
 }

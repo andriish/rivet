@@ -15,6 +15,7 @@ RunInfo:
   inclusive Z production in the electron channel
 Beams: [p+, p+]
 Energies: [8000]
+Luminosity_fb: 20.3
 PtCuts: [12,20]
 NeedCrossSection: True
 Options:

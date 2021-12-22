@@ -20,7 +20,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialize projections before the run
     void init() {
@@ -192,7 +192,7 @@ namespace Rivet {
           _hist_eTmiss_mu->fill(eTmiss,weight);
       }
     }
-    //@}
+    /// @}
 
 
     void finalize() {
@@ -208,13 +208,13 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _count_e ;
     Histo1DPtr _count_mu;
 
     Histo1DPtr _hist_eTmiss_e ;
     Histo1DPtr _hist_eTmiss_mu;
-    //@}
+    /// @}
 
   };
 

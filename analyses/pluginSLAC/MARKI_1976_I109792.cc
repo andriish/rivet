@@ -14,26 +14,26 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
       const ChargedFinalState fs;
       declare(fs, "FS");
       unsigned int iloc(0);
-      if(isCompatibleWithSqrtS(3.0))
+      if(isCompatibleWithSqrtS(3.0*GeV))
 	iloc = 8;
-      else if(isCompatibleWithSqrtS(4.8))
+      else if(isCompatibleWithSqrtS(4.8*GeV))
 	iloc = 7;
-      else if(isCompatibleWithSqrtS(5.8))
+      else if(isCompatibleWithSqrtS(5.8*GeV))
 	iloc = 6;
-      else if(isCompatibleWithSqrtS(6.2))
+      else if(isCompatibleWithSqrtS(6.2*GeV))
 	iloc = 5;
-      else if(isCompatibleWithSqrtS(6.6))
+      else if(isCompatibleWithSqrtS(6.6*GeV))
 	iloc = 4;
-      else if(isCompatibleWithSqrtS(7.0))
+      else if(isCompatibleWithSqrtS(7.0*GeV))
 	iloc = 3;
-      else if(isCompatibleWithSqrtS(7.4))
+      else if(isCompatibleWithSqrtS(7.4*GeV))
 	iloc = 2;
       else
         MSG_ERROR("Beam energy incompatible with analysis.");
@@ -62,13 +62,13 @@ namespace Rivet {
       scale(_h_x,crossSection()*sqr(sqrtS())/sumOfWeights()/microbarn);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_x;
-    //@}
+    /// @}
 
 
   };

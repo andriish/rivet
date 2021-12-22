@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief $J/\psi\to e^+e^-\eta$ decays
   class BESIII_2018_I1697377 : public Analysis {
   public:
 
@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -24,22 +24,23 @@ namespace Rivet {
       book(_h_m, 1, 1, 1);
     }
 
-    void findDecayProducts(const Particle & mother, unsigned int & nstable, unsigned int & neta, 
+
+    void findDecayProducts(const Particle & mother, unsigned int & nstable, unsigned int & neta,
                            unsigned int & nep, unsigned int & nem, FourMomentum & ptot) {
       for(const Particle & p : mother.children()) {
         int id = p.pid();
         if (id == PID::EMINUS ) {
-	  ++nem;
+          ++nem;
           ++nstable;
-	  ptot += p.momentum();
-	}
+          ptot += p.momentum();
+        }
         else if (id == PID::EPLUS) {
           ++nep;
           ++nstable;
-	  ptot += p.momentum();
+          ptot += p.momentum();
         }
         else if (id == PID::ETA) {
-	  ++neta;
+          ++neta;
           ++nstable;
         }
         else if ( !p.children().empty() ) {
@@ -50,17 +51,18 @@ namespace Rivet {
       }
     }
 
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
       // Loop over J/psi mesons
       for (const Particle& p :  apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==443)) {
-	unsigned nstable(0),neta(0),nep(0),nem(0);
-	FourMomentum ptot;
-	findDecayProducts(p,nstable,neta,nep,nem,ptot);
-	if(nstable==3 && nem==1 && nem==1 && neta==1) {
-	  _h_m->fill(ptot.mass());
-	}
+        unsigned nstable(0),neta(0),nep(0),nem(0);
+        FourMomentum ptot;
+        findDecayProducts(p,nstable,neta,nep,nem,ptot);
+        if(nstable==3 && nem==1 && nem==1 && neta==1) {
+          _h_m->fill(ptot.mass());
+        }
       }
 
     }
@@ -68,25 +70,20 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
       normalize(_h_m); // normalize to unity
-
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_m;
-    //@}
-
+    /// @}
 
   };
 
 
-  // The hook for the plugin system
   RIVET_DECLARE_PLUGIN(BESIII_2018_I1697377);
-
 
 }

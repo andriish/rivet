@@ -184,9 +184,9 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     map<string, Histo1DPtr> _h;
-    //@}
+    /// @}
 
 
   };

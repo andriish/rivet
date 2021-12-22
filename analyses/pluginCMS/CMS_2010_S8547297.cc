@@ -18,7 +18,7 @@ namespace Rivet {
       ChargedFinalState cfs((Cuts::etaIn(-2.5, 2.5)));
       declare(cfs, "CFS");
 
-      if (isCompatibleWithSqrtS(900)) {
+      if (isCompatibleWithSqrtS(900*GeV)) {
         for (int d=1; d<=3; d++) {
           for (int y=1; y<=4; y++) {
             _h_dNch_dpT.push_back(Histo1DPtr());
@@ -27,7 +27,7 @@ namespace Rivet {
         }
         book(_h_dNch_dpT_all ,7, 1, 1);
         book(_h_dNch_dEta ,8, 1, 1);
-      } else if (isCompatibleWithSqrtS(2360)) {
+      } else if (isCompatibleWithSqrtS(2360*GeV)) {
         for (int d=4; d<=6; d++) {
           for (int y=1; y<=4; y++) {
             _h_dNch_dpT.push_back(Histo1DPtr());

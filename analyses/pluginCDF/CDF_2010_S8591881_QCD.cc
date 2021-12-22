@@ -32,7 +32,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Final state for the jet finding
@@ -156,7 +156,7 @@ namespace Rivet {
 
     // void finalize() {    }
 
-    //@}
+    /// @}
 
 
   private:

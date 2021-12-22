@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Set up projections
@@ -99,7 +99,7 @@ namespace Rivet {
       normalize(_hist_wpt_bare_mu);
     }
 
-    //@}
+    /// @}
 
 
   private:

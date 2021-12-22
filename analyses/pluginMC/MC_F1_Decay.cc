@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -40,7 +40,7 @@ namespace Rivet {
       book(_h_4pi0_pippi0pi0, "4pi0_pippi0pi0",100, 0.4, 1.4);
       book(_h_4pi0_pimpi0pi0, "4pi0_pimpi0pi0",100, 0.4, 1.4);
       book(_h_4pi0_4pi, "4pi0_4pi"      , 70, 1.0, 1.7);
-      // 2pi+ 2pi- mode 
+      // 2pi+ 2pi- mode
       book(_h_4pi1_pippip, "4pi1_pippip"   , 80, 0.2, 1.0);
       book(_h_4pi1_pimpim, "4pi1_pimpim"   , 80, 0.2, 1.0);
       book(_h_4pi1_pippim, "4pi1_pippim"   , 80, 0.2, 1.0);
@@ -96,7 +96,7 @@ namespace Rivet {
 	  _h_4pi0_pippi0->fill((pip[0].momentum()+pi0[1].momentum()).mass(),1.);
 	  _h_4pi0_pimpi0->fill((pim[0].momentum()+pi0[0].momentum()).mass(),1.);
 	  _h_4pi0_pimpi0->fill((pim[0].momentum()+pi0[1].momentum()).mass(),1.);
-	  _h_4pi0_pippim->fill((pip[0].momentum()+pim[0].momentum()).mass(),1.);	  
+	  _h_4pi0_pippim->fill((pip[0].momentum()+pim[0].momentum()).mass(),1.);
 	  _h_4pi0_pippimpi0->fill((pip[0].momentum()+pim[0].momentum()+pi0[0].momentum()).mass(),1.);
 	  _h_4pi0_pippimpi0->fill((pip[0].momentum()+pim[0].momentum()+pi0[1].momentum()).mass(),1.);
 	  _h_4pi0_pippi0pi0->fill((pi0[0].momentum()+pi0[1].momentum()+pip[0].momentum()).mass(),1.);
@@ -153,7 +153,7 @@ namespace Rivet {
       normalize(_h_4pi0_pippi0pi0);
       normalize(_h_4pi0_pimpi0pi0);
       normalize(_h_4pi0_4pi);
-      
+
       normalize(_h_4pi1_pippip);
       normalize(_h_4pi1_pimpim);
       normalize(_h_4pi1_pippim);
@@ -162,17 +162,17 @@ namespace Rivet {
       normalize(_h_4pi1_4pi);
     }
 
-    //@}
+    /// @}
 
 
     // @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_eta0_etapi0,_h_eta0_pi0pi0,_h_eta0_etapi0pi0;
     Histo1DPtr _h_eta1_etapip,_h_eta1_etapim,_h_eta1_pippim,_h_eta1_etapippim;
     Histo1DPtr _h_4pi0_pi0pi0,_h_4pi0_pippi0,_h_4pi0_pimpi0,_h_4pi0_pippim,_h_4pi0_pippimpi0,_h_4pi0_pippi0pi0,
       _h_4pi0_pimpi0pi0,_h_4pi0_4pi;
     Histo1DPtr _h_4pi1_pippip,_h_4pi1_pimpim,_h_4pi1_pippim,_h_4pi1_pimpimpip,_h_4pi1_pippippim,_h_4pi1_4pi;
-    //@}
+    /// @}
 
 
   };

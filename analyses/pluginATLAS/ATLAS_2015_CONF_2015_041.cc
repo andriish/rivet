@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     ATLAS_2015_CONF_2015_041(const string name="ATLAS_2015_CONF_2015_041", size_t channel = 0,
@@ -23,7 +23,7 @@ namespace Rivet {
       setRefDataName(ref_data);
     }
 
-    //@}
+    /// @}
 
 
     /// Book histograms and initialise projections before the run
@@ -81,7 +81,7 @@ namespace Rivet {
     }
 
     /// @name Ratio calculator util functions
-    //@{
+    /// @{
 
     /// Calculate the ratio, being careful about div-by-zero
     double ratio(double a, double b) {
@@ -93,7 +93,7 @@ namespace Rivet {
       return (b != 0) ? sqrt(a/b*(1-a/b)/b) : 0;
     }
 
-    //@}
+    /// @}
 
     void finalize() {
       for (size_t i = 0; i < 4; ++i) {
@@ -115,7 +115,7 @@ namespace Rivet {
       scale(_hNjets_comb, crossSectionPerEvent() );
     }
 
-    //@}
+    /// @}
 
 
   protected:

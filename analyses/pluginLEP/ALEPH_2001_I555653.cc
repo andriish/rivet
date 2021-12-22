@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -160,7 +160,7 @@ namespace Rivet {
 	normalize(_h_mu.histos()[ix]);
 	pair<double,double> P_mu = calcP(_h_mu.histos()[ix],1);
 	s1 += P_mu.first/sqr(P_mu.second);
-	s2 += 1./sqr(P_mu.second);	
+	s2 += 1./sqr(P_mu.second);
 	normalize(_h_pi.histos()[ix]);
 	pair<double,double> P_pi = calcP(_h_pi.histos()[ix],0);
 	s1 += P_pi.first/sqr(P_pi.second);
@@ -179,13 +179,13 @@ namespace Rivet {
       }
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     BinnedHistogram _h_e,_h_mu,_h_pi,_h_rho;
-    ///@}
+    /// @}
 
 
   };

@@ -17,6 +17,7 @@ RunInfo:
   Top-antitop production
 Beams: [p+, p+]
 Energies: [8000]
+Luminosity_fb: 20.3
 PtCuts: [25,25]
 NeedCrossSection: True
 Description:

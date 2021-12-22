@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -79,8 +79,8 @@ namespace Rivet {
               foundDdecay=true;
               pDs = c.momentum();
               for (const Particle & dc : c.children()) {
-                if (dc.hasCharm()) pD = dc.momentum(); 
-                else ppi = dc.momentum(); 
+                if (dc.hasCharm()) pD = dc.momentum();
+                else ppi = dc.momentum();
               }
             }
             if (c.pid() ==  11 || c.pid() ==  13) pl  = c.momentum();
@@ -96,7 +96,7 @@ namespace Rivet {
             FourMomentum lv_brest_w     = B_boost.transform(pB - pDs); //lab2brest(p_lv_w);
             FourMomentum lv_brest_D     = B_boost.transform(pD); //lab2brest(gp_D.particle.p());
             FourMomentum lv_brest_lep   = B_boost.transform(pl); //lab2brest(gp_lep.p());
-            
+
             const LorentzTransform Ds_boost = LorentzTransform::mkFrameTransformFromBeta(pDs.betaVec());
             FourMomentum lv_Dstarrest_D     = Ds_boost.transform(lv_brest_D);
             const LorentzTransform W_boost  = LorentzTransform::mkFrameTransformFromBeta((pB-pDs).betaVec());
@@ -104,14 +104,14 @@ namespace Rivet {
 
             double cos_thetaV = cos(lv_brest_Dstar.p3().angle(lv_Dstarrest_D.p3()));
             _h_costhv->fill(cos_thetaV);
-            
+
             double cos_thetaL = cos(lv_brest_w.p3().angle(lv_wrest_lep.p3()));
             _h_costhl->fill(cos_thetaL);
 
             Vector3 LTrans = lv_wrest_lep.p3()   - cos_thetaL*lv_wrest_lep.p3().perp()*lv_brest_w.p3().unit();
             Vector3 VTrans = lv_Dstarrest_D.p3() - cos_thetaV*lv_Dstarrest_D.p3().perp()*lv_brest_Dstar.p3().unit();
             float chi = atan2(LTrans.cross(VTrans).dot(lv_brest_w.p3().unit()), LTrans.dot(VTrans));
-            if(chi < 0) chi += TWOPI; 
+            if(chi < 0) chi += TWOPI;
 
             _h_chi->fill(chi);
 
@@ -134,26 +134,26 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-    
+
       double GAMMA_B0 = 4.32e-13; // Total width in GeV, calculated from mean life time of 1.52 pico seconds
       double BR_B0_DSPLUS_ELL_NU = 0.0495; // Branching fraction from the same paper for B0bar to D*+ ell nu
       double NORM = GAMMA_B0 * BR_B0_DSPLUS_ELL_NU; // Normalise histos to partial width
-      normalize(_h_w,      NORM); 
-      normalize(_h_costhv, NORM); 
-      normalize(_h_costhl, NORM); 
+      normalize(_h_w,      NORM);
+      normalize(_h_costhv, NORM);
+      normalize(_h_costhl, NORM);
       normalize(_h_chi,    NORM);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_w;
     Histo1DPtr _h_costhv;
     Histo1DPtr _h_costhl;
     Histo1DPtr _h_chi;
-    //@}
+    /// @}
 
 
   };

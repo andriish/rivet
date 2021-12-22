@@ -28,7 +28,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void analyze(const Event& e) {
       // First, veto on leptonic events by requiring at least 4 charged FS particles
@@ -640,7 +640,7 @@ namespace Rivet {
       tmp42->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -688,7 +688,7 @@ namespace Rivet {
 
     Scatter2DPtr _s_PiM_PiP, _s_KSBar0_KS0, _s_KM_KP, _s_Pr_PBar, _s_Lam_LBar;
 
-    //@}
+    /// @}
       Scatter2DPtr tmp1;
       Scatter2DPtr tmp2;
       Scatter2DPtr tmp3;

@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -119,7 +119,7 @@ namespace Rivet {
 	}
       }
     }
-    
+
     pair<double,double> calcP(Histo1DPtr hist,unsigned int imode) {
       if(hist->numEntries()==0.) return make_pair(0.,0.);
       double sum1(0.),sum2(0.);
@@ -177,13 +177,13 @@ namespace Rivet {
       }
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     BinnedHistogram _h_e,_h_mu,_h_pi,_h_rho;
-    ///@}
+    /// @}
 
 
   };

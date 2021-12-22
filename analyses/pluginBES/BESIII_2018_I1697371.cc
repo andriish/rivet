@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -31,7 +31,7 @@ namespace Rivet {
       FourMomentum q = B.mom() - filter_select(B.children(), Cuts::pid==mesonID)[0];
       return q*q;
     }
-    
+
     // Check for explicit decay into pdgids
     bool isSemileptonicDecay(const Particle& mother, vector<int> ids) {
       // Trivial check to ignore any other decays but the one in question modulo photons
@@ -59,13 +59,13 @@ namespace Rivet {
       normalize(_h_q2_K);
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_q2_K;
-    ///@}
+    /// @}
 
 
   };

@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       FinalState fs;
@@ -37,7 +37,7 @@ namespace Rivet {
       scale(_h_jet_pt, crossSection()/nanobarn/sumOfWeights()/delta_y);
     }
 
-    //@}
+    /// @}
 
 
   private:

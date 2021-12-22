@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Projections
@@ -121,17 +121,17 @@ namespace Rivet {
       divide(_h_pt_25_30_ak5, _h_pt_25_30_ak7, _h_pt_25_30_ratio);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_pt_05_ak5, _h_pt_05_10_ak5, _h_pt_10_15_ak5, _h_pt_15_20_ak5, _h_pt_20_25_ak5, _h_pt_25_30_ak5;
     Histo1DPtr _h_pt_05_ak7, _h_pt_05_10_ak7, _h_pt_10_15_ak7, _h_pt_15_20_ak7, _h_pt_20_25_ak7, _h_pt_25_30_ak7;
     Scatter2DPtr _h_pt_05_ratio, _h_pt_05_10_ratio, _h_pt_10_15_ratio, _h_pt_15_20_ratio, _h_pt_20_25_ratio, _h_pt_25_30_ratio;
-    //@}
+    /// @}
 
   };
 

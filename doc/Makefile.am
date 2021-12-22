@@ -8,9 +8,9 @@ if ENABLE_PYEXT
 DOCS += analists/analyses.html
 DOCDIRS += analists/analyses
 analists/analyses.html: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-html
-	$(mkdir_p) analist && cd analists && \
-	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH) \
-    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH) \
+	$(mkdir_p) analists && cd analists && \
+    LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH):$(LD_LIBRARY_PATH) \
+    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH):$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
     $(PYTHON) $(abs_srcdir)/analists/mk-analysis-html || true
@@ -19,8 +19,8 @@ analists/analyses.html: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-ht
 DOCS += analists/analyses.json
 analists/analyses.json: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-json
 	$(mkdir_p) analists && cd analists && \
-	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH) \
-    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH) \
+    LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH):$(LD_LIBRARY_PATH) \
+    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH):$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
     $(PYTHON) $(abs_srcdir)/analists/mk-analysis-json || true
@@ -29,8 +29,8 @@ analists/analyses.json: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-js
 DOCS += analists/analyses.dat
 analists/analyses.dat: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-txt
 	$(mkdir_p) analists && cd analists && \
-	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH) \
-    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH) \
+    LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH):$(LD_LIBRARY_PATH) \
+    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH):$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
     $(PYTHON) $(abs_srcdir)/analists/mk-analysis-txt || true
@@ -44,8 +44,8 @@ DOCS += coverage/rivet-coverage.html \
   coverage/rivet-coverage-nosearches-noheavyion.html
 coverage/rivet-coverage.html: analists $(wildcard $(srcdir)/coverage/inspire*.json) $(wildcard $(srcdir)/coverage/*.rank) $(top_srcdir)/analyses $(srcdir)/coverage/mk-coverage-html
 	$(mkdir_p) coverage && cd coverage && \
-    LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(LD_LIBRARY_PATH) \
-    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FJCONTRIBLIBPATH):$(DYLD_LIBRARY_PATH) \
+    LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(LD_LIBRARY_PATH):$(LD_LIBRARY_PATH) \
+    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(DYLD_LIBRARY_PATH):$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
     $(abs_srcdir)/coverage/mk-coverage-htmls || true
@@ -70,7 +70,13 @@ endif
 ## Analyses diffs between releases
 DOCS += anadiff/anadiffs.txt
 anadiff/anadiffs.txt: $(top_srcdir)/analyses $(abs_srcdir)/anadiff/diffanas
-	cd anadiff && $(abs_srcdir)/anadiff/diffanas > anadiffs.txt
+	cd anadiff && \
+    LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH) \
+    DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH) \
+    PYTHONPATH=$(shell realpath $(abs_top_builddir)/pyext/build/lib*):$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
+    RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
+    PATH=$(abs_top_srcdir)/bin:$(PATH) \
+    $(abs_srcdir)/anadiff/diffanas > anadiffs.txt
 
 
 ## TODO: Add a Markdown compiler and README.md + tutorials/: (py)pandoc?
@@ -120,9 +126,12 @@ install-data-local:
 	@true
 
 clean-local:
-	rm -rf coverage/rivet-coverage-*.html $(DOCS) $(DOCDIRS)
-	rm -rf $(builddir)/doxy
+	@rm -rf coverage/rivet-coverage-*.html $(DOCS) $(DOCDIRS)
+	@rm -rf $(builddir)/doxy
 
 uninstall-local:
-	@rm -rf $(DESTDIR)$(pkgdatadir)/doc; \
-	test ! -d $(DESTDIR)$(pkgdatadir) || rmdir $(DESTDIR)$(pkgdatadir) || true
+	@rm -rf $(DESTDIR)$(pkgdatadir)/doc
+	@rm -rf $(DESTDIR)$(pkgdatadir)/analyses
+	@rm -f $(DESTDIR)$(pkgdatadir)/analyses.*
+	@rm -rf $(DESTDIR)$(pkgdatadir)/refyodas
+	@test ! -d $(DESTDIR)$(pkgdatadir) || rmdir $(DESTDIR)$(pkgdatadir) || true

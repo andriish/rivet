@@ -31,7 +31,7 @@ public:
     book(_impcalib, "sumETFwd_IMP", 400, 0.0, 20.0);
 
   }
-  
+
   /// Perform the per-event analysis
   void analyze(const Event& event) {
 
@@ -46,7 +46,7 @@ public:
     _calib->fill(apply<ATLAS::SumET_PBPB_Centrality>(event, "Centrality")());
 
   }
-  
+
   /// Finalize
   void finalize() {
 

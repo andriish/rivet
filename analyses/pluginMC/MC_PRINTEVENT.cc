@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
 
@@ -148,12 +148,12 @@ namespace Rivet {
       // printEvent(event.genEvent());
 
       #ifdef RIVET_ENABLE_HEPMC_3
-      
+
       /// @todo gonna try this instead of replicating everything below
       RivetHepMC::Print::content(*(event.genEvent()));
-      
+
       #else
-      
+
       const GenEvent* evt = event.genEvent();
 
       cout << string(120, '=') << "\n" << endl;
@@ -242,7 +242,7 @@ namespace Rivet {
       }
 
       cout << "\n" << endl;
-      
+
       #endif // VERSION_CODE >= 3000000
     }
 
@@ -250,7 +250,7 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {    }
 
-    //@}
+    /// @}
 
   private:
 

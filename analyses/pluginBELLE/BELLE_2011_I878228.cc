@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -60,7 +60,7 @@ namespace Rivet {
 	return;
       }
       // unstable charm analysis
-      
+
       Particles ds = apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==431 or Cuts::abspid==433);
       for(unsigned int ix=0;ix<ds.size();++ix) {
        	const Particle& p1 = ds[ix];
@@ -183,13 +183,13 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _c_DpDm,_c_DpDmS,_c_DpSDmS,_c_All,_c_mu;
-    //@}
+    /// @}
 
 
   };

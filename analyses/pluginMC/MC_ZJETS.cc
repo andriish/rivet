@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Initialize
     void init() {
@@ -67,25 +67,25 @@ namespace Rivet {
       MC_JetAnalysis::finalize();
     }
 
-    //@}
+    /// @}
 
 
   protected:
 
     /// @name Parameters for specialised e/mu and dressed/bare subclassing
-    //@{
+    /// @{
     double _dR;
     PdgId _lepton;
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_Z_jet1_deta;
     Histo1DPtr _h_Z_jet1_dR;
-    //@}
+    /// @}
 
   };
 

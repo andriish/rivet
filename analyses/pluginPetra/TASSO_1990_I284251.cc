@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -32,21 +32,21 @@ namespace Rivet {
 
       // Book histograms
       _ih=-1; _iy=-1;
-      if(isCompatibleWithSqrtS(14.8)) {
+      if(isCompatibleWithSqrtS(14.8*GeV)) {
 	_ih=1;
       }
-      else if (isCompatibleWithSqrtS(21.5)) {
+      else if (isCompatibleWithSqrtS(21.5*GeV)) {
 	_ih=2;
       }
-      else if (isCompatibleWithSqrtS(34.5)) {
+      else if (isCompatibleWithSqrtS(34.5*GeV)) {
 	_ih=0;
 	_iy=3;
       }
-      else if (isCompatibleWithSqrtS(35.0)) {
+      else if (isCompatibleWithSqrtS(35.0*GeV)) {
 	_ih=0;
 	_iy=2;
       }
-      else if (isCompatibleWithSqrtS(42.6)) {
+      else if (isCompatibleWithSqrtS(42.6*GeV)) {
 	_ih=0;
 	_iy=1;
       }
@@ -116,7 +116,7 @@ namespace Rivet {
 	_p_K0_S_2->fill(sphere,cfs.particles().size());
       }
       if(_p_Kstar_S_1!=Profile1DPtr()) {
-	_p_Kstar_S_1->fill(sphere,nKstar);		    
+	_p_Kstar_S_1->fill(sphere,nKstar);
 	_p_Kstar_S_2->fill(sphere,cfs.particles().size());
       }
     }
@@ -174,16 +174,16 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_K0_x, _h_Kstar_x;
     Profile1DPtr _p_K0_S_1, _p_K0_S_2, _p_Kstar_S_1, _p_Kstar_S_2;
     CounterPtr _n_K0,_n_Kstar;
     int _ih,_iy;
-    //@}
+    /// @}
 
 
   };

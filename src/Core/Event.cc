@@ -22,18 +22,15 @@ namespace Rivet {
   double Event::asqrtS() const { return Rivet::asqrtS(beams()); }
 
 
-  void Event::_init(const GenEvent& ge) {
-    // Use Rivet's preferred units if possible
+  void Event::_fixGenEvent() {
     #ifdef HEPMC_HAS_UNITS
-    _genevent.use_units(HepMC::Units::GEV, HepMC::Units::MM);
+    const_cast<GenEvent&>(_genevent).use_units(HepMC::Units::GEV, HepMC::Units::MM);
     #endif
   }
 
-
-  void Event::_strip(GenEvent & ge) {
-    HepMCUtils::strip(ge);
-  }
-
+  // void Event::_strip(GenEvent& ge) {
+  //   HepMCUtils::strip(ge);
+  // }
 
   const Particles& Event::allParticles() const {
     if (_particles.empty()) { //< assume that empty means no attempt yet made

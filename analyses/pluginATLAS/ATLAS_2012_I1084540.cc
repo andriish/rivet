@@ -30,7 +30,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
     /// Book histograms and initialise projections before the run
     void init() {
       //All final states. Rapidity range = ATLAS calorimetry. Lowest pT cut = 200 MeV.
@@ -206,22 +206,22 @@ namespace Rivet {
       scale(_h_DeltaEtaF_600, (crossSection() / millibarn)/sumOfWeights());
       scale(_h_DeltaEtaF_800, (crossSection() / millibarn)/sumOfWeights());
     }
-    //@}
+    /// @}
 
   private:
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_DeltaEtaF_200;
     Histo1DPtr _h_DeltaEtaF_400;
     Histo1DPtr _h_DeltaEtaF_600;
     Histo1DPtr _h_DeltaEtaF_800;
-    //@}
+    /// @}
     /// @name Private variables
-    //@{
+    /// @{
     static constexpr int _etaBins = 49;
     static constexpr double _etaMax = 4.9;
     double _etaBinSize;
-    //@}
+    /// @}
   };
 
   // The hook for the plugin system

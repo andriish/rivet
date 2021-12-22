@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -56,11 +56,11 @@ namespace Rivet {
 	_h_c->fill(cTheta);
 	if(Dstar.children().size()!=2) continue;
 	Particle D0;
-	if(Dstar.children()[0].pid()== sign*211 && 
+	if(Dstar.children()[0].pid()== sign*211 &&
 	   Dstar.children()[1].pid()== sign*421) {
 	  D0 = Dstar.children()[1];
 	}
-	else if(Dstar.children()[1].pid()== sign*211 && 
+	else if(Dstar.children()[1].pid()== sign*211 &&
 		Dstar.children()[0].pid()== sign*421) {
 	  D0 = Dstar.children()[0];
 	}
@@ -85,13 +85,13 @@ namespace Rivet {
       normalize(_h_c );
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_cP,_h_c;
-    ///@}
+    /// @}
 
 
   };

@@ -18,7 +18,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2013_I1217863);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -53,7 +53,7 @@ namespace Rivet {
 
       // Z finder
       if (_doZ) {
-        ZFinder zf(fs, cuts, _mode==3? PID::MUON : PID::ELECTRON, 40.0*GeV, 1000.0*GeV, 0.1, 
+        ZFinder zf(fs, cuts, _mode==3? PID::MUON : PID::ELECTRON, 40.0*GeV, 1000.0*GeV, 0.1,
                    ZFinder::ChargedLeptons::PROMPT, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::NO);
         declare(zf, "ZF");
       }
@@ -124,19 +124,19 @@ namespace Rivet {
       if (_doW) {
 	// retrieve W boson candidate
 	const WFinder& wf = apply<WFinder>(event, "WF");
-	if ( wf.bosons().size() == 1 ) { 
-	  
+	if ( wf.bosons().size() == 1 ) {
+
 	  // retrieve constituent neutrino
 	  const Particle& neutrino = wf.constituentNeutrino();
 	  if ( (neutrino.pT() > 35.0*GeV) ) {
-	    
+
 	    // retrieve constituent lepton
 	    const Particle& lepton = wf.constituentLepton();
 	    if ( lepton.pT() > 25.0*GeV && lepton.abseta() < 2.47 ) {
-	      
+
 	      // check photon-lepton overlap
 	      if ( deltaR(leadingPhoton, lepton) > 0.7 ) {
-		
+
 		// count jets
 		const FastJets& jetfs = apply<FastJets>(event, "Jets");
 		Jets jets = jetfs.jets(cmpMomByEt);
@@ -147,21 +147,21 @@ namespace Rivet {
 		       (deltaR(leadingPhoton, j) > 0.3) &&		\
 		       (deltaR(lepton,        j) > 0.3) )  ++goodJets;
 		}
-		
+
 		double Njets = double(goodJets) + 0.5;
 		double photonEt = leadingPhoton.Et()*GeV;
-		
+
 		const FourMomentum& lep_gamma = lepton.momentum() + leadingPhoton.momentum();
 		double term1 = sqrt(lep_gamma.mass2() + lep_gamma.pT2()) + neutrino.Et();
 		double term2 = (lep_gamma + neutrino.momentum()).pT2();
 		double mWgammaT = sqrt(term1 * term1 - term2) * GeV;
-		
+
 		_hist_EgammaT_inclW->fill(photonEt);
-		
+
 		_hist_Njet_EgammaT15W->fill(Njets);
-		
+
 		if ( !goodJets )  _hist_EgammaT_exclW->fill(photonEt);
-		
+
 		if (photonEt > 40.0*GeV) {
 		  _hist_mWgammaT->fill(mWgammaT);
 		  if (photonEt > 60.0*GeV)  _hist_Njet_EgammaT60W->fill(Njets);
@@ -179,18 +179,18 @@ namespace Rivet {
 	if ( zf.bosons().size() == 1 ) {
 	  const Particle& Zboson  = zf.boson();
 	  if ( (Zboson.mass() > 40.0*GeV) ) {
-	    
+
 	    // check charge of constituent leptons
 	    const Particles& leptons = zf.constituents();
 	    if (leptons.size() == 2 && leptons[0].charge() * leptons[1].charge() < 0.) {
-	      
+
 	      bool lpass = true;
 	      // check photon-lepton overlap
 	      for (const Particle& p : leptons) {
 		if ( !(p.pT() > 25.0*GeV && p.abseta() < 2.47 && deltaR(leadingPhoton, p) > 0.7) )  lpass = false;
 	      }
 	      if ( lpass ) {
-		
+
 		// count jets
 		const FastJets& jetfs = apply<FastJets>(event, "Jets");
 		Jets jets = jetfs.jets(cmpMomByEt);
@@ -202,17 +202,17 @@ namespace Rivet {
 		       (deltaR(leptons[0],    j) > 0.3) &&		\
 		       (deltaR(leptons[1],    j) > 0.3) )  ++goodJets;
 		}
-		
+
 		double Njets = double(goodJets) + 0.5;
 		double photonEt = leadingPhoton.Et()*GeV;
 		double mZgamma = (Zboson.momentum() + leadingPhoton.momentum()).mass() * GeV;
-		
+
 		_hist_EgammaT_inclZ->fill(photonEt);
-		
+
 		_hist_Njet_EgammaT15Z->fill(Njets);
-		
+
 		if ( !goodJets )   _hist_EgammaT_exclZ->fill(photonEt);
-		
+
 		if (photonEt >= 40.0*GeV) {
 		  _hist_mZgamma->fill(mZgamma);
 		  if (photonEt >= 60.0*GeV)  _hist_Njet_EgammaT60Z->fill(Njets);
@@ -251,7 +251,7 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
   protected:
 
@@ -262,7 +262,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
 
     Histo1DPtr _hist_EgammaT_inclZ;
     Histo1DPtr _hist_EgammaT_exclZ;
@@ -276,7 +276,7 @@ namespace Rivet {
     Histo1DPtr _hist_Njet_EgammaT60W;
     Histo1DPtr _hist_mWgammaT;
 
-    //@}
+    /// @}
 
   };
 

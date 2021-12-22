@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors
-    //@{
+    /// @{
 
     /// Construction from another FinalState
     ChargedFinalState(const FinalState& fsp);
@@ -23,7 +23,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(ChargedFinalState);
 
-    //@}
+    /// @}
 
 
     /// Apply the projection on the supplied event.

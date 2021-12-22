@@ -20,7 +20,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Initialise projections and histograms
     void init() {
@@ -223,7 +223,7 @@ namespace Rivet {
       for (size_t ix = 0; ix <  3; ++ix) if (_weightETHighQb[ix]->val() != 0) scale(_histETHighQb[ix], 1/ *_weightETHighQb[ix]);
     }
 
-    //@}
+    /// @}
 
 
   private:

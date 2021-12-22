@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Hadronic charged multiplicity measurement between 12 and 31.3 GeV
   class PLUTO_1980_I154270 : public Analysis {
   public:
 
@@ -15,27 +15,25 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
-      if (isCompatibleWithSqrtS(9.4 ) ||
-          isCompatibleWithSqrtS(12.0) ||
-          isCompatibleWithSqrtS(13.0) ||
-          isCompatibleWithSqrtS(17.0) ||
-          isCompatibleWithSqrtS(22.0) ||
-          isCompatibleWithSqrtS(27.6) ||
-          isCompatibleWithSqrtS(30.2) ||
-          isCompatibleWithSqrtS(30.7) ||
-          isCompatibleWithSqrtS(31.3)) {
+      if (isCompatibleWithSqrtS( 9.4*GeV) ||
+          isCompatibleWithSqrtS(12.0*GeV) ||
+          isCompatibleWithSqrtS(13.0*GeV) ||
+          isCompatibleWithSqrtS(17.0*GeV) ||
+          isCompatibleWithSqrtS(22.0*GeV) ||
+          isCompatibleWithSqrtS(27.6*GeV) ||
+          isCompatibleWithSqrtS(30.2*GeV) ||
+          isCompatibleWithSqrtS(30.7*GeV) ||
+          isCompatibleWithSqrtS(31.3*GeV)) {
         book(_c_mult, "/TMP/cmult");
         book(_mult, 1, 1, 1);
-      }
-      else {
-        MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
-                    << " doesn't match any available analysis energy .");
+      } else {
+        MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV << " doesn't match any available analysis energy .");
       }
     }
 
@@ -92,7 +90,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -104,8 +102,6 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
   RIVET_DECLARE_PLUGIN(PLUTO_1980_I154270);
-
 
 }

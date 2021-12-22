@@ -34,13 +34,13 @@ namespace Rivet {
 
 
     /// @name Metadata functions
-    //@{
+    /// @{
     /// Get the name of this Projection or Analysis class
     virtual std::string name() const = 0;
-    //@}
+    /// @}
 
     /// @name Projection "getting" functions
-    //@{
+    /// @{
 
     /// Get the contained projections, including recursion.
     std::set<ConstProjectionPtr> getProjections() const {
@@ -87,11 +87,11 @@ namespace Rivet {
         }
       }
     }
-    //@}
+    ///@}
 
 
     /// @name Projection applying functions
-    //@{
+    /// @{
 
     /// Apply the supplied projection on event @a evt.
     ///
@@ -142,7 +142,7 @@ namespace Rivet {
     typename std::enable_if_t<std::is_base_of<Projection, PROJ>::value, const PROJ&>
     apply(const std::string& name, const Event& evt) const { return applyProjection<PROJ>(evt, name); }
 
-    //@}
+    /// @}
 
 
     /// Mark this object as owned by a proj-handler
@@ -170,7 +170,7 @@ public:
 protected:
 
     /// @name Projection registration functions
-    //@{
+    /// @{
 
     /// @brief Register a contained projection
     ///
@@ -220,7 +220,7 @@ protected:
     /// Untemplated function to do the work...
     const Projection& _declareProjection(const Projection& proj, const std::string& name) const;
 
-    //@}
+    /// @}
 
 
     /// Non-templated version of string-based applyProjection, to work around

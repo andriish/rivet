@@ -177,12 +177,12 @@ is.get(); // Remove the first character from the stream.
     ERROR( "ReaderCompressedAscii: too few vertices were parsed" )
       printf("%zu  vs  %i expected\n",m_evt->vertices().size(),vertices_and_particles.first );
     is_parsing_successful =  false;
-  }    
+  }
   // Check if there were errors during parsing
   if( !is_parsing_successful ) {
     ERROR( "ReaderCompressedAscii: event parsing failed. Returning empty event" )
     DEBUG( 1, "Parsing failed at line:" << endl << line )
-      
+
     m_evt->clear();
 
     return false;
@@ -402,7 +402,7 @@ bool ReaderCompressedAscii::read_momentum(GenParticlePtr p) {
     double px = 0.0, py = 0.0, pz = 0.0, e = 0.0, m = 0.0;
     if ( !(is >> px >> py >> pz >> e >> m) ) return false;
     FourVector pp(px, py, pz, e);
-  
+
     if ( m_evt->momentum_unit() != Units::GEV ) {
       m *= 1000.0;
       Units::convert(pp, Units::GEV, m_evt->momentum_unit());
@@ -411,7 +411,7 @@ bool ReaderCompressedAscii::read_momentum(GenParticlePtr p) {
     p->set_generated_mass(m);
     return true;
   }
-    
+
   long iphi = 0;
   long ieta = 0;
   double ie = 0;
@@ -432,7 +432,7 @@ bool ReaderCompressedAscii::read_momentum(GenParticlePtr p) {
   double phi = double(iphi)*m_precision_phi*M_PI;
   double pt = abs(eta) < 100.0? p3mod/cosh(eta): 0.0;
   FourVector pp(pt*cos(phi), pt*sin(phi), p3mod*tanh(eta), e);
-  
+
   if ( m_evt->momentum_unit() != Units::GEV ) {
     m *= 1000.0;
     Units::convert(pp, Units::GEV, m_evt->momentum_unit());

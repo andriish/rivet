@@ -1,6 +1,8 @@
 #! /usr/bin/env bash
 
-# TODO: rewrite in Python using hglib?
+# TODO: rewrite in Python?
+
+echo PYTHONPATH=$PYTHONPATH 1>&2
 
 ## Get list of all tags excluding tip
 declare -a tags

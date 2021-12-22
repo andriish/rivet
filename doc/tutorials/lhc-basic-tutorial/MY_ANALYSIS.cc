@@ -13,7 +13,7 @@ namespace Rivet {
     DEFAULT_RIVET_ANALYSIS_CTOR(MY_ANALYSIS);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -49,13 +49,13 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     map<string, Histo1DPtr> _h;
     size_t _lmode;
-    //@}
+    /// @}
 
   };
 

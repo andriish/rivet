@@ -1,3 +1,38 @@
+2021-12-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add strcat() variadic template function to Rivet utils.
+
+2021-12-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use explicit energy-unit factors when calling Analysis::isCompatibleWithSqrtS().
+
+2021-12-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Allow manual use of analysis-plugin make-targets after
+	configuring with --disable-analyses.
+
+2021-11-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Release 3.1.5
+
+2021-11-05  Johannes Jahan <jahan.johannes@gmail.com>
+
+	* Changed the first labelling in ATLAS_2016_I1467230 from "/*" to "/d01-*"
+
+2021-10-28  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use the new Ref(Un)match regex info to filter unwanted objects
+	from ref files during HepData sync.
+
+	* Add support for Warning, RefMatch, and RefUnmatch keys in
+	analysis info files, mapped to the Analysis and AnalysisInfo APIs.
+
+2021-10-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add testing, warning messages, and unit tests for negative-virtuality FS particles.
+
+	* Fix the analysis-plugin uninstall target.
+
 2021-10-01  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Remove many const return-by-value signatures, and other sloppy
@@ -421,9 +456,55 @@
 	* Add BELLE_2020_I1789775 e+e- > D_s D_s2
 	* Add BELLE_2019_I1762826 e+e- > D_s D_s1(2536)
 
+2020-08-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add re-setting of null cross-section to 1e-10 pb before finalize, to allow reweighting.
+
+	* Fix handling of no-weights and no-xsec events.
+
+	* Detect events with no beam particles, and allow their use with explicit beam-check disabling.
+
+2020-08-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add AnalysisHandler::runBeamEnergies() and
+	Analysis::beamEnergies(), beamEnergies(const ParticlePair&), and
+	energies(const ParticlePair&) and moms(const ParticlePair&).
+
+2020-08-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Using beamEnergyMatch for standardised beam-energy checking in analyses.
+
+2020-08-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Rationalising Id -> ID naming in ParticleName and Analysis & AnalysisHandler interfaces. PdgId next...
+
+2020-08-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use a common set of standalone functions, via explicitly named
+	user-facing methods, for Analysis and AnalysisHandler checks on
+	permitted and expected beams.
+
+	* Remove Projection beam constraint functionality.
+
+	* Rework Tools/BeamConstraints.hh functions with more explicit
+	names and PID + energy coverage.
+
+	* Move standalone beam methods out of Projections/Beam.hh.
+
 2020-08-06  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add warnings and physicality checks to PartonicTops
+
+2020-08-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add Event::hepmcEvent() and Event::hepmcEventPtr() methods as
+	more intuitive alternatives to genEvent() (which requires
+	familiarity with HepMC for the name to make sense).
+
+	* Change the AnalysisHandler::analyze() methods to explictly take
+	a non-const GenEvent argument: we are no longer making an internal
+	deep copy, so users should be fully aware that the passed event is
+	not completely safe from modification.
 
 2020-07-30  Christian Gutschow  <chris.g@cern.ch>
 

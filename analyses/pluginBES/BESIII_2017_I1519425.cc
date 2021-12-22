@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Differential decay rates for $D^+\to \{\bar{K}^0,\pi^0\} e^+\nu_e$ from BES
   class BESIII_2017_I1519425 : public Analysis {
   public:
 
@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -33,7 +33,7 @@ namespace Rivet {
       FourMomentum q = B.mom() - filter_select(B.children(), Cuts::pid==mesonID)[0];
       return q*q;
     }
-    
+
     // Check for explicit decay into pdgids
     bool isSemileptonicDecay(const Particle& mother, vector<int> ids) {
       // Trivial check to ignore any other decays but the one in question modulo photons
@@ -49,21 +49,21 @@ namespace Rivet {
       // Loop over D+/- mesons
       for (const Particle& p :  apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==PID::DPLUS)) {
         if (isSemileptonicDecay(p, {PID::PI0, PID::POSITRON, PID::NU_E}) ||
-	    isSemileptonicDecay(p, {PID::PI0, PID::ELECTRON, PID::NU_EBAR})) {
+            isSemileptonicDecay(p, {PID::PI0, PID::ELECTRON, PID::NU_EBAR})) {
           _h_q2_pi->fill(q2(p, PID::PI0));
         }
-	else if(isSemileptonicDecay(p, {-311, PID::POSITRON, PID::NU_E})) {
+        else if(isSemileptonicDecay(p, {-311, PID::POSITRON, PID::NU_E})) {
           _h_q2_K ->fill(q2(p, -311));
         }
-	else if(isSemileptonicDecay(p, { 311, PID::ELECTRON, PID::NU_EBAR})) {
+        else if(isSemileptonicDecay(p, { 311, PID::ELECTRON, PID::NU_EBAR})) {
           _h_q2_K ->fill(q2(p, 311));
         }
-	else if(isSemileptonicDecay(p, {PID::K0S, PID::POSITRON, PID::NU_E}) ||
-		isSemileptonicDecay(p, {PID::K0S, PID::ELECTRON, PID::NU_EBAR})) {
+        else if(isSemileptonicDecay(p, {PID::K0S, PID::POSITRON, PID::NU_E}) ||
+                isSemileptonicDecay(p, {PID::K0S, PID::ELECTRON, PID::NU_EBAR})) {
           _h_q2_K ->fill(q2(p, PID::K0S));
         }
-	else if(isSemileptonicDecay(p, {PID::K0L, PID::POSITRON, PID::NU_E}) ||
-		isSemileptonicDecay(p, {PID::K0L, PID::ELECTRON, PID::NU_EBAR})) {
+        else if(isSemileptonicDecay(p, {PID::K0L, PID::POSITRON, PID::NU_E}) ||
+                isSemileptonicDecay(p, {PID::K0L, PID::ELECTRON, PID::NU_EBAR})) {
           _h_q2_K ->fill(q2(p, PID::K0L));
         }
       }
@@ -79,13 +79,13 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_q2_K,_h_q2_pi;
-    //@}
+    /// @}
 
 
   };

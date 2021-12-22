@@ -20,7 +20,7 @@ namespace Rivet {
 
 
     /// @defgroup mcutils_utils Utility functions
-    ///@{
+    /// @{
 
     /// Absolute value
     /// @deprecated Just use abs()!
@@ -55,7 +55,7 @@ namespace Rivet {
       }
     }
 
-    ///@}
+    /// @}
 
 
     // Forward declaration
@@ -63,7 +63,7 @@ namespace Rivet {
 
 
     /// @defgroup mcutils_nucleus_ion Nucleus/ion functions
-    ///@{
+    /// @{
 
     /// @brief Is this a nucleus PID?
     ///
@@ -112,11 +112,11 @@ namespace Rivet {
       return 0;
     }
 
-    ///@}
+    /// @}
 
 
     /// @defgroup mcutils_fundamental Fundamental particles
-    ///@{
+    /// @{
 
     /// Determine if the PID is that of a quark
     inline bool isQuark(int pid) {
@@ -222,11 +222,11 @@ namespace Rivet {
     /// Determine if the PID is that of a t/tbar
     inline bool isTop(int pid) { return abs(pid) == TQUARK; }
 
-    ///@}
+    /// @}
 
 
     /// @defgroup mcutils_qcomp Quark composite functions
-    ///@{
+    /// @{
 
     /// Is this a pomeron, odderon, or generic reggeon?
     inline bool isReggeon(int pid) {
@@ -328,11 +328,11 @@ namespace Rivet {
       return false;
     }
 
-    ///@}
+    /// @}
 
 
     /// @defgroup mcutils_idclasses More general particle class identification functions
-    ///@{
+    /// @{
 
     /// Is this a valid lepton ID?
     ///
@@ -537,11 +537,11 @@ namespace Rivet {
     }
     inline bool isValid(int pid) { return _isValid(pid); }
 
-    ///@}
+    /// @}
 
 
     /// @defgroup mcutils_partoncontent Parton content functions
-    ///@{
+    /// @{
 
     inline bool _hasQ(int pid, int q) {
       if (abs(pid) == q) return true; //< trivial case!
@@ -582,11 +582,11 @@ namespace Rivet {
     /// Does this particle contain a top quark?
     inline bool hasTop(int pid) { return (isHadron(pid) || isQuark(pid)) && _hasQ(pid, 6); }
 
-    ///@}
+    /// @}
 
 
     /// @defgroup mcutils_parton_classes Parton content classification
-    ///@{
+    /// @{
 
     /// Determine if the particle is a heavy flavour hadron or parton
     inline bool isHeavyFlavour(int pid) {
@@ -714,12 +714,12 @@ namespace Rivet {
         !(hasBottom(pid) || hasCharm(pid));
     }
 
-    ///@}
+    /// @}
 
 
 
     /// @defgroup mcutils_angmom Angular momentum functions
-    ///@{
+    /// @{
 
     /// jSpin returns 2J+1, where J is the total spin
     inline int jSpin(int pid) {
@@ -790,11 +790,11 @@ namespace Rivet {
       return 0;
     }
 
-    ///@}
+    /// @}
 
 
     /// @defgroup mcutils_charge Charge functions
-    ///@{
+    /// @{
 
     /// Three times the EM charge (as integer)
     inline int charge3(int pid) {
@@ -808,16 +808,19 @@ namespace Rivet {
                                  0,  0,  0, 0,  0, 0,  0, 0, 0, 0,
                                  0,  0,  0, 0,  0, 0,  0, 0, 0, 0,
                                  0,  0,  0, 0,  0, 0,  0, 0, 0, 0 };
+      if (pid == 21 || pid == 22) return 0; // gluon and photon
+      if (pid == 211) return 3; // charged pion
+      if (pid == -211) return -3; // charged pions
+
       const unsigned short q1 = _digit(nq1,pid);
       const unsigned short q2 = _digit(nq2,pid);
       const unsigned short q3 = _digit(nq3,pid);
       const unsigned short ql = _digit(nl,pid);
       const int ida = abs(pid);
       const int sid = _fundamentalID(pid);
+      if (ida == 0 || _extraBits(pid) > 0) return 0; // ion or illegal
       int ch3 = 0;
-      if (ida == 0 || _extraBits(pid) > 0) { // ion or illegal
-        return 0;
-      } else if( isQBall(pid) ) { // QBall
+      if( isQBall(pid) ) { // QBall
         ch3 = 3*( (ida/10) % 10000);
       } else if( isHiddenValley(pid) ) { // Hidden Valley
         return 0;
@@ -870,27 +873,29 @@ namespace Rivet {
     /// Return the EM charge (as floating point)
     inline double abscharge(int pid) { return std::abs(charge(pid)); }
 
-    ///@}
+    /// @}
 
 
     /// @defgroup mcutils_charge_classes General PID-based classifier functions
-    ///@{
+    /// @{
 
     /// Determine if the particle is electrically charged
     inline bool isCharged(int pid) {
-      return charge3(pid) != 0;
+      /// @todo What if PID = 0? Applies to everything... should we throw an exception?
+      if (pid >= -8 && pid <= 8) return true; // quarks and anti-quarks
+      return charge3(pid) != 0; //< pions, photons and gluons already fast in here
     }
 
     /// Determine if the particle is electrically neutral
     inline bool isNeutral(int pid) {
-      return charge3(pid) == 0;
+      return !isCharged(pid);
     }
 
-    ///@}
+    /// @}
 
 
     /// @defgroup mcutils_interactions Interaction classifiers
-    ///@{
+    /// @{
 
     /// Determine if the PID is that of a strongly interacting particle
     inline bool isStrongInteracting(int pid) {
@@ -910,11 +915,11 @@ namespace Rivet {
       return !isGluon(pid) && !isGraviton(pid);
     }
 
-    ///@}
+    /// @}
 
 
     /// @defgroup mcutils_other Other classifiers
-    ///@{
+    /// @{
 
     /// Determine if the PID is in the generator-specific range
     inline bool isGenSpecific(int pid) {
@@ -937,12 +942,12 @@ namespace Rivet {
       return isPhoton(pid) || isHadron(pid) || isLepton(pid);
     }
 
-    ///@}
+    /// @}
 
 
     /// @defgroup ppair_class Particle pair classifiers
     /// @todo Make versions that work on PdgIdPair?
-    //@{
+    /// @{
 
     inline bool isSameSign(PdgId a, PdgId b) { return a*b >= 0; }
     inline bool isOppSign(PdgId a, PdgId b) { return !isSameSign(a, b); }
@@ -954,7 +959,7 @@ namespace Rivet {
     inline bool isOSOF(PdgId a, PdgId b) { return isOppSign(a, b) && isOppFlav(a, b); }
     inline bool isSSOF(PdgId a, PdgId b) { return isSameSign(a, b) && isOppFlav(a, b); }
 
-    //@}
+    /// @}
 
 
   }

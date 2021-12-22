@@ -299,7 +299,7 @@ namespace Rivet {
     typedef H1_2015_I1343110_PROJECTIONS::BoostedXSystem BoostedXSystem;
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     // Book projections and histograms
     void init() {
@@ -548,13 +548,13 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     // Book histograms from REF data
     Histo1DPtr _h_PHO_sig_sqrts;
     Histo1DPtr _h_DIS_sig_sqrts;
@@ -582,7 +582,7 @@ namespace Rivet {
     Scatter2DPtr _h_PHODIS_y;
     Scatter2DPtr _h_PHODIS_z;
     Scatter2DPtr _h_PHODIS_Etj1;
-    //@}
+    /// @}
 
     bool isPHO;
     int  nVeto1, nVeto2, nVeto3, nVeto4, nVeto5, nVeto6;

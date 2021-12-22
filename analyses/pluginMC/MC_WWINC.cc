@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -146,13 +146,13 @@ namespace Rivet {
       scale(_h_WeWm_m, norm);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_WW_pT;
     Histo1DPtr _h_WW_pT_peak;
     Histo1DPtr _h_WW_eta;
@@ -171,7 +171,7 @@ namespace Rivet {
     Histo1DPtr _h_WeWm_deta;
     Histo1DPtr _h_WeWm_dR;
     Histo1DPtr _h_WeWm_m;
-    //@}
+    /// @}
 
   };
 

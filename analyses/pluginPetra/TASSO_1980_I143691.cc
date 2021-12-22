@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -25,33 +25,33 @@ namespace Rivet {
       ChargedFinalState cfs;
       declare(cfs, "CFS");
       declare(Thrust(cfs), "Thrust");
-      
+
 
       // Book histograms
       book(_mult, "/TMP/mult");
       unsigned int iloc(0);
       sqs = 1.0;
-      if(isCompatibleWithSqrtS(13)) {
+      if(isCompatibleWithSqrtS(13*GeV)) {
 	iloc = 1;
 	sqs = 13.0;
       }
-      else if(isCompatibleWithSqrtS(17)) {
+      else if(isCompatibleWithSqrtS(17*GeV)) {
 	iloc = 2;
         sqs = 17.0;
-      }	
-      else if (isCompatibleWithSqrtS(22)) {
+      }
+      else if (isCompatibleWithSqrtS(22*GeV)) {
 	iloc = 2;
 	sqs = 22.;
       }
-      else if(isCompatibleWithSqrtS(27.6)) {
+      else if(isCompatibleWithSqrtS(27.6*GeV)) {
 	iloc = 3;
 	sqs = 27.6;
       }
-      else if (isCompatibleWithSqrtS(30.3)) {
+      else if (isCompatibleWithSqrtS(30.3*GeV)) {
 	iloc = 3;
 	sqs = 27.6;
       }
-      else if (isCompatibleWithSqrtS(31.2)) {
+      else if (isCompatibleWithSqrtS(31.2*GeV)) {
 	iloc = 3;
 	sqs = 31.2;
       }
@@ -87,10 +87,10 @@ namespace Rivet {
     void finalize() {
 
       scale(_h_rap, 1./sumOfWeights());
-      scale(_h_x  , crossSection()*sqr(sqs)/sumOfWeights()/microbarn);  
+      scale(_h_x  , crossSection()*sqr(sqs)/sumOfWeights()/microbarn);
 
       scale(_mult,1./sumOfWeights());
-      
+
       Scatter2D temphisto(refData(1, 1, 1));
       Scatter2DPtr     mult;
       book(mult,1, 1, 1);
@@ -109,15 +109,15 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_rap, _h_x;
     CounterPtr _mult;
     double sqs;
-    //@}
+    /// @}
 
 
   };

@@ -8,7 +8,7 @@
 
 namespace Rivet {
 
-  /// @brief leptoquark search at 13 TeV 
+  /// @brief leptoquark search at 13 TeV
   /// @note This base class contains a "mode" variable to specify lepton channel
   class ATLAS_2019_I1718132 : public Analysis {
     public:
@@ -21,7 +21,7 @@ namespace Rivet {
       void init() {
 
         // default to widest cut, electrons and muons.
-        _mode = 3;      
+        _mode = 3;
         if ( getOption("LMODE") == "ELEL" )  _mode = 1;
         if ( getOption("LMODE") == "MUMU" )  _mode = 2;
         if ( getOption("LMODE") == "ELMU" )  _mode = 3;
@@ -46,7 +46,7 @@ namespace Rivet {
 
         size_t offset = _mode;
         book(_h["JetPt_leading"],     1 + offset, 1, 1);
-        book(_h["JetPt_subleading"],  7 + offset, 1, 1); 
+        book(_h["JetPt_subleading"],  7 + offset, 1, 1);
         book(_h["minDeltaPhiJ0_L"],  13 + offset, 1, 1);
         book(_h["minDeltaPhiJ1_L"],  19 + offset, 1, 1);
         book(_h["DeltaEtaJJ"],       25 + offset, 1, 1);
@@ -59,7 +59,7 @@ namespace Rivet {
 
         offset = _mode + 3;
         book(_hST["JetPt_leading"],     1 + offset, 1, 1);
-        book(_hST["JetPt_subleading"],  7 + offset, 1, 1); 
+        book(_hST["JetPt_subleading"],  7 + offset, 1, 1);
         book(_hST["minDeltaPhiJ0_L"],  13 + offset, 1, 1);
         book(_hST["minDeltaPhiJ1_L"],  19 + offset, 1, 1);
         book(_hST["DeltaEtaJJ"],       25 + offset, 1, 1);
@@ -85,23 +85,23 @@ namespace Rivet {
 
 
         // This would be super-sweet, but unfortunately lxplus default gcc4.8 doesn't like it :(
-        /*idiscardIfAny(jets, leptons, [](const Jet& jet, const DressedLepton& lep) { 
-          return lep.abspid() == PID::ELECTRON and deltaR(jet, lep) < 0.2; 
+        /*idiscardIfAny(jets, leptons, [](const Jet& jet, const DressedLepton& lep) {
+          return lep.abspid() == PID::ELECTRON and deltaR(jet, lep) < 0.2;
         });*/
 
         for (const DressedLepton& lep : leptons) {
-          ifilter_discard(jets, [&](const Jet& jet) { 
-            return lep.abspid() == PID::ELECTRON and deltaR(jet, lep) < 0.2; 
+          ifilter_discard(jets, [&](const Jet& jet) {
+            return lep.abspid() == PID::ELECTRON and deltaR(jet, lep) < 0.2;
           });
         }
 
-        // remove cases where muons are too close to a jet 
+        // remove cases where muons are too close to a jet
         if (_mode == 3) { // el-mu case
-          /*idiscardIfAny(leptons, jets, [](const DressedLepton& lep, const Jet& jet) { 
+          /*idiscardIfAny(leptons, jets, [](const DressedLepton& lep, const Jet& jet) {
             return lep.abspid() == PID::MUON and deltaR(jet, lep) < 0.4;
           });*/
           for (const DressedLepton& lep : leptons) {
-            ifilter_discard(jets, [&](const Jet& jet) { 
+            ifilter_discard(jets, [&](const Jet& jet) {
               return lep.abspid() == PID::MUON and deltaR(jet, lep) < 0.4;
             });
           }
@@ -117,10 +117,10 @@ namespace Rivet {
         if (_mode == 3)  requiredMuons = requiredElecs = 1;
 
         size_t nEl = count(leptons, [](const DressedLepton& lep) { return  lep.abspid() == PID::ELECTRON; });
-        if (nEl != requiredElecs)   vetoEvent; 
+        if (nEl != requiredElecs)   vetoEvent;
 
         size_t nMu = count(leptons, [](const DressedLepton& lep) { return  lep.abspid() == PID::MUON; });
-        if (nMu != requiredMuons)  vetoEvent;  
+        if (nMu != requiredMuons)  vetoEvent;
 
         // make sure leptons are in right order (should be OK byt better safe than sorry!)
         std::sort(leptons.begin(), leptons.end(), cmpMomByPt);
@@ -144,8 +144,8 @@ namespace Rivet {
         if (addMllCut && (mll < 70. || 110. < mll))  vetoEvent;
 
         // fill output histos
-        _h["JetPt_leading"]->fill(jetpt_leading); 
-        _h["JetPt_subleading"]->fill(jetpt_subleading); 
+        _h["JetPt_leading"]->fill(jetpt_leading);
+        _h["JetPt_subleading"]->fill(jetpt_subleading);
         _h["St"]->fill(st);
         _h["Ht"]->fill(ht);
         _h["DiJetMass"]->fill(dijetmass);
@@ -156,11 +156,11 @@ namespace Rivet {
         _h["minDeltaPhiJ0_L"]->fill(mindeltaphij0_l);
         _h["minDeltaPhiJ1_L"]->fill(mindeltaphij1_l);
 
-        // "extreme" ST cut 
+        // "extreme" ST cut
         if (st > 600.) {
           // fill output histos
-          _hST["JetPt_leading"]->fill(jetpt_leading); 
-          _hST["JetPt_subleading"]->fill(jetpt_subleading); 
+          _hST["JetPt_leading"]->fill(jetpt_leading);
+          _hST["JetPt_subleading"]->fill(jetpt_subleading);
           _hST["St"]->fill(st);
           _hST["Ht"]->fill(ht);
           _hST["DiJetMass"]->fill(dijetmass);

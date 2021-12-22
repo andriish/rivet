@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -49,7 +49,7 @@ namespace Rivet {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       Particles upsilons = ufs.particles(Cuts::pid==553 or Cuts::pid==100553);
       // Continuum
-      if (upsilons.empty()) { 
+      if (upsilons.empty()) {
         MSG_DEBUG("No Upsilons found => continuum event");
         _weightSum_cont->fill();
         for (const Particle& p : ufs.particles(Cuts::pid==333)) {
@@ -59,7 +59,7 @@ namespace Rivet {
 	}
       }
       // Upsilon(s) found
-      else { 
+      else {
         MSG_DEBUG("Upsilons found => resonance event");
         for (const Particle& ups : upsilons) {
           const int parentId = ups.pid();
@@ -116,15 +116,15 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_cont, _h_ups1, _h_ups2;
     CounterPtr _n_Phi[2];
     CounterPtr _weightSum_cont,_weightSum_Ups1,_weightSum_Ups2;
-    //@}
+    /// @}
 
 
   };

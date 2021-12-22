@@ -596,7 +596,7 @@ namespace Rivet {
     void book2D(string name, std::vector<double>& doubleDiff_bins, size_t table){
       for (size_t i = 0; i < doubleDiff_bins.size() - 1; ++i) {
         string nbin = std::to_string(i);
-        // HepData entry has dummy "Table of Contents", 
+        // HepData entry has dummy "Table of Contents",
         // so need to offset everything by one unit
         { Histo1DPtr tmp; _h_multi[name].add(doubleDiff_bins[i], doubleDiff_bins[i+1], book(tmp, table+1+i, 1, 1)); }
       }
@@ -604,7 +604,7 @@ namespace Rivet {
 
 
     void book_hist(string name, size_t table) {
-      // HepData entry has dummy "Table of Contents", 
+      // HepData entry has dummy "Table of Contents",
       // so need to offset everything by one unit
       book(_h[name], table+3, 1, 1);
       book(_h[name+"_norm"], table+1, 1, 1);
@@ -639,10 +639,10 @@ namespace Rivet {
     }
 
     /// @name Objects that are used by the event selection decisions
-    ///@{
+    /// @{
     map<string, Histo1DPtr> _h;
     map<string, BinnedHistogram> _h_multi;
-    ///@}
+    /// @}
 
   };
 

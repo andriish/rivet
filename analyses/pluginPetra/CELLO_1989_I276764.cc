@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -73,18 +73,18 @@ namespace Rivet {
     void finalize() {
 
       double fact = sqr(sqrtS())/GeV2*crossSection()/microbarn/sumOfWeights();
-      scale(_h_gamma, fact); 
-      scale(_h_pi0A , fact); 
-      scale(_h_pi0B , fact); 
-      scale(_h_eta  , fact); 
+      scale(_h_gamma, fact);
+      scale(_h_pi0A , fact);
+      scale(_h_pi0B , fact);
+      scale(_h_eta  , fact);
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_gamma,_h_pi0A,_h_pi0B,_h_eta;
 
 

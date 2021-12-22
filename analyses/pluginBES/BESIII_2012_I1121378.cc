@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -25,7 +25,7 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(UnstableParticles(), "UFS");
       declare(FinalState(), "FS");
-      
+
       // Book histograms
       book(_h_lam, 1, 1, 2);
       book(_h_bar, 1, 1, 1);
@@ -35,12 +35,12 @@ namespace Rivet {
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
       for(const Particle &child : p.children()) {
-	if(child.children().empty()) {
-	  nRes[child.pid()]-=1;
-	  --ncount;
-	}
-	else
-	  findChildren(child,nRes,ncount);
+        if(child.children().empty()) {
+          nRes[child.pid()]-=1;
+          --ncount;
+        }
+        else
+          findChildren(child,nRes,ncount);
       }
     }
 
@@ -50,54 +50,54 @@ namespace Rivet {
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       Vector3 axis;
       if(beams.first.pid()>0)
-	axis = beams.first .momentum().p3().unit();
+        axis = beams.first .momentum().p3().unit();
       else
-	axis = beams.second.momentum().p3().unit();
+        axis = beams.second.momentum().p3().unit();
       // types of final state particles
       const FinalState& fs = apply<FinalState>(event, "FS");
       map<long,int> nCount;
       int ntotal(0);
       for (const Particle& p : fs.particles()) {
-	nCount[p.pid()] += 1;
-	++ntotal;
+        nCount[p.pid()] += 1;
+        ++ntotal;
       }
       // loop over lambda0 and sigma0 baryons
       const UnstableParticles & ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::abspid==3122)) {
-	int sign = p.pid()/3122;
-       	if(p.children().empty()) continue;
-       	map<long,int> nRes=nCount;
-       	int ncount = ntotal;
-       	findChildren(p,nRes,ncount);
-	bool matched=false;
-	// check for Sigma0 or Sigma0bar
-	for (const Particle& p2 : ufs.particles(Cuts::pid==sign*3212)) {
-	  if(p2.children().empty()) continue;
-	  map<long,int> nRes2=nRes;
-	  int ncount2 = ncount;
-	  findChildren(p2,nRes2,ncount2);
-	  if(ncount2==0) {
-	    matched = true;
-	    for(auto const & val : nRes2) {
-	      if(val.second!=0) {
-		matched = false;
-		break;
-	      }
-	    }
-	    // fond baryon and antibaryon
-	    if(matched) {
-	      // calc cosine
-	      double ctheta = p .momentum().p3().unit().dot(axis);
-	      if(p.pid()==3122)
-		_h_lam->fill(ctheta);
-	      else
-		_h_bar->fill(ctheta);
-	      _h_all->fill(ctheta);
-	      break;
-	    }
-	  }
-	}
-	if(matched) break;
+        int sign = p.pid()/3122;
+        if(p.children().empty()) continue;
+        map<long,int> nRes=nCount;
+        int ncount = ntotal;
+        findChildren(p,nRes,ncount);
+        bool matched=false;
+        // check for Sigma0 or Sigma0bar
+        for (const Particle& p2 : ufs.particles(Cuts::pid==sign*3212)) {
+          if(p2.children().empty()) continue;
+          map<long,int> nRes2=nRes;
+          int ncount2 = ncount;
+          findChildren(p2,nRes2,ncount2);
+          if(ncount2==0) {
+            matched = true;
+            for(auto const & val : nRes2) {
+              if(val.second!=0) {
+                matched = false;
+                break;
+              }
+            }
+            // fond baryon and antibaryon
+            if(matched) {
+              // calc cosine
+              double ctheta = p .momentum().p3().unit().dot(axis);
+              if(p.pid()==3122)
+                _h_lam->fill(ctheta);
+              else
+                _h_bar->fill(ctheta);
+              _h_all->fill(ctheta);
+              break;
+            }
+          }
+        }
+        if(matched) break;
       }
     }
 
@@ -105,30 +105,30 @@ namespace Rivet {
       if(hist->numEntries()==0.) return make_pair(0.,make_pair(0.,0.));
       double sum1(0.),sum2(0.),sum3(0.),sum4(0.),sum5(0.);
       for (auto bin : hist->bins() ) {
-       	double Oi = bin.area();
-	if(Oi==0.) continue;
-	double a =  1.5*(bin.xMax() - bin.xMin());
-	double b = 0.5*(pow(bin.xMax(),3) - pow(bin.xMin(),3));
-       	double Ei = bin.areaErr();
-	sum1 +=   a*Oi/sqr(Ei);
-	sum2 +=   b*Oi/sqr(Ei);
-	sum3 += sqr(a)/sqr(Ei);
-	sum4 += sqr(b)/sqr(Ei);
-	sum5 +=    a*b/sqr(Ei);
+        double Oi = bin.area();
+        if(Oi==0.) continue;
+        double a =  1.5*(bin.xMax() - bin.xMin());
+        double b = 0.5*(pow(bin.xMax(),3) - pow(bin.xMin(),3));
+        double Ei = bin.areaErr();
+        sum1 +=   a*Oi/sqr(Ei);
+        sum2 +=   b*Oi/sqr(Ei);
+        sum3 += sqr(a)/sqr(Ei);
+        sum4 += sqr(b)/sqr(Ei);
+        sum5 +=    a*b/sqr(Ei);
       }
       // calculate alpha
       double alpha = (-3*sum1 + 9*sum2 + sum3 - 3*sum5)/(sum1 - 3*sum2 + 3*sum4 - sum5);
       // and error
       double cc = -pow((sum3 + 9*sum4 - 6*sum5),3);
       double bb = -2*sqr(sum3 + 9*sum4 - 6*sum5)*(sum1 - 3*sum2 + 3*sum4 - sum5);
-      double aa =  sqr(sum1 - 3*sum2 + 3*sum4 - sum5)*(-sum3 - 9*sum4 + sqr(sum1 - 3*sum2 + 3*sum4 - sum5) + 6*sum5);      
+      double aa =  sqr(sum1 - 3*sum2 + 3*sum4 - sum5)*(-sum3 - 9*sum4 + sqr(sum1 - 3*sum2 + 3*sum4 - sum5) + 6*sum5);
       double dis = sqr(bb)-4.*aa*cc;
       if(dis>0.) {
-	dis = sqrt(dis);
-	return make_pair(alpha,make_pair(0.5*(-bb+dis)/aa,-0.5*(-bb-dis)/aa));
+        dis = sqrt(dis);
+        return make_pair(alpha,make_pair(0.5*(-bb+dis)/aa,-0.5*(-bb-dis)/aa));
       }
       else {
-	return make_pair(alpha,make_pair(0.,0.));
+        return make_pair(alpha,make_pair(0.,0.));
       }
     }
 
@@ -145,13 +145,13 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_lam,_h_bar,_h_all;
-    //@}
+    /// @}
 
 
   };

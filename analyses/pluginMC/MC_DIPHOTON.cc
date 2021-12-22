@@ -5,7 +5,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// @brief MC validation analysis for isolated di-photon events
@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       FinalState fs;
@@ -85,19 +85,19 @@ namespace Rivet {
       scale(_h_dphi_PP, crossSection()/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_m_PP;
     Histo1DPtr _h_pT_PP;
     Histo1DPtr _h_pT_P1;
     Histo1DPtr _h_pT_P2;
     Histo1DPtr _h_dphi_PP;
-    //@}
+    /// @}
 
 
   };

@@ -37,14 +37,14 @@ protected:
     }
     set(estimate);
   }
-  
+
   /// Compare projections
   CmpState compare(const Projection& p) const {
     return mkNamedPCmp(p, "FSSumETFwdCentrality");
   }
 
 };
-    
+
 /// Example of a trigger projection for minimum bias pPb requiring at
 /// least one charged particle in both forward and backward direction.
 class MC_pPbMinBiasTrigger: public TriggerProjection {
@@ -73,14 +73,14 @@ protected:
 	   applyProjection<FinalState>(event,"MBB").particles().empty() )
         fail();
   }
-  
+
   /// Compare projections
   CmpState compare(const Projection& p) const {
     return mkNamedPCmp(p, "MBF") || mkNamedPCmp(p, "MBB");
   }
 
 };
-    
+
 
 }
 

@@ -21,13 +21,13 @@ namespace Rivet {
   public:
 
     enum Reconstruction { CHARGED=0, ALL=1 };
-    enum Observable { MULT=0, PTDS=1, GA_LHA=2, GA_WIDTH=3, 
-                      GA_THRUST=4, ECC=5, ZG=6, ZGDR=7, NSD=8, 
-                      TAU21=9, TAU32=10, TAU43=11, C1_00=12, 
-                      C1_02=13, C1_05=14, C1_10=15, C1_20=16, 
-                      C2_00=17, C2_02=18, C2_05=19, C2_10=20, 
-                      C2_20=21, C3_00=22, C3_02=23, C3_05=24, 
-                      C3_10=25, C3_20=26, M2_B1=27, N2_B1=28, 
+    enum Observable { MULT=0, PTDS=1, GA_LHA=2, GA_WIDTH=3,
+                      GA_THRUST=4, ECC=5, ZG=6, ZGDR=7, NSD=8,
+                      TAU21=9, TAU32=10, TAU43=11, C1_00=12,
+                      C1_02=13, C1_05=14, C1_10=15, C1_20=16,
+                      C2_00=17, C2_02=18, C2_05=19, C2_10=20,
+                      C2_20=21, C3_00=22, C3_02=23, C3_05=24,
+                      C3_10=25, C3_20=26, M2_B1=27, N2_B1=28,
                       N3_B1=29, M2_B2=30, N2_B2=31, N3_B2=32 };
     enum Flavor { INCL=0, BOTTOM=1, QUARK=2, GLUON=3 };
 
@@ -37,7 +37,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
 
     /// Set up projections and book histograms
@@ -317,7 +317,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -443,12 +443,12 @@ namespace Rivet {
   private:
 
     // @name Histogram data members
-    //@{
+    /// @{
 
     Cut particle_cut, lepton_cut, jet_cut;
     Histo1DPtr _h[2][33][4];
 
-    //@}
+    /// @}
 
   };
 

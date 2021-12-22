@@ -9,17 +9,17 @@
 namespace Rivet {
 
 
-  /// @brief Charged particle production in deep-inelastic ep scattering at H1 
+  /// @brief Charged particle production in deep-inelastic ep scattering at H1
   class H1_2013_I1217865 : public Analysis {
   public:
 
     /// Constructor
-    
+
     RIVET_DEFAULT_ANALYSIS_CTOR(H1_2013_I1217865);
-    
+
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -37,8 +37,8 @@ namespace Rivet {
       _h_dn_deta_soft.resize(9);
       _h_dn_deta_hard.resize(9);
 
-      book(_h_dn_dpT_cen[0],19,1,1); 
-      book(_h_dn_dpT_curr[0] ,20,1,1); 
+      book(_h_dn_dpT_cen[0],19,1,1);
+      book(_h_dn_dpT_curr[0] ,20,1,1);
       book(_h_dn_deta_soft[0],1,1,1);
       book(_h_dn_deta_hard[0],2,1,1);
       for (size_t ix = 0; ix < 9; ++ix) {
@@ -50,14 +50,14 @@ namespace Rivet {
 	    book(_h_dn_deta_hard[ix],ix+10,1,1);
         }
       }
-   
+
 
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");      
+      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
       const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
       const DISLepton& dl = applyProjection<DISLepton>(event,"Lepton");
 
@@ -75,11 +75,11 @@ namespace Rivet {
       getLog()<<Log::DEBUG<<"enel/GeV = "<<enel/GeV<<", thel = "<<thel<<", y = "<<y<<", x = "<<x<<std::endl;
        bool cut = y > 0.05 && y < 0.6 && Q2 > 5. && Q2 < 100.;
        if (!cut) vetoEvent;
-      
+
 
        int ibin[10] ;
        for ( int i=0; i< 9; i++) {
-       ibin[i] = 0; } 
+       ibin[i] = 0; }
 
        ibin[0] = 1 ;
        if(5.<Q2&&Q2<10.&&x>0.0001&&x<0.00024)   ibin[1]=1;
@@ -89,9 +89,9 @@ namespace Rivet {
        if(10.<Q2&&Q2<20.&&x>0.00052&&x<0.0011)  ibin[5]=1;
        if(10.<Q2&&Q2<20.&&x>0.0011&&x<0.0037)   ibin[6]=1;
        if(20.<Q2&&Q2<100.&&x>0.0004&&x<0.0017)  ibin[7]=1;
-       if(20.<Q2&&Q2<100.&&x>0.0017&&x<0.01)    ibin[8]=1; 
+       if(20.<Q2&&Q2<100.&&x>0.0017&&x<0.01)    ibin[8]=1;
 
-       for ( int i=0; i< 9; i++) { if(ibin[i]==1) _Nevt_after_cuts[i] ->fill(); } 
+       for ( int i=0; i< 9; i++) { if(ibin[i]==1) _Nevt_after_cuts[i] ->fill(); }
 
 
       // Extract the particles other than the lepton
@@ -106,7 +106,7 @@ namespace Rivet {
 
       // Boost to hadronic CM
       const LorentzTransform hcmboost = dk.boostHCM();
-      
+
       int mult = 0 ;
       // Loop over the particles
       // long ncharged(0);
@@ -114,44 +114,44 @@ namespace Rivet {
       const Particle& p = particles[ip1];
 
       double eta = p.momentum().pseudorapidity();
-      double pT = p.momentum().pT()/GeV; 
+      double pT = p.momentum().pT()/GeV;
 
       // Boost to hcm
       const FourMomentum hcmMom = hcmboost.transform(p.momentum());
-   
+
       if (pT > 0.15 && eta > -2. && eta < 2.5){
 
         mult = mult + 1;
-               
-	  double pThcm =hcmMom.pT() ; 
+
+	  double pThcm =hcmMom.pT() ;
         double etahcm = hcmMom.pseudorapidity();
 
 
-        if (etahcm > 0. && etahcm < 1.5){ 
+        if (etahcm > 0. && etahcm < 1.5){
 
             _h_dn_dpT_cen[0]->fill(pThcm );
-	      for ( int i=1; i< 9; i++) { 
+	      for ( int i=1; i< 9; i++) {
                   if(ibin[i]==1) { _h_dn_dpT_cen[i]->fill(pThcm );}}
-       }   
-	   
+       }
+
        if (etahcm > 1.5 && etahcm < 5.){
-           _h_dn_dpT_curr[0]->fill(pThcm ); 
-	      for ( int i=1; i< 9; i++) { 
+           _h_dn_dpT_curr[0]->fill(pThcm );
+	      for ( int i=1; i< 9; i++) {
                   if(ibin[i]==1) { _h_dn_dpT_curr[i]->fill(pThcm );}}
        }
-	   
+
        if(pThcm < 1.){
            _h_dn_deta_soft[0]->fill(etahcm );
-	      for ( int i=1; i< 9; i++) { 
+	      for ( int i=1; i< 9; i++) {
                   if(ibin[i]==1) {_h_dn_deta_soft[i]->fill(etahcm );}}
       }
- 
+
       if(pThcm > 1. && pThcm < 10.){
-            _h_dn_deta_hard[0]->fill(etahcm ); 
-	      for ( int i=1; i< 9; i++) { 
+            _h_dn_deta_hard[0]->fill(etahcm );
+	      for ( int i=1; i< 9; i++) {
                   if(ibin[i]==1) {_h_dn_deta_hard[i]->fill(etahcm );}}
- 
-       }       
+
+       }
     }  // if (etahcm > 0. && etahcm < 1.5){
   }  // end of loop over the particles
 
@@ -167,10 +167,10 @@ namespace Rivet {
      if (_Nevt_after_cuts[0]->val()  != 0)  scale(_h_dn_dpT_cen[0],  1./ *_Nevt_after_cuts[0]);
      if (_Nevt_after_cuts[0]->val()  != 0)  scale(_h_dn_dpT_curr[0],  1./ *_Nevt_after_cuts[0]);
      if (_Nevt_after_cuts[0]->val()  != 0)  scale(_h_dn_deta_soft[0],  1./ *_Nevt_after_cuts[0]);
-     if (_Nevt_after_cuts[0]->val()  != 0)  scale(_h_dn_deta_hard[0],   1./ *_Nevt_after_cuts[0]); 
-     
-     
-     for ( int i=1; i< 9; i++) { 
+     if (_Nevt_after_cuts[0]->val()  != 0)  scale(_h_dn_deta_hard[0],   1./ *_Nevt_after_cuts[0]);
+
+
+     for ( int i=1; i< 9; i++) {
         if (_Nevt_after_cuts[i]->val()  != 0) {
            scale(_h_dn_dpT_cen[i],  1./ *_Nevt_after_cuts[i]);
            scale(_h_dn_dpT_curr[i], 1./ *_Nevt_after_cuts[i]);
@@ -194,22 +194,22 @@ namespace Rivet {
       return thel;
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
       Histo1DPtr _h_dn_dpT_2r;
       Histo1DPtr _h_dn_dpT_2l;
 
       vector<Histo1DPtr> _h_dn_dpT_cen;
-      vector<Histo1DPtr> _h_dn_dpT_curr;      
-      vector<Histo1DPtr> _h_dn_deta_soft;      
+      vector<Histo1DPtr> _h_dn_dpT_curr;
+      vector<Histo1DPtr> _h_dn_deta_soft;
       vector<Histo1DPtr> _h_dn_deta_hard;
       array<CounterPtr,9> _Nevt_after_cuts;
-  
 
-    //@}
+
+    /// @}
 
 
   };

@@ -16,7 +16,7 @@ namespace Rivet {
     friend istream& operator>> (istream& is, A& a);
     friend ostream& operator<< (ostream& os, const A& a);
   };
-  
+
   // Custom class must be streamable.
   istream& operator>> (istream& is, A& a) {
     is >> a.a;
@@ -34,7 +34,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(MC_OPTIONS);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -45,7 +45,7 @@ namespace Rivet {
       double f = getOption<double>("foo", 1.0);
       // A string.
       string s = getOption<string>("bar", "");
-      // A custom object. 
+      // A custom object.
       A a = getOption<A>("baz", A());
 
       cout << "foo = " << f << endl;
@@ -64,20 +64,20 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-    
+
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr h;
-    //@}
+    /// @}
     double value;
-    
+
   };
 
 

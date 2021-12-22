@@ -14,14 +14,14 @@ namespace Rivet {
       apply<DISKinematics>(e, "DISKIN");
     const Particles& p =
       apply<DISFinalState>(e, "DISFS").particles(cmpMomByEta);
-    findgap(p, dk);
+    findGap(p, dk);
   }
 
-  void DISRapidityGap::clearAll() {
+
+  void DISRapidityGap::clear() {
     _M2X = _M2Y = _t = _gap = 0.;
-    _gapUpp = _gapLow = -8.;
-    _ePpzX_HCM = _eMpzX_HCM =_ePpzX_LAB =
-      _eMpzX_LAB = _ePpzX_XCM = _eMpzX_XCM = 0.;
+    _gapUpp = _gapLow = -DBL_MAX;
+    _ePpzX_HCM = _eMpzX_HCM =_ePpzX_LAB =_eMpzX_LAB = _ePpzX_XCM = _eMpzX_XCM = 0.;
     _momX_HCM.setPE(0., 0., 0., 0.);
     _momY_HCM.setPE(0., 0., 0., 0.);
     _momX_XCM.setPE(0., 0., 0., 0.);
@@ -36,16 +36,15 @@ namespace Rivet {
     _pY_LAB.clear();
   }
 
-  void DISRapidityGap::findgap(const Particles& particles,
-                               const DISKinematics& diskin) {
 
-    clearAll();
+  void DISRapidityGap::findGap(const Particles& particles, const DISKinematics& diskin) {
 
-    // Begin by finding largest gap and gapedges between all final
-    // state particles in HCM frame.
+    clear();
+
+    // Find largest gap, and gap edges, between all final-state particles in HCM frame.
     int nP  = particles.size();
     int dir = diskin.orientation();
-    for (int i = 0; i < nP-1; ++i){
+    for (int i = 0; i < nP-1; ++i) {
       double tmpGap = abs(particles[i+1].eta() - particles[i].eta());
       if (tmpGap > _gap) {
         _gap    = tmpGap;
@@ -69,7 +68,7 @@ namespace Rivet {
     // Note that HCM has photon along +z, as opposed to
     // H1 where proton is along +z. This results in a sign change
     // as compared to H1 papers!
-      
+
     // X - side
     FourMomentum momX;
     for (const Particle& jp : pX) {
@@ -80,7 +79,7 @@ namespace Rivet {
     _momX_HCM = momX;
     _pX_HCM   = pX;
     _M2X      = _momX_HCM.mass2();
-  
+
     // Y - side
     FourMomentum momY;
     for (const Particle& kp : pY) momY += kp.momentum();
@@ -105,7 +104,7 @@ namespace Rivet {
     }
 
     for (const Particle& jp : pX) {
-      // Boost from HCM to LAB. 
+      // Boost from HCM to LAB.
       FourMomentum lab = hcminverse.transform(jp.momentum());
       _ePpzX_LAB += lab.E() + dir * lab.pz();
       _eMpzX_LAB += lab.E() - dir * lab.pz();
@@ -151,4 +150,6 @@ namespace Rivet {
     _t = pPom * pPom;
 
   }
+
+
 }

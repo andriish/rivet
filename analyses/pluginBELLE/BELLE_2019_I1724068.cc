@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -55,7 +55,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // Loop over B0 mesons 
+      // Loop over B0 mesons
       for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::B0)) {
 	// find the B decay
 	unsigned int nprod = 0;
@@ -111,16 +111,16 @@ namespace Rivet {
       book(_h_F,2,1,1);
       pair<double,double> F = calcF(_h_cTheta);
       _h_F->addPoint(0.5, F.first, make_pair(0.5,0.5), make_pair(F.second,F.second) );
-      
+
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_cTheta;
-    ///@}
+    /// @}
 
 
   };

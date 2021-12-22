@@ -140,7 +140,7 @@ namespace Rivet {
 
 
   /// @name String representations of vectors
-  //@{
+  /// @{
 
   /// Make string representation
   template <size_t N>
@@ -162,7 +162,7 @@ namespace Rivet {
     return out;
   }
 
-  //@}
+  /// @}
 
 
   /////////////////////////////////////////////////

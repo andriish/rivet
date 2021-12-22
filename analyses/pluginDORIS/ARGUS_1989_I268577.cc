@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -28,7 +28,7 @@ namespace Rivet {
       book(_h_D2_ctheta, 3, 1, 1);
     }
 
-   
+
    /// Recursively walk the decay tree to find decay products of @a p
    void findDecayProducts(Particle mother, Particles & d, Particles & pi,unsigned int & ncount) {
      for(const Particle & p: mother.children()) {
@@ -71,13 +71,13 @@ namespace Rivet {
       scale(_h_rate,br/sumOfWeights()*crossSection()/picobarn);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_D2_x,_h_D2_ctheta,_h_rate;
-    //@}
+    /// @}
 
 
   };

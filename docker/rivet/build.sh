@@ -2,11 +2,17 @@
 
 set -e
 
+BUILD="docker build . -f Dockerfile"
+
+test "$FORCE" && BUILD="$BUILD --no-cache"
+
+YODA_BRANCH=yoda-1.9.4
+
 ## Last branch name -> latest
-for RIVET_BRANCH in release-3-1-x; do # rivet-3.1.4; do
+for RIVET_BRANCH in release-3-1-x rivet-3.1.5; do
     RIVET_VERSION=${RIVET_BRANCH#rivet-}
 
-    BUILD="docker build . -f Dockerfile"
+    BUILD="$BUILD --build-arg YODA_BRANCH=$YODA_BRANCH" # --squash"
     BUILD="$BUILD --build-arg RIVET_BRANCH=$RIVET_BRANCH" # --squash"
     test "$TEST" && BUILD="echo $BUILD"
 
@@ -28,8 +34,8 @@ for RIVET_BRANCH in release-3-1-x; do # rivet-3.1.4; do
 done
 
 ## Convenience tags
-docker tag hepstore/rivet:$RIVET_VERSION{-ubuntu-gcc-hepmc2-py3,}
 docker tag hepstore/rivet:$RIVET_VERSION{-ubuntu-gcc-hepmc3-py3,-hepmc3}
+docker tag hepstore/rivet:$RIVET_VERSION{-hepmc3,}
 if [[ "$LATEST" = 1 ]]; then
     docker tag hepstore/rivet:{$RIVET_VERSION,latest}
 fi

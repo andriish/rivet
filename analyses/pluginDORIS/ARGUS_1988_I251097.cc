@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -33,7 +33,7 @@ namespace Rivet {
       book(_hist_ups2_lambda , 4,1,1);
       book(_hist_cont_lambda1, 5,1,1);
       book(_hist_cont_lambda2, 6,1,1);
-           
+
       book(_hist_ups1_xi     , 7,1,1);
       book(_hist_ups2_xi     , 8,1,1);
       book(_hist_cont_xi     , 9,1,1);
@@ -61,7 +61,7 @@ namespace Rivet {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       Particles upsilons = ufs.particles(Cuts::pid==553 || Cuts::pid==100553);
       // continuum
-      if (upsilons.empty()) { 
+      if (upsilons.empty()) {
         _weightSum_cont->fill();
         for (const Particle& p : ufs.particles()) {
           int id = p.abspid();
@@ -184,16 +184,16 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _hist_ups1_lambda, _hist_ups2_lambda, _hist_cont_lambda1, _hist_cont_lambda2;
     Histo1DPtr _hist_ups1_xi, _hist_ups2_xi, _hist_cont_xi;
     CounterPtr _mult[2][7];
     CounterPtr _weightSum_cont,_weightSum_Ups1,_weightSum_Ups2;
-    //@}
+    /// @}
 
 
   };

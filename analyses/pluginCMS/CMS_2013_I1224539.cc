@@ -14,7 +14,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     CMS_2013_I1224539()
@@ -24,18 +24,18 @@ namespace Rivet {
         _pruner(fastjet::Pruner(fastjet::cambridge_algorithm, 0.1, 0.5))
     {    }
 
-    //@}
+    /// @}
 
 
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
 
-      // Get options 
+      // Get options
       WJET = true;
       ZJET = true;
       DIJET = true;
@@ -135,7 +135,7 @@ namespace Rivet {
       const FourMomentum jmom(psjet.e(), psjet.px(), psjet.py(), psjet.pz());
       return (deltaPhi(w, jmom) > 2.0 && deltaR(l1, jmom) > 1.0 && deltaPhi(l2, jmom) > 0.4);
     }
-    
+
     bool isBackToBack_zj(const ZFinder& zf, const fastjet::PseudoJet& psjet) {
       const FourMomentum& z = zf.bosons()[0].momentum();
       const FourMomentum& l1 = zf.constituents()[0].momentum();
@@ -145,7 +145,7 @@ namespace Rivet {
       return (deltaPhi(z, jmom) > 2.0 && deltaR(l1, jmom) > 1.0 && deltaR(l2, jmom) > 1.0);
     }
 
-    
+
     // Find the pT histogram bin index for value pt (in GeV), to hack a 2D histogram equivalent
     /// @todo Use a YODA axis/finder alg when available
     size_t findPtBin_vj(double ptJ) {
@@ -166,7 +166,7 @@ namespace Rivet {
       return N_PT_BINS_dj;
     }
 
-  
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const double weight = 1.0;
@@ -178,14 +178,14 @@ namespace Rivet {
 	if (wfinder.bosons().size() == 1) {
 	  const Particle w = wfinder.bosons()[0];
 	  const Particle l = wfinder.constituentLeptons()[0];
-	
+
 	  // Require a fairly high-pT W and charged lepton
 	  if (l.pT() >= 80*GeV && w.pT() >= 120*GeV) {
-	
+
 	      // Get the pseudojets.
 	      const PseudoJets psjetsCA8_wj = apply<FastJets>(event, "JetsCA8_wj").pseudoJetsByPt( 50.0*GeV );
 	      const PseudoJets psjetsCA12_wj = apply<FastJets>(event, "JetsCA12_wj").pseudoJetsByPt( 50.0*GeV );
-	      
+
 	      // AK7 jets
 	      const PseudoJets psjetsAK7_wj = apply<FastJets>(event, "JetsAK7_wj").pseudoJetsByPt( 50.0*GeV );
 	      if (!psjetsAK7_wj.empty()) {
@@ -204,7 +204,7 @@ namespace Rivet {
 		  }
 		}
 	      }
-	      
+
 	      // CA8 jets
 	      if (!psjetsCA8_wj.empty()) {
 		// Get the leading jet and make sure it's back-to-back with the W
@@ -217,7 +217,7 @@ namespace Rivet {
 		  }
 		}
 	      }
-	      
+
 	      // CA12 jets
 	      if (!psjetsCA12_wj.empty()) {
 		// Get the leading jet and make sure it's back-to-back with the W
@@ -247,7 +247,7 @@ namespace Rivet {
 	  const Particle& l2 = z.constituents()[1];
 	  MSG_DEBUG(l1.pT() << " " << l2.pT());
 	  assert(&l1 != &l2);
-	  
+
 	  // Require a high-pT Z (and constituents)
 	  if (l1.pT() >= 30*GeV && l2.pT() >= 30*GeV && z.pT() >= 120*GeV) {
 
@@ -269,7 +269,7 @@ namespace Rivet {
 		}
 	      }
 	    }
-	    
+
 	    // CA8 jets
 	    const PseudoJets& psjetsCA8_zj = apply<FastJets>(event, "JetsCA8_zj").pseudoJetsByPt(50.0*GeV);
 	    if (!psjetsCA8_zj.empty()) {
@@ -283,7 +283,7 @@ namespace Rivet {
 		}
 	      }
 	    }
-	    
+
 	    // CA12 jets
 	    const PseudoJets& psjetsCA12_zj = apply<FastJets>(event, "JetsCA12_zj").pseudoJetsByPt(50.0*GeV);
 	    if (!psjetsCA12_zj.empty()) {
@@ -305,16 +305,16 @@ namespace Rivet {
 	// Look at events with >= 2 jets
 	const PseudoJets& psjetsAK7 = apply<FastJets>(event, "JetsAK7").pseudoJetsByPt( 50.0*GeV );
 	if (psjetsAK7.size() >= 2) {
-	
+
 	  // Get the leading two jets and find their average pT
 	  const fastjet::PseudoJet& j0 = psjetsAK7[0];
 	  const fastjet::PseudoJet& j1 = psjetsAK7[1];
 	  double ptAvg = 0.5 * (j0.pt() + j1.pt());
-	  
+
 	  // Find the appropriate mean pT bin and escape if needed
 	  const size_t njetBin = findPtBin_jj(ptAvg/GeV);
 	  if (njetBin < N_PT_BINS_dj) {
-	  
+
 	    // Now run the substructure algs...
 	    fastjet::PseudoJet filtered0 = _filter(j0);
 	    fastjet::PseudoJet filtered1 = _filter(j1);
@@ -322,7 +322,7 @@ namespace Rivet {
 	    fastjet::PseudoJet trimmed1 = _trimmer(j1);
 	    fastjet::PseudoJet pruned0 = _pruner(j0);
 	    fastjet::PseudoJet pruned1 = _pruner(j1);
-	    
+
 	    // ... and fill the histograms
 	    _h_ungroomedAvgJetMass_dj[njetBin]->fill(0.5*(j0.m() + j1.m())/GeV, weight);
 	    _h_filteredAvgJetMass_dj[njetBin]->fill(0.5*(filtered0.m() + filtered1.m())/GeV, weight);
@@ -367,7 +367,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
   protected:
 
@@ -376,15 +376,15 @@ namespace Rivet {
   private:
 
     /// @name FastJet grooming tools (configured in constructor init list)
-    //@{
+    /// @{
     const fastjet::Filter _filter;
     const fastjet::Filter _trimmer;
     const fastjet::Pruner _pruner;
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     enum BINS_vj { PT_125_150_vj=0, PT_150_220_vj, PT_220_300_vj, PT_300_450_vj, N_PT_BINS_vj };
     // W+jet
     Histo1DPtr _h_ungroomedJetMass_AK7_wj[N_PT_BINS_vj];
@@ -408,7 +408,7 @@ namespace Rivet {
     Histo1DPtr _h_filteredAvgJetMass_dj[N_PT_BINS_dj];
     Histo1DPtr _h_trimmedAvgJetMass_dj[N_PT_BINS_dj];
     Histo1DPtr _h_prunedAvgJetMass_dj[N_PT_BINS_dj];
-    //@}
+    /// @}
 
   };
 

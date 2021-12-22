@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Cross section for $e^+e^-\to p \bar{p} \pi^0$ at energies between 4.008 and 4.600 GeV
   class BESIII_2017_I1509241 : public Analysis {
   public:
 
@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -33,7 +33,7 @@ namespace Rivet {
       const FinalState& fs = apply<FinalState>(event, "FS");
       if(fs.particles().size()!=3) vetoEvent;
       for (const Particle& p :  fs.particles()) {
-	if(abs(p.pid())!=PID::PROTON&& p.pid()==PID::PI0) vetoEvent;
+        if(abs(p.pid())!=PID::PROTON&& p.pid()==PID::PI0) vetoEvent;
       }
       _nproton->fill();
     }
@@ -44,32 +44,32 @@ namespace Rivet {
       double sigma = _nproton->val();
       double error = _nproton->err();
       sigma *= crossSection()/ sumOfWeights() /picobarn;
-      error *= crossSection()/ sumOfWeights() /picobarn; 
+      error *= crossSection()/ sumOfWeights() /picobarn;
       Scatter2D temphisto(refData(1, 1, 1));
       Scatter2DPtr  mult;
       book(mult, 1, 1, 1);
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
-	const double x  = temphisto.point(b).x();
-	pair<double,double> ex = temphisto.point(b).xErrs();
-	pair<double,double> ex2 = ex;
-	if(ex2.first ==0.) ex2. first=0.0001;
-	if(ex2.second==0.) ex2.second=0.0001;
-	if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
-	  mult->addPoint(x, sigma, ex, make_pair(error,error));
-	}
-	else {
-	  mult->addPoint(x, 0., ex, make_pair(0.,.0));
-	}
+        const double x  = temphisto.point(b).x();
+        pair<double,double> ex = temphisto.point(b).xErrs();
+        pair<double,double> ex2 = ex;
+        if(ex2.first ==0.) ex2. first=0.0001;
+        if(ex2.second==0.) ex2.second=0.0001;
+        if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+          mult->addPoint(x, sigma, ex, make_pair(error,error));
+        }
+        else {
+          mult->addPoint(x, 0., ex, make_pair(0.,.0));
+        }
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _nproton;
-    //@}
+    /// @}
 
 
   };

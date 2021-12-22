@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -24,16 +24,16 @@ namespace Rivet {
 
       // Book histograms
       unsigned int iloc(0);
-      if(isCompatibleWithSqrtS(14.)) {
+      if(isCompatibleWithSqrtS(14*GeV)) {
 	iloc=1;
       }
-      else if (isCompatibleWithSqrtS(22.)) {
+      else if (isCompatibleWithSqrtS(22*GeV)) {
 	iloc=2;
       }
-      else if (isCompatibleWithSqrtS(34.8)) {
+      else if (isCompatibleWithSqrtS(34.8*GeV)) {
 	iloc=3;
       }
-      else if (isCompatibleWithSqrtS(43.5)) {
+      else if (isCompatibleWithSqrtS(43.5*GeV)) {
 	iloc=4;
       }
       else
@@ -84,14 +84,14 @@ namespace Rivet {
       scale(_histEEC,  1.0/ *_weightSum);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histEEC;
     CounterPtr _weightSum;
-    //@}
+    /// @}
 
 
   };

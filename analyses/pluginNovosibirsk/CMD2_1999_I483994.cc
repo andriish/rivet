@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -42,7 +42,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const FinalState& fs = apply<FinalState>(event, "FS");
-      
+
       map<long,int> nCount;
       int ntotal(0);
       for (const Particle& p : fs.particles()) {
@@ -55,7 +55,7 @@ namespace Rivet {
 	else if( nCount[211] == 1 && nCount[-211] == 1 && nCount[111] == 2)
 	  _nneutral->fill();
       }
-      
+
 
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       for (const Particle& p : ufs.particles()) {
@@ -104,7 +104,7 @@ namespace Rivet {
 	  error = _nomega->err();
 	}
 	sigma *= crossSection()/ sumOfWeights() /nanobarn;
-	error *= crossSection()/ sumOfWeights() /nanobarn; 
+	error *= crossSection()/ sumOfWeights() /nanobarn;
 	Scatter2D temphisto(refData(ix, 1, 1));
 	Scatter2DPtr mult;
 	book(mult, ix, 1, 1);
@@ -124,13 +124,13 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _ncharged,_nneutral,_nomega;
-    //@}
+    /// @}
 
 
   };

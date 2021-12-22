@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -78,16 +78,16 @@ namespace Rivet {
       for (Histo1DPtr hist : _h_phistar_mm.histos()) normalize(hist);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _h_phistar_ee;
     BinnedHistogram _h_phistar_mm;
-    //@}
+    /// @}
 
 
   };

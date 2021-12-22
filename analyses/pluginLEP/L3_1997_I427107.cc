@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -40,7 +40,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.                                                    
+      // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       const FinalState& fs = apply<FinalState>(event, "FS");
       if (fs.particles().size() < 2) {
       	MSG_DEBUG("Failed ncharged cut");
@@ -48,7 +48,7 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed ncharged cut");
 
-      // Get beams and average beam momentum                                                                                                
+      // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() + beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
@@ -84,16 +84,16 @@ namespace Rivet {
       scale(_histLnXpOmega, 1./sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histXpEtaP1,_histXpEtaP2;
     Histo1DPtr _histLnXpEtaP1,_histLnXpEtaP2;
     Histo1DPtr _histXpOmega;
     Histo1DPtr _histLnXpOmega;
-    //@}
+    /// @}
 
 
   };

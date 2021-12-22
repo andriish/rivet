@@ -18,9 +18,9 @@ namespace Rivet {
 
       // Book (energy-specific) histograms
       int isqrts = -1;
-      if (isCompatibleWithSqrtS(900)) isqrts = 1;
-      else if (isCompatibleWithSqrtS(2760)) isqrts = 2;
-      else if (isCompatibleWithSqrtS(7000)) isqrts = 3;
+      if (isCompatibleWithSqrtS(900*GeV)) isqrts = 1;
+      else if (isCompatibleWithSqrtS(2760*GeV)) isqrts = 2;
+      else if (isCompatibleWithSqrtS(7000*GeV)) isqrts = 3;
       assert(isqrts > 0);
 
       book(_h_frac_sd_inel, 1, 1, isqrts);

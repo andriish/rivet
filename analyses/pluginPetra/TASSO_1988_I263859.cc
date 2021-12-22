@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -48,7 +48,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
-      
+
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
@@ -84,7 +84,7 @@ namespace Rivet {
 	_h_pT   ->fill(pT/GeV         );
 	_h_rap  ->fill(abs(rapidityS) );
 
-	
+
       }
       unsigned int nCharged = cfs.particles().size();
       _h_pTin2 ->fill(pTin2sum /nCharged);
@@ -108,14 +108,14 @@ namespace Rivet {
       scale(_h_rap        , 1./sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_sphericity, _h_aplanarity, _h_thrust, _h_pTin2, _h_pTout2, _h_ncharged,
       _h_pTin, _h_pTout, _h_pT, _h_x, _h_rap;
-    //@}
+    /// @}
 
 
   };

@@ -19,8 +19,8 @@ namespace Rivet {
       declare(ufs, "UFS");
 
       // Check if cm energy is 7 TeV or 0.9 TeV
-      if (isCompatibleWithSqrtS(900))       _cm_energy_case = 1;
-      else if (isCompatibleWithSqrtS(7000)) _cm_energy_case = 2;
+      if (isCompatibleWithSqrtS(900*GeV))       _cm_energy_case = 1;
+      else if (isCompatibleWithSqrtS(7000*GeV)) _cm_energy_case = 2;
       if (_cm_energy_case == 0)
         throw UserError("Center of mass energy of the given input is neither 900 nor 7000 GeV.");
 

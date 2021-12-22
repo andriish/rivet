@@ -17,7 +17,7 @@ namespace Rivet {
   /// @{
 
   /// @defgroup particleutils_class Particle classifier functions
-  //@{
+  /// @{
 
   /// Unbound function access to PID code
   inline int pid(const Particle& p) { return p.pid(); }
@@ -744,10 +744,19 @@ namespace Rivet {
   /// @defgroup particleutils_pair Particle pair functions
   /// @{
 
-  /// Get the PDG ID codes of a ParticlePair
-  /// @todo Make ParticlePair a custom class instead?
+  /// @brief Get the PDG ID codes of a ParticlePair
   inline PdgIdPair pids(const ParticlePair& pp) {
     return make_pair(pp.first.pid(), pp.second.pid());
+  }
+
+  /// @brief Get the energies of a ParticlePair
+  inline pair<double,double> energies(const ParticlePair& pp) {
+    return make_pair(pp.first.E(), pp.second.E());
+  }
+
+  /// @brief Get the momenta of a ParticlePair
+  inline pair<FourMomentum,FourMomentum> moms(const ParticlePair& pp) {
+    return make_pair(pp.first.mom(), pp.second.mom());
   }
 
   /// @}
@@ -757,7 +766,7 @@ namespace Rivet {
   /// @defgroup particleutils_kin Operations on collections of Particle
   ///
   /// @note This can't be done on generic collections of ParticleBase -- thanks, C++ :-/
-  ///@{
+  /// @{
   namespace Kin {
 
     inline double sumPt(const Particles& ps) {

@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -24,15 +24,15 @@ namespace Rivet {
 
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
-      
+
       // Thrust and sphericity
       declare(Sphericity(cfs), "Sphericity");
       // Book histograms
       unsigned int ihist=0;
-      if      (isCompatibleWithSqrtS(12.)) {
+      if      (isCompatibleWithSqrtS(12*GeV)) {
 	ihist=1;
       }
-      else if (isCompatibleWithSqrtS(30.)) {
+      else if (isCompatibleWithSqrtS(30*GeV)) {
 	ihist=2;
       }
       else
@@ -74,13 +74,13 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_S,_h_A,_h_x;
-    //@}
+    /// @}
 
 
   };

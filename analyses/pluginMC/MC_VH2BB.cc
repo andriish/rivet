@@ -14,18 +14,18 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     MC_VH2BB()
       : Analysis("MC_VH2BB")
     {    }
 
-    //@}
+    /// @}
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -231,13 +231,13 @@ namespace Rivet {
       return rtn;
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
 
     Histo1DPtr _h_Z_multiplicity, _h_W_multiplicity;
     Histo1DPtr _h_jet_bb_Delta_eta, _h_jet_bb_Delta_phi, _h_jet_bb_Delta_pT, _h_jet_bb_Delta_R;
@@ -249,7 +249,7 @@ namespace Rivet {
     Histo1DPtr _h_jet_bVB_angle_Hframe, _h_jet_bb_angle_Hframe, _h_jet_bVB_cosangle_Hframe, _h_jet_bb_cosangle_Hframe;
     //Histo1DPtr _h_jet_cuts_bb_deltaR_v_HpT;
 
-    //@}
+    /// @}
 
   };
 

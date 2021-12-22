@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -27,20 +27,20 @@ namespace Rivet {
       // Initialise and register projections
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
-      declare(InitialQuarks(), "IQF"); 
+      declare(InitialQuarks(), "IQF");
       // Book histograms
       book(_h_all_pi, "TMP/h_all_pi",refData( 4,1,1));
       book(_h_all_K , "TMP/h_all_K ",refData( 5,1,1));
       book(_h_all_p , "TMP/h_all_p ",refData( 6,1,1));
       book(_h_all_Kp, "TMP/h_all_Kp",refData( 7,1,1));
       book(_d_all   , "TMP/d_all   ",refData( 4,1,1));
-      			           
+
       book(_h_bot_pi, "TMP/h_bot_pi",refData( 8,1,1));
       book(_h_bot_K , "TMP/h_bot_K ",refData( 9,1,1));
       book(_h_bot_p , "TMP/h_bot_p ",refData(10,1,1));
       book(_h_bot_Kp, "TMP/h_bot_Kp",refData(11,1,1));
       book(_d_bot   , "TMP/d_bot   ",refData( 8,1,1));
-      			           
+
       book(_h_lgt_pi, "TMP/h_lgt_pi",refData(12,1,1));
       book(_h_lgt_K , "TMP/h_lgt_K ",refData(13,1,1));
       book(_h_lgt_p , "TMP/h_lgt_p ",refData(14,1,1));
@@ -55,7 +55,7 @@ namespace Rivet {
       book(_h_all_k_x , 21,1,1);
       book(_h_all_p_p , 22,1,1);
       book(_h_all_p_x , 23,1,1);
-           
+
       book(_h_bot_ch_p, 24,1,1);
       book(_h_bot_ch_x, 25,1,1);
       book(_h_bot_pi_p, 26,1,1);
@@ -64,7 +64,7 @@ namespace Rivet {
       book(_h_bot_k_x , 29,1,1);
       book(_h_bot_p_p , 30,1,1);
       book(_h_bot_p_x , 31,1,1);
-           
+
       book(_h_lgt_ch_p, 32,1,1);
       book(_h_lgt_ch_x, 33,1,1);
       book(_h_lgt_pi_p, 34,1,1);
@@ -83,7 +83,7 @@ namespace Rivet {
       }
       book(_wLgt,"TMP/wLgt");
       book(_wBot,"TMP/wBot");
-      book(_wAll,"TMP/wAll"); 
+      book(_wAll,"TMP/wAll");
     }
 
 
@@ -162,7 +162,7 @@ namespace Rivet {
 	  _h_all_pi_p->fill(modp);
 	  _h_all_pi_x->fill(xp  );
 	  if(flavour<=3) {
-	    _h_lgt_pi ->fill(modp); 
+	    _h_lgt_pi ->fill(modp);
 	    _mult[2][1]->fill();
 	    _h_lgt_pi_p->fill(modp);
 	    _h_lgt_pi_x->fill(xp  );
@@ -215,7 +215,7 @@ namespace Rivet {
 	  }
 	  else if(flavour==5) {
 	    _h_bot_p ->fill(modp);
-	    _h_bot_Kp->fill(modp); 
+	    _h_bot_Kp->fill(modp);
 	    _mult[1][3]->fill();
 	    _mult[1][4]->fill();
 	    _h_bot_p_p ->fill(modp);
@@ -244,7 +244,7 @@ namespace Rivet {
       divide(_h_all_p , _d_all, temp);
       book(temp,7,1,1);
       divide(_h_all_Kp, _d_all, temp);
-      
+
       scale(_h_bot_pi,100.);
       scale(_h_bot_K ,100.);
       scale(_h_bot_p ,100.);
@@ -257,7 +257,7 @@ namespace Rivet {
       divide(_h_bot_p , _d_bot, temp);
       book(temp,11,1,1);
       divide(_h_bot_Kp, _d_bot, temp);
-      
+
       scale(_h_lgt_pi,100.);
       scale(_h_lgt_K ,100.);
       scale(_h_lgt_p ,100.);
@@ -311,11 +311,11 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_all_pi , _h_all_K  , _h_all_p  , _h_all_Kp , _d_all;
     Histo1DPtr _h_bot_pi , _h_bot_K  , _h_bot_p  , _h_bot_Kp , _d_bot;
     Histo1DPtr _h_lgt_pi , _h_lgt_K  , _h_lgt_p  , _h_lgt_Kp , _d_lgt;
@@ -328,7 +328,7 @@ namespace Rivet {
     CounterPtr _mult[3][5];
 
     CounterPtr _wLgt, _wBot, _wAll;
-    //@}
+    /// @}
 
   };
 

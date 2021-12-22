@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -25,22 +25,22 @@ namespace Rivet {
       declare(fs, "FS");
       declare(Sphericity(fs), "Sphericity");
       declare(Thrust(fs), "Thrust");
-      
+
       // counters for R
       book(_c_hadrons, "/TMP/sigma_hadrons");
       book(_c_muons, "/TMP/sigma_muons");
       book(_h_weight, "/TMP/HWeight");
       unsigned int iloc(0);
       sqs = 1.;
-      if(isCompatibleWithSqrtS(14)) {
+      if(isCompatibleWithSqrtS(14*GeV)) {
 	iloc = 1;
 	sqs = 14.;
       }
-      else if(isCompatibleWithSqrtS(22)) {
+      else if(isCompatibleWithSqrtS(22*GeV)) {
 	iloc = 2;
 	sqs = 22.;
       }
-      else if(isCompatibleWithSqrtS(34)) {
+      else if(isCompatibleWithSqrtS(34*GeV)) {
 	iloc = 3;
 	sqs = 34.;
       }
@@ -74,7 +74,7 @@ namespace Rivet {
       }
       // mu+mu- + photons
       if(nCount[-13]==1 and nCount[13]==1 &&
-	 ntotal==2+nCount[22]) {	
+	 ntotal==2+nCount[22]) {
 	_c_muons->fill();
 	return;
       }
@@ -239,18 +239,18 @@ namespace Rivet {
       scale(_h_y  ,1./_h_weight->sumW());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_mult,_h_p,_h_xp,_h_pl,_h_pt,_h_pt2,_h_xl,_h_xT,_h_S,_h_T,_h_y;
     CounterPtr _c_hadrons, _c_muons;
     YODA::Dbn1D _n_charged,_n_total,_sphericity,_thrust,_p_total,
       _p_l,_pt,_pt2,_pt2_in,_pt2_out;
     CounterPtr  _h_weight;
     double sqs;
-    //@}
+    /// @}
 
   };
 

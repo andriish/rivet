@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -28,15 +28,15 @@ namespace Rivet {
       const Thrust thrust(cfs);
       declare(thrust, "Thrust");
       declare(Hemispheres(thrust), "Hemispheres");
-      
+
       int offset = 0;
-      if (isCompatibleWithSqrtS(14.0))
+      if (isCompatibleWithSqrtS(14.0*GeV))
 	offset=1;
-      else if(isCompatibleWithSqrtS(22.0))
+      else if(isCompatibleWithSqrtS(22.0*GeV))
 	offset=2;
-      else if(isCompatibleWithSqrtS(34.8))
+      else if(isCompatibleWithSqrtS(34.8*GeV))
 	offset=3;
-      else if(isCompatibleWithSqrtS(43.5))
+      else if(isCompatibleWithSqrtS(43.5*GeV))
 	offset=4;
       else
 	MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
@@ -65,15 +65,15 @@ namespace Rivet {
     void finalize() {
       normalize(_h_diff );
       normalize(_h_heavy);
-      normalize(_h_light); 
+      normalize(_h_light);
     }
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_diff,_h_heavy,_h_light;
-    //@}
+    /// @}
 
 
   };

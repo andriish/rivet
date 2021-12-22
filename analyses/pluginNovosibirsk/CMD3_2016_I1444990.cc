@@ -15,11 +15,11 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
-      
+
       declare(FinalState(), "FS");
       book(_nK0K0, "TMP/K0K0");
 
@@ -67,13 +67,13 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _nK0K0;
-    //@}
+    /// @}
 
 
   };

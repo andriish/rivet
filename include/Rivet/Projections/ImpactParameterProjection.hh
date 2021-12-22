@@ -10,7 +10,7 @@ namespace Rivet {
 
 class ImpactParameterProjection: public SingleValueProjection {
 public:
-  
+
   ImpactParameterProjection() {
     setName("ImpactParameterProjection");
     declare(HepMCHeavyIon(), "HepMC");
@@ -29,7 +29,7 @@ protected:
   CmpState compare(const Projection& p) const {
     return CmpState::EQ;
   }
-  
+
 };
 
 }

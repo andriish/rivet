@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book projections and histograms
     void init() {
@@ -27,20 +27,20 @@ namespace Rivet {
       const FinalState calofs((Cuts::etaIn(-6.0, 6.0)));
       declare(MissingMomentum(calofs), "MET60");
 
-      if (isCompatibleWithSqrtS(63)) {
+      if (isCompatibleWithSqrtS(63*GeV)) {
         book(_hist_Pt ,8,1,1);
-      } else if (isCompatibleWithSqrtS(200)) {
+      } else if (isCompatibleWithSqrtS(200*GeV)) {
         book(_hist_Nch ,1,1,1);
         book(_hist_Esigd3p ,2,1,1);
         book(_hist_Pt ,6,1,1);
         book(_hist_Et ,9,1,1);
         book(_hist_Etavg ,12,1,1);
-      } else if (isCompatibleWithSqrtS(500)) {
+      } else if (isCompatibleWithSqrtS(500*GeV)) {
         book(_hist_Nch ,1,1,2);
         book(_hist_Esigd3p ,2,1,2);
         book(_hist_Et ,10,1,1);
         book(_hist_Etavg ,12,1,2);
-      } else if (isCompatibleWithSqrtS(900)) {
+      } else if (isCompatibleWithSqrtS(900*GeV)) {
         book(_hist_Nch ,1,1,3);
         book(_hist_Esigd3p ,2,1,3);
         book(_hist_Pt ,7,1,1);
@@ -78,7 +78,7 @@ namespace Rivet {
       const unsigned int nch = cfs.size();
 
       // Event level histos
-      if (!isCompatibleWithSqrtS(63)) {
+      if (!isCompatibleWithSqrtS(63*GeV)) {
         _hist_Nch->fill(nch);
         _hist_Et->fill(Et60/GeV);
         _hist_Etavg->fill(nch, Et25/GeV);
@@ -91,14 +91,14 @@ namespace Rivet {
       for (const Particle& p : cfs.particles()) {
         const double pt = p.pT();
         const double scaled_weight = 1.0/(deta*dphi*pt/GeV);
-        if (!isCompatibleWithSqrtS(500)) {
+        if (!isCompatibleWithSqrtS(500*GeV)) {
           _hist_Pt->fill(nch, pt/GeV);
         }
-        if (!isCompatibleWithSqrtS(63)) {
+        if (!isCompatibleWithSqrtS(63*GeV)) {
           _hist_Esigd3p->fill(pt/GeV, scaled_weight);
         }
         // Also fill for specific dn/deta ranges at 900 GeV
-        if (isCompatibleWithSqrtS(900, 1E-3)) {
+        if (isCompatibleWithSqrtS(900*GeV, 1E-3)) {
           if (inRange(dnch_deta, 0.8, 4.0)) {
             //_sumwTrig08 ->fill();
             _hist_Esigd3p08->fill(pt/GeV, scaled_weight);
@@ -124,12 +124,12 @@ namespace Rivet {
         return;
       }
       const double xsec = crossSectionPerEvent();
-      if (!isCompatibleWithSqrtS(63)) {
+      if (!isCompatibleWithSqrtS(63*GeV)) {
         scale(_hist_Nch, 2*xsec/millibarn); ///< Factor of 2 for Nch bin widths?
         scale(_hist_Esigd3p, xsec/millibarn);
         scale(_hist_Et, xsec/millibarn);
       }
-      if (isCompatibleWithSqrtS(900)) {
+      if (isCompatibleWithSqrtS(900*GeV)) {
         // NB. Ref data is normalised to a fixed value not reproducible from MC.
         const double scale08 =  (_hist_Esigd3p08->bin(0).area() > 0) ?
           0.933e5/_hist_Esigd3p08->bin(0).height() : 0;
@@ -143,18 +143,18 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Weight counters
-    //@{
+    /// @{
     CounterPtr _sumwTrig; //, _sumwTrig08, _sumwTrig40, _sumwTrig80;
-    //@}
+    /// @}
 
     /// @name Histogram collections
-    //@{
+    /// @{
     Histo1DPtr _hist_Nch;
     Histo1DPtr _hist_Esigd3p;
     Histo1DPtr _hist_Esigd3p08;
@@ -163,7 +163,7 @@ namespace Rivet {
     Profile1DPtr _hist_Pt;
     Profile1DPtr _hist_Etavg;
     Histo1DPtr _hist_Et;
-    //@}
+    /// @}
 
   };
 

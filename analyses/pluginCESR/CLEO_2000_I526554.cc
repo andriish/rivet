@@ -15,13 +15,13 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
       declare(Beam(), "Beams");
       declare(UnstableParticles(), "UFS");
-      
+
       // Book histograms
       book(_h_Ds_star1  , 1, 1, 1);
       book(_h_Ds        , 2, 1, 1);
@@ -95,13 +95,13 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_Ds,_h_Ds_primary,_h_Ds_star1,_h_Ds_star2;
-    //@}
+    /// @}
 
 
   };

@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -32,25 +32,25 @@ namespace Rivet {
       declare(sphericity, "Sphericity");
       _iBin=-1;
       sqs = 1.0;
-      if(isCompatibleWithSqrtS(7.7))
+      if(isCompatibleWithSqrtS(7.7*GeV))
 	_iBin = 0, sqs = 7.8;
-      else if(isCompatibleWithSqrtS(9.4))
+      else if(isCompatibleWithSqrtS(9.4*GeV))
 	_iBin = 1., sqs = 9.4;
-      else if(isCompatibleWithSqrtS(12.))
+      else if(isCompatibleWithSqrtS(12*GeV))
 	_iBin = 2, sqs = 12.;
-      else if(isCompatibleWithSqrtS(13.))
+      else if(isCompatibleWithSqrtS(13*GeV))
 	_iBin = 3, sqs = 13.;
-      else if(isCompatibleWithSqrtS(17.))
+      else if(isCompatibleWithSqrtS(17*GeV))
 	_iBin = 4, sqs = 17.;
-      else if(isCompatibleWithSqrtS(22.))
+      else if(isCompatibleWithSqrtS(22*GeV))
 	_iBin = 5, sqs = 22.;
-      else if(isCompatibleWithSqrtS(27.6))
+      else if(isCompatibleWithSqrtS(27.6*GeV))
 	_iBin = 6, sqs = 27.6;
-      else if(isCompatibleWithSqrtS(30.8))
+      else if(isCompatibleWithSqrtS(30.8*GeV))
 	_iBin = 7, sqs = 30.8;
       else
 	MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
-      
+
       // Book histograms
       book(_p_thrust_pt     , 1, 1, 1);
       book(_p_thrust_pt2    , 1, 1, 2);
@@ -80,7 +80,7 @@ namespace Rivet {
         const double pTinT = dot(mom3, thrust.thrustMajorAxis());
         const double pToutT = dot(mom3, thrust.thrustMinorAxis());
         const double pTinS = dot(mom3, sphericity.sphericityMajorAxis());
-        const double pToutS = dot(mom3, sphericity.sphericityMinorAxis()); 
+        const double pToutS = dot(mom3, sphericity.sphericityMinorAxis());
         const double pT2_T = sqr(pTinT) + sqr(pToutT);
         const double pT2_S = sqr(pTinS) + sqr(pToutS);
 	if(PID::isCharged(p.pid())) ++nCharged;
@@ -107,16 +107,16 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Profile1DPtr _p_thrust_pt, _p_thrust_pt2, _p_thrust_sum_pt, _p_thrust_sum_pt2;
     Profile1DPtr _p_sphere_pt, _p_sphere_pt2, _p_sphere_sum_pt, _p_sphere_sum_pt2;
     unsigned int _iBin;
     double sqs;
-    //@}
+    /// @}
 
 
   };

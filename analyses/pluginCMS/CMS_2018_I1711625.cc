@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -68,18 +68,18 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_massMuMu;
     Histo1DPtr _h_massMuMuFiducial;
     Histo1DPtr _h_massEEFiducial;
-    //@}
+    /// @}
 
 
     // select two opposite sign leptons with highest pT & fill the histogram for full-phase space diff. x-section
@@ -204,7 +204,7 @@ namespace Rivet {
       int pdgID_lepton1 = vec_PFSLepByPt[index_lepton1].pid();
       for (int i=index_lepton1+1; i<nLepton; ++i) { // starting after lepton1
         auto& lepton = vec_PFSLepByPt[i];
-        if ( lepton.isLepton() && lepton.pid() == (-1)*pdgID_lepton1 && 
+        if ( lepton.isLepton() && lepton.pid() == (-1)*pdgID_lepton1 &&
              lepton.pT() > pTCut_sub && lepton.abseta() < etaCut_sub ) {
           if ( pdgID == 11 ) { // electron channel: check ECAL gap
             if ( !(lepton.abseta() > 1.4442 && lepton.abseta() < 1.566) ) {

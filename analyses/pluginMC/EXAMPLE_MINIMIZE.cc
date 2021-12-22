@@ -31,7 +31,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     // void init() {    }
@@ -63,7 +63,7 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     // void finalize() {    }
 
-    //@}
+    /// @}
 
   };
 

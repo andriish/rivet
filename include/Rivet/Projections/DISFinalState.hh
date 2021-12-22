@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Constructors
-    //@{
+    /// @{
 
     /// @brief Constructor with explicit FinalState
     ///
@@ -79,7 +79,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(DISFinalState);
 
-    //@}
+    /// @}
 
 
   protected:

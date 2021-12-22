@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -26,7 +26,7 @@ namespace Rivet {
       book(_h_rate,1,1,1);
       book(_h_x,2,1,1);
     }
-    
+
     void findDecayProducts(Particle parent, Particles & Lambda_c, Particles & pions,unsigned int & nstable) {
       for(const Particle & p : parent.children()) {
 	if(p.abspid()==4122) {
@@ -71,13 +71,13 @@ namespace Rivet {
       scale(_h_rate,crossSection()/picobarn/sumOfWeights());
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_x,_h_rate;
-    ///@}
+    /// @}
 
 
   };

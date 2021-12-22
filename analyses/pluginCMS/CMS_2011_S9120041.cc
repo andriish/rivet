@@ -23,7 +23,7 @@ namespace Rivet {
       const FastJets jetpro(cfsforjet, FastJets::SISCONE, 0.5);
       declare(jetpro, "Jets");
 
-      if (isCompatibleWithSqrtS(7000.)) {
+      if (isCompatibleWithSqrtS(7000*GeV)) {
         book(_h_Nch_vs_pT ,1, 1, 1); // Nch vs. pT_max
         book(_h_Sum_vs_pT ,2, 1, 1); // sum(pT) vs. pT_max
         book(_h_pT3_Nch   ,5, 1, 1);   // transverse Nch,     pT_max > 3GeV
@@ -34,7 +34,7 @@ namespace Rivet {
         book(_h_pT20_pT   ,10, 1, 1);  // transverse pT,      pT_max > 20GeV
       }
 
-      if (isCompatibleWithSqrtS(900.)) {
+      if (isCompatibleWithSqrtS(900*GeV)) {
         book(_h_Nch_vs_pT ,3, 1, 1); // Nch vs. pT_max
         book(_h_Sum_vs_pT ,4, 1, 1); // sum(pT) vs. pT_max
         book(_h_pT3_Nch   ,11, 1, 1);  // transverse Nch,     pT_max > 3GeV
@@ -77,7 +77,7 @@ namespace Rivet {
           ptSumTransverse += pT;
 
           if (pTlead > 3.0*GeV) _h_pT3_pT->fill(pT);
-          if (isCompatibleWithSqrtS(7000.) && pTlead > 20.0*GeV) _h_pT20_pT->fill(pT);
+          if (isCompatibleWithSqrtS(7000*GeV) && pTlead > 20.0*GeV) _h_pT20_pT->fill(pT);
         }
       }
 
@@ -105,7 +105,7 @@ namespace Rivet {
       normalize(_h_pT3_Sum);
       if (sumOfWeights3->val() != 0.0) normalize(_h_pT3_pT, *_nch_tot_pT3 / *sumOfWeights3);
 
-      if (isCompatibleWithSqrtS(7000.)) {
+      if (isCompatibleWithSqrtS(7000*GeV)) {
         normalize(_h_pT20_Nch);
         normalize(_h_pT20_Sum);
         if (sumOfWeights20->val() != 0.0) normalize(_h_pT20_pT, *_nch_tot_pT20 / *sumOfWeights20);

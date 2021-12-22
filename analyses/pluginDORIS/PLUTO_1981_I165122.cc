@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -25,7 +25,7 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      
+
       // Book histograms
       book(_c_hadrons , "/TMP/sigma_hadrons");
       book(_c_muons   , "/TMP/sigma_muons");
@@ -33,10 +33,10 @@ namespace Rivet {
       book(_c_hadronsY, "/TMP/sigma_hadronsY");
       book(_c_muonsY  , "/TMP/sigma_muonsY");
       book(_c_kaonsY  , "/TMP/sigma_kaonsY");
-      if (isCompatibleWithSqrtS(9.4)) {
+      if (isCompatibleWithSqrtS(9.4*GeV)) {
         book(_h_spectrum1, 5, 1, 1);
       }
-      else if (isCompatibleWithSqrtS(30.0, 1E-2)) {
+      else if (isCompatibleWithSqrtS(30.0*GeV, 1E-2)) {
         book(_h_spectrum1, 4, 1, 1);
       }
       book(_h_spectrum2, 6, 1, 1);
@@ -166,7 +166,7 @@ namespace Rivet {
 	    pair<double,double> ex2 = ex;
 	    if(ex2.first ==0.) ex2. first=0.0001;
 	    if(ex2.second==0.) ex2.second=0.0001;
-	    
+
 	    if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
 	      mult   ->addPoint(x, rval, ex, rerr);
 	    }
@@ -185,15 +185,15 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_spectrum1, _h_spectrum2;
     CounterPtr _c_hadrons, _c_muons, _c_kaons;
     CounterPtr _c_hadronsY, _c_muonsY, _c_kaonsY;
-    //@}
+    /// @}
 
 
   };

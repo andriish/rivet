@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -116,15 +116,15 @@ namespace Rivet {
       normalize(_h_thrust    );
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_xp, _h_sphericity, _h_aplanarity, _h_thrust;
-    //@}
+    /// @}
 
 
   };

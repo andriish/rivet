@@ -14,7 +14,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -23,11 +23,11 @@ namespace Rivet {
       // Book histograms
       book(_c_hadrons, "/TMP/sigma_hadrons");
       book(_c_muons, "/TMP/sigma_muons");
-      if(isCompatibleWithSqrtS(3.))
+      if(isCompatibleWithSqrtS(3*GeV))
       	book(_h_charged, 3, 1, 1);
-      else if(isCompatibleWithSqrtS(4.8))
+      else if(isCompatibleWithSqrtS(4.8*GeV))
         book(_h_charged, 3, 1, 2);
-      else if(isCompatibleWithSqrtS(7.4))
+      else if(isCompatibleWithSqrtS(7.4*GeV))
         book(_h_charged, 3, 1, 3);
     }
 
@@ -101,14 +101,14 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _c_hadrons, _c_muons;
     Histo1DPtr _h_charged;
-    //@}
+    /// @}
 
 
   };

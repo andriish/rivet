@@ -26,7 +26,7 @@ namespace Rivet {
 
 
   double Analysis::sqrtS() const {
-    double sqrts = handler().sqrtS();
+    double sqrts = handler().runSqrtS();
     if (sqrts <= 0) {
       MSG_DEBUG("Suspicious beam energy. You're probably running rivet-merge. Fetching beam energy from option.");
       sqrts = getOption<double>("ENERGY", 0);
@@ -35,11 +35,15 @@ namespace Rivet {
   }
 
   const ParticlePair& Analysis::beams() const {
-    return handler().beams();
+    return handler().runBeams();
   }
 
-  const PdgIdPair Analysis::beamIds() const {
-    return handler().beamIds();
+  pair<double,double> Analysis::beamEnergies() const {
+    return handler().runBeamEnergies();
+  }
+
+  PdgIdPair Analysis::beamIDs() const {
+    return handler().runBeamIDs();
   }
 
 
@@ -63,22 +67,22 @@ namespace Rivet {
   }
 
 
-  const string Analysis::histoPath(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-    return histoDir() + "/" + mkAxisCode(datasetId, xAxisId, yAxisId);
+  const string Analysis::histoPath(unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) const {
+    return histoDir() + "/" + mkAxisCode(datasetID, xAxisID, yAxisID);
   }
 
 
-  const string Analysis::mkAxisCode(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+  const string Analysis::mkAxisCode(unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) const {
     std::stringstream axisCode;
     axisCode << "d";
-    if (datasetId < 10) axisCode << 0;
-    axisCode << datasetId;
+    if (datasetID < 10) axisCode << 0;
+    axisCode << datasetID;
     axisCode << "-x";
-    if (xAxisId < 10) axisCode << 0;
-    axisCode << xAxisId;
+    if (xAxisID < 10) axisCode << 0;
+    axisCode << xAxisID;
     axisCode << "-y";
-    if (yAxisId < 10) axisCode << 0;
-    axisCode << yAxisId;
+    if (yAxisID < 10) axisCode << 0;
+    axisCode << yAxisID;
     return axisCode.str();
   }
 
@@ -108,28 +112,99 @@ namespace Rivet {
   ///////////////////////////////////////////
 
 
-  bool Analysis::isCompatible(const ParticlePair& beams) const {
-    return isCompatible(beams.first.pid(),  beams.second.pid(),
-                        beams.first.energy(), beams.second.energy());
+  bool Analysis::beamsMatch(const ParticlePair& beams) const {
+    return compatibleBeams(Analysis:: beams(), beams);
+  }
+
+  bool Analysis::beamsMatch(PdgId beam1, PdgId beam2, double e1, double e2) const {
+    return compatibleBeams(Analysis::beams(), make_pair(beam1,beam2), make_pair(e1,e2));
+  }
+
+  bool Analysis::beamsMatch(const PdgIdPair& beamids, const std::pair<double,double>& energies) const {
+    return compatibleBeams(Analysis::beams(), beamids, energies);
+  }
+
+  bool Analysis::beamIDsMatch(PdgId beam1, PdgId beam2) const {
+    return compatibleBeamIDs(Analysis::beams(), make_pair(beam1, beam2));
+  }
+
+  bool Analysis::beamIDsMatch(const PdgIdPair& beamids) const {
+    return compatibleBeamIDs(Analysis::beams(), beamids);
+  }
+
+  bool Analysis::beamEnergiesMatch(double e1, double e2) const {
+    /// @todo Need to match to beam ID ordering?
+    return compatibleBeamEnergies(Analysis::beams(), make_pair(e1,e2));
+  }
+
+  bool Analysis::beamEnergiesMatch(const std::pair<double,double>& energies) const {
+    /// @todo Need to match to beam ID ordering?
+    return compatibleBeamEnergies(Analysis::beams(), energies);
+  }
+
+  bool Analysis::beamEnergyMatch(double sqrts) const {
+    return compatibleBeamEnergy(Analysis::beams(), sqrts);
+  }
+
+  bool Analysis::beamEnergyMatch(const std::pair<double,double>& energies) const {
+    return beamEnergyMatch(Rivet::sqrtS(energies));
   }
 
 
-  bool Analysis::isCompatible(PdgId beam1, PdgId beam2, double e1, double e2) const {
-    PdgIdPair beams(beam1, beam2);
-    pair<double,double> energies(e1, e2);
-    return isCompatible(beams, energies);
+
+  bool Analysis::compatibleWithRun() const {
+    bool beamidmatch = requiredBeamIDs().empty();
+    for (const PdgIdPair& reqbeamids : requiredBeamIDs()) {
+      MSG_TRACE("Beam IDs = " << beamIDs() << " vs. required " << reqbeamids << "  [10000 == ANY]");
+      if (beamIDsMatch(reqbeamids)) {
+        MSG_TRACE("Beam IDs MATCH!");
+        beamidmatch = true; break;
+      }
+    }
+    if (!beamidmatch) {
+      MSG_DEBUG("Run doesn't match required beam IDs");
+      return false;
+    }
+
+    bool beamenergymatch = requiredBeamEnergies().empty();
+    for (const pair<double,double>& reqbeamenergies : requiredBeamEnergies()) {
+      MSG_TRACE("Beam energies = " << beamEnergies() << " vs. required " << reqbeamenergies);
+      /// @todo Can't currently guarantee that the energies are matched to the correct beams... use sqrt(s) for now
+      // if (beamEnergiesMatch(reqbeamenergies)) {
+      if (beamEnergyMatch(reqbeamenergies)) {
+        MSG_TRACE("Beam energies MATCH!");
+        beamenergymatch = true; break;
+      }
+    }
+    if (!beamenergymatch) {
+      MSG_DEBUG("Run doesn't match required beam energies");
+    }
+    return beamenergymatch;
   }
+
+
+  // bool Analysis::isCompatible(const ParticlePair& beams) const {
+  //   return isCompatible(beams.first.pid(),  beams.second.pid(),
+  //                       beams.first.energy(), beams.second.energy());
+  // }
+
+
+  // bool Analysis::isCompatible(PdgId beam1, PdgId beam2, double e1, double e2) const {
+  //   PdgIdPair beams(beam1, beam2);
+  //   pair<double,double> energies(e1, e2);
+  //   return isCompatible(beams, energies);
+  // }
 
 
   // bool Analysis::beamIDsCompatible(const PdgIdPair& beams) const {
-  //   bool beamIdsOk = false;
+  //   bool beamIDsOk = false;
   //   for (const PdgIdPair& bp : requiredBeams()) {
   //     if (compatible(beams, bp)) {
-  //       beamIdsOk =  true;
+  //       beamIDsOk =  true;
   //       break;
   //     }
   //   }
-  //   return beamIdsOk;
+  //   return beamIDsOk;
   // }
 
 
@@ -152,40 +227,43 @@ namespace Rivet {
 
 
   // bool Analysis::beamsCompatible(const PdgIdPair& beams, const pair<double,double>& energies) const {
-  bool Analysis::isCompatible(const PdgIdPair& beams, const pair<double,double>& energies) const {
-    // First check the beam IDs
-    bool beamIdsOk = false;
-    for (const PdgIdPair& bp : requiredBeams()) {
-      if (compatible(beams, bp)) {
-        beamIdsOk =  true;
-        break;
-      }
-    }
-    if (!beamIdsOk) return false;
+  //   // bool Analysis::isCompatible(const PdgIdPair& beams, const pair<double,double>& energies) const {
 
-    // Next check that the energies are compatible (within 1% or 1 GeV, whichever is larger, for a bit of UI forgiveness)
+  //   // First check the beam IDs
+  //   bool beamIDsOk = false;
+  //   for (const PdgIdPair& bp : requiredBeams()) {
+  //     if (compatible(beams, bp)) {
+  //       beamIDsOk =  true;
+  //       break;
+  //     }
+  //   }
+  //   if (!beamIDsOk) return false;
 
-    /// @todo Use some sort of standard ordering to improve comparisons, esp. when the two beams are different particles
-    bool beamEnergiesOk = requiredEnergies().size() > 0 ? false : true;
-    typedef pair<double,double> DoublePair;
-    for (const DoublePair& ep : requiredEnergies()) {
-      if ((fuzzyEquals(ep.first, energies.first, 0.01) && fuzzyEquals(ep.second, energies.second, 0.01)) ||
-          (fuzzyEquals(ep.first, energies.second, 0.01) && fuzzyEquals(ep.second, energies.first, 0.01)) ||
-          (abs(ep.first - energies.first) < 1*GeV && abs(ep.second - energies.second) < 1*GeV) ||
-          (abs(ep.first - energies.second) < 1*GeV && abs(ep.second - energies.first) < 1*GeV)) {
-        beamEnergiesOk =  true;
-        break;
-      }
-    }
-    return beamEnergiesOk;
-  }
+  //   // Next check that the energies are compatible (within 1% or 1 GeV, whichever is larger, for a bit of UI forgiveness)
+
+  //   /// @todo Use some sort of standard ordering to improve comparisons, esp. when the two beams are different particles
+  //   bool beamEnergiesOk = requiredEnergies().size() > 0 ? false : true;
+  //   typedef pair<double,double> DoublePair;
+  //   for (const DoublePair& ep : requiredEnergies()) {
+  //     if ((fuzzyEquals(ep.first, energies.first, 0.01) && fuzzyEquals(ep.second, energies.second, 0.01)) ||
+  //         (fuzzyEquals(ep.first, energies.second, 0.01) && fuzzyEquals(ep.second, energies.first, 0.01)) ||
+  //         (abs(ep.first - energies.first) < 1*GeV && abs(ep.second - energies.second) < 1*GeV) ||
+  //         (abs(ep.first - energies.second) < 1*GeV && abs(ep.second - energies.first) < 1*GeV)) {
+  //       beamEnergiesOk =  true;
+  //       break;
+  //     }
+  //   }
+  //   return beamEnergiesOk;
+  // }
 
 
   bool Analysis::isCompatibleWithSqrtS(const float energy, float tolerance) const {
-    return fuzzyEquals(sqrtS()/GeV, energy, tolerance);
+    return fuzzyEquals(sqrtS()/GeV, energy/GeV, tolerance);
   }
 
+
   ///////////////////////////////////////////
+
 
   double Analysis::crossSection() const {
     const YODA::Scatter1D::Points& ps = handler().crossSection()->points();
@@ -220,7 +298,7 @@ namespace Rivet {
   void Analysis::_cacheRefData() const {
     if (_refdata.empty()) {
       MSG_TRACE("Getting refdata cache for paper " << name());
-      _refdata = getRefData(getRefDataName());
+      _refdata = getRefData(refDataName());
     }
   }
 
@@ -238,8 +316,8 @@ namespace Rivet {
   }
 
 
-  CounterPtr& Analysis::book(CounterPtr& ctr, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
+  CounterPtr& Analysis::book(CounterPtr& ctr, unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) {
+    const string axisCode = mkAxisCode(datasetID, xAxisID, yAxisID);
     return book(ctr, axisCode);
   }
 
@@ -278,8 +356,8 @@ namespace Rivet {
   }
 
 
-  Histo1DPtr& Analysis::book(Histo1DPtr& histo, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
+  Histo1DPtr& Analysis::book(Histo1DPtr& histo, unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) {
+    const string axisCode = mkAxisCode(datasetID, xAxisID, yAxisID);
     return book(histo, axisCode);
   }
 
@@ -355,8 +433,8 @@ namespace Rivet {
   }
 
 
-  Histo2DPtr& Analysis::book(Histo2DPtr& histo, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
+  Histo2DPtr& Analysis::book(Histo2DPtr& histo, unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) {
+    const string axisCode = mkAxisCode(datasetID, xAxisID, yAxisID);
     return book(histo, axisCode);
   }
 
@@ -412,8 +490,8 @@ namespace Rivet {
   }
 
 
-  Profile1DPtr& Analysis::book(Profile1DPtr& p1d,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
+  Profile1DPtr& Analysis::book(Profile1DPtr& p1d,unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) {
+    const string axisCode = mkAxisCode(datasetID, xAxisID, yAxisID);
     return book(p1d, axisCode);
   }
 
@@ -484,9 +562,9 @@ namespace Rivet {
   ///////////////
 
 
-  Scatter2DPtr& Analysis::book(Scatter2DPtr& s2d, unsigned int datasetId,
-                               unsigned int xAxisId, unsigned int yAxisId, bool copy_pts) {
-    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
+  Scatter2DPtr& Analysis::book(Scatter2DPtr& s2d, unsigned int datasetID,
+                               unsigned int xAxisID, unsigned int yAxisID, bool copy_pts) {
+    const string axisCode = mkAxisCode(datasetID, xAxisID, yAxisID);
     return book(s2d, axisCode, copy_pts);
   }
 
@@ -560,9 +638,9 @@ namespace Rivet {
   ///////////////
 
 
-  Scatter3DPtr& Analysis::book(Scatter3DPtr& s3d, unsigned int datasetId, unsigned int xAxisId,
-                               unsigned int yAxisId, unsigned int zAxisId, bool copy_pts) {
-    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
+  Scatter3DPtr& Analysis::book(Scatter3DPtr& s3d, unsigned int datasetID, unsigned int xAxisID,
+                               unsigned int yAxisID, unsigned int zAxisID, bool copy_pts) {
+    const string axisCode = mkAxisCode(datasetID, xAxisID, yAxisID);
     return book(s3d, axisCode, copy_pts);
   }
 

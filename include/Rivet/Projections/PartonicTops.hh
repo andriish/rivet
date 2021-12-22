@@ -38,7 +38,7 @@ namespace Rivet {
 
 
     /// @name Constructors
-    //@{
+    /// @{
 
     /// Constructor taking decay mode details (and an optional cuts object)
     PartonicTops(DecayMode decaymode, bool emu_from_prompt_tau=true, bool include_hadronic_taus=false, const Cut& c=Cuts::OPEN, WhichTop whichtop=WhichTop::LAST)
@@ -60,7 +60,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(PartonicTops);
 
-    //@}
+    /// @}
 
 
     /// Access to the found partonic tops

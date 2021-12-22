@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Initialise projections and histograms
     void init() {
@@ -195,7 +195,7 @@ namespace Rivet {
       scale(_histEECHighX, 1./ *_wEnergy.second);
     }
 
-    //@}
+    /// @}
 
 
   private:

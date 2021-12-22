@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors
-    //@{
+    /// @{
 
     /// Constructor with a specific FinalState and a cuts list to veto
     VetoedFinalState(const FinalState& fsp, const vector<Cut>& cuts)
@@ -88,7 +88,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(VetoedFinalState);
 
-    //@}
+    /// @}
 
 
 

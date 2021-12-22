@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -36,7 +36,7 @@ namespace Rivet {
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
-      
+
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles()) {
         const int id = p.abspid();
@@ -57,18 +57,18 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       double fact = 1./sumOfWeights();
-      scale(_histXpSigma , fact); 
-      scale(_histXpLambda, fact); 
+      scale(_histXpSigma , fact);
+      scale(_histXpLambda, fact);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histXpSigma;
     Histo1DPtr _histXpLambda;
-    //@}
+    /// @}
 
 
   };

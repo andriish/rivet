@@ -169,7 +169,7 @@ namespace Rivet {
     _ah.init(*_evt);
 
     // Set cross-section from command line
-    if (!std::isnan(_xs)) {
+    if (notNaN(_xs)) {
       MSG_DEBUG("Setting user cross-section = " << _xs << " pb");
       _ah.setCrossSection(make_pair(_xs, 0.0), true);
     }

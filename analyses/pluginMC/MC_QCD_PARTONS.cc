@@ -6,7 +6,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// Generic analysis looking at kt splitting scales of partons
@@ -22,7 +22,7 @@ namespace Rivet {
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -50,14 +50,14 @@ namespace Rivet {
       MC_JetSplittings::finalize();
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
-    //@}
+    /// @{
+    /// @}
 
   };
 

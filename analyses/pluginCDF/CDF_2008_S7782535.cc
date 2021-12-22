@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Set up projections
@@ -105,25 +105,25 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Analysis data
-    //@{
+    /// @{
     /// Jet \f$ p_\perp\f$ bins.
     vector<double> _ptedges; // This can't be a raw array if we want to initialise it non-painfully
     /// JetShape projection name for each \f$p_\perp\f$ bin.
     string _jsnames_pT[4];
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Profile1DPtr _h_Psi_pT[4];
     Scatter2DPtr _h_OneMinusPsi_vs_pT;
-    //@}
+    /// @}
 
   };
 

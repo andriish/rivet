@@ -10,14 +10,14 @@
 namespace Rivet {
 
   /// @brief ALICE PbPb at 2.76 TeV multiplicity at mid-rapidity
-  class ALICE_2010_I880049 : public Analysis {    
+  class ALICE_2010_I880049 : public Analysis {
   public:
 
     /// Constructor
     RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2010_I880049);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -84,20 +84,20 @@ namespace Rivet {
       }
     }
 
-    
+
     /// Normalise histograms etc., after the run
     //void finalize() {   }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Profile1DPtr _histNchVsCentr;
     Profile1DPtr _histNpartVsCentr;
-    //@}
+    /// @}
 
   };
 

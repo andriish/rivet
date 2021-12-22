@@ -49,7 +49,7 @@ extragroup.add_argument("--hepmc-dir", dest="HEPMCDIR",
 extragroup.add_argument("--ref-dir", dest="REFDIR",
                         default="",
                         help="specify the directory where the reference " + \
-                        ".yoda files are located.")
+                        "YODA files are located.")
 
 args = parser.parse_args()
 
@@ -136,12 +136,12 @@ for ananame in all_analyses:
         else:
             options = ""
         if len(sublines) == 1:
-            valtargets[targetname] = "tmp/" + hepmcname + ".yoda " + \
+            valtargets[targetname] = "tmp/" + hepmcname + ".yoda.gz " + \
                 " ".join(targets) + "\n\t$(V)echo extracting " + \
-                targetname + ".yoda\n\t$(V)echo " + hepmcname + " > tmp/" + \
+                targetname + ".yoda.gz\n\t$(V)echo " + hepmcname + " > tmp/" + \
                 targetname + ".log\n\t$(V)yoda2yoda -m '/_XSEC|/_EVTCOUNT|/" +\
                 ananame + options + \
-                "/' tmp/" + hepmcname + ".yoda " + targetname + ".yoda >> tmp/" + \
+                "/' tmp/" + hepmcname + ".yoda.gz " + targetname + ".yoda.gz >> tmp/" + \
                 targetname + ".log 2>&1\n"
             if hepmcname not in hepmctargets:
                 hepmctargets[hepmcname] = ananame + options
@@ -152,7 +152,7 @@ for ananame in all_analyses:
                 " ".join(targets)
             if len(sublines) > 1:
                 valtargets[targetname] += "\n\t$(V)echo running " + \
-                    targetname + ".yoda\n\t$(V)echo " + hepmcname + " > tmp/" + \
+                    targetname + ".yoda.gz\n\t$(V)echo " + hepmcname + " > tmp/" + \
                     targetname + ".log\n\t$(V)" + sublines[1].strip() +\
                     " >> tmp/" + targetname + ".log 2>&1\n"
             for subline in sublines[2:]:
@@ -160,7 +160,7 @@ for ananame in all_analyses:
                     " >> tmp/" + targetname + ".log 2>&1\n"
             if len(sublines) > 1:
                 valtargets[targetname] += "\t$(V)echo done " + \
-                    targetname + ".yoda\n"
+                    targetname + ".yoda.gz\n"
 
 
 #############################
@@ -226,7 +226,7 @@ help:
 
 ## target for comparing the generated yodas with the reference ones
 mf.write("""
-%.diff: %.yoda
+%.diff: %.yoda.gz
 	$(V)rm -rf $@ $@dir
 	$(V)if [ -e refyodas/$< ]; then \\
 	  if ! yodadiff $< refyodas/$< -t 1e-2 -q; then \\
@@ -246,11 +246,11 @@ mf.write("""
 	  echo "$< has no reference yoda file." > $@; \\
 	fi
 
-%.reent: %.yoda
+%.reent: %.yoda.gz
 	$(V)rm -rf $@
-	$(V)logfile=$<; logfile="tmp/$${logfile%.yoda}.log"; \\
-	if rivet-merge $< -o $<.yoda >> $$logfile  2>&1; then\\
-	  if yodadiff -q $< $<.yoda ; then \\
+	$(V)logfile=$<; logfile="tmp/$${logfile%.yoda.gz}.log"; \\
+	if rivet-merge $< -o $<.yoda.gz >> $$logfile  2>&1; then\\
+	  if yodadiff -q $< $<.yoda.gz ; then \\
 	    echo $< is reentrant; \\
 	    touch $@; \\
 	  else \\
@@ -258,14 +258,14 @@ mf.write("""
 	    echo "$< was declared reentrant but is not." > $@; \\
 	  fi \\
 	fi
-	$(V)rm -rf $<.yoda
+	$(V)rm -rf $<.yoda.gz
 
 """)
 
 ## the main check target
 mf.write("VALYODAS =")
 for ana in valtargets:
-    mf.write(" " + ana + ".yoda")
+    mf.write(" " + ana + ".yoda.gz")
 mf.write("\n\nVALDIFFS =")
 for ana in valtargets:
     mf.write(" " + ana + ".diff")
@@ -274,7 +274,7 @@ for ana in reentranttargets:
     mf.write(" " + ana + ".reent")
 mf.write("\n\nHEPMCYODAS =")
 for hepmc in hepmctargets:
-    mf.write(" tmp/" + hepmc + ".yoda")
+    mf.write(" tmp/" + hepmc + ".yoda.gz")
 mf.write("""\n
 
 .PRECIOUS: $(VALYODAS) $(HEPMCYODAS)
@@ -324,18 +324,18 @@ clean:
 	rm -f index.html
 
 
-%.recheck: %.yoda
+%.recheck: %.yoda.gz
 	rm -f $<
-	hepmc=tmp/$<; rm -f tmp/`head -1 $${hepmc%.yoda}.log`".yoda"
+	hepmc=tmp/$<; rm -f tmp/`head -1 $${hepmc%.yoda.gz}.log`".yoda.gz"
 	$(MAKE) check
 
 """)
 
 ## targets for hepmc files with several analyses
 for hepmc in hepmctargets:
-    mf.write("tmp/" + hepmc + ".yoda: HEPMC/" + hepmc + ".hepmc.gz\n")
+    mf.write("tmp/" + hepmc + ".yoda.gz: HEPMC/" + hepmc + ".hepmc.gz\n")
     mf.write("\t$(V)echo running " + hepmc + "\n")
-    cmd = "\t$(V)rivet HEPMC/" + hepmc + ".hepmc.gz -o tmp/" + hepmc + ".yoda"
+    cmd = "\t$(V)rivet HEPMC/" + hepmc + ".hepmc.gz -o tmp/" + hepmc + ".yoda.gz"
     for ana in hepmctargets[hepmc].split(" "):
         cmd += " -a " + ana
     mf.write(cmd + " > tmp/" + hepmc + ".log 2>&1\n")
@@ -343,7 +343,7 @@ for hepmc in hepmctargets:
 
 ## targets for the .yoda files to be compared to the reference ones
 for ana in valtargets:
-    mf.write(ana + ".yoda: " + valtargets[ana] + "\n")
+    mf.write(ana + ".yoda.gz: " + valtargets[ana] + "\n")
 mf.write("\n")
 
 ## target for fetching the standard HepMC files from cernbox

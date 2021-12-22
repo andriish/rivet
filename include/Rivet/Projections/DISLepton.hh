@@ -20,9 +20,9 @@ namespace Rivet {
     /// Enum to enable different orderings for selecting scattered
     /// leptons in case several were found.
     enum SortOrder { ENERGY, ETA, ET };
-    
+
     /// @name Constructors.
-    //@{
+    /// @{
 
     /// Default constructor taking general options. The recognised
     /// options are: LMODE, taking the options "prompt", "any" and
@@ -74,7 +74,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(DISLepton);
 
-    //@}
+    /// @}
 
 
   protected:

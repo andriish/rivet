@@ -12,12 +12,12 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2015_I1408516);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
 
-      // Get options 
+      // Get options
       _mode = 0;
       if ( getOption("LMODE") == "EL" ) _mode = 0;
       if ( getOption("LMODE") == "MU" ) _mode = 1;
@@ -207,7 +207,7 @@ namespace Rivet {
         _h["mll_xsec"]->bin(i).scaleW(bw);
       }
     }
-    //@}
+    /// @}
 
 
   protected:
@@ -218,9 +218,9 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     map<string, Histo1DPtr> _h;
-    //@}
+    /// @}
 
   };
 

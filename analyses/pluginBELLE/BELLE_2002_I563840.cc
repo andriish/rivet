@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -157,7 +157,7 @@ namespace Rivet {
       // and error
       double cc = -pow((sum3 + 9*sum4 - 6*sum5),3);
       double bb = -2*sqr(sum3 + 9*sum4 - 6*sum5)*(sum1 - 3*sum2 + 3*sum4 - sum5);
-      double aa =  sqr(sum1 - 3*sum2 + 3*sum4 - sum5)*(-sum3 - 9*sum4 + sqr(sum1 - 3*sum2 + 3*sum4 - sum5) + 6*sum5);      
+      double aa =  sqr(sum1 - 3*sum2 + 3*sum4 - sum5)*(-sum3 - 9*sum4 + sqr(sum1 - 3*sum2 + 3*sum4 - sum5) + 6*sum5);
       double dis = sqr(bb)-4.*aa*cc;
       if(dis>0.) {
 	dis = sqrt(dis);
@@ -224,18 +224,18 @@ namespace Rivet {
       			 make_pair(alpha.second.first,alpha.second.second) );
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_Jpsi,_h_Psi2,_h_feed;
     Histo1DPtr _h_sig_JPsi_all,_h_sig_Jpsi_high,_h_sig_Jpsi_feed,_h_sig_Psi2_high;
     Histo1DPtr _h_cS_low,_h_cS_high,_h_cH_low,_h_cH_high;
     BinnedHistogram _h_cThetaStar,_h_cThetaH;
 
 
-    ///@}
+    /// @}
 
 
   };

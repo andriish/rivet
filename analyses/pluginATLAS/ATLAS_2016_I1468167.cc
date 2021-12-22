@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// Measurement of the inelastic proton-proton cross-section at \sqrt{s} = 13 TeV
+  /// Measurement of the inelastic proton-proton cross-section at sqrt(s) = 13 TeV
   class ATLAS_2016_I1468167 : public Analysis {
   public:
 

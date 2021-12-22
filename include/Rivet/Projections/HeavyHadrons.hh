@@ -20,7 +20,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors and destructors.
-    //@{
+    /// @{
 
     /// Constructor with specification of the minimum and maximum pseudorapidity
     /// \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
@@ -32,11 +32,11 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(HeavyHadrons);
 
-    //@}
+    /// @}
 
 
     /// @name b hadron accessors
-    //@{
+    /// @{
 
     /// Get all weakly decaying b hadrons (return by reference)
     const Particles& bHadrons() const {
@@ -59,12 +59,12 @@ namespace Rivet {
       return filter_select(bHadrons(), s);
     }
 
-    //@}
+    /// @}
 
 
 
     /// @name b hadron accessors
-    //@{
+    /// @{
 
     /// Get all weakly decaying c hadrons (return by reference)
     const Particles& cHadrons() const {
@@ -87,7 +87,7 @@ namespace Rivet {
       return filter_select(cHadrons(), s);
     }
 
-    //@}
+    /// @}
 
 
   protected:

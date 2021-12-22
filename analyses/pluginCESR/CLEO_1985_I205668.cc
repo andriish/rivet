@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief
   class CLEO_1985_I205668 : public Analysis {
   public:
 
@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -58,7 +58,7 @@ namespace Rivet {
       book(_h_ups1_Kstar0,10,1,2);
       book(_h_ups1_phi   ,11,1,2);
     }
-    
+
     /// Recursively walk the decay tree to find decay products of @a p
     void findDecayProducts(Particle mother, Particles& unstable) {
       for(const Particle & p: mother.children()) {
@@ -73,7 +73,7 @@ namespace Rivet {
 	  findDecayProducts(p, unstable);
       }
     }
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // Find the upsilons
@@ -81,7 +81,7 @@ namespace Rivet {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       Particles upsilons = ufs.particles(Cuts::pid==553);
       // continuum
-      if (upsilons.empty()) { 
+      if (upsilons.empty()) {
         _weightSum_cont->fill();
 	const FinalState & fs = apply<FinalState>(event, "FS");
 	// FS particles
@@ -251,18 +251,18 @@ namespace Rivet {
       }
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_cont_pip,_h_cont_Kp,_h_cont_p,_h_cont_pi0,_h_cont_K0,_h_cont_lam,
       _h_cont_xi,_h_cont_rho,_h_cont_Kstarp,_h_cont_Kstar0,_h_cont_phi;
     Histo1DPtr _h_ups1_pip,_h_ups1_Kp,_h_ups1_p,_h_ups1_pi0,_h_ups1_K0,_h_ups1_lam,
       _h_ups1_xi,_h_ups1_rho,_h_ups1_Kstarp,_h_ups1_Kstar0,_h_ups1_phi;
     CounterPtr _weightSum_cont,_weightSum_Ups1;
     CounterPtr _mult[2][12];
-    ///@}
+    /// @}
 
 
   };

@@ -15,7 +15,7 @@ namespace Rivet {
     RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2013_I1234228);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -47,15 +47,15 @@ namespace Rivet {
       scale(_hist_mll, sf);
     }
 
-    //@}
+    /// @}
 
   private:
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _hist_mll;
-    //@}
+    /// @}
 
   };
 

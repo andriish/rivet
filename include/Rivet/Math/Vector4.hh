@@ -336,7 +336,7 @@ namespace Rivet {
 
 
     /// @name Coordinate setters
-    //@{
+    /// @{
 
     /// Set energy \f$ E \f$ (time component of momentum).
     FourMomentum& setE(double E) {
@@ -533,11 +533,11 @@ namespace Rivet {
       return *this;
     }
 
-    //@}
+    /// @}
 
 
     /// @name Accessors
-    //@{
+    /// @{
 
     /// Get energy \f$ E \f$ (time component of momentum).
     double E() const { return t(); }
@@ -647,11 +647,11 @@ namespace Rivet {
       return E() * sin(polarAngle());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Lorentz boost factors and vectors
-    //@{
+    /// @{
 
     /// Calculate the boost factor \f$ \gamma \f$.
     /// @note \f$ \gamma = E/mc^2 \f$ so we rely on the c=1 convention
@@ -678,7 +678,7 @@ namespace Rivet {
       return p3()/E();
     }
 
-    //@}
+    /// @}
 
 
     ////////////////////////////////////////
@@ -720,7 +720,7 @@ namespace Rivet {
 
 
     /// @name Arithmetic operators
-    //@{
+    /// @{
 
     /// Multiply by a scalar
     FourMomentum& operator*=(double a) {
@@ -760,14 +760,14 @@ namespace Rivet {
       return result;
     }
 
-    //@}
+    /// @}
 
 
     ////////////////////////////////////////
 
 
     /// @name Factory functions
-    //@{
+    /// @{
 
     /// Make a vector from (px,py,pz,E) coordinates
     static FourMomentum mkXYZE(double px, double py, double pz, double E) {
@@ -814,7 +814,7 @@ namespace Rivet {
       return FourMomentum().setPtPhiME(pt, phi, mass, E);
     }
 
-    //@}
+    /// @}
 
 
   };
@@ -861,7 +861,7 @@ namespace Rivet {
 
 
   /// @name \f$ \Delta R \f$ calculations from 4-vectors
-  //@{
+  /// @{
 
   /// @brief Calculate the squared 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
   ///
@@ -1171,14 +1171,14 @@ namespace Rivet {
     return deltaR(a, b.vector3());
   }
 
-  //@}
+  /// @}
 
 
   //////////////////////////////////////////////////////
 
 
   /// @name \f$ \Delta phi \f$ calculations from 4-vectors
-  //@{
+  /// @{
 
   /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const FourMomentum& a, const FourMomentum& b, bool sign=false) {
@@ -1240,14 +1240,14 @@ namespace Rivet {
     return deltaPhi(a, b.vector3(), sign);
   }
 
-  //@}
+  /// @}
 
 
   //////////////////////////////////////////////////////
 
 
   /// @name \f$ |\Delta eta| \f$ calculations from 4-vectors
-  //@{
+  /// @{
 
   /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const FourMomentum& a, const FourMomentum& b, bool sign=false) {
@@ -1309,11 +1309,11 @@ namespace Rivet {
     return deltaEta(a, b.vector3(), sign);
   }
 
-  //@}
+  /// @}
 
 
   /// @name \f$ |\Delta y| \f$ calculations from 4-momentum vectors
-  //@{
+  /// @{
 
   /// Calculate the difference in rapidity between two 4-momentum vectors.
   inline double deltaRap(const FourMomentum& a, const FourMomentum& b, bool sign=false) {
@@ -1330,7 +1330,7 @@ namespace Rivet {
     return deltaRap(y1, v.rapidity(), sign);
   }
 
-  //@}
+  /// @}
 
 
   //////////////////////////////////////////////////////

@@ -98,7 +98,7 @@ namespace Rivet {
   public:
 
     /// @name Hemisphere masses (scaled by \f$ 1 / E^2_\mathrm{vis} \f$).
-    //@{
+    /// @{
 
     double E2vis() const { return _E2vis; }
     double Evis() const { return sqrt(_E2vis); }
@@ -135,16 +135,16 @@ namespace Rivet {
       else return std::numeric_limits<double>::max();
     }
     double scaledMdiff() const { return sqrt(scaledM2diff()); }
-    //@}
+    /// @}
 
 
     /// @name Hemisphere broadenings.
-    //@{
+    /// @{
     double Bmax() const { return _Bmax; }
     double Bmin() const { return _Bmin; }
     double Bsum() const { return _Bmax + _Bmin; }
     double Bdiff() const { return fabs(_Bmax - _Bmin); } // <- fabs(), just in case...
-    //@}
+    /// @}
 
 
     /// Is the hemisphere with the max mass the same as the one with the max broadening?
