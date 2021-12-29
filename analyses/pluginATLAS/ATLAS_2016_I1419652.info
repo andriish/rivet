@@ -17,6 +17,7 @@ RunInfo:
   be included. Multiple kinematic cuts should not be required.
 Beams: [p+, p+]
 Energies: [13000]
+Luminosity_fb: 1.7E-7
 PtCuts: [0.5]
 Description:
   Measurements from proton-proton collisions at centre-of-mass energy

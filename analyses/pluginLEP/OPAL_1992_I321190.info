@@ -14,6 +14,7 @@ RunInfo:
 NumEvents: 1000000
 Beams: [e+, e-]
 Energies: [91.2]
+Luminosity_fb: 3.5E-3
 PtCuts: [0]
 Description:
   The charged particle multiplicity distribution of hadronic Z decays,

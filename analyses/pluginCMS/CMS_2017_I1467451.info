@@ -17,6 +17,7 @@ References:
 RunInfo: H->WW->lvlv, both ggH and XH (VBF anf VH) productions modes are included
 Beams: [p+, p+]
 Energies: [8000]
+Luminosity_fb: 19.4
 Description:
 'The cross section for Higgs boson production in pp collisions is studied using the $H\rightarrow W^+ W^-$ decay mode, followed by leptonic decays of the W bosons to an oppositely charged electron-muon pair in the final state. The measurements are performed using data collected by the CMS experiment at the LHC at a centre-of-mass energy of 8 TeV, corresponding to an integrated luminosity of $19.4\,\text{fb}^{-1}$. The Higgs boson transverse momentum ($p_\text{T}$) is reconstructed using the lepton pair $p_\text{T}$ and missing $p_\text{T}$. The differential cross section times branching fraction is measured as a function of the Higgs boson $p_\text{T}$ in a fiducial phase space defined to match the experimental acceptance in terms of the lepton kinematics and event topology. The production cross section times branching fraction in the fiducial phase space is measured to be $39 \pm 8\,\text{(stat)} \pm 9\,\text{(syst)}\,\text{fb}$. The measurements are found to agree, within experimental uncertainties, with theoretical calculations based on the standard model.
 The fiducial region is defined at particle level (using Born level leptons) as:
