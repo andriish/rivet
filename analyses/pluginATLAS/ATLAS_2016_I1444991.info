@@ -16,6 +16,7 @@ RunInfo:
   gg -> H -> W W* -> enu munu production at 8 TeV
 Beams: [p+, p+]
 Energies: [8000]
+Luminosity_fb: 20.3
 PtCuts: [25]
 NeedCrossSection: yes
 Description:
