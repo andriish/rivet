@@ -133,7 +133,7 @@ datarootdir="@datarootdir@"
 
 ## Work out shared library build flags by platform
 if [[ $(uname) == "Darwin" ]]; then
-  ## Mac OS X
+  ## macOS
   shared_flags="-undefined dynamic_lookup -bundle"
 else
   ## Unix
