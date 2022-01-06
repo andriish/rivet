@@ -53,7 +53,7 @@ namespace Rivet {
           Particle rp(p);
           /// @todo Complete off-shell testing with comparison to a dict of pole masses
           const double m2 = rp.mass2();
-          if (m2 < -1*GeV) offShellM2s += m2; //< only note significantly negative m2s for now
+          if (m2 < -1*GeV2) offShellM2s += m2; //< only note significantly negative m2s for now
           /// @todo Reinstate vertex displacement warnings with a more refined primary-particles
           /// definition: this screams about ctau0 > 10mm SM particles, which is not helpful
           // const double disp = rp.origin().polarRadius();
