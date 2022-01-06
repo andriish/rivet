@@ -1,3 +1,7 @@
+2022-01-06  Christian Gutschow  <chris.g@cern.ch>
+
+	* adding more histograms to MC_MET and improving the binning (many thanks to Jan Kretzschmar)
+
 2021-12-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix the 'polarity' of the optional argument to AnalysisHandler::checkBeams().
