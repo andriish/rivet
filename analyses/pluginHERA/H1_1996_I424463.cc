@@ -1,11 +1,10 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/DISKinematics.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/DISKinematics.hh"
-#include "Rivet/Projections/DISLepton.hh"
 
 namespace Rivet {
 
