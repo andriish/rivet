@@ -14,8 +14,9 @@ References:
  - 'DOI:10.1140/epjc/s2006-02493-x'
  - 'arXiv:hep-ex/0512014v1'
 Beams: [e+, p+]
-Energies: [[27.6, 820][27.6,920]]
-Description: 'Deep-inelastic ep scattering data taken with the H1 detector at HERA and corresponding to an integrated luminosity of $106 pb^{-1} $ are used to study the differential distributions of event shape variables. These include thrust, jet broadening, jet mass and the C-parameter. The four-momentum transfer Q is taken to be the relevant energy scale and ranges between 14 GeV and 200 GeV.'
+Energies: [[27.6, 820],[27.6,920]]
+Description: 
+  'Deep-inelastic ep scattering data taken with the H1 detector at HERA and corresponding to an integrated luminosity of $106 pb^{-1}$ are used to study the differential distributions of event shape variables. These include thrust, jet broadening, jet mass and the C-parameter. The four-momentum transfer Q is taken to be the relevant energy scale and ranges between 14 GeV and 200 GeV.'
 ValidationInfo:
   'For the validation of the code, the resulting histograms were compared to those obtained with RivetHZTool, an older, Fortran-based analysis package. They were compared to the experimental data as well.'
 #ReleaseTests:
