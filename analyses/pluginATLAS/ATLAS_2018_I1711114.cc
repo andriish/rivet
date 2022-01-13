@@ -40,7 +40,7 @@ namespace Rivet {
 
       fastjet::Filter trimmer(fastjet::JetDefinition(fastjet::kt_algorithm, 0.2), fastjet::SelectorPtFractionMin(0.05));
       Jets myTrimmedJets;
-      for (const Jet& jet : myJets)  myTrimmedJets += Jet(trimmer(jet));
+      for (const Jet jet : myJets)  myTrimmedJets += Jet(trimmer(jet));
       std::sort(myTrimmedJets.begin(), myTrimmedJets.end(), cmpMomByPt);
       if (myTrimmedJets[0].pT() < 450*GeV) vetoEvent;
 

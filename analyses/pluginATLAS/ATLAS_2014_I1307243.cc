@@ -27,7 +27,7 @@ namespace Rivet {
 
 
       /// Book histograms
-      for (const string& cat : { "inclusive", "gap" }) {
+      for (const string cat : { "inclusive", "gap" }) {
         const size_t offset = (cat == "gap") ? 1 : 0;
 
         // Temporary inclusive and gap histograms
@@ -152,7 +152,7 @@ namespace Rivet {
       // Normalise cross-section plots to correct cross-section
       const double ySpan = 1.0; // all dy spans are 1
       const double sf = crossSection() / picobarn / sumOfWeights();
-      for (const string& cat : { "inclusive", "gap" }) {
+      for (const string cat : { "inclusive", "gap" }) {
         _h_dphi_dySlices[cat].scale(sf/ySpan/M_PI, this);
         // Create C2/C1 scatter from profiles
         divide(_p_cosTwoDeltaPhi_dy[cat],    _p_cosDeltaPhi_dy[cat],    _h_C2C1_dy[cat]);
