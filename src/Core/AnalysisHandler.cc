@@ -1059,4 +1059,69 @@ namespace Rivet {
   }
 
 
+//TODO @TP: It would be nifty and more efficient if we could merge multiple handlers at once using variadic templates (come back to when it works)
+// Merges AnalysisHandler Other into this.
+// Not (yet?) written to be symmetric: looks to merge from other into this: if other has stuff (e.g. an analysis)
+// that this does not have, it will be ignored. VERY VERY VERY much a WIP.
+//
+  void AnalysisHandler::mergeAnalysisHandlers(AnalysisHandler& other, bool equiv){
+    //Handlers to be merged must have same beam:
+    if (other._beams != _beams){return;}
+
+    //TODO @TP: Both handlers should be finalised: is the stages system "mature" enough to use this.
+
+    //Sum event numbers
+    _eventNumber = _eventNumber + other._eventNumber;
+    //TODO @TP: what to do about the YODA CounterPtr?
+
+
+    //TODO @TP: what to do about XS?
+
+    size_t iW = 1;
+
+    for(AnaHandle a : analyses()){
+      //find corresponding analysis in the other ao;
+      auto other_analysis_it = std::find_if(other.analyses().begin(), other.analyses().end(),
+                   [&](const AnaHandle& otherhandle){ return otherhandle->name() == a->name(); });
+      if (other_analysis_it == other.analyses().end()){
+        //This analysis isn't present in the other ah. Move on.
+        MSG_DEBUG("Analysis " << a->name() << " present in analysishandler " << this 
+                      << " not present in " << &other);
+        continue;
+      }
+
+      //Is it a valid assumption that the analysisObjects() only contains one object of each name?
+      for (const auto& ao : a-> analysisObjects()){
+        //Find corresponding ao in other:
+        //TODO: Is there a more elegant syntax for double dereferencing? This looks awful.
+        auto other_ao_it = std::find_if((*other_analysis_it)->analysisObjects().begin(),
+                                        (*other_analysis_it)->analysisObjects().end(),
+                                        [&](const Rivet::MultiweightAOPtr otherAOptr){return ao->name() == otherAOptr->name();});
+        if (other_ao_it == (*other_analysis_it)->analysisObjects().end()){
+          //This analysis object is not present in other. Slightly scary. Move on (but warn?!)
+          MSG_WARNING("Analysis object " << ao->name() << " present in analysis " << a->name() << 
+                "  of analysishandler " << this << " NOT found in same analysis of analysishandler "
+                << &other << ". AnalysisHandler merge has probably gone wrong..." );
+          continue;
+        }
+
+
+        ao.get()->setActiveWeightIdx(iW);
+        YODA::AnalysisObjectPtr yao = ao.get()->activeYODAPtr();
+        if (!addaos(yao, other_ao_it->get()->activeYODAPtr(), iW )){
+          MSG_WARNING("Failed to merge object named " << ao->name() << " in analysis " << a->name()
+                      << " for analysis handlers " << this << " and " << &other);
+        }
+        ao.get()->unsetActiveWeight();
+
+      }
+
+    }
+
+
+
+
+    //Finalise all analyses;
+    finalize();
+  }
 }

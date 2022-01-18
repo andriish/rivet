@@ -320,6 +320,9 @@ namespace Rivet {
     /// @}
 
 
+    //TODO @TP: Move this decleration somewhere more appropriate
+    void mergeAnalysisHandlers(AnalysisHandler& other, bool equiv);
+
   private:
 
     /// @name Internal helper functions
