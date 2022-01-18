@@ -1066,7 +1066,9 @@ namespace Rivet {
 //
   void AnalysisHandler::mergeAnalysisHandlers(AnalysisHandler& other, bool equiv){
     //Handlers to be merged must have same beam:
-    if (other._beams != _beams){return;}
+    //TODO: Would it make sense to have a Rivet particle operator== 
+    if (other._beams.first.energy() != _beams.first.energy() &&
+         other._beams.second.energy() != _beams.second.energy()){return;}
 
     //TODO @TP: Both handlers should be finalised: is the stages system "mature" enough to use this.
 
