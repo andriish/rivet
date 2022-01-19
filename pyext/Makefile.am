@@ -2,7 +2,7 @@ SUBDIRS = rivet
 
 if ENABLE_PYEXT
 
-PYEXT_ENV = CC="$(CXX)" CXX="$(CXX)" CXXFLAGS="$(PYEXT_CXXFLAGS)" ARCHFLAGS=""
+PYEXT_ENV = CC="$(CXX)" CXX="$(CXX)" CXXFLAGS="$(PYEXT_CXXFLAGS)" ARCHFLAGS="" PYTHONPATH="$(DESTDIR)$(RIVET_PYTHONPATH):$(PYTHONPATH)"
 
 ## Always force setup.py, it's not good at guessing what needs to rebuild
 all-local:
