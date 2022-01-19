@@ -1065,6 +1065,8 @@ namespace Rivet {
 // that this does not have, it will be ignored. VERY VERY VERY much a WIP.
 //
   void AnalysisHandler::mergeAnalysisHandlers(AnalysisHandler& other, bool equiv){
+    MSG_TRACE("Merging analysis handler " << &other << " into " << this);
+
     //Handlers to be merged must have same beam:
     //TODO: Would it make sense to have a Rivet particle operator== 
     if (other._beams.first.energy() != _beams.first.energy() &&
@@ -1106,7 +1108,7 @@ namespace Rivet {
                 << &other << ". AnalysisHandler merge has probably gone wrong..." );
           continue;
         }
-
+        MSG_TRACE("Merging ao " << ao->name() << " in analysis " << a->name());
 
         ao.get()->setActiveWeightIdx(iW);
         YODA::AnalysisObjectPtr yao = ao.get()->activeYODAPtr();
