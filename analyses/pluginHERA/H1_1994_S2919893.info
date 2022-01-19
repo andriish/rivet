@@ -6,6 +6,7 @@ Collider: HERA
 SpiresID: 2919893
 InspireID: 372350
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
