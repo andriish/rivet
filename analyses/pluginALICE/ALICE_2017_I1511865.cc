@@ -28,10 +28,14 @@ namespace Rivet {
 	book(_h_JPsi_pT2,"TMP/JPsi_pY",refData(5,1,1));
 	book(_h_JPsi_y2 ,"TMP/JPsi_y" ,refData(6,1,1));
       }
-      else if(isCompatibleWithSqrtS(5020) ) {
+      else if(isCompatibleWithSqrtS(5020,1e-1) ) {
       	book(_h_JPsi_pT,7,1,1);
       	book(_h_JPsi_y,8,1,1);
       }
+      else
+        throw UserError("Centre-of-mass energy of the given input is neither 5020 nor 13000 GeV.");
+
+	
     }
 
 
