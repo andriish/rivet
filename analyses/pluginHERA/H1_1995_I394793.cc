@@ -1,9 +1,10 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
+#include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/PromptFinalState.hh"
 #include "Rivet/Projections/DISKinematics.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/DISLepton.hh"
+#include "Rivet/Projections/Beam.hh"
 
 namespace Rivet {
 
@@ -33,6 +34,19 @@ namespace Rivet {
       declare(fs, "FS");
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
+/*
+      bool positron ;
+
+      const ParticlePair& beam = beams();
+      // cout << " beam id "<< beam.first.pid() << " " << beam.second.pid() << " sqrts " << sqrtS() << endl;
+      if( beam.first.pid() == PID::POSITRON || beam.second.pid() == PID::POSITRON ) { 
+        positron = true ;}
+        else { positron = false ; }
+        
+      double eps = 0.01 ;
+      // NC e+ p at sqrts=318
+      if (fuzzyEquals(sqrtS()/GeV, 318, eps) && positron  ) 
+*/
       
       // book a counter
       book(_Nevt_after_cuts, "TMP/Nevt_after_cuts");
@@ -87,7 +101,7 @@ namespace Rivet {
       
       if ( !cut ) vetoEvent ; 
       
-      const DISLepton& dl = applyProjection<DISLepton>(event,"Lepton");
+      const DISLepton& dl = apply<DISLepton>(event,"Lepton");
       if ( dl.failed() ) vetoEvent;
       /*
       cout << "  scattered lepton angle " << 180.- dl.out().momentum().angle(dl.in().momentum())/degree << endl;
@@ -95,6 +109,7 @@ namespace Rivet {
       cout << " out lepton " << dl.out().momentum() << endl;
       */
       
+/// @todo Improve with DISLepton remainingFinalState when available      
       const FinalState& fs = apply<FinalState>(event, "FS");
       Particles particles; particles.reserve(fs.size());
       ConstGenParticlePtr dislepGP = dl.out().genParticle();
@@ -165,6 +180,10 @@ namespace Rivet {
  
         n_charg = n_charg + 1; 
 
+        //const Vector3 mom3 = p.p3();
+        //const double energy = p.E();
+        //const double rapidityT = 0.5 * std::log((energy + momT) / (energy - momT));
+        //cout << " 4-vector " << p.px() << " " << p.py() << " " << p.pz() << " " << p.E() << " mass " << p.mass() << endl;
      }
      _h["Mult_vrs_Q2_nchrg"] -> fill(Q2,n_charg) ;
      _h["Mult_vrs_Q2_count"] -> fill(Q2) ;
