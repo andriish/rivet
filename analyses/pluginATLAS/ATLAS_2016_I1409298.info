@@ -1,0 +1,42 @@
+Name: ATLAS_2016_I1409298
+Year: 2016
+Summary: Differential cross sections for $J/\psi$ and $\psi(2S)$ at 7 and 8 TeV
+Experiment: ATLAS
+Collider: LHC
+InspireID: 1409298
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Eur.Phys.J.C 76 (2016) 5, 283
+RunInfo: hadronic events with J/psi and psi(2S)
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merge'ing samples.
+Beams: [p+, p+]
+Energies: [[3500,3500],[4000,4000]]
+Options:
+ - ENERGY=7000,8000
+Description:
+  'Measurement of the double differential (in $p_\perp$ and $y$) cross section for $J/\psi$ and $\psi(2S)$ production at 7 and 8 TeV by the ATLAS collaboration.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: ATLAS:2015zdw
+BibTeX: '@article{ATLAS:2015zdw,
+    author = "Aad, Georges and others",
+    collaboration = "ATLAS",
+    title = "{Measurement of the differential cross-sections of prompt and non-prompt production of $J/\psi $ and $\psi (2\mathrm {S})$ in $pp$ collisions at $\sqrt{s} = 7$ and 8 TeV with the ATLAS detector}",
+    eprint = "1512.03657",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-PH-EP-2015-292",
+    doi = "10.1140/epjc/s10052-016-4050-8",
+    journal = "Eur. Phys. J. C",
+    volume = "76",
+    number = "5",
+    pages = "283",
+    year = "2016"
+}
+'

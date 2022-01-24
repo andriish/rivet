@@ -213,6 +213,11 @@
 	gets very long (report by Michal Kreps, suggestion by Andrii
 	Verbytskyi).
 
+2022-01-24 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add ATLAS_2018_I1622737 J/psi psi(2S) at 7,8 TeV
+	* Add ATLAS_2016_I1409298 quarkonium at 5.02 TeV
+
 2022-01-11 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BABAR_2009_I827985 D_s** helicity angles

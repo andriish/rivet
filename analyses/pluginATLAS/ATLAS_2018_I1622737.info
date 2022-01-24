@@ -1,0 +1,39 @@
+Name: ATLAS_2018_I1622737
+Year: 2018
+Summary:  Differential cross sections for $J/\psi$, $\psi(21S)$ and $\Upsilon(1,2,3S)$ at 5.02 TeV
+Experiment: ATLAS
+Collider: LHC
+InspireID: 1622737
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Eur.Phys.J.C 78 (2018) 171, 2018. 
+RunInfo: hadronic events with onium production
+Beams: [p+, p+]
+Energies: [5020]
+Description:
+  'Measurement of the double differential (in $p_\perp$ and $y$) cross section for $J/\psi$, $\psi(2S)$ and $\Upsilon(1,2,3S)$ production at 5.02 TeV by the ATLAS collaboration. Only the proton-proton results are implemented.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: ATLAS:2017prf
+BibTeX: '@article{ATLAS:2017prf,
+    author = "Aaboud, Morad and others",
+    collaboration = "ATLAS",
+    title = "{Measurement of quarkonium production in proton\textendash{}lead and proton\textendash{}proton collisions at $5.02~\mathrm {TeV}$ with the ATLAS detector}",
+    eprint = "1709.03089",
+    archivePrefix = "arXiv",
+    primaryClass = "nucl-ex",
+    reportNumber = "CERN-EP-2017-197, CERN-PH-EP-2017-197",
+    doi = "10.1140/epjc/s10052-018-5624-4",
+    journal = "Eur. Phys. J. C",
+    volume = "78",
+    number = "3",
+    pages = "171",
+    year = "2018"
+}
+'
