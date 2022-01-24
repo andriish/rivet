@@ -64,10 +64,10 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");      
+      // const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");      
       const FinalState& fs = apply<FinalState>(event, "FS");
-      const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
-      const DISLepton& dl = applyProjection<DISLepton>(event,"Lepton");
+      const DISKinematics& dk = apply<DISKinematics>(event, "Kinematics");
+      const DISLepton& dl = apply<DISLepton>(event,"Lepton");
 
       // Get the DIS kinematics
       double x  = dk.x();
@@ -103,6 +103,7 @@ namespace Rivet {
 
        for ( int i=0; i< 10; i++) { if(ibin[i]==1) _Nevt_after_cuts[i] ->fill(); } 
 
+/// @todo Improve with DISLepton remainingFinalState when available      
       // Extract the particles other than the lepton
       Particles particles;
       particles.reserve(fs.particles().size());
