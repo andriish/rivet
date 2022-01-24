@@ -1,0 +1,39 @@
+Name: ATLAS_2013_I1204994
+Year: 2013
+Summary: $\Upsilon(1,2,3S)$ production at 7 TeV
+Experiment: ATLAS
+Collider: LHC
+InspireID: 1204994
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardsonm <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 87 (2013) 052004, 2013
+RunInfo: Upsilon(1,2,3S) production
+Beams: [p+, p+]
+Energies: [[3500,3500]]
+Description:
+  'Measurement of the double differential cross section for  $\Upsilon(1,2,3S)$ production at 7 TeV by the ATLAS collaboration'
+ValidationInfo:
+  'Herwig 7 event'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: ATLAS:2012lmu
+BibTeX: '@article{ATLAS:2012lmu,
+    author = "Aad, Georges and others",
+    collaboration = "ATLAS",
+    title = "{Measurement of Upsilon production in 7 TeV pp collisions at ATLAS}",
+    eprint = "1211.7255",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-PH-EP-2012-295",
+    doi = "10.1103/PhysRevD.87.052004",
+    journal = "Phys. Rev. D",
+    volume = "87",
+    number = "5",
+    pages = "052004",
+    year = "2013"
+}
+'
