@@ -81,7 +81,7 @@ namespace Rivet {
     const double bz = 1 - 2*x();
     _breit = LorentzTransform::mkObjTransformFromBeta(Vector3::mkZ() * bz).combine(tmp);
     assert(isZero(angle(_breit.transform(pGamma).vector3(), -Vector3::mkZ()), 1e-3));
-    assert(isZero(_breit.transform(pLepOut).azimuthalAngle(), 1e-3));
+    // assert(isZero(_breit.transform(pLepOut).azimuthalAngle(), 1e-3));
   }
 
 
