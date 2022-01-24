@@ -1,0 +1,38 @@
+Name: LHCB_2021_I1915030
+Year: 2021
+Summary: Prompt and non-prompt J$/\psi$ production at 5.02 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1915030
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - JHEP 11 (2021) 181
+RunInfo: hadronic events with J/psi production
+Beams: [p+, p+]
+Energies: [5020]
+Description:
+  'Measurement of the double differential cross section for prompt and non-prompt J$/\psi$ production at 5.02 TeV by the LHCb collaboration.'
+ValidationInfo:
+  'Herwig 7'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2021pyk
+BibTeX: '@article{LHCb:2021pyk,
+    author = "Aaij, R. and others",
+    collaboration = "LHCb",
+    title = "{Measurement of $J/\psi$ production cross-sections in $pp$ collisions at $\sqrt{s}=5$ TeV}",
+    eprint = "2109.00220",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "LHCb-PAPER-2021-020,CERN-EP-2021-156",
+    doi = "10.1007/JHEP11(2021)181",
+    journal = "JHEP",
+    volume = "11",
+    pages = "181",
+    year = "2021"
+}
+'

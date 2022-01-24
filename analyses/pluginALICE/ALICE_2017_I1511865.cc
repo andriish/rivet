@@ -1,6 +1,5 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
@@ -34,8 +33,6 @@ namespace Rivet {
       }
       else
         throw UserError("Centre-of-mass energy of the given input is neither 5020 nor 13000 GeV.");
-
-	
     }
 
 

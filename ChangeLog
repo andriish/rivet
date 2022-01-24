@@ -217,6 +217,10 @@
 
 	* Add ATLAS_2018_I1622737 J/psi psi(2S) at 7,8 TeV
 	* Add ATLAS_2016_I1409298 quarkonium at 5.02 TeV
+	* Add ALICE_2019_I1735351 J/psi at 5.02 TeV
+	* Add LHCB_2021_I1915030 J/psi at 5.02 TeV
+	* Add CMS_2017_I1512296 J/psi at 5.02 TeV
+	* Add CMS_2019_I1672011 psi(2S) at 5.02 TeV
 
 2022-01-11 Peter Richardson <peter.richardson@durham.ac.uk>
 

@@ -64,8 +64,8 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      // 2 due rapidity folding +/-
-      double factor = 2.*crossSection()/nanobarn/sumOfWeights();
+      // 0.5 due rapidity folding +/-
+      double factor = 0.5*crossSection()/nanobarn/sumOfWeights();
       // br to muons PDG 2021 (psi2s is e+e- due large errors on mu+mu-)
       vector<double> br = {0.05961,0.00793,0.05961,0.00793,0.0248,0.0193,0.0218};
       for(unsigned int ix=0;ix<7;++ix) {

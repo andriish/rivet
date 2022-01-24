@@ -1,0 +1,37 @@
+Name: ALICE_2019_I1735351
+Year: 2019
+Summary: Central J$/\psi$ production at $5.02$ TeV
+Experiment: ALICE
+Collider: LHC
+InspireID: 1735351
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - JHEP 10 (2019) 084
+RunInfo: J/Psi  production
+Beams: [p+, p+]
+Energies: [5020]
+Description:
+  'Measurement of central J$/\psi$ production at $5.02$ TeV by the ALICE collaboration.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: ALICE:2019pid
+BibTeX: '@article{ALICE:2019pid,
+    author = "Acharya, Shreyasi and others",
+    collaboration = "ALICE",
+    title = "{Inclusive J/\ensuremath{\psi} production at mid-rapidity in pp collisions at $ \sqrt{s} $ = 5.02 TeV}",
+    eprint = "1905.07211",
+    archivePrefix = "arXiv",
+    primaryClass = "nucl-ex",
+    reportNumber = "CERN-EP-2019-101",
+    doi = "10.1007/JHEP10(2019)084",
+    journal = "JHEP",
+    volume = "10",
+    pages = "084",
+    year = "2019"
+}'
