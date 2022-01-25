@@ -117,3 +117,11 @@ cdef extern from "Rivet/Rivet.hh" namespace "Rivet":
 
 cdef extern from "Rivet/Tools/Logging.hh":
     void setLogLevel "Rivet::Log::setLevel" (string, int)
+
+cdef extern from "Rivet/Tools/ProjectionTreePlotter.hh" namespace "Rivet":
+    cdef cppclass ProjectionTreeGenerator:
+        void addAnalysis(string&)
+        void addAnalyses(vector[string]&)
+        void setPath(string&)
+        int generateProjTree()
+        void saveProjTree()
