@@ -215,6 +215,11 @@
 
 2022-01-24 Peter Richardson <peter.richardson@durham.ac.uk>
 
+	* Add LHCB_2015_I1316329 eta_c at 7,8 TeV
+	* Add LHCB_2020_I1763898 eta_c at 13 TeV
+
+2022-01-24 Peter Richardson <peter.richardson@durham.ac.uk>
+
 	* Add ATLAS_2018_I1622737 J/psi psi(2S) at 7,8 TeV
 	* Add ATLAS_2016_I1409298 quarkonium at 5.02 TeV
 	* Add ALICE_2019_I1735351 J/psi at 5.02 TeV

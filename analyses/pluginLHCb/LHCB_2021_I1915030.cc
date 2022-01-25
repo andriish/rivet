@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief J/psi production at 5.02 TeV
   class LHCB_2021_I1915030 : public Analysis {
   public:
 

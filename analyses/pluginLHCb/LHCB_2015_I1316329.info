@@ -1,0 +1,41 @@
+Name: LHCB_2015_I1316329
+Year: 2015
+Summary: Prompt and non-prompt $\eta_c$ production at 7 and 8 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1316329
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Eur.Phys.J.C 75 (2015) 7, 311
+RunInfo: hadronic events with eta_c production
+Beams: [p+, p+]
+Energies: [7000,8000]
+Options:
+ - ENERGY=7000,8000
+Description:
+  'Measurement of the differential cross section with respect to $p_\perp$ of $\eta_c$ production at 7 and 8 TeV by the LHCb collaboration.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2014oii
+BibTeX: '@article{LHCb:2014oii,
+    author = "Aaij, Roel and others",
+    collaboration = "LHCb",
+    title = "{Measurement of the $\eta_c (1S)$ production cross-section in proton-proton collisions via the decay $\eta_c (1S) \rightarrow p \bar{p}$}",
+    eprint = "1409.3612",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "LHCB-PAPER-2014-029, CERN-PH-EP-2014-218",
+    doi = "10.1140/epjc/s10052-015-3502-x",
+    journal = "Eur. Phys. J. C",
+    volume = "75",
+    number = "7",
+    pages = "311",
+    year = "2015"
+}
+'
