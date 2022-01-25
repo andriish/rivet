@@ -9,8 +9,8 @@ Authors:
  - Dhevan Gangadharan <dhevan.raja.gangadharan@cern.ch>
 References:
  - arXiv:2106.12377 [hep-ex]
-Beams: [[p+,e-],[e+,p+]]
-Energies: [[920.0,27.5],[27.5,920]]
+Beams: [[e+, p+],[p+,e+],[e-, p+],[p+,e-]]
+Energies_GeV: [[27.5,920],[920,27.5],[27.5,920],[920,27.5]]
 Luminosity_fb: 0.366
 Description:
   'Analysis algorithm for $dN/dN_{\textrm{ch}}$, $dN/dp_{\textrm{T}$, $dN/d\eta$, and two-particle azimuthal correlations versus $\Delta\eta$ and $<p_{\textrm{T}}>$'
