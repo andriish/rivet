@@ -3,7 +3,9 @@
 //Utility to plot the "tree" of projections of a given analysis.
 
 #include "Rivet/Tools/ProjectionTreePlotter.hh"
+#ifdef ENABLE_HEPMC3
 #include "HepMC3/GenEvent.h"
+#endif
 
 #include <fstream>
 
