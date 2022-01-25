@@ -30,6 +30,7 @@ function _rivet() {
     opts="--help --verbose --quiet --version --nevts --nskip --cross-section"
     opts="$opts --analysis --analyses --runname"
     opts="$opts --list-keywords --list-analyses --show-analysis --show-bibtex" #< intentionally skip --show-analyses alias
+    opts="$opts --plot-proj-tree --plot-proj-tree-only --proj-tree-name"
     opts="$opts --skip-weights --skip-multiweights"
     opts="$opts --match-weights --unmatch-weights"
     opts="$opts --analysis-path --analysis-path-append --pwd"

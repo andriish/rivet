@@ -75,6 +75,12 @@ anagroup.add_argument("--analysis-path-append", dest="ANALYSIS_PATH_APPEND", met
                       help="append to the analysis search path (cf. $RIVET_ANALYSIS_PATH).")
 anagroup.add_argument("--pwd", dest="ANALYSIS_PATH_PWD", action="store_true", default=False,
                       help="append the current directory (pwd) to the analysis/data search paths (cf. $RIVET_ANALYSIS_PATH).")
+anagroup.add_argument("--plot-proj-tree", dest="PLOT_PROJ_TREE", action="store_true", default=False,
+                      help="Plot the projection tree for this set of analyses (in addition to running rivet normally")
+anagroup.add_argument("--plot-proj-tree-only", dest="PLOT_PROJ_TREE_ONLY", action="store_true", default=False,
+                      help="Plot the projection tree for this set of analyses, then exit")
+anagroup.add_argument("--proj-tree-name", dest="PROJ_TREE_NAME", default="ProjectionTree.gv",
+                      help="If outputting a projection tree, name of file to which it is dumped. Defaults to \"Projection Tree.gv\", or the analysis name if only one analysis specified.")                                             
 
 extragroup = parser.add_argument_group("Extra run settings")
 extragroup.add_argument("-o", "-H", "--histo-file", dest="HISTOFILE",
@@ -490,6 +496,19 @@ try:
     signal.signal(signal.SIGXCPU, handleKillSignal);
 except:
     pass
+
+
+#######################
+#Generate ProjectionTree if asked
+if (args.PLOT_PROJ_TREE or args.PLOT_PROJ_TREE_ONLY):
+    ptg=rivet.ProjectionTreeGenerator()
+    ptg.setPath(args.PROJ_TREE_NAME)
+    ptg.addAnalyses(args.ANALYSES)
+    ptg.generateProjTree()
+    ptg.saveProjTree()
+    if (args.PLOT_PROJ_TREE_ONLY):
+        #We're done here.
+        exit(0)
 
 
 
