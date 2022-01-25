@@ -18,7 +18,7 @@ libRivetTools_la_SOURCES = \
   binreloc.c
 
 if ENABLE_HEPMC_3
-libRivetTools_la_SOURCES += RivetHepMC_3.cc ReaderCompressedAscii.cc WriterCompressedAscii.cc
+libRivetTools_la_SOURCES += RivetHepMC_3.cc ReaderCompressedAscii.cc WriterCompressedAscii.cc ProjectionTreePlotter.cc
 else
 libRivetTools_la_SOURCES += RivetHepMC_2.cc
 endif
