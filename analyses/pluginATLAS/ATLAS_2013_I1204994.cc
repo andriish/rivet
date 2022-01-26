@@ -78,7 +78,7 @@ namespace Rivet {
       	Particles mup,mum;
       	findDecayProducts(p,nstable,mup,mum,ngamma);
       	bool fiduical = false;
-      	if(mup.size()==1 && mum.size()==1 and nstable==ngamma+2) {
+      	if(mup.size()==1 && mum.size()==1 && nstable==ngamma+2) {
       	  fiduical = true;
       	  if(mup[0].perp()<4. || mup[0].abseta()>2.4) fiduical = false;
       	  if(mum[0].perp()<4. || mum[0].abseta()>2.4) fiduical = false;

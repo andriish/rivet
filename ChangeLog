@@ -213,6 +213,12 @@
 	gets very long (report by Michal Kreps, suggestion by Andrii
 	Verbytskyi).
 
+2022-01-25 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add LHCB_2011_I891233 J/psi at 7 TeV
+	* Add LHCB_2013_I1230344 J/psi and Upsilon at 8 TeV
+	* Add CMS_2013_I1185414 Upsilon polarization at 7 TeV
+
 2022-01-24 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add LHCB_2015_I1316329 eta_c at 7,8 TeV

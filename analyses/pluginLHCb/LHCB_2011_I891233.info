@@ -1,0 +1,38 @@
+Name: LHCB_2011_I891233
+Year: 2011
+Summary: Differential cross sections for $J/\psi$ production at 7 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 891233
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ -     Eur.Phys.J.C 71 (2011) 1645
+RunInfo: hadronic events with Jpsi  production
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+  'Measurement of the double differential (in $p_\perp$ and $y$) cross section for $J/\psi$ production at 7 TeV by the LHCB collaboration.'
+ValidationInfo:
+  'Herwig 7 events '
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2011zfl
+BibTeX: '@article{LHCb:2011zfl,
+    author = "Aaij, R. and others",
+    collaboration = "LHCb",
+    title = "{Measurement of $J/\psi$ production in $pp$ collisions at $\sqrt{s}=7~\rm{TeV}$}",
+    eprint = "1103.0423",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "LHCb-PAPER-2011-003, CERN-PH-EP-2011-018",
+    doi = "10.1140/epjc/s10052-011-1645-y",
+    journal = "Eur. Phys. J. C",
+    volume = "71",
+    pages = "1645",
+    year = "2011"
+}
+'
