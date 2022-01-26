@@ -1,0 +1,39 @@
+Name: LHCB_2013_I1244315
+Year: 2013
+Summary: J$/\psi$ polarization at 7 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1244315
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ -     Eur.Phys.J.C 73 (2013) 11, 2631
+RunInfo: JPsi production
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+  'Measurement of the polarization of  J/$\psi$ at 7 TeV by LHCb'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2013izl
+BibTeX: '@article{LHCb:2013izl,
+    author = "Aaij, R and others",
+    collaboration = "LHCb",
+    title = "{Measurement of $J/\psi$ polarization in $pp$ collisions at $\sqrt{s}=7$ TeV}",
+    eprint = "1307.6379",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "LHCB-PAPER-2013-008, CERN-PH-EP-2013-130",
+    doi = "10.1140/epjc/s10052-013-2631-3",
+    journal = "Eur. Phys. J. C",
+    volume = "73",
+    number = "11",
+    pages = "2631",
+    year = "2013"
+}
+'

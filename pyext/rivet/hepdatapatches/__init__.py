@@ -93,6 +93,7 @@ from . import L3_1995_I381046
 from . import L3_1997_I427107
 from . import L3_2004_I652683
 from . import LENA_1982_I179431
+from . import LHCB_2013_I1244315
 from . import MAC_1985_I202924
 from . import MAC_1985_I206052
 from . import MARKII_1982_I177606
