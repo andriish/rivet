@@ -3,9 +3,6 @@
 //Utility to plot the "tree" of projections of a given analysis.
 
 #include "Rivet/Tools/ProjectionTreePlotter.hh"
-#ifdef ENABLE_HEPMC3
-#include "HepMC3/GenEvent.h"
-#endif
 
 #include <fstream>
 
@@ -21,6 +18,7 @@ private:
     //At what index is this node stored in the list of nodes.
     const size_t _location;
 public:
+    //Standard constructor
     ProjectionTreeNode(size_t loc, Rivet::ConstProjectionPtr ProjPointer, Rivet::AnaHandle Anapointer = nullptr) : _location(loc){
         _theptr = ProjPointer;
         _anahandle = Anapointer;
@@ -30,6 +28,7 @@ public:
     //getter function
     bool is_analysed() const {return _analysed;}
 
+    //Get children from the Projection Handler
     std::set<Rivet::ConstProjectionPtr> getChildren() const {
         if (_theptr != nullptr) {return _theptr->getImmediateChildProjections();}
         else {return _anahandle->getImmediateChildProjections();}
@@ -41,6 +40,8 @@ public:
         else {return _theptr->name();}
     }
 
+    //Function used in building the tree.
+    //Get children: if they've not already been analysed, push them to the end of the passed-by-reference vector of all projections.
     void add_children_to_list(std::vector<Rivet::ConstProjectionPtr>& MainProjVector, std::vector<std::array<size_t,2>>& MainEdgeVector, 
                                 std::vector<std::string>& nameVector, std::vector<ProjectionTreeNode>& MainNodeVector) const {
         auto children = getChildren();
@@ -71,11 +72,7 @@ public:
         }
     }
 
-    std::string get_string_info() const {
-        if (_theptr == nullptr){ return (_anahandle->name() +" " +static_cast<std::string>(typeid(_anahandle).name()));}
-        else { return (_theptr->name() +" " +static_cast<std::string>(typeid(_theptr).name()) ); }
-    }
-
+    //Get Logger object
     Rivet::Log& getLog() const {
         return Rivet::Log::getLog("Rivet.ProjectionTreeNode");
     }
@@ -87,9 +84,6 @@ namespace Rivet{
 
     ProjectionTreeGenerator::ProjectionTreeGenerator(const std::string& name) : _path(name), _analyses({}), _edgeVector({}), 
                                                                                 _nameVector({}), _projVector({}), _title("") {
-    #ifndef ENABLE_HEPMC3
-        MSG_WARNING("Projection Tree Plotting requires HepMC3");
-    #endif
     }
 
     ProjectionTreeGenerator::ProjectionTreeGenerator() : ProjectionTreeGenerator("") {
@@ -124,10 +118,8 @@ namespace Rivet{
         }
 
         // Create a dummy event to initialise with
-        #ifdef ENABLE_HEPMC3
-        HepMC3::GenEvent e;
+        GenEvent e;
         ah.analyze(e);
-        #endif
 
         //Use the projectionTreeNode
         std::vector<ProjectionTreeNode> nodeVector;
@@ -167,7 +159,7 @@ namespace Rivet{
             //Remove anything before the last '\'. There's probably a nice regex way but this is still only two lines.
             auto beginning = std::find(_path.rbegin(), _path.rend(), '/');
             digraphname = std::string(beginning.base(), _path.end());
-            //Strip the .gv
+            //Strip the .gv if it's there
             if (std::string(digraphname.end()-3,digraphname.end()) == ".gv"){
                 digraphname = std::string(digraphname.begin(), digraphname.end()-3);
             }
@@ -189,7 +181,7 @@ namespace Rivet{
         outfile << "}";
         outfile.close();
 
-        MSG_INFO("Saved Projection Tree to " << _path << " (use graphviz - or other utility capable of parsing gv files - to produce an image file)");
+        MSG_INFO("Saved Projection Tree to " << _path << " (use graphviz's dot or similar to produce an image file - e.g. \"dot -Tsvg "<<_path<<" > "<<digraphname<<".svg \")");
     }
     
     Log& ProjectionTreeGenerator::getLog() const {
