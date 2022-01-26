@@ -82,7 +82,7 @@ public:
 
 namespace Rivet{
 
-    ProjectionTreeGenerator::ProjectionTreeGenerator(const std::string& name) : _path(name), _analyses({}), _edgeVector({}), 
+    ProjectionTreeGenerator::ProjectionTreeGenerator(const std::string& name) : _path(name), _edgeVector({}), 
                                                                                 _nameVector({}), _projVector({}), _title("") {
     }
 
@@ -97,34 +97,28 @@ namespace Rivet{
         _title = title;
     }
 
-    void ProjectionTreeGenerator::addAnalysis(const std::string& analysis){
-        _analyses.push_back(analysis);
-        _treeGenerated = false;
-    }
-
-    void ProjectionTreeGenerator::addAnalyses(const std::vector<std::string>& analyses){
-        for (const std::string& ana : analyses){
-            _analyses.push_back(ana);
-        }
-        _treeGenerated=false;
-    }
-
-    int ProjectionTreeGenerator::generateProjTree() {
+    int ProjectionTreeGenerator::generateProjTree(const std::vector<std::string>&analyses) {
         //The analysishandler for this ProjectionTree.
         Rivet::AnalysisHandler ah;
         ah.setCheckBeams(false);
-        for (const std::string& analysis : _analyses){
+        for (const std::string& analysis : analyses){
             ah.addAnalysis(analysis);
         }
 
         // Create a dummy event to initialise with
         GenEvent e;
         ah.analyze(e);
+        return generateProjTree(ah);
+    }
 
-        //Use the projectionTreeNode
+    int ProjectionTreeGenerator::generateProjTree(const AnalysisHandler& ah) {
+        //Use the projectionTreeNode to 
         std::vector<ProjectionTreeNode> nodeVector;
 
-        for (size_t i=0; i < ah.analyses().size(); ++i){
+        //Set the number of analyses used:
+        _nAnalyses = ah.analyses().size();
+
+        for (size_t i=0; i < _nAnalyses; ++i){
             _projVector.push_back(nullptr);
             ProjectionTreeNode ananode(i,nullptr,ah.analyses()[i]);
             nodeVector.push_back(ananode);
@@ -169,7 +163,7 @@ namespace Rivet{
         outfile << "digraph \"" << digraphname <<  "\"{\n";
         for (size_t i = 0; i < _nameVector.size(); ++i){
             //Do analysis boxes in a different colour:
-            if (i < _analyses.size()){
+            if (i < _nAnalyses){
                 outfile << i << "[fillcolor=\"#F09C9C\", style=\"rounded,filled\", shape=box,label=<"<<_nameVector[i]<<">];\n";
             } else {
                 outfile << i << "[fillcolor=\"#F0F0D0\", style=\"rounded,filled\", shape=box,label=<"<<_nameVector[i]<<">];\n";

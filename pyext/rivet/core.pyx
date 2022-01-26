@@ -286,14 +286,8 @@ cdef class ProjectionTreeGenerator:
     def __del__(self):
         del self._ptr
 
-    def addAnalysis(self, ananame):
-        self._ptr.addAnalysis(ananame.encode('utf-8'))
-
-    def addAnalyses(self, ananames):
-        self._ptr.addAnalyses([a.encode('utf-8') for a in ananames])
-
-    def generateProjTree(self):
-        self._ptr.generateProjTree()
+    def generateProjTreeFromList(self, listOfAnalyses):
+        self._ptr.generateProjTree([a.encode('utf-8') for a in listOfAnalyses])
 
     def saveProjTree(self):
         self._ptr.saveProjTree()

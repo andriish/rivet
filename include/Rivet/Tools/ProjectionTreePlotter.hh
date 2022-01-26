@@ -13,11 +13,8 @@ namespace Rivet{
   /// @brief Class that deals with generating projection trees (for debugging etc.)
   class ProjectionTreeGenerator{
     private:
-      ///@name Private member variables that define what tree we build:
+      ///@name Private member variables that dictate output of the tree
       ///{
-      ///Which analyses to generate projection tree for
-      std::vector<std::string> _analyses;
-
       ///path to save tree to.
       std::string _path;
 
@@ -26,6 +23,9 @@ namespace Rivet{
 
       ///flag to keep track of whether or not a tree has been generated
       bool _treeGenerated;
+
+      //Tracks how many analyses are involved for the projection tree
+      size_t _nAnalyses;
       ///}
 
       ///@name The vectors that store the projection tree itself.
@@ -43,7 +43,7 @@ namespace Rivet{
 
     public:
       ///Standard constructor with name of gv pre-supplied
-      ProjectionTreeGenerator(const std::string& name);
+      ProjectionTreeGenerator(const std::string& path);
 
       ///Standard constructor
       ProjectionTreeGenerator();
@@ -53,15 +53,12 @@ namespace Rivet{
 
       //Set the title (defaults to last bit of path without '.gv')
       void setTitle(const std::string& title);
-
-      ///Add analysis
-      void addAnalysis(const std::string& analysis);
-
-      ///Add analyses
-      void addAnalyses(const std::vector<std::string>& analyses);
     
-      ///Generate the projection tree
-      int generateProjTree();
+      ///Generate the projection tree for the supplied analyses
+      int generateProjTree(const std::vector<std::string>& analyses);
+
+      ///Generate a projection tree from the supplied analysishandler
+      int generateProjTree(const AnalysisHandler& ah);
 
       ///Save the projection tree to it's _path file
       void saveProjTree() const;

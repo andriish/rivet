@@ -503,8 +503,7 @@ except:
 if (args.PLOT_PROJ_TREE or args.PLOT_PROJ_TREE_ONLY):
     ptg=rivet.ProjectionTreeGenerator()
     ptg.setPath(args.PROJ_TREE_NAME)
-    ptg.addAnalyses(args.ANALYSES)
-    ptg.generateProjTree()
+    ptg.generateProjTreeFromList(args.ANALYSES)
     ptg.saveProjTree()
     if (args.PLOT_PROJ_TREE_ONLY):
         #We're done here.
