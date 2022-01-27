@@ -1,0 +1,38 @@
+Name: ATLAS_2014_I1292798
+Year: 2014
+Summary: $\chi_{c1}$ and $\chi_{c2}$ production at 7 TeV 
+Experiment: ATLAS
+Collider: LHC
+InspireID: 1292798
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - JHEP 07 (2014) 154, 2014
+RunInfo: chi_C production
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+  'Differential cross section for the production of $\chi_{c1}$ and $\chi_{c2}$ production using their decay to J/$\psi$ and a photon.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: ATLAS:2014ala
+BibTeX: '@article{ATLAS:2014ala,
+    author = "Aad, Georges and others",
+    collaboration = "ATLAS",
+    title = "{Measurement of $\chi_{c1}$ and $\chi_{c2}$ production with $\sqrt{s}$ = 7 TeV $pp$ collisions at ATLAS}",
+    eprint = "1404.7035",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-PH-EP-2013-202",
+    doi = "10.1007/JHEP07(2014)154",
+    journal = "JHEP",
+    volume = "07",
+    pages = "154",
+    year = "2014"
+}
+'

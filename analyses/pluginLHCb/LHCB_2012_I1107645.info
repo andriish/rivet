@@ -1,0 +1,38 @@
+Name: LHCB_2012_I1107645
+Year: 2012
+Summary: $\chi_{c}$ production at 7 TeV 
+Experiment: LHCB
+Collider: LHC
+InspireID: 1107645
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Lett.B 718 (2012) 431-440
+RunInfo: chi_C production
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+  'Differential cross section for the production of $\chi_{c(0,1,2)}$ production using their decay to J/$\psi$ and a photon.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2012af
+BibTeX: '@article{LHCb:2012af,
+    author = "Aaij, R and others",
+    collaboration = "LHCb",
+    title = "{Measurement of the ratio of prompt $\chi_{c}$ to $J/\psi$ production in $pp$ collisions at $\sqrt{s}=7$ TeV}",
+    eprint = "1204.1462",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-PH-EP-2012-068, LHCB-PAPER-2011-030",
+    doi = "10.1016/j.physletb.2012.10.068",
+    journal = "Phys. Lett. B",
+    volume = "718",
+    pages = "431--440",
+    year = "2012"
+}
+'
