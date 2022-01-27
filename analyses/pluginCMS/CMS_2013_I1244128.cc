@@ -6,12 +6,12 @@
 namespace Rivet {
 
 
-  /// @brief Upsilon polarization at 7 TeV
-  class CMS_2013_I1185414 : public Analysis {
+  /// @brief J/psi and psi(2s) polarization at 7 TeV
+  class CMS_2013_I1244128 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2013_I1185414);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2013_I1244128);
 
 
     /// @name Analysis methods
@@ -22,18 +22,17 @@ namespace Rivet {
       // projections
       declare(Beam(), "Beams");
       declare(UnstableParticles(), "UFS");
-      // book profile hists for the moments
-      // loop upsilon states
-      for(unsigned int iups=0;iups<3;++iups) {
+      // loop over staes
+      for(unsigned int ipsi=0;ipsi<2;++ipsi) {
 	// rapidity intervals
-	for(unsigned int iy=0;iy<2;++iy) {
+	for(unsigned int iy=0;iy<2+ipsi;++iy) {
 	  // frame defns
 	  for(unsigned int iframe=0;iframe<3;++iframe) {
 	    // 3 different moments
 	    for(unsigned int iobs=0;iobs<3;++iobs) {
-	      string name="TMP/POL_"+toString(iups)+"_"+toString(iy)
+	      string name="TMP/POL_"+toString(ipsi)+"_"+toString(iy)
 		+"_"+toString(iframe)+"_"+toString(iobs);
-	      book(_p_Ups[iups][iy][iframe][iobs],name,refData(1,1,1));
+	      book(_p_psi[ipsi][iy][iframe][iobs],name,refData(1+24*ipsi,1,1));
 	    }
 	  }
 	}
@@ -63,14 +62,13 @@ namespace Rivet {
       }
     }
 
-
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // find the beams
       const ParticlePair & beams = apply<Beam>(event, "Beams").beams();
       // Final state of unstable particles to get particle spectra
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
-      for (const Particle& p : ufs.particles(Cuts::pid==553 or Cuts::pid==100553 or Cuts::pid==200553)) {
+      for (const Particle& p : ufs.particles(Cuts::pid==443 or Cuts::pid==100443)) {
 	// check mu+mu- decay and find muons
       	unsigned int nstable=0;
       	Particles mup,mum;
@@ -79,11 +77,14 @@ namespace Rivet {
       	// pT and rapidity
       	double absrap = p.absrap();
       	double xp = p.perp();
-	if(absrap>1.2 || xp<10. || xp>50.) continue;
-      	// type of upsilon
-      	unsigned int iups=p.pid()/100000;
+	// state
+	unsigned int ipsi = p.pid()/100000;
+	// check in fiduical region
+	if     (ipsi==0 && (xp<14 || xp>70. || absrap>1.2)) continue;
+	else if(ipsi==1 && (xp<14 || xp>50. || absrap>1.5)) continue;
 	// rapidity interval
 	unsigned int iy = absrap>0.6;
+	if(iy==1 && absrap>1.2) iy=2;
 	// first the CS frame
 	// first boost so upslion momentum =0 in z direction
 	Vector3 beta = p.momentum().betaVec();
@@ -105,9 +106,9 @@ namespace Rivet {
 	double cTheta = axisz.dot(muDirn);
 	double cPhi   = axisx.dot(muDirn);
 	// fill the moments
-	_p_Ups[iups][iy][0][0]->fill(xp, 1.25*(3.*sqr(cTheta)-1.));
-	_p_Ups[iups][iy][0][1]->fill(xp, 1.25*(1.-sqr(cTheta))*(2.*sqr(cPhi)-1.));
-	_p_Ups[iups][iy][0][2]->fill(xp, 2.5 *cTheta*sqrt(1.-sqr(cTheta))*cPhi);
+	_p_psi[ipsi][iy][0][0]->fill(xp, 1.25*(3.*sqr(cTheta)-1.));
+	_p_psi[ipsi][iy][0][1]->fill(xp, 1.25*(1.-sqr(cTheta))*(2.*sqr(cPhi)-1.));
+	_p_psi[ipsi][iy][0][2]->fill(xp, 2.5 *cTheta*sqrt(1.-sqr(cTheta))*cPhi);
 	// now for the HX frame
 	beta = p.momentum().betaVec();
 	boost = LorentzTransform::mkFrameTransformFromBeta(beta);
@@ -116,18 +117,18 @@ namespace Rivet {
 	cTheta = axisz.dot(muDirn);
 	cPhi   = axisx.dot(muDirn);
 	// fill the moments
-	_p_Ups[iups][iy][1][0]->fill(xp, 1.25*(3.*sqr(cTheta)-1.));
-	_p_Ups[iups][iy][1][1]->fill(xp, 1.25*(1.-sqr(cTheta))*(2.*sqr(cPhi)-1.));
-	_p_Ups[iups][iy][1][2]->fill(xp, 2.5 *cTheta*sqrt(1.-sqr(cTheta))*cPhi);
+	_p_psi[ipsi][iy][1][0]->fill(xp, 1.25*(3.*sqr(cTheta)-1.));
+	_p_psi[ipsi][iy][1][1]->fill(xp, 1.25*(1.-sqr(cTheta))*(2.*sqr(cPhi)-1.));
+	_p_psi[ipsi][iy][1][2]->fill(xp, 2.5 *cTheta*sqrt(1.-sqr(cTheta))*cPhi);
 	// then PX
 	axisz = (p1.p3().unit()+p2.p3().unit()).unit();
 	axisx = axisy.cross(axisz);
 	cTheta = axisz.dot(muDirn);
 	cPhi   = axisx.dot(muDirn);
 	// fill the moments
-	_p_Ups[iups][iy][2][0]->fill(xp, 1.25*(3.*sqr(cTheta)-1.));
-	_p_Ups[iups][iy][2][1]->fill(xp, 1.25*(1.-sqr(cTheta))*(2.*sqr(cPhi)-1.));
-	_p_Ups[iups][iy][2][2]->fill(xp, 2.5 *cTheta*sqrt(1.-sqr(cTheta))*cPhi);
+	_p_psi[ipsi][iy][2][0]->fill(xp, 1.25*(3.*sqr(cTheta)-1.));
+	_p_psi[ipsi][iy][2][1]->fill(xp, 1.25*(1.-sqr(cTheta))*(2.*sqr(cPhi)-1.));
+	_p_psi[ipsi][iy][2][2]->fill(xp, 2.5 *cTheta*sqrt(1.-sqr(cTheta))*cPhi);
       }
     }
 
@@ -135,25 +136,25 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       // Loop over states
-      for(unsigned int iups=0;iups<3;++iups) {
+      for(unsigned int ipsi=0;ipsi<2;++ipsi) {
 	// Loop over rapidity ranges
-	for(unsigned int iy=0;iy<2;++iy) {
+	for(unsigned int iy=0;iy<2+ipsi;++iy) {
 	  // Loop over frame definition
 	  for(unsigned int iframe=0;iframe<3;++iframe) {
 	    // base no for the ihistos in rivet
-	    unsigned int ibase = 24*iups+iy+8*iframe;
+	    unsigned int ibase = 24*ipsi+iy+(8+4*ipsi)*iframe;
 	    // book scatters
 	    Scatter2DPtr lTheta,lPhi,lThetaPhi,lTilde;
-	    book(lTheta   ,ibase+1,1,1);
-	    book(lPhi     ,ibase+3,1,1);
-	    book(lThetaPhi,ibase+5,1,1);
-	    book(lTilde   ,ibase+7,1,1);
+	    book(lTheta   ,ibase+1       ,1,1);
+	    book(lPhi     ,ibase+3+  ipsi,1,1);
+	    book(lThetaPhi,ibase+5+2*ipsi,1,1);
+	    book(lTilde   ,ibase+7+3*ipsi,1,1);
 	    // histos for the moments
 	    Profile1DPtr moment[3];
 	    for(unsigned int ix=0;ix<3;++ix)
-	      moment[ix] = _p_Ups[iups][iy][iframe][ix];
+	      moment[ix] = _p_psi[ipsi][iy][iframe][ix];
 	    // loop over bins
-	    Scatter2D temphisto(refData(1, 1, 1));
+	    Scatter2D temphisto(refData(1+24*ipsi, 1, 1));
 	    for(unsigned int ibin=0;ibin<moment[0]->bins().size();++ibin) {
 	      // extract moments and errors
 	      double val[3],err[3];
@@ -189,13 +190,13 @@ namespace Rivet {
 
     /// @name Histograms
     /// @{
-    Profile1DPtr _p_Ups[3][2][3][3];
+    Profile1DPtr _p_psi[2][3][3][3];
     /// @}
 
 
   };
 
 
-  RIVET_DECLARE_PLUGIN(CMS_2013_I1185414);
+  RIVET_DECLARE_PLUGIN(CMS_2013_I1244128);
 
 }
