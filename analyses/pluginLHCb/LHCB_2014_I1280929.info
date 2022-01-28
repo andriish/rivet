@@ -1,0 +1,38 @@
+Name: LHCB_2014_I1280929
+Year: 2014
+Summary:  $\Upsilon(1,2,3S)$ production at 2.76 TeV 
+Experiment: LHCB
+Collider: LHC
+InspireID: 1280929
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Eur.Phys.J.C 74 (2014) 4, 2835
+RunInfo: hadronic events with Upsilon production
+Beams: [p+, p+]
+Energies: [2760]
+Description:
+  'Measurement of the differential (in $p_\perp$ and $y$) cross section for $\Upsilon(1,2,3S)$ production at 2.76 TeV by the LHCB collaboration.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2014dei
+BibTeX: '@article{LHCb:2014dei,
+    author = "Aaij, Roel and others",
+    collaboration = "LHCb",
+    title = "{Measurement of $\Upsilon$ production in $pp$ collisions at $\sqrt{s}=2.76$ TeV}",
+    eprint = "1402.2539",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-PH-EP-2014-016, LHCB-PAPER-2013-066",
+    doi = "10.1140/epjc/s10052-014-2835-1",
+    journal = "Eur. Phys. J. C",
+    volume = "74",
+    number = "4",
+    pages = "2835",
+    year = "2014"
+}'

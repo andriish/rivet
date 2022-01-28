@@ -1,0 +1,40 @@
+Name: LHCB_2018_I1670013
+Year: 2018
+Summary:  Differential cross sections for $\Upsilon(1,2,3S)$ production at 13 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1670013
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - JHEP 07 (2018) 134
+ - JHEP 05 (2019) 076 (erratum)
+RunInfo: hadronic events with Upsilon production
+Beams: [p+, p+]
+Energies: [13000]
+Description:
+  'Measurement of the double differential (in $p_\perp$ and $y$) cross section for $\Upsilon(1,2,3S)$ production at 13 TeV by the LHCB collaboration.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2018yzj
+BibTeX: '@article{LHCb:2018yzj,
+    author = "Aaij, R. and others",
+    collaboration = "LHCb",
+    title = "{Measurement of $\Upsilon$ production in $pp$ collisions at $\sqrt{s}$= 13 TeV}",
+    eprint = "1804.09214",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "LHCB-PAPER-2018-002, CERN-EP-2018-054",
+    doi = "10.1007/JHEP07(2018)134",
+    journal = "JHEP",
+    volume = "07",
+    pages = "134",
+    year = "2018",
+    note = "[Erratum: JHEP 05, 076 (2019)]"
+}
+'
