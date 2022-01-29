@@ -1,0 +1,41 @@
+Name: LHCB_2017_I1621596
+Year: 2017
+Summary: Measurement of $\Upsilon(1,2,3S)$ polarization at 7 and 8 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1621596
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - JHEP 12 (2017) 110
+RunInfo: Upsilon production
+Beams: [p+, p+]
+Energies: [7000,8000]
+Options:
+ - ENERGY=7000,8000
+Description:
+  'Measurement of the polarization of  $\Upsilon(1,2,3)$ at 7 and 8 TeV by LHCb.
+   Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2017scf
+BibTeX: '@article{LHCb:2017scf,
+    author = "Aaij, Roel and others",
+    collaboration = "LHCb",
+    title = "{Measurement of the $\Upsilon$ polarizations in $pp$ collisions at $\sqrt{s}=7$ and 8 TeV}",
+    eprint = "1709.01301",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-EP-2017-210, LHCB-PAPER-2017-028",
+    doi = "10.1007/JHEP12(2017)110",
+    journal = "JHEP",
+    volume = "12",
+    pages = "110",
+    year = "2017"
+}
+'

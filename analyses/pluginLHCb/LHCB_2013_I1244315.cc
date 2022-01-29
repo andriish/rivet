@@ -69,19 +69,19 @@ namespace Rivet {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::pid==443)) {
       	// pT and rapidity
-      	double absrap = p.absrap();
+      	double rapidity = p.rapidity();
       	double xp = p.perp();
 	// cross section
-	_h_Jpsi.fill(absrap,xp);
+	_h_Jpsi.fill(rapidity,xp);
 	// polarization
       	unsigned int nstable=0;
       	Particles mup,mum;
       	findDecayProducts(p,nstable,mup,mum);
       	if(mup.size()!=1 || mum.size()!=1 || nstable!=2) continue;
 	// find the rapidity interval
-	if(absrap<=2. || absrap>=4.5) continue;
+	if(rapidity<=2. || rapidity>=4.5) continue;
 	unsigned int iy=0;
-	for(iy=0;iy<5;++iy) if(absrap<_ybins[iy+1]) break;
+	for(iy=0;iy<5;++iy) if(rapidity<_ybins[iy+1]) break;
 	// first the CS frame
 	// first boost so upslion momentum =0 in z direction
 	Vector3 beta = p.momentum().betaVec();
@@ -123,8 +123,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      // 1/2 due rapidity folding +/-
-      double factor = 0.5*crossSection()/nanobarn/sumOfWeights();
+      double factor = crossSection()/nanobarn/sumOfWeights();
       _h_Jpsi.scale(factor,this);
       for(unsigned int iy=0;iy<5;++iy) {
 	// Loop over frame definition
