@@ -85,7 +85,7 @@ namespace Rivet {
       }
 
       // jet kinematics
-      for (size_t i = 0; i < min(4, jets.size()); ++i) {
+      for (size_t i = 0; i < min(4, int(jets.size())); ++i) {
         const string pTname  = "jet_pT_"  + to_str(i+1);
         const string etaname = "jet_eta_" + to_str(i+1);
         const string rapname = "jet_y_"   + to_str(i+1);
