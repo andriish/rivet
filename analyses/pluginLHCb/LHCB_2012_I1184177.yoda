@@ -1,0 +1,15 @@
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2012_I1184177/d01-x01-y01
+ErrorBreakdown: {0: {stat: {dn: -21.6, up: 21.6}, sys: {dn: -2.3, up: 2.3}, 'sys,pol': {dn: -5.9, up: 3.0}}, 1: {stat: {dn: -11.9, up: 11.9}, sys: {dn: -2.0, up: 2.0}, 'sys,pol': {dn: -5.1, up: 2.5}}, 2: {stat: {dn: -10.4, up: 10.4}, sys: {dn: -3.2, up: 3.2}, 'sys,pol': {dn: -8.2, up: 4.1}}, 3: {stat: {dn: -8.8, up: 8.8}, sys: {dn: -2.5, up: 2.5}, 'sys,pol': {dn: -6.4, up: 3.2}}}
+IsRef: 1
+Path: /REF/LHCB_2012_I1184177/d01-x01-y01
+Title: doi:10.17182/hepdata.72876.v1/t1
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+6.500000e+00	5.000000e-01	5.000000e-01	2.270000e+01	2.250911e+01	2.192829e+01
+7.500000e+00	5.000000e-01	5.000000e-01	1.950000e+01	1.310038e+01	1.232315e+01
+9.000000e+00	1.000000e+00	1.000000e+00	3.160000e+01	1.362498e+01	1.162798e+01
+1.250000e+01	2.500000e+00	2.500000e+00	2.460000e+01	1.116468e+01	9.691749e+00
+END YODA_SCATTER2D_V2
+
+
