@@ -1,0 +1,38 @@
+Name: CMS_2012_I1189050
+Year: 2012
+Summary: Relative rate of  $\chi_{c1}$ to  $\chi_{c2}$  production at 7 TeV
+Experiment: CMS
+Collider: LHC
+InspireID: 1189050
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Eur.Phys.J.C 72 (2012) 2251, 2012.
+RunInfo: chi_c(1,2) production
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+  'Measurement of the relative rates of prompt  $\chi_{c1}$ to  $\chi_{c2}$ production at 7 TeV using the decay to $J\/psi\gamma$ by the CMS collaboration.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CMS:2012qwg
+BibTeX: '@article{CMS:2012qwg,
+    author = "Chatrchyan, Serguei and others",
+    collaboration = "CMS",
+    title = "{Measurement of the Relative Prompt Production Rate of $\chi_{c2}$ and $\chi_{c1}$ in $pp$ Collisions at $\sqrt{s}=7$ TeV}",
+    eprint = "1210.0875",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CMS-BPH-11-010, CERN-PH-EP-2012-271",
+    doi = "10.1140/epjc/s10052-012-2251-3",
+    journal = "Eur. Phys. J. C",
+    volume = "72",
+    pages = "2251",
+    year = "2012"
+}
+'

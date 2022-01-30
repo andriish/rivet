@@ -213,6 +213,11 @@
 	gets very long (report by Michal Kreps, suggestion by Andrii
 	Verbytskyi).
 
+2022-01-30 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CMS_2012_I1189050 chi_c at 7 TeV
+	* Add LHCB_2013_I1242869 chi_c at 7 TeV
+
 2022-01-29 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add LHCB_2012_I1184177 chi_b(1P) at 7 GeV

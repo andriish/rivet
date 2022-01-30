@@ -1,0 +1,38 @@
+Name: LHCB_2013_I1242869
+Year: 2013
+Summary: Relative rates of prompt $\chi_{c(0,1,2)}$ production at 7 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1242869
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - JHEP 10 (2013) 115
+RunInfo: chi_c(0,1,2) production
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+  'Measurement of the relative rates of prompt  $\chi_{c(0,1,2)}$ production at 7 TeV using the decay to $J\/psi\gamma$ by the LHCb collaboration.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2013ofo
+BibTeX: '@article{LHCb:2013ofo,
+    author = "Aaij, R. and others",
+    collaboration = "LHCb",
+    title = "{Measurement of the relative rate of prompt $\chi_{c0}$, $\chi_{c1}$ and $\chi_{c2}$ production at $\sqrt{s}=7$TeV}",
+    eprint = "1307.4285",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-PH-EP-2013-114, LHCB-PAPER-2013-028",
+    doi = "10.1007/JHEP10(2013)115",
+    journal = "JHEP",
+    volume = "10",
+    pages = "115",
+    year = "2013"
+}
+'
