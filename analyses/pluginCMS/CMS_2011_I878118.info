@@ -1,0 +1,39 @@
+Name: CMS_2011_I878118
+Year: 2011
+Summary: J/$\psi$ production at 7 TeV
+Experiment: CMS
+Collider: LHC
+InspireID: 878118
+Status: VALIDATED
+Reentrant: True
+Authors:
+ - Peter Richardson <peter.richardson@durhama.ac.uk>
+References:
+ - Eur.Phys.J.C 71 (2011) 1575
+RunInfo: J/psi production in pp
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+  'Measurement of prompt and non-prompt $J/\psi$at 7 TeV by the CMS collaboration.
+  The transverse momentum spectra are measured in a number of rapidity intervals.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CMS:2010nis
+BibTeX: '@article{CMS:2010nis,
+    author = "Khachatryan, Vardan and others",
+    collaboration = "CMS",
+    title = "{Prompt and Non-Prompt $J/\psi$ Production in $pp$ Collisions at $\sqrt{s}=7$ TeV}",
+    eprint = "1011.4193",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-PH-EP-2010-046, CMS-BPH-10-002",
+    doi = "10.1140/epjc/s10052-011-1575-8",
+    journal = "Eur. Phys. J. C",
+    volume = "71",
+    pages = "1575",
+    year = "2011"
+}
+'

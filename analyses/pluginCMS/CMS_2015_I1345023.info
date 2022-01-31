@@ -1,0 +1,40 @@
+Name: CMS_2015_I1345023
+Year: 2015
+Summary: Prompt J/$\psi$ and $\psi(2S)$ production at 7 TeV
+Experiment: CMS
+Collider: LHC
+InspireID: 1345023
+Status: VALIDATED
+Reentrant: True
+Authors:
+ - Peter Richardson <peter.richardson@durhama.ac.uk>
+References:
+ - Phys.Rev.Lett. 114 (2015) 191802, 2015.
+RunInfo: J/psi and psi(2s) production in pp
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+  'Measurement of prompt $J/\psi$ and $\psi(2S)$ at 7 TeV by the CMS collaboration.
+  The transverse momentum spectra are measured in a numbver of rapidity intervals, together with the ratio of the production of the $\psi(2S) to the $J/\psi$.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CMS:2015lbl
+BibTeX: '@article{CMS:2015lbl,
+    author = "Khachatryan, Vardan and others",
+    collaboration = "CMS",
+    title = "{Measurement of J/\ensuremath{\psi} and \ensuremath{\psi}(2S) Prompt Double-Differential Cross Sections in pp Collisions at $\sqrt{s}$=7  TeV}",
+    eprint = "1502.04155",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CMS-BPH-14-001, CERN-PH-EP-2015-022",
+    doi = "10.1103/PhysRevLett.114.191802",
+    journal = "Phys. Rev. Lett.",
+    volume = "114",
+    number = "19",
+    pages = "191802",
+    year = "2015"
+}
+'

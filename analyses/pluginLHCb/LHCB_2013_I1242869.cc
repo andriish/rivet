@@ -73,9 +73,9 @@ namespace Rivet {
       Scatter2DPtr tmp;
       book(tmp,1,1,1);
       divide(_h_chi[2],_h_chi[1],tmp);
-      Scatter1D s1("TMP/r_1");
+      Scatter1D s1("/LHCB_2013_I1242869/TMP/r_1");
       Scatter1DPtr s1d = registerAO(s1);
-      Scatter1D s2("TMP/r_2");
+      Scatter1D s2("/LHCB_2013_I1242869/TMP/r_2");
       Scatter1DPtr s2d = registerAO(s2);
       divide(_c_chi[0],_c_chi[2],s1d);
       divide(_c_chi[2],_c_chi[1],s2d);

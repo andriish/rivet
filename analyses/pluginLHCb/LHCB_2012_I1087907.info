@@ -1,0 +1,38 @@
+Name: LHCB_2012_I1087907
+Year: 2012
+Summary:  Relative rates of prompt $\chi_{c2}$/$\chi_{c1}$ production at 7 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1087907
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - JHEP 10 (2013) 115
+RunInfo: chi_c(0,1,2) production
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+  'Measurement of the relative rates of prompt  $\chi_{c2}$/$\chi_{c1}$ production at 7 TeV using the decay to $J/\psi\gamma$ by the LHCb collaboration.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2012ac
+BibTeX: '@article{LHCb:2012ac,
+    author = "Aaij, R. and others",
+    collaboration = "LHCb",
+    title = "{Measurement of the cross-section ratio $\sigma(\chi_{c2})/\sigma(\chi_{c1})$ for prompt $\chi_c$ production at $\sqrt{s}=7$ TeV}",
+    eprint = "1202.1080",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "LHCB-PAPER-2011-019, CERN-PH-EP-2011-227",
+    doi = "10.1016/j.physletb.2012.06.077",
+    journal = "Phys. Lett. B",
+    volume = "714",
+    pages = "215--223",
+    year = "2012"
+}
+'
