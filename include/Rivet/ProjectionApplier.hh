@@ -3,7 +3,6 @@
 #define RIVET_ProjectionApplier_HH
 
 #include <deque>
-
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Projection.fhh"
 #include "Rivet/ProjectionHandler.hh"
@@ -167,12 +166,6 @@ namespace Rivet {
       return *_projhandler;
     }
 
-public:
-//TODO should probs be protected (or just removed)
-    /// Get a pointer to the ProjectionHandler for this thread.
-    ProjectionHandler* getProjHandlerPointer() const {
-      return _projhandler;
-    }
 protected:
 
     /// @name Projection registration functions
@@ -199,6 +192,7 @@ protected:
 
     /// @brief Register a contained projection (user-facing version)
     /// @todo Add SFINAE to require that PROJ inherit from Projection
+    /// @todo TP: I don't like this declareForReal ugliness, will think about whether or not to get rid of it.
     template <typename PROJ>
     const PROJ& declare(const PROJ& proj, const std::string& name, bool declareForReal=false) const {
       if(_projhandler && declareForReal){
@@ -239,7 +233,6 @@ protected:
 
 
     /// @todo AB: Add Doxygen comment, follow surrounding coding style
-    /// @todo AB: Changes to this header force a rebuild of everything: put the implementation in the .cc file
     void setProjectionHandler(ProjectionHandler& projectionHandler) const;
   
     /// Flag to forbid projection registration in analyses until the init phase
@@ -252,37 +245,16 @@ protected:
     mutable bool _owned;
 
     /// Pointer to projection handler.
-    /// @todo AB: I don't think this can work: what's the null value on construction?   
-    //ProjectionHandler& _projhandler;
     //std::shared_ptr<ProjectionHandler> _projhandler;
-    /// @todo TP: Is this abuse of the mutable system.
+    /// @todo TP: Is this abuse of the mutable system? And would we prefer a smart pointer?
     mutable ProjectionHandler* _projhandler;
-    //std::shared_ptr<ProjectionHandler&> _projhandler;
-    /// @todo AB: You can't store references... how does this work????
-    /// @todo AB: What's the string for? - declare receives reference to a Projection and name, so we need to store both as long as we delays the declareProjection
+    /// Declare receives reference to a Projection and name, so we need to store both Projection and name for when we eventually call it
     mutable std::deque<pair<std::shared_ptr<Projection>, string>> _declQueue;
 
 protected:
     void _syncDeclQueue() const;
 
-
-  //FOR DEBUG ONLY, DELETE WHEN THIS BRANCH DEFINITELY WORKS
-  public:
-  size_t decl_queue_size() const {
-    return _declQueue.size();
-  }
-
-  //FOR DEBUG ONLY, DELETE WHEN THIS BRANCH DEFINITELY itWORKS
-  void print_decl_queue() const {
-    MSG_TRACE("DECL_QUEUE:\n");
-      for (const auto & pair : _declQueue){
-        MSG_TRACE("\t"<<pair.second<< ", "<<pair.first);
-      }
-    }
-
   };
-
-
 }
 
 #endif

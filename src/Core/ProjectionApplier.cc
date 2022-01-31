@@ -8,10 +8,11 @@ namespace Rivet {
 
 
   // NB. Allow proj registration in constructor by default -- explicitly disable for Analysis
+  // TODO @TP : I have a feeling this behaviour might be slightly deprecated after the thread-safety changes,
+  // but I'm not fully sure.
   ProjectionApplier::ProjectionApplier()
     : _allowProjReg(true), _owned(false),
     _projhandler(nullptr)
-      //_projhandler(ProjectionHandler::getInstance())
   {  }
 
 
