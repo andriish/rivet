@@ -1,0 +1,38 @@
+Name: LHCB_2013_I1238809
+Year: 2013
+Summary: B meson production at 7 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1238809
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ -     Phys.Rev.Lett. 114 (2015) 132001
+RunInfo: hadronic events with B meson
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+  'Measurement of the double differential (in $p_\perp$ and $y$) cross section for B meson production at 7 TeV by the LHCb collaboration.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2014mvo
+BibTeX: '@article{LHCb:2014mvo,
+    author = "Aaij, Roel and others",
+    collaboration = "LHCb",
+    title = "{Measurement of $B_c^+$ production in proton-proton collisions at $\sqrt{s}=8$ TeV}",
+    eprint = "1411.2943",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-PH-EP-2014-269, LHCB-PAPER-2014-050",
+    doi = "10.1103/PhysRevLett.114.132001",
+    journal = "Phys. Rev. Lett.",
+    volume = "114",
+    pages = "132001",
+    year = "2015"
+}
+'

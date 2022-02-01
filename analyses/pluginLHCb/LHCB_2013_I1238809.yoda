@@ -1,0 +1,647 @@
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d01-x01-y01
+ErrorBreakdown: {0: {"": {up: 2.833725, dn: 2.833725}, stat: {up: 0.3, dn: -0.3}, sys_1: {up: 2.5, dn: -2.5}, sys_2: {up: 1.3, dn: -1.3}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d01-x01-y01
+Title: doi:10.17182/hepdata.74446.v1/t1
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+7.000000e+03	5.000000e-01	5.000000e-01	3.890000e+01	2.833725e+00	2.833725e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d01-x01-y02
+ErrorBreakdown: {0: {"": {up: 6.011655, dn: 6.011655}, stat: {up: 0.6, dn: -0.6}, sys_1: {up: 3.7, dn: -3.7}, sys_2: {up: 4.7, dn: -4.7}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d01-x01-y02
+Title: doi:10.17182/hepdata.74446.v1/t1
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+7.000000e+03	5.000000e-01	5.000000e-01	3.810000e+01	6.011655e+00	6.011655e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d01-x01-y03
+ErrorBreakdown: {0: {"": {up: 1.296148, dn: 1.296148}, stat: {up: 0.2, dn: -0.2}, sys_1: {up: 0.8, dn: -0.8}, sys_2: {up: 1, dn: -1}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d01-x01-y03
+Title: doi:10.17182/hepdata.74446.v1/t1
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+7.000000e+03	5.000000e-01	5.000000e-01	1.050000e+01	1.296148e+00	1.296148e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d02-x01-y01
+ErrorBreakdown: {0: {"": {up: 0.1637067, dn: 0.1637067}, stat: {up: 0.11, dn: -0.11}, sys: {up: 0.12, dn: -0.12}, "sys,branching ratio uncertainty": {up: 0.01188, dn: -0.01188}, "sys,luminosity uncertainty": {up: 0.0126, dn: -0.0126}}, 1: {"": {up: 0.5647401, dn: 0.5647401}, stat: {up: 0.18, dn: -0.18}, sys: {up: 0.53, dn: -0.53}, "sys,branching ratio uncertainty": {up: 0.05148, dn: -0.05148}, "sys,luminosity uncertainty": {up: 0.0546, dn: -0.0546}}, 2: {"": {up: 0.7027083, dn: 0.7027083}, stat: {up: 0.19, dn: -0.19}, sys: {up: 0.67, dn: -0.67}, "sys,branching ratio uncertainty": {up: 0.06434999999999999, dn: -0.06434999999999999}, "sys,luminosity uncertainty": {up: 0.06825000000000001, dn: -0.06825000000000001}}, 3: {"": {up: 0.7831323, dn: 0.7831323}, stat: {up: 0.2, dn: -0.2}, sys: {up: 0.75, dn: -0.75}, "sys,branching ratio uncertainty": {up: 0.07128, dn: -0.07128}, "sys,luminosity uncertainty": {up: 0.0756, dn: -0.0756}}, 4: {"": {up: 0.9033531, dn: 0.9033531}, stat: {up: 0.21, dn: -0.21}, sys: {up: 0.87, dn: -0.87}, "sys,branching ratio uncertainty": {up: 0.08414999999999999, dn: -0.08414999999999999}, "sys,luminosity uncertainty": {up: 0.08925, dn: -0.08925}}, 5: {"": {up: 1.001896, dn: 1.001896}, stat: {up: 0.21, dn: -0.21}, sys: {up: 0.97, dn: -0.97}, "sys,branching ratio uncertainty": {up: 0.09404999999999999, dn: -0.09404999999999999}, "sys,luminosity uncertainty": {up: 0.09975000000000001, dn: -0.09975000000000001}}, 6: {"": {up: 0.968289, dn: 0.968289}, stat: {up: 0.19, dn: -0.19}, sys: {up: 0.9399999999999999, dn: -0.9399999999999999}, "sys,branching ratio uncertainty": {up: 0.09173999999999999, dn: -0.09173999999999999}, "sys,luminosity uncertainty": {up: 0.0973, dn: -0.0973}}, 7: {"": {up: 0.8139282, dn: 0.8139282}, stat: {up: 0.16, dn: -0.16}, sys: {up: 0.79, dn: -0.79}, "sys,branching ratio uncertainty": {up: 0.07754999999999999, dn: -0.07754999999999999}, "sys,luminosity uncertainty": {up: 0.08225, dn: -0.08225}}, 8: {"": {up: 0.7741445, dn: 0.7741445}, stat: {up: 0.16, dn: -0.16}, sys: {up: 0.75, dn: -0.75}, "sys,branching ratio uncertainty": {up: 0.0726, dn: -0.0726}, "sys,luminosity uncertainty": {up: 0.07700000000000001, dn: -0.07700000000000001}}, 9: {"": {up: 0.8002173, dn: 0.8002173}, stat: {up: 0.14, dn: -0.14}, sys: {up: 0.78, dn: -0.78}, "sys,branching ratio uncertainty": {up: 0.07622999999999999, dn: -0.07622999999999999}, "sys,luminosity uncertainty": {up: 0.08084999999999999, dn: -0.08084999999999999}}, 10: {"": {up: 0.7088976, dn: 0.7088976}, stat: {up: 0.13, dn: -0.13}, sys: {up: 0.6899999999999999, dn: -0.6899999999999999}, "sys,branching ratio uncertainty": {up: 0.06698999999999999, dn: -0.06698999999999999}, "sys,luminosity uncertainty": {up: 0.07105, dn: -0.07105}}, 11: {"": {up: 0.5961088, dn: 0.5961088}, stat: {up: 0.11, dn: -0.11}, sys: {up: 0.58, dn: -0.58}, "sys,branching ratio uncertainty": {up: 0.05676, dn: -0.05676}, "sys,luminosity uncertainty": {up: 0.0602, dn: -0.0602}}, 12: {"": {up: 0.5743691, dn: 0.5743691}, stat: {up: 0.1, dn: -0.1}, sys: {up: 0.5600000000000001, dn: -0.5600000000000001}, "sys,branching ratio uncertainty": {up: 0.05445, dn: -0.05445}, "sys,luminosity uncertainty": {up: 0.05775, dn: -0.05775}}, 13: {"": {up: 0.4514983, dn: 0.4514983}, stat: {up: 0.08, dn: -0.08}, sys: {up: 0.44, dn: -0.44}, "sys,branching ratio uncertainty": {up: 0.04257, dn: -0.04257}, "sys,luminosity uncertainty": {up: 0.04515, dn: -0.04515}}, 14: {"": {up: 0.4613795, dn: 0.4613795}, stat: {up: 0.08, dn: -0.08}, sys: {up: 0.45, dn: -0.45}, "sys,branching ratio uncertainty": {up: 0.04323, dn: -0.04323}, "sys,luminosity uncertainty": {up: 0.04585, dn: -0.04585}}, 15: {"": {up: 0.4099605, dn: 0.4099605}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.4, dn: -0.4}, "sys,branching ratio uncertainty": {up: 0.03860999999999999, dn: -0.03860999999999999}, "sys,luminosity uncertainty": {up: 0.04094999999999999, dn: -0.04094999999999999}}, 16: {"": {up: 0.3189065, dn: 0.3189065}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.31, dn: -0.31}, "sys,branching ratio uncertainty": {up: 0.03069, dn: -0.03069}, "sys,luminosity uncertainty": {up: 0.03255, dn: -0.03255}}, 17: {"": {up: 0.2872179, dn: 0.2872179}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.28, dn: -0.28}, "sys,branching ratio uncertainty": {up: 0.02739, dn: -0.02739}, "sys,luminosity uncertainty": {up: 0.02905, dn: -0.02905}}, 18: {"": {up: 0.2278332, dn: 0.2278332}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.22, dn: -0.22}, "sys,branching ratio uncertainty": {up: 0.02178, dn: -0.02178}, "sys,luminosity uncertainty": {up: 0.0231, dn: -0.0231}}, 19: {"": {up: 0.1861451, dn: 0.1861451}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.18, dn: -0.18}, "sys,branching ratio uncertainty": {up: 0.01749, dn: -0.01749}, "sys,luminosity uncertainty": {up: 0.01855, dn: -0.01855}}, 20: {"": {up: 0.1642852, dn: 0.1642852}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.16, dn: -0.16}, "sys,branching ratio uncertainty": {up: 0.01518, dn: -0.01518}, "sys,luminosity uncertainty": {up: 0.0161, dn: -0.0161}}, 21: {"": {up: 0.1328607, dn: 0.1328607}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.13, dn: -0.13}, "sys,branching ratio uncertainty": {up: 0.01287, dn: -0.01287}, "sys,luminosity uncertainty": {up: 0.01365, dn: -0.01365}}, 22: {"": {up: 0.1029301, dn: 0.1029301}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.1, dn: -0.1}, "sys,branching ratio uncertainty": {up: 0.009569999999999999, dn: -0.009569999999999999}, "sys,luminosity uncertainty": {up: 0.01015, dn: -0.01015}}, 23: {"": {up: 0.07149823, dn: 0.07149823}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.07000000000000001, dn: -0.07000000000000001}, "sys,branching ratio uncertainty": {up: 0.00726, dn: -0.00726}, "sys,luminosity uncertainty": {up: 0.0077, dn: -0.0077}}, 24: {"": {up: 0.04085056, dn: 0.04085056}, stat: {up: 0.006, dn: -0.006}, sys: {up: 0.04, dn: -0.04}, "sys,branching ratio uncertainty": {up: 0.003926999999999999, dn: -0.003926999999999999}, "sys,luminosity uncertainty": {up: 0.004164999999999999, dn: -0.004164999999999999}}, 25: {"": {up: 0.01527346, dn: 0.01527346}, stat: {up: 0.002, dn: -0.002}, sys: {up: 0.015, dn: -0.015}, "sys,branching ratio uncertainty": {up: 0.001419, dn: -0.001419}, "sys,luminosity uncertainty": {up: 0.001505, dn: -0.001505}}, 26: {"": {up: 0.002376342, dn: 0.002376342}, stat: {up: 0.0005, dn: -0.0005}, sys: {up: 0.0023, dn: -0.0023}, "sys,branching ratio uncertainty": {up: 0.0002244, dn: -0.0002244}, "sys,luminosity uncertainty": {up: 0.000238, dn: -0.000238}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d02-x01-y01
+Title: doi:10.17182/hepdata.74446.v1/t2
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+2.500000e-01	2.500000e-01	2.500000e-01	3.600000e-01	1.637067e-01	1.637067e-01
+7.500000e-01	2.500000e-01	2.500000e-01	1.560000e+00	5.647401e-01	5.647401e-01
+1.250000e+00	2.500000e-01	2.500000e-01	1.950000e+00	7.027083e-01	7.027083e-01
+1.750000e+00	2.500000e-01	2.500000e-01	2.160000e+00	7.831323e-01	7.831323e-01
+2.250000e+00	2.500000e-01	2.500000e-01	2.550000e+00	9.033531e-01	9.033531e-01
+2.750000e+00	2.500000e-01	2.500000e-01	2.850000e+00	1.001896e+00	1.001896e+00
+3.250000e+00	2.500000e-01	2.500000e-01	2.780000e+00	9.682890e-01	9.682890e-01
+3.750000e+00	2.500000e-01	2.500000e-01	2.350000e+00	8.139282e-01	8.139282e-01
+4.250000e+00	2.500000e-01	2.500000e-01	2.200000e+00	7.741445e-01	7.741445e-01
+4.750000e+00	2.500000e-01	2.500000e-01	2.310000e+00	8.002173e-01	8.002173e-01
+5.250000e+00	2.500000e-01	2.500000e-01	2.030000e+00	7.088976e-01	7.088976e-01
+5.750000e+00	2.500000e-01	2.500000e-01	1.720000e+00	5.961088e-01	5.961088e-01
+6.250000e+00	2.500000e-01	2.500000e-01	1.650000e+00	5.743691e-01	5.743691e-01
+6.750000e+00	2.500000e-01	2.500000e-01	1.290000e+00	4.514983e-01	4.514983e-01
+7.250000e+00	2.500000e-01	2.500000e-01	1.310000e+00	4.613795e-01	4.613795e-01
+7.750000e+00	2.500000e-01	2.500000e-01	1.170000e+00	4.099605e-01	4.099605e-01
+8.250000e+00	2.500000e-01	2.500000e-01	9.300000e-01	3.189065e-01	3.189065e-01
+8.750000e+00	2.500000e-01	2.500000e-01	8.300000e-01	2.872179e-01	2.872179e-01
+9.250000e+00	2.500000e-01	2.500000e-01	6.600000e-01	2.278332e-01	2.278332e-01
+9.750000e+00	2.500000e-01	2.500000e-01	5.300000e-01	1.861451e-01	1.861451e-01
+1.025000e+01	2.500000e-01	2.500000e-01	4.600000e-01	1.642852e-01	1.642852e-01
+1.100000e+01	5.000000e-01	5.000000e-01	3.900000e-01	1.328607e-01	1.328607e-01
+1.200000e+01	5.000000e-01	5.000000e-01	2.900000e-01	1.029301e-01	1.029301e-01
+1.325000e+01	7.500000e-01	7.500000e-01	2.200000e-01	7.149823e-02	7.149823e-02
+1.525000e+01	1.250000e+00	1.250000e+00	1.190000e-01	4.085056e-02	4.085056e-02
+2.000000e+01	3.500000e+00	3.500000e+00	4.300000e-02	1.527346e-02	1.527346e-02
+3.175000e+01	8.250000e+00	8.250000e+00	6.800000e-03	2.376342e-03	2.376342e-03
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d02-x01-y02
+ErrorBreakdown: {0: {"": {up: 0.07529001, dn: 0.07529001}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.04, dn: -0.04}, "sys,branching ratio uncertainty": {up: 0.01485, dn: -0.01485}, "sys,luminosity uncertainty": {up: 0.01575, dn: -0.01575}}, 1: {"": {up: 0.1624191, dn: 0.1624191}, stat: {up: 0.1, dn: -0.1}, sys: {up: 0.11, dn: -0.11}, "sys,branching ratio uncertainty": {up: 0.04488, dn: -0.04488}, "sys,luminosity uncertainty": {up: 0.0476, dn: -0.0476}}, 2: {"": {up: 0.2373516, dn: 0.2373516}, stat: {up: 0.12, dn: -0.12}, sys: {up: 0.18, dn: -0.18}, "sys,branching ratio uncertainty": {up: 0.06698999999999999, dn: -0.06698999999999999}, "sys,luminosity uncertainty": {up: 0.07105, dn: -0.07105}}, 3: {"": {up: 0.352686, dn: 0.352686}, stat: {up: 0.14, dn: -0.14}, sys: {up: 0.29, dn: -0.29}, "sys,branching ratio uncertainty": {up: 0.09867000000000001, dn: -0.09867000000000001}, "sys,luminosity uncertainty": {up: 0.10465, dn: -0.10465}}, 4: {"": {up: 0.345172, dn: 0.345172}, stat: {up: 0.13, dn: -0.13}, sys: {up: 0.28, dn: -0.28}, "sys,branching ratio uncertainty": {up: 0.10593, dn: -0.10593}, "sys,luminosity uncertainty": {up: 0.11235, dn: -0.11235}}, 5: {"": {up: 0.3251082, dn: 0.3251082}, stat: {up: 0.12, dn: -0.12}, sys: {up: 0.26, dn: -0.26}, "sys,branching ratio uncertainty": {up: 0.1056, dn: -0.1056}, "sys,luminosity uncertainty": {up: 0.112, dn: -0.112}}, 6: {"": {up: 0.3137574, dn: 0.3137574}, stat: {up: 0.11, dn: -0.11}, sys: {up: 0.25, dn: -0.25}, "sys,branching ratio uncertainty": {up: 0.10593, dn: -0.10593}, "sys,luminosity uncertainty": {up: 0.11235, dn: -0.11235}}, 7: {"": {up: 0.3004497, dn: 0.3004497}, stat: {up: 0.1, dn: -0.1}, sys: {up: 0.24, dn: -0.24}, "sys,branching ratio uncertainty": {up: 0.10329, dn: -0.10329}, "sys,luminosity uncertainty": {up: 0.10955, dn: -0.10955}}, 8: {"": {up: 0.275124, dn: 0.275124}, stat: {up: 0.09, dn: -0.09}, sys: {up: 0.22, dn: -0.22}, "sys,branching ratio uncertainty": {up: 0.09503999999999999, dn: -0.09503999999999999}, "sys,luminosity uncertainty": {up: 0.1008, dn: -0.1008}}, 9: {"": {up: 0.2500553, dn: 0.2500553}, stat: {up: 0.08, dn: -0.08}, sys: {up: 0.2, dn: -0.2}, "sys,branching ratio uncertainty": {up: 0.08711999999999999, dn: -0.08711999999999999}, "sys,luminosity uncertainty": {up: 0.0924, dn: -0.0924}}, 10: {"": {up: 0.2022376, dn: 0.2022376}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.16, dn: -0.16}, "sys,branching ratio uncertainty": {up: 0.06995999999999999, dn: -0.06995999999999999}, "sys,luminosity uncertainty": {up: 0.0742, dn: -0.0742}}, 11: {"": {up: 0.1875415, dn: 0.1875415}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.15, dn: -0.15}, "sys,branching ratio uncertainty": {up: 0.06534, dn: -0.06534}, "sys,luminosity uncertainty": {up: 0.0693, dn: -0.0693}}, 12: {"": {up: 0.1615161, dn: 0.1615161}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.13, dn: -0.13}, "sys,branching ratio uncertainty": {up: 0.0561, dn: -0.0561}, "sys,luminosity uncertainty": {up: 0.0595, dn: -0.0595}}, 13: {"": {up: 0.1392778, dn: 0.1392778}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.11, dn: -0.11}, "sys,branching ratio uncertainty": {up: 0.04751999999999999, dn: -0.04751999999999999}, "sys,luminosity uncertainty": {up: 0.0504, dn: -0.0504}}, 14: {"": {up: 0.1238235, dn: 0.1238235}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.1, dn: -0.1}, "sys,branching ratio uncertainty": {up: 0.04191, dn: -0.04191}, "sys,luminosity uncertainty": {up: 0.04445, dn: -0.04445}}, 15: {"": {up: 0.1015579, dn: 0.1015579}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.08, dn: -0.08}, "sys,branching ratio uncertainty": {up: 0.033, dn: -0.033}, "sys,luminosity uncertainty": {up: 0.035, dn: -0.035}}, 16: {"": {up: 0.08760331, dn: 0.08760331}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.07000000000000001, dn: -0.07000000000000001}, "sys,branching ratio uncertainty": {up: 0.0297, dn: -0.0297}, "sys,luminosity uncertainty": {up: 0.0315, dn: -0.0315}}, 17: {"": {up: 0.08576673999999999, dn: 0.08576673999999999}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.07000000000000001, dn: -0.07000000000000001}, "sys,branching ratio uncertainty": {up: 0.02705999999999999, dn: -0.02705999999999999}, "sys,luminosity uncertainty": {up: 0.0287, dn: -0.0287}}, 18: {"": {up: 0.06571473999999999, dn: 0.06571473999999999}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.05, dn: -0.05}, "sys,branching ratio uncertainty": {up: 0.02079, dn: -0.02079}, "sys,luminosity uncertainty": {up: 0.02205, dn: -0.02205}}, 19: {"": {up: 0.05171811, dn: 0.05171811}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.04, dn: -0.04}, "sys,branching ratio uncertainty": {up: 0.01782, dn: -0.01782}, "sys,luminosity uncertainty": {up: 0.0189, dn: -0.0189}}, 20: {"": {up: 0.04968486, dn: 0.04968486}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.04, dn: -0.04}, "sys,branching ratio uncertainty": {up: 0.01485, dn: -0.01485}, "sys,luminosity uncertainty": {up: 0.01575, dn: -0.01575}}, 21: {"": {up: 0.03605405, dn: 0.03605405}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.03, dn: -0.03}, "sys,branching ratio uncertainty": {up: 0.01188, dn: -0.01188}, "sys,luminosity uncertainty": {up: 0.0126, dn: -0.0126}}, 22: {"": {up: 0.02562082, dn: 0.02562082}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.02, dn: -0.02}, "sys,branching ratio uncertainty": {up: 0.008579999999999999, dn: -0.008579999999999999}, "sys,luminosity uncertainty": {up: 0.0091, dn: -0.0091}}, 23: {"": {up: 0.02042539, dn: 0.02042539}, stat: {up: 0.007, dn: -0.007}, sys: {up: 0.017, dn: -0.017}, "sys,branching ratio uncertainty": {up: 0.006105, dn: -0.006105}, "sys,luminosity uncertainty": {up: 0.006475, dn: -0.006475}}, 24: {"": {up: 0.01089828, dn: 0.01089828}, stat: {up: 0.004, dn: -0.004}, sys: {up: 0.008999999999999999, dn: -0.008999999999999999}, "sys,branching ratio uncertainty": {up: 0.003201, dn: -0.003201}, "sys,luminosity uncertainty": {up: 0.003395, dn: -0.003395}}, 25: {"": {up: 0.003538354, dn: 0.003538354}, stat: {up: 0.001, dn: -0.001}, sys: {up: 0.003, dn: -0.003}, "sys,branching ratio uncertainty": {up: 0.001089, dn: -0.001089}, "sys,luminosity uncertainty": {up: 0.001155, dn: -0.001155}}, 26: {"": {up: 0.0005590801, dn: 0.0005590801}, stat: {up: 0.0003, dn: -0.0003}, sys: {up: 0.0004, dn: -0.0004}, "sys,branching ratio uncertainty": {up: 0.0001716, dn: -0.0001716}, "sys,luminosity uncertainty": {up: 0.000182, dn: -0.000182}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d02-x01-y02
+Title: doi:10.17182/hepdata.74446.v1/t2
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+2.500000e-01	2.500000e-01	2.500000e-01	4.500000e-01	7.529001e-02	7.529001e-02
+7.500000e-01	2.500000e-01	2.500000e-01	1.360000e+00	1.624191e-01	1.624191e-01
+1.250000e+00	2.500000e-01	2.500000e-01	2.030000e+00	2.373516e-01	2.373516e-01
+1.750000e+00	2.500000e-01	2.500000e-01	2.990000e+00	3.526860e-01	3.526860e-01
+2.250000e+00	2.500000e-01	2.500000e-01	3.210000e+00	3.451720e-01	3.451720e-01
+2.750000e+00	2.500000e-01	2.500000e-01	3.200000e+00	3.251082e-01	3.251082e-01
+3.250000e+00	2.500000e-01	2.500000e-01	3.210000e+00	3.137574e-01	3.137574e-01
+3.750000e+00	2.500000e-01	2.500000e-01	3.130000e+00	3.004497e-01	3.004497e-01
+4.250000e+00	2.500000e-01	2.500000e-01	2.880000e+00	2.751240e-01	2.751240e-01
+4.750000e+00	2.500000e-01	2.500000e-01	2.640000e+00	2.500553e-01	2.500553e-01
+5.250000e+00	2.500000e-01	2.500000e-01	2.120000e+00	2.022376e-01	2.022376e-01
+5.750000e+00	2.500000e-01	2.500000e-01	1.980000e+00	1.875415e-01	1.875415e-01
+6.250000e+00	2.500000e-01	2.500000e-01	1.700000e+00	1.615161e-01	1.615161e-01
+6.750000e+00	2.500000e-01	2.500000e-01	1.440000e+00	1.392778e-01	1.392778e-01
+7.250000e+00	2.500000e-01	2.500000e-01	1.270000e+00	1.238235e-01	1.238235e-01
+7.750000e+00	2.500000e-01	2.500000e-01	1.000000e+00	1.015579e-01	1.015579e-01
+8.250000e+00	2.500000e-01	2.500000e-01	9.000000e-01	8.760331e-02	8.760331e-02
+8.750000e+00	2.500000e-01	2.500000e-01	8.200000e-01	8.576674e-02	8.576674e-02
+9.250000e+00	2.500000e-01	2.500000e-01	6.300000e-01	6.571474e-02	6.571474e-02
+9.750000e+00	2.500000e-01	2.500000e-01	5.400000e-01	5.171811e-02	5.171811e-02
+1.025000e+01	2.500000e-01	2.500000e-01	4.500000e-01	4.968486e-02	4.968486e-02
+1.100000e+01	5.000000e-01	5.000000e-01	3.600000e-01	3.605405e-02	3.605405e-02
+1.200000e+01	5.000000e-01	5.000000e-01	2.600000e-01	2.562082e-02	2.562082e-02
+1.325000e+01	7.500000e-01	7.500000e-01	1.850000e-01	2.042539e-02	2.042539e-02
+1.525000e+01	1.250000e+00	1.250000e+00	9.700000e-02	1.089828e-02	1.089828e-02
+2.000000e+01	3.500000e+00	3.500000e+00	3.300000e-02	3.538354e-03	3.538354e-03
+3.175000e+01	8.250000e+00	8.250000e+00	5.200000e-03	5.590801e-04	5.590801e-04
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d02-x01-y03
+ErrorBreakdown: {0: {"": {up: 0.07529001, dn: 0.07529001}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.04, dn: -0.04}, "sys,branching ratio uncertainty": {up: 0.01485, dn: -0.01485}, "sys,luminosity uncertainty": {up: 0.01575, dn: -0.01575}}, 1: {"": {up: 0.1545112, dn: 0.1545112}, stat: {up: 0.09, dn: -0.09}, sys: {up: 0.11, dn: -0.11}, "sys,branching ratio uncertainty": {up: 0.04158, dn: -0.04158}, "sys,luminosity uncertainty": {up: 0.0441, dn: -0.0441}}, 2: {"": {up: 0.2135876, dn: 0.2135876}, stat: {up: 0.11, dn: -0.11}, sys: {up: 0.16, dn: -0.16}, "sys,branching ratio uncertainty": {up: 0.06105000000000001, dn: -0.06105000000000001}, "sys,luminosity uncertainty": {up: 0.06475, dn: -0.06475}}, 3: {"": {up: 0.276499, dn: 0.276499}, stat: {up: 0.1, dn: -0.1}, sys: {up: 0.23, dn: -0.23}, "sys,branching ratio uncertainty": {up: 0.07985999999999999, dn: -0.07985999999999999}, "sys,luminosity uncertainty": {up: 0.0847, dn: -0.0847}}, 4: {"": {up: 0.2828779, dn: 0.2828779}, stat: {up: 0.1, dn: -0.1}, sys: {up: 0.23, dn: -0.23}, "sys,branching ratio uncertainty": {up: 0.08976000000000001, dn: -0.08976000000000001}, "sys,luminosity uncertainty": {up: 0.09520000000000001, dn: -0.09520000000000001}}, 5: {"": {up: 0.2810915, dn: 0.2810915}, stat: {up: 0.09, dn: -0.09}, sys: {up: 0.23, dn: -0.23}, "sys,branching ratio uncertainty": {up: 0.09207, dn: -0.09207}, "sys,luminosity uncertainty": {up: 0.09765, dn: -0.09765}}, 6: {"": {up: 0.2980681, dn: 0.2980681}, stat: {up: 0.1, dn: -0.1}, sys: {up: 0.24, dn: -0.24}, "sys,branching ratio uncertainty": {up: 0.09998999999999998, dn: -0.09998999999999998}, "sys,luminosity uncertainty": {up: 0.10605, dn: -0.10605}}, 7: {"": {up: 0.2490836, dn: 0.2490836}, stat: {up: 0.08, dn: -0.08}, sys: {up: 0.2, dn: -0.2}, "sys,branching ratio uncertainty": {up: 0.0858, dn: -0.0858}, "sys,luminosity uncertainty": {up: 0.09100000000000001, dn: -0.09100000000000001}}, 8: {"": {up: 0.234528, dn: 0.234528}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.19, dn: -0.19}, "sys,branching ratio uncertainty": {up: 0.08118, dn: -0.08118}, "sys,luminosity uncertainty": {up: 0.0861, dn: -0.0861}}, 9: {"": {up: 0.1882785, dn: 0.1882785}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.15, dn: -0.15}, "sys,branching ratio uncertainty": {up: 0.06632999999999999, dn: -0.06632999999999999}, "sys,luminosity uncertainty": {up: 0.07034999999999998, dn: -0.07034999999999998}}, 10: {"": {up: 0.1860923, dn: 0.1860923}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.15, dn: -0.15}, "sys,branching ratio uncertainty": {up: 0.06335999999999999, dn: -0.06335999999999999}, "sys,luminosity uncertainty": {up: 0.0672, dn: -0.0672}}, 11: {"": {up: 0.1615161, dn: 0.1615161}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.13, dn: -0.13}, "sys,branching ratio uncertainty": {up: 0.0561, dn: -0.0561}, "sys,luminosity uncertainty": {up: 0.0595, dn: -0.0595}}, 12: {"": {up: 0.1252726, dn: 0.1252726}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.1, dn: -0.1}, "sys,branching ratio uncertainty": {up: 0.04389, dn: -0.04389}, "sys,luminosity uncertainty": {up: 0.04655, dn: -0.04655}}, 13: {"": {up: 0.1127265, dn: 0.1127265}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.09, dn: -0.09}, "sys,branching ratio uncertainty": {up: 0.03761999999999999, dn: -0.03761999999999999}, "sys,luminosity uncertainty": {up: 0.0399, dn: -0.0399}}, 14: {"": {up: 0.08784204, dn: 0.08784204}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.07000000000000001, dn: -0.07000000000000001}, "sys,branching ratio uncertainty": {up: 0.03003, dn: -0.03003}, "sys,luminosity uncertainty": {up: 0.03185, dn: -0.03185}}, 15: {"": {up: 0.08666852999999999, dn: 0.08666852999999999}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.07000000000000001, dn: -0.07000000000000001}, "sys,branching ratio uncertainty": {up: 0.02838, dn: -0.02838}, "sys,luminosity uncertainty": {up: 0.0301, dn: -0.0301}}, 16: {"": {up: 0.07442281000000001, dn: 0.07442281000000001}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.06, dn: -0.06}, "sys,branching ratio uncertainty": {up: 0.02211, dn: -0.02211}, "sys,luminosity uncertainty": {up: 0.02345, dn: -0.02345}}, 17: {"": {up: 0.06043028, dn: 0.06043028}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.05, dn: -0.05}, "sys,branching ratio uncertainty": {up: 0.01881, dn: -0.01881}, "sys,luminosity uncertainty": {up: 0.01995, dn: -0.01995}}, 18: {"": {up: 0.05077893, dn: 0.05077893}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.04, dn: -0.04}, "sys,branching ratio uncertainty": {up: 0.0165, dn: -0.0165}, "sys,luminosity uncertainty": {up: 0.0175, dn: -0.0175}}, 19: {"": {up: 0.04133025, dn: 0.04133025}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.03, dn: -0.03}, "sys,branching ratio uncertainty": {up: 0.01386, dn: -0.01386}, "sys,luminosity uncertainty": {up: 0.0147, dn: -0.0147}}, 20: {"": {up: 0.03959165, dn: 0.03959165}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.03, dn: -0.03}, "sys,branching ratio uncertainty": {up: 0.01122, dn: -0.01122}, "sys,luminosity uncertainty": {up: 0.0119, dn: -0.0119}}, 21: {"": {up: 0.02588661, dn: 0.02588661}, stat: {up: 0.008999999999999999, dn: -0.008999999999999999}, sys: {up: 0.021, dn: -0.021}, "sys,branching ratio uncertainty": {up: 0.008349000000000001, dn: -0.008349000000000001}, "sys,luminosity uncertainty": {up: 0.008855, dn: -0.008855}}, 22: {"": {up: 0.02157215, dn: 0.02157215}, stat: {up: 0.008999999999999999, dn: -0.008999999999999999}, sys: {up: 0.017, dn: -0.017}, "sys,branching ratio uncertainty": {up: 0.006699, dn: -0.006699}, "sys,luminosity uncertainty": {up: 0.007105, dn: -0.007105}}, 23: {"": {up: 0.01404703, dn: 0.01404703}, stat: {up: 0.006, dn: -0.006}, sys: {up: 0.011, dn: -0.011}, "sys,branching ratio uncertainty": {up: 0.004356, dn: -0.004356}, "sys,luminosity uncertainty": {up: 0.00462, dn: -0.00462}}, 24: {"": {up: 0.007527607, dn: 0.007527607}, stat: {up: 0.003, dn: -0.003}, sys: {up: 0.006, dn: -0.006}, "sys,branching ratio uncertainty": {up: 0.002343, dn: -0.002343}, "sys,luminosity uncertainty": {up: 0.002485, dn: -0.002485}}, 25: {"": {up: 0.002494816, dn: 0.002494816}, stat: {up: 0.001, dn: -0.001}, sys: {up: 0.002, dn: -0.002}, "sys,branching ratio uncertainty": {up: 0.000759, dn: -0.000759}, "sys,luminosity uncertainty": {up: 0.0008050000000000001, dn: -0.0008050000000000001}}, 26: {"": {up: 0.000301993, dn: 0.000301993}, stat: {up: 0.0002, dn: -0.0002}, sys: {up: 0.0002, dn: -0.0002}, "sys,branching ratio uncertainty": {up: 7.26e-05, dn: -7.26e-05}, "sys,luminosity uncertainty": {up: 7.700000000000001e-05, dn: -7.700000000000001e-05}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d02-x01-y03
+Title: doi:10.17182/hepdata.74446.v1/t2
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+2.500000e-01	2.500000e-01	2.500000e-01	4.500000e-01	7.529001e-02	7.529001e-02
+7.500000e-01	2.500000e-01	2.500000e-01	1.260000e+00	1.545112e-01	1.545112e-01
+1.250000e+00	2.500000e-01	2.500000e-01	1.850000e+00	2.135876e-01	2.135876e-01
+1.750000e+00	2.500000e-01	2.500000e-01	2.420000e+00	2.764990e-01	2.764990e-01
+2.250000e+00	2.500000e-01	2.500000e-01	2.720000e+00	2.828779e-01	2.828779e-01
+2.750000e+00	2.500000e-01	2.500000e-01	2.790000e+00	2.810915e-01	2.810915e-01
+3.250000e+00	2.500000e-01	2.500000e-01	3.030000e+00	2.980681e-01	2.980681e-01
+3.750000e+00	2.500000e-01	2.500000e-01	2.600000e+00	2.490836e-01	2.490836e-01
+4.250000e+00	2.500000e-01	2.500000e-01	2.460000e+00	2.345280e-01	2.345280e-01
+4.750000e+00	2.500000e-01	2.500000e-01	2.010000e+00	1.882785e-01	1.882785e-01
+5.250000e+00	2.500000e-01	2.500000e-01	1.920000e+00	1.860923e-01	1.860923e-01
+5.750000e+00	2.500000e-01	2.500000e-01	1.700000e+00	1.615161e-01	1.615161e-01
+6.250000e+00	2.500000e-01	2.500000e-01	1.330000e+00	1.252726e-01	1.252726e-01
+6.750000e+00	2.500000e-01	2.500000e-01	1.140000e+00	1.127265e-01	1.127265e-01
+7.250000e+00	2.500000e-01	2.500000e-01	9.100000e-01	8.784204e-02	8.784204e-02
+7.750000e+00	2.500000e-01	2.500000e-01	8.600000e-01	8.666853e-02	8.666853e-02
+8.250000e+00	2.500000e-01	2.500000e-01	6.700000e-01	7.442281e-02	7.442281e-02
+8.750000e+00	2.500000e-01	2.500000e-01	5.700000e-01	6.043028e-02	6.043028e-02
+9.250000e+00	2.500000e-01	2.500000e-01	5.000000e-01	5.077893e-02	5.077893e-02
+9.750000e+00	2.500000e-01	2.500000e-01	4.200000e-01	4.133025e-02	4.133025e-02
+1.025000e+01	2.500000e-01	2.500000e-01	3.400000e-01	3.959165e-02	3.959165e-02
+1.100000e+01	5.000000e-01	5.000000e-01	2.530000e-01	2.588661e-02	2.588661e-02
+1.200000e+01	5.000000e-01	5.000000e-01	2.030000e-01	2.157215e-02	2.157215e-02
+1.325000e+01	7.500000e-01	7.500000e-01	1.320000e-01	1.404703e-02	1.404703e-02
+1.525000e+01	1.250000e+00	1.250000e+00	7.100000e-02	7.527607e-03	7.527607e-03
+2.000000e+01	3.500000e+00	3.500000e+00	2.300000e-02	2.494816e-03	2.494816e-03
+3.175000e+01	8.250000e+00	8.250000e+00	2.200000e-03	3.019930e-04	3.019930e-04
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d02-x01-y04
+ErrorBreakdown: {0: {"": {up: 0.1004439, dn: 0.1004439}, stat: {up: 0.09, dn: -0.09}, sys: {up: 0.04, dn: -0.04}, "sys,branching ratio uncertainty": {up: 0.01353, dn: -0.01353}, "sys,luminosity uncertainty": {up: 0.01435, dn: -0.01435}}, 1: {"": {up: 0.136935, dn: 0.136935}, stat: {up: 0.09, dn: -0.09}, sys: {up: 0.09, dn: -0.09}, "sys,branching ratio uncertainty": {up: 0.03465, dn: -0.03465}, "sys,luminosity uncertainty": {up: 0.03675, dn: -0.03675}}, 2: {"": {up: 0.1997856, dn: 0.1997856}, stat: {up: 0.1, dn: -0.1}, sys: {up: 0.15, dn: -0.15}, "sys,branching ratio uncertainty": {up: 0.05907, dn: -0.05907}, "sys,luminosity uncertainty": {up: 0.06265, dn: -0.06265}}, 3: {"": {up: 0.2126733, dn: 0.2126733}, stat: {up: 0.1, dn: -0.1}, sys: {up: 0.16, dn: -0.16}, "sys,branching ratio uncertainty": {up: 0.06732, dn: -0.06732}, "sys,luminosity uncertainty": {up: 0.07140000000000001, dn: -0.07140000000000001}}, 4: {"": {up: 0.2339823, dn: 0.2339823}, stat: {up: 0.1, dn: -0.1}, sys: {up: 0.18, dn: -0.18}, "sys,branching ratio uncertainty": {up: 0.07622999999999999, dn: -0.07622999999999999}, "sys,luminosity uncertainty": {up: 0.08084999999999999, dn: -0.08084999999999999}}, 5: {"": {up: 0.2476243, dn: 0.2476243}, stat: {up: 0.09, dn: -0.09}, sys: {up: 0.2, dn: -0.2}, "sys,branching ratio uncertainty": {up: 0.07887, dn: -0.07887}, "sys,luminosity uncertainty": {up: 0.08365, dn: -0.08365}}, 6: {"": {up: 0.2229269, dn: 0.2229269}, stat: {up: 0.08, dn: -0.08}, sys: {up: 0.18, dn: -0.18}, "sys,branching ratio uncertainty": {up: 0.07160999999999999, dn: -0.07160999999999999}, "sys,luminosity uncertainty": {up: 0.07595, dn: -0.07595}}, 7: {"": {up: 0.2135466, dn: 0.2135466}, stat: {up: 0.08, dn: -0.08}, sys: {up: 0.17, dn: -0.17}, "sys,branching ratio uncertainty": {up: 0.06962999999999998, dn: -0.06962999999999998}, "sys,luminosity uncertainty": {up: 0.07384999999999999, dn: -0.07384999999999999}}, 8: {"": {up: 0.1989266, dn: 0.1989266}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.16, dn: -0.16}, "sys,branching ratio uncertainty": {up: 0.06534, dn: -0.06534}, "sys,luminosity uncertainty": {up: 0.0693, dn: -0.0693}}, 9: {"": {up: 0.1498646, dn: 0.1498646}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.12, dn: -0.12}, "sys,branching ratio uncertainty": {up: 0.05114999999999999, dn: -0.05114999999999999}, "sys,luminosity uncertainty": {up: 0.05425, dn: -0.05425}}, 10: {"": {up: 0.1400012, dn: 0.1400012}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.11, dn: -0.11}, "sys,branching ratio uncertainty": {up: 0.04851, dn: -0.04851}, "sys,luminosity uncertainty": {up: 0.05145, dn: -0.05145}}, 11: {"": {up: 0.113675, dn: 0.113675}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.09, dn: -0.09}, "sys,branching ratio uncertainty": {up: 0.03894, dn: -0.03894}, "sys,luminosity uncertainty": {up: 0.0413, dn: -0.0413}}, 12: {"": {up: 0.1020171, dn: 0.1020171}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.08, dn: -0.08}, "sys,branching ratio uncertainty": {up: 0.03366, dn: -0.03366}, "sys,luminosity uncertainty": {up: 0.0357, dn: -0.0357}}, 13: {"": {up: 0.07686245999999999, dn: 0.07686245999999999}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.06, dn: -0.06}, "sys,branching ratio uncertainty": {up: 0.02574, dn: -0.02574}, "sys,luminosity uncertainty": {up: 0.0273, dn: -0.0273}}, 14: {"": {up: 0.06506182000000001, dn: 0.06506182000000001}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.05, dn: -0.05}, "sys,branching ratio uncertainty": {up: 0.0198, dn: -0.0198}, "sys,luminosity uncertainty": {up: 0.021, dn: -0.021}}, 15: {"": {up: 0.05725757, dn: 0.05725757}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.04, dn: -0.04}, "sys,branching ratio uncertainty": {up: 0.01914, dn: -0.01914}, "sys,luminosity uncertainty": {up: 0.0203, dn: -0.0203}}, 16: {"": {up: 0.04205455, dn: 0.04205455}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.03, dn: -0.03}, "sys,branching ratio uncertainty": {up: 0.01485, dn: -0.01485}, "sys,luminosity uncertainty": {up: 0.01575, dn: -0.01575}}, 17: {"": {up: 0.03979278, dn: 0.03979278}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.03, dn: -0.03}, "sys,branching ratio uncertainty": {up: 0.01155, dn: -0.01155}, "sys,luminosity uncertainty": {up: 0.01225, dn: -0.01225}}, 18: {"": {up: 0.03197461, dn: 0.03197461}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.02, dn: -0.02}, "sys,branching ratio uncertainty": {up: 0.01023, dn: -0.01023}, "sys,luminosity uncertainty": {up: 0.01085, dn: -0.01085}}, 19: {"": {up: 0.02538947, dn: 0.02538947}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.02, dn: -0.02}, "sys,branching ratio uncertainty": {up: 0.00825, dn: -0.00825}, "sys,luminosity uncertainty": {up: 0.008750000000000001, dn: -0.008750000000000001}}, 20: {"": {up: 0.02494816, dn: 0.02494816}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.02, dn: -0.02}, "sys,branching ratio uncertainty": {up: 0.00759, dn: -0.00759}, "sys,luminosity uncertainty": {up: 0.00805, dn: -0.00805}}, 21: {"": {up: 0.01869479, dn: 0.01869479}, stat: {up: 0.008999999999999999, dn: -0.008999999999999999}, sys: {up: 0.014, dn: -0.014}, "sys,branching ratio uncertainty": {up: 0.005840999999999999, dn: -0.005840999999999999}, "sys,luminosity uncertainty": {up: 0.006194999999999999, dn: -0.006194999999999999}}, 22: {"": {up: 0.01202051, dn: 0.01202051}, stat: {up: 0.006, dn: -0.006}, sys: {up: 0.008999999999999999, dn: -0.008999999999999999}, "sys,branching ratio uncertainty": {up: 0.003597, dn: -0.003597}, "sys,luminosity uncertainty": {up: 0.003815, dn: -0.003815}}, 23: {"": {up: 0.009504082000000001, dn: 0.009504082000000001}, stat: {up: 0.005, dn: -0.005}, sys: {up: 0.007, dn: -0.007}, "sys,branching ratio uncertainty": {up: 0.002772, dn: -0.002772}, "sys,luminosity uncertainty": {up: 0.00294, dn: -0.00294}}, 24: {"": {up: 0.00542954, dn: 0.00542954}, stat: {up: 0.003, dn: -0.003}, sys: {up: 0.004, dn: -0.004}, "sys,branching ratio uncertainty": {up: 0.001452, dn: -0.001452}, "sys,luminosity uncertainty": {up: 0.00154, dn: -0.00154}}, 25: {"": {up: 0.001334267, dn: 0.001334267}, stat: {up: 0.0007, dn: -0.0007}, sys: {up: 0.001, dn: -0.001}, "sys,branching ratio uncertainty": {up: 0.0003696, dn: -0.0003696}, "sys,luminosity uncertainty": {up: 0.000392, dn: -0.000392}}, 26: {"": {up: 0.0001492681, dn: 0.0001492681}, stat: {up: 0.00012, dn: -0.00012}, sys: {up: 8.000000000000001e-05, dn: -8.000000000000001e-05}, "sys,branching ratio uncertainty": {up: 2.64e-05, dn: -2.64e-05}, "sys,luminosity uncertainty": {up: 2.8e-05, dn: -2.8e-05}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d02-x01-y04
+Title: doi:10.17182/hepdata.74446.v1/t2
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+2.500000e-01	2.500000e-01	2.500000e-01	4.100000e-01	1.004439e-01	1.004439e-01
+7.500000e-01	2.500000e-01	2.500000e-01	1.050000e+00	1.369350e-01	1.369350e-01
+1.250000e+00	2.500000e-01	2.500000e-01	1.790000e+00	1.997856e-01	1.997856e-01
+1.750000e+00	2.500000e-01	2.500000e-01	2.040000e+00	2.126733e-01	2.126733e-01
+2.250000e+00	2.500000e-01	2.500000e-01	2.310000e+00	2.339823e-01	2.339823e-01
+2.750000e+00	2.500000e-01	2.500000e-01	2.390000e+00	2.476243e-01	2.476243e-01
+3.250000e+00	2.500000e-01	2.500000e-01	2.170000e+00	2.229269e-01	2.229269e-01
+3.750000e+00	2.500000e-01	2.500000e-01	2.110000e+00	2.135466e-01	2.135466e-01
+4.250000e+00	2.500000e-01	2.500000e-01	1.980000e+00	1.989266e-01	1.989266e-01
+4.750000e+00	2.500000e-01	2.500000e-01	1.550000e+00	1.498646e-01	1.498646e-01
+5.250000e+00	2.500000e-01	2.500000e-01	1.470000e+00	1.400012e-01	1.400012e-01
+5.750000e+00	2.500000e-01	2.500000e-01	1.180000e+00	1.136750e-01	1.136750e-01
+6.250000e+00	2.500000e-01	2.500000e-01	1.020000e+00	1.020171e-01	1.020171e-01
+6.750000e+00	2.500000e-01	2.500000e-01	7.800000e-01	7.686246e-02	7.686246e-02
+7.250000e+00	2.500000e-01	2.500000e-01	6.000000e-01	6.506182e-02	6.506182e-02
+7.750000e+00	2.500000e-01	2.500000e-01	5.800000e-01	5.725757e-02	5.725757e-02
+8.250000e+00	2.500000e-01	2.500000e-01	4.500000e-01	4.205455e-02	4.205455e-02
+8.750000e+00	2.500000e-01	2.500000e-01	3.500000e-01	3.979278e-02	3.979278e-02
+9.250000e+00	2.500000e-01	2.500000e-01	3.100000e-01	3.197461e-02	3.197461e-02
+9.750000e+00	2.500000e-01	2.500000e-01	2.500000e-01	2.538947e-02	2.538947e-02
+1.025000e+01	2.500000e-01	2.500000e-01	2.300000e-01	2.494816e-02	2.494816e-02
+1.100000e+01	5.000000e-01	5.000000e-01	1.770000e-01	1.869479e-02	1.869479e-02
+1.200000e+01	5.000000e-01	5.000000e-01	1.090000e-01	1.202051e-02	1.202051e-02
+1.325000e+01	7.500000e-01	7.500000e-01	8.400000e-02	9.504082e-03	9.504082e-03
+1.525000e+01	1.250000e+00	1.250000e+00	4.400000e-02	5.429540e-03	5.429540e-03
+2.000000e+01	3.500000e+00	3.500000e+00	1.120000e-02	1.334267e-03	1.334267e-03
+3.175000e+01	8.250000e+00	8.250000e+00	8.000000e-04	1.492681e-04	1.492681e-04
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d02-x01-y05
+ErrorBreakdown: {0: {"": {up: 0.09251615000000001, dn: 0.09251615000000001}, stat: {up: 0.09, dn: -0.09}, sys: {up: 0.02, dn: -0.02}, "sys,branching ratio uncertainty": {up: 0.00528, dn: -0.00528}, "sys,luminosity uncertainty": {up: 0.0056, dn: -0.0056}}, 1: {"": {up: 0.1895158, dn: 0.1895158}, stat: {up: 0.14, dn: -0.14}, sys: {up: 0.12, dn: -0.12}, "sys,branching ratio uncertainty": {up: 0.03003, dn: -0.03003}, "sys,luminosity uncertainty": {up: 0.03185, dn: -0.03185}}, 2: {"": {up: 0.2289337, dn: 0.2289337}, stat: {up: 0.14, dn: -0.14}, sys: {up: 0.17, dn: -0.17}, "sys,branching ratio uncertainty": {up: 0.0429, dn: -0.0429}, "sys,luminosity uncertainty": {up: 0.04550000000000001, dn: -0.04550000000000001}}, 3: {"": {up: 0.2637234, dn: 0.2637234}, stat: {up: 0.14, dn: -0.14}, sys: {up: 0.21, dn: -0.21}, "sys,branching ratio uncertainty": {up: 0.05247, dn: -0.05247}, "sys,luminosity uncertainty": {up: 0.05565000000000001, dn: -0.05565000000000001}}, 4: {"": {up: 0.2592754, dn: 0.2592754}, stat: {up: 0.13, dn: -0.13}, sys: {up: 0.21, dn: -0.21}, "sys,branching ratio uncertainty": {up: 0.05411999999999999, dn: -0.05411999999999999}, "sys,luminosity uncertainty": {up: 0.05739999999999999, dn: -0.05739999999999999}}, 5: {"": {up: 0.2544086, dn: 0.2544086}, stat: {up: 0.12, dn: -0.12}, sys: {up: 0.21, dn: -0.21}, "sys,branching ratio uncertainty": {up: 0.05411999999999999, dn: -0.05411999999999999}, "sys,luminosity uncertainty": {up: 0.05739999999999999, dn: -0.05739999999999999}}, 6: {"": {up: 0.2498474, dn: 0.2498474}, stat: {up: 0.11, dn: -0.11}, sys: {up: 0.21, dn: -0.21}, "sys,branching ratio uncertainty": {up: 0.05411999999999999, dn: -0.05411999999999999}, "sys,luminosity uncertainty": {up: 0.05739999999999999, dn: -0.05739999999999999}}, 7: {"": {up: 0.2034866, dn: 0.2034866}, stat: {up: 0.09, dn: -0.09}, sys: {up: 0.17, dn: -0.17}, "sys,branching ratio uncertainty": {up: 0.04554, dn: -0.04554}, "sys,luminosity uncertainty": {up: 0.0483, dn: -0.0483}}, 8: {"": {up: 0.2025634, dn: 0.2025634}, stat: {up: 0.09, dn: -0.09}, sys: {up: 0.17, dn: -0.17}, "sys,branching ratio uncertainty": {up: 0.04355999999999999, dn: -0.04355999999999999}, "sys,luminosity uncertainty": {up: 0.0462, dn: -0.0462}}, 9: {"": {up: 0.1552868, dn: 0.1552868}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.13, dn: -0.13}, "sys,branching ratio uncertainty": {up: 0.033, dn: -0.033}, "sys,luminosity uncertainty": {up: 0.035, dn: -0.035}}, 10: {"": {up: 0.1324119, dn: 0.1324119}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.11, dn: -0.11}, "sys,branching ratio uncertainty": {up: 0.02937, dn: -0.02937}, "sys,luminosity uncertainty": {up: 0.03115, dn: -0.03115}}, 11: {"": {up: 0.1229562, dn: 0.1229562}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.1, dn: -0.1}, "sys,branching ratio uncertainty": {up: 0.02673, dn: -0.02673}, "sys,luminosity uncertainty": {up: 0.02835, dn: -0.02835}}, 12: {"": {up: 0.09953882999999999, dn: 0.09953882999999999}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.08, dn: -0.08}, "sys,branching ratio uncertainty": {up: 0.02178, dn: -0.02178}, "sys,luminosity uncertainty": {up: 0.0231, dn: -0.0231}}, 13: {"": {up: 0.07601645, dn: 0.07601645}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.06, dn: -0.06}, "sys,branching ratio uncertainty": {up: 0.0165, dn: -0.0165}, "sys,luminosity uncertainty": {up: 0.0175, dn: -0.0175}}, 14: {"": {up: 0.06125324, dn: 0.06125324}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.05, dn: -0.05}, "sys,branching ratio uncertainty": {up: 0.01287, dn: -0.01287}, "sys,luminosity uncertainty": {up: 0.01365, dn: -0.01365}}, 15: {"": {up: 0.05204095, dn: 0.05204095}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.04, dn: -0.04}, "sys,branching ratio uncertainty": {up: 0.009899999999999999, dn: -0.009899999999999999}, "sys,luminosity uncertainty": {up: 0.0105, dn: -0.0105}}, 16: {"": {up: 0.03771486, dn: 0.03771486}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.03, dn: -0.03}, "sys,branching ratio uncertainty": {up: 0.00759, dn: -0.00759}, "sys,luminosity uncertainty": {up: 0.00805, dn: -0.00805}}, 17: {"": {up: 0.03785877, dn: 0.03785877}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.03, dn: -0.03}, "sys,branching ratio uncertainty": {up: 0.007919999999999998, dn: -0.007919999999999998}, "sys,luminosity uncertainty": {up: 0.008399999999999999, dn: -0.008399999999999999}}, 18: {"": {up: 0.03744392, dn: 0.03744392}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.03, dn: -0.03}, "sys,branching ratio uncertainty": {up: 0.00693, dn: -0.00693}, "sys,luminosity uncertainty": {up: 0.00735, dn: -0.00735}}, 19: {"": {up: 0.02919015, dn: 0.02919015}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.02, dn: -0.02}, "sys,branching ratio uncertainty": {up: 0.00495, dn: -0.00495}, "sys,luminosity uncertainty": {up: 0.00525, dn: -0.00525}}, 20: {"": {up: 0.01493787, dn: 0.01493787}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.01, dn: -0.01}, "sys,branching ratio uncertainty": {up: 0.0033, dn: -0.0033}, "sys,luminosity uncertainty": {up: 0.0035, dn: -0.0035}}, 21: {"": {up: 0.01188859, dn: 0.01188859}, stat: {up: 0.007, dn: -0.007}, sys: {up: 0.008999999999999999, dn: -0.008999999999999999}, "sys,branching ratio uncertainty": {up: 0.00231, dn: -0.00231}, "sys,luminosity uncertainty": {up: 0.00245, dn: -0.00245}}, 22: {"": {up: 0.009646504, dn: 0.009646504}, stat: {up: 0.006, dn: -0.006}, sys: {up: 0.007, dn: -0.007}, "sys,branching ratio uncertainty": {up: 0.001947, dn: -0.001947}, "sys,luminosity uncertainty": {up: 0.002065, dn: -0.002065}}, 23: {"": {up: 0.005902089, dn: 0.005902089}, stat: {up: 0.004, dn: -0.004}, sys: {up: 0.004, dn: -0.004}, "sys,branching ratio uncertainty": {up: 0.001155, dn: -0.001155}, "sys,luminosity uncertainty": {up: 0.001225, dn: -0.001225}}, 24: {"": {up: 0.002931277, dn: 0.002931277}, stat: {up: 0.002, dn: -0.002}, sys: {up: 0.002, dn: -0.002}, "sys,branching ratio uncertainty": {up: 0.000528, dn: -0.000528}, "sys,luminosity uncertainty": {up: 0.0005600000000000001, dn: -0.0005600000000000001}}, 25: {"": {up: 0.0007328192, dn: 0.0007328192}, stat: {up: 0.0005, dn: -0.0005}, sys: {up: 0.0005, dn: -0.0005}, "sys,branching ratio uncertainty": {up: 0.000132, dn: -0.000132}, "sys,luminosity uncertainty": {up: 0.00014, dn: -0.00014}}, 26: {"": {up: 9.545678e-05, dn: 9.545678e-05}, stat: {up: 9.000000000000001e-05, dn: -9.000000000000001e-05}, sys: {up: 3e-05, dn: -3e-05}, "sys,branching ratio uncertainty": {up: 7.26e-06, dn: -7.26e-06}, "sys,luminosity uncertainty": {up: 7.700000000000001e-06, dn: -7.700000000000001e-06}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d02-x01-y05
+Title: doi:10.17182/hepdata.74446.v1/t2
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+2.500000e-01	2.500000e-01	2.500000e-01	1.600000e-01	9.251615e-02	9.251615e-02
+7.500000e-01	2.500000e-01	2.500000e-01	9.100000e-01	1.895158e-01	1.895158e-01
+1.250000e+00	2.500000e-01	2.500000e-01	1.300000e+00	2.289337e-01	2.289337e-01
+1.750000e+00	2.500000e-01	2.500000e-01	1.590000e+00	2.637234e-01	2.637234e-01
+2.250000e+00	2.500000e-01	2.500000e-01	1.640000e+00	2.592754e-01	2.592754e-01
+2.750000e+00	2.500000e-01	2.500000e-01	1.640000e+00	2.544086e-01	2.544086e-01
+3.250000e+00	2.500000e-01	2.500000e-01	1.640000e+00	2.498474e-01	2.498474e-01
+3.750000e+00	2.500000e-01	2.500000e-01	1.380000e+00	2.034866e-01	2.034866e-01
+4.250000e+00	2.500000e-01	2.500000e-01	1.320000e+00	2.025634e-01	2.025634e-01
+4.750000e+00	2.500000e-01	2.500000e-01	1.000000e+00	1.552868e-01	1.552868e-01
+5.250000e+00	2.500000e-01	2.500000e-01	8.900000e-01	1.324119e-01	1.324119e-01
+5.750000e+00	2.500000e-01	2.500000e-01	8.100000e-01	1.229562e-01	1.229562e-01
+6.250000e+00	2.500000e-01	2.500000e-01	6.600000e-01	9.953883e-02	9.953883e-02
+6.750000e+00	2.500000e-01	2.500000e-01	5.000000e-01	7.601645e-02	7.601645e-02
+7.250000e+00	2.500000e-01	2.500000e-01	3.900000e-01	6.125324e-02	6.125324e-02
+7.750000e+00	2.500000e-01	2.500000e-01	3.000000e-01	5.204095e-02	5.204095e-02
+8.250000e+00	2.500000e-01	2.500000e-01	2.300000e-01	3.771486e-02	3.771486e-02
+8.750000e+00	2.500000e-01	2.500000e-01	2.400000e-01	3.785877e-02	3.785877e-02
+9.250000e+00	2.500000e-01	2.500000e-01	2.100000e-01	3.744392e-02	3.744392e-02
+9.750000e+00	2.500000e-01	2.500000e-01	1.500000e-01	2.919015e-02	2.919015e-02
+1.025000e+01	2.500000e-01	2.500000e-01	1.000000e-01	1.493787e-02	1.493787e-02
+1.100000e+01	5.000000e-01	5.000000e-01	7.000000e-02	1.188859e-02	1.188859e-02
+1.200000e+01	5.000000e-01	5.000000e-01	5.900000e-02	9.646504e-03	9.646504e-03
+1.325000e+01	7.500000e-01	7.500000e-01	3.500000e-02	5.902089e-03	5.902089e-03
+1.525000e+01	1.250000e+00	1.250000e+00	1.600000e-02	2.931277e-03	2.931277e-03
+2.000000e+01	3.500000e+00	3.500000e+00	4.000000e-03	7.328192e-04	7.328192e-04
+3.175000e+01	8.250000e+00	8.250000e+00	2.200000e-04	9.545678e-05	9.545678e-05
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d03-x01-y01
+ErrorBreakdown: {0: {"": {up: 0.573051, dn: 0.573051}, stat: {up: 0.23, dn: -0.23}, sys: {up: 0.51, dn: -0.51}, "sys,branching ratio uncertainty": {up: 0.11931, dn: -0.11931}, "sys,luminosity uncertainty": {up: 0.03395, dn: -0.03395}}, 1: {"": {up: 1.681896, dn: 1.681896}, stat: {up: 0.6899999999999999, dn: -0.6899999999999999}, sys: {up: 1.48, dn: -1.48}, "sys,branching ratio uncertainty": {up: 0.38745, dn: -0.38745}, "sys,luminosity uncertainty": {up: 0.11025, dn: -0.11025}}, 2: {"": {up: 1.413655, dn: 1.413655}, stat: {up: 0.54, dn: -0.54}, sys: {up: 1.26, dn: -1.26}, "sys,branching ratio uncertainty": {up: 0.3321000000000001, dn: -0.3321000000000001}, "sys,luminosity uncertainty": {up: 0.09450000000000001, dn: -0.09450000000000001}}, 3: {"": {up: 1.253426, dn: 1.253426}, stat: {up: 0.47, dn: -0.47}, sys: {up: 1.12, dn: -1.12}, "sys,branching ratio uncertainty": {up: 0.29766, dn: -0.29766}, "sys,luminosity uncertainty": {up: 0.0847, dn: -0.0847}}, 4: {"": {up: 1.14042, dn: 1.14042}, stat: {up: 0.37, dn: -0.37}, sys: {up: 1.04, dn: -1.04}, "sys,branching ratio uncertainty": {up: 0.27552, dn: -0.27552}, "sys,luminosity uncertainty": {up: 0.07840000000000001, dn: -0.07840000000000001}}, 5: {"": {up: 1.150509, dn: 1.150509}, stat: {up: 0.37, dn: -0.37}, sys: {up: 1.05, dn: -1.05}, "sys,branching ratio uncertainty": {up: 0.27921, dn: -0.27921}, "sys,luminosity uncertainty": {up: 0.07945000000000001, dn: -0.07945000000000001}}, 6: {"": {up: 1.088346, dn: 1.088346}, stat: {up: 0.33, dn: -0.33}, sys: {up: 1, dn: -1}, "sys,branching ratio uncertainty": {up: 0.26445, dn: -0.26445}, "sys,luminosity uncertainty": {up: 0.07525, dn: -0.07525}}, 7: {"": {up: 1.114806, dn: 1.114806}, stat: {up: 0.28, dn: -0.28}, sys: {up: 1.04, dn: -1.04}, "sys,branching ratio uncertainty": {up: 0.27675, dn: -0.27675}, "sys,luminosity uncertainty": {up: 0.07875, dn: -0.07875}}, 8: {"": {up: 0.7445699, dn: 0.7445699}, stat: {up: 0.24, dn: -0.24}, sys: {up: 0.68, dn: -0.68}, "sys,branching ratio uncertainty": {up: 0.17835, dn: -0.17835}, "sys,luminosity uncertainty": {up: 0.05075, dn: -0.05075}}, 9: {"": {up: 0.7004669, dn: 0.7004669}, stat: {up: 0.19, dn: -0.19}, sys: {up: 0.65, dn: -0.65}, "sys,branching ratio uncertainty": {up: 0.1722, dn: -0.1722}, "sys,luminosity uncertainty": {up: 0.04899999999999999, dn: -0.04899999999999999}}, 10: {"": {up: 0.7299892, dn: 0.7299892}, stat: {up: 0.19, dn: -0.19}, sys: {up: 0.68, dn: -0.68}, "sys,branching ratio uncertainty": {up: 0.17835, dn: -0.17835}, "sys,luminosity uncertainty": {up: 0.05075, dn: -0.05075}}, 11: {"": {up: 0.5001285, dn: 0.5001285}, stat: {up: 0.15, dn: -0.15}, sys: {up: 0.46, dn: -0.46}, "sys,branching ratio uncertainty": {up: 0.12177, dn: -0.12177}, "sys,luminosity uncertainty": {up: 0.03465, dn: -0.03465}}, 12: {"": {up: 0.4819621, dn: 0.4819621}, stat: {up: 0.12, dn: -0.12}, sys: {up: 0.45, dn: -0.45}, "sys,branching ratio uncertainty": {up: 0.11931, dn: -0.11931}, "sys,luminosity uncertainty": {up: 0.03395, dn: -0.03395}}, 13: {"": {up: 0.4326252, dn: 0.4326252}, stat: {up: 0.08, dn: -0.08}, sys: {up: 0.41, dn: -0.41}, "sys,branching ratio uncertainty": {up: 0.10824, dn: -0.10824}, "sys,luminosity uncertainty": {up: 0.0308, dn: -0.0308}}, 14: {"": {up: 0.3271717, dn: 0.3271717}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.31, dn: -0.31}, "sys,branching ratio uncertainty": {up: 0.08241000000000001, dn: -0.08241000000000001}, "sys,luminosity uncertainty": {up: 0.02345, dn: -0.02345}}, 15: {"": {up: 0.2201375, dn: 0.2201375}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.21, dn: -0.21}, "sys,branching ratio uncertainty": {up: 0.05658000000000001, dn: -0.05658000000000001}, "sys,luminosity uncertainty": {up: 0.0161, dn: -0.0161}}, 16: {"": {up: 0.09409655, dn: 0.09409655}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.09, dn: -0.09}, "sys,branching ratio uncertainty": {up: 0.0246, dn: -0.0246}, "sys,luminosity uncertainty": {up: 0.007, dn: -0.007}}, 17: {"": {up: 0.04595344, dn: 0.04595344}, stat: {up: 0.005, dn: -0.005}, sys: {up: 0.044, dn: -0.044}, "sys,branching ratio uncertainty": {up: 0.011808, dn: -0.011808}, "sys,luminosity uncertainty": {up: 0.00336, dn: -0.00336}}, 18: {"": {up: 0.004720037, dn: 0.004720037}, stat: {up: 0.0007, dn: -0.0007}, sys: {up: 0.0045, dn: -0.0045}, "sys,branching ratio uncertainty": {up: 0.0011931, dn: -0.0011931}, "sys,luminosity uncertainty": {up: 0.0003395, dn: -0.0003395}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d03-x01-y01
+Title: doi:10.17182/hepdata.74446.v1/t3
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.000000e+00	1.000000e+00	1.000000e+00	9.700000e-01	5.730510e-01	5.730510e-01
+2.250000e+00	2.500000e-01	2.500000e-01	3.150000e+00	1.681896e+00	1.681896e+00
+2.750000e+00	2.500000e-01	2.500000e-01	2.700000e+00	1.413655e+00	1.413655e+00
+3.250000e+00	2.500000e-01	2.500000e-01	2.420000e+00	1.253426e+00	1.253426e+00
+3.750000e+00	2.500000e-01	2.500000e-01	2.240000e+00	1.140420e+00	1.140420e+00
+4.250000e+00	2.500000e-01	2.500000e-01	2.270000e+00	1.150509e+00	1.150509e+00
+4.750000e+00	2.500000e-01	2.500000e-01	2.150000e+00	1.088346e+00	1.088346e+00
+5.250000e+00	2.500000e-01	2.500000e-01	2.250000e+00	1.114806e+00	1.114806e+00
+5.750000e+00	2.500000e-01	2.500000e-01	1.450000e+00	7.445699e-01	7.445699e-01
+6.250000e+00	2.500000e-01	2.500000e-01	1.400000e+00	7.004669e-01	7.004669e-01
+6.750000e+00	2.500000e-01	2.500000e-01	1.450000e+00	7.299892e-01	7.299892e-01
+7.250000e+00	2.500000e-01	2.500000e-01	9.900000e-01	5.001285e-01	5.001285e-01
+7.750000e+00	2.500000e-01	2.500000e-01	9.700000e-01	4.819621e-01	4.819621e-01
+8.500000e+00	5.000000e-01	5.000000e-01	8.800000e-01	4.326252e-01	4.326252e-01
+9.500000e+00	5.000000e-01	5.000000e-01	6.700000e-01	3.271717e-01	3.271717e-01
+1.075000e+01	7.500000e-01	7.500000e-01	4.600000e-01	2.201375e-01	2.201375e-01
+1.275000e+01	1.250000e+00	1.250000e+00	2.000000e-01	9.409655e-02	9.409655e-02
+1.675000e+01	2.750000e+00	2.750000e+00	9.600000e-02	4.595344e-02	4.595344e-02
+2.975000e+01	1.025000e+01	1.025000e+01	9.700000e-03	4.720037e-03	4.720037e-03
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d03-x01-y02
+ErrorBreakdown: {0: {"": {up: 0.5902541, dn: 0.5902541}, stat: {up: 0.16, dn: -0.16}, sys: {up: 0.52, dn: -0.52}, "sys,branching ratio uncertainty": {up: 0.22017, dn: -0.22017}, "sys,luminosity uncertainty": {up: 0.06265, dn: -0.06265}}, 1: {"": {up: 0.668997, dn: 0.668997}, stat: {up: 0.27, dn: -0.27}, sys: {up: 0.48, dn: -0.48}, "sys,branching ratio uncertainty": {up: 0.36531, dn: -0.36531}, "sys,luminosity uncertainty": {up: 0.10395, dn: -0.10395}}, 2: {"": {up: 0.7202916, dn: 0.7202916}, stat: {up: 0.32, dn: -0.32}, sys: {up: 0.5, dn: -0.5}, "sys,branching ratio uncertainty": {up: 0.39237, dn: -0.39237}, "sys,luminosity uncertainty": {up: 0.11165, dn: -0.11165}}, 3: {"": {up: 0.6293627000000001, dn: 0.6293627000000001}, stat: {up: 0.21, dn: -0.21}, sys: {up: 0.46, dn: -0.46}, "sys,branching ratio uncertainty": {up: 0.36039, dn: -0.36039}, "sys,luminosity uncertainty": {up: 0.10255, dn: -0.10255}}, 4: {"": {up: 0.6683394, dn: 0.6683394}, stat: {up: 0.22, dn: -0.22}, sys: {up: 0.49, dn: -0.49}, "sys,branching ratio uncertainty": {up: 0.38253, dn: -0.38253}, "sys,luminosity uncertainty": {up: 0.10885, dn: -0.10885}}, 5: {"": {up: 0.5928597, dn: 0.5928597}, stat: {up: 0.18, dn: -0.18}, sys: {up: 0.44, dn: -0.44}, "sys,branching ratio uncertainty": {up: 0.34071, dn: -0.34071}, "sys,luminosity uncertainty": {up: 0.09694999999999999, dn: -0.09694999999999999}}, 6: {"": {up: 0.5179734, dn: 0.5179734}, stat: {up: 0.15, dn: -0.15}, sys: {up: 0.38, dn: -0.38}, "sys,branching ratio uncertainty": {up: 0.30627, dn: -0.30627}, "sys,luminosity uncertainty": {up: 0.08715000000000001, dn: -0.08715000000000001}}, 7: {"": {up: 0.4608412, dn: 0.4608412}, stat: {up: 0.13, dn: -0.13}, sys: {up: 0.34, dn: -0.34}, "sys,branching ratio uncertainty": {up: 0.27183, dn: -0.27183}, "sys,luminosity uncertainty": {up: 0.07734999999999999, dn: -0.07734999999999999}}, 8: {"": {up: 0.4053222, dn: 0.4053222}, stat: {up: 0.11, dn: -0.11}, sys: {up: 0.3, dn: -0.3}, "sys,branching ratio uncertainty": {up: 0.23985, dn: -0.23985}, "sys,luminosity uncertainty": {up: 0.06825000000000001, dn: -0.06825000000000001}}, 9: {"": {up: 0.3240224, dn: 0.3240224}, stat: {up: 0.09, dn: -0.09}, sys: {up: 0.24, dn: -0.24}, "sys,branching ratio uncertainty": {up: 0.19065, dn: -0.19065}, "sys,luminosity uncertainty": {up: 0.05425, dn: -0.05425}}, 10: {"": {up: 0.3115835, dn: 0.3115835}, stat: {up: 0.08, dn: -0.08}, sys: {up: 0.23, dn: -0.23}, "sys,branching ratio uncertainty": {up: 0.18696, dn: -0.18696}, "sys,luminosity uncertainty": {up: 0.0532, dn: -0.0532}}, 11: {"": {up: 0.2685418, dn: 0.2685418}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.2, dn: -0.2}, "sys,branching ratio uncertainty": {up: 0.15867, dn: -0.15867}, "sys,luminosity uncertainty": {up: 0.04515, dn: -0.04515}}, 12: {"": {up: 0.2044661, dn: 0.2044661}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.15, dn: -0.15}, "sys,branching ratio uncertainty": {up: 0.12054, dn: -0.12054}, "sys,luminosity uncertainty": {up: 0.0343, dn: -0.0343}}, 13: {"": {up: 0.1573088, dn: 0.1573088}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.12, dn: -0.12}, "sys,branching ratio uncertainty": {up: 0.09348000000000001, dn: -0.09348000000000001}, "sys,luminosity uncertainty": {up: 0.0266, dn: -0.0266}}, 14: {"": {up: 0.1188638, dn: 0.1188638}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.09, dn: -0.09}, "sys,branching ratio uncertainty": {up: 0.06888000000000001, dn: -0.06888000000000001}, "sys,luminosity uncertainty": {up: 0.0196, dn: -0.0196}}, 15: {"": {up: 0.08134273, dn: 0.08134273}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.06, dn: -0.06}, "sys,branching ratio uncertainty": {up: 0.0492, dn: -0.0492}, "sys,luminosity uncertainty": {up: 0.014, dn: -0.014}}, 16: {"": {up: 0.0438058, dn: 0.0438058}, stat: {up: 0.008999999999999999, dn: -0.008999999999999999}, sys: {up: 0.033, dn: -0.033}, "sys,branching ratio uncertainty": {up: 0.026322, dn: -0.026322}, "sys,luminosity uncertainty": {up: 0.00749, dn: -0.00749}}, 17: {"": {up: 0.01457534, dn: 0.01457534}, stat: {up: 0.003, dn: -0.003}, sys: {up: 0.011, dn: -0.011}, "sys,branching ratio uncertainty": {up: 0.008732999999999999, dn: -0.008732999999999999}, "sys,luminosity uncertainty": {up: 0.002485, dn: -0.002485}}, 18: {"": {up: 0.001593045, dn: 0.001593045}, stat: {up: 0.0005, dn: -0.0005}, sys: {up: 0.0012, dn: -0.0012}, "sys,branching ratio uncertainty": {up: 0.0008856000000000001, dn: -0.0008856000000000001}, "sys,luminosity uncertainty": {up: 0.000252, dn: -0.000252}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d03-x01-y02
+Title: doi:10.17182/hepdata.74446.v1/t3
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.000000e+00	1.000000e+00	1.000000e+00	1.790000e+00	5.902541e-01	5.902541e-01
+2.250000e+00	2.500000e-01	2.500000e-01	2.970000e+00	6.689970e-01	6.689970e-01
+2.750000e+00	2.500000e-01	2.500000e-01	3.190000e+00	7.202916e-01	7.202916e-01
+3.250000e+00	2.500000e-01	2.500000e-01	2.930000e+00	6.293627e-01	6.293627e-01
+3.750000e+00	2.500000e-01	2.500000e-01	3.110000e+00	6.683394e-01	6.683394e-01
+4.250000e+00	2.500000e-01	2.500000e-01	2.770000e+00	5.928597e-01	5.928597e-01
+4.750000e+00	2.500000e-01	2.500000e-01	2.490000e+00	5.179734e-01	5.179734e-01
+5.250000e+00	2.500000e-01	2.500000e-01	2.210000e+00	4.608412e-01	4.608412e-01
+5.750000e+00	2.500000e-01	2.500000e-01	1.950000e+00	4.053222e-01	4.053222e-01
+6.250000e+00	2.500000e-01	2.500000e-01	1.550000e+00	3.240224e-01	3.240224e-01
+6.750000e+00	2.500000e-01	2.500000e-01	1.520000e+00	3.115835e-01	3.115835e-01
+7.250000e+00	2.500000e-01	2.500000e-01	1.290000e+00	2.685418e-01	2.685418e-01
+7.750000e+00	2.500000e-01	2.500000e-01	9.800000e-01	2.044661e-01	2.044661e-01
+8.500000e+00	5.000000e-01	5.000000e-01	7.600000e-01	1.573088e-01	1.573088e-01
+9.500000e+00	5.000000e-01	5.000000e-01	5.600000e-01	1.188638e-01	1.188638e-01
+1.075000e+01	7.500000e-01	7.500000e-01	4.000000e-01	8.134273e-02	8.134273e-02
+1.275000e+01	1.250000e+00	1.250000e+00	2.140000e-01	4.380580e-02	4.380580e-02
+1.675000e+01	2.750000e+00	2.750000e+00	7.100000e-02	1.457534e-02	1.457534e-02
+2.975000e+01	1.025000e+01	1.025000e+01	7.200000e-03	1.593045e-03	1.593045e-03
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d03-x01-y03
+ErrorBreakdown: {0: {"": {up: 0.5262943, dn: 0.5262943}, stat: {up: 0.11, dn: -0.11}, sys: {up: 0.47, dn: -0.47}, "sys,branching ratio uncertainty": {up: 0.20172, dn: -0.20172}, "sys,luminosity uncertainty": {up: 0.05739999999999999, dn: -0.05739999999999999}}, 1: {"": {up: 0.5682833, dn: 0.5682833}, stat: {up: 0.2, dn: -0.2}, sys: {up: 0.41, dn: -0.41}, "sys,branching ratio uncertainty": {up: 0.32595, dn: -0.32595}, "sys,luminosity uncertainty": {up: 0.09275, dn: -0.09275}}, 2: {"": {up: 0.53622, dn: 0.53622}, stat: {up: 0.18, dn: -0.18}, sys: {up: 0.39, dn: -0.39}, "sys,branching ratio uncertainty": {up: 0.30873, dn: -0.30873}, "sys,luminosity uncertainty": {up: 0.08784999999999998, dn: -0.08784999999999998}}, 3: {"": {up: 0.5812067, dn: 0.5812067}, stat: {up: 0.16, dn: -0.16}, sys: {up: 0.43, dn: -0.43}, "sys,branching ratio uncertainty": {up: 0.34317, dn: -0.34317}, "sys,luminosity uncertainty": {up: 0.09765, dn: -0.09765}}, 4: {"": {up: 0.5179734, dn: 0.5179734}, stat: {up: 0.15, dn: -0.15}, sys: {up: 0.38, dn: -0.38}, "sys,branching ratio uncertainty": {up: 0.30627, dn: -0.30627}, "sys,luminosity uncertainty": {up: 0.08715000000000001, dn: -0.08715000000000001}}, 5: {"": {up: 0.4987842, dn: 0.4987842}, stat: {up: 0.13, dn: -0.13}, sys: {up: 0.37, dn: -0.37}, "sys,branching ratio uncertainty": {up: 0.29643, dn: -0.29643}, "sys,luminosity uncertainty": {up: 0.08434999999999999, dn: -0.08434999999999999}}, 6: {"": {up: 0.4426165, dn: 0.4426165}, stat: {up: 0.1, dn: -0.1}, sys: {up: 0.33, dn: -0.33}, "sys,branching ratio uncertainty": {up: 0.26691, dn: -0.26691}, "sys,luminosity uncertainty": {up: 0.07595, dn: -0.07595}}, 7: {"": {up: 0.3880955, dn: 0.3880955}, stat: {up: 0.09, dn: -0.09}, sys: {up: 0.29, dn: -0.29}, "sys,branching ratio uncertainty": {up: 0.23247, dn: -0.23247}, "sys,luminosity uncertainty": {up: 0.06615, dn: -0.06615}}, 8: {"": {up: 0.3190462, dn: 0.3190462}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.24, dn: -0.24}, "sys,branching ratio uncertainty": {up: 0.19065, dn: -0.19065}, "sys,luminosity uncertainty": {up: 0.05425, dn: -0.05425}}, 9: {"": {up: 0.2586787, dn: 0.2586787}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.19, dn: -0.19}, "sys,branching ratio uncertainty": {up: 0.15867, dn: -0.15867}, "sys,luminosity uncertainty": {up: 0.04515, dn: -0.04515}}, 10: {"": {up: 0.2424279, dn: 0.2424279}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.18, dn: -0.18}, "sys,branching ratio uncertainty": {up: 0.14514, dn: -0.14514}, "sys,luminosity uncertainty": {up: 0.0413, dn: -0.0413}}, 11: {"": {up: 0.2163878, dn: 0.2163878}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.16, dn: -0.16}, "sys,branching ratio uncertainty": {up: 0.13161, dn: -0.13161}, "sys,luminosity uncertainty": {up: 0.03745, dn: -0.03745}}, 12: {"": {up: 0.1634927, dn: 0.1634927}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.12, dn: -0.12}, "sys,branching ratio uncertainty": {up: 0.09963000000000002, dn: -0.09963000000000002}, "sys,luminosity uncertainty": {up: 0.02835, dn: -0.02835}}, 13: {"": {up: 0.1326597, dn: 0.1326597}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.1, dn: -0.1}, "sys,branching ratio uncertainty": {up: 0.07872000000000001, dn: -0.07872000000000001}, "sys,luminosity uncertainty": {up: 0.0224, dn: -0.0224}}, 14: {"": {up: 0.08297497, dn: 0.08297497}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.06, dn: -0.06}, "sys,branching ratio uncertainty": {up: 0.05166, dn: -0.05166}, "sys,luminosity uncertainty": {up: 0.0147, dn: -0.0147}}, 15: {"": {up: 0.06381112999999999, dn: 0.06381112999999999}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.05, dn: -0.05}, "sys,branching ratio uncertainty": {up: 0.0369, dn: -0.0369}, "sys,luminosity uncertainty": {up: 0.0105, dn: -0.0105}}, 16: {"": {up: 0.03099727, dn: 0.03099727}, stat: {up: 0.007, dn: -0.007}, sys: {up: 0.023, dn: -0.023}, "sys,branching ratio uncertainty": {up: 0.018819, dn: -0.018819}, "sys,luminosity uncertainty": {up: 0.005355, dn: -0.005355}}, 17: {"": {up: 0.009440656, dn: 0.009440656}, stat: {up: 0.002, dn: -0.002}, sys: {up: 0.007, dn: -0.007}, "sys,branching ratio uncertainty": {up: 0.005781000000000001, dn: -0.005781000000000001}, "sys,luminosity uncertainty": {up: 0.001645, dn: -0.001645}}, 18: {"": {up: 0.0009319252, dn: 0.0009319252}, stat: {up: 0.0003, dn: -0.0003}, sys: {up: 0.0007, dn: -0.0007}, "sys,branching ratio uncertainty": {up: 0.0005166, dn: -0.0005166}, "sys,luminosity uncertainty": {up: 0.000147, dn: -0.000147}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d03-x01-y03
+Title: doi:10.17182/hepdata.74446.v1/t3
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.000000e+00	1.000000e+00	1.000000e+00	1.640000e+00	5.262943e-01	5.262943e-01
+2.250000e+00	2.500000e-01	2.500000e-01	2.650000e+00	5.682833e-01	5.682833e-01
+2.750000e+00	2.500000e-01	2.500000e-01	2.510000e+00	5.362200e-01	5.362200e-01
+3.250000e+00	2.500000e-01	2.500000e-01	2.790000e+00	5.812067e-01	5.812067e-01
+3.750000e+00	2.500000e-01	2.500000e-01	2.490000e+00	5.179734e-01	5.179734e-01
+4.250000e+00	2.500000e-01	2.500000e-01	2.410000e+00	4.987842e-01	4.987842e-01
+4.750000e+00	2.500000e-01	2.500000e-01	2.170000e+00	4.426165e-01	4.426165e-01
+5.250000e+00	2.500000e-01	2.500000e-01	1.890000e+00	3.880955e-01	3.880955e-01
+5.750000e+00	2.500000e-01	2.500000e-01	1.550000e+00	3.190462e-01	3.190462e-01
+6.250000e+00	2.500000e-01	2.500000e-01	1.290000e+00	2.586787e-01	2.586787e-01
+6.750000e+00	2.500000e-01	2.500000e-01	1.180000e+00	2.424279e-01	2.424279e-01
+7.250000e+00	2.500000e-01	2.500000e-01	1.070000e+00	2.163878e-01	2.163878e-01
+7.750000e+00	2.500000e-01	2.500000e-01	8.100000e-01	1.634927e-01	1.634927e-01
+8.500000e+00	5.000000e-01	5.000000e-01	6.400000e-01	1.326597e-01	1.326597e-01
+9.500000e+00	5.000000e-01	5.000000e-01	4.200000e-01	8.297497e-02	8.297497e-02
+1.075000e+01	7.500000e-01	7.500000e-01	3.000000e-01	6.381113e-02	6.381113e-02
+1.275000e+01	1.250000e+00	1.250000e+00	1.530000e-01	3.099727e-02	3.099727e-02
+1.675000e+01	2.750000e+00	2.750000e+00	4.700000e-02	9.440656e-03	9.440656e-03
+2.975000e+01	1.025000e+01	1.025000e+01	4.200000e-03	9.319252e-04	9.319252e-04
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d03-x01-y04
+ErrorBreakdown: {0: {"": {up: 0.4355896, dn: 0.4355896}, stat: {up: 0.1, dn: -0.1}, sys: {up: 0.39, dn: -0.39}, "sys,branching ratio uncertainty": {up: 0.1599, dn: -0.1599}, "sys,luminosity uncertainty": {up: 0.04550000000000001, dn: -0.04550000000000001}}, 1: {"": {up: 0.540958, dn: 0.540958}, stat: {up: 0.2, dn: -0.2}, sys: {up: 0.4, dn: -0.4}, "sys,branching ratio uncertainty": {up: 0.29274, dn: -0.29274}, "sys,luminosity uncertainty": {up: 0.0833, dn: -0.0833}}, 2: {"": {up: 0.4728929, dn: 0.4728929}, stat: {up: 0.18, dn: -0.18}, sys: {up: 0.35, dn: -0.35}, "sys,branching ratio uncertainty": {up: 0.25215, dn: -0.25215}, "sys,luminosity uncertainty": {up: 0.07174999999999999, dn: -0.07174999999999999}}, 3: {"": {up: 0.5260088000000001, dn: 0.5260088000000001}, stat: {up: 0.16, dn: -0.16}, sys: {up: 0.4, dn: -0.4}, "sys,branching ratio uncertainty": {up: 0.29028, dn: -0.29028}, "sys,luminosity uncertainty": {up: 0.08259999999999999, dn: -0.08259999999999999}}, 4: {"": {up: 0.4704478, dn: 0.4704478}, stat: {up: 0.14, dn: -0.14}, sys: {up: 0.36, dn: -0.36}, "sys,branching ratio uncertainty": {up: 0.2583, dn: -0.2583}, "sys,luminosity uncertainty": {up: 0.07350000000000001, dn: -0.07350000000000001}}, 5: {"": {up: 0.3915807, dn: 0.3915807}, stat: {up: 0.11, dn: -0.11}, sys: {up: 0.3, dn: -0.3}, "sys,branching ratio uncertainty": {up: 0.21771, dn: -0.21771}, "sys,luminosity uncertainty": {up: 0.06195000000000001, dn: -0.06195000000000001}}, 6: {"": {up: 0.3987078, dn: 0.3987078}, stat: {up: 0.09, dn: -0.09}, sys: {up: 0.31, dn: -0.31}, "sys,branching ratio uncertainty": {up: 0.22509, dn: -0.22509}, "sys,luminosity uncertainty": {up: 0.06405, dn: -0.06405}}, 7: {"": {up: 0.3505228, dn: 0.3505228}, stat: {up: 0.09, dn: -0.09}, sys: {up: 0.27, dn: -0.27}, "sys,branching ratio uncertainty": {up: 0.1968, dn: -0.1968}, "sys,luminosity uncertainty": {up: 0.056, dn: -0.056}}, 8: {"": {up: 0.2593974, dn: 0.2593974}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.2, dn: -0.2}, "sys,branching ratio uncertainty": {up: 0.14391, dn: -0.14391}, "sys,luminosity uncertainty": {up: 0.04094999999999999, dn: -0.04094999999999999}}, 9: {"": {up: 0.2119113, dn: 0.2119113}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.16, dn: -0.16}, "sys,branching ratio uncertainty": {up: 0.12054, dn: -0.12054}, "sys,luminosity uncertainty": {up: 0.0343, dn: -0.0343}}, 10: {"": {up: 0.1593045, dn: 0.1593045}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.12, dn: -0.12}, "sys,branching ratio uncertainty": {up: 0.08856, dn: -0.08856}, "sys,luminosity uncertainty": {up: 0.0252, dn: -0.0252}}, 11: {"": {up: 0.1593045, dn: 0.1593045}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.12, dn: -0.12}, "sys,branching ratio uncertainty": {up: 0.08856, dn: -0.08856}, "sys,luminosity uncertainty": {up: 0.0252, dn: -0.0252}}, 12: {"": {up: 0.109209, dn: 0.109209}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.08, dn: -0.08}, "sys,branching ratio uncertainty": {up: 0.06027, dn: -0.06027}, "sys,luminosity uncertainty": {up: 0.01715, dn: -0.01715}}, 13: {"": {up: 0.09047014, dn: 0.09047014}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.07000000000000001, dn: -0.07000000000000001}, "sys,branching ratio uncertainty": {up: 0.05166, dn: -0.05166}, "sys,luminosity uncertainty": {up: 0.0147, dn: -0.0147}}, 14: {"": {up: 0.05497386, dn: 0.05497386}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.04, dn: -0.04}, "sys,branching ratio uncertainty": {up: 0.03075, dn: -0.03075}, "sys,luminosity uncertainty": {up: 0.008750000000000001, dn: -0.008750000000000001}}, 15: {"": {up: 0.03406038, dn: 0.03406038}, stat: {up: 0.008999999999999999, dn: -0.008999999999999999}, sys: {up: 0.026, dn: -0.026}, "sys,branching ratio uncertainty": {up: 0.019311, dn: -0.019311}, "sys,luminosity uncertainty": {up: 0.005495, dn: -0.005495}}, 16: {"": {up: 0.01933348, dn: 0.01933348}, stat: {up: 0.005, dn: -0.005}, sys: {up: 0.015, dn: -0.015}, "sys,branching ratio uncertainty": {up: 0.010701, dn: -0.010701}, "sys,luminosity uncertainty": {up: 0.003045, dn: -0.003045}}, 17: {"": {up: 0.005497386, dn: 0.005497386}, stat: {up: 0.002, dn: -0.002}, sys: {up: 0.004, dn: -0.004}, "sys,branching ratio uncertainty": {up: 0.003075, dn: -0.003075}, "sys,luminosity uncertainty": {up: 0.000875, dn: -0.000875}}, 18: {"": {up: 0.0005675572, dn: 0.0005675572}, stat: {up: 0.0003, dn: -0.0003}, sys: {up: 0.0004, dn: -0.0004}, "sys,branching ratio uncertainty": {up: 0.0002583, dn: -0.0002583}, "sys,luminosity uncertainty": {up: 7.35e-05, dn: -7.35e-05}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d03-x01-y04
+Title: doi:10.17182/hepdata.74446.v1/t3
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.000000e+00	1.000000e+00	1.000000e+00	1.300000e+00	4.355896e-01	4.355896e-01
+2.250000e+00	2.500000e-01	2.500000e-01	2.380000e+00	5.409580e-01	5.409580e-01
+2.750000e+00	2.500000e-01	2.500000e-01	2.050000e+00	4.728929e-01	4.728929e-01
+3.250000e+00	2.500000e-01	2.500000e-01	2.360000e+00	5.260088e-01	5.260088e-01
+3.750000e+00	2.500000e-01	2.500000e-01	2.100000e+00	4.704478e-01	4.704478e-01
+4.250000e+00	2.500000e-01	2.500000e-01	1.770000e+00	3.915807e-01	3.915807e-01
+4.750000e+00	2.500000e-01	2.500000e-01	1.830000e+00	3.987078e-01	3.987078e-01
+5.250000e+00	2.500000e-01	2.500000e-01	1.600000e+00	3.505228e-01	3.505228e-01
+5.750000e+00	2.500000e-01	2.500000e-01	1.170000e+00	2.593974e-01	2.593974e-01
+6.250000e+00	2.500000e-01	2.500000e-01	9.800000e-01	2.119113e-01	2.119113e-01
+6.750000e+00	2.500000e-01	2.500000e-01	7.200000e-01	1.593045e-01	1.593045e-01
+7.250000e+00	2.500000e-01	2.500000e-01	7.200000e-01	1.593045e-01	1.593045e-01
+7.750000e+00	2.500000e-01	2.500000e-01	4.900000e-01	1.092090e-01	1.092090e-01
+8.500000e+00	5.000000e-01	5.000000e-01	4.200000e-01	9.047014e-02	9.047014e-02
+9.500000e+00	5.000000e-01	5.000000e-01	2.500000e-01	5.497386e-02	5.497386e-02
+1.075000e+01	7.500000e-01	7.500000e-01	1.570000e-01	3.406038e-02	3.406038e-02
+1.275000e+01	1.250000e+00	1.250000e+00	8.700000e-02	1.933348e-02	1.933348e-02
+1.675000e+01	2.750000e+00	2.750000e+00	2.500000e-02	5.497386e-03	5.497386e-03
+2.975000e+01	1.025000e+01	1.025000e+01	2.100000e-03	5.675572e-04	5.675572e-04
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d03-x01-y05
+ErrorBreakdown: {0: {"": {up: 0.4273247, dn: 0.4273247}, stat: {up: 0.15, dn: -0.15}, sys: {up: 0.38, dn: -0.38}, "sys,branching ratio uncertainty": {up: 0.12054, dn: -0.12054}, "sys,luminosity uncertainty": {up: 0.0343, dn: -0.0343}}, 1: {"": {up: 0.7169158, dn: 0.7169158}, stat: {up: 0.32, dn: -0.32}, sys: {up: 0.59, dn: -0.59}, "sys,branching ratio uncertainty": {up: 0.24231, dn: -0.24231}, "sys,luminosity uncertainty": {up: 0.06895, dn: -0.06895}}, 2: {"": {up: 0.5410072, dn: 0.5410072}, stat: {up: 0.23, dn: -0.23}, sys: {up: 0.45, dn: -0.45}, "sys,branching ratio uncertainty": {up: 0.18573, dn: -0.18573}, "sys,luminosity uncertainty": {up: 0.05285, dn: -0.05285}}, 3: {"": {up: 0.5908109, dn: 0.5908109}, stat: {up: 0.23, dn: -0.23}, sys: {up: 0.5, dn: -0.5}, "sys,branching ratio uncertainty": {up: 0.20664, dn: -0.20664}, "sys,luminosity uncertainty": {up: 0.0588, dn: -0.0588}}, 4: {"": {up: 0.47938, dn: 0.47938}, stat: {up: 0.2, dn: -0.2}, sys: {up: 0.4, dn: -0.4}, "sys,branching ratio uncertainty": {up: 0.16605, dn: -0.16605}, "sys,luminosity uncertainty": {up: 0.04725000000000001, dn: -0.04725000000000001}}, 5: {"": {up: 0.4939051, dn: 0.4939051}, stat: {up: 0.16, dn: -0.16}, sys: {up: 0.43, dn: -0.43}, "sys,branching ratio uncertainty": {up: 0.17589, dn: -0.17589}, "sys,luminosity uncertainty": {up: 0.05005, dn: -0.05005}}, 6: {"": {up: 0.307676, dn: 0.307676}, stat: {up: 0.12, dn: -0.12}, sys: {up: 0.26, dn: -0.26}, "sys,branching ratio uncertainty": {up: 0.10824, dn: -0.10824}, "sys,luminosity uncertainty": {up: 0.0308, dn: -0.0308}}, 7: {"": {up: 0.3921143, dn: 0.3921143}, stat: {up: 0.13, dn: -0.13}, sys: {up: 0.34, dn: -0.34}, "sys,branching ratio uncertainty": {up: 0.14022, dn: -0.14022}, "sys,luminosity uncertainty": {up: 0.0399, dn: -0.0399}}, 8: {"": {up: 0.2803505, dn: 0.2803505}, stat: {up: 0.1, dn: -0.1}, sys: {up: 0.24, dn: -0.24}, "sys,branching ratio uncertainty": {up: 0.10086, dn: -0.10086}, "sys,luminosity uncertainty": {up: 0.0287, dn: -0.0287}}, 9: {"": {up: 0.1686019, dn: 0.1686019}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.14, dn: -0.14}, "sys,branching ratio uncertainty": {up: 0.06027, dn: -0.06027}, "sys,luminosity uncertainty": {up: 0.01715, dn: -0.01715}}, 10: {"": {up: 0.1973034, dn: 0.1973034}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.17, dn: -0.17}, "sys,branching ratio uncertainty": {up: 0.06888000000000001, dn: -0.06888000000000001}, "sys,luminosity uncertainty": {up: 0.0196, dn: -0.0196}}, 11: {"": {up: 0.1944567, dn: 0.1944567}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.17, dn: -0.17}, "sys,branching ratio uncertainty": {up: 0.07010999999999999, dn: -0.07010999999999999}, "sys,luminosity uncertainty": {up: 0.01995, dn: -0.01995}}, 12: {"": {up: 0.0968265, dn: 0.0968265}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.08, dn: -0.08}, "sys,branching ratio uncertainty": {up: 0.03567, dn: -0.03567}, "sys,luminosity uncertainty": {up: 0.01015, dn: -0.01015}}, 13: {"": {up: 0.09168168, dn: 0.09168168}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.08, dn: -0.08}, "sys,branching ratio uncertainty": {up: 0.03198, dn: -0.03198}, "sys,luminosity uncertainty": {up: 0.0091, dn: -0.0091}}, 14: {"": {up: 0.05807435, dn: 0.05807435}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.05, dn: -0.05}, "sys,branching ratio uncertainty": {up: 0.02091, dn: -0.02091}, "sys,luminosity uncertainty": {up: 0.00595, dn: -0.00595}}, 15: {"": {up: 0.03100754, dn: 0.03100754}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.027, dn: -0.027}, "sys,branching ratio uncertainty": {up: 0.01107, dn: -0.01107}, "sys,luminosity uncertainty": {up: 0.00315, dn: -0.00315}}, 16: {"": {up: 0.01401753, dn: 0.01401753}, stat: {up: 0.005, dn: -0.005}, sys: {up: 0.012, dn: -0.012}, "sys,branching ratio uncertainty": {up: 0.005043000000000001, dn: -0.005043000000000001}, "sys,luminosity uncertainty": {up: 0.001435, dn: -0.001435}}, 17: {"": {up: 0.004728105, dn: 0.004728105}, stat: {up: 0.002, dn: -0.002}, sys: {up: 0.004, dn: -0.004}, "sys,branching ratio uncertainty": {up: 0.001476, dn: -0.001476}, "sys,luminosity uncertainty": {up: 0.00042, dn: -0.00042}}, 18: {"": {up: 0.0001503883, dn: 0.0001503883}, stat: {up: 0.0001, dn: -0.0001}, sys: {up: 0.0001, dn: -0.0001}, "sys,branching ratio uncertainty": {up: 4.92e-05, dn: -4.92e-05}, "sys,luminosity uncertainty": {up: 1.4e-05, dn: -1.4e-05}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d03-x01-y05
+Title: doi:10.17182/hepdata.74446.v1/t3
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.000000e+00	1.000000e+00	1.000000e+00	9.800000e-01	4.273247e-01	4.273247e-01
+2.250000e+00	2.500000e-01	2.500000e-01	1.970000e+00	7.169158e-01	7.169158e-01
+2.750000e+00	2.500000e-01	2.500000e-01	1.510000e+00	5.410072e-01	5.410072e-01
+3.250000e+00	2.500000e-01	2.500000e-01	1.680000e+00	5.908109e-01	5.908109e-01
+3.750000e+00	2.500000e-01	2.500000e-01	1.350000e+00	4.793800e-01	4.793800e-01
+4.250000e+00	2.500000e-01	2.500000e-01	1.430000e+00	4.939051e-01	4.939051e-01
+4.750000e+00	2.500000e-01	2.500000e-01	8.800000e-01	3.076760e-01	3.076760e-01
+5.250000e+00	2.500000e-01	2.500000e-01	1.140000e+00	3.921143e-01	3.921143e-01
+5.750000e+00	2.500000e-01	2.500000e-01	8.200000e-01	2.803505e-01	2.803505e-01
+6.250000e+00	2.500000e-01	2.500000e-01	4.900000e-01	1.686019e-01	1.686019e-01
+6.750000e+00	2.500000e-01	2.500000e-01	5.600000e-01	1.973034e-01	1.973034e-01
+7.250000e+00	2.500000e-01	2.500000e-01	5.700000e-01	1.944567e-01	1.944567e-01
+7.750000e+00	2.500000e-01	2.500000e-01	2.900000e-01	9.682650e-02	9.682650e-02
+8.500000e+00	5.000000e-01	5.000000e-01	2.600000e-01	9.168168e-02	9.168168e-02
+9.500000e+00	5.000000e-01	5.000000e-01	1.700000e-01	5.807435e-02	5.807435e-02
+1.075000e+01	7.500000e-01	7.500000e-01	9.000000e-02	3.100754e-02	3.100754e-02
+1.275000e+01	1.250000e+00	1.250000e+00	4.100000e-02	1.401753e-02	1.401753e-02
+1.675000e+01	2.750000e+00	2.750000e+00	1.200000e-02	4.728105e-03	4.728105e-03
+2.975000e+01	1.025000e+01	1.025000e+01	4.000000e-04	1.503883e-04	1.503883e-04
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d04-x01-y01
+ErrorBreakdown: {0: {"": {up: 0.1871427, dn: 0.1871427}, stat: {up: 0.13, dn: -0.13}, sys: {up: 0.13, dn: -0.13}, "sys,branching ratio uncertainty": {up: 0.033, dn: -0.033}, "sys,luminosity uncertainty": {up: 0.01155, dn: -0.01155}}, 1: {"": {up: 0.2617625, dn: 0.2617625}, stat: {up: 0.16, dn: -0.16}, sys: {up: 0.2, dn: -0.2}, "sys,branching ratio uncertainty": {up: 0.051, dn: -0.051}, "sys,luminosity uncertainty": {up: 0.01785, dn: -0.01785}}, 2: {"": {up: 0.3874699, dn: 0.3874699}, stat: {up: 0.2, dn: -0.2}, sys: {up: 0.32, dn: -0.32}, "sys,branching ratio uncertainty": {up: 0.083, dn: -0.083}, "sys,luminosity uncertainty": {up: 0.02905, dn: -0.02905}}, 3: {"": {up: 0.3403628, dn: 0.3403628}, stat: {up: 0.16, dn: -0.16}, sys: {up: 0.29, dn: -0.29}, "sys,branching ratio uncertainty": {up: 0.07400000000000001, dn: -0.07400000000000001}, "sys,luminosity uncertainty": {up: 0.0259, dn: -0.0259}}, 4: {"": {up: 0.2167478, dn: 0.2167478}, stat: {up: 0.11, dn: -0.11}, sys: {up: 0.18, dn: -0.18}, "sys,branching ratio uncertainty": {up: 0.04699999999999999, dn: -0.04699999999999999}, "sys,luminosity uncertainty": {up: 0.01645, dn: -0.01645}}, 5: {"": {up: 0.1888917, dn: 0.1888917}, stat: {up: 0.09, dn: -0.09}, sys: {up: 0.16, dn: -0.16}, "sys,branching ratio uncertainty": {up: 0.042, dn: -0.042}, "sys,luminosity uncertainty": {up: 0.0147, dn: -0.0147}}, 6: {"": {up: 0.1797109, dn: 0.1797109}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.16, dn: -0.16}, "sys,branching ratio uncertainty": {up: 0.04, dn: -0.04}, "sys,luminosity uncertainty": {up: 0.014, dn: -0.014}}, 7: {"": {up: 0.1246757, dn: 0.1246757}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.11, dn: -0.11}, "sys,branching ratio uncertainty": {up: 0.029, dn: -0.029}, "sys,luminosity uncertainty": {up: 0.01015, dn: -0.01015}}, 8: {"": {up: 0.1338292, dn: 0.1338292}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.12, dn: -0.12}, "sys,branching ratio uncertainty": {up: 0.03, dn: -0.03}, "sys,luminosity uncertainty": {up: 0.0105, dn: -0.0105}}, 9: {"": {up: 0.06893883000000001, dn: 0.06893883000000001}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.06, dn: -0.06}, "sys,branching ratio uncertainty": {up: 0.015, dn: -0.015}, "sys,luminosity uncertainty": {up: 0.00525, dn: -0.00525}}, 10: {"": {up: 0.06870233000000001, dn: 0.06870233000000001}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.06, dn: -0.06}, "sys,branching ratio uncertainty": {up: 0.014, dn: -0.014}, "sys,luminosity uncertainty": {up: 0.004900000000000001, dn: -0.004900000000000001}}, 11: {"": {up: 0.03273897, dn: 0.03273897}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.03, dn: -0.03}, "sys,branching ratio uncertainty": {up: 0.008, dn: -0.008}, "sys,luminosity uncertainty": {up: 0.0028, dn: -0.0028}}, 12: {"": {up: 0.02070633, dn: 0.02070633}, stat: {up: 0.008999999999999999, dn: -0.008999999999999999}, sys: {up: 0.018, dn: -0.018}, "sys,branching ratio uncertainty": {up: 0.0046, dn: -0.0046}, "sys,luminosity uncertainty": {up: 0.00161, dn: -0.00161}}, 13: {"": {up: 0.01306856, dn: 0.01306856}, stat: {up: 0.004, dn: -0.004}, sys: {up: 0.012, dn: -0.012}, "sys,branching ratio uncertainty": {up: 0.0031, dn: -0.0031}, "sys,luminosity uncertainty": {up: 0.001085, dn: -0.001085}}, 14: {"": {up: 0.001246757, dn: 0.001246757}, stat: {up: 0.0005, dn: -0.0005}, sys: {up: 0.0011, dn: -0.0011}, "sys,branching ratio uncertainty": {up: 0.0002899999999999999, dn: -0.0002899999999999999}, "sys,luminosity uncertainty": {up: 0.0001015, dn: -0.0001015}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d04-x01-y01
+Title: doi:10.17182/hepdata.74446.v1/t4
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+5.000000e-01	5.000000e-01	5.000000e-01	3.300000e-01	1.871427e-01	1.871427e-01
+1.500000e+00	5.000000e-01	5.000000e-01	5.100000e-01	2.617625e-01	2.617625e-01
+2.500000e+00	5.000000e-01	5.000000e-01	8.300000e-01	3.874699e-01	3.874699e-01
+3.500000e+00	5.000000e-01	5.000000e-01	7.400000e-01	3.403628e-01	3.403628e-01
+4.500000e+00	5.000000e-01	5.000000e-01	4.700000e-01	2.167478e-01	2.167478e-01
+5.500000e+00	5.000000e-01	5.000000e-01	4.200000e-01	1.888917e-01	1.888917e-01
+6.500000e+00	5.000000e-01	5.000000e-01	4.000000e-01	1.797109e-01	1.797109e-01
+7.500000e+00	5.000000e-01	5.000000e-01	2.900000e-01	1.246757e-01	1.246757e-01
+8.500000e+00	5.000000e-01	5.000000e-01	3.000000e-01	1.338292e-01	1.338292e-01
+9.500000e+00	5.000000e-01	5.000000e-01	1.500000e-01	6.893883e-02	6.893883e-02
+1.050000e+01	5.000000e-01	5.000000e-01	1.400000e-01	6.870233e-02	6.870233e-02
+1.200000e+01	1.000000e+00	1.000000e+00	8.000000e-02	3.273897e-02	3.273897e-02
+1.400000e+01	1.000000e+00	1.000000e+00	4.600000e-02	2.070633e-02	2.070633e-02
+1.700000e+01	2.000000e+00	2.000000e+00	3.100000e-02	1.306856e-02	1.306856e-02
+2.950000e+01	1.050000e+01	1.050000e+01	2.900000e-03	1.246757e-03	1.246757e-03
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d04-x01-y02
+ErrorBreakdown: {0: {"": {up: 0.06118243, dn: 0.06118243}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.04, dn: -0.04}, "sys,branching ratio uncertainty": {up: 0.022, dn: -0.022}, "sys,luminosity uncertainty": {up: 0.0077, dn: -0.0077}}, 1: {"": {up: 0.1371402, dn: 0.1371402}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.1, dn: -0.1}, "sys,branching ratio uncertainty": {up: 0.059, dn: -0.059}, "sys,luminosity uncertainty": {up: 0.02065, dn: -0.02065}}, 2: {"": {up: 0.1595206, dn: 0.1595206}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.12, dn: -0.12}, "sys,branching ratio uncertainty": {up: 0.07400000000000001, dn: -0.07400000000000001}, "sys,luminosity uncertainty": {up: 0.0259, dn: -0.0259}}, 3: {"": {up: 0.1931797, dn: 0.1931797}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.15, dn: -0.15}, "sys,branching ratio uncertainty": {up: 0.09399999999999999, dn: -0.09399999999999999}, "sys,luminosity uncertainty": {up: 0.0329, dn: -0.0329}}, 4: {"": {up: 0.1575731, dn: 0.1575731}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.12, dn: -0.12}, "sys,branching ratio uncertainty": {up: 0.078, dn: -0.078}, "sys,luminosity uncertainty": {up: 0.0273, dn: -0.0273}}, 5: {"": {up: 0.1296722, dn: 0.1296722}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.1, dn: -0.1}, "sys,branching ratio uncertainty": {up: 0.062, dn: -0.062}, "sys,luminosity uncertainty": {up: 0.0217, dn: -0.0217}}, 6: {"": {up: 0.09476076, dn: 0.09476076}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.07000000000000001, dn: -0.07000000000000001}, "sys,branching ratio uncertainty": {up: 0.04699999999999999, dn: -0.04699999999999999}, "sys,luminosity uncertainty": {up: 0.01645, dn: -0.01645}}, 7: {"": {up: 0.06744954, dn: 0.06744954}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.05, dn: -0.05}, "sys,branching ratio uncertainty": {up: 0.032, dn: -0.032}, "sys,luminosity uncertainty": {up: 0.0112, dn: -0.0112}}, 8: {"": {up: 0.04293355, dn: 0.04293355}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.03, dn: -0.03}, "sys,branching ratio uncertainty": {up: 0.022, dn: -0.022}, "sys,luminosity uncertainty": {up: 0.0077, dn: -0.0077}}, 9: {"": {up: 0.04182105, dn: 0.04182105}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.03, dn: -0.03}, "sys,branching ratio uncertainty": {up: 0.02, dn: -0.02}, "sys,luminosity uncertainty": {up: 0.007, dn: -0.007}}, 10: {"": {up: 0.026833, dn: 0.026833}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.02, dn: -0.02}, "sys,branching ratio uncertainty": {up: 0.014, dn: -0.014}, "sys,luminosity uncertainty": {up: 0.004900000000000001, dn: -0.004900000000000001}}, 11: {"": {up: 0.01526894, dn: 0.01526894}, stat: {up: 0.007, dn: -0.007}, sys: {up: 0.011, dn: -0.011}, "sys,branching ratio uncertainty": {up: 0.0075, dn: -0.0075}, "sys,luminosity uncertainty": {up: 0.002625, dn: -0.002625}}, 12: {"": {up: 0.009886966000000001, dn: 0.009886966000000001}, stat: {up: 0.005, dn: -0.005}, sys: {up: 0.007, dn: -0.007}, "sys,branching ratio uncertainty": {up: 0.0046, dn: -0.0046}, "sys,luminosity uncertainty": {up: 0.00161, dn: -0.00161}}, 13: {"": {up: 0.004078836, dn: 0.004078836}, stat: {up: 0.002, dn: -0.002}, sys: {up: 0.003, dn: -0.003}, "sys,branching ratio uncertainty": {up: 0.0018, dn: -0.0018}, "sys,luminosity uncertainty": {up: 0.0006299999999999999, dn: -0.0006299999999999999}}, 14: {"": {up: 0.000469598, dn: 0.000469598}, stat: {up: 0.0003, dn: -0.0003}, sys: {up: 0.0003, dn: -0.0003}, "sys,branching ratio uncertainty": {up: 0.00019, dn: -0.00019}, "sys,luminosity uncertainty": {up: 6.65e-05, dn: -6.65e-05}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d04-x01-y02
+Title: doi:10.17182/hepdata.74446.v1/t4
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+5.000000e-01	5.000000e-01	5.000000e-01	2.200000e-01	6.118243e-02	6.118243e-02
+1.500000e+00	5.000000e-01	5.000000e-01	5.900000e-01	1.371402e-01	1.371402e-01
+2.500000e+00	5.000000e-01	5.000000e-01	7.400000e-01	1.595206e-01	1.595206e-01
+3.500000e+00	5.000000e-01	5.000000e-01	9.400000e-01	1.931797e-01	1.931797e-01
+4.500000e+00	5.000000e-01	5.000000e-01	7.800000e-01	1.575731e-01	1.575731e-01
+5.500000e+00	5.000000e-01	5.000000e-01	6.200000e-01	1.296722e-01	1.296722e-01
+6.500000e+00	5.000000e-01	5.000000e-01	4.700000e-01	9.476076e-02	9.476076e-02
+7.500000e+00	5.000000e-01	5.000000e-01	3.200000e-01	6.744954e-02	6.744954e-02
+8.500000e+00	5.000000e-01	5.000000e-01	2.200000e-01	4.293355e-02	4.293355e-02
+9.500000e+00	5.000000e-01	5.000000e-01	2.000000e-01	4.182105e-02	4.182105e-02
+1.050000e+01	5.000000e-01	5.000000e-01	1.400000e-01	2.683300e-02	2.683300e-02
+1.200000e+01	1.000000e+00	1.000000e+00	7.500000e-02	1.526894e-02	1.526894e-02
+1.400000e+01	1.000000e+00	1.000000e+00	4.600000e-02	9.886966e-03	9.886966e-03
+1.700000e+01	2.000000e+00	2.000000e+00	1.800000e-02	4.078836e-03	4.078836e-03
+2.950000e+01	1.050000e+01	1.050000e+01	1.900000e-03	4.695980e-04	4.695980e-04
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d04-x01-y03
+ErrorBreakdown: {0: {"": {up: 0.06202064, dn: 0.06202064}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.04, dn: -0.04}, "sys,branching ratio uncertainty": {up: 0.024, dn: -0.024}, "sys,luminosity uncertainty": {up: 0.008399999999999999, dn: -0.008399999999999999}}, 1: {"": {up: 0.1440101, dn: 0.1440101}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.11, dn: -0.11}, "sys,branching ratio uncertainty": {up: 0.067, dn: -0.067}, "sys,luminosity uncertainty": {up: 0.02345, dn: -0.02345}}, 2: {"": {up: 0.1581313, dn: 0.1581313}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.12, dn: -0.12}, "sys,branching ratio uncertainty": {up: 0.07900000000000001, dn: -0.07900000000000001}, "sys,luminosity uncertainty": {up: 0.02765, dn: -0.02765}}, 3: {"": {up: 0.1440375, dn: 0.1440375}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.11, dn: -0.11}, "sys,branching ratio uncertainty": {up: 0.07400000000000001, dn: -0.07400000000000001}, "sys,luminosity uncertainty": {up: 0.0259, dn: -0.0259}}, 4: {"": {up: 0.1195732, dn: 0.1195732}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.09, dn: -0.09}, "sys,branching ratio uncertainty": {up: 0.064, dn: -0.064}, "sys,luminosity uncertainty": {up: 0.0224, dn: -0.0224}}, 5: {"": {up: 0.08229862, dn: 0.08229862}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.06, dn: -0.06}, "sys,branching ratio uncertainty": {up: 0.04500000000000001, dn: -0.04500000000000001}, "sys,luminosity uncertainty": {up: 0.01575, dn: -0.01575}}, 6: {"": {up: 0.07146553, dn: 0.07146553}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.05, dn: -0.05}, "sys,branching ratio uncertainty": {up: 0.039, dn: -0.039}, "sys,luminosity uncertainty": {up: 0.01365, dn: -0.01365}}, 7: {"": {up: 0.05308769, dn: 0.05308769}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.04, dn: -0.04}, "sys,branching ratio uncertainty": {up: 0.027, dn: -0.027}, "sys,luminosity uncertainty": {up: 0.00945, dn: -0.00945}}, 8: {"": {up: 0.04236771, dn: 0.04236771}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.03, dn: -0.03}, "sys,branching ratio uncertainty": {up: 0.021, dn: -0.021}, "sys,luminosity uncertainty": {up: 0.00735, dn: -0.00735}}, 9: {"": {up: 0.02805994, dn: 0.02805994}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.02, dn: -0.02}, "sys,branching ratio uncertainty": {up: 0.016, dn: -0.016}, "sys,luminosity uncertainty": {up: 0.0056, dn: -0.0056}}, 10: {"": {up: 0.01705645, dn: 0.01705645}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.01, dn: -0.01}, "sys,branching ratio uncertainty": {up: 0.008999999999999999, dn: -0.008999999999999999}, "sys,luminosity uncertainty": {up: 0.00315, dn: -0.00315}}, 11: {"": {up: 0.01004745, dn: 0.01004745}, stat: {up: 0.005, dn: -0.005}, sys: {up: 0.007, dn: -0.007}, "sys,branching ratio uncertainty": {up: 0.0049, dn: -0.0049}, "sys,luminosity uncertainty": {up: 0.001715, dn: -0.001715}}, 12: {"": {up: 0.004946271, dn: 0.004946271}, stat: {up: 0.003, dn: -0.003}, sys: {up: 0.003, dn: -0.003}, "sys,branching ratio uncertainty": {up: 0.0024, dn: -0.0024}, "sys,luminosity uncertainty": {up: 0.00084, dn: -0.00084}}, 13: {"": {up: 0.003145954, dn: 0.003145954}, stat: {up: 0.002, dn: -0.002}, sys: {up: 0.002, dn: -0.002}, "sys,branching ratio uncertainty": {up: 0.0013, dn: -0.0013}, "sys,luminosity uncertainty": {up: 0.0004549999999999999, dn: -0.0004549999999999999}}, 14: {"": {up: 0.0003059122, dn: 0.0003059122}, stat: {up: 0.0002, dn: -0.0002}, sys: {up: 0.0002, dn: -0.0002}, "sys,branching ratio uncertainty": {up: 0.00011, dn: -0.00011}, "sys,luminosity uncertainty": {up: 3.850000000000001e-05, dn: -3.850000000000001e-05}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d04-x01-y03
+Title: doi:10.17182/hepdata.74446.v1/t4
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+5.000000e-01	5.000000e-01	5.000000e-01	2.400000e-01	6.202064e-02	6.202064e-02
+1.500000e+00	5.000000e-01	5.000000e-01	6.700000e-01	1.440101e-01	1.440101e-01
+2.500000e+00	5.000000e-01	5.000000e-01	7.900000e-01	1.581313e-01	1.581313e-01
+3.500000e+00	5.000000e-01	5.000000e-01	7.400000e-01	1.440375e-01	1.440375e-01
+4.500000e+00	5.000000e-01	5.000000e-01	6.400000e-01	1.195732e-01	1.195732e-01
+5.500000e+00	5.000000e-01	5.000000e-01	4.500000e-01	8.229862e-02	8.229862e-02
+6.500000e+00	5.000000e-01	5.000000e-01	3.900000e-01	7.146553e-02	7.146553e-02
+7.500000e+00	5.000000e-01	5.000000e-01	2.700000e-01	5.308769e-02	5.308769e-02
+8.500000e+00	5.000000e-01	5.000000e-01	2.100000e-01	4.236771e-02	4.236771e-02
+9.500000e+00	5.000000e-01	5.000000e-01	1.600000e-01	2.805994e-02	2.805994e-02
+1.050000e+01	5.000000e-01	5.000000e-01	9.000000e-02	1.705645e-02	1.705645e-02
+1.200000e+01	1.000000e+00	1.000000e+00	4.900000e-02	1.004745e-02	1.004745e-02
+1.400000e+01	1.000000e+00	1.000000e+00	2.400000e-02	4.946271e-03	4.946271e-03
+1.700000e+01	2.000000e+00	2.000000e+00	1.300000e-02	3.145954e-03	3.145954e-03
+2.950000e+01	1.050000e+01	1.050000e+01	1.100000e-03	3.059122e-04	3.059122e-04
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d04-x01-y04
+ErrorBreakdown: {0: {"": {up: 0.05969665, dn: 0.05969665}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.04, dn: -0.04}, "sys,branching ratio uncertainty": {up: 0.018, dn: -0.018}, "sys,luminosity uncertainty": {up: 0.0063, dn: -0.0063}}, 1: {"": {up: 0.1462722, dn: 0.1462722}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.12, dn: -0.12}, "sys,branching ratio uncertainty": {up: 0.05500000000000001, dn: -0.05500000000000001}, "sys,luminosity uncertainty": {up: 0.01925, dn: -0.01925}}, 2: {"": {up: 0.1625266, dn: 0.1625266}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.14, dn: -0.14}, "sys,branching ratio uncertainty": {up: 0.062, dn: -0.062}, "sys,luminosity uncertainty": {up: 0.0217, dn: -0.0217}}, 3: {"": {up: 0.1383947, dn: 0.1383947}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.12, dn: -0.12}, "sys,branching ratio uncertainty": {up: 0.053, dn: -0.053}, "sys,luminosity uncertainty": {up: 0.01855, dn: -0.01855}}, 4: {"": {up: 0.138828, dn: 0.138828}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.12, dn: -0.12}, "sys,branching ratio uncertainty": {up: 0.05400000000000001, dn: -0.05400000000000001}, "sys,luminosity uncertainty": {up: 0.0189, dn: -0.0189}}, 5: {"": {up: 0.09356687, dn: 0.09356687}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.08, dn: -0.08}, "sys,branching ratio uncertainty": {up: 0.036, dn: -0.036}, "sys,luminosity uncertainty": {up: 0.0126, dn: -0.0126}}, 6: {"": {up: 0.06856793999999999, dn: 0.06856793999999999}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.06, dn: -0.06}, "sys,branching ratio uncertainty": {up: 0.025, dn: -0.025}, "sys,luminosity uncertainty": {up: 0.008750000000000001, dn: -0.008750000000000001}}, 7: {"": {up: 0.04782635, dn: 0.04782635}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.04, dn: -0.04}, "sys,branching ratio uncertainty": {up: 0.016, dn: -0.016}, "sys,luminosity uncertainty": {up: 0.0056, dn: -0.0056}}, 8: {"": {up: 0.03408284, dn: 0.03408284}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.03, dn: -0.03}, "sys,branching ratio uncertainty": {up: 0.012, dn: -0.012}, "sys,luminosity uncertainty": {up: 0.0042, dn: -0.0042}}, 9: {"": {up: 0.02391318, dn: 0.02391318}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.02, dn: -0.02}, "sys,branching ratio uncertainty": {up: 0.008, dn: -0.008}, "sys,luminosity uncertainty": {up: 0.0028, dn: -0.0028}}, 10: {"": {up: 0.01463544, dn: 0.01463544}, stat: {up: 0.008, dn: -0.008}, sys: {up: 0.011, dn: -0.011}, "sys,branching ratio uncertainty": {up: 0.005099999999999999, dn: -0.005099999999999999}, "sys,luminosity uncertainty": {up: 0.001785, dn: -0.001785}}, 11: {"": {up: 0.007682163, dn: 0.007682163}, stat: {up: 0.004, dn: -0.004}, sys: {up: 0.006, dn: -0.006}, "sys,branching ratio uncertainty": {up: 0.0025, dn: -0.0025}, "sys,luminosity uncertainty": {up: 0.000875, dn: -0.000875}}, 12: {"": {up: 0.004460608, dn: 0.004460608}, stat: {up: 0.003, dn: -0.003}, sys: {up: 0.003, dn: -0.003}, "sys,branching ratio uncertainty": {up: 0.0013, dn: -0.0013}, "sys,luminosity uncertainty": {up: 0.0004549999999999999, dn: -0.0004549999999999999}}, 13: {"": {up: 0.001410532, dn: 0.001410532}, stat: {up: 0.001, dn: -0.001}, sys: {up: 0.0009, dn: -0.0009}, "sys,branching ratio uncertainty": {up: 0.0004, dn: -0.0004}, "sys,luminosity uncertainty": {up: 0.00014, dn: -0.00014}}, 14: {"": {up: 0.0001510174, dn: 0.0001510174}, stat: {up: 0.0001, dn: -0.0001}, sys: {up: 0.0001, dn: -0.0001}, "sys,branching ratio uncertainty": {up: 5e-05, dn: -5e-05}, "sys,luminosity uncertainty": {up: 1.75e-05, dn: -1.75e-05}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d04-x01-y04
+Title: doi:10.17182/hepdata.74446.v1/t4
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+5.000000e-01	5.000000e-01	5.000000e-01	1.800000e-01	5.969665e-02	5.969665e-02
+1.500000e+00	5.000000e-01	5.000000e-01	5.500000e-01	1.462722e-01	1.462722e-01
+2.500000e+00	5.000000e-01	5.000000e-01	6.200000e-01	1.625266e-01	1.625266e-01
+3.500000e+00	5.000000e-01	5.000000e-01	5.300000e-01	1.383947e-01	1.383947e-01
+4.500000e+00	5.000000e-01	5.000000e-01	5.400000e-01	1.388280e-01	1.388280e-01
+5.500000e+00	5.000000e-01	5.000000e-01	3.600000e-01	9.356687e-02	9.356687e-02
+6.500000e+00	5.000000e-01	5.000000e-01	2.500000e-01	6.856794e-02	6.856794e-02
+7.500000e+00	5.000000e-01	5.000000e-01	1.600000e-01	4.782635e-02	4.782635e-02
+8.500000e+00	5.000000e-01	5.000000e-01	1.200000e-01	3.408284e-02	3.408284e-02
+9.500000e+00	5.000000e-01	5.000000e-01	8.000000e-02	2.391318e-02	2.391318e-02
+1.050000e+01	5.000000e-01	5.000000e-01	5.100000e-02	1.463544e-02	1.463544e-02
+1.200000e+01	1.000000e+00	1.000000e+00	2.500000e-02	7.682163e-03	7.682163e-03
+1.400000e+01	1.000000e+00	1.000000e+00	1.300000e-02	4.460608e-03	4.460608e-03
+1.700000e+01	2.000000e+00	2.000000e+00	4.000000e-03	1.410532e-03	1.410532e-03
+2.950000e+01	1.050000e+01	1.050000e+01	5.000000e-04	1.510174e-04	1.510174e-04
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d04-x01-y05
+ErrorBreakdown: {0: {"": {up: 0.05967948, dn: 0.05967948}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.03, dn: -0.03}, "sys,branching ratio uncertainty": {up: 0.012, dn: -0.012}, "sys,luminosity uncertainty": {up: 0.0042, dn: -0.0042}}, 1: {"": {up: 0.1033443, dn: 0.1033443}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.07000000000000001, dn: -0.07000000000000001}, "sys,branching ratio uncertainty": {up: 0.028, dn: -0.028}, "sys,luminosity uncertainty": {up: 0.009800000000000001, dn: -0.009800000000000001}}, 2: {"": {up: 0.1119035, dn: 0.1119035}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.08, dn: -0.08}, "sys,branching ratio uncertainty": {up: 0.033, dn: -0.033}, "sys,luminosity uncertainty": {up: 0.01155, dn: -0.01155}}, 3: {"": {up: 0.09955024, dn: 0.09955024}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.08, dn: -0.08}, "sys,branching ratio uncertainty": {up: 0.03, dn: -0.03}, "sys,luminosity uncertainty": {up: 0.0105, dn: -0.0105}}, 4: {"": {up: 0.08181566, dn: 0.08181566}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.06, dn: -0.06}, "sys,branching ratio uncertainty": {up: 0.023, dn: -0.023}, "sys,luminosity uncertainty": {up: 0.00805, dn: -0.00805}}, 5: {"": {up: 0.06814169, dn: 0.06814169}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.05, dn: -0.05}, "sys,branching ratio uncertainty": {up: 0.022, dn: -0.022}, "sys,luminosity uncertainty": {up: 0.0077, dn: -0.0077}}, 6: {"": {up: 0.06134892, dn: 0.06134892}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.05, dn: -0.05}, "sys,branching ratio uncertainty": {up: 0.018, dn: -0.018}, "sys,luminosity uncertainty": {up: 0.0063, dn: -0.0063}}, 7: {"": {up: 0.0382314, dn: 0.0382314}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.03, dn: -0.03}, "sys,branching ratio uncertainty": {up: 0.012, dn: -0.012}, "sys,luminosity uncertainty": {up: 0.0042, dn: -0.0042}}, 8: {"": {up: 0.01550516, dn: 0.01550516}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.01, dn: -0.01}, "sys,branching ratio uncertainty": {up: 0.005999999999999999, dn: -0.005999999999999999}, "sys,luminosity uncertainty": {up: 0.0021, dn: -0.0021}}, 9: {"": {up: 0.01476347, dn: 0.01476347}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.01, dn: -0.01}, "sys,branching ratio uncertainty": {up: 0.004, dn: -0.004}, "sys,luminosity uncertainty": {up: 0.0014, dn: -0.0014}}, 10: {"": {up: 0.009646358000000001, dn: 0.009646358000000001}, stat: {up: 0.008, dn: -0.008}, sys: {up: 0.005, dn: -0.005}, "sys,branching ratio uncertainty": {up: 0.0019, dn: -0.0019}, "sys,luminosity uncertainty": {up: 0.0006649999999999999, dn: -0.0006649999999999999}}, 11: {"": {up: 0.003703836, dn: 0.003703836}, stat: {up: 0.003, dn: -0.003}, sys: {up: 0.002, dn: -0.002}, "sys,branching ratio uncertainty": {up: 0.0008, dn: -0.0008}, "sys,luminosity uncertainty": {up: 0.00028, dn: -0.00028}}, 12: {"": {up: 0.003681036, dn: 0.003681036}, stat: {up: 0.003, dn: -0.003}, sys: {up: 0.002, dn: -0.002}, "sys,branching ratio uncertainty": {up: 0.0007000000000000001, dn: -0.0007000000000000001}, "sys,luminosity uncertainty": {up: 0.000245, dn: -0.000245}}, 13: {"": {up: 0.0009084361999999999, dn: 0.0009084361999999999}, stat: {up: 0.0008, dn: -0.0008}, sys: {up: 0.0004, dn: -0.0004}, "sys,branching ratio uncertainty": {up: 0.00015, dn: -0.00015}, "sys,luminosity uncertainty": {up: 5.25e-05, dn: -5.25e-05}}, 14: {"": {up: 0.0001542524, dn: 0.0001542524}, stat: {up: 0.00014, dn: -0.00014}, sys: {up: 6e-05, dn: -6e-05}, "sys,branching ratio uncertainty": {up: 2.3e-05, dn: -2.3e-05}, "sys,luminosity uncertainty": {up: 8.049999999999999e-06, dn: -8.049999999999999e-06}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d04-x01-y05
+Title: doi:10.17182/hepdata.74446.v1/t4
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+5.000000e-01	5.000000e-01	5.000000e-01	1.200000e-01	5.967948e-02	5.967948e-02
+1.500000e+00	5.000000e-01	5.000000e-01	2.800000e-01	1.033443e-01	1.033443e-01
+2.500000e+00	5.000000e-01	5.000000e-01	3.300000e-01	1.119035e-01	1.119035e-01
+3.500000e+00	5.000000e-01	5.000000e-01	3.000000e-01	9.955024e-02	9.955024e-02
+4.500000e+00	5.000000e-01	5.000000e-01	2.300000e-01	8.181566e-02	8.181566e-02
+5.500000e+00	5.000000e-01	5.000000e-01	2.200000e-01	6.814169e-02	6.814169e-02
+6.500000e+00	5.000000e-01	5.000000e-01	1.800000e-01	6.134892e-02	6.134892e-02
+7.500000e+00	5.000000e-01	5.000000e-01	1.200000e-01	3.823140e-02	3.823140e-02
+8.500000e+00	5.000000e-01	5.000000e-01	6.000000e-02	1.550516e-02	1.550516e-02
+9.500000e+00	5.000000e-01	5.000000e-01	4.000000e-02	1.476347e-02	1.476347e-02
+1.050000e+01	5.000000e-01	5.000000e-01	1.900000e-02	9.646358e-03	9.646358e-03
+1.200000e+01	1.000000e+00	1.000000e+00	8.000000e-03	3.703836e-03	3.703836e-03
+1.400000e+01	1.000000e+00	1.000000e+00	7.000000e-03	3.681036e-03	3.681036e-03
+1.700000e+01	2.000000e+00	2.000000e+00	1.500000e-03	9.084362e-04	9.084362e-04
+2.950000e+01	1.050000e+01	1.050000e+01	2.300000e-04	1.542524e-04	1.542524e-04
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d05-x01-y01
+ErrorBreakdown: {0: {"": {up: 0.1166886, dn: 0.1166886}, stat: {up: 0.09, dn: -0.09}, sys: {up: 0.06, dn: -0.06}, "sys,branching ratio uncertainty": {up: 0.03003, dn: -0.03003}, "sys,luminosity uncertainty": {up: 0.03185, dn: -0.03185}}, 1: {"": {up: 0.2784048, dn: 0.2784048}, stat: {up: 0.14, dn: -0.14}, sys: {up: 0.19, dn: -0.19}, "sys,branching ratio uncertainty": {up: 0.10131, dn: -0.10131}, "sys,luminosity uncertainty": {up: 0.10745, dn: -0.10745}}, 2: {"": {up: 0.3833134, dn: 0.3833134}, stat: {up: 0.15, dn: -0.15}, sys: {up: 0.28, dn: -0.28}, "sys,branching ratio uncertainty": {up: 0.14718, dn: -0.14718}, "sys,luminosity uncertainty": {up: 0.1561, dn: -0.1561}}, 3: {"": {up: 0.492248, dn: 0.492248}, stat: {up: 0.16, dn: -0.16}, sys: {up: 0.38, dn: -0.38}, "sys,branching ratio uncertainty": {up: 0.18447, dn: -0.18447}, "sys,luminosity uncertainty": {up: 0.19565, dn: -0.19565}}, 4: {"": {up: 0.5094359000000001, dn: 0.5094359000000001}, stat: {up: 0.16, dn: -0.16}, sys: {up: 0.38, dn: -0.38}, "sys,branching ratio uncertainty": {up: 0.20526, dn: -0.20526}, "sys,luminosity uncertainty": {up: 0.2177, dn: -0.2177}}, 5: {"": {up: 0.5124179, dn: 0.5124179}, stat: {up: 0.15, dn: -0.15}, sys: {up: 0.38, dn: -0.38}, "sys,branching ratio uncertainty": {up: 0.21219, dn: -0.21219}, "sys,luminosity uncertainty": {up: 0.22505, dn: -0.22505}}, 6: {"": {up: 0.4942447, dn: 0.4942447}, stat: {up: 0.14, dn: -0.14}, sys: {up: 0.36, dn: -0.36}, "sys,branching ratio uncertainty": {up: 0.21153, dn: -0.21153}, "sys,luminosity uncertainty": {up: 0.22435, dn: -0.22435}}, 7: {"": {up: 0.4405758, dn: 0.4405758}, stat: {up: 0.12, dn: -0.12}, sys: {up: 0.32, dn: -0.32}, "sys,branching ratio uncertainty": {up: 0.19074, dn: -0.19074}, "sys,luminosity uncertainty": {up: 0.2023, dn: -0.2023}}, 8: {"": {up: 0.4051876, dn: 0.4051876}, stat: {up: 0.11, dn: -0.11}, sys: {up: 0.29, dn: -0.29}, "sys,branching ratio uncertainty": {up: 0.17886, dn: -0.17886}, "sys,luminosity uncertainty": {up: 0.1897, dn: -0.1897}}, 9: {"": {up: 0.3605963, dn: 0.3605963}, stat: {up: 0.1, dn: -0.1}, sys: {up: 0.26, dn: -0.26}, "sys,branching ratio uncertainty": {up: 0.15708, dn: -0.15708}, "sys,luminosity uncertainty": {up: 0.1666, dn: -0.1666}}, 10: {"": {up: 0.3193956, dn: 0.3193956}, stat: {up: 0.09, dn: -0.09}, sys: {up: 0.23, dn: -0.23}, "sys,branching ratio uncertainty": {up: 0.13893, dn: -0.13893}, "sys,luminosity uncertainty": {up: 0.14735, dn: -0.14735}}, 11: {"": {up: 0.2794256, dn: 0.2794256}, stat: {up: 0.08, dn: -0.08}, sys: {up: 0.2, dn: -0.2}, "sys,branching ratio uncertainty": {up: 0.1221, dn: -0.1221}, "sys,luminosity uncertainty": {up: 0.1295, dn: -0.1295}}, 12: {"": {up: 0.2463739, dn: 0.2463739}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.18, dn: -0.18}, "sys,branching ratio uncertainty": {up: 0.10494, dn: -0.10494}, "sys,luminosity uncertainty": {up: 0.1113, dn: -0.1113}}, 13: {"": {up: 0.2037226, dn: 0.2037226}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.15, dn: -0.15}, "sys,branching ratio uncertainty": {up: 0.08513999999999999, dn: -0.08513999999999999}, "sys,luminosity uncertainty": {up: 0.09030000000000001, dn: -0.09030000000000001}}, 14: {"": {up: 0.1836048, dn: 0.1836048}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.14, dn: -0.14}, "sys,branching ratio uncertainty": {up: 0.07392000000000001, dn: -0.07392000000000001}, "sys,luminosity uncertainty": {up: 0.07840000000000001, dn: -0.07840000000000001}}, 15: {"": {up: 0.160591, dn: 0.160591}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.12, dn: -0.12}, "sys,branching ratio uncertainty": {up: 0.06467999999999999, dn: -0.06467999999999999}, "sys,luminosity uncertainty": {up: 0.06859999999999999, dn: -0.06859999999999999}}, 16: {"": {up: 0.1320985, dn: 0.1320985}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.1, dn: -0.1}, "sys,branching ratio uncertainty": {up: 0.05247, dn: -0.05247}, "sys,luminosity uncertainty": {up: 0.05565000000000001, dn: -0.05565000000000001}}, 17: {"": {up: 0.1195845, dn: 0.1195845}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.09, dn: -0.09}, "sys,branching ratio uncertainty": {up: 0.04652999999999999, dn: -0.04652999999999999}, "sys,luminosity uncertainty": {up: 0.04935, dn: -0.04935}}, 18: {"": {up: 0.09441249, dn: 0.09441249}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.07000000000000001, dn: -0.07000000000000001}, "sys,branching ratio uncertainty": {up: 0.03827999999999999, dn: -0.03827999999999999}, "sys,luminosity uncertainty": {up: 0.0406, dn: -0.0406}}, 19: {"": {up: 0.08116887, dn: 0.08116887}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.06, dn: -0.06}, "sys,branching ratio uncertainty": {up: 0.03135, dn: -0.03135}, "sys,luminosity uncertainty": {up: 0.03325, dn: -0.03325}}, 20: {"": {up: 0.0659103, dn: 0.0659103}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.05, dn: -0.05}, "sys,branching ratio uncertainty": {up: 0.02607, dn: -0.02607}, "sys,luminosity uncertainty": {up: 0.02765, dn: -0.02765}}, 21: {"": {up: 0.05088715, dn: 0.05088715}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.04, dn: -0.04}, "sys,branching ratio uncertainty": {up: 0.02046, dn: -0.02046}, "sys,luminosity uncertainty": {up: 0.0217, dn: -0.0217}}, 22: {"": {up: 0.03859589, dn: 0.03859589}, stat: {up: 0.01, dn: -0.01}, sys: {up: 0.03, dn: -0.03}, "sys,branching ratio uncertainty": {up: 0.01518, dn: -0.01518}, "sys,luminosity uncertainty": {up: 0.0161, dn: -0.0161}}, 23: {"": {up: 0.02814989, dn: 0.02814989}, stat: {up: 0.008, dn: -0.008}, sys: {up: 0.022, dn: -0.022}, "sys,branching ratio uncertainty": {up: 0.010725, dn: -0.010725}, "sys,luminosity uncertainty": {up: 0.011375, dn: -0.011375}}, 24: {"": {up: 0.01514119, dn: 0.01514119}, stat: {up: 0.004, dn: -0.004}, sys: {up: 0.012, dn: -0.012}, "sys,branching ratio uncertainty": {up: 0.005708999999999999, dn: -0.005708999999999999}, "sys,luminosity uncertainty": {up: 0.006055, dn: -0.006055}}, 25: {"": {up: 0.005789489, dn: 0.005789489}, stat: {up: 0.001, dn: -0.001}, sys: {up: 0.005, dn: -0.005}, "sys,branching ratio uncertainty": {up: 0.001881, dn: -0.001881}, "sys,luminosity uncertainty": {up: 0.001995, dn: -0.001995}}, 26: {"": {up: 0.0007639742, dn: 0.0007639742}, stat: {up: 0.0003, dn: -0.0003}, sys: {up: 0.0005999999999999999, dn: -0.0005999999999999999}, "sys,branching ratio uncertainty": {up: 0.0002508, dn: -0.0002508}, "sys,luminosity uncertainty": {up: 0.000266, dn: -0.000266}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d05-x01-y01
+Title: doi:10.17182/hepdata.74446.v1/t5
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+2.500000e-01	2.500000e-01	2.500000e-01	9.100000e-01	1.166886e-01	1.166886e-01
+7.500000e-01	2.500000e-01	2.500000e-01	3.070000e+00	2.784048e-01	2.784048e-01
+1.250000e+00	2.500000e-01	2.500000e-01	4.460000e+00	3.833134e-01	3.833134e-01
+1.750000e+00	2.500000e-01	2.500000e-01	5.590000e+00	4.922480e-01	4.922480e-01
+2.250000e+00	2.500000e-01	2.500000e-01	6.220000e+00	5.094359e-01	5.094359e-01
+2.750000e+00	2.500000e-01	2.500000e-01	6.430000e+00	5.124179e-01	5.124179e-01
+3.250000e+00	2.500000e-01	2.500000e-01	6.410000e+00	4.942447e-01	4.942447e-01
+3.750000e+00	2.500000e-01	2.500000e-01	5.780000e+00	4.405758e-01	4.405758e-01
+4.250000e+00	2.500000e-01	2.500000e-01	5.420000e+00	4.051876e-01	4.051876e-01
+4.750000e+00	2.500000e-01	2.500000e-01	4.760000e+00	3.605963e-01	3.605963e-01
+5.250000e+00	2.500000e-01	2.500000e-01	4.210000e+00	3.193956e-01	3.193956e-01
+5.750000e+00	2.500000e-01	2.500000e-01	3.700000e+00	2.794256e-01	2.794256e-01
+6.250000e+00	2.500000e-01	2.500000e-01	3.180000e+00	2.463739e-01	2.463739e-01
+6.750000e+00	2.500000e-01	2.500000e-01	2.580000e+00	2.037226e-01	2.037226e-01
+7.250000e+00	2.500000e-01	2.500000e-01	2.240000e+00	1.836048e-01	1.836048e-01
+7.750000e+00	2.500000e-01	2.500000e-01	1.960000e+00	1.605910e-01	1.605910e-01
+8.250000e+00	2.500000e-01	2.500000e-01	1.590000e+00	1.320985e-01	1.320985e-01
+8.750000e+00	2.500000e-01	2.500000e-01	1.410000e+00	1.195845e-01	1.195845e-01
+9.250000e+00	2.500000e-01	2.500000e-01	1.160000e+00	9.441249e-02	9.441249e-02
+9.750000e+00	2.500000e-01	2.500000e-01	9.500000e-01	8.116887e-02	8.116887e-02
+1.025000e+01	2.500000e-01	2.500000e-01	7.900000e-01	6.591030e-02	6.591030e-02
+1.100000e+01	5.000000e-01	5.000000e-01	6.200000e-01	5.088715e-02	5.088715e-02
+1.200000e+01	5.000000e-01	5.000000e-01	4.600000e-01	3.859589e-02	3.859589e-02
+1.325000e+01	7.500000e-01	7.500000e-01	3.250000e-01	2.814989e-02	2.814989e-02
+1.525000e+01	1.250000e+00	1.250000e+00	1.730000e-01	1.514119e-02	1.514119e-02
+2.000000e+01	3.500000e+00	3.500000e+00	5.700000e-02	5.789489e-03	5.789489e-03
+3.175000e+01	8.250000e+00	8.250000e+00	7.600000e-03	7.639742e-04	7.639742e-04
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d06-x01-y01
+ErrorBreakdown: {0: {"": {up: 0.9763953, dn: 0.9763953}, stat: {up: 0.18, dn: -0.18}, sys: {up: 0.86, dn: -0.86}, "sys,branching ratio uncertainty": {up: 0.4095900000000001, dn: -0.4095900000000001}, "sys,luminosity uncertainty": {up: 0.11655, dn: -0.11655}}, 1: {"": {up: 1.122841, dn: 1.122841}, stat: {up: 0.43, dn: -0.43}, sys: {up: 0.61, dn: -0.61}, "sys,branching ratio uncertainty": {up: 0.8068799999999999, dn: -0.8068799999999999}, "sys,luminosity uncertainty": {up: 0.2296, dn: -0.2296}}, 2: {"": {up: 0.9976601, dn: 0.9976601}, stat: {up: 0.36, dn: -0.36}, sys: {up: 0.53, dn: -0.53}, "sys,branching ratio uncertainty": {up: 0.7355400000000001, dn: -0.7355400000000001}, "sys,luminosity uncertainty": {up: 0.2093, dn: -0.2093}}, 3: {"": {up: 0.988655, dn: 0.988655}, stat: {up: 0.3, dn: -0.3}, sys: {up: 0.53, dn: -0.53}, "sys,branching ratio uncertainty": {up: 0.74907, dn: -0.74907}, "sys,luminosity uncertainty": {up: 0.21315, dn: -0.21315}}, 4: {"": {up: 0.905572, dn: 0.905572}, stat: {up: 0.26, dn: -0.26}, sys: {up: 0.48, dn: -0.48}, "sys,branching ratio uncertainty": {up: 0.6949500000000001, dn: -0.6949500000000001}, "sys,luminosity uncertainty": {up: 0.19775, dn: -0.19775}}, 5: {"": {up: 0.8566208, dn: 0.8566208}, stat: {up: 0.24, dn: -0.24}, sys: {up: 0.46, dn: -0.46}, "sys,branching ratio uncertainty": {up: 0.65559, dn: -0.65559}, "sys,luminosity uncertainty": {up: 0.18655, dn: -0.18655}}, 6: {"": {up: 0.7633757, dn: 0.7633757}, stat: {up: 0.21, dn: -0.21}, sys: {up: 0.41, dn: -0.41}, "sys,branching ratio uncertainty": {up: 0.58548, dn: -0.58548}, "sys,luminosity uncertainty": {up: 0.1666, dn: -0.1666}}, 7: {"": {up: 0.728676, dn: 0.728676}, stat: {up: 0.18, dn: -0.18}, sys: {up: 0.4, dn: -0.4}, "sys,branching ratio uncertainty": {up: 0.55965, dn: -0.55965}, "sys,luminosity uncertainty": {up: 0.15925, dn: -0.15925}}, 8: {"": {up: 0.5509237, dn: 0.5509237}, stat: {up: 0.15, dn: -0.15}, sys: {up: 0.29, dn: -0.29}, "sys,branching ratio uncertainty": {up: 0.42681, dn: -0.42681}, "sys,luminosity uncertainty": {up: 0.12145, dn: -0.12145}}, 9: {"": {up: 0.4579687, dn: 0.4579687}, stat: {up: 0.12, dn: -0.12}, sys: {up: 0.25, dn: -0.25}, "sys,branching ratio uncertainty": {up: 0.35055, dn: -0.35055}, "sys,luminosity uncertainty": {up: 0.09975000000000001, dn: -0.09975000000000001}}, 10: {"": {up: 0.4422595, dn: 0.4422595}, stat: {up: 0.11, dn: -0.11}, sys: {up: 0.25, dn: -0.25}, "sys,branching ratio uncertainty": {up: 0.33456, dn: -0.33456}, "sys,luminosity uncertainty": {up: 0.09520000000000001, dn: -0.09520000000000001}}, 11: {"": {up: 0.3636259, dn: 0.3636259}, stat: {up: 0.09, dn: -0.09}, sys: {up: 0.19, dn: -0.19}, "sys,branching ratio uncertainty": {up: 0.28536, dn: -0.28536}, "sys,luminosity uncertainty": {up: 0.08119999999999999, dn: -0.08119999999999999}}, 12: {"": {up: 0.2858941, dn: 0.2858941}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.16, dn: -0.16}, "sys,branching ratio uncertainty": {up: 0.21771, dn: -0.21771}, "sys,luminosity uncertainty": {up: 0.06195000000000001, dn: -0.06195000000000001}}, 13: {"": {up: 0.2406695, dn: 0.2406695}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.14, dn: -0.14}, "sys,branching ratio uncertainty": {up: 0.18204, dn: -0.18204}, "sys,luminosity uncertainty": {up: 0.0518, dn: -0.0518}}, 14: {"": {up: 0.1701469, dn: 0.1701469}, stat: {up: 0.04, dn: -0.04}, sys: {up: 0.1, dn: -0.1}, "sys,branching ratio uncertainty": {up: 0.12669, dn: -0.12669}, "sys,luminosity uncertainty": {up: 0.03605, dn: -0.03605}}, 15: {"": {up: 0.1163789, dn: 0.1163789}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.07000000000000001, dn: -0.07000000000000001}, "sys,branching ratio uncertainty": {up: 0.08733, dn: -0.08733}, "sys,luminosity uncertainty": {up: 0.02485, dn: -0.02485}}, 16: {"": {up: 0.05534289, dn: 0.05534289}, stat: {up: 0.008999999999999999, dn: -0.008999999999999999}, sys: {up: 0.032, dn: -0.032}, "sys,branching ratio uncertainty": {up: 0.042558, dn: -0.042558}, "sys,luminosity uncertainty": {up: 0.01211, dn: -0.01211}}, 17: {"": {up: 0.02098884, dn: 0.02098884}, stat: {up: 0.004, dn: -0.004}, sys: {up: 0.013, dn: -0.013}, "sys,branching ratio uncertainty": {up: 0.015375, dn: -0.015375}, "sys,luminosity uncertainty": {up: 0.004375, dn: -0.004375}}, 18: {"": {up: 0.002118285, dn: 0.002118285}, stat: {up: 0.0005, dn: -0.0005}, sys: {up: 0.0014, dn: -0.0014}, "sys,branching ratio uncertainty": {up: 0.0014514, dn: -0.0014514}, "sys,luminosity uncertainty": {up: 0.000413, dn: -0.000413}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d06-x01-y01
+Title: doi:10.17182/hepdata.74446.v1/t6
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.000000e+00	1.000000e+00	1.000000e+00	3.330000e+00	9.763953e-01	9.763953e-01
+2.250000e+00	2.500000e-01	2.500000e-01	6.560000e+00	1.122841e+00	1.122841e+00
+2.750000e+00	2.500000e-01	2.500000e-01	5.980000e+00	9.976601e-01	9.976601e-01
+3.250000e+00	2.500000e-01	2.500000e-01	6.090000e+00	9.886550e-01	9.886550e-01
+3.750000e+00	2.500000e-01	2.500000e-01	5.650000e+00	9.055720e-01	9.055720e-01
+4.250000e+00	2.500000e-01	2.500000e-01	5.330000e+00	8.566208e-01	8.566208e-01
+4.750000e+00	2.500000e-01	2.500000e-01	4.760000e+00	7.633757e-01	7.633757e-01
+5.250000e+00	2.500000e-01	2.500000e-01	4.550000e+00	7.286760e-01	7.286760e-01
+5.750000e+00	2.500000e-01	2.500000e-01	3.470000e+00	5.509237e-01	5.509237e-01
+6.250000e+00	2.500000e-01	2.500000e-01	2.850000e+00	4.579687e-01	4.579687e-01
+6.750000e+00	2.500000e-01	2.500000e-01	2.720000e+00	4.422595e-01	4.422595e-01
+7.250000e+00	2.500000e-01	2.500000e-01	2.320000e+00	3.636259e-01	3.636259e-01
+7.750000e+00	2.500000e-01	2.500000e-01	1.770000e+00	2.858941e-01	2.858941e-01
+8.500000e+00	5.000000e-01	5.000000e-01	1.480000e+00	2.406695e-01	2.406695e-01
+9.500000e+00	5.000000e-01	5.000000e-01	1.030000e+00	1.701469e-01	1.701469e-01
+1.075000e+01	7.500000e-01	7.500000e-01	7.100000e-01	1.163789e-01	1.163789e-01
+1.275000e+01	1.250000e+00	1.250000e+00	3.460000e-01	5.534289e-02	5.534289e-02
+1.675000e+01	2.750000e+00	2.750000e+00	1.250000e-01	2.098884e-02	2.098884e-02
+2.975000e+01	1.025000e+01	1.025000e+01	1.180000e-02	2.118285e-03	2.118285e-03
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d07-x01-y01
+ErrorBreakdown: {0: {"": {up: 0.1108854, dn: 0.1108854}, stat: {up: 0.08, dn: -0.08}, sys: {up: 0.05, dn: -0.05}, "sys,branching ratio uncertainty": {up: 0.05500000000000001, dn: -0.05500000000000001}, "sys,luminosity uncertainty": {up: 0.01925, dn: -0.01925}}, 1: {"": {up: 0.2082553, dn: 0.2082553}, stat: {up: 0.1, dn: -0.1}, sys: {up: 0.12, dn: -0.12}, "sys,branching ratio uncertainty": {up: 0.13, dn: -0.13}, "sys,luminosity uncertainty": {up: 0.04550000000000001, dn: -0.04550000000000001}}, 2: {"": {up: 0.2548168, dn: 0.2548168}, stat: {up: 0.12, dn: -0.12}, sys: {up: 0.14, dn: -0.14}, "sys,branching ratio uncertainty": {up: 0.166, dn: -0.166}, "sys,luminosity uncertainty": {up: 0.0581, dn: -0.0581}}, 3: {"": {up: 0.2374003, dn: 0.2374003}, stat: {up: 0.1, dn: -0.1}, sys: {up: 0.13, dn: -0.13}, "sys,branching ratio uncertainty": {up: 0.162, dn: -0.162}, "sys,luminosity uncertainty": {up: 0.05670000000000001, dn: -0.05670000000000001}}, 4: {"": {up: 0.1864293, dn: 0.1864293}, stat: {up: 0.07000000000000001, dn: -0.07000000000000001}, sys: {up: 0.1, dn: -0.1}, "sys,branching ratio uncertainty": {up: 0.133, dn: -0.133}, "sys,luminosity uncertainty": {up: 0.04655, dn: -0.04655}}, 5: {"": {up: 0.1480155, dn: 0.1480155}, stat: {up: 0.06, dn: -0.06}, sys: {up: 0.08, dn: -0.08}, "sys,branching ratio uncertainty": {up: 0.103, dn: -0.103}, "sys,luminosity uncertainty": {up: 0.03605, dn: -0.03605}}, 6: {"": {up: 0.119206, dn: 0.119206}, stat: {up: 0.05, dn: -0.05}, sys: {up: 0.06, dn: -0.06}, "sys,branching ratio uncertainty": {up: 0.08500000000000001, dn: -0.08500000000000001}, "sys,luminosity uncertainty": {up: 0.02975, dn: -0.02975}}, 7: {"": {up: 0.07922178000000001, dn: 0.07922178000000001}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.04, dn: -0.04}, "sys,branching ratio uncertainty": {up: 0.058, dn: -0.058}, "sys,luminosity uncertainty": {up: 0.0203, dn: -0.0203}}, 8: {"": {up: 0.06908735000000001, dn: 0.06908735000000001}, stat: {up: 0.03, dn: -0.03}, sys: {up: 0.04, dn: -0.04}, "sys,branching ratio uncertainty": {up: 0.04500000000000001, dn: -0.04500000000000001}, "sys,luminosity uncertainty": {up: 0.01575, dn: -0.01575}}, 9: {"": {up: 0.04334423, dn: 0.04334423}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.02, dn: -0.02}, "sys,branching ratio uncertainty": {up: 0.031, dn: -0.031}, "sys,luminosity uncertainty": {up: 0.01085, dn: -0.01085}}, 10: {"": {up: 0.03665092, dn: 0.03665092}, stat: {up: 0.02, dn: -0.02}, sys: {up: 0.02, dn: -0.02}, "sys,branching ratio uncertainty": {up: 0.022, dn: -0.022}, "sys,luminosity uncertainty": {up: 0.0077, dn: -0.0077}}, 11: {"": {up: 0.01735791, dn: 0.01735791}, stat: {up: 0.008, dn: -0.008}, sys: {up: 0.008999999999999999, dn: -0.008999999999999999}, "sys,branching ratio uncertainty": {up: 0.0118, dn: -0.0118}, "sys,luminosity uncertainty": {up: 0.004129999999999999, dn: -0.004129999999999999}}, 12: {"": {up: 0.01062565, dn: 0.01062565}, stat: {up: 0.006, dn: -0.006}, sys: {up: 0.005, dn: -0.005}, "sys,branching ratio uncertainty": {up: 0.0068, dn: -0.0068}, "sys,luminosity uncertainty": {up: 0.00238, dn: -0.00238}}, 13: {"": {up: 0.005497638, dn: 0.005497638}, stat: {up: 0.003, dn: -0.003}, sys: {up: 0.003, dn: -0.003}, "sys,branching ratio uncertainty": {up: 0.0033, dn: -0.0033}, "sys,luminosity uncertainty": {up: 0.001155, dn: -0.001155}}, 14: {"": {up: 0.0005497638, dn: 0.0005497638}, stat: {up: 0.0003, dn: -0.0003}, sys: {up: 0.0003, dn: -0.0003}, "sys,branching ratio uncertainty": {up: 0.00033, dn: -0.00033}, "sys,luminosity uncertainty": {up: 0.0001155, dn: -0.0001155}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d07-x01-y01
+Title: doi:10.17182/hepdata.74446.v1/t7
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+5.000000e-01	5.000000e-01	5.000000e-01	5.500000e-01	1.108854e-01	1.108854e-01
+1.500000e+00	5.000000e-01	5.000000e-01	1.300000e+00	2.082553e-01	2.082553e-01
+2.500000e+00	5.000000e-01	5.000000e-01	1.660000e+00	2.548168e-01	2.548168e-01
+3.500000e+00	5.000000e-01	5.000000e-01	1.620000e+00	2.374003e-01	2.374003e-01
+4.500000e+00	5.000000e-01	5.000000e-01	1.330000e+00	1.864293e-01	1.864293e-01
+5.500000e+00	5.000000e-01	5.000000e-01	1.030000e+00	1.480155e-01	1.480155e-01
+6.500000e+00	5.000000e-01	5.000000e-01	8.500000e-01	1.192060e-01	1.192060e-01
+7.500000e+00	5.000000e-01	5.000000e-01	5.800000e-01	7.922178e-02	7.922178e-02
+8.500000e+00	5.000000e-01	5.000000e-01	4.500000e-01	6.908735e-02	6.908735e-02
+9.500000e+00	5.000000e-01	5.000000e-01	3.100000e-01	4.334423e-02	4.334423e-02
+1.050000e+01	5.000000e-01	5.000000e-01	2.200000e-01	3.665092e-02	3.665092e-02
+1.200000e+01	1.000000e+00	1.000000e+00	1.180000e-01	1.735791e-02	1.735791e-02
+1.400000e+01	1.000000e+00	1.000000e+00	6.800000e-02	1.062565e-02	1.062565e-02
+1.700000e+01	2.000000e+00	2.000000e+00	3.300000e-02	5.497638e-03	5.497638e-03
+2.950000e+01	1.050000e+01	1.050000e+01	3.300000e-03	5.497638e-04	5.497638e-04
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d08-x01-y01
+ErrorBreakdown: {0: {"": {up: 2.44253, dn: 2.44253}, stat: {up: 0.39, dn: -0.39}, sys: {up: 2.24, dn: -2.24}, "sys,branching ratio uncertainty": {up: 0.61215, dn: -0.61215}, "sys,luminosity uncertainty": {up: 0.64925, dn: -0.64925}}, 1: {"": {up: 1.491385, dn: 1.491385}, stat: {up: 0.22, dn: -0.22}, sys: {up: 1.1, dn: -1.1}, "sys,branching ratio uncertainty": {up: 0.67419, dn: -0.67419}, "sys,luminosity uncertainty": {up: 0.7150500000000001, dn: -0.7150500000000001}}, 2: {"": {up: 1.191369, dn: 1.191369}, stat: {up: 0.17, dn: -0.17}, sys: {up: 0.85, dn: -0.85}, "sys,branching ratio uncertainty": {up: 0.56067, dn: -0.56067}, "sys,luminosity uncertainty": {up: 0.59465, dn: -0.59465}}, 3: {"": {up: 0.90781, dn: 0.90781}, stat: {up: 0.17, dn: -0.17}, sys: {up: 0.63, dn: -0.63}, "sys,branching ratio uncertainty": {up: 0.4329599999999999, dn: -0.4329599999999999}, "sys,luminosity uncertainty": {up: 0.4591999999999999, dn: -0.4591999999999999}}, 4: {"": {up: 0.6846818, dn: 0.6846818}, stat: {up: 0.2, dn: -0.2}, sys: {up: 0.5, dn: -0.5}, "sys,branching ratio uncertainty": {up: 0.2900699999999999, dn: -0.2900699999999999}, "sys,luminosity uncertainty": {up: 0.30765, dn: -0.30765}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d08-x01-y01
+Title: doi:10.17182/hepdata.74446.v1/t8
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+2.250000e+00	2.500000e-01	2.500000e-01	1.855000e+01	2.442530e+00	2.442530e+00
+2.750000e+00	2.500000e-01	2.500000e-01	2.043000e+01	1.491385e+00	1.491385e+00
+3.250000e+00	2.500000e-01	2.500000e-01	1.699000e+01	1.191369e+00	1.191369e+00
+3.750000e+00	2.500000e-01	2.500000e-01	1.312000e+01	9.078100e-01	9.078100e-01
+4.250000e+00	2.500000e-01	2.500000e-01	8.790000e+00	6.846818e-01	6.846818e-01
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d09-x01-y01
+ErrorBreakdown: {0: {"": {up: 4.251949, dn: 4.251949}, stat: {up: 0.83, dn: -0.83}, sys: {up: 3.55, dn: -3.55}, "sys,branching ratio uncertainty": {up: 2.10453, dn: -2.10453}, "sys,luminosity uncertainty": {up: 0.59885, dn: -0.59885}}, 1: {"": {up: 3.025061, dn: 3.025061}, stat: {up: 0.46, dn: -0.46}, sys: {up: 1.54, dn: -1.54}, "sys,branching ratio uncertainty": {up: 2.46492, dn: -2.46492}, "sys,luminosity uncertainty": {up: 0.7014, dn: -0.7014}}, 2: {"": {up: 2.525364, dn: 2.525364}, stat: {up: 0.32, dn: -0.32}, sys: {up: 1.26, dn: -1.26}, "sys,branching ratio uncertainty": {up: 2.08239, dn: -2.08239}, "sys,luminosity uncertainty": {up: 0.59255, dn: -0.59255}}, 3: {"": {up: 1.932143, dn: 1.932143}, stat: {up: 0.3, dn: -0.3}, sys: {up: 0.9399999999999999, dn: -0.9399999999999999}, "sys,branching ratio uncertainty": {up: 1.59777, dn: -1.59777}, "sys,luminosity uncertainty": {up: 0.4546500000000001, dn: -0.4546500000000001}}, 4: {"": {up: 1.541045, dn: 1.541045}, stat: {up: 0.42, dn: -0.42}, sys: {up: 0.93, dn: -0.93}, "sys,branching ratio uncertainty": {up: 1.11069, dn: -1.11069}, "sys,luminosity uncertainty": {up: 0.3160499999999999, dn: -0.3160499999999999}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d09-x01-y01
+Title: doi:10.17182/hepdata.74446.v1/t9
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+2.250000e+00	2.500000e-01	2.500000e-01	1.711000e+01	4.251949e+00	4.251949e+00
+2.750000e+00	2.500000e-01	2.500000e-01	2.004000e+01	3.025061e+00	3.025061e+00
+3.250000e+00	2.500000e-01	2.500000e-01	1.693000e+01	2.525364e+00	2.525364e+00
+3.750000e+00	2.500000e-01	2.500000e-01	1.299000e+01	1.932143e+00	1.932143e+00
+4.250000e+00	2.500000e-01	2.500000e-01	9.030000e+00	1.541045e+00	1.541045e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/LHCB_2013_I1238809/d10-x01-y01
+ErrorBreakdown: {0: {"": {up: 0.986787, dn: 0.986787}, stat: {up: 0.38, dn: -0.38}, sys: {up: 0.74, dn: -0.74}, "sys,branching ratio uncertainty": {up: 0.501, dn: -0.501}, "sys,luminosity uncertainty": {up: 0.17535, dn: -0.17535}}, 1: {"": {up: 0.7178482, dn: 0.7178482}, stat: {up: 0.17, dn: -0.17}, sys: {up: 0.37, dn: -0.37}, "sys,branching ratio uncertainty": {up: 0.5580000000000001, dn: -0.5580000000000001}, "sys,luminosity uncertainty": {up: 0.1953, dn: -0.1953}}, 2: {"": {up: 0.613777, dn: 0.613777}, stat: {up: 0.12, dn: -0.12}, sys: {up: 0.31, dn: -0.31}, "sys,branching ratio uncertainty": {up: 0.487, dn: -0.487}, "sys,luminosity uncertainty": {up: 0.17045, dn: -0.17045}}, 3: {"": {up: 0.4681465, dn: 0.4681465}, stat: {up: 0.12, dn: -0.12}, sys: {up: 0.25, dn: -0.25}, "sys,branching ratio uncertainty": {up: 0.356, dn: -0.356}, "sys,luminosity uncertainty": {up: 0.1246, dn: -0.1246}}, 4: {"": {up: 0.2998533, dn: 0.2998533}, stat: {up: 0.15, dn: -0.15}, sys: {up: 0.16, dn: -0.16}, "sys,branching ratio uncertainty": {up: 0.193, dn: -0.193}, "sys,luminosity uncertainty": {up: 0.06755, dn: -0.06755}}}
+IsRef: 1
+Path: /REF/LHCB_2013_I1238809/d10-x01-y01
+Title: doi:10.17182/hepdata.74446.v1/t10
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+2.250000e+00	2.500000e-01	2.500000e-01	5.010000e+00	9.867870e-01	9.867870e-01
+2.750000e+00	2.500000e-01	2.500000e-01	5.580000e+00	7.178482e-01	7.178482e-01
+3.250000e+00	2.500000e-01	2.500000e-01	4.870000e+00	6.137770e-01	6.137770e-01
+3.750000e+00	2.500000e-01	2.500000e-01	3.560000e+00	4.681465e-01	4.681465e-01
+4.250000e+00	2.500000e-01	2.500000e-01	1.930000e+00	2.998533e-01	2.998533e-01
+END YODA_SCATTER2D_V2
+
