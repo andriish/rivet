@@ -213,6 +213,10 @@
 	gets very long (report by Michal Kreps, suggestion by Andrii
 	Verbytskyi).
 
+2022-02-01 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add ALICE_2021_I1862793 Xi_c production at 13 TeV
+
 2022-01-31 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add CMS_2011_I878118 J/psi at 7 TeV
