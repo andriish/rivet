@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief xi_c0,+ at 13 TeV
+  /// @brief Xi_c0,+ at 13 TeV
   class ALICE_2021_I1862793 : public Analysis {
   public:
 

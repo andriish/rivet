@@ -1,0 +1,38 @@
+Name: ALICE_2018_I1642729
+Year: 2018
+Summary: $\Xi_c^ 0 $ production at 7 TeV
+Experiment: ALICE
+Collider: LHC
+InspireID: 1642729
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Lett.B 781 (2018) 8-19, 2018
+RunInfo: hadronic events
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+  'Differential cross section in $p_\perp$ for prompt $\Xi_c^0$ production at 7 TeV'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: ALICE:2017dja
+BibTeX: '@article{ALICE:2017dja,
+    author = "Acharya, S. and others",
+    collaboration = "ALICE",
+    title = "{First measurement of $\Xi_{\rm c}^0$ production in pp collisions at $\mathbf{\sqrt{s}}$ = 7 TeV}",
+    eprint = "1712.04242",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-EP-2017-332",
+    doi = "10.1016/j.physletb.2018.03.061",
+    journal = "Phys. Lett. B",
+    volume = "781",
+    pages = "8--19",
+    year = "2018"
+}
+'

@@ -1,0 +1,38 @@
+Name: ALICE_2021_I1863039
+Year: 2021
+Summary:  $\Xi_c^ 0 $ production at 5.02 TeV
+Experiment: ALICE
+Collider: LHC
+InspireID: 1863039
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - JHEP 10 (2021) 159
+RunInfo: hadronic events
+Beams: [p+, p+]
+Energies: [5020]
+Description:
+  'Differential cross section in $p_\perp$ for prompt $\Xi_c^{0}$ production at 5 TeV'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: ALICE:2021psx
+BibTeX: '@article{ALICE:2021psx,
+    author = "Acharya, Shreyasi and others",
+    collaboration = "ALICE",
+    title = "{Measurement of the production cross section of prompt $ {\Xi}_{\mathrm{c}}^0 $ baryons at midrapidity in pp collisions at $ \sqrt{s} $ = 5.02 TeV}",
+    eprint = "2105.05616",
+    archivePrefix = "arXiv",
+    primaryClass = "nucl-ex",
+    reportNumber = "CERN-EP-2021-079",
+    doi = "10.1007/JHEP10(2021)159",
+    journal = "JHEP",
+    volume = "10",
+    pages = "159",
+    year = "2021"
+}
+'

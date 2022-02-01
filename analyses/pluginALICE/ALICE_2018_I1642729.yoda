@@ -1,0 +1,30 @@
+BEGIN YODA_SCATTER2D_V2 /REF/ALICE_2018_I1642729/d01-x01-y01
+ErrorBreakdown: {0: {stat: {dn: -0.512, up: 0.512}, sys: {dn: -0.867, up: 0.867}, 'sys,uncertainty on integrated luminomisty': {dn: -0.07245, up: 0.07245}}, 1: {stat: {dn: -0.167, up: 0.167}, sys: {dn: -0.0879, up: 0.0879}, 'sys,uncertainty on integrated luminomisty': {dn: -0.01267, up: 0.01267}}, 2: {stat: {dn: -0.0474, up: 0.0474}, sys: {dn: -0.0223, up: 0.0223}, 'sys,uncertainty on integrated luminomisty': {dn: -0.00462, up: 0.00462}}, 3: {stat: {dn: -0.0145, up: 0.0145}, sys: {dn: -0.00784, up: 0.00784}, 'sys,uncertainty on integrated luminomisty': {dn: -0.0017884999999999997, up: 0.0017884999999999997}}, 4: {stat: {dn: -0.00504, up: 0.00504}, sys: {dn: -0.00246, up: 0.00246}, 'sys,uncertainty on integrated luminomisty': {dn: -0.000497, up: 0.000497}}}
+IsRef: 1
+Path: /REF/ALICE_2018_I1642729/d01-x01-y01
+Title: doi:10.17182/hepdata.83354.v1/t1
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.500000e+00	5.000000e-01	5.000000e-01	2.070000e+00	1.009496e+00	1.009496e+00
+2.600000e+00	6.000000e-01	6.000000e-01	3.620000e-01	1.891453e-01	1.891453e-01
+3.800000e+00	6.000000e-01	6.000000e-01	1.320000e-01	5.258702e-02	5.258702e-02
+5.200000e+00	8.000000e-01	8.000000e-01	5.110000e-02	1.658054e-02	1.658054e-02
+7.000000e+00	1.000000e+00	1.000000e+00	1.420000e-02	5.630294e-03	5.630294e-03
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ALICE_2018_I1642729/d02-x01-y01
+ErrorBreakdown: {0: {stat: {dn: -0.00296, up: 0.00296}, sys: {dn: -0.00461, up: 0.0046}}, 1: {stat: {dn: -0.00108, up: 0.00108}, sys: {dn: -0.00077, up: 0.000766}}, 2: {stat: {dn: -0.00102, up: 0.00102}, sys: {dn: -0.000534, up: 0.000523}}}
+IsRef: 1
+Path: /REF/ALICE_2018_I1642729/d02-x01-y01
+Title: doi:10.17182/hepdata.83354.v1/t2
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.500000e+00	5.000000e-01	5.000000e-01	1.080000e-02	5.478476e-03	5.470064e-03
+4.000000e+00	2.000000e+00	2.000000e+00	3.460000e-03	1.326386e-03	1.324068e-03
+7.000000e+00	1.000000e+00	1.000000e+00	2.840000e-03	1.151328e-03	1.146267e-03
+END YODA_SCATTER2D_V2
+
+
