@@ -42,7 +42,7 @@ namespace Rivet {
       // loop over onium states
       for( const Particle & p : ufs.particles(Cuts::pid==443 or Cuts::pid==100443)) {
 	// prompt
-	if(p.fromBottom());
+	if(p.fromBottom()) continue;
 	// cuts on rapidity
 	double y = p.absrap();
 	if(y>1.2) continue;
