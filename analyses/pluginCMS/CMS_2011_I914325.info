@@ -1,0 +1,38 @@
+Name: CMS_2011_I914325
+Year: 2011
+Summary: $B_s^0$ production at 7 TeV
+Experiment: CMS
+Collider: LHC
+InspireID: 914325
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 84 (2011) 052008
+RunInfo: hadronic events
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+  'Differential cross section in $p_\perp$ and rapidity for $B^0_s$ production at 7 TeV'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CMS:2011kew
+BibTeX: '@article{CMS:2011kew,
+    author = "Chatrchyan, Serguei and others",
+    collaboration = "CMS",
+    title = "{Measurement of the Strange $B$ Meson Production Cross Section with J/Psi $\phi$ Decays in $pp$ Collisions at $\sqrt{s}=7$ TeV}",
+    eprint = "1106.4048",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-PH-EP-2011-063, CMS-BPH-10-013",
+    doi = "10.1103/PhysRevD.84.052008",
+    journal = "Phys. Rev. D",
+    volume = "84",
+    pages = "052008",
+    year = "2011"
+}
+'

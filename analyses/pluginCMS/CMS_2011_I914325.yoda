@@ -1,0 +1,42 @@
+BEGIN YODA_SCATTER2D_V2 /REF/CMS_2011_I914325/d01-x01-y01
+ErrorBreakdown: {0: {stat: {dn: -0.6, up: 0.6}, sys: {dn: -0.6, up: 0.6}}}
+IsRef: 1
+Path: /REF/CMS_2011_I914325/d01-x01-y01
+Title: doi:10.17182/hepdata.57944.v1/t1
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+2.900000e+01	2.100000e+01	2.100000e+01	6.900000e+00	8.485281e-01	8.485281e-01
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/CMS_2011_I914325/d02-x01-y01
+ErrorBreakdown: {0: {stat: {dn: -0.136, up: 0.136}, sys: {dn: -0.113, up: 0.113}, 'sys,luminosity uncertainty': {dn: -0.04688, up: 0.04688}, 'sys,uncertainty in J/PSI and PHI branching ratios': {dn: -0.016408, up: 0.016408}}, 1: {stat: {dn: -0.035, up: 0.035}, sys: {dn: -0.034, up: 0.034}, 'sys,luminosity uncertainty': {dn: -0.01456, up: 0.01456}, 'sys,uncertainty in J/PSI and PHI branching ratios': {dn: -0.005096, up: 0.005096}}, 2: {stat: {dn: -0.008, up: 0.008}, sys: {dn: -0.008, up: 0.008}, 'sys,luminosity uncertainty': {dn: -0.0034000000000000002, up: 0.0034000000000000002}, 'sys,uncertainty in J/PSI and PHI branching ratios': {dn: -0.00119, up: 0.00119}}, 3: {stat: {dn: -0.001, up: 0.001}, sys: {dn: -0.001, up: 0.001}, 'sys,luminosity uncertainty': {dn: -0.00028000000000000003, up: 0.00028000000000000003}, 'sys,uncertainty in J/PSI and PHI branching ratios': {dn: -9.800000000000001e-05, up: 9.800000000000001e-05}}}
+IsRef: 1
+Path: /REF/CMS_2011_I914325/d02-x01-y01
+Title: doi:10.17182/hepdata.57944.v1/t2
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.000000e+01	2.000000e+00	2.000000e+00	1.172000e+00	1.836626e-01	1.836626e-01
+1.400000e+01	2.000000e+00	2.000000e+00	3.640000e-01	5.117580e-02	5.117580e-02
+1.950000e+01	3.500000e+00	3.500000e+00	8.500000e-02	1.187334e-02	1.187334e-02
+3.650000e+01	1.350000e+01	1.350000e+01	7.000000e-03	1.444993e-03	1.444993e-03
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/CMS_2011_I914325/d03-x01-y01
+ErrorBreakdown: {0: {stat: {dn: -0.147, up: 0.147}, sys: {dn: -0.148, up: 0.148}, 'sys,luminosity uncertainty': {dn: -0.059359999999999996, up: 0.059359999999999996}, 'sys,uncertainty in J/PSI and PHI branching ratios': {dn: -0.020775999999999996, up: 0.020775999999999996}}, 1: {stat: {dn: -0.117, up: 0.117}, sys: {dn: -0.102, up: 0.102}, 'sys,luminosity uncertainty': {dn: -0.04492, up: 0.04492}, 'sys,uncertainty in J/PSI and PHI branching ratios': {dn: -0.015722, up: 0.015722}}, 2: {stat: {dn: -0.19, up: 0.19}, sys: {dn: -0.16, up: 0.16}, 'sys,luminosity uncertainty': {dn: -0.06536, up: 0.06536}, 'sys,uncertainty in J/PSI and PHI branching ratios': {dn: -0.022876, up: 0.022876}}, 3: {stat: {dn: -0.161, up: 0.161}, sys: {dn: -0.139, up: 0.139}, 'sys,luminosity uncertainty': {dn: -0.05264, up: 0.05264}, 'sys,uncertainty in J/PSI and PHI branching ratios': {dn: -0.018424, up: 0.018424}}}
+IsRef: 1
+Path: /REF/CMS_2011_I914325/d03-x01-y01
+Title: doi:10.17182/hepdata.57944.v1/t3
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+4.000000e-01	4.000000e-01	4.000000e-01	1.484000e+00	2.178721e-01	2.178721e-01
+1.100000e+00	3.000000e-01	3.000000e-01	1.123000e+00	1.623514e-01	1.623514e-01
+1.550000e+00	1.500000e-01	1.500000e-01	1.634000e+00	2.578667e-01	2.578667e-01
+2.050000e+00	3.500000e-01	3.500000e-01	1.316000e+00	2.198918e-01	2.198918e-01
+END YODA_SCATTER2D_V2
+
+
