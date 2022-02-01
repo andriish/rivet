@@ -68,6 +68,8 @@ namespace Rivet {
       // Final state of unstable particles to get particle spectra
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::pid==443)) {
+	// prompt
+	if(p.fromBottom()) continue;
       	// pT and rapidity
       	double rapidity = p.rapidity();
       	double xp = p.perp();
