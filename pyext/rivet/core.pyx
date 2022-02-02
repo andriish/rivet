@@ -289,11 +289,19 @@ cdef class ProjectionTreeGenerator:
     def generateProjTreeFromList(self, listOfAnalyses):
         self._ptr.generateProjTree([a.encode('utf-8') for a in listOfAnalyses])
 
-    def saveProjTree(self):
-        self._ptr.saveProjTree()
+    def writeProjTree(self):
+        self._ptr.writeProjTree()
 
     def setPath(self, path):
         self._ptr.setPath(path.encode('utf-8'))
+
+    def getEdges(self):
+        return self._ptr.getEdges()
+    
+    def getProjNames(self):
+        #Intermediate step necesarry because of references (I think? - won't compile in one line)
+        vec = self._ptr.getProjNames()
+        return [v.decode('utf-8') for v in vec]
 
 ## Convenience versions in main rivet namespace
 def analysisNames():

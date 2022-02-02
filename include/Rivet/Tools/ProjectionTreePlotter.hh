@@ -8,6 +8,7 @@
 #ifndef RIVET_RivetProjectionTree_HH
 #define RIVET_RivetProjectionTree_HH
 
+
 namespace Rivet{
 
   /// @brief Class that deals with generating projection trees (for debugging etc.)
@@ -33,8 +34,9 @@ namespace Rivet{
       ///Stores all the projections in the tree
       std::vector<Rivet::ConstProjectionPtr> _projVector;
 
-      ///Stores all the edges: an edge is directional and stored as array<size_t, 2>{start, finish};
-      std::vector<std::array<size_t, 2>> _edgeVector;
+      ///Stores all the edges: an edge is directional and stored as pair<size_t, size_t>{start, finish};
+      ///(switched from array<size_t,2> to pair as cython doesn't wrap std::array)
+      std::vector<std::pair<size_t, size_t>> _edgeVector;
 
       ///Stores the name labels of the projections in _projVector
       std::vector<std::string> _nameVector; //Should be 1<->1 with _projVector;
@@ -60,8 +62,18 @@ namespace Rivet{
       ///Generate a projection tree from the supplied analysishandler
       int generateProjTree(const AnalysisHandler& ah);
 
-      ///Save the projection tree to it's _path file
-      void saveProjTree() const;
+      ///Save the projection tree to the path specifed by _path
+      void writeProjTree() const;
+
+      ///Get the vector of projection names
+      ///TODO: I'd have preferred a pass-by-reference solution but cython wasn't co-operating.
+      inline const std::vector<string>& getProjNames() const{
+        return _nameVector;
+      }
+
+      inline const std::vector<std::pair<size_t, size_t>>& getEdges() const {
+        return _edgeVector;
+      }
 
       /// Get a logger object.
       Log& getLog() const;

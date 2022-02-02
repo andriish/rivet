@@ -42,11 +42,11 @@ public:
 
     //Function used in building the tree.
     //Get children: if they've not already been analysed, push them to the end of the passed-by-reference vector of all projections.
-    void add_children_to_list(std::vector<Rivet::ConstProjectionPtr>& MainProjVector, std::vector<std::array<size_t,2>>& MainEdgeVector, 
+    void add_children_to_list(std::vector<Rivet::ConstProjectionPtr>& MainProjVector, std::vector<std::pair<size_t,size_t>>& MainEdgeVector, 
                                 std::vector<std::string>& nameVector, std::vector<ProjectionTreeNode>& MainNodeVector) const {
         auto children = getChildren();
         if (children.size() == 0) {_analysed = true; return;}
-        int n_analysed = 0;
+        size_t n_analysed = 0;
         for (Rivet::ConstProjectionPtr child : children){
             auto it = std::find(MainProjVector.begin(), MainProjVector.end(), child);
             // If element was found
@@ -141,7 +141,7 @@ namespace Rivet{
     }
 
 
-    void ProjectionTreeGenerator::saveProjTree() const {
+    void ProjectionTreeGenerator::writeProjTree() const {
         if (!_treeGenerated){
             MSG_WARNING("Trying to save a projection tree that has not yet been generated. Please check your code calls generate first!");
             return;
@@ -170,12 +170,12 @@ namespace Rivet{
             }
         }
         for (const auto & edge : _edgeVector){
-            outfile << edge[0] << "->" << edge[1] << " ;\n";
+            outfile << edge.first << "->" << edge.second << " ;\n";
         }
         outfile << "}";
         outfile.close();
 
-        MSG_INFO("Saved Projection Tree to " << _path << " (use graphviz's dot or similar to produce an image file - e.g. \"dot -Tsvg "<<_path<<" > "<<digraphname<<".svg \")");
+        MSG_INFO("Saved Projection Tree to " << _path << " (use graphviz's dot or similar to produce an image file - e.g. \"dot -Tsvg "<<_path<<" > "<<digraphname<<".svg\")");
     }
     
     Log& ProjectionTreeGenerator::getLog() const {
