@@ -3,10 +3,9 @@
 //Utility to plot the "tree" of projections of a given analysis.
 
 #include "Rivet/Tools/ProjectionTreePlotter.hh"
-
 #include <fstream>
 
-//Small class used to store nodes of the projection tree.
+//Small class used to store nodes of the projection tree during generation.
 //OOP is possibly a bit of overkill but it works and nothing else needs to know about this code, so its fine I hope.
 class ProjectionTreeNode{
 private:

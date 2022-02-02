@@ -50,10 +50,10 @@ namespace Rivet{
       ///Standard constructor
       ProjectionTreeGenerator();
 
-      //Set the path
+      ///Set the path
       void setPath(const std::string& path);
 
-      //Set the title (defaults to last bit of path without '.gv')
+      ///Set the title (defaults to last bit of path without '.gv')
       void setTitle(const std::string& title);
     
       ///Generate the projection tree for the supplied analyses
@@ -71,6 +71,7 @@ namespace Rivet{
         return _nameVector;
       }
 
+      ///Get the vector of edges - format pair<size_t,size_t>(start-index,end-index)
       inline const std::vector<std::pair<size_t, size_t>>& getEdges() const {
         return _edgeVector;
       }
