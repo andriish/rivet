@@ -1,0 +1,38 @@
+Name: CMS_2020_I1738943
+Year: 2020
+Summary: Inclusive $\Lambda_c^+$ production at 5.02 TeV
+Experiment: CMS
+Collider: LHC
+InspireID: 1738943
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Lett.B 803 (2020) 135328
+RunInfo: hadronic events
+Beams: [p+, p+]
+Energies: [5020]
+Description:
+  'Differential cross section in $p_\perp$ for inclusive $\Lambda_c^+$ production at 5.02 TeV.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CMS:2019uws
+BibTeX: '@article{CMS:2019uws,
+    author = "Sirunyan, Albert M and others",
+    collaboration = "CMS",
+    title = "{Production of $\Lambda_\mathrm{c}^+$ baryons in proton-proton and lead-lead collisions at $\sqrt{s_\mathrm{NN}}=$ 5.02 TeV}",
+    eprint = "1906.03322",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CMS-HIN-18-009, CERN-EP-2019-102",
+    doi = "10.1016/j.physletb.2020.135328",
+    journal = "Phys. Lett. B",
+    volume = "803",
+    pages = "135328",
+    year = "2020"
+}
+'

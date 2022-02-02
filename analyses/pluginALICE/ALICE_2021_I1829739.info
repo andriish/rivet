@@ -1,0 +1,39 @@
+Name: ALICE_2021_I1829739
+Year: 2021
+Summary: Prompt $\Lambda_c^+$ production at 5.02 TeV
+Experiment: ALICE
+Collider: LHC
+InspireID: 1829739
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 127 (2021) 202301, 2021. 
+RunInfo: hadronic events
+Beams: [p+, p+]
+Energies: [5020]
+Description:
+  'Differential cross section in $p_\perp$ for prompt $\Lambda_c^+$ production at 5.02 TeV.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: ALICE:2020wfu
+BibTeX: '@article{ALICE:2020wfu,
+    author = "Acharya, Shreyasi and others",
+    collaboration = "ALICE",
+    title = "{$\Lambda^+_c$ Production and Baryon-to-Meson Ratios in pp and p-Pb Collisions at $\sqrt {s_{NN}}$=5.02\,\,TeV at the LHC}",
+    eprint = "2011.06078",
+    archivePrefix = "arXiv",
+    primaryClass = "nucl-ex",
+    reportNumber = "CERN-EP-2020-217",
+    doi = "10.1103/PhysRevLett.127.202301",
+    journal = "Phys. Rev. Lett.",
+    volume = "127",
+    number = "20",
+    pages = "202301",
+    year = "2021"
+}
+'
