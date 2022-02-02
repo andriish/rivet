@@ -60,7 +60,7 @@ namespace Rivet{
       int generateProjTree(const std::vector<std::string>& analyses);
 
       ///Get a projection tree from the supplied analysishandler
-      int generateProjTree(const AnalysisHandler& ah);
+      int getProjTree(const AnalysisHandler& ah);
 
       ///Save the projection tree to the path specifed by _path
       void writeProjTree() const;

@@ -81,12 +81,9 @@ public:
 
 namespace Rivet{
 
-    ProjectionTreeGenerator::ProjectionTreeGenerator(const std::string& name) : _path(name), _edgeVector({}), 
-                                                                                _nameVector({}), _projVector({}), _title("") {
-    }
+    ProjectionTreeGenerator::ProjectionTreeGenerator(const std::string& name) :  _path(name), _title(""), _projVector({}), _edgeVector({}), _nameVector({}) { }
 
-    ProjectionTreeGenerator::ProjectionTreeGenerator() : ProjectionTreeGenerator("") {
-    }
+    ProjectionTreeGenerator::ProjectionTreeGenerator() : ProjectionTreeGenerator("") { }
 
     void ProjectionTreeGenerator::setPath(const std::string&path){
         _path = path;
@@ -107,10 +104,10 @@ namespace Rivet{
         // Create a dummy event to initialise with
         GenEvent e;
         ah.analyze(e);
-        return generateProjTree(ah);
+        return getProjTree(ah);
     }
 
-    int ProjectionTreeGenerator::generateProjTree(const AnalysisHandler& ah) {
+    int ProjectionTreeGenerator::getProjTree(const AnalysisHandler& ah) {
         //Use the projectionTreeNode to store the tree as we construct it
         std::vector<ProjectionTreeNode> nodeVector;
 
