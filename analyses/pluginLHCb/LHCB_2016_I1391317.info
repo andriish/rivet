@@ -1,0 +1,42 @@
+Name: LHCB_2016_I1391317
+Year: 2016
+Summary: $\Lambda_b^0$ and $B^0$ production at 7 and 8 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1391317
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Chin.Phys.C 40 (2016) 011001, 2016
+RunInfo: hadronic events
+Beams: [p+, p+]
+Energies: [7000,8000]
+Options:
+ - ENERGY=7000,8000
+Description:
+'Double differential cross section in $p_\perp$ and $y$ for $\Lambda_b^0$ and $B^0$ production at 7 and 8 TeV.
+ Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2015qvk
+BibTeX: '@article{LHCb:2015qvk,
+    author = "Aaij, R. and others",
+    collaboration = "LHCb",
+    title = "{Study of the production of $\Lambda_b^0$ and $\overline{B}^0$ hadrons in $pp$ collisions and first measurement of the $\Lambda_b^0\rightarrow J/\psi pK^-$ branching fraction}",
+    eprint = "1509.00292",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-PH-EP-2015-223, LHCB-PAPER-2015-032",
+    doi = "10.1088/1674-1137/40/1/011001",
+    journal = "Chin. Phys. C",
+    volume = "40",
+    number = "1",
+    pages = "011001",
+    year = "2016"
+}
+'
