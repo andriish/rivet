@@ -500,14 +500,13 @@ except:
 
 #######################
 #Generate ProjectionTree if asked
-if (args.DEBUG_PROJ_TREE or args.DEBUG_PROJ_TREE_ONLY):
+if (args.DEBUG_PROJ_TREE_ONLY):
     ptg=rivet.ProjectionTreeGenerator()
     ptg.setPath(args.PROJ_TREE_NAME)
     ptg.generateProjTreeFromList(args.ANALYSES)
     ptg.writeProjTree()
-    if (args.DEBUG_PROJ_TREE_ONLY):
-        #We're done here.
-        exit(0)
+    #This option only wanted a projection tree, no running -> We're done here.
+    exit(0)
 
 
 
@@ -656,6 +655,12 @@ except TimeoutException as te:
 except Exception as ex:
     logging.warning("Could not read from '%s' (error=%s)" % (hepmcfile, str(ex)))
     sys.exit(3)
+
+if args.DEBUG_PROJ_TREE:
+    ptg=rivet.ProjectionTreeGenerator()
+    ptg.setPath(args.PROJ_TREE_NAME)
+    ptg.getProjTreeFromAnalysisHandler(ah)
+    ptg.writeProjTree()
 
 ## Event loop
 evtnum = 0

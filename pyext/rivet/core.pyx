@@ -289,7 +289,7 @@ cdef class ProjectionTreeGenerator:
     def generateProjTreeFromList(self, listOfAnalyses):
         self._ptr.generateProjTree([a.encode('utf-8') for a in listOfAnalyses])
 
-    def getProjTreeFromAnalyisHandler(self, AnalysisHandler ah):
+    def getProjTreeFromAnalysisHandler(self, AnalysisHandler ah):
         self._ptr.getProjTree(ah._ptr[0])
 
     def writeProjTree(self):
