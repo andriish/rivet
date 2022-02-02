@@ -111,7 +111,7 @@ namespace Rivet{
     }
 
     int ProjectionTreeGenerator::generateProjTree(const AnalysisHandler& ah) {
-        //Use the projectionTreeNode to 
+        //Use the projectionTreeNode to store the tree as we construct it
         std::vector<ProjectionTreeNode> nodeVector;
 
         //Set the number of analyses used:
@@ -134,7 +134,7 @@ namespace Rivet{
             tracker +=1;
         } while (tracker < nodeVector.size());
 
-        MSG_INFO("Number of unique projections " << _projVector.size() - num_analyses);
+        MSG_INFO(_projVector.size() - num_analyses << " unique projections");
         _treeGenerated = true;
         return 0;
     }
@@ -142,7 +142,7 @@ namespace Rivet{
 
     void ProjectionTreeGenerator::writeProjTree() const {
         if (!_treeGenerated){
-            MSG_WARNING("Trying to save a projection tree that has not yet been generated. Please check your code calls generate first!");
+            MSG_WARNING("Trying to write a projection tree that has not yet been generated. Please check your code calls generate first!");
             return;
         }
         std::ofstream outfile;

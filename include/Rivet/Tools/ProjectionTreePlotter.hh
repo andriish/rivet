@@ -56,10 +56,10 @@ namespace Rivet{
       ///Set the title (defaults to last bit of path without '.gv')
       void setTitle(const std::string& title);
     
-      ///Generate the projection tree for the supplied analyses
+      ///Generate the projection tree for the supplied analyses (constructs dummy analysisHandler for you)
       int generateProjTree(const std::vector<std::string>& analyses);
 
-      ///Generate a projection tree from the supplied analysishandler
+      ///Get a projection tree from the supplied analysishandler
       int generateProjTree(const AnalysisHandler& ah);
 
       ///Save the projection tree to the path specifed by _path
