@@ -79,7 +79,7 @@ namespace Rivet {
       // br to muons PDG 2021 (psi2s is e+e- due large errors on mu+mu-)
       vector<double> br = {0.05961,0.00793};
       // scale histos
-      for(unsigned int ix=0;ix<2;++ix) {
+      for(unsigned int ix=0;ix<3;++ix) {
 	_h_JPsi [ix].scale(factor*br[0],this);
 	_h_psi2S[ix].scale(factor*br[1],this);
       }
