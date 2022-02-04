@@ -318,13 +318,10 @@ namespace Rivet {
                   const double fileweight = 1.0);
 
      
-    /// A method to prepare a reentrant run for a given set of analyses and multi-weights
-    void reentrantInit(set<string> &reentrantAnas, set<string> &reentrantWeightNames);
-
-    /// A method to load a set of AOs back into memory in pace of the booked histos
-    void reentrantLoadAOs(map<string, YODA::AnalysisObjectPtr> reentrantAOs,
-                          map<string, pair<double,double> > reentrantXsecs,
-                          const bool equiv = false);
+    /// A method to prepare a re-entrant run for a given set of analysis objects
+    void setupReentrantRun(map<string, YODA::AnalysisObjectPtr> reentrantAOs,
+                           map<string, pair<double,double> > reentrantXsecs,
+                           const bool equiv = false);
 
     /// @}
 

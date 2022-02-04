@@ -658,23 +658,10 @@ namespace Rivet {
     } // loop over all input files ends
     std::cout << std::endl;
 
-    // get list of analyses & multi-weights to be initialised
-    set<string> foundAnalyses;
-    set<string> foundWeightNames;
-    for (const auto& pair : allaos) {
-      AOPath path(pair.first); 
-      if ( path.analysisWithOptions() != "" ) {
-        foundAnalyses.insert(path.analysisWithOptions());
-      }
-      foundWeightNames.insert(path.weight());
-    }
-
     MSG_INFO("Rerunning finalize ...");
-    // initalise all found analyses and multi-weights
-    reentrantInit(foundAnalyses, foundWeightNames);
 
-    // load merged AOs back into memory
-    reentrantLoadAOs(allaos, allxsecs, equiv);
+    // initialise analyses and load merged AOs back into memory
+    setupReentrantRun(allaos, allxsecs, equiv);
 
     // Finally we just have to finalize all analyses, leaving to the
     // controlling program to write it out to some YODA file.
@@ -778,16 +765,28 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::reentrantInit(set<string> &reentrantAnas, 
-                                      set<string> &reentrantWeightNames) {
+  void AnalysisHandler::setupReentrantRun(map<string, YODA::AnalysisObjectPtr> reentrantAOs,
+                                          map<string, pair<double,double> > reentrantXsecs,
+                                          const bool equiv) {
+
+    // get list of analyses & multi-weights to be initialised
+    set<string> foundAnalyses;
+    set<string> foundWeightNames;
+    for (const auto& pair : reentrantAOs) {
+      AOPath path(pair.first); 
+      if ( path.analysisWithOptions() != "" ) {
+        foundAnalyses.insert(path.analysisWithOptions());
+      }
+      foundWeightNames.insert(path.weight());
+    }
 
     // Make analysis handler aware of the weight names present
     _weightNames.clear();
     _rivetDefaultWeightIdx = _defaultWeightIdx = 0;
-    _weightNames = vector<string>(reentrantWeightNames.begin(), reentrantWeightNames.end());
+    _weightNames = vector<string>(foundWeightNames.begin(), foundWeightNames.end());
 
     // Then we create and initialize all analyses
-    for (const string& ananame : reentrantAnas ) { addAnalysis(ananame); }
+    for (const string& ananame : foundAnalyses) { addAnalysis(ananame); }
     _stage = Stage::INIT;
     for (AnaHandle a : analyses() ) {
       MSG_TRACE("Initialising analysis: " << a->name());
@@ -808,12 +807,6 @@ namespace Rivet {
     } // analyses
     _stage = Stage::OTHER;
     _initialised = true;
-  }
-
-
-  void AnalysisHandler::reentrantLoadAOs(map<string, YODA::AnalysisObjectPtr> reentrantAOs,
-                                         map<string, pair<double,double> > reentrantXsecs,
-                                         const bool equiv) {
 
     // Collect global weights and cross sections and fix scaling for all files
     MSG_DEBUG("Getting event counter and cross-section from "
