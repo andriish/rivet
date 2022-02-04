@@ -18,7 +18,7 @@ Title=Ratio of inclusive $\Xi^0_c$ to prompt $D^0$ ($|y|<0.5$)
 XLabel=$p_\perp$ [GeV]
 YLabel=$\sigma(\Xi_c^0)/\sigma(D^0)$
 END PLOT
-BEGIN PLOT /ALICE_2021_I1862793/d05-x01-y01
+BEGIN PLOT /ALICE_2021_I1863039/d05-x01-y01
 Title=Prompt $\Xi^0_c$ cross section ($|y|<0.5$)
 YLabel=$\sigma$ [$\mu$b]
 XLabel=0

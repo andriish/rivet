@@ -58,8 +58,8 @@ namespace Rivet {
 	    _h_Xi_pT[0]->fill(pT);
 	  }
 	  // inclusive
+	  _h_Xi_pT[1]->fill(pT);
 	  _h_Xi_pT[2]->fill(pT);
-	  _h_Xi_pT[3]->fill(pT);
 	}
       }
     }
