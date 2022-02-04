@@ -92,8 +92,10 @@ namespace Rivet {
       Scatter2DPtr tmp;
       book(tmp,5,1,1+iloc);
       asymm(_h_pT[0],_h_pT[1],tmp);
+      tmp->scaleY(100.);
       book(tmp,6,1,1+iloc);
       asymm(_h_y [0],_h_y [1],tmp);
+      tmp->scaleY(100.);
     }
 
     /// @}

@@ -152,20 +152,24 @@ BEGIN PLOT /LHCB_2013_I1230344/d16-x01-y01
 Title=$\Upsilon(2S)$/$\Upsilon(1S)$ ratio
 XLabel=$p_\perp$ [GeV]
 YLabel=$N_(\Upsilon(2S)\to\mu^+\mu^-)/N(\Upsilon(1S\to\mu^+\mu^-))$
+LogY=0
 END PLOT
-BEGIN PLOT /LHCB_2013_I1230344/16-x01-y02
+BEGIN PLOT /LHCB_2013_I1230344/d16-x01-y02
 Title=$\Upsilon(3S)$/$\Upsilon(1S)$ ratio
 XLabel=$p_\perp$ [GeV]
 YLabel=$N_(\Upsilon(3S)\to\mu^+\mu^-)/N(\Upsilon(1S\to\mu^+\mu^-))$
+LogY=0
 END PLOT
 
 BEGIN PLOT /LHCB_2013_I1230344/d17-x01-y01
 Title=$\Upsilon(2S)$/$\Upsilon(1S)$ ratio
 XLabel=$y$
 YLabel=$N_(\Upsilon(2S)\to\mu^+\mu^-)/N(\Upsilon(1S\to\mu^+\mu^-))$
+LogY=0
 END PLOT
-BEGIN PLOT /LHCB_2013_I1230344/17-x01-y02
+BEGIN PLOT /LHCB_2013_I1230344/d17-x01-y02
 Title=$\Upsilon(3S)$/$\Upsilon(1S)$ ratio
 XLabel=$y$
 YLabel=$N_(\Upsilon(3S)\to\mu^+\mu^-)/N(\Upsilon(1S\to\mu^+\mu^-))$
+LogY=0
 END PLOT

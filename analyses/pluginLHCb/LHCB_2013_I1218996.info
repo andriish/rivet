@@ -5,6 +5,7 @@ Experiment: LHCB
 Collider: LHC 7TeV
 InspireID: 1218996
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Patrick Spradlin <patrick.spradlin@cern.ch>
 References:

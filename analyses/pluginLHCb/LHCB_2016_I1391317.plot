@@ -90,12 +90,12 @@ END PLOT
 BEGIN PLOT /LHCB_2016_I1391317/d06-x01-y01
 Title=$\Lambda_b^0$ $\bar{\Lambda}^0_b$ asymmetry at 7 TeV
 XLabel=$y$
-YLabel=Asymmetry
+YLabel=Asymmetry [$\%$]
 LogY=0
 END PLOT
 BEGIN PLOT /LHCB_2016_I1391317/d06-x01-y02
 Title=$\Lambda_b^0$ $\bar{\Lambda}^0_b$ asymmetry at 8 TeV
 XLabel=$y$
-YLabel=Asymmetry
+YLabel=Asymmetry [$\%$]
 LogY=0
 END PLOT
