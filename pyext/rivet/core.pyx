@@ -97,13 +97,13 @@ cdef class AnalysisHandler:
     def dump(self, name, period):
         self._ptr.dump(name.encode('utf-8'), period)
 
-    def mergeYodas(self, filelist, delopts, addopts, matches, unmatches, equiv):
+    def mergeYodasFromFiles(self, filelist, delopts, addopts, matches, unmatches, equiv):
         filelist  = [ f.encode('utf-8') for f in filelist ]
         delopts   = [ d.encode('utf-8') for d in delopts  ]
         addopts   = [ d.encode('utf-8') for d in addopts ]
         matches   = [ d.encode('utf-8') for d in matches ]
         unmatches = [ d.encode('utf-8') for d in unmatches ]
-        self._ptr.mergeYodas(filelist, delopts, addopts, matches, unmatches, equiv)
+        self._ptr.mergeYodasFromFiles(filelist, delopts, addopts, matches, unmatches, equiv)
 
 
 cdef class Run:

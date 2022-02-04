@@ -121,7 +121,7 @@ try:
     if args.PRELOADFILE is not None:
         ah.readData(args.PRELOADFILE)
 
-    ah.mergeYodas(args.YODAFILES, args.MERGEOPTIONS, args.ADDOPTIONS,
+    ah.mergeYodasFromFiles(args.YODAFILES, args.MERGEOPTIONS, args.ADDOPTIONS,
                   args.MATCH, args.UNMATCH, args.EQUIV)
     ah.writeData(args.OUTPUTFILE)
 
@@ -139,5 +139,5 @@ except:
     if args.PRELOADFILE is not None:
         ah.readData([p.encode() for p in args.PRELOADFILE])
 
-    ah.mergeYodas(yfiles, moptions, aoptions, matchexp, unmatch, args.EQUIV)
+    ah.mergeYodasFromFiles(yfiles, moptions, aoptions, matchexp, unmatch, args.EQUIV)
     ah.writeData(args.OUTPUTFILE)

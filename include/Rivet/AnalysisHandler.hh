@@ -297,13 +297,25 @@ namespace Rivet {
     /// If @a delopts is non-empty, it is assumed to contain names of different
     /// options to be merged into the same analysis objects.
     ///
-    /// @todo Shouldn't this be private? Why is the Cython interface calling it?
-    void mergeYodas(const vector<string>& aofiles,
-                    const vector<string>& delopts=vector<string>(),
-                    const vector<string>& addopts=vector<string>(),
-                    const vector<string>& matches=vector<string>(),
-                    const vector<string>& unmatches=vector<string>(),
-                    bool equiv=false);
+
+    void mergeYodasFromFiles(const vector<string>& aofiles,
+                             const vector<string>& delopts=vector<string>(),
+                             const vector<string>& addopts=vector<string>(),
+                             const vector<string>& matches=vector<string>(),
+                             const vector<string>& unmatches=vector<string>(),
+                             bool equiv=false);
+
+    void mergeAOS(map<string, YODA::AnalysisObjectPtr> &allaos,
+                  map<string, YODA::AnalysisObject*> &newaos, 
+                  map<string, pair<double, double>> &allxsecs,
+                  const vector<string>& delopts=vector<string>(),
+                  const vector<string>& optAnas=vector<string>(),
+                  const vector<string>& optKeys=vector<string>(),
+                  const vector<string>& optVals=vector<string>(),
+                  bool equiv=false,
+                  const bool overwrite_xsec = false,
+                  const double fileweight = 1.0);
+
 
     /// @}
 
@@ -357,6 +369,21 @@ namespace Rivet {
 
     /// A vector containing copies of analysis objects after finalize() has been run.
     vector<YODA::AnalysisObjectPtr> _finalizedAOs;
+
+     
+    /// @name Reentrant methods
+    /// @{
+
+    /// A method to prepare a reentrant run for a 
+    /// given set of analyses and multi-weights
+    void reentrantInit(set<string> &reentrantAnas, set<string> &reentrantWeightNames);
+
+    /// A method to load a set of AOs back into memory in pace of the booked histos
+    void reentrantLoadAOs(map<string, YODA::AnalysisObjectPtr> reentrantAOs,
+                          map<string, pair<double,double> > reentrantXsecs,
+                          const bool equiv = false);
+
+    /// @}
 
 
     /// @name Run properties
