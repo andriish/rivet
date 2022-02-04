@@ -619,7 +619,7 @@ namespace Rivet {
           throw UserError("Unexpected error in processing argument " + file + " with file:scale format");
         }
       }
-      // TODO: read file innit
+
       // try to read the file and build path-AO map
       // @todo move this map construction into YODA?
       vector<YODA::AnalysisObject*> aos_raw;

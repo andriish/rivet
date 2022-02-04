@@ -305,6 +305,7 @@ namespace Rivet {
                              const vector<string>& unmatches=vector<string>(),
                              bool equiv=false);
 
+    /// @brief Merge the AO map a @newaos into @a allaos
     void mergeAOS(map<string, YODA::AnalysisObjectPtr> &allaos,
                   map<string, YODA::AnalysisObject*> &newaos, 
                   map<string, pair<double, double>> &allxsecs,
@@ -316,6 +317,14 @@ namespace Rivet {
                   const bool overwrite_xsec = false,
                   const double fileweight = 1.0);
 
+     
+    /// A method to prepare a reentrant run for a given set of analyses and multi-weights
+    void reentrantInit(set<string> &reentrantAnas, set<string> &reentrantWeightNames);
+
+    /// A method to load a set of AOs back into memory in pace of the booked histos
+    void reentrantLoadAOs(map<string, YODA::AnalysisObjectPtr> reentrantAOs,
+                          map<string, pair<double,double> > reentrantXsecs,
+                          const bool equiv = false);
 
     /// @}
 
@@ -369,21 +378,6 @@ namespace Rivet {
 
     /// A vector containing copies of analysis objects after finalize() has been run.
     vector<YODA::AnalysisObjectPtr> _finalizedAOs;
-
-     
-    /// @name Reentrant methods
-    /// @{
-
-    /// A method to prepare a reentrant run for a 
-    /// given set of analyses and multi-weights
-    void reentrantInit(set<string> &reentrantAnas, set<string> &reentrantWeightNames);
-
-    /// A method to load a set of AOs back into memory in pace of the booked histos
-    void reentrantLoadAOs(map<string, YODA::AnalysisObjectPtr> reentrantAOs,
-                          map<string, pair<double,double> > reentrantXsecs,
-                          const bool equiv = false);
-
-    /// @}
 
 
     /// @name Run properties
