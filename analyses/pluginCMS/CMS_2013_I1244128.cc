@@ -69,6 +69,8 @@ namespace Rivet {
       // Final state of unstable particles to get particle spectra
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::pid==443 or Cuts::pid==100443)) {
+	// prompt only
+	if(p.fromBottom()) continue;
 	// check mu+mu- decay and find muons
       	unsigned int nstable=0;
       	Particles mup,mum;
