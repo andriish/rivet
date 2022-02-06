@@ -9,7 +9,7 @@ Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
- -     Phys.Rev.Lett. 114 (2015) 132001
+ - JHEP 08 (2013) 117
 RunInfo: hadronic events with B meson
 Beams: [p+, p+]
 Energies: [7000]
@@ -20,19 +20,18 @@ ValidationInfo:
 #ReleaseTests:
 # - $A my-hepmc-prefix :MODE=some_rivet_flag
 Keywords: []
-BibKey: LHCb:2014mvo
-BibTeX: '@article{LHCb:2014mvo,
-    author = "Aaij, Roel and others",
+BibKey: LHCb:2013vjr
+BibTeX: '@article{LHCb:2013vjr,
+    author = "Aaij, R and others",
     collaboration = "LHCb",
-    title = "{Measurement of $B_c^+$ production in proton-proton collisions at $\sqrt{s}=8$ TeV}",
-    eprint = "1411.2943",
+    title = "{Measurement of B meson production cross-sections in proton-proton collisions at $\sqrt{s}$ = 7 TeV}",
+    eprint = "1306.3663",
     archivePrefix = "arXiv",
     primaryClass = "hep-ex",
-    reportNumber = "CERN-PH-EP-2014-269, LHCB-PAPER-2014-050",
-    doi = "10.1103/PhysRevLett.114.132001",
-    journal = "Phys. Rev. Lett.",
-    volume = "114",
-    pages = "132001",
-    year = "2015"
-}
-'
+    reportNumber = "CERN-PH-EP-2013-095, LHCB-PAPER-2013-004",
+    doi = "10.1007/JHEP08(2013)117",
+    journal = "JHEP",
+    volume = "08",
+    pages = "117",
+    year = "2013"
+}'
