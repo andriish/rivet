@@ -14,7 +14,7 @@ RunInfo: J/psi production in pp
 Beams: [p+, p+]
 Energies: [2760]
 Description:
-  'Measurement of $j/\psi$ production in the forward region by LHCb at 2.76 TeV.'
+  'Measurement of J/$\psi$ production in the forward region by LHCb at 2.76 TeV.'
 ValidationInfo:
   'Herwig 7 events'
 #ReleaseTests:

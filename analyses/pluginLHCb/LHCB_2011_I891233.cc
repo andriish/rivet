@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief J/psi production at 7 TeV
   class LHCB_2011_I891233 : public Analysis {
   public:
 

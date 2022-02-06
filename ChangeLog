@@ -213,6 +213,10 @@
 	gets very long (report by Michal Kreps, suggestion by Andrii
 	Verbytskyi).
 
+2022-02-06 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add LHCB_2015_I1327230 B_c at 8 TeV
+
 2022-02-02 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add CMS_2020_I1738943 Lambda_c at 5.02 TeV
