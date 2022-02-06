@@ -14,7 +14,7 @@ RunInfo: J/;Psi production at 13 TeV
 Beams: [p+, p+]
 Energies: [[6500,6500]]
 Description:
-  'Measurement of  J/$\psi$ production for central rapidities ($|y|<0.9$$) by the ALICDE collaboration at 13 TeV.'
+  'Measurement of  J/$\psi$ production for central rapidities ($|y|<0.9$$) by the ALICE collaboration at 13 TeV.'
 ValidationInfo:
   'Herwig 7 events'
 #ReleaseTests:
