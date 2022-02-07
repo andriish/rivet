@@ -1,0 +1,39 @@
+Name: LHCB_2017_I1509507
+Year: 2017
+Summary: J/$\psi$ production in jets at 13 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1509507
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 118 (2017) 19, 192001
+RunInfo: J/psi production both prompt and non-prompt
+Beams: [p+, p+]
+Energies: [13000]
+Description:
+  'Measurement of the fragmentation function for the production of  J/$\psi$ in jets at 13 TeV by LHcb.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2017llq
+BibTeX: '@article{LHCb:2017llq,
+    author = "Aaij, Roel and others",
+    collaboration = "LHCb",
+    title = "{Study of J/\ensuremath{\psi} Production in Jets}",
+    eprint = "1701.05116",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "LHCB-PAPER-2016-064, CERN-EP-2017-006",
+    doi = "10.1103/PhysRevLett.118.192001",
+    journal = "Phys. Rev. Lett.",
+    volume = "118",
+    number = "19",
+    pages = "192001",
+    year = "2017"
+}
+'
