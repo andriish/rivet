@@ -1,0 +1,39 @@
+Name: LHCB_2019_I1720859
+Year: 2019
+Summary: $\Lambda_b^0$ and $B_s^0$ fractions at 13 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1720859
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 100 (2019) 3, 031102
+RunInfo: bottom hadron production
+Beams: [p+, p+]
+Energies: [13000]
+Description:
+  'Measurement of the fraction of $\Lambda_b^0$ and $B_s^0$ production at 13 TeV by the LHCb collaboration.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2019fns
+BibTeX: '@article{LHCb:2019fns,
+    author = "Aaij, Roel and others",
+    collaboration = "LHCb",
+    title = "{Measurement of $b$ hadron fractions in 13 TeV $pp$ collisions}",
+    eprint = "1902.06794",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-EP-2019-016, LHCb-PAPER-2018-050",
+    doi = "10.1103/PhysRevD.100.031102",
+    journal = "Phys. Rev. D",
+    volume = "100",
+    number = "3",
+    pages = "031102",
+    year = "2019"
+}
+'

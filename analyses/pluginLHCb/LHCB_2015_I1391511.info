@@ -1,0 +1,39 @@
+Name: LHCB_2015_I1391511
+Year: 2015
+Summary: J/$\psi$ production at 13 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1391511
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - JHEP 10 (2015) 172, 2015.
+RunInfo: J/psi production
+Beams: [p+, p+]
+Energies: [13000]
+Description:
+  'Measurement of the double differential (in $p_\perp$ and $y$) cross section for $J/\psi$ production at 13 TeV by the LHCB collaboration.'
+ValidationInfo:
+  'Herwig 7 event'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2015foc
+BibTeX: '@article{LHCb:2015foc,
+    author = "Aaij, Roel and others",
+    collaboration = "LHCb",
+    title = "{Measurement of forward $J/\psi$ production cross-sections in $pp$ collisions at $\sqrt{s}=13$ TeV}",
+    eprint = "1509.00771",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "LHCB-PAPER-2015-037, CERN-PH-EP-2015-222",
+    doi = "10.1007/JHEP10(2015)172",
+    journal = "JHEP",
+    volume = "10",
+    pages = "172",
+    year = "2015",
+    note = "[Erratum: JHEP 05, 063 (2017)]"
+}
+'

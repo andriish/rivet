@@ -213,6 +213,11 @@
 	gets very long (report by Michal Kreps, suggestion by Andrii
 	Verbytskyi).
 
+2022-02-07 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add LHCB_2015_I1391511 J/psi at 13 TeV
+	* Add LHCB_2019_I1720859 Lambda_b and B_s fractions at 13 TeV
+
 2022-02-06 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add LHCB_2015_I1327230 B_c at 8 TeV
