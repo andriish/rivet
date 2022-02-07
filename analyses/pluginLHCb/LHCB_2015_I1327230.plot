@@ -1,3 +1,6 @@
+BEGIN PLOT /LHCB_2015_I1327230/
+LogY=0
+END PLOT
 BEGIN PLOT /LHCB_2015_I1327230/d0[1,2]
 XLabel=$p_\perp$ [GeV]
 YLabel=$\test{d}\sigma(B_c^+)\text{Br}(B_c^+\toJ/\psi\pi^+)/\test{d}\sigma(B+)\text{Br}(B_c^+\toJ/\psi K^+)$ [$\%$]
