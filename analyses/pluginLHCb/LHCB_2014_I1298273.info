@@ -1,0 +1,38 @@
+Name: LHCB_2014_I1298273
+Year: 2014
+Summary:  $\Lambda_b^0$ fraction at 7 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1298273
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - JHEP 08 (2014) 143
+RunInfo: bottom hadron production
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+  'Measurement of the fraction of $\Lambda_b^0$ production at 13 TeV by the LHCb collaboration.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2014ofc
+BibTeX: '@article{LHCb:2014ofc,
+    author = "Aaij, R. and others",
+    collaboration = "LHCb",
+    title = "{Study of the kinematic dependences of $\Lambda_{b}^{0}$ production in pp collisions and a measurement of the $\Lambda_{b}^{0} \to \Lambda_{c}^{+}$ $\pi^{-}$ branching fraction}",
+    eprint = "1405.6842",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-PH-EP-2014-106, LHCB-PAPER-2014-004",
+    doi = "10.1007/JHEP08(2014)143",
+    journal = "JHEP",
+    volume = "08",
+    pages = "143",
+    year = "2014"
+}
+'
