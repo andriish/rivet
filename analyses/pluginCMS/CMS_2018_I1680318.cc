@@ -31,6 +31,13 @@ namespace Rivet {
       const ChargedFinalState cfs(Cuts::abseta < EtaCentralCut && Cuts::pT > MinParticlePt*GeV);
       declare(cfs, "CFS");
 
+      // Event counters
+      book(_num_evts_noCuts,          "num_evts_noCuts");
+      book(_num_evts_after_cuts_or,   "num_evts_after_cuts_or");
+      book(_num_evts_after_cuts_and,  "num_evts_after_cuts_and");
+      book(_num_evts_after_cuts_xor,  "num_evts_after_cuts_xor");
+      book(_num_evts_after_cuts_xorm, "num_evts_after_cuts_xorm");
+      book(_num_evts_after_cuts_xorp, "num_evts_after_cuts_xorp");
 
       // Histograms
       book(_hist_dNch_all_dEta_OR,          1,1,1);
@@ -82,6 +89,15 @@ namespace Rivet {
       const bool cutsxorm = (!activity_plus_side &&  activity_minus_side);
       const bool cutsxorp = ( activity_plus_side && !activity_minus_side);
 
+      _num_evts_noCuts->fill();
+      if ( charged.size() >= 1 ) {
+        if (cutsor)   _num_evts_after_cuts_or   ->fill();
+        if (cutsand)  _num_evts_after_cuts_and  ->fill();
+        if (cutsxor)  _num_evts_after_cuts_xor  ->fill();
+        if (cutsxorm) _num_evts_after_cuts_xorm ->fill();
+        if (cutsxorp) _num_evts_after_cuts_xorp ->fill();
+      }
+
       // Loop over charged particles
       double leading_pt = 0;
       for (const Particle& p : charged.particles()) {
@@ -130,25 +146,33 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      normalize(_hist_dNch_all_dEta_OR);
-      normalize(_hist_dNch_all_dEta_AND);
-      normalize(_hist_dNch_all_dEta_XOR);
-      normalize(_hist_dNch_all_dEta_XORpm);
+      MSG_INFO("Number of selected events: "                  << endl
+               << "\t All       = " << _num_evts_noCuts->val()          << endl
+               << "\t Inelastic = " << _num_evts_after_cuts_or->val()   << endl
+               << "\t NSD       = " << _num_evts_after_cuts_and->val()  << endl
+               << "\t Xor       = " << _num_evts_after_cuts_xor->val()  << endl
+               << "\t Xorm      = " << _num_evts_after_cuts_xorm->val() << endl
+               << "\t Xorp      = " << _num_evts_after_cuts_xorp->val());
 
-      normalize(_hist_dNch_all_dpt_OR);
-      normalize(_hist_dNch_all_dpt_AND);
-      normalize(_hist_dNch_all_dpt_XOR);
+      scale(_hist_dNch_all_dEta_OR,    1./ *_num_evts_after_cuts_or);
+      scale(_hist_dNch_all_dEta_AND,   1./ *_num_evts_after_cuts_and);
+      scale(_hist_dNch_all_dEta_XOR,   1./ *_num_evts_after_cuts_xor);
+      scale(_hist_dNch_all_dEta_XORpm, 1./ (*_num_evts_after_cuts_xorm + *_num_evts_after_cuts_xorp));
 
-      normalize(_hist_dNch_leading_dpt_OR);
-      normalize(_hist_dNch_leading_dpt_AND);
-      normalize(_hist_dNch_leading_dpt_XOR);
+      scale(_hist_dNch_all_dpt_OR,   1./ *_num_evts_after_cuts_or);
+      scale(_hist_dNch_all_dpt_AND,  1./ *_num_evts_after_cuts_and);
+      scale(_hist_dNch_all_dpt_XOR,  1./ *_num_evts_after_cuts_xor);
 
-      normalize(_hist_integrated_leading_pt_OR);
-      normalize(_hist_integrated_leading_pt_AND);
-      normalize(_hist_integrated_leading_pt_XOR);
+      scale(_hist_dNch_leading_dpt_OR,   1./ *_num_evts_after_cuts_or);
+      scale(_hist_dNch_leading_dpt_AND,  1./ *_num_evts_after_cuts_and);
+      scale(_hist_dNch_leading_dpt_XOR,  1./ *_num_evts_after_cuts_xor);
 
-      normalize(_hist_dNev_all_dM_OR);
-      normalize(_hist_dNev_all_dM_AND);
+      scale(_hist_integrated_leading_pt_OR,   1./ *_num_evts_after_cuts_or);
+      scale(_hist_integrated_leading_pt_AND,  1./ *_num_evts_after_cuts_and);
+      scale(_hist_integrated_leading_pt_XOR,  1./ *_num_evts_after_cuts_xor);
+
+      scale(_hist_dNev_all_dM_OR,   1./ *_num_evts_after_cuts_or);
+      scale(_hist_dNev_all_dM_AND,  1./ *_num_evts_after_cuts_and);
     }
 
 
@@ -156,6 +180,14 @@ namespace Rivet {
 
     // Cuts
     double MinEnergy, EtaForwardMin, EtaForwardMax, EtaCentralCut, MinParticlePt;
+
+    // Counters
+    CounterPtr _num_evts_noCuts,
+                  _num_evts_after_cuts_and,
+                  _num_evts_after_cuts_or,
+                  _num_evts_after_cuts_xor,
+                  _num_evts_after_cuts_xorp,
+                  _num_evts_after_cuts_xorm;
 
     // Histograms
     Histo1DPtr

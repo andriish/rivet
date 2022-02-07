@@ -49,3 +49,5 @@ BibTeX: '@article{Sirunyan:2018zdc,
       reportNumber   = "CMS-FSQ-16-011, CERN-EP-2018-187",
       SLACcitation   = "%%CITATION = ARXIV:1806.11245;%%"
 }'
+ReleaseTests:
+ - $A LHC-13-Minbias
