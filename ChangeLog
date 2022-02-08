@@ -203,6 +203,10 @@
 
 	* Submission of CMS_2021_I1978840: W+gamma differential cross sections at 13 TeV
 
+2022-02-08 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CMS_2022_I1870319 J/psi in jets 5 TeV
+
 2022-02-07  Markus Seidel  <markus.seidel@cern.ch>
 
 	* Fix for CMS_2018_I1680318 (thanks to Armando Bermudez Martinez)

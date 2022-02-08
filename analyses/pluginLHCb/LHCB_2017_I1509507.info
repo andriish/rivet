@@ -14,7 +14,7 @@ RunInfo: J/psi production both prompt and non-prompt
 Beams: [p+, p+]
 Energies: [13000]
 Description:
-  'Measurement of the fragmentation function for the production of  J/$\psi$ in jets at 13 TeV by LHcb.'
+  'Measurement of the fragmentation function for the production of  J/$\psi$ in jets at 13 TeV by LHCb.'
 ValidationInfo:
   'Herwig 7 events'
 #ReleaseTests:

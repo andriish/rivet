@@ -1,0 +1,38 @@
+Name: CMS_2022_I1870319
+Year: 2022
+Summary: Prompt J/$\psi$ production in jets at 5.02 TeV
+Experiment: CMS
+Collider: LHC
+InspireID: 1870319
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Lett.B 825 (2022) 136842
+RunInfo: prompt J/psi production
+Beams: [p+, p+]
+Energies: [5020]
+Description:
+  'Measurement of the fragmentation function for the production of  J/$\psi$ in jets at 5.02 TeV by CMS'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CMS:2021puf
+BibTeX: '@article{CMS:2021puf,
+    author = "Tumasyan, Armen and others",
+    collaboration = "CMS",
+    title = "{Fragmentation of jets containing a prompt J/\ensuremath{\psi} meson in PbPb and pp collisions at sNN=5.02TeV}",
+    eprint = "2106.13235",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CMS-HIN-19-007, CERN-EP-2021-104",
+    doi = "10.1016/j.physletb.2021.136842",
+    journal = "Phys. Lett. B",
+    volume = "825",
+    pages = "136842",
+    year = "2022"
+}
+'
