@@ -9,8 +9,10 @@ namespace Rivet {
   {
     setName("JetFinder");
     declare(fs, "FS");
+    MSG_TRACE("Constructing final state in JetFinder");
     VisibleFinalState vfs(fs);
     // MSG_DEBUG("Making visible final state from provided FS");
+    MSG_TRACE("Declaring visible final state in JetFinder");
     declare(vfs, "VFS");
   }
 

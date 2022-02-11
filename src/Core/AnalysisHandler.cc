@@ -403,6 +403,7 @@ namespace Rivet {
 
   void AnalysisHandler::pushToPersistent() {
     if ( _subEventWeights.empty() ) return;
+    MSG_TRACE("Count at " << __FILE__ <<": "<<__LINE__ << " is " << getEventCounter());
     MSG_TRACE("AnalysisHandler::analyze(): Pushing _eventCounter to persistent.");
     _eventCounter.get()->pushToPersistent(_subEventWeights);
     for (const AnaHandle& a : analyses()) {
@@ -423,6 +424,8 @@ namespace Rivet {
     MSG_DEBUG("Finalising analyses");
 
     _stage = Stage::FINALIZE;
+
+    MSG_TRACE("Count at " << __FILE__ <<": "<<__LINE__ << " is " << getEventCounter());
 
     // First push all analyses' objects to persistent and final
     MSG_TRACE("AnalysisHandler::finalize(): Pushing analysis objects to persistent.");
@@ -454,6 +457,8 @@ namespace Rivet {
       }
       for (size_t iW = 0; iW < numWeights(); iW++) {
         _eventCounter.get()->setActiveFinalWeightIdx(iW);
+
+        MSG_TRACE("Count at " << __FILE__ <<": "<<__LINE__ << " is " << getEventCounter());
         _xs.get()->setActiveFinalWeightIdx(iW);
         for (auto ao : a->analysisObjects()) {
           ao.get()->setActiveFinalWeightIdx(iW);
@@ -469,14 +474,19 @@ namespace Rivet {
     }
 
     // Print out number of events processed
+    MSG_TRACE("Count at " << __FILE__ <<": "<<__LINE__ << " is " << getEventCounter());
     _eventCounter.get()->setActiveFinalWeightIdx(defaultWeightIndex());
+    MSG_TRACE("Count at " << __FILE__ <<": "<<__LINE__ << " is " << getEventCounter());
     _xs.get()->setActiveFinalWeightIdx(defaultWeightIndex());
+    MSG_TRACE("Count at " << __FILE__ <<": "<<__LINE__ << " is " << getEventCounter());
     if (!_dumping) {
       const int nevts = numEvents();
       MSG_DEBUG("Processed " << nevts << " event" << (nevts != 1 ? "s" : ""));
     }
 
     _stage = Stage::OTHER;
+
+    MSG_TRACE("Count at " << __FILE__ <<": "<<__LINE__ << " is " << getEventCounter());
 
   }
 
@@ -1081,6 +1091,268 @@ namespace Rivet {
   double AnalysisHandler::runSqrtS() const {
     return sqrtS(runBeams());
   }
+
+
+//TODO @TP: It would be nifty and more efficient if we could merge multiple handlers at once using variadic templates (come back to when it works)
+// Merges AnalysisHandler Other into this.
+// Not (yet?) written to be symmetric: looks to merge from other into this: if other has stuff (e.g. an analysis)
+// that this does not have, it will be ignored. VERY VERY VERY much a WIP.
+//TODO: Include weights here?
+  void AnalysisHandler::mergeAnalysisHandlers(AnalysisHandler& other, bool equiv){
+    MSG_TRACE("Merging analysis handler " << &other << " into " << this);
+
+    //Handlers to be merged must have same beam:
+    //TODO: Would it make sense to have a Rivet particle operator== 
+    if (other._beams.first.energy() != _beams.first.energy() &&
+         other._beams.second.energy() != _beams.second.energy()){return;}
+
+    //TODO @TP: Should we check the "finalisation status" of analysishandlers? If one is and one isn't,
+    //things could go weird - is the "stage" enum "mature" enough for this use?
+
+    //Sum event numbers and the YODA counter
+    _eventNumber = _eventNumber + other._eventNumber;
+    //TODO @TP: This looks horrible, is there a less stomach-churning syntax?
+    MSG_TRACE("This evtcounter: " << _eventCounter->val());
+    MSG_TRACE("Other evtcounter: " << other._eventCounter->val());
+    _eventCounter->operator+=(*(other._eventCounter));
+    MSG_TRACE("After merging, this evtcounter: " << _eventCounter->val());
+
+    //TODO @TP: what to do about XS? (I've messed this up like twice now)
+    //MSG_TRACE("This XS: " << _xs->
+
+
+    //Let's look at the weights.
+    std::string weightstring; for (auto w : _weightNames){weightstring+=std::string(w+", ");}
+    std::string otherweightstring; for (auto w : other._weightNames){otherweightstring+=std::string(w+", ");}
+    MSG_TRACE("This ah's weights (size "<<_weightNames.size() <<"):" << weightstring);
+    MSG_TRACE("Other ah's weights (size "<<other._weightNames.size() <<"):" << otherweightstring);
+    std::string weightindstring; for (auto w : _weightIndices){weightindstring+=(std::to_string(w)+", ");}
+    std::string otherweightindstring; for (auto w : other._weightIndices){otherweightindstring+=(std::to_string(w)+", ");}
+    MSG_TRACE("This ah's weight indices (size"<<_weightIndices.size()<< "):" << weightindstring);
+    MSG_TRACE("Other ah's weight indices (size"<<other._weightIndices.size()<<"):" << otherweightindstring);
+
+    MSG_TRACE("This ah's (_matchWN, _unmatchWN, _nominalWeightNames): ("<<_matchWeightNames<< ", "<<_unmatchWeightNames<<", "<<_nominalWeightName<<")");
+    MSG_TRACE("Other ah's (_matchWN, _unmatchWN, _nominalWeightNames): ("<<other._matchWeightNames<< ", "<<other._unmatchWeightNames<<", "<<other._nominalWeightName<<")");
+
+    MSG_TRACE("This ah's subEventWeightsSize is " << _subEventWeights.size());
+    MSG_TRACE("Other ah's subEventWeightsSize is " << other._subEventWeights.size());
+    std::cout << "SubEventWeights: (";
+    for(auto i : _subEventWeights){
+      std::cout << "(";
+      for (auto j : i){
+        std::cout << j << ", ";
+      }
+      std::cout << "), ";
+    }
+    std::cout << ")\nOther subeventweights: (";
+    for(auto i : other._subEventWeights){
+      std::cout << "(";
+      for (auto j : i){
+        std::cout << j << ", ";
+      }
+      std::cout << "), ";
+    }
+    std::cout << ")\n";
+
+
+
+    size_t iW = 1;
+
+    const std::vector<AnaHandle> othersAnalyses = other.analyses();
+
+    for(AnaHandle a : analyses()){
+      //find corresponding analysis in the other ao;
+      std::string analysisname = a->name();
+      auto other_analysis_it = std::find_if(othersAnalyses.begin(), othersAnalyses.end(),
+                   [&analysisname](const AnaHandle otherhandle){std::cerr<<"\n"<<otherhandle->name() <<" v "<< analysisname<<endl;return otherhandle->name() == analysisname; });
+
+      if (other_analysis_it == othersAnalyses.end()){
+        //This analysis isn't present in the other ah. Move on.
+        MSG_DEBUG("Analysis " << a->name() << " present in analysishandler " << this 
+                      << " not present in " << &other);
+        //Debug only:
+        // std::string analysesinother;
+        // for (auto ana : other.analyses()){
+        //   analysesinother += std::string(ana->name() + ", ");
+        // }
+        // MSG_TRACE("Analyses present in other: " << analysesinother);
+        continue;
+      }
+
+      //TODO: Is there a more elegant syntax for double dereferencing? This looks awful.
+      auto othersaos = (*other_analysis_it)->analysisObjects();
+      //Is it a valid assumption that the analysisObjects() only contains one object of each name? I assume so?
+      MSG_TRACE("There are " << othersaos.size() << " other aos");
+      std::string otheraostring; for (auto ao : othersaos){otheraostring+=std::string(ao->name()+", ");}
+      MSG_TRACE("They are " << otheraostring);
+      MSG_TRACE("This analysis has " << a->analysisObjects().size() << " aos");
+      std::string aostring; for (auto ao : a->analysisObjects()){aostring+=std::string(ao->name()+", ");}
+      MSG_TRACE("They are " << aostring);
+      for (const auto& ao : a-> analysisObjects()){
+        //Find corresponding ao in other:
+        auto other_ao_it = std::find_if(othersaos.begin(), othersaos.end(),
+                                        [&](const Rivet::MultiweightAOPtr otherAOptr){return ao->name() == otherAOptr->name();});
+        if (other_ao_it == (*other_analysis_it)->analysisObjects().end()){
+          //This analysis object is not present in other. Slightly scary. Move on (but warn?!)
+          MSG_WARNING("Analysis object " << ao->name() << " present in analysis " << a->name() << 
+                "  of analysishandler " << this << " NOT found in same analysis of analysishandler "
+                << &other << ". AnalysisHandler merge has probably gone wrong..." );
+          continue;
+        }
+        MSG_TRACE("Merging ao " << ao->name() << " in analysis " << a->name());
+
+        //ao.get()->setActiveWeightIdx(iW);
+        YODA::AnalysisObjectPtr yao = ao.get()->activeYODAPtr();
+        if (!addaos(yao, other_ao_it->get()->activeYODAPtr(), iW )){
+          MSG_WARNING("Failed to merge object named " << ao->name() << " in analysis " << a->name()
+                      << " for analysis handlers " << this << " and " << &other << 
+                      " (if this ao is not a histogram, this is nothing to worry about)");
+        }
+        //ao.get()->unsetActiveWeight();
+
+      }
+
+    }
+
+    MSG_TRACE("DEBUG INFO");
+    print_ah_info();
+
+
+    //Finalise all analyses;
+    //TODO -> do I actually want this here?
+    MSG_TRACE("Before calling finalize, this evtcounter: " << _eventCounter->val());
+    finalize();
+    MSG_TRACE("After calling finalize, this evtcounter: " << _eventCounter->val());
+  }
+
+
+
+  AnalysisHandler AnalysisHandler::combineAnalysisHandlers(AnalysisHandler &other, bool equiv){
+    //Handlers to be merged must have same beam:
+    //TODO: Would it make sense to have a Rivet particle operator== 
+    if (other._beams.first.energy() != _beams.first.energy() &&
+         other._beams.second.energy() != _beams.second.energy()){return;}
+
+    set<string> foundAnalyses;
+    std::set<std::string> foundWeightNames{};
+    map<string, YODA::AnalysisObjectPtr> allaos;
+    map<string, pair<double,double> > allxsecs;
+
+
+    //Get the list of analysis names.
+    for (const std::string& aname : this->analysisNames()){
+      foundAnalyses.insert(aname);
+    }
+    for (const std::string& aname : other.analysisNames()){
+      foundAnalyses.insert(aname);
+    }
+
+    //I haven't got the foggiest what I'm doing with weights.
+    // for(const auto& ana : this->_analyses ){
+    //   for const
+    // }
+
+
+
+    _weightNames.clear();
+    _rivetDefaultWeightIdx = _defaultWeightIdx = 0;
+    _weightNames = vector<string>(foundWeightNames.begin(), foundWeightNames.end());
+
+
+
+    // Then we create and initialize all analyses
+    for (const string& ananame : foundAnalyses ) { addAnalysis(ananame); }
+    _stage = Stage::INIT;
+    for (AnaHandle a : analyses() ) {
+      MSG_TRACE("Initialising analysis: " << a->name());
+      if ( !a->info().reentrant() )
+        MSG_WARNING("Analysis " << a->name() << " has not been validated to have "
+                    << "a reentrant finalize method. The merged result is unpredictable.");
+      try {
+        // Allow projection registration in the init phase onwards
+        a->_allowProjReg = true;
+        a->init();
+      } catch (const Error& err) {
+        cerr << "Error in " << a->name() << "::init method: " << err.what() << endl;
+        exit(1);
+      }
+      MSG_TRACE("Done initialising analysis: " << a->name());
+    } // analyses
+    _stage = Stage::OTHER;
+    _initialised = true;
+
+
+
+    // Collect global weights and cross sections and fix scaling for all files
+    MSG_DEBUG("Getting event counter and cross-section from "
+              << weightNames().size() << " " << numWeights());
+    _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
+    _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
+    vector<double> scales(numWeights(), 1.0);
+    for (size_t iW = 0; iW < numWeights(); ++iW) {
+      MSG_DEBUG("Weight # " << iW << " of " << numWeights());
+      _eventCounter.get()->setActiveWeightIdx(iW);
+      _xs.get()->setActiveWeightIdx(iW);
+      YODA::Scatter1D & xsec = *_xs;
+      // set the sum of weights
+      auto aoit = allaos.find(_eventCounter->path());
+      if (aoit != allaos.end()) {
+        *_eventCounter += *dynamic_pointer_cast<YODA::Counter>(aoit->second);
+      }
+
+      const auto xit = allxsecs.find(xsec.path());
+      if ( xit != allxsecs.end() ) {
+        double xs = xit->second.first;
+        double xserr = sqrt(xit->second.second);
+        if ( equiv ) {
+          MSG_DEBUG("Equivalent mode: scale by numEntries");
+          const double nentries = _eventCounter->numEntries();
+          xs /= nentries;
+          xserr /= nentries;
+        }
+        else if (xs) {
+          // in stacking mode: need to unscale prior to finalize
+          scales[iW] = _eventCounter->sumW()/xs;
+        }
+        xsec.reset();
+        xsec.addPoint( Point1D(xs,xserr) );
+      }
+      else {
+        throw UserError("Missing cross-section for " + xsec.path());
+      }
+
+      // Go through all analyses and add stuff to their analysis objects;
+      for (AnaHandle a : analyses()) {
+        for (const auto& ao : a->analysisObjects()) {
+          ao.get()->setActiveWeightIdx(iW);
+          YODA::AnalysisObjectPtr yao = ao.get()->activeYODAPtr();
+          auto aoit = allaos.find(yao->path());
+          if (aoit != allaos.end()) {
+            if ( !addaos(yao, aoit->second, scales[iW]) ) {
+              MSG_DEBUG("Overwriting incompatible starting version of " << yao->path()
+                        << " using scale " << scales[iW]);
+              copyao(aoit->second, yao, 1.0); // input already scaled by addaos
+            }
+          }
+          else {
+            MSG_DEBUG("Cannot merge objects with path " << yao->path()
+                      << " of type " << yao->annotation("Type"));
+          }
+          a->rawHookIn(yao);
+          ao.get()->unsetActiveWeight();
+        }
+      }
+      _eventCounter.get()->unsetActiveWeight();
+      _xs.get()->unsetActiveWeight();
+    }
+
+
+    // Finally we just have to finalize all analyses, leaving it to the
+    // controlling program to write it out to some YODA file
+    finalize();
+  }
+
+
 
 
 }

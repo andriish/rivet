@@ -18,6 +18,8 @@ namespace Rivet {
     VetoedFinalState(const FinalState& fsp, const vector<Cut>& cuts)
       : FinalState(), _vetoCuts(cuts)
     {
+      MSG_TRACE("In constructor of VetoedFinalState: " << this);
+      std::cerr << "In constructor of VetoedFinalState: " << this << std::endl;
       setName("VetoedFinalState");
       declare(fsp, "FS");
     }
@@ -25,17 +27,17 @@ namespace Rivet {
     /// Constructor with a specific FinalState and a single cut to veto
     VetoedFinalState(const FinalState& fsp, const Cut& cut)
       : VetoedFinalState(fsp, vector<Cut>{cut})
-    {   }
+    { MSG_TRACE(__LINE__);  }
 
     /// Constructor with a default FinalState and a cuts list to veto
     VetoedFinalState(const vector<Cut>& cuts)
       : VetoedFinalState(FinalState(), cuts)
-    {   }
+    { MSG_TRACE(__LINE__);  }
 
     /// Constructor with a default FinalState and a single cut to veto
     VetoedFinalState(const Cut& cut)
       : VetoedFinalState(FinalState(), vector<Cut>{cut})
-    {   }
+    {  MSG_TRACE(__LINE__); }
 
     /// Constructor with a specific FinalState and a PID list to veto
     VetoedFinalState(const FinalState& fsp, const vector<PdgId>& vetopids)
@@ -48,7 +50,7 @@ namespace Rivet {
     /// Constructor with a specific FinalState and a PID to veto
     VetoedFinalState(const FinalState& fsp, PdgId vetopid)
       : VetoedFinalState(fsp, vector<Cut>{Cuts::pid == vetopid})
-    {   }
+    {  MSG_TRACE(__LINE__); }
 
     /// Constructor with a default FinalState and a PID list to veto
     VetoedFinalState(const vector<PdgId>& vetopids)
@@ -61,17 +63,17 @@ namespace Rivet {
     /// Constructor with a default FinalState and a PID to veto
     VetoedFinalState(PdgId vetopid)
       : VetoedFinalState(FinalState(), vector<Cut>{Cuts::pid == vetopid})
-    {   }
+    { MSG_TRACE(__LINE__);  }
 
     /// Constructor with specific FinalState but no cuts
     VetoedFinalState(const FinalState& fsp)
       : VetoedFinalState(fsp, vector<Cut>())
-    {   }
+    {  MSG_TRACE(__LINE__); }
 
     /// Default constructor with default FinalState and no cuts
     VetoedFinalState()
       : VetoedFinalState(FinalState(), vector<Cut>())
-    {   }
+    {  MSG_TRACE(__LINE__); }
 
     /// You can add a map of ID plus a pair containing \f$ p_{Tmin} \f$ and
     /// \f$ p_{Tmax} \f$ -- these define the range of particles to be vetoed.

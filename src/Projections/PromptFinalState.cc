@@ -7,6 +7,7 @@ namespace Rivet {
   PromptFinalState::PromptFinalState(bool accepttaudecays, bool acceptmudecays)
     : _acceptMuDecays(acceptmudecays), _acceptTauDecays(accepttaudecays)
   {
+    MSG_TRACE("Constructing PromptFinalState "<<this<<" via "<<__LINE__);
     setName("PromptFinalState");
     declare(FinalState(), "FS");
   }
@@ -14,6 +15,7 @@ namespace Rivet {
   PromptFinalState::PromptFinalState(const Cut& c, bool accepttaudecays, bool acceptmudecays)
     : _acceptMuDecays(acceptmudecays), _acceptTauDecays(accepttaudecays)
   {
+    MSG_TRACE("Constructing PromptFinalState "<<this<<" via "<<__LINE__);
     setName("PromptFinalState");
     declare(FinalState(c), "FS");
   }
@@ -21,6 +23,7 @@ namespace Rivet {
   PromptFinalState::PromptFinalState(const FinalState& fsp, bool accepttaudecays, bool acceptmudecays)
     : _acceptMuDecays(acceptmudecays), _acceptTauDecays(accepttaudecays)
   {
+    MSG_TRACE("Constructing PromptFinalState "<<this<<" via "<<__LINE__);
     setName("PromptFinalState");
     declare(fsp, "FS");
   }

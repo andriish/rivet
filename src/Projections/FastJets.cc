@@ -10,7 +10,9 @@ namespace Rivet {
 
   void FastJets::_initBase() {
     setName("FastJets");
+    MSG_TRACE("Declaring Heavy Hadrons");
     declare(HeavyHadrons(), "HFHadrons");
+    MSG_TRACE("Declaring Tau Finder");
     declare(TauFinder(TauFinder::DecayMode::HADRONIC), "Taus");
 
     // Print/hide FJ banner

@@ -339,6 +339,12 @@ namespace Rivet {
     /// @}
 
 
+    //TODO @TP: Move this decleration somewhere more appropriate
+    void mergeAnalysisHandlers(AnalysisHandler& other, bool equiv);
+
+
+    AnalysisHandler combineAnalysisHandlers(AnalysisHandler &other, bool equiv);
+
   private:
 
     /// @name Internal helper functions
@@ -453,6 +459,47 @@ namespace Rivet {
     ProjectionHandler _projHandler;
 
     /// @}
+
+    
+    //DEBUG FUNCTION, DELETE SOON
+    public:
+    int getEventCounter() const{
+      try{
+        if (_eventCounter.get() != nullptr){
+          return _eventCounter->val();
+        }
+        else {
+          return -5;
+        }
+        
+      }
+      catch(std::exception &e) {
+        return -10;
+      }
+    }
+
+
+    void print_ah_info() const{
+      std::string weightstring; for (auto w : _weightNames){weightstring+=std::string(w+", ");}
+      MSG_TRACE("This ah's weights (size "<<_weightNames.size() <<"):" << weightstring);
+      std::string weightindstring; for (auto w : _weightIndices){weightindstring+=(std::to_string(w)+", ");}
+      MSG_TRACE("This ah's weight indices (size"<<_weightIndices.size()<< "):" << weightindstring);
+      MSG_TRACE("This ah's (_matchWN, _unmatchWN, _nominalWeightNames): ("<<_matchWeightNames<< ", "<<_unmatchWeightNames<<", "<<_nominalWeightName<<")");
+
+      MSG_TRACE("This ah's subEventWeightsSize is " << _subEventWeights.size());
+      std::cout << "SubEventWeights: (";
+      for(auto i : _subEventWeights){
+        std::cout << "(";
+        for (auto j : i){
+          std::cout << j << ", ";
+        }
+        std::cout << "), ";
+      }
+      std::cout << ")\n";
+    }
+
+
+    
 
   };
 

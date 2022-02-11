@@ -45,6 +45,12 @@ namespace Rivet {
     std::set<ConstProjectionPtr> getProjections() const {
       return getProjHandler().getChildProjections(*this, ProjectionHandler::DEEP);
     }
+    
+    /// Get the contained projections, excluding recursion.
+    ///ADDED FOR DEBUG TP Dec 2021 - But I think its probably a useful capability regardless?
+    std::set<ConstProjectionPtr> getImmediateChildProjections() const {
+      return getProjHandler().getChildProjections(*this, ProjectionHandler::SHALLOW);
+    }
 
     /// Get the contained projections, excluding recursion.
     ///ADDED FOR DEBUG TP Dec 2021 - But I think its probably a useful capability regardless?
