@@ -89,17 +89,6 @@ namespace Rivet {
     /// The standard constructor.
     ProjectionHandler() = default;
 
-    /// @}
-
-    //DEBUG ONLY (Dec 21), delete once everything definitely works:
-    bool is_namedprojs_empty() const{
-      return _namedprojs.empty();
-    }
-
-      
-    // }
-
-
   public:
 
     /// @name Projection registration
