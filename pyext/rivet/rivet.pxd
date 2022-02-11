@@ -120,7 +120,10 @@ cdef extern from "Rivet/Tools/Logging.hh":
 
 cdef extern from "Rivet/Tools/ProjectionTreePlotter.hh" namespace "Rivet":
     cdef cppclass ProjectionTreeGenerator:
-        void addAnalyses(string&)
-        void addAnalysis(vector[string]&)
-        int generateProjTree()
-        void saveProjTree()
+        void setPath(string&)
+        int generateProjTree(vector[string]&)
+        int getProjTree(AnalysisHandler&)
+        void writeProjTree()
+        vector[pair[size_t,size_t]]& getEdges()
+        vector[string]& getProjNames()
+        

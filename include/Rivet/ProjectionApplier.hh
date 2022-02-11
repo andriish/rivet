@@ -52,6 +52,11 @@ namespace Rivet {
       return getProjHandler().getChildProjections(*this, ProjectionHandler::SHALLOW);
     }
 
+    /// Get the contained projections, excluding recursion.
+    std::set<ConstProjectionPtr> getImmediateChildProjections() const {
+      return getProjHandler().getChildProjections(*this, ProjectionHandler::SHALLOW);
+    }
+
     /// Does this applier have a projection registered under the name @a name?
     bool hasProjection(const std::string& name) const {
       return getProjHandler().hasProjection(*this, name);
