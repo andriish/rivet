@@ -169,7 +169,6 @@ namespace Rivet {
       return *_projhandler;
     }
 
-protected:
 
     /// @name Projection registration functions
     /// @{
@@ -248,13 +247,14 @@ protected:
     mutable bool _owned;
 
     /// Pointer to projection handler.
-    //std::shared_ptr<ProjectionHandler> _projhandler;
-    /// @todo TP: Is this abuse of the mutable system? And would we prefer a smart pointer?
+    /// @todo TP: Would we prefer a smart pointer?
     mutable ProjectionHandler* _projhandler;
-    /// Declare receives reference to a Projection and name, so we need to store both Projection and name for when we eventually call it
+    /// queue storing child projections that need to be properly declared later.
+    /// Declare receives reference to a Projection and name, so we need to store both Projection and name.
     mutable std::deque<pair<std::shared_ptr<Projection>, string>> _declQueue;
 
 protected:
+    /// If this applier is owned, recursively flush declQueues of child projections, registering them to the projhandler.
     void _syncDeclQueue() const;
 
   };
