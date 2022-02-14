@@ -169,6 +169,7 @@ namespace Rivet {
     }
 
 
+    private:
     /// @name Projection registration functions
     /// @{
 
@@ -190,6 +191,8 @@ namespace Rivet {
       rtn.setProjectionHandler(getProjHandler());
       return rtn;
     }
+
+    protected:
 
     /// @brief Register a contained projection (user-facing version)
     /// @todo Add SFINAE to require that PROJ inherit from Projection
