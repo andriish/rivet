@@ -208,7 +208,7 @@ get_test_hepmc:
     - rivet --pwd -a MC_TTBAR:TTMODE=ANYLEP,ATLAS_2017_I1614149,ATLAS_2018_I1646686,ATLAS_2018_I1656578 -H ttbar_test_run.yoda $CI_PROJECT_DIR/tt.hepmc.gz
     - | #monthly full validation only... SLOW!
       if [[ "$VAL" == "1" ]]; then
-        if [[ "$ARCH" == "ubuntu-gcc-hepmc2-py2" ]]; then
+        if [[ "$ARCH" == "ubuntu-gcc-hepmc3-py3" ]]; then
           cd $VAL_PREFIX
           rivet-mkvaldir VALDIR --ref-dir $CI_PROJECT_DIR/analyses/valref/
           cd VALDIR
