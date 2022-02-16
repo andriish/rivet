@@ -56,7 +56,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       
-      const Jets& jets = apply<FastJets>(event, "JETS").jetsByPt(7.0*GeV);
+      const Jets& jets = apply<FastJets>(event, "JETS").jetsByPt(7*GeV);
       const Particles& bpmFS = apply<UnstableParticles>(event, "BPM_FS").particlesByPt();      
 
       //Preselect B mesons in J/psi K decay channel
@@ -90,19 +90,16 @@ namespace Rivet {
           
       //Preselect jets passing kinematic cuts
       Jets goodJets;
-      for (size_t i = 0; i < jets.size() - 1; ++i) {
-        const Jet& j1 = jets[i];
-        if (j1.pt() <= 20*GeV) continue;
-        if (j1.abseta() >= 2.1) continue;
-        
-        bool isOverlap = false;
+      for (size_t i = 0; i < jets.size(); ++i) {
+        if (jets[i].pT() <= 20*GeV) continue;
+        if (jets[i].abseta() >= 2.1) continue;
+        bool overlaps = false;
         for (size_t j = i + 1; j < jets.size(); ++j) {
-          if (jets[j].pt() > 20.0*GeV && deltaR(j1,jets[j]) < 0.8) {
-            isOverlap = true; break;
+          if (jets[j].pT() > 20*GeV && deltaR(jets[i], jets[j]) < 0.8) {
+            overlaps = true; break;
           }
         }
-        if (isOverlap) continue;
-        goodJets += j1;
+        if (!overlaps)  goodJets += jets[i];
       }
 
       //Associate the jets to the B hadrons.
