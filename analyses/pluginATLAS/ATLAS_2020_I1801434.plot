@@ -617,25 +617,25 @@ YLabel=$\dfrac{\text{$d^2$}\sigma^\text{fid}}{\text{$d^2$} {|P^{t,1}_{out}| \cdo
 # BEGIN PLOT /ATLAS_2020_I1801434/d251-x01-y01
 Path: /ATLAS_2020_I1801434/d251-x01-y01
 XLabel=$\Delta\phi^{t\bar{t}}$ [Rad]
-YLabel=$\dfrac{\text{$d^2$}\sigma^\text{fid}}{\text{$d^2$} {\Delta\phi^{t\bar{t}} \cdot N_{jets}}}$ [1/Rad]
+YLabel=$\dfrac{1}{\sigma}\dfrac{\text{$d^2$}\sigma^\text{fid}}{\text{$d^2$} {\Delta\phi^{t\bar{t}} \cdot N_{jets}}}$ [1/Rad]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2020_I1801434/d252-x01-y01
 Path: /ATLAS_2020_I1801434/d252-x01-y01
 XLabel=$\Delta\phi^{t\bar{t}}$ [Rad]
-YLabel=$\dfrac{\text{$d^2$}\sigma^\text{fid}}{\text{$d^2$} {\Delta\phi^{t\bar{t}} \cdot N_{jets}}}$ [1/Rad]
+YLabel=$\dfrac{1}{\sigma}\dfrac{\text{$d^2$}\sigma^\text{fid}}{\text{$d^2$} {\Delta\phi^{t\bar{t}} \cdot N_{jets}}}$ [1/Rad]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2020_I1801434/d253-x01-y01
 Path: /ATLAS_2020_I1801434/d253-x01-y01
 XLabel=$\Delta\phi^{t\bar{t}}$ [Rad]
-YLabel=$\dfrac{\text{$d^2$}\sigma^\text{fid}}{\text{$d^2$} {\Delta\phi^{t\bar{t}} \cdot N_{jets}}}$ [1/Rad]
+YLabel=$\dfrac{1}{\sigma}\dfrac{\text{$d^2$}\sigma^\text{fid}}{\text{$d^2$} {\Delta\phi^{t\bar{t}} \cdot N_{jets}}}$ [1/Rad]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2020_I1801434/d254-x01-y01
 Path: /ATLAS_2020_I1801434/d254-x01-y01
 XLabel=$\Delta\phi^{t\bar{t}}$ [Rad]
-YLabel=$\dfrac{\text{$d^2$}\sigma^\text{fid}}{\text{$d^2$} {\Delta\phi^{t\bar{t}} \cdot N_{jets}}}$ [1/Rad]
+YLabel=$\dfrac{1}{\sigma}\dfrac{\text{$d^2$}\sigma^\text{fid}}{\text{$d^2$} {\Delta\phi^{t\bar{t}} \cdot N_{jets}}}$ [1/Rad]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2020_I1801434/d265-x01-y01
