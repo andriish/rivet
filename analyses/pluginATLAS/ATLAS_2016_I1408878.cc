@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief D meson production at 7 TeV
   class ATLAS_2016_I1408878 : public Analysis {
   public:
 
@@ -20,6 +20,7 @@ namespace Rivet {
     void init() {
       // projections
       declare(UnstableParticles(), "UFS");
+      // histograms
       for(unsigned int ix=0;ix<3;++ix)
 	book(_h_tot[ix],1,1,1+ix);
       for(unsigned int ix=0;ix<2;++ix) {

@@ -1,0 +1,38 @@
+Name: ALICE_2021_I1848990
+Year: 2021
+Summary: $D^0$, $D^\pm$ and $D^\pm_s$ meson production at 5.02 TeV
+Experiment: ALICE
+Collider: LHC
+InspireID: 1848990
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - JHEP 05 (2021) 220, 2021.
+RunInfo: D meson production
+Beams: [p+, p+]
+Energies: [5020]
+Description:
+  'Measurement of the transverse momentum spectra and ratios for  $D^0$, $D^\pm$ and $D^\pm_s$ meson production at 5.02 TeV by the ALICE collaboration.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: ALICE:2021mgk
+BibTeX: '@article{ALICE:2021mgk,
+    author = "Acharya, Shreyasi and others",
+    collaboration = "ALICE",
+    title = "{Measurement of beauty and charm production in pp collisions at $ \sqrt{s} $ = 5.02 TeV via non-prompt and prompt D mesons}",
+    eprint = "2102.13601",
+    archivePrefix = "arXiv",
+    primaryClass = "nucl-ex",
+    reportNumber = "CERN-EP-2021-034",
+    doi = "10.1007/JHEP05(2021)220",
+    journal = "JHEP",
+    volume = "05",
+    pages = "220",
+    year = "2021"
+}
+'
