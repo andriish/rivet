@@ -1,0 +1,40 @@
+Name: ALICE_2019_I1716440
+Year: 2019
+Summary: $D^0$, $D^{*\pm}$, $D^\pm$ and $D^\pm_s$ meson production at 5.02 and 7 TeV
+Experiment: ALICE
+Collider: LHC
+InspireID: 1716440
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Eur.Phys.J.C 79 (2019) 388, 2019
+RunInfo: D meson production
+Beams: [p+, p+]
+Energies: [5020,7000]
+Options:
+ - ENERGY=5020,7000
+Description:
+  'Measurement of the transverse momentum spectra and ratios for  $D^0$, $D^{*\pm}$, $D^\pm$ and $D^\pm_s$ meson production at 5.02 TeV by the ALICE collaboration. The 7 TeV results are based on those from ALICE_2017_I1511870 and are mainly used to take ratios between the two energies.
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: ALICE:2019nxm
+BibTeX: '@article{ALICE:2019nxm,
+    author = "Acharya, Shreyasi and others",
+    collaboration = "ALICE",
+    title = "{Measurement of ${{\mathrm{D}}^0}$ , ${{\mathrm{D}}^+}$ , ${{\mathrm{D}}^{*+}}$ and ${{\mathrm{D}}^+_{\mathrm{s}}}$ production in pp collisions at ${\sqrt{{\textit{s}}}~=~5.02~{\text {TeV}}}$ with ALICE}",
+    eprint = "1901.07979",
+    archivePrefix = "arXiv",
+    primaryClass = "nucl-ex",
+    reportNumber = "CERN-EP-2019-004",
+    doi = "10.1140/epjc/s10052-019-6873-6",
+    journal = "Eur. Phys. J. C",
+    volume = "79",
+    number = "5",
+    pages = "388",
+    year = "2019"
+}
+'
