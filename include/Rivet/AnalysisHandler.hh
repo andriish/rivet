@@ -343,7 +343,7 @@ namespace Rivet {
     void mergeAnalysisHandlers(AnalysisHandler& other, bool equiv);
 
 
-    AnalysisHandler combineAnalysisHandlers(AnalysisHandler &other, bool equiv);
+    void combineAnalysisHandlers(AnalysisHandler &merger1, AnalysisHandler &merger2, bool equiv=true);
 
   private:
 

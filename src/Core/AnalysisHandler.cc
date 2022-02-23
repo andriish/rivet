@@ -690,22 +690,31 @@ namespace Rivet {
                                  const bool overwrite_xsec,
                                  const double fileweight) {
 
-
+    std::cout << __FILE__ << ": " << __LINE__ << std::endl;
     map<string, double> scales;
     for (auto& [aopath, aor] : newaos) { 
+      std::cout << __FILE__ << ": " << __LINE__ << std::endl;
       YODA::AnalysisObjectPtr ao(aor);
+      std::cout << __FILE__ << ": " << __LINE__ << std::endl;
       //AOPath path(ao->path());
       AOPath path(aopath);
+      std::cout << __FILE__ << ": " << __LINE__ << std::endl;
       if ( !path ) {
         throw UserError("Invalid path name in new AO set!");
       }
       // skip everything that isn't pre-finalize
-      if ( !path.isRaw() ) continue;
+      std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+      if ( !path.isRaw() ){
+        std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+        continue;
+      } 
 
+      std::cout << __FILE__ << ": " << __LINE__ << std::endl;
       MSG_DEBUG(" " << ao->path());
 
       const string& wname = path.weightComponent();
       if ( scales.find(wname) == scales.end() ) {
+        std::cout << __FILE__ << ": " << __LINE__ << std::endl;
         scales[wname] = 1.0;
         // get the sum of weights and number of entries for the current weight
         double evts = 0, sumw = 1;
@@ -718,6 +727,7 @@ namespace Rivet {
         else if (!equiv) {
           throw UserError("Missing event counter, needed for non-equivalent merging!");
         }
+        std::cout << __FILE__ << ": " << __LINE__ << std::endl;
         // in stacking mode: add up all the cross sections
         // in equivalent mode: weight the cross-sections
         // estimates by the corresponding number of entries
@@ -745,7 +755,7 @@ namespace Rivet {
           throw UserError("Missing cross-section, needed for non-equivalent merging!");
         }
       }
-
+      std::cout << __FILE__ << ": " << __LINE__ << std::endl;
       // Now check if any options should be removed
       for ( const string& delopt : delopts ) {
         if ( path.hasOption(delopt) )  path.removeOption(delopt);
@@ -758,7 +768,7 @@ namespace Rivet {
         }
       }
       path.setPath();
-
+      std::cout << __FILE__ << ": " << __LINE__ << std::endl;
       // merge AOs
       const string& key = path.path();
       const double sf = key.find("_EVTCOUNT") != string::npos? 1 : scales[wname];
@@ -1225,7 +1235,43 @@ namespace Rivet {
     MSG_TRACE("After calling finalize, this evtcounter: " << _eventCounter->val());
   }
 
+  //TODO: I think there's potential to vectorise this.
+  void AnalysisHandler::combineAnalysisHandlers(AnalysisHandler &merger1, AnalysisHandler &merger2, bool equiv){
+    //Variables that will go into mergeAOs
+    std::map<string, YODA::AnalysisObjectPtr> allaos;
+    std::map<string, YODA::AnalysisObject*> newaos;
+    map<string, pair<double, double>> allxsecs;
 
+    std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+
+    //Get all the anahandles
+    std::vector<AnaHandle> analysisHandles;
+    for ( const std::pair<std::string, AnaHandle> &ana : merger1._analyses){
+      analysisHandles.push_back(ana.second);
+    }
+    for ( const std::pair<std::string, AnaHandle> &ana : merger2._analyses){
+      analysisHandles.push_back(ana.second);
+    }
+
+    // Loop over anahandles
+    for ( const AnaHandle& handle : analysisHandles){
+      for (const Rivet::MultiweightAOPtr& aohandle : handle->analysisObjects()){
+        newaos[aohandle->path()] = aohandle.get()->activeYODAPtr().get();
+      }
+    }
+
+    std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+    for (const auto & ao : newaos){
+      std::cout << ao.first << ", " << ao.second << " (" << ao.second->path() << ")" << std::endl;
+    }
+
+    mergeAOS(allaos, newaos, allxsecs, {}, {}, {}, {}, equiv);
+    std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+    setupReentrantRun(allaos, allxsecs, equiv);
+    std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+
+    return;
+  }
 
   // AnalysisHandler AnalysisHandler::combineAnalysisHandlers(AnalysisHandler &other, bool equiv){
   //   //Handlers to be merged must have same beam:
