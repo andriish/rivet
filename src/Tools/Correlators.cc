@@ -9,7 +9,7 @@ namespace Rivet {
     int pMaxIn, vector<double> pTbinEdgesIn) :
       nMax(nMaxIn + 1), pMax(pMaxIn + 1), pTbinEdges(pTbinEdgesIn) {
     setName("Correlators");
-    declareProjection(fsp, "FS");
+    declare(fsp, "FS");
     isPtDiff   = !pTbinEdges.empty();
     if (isPtDiff) {
       vector<double>::iterator underflow = pTbinEdges.begin();
@@ -24,7 +24,7 @@ namespace Rivet {
     for (auto b : hIn.points()) pTbinEdges.push_back(b.xMin());
     pTbinEdges.push_back(hIn.points().back().xMax());
     setName("Correlators");
-    declareProjection(fsp, "FS");
+    declare(fsp, "FS");
     isPtDiff   = !pTbinEdges.empty();
     if (isPtDiff) {
       vector<double>::iterator underflow = pTbinEdges.begin();

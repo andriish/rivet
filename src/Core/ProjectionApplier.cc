@@ -52,8 +52,6 @@ namespace Rivet {
   }
 
   void ProjectionApplier::setProjectionHandler(ProjectionHandler& projectionHandler) const {
-    /// Problem with reference reassignment: see comment below on _projhandler member declaration
-    //_projhandler = projHandler;
     _projhandler = &projectionHandler;
     //TODO @TP: I don't think this call is needed anymore?
     _syncDeclQueue();

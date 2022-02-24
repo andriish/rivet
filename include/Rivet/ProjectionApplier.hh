@@ -81,14 +81,17 @@ namespace Rivet {
 
     ///Get a named projection from this projection appliers declqueue
     ///TODO @TP: Recursion?
-    ///TODO @TP: throw error if nothing found? can't return a null reference.
     template <typename PROJ>
     const PROJ& getProjectionFromDeclQueue(const std::string name) const {
-      //TODO: There's an STLy way of doing this that'll be more efficient.
-      for (const auto& pair : _declQueue){
-        if (pair.second == name){
-          return dynamic_cast<PROJ&>(*(pair.first));
-        }
+      auto it = std::find_if(_declQueue.begin(), _declQueue.end(), 
+          [&name](const std::pair<std::shared_ptr<Projection>, std::string> &Qmember) {return Qmember.second == name;});
+      if (it != _declQueue.end()){
+        return dynamic_cast<PROJ&>(*(it->first));
+      }                          
+      else {
+        //If projection isn't found, deal with it properly.
+        MSG_ERROR("Projection " << name << " not found in declQueue of " << this << " (" << this->name() << ")");
+        throw RangeError("Projection lookup failed in getProjectionFromDeclQueue");
       }
     }
     ///@}
@@ -165,8 +168,8 @@ namespace Rivet {
       return *_projhandler;
     }
 
-protected:
 
+    private:
     /// @name Projection registration functions
     /// @{
 
@@ -188,6 +191,8 @@ protected:
       rtn.setProjectionHandler(getProjHandler());
       return rtn;
     }
+
+    protected:
 
     /// @brief Register a contained projection (user-facing version)
     /// @todo Add SFINAE to require that PROJ inherit from Projection
@@ -244,13 +249,14 @@ protected:
     mutable bool _owned;
 
     /// Pointer to projection handler.
-    //std::shared_ptr<ProjectionHandler> _projhandler;
-    /// @todo TP: Is this abuse of the mutable system? And would we prefer a smart pointer?
+    /// @todo TP: Would we prefer a smart pointer?
     mutable ProjectionHandler* _projhandler;
-    /// Declare receives reference to a Projection and name, so we need to store both Projection and name for when we eventually call it
+    /// queue storing child projections that need to be properly declared later.
+    /// Declare receives reference to a Projection and name, so we need to store both Projection and name.
     mutable std::deque<pair<std::shared_ptr<Projection>, string>> _declQueue;
 
 protected:
+    /// If this applier is owned, recursively flush declQueues of child projections, registering them to the projhandler.
     void _syncDeclQueue() const;
 
   };
