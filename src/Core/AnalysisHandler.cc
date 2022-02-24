@@ -1235,147 +1235,12 @@ namespace Rivet {
     return sqrtS(runBeams());
   }
 
-
-//TODO @TP: It would be nifty and more efficient if we could merge multiple handlers at once using variadic templates (come back to when it works)
-// Merges AnalysisHandler Other into this.
-// Not (yet?) written to be symmetric: looks to merge from other into this: if other has stuff (e.g. an analysis)
-// that this does not have, it will be ignored. VERY VERY VERY much a WIP.
-//TODO: Include weights here?
-  void AnalysisHandler::mergeAnalysisHandlers(AnalysisHandler& other, bool equiv){
-    MSG_TRACE("Merging analysis handler " << &other << " into " << this);
-
-    //Handlers to be merged must have same beam:
-    //TODO: Would it make sense to have a Rivet particle operator== 
-    if (other._beams.first.energy() != _beams.first.energy() &&
-         other._beams.second.energy() != _beams.second.energy()){return;}
-
-    //TODO @TP: Should we check the "finalisation status" of analysishandlers? If one is and one isn't,
-    //things could go weird - is the "stage" enum "mature" enough for this use?
-
-    //Sum event numbers and the YODA counter
-    _eventNumber = _eventNumber + other._eventNumber;
-    //TODO @TP: This looks horrible, is there a less stomach-churning syntax?
-    MSG_TRACE("This evtcounter: " << _eventCounter->val());
-    MSG_TRACE("Other evtcounter: " << other._eventCounter->val());
-    _eventCounter->operator+=(*(other._eventCounter));
-    MSG_TRACE("After merging, this evtcounter: " << _eventCounter->val());
-
-    //TODO @TP: what to do about XS? (I've messed this up like twice now)
-    //MSG_TRACE("This XS: " << _xs->
-
-
-    //Let's look at the weights.
-    std::string weightstring; for (auto w : _weightNames){weightstring+=std::string(w+", ");}
-    std::string otherweightstring; for (auto w : other._weightNames){otherweightstring+=std::string(w+", ");}
-    MSG_TRACE("This ah's weights (size "<<_weightNames.size() <<"):" << weightstring);
-    MSG_TRACE("Other ah's weights (size "<<other._weightNames.size() <<"):" << otherweightstring);
-    std::string weightindstring; for (auto w : _weightIndices){weightindstring+=(std::to_string(w)+", ");}
-    std::string otherweightindstring; for (auto w : other._weightIndices){otherweightindstring+=(std::to_string(w)+", ");}
-    MSG_TRACE("This ah's weight indices (size"<<_weightIndices.size()<< "):" << weightindstring);
-    MSG_TRACE("Other ah's weight indices (size"<<other._weightIndices.size()<<"):" << otherweightindstring);
-
-    MSG_TRACE("This ah's (_matchWN, _unmatchWN, _nominalWeightNames): ("<<_matchWeightNames<< ", "<<_unmatchWeightNames<<", "<<_nominalWeightName<<")");
-    MSG_TRACE("Other ah's (_matchWN, _unmatchWN, _nominalWeightNames): ("<<other._matchWeightNames<< ", "<<other._unmatchWeightNames<<", "<<other._nominalWeightName<<")");
-
-    MSG_TRACE("This ah's subEventWeightsSize is " << _subEventWeights.size());
-    MSG_TRACE("Other ah's subEventWeightsSize is " << other._subEventWeights.size());
-    std::cout << "SubEventWeights: (";
-    for(auto i : _subEventWeights){
-      std::cout << "(";
-      for (auto j : i){
-        std::cout << j << ", ";
-      }
-      std::cout << "), ";
-    }
-    std::cout << ")\nOther subeventweights: (";
-    for(auto i : other._subEventWeights){
-      std::cout << "(";
-      for (auto j : i){
-        std::cout << j << ", ";
-      }
-      std::cout << "), ";
-    }
-    std::cout << ")\n";
-
-
-
-    size_t iW = 1;
-
-    const std::vector<AnaHandle> othersAnalyses = other.analyses();
-
-    for(AnaHandle a : analyses()){
-      //find corresponding analysis in the other ao;
-      std::string analysisname = a->name();
-      auto other_analysis_it = std::find_if(othersAnalyses.begin(), othersAnalyses.end(),
-                   [&analysisname](const AnaHandle otherhandle){std::cerr<<"\n"<<otherhandle->name() <<" v "<< analysisname<<endl;return otherhandle->name() == analysisname; });
-
-      if (other_analysis_it == othersAnalyses.end()){
-        //This analysis isn't present in the other ah. Move on.
-        MSG_DEBUG("Analysis " << a->name() << " present in analysishandler " << this 
-                      << " not present in " << &other);
-        //Debug only:
-        // std::string analysesinother;
-        // for (auto ana : other.analyses()){
-        //   analysesinother += std::string(ana->name() + ", ");
-        // }
-        // MSG_TRACE("Analyses present in other: " << analysesinother);
-        continue;
-      }
-
-      //TODO: Is there a more elegant syntax for double dereferencing? This looks awful.
-      auto othersaos = (*other_analysis_it)->analysisObjects();
-      //Is it a valid assumption that the analysisObjects() only contains one object of each name? I assume so?
-      MSG_TRACE("There are " << othersaos.size() << " other aos");
-      std::string otheraostring; for (auto ao : othersaos){otheraostring+=std::string(ao->name()+", ");}
-      MSG_TRACE("They are " << otheraostring);
-      MSG_TRACE("This analysis has " << a->analysisObjects().size() << " aos");
-      std::string aostring; for (auto ao : a->analysisObjects()){aostring+=std::string(ao->name()+", ");}
-      MSG_TRACE("They are " << aostring);
-      for (const auto& ao : a-> analysisObjects()){
-        //Find corresponding ao in other:
-        auto other_ao_it = std::find_if(othersaos.begin(), othersaos.end(),
-                                        [&](const Rivet::MultiweightAOPtr otherAOptr){return ao->name() == otherAOptr->name();});
-        if (other_ao_it == (*other_analysis_it)->analysisObjects().end()){
-          //This analysis object is not present in other. Slightly scary. Move on (but warn?!)
-          MSG_WARNING("Analysis object " << ao->name() << " present in analysis " << a->name() << 
-                "  of analysishandler " << this << " NOT found in same analysis of analysishandler "
-                << &other << ". AnalysisHandler merge has probably gone wrong..." );
-          continue;
-        }
-        MSG_TRACE("Merging ao " << ao->name() << " in analysis " << a->name());
-
-        //ao.get()->setActiveWeightIdx(iW);
-        YODA::AnalysisObjectPtr yao = ao.get()->activeYODAPtr();
-        if (!addaos(yao, other_ao_it->get()->activeYODAPtr(), iW )){
-          MSG_WARNING("Failed to merge object named " << ao->name() << " in analysis " << a->name()
-                      << " for analysis handlers " << this << " and " << &other << 
-                      " (if this ao is not a histogram, this is nothing to worry about)");
-        }
-        //ao.get()->unsetActiveWeight();
-
-      }
-
-    }
-
-    MSG_TRACE("DEBUG INFO");
-    print_ah_info();
-
-
-    //Finalise all analyses;
-    //TODO -> do I actually want this here?
-    MSG_TRACE("Before calling finalize, this evtcounter: " << _eventCounter->val());
-    finalize();
-    MSG_TRACE("After calling finalize, this evtcounter: " << _eventCounter->val());
-  }
-
   //TODO: I think there's potential to vectorise this.
   void AnalysisHandler::combineAnalysisHandlers(std::vector<AnalysisHandler*> &handlers, bool equiv){
     //Variables that will go into mergeAOs
     std::map<string, YODA::AnalysisObjectPtr> allaos;
     std::map<string, YODA::AnalysisObjectPtr> newaos;
     map<string, pair<double, double>> allxsecs;
-
-    std::cout << __FILE__ << ": " << __LINE__ << std::endl;
 
     for (const AnalysisHandler* handler: handlers){
       for (const YODA::AnalysisObjectPtr& yodaptr : handler->getYodaAOs(true)){
@@ -1387,7 +1252,6 @@ namespace Rivet {
       mergeAOS(allaos, newaos, allxsecs, {}, {}, {}, {}, equiv);
     }
 
-    std::cout << __FILE__ << ": " << __LINE__ << std::endl;
     setupReentrantRun(allaos, allxsecs, equiv);
     return;
   }
