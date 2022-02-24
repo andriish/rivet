@@ -778,6 +778,129 @@ namespace Rivet {
       std::cout << __FILE__ << ": " << __LINE__ << ": " << key << std::endl;
       const double sf = key.find("_EVTCOUNT") != string::npos? 1 : scales[wname];
       std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+      std::cout << sf << std::endl;
+      auto it = allaos.find(key);
+      std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+      std::cout << (it == allaos.end()) << std::endl;
+      if (allaos.find(key) == allaos.end()) {
+        std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+        MSG_DEBUG("Copy first occurrence of " << key << " using scale " << sf);
+        allaos[key] = ao; // TODO would be nice to combine these two?
+        std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+        copyao(ao, allaos[key], sf);
+        std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+      }
+      else if ( !addaos(allaos[key], ao, sf) ) {
+        std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+        MSG_DEBUG("Cannot merge objects with path " << key
+                  << " of type " << ao->annotation("Type") << " using scale " << sf);
+      } // end of merge attempt
+    } // loop over all AOs ends
+  }
+
+  void AnalysisHandler::mergeAOS(map<string, YODA::AnalysisObjectPtr> &allaos,
+                                 map<string, YODA::AnalysisObjectPtr> &newaos, 
+                                 map<string, pair<double, double>> &allxsecs,
+                                 const vector<string> &delopts,
+                                 const vector<string> &optAnas,
+                                 const vector<string> &optKeys,
+                                 const vector<string> &optVals,
+                                 const bool equiv, 
+                                 const bool overwrite_xsec,
+                                 const double fileweight) {
+
+
+    for (const auto & ao : newaos){
+      std::cout << ao.first << ", " << ao.second << " (" << ao.second->path() << ")" << std::endl;
+    }
+                                   
+    std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+    map<string, double> scales;
+    for (auto& [aopath, aor] : newaos) { 
+      std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+      YODA::AnalysisObjectPtr ao(aor);
+      std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+      //AOPath path(ao->path());
+      AOPath path(aopath);
+      std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+      if ( !path ) {
+        throw UserError("Invalid path name in new AO set!");
+      }
+      // skip everything that isn't pre-finalize
+      std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+      if ( !path.isRaw() ){
+        std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+        continue;
+      } 
+
+      std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+      MSG_DEBUG(" " << ao->path());
+
+      const string& wname = path.weightComponent();
+      if ( scales.find(wname) == scales.end() ) {
+        std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+        scales[wname] = 1.0;
+        // get the sum of weights and number of entries for the current weight
+        double evts = 0, sumw = 1;
+        auto ec_it = newaos.find("/RAW/_EVTCOUNT" + wname);
+        if ( ec_it != newaos.end() ) {
+          YODA::Counter* cPtr = static_cast<YODA::Counter*>(ec_it->second.get());
+          evts = cPtr->numEntries();
+          sumw = cPtr->sumW()? cPtr->sumW() : 1;
+        }
+        else if (!equiv) {
+          throw UserError("Missing event counter, needed for non-equivalent merging!");
+        }
+        std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+        // in stacking mode: add up all the cross sections
+        // in equivalent mode: weight the cross-sections
+        // estimates by the corresponding number of entries
+        const string xspath = "/RAW/_XSEC" + wname;
+        auto xs_it = newaos.find(xspath);
+        if ( xs_it != newaos.end() ) {
+          YODA::Scatter1D* xsec = static_cast<YODA::Scatter1D*>(xs_it->second.get());
+          if (overwrite_xsec) {
+            MSG_DEBUG("Set user-supplied weight: " << fileweight);
+            xsec->point(0).setX(fileweight);
+          }
+          else {
+            MSG_DEBUG("Multiply user-supplied weight: " << fileweight);
+            xsec->scaleX(fileweight);
+          }
+          // get iterator to the existing (or newly created) key-value pair
+          auto xit = allxsecs.insert( make_pair(xspath, make_pair(0,0)) ).first;
+          // update cross-sections, possibly weighted by number of entries
+          xit->second.first  += (equiv? evts : 1.0) * xsec->point(0).x();
+          xit->second.second += (equiv? sqr(evts) : 1.0) * sqr(xsec->point(0).xErrAvg());
+          // only in stacking mode: multiply each AO by cross-section / sumW
+          if (!equiv)  scales[wname] = xsec->point(0).x() / sumw;
+        }
+        else if (!equiv) {
+          throw UserError("Missing cross-section, needed for non-equivalent merging!");
+        }
+      }
+      // Now check if any options should be removed
+      for ( const string& delopt : delopts ) {
+        if ( path.hasOption(delopt) )  path.removeOption(delopt);
+      }
+      // ...or added
+      for (size_t i = 0; i < optAnas.size(); ++i) {
+        if (path.path().find(optAnas[i]) != string::npos ) {
+          path.setOption(optKeys[i], optVals[i]);
+          path.fixOptionString();
+        }
+      }
+      path.setPath();
+      std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+      // merge AOs
+      const string& key = path.path();
+      std::cout << __FILE__ << ": " << __LINE__ << ": " << key << std::endl;
+      const double sf = key.find("_EVTCOUNT") != string::npos? 1 : scales[wname];
+      std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+      std::cout << sf << std::endl;
+      auto it = allaos.find(key);
+      std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+      std::cout << (it == allaos.end()) << std::endl;
       if (allaos.find(key) == allaos.end()) {
         std::cout << __FILE__ << ": " << __LINE__ << std::endl;
         MSG_DEBUG("Copy first occurrence of " << key << " using scale " << sf);
@@ -1249,7 +1372,7 @@ namespace Rivet {
   void AnalysisHandler::combineAnalysisHandlers(std::vector<AnalysisHandler*> &handlers, bool equiv){
     //Variables that will go into mergeAOs
     std::map<string, YODA::AnalysisObjectPtr> allaos;
-    std::map<string, YODA::AnalysisObject*> newaos;
+    std::map<string, YODA::AnalysisObjectPtr> newaos;
     map<string, pair<double, double>> allxsecs;
 
     std::cout << __FILE__ << ": " << __LINE__ << std::endl;
@@ -1258,7 +1381,7 @@ namespace Rivet {
       for (const YODA::AnalysisObjectPtr& yodaptr : handler->getYodaAOs(true)){
         AOPath aopath(yodaptr->path());
         if (aopath.isRaw()){
-          newaos[yodaptr->path()] = yodaptr.get();
+          newaos[yodaptr->path()] = yodaptr;
         }
       }
       mergeAOS(allaos, newaos, allxsecs, {}, {}, {}, {}, equiv);

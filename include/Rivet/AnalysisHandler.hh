@@ -305,6 +305,18 @@ namespace Rivet {
                              const vector<string>& unmatches=vector<string>(),
                              bool equiv=false);
 
+    /// @brief Merge the AO map a @newaos into @a allaos - smart pointer version
+    void mergeAOS(map<string, YODA::AnalysisObjectPtr> &allaos,
+                  map<string, YODA::AnalysisObjectPtr> &newaos, 
+                  map<string, pair<double, double>> &allxsecs,
+                  const vector<string>& delopts=vector<string>(),
+                  const vector<string>& optAnas=vector<string>(),
+                  const vector<string>& optKeys=vector<string>(),
+                  const vector<string>& optVals=vector<string>(),
+                  bool equiv=false,
+                  const bool overwrite_xsec = false,
+                  const double fileweight = 1.0);
+
     /// @brief Merge the AO map a @newaos into @a allaos
     void mergeAOS(map<string, YODA::AnalysisObjectPtr> &allaos,
                   map<string, YODA::AnalysisObject*> &newaos, 
