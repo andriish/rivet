@@ -18,8 +18,6 @@ namespace Rivet {
     VetoedFinalState(const FinalState& fsp, const vector<Cut>& cuts)
       : FinalState(), _vetoCuts(cuts)
     {
-      MSG_TRACE("In constructor of VetoedFinalState: " << this);
-      std::cerr << "In constructor of VetoedFinalState: " << this << std::endl;
       setName("VetoedFinalState");
       declare(fsp, "FS");
     }
