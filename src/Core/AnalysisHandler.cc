@@ -690,6 +690,11 @@ namespace Rivet {
                                  const bool overwrite_xsec,
                                  const double fileweight) {
 
+
+    for (const auto & ao : newaos){
+      std::cout << ao.first << ", " << ao.second << " (" << ao.second->path() << ")" << std::endl;
+    }
+                                   
     std::cout << __FILE__ << ": " << __LINE__ << std::endl;
     map<string, double> scales;
     for (auto& [aopath, aor] : newaos) { 
@@ -755,7 +760,6 @@ namespace Rivet {
           throw UserError("Missing cross-section, needed for non-equivalent merging!");
         }
       }
-      std::cout << __FILE__ << ": " << __LINE__ << std::endl;
       // Now check if any options should be removed
       for ( const string& delopt : delopts ) {
         if ( path.hasOption(delopt) )  path.removeOption(delopt);
@@ -771,13 +775,19 @@ namespace Rivet {
       std::cout << __FILE__ << ": " << __LINE__ << std::endl;
       // merge AOs
       const string& key = path.path();
+      std::cout << __FILE__ << ": " << __LINE__ << ": " << key << std::endl;
       const double sf = key.find("_EVTCOUNT") != string::npos? 1 : scales[wname];
+      std::cout << __FILE__ << ": " << __LINE__ << std::endl;
       if (allaos.find(key) == allaos.end()) {
+        std::cout << __FILE__ << ": " << __LINE__ << std::endl;
         MSG_DEBUG("Copy first occurrence of " << key << " using scale " << sf);
         allaos[key] = ao; // TODO would be nice to combine these two?
+        std::cout << __FILE__ << ": " << __LINE__ << std::endl;
         copyao(ao, allaos[key], sf);
+        std::cout << __FILE__ << ": " << __LINE__ << std::endl;
       }
       else if ( !addaos(allaos[key], ao, sf) ) {
+        std::cout << __FILE__ << ": " << __LINE__ << std::endl;
         MSG_DEBUG("Cannot merge objects with path " << key
                   << " of type " << ao->annotation("Type") << " using scale " << sf);
       } // end of merge attempt
@@ -1236,7 +1246,7 @@ namespace Rivet {
   }
 
   //TODO: I think there's potential to vectorise this.
-  void AnalysisHandler::combineAnalysisHandlers(AnalysisHandler &merger1, AnalysisHandler &merger2, bool equiv){
+  void AnalysisHandler::combineAnalysisHandlers(std::vector<AnalysisHandler*> &handlers, bool equiv){
     //Variables that will go into mergeAOs
     std::map<string, YODA::AnalysisObjectPtr> allaos;
     std::map<string, YODA::AnalysisObject*> newaos;
@@ -1244,159 +1254,19 @@ namespace Rivet {
 
     std::cout << __FILE__ << ": " << __LINE__ << std::endl;
 
-    //Get all the anahandles
-    std::vector<AnaHandle> analysisHandles;
-    for ( const std::pair<std::string, AnaHandle> &ana : merger1._analyses){
-      analysisHandles.push_back(ana.second);
-    }
-    for ( const std::pair<std::string, AnaHandle> &ana : merger2._analyses){
-      analysisHandles.push_back(ana.second);
-    }
-
-    // Loop over anahandles
-    for ( const AnaHandle& handle : analysisHandles){
-      for (const Rivet::MultiweightAOPtr& aohandle : handle->analysisObjects()){
-        newaos[aohandle->path()] = aohandle.get()->activeYODAPtr().get();
+    for (const AnalysisHandler* handler: handlers){
+      for (const YODA::AnalysisObjectPtr& yodaptr : handler->getYodaAOs(true)){
+        AOPath aopath(yodaptr->path());
+        if (aopath.isRaw()){
+          newaos[yodaptr->path()] = yodaptr.get();
+        }
       }
+      mergeAOS(allaos, newaos, allxsecs, {}, {}, {}, {}, equiv);
     }
 
-    std::cout << __FILE__ << ": " << __LINE__ << std::endl;
-    for (const auto & ao : newaos){
-      std::cout << ao.first << ", " << ao.second << " (" << ao.second->path() << ")" << std::endl;
-    }
-
-    mergeAOS(allaos, newaos, allxsecs, {}, {}, {}, {}, equiv);
     std::cout << __FILE__ << ": " << __LINE__ << std::endl;
     setupReentrantRun(allaos, allxsecs, equiv);
-    std::cout << __FILE__ << ": " << __LINE__ << std::endl;
-
     return;
   }
-
-  // AnalysisHandler AnalysisHandler::combineAnalysisHandlers(AnalysisHandler &other, bool equiv){
-  //   //Handlers to be merged must have same beam:
-  //   //TODO: Would it make sense to have a Rivet particle operator== 
-  //   if (other._beams.first.energy() != _beams.first.energy() &&
-  //        other._beams.second.energy() != _beams.second.energy()){return;}
-
-  //   set<string> foundAnalyses;
-  //   std::set<std::string> foundWeightNames{};
-  //   map<string, YODA::AnalysisObjectPtr> allaos;
-  //   map<string, pair<double,double> > allxsecs;
-
-
-  //   //Get the list of analysis names.
-  //   for (const std::string& aname : this->analysisNames()){
-  //     foundAnalyses.insert(aname);
-  //   }
-  //   for (const std::string& aname : other.analysisNames()){
-  //     foundAnalyses.insert(aname);
-  //   }
-
-  //   //I haven't got the foggiest what I'm doing with weights.
-  //   // for(const auto& ana : this->_analyses ){
-  //   //   for const
-  //   // }
-
-
-
-  //   _weightNames.clear();
-  //   _rivetDefaultWeightIdx = _defaultWeightIdx = 0;
-  //   _weightNames = vector<string>(foundWeightNames.begin(), foundWeightNames.end());
-
-
-
-  //   // Then we create and initialize all analyses
-  //   for (const string& ananame : foundAnalyses ) { addAnalysis(ananame); }
-  //   _stage = Stage::INIT;
-  //   for (AnaHandle a : analyses() ) {
-  //     MSG_TRACE("Initialising analysis: " << a->name());
-  //     if ( !a->info().reentrant() )
-  //       MSG_WARNING("Analysis " << a->name() << " has not been validated to have "
-  //                   << "a reentrant finalize method. The merged result is unpredictable.");
-  //     try {
-  //       // Allow projection registration in the init phase onwards
-  //       a->_allowProjReg = true;
-  //       a->init();
-  //     } catch (const Error& err) {
-  //       cerr << "Error in " << a->name() << "::init method: " << err.what() << endl;
-  //       exit(1);
-  //     }
-  //     MSG_TRACE("Done initialising analysis: " << a->name());
-  //   } // analyses
-  //   _stage = Stage::OTHER;
-  //   _initialised = true;
-
-
-
-  //   // Collect global weights and cross sections and fix scaling for all files
-  //   MSG_DEBUG("Getting event counter and cross-section from "
-  //             << weightNames().size() << " " << numWeights());
-  //   _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
-  //   _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
-  //   vector<double> scales(numWeights(), 1.0);
-  //   for (size_t iW = 0; iW < numWeights(); ++iW) {
-  //     MSG_DEBUG("Weight # " << iW << " of " << numWeights());
-  //     _eventCounter.get()->setActiveWeightIdx(iW);
-  //     _xs.get()->setActiveWeightIdx(iW);
-  //     YODA::Scatter1D & xsec = *_xs;
-  //     // set the sum of weights
-  //     auto aoit = allaos.find(_eventCounter->path());
-  //     if (aoit != allaos.end()) {
-  //       *_eventCounter += *dynamic_pointer_cast<YODA::Counter>(aoit->second);
-  //     }
-
-  //     const auto xit = allxsecs.find(xsec.path());
-  //     if ( xit != allxsecs.end() ) {
-  //       double xs = xit->second.first;
-  //       double xserr = sqrt(xit->second.second);
-  //       if ( equiv ) {
-  //         MSG_DEBUG("Equivalent mode: scale by numEntries");
-  //         const double nentries = _eventCounter->numEntries();
-  //         xs /= nentries;
-  //         xserr /= nentries;
-  //       }
-  //       else if (xs) {
-  //         // in stacking mode: need to unscale prior to finalize
-  //         scales[iW] = _eventCounter->sumW()/xs;
-  //       }
-  //       xsec.reset();
-  //       xsec.addPoint( Point1D(xs,xserr) );
-  //     }
-  //     else {
-  //       throw UserError("Missing cross-section for " + xsec.path());
-  //     }
-
-  //     // Go through all analyses and add stuff to their analysis objects;
-  //     for (AnaHandle a : analyses()) {
-  //       for (const auto& ao : a->analysisObjects()) {
-  //         ao.get()->setActiveWeightIdx(iW);
-  //         YODA::AnalysisObjectPtr yao = ao.get()->activeYODAPtr();
-  //         auto aoit = allaos.find(yao->path());
-  //         if (aoit != allaos.end()) {
-  //           if ( !addaos(yao, aoit->second, scales[iW]) ) {
-  //             MSG_DEBUG("Overwriting incompatible starting version of " << yao->path()
-  //                       << " using scale " << scales[iW]);
-  //             copyao(aoit->second, yao, 1.0); // input already scaled by addaos
-  //           }
-  //         }
-  //         else {
-  //           MSG_DEBUG("Cannot merge objects with path " << yao->path()
-  //                     << " of type " << yao->annotation("Type"));
-  //         }
-  //         a->rawHookIn(yao);
-  //         ao.get()->unsetActiveWeight();
-  //       }
-  //     }
-  //     _eventCounter.get()->unsetActiveWeight();
-  //     _xs.get()->unsetActiveWeight();
-  //   }
-  //   // Finally we just have to finalize all analyses, leaving it to the
-  //   // controlling program to write it out to some YODA file
-  //   finalize();
-  // }
-
-
-
 
 }
