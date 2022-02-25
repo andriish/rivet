@@ -1,0 +1,38 @@
+Name: CMS_2011_I896211
+Year: 2011
+Summary: $B^0$ cross section at 7 TeV
+Experiment: CMS
+Collider: LHC
+InspireID: 896211
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 106 (2011) 252001
+RunInfo: bottom meson production
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+  'Measurement of the cross section for the production of  $B^0$ mesons at 7 TeV  by the CMS experiment.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CMS:2011pdu
+BibTeX: '@article{CMS:2011pdu,
+    author = "Chatrchyan, Serguei and others",
+    collaboration = "CMS",
+    title = "{Measurement of the $B^0$ production cross section in $pp$ Collisions at $\sqrt{s}=7$ TeV}",
+    eprint = "1104.2892",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-PH-EP-2011-034, CMS-BPH-10-005",
+    doi = "10.1103/PhysRevLett.106.252001",
+    journal = "Phys. Rev. Lett.",
+    volume = "106",
+    pages = "252001",
+    year = "2011"
+}
+'

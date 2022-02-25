@@ -1,0 +1,44 @@
+BEGIN YODA_SCATTER2D_V2 /REF/CMS_2011_I896211/d01-x01-y01
+ErrorBreakdown: {0: {stat: {dn: -2.5, up: 2.5}, sys: {dn: -3.5, up: 3.5}}}
+IsRef: 1
+Path: /REF/CMS_2011_I896211/d01-x01-y01
+Title: doi:10.17182/hepdata.57688.v1/t1
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.000000e+00	5.000000e-01	5.000000e-01	3.320000e+01	4.301163e+00	4.301163e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/CMS_2011_I896211/d02-x01-y01
+ErrorBreakdown: {0: {stat: {dn: -0.5, up: 0.5}, sys: {dn: -0.59, up: 0.59}, 'sys,luminosity uncertainty': {dn: -0.20800000000000002, up: 0.20800000000000002}}, 1: {stat: {dn: -0.121, up: 0.121}, sys: {dn: -0.117, up: 0.117}, 'sys,luminosity uncertainty': {dn: -0.04784, up: 0.04784}}, 2: {stat: {dn: -0.045, up: 0.045}, sys: {dn: -0.051, up: 0.051}, 'sys,luminosity uncertainty': {dn: -0.021400000000000002, up: 0.021400000000000002}}, 3: {stat: {dn: -0.014, up: 0.014}, sys: {dn: -0.014, up: 0.014}, 'sys,luminosity uncertainty': {dn: -0.0058, up: 0.0058}}, 4: {stat: {dn: -0.003, up: 0.003}, sys: {dn: -0.003, up: 0.003}, 'sys,luminosity uncertainty': {dn: -0.00108, up: 0.00108}}}
+IsRef: 1
+Path: /REF/CMS_2011_I896211/d02-x01-y01
+Title: doi:10.17182/hepdata.57688.v1/t2
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+7.500000e+00	2.500000e+00	2.500000e+00	5.200000e+00	8.008520e-01	8.008520e-01
+1.150000e+01	1.500000e+00	1.500000e+00	1.196000e+00	1.749819e-01	1.749819e-01
+1.500000e+01	2.000000e+00	2.000000e+00	5.350000e-01	7.130189e-02	7.130189e-02
+2.050000e+01	3.500000e+00	3.500000e+00	1.450000e-01	2.063104e-02	2.063104e-02
+3.200000e+01	8.000000e+00	8.000000e+00	2.700000e-02	4.377945e-03	4.377945e-03
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/CMS_2011_I896211/d03-x01-y01
+ErrorBreakdown: {0: {stat: {dn: -0.74, up: 0.74}, sys: {dn: -0.76, up: 0.76}, 'sys,luminosity uncertainty': {dn: -0.30519999999999997, up: 0.30519999999999997}}, 1: {stat: {dn: -0.75, up: 0.75}, sys: {dn: -0.71, up: 0.71}, 'sys,luminosity uncertainty': {dn: -0.28800000000000003, up: 0.28800000000000003}}, 2: {stat: {dn: -0.77, up: 0.77}, sys: {dn: -0.83, up: 0.83}, 'sys,luminosity uncertainty': {dn: -0.3044, up: 0.3044}}, 3: {stat: {dn: -0.74, up: 0.74}, sys: {dn: -0.89, up: 0.89}, 'sys,luminosity uncertainty': {dn: -0.3224, up: 0.3224}}, 4: {stat: {dn: -0.87, up: 0.87}, sys: {dn: -0.8, up: 0.8}, 'sys,luminosity uncertainty': {dn: -0.26839999999999997, up: 0.26839999999999997}}}
+IsRef: 1
+Path: /REF/CMS_2011_I896211/d03-x01-y01
+Title: doi:10.17182/hepdata.57688.v1/t3
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+2.500000e-01	2.500000e-01	2.500000e-01	7.630000e+00	1.103788e+00	1.103788e+00
+7.500000e-01	2.500000e-01	2.500000e-01	7.200000e+00	1.072168e+00	1.072168e+00
+1.200000e+00	2.000000e-01	2.000000e-01	7.610000e+00	1.172373e+00	1.172373e+00
+1.600000e+00	2.000000e-01	2.000000e-01	8.060000e+00	1.201516e+00	1.201516e+00
+2.000000e+00	2.000000e-01	2.000000e-01	6.710000e+00	1.211998e+00	1.211998e+00
+END YODA_SCATTER2D_V2
+
+
