@@ -1,0 +1,39 @@
+Name: CMS_2021_I1876550
+Year: 2021
+Summary: Prompt $D^0$, $D^{*\pm}$ and $D^\pm$ meson production at 7 TeV
+Experiment: CMS
+Collider: LHC
+InspireID: 1876550
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - JHEP 11 (2021) 225
+RunInfo: D meson production
+Beams: [p+, p+]
+Energies: [13000]
+Description:
+  'Measurement of the transverse momentum spectra and rapidity distributions for prompt $D^0$, $D^{*\pm}$ and $D^\pm$
+  meson production at 13 TeV by the CMS collaboration.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CMS:2021lab
+BibTeX: '@article{CMS:2021lab,
+    author = "Tumasyan, Armen and others",
+    collaboration = "CMS",
+    title = "{Measurement of prompt open-charm production cross sections in proton-proton collisions at $ \sqrt{s} $ = 13 TeV}",
+    eprint = "2107.01476",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CMS-BPH-18-003, CERN-EP-2021-085",
+    doi = "10.1007/JHEP11(2021)225",
+    journal = "JHEP",
+    volume = "11",
+    pages = "225",
+    year = "2021"
+}
+'
