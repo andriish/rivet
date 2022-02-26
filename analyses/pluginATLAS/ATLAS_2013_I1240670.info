@@ -1,0 +1,38 @@
+Name: ATLAS_2013_I1240670
+Year: 2013
+Summary: $B^+$ meson production at 7 TeV
+Experiment: ATLAS
+Collider: LHC
+InspireID: 1240670
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ -     JHEP 10 (2013) 042
+RunInfo: bottom hadron production
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+  'Measurement of the cross section for the production of  $B^+$ mesons at 7 TeV  by the ATLAS experiment.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: ATLAS:2013cia
+BibTeX: '@article{ATLAS:2013cia,
+    author = "Aad, Georges and others",
+    collaboration = "ATLAS",
+    title = "{Measurement of the differential cross-section of $B^{+}$ meson production in pp collisions at $\sqrt{s}$ = 7 TeV at ATLAS}",
+    eprint = "1307.0126",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-PH-EP-2013-089",
+    doi = "10.1007/JHEP10(2013)042",
+    journal = "JHEP",
+    volume = "10",
+    pages = "042",
+    year = "2013"
+}
+'
