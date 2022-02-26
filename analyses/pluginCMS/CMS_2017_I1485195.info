@@ -1,0 +1,38 @@
+Name: CMS_2017_I1485195
+Year: 2017
+Summary: $B^+$ meson production at 13 TeV
+Experiment: CMS
+Collider: LHC
+InspireID: 1485195
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Lett.B 771 (2017) 435-456, 2017
+RunInfo: bottom hadron production
+Beams: [p+, p+]
+Energies: [13000]
+Description:
+  'Measurement of the cross section for the production of  $B^+$ mesons at 13 TeV  by the CMS experiment.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CMS:2016plw
+BibTeX: '@article{CMS:2016plw,
+    author = "Khachatryan, Vardan and others",
+    collaboration = "CMS",
+    title = "{Measurement of the total and differential inclusive $B^+$ hadron cross sections in pp collisions at $\sqrt{s}$ = 13 TeV}",
+    eprint = "1609.00873",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CMS-BPH-15-004, CERN-EP-2016-198",
+    doi = "10.1016/j.physletb.2017.05.074",
+    journal = "Phys. Lett. B",
+    volume = "771",
+    pages = "435--456",
+    year = "2017"
+}
+'

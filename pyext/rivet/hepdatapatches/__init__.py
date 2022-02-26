@@ -56,6 +56,7 @@ from . import CMS_2011_I883318
 from . import CMS_2013_I1225274
 from . import CMS_2015_I1342266
 from . import CMS_2016_I1487288
+from . import CMS_2017_I1485195
 from . import CMS_2017_I1608166
 from . import CMS_2019_I1697571
 from . import CRYSTAL_BALL_1988_I261078
