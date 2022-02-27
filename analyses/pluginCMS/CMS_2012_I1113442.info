@@ -1,0 +1,39 @@
+Name: CMS_2012_I1113442
+Year: 2012
+Summary: $\Lambda_b$ production at 7 TeV
+Experiment: CMS
+Collider: LHC
+InspireID: 1113442
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Lett.B 714 (2012) 136-157
+RunInfo: hadronic events with Lambda_b meson
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+'Measurement of the cross section for  $\Lambda_b$ production at 7 TeV at TeV. The ratio of $\bar{\Lambda}_b$ to  $\Lambda_b$ production
+ is also measured.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CMS:2012wje
+BibTeX: '@article{CMS:2012wje,
+    author = "Chatrchyan, Serguei and others",
+    collaboration = "CMS",
+    title = "{Measurement of the $\Lambda_b$ cross section and the $_{\bar{\Lambda}_b}$ to $\Lambda_b$ ratio with $J/\Psi \Lambda$ decays in $pp$ collisions at $\sqrt{s}=7$ TeV}",
+    eprint = "1205.0594",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CMS-BPH-11-007, CERN-PH-EP-2012-124",
+    doi = "10.1016/j.physletb.2012.05.063",
+    journal = "Phys. Lett. B",
+    volume = "714",
+    pages = "136--157",
+    year = "2012"
+}
+'

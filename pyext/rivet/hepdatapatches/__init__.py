@@ -53,6 +53,7 @@ from . import CLEOII_1999_I478217
 from . import CMD3_2016_I1385598
 from . import CMS_2011_I878118
 from . import CMS_2011_I883318
+from . import CMS_2012_I1113442
 from . import CMS_2013_I1225274
 from . import CMS_2015_I1342266
 from . import CMS_2016_I1487288
