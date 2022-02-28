@@ -1,0 +1,42 @@
+Name: LHCB_2019_I1760257
+Year: 2019
+Summary: Ratio of strange to non-strange B meson production at 7,8 and 13 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1760257
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 124 (2020) 12, 122002
+RunInfo: b hadron production
+Beams: [p+, p+]
+Energies: [7000,8000,13000]
+Options:
+ - ENERGY=7000,8000,13000
+Description:
+  'Ratio of strange to non-strange B meson production at 7,8 and 13 TeV.
+   Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2019lsv
+BibTeX: '@article{LHCb:2019lsv,
+    author = "Aaij, Roel and others",
+    collaboration = "LHCb",
+    title = "{Measurement of $f_s / f_u$ Variation with Proton-Proton Collision Energy and $B$-Meson Kinematics}",
+    eprint = "1910.09934",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-EP-2019-209, LHCb-PAPER-2019-020",
+    doi = "10.1103/PhysRevLett.124.122002",
+    journal = "Phys. Rev. Lett.",
+    volume = "124",
+    number = "12",
+    pages = "122002",
+    year = "2020"
+}
+'
