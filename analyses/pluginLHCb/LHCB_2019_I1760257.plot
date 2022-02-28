@@ -3,16 +3,20 @@ LogY=0
 END PLOT
 BEGIN PLOT /LHCB_2019_I1760257/d01-x01-y01
 YLabel=$f_s/f_d$
-XLabel=$\sqrt{s}$ [GeV]
+XLabel=$\sqrt{s}$ [TeV]
 ConnectGaps=1
 Title=$B^0_s/B^+$ ratio vs centre-of-mass energy
+XMin=6.5
+XMax=13.5
 END PLOT
 BEGIN PLOT /LHCB_2019_I1760257/d02-x01-y01
 YLabel=$f_s/f_d/(f_s/f_d)_{7 \text{TeV}}$
-XLabel=$\sqrt{s}$ [GeV]
+XLabel=$\sqrt{s}$ [TeV]
 ConnectGaps=1
 Title=$B^0_s/B^+$ ratio w.r.t. value at 7 TeV vs centre-of-mass energy
 ConnectGaps=1
+XMin=7.5
+XMax=13.5
 END PLOT
 
 BEGIN PLOT /LHCB_2019_I1760257/d03-x01-y01
