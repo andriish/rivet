@@ -1,0 +1,42 @@
+Name: LHCB_2020_I1760788
+Year: 2020
+Summary: $\Xi^{++}_{cc}$ production at 13 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1760788
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Chin.Phys.C 44 (2020) 2, 022001
+RunInfo: hadronic events at 13 TeV
+Beams: [p+, p+]
+Energies: [13000]
+Description:
+'Measurement of the rate of $\Xi^{++}_{cc}$ production, multiplied by the branching ratio for the decay
+$\Xi^{++}_{cc}\to\Lambda_c^+K^-\pi^+\pi^+$, relative to the rate for prompt $\Lambda_c^+$ production in the
+transverse momentum range $4<p_\perp<15$\,GeV and rapidity range $2<y<4.5$. This is currently the only measurement of
+the rate of doubly heavy baryon production.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2019qed
+BibTeX: '@article{LHCb:2019qed,
+    author = "Aaij, Roel and others",
+    collaboration = "LHCb",
+    title = "{Measurement of $\mathit{\Xi}_{cc}^{++}$ production in $pp$ collisions at $\sqrt{s}=13$ TeV}",
+    eprint = "1910.11316",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "LHCb-PAPER-2019-035, CERN-EP-2019-220",
+    doi = "10.1088/1674-1137/44/2/022001",
+    journal = "Chin. Phys. C",
+    volume = "44",
+    number = "2",
+    pages = "022001",
+    year = "2020"
+}
+'
