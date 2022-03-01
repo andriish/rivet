@@ -27,7 +27,7 @@ namespace Rivet {
       book(_h_y_lam ,3,1,1);
       book(_h_y_bar ,"TMP/bar_y"    ,refData(3,1,2));
       for(unsigned int ix=0;ix<2;++ix)
-	book(_c_lam[ix],"TMP/c_Bc_"+toString(ix+1));
+	book(_c_lam[ix],"TMP/c_lam_"+toString(ix+1));
     }
 
 
