@@ -187,6 +187,10 @@
 
 	* Add finalize-scaling protection in ATLAS_2020_1790256.
 
+2022-03-01 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add LHCB_2021_I1888216 lambda_b asymmetry
+
 2022-02-28 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2022_I2039027 e+e- > pi+pi-eta

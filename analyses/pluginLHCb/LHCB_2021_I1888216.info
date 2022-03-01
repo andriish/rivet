@@ -1,0 +1,41 @@
+Name: LHCB_2021_I1888216
+Year: 2021
+Summary: $\Lambda_b^0/\bar{\Lambda}_b^0$ Asymmetry at 7 and 8 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1888216
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - JHEP 10 (2021) 060
+RunInfo: Lambda_b production
+Beams: [p+, p+]
+Energies: [7000,8000]
+Options:
+ - ENERGY=7000,8000
+Description:
+  'Measurement of the production asymmetry for $\Lambda_b^0/\bar{\Lambda}_b^0$ at 7 and 8 TeV by LHCb.
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2021xyh
+BibTeX: '@article{LHCb:2021xyh,
+    author = "Aaij, Roel and others",
+    collaboration = "LHCb",
+    title = "{Observation of a $\Lambda_b^0-\overline{\Lambda}_b^0$ production asymmetry in proton-proton collisions at $\sqrt{s} = 7 \textrm{ and } 8\,\textrm{TeV}$}",
+    eprint = "2107.09593",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "LHCb-PAPER-2021-016, CERN-EP-2021-121",
+    doi = "10.1007/JHEP10(2021)060",
+    journal = "JHEP",
+    volume = "10",
+    pages = "060",
+    year = "2021"
+}
+'
