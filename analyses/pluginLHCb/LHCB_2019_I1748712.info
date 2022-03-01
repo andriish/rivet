@@ -1,0 +1,41 @@
+Name: LHCB_2019_I1748712
+Year: 2019
+Summary: $\psi(2S)$ production at 7 and 13 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1748712
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - 
+RunInfo: pis(2S) production
+Beams: [p+, p+]
+Energies: [7000,13000]
+Options:
+ - ENERGY=7000,13000
+Description:
+  'Production of $\psi(2S)$ production at 7 and 13 TeV, including separation into prompt and non-prompt, with double differential in $p_\perp$ and $y$ cross sections.  Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2019eaj
+BibTeX: '@article{LHCb:2019eaj,
+    author = "Aaij, Roel and others",
+    collaboration = "LHCb",
+    title = "{Measurement of $\psi$(2$S$) production cross-sections in proton-proton collisions at $\sqrt{s}$ = 7 and 13 TeV}",
+    eprint = "1908.03099",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "CERN-EP-2019-150, LHCb-PAPER-2018-049",
+    doi = "10.1140/epjc/s10052-020-7638-y",
+    journal = "Eur. Phys. J. C",
+    volume = "80",
+    number = "3",
+    pages = "185",
+    year = "2020"
+}
+'
