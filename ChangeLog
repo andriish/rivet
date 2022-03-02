@@ -1,3 +1,7 @@
+2022-03-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add finalize-scaling protection in ATLAS_2020_1790256.
+
 2022-02-07  Markus Seidel  <markus.seidel@cern.ch>
 
 	* Fix for CMS_2018_I1680318 (thanks to Armando Bermudez Martinez)
