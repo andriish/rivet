@@ -3,12 +3,10 @@
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-
-#include "fastjet/JetDefinition.hh"
-#include "fastjet/ClusterSequence.hh"
 #include "fastjet/contrib/LundGenerator.hh"
 
 namespace Rivet {
+
 
   /// @brief Lund jet plane with charged particles
   class ATLAS_2020_I1790256: public Analysis {
@@ -16,12 +14,13 @@ namespace Rivet {
 
     RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2020_I1790256);
 
+
     /// @name Analysis methods
     /// @{
 
     void init() {
 
-      //Projections
+      // Projections
       FinalState fs(Cuts::abseta < 4.5);
       FastJets jet4(fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::NONE, JetAlg::Invisibles::NONE);
       declare(jet4, "Jets");
@@ -45,6 +44,7 @@ namespace Rivet {
       book(_njets, "_njets");
 
     }
+
 
     void analyze(const Event& event) {
 
@@ -138,26 +138,24 @@ namespace Rivet {
     void finalize() {
 
       double area = _njets->sumW();
-      scale(_h_lundplane, 1/area);
-      scale(_h_vs, 1/(area*0.333));
-      scale(_h_hs, 1/(area*0.277));
+      if (area > 0) {
+        scale(_h_lundplane, 1/area);
+        scale(_h_vs, 1/(area*0.333));
+        scale(_h_hs, 1/(area*0.277));
+      }
 
     }
 
-  private:
 
+  private:
 
     Histo2DPtr _h_lundplane;
     vector<Histo1DPtr> _h_vs, _h_hs;
     CounterPtr _njets;
+
   };
 
 
-  // The hook for the plugin system
   RIVET_DECLARE_PLUGIN(ATLAS_2020_I1790256);
+
 }
-
-
-
-
-

@@ -1,3 +1,7 @@
+2022-03-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix ATLAS_2020_I1790256 finalize to avoid divide-by-zero if no events passed cuts.
+
 2021-12-14  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add strcat() variadic template function to Rivet utils.
