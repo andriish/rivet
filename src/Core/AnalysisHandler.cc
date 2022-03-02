@@ -142,6 +142,8 @@ namespace Rivet {
         // Allow projection registration in the init phase onwards
         a->_allowProjReg = true;
         a->init();
+        a->setProjectionHandler(_projHandler);
+        a->syncDeclQueue();
         //MSG_DEBUG("Checking consistency of analysis: " << a->name());
         //a->checkConsistency();
       } catch (const Error& err) {
@@ -771,6 +773,8 @@ namespace Rivet {
         // Allow projection registration in the init phase onwards
         a->_allowProjReg = true;
         a->init();
+        a->setProjectionHandler(_projHandler);
+        a->syncDeclQueue();
       } catch (const Error& err) {
         cerr << "Error in " << a->name() << "::init method: " << err.what() << endl;
         exit(1);

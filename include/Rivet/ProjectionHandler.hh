@@ -89,27 +89,6 @@ namespace Rivet {
     /// The standard constructor.
     ProjectionHandler() = default;
 
-    /// @}
-
-    // @todo the following is a temporary fix to allow for basic
-    // threading. The proper fix will involve the AnalysisHandler
-    // having it's own ProjectionHandler object.
-
-    // private:
-  public:
-
-    /// Singleton creation function
-    static std::mutex mtx;
-    static ProjectionHandler& getInstance() {
-      // static ProjectionHandler _instance;
-      // return _instance;
-      std::unique_lock<std::mutex> lock(mtx);
-      static map<std::thread::id,ProjectionHandler> _instances;
-      return _instances[std::this_thread::get_id()];
-
-    }
-
-
   public:
 
     /// @name Projection registration
@@ -161,6 +140,7 @@ namespace Rivet {
     /// reference is partly to discourage ProjectionApplier classes from storing
     /// pointer members to the registered projections, since that can lead to
     /// problems and there is no need to do so.
+    /// Does look in the declQueue, but NOT recursively (yet?).
     const Projection& getProjection(const ProjectionApplier& parent,
                                     const string& name) const;
 
@@ -169,6 +149,7 @@ namespace Rivet {
     /// depth argument can be changed to do a deep retrieval, which will recurse
     /// through the whole projection chain. In this case, there is no protection
     /// against getting stuck in a circular projection dependency loop.
+    /// Does NOT look in declQueue
     set<const Projection*> getChildProjections(const ProjectionApplier& parent,
                                                ProjDepth depth=SHALLOW) const;
     /// @}
