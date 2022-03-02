@@ -8,15 +8,19 @@ namespace Rivet {
 
 
   // NB. Allow proj registration in constructor by default -- explicitly disable for Analysis
+  // TODO @TP : I have a feeling this behaviour might be slightly deprecated after the thread-safety changes,
+  // but I'm not fully sure.
   ProjectionApplier::ProjectionApplier()
     : _allowProjReg(true), _owned(false),
-      _projhandler(ProjectionHandler::getInstance())
+    _projhandler(nullptr)
   {  }
 
 
   ProjectionApplier::~ProjectionApplier() {
-    if ( ! _owned )
+    //todo @TP: Is owned still needed now that _projhandler is a ptr?
+    if ( ! _owned && _projhandler != nullptr){
       getProjHandler().removeProjectionApplier(*this);
+    }
   }
 
 
@@ -35,15 +39,32 @@ namespace Rivet {
 
 
   const Projection& ProjectionApplier::_declareProjection(const Projection& proj,
-                                                          const string& name) {
+                                                          const string& name) const {
+    MSG_TRACE("Declaring Projection "<<&proj<<" ("<<proj.name()<<") in parent "<<this<<" ("<<this->name()<<")");
     if (!_allowProjReg) {
       std::cerr << "Trying to register projection '"
            << proj.name() << "' outside init phase in '" << this->name() << "'.\n";
       exit(2);
     }
     const Projection& reg = getProjHandler().registerProjection(*this, proj, name);
+    _syncDeclQueue();
     return reg;
   }
 
+  void ProjectionApplier::setProjectionHandler(ProjectionHandler& projectionHandler) const {
+    _projhandler = &projectionHandler;
+    //TODO @TP: I don't think this call is needed anymore?
+    _syncDeclQueue();
+  }
 
+  void ProjectionApplier::_syncDeclQueue() const {
+    MSG_TRACE("Flushing declQueue of ProjectionApplier " << this << " (" << this->name() <<")" << std::endl);
+    while (!_declQueue.empty()) {
+      pair<std::shared_ptr<Projection>, string> obj = _declQueue.front();
+      obj.first->setProjectionHandler(getProjHandler());
+      _declQueue.pop_front();
+      declareProjection(*(obj.first), obj.second);
+    }
+  }
+  
 }
