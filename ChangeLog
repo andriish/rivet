@@ -187,6 +187,10 @@
 
 	* Add finalize-scaling protection in ATLAS_2020_1790256.
 
+2022-03-02 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add LHCB_2018_I1674916 D/s asymmetry at 7,8 TeV
+
 2022-03-01 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add LHCB_2021_I1888216 lambda_b asymmetry
