@@ -62,5 +62,23 @@ namespace Rivet {
     return _weights;
   }
 
+  std::vector<std::pair<double, double>> Event::crossSections() const {
+    if (!_xsecs.size()) {
+      if (!_genevent.cross_section()) {
+        // If no cross-section is provided by the generator, set dummy cross-section
+        MSG_DEBUG("GenEvent has no cross-section! Returning a dummy 0,0 pair");
+        _xsecs = { std::make_pair(0.0, 0.0) };
+      } 
+      else { // select relevant subset of cross-sections
+        const size_t Nselws = _weightIndices.size();
+        _xsecs.resize(Nselws); 
+        for (size_t i = 0; i < Nselws; ++i) {
+          _xsecs[i] = HepMCUtils::crossSection(_genevent, _weightIndices[i]);
+        }
+      }
+    }
+    return _xsecs;
+  }
+
 
 }
