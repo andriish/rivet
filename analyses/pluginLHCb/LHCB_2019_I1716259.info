@@ -1,0 +1,43 @@
+Name: LHCB_2019_I1716259
+Year: 2019
+Summary: Rate of $\Xi_b^-$ production at 7, 8 and 13 TeV
+Experiment: LHCB
+Collider: LHC
+InspireID: 1716259
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 99 (2019) 5, 052006
+RunInfo: <Describe event types, cuts, and other general generator config tips.>
+Beams: [p+, p+]
+Energies: [7000,8000,13000]
+Options:
+ - ENERGY=7000,8000,13000
+Luminosity_fb: 139.0
+Description:
+  'Measurement of the rate of $\Xi_b^-$ production relative to that for $\Lambda_b^0$ production at 7, 8, and 13 TeV by the LHCb experiment.
+   Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: LHCb:2019sxa
+BibTeX: '@article{LHCb:2019sxa,
+    author = "Aaij, Roel and others",
+    collaboration = "LHCb",
+    title = "{Measurement of the mass and production rate of $\Xi_b^-$ baryons}",
+    eprint = "1901.07075",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "LHCb-PAPER-2018-047, CERN-EP-2018-348",
+    doi = "10.1103/PhysRevD.99.052006",
+    journal = "Phys. Rev. D",
+    volume = "99",
+    number = "5",
+    pages = "052006",
+    year = "2019"
+}
+'
