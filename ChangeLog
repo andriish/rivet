@@ -816,6 +816,10 @@
 
 	* Add finalize-scaling protection in ATLAS_2020_1790256.
 
+2022-03-02 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add LHCB_2017_I1621811 lambda_b semileptonic decay
+
 2022-02-28 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2022_I2039027 e+e- > pi+pi-eta
