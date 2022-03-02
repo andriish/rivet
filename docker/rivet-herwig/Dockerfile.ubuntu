@@ -39,7 +39,7 @@ ARG YODA_VERSION
 ARG THEPEG_VERSION
 ARG HERWIG_VERSION
 RUN export DEBIAN_FRONTEND=noninteractive \
-    && python -m venv /herwig \
+    && python -m venv /herwig  \
     && mkdir -p /herwig/etc/bash_completion.d \
     && . /herwig/bin/activate \
     && pip install Cython six \
