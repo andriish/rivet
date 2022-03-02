@@ -98,7 +98,7 @@ namespace Rivet {
 
     // Set the cross section based on what is reported by the init-event, else zero
     if (ge.cross_section()) {
-      setCrossSection(HepMCUtils::crossSection(ge));
+      setCrossSection(HepMCUtils::crossSection(ge, _defaultWeightIdx));
     } else {
       MSG_DEBUG("No cross-section detected in first event: setting default to 0 pb");
       setCrossSection({0.0, 0.0});
@@ -250,7 +250,7 @@ namespace Rivet {
       }
 
       // Check if the remaining weight names match supplied string/regexes and *de*select accordingly
-      vector<std::regex> patterns = { std::regex("AUX"), std::regex("DEBUG") };
+      vector<std::regex> patterns = { std::regex("^IRREG.*", std::regex_constants::icase) };
       if (_unmatchWeightNames != "") {
         MSG_DEBUG("Deselect weight names that match pattern \"" << _unmatchWeightNames << "\"");
         // Compile regex from each string in the comma-separated list
@@ -319,7 +319,7 @@ namespace Rivet {
     Event event(ge, _weightIndices, strip);
 
     // Set the cross section based on what is reported by this event
-    if (ge.cross_section()) setCrossSection(HepMCUtils::crossSection(ge));
+    if (ge.cross_section())  setCrossSection(event.crossSections());
 
     // If the event number has changed, sync the sub-event analysis objects to persistent
     // NB. Won't happen for first event because _eventNumber is set in init()
@@ -961,6 +961,30 @@ namespace Rivet {
   AnalysisHandler& AnalysisHandler::removeAnalyses(const std::vector<std::string>& analysisnames) {
     for (const string& aname : analysisnames) removeAnalysis(aname);
     return *this;
+  }
+
+
+  void AnalysisHandler::setCrossSection(const vector<pair<double,double>>& xsecs, bool isUserSupplied) {
+
+    if (xsecs.empty())
+      throw UserError("No cross-section supplied!");
+
+    if (xsecs.size() == 1)  setCrossSection(xsecs[0], isUserSupplied);
+    else {
+      // Update the user xsec
+      if (isUserSupplied) _userxs = xsecs[0];
+
+      // If not setting the user xsec, and a user xsec is already set, exit early
+      if (!isUserSupplied && notNaN(_userxs.first)) return;
+
+      // Otherwise, update the xs scatter
+      _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
+      for (size_t iW = 0; iW < numWeights(); ++iW) {
+        _xs.get()->setActiveWeightIdx(iW);
+        _xs->addPoint(xsecs[iW].first, xsecs[iW].second);
+      }
+      _xs.get()->unsetActiveWeight();
+    }
   }
 
 

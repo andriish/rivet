@@ -607,7 +607,7 @@ if __name__ == '__main__':
                             anaobjects.append(hmc)
                         if iscanonical:
                             mainlines.append(fullpath)
-                        elif not any([ key in hname for key in [ 'AUX', 'NOPLOT', 'DEBUG' ] ]):
+                        elif not hname.upper().startswith('EXTRA'):
                             user_var = True
                             # check if user specified what variations to keep
                             for val in getFileOptions(plotoptions[infile], 'Variations').values():

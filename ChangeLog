@@ -2,6 +2,11 @@
 
 	* Fix for CMS_2018_I1680318 (thanks to Armando Bermudez Martinez)
 
+2022-01-10  Christian Gutschow  <chris.g@cern.ch>
+
+	* add support for explicit generator variation cross-sections
+	* implement MCnet weight conventions
+
 2022-01-06  Christian Gutschow  <chris.g@cern.ch>
 
 	* adding more histograms to MC_MET and improving the binning (many thanks to Jan Kretzschmar)

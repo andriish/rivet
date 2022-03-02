@@ -99,8 +99,12 @@ namespace Rivet {
     /// Get the cross-section known to the handler
     Scatter1DPtr crossSection() const { return _xs; }
 
-    /// Set the cross-section for the process being generated
+    /// Set all cross-sections for the process being generated specifically (preferred)
+    void setCrossSection(const vector<pair<double,double>>& xsecs, bool isUserSupplied = false);
+
+    /// Set all cross-sections for the process being generated, based on nominal weight
     void setCrossSection(const pair<double, double>& xsec, bool isUserSupplied=false);
+
     /// Set the cross-section for the process being generated (alternative signature)
     void setCrossSection(double xsec, double xsecerr, bool isUserSupplied=false) {
       setCrossSection({xsec, xsecerr}, isUserSupplied);
