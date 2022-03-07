@@ -42,7 +42,7 @@ namespace Rivet {
 	if(absrap<2. || absrap>4.5) continue;
 	unsigned int ib=(p.pid()%100)/10-1;
         double pT = p.perp();
-	if(pT<40.) continue;
+	if(pT>40.) continue;
 	_h_sigma[ib]->fill(sqrtS());
 	_h_B[ib].fill(absrap,pT);
 	_h_pT[ib]->fill(pT);

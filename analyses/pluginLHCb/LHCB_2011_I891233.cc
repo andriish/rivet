@@ -64,7 +64,7 @@ namespace Rivet {
       }
       for(unsigned int ix=0;ix<_h_Jpsi[4].histos().size();++ix) {
 	Scatter2DPtr tmp;
-	book(tmp,10,1,ix);
+	book(tmp,10,1,ix+1);
 	divide(_h_Jpsi[1].histos()[ix],_h_Jpsi[4].histos()[ix],tmp);
 	tmp->scaleY(100.);
       }
