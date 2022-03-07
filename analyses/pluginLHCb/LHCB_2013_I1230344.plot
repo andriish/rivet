@@ -3,6 +3,7 @@ Title=Prompt J$/\psi$ production
 XLabel=y
 YLabel=$\mathrm{d}\sigma/\mathrm{d}y$ [nb]
 END PLOT
+
 BEGIN PLOT /LHCB_2013_I1230344/d02-x01-y02
 Title=Non-Prompt J$/\psi$ production
 XLabel=y
@@ -12,6 +13,10 @@ END PLOT
 BEGIN PLOT /LHCB_2013_I1230344/d0[3,4,5,6,7]
 XLabel=$p_\perp$ [GeV]
 YLabel=$\mathrm{d}^2\sigma/\mathrm{d}p_\perp\mathrm{d}y$ [nb/GeV]
+END PLOT
+BEGIN PLOT /LHCB_2013_I1230344/d[11,12,13,14,15]
+XLabel=$p_\perp$ [GeV]
+YLabel=$\mathrm{d}^2\sigma/\mathrm{d}p_\perp\mathrm{d}y$ [pb/GeV]
 END PLOT
 
 BEGIN PLOT /LHCB_2013_I1230344/d0[3,4,5,6,7]-x01-y03

@@ -125,12 +125,12 @@ BEGIN PLOT /ATLAS_2013_I1204994/d11-x01-y02
 Title=Ratio for $\Upsilon(3S)$ to $\Upsilon(1S)$ ($1.2<y<2.25$, inclusive)) 
 END PLOT
 
-BEGIN PLOT /ATLAS_2013_I1204994/d12-x01-y02
+BEGIN PLOT /ATLAS_2013_I1204994/d12-x01-y01
 Title=Ratio for $\Upsilon(2S)$ to $\Upsilon(1S)$
 XLabel = $|y|$
 YLabel=$\Upsilon(2S)/\Upsilon(1S)$
 END PLOT
-BEGIN PLOT /ATLAS_2013_I1204994/d12-x01-y03
+BEGIN PLOT /ATLAS_2013_I1204994/d12-x01-y02
 Title=Ratio for $\Upsilon(3S)$ to $\Upsilon(1S)$
 XLabel = $|y|$
 YLabel=$\Upsilon(3S)/\Upsilon(1S)$

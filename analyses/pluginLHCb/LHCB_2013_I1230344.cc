@@ -90,7 +90,7 @@ namespace Rivet {
 	scale(_h_Ups_y   [ix],factor*br[ix]);
 	scale(_h_Ups_pT_r[ix],factor*br[ix]);
 	scale(_h_Ups_y_r [ix],factor*br[ix]);
-	_h_Ups[ix].scale(factor*br[ix],this);
+	_h_Ups[ix].scale(factor*1000.*br[ix],this);
 	_h_Jpsi[ix].scale(factor,this);
       }
       for(unsigned int ix=0;ix<_h_Jpsi[0].histos().size();++ix) {
