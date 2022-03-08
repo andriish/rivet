@@ -5,10 +5,11 @@ Experiment: L3
 Collider: LEP
 InspireID: 661114
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
- - Phys.Lett. B602 (2004) 157-166, 2004 
+ - Phys.Lett. B602 (2004) 157-166, 2004
 RunInfo: e+ e- > gamma gamma events, needs direct, resolved and double resolved.
 NeedCrossSection: yes
 Beams: [e+, e-]

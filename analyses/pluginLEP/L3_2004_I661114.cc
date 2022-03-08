@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Jet production in photon-photon collisions at 198 GeV
   class L3_2004_I661114 : public Analysis {
   public:
 
