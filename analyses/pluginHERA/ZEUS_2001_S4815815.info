@@ -6,6 +6,7 @@ Collider: HERA Run I
 SpiresID: 4815815
 InspireID: 568665
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>
  - Ilkka Helenius <ilkka.helenius@uni-tuebingen.de>
