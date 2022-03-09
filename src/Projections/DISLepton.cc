@@ -13,6 +13,8 @@ namespace Rivet {
 
   void DISLepton::project(const Event& e) {
 
+    clear();
+
     // Find incoming lepton beam
     const ParticlePair& inc = applyProjection<Beam>(e, "Beam").beams();
     bool firstIsLepton = PID::isLepton(inc.first.pid());
@@ -72,7 +74,13 @@ namespace Rivet {
       fail();
     }
 
+    _theParticles.push_back(_outgoing);
+
   }
 
+
+  const VetoedFinalState& DISLepton::remainingFinalState() const {
+    return getProjection<VetoedFinalState>("RFS");
+  }
 
 }

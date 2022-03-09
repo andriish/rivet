@@ -189,7 +189,10 @@ namespace Rivet {
     }
 
 
-    pair<double,double> crossSection(const GenEvent& ge) {
+    pair<double,double> crossSection(const GenEvent& ge, size_t index) {
+      if (index) {
+        printf("WARNING: HepMC2 does not support variation cross-sections! Will use nominal value.\n");
+      }
       return make_pair(ge.cross_section()->cross_section(),
                        ge.cross_section()->cross_section_error());
     }

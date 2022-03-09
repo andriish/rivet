@@ -5,6 +5,7 @@ Experiment: OPAL
 Collider: LEP
 InspireID: 611415
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:

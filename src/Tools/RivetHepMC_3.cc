@@ -257,14 +257,14 @@ namespace Rivet {
     }
 
 
-    pair<double, double> crossSection(const GenEvent& ge) {
+    pair<double, double> crossSection(const GenEvent& ge, size_t index) {
       if (!ge.cross_section()) {
         printf("Cross-section not set for GenEvent! Will return dummy value.\n");
-        return make_pair(1.0, 0.0);
+        return make_pair(0.0, 0.0);
       }
       // Work-around since access functions are not const.
       HepMC3::GenCrossSection xs = *ge.cross_section();
-      return make_pair(xs.xsec(), xs.xsec_err());
+      return make_pair(xs.xsec(index), xs.xsec_err(index));
     }
 
 

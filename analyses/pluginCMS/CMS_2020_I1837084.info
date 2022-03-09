@@ -16,6 +16,7 @@ RunInfo: pp to Z interactions at $\sqrt{s} = 13$ TeV. Data collected by CMS duri
 NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [13000]
+Luminosity_fb: 35.9
 Description:
   'Measurements of the total and differential fiducial cross sections for the Z boson decaying into two neutrinos are presented at the LHC in proton-proton collisions at a center-of-mass energy of 13 TeV. The data were collected by the CMS detector in 2016 and correspond to an integrated luminosity of 35.9 fb-1. In these measurements, events are selected containing an imbalance in transverse momentum and one or more energetic jets. The fiducial differential cross section is measured as a function of the Z boson transverse momentum. The results are combined with a previous measurement of charged-lepton decays of the Z boson.'
 BibKey: Sirunyan:2020lfm

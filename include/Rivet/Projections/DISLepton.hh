@@ -7,6 +7,7 @@
 #include "Rivet/Projections/HadronicFinalState.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/UndressBeamLeptons.hh"
+#include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 
@@ -14,7 +15,7 @@ namespace Rivet {
 
 
   /// @brief Get the incoming and outgoing leptons in a DIS event.
-  class DISLepton : public Projection {
+  class DISLepton : public FinalState {
   public:
 
     /// Enum to enable different orderings for selecting scattered
@@ -69,6 +70,11 @@ namespace Rivet {
         declare(DressedLeptons(dressdr), "LFS");
       else
         declare(PromptFinalState(), "LFS");
+
+      // Identify the non-outgoing lepton part of the event
+      VetoedFinalState remainingFS;
+      remainingFS.addVetoOnThisFinalState(*this);
+      declare(remainingFS, "RFS");
     }
 
     /// Clone on the heap.
@@ -100,6 +106,19 @@ namespace Rivet {
     /// Lepton reconstruction mode
     /// @todo: re-enable once the interface update to use enums.
     /// string reconstructionMode() const { return _lmode; }
+
+
+    /// Access to the particles other than outgoing leptons and clustered photons
+    ///
+    /// Useful for e.g. input to a jet finder
+    const VetoedFinalState& remainingFinalState() const;
+
+
+  public:
+
+    /// Clear the projection
+    void clear() { _theParticles.clear(); }
+
 
   private:
 
