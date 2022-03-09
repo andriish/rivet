@@ -11,7 +11,7 @@ analists/analyses.html: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-ht
 	$(mkdir_p) analists && cd analists && \
     LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH):$(LD_LIBRARY_PATH) \
     DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH):$(DYLD_LIBRARY_PATH) \
-    PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
+    PYTHONPATH=$(shell realpath $(abs_top_builddir)/pyext/build/lib*):$(YODA_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
     $(PYTHON) $(abs_srcdir)/analists/mk-analysis-html || true
 
@@ -21,7 +21,7 @@ analists/analyses.json: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-js
 	$(mkdir_p) analists && cd analists && \
     LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH):$(LD_LIBRARY_PATH) \
     DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH):$(DYLD_LIBRARY_PATH) \
-    PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
+    PYTHONPATH=$(shell realpath $(abs_top_builddir)/pyext/build/lib*):$(YODA_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
     $(PYTHON) $(abs_srcdir)/analists/mk-analysis-json || true
 
@@ -31,7 +31,7 @@ analists/analyses.dat: $(top_srcdir)/analyses $(srcdir)/analists/mk-analysis-txt
 	$(mkdir_p) analists && cd analists && \
     LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH):$(LD_LIBRARY_PATH) \
     DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH):$(DYLD_LIBRARY_PATH) \
-    PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
+    PYTHONPATH=$(shell realpath $(abs_top_builddir)/pyext/build/lib*):$(YODA_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
     $(PYTHON) $(abs_srcdir)/analists/mk-analysis-txt || true
 
@@ -46,7 +46,7 @@ coverage/rivet-coverage.html: analists $(wildcard $(srcdir)/coverage/inspire*.js
 	$(mkdir_p) coverage && cd coverage && \
     LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(LD_LIBRARY_PATH):$(LD_LIBRARY_PATH) \
     DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(DYLD_LIBRARY_PATH):$(DYLD_LIBRARY_PATH) \
-    PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
+    PYTHONPATH=$(shell realpath $(abs_top_builddir)/pyext/build/lib*):$(YODA_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
     $(abs_srcdir)/coverage/mk-coverage-htmls || true
 
@@ -73,7 +73,7 @@ anadiff/anadiffs.txt: $(top_srcdir)/analyses $(abs_srcdir)/anadiff/diffanas
 	cd anadiff && \
     LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH) \
     DYLD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs:$(FASTJETLIBPATH):$(FJCONTRIBLIBPATH):$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH) \
-    PYTHONPATH=$(shell realpath $(abs_top_builddir)/pyext/build/lib*):$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
+    PYTHONPATH=$(shell realpath $(abs_top_builddir)/pyext/build/lib*):$(YODA_PYTHONPATH):$(PYTHONPATH) \
     RIVET_ANALYSIS_PATH=$(abs_top_builddir)/analyses:: \
     PATH=$(abs_top_srcdir)/bin:$(PATH) \
     $(abs_srcdir)/anadiff/diffanas > anadiffs.txt
