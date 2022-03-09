@@ -21,6 +21,7 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
     outputdir : str, optional
         Name of the relative output directory. Default is the current directory.
     """
+
     # Parse yaml file for histogram data
     if isinstance(yaml_file, str):  # If the file name of the yaml file is passed
         yaml_dicts = read_yamlfile(yaml_file)
@@ -37,7 +38,8 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
     output_filename = os.path.join(outputdir, plot_name.strip('/'))
     _preprocess_text(yaml_dicts)
 
-    # Ensure reference histogram is first in list since dicts are not ordered in Python 2, not needed for Python 3
+    # Ensure reference histogram is first in list since dicts are not ordered in Python 2, not needed for Python 3 
+    # TODO remove since not needed for Py3?
     for i, h in enumerate(hist_features):
         if h.get('IsRef'):
             if i != 0:  # Not necessary since the reference histogram is already the first element
@@ -46,8 +48,11 @@ def rivet_plot(yaml_file, plot_name, outputdir='.'):
             break
 
     if all(isinstance(h, yoda.Scatter1D) for h in hist_data) or all(isinstance(h, yoda.Scatter2D) for h in hist_data):
-        plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename)
+        print("1D")
+        return hist_data, plot_1Dhist(hist_data, hist_features, yaml_dicts, output_filename)
+
     elif all(isinstance(h, yoda.Scatter3D) for h in hist_data):
+        print("2d")
         plot_2Dhist(hist_data, hist_features, yaml_dicts, output_filename)
     else:
         print('Error with Class types:', [type(h) for h in hist_data])

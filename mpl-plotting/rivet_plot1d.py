@@ -79,7 +79,7 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
         YMin = plot_features.get('YMin')
     elif plot_features.get('LogY', 1):
         # round off lowest number in the histograms to lower power of 10
-        YMin = 10**(math.floor(math.log10(min_ymin))) if min_ymin !=0 else 2e-7*YMax # TO DO: come up with a better solution to deal with min_ymin=0
+        YMin = 10**(math.floor(math.log10(min_ymin))) if min_ymin !=0 else 2e-7*YMax # TODO: come up with a better solution to deal with min_ymin=0
     elif plot_features.get('ShowZero', 1):  # defaul ShowZero is True
         YMin = 0 if min_ymin > -1e-4 else 1.1*min_ymin
     else:
@@ -172,10 +172,7 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
     # maximum number of x-axis labels       
     plt.gca().xaxis.set_major_locator(mpl.ticker.AutoLocator())
 
-    fig.savefig(filename+'.pdf')
-    fig.savefig(filename+'.png', bbox_inches="tight")
-    plt.close()
-
+    return fig,ax
 
 class AnyObject(object):
     """Necessary for custom legend handler."""

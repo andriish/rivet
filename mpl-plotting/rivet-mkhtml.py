@@ -26,6 +26,7 @@ from rivet_plot import rivet_plot
 rivet.util.check_python_version()
 rivet.util.set_process_name(os.path.basename(__file__))
 COMMAND = " ".join([os.path.basename(sys.argv[0])] + sys.argv[1:])
+import matplotlib.pyplot as plt
 
 import glob, shutil
 
@@ -402,11 +403,11 @@ if not args.DRY_RUN:
         # anaindex.write('<span style="background-color:00cc00; border:2px solid #009933; padding:2px; border-radius:2px;"\n onclick="var patt = document.getElementById(\'patt_{ana}\').value; filterPlots(\'{ana}\', patt);">Filter</span>\n'.format(ana=analysis))
         anaindex.write('</form>\n\n')
 
-        yamlfiles = glob.glob("%s/*.dat" % anapath)
+        datfiles = glob.glob("%s/*.dat" % anapath)
         #print(datfiles)
         # anaindex.write('<div style="float:none; overflow:auto; width:100%">\n')
-        for yamlfile in sorted(yamlfiles):
-            obsname = os.path.basename(yamlfile).replace(".dat", "")
+        for datfile in sorted(datfiles):
+            obsname = os.path.basename(datfile).replace(".dat", "")
             pngfile = obsname+".png"
             vecfile = obsname+"."+args.VECTORFORMAT.lower()
             srcfile = obsname+".dat"
@@ -457,8 +458,18 @@ def which(program):
 
 num_plots = len(yaml_dicts)
 print("Making {} plots".format(num_plots))
+
 for i, (refFile,yaml_dict) in enumerate(yaml_dicts.items()):
-    #print(yaml_dict)
-    #if "LHCB_2014_I1281685/d04-x01-y04" not in refFile: continue
     print("Plotting", args.OUTPUTDIR+refFile, "({}/{} remaining)".format(num_plots-i, num_plots))
-    rivet_plot(yaml_dict, refFile, args.OUTPUTDIR)
+
+    # get matplotlib plotting objects
+    yaml_histo,(fig,ax) = rivet_plot(yaml_dict, refFile, args.OUTPUTDIR)
+    print(type(yaml_histo).__name__)
+    # save figure TODO: tweak command line options --> let user decide format
+    plt.savefig(os.path.join(args.OUTPUTDIR, refFile.strip('/'))+".pdf")
+    plt.close()
+    
+    # or access to the yoda_plot objects here?
+    #yaml_histograms = yaml_dict['histograms']
+    #print(yaml_dict['histograms'])
+
