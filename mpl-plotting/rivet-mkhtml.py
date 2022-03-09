@@ -463,13 +463,17 @@ for i, (refFile,yaml_dict) in enumerate(yaml_dicts.items()):
     print("Plotting", args.OUTPUTDIR+refFile, "({}/{} remaining)".format(num_plots-i, num_plots))
 
     # get matplotlib plotting objects
-    yaml_histo,(fig,ax) = rivet_plot(yaml_dict, refFile, args.OUTPUTDIR)
-    print(type(yaml_histo).__name__)
+    fig,ax = rivet_plot(yaml_dict, refFile, args.OUTPUTDIR)
+    
     # save figure TODO: tweak command line options --> let user decide format
     plt.savefig(os.path.join(args.OUTPUTDIR, refFile.strip('/'))+".pdf")
     plt.close()
     
-    # or access to the yoda_plot objects here?
-    #yaml_histograms = yaml_dict['histograms']
-    #print(yaml_dict['histograms'])
+    # access to the yoda objects here
+    yaml_histograms = yaml_dict['histograms']
 
+    # for example, plot them if you wish
+    #print(yaml_dict['histograms'])
+    #for key,theYoda in yaml_dict['histograms'].items():
+    #  yoda.plotting.plot(theYoda['yoda'])
+    #  yoda.plotting.show()
