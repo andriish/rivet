@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ARGUS_1994_I354224);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ARGUS_1994_I354224);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -35,7 +35,7 @@ namespace Rivet {
 	}
 	else if(!p.children().empty()) {
 	  analyzeDecay(p,kaons);
-	} 
+	}
       }
     }
 
@@ -65,21 +65,21 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_K;
     CounterPtr _nB;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ARGUS_1994_I354224);
+  RIVET_DECLARE_PLUGIN(ARGUS_1994_I354224);
 
 
 }

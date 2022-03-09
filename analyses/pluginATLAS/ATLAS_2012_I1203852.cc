@@ -13,7 +13,7 @@
 namespace Rivet {
 
 
-  /// Generic Z candidate 
+  /// Generic Z candidate
   struct Zstate : public ParticlePair {
     Zstate() { }
     Zstate(ParticlePair _particlepair) : ParticlePair(_particlepair) { }
@@ -29,14 +29,12 @@ namespace Rivet {
   public:
 
     /// Default constructor
-    ATLAS_2012_I1203852()
-      : Analysis("ATLAS_2012_I1203852")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2012_I1203852);
 
 
     void init() {
 
-      // Get options 
+      // Get options
       // Default does everything
       _mode = 0;
       if ( getOption("LMODE") == "LL" )  _mode = 1;
@@ -102,7 +100,7 @@ namespace Rivet {
         VetoedFinalState jetinput;
         jetinput.addVetoOnThisFinalState(bare_MU);
         jetinput.addVetoOnThisFinalState(neutrino_fs);
-        
+
         FastJets jetpro(fs, FastJets::ANTIKT, 0.4);
         declare(jetpro, "jet");
 
@@ -120,8 +118,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& e) {
 
-
-      if (_mode!=2) {
+      if (_mode != 2) {
 
         ////////////////////////////////////////////////////////////////////
         // preselection of leptons for ZZ-> llll final state
@@ -195,7 +192,7 @@ namespace Rivet {
         }
       }
 
-      if (_mode!=1) {
+      if (_mode != 1) {
 
         ////////////////////////////////////////////////////////////////////
         /// preselection of leptons for ZZ-> llnunu final state
@@ -279,15 +276,15 @@ namespace Rivet {
         }
         size_t n_sel_jets = good_jets.size();
         if (n_sel_jets != 0) vetoEvent;
-        
+
 
         /////////////////////////////////////////////////////////////
         // Fractional MET and lepton pair difference: "RatioMet"< 0.4
         ////////////////////////////////////////////////////////////
         double ratioMet = fabs(Z2.pT() - Z1.pT()) / Z1.pT();
         if (ratioMet  > 0.4 ) vetoEvent;
-        
-        
+
+
         // End of ZZllnunu selection: now fill histograms
         _h_ZZnunu_xsect->fill(sqrtS()/GeV); ///< @todo xsec / GeV??
         _h_ZZnunu_ZpT  ->fill(ZpT);
@@ -296,6 +293,7 @@ namespace Rivet {
 
       }
     }
+
 
     /// Finalize
     void finalize() {
@@ -396,6 +394,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2012_I1203852);
+  RIVET_DECLARE_PLUGIN(ATLAS_2012_I1203852);
 
 }

@@ -15,7 +15,7 @@ Beams: [e-, e+]
 Description:
   'Measurement of the hadronic cross section in $e^+e^-$ collisions by TOPAZ for energies between 57.37 and 59.84 GeV.
    The individual hadronic and muonic cross sections are also outputted to the yoda file
-   so that ratio $R$ can be recalcuated if runs are combined.'
+   so that ratio $R$ can be recalculated if runs are combined.'
 BibKey: Abe:1993fy
 BibTeX: '@article{Abe:1993fy,
       author         = "Abe, K. and others",

@@ -79,7 +79,7 @@ namespace Rivet {
       else {
 	fail();
       }
-      
+
     }
   }
 

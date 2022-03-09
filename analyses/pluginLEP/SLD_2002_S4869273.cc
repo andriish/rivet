@@ -15,19 +15,19 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(SLD_2002_S4869273);
+    RIVET_DEFAULT_ANALYSIS_CTOR(SLD_2002_S4869273);
 
 
     /// @name Helper functions
     /// @note The PID:: namespace functions would be preferable, but don't have exactly the same behaviour. Preserving the original form.
-    //@{
+    /// @{
     // bool isParton(int id) { return abs(id) <= 100 && abs(id) != 22 && (abs(id) < 11 || abs(id) > 18); }
     // bool isBHadron(int id) { return ((abs(id)/100)%10 == 5) || (abs(id) >= 5000 && abs(id) <= 5999); }
-    //@}
+    /// @}
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book projections and histograms
     void init() {
@@ -93,12 +93,12 @@ namespace Rivet {
 
     Histo1DPtr _histXbweak;
 
-    //@}
+    /// @}
 
   };
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(SLD_2002_S4869273, SLD_2002_I582951);
+  RIVET_DECLARE_ALIASED_PLUGIN(SLD_2002_S4869273, SLD_2002_I582951);
 
 }

@@ -15,11 +15,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(H1_1994_S2919893);
+    RIVET_DEFAULT_ANALYSIS_CTOR(H1_1994_S2919893);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Initialise projections and histograms
     void init() {
@@ -195,7 +195,7 @@ namespace Rivet {
       scale(_histEECHighX, 1./ *_wEnergy.second);
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -225,6 +225,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(H1_1994_S2919893, H1_1994_I372350);
+  RIVET_DECLARE_ALIASED_PLUGIN(H1_1994_S2919893, H1_1994_I372350);
 
 }

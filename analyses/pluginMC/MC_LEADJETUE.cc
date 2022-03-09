@@ -6,7 +6,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// @brief MC validation analysis for underlying event in jet events
@@ -21,7 +21,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     // Book histograms
     void init() {
@@ -162,6 +162,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_LEADJETUE);
+  RIVET_DECLARE_PLUGIN(MC_LEADJETUE);
 
 }

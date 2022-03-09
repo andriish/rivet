@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2020_I1769654);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2020_I1769654);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -37,7 +37,7 @@ namespace Rivet {
 	nCount[p.pid()] += 1;
 	++ntotal;
       }
-      
+
       if(ntotal==2 && nCount[130]==1 && nCount[310]==1)
 	_nKSKL->fill();
     }
@@ -65,18 +65,18 @@ namespace Rivet {
       }
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     CounterPtr _nKSKL;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(BABAR_2020_I1769654);
+  RIVET_DECLARE_PLUGIN(BABAR_2020_I1769654);
 
 }

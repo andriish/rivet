@@ -11,11 +11,11 @@ namespace Rivet {
   class CDF_2005_S6080774 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2005_S6080774);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2005_S6080774);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       FinalState fs;
@@ -78,22 +78,22 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     std::array<Histo1DPtr,4> _h_m_PP;
     std::array<Histo1DPtr,4> _h_pT_PP;
     std::array<Histo1DPtr,4> _h_dphi_PP;
-    //@}
+    /// @}
 
   };
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2005_S6080774, CDF_2005_I667384);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_2005_S6080774, CDF_2005_I667384);
 
 }

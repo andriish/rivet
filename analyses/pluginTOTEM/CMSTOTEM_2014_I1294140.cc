@@ -21,12 +21,9 @@ namespace Rivet {
       book(_Nevt_after_cuts_or, "Nevt_or");
       book(_Nevt_after_cuts_and, "Nevt_and");
       book(_Nevt_after_cuts_xor, "Nevt_xor");
-
-      if (fuzzyEquals(sqrtS(), 8000*GeV, 1E-3)) {
-        book(_h_dNch_dEta_OR ,1, 1, 1);
-        book(_h_dNch_dEta_AND ,2, 1, 1);
-        book(_h_dNch_dEta_XOR ,3, 1, 1);
-      }
+      book(_h_dNch_dEta_OR ,1, 1, 1);
+      book(_h_dNch_dEta_AND ,2, 1, 1);
+      book(_h_dNch_dEta_XOR ,3, 1, 1);
     }
 
 
@@ -73,6 +70,6 @@ namespace Rivet {
 
 
   // Hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMSTOTEM_2014_I1294140);
+  RIVET_DECLARE_PLUGIN(CMSTOTEM_2014_I1294140);
 
 }

@@ -20,7 +20,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialize projections before the run
     void init() {
@@ -192,7 +192,7 @@ namespace Rivet {
           _hist_eTmiss_mu->fill(eTmiss,weight);
       }
     }
-    //@}
+    /// @}
 
 
     void finalize() {
@@ -208,17 +208,17 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _count_e ;
     Histo1DPtr _count_mu;
 
     Histo1DPtr _hist_eTmiss_e ;
     Histo1DPtr _hist_eTmiss_mu;
-    //@}
+    /// @}
 
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2012_CONF_2012_104);
+  RIVET_DECLARE_PLUGIN(ATLAS_2012_CONF_2012_104);
 
 }

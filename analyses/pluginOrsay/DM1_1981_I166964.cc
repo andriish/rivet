@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(DM1_1981_I166964);
+    RIVET_DEFAULT_ANALYSIS_CTOR(DM1_1981_I166964);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -39,7 +39,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const FinalState& fs = apply<FinalState>(event, "FS");
-      
+
       map<long,int> nCount;
       int ntotal(0);
       for (const Particle& p : fs.particles()) {
@@ -80,7 +80,7 @@ namespace Rivet {
     void finalize() {
       double fact = crossSection()/ sumOfWeights() /nanobarn;
       double sigma = _nomega->val()*fact;
-      double error = _nomega->err()*fact; 
+      double error = _nomega->err()*fact;
       Scatter2D temphisto(refData(1, 1, 1));
       Scatter2DPtr mult;
       book(mult, 1, 1, 1);
@@ -99,20 +99,20 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _nomega;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(DM1_1981_I166964);
+  RIVET_DECLARE_PLUGIN(DM1_1981_I166964);
 
 
 }

@@ -15,7 +15,7 @@ Beams: [e-, e+]
 Description:
   'Measurement of $R_b$ in $e^+e^-$ collisions by BaBar for energies between 10.541 and 11.206 GeV.
    The individual bottom hadronic and muonic cross sections are also outputted to the yoda file
-   so that ratio $R$ can be recalcuated if runs are combined.'
+   so that ratio $R$ can be recalculated if runs are combined.'
 BibKey: Aubert:2008ab
 BibTeX: '@article{Aubert:2008ab,
       author         = "Aubert, Bernard and others",

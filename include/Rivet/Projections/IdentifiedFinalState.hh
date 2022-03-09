@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors
-    //@{
+    /// @{
 
     /// Constructor with a FinalState and optional list of PDG ID codes.
     IdentifiedFinalState(const FinalState& fsp, const vector<PdgId>& pids=vector<PdgId>());
@@ -36,7 +36,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(IdentifiedFinalState);
 
-    //@}
+    /// @}
 
 
     /// Get the list of particle IDs to accept.

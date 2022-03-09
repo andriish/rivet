@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(DASP_1979_I132045);
+    RIVET_DEFAULT_ANALYSIS_CTOR(DASP_1979_I132045);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -43,10 +43,10 @@ namespace Rivet {
       else if (inRange(sqrtS()/GeV,4.46,4.98)) {
 	ihist=5;
       }
-      else if (fuzzyEquals(sqrtS(), 5.0, 1E-3)) {
+      else if (isCompatibleWithSqrtS(5.0*GeV)) {
 	ihist=6;
       }
-      else if (fuzzyEquals(sqrtS(), 5.2, 1E-3)) {
+      else if (isCompatibleWithSqrtS(5.2*GeV)) {
 	ihist=7;
       }
       else {
@@ -98,21 +98,21 @@ namespace Rivet {
       scale(_h_proton_x ,fact);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_pi_p, _h_K_p, _h_proton_p;
     Histo1DPtr _h_pi_x, _h_K_x, _h_proton_x;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(DASP_1979_I132045);
+  RIVET_DECLARE_PLUGIN(DASP_1979_I132045);
 
 
 }

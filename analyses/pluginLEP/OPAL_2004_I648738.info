@@ -12,7 +12,7 @@ References:
  - hep-ex/0404026
 RunInfo:
   For quark fragmentation $e^+e^-\to q\bar{q}$ events are required, while for gluon fragmentation
-  the fictonal $e^+e^-\to gg$ process is required.
+  the fictional $e^+e^-\to gg$ process is required.
 NumEvents: 1000000
 NeedCrossSection: no
 Beams: [e+, e-]

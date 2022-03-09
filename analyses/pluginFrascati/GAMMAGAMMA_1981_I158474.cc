@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(GAMMAGAMMA_1981_I158474);
+    RIVET_DEFAULT_ANALYSIS_CTOR(GAMMAGAMMA_1981_I158474);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -68,7 +68,7 @@ namespace Rivet {
 	if((nCount[211]+nCount[-211]+nCount[111])==ntotal ) {
 	  if(ntotal==3 || ntotal ==5)
 	    _n35pi->fill();
-	  else if(ntotal==4 || ntotal==6) 
+	  else if(ntotal==4 || ntotal==6)
 	    _n46pi ->fill();
 	}
       }
@@ -103,7 +103,7 @@ namespace Rivet {
 	else if(ix==6) {
 	  sigma = _n46pi->val()*fact;
 	  error = _n46pi->err()*fact;
-	} 
+	}
 	Scatter2D temphisto(refData(1, 1, ix));
 	Scatter2DPtr mult;
 	book(mult, 1, 1, ix);
@@ -161,20 +161,20 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _n3pi,_n4pi,_n5pi,_n6pi,_n35pi,_n46pi,_nC2,_nC4,_nmu;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(GAMMAGAMMA_1981_I158474);
+  RIVET_DECLARE_PLUGIN(GAMMAGAMMA_1981_I158474);
 
 
 }

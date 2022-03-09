@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEOII_1994_I378319);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEOII_1994_I378319);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -82,11 +82,11 @@ namespace Rivet {
 	  _r[1]->fill(0.5);
 	if(Dstar.children().size()!=2) continue;
 	Particle pion;
-	if(Dstar.children()[0].pid()== 111 && 
+	if(Dstar.children()[0].pid()== 111 &&
 	   Dstar.children()[1].pid()== sign*421) {
 	  pion = Dstar.children()[0];
 	}
-	else if(Dstar.children()[1].pid()== 111 && 
+	else if(Dstar.children()[1].pid()== 111 &&
 		Dstar.children()[0].pid()== sign*421) {
 	  pion = Dstar.children()[1];
 	}
@@ -106,7 +106,7 @@ namespace Rivet {
 	  _h_D1_cTheta->fill(cTheta);
 	else
 	  _h_D2_cTheta->fill(cTheta);
-      }      
+      }
     }
 
     /// Normalise histograms etc., after the run
@@ -119,19 +119,19 @@ namespace Rivet {
 	scale(_r[ix],crossSection()/sumOfWeights()/picobarn);
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_D2_cTheta,_h_D2_x,_h_D1_cTheta,_h_D1_x;
     Histo1DPtr _r[3];
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(CLEOII_1994_I378319);
+  RIVET_DECLARE_PLUGIN(CLEOII_1994_I378319);
 
 }

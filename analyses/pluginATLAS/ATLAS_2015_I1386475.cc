@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2015_I1386475);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2015_I1386475);
  /// Book histograms and initialise projections before the run
   void init() {
 
@@ -24,7 +24,7 @@ namespace Rivet {
     // The particles to be analysed.
     declare(ChargedFinalState(Cuts::eta > -2.7 && Cuts::eta < 2.7 &&
                               Cuts::pT > 0.1*GeV), "CFS");
-    
+
     // The centrality bins' upper edges.
     centralityBins = {90., 60., 40., 30., 20., 10., 5., 1.};
     for (int i = 0; i < 8; ++i) {
@@ -35,12 +35,12 @@ namespace Rivet {
 
   /// Perform the per-event analysis
   void analyze(const Event& event) {
-    
+
     // Apply event triggers.
     if ( !apply<ATLAS::MinBiasTrigger>(event, "Trigger")() ) vetoEvent;
 
     // We must have direct acces to the centrality projection.
-    const CentralityProjection& cent = 
+    const CentralityProjection& cent =
       apply<CentralityProjection>(event,"CENT");
     double c = cent();
     // Find the correct centrality histogram
@@ -53,7 +53,7 @@ namespace Rivet {
     for ( const auto &p : apply<ChargedFinalState>(event,"CFS").particles() )
       hItr->second->fill(p.eta());
   }
-    
+
   /// Finalize
   void finalize() {
 
@@ -79,7 +79,7 @@ private:
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2015_I1386475);
+  RIVET_DECLARE_PLUGIN(ATLAS_2015_I1386475);
 
 
 }

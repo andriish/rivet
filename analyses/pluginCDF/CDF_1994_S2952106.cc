@@ -15,11 +15,11 @@ namespace Rivet {
   class CDF_1994_S2952106 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_1994_S2952106);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_1994_S2952106);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       const FinalState fs(Cuts::abseta < 4.2);
@@ -168,7 +168,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -177,7 +177,7 @@ namespace Rivet {
     CounterPtr _sumw;
 
     /// @name Histograms
-    //@{
+    /// @{
 
     /// Straightforward output histos
     Histo1DPtr _histJet1Et, _histJet2Et;
@@ -188,12 +188,12 @@ namespace Rivet {
     /// Temporary histos, to be converted to scatters
     Histo1DPtr _tmphistR23, _tmphistJet3eta, _tmphistAlpha;
 
-    //@}
+    /// @}
 
   };
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(CDF_1994_S2952106, CDF_1994_I374155);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_1994_S2952106, CDF_1994_I374155);
 
 }

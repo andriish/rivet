@@ -20,9 +20,9 @@ namespace Rivet {
     /// Enum to enable different orderings for selecting scattered
     /// leptons in case several were found.
     enum SortOrder { ENERGY, ETA, ET };
-    
+
     /// @name Constructors.
-    //@{
+    /// @{
 
     /// Default constructor taking general options. The recognised
     /// options are: LMODE, taking the options "prompt", "any" and
@@ -35,7 +35,7 @@ namespace Rivet {
     /// from the beam momentum.
     DISLepton(const std::map<std::string,std::string> & opts =
               std::map<std::string,std::string>())
-      : _isolDR(0.0), _sort(ENERGY) {
+      : _isolDR(0.0), _sort(ENERGY), _lmode("any") {
       setName("DISLepton");
       declare(HadronicFinalState(), "IFS");
 
@@ -62,10 +62,10 @@ namespace Rivet {
       if ( dress != opts.end() )
         dressdr = std::stod(dress->second);
 
-      auto lmode = opts.find("LMode");
-      if ( lmode != opts.end() && lmode->second == "any" )
+      _lmode = (opts.count("LMode") == 0) ? "any" : opts.at("LMode");
+      if ( _lmode == "any" )
         declare(FinalState(), "LFS");
-      else if ( lmode != opts.end() && lmode->second == "dressed" )
+      else if ( _lmode  == "dressed" )
         declare(DressedLeptons(dressdr), "LFS");
       else
         declare(PromptFinalState(), "LFS");
@@ -74,7 +74,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(DISLepton);
 
-    //@}
+    /// @}
 
 
   protected:
@@ -97,6 +97,9 @@ namespace Rivet {
     /// Sign of the incoming lepton pz component
     int pzSign() const { return sign(_incoming.pz()); }
 
+    /// Lepton reconstruction mode
+    /// @todo: re-enable once the interface update to use enums.
+    /// string reconstructionMode() const { return _lmode; }
 
   private:
 
@@ -111,6 +114,9 @@ namespace Rivet {
 
     /// How to sort leptons
     SortOrder _sort;
+
+    /// The reconstruction mode for lepton
+    std::string _lmode;
 
   };
 

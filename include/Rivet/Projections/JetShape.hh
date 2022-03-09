@@ -45,7 +45,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor from histo range and number of bins.
     JetShape(const JetAlg& jetalg,
@@ -63,7 +63,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(JetShape);
 
-    //@}
+    /// @}
 
 
     /// Reset projection between events.
@@ -165,7 +165,7 @@ namespace Rivet {
   private:
 
     /// @name Jet shape parameters
-    //@{
+    /// @{
 
     /// Vector of radius bin edges
     vector<double> _binedges;
@@ -179,16 +179,16 @@ namespace Rivet {
     /// Rapidity scheme
     RapScheme _rapscheme;
 
-    //@}
+    /// @}
 
 
     /// @name The projected jet shapes
-    //@{
+    /// @{
 
     /// Jet shape histo -- first index is jet number, second is r bin
     vector< vector<double> > _diffjetshapes;
 
-    //@}
+    /// @}
 
   };
 

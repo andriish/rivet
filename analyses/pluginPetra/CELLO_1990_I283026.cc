@@ -13,11 +13,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CELLO_1990_I283026);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CELLO_1990_I283026);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -39,23 +39,23 @@ namespace Rivet {
       // First, veto on leptonic events by requiring at least 4 charged FS particles
       const FinalState& fs = apply<FinalState>(event, "FS");
       const size_t numParticles = fs.particles().size();
-      
+
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (numParticles < 2) {
         MSG_DEBUG("Failed leptonic event cut");
         vetoEvent;
       }
       MSG_DEBUG("Passed leptonic event cut");
-      
+
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
-      
+
       // Final state of unstable particles to get particle spectra
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
-      
+
       for (const Particle& p : ufs.particles()) {
         const int id = p.abspid();
         if (id == PID::K0S || id == PID::K0L) {
@@ -78,20 +78,20 @@ namespace Rivet {
       scale(_h_Lambda, 1./sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_K0, _h_Kstar, _h_Lambda;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CELLO_1990_I283026);
+  RIVET_DECLARE_PLUGIN(CELLO_1990_I283026);
 
 
 }

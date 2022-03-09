@@ -9,7 +9,7 @@ namespace Rivet {
   class LHCB_2011_I919315 : public Analysis {
   public:
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     LHCB_2011_I919315()
@@ -17,11 +17,11 @@ namespace Rivet {
     {
     }
 
-    //@}
+    /// @}
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -65,23 +65,23 @@ namespace Rivet {
       _h_Phi_pT_y.scale(scale_factor/1000., this);
     }
 
-    //@}
+    /// @}
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_Phi_y;
     Histo1DPtr _h_Phi_pT;
     BinnedHistogram _h_Phi_pT_y;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(LHCB_2011_I919315);
+  RIVET_DECLARE_PLUGIN(LHCB_2011_I919315);
 
 }
 
-//@}
+// @}

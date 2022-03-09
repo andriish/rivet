@@ -261,8 +261,8 @@ namespace Rivet {
 
     }
 
-    /// @todo why does this routine not have a finalize method? 
-    /// not clear how you would combine different samples slices 
+    /// @todo why does this routine not have a finalize method?
+    /// not clear how you would combine different samples slices
     /// correctly if you don't weight by cross-section
 
 
@@ -277,6 +277,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2013_I1243871);
+  RIVET_DECLARE_PLUGIN(ATLAS_2013_I1243871);
 
 }

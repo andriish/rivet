@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     HepMCHeavyIon();
@@ -21,7 +21,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(HepMCHeavyIon);
 
-    //@}
+    /// @}
 
 
   protected:
@@ -47,14 +47,14 @@ namespace Rivet {
     /// collisions containing a special signal process. A negative
     /// value means that the information is not available.
     int    Ncoll_hard() const;
-    
+
     /// @brief the number of participating nucleons in the projectile.
     ///
     /// The number of nucleons in the projectile participating in an
     /// inelastic collision (see Ncoll). A negative value means that
     /// the information is not available.
     int    Npart_proj() const;
-    
+
     /// @brief the number of participating nucleons in the target.
     ///
     /// The number of nucleons in the target participating in an
@@ -68,7 +68,7 @@ namespace Rivet {
     /// inelastic collisions, and that inelastic also includes
     /// diffractive excitation. A negative value means that the
     /// information is not available.
-    /// 
+    ///
     int    Ncoll() const;
     /// @brief Collisions with a diffractively excited target nucleon.
     ///
@@ -76,7 +76,7 @@ namespace Rivet {
     /// where the target nucleon is excited. A negative value means
     /// that the information is not available.
     int    N_Nwounded_collisions() const;
-    
+
     /// @brief Collisions with a diffractively excited projectile nucleon.
     ///
     /// The number of single diffractive nucleon-nucleon collisions

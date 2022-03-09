@@ -6,7 +6,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// Generic analysis looking at kt splitting scales of partons
@@ -22,7 +22,7 @@ namespace Rivet {
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -50,19 +50,19 @@ namespace Rivet {
       MC_JetSplittings::finalize();
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
-    //@}
+    /// @{
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_QCD_PARTONS);
+  RIVET_DECLARE_PLUGIN(MC_QCD_PARTONS);
 
 }

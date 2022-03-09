@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2006_I716277);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2006_I716277);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -41,14 +41,14 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       const FinalState& fs = apply<FinalState>(event, "FS");
-      
+
       map<long,int> nCount;
       int ntotal(0);
       for (const Particle& p : fs.particles()) {
 	nCount[p.pid()] += 1;
 	++ntotal;
       }
-      
+
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
@@ -94,7 +94,7 @@ namespace Rivet {
 	  error = _numEtaPrimeGamma->err();
 	}
 	sigma *= crossSection()/ sumOfWeights() /femtobarn;
-	error *= crossSection()/ sumOfWeights() /femtobarn; 
+	error *= crossSection()/ sumOfWeights() /femtobarn;
 	Scatter2D temphisto(refData(1, 1, ix));
 	Scatter2DPtr  mult;
         book(mult, 1, 1, ix);
@@ -114,20 +114,20 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _numEtaGamma,_numEtaPrimeGamma;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BABAR_2006_I716277);
+  RIVET_DECLARE_PLUGIN(BABAR_2006_I716277);
 
 
 }

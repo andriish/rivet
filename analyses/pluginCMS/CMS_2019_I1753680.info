@@ -18,6 +18,7 @@ RunInfo: pp to Z interactions at $\sqrt{s} = 13$ TeV. Data collected by CMS duri
 NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [13000]
+Luminosity_fb: 35.9
 Options:
  - LMODE=EL,MU,EMU
 Description:

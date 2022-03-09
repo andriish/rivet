@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TASSO_1990_S2148048);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TASSO_1990_S2148048);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -116,21 +116,21 @@ namespace Rivet {
       normalize(_h_thrust    );
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_xp, _h_sphericity, _h_aplanarity, _h_thrust;
-    //@}
+    /// @}
 
 
   };
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(TASSO_1990_S2148048, TASSO_1990_I294755);
+  RIVET_DECLARE_ALIASED_PLUGIN(TASSO_1990_S2148048, TASSO_1990_I294755);
 
 }

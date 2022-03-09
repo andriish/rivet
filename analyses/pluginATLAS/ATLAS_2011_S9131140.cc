@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2011_S9131140);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_S9131140);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
 
@@ -86,7 +86,7 @@ namespace Rivet {
       if (_sumw_mu_bare->val()    != 0) scale(_hist_zpt_mu_bare,    1/ *_sumw_mu_bare);
     }
 
-    //@}
+    /// @}
 
 
     private:
@@ -102,6 +102,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(ATLAS_2011_S9131140, ATLAS_2011_I917931);
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2011_S9131140, ATLAS_2011_I917931);
 
 }

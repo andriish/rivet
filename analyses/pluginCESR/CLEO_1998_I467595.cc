@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEO_1998_I467595);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEO_1998_I467595);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -64,7 +64,7 @@ namespace Rivet {
 	_h_ctheta.fill(xp,ctheta);
       }
     }
-  
+
     pair<double,double> calcRho(Histo1DPtr hist) {
       if(hist->numEntries()==0.) return make_pair(0.,0.);
       double sum1(0.),sum2(0.);
@@ -102,7 +102,7 @@ namespace Rivet {
       // and error
       double cc = -pow((sum3 + sqr(c)*sum4 - 2*c*sum5),3);
       double bb = -2*sqr(sum3 + sqr(c)*sum4 - 2*c*sum5)*(sum1 - c*sum2 + c*sum4 - sum5);
-      double aa =  sqr(sum1 - c*sum2 + c*sum4 - sum5)*(-sum3 - sqr(c)*sum4 + sqr(sum1 - c*sum2 + c*sum4 - sum5) + 2*c*sum5);      
+      double aa =  sqr(sum1 - c*sum2 + c*sum4 - sum5)*(-sum3 - sqr(c)*sum4 + sqr(sum1 - c*sum2 + c*sum4 - sum5) + 2*c*sum5);
       double dis = sqr(bb)-4.*aa*cc;
       if(dis>0.) {
 	dis = sqrt(dis);
@@ -131,20 +131,20 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _h_ctheta;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CLEO_1998_I467595);
+  RIVET_DECLARE_PLUGIN(CLEO_1998_I467595);
 
 
 }

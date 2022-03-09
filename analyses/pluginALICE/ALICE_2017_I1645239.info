@@ -5,6 +5,7 @@ Experiment: ALICE
 Collider: LHC
 InspireID: 1645239
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Marco Giacalone <mgiacalo@bo.infn.it>
 References:

@@ -5,16 +5,19 @@ Experiment: TASSO
 Collider: TASSO
 InspireID: 168232
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Lett. B108 (1982) 71-76, 1982
-RunInfo: e+ e- to hadrons
+RunInfo: e+ e- to hadrons. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NeedCrossSection: yes
 Beams: [e+, e-]
 Energies: [14,34]
+Options:
+ - ENERGY=14,34
 Description:
-  'Measurement of the $\pi^0$ spectrum in $e^+e^-$ collisions for centre-of-mass energies of 14 and 34 GeV by the TASSO experiment at Petra.'
+  'Measurement of the $\pi^0$ spectrum in $e^+e^-$ collisions for centre-of-mass energies of 14 and 34 GeV by the TASSO experiment at Petra. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 Keywords: []
 BibKey: Brandelik:1981gx
 BibTeX: '@article{Brandelik:1981gx,

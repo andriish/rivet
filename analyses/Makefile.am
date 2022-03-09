@@ -1,8 +1,6 @@
 AUTOMAKE_OPTIONS = -Wno-portability
 SHELL := bash -O extglob
 
-if ENABLE_ANALYSES
-
 PLUGIN_DIRS = $(shell ls -d $(srcdir)/plugin*)
 PLUGIN_NAMES = $(notdir $(subst plugin,,$(PLUGIN_DIRS)))
 PLUGIN_LIBS = $(patsubst %,Rivet%Analyses.so,$(PLUGIN_NAMES))
@@ -43,6 +41,9 @@ RivetSPSAnalyses.so: $(filter-out $(srcdir)/pluginSPS/tmp*.cc, $(wildcard $(srcd
 RivetTOTEMAnalyses.so: $(filter-out $(srcdir)/pluginTOTEM/tmp*.cc, $(wildcard $(srcdir)/pluginTOTEM/*.cc))
 RivetTristanAnalyses.so: $(filter-out $(srcdir)/pluginTristan/tmp*.cc, $(wildcard $(srcdir)/pluginTristan/*.cc))
 
+
+if ENABLE_ANALYSES
+
 all-local: $(PLUGIN_LIBS) $(PLUGIN_DATAFILES)
 	mkdir -p $(builddir)/data
 	for pdir in $(abs_srcdir)/plugin*; do $(LN_S) -f $${pdir}/*.{info,plot,yoda*} $(builddir)/data; done
@@ -56,10 +57,11 @@ install-data-local: $(PLUGIN_DATAFILES)
 	$(mkdir_p) $(DESTDIR)$(pkgdatadir)
 	for pdir in $(srcdir)/plugin*; do $(FCP) $${pdir}/*.{info,plot,yoda*} $(DESTDIR)$(pkgdatadir)/; done
 
+# TODO: remove entire pkglibdir and pkgdatadir?
 uninstall-local:
 	cd $(DESTDIR)$(libdir) && rm -f $(PLUGIN_LIBS)
 	@echo "Uninstalling analysis data files..."
-	rm -f $(DESTDIR)$(pkgdatadir)/Rivet*.so
+	rm -f $(DESTDIR)$(pkglibdir)/Rivet*.so
 	rm -f $(DESTDIR)$(pkgdatadir)/*.info
 	rm -f $(DESTDIR)$(pkgdatadir)/*.plot
 	rm -f $(DESTDIR)$(pkgdatadir)/*.yoda*

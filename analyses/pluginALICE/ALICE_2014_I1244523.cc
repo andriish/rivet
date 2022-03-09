@@ -13,11 +13,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2014_I1244523);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2014_I1244523);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     int profileIndex(vector<double> cBins, double c) {
       int index = 100;
@@ -223,7 +223,7 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 private:
     vector<double> centralityBins;
@@ -273,7 +273,7 @@ private:
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALICE_2014_I1244523);
+  RIVET_DECLARE_PLUGIN(ALICE_2014_I1244523);
 
 
 }

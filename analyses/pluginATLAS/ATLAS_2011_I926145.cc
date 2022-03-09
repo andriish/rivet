@@ -17,7 +17,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2011_I926145);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_I926145);
 
 
     /// Book histograms and initialise projections before the run
@@ -124,14 +124,14 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histPt_elecs, _histPt_muons, _histPt_muons_full;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_I926145);
+  RIVET_DECLARE_PLUGIN(ATLAS_2011_I926145);
 
 }

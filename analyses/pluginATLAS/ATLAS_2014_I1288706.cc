@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -73,7 +73,7 @@ namespace Rivet {
       scale(_hist_el_dressed,     crossSection()/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -85,6 +85,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2014_I1288706);
+  RIVET_DECLARE_PLUGIN(ATLAS_2014_I1288706);
 
 }

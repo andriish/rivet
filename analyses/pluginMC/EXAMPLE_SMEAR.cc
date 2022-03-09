@@ -15,11 +15,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(EXAMPLE_SMEAR);
+    RIVET_DEFAULT_ANALYSIS_CTOR(EXAMPLE_SMEAR);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -227,25 +227,25 @@ namespace Rivet {
       normalize(_h_t1eta_reco, 1-_h_nt_reco->bin(0).area());
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_met_true, _h_met_reco;
     Histo1DPtr _h_nj_true, _h_nj_reco, _h_ne_true, _h_ne_reco,  _h_nm_true, _h_nm_reco,  _h_nt_true, _h_nt_reco;
     Histo1DPtr _h_j1pt_true, _h_j1pt_reco, _h_e1pt_true, _h_e1pt_reco,  _h_m1pt_true, _h_m1pt_reco,  _h_t1pt_true, _h_t1pt_reco;
     Histo1DPtr _h_j1eta_true, _h_j1eta_reco, _h_e1eta_true, _h_e1eta_reco,  _h_m1eta_true, _h_m1eta_reco,  _h_t1eta_true, _h_t1eta_reco;
-    //@}
+    /// @}
 
   };
 
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(EXAMPLE_SMEAR);
+  RIVET_DECLARE_PLUGIN(EXAMPLE_SMEAR);
 
 
 }

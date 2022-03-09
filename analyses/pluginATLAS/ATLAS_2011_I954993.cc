@@ -20,7 +20,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Projection and histogram setup
     void init() {
@@ -98,20 +98,20 @@ namespace Rivet {
       scale(_h_fiducial, crossSection()/femtobarn/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_fiducial;
-    //@}
+    /// @}
 
   };
 
 
   //// The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_I954993);
+  RIVET_DECLARE_PLUGIN(ATLAS_2011_I954993);
 
 }

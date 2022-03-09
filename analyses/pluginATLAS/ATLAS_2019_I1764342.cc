@@ -8,17 +8,20 @@
 
 namespace Rivet {
 
+
   /// @brief Z(ll)y cross-section at 13 TeV
   class ATLAS_2019_I1764342 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2019_I1764342);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2019_I1764342);
 
     /// @name Analysis methods
-    //@{
+    /// @{
+
     /// Book histograms and initialise projections before the run
     void init() {
+
       // Prompt photons
       const PromptFinalState photon_fs(Cuts::abspid == PID::PHOTON && Cuts::pT > 30*GeV && Cuts::abseta < 2.37);
       declare(photon_fs, "Photons");
@@ -35,7 +38,7 @@ namespace Rivet {
 
       declare(dressedelectron_fs, "Electrons");
       declare(dressedmuon_fs, "Muons");
-      
+
       // FS excluding the leading photon
       VetoedFinalState vfs;
       vfs.addVetoOnThisFinalState(photon_fs);
@@ -44,7 +47,7 @@ namespace Rivet {
       declare(vfs, "isolatedFS");
 
       // Histograms
-      book(_hist_EgammaT,     2, 1, 1); // dSigma / dE^gamma_T 
+      book(_hist_EgammaT,     2, 1, 1); // dSigma / dE^gamma_T
       book(_hist_etagamma,    3, 1, 1);
       book(_hist_mZgamma,     4, 1, 1); // dSigma / dm^{Zgamma}
       book(_hist_EZgammaT,    5, 1, 1);
@@ -53,16 +56,16 @@ namespace Rivet {
     }
 
 
-/// Perform the per-event analysis
+   /// Perform the per-event analysis
    void analyze(const Event& event) {
      // Get objects
-     vector<DressedLepton> electrons = apply<DressedLeptons>(event, "Electrons").dressedLeptons();
-     vector<DressedLepton> muons = apply<DressedLeptons>(event, "Muons").dressedLeptons();
+     Particles electrons = apply<DressedLeptons>(event, "Electrons").particlesByPt();
+     Particles muons = apply<DressedLeptons>(event, "Muons").particlesByPt();
      const Particles& photons = apply<PromptFinalState>(event, "Photons").particlesByPt();
 
      if (photons.empty())  vetoEvent;
      if (electrons.size() < 2 && muons.size() < 2)  vetoEvent;
-     vector<DressedLepton> lep;
+     Particles lep;
      // Sort the dressed leptons by pt
      if (electrons.size() >= 2) {
        lep.push_back(electrons[0]);
@@ -71,13 +74,13 @@ namespace Rivet {
        lep.push_back(muons[0]);
        lep.push_back(muons[1]);
      }
-     if(lep[0].Et() < 30)  vetoEvent;
+     if (lep[0].Et() < 30*GeV)  vetoEvent;
      double mll = (lep[0].momentum() + lep[1].momentum()).mass();
      if (mll < 40*GeV) vetoEvent;
 
-     vector<Particle> selectedPh;
+     Particles selectedPh;
      Particles fs = apply<VetoedFinalState>(event, "isolatedFS").particles();
-     for (const Particle& ph : photons){
+     for (const Particle& ph : photons) {
        // check photon isolation
        double coneEnergy(0.0);
        for (const Particle& p : fs) {
@@ -89,9 +92,9 @@ namespace Rivet {
        selectedPh.push_back(ph);
      }
 
-     if(selectedPh.size()<1) vetoEvent;
+     if (selectedPh.size()<1) vetoEvent;
      double mlly = (lep[0].momentum() + lep[1].momentum() + selectedPh[0].momentum()).mass();
-     if(mll + mlly <= 182*GeV) vetoEvent;
+     if (mll + mlly <= 182*GeV) vetoEvent;
 
      double ptlly = (lep[0].momentum() + lep[1].momentum() + selectedPh[0].momentum()).pT();
      double dphilly = deltaPhi((lep[0].momentum() + lep[1].momentum()).phi(), selectedPh[0].momentum().phi());
@@ -103,7 +106,8 @@ namespace Rivet {
      _hist_EZgammaT->fill(ptlly/GeV);
      _hist_dPhiZgamma->fill(dphilly/pi);
      _hist_ETbyMZgamma->fill(ptlly/mlly);
-   } // end of analysis
+   }
+
 
    /// Normalise histograms etc., after the run
    void finalize() {
@@ -116,13 +120,13 @@ namespace Rivet {
       scale(_hist_ETbyMZgamma, sf);
    }
 
+   /// @}
 
-  protected:
-
-    // Data members like post-cuts event weight counters go here
-    size_t _mode;
 
   private:
+
+    // /// Mode flag
+    // size_t _mode;
 
     /// Histograms
     Histo1DPtr _hist_EgammaT;
@@ -131,9 +135,10 @@ namespace Rivet {
     Histo1DPtr _hist_EZgammaT;
     Histo1DPtr _hist_dPhiZgamma;
     Histo1DPtr _hist_ETbyMZgamma;
-  }; 
 
-   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2019_I1764342);
+  };
+
+
+  RIVET_DECLARE_PLUGIN(ATLAS_2019_I1764342);
 
 }

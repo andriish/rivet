@@ -14,7 +14,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     ATLAS_2013_I1217867()
@@ -25,13 +25,13 @@ namespace Rivet {
       _h_dI_ratio.resize(2, std::vector<Histo1DPtr>(m_njet-1));
     }
 
-    //@}
+    /// @}
 
 
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -130,23 +130,23 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     vector< vector<Histo1DPtr> > _h_dI;
     vector< vector<Histo1DPtr> > _h_dI_ratio;
-    //@}
+    /// @}
 
     size_t m_njet;
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2013_I1217867);
+  RIVET_DECLARE_PLUGIN(ATLAS_2013_I1217867);
 
 
 }

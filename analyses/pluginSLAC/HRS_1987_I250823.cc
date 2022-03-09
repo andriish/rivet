@@ -13,11 +13,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(HRS_1987_I250823);
+    RIVET_DEFAULT_ANALYSIS_CTOR(HRS_1987_I250823);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -59,7 +59,7 @@ namespace Rivet {
 	axis = beams.first .momentum().p3().unit();
       else
 	axis = beams.second.momentum().p3().unit();
-      
+
       // sphericity, to define an axis
       const Sphericity& sphericity = apply<Sphericity>(event, "Sphericity");
 
@@ -68,11 +68,11 @@ namespace Rivet {
 	int sign = p.pid()/p.abspid();
 	Particle decay;
 	double xE = p.momentum().E()/meanBeamMom;
-	if(p.children()[0].pid()==sign*421 && 
+	if(p.children()[0].pid()==sign*421 &&
 	   p.children()[1].pid()==sign*211) {
 	  decay = p.children()[1];
 	}
-	else if(p.children()[1].pid()==sign*421 && 
+	else if(p.children()[1].pid()==sign*421 &&
 		p.children()[0].pid()==sign*211) {
 	  decay = p.children()[0];
 	}
@@ -80,7 +80,7 @@ namespace Rivet {
 	  continue;
 	// axis and ctheta
 	LorentzTransform boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
-	Vector3 e1z = p.p3().unit();	
+	Vector3 e1z = p.p3().unit();
 	FourMomentum pp = boost.transform(decay.momentum());
 	Vector3 axis1 = boost.transform(decay.momentum()).p3().unit();
 	double ctheta = e1z.dot(axis1);
@@ -150,20 +150,20 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Profile1DPtr _p_rho00[9],_p_rho11[9],_p_rho10[9];
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(HRS_1987_I250823);
+  RIVET_DECLARE_PLUGIN(HRS_1987_I250823);
 
 
 }

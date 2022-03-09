@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEO_2000_I537236);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEO_2000_I537236);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -32,12 +32,12 @@ namespace Rivet {
 	int sign = Xic.pid()/4132;
 	if(Xic.children().size()!=2) continue;
 	Particle baryon1,meson1;
-	if(Xic.children()[0].pid()==sign*3312 && 
+	if(Xic.children()[0].pid()==sign*3312 &&
 	   Xic.children()[1].pid()==sign*211) {
 	  baryon1 = Xic.children()[0];
 	  meson1  = Xic.children()[1];
 	}
-	else if(Xic.children()[1].pid()==sign*3312 && 
+	else if(Xic.children()[1].pid()==sign*3312 &&
 		Xic.children()[0].pid()==sign*211) {
 	  baryon1 = Xic.children()[1];
 	  meson1  = Xic.children()[0];
@@ -45,12 +45,12 @@ namespace Rivet {
 	else
 	  continue;
 	Particle baryon2,meson2;
-	if(baryon1.children()[0].pid()== sign*3122 && 
+	if(baryon1.children()[0].pid()== sign*3122 &&
 	   baryon1.children()[1].pid()==-sign*211) {
 	  baryon2 = baryon1.children()[0];
 	  meson2  = baryon1.children()[1];
 	}
-	else if(baryon1.children()[1].pid()== sign*3122 && 
+	else if(baryon1.children()[1].pid()== sign*3122 &&
 		baryon1.children()[0].pid()==-sign*211) {
 	  baryon2 = baryon1.children()[1];
 	  meson2  = baryon1.children()[0];
@@ -95,20 +95,20 @@ namespace Rivet {
       _h_alpha->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_ctheta;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CLEO_2000_I537236);
+  RIVET_DECLARE_PLUGIN(CLEO_2000_I537236);
 
 
 }

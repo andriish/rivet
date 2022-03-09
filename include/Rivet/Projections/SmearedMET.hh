@@ -16,7 +16,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    ///@{
+    /// @{
 
     /// @brief Constructor from a MissingMomentum projection and a smearing function
     ///
@@ -42,7 +42,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(SmearedMET);
 
-    ///@}
+    /// @}
 
 
     /// Compare to another SmearedMET
@@ -65,7 +65,7 @@ namespace Rivet {
     /// @name Transverse momentum functions
     ///
     /// @note This may be what you want, even if the paper calls it "missing Et"!
-    ///@{
+    /// @{
 
     /// The vector-summed visible transverse momentum in the event, as a 3-vector with z=0
     ///
@@ -73,20 +73,20 @@ namespace Rivet {
     /// @todo Currently equivalent to vectorEt
     const Vector3& vectorPt() const { return vectorEt(); }
 
-    ///@}
+    /// @}
 
 
     /// @name Transverse energy functions
     ///
     /// @warning Despite the common names "MET" and "SET", what's often meant is the pT functions above!
-    ///@{
+    /// @{
 
     /// The vector-summed visible transverse energy in the event, as a 3-vector with z=0
     ///
     /// @note Reverse this vector with operator- to get the missing ET vector.
     const Vector3& vectorEt() const { return _vet; }
 
-    //@}
+    /// @}
 
 
     /// Reset the projection. Smearing functions will be unchanged.

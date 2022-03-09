@@ -11,7 +11,7 @@ class MC_Cent_pPb_Calib : public Analysis {
 
 public:
 
-  DEFAULT_RIVET_ANALYSIS_CTOR(MC_Cent_pPb_Calib);
+  RIVET_DEFAULT_ANALYSIS_CTOR(MC_Cent_pPb_Calib);
 
   /// Book histograms and initialise projections before the run
   void init() {
@@ -36,12 +36,12 @@ public:
 
 
   }
-  
+
   /// Perform the per-event analysis
   void analyze(const Event& event) {
 
     if ( _done ) return;
-    
+
     // The alternative centrality based on generated impact
     // parameter, assumes that the generator does not describe the
     // full final state, and should therefore be filled even if the
@@ -53,7 +53,7 @@ public:
     _calib->fill(apply<SingleValueProjection>(event, "Centrality")());
 
   }
-  
+
   /// Finalize
   void finalize() {
 
@@ -75,6 +75,6 @@ private:
 
 
 // The hook for the plugin system
-DECLARE_RIVET_PLUGIN(MC_Cent_pPb_Calib);
+RIVET_DECLARE_PLUGIN(MC_Cent_pPb_Calib);
 
 }

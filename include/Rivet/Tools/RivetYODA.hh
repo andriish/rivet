@@ -904,7 +904,7 @@ namespace Rivet {
     string weight() const { return _weight; }
 
     /// The weight component of the path
-    string weightComponent() const { 
+    string weightComponent() const {
       if (_weight == "")  return _weight;
       return "[" + _weight + "]";
     }

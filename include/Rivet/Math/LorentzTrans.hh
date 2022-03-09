@@ -22,7 +22,7 @@ namespace Rivet {
   public:
 
     /// @name Simple Lorentz factor conversions
-    //@{
+    /// @{
 
     /// Calculate the \f$ \gamma \f$ factor from \f$ \beta \f$
     static double beta2gamma(double beta) {
@@ -34,11 +34,11 @@ namespace Rivet {
       return sqrt(1 - sqr(1/gamma));
     }
 
-    //@}
+    /// @}
 
 
     /// @name Construction
-    //@{
+    /// @{
 
     /// Default (identity) constructor
     LorentzTransform() {
@@ -86,11 +86,11 @@ namespace Rivet {
       return mkObjTransformFromBeta(-p4.betaVec());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Boost vector and beta/gamma factors
-    //@{
+    /// @{
 
     /// Set up an active Lorentz boost from a (unit) direction vector, and \f$ \beta \f$ & \f$ \gamma \f$ factors
     LorentzTransform& _setBoost(const Vector3& vec, double beta, double gamma) {
@@ -162,7 +162,7 @@ namespace Rivet {
       return beta2gamma(beta());
     }
 
-    //@}
+    /// @}
 
 
     /// Apply this transformation to the given 4-vector
@@ -187,7 +187,7 @@ namespace Rivet {
 
 
     /// @name Transform modifications
-    //@{
+    /// @{
 
     /// Rotate the transformation cf. the difference between vectors @a from and @a to
     LorentzTransform rotate(const Vector3& from, const Vector3& to) const {
@@ -239,7 +239,7 @@ namespace Rivet {
       return *this;
     }
 
-    //@}
+    /// @}
 
 
     /// Return the matrix form

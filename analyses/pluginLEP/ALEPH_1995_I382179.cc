@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ALEPH_1995_I382179);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALEPH_1995_I382179);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -72,7 +72,7 @@ namespace Rivet {
       scale(_histXpProton, 1./sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -89,7 +89,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALEPH_1995_I382179);
+  RIVET_DECLARE_PLUGIN(ALEPH_1995_I382179);
 
 
 }

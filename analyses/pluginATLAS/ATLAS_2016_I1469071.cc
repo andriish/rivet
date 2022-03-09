@@ -15,10 +15,10 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2016_I1469071);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2016_I1469071);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -94,55 +94,53 @@ namespace Rivet {
       // NB: This resonant shape algorithm assumes the Standard Model and can therefore
       //     NOT be used for any kind of reinterpretation in terms of new-physics models..
 
-      int i, j, k;
-      double MassZ01 = 0., MassZ02 = 0., MassZ12 = 0.;
-      double MassW0 = 0., MassW1 = 0., MassW2 = 0.;
-      double WeightZ1, WeightZ2, WeightZ3;
-      double WeightW1, WeightW2, WeightW3;
-      double M1, M2, M3;
-      double WeightTotal1, WeightTotal2, WeightTotal3;
-
-      //try Z pair of leptons 01
+      // Try Z pair of leptons 01
+      double MassZ01 = 0, MassW2 = 0;
       if ( (dressedleptonsTotal[0].pid() ==-(dressedleptonsTotal[1].pid())) && (dressedleptonsTotal[2].abspid()==neutrinos[0].abspid()-1)){
         MassZ01 = (dressedleptonsTotal[0].momentum()+dressedleptonsTotal[1].momentum()).mass();
         MassW2 = (dressedleptonsTotal[2].momentum()+neutrinos[0].momentum()).mass();
       }
-      //try Z pair of leptons 02
+      // Try Z pair of leptons 02
+      double MassZ02 = 0, MassW1 = 0;
       if ( (dressedleptonsTotal[0].pid()==-(dressedleptonsTotal[2].pid())) && (dressedleptonsTotal[1].abspid()==neutrinos[0].abspid()-1)){
         MassZ02 = (dressedleptonsTotal[0].momentum()+dressedleptonsTotal[2].momentum()).mass();
         MassW1 = (dressedleptonsTotal[1].momentum()+neutrinos[0].momentum()).mass();
       }
-      //try Z pair of leptons 12
+      // Try Z pair of leptons 12
+      double MassZ12 = 0, MassW0 = 0;
       if ( (dressedleptonsTotal[1].pid()==-(dressedleptonsTotal[2].pid())) && (dressedleptonsTotal[0].abspid()==neutrinos[0].abspid()-1)){
         MassZ12 = (dressedleptonsTotal[1].momentum()+dressedleptonsTotal[2].momentum()).mass();
         MassW0 = (dressedleptonsTotal[0].momentum()+neutrinos[0].momentum()).mass();
       }
-      WeightZ1 = 1/(pow(MassZ01*MassZ01 - MZ_PDG*MZ_PDG,2) + pow(MZ_PDG*GammaZ_PDG,2));
-      WeightW1 = 1/(pow(MassW2*MassW2 - MW_PDG*MW_PDG,2) + pow(MW_PDG*GammaW_PDG,2));
-      WeightTotal1 = WeightZ1*WeightW1;
-      M1 = -1*WeightTotal1;
+      double WeightZ1 = 1/(pow(MassZ01*MassZ01 - MZ_PDG*MZ_PDG,2) + pow(MZ_PDG*GammaZ_PDG,2));
+      double WeightW1 = 1/(pow(MassW2*MassW2 - MW_PDG*MW_PDG,2) + pow(MW_PDG*GammaW_PDG,2));
+      double WeightTotal1 = WeightZ1*WeightW1;
+      double M1 = -1*WeightTotal1;
 
-      WeightZ2 = 1/(pow(MassZ02*MassZ02- MZ_PDG*MZ_PDG,2) + pow(MZ_PDG*GammaZ_PDG,2));
-      WeightW2 = 1/(pow(MassW1*MassW1- MW_PDG*MW_PDG,2) + pow(MW_PDG*GammaW_PDG,2));
-      WeightTotal2 = WeightZ2*WeightW2;
-      M2 = -1*WeightTotal2;
+      double WeightZ2 = 1/(pow(MassZ02*MassZ02- MZ_PDG*MZ_PDG,2) + pow(MZ_PDG*GammaZ_PDG,2));
+      double WeightW2 = 1/(pow(MassW1*MassW1- MW_PDG*MW_PDG,2) + pow(MW_PDG*GammaW_PDG,2));
+      double WeightTotal2 = WeightZ2*WeightW2;
+      double M2 = -1*WeightTotal2;
 
-      WeightZ3 = 1/(pow(MassZ12*MassZ12 - MZ_PDG*MZ_PDG,2) + pow(MZ_PDG*GammaZ_PDG,2));
-      WeightW3 = 1/(pow(MassW0*MassW0 - MW_PDG*MW_PDG,2) + pow(MW_PDG*GammaW_PDG,2));
-      WeightTotal3 = WeightZ3*WeightW3;
-      M3 = -1*WeightTotal3;
+      double WeightZ3 = 1/(pow(MassZ12*MassZ12 - MZ_PDG*MZ_PDG,2) + pow(MZ_PDG*GammaZ_PDG,2));
+      double WeightW3 = 1/(pow(MassW0*MassW0 - MW_PDG*MW_PDG,2) + pow(MW_PDG*GammaW_PDG,2));
+      double WeightTotal3 = WeightZ3*WeightW3;
+      double M3 = -1*WeightTotal3;
 
-      if( (M1 < M2 && M1 < M3) || (MassZ01 != 0 && MassW2 != 0 && MassZ02 == 0 && MassZ12 == 0) ){
+      int i = -1, j = -1, k = -1;
+      if ((M1 < M2 && M1 < M3) || (MassZ01 != 0 && MassW2 != 0 && MassZ02 == 0 && MassZ12 == 0)) {
         i = 0; j = 1; k = 2;
       }
-      if((M2 < M1 && M2 < M3) || (MassZ02 != 0 && MassW1 != 0 && MassZ01 == 0 && MassZ12 == 0) ){
+      if ((M2 < M1 && M2 < M3) || (MassZ02 != 0 && MassW1 != 0 && MassZ01 == 0 && MassZ12 == 0)) {
         i = 0; j = 2; k = 1;
       }
-      if((M3 < M1 && M3 < M2) || (MassZ12 != 0 && MassW0 != 0 && MassZ01 == 0 && MassZ02 == 0) ){
+      if ((M3 < M1 && M3 < M2) || (MassZ12 != 0 && MassW0 != 0 && MassZ01 == 0 && MassZ02 == 0)) {
         i = 1; j = 2; k = 0;
       }
+      ///
+      if (i < 0 || j < 0 || k < 0) vetoEvent;
 
-      FourMomentum ZbosonTotal   = dressedleptonsTotal[i].momentum()+dressedleptonsTotal[j].momentum();
+      FourMomentum ZbosonTotal = dressedleptonsTotal[i].momentum()+dressedleptonsTotal[j].momentum();
       if ( ZbosonTotal.mass() >= 66*GeV && ZbosonTotal.mass() <= 116*GeV )  _h_total->fill(13000);
 
       //---end Total PS
@@ -280,14 +278,14 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_eee;
     Histo1DPtr _h_mee;
     Histo1DPtr _h_emm;
@@ -306,7 +304,7 @@ namespace Rivet {
     Histo1DPtr _h_total;
     Histo1DPtr _h_Njets;
 
-    //@}
+    /// @}
 
     double MZ_PDG = 91.1876;
     double MW_PDG = 83.385;
@@ -316,5 +314,5 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2016_I1469071);
+  RIVET_DECLARE_PLUGIN(ATLAS_2016_I1469071);
 }

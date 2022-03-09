@@ -20,7 +20,7 @@ namespace Rivet {
 
     /// Constructor
     ///@brief: Resolved and boosted ttbar l+jets cross sections at 13 TeV
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2017_I1614149);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2017_I1614149);
 
     void init() {
       // Eta ranges
@@ -354,6 +354,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ATLAS_2017_I1614149);
+  RIVET_DECLARE_PLUGIN(ATLAS_2017_I1614149);
 
 }

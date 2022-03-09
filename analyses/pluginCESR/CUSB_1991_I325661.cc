@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CUSB_1991_I325661);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CUSB_1991_I325661);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -67,20 +67,20 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _c_Bstar;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CUSB_1991_I325661);
+  RIVET_DECLARE_PLUGIN(CUSB_1991_I325661);
 
 
 }

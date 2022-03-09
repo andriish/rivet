@@ -13,11 +13,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ALEPH_1997_I427131);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALEPH_1997_I427131);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -52,7 +52,7 @@ namespace Rivet {
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() + beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
-      
+
       for (const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==111) ) {
 	const Vector3 mom3 = p.p3();
 	const double pTinS  = abs(dot(mom3, sphericity.sphericityMajorAxis()));
@@ -71,20 +71,20 @@ namespace Rivet {
       scale(_h_out, 1./sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_x, _h_in, _h_out;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALEPH_1997_I427131);
+  RIVET_DECLARE_PLUGIN(ALEPH_1997_I427131);
 
 
 }

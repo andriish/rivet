@@ -16,11 +16,11 @@ namespace Rivet {
   class CDF_2008_S7541902 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2008_S7541902);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2008_S7541902);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Set up projections
@@ -142,13 +142,13 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Cuts
-    //@{
+    /// @{
     /// Cut on the electron ET:
     double _electronETCut = 20*GeV;
     /// Cut on the electron ETA:
@@ -163,21 +163,21 @@ namespace Rivet {
     double _jetEtCutB = 25*GeV;
     /// Cut on the jet ETA
     double _jetETA = 2.0;
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histJetEt[4];
     Histo1DPtr _histJetMultNorm;
     Scatter2DPtr _histJetMultRatio[4];
     Histo1DPtr _histJetMult[4];
     CounterPtr _sumW;
-    //@}
+    /// @}
 
   };
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2008_S7541902, CDF_2008_I768579);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_2008_S7541902, CDF_2008_I768579);
 
 }

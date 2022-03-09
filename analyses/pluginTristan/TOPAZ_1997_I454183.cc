@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TOPAZ_1997_I454183);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TOPAZ_1997_I454183);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -56,21 +56,21 @@ namespace Rivet {
       scale(_c_ncharged,1./sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Profile1DPtr _p_charged;
     CounterPtr _c_ncharged;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TOPAZ_1997_I454183);
+  RIVET_DECLARE_PLUGIN(TOPAZ_1997_I454183);
 
 
 }

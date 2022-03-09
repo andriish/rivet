@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(MC_Semi_Leptonic_Decay);
+    RIVET_DEFAULT_ANALYSIS_CTOR(MC_Semi_Leptonic_Decay);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -99,7 +99,7 @@ namespace Rivet {
       bookHistos(-521,   331, 11,5.3);
       bookHistos( 521,   331,-13,5.3);
       bookHistos(-521,   331, 13,5.3);
-      
+
       // D decays
       bookHistos( 411,-311,-11,1.9);
       bookHistos(-411, 311, 11,1.9);
@@ -108,7 +108,7 @@ namespace Rivet {
       bookHistos( 421,-321,-11,1.9);
       bookHistos(-421, 321, 11,1.9);
       bookHistos( 421,-321,-13,1.9);
-      bookHistos(-421, 321, 13,1.9);      
+      bookHistos(-421, 321, 13,1.9);
       bookHistos( 411,-313,-11,1.9);
       bookHistos(-411, 313, 11,1.9);
       bookHistos( 411,-313,-13,1.9);
@@ -117,7 +117,7 @@ namespace Rivet {
       bookHistos(-421, 323, 11,1.9);
       bookHistos( 421,-323,-13,1.9);
       bookHistos(-421, 323, 13,1.9);
-    
+
       bookHistos( 411,-10313,-11,1.9);
       bookHistos(-411, 10313, 11,1.9);
       bookHistos( 411,-10313,-13,1.9);
@@ -126,7 +126,7 @@ namespace Rivet {
       bookHistos(-421, 10323, 11,1.9);
       bookHistos( 421,-10323,-13,1.9);
       bookHistos(-421, 10323, 13,1.9);
-      
+
       bookHistos( 411,-315,-11,1.9);
       bookHistos(-411, 315, 11,1.9);
       bookHistos( 411,-315,-13,1.9);
@@ -165,7 +165,7 @@ namespace Rivet {
       bookHistos(-421, 213, 11,1.9);
       bookHistos( 421,-213,-13,1.9);
       bookHistos(-421, 213, 13,1.9);
-      
+
       // D_s decays
       bookHistos( 431, 221,-11,1.9);
       bookHistos(-431, 221, 11,1.9);
@@ -179,7 +179,7 @@ namespace Rivet {
       bookHistos(-431, 333, 11,1.9);
       bookHistos( 431, 333,-13,1.9);
       bookHistos(-431, 333, 13,1.9);
-      
+
       bookHistos( 431, 311,-11,1.9);
       bookHistos(-431,-311, 11,1.9);
       bookHistos( 431, 311,-13,1.9);
@@ -283,7 +283,7 @@ namespace Rivet {
         while(!found&&iloc<_incoming.size()) {
           if(_incoming[iloc] == id  &&
              _outgoing[iloc] == out[0].pid() &&
-             ilep==_outgoingL[iloc]) found=true; 
+             ilep==_outgoingL[iloc]) found=true;
           else ++iloc;
         }
         if(!found) {
@@ -306,46 +306,46 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     /**
      *  PDG codes of the decaying mesons
-     */ 
+     */
     vector<long> _incoming;
-    
+
     /**
      *  PDG codes of the decay products
      */
-    vector<long> _outgoing;  
-    
+    vector<long> _outgoing;
+
     /**
      *  Identidies of the leptons
      */
     vector<long> _outgoingL;
-    
+
     /**
      *  Histograms
      */
-    //@{
+    /// @{
     /**
      *  The lepton energy
      */
     vector<Histo1DPtr> _energy;
-    
+
     /**
      *  The \f$q\f$ value
      */
     vector<Histo1DPtr> _scale;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_Semi_Leptonic_Decay);
+  RIVET_DECLARE_PLUGIN(MC_Semi_Leptonic_Decay);
 
 
 }

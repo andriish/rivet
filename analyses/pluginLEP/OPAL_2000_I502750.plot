@@ -1,7 +1,7 @@
 BEGIN PLOT /OPAL_2000_I502750/ctheta
 LogY=0
 XLabel=$\cos\theta_H$
-YLabel=$1/N\text{d}N/\text{d}\cos\theta_H$
+YLabel=$1/N\mathrm{d}N/\mathrm{d}\cos\theta_H$
 END PLOT
 
 BEGIN PLOT /OPAL_2000_I502750/ctheta_rho_0

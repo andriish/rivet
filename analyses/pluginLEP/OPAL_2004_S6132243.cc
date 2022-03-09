@@ -19,27 +19,27 @@ namespace Rivet {
   class OPAL_2004_S6132243 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(OPAL_2004_S6132243);
+    RIVET_DEFAULT_ANALYSIS_CTOR(OPAL_2004_S6132243);
 
 
     /// @name Analysis methods
     /// @{
 
     /// Energies: 91, 133, 177 (161-183), 197 (189-209) => index 0..4
-    int getHistIndex(double sqrts) {
+    int getHistIndex() {
       int ih = -1;
-      if (inRange(sqrts/GeV, 89.9, 91.5)) {
+      if (inRange(sqrtS()/GeV, 89.9, 91.5)) {
         ih = 0;
-      } else if (fuzzyEquals(sqrts/GeV, 133)) {
+      } else if (isCompatibleWithSqrtS(133*GeV)) {
         ih = 1;
-      } else if (fuzzyEquals(sqrts/GeV, 177)) { // (161-183)
+      } else if (isCompatibleWithSqrtS(177*GeV)) { // (161-183)
         ih = 2;
-      } else if (fuzzyEquals(sqrts/GeV, 197)) { // (189-209)
+      } else if (isCompatibleWithSqrtS(197*GeV)) { // (189-209)
         ih = 3;
       } else {
         stringstream ss;
         ss << "Invalid energy for OPAL_2004 analysis: "
-           << sqrts/GeV << " GeV != 91, 133, 177, or 197 GeV";
+           << sqrtS() << " GeV != 91, 133, 177, or 197 GeV";
         throw Error(ss.str());
       }
       assert(ih >= 0);
@@ -60,9 +60,7 @@ namespace Rivet {
       const Thrust thrust(fs);
       declare(thrust, "Thrust");
       declare(Hemispheres(thrust), "Hemispheres");
-
-      // Get beam energy index
-      _isqrts = getHistIndex(sqrtS());
+      _isqrts = getHistIndex();
 
       // Book histograms
       book(_hist1MinusT[_isqrts]    ,1, 1, _isqrts+1);
@@ -263,6 +261,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(OPAL_2004_S6132243, OPAL_2004_I669402);
+  RIVET_DECLARE_ALIASED_PLUGIN(OPAL_2004_S6132243, OPAL_2004_I669402);
 
 }

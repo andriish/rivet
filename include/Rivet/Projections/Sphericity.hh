@@ -53,7 +53,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     Sphericity(double rparam=2.0): _regparam(rparam){}
@@ -63,7 +63,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(Sphericity);
 
-    //@}
+    /// @}
 
 
   protected:
@@ -81,7 +81,7 @@ namespace Rivet {
     void clear();
 
     /// @name Access the event shapes by name
-    //@{
+    /// @{
     /// Sphericity
     double sphericity() const { return 3.0 / 2.0 * (lambda2() + lambda3()); }
     /// Transverse sphericity
@@ -90,40 +90,40 @@ namespace Rivet {
     double planarity() const { return 2 * (sphericity() - 2 * aplanarity()) / 3.0; }
     /// Aplanarity
     double aplanarity() const { return 3 / 2.0 * lambda3(); }
-    //@}
+    /// @}
 
 
     /// @name Access the sphericity basis vectors
-    //@{
+    /// @{
     /// Sphericity axis
     const Vector3& sphericityAxis() const { return _sphAxes[0]; }
     /// Sphericity major axis
     const Vector3& sphericityMajorAxis() const { return _sphAxes[1]; }
     /// Sphericity minor axis
     const Vector3& sphericityMinorAxis() const { return _sphAxes[2]; }
-    //@}
+    /// @}
 
 
     /// @name AxesDefinition axis accessors
-    //@{
+    /// @{
     const Vector3& axis1() const { return sphericityAxis(); }
     const Vector3& axis2() const { return sphericityMajorAxis(); }
     const Vector3& axis3() const { return sphericityMinorAxis(); }
-    //@}
+    /// @}
 
 
     /// @name Access the momentum tensor eigenvalues
-    //@{
+    /// @{
     double lambda1() const { return _lambdas[0]; }
     double lambda2() const { return _lambdas[1]; }
     double lambda3() const { return _lambdas[2]; }
-    //@}
+    /// @}
 
     Vector3 mkEigenVector(Matrix3 A, const double &lambda);
 
     /// @name Direct methods
     /// Ways to do the calculation directly, without engaging the caching system
-    //@{
+    /// @{
 
     /// Manually calculate the sphericity, without engaging the caching system
     void calc(const FinalState& fs);
@@ -142,7 +142,7 @@ namespace Rivet {
     /// This one actually does the calculation
     void calc(const vector<Vector3>& momenta);
 
-    //@}
+    /// @}
 
 
   private:

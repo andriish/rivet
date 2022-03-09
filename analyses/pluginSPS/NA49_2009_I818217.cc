@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
     /// Constructor
     NA49_2009_I818217() : Analysis("NA49_2009_I818217"){}
 
@@ -62,5 +62,5 @@ namespace Rivet {
     Profile1DPtr _p_mptxf;  // mean pT vs xF profile
   };
 
-  DECLARE_RIVET_PLUGIN(NA49_2009_I818217);
+  RIVET_DECLARE_PLUGIN(NA49_2009_I818217);
 }

@@ -3130,6 +3130,18 @@
             "FERMILAB-PUB-98-173-EU"
         ]
     ], 
+    "420332": [
+        "Measurement of the F2 structure function in deep inelastic e+ p scattering using 1994 data from the ZEUS detector at HERA", 
+        "ZEUS", 
+        "10.1007/s002880050260", 
+        null, 
+        "hep-ex/9607002", 
+        "ins420332", 
+        null, 
+        [
+            "DESY-96-076"
+        ]
+    ], 
     "420528": [
         "Measurement of inclusive K*0 (892), Phi (1020) and K(2)*0 (1430) production in hadronic Z decays", 
         "DELPHI", 
@@ -5332,7 +5344,7 @@
         "10.1103/PhysRevLett.97.252001", 
         null, 
         "hep-ex/0608030", 
-        null, 
+        "ins723509", 
         null, 
         []
     ], 
@@ -5982,7 +5994,7 @@
         "10.1103/PhysRevC.79.034909", 
         null, 
         "0808.2041", 
-        null, 
+        "ins793126", 
         null, 
         []
     ], 
@@ -6489,6 +6501,18 @@
         null, 
         [
             "FERMILAB-PUB-10-403-E"
+        ]
+    ], 
+    "875006": [
+        "Inclusive dijet cross sections in neutral current deep inelastic scattering at HERA", 
+        "ZEUS", 
+        "10.1140/epjc/s10052-010-1504-2", 
+        null, 
+        "1010.6167", 
+        "ins875006", 
+        null, 
+        [
+            "DESY-10-170"
         ]
     ], 
     "875526": [
@@ -7926,6 +7950,18 @@
             "CERN-PH-EP-2012-345"
         ]
     ], 
+    "1217865": [
+        "Measurement of Charged Particle Spectra in Deep-Inelastic ep Scattering at HERA", 
+        "H1", 
+        "10.1140/epjc/s10052-013-2406-x", 
+        "1513855", 
+        "1302.1321", 
+        "ins1217865", 
+        null, 
+        [
+            "DESY-13-012"
+        ]
+    ], 
     "1217867": [
         "Measurement of kT splitting scales in W->lv events at sqrt(s)=7 TeV with the ATLAS detector", 
         "ATLAS", 
@@ -9052,6 +9088,18 @@
         "ins1377204", 
         null, 
         []
+    ], 
+    "1377206": [
+        "Combination of measurements of inclusive deep inelastic ${e^{\\pm }p}$ scattering cross sections and QCD analysis of HERA data", 
+        "H1", 
+        "10.1140/epjc/s10052-015-3710-4", 
+        "2028501", 
+        "1506.06042", 
+        "ins1377206", 
+        null, 
+        [
+            "DESY-15-039"
+        ]
     ], 
     "1380605": [
         "Production of leading charged particles and leading charged-particle jets at small transverse momenta in pp collisions at sqrt(s) = 8 TeV", 
@@ -11475,6 +11523,18 @@
             "CERN-EP-2019-064"
         ]
     ], 
+    "1738841": [
+        "Observation of electroweak production of a same-sign $W$ boson pair in association with two jets in $pp$ collisions at $\\sqrt{s}=13$ TeV with the ATLAS detector", 
+        "ATLAS", 
+        "10.1103/PhysRevLett.123.161801", 
+        "2677868", 
+        "1906.03203", 
+        "ins1738841", 
+        null, 
+        [
+            "CERN-EP-2019-008"
+        ]
+    ], 
     "1740541": [
         "Study of the process $e^+e^-{\\to}K^+K^-\\eta$ with the CMD-3 detector at the VEPP-2000 collider", 
         null, 
@@ -11702,6 +11762,18 @@
         null, 
         []
     ], 
+    "1772062": [
+        "Measurement of soft-drop jet observables in $pp$ collisions with the ATLAS detector at $\\sqrt {s}$ =13  TeV", 
+        "ATLAS", 
+        "10.1103/PhysRevD.101.052007", 
+        "2705512", 
+        "1912.09837", 
+        "ins1772062", 
+        null, 
+        [
+            "CERN-EP-2019-269"
+        ]
+    ], 
     "1773081": [
         "Measurement of the $e^+e^-\\to\\pi^+\\pi^-\\pi^0$ Cross Section from 0.7 GeV to 3.0 GeV via Initial-State Radiation", 
         "BESIII", 
@@ -11821,6 +11893,19 @@
         null, 
         []
     ], 
+    "1794169": [
+        "Measurements of production cross sections of WZ and same-sign WW boson pairs in association with two jets in proton-proton collisions at $\\sqrt{s} =$ 13 TeV", 
+        "CMS", 
+        "10.1016/j.physletb.2020.135710", 
+        "2716981", 
+        "2005.01173", 
+        "ins1794169", 
+        null, 
+        [
+            "CMS-SMP-19-012", 
+            "CERN-EP-2020-064"
+        ]
+    ], 
     "1795949": [
         "Measurement of the Born Cross Sections for $e^+e^-\\to D_s^+ D_{s1}(2460)^- +c.c.$ and $e^+e^-\\to D_s^{\\ast +} D_{s1}(2460)^- +c.c.$", 
         "BESIII", 
@@ -11832,9 +11917,9 @@
         []
     ], 
     "1796822": [
-        "Measurement of the Branching Fraction of the Decay $\\boldsymbol{B^{+}\\to\\pi^{+}\\pi^{-}\\ell^{+}\\nu_\\ell}$ in Fully Reconstructed Events at Belle", 
+        "Measurement of the branching fraction of the decay $\\boldsymbol{B^{+}\\to\\pi^{+}\\pi^{-}\\ell^{+}\\nu_\\ell}$ in fully reconstructed events at Belle", 
         "Belle", 
-        null, 
+        "10.1103/PhysRevD.103.112001", 
         null, 
         "2005.07766", 
         null, 
@@ -11908,6 +11993,19 @@
         null, 
         []
     ], 
+    "1814328": [
+        "W$^+$W$^-$ boson pair production in proton-proton collisions at $\\sqrt{s} =$ 13 TeV", 
+        "CMS", 
+        "10.1103/PhysRevD.102.092001", 
+        "2729339", 
+        "2009.00119", 
+        "ins1814328", 
+        null, 
+        [
+            "CMS-SMP-18-004", 
+            "CERN-EP-2020-144"
+        ]
+    ], 
     "1814783": [
         "Measurements of $\\Sigma^+$ and $\\Sigma^-$ time-like electromagnetic form factors for center-of-mass energies from 2.3864 to 3.0200 GeV", 
         "BESIII", 
@@ -11928,10 +12026,23 @@
         null, 
         []
     ], 
+    "1837084": [
+        "Measurement of the Z boson differential production cross section using its invisible decay mode (Z$\\nu\\bar{\\nu}$) in proton-proton collisions at $\\sqrt{s}=$ 13 TeV", 
+        "CMS", 
+        "10.1007/JHEP05(2021)205", 
+        "2747934", 
+        "2012.09254", 
+        "ins1837084", 
+        null, 
+        [
+            "CMS-SMP-18-003", 
+            "CERN-EP-2020-223"
+        ]
+    ], 
     "1849535": [
         "Measurements of differential cross-sections in four-lepton events in 13 TeV proton-proton collisions with the ATLAS detector", 
         "ATLAS", 
-        null, 
+        "10.1007/JHEP07(2021)005", 
         "2753518", 
         "2103.01918", 
         "ins1849535", 
@@ -11943,7 +12054,7 @@
     "1852328": [
         "Measurements of $W^+W^-+\\ge 1~$jet production cross-sections in $pp$ collisions at $\\sqrt{s}=13~$TeV with the ATLAS detector", 
         "ATLAS", 
-        null, 
+        "10.1007/JHEP06(2021)003", 
         "2757281", 
         "2103.10319", 
         "ins1852328", 

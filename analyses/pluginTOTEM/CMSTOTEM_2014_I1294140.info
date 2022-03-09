@@ -5,6 +5,7 @@ Experiment: CMS, TOTEM
 Collider: LHC
 InspireID: 1294140
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Panos Katsas <Panos.Katsas@desy.de>
 References:

@@ -8,10 +8,10 @@ namespace Rivet {
   class LHCF_2018_I1518782 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(LHCF_2018_I1518782);
+    RIVET_DEFAULT_ANALYSIS_CTOR(LHCF_2018_I1518782);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       declare(FinalState(), "FS");
@@ -38,15 +38,15 @@ namespace Rivet {
       scale(_h_n_en_eta1, crossSection()/millibarn/sumOfWeights()/2.);
       scale(_h_n_en_eta2, crossSection()/millibarn/sumOfWeights()/2.);
     }
-    //@}
+    /// @}
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_n_en_eta1, _h_n_en_eta2;
-    //@}
+    /// @}
   };
 
-  DECLARE_RIVET_PLUGIN(LHCF_2018_I1518782);
+  RIVET_DECLARE_PLUGIN(LHCF_2018_I1518782);
 }

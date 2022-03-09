@@ -21,7 +21,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -325,7 +325,7 @@ namespace Rivet {
       scale(_count_E_loose  ,norm);
     }
 
-    //@}
+    /// @}
 
   private:
 
@@ -357,6 +357,6 @@ namespace Rivet {
 
 
   // This global object acts as a hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2012_CONF_2012_109);
+  RIVET_DECLARE_PLUGIN(ATLAS_2012_CONF_2012_109);
 
 }

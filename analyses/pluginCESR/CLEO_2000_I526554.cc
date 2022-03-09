@@ -11,17 +11,17 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEO_2000_I526554);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEO_2000_I526554);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
       declare(Beam(), "Beams");
       declare(UnstableParticles(), "UFS");
-      
+
       // Book histograms
       book(_h_Ds_star1  , 1, 1, 1);
       book(_h_Ds        , 2, 1, 1);
@@ -95,20 +95,20 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_Ds,_h_Ds_primary,_h_Ds_star1,_h_Ds_star2;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CLEO_2000_I526554);
+  RIVET_DECLARE_PLUGIN(CLEO_2000_I526554);
 
 
 }

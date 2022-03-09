@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ALEPH_2014_I1267648);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALEPH_2014_I1267648);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -59,7 +59,7 @@ namespace Rivet {
         else  ++nstable;
       }
     }
-    
+
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
@@ -94,25 +94,25 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_pip0;
     Histo1DPtr _h_pi2p0;
     Histo1DPtr _h_pi3p0;
     Histo1DPtr _h_3pi;
     Histo1DPtr _h_3pip0;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALEPH_2014_I1267648);
+  RIVET_DECLARE_PLUGIN(ALEPH_2014_I1267648);
 
 }

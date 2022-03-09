@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEOII_1999_I504672);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEOII_1999_I504672);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -72,21 +72,21 @@ namespace Rivet {
       scale(_n_nolep, 1./ *_n_Ups_NoLep);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_n;
     Histo1DPtr _n_tot,_n_lep,_n_nolep;
     CounterPtr _n_Ups_All,_n_Ups_Lep,_n_Ups_NoLep;
-    
-    //@}
+
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(CLEOII_1999_I504672);
+  RIVET_DECLARE_PLUGIN(CLEOII_1999_I504672);
 
 }

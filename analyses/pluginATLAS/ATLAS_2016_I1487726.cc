@@ -13,12 +13,12 @@ class ATLAS_2016_I1487726 : public Analysis {
 
     /// Constructor
     /// @brief Collinear W emissions at 8 TeV
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2016_I1487726);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2016_I1487726);
 
     public:
 
         /// @name Analysis methods
-        //@{
+        /// @{
 
         /// Book histograms and initialise projections before the run
         void init() {
@@ -80,7 +80,7 @@ class ATLAS_2016_I1487726 : public Analysis {
           scale(h_mu_jet_dr_pt650, sf);
         }
 
-        //@}
+        /// @}
 
     protected:
 
@@ -89,15 +89,15 @@ class ATLAS_2016_I1487726 : public Analysis {
     private:
 
         /// @name Histograms
-        //@{
+        /// @{
         Histo1DPtr h_mu_jet_dr;
         Histo1DPtr h_mu_jet_dr_pt500600;
         Histo1DPtr h_mu_jet_dr_pt650;
-        //@}
+        /// @}
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2016_I1487726);
+  RIVET_DECLARE_PLUGIN(ATLAS_2016_I1487726);
 }
 

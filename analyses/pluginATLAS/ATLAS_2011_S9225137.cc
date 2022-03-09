@@ -16,11 +16,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2011_S9225137);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_S9225137);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -323,7 +323,7 @@ namespace Rivet {
       if (njet80 >= 7 && pass80DeltaR) _count_7j80->fill( 0.5, weight);
     }
 
-    //@}
+    /// @}
 
     void finalize() {
       const double norm = crossSection()/femtobarn*1.34/sumOfWeights();
@@ -372,7 +372,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _etmisspT_55_NJ_6_obs;
     Histo1DPtr _etmisspT_55_NJ_6_bac;
     Histo1DPtr _etmisspT_55_NJ_6_sig;
@@ -413,12 +413,12 @@ namespace Rivet {
     Histo1DPtr _count_8j55;
     Histo1DPtr _count_6j80;
     Histo1DPtr _count_7j80;
-    //@}
+    /// @}
 
   };
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(ATLAS_2011_S9225137, ATLAS_2011_I939504);
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2011_S9225137, ATLAS_2011_I939504);
 
 }

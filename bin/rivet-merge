@@ -42,7 +42,7 @@ import argparse
 parser = argparse.ArgumentParser(description=__doc__)
 
 extragroup = parser.add_argument_group("Run settings")
-extragroup.add_argument("YODAFILES", nargs="+", help="data files to merge")
+extragroup.add_argument("YODAFILES", nargs="+", help="data files to merge. Weight suffixes can be added after a colon, e.g. foo.yoda:=1.23 or bar.yoda:x4.5 to set the cross-section to 1.23 pb, or to scale by 4.5 respectively")
 extragroup.add_argument("-o", "--output-file", dest="OUTPUTFILE",
                         default="Rivet.yoda", help="specify the output histo file path (default = %(default)s)")
 extragroup.add_argument("-e", "--equiv", dest="EQUIV", action="store_true", default=False,
@@ -92,6 +92,26 @@ for l in args.NATIVE_LOG_STRS:
         logging.warning("Couldn't process logging string '%s'" % l)
 
 
+## Set up signal handling
+RECVD_KILL_SIGNAL = None
+def handleKillSignal(signum, frame):
+    "Declare us as having been signalled, and return to default handling behaviour"
+    global RECVD_KILL_SIGNAL
+    logging.critical("Signal handler called with signal " + str(signum))
+    RECVD_KILL_SIGNAL = signum
+    signal.signal(signum, signal.SIG_DFL)
+## Signals to handle
+signal.signal(signal.SIGTERM, handleKillSignal);
+signal.signal(signal.SIGHUP,  handleKillSignal);
+signal.signal(signal.SIGINT,  handleKillSignal);
+signal.signal(signal.SIGUSR1, handleKillSignal);
+signal.signal(signal.SIGUSR2, handleKillSignal);
+try:
+    signal.signal(signal.SIGXCPU, handleKillSignal);
+except:
+    pass
+
+
 ## Set up analysis handler
 try:
     ah = rivet.AnalysisHandler("Merging")
@@ -101,7 +121,7 @@ try:
     if args.PRELOADFILE is not None:
         ah.readData(args.PRELOADFILE)
 
-    ah.mergeYodas(args.YODAFILES, args.MERGEOPTIONS, args.ADDOPTIONS, 
+    ah.mergeYodas(args.YODAFILES, args.MERGEOPTIONS, args.ADDOPTIONS,
                   args.MATCH, args.UNMATCH, args.EQUIV)
     ah.writeData(args.OUTPUTFILE)
 

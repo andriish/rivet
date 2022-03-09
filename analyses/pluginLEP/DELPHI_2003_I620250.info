@@ -5,18 +5,22 @@ Experiment: DELPHI
 Collider: LEP
 InspireID: 620250
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Eur.Phys.J. C29 (2003) 285-312
 RunInfo:
-  Hadronic Z decay events generated below the Z pole
+  Hadronic Z decay events generated below the Z pole. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NeedCrossSection: no
 Beams: [e+, e-]
 Energies: [45,66,76,183,189,192,196,200,202,205,207]
+Options:
+ - ENERGY=45,66,76,183,189,192,196,200,202,205,207
 Description:
-  'Measurement of a wide range of event shapes by DELPHI at energies below the Z pole using radiative events and above $m_Z$ from LEP2.
-   This analyses allows the energy dependence of simulations to be studied. Only the distributions and not the means are implemented.'
+  'Measurement of a wide range of event shapes by DELPHI at energies below the Z pole using radiative events and above $m_Z$ from LEP2. 
+This analyses allows the energy dependence of simulations to be studied. Only the distributions and not the means are implemented.
+Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 Keywords: []
 BibKey: Abdallah:2003xz
 BibTeX: '@article{Abdallah:2003xz,

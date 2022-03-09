@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(OPAL_2003_I611415);
+    RIVET_DEFAULT_ANALYSIS_CTOR(OPAL_2003_I611415);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -49,7 +49,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // need at least two jets with |eta|<2 and pT>3 
+      // need at least two jets with |eta|<2 and pT>3
       Jets jets = apply<FastJets>(event, "Jets").jetsByPt(Cuts::Et > 3.*GeV and Cuts::abseta < 2.);
       if(jets.size()<2) vetoEvent;
       if(jets[0].Et()<jets[1].Et()) swap(jets[0],jets[1]);
@@ -152,21 +152,21 @@ namespace Rivet {
       scale(_h_xg_high,fact);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_theta[2],_h_ET[3],_h_xg[3][2],_h_xg_high;
     Histo1DPtr _h_xlog[3],_h_eta_diff[2],_h_eta_min[2],_h_eta_max[2];
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OPAL_2003_I611415);
+  RIVET_DECLARE_PLUGIN(OPAL_2003_I611415);
 
 
 }

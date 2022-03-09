@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[3.1.4],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[3.1.5],[rivet@projects.hepforge.org],[Rivet])
 
 ## Check and block installation into the src/build dir
 if test "$prefix" = "$PWD"; then
@@ -231,17 +231,19 @@ AC_ARG_WITH([fjcontrib],
 if test -n "$with_fjcontrib"; then
   AC_MSG_NOTICE([FastJet Contrib base path given: $with_fjcontrib])
   FJCONTRIBINCPATH=$with_fjcontrib/include
-if  [[  -f  "$with_fjcontrib/lib64/libfastjettools.so"  ]] || [[ -f  "$with_fjcontrib/lib64/libfastjettools.dyld"  ]]; then
-  FJCONTRIBLIBPATH=$with_fjcontrib/lib64
-else
   FJCONTRIBLIBPATH=$with_fjcontrib/lib
-fi
+  if [[ -f "$with_fjcontrib/lib64/libfastjettools.so" || -f "$with_fjcontrib/lib64/libfastjettools.dyld" ]]; then
+    FJCONTRIBLIBPATH=$with_fjcontrib/lib64
+  fi
   FJCONTRIBCPPFLAGS=-I$FJCONTRIBINCPATH
   AC_SUBST(FJCONTRIBINCPATH)
   AC_SUBST(FJCONTRIBLIBPATH)
   AC_SUBST(FJCONTRIBCPPFLAGS)
   FASTJETLIBADD="$FASTJETLIBADD -L$FJCONTRIBLIBPATH"
   FASTJETLDFLAGS="$FASTJETLDFLAGS -L$FJCONTRIBLIBPATH"
+else
+  FJCONTRIBINCPATH=$FASTJETINCPATH
+  FJCONTRIBLIBPATH=$FASTJETLIBPATH
 fi
 FASTJETLIBADD="$FASTJETLIBADD -lfastjetcontribfragile -lfastjettools"
 AC_SUBST(FASTJETLIBADD)
@@ -374,7 +376,7 @@ AC_SUBST(RIVET_SETUP_PY_PATH)
 if test x$enable_pyext == xyes; then
   AM_CHECK_CYTHON([0.24.0], [:], [:])
   if test x$CYTHON_FOUND = xyes; then
-    AC_PATH_PROGS(CYTHON, [cython-$PYTHON_MAJOR_VERSION cython])
+    AC_PATH_PROGS(CYTHON, [$CYTHON cython-$PYTHON_VERSION cython$PYTHON_VERSION cython-$PYTHON_MAJOR_VERSION cython$PYTHON_MAJOR_VERSION cython])
     if test x$CYTHON != x; then
         AC_MSG_NOTICE([Cython >= 0.24 found at $CYTHON: Python extension source can be rebuilt (for developers)])
         # Force rebuild since we have a sufficient Cython

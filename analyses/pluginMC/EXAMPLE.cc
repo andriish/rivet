@@ -14,11 +14,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(EXAMPLE);
+    RIVET_DEFAULT_ANALYSIS_CTOR(EXAMPLE);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Set up projections and book histograms
     void init() {
@@ -82,23 +82,23 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      normalize(_histTot); normalize(_histChTot); normalize(_histHadrTot); 
-      normalize(_histHadrChTot); normalize(_histThrust); normalize(_histMajor); 
+      normalize(_histTot); normalize(_histChTot); normalize(_histHadrTot);
+      normalize(_histHadrChTot); normalize(_histThrust); normalize(_histMajor);
       normalize(_histSphericity); normalize(_histAplanarity);
     }
 
-    //@}
+    /// @}
 
 
-    //@{
+    /// @{
     /// Histograms
     Histo1DPtr _histTot, _histChTot, _histHadrTot, _histHadrChTot, _histThrust, _histMajor, _histSphericity, _histAplanarity;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(EXAMPLE);
+  RIVET_DECLARE_PLUGIN(EXAMPLE);
 
 }

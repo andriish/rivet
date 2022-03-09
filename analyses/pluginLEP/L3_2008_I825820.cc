@@ -17,11 +17,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(L3_2008_I825820);
+    RIVET_DEFAULT_ANALYSIS_CTOR(L3_2008_I825820);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -167,11 +167,11 @@ namespace Rivet {
       scale(_h_y23_bottom, 1./ *_sumW_b   );
       normalize(_h_y23);
     }
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_T  ,_h_T_udsc  , _h_T_bottom;
     Histo1DPtr _h_rho,_h_rho_udsc, _h_rho_bottom;
     Histo1DPtr _h_B_T,_h_B_T_udsc, _h_B_T_bottom;
@@ -179,12 +179,12 @@ namespace Rivet {
     Histo1DPtr _h_C  ,_h_C_udsc  , _h_C_bottom;
     Histo1DPtr _h_y23,_h_y23_udsc, _h_y23_bottom;
     CounterPtr _sumW_udsc, _sumW_b;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(L3_2008_I825820);
+  RIVET_DECLARE_PLUGIN(L3_2008_I825820);
 
 }

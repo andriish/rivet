@@ -475,14 +475,14 @@ namespace Rivet {
    Histo1DPtr _histnorm_ttpt_ttm_1;
    Histo1DPtr _histnorm_ttpt_ttm_2;
    Histo1DPtr _histnorm_ttpt_ttm_3;
-   Histo1DPtr _histnorm_ttpt_ttm_4;   
-   
+   Histo1DPtr _histnorm_ttpt_ttm_4;
+
  };
 
 
 
  // The hook for the plugin system
- DECLARE_RIVET_PLUGIN(CMS_2016_I1491950);
+ RIVET_DECLARE_PLUGIN(CMS_2016_I1491950);
 
 }
 

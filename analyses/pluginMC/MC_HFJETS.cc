@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     // Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(MC_HFJETS);
+    RIVET_DEFAULT_ANALYSIS_CTOR(MC_HFJETS);
 
 
     /// Book histograms and initialise projections before the run
@@ -139,10 +139,10 @@ namespace Rivet {
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_ptCJetLead, _h_ptCHadrLead, _h_ptFracC, _h_eFracC;
     Histo1DPtr _h_ptBJetLead, _h_ptBHadrLead, _h_ptFracB, _h_eFracB;
-    ///@}
+    /// @}
 
 
   };
@@ -150,6 +150,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_HFJETS);
+  RIVET_DECLARE_PLUGIN(MC_HFJETS);
 
 }

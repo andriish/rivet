@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TASSO_1982_I176887);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TASSO_1982_I176887);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -86,20 +86,20 @@ namespace Rivet {
 	}
       }
     }
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _c_hadrons, _c_muons;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TASSO_1982_I176887);
+  RIVET_DECLARE_PLUGIN(TASSO_1982_I176887);
 
 
 }

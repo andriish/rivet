@@ -200,13 +200,13 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_thrustc[NJETPTMN];
     Histo1DPtr _h_broadt[NJETPTMN];
     Histo1DPtr _h_tot3dmass[NJETPTMN];
     Histo1DPtr _h_tottrnsmass[NJETPTMN];
     Histo1DPtr _h_y23c[NJETPTMN];
-    //@}
+    /// @}
 
     // Data members
     bool _needBinInit;
@@ -216,7 +216,7 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(CMS_2014_I1305624);
+  RIVET_DECLARE_PLUGIN(CMS_2014_I1305624);
 
 
 

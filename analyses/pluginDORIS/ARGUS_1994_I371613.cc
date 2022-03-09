@@ -15,17 +15,17 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ARGUS_1994_I371613);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ARGUS_1994_I371613);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
       // Initialise and register projections
       declare(UnstableParticles(), "UFS" );
-      
+
       // Book histograms
       book(_h_Lambda, "/TMP/hLambda", 20,-1.,1.);
 
@@ -66,11 +66,11 @@ namespace Rivet {
         findChildren(Lambdac,sign,npart,lambda,e,nu);
 	if(npart!=3 || lambda.size()!=1 || e.size()!=1 || nu.size()!=1) continue;
 	Particle baryon2;
-	if(lambda[0].children()[0].pid()== sign*2212 && 
+	if(lambda[0].children()[0].pid()== sign*2212 &&
 	   lambda[0].children()[1].pid()== -sign*211) {
 	  baryon2 = lambda[0].children()[0];
 	}
-	else if(lambda[0].children()[1].pid()== sign*2212 && 
+	else if(lambda[0].children()[1].pid()== sign*2212 &&
 		lambda[0].children()[0].pid()== -sign*211) {
 	  baryon2 = lambda[0].children()[1];
 	}
@@ -118,18 +118,18 @@ namespace Rivet {
       _h_alpha->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_Lambda;
-    //@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(ARGUS_1994_I371613);
+  RIVET_DECLARE_PLUGIN(ARGUS_1994_I371613);
 
 }

@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEOC_2005_I693873);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEOC_2005_I693873);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -41,7 +41,7 @@ namespace Rivet {
 	++ntotal;
       }
       if(ntotal!=2) vetoEvent;
-      
+
       if(nCount[211]==1 && nCount[-211]==1)
 	_npipi->fill();
       else if(nCount[321]==1 && nCount[-321]==1)
@@ -90,20 +90,20 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _npipi,_nKK,_nppbar;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CLEOC_2005_I693873);
+  RIVET_DECLARE_PLUGIN(CLEOC_2005_I693873);
 
 
 }

@@ -17,18 +17,18 @@ namespace Rivet {
       impact = (a3).cross((a3-b3)).polarRadius() / (b3).polarRadius();
     }
     return impact;
-  } 
-  
+  }
+
   /// @brief Add a short analysis description here
   class ALEPH_2016_I1492968 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ALEPH_2016_I1492968);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALEPH_2016_I1492968);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -44,8 +44,8 @@ namespace Rivet {
       IdentifiedFinalState mu_id(fs);
       mu_id.acceptIdPair(PID::MUON);
       declare(mu_id, "MUONS");
-  
-      declare(MissingMomentum(fs), "MissingMomenta");      
+
+      declare(MissingMomentum(fs), "MissingMomenta");
       // Book histograms
       //_h_costheta = bookHisto1D(2, 1, 1);
       book(_h_m_OS, 3, 1, 1);
@@ -71,16 +71,16 @@ namespace Rivet {
       const MissingMomentum& met = applyProjection<MissingMomentum>(event, "MissingMomenta");
       double Pmiss = met.missingMomentum().p();
       if (Pmiss/GeV>18) vetoEvent;
-    
+
       // Impact paarameter considerations
       double b_muon_0_impactdistance = min(impact(b_muons[0].origin(), bjets[0].momentum()),impact(b_muons[0].origin(), bjets[1].momentum()));
       double b_muon_1_impactdistance = min(impact(b_muons[1].origin(), bjets[0].momentum()),impact(b_muons[1].origin(), bjets[1].momentum()));
 
       // Impact parameter cut
       if ((b_muon_0_impactdistance > 0.1) || (b_muon_1_impactdistance > 0.1)) vetoEvent;
-      
+
       FourMomentum dimuon = b_muons[0].momentum() + b_muons[1].momentum();
-      
+
       // Same sign
       if (b_muons[0].charge()*b_muons[1].charge()>0) {
         _h_m_SS->fill( dimuon.mass()/GeV);
@@ -92,7 +92,7 @@ namespace Rivet {
         //FourMomentum muonminus;
         //if (b_muons[0].charge() < 0)  muonminus = b_muons[0].momentum();
         //else muonminus = b_muons[1].momentum();
-        
+
         //const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(-dimuon.betaVec());
         //FourMomentum boostedmuon = cms_boost.transform(muonminus);
 
@@ -115,22 +115,22 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     //Histo1DPtr _h_costheta;
     Histo1DPtr _h_m_OS;
     Histo1DPtr _h_m_SS;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALEPH_2016_I1492968);
+  RIVET_DECLARE_PLUGIN(ALEPH_2016_I1492968);
 
 
 }

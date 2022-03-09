@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMD3_2017_I1606078);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMD3_2017_I1606078);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -52,7 +52,7 @@ namespace Rivet {
 	nCount[p.pid()] += 1;
 	++ntotal;
       }
-      // find omega/phi + eta 
+      // find omega/phi + eta
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       bool found = false, foundOmegaPhi = false;
       for (const Particle& p : ufs.particles()) {
@@ -185,20 +185,20 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _c_all, _c_omega, _c_rho, _c_other;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMD3_2017_I1606078);
+  RIVET_DECLARE_PLUGIN(CMD3_2017_I1606078);
 
 
 }

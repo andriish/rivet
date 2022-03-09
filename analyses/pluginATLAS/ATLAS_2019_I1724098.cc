@@ -21,12 +21,12 @@ namespace Rivet {
   class ATLAS_2019_I1724098: public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2019_I1724098);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2019_I1724098);
 
   private:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
 
@@ -139,7 +139,7 @@ namespace Rivet {
 
       lha = sdlha = 0.0;
 
-      double beta = 1;
+      const double beta = 1;
 
       const Particles & leptons = apply<ChargedLeptons>(event, "LFS").particles();
       if (leptons.size())  return;
@@ -147,7 +147,7 @@ namespace Rivet {
       // Normal fatjets
       const Jets &fjets = apply<JetAlg>(event, "FJets").jetsByPt();
 
-      //Trim the fatjets
+      // Trim the fatjets
       PseudoJets tr_ljets;
       for (size_t i = 0; i < fjets.size(); ++i) {
         tr_ljets += _trimmer(fjets[i]);
@@ -168,40 +168,32 @@ namespace Rivet {
       // Nsubjets
       JetDefinition subjet_def(fastjet::kt_algorithm, 0.2);
       ClusterSequence subjet_cs(LJet.constituents(), subjet_def);
-
       PseudoJets subjets = sorted_by_pt(subjet_cs.inclusive_jets(10.0));
       nsub = subjets.size();
 
       // LHA
-      for (const PseudoJet& p : LJet.constituents()){
+      for (const PseudoJet& p : LJet.constituents()) {
         double trpt = p.pt();
         double trtheta = p.squared_distance(LJet);
         lha += pow(trpt, 1.0) * pow(trtheta, 0.25);
-
       }
-
       double lterm = pow(LJet.pt(), 1.0) * pow(1.0, 0.5);
       if (lterm !=0)  lha /= lterm;
       else            lha = -99;
 
-      //C2
+      // C2
       fastjet::contrib::EnergyCorrelator ECF3(3,beta,fastjet::contrib::EnergyCorrelator::pt_R);
       fastjet::contrib::EnergyCorrelator ECF2(2,beta,fastjet::contrib::EnergyCorrelator::pt_R);
       fastjet::contrib::EnergyCorrelator ECF1(1,beta,fastjet::contrib::EnergyCorrelator::pt_R);
-
       double recf3 = ECF3(LJet);
       double recf2 = ECF2(LJet);
       double recf1 = ECF1(LJet);
-
-
       c2 = (recf2 != 0 ? recf3 * recf1 / (recf2*recf2) : -1);
       d2 = (recf2 != 0 ? recf3 * (recf1*recf1*recf1) /(recf2*recf2*recf2) : -1);
-
       ecf2 = (recf1 != 0 ? recf2 / (recf1*recf1) : -1);
       ecf3 = (recf1 != 0 ? recf3 / (recf1*recf1*recf1) : -1);
 
       // Fill Histograms for trimmed
-
       _h["dj_nsj"]->fill(nsub);
       _h["dj_c2"]->fill(c2);
       _h["dj_d2"]->fill(d2);
@@ -220,7 +212,7 @@ namespace Rivet {
       PseudoJets sdsubjets = sorted_by_pt(subjet_sdcs.inclusive_jets(10.0));
       sdnsub = sdsubjets.size();
 
-      for (const PseudoJet& sd_p : SDLJet.constituents()){
+      for (const PseudoJet& sd_p : SDLJet.constituents()) {
         double spt = sd_p.pt();
         double stheta = sd_p.squared_distance(SDLJet);
         sdlha += pow(spt, 1.0) * pow(stheta, 0.25);
@@ -258,7 +250,7 @@ namespace Rivet {
 
       lha = sdlha = wlha = wsdlha = 0.0;
 
-      double beta = 1, Rcut = 1;
+      const double beta = 1, Rcut = 1;
 
       const vector<DressedLepton>& muons = apply<DressedLeptons>(event, "muons").dressedLeptons();
       if (muons.size() != 1)  return;
@@ -356,7 +348,6 @@ namespace Rivet {
           double theta = p.squared_distance(LJet);
           lha += pow(pt, 1.0) * pow(theta, 0.25);
         }
-
         double lterm = pow(LJet.pt(), 1.0) * pow(1.0, 0.5);
         if (lterm)  lha /= lterm;
         else        lha = -99;
@@ -576,5 +567,5 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2019_I1724098);
+  RIVET_DECLARE_PLUGIN(ATLAS_2019_I1724098);
 }

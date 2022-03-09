@@ -16,7 +16,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2016_I1426515);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2016_I1426515);
 
 
     /// Book histograms and initialise projections before the run
@@ -235,7 +235,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
 
     // d01 ee/mm fiducial integrated cross sections
     Histo1DPtr _hist_mm_fid_intxsec, _hist_ee_fid_intxsec;
@@ -260,12 +260,12 @@ namespace Rivet {
 
     // d15  emme fiducial differential cross section (absolute costheta* of dilepton-system costhetastar_ll + costhetastar_ll normalized)
     Histo1DPtr _hist_emme_fid_costhetastarll, _hist_emme_fid_costhetastarllnorm;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2016_I1426515);
+  RIVET_DECLARE_PLUGIN(ATLAS_2016_I1426515);
 
 }

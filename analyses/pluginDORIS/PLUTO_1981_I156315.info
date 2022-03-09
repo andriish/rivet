@@ -5,14 +5,20 @@ Experiment: PLUTO
 Collider: DORIS/Petra
 InspireID: 156315
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
-RunInfo: e+e- to hadrons at 7.7,9.4,12.,13.,17.,22.,27.6,30.8 GeV CMS
+RunInfo: 
+  e+e- to hadrons at 7.7,9.4,12.,13.,17.,22.,27.6,30.8 GeV CMS
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NeedCrossSection: no
 Beams: [e+, e-]
 Energies: [7.7,9.4,12.,13.,17.,22.,27.6,30.8]
+Options:
+ - ENERGY=7.7,9.4,12.,13.,17.,22.,27.6,30.8
 Description:
-  'Measurement of the energy-energy correlation, and its assymetry, or a range of energies between 7.7 and 31.6 GeV'
+  'Measurement of the energy-energy correlation, and its assymetry, or a range of energies between 7.7 and 31.6 GeV.
+   Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 Keywords: []
 BibKey: Berger:1980yh
 BibTeX: '@article{Berger:1980yh,

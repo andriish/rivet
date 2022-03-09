@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ARGUS_1990_I283027);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ARGUS_1990_I283027);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -39,7 +39,7 @@ namespace Rivet {
       }
     }
 
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       for(const Particle & ups : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==553) ) {
@@ -67,19 +67,19 @@ namespace Rivet {
       scale(_h_p, 1e5/fact / *_w_ups);
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_p;
     CounterPtr _w_ups;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(ARGUS_1990_I283027);
+  RIVET_DECLARE_PLUGIN(ARGUS_1990_I283027);
 
 }

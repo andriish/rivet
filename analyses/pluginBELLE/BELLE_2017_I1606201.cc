@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BELLE_2017_I1606201);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2017_I1606201);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -121,7 +121,7 @@ namespace Rivet {
     void finalize() {
       // norm to cross section
       for(unsigned int ix=1;ix<16;++ix) {
-	if( ix<=4 || (ix>=8 &&ix<=12) ) 
+	if( ix<=4 || (ix>=8 &&ix<=12) )
 	  scale(_h[ix], crossSection()/nanobarn/sumOfWeights());
 	else
 	  scale(_h[ix], crossSection()/picobarn/sumOfWeights());
@@ -129,20 +129,20 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h[16],_r[16];
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BELLE_2017_I1606201);
+  RIVET_DECLARE_PLUGIN(BELLE_2017_I1606201);
 
 
 }

@@ -13,11 +13,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(LHCB_2016_I1454404);
+    RIVET_DEFAULT_ANALYSIS_CTOR(LHCB_2016_I1454404);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -199,6 +199,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(LHCB_2016_I1454404);
+  RIVET_DECLARE_PLUGIN(LHCB_2016_I1454404);
 
 }

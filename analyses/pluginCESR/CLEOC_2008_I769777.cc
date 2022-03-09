@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEOC_2008_I769777);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEOC_2008_I769777);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -47,7 +47,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // Loop over D mesons 
+      // Loop over D mesons
       for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==PID::D0 or
 									       Cuts::abspid==PID::DPLUS )) {
         if (p.abspid()==PID::D0) {
@@ -87,19 +87,19 @@ namespace Rivet {
       scale(_h_q2_Dp_K ,100./ *_nDp);
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_q2_D0_pi, _h_q2_D0_K, _h_q2_Dp_pi, _h_q2_Dp_K;
     CounterPtr _nD0,_nDp;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(CLEOC_2008_I769777);
+  RIVET_DECLARE_PLUGIN(CLEOC_2008_I769777);
 
 }

@@ -20,11 +20,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ZEUS_2001_S4815815);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ZEUS_2001_S4815815);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     // Book projections and histograms
     void init() {
@@ -155,19 +155,19 @@ namespace Rivet {
       for (auto& h : _h_xobsy) scale(h, sf);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_costh[2], _h_etjet1[2][6], _h_etajet2[2][3], _h_xobsy[4];
-    //@}
+    /// @}
 
   };
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(ZEUS_2001_S4815815, ZEUS_2001_I568665);
+  RIVET_DECLARE_ALIASED_PLUGIN(ZEUS_2001_S4815815, ZEUS_2001_I568665);
 
 }

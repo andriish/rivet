@@ -20,7 +20,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -105,25 +105,25 @@ namespace Rivet {
       MC_JetAnalysis::finalize();
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_WW_jet1_deta;
     Histo1DPtr _h_WW_jet1_dR;
     Histo1DPtr _h_We_jet1_dR;
     Histo1DPtr _h_jets_m_12;
     Histo1DPtr _h_HT;
-    //@}
+    /// @}
 
   };
 
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_WWJETS);
+  RIVET_DECLARE_PLUGIN(MC_WWJETS);
 
 }

@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CELLO_1992_I345437);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CELLO_1992_I345437);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -79,19 +79,19 @@ namespace Rivet {
       }
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_cTheta,_h_cTheta2;
     CounterPtr _cPi;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(CELLO_1992_I345437);
+  RIVET_DECLARE_PLUGIN(CELLO_1992_I345437);
 
 }

@@ -20,10 +20,10 @@ namespace Rivet {
     void init() {
        declare(BRAHMSCentrality(),"Centrality");
        declare(ImpactParameterProjection(), "IMP");
-       
+
        // The central multiplicity.
        book(mult, "mult",450,0,4500);
-       
+
        // The impact parameter.
        book(imp, "mult_IMP",100,0,20);
     }
@@ -38,20 +38,20 @@ namespace Rivet {
 
     // Finalize the analysis
     void finalize() {
-      // Normalize the distributions, safeguarding against 
+      // Normalize the distributions, safeguarding against
       // yoda normalization error.
       if(mult->numEntries() > 0) mult->normalize();
       if(imp->numEntries() > 0) imp->normalize();
-    
+
     }
 
   private:
     // Histograms.
     Histo1DPtr mult;
     Histo1DPtr imp;
-  
+
   };
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BRAHMS_2004_AUAUCentrality);
+  RIVET_DECLARE_PLUGIN(BRAHMS_2004_AUAUCentrality);
 
  }

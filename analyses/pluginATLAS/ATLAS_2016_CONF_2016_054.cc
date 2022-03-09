@@ -17,11 +17,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2016_CONF_2016_054);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2016_CONF_2016_054);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -188,23 +188,23 @@ namespace Rivet {
     void finalize() {
 
       const double sf = 14.8*crossSection()/femtobarn/sumOfWeights();
-      scale(_h_gg2j, sf); scale(_h_gg6j0, sf); scale(_h_gg6j1, sf); 
+      scale(_h_gg2j, sf); scale(_h_gg6j0, sf); scale(_h_gg6j1, sf);
       scale(_h_gg4j0, sf); scale(_h_gg4j1, sf); scale(_h_gg4j2, sf);
       scale(_h_ss4j0, sf); scale(_h_ss4j1, sf); scale(_h_ss5j0, sf);
       scale(_h_ss5j1, sf);
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _h_gg2j, _h_gg6j0, _h_gg6j1, _h_gg4j0, _h_gg4j1, _h_gg4j2;
     CounterPtr _h_ss4j0, _h_ss4j1, _h_ss5j0,_h_ss5j1;
-    //@}
+    /// @}
 
 
   };
@@ -212,7 +212,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2016_CONF_2016_054);
+  RIVET_DECLARE_PLUGIN(ATLAS_2016_CONF_2016_054);
 
 
 }

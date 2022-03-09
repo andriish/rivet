@@ -14,7 +14,7 @@ namespace Rivet {
   public:
 
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2017_I1626105);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2017_I1626105);
 
 
     void init() {
@@ -110,7 +110,7 @@ namespace Rivet {
   private:
 
     /// @name Histogram helper functions
-    //@{
+    /// @{
     void bookHistos(const std::string name, unsigned int index) {
       book(_h[name], index, 1, 1);
       book(_h["norm_" + name], index + 1, 1, 1);
@@ -122,11 +122,11 @@ namespace Rivet {
     }
 
     map<string, Histo1DPtr> _h;
-    //@}
+    /// @}
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(ATLAS_2017_I1626105);
+  RIVET_DECLARE_PLUGIN(ATLAS_2017_I1626105);
 
 }

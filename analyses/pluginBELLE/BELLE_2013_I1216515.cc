@@ -64,16 +64,16 @@ namespace Rivet {
 
   private:
 
-    //@{
+    /// @{
     // Histograms for continuum data (sqrt(s) = 10.52 GeV)
     Histo1DPtr _histPion;
     Histo1DPtr _histKaon;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BELLE_2013_I1216515);
+  RIVET_DECLARE_PLUGIN(BELLE_2013_I1216515);
 
 }

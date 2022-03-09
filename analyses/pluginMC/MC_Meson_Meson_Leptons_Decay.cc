@@ -11,15 +11,15 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(MC_Meson_Meson_Leptons_Decay);
+    RIVET_DEFAULT_ANALYSIS_CTOR(MC_Meson_Meson_Leptons_Decay);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
-      
+
       // Initialise and register projections
       declare(UnstableParticles(),"UFS");
 
@@ -121,7 +121,7 @@ namespace Rivet {
 	  ++nstable;
       }
     }
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // loop over unstable particles
@@ -136,7 +136,7 @@ namespace Rivet {
 	if(nstable!=3 || lp.size()!=1 || lm.size()!=1 || lp[0].pid()!=-lm[0].pid()) continue;
 	if(scalar.size()==1) {
 	  // check if we already have this decay
-	  unsigned int ix=0; bool found(false); 
+	  unsigned int ix=0; bool found(false);
 	  while(!found&&ix<_incomingV.size()) {
 	    if(_incomingV[ix]==pid && _outgoingP[ix]==scalar[0].pid() &&
 	       _outgoingf_V[ix]==lm[0].pid()) {
@@ -159,7 +159,7 @@ namespace Rivet {
 	}
 	else if(vector.size()==1) {
 	  // check if we already have this decay
-	  unsigned int ix=0; bool found(false); 
+	  unsigned int ix=0; bool found(false);
 	  while(!found&&ix<_incoming_P.size()) {
 	    if(_incoming_P[ix]==pid && _outgoingV[ix]==vector[0].pid() &&
 	       _outgoingf_P[ix]==lm[0].pid()) {
@@ -185,7 +185,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      
+
       // normalize to unity V->P
       for(unsigned int ix=0;ix<_mff_V.size();++ix) {
         normalize(_mff_V);
@@ -201,82 +201,82 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
 
     /// @name Histograms for V -> P
-    //@{
+    /// @{
     /**
      *  PDG codes of the incoming particles
      */
     vector<long> _incomingV;
-    
+
     /**
      *  PDG codes of the outgoing pseudoscalar mesons
      */
     vector<long> _outgoingP;
-    
+
     /**
      *  PDG codes of the outgoing fermion
      */
     vector<long> _outgoingf_V;
-    
+
     /**
      *  Histograms for the mass of the fermion-antifermion pair
      */
     vector<Histo1DPtr> _mff_V;
-    
+
     /**
      *  Histograms for the masses of the pseudoscalar and the fermion
      */
     vector<Histo1DPtr> _mPf;
-    
+
     /**
      *  Histograms for the masses of the pseudoscalar and the antifermion
      */
     vector<Histo1DPtr> _mPfbar;
-    //@}
-    
+    /// @}
+
     /// @name Histograms P->V
-    //@{
+    /// @{
     /**
      *  PDG codes of the incoming_P particles
      */
     vector<long> _incoming_P;
-    
+
     /**
      *  PDG codes of the outgoing vector mesons
      */
     vector<long> _outgoingV;
-    
+
     /**
      *  PDG codes of the outgoing fermion
      */
     vector<long> _outgoingf_P;
-    
+
     /**
      *  Histograms for the mass of the fermion-antifermion pair
      */
     vector<Histo1DPtr> _mff_P;
-    
+
     /**
      *  Histograms for the masses of the vector and the fermion
      */
     vector<Histo1DPtr> _mVf;
-    
+
     /**
      *  Histograms for the masses of the vector and the antifermion
      */
     vector<Histo1DPtr> _mVfbar;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_Meson_Meson_Leptons_Decay);
+  RIVET_DECLARE_PLUGIN(MC_Meson_Meson_Leptons_Decay);
 
 
 }

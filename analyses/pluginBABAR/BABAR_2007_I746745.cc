@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2007_I746745);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2007_I746745);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -56,19 +56,19 @@ namespace Rivet {
       }
       scale(_r,crossSection()/sumOfWeights()/femtobarn);
     }
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_p,_b,_r;
     CounterPtr _ups;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(BABAR_2007_I746745);
+  RIVET_DECLARE_PLUGIN(BABAR_2007_I746745);
 
 }

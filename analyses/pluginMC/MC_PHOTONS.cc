@@ -6,7 +6,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// @brief MC validation analysis for photons
@@ -15,18 +15,18 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     MC_PHOTONS()
       : Analysis("MC_PHOTONS")
     {    }
 
-    //@}
+    /// @}
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -126,13 +126,13 @@ namespace Rivet {
       normalize(_h_DelR_R_weighted);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_Ptgamma, _h_Egamma;
     Histo1DPtr _h_sumPtgamma, _h_sumEgamma;
     Histo1DPtr _h_DelR, _h_DelR_weighted;
@@ -140,13 +140,13 @@ namespace Rivet {
     Profile1DPtr _p_DelR_vs_pTl, _p_DelR_weighted_vs_pTl;
     Profile1DPtr _p_DelR_R_vs_pTl, _p_DelR_R_weighted_vs_pTl;
     Profile1DPtr _p_sumPtgamma_vs_pTl;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_PHOTONS);
+  RIVET_DECLARE_PLUGIN(MC_PHOTONS);
 
 
 }

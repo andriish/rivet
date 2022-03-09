@@ -139,7 +139,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -463,7 +463,7 @@ namespace Rivet {
       divide(_hist_wcjet_jets_plus, _hist_wcjet_jets_minus , _hist_wcjet_jets_ratio);
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -472,7 +472,7 @@ namespace Rivet {
 
     // Check whether particle comes from b-decay
     bool isFromBDecay(const Particle& p) {
-      
+
       /// @todo I think we can just replicated the original behaviour with this call
       /// Note slight difference to Rivet's native Particle::fromBottom method!
       return p.hasAncestorWith([](const Particle &p)->bool{return p.hasBottom();});
@@ -533,7 +533,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
 
     //d01-x01-
     Histo1DPtr   _hist_wcjet_charge;
@@ -589,12 +589,12 @@ namespace Rivet {
     Scatter2DPtr  _hist_wcjet_jets_ratio ;
     Histo1DPtr    _hist_wcjet_jets_plus ;
     Histo1DPtr    _hist_wcjet_jets_minus;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2014_I1282447);
+  RIVET_DECLARE_PLUGIN(ATLAS_2014_I1282447);
 
 }

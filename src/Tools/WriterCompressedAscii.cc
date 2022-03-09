@@ -72,7 +72,7 @@ WriterCompressedAscii::~WriterCompressedAscii() {
 
 
 void WriterCompressedAscii::write_event(const GenEvent &evt) {
-  
+
   if ( !m_stripid.empty() ) {
     GenEvent e = evt;
     // cout << "#beams " << e.beams().size() << endl;
@@ -162,7 +162,7 @@ void WriterCompressedAscii::write_event(const GenEvent &evt) {
                    << " has no productions vertex!" << endl;
     else if ( v->id() < 0 && done.insert(v).second )
       write_vertex(v);
-    
+
     write_particle(p);
   }
 
@@ -174,7 +174,7 @@ void WriterCompressedAscii::write_event(const GenEvent &evt) {
     }
   }
   if ( orphans ) cout << "WARMING found unconnected vertices" << endl;
-  
+
   (*m_stream) << os.str();
 
 }
@@ -202,12 +202,12 @@ void WriterCompressedAscii::write_vertex(ConstGenVertexPtr v) {
     first = false;
   }
   os << "]";
-  
+
   const FourVector &pos = v->position();
   if ( !pos.is_zero() ) write_position(pos);
 
   os << endl;
-  
+
 }
 
 
@@ -224,7 +224,7 @@ void WriterCompressedAscii::write_run_info() {
       out += "\n" + names[i];
     os << "W " << escape(out) << endl;
   }
-  
+
   for ( int i = 0, N = run_info()->tools().size(); i < N; ++i  ) {
     string out = "T " + run_info()->tools()[i].name + "\n"
       + run_info()->tools()[i].version + "\n"
@@ -278,7 +278,7 @@ double WriterCompressedAscii::psrap(const FourVector & p) const {
 void WriterCompressedAscii::write_momentum(FourVector p) {
 
   Units::convert(p, m_current->momentum_unit(), Units::GEV);
-  
+
   if ( m_use_integers ) {
     long ie = long(round(p.e()/precision_e()));
     // Avoid zero momentum particles

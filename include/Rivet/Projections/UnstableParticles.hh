@@ -26,7 +26,7 @@ namespace Rivet {
   public:
 
     /// @name Standard constructors and destructors.
-    //@{
+    /// @{
 
     /// Cut-based / default constructor
     UnstableParticles(const Cut& c=Cuts::open())
@@ -38,7 +38,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(UnstableParticles);
 
-    //@}
+    /// @}
 
   protected:
 

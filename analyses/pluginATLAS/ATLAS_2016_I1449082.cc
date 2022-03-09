@@ -25,7 +25,7 @@ namespace Rivet {
 
 
     /// Constructor
-    //DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2016_I1449082);
+    //RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2016_I1449082);
     ATLAS_2016_I1449082() : Analysis("ATLAS_2016_I1449082"),
                             // inclusive (dummy), mtt [GeV], beta, pTtt
                             bins{ { 0., 1., 2. }, { 0., 500., 2000.}, { 0., 0.6 , 1.0}, { 0., 30. , 1000.} },
@@ -33,7 +33,7 @@ namespace Rivet {
     {  }
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -245,7 +245,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -293,7 +293,7 @@ namespace Rivet {
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_dEta;
     Histo1DPtr _h_dY;
     Scatter2DPtr _h_Actt[kNmeas];
@@ -302,7 +302,7 @@ namespace Rivet {
     /// @todo Use /TMP histos?
     Histo1DPtr _h_dEta_asym[kNmeas][2];
     Histo1DPtr _h_dY_asym  [kNmeas][2];
-    //@}
+    /// @}
 
     // Not-scaled histos
     Histo1DPtr _h_dEta_notscaled, _h_dY_notscaled;
@@ -311,5 +311,5 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2016_I1449082);
+  RIVET_DECLARE_PLUGIN(ATLAS_2016_I1449082);
 }

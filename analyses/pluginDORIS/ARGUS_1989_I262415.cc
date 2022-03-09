@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ARGUS_1989_I262415);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ARGUS_1989_I262415);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -53,7 +53,7 @@ namespace Rivet {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       Particles upsilons = ufs.particles(Cuts::pid==553);
       // Continuum
-      if (upsilons.empty()) { 
+      if (upsilons.empty()) {
         MSG_DEBUG("No Upsilons found => continuum event");
         _weightSum_cont->fill();
         for (const Particle& p : ufs.particles(Cuts::abspid==3124)) {
@@ -65,7 +65,7 @@ namespace Rivet {
 	}
       }
       // Upsilon(s) found
-      else { 
+      else {
         MSG_DEBUG("Upsilons found => resonance event");
         for (const Particle& ups : upsilons) {
 	  _weightSum_Ups1->fill();
@@ -104,23 +104,23 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_ups1, _h_cont;
     Histo1DPtr _h_ups1_obs, _h_cont_obs;
     Histo1DPtr _h_ups1_all, _h_cont_all;
     CounterPtr _weightSum_cont,_weightSum_Ups1;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ARGUS_1989_I262415);
+  RIVET_DECLARE_PLUGIN(ARGUS_1989_I262415);
 
 
 }

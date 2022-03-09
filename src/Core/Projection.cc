@@ -11,11 +11,11 @@ namespace Rivet {
   Projection::Projection()
     : _name("BaseProjection"), _isValid(true)
   {
-    addPdgIdPair(PID::ANY, PID::ANY);
+    // addPdgIdPair(PID::ANY, PID::ANY);
   }
 
 
-  Projection:: ~Projection() = default;
+  Projection::~Projection() = default;
 
 
   Projection& Projection::operator = (const Projection&) { return *this; }
@@ -38,16 +38,16 @@ namespace Rivet {
   }
 
 
-  const set<PdgIdPair> Projection::beamPairs() const {
-    set<PdgIdPair> ret = _beamPairs;
-    set<ConstProjectionPtr> projs = getProjections();
-    for (set<ConstProjectionPtr>::const_iterator ip = projs.begin(); ip != projs.end(); ++ip) {
-      ConstProjectionPtr p = *ip;
-      getLog() << Log::TRACE << "Proj addr = " << p << '\n';
-      if (p) ret = intersection(ret, p->beamPairs());
-    }
-    return ret;
-  }
+  // const set<PdgIdPair> Projection::beamPairs() const {
+  //   set<PdgIdPair> ret = _beamPairs;
+  //   set<ConstProjectionPtr> projs = getProjections();
+  //   for (set<ConstProjectionPtr>::const_iterator ip = projs.begin(); ip != projs.end(); ++ip) {
+  //     ConstProjectionPtr p = *ip;
+  //     getLog() << Log::TRACE << "Proj addr = " << p << '\n';
+  //     if (p) ret = intersection(ret, p->beamPairs());
+  //   }
+  //   return ret;
+  // }
 
 
   Cmp<Projection> Projection::mkNamedPCmp(const Projection& otherparent, const string& pname) const {

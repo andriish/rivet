@@ -5,12 +5,12 @@
 namespace Rivet {
 
 
-  /// Measurement of the inelastic proton-proton cross-section at \sqrt{s} = 13 TeV
+  /// Measurement of the inelastic proton-proton cross-section at sqrt(s) = 13 TeV
   class ATLAS_2016_I1468167 : public Analysis {
   public:
 
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2016_I1468167);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2016_I1468167);
 
 
     /// Initialisation
@@ -68,6 +68,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2016_I1468167);
+  RIVET_DECLARE_PLUGIN(ATLAS_2016_I1468167);
 
 }

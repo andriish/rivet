@@ -9,7 +9,7 @@ namespace Rivet {
   class D0_2000_S4480767 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(D0_2000_S4480767);
+    RIVET_DEFAULT_ANALYSIS_CTOR(D0_2000_S4480767);
 
 
     /// @name Analysis methods
@@ -51,6 +51,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(D0_2000_S4480767, D0_2000_I535017);
+  RIVET_DECLARE_ALIASED_PLUGIN(D0_2000_S4480767, D0_2000_I535017);
 
 }

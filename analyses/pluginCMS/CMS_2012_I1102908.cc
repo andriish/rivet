@@ -73,14 +73,14 @@ namespace Rivet {
     static double _invert(double x) { return (x > 0) ? 1/x : 0; }
 
     /// @name Histograms
-    //@{
+    /// @{
     Scatter2DPtr _h_dijet_ratio, _h_MN_dijet_ratio;
     Histo1DPtr _h_DeltaY_inclusive, _h_DeltaY_exclusive, _h_DeltaY_MN;
-    //@}
+    /// @}
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(CMS_2012_I1102908);
+  RIVET_DECLARE_PLUGIN(CMS_2012_I1102908);
 
 }

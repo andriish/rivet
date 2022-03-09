@@ -9,7 +9,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2010_S8625980);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2010_S8625980);
 
 
     /// @name Analysis methods
@@ -21,11 +21,11 @@ namespace Rivet {
       ChargedFinalState cfs((Cuts::etaIn(-1.0, 1.0)));
       declare(cfs, "CFS");
 
-      if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
+      if (isCompatibleWithSqrtS(900*GeV)) {
         book(_h_dN_deta    ,4, 1, 1);
-      } else if (fuzzyEquals(sqrtS()/GeV, 2360, 1E-3)) {
+      } else if (isCompatibleWithSqrtS(2360*GeV)) {
         book(_h_dN_deta    ,5, 1, 1);
-      } else if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) {
+      } else if (isCompatibleWithSqrtS(7000*GeV)) {
         book(_h_dN_deta    ,6, 1, 1);
         book(_h_dN_dNch    ,3, 1, 1);
       }
@@ -48,7 +48,7 @@ namespace Rivet {
         _h_dN_deta->fill(eta);
       }
 
-      if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) {
+      if (isCompatibleWithSqrtS(7000*GeV)) {
         _h_dN_dNch->fill(charged.size());
       }
     }
@@ -57,7 +57,7 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
 
-      if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) {
+      if (isCompatibleWithSqrtS(7000*GeV)) {
         normalize(_h_dN_dNch);
       }
       scale(_h_dN_deta, 1.0/ *_Nevt_after_cuts);
@@ -80,6 +80,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(ALICE_2010_S8625980, ALICE_2010_I852264);
+  RIVET_DECLARE_ALIASED_PLUGIN(ALICE_2010_S8625980, ALICE_2010_I852264);
 
 }

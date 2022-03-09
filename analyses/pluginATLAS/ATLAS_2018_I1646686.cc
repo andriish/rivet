@@ -17,7 +17,7 @@ namespace Rivet {
   public:
 
       /// Constructor
-      DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2018_I1646686);
+      RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2018_I1646686);
 
       /// Book histograms and initialise projections before the run
       void init() {
@@ -110,9 +110,9 @@ namespace Rivet {
 	    t1_parton = top.pT2() > tbar.pT2() ? top : tbar;
 	    t2_parton = top.pT2() > tbar.pT2() ? tbar : top;
 	    ttbar_parton = t1_parton + t2_parton;
-	    
+
 	    if ( t1_parton.pT() > 500*GeV && t2_parton.pT() > 350*GeV) {
-	      
+
 	      const double chi_parton = calcChi(t1_parton, t2_parton);
 	      const double cosThetaStar_parton = abs(calcCosThetaStar(t1_parton, t2_parton));
 	      if (cosThetaStar_parton == -99) {
@@ -121,18 +121,18 @@ namespace Rivet {
 	      }
 	      const double pout_parton = abs(calcPout(t1_parton, t2_parton));
 	      const double dPhi_parton = deltaPhi(t1_parton, t2_parton);
-	      
+
 	      const int randomChoice = rand() % 2;
 	      const FourMomentum& randomTopParton = (randomChoice == 0) ? t1_parton : t2_parton;
-	      
+
 	      fillParton("t_pt", randomTopParton.pT()/GeV);
 	      fillParton("t_y",  randomTopParton.absrap());
-	      
+
 	      fillParton("t1_pt", t1_parton.pT()/GeV);
 	      fillParton("t1_y",  t1_parton.absrap());
 	      fillParton("t2_pt", t2_parton.pT()/GeV);
 	      fillParton("t2_y",  t2_parton.absrap());
-	      
+
 	      fillParton("tt_m",  ttbar_parton.mass()/TeV);
 	      fillParton("tt_pt", ttbar_parton.pT()/GeV);
 	      fillParton("tt_Ht", (t1_parton.pT() + t2_parton.pT())/GeV);
@@ -304,6 +304,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ATLAS_2018_I1646686);
+  RIVET_DECLARE_PLUGIN(ATLAS_2018_I1646686);
 
 }

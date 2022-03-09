@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(DELPHI_2000_I531568);
+    RIVET_DEFAULT_ANALYSIS_CTOR(DELPHI_2000_I531568);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -138,18 +138,18 @@ namespace Rivet {
       divide(_h_pMp,_h_sum,h_r);
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_sum,_h_pMp;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(DELPHI_2000_I531568);
+  RIVET_DECLARE_PLUGIN(DELPHI_2000_I531568);
 
 }

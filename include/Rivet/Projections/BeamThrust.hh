@@ -48,7 +48,7 @@ namespace Rivet {
 
     /// @name Direct methods
     /// Ways to do the calculation directly, without engaging the caching system
-    //@{
+    /// @{
 
     /// Manually calculate the beamthrust, without engaging the caching system
     void calc(const FinalState& fs);
@@ -59,7 +59,7 @@ namespace Rivet {
     /// Manually calculate the beamthrust, without engaging the caching system
     void calc(const vector<FourMomentum>& fsmomenta);
 
-    //@}
+    /// @}
 
 
   private:

@@ -24,8 +24,8 @@ namespace Rivet {
 
       // collision energy
       int isqrts = -1;
-      if (fuzzyEquals(sqrtS(), 900*GeV)) isqrts = 2;
-      if (fuzzyEquals(sqrtS(),   7*TeV)) isqrts = 1;
+      if (isCompatibleWithSqrtS(900*GeV))  isqrts = 2;
+      if (isCompatibleWithSqrtS(7000*GeV)) isqrts = 1;
       assert(isqrts > 0);
 
       book(_sE_10_100   ,isqrts, 1, 1);
@@ -153,8 +153,6 @@ namespace Rivet {
       scale(_sEta_10_500, 1.0/ *norm_pt500);
     }
 
-    //@}
-
 
   private:
 
@@ -172,6 +170,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ATLAS_2012_I1091481);
+  RIVET_DECLARE_PLUGIN(ATLAS_2012_I1091481);
 
 }

@@ -24,11 +24,11 @@ namespace Rivet {
   class CDF_2001_S4751469 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2001_S4751469);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2001_S4751469);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     // Book histograms
     void init() {
@@ -216,7 +216,7 @@ namespace Rivet {
       normalize(_ptTrans30, *_totalNumTrans30 / *_sumWeightsPtLead30);
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -229,7 +229,7 @@ namespace Rivet {
 
 
     /// @name Histogram collections
-    //@{
+    /// @{
 
     // The sumpt vs. dphi and Nch vs. dphi histos
     Profile1DPtr _numvsDeltaPhi2, _numvsDeltaPhi5, _numvsDeltaPhi30;
@@ -248,12 +248,12 @@ namespace Rivet {
 
     /// Histogram of \f$ p_T \f$ distribution for 3 different \f$ p_{T1} \f$ IR cutoffs.
     Histo1DPtr _ptTrans2, _ptTrans5, _ptTrans30;
-    //@}
+    /// @}
 
   };
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2001_S4751469, CDF_2001_I564673);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_2001_S4751469, CDF_2001_I564673);
 
 }

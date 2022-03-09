@@ -12,7 +12,7 @@ namespace Rivet {
   class BELLE_2001_S4598261 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(BELLE_2001_S4598261);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2001_S4598261);
 
 
     void init() {
@@ -72,13 +72,13 @@ namespace Rivet {
 
   private:
 
-    //@{
+    /// @{
     // count of weights
     CounterPtr _weightSum;
     /// Histograms
     Histo1DPtr _histdSigDp;
     Histo1DPtr _histMult;
-    //@}
+    /// @}
 
 
     void findDecayProducts(ConstGenParticlePtr p, vector<ConstGenParticlePtr>& pions) {
@@ -95,6 +95,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(BELLE_2001_S4598261, BELLE_2001_I554520);
+  RIVET_DECLARE_ALIASED_PLUGIN(BELLE_2001_S4598261, BELLE_2001_I554520);
 
 }

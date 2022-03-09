@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/UnstableParticles.hh" 
+#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ALEPH_1996_I421984);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALEPH_1996_I421984);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -104,20 +104,20 @@ namespace Rivet {
       normalize(_h_omegapipi_momega ,1967.6*0.035);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_omegapi_momega[2], _h_omegapi_momegapi,_h_omegapipi_momega;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALEPH_1996_I421984);
+  RIVET_DECLARE_PLUGIN(ALEPH_1996_I421984);
 
 
 }

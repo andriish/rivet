@@ -2,7 +2,6 @@
 #include "Rivet/Tools/Utils.hh"
 
 namespace Rivet {
-
   namespace PID {
 
 
@@ -19,7 +18,7 @@ namespace Rivet {
     }
 
 
-    PdgId ParticleNames::_particleId(const std::string& pname) {
+    PdgId ParticleNames::_particleID(const std::string& pname) {
       if (_names_ids.find(pname) == _names_ids.end()) {
         if (toUpper(pname) == "P+" || toUpper(pname) == "P") return PROTON;
         if (toUpper(pname) == "P-" || toUpper(pname) == "PBAR") return ANTIPROTON;
@@ -47,5 +46,4 @@ namespace Rivet {
 
 
   }
-
 }

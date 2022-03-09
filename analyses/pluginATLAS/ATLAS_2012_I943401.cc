@@ -14,7 +14,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
 
@@ -22,13 +22,13 @@ namespace Rivet {
       : Analysis("ATLAS_2012_I943401")
     {    }
 
-    //@}
+    /// @}
 
 
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -343,7 +343,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     void finalize() {
@@ -399,7 +399,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _count_OS_SR1;
     Histo1DPtr _count_OS_SR2;
     Histo1DPtr _count_OS_SR3;
@@ -444,10 +444,10 @@ namespace Rivet {
     Histo1DPtr _hist_pT_l1_OS_B;
     Histo1DPtr _hist_pT_l2_OS_D;
     Histo1DPtr _hist_pT_l2_OS_B;
-    //@}
+    /// @}
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2012_I943401);
+  RIVET_DECLARE_PLUGIN(ATLAS_2012_I943401);
 
 }

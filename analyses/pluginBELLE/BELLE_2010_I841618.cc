@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BELLE_2010_I841618);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2010_I841618);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -62,7 +62,7 @@ namespace Rivet {
           ++nstable;
       }
     }
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
@@ -91,27 +91,27 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
 
-      normalize(_h_3pi); 
-      normalize(_h_Kpipi); 
-      normalize(_h_KKpi); 
-      normalize(_h_3K); 
+      normalize(_h_3pi);
+      normalize(_h_Kpipi);
+      normalize(_h_KKpi);
+      normalize(_h_3K);
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_3pi, _h_Kpipi, _h_KKpi, _h_3K;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BELLE_2010_I841618);
+  RIVET_DECLARE_PLUGIN(BELLE_2010_I841618);
 
 
 }

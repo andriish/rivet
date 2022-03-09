@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -55,7 +55,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       const double sqrts_tol = 10. ;
-      if (!fuzzyEquals(sqrtS()/GeV, 27.4, sqrts_tol)) {
+      if (!isCompatibleWithSqrtS(27.4*GeV, sqrts_tol)) {
         MSG_ERROR("Incorrect beam energy used: " << sqrtS()/GeV);
         throw Error("Unexpected sqrtS ! Only 27.4 GeV is supported");
       }
@@ -93,11 +93,11 @@ namespace Rivet {
       _hist_pT_M_400.scale(crossSection()/femtobarn/(sumOfWeights() * M_PI), this);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _hist_pT_M_400,_hist_pT_M_300,_hist_pT_M_200;
     Histo1DPtr _h_m_DiMuon ;
     Histo1DPtr _h_pT_DiMuon;
@@ -106,11 +106,11 @@ namespace Rivet {
     Histo1DPtr _h_XXXX, _h_YYYY, _h_ZZZZ;
     Profile1DPtr _p_AAAA;
     CounterPtr _c_BBBB;
-    //@}
+    /// @}
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(E288_1981_I153009);
+  RIVET_DECLARE_PLUGIN(E288_1981_I153009);
 
 }

@@ -9,7 +9,7 @@ namespace Rivet {
     public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     LHCB_2012_I1119400() : Analysis("LHCB_2012_I1119400"),
@@ -20,20 +20,20 @@ namespace Rivet {
       _eta_max(4.5)
     {   }
 
-    //@}
+    /// @}
 
 
     public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
       fillMap(_partLftMap);
 
       int id_shift = 0;
-      if (fuzzyEquals(sqrtS(), 7*TeV)) id_shift = 1;
+      if (isCompatibleWithSqrtS(7000*GeV)) id_shift = 1;
       // define ratios if second pdgid in pair is -1, it means that is a antiparticle/particle ratio
 
       _ratiotype["pbarp"]         = make_pair(2212, -1);
@@ -150,7 +150,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     private:
@@ -182,16 +182,16 @@ namespace Rivet {
     }
 
     // Data members like post-cuts event weight counters go here
-    const double getMotherLifeTimeSum(const Particle& p) {
+    double getMotherLifeTimeSum(const Particle& p) {
       if (p.genParticle() == nullptr) return -1.;
       double lftSum = 0.;
       double plft = 0.;
       ConstGenParticlePtr part = p.genParticle();
       ConstGenVertexPtr ivtx = part->production_vertex();
       while(ivtx){
-        
+
         vector<ConstGenParticlePtr> part_in = HepMCUtils::particles(ivtx, Relatives::PARENTS);
-        
+
         if (part_in.size() < 1) { lftSum = -1.; break; };
         part = part_in.at(0);
         if ( !(part) ) { lftSum = -1.; break; };
@@ -352,6 +352,6 @@ namespace Rivet {
 
 
   // Plugin hook
-  DECLARE_RIVET_PLUGIN(LHCB_2012_I1119400);
+  RIVET_DECLARE_PLUGIN(LHCB_2012_I1119400);
 
 }

@@ -17,6 +17,7 @@ RunInfo:
 NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [8000]
+Luminosity_fb: 20.3
 PtCuts: [25.]
 Description:
   Measurements of normalized differential cross-sections of top-quark pair production are presented as a function of the top-quark,

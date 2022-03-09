@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2004_I642355);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2004_I642355);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -48,7 +48,7 @@ namespace Rivet {
 	  K0.push_back(p);
 	}
 	else if(!p.children().empty()) {
-	  findDecay(p,charm,etaP,pi0,pip,Kp,K0); 
+	  findDecay(p,charm,etaP,pi0,pip,Kp,K0);
 	}
       }
     }
@@ -82,7 +82,7 @@ namespace Rivet {
 	  if(pi0.size()==1)
 	    pX+=pi0[0].momentum();
 	  _h_X->fill(pX.mass());
-	  
+
 	}
       }
     }
@@ -93,19 +93,19 @@ namespace Rivet {
       scale(_h_X, 0.5/ *_w_ups4);
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     CounterPtr _w_ups4;
     Histo1DPtr _h_X;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(BABAR_2004_I642355);
+  RIVET_DECLARE_PLUGIN(BABAR_2004_I642355);
 
 }

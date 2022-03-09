@@ -13,7 +13,7 @@ namespace Rivet {
   class MC_XS : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(MC_XS);
+    RIVET_DEFAULT_ANALYSIS_CTOR(MC_XS);
 
 
     /// @name Analysis methods
@@ -79,6 +79,6 @@ namespace Rivet {
 
 
 
-  DECLARE_RIVET_PLUGIN(MC_XS);
+  RIVET_DECLARE_PLUGIN(MC_XS);
 
 }

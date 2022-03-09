@@ -24,7 +24,7 @@ namespace Rivet {
 
 
     /// Default constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2016_I1467230);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2016_I1467230);
 
 
     /// Initialization, called once before running
@@ -117,17 +117,17 @@ namespace Rivet {
     CounterPtr _sumW[kNPartTypes][kNregions];
 
     /// @name Histogram arrays
-    //@{
+    /// @{
     Histo1DPtr   _hist_nch    [kNPartTypes][kNregions];
     Histo1DPtr   _hist_pt     [kNPartTypes][kNregions];
     Histo1DPtr   _hist_eta    [kNPartTypes][kNregions];
     Profile1DPtr _hist_ptnch  [kNPartTypes][kNregions];
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2016_I1467230);
+  RIVET_DECLARE_PLUGIN(ATLAS_2016_I1467230);
 
 }

@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TASSO_1980_I153511);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TASSO_1980_I153511);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -24,19 +24,19 @@ namespace Rivet {
 
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
-      
+
       // Thrust and sphericity
       declare(Sphericity(cfs), "Sphericity");
       // Book histograms
       unsigned int ihist=0;
-      if      (fuzzyEquals(sqrtS()/GeV, 12., 1e-3)) {
+      if      (isCompatibleWithSqrtS(12*GeV)) {
 	ihist=1;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 30., 1e-3)) {
+      else if (isCompatibleWithSqrtS(30*GeV)) {
 	ihist=2;
       }
       else
-	MSG_ERROR("Beam energy not supported!");
+	MSG_ERROR("Beam energy " << sqrtS() << " GeV not supported!");
 
       book(_h_S ,   ihist, 1, 1);
       book(_h_A , 2+ihist, 1, 1);
@@ -74,20 +74,20 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_S,_h_A,_h_x;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TASSO_1980_I153511);
+  RIVET_DECLARE_PLUGIN(TASSO_1980_I153511);
 
 
 }

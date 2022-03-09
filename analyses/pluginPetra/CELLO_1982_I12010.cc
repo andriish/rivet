@@ -11,23 +11,23 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CELLO_1982_I12010);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CELLO_1982_I12010);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
-    void init() {      
+    void init() {
       // Initialise and register projections
       declare(FinalState(), "FS");
 
       // Book histograms
       unsigned int iloc(0);
-      if(fuzzyEquals(sqrtS()/GeV, 22., 1e-3)) {
+      if(isCompatibleWithSqrtS(22*GeV)) {
 	iloc=1;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 34., 1e-3)) {
+      else if (isCompatibleWithSqrtS(34*GeV)) {
 	iloc=2;
       }
       else
@@ -83,21 +83,21 @@ namespace Rivet {
       scale(_histAEEC, 1.0/ *_weightSum);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histEEC, _histAEEC;
     CounterPtr _weightSum;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CELLO_1982_I12010);
+  RIVET_DECLARE_PLUGIN(CELLO_1982_I12010);
 
 
 }

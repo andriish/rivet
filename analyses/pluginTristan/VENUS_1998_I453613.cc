@@ -14,11 +14,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(VENUS_1998_I453613);
+    RIVET_DEFAULT_ANALYSIS_CTOR(VENUS_1998_I453613);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -117,26 +117,26 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
     /// @name Multiplicities
-    //@{
+    /// @{
     CounterPtr _cLight;
     CounterPtr _cCharm;
     CounterPtr _cBottom;
-    //@}
+    /// @}
 
     /// @name Weights
-    //@{
+    /// @{
     CounterPtr _weightLight;
     CounterPtr _weightBottom;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(VENUS_1998_I453613);
+  RIVET_DECLARE_PLUGIN(VENUS_1998_I453613);
 
 
 }

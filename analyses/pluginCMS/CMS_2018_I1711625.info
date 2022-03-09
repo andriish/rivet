@@ -18,9 +18,11 @@ NumEvents: 1000000
 NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [13000]
+Luminosity_fb: 2.5 
 Description:
-  'Differential Drell-Yan cross sections $d\sigma/dm$ are presented. The cross section measurement is reported in the dilepton invariant mass range from 15 to 3000 GeV.
-  The results within detector acceptance are provided in muon and electron channel respectively. In addition, the results in muon channel are also obtained with the correction to the full phase space and the other correction for the effects of final state radiation.'
+  'Differential Drell-Yan cross sections $d\sigma/dm$ are presented. The cross section measurement is reported in the dilepton invariant mass range
+  from 15 to 3000 GeV. The results within detector acceptance are provided in muon and electron channel respectively. In addition, the results
+  in muon channel are also obtained with the correction to the full phase space and the other correction for the effects of final state radiation.'
 BibKey: Sirunyan:2018owv
 BibTeX: '@article{Sirunyan:2018owv,
       author         = "Sirunyan, Albert M and others",

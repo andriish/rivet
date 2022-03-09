@@ -14,11 +14,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2013_I1223519);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2013_I1223519);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -205,11 +205,11 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Utility functions for partitioning jet pTs into two groups and summing/diffing them
-    //@{
+    /// @{
 
     /// Sum the given values into two subsets according to the provided bitmask
     template <size_t N>
@@ -231,21 +231,21 @@ namespace Rivet {
       return diff;
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_alphaT23, _h_alphaT4;
     vector<CounterPtr> _h_srcounters;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2013_I1223519);
+  RIVET_DECLARE_PLUGIN(CMS_2013_I1223519);
 
 
 }

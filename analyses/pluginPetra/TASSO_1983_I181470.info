@@ -9,12 +9,15 @@ Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Z.Phys. C17 (1983) 5-15, 1983 
-RunInfo: e+ e- to hadrons
+RunInfo: e+ e- to hadrons. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NeedCrossSection: yes
 Beams: [e+, e-]
 Energies: [14,22,34]
+Options:
+ - ENERGY=14, 22, 34
 Description:
-  'Measurement of the $\pi^\pm$, $K^\pm$ and $p,\bar{p}$ spectra in $e^+e^-$ collisions for centre-of-mass energyes of 14, 22 and 34 GeV by the TASSO experiment at Petra.'
+  'Measurement of the $\pi^\pm$, $K^\pm$ and $p,\bar{p}$ spectra in $e^+e^-$ collisions for centre-of-mass energies of 14, 22 and 34 GeV by the TASSO experiment at Petra.
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 Keywords: []
 BibKey: Althoff:1982dh
 BibTeX: '@article{Althoff:1982dh,

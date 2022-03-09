@@ -18,11 +18,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(SLD_2004_S5693039);
+    RIVET_DEFAULT_ANALYSIS_CTOR(SLD_2004_S5693039);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void analyze(const Event& e) {
       // First, veto on leptonic events by requiring at least 2 charged FS particles
@@ -332,7 +332,7 @@ namespace Rivet {
       _s_Pr_PBar->scaleY(100.);
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -366,6 +366,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(SLD_2004_S5693039, SLD_2004_I630327);
+  RIVET_DECLARE_ALIASED_PLUGIN(SLD_2004_S5693039, SLD_2004_I630327);
 
 }

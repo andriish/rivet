@@ -11,11 +11,11 @@ namespace Rivet {
   class CDF_1996_S3418421 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_1996_S3418421);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_1996_S3418421);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -63,22 +63,22 @@ namespace Rivet {
       divide(_htmp_chi_below_25, _htmp_chi_above_25, _h_ratio);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _h_chi;
     Histo1DPtr _htmp_chi_above_25, _htmp_chi_below_25;
     Scatter2DPtr _h_ratio;
-    //@}
+    /// @}
 
   };
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(CDF_1996_S3418421, CDF_1996_I423414);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_1996_S3418421, CDF_1996_I423414);
 
 }

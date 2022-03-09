@@ -22,9 +22,9 @@ namespace Rivet {
       declare(cfs, "CFS");
 
       int isqrts = -1;
-      if (fuzzyEquals(sqrtS(), 300*GeV)) isqrts = 1;
-      else if (fuzzyEquals(sqrtS(), 900*GeV)) isqrts = 2;
-      else if (fuzzyEquals(sqrtS(), 1960*GeV)) isqrts = 3;
+      if (isCompatibleWithSqrtS(300*GeV)) isqrts = 1;
+      else if (isCompatibleWithSqrtS(900*GeV)) isqrts = 2;
+      else if (isCompatibleWithSqrtS(1960*GeV)) isqrts = 3;
       assert(isqrts >= 0);
 
       book(_h_nch_transverse ,1,1,isqrts);
@@ -87,6 +87,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2012_NOTE10874);
+  RIVET_DECLARE_PLUGIN(CDF_2012_NOTE10874);
 
 }

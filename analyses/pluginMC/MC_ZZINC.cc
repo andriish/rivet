@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -146,13 +146,13 @@ namespace Rivet {
       scale(_h_ZeZm_m, s);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_ZZ_pT;
     Histo1DPtr _h_ZZ_pT_peak;
     Histo1DPtr _h_ZZ_eta;
@@ -171,13 +171,13 @@ namespace Rivet {
     Histo1DPtr _h_ZeZm_deta;
     Histo1DPtr _h_ZeZm_dR;
     Histo1DPtr _h_ZeZm_m;
-    //@}
+    /// @}
 
   };
 
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_ZZINC);
+  RIVET_DECLARE_PLUGIN(MC_ZZINC);
 
 }

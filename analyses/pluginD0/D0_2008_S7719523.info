@@ -24,12 +24,12 @@ Energies: [1960]
 PtCuts: [20]
 Description:
   The process $p \bar{p}$ -> photon + jet + X as studied by the D0 detector
-  at the Fermilab Tevatron collider at center-of-mass energy $\sqrt{s} = 1.96\;\TeV$.
+  at the Fermilab Tevatron collider at center-of-mass energy $\sqrt{s} = 1.96~\TeV$.
   Photons are reconstructed in the central rapidity region
-  $|y_\gamma| < 1.0$ with transverse momenta in the range 30--400\;GeV,
+  $|y_\gamma| < 1.0$ with transverse momenta in the range 30--400~GeV,
   while jets are reconstructed in either the central $|y_\text{jet}| < 0.8$ or
   forward $1.5 < |y_\text{jet}| < 2.5$ rapidity intervals with
-  $\pT^\text{jet} > 15\;\GeV$. The differential cross section
+  $\pT^\text{jet} > 15~\GeV$. The differential cross section
   $\mathrm{d}^3 \sigma / \mathrm{d}{\pT^\gamma} \mathrm{d}{y_\gamma}
   \mathrm{d}{y_\text{jet}}$ is measured as a function of $\pT^\gamma$ in four
   regions, differing by the relative orientations of the photon and the

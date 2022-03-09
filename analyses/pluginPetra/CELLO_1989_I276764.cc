@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CELLO_1989_I276764);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CELLO_1989_I276764);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -73,18 +73,18 @@ namespace Rivet {
     void finalize() {
 
       double fact = sqr(sqrtS())/GeV2*crossSection()/microbarn/sumOfWeights();
-      scale(_h_gamma, fact); 
-      scale(_h_pi0A , fact); 
-      scale(_h_pi0B , fact); 
-      scale(_h_eta  , fact); 
+      scale(_h_gamma, fact);
+      scale(_h_pi0A , fact);
+      scale(_h_pi0B , fact);
+      scale(_h_eta  , fact);
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_gamma,_h_pi0A,_h_pi0B,_h_eta;
 
 
@@ -92,7 +92,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CELLO_1989_I276764);
+  RIVET_DECLARE_PLUGIN(CELLO_1989_I276764);
 
 
 }

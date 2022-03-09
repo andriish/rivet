@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(UA5_1986_S1583476);
+    RIVET_DEFAULT_ANALYSIS_CTOR(UA5_1986_S1583476);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Set up projections and histograms
     void init() {
@@ -25,7 +25,7 @@ namespace Rivet {
       declare(ChargedFinalState((Cuts::etaIn(-5.0, 5.0))), "CFS50");
 
       // Histograms
-      if (fuzzyEquals(sqrtS()/GeV, 200.0, 1E-4)) {
+      if (isCompatibleWithSqrtS(200.0*GeV)) {
         book(_hist_eta_nsd       ,1,1,1);
         book(_hist_eta_inelastic ,1,1,2);
         _hists_eta_nsd.resize(6);
@@ -34,7 +34,7 @@ namespace Rivet {
           book(_sumWn.back(), "TMP/sumWn"+to_str(i));
           book(_hists_eta_nsd[i-1],2,1,i);
         }
-      } else if (fuzzyEquals(sqrtS()/GeV, 900.0, 1E-4)) {
+      } else if (isCompatibleWithSqrtS(900.0*GeV)) {
         book(_hist_eta_nsd       ,1,1,3);
         book(_hist_eta_inelastic ,1,1,4);
         _hists_eta_nsd.resize(9);
@@ -99,23 +99,23 @@ namespace Rivet {
   private:
 
     /// @name Weight counters
-    //@{
+    /// @{
     CounterPtr _sumWTrig;
     CounterPtr _sumWTrigNSD;
     vector<CounterPtr> _sumWn;
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _hist_eta_nsd;
     Histo1DPtr _hist_eta_inelastic;
     vector<Histo1DPtr> _hists_eta_nsd;
-    //@}
+    /// @}
 
   };
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(UA5_1986_S1583476, UA5_1986_I233599);
+  RIVET_DECLARE_ALIASED_PLUGIN(UA5_1986_S1583476, UA5_1986_I233599);
 
 }

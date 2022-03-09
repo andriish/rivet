@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BELLE_2011_I878990);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2011_I878990);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -43,7 +43,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // Loop over B0 mesons 
+      // Loop over B0 mesons
       for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::B0)) {
         if (isSemileptonicDecay(p, {PID::PIMINUS, PID::POSITRON, PID::NU_E}) ||
             isSemileptonicDecay(p, {PID::PIMINUS, PID::ANTIMUON, PID::NU_MU})) {
@@ -60,23 +60,23 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_q2;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BELLE_2011_I878990);
+  RIVET_DECLARE_PLUGIN(BELLE_2011_I878990);
 
 
 }

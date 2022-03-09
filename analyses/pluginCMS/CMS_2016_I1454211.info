@@ -20,7 +20,7 @@ RunInfo:
   '$pp$ QCD interactions at $\sqrt{s} = 8~\TeV with $t\bar{t}$ process. Data collected by CMS
   during the year 2012. Boosted topology restricts phase space, requiring high statistics in
   a single run or custom merging of the YODA files.'
-Luminosity: 19.7/fb
+Luminosity_fb: 19.7
 Beams: [p+, p+]
 Energies: [8000]
 Options:

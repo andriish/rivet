@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(JADE_1981_I166363);
+    RIVET_DEFAULT_ANALYSIS_CTOR(JADE_1981_I166363);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -59,20 +59,20 @@ namespace Rivet {
       scale(_h_lambdabar, crossSection()/nanobarn/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr  _h_pbar, _h_lambdabar;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(JADE_1981_I166363);
+  RIVET_DECLARE_PLUGIN(JADE_1981_I166363);
 
 
 }

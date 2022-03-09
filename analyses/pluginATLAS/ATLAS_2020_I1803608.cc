@@ -6,13 +6,18 @@
 #include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
-  
+
+
   /// VBFZ in pp at 13 TeV
   class ATLAS_2020_I1803608 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2020_I1803608);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2020_I1803608);
+
+
+    /// @name Analysis methods
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -40,22 +45,22 @@ namespace Rivet {
         initialisePlots(CRAplots, "CRA");
         initialisePlots(CRBplots, "CRB");
         initialisePlots(CRCplots, "CRC");
-      }
-      else {
+      } else {
         initialisePlots(SRplots, "EW");
-     }
+      }
     }
+
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      // access fiducial electrons and muons
+      // Access fiducial electrons and muons
       const Particle *l1 = nullptr, *l2 = nullptr;
-      auto muons = apply<DressedLeptons>(event, "DressedMuons").dressedLeptons();
-      auto elecs = apply<DressedLeptons>(event, "DressedElectrons").dressedLeptons();
+      Particles muons = apply<DressedLeptons>(event, "DressedMuons").particles();
+      Particles elecs = apply<DressedLeptons>(event, "DressedElectrons").particles();
 
       // Dilepton selection 1: =2 leptons of the same kind
-      if (muons.size()+elecs.size()!=2) vetoEvent;
+      if (muons.size()+elecs.size() != 2) vetoEvent;
       if      (muons.size()==2) { l1=&muons[0]; l2=&muons[1]; }
       else if (elecs.size()==2) { l1=&elecs[0]; l2=&elecs[1]; }
       else vetoEvent;
@@ -99,6 +104,7 @@ namespace Rivet {
       }
     }
 
+
     void finalize() {
       const double xsec = crossSectionPerEvent()/femtobarn;
       scalePlots(SRplots, xsec);
@@ -107,6 +113,12 @@ namespace Rivet {
       scalePlots(CRCplots, xsec);
     }
 
+    /// @}
+
+
+    /// @name Analysis helpers
+    /// @{
+
     struct Variables {
       Variables(const vector<Jet>& jets, const Particle* l1, const Particle* l2) {
         // get the jets
@@ -114,31 +126,31 @@ namespace Rivet {
         FourMomentum j1 = jets[0].mom(), j2 = jets[1].mom();
         pTj1 = j1.pT()/GeV; pTj2 = j2.pT()/GeV;
         assert(pTj1 >= pTj2);
-        
+
         // build dilepton system
         FourMomentum ll = (l1->mom() + l2->mom());
         pTll = ll.pT(); mll = ll.mass();
-        
+
         Nj = jets.size();
         Dyjj = std::abs(j1.rap() - j2.rap());
         mjj = (j1 + j2).mass();
         Dphijj = ( j1.rap() > j2.rap() ) ? mapAngleMPiToPi(j1.phi() - j2.phi()) : mapAngleMPiToPi(j2.phi() - j1.phi());
-        
+
         Jets gjets = getGapJets(jets);
         Ngj = gjets.size();
         pTgj = Ngj? gjets[0].pT()/GeV : 0;
-        
+
         FourMomentum vecSum = (j1 + j2 + l1->mom() + l2->mom());
         double HT = j1.pT() + j2.pT() + l1->pT() + l2->pT();
-        if (Ngj) { 
-          vecSum += gjets[0].mom(); 
+        if (Ngj) {
+          vecSum += gjets[0].mom();
           HT += pTgj;
         }
         pTbal = vecSum.pT() / HT;
-        
+
         Zcent = std::abs(ll.rap() - (j1.rap() + j2.rap())/2) / Dyjj;
       }
-      
+
       double Zcent, pTj1, pTj2, pTgj, pTll, mll, Dyjj, mjj, Dphijj, pTbal;
       size_t Nj, Ngj;
 
@@ -155,10 +167,12 @@ namespace Rivet {
 
     }; // struct variables
 
+
     struct Plots {
       string label;
       Histo1DPtr m_jj, Dphi_jj, Dy_jj, pT_ll;
     };
+
 
     void initialisePlots(Plots& plots, const string& phase_space) {
       plots.label   = phase_space;
@@ -173,6 +187,7 @@ namespace Rivet {
       book(plots.Dphi_jj, 4 + region, 1, 1);
     }
 
+
     void fillPlots(const Variables& vars, Plots& plots) {
       // The mjj plot extends down to 250 GeV
       plots.m_jj->fill(vars.mjj/GeV);
@@ -183,19 +198,26 @@ namespace Rivet {
       }
     }
 
-    void scalePlots(Plots& plots, const double xsec){
+
+    void scalePlots(Plots& plots, const double xsec) {
       scale(plots.m_jj, xsec);
       scale(plots.Dy_jj, xsec);
       scale(plots.Dphi_jj, xsec);
       scale(plots.pT_ll, xsec);
     }
 
-    //@}
+    /// @}
+
+
     private:
 
       Plots SRplots, CRAplots, CRBplots, CRCplots;
       bool _doControl;
+
   };
-  
-  DECLARE_RIVET_PLUGIN(ATLAS_2020_I1803608);
+
+
+
+  RIVET_DECLARE_PLUGIN(ATLAS_2020_I1803608);
+
 }

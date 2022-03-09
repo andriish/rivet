@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2011_S8971293);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_S8971293);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -74,6 +74,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(ATLAS_2011_S8971293, ATLAS_2011_I889546);
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2011_S8971293, ATLAS_2011_I889546);
 
 }

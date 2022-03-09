@@ -11,14 +11,14 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TOPAZ_1989_I279575);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TOPAZ_1989_I279575);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
-    void init() {   
+    void init() {
 
 
       // Initialise and register projections
@@ -26,10 +26,10 @@ namespace Rivet {
 
       // Book histograms
       unsigned int iloc(0);
-      if(fuzzyEquals(sqrtS()/GeV, 53.3, 1e-3)) {
+      if(isCompatibleWithSqrtS(53.3*GeV)) {
 	iloc=1;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 59.5, 1e-3)) {
+      else if (isCompatibleWithSqrtS(59.5*GeV)) {
 	iloc=2;
       }
       else
@@ -90,21 +90,21 @@ namespace Rivet {
       scale(_histAEEC  , 180.0/M_PI/ *_weightSum);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histEEC, _histEEC_Pi, _histAEEC;
     CounterPtr _weightSum;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TOPAZ_1989_I279575);
+  RIVET_DECLARE_PLUGIN(TOPAZ_1989_I279575);
 
 
 }

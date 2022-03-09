@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_1996_S3108457);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_1996_S3108457);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -84,22 +84,22 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_m[5];
     Histo1DPtr _h_costheta[5];
     Histo1DPtr _h_pT[5];
-    //@}
+    /// @}
 
   };
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(CDF_1996_S3108457, CDF_1996_I393345);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_1996_S3108457, CDF_1996_I393345);
 
 }

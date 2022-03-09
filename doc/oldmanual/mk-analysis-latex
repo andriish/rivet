@@ -48,7 +48,7 @@ for aname in sorted(list(all_analyses)):
         subtitle = "\\subsection[%s]{%s}\n" % (safe_aname, safe_aname + "\," + citetex)
     page += subtitle
     page += "\\textbf{%s}\\newline\n" % niceify(ana.summary())
-    if ana.requiredBeams():
+    if ana.requiredBeamIDs():
         def pid_to_str(pid):
             if pid == 11:
                 return "$e^-$"
@@ -63,25 +63,25 @@ for aname in sorted(list(all_analyses)):
             else:
                 return str(pid)
         beamstrs = []
-        for bp in ana.requiredBeams():
+        for bp in ana.requiredBeamIDs():
             beamstrs.append(pid_to_str(bp[0]) + "\\," + pid_to_str(bp[1]))
         page += "\\textbf{Beams:} %s \\newline\n" % ", ".join(beamstrs)
-    if ana.requiredEnergies():
+    if ana.requiredBeamEnergies():
         page += "\\textbf{Energies:} %s GeV \\newline\n" % \
-            ", ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.requiredEnergies()])
+            ", ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.requiredBeamEnergies()])
     if ana.experiment():
         page += "\\textbf{Experiment:} %s" % ana.experiment()
         if ana.collider():
             page += " (%s)" % ana.collider()
         page += "\\newline\n"
-    if ana.inspireId():
+    if ana.inspireID():
         spiresbase = "http://inspire-hep.net/record"
         page += "\\textbf{Inspire ID:} \\href{%s+%s}{%s}\\newline\n" % \
-            (spiresbase, ana.inspireId(), ana.inspireId())
-    elif ana.spiresId():
+            (spiresbase, ana.inspireID(), ana.inspireID())
+    elif ana.spiresID():
         spiresbase = "http://inspire-hep.net/search?p=find+key"
         page += "\\textbf{Spires ID:} \\href{%s+%s}{%s}\\newline\n" % \
-            (spiresbase, ana.spiresId(), ana.spiresId())
+            (spiresbase, ana.spiresID(), ana.spiresID())
     page += "\\textbf{Status:} %s\\newline\n" % ana.status()
 
     if ana.authors():

@@ -9,7 +9,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2012_I1116147);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2012_I1116147);
 
 
     /// Initialise projections and histograms
@@ -19,8 +19,8 @@ namespace Rivet {
       declare(ufs, "UFS");
 
       // Check if cm energy is 7 TeV or 0.9 TeV
-      if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3))       _cm_energy_case = 1;
-      else if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) _cm_energy_case = 2;
+      if (isCompatibleWithSqrtS(900*GeV))       _cm_energy_case = 1;
+      else if (isCompatibleWithSqrtS(7000*GeV)) _cm_energy_case = 2;
       if (_cm_energy_case == 0)
         throw UserError("Center of mass energy of the given input is neither 900 nor 7000 GeV.");
 
@@ -81,6 +81,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ALICE_2012_I1116147);
+  RIVET_DECLARE_PLUGIN(ALICE_2012_I1116147);
 
 }

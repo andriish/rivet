@@ -22,11 +22,11 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
     virtual void init();
     virtual void analyze(const Event& event);
     virtual void finalize();
-    //@}
+    /// @}
 
 
   protected:
@@ -44,7 +44,7 @@ namespace Rivet {
     /// @todo Add jet masses and d(rap)
 
     /// @name Histograms
-    //@{
+    /// @{
     std::vector<Histo1DPtr> _h_pT_jet;
     std::vector<Histo1DPtr> _h_eta_jet;
     std::vector<Histo1DPtr> _h_eta_jet_plus, _h_eta_jet_minus;
@@ -59,7 +59,7 @@ namespace Rivet {
     Histo1DPtr _h_jet_multi_inclusive;
     Scatter2DPtr _h_jet_multi_ratio;
     Histo1DPtr _h_jet_HT, _h_mjj_jets;
-    //@}
+    /// @}
 
   };
 

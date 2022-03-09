@@ -14,6 +14,7 @@ RunInfo:
   Inclusive prompt photon production
 Beams: [p+, p+]
 Energies: [8000]
+Luminosity_fb: 20.2
 PtCuts: [25]
 NeedCrossSection: True
 Description:

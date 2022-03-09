@@ -61,7 +61,7 @@ namespace Rivet {
 /// protojets exceeds this, again a fastjet::Error exception will be
 /// thrown.
 ///
-/// The functionality of pxcone is described at 
+/// The functionality of pxcone is described at
 /// http://www.hep.man.ac.uk/u/wplano/ConeJet.ps
 //
 //----------------------------------------------------------------------
@@ -83,16 +83,16 @@ public:
   ///     otherwise the less energetic protojet is discarded. Called
   ///     ovlim in pxcone.
   ///
-  ///   - pxcone carries out p-scheme recombination, and the resulting 
+  ///   - pxcone carries out p-scheme recombination, and the resulting
   ///     jets are massless; setting E_scheme_jets = true (default
   ///     false) doesn't change the jet composition, but the final
   ///     momentum sum for the jets is carried out by direct
   ///     four-vector addition instead of p-scheme recombination.
   ///
-  PxConePlugin (double  cone_radius_in      , 
-		double  min_jet_energy_in = 5.0  , 
+  PxConePlugin (double  cone_radius_in      ,
+		double  min_jet_energy_in = 5.0  ,
 		double  overlap_threshold_in = 0.5,
-                bool    E_scheme_jets_in = false) : 
+                bool    E_scheme_jets_in = false) :
     _cone_radius        (cone_radius_in      ),
     _min_jet_energy     (min_jet_energy_in   ),
     _overlap_threshold  (overlap_threshold_in),
@@ -151,7 +151,7 @@ private:
   (
           int       mode   ,    // 1=>e+e-, 2=>hadron-hadron
           int       ntrak  ,    // Number of particles
-          int       itkdm  ,    // First dimension of PTRAK array: 
+          int       itkdm  ,    // First dimension of PTRAK array:
     const double *  ptrak  ,    // Array of particle 4-momenta (Px,Py,Pz,E)
           double    coner  ,    // Cone size (half angle) in radians
           double    epslon ,    // Minimum Jet energy (GeV)

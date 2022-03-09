@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(SND_2020_I1809286);
+    RIVET_DEFAULT_ANALYSIS_CTOR(SND_2020_I1809286);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -49,7 +49,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      
+
       const FinalState& fs = apply<FinalState>(event, "FS");
 
       map<long,int> nCount;
@@ -161,19 +161,19 @@ namespace Rivet {
       }
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     CounterPtr _c_total,_c_omega,_c_rho,_c_rhop;
     Histo1DPtr _h_x,_h_m;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(SND_2020_I1809286);
+  RIVET_DECLARE_PLUGIN(SND_2020_I1809286);
 
 }

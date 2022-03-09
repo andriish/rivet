@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2020_I1808726);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2020_I1808726);
 
     double xs1 = 0.0;
     double xs2 = 0.0;
@@ -118,11 +118,11 @@ namespace Rivet {
       book(_h["D_j6_h2"], 68, 1, 1);
       book(_h["D_j6_h3"], 72, 1, 1);
     }
-    
+
     void analyze(const Event& event) {
-      
+
       const Jets& jets = apply<FastJets>(event, "Jets").jetsByPt(7.0*GeV);
-      
+
       //Select jets passing kinematic cuts
       std::vector<const Jet*> goodJets; goodJets.clear();
       std::vector<Vector3> momenta2; momenta2.clear();
@@ -141,7 +141,7 @@ namespace Rivet {
 	          momenta3.push_back(jet3);
 	       }
         }
-      
+
       //Dijet event selection
       if (goodJets.size() < 2) vetoEvent;
       double ht2 = goodJets[0]->pt()+goodJets[1]->pt();
@@ -151,13 +151,13 @@ namespace Rivet {
       if (ht2 > 1000.0*GeV && ht2 < 1500.0*GeV) _h["njet_h1"]->fill(goodJets.size());
       if (ht2 > 1500.0*GeV && ht2 < 2000.0*GeV) _h["njet_h2"]->fill(goodJets.size());
       if (ht2 > 2000.0*GeV) _h["njet_h3"]->fill(goodJets.size());
-      
+
       //Thrust calculation
       Thrust thrust;
       thrust.calc(momenta2);
       const double transThrust  = 1.0 - thrust.thrust();
       const double transMinor = thrust.thrustMajor();
-      
+
       //Linearized sphericity calculation (2D)
       double a11 = 0.0; double a22 = 0.0;
       double a12 = 0.0;
@@ -202,10 +202,10 @@ namespace Rivet {
       double p1 = sph3.get(0,1)*sph3.get(0,1) + sph3.get(0,2)*sph3.get(0,2) + sph3.get(1,2)*sph3.get(1,2);
       double p2 = (sph3.get(0,0)-q)*(sph3.get(0,0)-q) + (sph3.get(1,1)-q)*(sph3.get(1,1)-q) + (sph3.get(2,2)-q)*(sph3.get(2,2)-q) + 2*p1;
       double p = sqrt(p2/6.);
-      
+
       Matrix3 I3 = Matrix3::mkIdentity();
       double r = ( 1./p * (sph3 - q*I3)).det()/2.;
-      
+
       double phi(0);
       if (r <= -1) phi = M_PI / 3.;
       else if (r >= 1) phi = 0;
@@ -222,7 +222,7 @@ namespace Rivet {
       //Fill event-shape histograms
       if (ht2 > 1000.0*GeV && ht2 < 1500.0*GeV){
 
-      	if (goodJets.size() == 3){ 
+      	if (goodJets.size() == 3){
 	       _h["transThrust_j3_h1"]->fill(transThrust); _h["transMinor_j3_h1"]->fill(transMinor);
 	       _h["transSphericity_j3_h1"]->fill(transSphericity); _h["aplanarity_j3_h1"]->fill(aplanarity);
 	       _h["C_j3_h1"]->fill(C); _h["D_j3_h1"]->fill(D);
@@ -305,11 +305,11 @@ namespace Rivet {
 
 
     void finalize() {
-    
+
       const double xs1 = _h["njet_h1"]->sumW();
       const double xs2 = _h["njet_h2"]->sumW();
       const double xs3 = _h["njet_h3"]->sumW();
-      
+
       for (auto& hist : _h) {
         if (hist.first.find("njet_") != string::npos)  scale(hist.second, crossSectionPerEvent()/picobarn);
         else if (hist.first.find("_h1") != string::npos) scale(hist.second, 1.0/xs1);
@@ -319,12 +319,12 @@ namespace Rivet {
     }
 
   private:
-  
+
     //Jet multiplicity
     map<string,Histo1DPtr> _h;
 
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2020_I1808726);
+  RIVET_DECLARE_PLUGIN(ATLAS_2020_I1808726);
 }

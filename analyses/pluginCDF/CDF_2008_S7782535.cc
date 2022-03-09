@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2008_S7782535);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2008_S7782535);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Set up projections
@@ -105,30 +105,30 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Analysis data
-    //@{
+    /// @{
     /// Jet \f$ p_\perp\f$ bins.
     vector<double> _ptedges; // This can't be a raw array if we want to initialise it non-painfully
     /// JetShape projection name for each \f$p_\perp\f$ bin.
     string _jsnames_pT[4];
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Profile1DPtr _h_Psi_pT[4];
     Scatter2DPtr _h_OneMinusPsi_vs_pT;
-    //@}
+    /// @}
 
   };
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2008_S7782535, CDF_2008_I787780);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_2008_S7782535, CDF_2008_I787780);
 
 }

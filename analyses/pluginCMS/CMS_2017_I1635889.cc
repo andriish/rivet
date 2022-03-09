@@ -9,7 +9,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// Underlying event activity in the Drell-Yan process at 13 TeV
@@ -101,19 +101,19 @@ namespace Rivet {
 
 
     /// @name Histogram objects
-    //@{
+    /// @{
     Profile1DPtr _h_Nchg_towards_pTmumu;
     Profile1DPtr _h_Nchg_transverse_pTmumu;
     Profile1DPtr _h_Nchg_away_pTmumu;
     Profile1DPtr _h_pTsum_towards_pTmumu;
     Profile1DPtr _h_pTsum_transverse_pTmumu;
     Profile1DPtr _h_pTsum_away_pTmumu;
-    //@}
+    /// @}
 
   };
 
 
   // Hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2017_I1635889);
+  RIVET_DECLARE_PLUGIN(CMS_2017_I1635889);
 
 }

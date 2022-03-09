@@ -17,11 +17,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(OPAL_2000_I513476);
+    RIVET_DEFAULT_ANALYSIS_CTOR(OPAL_2000_I513476);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -42,11 +42,11 @@ namespace Rivet {
 
       // Book histograms
       int ih=-1;
-      if (fuzzyEquals(sqrtS()/GeV, 172)) {
+      if (isCompatibleWithSqrtS(172*GeV)) {
         ih = 1;
-      } else if (fuzzyEquals(sqrtS()/GeV, 183)) {
+      } else if (isCompatibleWithSqrtS(183*GeV)) {
         ih = 2;
-      } else if (fuzzyEquals(sqrtS()/GeV, 189)) {
+      } else if (isCompatibleWithSqrtS(189*GeV)) {
         ih = 3;
       }
       else {
@@ -80,12 +80,12 @@ namespace Rivet {
       if (cfs.size() < 2) vetoEvent;
 
       _sumW->fill();
-      
+
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
-      
+
       // Thrust related
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
       _h_thrust    ->fill(thrust.thrust()     );
@@ -97,7 +97,7 @@ namespace Rivet {
       const Sphericity& sphericity = apply<Sphericity>(event, "Sphericity");
       _h_sphericity->fill(sphericity.sphericity());
       _h_aplanarity->fill(sphericity.aplanarity());
-      
+
       // C parameter
       const ParisiTensor& parisi = apply<ParisiTensor>(event, "Parisi");
       _h_C->fill(parisi.C());
@@ -108,7 +108,7 @@ namespace Rivet {
       _h_rhoH  ->fill(hemi.scaledMhigh());
       _h_wideB ->fill(hemi.Bmax());
       _h_totalB->fill(hemi.Bsum());
-      
+
       // Jets
       const FastJets& durjet = apply<FastJets>(event, "DurhamJets");
       const double y23 = durjet.clusterSeq()->exclusive_ymerge_max(2);
@@ -159,49 +159,49 @@ namespace Rivet {
       double nch_err = _h_mult->xStdErr();
       Scatter2DPtr m_ch;
       book(m_ch,14,1,1);
-      m_ch->addPoint(sqrtS(),nch,0.,nch_err);
+      m_ch->addPoint(sqrtS()/GeV,nch,0.,nch_err);
       // mean ptIn
       double pTin     = _h_pTin->xMean();
       double pTin_err = _h_pTin->xStdErr();
       Scatter2DPtr m_pTin;
       book(m_pTin,20,1,1);
-      m_pTin->addPoint(sqrtS(),pTin,0.,pTin_err);
+      m_pTin->addPoint(sqrtS()/GeV,pTin,0.,pTin_err);
       // mean ptOut
       double pTout     = _h_pTout->xMean();
       double pTout_err = _h_pTout->xStdErr();
       Scatter2DPtr m_pTout;
       book(m_pTout,20,1,2);
-      m_pTout->addPoint(sqrtS(),pTout,0.,pTout_err);
+      m_pTout->addPoint(sqrtS()/GeV,pTout,0.,pTout_err);
       // mean y
       double y     = _h_y->xMean();
       double y_err = _h_y->xStdErr();
       Scatter2DPtr m_y;
       book(m_y,20,1,3);
-      m_y->addPoint(sqrtS(),y,0.,y_err);
+      m_y->addPoint(sqrtS()/GeV,y,0.,y_err);
       // mean x
       double x     = _h_x->xMean();
       double x_err = _h_x->xStdErr();
       Scatter2DPtr m_x;
       book(m_x,20,1,4);
-      m_x->addPoint(sqrtS(),x,0.,x_err);
+      m_x->addPoint(sqrtS()/GeV,x,0.,x_err);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_thrust,_h_major,_h_minor,_h_aplanarity,_h_oblateness,_h_C,_h_rhoH,_h_sphericity;
     Histo1DPtr _h_totalB,_h_wideB,_h_y23,_h_mult,_h_pTin,_h_pTout,_h_y,_h_x,_h_xi;
     CounterPtr _sumW;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OPAL_2000_I513476);
+  RIVET_DECLARE_PLUGIN(OPAL_2000_I513476);
 
 
 }

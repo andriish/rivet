@@ -8,7 +8,7 @@ namespace Rivet {
   class CMS_2015_I1370682_PARTON : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2015_I1370682_PARTON);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2015_I1370682_PARTON);
 
 
     /// Book projections and histograms
@@ -86,11 +86,11 @@ namespace Rivet {
 
 
       void finalize() {
-        normalize(_hSL_topPt); normalize(_hSL_topPtTtbarSys); normalize(_hSL_topY); 
-        normalize(_hSL_ttbarDelPhi); normalize(_hSL_topPtLead); normalize(_hSL_topPtSubLead); 
+        normalize(_hSL_topPt); normalize(_hSL_topPtTtbarSys); normalize(_hSL_topY);
+        normalize(_hSL_ttbarDelPhi); normalize(_hSL_topPtLead); normalize(_hSL_topPtSubLead);
         normalize(_hSL_ttbarPt); normalize(_hSL_ttbarY); normalize(_hSL_ttbarMass);
-        normalize(_hDL_topPt); normalize(_hDL_topPtTtbarSys); normalize(_hDL_topY); 
-        normalize(_hDL_ttbarDelPhi); normalize(_hDL_topPtLead); normalize(_hDL_topPtSubLead); 
+        normalize(_hDL_topPt); normalize(_hDL_topPtTtbarSys); normalize(_hDL_topY);
+        normalize(_hDL_ttbarDelPhi); normalize(_hDL_topPtLead); normalize(_hDL_topPtSubLead);
         normalize(_hDL_ttbarPt); normalize(_hDL_ttbarY); normalize(_hDL_ttbarMass);
       }
 
@@ -98,16 +98,16 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _hSL_topPt, _hSL_topPtTtbarSys, _hSL_topY, _hSL_ttbarDelPhi, _hSL_topPtLead,
       _hSL_topPtSubLead, _hSL_ttbarPt, _hSL_ttbarY, _hSL_ttbarMass;
     Histo1DPtr _hDL_topPt, _hDL_topPtTtbarSys, _hDL_topY, _hDL_ttbarDelPhi, _hDL_topPtLead,
       _hDL_topPtSubLead, _hDL_ttbarPt, _hDL_ttbarY, _hDL_ttbarMass;
-    //@}
+    /// @}
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(CMS_2015_I1370682_PARTON);
+  RIVET_DECLARE_PLUGIN(CMS_2015_I1370682_PARTON);
 
 }

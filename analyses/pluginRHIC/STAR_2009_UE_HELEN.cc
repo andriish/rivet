@@ -23,7 +23,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Charged final state, |eta|<1, pT>0.2GeV
@@ -148,7 +148,7 @@ namespace Rivet {
       //
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -162,6 +162,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(STAR_2009_UE_HELEN);
+  RIVET_DECLARE_PLUGIN(STAR_2009_UE_HELEN);
 
 }

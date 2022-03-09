@@ -4,8 +4,6 @@
 
 namespace Rivet {
 
-  
-
 
   MC_JetAnalysis::MC_JetAnalysis(const string& name,
                                  size_t njet,
@@ -16,36 +14,36 @@ namespace Rivet {
       _h_eta_jet(njet), _h_eta_jet_plus(njet), _h_eta_jet_minus(njet),
       _h_rap_jet(njet), _h_rap_jet_plus(njet), _h_rap_jet_minus(njet),
       _h_mass_jet(njet), tmpeta(njet), tmprap(njet)
-  {
-
-  }
-
+  {    }
 
 
   // Book histograms
   void MC_JetAnalysis::init() {
-    const double sqrts = sqrtS() ? sqrtS() : 14000.*GeV;
+    const double sqrts = sqrtS() ? sqrtS() : 14*TeV;
+
+    // Get an optional rebinning factor from the analysis options
+    const int rebin = getOption<int>("REBIN", 1);
 
     for (size_t i = 0; i < _njet; ++i) {
       const string pTname = "jet_pT_" + to_str(i+1);
       const double pTmax = 1.0/(double(i)+2.0) * sqrts/GeV/2.0;
-      const int nbins_pT = 100/(i+1);
+      const int nbins_pT = 100/(i+1)/rebin;
       if (pTmax > 10) { // Protection aginst logspace exception, needed for LEP
         book(_h_pT_jet[i] ,pTname, logspace(nbins_pT, 10.0, pTmax));
       }
 
       const string massname = "jet_mass_" + to_str(i+1);
       const double mmax = 100.0;
-      const int nbins_m = 100/(i+1);
+      const int nbins_m = 100/(i+1)/rebin;
       book(_h_mass_jet[i] ,massname, logspace(nbins_m, 1.0, mmax));
 
       const string etaname = "jet_eta_" + to_str(i+1);
-      book(_h_eta_jet[i] ,etaname, i > 1 ? 25 : 50, -5.0, 5.0);
+      book(_h_eta_jet[i] ,etaname, (i > 1 ? 25 : 50)/rebin, -5.0, 5.0);
       book(_h_eta_jet_plus[i], "_" + etaname + "_plus", i > 1 ? 15 : 25, 0, 5);
       book(_h_eta_jet_minus[i], "_" + etaname + "_minus", i > 1 ? 15 : 25, 0, 5);
 
       const string rapname = "jet_y_" + to_str(i+1);
-      book(_h_rap_jet[i] ,rapname, i>1 ? 25 : 50, -5.0, 5.0);
+      book(_h_rap_jet[i] ,rapname, (i > 1 ? 25 : 50)/rebin, -5.0, 5.0);
       book(_h_rap_jet_plus[i], "_" + rapname + "_plus", i > 1 ? 15 : 25, 0, 5);
       book(_h_rap_jet_minus[i], "_" + rapname + "_minus", i > 1 ? 15 : 25, 0, 5);
 
@@ -57,21 +55,21 @@ namespace Rivet {
         const string ijstr = to_str(i+1) + to_str(j+1);
 
         string detaname = "jets_deta_" + ijstr;
-        book(_h_deta_jets[ij], detaname, 25, -5.0, 5.0);
+        book(_h_deta_jets[ij], detaname, 25/rebin, -5.0, 5.0);
 
         string dphiname = "jets_dphi_" + ijstr;
-        book(_h_dphi_jets[ij], dphiname, 25, 0.0, M_PI);
+        book(_h_dphi_jets[ij], dphiname, 25/rebin, 0.0, M_PI);
 
         string dRname = "jets_dR_" + ijstr;
-        book(_h_dR_jets[ij], dRname, 25, 0.0, 5.0);
+        book(_h_dR_jets[ij], dRname, 25/rebin, 0.0, 5.0);
       }
     }
 
     book(_h_jet_multi_exclusive ,"jet_multi_exclusive", _njet+3, -0.5, _njet+3-0.5);
     book(_h_jet_multi_inclusive ,"jet_multi_inclusive", _njet+3, -0.5, _njet+3-0.5);
     book(_h_jet_multi_ratio, "jet_multi_ratio");
-    book(_h_jet_HT ,"jet_HT", logspace(50, _jetptcut, sqrts/GeV/2.0));
-    book(_h_mjj_jets, "jets_mjj", 40, 0.0, sqrts/GeV/2.0);
+    book(_h_jet_HT ,"jet_HT", logspace(50/rebin, _jetptcut, sqrts/GeV/2.0));
+    book(_h_mjj_jets, "jets_mjj", 40/rebin, 0.0, sqrts/GeV/2.0);
   }
 
 
@@ -163,8 +161,9 @@ namespace Rivet {
     for (HistMap::value_type& it : _h_dR_jets) scale(it.second, scaling);
 
     // Fill inclusive jet multi ratio
-    int Nbins = _h_jet_multi_inclusive->numBins();
-    for (int i = 0; i < Nbins-1; ++i) {
+    size_t Nbins = _h_jet_multi_inclusive->numBins();
+    size_t Npoints = (Nbins > 0) ? Nbins-1 : 0;
+    for (size_t i = 0; i < Npoints; ++i) { //< careful with 0-bin histos (huh?!)
       _h_jet_multi_ratio->addPoint(i+1, 0, 0.5, 0);
       if (_h_jet_multi_inclusive->bin(i).sumW() > 0.0) {
         const double ratio = _h_jet_multi_inclusive->bin(i+1).sumW()/_h_jet_multi_inclusive->bin(i).sumW();

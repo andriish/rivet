@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BELLE_2013_I1238273);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2013_I1238273);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -88,27 +88,27 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_q2_B0bar_pi    ;
     Histo1DPtr _h_q2_B0bar_rho   ;
     Histo1DPtr _h_q2_Bminus_pi   ;
     Histo1DPtr _h_q2_Bminus_rho  ;
     Histo1DPtr _h_q2_Bminus_omega;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BELLE_2013_I1238273);
+  RIVET_DECLARE_PLUGIN(BELLE_2013_I1238273);
 
 
 }

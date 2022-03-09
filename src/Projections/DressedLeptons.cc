@@ -80,10 +80,10 @@ namespace Rivet {
 
 
   // Single-FS version
-  DressedLeptons::DressedLeptons(const FinalState& barefs,
+  DressedLeptons::DressedLeptons(const FinalState& allfs,
                                  double dRmax, const Cut& cut,
                                  bool useDecayPhotons, bool useJetClustering)
-    : DressedLeptons(barefs, barefs, dRmax, cut, useDecayPhotons, useJetClustering)
+    : DressedLeptons(allfs, allfs, dRmax, cut, useDecayPhotons, useJetClustering)
   {     }
 
 

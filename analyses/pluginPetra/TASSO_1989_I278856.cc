@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TASSO_1989_I278856);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TASSO_1989_I278856);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -32,7 +32,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      
+
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
@@ -60,20 +60,20 @@ namespace Rivet {
       scale(_h_x_B2, sqr(sqrtS())*crossSection()/nanobarn/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_x_A1, _h_x_A2, _h_x_B1, _h_x_B2;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TASSO_1989_I278856);
+  RIVET_DECLARE_PLUGIN(TASSO_1989_I278856);
 
 
 }

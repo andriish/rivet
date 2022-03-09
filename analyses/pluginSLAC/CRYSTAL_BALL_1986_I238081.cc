@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CRYSTAL_BALL_1986_I238081);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CRYSTAL_BALL_1986_I238081);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -64,7 +64,7 @@ namespace Rivet {
 	  break;
 	}
       }
-      if(found) 
+      if(found)
 	_c_D_star->fill();
     }
 
@@ -126,20 +126,20 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _c_hadrons, _c_muons,_c_D_star;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CRYSTAL_BALL_1986_I238081);
+  RIVET_DECLARE_PLUGIN(CRYSTAL_BALL_1986_I238081);
 
 
 }

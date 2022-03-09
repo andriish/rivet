@@ -11,7 +11,7 @@ namespace Rivet {
   class ATLAS_2018_I1635273 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2018_I1635273);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2018_I1635273);
 
 	  // Book histograms and initialise projections before the run
     void init() {
@@ -48,7 +48,7 @@ namespace Rivet {
       book(_h["N_incl_pb"],            1, 1, 1);
       book(_h["HT_1j_fb"],             6, 1, 1);
       book(_h["W_pt_1j_fb"],          11, 1, 1);
-      book(_h["jet_pt1_1j_fb"],       16, 1, 1); 
+      book(_h["jet_pt1_1j_fb"],       16, 1, 1);
       book(_h["jet_y1_1j_fb"],        21, 1, 1);
       book(_h["jet_pt2_2j_fb"],       26, 1, 1);
       book(_h["jet_y2_2j_fb"],        28, 1, 1);
@@ -57,29 +57,29 @@ namespace Rivet {
       book(_h["N_pb"],                34, 1, 1);
       book(_h["HT_2j_fb"],            36, 1, 1);
       book(_h["W_pt_2j_fb"],          41, 1, 1);
-      book(_h["jet_pt1_2j_fb"],       46, 1, 1); 
-      book(_h["el_eta_0j_pb"],        51, 1, 1);  
-      book(_h["el_eta_1j_pb"],        56, 1, 1);   
+      book(_h["jet_pt1_2j_fb"],       46, 1, 1);
+      book(_h["el_eta_0j_pb"],        51, 1, 1);
+      book(_h["el_eta_1j_pb"],        56, 1, 1);
 
       book(_h["Wplus_N_incl_pb"],      3, 1, 1);
       book(_h["Wplus_HT_1j_fb"],       8, 1, 1);
       book(_h["Wplus_W_pt_1j_fb"],    13, 1, 1);
-      book(_h["Wplus_jet_pt1_1j_fb"], 18, 1, 1); 
+      book(_h["Wplus_jet_pt1_1j_fb"], 18, 1, 1);
       book(_h["Wplus_jet_y1_1j_fb"],  23, 1, 1);
       book(_h["Wplus_HT_2j_fb"],      38, 1, 1);
       book(_h["Wplus_W_pt_2j_fb"],    43, 1, 1);
-      book(_h["Wplus_jet_pt1_2j_fb"], 48, 1, 1); 
+      book(_h["Wplus_jet_pt1_2j_fb"], 48, 1, 1);
       book(_h["Wplus_el_eta_0j_pb"],  53, 1, 1);
       book(_h["Wplus_el_eta_1j_pb"],  58, 1, 1);
 
       book(_h["Wminus_N_incl_pb"],     3, 1, 2);
       book(_h["Wminus_HT_1j_fb"],      8, 1, 2);
       book(_h["Wminus_W_pt_1j_fb"],   13, 1, 2);
-      book(_h["Wminus_jet_pt1_1j_fb"],18, 1, 2);  
+      book(_h["Wminus_jet_pt1_1j_fb"],18, 1, 2);
       book(_h["Wminus_jet_y1_1j_fb"], 23, 1, 2);
       book(_h["Wminus_HT_2j_fb"],     38, 1, 2);
       book(_h["Wminus_W_pt_2j_fb"],   43, 1, 2);
-      book(_h["Wminus_jet_pt1_2j_fb"],48, 1, 2); 
+      book(_h["Wminus_jet_pt1_2j_fb"],48, 1, 2);
       book(_h["Wminus_el_eta_0j_pb"], 53, 1, 2);
       book(_h["Wminus_el_eta_1j_pb"], 58, 1, 2);
 
@@ -100,7 +100,7 @@ namespace Rivet {
 
     // Perform the per-event analysis
     void analyze(const Event& event) {
-    
+
       // retrieve the dressed electrons
       const Particles& signal_leptons = apply<DressedLeptons>(event, "DressedLeptons").particlesByPt();
       if (signal_leptons.size() != 1 ) vetoEvent;
@@ -116,7 +116,7 @@ namespace Rivet {
 
       // retrieve jets
       Jets jets = apply<FastJets>(event, "Jets").jetsByPt(Cuts::pT > 30*GeV && Cuts::absrap < 4.4);
-   
+
       idiscardIfAnyDeltaRLess(jets, signal_leptons, 0.2);
 
       // apply event selection on dR
@@ -125,12 +125,12 @@ namespace Rivet {
       }
 
       // calculate the observables
-      const double w_pt = (lepton.momentum() + pMET).pT() / GeV;   
+      const double w_pt = (lepton.momentum() + pMET).pT() / GeV;
       const size_t njets = jets.size();
       double ST = sum(jets, Kin::pT, 0.0); // scalar pT sum of all selected jets
       const double HT = ST + lepton.pT() / GeV + MET; //missET;
 
-      // fill W histograms		
+      // fill W histograms
       _h["N_pb"]->fill(njets);
       for (size_t i = 0; i <= njets; ++i) {
           _h["N_incl_pb"]->fill(i);
@@ -152,7 +152,7 @@ namespace Rivet {
           _h["jet_pt2_2j_fb"]->fill(jets[1].pT()/GeV);
           _h["jet_y2_2j_fb"]->fill(jets[1].absrap());
           _h["jet_mass12_2j_fb"]->fill( (jets[0].mom()+jets[1].mom()).mass()/GeV);
-      }		
+      }
         // fill W+ histograms
       if (lepton.charge() > 0) {
           for (size_t i = 0; i <= njets; ++i) {
@@ -169,7 +169,7 @@ namespace Rivet {
                   _h["Wplus_HT_2j_fb"]->fill(HT);
                   _h["Wplus_W_pt_2j_fb"]->fill(w_pt);
                   _h["Wplus_jet_pt1_2j_fb"]->fill(jets[0].pT()/GeV);
-              }		
+              }
           }
       }
       // fill W- histograms
@@ -188,11 +188,11 @@ namespace Rivet {
             _h["Wminus_HT_2j_fb"]->fill(HT);
             _h["Wminus_W_pt_2j_fb"]->fill(w_pt);
             _h["Wminus_jet_pt1_2j_fb"]->fill(jets[0].pT()/GeV);
-          }		
+          }
         }
       }
     }
-    
+
 
 
     void finalize() {
@@ -208,7 +208,7 @@ namespace Rivet {
         string num_name   = rit.first;
         string denom_name = rit.first;
         num_name.replace(rit.first.find(ratio_label),ratio_label.length(),"Wplus");
-        denom_name.replace(rit.first.find(ratio_label),ratio_label.length(),"Wminus");                   
+        denom_name.replace(rit.first.find(ratio_label),ratio_label.length(),"Wminus");
         divide(_h[num_name], _h[denom_name], rit.second);
       }
     }
@@ -223,5 +223,5 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2018_I1635273);
+  RIVET_DECLARE_PLUGIN(ATLAS_2018_I1635273);
 }

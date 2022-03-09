@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BELLE_2008_I764099);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2008_I764099);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -79,7 +79,7 @@ namespace Rivet {
 	  else if(nRes[321]==1 && nRes[-321]==1) {
 	    if(p.pid()==553)
 	      _nUps1KK->fill();
-	  }	  
+	  }
 	}
       }
     }
@@ -125,16 +125,16 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _nUps1pipi,_nUps2pipi,_nUps3pipi,_nUps1KK;
-    //@}
+    /// @}
 
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BELLE_2008_I764099);
+  RIVET_DECLARE_PLUGIN(BELLE_2008_I764099);
 
 }

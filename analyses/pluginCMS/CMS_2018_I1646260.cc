@@ -17,11 +17,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2018_I1646260);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2018_I1646260);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -204,13 +204,13 @@ namespace Rivet {
       MSG_INFO("CUTFLOWS:\n\n" << _cutflows);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _srcounts_ewino[3][4], _srcounts_stop[3][3];
-    //@}
+    /// @}
 
     /// Cut-flows
     int _nevtMu = 0;
@@ -221,7 +221,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2018_I1646260);
+  RIVET_DECLARE_PLUGIN(CMS_2018_I1646260);
 
 
 }

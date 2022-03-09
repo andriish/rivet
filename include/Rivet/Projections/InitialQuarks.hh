@@ -22,7 +22,7 @@ namespace Rivet {
   public:
 
     /// @name Standard constructors and destructors.
-    //@{
+    /// @{
     /// The default constructor. May specify the minimum and maximum
     /// pseudorapidity \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
     InitialQuarks() {
@@ -32,7 +32,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(InitialQuarks);
 
-    //@}
+    /// @}
 
     /// Access the projected final-state particles.
     virtual const Particles& particles() const { return _theParticles; }

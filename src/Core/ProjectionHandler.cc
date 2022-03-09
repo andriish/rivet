@@ -201,7 +201,6 @@ namespace Rivet {
           getLog() << Log::TRACE << "REMOVE Projection at "
                    << pAsProj << " from lookup" << endl;
           _projs.erase(pi);
-
       }
     }
   }
@@ -209,7 +208,12 @@ namespace Rivet {
 
   set<const Projection*> ProjectionHandler::getChildProjections(const ProjectionApplier& parent, ProjDepth depth) const {
     set<const Projection*> toplevel;
-    NamedProjs nps = _namedprojs.find(&parent)->second;
+    auto it = _namedprojs.find(&parent);
+    if (it == _namedprojs.end()){
+      //If the parent is not found it means it has no child projections.
+      return toplevel;
+    }
+    NamedProjs nps = it->second;
     for (NamedProjs::value_type& np : nps) {
       toplevel.insert(np.second.get());
     }
@@ -256,9 +260,5 @@ namespace Rivet {
     // dereference the Projection pointer to a reference...
     return *(np->second);
   }
-
-// @todo all thread/mutex code belongs to a temporary fix to allow for
-// basic threading
-std::mutex ProjectionHandler::mtx;
 
 }

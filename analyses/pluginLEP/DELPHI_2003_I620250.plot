@@ -372,99 +372,99 @@ END PLOT
 
 BEGIN PLOT /DELPHI_2003_I620250/d40-x01-y01
 Title=Major ($E_\mathrm{CMS}=183$ GeV)
-XLabel=$T_{\text{major}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\text{major}}$
+XLabel=$T_{\mathrm{major}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\mathrm{major}}$
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d40-x01-y02
 Title=Major ($E_\mathrm{CMS}=189$ GeV)
-XLabel=$T_{\text{major}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\text{major}}$
+XLabel=$T_{\mathrm{major}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\mathrm{major}}$
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d40-x01-y03
 Title=Major ($E_\mathrm{CMS}=192$ GeV)
-XLabel=$T_{\text{major}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\text{major}}$
+XLabel=$T_{\mathrm{major}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\mathrm{major}}$
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d40-x01-y04
 Title=Major ($E_\mathrm{CMS}=196$ GeV)
-XLabel=$T_{\text{major}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\text{major}}$
+XLabel=$T_{\mathrm{major}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\mathrm{major}}$
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d41-x01-y01
 Title=Major ($E_\mathrm{CMS}=200$ GeV)
-XLabel=$T_{\text{major}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\text{major}}$
+XLabel=$T_{\mathrm{major}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\mathrm{major}}$
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d41-x01-y02
 Title=Major ($E_\mathrm{CMS}=202$ GeV)
-XLabel=$T_{\text{major}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\text{major}}$
+XLabel=$T_{\mathrm{major}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\mathrm{major}}$
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d41-x01-y03
 Title=Major ($E_\mathrm{CMS}=205$ GeV)
-XLabel=$T_{\text{major}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\text{major}}$
+XLabel=$T_{\mathrm{major}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\mathrm{major}}$
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d41-x01-y04
 Title=Major ($E_\mathrm{CMS}=207$ GeV)
-XLabel=$T_{\text{major}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\text{major}}$
+XLabel=$T_{\mathrm{major}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\mathrm{major}}$
 LegendYPos=0.8
 END PLOT
 
 BEGIN PLOT /DELPHI_2003_I620250/d42-x01-y01
 Title=Minor ($E_\mathrm{CMS}=183$ GeV)
-XLabel=$T_{\text{minor}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\text{minor}}$
+XLabel=$T_{\mathrm{minor}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\mathrm{minor}}$
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d42-x01-y02
 Title=Minor ($E_\mathrm{CMS}=189$ GeV)
-XLabel=$T_{\text{minor}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\text{minor}}$
+XLabel=$T_{\mathrm{minor}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\mathrm{minor}}$
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d42-x01-y03
 Title=Minor ($E_\mathrm{CMS}=192$ GeV)
-XLabel=$T_{\text{minor}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\text{minor}}$
+XLabel=$T_{\mathrm{minor}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\mathrm{minor}}$
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d42-x01-y04
 Title=Minor ($E_\mathrm{CMS}=196$ GeV)
-XLabel=$T_{\text{minor}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\text{minor}}$
+XLabel=$T_{\mathrm{minor}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\mathrm{minor}}$
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d43-x01-y01
 Title=Minor ($E_\mathrm{CMS}=200$ GeV)
-XLabel=$T_{\text{minor}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\text{minor}}$
+XLabel=$T_{\mathrm{minor}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\mathrm{minor}}$
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d43-x01-y02
 Title=Minor ($E_\mathrm{CMS}=202$ GeV)
-XLabel=$T_{\text{minor}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\text{minor}}$
+XLabel=$T_{\mathrm{minor}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\mathrm{minor}}$
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d43-x01-y03
 Title=Minor ($E_\mathrm{CMS}=205$ GeV)
-XLabel=$T_{\text{minor}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\text{minor}}$
+XLabel=$T_{\mathrm{minor}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\mathrm{minor}}$
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d43-x01-y04
 Title=Minor ($E_\mathrm{CMS}=207$ GeV)
-XLabel=$T_{\text{minor}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\text{minor}}$
+XLabel=$T_{\mathrm{minor}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_{\mathrm{minor}}$
 LegendYPos=0.8
 END PLOT
 
@@ -1256,98 +1256,98 @@ END PLOT
 
 BEGIN PLOT /DELPHI_2003_I620250/d34-x01-y01
 Title=$p_\perp$ in the plane w.r.t thrust axis ($E_\mathrm{CMS}=183$ GeV)
-XLabel=$p_\perp^{\text{in}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{in}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{in}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{in}}$ [$\mathrm{GeV}^{-1}$]
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d34-x01-y02
 Title=$p_\perp$ in the plane w.r.t thrust axis ($E_\mathrm{CMS}=189$ GeV)
-XLabel=$p_\perp^{\text{in}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{in}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{in}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{in}}$ [$\mathrm{GeV}^{-1}$]
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d34-x01-y03
 Title=$p_\perp$ in the plane w.r.t thrust axis ($E_\mathrm{CMS}=192$ GeV)
-XLabel=$p_\perp^{\text{in}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{in}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{in}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{in}}$ [$\mathrm{GeV}^{-1}$]
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d34-x01-y04
 Title=$p_\perp$ in the plane w.r.t thrust axis ($E_\mathrm{CMS}=196$ GeV)
-XLabel=$p_\perp^{\text{in}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{in}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{in}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{in}}$ [$\mathrm{GeV}^{-1}$]
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d35-x01-y01
 Title=$p_\perp$ in the plane w.r.t thrust axis ($E_\mathrm{CMS}=200$ GeV)
-XLabel=$p_\perp^{\text{in}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{in}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{in}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{in}}$ [$\mathrm{GeV}^{-1}$]
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d35-x01-y02
 Title=$p_\perp$ in the plane w.r.t thrust axis ($E_\mathrm{CMS}=202$ GeV)
-XLabel=$p_\perp^{\text{in}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{in}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{in}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{in}}$ [$\mathrm{GeV}^{-1}$]
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d35-x01-y03
 Title=$p_\perp$ in the plane w.r.t thrust axis ($E_\mathrm{CMS}=205$ GeV)
-XLabel=$p_\perp^{\text{in}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{in}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{in}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{in}}$ [$\mathrm{GeV}^{-1}$]
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d35-x01-y04
 Title=$p_\perp$ in the plane w.r.t thrust axis  ($E_\mathrm{CMS}=207$ GeV)
-XLabel=$p_\perp^{\text{in}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{in}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{in}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{in}}$ [$\mathrm{GeV}^{-1}$]
 LegendYPos=0.8
 END PLOT
 
 BEGIN PLOT /DELPHI_2003_I620250/d36-x01-y01
 Title=$p_\perp$ out the plane w.r.t thrust axis ($E_\mathrm{CMS}=183$ GeV)
-XLabel=$p_\perp^{\text{out}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{out}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{out}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{out}}$ [$\mathrm{GeV}^{-1}$]
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d36-x01-y02
 Title=$p_\perp$ out the plane w.r.t thrust axis ($E_\mathrm{CMS}=189$ GeV)
-XLabel=$p_\perp^{\text{out}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{out}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{out}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{out}}$ [$\mathrm{GeV}^{-1}$]
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d36-x01-y03
 Title=$p_\perp$ out the plane w.r.t thrust axis ($E_\mathrm{CMS}=192$ GeV)
-XLabel=$p_\perp^{\text{out}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{out}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{out}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{out}}$ [$\mathrm{GeV}^{-1}$]
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d36-x01-y04
 Title=$p_\perp$ out the plane w.r.t thrust axis ($E_\mathrm{CMS}=196$ GeV)
-XLabel=$p_\perp^{\text{out}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{out}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{out}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{out}}$ [$\mathrm{GeV}^{-1}$]
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d37-x01-y01
 Title=$p_\perp$ out the plane w.r.t thrust axis ($E_\mathrm{CMS}=200$ GeV)
-XLabel=$p_\perp^{\text{out}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{out}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{out}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{out}}$ [$\mathrm{GeV}^{-1}$]
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d37-x01-y02
 Title=$p_\perp$ out the plane w.r.t thrust axis ($E_\mathrm{CMS}=202$ GeV)
-XLabel=$p_\perp^{\text{out}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{out}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{out}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{out}}$ [$\mathrm{GeV}^{-1}$]
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d37-x01-y03
 Title=$p_\perp$ out the plane w.r.t thrust axis ($E_\mathrm{CMS}=205$ GeV)
-XLabel=$p_\perp^{\text{out}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{out}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{out}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{out}}$ [$\mathrm{GeV}^{-1}$]
 LegendYPos=0.8
 END PLOT
 BEGIN PLOT /DELPHI_2003_I620250/d37-x01-y04
 Title=$p_\perp$ out the plane w.r.t thrust axis ($E_\mathrm{CMS}=207$ GeV)
-XLabel=$p_\perp^{\text{out}}$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\text{out}}$ [$\text{GeV}^{-1}$]
+XLabel=$p_\perp^{\mathrm{out}}$
+YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}p_\perp^{\mathrm{out}}$ [$\mathrm{GeV}^{-1}$]
 LegendYPos=0.8
 END PLOT

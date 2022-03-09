@@ -14,11 +14,11 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2013_I1230812);
-    //@}
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2013_I1230812);
+    /// @}
 
 
     /// Book histograms and initialise projections before the run
@@ -197,7 +197,7 @@ namespace Rivet {
     }
 
     /// @name Ratio calculator util functions
-    //@{
+    /// @{
 
     /// Calculate the efficiency error, being careful about div-by-zero
     double err_incl(const HistoBin1D &M, const HistoBin1D &N, bool hasWeights) {
@@ -216,7 +216,7 @@ namespace Rivet {
       return r * sqrt(dAsquared + dBsquared);
     }
 
-    //@}
+    /// @}
 
 
     void finalize() {
@@ -239,17 +239,17 @@ namespace Rivet {
       double sf = _mode? 1.0 : 0.5;
       const double xs = sf * crossSectionPerEvent()/picobarn;
 
-      scale(_h_njet_incl, xs); scale(_h_njet_excl, xs); scale(_h_njet_excl_pt150, xs); 
-      scale(_h_njet_excl_vbf, xs); scale(_h_ptlead, xs); scale(_h_ptseclead, xs); 
+      scale(_h_njet_incl, xs); scale(_h_njet_excl, xs); scale(_h_njet_excl_pt150, xs);
+      scale(_h_njet_excl_vbf, xs); scale(_h_ptlead, xs); scale(_h_ptseclead, xs);
       scale(_h_ptthirdlead, xs); scale(_h_ptfourthlead, xs); scale(_h_ptlead_excl, xs);
       scale(_h_pt_ratio, xs); scale(_h_pt_z, xs); scale(_h_pt_z_excl, xs);
-      scale(_h_ylead, xs); scale(_h_yseclead, xs); scale(_h_ythirdlead, xs); 
-      scale(_h_yfourthlead, xs); scale(_h_deltay, xs); scale(_h_mass, xs); 
-      scale(_h_deltaphi, xs); scale(_h_deltaR, xs); scale(_h_ptthirdlead_vbf, xs); 
+      scale(_h_ylead, xs); scale(_h_yseclead, xs); scale(_h_ythirdlead, xs);
+      scale(_h_yfourthlead, xs); scale(_h_deltay, xs); scale(_h_mass, xs);
+      scale(_h_deltaphi, xs); scale(_h_deltaR, xs); scale(_h_ptthirdlead_vbf, xs);
       scale(_h_ythirdlead_vbf, xs); scale(_h_ht, xs); scale(_h_st, xs);
     }
 
-    //@}
+    /// @}
 
 
   protected:
@@ -290,6 +290,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ATLAS_2013_I1230812);
+  RIVET_DECLARE_PLUGIN(ATLAS_2013_I1230812);
 
 }

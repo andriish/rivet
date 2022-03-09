@@ -44,11 +44,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(OPAL_2000_I474010);
+    RIVET_DEFAULT_ANALYSIS_CTOR(OPAL_2000_I474010);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -127,7 +127,7 @@ namespace Rivet {
       _histLLBar    ->fill(_histLLBar    ->bin(0).xMid(), ndiff       );
       _histLL       ->fill(_histLL       ->bin(0).xMid(),       nsame );
       _histLLBarCorr->fill(_histLLBarCorr->bin(0).xMid(),(ndiff-nsame));
-      
+
       // multiplicities for different numbers of jets
       if(njet==2) {
 	_histLLBar_2jet    ->fill(_histLLBar_2jet    ->bin(0).xMid(), ndiff       );
@@ -187,11 +187,11 @@ namespace Rivet {
       normalize(_histdy       , 1.);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
 
     CounterPtr _weight2Jet;
     CounterPtr _weight3Jet;
@@ -210,14 +210,14 @@ namespace Rivet {
 
     Histo1DPtr _histdcosTheta;
     Histo1DPtr _histdy;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OPAL_2000_I474010);
+  RIVET_DECLARE_PLUGIN(OPAL_2000_I474010);
 
 
 }

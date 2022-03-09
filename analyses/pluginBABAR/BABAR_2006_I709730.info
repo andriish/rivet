@@ -15,7 +15,7 @@ Beams: [e+, e-]
 Luminosity_fb: 1
 Description:
   'Cross sections for $3\pi^+3\pi^-$, $2\pi^+2\pi^-2\pi^0$ and $2\pi^+2\pi^-K^+K^-$ measured by
-   BaBar using radiative return. Useful to compare hadronization and other non-perturbatuve models
+   BaBar using radiative return. Useful to compare hadronization and other non-perturbative models
    at low energies between 1.3 and 4.5 GeV.'
 Keywords: 
 BibKey: Aubert:2006jq

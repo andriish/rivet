@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BELLE_2009_I810744);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2009_I810744);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -53,7 +53,7 @@ namespace Rivet {
 	  ++nstable;
       }
     }
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // loop over unstable particles
@@ -76,18 +76,18 @@ namespace Rivet {
       normalize(_hist);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _hist;
-    //@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(BELLE_2009_I810744);
+  RIVET_DECLARE_PLUGIN(BELLE_2009_I810744);
 
 }

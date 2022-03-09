@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ND_1991_I321108);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ND_1991_I321108);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -80,7 +80,7 @@ namespace Rivet {
 	if(nCount[211]==2&&nCount[-211]==2&&nCount[111]==1)
 	  _n5Pi->fill();
       }
-      
+
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
@@ -223,20 +223,20 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _nOmegaPi,_n2Pi,_n3Pi,_n4PiC,_n4PiN,_nEtaPiPi,_nKC,_nKN,_n5Pi;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ND_1991_I321108);
+  RIVET_DECLARE_PLUGIN(ND_1991_I321108);
 
 
 }

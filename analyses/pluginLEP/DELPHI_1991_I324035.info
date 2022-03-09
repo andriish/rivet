@@ -1,6 +1,6 @@
 Name: DELPHI_1991_I324035
 Year: 1991
-Summary: Charged particle multplicities in different rapidity intervals
+Summary: Charged particle multiplicities in different rapidity intervals
 Experiment: DELPHI
 Collider: LEP
 InspireID: 324035
@@ -15,7 +15,7 @@ NumEvents: 1000000
 Beams: [e+, e-]
 Energies: [91.2]
 Description:
-  The charged multplicity distributions in hadron $Z^0$ decays for different rapidity regions.
+  The charged multiplicity distributions in hadron $Z^0$ decays for different rapidity regions.
 BibKey: Abreu:1991yc
 BibTeX: '@article{Abreu:1991yc,
       author         = "Abreu, P. and others",

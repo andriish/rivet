@@ -12,17 +12,17 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(LENA_1981_I164397);
+    RIVET_DEFAULT_ANALYSIS_CTOR(LENA_1981_I164397);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
       declare(UnstableParticles(), "UFS");
       declare(ChargedFinalState(), "FS");
-      
+
       book(_weightSum_cont, "TMP/weightSum_cont");
       book(_weightSum_Ups1, "TMP/weightSum_Ups1");
       book(_weightSum_Ups2, "TMP/weightSum_Ups2");
@@ -30,11 +30,11 @@ namespace Rivet {
       book(_charge_Ups1, "TMP/charge_Ups1");
       book(_charge_Ups2, "TMP/charge_Ups2");
 
-      if(fuzzyEquals(sqrtS(),9.5149,1e-2)) {
-	book(_hist_T_cont ,4, 1, 1);
+      if(isCompatibleWithSqrtS(9.5149*GeV,1e-2)) {
+        book(_hist_T_cont ,4, 1, 1);
       }
-      else if(fuzzyEquals(sqrtS(),9.9903,1e-2)) {
-	book(_hist_T_cont ,4, 1, 2);
+      else if(isCompatibleWithSqrtS(9.9903*GeV,1e-2)) {
+        book(_hist_T_cont ,4, 1, 2);
       }
       book(_hist_T_Ups1 ,4, 1, 3);
       book(_hist_T_Ups2 ,4, 1, 4);
@@ -67,7 +67,7 @@ namespace Rivet {
       // Find the Upsilons among the unstables
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       Particles upsilons = ufs.particles(Cuts::pid==553 or Cuts::pid==100553);
-      if (upsilons.empty()) { 
+      if (upsilons.empty()) {
         MSG_DEBUG("No Upsilons found => continuum event");
         _weightSum_cont->fill();
 	Particles cfs = apply<ChargedFinalState>(event, "FS").particles();
@@ -157,20 +157,20 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _weightSum_cont, _weightSum_Ups1, _weightSum_Ups2;
     CounterPtr _charge_cont, _charge_Ups1, _charge_Ups2;
     Histo1DPtr _hist_T_cont,_hist_T_Ups1,_hist_T_Ups2;
-    //@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(LENA_1981_I164397);
+  RIVET_DECLARE_PLUGIN(LENA_1981_I164397);
 
 }

@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2014_I1307243);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2014_I1307243);
 
 
     /// Book histograms and initialise projections before the run
@@ -67,7 +67,7 @@ namespace Rivet {
 
       for (size_t reg = 0; reg < 2; ++reg) {
 
-        // Retrieve all anti-kt R=0.6 jets 
+        // Retrieve all anti-kt R=0.6 jets
         const double maxRap = reg? 2.4 : 4.4;
         const Jets& akt6Jets = apply<JetAlg>(event, "AntiKt6JetsWithInvisibles").jetsByPt(Cuts::absrap < maxRap);
         // If there are fewer than 2 jets then bail
@@ -133,7 +133,7 @@ namespace Rivet {
         }
 
       // Fill histograms relevant for comparison with 2011 data
-      } 
+      }
       else if (region == _years[1]) {
         // Fill inclusive and gap histograms
         for (const string& cat : categories) {
@@ -204,6 +204,6 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2014_I1307243);
+  RIVET_DECLARE_PLUGIN(ATLAS_2014_I1307243);
 
 }

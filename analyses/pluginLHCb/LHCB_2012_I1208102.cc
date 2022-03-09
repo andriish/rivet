@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -63,20 +63,20 @@ namespace Rivet {
       scale(_h_sigma_vs_phi, xs/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_sigma_vs_y, _h_sigma_vs_phi;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(LHCB_2012_I1208102);
+  RIVET_DECLARE_PLUGIN(LHCB_2012_I1208102);
 
 }

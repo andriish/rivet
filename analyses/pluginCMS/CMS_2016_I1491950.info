@@ -22,7 +22,7 @@ RunInfo:
   pp QCD interactions at $\sqrt{s} = 13$ TeV. Data collected by CMS during the year 2015. Selection of lepton+jets top pair candidate events at particle level.
 NumEvents: 1000000
 NeedCrossSection: no
-Luminosity: 2.3 /fb
+Luminosity_fb: 2.3
 Beams: [p+, p+]
 Energies: [13000]
 Description:

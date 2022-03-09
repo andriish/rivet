@@ -24,6 +24,7 @@ install-data-local:
 	$(install_sh_DATA) doc/analists/analyses.dat $(DESTDIR)$(pkgdatadir)/
 	$(install_sh_DATA) doc/analists/analyses.json $(DESTDIR)$(pkgdatadir)/
 
+
 ## Upload tarballs to HepForge
 DEST = login.hepforge.org:rivet/downloads/
 upload: dist

@@ -14,11 +14,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TPC_1987_I235694);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TPC_1987_I235694);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -81,24 +81,24 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() { }
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Multiplicities
-    //@{
+    /// @{
     Profile1DPtr _h_all;
     Profile1DPtr _h_light;
     Profile1DPtr _h_charm;
     Profile1DPtr _h_bottom;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TPC_1987_I235694);
+  RIVET_DECLARE_PLUGIN(TPC_1987_I235694);
 
 
 }

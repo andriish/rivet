@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms, set up projections for W and jets
     void init() {
@@ -102,19 +102,19 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_delta_jets_n;
     Histo1DPtr _h_delta_jets;
-    //@}
+    /// @}
 
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2013_I1216670);
+  RIVET_DECLARE_PLUGIN(ATLAS_2013_I1216670);
 
 }

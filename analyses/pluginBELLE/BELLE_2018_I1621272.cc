@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BELLE_2018_I1621272);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2018_I1621272);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -82,7 +82,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // Loop over B0 mesons 
+      // Loop over B0 mesons
       for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==PID::B0 or
 									       Cuts::abspid==PID::BPLUS)) {
 	// find the B decay
@@ -157,18 +157,18 @@ namespace Rivet {
 
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_pi,_h_rho;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(BELLE_2018_I1621272);
+  RIVET_DECLARE_PLUGIN(BELLE_2018_I1621272);
 
 }

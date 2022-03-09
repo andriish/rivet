@@ -117,7 +117,7 @@ namespace Rivet {
 
   private:
 
-    //@{
+    /// @{
     // count of weights
     CounterPtr _weightSum;
     /// Histograms
@@ -134,7 +134,7 @@ namespace Rivet {
     Histo1DPtr _mult_chi_c2;
     Histo1DPtr _mult_chi_c2_direct;
     Histo1DPtr _mult_Psi2S;
-    //@}
+    /// @}
 
     void findDecayProducts(ConstGenParticlePtr p,
                            vector<ConstGenParticlePtr>& allJpsi,
@@ -180,6 +180,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BABAR_2003_I593379);
+  RIVET_DECLARE_PLUGIN(BABAR_2003_I593379);
 
 }

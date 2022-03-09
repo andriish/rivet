@@ -14,10 +14,10 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(PHENIX_2019_I1672015);
+    RIVET_DEFAULT_ANALYSIS_CTOR(PHENIX_2019_I1672015);
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -44,7 +44,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       double sqrts_tol = 10. ;
-      if (!fuzzyEquals(sqrtS()/GeV, 200., sqrts_tol)) {
+      if (!isCompatibleWithSqrtS(200*GeV, sqrts_tol)) {
         MSG_ERROR("Incorrect beam energy used: " << sqrtS()/GeV);
         throw Error("Unexpected sqrtS ! Only 200 GeV is supported");
       }
@@ -77,21 +77,21 @@ namespace Rivet {
 
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_pT, _h_y, _h_mass, _h_ZZZZ;
     Histo1DPtr _h_m_DiMuon;
     Histo1DPtr _h_pT_DiMuon;
     Histo1DPtr _h_y_DiMuon;
     Histo1DPtr _h_xF_DiMuon;
-    ///@}
+    /// @}
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(PHENIX_2019_I1672015);
+  RIVET_DECLARE_PLUGIN(PHENIX_2019_I1672015);
 
 }

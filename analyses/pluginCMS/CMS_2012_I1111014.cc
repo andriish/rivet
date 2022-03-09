@@ -20,7 +20,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Set up projections
@@ -91,7 +91,7 @@ namespace Rivet {
           }
         }
       }
-      
+
       // Get jets and require at least one to pass pT and y cuts
       Jets jets5 = apply<FastJets>(evt, "Jets5")
         .jetsByPt(Cuts::ptIn(50*GeV, 1000*GeV) && Cuts::absrap < 2.0);
@@ -148,13 +148,13 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Analysis data
-    //@{
+    /// @{
 
     /// Jet \f$ p_\perp\f$ bins.
     vector<double> _ptedges; // This can't be a raw array if we want to initialise it non-painfully
@@ -163,23 +163,23 @@ namespace Rivet {
     /// JetShape projection name for each \f$p_\perp\f$ bin.
     string _jsnames_pT[22][6];
 
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     Profile1DPtr _profhistRho_pT[22][6];
     Profile1DPtr _profhistNch[2];
     Profile1DPtr _profhistDr[2];
     Profile1DPtr _profhistDeta;
     Profile1DPtr _profhistDphi;
     Scatter2DPtr _profhistAsym;
-    //@}
+    /// @}
 
   };
 
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2012_I1111014);
+  RIVET_DECLARE_PLUGIN(CMS_2012_I1111014);
 
 }

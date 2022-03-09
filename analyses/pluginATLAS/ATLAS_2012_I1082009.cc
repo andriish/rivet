@@ -14,20 +14,20 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     ATLAS_2012_I1082009()
       : Analysis("ATLAS_2012_I1082009")
     {    }
 
-    //@}
+    /// @}
 
 
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -124,13 +124,13 @@ namespace Rivet {
       scale(_h_pt25_70,1./ *_weight25_70);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _weight25_30,_weight30_40,_weight40_50;
     CounterPtr _weight50_60,_weight60_70,_weight25_70;
 
@@ -140,11 +140,11 @@ namespace Rivet {
     Histo1DPtr _h_pt50_60;
     Histo1DPtr _h_pt60_70;
     Histo1DPtr _h_pt25_70;
-    //@}
+    /// @}
 
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2012_I1082009);
+  RIVET_DECLARE_PLUGIN(ATLAS_2012_I1082009);
 
 }

@@ -9,7 +9,7 @@ namespace Rivet {
   class MC_WEIGHTS : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(MC_WEIGHTS);
+    RIVET_DEFAULT_ANALYSIS_CTOR(MC_WEIGHTS);
 
 
     /// @name Analysis methods
@@ -72,6 +72,6 @@ namespace Rivet {
 
 
 
-  DECLARE_RIVET_PLUGIN(MC_WEIGHTS);
+  RIVET_DECLARE_PLUGIN(MC_WEIGHTS);
 
 }

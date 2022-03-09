@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2007_I1091435);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2007_I1091435);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -43,7 +43,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // Loop over B0 mesons 
+      // Loop over B0 mesons
       for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::D0)) {
         if (isSemileptonicDecay(p, {PID::KMINUS, PID::POSITRON, PID::NU_E}) ) {
 	  _h_q2->fill(q2(p, PID::KMINUS));
@@ -57,18 +57,18 @@ namespace Rivet {
       normalize(_h_q2, 1.);
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_q2;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(BABAR_2007_I1091435);
+  RIVET_DECLARE_PLUGIN(BABAR_2007_I1091435);
 
 }

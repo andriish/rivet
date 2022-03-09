@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BESIII_2018_I1685535);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2018_I1685535);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -28,12 +28,12 @@ namespace Rivet {
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
       for (const Particle &child : p.children()) {
-	if(child.children().empty()) {
-	  nRes[child.pid()]-=1;
-	  --ncount;
-	}
-	else
-	  findChildren(child,nRes,ncount);
+        if(child.children().empty()) {
+          nRes[child.pid()]-=1;
+          --ncount;
+        }
+        else
+          findChildren(child,nRes,ncount);
       }
     }
 
@@ -44,46 +44,46 @@ namespace Rivet {
       map<long,int> nCount;
       int ntotal(0);
       for (const Particle& p : fs.particles()) {
-	nCount[p.pid()] += 1;
-	++ntotal;
+        nCount[p.pid()] += 1;
+        ++ntotal;
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
 
 
       for(unsigned int ix=0;ix<ufs.particles().size();++ix) {
-	const Particle& p1 = ufs.particles()[ix];
-	if(abs(p1.pid())!=421) continue;
-	map<long,int> nRes = nCount;
-	int ncount = ntotal;
-	findChildren(p1,nRes,ncount);
-	bool matched=false;
-	int id2 = p1.pid()>0 ? -413 :  413;
-	int ipi = p1.pid()>0 ?  211 : -211;
-	for(unsigned int iy=0;iy<ufs.particles().size();++iy) {
-	  if(ix==iy) continue;
-	  const Particle& p2 = ufs.particles()[iy];
-	  if(p2.pid()!=id2) continue;
-	  map<long,int> nRes2 = nRes;
-	  int ncount2 = ncount;
-	  findChildren(p2,nRes2,ncount2);
-	  if(ncount2!=1) continue;
-	  matched=true;
-	  for(auto const & val : nRes2) {
-	    if(val.first==ipi) {
-	      if(val.second!=1) {
-		matched = false;
-		break;
-	      }
-	    }
-	    else if(val.second!=0) {
-	      matched = false;
-	      break;
-	    }
-	  }
-	  if(matched) break;
-	}
-	if(matched)
-	  _nD0->fill();
+        const Particle& p1 = ufs.particles()[ix];
+        if(abs(p1.pid())!=421) continue;
+        map<long,int> nRes = nCount;
+        int ncount = ntotal;
+        findChildren(p1,nRes,ncount);
+        bool matched=false;
+        int id2 = p1.pid()>0 ? -413 :  413;
+        int ipi = p1.pid()>0 ?  211 : -211;
+        for(unsigned int iy=0;iy<ufs.particles().size();++iy) {
+          if(ix==iy) continue;
+          const Particle& p2 = ufs.particles()[iy];
+          if(p2.pid()!=id2) continue;
+          map<long,int> nRes2 = nRes;
+          int ncount2 = ncount;
+          findChildren(p2,nRes2,ncount2);
+          if(ncount2!=1) continue;
+          matched=true;
+          for(auto const & val : nRes2) {
+            if(val.first==ipi) {
+              if(val.second!=1) {
+                matched = false;
+                break;
+              }
+            }
+            else if(val.second!=0) {
+              matched = false;
+              break;
+            }
+          }
+          if(matched) break;
+        }
+        if(matched)
+          _nD0->fill();
       }
     }
 
@@ -95,37 +95,37 @@ namespace Rivet {
       sigma *= crossSection()/ sumOfWeights() /nanobarn;
       error *= crossSection()/ sumOfWeights() /nanobarn;
       for(unsigned int ix=1;ix<3;++ix) {
-	Scatter2D temphisto(refData(ix, 1, 1));
-	Scatter2DPtr  mult;
-	book(mult, ix, 1, 1);
-	for (size_t b = 0; b < temphisto.numPoints(); b++) {
-	  const double x  = temphisto.point(b).x();
-	  pair<double,double> ex = temphisto.point(b).xErrs();
-	  pair<double,double> ex2 = ex;
-	  if(ex2.first ==0.) ex2. first=0.0001;
-	  if(ex2.second==0.) ex2.second=0.0001;
-	  if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
-	    mult->addPoint(x, sigma, ex, make_pair(error,error));
-	  }
-	  else {
-	    mult->addPoint(x, 0., ex, make_pair(0.,.0));
-	  }
-	}
+        Scatter2D temphisto(refData(ix, 1, 1));
+        Scatter2DPtr  mult;
+        book(mult, ix, 1, 1);
+        for (size_t b = 0; b < temphisto.numPoints(); b++) {
+          const double x  = temphisto.point(b).x();
+          pair<double,double> ex = temphisto.point(b).xErrs();
+          pair<double,double> ex2 = ex;
+          if(ex2.first ==0.) ex2. first=0.0001;
+          if(ex2.second==0.) ex2.second=0.0001;
+          if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+            mult->addPoint(x, sigma, ex, make_pair(error,error));
+          }
+          else {
+            mult->addPoint(x, 0., ex, make_pair(0.,.0));
+          }
+        }
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _nD0;
-    //@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(BESIII_2018_I1685535);
+  RIVET_DECLARE_PLUGIN(BESIII_2018_I1685535);
 
 }

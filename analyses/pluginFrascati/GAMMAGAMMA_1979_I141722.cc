@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(GAMMAGAMMA_1979_I141722);
+    RIVET_DEFAULT_ANALYSIS_CTOR(GAMMAGAMMA_1979_I141722);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -124,21 +124,21 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _c_hadrons, _c_muons,_c_neutral,_c_charged;
     CounterPtr _nHadrons;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(GAMMAGAMMA_1979_I141722);
+  RIVET_DECLARE_PLUGIN(GAMMAGAMMA_1979_I141722);
 
 
 }

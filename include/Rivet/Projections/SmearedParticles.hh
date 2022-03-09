@@ -32,7 +32,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// @brief Constructor with const efficiency
     SmearedParticles(const ParticleFinder& pf,
@@ -106,7 +106,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(SmearedParticles);
 
-    //@}
+    /// @}
 
 
     /// Compare to another SmearedParticles

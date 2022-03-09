@@ -172,7 +172,7 @@ namespace Rivet {
   private:
 
     /// @name Histogram arrays
-    //@{
+    /// @{
 
     Profile1DPtr _p_ptsumch_vs_ptlead[2][3];
     Profile1DPtr _p_nch_vs_ptlead[2][3];
@@ -184,13 +184,13 @@ namespace Rivet {
     Histo1DPtr _h_ptsumch[4][2][3];
     Histo1DPtr _h_nch[4][2][3];
 
-    //@}
+    /// @}
 
   };
 
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2014_I1298811);
+  RIVET_DECLARE_PLUGIN(ATLAS_2014_I1298811);
 
 }

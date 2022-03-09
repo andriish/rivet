@@ -48,20 +48,20 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     ATLAS_2011_I919017()
       : Analysis("ATLAS_2011_I919017")
     {    }
 
-    //@}
+    /// @}
 
 
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -904,7 +904,7 @@ namespace Rivet {
       safeinvscale(_h_N06_00_19_15_24, _numjets06_00_19_15_24->val());
       safeinvscale(_h_N04_00_19_24_40, _numjets04_00_19_24_40->val());
       safeinvscale(_h_N06_00_19_24_40, _numjets06_00_19_24_40->val());
-      
+
       // z histos: 1/N_jet dN_track / dz_track->val()
       safeinvscale(_h_z04_00_05_04_06, _numjets04_00_05_04_06->val());
       safeinvscale(_h_z06_00_05_04_06, _numjets06_00_05_04_06->val());
@@ -1064,7 +1064,7 @@ namespace Rivet {
       safeinvscale(_h_rdA06_00_19_24_40, _numjets06_00_19_24_40->val());
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -1098,7 +1098,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
 
     Histo1DPtr _h_pt04_00_05, _h_pt06_00_05;
     Histo1DPtr _h_N04_00_05_04_06, _h_N06_00_05_04_06;
@@ -1209,12 +1209,12 @@ namespace Rivet {
     Histo1DPtr _h_rdA04_00_19_15_24, _h_rdA06_00_19_15_24;
     Histo1DPtr _h_rdA04_00_19_24_40, _h_rdA06_00_19_24_40;
 
-    //@}
+    /// @}
 
   };
 
 
   // This global object acts as a hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_I919017);
+  RIVET_DECLARE_PLUGIN(ATLAS_2011_I919017);
 
 }

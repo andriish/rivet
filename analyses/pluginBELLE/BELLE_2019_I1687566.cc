@@ -16,11 +16,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BELLE_2019_I1687566);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2019_I1687566);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -32,7 +32,7 @@ namespace Rivet {
       declare(Thrust(fs),"Thrust");
       declare(UnstableParticles(),"UFS");
       declare(InitialQuarks(), "IQF");
-      
+
       // Book histograms
       for(unsigned int ix=0;ix<4;++ix) {
       	book(_p_lam[ix]    ,1,ix+1,1);
@@ -90,7 +90,7 @@ namespace Rivet {
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       const FinalState & fs = apply<FinalState>(event, "FS");
-      
+
       if(thrust.thrust()<0.8)
 	vetoEvent;
       for(const Particle & lambda : ufs.particles(Cuts::abspid==3122)) {
@@ -98,12 +98,12 @@ namespace Rivet {
 	if(lambda.children().size()!=2) continue;
 	// look at the decay products
 	Particle proton,pion;
-	if(lambda.children()[0].pid()==sign*2212 && 
+	if(lambda.children()[0].pid()==sign*2212 &&
 	   lambda.children()[1].pid()==-sign*211) {
 	  proton = lambda.children()[0];
 	  pion   = lambda.children()[1];
 	}
-	else if(lambda.children()[1].pid()==sign*2212 && 
+	else if(lambda.children()[1].pid()==sign*2212 &&
 		lambda.children()[0].pid()==-sign*211) {
 	  proton = lambda.children()[1];
 	  pion   = lambda.children()[0];
@@ -121,7 +121,7 @@ namespace Rivet {
 	else {
 	  axis2 =-thrust.thrustAxis();
 	}
-	Vector3 axis3 = axis2.cross(axis1).unit();	
+	Vector3 axis3 = axis2.cross(axis1).unit();
 	// boost to the lambda rest frame
 	LorentzTransform boost = LorentzTransform::mkFrameTransformFromBeta(lambda.momentum().betaVec());
 	FourMomentum pproton = boost.transform(proton.momentum());
@@ -188,24 +188,24 @@ namespace Rivet {
     void finalize() {
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Profile1DPtr _p_lam[4],_p_bar[4];
     Profile1DPtr _p_lam_pip[4],_p_lam_pim[4],_p_lam_Kp[4],_p_lam_Km[4];
     Profile1DPtr _p_bar_pip[4],_p_bar_pim[4],_p_bar_Kp[4],_p_bar_Km[4];
     Profile1DPtr _p_lam_inc,_p_lam_prompt,_p_lam_sigma;
     Profile1DPtr _p_bar_inc,_p_bar_prompt,_p_bar_sigma;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BELLE_2019_I1687566);
+  RIVET_DECLARE_PLUGIN(BELLE_2019_I1687566);
 
 
 }

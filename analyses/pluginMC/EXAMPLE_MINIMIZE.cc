@@ -27,11 +27,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(EXAMPLE_MINIMIZE);
+    RIVET_DEFAULT_ANALYSIS_CTOR(EXAMPLE_MINIMIZE);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     // void init() {    }
@@ -63,11 +63,11 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     // void finalize() {    }
 
-    //@}
+    /// @}
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(EXAMPLE_MINIMIZE);
+  RIVET_DECLARE_PLUGIN(EXAMPLE_MINIMIZE);
 
 }

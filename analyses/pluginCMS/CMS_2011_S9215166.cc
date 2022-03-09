@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2011_S9215166);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2011_S9215166);
 
 
     void init() {
@@ -27,16 +27,16 @@ namespace Rivet {
       declare(fsv, "fsv");
 
       // For the MB ND selection
-      const ChargedFinalState fschrgd((Cuts::etaIn(-6.0,6.0)));
+      const ChargedFinalState fschrgd(Cuts::abseta < 6.0);
       declare(fschrgd, "fschrgd");
       VetoedFinalState fschrgdv(fschrgd);
       fschrgdv.vetoNeutrinos();
       declare(fschrgdv, "fschrgdv");
 
-      if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
+      if (isCompatibleWithSqrtS(900*GeV)) {
         book(_hist_mb      ,1, 1, 1); // energy flow in MB, 0.9 TeV
         book(_hist_dijet ,2, 1, 1); // energy flow in dijet events, 0.9 TeV
-      } else if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) {
+      } else if (isCompatibleWithSqrtS(7000*GeV)) {
         book(_hist_mb      ,3, 1, 1); // energy flow in MB, 7 TeV
         book(_hist_dijet ,4, 1, 1); // energy flow in dijet events, 7 TeV
       }
@@ -72,8 +72,8 @@ namespace Rivet {
 
       // DIJET EVENTS
       double PTCUT = -1.0;
-      if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) PTCUT = 8.0*GeV;
-      else if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) PTCUT = 20.0*GeV;
+      if (isCompatibleWithSqrtS(900*GeV)) PTCUT = 8.0*GeV;
+      else if (isCompatibleWithSqrtS(7000*GeV)) PTCUT = 20.0*GeV;
       const FastJets& jetpro = apply<FastJets>(event, "Jets");
       const Jets jets = jetpro.jetsByPt(PTCUT);
       if (jets.size() >= 2) {
@@ -110,6 +110,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(CMS_2011_S9215166, CMS_2011_I930319);
+  RIVET_DECLARE_ALIASED_PLUGIN(CMS_2011_S9215166, CMS_2011_I930319);
 
 }

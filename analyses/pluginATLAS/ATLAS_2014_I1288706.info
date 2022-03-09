@@ -18,6 +18,7 @@ NumEvents: 1000000
 NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [7000]
+Luminosity_fb: 1.6
 PtCuts: [12, 15]
 Description:
   Measurements of the differential cross section for the process $Z/\gamma^\ast \rightarrow l$ $(l = e, \mu)$

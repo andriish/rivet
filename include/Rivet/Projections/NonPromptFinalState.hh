@@ -14,7 +14,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors
-    //@{
+    /// @{
 
     // Constructor from a final state.
     NonPromptFinalState(const FinalState& fsp, bool accepttaudecays=false, bool acceptmudecays=false);
@@ -29,7 +29,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(NonPromptFinalState);
 
-    //@}
+    /// @}
 
     /// Treat particles from decays of prompt muons as non-prompt?
     void acceptMuonDecays(bool acc=true) { _acceptMuDecays = acc; }

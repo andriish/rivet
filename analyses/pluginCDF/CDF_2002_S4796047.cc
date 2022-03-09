@@ -27,11 +27,11 @@ namespace Rivet {
   class CDF_2002_S4796047 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2002_S4796047);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2002_S4796047);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book projections and histograms
     void init() {
@@ -40,10 +40,10 @@ namespace Rivet {
       declare(cfs, "FS");
 
       // Histos
-      if (fuzzyEquals(sqrtS()/GeV, 630)) {
+      if (isCompatibleWithSqrtS(630*GeV)) {
         book(_hist_multiplicity  ,1, 1, 1);
         book(_hist_pt_vs_multiplicity  ,3, 1, 1);
-      } else if (fuzzyEquals(sqrtS()/GeV, 1800)) {
+      } else if (isCompatibleWithSqrtS(1800*GeV)) {
         book(_hist_multiplicity ,2, 1, 1);
         book(_hist_pt_vs_multiplicity ,4, 1, 1);
       }
@@ -86,14 +86,14 @@ namespace Rivet {
       // legend of the plot in the paper. Have a look at
       // figure 1 and everything immediately becomes clear.
       // DON'T TRY TO REPAIR THIS, YOU WILL BREAK IT.
-      if (fuzzyEquals(sqrtS()/GeV, 630)) {
+      if (isCompatibleWithSqrtS(630*GeV)) {
         normalize(_hist_multiplicity, 3.21167); // fixed norm OK
-      } else if (fuzzyEquals(sqrtS()/GeV, 1800)) {
+      } else if (isCompatibleWithSqrtS(1800*GeV)) {
         normalize(_hist_multiplicity, 4.19121); // fixed norm OK
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -102,15 +102,15 @@ namespace Rivet {
     CounterPtr _sumWTrig;
 
     /// @name Histos
-    //@{
+    /// @{
     Histo1DPtr _hist_multiplicity;
     Profile1DPtr _hist_pt_vs_multiplicity;
-    //@}
+    /// @}
 
   };
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2002_S4796047, CDF_2002_I567774);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_2002_S4796047, CDF_2002_I567774);
 
 }

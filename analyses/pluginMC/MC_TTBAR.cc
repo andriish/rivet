@@ -8,18 +8,18 @@
 
 namespace Rivet {
 
-  
+
 
 
   class MC_TTBAR : public Analysis {
   public:
 
     /// Minimal constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(MC_TTBAR);
+    RIVET_DEFAULT_ANALYSIS_CTOR(MC_TTBAR);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Set up projections and book histograms
     void init() {
@@ -139,7 +139,7 @@ namespace Rivet {
       else if (_mode == 3 && nLeps == 2 && jets.size() < 2)  vetoEvent;
       MSG_DEBUG("Event failed jet multiplicity cut");
 
-      // Fill histograms for inclusive jet kinematics 
+      // Fill histograms for inclusive jet kinematics
       _h["njets"]->fill(jets.size(), weight);
       if (jets.size() > 0)  _h["jet_1_pT"]->fill(jets[0].pT()/GeV, weight);
       if (jets.size() > 1)  _h["jet_2_pT"]->fill(jets[1].pT()/GeV, weight);
@@ -290,7 +290,7 @@ namespace Rivet {
       for (auto hist : _h) { scale(hist.second, sf); }
     }
 
-    //@}
+    /// @}
 
   protected:
 
@@ -300,15 +300,15 @@ namespace Rivet {
   private:
 
     // @name Histogram data members
-    //@{
+    /// @{
     map<string, Histo1DPtr> _h;
-    //@}
+    /// @}
 
   };
 
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_TTBAR);
+  RIVET_DECLARE_PLUGIN(MC_TTBAR);
 
 }

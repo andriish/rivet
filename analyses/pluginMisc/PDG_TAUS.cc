@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -149,7 +149,7 @@ namespace Rivet {
     void analyzeRadiativeDecay(Particle mother, vector<int> ids, CounterPtr &w_incl, bool absolute, Histo1DPtr h_ratio) {
       // w_incl   ... reference to a global weight counter for all leptonic tau decays
       // h_ratio  ... pointer to ratio histo
-    	
+
       // There is no point in looking for decays with less particles than to be analysed
       if (mother.children().size() >= ids.size()) {
         bool decayfound = true;
@@ -193,12 +193,12 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_ratio_mu, _h_ratio_el;
     Histo1DPtr _h_1prong_pinu, _h_1prong_Kpnu, _h_1prong_Kppinu, _h_1prong_pipinu, _h_1prong_pipipinu, _h_1prong_Knpinu;
     Histo1DPtr _h_3prong_pipipinu;
     Histo1DPtr _h_5prong;
-    //@}
+    /// @}
 
     CounterPtr _weights_had, _weights_mu, _weights_el;
     map<string, vector<int> > decay_pids;
@@ -207,6 +207,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(PDG_TAUS);
+  RIVET_DECLARE_PLUGIN(PDG_TAUS);
 
 }

@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(E605_1991_I302822);
+    RIVET_DEFAULT_ANALYSIS_CTOR(E605_1991_I302822);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -49,7 +49,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       const double sqrts_tol = 10. ;
-      if (!fuzzyEquals(sqrtS()/GeV, 38.8, sqrts_tol)) {
+      if (!isCompatibleWithSqrtS(38.8*GeV, sqrts_tol)) {
         MSG_ERROR("Incorrect beam energy used: " << sqrtS()/GeV);
         throw Error("Unexpected sqrtS ! Only 38.8 GeV is supported");
       }
@@ -99,22 +99,22 @@ namespace Rivet {
       scale(_hist_pT_M_1318,scalefactor);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _hist_pT_M;
     Histo1DPtr _h_m_DiMuon ;
     Histo1DPtr _h_pT_DiMuon;
     Histo1DPtr _h_y_DiMuon;
     Histo1DPtr _h_xF_DiMuon;
     Histo1DPtr _hist_pT_M_78,_hist_pT_M_89,_hist_pT_M_1011,_hist_pT_M_1113,_hist_pT_M_1318;
-    //@}
+    /// @}
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(E605_1991_I302822);
+  RIVET_DECLARE_PLUGIN(E605_1991_I302822);
 
 }

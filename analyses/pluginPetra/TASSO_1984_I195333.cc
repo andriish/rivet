@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TASSO_1984_I195333);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TASSO_1984_I195333);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -25,18 +25,25 @@ namespace Rivet {
       declare(fs, "FS");
       declare(Sphericity(fs), "Sphericity");
       declare(Thrust(fs), "Thrust");
-      
+
       // counters for R
       book(_c_hadrons, "/TMP/sigma_hadrons");
       book(_c_muons, "/TMP/sigma_muons");
       book(_h_weight, "/TMP/HWeight");
       unsigned int iloc(0);
-      if(fuzzyEquals(sqrtS()/GeV, 14 , 1E-3))
+      sqs = 1.;
+      if(isCompatibleWithSqrtS(14*GeV)) {
 	iloc = 1;
-      else if(fuzzyEquals(sqrtS()/GeV, 22 , 1E-3))
+	sqs = 14.;
+      }
+      else if(isCompatibleWithSqrtS(22*GeV)) {
 	iloc = 2;
-      else if(fuzzyEquals(sqrtS()/GeV, 34 , 1E-3))
+	sqs = 22.;
+      }
+      else if(isCompatibleWithSqrtS(34*GeV)) {
 	iloc = 3;
+	sqs = 34.;
+      }
       if(iloc!=0) {
 	book(_h_mult,  3,1,iloc);
 	book(_h_p,  5,1,iloc);
@@ -67,7 +74,7 @@ namespace Rivet {
       }
       // mu+mu- + photons
       if(nCount[-13]==1 and nCount[13]==1 &&
-	 ntotal==2+nCount[22]) {	
+	 ntotal==2+nCount[22]) {
 	_c_muons->fill();
 	return;
       }
@@ -141,7 +148,7 @@ namespace Rivet {
 	pair<double,double> ex2 = ex;
 	if(ex2.first ==0.) ex2. first=0.0001;
 	if(ex2.second==0.) ex2.second=0.0001;
-	if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+	if (inRange(sqs, x-ex2.first, x+ex2.second)) {
 	  mult   ->addPoint(x, rval, ex, rerr);
 	  hadrons->addPoint(x, sig_h, ex, make_pair(err_h,err_h));
 	  muons  ->addPoint(x, sig_m, ex, make_pair(err_m,err_m));
@@ -211,7 +218,7 @@ namespace Rivet {
 	  pair<double,double> ex2 = ex;
 	  if(ex2.first ==0.) ex2. first=0.0001;
 	  if(ex2.second==0.) ex2.second=0.0001;
-	  if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+	  if (inRange(sqs, x-ex2.first, x+ex2.second)) {
 	    mult   ->addPoint(x, value, ex, make_pair(error,error));
 	  }
 	  else {
@@ -232,21 +239,22 @@ namespace Rivet {
       scale(_h_y  ,1./_h_weight->sumW());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_mult,_h_p,_h_xp,_h_pl,_h_pt,_h_pt2,_h_xl,_h_xT,_h_S,_h_T,_h_y;
     CounterPtr _c_hadrons, _c_muons;
     YODA::Dbn1D _n_charged,_n_total,_sphericity,_thrust,_p_total,
       _p_l,_pt,_pt2,_pt2_in,_pt2_out;
     CounterPtr  _h_weight;
-    //@}
+    double sqs;
+    /// @}
 
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TASSO_1984_I195333);
+  RIVET_DECLARE_PLUGIN(TASSO_1984_I195333);
 
 }

@@ -14,11 +14,11 @@ namespace Rivet {
   public:
 
     // Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2012_I930312);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2012_I930312);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -310,7 +310,7 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
   private:
 
@@ -321,16 +321,16 @@ namespace Rivet {
     static const int AWAY = 1;
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histYield[EVENT_TYPES][PT_BINS];
     Histo1DPtr _histYieldNoBkg[EVENT_TYPES][PT_BINS];
     CounterPtr _counterTrigger[EVENT_TYPES];
     Scatter2DPtr _histIAA[6];
-    //@}
+    /// @}
 
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALICE_2012_I930312);
+  RIVET_DECLARE_PLUGIN(ALICE_2012_I930312);
 
 }

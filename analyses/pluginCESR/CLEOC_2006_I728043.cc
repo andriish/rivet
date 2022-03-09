@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEOC_2006_I728043);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEOC_2006_I728043);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -22,10 +22,8 @@ namespace Rivet {
       declare(UnstableParticles(),"UFS");
       // histograms
       unsigned int imin(0),imax(3);
-      if(fuzzyEquals(sqrtS(),3.77,1e-2))
-	imax=2;
-      else if(fuzzyEquals(sqrtS(),4.17,1e-2))
-	imin=2;
+      if(isCompatibleWithSqrtS(3.77*GeV)) imax=2;
+      else if(isCompatibleWithSqrtS(4.17*GeV))	imin=2;
       else
 	MSG_ERROR("Invalid CMS energy in CLEOC_2006_I728043");
       for(unsigned int ix=imin;ix<imax;++ix) {
@@ -65,7 +63,7 @@ namespace Rivet {
 	}
       }
     }
-    
+
     void findDecayProducts(const Particle & mother, Particles & ssbar) {
       for(const Particle & p : mother.children()) {
         int id = p.pid();
@@ -111,10 +109,8 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       unsigned int imin(0),imax(3);
-      if(fuzzyEquals(sqrtS(),3.77,1e-2))
-	imax=2;
-      else if(fuzzyEquals(sqrtS(),4.17,1e-2))
-	imin=2;
+      if(isCompatibleWithSqrtS(3.77*GeV))	imax=2;
+      else if(isCompatibleWithSqrtS(4.17*GeV)) imin=2;
       else
 	MSG_ERROR("Invalid CMS energy in CLEOC_2006_I728043");
       for(unsigned int ix=imin;ix<imax;++ix) {
@@ -127,20 +123,20 @@ namespace Rivet {
       }
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     CounterPtr _n_D[3];
     Histo1DPtr _br_eta[3],_br_etaPrime[3],_br_phi[3];
     Histo1DPtr _s_eta[3], _s_phi[3];
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(CLEOC_2006_I728043);
+  RIVET_DECLARE_PLUGIN(CLEOC_2006_I728043);
 
 }

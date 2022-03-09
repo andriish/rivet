@@ -16,6 +16,7 @@ RunInfo:
   top-antitop production, reconstructed from leptons + jets final state
 Beams: [p+, p+]
 Energies: [7000]
+Luminosity_fb: 4.6
 PtCuts: [25,25,25]
 NeedCrossSection: True
 Description:

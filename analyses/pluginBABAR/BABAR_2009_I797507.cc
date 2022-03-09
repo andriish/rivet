@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2009_I797507);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2009_I797507);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -47,7 +47,7 @@ namespace Rivet {
 	  break;
 	}
       }
-      
+
       // mu+mu- + photons
       if(nCount[-13]==1 and nCount[13]==1 &&
 	 ntotal==2+nCount[22])
@@ -95,20 +95,20 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _c_hadrons, _c_muons;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BABAR_2009_I797507);
+  RIVET_DECLARE_PLUGIN(BABAR_2009_I797507);
 
 
 }

@@ -13,5 +13,5 @@ namespace Rivet {
                                                  (invisiblesMass2 < 0 ? invisiblesMass : invisiblesMass2),
                                                  0.0, true);
     }
-    
+
 }

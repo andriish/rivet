@@ -28,11 +28,11 @@ namespace Rivet {
   class CDF_2010_S8591881_QCD : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2010_S8591881_QCD);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2010_S8591881_QCD);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Final state for the jet finding
@@ -156,7 +156,7 @@ namespace Rivet {
 
     // void finalize() {    }
 
-    //@}
+    /// @}
 
 
   private:
@@ -180,6 +180,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2010_S8591881_QCD, CDF_2010_I849042_QCD);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_2010_S8591881_QCD, CDF_2010_I849042_QCD);
 
 }

@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(KLOE2_2016_I1416990);
+    RIVET_DEFAULT_ANALYSIS_CTOR(KLOE2_2016_I1416990);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -32,7 +32,7 @@ namespace Rivet {
       }
       book(_norm,"TMP/norm");
     }
-    
+
     void findDecayProducts(const Particle & mother, unsigned int & nstable,
 			   Particles &pi0, Particles &pip, Particles &pim) {
       for(const Particle & p : mother.children()) {
@@ -94,22 +94,22 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo2DPtr _dalitz;
     BinnedHistogram _h_dalitz;
     CounterPtr _norm;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(KLOE2_2016_I1416990);
+  RIVET_DECLARE_PLUGIN(KLOE2_2016_I1416990);
 
 
 }

@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMD3_2016_I1395968);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMD3_2016_I1395968);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -44,7 +44,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      
+
       double sigma = _cKpKmpippim->val();
       double error = _cKpKmpippim->err();
       sigma *= crossSection()/ sumOfWeights() /nanobarn;
@@ -67,20 +67,20 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _cKpKmpippim;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMD3_2016_I1395968);
+  RIVET_DECLARE_PLUGIN(CMD3_2016_I1395968);
 
 
 }

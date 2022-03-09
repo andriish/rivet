@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BELLE_2018_I1698390);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2018_I1698390);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -68,18 +68,18 @@ namespace Rivet {
       normalize(_h);
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(BELLE_2018_I1698390);
+  RIVET_DECLARE_PLUGIN(BELLE_2018_I1698390);
 
 }

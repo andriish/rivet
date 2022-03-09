@@ -27,21 +27,21 @@ Title=$\rho_{1-1}$ for $0.3<x_E<1$
 YLabel=$\rho_{1-1}$
 END PLOT
 BEGIN PLOT /TPC_1991_I316132/d02-x01-y03
-Title=$\text{Re}\rho_{10}$ vs $x_E$
-YLabel=$\text{Re}\rho_{10}$
+Title=$\mathrm{Re}\rho_{10}$ vs $x_E$
+YLabel=$\mathrm{Re}\rho_{10}$
 END PLOT
 BEGIN PLOT /TPC_1991_I316132/d02-x02-y03
-Title=$\text{Re}\rho_{10}$ for $0.3<x_E<1$
-YLabel=$\text{Re}\rho_{10}$
+Title=$\mathrm{Re}\rho_{10}$ for $0.3<x_E<1$
+YLabel=$\mathrm{Re}\rho_{10}$
 END PLOT
 
 BEGIN PLOT /TPC_1991_I316132/ctheta
 XLabel=$\cos\theta_H$
-YLabel=$1/N\text{d}N/\text{d}\cos\theta_H$
+YLabel=$1/N\mathrm{d}N/\mathrm{d}\cos\theta_H$
 END PLOT
 BEGIN PLOT /TPC_1991_I316132/phi
 XLabel=$\phi$
-YLabel=$1/N\text{d}N/\text{d}\phi$
+YLabel=$1/N\mathrm{d}N/\mathrm{d}\phi$
 END PLOT
 BEGIN PLOT /TPC_1991_I316132/d
 XLabel=z
@@ -49,7 +49,7 @@ END PLOT
 
 BEGIN PLOT /TPC_1991_I316132/h_01_
 XLabel=$\cos\theta_H$
-YLabel=$\langle\cos\phi\rangle/N\text{d}N/\text{d}\cos\theta_H$
+YLabel=$\langle\cos\phi\rangle/N\mathrm{d}N/\mathrm{d}\cos\theta_H$
 END PLOT
 BEGIN PLOT /TPC_1991_I316132/ctheta_0
 Title=$\cos\theta_H$ for $0.3<x_E<0.4$

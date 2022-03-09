@@ -15,9 +15,12 @@ References:
 RunInfo:
   $pp$ QCD interactions at 0.9, 2.36, and 7 TeV. Diffractive events should
   be included. Multiple kinematic cuts should not be required.
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merge'ing samples.
 NumEvents: 1000000
 Beams: [p+, p+]
 Energies: [900, 2360, 7000]
+Options:
+ - ENERGY=900,2360,7000
 PtCuts: [0]
 Description:
   Measurements from proton-proton collisions at centre-of-mass energies
@@ -30,7 +33,7 @@ Description:
   providing diffraction-reduced measurements as well as more inclusive
   ones. The observed distributions are corrected to well-defined
   phase-space regions, using model-independent corrections.
-
+  Beam energy must be specified (in GeV) as analysis option "ENERGY" when rivet-merging samples.
 ReleaseTests:
  - $A LHC-2360-UE
 

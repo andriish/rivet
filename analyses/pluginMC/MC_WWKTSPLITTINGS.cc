@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -64,13 +64,13 @@ namespace Rivet {
       MC_JetSplittings::finalize();
     }
 
-    //@}
+    /// @}
 
   };
 
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_WWKTSPLITTINGS);
+  RIVET_DECLARE_PLUGIN(MC_WWKTSPLITTINGS);
 
 }

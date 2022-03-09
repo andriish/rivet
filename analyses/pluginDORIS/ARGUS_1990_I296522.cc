@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ARGUS_1990_I296522);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ARGUS_1990_I296522);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -89,19 +89,19 @@ namespace Rivet {
       scale(_h_all3,    crossSection()/picobarn/sumOfWeights());
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_obs1,_h_obs2,_h_obs3,_h_all1,_h_all2,_h_all3;
     Histo1DPtr _h_x;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(ARGUS_1990_I296522);
+  RIVET_DECLARE_PLUGIN(ARGUS_1990_I296522);
 
 }

@@ -12,17 +12,17 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
-    MC_CORRELATORS_EXAMPLE() : CumulantAnalysis("MC_CORRELATORS_EXAMPLE") {
-    }
-    //@}
+    MC_CORRELATORS_EXAMPLE()
+      : CumulantAnalysis("MC_CORRELATORS_EXAMPLE")
+    {   }
+    /// @}
 
-  public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
     /// Book histograms and initialise projections before the run
     void init() {
 
@@ -36,10 +36,11 @@ namespace Rivet {
       ec22 = bookECorrelator<2,2>("ec22",*h_c22);
       ec23 = bookECorrelator<3,2>("ec32",*h_c22);
       ec22pT = bookECorrelator<2,2>("ec22pT",*h_v22pT);
-      pair<int, int> max = getMaxValues(); 
+      pair<int, int> max = getMaxValues();
       // Declare correlator projections.
       declare(Correlators(pp, max.first, max.second, *h_v22pT),"CRS");
     }
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const Correlators& c = apply<Correlators>(event,"CRS");
@@ -47,6 +48,7 @@ namespace Rivet {
       ec23->fill(apply<ChargedFinalState>(event,"CFS").particles().size(), c);
       ec22pT->fill(c);
     }
+
     /// Normalise histograms etc., after the run
     void finalize() {
       cnTwoInt(h_c22,ec22);
@@ -55,26 +57,26 @@ namespace Rivet {
 
     }
 
+    /// @}
 
-    //@}
+
   private:
 
-
     /// @name Histograms
-    //@{
+    /// @{
     Scatter2DPtr h_c22;
     Scatter2DPtr h_v22pT;
     ECorrPtr ec22;
     ECorrPtr ec22pT;
     Scatter2DPtr h_c23;
     ECorrPtr ec23;
-    //@}
+    /// @}
 
   };
 
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_CORRELATORS_EXAMPLE);
+  RIVET_DECLARE_PLUGIN(MC_CORRELATORS_EXAMPLE);
 
 }

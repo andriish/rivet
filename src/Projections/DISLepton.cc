@@ -38,7 +38,7 @@ namespace Rivet {
       fsleptons = fs.particles(isLepton, cmpMomByEta);
     else
       fsleptons = fs.particles(isLepton, cmpMomByE);
-      
+
     Particles sfleptons =
       filter_select(fsleptons, Cuts::pid == _incoming.pid());
     MSG_DEBUG("SF leptons = " << sfleptons.size() << ", all leptons = "

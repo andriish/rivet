@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEOII_2002_I606309);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEOII_2002_I606309);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -72,7 +72,7 @@ namespace Rivet {
     }
 
     /// Perform the per-event analysis
-    void analyze(const Event& event) {    
+    void analyze(const Event& event) {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::pid==300553)) {
         _weightSum->fill();
@@ -109,7 +109,7 @@ namespace Rivet {
 	}
       }
     }
-    
+
     pair<double,pair<double,double> > calcAlpha(Histo1DPtr hist) {
       if(hist->numEntries()==0.) return make_pair(0.,make_pair(0.,0.));
       double d = 3./(pow(hist->xMax(),3)-pow(hist->xMin(),3));
@@ -132,7 +132,7 @@ namespace Rivet {
       // and error
       double cc = -pow((sum3 + sqr(c)*sum4 - 2*c*sum5),3);
       double bb = -2*sqr(sum3 + sqr(c)*sum4 - 2*c*sum5)*(sum1 - c*sum2 + c*sum4 - sum5);
-      double aa =  sqr(sum1 - c*sum2 + c*sum4 - sum5)*(-sum3 - sqr(c)*sum4 + sqr(sum1 - c*sum2 + c*sum4 - sum5) + 2*c*sum5);      
+      double aa =  sqr(sum1 - c*sum2 + c*sum4 - sum5)*(-sum3 - sqr(c)*sum4 + sqr(sum1 - c*sum2 + c*sum4 - sum5) + 2*c*sum5);
       double dis = sqr(bb)-4.*aa*cc;
       if(dis>0.) {
 	dis = sqrt(dis);
@@ -175,23 +175,23 @@ namespace Rivet {
       }
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     // count of weights
     CounterPtr _weightSum;
     // histograms
     Histo1DPtr _h_Jpsi,_h_Psi_prime;
     Histo1DPtr _h_cTheta_Jpsi,_h_cTheta_Psi_prime;
     BinnedHistogram _h2_cTheta_Jpsi;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(CLEOII_2002_I606309);
+  RIVET_DECLARE_PLUGIN(CLEOII_2002_I606309);
 
 }

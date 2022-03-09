@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TASSO_1980_I153656);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TASSO_1980_I153656);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -26,14 +26,17 @@ namespace Rivet {
 
       // Book histograms
       _iHist=-1;
-      if(fuzzyEquals(sqrtS()/GeV, 12., 1e-3)) {
+      sqs = 1.;
+      if(isCompatibleWithSqrtS(12*GeV)) {
 	_iHist = 0;
+	sqs = 12.;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 30., 1e-3)) {
+      else if (isCompatibleWithSqrtS(30*GeV)) {
 	_iHist = 1;
+	sqs = 30.;
       }
       else
-	MSG_ERROR("Beam energy not supported!");
+	MSG_ERROR("Beam energy " << sqrtS() << " GeV not supported!");
 
       book(_h_p_pi,3*_iHist+2,1,1);
       book(_h_x_pi,3*_iHist+2,1,2);
@@ -70,7 +73,7 @@ namespace Rivet {
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
-      
+
       for( const Particle& p : fs.particles()) {
 	double modp = p.p3().mod();
 	_d_pi->fill(modp);
@@ -102,38 +105,39 @@ namespace Rivet {
     void finalize() {
 
       scale(_h_p_pi , crossSection()/nanobarn/sumOfWeights());
-      scale(_h_x_pi , sqr(sqrtS())*crossSection()/microbarn/sumOfWeights());
+      scale(_h_x_pi , sqr(sqs)*crossSection()/microbarn/sumOfWeights());
       scale(_h_p_K  , crossSection()/nanobarn/sumOfWeights());
-      scale(_h_x_K  , sqr(sqrtS())*crossSection()/microbarn/sumOfWeights());
+      scale(_h_x_K  , sqr(sqs)*crossSection()/microbarn/sumOfWeights());
       scale(_h_p_p  , crossSection()/nanobarn/sumOfWeights());
-      scale(_h_x_p  , sqr(sqrtS())*crossSection()/microbarn/sumOfWeights());
+      scale(_h_x_p  , sqr(sqs)*crossSection()/microbarn/sumOfWeights());
 
       Scatter2DPtr temp1,temp2,temp3;
       book(temp1,3*_iHist+ 8,1,1);
       book(temp2,3*_iHist+ 9,1,1);
       book(temp3,3*_iHist+10,1,1);
-      
+
       divide(_n_pi,_d_pi, temp1);
       divide(_n_K ,_d_K , temp2);
       divide(_n_p ,_d_p , temp3);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_p_pi, _h_x_pi, _h_p_K, _h_x_K, _h_p_p, _h_x_p;
     Histo1DPtr _n_pi,_d_pi,_n_K,_d_K,_n_p,_d_p;
     int _iHist;
-    //@}
+    double sqs;
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TASSO_1980_I153656);
+  RIVET_DECLARE_PLUGIN(TASSO_1980_I153656);
 
 
 }

@@ -13,11 +13,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(OPAL_1997_I421977);
+    RIVET_DEFAULT_ANALYSIS_CTOR(OPAL_1997_I421977);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -43,7 +43,7 @@ namespace Rivet {
         vetoEvent;
       }
       MSG_DEBUG("Passed leptonic event cut");
-      
+
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
@@ -68,23 +68,23 @@ namespace Rivet {
       double fact=1./sumOfWeights();
       scale(_h_plus , fact);
       scale(_h_minus, fact);
-      
+
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
       Histo1DPtr _h_plus,_h_minus;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OPAL_1997_I421977);
+  RIVET_DECLARE_PLUGIN(OPAL_1997_I421977);
 
 
 }

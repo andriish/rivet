@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2013_I1116411);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2013_I1116411);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -26,7 +26,7 @@ namespace Rivet {
       book(_h_q2 ,1, 1, 1);
 
     }
-    
+
     // Calculate the Q2 using mother and daughter charged lepton
     double q2(const Particle& B) {
       const Particle chlept = filter_select(B.children(), Cuts::pid==PID::POSITRON || Cuts::pid==PID::ANTIMUON)[0];
@@ -62,23 +62,23 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_q2;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BABAR_2013_I1116411);
+  RIVET_DECLARE_PLUGIN(BABAR_2013_I1116411);
 
 
 }

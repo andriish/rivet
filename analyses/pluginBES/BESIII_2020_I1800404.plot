@@ -1,5 +1,5 @@
 BEGIN PLOT /BESIII_2020_I1800404/
-XLabel=$N_{\text{charged}}$
+XLabel=$N_{\mathrm{charged}}$
 YLabel=$\%$
 LogY=0
 END PLOT

@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(MAC_1985_I202924);
+    RIVET_DEFAULT_ANALYSIS_CTOR(MAC_1985_I202924);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -77,19 +77,19 @@ namespace Rivet {
       scale(_histAEEC  , 180.0/M_PI*1000./ *_weightSum);
     }
 
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histEEC, _histEEC_Pi, _histAEEC;
     CounterPtr _weightSum;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MAC_1985_I202924);
+  RIVET_DECLARE_PLUGIN(MAC_1985_I202924);
 
 
 }

@@ -12,11 +12,11 @@ namespace Rivet {
   class CDF_1990_S2089246 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_1990_S2089246);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_1990_S2089246);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Setup projections
@@ -24,9 +24,9 @@ namespace Rivet {
       declare(ChargedFinalState((Cuts::etaIn(-3.5, 3.5))), "CFS");
 
       // Book histo
-      if (fuzzyEquals(sqrtS()/GeV, 1800, 1E-3)) {
+      if (isCompatibleWithSqrtS(1800*GeV)) {
         book(_hist_eta ,3, 1, 1);
-      } else if (fuzzyEquals(sqrtS()/GeV, 630, 1E-3)) {
+      } else if (isCompatibleWithSqrtS(630*GeV)) {
         book(_hist_eta ,4, 1, 1);
       }
       book(_sumWTrig, "sumWTrig");
@@ -56,7 +56,7 @@ namespace Rivet {
       scale(_hist_eta, 0.5/ *_sumWTrig);
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -71,6 +71,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(CDF_1990_S2089246, CDF_1990_I283352);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_1990_S2089246, CDF_1990_I283352);
 
 }

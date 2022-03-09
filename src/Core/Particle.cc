@@ -41,14 +41,14 @@ namespace Rivet {
 
 
   bool Particle::isVisible() const {
-    // Charged particles are visible
-    if ( PID::charge3(pid()) != 0 ) return true;
-    // Neutral hadrons are visible
-    if ( PID::isHadron(pid()) ) return true;
     // Photons are visible
     if ( pid() == PID::PHOTON ) return true;
     // Gluons are visible (for parton level analyses)
     if ( pid() == PID::GLUON ) return true;
+    // Charged particles are visible
+    if ( PID::charge3(pid()) != 0 ) return true;
+    // Neutral hadrons are visible
+    if ( PID::isHadron(pid()) ) return true;
     // Everything else is invisible
     return false;
   }

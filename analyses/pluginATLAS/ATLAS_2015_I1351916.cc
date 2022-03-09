@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -98,7 +98,7 @@ namespace Rivet {
       return sign(ll.pz()) * safediv(nom, denom); // protect against division by zero, you never know...
     }
 
-    //@}
+    /// @}
 
 
   protected:
@@ -130,8 +130,8 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ATLAS_2015_I1351916);
-  DECLARE_RIVET_PLUGIN(ATLAS_2015_I1351916_EL);
-  DECLARE_RIVET_PLUGIN(ATLAS_2015_I1351916_MU);
+  RIVET_DECLARE_PLUGIN(ATLAS_2015_I1351916);
+  RIVET_DECLARE_PLUGIN(ATLAS_2015_I1351916_EL);
+  RIVET_DECLARE_PLUGIN(ATLAS_2015_I1351916_MU);
 
 }

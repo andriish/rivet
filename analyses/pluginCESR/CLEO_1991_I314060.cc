@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEO_1991_I314060);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEO_1991_I314060);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -24,7 +24,7 @@ namespace Rivet {
       // Initialise and register projections
       declare(Beam(), "Beams");
       declare(UnstableParticles(), "UFS");
-      
+
       {Histo1DPtr temp; _h_ctheta.add(0.25,0.45,book(temp,2,1,1));}
       {Histo1DPtr temp; _h_ctheta.add(0.45,0.55,book(temp,2,1,2));}
       {Histo1DPtr temp; _h_ctheta.add(0.55,0.65,book(temp,2,1,3));}
@@ -90,7 +90,7 @@ namespace Rivet {
       // and error
       double cc = -pow((sum3 + 9*sum4 - 6*sum5),3);
       double bb = -2*sqr(sum3 + 9*sum4 - 6*sum5)*(sum1 - 3*sum2 + 3*sum4 - sum5);
-      double aa =  sqr(sum1 - 3*sum2 + 3*sum4 - sum5)*(-sum3 - 9*sum4 + sqr(sum1 - 3*sum2 + 3*sum4 - sum5) + 6*sum5);      
+      double aa =  sqr(sum1 - 3*sum2 + 3*sum4 - sum5)*(-sum3 - 9*sum4 + sqr(sum1 - 3*sum2 + 3*sum4 - sum5) + 6*sum5);
       double dis = sqr(bb)-4.*aa*cc;
       if(dis>0.) {
 	dis = sqrt(dis);
@@ -132,20 +132,20 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _h_ctheta;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CLEO_1991_I314060);
+  RIVET_DECLARE_PLUGIN(CLEO_1991_I314060);
 
 
 }

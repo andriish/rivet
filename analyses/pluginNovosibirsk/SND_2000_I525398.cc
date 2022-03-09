@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(SND_2000_I525398);
+    RIVET_DEFAULT_ANALYSIS_CTOR(SND_2000_I525398);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -52,7 +52,7 @@ namespace Rivet {
           ++nstable;
       }
     }
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
@@ -76,21 +76,21 @@ namespace Rivet {
       scale( _h_etapi, 1./ *_nPhi);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_etapi;
     CounterPtr _nPhi;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(SND_2000_I525398);
+  RIVET_DECLARE_PLUGIN(SND_2000_I525398);
 
 
 }

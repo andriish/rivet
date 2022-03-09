@@ -6,17 +6,19 @@
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
 
-
 namespace Rivet {
+
 
   /// @brief H->ZZ->4l 13 TeV analysis
   class ATLAS_2020_I1790439 : public Analysis {
   public:
+
     /// Default constructor
     ATLAS_2020_I1790439()
       : Analysis("ATLAS_2020_I1790439"),
         MGME()
     { }
+
 
     void init() {
 
@@ -382,14 +384,14 @@ namespace Rivet {
       // Higgs variables
       for(const auto & p: std::map<std::string, double>{
           {"H4l_pt",     H4l_pt},
-          {"Z1_m",       H4l_m12},
-          {"Z2_m",       H4l_m34},
-          {"abshiggs_y", H4l_rapidity},
-          {"abscthstr",  H4l_costheta},
-          {"cth1",       H4l_cth1},
-          {"cth2",       H4l_cth2},
-          {"phi",        H4l_Phi},
-          {"phi1",       H4l_Phi1}})
+            {"Z1_m",       H4l_m12},
+              {"Z2_m",       H4l_m34},
+                {"abshiggs_y", H4l_rapidity},
+                  {"abscthstr",  H4l_costheta},
+                    {"cth1",       H4l_cth1},
+                      {"cth2",       H4l_cth2},
+                        {"phi",        H4l_Phi},
+                          {"phi1",       H4l_Phi1}})
         {
           _h[ p.first ]->fill(p.second);
         }
@@ -435,104 +437,104 @@ namespace Rivet {
         _h[ "m4ljj" ]->fill(H4l_m4ljj);
       }
 
-        // m12 vs m34 (all channels)
-        if(H4l_m12 < 82 && H4l_m34 < 32) _h["m12vsm34"]->fill(1.);
-        else if(H4l_m12 < 74 && H4l_m34 > 32) _h["m12vsm34"]->fill(2.);
-        else if(H4l_m12 > 74 && H4l_m34 > 32) _h["m12vsm34"]->fill(3.);
-        else if(H4l_m12 > 82 && H4l_m34 < 32 && H4l_m34 > 24) _h["m12vsm34"]->fill(4.);
-        else if(H4l_m12 > 82 && H4l_m34 < 24) _h["m12vsm34"]->fill(5.);
+      // m12 vs m34 (all channels)
+      if(H4l_m12 < 82 && H4l_m34 < 32) _h["m12vsm34"]->fill(1.);
+      else if(H4l_m12 < 74 && H4l_m34 > 32) _h["m12vsm34"]->fill(2.);
+      else if(H4l_m12 > 74 && H4l_m34 > 32) _h["m12vsm34"]->fill(3.);
+      else if(H4l_m12 > 82 && H4l_m34 < 32 && H4l_m34 > 24) _h["m12vsm34"]->fill(4.);
+      else if(H4l_m12 > 82 && H4l_m34 < 24) _h["m12vsm34"]->fill(5.);
 
-        if (quadSel.type() == Quadruplet::FlavCombi::em
-            || quadSel.type() == Quadruplet::FlavCombi::mm ){
-          if(H4l_m12 < 82 && H4l_m34 < 32) _h["m12vsm34_2l2m"]->fill(1.);
-          else if(H4l_m12 < 74 && H4l_m34 > 32) _h["m12vsm34_2l2m"]->fill(2.);
-          else if(H4l_m12 > 74 && H4l_m34 > 32) _h["m12vsm34_2l2m"]->fill(3.);
-          else if(H4l_m12 > 82 && H4l_m34 < 32 && H4l_m34 > 24) _h["m12vsm34_2l2m"]->fill(4.);
-          else if(H4l_m12 > 82 && H4l_m34 < 24) _h["m12vsm34_2l2m"]->fill(5.);
-        }
-        else if (quadSel.type() == Quadruplet::FlavCombi::me
-                 || quadSel.type() == Quadruplet::FlavCombi::ee ){
-          if(H4l_m12 < 82 && H4l_m34 < 32) _h["m12vsm34_2l2e"]->fill(1.);
-          else if(H4l_m12 < 74 && H4l_m34 > 32) _h["m12vsm34_2l2e"]->fill(2.);
-          else if(H4l_m12 > 74 && H4l_m34 > 32) _h["m12vsm34_2l2e"]->fill(3.);
-          else if(H4l_m12 > 82 && H4l_m34 < 32 && H4l_m34 > 24) _h["m12vsm34_2l2e"]->fill(4.);
-          else if(H4l_m12 > 82 && H4l_m34 < 24) _h["m12vsm34_2l2e"]->fill(5.);
-        }
+      if (quadSel.type() == Quadruplet::FlavCombi::em
+          || quadSel.type() == Quadruplet::FlavCombi::mm ){
+        if(H4l_m12 < 82 && H4l_m34 < 32) _h["m12vsm34_2l2m"]->fill(1.);
+        else if(H4l_m12 < 74 && H4l_m34 > 32) _h["m12vsm34_2l2m"]->fill(2.);
+        else if(H4l_m12 > 74 && H4l_m34 > 32) _h["m12vsm34_2l2m"]->fill(3.);
+        else if(H4l_m12 > 82 && H4l_m34 < 32 && H4l_m34 > 24) _h["m12vsm34_2l2m"]->fill(4.);
+        else if(H4l_m12 > 82 && H4l_m34 < 24) _h["m12vsm34_2l2m"]->fill(5.);
+      }
+      else if (quadSel.type() == Quadruplet::FlavCombi::me
+               || quadSel.type() == Quadruplet::FlavCombi::ee ){
+        if(H4l_m12 < 82 && H4l_m34 < 32) _h["m12vsm34_2l2e"]->fill(1.);
+        else if(H4l_m12 < 74 && H4l_m34 > 32) _h["m12vsm34_2l2e"]->fill(2.);
+        else if(H4l_m12 > 74 && H4l_m34 > 32) _h["m12vsm34_2l2e"]->fill(3.);
+        else if(H4l_m12 > 82 && H4l_m34 < 32 && H4l_m34 > 24) _h["m12vsm34_2l2e"]->fill(4.);
+        else if(H4l_m12 > 82 && H4l_m34 < 24) _h["m12vsm34_2l2e"]->fill(5.);
+      }
 
-        // m12 vs m34 (4l channels only)
-        if (quadSel.type() == Quadruplet::FlavCombi::ee
-            || quadSel.type() == Quadruplet::FlavCombi::mm ){
-          if(H4l_m12 < 82 && H4l_m34 < 32) _h["m12vsm34_4l"]->fill(1.);
-          else if(H4l_m12 < 74 && H4l_m34 > 32) _h["m12vsm34_4l"]->fill(2.);
-          else if(H4l_m12 > 74 && H4l_m34 > 32) _h["m12vsm34_4l"]->fill(3.);
-          else if(H4l_m12 > 82 && H4l_m34 < 32 && H4l_m34 > 24) _h["m12vsm34_4l"]->fill(4.);
-          else if(H4l_m12 > 82 && H4l_m34 < 24) _h["m12vsm34_4l"]->fill(5.);
-          _h["Z1_m_4l"]->fill(H4l_m12);
-          _h["Z2_m_4l"]->fill(H4l_m34);
-          _h["phi_4l"]->fill(H4l_Phi);
-        }
+      // m12 vs m34 (4l channels only)
+      if (quadSel.type() == Quadruplet::FlavCombi::ee
+          || quadSel.type() == Quadruplet::FlavCombi::mm ){
+        if(H4l_m12 < 82 && H4l_m34 < 32) _h["m12vsm34_4l"]->fill(1.);
+        else if(H4l_m12 < 74 && H4l_m34 > 32) _h["m12vsm34_4l"]->fill(2.);
+        else if(H4l_m12 > 74 && H4l_m34 > 32) _h["m12vsm34_4l"]->fill(3.);
+        else if(H4l_m12 > 82 && H4l_m34 < 32 && H4l_m34 > 24) _h["m12vsm34_4l"]->fill(4.);
+        else if(H4l_m12 > 82 && H4l_m34 < 24) _h["m12vsm34_4l"]->fill(5.);
+        _h["Z1_m_4l"]->fill(H4l_m12);
+        _h["Z2_m_4l"]->fill(H4l_m34);
+        _h["phi_4l"]->fill(H4l_Phi);
+      }
 
-        // m12 vs m34 (2l2l channels only)
-        if (quadSel.type() == Quadruplet::FlavCombi::me
-            || quadSel.type() == Quadruplet::FlavCombi::em ){
-          if(H4l_m12 < 82 && H4l_m34 < 32) _h["m12vsm34_2l2l"]->fill(1.);
-          else if(H4l_m12 < 74 && H4l_m34 > 32) _h["m12vsm34_2l2l"]->fill(2.);
-          else if(H4l_m12 > 74 && H4l_m34 > 32) _h["m12vsm34_2l2l"]->fill(3.);
-          else if(H4l_m12 > 82 && H4l_m34 < 32 && H4l_m34 > 24) _h["m12vsm34_2l2l"]->fill(4.);
-          else if(H4l_m12 > 82 && H4l_m34 < 24) _h["m12vsm34_2l2l"]->fill(5.);
-          _h["Z1_m_2l2l"]->fill(H4l_m12);
-          _h["Z2_m_2l2l"]->fill(H4l_m34);
-          _h["phi_2l2l"]->fill(H4l_Phi);
-        }
+      // m12 vs m34 (2l2l channels only)
+      if (quadSel.type() == Quadruplet::FlavCombi::me
+          || quadSel.type() == Quadruplet::FlavCombi::em ){
+        if(H4l_m12 < 82 && H4l_m34 < 32) _h["m12vsm34_2l2l"]->fill(1.);
+        else if(H4l_m12 < 74 && H4l_m34 > 32) _h["m12vsm34_2l2l"]->fill(2.);
+        else if(H4l_m12 > 74 && H4l_m34 > 32) _h["m12vsm34_2l2l"]->fill(3.);
+        else if(H4l_m12 > 82 && H4l_m34 < 32 && H4l_m34 > 24) _h["m12vsm34_2l2l"]->fill(4.);
+        else if(H4l_m12 > 82 && H4l_m34 < 24) _h["m12vsm34_2l2l"]->fill(5.);
+        _h["Z1_m_2l2l"]->fill(H4l_m12);
+        _h["Z2_m_2l2l"]->fill(H4l_m34);
+        _h["phi_2l2l"]->fill(H4l_Phi);
+      }
 
-        // 2d differential variables
-        if (0 < H4l_rapidity && H4l_rapidity < 0.5) _h["pt4lvy4l_0_0p5"]->fill(H4l_pt);
-        else if (0.5 < H4l_rapidity && H4l_rapidity < 1) _h["pt4lvy4l_0p5_1"]->fill(H4l_pt);
-        else if (1 < H4l_rapidity && H4l_rapidity < 1.5) _h["pt4lvy4l_1_1p5"]->fill(H4l_pt);
-        else if (1.5 < H4l_rapidity && H4l_rapidity < 2.5) _h["pt4lvy4l_1p5_2p5"]->fill(H4l_pt);
+      // 2d differential variables
+      if (0 < H4l_rapidity && H4l_rapidity < 0.5) _h["pt4lvy4l_0_0p5"]->fill(H4l_pt);
+      else if (0.5 < H4l_rapidity && H4l_rapidity < 1) _h["pt4lvy4l_0p5_1"]->fill(H4l_pt);
+      else if (1 < H4l_rapidity && H4l_rapidity < 1.5) _h["pt4lvy4l_1_1p5"]->fill(H4l_pt);
+      else if (1.5 < H4l_rapidity && H4l_rapidity < 2.5) _h["pt4lvy4l_1p5_2p5"]->fill(H4l_pt);
 
-        if (n_jets == 0) _h["pt4lvnjet_0"]->fill(H4l_pt);
-        else if (n_jets == 1) _h["pt4lvnjet_1"]->fill(H4l_pt);
-        else if (n_jets == 2) _h["pt4lvnjet_2"]->fill(H4l_pt);
-        else if (n_jets > 2) _h["pt4lvnjet_3"]->fill(H4l_pt);
+      if (n_jets == 0) _h["pt4lvnjet_0"]->fill(H4l_pt);
+      else if (n_jets == 1) _h["pt4lvnjet_1"]->fill(H4l_pt);
+      else if (n_jets == 2) _h["pt4lvnjet_2"]->fill(H4l_pt);
+      else if (n_jets > 2) _h["pt4lvnjet_3"]->fill(H4l_pt);
 
-        if (n_jets == 0) {
-          _h["pt4lvptj0"]->fill(1.);
-          _h["pt4lvpt4lj"]->fill(1.);
-          _h["pt4ljvm4lj"]->fill(1.);
-          _h["ptj0vptj1"]->fill(1.);
-          _h["ptj0vyj0"]->fill(1.);
-        } else {
+      if (n_jets == 0) {
+        _h["pt4lvptj0"]->fill(1.);
+        _h["pt4lvpt4lj"]->fill(1.);
+        _h["pt4ljvm4lj"]->fill(1.);
+        _h["ptj0vptj1"]->fill(1.);
+        _h["ptj0vyj0"]->fill(1.);
+      } else {
 
-          if (     0  < H4l_pt4lj && H4l_pt4lj < 60  && 0   < H4l_pt && H4l_pt < 120)  _h["pt4lvpt4lj"]->fill(2.);
-          else if (0  < H4l_pt4lj && H4l_pt4lj < 60  && 120 < H4l_pt && H4l_pt < 350)  _h["pt4lvpt4lj"]->fill(3.);
-          else if (60 < H4l_pt4lj && H4l_pt4lj < 350 && 0   < H4l_pt && H4l_pt < 120)  _h["pt4lvpt4lj"]->fill(4.);
-          else if (60 < H4l_pt4lj && H4l_pt4lj < 350 && 120 < H4l_pt && H4l_pt < 350)  _h["pt4lvpt4lj"]->fill(5.);
+        if (     0  < H4l_pt4lj && H4l_pt4lj < 60  && 0   < H4l_pt && H4l_pt < 120)  _h["pt4lvpt4lj"]->fill(2.);
+        else if (0  < H4l_pt4lj && H4l_pt4lj < 60  && 120 < H4l_pt && H4l_pt < 350)  _h["pt4lvpt4lj"]->fill(3.);
+        else if (60 < H4l_pt4lj && H4l_pt4lj < 350 && 0   < H4l_pt && H4l_pt < 120)  _h["pt4lvpt4lj"]->fill(4.);
+        else if (60 < H4l_pt4lj && H4l_pt4lj < 350 && 120 < H4l_pt && H4l_pt < 350)  _h["pt4lvpt4lj"]->fill(5.);
 
-          if (     120 < H4l_m4lj && H4l_m4lj < 220  && 0   < H4l_pt4lj && H4l_pt4lj < 350) _h["pt4ljvm4lj"]->fill(2.);
-          else if (220 < H4l_m4lj && H4l_m4lj < 350  && 0   < H4l_pt4lj && H4l_pt4lj < 60)  _h["pt4ljvm4lj"]->fill(3.);
-          else if (220 < H4l_m4lj && H4l_m4lj < 350  && 60  < H4l_pt4lj && H4l_pt4lj < 350) _h["pt4ljvm4lj"]->fill(4.);
-          else if (350 < H4l_m4lj && H4l_m4lj < 2000 && 0   < H4l_pt4lj && H4l_pt4lj < 350) _h["pt4ljvm4lj"]->fill(5.);
+        if (     120 < H4l_m4lj && H4l_m4lj < 220  && 0   < H4l_pt4lj && H4l_pt4lj < 350) _h["pt4ljvm4lj"]->fill(2.);
+        else if (220 < H4l_m4lj && H4l_m4lj < 350  && 0   < H4l_pt4lj && H4l_pt4lj < 60)  _h["pt4ljvm4lj"]->fill(3.);
+        else if (220 < H4l_m4lj && H4l_m4lj < 350  && 60  < H4l_pt4lj && H4l_pt4lj < 350) _h["pt4ljvm4lj"]->fill(4.);
+        else if (350 < H4l_m4lj && H4l_m4lj < 2000 && 0   < H4l_pt4lj && H4l_pt4lj < 350) _h["pt4ljvm4lj"]->fill(5.);
 
-          if (     30 < leading_jet_pt  && leading_jet_pt < 60  && 0   < H4l_pt && H4l_pt < 80)  _h["pt4lvptj0"]->fill(2.);
-          else if (30 < leading_jet_pt  && leading_jet_pt < 60  && 80  < H4l_pt && H4l_pt < 350) _h["pt4lvptj0"]->fill(3.);
-          else if (60 < leading_jet_pt  && leading_jet_pt < 120 && 0   < H4l_pt && H4l_pt < 120) _h["pt4lvptj0"]->fill(4.);
-          else if (60 < leading_jet_pt  && leading_jet_pt < 120 && 120 < H4l_pt && H4l_pt < 350) _h["pt4lvptj0"]->fill(5.);
-          else if (120 < leading_jet_pt && leading_jet_pt < 350 && 0   < H4l_pt && H4l_pt < 120) _h["pt4lvptj0"]->fill(6.);
-          else if (120 < leading_jet_pt && leading_jet_pt < 350 && 120 < H4l_pt && H4l_pt < 350) _h["pt4lvptj0"]->fill(7.);
+        if (     30 < leading_jet_pt  && leading_jet_pt < 60  && 0   < H4l_pt && H4l_pt < 80)  _h["pt4lvptj0"]->fill(2.);
+        else if (30 < leading_jet_pt  && leading_jet_pt < 60  && 80  < H4l_pt && H4l_pt < 350) _h["pt4lvptj0"]->fill(3.);
+        else if (60 < leading_jet_pt  && leading_jet_pt < 120 && 0   < H4l_pt && H4l_pt < 120) _h["pt4lvptj0"]->fill(4.);
+        else if (60 < leading_jet_pt  && leading_jet_pt < 120 && 120 < H4l_pt && H4l_pt < 350) _h["pt4lvptj0"]->fill(5.);
+        else if (120 < leading_jet_pt && leading_jet_pt < 350 && 0   < H4l_pt && H4l_pt < 120) _h["pt4lvptj0"]->fill(6.);
+        else if (120 < leading_jet_pt && leading_jet_pt < 350 && 120 < H4l_pt && H4l_pt < 350) _h["pt4lvptj0"]->fill(7.);
 
-          if (     30 < leading_jet_pt && leading_jet_pt < 120 &&  0   < leading_jet_y && leading_jet_y < 0.8) _h["ptj0vyj0"]->fill(2.);
-          else if (30 < leading_jet_pt && leading_jet_pt < 120 &&  0.8 < leading_jet_y && leading_jet_y < 1.7) _h["ptj0vyj0"]->fill(3.);
-          else if (30 < leading_jet_pt && leading_jet_pt < 120 &&  1.7 < leading_jet_y                       ) _h["ptj0vyj0"]->fill(4.);
-          else if (120 < leading_jet_pt && leading_jet_pt < 350 && 0   < leading_jet_y && leading_jet_y < 1.7) _h["ptj0vyj0"]->fill(5.);
-          else if (120 < leading_jet_pt && leading_jet_pt < 350 && 1.7 < leading_jet_y                       ) _h["ptj0vyj0"]->fill(6.);
+        if (     30 < leading_jet_pt && leading_jet_pt < 120 &&  0   < leading_jet_y && leading_jet_y < 0.8) _h["ptj0vyj0"]->fill(2.);
+        else if (30 < leading_jet_pt && leading_jet_pt < 120 &&  0.8 < leading_jet_y && leading_jet_y < 1.7) _h["ptj0vyj0"]->fill(3.);
+        else if (30 < leading_jet_pt && leading_jet_pt < 120 &&  1.7 < leading_jet_y                       ) _h["ptj0vyj0"]->fill(4.);
+        else if (120 < leading_jet_pt && leading_jet_pt < 350 && 0   < leading_jet_y && leading_jet_y < 1.7) _h["ptj0vyj0"]->fill(5.);
+        else if (120 < leading_jet_pt && leading_jet_pt < 350 && 1.7 < leading_jet_y                       ) _h["ptj0vyj0"]->fill(6.);
 
-          if (     n_jets == 1 && 30 < leading_jet_pt && leading_jet_pt < 60)  _h["ptj0vptj1"]->fill(2.);
-          else if (n_jets == 1 && 60 < leading_jet_pt && leading_jet_pt < 350) _h["ptj0vptj1"]->fill(3.);
-          else if (30 < leading_jet_pt && leading_jet_pt < 60  && 30 < subleading_jet_pt && subleading_jet_pt < 60)  _h["ptj0vptj1"]->fill(4.);
-          else if (60 < leading_jet_pt && leading_jet_pt < 350 && 30 < subleading_jet_pt && subleading_jet_pt < 60)  _h["ptj0vptj1"]->fill(5.);
-          else if (60 < leading_jet_pt && leading_jet_pt < 350 && 60 < subleading_jet_pt && subleading_jet_pt < 350) _h["ptj0vptj1"]->fill(6.);
-        }
+        if (     n_jets == 1 && 30 < leading_jet_pt && leading_jet_pt < 60)  _h["ptj0vptj1"]->fill(2.);
+        else if (n_jets == 1 && 60 < leading_jet_pt && leading_jet_pt < 350) _h["ptj0vptj1"]->fill(3.);
+        else if (30 < leading_jet_pt && leading_jet_pt < 60  && 30 < subleading_jet_pt && subleading_jet_pt < 60)  _h["ptj0vptj1"]->fill(4.);
+        else if (60 < leading_jet_pt && leading_jet_pt < 350 && 30 < subleading_jet_pt && subleading_jet_pt < 60)  _h["ptj0vptj1"]->fill(5.);
+        else if (60 < leading_jet_pt && leading_jet_pt < 350 && 60 < subleading_jet_pt && subleading_jet_pt < 350) _h["ptj0vptj1"]->fill(6.);
+      }
     }
 
 
@@ -719,30 +721,30 @@ namespace Rivet {
         long double m_m4l__3 = m_m4l__2 * m_m4l;
 
         if( m_m4l < 156.5 ) return ( Higgs_width_Poly_Fit_Zone1_coeff0
-                + Higgs_width_Poly_Fit_Zone1_coeff1 * m_m4l
-                + Higgs_width_Poly_Fit_Zone1_coeff2 * m_m4l__2
-                + Higgs_width_Poly_Fit_Zone1_coeff3 * m_m4l__3
-                + Higgs_width_Poly_Fit_Zone1_coeff4 * m_m4l__2 * m_m4l__2
-                + Higgs_width_Poly_Fit_Zone1_coeff5 * m_m4l__2 * m_m4l__3
-                + Higgs_width_Poly_Fit_Zone1_coeff6 * m_m4l__2 * m_m4l__2 * m_m4l__2
-                + Higgs_width_Poly_Fit_Zone1_coeff7 * m_m4l__2 * m_m4l__2 * m_m4l__3
-                + Higgs_width_Poly_Fit_Zone1_coeff8 * m_m4l__2 * m_m4l__2 * m_m4l__2 * m_m4l__2
-                + Higgs_width_Poly_Fit_Zone1_coeff9 * m_m4l__2 * m_m4l__2 * m_m4l__2 * m_m4l__3 );
-            else if( m_m4l >= 156.5 && m_m4l <= 162 ) return ( Higgs_width_Poly_Fit_Zone3_coeff0
-                + Higgs_width_Poly_Fit_Zone3_coeff1 * m_m4l
-                + Higgs_width_Poly_Fit_Zone3_coeff2 * m_m4l__2
-                + Higgs_width_Poly_Fit_Zone3_coeff3 * m_m4l__3 );
-            else return ( Higgs_width_Poly_Fit_Zone2_coeff0
-                + Higgs_width_Poly_Fit_Zone2_coeff1 * m_m4l
-                + Higgs_width_Poly_Fit_Zone2_coeff2 * m_m4l__2
-                + Higgs_width_Poly_Fit_Zone2_coeff3 * m_m4l__3
-                + Higgs_width_Poly_Fit_Zone2_coeff4 * m_m4l__2 * m_m4l__2
-                + Higgs_width_Poly_Fit_Zone2_coeff5 * m_m4l__2 * m_m4l__3
-                + Higgs_width_Poly_Fit_Zone2_coeff6 * m_m4l__2 * m_m4l__2 * m_m4l__2
-                + Higgs_width_Poly_Fit_Zone2_coeff7 * m_m4l__2 * m_m4l__2 * m_m4l__3
-                + Higgs_width_Poly_Fit_Zone2_coeff8 * m_m4l__2 * m_m4l__2 * m_m4l__2 * m_m4l__2
-                + Higgs_width_Poly_Fit_Zone2_coeff9 * m_m4l__2 * m_m4l__2 * m_m4l__2 * m_m4l__3
-                + Higgs_width_Poly_Fit_Zone2_coeff10 * m_m4l__2 * m_m4l__2 * m_m4l__2 * m_m4l__2 * m_m4l__2 );
+                                     + Higgs_width_Poly_Fit_Zone1_coeff1 * m_m4l
+                                     + Higgs_width_Poly_Fit_Zone1_coeff2 * m_m4l__2
+                                     + Higgs_width_Poly_Fit_Zone1_coeff3 * m_m4l__3
+                                     + Higgs_width_Poly_Fit_Zone1_coeff4 * m_m4l__2 * m_m4l__2
+                                     + Higgs_width_Poly_Fit_Zone1_coeff5 * m_m4l__2 * m_m4l__3
+                                     + Higgs_width_Poly_Fit_Zone1_coeff6 * m_m4l__2 * m_m4l__2 * m_m4l__2
+                                     + Higgs_width_Poly_Fit_Zone1_coeff7 * m_m4l__2 * m_m4l__2 * m_m4l__3
+                                     + Higgs_width_Poly_Fit_Zone1_coeff8 * m_m4l__2 * m_m4l__2 * m_m4l__2 * m_m4l__2
+                                     + Higgs_width_Poly_Fit_Zone1_coeff9 * m_m4l__2 * m_m4l__2 * m_m4l__2 * m_m4l__3 );
+        else if( m_m4l >= 156.5 && m_m4l <= 162 ) return ( Higgs_width_Poly_Fit_Zone3_coeff0
+                                                           + Higgs_width_Poly_Fit_Zone3_coeff1 * m_m4l
+                                                           + Higgs_width_Poly_Fit_Zone3_coeff2 * m_m4l__2
+                                                           + Higgs_width_Poly_Fit_Zone3_coeff3 * m_m4l__3 );
+        else return ( Higgs_width_Poly_Fit_Zone2_coeff0
+                      + Higgs_width_Poly_Fit_Zone2_coeff1 * m_m4l
+                      + Higgs_width_Poly_Fit_Zone2_coeff2 * m_m4l__2
+                      + Higgs_width_Poly_Fit_Zone2_coeff3 * m_m4l__3
+                      + Higgs_width_Poly_Fit_Zone2_coeff4 * m_m4l__2 * m_m4l__2
+                      + Higgs_width_Poly_Fit_Zone2_coeff5 * m_m4l__2 * m_m4l__3
+                      + Higgs_width_Poly_Fit_Zone2_coeff6 * m_m4l__2 * m_m4l__2 * m_m4l__2
+                      + Higgs_width_Poly_Fit_Zone2_coeff7 * m_m4l__2 * m_m4l__2 * m_m4l__3
+                      + Higgs_width_Poly_Fit_Zone2_coeff8 * m_m4l__2 * m_m4l__2 * m_m4l__2 * m_m4l__2
+                      + Higgs_width_Poly_Fit_Zone2_coeff9 * m_m4l__2 * m_m4l__2 * m_m4l__2 * m_m4l__3
+                      + Higgs_width_Poly_Fit_Zone2_coeff10 * m_m4l__2 * m_m4l__2 * m_m4l__2 * m_m4l__2 * m_m4l__2 );
       }
 
     };  // class Parameters_heft
@@ -791,7 +793,7 @@ namespace Rivet {
       // Calculate flavour-independent parts of cross section. Evaluate |M|^2, part independent of
       // incoming flavour. Return matrix element
 
-      const double sigmaKin() {
+      double sigmaKin() {
         // Local variables and constants
         static const int ncomb = 16;
         // Helicities for the process
@@ -920,14 +922,14 @@ namespace Rivet {
         denom = 1. / (pow(P3[0], 2) - pow(P3[1], 2) - pow(P3[2], 2) - pow(P3[3], 2) -
                       M3 * (M3 - cI * W3));
         V3[2] = COUP2 * denom * - 2. * cI * (OM3 * - 1./2. * P3[0] * (TMP11 + 2. * (TMP14)) +
-                      (+1./2. * (F2[4] * F1[2] + F2[5] * F1[3]) + F2[2] * F1[4] + F2[3] * F1[5]));
+                                             (+1./2. * (F2[4] * F1[2] + F2[5] * F1[3]) + F2[2] * F1[4] + F2[3] * F1[5]));
         V3[3] = COUP2 * denom * - 2. * cI * (OM3 * - 1./2. * P3[1] * (TMP11 + 2. * (TMP14)) +
-                      (-1./2. * (F2[5] * F1[2] + F2[4] * F1[3]) + F2[3] * F1[4] + F2[2] * F1[5]));
+                                             (-1./2. * (F2[5] * F1[2] + F2[4] * F1[3]) + F2[3] * F1[4] + F2[2] * F1[5]));
         V3[4] = COUP2 * denom * 2. * cI * (OM3 * 1./2. * P3[2] * (TMP11 + 2. * (TMP14)) +
-                      (+1./2. * cI * (F2[5] * F1[2]) - 1./2. * cI * (F2[4] * F1[3]) - cI *
-                       (F2[3] * F1[4]) + cI * (F2[2] * F1[5])));
+                                           (+1./2. * cI * (F2[5] * F1[2]) - 1./2. * cI * (F2[4] * F1[3]) - cI *
+                                            (F2[3] * F1[4]) + cI * (F2[2] * F1[5])));
         V3[5] = COUP2 * denom * 2. * cI * (OM3 * 1./2. * P3[3] * (TMP11 + 2. * (TMP14)) +
-                      (+1./2. * (F2[4] * F1[2]) - 1./2. * (F2[5] * F1[3]) - F2[2] * F1[4] + F2[3] * F1[5]));
+                                           (+1./2. * (F2[4] * F1[2]) - 1./2. * (F2[5] * F1[3]) - F2[2] * F1[4] + F2[3] * F1[5]));
         V3[2] += COUP1 * denom * - cI * (F2[4] * F1[2] + F2[5] * F1[3] - P3[0] * OM3 * TMP11);
         V3[3] += COUP1 * denom * - cI * (-F2[5] * F1[2] - F2[4] * F1[3] - P3[1] * OM3 * TMP11);
         V3[4] += COUP1 * denom * - cI * (-cI * (F2[5] * F1[2]) + cI * (F2[4] * F1[3]) - P3[2] * OM3 * TMP11);
@@ -956,6 +958,8 @@ namespace Rivet {
 
   };
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2020_I1790439);
+
+
+  RIVET_DECLARE_PLUGIN(ATLAS_2020_I1790439);
+
 }

@@ -5,7 +5,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// ATLAS Z phi* measurement
@@ -141,6 +141,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2012_I1204784);
+  RIVET_DECLARE_PLUGIN(ATLAS_2012_I1204784);
 
 }

@@ -11,7 +11,7 @@ namespace Rivet {
   class CMS_2011_S8957746 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2011_S8957746);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2011_S8957746);
 
 
     /// Initialization, called once before running
@@ -95,6 +95,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(CMS_2011_S8957746, CMS_2011_I886332);
+  RIVET_DECLARE_ALIASED_PLUGIN(CMS_2011_S8957746, CMS_2011_I886332);
 
 }

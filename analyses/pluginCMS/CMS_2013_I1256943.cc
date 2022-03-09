@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2013_I1256943);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMS_2013_I1256943);
 
 
     /// Add projections and book histograms
@@ -164,19 +164,19 @@ namespace Rivet {
   private:
 
     /// @name Weight counters
-    //@{
+    /// @{
     CounterPtr _sumW, _sumW50, _sumWpT;
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_dphi_BB, _h_dR_BB, _h_min_dR_ZB, _h_A_ZBB;
     Histo1DPtr _h_dphi_BB_boost, _h_dR_BB_boost, _h_min_dR_ZB_boost, _h_A_ZBB_boost, _h_min_ZpT;
-    //@}
+    /// @}
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(CMS_2013_I1256943);
+  RIVET_DECLARE_PLUGIN(CMS_2013_I1256943);
 
 }

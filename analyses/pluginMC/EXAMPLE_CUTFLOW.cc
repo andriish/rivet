@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(EXAMPLE_CUTFLOW);
+    RIVET_DEFAULT_ANALYSIS_CTOR(EXAMPLE_CUTFLOW);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Set up projections and book histograms
     void init() {
@@ -68,7 +68,7 @@ namespace Rivet {
       MSG_INFO("Cut-flow:\n" << _cutflows);
     }
 
-    //@}
+    /// @}
 
 
     /// Cut-flow counters
@@ -79,6 +79,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(EXAMPLE_CUTFLOW);
+  RIVET_DECLARE_PLUGIN(EXAMPLE_CUTFLOW);
 
 }

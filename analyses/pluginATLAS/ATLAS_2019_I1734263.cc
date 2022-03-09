@@ -15,11 +15,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2019_I1734263);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2019_I1734263);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -202,19 +202,19 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     map<string, Histo1DPtr> _h;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2019_I1734263);
+  RIVET_DECLARE_PLUGIN(ATLAS_2019_I1734263);
 
 }

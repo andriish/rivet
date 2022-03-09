@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2018_I1634970);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2018_I1634970);
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -59,12 +59,12 @@ namespace Rivet {
 
       // Dijet selection
       if(nJets > 1){ // skip events with less than 2 jets passing pT>75GeV and |y|<3.0 cuts
-        FourMomentum jet0  = kt4Jets[0].momentum(); 
+        FourMomentum jet0  = kt4Jets[0].momentum();
         FourMomentum jet1  = kt4Jets[1].momentum();
         const double rap0  = jet0.rapidity();
         const double rap1  = jet1.rapidity();
         const double ystar = fabs(rap0-rap1)/2;
-        const double mass  = (jet0 + jet1).mass(); 
+        const double mass  = (jet0 + jet1).mass();
         const double HT2   = jet0.pt()+jet1.pt();
         if(HT2>200*GeV && ystar<3.0){
           // Fill distribution
@@ -81,7 +81,7 @@ namespace Rivet {
       const double xs_pb( crossSection() / picobarn );
       const double sumW( sumOfWeights() );
       const double xs_norm_factor( 0.5*xs_pb / sumW );
-     
+
       MSG_DEBUG( "Cross-Section/pb     : " << xs_pb       );
       MSG_DEBUG( "ZH                   : " << crossSectionPerEvent()/ picobarn);
       MSG_DEBUG( "Sum of weights       : " << sumW        );
@@ -101,6 +101,6 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2018_I1634970);
+  RIVET_DECLARE_PLUGIN(ATLAS_2018_I1634970);
 
 }

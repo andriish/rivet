@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     // Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2017_I1509919);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2017_I1509919);
 
 
     // Pre-run histogram and projection booking
@@ -277,7 +277,7 @@ namespace Rivet {
 
 
     /// @name Histograms
-    //@{
+    /// @{
 
     // Nch, sumpT, avgpT profiles vs. pTlead
     Profile1DPtr _hist_nch   [NREGIONS]; //for regions: all 6 regions
@@ -292,11 +292,11 @@ namespace Rivet {
     Histo1DPtr   _hist_ptLead[NCUTS]; //for 1,5 GeV cuts only
     CounterPtr   _counters[NCUTS];
 
-    //@}
+    /// @}
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(ATLAS_2017_I1509919);
+  RIVET_DECLARE_PLUGIN(ATLAS_2017_I1509919);
 
 }

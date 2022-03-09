@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(SFM_1984_S1178091);
+    RIVET_DEFAULT_ANALYSIS_CTOR(SFM_1984_S1178091);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Projections
@@ -22,16 +22,16 @@ namespace Rivet {
       declare(ChargedFinalState(Cuts::absrap<5 && Cuts::pT>250*MeV && Cuts::pT<3*GeV), "FS");
 
       // Histograms
-      if (fuzzyEquals(sqrtS()/GeV, 30.4, 1E-1)) {
+      if (isCompatibleWithSqrtS(30.4*GeV, 1E-1)) {
         book(_hist_multiplicity_inel ,1, 1, 1);
         book(_hist_multiplicity_nsd ,2, 1, 1);
-      } else if (fuzzyEquals(sqrtS(), 44.5, 1E-1)) {
+      } else if (isCompatibleWithSqrtS(44.5*GeV, 1E-1)) {
         book(_hist_multiplicity_inel ,1, 1, 2);
         book(_hist_multiplicity_nsd ,2, 1, 2);
-      } else if (fuzzyEquals(sqrtS(), 52.2, 1E-1)) {
+      } else if (isCompatibleWithSqrtS(52.2*GeV, 1E-1)) {
         book(_hist_multiplicity_inel ,1, 1, 3);
         book(_hist_multiplicity_nsd ,2, 1, 3);
-      } else if (fuzzyEquals(sqrtS(), 62.2, 1E-1)) {
+      } else if (isCompatibleWithSqrtS(62.2*GeV, 1E-1)) {
         book(_hist_multiplicity_inel ,1, 1, 4);
         book(_hist_multiplicity_nsd ,2, 1, 4);
       }
@@ -77,22 +77,22 @@ namespace Rivet {
       normalize(_hist_multiplicity_nsd);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _hist_multiplicity_inel;
     Histo1DPtr _hist_multiplicity_nsd;
-    //@}
+    /// @}
 
   };
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(SFM_1984_S1178091, SFM_1984_I196601);
+  RIVET_DECLARE_ALIASED_PLUGIN(SFM_1984_S1178091, SFM_1984_I196601);
 
 }

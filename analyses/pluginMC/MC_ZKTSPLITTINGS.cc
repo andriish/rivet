@@ -5,7 +5,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// @brief MC validation analysis for Z + jets events
@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -54,18 +54,18 @@ namespace Rivet {
       MC_JetSplittings::finalize();
     }
 
-    //@}
+    /// @}
 
   protected:
 
     /// @name Parameters for specialised e/mu and dressed/bare subclassing
-    //@{
+    /// @{
     double _dR;
     PdgId _lepton;
-    //@}
+    /// @}
 
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_ZKTSPLITTINGS);
+  RIVET_DECLARE_PLUGIN(MC_ZKTSPLITTINGS);
 }

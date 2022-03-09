@@ -13,11 +13,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TASSO_1989_I279165);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TASSO_1989_I279165);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -28,15 +28,15 @@ namespace Rivet {
       const Thrust thrust(cfs);
       declare(thrust, "Thrust");
       declare(Hemispheres(thrust), "Hemispheres");
-      
+
       int offset = 0;
-      if (fuzzyEquals(sqrtS()/GeV,14.,1e-3 ))
+      if (isCompatibleWithSqrtS(14.0*GeV))
 	offset=1;
-      else if(fuzzyEquals(sqrtS()/GeV, 22.0, 1e-2))
+      else if(isCompatibleWithSqrtS(22.0*GeV))
 	offset=2;
-      else if(fuzzyEquals(sqrtS()/GeV,34.8,1e-3 ))
+      else if(isCompatibleWithSqrtS(34.8*GeV))
 	offset=3;
-      else if(fuzzyEquals(sqrtS()/GeV,43.5,1e-2))
+      else if(isCompatibleWithSqrtS(43.5*GeV))
 	offset=4;
       else
 	MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
@@ -65,22 +65,22 @@ namespace Rivet {
     void finalize() {
       normalize(_h_diff );
       normalize(_h_heavy);
-      normalize(_h_light); 
+      normalize(_h_light);
     }
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_diff,_h_heavy,_h_light;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TASSO_1989_I279165);
+  RIVET_DECLARE_PLUGIN(TASSO_1989_I279165);
 
 
 }

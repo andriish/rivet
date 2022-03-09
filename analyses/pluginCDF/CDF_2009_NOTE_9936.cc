@@ -10,20 +10,20 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     CDF_2009_NOTE_9936()
       : Analysis("CDF_2009_NOTE_9936")
     {    }
 
-    //@}
+    /// @}
 
 
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -54,7 +54,7 @@ namespace Rivet {
       normalize(_hist_nch);
     }
 
-    //@}
+    /// @}
 
   private:
 
@@ -65,6 +65,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2009_NOTE_9936);
+  RIVET_DECLARE_PLUGIN(CDF_2009_NOTE_9936);
 
 }

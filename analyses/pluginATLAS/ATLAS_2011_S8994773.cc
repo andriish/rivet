@@ -11,7 +11,7 @@ namespace Rivet {
   class ATLAS_2011_S8994773 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2011_S8994773);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_S8994773);
 
 
     void init() {
@@ -22,8 +22,8 @@ namespace Rivet {
 
       // Get an index for the beam energy
       isqrts = -1;
-      if (fuzzyEquals(sqrtS(), 900*GeV)) isqrts = 0;
-      else if (fuzzyEquals(sqrtS(), 7*TeV)) isqrts = 1;
+      if (isCompatibleWithSqrtS(900*GeV)) isqrts = 0;
+      else if (isCompatibleWithSqrtS( 7000)) isqrts = 1;
       assert(isqrts >= 0);
 
       // N profiles, 500 MeV pT cut
@@ -126,6 +126,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(ATLAS_2011_S8994773, ATLAS_2011_I891834);
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2011_S8994773, ATLAS_2011_I891834);
 
 }

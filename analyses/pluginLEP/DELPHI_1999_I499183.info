@@ -5,16 +5,21 @@ Experiment: DELPHI
 Collider: LEP
 InspireID: 499183
 Status: VALIDATED
+Reentrant: true
 Authors:
- - Pter Richardson <peter.richardson@durham.ac.uk>
+ - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Lett. B456 (1999) 322-340, 1999 
-RunInfo: e+e- to hadrons
+RunInfo:
+	e+e- to hadrons. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NeedCrossSection: no
 Beams: [e-, e+]
 Energies: [133,161,172,183]
+Options:
+ - ENERGY=133,161,172,183
 Description:
-  'A wide range of event shapes in $e^+e^-$ collisions for centre-of-mass energies 133, 161, 172 and 183 GeV.'
+  'A wide range of event shapes in $e^+e^-$ collisions for centre-of-mass energies 133, 161, 172 and 183 GeV.
+   Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 Keywords: []
 BibKey: Abreu:1999rc
 BibTeX: '@article{Abreu:1999rc,

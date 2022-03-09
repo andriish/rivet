@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(JADE_1985_I213948);
+    RIVET_DEFAULT_ANALYSIS_CTOR(JADE_1985_I213948);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -25,13 +25,13 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
       // find the beam energy
       int ioff=-1;
-      if(fuzzyEquals(sqrtS()/GeV,34.5,1e-3)) {
+      if(isCompatibleWithSqrtS(34.5*GeV)) {
       	ioff=0;
       }
-      else if(fuzzyEquals(sqrtS()/GeV,22.5,1e-3)) {
+      else if(isCompatibleWithSqrtS(22.5*GeV)) {
       	ioff=1;
       }
-      else if(fuzzyEquals(sqrtS()/GeV,14.0,1e-3)) {
+      else if(isCompatibleWithSqrtS(14.0*GeV)) {
       	ioff=2;
       }
       else
@@ -75,18 +75,18 @@ namespace Rivet {
       if(_h_eta) scale(_h_eta  , crossSection()*sqr(sqrtS())/microbarn/sumOfWeights());
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_gamma, _h_pi0, _h_eta;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(JADE_1985_I213948);
+  RIVET_DECLARE_PLUGIN(JADE_1985_I213948);
 
 }

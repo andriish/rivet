@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(SND_2019_I1726419);
+    RIVET_DEFAULT_ANALYSIS_CTOR(SND_2019_I1726419);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -45,7 +45,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      
+
       const FinalState& fs = apply<FinalState>(event, "FS");
 
       map<long,int> nCount;
@@ -108,7 +108,7 @@ namespace Rivet {
       if(found && !foundOmegaPhi)
 	_c_rho->fill();
     }
-    
+
 
     /// Normalise histograms etc., after the run
     void finalize() {
@@ -130,7 +130,7 @@ namespace Rivet {
 	else if(ix==4) {
 	  sigma = _c_rho->val()*fact;
 	  error = _c_rho->err()*fact;
-	} 
+	}
 	Scatter2D temphisto(refData(1, 1, ix));
 	Scatter2DPtr  mult;
 	book(mult, 1, 1, ix);
@@ -150,20 +150,20 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _c_all, _c_omega, _c_phi,_c_rho;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(SND_2019_I1726419);
+  RIVET_DECLARE_PLUGIN(SND_2019_I1726419);
 
 
 }

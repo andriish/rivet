@@ -5,7 +5,7 @@ Experiment: ALICE
 Collider: LHC
 SpireID: 
 InspireID: 930312
-Status: VALIDATED REENTRANT
+Status: VALIDATED
 Reentrant: true
 Authors:
  - Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>

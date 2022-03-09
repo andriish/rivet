@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(A2_2017_I1486671);
+    RIVET_DEFAULT_ANALYSIS_CTOR(A2_2017_I1486671);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -27,7 +27,7 @@ namespace Rivet {
       book(_weight_omega,"TMP/weight_omega");
     }
 
-    void findDecayProducts(const Particle & mother, unsigned int & nstable, unsigned int & npi, 
+    void findDecayProducts(const Particle & mother, unsigned int & nstable, unsigned int & npi,
                            unsigned int & nep, unsigned int & nem, unsigned int & ngamma,
 			   FourMomentum & ptot) {
       for(const Particle & p : mother.children()) {
@@ -106,21 +106,21 @@ namespace Rivet {
       scale(_h_omega, 1.5 *M_PI/alpha/ *_weight_omega);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_eta,_h_omega;
     CounterPtr _weight_eta,_weight_omega;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(A2_2017_I1486671);
+  RIVET_DECLARE_PLUGIN(A2_2017_I1486671);
 
 
 }

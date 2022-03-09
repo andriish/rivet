@@ -29,7 +29,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y python3 python3-dev python3-venv python3-wheel \
     && update-alternatives --install /usr/bin/python python /usr/bin/python3 2 \
     && update-alternatives --install /usr/bin/python-config python-config /usr/bin/python3-config 2 \
-    && wget --no-verbose https://bootstrap.pypa.io/get-pip.py -O get-pip.py \
+    && wget --no-verbose https://bootstrap.pypa.io/pip/get-pip.py -O get-pip.py \
     && python get-pip.py \
     && apt-get -y autoremove \
     && apt-get -y autoclean
@@ -39,7 +39,7 @@ ARG YODA_VERSION
 ARG THEPEG_VERSION
 ARG HERWIG_VERSION
 RUN export DEBIAN_FRONTEND=noninteractive \
-    && python -m venv /herwig \
+    && python -m venv /herwig  \
     && mkdir -p /herwig/etc/bash_completion.d \
     && . /herwig/bin/activate \
     && pip install Cython six \

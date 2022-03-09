@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMD2_2003_I616446);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMD2_2003_I616446);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -37,7 +37,7 @@ namespace Rivet {
 	  findChildren(child,nRes,ncount);
       }
     }
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const FinalState& fs = apply<FinalState>(event, "FS");
@@ -95,15 +95,15 @@ namespace Rivet {
     }
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _numOmegaPi;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMD2_2003_I616446);
+  RIVET_DECLARE_PLUGIN(CMD2_2003_I616446);
 
 
 }

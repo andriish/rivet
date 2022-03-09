@@ -1,6 +1,6 @@
 BEGIN PLOT /BELLE_2019_I1687566
 LogY=0
-YLabel=Transverse Polarization/\%
+YLabel=Transverse Polarization/$\%$
 END PLOT
 
 BEGIN PLOT /BELLE_2019_I1687566/d01-x01-y01

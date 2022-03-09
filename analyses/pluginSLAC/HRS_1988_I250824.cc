@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(HRS_1988_I250824);
+    RIVET_DEFAULT_ANALYSIS_CTOR(HRS_1988_I250824);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -60,23 +60,23 @@ namespace Rivet {
     void finalize() {
 
       double fact = sqr(sqrtS())/GeV2*crossSection()/microbarn/sumOfWeights();
-      scale(_h_eta, fact); 
+      scale(_h_eta, fact);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_eta;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(HRS_1988_I250824);
+  RIVET_DECLARE_PLUGIN(HRS_1988_I250824);
 
 
 }

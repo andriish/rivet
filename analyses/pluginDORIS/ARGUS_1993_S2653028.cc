@@ -11,7 +11,7 @@ namespace Rivet {
   class ARGUS_1993_S2653028 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(ARGUS_1993_S2653028);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ARGUS_1993_S2653028);
 
 
     void analyze(const Event& e) {
@@ -97,14 +97,14 @@ namespace Rivet {
 
   private:
 
-    //@{
+    /// @{
     /// Count of weights
     CounterPtr _weightSum;
     /// Spectra
     Histo1DPtr _histPiA, _histPiB, _histKA, _histKB, _histpA, _histpB;
     /// Multiplicities
     Histo1DPtr _multPiA, _multPiB, _multK, _multpA, _multpB;
-    //@}
+    /// @}
 
 
     void findDecayProducts(Particle parent, Particles & pionsA, Particles & pionsB,
@@ -141,6 +141,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(ARGUS_1993_S2653028, ARGUS_1993_I340894);
+  RIVET_DECLARE_ALIASED_PLUGIN(ARGUS_1993_S2653028, ARGUS_1993_I340894);
 
 }

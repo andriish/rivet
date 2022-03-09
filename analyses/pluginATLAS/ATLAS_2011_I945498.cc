@@ -219,7 +219,7 @@ namespace Rivet {
 
 
     /// @name Ratio calculator util functions
-    //@{
+    /// @{
 
     /// Calculate the ratio, being careful about div-by-zero
     double ratio(double a, double b) {
@@ -231,7 +231,7 @@ namespace Rivet {
       return (b != 0) ? sqrt(a/sqr(b) + sqr(a)/(b*b*b)) : 0;
     }
 
-    //@}
+    /// @}
 
 
     void finalize() {
@@ -268,7 +268,7 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -298,7 +298,7 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_I945498);
+  RIVET_DECLARE_PLUGIN(ATLAS_2011_I945498);
 
 
 }

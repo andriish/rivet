@@ -5,7 +5,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// @brief MC validation analysis for single photon events
@@ -19,7 +19,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -87,23 +87,23 @@ namespace Rivet {
       scale(_h_photon_y, crossSectionPerEvent());
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_photon_pT;
     Histo1DPtr _h_photon_pT_lin;
     Histo1DPtr _h_photon_y;
-    //@}
+    /// @}
 
   };
 
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_PHOTONINC);
+  RIVET_DECLARE_PLUGIN(MC_PHOTONINC);
 
 }

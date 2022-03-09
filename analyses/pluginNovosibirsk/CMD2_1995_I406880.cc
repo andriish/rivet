@@ -11,15 +11,15 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMD2_1995_I406880);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMD2_1995_I406880);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
-      
+
       // Initialise and register projections
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
@@ -43,7 +43,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const FinalState& fs = apply<FinalState>(event, "FS");
-      
+
       map<long,int> nCount;
       int ntotal(0);
       for (const Particle& p : fs.particles()) {
@@ -58,7 +58,7 @@ namespace Rivet {
       }
       else if(ntotal==3 && nCount[211] == 1 && nCount[-211] == 1 && nCount[111] == 1)
 	_n3pi->fill();
-      
+
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
@@ -110,7 +110,7 @@ namespace Rivet {
 	  error = _numEtaGamma->err();
 	}
 	sigma *= crossSection()/ sumOfWeights() /nanobarn;
-	error *= crossSection()/ sumOfWeights() /nanobarn; 
+	error *= crossSection()/ sumOfWeights() /nanobarn;
 	Scatter2D temphisto(refData(1, 1, ix));
 	Scatter2DPtr mult;
 	book(mult, 1, 1, ix);
@@ -129,20 +129,20 @@ namespace Rivet {
 	}
       }
     }
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _nKpKm,_nK0K0,_n3pi,_numEtaGamma;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMD2_1995_I406880);
+  RIVET_DECLARE_PLUGIN(CMD2_1995_I406880);
 
 
 }

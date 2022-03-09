@@ -72,7 +72,7 @@ namespace Rivet {
 
   public:
 
-    ///@{ Thrust scalar accessors
+    /// @{ Thrust scalar accessors
     /// The thrust scalar, \f$ T \f$, (maximum thrust).
     double thrust() const { return _thrusts[0]; }
     /// The thrust major scalar, \f$ M \f$, (thrust along thrust major axis).
@@ -81,29 +81,29 @@ namespace Rivet {
     double thrustMinor() const { return _thrusts[2]; }
     /// The oblateness, \f$ O = M - m \f$ .
     double oblateness() const { return _thrusts[1] - _thrusts[2]; }
-    ///@}
+    /// @}
 
-    ///@{ Thrust axis accessors
+    /// @{ Thrust axis accessors
     /// The thrust axis.
     const Vector3& thrustAxis() const { return _thrustAxes[0]; }
     /// The thrust major axis (axis of max thrust perpendicular to thrust axis).
     const Vector3& thrustMajorAxis() const { return _thrustAxes[1]; }
     /// The thrust minor axis (axis perpendicular to thrust and thrust major).
     const Vector3& thrustMinorAxis() const { return _thrustAxes[2]; }
-    ///@}
+    /// @}
 
-    ///@{ AxesDefinition axis accessors.
+    /// @{ AxesDefinition axis accessors.
     const Vector3& axis1() const { return thrustAxis(); }
     const Vector3& axis2() const { return thrustMajorAxis(); }
     const Vector3& axis3() const { return thrustMinorAxis(); }
-    ///@}
+    /// @}
 
 
   public:
 
     /// @name Direct methods
     /// Ways to do the calculation directly, without engaging the caching system
-    //@{
+    /// @{
 
     /// Manually calculate the thrust, without engaging the caching system
     void calc(const FinalState& fs);
@@ -117,7 +117,7 @@ namespace Rivet {
     /// Manually calculate the thrust, without engaging the caching system
     void calc(const vector<Vector3>& threeMomenta);
 
-    //@}
+    /// @}
 
 
   private:

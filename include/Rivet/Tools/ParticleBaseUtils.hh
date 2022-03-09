@@ -559,7 +559,7 @@ namespace Rivet {
     tofilter = selectIfAll(tofilter, tocompare, fn);
   }
 
-  //@}
+  /// @}
 
 
   /// @defgroup particlebaseutils_iso Isolation helpers
@@ -635,7 +635,7 @@ namespace Rivet {
   ///
   /// @todo Mostly move to functions on FourMomentum
   /// @note In a sub-namespace (imported by default) for protection
-  ///@{
+  /// @{
   namespace Kin {
 
     /// Unbound function access to momentum

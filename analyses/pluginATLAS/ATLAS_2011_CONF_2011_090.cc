@@ -14,7 +14,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
 
@@ -22,13 +22,13 @@ namespace Rivet {
       : Analysis("ATLAS_2011_CONF_2011_090")
     {    }
 
-    //@}
+    /// @}
 
 
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialize projections before the run
     void init() {
@@ -294,7 +294,7 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     void finalize() {
@@ -309,7 +309,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _count_e_channel;
     Histo1DPtr _count_mu_channel;
 
@@ -322,7 +322,7 @@ namespace Rivet {
     Histo1DPtr _hist_m_eff_mu_final;
 
 
-    //@}
+    /// @}
 
 
   };
@@ -330,6 +330,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_CONF_2011_090);
+  RIVET_DECLARE_PLUGIN(ATLAS_2011_CONF_2011_090);
 
 }

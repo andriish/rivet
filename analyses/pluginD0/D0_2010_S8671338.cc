@@ -12,11 +12,11 @@ namespace Rivet {
   class D0_2010_S8671338 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(D0_2010_S8671338);
+    RIVET_DEFAULT_ANALYSIS_CTOR(D0_2010_S8671338);
 
 
     ///@name Analysis methods
-    //@{
+    /// @{
 
     /// Add projections and book histograms
     void init() {
@@ -46,7 +46,7 @@ namespace Rivet {
       scale(_h_Z_pT_xs, crossSection()/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -59,6 +59,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(D0_2010_S8671338, D0_2010_I856972);
+  RIVET_DECLARE_ALIASED_PLUGIN(D0_2010_S8671338, D0_2010_I856972);
 
 }

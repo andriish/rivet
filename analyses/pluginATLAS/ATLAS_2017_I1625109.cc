@@ -14,10 +14,10 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2017_I1625109);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2017_I1625109);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     struct Dilepton {
       Dilepton() {};
@@ -255,7 +255,7 @@ namespace Rivet {
 
       const auto& leadingDilepton = quadruplet.leadingDilepton.momentum();
       const auto& subleadingDilepton = quadruplet.subleadingDilepton.momentum();
-      
+
       _h["pT_4l"]->fill((leadingDilepton + subleadingDilepton).pt()/GeV);
       _h["pT_leading_dilepton"]->fill(leadingDilepton.pt()/GeV);
       _h["pT_subleading_dilepton"]->fill(subleadingDilepton.pt()/GeV);
@@ -269,15 +269,15 @@ namespace Rivet {
       _h["N_jets"]->fill(jets.size());
       _h["N_central_jets"]->fill(centralJets.size());
       _h["N_jets60"]->fill(pt60Jets.size());
-      
+
       // If at least one jet present
       if (jets.empty())  vetoEvent;
       _h["scalarpTsum_jets"]->fill(sum(jets, pT, 0.)/GeV);
       _h["abseta_jet1"]->fill(jets.front().abseta());
       _h["pT_jet1"]->fill(jets.front().pt()/GeV);
-      
+
       // If at least two jets present
-      if (jets.size() < 2)  vetoEvent; 
+      if (jets.size() < 2)  vetoEvent;
       _h["mass_dijet"]->fill((jets.at(0).mom() + jets.at(1).mom()).mass()/GeV);
       _h["deltay_dijet"]->fill(fabs(jets.at(0).rapidity() - jets.at(1).rapidity()));
       _h["abseta_jet2"]->fill(jets.at(1).abseta());
@@ -291,17 +291,17 @@ namespace Rivet {
       const double sf = crossSectionPerEvent() / femtobarn;
       scale(_h, sf);
     }
-    //@}
+    /// @}
 
   private:
     /// @name Histograms
-    //@{
+    /// @{
     map<string, Histo1DPtr> _h;
     static constexpr double Z_mass = 91.1876;
-    //@}
+    /// @}
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2017_I1625109);
+  RIVET_DECLARE_PLUGIN(ATLAS_2017_I1625109);
 }

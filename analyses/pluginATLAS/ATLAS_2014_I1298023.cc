@@ -13,11 +13,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2014_I1298023);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2014_I1298023);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
 
@@ -101,18 +101,18 @@ namespace Rivet {
       scale(_hist, scalefactor);
 
     }
-    //@}
+    /// @}
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _hist;
-    //@}
+    /// @}
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(ATLAS_2014_I1298023);
+  RIVET_DECLARE_PLUGIN(ATLAS_2014_I1298023);
 
 }

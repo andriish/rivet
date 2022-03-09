@@ -10,12 +10,12 @@ namespace Rivet {
   class ALICE_2015_PBPBCentrality : public Analysis {
   public:
 
-    /// Constructor 
+    /// Constructor
     ALICE_2015_PBPBCentrality()
       : Analysis("ALICE_2015_PBPBCentrality")
     {    }
 
-    /// Initialize this analysis. 
+    /// Initialize this analysis.
     void init() {
       ALICE::V0AndTrigger v0and;
       declare<ALICE::V0AndTrigger>(v0and,"V0-AND");
@@ -35,7 +35,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       // Get and fill in the impact parameter value if the information is valid.
       _imp->fill(apply<HepMCHeavyIon>(event, "HepMC").impact_parameter());
-	  
+
       // Check if we have any hit in either V0-A or -C.  If not, the
       // event is not selected and we get out.
       if (!apply<ALICE::V0AndTrigger>(event,"V0-AND")()) return;
@@ -60,7 +60,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALICE_2015_PBPBCentrality);
+  RIVET_DECLARE_PLUGIN(ALICE_2015_PBPBCentrality);
 
 }
 

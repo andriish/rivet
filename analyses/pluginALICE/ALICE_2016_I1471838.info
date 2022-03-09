@@ -4,7 +4,7 @@ Summary: Enhanced production of multi-strange hadrons in high-multiplicity proto
 Experiment: ALICE
 Collider: LHC
 InspireID: 1471838
-Status: UNVALIDATED REENTRANT
+Status: UNVALIDATED
 Reentrant: true
 Authors:
  - Christian Bierlich <christian.bierlich@thep.lu.se>

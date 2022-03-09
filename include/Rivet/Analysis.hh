@@ -60,7 +60,7 @@ namespace Rivet {
   /// void finalize() is called after a run is finished. Here the analysis
   /// class should do whatever manipulations are necessary on the
   /// histograms. Writing the histograms to a file is, however, done by
-  /// the Rivet class.
+  /// the AnalysisHandler class.
   class Analysis : public ProjectionApplier {
   public:
 
@@ -74,13 +74,13 @@ namespace Rivet {
     /// The destructor
     virtual ~Analysis() {}
 
-    /// The assignment operator is private and mustdeleted, so it can never be called.
-    Analysis& operator=(const Analysis&) = delete;
+    /// The assignment operator is private and must be deleted, so it can never be called.
+    Analysis& operator = (const Analysis&) = delete;
 
 
   public:
 
-    /// @defgroup analysis_main Main analysis methods
+    /// @name Main analysis methods
     /// @{
 
     /// Initialize this analysis object. A concrete class should here
@@ -101,19 +101,28 @@ namespace Rivet {
     /// function.
     virtual void finalize() { }
 
+    ///Call the projection applier _syncDeclQueue() method.
+    ///(It should be hidden for all projection appliers other than analyses)
+    ///TODO @TP: Is this the right block for this method to be in?
+    void syncDeclQueue() {
+      this->_syncDeclQueue();
+      this->markAsOwned();
+    }
+    
     /// @}
 
 
   public:
 
-    /// @defgroup analysis_meta Metadata
+    /// @name Metadata
+    ///
     /// Metadata is used for querying from the command line and also for
     /// building web pages and the analysis pages in the Rivet manual.
     /// @{
 
     /// Get the actual AnalysisInfo object in which all this metadata is stored.
     const AnalysisInfo& info() const {
-      assert(_info && "No AnalysisInfo object :O");
+      if (!_info) throw Error("No AnalysisInfo object :-O");
       return *_info;
     }
 
@@ -125,27 +134,17 @@ namespace Rivet {
     /// work. If options has been set for this instance, a
     /// corresponding string is appended at the end.
     virtual std::string name() const {
-      return  ( (info().name().empty()) ? _defaultname : info().name() ) + _optstring;
-    }
-
-    /// Get name of reference data file, which could be different from plugin name
-    virtual std::string getRefDataName() const {
-      return (info().getRefDataName().empty()) ? _defaultname : info().getRefDataName();
-    }
-
-    /// Set name of reference data file, which could be different from plugin name
-    virtual void setRefDataName(const std::string& ref_data="") {
-      info().setRefDataName(!ref_data.empty() ? ref_data : name());
+      return ( (info().name().empty()) ? _defaultname : info().name() ) + _optstring;
     }
 
     /// Get the Inspire ID code for this analysis.
-    virtual std::string inspireId() const {
-      return info().inspireId();
+    virtual std::string inspireID() const {
+      return info().inspireID();
     }
 
     /// Get the SPIRES ID code for this analysis (~deprecated).
-    virtual std::string spiresId() const {
-      return info().spiresId();
+    virtual std::string spiresID() const {
+      return info().spiresID();
     }
 
     /// @brief Names & emails of paper/analysis authors.
@@ -207,6 +206,8 @@ namespace Rivet {
     virtual double luminosity() const {
       return info().luminosity();
     }
+    /// The integrated luminosity in inverse picobarn
+    double luminositypb() const { return luminosity(); }
 
     /// Journal, and preprint references.
     virtual std::vector<std::string> references() const {
@@ -228,6 +229,11 @@ namespace Rivet {
       return (info().status().empty()) ? "UNVALIDATED" : info().status();
     }
 
+    /// A warning message from the info file, if there is one
+    virtual std::string warning() const {
+      return info().warning();
+    }
+
     /// Any work to be done on this analysis.
     virtual std::vector<std::string> todos() const {
       return info().todos();
@@ -243,86 +249,132 @@ namespace Rivet {
       return info().reentrant();
     }
 
+    /// Get vector of analysis keywords
+    virtual const std::vector<std::string>& keywords() const {
+      return info().keywords();
+    }
+
+    /// Positive filtering regex for ref-data HepData sync
+    virtual std::string refMatch() const {
+      return info().refMatch();
+    }
+
+    /// Negative filtering regex for ref-data HepData sync
+    virtual std::string refUnmatch() const {
+      return info().refUnmatch();
+    }
+
+
+    /// Return the allowed pairs of incoming beams required by this analysis.
+    virtual const std::vector<PdgIdPair>& requiredBeamIDs() const {
+      return info().beamIDs();
+    }
+    /// Declare the allowed pairs of incoming beams required by this analysis.
+    virtual Analysis& setRequiredBeamIDs(const std::vector<PdgIdPair>& beamids) {
+      info().setBeamIDs(beamids);
+      return *this;
+    }
+
+    /// Sets of valid beam energy pairs, in GeV
+    virtual const std::vector<std::pair<double, double> >& requiredBeamEnergies() const {
+      return info().energies();
+    }
+    /// Declare the list of valid beam energy pairs, in GeV
+    virtual Analysis& setRequiredBeamEnergies(const std::vector<std::pair<double, double> >& energies) {
+      info().setEnergies(energies);
+      return *this;
+    }
+
 
     /// Location of reference data YODA file
     virtual std::string refFile() const {
       return info().refFile();
     }
-
-
-    /// Return the allowed pairs of incoming beams required by this analysis.
-    virtual const std::vector<PdgIdPair>& requiredBeams() const {
-      return info().beams();
+    /// Get name of reference data file, which could be different from plugin name
+    virtual std::string refDataName() const {
+      return (info().getRefDataName().empty()) ? _defaultname : info().getRefDataName();
     }
-    /// Declare the allowed pairs of incoming beams required by this analysis.
-    virtual Analysis& setRequiredBeams(const std::vector<PdgIdPair>& requiredBeams) {
-      info().setBeams(requiredBeams);
-      return *this;
-    }
-
-    /// Sets of valid beam energy pairs, in GeV
-    virtual const std::vector<std::pair<double, double> >& requiredEnergies() const {
-      return info().energies();
-    }
-
-    /// Get vector of analysis keywords
-    virtual const std::vector<std::string> & keywords() const {
-      return info().keywords();
-    }
-
-    /// Declare the list of valid beam energy pairs, in GeV
-    virtual Analysis& setRequiredEnergies(const std::vector<std::pair<double, double> >& requiredEnergies) {
-      info().setEnergies(requiredEnergies);
-      return *this;
+    /// Backward compatibility alias
+    [[deprecated]] std::string getRefDataName() const { return refDataName(); }
+    /// Set name of reference data file, which could be different from plugin name
+    virtual void setRefDataName(const std::string& ref_data="") {
+      info().setRefDataName(!ref_data.empty() ? ref_data : name());
     }
 
 
-    /// Get the actual AnalysisInfo object in which all this metadata is stored (non-const).
+    /// @brief Get the actual AnalysisInfo object in which all this metadata is stored (non-const).
+    ///
     /// @note For *internal* use!
     AnalysisInfo& info() {
-      assert(_info && "No AnalysisInfo object :O");
+      if (!_info) throw Error("No AnalysisInfo object :-O");
       return *_info;
     }
 
     /// @}
 
 
-    /// @defgroup analysis_run Run conditions
+    /// @name Run conditions
     /// @{
-
-    /// Incoming beams for this run
-    const ParticlePair& beams() const;
-
-    /// Incoming beam IDs for this run
-    const PdgIdPair beamIds() const;
-
-    /// Centre of mass energy for this run
-    double sqrtS() const;
 
     /// Check if we are running rivet-merge
     bool merging() const {
       return sqrtS() <= 0.0;
     }
 
+    /// Check if the given conditions are compatible with this analysis' declared constraints
+    bool compatibleWithRun() const;
+
     /// @}
 
 
-    /// @defgroup analysis_beamcompat Analysis / beam compatibility testing
+    /// @name Analysis / beam compatibility testing
     ///
-    /// @todo Replace with beamsCompatible() with no args (calling beams() function internally)
-    /// @todo Add beamsMatch() methods with same (shared-code?) tolerance as in beamsCompatible()
     /// @{
 
-    /// Check if analysis is compatible with the provided beam particle IDs and energies
-    bool isCompatible(const ParticlePair& beams) const;
+    /// Incoming beams for this run
+    const ParticlePair& beams() const;
+
+    /// Incoming beam IDs for this run
+    PdgIdPair beamIDs() const;
+
+    /// Incoming beam energies for this run
+    pair<double,double> beamEnergies() const;
+
+    /// Centre of mass energy for this run
+    double sqrtS() const;
 
     /// Check if analysis is compatible with the provided beam particle IDs and energies
-    bool isCompatible(PdgId beam1, PdgId beam2, double e1, double e2) const;
+    bool beamsMatch(const ParticlePair& beams) const;
 
     /// Check if analysis is compatible with the provided beam particle IDs and energies
-    bool isCompatible(const PdgIdPair& beams, const std::pair<double,double>& energies) const;
+    bool beamsMatch(PdgId beam1, PdgId beam2, double e1, double e2) const;
+
+    /// Check if analysis is compatible with the provided beam particle IDs and energies in GeV
+    bool beamsMatch(const PdgIdPair& beams, const std::pair<double,double>& energies) const;
+
+    /// Check if analysis is compatible with the provided beam particle IDs
+    bool beamIDsMatch(PdgId beam1, PdgId beam2) const;
+
+    /// Check if analysis is compatible with the provided beam particle IDs
+    bool beamIDsMatch(const PdgIdPair& beamids) const;
+
+    /// Check if analysis is compatible with the provided beam energies in GeV
+    bool beamEnergiesMatch(double e1, double e2) const;
+
+    /// Check if analysis is compatible with the provided beam energies in GeV
+    bool beamEnergiesMatch(const std::pair<double,double>& energies) const;
+
+    /// Check if analysis is compatible with the provided CoM energy in GeV
+    bool beamEnergyMatch(const std::pair<double,double>& energies) const;
+
+    /// Check if analysis is compatible with the provided CoM energy in GeV
+    bool beamEnergyMatch(double sqrts) const;
+
+    /// Check if sqrtS is compatible with provided value
+    bool isCompatibleWithSqrtS(const float energy, float tolerance=1e-5) const;
 
     /// @}
+
 
     /// Access the controlling AnalysisHandler object.
     AnalysisHandler& handler() const { return *_analysishandler; }
@@ -380,15 +432,15 @@ namespace Rivet {
     const std::string histoPath(const std::string& hname) const;
 
     /// Get the canonical histogram path for the numbered histogram in this analysis.
-    const std::string histoPath(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const;
+    const std::string histoPath(unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) const;
 
     /// Get the internal histogram name for given d, x and y (cf. HepData)
-    const std::string mkAxisCode(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const;
+    const std::string mkAxisCode(unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) const;
 
     /// @}
 
 
-    /// @defgroup analysis_refdata Histogram reference data
+    /// @name Histogram reference data
     /// @{
 
     /// Get all reference data objects for this analysis
@@ -435,12 +487,12 @@ namespace Rivet {
     /// Book a counter, using a path generated from the dataset and axis ID codes
     ///
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    CounterPtr& book(CounterPtr&, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
+    CounterPtr& book(CounterPtr&, unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID);
 
     /// @}
 
 
-    /// @defgroup analysis_h1book 1D histogram booking
+    /// @name 1D histogram booking
     /// @{
 
     /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
@@ -461,12 +513,12 @@ namespace Rivet {
     /// Book a 1D histogram, using the binnings in the reference data histogram.
     ///
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    Histo1DPtr& book(Histo1DPtr&,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
+    Histo1DPtr& book(Histo1DPtr&,unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID);
 
     /// @}
 
 
-    /// @defgroup analysis_h2book 2D histogram booking
+    /// @name 2D histogram booking
     /// @{
 
     /// Book a 2D histogram with @a nxbins and @a nybins uniformly
@@ -498,12 +550,12 @@ namespace Rivet {
     /// Book a 2D histogram, using the binnings in the reference data histogram.
     ///
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    Histo2DPtr& book(Histo2DPtr&,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
+    Histo2DPtr& book(Histo2DPtr&,unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID);
 
     /// @}
 
 
-    /// @defgroup analysis_p1book 1D profile histogram booking
+    /// @name 1D profile histogram booking
     /// @{
 
     /// Book a 1D profile histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
@@ -524,12 +576,12 @@ namespace Rivet {
     /// Book a 1D profile histogram, using the binnings in the reference data histogram.
     ///
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    Profile1DPtr& book(Profile1DPtr&,  unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
+    Profile1DPtr& book(Profile1DPtr&,  unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID);
 
     /// @}
 
 
-    /// @defgroup analysis_p2book 2D profile histogram booking
+    /// @name 2D profile histogram booking
     /// @{
 
     /// Book a 2D profile histogram with @a nxbins and @a nybins uniformly
@@ -563,12 +615,12 @@ namespace Rivet {
     // /// Book a 2D profile histogram, using the binnings in the reference data histogram.
     // ///
     // /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    // Profile2DPtr& book(const Profile2DPtr&, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId);
+    // Profile2DPtr& book(const Profile2DPtr&, unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID);
 
     /// @}
 
 
-    /// @defgroup analysis_s2book 2D scatter booking
+    /// @name 2D scatter booking
     /// @{
 
     /// @brief Book a 2-dimensional data point set with the given name.
@@ -593,7 +645,7 @@ namespace Rivet {
     /// meaningful and can't be extracted from the data, then set the @a
     /// copy_pts parameter to true. This creates points to match the reference
     /// data's x values and errors, but with the y values and errors zeroed.
-    Scatter2DPtr& book(Scatter2DPtr& s2d, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId, bool copy_pts = false);
+    Scatter2DPtr& book(Scatter2DPtr& s2d, unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID, bool copy_pts = false);
 
     /// @brief Book a 2-dimensional data point set with equally spaced x-points in a range.
     ///
@@ -610,7 +662,7 @@ namespace Rivet {
 
     /// @}
 
-    /// @defgroup analysis_s3book 3D scatter booking
+    /// @name 3D scatter booking
     /// @{
 
     /// @brief Book a 3-dimensional data point set with the given name.
@@ -635,8 +687,8 @@ namespace Rivet {
     /// meaningful and can't be extracted from the data, then set the @a
     /// copy_pts parameter to true. This creates points to match the reference
     /// data's x values and errors, but with the y values and errors zeroed.
-    Scatter3DPtr& book(Scatter3DPtr& s3d, unsigned int datasetId, unsigned int xAxisId,
-                        unsigned int yAxisId, unsigned int zAxisId, bool copy_pts=false);
+    Scatter3DPtr& book(Scatter3DPtr& s3d, unsigned int datasetID, unsigned int xAxisID,
+                        unsigned int yAxisID, unsigned int zAxisID, bool copy_pts=false);
 
     /// @brief Book a 3-dimensional data point set with equally spaced x-points in a range.
     ///
@@ -677,7 +729,7 @@ namespace Rivet {
     }
 
     /// @name Accessing options for this Analysis instance.
-    //@{
+    /// @{
 
     /// Return the map of all options given to this analysis.
     const std::map<std::string,std::string>& options() const {
@@ -685,24 +737,10 @@ namespace Rivet {
     }
 
     /// Get an option for this analysis instance as a string.
-    std::string getOption(std::string optname) const {
+    std::string getOption(std::string optname, string def="") const {
       if ( _options.find(optname) != _options.end() )
         return _options.find(optname)->second;
-      return "";
-    }
-
-    /// @brief Get an option for this analysis instance converted to a specific type
-    ///
-    /// The return type is given by the specified @a def value, or by an explicit template
-    /// type-argument, e.g. getOption<double>("FOO", 3).
-    template<typename T>
-    T getOption(std::string optname, T def) const {
-      if (_options.find(optname) == _options.end()) return def;
-      std::stringstream ss;
-      ss << _options.find(optname)->second;
-      T ret;
-      ss >> ret;
-      return ret;
+      return def;
     }
 
     /// @brief Sane overload for literal character strings (which don't play well with stringstream)
@@ -713,10 +751,54 @@ namespace Rivet {
       return getOption<std::string>(optname, def);
     }
 
+    /// @brief Get an option for this analysis instance converted to a specific type
+    ///
+    /// The return type is given by the specified @a def value, or by an explicit template
+    /// type-argument, e.g. getOption<double>("FOO", 3).
+    ///
+    /// @warning To avoid accidents, strings not convertible to the requested
+    /// type will throw a Rivet::ReadError exception.
+    template<typename T>
+    T getOption(std::string optname, T def) const {
+      if (_options.find(optname) == _options.end()) return def;
+      std::stringstream ss;
+      ss.exceptions(std::ios::failbit);
+      T ret;
+      ss << _options.find(optname)->second;
+      try {
+        ss >> ret;
+      } catch (...) {
+        throw ReadError("Could not read user-provided option into requested type");
+      }
+      return ret;
+    }
+
+    /// @brief Get an option for this analysis instance converted to a bool
+    ///
+    /// Specialisation for bool, to allow use of "yes/no", "true/false"
+    /// and "on/off" strings, with fallback casting to bool based on int
+    /// value. An empty value will be treated as false.
+    ///
+    /// @warning To avoid accidents, strings not matching one of the above
+    /// patterns will throw a Rivet::ReadError exception.
+    ///
+    /// @todo Make this a template-specialisation... needs to be outside the class body?
+    // template<>
+    // bool getOption<bool>(std::string optname, bool def) const {
+    bool getOption(std::string optname, bool def) const {
+      if (_options.find(optname) == _options.end()) return def;
+      const std::string val = getOption(optname);
+      const std::string lval = toLower(val);
+      if (lval.empty()) return false;
+      if (lval == "true" || lval == "yes" || lval == "on") return true;
+      if (lval == "false" || lval == "no" || lval == "off") return false;
+      return bool(getOption<int>(optname, 0));
+    }
+
     /// @}
 
 
-    /// @defgroup analysis_bookhi Booking heavy ion features
+    /// @name Booking heavy ion features
     /// @{
 
     /// @brief Book a CentralityProjection
@@ -868,7 +950,7 @@ namespace Rivet {
     }
 
 
-    /// @defgroup analysis_manip Analysis object manipulation
+    /// @name Analysis object manipulation
     ///
     /// @todo Should really be protected: only public to keep BinnedHistogram happy for now...
     /// @{
@@ -1101,7 +1183,7 @@ namespace Rivet {
 
   protected:
 
-    /// @defgroup analysis_aoaccess Data object registration, retrieval, and removal
+    /// @name Data object registration, retrieval, and removal
     /// @{
 
     /// Get the default/nominal weight index
@@ -1313,13 +1395,13 @@ namespace Rivet {
     // }
 
     // /// Get a Histo1D object from the histogram system by axis ID codes (non-const)
-    // const Histo1DPtr getHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-    //   return getAnalysisObject<Histo1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // const Histo1DPtr getHisto1D(unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) const {
+    //   return getAnalysisObject<Histo1D>(makeAxisCode(datasetID, xAxisID, yAxisID));
     // }
 
     // /// Get a Histo1D object from the histogram system by axis ID codes (non-const)
-    // Histo1DPtr getHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-    //   return getAnalysisObject<Histo1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // Histo1DPtr getHisto1D(unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) {
+    //   return getAnalysisObject<Histo1D>(makeAxisCode(datasetID, xAxisID, yAxisID));
     // }
 
 
@@ -1334,13 +1416,13 @@ namespace Rivet {
     // }
 
     // /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
-    // const Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-    //   return getAnalysisObject<Histo2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // const Histo2DPtr getHisto2D(unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) const {
+    //   return getAnalysisObject<Histo2D>(makeAxisCode(datasetID, xAxisID, yAxisID));
     // }
 
     // /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
-    // Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-    //   return getAnalysisObject<Histo2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // Histo2DPtr getHisto2D(unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) {
+    //   return getAnalysisObject<Histo2D>(makeAxisCode(datasetID, xAxisID, yAxisID));
     // }
 
 
@@ -1355,13 +1437,13 @@ namespace Rivet {
     // }
 
     // /// Get a Profile1D object from the histogram system by axis ID codes (non-const)
-    // const Profile1DPtr getProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-    //   return getAnalysisObject<Profile1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // const Profile1DPtr getProfile1D(unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) const {
+    //   return getAnalysisObject<Profile1D>(makeAxisCode(datasetID, xAxisID, yAxisID));
     // }
 
     // /// Get a Profile1D object from the histogram system by axis ID codes (non-const)
-    // Profile1DPtr getProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-    //   return getAnalysisObject<Profile1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // Profile1DPtr getProfile1D(unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) {
+    //   return getAnalysisObject<Profile1D>(makeAxisCode(datasetID, xAxisID, yAxisID));
     // }
 
 
@@ -1376,13 +1458,13 @@ namespace Rivet {
     // }
 
     // /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
-    // const Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-    //   return getAnalysisObject<Profile2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // const Profile2DPtr getProfile2D(unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) const {
+    //   return getAnalysisObject<Profile2D>(makeAxisCode(datasetID, xAxisID, yAxisID));
     // }
 
     // /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
-    // Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-    //   return getAnalysisObject<Profile2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // Profile2DPtr getProfile2D(unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) {
+    //   return getAnalysisObject<Profile2D>(makeAxisCode(datasetID, xAxisID, yAxisID));
     // }
 
 
@@ -1397,13 +1479,13 @@ namespace Rivet {
     // }
 
     // /// Get a Scatter2D object from the histogram system by axis ID codes (non-const)
-    // const Scatter2DPtr getScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-    //   return getAnalysisObject<Scatter2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // const Scatter2DPtr getScatter2D(unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) const {
+    //   return getAnalysisObject<Scatter2D>(makeAxisCode(datasetID, xAxisID, yAxisID));
     // }
 
     // /// Get a Scatter2D object from the histogram system by axis ID codes (non-const)
-    // Scatter2DPtr getScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-    //   return getAnalysisObject<Scatter2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // Scatter2DPtr getScatter2D(unsigned int datasetID, unsigned int xAxisID, unsigned int yAxisID) {
+    //   return getAnalysisObject<Scatter2D>(makeAxisCode(datasetID, xAxisID, yAxisID));
     // }
 
     /// @}
@@ -1421,7 +1503,7 @@ namespace Rivet {
     /// @todo Make this a map for fast lookup by path?
     vector<MultiweightAOPtr> _analysisobjects;
 
-    /// @defgroup analysis_xsecvars Cross-section variables
+    /// @name Cross-section variables
     /// @{
     double _crossSection;
     bool _gotCrossSection;

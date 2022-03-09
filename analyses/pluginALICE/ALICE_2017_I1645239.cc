@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2017_I1645239);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2017_I1645239);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -46,13 +46,13 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      PdgIdPair beamp = beamIds();
+      PdgIdPair beamp = beamIDs();
       const UnstableParticles& upProj = apply<UnstableParticles>(event, "upProj");
 
       // PDG code IDs used in the code: 2212 = p+, 4122 = Lc, 421 = D0, 1000822080 = Pb
       if (beamp.first == PID::PROTON && beamp.second == PID::PROTON) {
         // pp cycle
-        if (fuzzyEquals(sqrtS(), 5020*GeV)) { // pp 5.02 TeV
+        if (isCompatibleWithSqrtS(5020*GeV)) { // pp 5.02 TeV
           for (const Particle& p : upProj.particles()) {
             if (p.fromBottom()) continue;
             if (p.rap() < 0.04 && p.rap() > -0.96) {
@@ -131,19 +131,19 @@ namespace Rivet {
       if (_h_LcRPb->numEntries() > 0 && _h_LcR->numEntries() > 0) divide(_h_LcRPb, _h_LcR, _h_RpPb);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_Lc, _h_LcPb, _h_D0, _h_D0Pb, _h_Lcint, _h_LcintPb, _h_D0int, _h_D0intPb, _h_LcR, _h_LcRPb, _h_Lcdummy,_h_LcPbdummy;
     Scatter2DPtr _h_LcD0, _h_LcD0Pb, _h_LcD0int, _h_LcD0Pbint, _h_RpPb;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALICE_2017_I1645239);
+  RIVET_DECLARE_PLUGIN(ALICE_2017_I1645239);
 
 }

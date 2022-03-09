@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2017_I1604271);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2017_I1604271);
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -73,7 +73,7 @@ namespace Rivet {
       const double xs_pb( crossSection() / picobarn );
       const double sumW( sumOfWeights() );
       const double xs_norm_factor( 0.5*xs_pb / sumW );
-     
+
       MSG_DEBUG( "Cross-Section/pb     : " << xs_pb       );
       MSG_DEBUG( "ZH                   : " << crossSectionPerEvent()/ picobarn);
       MSG_DEBUG( "Sum of weights       : " << sumW        );
@@ -93,6 +93,6 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2017_I1604271);
+  RIVET_DECLARE_PLUGIN(ATLAS_2017_I1604271);
 
 }

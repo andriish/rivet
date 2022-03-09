@@ -9,10 +9,10 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(LHCF_2018_I1692008);
+    RIVET_DEFAULT_ANALYSIS_CTOR(LHCF_2018_I1692008);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -52,19 +52,19 @@ namespace Rivet {
       scale(_h_n_en_eta2, crossSection()/millibarn/sumOfWeights()/2.); // norm to cross section
       scale(_h_n_en_eta3, crossSection()/millibarn/sumOfWeights()/2.); // norm to cross section
     }
-    //@}
+    /// @}
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_n_en_eta1;
     Histo1DPtr _h_n_en_eta2;
     Histo1DPtr _h_n_en_eta3;
-    //@}
+    /// @}
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(LHCF_2018_I1692008);
+  RIVET_DECLARE_PLUGIN(LHCF_2018_I1692008);
 
 }

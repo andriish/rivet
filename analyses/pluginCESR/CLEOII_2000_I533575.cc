@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEOII_2000_I533575);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEOII_2000_I533575);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -35,12 +35,12 @@ namespace Rivet {
 	int sign = Xi.pid()/3312;
 	if(Xi.children().size()!=2) continue;
 	Particle Lambda,pion1;
-	if(Xi.children()[0].pid()==sign*3122 && 
+	if(Xi.children()[0].pid()==sign*3122 &&
 	   Xi.children()[1].pid()==-sign*211) {
 	  Lambda = Xi.children()[0];
 	  pion1   = Xi.children()[1];
 	}
-	else if(Xi.children()[1].pid()==sign*3122 && 
+	else if(Xi.children()[1].pid()==sign*3122 &&
 		Xi.children()[0].pid()==-sign*211) {
 	  Lambda = Xi.children()[1];
 	  pion1   = Xi.children()[0];
@@ -49,12 +49,12 @@ namespace Rivet {
 	  continue;
 	if(Lambda.children().size()!=2) continue;
 	Particle proton,pion2;
-	if(Lambda.children()[0].pid()==sign*2212 && 
+	if(Lambda.children()[0].pid()==sign*2212 &&
 	   Lambda.children()[1].pid()==-sign*211) {
 	  proton = Lambda.children()[0];
 	  pion2   = Lambda.children()[1];
 	}
-	else if(Lambda.children()[1].pid()==sign*2212 && 
+	else if(Lambda.children()[1].pid()==sign*2212 &&
 		Lambda.children()[0].pid()==-sign*211) {
 	  proton = Lambda.children()[1];
 	  pion2   = Lambda.children()[0];
@@ -115,18 +115,18 @@ namespace Rivet {
 			  make_pair(alpha.second,alpha.second) );
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_cthetaP,_h_cthetaM;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(CLEOII_2000_I533575);
+  RIVET_DECLARE_PLUGIN(CLEOII_2000_I533575);
 
 }

@@ -13,11 +13,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(JADE_OPAL_2000_S4300807)
+    RIVET_DEFAULT_ANALYSIS_CTOR(JADE_OPAL_2000_S4300807)
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       // Projections
@@ -156,22 +156,22 @@ namespace Rivet {
       for (size_t n = 0; n < 5; ++n) scale(_h_R_Durham[n], 100/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_R_Jade[5];
     Histo1DPtr _h_R_Durham[5];
     Histo1DPtr _h_y_Durham[4];
-    //@}
+    /// @}
 
   };
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(JADE_OPAL_2000_S4300807, JADE_OPAL_2000_I513337);
+  RIVET_DECLARE_ALIASED_PLUGIN(JADE_OPAL_2000_S4300807, JADE_OPAL_2000_I513337);
 
 }

@@ -6,7 +6,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// CMS Z+jets delta(phi) and jet thrust measurement at 7 TeV
@@ -144,11 +144,11 @@ namespace Rivet {
 
 
     // Define a helper to appropriately fill both unboosted and boosted histo versions
-    void FILLx2(Histo1DPtr* HNAME, bool is_boosted, double VAL, double weight) { 
-      double x = VAL; 
+    void FILLx2(Histo1DPtr* HNAME, bool is_boosted, double VAL, double weight) {
+      double x = VAL;
       for (size_t i = 0; i < 2; ++i) {
-        if (i == 0 || is_boosted) 
-          HNAME[i]->fill(x, weight); 
+        if (i == 0 || is_boosted)
+          HNAME[i]->fill(x, weight);
       }
     }
 
@@ -168,6 +168,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(CMS_2013_I1209721);
+  RIVET_DECLARE_PLUGIN(CMS_2013_I1209721);
 
 }

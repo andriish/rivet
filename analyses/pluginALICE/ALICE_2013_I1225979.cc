@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2013_I1225979);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2013_I1225979);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -84,22 +84,22 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
      vector<double> centralityBins;
      map<double,Histo1DPtr> histEta;
      map<double, CounterPtr> sow;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALICE_2013_I1225979);
+  RIVET_DECLARE_PLUGIN(ALICE_2013_I1225979);
 
 
 }

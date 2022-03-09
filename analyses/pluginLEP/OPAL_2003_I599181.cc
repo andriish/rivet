@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(OPAL_2003_I599181);
+    RIVET_DEFAULT_ANALYSIS_CTOR(OPAL_2003_I599181);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -60,7 +60,7 @@ namespace Rivet {
       normalize(_histXbweak);
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -73,7 +73,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OPAL_2003_I599181);
+  RIVET_DECLARE_PLUGIN(OPAL_2003_I599181);
 
 
 }

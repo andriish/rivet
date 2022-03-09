@@ -15,7 +15,7 @@ Beams: [e-, e+]
 Description:
   'Measurement of $R$ in $e^+e^-$ collisions for energies between 39.8 and 45.2 GeV.
    The individual hadronic and muonic cross sections are also outputted to the yoda file
-   so that ratio $R$ can be recalcuated if runs are combined.'
+   so that ratio $R$ can be recalculated if runs are combined.'
 Keywords: []
 BibKey: Althoff:1984us
 BibTeX: '@article{Althoff:1984us,

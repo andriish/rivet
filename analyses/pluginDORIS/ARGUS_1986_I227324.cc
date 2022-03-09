@@ -13,11 +13,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ARGUS_1986_I227324);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ARGUS_1986_I227324);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -28,9 +28,9 @@ namespace Rivet {
       declare(Thrust(fs)    ,"Thrust");
       declare(Sphericity(fs),"Sphericity");
       // histograms
-      if(fuzzyEquals(sqrtS(),9.98,1e-2)) {
-	book(_h_T_cont ,2, 1, 2);
-	book(_h_S_cont ,1, 1, 2);
+      if(isCompatibleWithSqrtS(9.98*GeV,1e-2)) {
+        book(_h_T_cont ,2, 1, 2);
+        book(_h_S_cont ,1, 1, 2);
       }
       book(_h_T_Ups ,2, 1, 1);
       book(_h_S_Ups ,1, 1, 1);
@@ -57,7 +57,7 @@ namespace Rivet {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       Particles upsilons = ufs.particles(Cuts::pid==553 or Cuts::pid==100553);
       if (upsilons.empty() && _h_T_cont) {
-	Particles charged = apply<ChargedFinalState>(event, "CFS").particles(); 
+	Particles charged = apply<ChargedFinalState>(event, "CFS").particles();
 	// at least 6 charged particles
 	if(charged.size()<6) vetoEvent;
 	// cut on high momentum particles
@@ -117,19 +117,19 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_T_Ups,_h_T_cont;
     Histo1DPtr _h_S_Ups,_h_S_cont;
-    //@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(ARGUS_1986_I227324);
+  RIVET_DECLARE_PLUGIN(ARGUS_1986_I227324);
 
 }

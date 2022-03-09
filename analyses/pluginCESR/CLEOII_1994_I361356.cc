@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEOII_1994_I361356);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEOII_1994_I361356);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -51,7 +51,7 @@ namespace Rivet {
 	if(Sigma.empty()) continue;
         LorentzTransform boost;
         if (p.p3().mod() > 1*MeV)
-          boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());	
+          boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
 	for(const Particle & sig : Sigma) {
 	  double mom = boost.transform(sig.momentum()).vector3().mod();
 	  if(sig.abspid()==4222) {
@@ -74,20 +74,20 @@ namespace Rivet {
       scale(_b_Sigma_pp, 0.5/ *_c_ups);
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_Sigma_0, _h_Sigma_pp;
     Histo1DPtr _b_Sigma_0, _b_Sigma_pp;
     CounterPtr _c_ups;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(CLEOII_1994_I361356);
+  RIVET_DECLARE_PLUGIN(CLEOII_1994_I361356);
 
 }

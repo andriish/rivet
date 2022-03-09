@@ -20,6 +20,7 @@ NumEvents: 500000
 NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [7000]
+Luminosity_fb: 0.036
 PtCuts: 2 jets with $\pT > 50$ GeV; 2 jets with $\pT > 20$ GeV
 Description:
   Measurements are presented of exclusive 4-jet production cross

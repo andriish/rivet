@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TASSO_1982_I168232);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TASSO_1982_I168232);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -23,18 +23,23 @@ namespace Rivet {
 
       declare(Beam(), "Beams");
       declare(UnstableParticles(), "UFS");
-      
+
       // Book histograms
-      if(fuzzyEquals(sqrtS()/GeV, 14., 1e-3)) {
+      sqs = 1.0;
+      if(isCompatibleWithSqrtS(14*GeV)) {
 	book(_h_E, 2,1,1);
 	book(_h_p, 2,2,2);
 	book(_h_x, 2,3,3);
+	sqs = 14.0;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 34., 1e-3)) {
+      else if (isCompatibleWithSqrtS(34*GeV)) {
 	book(_h_E, 3,1,1);
 	book(_h_p, 3,2,2);
 	book(_h_x, 3,3,3);
+	sqs = 34.0;
       }
+      else
+        MSG_ERROR("Not compatible with energy " << sqrtS() << "GeV.");
     }
 
 
@@ -64,21 +69,22 @@ namespace Rivet {
 
       scale(_h_E, crossSection()/nanobarn/sumOfWeights());
       scale(_h_p, crossSection()/nanobarn/sumOfWeights());
-      scale(_h_x, sqr(sqrtS())*crossSection()/microbarn/sumOfWeights());
+      scale(_h_x, sqr(sqs)*crossSection()/microbarn/sumOfWeights());
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_E,_h_p,_h_x;
-    //@}
+    double sqs;
+    /// @}
 
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TASSO_1982_I168232);
+  RIVET_DECLARE_PLUGIN(TASSO_1982_I168232);
 
 }

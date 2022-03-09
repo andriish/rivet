@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(DM2_1988_I262690);
+    RIVET_DEFAULT_ANALYSIS_CTOR(DM2_1988_I262690);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -45,7 +45,7 @@ namespace Rivet {
       double sigma = _nkaon->val();
       double error = _nkaon->err();
       sigma *= crossSection()/ sumOfWeights() /nanobarn;
-      error *= crossSection()/ sumOfWeights() /nanobarn; 
+      error *= crossSection()/ sumOfWeights() /nanobarn;
       Scatter2D temphisto(refData(1, 1, 1));
       Scatter2DPtr mult;
       book(mult, 1, 1, 1);
@@ -64,20 +64,20 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _nkaon;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(DM2_1988_I262690);
+  RIVET_DECLARE_PLUGIN(DM2_1988_I262690);
 
 
 }

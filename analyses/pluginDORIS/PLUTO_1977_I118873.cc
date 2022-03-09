@@ -11,28 +11,28 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(PLUTO_1977_I118873);
+    RIVET_DEFAULT_ANALYSIS_CTOR(PLUTO_1977_I118873);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
       declare(Beam(), "Beams");
       declare(UnstableParticles(), "UFS");
-      
-      if      (fuzzyEquals(sqrtS()/GeV, 3.63, 1E-3)) {
-	book(_h_spectrum, 2, 1, 1);
+
+      if (isCompatibleWithSqrtS(3.63*GeV)) {
+        book(_h_spectrum, 2, 1, 1);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 4.03, 1E-3)) {
-	book(_h_spectrum, 3, 1, 1);
+      else if (isCompatibleWithSqrtS(4.03*GeV)) {
+        book(_h_spectrum, 3, 1, 1);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 4.5, 1E-3)) {
-	book(_h_spectrum, 4, 1, 1);
+      else if (isCompatibleWithSqrtS(4.5*GeV)) {
+        book(_h_spectrum, 4, 1, 1);
       }
       else
-	MSG_ERROR("Beam energy not supported!");
+        MSG_ERROR("Beam energy not supported!");
     }
 
 
@@ -58,20 +58,20 @@ namespace Rivet {
       scale(_h_spectrum, sqr(sqrtS())*crossSection()/nanobarn/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_spectrum;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(PLUTO_1977_I118873);
+  RIVET_DECLARE_PLUGIN(PLUTO_1977_I118873);
 
 
 }

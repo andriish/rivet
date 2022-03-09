@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CELLO_1983_I191415);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CELLO_1983_I191415);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -27,13 +27,13 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       unsigned int iloc(0);
-      if(fuzzyEquals(sqrtS()/GeV, 14., 1e-3)) {
+      if(isCompatibleWithSqrtS(14*GeV)) {
 	iloc=1;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 22., 1e-3)) {
+      else if (isCompatibleWithSqrtS(22*GeV)) {
 	iloc=2;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 34., 1e-3)) {
+      else if (isCompatibleWithSqrtS(34*GeV)) {
 	iloc=3;
       }
       else
@@ -78,25 +78,25 @@ namespace Rivet {
     void finalize() {
 
       double fact = sqr(sqrtS())/GeV2*crossSection()/microbarn/sumOfWeights();
-      scale(_h_gamma, fact); 
-      scale(_h_pi0  , fact); 
+      scale(_h_gamma, fact);
+      scale(_h_pi0  , fact);
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_gamma,_h_pi0;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CELLO_1983_I191415);
+  RIVET_DECLARE_PLUGIN(CELLO_1983_I191415);
 
 
 }

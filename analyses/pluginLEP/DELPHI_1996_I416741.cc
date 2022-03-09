@@ -13,11 +13,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(DELPHI_1996_I416741);
+    RIVET_DEFAULT_ANALYSIS_CTOR(DELPHI_1996_I416741);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -66,20 +66,20 @@ namespace Rivet {
       scale(_h_f2prime, 1./sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_f2prime;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(DELPHI_1996_I416741);
+  RIVET_DECLARE_PLUGIN(DELPHI_1996_I416741);
 
 
 }

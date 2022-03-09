@@ -11,44 +11,44 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TASSO_1982_I177174);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TASSO_1982_I177174);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
       // Initialise and register projections
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
-      if(fuzzyEquals(sqrtS()/GeV, 12., 1e-3)) {
+      if(isCompatibleWithSqrtS(12*GeV)) {
 	book(_h_x2,2,1,1);
 	book(_h_x3,3,1,1);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 14., 1e-3)) {
+      else if (isCompatibleWithSqrtS(14*GeV)) {
 	book(_h_x1,1,1,1);
 	book(_h_x2,2,1,2);
 	book(_h_x3,3,1,2);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 22., 1e-3)) {
+      else if (isCompatibleWithSqrtS(22*GeV)) {
 	book(_h_x1,1,1,2);
 	book(_h_x2,2,1,3);
 	book(_h_x3,3,1,3);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 25., 1e-3)) {
+      else if (isCompatibleWithSqrtS(25*GeV)) {
 	book(_h_x2,2,1,4);
 	book(_h_x3,3,1,4);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 30., 1e-3)) {
+      else if (isCompatibleWithSqrtS(30*GeV)) {
 	book(_h_x2,2,1,5);
 	book(_h_x3,3,1,5);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 34., 1e-3)) {
+      else if (isCompatibleWithSqrtS(34*GeV)) {
 	book(_h_x2,2,1,6);
 	book(_h_x3,3,1,6);
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 35., 1e-3)) {
+      else if (isCompatibleWithSqrtS(35*GeV)) {
         book(_h_x2, 2,1,7);
         book(_h_x3, 3,1,7);
       }
@@ -80,7 +80,7 @@ namespace Rivet {
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
-      
+
       for (const Particle& p : fs.particles()) {
 	double xp = p.p3().mod()/meanBeamMom;
 	if(_h_x1!=Histo1DPtr()) _h_x1->fill(xp);
@@ -99,20 +99,20 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_x1,_h_x2,_h_x3;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TASSO_1982_I177174);
+  RIVET_DECLARE_PLUGIN(TASSO_1982_I177174);
 
 
 }

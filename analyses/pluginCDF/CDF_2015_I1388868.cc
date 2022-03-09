@@ -6,27 +6,28 @@ namespace Rivet {
 
 
   /// @brief CDF leading track underlying event at 300, 900 and 1960 GeV
+  ///
   /// @author Orestes Tumbarell Aranda (Havana), Hannes Jung (DESY)
   class CDF_2015_I1388868 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2015_I1388868);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2015_I1388868);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
 
       // Energy selection
       int isqrts = -1;
-      if (fuzzyEquals(sqrtS()/GeV, 300, 1E-3)) {
+      if (isCompatibleWithSqrtS(300*GeV)) {
         isqrts = 2;
-      } else if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
+      } else if (isCompatibleWithSqrtS(900*GeV)) {
         isqrts = 1;
-      } else if (fuzzyEquals(sqrtS()/GeV, 1960, 1E-3)) {
+      } else if (isCompatibleWithSqrtS(1960*GeV)) {
         isqrts = 0;
       } else {
         throw UserError("Unexpected sqrtS ! Only 300, 900, 1960 GeV is supported by CDF_2015_I1388868");
@@ -110,7 +111,7 @@ namespace Rivet {
       _PTsumPDFden1->fill(ptlead/GeV, PTsumPDFden );
     }
 
-    //@}
+    /// @}
 
 
     /// eta-phi area of the transverse region
@@ -123,6 +124,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2015_I1388868);
+  RIVET_DECLARE_PLUGIN(CDF_2015_I1388868);
 
 }

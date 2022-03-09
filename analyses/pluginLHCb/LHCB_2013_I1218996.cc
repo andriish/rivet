@@ -12,18 +12,18 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     LHCB_2013_I1218996()
       : Analysis("LHCB_2013_I1218996")
     {    }
 
-    //@}
+    /// @}
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -114,25 +114,25 @@ namespace Rivet {
       _h_pdg4122_Lambdac_pT->scaleW(scale_factor);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _h_pdg411_Dplus_pT_y;
     BinnedHistogram _h_pdg421_Dzero_pT_y;
     BinnedHistogram _h_pdg431_Dsplus_pT_y;
     BinnedHistogram _h_pdg413_Dstarplus_pT_y;
     Histo1DPtr _h_pdg4122_Lambdac_pT;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(LHCB_2013_I1218996);
+  RIVET_DECLARE_PLUGIN(LHCB_2013_I1218996);
 
 }

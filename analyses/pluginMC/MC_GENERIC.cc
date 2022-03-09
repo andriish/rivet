@@ -7,16 +7,17 @@ namespace Rivet {
 
 
   /// Generic analysis looking at various distributions of final state particles
+  ///
   /// @deprecated Replaced by the better-named MC_FSPARTICLES
   class MC_GENERIC : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(MC_GENERIC);
+    RIVET_DEFAULT_ANALYSIS_CTOR(MC_GENERIC);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -104,9 +105,9 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      normalize(_histMult); normalize(_histEta); normalize(_histRapidity); 
+      normalize(_histMult); normalize(_histEta); normalize(_histRapidity);
       normalize(_histPt); normalize(_histE); normalize(_histPhi);
-      normalize(_histMultCh); normalize(_histEtaCh); normalize(_histRapidityCh); 
+      normalize(_histMultCh); normalize(_histEtaCh); normalize(_histRapidityCh);
       normalize(_histPtCh); normalize(_histECh); normalize(_histPhiCh);
       divide(_tmphistEtaPlus, _tmphistEtaMinus, _histEtaPMRatio);
       divide(_tmphistEtaChPlus, _tmphistEtaChMinus, _histEtaChPMRatio);
@@ -114,29 +115,29 @@ namespace Rivet {
       divide(_tmphistRapChPlus, _tmphistRapChMinus, _histRapidityChPMRatio);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histMult, _histEta, _histRapidity, _histPt, _histE, _histPhi;
     Histo1DPtr _histMultCh,  _histEtaCh, _histRapidityCh, _histPtCh, _histECh, _histPhiCh;
     Profile1DPtr _histEtaSumEt;
     Scatter2DPtr _histEtaPMRatio, _histEtaChPMRatio, _histRapidityPMRatio, _histRapidityChPMRatio;
-    //@}
+    /// @}
 
     /// @name Temporary histos used to calculate +/- rapidity ratio plots
-    //@{
+    /// @{
     Histo1D _tmphistEtaPlus, _tmphistEtaMinus, _tmphistEtaChPlus, _tmphistEtaChMinus;
     Histo1D _tmphistRapPlus, _tmphistRapMinus, _tmphistRapChPlus, _tmphistRapChMinus;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_GENERIC);
+  RIVET_DECLARE_PLUGIN(MC_GENERIC);
 
 }

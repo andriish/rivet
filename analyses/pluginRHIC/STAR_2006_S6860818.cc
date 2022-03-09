@@ -11,14 +11,7 @@ namespace Rivet {
   class STAR_2006_S6860818 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(STAR_2006_S6860818);
-    // {
-    //   for (size_t i = 0; i < 4; i++) {
-    //     _nBaryon[i] = 0;
-    //     _nAntiBaryon[i] = 0;
-    //   }
-    // }
-
+    RIVET_DEFAULT_ANALYSIS_CTOR(STAR_2006_S6860818);
 
     /// Book projections and histograms
     void init() {
@@ -55,10 +48,11 @@ namespace Rivet {
     void analyze(const Event& event) {
       const ChargedFinalState& bbc1 = apply<ChargedFinalState>(event, "BBC1");
       const ChargedFinalState& bbc2 = apply<ChargedFinalState>(event, "BBC2");
-      if (bbc1.size()<1 || bbc2.size()<1) {
+      if (bbc1.size() < 1 || bbc2.size() < 1) {
         MSG_DEBUG("Failed beam-beam-counter trigger");
         vetoEvent;
       }
+      _sumWeightSelected->fill();
 
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles()) {
@@ -72,7 +66,6 @@ namespace Rivet {
           case PID::PROTON:
             if (pid < 0) _h_pT_vs_mass->fill(0.9383, pT);
             if (pT > 0.4) {
-              // pid > 0 ? _nBaryon[0]++ : _nAntiBaryon[0]++;
               pid > 0 ? _nWeightedBaryon[0]->fill() : _nWeightedAntiBaryon[0]->fill();
             }
             break;
@@ -110,7 +103,6 @@ namespace Rivet {
             pid > 0 ? _h_pT_vs_mass->fill(1.1050, pT) : _h_pT_vs_mass->fill(1.1250, pT);
             if (pT > 0.3) {
               pid > 0 ? _h_pT_lambda->fill(pT, 1.0/pT) : _h_pT_lambdabar->fill(pT, 1.0/pT);
-              // pid > 0 ? _nBaryon[1]++ : _nAntiBaryon[1]++;
               pid > 0 ? _nWeightedBaryon[1]->fill() : _nWeightedAntiBaryon[1]->fill();
             }
             break;
@@ -118,7 +110,6 @@ namespace Rivet {
             pid > 0 ? _h_pT_vs_mass->fill(1.3120, pT) : _h_pT_vs_mass->fill(1.3320, pT);
             if (pT > 0.5) {
               pid > 0 ? _h_pT_ximinus->fill(pT, 1.0/pT) : _h_pT_xiplus->fill(pT, 1.0/pT);
-              // pid > 0 ? _nBaryon[2]++ : _nAntiBaryon[2]++;
               pid > 0 ? _nWeightedBaryon[2]->fill() : _nWeightedAntiBaryon[2]->fill();
             }
             break;
@@ -126,7 +117,6 @@ namespace Rivet {
             _h_pT_vs_mass->fill(1.6720, pT);
             if (pT > 0.5) {
               //_h_pT_omega->fill(pT, 1.0/pT);
-              // pid > 0 ? _nBaryon[3]++ : _nAntiBaryon[3]++;
               pid > 0 ? _nWeightedBaryon[3]->fill() : _nWeightedAntiBaryon[3]->fill();
             }
             break;
@@ -134,8 +124,6 @@ namespace Rivet {
 
         }
       }
-
-      _sumWeightSelected->fill();
     }
 
 
@@ -172,8 +160,6 @@ namespace Rivet {
   private:
 
     CounterPtr _sumWeightSelected;
-    // array<int,4> _nBaryon;
-    // array<int,4> _nAntiBaryon;
     array<CounterPtr, 4> _nWeightedBaryon;
     array<CounterPtr, 4> _nWeightedAntiBaryon;
 
@@ -187,6 +173,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(STAR_2006_S6860818, STAR_2006_I722757);
+  RIVET_DECLARE_ALIASED_PLUGIN(STAR_2006_S6860818, STAR_2006_I722757);
 
 }

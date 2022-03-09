@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2011_S9108483);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_S9108483);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -147,7 +147,7 @@ namespace Rivet {
       _count_beta->fill(0.5);
     }
 
-    //@}
+    /// @}
 
     void finalize() {
       double fact = crossSection()/sumOfWeights()*37;
@@ -168,7 +168,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _hist_beta;
     Histo1DPtr _hist_time;
     Histo1DPtr _hist_mass;
@@ -180,11 +180,11 @@ namespace Rivet {
     Histo1DPtr _count_110;
     Histo1DPtr _count_120;
     Histo1DPtr _count_130;
-    //@}
+    /// @}
 
   };
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(ATLAS_2011_S9108483, ATLAS_2011_I914491);
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2011_S9108483, ATLAS_2011_I914491);
 
 }

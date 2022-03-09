@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(JADE_1998_S3612880);
+    RIVET_DEFAULT_ANALYSIS_CTOR(JADE_1998_S3612880);
 
 
     /// Book histograms and initialise projections before the run
@@ -109,6 +109,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(JADE_1998_S3612880, JADE_1998_I447560);
+  RIVET_DECLARE_ALIASED_PLUGIN(JADE_1998_S3612880, JADE_1998_I447560);
 
 }

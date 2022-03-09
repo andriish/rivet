@@ -1,3 +1,109 @@
+2022-03-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix ATLAS_2020_I1790256 finalize to avoid divide-by-zero if no events passed cuts.
+
+2021-12-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add strcat() variadic template function to Rivet utils.
+
+2021-12-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use explicit energy-unit factors when calling Analysis::isCompatibleWithSqrtS().
+
+2021-12-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Allow manual use of analysis-plugin make-targets after
+	configuring with --disable-analyses.
+
+2021-11-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Release 3.1.5
+
+2021-11-05  Johannes Jahan <jahan.johannes@gmail.com>
+
+	* Changed the first labelling in ATLAS_2016_I1467230 from "/*" to "/d01-*"
+
+2021-10-28  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use the new Ref(Un)match regex info to filter unwanted objects
+	from ref files during HepData sync.
+
+	* Add support for Warning, RefMatch, and RefUnmatch keys in
+	analysis info files, mapped to the Analysis and AnalysisInfo APIs.
+
+2021-10-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add testing, warning messages, and unit tests for negative-virtuality FS particles.
+
+	* Fix the analysis-plugin uninstall target.
+
+2021-10-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Remove many const return-by-value signatures, and other sloppy
+	or meaningless C++ antipatterns flagged by the icpc build.
+
+	* Add SFINAE x/y/z/t() method detection to Vector4 constructors,
+	and explicit .pseudojet() calls to Particles and Jets passed to
+	PseudoJet constructors (since those live in external code and we
+	can't SFINAE-protect them). These were breaking the build on Intel
+	compilers -- thanks to Chris Chang for the report.
+
+2021-08-30  Christian Gutschow  <chris.g@cern.ch>
+
+	* submission of ATLAS_2019_I1768911 (Z pT and phi* and at 13 TeV)
+
+2021-08-13  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Provide more options to specify the Cython command to be
+	used. Thanks to Christian Holm Christensen.
+
+	* Separate the DESTDIR from prefix in the Python module
+	installation, to clean up FreeBSD packaging. Thanks to Dmitry
+	Kalinkin.
+
+2021-07-19  Christian Gutschow  <chris.g@cern.ch>
+
+	* introduce isCompatibleWithSqrtS function for sqrtS dependent hist booking,
+	falls back to ENERGY option to make routines reentrant safe
+
+	* fix back for CounterPtr filling: no fill should mean no fill, not fill using weight 0
+
+2021-07-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add ability for mkhtml to use pdfunite in place of pdftk and
+	pdfmerge for making a booklet.
+
+
+2021-06-26  Christian Gutschow  <chris.g@cern.ch>
+
+	* fix indentation in MC_MUONS.info
+
+	* add per-file print out to rivet-merge
+
+	* support keyboard interruption in rivet-merge
+
+2021-06-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Correction to use xE rather than xP in OPAL_1997_S3396100, by Adil Jueid.
+
+2021-06-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* New CMS analyses: CMS_2020_I1794169 (WZ and same-sign WW boson
+	pairs), CMS_2020_I1814328 (W+W- boson pair production), and
+	CMS_2020_I1837084 (Z-boson differential production cross section
+	using its invisible decay mode; NB: runs on Z->mumu sample)
+
+	* Improve option handling for booleans, and exception emission
+	with incompatible casts.
+
+2021-06-04  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a default-value argument to the string version of getOption().
+
+	* Change the DressedLepton single-FS name from barefs to allfs, to reduce confusion.
+
+	* Add DIRECT and DRESSED options to MC_ELECTRONS and MC_MUONS.
+
 2021-06-01  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix dressed-lepton origin position for the standard, non-jet-clustering mode.
@@ -354,9 +460,55 @@
 	* Add BELLE_2020_I1789775 e+e- > D_s D_s2
 	* Add BELLE_2019_I1762826 e+e- > D_s D_s1(2536)
 
+2020-08-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add re-setting of null cross-section to 1e-10 pb before finalize, to allow reweighting.
+
+	* Fix handling of no-weights and no-xsec events.
+
+	* Detect events with no beam particles, and allow their use with explicit beam-check disabling.
+
+2020-08-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add AnalysisHandler::runBeamEnergies() and
+	Analysis::beamEnergies(), beamEnergies(const ParticlePair&), and
+	energies(const ParticlePair&) and moms(const ParticlePair&).
+
+2020-08-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Using beamEnergyMatch for standardised beam-energy checking in analyses.
+
+2020-08-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Rationalising Id -> ID naming in ParticleName and Analysis & AnalysisHandler interfaces. PdgId next...
+
+2020-08-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use a common set of standalone functions, via explicitly named
+	user-facing methods, for Analysis and AnalysisHandler checks on
+	permitted and expected beams.
+
+	* Remove Projection beam constraint functionality.
+
+	* Rework Tools/BeamConstraints.hh functions with more explicit
+	names and PID + energy coverage.
+
+	* Move standalone beam methods out of Projections/Beam.hh.
+
 2020-08-06  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add warnings and physicality checks to PartonicTops
+
+2020-08-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add Event::hepmcEvent() and Event::hepmcEventPtr() methods as
+	more intuitive alternatives to genEvent() (which requires
+	familiarity with HepMC for the name to make sense).
+
+	* Change the AnalysisHandler::analyze() methods to explictly take
+	a non-const GenEvent argument: we are no longer making an internal
+	deep copy, so users should be fully aware that the passed event is
+	not completely safe from modification.
 
 2020-07-30  Christian Gutschow  <chris.g@cern.ch>
 

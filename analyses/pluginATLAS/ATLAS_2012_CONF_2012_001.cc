@@ -22,7 +22,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -340,7 +340,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
     void finalize() {
       double norm = crossSection()/femtobarn*2.06/sumOfWeights();
@@ -372,7 +372,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     vector<Histo1DPtr> _hist_leptonpT,_hist_leptonpT_MC;
     Histo1DPtr _hist_njet;
     Histo1DPtr _hist_njet_MC;
@@ -384,11 +384,11 @@ namespace Rivet {
     Histo1DPtr _hist_meff_MC;
     Histo1DPtr _count_SR1;
     Histo1DPtr _count_SR2;
-    //@}
+    /// @}
 
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2012_CONF_2012_001);
+  RIVET_DECLARE_PLUGIN(ATLAS_2012_CONF_2012_001);
 
 }

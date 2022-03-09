@@ -2,20 +2,26 @@ Name: PLUTO_1981_I165122
 Year: 1981
 Summary: Ratio of the cross section for the production of $K^0_S$ to that for $\mu^+\mu^-$ between $3.6$ and $31.6$ GeV 
 Experiment: PLUTO
-Collider: <Insert the collider name>
+Collider: DORIS
 InspireID: 165122
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Lett. B104 (1981) 79-83, 1981
-RunInfo: e+ e- to hadrons and e+ e- to mu+ mu- (for normalization)
+RunInfo: 
+  e+ e- to hadrons and e+ e- to mu+ mu- (for normalization)
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
 NeedCrossSection: yes
 Beams: [e-, e+]
+Options:
+ - ENERGY=*
 Description:
   'Ratio of the cross section for the production of $K^0_S$ to that for $\mu^+\mu^-$ between $3.6$ and $31.6$ GeV.
    The average number of $K^0$ per hadronic event is also provided for some energies, together with the kaon spectrum
-   at 9.4 and 31.6 GeV. N.B. The point at $9.45\to9.456$ GeV is from the $\Upsilon(1S)$ resonance.'
+   at 9.4 and 31.6 GeV. N.B. The point at $9.45\to9.456$ GeV is from the $\Upsilon(1S)$ resonance.
+   Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
 Keywords: []
 BibKey: Berger:1981wd
 BibTeX: '@article{Berger:1981wd,

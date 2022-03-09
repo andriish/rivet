@@ -13,10 +13,10 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TASSO_1989_I266893);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TASSO_1989_I266893);
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -29,11 +29,15 @@ namespace Rivet {
       declare(Sphericity(cfs), "Sphericity");
       // Book histograms
       _ih=-1;
-      if(fuzzyEquals(sqrtS()/GeV, 34.8, 1e-3)) {
+      sqs = 1.0;
+      if(isCompatibleWithSqrtS(34.8*GeV)) {
 	_ih=0;
+	sqs = 34.8;
       }
-      else if (fuzzyEquals(sqrtS()/GeV, 42.1, 1e-3)) {
+      else if (isCompatibleWithSqrtS(42.1*GeV)) {
 	_ih=1;
+	sqs = 42.1;
+
       }
       else
 	MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
@@ -118,7 +122,7 @@ namespace Rivet {
       scale( _h_lam_pTIn , crossSection()/nanobarn/sumOfWeights());
       scale( _h_lam_pTOut, crossSection()/nanobarn/sumOfWeights());
       scale( _h_lam_rap  , crossSection()/nanobarn/sumOfWeights());
-      scale( _h_lam_x    , sqr(sqrtS())*crossSection()/nanobarn/sumOfWeights());
+      scale( _h_lam_x    , sqr(sqs)*crossSection()/nanobarn/sumOfWeights());
       Scatter2DPtr temp;
       book(temp,15+_ih,1,3);
       divide(_p_lam_S_1,_p_lam_S_2,temp);
@@ -128,27 +132,28 @@ namespace Rivet {
       	scale( _h_xi_pTIn , crossSection()/nanobarn/sumOfWeights());
       	scale( _h_xi_pTOut, crossSection()/nanobarn/sumOfWeights());
       	scale( _h_xi_rap  , crossSection()/nanobarn/sumOfWeights());
-      	scale( _h_xi_x    , sqr(sqrtS())*crossSection()/nanobarn/sumOfWeights());
+      	scale( _h_xi_x    , sqr(sqs)*crossSection()/nanobarn/sumOfWeights());
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_lam_p, _h_lam_pL, _h_lam_pTIn, _h_lam_pTOut, _h_lam_rap, _h_lam_x;
     Profile1DPtr _p_lam_S_1, _p_lam_S_2;
     Histo1DPtr _h_xi_p, _h_xi_pL, _h_xi_pTIn, _h_xi_pTOut, _h_xi_rap, _h_xi_x;
     int _ih;
-    //@}
+    double sqs;
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TASSO_1989_I266893);
+  RIVET_DECLARE_PLUGIN(TASSO_1989_I266893);
 
 
 }

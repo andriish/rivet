@@ -10,9 +10,9 @@ namespace Rivet {
   /// @brief lepton differential ttbar analysis at 13 TeV
   class ATLAS_2019_I1759875 : public Analysis {
   public:
-    
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2019_I1759875);
-    
+
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2019_I1759875);
+
     void init() {
 
       Cut eta_full = Cuts::abseta < 5.0 && Cuts::pT > 1.0*MeV;
@@ -52,7 +52,7 @@ namespace Rivet {
 
       // unrolled 2D distributions - 2nd-dim bin edges must be specified
       std::vector<double> massbins={0.,80.,120.,200.,500.};
-      
+
       bookHisto2D("lep_eta_mass",17,massbins);
       bookHisto2D("dilep_rap_mass",19,massbins);
       bookHisto2D("dilep_dphi_mass",21,massbins);
@@ -63,12 +63,12 @@ namespace Rivet {
       vector<DressedLepton> muons = apply<DressedLeptons>(event, "muons").dressedLeptons();
 
       if (elecs.empty() || muons.empty())  vetoEvent;
-      if (elecs[0].charge() == muons[0].charge())  vetoEvent;  
- 
+      if (elecs[0].charge() == muons[0].charge())  vetoEvent;
+
       FourMomentum el = elecs[0].momentum();
       FourMomentum mu = muons[0].momentum();
       FourMomentum ll = elecs[0].momentum() + muons[0].momentum();
-                  
+
       // Fill histograms
       // include explicit overflow protection as last bins are inclusive
       fillHistos("lep_pt",      min(el.pT()/GeV,299.));
@@ -122,7 +122,7 @@ namespace Rivet {
   private:
 
     /// @name Histogram helper functions
-    //@{
+    /// @{
     void bookHistos(const std::string name, unsigned int index) {
       book(_h[name], index, 1, 1);
       book(_h["norm_" + name],index + 1, 1, 1);
@@ -163,11 +163,11 @@ namespace Rivet {
     // pointers to 1D and 2D histograms
     map<string, Histo1DPtr> _h;
     map<string, BinnedHistogram> _h_multi;
-    //@}
+    /// @}
     // acceptance counter
 
   };
 
   // Declare the class as a hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2019_I1759875);
+  RIVET_DECLARE_PLUGIN(ATLAS_2019_I1759875);
 }

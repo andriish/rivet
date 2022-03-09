@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Default constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(LHCB_2014_I1262703);
+    RIVET_DEFAULT_ANALYSIS_CTOR(LHCB_2014_I1262703);
 
 
     /// Initialise histograms and projections
@@ -92,9 +92,9 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      normalize(_h_jet_pT); normalize(_h_jet_eta20); normalize(_h_jet_eta10); 
-      normalize(_h_Z_y20);  normalize(_h_Z_y10);     normalize(_h_Z_pT20); 
-      normalize(_h_Z_pT10); normalize(_h_dphi20);    normalize(_h_dphi10); 
+      normalize(_h_jet_pT); normalize(_h_jet_eta20); normalize(_h_jet_eta10);
+      normalize(_h_Z_y20);  normalize(_h_Z_y10);     normalize(_h_Z_pT20);
+      normalize(_h_Z_pT10); normalize(_h_dphi20);    normalize(_h_dphi10);
       normalize(_h_dy20);   normalize(_h_dy10);
     }
 
@@ -105,6 +105,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(LHCB_2014_I1262703);
+  RIVET_DECLARE_PLUGIN(LHCB_2014_I1262703);
 
 }

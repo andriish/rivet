@@ -23,7 +23,7 @@ namespace Rivet {
 
       // Book histograms:
 
-      
+
       {Histo1DPtr tmp; _hist_sigma.add(0.0, 0.5, book(tmp, 1, 1, 1));}
       {Histo1DPtr tmp; _hist_sigma.add(0.5, 1.0, book(tmp, 2, 1, 1));}
       {Histo1DPtr tmp; _hist_sigma.add(1.0, 1.5, book(tmp, 3, 1, 1));}
@@ -63,6 +63,6 @@ namespace Rivet {
   };
 
   // This global object acts as a hook for the plugin system.
-  DECLARE_RIVET_PLUGIN(CMS_2016_I1487277);
+  RIVET_DECLARE_PLUGIN(CMS_2016_I1487277);
 
 }

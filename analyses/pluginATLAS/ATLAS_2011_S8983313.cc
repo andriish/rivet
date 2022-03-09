@@ -14,11 +14,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2011_S8983313);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_S8983313);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -258,7 +258,7 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
     void finalize() {
 
@@ -273,7 +273,7 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _count_A;
     Histo1DPtr _count_B;
     Histo1DPtr _count_C;
@@ -282,12 +282,12 @@ namespace Rivet {
     Histo1DPtr _hist_mT2_B;
     Histo1DPtr _hist_meff_CD;
     Histo1DPtr _hist_eTmiss;
-    //@}
+    /// @}
 
   };
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(ATLAS_2011_S8983313, ATLAS_2011_I890749);
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2011_S8983313, ATLAS_2011_I890749);
 
 }

@@ -15,7 +15,7 @@ References:
  - arXiv:hep-ex/0605099
 RunInfo:
   Z + jets events at $\sqrt{s} = 1960$ GeV.
-  Jets min $\pT$ cut = 20~GeV, leptons min $\pT$ cut = 10\;GeV
+  Jets min $\pT$ cut = 20~GeV, leptons min $\pT$ cut = 10~GeV
 NumEvents: 1000000
 Beams: [p-, p+]
 PtCuts: [10]

@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BELLE_2008_I762013);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2008_I762013);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -59,12 +59,12 @@ namespace Rivet {
       	_h_alpha->fill(cTheta);
       	if(Dstar.children().size()!=2) continue;
       	Particle D0,Pion;
-      	if(Dstar.children()[0].pid()== sign*211 && 
+      	if(Dstar.children()[0].pid()== sign*211 &&
       	   Dstar.children()[1].pid()== sign*421) {
       	  Pion = Dstar.children()[0];
       	  D0   = Dstar.children()[1];
       	}
-      	else if(Dstar.children()[1].pid()== sign*211 && 
+      	else if(Dstar.children()[1].pid()== sign*211 &&
       		Dstar.children()[0].pid()== sign*421) {
       	  D0   = Dstar.children()[0];
       	  Pion = Dstar.children()[1];
@@ -98,18 +98,18 @@ namespace Rivet {
       normalize(_h_gamma);
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_alpha, _h_beta, _h_gamma;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(BELLE_2008_I762013);
+  RIVET_DECLARE_PLUGIN(BELLE_2008_I762013);
 
 }

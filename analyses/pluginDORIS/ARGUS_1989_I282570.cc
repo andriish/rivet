@@ -6,16 +6,16 @@
 namespace Rivet {
 
 
-  /// @brief Spectrum for D_s1 
+  /// @brief Spectrum for D_s1
   class ARGUS_1989_I282570 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ARGUS_1989_I282570);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ARGUS_1989_I282570);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -75,18 +75,18 @@ namespace Rivet {
       scale(_h_rate2,crossSection()/sumOfWeights()/picobarn);
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_x,_h_rate1,_h_rate2;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(ARGUS_1989_I282570);
+  RIVET_DECLARE_PLUGIN(ARGUS_1989_I282570);
 
 }

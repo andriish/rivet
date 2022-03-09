@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
 
@@ -108,7 +108,7 @@ namespace Rivet {
       normalize(_hist_zptpeak_comb_dressed);
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -128,6 +128,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(CMS_2012_I941555);
+  RIVET_DECLARE_PLUGIN(CMS_2012_I941555);
 
 }

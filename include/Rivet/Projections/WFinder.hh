@@ -23,7 +23,7 @@ namespace Rivet {
 
 
     /// @name Constructors
-    //@{
+    /// @{
 
     /// @brief Constructor taking cuts object
     ///
@@ -57,7 +57,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(WFinder);
 
-    //@}
+    /// @}
 
 
     /// @brief Access to the found bosons, equivalent to constituents()

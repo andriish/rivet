@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(TASSO_1980_I153341);
+    RIVET_DEFAULT_ANALYSIS_CTOR(TASSO_1980_I153341);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -55,20 +55,20 @@ namespace Rivet {
       scale(_h_x, sqr(sqrtS())*crossSection()/microbarn/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_x, _h_p;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TASSO_1980_I153341);
+  RIVET_DECLARE_PLUGIN(TASSO_1980_I153341);
 
 
 }

@@ -6,16 +6,16 @@
 namespace Rivet {
 
 
-  /// @brief Spectrum for D_s1 
+  /// @brief Spectrum for D_s1
   class CLEOII_1993_I352823 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEOII_1993_I352823);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEOII_1993_I352823);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -73,11 +73,11 @@ namespace Rivet {
 	_r[0]->fill(0.5);
 	if(Dstar.children().size()!=2) continue;
 	Particle pion;
-	if(Dstar.children()[0].pid()== 111 && 
+	if(Dstar.children()[0].pid()== 111 &&
 	   Dstar.children()[1].pid()== sign*421) {
 	  pion = Dstar.children()[0];
 	}
-	else if(Dstar.children()[1].pid()== 111 && 
+	else if(Dstar.children()[1].pid()== 111 &&
 		Dstar.children()[0].pid()== sign*421) {
 	  pion = Dstar.children()[1];
 	}
@@ -106,19 +106,19 @@ namespace Rivet {
       scale(_r[1],crossSection()/sumOfWeights()/picobarn);
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_x,_h_cTheta;
     Histo1DPtr _r[2];
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(CLEOII_1993_I352823);
+  RIVET_DECLARE_PLUGIN(CLEOII_1993_I352823);
 
 }

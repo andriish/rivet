@@ -9,7 +9,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     LHCB_2011_I917009()
@@ -20,23 +20,23 @@ namespace Rivet {
         rap_max(0.0), dsShift(0)
     {   }
 
-    //@}
+    /// @}
 
 
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
       int y_nbins = 4;
       fillMap(partLftMap);
-      if (fuzzyEquals(sqrtS(), 0.9*TeV)) {
+      if (isCompatibleWithSqrtS(900*GeV)) {
         rap_beam = 6.87;
         rap_max = 4.;
         pt_min = 0.25;
-      } else if (fuzzyEquals(sqrtS(), 7*TeV)) {
+      } else if (isCompatibleWithSqrtS(7000*GeV)) {
         rap_beam = 8.92;
         rap_max = 4.5;
         pt_min = 0.15;
@@ -50,7 +50,7 @@ namespace Rivet {
       for (size_t i = 0; i < 12; ++i)  book(_tmphistos[i], "TMP/"+to_str(i), y_nbins, rap_min, rap_max);
       for (size_t i = 12; i < 15; ++i) book(_tmphistos[i], "TMP/"+to_str(i), refData(dsShift+5, 1, 1));
       for (size_t i = 15; i < 18; ++i) book(_tmphistos[i], "TMP/"+to_str(i), y_nbins, rap_beam - rap_max, rap_beam - rap_min);
- 
+
       int dsId = dsShift + 1;
       for (size_t j = 0; j < 3; ++j) {
         book(s1[j], dsId, 1, j+1);
@@ -131,7 +131,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
   private:
 
@@ -161,16 +161,16 @@ namespace Rivet {
     }
 
     // Data members like post-cuts event weight counters go here
-    const double getMotherLifeTimeSum(const Particle& p) {
+    double getMotherLifeTimeSum(const Particle& p) {
       if (p.genParticle() == nullptr) return -1.;
       double lftSum = 0.;
       double plft = 0.;
       ConstGenParticlePtr part = p.genParticle();
       ConstGenVertexPtr ivtx = part->production_vertex();
       while (ivtx) {
-        
+
           vector<ConstGenParticlePtr> part_in = HepMCUtils::particles(ivtx, Relatives::PARENTS);
-        
+
           if (part_in.size() < 1) { lftSum = -1.; break; };
           ConstGenParticlePtr part = part_in.at(0);//(*iPart_invtx);
           if ( !(part) ) { lftSum = -1.; break; };
@@ -184,7 +184,7 @@ namespace Rivet {
     }
 
     /// @name Private variables
-    //@{
+    /// @{
 
     // The rapidity of the beam according to the selected beam energy
     double rap_beam;
@@ -205,10 +205,10 @@ namespace Rivet {
     // Set of PDG Ids for stable particles (PDG Id <= 100 are considered stable)
     static const int stablePDGIds[205];
 
-    //@}
+    /// @}
 
     /// @name Helper histograms
-    //@{
+    /// @{
     /// Histograms are defined in the following order: anti-Lambda, Lambda and K0s.
     /// First 3 suites of 3 histograms correspond to each particle in bins of y for the 3 pT intervals. (9 histos)
     /// Next 3 histograms contain the particles in y bins for the whole pT interval (3 histos)
@@ -216,7 +216,7 @@ namespace Rivet {
     /// Last 3 histograms contain the particles in pT bins for the whole rapidity (y) interval (3 histos)
     Histo1DPtr _tmphistos[18];
     array<Scatter2DPtr,3> s1,s2,s3,s4;
-    //@}
+    /// @}
 
     // Fill the PDG Id to Lifetime[seconds] map
     // Data was extracted from LHCb Particle Table through LHCb::ParticlePropertySvc
@@ -329,6 +329,6 @@ namespace Rivet {
 
 
   // Hook for the plugin system
-  DECLARE_RIVET_PLUGIN(LHCB_2011_I917009);
+  RIVET_DECLARE_PLUGIN(LHCB_2011_I917009);
 
 }

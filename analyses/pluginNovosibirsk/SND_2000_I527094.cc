@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(SND_2000_I527094);
+    RIVET_DEFAULT_ANALYSIS_CTOR(SND_2000_I527094);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -69,21 +69,21 @@ namespace Rivet {
       scale( _h_pipi, 1./ *_nPhi);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_pipi;
     CounterPtr _nPhi;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(SND_2000_I527094);
+  RIVET_DECLARE_PLUGIN(SND_2000_I527094);
 
 
 }

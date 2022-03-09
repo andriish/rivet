@@ -8,8 +8,8 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2015_I1393758);
-  
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2015_I1393758);
+
 
     void init() {
 
@@ -90,7 +90,7 @@ namespace Rivet {
 	  //See Eq. 3 for the factor of two: https://web.eecs.umich.edu/~fessler/papers/files/tr/stderr.pdf
           double yerr_fkappa3  = safediv(sqrt(forward_kappa3->bin(i).sumW2()), 2.*forward_kappa3->bin(i).sumW());
 	  forwardRMS_kappa3->point(i).setY(stdv_fkappa3, yerr_fkappa3);
-	  
+
           double stdv_fkappa5 = forward_kappa5->bin(i).effNumEntries() > 1? forward_kappa5->bin(i).stdDev() : 0.0;
           double yerr_fkappa5  = safediv(sqrt(forward_kappa5->bin(i).sumW2()), 2.*forward_kappa5->bin(i).sumW());
           forwardRMS_kappa5->point(i).setY(stdv_fkappa5, yerr_fkappa5);
@@ -138,6 +138,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(ATLAS_2015_I1393758);
+  RIVET_DECLARE_PLUGIN(ATLAS_2015_I1393758);
 
 }

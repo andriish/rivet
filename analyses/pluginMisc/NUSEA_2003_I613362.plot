@@ -3,7 +3,7 @@ LegendYPos=0.8
 LegendXPos=0.3
 YMin=1E-5
 YMax=10
-Title=Madgraph_aMCatNLO: Drell-Yan production at $\sqrt{s}=38.8$ GeV
+Title=Drell-Yan production at $\sqrt{s}=38.8$ GeV
 XLabel=$p_T$ (GeV)
 YLabel=$1/\sigma d\sigma/dp_T$ (GeV$^{-1}$)
 # + any additional plot settings you might like, see make-plots documentation
@@ -12,7 +12,7 @@ RatioPlot=0
 # END PLOT
 
 # BEGIN PLOT /NUSEA_2003_I613362/d0*
-Title=NuSea: Drell-Yan $\sqrt{s}=38.8$ GeV
+Title=Drell-Yan $\sqrt{s}=38.8$ GeV
 #LogY=0
 #LogX=0
 LegendYPos=0.4

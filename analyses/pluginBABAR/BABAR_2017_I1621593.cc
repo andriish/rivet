@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2017_I1621593);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2017_I1621593);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -70,7 +70,7 @@ namespace Rivet {
           error = _numOmega->err();
         }
         sigma *= crossSection()/ sumOfWeights() /nanobarn;
-        error *= crossSection()/ sumOfWeights() /nanobarn; 
+        error *= crossSection()/ sumOfWeights() /nanobarn;
         Scatter2D temphisto(refData(ix, 1, 1));
         for (size_t b = 0; b < temphisto.numPoints(); b++) {
           const double x  = temphisto.point(b).x();
@@ -88,20 +88,20 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _num4pi, _numOmega;
     vector<Scatter2DPtr> _mult;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BABAR_2017_I1621593);
+  RIVET_DECLARE_PLUGIN(BABAR_2017_I1621593);
 
 
 }

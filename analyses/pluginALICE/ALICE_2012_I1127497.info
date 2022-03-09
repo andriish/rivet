@@ -4,7 +4,7 @@ Summary: Centrality dependence of charged particle production at large transvers
 Experiment: ALICE
 Collider: LHC
 InspireID: 1127497
-Status: VALIDATED REENTRANT
+Status: VALIDATED
 Reentrant: true
 Authors:
  - Przemyslaw Karczmarczyk <przemyslaw.karczmarczyk@cern.ch>

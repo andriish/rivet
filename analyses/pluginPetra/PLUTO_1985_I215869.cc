@@ -10,15 +10,15 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(PLUTO_1985_I215869);
+    RIVET_DEFAULT_ANALYSIS_CTOR(PLUTO_1985_I215869);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
-      
+
       // Initialise and register projections
       declare(FinalState(), "FS");
       // Book histograms
@@ -65,21 +65,21 @@ namespace Rivet {
     void finalize() {
       scale(_h_EEC , 1./ *_weightSum);
     }
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_EEC;
     CounterPtr _weightSum;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(PLUTO_1985_I215869);
+  RIVET_DECLARE_PLUGIN(PLUTO_1985_I215869);
 
 
 }

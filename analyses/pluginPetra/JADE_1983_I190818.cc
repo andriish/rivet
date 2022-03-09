@@ -10,19 +10,19 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(JADE_1983_I190818);
+    RIVET_DEFAULT_ANALYSIS_CTOR(JADE_1983_I190818);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
-      if( !(fuzzyEquals(sqrtS()/GeV,12.0) ||
-	    fuzzyEquals(sqrtS()/GeV,30.0) ||
-	    fuzzyEquals(sqrtS()/GeV,35.0) )) {
+      if( !(isCompatibleWithSqrtS(12.0*GeV) ||
+	    isCompatibleWithSqrtS(30.0*GeV) ||
+	    isCompatibleWithSqrtS(35.0*GeV) )) {
         MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
                     << " doesn't match any available analysis energy .");
       }
@@ -45,9 +45,9 @@ namespace Rivet {
 
       double val = _counter->val();
       double err = _counter->err();
-      
+
       Scatter2D tempScat(refData(1, 1, 1));
-      
+
       for (size_t b = 0; b < tempScat.numPoints(); b++) {
         const double x  = tempScat.point(b).x();
         pair<double,double> ex = tempScat.point(b).xErrs();
@@ -62,7 +62,7 @@ namespace Rivet {
         }
       }
     }
-    //@}
+    /// @}
 
   private:
 
@@ -73,6 +73,6 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(JADE_1983_I190818);
+  RIVET_DECLARE_PLUGIN(JADE_1983_I190818);
 
 }

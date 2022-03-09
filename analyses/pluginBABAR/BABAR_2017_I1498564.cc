@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2017_I1498564);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2017_I1498564);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -96,19 +96,19 @@ namespace Rivet {
       scale(_h_light, 1./ *_nB);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_light,_h_all;
     CounterPtr _nB;
-    //@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(BABAR_2017_I1498564);
+  RIVET_DECLARE_PLUGIN(BABAR_2017_I1498564);
 
 }

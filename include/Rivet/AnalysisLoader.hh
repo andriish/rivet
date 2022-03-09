@@ -19,18 +19,19 @@ namespace Rivet {
   class AnalysisLoader {
   public:
 
-    /// Get the available analyses' names
+    /// Get the available analyses' canonical names
     static vector<string> analysisNames();
 
-    /// Get all the available analyses' names (as a set)
-    ///
-    /// @todo Why this duplicate?
-    static set<string> allAnalysisNames();
+    /// Get all the available analyses' names, including aliases
+    static vector<string> allAnalysisNames();
     /// @deprecated Use allAnalysisNames()
-    static set<string> getAllAnalysisNames() { return allAnalysisNames(); }
+    static vector<string> getAllAnalysisNames() { return allAnalysisNames(); }
 
     /// Get the standard analyses' names (from a release-specific list file)
     static vector<string> stdAnalysisNames();
+
+    /// Get the map of analysis alias-names to their canonical equivalents
+    static map<string,string> analysisNameAliases();
 
 
     /// Get an analysis by name.
@@ -55,6 +56,7 @@ namespace Rivet {
 
     typedef map<string, const AnalysisBuilderBase*> AnalysisBuilderMap;
     static AnalysisBuilderMap _ptrs;
+    static AnalysisBuilderMap _aliasptrs;
 
   };
 

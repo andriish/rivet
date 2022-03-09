@@ -33,17 +33,19 @@ cdef class AnalysisHandler:
     def __del__(self):
         del self._ptr
 
+    def setCheckBeams(self, check):
+        self._ptr.setCheckBeams(check)
     def setIgnoreBeams(self, ignore=True):
-        self._ptr.setIgnoreBeams(ignore)
+        self.setCheckBeams(not ignore)
 
     def skipMultiWeights(self, ignore=True):
         self._ptr.skipMultiWeights(ignore)
 
-    def selectMultiWeights(self, patterns=""):
-        self._ptr.selectMultiWeights(patterns.encode('utf-8'))
+    def matchWeightNames(self, patterns=""):
+        self._ptr.matchWeightNames(patterns.encode('utf-8'))
 
-    def deselectMultiWeights(self, patterns=""):
-        self._ptr.deselectMultiWeights(patterns.encode('utf-8'))
+    def unmatchWeightNames(self, patterns=""):
+        self._ptr.unmatchWeightNames(patterns.encode('utf-8'))
 
     def setNominalWeightName(self, name=""):
         self._ptr.setNominalWeightName(name.encode('utf-8'))
@@ -146,11 +148,11 @@ cdef class Analysis:
     def __init__(self):
         raise RuntimeError('This class cannot be instantiated')
 
-    def requiredBeams(self):
-        return deref(self._ptr).requiredBeams()
+    def requiredBeamIDs(self):
+        return deref(self._ptr).requiredBeamIDs()
 
-    def requiredEnergies(self):
-        return deref(self._ptr).requiredEnergies()
+    def requiredBeamEnergies(self):
+        return deref(self._ptr).requiredBeamEnergies()
 
     def keywords(self):
         kws = deref(self._ptr).keywords()
@@ -189,17 +191,20 @@ cdef class Analysis:
     def experiment(self):
         return deref(self._ptr).experiment().decode('utf-8')
 
-    def inspireId(self):
-        return deref(self._ptr).inspireId().decode('utf-8')
+    def inspireID(self):
+        return deref(self._ptr).inspireID().decode('utf-8')
 
-    def spiresId(self):
-        return deref(self._ptr).spiresId().decode('utf-8')
+    def spiresID(self):
+        return deref(self._ptr).spiresID().decode('utf-8')
 
     def runInfo(self):
         return deref(self._ptr).runInfo().decode('utf-8')
 
     def status(self):
         return deref(self._ptr).status().decode('utf-8')
+
+    def warning(self):
+        return deref(self._ptr).warning().decode('utf-8')
 
     def summary(self):
         return deref(self._ptr).summary().decode('utf-8')
@@ -213,9 +218,15 @@ cdef class Analysis:
     def luminosityfb(self):
         return deref(self._ptr).luminosityfb()
 
+    def refMatch(self):
+        return deref(self._ptr).refMatch().decode('utf-8')
+
+    def refUnmatch(self):
+        return deref(self._ptr).refUnmatch().decode('utf-8')
+
     def refFile(self):
         #return findAnalysisRefFile(self.name() + ".yoda")
-        return deref(self._ptr).refFile()
+        return deref(self._ptr).refFile().decode('utf-8')
 
     def refData(self, asdict=True, patterns=None, unpatterns=None):
         """Get this analysis' reference data, cf. yoda.read()
@@ -237,20 +248,27 @@ cdef class AnalysisLoader:
         names = c.AnalysisLoader_analysisNames()
         return [ n.decode('utf-8') for n in names ]
 
-    # @staticmethod
-    # def allAnalysisNames():
-    #     names = c.AnalysisLoader_allAnalysisNames()
-    #     return { n.decode('utf-8') for n in names }
+    @staticmethod
+    def allAnalysisNames():
+        names = c.AnalysisLoader_allAnalysisNames()
+        return [ n.decode('utf-8') for n in names ]
 
     @staticmethod
     def stdAnalysisNames():
         names = c.AnalysisLoader_stdAnalysisNames()
         return [ n.decode('utf-8') for n in names ]
 
+    @staticmethod
+    def analysisNameAliases():
+        anames = c.AnalysisLoader_analysisNameAliases()
+        return { a.first.decode('utf-8') : a.second.decode('utf-8') for a in anames }
 
     @staticmethod
     def getAnalysis(name):
-        name = name.encode('utf-8')
+        try:
+          name = name.encode('utf-8')
+        except AttributeError:
+          pass
         cdef c.unique_ptr[c.Analysis] ptr = c.AnalysisLoader_getAnalysis(name)
         cdef Analysis pyobj = Analysis.__new__(Analysis)
         if not ptr:
@@ -264,8 +282,14 @@ cdef class AnalysisLoader:
 def analysisNames():
     return AnalysisLoader.analysisNames()
 
+def allAnalysisNames():
+    return AnalysisLoader.allAnalysisNames()
+
 def stdAnalysisNames():
     return AnalysisLoader.stdAnalysisNames()
+
+def analysisNameAliases():
+    return AnalysisLoader.analysisNameAliases()
 
 def getAnalysis(name):
     return AnalysisLoader.getAnalysis(name.encode('utf-8'))

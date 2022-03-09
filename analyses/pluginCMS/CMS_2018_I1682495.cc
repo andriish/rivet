@@ -15,7 +15,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     CMS_2018_I1682495()
@@ -23,11 +23,11 @@ namespace Rivet {
         _softdrop(fjcontrib::SoftDrop(0, 0.1, 0.8) ) // parameters are beta, zcut, R0
     {    }
 
-    //@}
+    /// @}
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -49,7 +49,7 @@ namespace Rivet {
 
     // Find the pT histogram bin index for value pt (in GeV), to hack a 2D histogram equivalent
     /// @todo Use a YODA axis/finder alg when available
-    size_t findPtBin(double ptJ) {      
+    size_t findPtBin(double ptJ) {
       for (size_t ibin = 0; ibin < N_PT_BINS_dj; ++ibin) {
         if (inRange(ptJ, ptBins_dj[ibin], ptBins_dj[ibin+1])) return ibin;
       }
@@ -110,19 +110,19 @@ namespace Rivet {
         scale(_h_sdJetMass_dj[i][0],          crossSection()/picobarn / sumOfWeights() / (ptBins_dj[i+1]-ptBins_dj[i]) );
       }
     }
-    //@}
+    /// @}
 
 
   private:
 
     /// @name FastJet grooming tools (configured in constructor init list)
-    //@{
+    /// @{
     const fjcontrib::SoftDrop _softdrop;
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     enum { PT_200_260_dj=0,
            PT_260_350_dj,
            PT_350_460_dj,
@@ -144,14 +144,14 @@ namespace Rivet {
     // Here, store both the absolute (index 0) and normalized (index 1) cross sections.
     Histo1DPtr _h_ungroomedJetMass_dj[N_PT_BINS_dj][2];
     Histo1DPtr _h_sdJetMass_dj[N_PT_BINS_dj][2];
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2018_I1682495);
+  RIVET_DECLARE_PLUGIN(CMS_2018_I1682495);
 
 
 }

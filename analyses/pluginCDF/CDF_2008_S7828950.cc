@@ -14,11 +14,11 @@ namespace Rivet {
   class CDF_2008_S7828950 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2008_S7828950);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2008_S7828950);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     // Book histos and set counters for number of events passed in each one
     void init() {
@@ -46,7 +46,7 @@ namespace Rivet {
       _binnedHistosR07.scale(crossSection()/nanobarn/sumOfWeights()/2.0, this);
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -58,6 +58,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2008_S7828950, CDF_2008_I790693);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_2008_S7828950, CDF_2008_I790693);
 
 }

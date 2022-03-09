@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(HyperCP_2005_I677384);
+    RIVET_DEFAULT_ANALYSIS_CTOR(HyperCP_2005_I677384);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -37,12 +37,12 @@ namespace Rivet {
 	int sign = Omega.pid()/3334;
 	if(Omega.children().size()!=2) continue;
 	Particle Lambda,kaon;
-	if(Omega.children()[0].pid()==sign*3122 && 
+	if(Omega.children()[0].pid()==sign*3122 &&
 	   Omega.children()[1].pid()==-sign*321) {
 	  Lambda = Omega.children()[0];
 	  kaon   = Omega.children()[1];
 	}
-	else if(Omega.children()[1].pid()==sign*3122 && 
+	else if(Omega.children()[1].pid()==sign*3122 &&
 		Omega.children()[0].pid()==-sign*321) {
 	  Lambda = Omega.children()[1];
 	  kaon   = Omega.children()[0];
@@ -51,12 +51,12 @@ namespace Rivet {
 	  continue;
 	if(Lambda.children().size()!=2) continue;
 	Particle proton,pion;
-	if(Lambda.children()[0].pid()==sign*2212 && 
+	if(Lambda.children()[0].pid()==sign*2212 &&
 	   Lambda.children()[1].pid()==-sign*211) {
 	  proton = Lambda.children()[0];
 	  pion   = Lambda.children()[1];
 	}
-	else if(Lambda.children()[1].pid()==sign*2212 && 
+	else if(Lambda.children()[1].pid()==sign*2212 &&
 		Lambda.children()[0].pid()==-sign*211) {
 	  proton = Lambda.children()[1];
 	  pion   = Lambda.children()[0];
@@ -118,20 +118,20 @@ namespace Rivet {
       _h_alphaAll->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_cthetaP,_h_cthetaM,_h_cthetaAll;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(HyperCP_2005_I677384);
+  RIVET_DECLARE_PLUGIN(HyperCP_2005_I677384);
 
 
 }

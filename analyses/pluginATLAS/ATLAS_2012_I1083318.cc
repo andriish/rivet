@@ -15,11 +15,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2012_I1083318);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2012_I1083318);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -200,13 +200,13 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_DeltaPhi_2jet[2];
     Histo1DPtr _h_DeltaR_2jet[2];
     Histo1DPtr _h_DeltaY_2jet[2];
@@ -232,7 +232,7 @@ namespace Rivet {
     Histo1DPtr _h_SumYElecJet[2];
     Histo1DPtr _h_ThirdJetPt_3jet[2];
     Histo1DPtr _h_ThirdJetPt_4jet[2];
-    //@}
+    /// @}
 
 
   };
@@ -240,6 +240,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2012_I1083318);
+  RIVET_DECLARE_PLUGIN(ATLAS_2012_I1083318);
 
 }

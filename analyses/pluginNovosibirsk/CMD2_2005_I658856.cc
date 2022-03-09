@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CMD2_2005_I658856);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CMD2_2005_I658856);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -52,7 +52,7 @@ namespace Rivet {
       if(ntotal==2 && nCount[22]==1 && nCount[111]==1)
 	_numPi0Gamma->fill();
 
-	 
+
       const FinalState& ufs = apply<FinalState>(event, "UFS");
       for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
@@ -99,7 +99,7 @@ namespace Rivet {
 	  error = _numPi0Gamma->err();
 	}
 	sigma *= crossSection()/ sumOfWeights() /nanobarn;
-	error *= crossSection()/ sumOfWeights() /nanobarn; 
+	error *= crossSection()/ sumOfWeights() /nanobarn;
 	Scatter2DPtr mult;
 	book(mult, ix, 1, 1);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
@@ -118,20 +118,20 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _numEtaGamma,_numPi0Gamma;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMD2_2005_I658856);
+  RIVET_DECLARE_PLUGIN(CMD2_2005_I658856);
 
 
 }

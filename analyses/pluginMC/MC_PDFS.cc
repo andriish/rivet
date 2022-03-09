@@ -17,7 +17,7 @@ namespace Rivet {
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -54,7 +54,7 @@ namespace Rivet {
       _histPdfQ->fill(pdfi.scale, weight); // always in GeV?
       _histPdfXQ->fill(pdfi.x[0], pdfi.scale, weight); // always in GeV?
       _histPdfXQ->fill(pdfi.x[1], pdfi.scale, weight); // always in GeV?
-      
+
 #else
       MSG_DEBUG("PDF Q = " << pdfi.scalePDF() << " for (id, x) = "
                 << "(" << pdfi.id1() << ", " << pdfi.x1() << ") "
@@ -88,22 +88,22 @@ namespace Rivet {
       scale(_histPdfQ, 1/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histPdfX, _histPdfXmin, _histPdfXmax, _histPdfQ;
     Histo2DPtr _histPdfXQ;
     // Profile1DPtr   _histPdfTrackptVsX, _histPdfTrackptVsQ;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_PDFS);
+  RIVET_DECLARE_PLUGIN(MC_PDFS);
 
 }

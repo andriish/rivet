@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(MAC_1987_I245571);
+    RIVET_DEFAULT_ANALYSIS_CTOR(MAC_1987_I245571);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -147,18 +147,18 @@ namespace Rivet {
 		    make_pair(P_aver.second,P_aver.second));
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_e,_h_mu,_h_pi,_h_rho;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(MAC_1987_I245571);
+  RIVET_DECLARE_PLUGIN(MAC_1987_I245571);
 
 }

@@ -13,11 +13,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ALICE_2016_I1507157);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ALICE_2016_I1507157);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// @brief Calculate angular distance between particles.
     double phaseDif(double a1, double a2){
@@ -80,9 +80,9 @@ namespace Rivet {
       // Triggering
       if (!apply<ALICE::V0AndTrigger>(event, "V0-AND")()) return;
       // The projections
-      const PrimaryParticles& pp = 
+      const PrimaryParticles& pp =
         applyProjection<PrimaryParticles>(event,"APRIM");
-      const EventMixingFinalState& evm = 
+      const EventMixingFinalState& evm =
         applyProjection<EventMixingFinalState>(event, "EVM");
       // Test if we have enough mixing events available to continue.
       if (!evm.hasMixingEvents()) return;
@@ -158,11 +158,11 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     vector<pair<int, int> > pid;
     vector<Histo1DPtr> signal;
     vector<Histo1DPtr> background;
@@ -170,14 +170,14 @@ namespace Rivet {
     vector<double> nsp;
     vector<double> nmp;
 
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALICE_2016_I1507157);
+  RIVET_DECLARE_PLUGIN(ALICE_2016_I1507157);
 
 
 }

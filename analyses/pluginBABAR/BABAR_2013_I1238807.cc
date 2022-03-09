@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2013_I1238807);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2013_I1238807);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -62,24 +62,24 @@ namespace Rivet {
 	  else {
 	    mult->addPoint(x, 0., ex, make_pair(0.,.0));
 	  }
-	} 
+	}
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _nkaon;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BABAR_2013_I1238807);
+  RIVET_DECLARE_PLUGIN(BABAR_2013_I1238807);
 
 
 }

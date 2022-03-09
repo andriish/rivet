@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(MARKI_1975_I100733);
+    RIVET_DEFAULT_ANALYSIS_CTOR(MARKI_1975_I100733);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -23,11 +23,11 @@ namespace Rivet {
       // Book histograms
       book(_c_hadrons, "/TMP/sigma_hadrons");
       book(_c_muons, "/TMP/sigma_muons");
-      if(inRange(sqrtS()/GeV,2.999,3.001))
+      if(isCompatibleWithSqrtS(3*GeV))
       	book(_h_charged, 3, 1, 1);
-      else if(inRange(sqrtS()/GeV,4.799,4.801))
+      else if(isCompatibleWithSqrtS(4.8*GeV))
         book(_h_charged, 3, 1, 2);
-      else if(inRange(sqrtS()/GeV,7.399,7.401))
+      else if(isCompatibleWithSqrtS(7.4*GeV))
         book(_h_charged, 3, 1, 3);
     }
 
@@ -101,21 +101,21 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _c_hadrons, _c_muons;
     Histo1DPtr _h_charged;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MARKI_1975_I100733);
+  RIVET_DECLARE_PLUGIN(MARKI_1975_I100733);
 
 
 }

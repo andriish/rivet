@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -29,38 +29,38 @@ namespace Rivet {
 
       // The positive eta side used for rapidity gap, integrated.
       const ChargedFinalState& cfsp = ChargedFinalState(Cuts::eta > 1.0 &&
-        Cuts::eta < 2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 3.0*GeV);
+                                                        Cuts::eta < 2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 3.0*GeV);
       declare(cfsp, "CFSP");
       // ..negative ditto.
       const ChargedFinalState& cfsn = ChargedFinalState(Cuts::eta < -1.0 &&
-        Cuts::eta > -2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 3.0*GeV);
+                                                        Cuts::eta > -2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 3.0*GeV);
       declare(cfsn, "CFSN");
 
 
       // The positive eta side used for rapidity gap, differential, charged particles.
       const ChargedFinalState& cfsppT = ChargedFinalState(Cuts::eta > 1.0 &&
-        Cuts::eta < 2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 6.0*GeV);
+                                                          Cuts::eta < 2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 6.0*GeV);
       declare(cfsppT, "CFSPPT");
       // ..negative ditto.
       const ChargedFinalState& cfsnpT = ChargedFinalState(Cuts::eta < -1.0 &&
-        Cuts::eta > -2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 6.0*GeV);
+                                                          Cuts::eta > -2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 6.0*GeV);
       declare(cfsnpT, "CFSNPT");
 
       // The positive eta side used for rapidity gap, differential, Kaons.
       const PrimaryParticles& kfsppT = PrimaryParticles({310},Cuts::eta > 1.0 &&
-        Cuts::eta < 2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 6.0*GeV);
+                                                        Cuts::eta < 2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 6.0*GeV);
       declare(kfsppT, "KFSP");
       // ..negative ditto.
       const PrimaryParticles& kfsnpT = PrimaryParticles({310},Cuts::eta < -1.0 &&
-        Cuts::eta > -2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 6.0*GeV);
+                                                        Cuts::eta > -2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 6.0*GeV);
       declare(kfsnpT, "KFSN");
-     // The positive eta side used for rapidity gap, differential, Lambda.
+      // The positive eta side used for rapidity gap, differential, Lambda.
       const PrimaryParticles& lfsppT = PrimaryParticles({3122},Cuts::eta > 1.0 &&
-        Cuts::eta < 2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 6.0*GeV);
+                                                        Cuts::eta < 2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 6.0*GeV);
       declare(lfsppT, "LFSP");
       // ..negative ditto.
       const PrimaryParticles& lfsnpT = PrimaryParticles({3122},Cuts::eta < -1.0 &&
-        Cuts::eta > -2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 6.0*GeV);
+                                                        Cuts::eta > -2.0 && Cuts::pT > 0.3*GeV && Cuts::pT < 6.0*GeV);
       declare(lfsnpT, "LFSN");
 
       // v22 |delta eta| > 2 (fig 4a)
@@ -189,12 +189,12 @@ namespace Rivet {
         ec22pTh->fill(cpLow, cnLow);
         ec22pTK->fill(cpLowK, cnLowK);
         ec22pTL->fill(cpLowL, cnLowL);
-      }
-      else if(nTrk >= 105 && nTrk < 150)
+      } else if(nTrk >= 105 && nTrk < 150) { //< AB: brace was missing so condition only applied to first fill: seems wrong
         ec22pT->fill(cpHigh, cnHigh);
         ec22pTKc->fill(cpHighK, cnHighK);
         ec22pTLc->fill(cpHighL, cnHighL);
       }
+    }
 
 
     /// Normalise histograms etc., after the run
@@ -218,40 +218,40 @@ namespace Rivet {
 
     }
 
-    //@}
-      Scatter2DPtr h_v22;
-      Scatter2DPtr h_v32;
-      Scatter2DPtr h_v22pT;
-      Scatter2DPtr h_v22pTh;
-      Scatter2DPtr h_v22pTK;
-      Scatter2DPtr h_v22pTL;
-      Scatter2DPtr h_v22pTKc;
-      Scatter2DPtr h_v22pTLc;
-      Scatter2DPtr h_c24;
-      Scatter2DPtr h_c26;
+    /// @}
+    Scatter2DPtr h_v22;
+    Scatter2DPtr h_v32;
+    Scatter2DPtr h_v22pT;
+    Scatter2DPtr h_v22pTh;
+    Scatter2DPtr h_v22pTK;
+    Scatter2DPtr h_v22pTL;
+    Scatter2DPtr h_v22pTKc;
+    Scatter2DPtr h_v22pTLc;
+    Scatter2DPtr h_c24;
+    Scatter2DPtr h_c26;
 
-      ECorrPtr ec22;
-      ECorrPtr ec32;
+    ECorrPtr ec22;
+    ECorrPtr ec32;
 
-      ECorrPtr ec22_4;
-      ECorrPtr ec24_4;
+    ECorrPtr ec22_4;
+    ECorrPtr ec24_4;
 
-      ECorrPtr ec22_6;
-      ECorrPtr ec24_6;
-      ECorrPtr ec26_6;
+    ECorrPtr ec22_6;
+    ECorrPtr ec24_6;
+    ECorrPtr ec26_6;
 
-      ECorrPtr ec22pT;
-      ECorrPtr ec22pTh;
-      ECorrPtr ec22pTK;
-      ECorrPtr ec22pTL;
-      ECorrPtr ec22pTKc;
-      ECorrPtr ec22pTLc;
+    ECorrPtr ec22pT;
+    ECorrPtr ec22pTh;
+    ECorrPtr ec22pTK;
+    ECorrPtr ec22pTL;
+    ECorrPtr ec22pTKc;
+    ECorrPtr ec22pTLc;
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2017_I1471287);
+  RIVET_DECLARE_PLUGIN(CMS_2017_I1471287);
 
 
 }

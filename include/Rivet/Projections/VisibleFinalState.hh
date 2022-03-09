@@ -17,7 +17,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors
-    //@{
+    /// @{
 
     /// Constructor with min and max pseudorapidity \f$ \eta \f$ and min \f$ p_T \f$ (in GeV).
     VisibleFinalState(const Cut& c=Cuts::open())
@@ -36,7 +36,7 @@ namespace Rivet {
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(VisibleFinalState);
 
-    //@}
+    /// @}
 
 
     /// Apply the projection on the supplied event.

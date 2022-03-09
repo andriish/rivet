@@ -10,11 +10,11 @@ namespace Rivet {
   class CDF_2000_S4266730 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2000_S4266730);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2000_S4266730);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -45,7 +45,7 @@ namespace Rivet {
       scale(_h_mjj, crossSection()/picobarn/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -57,6 +57,6 @@ namespace Rivet {
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(CDF_2000_S4266730, CDF_2000_I511377);
+  RIVET_DECLARE_ALIASED_PLUGIN(CDF_2000_S4266730, CDF_2000_I511377);
 
 }

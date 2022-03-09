@@ -8,7 +8,7 @@ namespace Rivet {
   class ATLAS_2011_I894867 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2011_I894867);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_I894867);
 
     void init() {
       declare(FinalState(), "FS");
@@ -56,6 +56,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_I894867);
+  RIVET_DECLARE_PLUGIN(ATLAS_2011_I894867);
 
 }

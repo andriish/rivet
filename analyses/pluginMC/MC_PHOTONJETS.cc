@@ -6,7 +6,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// @brief MC validation analysis for photon + jets events
@@ -20,7 +20,7 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms
     void init() {
@@ -100,23 +100,23 @@ namespace Rivet {
       MC_JetAnalysis::finalize();
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_photon_jet1_deta;
     Histo1DPtr _h_photon_jet1_dphi;
     Histo1DPtr _h_photon_jet1_dR;
-    //@}
+    /// @}
 
   };
 
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_PHOTONJETS);
+  RIVET_DECLARE_PLUGIN(MC_PHOTONJETS);
 
 }

@@ -6,16 +6,16 @@
 namespace Rivet {
 
 
-  /// @brief rho0 and K*+/- spectra at 35 GeV 
+  /// @brief rho0 and K*+/- spectra at 35 GeV
   class JADE_1984_I203145 : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(JADE_1984_I203145);
+    RIVET_DEFAULT_ANALYSIS_CTOR(JADE_1984_I203145);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -63,20 +63,20 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_rho, _h_kstar;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(JADE_1984_I203145);
+  RIVET_DECLARE_PLUGIN(JADE_1984_I203145);
 
 
 }

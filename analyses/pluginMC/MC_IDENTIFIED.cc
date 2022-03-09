@@ -20,7 +20,7 @@ namespace Rivet {
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -84,21 +84,21 @@ namespace Rivet {
       scale(_histEtaLambda, 1/sumOfWeights());
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histStablePIDs, _histDecayedPIDs, _histAllPIDs;
     Histo1DPtr _histEtaPi, _histEtaK, _histEtaLambda;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_IDENTIFIED);
+  RIVET_DECLARE_PLUGIN(MC_IDENTIFIED);
 
 }

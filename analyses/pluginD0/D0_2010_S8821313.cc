@@ -10,11 +10,11 @@ namespace Rivet {
   class D0_2010_S8821313 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CTOR(D0_2010_S8821313);
+    RIVET_DEFAULT_ANALYSIS_CTOR(D0_2010_S8821313);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -78,22 +78,22 @@ namespace Rivet {
       for (Histo1DPtr hist : _h_phistar_mm.histos()) normalize(hist);
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     BinnedHistogram _h_phistar_ee;
     BinnedHistogram _h_phistar_mm;
-    //@}
+    /// @}
 
 
   };
 
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(D0_2010_S8821313, D0_2010_I871787);
+  RIVET_DECLARE_ALIASED_PLUGIN(D0_2010_S8821313, D0_2010_I871787);
 
 }

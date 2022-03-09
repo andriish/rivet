@@ -15,10 +15,11 @@ cdef extern from "<sstream>" namespace "std":
 
 cdef extern from "Rivet/AnalysisHandler.hh" namespace "Rivet":
     cdef cppclass AnalysisHandler:
-        void setIgnoreBeams(bool)
+        # void setIgnoreBeams(bool)
+        void setCheckBeams(bool)
         void skipMultiWeights(bool)
-        void selectMultiWeights(string)
-        void deselectMultiWeights(string)
+        void matchWeightNames(string)
+        void unmatchWeightNames(string)
         void setNominalWeightName(string)
         void setWeightCap(double)
         void setNLOSmearing(double)
@@ -32,7 +33,7 @@ cdef extern from "Rivet/AnalysisHandler.hh" namespace "Rivet":
         double nominalCrossSection()
         void finalize()
         void dump(string, int)
-        void mergeYodas(vector[string], vector[string], vector[string], vector[string], vector[string], bool)
+        void mergeYodas(vector[string]&, vector[string]&, vector[string]&, vector[string]&, vector[string]&, bool)
 
 cdef extern from "Rivet/Run.hh" namespace "Rivet":
     cdef cppclass Run:
@@ -48,8 +49,8 @@ cdef extern from "Rivet/Run.hh" namespace "Rivet":
 
 cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
     cdef cppclass Analysis:
-        vector[PdgIdPair]& requiredBeams()
-        vector[pair[double, double]] requiredEnergies()
+        vector[PdgIdPair]& requiredBeamIDs()
+        vector[pair[double, double]] requiredBeamEnergies()
         vector[string] authors()
         vector[string] references()
         vector[string] keywords()
@@ -61,15 +62,18 @@ cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
         string collider()
         string description()
         string experiment()
-        string inspireId()
-        string spiresId()
+        string inspireID()
+        string spiresID()
         string runInfo()
         string status()
+        string warning()
         string summary()
         string year()
         double luminosity()
         double luminosityfb()
         string refFile()
+        string refMatch()
+        string refUnmatch()
 
 
 # Might need to translate the following errors, although I believe 'what' is now
@@ -84,7 +88,8 @@ cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
 
 cdef extern from "Rivet/AnalysisLoader.hh":
     vector[string] AnalysisLoader_analysisNames "Rivet::AnalysisLoader::analysisNames" ()
-    #set[string] AnalysisLoader_allAnalysisNames "Rivet::AnalysisLoader::allAnalysisNames" ()
+    vector[string] AnalysisLoader_allAnalysisNames "Rivet::AnalysisLoader::allAnalysisNames" ()
+    map[string,string] AnalysisLoader_analysisNameAliases "Rivet::AnalysisLoader::analysisNameAliases" ()
     vector[string] AnalysisLoader_stdAnalysisNames "Rivet::AnalysisLoader::stdAnalysisNames" ()
     unique_ptr[Analysis] AnalysisLoader_getAnalysis "Rivet::AnalysisLoader::getAnalysis" (string)
 

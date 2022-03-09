@@ -12,11 +12,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2007_I747875);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2007_I747875);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -32,8 +32,8 @@ namespace Rivet {
       book(_cKpKmpi0pi0  , "TMP/KpKmpi0pi0");
       book(_cphif0pi0pi0 , "TMP/phif0pi0pi0");
       book(_c2Kp2Km      , "TMP/2Kp2Km");
-      
-    } 
+
+    }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
       for(const Particle &child : p.children()) {
@@ -45,7 +45,7 @@ namespace Rivet {
 	  findChildren(child,nRes,ncount);
       }
     }
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const FinalState& fs = apply<FinalState>(event, "FS");
@@ -191,21 +191,21 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _cKpKmpippim, _cKstarKpi, _cphipippim,
       _cphif0, _cKpKmpi0pi0, _cphif0pi0pi0, _c2Kp2Km;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BABAR_2007_I747875);
+  RIVET_DECLARE_PLUGIN(BABAR_2007_I747875);
 
 
 }

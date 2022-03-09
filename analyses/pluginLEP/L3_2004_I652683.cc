@@ -20,7 +20,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(L3_2004_I652683);
+    RIVET_DEFAULT_ANALYSIS_CTOR(L3_2004_I652683);
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -43,100 +43,85 @@ namespace Rivet {
       declare(durhamJets, "DurhamJets");
 
       // Book the histograms
-      if(fuzzyEquals(sqrtS()/GeV, 91.2, 1e-3)) {
-	// z pole
-	book(_h_Thrust_udsc             , 47, 1, 1);
-	book(_h_Thrust_bottom           , 47, 1, 2);
-	book(_h_heavyJetmass_udsc       , 48, 1, 1);
-	book(_h_heavyJetmass_bottom     , 48, 1, 2);
-	book(_h_totalJetbroad_udsc      , 49, 1, 1);
-	book(_h_totalJetbroad_bottom    , 49, 1, 2);
-	book(_h_wideJetbroad_udsc       , 50, 1, 1);
-	book(_h_wideJetbroad_bottom     , 50, 1, 2);
-	book(_h_Cparameter_udsc         , 51, 1, 1);
-	book(_h_Cparameter_bottom       , 51, 1, 2);
-	book(_h_Dparameter_udsc         , 52, 1, 1);
-	book(_h_Dparameter_bottom       , 52, 1, 2);
-	book(_h_Ncharged                , "/TMP/NCHARGED"     , 28, 1, 57);
-	book(_h_Ncharged_udsc           , "/TMP/NCHARGED_UDSC", 28, 1, 57);
-	book(_h_Ncharged_bottom         , "/TMP/NCHARGED_B"   , 27, 3, 57);
-	book(_h_scaledMomentum          , 65, 1, 1);
-	book(_h_scaledMomentum_udsc     , 65, 1, 2);
-	book(_h_scaledMomentum_bottom   ,  65, 1, 3);
+      if (isCompatibleWithSqrtS(91.2*GeV)) {
+        // z pole
+        book(_h_Thrust_udsc             , 47, 1, 1);
+        book(_h_Thrust_bottom           , 47, 1, 2);
+        book(_h_heavyJetmass_udsc       , 48, 1, 1);
+        book(_h_heavyJetmass_bottom     , 48, 1, 2);
+        book(_h_totalJetbroad_udsc      , 49, 1, 1);
+        book(_h_totalJetbroad_bottom    , 49, 1, 2);
+        book(_h_wideJetbroad_udsc       , 50, 1, 1);
+        book(_h_wideJetbroad_bottom     , 50, 1, 2);
+        book(_h_Cparameter_udsc         , 51, 1, 1);
+        book(_h_Cparameter_bottom       , 51, 1, 2);
+        book(_h_Dparameter_udsc         , 52, 1, 1);
+        book(_h_Dparameter_bottom       , 52, 1, 2);
+        book(_h_Ncharged                , "/TMP/NCHARGED"     , 28, 1, 57);
+        book(_h_Ncharged_udsc           , "/TMP/NCHARGED_UDSC", 28, 1, 57);
+        book(_h_Ncharged_bottom         , "/TMP/NCHARGED_B"   , 27, 3, 57);
+        book(_h_scaledMomentum          , 65, 1, 1);
+        book(_h_scaledMomentum_udsc     , 65, 1, 2);
+        book(_h_scaledMomentum_bottom   ,  65, 1, 3);
       }
-      else if(sqrtS()/GeV<90) {
-	int i1(-1),i2(-1);
-	if(fuzzyEquals(sqrtS()/GeV, 41.4, 1e-2)) {
-	  i1=0;
-	  i2=1;
-	}
-	else if(fuzzyEquals(sqrtS()/GeV, 55.3, 1e-2)) {
-	  i1=0;
-	  i2=2;
-	}
-	else if(fuzzyEquals(sqrtS()/GeV, 65.4, 1e-2)) {
-	  i1=0;
-	  i2=3;
-	}
-	else if(fuzzyEquals(sqrtS()/GeV, 75.7, 1e-2)) {
-	  i1=1;
-	  i2=1;
-	}
-	else if(fuzzyEquals(sqrtS()/GeV, 82.3, 1e-2)) {
-	  i1=1;
-	  i2=2;
-	}
-	else if(fuzzyEquals(sqrtS()/GeV, 85.1, 1e-2)) {
-	  i1=1;
-	  i2=3;
-	}
-	else
-	  MSG_ERROR("Beam energy not supported!");
-	book(_h_thrust , 21+i1,1,i2);
-	book(_h_rho    , 26+i1,1,i2);
-	book(_h_B_T    , 31+i1,1,i2);
-	book(_h_B_W    , 36+i1,1,i2);
+      else if(sqrtS()/GeV < 90) {
+        int i1(-1),i2(-1);
+        if(isCompatibleWithSqrtS(41.4*GeV)) {
+          i1=0; i2=1;
+        }
+        else if(isCompatibleWithSqrtS(55.3*GeV)) {
+          i1=0; i2=2;
+        }
+        else if(isCompatibleWithSqrtS(65.4*GeV)) {
+          i1=0; i2=3;
+        }
+        else if(isCompatibleWithSqrtS(75.7*GeV)) {
+          i1=1; i2=1;
+        }
+        else if(isCompatibleWithSqrtS(82.3*GeV)) {
+          i1=1; i2=2;
+        }
+        else if(isCompatibleWithSqrtS(85.1*GeV)) {
+          i1=1; i2=3;
+        }
+        else
+          MSG_ERROR("Beam energy not supported!");
+        book(_h_thrust , 21+i1,1,i2);
+        book(_h_rho    , 26+i1,1,i2);
+        book(_h_B_T    , 31+i1,1,i2);
+        book(_h_B_W    , 36+i1,1,i2);
       }
-      else if(sqrtS()/GeV>120) {
-	int i1(-1),i2(-1);
-	if(fuzzyEquals(sqrtS()/GeV, 130.1, 1e-2)) {
-	  i1=0;
-	  i2=1;
-	}
-	else if(fuzzyEquals(sqrtS()/GeV, 136.1, 1e-2)) {
-	  i1=0;
-	  i2=2;
-	}
-	else if(fuzzyEquals(sqrtS()/GeV, 161.3, 1e-2)) {
-	  i1=0;
-	  i2=3;
-	}
-	else if(fuzzyEquals(sqrtS()/GeV, 172.3, 1e-2)) {
-	  i1=1;
-	  i2=1;
-	}
-	else if(fuzzyEquals(sqrtS()/GeV, 182.8, 1e-2)) {
-	  i1=1;
-	  i2=2;
-	}
-	else if(fuzzyEquals(sqrtS()/GeV, 188.6, 1e-2)) {
-	  i1=1;
-	  i2=3;
-	}
-	else if(fuzzyEquals(sqrtS()/GeV, 194.4, 1e-2)) {
-	  i1=2;
-	  i2=1;
-	}
-	else if(fuzzyEquals(sqrtS()/GeV, 200.2, 1e-2)) {
-	  i1=2;
-	  i2=2;
-	}
-	else if(fuzzyEquals(sqrtS()/GeV, 206.2, 1e-2)) {
-	  i1=2;
-	  i2=3;
-	}
-	else
-	  MSG_ERROR("Beam energy not supported!");
+      else if(sqrtS()/GeV > 120) {
+        int i1(-1),i2(-1);
+        if(isCompatibleWithSqrtS(130.1*GeV)) {
+          i1=0; i2=1;
+        }
+        else if(isCompatibleWithSqrtS(136.1*GeV)) {
+          i1=0; i2=2;
+        }
+        else if(isCompatibleWithSqrtS(161.3*GeV)) {
+          i1=0; i2=3;
+        }
+        else if(isCompatibleWithSqrtS(172.3*GeV)) {
+          i1=1; i2=1;
+        }
+        else if(isCompatibleWithSqrtS(182.8*GeV)) {
+          i1=1; i2=2;
+        }
+        else if(isCompatibleWithSqrtS(188.6*GeV)) {
+          i1=1; i2=3;
+        }
+        else if(isCompatibleWithSqrtS(194.4*GeV)) {
+          i1=2; i2=1;
+        }
+        else if(isCompatibleWithSqrtS(200.2*GeV)) {
+          i1=2; i2=2;
+        }
+        else if(isCompatibleWithSqrtS(206.2*GeV)) {
+          i1=2; i2=3;
+        }
+        else
+          MSG_ERROR("Beam energy not supported!");
 	book(_h_thrust , 23+i1,1,i2);
 	book(_h_rho    , 28+i1,1,i2);
 	book(_h_B_T    , 33+i1,1,i2);
@@ -396,7 +381,7 @@ namespace Rivet {
 	}
       }
     }
-    
+
     Scatter2DPtr convertHisto(unsigned int ix,unsigned int iy, unsigned int iz, Histo1DPtr histo) {
       Scatter2D temphisto(refData(ix, iy, iz));
       Scatter2DPtr mult;
@@ -447,35 +432,35 @@ namespace Rivet {
 	if(_h_D) normalize(_h_D);
 	if(_h_N) normalize(_h_N);
 	if(_h_xi) scale(_h_xi,1./sumOfWeights());
-	
-      
+
+
       Scatter2DPtr mult;
 	if(_h_N) {
-	  if(fuzzyEquals(sqrtS()/GeV, 130.1, 1e-2)) {
+    if(isCompatibleWithSqrtS(130.1*GeV)) {
 	    convertHisto(60, 1, 1, _h_N);
 	  }
-	  else if(fuzzyEquals(sqrtS()/GeV, 136.1, 1e-2)) {
+	  else if(isCompatibleWithSqrtS(136.1*GeV)) {
 	    convertHisto(60, 1, 2, _h_N);
 	  }
-	  else if(fuzzyEquals(sqrtS()/GeV, 161.3, 1e-2)) {
+	  else if(isCompatibleWithSqrtS(161.3*GeV)) {
 	    convertHisto(60, 1, 3, _h_N);
 	  }
-	  else if(fuzzyEquals(sqrtS()/GeV, 172.3, 1e-2)) {
+	  else if(isCompatibleWithSqrtS(172.3*GeV)) {
 	    convertHisto(61, 1, 1, _h_N);
 	  }
-	  else if(fuzzyEquals(sqrtS()/GeV, 182.8, 1e-2)) {
+	  else if(isCompatibleWithSqrtS(182.8*GeV)) {
 	    convertHisto(61, 1, 2, _h_N);
 	  }
-	  else if(fuzzyEquals(sqrtS()/GeV, 188.6, 1e-2)) {
+	  else if(isCompatibleWithSqrtS(188.6*GeV)) {
 	    convertHisto(61, 1, 3, _h_N);
 	  }
-	  else if(fuzzyEquals(sqrtS()/GeV, 194.4, 1e-2)) {
+	  else if(isCompatibleWithSqrtS(194.4*GeV)) {
 	    convertHisto(62, 1, 1, _h_N);
 	  }
-	  else if(fuzzyEquals(sqrtS()/GeV, 200.2, 1e-2)) {
+	  else if(isCompatibleWithSqrtS(200.2*GeV)) {
 	    convertHisto(62, 1, 2, _h_N);
 	  }
-	  else if(fuzzyEquals(sqrtS()/GeV, 206.2, 1e-2)) {
+	  else if(isCompatibleWithSqrtS(206.2*GeV)) {
 	    convertHisto(62, 1, 3, _h_N);
 	  }
 	}
@@ -506,7 +491,7 @@ namespace Rivet {
     CounterPtr _sumW_udsc, _sumW_b, _sumW_ch, _sumW_ch_udsc, _sumW_ch_b;
 
     /// @name Histograms
-    //@{
+    /// @{
     // at the Z pole
     Histo1DPtr _h_Thrust_udsc, _h_Thrust_bottom;
     Histo1DPtr _h_heavyJetmass_udsc, _h_heavyJetmass_bottom;
@@ -522,12 +507,12 @@ namespace Rivet {
     Histo1DPtr _h_y_2_JADE,_h_y_3_JADE,_h_y_4_JADE,_h_y_5_JADE;
     Histo1DPtr _h_y_2_Durham,_h_y_3_Durham,_h_y_4_Durham,_h_y_5_Durham;
     Histo1DPtr _h_y_2_Cambridge,_h_y_3_Cambridge,_h_y_4_Cambridge,_h_y_5_Cambridge;
-    //@}
+    /// @}
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(L3_2004_I652683);
+  RIVET_DECLARE_PLUGIN(L3_2004_I652683);
 
 }

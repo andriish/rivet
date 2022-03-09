@@ -62,7 +62,7 @@ private:
   std::string unescape(const std::string& s);
 
   /// @name Read helpers
-  //@{
+  /// @{
 
   /// @brief Parse event
   ///
@@ -125,18 +125,18 @@ private:
   /// sets the information in the given particle.
   bool read_momentum(GenParticlePtr p);
 
-  //@}
+  /// @}
 
 
 private:
 
   std::ifstream m_file;       //!< Input file
-  std::istream* m_stream;     //!< The stream being read from 
+  std::istream* m_stream;     //!< The stream being read from
 
   std::istringstream is;      //!< A stream to read from the current line.
 
   GenEvent * m_evt;           //!< The event being read in.
-  
+
   double m_precision_phi;     //!< Input precision in phi
   double m_precision_eta;     //!< Input precision in eta
   double m_precision_e;       //!< Input precision energy

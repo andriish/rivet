@@ -20,7 +20,7 @@ namespace Rivet {
 
       // Plots from the paper
       book(_histPtSigmaStarPlus        ,"d01-x01-y01");    // Sigma*+
-      book(_histPtSigmaStarMinus       ,"d01-x01-y02");    // Sigma*- 
+      book(_histPtSigmaStarMinus       ,"d01-x01-y02");    // Sigma*-
       book(_histPtSigmaStarPlusAnti    ,"d01-x01-y03");    // anti Sigma*-
       book(_histPtSigmaStarMinusAnti   ,"d01-x01-y04");    // anti Sigma*+
       book(_histPtXiStar               ,"d02-x01-y01");    // 0.5 * (xi star + anti xi star)
@@ -38,10 +38,10 @@ namespace Rivet {
 	       p.hasAncestor(3122) || p.hasAncestor(-3122)  ||     // Lambda
 	       p.hasAncestor(3222) || p.hasAncestor(-3222)  ||     // Sigma+/-
 	       p.hasAncestor(3312) || p.hasAncestor(-3312)  ||     // Xi-/+
-	       p.hasAncestor(3334) || p.hasAncestor(-3334)  ))     // Omega-/+     
-	{   
+	       p.hasAncestor(3334) || p.hasAncestor(-3334)  ))     // Omega-/+
+	{
 	  int aid = p.abspid();
-	  if (aid == 211  || // pi+ 
+	  if (aid == 211  || // pi+
             aid == 321  || // K+
             aid == 313  || // K*(892)0
             aid == 2212 || // proton
@@ -50,8 +50,8 @@ namespace Rivet {
 	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV);
 	  }
 	} // end if "rejection of long-lived particles"
-      
-      
+
+
         switch (p.pid()) {
 	  case 3224:
 	    _histPtSigmaStarPlus->fill(p.pT()/GeV);
@@ -115,6 +115,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ALICE_2014_I1300380);
+  RIVET_DECLARE_PLUGIN(ALICE_2014_I1300380);
 
 }

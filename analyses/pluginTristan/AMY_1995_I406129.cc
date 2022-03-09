@@ -33,7 +33,7 @@ class E0_scheme : public JetDefinition::Recombiner {
   }
   void preprocess(PseudoJet & p) const {
     double fact = p.E()/sqrt(p.px()*p.px()+p.py()*p.py()+p.pz()*p.pz());
-  
+
     p.reset_momentum(fact*p.px(), fact*p.py(), fact*p.pz(), p.E());
   }
   ~E0_scheme() { }
@@ -50,11 +50,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(AMY_1995_I406129);
+    RIVET_DEFAULT_ANALYSIS_CTOR(AMY_1995_I406129);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -125,20 +125,20 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
-    Histo1DPtr _h_jade_P, _h_jade_E, _h_jade_E0, _h_durham; 
-    //@}
+    /// @{
+    Histo1DPtr _h_jade_P, _h_jade_E, _h_jade_E0, _h_durham;
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(AMY_1995_I406129);
+  RIVET_DECLARE_PLUGIN(AMY_1995_I406129);
 
 
 }

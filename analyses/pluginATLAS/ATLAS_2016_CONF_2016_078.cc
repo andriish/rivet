@@ -17,11 +17,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2016_CONF_2016_078);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2016_CONF_2016_078);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -245,17 +245,17 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _h_2j_0800, _h_2j_1200, _h_2j_1600, _h_2j_2000, _h_3j_1200;
     CounterPtr _h_4j_1000, _h_4j_1400, _h_4j_1800, _h_4j_2200, _h_4j_2600;
     CounterPtr _h_5j_1400, _h_6j_1800, _h_6j_2200;
-    //@}
+    /// @}
 
     /// Cut-flows
     Cutflows _flows;
@@ -263,5 +263,5 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2016_CONF_2016_078);
+  RIVET_DECLARE_PLUGIN(ATLAS_2016_CONF_2016_078);
 }

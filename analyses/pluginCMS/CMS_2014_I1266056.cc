@@ -99,7 +99,7 @@ namespace Rivet {
         else if (abs_photon_eta < 2.5)  _h_phveryforward_jetforward->fill(photon_pt);
       }
     }
-    
+
 
 
     /// Normalise histograms etc., after the run
@@ -135,7 +135,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2014_I1266056);
+  RIVET_DECLARE_PLUGIN(CMS_2014_I1266056);
 
 
 }

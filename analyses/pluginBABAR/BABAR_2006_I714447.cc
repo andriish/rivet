@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2006_I714447);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2006_I714447);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -123,7 +123,7 @@ namespace Rivet {
 	  else if(D.size()==1&&pi0.size()==1&&gamma.size()==1) {
 	    if(Ds.abspid()==20433)
 	      _r_2460_2->fill(10.58);
-	  }							  
+	  }
 	}
       }
     }
@@ -154,8 +154,8 @@ namespace Rivet {
 	  findDecayProducts(p,Ds,pip,pi0,gamma,nstable);
       }
     }
-    
-    
+
+
     /// Normalise histograms etc., after the run
     void finalize() {
       normalize(_s_2317  ,1.,false);
@@ -170,19 +170,19 @@ namespace Rivet {
       scale(_r_2536  ,crossSection()/femtobarn/sumOfWeights());
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _s_2317,_s_2460_1,_s_2460_2,_hel;
     Histo1DPtr _r_2317,_r_2460_1,_r_2460_2,_r_2460_3,_r_2460_4,_r_2536;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(BABAR_2006_I714447);
+  RIVET_DECLARE_PLUGIN(BABAR_2006_I714447);
 
 }

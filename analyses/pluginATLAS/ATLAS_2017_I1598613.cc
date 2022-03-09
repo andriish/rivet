@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2017_I1598613);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2017_I1598613);
 
     struct HistoHandler {
       Histo1DPtr histo;
@@ -32,7 +32,7 @@ namespace Rivet {
     void init() {
 
         // default to widest cut, electrons and muons.
-        _mode = 0;      
+        _mode = 0;
         if ( getOption("BMODE") == "BB" )  _mode = 1;
 
       // Get the particles needed for each running mode:
@@ -247,6 +247,6 @@ namespace Rivet {
 
 
   // Hooks for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2017_I1598613);
+  RIVET_DECLARE_PLUGIN(ATLAS_2017_I1598613);
 
 }

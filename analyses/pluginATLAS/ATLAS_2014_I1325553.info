@@ -16,6 +16,7 @@ NumEvents: 1000000
 NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [7000]
+Luminosity_fb: 4.5
 PtCuts: [100]
 Description:
   Measurement of the inclusive jet cross-section in proton--proton collisions at a centre-of-mass energy

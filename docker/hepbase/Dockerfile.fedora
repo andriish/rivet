@@ -1,76 +1,97 @@
 ARG FEDORA_IMAGE=fedora:32
 FROM ${FEDORA_IMAGE}
 LABEL maintainer="rivet-developers@cern.ch"
+SHELL ["/bin/bash", "--login", "-c"]
 
-ARG HEPMC_VERSION=2
-ARG CXX_CMD=g++
-ARG CC_CMD=gcc
-ARG FC_CMD=gfortran
-ARG RIVET_VERSION
-
-ENV CXX=${CXX_CMD}
-ENV CC=${CC_CMD}
-ENV FC=${FC_CMD}
+ARG BUILD_TOOLS
+RUN true \
+    && dnf update -y \
+    && dnf upgrade -y \
+    && if [[ "$BUILD_TOOLS" = "GCC" ]]; then \
+          CXX_CMD=g++; CC_CMD=gcc; FC_CMD=gfortran; BUILD_PKGS="gcc gcc-c++ gcc-gfortran"; \
+       elif [[ "$BUILD_TOOLS" = "LLVM" ]]; then \
+          CXX_CMD=clang++; CC_CMD=clang; FC_CMD=flang; BUILD_PKGS="clang gcc-gfortran"; \
+       elif [[ "$BUILD_TOOLS" = "Intel" ]]; then \
+          CXX_CMD=icpc; CC_CMD=icc; FC_CMD=ifort; BUILD_PKGS="intel-hpckit"; \
+          echo -e "[oneAPI]\nname=Intel oneAPI repository\nbaseurl=https://yum.repos.intel.com/oneapi\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB" >> /etc/yum.repos.d/oneAPI.repo && \
+          dnf update -y && \
+          echo 'source /opt/intel/oneapi/setvars.sh &> /dev/null' >> /etc/profile.d/01-buildtools.sh; \
+       fi \
+    && dnf install -y ${BUILD_PKGS} \
+    && dnf clean all \
+    && echo -e "\nexport CXX=$CXX_CMD\nexport CC=$CC_CMD\nexport FC=$FC_CMD\n" >> /etc/profile.d/01-buildtools.sh \
+    && cat /etc/profile.d/01-buildtools.sh >> /root/.bashrc
 
 RUN true \
-    && if test "$CXX_CMD" = "g++"; then CXX_PKG=gcc-c++; else CXX_PKG=clang; fi \
-    && if test "$CC_CMD" = "gcc"; then CC_PKG=gcc; else CC_PKG=clang; fi \
-    && if test "$FC_CMD" = "gfortran"; then FC_PKG=gcc-gfortran; else FC_PKG=flang; fi \
-    && dnf install -y ${CXX_PKG} ${CC_PKG} ${FC_PKG} \
-    && if test "$CXX_CMD" = "clang++"; then alternatives --install /usr/bin/g++ g++ /usr/bin/clang++ 2; fi \
-    && if test "$CXX_CMD" = "clang++"; then alternatives --install /usr/bin/c++ c++ /usr/bin/clang++ 2; fi \
-    && if test "$CC_CMD" = "clang"; then alternatives --install /usr/bin/gcc gcc /usr/bin/clang 2; fi \
-    && if test "$CC_CMD" = "clang"; then alternatives --install /usr/bin/cc cc /usr/bin/clang 2; fi \
-    && if test "$FC_CMD" = "flang"; then alternatives --install /usr/bin/gfortran gfortran /usr/bin/flang 2; fi \
+    && if [[ "$BUILD_TOOLS" = "LLVM" ]]; then \
+          update-alternatives --install /usr/bin/g++ g++ $(which clang++) 2 && \
+          update-alternatives --install /usr/bin/c++ c++ $(which clang++) 2 && \
+          update-alternatives --install /usr/bin/gcc gcc $(which clang) 2 && \
+          update-alternatives --install /usr/bin/cc  cc  $(which clang) 2 && \
+          update-alternatives --install /usr/bin/gfortran gfortran $(which gfortran) 2; \
+       # elif [[ "$BUILD_TOOLS" = "Intel" ]]; then \
+       #    # # update-alternatives --install /usr/bin/g++ g++ $(which icpc) 2 && \
+       #    # # update-alternatives --install /usr/bin/c++ c++ $(which icpc) 2 && \
+       #    # # update-alternatives --install /usr/bin/gcc gcc $(which icc) 2 && \
+       #    # # update-alternatives --install /usr/bin/cc  cc  $(which icc) 2 && \
+       #    # # update-alternatives --install /usr/bin/gfortran gfortran $(which ifort) 2; \
+       fi \
     && dnf install -y \
-      make redhat-rpm-config cmake \
-      m4 automake autoconf libtool \
-      git wget tar less bzip2 findutils which nano file diffutils \
-      zlib-devel gsl-devel \
-    && dnf install -y python3 python3-devel \
-    && alternatives --install /usr/bin/python python /usr/bin/python3 2 \
-    && alternatives --install /usr/bin/python-config python-config /usr/bin/python3-config 2 \
+         make redhat-rpm-config cmake \
+         m4 automake autoconf libtool \
+         git wget tar less bzip2 findutils which nano file diffutils \
+         zlib-devel gsl-devel \
+    && dnf clean all
+
+RUN true \
+    && if [[ "$BUILD_TOOLS" != "Intel" ]]; then \
+         dnf install -y python3 python3-devel && \
+         alternatives --install /usr/bin/python python /usr/bin/python3 2 && \
+         alternatives --install /usr/bin/python-config python-config /usr/bin/python3-config 2 && \
+         dnf clean all; \
+       fi \
     && wget --no-verbose https://bootstrap.pypa.io/get-pip.py -O get-pip.py \
     && python get-pip.py \
-    && pip install matplotlib requests Cython \
-    && dnf clean all
+    && pip install matplotlib requests Cython
 
 RUN true \
-    && dnf install -y libXft libXpm libXext libsqlite3x uuid-devel \
-    && cd /usr/local \
-    && wget --no-verbose https://root.cern/download/root_v6.22.02.Linux-fedora32-x86_64-gcc10.2.tar.gz -O- | tar xz \
-    && echo "source /usr/local/root/bin/thisroot.sh" > /etc/profile.d/01-cernroot \
-    && echo "source /usr/local/root/bin/thisroot.sh" >> /root/.bashrc \
-    && dnf clean all
+    && if [[ "$BUILD_TOOLS" != "Intel" ]]; then \
+         dnf install -y libXft libXpm libXext libsqlite3x uuid-devel && \
+         dnf clean all && \
+         cd /usr/local && \
+         wget --no-verbose https://root.cern/download/root_v6.24.06.Linux-fedora32-x86_64-gcc10.2.tar.gz -O- | tar xz && \
+         echo "source /usr/local/root/bin/thisroot.sh" > /etc/profile.d/10-cernroot && \
+         cat /etc/profile.d/10-cernroot >> /root/.bashrc; \
+       fi
 
+ARG HEPMC_VERSION
+ARG RIVETBS_VERSION
 RUN true \
-    && if test "$HEPMC_VERSION" = "3"; then HEPMC_FULL_VERSION=3.2.2; else HEPMC_FULL_VERSION=2.06.11; fi \
     && mkdir /code && cd /code \
-    && wget https://gitlab.com/hepcedar/rivetbootstrap/raw/${RIVET_VERSION}/rivet-bootstrap \
+    && wget --no-verbose https://gitlab.com/hepcedar/rivetbootstrap/raw/${RIVETBS_VERSION}/rivet-bootstrap \
     && chmod +x rivet-bootstrap \
-    && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_FULL_VERSION} MAKE="make -j $(nproc --ignore=1)" ./rivet-bootstrap \
-    && rm -rf /code
+    && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_YODA=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_VERSION} MAKE="make -j $(nproc --ignore=1)" ./rivet-bootstrap \
+    && rm -rf /code \
+    && echo "LD_LIBRARY_PATH=\"\$LD_LIBRARY_PATH:/usr/local/lib\"" >> /etc/profile.d/05-usrlocal.sh \
+    && echo "PYTHONPATH=\"\$PYTHONPATH:$(ls /usr/local/lib*/python*/*-packages/ -d | head -1)\"" >> /etc/profile.d/05-usrlocal.sh
 
-ARG LATEX=0
+ARG LHAPDF_VERSION
+RUN true \
+    && mkdir /code && cd /code \
+    && wget --no-verbose https://lhapdf.hepforge.org/downloads/?f=LHAPDF-${LHAPDF_VERSION}.tar.gz -O- | tar xz \
+    && cd LHAPDF-*/ && ./configure --prefix=/usr/local \
+    && make -j $(nproc --ignore=1) && make install \
+    && rm -r /code
+
+ARG LATEX
 RUN if test "$LATEX" = "1"; then \
       dnf install -y \
         texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow \
         texlive-relsize texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended \
         ghostscript ImageMagick texlive-dvips; \
       dnf clean all; \
+      texhash; \
     fi
 
-RUN mkdir /code && cd /code \
-    && wget --no-verbose https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.3.0.tar.gz -O- | tar xz \
-    && cd LHAPDF-*/ && ./configure --prefix=/usr/local \
-    && make -j $(nproc --ignore=1) && make install \
-    && rm -r /code
-
-
-
 RUN echo "alias ll='ls -l'" > /etc/profile.d/ll.sh
-
-ENV LD_LIBRARY_PATH /usr/local/lib:/usr/local/lib64
-ENV PYTHONPATH /usr/local/lib64/python3.8/site-packages
-
 WORKDIR /work

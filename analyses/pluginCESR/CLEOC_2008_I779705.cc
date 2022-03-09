@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(CLEOC_2008_I779705);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CLEOC_2008_I779705);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -45,10 +45,10 @@ namespace Rivet {
 	}
 	else {
 	  findDecay(p,nstable,pip,pim,eta);
-	}	
+	}
       }
     }
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       for(const Particle & D0 : apply<UnstableParticles>(event,"UFS").particles(Cuts::abspid==421)) {
@@ -70,18 +70,18 @@ namespace Rivet {
       normalize(_h_pi_pi );
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_eta_pi,_h_pi_pi;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(CLEOC_2008_I779705);
+  RIVET_DECLARE_PLUGIN(CLEOC_2008_I779705);
 
 }

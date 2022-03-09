@@ -10,7 +10,7 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
     /// Constructor
     NA49_2006_I694016() : Analysis("NA49_2006_I694016"){}
 
@@ -71,5 +71,5 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(NA49_2006_I694016);
+  RIVET_DECLARE_PLUGIN(NA49_2006_I694016);
 }

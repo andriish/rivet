@@ -13,11 +13,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(AMY_1990_I283337);
+    RIVET_DEFAULT_ANALYSIS_CTOR(AMY_1990_I283337);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -126,7 +126,7 @@ namespace Rivet {
 	  _histNtheta->fill(angle);
 	  ++nCharged;
 	}
-	_histEtheta->fill(angle,energy); 
+	_histEtheta->fill(angle,energy);
       }
       _histMeanPtIn2 ->fill( pTIn2/nCharged);
       _histMeanPtOut2->fill(pTOut2/nCharged);
@@ -160,24 +160,24 @@ namespace Rivet {
       scale(_histRhoDiff   , 1./ *_wSum);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _histRapidityT, _histScaledMom, _histPl, _histPt, _histPt2, _histPtIn, _histPtOut,
       _histMeanPtIn2, _histMeanPtOut2, _histNtheta, _histEtheta, _histThrust, _histMajor, _histMinor,
       _histOblateness, _histSphericity, _histAplanarity, _histQx, _histQ21, _histRhoLight,
       _histRhoHeavy, _histRhoDiff;
     CounterPtr _wSum;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(AMY_1990_I283337);
+  RIVET_DECLARE_PLUGIN(AMY_1990_I283337);
 
 
 }

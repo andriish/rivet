@@ -1,7 +1,7 @@
 # BEGIN PLOT /MC_WEIGHTS/.*weight.*
 Title=Event weight distribution
 XLabel=$w$
-YLabel=$1/N \text{d}N / \text{d}w$
+YLabel=$1/N \mathrm{d}N / \mathrm{d}w$
 LegendAlign=r
 # END PLOT
 

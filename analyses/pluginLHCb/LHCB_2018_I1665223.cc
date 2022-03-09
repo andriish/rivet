@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(LHCB_2018_I1665223);
+    RIVET_DEFAULT_ANALYSIS_CTOR(LHCB_2018_I1665223);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -51,7 +51,7 @@ namespace Rivet {
       scale(_h_ppInel, crossSection()/millibarn/sumOfWeights()); // norm to cross section (one-sided LHCb)
     }
 
-    //@}
+    /// @}
 
 
   	bool isLongLivedParticle(const Particle& p) {
@@ -81,6 +81,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_RIVET_PLUGIN(LHCB_2018_I1665223);
+  RIVET_DECLARE_PLUGIN(LHCB_2018_I1665223);
 
 }

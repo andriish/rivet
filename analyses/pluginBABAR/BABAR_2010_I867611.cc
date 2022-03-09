@@ -10,11 +10,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(BABAR_2010_I867611);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2010_I867611);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -26,7 +26,7 @@ namespace Rivet {
       book(_h_D1_ctheta, 1,1,1);
       book(_h_D2_ctheta, 1,1,2);
     }
-    
+
     /// Recursively walk the decay tree to find decay products of @a p
     void findDecayProducts(Particle mother, Particles & dstar, Particles & d0, Particles & pi,unsigned int & ncount) {
       for(const Particle & p: mother.children()) {
@@ -75,17 +75,17 @@ namespace Rivet {
       normalize(_h_D2_ctheta);
     }
 
-    //@}
+    /// @}
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_D1_ctheta,_h_D2_ctheta;
-    //@}
+    /// @}
 
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(BABAR_2010_I867611);
+  RIVET_DECLARE_PLUGIN(BABAR_2010_I867611);
 
 
 }

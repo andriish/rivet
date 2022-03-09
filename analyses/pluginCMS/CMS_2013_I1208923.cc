@@ -30,7 +30,7 @@ namespace Rivet {
       {Histo1DPtr tmp; _h_sigma.add(1.0, 1.5,   book(tmp, 1, 1, 3));}
       {Histo1DPtr tmp; _h_sigma.add(1.5, 2.0,   book(tmp, 1, 1, 4));}
       {Histo1DPtr tmp; _h_sigma.add(2.0, 2.5,   book(tmp, 1, 1, 5));}
-      
+
       {Histo1DPtr tmp; _h_invMass.add(0.0, 0.5, book(tmp, 2, 1, 1));}
       {Histo1DPtr tmp; _h_invMass.add(0.5, 1.0, book(tmp, 2, 1, 2));}
       {Histo1DPtr tmp; _h_invMass.add(1.0, 1.5, book(tmp, 2, 1, 3));}
@@ -42,7 +42,7 @@ namespace Rivet {
     void analyze(const Event &event) {
       const double weight = 1.0;
       const FastJets &fJets = apply<FastJets>(event, "Jets");
-      
+
       // Fill the jet pT spectra
       const Jets& jets = fJets.jetsByPt(Cuts::pt>100.*GeV && Cuts::absrap <2.5);
       for (const Jet &j : jets) {
@@ -58,7 +58,7 @@ namespace Rivet {
           double invMass = FourMomentum(dijets[0].momentum() + dijets[1].momentum()).mass();
           _h_invMass.fill(fabs(ymax), invMass, weight);
         }
-      } 
+      }
 
     }
 
@@ -75,5 +75,5 @@ namespace Rivet {
   };
 
   // This global object acts as a hook for the plugin system.
-  DECLARE_RIVET_PLUGIN(CMS_2013_I1208923);
+  RIVET_DECLARE_PLUGIN(CMS_2013_I1208923);
 }

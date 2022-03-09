@@ -17,17 +17,17 @@ public:
       Cuts::absrap < 0.1 && Cuts::pT > 0.2 * GeV),
       "STAR_BES_Centrality");
   }
-  
+
   // Destructor
   virtual ~STAR_BES_Centrality() {}
-  
+
   /// Clone on the heap.
   DEFAULT_RIVET_PROJ_CLONE(STAR_BES_Centrality);
 
 protected:
   void project(const Event& e) {
     clear();
-    double estimate = 
+    double estimate =
       apply<FinalState>(e, "STAR_BES_Centrality").particles().size();
 		set(estimate);
   }

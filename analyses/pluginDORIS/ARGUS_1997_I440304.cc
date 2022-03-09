@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ARGUS_1997_I440304);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ARGUS_1997_I440304);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -28,7 +28,7 @@ namespace Rivet {
       book(_h_x,2,1,1);
     }
 
-    
+
     void findDecayProducts(Particle parent, Particles & Lambda_c, Particles & pions,unsigned int & nstable) {
       for(const Particle & p : parent.children()) {
 	if(p.abspid()==4122) {
@@ -78,18 +78,18 @@ namespace Rivet {
       scale(_h_rate2,    br*crossSection()/sumOfWeights()/picobarn);
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
+    /// @{
     Histo1DPtr _h_x,_h_rate1,_h_rate2;
-    ///@}
+    /// @}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(ARGUS_1997_I440304);
+  RIVET_DECLARE_PLUGIN(ARGUS_1997_I440304);
 
 }

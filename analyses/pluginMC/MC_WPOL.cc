@@ -12,20 +12,20 @@ namespace Rivet {
   public:
 
     /// @name Constructors etc.
-    //@{
+    /// @{
 
     /// Constructor
     MC_WPOL()
       : Analysis("MC_WPOL")
     {    }
 
-    //@}
+    /// @}
 
 
   public:
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -132,17 +132,17 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
 
     /// @name Histograms
-    //@{
+    /// @{
 
     vector<vector<Profile1DPtr> > _h_dists;
     vector<vector<Histo1DPtr> > _h_histos;
-    //@}
+    /// @}
 
 
   };
@@ -150,6 +150,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_WPOL);
+  RIVET_DECLARE_PLUGIN(MC_WPOL);
 
 }

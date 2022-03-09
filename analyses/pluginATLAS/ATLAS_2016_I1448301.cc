@@ -16,11 +16,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2016_I1448301);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2016_I1448301);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -76,7 +76,7 @@ namespace Rivet {
         book(_h["pT"],      7, 1, 1);
         book(_h["pT_0jet"], 8, 1, 1);
       }
-	
+
       // always book e and mu in charged lepton modes; there are sometimes 4 leptons.
       if (_mode != 1){
 	// electron
@@ -111,11 +111,11 @@ namespace Rivet {
       const FinalState& metfs = apply<PromptFinalState>(event, "MET");
       Vector3 met_vec;
       for (const Particle& p : metfs.particles()) met_vec += p.mom().perpVec();
-      
+
       if (met_vec.mod() >= 100*GeV && !photons.empty() && _mode < 2){
 
 	if (photons.size() > 1) { // nu nu y y
-	
+
 	  bool yy_veto = false;
 	  yy_veto |= photons[0].pT() < 22*GeV;
 	  yy_veto |= photons[1].pT() < 22*GeV;
@@ -123,7 +123,7 @@ namespace Rivet {
 	  const double yyPhi = (photons[0].momentum() + photons[1].momentum()).phi();
 	  yy_veto |= fabs(yyPhi - met_vec.phi()) < 2.62 || fabs(yyPhi - met_vec.phi()) > 3.66;
 	  yy_veto |= deltaR(photons[0], photons[1]) < 0.4;
-	  
+
 	  // Photon isolation calculated by jets, count jets
 	  Jet ph0_jet, ph1_jet;
 	  double min_dR_ph0_jet = 999., min_dR_ph1_jet = 999.;
@@ -146,17 +146,17 @@ namespace Rivet {
 	  if (min_dR_ph1_jet < 0.4)  photon1iso = ph1_jet.pT() - photons[1].pT();
 	  yy_veto |= photon0iso/photons[0].pT() > 0.5;
 	  yy_veto |= photon1iso/photons[1].pT() > 0.5;
-	  
+
 	  if (!yy_veto) {
 	    _h["vvgg"]->fill(0.5);
 	    if (!njets)  _h["vvgg"]->fill(1.5);
 	  }
 	} // end of nu nu y y section
-      
-      
+
+
 	if ((photons[0].pT() >= 130*GeV)  &&
 	    (fabs(fabs(deltaPhi(photons[0], met_vec)) - 3.14) <= 1.57)) {
-      
+
 	  // Photon isolation calculated by jets, count jets
 	  Jet ph_jet;
 	  double min_dR_ph_jet = 999.;
@@ -173,7 +173,7 @@ namespace Rivet {
 	  double photoniso = 0;
 	  if (min_dR_ph_jet < 0.4)  photoniso = ph_jet.pT() - photons[0].pT();
 	  if (photoniso/photons[0].pT() > 0.5)  vetoEvent;
-	  
+
 	  const double pTgamma = photons[0].pT()/GeV;
 	  _h["pT"]->fill(pTgamma);
 	  _h["vvg"]->fill(0.5);
@@ -181,14 +181,14 @@ namespace Rivet {
 	    _h["vvg"]->fill(1.5);
 	    _h["pT_0jet"]->fill(pTgamma);
 	  }
-	  	  
+
 	}
       }  // end of nu nu y (y) section
 
       // Dilepton candidate
       bool el = false;
       if ( (_mode != 1) &&
-	   (( electrons.size() >= 2 && _mode != 3 ) || 
+	   (( electrons.size() >= 2 && _mode != 3 ) ||
 	    ( muons.size()     >= 2 && _mode != 2 ) )) {
 
 	vector<DressedLepton> lep_p, lep_m;
@@ -200,15 +200,15 @@ namespace Rivet {
 	  for (const DressedLepton& lep : electrons) {
 	    if (lep.charge() > 0.)  lep_p.push_back(lep);
 	    if (lep.charge() < 0.)  lep_m.push_back(lep);
-	  }	
+	  }
 	} else {
 	  sortByPt(muons);
 	  for (const DressedLepton& lep : muons) {
 	    if (lep.charge() > 0.)  lep_p.push_back(lep);
 	    if (lep.charge() < 0.)  lep_m.push_back(lep);
-	  }	
+	  }
 	}
-      
+
 
 	if (!lep_p.empty() && !lep_m.empty() &&
 	    (lep_p[0].abspid() == lep_m[0].abspid()) &&
@@ -216,16 +216,16 @@ namespace Rivet {
 
 	  // Photon lepton overlap removal
 	  if (photons.empty())  vetoEvent;
-	  
+
 	  if (photons.size() > 1) {
-	    
+
 	    bool veto = false;
 	    veto |= deltaR(photons[0], lep_p[0]) < 0.4;
 	    veto |= deltaR(photons[0], lep_m[0]) < 0.4;
 	    veto |= deltaR(photons[1], lep_p[0]) < 0.4;
 	    veto |= deltaR(photons[1], lep_m[0]) < 0.4;
 	    veto |= deltaR(photons[0], photons[1]) < 0.4;
-	    
+
 	    Jet ph0_jet, ph1_jet;
 	    double min_dR_ph0_jet = 999., min_dR_ph1_jet=999.;
 	    int njets = 0;
@@ -249,7 +249,7 @@ namespace Rivet {
 	    if (min_dR_ph1_jet < 0.4) photon1iso = ph1_jet.pT() - photons[1].pT();
 	    veto |= photon0iso/photons[0].pT() > 0.5;
 	    veto |= photon1iso/photons[1].pT() > 0.5;
-	    
+
 	    // Fill plots
 	    // ee and mm need doing.
 	    if (!veto) {
@@ -270,10 +270,10 @@ namespace Rivet {
 	      }
 	    }
 	  }
-	  
+
 	  if (deltaR(photons[0], lep_p[0]) < 0.7)  vetoEvent;
 	  if (deltaR(photons[0], lep_m[0]) < 0.7)  vetoEvent;
-	  
+
 	  // Photon isolation calculated by jets, count jets
 	  Jet ph_jet;
 	  double min_dR_ph_jet = 999.;
@@ -287,20 +287,20 @@ namespace Rivet {
 	      ph_jet = j;
 	    }
 	  }
-	  
+
 	  double photoniso = 0;
 	  if (min_dR_ph_jet < 0.4)  photoniso = ph_jet.pT() - photons[0].pT();
 	  if (photoniso/photons[0].pT() > 0.5)  vetoEvent;
-	  
-	  
+
+
 	  // Fill plots
 	  const double pTgamma = photons[0].pT()/GeV;
 	  const double mllgamma = (lep_p[0].momentum() + lep_m[0].momentum() + photons[0].momentum()).mass()/GeV;
-	  
+
 	  _h["pT"]->fill(pTgamma);
 	  _h["M"]->fill(mllgamma);
 	  _h["Njets"]->fill(njets < 3? njets : 3);
-	  
+
 	  _h["llg"]->fill(0.5);
 	  if (el) {
 	    _h["eeg"]->fill(0.5);
@@ -340,7 +340,7 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
   protected:
@@ -357,6 +357,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2016_I1448301);
+  RIVET_DECLARE_PLUGIN(ATLAS_2016_I1448301);
 
 }

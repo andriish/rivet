@@ -67,6 +67,21 @@ int main() {
   assert(fuzzyEquals(v45.rap(), 0.881, 1e-2));
   cout << endl;
 
+  // Test numerically off-shell vectors
+  P4 vvirt(5.0,3,0,4.0+1e-10);
+  cout << "Vvirt m2, m, eta, rap = " << vvirt.mass2() << ", " << vvirt.mass() << ", " << vvirt.eta() << ", " << vvirt.rap() << endl;
+  assert(!std::isnan(vvirt.mass()));
+  assert(!std::isinf(vvirt.mass()));
+  assert(!std::isnan(vvirt.rap()));
+  assert(!std::isinf(vvirt.eta()));
+  assert(!std::isnan(vvirt.rap()));
+  assert(!std::isinf(vvirt.eta()));
+  assert(!std::isnan(vvirt.rap()));
+  P4 vvirt2(5.0,3,0,4.5);
+  cout << "Vvirt2 m2, m, eta, rap = " << vvirt2.mass2() << ", " << vvirt2.mass() << ", " << vvirt2.eta() << ", " << vvirt2.rap() << endl;
+  cout << endl;
+
+
   cout << "Matrices:" << endl;
   Matrix3 m;
   m.set(0, 0, 7/4.0);

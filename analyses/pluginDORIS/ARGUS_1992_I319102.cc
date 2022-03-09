@@ -11,11 +11,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ARGUS_1992_I319102);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ARGUS_1992_I319102);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -25,9 +25,9 @@ namespace Rivet {
       declare(FinalState(), "FS");
 
       // Book histograms
-      if(fuzzyEquals(sqrtS()/GeV, 10.47 , 1E-3)) {
-	book(_h_N, 2, 1, 1);
-	book(_h_tot_N,4,1,1);
+      if(isCompatibleWithSqrtS(10.47*GeV)) {
+        book(_h_N, 2, 1, 1);
+        book(_h_tot_N,4,1,1);
       }
       book(_h_N_Upsilon, 3, 1, 1);
       book(_h_N_tot_Upsilon,5,1,1);
@@ -136,22 +136,22 @@ namespace Rivet {
 	scale(_h_N_tot_Upsilon,1./ *_w_ups);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_N,_h_N_Upsilon,_h_tot_N,_h_N_tot_Upsilon;
     CounterPtr _c_hadrons, _c_muons;
     CounterPtr _w_cont,_w_ups;
-    //@}
+    /// @}
 
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ARGUS_1992_I319102);
+  RIVET_DECLARE_PLUGIN(ARGUS_1992_I319102);
 
 
 }

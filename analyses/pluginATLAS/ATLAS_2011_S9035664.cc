@@ -13,11 +13,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2011_S9035664);
+    RIVET_DEFAULT_ANALYSIS_CTOR(ATLAS_2011_S9035664);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     void init() {
       declare(UnstableParticles(), "UFS");
@@ -103,7 +103,7 @@ namespace Rivet {
 
     }
 
-    //@}
+    /// @}
 
 
   private:
@@ -126,6 +126,6 @@ namespace Rivet {
   };
 
 
-  DECLARE_ALIASED_RIVET_PLUGIN(ATLAS_2011_S9035664, ATLAS_2011_I896268);
+  RIVET_DECLARE_ALIASED_PLUGIN(ATLAS_2011_S9035664, ATLAS_2011_I896268);
 
 }
