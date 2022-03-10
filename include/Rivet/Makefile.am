@@ -123,6 +123,7 @@ nobase_pkginclude_HEADERS += \
 nobase_pkginclude_HEADERS += \
   Tools/AliceCommon.hh \
   Tools/AtlasCommon.hh \
+  Tools/Beams.hh \
   Tools/BeamConstraint.hh \
   Tools/BinnedHistogram.hh \
   Tools/CentralityBinner.hh \
