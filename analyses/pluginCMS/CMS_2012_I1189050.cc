@@ -67,14 +67,14 @@ namespace Rivet {
       // no br correction fiduical region
       Scatter2DPtr tmp;
       book(tmp,1,1,1);
-      divide(_h_chi[0][0],_h_chi[1][0],tmp);
+      divide(_h_chi[1][0],_h_chi[0][0],tmp);
       // br correction fiduical region
       book(tmp,2,1,1);
-      divide(_h_chi[0][0],_h_chi[1][0],tmp);
-      tmp->scaleY(br[1]/br[0]);
+      divide(_h_chi[1][0],_h_chi[0][0],tmp);
+      tmp->scaleY(br[0]/br[1]);
       // no br correction  pT gamma >0
       book(tmp,3,1,1);
-      divide(_h_chi[0][1],_h_chi[1][1],tmp);
+      divide(_h_chi[1][1],_h_chi[0][1],tmp);
     }
 
     /// @}

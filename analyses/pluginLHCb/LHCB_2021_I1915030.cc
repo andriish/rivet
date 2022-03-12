@@ -63,10 +63,8 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      // br to muons PDG 2021
-      double br = 0.05961;
       // factor of 2 due rapidity +/-
-      double factor = 2.*br*crossSection()/nanobarn/sumOfWeights();
+      double factor = 0.5*crossSection()/nanobarn/sumOfWeights();
       for(unsigned int ix=0;ix<3;++ix) {
 	_h_JPsi[ix].scale(factor,this);
 	scale(_h_JPsi_y[ix],factor);

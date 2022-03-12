@@ -56,6 +56,6 @@ END PLOT
 BEGIN PLOT /CMS_2015_I1345023/d05-x01-y01
 Title=Ratio of $\psi(2S)$ to $J/\psi$ vs transverse momentum $0 < |y| < 1.2$
 XLabel=$p^{J/\psi}_\perp$ [GeV]
-YLabel=$R_{21}$
+YLabel=$R_{21}$ [$\%$]
 LogY=0
 END PLOT

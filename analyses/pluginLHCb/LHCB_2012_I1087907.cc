@@ -62,7 +62,7 @@ namespace Rivet {
       Scatter2DPtr tmp;
       book(tmp,1,1,1);
       divide(_h_chi[1],_h_chi[0],tmp);
-      tmp->scaleY(br[0]/br[1]);
+      tmp->scaleY(br[1]/br[0]);
     }
 
     /// @}

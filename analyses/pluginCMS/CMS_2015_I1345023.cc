@@ -70,6 +70,8 @@ namespace Rivet {
       Scatter2DPtr tmp;
       book(tmp,5,1,1);
       divide(_h_pT[1][1],_h_pT[0][1],tmp);
+      // convert to %age
+      tmp->scaleY(100.);
     }
 
     /// @}
