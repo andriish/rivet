@@ -179,6 +179,11 @@
 
 	* Add a pseudojets() method to the Jets container type.
 
+2022-03-14 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CDF_1997_I440101 J/psi and psi(2S) Run-I
+	* Add CDF_1997_I440446 chi_c Run-I
+
 2022-03-12 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2022_I2047667 e+e- > eta omega and omega pi0

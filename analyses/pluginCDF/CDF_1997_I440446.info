@@ -1,0 +1,35 @@
+Name: CDF_1997_I440446
+Year: 1997
+Summary: $J/\psi$ production from $\chi_c$ decays at 1.8 TeV
+Experiment: CDF
+Collider: Tevatron
+InspireID: 440446
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 79 (1997) 578-583, 1997.
+RunInfo: J/psi and chi_c production
+Beams: [p-, p+]
+Energies: [1800]
+Description:
+  'Measurement of the fraction of prompt $J/\psi$ produced in $\chi_c$ meson decays by the CDF collaboration.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CDF:1997uzj
+BibTeX: '@article{CDF:1997uzj,
+    author = "Abe, F. and others",
+    collaboration = "CDF",
+    title = "{Production of $J/\psi$ mesons from $\chi_c$ meson decays in $p\bar{p}$ collisions at $\sqrt{s} = 1.8$ TeV}",
+    reportNumber = "FERMILAB-PUB-97-026-E, CDF-PUB-BOTTOM-PUBLIC-3685, FERMILAB-PUB-98-173-EK",
+    doi = "10.1103/PhysRevLett.79.578",
+    journal = "Phys. Rev. Lett.",
+    volume = "79",
+    pages = "578--583",
+    year = "1997"
+}
+'
