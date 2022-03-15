@@ -36,10 +36,10 @@ namespace Rivet {
         double abseta = p.abseta();
         double xp = p.perp();
 	if (xp<4. || abseta>0.6) continue;
+	_h_total[1]->fill(sqrtS());
 	// from those for higher charmonium
 	Particle parent = p.parents()[0];
 	if ( parent.pid()==100443 || parent.pid()==20443 || parent.pid()==445) continue;
-	_h_total[1]->fill(sqrtS());
 	_h_psi[0]->fill(xp);
       }
       // chi_1 and chi_2 for numerator
