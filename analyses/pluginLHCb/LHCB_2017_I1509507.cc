@@ -28,13 +28,23 @@ namespace Rivet {
 	book(_h_frag[ix],1,1,ix+1);
     }
 
-
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // first see if we have any J/psi in the region
-      Particles Jpsi = apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==443 &&
-									Cuts::etaIn(2.,4.5) &&
-									Cuts::pT>0.5);
+      Particles Jpsi;
+      for(const Particle & p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==443 &&
+										Cuts::etaIn(2.,4.5))) {
+	if(p.children().size()!=2) continue;
+	bool found=true;
+	for(const Particle & child :p.children()) {
+	  double eta = child.eta();
+	  if (child.abspid()!=13 || eta<2. || eta>4.5 || child.perp()<0.5 || child.p3().mod()<5.) {
+	    found=false;
+	    break;
+	  }
+	}
+	if (found) Jpsi.push_back(p);
+      }
       // no jpsi veto
       if(Jpsi.empty()) vetoEvent;
       // now get the final-state particles for the jets
@@ -90,7 +100,7 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       for(unsigned int ix=0;ix<2;++ix)
-	normalize(_h_frag[ix]);
+	normalize(_h_frag[ix],1.,false);
     }
 
     /// @}
