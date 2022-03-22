@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(MY_ANALYSIS);
+    RIVET_DEFAULT_ANALYSIS_CTOR(MY_ANALYSIS);
 
     /// @name Analysis methods
     //@{
@@ -62,12 +62,12 @@ namespace Rivet {
       if (_lmode == 1 && leptons[0].abspid() == PID::MUON)  vetoEvent;
       else if (_lmode == 2 && leptons[0].abspid() == PID::ELECTRON)  vetoEvent;
 
-      const double mll = (leptons[0].mom() + leptons[1].mom()).mass()/GeV;
-      _h["mll_dressed"]->fill(mll);
+      const double mll = (leptons[0].mom() + leptons[1].mom()).mass();
+      _h["mll_dressed"]->fill(mll/GeV);
 
       if (bare_leptons.size() == 2) {
-        const double mll_bare = (bare_leptons[0].mom() + bare_leptons[1].mom()).mass()/GeV;
-        _h["mll_bare"]->fill(mll_bare);
+        const double mll_bare = (bare_leptons[0].mom() + bare_leptons[1].mom()).mass();
+        _h["mll_bare"]->fill(mll_bare/GeV);
       }
 
       if (!inRange(mll, 66*GeV, 116*GeV))  vetoEvent;
@@ -77,8 +77,8 @@ namespace Rivet {
 
       _h["jets_excl"]->fill(jets.size());
 
-      const double HT = sum(jets, pT, 0.0)/GeV;
-      _h["HT"]->fill(HT);
+      const double HT = sum(jets, Kin::pT, 0.0);
+      _h["HT"]->fill(HT/GeV);
       
       size_t bTags = count(jets, hasBTag(Cuts::pT > 5*GeV && Cuts::abseta < 2.5));
       _h["bjets_excl"]->fill(bTags);
@@ -104,5 +104,5 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MY_ANALYSIS);
+  RIVET_DECLARE_PLUGIN(MY_ANALYSIS);
 }
