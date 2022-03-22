@@ -124,7 +124,7 @@ namespace Rivet {
       double rho_num = thrust_den*thrust_den - sumMom.dot(sumMom);
       double rho_mine = ((double)rho_num)/(4.0*(double)thrust_den*(double)thrust_den);
       
-      const Thrust& thrCut = applyProjection<Thrust>(event, "ThrustCut");
+      const Thrust& thrCut = apply<Thrust>(event, "ThrustCut");
 
       //Fill histograms:
       _h_tauc.fill(Q, 1.0 - thrCut.thrust());

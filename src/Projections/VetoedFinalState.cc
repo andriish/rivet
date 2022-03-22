@@ -29,7 +29,7 @@ namespace Rivet {
 
 
   void VetoedFinalState::project(const Event& e) {
-    const FinalState& fs = applyProjection<FinalState>(e, "FS");
+    const FinalState& fs = apply<FinalState>(e, "FS");
     _theParticles.clear();
     _theParticles.reserve(fs.particles().size());
 
@@ -117,7 +117,7 @@ namespace Rivet {
 
     // Finally veto on the registered FSes
     for (const string& ifs : _vetofsnames) {
-      const ParticleFinder& vfs = applyProjection<ParticleFinder>(e, ifs);
+      const ParticleFinder& vfs = apply<ParticleFinder>(e, ifs);
       const Particles& pvetos = vfs.rawParticles();
       ifilter_discard(_theParticles, [&](const Particle& pcheck) {
           if (pcheck.genParticle() == nullptr) return false;

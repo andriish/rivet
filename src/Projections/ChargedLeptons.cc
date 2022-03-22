@@ -14,7 +14,7 @@ namespace Rivet {
     _theParticles.clear();
 
     // Loop over charged particles and fill vector with leptons
-    const FinalState& fs = applyProjection<FinalState>(evt, "ChFS");
+    const FinalState& fs = apply<FinalState>(evt, "ChFS");
     for (const Particle& p : fs.particles()) {
       if (PID::isChargedLepton(p.pid()))
         _theParticles += Particle(p);

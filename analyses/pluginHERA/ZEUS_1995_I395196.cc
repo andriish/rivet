@@ -56,9 +56,9 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       const FinalState& fs = apply<FinalState>(event, "FS");
-      const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
+      const DISKinematics& dk = apply<DISKinematics>(event, "Kinematics");
       
-      const DISRapidityGap& g = applyProjection<DISRapidityGap>(event, "Rapidity Gap");
+      const DISRapidityGap& g = apply<DISRapidityGap>(event, "Rapidity Gap");
   
       const ChargedFinalState& charged = apply<ChargedFinalState>(event, "CFS");
       const size_t numPartcharged = charged.particles().size();

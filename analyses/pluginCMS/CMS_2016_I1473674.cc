@@ -75,17 +75,17 @@ namespace Rivet {
       if (hadronicpartontops.size() != 1) vetoEvent;
 
       // Select ttbar -> lepton+jets at particle level
-      const DressedLeptons& dressed_electrons = applyProjection<DressedLeptons>(event, "DressedElectrons");
-      const DressedLeptons& dressed_muons = applyProjection<DressedLeptons>(event, "DressedMuons");
+      const DressedLeptons& dressed_electrons = apply<DressedLeptons>(event, "DressedElectrons");
+      const DressedLeptons& dressed_muons = apply<DressedLeptons>(event, "DressedMuons");
       if (dressed_electrons.dressedLeptons().size() + dressed_muons.dressedLeptons().size() != 1) vetoEvent;
       const FourMomentum lepton = (dressed_electrons.dressedLeptons().empty() ? dressed_muons : dressed_electrons).dressedLeptons()[0];
 
       // MET
-      const MissingMomentum& met = applyProjection<MissingMomentum>(event, "MET");
+      const MissingMomentum& met = apply<MissingMomentum>(event, "MET");
       _hist_met->fill(met.visibleMomentum().pT()/GeV, weight);
 
       // HT and ST
-      const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
+      const FastJets& jetpro = apply<FastJets>(event, "Jets");
       const Jets jets = jetpro.jetsByPt(20*GeV);
 
       double ht = 0.0;

@@ -13,7 +13,7 @@ namespace Rivet {
 
   void GammaGammaLeptons::project(const Event& e) {
     // Find incoming lepton beams
-    _incoming = applyProjection<Beam>(e, "Beam").beams();
+    _incoming = apply<Beam>(e, "Beam").beams();
     // need two leptonic beams
     if(! PID::isLepton(_incoming. first.pid()) ||
        ! PID::isLepton(_incoming.second.pid()) ) {
@@ -23,7 +23,7 @@ namespace Rivet {
 
     // If no graph-connected scattered lepton, use the hardest
     // (preferably same-flavour) prompt FS lepton in the event.
-    const FinalState & fs = applyProjection<FinalState>(e, "LFS");
+    const FinalState & fs = apply<FinalState>(e, "LFS");
     Particles fsleptons;
     if ( _sort == ET )
        fsleptons = fs.particles(isLepton, cmpMomByEt);
@@ -50,7 +50,7 @@ namespace Rivet {
 
       if ( _isolDR > 0.0 ) {
 	const Particles & other =
-	  applyProjection<FinalState>(e, "IFS").particles();
+	  apply<FinalState>(e, "IFS").particles();
 	while (!sfleptons.empty()) {
 	  bool skip = false;
 	  Particle testlepton = sfleptons.front();

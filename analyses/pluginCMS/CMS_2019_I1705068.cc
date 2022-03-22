@@ -38,7 +38,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get the reconstructed W
-      const WFinder& wfinder_mu = applyProjection<WFinder>(event, "WFinder_mu");
+      const WFinder& wfinder_mu = apply<WFinder>(event, "WFinder_mu");
       if (wfinder_mu.bosons().size() != 1) vetoEvent;
 
       // No Missing Energy or MT cut at generator level:
@@ -57,7 +57,7 @@ namespace Rivet {
       // W+ccbar (ccbar from gluon splitting) has equal probability to be OS or SS
       // OS-SS to remove the gluon splitting background
 
-      const UnstableParticles& dst = applyProjection<UnstableParticles>(event, "Dstar");
+      const UnstableParticles& dst = apply<UnstableParticles>(event, "Dstar");
       for (auto p: dst.particles()) {
         if (muID == -13 && p.pid() == -413) { // OS
           _hist_Wplus_MuAbseta->fill(eta0);

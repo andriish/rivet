@@ -31,7 +31,7 @@ namespace Rivet {
   void NonPromptFinalState::project(const Event& e) {
     _theParticles.clear();
 
-    const Particles& particles = applyProjection<FinalState>(e, "FS").particles();
+    const Particles& particles = apply<FinalState>(e, "FS").particles();
     for (const Particle& p : particles)
       if (!isPrompt(p, !_acceptTauDecays, !_acceptMuDecays)) _theParticles.push_back(p);
     MSG_DEBUG("Number of final state particles from hadron decays = " << _theParticles.size());

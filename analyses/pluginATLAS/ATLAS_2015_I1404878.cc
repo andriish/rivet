@@ -108,10 +108,10 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get the selected objects, using the projections.
-      vector<DressedLepton> electrons = applyProjection<DressedLeptons>(event, "dressedelectrons").dressedLeptons();
-      vector<DressedLepton> muons     = applyProjection<DressedLeptons>(event, "dressedmuons").dressedLeptons();
-      const Jets& jets = applyProjection<FastJets>(event, "jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::abseta < 2.5);
-      const FinalState& ifs = applyProjection<FinalState>(event, "InvisibleFS");
+      vector<DressedLepton> electrons = apply<DressedLeptons>(event, "dressedelectrons").dressedLeptons();
+      vector<DressedLepton> muons     = apply<DressedLeptons>(event, "dressedmuons").dressedLeptons();
+      const Jets& jets = apply<FastJets>(event, "jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::abseta < 2.5);
+      const FinalState& ifs = apply<FinalState>(event, "InvisibleFS");
 
       // Calculate MET
       FourMomentum met;

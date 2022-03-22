@@ -6,7 +6,7 @@ namespace Rivet {
 
   void TauFinder::project(const Event& e) {
     _theParticles.clear();
-    const auto& ufs = applyProjection<UnstableParticles>(e, "UFS");
+    const auto& ufs = apply<UnstableParticles>(e, "UFS");
     for (const Particle& p : ufs.particles()) {
       if (p.abspid() != PID::TAU) continue;
       if (_decmode == DecayMode::ANY || (_decmode == DecayMode::LEPTONIC && isLeptonic(p)) || (_decmode == DecayMode::HADRONIC && isHadronic(p)) )

@@ -70,7 +70,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
           
-      const DISKinematics& kin = applyProjection<DISKinematics>(event, "Kinematics");
+      const DISKinematics& kin = apply<DISKinematics>(event, "Kinematics");
       
        // Q2 and inelasticity cuts
       if (!inRange(kin.Q2(), 1.0*GeV2, 100*GeV2)) vetoEvent;

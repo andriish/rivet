@@ -83,7 +83,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // First, veto on leptonic events by requiring at least 4 charged FS particles
-      const FinalState& fs = applyProjection<FinalState>(event, "FS");
+      const FinalState& fs = apply<FinalState>(event, "FS");
       const size_t numParticles = fs.particles().size();
 
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
@@ -93,11 +93,11 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      const Thrust& thrust = applyProjection<Thrust>(event, "Thrust");
+      const Thrust& thrust = apply<Thrust>(event, "Thrust");
       Vector3 axis = thrust.thrustAxis();
 
       // Final state of unstable particles to get particle spectra
-      const UnstableParticles & ufs = applyProjection<UnstableParticles>(event, "UFS");
+      const UnstableParticles & ufs = apply<UnstableParticles>(event, "UFS");
 
       Particles lambda,lambdaBar;
       for (const Particle& p : ufs.particles()) {
@@ -109,7 +109,7 @@ namespace Rivet {
       }
 
       // get the number of jets
-      const FastJets& durjet = applyProjection<FastJets>(event, "DurhamJets");
+      const FastJets& durjet = apply<FastJets>(event, "DurhamJets");
 
       unsigned int njet = durjet.clusterSeq()->n_exclusive_jets_ycut(0.005);
       if(njet==2)

@@ -78,7 +78,7 @@ namespace Rivet {
 
 
   void InvMassFinalState::project(const Event& e) {
-    const FinalState& fs = applyProjection<FinalState>(e, "FS");
+    const FinalState& fs = apply<FinalState>(e, "FS");
     calc(fs.particles());
   }
 

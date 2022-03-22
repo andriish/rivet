@@ -11,7 +11,7 @@ namespace Rivet {
 
     /// @todo Allow user to choose whether primary or final HF hadrons are to be returned
 
-    const Particles& unstables = applyProjection<FinalState>(e, "UFS").particles();
+    const Particles& unstables = apply<FinalState>(e, "UFS").particles();
     for (const Particle& p : unstables) {
       // Exclude non-b/c-hadrons
       if (!isHadron(p)) continue;

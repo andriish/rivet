@@ -87,7 +87,7 @@ namespace Rivet {
       
       if ( !cut ) vetoEvent ; 
       
-      const DISLepton& dl = applyProjection<DISLepton>(event,"Lepton");
+      const DISLepton& dl = apply<DISLepton>(event,"Lepton");
       if ( dl.failed() ) vetoEvent;
       /*
       cout << "  scattered lepton angle " << 180.- dl.out().momentum().angle(dl.in().momentum())/degree << endl;

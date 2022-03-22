@@ -130,9 +130,9 @@ public:
 	/// Perform the per-event analysis
 	void analyze(const Event& event) {
 
-		const FinalState &fs = applyProjection<FinalState> (event, "FS");
+		const FinalState &fs = apply<FinalState> (event, "FS");
 		Particles fs_particles = fs.particles();
-                const Beam & beams = applyProjection<Beam> (event, "Beams");
+                const Beam & beams = apply<Beam> (event, "Beams");
 
 		vector<Particle> processed_parents;
 		processed_parents.clear();

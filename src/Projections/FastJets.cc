@@ -162,7 +162,7 @@ namespace Rivet {
   void FastJets::project(const Event& e) {
     // Assemble final state particles
     const string fskey = (_useInvisibles == JetAlg::Invisibles::NONE) ? "VFS" : "FS";
-    Particles fsparticles = applyProjection<FinalState>(e, fskey).particles();
+    Particles fsparticles = apply<FinalState>(e, fskey).particles();
     // Remove prompt invisibles if needed (already done by VFS if using NO_INVISIBLES)
     if (_useInvisibles == JetAlg::Invisibles::DECAY) {
       ifilter_discard(fsparticles, [](const Particle& p) { return !p.isVisible() && p.isPrompt(); });
@@ -175,9 +175,9 @@ namespace Rivet {
     }
 
     // Tagging particles
-    const Particles chadrons = applyProjection<HeavyHadrons>(e, "HFHadrons").cHadrons();
-    const Particles bhadrons = applyProjection<HeavyHadrons>(e, "HFHadrons").bHadrons();
-    const Particles taus = applyProjection<FinalState>(e, "Taus").particles();
+    const Particles chadrons = apply<HeavyHadrons>(e, "HFHadrons").cHadrons();
+    const Particles bhadrons = apply<HeavyHadrons>(e, "HFHadrons").bHadrons();
+    const Particles taus = apply<FinalState>(e, "Taus").particles();
 
     // Run the calculation
     calc(fsparticles, chadrons+bhadrons+taus);

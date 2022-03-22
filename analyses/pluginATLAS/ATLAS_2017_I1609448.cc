@@ -122,8 +122,8 @@ namespace Rivet {
 
       // Require 0 (Znunu) or 2 (Zll) dressed leptons
       bool isZll = bool(_mode);
-      const vector<DressedLepton> &vetoLeptons = applyProjection<DressedLeptons>(event, "VetoLeptons").dressedLeptons();
-      const vector<DressedLepton> &all_leps = applyProjection<DressedLeptons>(event, "DressedLeptons").dressedLeptons();
+      const vector<DressedLepton> &vetoLeptons = apply<DressedLeptons>(event, "VetoLeptons").dressedLeptons();
+      const vector<DressedLepton> &all_leps = apply<DressedLeptons>(event, "DressedLeptons").dressedLeptons();
       if (!isZll && vetoLeptons.size())    vetoEvent;
       if ( isZll && all_leps.size() != 2)  vetoEvent;
 
@@ -150,7 +150,7 @@ namespace Rivet {
 
 
       // Get jets and remove those within dR = 0.5 of a dressed lepton
-      Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::absrap < 4.4);
+      Jets jets = apply<FastJets>(event, "Jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::absrap < 4.4);
       for (const DressedLepton& lep : leptons)
         ifilter_discard(jets, deltaRLess(lep, 0.5));
 

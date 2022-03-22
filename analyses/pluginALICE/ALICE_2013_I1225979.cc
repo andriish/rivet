@@ -48,11 +48,11 @@ namespace Rivet {
     void analyze(const Event& event) {
       // Trigger projections.
       const ChargedFinalState& vz1 =
-        applyProjection<ChargedFinalState>(event,"VZERO1");
+        apply<ChargedFinalState>(event,"VZERO1");
       const ChargedFinalState& vz2 =
-        applyProjection<ChargedFinalState>(event,"VZERO2");
+        apply<ChargedFinalState>(event,"VZERO2");
       const ChargedFinalState& spd =
-        applyProjection<ChargedFinalState>(event,"SPD");
+        apply<ChargedFinalState>(event,"SPD");
       int fwdTrig = (vz1.particles().size() > 0 ? 1 : 0);
       int bwdTrig = (vz2.particles().size() > 0 ? 1 : 0);
       int cTrig = (spd.particles().size() > 0 ? 1 : 0);
@@ -71,7 +71,7 @@ namespace Rivet {
 
       // Fill the histograms.
       for ( const auto& p :
-        applyProjection<ALICE::PrimaryParticles>(event,"APRIM").particles() )
+        apply<ALICE::PrimaryParticles>(event,"APRIM").particles() )
 	if(p.abscharge() > 0) hItr->second->fill(p.eta());
 
     }

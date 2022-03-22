@@ -168,7 +168,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
+      const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       // Require at least two charged particles for the analysis to
       // make sense. No further triggers are described in the paper.
       const Particles& particles = cfs.particles();

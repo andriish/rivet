@@ -68,7 +68,7 @@ namespace Rivet {
       // Get UE pt densities rho for subtraction later
       const vector<double> eta_bins = {0.0, 1.5, 3.0};
       vector<double> rho(eta_bins.size()-1, 0.0);
-      FastJets ktjets = applyProjection<FastJets>(event, "KtJetsD05");
+      FastJets ktjets = apply<FastJets>(event, "KtJetsD05");
       for (size_t ieta = 0; ieta < eta_bins.size()-1; ++ieta) {
         fastjet::Selector fjselector(fastjet::SelectorAbsRapRange(eta_bins[ieta], eta_bins[ieta+1]));
         double sigma, area;

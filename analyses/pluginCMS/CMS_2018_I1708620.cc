@@ -39,13 +39,13 @@ namespace Rivet {
 
     void analyze(const Event& event) {
 
-      const ChargedFinalState& cfsBSCplus = applyProjection<ChargedFinalState>(event, "cfsBSCplus");
-      const ChargedFinalState& cfsBSCminus = applyProjection<ChargedFinalState>(event, "cfsBSCminus");
+      const ChargedFinalState& cfsBSCplus = apply<ChargedFinalState>(event, "cfsBSCplus");
+      const ChargedFinalState& cfsBSCminus = apply<ChargedFinalState>(event, "cfsBSCminus");
       const bool bscplus = !cfsBSCplus.empty();
       const bool bscminus = !cfsBSCminus.empty();
 
       // Find final-state particles
-      const FinalState& fs = applyProjection<FinalState>(event, "FS");
+      const FinalState& fs = apply<FinalState>(event, "FS");
       // const Particles particlesByRapidity = fs.particlesByPt();
       // sortBy(particlesByRapidity, cmpMomByRap);
       const Particles particlesByRapidity = fs.particles(cmpMomByRap);

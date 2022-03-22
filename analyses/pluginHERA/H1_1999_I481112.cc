@@ -61,7 +61,7 @@ namespace Rivet {
     void analyze(const Event& event) {
      
       
-      const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
+      const DISKinematics& dk = apply<DISKinematics>(event, "Kinematics");
       
       
       bool isDIS = false;

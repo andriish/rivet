@@ -59,8 +59,8 @@ namespace Rivet {
           vetoEvent;
         }
         
-      const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
-      const DISLepton& dl = applyProjection<DISLepton>(event,"Lepton");
+      const DISKinematics& dk = apply<DISKinematics>(event, "Kinematics");
+      const DISLepton& dl = apply<DISLepton>(event,"Lepton");
         
       // Get the DIS kinematics
       double xbj  = dk.x();

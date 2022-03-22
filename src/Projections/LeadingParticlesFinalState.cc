@@ -25,7 +25,7 @@ namespace Rivet {
 
   void LeadingParticlesFinalState::project(const Event & e) {
     _theParticles.clear();
-    const FinalState& fs = applyProjection<FinalState>(e, "FS");
+    const FinalState& fs = apply<FinalState>(e, "FS");
     const Particles& particles = fs.particles();
     MSG_DEBUG("Original final state particles size " << particles.size());
 

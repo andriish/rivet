@@ -79,10 +79,10 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get final state particles
-      const FinalState& ifs = applyProjection<FinalState>(event, "InvisibleFS");
-      const vector<DressedLepton>& good_mu = applyProjection<DressedLeptons>(event, "MU_DRESSED_FS").dressedLeptons();
-      const vector<DressedLepton>& el_dressed = applyProjection<DressedLeptons>(event, "EL_DRESSED_FS").dressedLeptons();
-      const Jets& jets = applyProjection<FastJets>(event, "jets").jetsByPt(Cuts::pT>25*GeV && Cuts::abseta < 4.5);
+      const FinalState& ifs = apply<FinalState>(event, "InvisibleFS");
+      const vector<DressedLepton>& good_mu = apply<DressedLeptons>(event, "MU_DRESSED_FS").dressedLeptons();
+      const vector<DressedLepton>& el_dressed = apply<DressedLeptons>(event, "EL_DRESSED_FS").dressedLeptons();
+      const Jets& jets = apply<FastJets>(event, "jets").jetsByPt(Cuts::pT>25*GeV && Cuts::abseta < 4.5);
 
       //find good electrons
       vector<DressedLepton> good_el;

@@ -113,7 +113,7 @@ namespace Rivet {
       if (!inRange(dilepton_mass, 71*GeV, 111*GeV)) vetoEvent;
 
       // Get kT splitting scales (charged particles only)
-      const FastJets& jetpro04 = applyProjection<FastJets>(e, "Kt04Jets");
+      const FastJets& jetpro04 = apply<FastJets>(e, "Kt04Jets");
       const shared_ptr<fastjet::ClusterSequence> seq04 = jetpro04.clusterSeq();
       for (size_t i = 0; i < min(_ndij, (size_t)seq04->n_particles()); ++i) {
         const double dij = sqrt(seq04->exclusive_dmerge_max(i))/GeV;
@@ -121,7 +121,7 @@ namespace Rivet {
         const string label = lep_type + "d" + to_str(i) + "_kT4";
         _h[label]->fill(dij);
       }
-      const FastJets& jetpro10 = applyProjection<FastJets>(e, "Kt10Jets");
+      const FastJets& jetpro10 = apply<FastJets>(e, "Kt10Jets");
       const shared_ptr<fastjet::ClusterSequence> seq10 = jetpro10.clusterSeq();
       for (size_t i = 0; i < min(_ndij, (size_t)seq10->n_particles()); ++i) {
         const double dij = sqrt(seq10->exclusive_dmerge_max(i))/GeV;
@@ -131,7 +131,7 @@ namespace Rivet {
       }
 
       // Get kT splitting scales (all particles)
-      const FastJets& jetpro04_all = applyProjection<FastJets>(e, "Kt04Jets_all");
+      const FastJets& jetpro04_all = apply<FastJets>(e, "Kt04Jets_all");
       const shared_ptr<fastjet::ClusterSequence> seq04_all = jetpro04_all.clusterSeq();
       for (size_t i = 0; i < min(_ndij, (size_t)seq04_all->n_particles()); ++i) {
         const double dij = sqrt(seq04_all->exclusive_dmerge_max(i))/GeV;
@@ -139,7 +139,7 @@ namespace Rivet {
         const string label = lep_type + "d" + to_str(i) + "_kT4_all";
         _h[label]->fill(dij);
       }
-      const FastJets& jetpro10_all = applyProjection<FastJets>(e, "Kt10Jets_all");
+      const FastJets& jetpro10_all = apply<FastJets>(e, "Kt10Jets_all");
       const shared_ptr<fastjet::ClusterSequence> seq10_all = jetpro10_all.clusterSeq();
       for (size_t i = 0; i < min(_ndij, (size_t)seq10_all->n_particles()); ++i) {
         const double dij = sqrt(seq10_all->exclusive_dmerge_max(i))/GeV;

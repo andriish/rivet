@@ -102,10 +102,10 @@ namespace Rivet {
       const vector<DressedLepton>& leptons = apply<DressedLeptons>(event, "leptons").dressedLeptons();
       const vector<DressedLepton>& good_mu = apply<DressedLeptons>(event, "MU_DRESSED_FS").dressedLeptons();
       const vector<DressedLepton>& good_el = apply<DressedLeptons>(event, "EL_DRESSED_FS").dressedLeptons();
-      const Jets& jets = applyProjection<FastJets>(event, "jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::abseta < 4.5);
+      const Jets& jets = apply<FastJets>(event, "jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::abseta < 4.5);
 
       // Taus are excluded from the fiducial cross section
-      const Particles taus = applyProjection<FinalState>(event, "tau_id").particlesByPt(Cuts::pT>12.*GeV && Cuts::abseta < 3.0);
+      const Particles taus = apply<FinalState>(event, "tau_id").particlesByPt(Cuts::pT>12.*GeV && Cuts::abseta < 3.0);
       if (!taus.empty()) vetoEvent;
 
       // Remove events that do not contain 2 good leptons (either muons or electrons)

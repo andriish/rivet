@@ -23,7 +23,7 @@ namespace Rivet {
     /// Analyze each event
     void analyze(const Event& event) {
 
-      const FinalState& fs = applyProjection<FinalState>(event, "FS");
+      const FinalState& fs = apply<FinalState>(event, "FS");
       if (fs.size() < 3) vetoEvent; // veto on elastic events
       const Particles particlesByRapidity = fs.particles(cmpMomByRap);
       const size_t num_particles = particlesByRapidity.size();

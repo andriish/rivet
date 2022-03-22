@@ -61,7 +61,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Look at events with >= 2 jets
-      auto jetsAK8 = applyProjection<FastJets>(event, "JetsAK8").jetsByPt(Cuts::pT > 200*GeV and Cuts::abseta < 2.4);
+      auto jetsAK8 = apply<FastJets>(event, "JetsAK8").jetsByPt(Cuts::pT > 200*GeV and Cuts::abseta < 2.4);
       if (jetsAK8.size() < 2) vetoEvent;
 
       // Get the leading two jets

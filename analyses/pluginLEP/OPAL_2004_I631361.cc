@@ -131,7 +131,7 @@ namespace Rivet {
         // use the direction for the event axis
         Vector3 axis = initial[0].momentum().p3().unit();
         // fill histograms
-        const Particles& chps = applyProjection<FinalState>(event, "CFS").particles();
+        const Particles& chps = apply<FinalState>(event, "CFS").particles();
         unsigned int nMult[2] = {0,0};
         // distribution
         for (const Particle& p : chps) {
@@ -149,10 +149,10 @@ namespace Rivet {
       // qqbar mode
       else {
         // cut on the number of charged particles
-        const Particles& chParticles = applyProjection<FinalState>(event, "CFS").particles();
+        const Particles& chParticles = apply<FinalState>(event, "CFS").particles();
         if(chParticles.size() < 5) vetoEvent;
         // cluster the jets
-        const Particles& particles = applyProjection<FinalState>(event, "FS").particles();
+        const Particles& particles = apply<FinalState>(event, "FS").particles();
         fastjet::JetDefinition ee_kt_def(fastjet::ee_kt_algorithm, &p_scheme);
         PseudoJets pParticles;
         for (Particle p : particles) {

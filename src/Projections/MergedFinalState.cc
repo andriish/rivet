@@ -11,8 +11,8 @@ namespace Rivet {
 
 
   void MergedFinalState::project(const Event& e) {
-    const FinalState& fsa = applyProjection<FinalState>(e, "FSA");
-    const FinalState& fsb = applyProjection<FinalState>(e, "FSB");
+    const FinalState& fsa = apply<FinalState>(e, "FSA");
+    const FinalState& fsb = apply<FinalState>(e, "FSB");
     _theParticles.clear();
     for (const Particle& pa : fsa.particles()){
       _theParticles.push_back(pa);

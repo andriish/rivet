@@ -161,8 +161,8 @@ const vector<double> WEdges {80., 115, 150., 185., 220.};
     }
     
     //apply DIS kinematics in the event
-    const DISKinematics& dk=applyProjection<DISKinematics>(event,"Kinematics");
-    const DISLepton& dl=applyProjection<DISLepton>(event,"Lepton");
+    const DISKinematics& dk=apply<DISKinematics>(event,"Kinematics");
+    const DISLepton& dl=apply<DISLepton>(event,"Lepton");
     
     //get the DIS Kinematics but not in a loop because they are variables that descrube the type of event not the particles
     double Q2=dk.Q2();

@@ -76,7 +76,7 @@ namespace Rivet {
       bool match =false;
 
       /// @todo Do the event by event analysis here
-      const ChargedFinalState& had = applyProjection<ChargedFinalState>(event, "CFS");
+      const ChargedFinalState& had = apply<ChargedFinalState>(event, "CFS");
       Particles hs=had.particles();
       int nch = hs.size();
 

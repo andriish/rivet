@@ -63,12 +63,12 @@ namespace Rivet {
       if (bjets.size()<2) vetoEvent;
 
       // Muons
-      const Particles all_muons = applyProjection<IdentifiedFinalState>(event, "MUONS").particles(Cuts::pT>2.5/GeV, cmpMomByE);
+      const Particles all_muons = apply<IdentifiedFinalState>(event, "MUONS").particles(Cuts::pT>2.5/GeV, cmpMomByE);
       const Particles b_muons = filter_select(all_muons, [](const Particle& m) {return cos(m.theta()) < 0.7; });
       if (b_muons.size()<2) vetoEvent;
 
       // Missing energy cut
-      const MissingMomentum& met = applyProjection<MissingMomentum>(event, "MissingMomenta");
+      const MissingMomentum& met = apply<MissingMomentum>(event, "MissingMomenta");
       double Pmiss = met.missingMomentum().p();
       if (Pmiss/GeV>18) vetoEvent;
 

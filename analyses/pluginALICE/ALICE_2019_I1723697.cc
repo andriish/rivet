@@ -148,15 +148,15 @@ namespace Rivet {
       const double nch = apply<ChargedFinalState>(event, "CFS").size();
 
       // The correlators projections.
-      const Correlators& c = applyProjection<Correlators>(event,"Correlators");
+      const Correlators& c = apply<Correlators>(event,"Correlators");
       const Correlators& cp10 =
-        applyProjection<Correlators>(event,"CorrelatorsPos10");
+        apply<Correlators>(event,"CorrelatorsPos10");
       const Correlators& cn10 =
-        applyProjection<Correlators>(event,"CorrelatorsNeg10");
+        apply<Correlators>(event,"CorrelatorsNeg10");
       const Correlators& cp14 =
-        applyProjection<Correlators>(event,"CorrelatorsPos14");
+        apply<Correlators>(event,"CorrelatorsPos14");
       const Correlators& cn14 =
-        applyProjection<Correlators>(event,"CorrelatorsNeg14");
+        apply<Correlators>(event,"CorrelatorsNeg14");
 
       // Fill correlators.
       ec22->fill(nch, c);
