@@ -230,7 +230,7 @@ namespace Rivet {
         FourMomentum Z1 = Z1constituents.first.momentum() + Z1constituents.second.momentum();
 
         // Z to neutrinos candidate from missing ET
-        const MissingMomentum & missmom = applyProjection<MissingMomentum>(e, "MISSING");
+        const MissingMomentum & missmom = apply<MissingMomentum>(e, "MISSING");
         const FourMomentum Z2 = missmom.missingMomentum(ZMASS);
         double met_Znunu = missmom.missingEt(); //Z2.pT();
 

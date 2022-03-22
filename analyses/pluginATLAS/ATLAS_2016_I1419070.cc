@@ -37,7 +37,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      Jets m_goodJets = applyProjection<JetAlg>(event, "Jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::abseta < 2.1);
+      Jets m_goodJets = apply<JetAlg>(event, "Jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::abseta < 2.1);
 
       if (m_goodJets.size() < 2)        vetoEvent;
       if (m_goodJets[0].pT() < 50*GeV)  vetoEvent;

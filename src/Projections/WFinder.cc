@@ -102,7 +102,7 @@ namespace Rivet {
     _neutrinos.clear();
 
     // Check missing ET
-    const MissingMomentum& missmom = applyProjection<MissingMomentum>(e, "MissingET");
+    const MissingMomentum& missmom = apply<MissingMomentum>(e, "MissingET");
     const double met = missmom.vectorEt().mod();
     MSG_TRACE("MET = " << met/GeV << " GeV vs. required > " << _etMissMin/GeV << " GeV");
     if (met < _etMissMin) {
@@ -111,7 +111,7 @@ namespace Rivet {
     }
 
     // Get lepton
-    const DressedLeptons& leptons = applyProjection<DressedLeptons>(e, "DressedLeptons");
+    const DressedLeptons& leptons = apply<DressedLeptons>(e, "DressedLeptons");
     if ( leptons.dressedLeptons().empty() ) {
       MSG_DEBUG("No dressed leptons");
       return;

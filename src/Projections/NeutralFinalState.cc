@@ -11,7 +11,7 @@ namespace Rivet {
 
 
   void NeutralFinalState::project(const Event& e) {
-    const FinalState& fs = applyProjection<FinalState>(e, "FS");
+    const FinalState& fs = apply<FinalState>(e, "FS");
     _theParticles.clear();
     for (const Particle& p : fs.particles()) {
       if (p.charge3() == 0 && p.Et() > _Etmin) {

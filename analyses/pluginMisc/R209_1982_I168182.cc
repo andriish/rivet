@@ -48,7 +48,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const ZFinder& zfinder = applyProjection<ZFinder>(event, "ZFinder");
+      const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.particles().size() >= 1) {
 
         double Zmass = zfinder.bosons()[0].momentum().mass()/GeV;

@@ -71,7 +71,7 @@ namespace Rivet {
 
       // Fill the histograms.
       for ( const auto& p :
-        applyProjection<ALICE::PrimaryParticles>(event,"APRIM").particles() )
+        apply<ALICE::PrimaryParticles>(event,"APRIM").particles() )
         if(p.abscharge() > 0) hItr->second->fill(p.eta());
 
     }

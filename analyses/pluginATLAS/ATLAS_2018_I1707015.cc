@@ -87,7 +87,7 @@ namespace Rivet {
 
       // Fetch objects
       const vector<DressedLepton>& leptons = apply<DressedLeptons>(event, "Leptons").dressedLeptons();
-      Particles photons = applyProjection<PromptFinalState>(event, "Photons").particles();
+      Particles photons = apply<PromptFinalState>(event, "Photons").particles();
       ChargedFinalState charged = apply<ChargedFinalState>(event, "CFS");
       Jets jets = apply<JetAlg>(event, "Jets").jetsByPt(Cuts::abseta < 2.5 && Cuts::pT > 25*GeV);
 

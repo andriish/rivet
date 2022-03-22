@@ -82,7 +82,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       /// @todo Do the event by event analysis here
-      const WFinder& wfinder_mu = applyProjection<WFinder>(event, "WFinder_mu");
+      const WFinder& wfinder_mu = apply<WFinder>(event, "WFinder_mu");
 
       if (wfinder_mu.bosons().size() != 1) {
         vetoEvent;
@@ -107,7 +107,7 @@ namespace Rivet {
         double HT = 0.0;
 
         // loop over jets in an event, pushback in finaljet_list collection
-        for (const Jet& j : applyProjection<FastJets>(event, "Jets").jetsByPt(30.0*GeV)) {
+        for (const Jet& j : apply<FastJets>(event, "Jets").jetsByPt(30.0*GeV)) {
           const double jrap = j.momentum().rap();
           const double jpt = j.momentum().pT();
           if ( (fabs(jrap) < 2.4) && (deltaR(lepton0, j.momentum()) > 0.4) ) {

@@ -50,7 +50,7 @@ namespace Rivet {
       const double weight = 1.0;
 
       // AK4 jets
-      const FastJets& fjAK4 = applyProjection<FastJets>(event, "JetsAK4");
+      const FastJets& fjAK4 = apply<FastJets>(event, "JetsAK4");
       const Jets& jetsAK4 = fjAK4.jets(Cuts::ptIn(114*GeV, 2200.0*GeV) && Cuts::absrap < 4.7);
       for (const Jet& j : jetsAK4) {
         _hist_sigmaAK4.fill(j.absrap(), j.pT(), weight);
@@ -58,7 +58,7 @@ namespace Rivet {
       }
 
       // AK7 jets
-      const FastJets& fjAK7 = applyProjection<FastJets>(event, "JetsAK7");
+      const FastJets& fjAK7 = apply<FastJets>(event, "JetsAK7");
       const Jets& jetsAK7 = fjAK7.jets(Cuts::ptIn(114*GeV, 2200.0*GeV) && Cuts::absrap < 4.7);
       for (const Jet& j : jetsAK7) {
         _hist_sigmaAK7.fill(j.absrap(), j.pT(), weight);

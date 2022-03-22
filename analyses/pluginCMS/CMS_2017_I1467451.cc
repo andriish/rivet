@@ -63,7 +63,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = 1.0;
 
-      Particles leptons = applyProjection<DressedLeptons>(event, "DressedLeptons").particlesByPt(10.0*GeV);
+      Particles leptons = apply<DressedLeptons>(event, "DressedLeptons").particlesByPt(10.0*GeV);
       if (leptons.size() < 2) vetoEvent;
       if (leptons[0].pT() < 20*GeV || leptons[1].pT() < 10*GeV) vetoEvent;
       if (leptons[0].charge() == leptons[1].charge()) vetoEvent;
@@ -73,7 +73,7 @@ namespace Rivet {
       if (LL.mass() < 12*GeV) vetoEvent;
       if (LL.pT() < 30*GeV) vetoEvent;
 
-      FourMomentum EtMiss = applyProjection<MissingMomentum>(event,"MET").missingMomentum();
+      FourMomentum EtMiss = apply<MissingMomentum>(event,"MET").missingMomentum();
       FourMomentum P4H = LL + EtMiss;
 
       double dphi = deltaPhi(LL, EtMiss);

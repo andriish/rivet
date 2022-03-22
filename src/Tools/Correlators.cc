@@ -154,7 +154,7 @@ namespace Rivet {
     // can be unity. Note that this weight is not the MC event weight, which
     // should be used when filling histograms (as usual).
     const double w = 1.0;;
-    const Particles& parts = applyProjection<ParticleFinder>(e, "FS").particles();
+    const Particles& parts = apply<ParticleFinder>(e, "FS").particles();
     // Check that we have at least two particles in the event
     if (parts.size() > 2)  {
       for(const Particle& p : parts)

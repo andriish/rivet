@@ -208,7 +208,7 @@ namespace Rivet {
       _sumW_ch->fill();
 
       // Charged multiplicity
-      const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
+      const FinalState& cfs = apply<FinalState>(event, "CFS");
       if(_h_Ncharged) _h_Ncharged->fill(cfs.size());
       if (iflav == 1) {
         _sumW_ch_udsc->fill();
@@ -240,7 +240,7 @@ namespace Rivet {
       }
 
       // Thrust
-      const Thrust& thrust = applyProjection<Thrust>(event, "thrust");
+      const Thrust& thrust = apply<Thrust>(event, "thrust");
       if (iflav == 1) {
         _h_Thrust_udsc->fill(thrust.thrust());
       } else if (iflav == 5) {
@@ -251,7 +251,7 @@ namespace Rivet {
       }
 
       // C and D Parisi parameters
-      const ParisiTensor& parisi = applyProjection<ParisiTensor>(event, "Parisi");
+      const ParisiTensor& parisi = apply<ParisiTensor>(event, "Parisi");
       if (iflav == 1) {
         _h_Cparameter_udsc->fill(parisi.C());
         _h_Dparameter_udsc->fill(parisi.D());
@@ -265,7 +265,7 @@ namespace Rivet {
       }
 
       // The hemisphere variables
-      const Hemispheres& hemisphere = applyProjection<Hemispheres>(event, "Hemispheres");
+      const Hemispheres& hemisphere = apply<Hemispheres>(event, "Hemispheres");
       if (iflav == 1) {
         _h_heavyJetmass_udsc->fill(hemisphere.scaledM2high());
         _h_totalJetbroad_udsc->fill(hemisphere.Bsum());
@@ -355,7 +355,7 @@ namespace Rivet {
       // Cambridge
       if(_h_y_2_Cambridge) {
 	PseudoJets pjs;
-	const FinalState& fs = applyProjection<FinalState>(event, "FS");
+	const FinalState& fs = apply<FinalState>(event, "FS");
 	for (size_t i = 0; i < fs.particles().size(); ++i) {
 	  fastjet::PseudoJet pj = fs.particles()[i];
 	  pjs.push_back(pj);

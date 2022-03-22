@@ -124,11 +124,11 @@ namespace Rivet {
       const double cent = centProj();
 
       // The correlators projections.
-      const Correlators& c = applyProjection<Correlators>(event,"Correlators");
+      const Correlators& c = apply<Correlators>(event,"Correlators");
       const Correlators& cp =
-        applyProjection<Correlators>(event,"CorrelatorsPos");
+        apply<Correlators>(event,"CorrelatorsPos");
       const Correlators& cn =
-        applyProjection<Correlators>(event,"CorrelatorsNeg");
+        apply<Correlators>(event,"CorrelatorsNeg");
 
       ec22gap->fill(cent, cp, cn);
       ec32gap->fill(cent, cp, cn);

@@ -55,8 +55,8 @@ namespace Rivet {
     //const FinalState& fsall = apply<FinalState>(event, "FS");
     const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
 
-    const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
-    const DISLepton& dl = applyProjection<DISLepton>(event,"Lepton");
+    const DISKinematics& dk = apply<DISKinematics>(event, "Kinematics");
+    const DISLepton& dl = apply<DISLepton>(event,"Lepton");
 
     double x = dk.x();
     double y = dk.y();

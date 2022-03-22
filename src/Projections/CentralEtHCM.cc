@@ -5,7 +5,7 @@ namespace Rivet {
 
 
   void CentralEtHCM::project(const Event& e) {
-    const DISFinalState& fs = applyProjection<DISFinalState>(e, "FS");
+    const DISFinalState& fs = apply<DISFinalState>(e, "FS");
     if ( fs.failed() ) {
       fail();
       return;

@@ -64,10 +64,10 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");      
+      // const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");      
       const FinalState& fs = apply<FinalState>(event, "FS");
-      const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
-      const DISLepton& dl = applyProjection<DISLepton>(event,"Lepton");
+      const DISKinematics& dk = apply<DISKinematics>(event, "Kinematics");
+      const DISLepton& dl = apply<DISLepton>(event,"Lepton");
 
       // Get the DIS kinematics
       double x  = dk.x();

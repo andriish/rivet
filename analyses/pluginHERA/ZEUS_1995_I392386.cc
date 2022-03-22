@@ -98,7 +98,7 @@ const vector<double> xEdges {0.6e-3,1.2e-3,2.4e-3,1.0e-2,5.0e-2};
     /// Perform the per-event analysis
     void analyze(const Event& event) {
         const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "FS");
-        const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
+        const DISKinematics& dk = apply<DISKinematics>(event, "Kinematics");
 
         double xbj = dk.x(); // momentum fraction
         double Q2 = dk.Q2()/GeV; // momentum transfer

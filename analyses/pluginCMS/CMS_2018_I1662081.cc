@@ -72,7 +72,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Lepton veto selection
-      const DressedLeptons& dressed_leptons = applyProjection<DressedLeptons>(event, "DressedLeptons");
+      const DressedLeptons& dressed_leptons = apply<DressedLeptons>(event, "DressedLeptons");
       if (dressed_leptons.dressedLeptons().size() != 1) vetoEvent;
 
       // Signal lepton selection
@@ -83,7 +83,7 @@ namespace Rivet {
       if (leptonPt <= 26*GeV || leptonAbsEta >= 2.4) vetoEvent;
 
       // Jet selection
-      const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
+      const FastJets& jetpro = apply<FastJets>(event, "Jets");
       const Jets jets = jetpro.jets(Cuts::abseta < 2.4 && Cuts::pT > 20*GeV);
       Jets cleanedJets;
       unsigned int nJetsAbove30GeV = 0;
@@ -105,7 +105,7 @@ namespace Rivet {
       if ( nBJetsAbove30GeV < 1 || nBJetsAbove20GeV < 2 ) vetoEvent;
 
       // MET
-      const MissingMomentum& met = applyProjection<MissingMomentum>(event, "MET");
+      const MissingMomentum& met = apply<MissingMomentum>(event, "MET");
       _hist_norm_met->fill(met.visibleMomentum().pT()/GeV);
       _hist_abs_met->fill(met.visibleMomentum().pT()/GeV);
 

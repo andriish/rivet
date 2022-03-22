@@ -78,8 +78,8 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const ZFinder& zeeFS = applyProjection<ZFinder>(event, "ZeeFinder");
-      const ZFinder& zmumuFS = applyProjection<ZFinder>(event, "ZmumuFinder");
+      const ZFinder& zeeFS = apply<ZFinder>(event, "ZeeFinder");
+      const ZFinder& zmumuFS = apply<ZFinder>(event, "ZmumuFinder");
 
       const Particles& zees = zeeFS.bosons();
       const Particles& zmumus = zmumuFS.bosons();
@@ -100,7 +100,7 @@ namespace Rivet {
 
       // Cluster jets
       // NB. Veto has already been applied on leptons and photons used for dressing
-      const FastJets& fj = applyProjection<FastJets>(event, "AntiKt05Jets");
+      const FastJets& fj = apply<FastJets>(event, "AntiKt05Jets");
       const Jets& jets = fj.jetsByPt(Cuts::abseta < 2.4 && Cuts::pT > 30*GeV);
 
       // Perform lepton-jet overlap and HT calculation

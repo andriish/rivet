@@ -22,7 +22,7 @@ namespace Rivet {
     clear();
 
     // Project into final state
-    const FinalState& vfs = applyProjection<FinalState>(e, "VisibleFS");
+    const FinalState& vfs = apply<FinalState>(e, "VisibleFS");
     for (const Particle& p : vfs.particles()) {
       const FourMomentum& mom = p.momentum();
       const Vector3 ptunit = mom.vector3().setZ(0.0).unit();

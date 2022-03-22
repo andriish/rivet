@@ -42,8 +42,8 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const Jets& kt4Jets = applyProjection<FastJets>(event, "AntiKT04").jetsByPt(Cuts::pT>70*GeV && Cuts::absrap < 3.0);
-      const Jets& kt6Jets = applyProjection<FastJets>(event, "AntiKT06").jetsByPt(Cuts::pT>70*GeV && Cuts::absrap < 3.0);
+      const Jets& kt4Jets = apply<FastJets>(event, "AntiKT04").jetsByPt(Cuts::pT>70*GeV && Cuts::absrap < 3.0);
+      const Jets& kt6Jets = apply<FastJets>(event, "AntiKT06").jetsByPt(Cuts::pT>70*GeV && Cuts::absrap < 3.0);
 
       int nJets4 = kt4Jets.size();
       int nJets6 = kt6Jets.size();

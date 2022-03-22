@@ -7,7 +7,7 @@ namespace Rivet {
   void PrimaryHadrons::project(const Event& e) {
     _theParticles.clear();
 
-    const Particles& unstables = applyProjection<FinalState>(e, "UFS").particles();
+    const Particles& unstables = apply<FinalState>(e, "UFS").particles();
     for (const Particle& p : unstables) {
       // Exclude taus etc.
       if (!isHadron(p)) continue;

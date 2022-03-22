@@ -9,9 +9,9 @@ namespace Rivet {
     clear();
 
     // Get thrust axes.
-    const AxesDefinition& ax = applyProjection<AxesDefinition>(e, "Axes");
+    const AxesDefinition& ax = apply<AxesDefinition>(e, "Axes");
     const Vector3 n = ax.axis1();
-    const FinalState& fs = applyProjection<FinalState>(e, ax.getProjection("FS"));
+    const FinalState& fs = apply<FinalState>(e, ax.getProjection("FS"));
     const Particles& particles = fs.particles();
     calc(n, particles);
   }

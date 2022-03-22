@@ -15,7 +15,7 @@ namespace Rivet {
 
 
   void HadronicFinalState::project(const Event& e) {
-    const FinalState& fs = applyProjection<FinalState>(e, "FS");
+    const FinalState& fs = apply<FinalState>(e, "FS");
     _theParticles.clear();
     std::remove_copy_if(fs.particles().begin(), fs.particles().end(),
                         std::back_inserter(_theParticles), hadronFilter);

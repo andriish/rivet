@@ -72,7 +72,7 @@ namespace Rivet {
 
     // Base the calculation on PrevFS if available, otherwise OpenFS
     /// @todo In general, we'd like to calculate a restrictive FS based on the most restricted superset FS.
-    const Particles& allstable = applyProjection<FinalState>(e, (hasProjection("PrevFS") ? "PrevFS" : "OpenFS")).particles();
+    const Particles& allstable = apply<FinalState>(e, (hasProjection("PrevFS") ? "PrevFS" : "OpenFS")).particles();
     MSG_TRACE("Beginning Cuts selection");
     for (const Particle& p : allstable) {
       const bool passed = accept(p);

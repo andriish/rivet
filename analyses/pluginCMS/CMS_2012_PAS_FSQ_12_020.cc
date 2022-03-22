@@ -36,7 +36,7 @@ namespace Rivet {
 
 
       // Require at least one track in the event with pT >= 0.5 GeV
-      const FinalState& cfs = applyProjection<ChargedFinalState>(event, "Tracks");
+      const FinalState& cfs = apply<ChargedFinalState>(event, "Tracks");
       if (cfs.empty()) vetoEvent;
       const Particles trks = cfs.particlesByPt();
 

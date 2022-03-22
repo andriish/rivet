@@ -128,7 +128,7 @@ namespace Rivet {
 
     /// @brief Perform the per-event analysis
     void analyze(const Event& event) override {
-      vector<Particle> topQuarks = applyProjection<PartonicTops>(
+      vector<Particle> topQuarks = apply<PartonicTops>(
         event,
         "TopQuarks"
       ).tops();
@@ -139,7 +139,7 @@ namespace Rivet {
         return;
       }
 
-      vector<DressedLepton> dressedLeptons = applyProjection<DressedLeptons>(
+      vector<DressedLepton> dressedLeptons = apply<DressedLeptons>(
         event,
         "DressedLeptons"
       ).dressedLeptons();

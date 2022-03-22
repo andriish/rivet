@@ -92,14 +92,14 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // select ttbar -> lepton+jets
-      const vector<DressedLepton>& leptons = applyProjection<DressedLeptons>(event, "DressedLeptons").dressedLeptons();
+      const vector<DressedLepton>& leptons = apply<DressedLeptons>(event, "DressedLeptons").dressedLeptons();
       int nsel_leptons = 0;
       for (const DressedLepton& lepton : leptons) {
         if (lepton.pt() > 26.) nsel_leptons += 1; else vetoEvent; // found veto lepton
       }
       if (nsel_leptons != 1) vetoEvent;
 
-      const Jets all_jets = applyProjection<FastJets>(event, "Jets").jetsByPt(jet_cut);
+      const Jets all_jets = apply<FastJets>(event, "Jets").jetsByPt(jet_cut);
       if (all_jets.size() < 4) vetoEvent;
 
       // categorize jets

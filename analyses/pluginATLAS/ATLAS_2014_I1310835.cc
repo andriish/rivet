@@ -54,8 +54,8 @@ namespace Rivet {
       // preselection of leptons for ZZ-> llll final state
       ////////////////////////////////////////////////////////////////////
 
-      const vector<DressedLepton>& mu_sel4l = applyProjection<DressedLeptons>(e, "muons").dressedLeptons();
-      const vector<DressedLepton>& el_sel4l = applyProjection<DressedLeptons>(e, "electrons").dressedLeptons();
+      const vector<DressedLepton>& mu_sel4l = apply<DressedLeptons>(e, "muons").dressedLeptons();
+      const vector<DressedLepton>& el_sel4l = apply<DressedLeptons>(e, "electrons").dressedLeptons();
 
       vector<DressedLepton> leptonsFS_sel4l;
       leptonsFS_sel4l.insert( leptonsFS_sel4l.end(), mu_sel4l.begin(), mu_sel4l.end() );
@@ -194,7 +194,7 @@ namespace Rivet {
       ///////////////////////////////////////////////////////////////////////////
 
       Jets jets;
-      for (const Jet& jet : applyProjection<FastJets>(e, "jet").jetsByPt(Cuts::pT > 30*GeV && Cuts::absrap < 4.4)) {
+      for (const Jet& jet : apply<FastJets>(e, "jet").jetsByPt(Cuts::pT > 30*GeV && Cuts::absrap < 4.4)) {
         bool overlaps = false;
         for (const Particle& lep : leptonsFS_sel4l) {
           if (lep.abspid() != PID::ELECTRON)  continue;

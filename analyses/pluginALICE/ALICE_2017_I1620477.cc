@@ -34,7 +34,7 @@ namespace Rivet {
 
     void analyze(const Event& event) {
 
-      const UnstableParticles& ufs = applyProjection<UnstableParticles>(event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
 
       for(const Particle& p : ufs.particles()) {
 

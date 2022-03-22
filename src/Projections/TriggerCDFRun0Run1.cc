@@ -19,7 +19,7 @@ namespace Rivet {
     int n_backward = 0;
     int n_forward = 0;
 
-    const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(evt, "CFS");
+    const ChargedFinalState& cfs = apply<ChargedFinalState>(evt, "CFS");
     for (const Particle& p : cfs.particles()) {
       if (inRange(p.eta(), -5.9, -3.2)) n_trig_1++;
       else if (inRange(p.eta(), 3.2, 5.9)) n_trig_2++;

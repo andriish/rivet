@@ -152,7 +152,7 @@ namespace Rivet {
       // If the radius is 0 or negative, don't even attempt to cluster
       if (_dRmax > 0) {
         // Match each photon to its closest charged lepton within the dR cone
-        const FinalState& photons = applyProjection<FinalState>(e, "Photons");
+        const FinalState& photons = apply<FinalState>(e, "Photons");
         for (const Particle& photon : photons.particles()) {
           // Ignore photon if it's from a hadron/tau decay and we're avoiding those
           /// @todo Already removed via the PromptFinalState conversion above?

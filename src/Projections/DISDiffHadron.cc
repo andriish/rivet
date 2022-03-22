@@ -12,7 +12,7 @@ namespace Rivet {
   void DISDiffHadron::project(const Event& e) {
 
       // Find incoming lepton beam
-      const ParticlePair& inc = applyProjection<Beam>(e, "Beam").beams();
+      const ParticlePair& inc = apply<Beam>(e, "Beam").beams();
       bool firstIsHadron = PID::isHadron(inc.first.pid());
       bool secondIsHadron = PID::isHadron(inc.second.pid());
       if (firstIsHadron && !secondIsHadron) {
@@ -24,7 +24,7 @@ namespace Rivet {
         return;
       }
 
-      const FinalState & fs = applyProjection<FinalState>(e, "FS");
+      const FinalState & fs = apply<FinalState>(e, "FS");
       Particles fshadrons;
       if ( _incoming.momentum().pz() >= 0.0 )
         fshadrons = fs.particles(isHadron, cmpMomByDescEta);

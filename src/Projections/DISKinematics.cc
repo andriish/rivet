@@ -8,7 +8,7 @@ namespace Rivet {
   void DISKinematics::project(const Event& e) {
 
     // Find appropriate DIS leptons
-    const DISLepton& dislep = applyProjection<DISLepton>(e, "Lepton");
+    const DISLepton& dislep = apply<DISLepton>(e, "Lepton");
     if ( dislep.failed() ) {
       fail();
       return;
@@ -16,7 +16,7 @@ namespace Rivet {
     _outLepton = dislep.out();
 
     // Identify beam hadron
-    const ParticlePair& inc = applyProjection<Beam>(e, "Beam").beams();
+    const ParticlePair& inc = apply<Beam>(e, "Beam").beams();
     const bool firstIsHadron  = PID::isHadron(inc.first.pid());
     const bool secondIsHadron = PID::isHadron(inc.second.pid());
     if (firstIsHadron && !secondIsHadron) {
