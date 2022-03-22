@@ -213,7 +213,7 @@ namespace Rivet {
   FourMomenta Jets::moms() const {
     // FourMomenta rtn(this->begin(), this->end());
     FourMomenta rtn; rtn.reserve(this->size());
-    for (size_t i = 0; i < this->size(); ++i) rtn.push_back((*this)[i]);
+    for (size_t i = 0; i < this->size(); ++i) rtn.push_back((*this)[i].momentum());
     return rtn;
   }
 
