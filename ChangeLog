@@ -1,3 +1,15 @@
+2022-03-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add MissingMom typedef for MissingMomentum.
+
+	* Add vectorEt/PtMiss() and scalarEt/PtMiss() methods to MissingMomentum.
+
+	* Use ThreeMomentum in MissingMomentum for the vectorPt() etc.
+
+	* Add ThreeMomentum/P3 type with momentum-oriented method names, cf. FourVector->FourMomentum.
+
+	* Add a pseudojets() method to the Jets container type.
+
 2022-03-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add finalize-scaling protection in ATLAS_2020_1790256.
