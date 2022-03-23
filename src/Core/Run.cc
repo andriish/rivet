@@ -155,46 +155,64 @@ namespace Rivet {
 
 
   bool Run::init(const std::string& evtfile, double weight) {
-    if (!openFile(evtfile, weight)) return false;
+    try {
+      if (!openFile(evtfile, weight)) return false;
 
-    // Read first event to define run conditions
-    bool ok = readEvent();
-    if (!ok) return false;
-    if(HepMCUtils::particles(_evt).size() == 0){
-      MSG_ERROR("Empty first event.");
-      return false;
-    }
-
-    // Initialise AnalysisHandler with beam information from first event
-    _ah.init(*_evt);
-
-    // Set cross-section from command line
-    if (notNaN(_xs)) {
-      MSG_DEBUG("Setting user cross-section = " << _xs << " pb");
-      _ah.setCrossSection(make_pair(_xs, 0.0), true);
-    }
-
-    // List the chosen & compatible analyses if requested
-    if (_listAnalyses) {
-      for (const std::string& ana : _ah.analysisNames()) {
-        cout << ana << endl;
+      // Read first event to define run conditions
+      bool ok = readEvent();
+      if (!ok) return false;
+      if(HepMCUtils::particles(_evt).size() == 0){
+        MSG_ERROR("Empty first event.");
+        return false;
       }
-    }
 
-    return true;
+      // Initialise AnalysisHandler with beam information from first event
+      _ah.init(*_evt);
+
+      // Set cross-section from command line
+      if (notNaN(_xs)) {
+        MSG_DEBUG("Setting user cross-section = " << _xs << " pb");
+        _ah.setCrossSection(make_pair(_xs, 0.0), true);
+      }
+
+      // List the chosen & compatible analyses if requested
+      if (_listAnalyses) {
+        for (const std::string& ana : _ah.analysisNames()) {
+          cout << ana << endl;
+        }
+      }
+
+      return true;
+    }
+    catch (const Error &err){
+      std::cerr << "Error in run initialisation: " << err.what();
+      exit(1);
+    }
   }
 
 
   bool Run::processEvent() {
-    _ah.analyze(*_evt);
-    return true;
+    try {
+      _ah.analyze(*_evt);
+      return true;
+    }
+    catch (const Error &err){
+      std::cerr << "Error in processing event: " << err.what();
+      exit(1);
+    }
   }
 
 
   bool Run::finalize() {
-    _evt.reset();
-    _ah.finalize();
-    return true;
+    try {
+      _evt.reset();
+      _ah.finalize();
+      return true;
+    }
+    catch (const Error &err){
+      std::cerr << "Error in run finalize: " << err.what();
+      exit(1);
+    }
   }
 
 

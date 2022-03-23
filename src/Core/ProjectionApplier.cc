@@ -42,9 +42,7 @@ namespace Rivet {
                                                           const string& name) const {
     MSG_TRACE("Declaring Projection "<<&proj<<" ("<<proj.name()<<") in parent "<<this<<" ("<<this->name()<<")");
     if (!_allowProjReg) {
-      std::cerr << "Trying to register projection '"
-           << proj.name() << "' outside init phase in '" << this->name() << "'.\n";
-      exit(2);
+      throw Error("Trying to register projection '" + proj.name() + "' outside init phase in '" + this->name());
     }
     const Projection& reg = getProjHandler().registerProjection(*this, proj, name);
     _syncDeclQueue();
