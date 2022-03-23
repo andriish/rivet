@@ -1,6 +1,7 @@
 #ifndef RIVET_MATH_VECTOR3
 #define RIVET_MATH_VECTOR3
 
+#include "Rivet/Tools/TypeTraits.hh"
 #include "Rivet/Math/MathConstants.hh"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/VectorN.hh"
@@ -11,9 +12,6 @@ namespace Rivet {
   class Vector3;
   typedef Vector3 ThreeVector;
   typedef Vector3 V3;
-
-  class Matrix3;
-
   Vector3 multiply(const double, const Vector3&);
   Vector3 multiply(const Vector3&, const double);
   Vector3 add(const Vector3&, const Vector3&);
@@ -22,6 +20,20 @@ namespace Rivet {
   Vector3 operator/(const Vector3&, const double);
   Vector3 operator+(const Vector3&, const Vector3&);
   Vector3 operator-(const Vector3&, const Vector3&);
+
+  class ThreeMomentum;
+  typedef ThreeMomentum P3;
+  ThreeMomentum multiply(const double, const ThreeMomentum&);
+  ThreeMomentum multiply(const ThreeMomentum&, const double);
+  ThreeMomentum add(const ThreeMomentum&, const ThreeMomentum&);
+  ThreeMomentum operator*(const double, const ThreeMomentum&);
+  ThreeMomentum operator*(const ThreeMomentum&, const double);
+  ThreeMomentum operator/(const ThreeMomentum&, const double);
+  ThreeMomentum operator+(const ThreeMomentum&, const ThreeMomentum&);
+  ThreeMomentum operator-(const ThreeMomentum&, const ThreeMomentum&);
+
+  class Matrix3;
+
 
 
   /// @brief Three-dimensional specialisation of Vector.
@@ -68,10 +80,15 @@ namespace Rivet {
   public:
 
     double x() const { return get(0); }
-    double y() const { return get(1); }
-    double z() const { return get(2); }
+    double x2() const { return sqr(x()); }
     Vector3& setX(double x) { set(0, x); return *this; }
+
+    double y() const { return get(1); }
+    double y2() const { return sqr(y()); }
     Vector3& setY(double y) { set(1, y); return *this; }
+
+    double z() const { return get(2); }
+    double z2() const { return sqr(z()); }
     Vector3& setZ(double z) { set(2, z); return *this; }
 
 
@@ -312,6 +329,198 @@ namespace Rivet {
   /// Angle (in radians) between two 3-vectors.
   inline double angle(const Vector3& a, const Vector3& b) {
     return a.angle(b);
+  }
+
+
+  /////////////////////////////////////////////////////
+
+
+  /// Specialized version of the ThreeVector with momentum functionality.
+  class ThreeMomentum : public ThreeVector {
+  public:
+    ThreeMomentum() { }
+
+    template<typename V3TYPE, typename std::enable_if<HasXYZ<V3TYPE>::value, int>::type DUMMY=0>
+    ThreeMomentum(const V3TYPE& other) {
+      this->setPx(other.x());
+      this->setPy(other.y());
+      this->setPz(other.z());
+    }
+
+    ThreeMomentum(const Vector<3>& other)
+      : ThreeVector(other) { }
+
+    ThreeMomentum(const double px, const double py, const double pz) {
+      this->setPx(px);
+      this->setPy(py);
+      this->setPz(pz);
+    }
+
+    ~ThreeMomentum() {}
+
+  public:
+
+
+    /// @name Coordinate setters
+    //@{
+
+    /// Set x-component of momentum \f$ p_x \f$.
+    ThreeMomentum& setPx(double px) {
+      setX(px);
+      return *this;
+    }
+
+    /// Set y-component of momentum \f$ p_y \f$.
+    ThreeMomentum& setPy(double py) {
+      setY(py);
+      return *this;
+    }
+
+    /// Set z-component of momentum \f$ p_z \f$.
+    ThreeMomentum& setPz(double pz) {
+      setZ(pz);
+      return *this;
+    }
+
+    //@}
+
+
+    /// @name Accessors
+    //@{
+
+    /// Get x-component of momentum \f$ p_x \f$.
+    double px() const { return x(); }
+    /// Get x-squared \f$ p_x^2 \f$.
+    double px2() const { return x2(); }
+
+    /// Get y-component of momentum \f$ p_y \f$.
+    double py() const { return y(); }
+    /// Get y-squared \f$ p_y^2 \f$.
+    double py2() const { return y2(); }
+
+    /// Get z-component of momentum \f$ p_z \f$.
+    double pz() const { return z(); }
+    /// Get z-squared \f$ p_z^2 \f$.
+    double pz2() const { return z2(); }
+
+
+    /// Get the modulus of the 3-momentum
+    double p() const { return mod(); }
+    /// Get the modulus-squared of the 3-momentum
+    double p2() const { return mod2(); }
+
+
+    /// Calculate the transverse momentum vector \f$ \vec{p}_T \f$.
+    ThreeMomentum pTvec() const {
+      return polarVec();
+    }
+    /// Synonym for pTvec
+    ThreeMomentum ptvec() const {
+      return pTvec();
+    }
+
+    /// Calculate the squared transverse momentum \f$ p_T^2 \f$.
+    double pT2() const {
+      return polarRadius2();
+    }
+    /// Calculate the squared transverse momentum \f$ p_T^2 \f$.
+    double pt2() const {
+      return polarRadius2();
+    }
+
+    /// Calculate the transverse momentum \f$ p_T \f$.
+    double pT() const {
+      return sqrt(pT2());
+    }
+    /// Calculate the transverse momentum \f$ p_T \f$.
+    double pt() const {
+      return sqrt(pT2());
+    }
+
+    //@}
+
+
+    ////////////////////////////////////////
+
+
+    /// @name Arithmetic operators (needed again for covariant returns)
+    //@{
+
+    /// Multiply by a scalar
+    ThreeMomentum& operator *= (double a) {
+      _vec = multiply(a, *this)._vec;
+      return *this;
+    }
+
+    /// Divide by a scalar
+    ThreeMomentum& operator /= (double a) {
+      _vec = multiply(1.0/a, *this)._vec;
+      return *this;
+    }
+
+    /// Add two 3-momenta
+    ThreeMomentum& operator += (const ThreeMomentum& v) {
+      _vec = add(*this, v)._vec;
+      return *this;
+    }
+
+    /// Subtract two 3-momenta
+    ThreeMomentum& operator -= (const ThreeMomentum& v) {
+      _vec = add(*this, -v)._vec;
+      return *this;
+    }
+
+    /// Multiply all components by -1.
+    ThreeMomentum operator - () const {
+      ThreeMomentum result;
+      result._vec = -_vec;
+      return result;
+    }
+
+    // /// Multiply space (i.e. all!) components by -1.
+    // ThreeMomentum reverse() const {
+    //   return -*this;
+    // }
+
+    //@}
+
+  };
+
+
+  inline ThreeMomentum multiply(const double a, const ThreeMomentum& v) {
+    ThreeMomentum result;
+    result._vec = a * v._vec;
+    return result;
+  }
+
+  inline ThreeMomentum multiply(const ThreeMomentum& v, const double a) {
+    return multiply(a, v);
+  }
+
+  inline ThreeMomentum operator*(const double a, const ThreeMomentum& v) {
+    return multiply(a, v);
+  }
+
+  inline ThreeMomentum operator*(const ThreeMomentum& v, const double a) {
+    return multiply(a, v);
+  }
+
+  inline ThreeMomentum operator/(const ThreeMomentum& v, const double a) {
+    return multiply(1.0/a, v);
+  }
+
+  inline ThreeMomentum add(const ThreeMomentum& a, const ThreeMomentum& b) {
+    ThreeMomentum result;
+    result._vec = a._vec + b._vec;
+    return result;
+  }
+
+  inline ThreeMomentum operator+(const ThreeMomentum& a, const ThreeMomentum& b) {
+    return add(a, b);
+  }
+
+  inline ThreeMomentum operator-(const ThreeMomentum& a, const ThreeMomentum& b) {
+    return add(a, -b);
   }
 
 

@@ -232,11 +232,13 @@ namespace Rivet {
     Jets _jets() const;
 
     /// Get the pseudo jets (unordered).
+    /// @deprecated Use pseudojets
     PseudoJets pseudoJets(double ptmin=0.0) const;
     /// Alias
     PseudoJets pseudojets(double ptmin=0.0) const { return pseudoJets(ptmin); }
 
     /// Get the pseudo jets, ordered by \f$ p_T \f$.
+    /// @deprecated Use pseudojetsbyPt
     PseudoJets pseudoJetsByPt(double ptmin=0.0) const {
       return sorted_by_pt(pseudoJets(ptmin));
     }
@@ -244,6 +246,7 @@ namespace Rivet {
     PseudoJets pseudojetsByPt(double ptmin=0.0) const { return pseudoJetsByPt(ptmin); }
 
     /// Get the pseudo jets, ordered by \f$ E \f$.
+    /// @deprecated Use pseudojetsByE
     PseudoJets pseudoJetsByE(double ptmin=0.0) const {
       return sorted_by_E(pseudoJets(ptmin));
     }
@@ -251,6 +254,7 @@ namespace Rivet {
     PseudoJets pseudojetsByE(double ptmin=0.0) const { return pseudoJetsByE(ptmin); }
 
     /// Get the pseudo jets, ordered by rapidity.
+    /// @deprecated Use pseudojetsByRapidity
     PseudoJets pseudoJetsByRapidity(double ptmin=0.0) const {
       return sorted_by_rapidity(pseudoJets(ptmin));
     }

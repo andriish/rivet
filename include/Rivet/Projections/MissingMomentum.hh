@@ -49,6 +49,8 @@ namespace Rivet {
     /// @note The optional @a mass argument is used to set a mass on the 4-vector. By
     ///   default it is zero (since missing momentum is really a 3-momentum quantity:
     ///   adding the E components of visible momenta just gives a huge mass)
+    ///
+    /// @todo Change to return a 3-vector with no argument, a 4-vector if a mass arg given
     const FourMomentum visibleMomentum(double mass=0*GeV) const;
     /// Alias for visibleMomentum
     const FourMomentum visibleMom(double mass=0*GeV) const { return visibleMomentum(mass); }
@@ -58,6 +60,8 @@ namespace Rivet {
     /// @note The optional @a mass argument is used to set a mass on the 4-vector. By
     ///   default it is zero (since missing momentum is really a 3-momentum quantity:
     ///   adding the E components of visible momenta just gives a huge mass)
+    ///
+    /// @todo Change to return a 3-vector with no argument, a 4-vector if a mass arg given
     const FourMomentum missingMomentum(double mass=0*GeV) const { return visibleMomentum(mass).reverse(); }
     /// Alias for missingMomentum
     const FourMomentum missingMom(double mass=0*GeV) const { return missingMomentum(mass); }
@@ -73,7 +77,13 @@ namespace Rivet {
     /// @brief The vector-summed visible transverse momentum in the event, as a 3-vector with z=0
     ///
     /// @note Reverse this vector with operator- to get the missing pT vector.
-    const Vector3& vectorPt() const { return _vpt; }
+    const ThreeMomentum& vectorPt() const { return _vpt; }
+
+    /// @brief The vector missing transverse momentum in the event, as a 3-vector with z=0
+    const ThreeMomentum vectorPtMiss() const { return -vectorPt(); }
+
+    /// @brief The scalar value of missing transverse momentum in the event
+    double scalarPtMiss() const { return vectorPtMiss().pT(); }
 
     /// The scalar-summed visible transverse momentum in the event.
     double scalarPt() const { return _spt; }
@@ -93,9 +103,16 @@ namespace Rivet {
     /// @note Reverse this vector with operator- to get the missing ET vector.
     const Vector3& vectorEt() const { return _vet; }
 
+    /// @brief The vector missing transverse energy in the event, as a 3-vector with z=0
+    const Vector3 vectorEtMiss() const { return -vectorEt(); }
+
+    /// @brief The scalar value of missing transverse energy in the event
+    double scalarEtMiss() const { return vectorEtMiss().perp(); }
+
     /// The scalar-summed visible transverse energy in the event.
     double scalarEt() const { return _set; }
     /// Alias for scalarEt
+    /// @deprecated Use the full name, "set" is too ambiguous
     double set() const { return scalarEt(); }
 
     /// @}
@@ -123,9 +140,15 @@ namespace Rivet {
     double _set, _spt;
 
     /// Vector transverse energy
-    Vector3 _vet, _vpt;
+    Vector3 _vet;
+    ThreeMomentum _vpt;
 
   };
+
+
+
+  /// A slightly more convenient name, following other Rivet shortening-conventions
+  using MissingMom = MissingMomentum;
 
 
 }
