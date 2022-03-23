@@ -2790,6 +2790,18 @@
             "CERN-PPE-94-219"
         ]
     ], 
+    "392386": [
+        "Measurement of multiplicity and momentum spectra in the current fragmentation region of the Breit frame at HERA", 
+        "ZEUS", 
+        "10.1007/BF01564824", 
+        null, 
+        "hep-ex/9501012", 
+        "ins392386", 
+        null, 
+        [
+            "DESY-95-007"
+        ]
+    ], 
     "392704": [
         "Measurement of the decay asymmetry parameters in Lambda(c)+ ---> Lambda pi+ and Lambda(c)+ ---> Sigma+ pi0", 
         "CLEO", 
@@ -2855,6 +2867,18 @@
             "CERN-PPE-95-39"
         ]
     ], 
+    "394793": [
+        "A Study of the fragmentation of quarks in e- p collisions at HERA", 
+        "H1", 
+        "10.1016/0550-3213(95)91599-H", 
+        null, 
+        "hep-ex/9505003", 
+        "ins394793", 
+        null, 
+        [
+            "DESY-95-072"
+        ]
+    ], 
     "395026": [
         "B* production in Z decays", 
         "DELPHI", 
@@ -2866,6 +2890,18 @@
         [
             "CERN-PPE-95-53", 
             "CERN-PPE-95-053"
+        ]
+    ], 
+    "395196": [
+        "Neutral strange particle production in deep inelastic scattering at HERA", 
+        "ZEUS", 
+        "10.1007/BF01579802", 
+        null, 
+        "hep-ex/9505011", 
+        "ins395196", 
+        null, 
+        [
+            "DESY-95-084"
         ]
     ], 
     "396365": [
@@ -3155,6 +3191,18 @@
             "CERN-PPE-96-77"
         ]
     ], 
+    "421105": [
+        "Inclusive D0 and D*+- production in deep inelastic e p scattering at HERA", 
+        "H1", 
+        "10.1007/s002880050281", 
+        null, 
+        "hep-ex/9607012", 
+        "ins421105", 
+        null, 
+        [
+            "DESY-96-138"
+        ]
+    ], 
     "421977": [
         "Sigma+, Sigma0 and Sigma- hyperon production in hadronic Z0 decays", 
         "OPAL", 
@@ -3205,6 +3253,18 @@
             "SLAC-PUB-7172"
         ]
     ], 
+    "422230": [
+        "Charged particle multiplicities in deep inelastic scattering at HERA", 
+        "H1", 
+        "10.1007/s002880050280", 
+        null, 
+        "hep-ex/9608011", 
+        "ins422230", 
+        null, 
+        [
+            "DESY-96-160"
+        ]
+    ], 
     "423414": [
         "Measurement of dijet angular distributions at CDF", 
         "CDF", 
@@ -3230,6 +3290,18 @@
         null, 
         [
             "CERN-PPE-96-120"
+        ]
+    ], 
+    "424463": [
+        "Measurement of charged particle transverse momentum spectra in deep inelastic scattering", 
+        "H1", 
+        "10.1016/S0550-3213(96)00675-X", 
+        null, 
+        "hep-ex/9610006", 
+        "ins424463", 
+        null, 
+        [
+            "DESY-96-215"
         ]
     ], 
     "424575": [
@@ -3608,6 +3680,19 @@
             "CERN-EP-98-054"
         ]
     ], 
+    "470499": [
+        "Forward jet production in deep inelastic scattering at HERA", 
+        "ZEUS", 
+        "10.1007/s100529801018", 
+        null, 
+        "hep-ex/9805016", 
+        "ins470499", 
+        null, 
+        [
+            "DESY-98-050", 
+            "ANL-HEP-PR-98-50"
+        ]
+    ], 
     "471263": [
         "The first measurement of the neutron electromagnetic form-factors in the timelike region", 
         null, 
@@ -3716,6 +3801,18 @@
         null, 
         []
     ], 
+    "481112": [
+        "Measurement of D* meson cross-sections at HERA and determination of the gluon density in the proton using NLO QCD", 
+        "H1", 
+        "10.1016/S0550-3213(99)00119-4", 
+        null, 
+        "hep-ex/9812023", 
+        "ins481112", 
+        null, 
+        [
+            "DESY-98-204"
+        ]
+    ], 
     "482816": [
         "Measurement of inclusive rho0, f(0)(980), f(2)(1270), K*0(2)(1430) and f-prime(2)(1525) production in Z0 decays", 
         "DELPHI", 
@@ -3786,6 +3883,19 @@
         "ins500179", 
         null, 
         []
+    ], 
+    "500267": [
+        "Measurement of high $Q^{2}$ neutral current $e^{+} p$ deep inelastic scattering cross-sections at HERA", 
+        "ZEUS", 
+        "10.1007/s100520050645", 
+        null, 
+        "hep-ex/9905032", 
+        "ins500267", 
+        null, 
+        [
+            "DESY-99-056", 
+            "ANL-HEP-PR-99-81"
+        ]
     ], 
     "501417": [
         "Evidence of new states decaying into Xi(c)* pi", 
@@ -3866,6 +3976,18 @@
         null, 
         [
             "DESY-99-091"
+        ]
+    ], 
+    "504022": [
+        "Forward pi0 meson production at HERA", 
+        "H1", 
+        "10.1016/S0370-2693(99)00906-5", 
+        null, 
+        "hep-ex/9907030", 
+        "ins504022", 
+        null, 
+        [
+            "DESY-99-094"
         ]
     ], 
     "504672": [
@@ -3964,6 +4086,19 @@
         null, 
         [
             "SLAC-REPRINT-1999-089"
+        ]
+    ], 
+    "508906": [
+        "Measurement of the E**2(T,jet) / Q**2 dependence of forward jet production at HERA", 
+        "ZEUS", 
+        "10.1016/S0370-2693(99)01478-1", 
+        null, 
+        "hep-ex/9910043", 
+        "ins508906", 
+        null, 
+        [
+            "DESY-99-162", 
+            "ANL-HEP-PR-99-121"
         ]
     ], 
     "508944": [
@@ -4095,6 +4230,18 @@
         null, 
         [
             "CERN-EP-2000-009"
+        ]
+    ], 
+    "524911": [
+        "Measurement of azimuthal asymmetries in deep inelastic scattering", 
+        "ZEUS", 
+        "10.1016/S0370-2693(00)00430-5", 
+        null, 
+        "hep-ex/0003017", 
+        "ins524911", 
+        null, 
+        [
+            "DESY-00-040"
         ]
     ], 
     "525398": [
@@ -4415,6 +4562,18 @@
         null, 
         [
             "FERMILAB-PUB-01-212-E"
+        ]
+    ], 
+    "561885": [
+        "Measurement of D*+- meson production and F2(c) in deep inelastic scattering at HERA", 
+        "H1", 
+        "10.1016/S0370-2693(02)01195-4", 
+        "514979", 
+        "hep-ex/0108039", 
+        "ins561885", 
+        null, 
+        [
+            "DESY-01-100"
         ]
     ], 
     "563840": [
@@ -5126,6 +5285,18 @@
             "FERMILAB-PUB-05-523-E"
         ]
     ], 
+    "699835": [
+        "Measurement of event shape variables in deep-inelastic scattering at HERA", 
+        "H1", 
+        "10.1140/epjc/s2006-02493-x", 
+        null, 
+        "hep-ex/0512014", 
+        "ins699835", 
+        null, 
+        [
+            "DESY-05-225"
+        ]
+    ], 
     "699933": [
         "Measurement of the inclusive jet cross section in $p\\bar{p}$ interactions at $\\sqrt{s} =$ 1.96-TeV using a cone-based jet algorithm.", 
         "CDF", 
@@ -5482,6 +5653,18 @@
         [
             "SLAC-PUB-12200", 
             "BABAR-PUB-06-065"
+        ]
+    ], 
+    "736052": [
+        "Production of D*+- Mesons with Dijets in Deep-Inelastic Scattering at HERA", 
+        "H1", 
+        "10.1140/epjc/s10052-007-0296-5", 
+        "1009947", 
+        "hep-ex/0701023", 
+        "ins736052", 
+        null, 
+        [
+            "DESY-06-240"
         ]
     ], 
     "743342": [
@@ -6086,6 +6269,30 @@
         null, 
         null, 
         []
+    ], 
+    "810046": [
+        "Strangeness Production at low Q**2 in Deep-Inelastic ep Scattering at HERA", 
+        "H1", 
+        "10.1140/epjc/s10052-009-0995-1", 
+        "1166128", 
+        "0810.4036", 
+        "ins810046", 
+        null, 
+        [
+            "DESY-08-095"
+        ]
+    ], 
+    "810112": [
+        "Measurement of D+- and D0 production in deep inelastic scattering using a lifetime tag at HERA", 
+        "ZEUS", 
+        "10.1140/epjc/s10052-009-1088-x", 
+        null, 
+        "0812.3775", 
+        "ins810112", 
+        null, 
+        [
+            "DESY-08-201"
+        ]
     ], 
     "810744": [
         "Measurement of the branching fraction for the decay Upsilon(4S) ---> Upsilon(1S) pi+ pi-", 
@@ -7207,6 +7414,18 @@
             "CERN-PH-EP-2011-162"
         ]
     ], 
+    "945935": [
+        "Scaled momentum distributions for $K^0_S$ and $\\Lambda/\\bar{\\Lambda}$ in DIS at HERA", 
+        "ZEUS", 
+        "10.1007/JHEP03(2012)020", 
+        "1399372", 
+        "1111.3526", 
+        "ins945935", 
+        null, 
+        [
+            "DESY-11-205"
+        ]
+    ], 
     "946427": [
         "Search for diphoton events with large missing transverse momentum in fb$^{-1}$ of 7 TeV proton\u2013proton collision data with the ATLAS detector", 
         "ATLAS", 
@@ -7316,6 +7535,19 @@
         [
             "CMS-FWD-11-002", 
             "CERN-PH-EP-2011-179"
+        ]
+    ], 
+    "1089835": [
+        "Inclusive $b$-jet production in $pp$ collisions at $\\sqrt{s}=7$ TeV", 
+        "CMS", 
+        "10.1007/JHEP04(2012)084", 
+        "1425960", 
+        "1202.4617", 
+        "ins1089835", 
+        null, 
+        [
+            "CMS-BPH-11-022", 
+            "CERN-PH-EP-2012-036"
         ]
     ], 
     "1090423": [
@@ -8923,6 +9155,8 @@
         null, 
         [
             "CMS-EWK-11-016", 
+            "CERN-PH-EP-2015-031", 
+            "CMS-EWK-11-016", 
             "CERN-PH-EP-2015-031"
         ]
     ], 
@@ -9291,7 +9525,7 @@
         "Centrality evolution of the charged-particle pseudorapidity density over a broad pseudorapidity range in Pb-Pb collisions at $\\sqrt{s_{\\rm NN}} =$ 2.76 TeV", 
         "ALICE", 
         "10.1016/j.physletb.2015.12.082", 
-        "2052525", 
+        "2118086", 
         "1509.07299", 
         "ins1394676", 
         null, 
@@ -9890,6 +10124,18 @@
         null, 
         [
             "CMS-PAS-TOP-15-006"
+        ]
+    ], 
+    "1478355": [
+        "Measurement of the $b\\overline{b}$ dijet cross section in pp collisions at $\\sqrt{s} = 7$  TeV with the ATLAS detector", 
+        "ATLAS", 
+        "10.1140/epjc/s10052-016-4521-y", 
+        "2202397", 
+        "1607.08430", 
+        "ins1478355", 
+        null, 
+        [
+            "CERN-EP-2016-091"
         ]
     ], 
     "1479760": [
@@ -11217,6 +11463,18 @@
             "BESIII Analysis Memo (BAM) - 0266"
         ]
     ], 
+    "1698006": [
+        "Measurement of the $ Z\\gamma \\to \\nu \\overline{\\nu}\\gamma $ production cross section in pp collisions at $ \\sqrt{s}=13 $ TeV with the ATLAS detector and limits on anomalous triple gauge-boson couplings", 
+        "ATLAS", 
+        "10.1007/JHEP12(2018)010", 
+        "2643440", 
+        "1810.04995", 
+        "ins1698006", 
+        null, 
+        [
+            "CERN-EP-2018-220"
+        ]
+    ], 
     "1698390": [
         "Observation of $\\Xi(1620)^0$ and evidence for $\\Xi(1690)^0$ in $\\Xi_c^+ \\rightarrow \\Xi^-\\pi^+\\pi^+$ decays", 
         "Belle", 
@@ -11331,6 +11589,18 @@
             "CERN-EP-2018-323"
         ]
     ], 
+    "1711223": [
+        "Observation of electroweak $W^{\\pm}Z$ boson pair production in association with two jets in $pp$ collisions at $\\sqrt{s} =$ 13 TeV with the ATLAS detector", 
+        "ATLAS", 
+        "10.1016/j.physletb.2019.05.012", 
+        "2652670", 
+        "1812.09740", 
+        "ins1711223", 
+        null, 
+        [
+            "CERN-EP-2018-286"
+        ]
+    ], 
     "1711625": [
         "Measurement of the differential Drell-Yan cross section in proton-proton collisions at $ \\sqrt{\\mathrm{s}} $ = 13 TeV", 
         "CMS", 
@@ -11377,6 +11647,18 @@
         [
             "KEK preprint 18-86", 
             "Belle preprint 19-02"
+        ]
+    ], 
+    "1720438": [
+        "Measurement of $W^{\\pm}Z$ production cross sections and gauge boson polarisation in $pp$ collisions at $\\sqrt{s} = 13$ TeV with the ATLAS detector", 
+        "ATLAS", 
+        "10.1140/epjc/s10052-019-7027-6", 
+        "2658356", 
+        "1902.05759", 
+        "ins1720438", 
+        null, 
+        [
+            "CERN-EP-2018-327"
         ]
     ], 
     "1720442": [
@@ -11545,6 +11827,18 @@
         null, 
         []
     ], 
+    "1740909": [
+        "Properties of jet fragmentation using charged particles measured with the ATLAS detector in $pp$ collisions at $\\sqrt{s}=13$ TeV", 
+        "ATLAS", 
+        "10.1103/PhysRevD.100.052011", 
+        "2679518", 
+        "1906.09254", 
+        "ins1740909", 
+        null, 
+        [
+            "CERN-EP-2019-090"
+        ]
+    ], 
     "1743841": [
         "Cross section measurements of $e^{+}e^{-} \\to K^{+}K^{-}K^{+}K^{-} $ and $ \\phi K^{+}K^{-}$ at center-of-mass energies from 2.10 to 3.08 GeV", 
         "BESIII", 
@@ -11635,6 +11929,19 @@
         [
             "CMS-SMP-17-010", 
             "CERN-EP-2019-175"
+        ]
+    ], 
+    "1753720": [
+        "Measurement of the $\\mathrm{t\\bar{t}}\\mathrm{b\\bar{b}}$ production cross section in the all-jet final state in pp collisions at $\\sqrt{s} =$ 13 TeV", 
+        "CMS", 
+        "10.1016/j.physletb.2020.135285", 
+        "2689102", 
+        "1909.05306", 
+        "ins1753720", 
+        null, 
+        [
+            "CMS-TOP-18-011", 
+            "CERN-EP-2019-183"
         ]
     ], 
     "1756876": [
@@ -11739,6 +12046,18 @@
         null, 
         []
     ], 
+    "1768911": [
+        "Measurement of the transverse momentum distribution of Drell\u2013Yan lepton pairs in proton\u2013proton collisions at $\\sqrt{s}=13$ TeV with the ATLAS detector", 
+        "ATLAS", 
+        "10.1140/epjc/s10052-020-8001-z", 
+        "2703559", 
+        "1912.02844", 
+        "ins1768911", 
+        null, 
+        [
+            "CERN-EP-2019-223"
+        ]
+    ], 
     "1769654": [
         "Resonances in $e^+e^-$ annihilation near 2.2 GeV", 
         "BaBar", 
@@ -11772,6 +12091,18 @@
         null, 
         [
             "CERN-EP-2019-269"
+        ]
+    ], 
+    "1772071": [
+        "Measurement of isolated-photon plus two-jet production in $pp$ collisions at $\\sqrt s=13$ TeV with the ATLAS detector", 
+        "ATLAS", 
+        "10.1007/JHEP03(2020)179", 
+        "2705514", 
+        "1912.09866", 
+        "ins1772071", 
+        null, 
+        [
+            "CERN-EP-2019-210"
         ]
     ], 
     "1773081": [
@@ -11949,6 +12280,18 @@
         null, 
         []
     ], 
+    "1801434": [
+        "Measurements of top-quark pair single- and double-differential cross-sections in the all-hadronic channel in $pp$ collisions at $\\sqrt{s}=13~\\textrm{TeV}$ using the ATLAS detector", 
+        "ATLAS", 
+        "10.1007/JHEP01(2021)033", 
+        "2721026", 
+        "2006.09274", 
+        "ins1801434", 
+        null, 
+        [
+            "CERN-EP-2020-063"
+        ]
+    ], 
     "1803608": [
         "Differential cross-section measurements for the electroweak production of dijets in association with a $Z$ boson in proton\u2013proton collisions at ATLAS", 
         "ATLAS", 
@@ -12039,6 +12382,19 @@
             "CERN-EP-2020-223"
         ]
     ], 
+    "1847230": [
+        "Measurements of angular distance and momentum ratio distributions in three-jet and ${\\text {Z}}$ + two-jet final states in ${\\text {p}}{\\text {p}}$ collisions", 
+        "CMS", 
+        "10.1140/epjc/s10052-021-09570-2", 
+        "2752366", 
+        "2102.08816", 
+        "ins1847230", 
+        null, 
+        [
+            "CMS-SMP-17-008", 
+            "CERN-EP-2020-251"
+        ]
+    ], 
     "1849535": [
         "Measurements of differential cross-sections in four-lepton events in 13 TeV proton-proton collisions with the ATLAS detector", 
         "ATLAS", 
@@ -12061,6 +12417,68 @@
         null, 
         [
             "CERN-EP-2021-030"
+        ]
+    ], 
+    "1887997": [
+        "Measurement of the production cross section of pairs of isolated photons in $pp$ collisions at 13 TeV with the ATLAS detector", 
+        "ATLAS", 
+        "10.1007/JHEP11(2021)169", 
+        "2776245", 
+        "2107.09330", 
+        "ins1887997", 
+        null, 
+        [
+            "CERN-EP-2021-105"
+        ]
+    ], 
+    "1913061": [
+        "Measurement of $b$-quark fragmentation properties in jets using the decay $B^{\\pm} \\to J/\\psi K^{\\pm}$ in $pp$ collisions at $ \\sqrt{s} $ = 13 TeV with the ATLAS detector", 
+        "ATLAS", 
+        "10.1007/JHEP12(2021)131", 
+        "2779272", 
+        "2108.11650", 
+        "ins1913061", 
+        null, 
+        [
+            "CERN-EP-2021-123"
+        ]
+    ], 
+    "1920187": [
+        "Study of quark and gluon jet substructure in Z+jet and dijet events from pp collisions", 
+        "CMS", 
+        "10.1007/JHEP01(2022)188", 
+        "2780472", 
+        "2109.03340", 
+        "ins1920187", 
+        null, 
+        [
+            "CMS-SMP-20-010", 
+            "CERN-EP-2021-161"
+        ]
+    ], 
+    "1932460": [
+        "Measurement of double-parton scattering in inclusive production of four jets with low transverse momentum in proton-proton collisions at $ \\sqrt{s} $ = 13 TeV", 
+        "CMS", 
+        "10.1007/JHEP01(2022)177", 
+        "2782463", 
+        "2109.13822", 
+        "ins1932460", 
+        null, 
+        [
+            "CMS-SMP-20-007", 
+            "CERN-EP-2021-171"
+        ]
+    ], 
+    "1941095": [
+        "Measurement of the energy asymmetry in $t\\bar{t}j$ production at 13 TeV with the ATLAS experiment and interpretation in the SMEFT framework", 
+        "ATLAS", 
+        null, 
+        "2783829", 
+        "2110.05453", 
+        "ins1941095", 
+        null, 
+        [
+            "CERN-EP-2021-181"
         ]
     ]
 }

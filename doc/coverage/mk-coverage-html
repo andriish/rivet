@@ -32,6 +32,8 @@ ap.add_argument("--basename", dest="BASENAME", default="rivet-coverage",
                 help="the base name for output files [default=%(default)s]")
 ap.add_argument("--update-ranking", dest="UPDATERANK", action="store_true", default=False,
                 help="update the per-experiment ranking files")
+ap.add_argument("--list-inputs", dest="LISTINPUTS", action="store_true", default=False,
+                help="list the input files at the end of the HTML")
 ap.add_argument("-v", "--verbose", dest="VERBOSE", action="store_true", default=False,
                 help="print debug info to the terminal")
 args = ap.parse_args()
@@ -386,12 +388,15 @@ for ex in EXPTS:
         sp += "&nbsp;"
         sp.a(str(ins), href="http://inspirehep.net/record/{}".format(ins))
 
-        ## arXiv ID and link
+        ## arXiv ID and links
         if rec[4]:
             p += "&ensp;&middot;&ensp; "
             sp = p.span("arXiv:")
             sp += "&nbsp;"
             sp.a(str(rec[4]), href="https://arxiv.org/abs/{}".format(rec[4]))
+            sp += "&nbsp;("
+            sp.a(str("pdf"), href="https://arxiv.org/pdf/{}.pdf".format(rec[4]))
+            sp += ")"
 
         ## DOI
         if rec[2]:
@@ -439,8 +444,9 @@ for ex in EXPTS:
 
 ## Time-created footer
 body.p("Generated at {}".format(now.strftime("%c")))
-body.p("Generated from JSON files extracted from Inspire ({} papers in total):".format(ntot))
-body.p(", ".join(args.JSONFILES), style="font-family: monospace; font-size: smaller")
+if args.LISTINPUTS:
+    body.p("Generated from JSON files extracted from Inspire ({} papers in total):".format(ntot))
+    body.p(", ".join(os.path.basename(jf) for jf in args.JSONFILES), style="font-family: monospace; font-size: smaller")
 
 
 ## Write out

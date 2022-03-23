@@ -1,0 +1,184 @@
+{
+    "1848438": [
+        "Evidence for X(3872) in Pb-Pb Collisions and Studies of its Prompt Production at $\\sqrt {s_{NN}}$=5.02\u2009\u2009TeV", 
+        "CMS", 
+        "10.1103/PhysRevLett.128.032001", 
+        "2753047", 
+        "2102.13048", 
+        "ins1848438", 
+        null, 
+        [
+            "CMS-HIN-19-005", 
+            "CERN-EP-2021-023"
+        ]
+    ], 
+    "1864485": [
+        "Search for strongly interacting massive particles generating trackless jets in proton\u2013proton collisions at $\\sqrt{s} = 13\\,\\text {TeV} $", 
+        "CMS", 
+        "10.1140/epjc/s10052-022-10095-5", 
+        "2767082", 
+        "2105.09178", 
+        "ins1864485", 
+        null, 
+        [
+            "CMS-EXO-17-010", 
+            "CERN-EP-2021-029"
+        ]
+    ], 
+    "1869502": [
+        "Search for W\u03b3 resonances in proton-proton collisions at s=13 TeV using hadronic decays of Lorentz-boosted W bosons", 
+        "CMS", 
+        "10.1016/j.physletb.2022.136888", 
+        "2773428", 
+        "2106.10509", 
+        null, 
+        null, 
+        [
+            "CMS-EXO-20-001", 
+            "CERN-EP-2021-102"
+        ]
+    ], 
+    "1870319": [
+        "Fragmentation of jets containing a prompt J/\u03c8 meson in PbPb and pp collisions at sNN=5.02TeV", 
+        "CMS", 
+        "10.1016/j.physletb.2021.136842", 
+        "2773812", 
+        "2106.13235", 
+        "ins1870319", 
+        null, 
+        [
+            "CMS-HIN-19-007", 
+            "CERN-EP-2021-104"
+        ]
+    ], 
+    "1894790": [
+        "Measurement of the inclusive and differential Higgs boson production cross sections in the decay mode to a pair of $\\tau$ leptons in pp collisions at $\\sqrt{s} = $ 13 TeV", 
+        "CMS", 
+        "10.1103/PhysRevLett.128.081805", 
+        "2776742", 
+        "2107.11486", 
+        "ins1894790", 
+        null, 
+        [
+            "CMS-HIG-20-015", 
+            "CERN-EP-2021-134"
+        ]
+    ], 
+    "1920187": [
+        "Study of quark and gluon jet substructure in Z+jet and dijet events from pp collisions", 
+        "CMS", 
+        "10.1007/JHEP01(2022)188", 
+        "2780472", 
+        "2109.03340", 
+        "ins1920187", 
+        null, 
+        [
+            "CMS-SMP-20-010", 
+            "CERN-EP-2021-161"
+        ]
+    ], 
+    "1920983": [
+        "Search for heavy resonances decaying to WW, WZ, or WH boson pairs in the lepton plus merged jet final state in proton-proton collisions at $\\sqrt{s}$ = 13 TeV", 
+        "CMS", 
+        "10.1103/PhysRevD.105.032008", 
+        "2780968", 
+        "2109.06055", 
+        "ins1920983", 
+        null, 
+        [
+            "CMS-B2G-19-002", 
+            "CERN-EP-2021-159"
+        ]
+    ], 
+    "1932460": [
+        "Measurement of double-parton scattering in inclusive production of four jets with low transverse momentum in proton-proton collisions at $ \\sqrt{s} $ = 13 TeV", 
+        "CMS", 
+        "10.1007/JHEP01(2022)177", 
+        "2782463", 
+        "2109.13822", 
+        "ins1932460", 
+        null, 
+        [
+            "CMS-SMP-20-007", 
+            "CERN-EP-2021-171"
+        ]
+    ], 
+    "1940976": [
+        "Search for long-lived particles decaying to leptons with large impact parameter in proton\u2013proton collisions at $\\sqrt{s} = 13\\,\\text {Te}\\text {V} $", 
+        "CMS", 
+        "10.1140/epjc/s10052-022-10027-3", 
+        "2783658", 
+        "2110.04809", 
+        "ins1940976", 
+        null, 
+        [
+            "CMS-EXO-18-003", 
+            "CERN-EP-2021-196"
+        ]
+    ], 
+    "1961177": [
+        "Inclusive and differential cross section measurements of single top quark production in association with a Z boson in proton-proton collisions at $ \\sqrt{s} $ = 13 TeV", 
+        "CMS", 
+        "10.1007/JHEP02(2022)107", 
+        "2789719", 
+        "2111.02860", 
+        "ins1961177", 
+        null, 
+        [
+            "CMS-TOP-20-010", 
+            "CERN-EP-2021-210"
+        ]
+    ], 
+    "1961179": [
+        "A new calibration method for charm jet identification validated with proton-proton collision events at $\\sqrt{s}$ =13 TeV", 
+        "CMS", 
+        "10.1088/1748-0221/17/03/P03014", 
+        "2789753", 
+        "2111.03027", 
+        "ins1961179", 
+        null, 
+        [
+            "CMS-BTV-20-001", 
+            "CERN-EP-2021-177"
+        ]
+    ], 
+    "1972986": [
+        "Measurement and QCD analysis of double-differential inclusive jet cross sections in proton-proton collisions at $ \\sqrt{s} $ = 13 TeV", 
+        "CMS", 
+        "10.1007/JHEP02(2022)142", 
+        "2791017", 
+        "2111.10431", 
+        "ins1972986", 
+        null, 
+        [
+            "CMS-SMP-20-011", 
+            "CERN-EP-2021-221"
+        ]
+    ], 
+    "1978840": [
+        "Measurement of W$^\\pm\\gamma$ differential cross sections in proton-proton collisions at $\\sqrt{s}$ = 13 TeV and effective field theory constraints", 
+        "CMS", 
+        "10.1103/PhysRevD.105.052003", 
+        "2791626", 
+        "2111.13948", 
+        "ins1978840", 
+        null, 
+        [
+            "CMS-SMP-20-005", 
+            "CERN-EP-2021-219"
+        ]
+    ], 
+    "2000853": [
+        "Search for flavor-changing neutral current interactions of the top quark and the Higgs boson decaying to a bottom quark-antiquark pair at $ \\sqrt{s} $ = 13 TeV", 
+        "CMS", 
+        "10.1007/JHEP02(2022)169", 
+        "2798391", 
+        "2112.09734", 
+        "ins2000853", 
+        null, 
+        [
+            "CMS-TOP-19-002", 
+            "CERN-EP-2021-241"
+        ]
+    ]
+}
