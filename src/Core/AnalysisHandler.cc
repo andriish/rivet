@@ -118,9 +118,7 @@ namespace Rivet {
       removeAnalysis(aname);
     }
     if (num_anas_requested > 0 && analysisNames().empty()) {
-      MSG_ERROR("All analyses were incompatible with the first event's beams\n"
-                << "Exiting, since this probably wasn't intentional!");
-      exit(1);
+      throw Error("All analyses were incompatible with the first event's beams");
     }
 
     // Warn if any analysis' status is not unblemished
@@ -147,8 +145,7 @@ namespace Rivet {
         //MSG_DEBUG("Checking consistency of analysis: " << a->name());
         //a->checkConsistency();
       } catch (const Error& err) {
-        cerr << "Error in " << a->name() << "::init method: " << err.what() << endl;
-        exit(1);
+        throw Error(a->name() + "::init method error: " + err.what());
       }
       MSG_DEBUG("Done initialising analysis: " << a->name());
     }
@@ -321,14 +318,14 @@ namespace Rivet {
       const ParticlePair evtbeams = beams(event);
       MSG_DEBUG("Event beams = " << evtbeams);
       if (evtbeams.first.pid() == PID::ANY && evtbeams.second.pid() == PID::ANY) {
-        MSG_ERROR("No event beams found: please fix the events, or run with beam-checking disabled");
-        exit(1);
+        throw Error("No event beams found: please fix the events, or run with beam-checking disabled");
       }
       if (!compatibleBeams(evtbeams, runBeams())) {
-        MSG_ERROR("Event beams mismatch with run: "
+        ostringstream errmsg;
+        errmsg << "Event beams mismatch with run: "
                   << PID::toBeamsString(beamIDs(event)) << " @ " << sqrtS(event)/GeV << " GeV" << " vs. expected "
-                  << this->runBeams() << " @ " << this->runSqrtS()/GeV << " GeV");
-        exit(1);
+                  << this->runBeams() << " @ " << this->runSqrtS()/GeV << " GeV";
+        throw Error(errmsg.str());
       }
     }
 
@@ -374,8 +371,7 @@ namespace Rivet {
       try {
         a->analyze(event);
       } catch (const Error& err) {
-        cerr << "Error in " << a->name() << "::analyze method: " << err.what() << endl;
-        exit(1);
+        throw Error(a->name() + "::analyze method error: " + err.what());
       }
       MSG_TRACE("Finished running analysis " << a->name());
     }
@@ -462,8 +458,7 @@ namespace Rivet {
           MSG_TRACE("running " << a->name() << "::finalize() for weight " << iW << ".");
           a->finalize();
         } catch (const Error& err) {
-          cerr << "Error in " << a->name() << "::finalize method: " << err.what() << '\n';
-          exit(1);
+          throw Error(a->name() + "::finalize method error: " + err.what());
         }
       }
     }
