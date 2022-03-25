@@ -85,7 +85,7 @@ namespace Rivet {
       }
 
       // jet kinematics
-      for (size_t i = 0; i < min(4, int(jets.size())); ++i) {
+      for (size_t i = 0; i < min(4u, jets.size()); ++i) {
         const string pTname  = "jet_pT_"  + to_str(i+1);
         const string etaname = "jet_eta_" + to_str(i+1);
         const string rapname = "jet_y_"   + to_str(i+1);
@@ -104,7 +104,7 @@ namespace Rivet {
       }
 
       // gap-jet multiplicities
-      _h["gap_exc"]->fill(n_gap); 
+      _h["gap_exc"]->fill(n_gap);
       for (size_t i = 0; i <= 7; ++i) {
         if (n_gap >= i) {
           _h["gap_inc"]->fill(i);
