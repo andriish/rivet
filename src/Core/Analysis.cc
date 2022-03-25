@@ -1036,15 +1036,13 @@ namespace Rivet {
     else if ( sel == "GEN" ) {
       YODA::Histo1DPtr genhists =
         getPreload<Histo1D>("/" + calAnaName + "/" + calHistName);
-      // for ( YODA::AnalysisObjectPtr ao : handler().getData(true) ) {
-      //   if ( ao->path() == histpath )
-      //     genhist = dynamic_pointer_cast<Histo1D>(ao);
-      // }
       if ( !genhists || genhists->numEntries() <= 1 ) {
         MSG_WARNING("No generated calibration histogram for " <<
                     "CentralityProjection " << projName << " found " <<
                     "(requested histogram " << calHistName << " in " <<
-                    calAnaName << ")");
+                    calAnaName << ").\nDid you mean to generate one " <<
+		    "yourself and forgot? Generate with " << calAnaName <<
+		    " and preload the calibration file using the -p flag.");
       }
       else {
         MSG_INFO("Found calibration histogram " << sel << " " << genhists->path());
@@ -1058,7 +1056,9 @@ namespace Rivet {
         MSG_WARNING("No impact parameter calibration histogram for " <<
                     "CentralityProjection " << projName << " found " <<
                     "(requested histogram " << calHistName << "_IMP in " <<
-                    calAnaName << ")");
+                    calAnaName << ").\nDid you mean to generate one " <<
+		    "yourself and forgot? Generate with " << calAnaName <<
+		    " and preload the calibration file using the -p flag.");
       }
       else {
         MSG_INFO("Found calibration histogram " << sel << " " << imphists->path());

@@ -349,7 +349,7 @@ namespace Rivet {
       }
     }
 
-    // Optionally cap large weights, to avoid spikes
+    // Append to sub-event weights list, modulo weight-capping to avoid spikes
     _subEventWeights.push_back(event.weights());
     if (_weightCap != 0.) {
       MSG_DEBUG("Implementing weight cap using a maximum |weight| = " << _weightCap << " for latest subevent");
@@ -360,6 +360,15 @@ namespace Rivet {
         }
       }
     }
+
+    // Warn if the subevent list is getting very long without flushing
+    if (_subEventWeights.size() % 1000 == 0) {
+      MSG_WARNING("Sub-event weight list has " << _subEventWeights.size() << " elements: are the weight numbers correctly set in the input events?");
+    }
+
+    // Update the event counter
+    // NB. updated on sub-events, but synced cf. histos on full-event boundaries
+    _eventCounter->fill();
 
     // Run the analyses
     if (_subEventWeights.size() > 1) {

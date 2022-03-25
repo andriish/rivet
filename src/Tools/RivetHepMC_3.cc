@@ -93,20 +93,22 @@ namespace Rivet {
     }
 
     std::vector<ConstGenParticlePtr> particles(ConstGenEventPtr ge) {
+      assert(ge != nullptr);
       return ge->particles();
     }
 
     std::vector<ConstGenParticlePtr> particles(const GenEvent* ge) {
-      assert(ge);
+      assert(ge != nullptr);
       return ge->particles();
     }
 
     std::vector<ConstGenVertexPtr> vertices(ConstGenEventPtr ge) {
+      assert(ge != nullptr);
       return ge->vertices();
     }
 
     std::vector<ConstGenVertexPtr> vertices(const GenEvent* ge) {
-      assert(ge);
+      assert(ge != nullptr);
       return ge->vertices();
     }
 
@@ -127,11 +129,12 @@ namespace Rivet {
     }
 
     int uniqueId(ConstGenParticlePtr gp) {
-      return gp->id();
+      return (gp != nullptr) ? gp->id() : 0;
     }
 
 
     std::pair<ConstGenParticlePtr, ConstGenParticlePtr> beams(const GenEvent* ge) {
+      assert(ge != nullptr);
       std::vector<ConstGenParticlePtr> beamlist = ge->beams();
       if (beamlist.size() < 2) {
         std::cerr << "CANNOT FIND ANY BEAMS!" << std::endl;

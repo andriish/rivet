@@ -1,0 +1,114 @@
+{
+    "1951031": [
+        "Combined analysis of Belle and Belle II data to determine the CKM angle $ \\phi_{3} $ using $B^+ \\to D(K_{S}^0 h^- h^+) h^+$ decays", 
+        "Belle", 
+        "10.1007/JHEP02(2022)063", 
+        null, 
+        "2110.12125", 
+        null, 
+        null, 
+        [
+            "Belle II Preprint 2021-003", 
+            "KEK Preprint 2021-28"
+        ]
+    ], 
+    "1953586": [
+        "Search for $B^0$ meson decays into $\\Lambda$ and missing energy with a hadronic tagging method at Belle", 
+        "Belle", 
+        "10.1103/PhysRevD.105.L051101", 
+        null, 
+        "2110.14086", 
+        null, 
+        null, 
+        [
+            "Belle Preprint 2021-24; KEK Preprint 2021-29; PNNL-SA-167279"
+        ]
+    ], 
+    "1964638": [
+        "Study of $\\overline{B}{}^0\\rightarrow D^{+}h^{-} (h=K/\\pi)$ decays at Belle", 
+        "Belle", 
+        "10.1103/PhysRevD.105.012003", 
+        null, 
+        "2111.04978", 
+        null, 
+        null, 
+        [
+            "Belle Preprint 2021-25", 
+            "KEK Preprint 2021-30"
+        ]
+    ], 
+    "1970528": [
+        "Measurements of the branching fractions of $\\Xi_c^0 \\to \\Lambda K_S^0$, $\\Xi_c^0 \\to \\Sigma^0 K_S^0$, and $\\Xi_c^0 \\to \\Sigma^+ K^-$ decays at Belle", 
+        "Belle", 
+        "10.1103/PhysRevD.105.L011102", 
+        null, 
+        "2111.08981", 
+        null, 
+        null, 
+        [
+            "Belle Preprint 2021-27; KEK Preprint 2021-32"
+        ]
+    ], 
+    "1979565": [
+        "Search for the decay $B_s^0\\rightarrow\\eta\\eta$", 
+        "Belle", 
+        "10.1103/PhysRevD.105.012007", 
+        null, 
+        "2111.14437", 
+        null, 
+        null, 
+        [
+            "Belle Preprint 2021-26", 
+            "KEK Preprint 2021-31"
+        ]
+    ], 
+    "1984768": [
+        "Search for tetraquark states Xccs\u00afs\u00af in Ds+Ds+(Ds*+Ds*+) final states at Belle", 
+        "Belle", 
+        "10.1103/PhysRevD.105.032002", 
+        null, 
+        "2112.02497", 
+        null, 
+        null, 
+        [
+            "Belle Preprint 2021-28; KEK Preprint 2021-33"
+        ]
+    ], 
+    "1995840": [
+        "Search for a light Higgs boson in single-photon decays of $\\Upsilon(1S)$ using $\\Upsilon(2S) \\to \\pi^+ \\pi^- \\Upsilon(1S)$ tagging method", 
+        "Belle", 
+        "10.1103/PhysRevLett.128.081804", 
+        "2802267", 
+        "2112.11852", 
+        null, 
+        null, 
+        [
+            "Belle Preprint 2021-30; KEK Preprint 2021-35"
+        ]
+    ], 
+    "1998668": [
+        "First Measurement of the $\\Lambda_c^+ \\to p \\eta'$ decay", 
+        "Belle", 
+        "10.1007/JHEP03(2022)090", 
+        null, 
+        "2112.14276", 
+        null, 
+        null, 
+        [
+            "Belle Preprint 2021-19; KEK Preprint 2021-23"
+        ]
+    ], 
+    "2009463": [
+        "Measurement of $\\mathcal B (B_s \\to D_sX)$ with $B_s$ semileptonic tagging", 
+        "Belle", 
+        "10.1103/PhysRevD.105.012004", 
+        null, 
+        "2106.11265", 
+        null, 
+        null, 
+        [
+            "Belle Preprint 2020-21 KEK Preprint 2020-38", 
+            "University of\n  Cincinnati Preprint UCHEP-21-05"
+        ]
+    ]
+}

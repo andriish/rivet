@@ -1,9 +1,9 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/DISKinematics.hh"
-#include "Rivet/Projections/DISLepton.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
 
 namespace Rivet {
@@ -26,15 +26,16 @@ const vector<double> WEdges {80., 115, 150., 185., 220.};
     void init() {
 
       // Initialise and register projections
-      declare(DISLepton(),"Lepton");
-      declare(DISKinematics(),"Kinematics");
+      const DISLepton disl;
+      declare(disl, "Lepton");
+      declare(DISKinematics(), "Kinematics");
       
       // The basic final-state projection:
       // all final-state particles within
       // the given eta acceptance
       const FinalState fs;
       declare(fs,"FS");
-      const ChargedFinalState cfs;
+      const ChargedFinalState cfs(disl.remainingFinalState());
       declare(cfs,"CFS");
       
       
@@ -151,7 +152,7 @@ const vector<double> WEdges {80., 115, 150., 185., 220.};
     const FinalState& fs=apply<FinalState>(event, "FS");
     const size_t numParticles=fs.particles().size();
     const ChargedFinalState& cfs=apply<ChargedFinalState>(event,"CFS");
-    //const size_t char_numParticles=cfs.particles().size();
+    const Particles& particles = cfs.particles();
     
     //because it does not make sense to have a collision with the numparticles is less than two,we use the vetoEvent so that if there is an event like this it does not run the analysis and goes to the next one
    
@@ -174,16 +175,6 @@ const vector<double> WEdges {80., 115, 150., 185., 220.};
     bool cut=Q2<1000. && Q2>10. && W>80. && W<220.;
     if(!cut) vetoEvent; 
     //cout<<"after cuts"<<endl;
-    //Extract the scattered lepton from the final state particles
-    
-    Particles particles;
-    particles.reserve(fs.particles().size()); //reserve all final state particles in a matrix
-    ConstGenParticlePtr dislepGP=dl.out().genParticle(); 
-    for (const Particle& p:cfs.particles()){
-     ConstGenParticlePtr loopGP=p.genParticle();
-     if (loopGP==dislepGP) continue;
-     particles.push_back(p);
-    }
     
     double Efwd = 0. ;
     for (size_t ip1 = 0; ip1 < particles.size(); ++ip1) {
@@ -191,7 +182,7 @@ const vector<double> WEdges {80., 115, 150., 185., 220.};
        double theta = p.theta()/degree ;
        if ( inRange(theta,4.4,15.) ) { 
           Efwd = Efwd + p.E() ;
-          }
+       }
     }
     
     bool cut_fwd = Efwd > 0.5 && dk.beamLepton().E() > 12. ;
@@ -571,175 +562,158 @@ const vector<double> WEdges {80., 115, 150., 185., 220.};
       
       // cout << histo_input->name() << endl;
       if (histo_input->effNumEntries() == 0 || histo_input->sumW() == 0) {
-      cout << "Requested mean of a distribution with no net fill weights" << endl;
-      }
-      else {
+         MSG_WARNING("Requested mean of a distribution with no net fill weights");
+      } else {
         // loop to calcualte mean 
         for (size_t b = 0; b < histo_input->numBins(); ++b) { // loop over points
-           mysumWX  += histo_input->bin(b).height()      *  histo_input->bin(b).xMid() ;
-           mysumW2X += sqr(histo_input->bin(b).height()) *  histo_input->bin(b).xMid() ;
-           mysumWX2 += histo_input->bin(b).height()      *  sqr(histo_input->bin(b).xMid()) ;
-           mysumW2  += sqr(histo_input->bin(b).height()) ;
-           mysumW   += histo_input->bin(b).height() ;           
-           // const double numentries = histo_input->bin(b).numEntries();
-           // cout << " bin " << b << " entries " << numentries << " height  " << histo_input->bin(b).height() <<  endl;
-         }
-       //cout <<" Rivet sumW = " << histo_input->sumW() << " my sumW " << mysumW << endl;
-       mean = mysumWX/mysumW ;
-       // double xvar = (mysumWX2 * mysumW - sqr(mysumWX))/sqr(mysumW)  ;
-       // cout << " Rivet mean " << histo_input->xMean() << " my mean " << mean << endl; 
-       // cout << " Rivet variance " << histo_input->xVariance() << " my variance " << xvar << endl; 
+          mysumWX  += histo_input->bin(b).height()      *  histo_input->bin(b).xMid() ;
+          mysumW2X += sqr(histo_input->bin(b).height()) *  histo_input->bin(b).xMid() ;
+          mysumWX2 += histo_input->bin(b).height()      *  sqr(histo_input->bin(b).xMid()) ;
+          mysumW2  += sqr(histo_input->bin(b).height()) ;
+          mysumW   += histo_input->bin(b).height() ;           
+        }
+        mean = mysumWX/mysumW ;
        
  
-      // loop to calcualte dispersion (variance)     
-      // double iq = 2. ;
-      double var = 0.;
-      for (size_t b = 0; b < histo_input->numBins(); ++b) { // loop over points
-        double xval = histo_input->bin(b).xMid() ;
-        double weight = histo_input->bin(b).height() ;
-        var = var + weight * pow((xval - mean),iq) ;
-       }
+        // loop to calculate dispersion (variance)     
+        double var = 0.;
+        for (size_t b = 0; b < histo_input->numBins(); ++b) { // loop over points
+          double xval = histo_input->bin(b).xMid() ;
+          double weight = histo_input->bin(b).height() ;
+          var = var + weight * pow((xval - mean),iq) ;
+        }
        
-       var = var/mysumW ;
+        var = var/mysumW ;
 
-       dispersion = pow(var,1./iq) ;
-       double c=0.; 
-       //cout << " Rivet variance  " << histo_input->xVariance() << " my var " << var << " for iq = " << iq << endl;
-       for (size_t b = 0; b < histo_input->numBins(); ++b) { // loop over points
-        double xval = histo_input->bin(b).xMid() ;
-        double weight = histo_input->bin(b).height() ;
-        c=c+pow(xval,iq)*weight;
-       }
-       cq=c/(mysumW*pow(mean,iq));
-       double r2=0.;
-       double r3=0.;
-       for (size_t b = 0; b < histo_input->numBins(); ++b) { // loop over points
-        double xval = histo_input->bin(b).xMid() ;
-        double weight = histo_input->bin(b).height() ;
-        r2=r2+xval*(xval-1)*weight;
-        r3=r3+xval*(xval-1)*(xval-2)*weight;
-       }
-       R2=r2/(mysumW*pow(mean,2));
-       R3=r3/(mysumW*pow(mean,3));
-       K3=R3-3*R2+2;
-     }
-   }
-
+        dispersion = pow(var,1./iq) ;
+        double c=0.; 
+        for (size_t b = 0; b < histo_input->numBins(); ++b) { // loop over points
+          double xval = histo_input->bin(b).xMid() ;
+          double weight = histo_input->bin(b).height() ;
+          c=c+pow(xval,iq)*weight;
+        }
+        cq = c/(mysumW*pow(mean,iq));
+        double r2=0.;
+        double r3=0.;
+        for (size_t b = 0; b < histo_input->numBins(); ++b) { // loop over points
+          double xval = histo_input->bin(b).xMid() ;
+          double weight = histo_input->bin(b).height() ;
+          r2=r2+xval*(xval-1)*weight;
+          r3=r3+xval*(xval-1)*(xval-2)*weight;
+        }
+        R2 = r2/(mysumW*pow(mean,2));
+        R3 = r3/(mysumW*pow(mean,3));
+        K3 = R3 - 3*R2 + 2;
+      }
+    }
 
     ///@}
 
-    private:
-     BinnedHistogram _h_mult1;
-     BinnedHistogram _h_mult2;
-     BinnedHistogram _h_mult3;
-     BinnedHistogram _h_mult4;
-     BinnedHistogram _h_mult_all;
-     BinnedHistogram _h_mult10_all; 
-     BinnedHistogram _h_mult11_all;
-     BinnedHistogram _h_mult12_all;
 
-     Histo1DPtr _h2_W5;
-     Histo1DPtr _h2_W6;
-     Histo1DPtr _h2_W7;
-     Histo1DPtr _h2_W8;
-     Histo1DPtr _h2_W9;
-     Histo1DPtr _h2_W10;
-     Histo1DPtr _h2_W11;
-     Histo1DPtr _h2_W12;
-     //Histo1DPtr _h2_W5_R2;
-     Scatter2DPtr _h_mean0;
-     Scatter2DPtr _h_D2_0;
-     Scatter2DPtr _h_D3_0;
-     Scatter2DPtr _h_D4_0;
-     Scatter2DPtr _h_C2_0;
-     Scatter2DPtr _h_C3_0;
-     Scatter2DPtr _h_C4_0;
-     Scatter2DPtr _h_R2_0;
-     Scatter2DPtr _h_R3_0;
-     Scatter2DPtr _h_mean12;
-     Scatter2DPtr _h_D2_12;
-     Scatter2DPtr _h_D3_12;
-     Scatter2DPtr _h_D4_12;
-     Scatter2DPtr _h_C2_12;
-     Scatter2DPtr _h_C3_12;
-     Scatter2DPtr _h_C4_12;
-     Scatter2DPtr _h_R2_12;
-     Scatter2DPtr _h_R3_12;
-     Scatter2DPtr _h_K3_12;
-     Scatter2DPtr _h_mean13;
-     Scatter2DPtr _h_D2_13;
-     Scatter2DPtr _h_D3_13;
-     Scatter2DPtr _h_D4_13;
-     Scatter2DPtr _h_C2_13;
-     Scatter2DPtr _h_C3_13;
-     Scatter2DPtr _h_C4_13;
-     Scatter2DPtr _h_R2_13;
-     Scatter2DPtr _h_R3_13;
-     Scatter2DPtr _h_K3_13;
-     Scatter2DPtr _h_mean14;
-     Scatter2DPtr _h_D2_14;
-     Scatter2DPtr _h_D3_14;
-     Scatter2DPtr _h_D4_14;
-     Scatter2DPtr _h_C2_14;
-     Scatter2DPtr _h_C3_14;
-     Scatter2DPtr _h_C4_14;
-     Scatter2DPtr _h_R2_14;
-     Scatter2DPtr _h_R3_14;
-     Scatter2DPtr _h_mean15;
-     Scatter2DPtr _h_D2_15;
-     Scatter2DPtr _h_D3_15;
-     Scatter2DPtr _h_D4_15;
-     Scatter2DPtr _h_C2_15;
-     Scatter2DPtr _h_C3_15;
-     Scatter2DPtr _h_C4_15;
-     Scatter2DPtr _h_R2_15;
-     Scatter2DPtr _h_R3_15;
-     Scatter2DPtr _h_mean23;
-     Scatter2DPtr _h_D2_23;
-     Scatter2DPtr _h_D3_23;
-     Scatter2DPtr _h_D4_23;
-     Scatter2DPtr _h_C2_23;
-     Scatter2DPtr _h_C3_23;
-     Scatter2DPtr _h_C4_23;
-     Scatter2DPtr _h_R2_23;
-     Scatter2DPtr _h_R3_23;
-     Scatter2DPtr _h_K3_23;
-     Scatter2DPtr _h_mean34;
-     Scatter2DPtr _h_D2_34;
-     Scatter2DPtr _h_D3_34;
-     Scatter2DPtr _h_D4_34;
-     Scatter2DPtr _h_C2_34;
-     Scatter2DPtr _h_C3_34;
-     Scatter2DPtr _h_C4_34;
-     Scatter2DPtr _h_R2_34;
-     Scatter2DPtr _h_R3_34;
-     Scatter2DPtr _h_K3_34;
-     Scatter2DPtr _h_mean45;
-     Scatter2DPtr _h_D2_45;
-     Scatter2DPtr _h_D3_45;
-     Scatter2DPtr _h_D4_45;
-     Scatter2DPtr _h_C2_45;
-     Scatter2DPtr _h_C3_45;
-     Scatter2DPtr _h_C4_45;
-     Scatter2DPtr _h_R2_45;
-     Scatter2DPtr _h_R3_45;
-     Scatter2DPtr _h_K3_45;
-     Scatter2DPtr _h_pt_06_ratio;
-     Scatter2DPtr _h_pt_07_ratio;
-     Scatter2DPtr _h_pt_08_ratio;
-     Scatter2DPtr _h_pt_09_ratio;
-     Scatter2DPtr _h_pt_10_ratio;
-     Scatter2DPtr _h_pt_11_ratio;
-     Scatter2DPtr _h_pt_12_ratio;
-     Scatter2DPtr _h_R2_5_ratio;
+  private:
+
     /// @name Histograms
     ///@{
-    map<string, Histo1DPtr> _h;
-    map<string, Profile1DPtr> _p;
-    map<string, CounterPtr> _c;
-    CounterPtr _Nevt_after_cuts[4];
-    ///@}
 
+    BinnedHistogram _h_mult1;
+    BinnedHistogram _h_mult2;
+    BinnedHistogram _h_mult3;
+    BinnedHistogram _h_mult4;
+    BinnedHistogram _h_mult_all;
+    BinnedHistogram _h_mult10_all; 
+    BinnedHistogram _h_mult11_all;
+    BinnedHistogram _h_mult12_all;
+
+    Histo1DPtr _h2_W5;
+    Histo1DPtr _h2_W6;
+    Histo1DPtr _h2_W7;
+    Histo1DPtr _h2_W8;
+    Histo1DPtr _h2_W9;
+    Histo1DPtr _h2_W10;
+    Histo1DPtr _h2_W11;
+    Histo1DPtr _h2_W12;
+    //Histo1DPtr _h2_W5_R2;
+    Scatter2DPtr _h_mean0;
+    Scatter2DPtr _h_D2_0;
+    Scatter2DPtr _h_D3_0;
+    Scatter2DPtr _h_D4_0;
+    Scatter2DPtr _h_C2_0;
+    Scatter2DPtr _h_C3_0;
+    Scatter2DPtr _h_C4_0;
+    Scatter2DPtr _h_R2_0;
+    Scatter2DPtr _h_R3_0;
+    Scatter2DPtr _h_mean12;
+    Scatter2DPtr _h_D2_12;
+    Scatter2DPtr _h_D3_12;
+    Scatter2DPtr _h_D4_12;
+    Scatter2DPtr _h_C2_12;
+    Scatter2DPtr _h_C3_12;
+    Scatter2DPtr _h_C4_12;
+    Scatter2DPtr _h_R2_12;
+    Scatter2DPtr _h_R3_12;
+    Scatter2DPtr _h_K3_12;
+    Scatter2DPtr _h_mean13;
+    Scatter2DPtr _h_D2_13;
+    Scatter2DPtr _h_D3_13;
+    Scatter2DPtr _h_D4_13;
+    Scatter2DPtr _h_C2_13;
+    Scatter2DPtr _h_C3_13;
+    Scatter2DPtr _h_C4_13;
+    Scatter2DPtr _h_R2_13;
+    Scatter2DPtr _h_R3_13;
+    Scatter2DPtr _h_K3_13;
+    Scatter2DPtr _h_mean14;
+    Scatter2DPtr _h_D2_14;
+    Scatter2DPtr _h_D3_14;
+    Scatter2DPtr _h_D4_14;
+    Scatter2DPtr _h_C2_14;
+    Scatter2DPtr _h_C3_14;
+    Scatter2DPtr _h_C4_14;
+    Scatter2DPtr _h_R2_14;
+    Scatter2DPtr _h_R3_14;
+    Scatter2DPtr _h_mean15;
+    Scatter2DPtr _h_D2_15;
+    Scatter2DPtr _h_D3_15;
+    Scatter2DPtr _h_D4_15;
+    Scatter2DPtr _h_C2_15;
+    Scatter2DPtr _h_C3_15;
+    Scatter2DPtr _h_C4_15;
+    Scatter2DPtr _h_R2_15;
+    Scatter2DPtr _h_R3_15;
+    Scatter2DPtr _h_mean23;
+    Scatter2DPtr _h_D2_23;
+    Scatter2DPtr _h_D3_23;
+    Scatter2DPtr _h_D4_23;
+    Scatter2DPtr _h_C2_23;
+    Scatter2DPtr _h_C3_23;
+    Scatter2DPtr _h_C4_23;
+    Scatter2DPtr _h_R2_23;
+    Scatter2DPtr _h_R3_23;
+    Scatter2DPtr _h_K3_23;
+    Scatter2DPtr _h_mean34;
+    Scatter2DPtr _h_D2_34;
+    Scatter2DPtr _h_D3_34;
+    Scatter2DPtr _h_D4_34;
+    Scatter2DPtr _h_C2_34;
+    Scatter2DPtr _h_C3_34;
+    Scatter2DPtr _h_C4_34;
+    Scatter2DPtr _h_R2_34;
+    Scatter2DPtr _h_R3_34;
+    Scatter2DPtr _h_K3_34;
+    Scatter2DPtr _h_mean45;
+    Scatter2DPtr _h_D2_45;
+    Scatter2DPtr _h_D3_45;
+    Scatter2DPtr _h_D4_45;
+    Scatter2DPtr _h_C2_45;
+    Scatter2DPtr _h_C3_45;
+    Scatter2DPtr _h_C4_45;
+    Scatter2DPtr _h_R2_45;
+    Scatter2DPtr _h_R3_45;
+    Scatter2DPtr _h_K3_45;
+
+    CounterPtr _Nevt_after_cuts[4];
+
+    ///@}
 
   };
 

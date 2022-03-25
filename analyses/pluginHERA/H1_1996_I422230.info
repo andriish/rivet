@@ -14,6 +14,7 @@ References:
  - doi:10.1007/s002880050280,10.1007/BF02909189
  - arXiv:hep-ex/9608011
  - DESY-96-160
+RunInfo: 'validation with 3000001 events generated RAPGAP33, 26.7x820 GeV, Q2>2, 0.01 < y <0.95, IPRO=12, pt2cut=9, mixing with O(alphas) process, Nf_QCDC=4, NFLA=5'
 Beams: [[e+, p+],[p+, e+]]
 Energies: [[27.5,820],[820,27.5]]
 Description:
@@ -39,6 +40,3 @@ BibTeX: '@article{H1:1996ovs,
     year = "1996"
 }
 '
-ToDo:
- - Implement the analysis, test it, remove this ToDo, and mark as VALIDATED :-)
-

@@ -50,7 +50,7 @@ estimate some of the associated generator-level uncertainties.
 
 Unless you have a local Rivet installation that you can use, consider installing the latest Rivet docker container, e.g.\ using
 \begin{verbatim}
-  docker pull hepstore/rivet:3.1.4
+  docker pull hepstore/rivet:3.1.5
 \end{verbatim}
 In case of problems with disk space, you may wish to consider running
 {\texttt{docker container prune}} and {\texttt{docker system prune}} first.
@@ -58,7 +58,7 @@ In order to make the executables from the docker container available on
 the command line, you can define an alias like so
 \begin{footnotesize}
 \begin{verbatim}
-  alias rivet='docker run -i --rm -u `id -u $USER`:`id -g` -v $PWD:$PWD -w $PWD hepstore/rivet:3.1.4 rivet'
+  alias rivet='docker run -i --rm -u `id -u $USER`:`id -g` -v $PWD:$PWD -w $PWD hepstore/rivet:3.1.5 rivet'
 \end{verbatim}
 \end{footnotesize}
 \noindent A number of useful short-hand commands are defined in the supplied \texttt{setup.sh} script
