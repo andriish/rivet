@@ -39,16 +39,22 @@ namespace Rivet {
     _theQ2 = -pGamma.mass2();
     _theW2 = tothad.mass2();
 
+    // Compute x and y, preferrably by numerically safe expressions, neglecting masses of incoming particles
     //_theX = Q2()/(2.0*(pGamma * pHad));
     //_theY = (pGamma * pHad) / (pLepIn * pHad);
-    //std::cout << "Old: " << x() << "," << y() << std::endl;
-    // use this expression rather than the above for numerical safety. Neglects mass of incoming particles.
+    // cout << "Old: " << x() << "," << y() << endl;
     _theX = Q2()/(Q2()+W2());
-    _theY = Q2() / ( (pLepIn * pHad) * 2.0 * x());
-    //std::cout << "New: " << x() << "," << y() << std::endl;
+    if (_theX != 0) {
+      _theY = Q2() / ( (pLepIn * pHad) * 2.0 * x());
+    } else {
+      _theY = (pGamma * pHad) / (pLepIn * pHad);
+    }
+    // cout << "New: " << x() << "," << y() << endl;
 
     _theS = invariant(pLepIn + pHad);
-    double cosgammah = ( (1 - _theY) * _theX * pHad.E() - _theY * pLepIn.E() )/( (1 - _theY) * _theX * pHad.E() + _theY * pLepIn.E());
+    double cosgammah =
+      ( (1 - _theY) * _theX * pHad.E() - _theY * pLepIn.E() ) /
+      ( (1 - _theY) * _theX * pHad.E() + _theY * pLepIn.E());
     _theGH = acos(cosgammah);
 
     // Calculate boost vector for boost into HCM-system
@@ -64,6 +70,7 @@ namespace Rivet {
     // Rotate so the photon is along the positive z-axis
     const double rot_angle = pGammaHCM.polarAngle() * (pGammaHCM.px() >= 0 ? -1 : 1);
     tmp.preMult(Matrix3(Vector3::mkY(), rot_angle));
+
     // Check that final HCM photon lies along +ve z as expected
     pGammaHCM = tmp.transform(pGamma);
     assert(isZero(dot(pGammaHCM.vector3(), Vector3::mkX()), 1e-3));
