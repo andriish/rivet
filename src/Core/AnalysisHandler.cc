@@ -451,10 +451,12 @@ namespace Rivet {
       }
     }
 
+    // Run finalize for each supporting analysis
     for (AnaHandle a : analyses()) {
       if ( _dumping && !a->info().reentrant() )  {
-        if ( _dumping == 1 )
+        if ( _dumping == 1 ) { //< print on first attempt to dump
           MSG_DEBUG("Skipping finalize in periodic dump of " << a->name() << " as it is not declared re-entrant.");
+        }
         continue;
       }
       for (size_t iW = 0; iW < numWeights(); iW++) {
@@ -884,37 +886,61 @@ namespace Rivet {
   }
 
 
-  vector<YODA::AnalysisObjectPtr> AnalysisHandler::getYodaAOs(bool includeraw) const {
-    vector<YODA::AnalysisObjectPtr> output;
+  template <typename T>
+  YODA::AnalysisObjectPtr _mkStaticClone(YODA::AnalysisObjectPtr aop) {
+    YODA::AnalysisObjectPtr rtn;
+    T* aop_dyn = dynamic_cast<T*>(aop.get());
+    if (aop_dyn != nullptr) rtn.reset(YODA::mkScatter(*aop_dyn).newclone());
+    return rtn;
+  }
+
+
+  vector<YODA::AnalysisObjectPtr> AnalysisHandler::getYodaAOs(bool includeraw, bool mkstatic) const {
 
     // First get all multiweight AOs
     vector<MultiweightAOPtr> raos = getRivetAOs();
+    vector<YODA::AnalysisObjectPtr> output;
     output.reserve(raos.size() * numWeights() * (includeraw ? 2 : 1));
 
     // Identify an index ordering so that default weight is written out first
     vector<size_t> order = { _rivetDefaultWeightIdx };
-    for ( size_t  i = 0; i < numWeights(); ++i ) {
-      if ( i != _rivetDefaultWeightIdx )  order.push_back(i);
+    for (size_t i = 0; i < numWeights(); ++i) {
+      if (i != _rivetDefaultWeightIdx) order.push_back(i);
     }
 
-    // Then we go through all finalized AOs one weight at a time
-    for (size_t iW : order ) {
-      for ( auto rao : raos ) {
+    // Then we go through all finalized, non-TMP AOs one weight at a time
+    for (size_t iW : order) {
+      for (auto rao : raos) {
         rao.get()->setActiveFinalWeightIdx(iW);
-        if ( rao->path().find("/TMP/") != string::npos ) continue;
-        output.push_back(rao.get()->activeYODAPtr());
+        if (rao->path().find("/TMP/") != string::npos) continue; //< skip TMP histos
+        if (rao->path().find("/_") != string::npos && !startsWith(rao->path(), "/_")) continue; //< skip leading-underscored analysis-level histos
+        YODA::AnalysisObjectPtr aop = rao.get()->activeYODAPtr();
+        // Convert to a static type, e.g. scatter
+        /// @todo Convert the output to BinnedEstimates when available
+        if (mkstatic) { // && rao->path().find("/_") == string::npos) {
+          YODA::AnalysisObjectPtr aop_static;
+          /// @todo Improve this awkward casting, e.g. with a AO::mkStatic() virtual member function
+          if (!aop_static) aop_static = _mkStaticClone<YODA::Counter>(aop);
+          if (!aop_static) aop_static = _mkStaticClone<YODA::Histo1D>(aop);
+          if (!aop_static) aop_static = _mkStaticClone<YODA::Histo2D>(aop);
+          if (!aop_static) aop_static = _mkStaticClone<YODA::Profile1D>(aop);
+          if (!aop_static) aop_static = _mkStaticClone<YODA::Profile2D>(aop);
+          if (aop_static) aop = aop_static; //< if successful, overwrite aop for return
+        }
+        // Push to output
+        output.push_back(aop);
       }
     }
 
-    // Analyses can make changes neccesary for merging to RAW objects
-    // before writing.
-    for (size_t iW : order)
+    // Analyses can make changes necessary for merging to RAW objects before writing
+    for (size_t iW : order) {
       for (auto a : analyses()) a->rawHookOut(raos, iW);
+    }
 
-    // Finally the RAW objects.
+    // Finally write the RAW objects
     if (includeraw) {
-      for (size_t iW : order ) {
-        for ( auto rao : raos ) {
+      for (size_t iW : order) {
+        for (auto rao : raos) {
           rao.get()->setActiveWeightIdx(iW);
           output.push_back(rao.get()->activeYODAPtr());
         }
@@ -926,26 +952,22 @@ namespace Rivet {
 
 
   void AnalysisHandler::writeData(std::ostream& ostr, const string& fmt) const {
-
     const vector<YODA::AnalysisObjectPtr> output = getYodaAOs(true);
     try {
       YODA::write(ostr, begin(output), end(output), fmt);
     } catch (...) { //< YODA::WriteError&
       throw UserError("Unexpected error in writing output");
     }
-
   }
 
 
   void AnalysisHandler::writeData(const string& filename) const {
-
     const vector<YODA::AnalysisObjectPtr> output = getYodaAOs(true);
     try {
       YODA::write(filename, begin(output), end(output));
     } catch (...) { //< YODA::WriteError&
       throw UserError("Unexpected error in writing file: " + filename);
     }
-
   }
 
 
