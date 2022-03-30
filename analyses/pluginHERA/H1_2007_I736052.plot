@@ -193,8 +193,8 @@ END PLOT
 
 BEGIN PLOT /H1_2007_I736052/d23-x01-y01
 Title= $d^2\sigma /dQ^2d\Delta \phi$ for $D^{*\pm}$ production with dijets in bins of $Q^2$(Breit) 
-XLabel= $\Delta \phi$ $[^{\circ}]$
-YLabel= $d^2\sigma /dQ^2d\Delta \phi$ $[nb$ $GeV^{-2}$ $^{\circ} ^{-1}]$
+XLabel= $\Delta \phi$ $[rad]$
+YLabel= $d^2\sigma /dQ^2d\Delta \phi$ $[nb$ $GeV^{-2}$ rad$^{-1}]$
 LogX=0
 LogY=1
 Legend=1
@@ -205,8 +205,8 @@ END PLOT
 
 BEGIN PLOT /H1_2007_I736052/d24-x01-y01
 Title= $d^2\sigma /dQ^2d\Delta \phi$ for $D^{*\pm}$ production with dijets in bins of $Q^2$(Breit) 
-XLabel= $\Delta \phi$ $[^{\circ}]$
-YLabel= $d^2\sigma /dQ^2d\Delta \phi$ $[nb$ $GeV^{-2}$ $^{\circ} ^{-1}]$
+XLabel= $\Delta \phi$ $[rad]$
+YLabel= $d^2\sigma /dQ^2d\Delta \phi$ $[nb$ $GeV^{-2}$ rad$^{-1}]$
 LogX=0
 LogY=1
 Legend=1

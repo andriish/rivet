@@ -2,7 +2,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d01-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.2, up: 0.2}, sys: {dn: -0.63, up: 0.57}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d01-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t1
+Title: doi:10.17182/hepdata.45686.v2/t1
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -14,7 +14,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d02-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.12, up: 0.12}, sys: {dn: -0.18, up: 0.14}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d02-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t2
+Title: doi:10.17182/hepdata.45686.v2/t2
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -26,7 +26,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d03-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.014, up: 0.014}, sys: {dn: -0.011, up: 0.011}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d03-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t3
+Title: doi:10.17182/hepdata.45686.v2/t3
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -38,7 +38,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d04-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.05, up: 0.05}, sys: {dn: -0.08, up: 0.07}}, 1: {stat: {dn: -0.017, up: 0.017}, sys: {dn: -0.029, up: 0.026}}, 2: {stat: {dn: -0.009, up: 0.009}, sys: {dn: -0.012, up: 0.012}}, 3: {stat: {dn: -0.004, up: 0.004}, sys: {dn: -0.006, up: 0.005}}, 4: {stat: {dn: -0.0009, up: 0.0009}, sys: {dn: -0.0011, up: 0.0014}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d04-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t4
+Title: doi:10.17182/hepdata.45686.v2/t4
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -54,7 +54,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d05-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -587.0, up: 587.0}, sys: {dn: -1142.0, up: 1079.0}}, 1: {stat: {dn: -311.0, up: 311.0}, sys: {dn: -491.0, up: 466.0}}, 2: {stat: {dn: -106.0, up: 106.0}, sys: {dn: -167.0, up: 170.0}}, 3: {stat: {dn: -33.0, up: 33.0}, sys: {dn: -54.0, up: 36.0}}, 4: {stat: {dn: -2.3, up: 2.3}, sys: {dn: -2.4, up: 1.6}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d05-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t5
+Title: doi:10.17182/hepdata.45686.v2/t5
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -70,7 +70,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d06-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.002, up: 0.002}, sys: {dn: -0.006, up: 0.004}}, 1: {stat: {dn: -0.002, up: 0.002}, sys: {dn: -0.004, up: 0.004}}, 2: {stat: {dn: -0.002, up: 0.002}, sys: {dn: -0.004, up: 0.003}}, 3: {stat: {dn: -0.0018, up: 0.0018}, sys: {dn: -0.0023, up: 0.0033}}, 4: {stat: {dn: -0.0015, up: 0.0015}, sys: {dn: -0.0028, up: 0.0024}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d06-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t6
+Title: doi:10.17182/hepdata.45686.v2/t6
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -86,7 +86,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d07-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.3, up: 0.3}, sys: {dn: -0.3, up: 0.5}}, 1: {stat: {dn: -0.2, up: 0.2}, sys: {dn: -0.31, up: 0.23}}, 2: {stat: {dn: -0.08, up: 0.08}, sys: {dn: -0.17, up: 0.13}}, 3: {stat: {dn: -0.04, up: 0.04}, sys: {dn: -0.07, up: 0.06}}, 4: {stat: {dn: -0.007, up: 0.007}, sys: {dn: -0.009, up: 0.01}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d07-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t7
+Title: doi:10.17182/hepdata.45686.v2/t7
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -102,7 +102,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d08-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.14, up: 0.14}, sys: {dn: -0.21, up: 0.2}}, 1: {stat: {dn: -0.13, up: 0.13}, sys: {dn: -0.2, up: 0.17}}, 2: {stat: {dn: -0.14, up: 0.14}, sys: {dn: -0.19, up: 0.17}}, 3: {stat: {dn: -0.15, up: 0.15}, sys: {dn: -0.26, up: 0.21}}, 4: {stat: {dn: -0.15, up: 0.15}, sys: {dn: -0.23, up: 0.28}}, 5: {stat: {dn: -0.16, up: 0.16}, sys: {dn: -0.23, up: 0.18}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d08-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t8
+Title: doi:10.17182/hepdata.45686.v2/t8
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -119,7 +119,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d09-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.8, up: 0.8}, sys: {dn: -0.8, up: 1.2}}, 1: {stat: {dn: -0.8, up: 0.8}, sys: {dn: -1.3, up: 1.4}}, 2: {stat: {dn: -0.7, up: 0.7}, sys: {dn: -1.3, up: 1.4}}, 3: {stat: {dn: -0.6, up: 0.6}, sys: {dn: -1.0, up: 0.9}}, 4: {stat: {dn: -0.6, up: 0.6}, sys: {dn: -1.0, up: 0.8}}, 5: {stat: {dn: -0.4, up: 0.4}, sys: {dn: -1.5, up: 0.8}}, 6: {stat: {dn: -0.11, up: 0.11}, sys: {dn: -0.52, up: 0.41}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d09-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t9
+Title: doi:10.17182/hepdata.45686.v2/t9
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -137,7 +137,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d10-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -525.0, up: 525.0}, sys: {dn: -556.0, up: 368.0}}, 1: {stat: {dn: -495.0, up: 495.0}, sys: {dn: -635.0, up: 422.0}}, 2: {stat: {dn: -359.0, up: 359.0}, sys: {dn: -365.0, up: 320.0}}, 3: {stat: {dn: -199.0, up: 199.0}, sys: {dn: -355.0, up: 204.0}}, 4: {stat: {dn: -85.0, up: 85.0}, sys: {dn: -72.0, up: 99.0}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d10-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t10
+Title: doi:10.17182/hepdata.45686.v2/t10
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -153,7 +153,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d11-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -116.0, up: 116.0}, sys: {dn: -131.0, up: 141.0}}, 1: {stat: {dn: -80.0, up: 80.0}, sys: {dn: -76.0, up: 81.0}}, 2: {stat: {dn: -33.0, up: 33.0}, sys: {dn: -42.0, up: 31.0}}, 3: {stat: {dn: -15.0, up: 15.0}, sys: {dn: -15.0, up: 15.0}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d11-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t11
+Title: doi:10.17182/hepdata.45686.v2/t11
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -168,7 +168,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d12-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -20.0, up: 20.0}, sys: {dn: -18.0, up: 19.0}}, 1: {stat: {dn: -9.0, up: 9.0}, sys: {dn: -9.0, up: 7.0}}, 2: {stat: {dn: -0.5, up: 0.5}, sys: {dn: -0.7, up: 0.5}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d12-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t12
+Title: doi:10.17182/hepdata.45686.v2/t12
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -182,7 +182,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d13-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -7.0, up: 7.0}, sys: {dn: -4.0, up: 3.0}}, 1: {stat: {dn: -4.0, up: 4.0}, sys: {dn: -6.0, up: 7.0}}, 2: {stat: {dn: -0.4, up: 0.4}, sys: {dn: -0.4, up: 0.3}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d13-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t13
+Title: doi:10.17182/hepdata.45686.v2/t13
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -196,7 +196,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d14-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.4, up: 0.4}, sys: {dn: -0.4, up: 0.8}}, 1: {stat: {dn: -0.07, up: 0.07}, sys: {dn: -0.08, up: 0.05}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d14-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t14
+Title: doi:10.17182/hepdata.45686.v2/t14
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -209,7 +209,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d15-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.03, up: 0.03}, sys: {dn: -0.05, up: 0.04}}, 1: {stat: {dn: -0.01, up: 0.01}, sys: {dn: -0.019, up: 0.021}}, 2: {stat: {dn: -0.005, up: 0.005}, sys: {dn: -0.008, up: 0.005}}, 3: {stat: {dn: -0.003, up: 0.003}, sys: {dn: -0.004, up: 0.003}}, 4: {stat: {dn: -0.0005, up: 0.0005}, sys: {dn: -0.0009, up: 0.001}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d15-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t15
+Title: doi:10.17182/hepdata.45686.v2/t15
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -225,7 +225,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d16-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -407.0, up: 407.0}, sys: {dn: -791.0, up: 606.0}}, 1: {stat: {dn: -186.0, up: 186.0}, sys: {dn: -316.0, up: 250.0}}, 2: {stat: {dn: -60.0, up: 60.0}, sys: {dn: -104.0, up: 107.0}}, 3: {stat: {dn: -18.0, up: 18.0}, sys: {dn: -43.0, up: 26.0}}, 4: {stat: {dn: -1.1, up: 1.1}, sys: {dn: -1.9, up: 0.5}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d16-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t16
+Title: doi:10.17182/hepdata.45686.v2/t16
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -241,7 +241,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d17-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.11, up: 0.11}, sys: {dn: -0.05, up: 0.21}}, 1: {stat: {dn: -0.12, up: 0.12}, sys: {dn: -0.18, up: 0.11}}, 2: {stat: {dn: -0.06, up: 0.06}, sys: {dn: -0.14, up: 0.09}}, 3: {stat: {dn: -0.03, up: 0.03}, sys: {dn: -0.07, up: 0.05}}, 4: {stat: {dn: -0.007, up: 0.007}, sys: {dn: -0.009, up: 0.009}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d17-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t17
+Title: doi:10.17182/hepdata.45686.v2/t17
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -257,7 +257,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d18-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.08, up: 0.08}, sys: {dn: -0.13, up: 0.06}}, 1: {stat: {dn: -0.08, up: 0.08}, sys: {dn: -0.11, up: 0.08}}, 2: {stat: {dn: -0.09, up: 0.09}, sys: {dn: -0.14, up: 0.09}}, 3: {stat: {dn: -0.09, up: 0.09}, sys: {dn: -0.16, up: 0.11}}, 4: {stat: {dn: -0.09, up: 0.09}, sys: {dn: -0.21, up: 0.21}}, 5: {stat: {dn: -0.1, up: 0.1}, sys: {dn: -0.15, up: 0.1}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d18-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t18
+Title: doi:10.17182/hepdata.45686.v2/t18
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -274,7 +274,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d19-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.021, up: 0.021}, sys: {dn: -0.016, up: 0.027}}, 1: {stat: {dn: -0.007, up: 0.007}, sys: {dn: -0.008, up: 0.012}}, 2: {stat: {dn: -0.004, up: 0.004}, sys: {dn: -0.004, up: 0.004}}, 3: {stat: {dn: -0.0022, up: 0.0022}, sys: {dn: -0.0029, up: 0.0014}}, 4: {stat: {dn: -0.0005, up: 0.0005}, sys: {dn: -0.0008, up: 0.0008}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d19-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t19
+Title: doi:10.17182/hepdata.45686.v2/t19
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -290,7 +290,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d20-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -288.0, up: 288.0}, sys: {dn: -253.0, up: 345.0}}, 1: {stat: {dn: -140.0, up: 140.0}, sys: {dn: -114.0, up: 112.0}}, 2: {stat: {dn: -49.0, up: 49.0}, sys: {dn: -71.0, up: 61.0}}, 3: {stat: {dn: -1.9, up: 1.9}, sys: {dn: -2.7, up: 1.5}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d20-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t20
+Title: doi:10.17182/hepdata.45686.v2/t20
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -305,7 +305,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d21-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.02, up: 0.02}, sys: {dn: -0.03, up: 0.02}}, 1: {stat: {dn: -0.014, up: 0.014}, sys: {dn: -0.013, up: 0.035}}, 2: {stat: {dn: -0.004, up: 0.004}, sys: {dn: -0.005, up: 0.01}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d21-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t21
+Title: doi:10.17182/hepdata.45686.v2/t21
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -319,7 +319,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d22-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.005, up: 0.005}, sys: {dn: -0.004, up: 0.005}}, 1: {stat: {dn: -0.008, up: 0.008}, sys: {dn: -0.011, up: 0.019}}, 2: {stat: {dn: -0.005, up: 0.005}, sys: {dn: -0.004, up: 0.002}}, 3: {stat: {dn: -0.0012, up: 0.0012}, sys: {dn: -0.0008, up: 0.0018}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d22-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t22
+Title: doi:10.17182/hepdata.45686.v2/t22
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -334,13 +334,13 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d23-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.003, up: 0.003}, sys: {dn: -0.002, up: 0.003}}, 1: {stat: {dn: -0.017, up: 0.017}, sys: {dn: -0.027, up: 0.011}}, 2: {stat: {dn: -0.019, up: 0.019}, sys: {dn: -0.012, up: 0.037}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d23-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t23
+Title: doi:10.17182/hepdata.45686.v2/t23
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
-1.046500e+02	4.735000e+01	4.735000e+01	2.000000e-02	3.605551e-03	4.242641e-03
-1.590000e+02	7.000000e+00	7.000000e+00	1.220000e-01	3.190611e-02	2.024846e-02
-1.730000e+02	7.000000e+00	7.000000e+00	1.420000e-01	2.247221e-02	4.159327e-02
+1.826500e+00	8.265000e-01	8.265000e-01	2.000000e-02	3.605551e-03	4.242641e-03
+2.775000e+00	1.220000e-01	1.220000e-01	1.220000e-01	3.190611e-02	2.024846e-02
+3.019500e+00	1.225000e-01	1.225000e-01	1.420000e-01	2.247221e-02	4.159327e-02
 END YODA_SCATTER2D_V2
 
 
@@ -348,13 +348,13 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d24-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.00016, up: 0.00016}, sys: {dn: -0.00021, up: 8.0e-05}}, 1: {stat: {dn: -0.0007, up: 0.0007}, sys: {dn: -0.0007, up: 0.0025}}, 2: {stat: {dn: -0.0018, up: 0.0018}, sys: {dn: -0.0015, up: 0.001}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d24-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t24
+Title: doi:10.17182/hepdata.45686.v2/t24
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
-9.465000e+01	3.735000e+01	3.735000e+01	7.900000e-04	2.640076e-04	1.788854e-04
-1.490000e+02	1.700000e+01	1.700000e+01	5.400000e-03	9.899495e-04	2.596151e-03
-1.730000e+02	7.000000e+00	7.000000e+00	1.240000e-02	2.343075e-03	2.059126e-03
+1.652000e+00	6.520000e-01	6.520000e-01	7.900000e-04	2.640076e-04	1.788854e-04
+2.600500e+00	2.965000e-01	2.965000e-01	5.400000e-03	9.899495e-04	2.596151e-03
+3.019500e+00	1.225000e-01	1.225000e-01	1.240000e-02	2.343075e-03	2.059126e-03
 END YODA_SCATTER2D_V2
 
 
@@ -362,7 +362,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d25-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.01, up: 0.01}, sys: {dn: -0.007, up: 0.007}}, 1: {stat: {dn: -0.06, up: 0.06}, sys: {dn: -0.07, up: 0.11}}, 2: {stat: {dn: -0.07, up: 0.07}, sys: {dn: -0.1, up: 0.07}}, 3: {stat: {dn: -0.05, up: 0.05}, sys: {dn: -0.07, up: 0.11}}, 4: {stat: {dn: -0.014, up: 0.014}, sys: {dn: -0.015, up: 0.018}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d25-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t25
+Title: doi:10.17182/hepdata.45686.v2/t25
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -378,7 +378,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d26-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.01, up: 0.01}, sys: {dn: -0.005, up: 0.009}}, 1: {stat: {dn: -0.06, up: 0.06}, sys: {dn: -0.06, up: 0.04}}, 2: {stat: {dn: -0.08, up: 0.08}, sys: {dn: -0.07, up: 0.09}}, 3: {stat: {dn: -0.05, up: 0.05}, sys: {dn: -0.05, up: 0.13}}, 4: {stat: {dn: -0.019, up: 0.019}, sys: {dn: -0.021, up: 0.01}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d26-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t26
+Title: doi:10.17182/hepdata.45686.v2/t26
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -394,7 +394,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d27-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.12, up: 0.12}, sys: {dn: -0.1, up: 0.32}}, 1: {stat: {dn: -0.09, up: 0.09}, sys: {dn: -0.07, up: 0.06}}, 2: {stat: {dn: -0.07, up: 0.07}, sys: {dn: -0.09, up: 0.14}}, 3: {stat: {dn: -0.05, up: 0.05}, sys: {dn: -0.04, up: 0.03}}, 4: {stat: {dn: -0.014, up: 0.014}, sys: {dn: -0.006, up: 0.024}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d27-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t27
+Title: doi:10.17182/hepdata.45686.v2/t27
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -410,7 +410,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d28-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.14, up: 0.14}, sys: {dn: -0.15, up: 0.39}}, 1: {stat: {dn: -0.16, up: 0.16}, sys: {dn: -0.09, up: 0.13}}, 2: {stat: {dn: -0.2, up: 0.2}, sys: {dn: -0.3, up: 0.4}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d28-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t28
+Title: doi:10.17182/hepdata.45686.v2/t28
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -424,7 +424,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d29-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -0.022, up: 0.022}, sys: {dn: -0.013, up: 0.036}}, 1: {stat: {dn: -0.04, up: 0.04}, sys: {dn: -0.04, up: 0.05}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d29-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t29
+Title: doi:10.17182/hepdata.45686.v2/t29
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -437,7 +437,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d29-x01-y02
 ErrorBreakdown: {0: {stat: {dn: -0.009, up: 0.009}, sys: {dn: -0.006, up: 0.014}}, 1: {stat: {dn: -0.019, up: 0.019}, sys: {dn: -0.015, up: 0.039}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d29-x01-y02
-Title: doi:10.17182/hepdata.45686.v1/t29
+Title: doi:10.17182/hepdata.45686.v2/t29
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -450,7 +450,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d29-x01-y03
 ErrorBreakdown: {0: {stat: {dn: -0.0007, up: 0.0007}, sys: {dn: -0.0005, up: 0.0017}}, 1: {stat: {dn: -0.0017, up: 0.0017}, sys: {dn: -0.002, up: 0.0014}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d29-x01-y03
-Title: doi:10.17182/hepdata.45686.v1/t29
+Title: doi:10.17182/hepdata.45686.v2/t29
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -463,7 +463,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d30-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -7.0, up: 7.0}, sys: {dn: -4.0, up: 4.0}}, 1: {stat: {dn: -10.0, up: 10.0}, sys: {dn: -10.0, up: 9.0}}, 2: {stat: {dn: -5.0, up: 5.0}, sys: {dn: -6.0, up: 7.0}}, 3: {stat: {dn: -0.5, up: 0.5}, sys: {dn: -0.7, up: 1.8}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d30-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t30
+Title: doi:10.17182/hepdata.45686.v2/t30
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -478,7 +478,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d31-x01-y01
 ErrorBreakdown: {0: {stat: {dn: -1.4, up: 1.4}, sys: {dn: -0.4, up: 1.9}}, 1: {stat: {dn: -2.0, up: 2.0}, sys: {dn: -1.3, up: 1.2}}, 2: {stat: {dn: -1.1, up: 1.1}, sys: {dn: -0.8, up: 0.8}}, 3: {stat: {dn: -0.1, up: 0.1}, sys: {dn: -0.05, up: 0.27}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d31-x01-y01
-Title: doi:10.17182/hepdata.45686.v1/t31
+Title: doi:10.17182/hepdata.45686.v2/t31
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -493,7 +493,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d31-x01-y02
 ErrorBreakdown: {0: {stat: {dn: -0.55, up: 0.55}, sys: {dn: -0.15, up: 0.28}}, 1: {stat: {dn: -1.0, up: 1.0}, sys: {dn: -1.0, up: 1.2}}, 2: {stat: {dn: -0.5, up: 0.5}, sys: {dn: -0.3, up: 0.5}}, 3: {stat: {dn: -0.05, up: 0.05}, sys: {dn: -0.064, up: 0.016}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d31-x01-y02
-Title: doi:10.17182/hepdata.45686.v1/t31
+Title: doi:10.17182/hepdata.45686.v2/t31
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
@@ -508,7 +508,7 @@ BEGIN YODA_SCATTER2D_V2 /REF/H1_2007_I736052/d31-x01-y03
 ErrorBreakdown: {0: {stat: {dn: -0.055, up: 0.055}, sys: {dn: -0.023, up: 0.018}}, 1: {stat: {dn: -0.07, up: 0.07}, sys: {dn: -0.04, up: 0.04}}, 2: {stat: {dn: -0.04, up: 0.04}, sys: {dn: -0.04, up: 0.06}}, 3: {stat: {dn: -0.004, up: 0.004}, sys: {dn: -0.004, up: 0.005}}}
 IsRef: 1
 Path: /REF/H1_2007_I736052/d31-x01-y03
-Title: doi:10.17182/hepdata.45686.v1/t31
+Title: doi:10.17182/hepdata.45686.v2/t31
 Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	

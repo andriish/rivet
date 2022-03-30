@@ -196,7 +196,8 @@ namespace Rivet {
             jet1 = jet_cut[0].momentum(); // momentum of jet #1 in Breit sys. 
             jet2 = jet_cut[1].momentum(); // momentum of jet #2 in Breit sys. 
 
-            delta_phi = deltaPhi(jet1,jet2)/degree ;
+            //delta_phi = deltaPhi(jet1,jet2)/degree ;
+            delta_phi = deltaPhi(jet1,jet2) ;
             _h["1911"] -> fill(Q2);     
             _h["2011"] -> fill(xbj); 
             _h["2111"] -> fill(jet_cut[0].momentum().Et()/GeV); 
@@ -291,7 +292,8 @@ namespace Rivet {
         scale(_h["2011"], norm);
         scale(_h["2111"], norm);
         scale(_h["2211"], norm);
-        _h_binned["Q2phi"].scale(norm*180./M_PI, this);
+        //_h_binned["Q2phi"].scale(norm*180./M_PI, this);
+        _h_binned["Q2phi"].scale(norm, this);
         scale(_h["2511"], norm);
         scale(_h["2611"], norm);
         scale(_h["2711"], norm);
