@@ -11,14 +11,12 @@
 #include "YODA/Scatter1D.h"
 #include "YODA/Scatter2D.h"
 #include "YODA/Scatter3D.h"
-
 #include <map>
 #include <valarray>
 
 namespace YODA {
 
   typedef std::shared_ptr<YODA::AnalysisObject> AnalysisObjectPtr;
-
   typedef std::shared_ptr<YODA::Counter> CounterPtr;
   typedef std::shared_ptr<YODA::Histo1D> Histo1DPtr;
   typedef std::shared_ptr<YODA::Histo2D> Histo2DPtr;
