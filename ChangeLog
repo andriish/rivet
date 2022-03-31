@@ -18,6 +18,14 @@
 
 	* Add finalize-scaling protection in ATLAS_2020_1790256.
 
+2022-02-11  Markus Seidel  <markus.seidel@cern.ch>
+
+	* Submission of CMS_2020_I1776758: Production of a Z boson with at least one charm or bottom quark jet at 13 TeV
+
+	* Submission of CMS_2021_I1972986: Double-differential inclusive jet cross sections at 13 TeV
+
+	* Submission of CMS_2021_I1978840: W+gamma differential cross sections at 13 TeV
+
 2022-02-07  Markus Seidel  <markus.seidel@cern.ch>
 
 	* Fix for CMS_2018_I1680318 (thanks to Armando Bermudez Martinez)
