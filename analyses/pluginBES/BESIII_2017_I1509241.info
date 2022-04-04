@@ -5,8 +5,9 @@ Experiment: BESIII
 Collider: BEPC
 InspireID: 1509241
 Status: VALIDATED
+Reentrant: true
 Authors:
- - Your Name <your@email.address>
+ - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Lett. B771 (2017) 45-51
 RunInfo: e+e- to hadrons

@@ -28,7 +28,7 @@ namespace Rivet {
       // histos
       if(isCompatibleWithSqrtS(10.52))
         _mode=1;
-      else if(isCompatibleWithSqrtS(10.58))
+      else if(isCompatibleWithSqrtS(10.58,1e-4))
         _mode=2;
       else
         MSG_ERROR("Beam energy not supported!");

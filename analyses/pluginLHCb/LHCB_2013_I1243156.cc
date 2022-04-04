@@ -23,8 +23,12 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
 
       // Book histograms
-      book(_h_D1_ctheta, 8,1,1);
-      book(_h_D2_ctheta, 8,1,2);
+      book(_h_D1_ctheta     , 8,1,1);
+      book(_h_D2_ctheta     , 8,1,2);
+      book(_h_DStar2S_ctheta, 9,1,1);
+      book(_h_D3_ctheta     , 9,1,2);
+      book(_h_D2S_ctheta    ,10,1,1);
+      book(_h_D21D_ctheta   ,10,1,2);
 
     }
 
@@ -44,7 +48,10 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==425 || Cuts::abspid==10423)) {
+      for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==425 || Cuts::abspid==10423 ||
+									       Cuts::abspid==100423 || Cuts::abspid==427||
+									       Cuts::abspid==100421 || Cuts::abspid==10425||
+									       Cuts::abspid==20425)) {
 	// decay products
 	Particles dstar,d0,pi;
 	unsigned int ncount=0;
@@ -66,8 +73,16 @@ namespace Rivet {
 	// decay angles
 	if(p.abspid()==425)
 	  _h_D2_ctheta->fill(cTheta);
-	else
+	else if(p.abspid()==10423)
 	  _h_D1_ctheta->fill(cTheta);
+	else if(p.abspid()==100423)
+	  _h_DStar2S_ctheta->fill(cTheta);
+	else if(p.abspid()==427)
+	  _h_D3_ctheta->fill(cTheta);
+	else if(p.abspid()==100421)
+	  _h_D2S_ctheta->fill(cTheta);
+	else if(p.abspid()==10425 || p.abspid()==20425)
+	  _h_D21D_ctheta->fill(cTheta);
       }
     }
 
@@ -75,6 +90,10 @@ namespace Rivet {
     void finalize() {
       normalize(_h_D1_ctheta);
       normalize(_h_D2_ctheta);
+      normalize(_h_DStar2S_ctheta);
+      normalize(_h_D3_ctheta     );
+      normalize(_h_D2S_ctheta    );
+      normalize(_h_D21D_ctheta   );
     }
 
     //@}
@@ -83,6 +102,8 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_D1_ctheta,_h_D2_ctheta;
+    Histo1DPtr _h_DStar2S_ctheta,_h_D3_ctheta;
+    Histo1DPtr _h_D2S_ctheta,_h_D21D_ctheta;
     //@}
 
 
