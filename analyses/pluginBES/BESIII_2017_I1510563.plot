@@ -34,6 +34,8 @@ Title=$\alpha$ for $e^+e^-\to J/\psi\to\Sigma^0\bar{\Sigma}^0$
 XLabel=
 YLabel=$\alpha$
 LogY=0
+YMax=0
+YMin=-0.6
 END PLOT
 BEGIN PLOT /BESIII_2017_I1510563/d02-x03-y01
 Title=$\alpha$ for $e^+e^-\to \psi(2S)\to\Lambda^0\bar{\Lambda}^0$

@@ -14,9 +14,21 @@
 
 	* Add a pseudojets() method to the Jets container type.
 
+2022-03-12 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2022_I2047667 e+e- > eta omega and omega pi0
+
 2022-03-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add finalize-scaling protection in ATLAS_2020_1790256.
+
+2022-02-28 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2022_I2039027 e+e- > pi+pi-eta
+
+2022-02-17 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2022_I2033007 e+e-> K+K-pi0
 
 2022-02-11  Markus Seidel  <markus.seidel@cern.ch>
 
@@ -36,6 +48,11 @@
 	gets very long (report by Michal Kreps, suggestion by Andrii
 	Verbytskyi).
 
+2022-01-11 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2009_I827985 D_s** helicity angles
+	* Add plots to helicity D, D_s helicity angle analyses
+
 2022-01-10  Christian Gutschow  <chris.g@cern.ch>
 
 	* Add support for explicit generator variation cross-sections
@@ -47,6 +64,24 @@
 	* Adding more histograms to MC_MET and improving the binning (many
 	thanks to Jan Kretzschmar).
 
+2022-01-04 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2021_I1929314 e+e- -> 4 charged particles(pi0)
+
+2022-01-03 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2021_I1999208 e+e- -> omega pi0pi0
+
+2021-12-29  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2021_I1996394 R measurement
+
+2021-12-28  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add A2_2017_I1498079 pi0 dalitz
+	* Add NA60_2016_I1452485 eta and omega mu+mu- dalitz
+	* Add BESIII_2021_I1997451 e+e- -> phi pi+pi-
+
 2021-12-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix the 'polarity' of the optional argument to AnalysisHandler::checkBeams().
@@ -54,6 +89,20 @@
 2021-12-14  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add strcat() variadic template function to Rivet utils.
+
+2021-12-13  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2019_I1736235 e+e- > n nbar
+
+2021-12-05  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2021_I1933191 e+e- > pi+pi- psi(2S)
+	* Add BELLE_2017_I1610301 upslion-> upsilon pi+pi-
+
+2021-12-03  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2021_I1900124 e+e- > Lambda Lambdabar
+	* Add BESIII_2021_I1845443 e+e- > p pbar eta/omega
 
 2021-12-02  Andy Buckley  <andy.buckley@cern.ch>
 
@@ -91,6 +140,29 @@
 
 	* Fix the analysis-plugin uninstall target.
 
+2021-10-17  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add SND_2021_I1942539 e+e- > eta eta gamma
+
+2021-10-12  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2021_I1940960 e+e- > Sigma- Sigmabar0
+
+2021-10-08  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2021_I1859248 e+e- > phi Lambda Lambdabar
+
+2021-10-06  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2021_I1938254 e+e- > pi+pi 4pi0 and  pi+pi 3pi0 eta
+	* Add BESIII_2021_I1867196  e+e- > D_s* D_sJ
+	* Add BESIII_2021_I1868813 K0S production in charmonium region
+	* Add BESIII_2021_I1908066 J/Psi production in charmonium region
+
+2021-10-04  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2021_I1937349 e+e- > pi+pi-pi0
+
 2021-10-01  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Remove many const return-by-value signatures, and other sloppy
@@ -101,6 +173,14 @@
 	PseudoJet constructors (since those live in external code and we
 	can't SFINAE-protect them). These were breaking the build on Intel
 	compilers -- thanks to Chris Chang for the report.
+
+2021-09-28  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add LHCB_2016_I1414195.cc excited D_s decays
+
+2021-09-01  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2021_I1866233 e+e-> Xi0 Xibar0
 
 2021-08-30  Christian Gutschow  <chris.g@cern.ch>
 
@@ -168,6 +248,10 @@
 
 	* catch low-stats crash in LHCB_2013_I1208105 reported by Jan Kretzschmar
 
+2021-05-31  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2021_I1866051 e+e-> K0K0
+
 2021-05-30  Christian Gutschow  <chris.g@cern.ch>
 
 	* Improve error message for when the calibration file has been forgotten
@@ -192,6 +276,23 @@
 2021-05-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add LHCB_2010_S8758301 -> LHCB_2010_I865584 alias, requested by LHCb.
+
+2021-04-24  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* BESIII_2021_I1847766 e+e- > p pbar
+	* BELLE_2021_I1859137 e+e- > B(*)B(*)
+
+2021-04-23  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* BELLE_2021_I1851126 Xi_c0 decay assymetries
+
+2021-04-22  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* BELLE_2021_I1859571 Xi_c0 decay assymetries
+
+2021-04-13  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* BESIII_2021_I1857930 e+e- > phi eta
 
 2021-04-13  Christian Gutschow  <chris.g@cern.ch>
 
@@ -240,6 +341,11 @@
 
 	* Add a preload option to rivet-merge.
 
+2021-03-24 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* BESIII_2021_I1853007 e+e- > n nbar
+	* BESIII_2020_I1837725 e+e- > 2p 2 pbar
+
 2021-03-23  Christian Gutschow  <chris.g@cern.ch>
 
 	* Tweak AnalysisHandler to allow rivet-merge with
@@ -285,6 +391,10 @@
 
 	* Submission of CMS_2017_I1471281 (W and Z pt @ 8 TeV)
 
+2021-02-20 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* BABAR_2021_I1844422 e+e- -> 2pi+2pi-2pi0(pi0,eta)
+
 2021-02-09  Christian Gutschow  <chris.g@cern.ch>
 
 	* Submission of ATLAS_2019_I1736531 (UE in Z @ 13 TeV)
@@ -302,6 +412,10 @@
 	* Add a stream-based AH::writeData variant, and map it to Python.
 
 	* Add missing list-analyses flag initialisation to Run.
+
+2020-12-15 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add  BESIII_2020_I1836509 e+e- > pi+pi- eta'
 
 2020-12-11  Andy Buckley  <andy.buckley@cern.ch>
 
@@ -407,6 +521,10 @@
 2020-10-24  Christian Gutschow  <chris.g@cern.ch>
 
 	* Submission of ATLAS_2019_I1750330
+
+2020-10-19 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2020_I1823448 e+ e- > Xi- Xibar+
 
 2020-10-08  Andy Buckley  <andy.buckley@cern.ch>
 
@@ -851,7 +969,6 @@
 
 2020-03-03  Peter Richardson <peter.richardson@durham.ac.uk>
 
-	* Add  Upsilon(4S) -> pipi Upsilon(1,2S)
 	* Add BABAR_2006_I714448 Upsilon(4S) -> pipi Upsilon(1,2S)
 	* Add CLEOII_1995_I404590 Xi_c+ spectra
 	* Add CLEOII_1999_I501417 Xi_c1 spectra
