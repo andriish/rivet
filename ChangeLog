@@ -177,6 +177,27 @@
 2021-09-28  Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add LHCB_2016_I1414195.cc excited D_s decays
+	* Add BABAR_2010_I845914 e+e- -> e+e- eta_c via gamma gamma
+
+2021-09-07  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add MARKII_1984_I195739, MARKII_1986_I220003 gamma gamma -> pi+pi-/K+K-
+
+2021-09-06  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add PLUTO_1984_I204487 gamma gamma -> pi+pi-
+
+2021-09-06  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add TPC_1986_I228072, ALEPH_2003_I626022, CLEO_1994_I372230 gamma gamma -> pi+pi-/K+K-
+
+2021-09-05  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2003_I629334, BELLE_2005_I667712 gamma gamma -> K+K-
+
+2021-09-02  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2007_I749358, MARKII_1990_I304882, VENUS_1995_I392360 gamma gamma -> pi+pi-
 
 2021-09-01  Peter Richardson <peter.richardson@durham.ac.uk>
 
@@ -276,6 +297,16 @@
 2021-05-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add LHCB_2010_S8758301 -> LHCB_2010_I865584 alias, requested by LHCb.
+
+2021-04-28  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* BABAR_2009_I821653 gamma gamma -> pi0
+	* BABAR_2011_I883525 gamma gamma -> eta eta'
+	* BABAR_2018_I1691222 gamma gamma -> eta'
+
+2021-04-27  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* BELLE_2012_I1114749 gamma gamma -> pi0
 
 2021-04-24  Peter Richardson <peter.richardson@durham.ac.uk>
 

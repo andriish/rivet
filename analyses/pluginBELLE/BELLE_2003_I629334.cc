@@ -5,12 +5,12 @@
 namespace Rivet {
 
 
-  /// @brief gamma gamma -> pi+pi-
-  class CELLO_1992_I345437 : public Analysis {
+  /// @brief gamma gamma -> K+K-
+  class BELLE_2003_I629334 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(CELLO_1992_I345437);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2003_I629334);
 
 
     /// @name Analysis methods
@@ -21,18 +21,12 @@ namespace Rivet {
       // Final state
       declare(FinalState(),"FS");
       // check CMS energy in range
-      if(sqrtS()<0.75*GeV || sqrtS()>2.*GeV)
-	throw Error("Invalid CMS energy for CELLO_1992_I345437");
-      int ibin = (sqrtS()-0.70)/0.05;
-      if(ibin>0&&ibin<19)
-	book(_h_cTheta,2,1,ibin);
-      if(inRange(sqrtS()/GeV,0.85,.95))
-	book(_h_cTheta2,2,1,19);
-      else if(inRange(sqrtS()/GeV,1.15,1.25))
-	book(_h_cTheta2,2,1,20);
-      else if(inRange(sqrtS()/GeV,1.25,1.35))
-	book(_h_cTheta2,2,1,21);
-      book(_cPi, "/TMP/nPi");
+      if(sqrtS()<1.4*GeV || sqrtS()>2.4*GeV)
+	throw Error("Invalid CMS energy for BELLE_2003_I629334");
+      // bin for the angle plots
+      int ibin = (sqrtS()-1.40)/0.04;
+      book(_h_cTheta,2+ibin/4,1,ibin%4+1);
+      book(_cK, "/TMP/nK");
     }
 
 
@@ -43,17 +37,16 @@ namespace Rivet {
       double cTheta(0.);
       bool foundP(false),foundM(false);
       for(const Particle & p : part) {
-	if(p.pid()==PID::PIPLUS) {
+	if(p.pid()==PID::KPLUS) {
 	  foundP=true;
 	  cTheta = abs(p.momentum().z()/p.momentum().p3().mod());
 	}
-	else if(p.pid()==PID::PIMINUS)
+	else if(p.pid()==PID::KMINUS)
 	  foundM=true;
       }
       if(!foundP || !foundM) vetoEvent;
-      if(cTheta<=0.6)    _cPi->fill();
+      if(cTheta<=0.6)    _cK->fill();
       if(_h_cTheta ) _h_cTheta ->fill(cTheta);
-      if(_h_cTheta2) _h_cTheta2->fill(cTheta);
     }
 
 
@@ -61,9 +54,8 @@ namespace Rivet {
     void finalize() {
       double fact = crossSection()/nanobarn/sumOfWeights();
       if(_h_cTheta ) scale(_h_cTheta ,fact);
-      if(_h_cTheta2) scale(_h_cTheta2,fact);
-      double sigma = _cPi->val()*fact;
-      double error = _cPi->err()*fact;
+      double sigma = _cK->val()*fact;
+      double error = _cK->err()*fact;
       Scatter2D temphisto(refData(1, 1, 1));
       Scatter2DPtr mult;
       book(mult, 1, 1, 1);
@@ -87,14 +79,14 @@ namespace Rivet {
 
     /// @name Histograms
     ///@{
-    Histo1DPtr _h_cTheta,_h_cTheta2;
-    CounterPtr _cPi;
+    Histo1DPtr _h_cTheta;
+    CounterPtr _cK;
     ///@}
 
 
   };
 
 
-  RIVET_DECLARE_PLUGIN(CELLO_1992_I345437);
+  RIVET_DECLARE_PLUGIN(BELLE_2003_I629334);
 
 }
