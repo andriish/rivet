@@ -4,7 +4,7 @@ Summary: Cross section for $e^+e^-\to K_S^0K_L^0$ with $\pi^0$, $\eta$ and $\pi^
 Experiment: BABAR
 Collider: PEP-II
 InspireID: 1511276
-Status: VALIDATED
+Status: VALIDATED NOHEPDATA
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:

@@ -4,7 +4,7 @@ Summary: Electron spectrum inclusive semi-leptonic in B decays
 Experiment: BABAR
 Collider: PEP-II
 InspireID: 1498564
-Status: VALIDATED
+Status: VALIDATED NOHEPDATA
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:

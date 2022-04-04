@@ -179,13 +179,55 @@
 	* Add LHCB_2016_I1414195.cc excited D_s decays
 	* Add BABAR_2010_I845914 e+e- -> e+e- eta_c via gamma gamma
 
+2021-09-23  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add SLD_1995_I378545 events shapes at MZ
+
+2021-09-22  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add MARKII_1982_I178416 charged particle spectra at 5.2, 6.5 and 29 GeV
+
+2021-09-21  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add L3_1992_I334954 event shapes at MZ
+	* Add MARKII_1988_I250899 EEC at 29 GeV
+	* Add DELPHI_2000_I522656 event shapes vs thrust
+
+2021-09-20  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add HRS_1989_I276948 rho, K*0 and K*+ spectra at 29 GeV
+	* Add TASSO_1984_I194774 D_s spectrum at 34.7 GeV
+	* Add DELPHI_1993_I356732 charm spectra
+	* Add JADE_1984_I221004 D*0 spectra
+
+2021-09-19  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add DELPHI_2001_I526164 spectra in WW
+	* Add HRS_1986_I17781 Lambda spectrum in e+e- at 29 GeV
+	* Add HRS_1985_I213242 D_s and phi spectrum in e+e- at 29 GeV
+	* Add HRS_1986_I18688  f_2, f_0 and K_2 spectrum in e+e- at 29 GeV
+
+2021-09-16  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add HRS_1987_I215848 hadron spectrum in e+e- at 29 GeV
+	* Add MARKII_1988_I246184 event shape in e+e- at 29 GeV
+
+2021-09-15  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add MARKII_1987_I234976 Xi- spectrum in e+e- at 29 GeV
+	* Add MARKII_1988_I261194 eta spectrum in e+e- at 29 GeV
+	* Add MARKII_1982_I177606 D*+ spectrum in e+e- at 29 GeV
+	* Add MARKII_1985_I207785 K0/K+ spectrum in e+e- at 29 GeV
+	* Add MARKII_1985_I209198 Lambda spectrum in e+e- at 29 GeV
+
+2021-09-14  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add MARKII_1987_I247900 Omega spectrum in e+e- at 29 GeV
+
 2021-09-07  Peter Richardson <peter.richardson@durham.ac.uk>
 
-	* Add MARKII_1984_I195739, MARKII_1986_I220003 gamma gamma -> pi+pi-/K+K-
-
-2021-09-06  Peter Richardson <peter.richardson@durham.ac.uk>
-
 	* Add PLUTO_1984_I204487 gamma gamma -> pi+pi-
+	* Add MARKII_1984_I195739, MARKII_1986_I220003 gamma gamma -> pi+pi-/K+K-
 
 2021-09-06  Peter Richardson <peter.richardson@durham.ac.uk>
 
@@ -282,6 +324,10 @@
 	* Remove numerical epsilon cutoff for pseudorapidity calculation:
 	inf is a perfectly good value for beamline momenta. Regression
 	test updated.
+
+2021-05-14  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Fix normalisation in OPAL_2004_I631361.cc
 
 2021-05-13  Andy Buckley  <andy.buckley@cern.ch>
 
@@ -568,6 +614,10 @@
 	* Rename the little-used in-place sortBy() functions to isortBy()
 	cf. ifilter() and friends, since the behaviour should not change
 	wildly just based on the constness status of an argument.
+
+2020-10-03 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add DELPHI_1990_I297698 JADE jet rates
 
 2020-10-01 Peter Richardson <peter.richardson@durham.ac.uk>
 

@@ -4,7 +4,7 @@ Summary: Production of $B^*$ mesons at LEP1
 Experiment: ALEPH
 Collider: LEP
 InspireID: 398426
-Status: VALIDATED
+Status: VALIDATED NOHEPDATA
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:

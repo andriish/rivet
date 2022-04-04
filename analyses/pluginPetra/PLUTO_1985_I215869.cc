@@ -37,6 +37,7 @@ namespace Rivet {
         vetoEvent;
       }
       MSG_DEBUG("Passed leptonic event cut");
+      _weightSum->fill();
 
       double Evis = 0.0;
       for (const Particle& p : fs.particles()) {

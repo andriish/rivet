@@ -4,7 +4,7 @@ Summary: Form factors for the decays $\omega\to\pi^0e^+e^-$ and $\eta\to\gamma e
 Experiment: A2
 Collider: MAMI
 InspireID: 1486671
-Status: VALIDATED
+Status: VALIDATED NOHEPDATA
 Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
