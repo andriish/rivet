@@ -6,11 +6,11 @@ namespace Rivet {
 
 
   /// @brief gamma gamma -> pi+pi-
-  class CELLO_1992_I345437 : public Analysis {
+  class BELLE_2007_I749358 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(CELLO_1992_I345437);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2007_I749358);
 
 
     /// @name Analysis methods
@@ -21,17 +21,11 @@ namespace Rivet {
       // Final state
       declare(FinalState(),"FS");
       // check CMS energy in range
-      if(sqrtS()<0.75*GeV || sqrtS()>2.*GeV)
-	throw Error("Invalid CMS energy for CELLO_1992_I345437");
-      int ibin = (sqrtS()-0.70)/0.05;
-      if(ibin>0&&ibin<19)
-	book(_h_cTheta,2,1,ibin);
-      if(inRange(sqrtS()/GeV,0.85,.95))
-	book(_h_cTheta2,2,1,19);
-      else if(inRange(sqrtS()/GeV,1.15,1.25))
-	book(_h_cTheta2,2,1,20);
-      else if(inRange(sqrtS()/GeV,1.25,1.35))
-	book(_h_cTheta2,2,1,21);
+      if(sqrtS()<0.8*GeV || sqrtS()>1.5*GeV)
+	throw Error("Invalid CMS energy for BELLE_2007_I749358");
+      // bin for the angle plots
+      int ibin = (sqrtS()-0.8)/0.005 + 2;
+      book(_h_cTheta,ibin,1,1);
       book(_cPi, "/TMP/nPi");
     }
 
@@ -53,7 +47,6 @@ namespace Rivet {
       if(!foundP || !foundM) vetoEvent;
       if(cTheta<=0.6)    _cPi->fill();
       if(_h_cTheta ) _h_cTheta ->fill(cTheta);
-      if(_h_cTheta2) _h_cTheta2->fill(cTheta);
     }
 
 
@@ -61,7 +54,6 @@ namespace Rivet {
     void finalize() {
       double fact = crossSection()/nanobarn/sumOfWeights();
       if(_h_cTheta ) scale(_h_cTheta ,fact);
-      if(_h_cTheta2) scale(_h_cTheta2,fact);
       double sigma = _cPi->val()*fact;
       double error = _cPi->err()*fact;
       Scatter2D temphisto(refData(1, 1, 1));
@@ -87,7 +79,7 @@ namespace Rivet {
 
     /// @name Histograms
     ///@{
-    Histo1DPtr _h_cTheta,_h_cTheta2;
+    Histo1DPtr _h_cTheta;
     CounterPtr _cPi;
     ///@}
 
@@ -95,6 +87,6 @@ namespace Rivet {
   };
 
 
-  RIVET_DECLARE_PLUGIN(CELLO_1992_I345437);
+  RIVET_DECLARE_PLUGIN(BELLE_2007_I749358);
 
 }
