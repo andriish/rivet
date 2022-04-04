@@ -49,7 +49,7 @@ namespace Rivet {
       }
       else if (isCompatibleWithSqrtS(30.3)) {
 	iloc = 3;
-	sqs = 27.6;
+	sqs = 30.3;
       }
       else if (isCompatibleWithSqrtS(31.2)) {
 	iloc = 3;

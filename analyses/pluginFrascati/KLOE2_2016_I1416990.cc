@@ -60,8 +60,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // Loop over eta mesons
-      for (const Particle& p : apply<UnstableParticles>(event, "UFS").particles()) {
-	if(p.pid()!=221) continue;
+      for (const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::ETA)) {
       	Particles pi0, pip, pim;
       	unsigned nstable(0);
       	findDecayProducts(p,nstable,pi0,pip,pim);

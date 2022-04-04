@@ -31,7 +31,7 @@ namespace Rivet {
       book(_c_muons, "/TMP/sigma_muons");
       book(_h_weight, "/TMP/HWeight");
       unsigned int iloc(0);
-      sqs = 1.;
+      sqs = sqrtS();
       if(isCompatibleWithSqrtS(14)) {
 	iloc = 1;
 	sqs = 14.;
@@ -65,16 +65,28 @@ namespace Rivet {
       const FinalState& fs = apply<FinalState>(event, "FS");
 
       map<long,int> nCount;
-      int ntotal(0);
+      double ntotal(0);
       unsigned int nCharged(0);
       for (const Particle& p : fs.particles()) {
 	nCount[p.pid()] += 1;
-	++ntotal;
-	if(PID::isCharged(p.pid())) ++nCharged;
+	if((p.pid()!=PID::PHOTON && p.abspid()!=PID::ELECTRON) ||
+	   p.parents().empty() || p.parents()[0].pid()!=PID::PI0) {
+	  ntotal += 1.;
+	}
+	else if(p.pid()==PID::PHOTON) {
+	  ntotal += 0.5 ;
+	}
+	else {
+	  ntotal += 0.25;
+	  nCharged -=1;
+	}
+	if(PID::isCharged(p.pid())) {
+	  ++nCharged;
+	}
       }
       // mu+mu- + photons
       if(nCount[-13]==1 and nCount[13]==1 &&
-	 ntotal==2+nCount[22]) {	
+	 int(fs.particles().size())==2+nCount[22]) {
 	_c_muons->fill();
 	return;
       }

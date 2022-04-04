@@ -148,10 +148,14 @@ namespace Rivet {
 
 
     /// Is the hemisphere with the max mass the same as the one with the max broadening?
-    bool massMatchesBroadening() {
+    bool massMatchesBroadening() const {
       return _highMassEqMaxBroad;
     }
 
+    /// Is the hemisphere with the max mass the one in the direction of the axis
+    bool highMassDirection() const  {
+      return _highMassDirection;
+    }
 
   private:
 
@@ -167,6 +171,8 @@ namespace Rivet {
     /// Is the hemisphere with the max mass the same as the one with the max broadening?
     bool _highMassEqMaxBroad;
 
+    /// Is the hemisphere with the max mass the one in the direction of the axis;
+    bool _highMassDirection; 
   };
 
 

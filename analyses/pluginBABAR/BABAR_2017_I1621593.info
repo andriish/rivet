@@ -4,7 +4,7 @@ Summary: $e^+e^-\to \pi^+\pi^-\pi^0\pi^0$ cross section  from 0.85 to 4.5 GeV
 Experiment: BABAR
 Collider: PEP-II
 InspireID: 1621593
-Status: VALIDATED
+Status: VALIDATED NOHEPDATA
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:

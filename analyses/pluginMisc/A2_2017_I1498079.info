@@ -4,7 +4,7 @@ Summary: Form factor for the decay $\pi^0\to\gamma e^+e^-$
 Experiment: A2
 Collider: MAMI
 InspireID: 1498079
-Status: VALIDATED
+Status: VALIDATED NOHEPDATA
 Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>

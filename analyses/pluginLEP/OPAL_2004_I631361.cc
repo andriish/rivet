@@ -85,6 +85,7 @@ namespace Rivet {
         book(_h_chMult_gg, ih,1,iy);
         if(ih==3)  book(_h_chFragFunc_gg, 5,1,iy);
         else       _h_chFragFunc_gg = nullptr;
+	book(_sumW,"/TMP/sumW");
       }
       else {
         Histo1DPtr dummy;
@@ -109,7 +110,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
       // gg mode
       if(_mode==0) {
         // find the initial gluons
@@ -136,15 +136,16 @@ namespace Rivet {
         // distribution
         for (const Particle& p : chps) {
           double xE = 2.*p.E()/sqrtS();
-          if(_h_chFragFunc_gg) _h_chFragFunc_gg->fill(xE, weight);
+          if(_h_chFragFunc_gg) _h_chFragFunc_gg->fill(xE);
           if(p.momentum().p3().dot(axis)>0.)
             ++nMult[0];
           else
             ++nMult[1];
         }
         // multiplicities in jet
-        _h_chMult_gg->fill(nMult[0],weight);
-        _h_chMult_gg->fill(nMult[1],weight);
+        _h_chMult_gg->fill(nMult[0]);
+        _h_chMult_gg->fill(nMult[1]);
+	_sumW->fill();
       }
       // qqbar mode
       else {
@@ -253,11 +254,11 @@ namespace Rivet {
         for (const Particle& chP : chParticles ) {
           FourMomentum pSymmFrame = toSymmetric.transform(FourMomentum(chP.p3().mod(), chP.px(), chP.py(), chP.pz()));
           if(angle(pSymmFrame, transGlue) < cutAngle) {
-            _h_chFragFunc_qq.fill(Eg, pSymmFrame.E()*sin(cutAngle)/Eg, weight);
+            _h_chFragFunc_qq.fill(Eg, pSymmFrame.E()*sin(cutAngle)/Eg);
             nCh++;
           }
         }
-        _h_chMult_qq.fill(Eg, nCh, weight);
+        _h_chMult_qq.fill(Eg, nCh);
       }
     }
 
@@ -266,7 +267,7 @@ namespace Rivet {
     void finalize() {
       if(_mode==0) {
         normalize(_h_chMult_gg);
-        if(_h_chFragFunc_gg) normalize(_h_chFragFunc_gg, 1.0, true);
+        if(_h_chFragFunc_gg) scale(_h_chFragFunc_gg, 0.5/(*_sumW));
       }
       else {
         for (Histo1DPtr hist : _h_chMult_qq.histos()) {
@@ -328,9 +329,10 @@ namespace Rivet {
     // The mode
     unsigned int _mode;
 
-    /// @todo IMPROVEMENT NEEDED?
+    /// needed to normalize as normalised is integral =  <average no particles>
     vector<CounterPtr> _sumWEbin;
-
+    CounterPtr _sumW;
+    
     // p scheme jet definition
     fastjet::P_scheme p_scheme;
 

@@ -4,7 +4,7 @@ Summary: Cross section for $e^+e^-\to\eta\pi^+\pi^-$ between 1.2 and 3.5 GeV
 Experiment: BABAR
 Collider: PEP-II
 InspireID: 1647139
-Status: VALIDATED
+Status: VALIDATED NOHEPDATA
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:

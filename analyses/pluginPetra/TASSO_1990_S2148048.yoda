@@ -4,7 +4,6 @@ IsRef: 1
 Path: /REF/TASSO_1990_S2148048/d01-x01-y01
 Title: doi:10.17182/hepdata.45170.v1/t1
 Type: Scatter2D
-Variations: [""]
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 1.403000e+01	0.000000e+00	0.000000e+00	4.120000e+00	2.100000e-01	2.100000e-01
@@ -131,7 +130,6 @@ IsRef: 1
 Path: /REF/TASSO_1990_S2148048/d03-x01-y01
 Title: doi:10.17182/hepdata.45170.v1/t3
 Type: Scatter2D
-Variations: [""]
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 3.500000e-02	1.500000e-02	1.500000e-02	5.640000e+01	3.900000e+00	3.900000e+00
@@ -149,7 +147,6 @@ IsRef: 1
 Path: /REF/TASSO_1990_S2148048/d03-x01-y02
 Title: doi:10.17182/hepdata.45170.v1/t3
 Type: Scatter2D
-Variations: [""]
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 3.500000e-02	1.500000e-02	1.500000e-02	9.540000e+01	2.600000e+00	2.600000e+00
@@ -167,7 +164,6 @@ IsRef: 1
 Path: /REF/TASSO_1990_S2148048/d03-x01-y03
 Title: doi:10.17182/hepdata.45170.v1/t3
 Type: Scatter2D
-Variations: [""]
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 3.500000e-02	1.500000e-02	1.500000e-02	1.429000e+02	2.000000e+00	2.000000e+00
@@ -185,7 +181,6 @@ IsRef: 1
 Path: /REF/TASSO_1990_S2148048/d03-x01-y04
 Title: doi:10.17182/hepdata.45170.v1/t3
 Type: Scatter2D
-Variations: [""]
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 3.500000e-02	1.500000e-02	1.500000e-02	1.544000e+02	2.400000e+00	2.400000e+00
@@ -203,7 +198,6 @@ IsRef: 1
 Path: /REF/TASSO_1990_S2148048/d04-x01-y01
 Title: doi:10.17182/hepdata.45170.v1/t4
 Type: Scatter2D
-Variations: [""]
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 1.000000e-01	1.000000e-01	1.000000e-01	5.200000e-02	2.600000e-02	2.600000e-02
@@ -235,7 +229,6 @@ IsRef: 1
 Path: /REF/TASSO_1990_S2148048/d04-x01-y02
 Title: doi:10.17182/hepdata.45170.v1/t4
 Type: Scatter2D
-Variations: [""]
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 1.000000e-01	1.000000e-01	1.000000e-01	3.300000e-02	1.600000e-02	1.600000e-02
@@ -269,7 +262,6 @@ IsRef: 1
 Path: /REF/TASSO_1990_S2148048/d04-x01-y03
 Title: doi:10.17182/hepdata.45170.v1/t4
 Type: Scatter2D
-Variations: [""]
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 1.000000e-01	1.000000e-01	1.000000e-01	2.220000e-02	8.800000e-03	8.800000e-03
@@ -305,7 +297,6 @@ IsRef: 1
 Path: /REF/TASSO_1990_S2148048/d04-x01-y04
 Title: doi:10.17182/hepdata.45170.v1/t4
 Type: Scatter2D
-Variations: [""]
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 1.000000e-01	1.000000e-01	1.000000e-01	1.950000e-02	4.300000e-03	4.300000e-03
@@ -336,12 +327,9 @@ Variations: [""]
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/TASSO_1990_S2148048/d05-x01-y01
-ErrorBreakdown: {0: {error: {dn: -0.49, up: 0.49}}, 1: {error: {dn: -0.73, up: 0.73}}, 2: {error: {dn: -0.96, up: 0.96}}, 3: {error: {dn: -0.81, up: 0.81}}, 4: {error: {dn: -0.0, up: 0.0}}, 5: {error: {dn: -0.65, up: 0.65}}, 6: {error: {dn: -0.83, up: 0.83}}, 7: {error: {dn: -0.9, up: 0.9}}, 8: {error: {dn: -0.85, up: 0.85}}, 9: {error: {dn: -0.48, up: 0.48}}, 10: {error: {dn: -0.33, up: 0.33}}, 11: {error: {dn: -0.29, up: 0.29}}, 12: {error: {dn: -0.19, up: 0.19}}, 13: {error: {dn: -0.19, up: 0.19}}, 14: {error: {dn: -0.1, up: 0.1}}, 15: {error: {dn: -0.088, up: 0.088}}, 16: {error: {dn: -0.04, up: 0.04}}, 17: {error: {dn: -0.041, up: 0.041}}, 18: {error: {dn: -0.018, up: 0.018}}, 19: {error: {dn: -0.022, up: 0.022}}, 20: {error: {dn: -0.0056, up: 0.0056}}}
-IsRef: 1
 Path: /REF/TASSO_1990_S2148048/d05-x01-y01
-Title: doi:10.17182/hepdata.45170.v1/t5
+Title: 
 Type: Scatter2D
-Variations: [""]
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 2.500000e-02	2.500000e-02	2.500000e-02	6.110000e+00	4.900000e-01	4.900000e-01
@@ -364,16 +352,12 @@ Variations: [""]
 1.500000e+00	1.000000e-01	1.000000e-01	8.200000e-02	4.100000e-02	4.100000e-02
 1.700000e+00	1.000000e-01	1.000000e-01	3.000000e-02	1.800000e-02	1.800000e-02
 1.900000e+00	1.000000e-01	1.000000e-01	3.000000e-02	2.200000e-02	2.200000e-02
-3.000000e+00	3.000000e+00	3.000000e+00	3.466000e-01	5.600000e-03	5.600000e-03
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/TASSO_1990_S2148048/d05-x01-y02
-ErrorBreakdown: {0: {error: {dn: -0.46, up: 0.46}}, 1: {error: {dn: -0.66, up: 0.66}}, 2: {error: {dn: -1.0, up: 1.0}}, 3: {error: {dn: -1.1, up: 1.1}}, 4: {error: {dn: -0.87, up: 0.87}}, 5: {error: {dn: -1.5, up: 1.5}}, 6: {error: {dn: -0.75, up: 0.75}}, 7: {error: {dn: -1.0, up: 1.0}}, 8: {error: {dn: -0.74, up: 0.74}}, 9: {error: {dn: -0.76, up: 0.76}}, 10: {error: {dn: -0.44, up: 0.44}}, 11: {error: {dn: -0.42, up: 0.42}}, 12: {error: {dn: -0.25, up: 0.25}}, 13: {error: {dn: -0.29, up: 0.29}}, 14: {error: {dn: -0.19, up: 0.19}}, 15: {error: {dn: -0.12, up: 0.12}}, 16: {error: {dn: -0.11, up: 0.11}}, 17: {error: {dn: -0.058, up: 0.058}}, 18: {error: {dn: -0.046, up: 0.046}}, 19: {error: {dn: -0.053, up: 0.053}}, 20: {error: {dn: -0.035, up: 0.035}}, 21: {error: {dn: -0.0059, up: 0.0059}}, 22: {error: {dn: -0.0064, up: 0.0064}}}
-IsRef: 1
 Path: /REF/TASSO_1990_S2148048/d05-x01-y02
-Title: doi:10.17182/hepdata.45170.v1/t5
+Title: 
 Type: Scatter2D
-Variations: [""]
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 2.500000e-02	2.500000e-02	2.500000e-02	6.790000e+00	4.600000e-01	4.600000e-01
@@ -398,16 +382,12 @@ Variations: [""]
 1.900000e+00	1.000000e-01	1.000000e-01	1.230000e-01	5.300000e-02	5.300000e-02
 2.250000e+00	2.500000e-01	2.500000e-01	7.000000e-02	3.500000e-02	3.500000e-02
 2.750000e+00	2.500000e-01	2.500000e-01	8.600000e-03	5.900000e-03	5.900000e-03
-3.000000e+00	3.000000e+00	3.000000e+00	3.889000e-01	6.400000e-03	6.400000e-03
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/TASSO_1990_S2148048/d05-x01-y03
-ErrorBreakdown: {0: {error: {dn: -0.38, up: 0.38}}, 1: {error: {dn: -0.45, up: 0.45}}, 2: {error: {dn: -0.41, up: 0.41}}, 3: {error: {dn: -0.46, up: 0.46}}, 4: {error: {dn: -0.45, up: 0.45}}, 5: {error: {dn: -0.36, up: 0.36}}, 6: {error: {dn: -0.29, up: 0.29}}, 7: {error: {dn: -0.56, up: 0.56}}, 8: {error: {dn: -0.24, up: 0.24}}, 9: {error: {dn: -0.22, up: 0.22}}, 10: {error: {dn: -0.16, up: 0.16}}, 11: {error: {dn: -0.14, up: 0.14}}, 12: {error: {dn: -0.1, up: 0.1}}, 13: {error: {dn: -0.085, up: 0.085}}, 14: {error: {dn: -0.077, up: 0.077}}, 15: {error: {dn: -0.054, up: 0.054}}, 16: {error: {dn: -0.039, up: 0.039}}, 17: {error: {dn: -0.038, up: 0.038}}, 18: {error: {dn: -0.019, up: 0.019}}, 19: {error: {dn: -0.016, up: 0.016}}, 20: {error: {dn: -0.0066, up: 0.0066}}, 21: {error: {dn: -0.0048, up: 0.0048}}, 22: {error: {dn: -0.0018, up: 0.0018}}, 23: {error: {dn: -0.00071, up: 0.00071}}, 24: {error: {dn: -0.0038, up: 0.0038}}}
-IsRef: 1
 Path: /REF/TASSO_1990_S2148048/d05-x01-y03
-Title: doi:10.17182/hepdata.45170.v1/t5
+Title: 
 Type: Scatter2D
-Variations: [""]
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 2.500000e-02	2.500000e-02	2.500000e-02	7.700000e+00	3.800000e-01	3.800000e-01
@@ -432,18 +412,14 @@ Variations: [""]
 1.900000e+00	1.000000e-01	1.000000e-01	2.390000e-01	1.600000e-02	1.600000e-02
 2.250000e+00	2.500000e-01	2.500000e-01	1.261000e-01	6.600000e-03	6.600000e-03
 2.750000e+00	2.500000e-01	2.500000e-01	5.000000e-02	4.800000e-03	4.800000e-03
-3.000000e+00	3.000000e+00	3.000000e+00	4.342000e-01	3.800000e-03	3.800000e-03
 3.500000e+00	5.000000e-01	5.000000e-01	1.550000e-02	1.800000e-03	1.800000e-03
 5.000000e+00	1.000000e+00	1.000000e+00	3.200000e-03	7.100000e-04	7.100000e-04
 END YODA_SCATTER2D_V2
 
 BEGIN YODA_SCATTER2D_V2 /REF/TASSO_1990_S2148048/d05-x01-y04
-ErrorBreakdown: {0: {error: {dn: -0.49, up: 0.49}}, 1: {error: {dn: -0.92, up: 0.92}}, 2: {error: {dn: -0.62, up: 0.62}}, 3: {error: {dn: -0.64, up: 0.64}}, 4: {error: {dn: -0.67, up: 0.67}}, 5: {error: {dn: -0.56, up: 0.56}}, 6: {error: {dn: -0.6, up: 0.6}}, 7: {error: {dn: -0.58, up: 0.58}}, 8: {error: {dn: -0.59, up: 0.59}}, 9: {error: {dn: -0.45, up: 0.45}}, 10: {error: {dn: -0.28, up: 0.28}}, 11: {error: {dn: -0.22, up: 0.22}}, 12: {error: {dn: -0.23, up: 0.23}}, 13: {error: {dn: -0.25, up: 0.25}}, 14: {error: {dn: -0.16, up: 0.16}}, 15: {error: {dn: -0.077, up: 0.077}}, 16: {error: {dn: -0.057, up: 0.057}}, 17: {error: {dn: -0.044, up: 0.044}}, 18: {error: {dn: -0.036, up: 0.036}}, 19: {error: {dn: -0.034, up: 0.034}}, 20: {error: {dn: -0.016, up: 0.016}}, 21: {error: {dn: -0.016, up: 0.016}}, 22: {error: {dn: -0.005, up: 0.005}}, 23: {error: {dn: -0.0016, up: 0.0016}}, 24: {error: {dn: -0.0049, up: 0.0049}}}
-IsRef: 1
 Path: /REF/TASSO_1990_S2148048/d05-x01-y04
-Title: doi:10.17182/hepdata.45170.v1/t5
+Title: 
 Type: Scatter2D
-Variations: [""]
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
 2.500000e-02	2.500000e-02	2.500000e-02	8.500000e+00	4.900000e-01	4.900000e-01
@@ -468,7 +444,6 @@ Variations: [""]
 1.900000e+00	1.000000e-01	1.000000e-01	4.120000e-01	3.400000e-02	3.400000e-02
 2.250000e+00	2.500000e-01	2.500000e-01	2.290000e-01	1.600000e-02	1.600000e-02
 2.750000e+00	2.500000e-01	2.500000e-01	8.700000e-02	1.600000e-02	1.600000e-02
-3.000000e+00	3.000000e+00	3.000000e+00	4.695000e-01	4.900000e-03	4.900000e-03
 3.500000e+00	5.000000e-01	5.000000e-01	3.850000e-02	5.000000e-03	5.000000e-03
 5.000000e+00	1.000000e+00	1.000000e+00	6.800000e-03	1.600000e-03	1.600000e-03
 END YODA_SCATTER2D_V2
