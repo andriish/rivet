@@ -28,17 +28,34 @@ namespace Rivet {
       declare(DISKinematics(), "Kinematics");
 		
 	
-       Histo1DPtr dummy;
-      const ParticlePair& beam = beams();
-      // cout << " beam id "<< beam.first.pid() << " " << beam.second.pid() << " sqrts " << sqrtS() << endl;
-      if( beam.first.pid() == PID::POSITRON || beam.second.pid() == PID::POSITRON ) { 
-        positron = true ;}
-        else { positron = false ; }
+      Histo1DPtr dummy;
+      string beamOpt = getOption<string>("BEAM","NONE");
+      
+      if (beamOpt == "NONE") {
+	const ParticlePair& beam = beams();
+	// cout << " beam id "<< beam.first.pid() << " " << beam.second.pid() << " sqrts " << sqrtS() << endl;
+	if( beam.first.pid() == PID::POSITRON || beam.second.pid() == PID::POSITRON ) { 
+	  positron = true ;
+	}
+	else {
+	  positron = false ;
+	}
+      }
+      else {
+	if( beamOpt == "EMINUS" )
+	  positron = false;
+	else if( beamOpt == "EPLUS" )
+	  positron = true;
+        else {
+          MSG_ERROR("Beam option error. You have specified an unsupported beam.");
+	  return;
+	}
+      }
         
       double eps = 0.01 ;
       // NC e+ p at sqrts=318
       if (fuzzyEquals(sqrtS()/GeV, 318, eps) && positron  ) {
-        cout << " NC e+ p sqrts = " << sqrtS() << endl ;
+        // cout << " NC e+ p sqrts = " << sqrtS() << endl ;
 	 _h_sigred.add( 0.1,     0.15, book(dummy,1,1,1)); // Q2=0.15
 	 _h_sigred.add( 0.15,     0.2, book(dummy,1,1,2)); // Q2=0.2
 	 _h_sigred.add( 0.2,      0.3, book(dummy,1,1,3)); // Q2=0.25
@@ -86,7 +103,7 @@ namespace Rivet {
 	 _h_sigred.add( 17000.,24770., book(dummy,1,1,45)); // Q2=20000
 	 _h_sigred.add( 25000.,42000., book(dummy,1,1,46)); // Q2=30000 
       // CC e+ p at sqrts=318
-        cout << " CC e+ p sqrts = " << sqrtS() << endl ;
+        // cout << " CC e+ p sqrts = " << sqrtS() << endl ;
 	 _h_sigred_cc.add( 280.,    325., book(dummy,6,1,1)); // Q2=300
 	 _h_sigred_cc.add( 460.,    545., book(dummy,6,1,2)); // Q2=500
 	 _h_sigred_cc.add( 900.,   1120., book(dummy,6,1,3)); // Q2=1000
@@ -100,7 +117,7 @@ namespace Rivet {
        }
       // NC e+ p at sqrts=300
       else if (fuzzyEquals(sqrtS()/GeV, 300, eps )&& positron  ) {
-        cout << " NC e+ p sqrts = " << sqrtS() << endl ;
+        // cout << " NC e+ p sqrts = " << sqrtS() << endl ;
 	 _h_sigred.add( 0.01,     0.05, book(dummy,2,1,1)); // Q2=0.045
 	 _h_sigred.add( 0.05,     0.07, book(dummy,2,1,2)); // Q2=0.065
 	 _h_sigred.add( 0.07,     0.09, book(dummy,2,1,3)); // Q2=0.085
@@ -154,7 +171,7 @@ namespace Rivet {
        }
       else if (fuzzyEquals(sqrtS()/GeV, 251, eps) && positron  ) {
       // NC e+ p at sqrts=251
-        cout << " NC e+ p sqrts = " << sqrtS() << endl ;
+        // cout << " NC e+ p sqrts = " << sqrtS() << endl ;
 	 _h_sigred.add( 1.0,      1.7, book(dummy,3,1,1)); // Q2=1.5
 	 _h_sigred.add( 1.7,      2.3, book(dummy,3,1,2)); // Q2=2
 	 _h_sigred.add( 2.3,      3.1, book(dummy,3,1,3)); // Q2=2.5
@@ -182,7 +199,7 @@ namespace Rivet {
        }
        else if (fuzzyEquals(sqrtS()/GeV, 225, eps) && positron  ) {
       // NC e+ p at sqrts=225
-        cout << " NC e+ p sqrts = " << sqrtS() << endl ;
+        // cout << " NC e+ p sqrts = " << sqrtS() << endl ;
 	 _h_sigred.add( 1.0,      1.7, book(dummy,4,1,1)); // Q2=1.5
 	 _h_sigred.add( 1.7,      2.3, book(dummy,4,1,2)); // Q2=2
 	 _h_sigred.add( 2.3,      3.1, book(dummy,4,1,3)); // Q2=2.5
@@ -210,7 +227,7 @@ namespace Rivet {
        }
        else if (fuzzyEquals(sqrtS()/GeV, 318, eps) && !positron  ) {
       // NC e- p at sqrts=318
-        cout << " NC e- p sqrts = " << sqrtS() << endl ;
+        // cout << " NC e- p sqrts = " << sqrtS() << endl ;
 	 _h_sigred.add( 54.,      65., book(dummy,5,1,1)); // Q2=60
 	 _h_sigred.add( 75.,     108., book(dummy,5,1,2)); // Q2=90
 	 _h_sigred.add( 108.,    134., book(dummy,5,1,3)); // Q2=120
@@ -234,7 +251,7 @@ namespace Rivet {
 	 _h_sigred.add( 25000.,42000., book(dummy,5,1,21)); // Q2=30000
 	 _h_sigred.add( 42000.,70000., book(dummy,5,1,22)); // Q2=50000
       // CC e- p at sqrts=318
-        cout << " CC e- p sqrts = " << sqrtS() << endl ;
+        // cout << " CC e- p sqrts = " << sqrtS() << endl ;
 	 _h_sigred_cc.add( 280.,    325., book(dummy,7,1,1)); // Q2=300
 	 _h_sigred_cc.add( 460.,    545., book(dummy,7,1,2)); // Q2=500
 	 _h_sigred_cc.add( 900.,   1120., book(dummy,7,1,3)); // Q2=1000
