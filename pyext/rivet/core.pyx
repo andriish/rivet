@@ -277,6 +277,34 @@ cdef class AnalysisLoader:
         # Create python object
         return pyobj
 
+cdef class ProjectionTreeGenerator:
+    cdef c.ProjectionTreeGenerator *_ptr
+   
+    def __cinit__(self):
+        self._ptr = new c.ProjectionTreeGenerator()
+
+    def __del__(self):
+        del self._ptr
+
+    def generateProjTreeFromList(self, listOfAnalyses):
+        self._ptr.generateProjTree([a.encode('utf-8') for a in listOfAnalyses])
+
+    def getProjTreeFromAnalysisHandler(self, AnalysisHandler ah):
+        self._ptr.getProjTree(ah._ptr[0])
+
+    def writeProjTree(self):
+        self._ptr.writeProjTree()
+
+    def setPath(self, path):
+        self._ptr.setPath(path.encode('utf-8'))
+
+    def getEdges(self):
+        return self._ptr.getEdges()
+    
+    def getProjNames(self):
+        #Intermediate step necesarry because of references (I think? - won't compile in one line)
+        vec = self._ptr.getProjNames()
+        return [v.decode('utf-8') for v in vec]
 
 ## Convenience versions in main rivet namespace
 def analysisNames():
