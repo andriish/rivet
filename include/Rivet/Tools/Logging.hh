@@ -28,7 +28,7 @@ namespace Rivet {
   private:
 
     /// A static map of existing logs: we don't make more loggers than necessary.
-    static LogMap existingLogs;
+    thread_local static LogMap existingLogs;
 
     /// A static map of default log levels.
     static LevelMap defaultLevels;
