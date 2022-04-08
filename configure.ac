@@ -232,7 +232,7 @@ if test -n "$with_fjcontrib"; then
   AC_MSG_NOTICE([FastJet Contrib base path given: $with_fjcontrib])
   FJCONTRIBINCPATH=$with_fjcontrib/include
   FJCONTRIBLIBPATH=$with_fjcontrib/lib
-  if [[ -f "$with_fjcontrib/lib64/libfastjettools.so" || -f "$with_fjcontrib/lib64/libfastjettools.dyld" ]]; then
+  if test -f "$with_fjcontrib/lib64/libfastjettools.so" -o -f "$with_fjcontrib/lib64/libfastjettools.dyld"; then
     FJCONTRIBLIBPATH=$with_fjcontrib/lib64
   fi
   FJCONTRIBCPPFLAGS=-I$FJCONTRIBINCPATH
