@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/Thrust.hh"
 
 namespace Rivet {
@@ -21,6 +22,7 @@ namespace Rivet {
     void init() {
       // projections
       declare(UnstableParticles(),"UFS");
+      declare(FinalState(),"FS");
       // Hisotgram booking
       // qqbar
       // counters for multiplicities
@@ -30,7 +32,7 @@ namespace Rivet {
         book(_n_qq[ix],title.str());
       }
       // spectra
-      //_WW=false;
+      _WW=false;
       if(isCompatibleWithSqrtS(183.)) {
         book(_h_qq_K0 ,16,1,1);
         book(_h_qq_Lam,16,1,3);
@@ -46,7 +48,7 @@ namespace Rivet {
         book(_h_pT_charged [1],12,1,1);
         book(_h_pT_chargedB[0],"/TMP/h_12_1_2",refData(12,1,3));
         book(_h_pT_chargedB[1],"/TMP/h_12_1_1",refData(12,1,3));
-        //_WW=true;
+        _WW=true;
       }
       else if (isCompatibleWithSqrtS(189.)) {
         book(_h_qq_K0 ,16,1,2);
@@ -68,9 +70,9 @@ namespace Rivet {
             book(_h_xi_ident[ix][iy],13+ix,1,iy+1);
           }
         }
-        //_WW=true;
+        _WW=true;
       }
-      /*if(_WW) {
+      if(_WW) {
         for(unsigned int ix=0;ix<2;++ix) {
           for(unsigned int iy=0;iy<5;++iy) {
             std::ostringstream title;
@@ -78,101 +80,56 @@ namespace Rivet {
             book(_n_WW[ix][iy],title.str());
           }
         }
-      }*/
-    }
-
-    /*void findChildren(Particles & children, set<long> & barcodes, ConstGenParticlePtr parent) {
-      ConstGenVertexPtr dv = parent->end_vertex();
-      for(ConstGenParticlePtr child :  HepMCUtils::particles(dv, Relatives::CHILDREN)) {
-        long pid = abs(child->pdg_id());
-        if(pid==PID::PIPLUS|| pid==PID::PROTON || pid==PID::KPLUS) {
-          if(barcodes.find(child->barcode())==barcodes.end()) {
-            children.push_back(Particle(child));
-            barcodes.insert(child->barcode());
-          }
-        }
-        else if(child->end_vertex()) {
-          findChildren(children,barcodes,child);
-        }
-        else {
-          if(PID::isCharged(child->pdg_id())) {
-            if(barcodes.find(child->barcode())==barcodes.end()) {
-              children.push_back(Particle(child));
-              barcodes.insert(child->barcode());
-            }
-          }
-        }
       }
-    }*/
+    }
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // todo this is not ideal, based on initialquarks projection
-      // Classify the event qqbar semi-l W or hadronic W (veto taus)
-      // type of W decay true hadronic, false leptonic taus are vetoed
-      bool hadronic_w[2]={false,false};
-      // type of event
-      bool qqbar=false;
-      // store the Ws
-      ConstGenParticlePtr Wbosons[2];
-      // find the type of event
-      unsigned int iw=0;
-      for (ConstGenParticlePtr p : HepMCUtils::particles(event.genEvent())) {
-        ConstGenVertexPtr pv = p->production_vertex();
-        ConstGenVertexPtr dv = p->end_vertex();
-        const PdgId pid = abs(p->pdg_id());
-        bool passed = inRange((long)pid, 1, 6) || pid==24;
-	
-        if (passed) {
-          if (pv != 0) {
-            for (ConstGenParticlePtr pp : HepMCUtils::particles(pv, Relatives::PARENTS)){
-              // Only accept if parent is electron or Z0 or photon
-              const PdgId pid = abs(pp->pdg_id());
-              passed = (pid == PID::ELECTRON || ((abs(pp->pdg_id()) == PID::ZBOSON || abs(pp->pdg_id()) == PID::GAMMA)&&pp->generated_mass()>100.));
-            }
-          }
-          else {
-            passed = false;
-          }
-        }
-        if(passed) {
-          if (dv != 0 && pid==24) {
-            ConstGenParticlePtr parent = p;
-            std::vector<ConstGenParticlePtr> outgoing = HepMCUtils::particles(dv, Relatives::CHILDREN);
-            do {
-              if(outgoing.size()==1 && outgoing[0]->pdg_id()==p->pdg_id()) {
-                parent = outgoing[0];
-                dv = parent->end_vertex();
-                outgoing = HepMCUtils::particles(dv, Relatives::CHILDREN);
-              }
-              else
-                break;
-            }
-            while(true);
-            // type of W decay
-            Wbosons[iw] = parent;
-            for (ConstGenParticlePtr pp : outgoing) {
-              // veto taus
-              if(abs(pp->pdg_id())==15 || abs(pp->pdg_id())==16)
-                vetoEvent;
-              else if(abs(pp->pdg_id())==11 || abs(pp->pdg_id())==12 ||
-                abs(pp->pdg_id())==13 || abs(pp->pdg_id())==14)
-                  hadronic_w[iw]=false;
-              else if(abs(pp->pdg_id())<=5)
-                hadronic_w[iw]=true;
-            }
-            ++iw;
-          }
-          else {
-            qqbar=true;
-            break;
-          }
-        }
+      const double mW=80.379*GeV;
+      struct ParticleOrdering {
+	bool operator()(const Particle &p1, const Particle & p2) const {
+	  return p1.pid() > p2.pid();
+	}
+      };
+      multimap<Particle,Particles,ParticleOrdering> Wbosons;
+      // loop over final state particles to find W's
+      Particles finalState = apply<FinalState>(event,"FS").particles();
+      // loop over FS particles
+      for(const Particle & p : finalState) {
+	Particle parent=p;
+	while(!parent.parents().empty()) {
+	  parent=parent.parents()[0];
+	  if(parent.abspid()==24 && parent.mass()>20.) break;
+	}
+	if(parent.abspid()!=24) continue;
+	// find those which came from W
+	bool found=false;
+	for (auto & W : Wbosons) {
+	  // W already in list add particle to its decay products
+	  if (fuzzyEquals(W.first.momentum(),parent.momentum())) {
+	    W.second.push_back(p);
+	    found=true;
+	    break;
+	  }
+	}
+	if(!found) {
+	  // check W not child
+	  bool Wchild=false;
+	  for(const Particle & child : parent.children()) {
+	    if(child.abspid()==24) {
+	      Wchild=true;
+	      break;
+	    }
+	  }
+	  // add to list
+	  if(!Wchild) {
+	    Particles temp = {p};
+	    Wbosons.insert(make_pair(parent,temp));
+	  }
+	}
       }
-      // veto leptonic events
-      if(!qqbar && !hadronic_w[0] && !hadronic_w[1]) vetoEvent;
-      // now do the analysis
-      if(qqbar) {
+      // no W's => q qbar event
+      if (Wbosons.empty()) {
         _n_qq[0]->fill();
         UnstableParticles ufs=apply<UnstableParticles>(event,"UFS");
         for(const Particle & p : ufs.particles()) {
@@ -198,22 +155,41 @@ namespace Rivet {
           }
         }
       }
-      // WW production
-      /*else if(_WW) {
-        const double mW=80.379*GeV;
-        // find W decay products
-        Particles particles;
-        set<long> barcodes;
-        for(unsigned int ix=0;ix<2;++ix)
-          if(hadronic_w[ix]) findChildren(particles,barcodes,Wbosons[ix]);
+      else if (Wbosons.size()==2) {
+	bool leptonic[2] = {false,false};
+	unsigned int iboson=0;
+	for(auto & W : Wbosons) {
+	  for(const Particle & child : W.first.children()) {
+	    // find lepton bosons
+	    if(child.abspid()==11 || child.abspid()==13) {
+	      leptonic[iboson]=true;
+	      break;
+	    }
+	    // veto events with W-> tau decays 
+	    else if(child.abspid()==15 )
+	      vetoEvent;
+	  }
+	  ++iboson;
+	}
+	// only fully hadronic or semi-leptonic events
+	if(leptonic[0] && leptonic[1]) vetoEvent;
+	// 0 SL 1 hadronic
+	unsigned int itype= leptonic[0]||leptonic[1] ? 0 : 1;
+	_n_WW[itype][0]->fill();
+	Particles particles;
+	iboson=0;
+	for(auto & W : Wbosons) {
+	  if (!leptonic[iboson])
+	    particles.insert(particles.end(),W.second.begin(),W.second.end());
+	  ++iboson;
+	}
         // calculate thrust
         Thrust thrust;
         thrust.calc(particles);
         // type of event
-        unsigned int itype= !hadronic_w[0]||!hadronic_w[1] ? 0 : 1;
-        _n_WW[itype][0]->fill();
         // loop over particles and fill histos
         for(const Particle & p : particles) {
+	  if(!PID::isCharged(p.pid())) continue;
           // Get momentum of each particle.
           const Vector3 mom3 = p.p3();
           // Scaled momenta.
@@ -229,52 +205,59 @@ namespace Rivet {
           _h_xi_charged [itype]->fill(xiL);
           _h_pT_charged [itype]->fill(pT );
           _h_p_chargedB [itype]->fill(mom);
-          _h_xi_chargedB[itype]->fill(xiL);
-          _h_pT_chargedB[itype]->fill(pT );
-          // and identified particles
-          if(_h_xi_ident[itype][0]) _h_xi_ident[itype][0]->fill(xiW);
-          _n_WW[itype][1]->fill();
-          if(p.abspid()==PID::PIPLUS) {
-            if(_h_xi_ident[itype][1]) _h_xi_ident[itype][1]->fill(xiW);
-            _n_WW[itype][2]->fill();
-          }
-          else if(p.abspid()==PID::KPLUS) {
-            if(_h_xi_ident[itype][2]) _h_xi_ident[itype][2]->fill(xiW);
-            _n_WW[itype][3]->fill();
-          }
-          else if(p.abspid()==PID::PROTON){
-            if(_h_xi_ident[itype][3]) _h_xi_ident[itype][3]->fill(xiW);
-            _n_WW[itype][4]->fill();
-          }
-        }
-        // boosted specta in W rest frame
+           _h_xi_chargedB[itype]->fill(xiL);
+           _h_pT_chargedB[itype]->fill(pT );
+           // and identified particles
+           if(_h_xi_ident[itype][0]) _h_xi_ident[itype][0]->fill(xiW);
+           _n_WW[itype][1]->fill();
+           if(p.abspid()==PID::PIPLUS) {
+             if(_h_xi_ident[itype][1]) _h_xi_ident[itype][1]->fill(xiW);
+             _n_WW[itype][2]->fill();
+           }
+           else if(p.abspid()==PID::KPLUS) {
+             if(_h_xi_ident[itype][2]) _h_xi_ident[itype][2]->fill(xiW);
+             _n_WW[itype][3]->fill();
+           }
+           else if(p.abspid()==PID::PROTON){
+             if(_h_xi_ident[itype][3]) _h_xi_ident[itype][3]->fill(xiW);
+             _n_WW[itype][4]->fill();
+           }
+	}
+	// boosted specta in W rest frame
         if(itype==0) {
-          // boost to rest frame
-          Particle Whad = Particle( hadronic_w[0] ? Wbosons[0] : Wbosons[1]); 
-          LorentzTransform boost = LorentzTransform::mkFrameTransformFromBeta(Whad.momentum().betaVec());
-          // spectra
-          for(const Particle & p : particles) {
-            // Get momentum of each particle.
-            FourMomentum phad = boost.transform(p.momentum());
-            const Vector3 mom3 = phad.p3();
-            // Scaled momenta.
-            const double mom = mom3.mod();
-            const double scaledMom = 2.*mom/mW;
-            const double xi = -log(scaledMom);
-            // /identified particle spectra
-            if(_h_xi_ident[2][0]) _h_xi_ident[2][0]->fill(xi);
-            if(p.abspid()==PID::PIPLUS) {
-              if(_h_xi_ident[2][1]) _h_xi_ident[2][1]->fill(xi);
-            }
-            else if(p.abspid()==PID::KPLUS) {
-              if(_h_xi_ident[2][2]) _h_xi_ident[2][2]->fill(xi);
-            }
-            else if(p.abspid()==PID::PROTON){
-              if(_h_xi_ident[2][3]) _h_xi_ident[2][3]->fill(xi);
-            }
-          }
-        }
-      }*/
+	  iboson=0;
+	  for(auto & W : Wbosons) {
+	    ++iboson;
+	    if (leptonic[iboson-1]) continue;
+	    // boost to rest frame
+	    LorentzTransform boost = LorentzTransform::mkFrameTransformFromBeta(W.first.momentum().betaVec());
+	    FourMomentum psum;
+	    for(const Particle & p :W.second) psum+=p.momentum();
+	    // spectra
+	    for(const Particle & p : W.second) {
+	      if(!PID::isCharged(p.pid())) continue;
+	      // Get momentum of each particle.
+	      FourMomentum phad = boost.transform(p.momentum());
+	      const Vector3 mom3 = phad.p3();
+	      // Scaled momenta.
+	      const double mom = mom3.mod();
+	      const double scaledMom = 2.*mom/mW;
+	      const double xi = -log(scaledMom);
+	      // /identified particle spectra
+	      if(_h_xi_ident[2][0]) _h_xi_ident[2][0]->fill(xi);
+	      if(p.abspid()==PID::PIPLUS) {
+		if(_h_xi_ident[2][1]) _h_xi_ident[2][1]->fill(xi);
+	      }
+	      else if(p.abspid()==PID::KPLUS) {
+		if(_h_xi_ident[2][2]) _h_xi_ident[2][2]->fill(xi);
+	      }
+	      else if(p.abspid()==PID::PROTON){
+		if(_h_xi_ident[2][3]) _h_xi_ident[2][3]->fill(xi);
+	      }
+	    }
+	  }
+	}
+      }
     }
 
 
@@ -314,7 +297,7 @@ namespace Rivet {
         }
       }
       // WW
-      /*if( _WW && 
+      if( _WW && 
 	  (_n_WW[0][0]->effNumEntries()!=0. ||
 	   _n_WW[1][0]->effNumEntries()!=0. )) {
         Scatter1D ratios[2];
@@ -396,7 +379,7 @@ namespace Rivet {
         book(hnew3,11+iloc,1,3);
         *hnew3 = YODA::subtract(*(_h_pT_chargedB[1]),hytemp3);
         hnew3->setPath("/"+name()+"/"+mkAxisCode(11+iloc,1,3));
-      }*/
+      }
     }
 
     ///@}
@@ -410,8 +393,8 @@ namespace Rivet {
     // WW
     Histo1DPtr _h_p_charged [2],_h_xi_charged [2],_h_pT_charged [2],_h_xi_ident[3][4];
     Histo1DPtr _h_p_chargedB[2],_h_xi_chargedB[2],_h_pT_chargedB[2];
-    //CounterPtr _n_WW[2][5];
-    //bool _WW;
+    CounterPtr _n_WW[2][5];
+    bool _WW;
     ///@}
 
 
