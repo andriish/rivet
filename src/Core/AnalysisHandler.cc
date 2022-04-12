@@ -326,6 +326,16 @@ namespace Rivet {
     if (_eventNumber != ge.event_number()) {
       pushToPersistent();
       _eventNumber = ge.event_number();
+
+      // Dump current final histograms
+      if ( _dumpPeriod > 0 && numEvents() > 0 && numEvents() % _dumpPeriod == 0 ) {
+        MSG_DEBUG("Dumping intermediate results to " << _dumpFile << ".");
+        _dumping = numEvents()/_dumpPeriod;
+        finalize();
+        writeData(_dumpFile);
+        _dumping = 0;
+      }
+
     }
 
     // Make a new sub-event: affects every analysis object
@@ -369,15 +379,6 @@ namespace Rivet {
         exit(1);
       }
       MSG_TRACE("Finished running analysis " << a->name());
-    }
-
-    // Dump current final histograms
-    if ( _dumpPeriod > 0 && numEvents() > 0 && numEvents() % _dumpPeriod == 0 ) {
-      MSG_DEBUG("Dumping intermediate results to " << _dumpFile << ".");
-      _dumping = numEvents()/_dumpPeriod;
-      finalize();
-      writeData(_dumpFile);
-      _dumping = 0;
     }
 
   }
@@ -928,11 +929,6 @@ namespace Rivet {
 
   string AnalysisHandler::runName() const {
     return _runname;
-  }
-
-
-  size_t AnalysisHandler::numEvents() const {
-    return _eventCounter->numEntries();
   }
 
 
