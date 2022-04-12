@@ -640,7 +640,7 @@ except Exception as ex:
     sys.exit(3)
 
 ## Event loop
-evtnum = 0
+old_evtnum = 0
 for fileidx, hepmcfile in enumerate(HEPMCFILES):
     ## Apply a file-level weight derived from the filename
     hepmcfileweight = 1.0
@@ -668,7 +668,7 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
 
     ## The event loop
     while args.MAXEVTNUM is None or evtnum-args.EVTSKIPNUM < args.MAXEVTNUM:
-        evtnum += 1
+        evtnum = run.numEvents() # only updates when event number changes
 
         ## Optional event skipping
         if evtnum <= args.EVTSKIPNUM:
@@ -679,7 +679,9 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
             continue
 
         ## Only log the event number once we're actually processing
-        logNEvt(evtnum, starttime, args.MAXEVTNUM)
+        if evtnum != old_evtnum:
+          old_evtnum = evtnum
+          logNEvt(evtnum, starttime, args.MAXEVTNUM)
 
         ## Process this event
         processed_ok = run.processEvent()

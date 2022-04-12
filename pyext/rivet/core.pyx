@@ -133,6 +133,9 @@ cdef class Run:
     # def skipEvent(self):
     #     return self._ptr.skipEvent()
 
+    def numEvents(self):
+        return self._ptr.numEvents()
+
     def processEvent(self):
         return self._ptr.processEvent()
 

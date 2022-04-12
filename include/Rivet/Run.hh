@@ -51,6 +51,10 @@ namespace Rivet {
     /// Read the next HepMC event only to skip it
     //bool skipEvent();
 
+    /// Return the number of (collapsed) events read in from HepMC,
+    /// including current partial event in case of sub-events
+    size_t numEvents() const { return _evtcount; }
+
     /// Handle next event
     bool processEvent();
 
@@ -77,6 +81,12 @@ namespace Rivet {
 
     /// Cross-section from command line.
     double _xs = NAN;
+
+    /// Number of (collapsed) events read from file so far
+    size_t _evtcount = 0;
+
+    /// Current event number to keep track of sub-events
+    int _evtnumber = -1;
 
     /// @}
 
