@@ -164,6 +164,10 @@
 
 	* Move the Jets and Particles definitions into the .hh headers.
 
+2022-04-15 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CLEO_1994_I359316 chi_2 in gamma gamma
+
 2022-04-06  Markus Seidel  <markus.seidel@cern.ch>
 
 	* Submission of CMS_2017_I1497519: Z boson in association with jets at 8 TeV
