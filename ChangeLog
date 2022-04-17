@@ -164,6 +164,12 @@
 
 	* Move the Jets and Particles definitions into the .hh headers.
 
+2022-04-17 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2009_I822474 gamma gamma -> eta pi0
+	* Add BELLE_2010_I862260 gamma gamma -> eta eta
+	* Add BELLE_2013_I1245023 gamma gamma -> K0S K0S
+
 2022-04-15 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add CLEO_1994_I359316 chi_2 in gamma gamma

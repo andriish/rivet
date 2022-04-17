@@ -1,0 +1,38 @@
+Name: BELLE_2013_I1245023
+Year: 2013
+Summary: $\gamma\gamma\to K^0_SK^0_S$ for centre-of-mass energies between 1.05 and 4.0 GeV
+Experiment: BELLE
+Collider: KEKB
+InspireID: 1245023
+Status: VALIDATED
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - PTEP 2013 (2013) 12, 123C01
+RunInfo: gamma gamma to hadrons, K0S meson must be set stable
+Beams: [gamma, gamma]
+Energies: []
+Description:
+  'Measurement of the differential cross section for $\gamma\gamma\to K^0_SK^0_S$ for $1.05 \text{GeV} < W < 4.0 \text{GeV}$. Both the cross section as a function of the centre-of-mass energy of the photonic collision, and the differential cross section with respect to the kaon scattering angle are measured.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Belle:2013eck
+BibTeX: '@article{Belle:2013eck,
+    author = "Uehara, S. and others",
+    collaboration = "Belle",
+    title = "{High-statistics study of $K^0_S$ pair production in two-photon collisions}",
+    eprint = "1307.7457",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "BELLE-PREPRINT-2013-18, KEK-PREPRINT-2013-28",
+    doi = "10.1093/ptep/ptt097",
+    journal = "PTEP",
+    volume = "2013",
+    number = "12",
+    pages = "123C01",
+    year = "2013"
+}
+'

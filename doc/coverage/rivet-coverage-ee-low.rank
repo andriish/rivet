@@ -1314,11 +1314,11 @@
 784992 X Measurement of the Mass Difference m(B0) - m(B+) #mass#
 785338 X Observation of B+ ---> b(1)+ K0 and search for B-meson decays to b(1)0 K0 and b(1) pi0 #BR#
 785439 . Branching Fractions and CP-Violating Asymmetries in Radiative $B$ Decays to $\eta K \gamma$ #fig 3?#
-785706 . Constraints on the CKM angle gamma in B0 ---> anti-D0 (D0) K*0 with a Dalitz analysis of D0 ---> K(S) pi+ pi- #not implementable#
+785706 X Constraints on the CKM angle gamma in B0 ---> anti-D0 (D0) K*0 with a Dalitz analysis of D0 ---> K(S) pi+ pi- #not implementable#
 785893 . Measurements of $B \to \{\pi, \eta, \eta^\prime\} \ell \nu_{\ell}$ Branching Fractions and Determination of $|V_{ub}|$ with Semileptonically Tagged $B$ Mesons #table 1?#
 786236 . Measurement of Azimuthal Asymmetries in Inclusive Production of Hadron Pairs in e+e- Annihilation at s**(1/2) = 10.58-GeV #data in tables#
 786339 X Search for B-0 --> J/psi phi decays #search#
-786406 . High-statistics measurement of neutral pion-pair production in two-photon collisions #data#
+786406 X High-statistics measurement of neutral pion-pair production in two-photon collisions #data, but superseeded 815978#
 786560 . High-Statistics Study of the tau- ---> pi- pi0 nu(tau) Decay #implemented#
 786911 X Precision Measurement of the Mass of the h(c)(P-1(1)) State of Charmonium #mass#
 787103 X Inclusive Radiative J/psi Decays #BR#
