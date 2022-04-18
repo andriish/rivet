@@ -1,0 +1,34 @@
+Name: TASSO_1983_I191417
+Year: 1983
+Summary: $\gamma\gamma\to p \bar{p}$ for centre-of-mass energies between 2 and 3.05 GeV
+Experiment: TASSO
+Collider: PETRA
+InspireID: 191417
+Status: VALIDATED
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Lett.B 130 (1983) 449-453
+RunInfo: gamma gamma to hadrons
+Beams: [gamma, gamma]
+Energies: []
+Description:
+  'Measurement of the differential cross section for $\gamma\gamma\to p \bar{p}$ for $2 \text{GeV} < W < 3.25 \text{GeV}$. Both the cross section as a function of the centre-of-mass energy of the photonic collision, and the differential cross section with respect to the proton scattering angle are measured.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: TASSO:1983mvj
+BibTeX: '@article{TASSO:1983mvj,
+    author = "Althoff, M. and others",
+    collaboration = "TASSO",
+    title = "{Differential Cross-sections for $\gamma \gamma \to p \bar{p}$ in the Center-of-mass Energy Range From 2.0-{GeV} to 3.1-{GeV}}",
+    reportNumber = "DESY-83-064",
+    doi = "10.1016/0370-2693(83)91541-1",
+    journal = "Phys. Lett. B",
+    volume = "130",
+    pages = "449--453",
+    year = "1983"
+}
+'

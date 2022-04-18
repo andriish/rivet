@@ -127,6 +127,7 @@ from . import PLUTO_1980_I154270
 from . import PLUTO_1981_I165122
 from . import SLD_1995_I378545
 from . import TASSO_1980_I153656
+from . import TASSO_1983_I191417
 from . import TASSO_1984_I194774
 from . import TASSO_1984_I195333
 from . import TASSO_1986_I230950
