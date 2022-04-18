@@ -1,7 +1,6 @@
 2022-12-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Allow linspace() and aspace() to make reversed edge-sets with start > end.
-
 	* Add powspace() and powdbnspace() uniform-spacing functions for
 	power laws, and a generic _fnspace() function for any
 	transform/inverse function-pair.
@@ -166,7 +165,8 @@
 
 2022-04-18 Peter Richardson <peter.richardson@durham.ac.uk>
 
-	* Add BELLE_2013_I1245023 gamma gamma -> p pbar
+	* Add BELLE_2005_I677625 gamma gamma -> p pbar
+	* Add BELLE_2009_I815978 gamma gamma -> pi0 pi0
 
 2022-04-17 Peter Richardson <peter.richardson@durham.ac.uk>
 

@@ -32,6 +32,7 @@ from . import BABAR_2006_I731865
 from . import BABAR_2007_S6895344
 from . import BELLE_2001_S4598261
 from . import BELLE_2007_I749358
+from . import BELLE_2009_I815978
 from . import BELLE_2009_I822474
 from . import BELLE_2009_I823878
 from . import BELLE_2016_I1389855

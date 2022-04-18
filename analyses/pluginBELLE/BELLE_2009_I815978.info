@@ -1,0 +1,37 @@
+Name: BELLE_2009_I815978
+Year: 2009
+Summary: $\gamma\gamma\to \pi^0\pi^0$ for centre-of-mass energies between 0.6 and 4.1 GeV
+Experiment: BELLE
+Collider: KEKB
+InspireID: 815978
+Status: VALIDATED 
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 79 (2009) 052009, 2009
+RunInfo: gamma gamma to hadrons, pi0 must be set stable
+Beams: [gamma, gamma]
+Energies: []
+Description:
+  'Measurement of the differential cross section for $\gamma\gamma\to \pi^0\pi^0$ for $0.6 \text{GeV} < W < 4.1 \text{GeV}$. Both the cross section as a function of the centre-of-mass energy of the photonic collision, and the differential cross section with respect to the kaon scattering angle are measured.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Belle:2009ylx
+BibTeX: '@article{Belle:2009ylx,
+    author = "Uehara, S. and others",
+    collaboration = "Belle",
+    title = "{High-statistics study of neutral-pion pair production in two-photon collisions}",
+    eprint = "0903.3697",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "KEK-PREPRINT-2008-50, BELLE-PREPRINT-2009-4",
+    doi = "10.1103/PhysRevD.79.052009",
+    journal = "Phys. Rev. D",
+    volume = "79",
+    pages = "052009",
+    year = "2009"
+}
+'
