@@ -23,8 +23,8 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
       // book histos
       if(inRange(sqrtS()/GeV,1.096,4.)) {
-       	book(_nEtaEta[0],"Tmp/nEtaPi_1");
-	if(sqrtS()<=2.) book(_nEtaEta[1],"Tmp/nEtaPi_2");
+       	book(_nEtaEta[0],"TMP/nEtaPi_1");
+	if(sqrtS()<=2.) book(_nEtaEta[1],"TMP/nEtaPi_2");
        	double sMin=1.096,sMax=1.12, step=0.04;
        	unsigned int ihist=2;
        	while(sMin<3.3) {

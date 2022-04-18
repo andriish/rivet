@@ -1,0 +1,36 @@
+Name: BELLE_2005_I677625
+Year: 2005
+Summary:  $\gamma\gamma\to p \bar{p}$ for centre-of-mass energies between 2.025 and 4.0 GeV
+Experiment: BELLE
+Collider: KEKB
+InspireID: 677625
+Status: VALIDATED
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Lett.B 621 (2005) 41-55, 2005
+RunInfo: gamma gamma to hadrons
+Beams: [gamma, gamma]
+Energies: []
+Description:
+  'Measurement of the differential cross section for $\gamma\gamma\to p \bar{p}$ for $2.025 \text{GeV} < W < 4.0 \text{GeV}$. Both the cross section as a function of the centre-of-mass energy of the photonic collision, and the differential cross section with respect to the pion scattering angle are measured.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Belle:2005fji
+BibTeX: '@article{Belle:2005fji,
+    author = "Kuo, C. C. and others",
+    collaboration = "Belle",
+    title = "{Measurement of gamma gamma ---\ensuremath{>} p anti-p production at Belle}",
+    eprint = "hep-ex/0503006",
+    archivePrefix = "arXiv",
+    reportNumber = "BELLE-PREPRINT-2005-5, KEK-PREPRINT-2004-101",
+    doi = "10.1016/j.physletb.2005.06.036",
+    journal = "Phys. Lett. B",
+    volume = "621",
+    pages = "41--55",
+    year = "2005"
+}
+'
