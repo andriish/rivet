@@ -1,0 +1,34 @@
+Name: JADE_1986_I231554
+Year: 1986
+Summary: $\gamma\gamma\to p \bar{p}$ for centre-of-mass energies between 2 and 2.6 GeV
+Experiment: JADE
+Collider: PETRA
+InspireID: 231554
+Status: VALIDATED
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Lett.B 130 (1983) 449-453
+RunInfo: gamma gamma to hadrons
+Beams: [gamma, gamma]
+Energies: []
+Description:
+  'Measurement of the differential cross section for $\gamma\gamma\to p \bar{p}$ for $2 \text{GeV} < W < 2.6 \text{GeV}$. Both the cross section as a function of the centre-of-mass energy of the photonic collision, and the differential cross section with respect to the proton scattering angle are measured.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: JADE:1986ezn
+BibTeX: '@article{JADE:1986ezn,
+    author = "Bartel, W. and others",
+    collaboration = "JADE",
+    title = "{Exclusive Production of Proton Anti-proton Pairs in Photon-photon Collisions}",
+    reportNumber = "DESY-86-043",
+    doi = "10.1016/0370-2693(86)91114-7",
+    journal = "Phys. Lett. B",
+    volume = "174",
+    pages = "350--356",
+    year = "1986"
+}
+'
