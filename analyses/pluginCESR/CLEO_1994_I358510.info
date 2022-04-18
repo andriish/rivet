@@ -1,0 +1,34 @@
+Name: CLEO_1994_I358510
+Year: 1994
+Summary: $\gamma\gamma\to p \bar{p}$ for centre-of-mass energies between 2 and 3.25 GeV
+Experiment: CLEO
+Collider: CESR
+InspireID: 358510
+Status: VALIDATED
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 50 (1994) 5484-5490, 1994
+RunInfo: gamma gamma to hadrons
+Beams: [gamma, gamma]
+Energies: []
+Description:
+  'Measurement of the differential cross section for $\gamma\gamma\to p \bar{p}$ for $2 \text{GeV} < W < 3.25 \text{GeV}$. Both the cross section as a function of the centre-of-mass energy of the photonic collision, and the differential cross section with respect to the pion scattering angle are measured.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CLEO:1993ahu
+BibTeX: '@article{CLEO:1993ahu,
+    author = "Artuso, M. and others",
+    collaboration = "CLEO",
+    title = "{Measurement of cross-section for gamma gamma ---\ensuremath{>} p anti-p}",
+    reportNumber = "CLNS-93-1245, CLEO-93-17",
+    doi = "10.1103/PhysRevD.50.5484",
+    journal = "Phys. Rev. D",
+    volume = "50",
+    pages = "5484--5490",
+    year = "1994"
+}
+'

@@ -1,0 +1,59 @@
+BEGIN YODA_SCATTER2D_V2 /REF/CLEO_1994_I358510/d01-x01-y01
+ErrorBreakdown: {0: {"": {up: 1.091716, dn: 1.091716}, error: {up: 1, dn: -1}, "sys,Additional overall systematic uncertainty.": {up: 0.438, dn: -0.438}}, 1: {"": {up: 0.8780091, dn: 0.8780091}, error: {up: 0.7, dn: -0.7}, "sys,Additional overall systematic uncertainty.": {up: 0.53, dn: -0.53}}, 2: {"": {up: 0.9090655, dn: 0.9090655}, error: {up: 0.7, dn: -0.7}, "sys,Additional overall systematic uncertainty.": {up: 0.58, dn: -0.58}}, 3: {"": {up: 0.7560422999999999, dn: 0.7560422999999999}, error: {up: 0.6, dn: -0.6}, "sys,Additional overall systematic uncertainty.": {up: 0.46, dn: -0.46}}, 4: {"": {up: 0.762168, dn: 0.762168}, error: {up: 0.6, dn: -0.6}, "sys,Additional overall systematic uncertainty.": {up: 0.47, dn: -0.47}}, 5: {"": {up: 0.7211103, dn: 0.7211103}, error: {up: 0.6, dn: -0.6}, "sys,Additional overall systematic uncertainty.": {up: 0.4, dn: -0.4}}, 6: {"": {up: 0.6103278, dn: 0.6103278}, error: {up: 0.5, dn: -0.5}, "sys,Additional overall systematic uncertainty.": {up: 0.35, dn: -0.35}}, 7: {"": {up: 0.4664762, dn: 0.4664762}, error: {up: 0.4, dn: -0.4}, "sys,Additional overall systematic uncertainty.": {up: 0.24, dn: -0.24}}, 8: {"": {up: 0.3310589, dn: 0.3310589}, error: {up: 0.3, dn: -0.3}, "sys,Additional overall systematic uncertainty.": {up: 0.14, dn: -0.14}}, 9: {"": {up: 0.4428318, dn: 0.4428318}, error: {up: 0.4, dn: -0.4}, "sys,Additional overall systematic uncertainty.": {up: 0.19, dn: -0.19}}, 10: {"": {up: 0.5249762, dn: 0.5249762}, error: {up: 0.5, dn: -0.5}, "sys,Additional overall systematic uncertainty.": {up: 0.16, dn: -0.16}}, 11: {"": {up: 0.6067125, dn: 0.6067125}, error: {up: 0.6, dn: -0.6}, "sys,Additional overall systematic uncertainty.": {up: 0.09000000000000001, dn: -0.09000000000000001}}, 12: {"": {up: 0.1255747, dn: 0.1255747}, error: {up: 0.12, dn: -0.12}, "sys,Additional overall systematic uncertainty.": {up: 0.03700000000000001, dn: -0.03700000000000001}}, 13: {"": {up: 0.07227724000000001, dn: 0.07227724000000001}, error: {up: 0.07000000000000001, dn: -0.07000000000000001}, "sys,Additional overall systematic uncertainty.": {up: 0.018, dn: -0.018}}, 14: {"": {up: 0.08089499, dn: 0.08089499}, error: {up: 0.08, dn: -0.08}, "sys,Additional overall systematic uncertainty.": {up: 0.012, dn: -0.012}}}
+IsRef: 1
+Path: /REF/CLEO_1994_I358510/d01-x01-y01
+Title: doi:10.17182/hepdata.47137.v1/t1
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+2.025000e+00	2.500000e-02	2.500000e-02	4.380000e+00	1.091716e+00	1.091716e+00
+2.075000e+00	2.500000e-02	2.500000e-02	5.300000e+00	8.780091e-01	8.780091e-01
+2.125000e+00	2.500000e-02	2.500000e-02	5.800000e+00	9.090655e-01	9.090655e-01
+2.175000e+00	2.500000e-02	2.500000e-02	4.600000e+00	7.560423e-01	7.560423e-01
+2.225000e+00	2.500000e-02	2.500000e-02	4.700000e+00	7.621680e-01	7.621680e-01
+2.275000e+00	2.500000e-02	2.500000e-02	4.000000e+00	7.211103e-01	7.211103e-01
+2.325000e+00	2.500000e-02	2.500000e-02	3.500000e+00	6.103278e-01	6.103278e-01
+2.375000e+00	2.500000e-02	2.500000e-02	2.400000e+00	4.664762e-01	4.664762e-01
+2.425000e+00	2.500000e-02	2.500000e-02	1.400000e+00	3.310589e-01	3.310589e-01
+2.475000e+00	2.500000e-02	2.500000e-02	1.900000e+00	4.428318e-01	4.428318e-01
+2.525000e+00	2.500000e-02	2.500000e-02	1.600000e+00	5.249762e-01	5.249762e-01
+2.600000e+00	5.000000e-02	5.000000e-02	9.000000e-01	6.067125e-01	6.067125e-01
+2.725000e+00	7.500000e-02	7.500000e-02	3.700000e-01	1.255747e-01	1.255747e-01
+2.900000e+00	1.000000e-01	1.000000e-01	1.800000e-01	7.227724e-02	7.227724e-02
+3.125000e+00	1.250000e-01	1.250000e-01	1.200000e-01	8.089499e-02	8.089499e-02
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/CLEO_1994_I358510/d02-x01-y01
+ErrorBreakdown: {0: {"": {up: 0.2717425, dn: 0.2717425}, error: {up: 0.17, dn: -0.17}, "sys,Additional overall systematic uncertainty.": {up: 0.212, dn: -0.212}}, 1: {"": {up: 0.2624881, dn: 0.2624881}, error: {up: 0.17, dn: -0.17}, "sys,Additional overall systematic uncertainty.": {up: 0.2, dn: -0.2}}, 2: {"": {up: 0.2011368, dn: 0.2011368}, error: {up: 0.15, dn: -0.15}, "sys,Additional overall systematic uncertainty.": {up: 0.134, dn: -0.134}}, 3: {"": {up: 0.1941649, dn: 0.1941649}, error: {up: 0.16, dn: -0.16}, "sys,Additional overall systematic uncertainty.": {up: 0.11, dn: -0.11}}, 4: {"": {up: 0.1655295, dn: 0.1655295}, error: {up: 0.15, dn: -0.15}, "sys,Additional overall systematic uncertainty.": {up: 0.06999999999999999, dn: -0.06999999999999999}}, 5: {"": {up: 0.3195309, dn: 0.3195309}, error: {up: 0.3, dn: -0.3}, "sys,Additional overall systematic uncertainty.": {up: 0.11, dn: -0.11}}}
+IsRef: 1
+Path: /REF/CLEO_1994_I358510/d02-x01-y01
+Title: doi:10.17182/hepdata.47137.v1/t2
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+5.000000e-02	5.000000e-02	5.000000e-02	2.120000e+00	2.717425e-01	2.717425e-01
+1.500000e-01	5.000000e-02	5.000000e-02	2.000000e+00	2.624881e-01	2.624881e-01
+2.500000e-01	5.000000e-02	5.000000e-02	1.340000e+00	2.011368e-01	2.011368e-01
+3.500000e-01	5.000000e-02	5.000000e-02	1.100000e+00	1.941649e-01	1.941649e-01
+4.500000e-01	5.000000e-02	5.000000e-02	7.000000e-01	1.655295e-01	1.655295e-01
+5.500000e-01	5.000000e-02	5.000000e-02	1.100000e+00	3.195309e-01	3.195309e-01
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/CLEO_1994_I358510/d03-x01-y01
+ErrorBreakdown: {0: {"": {up: 0.1992486, dn: 0.1992486}, error: {up: 0.19, dn: -0.19}, "sys,Additional overall systematic uncertainty.": {up: 0.06, dn: -0.06}}, 1: {"": {up: 0.1855398, dn: 0.1855398}, error: {up: 0.18, dn: -0.18}, "sys,Additional overall systematic uncertainty.": {up: 0.04500000000000001, dn: -0.04500000000000001}}, 2: {"": {up: 0.205, dn: 0.205}, error: {up: 0.2, dn: -0.2}, "sys,Additional overall systematic uncertainty.": {up: 0.04500000000000001, dn: -0.04500000000000001}}, 3: {"": {up: 0.3092329, dn: 0.3092329}, error: {up: 0.3, dn: -0.3}, "sys,Additional overall systematic uncertainty.": {up: 0.075, dn: -0.075}}, 4: {"": {up: 0.3175154, dn: 0.3175154}, error: {up: 0.3, dn: -0.3}, "sys,Additional overall systematic uncertainty.": {up: 0.104, dn: -0.104}}, 5: {"": {up: 0.7203471, dn: 0.7203471}, error: {up: 0.7, dn: -0.7}, "sys,Additional overall systematic uncertainty.": {up: 0.17, dn: -0.17}}}
+IsRef: 1
+Path: /REF/CLEO_1994_I358510/d03-x01-y01
+Title: doi:10.17182/hepdata.47137.v1/t3
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+5.000000e-02	5.000000e-02	5.000000e-02	6.000000e-01	1.992486e-01	1.992486e-01
+1.500000e-01	5.000000e-02	5.000000e-02	4.500000e-01	1.855398e-01	1.855398e-01
+2.500000e-01	5.000000e-02	5.000000e-02	4.500000e-01	2.050000e-01	2.050000e-01
+3.500000e-01	5.000000e-02	5.000000e-02	7.500000e-01	3.092329e-01	3.092329e-01
+4.500000e-01	5.000000e-02	5.000000e-02	1.040000e+00	3.175154e-01	3.175154e-01
+5.500000e-01	5.000000e-02	5.000000e-02	1.700000e+00	7.203471e-01	7.203471e-01
+END YODA_SCATTER2D_V2
+
