@@ -1,6 +1,6 @@
 Name: TASSO_1983_I191417
 Year: 1983
-Summary: $\gamma\gamma\to p \bar{p}$ for centre-of-mass energies between 2 and 3.05 GeV
+Summary: $\gamma\gamma\to p \bar{p}$ for centre-of-mass energies between 2 and 3.1 GeV
 Experiment: TASSO
 Collider: PETRA
 InspireID: 191417
@@ -13,7 +13,7 @@ RunInfo: gamma gamma to hadrons
 Beams: [gamma, gamma]
 Energies: []
 Description:
-  'Measurement of the differential cross section for $\gamma\gamma\to p \bar{p}$ for $2 \text{GeV} < W < 3.25 \text{GeV}$. Both the cross section as a function of the centre-of-mass energy of the photonic collision, and the differential cross section with respect to the proton scattering angle are measured.'
+  'Measurement of the differential cross section for $\gamma\gamma\to p \bar{p}$ for $2 \text{GeV} < W < 3.1 \text{GeV}$. Both the cross section as a function of the centre-of-mass energy of the photonic collision, and the differential cross section with respect to the proton scattering angle are measured.'
 ValidationInfo:
   'Herwig7 events'
 #ReleaseTests:

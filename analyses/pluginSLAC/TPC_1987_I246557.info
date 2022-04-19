@@ -1,0 +1,33 @@
+Name: TPC_1987_I246557
+Year: 1987
+Summary: $\gamma\gamma\to p \bar{p}$ for centre-of-mass energies between 2 and 2.8 GeV
+Experiment: TPC
+Collider: PEP
+InspireID: 246557
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 36 (1987) 3506
+RunInfo: gamma gamma to hadrons
+Beams: [gamma, gamma]
+Energies: []
+Description:
+  'Measurement of the differential cross section for $\gamma\gamma\to p \bar{p}$ for $2 \text{GeV} < W < 2.8\text{GeV}$. Both the cross section as a function of the centre-of-mass energy of the photonic collision, and the differential cross section with respect to the proton scattering angle are measured.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: TPCTwoGamma:1987idm
+BibTeX: '@article{TPCTwoGamma:1987idm,
+    author = "Aihara, H. and others",
+    collaboration = "TPC/Two Gamma",
+    title = "{Exclusive production of $p\bar{p}$ pairs in two photon collisions at PEP}",
+    reportNumber = "UCD-87-10",
+    doi = "10.1103/PhysRevD.36.3506",
+    journal = "Phys. Rev. D",
+    volume = "36",
+    pages = "3506",
+    year = "1987"
+}
+'

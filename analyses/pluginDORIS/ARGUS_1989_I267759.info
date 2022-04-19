@@ -1,0 +1,34 @@
+Name: ARGUS_1989_I267759
+Year: 1989
+Summary: $\gamma\gamma\to p \bar{p}$ for centre-of-mass energies between 2 and 2.9 GeV
+Experiment: ARGUS 
+Collider: DORIS
+InspireID: 267759
+Status: VALIDATED
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Z.Phys.C 42 (1989) 543
+RunInfo: gamma gamma to hadrons
+Beams: [gamma, gamma]
+Energies: []
+Description:
+  'Measurement of the differential cross section for $\gamma\gamma\to p \bar{p}$ for $2 \text{GeV} < W < 2.9\text{GeV}$. Both the cross section as a function of the centre-of-mass energy of the photonic collision, and the differential cross section with respect to the proton scattering angle are measured. There are other measurements in the original paper but the final-state cuts are not clear for these and therefore they are not implemented.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: ARGUS:1988apz
+BibTeX: '@article{ARGUS:1988apz,
+    author = "Albrecht, H. and others",
+    collaboration = "ARGUS",
+    title = "{Two Photon Production of Final States With a $p \bar{p}$ Pair}",
+    reportNumber = "DESY-88-194",
+    doi = "10.1007/BF01557659",
+    journal = "Z. Phys. C",
+    volume = "42",
+    pages = "543",
+    year = "1989"
+}
+'
