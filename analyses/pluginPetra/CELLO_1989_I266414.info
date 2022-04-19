@@ -1,0 +1,34 @@
+Name: CELLO_1989_I266414
+Year: 1989
+Summary: $\gamma\gamma\to K^0_SK^\pm\pi^\mp$ for centre-of-mass energies between 1.4 and 4.2 GeV
+Experiment: CELLO
+Collider: PETRA
+InspireID: 266414
+Status: VALIDATED
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ -     Z.Phys.C 42 (1989) 367
+RunInfo: gamma gamma to hadrons, K0S mesons must be set stable
+Beams: [gamma, gamma]
+Energies: []
+Description:
+  'Measurement of the differential cross section for $\gamma\gamma\to K^0_SK^\pm\pi^\mp$ for $1.4 \text{GeV} < W < 4.2 \text{GeV}$. The cross section is measured as a function of the centre-of-mass energy of the photonic collision.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CELLO:1988kob
+BibTeX: '@article{CELLO:1988kob,
+    author = "Behrend, H. J. and others",
+    collaboration = "CELLO",
+    title = "{$K^0(s$) $K \pi$ Production in Tagged and Untagged $\gamma \gamma$ Interactions}",
+    reportNumber = "DESY-88-149",
+    doi = "10.1007/BF01548442",
+    journal = "Z. Phys. C",
+    volume = "42",
+    pages = "367",
+    year = "1989"
+}
+'
