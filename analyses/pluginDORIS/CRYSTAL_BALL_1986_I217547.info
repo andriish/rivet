@@ -1,0 +1,34 @@
+Name: CRYSTAL_BALL_1986_I217547
+Year: 1986
+Summary: $\gamma\gamma\to\eta\pi^0$ for centre-of-mass energies between 0.683 and 2.08 GeV
+Experiment: CRYSTAL_BALL
+Collider: PETRA
+InspireID: 217547
+Status: VALIDATED
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 33 (1986) 1847
+RunInfo: gamma gamma to hadrons, pi0 must be set stable
+Beams: [gamma, gamma]
+Energies: []
+Description:
+  'Measurement of the differential cross section for $\gamma\gamma\to\eta\pi^0$ for $0.683 \text{GeV} < W < 2.08 \text{GeV}$. Both the cross section as a function of the centre-of-mass energy of the photonic collision, and the differential cross section with respect to the pion scattering angle are measured.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CrystalBall:1985mzc
+BibTeX: '@article{CrystalBall:1985mzc,
+    author = "Antreasyan, D. and others",
+    collaboration = "Crystal Ball",
+    title = "{Formation of Delta (980) and A2 (1320) in Photon-photon Collisions}",
+    reportNumber = "SLAC-PUB-3761, DESY-85-97",
+    doi = "10.1103/PhysRevD.33.1847",
+    journal = "Phys. Rev. D",
+    volume = "33",
+    pages = "1847",
+    year = "1986"
+}
+'

@@ -5,7 +5,7 @@ XLabel=$|\cos\theta|$
 END PLOT
 BEGIN PLOT /BELLE_2009_I822474/d01-x01-y01
 Title=Cross section for $\gamma\gamma\to \eta\pi^0$ with $|\cos\theta|<0.8$
-XLabel=$\sqrt{s}$
+XLabel=$\sqrt{s}$ [GeV]
 YLabel=$\sigma(\gamma\gamma\to \eta\pi^0)$ [nb]
 LogY=1
 END PLOT
