@@ -1,0 +1,33 @@
+Name: CRYSTAL_BALL_1982_I168793
+Year: 1982
+Summary: $\gamma\gamma\to \pi^0\pi^0$ for centre-of-mass energies between 0.72 and 1.8 GeV
+Experiment: CRYSTAL_BALL
+Collider: PEP
+InspireID: 168793
+Status: VALIDATED
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 41 (1990) 3324, 1990
+RunInfo: gamma gamma to hadrons, pi0 must be set stable
+Beams: [gamma, gamma]
+Energies: []
+Description:
+  'Measurement of the differential cross section for $\gamma\gamma\to \pi^0\pi^0$ for $0.72 \text{GeV} < W < 1.8 \text{GeV}$. Both the cross section as a function of the centre-of-mass energy of the photonic collision, and the differential cross section with respect to the kaon scattering angle are measured.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Edwards:1981np
+BibTeX: '@article{Edwards:1981np,
+    author = "Edwards, C. and others",
+    title = "{Production of $\pi^0 \pi^0$ and $\pi^0 \eta$ in Photon - Photon Collisions}",
+    reportNumber = "SLAC-PUB-2821",
+    doi = "10.1016/0370-2693(82)90957-1",
+    journal = "Phys. Lett. B",
+    volume = "110",
+    pages = "82--86",
+    year = "1982"
+}
+'

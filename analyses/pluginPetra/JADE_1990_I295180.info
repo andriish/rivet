@@ -1,0 +1,33 @@
+Name: JADE_1990_I295180
+Year: 1990
+Summary: $\gamma\gamma\to \pi^0\pi^0$ for centre-of-mass energies between 2.0 and 3.55 GeV
+Experiment: JADE
+Collider: PETRA
+InspireID: 295180
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 41 (1990) 3324, 1990
+RunInfo: gamma gamma to hadrons, pi0 must be set stable
+Beams: [gamma, gamma]
+Energies: []
+Description:
+  'Measurement of the differential cross section for $\gamma\gamma\to \pi^0\pi^0$ for $2.0 \text{GeV} < W < 3.5 \text{GeV}$. Only the cross section as a function of the centre-of-mass energy of the photonic collision is implemented as the other distributions are unnormalised or not corrected.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: JADE:1990kcf
+BibTeX: '@article{JADE:1990kcf,
+    author = "Oest, T. and others",
+    collaboration = "JADE",
+    title = "{Measurement of Resonance Productions in the Reactions $\gamma \gamma \to \pi^0 \pi^0$ and $\gamma \gamma \to \pi^0 \eta$}",
+    reportNumber = "DESY-90-025",
+    doi = "10.1007/BF01565857",
+    journal = "Z. Phys. C",
+    volume = "47",
+    pages = "343--352",
+    year = "1990"
+}
+'

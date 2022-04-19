@@ -4,7 +4,7 @@ YLabel=$\text{d}\sigma/\text{d}|\cos\theta|$ [nb]
 XLabel=$|\cos\theta|$
 END PLOT
 BEGIN PLOT /CRYSTAL_BALL_1990_I294492/d01-x01-y01
-Title=Cross section for $\gamma\gamma\to \pi^0\pi^0$ with $|\cos\theta|<0.6$
+Title=Cross section for $\gamma\gamma\to \pi^0\pi^0$ with $|\cos\theta|<0.8$
 XLabel=$\sqrt{s}$ [GeV]
 YLabel=$\sigma(\gamma\gamma\to \pi^0\pi^0)$ [nb]
 LogY=1

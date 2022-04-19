@@ -12,7 +12,7 @@ RunInfo: gamma gamma to hadrons, pi0 must be set stable
 Beams: [gamma, gamma]
 Energies: []
 Description:
-  'Measurement of the differential cross section for $\gamma\gamma\to \pi^0\pi^0$ for $0.25 \text{GeV} < W < 1.95 \text{GeV}$. Both the cross section as a function of the centre-of-mass energy of the photonic collision, and the differential cross section with respect to the kaon scattering angle are measured.'
+  'Measurement of the differential cross section for $\gamma\gamma\to \pi^0\pi^0$ for $0.25 \text{GeV} < W < 1.95 \text{GeV}$. Both the cross section as a function of the centre-of-mass energy of the photonic collision, and the differential cross section with respect to the pion scattering angle are measured.'
 ValidationInfo:
   'Herwig7 events'
 #ReleaseTests:
