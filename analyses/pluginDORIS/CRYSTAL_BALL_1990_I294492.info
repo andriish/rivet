@@ -1,0 +1,33 @@
+Name: CRYSTAL_BALL_1990_I294492
+Year: 1990
+Summary: $\gamma\gamma\to \pi^0\pi^0$ for centre-of-mass energies between 0.25 and 1.95 GeV
+Experiment: CRYSTAL_BALL
+Collider: DORIS
+InspireID: 294492
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 41 (1990) 3324, 1990
+RunInfo: gamma gamma to hadrons, pi0 must be set stable
+Beams: [gamma, gamma]
+Energies: []
+Description:
+  'Measurement of the differential cross section for $\gamma\gamma\to \pi^0\pi^0$ for $0.25 \text{GeV} < W < 1.95 \text{GeV}$. Both the cross section as a function of the centre-of-mass energy of the photonic collision, and the differential cross section with respect to the kaon scattering angle are measured.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CrystalBall:1990oiv
+BibTeX: '@article{CrystalBall:1990oiv,
+    author = "Marsiske, H. and others",
+    collaboration = "Crystal Ball",
+    title = "{A Measurement of $\pi^0 \pi^0$ Production in Two Photon Collisions}",
+    reportNumber = "SLAC-PUB-5163, DESY-90-002",
+    doi = "10.1103/PhysRevD.41.3324",
+    journal = "Phys. Rev. D",
+    volume = "41",
+    pages = "3324",
+    year = "1990"
+}
+'

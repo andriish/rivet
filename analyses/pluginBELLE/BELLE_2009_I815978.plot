@@ -6,7 +6,7 @@ END PLOT
 
 BEGIN PLOT /BELLE_2009_I815978/d31-x01-y01
 Title=Cross section for $\gamma\gamma\to \pi^0\pi^0$ with $|\cos\theta|<0.6$
-XLabel=$\sqrt{s}$
+XLabel=$\sqrt{s}$ [GeV]
 YLabel=$\sigma(\gamma\gamma\to \pi^0\pi^0)$ [nb]
 LogY=1
 END PLOT
