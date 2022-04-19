@@ -1,5 +1,5 @@
 BEGIN PLOT /MARKII_1990_I304882
-XLabel=$\sqrt{s}$
+XLabel=$\sqrt{s}$ [GeV]
 YLabel=$\sigma(\gamma\gamma\to \pi^+\pi^-)$ [nb]
 ConnectGaps=1
 LogY=1

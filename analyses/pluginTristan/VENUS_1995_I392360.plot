@@ -5,7 +5,7 @@ LogY=0
 END PLOT
 BEGIN PLOT /VENUS_1995_I392360/d01-x01-y01
 Title=Cross section for $\gamma\gamma\to \pi^+\pi^-$ with $|\cos\theta|<0.6$
-XLabel=$\sqrt{s}$
+XLabel=$\sqrt{s}$ [GeV]
 YLabel=$\sigma(\gamma\gamma\to \pi^+\pi^-)$ [nb]
 LogY=1
 END PLOT

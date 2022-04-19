@@ -1,6 +1,6 @@
 BEGIN PLOT /CELLO_1992_I345437/d01-x01-y01
 Title=Cross section for $\gamma\gamma\to \pi^+\pi^-$ with $|\cos\theta|<0.6$
-XLabel=$\sqrt{s}$
+XLabel=$\sqrt{s}$ [GeV]
 YLabel=$\sigma(\gamma\gamma\to \pi^+\pi^-)$ [nb]
 END PLOT
 BEGIN PLOT /CELLO_1992_I345437/d02-x01-y01
