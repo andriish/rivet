@@ -69,7 +69,10 @@ Get in touch via the developer mailing list if you need any assistance: [rivet-s
 
 [Contributing a routine](doc/tutorials/anacontrib.md)
 
+[Physics tips and pitfalls](doc/tutorials/tips-pitfalls.md)
+
 [Migrating from Rivet v2 to Rivet v3](doc/tutorials/mig2to3.md)
+
 
 
 ## Developer topics
