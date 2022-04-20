@@ -2,6 +2,7 @@
 #include "Rivet/Tools/Cuts.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Tools/ParticleUtils.hh"
+#include "Rivet/Tools/RivetFastJet.hh"
 
 namespace Rivet {
 
@@ -297,6 +298,17 @@ namespace Rivet {
     // FourMomenta rtn(this->begin(), this->end());
     FourMomenta rtn; rtn.reserve(this->size());
     for (size_t i = 0; i < this->size(); ++i) rtn.push_back((*this)[i]);
+    return rtn;
+  }
+
+  /// Particles -> PseudoJets cast/conversion operator
+  PseudoJets Particles::pseudojets() const {
+    PseudoJets rtn; rtn.reserve(this->size());
+    for (size_t i = 0; i < this->size(); ++i) {
+      PseudoJet pj = (*this)[i].pseudojet();
+      pj.set_user_index(i); //< aid identification with the original particles vector
+      rtn.push_back(pj);
+    }
     return rtn;
   }
 

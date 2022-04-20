@@ -14,6 +14,36 @@
 namespace Rivet {
 
 
+  /// @brief Specialised vector of Jet objects.
+  ///
+  /// A specialised version of vector<Jet> which is able to implicitly and
+  /// explicitly convert to a vector of FourMomentum or PseudoJet.
+  ///
+  /// typedef std::vector<Jet> Jets;
+  class Jets : public std::vector<Jet> {
+  public:
+    using base = std::vector<Jet>; //< using-declarations don't like template syntax
+    using base::base; //< import base-class constructors
+    Jets();
+    Jets(const std::vector<Jet>& vjs);
+    FourMomenta moms() const;
+    PseudoJets pseudojets() const;
+    operator FourMomenta () const { return moms(); }
+    operator PseudoJets () const { return pseudojets(); }
+    Jets& operator += (const Jet& j);
+    Jets& operator += (const Jets& js);
+  };
+
+  Jets operator + (const Jets& a, const Jets& b);
+
+  //@}
+
+
+
+  //////////////////////
+
+
+
   /// @brief Representation of a clustered jet of particles.
   class Jet : public ParticleBase {
   public:
