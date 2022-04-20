@@ -1,0 +1,96 @@
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_1989_I266416/d01-x01-y01
+ErrorBreakdown: {0: {"": {up: 12.08786, dn: 12.08786}, error: {up: 11.7, dn: -11.7}, "sys,Additional systematic uncertainty": {up: 3.0375, dn: -3.0375}}, 1: {"": {up: 6.617343, dn: 6.617343}, error: {up: 6.1, dn: -6.1}, "sys,Additional systematic uncertainty": {up: 2.565, dn: -2.565}}, 2: {"": {up: 3.34459, dn: 3.34459}, error: {up: 3.1, dn: -3.1}, "sys,Additional systematic uncertainty": {up: 1.2555, dn: -1.2555}}, 3: {"": {up: 3.491539, dn: 3.491539}, error: {up: 3.1, dn: -3.1}, "sys,Additional systematic uncertainty": {up: 1.6065, dn: -1.6065}}, 4: {"": {up: 7.959648, dn: 7.959648}, error: {up: 5.6, dn: -5.6}, "sys,Additional systematic uncertainty": {up: 5.656499999999999, dn: -5.656499999999999}}, 5: {"": {up: 9.097939, dn: 9.097939}, error: {up: 6.1, dn: -6.1}, "sys,Additional systematic uncertainty": {up: 6.75, dn: -6.75}}, 6: {"": {up: 9.998272, dn: 9.998272}, error: {up: 6.4, dn: -6.4}, "sys,Additional systematic uncertainty": {up: 7.6815, dn: -7.6815}}, 7: {"": {up: 10.25984, dn: 10.25984}, error: {up: 6.4, dn: -6.4}, "sys,Additional systematic uncertainty": {up: 8.019, dn: -8.019}}, 8: {"": {up: 11.26934, dn: 11.26934}, error: {up: 6.9, dn: -6.9}, "sys,Additional systematic uncertainty": {up: 8.91, dn: -8.91}}, 9: {"": {up: 11.27785, dn: 11.27785}, error: {up: 7, dn: -7}, "sys,Additional systematic uncertainty": {up: 8.842500000000001, dn: -8.842500000000001}}, 10: {"": {up: 11.4246, dn: 11.4246}, error: {up: 7.1, dn: -7.1}, "sys,Additional systematic uncertainty": {up: 8.950499999999998, dn: -8.950499999999998}}, 11: {"": {up: 11.96958, dn: 11.96958}, error: {up: 7.5, dn: -7.5}, "sys,Additional systematic uncertainty": {up: 9.3285, dn: -9.3285}}, 12: {"": {up: 12.19016, dn: 12.19016}, error: {up: 7.6, dn: -7.6}, "sys,Additional systematic uncertainty": {up: 9.530999999999999, dn: -9.530999999999999}}, 13: {"": {up: 9.635372, dn: 9.635372}, error: {up: 6.6, dn: -6.6}, "sys,Additional systematic uncertainty": {up: 7.02, dn: -7.02}}, 14: {"": {up: 8.695206000000001, dn: 8.695206000000001}, error: {up: 6.1, dn: -6.1}, "sys,Additional systematic uncertainty": {up: 6.196499999999999, dn: -6.196499999999999}}, 15: {"": {up: 6.529313, dn: 6.529313}, error: {up: 5.1, dn: -5.1}, "sys,Additional systematic uncertainty": {up: 4.077, dn: -4.077}}, 16: {"": {up: 5.504959, dn: 5.504959}, error: {up: 4.6, dn: -4.6}, "sys,Additional systematic uncertainty": {up: 3.024, dn: -3.024}}, 17: {"": {up: 4.157191, dn: 4.157191}, error: {up: 3.6, dn: -3.6}, "sys,Additional systematic uncertainty": {up: 2.079, dn: -2.079}}, 18: {"": {up: 5.333854, dn: 5.333854}, error: {up: 4.6, dn: -4.6}, "sys,Additional systematic uncertainty": {up: 2.7, dn: -2.7}}, 19: {"": {up: 3.641225, dn: 3.641225}, error: {up: 3.3, dn: -3.3}, "sys,Additional systematic uncertainty": {up: 1.539, dn: -1.539}}, 20: {"": {up: 4.805982, dn: 4.805982}, error: {up: 4.3, dn: -4.3}, "sys,Additional systematic uncertainty": {up: 2.1465, dn: -2.1465}}, 21: {"": {up: 4.428575, dn: 4.428575}, error: {up: 4.1, dn: -4.1}, "sys,Additional systematic uncertainty": {up: 1.674, dn: -1.674}}, 22: {"": {up: 4.177978, dn: 4.177978}, error: {up: 3.9, dn: -3.9}, "sys,Additional systematic uncertainty": {up: 1.4985, dn: -1.4985}}, 23: {"": {up: 3.214553, dn: 3.214553}, error: {up: 3.1, dn: -3.1}, "sys,Additional systematic uncertainty": {up: 0.8505, dn: -0.8505}}, 24: {"": {up: 3.075, dn: 3.075}, error: {up: 3, dn: -3}, "sys,Additional systematic uncertainty": {up: 0.675, dn: -0.675}}, 25: {"": {up: 2.549412, dn: 2.549412}, error: {up: 2.5, dn: -2.5}, "sys,Additional systematic uncertainty": {up: 0.4995000000000001, dn: -0.4995000000000001}}}
+IsRef: 1
+Path: /REF/ARGUS_1989_I266416/d01-x01-y01
+Title: doi:10.17182/hepdata.29853.v1/t1
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+8.500000e-01	5.000000e-02	5.000000e-02	2.250000e+01	1.208786e+01	1.208786e+01
+9.500000e-01	5.000000e-02	5.000000e-02	1.900000e+01	6.617343e+00	6.617343e+00
+1.050000e+00	5.000000e-02	5.000000e-02	9.300000e+00	3.344590e+00	3.344590e+00
+1.150000e+00	5.000000e-02	5.000000e-02	1.190000e+01	3.491539e+00	3.491539e+00
+1.250000e+00	5.000000e-02	5.000000e-02	4.190000e+01	7.959648e+00	7.959648e+00
+1.350000e+00	5.000000e-02	5.000000e-02	5.000000e+01	9.097939e+00	9.097939e+00
+1.450000e+00	5.000000e-02	5.000000e-02	5.690000e+01	9.998272e+00	9.998272e+00
+1.550000e+00	5.000000e-02	5.000000e-02	5.940000e+01	1.025984e+01	1.025984e+01
+1.650000e+00	5.000000e-02	5.000000e-02	6.600000e+01	1.126934e+01	1.126934e+01
+1.750000e+00	5.000000e-02	5.000000e-02	6.550000e+01	1.127785e+01	1.127785e+01
+1.850000e+00	5.000000e-02	5.000000e-02	6.630000e+01	1.142460e+01	1.142460e+01
+1.950000e+00	5.000000e-02	5.000000e-02	6.910000e+01	1.196958e+01	1.196958e+01
+2.050000e+00	5.000000e-02	5.000000e-02	7.060000e+01	1.219016e+01	1.219016e+01
+2.150000e+00	5.000000e-02	5.000000e-02	5.200000e+01	9.635372e+00	9.635372e+00
+2.250000e+00	5.000000e-02	5.000000e-02	4.590000e+01	8.695206e+00	8.695206e+00
+2.350000e+00	5.000000e-02	5.000000e-02	3.020000e+01	6.529313e+00	6.529313e+00
+2.450000e+00	5.000000e-02	5.000000e-02	2.240000e+01	5.504959e+00	5.504959e+00
+2.550000e+00	5.000000e-02	5.000000e-02	1.540000e+01	4.157191e+00	4.157191e+00
+2.650000e+00	5.000000e-02	5.000000e-02	2.000000e+01	5.333854e+00	5.333854e+00
+2.750000e+00	5.000000e-02	5.000000e-02	1.140000e+01	3.641225e+00	3.641225e+00
+2.850000e+00	5.000000e-02	5.000000e-02	1.590000e+01	4.805982e+00	4.805982e+00
+2.950000e+00	5.000000e-02	5.000000e-02	1.240000e+01	4.428575e+00	4.428575e+00
+3.050000e+00	5.000000e-02	5.000000e-02	1.110000e+01	4.177978e+00	4.177978e+00
+3.150000e+00	5.000000e-02	5.000000e-02	6.300000e+00	3.214553e+00	3.214553e+00
+3.250000e+00	5.000000e-02	5.000000e-02	5.000000e+00	3.075000e+00	3.075000e+00
+3.350000e+00	5.000000e-02	5.000000e-02	3.700000e+00	2.549412e+00	2.549412e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_1989_I266416/d02-x01-y01
+ErrorBreakdown: {0: {"": {up: 2.702159, dn: 2.702159}, error: {up: 2.7, dn: -2.7}, "sys,Additional systematic uncertainty": {up: 0.108, dn: -0.108}}, 1: {"": {up: 4.72288, dn: 4.72288}, error: {up: 4.2, dn: -4.2}, "sys,Additional systematic uncertainty": {up: 2.16, dn: -2.16}}, 2: {"": {up: 4.29955, dn: 4.29955}, error: {up: 3.8, dn: -3.8}, "sys,Additional systematic uncertainty": {up: 2.0115, dn: -2.0115}}, 3: {"": {up: 6.040466, dn: 6.040466}, error: {up: 4.6, dn: -4.6}, "sys,Additional systematic uncertainty": {up: 3.915, dn: -3.915}}, 4: {"": {up: 4.226186, dn: 4.226186}, error: {up: 3.8, dn: -3.8}, "sys,Additional systematic uncertainty": {up: 1.8495, dn: -1.8495}}, 5: {"": {up: 3.221802, dn: 3.221802}, error: {up: 3.1, dn: -3.1}, "sys,Additional systematic uncertainty": {up: 0.8775000000000001, dn: -0.8775000000000001}}, 6: {"": {up: 2.856167, dn: 2.856167}, error: {up: 2.7, dn: -2.7}, "sys,Additional systematic uncertainty": {up: 0.9315000000000001, dn: -0.9315000000000001}}, 7: {"": {up: 1.12951, dn: 1.12951}, error: {up: 1.1, dn: -1.1}, "sys,Additional systematic uncertainty": {up: 0.2565, dn: -0.2565}}, 8: {"": {up: 1.118484, dn: 1.118484}, error: {up: 1.1, dn: -1.1}, "sys,Additional systematic uncertainty": {up: 0.2025, dn: -0.2025}}}
+IsRef: 1
+Path: /REF/ARGUS_1989_I266416/d02-x01-y01
+Title: doi:10.17182/hepdata.29853.v1/t2
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+9.500000e-01	1.500000e-01	2.500000e-01	8.000000e-01	2.702159e+00	2.702159e+00
+1.300000e+00	1.000000e-01	1.000000e-01	1.600000e+01	4.722880e+00	4.722880e+00
+1.500000e+00	1.000000e-01	1.000000e-01	1.490000e+01	4.299550e+00	4.299550e+00
+1.700000e+00	1.000000e-01	1.000000e-01	2.900000e+01	6.040466e+00	6.040466e+00
+1.900000e+00	1.000000e-01	1.000000e-01	1.370000e+01	4.226186e+00	4.226186e+00
+2.100000e+00	1.000000e-01	1.000000e-01	6.500000e+00	3.221802e+00	3.221802e+00
+2.300000e+00	1.000000e-01	1.000000e-01	6.900000e+00	2.856167e+00	2.856167e+00
+2.600000e+00	2.000000e-01	2.000000e-01	1.900000e+00	1.129510e+00	1.129510e+00
+3.150000e+00	3.500000e-01	3.500000e-01	1.500000e+00	1.118484e+00	1.118484e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_1989_I266416/d03-x01-y01
+ErrorBreakdown: {0: {"": {up: 5.004099, dn: 5.004099}, error: {up: 5, dn: -5}, "sys,Additional systematic uncertainty": {up: 0.2025, dn: -0.2025}}, 1: {"": {up: 4.649261, dn: 4.649261}, error: {up: 4.6, dn: -4.6}, "sys,Additional systematic uncertainty": {up: 0.675, dn: -0.675}}, 2: {"": {up: 4.752244, dn: 4.752244}, error: {up: 4.4, dn: -4.4}, "sys,Additional systematic uncertainty": {up: 1.7955, dn: -1.7955}}, 3: {"": {up: 4.245661, dn: 4.245661}, error: {up: 4.2, dn: -4.2}, "sys,Additional systematic uncertainty": {up: 0.621, dn: -0.621}}, 4: {"": {up: 5.260243, dn: 5.260243}, error: {up: 4.6, dn: -4.6}, "sys,Additional systematic uncertainty": {up: 2.551499999999999, dn: -2.551499999999999}}, 5: {"": {up: 5.286016, dn: 5.286016}, error: {up: 4.4, dn: -4.4}, "sys,Additional systematic uncertainty": {up: 2.9295, dn: -2.9295}}, 6: {"": {up: 3.236926, dn: 3.236926}, error: {up: 3.1, dn: -3.1}, "sys,Additional systematic uncertainty": {up: 0.9315000000000001, dn: -0.9315000000000001}}, 7: {"": {up: 5.600065, dn: 5.600065}, error: {up: 5.6, dn: -5.6}, "sys,Additional systematic uncertainty": {up: -0.027, dn: 0.027}}, 8: {"": {up: 1.23952, dn: 1.23952}, error: {up: 1.2, dn: -1.2}, "sys,Additional systematic uncertainty": {up: 0.3105, dn: -0.3105}}}
+IsRef: 1
+Path: /REF/ARGUS_1989_I266416/d03-x01-y01
+Title: doi:10.17182/hepdata.29853.v1/t3
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+9.500000e-01	1.500000e-01	2.500000e-01	1.500000e+00	5.004099e+00	5.004099e+00
+1.300000e+00	1.000000e-01	1.000000e-01	5.000000e+00	4.649261e+00	4.649261e+00
+1.500000e+00	1.000000e-01	1.000000e-01	1.330000e+01	4.752244e+00	4.752244e+00
+1.700000e+00	1.000000e-01	1.000000e-01	4.600000e+00	4.245661e+00	4.245661e+00
+1.900000e+00	1.000000e-01	1.000000e-01	1.890000e+01	5.260243e+00	5.260243e+00
+2.100000e+00	1.000000e-01	1.000000e-01	2.170000e+01	5.286016e+00	5.286016e+00
+2.300000e+00	1.000000e-01	1.000000e-01	6.900000e+00	3.236926e+00	3.236926e+00
+2.600000e+00	2.000000e-01	2.000000e-01	-2.000000e-01	5.600065e+00	5.600065e+00
+3.150000e+00	3.500000e-01	3.500000e-01	2.300000e+00	1.239520e+00	1.239520e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_1989_I266416/d04-x01-y01
+ErrorBreakdown: {0: {"": {up: 2.994932, dn: 2.994932}, error: {up: 2.7, dn: -2.7}, "sys,Additional systematic uncertainty": {up: 1.296, dn: -1.296}}, 1: {"": {up: 5.734533, dn: 5.734533}, error: {up: 5, dn: -5}, "sys,Additional systematic uncertainty": {up: 2.808, dn: -2.808}}, 2: {"": {up: 6.00242, dn: 6.00242}, error: {up: 5, dn: -5}, "sys,Additional systematic uncertainty": {up: 3.321, dn: -3.321}}, 3: {"": {up: 5.618746, dn: 5.618746}, error: {up: 4.6, dn: -4.6}, "sys,Additional systematic uncertainty": {up: 3.2265, dn: -3.2265}}, 4: {"": {up: 6.717739, dn: 6.717739}, error: {up: 5.4, dn: -5.4}, "sys,Additional systematic uncertainty": {up: 3.996, dn: -3.996}}, 5: {"": {up: 6.685758, dn: 6.685758}, error: {up: 5.4, dn: -5.4}, "sys,Additional systematic uncertainty": {up: 3.942, dn: -3.942}}, 6: {"": {up: 5.497555, dn: 5.497555}, error: {up: 4.6, dn: -4.6}, "sys,Additional systematic uncertainty": {up: 3.0105, dn: -3.0105}}, 7: {"": {up: 2.694664, dn: 2.694664}, error: {up: 2.3, dn: -2.3}, "sys,Additional systematic uncertainty": {up: 1.404, dn: -1.404}}, 8: {"": {up: 2.092846, dn: 2.092846}, error: {up: 1.9, dn: -1.9}, "sys,Additional systematic uncertainty": {up: 0.8775000000000001, dn: -0.8775000000000001}}}
+IsRef: 1
+Path: /REF/ARGUS_1989_I266416/d04-x01-y01
+Title: doi:10.17182/hepdata.29853.v1/t4
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+9.500000e-01	1.500000e-01	2.500000e-01	9.600000e+00	2.994932e+00	2.994932e+00
+1.300000e+00	1.000000e-01	1.000000e-01	2.080000e+01	5.734533e+00	5.734533e+00
+1.500000e+00	1.000000e-01	1.000000e-01	2.460000e+01	6.002420e+00	6.002420e+00
+1.700000e+00	1.000000e-01	1.000000e-01	2.390000e+01	5.618746e+00	5.618746e+00
+1.900000e+00	1.000000e-01	1.000000e-01	2.960000e+01	6.717739e+00	6.717739e+00
+2.100000e+00	1.000000e-01	1.000000e-01	2.920000e+01	6.685758e+00	6.685758e+00
+2.300000e+00	1.000000e-01	1.000000e-01	2.230000e+01	5.497555e+00	5.497555e+00
+2.600000e+00	2.000000e-01	2.000000e-01	1.040000e+01	2.694664e+00	2.694664e+00
+3.150000e+00	3.500000e-01	3.500000e-01	6.500000e+00	2.092846e+00	2.092846e+00
+END YODA_SCATTER2D_V2
+
