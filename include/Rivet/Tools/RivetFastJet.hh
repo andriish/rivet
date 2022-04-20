@@ -2,6 +2,7 @@
 #define RIVET_RIVETFASTJET_HH
 
 #include "Rivet/Config/RivetCommon.hh"
+#include "Rivet/Math/Vectors.hh"
 
 #include "fastjet/JetDefinition.hh"
 #include "fastjet/AreaDefinition.hh"

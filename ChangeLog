@@ -1,3 +1,11 @@
+2022-04-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a pseudojets() method and automatic conversion operator to
+	Particles.  It sets the user index so the constituents will match
+	the indices of the particle or jet vector used as input.
+
+	* Move the Jets and Particles definitions into the .hh headers.
+
 2022-03-25  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fall back to old calculation of y in DISKinematics if Q2 is zero. Thanks to Peter Meinzinger.
