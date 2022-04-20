@@ -144,6 +144,7 @@ from . import TOPAZ_1993_I361661
 from . import TOPAZ_1995_I381777
 from . import TOPAZ_1995_I381900
 from . import TPC_1985_I205868
+from . import TPC_1986_I217503
 from . import TPC_1987_I235694
 from . import TPC_1987_I246557
 from . import TPC_1988_I262143

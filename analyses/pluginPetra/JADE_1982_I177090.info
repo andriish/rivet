@@ -1,0 +1,38 @@
+Name: JADE_1982_I177090
+Year: 1982
+Summary: $e^+e^-\to e^+e^-\eta^\prime$ at 34.3 GeV
+Experiment: JADE
+Collider: PETRA
+InspireID: 177090
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Lett.B 113 (1982) 190-194
+RunInfo: e+ e- > e+e- meson via photon photon -> meson
+Beams: [e+, e-]
+Energies: [34.3]
+Description:
+  'Measurement of the cross sections for the production of $\eta^\prime$ in photon-photon
+   collisions, i.e. $e^+e^-\to \gamma\gamma e^+e^-$ followed by $\gamma\gamma\to\eta^\prime$,
+   by the JADE experiment at 34.3 GeV'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: JADE:1982bug
+BibTeX: '@article{JADE:1982bug,
+    author = "Bartel, W. and others",
+    collaboration = "JADE",
+    title = "{A Measurement of the Reaction $e^+ e^- \to e^+ e^- \eta^\prime$ and the Radiative Width $\Gamma (\eta^\prime \to \gamma \gamma$) 
+at {PETRA}}",
+    reportNumber = "DESY-82-007",
+    doi = "10.1016/0370-2693(82)90422-1",
+    journal = "Phys. Lett. B",
+    volume = "113",
+    pages = "190--194",
+    year = "1982"
+}
+'
