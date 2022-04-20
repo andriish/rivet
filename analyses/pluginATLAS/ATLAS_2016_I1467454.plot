@@ -74,11 +74,11 @@ YLabel=$\frac{\mathrm{d}^2\sigma}{\mathrm{d} m_{\mu\mu} \mathrm{d}y_{\mu\mu}}$ [
 Title=150 GeV $< m_{\mu\mu} <$ 200 GeV
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2016_I1467454/d35
+# BEGIN PLOT /ATLAS_2016_I1467454/d32
 Title=200 GeV $< m_{\mu\mu} <$ 300 GeV
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2016_I1467454/d36
+# BEGIN PLOT /ATLAS_2016_I1467454/d33
 Title=300 GeV $< m_{\mu\mu} <$ 500 GeV
 # END PLOT
 

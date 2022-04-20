@@ -42,9 +42,10 @@ cdef extern from "Rivet/Run.hh" namespace "Rivet":
         bool init(string, double) except + # $2=1.0
         bool openFile(string, double) except + # $2=1.0
         bool readEvent() except +
-        bool skipEvent() except +
+        #bool skipEvent() except +
         bool processEvent() except +
         bool finalize() except +
+        size_t numEvents()
 
 cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
     cdef cppclass Analysis:

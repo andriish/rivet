@@ -44,7 +44,13 @@ namespace Rivet {
 
     /// Get the number of events seen. Should only really be used by external
     /// steering code or analyses in the finalize phase.
-    size_t numEvents() const;
+    ///
+    /// N.B. This only reports the count for the last collapsed event group 
+    /// and hence ignores any additional sub-events seen so far.
+    size_t numEvents() const { 
+      const double N = _eventCounter.get()->_getPersistent(defaultWeightIndex())->numEntries();
+      return  size_t(N + 0.5 - (N<0)); // round to nearest integer
+    }
 
     /// @brief Access the sum of the event weights seen
     ///
@@ -380,9 +386,7 @@ namespace Rivet {
     std::string _runname;
 
     /// Event counter
-    ///
-    /// @todo Document why it's mutable (to allow switching of active ptr?)
-    mutable CounterPtr _eventCounter;
+    CounterPtr _eventCounter;
 
     /// Cross-section known to AH
     Scatter1DPtr _xs;
