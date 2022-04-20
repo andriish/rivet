@@ -42,6 +42,7 @@ from . import BESIII_2015_I1391138
 from . import BESII_2004_I622224
 from . import CELLO_1982_I12010
 from . import CELLO_1983_I191415
+from . import CELLO_1989_I267081
 from . import CELLO_1990_I283026
 from . import CELLO_1992_I345437
 from . import CLEO_1985_I205668

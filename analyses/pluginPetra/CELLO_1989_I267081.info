@@ -1,0 +1,33 @@
+Name: CELLO_1989_I267081
+Year: 1989
+Summary: $\gamma\gamma\to \rho^+\rho^-$ between 1.2 and 3.0 GeV
+Experiment: CELLO
+Collider: PETRA
+InspireID: 267081
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Lett.B 218 (1989) 493-498, 1989. 
+RunInfo: gamma gamma to hadrons, pi0 mesons must be set stable
+Beams: [gamma, gamma]
+Energies: []
+Description:
+  'Measurement of the differential cross section for $\gamma\gamma\to \rho^+\rho^-$ for $1.2 \text{GeV} < W < 3.0 \text{GeV}$. The cross section is measured as a function of the centre-of-mass energy of the photonic collision using the $\pi^+\pi^-\pi^0\pi^0$ final state.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CELLO:1988ghs
+BibTeX: '@article{CELLO:1988ghs,
+    author = "Behrend, H. J. and others",
+    collaboration = "CELLO",
+    title = "{Measurement of the Reaction $\gamma \gamma \to \rho^+ \rho^-$ With the Cello Detector}",
+    reportNumber = "DESY-88-185",
+    doi = "10.1016/0370-2693(89)91454-8",
+    journal = "Phys. Lett. B",
+    volume = "218",
+    pages = "493--498",
+    year = "1989"
+}
+'
