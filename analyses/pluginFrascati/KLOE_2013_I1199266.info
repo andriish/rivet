@@ -1,0 +1,39 @@
+Name: KLOE_2013_I1199266
+Year: 2013
+Summary:  $e^+e^-\to e^+e^-\eta$ at 1 GeV
+Experiment: KLOE
+Collider: <Insert the collider name>
+InspireID: 1199266
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - JHEP 01 (2013) 119
+RunInfo: e+ e- > e+e- meson via photon photon -> meson
+Beams: [e+, e-]
+Energies: [1.]
+Description:
+  'Measurement of the cross sections for the production of $\eta$ in photon-photon
+   collisions, i.e. $e^+e^-\to \gamma\gamma e^+e^-$ followed by $\gamma\gamma\to\eta$,
+   by the KLOE2 experiment at 1 GeV'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: KLOE-2:2012lws
+BibTeX: '@article{KLOE-2:2012lws,
+    author = "Babusci, D. and others",
+    collaboration = "KLOE-2",
+    title = "{Measurement of $\eta$ meson production in $\gamma\gamma$ interactions and $\Gamma(\eta\to\gamma\gamma)$ with the KLOE detector}",
+    eprint = "1211.1845",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1007/JHEP01(2013)119",
+    journal = "JHEP",
+    volume = "01",
+    pages = "119",
+    year = "2013"
+}
+'

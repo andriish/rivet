@@ -1,0 +1,11 @@
+BEGIN YODA_SCATTER2D_V2 /REF/KLOE_2013_I1199266/d01-x01-y01
+ErrorBreakdown: {0: {"": {up: 0, dn: 0}, stat: {up: 1.27, dn: 1.27}, syst: {up: 0.7, dn: 0.7}}}
+IsRef: 1
+Path: /REF/KLOE_2013_I1199266/d01-x01-y01
+Title: 
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.000000e+00	5.000000e-01	5.000000e-01	3.272000e+01	0.000000e+00	0.000000e+00
+END YODA_SCATTER2D_V2
+

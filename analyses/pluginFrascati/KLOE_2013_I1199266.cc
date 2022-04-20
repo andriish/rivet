@@ -8,11 +8,11 @@ namespace Rivet {
 
 
   /// @brief e+e- -> e+e- eta
-  class TPC_1986_I217503 : public Analysis {
+  class KLOE_2013_I1199266 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(TPC_1986_I217503);
+    RIVET_DEFAULT_ANALYSIS_CTOR(KLOE_2013_I1199266);
 
 
     /// @name Analysis methods
@@ -104,7 +104,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale(_h_eta, crossSection()/nanobarn/sumW());
+      scale(_h_eta, crossSection()/picobarn/sumW());
     }
 
     /// @}
@@ -119,6 +119,6 @@ namespace Rivet {
   };
 
 
-  RIVET_DECLARE_PLUGIN(TPC_1986_I217503);
+  RIVET_DECLARE_PLUGIN(KLOE_2013_I1199266);
 
 }
