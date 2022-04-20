@@ -163,6 +163,10 @@
 
 	* Move the Jets and Particles definitions into the .hh headers.
 
+2022-04-20 Peter Richardson <peter.richardson@durham.ac.uk>
+
+        * Add ARGUS_2000_I511512 gamma gamma -> K*K*
+
 2022-04-19 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add ARGUS_1989_I267759 gamma gamma -> p pbar

@@ -1,0 +1,417 @@
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d01-x01-y01
+ErrorBreakdown: {0: {error: {dn: -1.1, up: 1.1}}, 1: {error: {dn: -0.59, up: 0.59}}, 2: {error: {dn: -1.3, up: 1.3}}, 3: {error: {dn: -0.24, up: 0.24}}, 4: {error: {dn: -0.62, up: 0.62}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d01-x01-y01
+Title: doi:10.17182/hepdata.35113.v1/t1
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.000000e+00	5.000000e-01	5.000000e-01	5.800000e-01	1.100000e+00	1.100000e+00
+2.000000e+00	5.000000e-01	5.000000e-01	7.700000e-01	5.900000e-01	5.900000e-01
+3.000000e+00	5.000000e-01	5.000000e-01	3.260000e+00	1.300000e+00	1.300000e+00
+4.000000e+00	5.000000e-01	5.000000e-01	-1.100000e-01	2.400000e-01	2.400000e-01
+5.000000e+00	5.000000e-01	5.000000e-01	-6.000000e-02	6.200000e-01	6.200000e-01
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d02-x01-y01
+ErrorBreakdown: {0: {error: {dn: -1.57, up: 1.57}}, 1: {error: {dn: -0.9, up: 0.9}}, 2: {error: {dn: -1.12, up: 1.12}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d02-x01-y01
+Title: doi:10.17182/hepdata.35113.v1/t2
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.000000e+00	5.000000e-01	5.000000e-01	4.500000e-01	1.570000e+00	1.570000e+00
+2.000000e+00	5.000000e-01	5.000000e-01	9.500000e-01	9.000000e-01	9.000000e-01
+3.000000e+00	5.000000e-01	5.000000e-01	4.720000e+00	1.120000e+00	1.120000e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d02-x01-y02
+ErrorBreakdown: {0: {error: {dn: -1.8, up: 1.8}}, 1: {error: {dn: -1.57, up: 1.57}}, 2: {error: {dn: -0.7, up: 0.7}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d02-x01-y02
+Title: doi:10.17182/hepdata.35113.v1/t2
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.000000e+00	5.000000e-01	5.000000e-01	9.000000e-01	1.800000e+00	1.800000e+00
+2.000000e+00	5.000000e-01	5.000000e-01	2.700000e-01	1.570000e+00	1.570000e+00
+3.000000e+00	5.000000e-01	5.000000e-01	3.060000e+00	7.000000e-01	7.000000e-01
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d02-x01-y03
+ErrorBreakdown: {0: {error: {dn: -0.9, up: 0.9}}, 1: {error: {dn: -1.5, up: 1.5}}, 2: {error: {dn: -0.7, up: 0.7}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d02-x01-y03
+Title: doi:10.17182/hepdata.35113.v1/t2
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.000000e+00	5.000000e-01	5.000000e-01	-4.500000e-01	9.000000e-01	9.000000e-01
+2.000000e+00	5.000000e-01	5.000000e-01	6.500000e-01	1.500000e+00	1.500000e+00
+3.000000e+00	5.000000e-01	5.000000e-01	8.100000e-01	7.000000e-01	7.000000e-01
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d03-x01-y01
+ErrorBreakdown: {0: {error: {dn: -1.25, up: 1.25}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d03-x01-y01
+Title: doi:10.17182/hepdata.35113.v1/t3
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+2.000000e+00	2.500000e-01	2.500000e-01	4.440000e+00	1.250000e+00	1.250000e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d03-x01-y02
+ErrorBreakdown: {0: {error: {dn: -0.7, up: 0.7}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d03-x01-y02
+Title: doi:10.17182/hepdata.35113.v1/t3
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+2.000000e+00	2.500000e-01	2.500000e-01	5.100000e+00	7.000000e-01	7.000000e-01
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d03-x01-y03
+ErrorBreakdown: {0: {error: {dn: -1.19, up: 1.19}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d03-x01-y03
+Title: doi:10.17182/hepdata.35113.v1/t3
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+2.000000e+00	2.500000e-01	2.500000e-01	1.420000e+00	1.190000e+00	1.190000e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d03-x01-y04
+ErrorBreakdown: {0: {error: {dn: -0.3, up: 0.3}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d03-x01-y04
+Title: doi:10.17182/hepdata.35113.v1/t3
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+2.000000e+00	2.500000e-01	2.500000e-01	3.080000e+00	3.000000e-01	3.000000e-01
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d04-x01-y01
+ErrorBreakdown: {0: {error: {dn: -1.26, up: 1.26}}, 1: {error: {dn: -1.9, up: 1.9}}, 2: {error: {dn: -1.3, up: 1.3}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d04-x01-y01
+Title: doi:10.17182/hepdata.35113.v1/t4
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.875000e+00	1.250000e-01	1.250000e-01	6.120000e+00	1.260000e+00	1.260000e+00
+2.125000e+00	1.250000e-01	1.250000e-01	4.230000e+00	1.900000e+00	1.900000e+00
+2.375000e+00	1.250000e-01	1.250000e-01	1.010000e+00	1.300000e+00	1.300000e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d04-x01-y02
+ErrorBreakdown: {0: {error: {dn: -0.8, up: 0.8}}, 1: {error: {dn: -1.32, up: 1.32}}, 2: {error: {dn: -0.8, up: 0.8}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d04-x01-y02
+Title: doi:10.17182/hepdata.35113.v1/t4
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.875000e+00	1.250000e-01	1.250000e-01	5.070000e+00	8.000000e-01	8.000000e-01
+2.125000e+00	1.250000e-01	1.250000e-01	6.600000e+00	1.320000e+00	1.320000e+00
+2.375000e+00	1.250000e-01	1.250000e-01	4.430000e+00	8.000000e-01	8.000000e-01
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d04-x01-y03
+ErrorBreakdown: {0: {error: {dn: -0.85, up: 0.85}}, 1: {error: {dn: -0.76, up: 0.76}}, 2: {error: {dn: -0.33, up: 0.33}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d04-x01-y03
+Title: doi:10.17182/hepdata.35113.v1/t4
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.875000e+00	1.250000e-01	1.250000e-01	1.630000e+00	8.500000e-01	8.500000e-01
+2.125000e+00	1.250000e-01	1.250000e-01	1.220000e+00	7.600000e-01	7.600000e-01
+2.375000e+00	1.250000e-01	1.250000e-01	6.500000e-01	3.300000e-01	3.300000e-01
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d04-x01-y04
+ErrorBreakdown: {0: {error: {dn: -0.8, up: 0.8}}, 1: {error: {dn: -1.2, up: 1.2}}, 2: {error: {dn: -1.1, up: 1.1}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d04-x01-y04
+Title: doi:10.17182/hepdata.35113.v1/t4
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.875000e+00	1.250000e-01	1.250000e-01	2.900000e+00	8.000000e-01	8.000000e-01
+2.125000e+00	1.250000e-01	1.250000e-01	4.100000e+00	1.200000e+00	1.200000e+00
+2.375000e+00	1.250000e-01	1.250000e-01	3.000000e+00	1.100000e+00	1.100000e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d05-x01-y01
+ErrorBreakdown: {0: {error: {dn: -0.63, up: 0.63}}, 1: {error: {dn: -1.05, up: 1.05}}, 2: {error: {dn: -0.9, up: 0.9}}, 3: {error: {dn: -1.06, up: 1.06}}, 4: {error: {dn: -0.9, up: 0.9}}, 5: {error: {dn: -0.72, up: 0.72}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d05-x01-y01
+Title: doi:10.17182/hepdata.35113.v1/t5
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.625000e+00	1.250000e-01	1.250000e-01	1.020000e+00	6.300000e-01	6.300000e-01
+1.875000e+00	1.250000e-01	1.250000e-01	5.900000e+00	1.050000e+00	1.050000e+00
+2.125000e+00	1.250000e-01	1.250000e-01	3.750000e+00	9.000000e-01	9.000000e-01
+2.375000e+00	1.250000e-01	1.250000e-01	1.230000e+00	1.060000e+00	1.060000e+00
+2.625000e+00	1.250000e-01	1.250000e-01	4.600000e-01	9.000000e-01	9.000000e-01
+2.875000e+00	1.250000e-01	1.250000e-01	4.000000e-01	7.200000e-01	7.200000e-01
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d05-x01-y02
+ErrorBreakdown: {0: {error: {dn: -0.82, up: 0.82}}, 1: {error: {dn: -1.37, up: 1.37}}, 2: {error: {dn: -1.13, up: 1.13}}, 3: {error: {dn: -1.27, up: 1.27}}, 4: {error: {dn: -1.28, up: 1.28}}, 5: {error: {dn: -0.64, up: 0.64}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d05-x01-y02
+Title: doi:10.17182/hepdata.35113.v1/t5
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.625000e+00	1.250000e-01	1.250000e-01	4.600000e-01	8.200000e-01	8.200000e-01
+1.875000e+00	1.250000e-01	1.250000e-01	5.460000e+00	1.370000e+00	1.370000e+00
+2.125000e+00	1.250000e-01	1.250000e-01	7.090000e+00	1.130000e+00	1.130000e+00
+2.375000e+00	1.250000e-01	1.250000e-01	4.360000e+00	1.270000e+00	1.270000e+00
+2.625000e+00	1.250000e-01	1.250000e-01	4.750000e+00	1.280000e+00	1.280000e+00
+2.875000e+00	1.250000e-01	1.250000e-01	3.580000e+00	6.400000e-01	6.400000e-01
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d05-x01-y03
+ErrorBreakdown: {0: {error: {dn: -1.12, up: 1.12}}, 1: {error: {dn: -0.85, up: 0.85}}, 2: {error: {dn: -0.76, up: 0.76}}, 3: {error: {dn: -0.33, up: 0.33}}, 4: {error: {dn: -0.41, up: 0.41}}, 5: {error: {dn: -0.5, up: 0.5}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d05-x01-y03
+Title: doi:10.17182/hepdata.35113.v1/t5
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.625000e+00	1.250000e-01	1.250000e-01	7.300000e-01	1.120000e+00	1.120000e+00
+1.875000e+00	1.250000e-01	1.250000e-01	1.650000e+00	8.500000e-01	8.500000e-01
+2.125000e+00	1.250000e-01	1.250000e-01	1.210000e+00	7.600000e-01	7.600000e-01
+2.375000e+00	1.250000e-01	1.250000e-01	6.300000e-01	3.300000e-01	3.300000e-01
+2.625000e+00	1.250000e-01	1.250000e-01	-2.500000e-01	4.100000e-01	4.100000e-01
+2.875000e+00	1.250000e-01	1.250000e-01	2.700000e-01	5.000000e-01	5.000000e-01
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d05-x01-y04
+ErrorBreakdown: {0: {error: {dn: -0.65, up: 0.65}}, 1: {error: {dn: -0.61, up: 0.61}}, 2: {error: {dn: -0.92, up: 0.92}}, 3: {error: {dn: -1.42, up: 1.42}}, 4: {error: {dn: -1.36, up: 1.36}}, 5: {error: {dn: -1.4, up: 1.4}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d05-x01-y04
+Title: doi:10.17182/hepdata.35113.v1/t5
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.625000e+00	1.250000e-01	1.250000e-01	1.900000e+00	6.500000e-01	6.500000e-01
+1.875000e+00	1.250000e-01	1.250000e-01	2.750000e+00	6.100000e-01	6.100000e-01
+2.125000e+00	1.250000e-01	1.250000e-01	4.020000e+00	9.200000e-01	9.200000e-01
+2.375000e+00	1.250000e-01	1.250000e-01	2.950000e+00	1.420000e+00	1.420000e+00
+2.625000e+00	1.250000e-01	1.250000e-01	1.600000e+00	1.360000e+00	1.360000e+00
+2.875000e+00	1.250000e-01	1.250000e-01	1.900000e+00	1.400000e+00	1.400000e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d06-x01-y01
+ErrorBreakdown: {0: {error: {dn: -5.98, up: 5.98}}, 1: {error: {dn: -7.1, up: 7.1}}, 2: {error: {dn: -5.85, up: 5.85}}, 3: {error: {dn: -2.97, up: 2.97}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d06-x01-y01
+Title: doi:10.17182/hepdata.35113.v1/t6
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.875000e+00	1.250000e-01	1.250000e-01	2.880000e+01	5.980000e+00	5.980000e+00
+2.125000e+00	1.250000e-01	1.250000e-01	3.475000e+01	7.100000e+00	7.100000e+00
+2.375000e+00	1.250000e-01	1.250000e-01	1.511000e+01	5.850000e+00	5.850000e+00
+2.625000e+00	1.250000e-01	1.250000e-01	3.200000e+00	2.970000e+00	2.970000e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d06-x01-y02
+ErrorBreakdown: {0: {error: {dn: -2.95, up: 2.95}}, 1: {error: {dn: -2.34, up: 2.34}}, 2: {error: {dn: -3.11, up: 3.11}}, 3: {error: {dn: -3.45, up: 3.45}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d06-x01-y02
+Title: doi:10.17182/hepdata.35113.v1/t6
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.875000e+00	1.250000e-01	1.250000e-01	5.630000e+00	2.950000e+00	2.950000e+00
+2.125000e+00	1.250000e-01	1.250000e-01	2.250000e+00	2.340000e+00	2.340000e+00
+2.375000e+00	1.250000e-01	1.250000e-01	-7.800000e-01	3.110000e+00	3.110000e+00
+2.625000e+00	1.250000e-01	1.250000e-01	2.500000e-01	3.450000e+00	3.450000e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d07-x01-y01
+ErrorBreakdown: {0: {error: {dn: -3.63, up: 3.63}}, 1: {error: {dn: -3.0, up: 3.0}}, 2: {error: {dn: -5.7, up: 5.7}}, 3: {error: {dn: -3.9, up: 3.9}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d07-x01-y01
+Title: doi:10.17182/hepdata.35113.v1/t7
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.875000e+00	1.250000e-01	1.250000e-01	-6.600000e-01	3.630000e+00	3.630000e+00
+2.125000e+00	1.250000e-01	1.250000e-01	-7.200000e-01	3.000000e+00	3.000000e+00
+2.375000e+00	1.250000e-01	1.250000e-01	8.400000e+00	5.700000e+00	5.700000e+00
+2.625000e+00	1.250000e-01	1.250000e-01	5.400000e+00	3.900000e+00	3.900000e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d07-x01-y02
+ErrorBreakdown: {0: {error: {dn: -0.62, up: 0.62}}, 1: {error: {dn: -0.69, up: 0.69}}, 2: {error: {dn: -1.8, up: 1.8}}, 3: {error: {dn: -1.51, up: 1.51}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d07-x01-y02
+Title: doi:10.17182/hepdata.35113.v1/t7
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.875000e+00	1.250000e-01	1.250000e-01	6.000000e-01	6.200000e-01	6.200000e-01
+2.125000e+00	1.250000e-01	1.250000e-01	-1.200000e-01	6.900000e-01	6.900000e-01
+2.375000e+00	1.250000e-01	1.250000e-01	1.890000e+00	1.800000e+00	1.800000e+00
+2.625000e+00	1.250000e-01	1.250000e-01	6.400000e-01	1.510000e+00	1.510000e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d07-x01-y03
+ErrorBreakdown: {0: {error: {dn: -2.06, up: 2.06}}, 1: {error: {dn: -2.41, up: 2.41}}, 2: {error: {dn: -2.11, up: 2.11}}, 3: {error: {dn: -1.63, up: 1.63}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d07-x01-y03
+Title: doi:10.17182/hepdata.35113.v1/t7
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.875000e+00	1.250000e-01	1.250000e-01	7.410000e+00	2.060000e+00	2.060000e+00
+2.125000e+00	1.250000e-01	1.250000e-01	8.000000e+00	2.410000e+00	2.410000e+00
+2.375000e+00	1.250000e-01	1.250000e-01	7.420000e+00	2.110000e+00	2.110000e+00
+2.625000e+00	1.250000e-01	1.250000e-01	3.880000e+00	1.630000e+00	1.630000e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d08-x01-y01
+ErrorBreakdown: {0: {error: {dn: -10.8, up: 10.8}}, 1: {error: {dn: -13.21, up: 13.21}}, 2: {error: {dn: -11.07, up: 11.07}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d08-x01-y01
+Title: doi:10.17182/hepdata.35113.v1/t8
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.875000e+00	1.250000e-01	1.250000e-01	3.132000e+01	1.080000e+01	1.080000e+01
+2.125000e+00	1.250000e-01	1.250000e-01	4.123000e+01	1.321000e+01	1.321000e+01
+2.375000e+00	1.250000e-01	1.250000e-01	1.936000e+01	1.107000e+01	1.107000e+01
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d08-x01-y02
+ErrorBreakdown: {0: {error: {dn: -1.38, up: 1.38}}, 1: {error: {dn: -2.25, up: 2.25}}, 2: {error: {dn: -1.86, up: 1.86}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d08-x01-y02
+Title: doi:10.17182/hepdata.35113.v1/t8
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.875000e+00	1.250000e-01	1.250000e-01	-6.300000e-01	1.380000e+00	1.380000e+00
+2.125000e+00	1.250000e-01	1.250000e-01	3.240000e+00	2.250000e+00	2.250000e+00
+2.375000e+00	1.250000e-01	1.250000e-01	-6.000000e-01	1.860000e+00	1.860000e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d08-x01-y03
+ErrorBreakdown: {0: {error: {dn: -1.58, up: 1.58}}, 1: {error: {dn: -0.76, up: 0.76}}, 2: {error: {dn: -1.32, up: 1.32}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d08-x01-y03
+Title: doi:10.17182/hepdata.35113.v1/t8
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.875000e+00	1.250000e-01	1.250000e-01	3.270000e+00	1.580000e+00	1.580000e+00
+2.125000e+00	1.250000e-01	1.250000e-01	1.230000e+00	7.600000e-01	7.600000e-01
+2.375000e+00	1.250000e-01	1.250000e-01	2.640000e+00	1.320000e+00	1.320000e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d09-x01-y01
+ErrorBreakdown: {0: {error: {dn: -5.9, up: 5.9}}, 1: {error: {dn: -2.1, up: 2.1}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d09-x01-y01
+Title: doi:10.17182/hepdata.35113.v1/t9
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.875000e+00	1.250000e-01	1.250000e-01	7.410000e+00	5.900000e+00	5.900000e+00
+2.125000e+00	1.250000e-01	1.250000e-01	1.080000e+00	2.100000e+00	2.100000e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d09-x01-y02
+ErrorBreakdown: {0: {error: {dn: -12.96, up: 12.96}}, 1: {error: {dn: -10.68, up: 10.68}}, 2: {error: {dn: -14.47, up: 14.47}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d09-x01-y02
+Title: doi:10.17182/hepdata.35113.v1/t9
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.875000e+00	1.250000e-01	1.250000e-01	1.787000e+01	1.296000e+01	1.296000e+01
+2.125000e+00	1.250000e-01	1.250000e-01	2.616000e+01	1.068000e+01	1.068000e+01
+2.375000e+00	1.250000e-01	1.250000e-01	2.254000e+01	1.447000e+01	1.447000e+01
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d10-x01-y01
+ErrorBreakdown: {0: {error: {dn: -0.63, up: 0.63}}, 1: {error: {dn: -0.78, up: 0.78}}, 2: {error: {dn: -0.77, up: 0.77}}, 3: {error: {dn: -0.79, up: 0.79}}, 4: {error: {dn: -0.87, up: 0.87}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d10-x01-y01
+Title: doi:10.17182/hepdata.35113.v1/t10
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.625000e+00	1.250000e-01	1.250000e-01	1.020000e+00	6.300000e-01	6.300000e-01
+1.875000e+00	1.250000e-01	1.250000e-01	5.970000e+00	7.800000e-01	7.800000e-01
+2.125000e+00	1.250000e-01	1.250000e-01	3.670000e+00	7.700000e-01	7.700000e-01
+2.375000e+00	1.250000e-01	1.250000e-01	1.010000e+00	7.900000e-01	7.900000e-01
+2.625000e+00	1.250000e-01	1.250000e-01	4.500000e-01	8.700000e-01	8.700000e-01
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d10-x01-y02
+ErrorBreakdown: {0: {error: {dn: -5.23, up: 5.23}}, 1: {error: {dn: -6.25, up: 6.25}}, 2: {error: {dn: -5.17, up: 5.17}}, 3: {error: {dn: -2.97, up: 2.97}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d10-x01-y02
+Title: doi:10.17182/hepdata.35113.v1/t10
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+1.875000e+00	1.250000e-01	1.250000e-01	2.940000e+01	5.230000e+00	5.230000e+00
+2.125000e+00	1.250000e-01	1.250000e-01	3.620000e+01	6.250000e+00	6.250000e+00
+2.375000e+00	1.250000e-01	1.250000e-01	1.604000e+01	5.170000e+00	5.170000e+00
+2.625000e+00	1.250000e-01	1.250000e-01	3.200000e+00	2.970000e+00	2.970000e+00
+END YODA_SCATTER2D_V2
+
+
+BEGIN YODA_SCATTER2D_V2 /REF/ARGUS_2000_I511512/d11-x01-y01
+ErrorBreakdown: {0: {stat: {dn: -1.43, up: 1.43}, sys: {dn: -1.25, up: 1.25}}}
+IsRef: 1
+Path: /REF/ARGUS_2000_I511512/d11-x01-y01
+Title: doi:10.17182/hepdata.35113.v1/t11
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+2.250000e+00	5.000000e-01	5.000000e-01	7.700000e+00	1.899316e+00	1.899316e+00
+END YODA_SCATTER2D_V2
+
+

@@ -8,7 +8,7 @@ Status: VALIDATED
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
- -     Z.Phys.C 42 (1989) 367
+ - Z.Phys.C 42 (1989) 367
 RunInfo: gamma gamma to hadrons, K0S mesons must be set stable
 Beams: [gamma, gamma]
 Energies: []

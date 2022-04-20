@@ -11,7 +11,7 @@ LogY=1
 END PLOT
 BEGIN PLOT /BELLE_2010_I862260/d01-x01-y02
 Title=Cross section for $\gamma\gamma\to \eta\eta$ with $|\cos\theta|<1.0$
-XLabel=$\sqrt{s}$
+XLabel=$\sqrt{s}$ [GeV]
 YLabel=$\sigma(\gamma\gamma\to \eta\eta)$ [nb]
 LogY=1
 END PLOT
