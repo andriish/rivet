@@ -79,6 +79,8 @@ namespace Rivet {
 
     /// @todo Should the Rivet analysis objects know about weight names?
 
+    /// @todo Get the HepMC3::GenRunInfo object from the first event and store/wrap it?
+
     setRunBeams(Rivet::beams(ge));
     MSG_DEBUG("Initialising the analysis handler");
     _eventNumber = ge.event_number();
