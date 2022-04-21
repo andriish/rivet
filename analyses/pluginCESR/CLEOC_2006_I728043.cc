@@ -22,7 +22,7 @@ namespace Rivet {
       declare(UnstableParticles(),"UFS");
       // histograms
       unsigned int imin(0),imax(3);
-      if(isCompatibleWithSqrtS(3.77)) imax=2;
+      if(isCompatibleWithSqrtS(3.77,1e-3)) imax=2;
       else if(isCompatibleWithSqrtS(4.17))	imin=2;
       else
 	MSG_ERROR("Invalid CMS energy in CLEOC_2006_I728043");
@@ -109,7 +109,7 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       unsigned int imin(0),imax(3);
-      if(isCompatibleWithSqrtS(3.77))	imax=2;
+      if(isCompatibleWithSqrtS(3.77,1e-3))	imax=2;
       else if(isCompatibleWithSqrtS(4.17)) imin=2;
       else
 	MSG_ERROR("Invalid CMS energy in CLEOC_2006_I728043");
