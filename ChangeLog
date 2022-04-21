@@ -160,6 +160,10 @@
 	argument. readData() is called for each specified preload file, in
 	order.
 
+2022-04-21 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CRYSTAL_BARREL_1997_I456942 eta'-> pi+ pi- gamma decays
+
 2022-04-20  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add a pseudojets() method and automatic conversion operator to

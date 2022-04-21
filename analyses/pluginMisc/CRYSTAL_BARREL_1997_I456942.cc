@@ -5,26 +5,23 @@
 namespace Rivet {
 
 
-  /// @brief eta' -> pi+pi- gamma decay
-  class BESIII_2018_I1641075 : public Analysis {
+  /// @brief eta' -> pi+pi- gamma decays
+  class CRYSTAL_BARREL_1997_I456942 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2018_I1641075);
+    RIVET_DEFAULT_ANALYSIS_CTOR(CRYSTAL_BARREL_1997_I456942);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
-
       // Initialise and register projections
       declare(UnstableParticles(), "UFS");
-
       // Book histograms
-      book(_h_m, 1, 1, 5);
-
+      book(_h_m, 1, 1, 1);
     }
     
     void findDecayProducts(const Particle & mother, unsigned int & nstable, unsigned int & ngamma, 
@@ -53,42 +50,36 @@ namespace Rivet {
       }
     }
 
-
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-
       // Loop over eta' mesons
       for (const Particle& p :  apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==331)) {
 	unsigned nstable(0),ngamma(0),npip(0),npim(0);
 	FourMomentum ptot;
 	findDecayProducts(p,nstable,ngamma,npip,npim,ptot);
 	if(nstable==3 && npim==1 && npip==1 && ngamma==1)
-	  _h_m->fill(ptot.mass());
+	  _h_m->fill(ptot.mass()/MeV);
       }
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
-      normalize(_h_m);
-
+      normalize(_h_m,1.,false);
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     Histo1DPtr _h_m;
-    //@}
+    /// @}
 
 
   };
 
 
-  // The hook for the plugin system
-  RIVET_DECLARE_PLUGIN(BESIII_2018_I1641075);
-
+  RIVET_DECLARE_PLUGIN(CRYSTAL_BARREL_1997_I456942);
 
 }
