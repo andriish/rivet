@@ -52,6 +52,7 @@ from . import CMD3_2016_I1385598
 from . import CMS_2016_I1487288
 from . import CMS_2017_I1608166
 from . import CRYSTAL_BALL_1988_I261078
+from . import CRYSTAL_BALL_1989_I263581
 from . import CRYSTAL_BALL_1990_I294492
 from . import CRYSTAL_BALL_1991_I297905
 from . import DELPHI_1990_I297698

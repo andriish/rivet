@@ -764,6 +764,7 @@
 2022-04-21 Peter Richardson <peter.richardson@durham.ac.uk>
 
         * Add CRYSTAL_BALL_1991_I297905 pi0/eta Upslion and continuum
+        * Add CRYSTAL_BALL_1989_I263581 electron spectrum in B decays
 	* Add ARGUS_1987_I248655        photon spectrum in Upsilon(1S) decays
 	* Add CRYSTAL_BALL_1991_I315873 photon spectrum in Upsilon(1S) decays
 	* Add CRYSTAL_BARREL_1997_I456942 eta'-> pi+ pi- gamma decays
