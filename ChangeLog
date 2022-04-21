@@ -763,6 +763,8 @@
 
 2022-04-21 Peter Richardson <peter.richardson@durham.ac.uk>
 
+	* Add ARGUS_1987_I248655        photon spectrum in Upsilon(1S) decays
+	* Add CRYSTAL_BALL_1991_I315873 photon spectrum in Upsilon(1S) decays
 	* Add CRYSTAL_BARREL_1997_I456942 eta'-> pi+ pi- gamma decays
 
 2022-04-20  Andy Buckley  <andy.buckley@cern.ch>
