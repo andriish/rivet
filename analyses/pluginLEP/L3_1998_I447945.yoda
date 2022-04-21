@@ -1,0 +1,16 @@
+BEGIN YODA_SCATTER2D_V2 /REF/L3_1998_I447945/d01-x01-y01
+ErrorBreakdown: {0: {"": {up: 13529.6, dn: 13529.6}, stat: {up: 48, dn: -48}, sys: {up: 19, dn: -19}, "sys,Additional scale error (4.3 PCT from the BR and 4.9 PCT from the selection cuts)": {up: 125.06, dn: -125.06}}, 1: {"": {up: 350.8679285714285, dn: 350.8679285714285}, stat: {up: 33, dn: -33}, sys: {up: 15, dn: -15}, "sys,Additional scale error (4.3 PCT from the BR and 4.9 PCT from the selection cuts)": {up: 33.15, dn: -33.15}}, 2: {"": {up: 119.6656666666667, dn: 119.6656666666667}, stat: {up: 16, dn: -16}, sys: {up: 4, dn: -4}, "sys,Additional scale error (4.3 PCT from the BR and 4.9 PCT from the selection cuts)": {up: 7.085000000000001, dn: -7.085000000000001}}, 3: {"": {up: 31.03396666666667, dn: 31.03396666666667}, stat: {up: 17, dn: -17}, sys: {up: 5, dn: -5}, "sys,Additional scale error (4.3 PCT from the BR and 4.9 PCT from the selection cuts)": {up: 5.72, dn: -5.72}}, 4: {"": {up: 3.486686, dn: 3.486686}, stat: {up: 3.3, dn: -3.3}, sys: {up: 0.9, dn: -0.9}, "sys,Additional scale error (4.3 PCT from the BR and 4.9 PCT from the selection cuts)": {up: 0.676, dn: -0.676}}, 5: {"": {up: 0.2546357333333333, dn: 0.2546357333333333}, stat: {up: 1.8, dn: -1.8}, sys: {up: 0.5, dn: -0.5}, "sys,Additional scale error (4.3 PCT from the BR and 4.9 PCT from the selection cuts)": {up: 0.3965, dn: -0.3965}}}
+IsRef: 1
+Path: /REF/L3_1998_I447945/d01-x01-y01
+Title: doi:10.17182/hepdata.47406.v1/t1
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+0.000000e+00	0.000000e+00	1.000000e-02	1.924000e+05	1.352960e+04	1.352960e+04
+6.000000e-02	5.000000e-02	9.000000e-02	3.642857e+03	3.508679e+02	3.508679e+02
+2.300000e-01	8.000000e-02	7.000000e-02	7.266667e+02	1.196657e+02	1.196657e+02
+5.300000e-01	2.300000e-01	3.700000e-01	1.466667e+02	3.103397e+01	3.103397e+01
+1.900000e+00	4.000000e-01	6.000000e-01	1.040000e+01	3.486686e+00	3.486686e+00
+4.140000e+00	1.640000e+00	5.860000e+00	8.133333e-01	2.546357e-01	2.546357e-01
+END YODA_SCATTER2D_V2
+
