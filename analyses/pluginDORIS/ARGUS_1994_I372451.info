@@ -1,0 +1,35 @@
+Name: ARGUS_1994_I372451
+Year: 1994
+Summary: $\gamma\gamma\to \phi\rho^0\ \text{and}\ \phi\omega$ between 1.5 and 3.5 GeV
+Experiment: ARGUS
+Collider: DORIS
+InspireID: 372451
+Status: VALIDATED
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Lett.B 332 (1994) 451-457, 1994
+RunInfo: gamma gamma to hadrons, K0S and pi0 mesons must be set stable
+Beams: [gamma, gamma]
+Energies: []
+Description:
+Description:
+  'Measurement of the differential cross section for  $\gamma\gamma\to \phi\rho^0\ \text{and}\ \phi\omega$ for $1.5 \text{GeV} < W < 3.5 \text{GeV}$.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: ARGUS:1994ikw
+BibTeX: '@article{ARGUS:1994ikw,
+    author = "Albrecht, H. and others",
+    collaboration = "ARGUS",
+    title = "{Observation of gamma gamma ---\ensuremath{>} phi rho0 and gamma gamma ---\ensuremath{>} phi omega}",
+    reportNumber = "DESY-94-029",
+    doi = "10.1016/0370-2693(94)91280-7",
+    journal = "Phys. Lett. B",
+    volume = "332",
+    pages = "451--457",
+    year = "1994"
+}
+'
