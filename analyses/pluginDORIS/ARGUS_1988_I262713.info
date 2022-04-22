@@ -1,0 +1,35 @@
+Name: ARGUS_1988_I262713
+Year: 1988
+Summary: $\gamma\gamma\to K^{*+}K^{*-}$ between 1.6 and 2.6 GeV
+Experiment: ARGUS
+Collider: DORIS
+InspireID: 262713
+Status: VALIDATED
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Lett.B 212 (1988) 528-532, 1988
+RunInfo: gamma gamma to hadrons, K0S and pi0 mesons must be set stable
+Beams: [gamma, gamma]
+Energies: []
+Description:
+  'Measurement of the differential cross section for $\gamma\gamma\to K^{*+}K^{*-}$ for $1.4 \text{GeV} < W < 2.6 \text{GeV}$. The cross section is measured as a function of the centre-of-mass energy of the photonic collision using the $2K^0_S\pi^+\pi^-$
+  and $K^0_SK^-\pi^0\pi^+$+c.c final states.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: ARGUS:1988zqx
+BibTeX: '@article{ARGUS:1988zqx,
+    author = "Albrecht, H. and others",
+    collaboration = "ARGUS",
+    title = "{First Observation of $\gamma \gamma \to K^*+ K^*$-}",
+    reportNumber = "DESY-88-084",
+    doi = "10.1016/0370-2693(88)91810-2",
+    journal = "Phys. Lett. B",
+    volume = "212",
+    pages = "528--532",
+    year = "1988"
+}
+'
