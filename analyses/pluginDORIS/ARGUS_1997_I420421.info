@@ -1,0 +1,33 @@
+Name: ARGUS_1997_I420421
+Year: 1997
+Summary: $\gamma\gamma\to\pi^+\pi^-\pi^0$ between 0.8 and 2.1 GeV 
+Experiment: ARGUS
+Collider: DORIS
+InspireID: 420421
+Status: VALIDATED
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Z.Phys.C 74 (1997) 469-477, 1997
+RunInfo: gamma gamma to hadrons, K0S and pi0 mesons must be set stable
+Beams: [gamma, gamma]
+Energies: []
+Description:
+  'Measurement of the differential cross section for $\gamma\gamma\to\pi^+\pi^-\pi^0$for $0.8 \text{GeV} < W < 2.1 \text{GeV}$. The cross section is measured as a function of the centre-of-mass energy of the photonic collision for the final, and a range of intermediate states.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: ARGUS:1996ith
+BibTeX: '@article{ARGUS:1996ith,
+    author = "Albrecht, H. and others",
+    collaboration = "ARGUS",
+    title = "{A Partial wave analysis of the reaction gamma gamma ---\ensuremath{>} pi+ pi- pi0}",
+    reportNumber = "DESY-96-112",
+    journal = "Z. Phys. C",
+    volume = "74",
+    pages = "469--477",
+    year = "1997"
+}
+'
