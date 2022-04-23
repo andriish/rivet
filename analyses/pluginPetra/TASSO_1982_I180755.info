@@ -1,0 +1,35 @@
+Name: TASSO_1982_I180755
+Year: 1982
+Summary: $\gamma\gamma\to \rho^0\rho^0$ between 1.2 and 2.0 GeV
+Experiment: TASSO
+Collider: PETRA
+InspireID: 180755
+Status: VALIDATED
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Z.Phys.C 16 (1982) 13, 1982
+RunInfo: gamma gamma to hadrons, pi0 mesons must be set stable
+Beams: [gamma, gamma]
+Energies: []
+Description:
+  'Measurement of the differential cross section for $\gamma\gamma\to \rho^0\rho^0$ for $1.2 \text{GeV} < W < 2.0 \text{GeV}$.
+   The cross section is measured as a function of the centre-of-mass energy of the photonic collision using the $2\pi^+2\pi^-$ final state.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: TASSO:1982hnv
+BibTeX: '@article{TASSO:1982hnv,
+    author = "Althoff, M. and others",
+    collaboration = "TASSO",
+    title = "{Angular Correlations in gamma Gamma ---\ensuremath{>} rho0 rho0 Near Threshold}",
+    reportNumber = "DESY-82-062",
+    doi = "10.1007/BF01573742",
+    journal = "Z. Phys. C",
+    volume = "16",
+    pages = "13",
+    year = "1982"
+}
+'
