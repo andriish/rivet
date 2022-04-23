@@ -155,6 +155,10 @@
 	argument. readData() is called for each specified preload file, in
 	order.
 
+2022-04-23 Peter Richardson <peter.richardson@durham.ac.uk>
+
+        * Add TASSO_1986_I228876 gamma gamma -> pi+pi-pi0
+
 2022-04-22 Peter Richardson <peter.richardson@durham.ac.uk>
 
         * Add ARGUS_1988_I262713 gamma gamma -> K*+ K*-
