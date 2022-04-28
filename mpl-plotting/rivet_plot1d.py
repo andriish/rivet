@@ -6,6 +6,7 @@ import numpy as np
 import yoda
 import yoda_plot
 import math
+import re
 
 def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
     """Plot the Scatter1D and Scatter2D objects using Rivet styles.
@@ -30,8 +31,21 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
         plt.style.use(plot_style)
 
     plot_features = yaml_dicts.get('plot features', {})
-    yoda_type = 'hist' if isinstance(hist_data[0], yoda.Scatter2D) else 'scatter'
+    
+    # TODO there should be a cleaner way, but \textrm is generally
+    # not working in math mode. Naively check if there is a regex match
+    # to a \textrm command in math mode to catch some exceptions... 
 
+
+    if re.search("^.*\$.*textrm.*\$.*$", plot_features['Title']):
+      plot_features['Title'] = plot_features['Title'].replace("\\textrm", "\\mathrm")
+    if re.search("^.*\$.*textrm.*\$.*$", plot_features['XLabel']):
+      plot_features['XLabel'] = plot_features['XLabel'].replace("\\textrm", "\\mathrm")
+    if re.search("^.*\$.*textrm.*\$.*$", plot_features['YLabel']):
+      plot_features['YLabel'] = plot_features['YLabel'].replace("\\textrm", "\\mathrm")
+
+    yoda_type = 'hist' if isinstance(hist_data[0], yoda.Scatter2D) else 'scatter'
+    
     ax_format = {}  # Stores the items for formatting the axes in a dict
 
     # Create fig and axes
@@ -80,7 +94,7 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
     elif plot_features.get('LogY', 1):
         # round off lowest number in the histograms to lower power of 10
         YMin = 10**(math.floor(math.log10(min_ymin))) if min_ymin !=0 else 2e-7*YMax # TODO: come up with a better solution to deal with min_ymin=0
-    elif plot_features.get('ShowZero', 1):  # defaul ShowZero is True
+    elif plot_features.get('ShowZero', 1):  # default ShowZero is True
         YMin = 0 if min_ymin > -1e-4 else 1.1*min_ymin
     else:
         YMin = (1.1*min_ymin if min_ymin < -1e-4 else 0 if min_ymin < 1e-4
@@ -127,14 +141,17 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
         for i, _ in enumerate(hist_data[1:]):
             color = colors[i % len(colors)]
             handles.append(mpl.lines.Line2D([], [], color=color))
-            labels.append(hist_features[i+1].get('Title', 'mc{}'.format(i+1)))
+            labels.append(hist_features[i+1].get('Title', 'mc{}'.format(i+1)).replace(".yoda",""))
     if plot_features.get('Legend', 1) and yoda_type == 'scatter':
         handles = []
         labels = []
         for i, _ in enumerate(hist_data):
             color = colors[i % len(colors)]
             handles.append(mpl.lines.Line2D([], [], color=color))
-            labels.append(hist_features[i].get('Title', 'mc{}'.format(i+1)))
+            labels.append(hist_features[i].get('Title', 'mc{}'.format(i+1)).replace(".yoda",""))
+      
+    
+  
     if plot_features.get('Legend', 1):
         if plot_features.get('LegendAlign') is None or plot_features.get('LegendAlign') == 'l':
             legend_pos = (plot_features.get('LegendXPos', 0.5),
