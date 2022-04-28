@@ -15,6 +15,7 @@ RunInfo:
 NumEvents: 1000000
 Beams: [e+, e-]
 Energies: [91.2]
+Luminosity_fb: 0.0249
 PtCuts: [0]
 Description: The inclusive production rates of $\pi^\pm$, $K^\pm$ and $p\bar{p}$ in $Z^0$ decays
   measured using the OPAL detector at LEP. Only the differential cross sections are currently

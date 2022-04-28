@@ -39,7 +39,7 @@ namespace Rivet {
 
     void analyze(const Event& event) {
 
-      const Jets& jets = applyProjection<FastJets>(event, "Jets").jetsByPt(Cuts::abseta < 2.5 && Cuts::pT > 100*GeV);
+      const Jets& jets = apply<FastJets>(event, "Jets").jetsByPt(Cuts::abseta < 2.5 && Cuts::pT > 100*GeV);
       if (jets.size() < 2)  vetoEvent;
 
       double sumPt12 = jets[0].pt() + jets[1].pt();

@@ -100,6 +100,7 @@ namespace Rivet {
     /// @name Projection applying functions
     /// @{
 
+  private:
     /// Apply the supplied projection on event @a evt.
     ///
     /// @deprecated Prefer the simpler apply<> form
@@ -108,12 +109,6 @@ namespace Rivet {
     applyProjection(const Event& evt, const Projection& proj) const {
       return pcast<PROJ>(_applyProjection(evt, proj));
     }
-
-    /// Apply the supplied projection on event @a evt (user-facing alias).
-    template <typename PROJ=Projection>
-    typename std::enable_if_t<std::is_base_of<Projection, PROJ>::value, const PROJ&>
-    apply(const Event& evt, const Projection& proj) const { return applyProjection<PROJ>(evt, proj); }
-
 
     /// Apply the supplied projection on event @a evt.
     ///
@@ -124,12 +119,6 @@ namespace Rivet {
       return pcast<PROJ>(_applyProjection(evt, proj));
     }
 
-    /// Apply the supplied projection on event @a evt (user-facing alias).
-    template <typename PROJ=Projection>
-    typename std::enable_if_t<std::is_base_of<Projection, PROJ>::value, const PROJ&>
-    apply(const Event& evt, const PROJ& proj) const { return applyProjection<PROJ>(evt, proj); }
-
-
     /// Apply the named projection on event @a evt.
     ///
     /// @deprecated Prefer the simpler apply<> form
@@ -138,6 +127,18 @@ namespace Rivet {
     applyProjection(const Event& evt, const std::string& name) const {
       return pcast<PROJ>(_applyProjection(evt, name));
     }
+
+  public:
+
+    /// Apply the supplied projection on event @a evt (user-facing alias).
+    template <typename PROJ=Projection>
+    typename std::enable_if_t<std::is_base_of<Projection, PROJ>::value, const PROJ&>
+    apply(const Event& evt, const Projection& proj) const { return applyProjection<PROJ>(evt, proj); }
+
+    /// Apply the supplied projection on event @a evt (user-facing alias).
+    template <typename PROJ=Projection>
+    typename std::enable_if_t<std::is_base_of<Projection, PROJ>::value, const PROJ&>
+    apply(const Event& evt, const PROJ& proj) const { return applyProjection<PROJ>(evt, proj); }
 
     /// Apply the supplied projection on event @a evt (user-facing alias).
     template <typename PROJ=Projection>

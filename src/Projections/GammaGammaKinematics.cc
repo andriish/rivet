@@ -7,7 +7,7 @@ namespace Rivet {
 
   void GammaGammaKinematics::project(const Event& e) {
     // Find appropriate GammaGamma leptons
-    const GammaGammaLeptons& gglep = applyProjection<GammaGammaLeptons>(e, "Lepton");
+    const GammaGammaLeptons& gglep = apply<GammaGammaLeptons>(e, "Lepton");
     if ( gglep.failed() ) {
       fail();
       return;

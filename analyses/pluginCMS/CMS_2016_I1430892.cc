@@ -85,8 +85,8 @@ namespace Rivet {
       const double weight = 1.0;
 
       // Use particle-level leptons for the first histogram
-      const DressedLeptons& dressed_electrons = applyProjection<DressedLeptons>(event, "DressedElectrons");
-      const DressedLeptons& dressed_muons = applyProjection<DressedLeptons>(event, "DressedMuons");
+      const DressedLeptons& dressed_electrons = apply<DressedLeptons>(event, "DressedElectrons");
+      const DressedLeptons& dressed_muons = apply<DressedLeptons>(event, "DressedMuons");
 
       const vector<DressedLepton> dressedels = dressed_electrons.dressedLeptons();
       const vector<DressedLepton> dressedmus = dressed_muons.dressedLeptons();

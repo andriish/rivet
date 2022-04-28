@@ -186,36 +186,36 @@ namespace Rivet {
     }
 
     /// Contract two 4-vectors, with metric signature (+ - - -).
-    double operator*(const FourVector& v) const {
+    double operator * (const FourVector& v) const {
       return contract(v);
     }
 
     /// Multiply by a scalar.
-    FourVector& operator*=(double a) {
+    FourVector& operator *= (double a) {
       _vec = multiply(a, *this)._vec;
       return *this;
     }
 
     /// Divide by a scalar.
-    FourVector& operator/=(double a) {
+    FourVector& operator /= (double a) {
       _vec = multiply(1.0/a, *this)._vec;
       return *this;
     }
 
     /// Add to this 4-vector.
-    FourVector& operator+=(const FourVector& v) {
+    FourVector& operator += (const FourVector& v) {
       _vec = add(*this, v)._vec;
       return *this;
     }
 
     /// Subtract from this 4-vector. NB time as well as space components are subtracted.
-    FourVector& operator-=(const FourVector& v) {
+    FourVector& operator -= (const FourVector& v) {
       _vec = add(*this, -v)._vec;
       return *this;
     }
 
     /// Multiply all components (space and time) by -1.
-    FourVector operator-() const {
+    FourVector operator - () const {
       FourVector result;
       result._vec = -_vec;
       return result;
@@ -251,15 +251,15 @@ namespace Rivet {
     return multiply(a, v);
   }
 
-  inline FourVector operator*(const double a, const FourVector& v) {
+  inline FourVector operator * (const double a, const FourVector& v) {
     return multiply(a, v);
   }
 
-  inline FourVector operator*(const FourVector& v, const double a) {
+  inline FourVector operator * (const FourVector& v, const double a) {
     return multiply(a, v);
   }
 
-  inline FourVector operator/(const FourVector& v, const double a) {
+  inline FourVector operator / (const FourVector& v, const double a) {
     return multiply(1.0/a, v);
   }
 

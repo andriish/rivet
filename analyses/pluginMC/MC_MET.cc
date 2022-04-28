@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/InvisibleFinalState.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
 
 namespace Rivet {
@@ -12,48 +13,75 @@ namespace Rivet {
   class MC_MET : public Analysis {
   public:
 
-    MC_MET()
-      : Analysis("MC_MET")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(MC_MET);
 
 
     void init() {
-      FinalState inclfs;
+      const FinalState inclfs;
       FinalState calofs(Cuts::abseta < 5);
       declare(MissingMomentum(inclfs), "InclMET");
       declare(MissingMomentum(calofs), "CaloMET");
 
-      book(_h_met_incl ,"met_incl", logspace(30, 1, 150));
-      book(_h_met_calo ,"met_calo", logspace(30, 1, 150));
-      book(_h_set_incl ,"set_incl", logspace(30, 1, sqrtS()/GeV/2));
-      book(_h_set_calo ,"set_calo", logspace(30, 1, sqrtS()/GeV/2));
+      declare(InvisibleFinalState(), "InvisibleFS");
+      declare(InvisibleFinalState(true), "PromptInvisibleFS");
+
+      book(_h["met_incl"], "met_incl", logspace(50, 10, sqrtS()/GeV/5));
+      book(_h["met_calo"], "met_calo", logspace(50, 10, sqrtS()/GeV/5));
+      book(_h["set_incl"], "set_incl", logspace(50, 10, sqrtS()/GeV/3));
+      book(_h["set_calo"], "set_calo", logspace(50, 10, sqrtS()/GeV/3));
+
+      book(_h["pT_inv"],   "pT_inv",   logspace(50, 10, sqrtS()/GeV/5));
+      book(_h["mass_inv"], "mass_inv", logspace(100, 10, sqrtS()/GeV/5));
+      book(_h["rap_inv"],  "rap_inv",   50, -5., 5.);
+
+      book(_h["pT_promptinv"],   "pT_promptinv",   logspace(50, 10, sqrtS()/GeV/5));
+      book(_h["mass_promptinv"], "mass_promptinv", logspace(100, 10, sqrtS()/GeV/5));
+      book(_h["rap_promptinv"],  "rap_promptinv",  50, -5., 5.);
     }
 
 
     void analyze(const Event& event) {
-      const double weight = 1.0;
 
       const MissingMomentum& mmincl = apply<MissingMomentum>(event, "InclMET");
-      _h_met_incl->fill(mmincl.met()/GeV, weight);
-      _h_set_incl->fill(mmincl.set()/GeV, weight);
+      _h["met_incl"]->fill(mmincl.met()/GeV);
+      _h["set_incl"]->fill(mmincl.set()/GeV);
 
       const MissingMomentum& mmcalo = apply<MissingMomentum>(event, "CaloMET");
-      _h_met_calo->fill(mmcalo.met()/GeV, weight);
-      _h_set_calo->fill(mmcalo.set()/GeV, weight);
+      _h["met_calo"]->fill(mmcalo.met()/GeV);
+      _h["set_calo"]->fill(mmcalo.set()/GeV);
+
+      // Get the invisible final state particles
+      const Particles& invisibles = apply<InvisibleFinalState>(event, "InvisibleFS").particlesByPt();
+      const Particles& promptinvisibles = apply<InvisibleFinalState>(event, "PromptInvisibleFS").particlesByPt();
+
+      FourMomentum invsum;
+      for (const Particle& p : invisibles) {
+        invsum += p.momentum();
+      }
+      _h["pT_inv"]->fill(invsum.pT()/GeV);
+      _h["mass_inv"]->fill(invsum.mass()/GeV);
+      _h["rap_inv"]->fill(invsum.rapidity());
+
+      FourMomentum promptinvsum;
+      for (const Particle& p : promptinvisibles) {
+        promptinvsum += p.momentum();
+      }
+      _h["pT_promptinv"]->fill(promptinvsum.pT()/GeV);
+      _h["mass_promptinv"]->fill(promptinvsum.mass()/GeV);
+      _h["rap_promptinv"]->fill(promptinvsum.rapidity());
 
     }
 
 
     void finalize() {
-      normalize(_h_met_incl); normalize(_h_set_incl);
-      normalize(_h_met_calo); normalize(_h_set_calo);
+      const double sf = crossSectionPerEvent()/picobarn;
+      scale(_h, sf);
     }
 
 
   private:
 
-    Histo1DPtr _h_met_incl, _h_set_incl;
-    Histo1DPtr _h_met_calo, _h_set_calo;
+    map<string, Histo1DPtr> _h;
 
   };
 
@@ -61,6 +89,4 @@ namespace Rivet {
 
   // The hook for the plugin system
   RIVET_DECLARE_PLUGIN(MC_MET);
-
-
 }

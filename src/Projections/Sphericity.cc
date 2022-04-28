@@ -30,7 +30,7 @@ namespace Rivet {
 
 
   void Sphericity::project(const Event& e) {
-    const Particles prts = applyProjection<FinalState>(e, "FS").particles();
+    const Particles prts = apply<FinalState>(e, "FS").particles();
     calc(prts);
   }
 

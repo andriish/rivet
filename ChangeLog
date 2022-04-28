@@ -1,6 +1,45 @@
+2022-03-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add MissingMom typedef for MissingMomentum.
+
+	* Add vectorEt/PtMiss() and scalarEt/PtMiss() methods to MissingMomentum.
+
+	* Use ThreeMomentum in MissingMomentum for the vectorPt() etc.
+
+	* Add ThreeMomentum/P3 type with momentum-oriented method names, cf. FourVector->FourMomentum.
+
+	* Add a pseudojets() method to the Jets container type.
+
 2022-03-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix ATLAS_2020_I1790256 finalize to avoid divide-by-zero if no events passed cuts.
+
+	* Add finalize-scaling protection in ATLAS_2020_1790256.
+
+2022-02-07  Markus Seidel  <markus.seidel@cern.ch>
+
+	* Fix for CMS_2018_I1680318 (thanks to Armando Bermudez Martinez)
+
+2022-02-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a warning about event numbers if the subevent staging list
+	gets very long (report by Michal Kreps, suggestion by Andrii
+	Verbytskyi).
+
+2022-01-10  Christian Gutschow  <chris.g@cern.ch>
+
+	* Add support for explicit generator variation cross-sections
+
+	* Implement MCnet weight conventions
+
+2022-01-06  Christian Gutschow  <chris.g@cern.ch>
+
+	* Adding more histograms to MC_MET and improving the binning (many
+	thanks to Jan Kretzschmar).
+
+2021-12-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix the 'polarity' of the optional argument to AnalysisHandler::checkBeams().
 
 2021-12-14  Andy Buckley  <andy.buckley@cern.ch>
 
@@ -14,6 +53,15 @@
 
 	* Allow manual use of analysis-plugin make-targets after
 	configuring with --disable-analyses.
+
+2021-11-09  Markus Seidel  <markus.seidel@cern.ch>
+
+	* Submission of CMS_2012_I1089835 (b-jet production at 7 TeV),
+	CMS_2019_I1753720 (ttbb production at 13 TeV), CMS_2021_I1847230
+	(angular distance and momentum ratios in 3-jet and Z+2-jet events
+	at 8 and 13 TeV), CMS_2021_I1920187_DIJET/ZJET (quark and gluon
+	jet substructure at 13 TeV), CMS_2021_I1932460 (double-parton
+	scattering in 4-jet events at 13 TeV)
 
 2021-11-06  Andy Buckley  <andy.buckley@cern.ch>
 

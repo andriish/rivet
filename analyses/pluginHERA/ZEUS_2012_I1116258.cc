@@ -25,7 +25,7 @@ namespace Rivet {
 
       // Projections
 
-      // Jet schemes checked with oringal code, M.Wing, A.Geiser
+      // Jet schemes checked with original code, M.Wing, A.Geiser
       FinalState fs;
       double jet_radius = 1.0;
       declare(FastJets(fs, fastjet::JetAlgorithm::kt_algorithm, fastjet::RecombinationScheme::Et_scheme, jet_radius), "Jets");
@@ -80,57 +80,57 @@ namespace Rivet {
 
       // Jet selection
       // @TODO check the recombination scheme
-      const Jets jets = apply<FastJets>(event, "Jets")			\
+      const Jets jets = apply<FastJets>(event, "Jets")          \
         .jets(Cuts::Et > 17*GeV && Cuts::etaIn(-1*orientation, 2.5*orientation), cmpMomByEt);
       MSG_DEBUG("kT Jet multiplicity = " << jets.size());
 
       const Jets jets_akt = apply<FastJets>(event, "Jets_akt")		\
         .jets(Cuts::Et > 17*GeV && Cuts::etaIn(-1*orientation, 2.5*orientation), cmpMomByEt);
 
-      const Jets jets_sis = apply<FastJets>(event, "Jets_sis")	\
-	.jets(Cuts::Et > 17*GeV && Cuts::etaIn(-1*orientation, 2.5*orientation), cmpMomByEt);
+      const Jets jets_sis = apply<FastJets>(event, "Jets_sis")          \
+        .jets(Cuts::Et > 17*GeV && Cuts::etaIn(-1*orientation, 2.5*orientation), cmpMomByEt);
 
 
       // Fill histograms
       for (const Jet& jet : jets ){
-	_h_etjet[0]->fill(jet.pt());
-	_h_etajet[0]->fill(orientation*jet.eta());
-	if (jet.pt()>21*GeV) {
-	  _h_etajet[1]->fill(orientation*jet.eta());
-	}
-	if (orientation*jet.eta() < 0) {
-	  _h_etjet[1]->fill(jet.pt());
-	} else if (orientation*jet.eta() < 1) {
-	  _h_etjet[2]->fill(jet.pt());
-	} else if (orientation*jet.eta() < 1.5) {
-	  _h_etjet[3]->fill(jet.pt());
-	} else if (orientation*jet.eta() < 2) {
-	  _h_etjet[4]->fill(jet.pt());
-	} else {
-	  _h_etjet[5]->fill(jet.pt());
-	}
+        _h_etjet[0]->fill(jet.pt());
+        _h_etajet[0]->fill(orientation*jet.eta());
+        if (jet.pt()>21*GeV) {
+          _h_etajet[1]->fill(orientation*jet.eta());
+        }
+        if (orientation*jet.eta() < 0) {
+          _h_etjet[1]->fill(jet.pt());
+        } else if (orientation*jet.eta() < 1) {
+          _h_etjet[2]->fill(jet.pt());
+        } else if (orientation*jet.eta() < 1.5) {
+          _h_etjet[3]->fill(jet.pt());
+        } else if (orientation*jet.eta() < 2) {
+          _h_etjet[4]->fill(jet.pt());
+        } else {
+          _h_etjet[5]->fill(jet.pt());
+        }
       }
 
       for (const Jet& jet : jets_akt ){
-	_h_etjet[6]->fill(jet.pt());
-	_h_etajet[2]->fill(orientation*jet.eta());
+        _h_etjet[6]->fill(jet.pt());
+        _h_etajet[2]->fill(orientation*jet.eta());
       }
       for (const Jet& jet : jets_sis ){
-	_h_etjet[7]->fill(jet.pt());
-	_h_etajet[3]->fill(orientation*jet.eta());
+        _h_etjet[7]->fill(jet.pt());
+        _h_etajet[3]->fill(orientation*jet.eta());
       }
 
     }
 
 
-      // Finalize
+    // Finalize
     void finalize() {
       const double sf = crossSection()/picobarn/sumOfWeights();
       for( int i = 0; i < 8; i++ ) {
-	scale(_h_etjet[i], sf);
+        scale(_h_etjet[i], sf);
       }
       for( int i = 0; i < 4; i++ ) {
-	scale(_h_etajet[i], sf);
+        scale(_h_etajet[i], sf);
       }
     }
 
@@ -144,7 +144,7 @@ namespace Rivet {
     Histo1DPtr _h_etjet[8], _h_etajet[4];
     /// @}
 
-    };
+  };
 
 
   RIVET_DECLARE_PLUGIN(ZEUS_2012_I1116258);

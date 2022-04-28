@@ -6,10 +6,20 @@ namespace Rivet {
 
   CmpState VetoedFinalState::compare(const Projection& p) const {
     const PCmp fscmp = mkNamedPCmp(p, "FS");
-    if (fscmp != CmpState::EQ) return CmpState::NEQ;
-    /// @todo We can do better than this...
-    if (_vetofsnames.size() != 0) return CmpState::NEQ;
+    if (fscmp != CmpState::EQ) return CmpState::NEQ;    
     const VetoedFinalState& other = dynamic_cast<const VetoedFinalState&>(p);
+    if (_vetofsnames.size() != other._vetofsnames.size()) return CmpState::NEQ;
+    //If we have multiple vetofsnames, check to see if they match
+    if (_vetofsnames.size() !=  0){
+      auto thisit = _vetofsnames.begin();
+      auto otherit = other._vetofsnames.begin();
+      while (thisit != _vetofsnames.end()){
+        if (*thisit != *otherit) return CmpState::NEQ;
+        const PCmp vfscmp = mkNamedPCmp(other, *thisit);
+        if (vfscmp != CmpState::EQ) return CmpState::NEQ; 
+        ++thisit; ++otherit;
+      }
+    }
     return \
       cmp(_vetoCuts, other._vetoCuts) ||
       cmp(_compositeVetoes, other._compositeVetoes) ||
@@ -19,7 +29,7 @@ namespace Rivet {
 
 
   void VetoedFinalState::project(const Event& e) {
-    const FinalState& fs = applyProjection<FinalState>(e, "FS");
+    const FinalState& fs = apply<FinalState>(e, "FS");
     _theParticles.clear();
     _theParticles.reserve(fs.particles().size());
 
@@ -107,7 +117,7 @@ namespace Rivet {
 
     // Finally veto on the registered FSes
     for (const string& ifs : _vetofsnames) {
-      const ParticleFinder& vfs = applyProjection<ParticleFinder>(e, ifs);
+      const ParticleFinder& vfs = apply<ParticleFinder>(e, ifs);
       const Particles& pvetos = vfs.rawParticles();
       ifilter_discard(_theParticles, [&](const Particle& pcheck) {
           if (pcheck.genParticle() == nullptr) return false;

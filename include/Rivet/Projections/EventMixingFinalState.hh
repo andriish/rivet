@@ -148,7 +148,7 @@ namespace Rivet {
 
     /// Perform the projection on the Event.
     void project(const Event& e) {
-      const Projection* mixObsProjPtr = &applyProjection<Projection>(e, "OBS");
+      const Projection* mixObsProjPtr = &apply<Projection>(e, "OBS");
       calculateMixingObs(mixObsProjPtr);
       MixMap::iterator mixItr = mixEvents.lower_bound(mObs);
       if (mixItr == mixEvents.end()){
@@ -156,7 +156,7 @@ namespace Rivet {
         MSG_DEBUG("Mixing observable out of bounds.");
         return;
       }
-      const Particles mix = applyProjection<ParticleFinder>(e, "MIX").particles();
+      const Particles mix = apply<ParticleFinder>(e, "MIX").particles();
       mixItr->second.push_back(make_pair(mix,e.weights()[_defaultWeightIdx]));
       // Assume unit weights until we see otherwise.
       if (unitWeights && e.weights()[_defaultWeightIdx] != 1.0 ) {

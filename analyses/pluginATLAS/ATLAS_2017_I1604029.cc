@@ -65,13 +65,13 @@ namespace Rivet {
       // analysis extrapolated to 1-lepton-plus-jets channel, where "lepton" cannot be a tau
       // (i.e. contribution from dileptonic ttbar where one of the leptons is outside
       // the detector acceptance has been subtracted as a background)
-      if (applyProjection<PromptFinalState>(event, "prompt_leps").particles().size() != 1)  vetoEvent;
+      if (apply<PromptFinalState>(event, "prompt_leps").particles().size() != 1)  vetoEvent;
       for (const auto& p : apply<UnstableParticles>(event, "ufs").particles()) {
         if (p.fromPromptTau())  vetoEvent;
       }
 
       // photon selection
-      Particles photons = applyProjection<PromptFinalState>(event, "photons").particlesByPt();
+      Particles photons = apply<PromptFinalState>(event, "photons").particlesByPt();
       Particles bare_leps  = apply<IdentifiedFinalState>(event, "bare_leptons").particles();
       for (const Particle& lep : bare_leps)
         ifilter_discard(photons, deltaRLess(lep, 0.1));

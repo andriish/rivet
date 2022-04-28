@@ -71,7 +71,7 @@ namespace Rivet {
       }
 
       // Muons
-      const ZFinder& zfinder = applyProjection<ZFinder>(event, "ZFinder");
+      const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.particles().size() <= 0) vetoEvent;
 
       double Zmass = zfinder.bosons()[0].momentum().mass()/GeV;

@@ -54,7 +54,7 @@ namespace Rivet {
         throw Error("Unexpected sqrtS ! Only 38.8 GeV is supported");
       }
 
-      const ZFinder& zfinder = applyProjection<ZFinder>(event, "ZFinder");
+      const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.particles().size() >= 1) {
 
         double Zmass = zfinder.bosons()[0].momentum().mass()/GeV;

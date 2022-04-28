@@ -105,7 +105,7 @@ namespace Rivet {
       }
 
       // Thrust
-      const Thrust& thrust = applyProjection<Thrust>(event, "Thrust");
+      const Thrust& thrust = apply<Thrust>(event, "Thrust");
       if (iflav == 1) {
         _h_T_udsc->fill(thrust.thrust());
       } else if (iflav == 5) {
@@ -115,7 +115,7 @@ namespace Rivet {
 
 
       // The hemisphere variables
-      const Hemispheres& hemisphere = applyProjection<Hemispheres>(event, "Hemispheres");
+      const Hemispheres& hemisphere = apply<Hemispheres>(event, "Hemispheres");
       if (iflav == 1) {
         _h_rho_udsc->fill(hemisphere.scaledM2high());
         _h_B_T_udsc->fill(hemisphere.Bsum());
@@ -129,7 +129,7 @@ namespace Rivet {
       _h_B_T->fill(hemisphere.Bsum());
       _h_B_W->fill(hemisphere.Bmax());
 
-      const ParisiTensor& parisi = applyProjection<ParisiTensor>(event, "Parisi");
+      const ParisiTensor& parisi = apply<ParisiTensor>(event, "Parisi");
       if (iflav == 1) {
         _h_C_udsc->fill(parisi.C());
       } else if (iflav == 5) {

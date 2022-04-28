@@ -72,7 +72,7 @@ namespace Rivet {
       if(lepton.pT() < 60*GeV) vetoEvent;
 
       // Get the fat jets
-      const Jets& fatjets = applyProjection<FastJets>(event, "FatJets").jets();
+      const Jets& fatjets = apply<FastJets>(event, "FatJets").jets();
 
       // Get index of hadronic jet by distance to lepton
       int ihad = 0;

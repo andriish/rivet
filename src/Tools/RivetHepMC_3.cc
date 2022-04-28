@@ -93,20 +93,22 @@ namespace Rivet {
     }
 
     std::vector<ConstGenParticlePtr> particles(ConstGenEventPtr ge) {
+      assert(ge != nullptr);
       return ge->particles();
     }
 
     std::vector<ConstGenParticlePtr> particles(const GenEvent* ge) {
-      assert(ge);
+      assert(ge != nullptr);
       return ge->particles();
     }
 
     std::vector<ConstGenVertexPtr> vertices(ConstGenEventPtr ge) {
+      assert(ge != nullptr);
       return ge->vertices();
     }
 
     std::vector<ConstGenVertexPtr> vertices(const GenEvent* ge) {
-      assert(ge);
+      assert(ge != nullptr);
       return ge->vertices();
     }
 
@@ -127,11 +129,12 @@ namespace Rivet {
     }
 
     int uniqueId(ConstGenParticlePtr gp) {
-      return gp->id();
+      return (gp != nullptr) ? gp->id() : 0;
     }
 
 
     std::pair<ConstGenParticlePtr, ConstGenParticlePtr> beams(const GenEvent* ge) {
+      assert(ge != nullptr);
       std::vector<ConstGenParticlePtr> beamlist = ge->beams();
       if (beamlist.size() < 2) {
         std::cerr << "CANNOT FIND ANY BEAMS!" << std::endl;
@@ -257,14 +260,14 @@ namespace Rivet {
     }
 
 
-    pair<double, double> crossSection(const GenEvent& ge) {
+    pair<double, double> crossSection(const GenEvent& ge, size_t index) {
       if (!ge.cross_section()) {
         printf("Cross-section not set for GenEvent! Will return dummy value.\n");
-        return make_pair(1.0, 0.0);
+        return make_pair(0.0, 0.0);
       }
       // Work-around since access functions are not const.
       HepMC3::GenCrossSection xs = *ge.cross_section();
-      return make_pair(xs.xsec(), xs.xsec_err());
+      return make_pair(xs.xsec(index), xs.xsec_err(index));
     }
 
 

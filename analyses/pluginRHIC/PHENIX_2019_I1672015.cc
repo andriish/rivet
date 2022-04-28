@@ -48,7 +48,7 @@ namespace Rivet {
         MSG_ERROR("Incorrect beam energy used: " << sqrtS()/GeV);
         throw Error("Unexpected sqrtS ! Only 200 GeV is supported");
       }
-      const ZFinder& zfinder = applyProjection<ZFinder>(event, "ZFinder");
+      const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.particles().size() < 1) vetoEvent;
       double mass = zfinder.bosons()[0].momentum().mass()/GeV;
       double pt_DY   = zfinder.bosons()[0].momentum().pT()/GeV;

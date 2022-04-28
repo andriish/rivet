@@ -130,7 +130,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Select neutral pions
-      const UnstableParticles& ufs = applyProjection<UnstableParticles> (event, "UFS");
+      const UnstableParticles& ufs = apply<UnstableParticles> (event, "UFS");
       const Particles pions = ufs.particles(Cuts::pz > 0 && Cuts::abspid == PID::PI0 && Cuts::pT > pt_cutoff*GeV);
       for (const Particle& p : pions) {
         const double pT = p.pT()/GeV;

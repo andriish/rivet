@@ -107,7 +107,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // leptons
-      const SpecialDressedLeptons& dressedleptons_proj = applyProjection<SpecialDressedLeptons>(event, "DressedLeptons");
+      const SpecialDressedLeptons& dressedleptons_proj = apply<SpecialDressedLeptons>(event, "DressedLeptons");
       std::vector<DressedLepton> dressedLeptons = dressedleptons_proj.dressedLeptons();
       if(dressedLeptons.size() != 1) return;
 
@@ -377,7 +377,7 @@ namespace Rivet {
 
         vector<DressedLepton> allClusteredLeptons;
 
-        const Jets jets = applyProjection<FastJets>(e, "LeptonJets").jetsByPt(5.*GeV);
+        const Jets jets = apply<FastJets>(e, "LeptonJets").jetsByPt(5.*GeV);
         for (const Jet& jet : jets) {
           Particle lepCand;
           for (const Particle& cand : jet.particles()) {

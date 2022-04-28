@@ -21,6 +21,7 @@ RunInfo:
   8 TeV $pp \to W+jets$.
 Beams: [p+, p+]
 Energies: [8000]
+Luminosity_fb: 19.6
 NumEvents: 76000000
 NeedCrossSection: True
 Description:

@@ -30,7 +30,7 @@ function _rivet() {
     opts="--help --verbose --quiet --version --nevts --nskip --cross-section"
     opts="$opts --analysis --analyses --runname"
     opts="$opts --list-keywords --list-analyses --show-analysis --show-bibtex" #< intentionally skip --show-analyses alias
-    opts="$opts --skip-weights --skip-multiweights"
+    opts="$opts --print-projection-tree --skip-weights --skip-multiweights"
     opts="$opts --match-weights --unmatch-weights"
     opts="$opts --analysis-path --analysis-path-append --pwd"
     opts="$opts --histo-file --no-histo-file --histo-interval --event-timeout"
@@ -44,6 +44,12 @@ function _rivet() {
 
     if (echo ${prev} | egrep -- "-\<a\>|--\<analysis\>|--\<analyses\>|--\<show-analysis\>|--\<show-analyses\>|--\<list-analyses\>" &> /dev/null); then
         anas=$(rivet --list-analyses --quiet) #< excludes aliases
+        if (echo ${cur} | egrep "," &> /dev/null); then
+            oldcurstripped=$(sed "s/,[^,]\{,\}$//g" <<< "$cur"),
+            cur=$(sed "s/^,//g" <<< $(grep -o ",[^,]\{,\}$" <<< "${cur}"))
+            COMPREPLY=( $(compgen -W "$anas" -P "${oldcurstripped}" -- ${cur}) )
+            return 0
+        fi
         COMPREPLY=( $(compgen -W "$anas" -- ${cur}) )
         return 0
     fi

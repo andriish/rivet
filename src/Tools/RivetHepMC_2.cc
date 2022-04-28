@@ -30,7 +30,7 @@ namespace Rivet {
 
   namespace HepMCUtils{
 
-    ConstGenParticlePtr getParticlePtr(const RivetHepMC::GenParticle & gp) {
+    ConstGenParticlePtr getParticlePtr(const RivetHepMC::GenParticle& gp) {
       return &gp;
     }
     std::vector<ConstGenParticlePtr> particles(ConstGenEventPtr ge){
@@ -41,7 +41,8 @@ namespace Rivet {
       return result;
     }
 
-    std::vector<ConstGenParticlePtr> particles(const GenEvent *ge){
+    std::vector<ConstGenParticlePtr> particles(const GenEvent* ge){
+      assert(ge != nullptr);
       std::vector<ConstGenParticlePtr> result;
       for(GenEvent::particle_const_iterator pi = ge->particles_begin(); pi != ge->particles_end(); ++pi){
         result.push_back(*pi);
@@ -50,6 +51,7 @@ namespace Rivet {
     }
 
     std::vector<ConstGenVertexPtr> vertices(ConstGenEventPtr ge){
+      assert(ge != nullptr);
       std::vector<ConstGenVertexPtr> result;
       for(GenEvent::vertex_const_iterator vi = ge->vertices_begin(); vi != ge->vertices_end(); ++vi){
         result.push_back(*vi);
@@ -57,7 +59,8 @@ namespace Rivet {
       return result;
     }
 
-    std::vector<ConstGenVertexPtr> vertices(const GenEvent *ge){
+    std::vector<ConstGenVertexPtr> vertices(const GenEvent* ge){
+      assert(ge != nullptr);
       std::vector<ConstGenVertexPtr> result;
       for(GenEvent::vertex_const_iterator vi = ge->vertices_begin(); vi != ge->vertices_end(); ++vi){
         result.push_back(*vi);
@@ -108,19 +111,20 @@ namespace Rivet {
 
 
     int uniqueId(ConstGenParticlePtr gp){
-      return gp->barcode();
+      return (gp != nullptr) ? gp->barcode() : 0;
     }
 
     int particles_size(ConstGenEventPtr ge){
-      return ge->particles_size();
+      return (ge != nullptr) ? ge->particles_size() : 0;
     }
 
-    int particles_size(const GenEvent *ge){
-      return ge->particles_size();
+    int particles_size(const GenEvent* ge){
+      return (ge != nullptr) ? ge->particles_size() : 0;
     }
 
-    std::pair<ConstGenParticlePtr,ConstGenParticlePtr> beams(const GenEvent *ge) {
-      return ge->beam_particles();
+    std::pair<ConstGenParticlePtr,ConstGenParticlePtr> beams(const GenEvent* ge) {
+      return (ge != nullptr) ? ge->beam_particles() :
+        std::make_pair<ConstGenParticlePtr,ConstGenParticlePtr>(nullptr,nullptr);
     }
 
 
@@ -189,7 +193,10 @@ namespace Rivet {
     }
 
 
-    pair<double,double> crossSection(const GenEvent& ge) {
+    pair<double,double> crossSection(const GenEvent& ge, size_t index) {
+      if (index) {
+        printf("WARNING: HepMC2 does not support variation cross-sections! Will use nominal value.\n");
+      }
       return make_pair(ge.cross_section()->cross_section(),
                        ge.cross_section()->cross_section_error());
     }

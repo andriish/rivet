@@ -40,9 +40,7 @@ namespace Rivet {
         book(_h_hs[i], i+16, 1, 1);
       }
 
-
       book(_njets, "_njets");
-
     }
 
 
@@ -154,6 +152,7 @@ namespace Rivet {
     CounterPtr _njets;
 
   };
+
 
 
   RIVET_DECLARE_PLUGIN(ATLAS_2020_I1790256);

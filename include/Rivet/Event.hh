@@ -112,11 +112,11 @@ namespace Rivet {
       return filter_select(allParticles(), f);
     }
 
-    /// @brief The generation weight associated with the event
-    ///
-    /// @todo This needs to be revisited when we finally add the mechanism to
-    /// support NLO counter-events and weight vectors.
+    /// @brief The generation weights associated with the event
     std::valarray<double> weights() const;
+
+    /// @brief The generation cross-sections associated with the event
+    std::vector<std::pair<double, double>> crossSections() const;
 
     /// @brief Obsolete weight method. Always returns 1 now.
     DEPRECATED("Event weight does not need to be included anymore. For compatibility, it's always == 1 now.")
@@ -225,6 +225,8 @@ namespace Rivet {
     /// A cached set of event weights (a single unit weight if the original weight vector was empty)
     mutable std::valarray<double> _weights;
 
+    /// A cached set of event cross-section & errors (a pair of zeros if the original weight vector was empty)
+    mutable std::vector<std::pair<double,double>> _xsecs;
   };
 
 

@@ -13,8 +13,10 @@ namespace Rivet {
 
   void DISLepton::project(const Event& e) {
 
+    clear();
+
     // Find incoming lepton beam
-    const ParticlePair& inc = applyProjection<Beam>(e, "Beam").beams();
+    const ParticlePair& inc = apply<Beam>(e, "Beam").beams();
     bool firstIsLepton = PID::isLepton(inc.first.pid());
     bool secondIsLepton = PID::isLepton(inc.second.pid());
     if (firstIsLepton && !secondIsLepton) {
@@ -28,7 +30,7 @@ namespace Rivet {
 
     // If no graph-connected scattered lepton, use the hardest
     // (preferably same-flavour) prompt FS lepton in the event.
-    const FinalState & fs = applyProjection<FinalState>(e, "LFS");
+    const FinalState & fs = apply<FinalState>(e, "LFS");
     Particles fsleptons;
     if ( _sort == ET )
       fsleptons = fs.particles(isLepton, cmpMomByEt);
@@ -47,7 +49,7 @@ namespace Rivet {
 
     if ( _isolDR > 0.0 ) {
       const Particles & other =
-        applyProjection<FinalState>(e, "IFS").particles();
+        apply<FinalState>(e, "IFS").particles();
       while (!sfleptons.empty()) {
         bool skip = false;
         Particle testlepton = sfleptons.front();
@@ -72,7 +74,13 @@ namespace Rivet {
       fail();
     }
 
+    _theParticles.push_back(_outgoing);
+
   }
 
+
+  const VetoedFinalState& DISLepton::remainingFinalState() const {
+    return getProjection<VetoedFinalState>("RFS");
+  }
 
 }

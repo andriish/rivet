@@ -44,7 +44,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const ZFinder& zfinder = applyProjection<ZFinder>(event, "ZFinder");
+      const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
 
       if (zfinder.bosons().size() != 1) vetoEvent;
       if (zfinder.constituents()[0].pT()<20 && zfinder.constituents()[1].pT()<20)vetoEvent;
@@ -53,7 +53,7 @@ namespace Rivet {
       double Zphi = zfinder.bosons()[0].phi();
       //double Zmass = zfinder.bosons()[0].mass()/GeV;
 
-     Particles particles = applyProjection<ChargedFinalState>(event, "cfs").particlesByPt(Cuts::pT > 0.5*GeV && Cuts::abseta <2.0);
+     Particles particles = apply<ChargedFinalState>(event, "cfs").particlesByPt(Cuts::pT > 0.5*GeV && Cuts::abseta <2.0);
 
       int nTowards = 0;
       int nTransverse = 0;

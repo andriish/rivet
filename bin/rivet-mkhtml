@@ -229,7 +229,7 @@ analyses = sorted(analyses, key=anasort)
 
 ## Run rivet-cmphistos to get plain .dat files from .yoda
 ## We do this here since it also makes the necessary directories
-ch_cmd = ["rivet-cmphistos"]
+ch_cmd = [sys.executable, os.path.join(os.path.dirname(__file__), "rivet-cmphistos")]
 if args.MC_ERRS:
     ch_cmd.append("--mc-errs")
 if not args.SHOW_RATIO:

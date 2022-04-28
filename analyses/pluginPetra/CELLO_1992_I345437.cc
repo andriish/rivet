@@ -35,7 +35,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      Particles part = applyProjection<FinalState>(event,"FS").particles();
+      Particles part = apply<FinalState>(event,"FS").particles();
       if(part.size()!=2) vetoEvent;
       double cTheta(0.);
       bool foundP(false),foundM(false);

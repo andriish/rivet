@@ -43,8 +43,8 @@ namespace Rivet {
 
     /// Per-event analysis
     void analyze(const Event& event) {
-      const Jets& jets = applyProjection<JetAlg>(event, "ANTIKT").jetsByPt(Cuts::absrap < 5. && Cuts::pT > 100*GeV);
-      const Jets& lowjets = applyProjection<JetAlg>(event, "ANTIKT").jetsByPt(Cuts::absrap < 2.5 && Cuts::pT > 30*GeV);
+      const Jets& jets = apply<JetAlg>(event, "ANTIKT").jetsByPt(Cuts::absrap < 5. && Cuts::pT > 100*GeV);
+      const Jets& lowjets = apply<JetAlg>(event, "ANTIKT").jetsByPt(Cuts::absrap < 2.5 && Cuts::pT > 30*GeV);
       if (jets.size() < 2) vetoEvent;
       if (jets[0].absrap() > 2.5 || jets[1].absrap() > 2.5) vetoEvent;
 

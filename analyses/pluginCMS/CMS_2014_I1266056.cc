@@ -57,12 +57,12 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get the photon
-      const FinalState& photonfs = applyProjection<FinalState>(event, "LeadingPhoton");
+      const FinalState& photonfs = apply<FinalState>(event, "LeadingPhoton");
       if (photonfs.particles().empty()) vetoEvent;
       const FourMomentum photon = photonfs.particles().front().momentum();
 
       // Get the jet
-      Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt(30.0*GeV);
+      Jets jets = apply<FastJets>(event, "Jets").jetsByPt(30.0*GeV);
       if (jets.empty()) vetoEvent;
       FourMomentum leadingJet;
       for ( const Jet & j : jets ) {

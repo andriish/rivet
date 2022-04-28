@@ -43,7 +43,7 @@ namespace Rivet {
     /// Per-event analysis
     void analyze(const Event& event) {
       // Select ttbar -> lepton+jets
-      const SpecialDressedLeptons& dressedleptons = applyProjection<SpecialDressedLeptons>(event, "DressedLeptons");
+      const SpecialDressedLeptons& dressedleptons = apply<SpecialDressedLeptons>(event, "DressedLeptons");
       vector<FourMomentum> selleptons;
       for (const DressedLepton& dressedlepton : dressedleptons.dressedLeptons()) {
         // Select good leptons
@@ -56,7 +56,7 @@ namespace Rivet {
       const FourMomentum lepton = selleptons[0];
 
       // Jets
-      const FastJets& jets   = applyProjection<FastJets>(event, "Jets");
+      const FastJets& jets   = apply<FastJets>(event, "Jets");
       const Jets      jets30 = jets.jetsByPt(30*GeV);
       int nJets = 0, nBJets = 0;
       for (const Jet& jet : jets30) {
@@ -122,7 +122,7 @@ namespace Rivet {
         _clusteredLeptons.clear();
 
         vector<DressedLepton> allClusteredLeptons;
-        const Jets jets = applyProjection<FastJets>(e, "LeptonJets").jetsByPt(5*GeV);
+        const Jets jets = apply<FastJets>(e, "LeptonJets").jetsByPt(5*GeV);
         for (const Jet& jet : jets) {
           Particle lepCand;
           for (const Particle& cand : jet.particles()) {

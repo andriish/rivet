@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VER="3.1.2"
+VER="3.1.5"
 
 # use Python version from Docker image
 alias python='docker run -i --rm  -u `id -u $USER`:`id -g`  -v $PWD:$PWD -w $PWD  hepstore/rivet:'$VER' python'

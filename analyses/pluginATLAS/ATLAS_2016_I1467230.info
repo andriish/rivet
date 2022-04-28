@@ -18,7 +18,7 @@ Keywords:
 RunInfo:
   "$pp$ QCD interactions at 13 TeV. Diffractive events should
   be included. Multiple kinematic cuts should not be required."
-Luminosity_fb: 1.51*E-07
+Luminosity_fb: 1.51E-7
 Beams: [p+, p+]
 Energies: [13000]
 PtCuts: [0.1]

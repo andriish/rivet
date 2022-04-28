@@ -104,14 +104,14 @@ namespace Rivet {
 
       // Trigger particles
       Particles trigParticles =
-        applyProjection<ALICE::PrimaryParticles>(event,"APRIMTrig").particles();
+        apply<ALICE::PrimaryParticles>(event,"APRIMTrig").particles();
 
       // Associated particles
       Particles assocParticles[PT_BINS];
       for (int ipt = 0; ipt < PT_BINS; ++ipt) {
         string pname = "APRIMAssoc" + toString(ipt);
         assocParticles[ipt] =
-          applyProjection<ALICE::PrimaryParticles>(event,pname).particles();
+          apply<ALICE::PrimaryParticles>(event,pname).particles();
       }
 
       // Check type of event. This may not be a perfect way to check for the

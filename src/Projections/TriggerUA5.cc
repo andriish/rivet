@@ -26,11 +26,11 @@ namespace Rivet {
     _decision_nsd_2 = false;
 
     // Triggers can be different for pp and ppbar running
-    const Beam& b = applyProjection<Beam>(evt, "Beam");
+    const Beam& b = apply<Beam>(evt, "Beam");
     _samebeams = (b.beams().first.pid() == b.beams().second.pid());
 
     // Count hodoscope hits
-    const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(evt, "CFS");
+    const ChargedFinalState& cfs = apply<ChargedFinalState>(evt, "CFS");
     for (const Particle& p : cfs.particles()) {
       if (inRange(p.eta(), -5.6, -2.0)) _n_minus++;
       else if (inRange(p.eta(), 2.0, 5.6)) _n_plus++;

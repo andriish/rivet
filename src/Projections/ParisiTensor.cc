@@ -22,7 +22,7 @@ namespace Rivet {
     clear();
 
     // Apply sphericity projection to event
-    Sphericity sph = applyProjection<Sphericity>(e, "Sphericity");
+    Sphericity sph = apply<Sphericity>(e, "Sphericity");
 
     // Set parameters
     _lambda[0] = sph.lambda1();

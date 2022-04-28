@@ -54,7 +54,7 @@ namespace Rivet {
 
 
   void IdentifiedFinalState::project(const Event& e) {
-    const FinalState& fs = applyProjection<FinalState>(e, "FS");
+    const FinalState& fs = apply<FinalState>(e, "FS");
     _theParticles.clear();
     _theParticles.reserve(fs.particles().size());
     _remainingParticles.clear();

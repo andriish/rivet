@@ -69,7 +69,7 @@ namespace Rivet {
       }
 
       // Get the jets
-      const Jets& psjetsCA12 = applyProjection<FastJets>(event, "JetsCA12").jetsByPt(Cuts::pT > 50*GeV);
+      const Jets& psjetsCA12 = apply<FastJets>(event, "JetsCA12").jetsByPt(Cuts::pT > 50*GeV);
 
       // Subtract the lepton four vector from a jet in case of overlap and clean jets
       Jets cleanedJets;

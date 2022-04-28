@@ -67,10 +67,10 @@ namespace Rivet {
       if (leading_l_pt < 20*GeV || second_l_pt < 10*GeV) vetoEvent;
 
       // Find acceptable ZZ combinations and build four-momenta, otherwise veto
-      const ZFinder& zeefinder = applyProjection<ZFinder>(evt, "ZeeFinder");
-      const ZFinder& zeefinder_woZee = applyProjection<ZFinder>(evt, "Zeefinder_WoZee");
-      const ZFinder& zmmfinder = applyProjection<ZFinder>(evt, "ZmmFinder");
-      const ZFinder& zmmfinder_woZmm = applyProjection<ZFinder>(evt, "Zmmfinder_WoZmm");
+      const ZFinder& zeefinder = apply<ZFinder>(evt, "ZeeFinder");
+      const ZFinder& zeefinder_woZee = apply<ZFinder>(evt, "Zeefinder_WoZee");
+      const ZFinder& zmmfinder = apply<ZFinder>(evt, "ZmmFinder");
+      const ZFinder& zmmfinder_woZmm = apply<ZFinder>(evt, "Zmmfinder_WoZmm");
 
       FourMomentum pZ_a, pZ_b, pZ_1, pZ_2;
       FourMomentum pZZ, Z_a_l1, Z_a_l2, Z_b_l1, Z_b_l2;

@@ -27,7 +27,7 @@ source /cvmfs/sft.cern.ch/lcg/releases/LCG_99/ROOT/v6.22.06/x86_64-centos7-gcc10
 1. **Download the bootstrap script** into a temporary working directory, and make it executable:
 ```
   cd /scratch/rivet
-  wget https://gitlab.com/hepcedar/rivetbootstrap/raw/3.1.4/rivet-bootstrap
+  wget https://gitlab.com/hepcedar/rivetbootstrap/raw/3.1.5/rivet-bootstrap
   chmod +x rivet-bootstrap
 ```
 (Replace the version string as appropriate if you want to install other versions of Rivet.)

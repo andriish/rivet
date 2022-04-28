@@ -81,9 +81,9 @@ namespace Rivet {
       if (!apply<ALICE::V0AndTrigger>(event, "V0-AND")()) return;
       // The projections
       const PrimaryParticles& pp =
-        applyProjection<PrimaryParticles>(event,"APRIM");
+        apply<PrimaryParticles>(event,"APRIM");
       const EventMixingFinalState& evm =
-        applyProjection<EventMixingFinalState>(event, "EVM");
+        apply<EventMixingFinalState>(event, "EVM");
       // Test if we have enough mixing events available to continue.
       if (!evm.hasMixingEvents()) return;
       for(const Particle& p1 : pp.particles()) {

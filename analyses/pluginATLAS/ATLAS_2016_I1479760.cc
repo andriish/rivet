@@ -65,7 +65,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Retrieve all anti-kt R=0.6 jets with pT above 20 GeV and eta < 4.4
-      const Jets jets = applyProjection<JetAlg>(event, "AntiKt6Jets").jetsByPt(Cuts::pT >= 20*GeV && Cuts::abseta <= 4.4);
+      const Jets jets = apply<JetAlg>(event, "AntiKt6Jets").jetsByPt(Cuts::pT >= 20*GeV && Cuts::abseta <= 4.4);
 
       // Require at least 4 jets, with the leading jet pT above 42.5 GeV
       if (jets.size() < 4) vetoEvent;

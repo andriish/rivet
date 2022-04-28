@@ -123,6 +123,7 @@ nobase_pkginclude_HEADERS += \
 nobase_pkginclude_HEADERS += \
   Tools/AliceCommon.hh \
   Tools/AtlasCommon.hh \
+  Tools/Beams.hh \
   Tools/BeamConstraint.hh \
   Tools/BinnedHistogram.hh \
   Tools/CentralityBinner.hh \
@@ -158,8 +159,8 @@ nobase_pkginclude_HEADERS += \
   Tools/ExptSmearingFunctions.hh \
   Tools/TypeTraits.hh \
   Tools/WriterCompressedAscii.hh \
-  Tools/Utils.hh
-
+  Tools/Utils.hh \
+  Tools/ProjectionTreePlotter.hh
 nobase_dist_noinst_HEADERS += \
   Tools/osdir.hh \
   Math/eigen3/COPYING.GPL \

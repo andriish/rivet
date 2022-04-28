@@ -1,0 +1,96 @@
+{
+    "1900094": [
+        "First Measurement of Polarizations in the Decay $D^0 \\to \\omega \\phi$", 
+        "BESIII", 
+        "10.1103/PhysRevLett.128.011803", 
+        null, 
+        "2108.02405", 
+        null, 
+        null, 
+        [
+            "BAM-404"
+        ]
+    ], 
+    "1928958": [
+        "Search for a $CP$-odd light Higgs boson in $J/\\psi \\to \\gamma A^0$", 
+        "BESIII", 
+        "10.1103/PhysRevD.105.012008", 
+        null, 
+        "2109.12625", 
+        null, 
+        null, 
+        [
+            "BAM-0481"
+        ]
+    ], 
+    "1929365": [
+        "Amplitude analysis and branching fraction measurement of the decay $ {D}_s^{+} $ \u2192 \u03c0$^{+}$\u03c0$^{0}$\u03c0$^{0}$", 
+        "BESIII", 
+        "10.1007/JHEP01(2022)052", 
+        null, 
+        "2109.12660", 
+        null, 
+        null, 
+        []
+    ], 
+    "1940222": [
+        "Observation of\u00a0$D^{0(+)}\\to K^0_S\\pi^{0(+)}\\omega $ and improved measurement of $D^0\\to K^-\\pi^+\\omega$", 
+        "BESIII", 
+        "10.1103/PhysRevD.105.032009", 
+        null, 
+        "2110.03415", 
+        null, 
+        null, 
+        []
+    ], 
+    "1974025": [
+        "Measurement of $\\Lambda$ baryon polarization in $e^+e^-\\rightarrow\\Lambda\\bar\\Lambda$ at $\\sqrt{s} = 3.773$ GeV", 
+        "BESIII", 
+        "10.1103/PhysRevD.105.L011101", 
+        null, 
+        "2111.11742", 
+        null, 
+        null, 
+        []
+    ], 
+    "1996394": [
+        "Measurement of the Cross Section for $e^{+}e^{-}\\to$Hadrons at Energies from 2.2324 to 3.6710\u00a0GeV", 
+        "BESIII", 
+        "10.1103/PhysRevLett.128.062004", 
+        null, 
+        "2112.11728", 
+        null, 
+        null, 
+        []
+    ], 
+    "1999208": [
+        "Measurement of the $e^{+}e^{-}\\rightarrow\\omega\\pi^{0}\\pi^{0}$ cross section at center-of-mass energies from 2.0 to 3.08\u00a0GeV", 
+        "BESIII", 
+        "10.1103/PhysRevD.105.032005", 
+        null, 
+        "2112.15076", 
+        null, 
+        null, 
+        []
+    ], 
+    "2035350": [
+        "Search for baryon- and lepton-number violating decays $D^0 \\rightarrow \\overline{p} e^+$ and $D^0 \\rightarrow pe^-$", 
+        "BESIII", 
+        "10.1103/PhysRevD.105.032006", 
+        null, 
+        "2112.10972", 
+        null, 
+        null, 
+        []
+    ], 
+    "2038523": [
+        "Study of light scalar mesons through $D^+_s \\to \\pi^0\\pi^0e^+ \\nu_e$ and $K^0_S K^0_S e^+ \\nu_e$ decays", 
+        "BESIII", 
+        "10.1103/PhysRevD.105.L031101", 
+        null, 
+        null, 
+        null, 
+        null, 
+        []
+    ]
+}

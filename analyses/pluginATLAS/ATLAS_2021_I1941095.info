@@ -22,7 +22,7 @@ Energies: [13000]
 PtCuts: [350]
 Description: 
     'A measurement of the energy asymmetry in jet-associated top-quark pair production is presented using 
-    139 fb$^{-1}$ of data collected by the ATLAS detector at the Large Hadron Collider during pppp collisions at 
+    139 fb$^{-1}$ of data collected by the ATLAS detector at the Large Hadron Collider during $pp$ collisions at 
     $\sqrt{s}=13$ TeV. The observable measures the different probability of top and antitop quarks to have the higher 
     energy as a function of the jet scattering angle with respect to the beam axis. The energy asymmetry is measured 
     in the semileptonic $t\bar{t}$ decay channel, and the hadronically decaying top quark must have transverse momentum 
