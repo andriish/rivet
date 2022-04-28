@@ -469,6 +469,7 @@ for i, (refFile,yaml_dict) in enumerate(yaml_dicts.items()):
     
     # save figure TODO: tweak command line options --> let user decide format
     plt.savefig(os.path.join(args.OUTPUTDIR, refFile.strip('/'))+"."+args.VECTORFORMAT.lower())
+    plt.savefig(os.path.join(args.OUTPUTDIR, refFile.strip('/'))+".png") # for the html booklet
     plt.close()
     
     # access to the yoda objects here
