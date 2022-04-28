@@ -58,7 +58,6 @@ parser.add_argument("--pwd", dest="PATH_PWD", action="store_true", default=False
                     help="append the current directory (pwd) to the analysis/data search paths (cf. $RIVET_ANALYSIS_PATH)")
 parser.add_argument("--style", dest="STYLE", help="Choose the plotting style", default='default')
 parser.add_argument("--write-files", dest="WRITE_FILES", help="Choose to write YAML files", default=True)
-parser.add_argument("--nRatioTicks", dest="NRATIOTICKS", help="Modify number of minor ticks between major ticks on ratio plot.", default=1)
 
 stygroup = parser.add_argument_group("Style options")
 stygroup.add_argument("-t", "--title", dest="TITLE",
@@ -74,6 +73,9 @@ stygroup.add_argument("-s", "--single", dest="SINGLE", action="store_true",
 #                      default=True, help="don't draw a ratio plot under each main plot.")
 stygroup.add_argument("--errs", "--mcerrs", "--mc-errs", dest="MC_ERRS", action="store_true",
                       default=False, help="plot error bars.")
+
+parser.add_argument("--nRatioTicks", dest="NRATIOTICKS", default=1,
+                      help="Modify number of minor ticks between major ticks on ratio plot.")
 stygroup.add_argument("--offline", dest="OFFLINE", action="store_true",
                       default=False, help="generate HTML that does not use external URLs.")
 stygroup.add_argument("--pdf", dest="VECTORFORMAT", action="store_const", const="PDF",
@@ -461,12 +463,12 @@ print("Making {} plots".format(num_plots))
 
 for i, (refFile,yaml_dict) in enumerate(yaml_dicts.items()):
     print("Plotting", args.OUTPUTDIR+refFile, "({}/{} remaining)".format(num_plots-i, num_plots))
-
+    
     # get matplotlib plotting objects
     fig,ax = rivet_plot(yaml_dict, refFile, args.OUTPUTDIR)
     
     # save figure TODO: tweak command line options --> let user decide format
-    plt.savefig(os.path.join(args.OUTPUTDIR, refFile.strip('/'))+".pdf")
+    plt.savefig(os.path.join(args.OUTPUTDIR, refFile.strip('/'))+"."+args.VECTORFORMAT.lower())
     plt.close()
     
     # access to the yoda objects here
