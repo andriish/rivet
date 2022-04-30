@@ -172,11 +172,15 @@ namespace Rivet {
 
     // Find default weights, starting with the chosen or preferred name (default = "")
     size_t nDefaults = 0;
+    string nom_winner = "";
+    vector<string> nom_shortlist;
     _weightIndices.clear();
     for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
       _weightIndices.push_back(i);
       if (_weightNames[i] == _nominalWeightName) {
+        nom_shortlist.push_back("'"+ _weightNames[i] +"'");
         if (nDefaults == 0) {
+          nom_winner = "'" + _weightNames[i] + "'";
           _weightNames[i] = "";
           _rivetDefaultWeightIdx = _defaultWeightIdx = i;
         }
@@ -189,7 +193,9 @@ namespace Rivet {
       for (size_t i = 0, N = _weightNames.size(); i < N; ++i) {
         const string W = toUpper(_weightNames[i]);
         if (W == "WEIGHT" || W == "0" || W == "DEFAULT" || W == "NOMINAL") {
+          nom_shortlist.push_back("'"+ _weightNames[i] +"'");
           if (nDefaults == 0) {
+            nom_winner = "'" + _weightNames[i] + "'";
             _weightNames[i] = "";
             _rivetDefaultWeightIdx = _defaultWeightIdx = i;
           }
@@ -206,7 +212,7 @@ namespace Rivet {
     }
     // Warn if multiple weight names were acceptable alternatives
     if (nDefaults > 1) {
-      MSG_WARNING("Found more than " << nDefaults << " default weight candidates. Will use: " << _weightNames[_defaultWeightIdx]);
+      MSG_WARNING("Found " << nDefaults << " default weight candidates: " << join(nom_shortlist, ", ") << ". Will use: " <<  nom_winner);
     }
 
     // Apply behaviours for only using the nominal weight, or all weights
