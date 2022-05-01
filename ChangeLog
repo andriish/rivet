@@ -6,6 +6,10 @@
 
 	* Move the Jets and Particles definitions into the .hh headers.
 
+2022-4-06  Markus Seidel  <markus.seidel@cern.ch>
+
+	* Submission of CMS_2017_I1497519: Z boson in association with jets at 8 TeV
+
 2022-03-25  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fall back to old calculation of y in DISKinematics if Q2 is zero. Thanks to Peter Meinzinger.
