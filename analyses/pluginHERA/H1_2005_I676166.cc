@@ -33,7 +33,7 @@ namespace Rivet {
 
       declare(DISKinematics(), "Kinematics");
       const DISLepton dl;
-      declare(dl, "Lepton");
+      //declare(dl, "Lepton");
       declare(dl.remainingFinalState(), "FS");
 
       // DIS events: final state particles boosted to Breit frame then clustered 
@@ -88,7 +88,7 @@ namespace Rivet {
     
       //First Lorentz invariant quantities in Lab frame
       DISKinematics dis = apply<DISKinematics>(event, "Kinematics");
-      const DISLepton& dl = apply<DISLepton>(event,"Lepton");
+      //const DISLepton& dl = apply<DISLepton>(event,"Lepton");
       double Q2 = dis.Q2();
       double x = dis.x();
       double y = dis.y();

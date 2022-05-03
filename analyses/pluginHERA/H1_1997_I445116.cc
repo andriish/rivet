@@ -30,7 +30,7 @@ namespace Rivet {
 
       declare(DISKinematics(), "Kinematics");
       const DISLepton dl;
-      declare(dl, "Lepton");
+      //declare(dl, "Lepton");
 
       declare(ChargedFinalState(dl.remainingFinalState()), "CFS");
 
@@ -90,7 +90,7 @@ namespace Rivet {
       //const Multiplicity& Mul = apply<FinalState>(event, "Multiplicity");
 
       const DISKinematics& dk = apply<DISKinematics>(event, "Kinematics");
-      const DISLepton& dl = apply<DISLepton>(event,"Lepton");
+      //const DISLepton& dl = apply<DISLepton>(event,"Lepton");
 
   
       double Q2 = dk.Q2();
@@ -253,7 +253,7 @@ namespace Rivet {
         double Nev = dbl(*_Nevt_after_cuts_Q[iQ]) ;
         if (Nev != 0) scale(histo, 1./Nev);
 
-        for (size_t iP = 0; iP < iPmax; ++iP) {
+        for (int iP = 0; iP < iPmax; ++iP) {
           cout << " xp range: "<< xp_range[iP] << " " << xp_range[iP+1] << endl;
           mean = histo->bin(iP).height() ;
 
