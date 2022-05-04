@@ -23,7 +23,7 @@ namespace Rivet {
 
     /// @brief Constructor with explicit FinalState
     ///
-    /// @note The DISKinematics has no parameters, hence explicitly passing it as an arg shouldn't be necessary.
+    /// @deprecated The DISKinematics has no parameters, hence explicitly passing it as an arg shouldn't be necessary.
     DISFinalState(const FinalState& fs, BoostFrame boosttype, const DISKinematics& kinematicsp=DISKinematics())
       : _boosttype(boosttype)
     {
@@ -34,7 +34,7 @@ namespace Rivet {
 
     /// @brief Constructor with optional FinalState
     ///
-    /// @note The DISKinematics has no parameters, hence explicitly passing it as an arg shouldn't be necessary.
+    /// @deprecated The DISKinematics has no parameters, hence explicitly passing it as an arg shouldn't be necessary.
     DISFinalState(BoostFrame boosttype, const FinalState& fs=FinalState(), const DISKinematics& kinematicsp=DISKinematics())
       : DISFinalState(fs, boosttype, kinematicsp)
     {    }
@@ -45,7 +45,7 @@ namespace Rivet {
     ///
     /// @todo Add a second optional Cut argument for post-boost cuts.
     ///
-    /// @note The DISKinematics has no parameters, hence explicitly passing it as an arg shouldn't be necessary.
+    /// @deprecated The DISKinematics has no parameters, hence explicitly passing it as an arg shouldn't be necessary.
     DISFinalState(const Cut& c, BoostFrame boosttype, const DISKinematics& kinematicsp=DISKinematics())
       : DISFinalState(FinalState(c), boosttype, kinematicsp)
     {    }
@@ -56,7 +56,7 @@ namespace Rivet {
     ///
     /// @todo Add a second optional Cut argument for post-boost cuts.
     ///
-    /// @note The DISKinematics has no parameters, hence explicitly passing it as an arg shouldn't be necessary.
+    /// @deprecated The DISKinematics has no parameters, hence explicitly passing it as an arg shouldn't be necessary.
     DISFinalState(BoostFrame boosttype, const Cut& c, const DISKinematics& kinematicsp=DISKinematics())
       : DISFinalState(FinalState(c), boosttype, kinematicsp)
     {    }
@@ -80,6 +80,12 @@ namespace Rivet {
     DEFAULT_RIVET_PROJ_CLONE(DISFinalState);
 
     //@}
+
+
+    /// Get the associated DISKinematics (to avoid needing a separate projection)
+    const DISKinematics& kinematics() {
+      return getProjection<DISKinematics>("Kinematics");
+    }
 
 
   protected:
