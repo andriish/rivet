@@ -254,8 +254,13 @@ namespace Rivet {
     /// @name Histogram / data object access
     /// @{
 
+    /// @brief Read analysis plots into the histo collection from the given stream
+    ///
+    /// Use the @a fmt flag to specify the YODA output format (yoda, yoda.gz, yoda.h5, ...)
+    void readData(std::istream& istr, const string& fmt, bool preload = true);
+
     /// Read analysis plots into the histo collection (via addData) from the named file.
-    void readData(const std::string& filename);
+    void readData(const std::string& filename, bool preload = true);
 
     /// Get all YODA analysis objects (across all weights, optionally including RAW)
     vector<YODA::AnalysisObjectPtr> getYodaAOs(bool includeraw=false) const;
@@ -309,13 +314,16 @@ namespace Rivet {
     /// If @a delopts is non-empty, it is assumed to contain names of different
     /// options to be merged into the same analysis objects.
     ///
-    /// @todo Shouldn't this be private? Why is the Cython interface calling it?
+
     void mergeYodas(const vector<string>& aofiles,
                     const vector<string>& delopts=vector<string>(),
                     const vector<string>& addopts=vector<string>(),
                     const vector<string>& matches=vector<string>(),
                     const vector<string>& unmatches=vector<string>(),
                     bool equiv=false);
+
+    /// A method to merge another AnalysisHandler into the current one
+    void merge(AnalysisHandler &other);
 
     /// @}
 
@@ -350,6 +358,25 @@ namespace Rivet {
     /// After all subevents in an event group have been processed, push
     /// all histo fills to the relevant histograms.
     void pushToPersistent();
+
+    /// @brief Merge the AO map @a newaos into @a allaos
+    void mergeAOS(map<string, YODA::AnalysisObjectPtr> &allaos,
+                  map<string, YODA::AnalysisObject*> &newaos, 
+                  map<string, pair<double, double>> &allxsecs,
+                  const vector<string>& delopts=vector<string>(),
+                  const vector<string>& optAnas=vector<string>(),
+                  const vector<string>& optKeys=vector<string>(),
+                  const vector<string>& optVals=vector<string>(),
+                  bool equiv=false,
+                  const bool overwrite_xsec = false,
+                  const double user_xsec = 1.0);
+
+     
+    /// @brief A method to prepare a re-entrant run for a given set of analysis objects
+    ///
+    /// The @a unscale parameter multiplies fillable objects with sumW/xsec to counteract
+    /// the cross-section scaling in finalize() when merging different processes (non-equiv)
+    void loadAOs(const map<string, YODA::AnalysisObjectPtr>& allAOs, const bool unscale = false);
 
     /// @}
 

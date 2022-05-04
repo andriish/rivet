@@ -49,6 +49,8 @@ Get in touch via the developer mailing list if you need any assistance: [rivet-s
 
 [Preload files, centrality calibration (work in progress)](doc/tutorials/calibration.md)
 
+[Running Rivet on HPC clusters with MPI](doc/tutorials/merging_mpi.md)
+
 [Merging separate physics runs with `rivet-merge` (work in progress)](doc/tutorials/merging2.md)
 
 [Running on a subset of available multiweights](doc/tutorials/multiweights_running.md)

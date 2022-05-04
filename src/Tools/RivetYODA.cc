@@ -603,6 +603,7 @@ namespace Rivet {
   template <class T>
   void Wrapper<T>::pushToFinal() {
     for ( size_t m = 0; m < _persistent.size(); ++m ) {
+      _final.at(m)->clearAnnotations(); // in case this is a repeat call
       copyao(_persistent.at(m), _final.at(m));
       // Remove the /RAW prefix, if there is one, from the final copy
       if ( _final[m]->path().substr(0,4) == "/RAW" )
