@@ -79,8 +79,9 @@ anagroup.add_argument("--pwd", dest="ANALYSIS_PATH_PWD", action="store_true", de
 extragroup = parser.add_argument_group("Extra run settings")
 extragroup.add_argument("-o", "-H", "--histo-file", dest="HISTOFILE",
                         default="Rivet.yoda", help="specify the output histo file path (default = %(default)s)")
-extragroup.add_argument("-p", "--preload-file", dest="PRELOADFILE",
-                        default=None, help="specify a pre-existing YODA file to read in, to initialize the histograms (default = %(default)s)")
+extragroup.add_argument("-p", "--preload-file", "--preload-files", dest="PRELOADFILES", action="append", default=[],
+                        help="specify a pre-existing YODA file (or comma-separated list of files)"
+                        "to read in, for initializing the histograms (default = none)")
 extragroup.add_argument("--no-histo-file", dest="WRITE_DATA", action="store_false", default=True,
                         help="don't write out any histogram file at the end of the run (default = write)")
 extragroup.add_argument("-x", "--cross-section", dest="CROSS_SECTION",
@@ -567,8 +568,9 @@ for a in args.ANALYSES:
     logging.debug("Adding analysis '%s'" % a)
     ah.addAnalysis(a)
 
-if args.PRELOADFILE is not None:
-    ah.readData(args.PRELOADFILE)
+for plfarg in args.PRELOADFILES:
+    for plf in plfarg.split(","):
+        ah.readData(plf)
 
 if args.DUMP_PERIOD:
     ah.dump(args.HISTOFILE, args.DUMP_PERIOD)

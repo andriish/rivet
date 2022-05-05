@@ -1,3 +1,10 @@
+2022-05-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Allow the rivet script's -p option to be given multiple times,
+	or to contain a comma-separated list of files to load cf. the -a
+	argument. readData() is called for each specified preload file, in
+	order.
+
 2022-04-20  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add a pseudojets() method and automatic conversion operator to
