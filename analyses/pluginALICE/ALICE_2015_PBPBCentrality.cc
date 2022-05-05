@@ -26,7 +26,7 @@ namespace Rivet {
        // Access the HepMC heavy ion info
       declare(HepMCHeavyIon(), "HepMC");
 
-      book(_v0m, "V0M");
+      book(_v0m, "V0M", 500, -5.0, 39995.0);
       book(_imp, "V0M_IMP",100,0,20);
     }
 
