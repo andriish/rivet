@@ -216,6 +216,10 @@
 	argument. readData() is called for each specified preload file, in
 	order.
 
+2022-05-05 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2016_I1504943 eta' -> pi0 gamma gamma decays
+
 2022-04-21 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add CRYSTAL_BARREL_1997_I456942 eta'-> pi+ pi- gamma decays

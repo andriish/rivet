@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief eta' -> gamma e+e-
   class BESIII_2015_I1364494 : public Analysis {
   public:
 
@@ -75,7 +75,7 @@ namespace Rivet {
 
       // divide by no so BR and mult by bin width
       // and 100 as in %
-      scale(_h_m,1./_netap->sumW()*0.1*100.);
+      scale(_h_m,0.1*100./ *_netap);
 
     }
 
