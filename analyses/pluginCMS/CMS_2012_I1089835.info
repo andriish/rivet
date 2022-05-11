@@ -48,4 +48,4 @@ BibTeX: '@article{Chatrchyan:2012dk,
 }'
 ReleaseTests:
  - $A LHC-7-Bottom-0
- - $A1 LHC-7-DiJets-1-A
+ - $A-2 LHC-7-DiJets-1-A

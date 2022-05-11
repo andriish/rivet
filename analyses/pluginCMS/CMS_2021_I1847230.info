@@ -35,7 +35,7 @@ BibTeX: '@article{Sirunyan:2021lwi,
     year = "2021"
 }' 
 
-ReleaseTests:
- - A LHC-8-Jets-0  :MODE=QCD8TeV
- - A-2 LHC-13-Jets-0  :MODE=QCD13TeV
- - A-3 LHC-13-Z-mu-jets  :MODE=ZJet
+#ReleaseTests:
+# - $A LHC-13-Z-mu-jets  :MODE=ZJet
+# - $A-2 LHC-8-Jets-0  :MODE=QCD8TeV
+# - $A-3 LHC-13-Jets-0  :MODE=QCD13TeV
