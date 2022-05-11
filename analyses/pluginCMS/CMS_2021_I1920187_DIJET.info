@@ -32,4 +32,5 @@ BibTeX: '@article{CMS:2021iwu,
 }'
 
 ReleaseTests:
- - $A LHC-13-Jets-0
+ - $A LHC-13-Jets-2
+ - $A-2 LHC-13-Jets-3

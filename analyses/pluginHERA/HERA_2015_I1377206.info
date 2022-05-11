@@ -43,4 +43,4 @@ BibTeX: '@article{Abramowicz:2015mha,
       SLACcitation   = "%%CITATION = ARXIV:1506.06042;%%"
 }'
 ReleaseTests:
- - $A DIS-e+-HighQ2
+ - $A DIS-e+-HighQ2 :BEAM=EPLUS:ENERGY=300.
