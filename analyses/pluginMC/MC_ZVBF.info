@@ -12,6 +12,7 @@ Options:
  - LMODE=EL,MU
  - SCHEME=DRESSED,BARE
 PtCuts: [0]
+WriterDoublePrecision: 'jet_veto_eff|jve_mjj|m_jj'
 Description:
   Available observables are the pT of jets 1-4, jet multiplicity,
   $\Delta\eta(Z, \text{jet1})$, $\Delta R(\text{jet2}, \text{jet3})$,

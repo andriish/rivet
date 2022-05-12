@@ -79,6 +79,7 @@ cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
         string refFile()
         string refMatch()
         string refUnmatch()
+        string writerDoublePrecision()
 
 
 # Might need to translate the following errors, although I believe 'what' is now
