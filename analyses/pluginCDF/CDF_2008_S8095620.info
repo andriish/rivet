@@ -6,6 +6,7 @@ Collider: Tevatron Run 2
 SpiresID: 8095620
 InspireID: 806082
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Emily Nurse <nurse@hep.ucl.ac.uk>
  - Steffen Schumann <s.schumann@thphys.uni-heidelberg.de>

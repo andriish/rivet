@@ -6,6 +6,7 @@ Collider: Tevatron Run 2
 SpiresID: 6653332
 InspireID: 717572
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Lars Sonnenschein <Lars.Sonnenschein@cern.ch>
  - Steffen Schumann <s.schumann@thphys.uni-heidelberg.de>

@@ -5,6 +5,7 @@ Experiment: CDF
 Collider: Tevatron
 InspireID: 1124333
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Simone Amoroso <amoroso@cern.ch>
 References:

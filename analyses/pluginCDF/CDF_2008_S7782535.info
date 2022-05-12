@@ -6,6 +6,7 @@ Collider: Tevatron Run 2
 SpiresID: 7782535
 InspireID: 787780
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Alison Lister <alister@fnal.gov>
  - Emily Nurse <nurse@hep.ucl.ac.uk>

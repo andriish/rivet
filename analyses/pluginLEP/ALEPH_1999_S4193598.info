@@ -6,6 +6,7 @@ Collider: LEP
 SpiresID: 4193598
 InspireID: 507422
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Holger Schulz <hschulz@physik.hu-berlin.de>
 References:

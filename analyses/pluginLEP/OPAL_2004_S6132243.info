@@ -6,7 +6,7 @@ Collider: LEP 1 & 2
 SpiresID: 6132243
 InspireID: 669402
 Status: VALIDATED
-Reentrant: true
+Reentrant: false
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>
 References:

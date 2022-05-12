@@ -6,6 +6,7 @@ Collider: Tevatron Run 2
 SpiresID: 6450792
 InspireID: 699933
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>
 References:

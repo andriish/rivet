@@ -14,9 +14,7 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    CDF_2009_I856131()
-      : Analysis("CDF_2009_I856131")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2009_I856131);
 
     //@}
 
