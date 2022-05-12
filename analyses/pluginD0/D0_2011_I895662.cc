@@ -9,9 +9,7 @@ namespace Rivet {
   class D0_2011_I895662 : public Analysis {
   public:
 
-    D0_2011_I895662()
-      : Analysis("D0_2011_I895662")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(D0_2011_I895662);
 
 
   public:

@@ -6,6 +6,7 @@ Collider: Tevatron Run 2
 SpiresID: 7837160
 InspireID: 791230
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>
  - Gavin Hesketh <gavin.hesketh@cern.ch>

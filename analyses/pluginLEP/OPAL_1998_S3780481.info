@@ -5,6 +5,7 @@ Experiment: OPAL
 Collider: LEP 1
 InspireID: 472637
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>
 References:

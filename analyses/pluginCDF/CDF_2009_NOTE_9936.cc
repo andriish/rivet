@@ -13,9 +13,7 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    CDF_2009_NOTE_9936()
-      : Analysis("CDF_2009_NOTE_9936")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2009_NOTE_9936);
 
     //@}
 

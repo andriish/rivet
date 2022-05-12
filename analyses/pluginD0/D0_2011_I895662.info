@@ -5,6 +5,7 @@ Experiment: D0
 Collider: Tevatron Run 2
 InspireID: 895662
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>
 References:

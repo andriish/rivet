@@ -6,6 +6,7 @@ Collider: SLC
 SpiresID: 5693039
 InspireID: 630327
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>
 References:

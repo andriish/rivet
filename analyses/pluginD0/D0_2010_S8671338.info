@@ -6,6 +6,7 @@ Collider: Tevatron Run 2
 SpiresID: 8671338
 InspireID: 856972
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Flavia Dias <fladias@gmail.com>
  - Gavin Hesketh <gavin.hesketh@cern.ch>
