@@ -264,6 +264,10 @@ namespace Rivet {
       return info().refUnmatch();
     }
 
+    /// Positive filterin regex for setting double precision in Writer
+    virtual std::string writerDoublePrecision() const {
+      return info().writerDoublePrecision();
+    }
 
     /// Return the allowed pairs of incoming beams required by this analysis.
     virtual const std::vector<PdgIdPair>& requiredBeams() const {
@@ -882,6 +886,10 @@ namespace Rivet {
 
     /// Check if we are in the finalize stage.
     bool _inFinalize() const;
+
+    /// Set DP annotation
+    template <typename YODAT>
+    void _setWriterPrecision(const string& path, YODAT& yao);
 
 
   private:

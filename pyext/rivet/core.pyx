@@ -236,6 +236,9 @@ cdef class Analysis:
     def refUnmatch(self):
         return deref(self._ptr).refUnmatch().decode('utf-8')
 
+    def writerDoublePrecision(self):
+        return deref(self._ptr).writerDoublePrecision().decode('utf-8')
+
     def refFile(self):
         #return findAnalysisRefFile(self.name() + ".yoda")
         return deref(self._ptr).refFile().decode('utf-8')

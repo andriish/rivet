@@ -68,6 +68,7 @@ namespace Rivet {
     TRY_GETINFO_DEFAULT("Warning", warning, "");
     TRY_GETINFO_DEFAULT("RefMatch", refmatch, "");
     TRY_GETINFO_DEFAULT("RefUnmatch", refunmatch, "");
+    TRY_GETINFO_DEFAULT("WriterDoublePrecision", writerdoubleprecision, "");
     TRY_GETINFO_DBL_DEFAULT("Luminosity_fb", luminosityfb, -1);
     #undef TRY_GETINFO
     #undef TRY_GETINFO_DEFAULT
