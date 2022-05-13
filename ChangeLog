@@ -1,3 +1,7 @@
+2022-05-13  Christian Gutschow  <chris.g@cern.ch>
+
+	* Release 3.1.6
+
 2022-05-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Allow the rivet script's -p option to be given multiple times,
