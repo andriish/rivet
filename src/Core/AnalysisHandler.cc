@@ -651,9 +651,10 @@ namespace Rivet {
 
     MSG_DEBUG("Finalize cross-section scaling ...");
     vector<double> scales(allxsecs.size(), 1.0);
-    for (auto& [wname, xspair] : allxsecs) {
-      double xs = xspair.first;
-      double xserr = sqrt(xspair.second);
+    for (const auto& item : allxsecs) {
+      const string wname = item.first;
+      double xs = item.second.first;
+      double xserr = sqrt(item.second.second);
       auto xs_it = allaos.find("/RAW/_XSEC" + wname);
       assert( xs_it != allaos.end() );
       shared_ptr<YODA::Scatter1D> xsec = dynamic_pointer_cast<YODA::Scatter1D>(xs_it->second);
@@ -694,8 +695,9 @@ namespace Rivet {
 
 
     map<string, double> scales;
-    for (auto& [aopath, aor] : newaos) { 
-      YODA::AnalysisObjectPtr ao(aor);
+    for (const auto& item : newaos) {
+      const string aopath = item.first;
+      YODA::AnalysisObjectPtr ao(item.second);
       //AOPath path(ao->path());
       AOPath path(aopath);
       if ( !path ) {
