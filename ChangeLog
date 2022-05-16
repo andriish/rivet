@@ -749,6 +749,10 @@
 
 	* Submission of CMS_2021_I1963239: Measurement of inclusive and Mueller-Navelet dijet cross sections and their ratios at 2.76 TeV
 
+2022-05-16 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2008_I781294 and BABAR_2012_I1123662 b-> s gamma
+
 2022-05-13  Christian Gutschow  <chris.g@cern.ch>
 
 	* Release 3.1.6

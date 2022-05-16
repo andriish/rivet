@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief B -> X_s gamma spectrum
   class BELLE_2015_I1330289 : public Analysis {
   public:
 
