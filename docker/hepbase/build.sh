@@ -11,10 +11,10 @@ test "$TEST" && BUILD="echo $BUILD"
 FEDORA_IMAGE=fedora:32
 UBUNTU_IMAGE=ubuntu:20.04
 
-RIVETBS_VERSION=3.1.5
-LHAPDF_VERSION=6.4.0
+RIVETBS_VERSION=3.1.6
+LHAPDF_VERSION=6.5.1
 
-for vhepmc in 3.2.4  2.06.11; do
+for vhepmc in 3.2.5  2.06.11; do
     for tex in 0 1; do
 
         MSG="Building hepbase image with HepMC=$vhepmc and TeX=$tex"
