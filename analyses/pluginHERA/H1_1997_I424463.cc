@@ -67,7 +67,7 @@ namespace Rivet {
       if ( of > 0 ) _h_Q2->fill(of);
       _h_Q2->fill(0);
 
-      for (const auto  p: cfs.particles()) {
+      for (const Particle&  p: cfs.particles()) {
         const double thp = p.momentum().angle(dk.beamHadron().mom())/degree;
 
         if (!( thp > 8. && thp < 155)) continue;
