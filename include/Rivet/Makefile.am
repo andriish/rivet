@@ -159,8 +159,8 @@ nobase_pkginclude_HEADERS += \
   Tools/ExptSmearingFunctions.hh \
   Tools/TypeTraits.hh \
   Tools/WriterCompressedAscii.hh \
-  Tools/Utils.hh
-
+  Tools/Utils.hh \
+  Tools/ProjectionTreePlotter.hh
 nobase_dist_noinst_HEADERS += \
   Tools/osdir.hh \
   Math/eigen3/COPYING.GPL \

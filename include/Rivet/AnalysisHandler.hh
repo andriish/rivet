@@ -250,7 +250,7 @@ namespace Rivet {
     void readData(const std::string& filename);
 
     /// Get all YODA analysis objects (across all weights, optionally including RAW)
-    vector<YODA::AnalysisObjectPtr> getYodaAOs(bool includeraw=false) const;
+    vector<YODA::AnalysisObjectPtr> getYodaAOs(bool includeraw=false, bool mkstatic=true) const;
 
     /// Get a pointer to a preloaded yoda object with the given path,
     /// or null if path is not found.

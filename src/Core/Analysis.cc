@@ -975,8 +975,7 @@ namespace Rivet {
 
 
   void Analysis::removeAnalysisObject(const string& path) {
-    for (auto it = _analysisobjects.begin();
-         it != _analysisobjects.end(); ++it) {
+    for (auto it = _analysisobjects.begin(); it != _analysisobjects.end(); ++it) {
       if ((*it)->path() == path) {
         _analysisobjects.erase(it);
         break;

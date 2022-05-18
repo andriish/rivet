@@ -6,7 +6,7 @@ using namespace std;
 namespace Rivet {
 
 
-  Log::LogMap Log::existingLogs;
+  thread_local Log::LogMap Log::existingLogs;
   Log::LevelMap Log::defaultLevels;
   Log::ColorCodes Log::colorCodes;
   string Log::endColorCode;
