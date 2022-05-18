@@ -81,8 +81,9 @@ anagroup.add_argument("--print-projection-tree", dest="DEBUG_PROJ_TREE", action=
 extragroup = parser.add_argument_group("Extra run settings")
 extragroup.add_argument("-o", "-H", "--histo-file", dest="HISTOFILE",
                         default="Rivet.yoda", help="specify the output histo file path (default = %(default)s)")
-extragroup.add_argument("-p", "--preload-file", dest="PRELOADFILE",
-                        default=None, help="specify a pre-existing YODA file to read in, to initialize the histograms (default = %(default)s)")
+extragroup.add_argument("-p", "--preload-file", "--preload-files", dest="PRELOADFILES", action="append", default=[],
+                        help="specify a pre-existing YODA file (or comma-separated list of files)"
+                        "to read in, for initializing the histograms (default = none)")
 extragroup.add_argument("--no-histo-file", dest="WRITE_DATA", action="store_false", default=True,
                         help="don't write out any histogram file at the end of the run (default = write)")
 extragroup.add_argument("-x", "--cross-section", dest="CROSS_SECTION",
@@ -568,8 +569,9 @@ for a in args.ANALYSES:
     logging.debug("Adding analysis '%s'" % a)
     ah.addAnalysis(a)
 
-if args.PRELOADFILE is not None:
-    ah.readData(args.PRELOADFILE)
+for plfarg in args.PRELOADFILES:
+    for plf in plfarg.split(","):
+        ah.readData(plf)
 
 if args.DUMP_PERIOD:
     ah.dump(args.HISTOFILE, args.DUMP_PERIOD)
@@ -647,7 +649,7 @@ if args.DEBUG_PROJ_TREE:
     ptg.writeProjTree()
 
 ## Event loop
-evtnum = 0
+old_evtnum = 0
 for fileidx, hepmcfile in enumerate(HEPMCFILES):
     ## Apply a file-level weight derived from the filename
     hepmcfileweight = 1.0
@@ -675,7 +677,7 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
 
     ## The event loop
     while args.MAXEVTNUM is None or evtnum-args.EVTSKIPNUM < args.MAXEVTNUM:
-        evtnum += 1
+        evtnum = run.numEvents() # only updates when event number changes
 
         ## Optional event skipping
         if evtnum <= args.EVTSKIPNUM:
@@ -686,7 +688,9 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
             continue
 
         ## Only log the event number once we're actually processing
-        logNEvt(evtnum, starttime, args.MAXEVTNUM)
+        if evtnum != old_evtnum:
+          old_evtnum = evtnum
+          logNEvt(evtnum, starttime, args.MAXEVTNUM)
 
         ## Process this event
         processed_ok = run.processEvent()

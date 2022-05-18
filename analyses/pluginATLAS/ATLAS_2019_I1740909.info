@@ -9,7 +9,7 @@ Reentrant: true
 RefUnmatch: 'd185|d186|d187|d188'
 Authors:
  - Ben Nachman <benjamin.philip.nachman@cern.ch>
- - Deepak Kar < deepak.kar@cern.ch>
+ - Deepak Kar <deepak.kar@cern.ch>
 References:
  - arXiv:1906.09254  [hep-ex]
  -  Phys.Rev.D 100 (2019) 5, 052011

@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[3.1.5],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[3.1.6],[rivet@projects.hepforge.org],[Rivet])
 
 ## Check and block installation into the src/build dir
 if test "$prefix" = "$PWD"; then
@@ -33,6 +33,7 @@ AC_DEFINE_UNQUOTED(RIVET_NAME, "$PACKAGE_NAME", "Rivet name string")
 AC_DEFINE_UNQUOTED(RIVET_STRING, "$PACKAGE_STRING", "Rivet name and version string")
 AC_DEFINE_UNQUOTED(RIVET_TARNAME, "$PACKAGE_TARNAME", "Rivet short name string")
 AC_DEFINE_UNQUOTED(RIVET_BUGREPORT, "$PACKAGE_BUGREPORT", "Rivet contact email address")
+AC_DEFINE_UNQUOTED(RIVET_SUPPORTS_MERGING_IN_MEMORY, 1, "Rivet memory-based merging support")
 
 
 
@@ -232,7 +233,7 @@ if test -n "$with_fjcontrib"; then
   AC_MSG_NOTICE([FastJet Contrib base path given: $with_fjcontrib])
   FJCONTRIBINCPATH=$with_fjcontrib/include
   FJCONTRIBLIBPATH=$with_fjcontrib/lib
-  if [[ -f "$with_fjcontrib/lib64/libfastjettools.so" || -f "$with_fjcontrib/lib64/libfastjettools.dyld" ]]; then
+  if test -f "$with_fjcontrib/lib64/libfastjettools.so" -o -f "$with_fjcontrib/lib64/libfastjettools.dyld"; then
     FJCONTRIBLIBPATH=$with_fjcontrib/lib64
   fi
   FJCONTRIBCPPFLAGS=-I$FJCONTRIBINCPATH

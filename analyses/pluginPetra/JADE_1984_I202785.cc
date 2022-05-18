@@ -41,9 +41,9 @@ namespace Rivet {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
       for (const Particle& p : ufs.particles(Cuts::abspid==413)) {
 	double modp = p.p3().mod();
-	double xP =modp/meanBeamMom;
-	_h_x->fill(xP);
-	if(xP>0.4&&p.pid()>0) {
+	double xE =p.E()/meanBeamMom;
+	_h_x->fill(xE);
+	if(xE>0.4&&p.pid()>0) {
 	  _h_theta->fill(p.p3().dot(axis)/modp);
 	}
       }

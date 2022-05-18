@@ -8,6 +8,7 @@
 #include "Rivet/Projections/GeneratedPercentileProjection.hh"
 #include "Rivet/Projections/UserCentEstimate.hh"
 #include "Rivet/Projections/CentralityProjection.hh"
+#include <regex>
 
 namespace Rivet {
 
@@ -257,7 +258,7 @@ namespace Rivet {
   // }
 
 
-  bool Analysis::isCompatibleWithSqrtS(const float energy, float tolerance) const {
+  bool Analysis::isCompatibleWithSqrtS(const double energy, double tolerance) const {
     return fuzzyEquals(sqrtS()/GeV, energy/GeV, tolerance);
   }
 
@@ -328,6 +329,7 @@ namespace Rivet {
     const string path = histoPath(hname);
 
     Histo1D hist = Histo1D(nbins, lower, upper, path);
+    _setWriterPrecision(path, hist);
 
     // histo = Histo1DPtr(handler().weightNames(), hist);
     // histo = addAnalysisObject(histo);
@@ -343,6 +345,7 @@ namespace Rivet {
     const string path = histoPath(hname);
 
     Histo1D hist = Histo1D(binedges, path);
+    _setWriterPrecision(path, hist);
 
     // histo = Histo1DPtr(handler().weightNames(), hist);
     // histo = addAnalysisObject(histo);
@@ -368,6 +371,7 @@ namespace Rivet {
     for (const string& a : hist.annotations()) {
       if (a != "Path")  hist.rmAnnotation(a);
     }
+    _setWriterPrecision(path, hist);
 
     // histo = Histo1DPtr(handler().weightNames(), hist);
     // histo = addAnalysisObject(histo);
@@ -385,6 +389,7 @@ namespace Rivet {
     const string path = histoPath(hname);
 
     Histo2D hist(nxbins, xlower, xupper, nybins, ylower, yupper, path);
+    _setWriterPrecision(path, hist);
 
     // h2d = Histo2DPtr(handler().weightNames(), hist);
     // h2d = addAnalysisObject(h2d);
@@ -404,6 +409,7 @@ namespace Rivet {
     const string path = histoPath(hname);
 
     Histo2D hist(xbinedges, ybinedges, path);
+    _setWriterPrecision(path, hist);
 
     // h2d = Histo2DPtr(handler().weightNames(), hist);
     // h2d = addAnalysisObject(h2d);
@@ -419,6 +425,7 @@ namespace Rivet {
     for (const string& a : hist.annotations()) {
       if (a != "Path")  hist.rmAnnotation(a);
     }
+    _setWriterPrecision(path, hist);
 
     // histo = Histo2DPtr(handler().weightNames(), hist);
     // histo = addAnalysisObject(histo);
@@ -446,6 +453,7 @@ namespace Rivet {
     const string path = histoPath(hname);
 
     Profile1D prof(nbins, lower, upper, path);
+    _setWriterPrecision(path, prof);
 
     // p1d = Profile1DPtr(handler().weightNames(), prof);
     // p1d = addAnalysisObject(p1d);
@@ -462,6 +470,7 @@ namespace Rivet {
     const string path = histoPath(hname);
 
     Profile1D prof(binedges, path);
+    _setWriterPrecision(path, prof);
 
     // p1d = Profile1DPtr(handler().weightNames(), prof);
     // p1d = addAnalysisObject(p1d);
@@ -476,6 +485,7 @@ namespace Rivet {
     for (const string& a : prof.annotations()) {
       if (a != "Path")  prof.rmAnnotation(a);
     }
+    _setWriterPrecision(path, prof);
 
     // p1d = Profile1DPtr(handler().weightNames(), prof);
     // p1d = addAnalysisObject(p1d);
@@ -505,6 +515,7 @@ namespace Rivet {
     const string path = histoPath(hname);
 
     Profile2D prof(nxbins, xlower, xupper, nybins, ylower, yupper, path);
+    _setWriterPrecision(path, prof);
 
     // p2d = Profile2DPtr(handler().weightNames(), prof);
     // p2d = addAnalysisObject(p2d);
@@ -526,6 +537,7 @@ namespace Rivet {
     const string path = histoPath(hname);
 
     Profile2D prof(xbinedges, ybinedges, path);
+    _setWriterPrecision(path, prof);
 
     // p2d = Profile2DPtr(handler().weightNames(), prof);
     // p2d = addAnalysisObject(p2d);
@@ -583,6 +595,7 @@ namespace Rivet {
     } else {
       scat = Scatter2D(path);
     }
+    _setWriterPrecision(path, scat);
 
     // s2d = Scatter2DPtr(handler().weightNames(), scat);
     // s2d = addAnalysisObject(s2d);
@@ -600,6 +613,7 @@ namespace Rivet {
       const double bincentre = lower + (pt + 0.5) * binwidth;
       scat.addPoint(bincentre, 0, binwidth/2.0, 0);
     }
+    _setWriterPrecision(path, scat);
 
     // s2d = Scatter2DPtr(handler().weightNames(), scat);
     // s2d = addAnalysisObject(s2d);
@@ -616,6 +630,7 @@ namespace Rivet {
       const double binwidth = binedges[pt+1] - binedges[pt];
       scat.addPoint(bincentre, 0, binwidth/2.0, 0);
     }
+    _setWriterPrecision(path, scat);
 
     // s2d = Scatter2DPtr(handler().weightNames(), scat);
     // s2d = addAnalysisObject(s2d);
@@ -630,6 +645,7 @@ namespace Rivet {
     for (const string& a : scat.annotations()) {
       if (a != "Path")  scat.rmAnnotation(a);
     }
+    _setWriterPrecision(path, scat);
 
     return s2d = registerAO(scat);
   }
@@ -659,6 +675,7 @@ namespace Rivet {
     } else {
       scat = Scatter3D(path);
     }
+    _setWriterPrecision(path, scat);
 
     // s3d = Scatter3DPtr(handler().weightNames(), scat);
     // s3d = addAnalysisObject(s3d);
@@ -682,6 +699,7 @@ namespace Rivet {
         scat.addPoint(xbincentre, ybincentre, 0, 0.5*xbinwidth, 0.5*ybinwidth, 0);
       }
     }
+    _setWriterPrecision(path, scat);
 
     // s3d = Scatter3DPtr(handler().weightNames(), scat);
     // s3d = addAnalysisObject(s3d);
@@ -704,6 +722,7 @@ namespace Rivet {
         scat.addPoint(xbincentre, ybincentre, 0, 0.5*xbinwidth, 0.5*ybinwidth, 0);
       }
     }
+    _setWriterPrecision(path, scat);
 
     // s3d = Scatter3DPtr(handler().weightNames(), scat);
     // s3d = addAnalysisObject(s3d);
@@ -718,6 +737,7 @@ namespace Rivet {
     for (const string& a : scat.annotations()) {
       if (a != "Path")  scat.rmAnnotation(a);
     }
+    _setWriterPrecision(path, scat);
 
     return s3d = registerAO(scat);
   }
@@ -1131,6 +1151,16 @@ namespace Rivet {
 
   bool Analysis::_inFinalize() const {
     return handler().stage() == AnalysisHandler::Stage::FINALIZE;
+  }
+
+  template <typename YODAT>
+  void Analysis::_setWriterPrecision(const string& path, YODAT& yao) {
+    const string re = _info->writerDoublePrecision();
+    if (re != "") {
+      std::smatch match;
+      const bool needsDP = std::regex_search(path, match, std::regex(re));
+      if (needsDP)  yao.template setAnnotation("WriterDoublePrecision", "1");
+    }
   }
 
 }

@@ -74,8 +74,6 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
   RIVET_DECLARE_PLUGIN(BESIII_2014_I1286898);
-
 
 }

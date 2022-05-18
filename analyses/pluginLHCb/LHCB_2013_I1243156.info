@@ -5,6 +5,7 @@ Experiment: LHCB
 Collider: LHC
 InspireID: 1243156
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
@@ -13,8 +14,8 @@ RunInfo:  Any process producing excited $D$ mesons
 Description:
   'The decays $D^{**} \to D^{*+}\pi^-\to D^0\pi^+\pi^-$ are used to measure the helicity angle,
    i.e. the angle between the two pions in the rest frame of the $D^*$. The decays of $D_1(2420)^0$,
-   $D^*_2(2460)^0$, $D(2650)^0$, $D(2760)$, $D(2580)$, $D(2740)$, $D(3000)$ were measured, but currently only the $D_1(2420)^0$,
-   $D^*_2(2460)^0$ are implemented. The data were read from the plots in the papers and therefore for the $D_1(2420)^0$,
+   $D^*_2(2460)^0$, $D(2650)^0$, $D(2760)$, $D(2580)$, $D(2740)$, $D(3000)$ were measured,currently the $D(3000)^0$
+   is not implemented. The data were read from the plots in the papers and therefore for the $D_1(2420)^0$,
    $D^*_2(2460)^0$ the error bars are the size of the points in the plots.'
 Keywords: []
 BibKey: Aaij:2013sza

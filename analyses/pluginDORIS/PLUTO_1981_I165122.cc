@@ -7,7 +7,7 @@
 namespace Rivet {
 
 
-  /// @brief kaon prodcution at low energies
+  /// @brief kaon production at low energies
   class PLUTO_1981_I165122 : public Analysis {
   public:
 

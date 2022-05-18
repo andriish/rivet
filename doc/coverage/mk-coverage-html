@@ -460,5 +460,8 @@ if not outfile.endswith(".html"):
     outfile += ".html"
 print("Writing output to {} {}".format(outfile, exclstr))
 with open(outfile, "wb") as hf:
-    a = unicode(OUT)
+    try:
+      a = unicode(OUT)
+    except:
+      a = str(OUT)
     hf.write(a.encode("UTF-8"))

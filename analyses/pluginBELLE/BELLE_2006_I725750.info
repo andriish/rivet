@@ -5,13 +5,14 @@ Experiment: BELLE
 Collider: KEKB
 InspireID: 725750
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Lett. B643 (2006) 5-10
 RunInfo: any process producing tau leptons
 Description:
-  'Measurement of the $\phi K$ mass distribution in $\tau\to\phi K^-\nu_tau$ by BELLE'
+  'Measurement of the $\phi K$ mass distribution in $\tau\to\phi K^-\nu_\tau$ by BELLE'
 ValidationInfo:
   'Herwig 7 events'
 #ReleaseTests:

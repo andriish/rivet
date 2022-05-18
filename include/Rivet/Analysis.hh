@@ -108,7 +108,7 @@ namespace Rivet {
       this->_syncDeclQueue();
       this->markAsOwned();
     }
-    
+
     /// @}
 
 
@@ -264,6 +264,10 @@ namespace Rivet {
       return info().refUnmatch();
     }
 
+    /// Positive filterin regex for setting double precision in Writer
+    virtual std::string writerDoublePrecision() const {
+      return info().writerDoublePrecision();
+    }
 
     /// Return the allowed pairs of incoming beams required by this analysis.
     virtual const std::vector<PdgIdPair>& requiredBeamIDs() const {
@@ -358,20 +362,20 @@ namespace Rivet {
     /// Check if analysis is compatible with the provided beam particle IDs
     bool beamIDsMatch(const PdgIdPair& beamids) const;
 
-    /// Check if analysis is compatible with the provided beam energies in GeV
+    /// Check if analysis is compatible with the provided beam energies
     bool beamEnergiesMatch(double e1, double e2) const;
 
-    /// Check if analysis is compatible with the provided beam energies in GeV
+    /// Check if analysis is compatible with the provided beam energies
     bool beamEnergiesMatch(const std::pair<double,double>& energies) const;
 
-    /// Check if analysis is compatible with the provided CoM energy in GeV
+    /// Check if analysis is compatible with the provided CoM energy
     bool beamEnergyMatch(const std::pair<double,double>& energies) const;
 
-    /// Check if analysis is compatible with the provided CoM energy in GeV
+    /// Check if analysis is compatible with the provided CoM energy
     bool beamEnergyMatch(double sqrts) const;
 
     /// Check if sqrtS is compatible with provided value
-    bool isCompatibleWithSqrtS(const float energy, float tolerance=1e-5) const;
+    bool isCompatibleWithSqrtS(double energy, double tolerance=1e-5) const;
 
     /// @}
 
@@ -916,6 +920,10 @@ namespace Rivet {
 
     /// Check if we are in the finalize stage.
     bool _inFinalize() const;
+
+    /// Set DP annotation
+    template <typename YODAT>
+    void _setWriterPrecision(const string& path, YODAT& yao);
 
 
   private:

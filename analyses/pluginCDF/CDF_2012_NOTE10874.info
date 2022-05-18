@@ -4,7 +4,7 @@ Summary: CDF energy scan underlying event analysis
 Experiment: CDF
 Collider: Tevatron energy scan
 Status: VALIDATED
-Reentrant: true
+Reentrant: false
 Authors:
  - Rick Field <rfield@phys.ufl.edu>
 References:

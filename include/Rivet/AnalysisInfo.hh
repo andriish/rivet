@@ -157,6 +157,10 @@ namespace Rivet {
     const std::string& refUnmatch() const { return _refunmatch; }
     void setRefUnmatch(const std::string refunmatch) { _refunmatch = refunmatch; }
 
+    /// Positive filtering regex for setting double precision in Writer
+    const std::string& writerDoublePrecision() const { return _writerdoubleprecision; }
+    void setWriterDoublePrecision(const std::string dp) { _writerdoubleprecision = dp; }
+
     /// BibTeX citation key for this article.
     const std::string& bibKey() const { return _bibKey; }
     /// Set the BibTeX citation key for this article.
@@ -302,6 +306,7 @@ namespace Rivet {
     std::string _warning;
     std::string _refmatch;
     std::string _refunmatch;
+    std::string _writerdoubleprecision;
     std::vector<std::string> _todos;
     bool _needsCrossSection;
 
@@ -337,6 +342,7 @@ namespace Rivet {
       _warning = "";
       _refmatch = "";
       _refunmatch = "";
+      _writerdoubleprecision = "";
       _todos.clear();
       _needsCrossSection = false;
       _options.clear();

@@ -12,9 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    D0_2000_I499943()
-      : Analysis("D0_2000_I499943")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(D0_2000_I499943);
 
 
     /// @name Analysis methods

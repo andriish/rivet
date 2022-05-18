@@ -10,9 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    CDF_2012_I1124333()
-      : Analysis("CDF_2012_I1124333")
-    {    }
+    RIVET_DEFAULT_ANALYSIS_CTOR(CDF_2012_I1124333);
 
 
     /// @name Analysis methods
@@ -28,7 +26,7 @@ namespace Rivet {
 
       ///  Book histograms here, e.g.:
       //book(      _hist_z_xs ,1, 1, 1);
-      book(_hist_zpt ,2, 1, 1);
+      book(_hist_zpt, 2, 1, 1);
     }
 
 
@@ -38,12 +36,12 @@ namespace Rivet {
       const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.bosons().size() != 1) {
         MSG_DEBUG("Num e+ e- pairs found = " << zfinder.bosons().size());
-	vetoEvent;
+        vetoEvent;
       }
       const FourMomentum& pZ = zfinder.bosons()[0].momentum();
       if (pZ.mass2() < 0) {
-	MSG_DEBUG("Negative Z mass**2 = " << pZ.mass2()/GeV2 << "!");
-	vetoEvent;
+        MSG_DEBUG("Negative Z mass**2 = " << pZ.mass2()/GeV2 << "!");
+        vetoEvent;
       }
 
       MSG_DEBUG("Dilepton mass = " << pZ.mass()/GeV << " GeV");

@@ -18,7 +18,7 @@ Beams: [e-, e+]
 Energies: [14.03, 21.99, 35, 43.7]
 PtCuts:
 Description:
-  'Event shapes Thrust, Sphericity, Aplanarity at four different energies'
+  'Event shapes Thrust, Sphericity, Aplanarity and charged particle spectra at four different energies'
 BibKey: Braunschweig:1990yd
 BibTeX: '@Article{Braunschweig:1990yd,
      author    = "Braunschweig, W. and others",

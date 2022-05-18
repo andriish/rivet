@@ -43,7 +43,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       // Find the Upsilons among the unstables
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
-      Particles upsilons = ufs.particles(Cuts::pid==300553 || Cuts::pid==400553);
+      Particles upsilons = ufs.particles(Cuts::pid==300553 || Cuts::pid==400553 || Cuts::pid==9000553);
       for (const Particle& ups : upsilons) {
         LorentzTransform cms_boost;
         if (ups.p3().mod() > 1*MeV)

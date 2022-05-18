@@ -557,17 +557,19 @@ namespace Rivet {
       }
     }
     else {
-      vector<double> sumfw(1, 0.0);
-      for ( size_t m = 0; m < _persistent.size(); ++m ) {
-        for ( size_t n = 0; n < _evgroup.size(); ++n ) {
+      for (size_t m = 0; m < _persistent.size(); ++m) {
+        vector<double> sumfw(1, 0.0);
+        for (size_t n = 0; n < _evgroup.size(); ++n) {
           const auto& fills = _evgroup[n]->fills();
-          if ( fills.size() > sumfw.size() ) sumfw.resize(fills.size(), 0.0);
+          if (fills.size() > sumfw.size()) {
+            sumfw.resize(fills.size(), 0.0);
+          }
           int fi = 0;
-          for ( const auto& f : _evgroup[n]->fills() ) {
+          for (const auto& f : fills) {
             sumfw[fi++] += f.second * weight[n][m];
           }
         }
-        for ( double fw : sumfw ) {
+        for (double fw : sumfw) {
           _persistent[m]->fill(fw);
         }
       }
@@ -601,6 +603,7 @@ namespace Rivet {
   template <class T>
   void Wrapper<T>::pushToFinal() {
     for ( size_t m = 0; m < _persistent.size(); ++m ) {
+      _final.at(m)->clearAnnotations(); // in case this is a repeat call
       copyao(_persistent.at(m), _final.at(m));
       // Remove the /RAW prefix, if there is one, from the final copy
       if ( _final[m]->path().substr(0,4) == "/RAW" )

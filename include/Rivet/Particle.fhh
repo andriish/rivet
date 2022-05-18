@@ -3,7 +3,6 @@
 #define RIVET_Particle_FHH
 
 #include "Rivet/Tools/RivetSTL.hh"
-#include "Rivet/Math/Vectors.hh"
 
 namespace Rivet {
 
@@ -11,40 +10,9 @@ namespace Rivet {
   /// @name Particle declarations
   /// @{
 
-  // Forward declaration
+  // Forward declarations
   class Particle;
-
-
-  /// @brief Specialised vector of Particle objects.
-  ///
-  /// A specialised version of vector<Particle> which is able to implicitly and
-  /// explicitly convert to a vector of FourMomentum.
-  ///
-  /// @todo Add explicit and implicit conversion to PseudoJets
-  ///
-  // typedef std::vector<Particle> Particles;
-  class Particles : public std::vector<Particle> {
-  public:
-    using base = std::vector<Particle>; //< using-declarations don't like template syntax
-    using base::base; //< import base-class constructors
-    Particles();
-    Particles(const std::vector<Particle>& vps);
-    FourMomenta moms() const; //< implementation in Particle.cc
-    inline operator FourMomenta () const { return moms(); }
-    Particles& operator += (const Particle& p);
-    Particles& operator += (const Particles& ps);
-    /// @todo Add conversion to PseudoJets
-  };
-
-  Particles operator + (const Particles& a, const Particles& b);
-
-
-  /// @brief Typedef for a pair of Particle objects
-  ///
-  /// @todo Make ParticlePair a custom class instead?
-  typedef std::pair<Particle, Particle> ParticlePair;
-
-  /// @}
+  class Particles;
 
 
   /// @name Particle function/functor declarations

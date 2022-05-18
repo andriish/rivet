@@ -14,7 +14,6 @@ RunInfo: e+ e- to hadrons. Beam energy must be specified as analysis option "ENE
 NeedCrossSection: yes
 Beams: [e+, e-]
 Energies: [34.8,42.1]
-Energies: [34.8,42.1]
 Options:
  - ENERGY=34.8,42.1
 Description:

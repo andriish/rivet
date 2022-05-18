@@ -548,15 +548,19 @@ namespace Rivet {
         if (p.charge3() != 0 && p.abseta() < 2.5 && p.pT() > 1*GeV) chargedhadrons += p;
       }
     }
-    if (chargedhadrons.empty()) return 0;
+
+    if (chargedhadrons.empty()) return 0; //< leptonic tau?
     if (pThadvis < 20*GeV) return 0; //< below threshold
+
     const Particles ttags = j.tauTags(Cuts::pT > 10*GeV);
+    // MisID rates for jets without truth tau label
     if (ttags.empty()) {
       if (pThadvis < 40*GeV)
         return chargedhadrons.size() == 1 ? 1/20. : chargedhadrons.size() == 3 ? 1/100. : 0; //< fake rates
       else
         return chargedhadrons.size() == 1 ? 1/25. : chargedhadrons.size() == 3 ? 1/400. : 0; //< fake rates
     }
+    // Efficiencies for jets with a truth tau label
     const Particles prongs = ttags[0].stableDescendants(Cuts::charge3 > 0 && Cuts::pT > 1*GeV && Cuts::abseta < 2.5);
     return prongs.size() == 1 ? 0.56 : 0.38;
   }

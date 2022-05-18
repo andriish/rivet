@@ -23,6 +23,9 @@ cdef extern from "<utility>" namespace "std" nogil:
 #             f.write(s)
 
 
+cdef void _make_iss(c.istringstream &iss, bytes bs):
+    iss.str(bs)
+
 
 cdef class AnalysisHandler:
     cdef c.AnalysisHandler *_ptr
@@ -76,8 +79,13 @@ cdef class AnalysisHandler:
     #     pyobj._ptr = ptr
     #     return pyobj
 
-    def readData(self, name):
-        self._ptr.readData(name.encode('utf-8'))
+    def readData(self, name_or_stream, fmt="yoda", preload=True):
+        cdef c.istringstream iss
+        if type(name_or_stream) is str:
+            self._ptr.readData_FILE(name_or_stream.encode('utf-8'), preload)
+        else:
+            _make_iss(iss, name_or_stream)
+            self._ptr.readData_ISTR(iss, fmt.encode('utf-8'), preload)
 
     def writeData(self, file_or_filename, fmt="yoda"):
         cdef c.ostringstream oss
@@ -104,6 +112,9 @@ cdef class AnalysisHandler:
         matches   = [ d.encode('utf-8') for d in matches ]
         unmatches = [ d.encode('utf-8') for d in unmatches ]
         self._ptr.mergeYodas(filelist, delopts, addopts, matches, unmatches, equiv)
+
+    def merge(self, AnalysisHandler other):
+        self._ptr.merge(other._ptr[0])
 
 
 cdef class Run:
@@ -134,6 +145,9 @@ cdef class Run:
 
     # def skipEvent(self):
     #     return self._ptr.skipEvent()
+
+    def numEvents(self):
+        return self._ptr.numEvents()
 
     def processEvent(self):
         return self._ptr.processEvent()
@@ -223,6 +237,9 @@ cdef class Analysis:
 
     def refUnmatch(self):
         return deref(self._ptr).refUnmatch().decode('utf-8')
+
+    def writerDoublePrecision(self):
+        return deref(self._ptr).writerDoublePrecision().decode('utf-8')
 
     def refFile(self):
         #return findAnalysisRefFile(self.name() + ".yoda")

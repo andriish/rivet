@@ -36,7 +36,7 @@ YLabel=$1/\sigma \mathrm{d}\sigma/\mathrm{d}\rho_H$
 LogY=1
 END PLOT
 
-BEGIN PLOT /L3_2008_I825820/d03-x01-y02
+BEGIN PLOT /L3_2008_I825820/d03-x01-y01
 Title=Total jet broadening, all events, at $E_{\mathrm{CMS}}=197$ GeV
 XLabel=$B_T$
 YLabel=$1/\sigma \mathrm{d}\sigma/\mathrm{d}B_T$
@@ -55,7 +55,7 @@ YLabel=$1/\sigma \mathrm{d}\sigma/\mathrm{d}B_T$
 LogY=1
 END PLOT
 
-BEGIN PLOT /L3_2008_I825820/d04-x01-y02
+BEGIN PLOT /L3_2008_I825820/d04-x01-y01
 Title=Wide jet broadening, all events, at $E_{\mathrm{CMS}}=197$ GeV
 XLabel=$B_W$
 YLabel=$1/\sigma \mathrm{d}\sigma/\mathrm{d}B_W$
