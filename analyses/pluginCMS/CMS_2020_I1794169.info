@@ -17,6 +17,7 @@ RunInfo: VBS WZ and W+W+ interactions at $\sqrt{s} = 13$ TeV. Data collected by 
 NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [13000]
+Luminosity_fb: 137
 Options:
  - LMODE=WW,WZ
 Description:
