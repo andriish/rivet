@@ -1,3 +1,7 @@
+2022-05-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Suppress spurious 'unused argument' warning from clang as called from rivet-build.
+
 2022-05-13  Christian Gutschow  <chris.g@cern.ch>
 
 	* Release 3.1.6
