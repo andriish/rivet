@@ -674,10 +674,12 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
 
         ## Optional event skipping
         if evtnum <= args.EVTSKIPNUM:
+            if evtnum != old_evtnum:
+              old_evtnum = evtnum
+              if evtnum % 1000 == 0:
+                  logging.info("Skipping event #%i" % evtnum)
             logging.debug("Skipping event #%i" % evtnum)
             run.readEvent();
-            if evtnum % 1000 == 0:
-                logging.info("Skipping event #%i" % evtnum)
             continue
 
         ## Only log the event number once we're actually processing
