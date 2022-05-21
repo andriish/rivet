@@ -1,13 +1,11 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Monte Carlo analysis of D meson dalitz decays
   class MC_D_Dalitz : public Analysis {
   public:
 
@@ -44,12 +42,16 @@ namespace Rivet {
       book(_h_kppim6, "h_kppim6"   ,200,0.,3.5);
       book(_h_kppip6, "h_kppip6"   ,200,0.,3.5);
       book(_h_pippim6, "h_pippim6"  ,200,0.,2.5);
+      book(_h_kpkm1 ,"h_kpkm1",200,0.9,3.5);
+      book(_h_kppip7,"h_kppip7",200,0.3,3.5);
+      book(_h_kmpip1,"h_kmpip1",200,0.3,3.5);
       book(_dalitz1, "dalitz1"    ,50,0.3,3.2,50,0.3,3.2);
       book(_dalitz2, "dalitz2"    ,50,0.3,3. ,50,0.3,3. );
       book(_dalitz3, "dalitz3"    ,50,0.3,2. ,50,0.07,2. );
       book(_dalitz4, "dalitz4"    ,50,0.3,3.1 ,50,0.07,2. );
       book(_dalitz5, "dalitz5"    ,50,0.,3. ,50,0.,2. );
       book(_dalitz6, "dalitz6"    ,50,0.3,3.5,50,0.07,2.5);
+      book(_dalitz7, "dalitz7"    ,50,0.3,3.5,50,0.07,2.5);
     }
 
     void findDecayProducts(const Particle & mother, unsigned int & nstable,
@@ -96,6 +98,7 @@ namespace Rivet {
 	unsigned int nstable(0);
 	Particles pip, pim, pi0, Kp , Km, K0;
 	findDecayProducts(meson, nstable, pip, pim, pi0, Kp , Km, K0);
+	if(nstable !=3) continue;
 	if(meson.pid()<0) {
 	  swap(pim,pip);
 	  swap(Kp,Km);
@@ -162,6 +165,15 @@ namespace Rivet {
 	    _h_pippim6->fill(mpipi );
 	    _dalitz6->fill(mminus,mpipi);
 	  }
+	  else if (Km.size()==1&&Kp.size()==1&&pip.size()==1) {
+	    double mplus  = (Kp[0].momentum()+pip[0].momentum()).mass2();
+	    double mminus = (Km[0].momentum()+pip[0].momentum()).mass2();
+	    double mKK    = (Kp[0].momentum()+Km [0].momentum()).mass2();
+	    _h_kpkm1->fill(mKK);
+	    _h_kppip7->fill(mplus);
+	    _h_kmpip1->fill(mminus);
+	    _dalitz7->fill(mKK,mminus);
+	  }
 	}
       }
     }
@@ -193,6 +205,10 @@ namespace Rivet {
       normalize(_h_kppip6);
       normalize(_h_pippim6);
       normalize(_dalitz6);
+      normalize(_h_kpkm1);
+      normalize(_h_kppip7);
+      normalize(_h_kmpip1);
+      normalize(_dalitz7);
     }
     //@}
 
@@ -259,6 +275,16 @@ namespace Rivet {
     Histo1DPtr _h_pippim6;
     // Dalitz plot
     Histo2DPtr _dalitz6;
+
+    // Histograms for D_s^+\to K^+K^-\pi^+
+    // Histogram for K^+K^-
+    Histo1DPtr _h_kpkm1;
+    // Histogram for K^+\pi^+
+    Histo1DPtr _h_kppip7;
+    // Histogram for K^-\pi^+
+    Histo1DPtr _h_kmpip1;
+    // Dalitz plot
+    Histo2DPtr _dalitz7;
     //@}
 
   };

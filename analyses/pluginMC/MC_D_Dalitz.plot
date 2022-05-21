@@ -128,9 +128,37 @@ Title=$\pi^-\pi^+$ mass distribution in $D_s^+\to K^+\pi^-\pi^+$
 XLabel=$m^2_{\pi^-\pi^+}$ [$\mathrm{GeV}^{-2}$]
 YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}^\mathrm{low}_{\pi^-\pi^+}$ [$\mathrm{GeV}^{-2}$]
 END PLOT
+
 BEGIN PLOT /MC_D_Dalitz/dalitz6
 Title=Dalitz plot for $D_s^+\to K^+\pi^-\pi^+$
 XLabel=$m^2_{K^+\pi^-}$ [$\mathrm{GeV}^{-2}$]
 YLabel=$m^2_{\pi^+\pi^-}$ [$\mathrm{GeV}^{-2}$]
 ZLabel=$1/\Gamma{\rm d}^2 \Gamma/{\rm d}m^2_{K^+\pi^-}/{\rm d}m^2_{\pi^+\pi^-}$ [$\rm{GeV}^{-4}$]
+END PLOT
+
+
+BEGIN PLOT /MC_D_Dalitz/h_kppip7
+Title=$K^+\pi^+$ mass distribution in $D_s^+\to K^+K^-\pi^+$
+XLabel=$m^2_{K^+\pi^+}$ [$\mathrm{GeV}^{-2}$]
+YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}^\mathrm{low}_{K^+\pi^+}$ [$\mathrm{GeV}^{-2}$]
+LogY=0
+END PLOT
+BEGIN PLOT /MC_D_Dalitz/h_kmpip1
+Title=$K^-\pi^+$ mass distribution in $D_s^+\to K^+K^-\pi^+$
+XLabel=$m^2_{K^-\pi^+}$ [$\mathrm{GeV}^{-2}$]
+YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}^\mathrm{low}_{K^-\pi^+}$ [$\mathrm{GeV}^{-2}$]
+LogY=0
+END PLOT
+BEGIN PLOT /MC_D_Dalitz/dalitz7
+Title=Dalitz plot for $D_s^+\to K^+K^-\pi^+$
+XLabel=$m^2_{K^+K^-}$ [$\mathrm{GeV}^{-2}$]
+YLabel=$m^2_{K^+\pi^-}$ [$\mathrm{GeV}^{-2}$]
+ZLabel=$1/\Gamma{\rm d}^2 \Gamma/{\rm d}m^2_{K^+K^-}/{\rm d}m^2_{K^-\pi^+}$ [$\rm{GeV}^{-4}$]
+LogY=0
+END PLOT
+BEGIN PLOT /MC_D_Dalitz/h_kpkm1
+Title=$K^+K^-$ mass distribution in $D_s^+\to K^+K^-\pi^+$
+XLabel=$m^2_{K^+K^-}$ [$\mathrm{GeV}^{-2}$]
+YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}^\mathrm{low}_{K^+K^-}$ [$\mathrm{GeV}^{-2}$]
+LogY=0
 END PLOT
