@@ -105,5 +105,5 @@ bin/hepmc-compress
 bin/rivet-hepmz
 bin/converall.log
 bin/converall.sh
-
+.DS_Store
 NaN.yoda
