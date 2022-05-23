@@ -20,6 +20,9 @@ namespace Rivet {
     void init() {
       // Final state
       declare(FinalState(),"FS");
+      // check CMS energy in range
+      if(sqrtS()<0.75*GeV || sqrtS()>2.*GeV)
+	throw Error("Invalid CMS energy for CELLO_1992_I345437");
       int ibin = (sqrtS()-0.70)/0.05;
       if(ibin>0&&ibin<19)
 	book(_h_cTheta,2,1,ibin);

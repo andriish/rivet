@@ -55,10 +55,9 @@ namespace Rivet {
 	++ntotal;
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
-
-      for (const Particle& p : ufs.particles()) {
+      
+      for (const Particle& p : ufs.particles(Cuts::pid==221 or Cuts::pid==333)) {
 	if(p.children().empty()) continue;
-	if(p.pid()!=221 && p.pid()!=333) continue;
 	map<long,int> nRes = nCount;
 	int ncount = ntotal;
 	findChildren(p,nRes,ncount);

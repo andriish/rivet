@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief e+e- -> 3pi+3pi-, 2pi+pi-2pi0, 2pi+pi-K+K-
   class BABAR_2006_I709730 : public Analysis {
   public:
 

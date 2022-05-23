@@ -34,18 +34,18 @@ namespace Rivet {
 
       // Book histograms
       for (size_t ptbin = 0; ptbin < 4; ++ptbin) {
-	_jsnames_pT[ptbin] = "JetShape" + to_str(ptbin) ;
-	const JetShape jsp(jets, 0.0, 1.0, 10, _ptedges[ptbin], _ptedges[ptbin+1], 0.0, 0.2, PSEUDORAPIDITY);
-	declare(jsp, _jsnames_pT[ptbin]);
-book(	_h_Rho_pT_central[ptbin] ,ptbin+1, 1, 1);
+        _jsnames_pT[ptbin] = "JetShape" + to_str(ptbin) ;
+        const JetShape jsp(jets, 0.0, 1.0, 10, _ptedges[ptbin], _ptedges[ptbin+1], 0.0, 0.2, PSEUDORAPIDITY);
+        declare(jsp, _jsnames_pT[ptbin]);
+        book(	_h_Rho_pT_central[ptbin] ,ptbin+1, 1, 1);
       }
 
-	const JetShape jspfwd0(jets, 0.0, 1.0, 10, 45, 70, 2.5, 3.5, PSEUDORAPIDITY);
-	declare(jspfwd0, "JetShapeFwd0");
-	const JetShape jspfwd1(jets, 0.0, 1.0, 10, 70, 105, 2.5, 3.5, PSEUDORAPIDITY);
-	declare(jspfwd1, "JetShapeFwd1");
-book(	_h_Rho_pT_forward[0] ,5, 1, 1);
-book(	_h_Rho_pT_forward[1] ,6, 1, 1);
+      const JetShape jspfwd0(jets, 0.0, 1.0, 10, 45, 70, 2.5, 3.5, PSEUDORAPIDITY);
+      declare(jspfwd0, "JetShapeFwd0");
+      const JetShape jspfwd1(jets, 0.0, 1.0, 10, 70, 105, 2.5, 3.5, PSEUDORAPIDITY);
+      declare(jspfwd1, "JetShapeFwd1");
+      book(	_h_Rho_pT_forward[0] ,5, 1, 1);
+      book(	_h_Rho_pT_forward[1] ,6, 1, 1);
 
     }
 

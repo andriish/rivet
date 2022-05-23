@@ -25,6 +25,9 @@ namespace Rivet {
       // Book histograms
       book(_h_D1_ctheta, 1,1,1);
       book(_h_D2_ctheta, 1,1,2);
+      book(_h_D02S_ctheta, 1,1,3);
+      book(_h_DStar02S_ctheta, 1,1,4);
+      book(_h_D3_ctheta, 1,1,5);
     }
 
     /// Recursively walk the decay tree to find decay products of @a p
@@ -42,7 +45,9 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==425 || Cuts::abspid==10423)) {
+      for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==425 || Cuts::abspid==10423 ||
+									       Cuts::abspid==100421 || Cuts::abspid==100423 ||
+									       Cuts::abspid==427)) {
 	// decay products
 	Particles dstar,d0,pi;
 	unsigned int ncount=0;
@@ -64,8 +69,14 @@ namespace Rivet {
 	// decay angles
 	if(p.abspid()==425)
 	  _h_D2_ctheta->fill(cTheta);
-	else
+	else if(p.abspid()==10423) 
 	  _h_D1_ctheta->fill(cTheta);
+	else if(p.abspid()==100421) 
+	  _h_D02S_ctheta->fill(cTheta);
+	else if(p.abspid()==100423) 
+	  _h_DStar02S_ctheta->fill(cTheta);
+	else if(p.abspid()==427) 
+	  _h_D3_ctheta->fill(cTheta);
       }
     }
 
@@ -73,14 +84,18 @@ namespace Rivet {
     void finalize() {
       normalize(_h_D1_ctheta);
       normalize(_h_D2_ctheta);
+      normalize(_h_D02S_ctheta);
+      normalize(_h_DStar02S_ctheta);
+      normalize(_h_D3_ctheta);
     }
 
     /// @}
 
     /// @name Histograms
-    /// @{
-    Histo1DPtr _h_D1_ctheta,_h_D2_ctheta;
-    /// @}
+    //@{
+    Histo1DPtr _h_D1_ctheta,_h_D2_ctheta,_h_D02S_ctheta;
+    Histo1DPtr _h_DStar02S_ctheta,_h_D3_ctheta;
+    //@}
 
   };
 

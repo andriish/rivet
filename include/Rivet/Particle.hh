@@ -7,11 +7,46 @@
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Tools/Cuts.hh"
 #include "Rivet/Tools/Utils.hh"
+#include "Rivet/Tools/RivetFastJet.hh"
 #include "Rivet/Math/LorentzTrans.hh"
 // NOTE: Rivet/Tools/ParticleUtils.hh included at the end
-#include "fastjet/PseudoJet.hh"
 
 namespace Rivet {
+
+
+  /// @brief Specialised vector of Particle objects.
+  ///
+  /// A specialised version of vector<Particle> which is able to implicitly and
+  /// explicitly convert to a vector of FourMomentum.
+  ///
+  /// @todo Add explicit and implicit conversion to PseudoJets
+  ///
+  // typedef std::vector<Particle> Particles;
+  class Particles : public std::vector<Particle> {
+  public:
+    using base = std::vector<Particle>; //< using-declarations don't like template syntax
+    using base::base; //< import base-class constructors
+    Particles();
+    Particles(const std::vector<Particle>& vps);
+    FourMomenta moms() const;
+    PseudoJets pseudojets() const;
+    operator FourMomenta () const { return moms(); }
+    operator PseudoJets () const { return pseudojets(); }
+    Particles& operator += (const Particle& p);
+    Particles& operator += (const Particles& ps);
+  };
+
+  Particles operator + (const Particles& a, const Particles& b);
+
+  /// Typedef for a pair of Particle objects.
+  typedef std::pair<Particle, Particle> ParticlePair;
+
+  //@}
+
+
+
+  /////////////////////
+
 
 
   /// Particle representation, either from a HepMC::GenEvent or reconstructed.
@@ -739,6 +774,7 @@ namespace Rivet {
   std::ostream& operator << (std::ostream& os, const ParticlePair& pp);
 
   /// @}
+
 
 }
 

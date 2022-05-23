@@ -14,6 +14,9 @@ Two utilities are at your disposal to help with the merging:
 As always, the `--help` flag will also give a lot of information about the respective script
 and its limitations. 
 
+For memory-based merging of different output streams e.g. in MPI-parallelised runs
+[see here](merging_mpi.md).
+
 ## Should I use `yodamerge` or `rivet-merge`?
 
 `yodamerge` and `yodastack` are scripts built into `yoda` (technically a standalone package from `Rivet`)

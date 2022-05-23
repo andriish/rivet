@@ -5,6 +5,7 @@ Experiment: OPAL
 Collider: LEP2
 InspireID: 599181
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Simone Amoroso <amoroso@cern.ch>
 References:

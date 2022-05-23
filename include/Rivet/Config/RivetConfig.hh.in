@@ -26,5 +26,7 @@
 /* Define if version 2.06.10 of HepMC is used. */
 #undef RIVET_ENABLE_HEPMC_20610
 
+/* Define if Rivet supports in-memory merging of AnalysisHandlers. */
+#undef RIVET_SUPPORTS_MERGING_IN_MEMORY
 
 #endif

@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Measurement of R for energies between 3.65 and 3.773 GeV
+  /// @brief measurement of R 3.65 and 3.773 GeV
   class BESII_2006_I717665 : public Analysis {
   public:
 

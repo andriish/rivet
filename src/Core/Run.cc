@@ -54,6 +54,11 @@ namespace Rivet {
       MSG_DEBUG("Read failed. End of file?");
       return false;
     }
+    // increment counter when event number changes
+    if (_evt->event_number() != _evtnumber) {
+      _evtnumber = _evt->event_number();
+      _evtcount++;
+    }
     // Rescale event weights by file-level weight, if scaling is non-trivial
     if (_fileweight != 1.0) {
       for (size_t i = 0; i < (size_t) _evt->weights().size(); ++i) {
@@ -104,7 +109,7 @@ namespace Rivet {
           #endif
         } else {
           // File is not compressed. Open stream and let the code below to handle it
-          MSG_INFO("File is not compressed. No succes with deduction of file type.");
+          MSG_INFO("File is not compressed. No success with deduction of file type.");
           _istr = make_shared<std::ifstream>(evtfile);
         }
       }
@@ -155,16 +160,17 @@ namespace Rivet {
 
 
   bool Run::init(const std::string& evtfile, double weight) {
-    try {
-      if (!openFile(evtfile, weight)) return false;
+    if (!openFile(evtfile, weight)) return false;
 
-      // Read first event to define run conditions
-      bool ok = readEvent();
-      if (!ok) return false;
-      if(HepMCUtils::particles(_evt).size() == 0){
-        MSG_ERROR("Empty first event.");
-        return false;
-      }
+    // Read first event to define run conditions
+    bool ok = readEvent();
+    if (!ok) return false;
+    if(HepMCUtils::particles(_evt).size() == 0){
+      MSG_ERROR("Empty first event.");
+      return false;
+    }
+    _evtnumber = _evt->event_number(); // set first event number
+    _evtcount = 1; // first event used for initialisation
 
       // Initialise AnalysisHandler with beam information from first event
       _ah.init(*_evt);

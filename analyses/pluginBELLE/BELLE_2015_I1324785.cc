@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief  e+e- > psi(2S) pi+pi-
   class BELLE_2015_I1324785 : public Analysis {
   public:
 

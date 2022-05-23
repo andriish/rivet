@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Cross section for $e^+e^-\to p \bar{p} \pi^0$ at energies between 4.008 and 4.600 GeV
+  /// @brief e+e- -> p pbar pi0
   class BESIII_2017_I1509241 : public Analysis {
   public:
 

@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Cross section for e+e- > gamma eta
   class SND_2014_I1275333 : public Analysis {
   public:
 
@@ -49,31 +49,29 @@ namespace Rivet {
       }
 
       const FinalState& ufs = apply<FinalState>(event, "UFS");
-      for (const Particle& p : ufs.particles()) {
+      for (const Particle& p : ufs.particles(Cuts::pid==221)) {
 	if(p.children().empty()) continue;
-	// find the omega
-	if(p.pid()==221) {
-	  map<long,int> nRes = nCount;
-	  int ncount = ntotal;
-	  findChildren(p,nRes,ncount);
-	  // eta pi+pi-
-	  if(ncount!=1) continue;
-	  bool matched = true;
-	  for(auto const & val : nRes) {
-	    if(val.first==22) {
-	      if(val.second !=1) {
-		matched = false;
-		break;
-	      }
-	    }
-	    else if(val.second!=0) {
+	// find the eta
+	map<long,int> nRes = nCount;
+	int ncount = ntotal;
+	findChildren(p,nRes,ncount);
+	// eta gamma
+	if(ncount!=1) continue;
+	bool matched = true;
+	for(auto const & val : nRes) {
+	  if(val.first==22) {
+	    if(val.second !=1) {
 	      matched = false;
 	      break;
 	    }
 	  }
-	  if(matched)
-	    _numEtaGamma->fill();
+	  else if(val.second!=0) {
+	    matched = false;
+	    break;
+	  }
 	}
+	if(matched)
+	  _numEtaGamma->fill();
       }
     }
 

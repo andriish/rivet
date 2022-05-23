@@ -200,7 +200,9 @@ namespace Rivet {
   }
 
 
+
   //////////////////////
+
 
 
   /// Jets default constructor
@@ -220,7 +222,11 @@ namespace Rivet {
   /// Jets -> PseudoJets cast/conversion operator
   PseudoJets Jets::pseudojets() const {
     PseudoJets rtn; rtn.reserve(this->size());
-    for (size_t i = 0; i < this->size(); ++i) rtn.push_back((*this)[i].pseudojet());
+    for (size_t i = 0; i < this->size(); ++i) {
+      PseudoJet pj = (*this)[i].pseudojet();
+      pj.set_user_index(i); //< aid identification with the original jets vector
+      rtn.push_back(pj);
+    }
     return rtn;
   }
 
@@ -246,7 +252,9 @@ namespace Rivet {
   }
 
 
+
   //////////////////////
+
 
 
   /// Allow a Jet to be passed to an ostream.

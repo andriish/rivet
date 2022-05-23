@@ -61,7 +61,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       static double me     = 0.5109989461*MeV;
-      static double momega = 1019.461*MeV;
+      static double momega = 782.65*MeV;
       static double meta   = 547.862 *MeV;
       static double mpi    = 134.9770*MeV;
 
@@ -95,7 +95,6 @@ namespace Rivet {
 	  }
 	}
       }
-
     }
 
 

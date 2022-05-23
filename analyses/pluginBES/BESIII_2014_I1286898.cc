@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Cross section for $e^+e^-\to$ proton and antiproton between 3.65 and 3.9 GeV
+  /// @brief e+ e- > p pbar
   class BESIII_2014_I1286898 : public Analysis {
   public:
 

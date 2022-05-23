@@ -1,7 +1,7 @@
 BEGIN PLOT /JADE_1984_I202785/d01-x01-y01
-Title=$D^{*\pm}$ scaled momentum
-XLabel=$x_p$
-YLabel=$s\mathrm{d}\sigma/\mathrm{d}x_p$ [$\mu\mathrm{b}\mathrm{GeV}^2$]
+Title=$D^{*\pm}$ scaled energy
+XLabel=$x_E$
+YLabel=$s\mathrm{d}\sigma/\mathrm{d}x_E$ [$\mu\mathrm{b}\mathrm{GeV}^2$]
 LogY=0
 END PLOT
 BEGIN PLOT /JADE_1984_I202785/d03-x01-y01

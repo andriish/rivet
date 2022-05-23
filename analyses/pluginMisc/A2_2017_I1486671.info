@@ -4,13 +4,16 @@ Summary: Form factors for the decays $\omega\to\pi^0e^+e^-$ and $\eta\to\gamma e
 Experiment: A2
 Collider: MAMI
 InspireID: 1486671
-Status: VALIDATED
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Rev. C95 (2017) no.3, 035208
 RunInfo: omega and eta production with both the dalitz decay and radiative decay for normalization
 NeedCrossSection: no
 Description:
-  'Measurement of the form factors $\left|F_{\omega\pi^0}(q^2)\right|$ for the decay $\phi\to\pi^0e^+e^-$ and $\left|F_{\eta}(q^2)\right|$ for the decay $\eta\to\gamma e^+e^-$ by the A2 experiment at MAMI'
+  'Measurement of the form factors $\left|F_{\omega\pi^0}(q^2)\right|$ for the decay $\omega\to\pi^0e^+e^-$ and $\left|F_{\eta}(q^2)\right|$ for the decay $\eta\to\gamma e^+e^-$ by the A2 experiment at MAMI.'
 Keywords: []
 BibKey: Adlarson:2016hpp
 BibTeX: '@article{Adlarson:2016hpp,

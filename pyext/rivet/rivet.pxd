@@ -12,6 +12,9 @@ cdef extern from "<sstream>" namespace "std":
     cdef cppclass ostringstream:
         ostringstream()
         string& str()
+    cdef cppclass istringstream:
+        istringstream()
+        string& str(string&)
 
 cdef extern from "Rivet/AnalysisHandler.hh" namespace "Rivet":
     cdef cppclass AnalysisHandler:
@@ -29,11 +32,13 @@ cdef extern from "Rivet/AnalysisHandler.hh" namespace "Rivet":
         # Analysis* analysis(string)
         void writeData_FILE "writeData" (string&) except +
         void writeData_OSTR "writeData" (ostringstream&, string&) except +
-        void readData(string&)
+        void readData_FILE "readData" (string&, bool) except +
+        void readData_ISTR "readData" (istringstream&, string&, bool) except +
         double nominalCrossSection()
         void finalize()
         void dump(string, int)
         void mergeYodas(vector[string]&, vector[string]&, vector[string]&, vector[string]&, vector[string]&, bool)
+        void merge(AnalysisHandler&)
 
 cdef extern from "Rivet/Run.hh" namespace "Rivet":
     cdef cppclass Run:
@@ -43,9 +48,10 @@ cdef extern from "Rivet/Run.hh" namespace "Rivet":
         bool init(string, double) except + # $2=1.0
         bool openFile(string, double) except + # $2=1.0
         bool readEvent() except +
-        bool skipEvent() except +
+        #bool skipEvent() except +
         bool processEvent() except +
         bool finalize() except +
+        size_t numEvents()
 
 cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
     cdef cppclass Analysis:
@@ -74,6 +80,7 @@ cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
         string refFile()
         string refMatch()
         string refUnmatch()
+        string writerDoublePrecision()
 
 
 # Might need to translate the following errors, although I believe 'what' is now
