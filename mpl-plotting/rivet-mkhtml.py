@@ -122,6 +122,7 @@ yodafiles = args.YODAFILES
 style = args.STYLE
 writefiles = args.WRITE_FILES
 
+
 ## Add pwd to search paths
 if args.PATH_PWD:
     rivet.addAnalysisLibPath(os.path.abspath("."))
@@ -254,6 +255,7 @@ yaml_dicts = rivet_mkdat(args.YODAFILES, args.PATH_PWD, args.REFTITLE,
 ## Write web page containing all (matched) plots
 ## Make web pages first so that we can load it locally in
 ## a browser to view the output before all plots are made
+
 if not args.DRY_RUN:
 
     style = '''<style>
@@ -294,6 +296,7 @@ if not args.DRY_RUN:
            }
         </script>
         '''
+  
     ## A helper function for metadata LaTeX -> HTML conversion
     from rivet.util import htmlify
 
@@ -340,6 +343,7 @@ if not args.DRY_RUN:
             references = ana.references()
             description = htmlify(ana.description())
             spiresid = ana.spiresId()
+
             if args.IGNORE_UNVALIDATED and ana.status().upper() != "VALIDATED":
                 continue
 
@@ -460,14 +464,13 @@ def which(program):
 
 num_plots = len(yaml_dicts)
 print("Making {} plots".format(num_plots))
-
 for i, (refFile,yaml_dict) in enumerate(yaml_dicts.items()):
     print("Plotting", args.OUTPUTDIR+refFile, "({}/{} remaining)".format(num_plots-i, num_plots))
     
     # get matplotlib plotting objects
     fig,ax = rivet_plot(yaml_dict, refFile, args.OUTPUTDIR)
     
-    # save figure TODO: tweak command line options --> let user decide format
+    # save figure
     plt.savefig(os.path.join(args.OUTPUTDIR, refFile.strip('/'))+"."+args.VECTORFORMAT.lower())
     plt.savefig(os.path.join(args.OUTPUTDIR, refFile.strip('/'))+".png") # for the html booklet
     plt.close()

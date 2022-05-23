@@ -1,0 +1,5 @@
+[ ] test 2D plotting
+[ ] move rivet-mkhtml.py to bin/rivet-mkhtml and
+    make changes accordingly to find rivet_plot.py etc.
+[ ] look at yaml (.dat) output files
+[ ] update m4 libtool?

@@ -4,7 +4,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import yoda
-import yoda_plot
+from mpl_tools import yoda_plot
 import math
 import re
 
@@ -22,7 +22,7 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename):
     filename : str
         Name of the saved plot file.
     """
-    plot_style = os.path.join('plot_styles', yaml_dicts['style'] + '.mplstyle')
+    plot_style = os.path.join('mpl_tools/plot_styles', yaml_dicts['style'] + '.mplstyle')
     if not os.path.isfile(plot_style):
         raise NotImplementedError('Plot style file not found.')
     if yaml_dicts.get('rcParams'):  # Apply rcParams to mpl

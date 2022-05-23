@@ -3,10 +3,10 @@ import os
 import io
 
 import yoda
-from yamlio import read_yamlfile
-from rivet_plot1d import plot_1Dhist
-from rivet_plot2d import plot_2Dhist
-from mathtext_preprocessor import preprocess
+from mpl_tools.yamlio import read_yamlfile
+from mpl_tools.rivet_plot1d import plot_1Dhist
+from mpl_tools.rivet_plot2d import plot_2Dhist
+from mpl_tools.mathtext_preprocessor import preprocess
 
 
 def rivet_plot(yaml_file, plot_name, outputdir='.'):
