@@ -21,10 +21,8 @@ ENVIRONMENT:
 from __future__ import print_function
 
 import rivet, sys, os
-#sys.path.insert(1, "mpl-plotting")
-#sys.path.append("../mpl_plotting")
-from mpl_tools.rivet_mkdat import rivet_mkdat
-from mpl_tools.rivet_plot import rivet_plot
+from rivet.plot.rivet_mkdat import rivet_mkdat
+from rivet.plot.rivet_plot import rivet_plot
 rivet.util.check_python_version()
 rivet.util.set_process_name(os.path.basename(__file__))
 COMMAND = " ".join([os.path.basename(sys.argv[0])] + sys.argv[1:])

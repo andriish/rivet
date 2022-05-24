@@ -3,7 +3,7 @@ import os, re, io, logging
 from ruamel import yaml
 import rivet
 import yoda
-from mpl_tools.old_plotfile_converter import parse_old_plotfile
+from rivet.plot.mpl_tools.old_plotfile_converter import parse_old_plotfile
 
 
 def literal_presenter(dumper, data):

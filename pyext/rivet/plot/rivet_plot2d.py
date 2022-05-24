@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
 import numpy as np
 
-import mpl_tools.yoda_plot as yp
+import rivet.plot.mpl_tools.yoda_plot as yp
 
 
 def _prepare_mpl(yaml_dict, plot_features, style_path):

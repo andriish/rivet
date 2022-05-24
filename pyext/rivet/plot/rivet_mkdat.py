@@ -1,8 +1,8 @@
 from __future__ import print_function
 import rivet, yoda
 import os, glob, logging
-from . import yamlio
-from mpl_tools.old_plotfile_converter import type_conversion
+from rivet.plot.mpl_tools import yamlio
+from rivet.plot.mpl_tools.old_plotfile_converter import type_conversion
 
 # TODO: add more descriptive docstrings to all functions.
 
