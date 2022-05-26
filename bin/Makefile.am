@@ -40,12 +40,12 @@ if ENABLE_HEPMC_3
 bin_PROGRAMS = rivet-hepmz
 rivet_hepmz_SOURCES = rivet-hepmz.cc
 rivet_hepmz_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS) $(CPPFLAGS)
-rivet_hepmz_LDADD = $(top_builddir)/src/libRivet.la -lHepMC3 -lHepMC3search
+rivet_hepmz_LDADD = $(top_builddir)/src/libRivet.la -lHepMC3 -lHepMC3search -llwtnn
 rivet_hepmz_LDFLAGS = -L$(HEPMC3LIBPATH)
 
-rivet_nopy_LDFLAGS = -L$(HEPMC3LIBPATH)
-rivet_nopy_LDADD += $(top_builddir)/src/libRivet.la -lHepMC3 -lHepMC3search
+rivet_nopy_LDFLAGS = -L$(HEPMC3LIBPATH) 
+rivet_nopy_LDADD += $(top_builddir)/src/libRivet.la -lHepMC3 -lHepMC3search -llwtnn
 else
 rivet_nopy_LDFLAGS = -L$(HEPMCLIBPATH)
-rivet_nopy_LDADD += -lHepMC
+rivet_nopy_LDADD += -lHepMC -llwtnn
 endif

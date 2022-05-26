@@ -160,7 +160,8 @@ nobase_pkginclude_HEADERS += \
   Tools/TypeTraits.hh \
   Tools/WriterCompressedAscii.hh \
   Tools/Utils.hh \
-  Tools/ProjectionTreePlotter.hh
+  Tools/ProjectionTreePlotter.hh \
+  Tools/MCBot_tagger.hh
 nobase_dist_noinst_HEADERS += \
   Tools/osdir.hh \
   Math/eigen3/COPYING.GPL \

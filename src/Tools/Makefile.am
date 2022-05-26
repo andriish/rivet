@@ -16,7 +16,8 @@ libRivetTools_la_SOURCES = \
   RivetPaths.cc \
   Utils.cc \
   binreloc.c \
-  ProjectionTreePlotter.cc
+  ProjectionTreePlotter.cc \
+  MCBot_tagger.cc
 
 if ENABLE_HEPMC_3
 libRivetTools_la_SOURCES += RivetHepMC_3.cc ReaderCompressedAscii.cc WriterCompressedAscii.cc
@@ -26,4 +27,5 @@ endif
 
 dist_noinst_HEADERS = binreloc.h lester_mt2_bisect.hh
 
-libRivetTools_la_CPPFLAGS = $(AM_CPPFLAGS) -DENABLE_BINRELOC -DDEFAULTDATADIR=\"$(datadir)\" -DDEFAULTLIBDIR=\"$(libdir)\"
+#I appreciate this is a bodge.
+libRivetTools_la_CPPFLAGS = $(AM_CPPFLAGS) -DENABLE_BINRELOC -DDEFAULTDATADIR=\"$(datadir)\" -DDEFAULTLIBDIR=\"$(libdir)\"  -llwtnn
