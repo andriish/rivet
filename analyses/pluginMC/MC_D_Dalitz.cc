@@ -45,6 +45,9 @@ namespace Rivet {
       book(_h_kpkm1 ,"h_kpkm1",200,0.9,3.5);
       book(_h_kppip7,"h_kppip7",200,0.3,3.5);
       book(_h_kmpip1,"h_kmpip1",200,0.3,3.5);
+      book(_h_pipi5, "h_pipi5"   ,200,0.,3.2 );
+      book(_h_pipi6, "h_pipi6"   ,200,0.,3.2 );
+      book(_h_pipi7, "h_pipi7"   ,200,0.,3.2 );
       book(_dalitz1, "dalitz1"    ,50,0.3,3.2,50,0.3,3.2);
       book(_dalitz2, "dalitz2"    ,50,0.3,3. ,50,0.3,3. );
       book(_dalitz3, "dalitz3"    ,50,0.3,2. ,50,0.07,2. );
@@ -52,6 +55,7 @@ namespace Rivet {
       book(_dalitz5, "dalitz5"    ,50,0.,3. ,50,0.,2. );
       book(_dalitz6, "dalitz6"    ,50,0.3,3.5,50,0.07,2.5);
       book(_dalitz7, "dalitz7"    ,50,0.3,3.5,50,0.07,2.5);
+      book(_dalitz8, "dalitz8"    ,50,0.,3.2,50,0.,3.2);
     }
 
     void findDecayProducts(const Particle & mother, unsigned int & nstable,
@@ -121,6 +125,15 @@ namespace Rivet {
 	    _h_minus2 ->fill(mminus);
 	    _h_pipi2  ->fill(mpipi);
 	    _dalitz2->fill(mminus,mneut);
+	  }
+	  else if (pip.size()==1&&pim.size()==1&&pi0.size()==1) {
+	    double mneut  = (pim[0].momentum()+pip[0].momentum()).mass2();
+	    double mminus = (pim[0].momentum()+pi0[0].momentum()).mass2();
+	    double mplus  = (pip[0].momentum()+pi0[0].momentum()).mass2();
+	    _h_pipi5 ->fill(mplus);
+	    _h_pipi6 ->fill(mminus);
+	    _h_pipi7 ->fill(mneut);
+	    _dalitz8 ->fill(mplus,mminus);
 	  }
 	}
 	else if(abs(meson.pid())==411) {
@@ -209,6 +222,10 @@ namespace Rivet {
       normalize(_h_kppip7);
       normalize(_h_kmpip1);
       normalize(_dalitz7);
+      normalize(_h_pipi5);
+      normalize(_h_pipi6);
+      normalize(_h_pipi7);
+      normalize(_dalitz8);
     }
     //@}
 
@@ -285,6 +302,16 @@ namespace Rivet {
     Histo1DPtr _h_kmpip1;
     // Dalitz plot
     Histo2DPtr _dalitz7;
+
+    // Histograms for D0 -> pi+pi-pi0
+    // Histogram for pi+pi0
+    Histo1DPtr _h_pipi5;
+    // Histogram for pi-pi0
+    Histo1DPtr _h_pipi6;
+    // Histogram for pi+pi-
+    Histo1DPtr _h_pipi7;
+    // Dalitz plot
+    Histo2DPtr _dalitz8;
     //@}
 
   };

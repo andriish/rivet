@@ -57,38 +57,6 @@
 
 	* Release 3.1.7
 
-2022-07-01 Peter Richardson <peter.richardson@durham.ac.uk>
-
-	* Add BELLE_2020_I1785816 D0 -> K- pi+ eta
-
-2022-06-24 Peter Richardson <peter.richardson@durham.ac.uk>
-
-	* Add CLEO_2008_I791716 D+ -> K+ K- pi+
-
-2022-06-21  Jack Araz  <andy.buckley@cern.ch>
-
-	* Add HEPTopTagger interface (since made optional, with no-build
-	example analysis)
-
-2022-06-16 Peter Richardson <peter.richardson@durham.ac.uk>
-
-	* Add E691_1992_I342947 D -> K pipi Dalitz decays
-	* Add MARKIII_1987_I247266  D -> K pipi Dalitz decays
-	* Add CLEOII_2001_I537154 D0 -> K- pi+ pi0 dalitz
-	* Add CLEOC_2007_I749602 D+ -> pi+pi+pi- dalitz
-
-2022-06-10 Peter Richardson <peter.richardson@durham.ac.uk>
-
-	* Add FOCUS_2007_I750701 D+ -> K- pi+ pi+ dalitz
-
-2022-06-09 Peter Richardson <peter.richardson@durham.ac.uk>
-
-	* Add CLEOC_2008_I780363 D+ -> K- pi+ pi+ dalitz
-
-2022-06-07 Peter Richardson <peter.richardson@durham.ac.uk>
-
-	* Add E791_2002_I585322 D+ -> K- pi+ pi+ dalitz
-
 2022-09-14  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add EXAMPLE_NTUPLE_ROOT example analysis showing how to open and
@@ -173,10 +141,46 @@
 	* Fixed RatioPlotDrawReferenceFirst and ErrorTubeLineDash options in
 	make-plots.
 
+2022-07-01 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2020_I1785816 D0 -> K- pi+ eta
+
+2022-06-24 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CLEO_2008_I791716 D+ -> K+ K- pi+
+
+2022-06-21  Jack Araz  <andy.buckley@cern.ch>
+
+	* Add HEPTopTagger interface (since made optional, with no-build
+	example analysis)
+
+2022-06-16 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add E691_1992_I342947 D -> K pipi Dalitz decays
+	* Add MARKIII_1987_I247266  D -> K pipi Dalitz decays
+	* Add CLEOII_2001_I537154 D0 -> K- pi+ pi0 dalitz
+	* Add CLEOC_2007_I749602 D+ -> pi+pi+pi- dalitz
+
+2022-06-10 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add FOCUS_2007_I750701 D+ -> K- pi+ pi+ dalitz
+
+2022-06-09 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CLEOC_2008_I780363 D+ -> K- pi+ pi+ dalitz
+
+2022-06-07 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add E791_2002_I585322 D+ -> K- pi+ pi+ dalitz
+
 2022-05-29  Christian Gutschow  <chris.g@cern.ch>
 
 	* Fix various labelling issues in ATLAS_2019_I1736531, ATLAS_2019_I1740909,
 	ATLAS_2019_I1750330 and ATLAS_2019_I1772062 as reported by Natalia Korneeva
+
+2022-05-26 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2007_I747154 D0->pi+pi-pi0
 
 2022-05-21 Peter Richardson <peter.richardson@durham.ac.uk>
 
