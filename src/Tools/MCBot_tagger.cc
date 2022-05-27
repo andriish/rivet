@@ -4,9 +4,21 @@
 namespace Rivet{
 
   MCBot_tagger::MCBot_tagger(const std::string& path_to_weights) : _path(path_to_weights){
+    std::ifstream input(_path);
+    auto config = lwt::parse_json(input);
+    input.close();
+
+    _lwg = std::make_unique<lwt::LightweightNeuralNetwork>(config.inputs, config.layers, config.outputs);
+    lwt::NanReplacer replacer(config.defaults, lwt::rep::all);
   }
 
   MCBot_tagger::MCBot_tagger(const std::string&& path_to_weights) : _path(std::move(path_to_weights)){
+    std::ifstream input(_path);
+    auto config = lwt::parse_json(input);
+    input.close();
+
+    _lwg = std::make_unique<lwt::LightweightNeuralNetwork>(config.inputs, config.layers, config.outputs);
+    lwt::NanReplacer replacer(config.defaults, lwt::rep::all);
   }
 
 
@@ -22,6 +34,12 @@ namespace Rivet{
 
     outputs = lwg.compute(inputs);
 
+  }
+
+
+  //Its own function for historical reasons. Probably doesn't need to be anymore
+  void MCBot_tagger::compute(map<string, double>& inputs, map<string, double>& outputs){
+    outputs = _lwg->compute(inputs);
   }
 
 
@@ -59,7 +77,8 @@ namespace Rivet{
 
 
     std::map<string, double> outputs;
-    load_and_compute(input_vals, outputs);
+    //load_and_compute(input_vals, outputs);
+    compute(input_vals, outputs);
 
 
     double PV=log10(outputs["dnnOutput_V"]/
