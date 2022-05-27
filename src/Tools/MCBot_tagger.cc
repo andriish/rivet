@@ -3,6 +3,9 @@
 
 namespace Rivet{
 
+  
+
+  //Constructor for string reference to json
   MCBot_tagger::MCBot_tagger(const std::string& path_to_weights) : _path(path_to_weights){
     std::ifstream input(_path);
     auto config = lwt::parse_json(input);
@@ -12,6 +15,7 @@ namespace Rivet{
     lwt::NanReplacer replacer(config.defaults, lwt::rep::all);
   }
 
+  //Constructor for string literal to json
   MCBot_tagger::MCBot_tagger(const std::string&& path_to_weights) : _path(std::move(path_to_weights)){
     std::ifstream input(_path);
     auto config = lwt::parse_json(input);
@@ -21,8 +25,18 @@ namespace Rivet{
     lwt::NanReplacer replacer(config.defaults, lwt::rep::all);
   }
 
+  //Copy constructor
+  //Will have same path to ref data, but initialises its own Neural Net
+  MCBot_tagger::MCBot_tagger(const MCBot_tagger& other) : MCBot_tagger(other._path){
+  }
 
-  void MCBot_tagger::load_and_compute(map<string, double>& inputs, map<string, double>& outputs){
+  //Assignment operator - same principle as copy constructor
+  MCBot_tagger MCBot_tagger::operator=(const MCBot_tagger& other){
+    return MCBot_tagger(other._path);
+  }
+
+
+  void MCBot_tagger::load_and_compute(map<string, double>& inputs, map<string, double>& outputs) const{
 
     //Is it insanely dirty to load every time? yes.
     //But I need to get the blasted thing working and we can iron out details later.
@@ -37,8 +51,7 @@ namespace Rivet{
   }
 
 
-  //Its own function for historical reasons. Probably doesn't need to be anymore
-  void MCBot_tagger::compute(map<string, double>& inputs, map<string, double>& outputs){
+  void MCBot_tagger::compute(map<string, double>& inputs, map<string, double>& outputs) const{
     outputs = _lwg->compute(inputs);
   }
 
@@ -133,6 +146,9 @@ namespace Rivet{
   Log& MCBot_tagger::getLog() const {
     return Rivet::Log::getLog("Rivet.MCBot_tagger");
   }
+
+
+
 
 
 }    

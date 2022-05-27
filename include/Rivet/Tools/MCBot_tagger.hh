@@ -32,16 +32,27 @@ namespace Rivet {
   // 
   class MCBot_tagger{
   public:
-    //Constructor
+    //Constructor 
     MCBot_tagger(const std::string& path_to_weights);
 
     MCBot_tagger(const std::string&& path_to_weights);
 
-    void compute(map<string, double>& inputs, map<string, double>& outputs);
+    MCBot_tagger(const MCBot_tagger& other);
 
-    void load_and_compute(map<string, double>& inputs, map<string, double>& outputs);
+    MCBot_tagger operator=(const MCBot_tagger& tocopy);
+
+
+    //Compute outputs for given inputs.
+    //Its own function for historical reasons. Probably won need to be anymore
+    void compute(map<string, double>& inputs, map<string, double>& outputs) const;
+    
+    //Load a local copy of the network, compute output, and then throw away.
+    //Useful for testing, probably useless long-term.
+    void load_and_compute(map<string, double>& inputs, map<string, double>& outputs) const;
 
     //Tag the provided PseudoJet
+    //Should be const but I haven't gotten round to figuring out what to do with the 
+    //threshold score map yet.
     MCBot_TagType tag(const PseudoJet& totag,const Jets &constituents);
 
     /// Get a logger object.
@@ -51,18 +62,18 @@ namespace Rivet {
     //the lwtnn neural net
     std::unique_ptr<lwt::LightweightNeuralNetwork> _lwg;
     std::string _path;
-
-    //Thresholds for individual scores.
-    // Score needs to be greater than to be tagged.
-    std::map<string, double> _threshold = {{"PV", -0.2}, {"PH", 0.35}, {"Pt", 0.1}};
-
-    //Thresholds for the double-tag tiebreaks.
-    //A score greater than threshold indicates jet should be tagged as the second
-    // of the pair of labels.
-    std::map<string, double> _tiebreak_thresholds ={{"t_V", -0.3}, {"H_V", -0.55}, {"t_H", 0.2}};
-
       
   };
+
+  //Thresholds for individual scores.
+  //TODO: Is there a "right" way to store these? Constexpr static or soemthing?
+  // Score needs to be greater than to be tagged.
+  std::map<string, double> _threshold = {{"PV", -0.2}, {"PH", 0.35}, {"Pt", 0.1}};
+
+  //Thresholds for the double-tag tiebreaks.
+  //A score greater than threshold indicates jet should be tagged as the second
+  // of the pair of labels.
+  std::map<string, double> _tiebreak_thresholds = {{"t_V", -0.3}, {"H_V", -0.55}, {"t_H", 0.2}};
 
 
 
