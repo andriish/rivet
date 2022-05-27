@@ -35,14 +35,19 @@ namespace Rivet {
     //Constructor
     MCBot_tagger(std::string& path_to_weights);
 
-     MCBot_tagger(std::string path_to_weights);
+    MCBot_tagger(std::string path_to_weights);
+
+    void load_and_compute(map<string, double>& inputs, map<string, double>& outputs);
 
     //Tag the provided PseudoJet
     MCBot_TagType tag(const PseudoJet& totag,const Jets &constituents);
 
   private:
     //the lwtnn neural net
-    std::shared_ptr<lwt::LightweightNeuralNetwork> _lwg;
+    //std::shared_ptr<lwt::LightweightNeuralNetwork> _lwg;
+
+    bool _lwNNloaded;
+    std::string _path;
 
     //Thresholds for individual scores.
     // Score needs to be greater than to be tagged.
@@ -52,6 +57,10 @@ namespace Rivet {
     //A score greater than threshold indicates jet should be tagged as the second
     // of the pair of labels.
     std::map<string, double> _tiebreak_thresholds ={{"t_V", -0.3}, {"H_V", -0.55}, {"t_H", 0.2}};
+
+
+    /// Get a logger object.
+    Log& getLog() const;
       
   };
 
