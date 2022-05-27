@@ -3,20 +3,14 @@
 
 namespace Rivet{
 
-  MCBot_tagger::MCBot_tagger(std::string& path_to_weights){
-
-    _lwNNloaded=false;
-    _path = path_to_weights;
+  MCBot_tagger::MCBot_tagger(const std::string& path_to_weights) : _path(path_to_weights){
   }
 
-  MCBot_tagger::MCBot_tagger(std::string path_to_weights){
-
-    _lwNNloaded=false;
-    _path = path_to_weights;
+  MCBot_tagger::MCBot_tagger(const std::string&& path_to_weights) : _path(std::move(path_to_weights)){
   }
 
 
-   void MCBot_tagger::load_and_compute(map<string, double>& inputs, map<string, double>& outputs){
+  void MCBot_tagger::load_and_compute(map<string, double>& inputs, map<string, double>& outputs){
 
     //Is it insanely dirty to load every time? yes.
     //But I need to get the blasted thing working and we can iron out details later.
@@ -45,50 +39,24 @@ namespace Rivet{
       {"rcjet_m", totag.m()},
       
       {"sjet_1_mv2c10_binned", static_cast<double>(hasBTag()(leadingsubjets[2]))},//todo: double check this
-      //{"sjet_1_mv2c10_binned", static_cast<double>(1)},//todo: double check this
       {"sjet_1_e", leadingsubjets[0].E()},
       {"sjet_1_phi", leadingsubjets[0].phi()},
       {"sjet_1_eta", leadingsubjets[0].eta()},
       {"sjet_1_pt", leadingsubjets[0].pt()},
 
       {"sjet_2_mv2c10_binned", static_cast<double>(hasBTag()(leadingsubjets[2]))},//todo: double check this
-      //{"sjet_2_mv2c10_binned", static_cast<double>(1)},//todo: double check this
       {"sjet_2_e", leadingsubjets[1].E()},
       {"sjet_2_phi", leadingsubjets[1].phi()},
       {"sjet_2_eta", leadingsubjets[1].eta()},
       {"sjet_2_pt", leadingsubjets[1].pt()},
 
       {"sjet_3_mv2c10_binned", static_cast<double>(hasBTag()(leadingsubjets[2]))},//todo: double check this
-      //{"sjet_3_mv2c10_binned", static_cast<double>(1)},//todo: double check this
       {"sjet_3_e", leadingsubjets[2].E()},
       {"sjet_3_phi", leadingsubjets[2].phi()},
       {"sjet_3_eta", leadingsubjets[2].eta()},
       {"sjet_3_pt", leadingsubjets[2].pt()}
     };
 
-    // std::map<std::string, double> input_map;
-    // input_map["sjet_1_e"]        =  250;
-    // input_map["sjet_1_eta"]      =  1.7;
-    // input_map["sjet_1_mv2c10_binned"] = 1;
-    // input_map["sjet_1_phi"]      =  4.2;
-    // input_map["sjet_1_pt"]       =  200;
-
-    // input_map["sjet_2_e"]        =  200;
-    // input_map["sjet_2_eta"]      =  -1.2;
-    // input_map["sjet_2_mv2c10_binned"]= 1;
-    // input_map["sjet_2_phi"]      =  1.1;
-    // input_map["sjet_2_pt"]       =  180;
-    
-    // input_map["sjet_3_e"]        =  180;
-    // input_map["sjet_3_eta"]      =  0.4;
-    // input_map["sjet_3_mv2c10_binned"]= 0;
-    // input_map["sjet_3_phi"]      =  2;
-    // input_map["sjet_3_pt"]       =  160;
-
-    // //electron or muon channel 
-    // input_map["rcjet_m"]         = 100; 
-    // input_map["rcjet_pt"]       = 600;
-    // input_map["rcjet_numConstituents"]       =  5;
 
     std::map<string, double> outputs;
     load_and_compute(input_vals, outputs);
@@ -103,12 +71,14 @@ namespace Rivet{
 
     //Are values above the threshold value?
     bool isV = (PV > _threshold["PV"]);
-    std::cout << __FILE__ << ": " << __LINE__ << std::endl;
     bool isH = (PH > _threshold["PH"]);
-    std::cout << __FILE__ << ": " << __LINE__ << std::endl;
     bool istop = (Ptop > _threshold["Ptop"]);
 
+    MSG_INFO("(DV, DH, Dtop, Dlight) = (" << outputs["dnnOutput_V"] << ", " << 
+        outputs["dnnOutput_H"] << ", " << outputs["dnnOutput_top"] << ", " <<
+         outputs["dnnOutput_light"]  << ")");
     MSG_INFO("(PV, PH, Ptop) = (" << PV << ", " << PH << ", " << Ptop << ")");
+    MSG_INFO("(isV, isH, istop) = (" << isV << ", " << isH << ", " << istop << ")");
 
     //Return values
     if ((!isV) && (!isH) && (!istop)){
@@ -127,6 +97,8 @@ namespace Rivet{
     //Double tag cases require a tiebreak.
     else if (isH && isV){
       double tiebreakScore = log10(outputs["dnnOutput_V"]/outputs["dnnOutput_H"]);
+      MSG_INFO("Tie break score: " << tiebreakScore << " (threshold " << _tiebreak_thresholds["H_V"] << ")");
+
       return (tiebreakScore > _tiebreak_thresholds["H_V"]) ? MCBot_TagType::V : MCBot_TagType::H;
     }
     else if (isV && istop){
@@ -137,8 +109,6 @@ namespace Rivet{
       double tiebreakScore = log10(outputs["dnnOutput_H"]/outputs["dnnOutput_top"]);
       return (tiebreakScore > _tiebreak_thresholds["t_H"]) ? MCBot_TagType::H : MCBot_TagType::top;
     }
-
-    std::cout << __FILE__ << ": " << __LINE__ << std::endl;
   }
 
   Log& MCBot_tagger::getLog() const {

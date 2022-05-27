@@ -33,9 +33,9 @@ namespace Rivet {
   class MCBot_tagger{
   public:
     //Constructor
-    MCBot_tagger(std::string& path_to_weights);
+    MCBot_tagger(const std::string& path_to_weights);
 
-    MCBot_tagger(std::string path_to_weights);
+    MCBot_tagger(const std::string&& path_to_weights);
 
     void load_and_compute(map<string, double>& inputs, map<string, double>& outputs);
 
