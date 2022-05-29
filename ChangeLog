@@ -1,3 +1,8 @@
+2022-05-29  Christian Gutschow  <chris.g@cern.ch>
+
+	* Fix various labelling issues in ATLAS_2019_I1736531, ATLAS_2019_I1740909,
+	ATLAS_2019_I1750330 and ATLAS_2019_I1772062 as reported by Natalia Korneeva
+
 2022-05-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Suppress spurious 'unused argument' warning from clang as called from rivet-build.

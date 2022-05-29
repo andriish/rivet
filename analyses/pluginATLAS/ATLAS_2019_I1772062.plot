@@ -125,7 +125,7 @@ YMax=4.5
 
 # BEGIN PLOT /ATLAS_2019_I1772062/d18
 Title=Dijet selection, Track Based, Soft Drop $\beta$ = 2.0, $z_{cut}$ = 0.1
-XLabel=4.5
+XLabel=$r_g$
 YLabel=(1/$\sigma$) d$\sigma$/d $r_g$ 
 YMax=2.8
 # END PLOT
