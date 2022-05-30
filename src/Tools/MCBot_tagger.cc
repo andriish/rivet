@@ -59,34 +59,65 @@ namespace Rivet{
   MCBot_TagType MCBot_tagger::tag(const PseudoJet& totag, const Jets &constits){
     Jets leadingsubjets = sortByPt(constits);
 
-    if (leadingsubjets.size() < 3){
-      MSG_WARNING("Unable to tag vRC jet with only " << leadingsubjets.size() << " consituents!");
+    
+    if (leadingsubjets.size() < 1){
+      MSG_WARNING("Unable to tag vRC jet with " << leadingsubjets.size() << " consituents!");
       return MCBot_TagType::bkg;
     }
 
+    //MCBot is trained in MeV units (I think)
     std::map<string, double> input_vals = {
-      {"rcjet_pt", totag.pt()},
+      {"rcjet_pt", totag.pt()/MeV},
       {"rcjet_numConstituents", static_cast<double>(constits.size())},
-      {"rcjet_m", totag.m()},
+      {"rcjet_m", totag.m()/MeV},
       
-      {"sjet_1_mv2c10_binned", static_cast<double>(hasBTag()(leadingsubjets[2]))},//todo: double check this
-      {"sjet_1_e", leadingsubjets[0].E()},
+      {"sjet_1_mv2c10_binned", static_cast<double>(hasBTag()(leadingsubjets[0]))},
+      {"sjet_1_e", leadingsubjets[0].E()/MeV},
       {"sjet_1_phi", leadingsubjets[0].phi()},
       {"sjet_1_eta", leadingsubjets[0].eta()},
-      {"sjet_1_pt", leadingsubjets[0].pt()},
-
-      {"sjet_2_mv2c10_binned", static_cast<double>(hasBTag()(leadingsubjets[2]))},//todo: double check this
-      {"sjet_2_e", leadingsubjets[1].E()},
-      {"sjet_2_phi", leadingsubjets[1].phi()},
-      {"sjet_2_eta", leadingsubjets[1].eta()},
-      {"sjet_2_pt", leadingsubjets[1].pt()},
-
-      {"sjet_3_mv2c10_binned", static_cast<double>(hasBTag()(leadingsubjets[2]))},//todo: double check this
-      {"sjet_3_e", leadingsubjets[2].E()},
-      {"sjet_3_phi", leadingsubjets[2].phi()},
-      {"sjet_3_eta", leadingsubjets[2].eta()},
-      {"sjet_3_pt", leadingsubjets[2].pt()}
+      {"sjet_1_pt", leadingsubjets[0].pt()/MeV}
     };
+
+    if (leadingsubjets.size() >= 2){
+      input_vals["sjet_2_mv2c10_binned"] = static_cast<double>(hasBTag()(leadingsubjets[1]));
+      input_vals["sjet_2_e"] = leadingsubjets[1].E()/MeV;
+      input_vals["sjet_2_phi"] = leadingsubjets[1].phi();
+      input_vals["sjet_2_eta"] = leadingsubjets[1].eta();
+      input_vals["sjet_2_pt"] = leadingsubjets[1].pt()/MeV;
+
+      if (leadingsubjets.size() >= 3){
+        input_vals["sjet_3_mv2c10_binned"] = static_cast<double>(hasBTag()(leadingsubjets[2]));
+        input_vals["sjet_3_e"] = leadingsubjets[2].E()/MeV;
+        input_vals["sjet_3_phi"] = leadingsubjets[2].phi();
+        input_vals["sjet_3_eta"] = leadingsubjets[2].eta();
+        input_vals["sjet_3_pt"] = leadingsubjets[2].pt()/MeV;
+      }
+      else {
+        input_vals["sjet_3_mv2c10_binned"] = -1.0;
+        input_vals["sjet_3_e"] = 0.0;
+        input_vals["sjet_3_phi"] = totag.phi();
+        input_vals["sjet_3_eta"] = totag.eta();
+        input_vals["sjet_3_pt"] = 0.0;
+      }
+    }
+    else {
+      input_vals["sjet_2_mv2c10_binned"] = -1.0;
+      input_vals["sjet_2_e"] = 0.0;
+      input_vals["sjet_2_phi"] = totag.phi();
+      input_vals["sjet_2_eta"] = totag.eta();
+      input_vals["sjet_2_pt"] = 0.0;
+
+      input_vals["sjet_3_mv2c10_binned"] = -1.0;
+      input_vals["sjet_3_e"] = 0.0;
+      input_vals["sjet_3_phi"] = totag.phi();
+      input_vals["sjet_3_eta"] = totag.eta();
+      input_vals["sjet_3_pt"] = 0.0;
+    }
+
+      
+
+      
+    
 
 
     std::map<string, double> outputs;
