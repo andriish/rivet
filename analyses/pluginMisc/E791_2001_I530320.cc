@@ -5,12 +5,12 @@
 namespace Rivet {
 
 
-  /// @brief D_s+ -> pi+pi+pi-
-  class E791_2001_I530319 : public Analysis {
+  /// @brief  D+ -> pi+pi+pi-
+  class E791_2001_I530320 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(E791_2001_I530319);
+    RIVET_DEFAULT_ANALYSIS_CTOR(E791_2001_I530320);
 
 
     /// @name Analysis methods
@@ -20,7 +20,7 @@ namespace Rivet {
     void init() {
       declare(UnstableParticles(), "UFS");
       book(_h_pi,1,1,1);
-      book(_dalitz, "dalitz",50,0.,3.5,50,0.0,3.5);
+      book(_dalitz, "dalitz",50,0.,3.1,50,0.0,3.1);
     }
 
     void findDecayProducts(const Particle & mother, unsigned int & nstable,
@@ -50,7 +50,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      for(const Particle& meson : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid== 431 )) {
+      for(const Particle& meson : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid== 411 )) {
 	unsigned int nstable(0);
 	Particles pip, pim;
 	findDecayProducts(meson, nstable, pip, pim);
@@ -89,6 +89,6 @@ namespace Rivet {
   };
 
 
-  RIVET_DECLARE_PLUGIN(E791_2001_I530319);
+  RIVET_DECLARE_PLUGIN(E791_2001_I530320);
 
 }
