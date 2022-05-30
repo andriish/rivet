@@ -6,11 +6,11 @@ namespace Rivet {
 
 
   /// @brief D0 -> pi+pi-pi0
-  class BABAR_2007_I747154 : public Analysis {
+  class BABAR_2016_I1441203 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2007_I747154);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2016_I1441203);
 
 
     /// @name Analysis methods
@@ -21,8 +21,10 @@ namespace Rivet {
       declare(UnstableParticles(), "UFS");
       book(_h_pi[0],1,1,1);
       book(_h_pi[1],1,1,2);
+      book(_h_pi[2],1,1,3);
       book(_dalitz, "dalitz",50,0.,3.2,50,0.0,3.2);
     }
+
 
     void findDecayProducts(const Particle & mother, unsigned int & nstable,
 			   Particles & pip , Particles & pim , Particles & pi0) {
@@ -67,12 +69,15 @@ namespace Rivet {
 	if(meson.pid()<0) {
 	  swap(pim,pip);
 	}
-	if (pim.size()==1&&pi0.size()==1&&pip.size()==1) {
+	if (nstable==3 && pim.size()==1&&pi0.size()==1&&pip.size()==1) {
+	  double mneut = (pim[0].momentum()+pip[0].momentum()).mass2();
+	  if(mneut>475*MeV && mneut<505*MeV) continue;
 	  double mplus  = (pip[0].momentum()+pi0[0].momentum()).mass2();
 	  double mminus = (pim[0].momentum()+pi0[0].momentum()).mass2();
 	  _h_pi[0]->fill(mplus);
 	  _h_pi[1]->fill(mminus);
-	  _dalitz->fill(mminus,mplus);
+	  _h_pi[2]->fill(mneut);
+	  _dalitz->fill(mplus,mminus);
 	}
       }
     }
@@ -80,8 +85,8 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      normalize(_h_pi[0]);
-      normalize(_h_pi[1]);
+      for(unsigned int ix=0;ix<3;++ix)
+	normalize(_h_pi[ix]);
       normalize(_dalitz);
     }
 
@@ -90,7 +95,7 @@ namespace Rivet {
 
     /// @name Histograms
     /// @{
-    Histo1DPtr _h_pi[2];
+    Histo1DPtr _h_pi[3];
     Histo2DPtr _dalitz;
     /// @}
 
@@ -98,6 +103,6 @@ namespace Rivet {
   };
 
 
-  RIVET_DECLARE_PLUGIN(BABAR_2007_I747154);
+  RIVET_DECLARE_PLUGIN(BABAR_2016_I1441203);
 
 }

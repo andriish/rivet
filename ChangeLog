@@ -173,6 +173,10 @@
 
 	* Add E791_2002_I585322 D+ -> K- pi+ pi+ dalitz
 
+2022-05-30 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CLEOC_2011_I913909 D0 -> K_S0 pi0 pi0
+
 2022-05-29  Christian Gutschow  <chris.g@cern.ch>
 
 	* Fix various labelling issues in ATLAS_2019_I1736531, ATLAS_2019_I1740909,

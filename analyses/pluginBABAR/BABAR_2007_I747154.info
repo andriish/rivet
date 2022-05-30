@@ -9,11 +9,11 @@ Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
- - hys.Rev.Lett. 99 (2007) 251801
+ - Phys.Rev.Lett. 99 (2007) 251801
 RunInfo: Any process producing D0 -> pi+pi-pi0, original e+e->Upsilon(4S)
 Description:
   'Measurement of the mass distributions in the decay $D^0\to \pi^+\pi^-\pi^0$. The data were read from the plots in the paper.
-   It is also not clear that any resolution/acceptance effects have been unfolded.'
+   Resolution/acceptance effects have been not unfolded and given the agreement with the model in the paper this analysis should only be used for qualitative studies.'
 ValidationInfo:
   'Herwig 7 events using model from paper'
 #ReleaseTests:
