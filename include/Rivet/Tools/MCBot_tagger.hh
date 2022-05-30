@@ -17,10 +17,10 @@ namespace Rivet {
   //enum class for the four possible output classification types of the 
   // MCBot tagger
   enum class MCBot_TagType{
-    bkg,
-    top,
-    V,
-    H
+    bkg=0,
+    top=1,
+    V=2,
+    H=3
   };
 
 
@@ -32,13 +32,18 @@ namespace Rivet {
   // 
   class MCBot_tagger{
   public:
-    //Constructor 
+
+    //Constructor for string reference to json
     MCBot_tagger(const std::string& path_to_weights);
 
+    //Constructor for string literal to json
     MCBot_tagger(const std::string&& path_to_weights);
 
+    //Copy constructor
+    //Will have same path to ref data, but initialises its own Neural Net
     MCBot_tagger(const MCBot_tagger& other);
 
+    //Assignment operator - same principle as copy constructor
     MCBot_tagger operator=(const MCBot_tagger& tocopy);
 
 
@@ -61,6 +66,8 @@ namespace Rivet {
   private:
     //the lwtnn neural net
     std::unique_ptr<lwt::LightweightNeuralNetwork> _lwg;
+
+    //Path to the json that stores the network.
     std::string _path;
       
   };

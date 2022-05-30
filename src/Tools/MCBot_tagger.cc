@@ -5,7 +5,7 @@ namespace Rivet{
 
   
 
-  //Constructor for string reference to json
+  
   MCBot_tagger::MCBot_tagger(const std::string& path_to_weights) : _path(path_to_weights){
     std::ifstream input(_path);
     auto config = lwt::parse_json(input);
@@ -15,7 +15,6 @@ namespace Rivet{
     lwt::NanReplacer replacer(config.defaults, lwt::rep::all);
   }
 
-  //Constructor for string literal to json
   MCBot_tagger::MCBot_tagger(const std::string&& path_to_weights) : _path(std::move(path_to_weights)){
     std::ifstream input(_path);
     auto config = lwt::parse_json(input);
@@ -25,12 +24,9 @@ namespace Rivet{
     lwt::NanReplacer replacer(config.defaults, lwt::rep::all);
   }
 
-  //Copy constructor
-  //Will have same path to ref data, but initialises its own Neural Net
   MCBot_tagger::MCBot_tagger(const MCBot_tagger& other) : MCBot_tagger(other._path){
   }
 
-  //Assignment operator - same principle as copy constructor
   MCBot_tagger MCBot_tagger::operator=(const MCBot_tagger& other){
     return MCBot_tagger(other._path);
   }
@@ -137,11 +133,11 @@ namespace Rivet{
     bool isH = (PH > _threshold["PH"]);
     bool istop = (Ptop > _threshold["Ptop"]);
 
-    MSG_INFO("(DV, DH, Dtop, Dlight) = (" << outputs["dnnOutput_V"] << ", " << 
+    MSG_DEBUG("(DV, DH, Dtop, Dlight) = (" << outputs["dnnOutput_V"] << ", " << 
         outputs["dnnOutput_H"] << ", " << outputs["dnnOutput_top"] << ", " <<
          outputs["dnnOutput_light"]  << ")");
-    MSG_INFO("(PV, PH, Ptop) = (" << PV << ", " << PH << ", " << Ptop << ")");
-    MSG_INFO("(isV, isH, istop) = (" << isV << ", " << isH << ", " << istop << ")");
+    MSG_DEBUG("(PV, PH, Ptop) = (" << PV << ", " << PH << ", " << Ptop << ")");
+    MSG_DEBUG("(isV, isH, istop) = (" << isV << ", " << isH << ", " << istop << ")");
 
     //Return values
     if ((!isV) && (!isH) && (!istop)){
@@ -160,8 +156,6 @@ namespace Rivet{
     //Double tag cases require a tiebreak.
     else if (isH && isV){
       double tiebreakScore = log10(outputs["dnnOutput_V"]/outputs["dnnOutput_H"]);
-      MSG_INFO("Tie break score: " << tiebreakScore << " (threshold " << _tiebreak_thresholds["H_V"] << ")");
-
       return (tiebreakScore > _tiebreak_thresholds["H_V"]) ? MCBot_TagType::V : MCBot_TagType::H;
     }
     else if (isV && istop){
