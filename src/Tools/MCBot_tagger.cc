@@ -7,21 +7,39 @@ namespace Rivet{
 
   
   MCBot_tagger::MCBot_tagger(const std::string& path_to_weights) : _path(path_to_weights){
-    std::ifstream input(_path);
-    auto config = lwt::parse_json(input);
-    input.close();
+    //Use a try catch block because this can fail (e.g. bad path, wring LD_LIBRARY_PATH for lwtnn)
+    // and if it does fail, the error messages are always very misleading.
+    try {
+      std::ifstream input(_path);
+      auto config = lwt::parse_json(input);
+      input.close();
 
-    _lwg = std::make_unique<lwt::LightweightNeuralNetwork>(config.inputs, config.layers, config.outputs);
-    lwt::NanReplacer replacer(config.defaults, lwt::rep::all);
+      _lwg = std::make_unique<lwt::LightweightNeuralNetwork>(config.inputs, config.layers, config.outputs);
+      //TODO: I'm not sure what the point of the NaN replacer is, but I'm using it to copy 
+      //the original analyses work flow. 
+      lwt::NanReplacer replacer(config.defaults, lwt::rep::all);
+    }
+    catch (Exception &e){
+      throw "Error in initialising MCBot tagger. Does the json file exist, and is it correctly structured?";
+    }
   }
 
   MCBot_tagger::MCBot_tagger(const std::string&& path_to_weights) : _path(std::move(path_to_weights)){
+  //Use a try catch block because this can fail (e.g. bad path, wring LD_LIBRARY_PATH for lwtnn)
+    // and if it does fail, the error messages are always very misleading.
+    try {
     std::ifstream input(_path);
     auto config = lwt::parse_json(input);
     input.close();
 
     _lwg = std::make_unique<lwt::LightweightNeuralNetwork>(config.inputs, config.layers, config.outputs);
+    //TODO: I'm not sure what the point of the NaN replacer is, but I'm using it to copy 
+      //the original analyses work flow. 
     lwt::NanReplacer replacer(config.defaults, lwt::rep::all);
+    }
+    catch (Exception &e){
+      throw "Error in initialising MCBot tagger. Does the json file exist, and is it correctly structured?";
+    }
   }
 
   MCBot_tagger::MCBot_tagger(const MCBot_tagger& other) : MCBot_tagger(other._path){
