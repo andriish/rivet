@@ -50,7 +50,7 @@ namespace Rivet{
   }
 
 
-  void MCBot_tagger::load_and_compute(map<string, double>& inputs, map<string, double>& outputs) const{
+  void MCBot_tagger::load_and_compute(const map<string, double>& inputs, map<string, double>& outputs) const{
 
     //Is it insanely dirty to load every time? yes.
     //But I need to get the blasted thing working and we can iron out details later.
@@ -65,19 +65,15 @@ namespace Rivet{
   }
 
 
-  void MCBot_tagger::compute(map<string, double>& inputs, map<string, double>& outputs) const{
+  void MCBot_tagger::compute(const map<string, double>& inputs, map<string, double>& outputs) const{
     outputs = _lwg->compute(inputs);
   }
 
 
-  MCBot_TagType MCBot_tagger::tag(const PseudoJet& totag, const Jets &constits){
-    Jets leadingsubjets = sortByPt(constits);
+  void MCBot_tagger::computeScores(const PseudoJet& totag, const Jets &constits, 
+                                  std::map<string, double>& scoresOut) const{
 
-    
-    if (leadingsubjets.size() < 1){
-      MSG_WARNING("Unable to tag vRC jet with " << leadingsubjets.size() << " consituents!");
-      return MCBot_TagType::bkg;
-    }
+    Jets leadingsubjets = sortByPt(constits);
 
     //MCBot is trained in MeV units (I think)
     std::map<string, double> input_vals = {
@@ -126,18 +122,13 @@ namespace Rivet{
       input_vals["sjet_3_phi"] = totag.phi();
       input_vals["sjet_3_eta"] = totag.eta();
       input_vals["sjet_3_pt"] = 0.0;
-    }
+    }                                      
+  }
 
-      
-
-      
-    
-
+  MCBot_TagType MCBot_tagger::tag(const PseudoJet& totag, const Jets &constits){
 
     std::map<string, double> outputs;
-    //load_and_compute(input_vals, outputs);
-    compute(input_vals, outputs);
-
+    computeScores(totag, constits, outputs);
 
     double PV=log10(outputs["dnnOutput_V"]/
       (0.9*outputs["dnnOutput_light"]+0.05*outputs["dnnOutput_top"]+0.05*outputs["dnnOutput_H"]));

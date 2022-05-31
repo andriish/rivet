@@ -49,11 +49,15 @@ namespace Rivet {
 
     //Compute outputs for given inputs.
     //Its own function for historical reasons. Probably won need to be anymore
-    void compute(map<string, double>& inputs, map<string, double>& outputs) const;
+    void compute(const map<string, double>& inputs, map<string, double>& outputs) const;
+
+    //Get scores from a Jet and its constituents
+    void computeScores(const PseudoJet& totag, const Jets &constits, 
+                                  std::map<string, double>& scoresOut) const;
     
     //Load a local copy of the network, compute output, and then throw away.
     //Useful for testing, probably useless long-term.
-    void load_and_compute(map<string, double>& inputs, map<string, double>& outputs) const;
+    void load_and_compute(const map<string, double>& inputs, map<string, double>& outputs) const;
 
     //Tag the provided PseudoJet
     //Should be const but I haven't gotten round to figuring out what to do with the 
