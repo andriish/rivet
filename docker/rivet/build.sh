@@ -16,9 +16,11 @@ for RIVET_BRANCH in release-3-1-x rivet-3.1.6; do
     BUILD="$BUILD --build-arg RIVET_BRANCH=$RIVET_BRANCH" # --squash"
     test "$TEST" && BUILD="echo $BUILD"
 
+    test "$INTEL" = 1 && intel="ubuntu-intel-hepmc$vhepmc-py3"
+
     MSG="Building Rivet $RIVET_VERSION image with architecture ="
     for vhepmc in 3; do   # 2
-        for arch in ubuntu-intel-hepmc$vhepmc-py3 ubuntu-gcc-hepmc$vhepmc-py3 ubuntu-gcc-hepmc$vhepmc-py3 ubuntu-clang-hepmc$vhepmc-py3 ubuntu-gcc-hepmc$vhepmc-py2; do
+        for arch in $intel ubuntu-gcc-hepmc$vhepmc-py3 ubuntu-gcc-hepmc$vhepmc-py3 ubuntu-clang-hepmc$vhepmc-py3 ubuntu-gcc-hepmc$vhepmc-py2; do
 
             echo "@@ $MSG $arch"
             tag="hepstore/rivet:$RIVET_VERSION-$arch"

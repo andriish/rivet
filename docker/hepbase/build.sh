@@ -8,13 +8,13 @@ test "$FORCE" && BUILD="$BUILD --no-cache"
 
 test "$TEST" && BUILD="echo $BUILD"
 
-FEDORA_IMAGE=fedora:32
-UBUNTU_IMAGE=ubuntu:20.04
+# FEDORA_IMAGE=fedora:32
+# UBUNTU_IMAGE=ubuntu:22.04
 
 RIVETBS_VERSION=3.1.6
 LHAPDF_VERSION=6.5.1
 
-for vhepmc in 3.2.5  2.06.11; do
+for vhepmc in 3.2.5; do   # 2.06.11
     for tex in 0 1; do
 
         MSG="Building hepbase image with HepMC=$vhepmc and TeX=$tex"
@@ -35,17 +35,25 @@ for vhepmc in 3.2.5  2.06.11; do
         test "$PUSH" = 1 && docker push $tag && sleep 1m
         echo -e "\n\n\n"
 
+        echo "@@ $MSG on Ubuntu LTS 20.04 with GCC compilers"
+        tag=hepstore/hepbase-ubuntu20-gcc-hepmc${vhepmc:0:1}-py3$TEXSUFFIX
+        $BUILD . -f Dockerfile.ubuntu $GCCARGS -t $tag
+        test "$PUSH" = 1 && docker push $tag && sleep 1m
+        echo -e "\n\n\n"
+
         echo "@@ $MSG on Ubuntu with clang compilers"
         tag=hepstore/hepbase-ubuntu-clang-hepmc${vhepmc:0:1}-py3$TEXSUFFIX
         $BUILD . -f Dockerfile.ubuntu ${CLANGARGS/gfortran/flang} -t $tag
         test "$PUSH" = 1 && docker push $tag && sleep 1m
         echo -e "\n\n\n"
 
-        echo "@@ $MSG on Ubuntu with Intel compilers"
-        tag=hepstore/hepbase-ubuntu-intel-hepmc${vhepmc:0:1}-py3$TEXSUFFIX
-        $BUILD . -f Dockerfile.ubuntu $INTELARGS -t $tag
-        test "$PUSH" = 1 && docker push $tag && sleep 1m
-        echo -e "\n\n\n"
+        if [[ "$INTEL" = 1 ]]; then
+            echo "@@ $MSG on Ubuntu with Intel compilers"
+            tag=hepstore/hepbase-ubuntu-intel-hepmc${vhepmc:0:1}-py3$TEXSUFFIX
+            $BUILD . -f Dockerfile.ubuntu $INTELARGS -t $tag
+            test "$PUSH" = 1 && docker push $tag && sleep 1m
+            echo -e "\n\n\n"
+        fi
 
         echo "@@ $MSG on Fedora with GCC compilers"
         tag=hepstore/hepbase-fedora-gcc-hepmc${vhepmc:0:1}-py3$TEXSUFFIX

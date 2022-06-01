@@ -3,6 +3,16 @@ FROM ${FEDORA_IMAGE}
 LABEL maintainer="rivet-developers@cern.ch"
 SHELL ["/bin/bash", "--login", "-c"]
 
+ARG LATEX
+RUN if test "$LATEX" = "1"; then \
+      dnf install -y \
+        texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow \
+        texlive-relsize texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended \
+        ghostscript ImageMagick texlive-dvips; \
+      dnf clean all; \
+      texhash; \
+    fi
+
 ARG BUILD_TOOLS
 RUN true \
     && dnf update -y \
@@ -82,16 +92,6 @@ RUN true \
     && cd LHAPDF-*/ && ./configure --prefix=/usr/local \
     && make -j $(nproc --ignore=1) && make install \
     && rm -r /code
-
-ARG LATEX
-RUN if test "$LATEX" = "1"; then \
-      dnf install -y \
-        texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow \
-        texlive-relsize texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended \
-        ghostscript ImageMagick texlive-dvips; \
-      dnf clean all; \
-      texhash; \
-    fi
 
 RUN echo "alias ll='ls -l'" > /etc/profile.d/ll.sh
 WORKDIR /work
