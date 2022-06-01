@@ -1133,7 +1133,7 @@ Title=Boosted l+jets
 XMinorTickMarks=0
 XCustomMajorTicks=1.0 1 2.0 2 3.0 3 4.0 $\geq4$
 XLabel=$N^{\mathrm{sub-jet}}$ 
-YLabel=$1 / \sigma \;\mathrm{d}\sigma / \mathrm{d} N^{\mathrm{extra-jet}}$
+YLabel=$1 / \sigma \;\mathrm{d}\sigma / \mathrm{d} N^{\mathrm{sub-jet}}$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1750330/d887-x01-y01

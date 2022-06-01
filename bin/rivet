@@ -669,15 +669,17 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
     logging.info(msg)
 
     ## The event loop
-    while args.MAXEVTNUM is None or evtnum-args.EVTSKIPNUM < args.MAXEVTNUM:
+    while args.MAXEVTNUM is None or old_evtnum-args.EVTSKIPNUM < args.MAXEVTNUM:
         evtnum = run.numEvents() # only updates when event number changes
 
         ## Optional event skipping
         if evtnum <= args.EVTSKIPNUM:
+            if evtnum != old_evtnum:
+              old_evtnum = evtnum
+              if evtnum % 1000 == 0:
+                  logging.info("Skipping event #%i" % evtnum)
             logging.debug("Skipping event #%i" % evtnum)
             run.readEvent();
-            if evtnum % 1000 == 0:
-                logging.info("Skipping event #%i" % evtnum)
             continue
 
         ## Only log the event number once we're actually processing

@@ -209,7 +209,7 @@ for aname in sorted(all_analyses, key=anasort):
                     from pygments.lexers import get_lexer_by_name
                     from pygments.formatters import get_formatter_by_name
                     lx = get_lexer_by_name("c++")
-                    fm = get_formatter_by_name("html", linenos=True, noclasses=True)
+                    fm = get_formatter_by_name("html", linenos="inline", noclasses=True)
                     page += pygments.highlight(src, lx, fm)
                 except:
                     page += "<kbd>" + src.replace("\n", "<br/>\n") + "</kbd>"
