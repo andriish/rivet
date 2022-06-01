@@ -122,7 +122,9 @@ namespace Rivet{
       input_vals["sjet_3_phi"] = totag.phi();
       input_vals["sjet_3_eta"] = totag.eta();
       input_vals["sjet_3_pt"] = 0.0;
-    }                                      
+    }
+
+    compute(input_vals, scoresOut);
   }
 
   MCBot_TagType MCBot_tagger::tag(const PseudoJet& totag, const Jets &constits){
