@@ -1,0 +1,39 @@
+Name: DELPHI_2003_I628566
+Year: 2003
+Summary: Spectrum for $f_1(1285)$ and $f_1^\prime(1420)$ production in hadronic $Z^0$ decays
+Experiment: DELPHI
+Collider: LEP
+InspireID: 628566
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <Peter.Richardson@durham.ac.uk>
+References:
+ - Phys.Lett.B 569 (2003) 129-139
+RunInfo:
+  Hadronic Z decay events generated on the Z pole ($\sqrt{s} = 91.2$ GeV)
+NumEvents: 1000000
+Beams: [e+, e-]
+Energies: [91.2]
+Description:
+  'DELPHI results for the spectrum for  $f_1(1285)$ and $f_1^\prime(1420)$ production in hadronic $Z^0$ decays'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: DELPHI:2003bnm
+BibTeX: '@article{DELPHI:2003bnm,
+    author = "Abdallah, J. and others",
+    collaboration = "DELPHI",
+    title = "{Measurement of inclusive f(1)(1285) and f(1)(1420) production in Z decays with the DELPHI detector}",
+    eprint = "hep-ex/0309057",
+    archivePrefix = "arXiv",
+    reportNumber = "CERN-EP-2003-027",
+    doi = "10.1016/j.physletb.2003.07.032",
+    journal = "Phys. Lett. B",
+    volume = "569",
+    pages = "129--139",
+    year = "2003"
+}
+'
