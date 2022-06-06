@@ -1,0 +1,105 @@
+// -*- C++ -*-
+#include "Rivet/Analysis.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
+
+namespace Rivet {
+
+
+  /// @brief D+ -> K_0S pi+ pi0
+  class BESIII_2014_I1277070 : public Analysis {
+  public:
+
+    /// Constructor
+    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2014_I1277070);
+
+
+    /// @name Analysis methods
+    /// @{
+
+    /// Book histograms and initialise projections before the run
+    void init() {
+      declare(UnstableParticles(), "UFS");
+      book(_h_pipi  ,1,1,1);
+      book(_h_KS0pi0,1,1,2);
+      book(_h_KS0pip,1,1,3);
+      book(_dalitz, "dalitz",50,0.3,3.1,50,0.,2.0);
+    }
+
+    void findDecayProducts(const Particle & mother, unsigned int & nstable,
+			   Particles & K0, Particles & pip, Particles & pim, Particles & pi0) {
+      for(const Particle & p : mother.children()) {
+        int id = p.pid();
+        if ( id == PID::KPLUS  || id == PID::KMINUS || id == PID::K0L) {
+	  ++nstable;
+	}
+	else if (id == PID::PIPLUS) {
+	  pip.push_back(p);
+	  ++nstable;
+	}
+	else if (id == PID::PIMINUS) {
+	  pim.push_back(p);
+	  ++nstable;
+	}
+	else if (id == PID::PI0) {
+	  pi0.push_back(p);
+	  ++nstable;
+	}
+	else if (id == PID::K0S) {
+	  K0.push_back(p);
+          ++nstable;
+        }
+	else if ( !p.children().empty() ) {
+	  findDecayProducts(p, nstable, K0, pip, pim,pi0);
+	}
+	else
+	  ++nstable;
+      }
+    }
+
+    /// Perform the per-event analysis
+    void analyze(const Event& event) {
+      for(const Particle& meson : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid== 411 )) {
+	unsigned int nstable(0);
+	Particles K0, pip, pim,pi0;
+	findDecayProducts(meson, nstable, K0, pip, pim,pi0);
+	if(nstable !=3) continue;
+	if(meson.pid()<0) {
+	  swap(pim,pip);
+	}
+	if (pip.size()==1&&K0.size()==1&&pi0.size()==1) {
+	  double mpipi   = (pi0[0].momentum()+pip[0].momentum()).mass2();
+	  double mKS0pip = (K0 [0].momentum()+pip[0].momentum()).mass2();
+	  double mKS0pi0 = (K0 [0].momentum()+pi0[0].momentum()).mass2();
+	  _h_pipi  ->fill(mpipi);
+	  _h_KS0pip->fill(mKS0pip);
+	  _h_KS0pi0->fill(mKS0pi0);
+	  _dalitz->fill(mKS0pi0,mpipi);
+	}
+      }
+    }
+
+
+    /// Normalise histograms etc., after the run
+    void finalize() {
+      normalize(_h_pipi);
+      normalize(_h_KS0pi0);
+      normalize(_h_KS0pip);
+      normalize(_dalitz);
+    }
+
+    /// @}
+
+
+    /// @name Histograms
+    /// @{
+    Histo1DPtr _h_pipi,_h_KS0pi0, _h_KS0pip;
+    Histo2DPtr _dalitz;
+    /// @}
+
+
+  };
+
+
+  RIVET_DECLARE_PLUGIN(BESIII_2014_I1277070);
+
+}
