@@ -189,6 +189,7 @@ namespace Rivet{
     file.open(filename, overWrite ? std::ofstream::out : std::ofstream::app);
     file << totag.E()*1000 << ", " << totag.m()*1000 << ", " << totag.eta() << ", " <<
             totag.phi() << ", " << leadingsubjets.size() << ", " <<
+
             leadingsubjets[0].pT()*1000 << ", " << leadingsubjets[0].E()*1000 << ", " <<
             leadingsubjets[0].phi() << ", " << leadingsubjets[0].eta() << ", " <<
             static_cast<double>(hasBTag()(leadingsubjets[0])) << ", ";
@@ -206,6 +207,8 @@ namespace Rivet{
             -1.0 << ", ";
       }
     } else {
+      file << 0.0 << ", " << 0.0 << ", " << totag.phi() << ", " << totag.eta() << ", " <<
+            -1.0 << ", ";
       file << 0.0 << ", " << 0.0 << ", " << totag.phi() << ", " << totag.eta() << ", " <<
             -1.0 << ", ";
     } 
