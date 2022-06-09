@@ -179,6 +179,40 @@ namespace Rivet{
     }
   }
 
+  void MCBot_tagger::dumpJetToCSV(const PseudoJet& totag, const Jets &constits, 
+                                  std::map<string, double>& scoresOut, std::string& filename,
+                                  bool overWrite){
+
+    Jets leadingsubjets = sortByPt(constits);                                    
+    
+    std::ofstream file;
+    file.open(filename, overWrite ? std::ofstream::out : std::ofstream::app);
+    file << totag.E()*1000 << ", " << totag.m()*1000 << ", " << totag.eta() << ", " <<
+            totag.phi() << ", " << leadingsubjets.size() << ", " <<
+            leadingsubjets[0].pT()*1000 << ", " << leadingsubjets[0].E()*1000 << ", " <<
+            leadingsubjets[0].phi() << ", " << leadingsubjets[0].eta() << ", " <<
+            static_cast<double>(hasBTag()(leadingsubjets[0])) << ", ";
+    if (leadingsubjets.size() >= 2){
+      file << leadingsubjets[1].pT()*1000 << ", " << leadingsubjets[1].E()*1000 << ", " <<
+            leadingsubjets[1].phi() << ", " << leadingsubjets[1].eta() << ", " <<
+            static_cast<double>(hasBTag()(leadingsubjets[1])) << ", ";
+
+      if (leadingsubjets.size() >= 3){
+      file << leadingsubjets[2].pT()*1000 << ", " << leadingsubjets[2].E()*1000 << ", " <<
+            leadingsubjets[2].phi() << ", " << leadingsubjets[2].eta() << ", " <<
+            static_cast<double>(hasBTag()(leadingsubjets[2])) << ", ";
+      } else {
+        file << 0.0 << ", " << 0.0 << ", " << totag.phi() << ", " << totag.eta() << ", " <<
+            -1.0 << ", ";
+      }
+    } else {
+      file << 0.0 << ", " << 0.0 << ", " << totag.phi() << ", " << totag.eta() << ", " <<
+            -1.0 << ", ";
+    } 
+    file << "\n";
+    file.close();
+  }
+
   Log& MCBot_tagger::getLog() const {
     return Rivet::Log::getLog("Rivet.MCBot_tagger");
   }

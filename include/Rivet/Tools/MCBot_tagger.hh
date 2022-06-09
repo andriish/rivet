@@ -64,6 +64,11 @@ namespace Rivet {
     //threshold score map yet.
     MCBot_TagType tag(const PseudoJet& totag,const Jets &constituents);
 
+    //Dump the jet to a csv file (to allow us to test it through ROOT)
+    void dumpJetToCSV(const PseudoJet& totag, const Jets &constits, 
+                                  std::map<string, double>& scoresOut, std::string& filename,
+                                  bool overWrite = false);
+
     /// Get a logger object.
     Log& getLog() const;
 
