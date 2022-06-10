@@ -60,7 +60,11 @@
 2022-06-21  Jack Araz  <andy.buckley@cern.ch>
 
 	* Add HEPTopTagger interface (since made optional, with no-build
-	example analysis).
+	example analysis)
+
+2022-06-10 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add FOCUS_2007_I750701 D+ -> K- pi+ pi+ dalitz
 
 2022-09-14  Andy Buckley  <andy.buckley@cern.ch>
 
