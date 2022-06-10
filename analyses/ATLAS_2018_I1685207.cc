@@ -20,7 +20,7 @@
 // info before the cluster sequence pointer disappears in a puff of smoke.
 //If I can use a fastjet trimmer to do this more elegantly please let me know.
 void naive_RC_trimmer(const Rivet::PseudoJets& input, Rivet::PseudoJets& output,
-                       double pt_frac, vector<Rivet::PseudoJets>& new_consituents){
+                       double pt_frac, vector<Rivet::PseudoJets>& new_constituents){
   output.clear();
   for (const Rivet::PseudoJet& j : input){
     std::vector<size_t> to_keep;
@@ -31,19 +31,31 @@ void naive_RC_trimmer(const Rivet::PseudoJets& input, Rivet::PseudoJets& output,
       }
     }
     //TODO this is overcomplicated.
-
+    //std::cout << j.pt() << ", pT of VRC jet" << std::endl; //print the momentum of VRC jet
+    
     if (to_keep.size() > 0){
+      
       Rivet::PseudoJet jet;
       Rivet::PseudoJets constits;
       for (const size_t i : to_keep){
+
+        //std::cout << j.constituents()[i].pt() << ","; // print momenta of all its constituents
+
         jet+=j.constituents()[i];
         constits.push_back(j.constituents()[i]);
       }
+      //std::cout << std::endl;
+      //std::cout << jet.pt() << ", momentum of the reconstructed pseudojet" << std::endl; 
+      //for (size_t i = 0; i < constits.size();++i){
+        //std::cout << constits[i].pt() << ",";
+      //}
+      //std::cout << std::endl;
       output.push_back(jet);
-      new_consituents.push_back(constits);
+      new_constituents.push_back(constits);
     }
   }
 }
+
 
 //Numbers match MCBot_tagtype.
 //TOOD: probably should only have one type of enum
@@ -197,7 +209,8 @@ namespace Rivet {
       book(_h["jetpT"], "jetpT", 50, 130, 2000);
 
       // deltaR distribution histogram -- include -1 to see how many -1 get filled
-      book(_h["V_deltaR"], "V_deltaR", 100,-1.2 ,6.3); 
+      book(_h["Z_deltaR"], "Z_deltaR", 100,-1.2 ,6.3); 
+      book(_h["W_deltaR"], "W_deltaR", 100,-1.2 ,6.3);
       book(_h["H_deltaR"], "H_deltaR", 100,-1.2 ,6.3);
       book(_h["Top_deltaR"], "Top_deltaR", 100,-1.2 ,6.3);
       
@@ -250,19 +263,64 @@ namespace Rivet {
       PseudoJets TrimmedVRCjets;
       vector<PseudoJets> NewConstits;
       naive_RC_trimmer(VRC_jets, TrimmedVRCjets, 0.05, NewConstits);
-      //
-      ifilter_select(TrimmedVRCjets, [](const PseudoJet &j){return (j.pt() > 150*GeV && abs(j.eta()) < 2.5 && j.m() > 40*GeV);});
-      int VRCsize = TrimmedVRCjets.size();
+
+      //for (size_t i = 0; i < TrimmedVRCjets.size();++i){
+       // PseudoJet pj = TrimmedVRCjets[i];
+        //std::cout << "TrimmedVRCjet and consts" << std::endl;
+        //std:: cout << pj.pt() << "," << pj.m() << "," << pj.eta() << "," << pj.phi() << "," << std::endl;
+        //for (const PseudoJet& j : NewConstits[i]){
+        //  std::cout << j.pt() << "," << j.m() << "," << j.eta() << "," << j.phi() << "," << std::endl;;
+       // }
+     // }
+
+      
+      //create a copy to fill in the VRC jets and their constits that pass the cut
+
+      PseudoJets FilteredVRCjets;
+      vector<PseudoJets> FilteredNewConstits;
+
+      PseudoJet tr_pj;
+      for (size_t i = 0; i < TrimmedVRCjets.size(); ++i){
+        tr_pj = TrimmedVRCjets[i];
+        if (tr_pj.pt() > 150*GeV && abs(tr_pj.eta()) < 2.5 && tr_pj.m() > 40*GeV){
+          FilteredVRCjets.push_back(tr_pj);
+          FilteredNewConstits.push_back(NewConstits[i]);
+        }
+      }
+
+
+      //for (size_t i = 0; i < FilteredVRCjets.size();++i){
+        //PseudoJet pj = FilteredVRCjets[i];
+        //std::cout << "FilteredVRCjet and consts" << std::endl;
+        //std:: cout << pj.pt() << "," << pj.m() << "," << pj.eta() << "," << pj.phi() << "," << std::endl;
+        //for (const PseudoJet& j : FilteredNewConstits[i]){
+          //std::cout << j.pt() << "," << j.m() << "," << j.eta() << "," << j.phi() << "," << std::endl;;
+        //}
+      //}
+
+      // original code
+      //ifilter_select(TrimmedVRCjets, [](const PseudoJet &j){return (j.pt() > 150*GeV && abs(j.eta()) < 2.5 && j.m() > 40*GeV);});
+      
+      int VRCsize = FilteredVRCjets.size();
       if (VRCsize == 0) {
         vetoEvent;
-      }       
+      }    
+
+      //for (int i = 0; i < VRCsize;++i){
+        //std::cout << i << " very final state," << std::endl;
+        //std::cout << TrimmedVRCjets[i].pt() << "," << std::endl;
+        //for (const PseudoJet& j : NewConstits[i]){
+        //  std::cout << j.pt() << ",";
+       // }
+       // std::cout << std::endl;
+      //}   
 
       // defining signal as an input for further analysis
       // for background mode: analyse all TrimmedVRCjets, for signal mode, pick the 2 highest pT and then analyse the one with higher mass
 
       PseudoJets signal; 
       if (_mode == 0){
-        signal = TrimmedVRCjets;
+        signal = FilteredVRCjets;
       }
       else if (_mode  == 1) {
 
@@ -274,7 +332,7 @@ namespace Rivet {
         int index2 = 0;
 
         for (int i = 0; i < VRCsize;++i){
-          pTjet = TrimmedVRCjets[i].pt();
+          pTjet = FilteredVRCjets[i].pt();
           
           if (pTjet >= largest1){
             largest2 = largest1;
@@ -289,11 +347,11 @@ namespace Rivet {
 
         }
 
-        if (TrimmedVRCjets[index1].m() >= TrimmedVRCjets[index2].m()){
-            signal.push_back(TrimmedVRCjets[index1]);
+        if (FilteredVRCjets[index1].m() >= FilteredVRCjets[index2].m()){
+            signal.push_back(FilteredVRCjets[index1]);
         }
         else {
-          signal.push_back(TrimmedVRCjets[index2]);
+          signal.push_back(FilteredVRCjets[index2]);
         }
 
       }
@@ -329,7 +387,9 @@ namespace Rivet {
           double dR = deltaR(Rivet::momentum3(j),Rivet::momentum3(p));
 
           // now check whether there are Z,W,H, or tops (pid = 23,24,25,6)
-          (abs(pid) == 23 || abs(pid) == 24) ? (_h["V_deltaR"]->fill(dR)) : (_h["V_deltaR"]->fill(-1));
+          (abs(pid) == 23 ) ? (_h["Z_deltaR"]->fill(dR)) : (_h["Z_deltaR"]->fill(-1));
+
+          (abs(pid) == 24 ) ? (_h["W_deltaR"]->fill(dR)) : (_h["W_deltaR"]->fill(-1));
               
           (abs(pid) == 25) ? (_h["H_deltaR"]->fill(dR)) : (_h["H_deltaR"]->fill(-1));
 
@@ -338,14 +398,15 @@ namespace Rivet {
         }
 
         if (VHandtops.size() == 0){
-          _h["V_deltaR"]->fill(-1);
+          _h["Z_deltaR"]->fill(-1);
+          _h["W_deltaR"]->fill(-1);
           _h["H_deltaR"]->fill(-1);
           _h["Top_deltaR"]->fill(-1);
         } 
 
         //First we need a Jets of all the constituents, that has b-tagging info.
         Jets tagged_constituents;
-        for (const PseudoJet& pj : NewConstits[counter]){
+        for (const PseudoJet& pj : FilteredNewConstits[counter]){
           auto it = std::find_if(smeared_small_jets.begin(), smeared_small_jets.end(),
                                   [&pj](Jet& j){return (deltaR(momentum3(pj), j) < 0.1);});
           if (it != smeared_small_jets.end()){
@@ -353,6 +414,15 @@ namespace Rivet {
           }
           else {
             MSG_WARNING("FAILED TO FIND CONSTITUENT");
+          }
+        }
+      
+        for (size_t i = 0; i < FilteredVRCjets.size();++i){
+          PseudoJet pj = j;
+          std::cout << "FilteredVRCjet and tagged consts" << std::endl;
+          std:: cout << pj.pt() << "," << pj.m() << "," << pj.eta() << "," << pj.phi() << "," << std::endl;
+          for (const PseudoJet& otherj : FilteredNewConstits[i]){
+            std::cout << otherj.pt() << "," << otherj.m() << "," << otherj.eta() << "," << otherj.phi() << "," << std::endl;;
           }
         }
         
