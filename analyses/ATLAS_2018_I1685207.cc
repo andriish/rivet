@@ -11,6 +11,7 @@
 #include "Rivet/Projections/SmearedMET.hh"
 #include "Rivet/Projections/PartonicTops.hh"
 #include "Rivet/Tools/MCBot_tagger.hh"
+#include "Rivet/Tools/RivetPaths.hh"
 #include "fastjet/contrib/VariableRPlugin.hh"
 #include "fastjet/tools/Filter.hh"
 #include <fstream>
@@ -215,9 +216,13 @@ namespace Rivet {
       book(_h["Top_deltaR"], "Top_deltaR", 100,-1.2 ,6.3);
       
       
-
-      _MCbottagger = std::make_unique<MCBot_tagger>(MCBot_tagger("/home/ppe/v/vnovackova/RivetLWTNN/rel21_wp77.json"));
-     
+      //Find the json file
+      const std::string nn_datafilename = "ATLAS_2018_I1685207.nn.json.yoda";
+      //TODO: Would be nice to use the proper find syntax but there seems to be assumptions
+      // about .yoda endings. Someone who understands the paths system better would do it more
+      // elegantly.
+      const std::string nn_datafilepath =  getDataPath()+"/Rivet/"+nn_datafilename;
+      _MCbottagger = std::make_unique<MCBot_tagger>(MCBot_tagger(nn_datafilepath));
 
     }
 
