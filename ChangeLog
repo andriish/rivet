@@ -168,7 +168,8 @@
 2022-06-19 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add CLEO_2003_I633196 D0 -> Kbar0 pi+ pi-
-	* Add BABAR_2010_I85327
+	* Add BABAR_2010_I85327 D0 -> Kbar0 pi+ pi-/K+K-
+
 2022-06-16 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add E691_1992_I342947 D -> K pipi Dalitz decays
@@ -176,6 +177,11 @@
 	* Add CLEOII_2001_I537154 D0 -> K- pi+ pi0 dalitz
 	* Add CLEOC_2007_I749602 D+ -> pi+pi+pi- dalitz
 	* Add BABAR_2014_I1287632 eta_c dalitz decays
+
+2022-06-12 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2021_I1929365 D_s+ -> pi+ pi0 pi0 pi0 dalitz
+	* Add BESIII_2021_I1859124 D+ -> K+ KS0 pi0 dalitz
 
 2022-06-10 Peter Richardson <peter.richardson@durham.ac.uk>
 
