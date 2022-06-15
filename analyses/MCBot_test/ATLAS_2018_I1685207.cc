@@ -116,6 +116,23 @@ DNN_Category getTrueDNNtag(const Rivet::PseudoJet& pj, const Rivet::Particles& c
 }
 
 
+// extra for dR checks...
+
+/// Integral of acos(x)
+constexpr double iacos(double x) { return sqrt(1 - x*x) - x*acos(x);}
+
+/// Compute eta-integrated DeltaR phase space Phi(dr, detamax)
+constexpr double dr_phase_space_Phi(double dr, double detamax) {
+if (dr == 0 || detamax == 0 || Rivet::sqr(dr) > Rivet::sqr(detamax) + Rivet::sqr(M_PI)) return 0.0;
+
+// Compute intuitive form via theta_max
+const double theta_max = dr < M_PI ? M_PI / 2.0 : asin(M_PI/dr);
+const double cos_theta_max = cos(theta_max);
+double L = (detamax - dr*cos_theta_max)*theta_max - dr*iacos(cos_theta_max);
+if (dr > detamax) L += dr*iacos(detamax/dr);
+  return dr * L;
+}
+
 
 
 namespace Rivet {
@@ -145,16 +162,18 @@ namespace Rivet {
       else if (getOption("MODE") == "SGN") {
         _mode = 1;
       }
-      const PromptFinalState fse(Cuts::abseta < 2.47 && Cuts::pt > 28*GeV && 
+
+      // electrons
+      const PromptFinalState fse(Cuts::abseta < 2.47 && Cuts::pt > 20*GeV && 
 		                             Cuts::abspid == PID::ELECTRON &&
 								                 !Cuts::absetaIn(1.37, 1.52));
-
 	    declare("Elec", fse);
 	    SmearedParticles recoelectrons(fse, ELECTRON_RECOEFF_ATLAS_RUN2, ELECTRON_SMEAR_ATLAS_RUN2);
     	declare(recoelectrons, "SmearedElec");
 
 	    /// muons
-	    const PromptFinalState fsm(Cuts::abseta < 2.5 && Cuts::pT > 28*GeV && Cuts::abspid == PID::MUON);
+	    const PromptFinalState fsm(Cuts::abseta < 2.5 && Cuts::pT > 20*GeV && Cuts::abspid == PID::MUON &&
+								                 !Cuts::absetaIn(1.37, 1.52));
 	    declare("Muon", fsm);
       //TODO: Check this is the right smearing.
 	    SmearedParticles recomuons(fsm, MUON_EFF_ATLAS_RUN2, MUON_SMEAR_ATLAS_RUN2);
@@ -165,8 +184,7 @@ namespace Rivet {
 	    
 	    FastJets Sj(fsj, FastJets::ANTIKT, 0.4, JetAlg::Muons::NONE);
 	    declare("Sjet", Sj);
-	    SmearedJets SSj(Sj, JET_SMEAR_ATLAS_RUN2, JET_BTAG_EFFS(1, 1./6.2, 1./134)); // originally: (0.77, 1./6.2, 1./134),
-      // check (60%, 70%, 85%)  the b-tag efficiency, could check 100% as well to see what happens
+	    SmearedJets SSj(Sj, JET_SMEAR_ATLAS_RUN2, JET_BTAG_EFFS(0.77, 1./6.2, 1./134)); // originally: (0.77, 1./6.2, 1./134),
     	declare(SSj, "smearedSjet");
 
       // pTmiss
@@ -223,10 +241,6 @@ namespace Rivet {
       //book(_h["H_top"], "H_top", 23, -1.1, 1.3);
       //book(_h["V_H_top"], "V_H_top", 18, -1.2, 0.6);
 
-      // momenta of W/Z for check in higgs sample
-
-      book(_h["W_mass"], "W_mass", 100 , 0, 100);
-      book(_h["Z_mass"], "Z_mass", 100 , 0, 100);
           
       //Find the json file
       const std::string nn_datafilename = "ATLAS_2018_I1685207.nn.json.yoda";
@@ -257,7 +271,8 @@ namespace Rivet {
       }
 
       Jets smeared_small_jets = apply<JetAlg>(event, "smearedSjet").jetsByPt();
-      idiscard(smeared_small_jets, Cuts::pt <= 25*GeV && Cuts::abseta < 2.5);
+      idiscard(smeared_small_jets, Cuts::pt <= 25*GeV && Cuts::abseta >= 2.5); // mistake in </> ?? the jets should have abseta < 2.5
+
       //Todo JVT means we lose 8% of small jets?
       //Get b-tagged jets:
       const Jets smeared_bjets = filter_select(smeared_small_jets, hasBTag());
@@ -281,16 +296,6 @@ namespace Rivet {
       PseudoJets TrimmedVRCjets;
       vector<PseudoJets> NewConstits;
       naive_RC_trimmer(VRC_jets, TrimmedVRCjets, 0.05, NewConstits);
-
-      //for (size_t i = 0; i < TrimmedVRCjets.size();++i){
-       // PseudoJet pj = TrimmedVRCjets[i];
-        //std::cout << "TrimmedVRCjet and consts" << std::endl;
-        //std:: cout << pj.pt() << "," << pj.m() << "," << pj.eta() << "," << pj.phi() << "," << std::endl;
-        //for (const PseudoJet& j : NewConstits[i]){
-        //  std::cout << j.pt() << "," << j.m() << "," << j.eta() << "," << j.phi() << "," << std::endl;;
-       // }
-     // }
-
       
       // apply pT, eta, and mass cuts
 
@@ -306,31 +311,10 @@ namespace Rivet {
         }
       }
 
-
-      //for (size_t i = 0; i < FilteredVRCjets.size();++i){
-        //PseudoJet pj = FilteredVRCjets[i];
-        //std::cout << "FilteredVRCjet and consts" << std::endl;
-        //std:: cout << pj.pt() << "," << pj.m() << "," << pj.eta() << "," << pj.phi() << "," << std::endl;
-        //for (const PseudoJet& j : FilteredNewConstits[i]){
-          //std::cout << j.pt() << "," << j.m() << "," << j.eta() << "," << j.phi() << "," << std::endl;;
-        //}
-      //}
-
-      
       int VRCsize = FilteredVRCjets.size();
       if (VRCsize == 0) {
         vetoEvent;
       }    
-
-      //for (int i = 0; i < VRCsize;++i){
-        //std::cout << i << " very final state," << std::endl;
-        //std::cout << TrimmedVRCjets[i].pt() << "," << std::endl;
-        //for (const PseudoJet& j : NewConstits[i]){
-        //  std::cout << j.pt() << ",";
-       // }
-       // std::cout << std::endl;
-      //}   
-
       
       // defining signal as an input for further analysis and filling signal constits with corresponding constuituent jets
       // for background mode: analyse all TrimmedVRCjets, for signal mode, pick the 2 highest pT and then analyse the one with higher mass
@@ -397,7 +381,8 @@ namespace Rivet {
       std::map<string, double> outputs; // outputs of DNN - D values
 
       
-      
+      // 
+
       size_t counter=0;
       for (const PseudoJet& j : signal){ 
 
@@ -407,15 +392,16 @@ namespace Rivet {
 
           int pid = p.pid();
           double dR = deltaR(Rivet::momentum3(j),Rivet::momentum3(p));
+          double eta_dR = 1/dr_phase_space_Phi(dR, 100); // setting etamax-etamin 2 * 2.5 for now...
 
           // now check whether there are Z,W,H, or tops (pid = 23,24,25,6)
-          (abs(pid) == 23 ) ? (_h["Z_deltaR"]->fill(dR)) : (_h["Z_deltaR"]->fill(-1));
+          (abs(pid) == 23 ) ? (_h["Z_deltaR"]->fill(eta_dR)) : (_h["Z_deltaR"]->fill(-1));
 
-          (abs(pid) == 24 ) ? (_h["W_deltaR"]->fill(dR)) : (_h["W_deltaR"]->fill(-1));
+          (abs(pid) == 24 ) ? (_h["W_deltaR"]->fill(eta_dR)) : (_h["W_deltaR"]->fill(-1));
               
-          (abs(pid) == 25) ? (_h["H_deltaR"]->fill(dR)) : (_h["H_deltaR"]->fill(-1));
+          (abs(pid) == 25) ? (_h["H_deltaR"]->fill(eta_dR)) : (_h["H_deltaR"]->fill(-1));
 
-          (abs(pid) == 6) ? (_h["Top_deltaR"]->fill(dR)) : (_h["Top_deltaR"]->fill(-1));
+          (abs(pid) == 6) ? (_h["Top_deltaR"]->fill(eta_dR)) : (_h["Top_deltaR"]->fill(-1));
           
         }
 
@@ -426,11 +412,11 @@ namespace Rivet {
           _h["Top_deltaR"]->fill(-1);
         } 
 
-        //First we need a Jets of all the constituents, that has b-tagging info.
+        //First we need a Jets of all the constituents, that has b-tagging info. 
         Jets tagged_constituents;
         for (const PseudoJet& pj : SignalConstits[counter]){
           auto it = std::find_if(smeared_small_jets.begin(), smeared_small_jets.end(),
-                                  [&pj](Jet& j){return (deltaR(momentum3(pj), j) < 0.1);});
+                                  [&pj](Jet& j){return (deltaR(momentum3(pj), j) < 0.1);}); // -- how is this equivalent to checking for b-tagging info???
           if (it != smeared_small_jets.end()){
             tagged_constituents.push_back(*it);
           }
@@ -438,19 +424,9 @@ namespace Rivet {
             MSG_WARNING("FAILED TO FIND CONSTITUENT");
           }
         }
-      
-        //for (size_t i = 0; i < FilteredVRCjets.size();++i){
-          //PseudoJet pj = j;
-          //std::cout << "FilteredVRCjet and tagged consts" << std::endl;
-          //std:: cout << pj.pt() << "," << pj.m() << "," << pj.eta() << "," << pj.phi() << "," << std::endl;
-          //for (const PseudoJet& otherj : FilteredNewConstits[i]){
-          //  std::cout << otherj.pt() << "," << otherj.m() << "," << otherj.eta() << "," << otherj.phi() << "," << std::endl;;
-          //}
-        //}
-
         
         // output a csv file of inputs for the dnn
-        // _MCbottagger->dumpJetToCSV(j, tagged_constituents, scoresOut, InputFile, false);
+        //_MCbottagger->dumpJetToCSV(j, tagged_constituents, scoresOut, InputFile, false);
       
         // computes the D values (probabilities)
         _MCbottagger->computeScores(j, tagged_constituents, outputs);
@@ -502,17 +478,17 @@ namespace Rivet {
         // get DNN tag
 
         MCBot_TagType tag = _MCbottagger->tag(j,tagged_constituents); // tag includes threshold values and tie-breaks...
-        
+        VRCjet_tags.push_back(static_cast<DNN_Category>(tag));
 
         // check for higgs sample: if there are any W/Z tagged vRC jets, print its pid, mass...
-        if (tag == MCBot_TagType::V){
-          for (const auto& p: VHandtops){
-            int pid = p.pid();
-            double mass = p.mass();
+        //if (tag == MCBot_TagType::V){
+          //for (const auto& p: VHandtops){
+            //int pid = p.pid();
+            //double mass = p.mass();
 
-            (pid == 24) ? (_h["W_mass"]->fill(mass)) : (_h["Z_mass"]->fill(mass));
-          }
-        }
+            //(pid == 24) ? (_h["W_mass"]->fill(mass)) : (_h["Z_mass"]->fill(mass));
+          //}
+        //}
 
       }
 
@@ -524,7 +500,7 @@ namespace Rivet {
         vetoEvent;
       }
       //ETMiss < 200GeV and ETmiss > 40GeV
-      if (ETmiss <= 40*GeV || ETmiss >= 200*GeV){
+      if (ETmiss >= 40*GeV || ETmiss <= 200*GeV){
         vetoEvent;
       }
       //Four small jets
@@ -541,8 +517,9 @@ namespace Rivet {
         vetoEvent;
       }
 
-      // TODO -- p11: ...where individual jets can satisfy one or both criteria... what criteria? what jets?
-
+      // p11: ...where individual jets can satisfy one or both criteria... what criteria? what jets?
+      // probably: 'some' 4 jets need to satisfy the pT criteria and 'some' two jets need to be b-tagged
+      // -- these two categories can overlap or not...
 
       //Two vRC jets tagged V or H
       int nVtags = std::count_if(VRCjet_tags.begin(), VRCjet_tags.end(), 
@@ -557,9 +534,9 @@ namespace Rivet {
       }
       
       
-      //select signal/valiation/control region.
+      //select signal/validation/control region.
       //TODO: The pre-selection cuts say 2 or more (v or H) tagged jets, but each signal region requires only two.
-      // I aslo can't see some sort of tie-break procedure outlined (e.g. take tags of two highest pT jets)
+      // I also can't see some sort of tie-break procedure outlined (e.g. take tags of two highest pT jets)
       //Only one of SR and CR is filled (please!)
       string SR = "";
       string VR = "";
@@ -597,7 +574,8 @@ namespace Rivet {
         _sigBins["HH_1t_3b"]->fill();
       }
       //XX signal regions.
-      //TODO: I'm not 100% sure I've got these right. There seems to be mild inconcistency between text and table.
+      //TODO: mild inconcistency between text and table: try both == and >= and see which match better the results...
+      
       else if (nVtags + nHtags == 2 && ntoptags >= 2 && smeared_bjets.size()==2){
         _sigBins["XX_2t_2b"]->fill();
       }
