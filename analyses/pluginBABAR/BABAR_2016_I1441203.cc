@@ -71,7 +71,7 @@ namespace Rivet {
 	}
 	if (nstable==3 && pim.size()==1&&pi0.size()==1&&pip.size()==1) {
 	  double mneut = (pim[0].momentum()+pip[0].momentum()).mass2();
-	  if(mneut>475*MeV && mneut<505*MeV) continue;
+	  // if(mneut>475*MeV && mneut<505*MeV) continue;
 	  double mplus  = (pip[0].momentum()+pi0[0].momentum()).mass2();
 	  double mminus = (pim[0].momentum()+pi0[0].momentum()).mass2();
 	  _h_pi[0]->fill(mplus);
