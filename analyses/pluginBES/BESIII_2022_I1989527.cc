@@ -7,19 +7,18 @@ namespace Rivet {
 
 
   /// @brief e+e- > D*+D*-, D+- D*-+
-  class BELLE_2007_I723333 : public Analysis {
+  class BESIII_2022_I1989527 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2007_I723333);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2022_I1989527);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
-
       // Initialise and register projections
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
@@ -37,6 +36,7 @@ namespace Rivet {
 	  findChildren(child,nRes,ncount);
       }
     }
+
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
@@ -102,11 +102,11 @@ namespace Rivet {
 	  sigma = _nDS->val();
 	  error = _nDS->err();
 	}
-    	sigma *= crossSection()/ sumOfWeights() /nanobarn;
-    	error *= crossSection()/ sumOfWeights() /nanobarn; 
-	Scatter2D temphisto(refData(ix, 1, 1));
+    	sigma *= crossSection()/ sumOfWeights() /picobarn;
+    	error *= crossSection()/ sumOfWeights() /picobarn; 
+	Scatter2D temphisto(refData(ix, 1, 3));
     	Scatter2DPtr  mult;
-        book(mult, ix, 1, 1);
+        book(mult, ix, 1, 3);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();
@@ -123,20 +123,18 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _nDSS,_nDS;
-    //@}
+    /// @}
 
 
   };
 
 
-  // The hook for the plugin system
-  RIVET_DECLARE_PLUGIN(BELLE_2007_I723333);
-
+  RIVET_DECLARE_PLUGIN(BESIII_2022_I1989527);
 
 }

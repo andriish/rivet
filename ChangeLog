@@ -131,6 +131,10 @@
 	* Fixed RatioPlotDrawReferenceFirst and ErrorTubeLineDash options in
 	make-plots.
 
+2022-06-16 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2022_I1989527 e+e-> D*+D*- and D+/- D*-+
+
 2022-06-03 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add DELPHI_2003_I628566 f_1 and f'_1 spectrum
