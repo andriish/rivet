@@ -197,6 +197,11 @@
 	* Add CLEO_2003_I633196 D0 -> Kbar0 pi+ pi-
 	* Add BABAR_2010_I85327 D0 -> Kbar0 pi+ pi-/K+K-
 
+2022-06-18 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2021_I1867843 eta_c -> pipi eta(') KK eta' dalitz
+	* Add BABAR_2015_I1403544 eta_c -> KKpi dalitz
+
 2022-06-16 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add E691_1992_I342947 D -> K pipi Dalitz decays
