@@ -26,8 +26,10 @@ RUN mkdir /code && cd /code \
 # TODO: remove when hepbase is fixed
 RUN export DEBIAN_FRONTEND=noninteractive \
     && PYV=$(python -c 'from __future__ import print_function; import sys; print("{i.major}.{i.minor}".format(i=sys.version_info))') \
-    && echo "PYTHONPATH=\"\$PYTHONPATH:/usr/local/lib/python$PYV/site-packages/\"" >> /etc/profile.d/05-usrlocal.sh
-
-#ADD bash.bashrc /etc/
+    && echo "PYTHONPATH=\"\$PYTHONPATH:/usr/local/lib/python$PYV/site-packages/\"" >> /etc/profile.d/05-usrlocal.sh \
+    && echo "export PYTHONPATH" >> /etc/profile.d/05-usrlocal.sh
 
 WORKDIR /work
+ADD rivet-exec.sh /root
+ENTRYPOINT ["/root/rivet-exec.sh"]
+CMD []
