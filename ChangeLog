@@ -201,6 +201,8 @@
 
 	* Add BABAR_2021_I1867843 eta_c -> pipi eta(') KK eta' dalitz
 	* Add BABAR_2015_I1403544 eta_c -> KKpi dalitz
+	* Add BABAR_2017_I1512302 J/psi dalitz plots
+	* Add BESIII_2012_I1088606 J/psi psi(2S) -> pi+pi-pi0
 
 2022-06-16 Peter Richardson <peter.richardson@durham.ac.uk>
 

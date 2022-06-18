@@ -15,13 +15,6 @@ Description:
   'Measurement of the mass distributions in the decays $\eta_c\to K^0_SK^\pm\pi^\mp$ and $\eta_c\to K^+K^-\pi^0$ by BaBar. The data were read from the plots in the paper and therefore for some points the error bars are the size of the point. Also the sideband background from the plots has been subtracted. It is also not clear that any resolution effects have been unfolded.'
 ValidationInfo:
   'Herwig 7 events using model from paper'
-Description:
-  'A brief description of what is measured and what it is useful for.
-   Use LaTeX for maths, e.g. $\pT > 50\;\GeV$.'
-ValidationInfo:
-  'A description of the process used to validate the Rivet code against
-  the original experimental analysis. Cut-flow tables and similar information
-  are welcome'
 #ReleaseTests:
 # - $A my-hepmc-prefix :MODE=some_rivet_flag
 Keywords: []
