@@ -7,7 +7,7 @@ InspireID: 633196
 Status: VALIDATED NOHEPDATA
 Reentrant: true
 Authors:
- -  Peter Richardson <peter.richardson@durham.ac.uk>
+ - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Rev.D 70 (2004) 091101
 RunInfo: Any process producing D0
@@ -15,7 +15,7 @@ Description:
   'Kinematic distributions  in the decay $D^0\to K^0_S\pi^+\pi^-$'
 ValidationInfo:
   'Compared Herwig events using the same model for the decay as in the paper. The data were read from the plots in the paper.
-   Resolution/acceptance effects have been not unfolded, but the efficiency function given in the paer has been applied. Given the agreement with the model in the paper this analysis should only be used for qualitative studies.'
+   Resolution/acceptance effects have been not unfolded. Given the agreement with the model in the paper this analysis should only be used for qualitative studies.'
 #ReleaseTests:
 # - $A my-hepmc-prefix :MODE=some_rivet_flag
 Keywords: []
