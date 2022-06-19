@@ -14,7 +14,7 @@ for RIVET_BRANCH in release-3-1-x rivet-3.1.6; do
 
     BUILD="$BUILD --build-arg YODA_BRANCH=$YODA_BRANCH" # --squash"
     BUILD="$BUILD --build-arg RIVET_BRANCH=$RIVET_BRANCH" # --squash"
-    test "$TEST" && BUILD="echo $BUILD"
+    test "$TEST" = 1 && BUILD="echo $BUILD"
 
     test "$INTEL" = 1 && intel="ubuntu-intel-hepmc$vhepmc-py3"
 
@@ -27,7 +27,7 @@ for RIVET_BRANCH in release-3-1-x rivet-3.1.6; do
             $BUILD --build-arg ARCH=$arch -t $tag
             if [[ "$PUSH" = 1 ]]; then
                 docker push $tag
-                sleep 1m
+                test "$NOSLEEP" = 1 || sleep 1m
             fi
             echo -e "\n\n\n"
 
@@ -43,10 +43,10 @@ if [[ "$LATEST" = 1 ]]; then
 fi
 if [[ "$PUSH" = 1 ]]; then
     docker push hepstore/rivet:$RIVET_VERSION
-    sleep 1m
+    test "$NOSLEEP" = 1 || sleep 1m
     docker push hepstore/rivet:$RIVET_VERSION-hepmc3
     if [[ "$LATEST" = 1 ]]; then
-        sleep 1m
+        test "$NOSLEEP" = 1 || sleep 1m
         docker push hepstore/rivet:latest
     fi
 fi
