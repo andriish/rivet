@@ -42,12 +42,12 @@ ZLabel=$1/\Gamma{\rm d}^2 \Gamma/{\rm d}m^2_{K^-\pi^+}/{\rm d}m^2_{K^-\pi^0}$ [$
 END PLOT
 
 
-BEGIN PLOT /E691_1992_I342947/d01-x01-y06
+BEGIN PLOT /E691_1992_I342947/d01-x01-y07
 Title=$\bar{K}^0\pi^+$ mass distribution in $D^0\to \bar{K}^0\pi^+\pi^-$
 XLabel=$m^2_{\bar{K}^0\pi^+}$ [$\mathrm{GeV}^{2}$]
 YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m^2_{\bar{K}^0\pi^+}$ [$\mathrm{GeV}^{-2}$]
 END PLOT
-BEGIN PLOT /E691_1992_I342947/d01-x01-y07
+BEGIN PLOT /E691_1992_I342947/d01-x01-y06
 Title=$\bar{K}^0\pi^-$ mass distribution in $D^0\to \bar{K}^0\pi^+\pi^-$
 XLabel=$m^2_{\bar{K}^0\pi^-}$ [$\mathrm{GeV}^{2}$]
 YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m^2_{\bar{K}^0\pi^-}$ [$\mathrm{GeV}^{-2}$]

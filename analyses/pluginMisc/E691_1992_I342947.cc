@@ -37,8 +37,8 @@ namespace Rivet {
       book(_h_2_pipi ,1,1,5);
       book(_dalitz2, "dalitz2",50,0.3,3.2,50,0.3,3.2);
       
-      book(_h_3_K0pip,1,1,6);
-      book(_h_3_K0pim,1,1,7);
+      book(_h_3_K0pip,1,1,7);
+      book(_h_3_K0pim,1,1,6);
       book(_h_3_pipi ,1,1,8);
       book(_dalitz3, "dalitz3",50,0.3,3.2,50,0.3,3.2);
     }
