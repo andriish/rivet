@@ -32,25 +32,14 @@ void naive_RC_trimmer(const Rivet::PseudoJets& input, Rivet::PseudoJets& output,
       }
     }
     //TODO this is overcomplicated.
-    //std::cout << j.pt() << ", pT of VRC jet" << std::endl; //print the momentum of VRC jet
     
     if (to_keep.size() > 0){
-      
       Rivet::PseudoJet jet;
       Rivet::PseudoJets constits;
       for (const size_t i : to_keep){
-
-        //std::cout << j.constituents()[i].pt() << ","; // print momenta of all its constituents
-
         jet+=j.constituents()[i];
         constits.push_back(j.constituents()[i]);
       }
-      //std::cout << std::endl;
-      //std::cout << jet.pt() << ", momentum of the reconstructed pseudojet" << std::endl; 
-      //for (size_t i = 0; i < constits.size();++i){
-        //std::cout << constits[i].pt() << ",";
-      //}
-      //std::cout << std::endl;
       output.push_back(jet);
       new_constituents.push_back(constits);
     }
@@ -87,6 +76,7 @@ void getVHandtop_fromEvent(std::vector<Rivet::Particle>& ps, const Rivet::Event&
 
 }
 
+// 
 DNN_Category getTrueDNNtag(const Rivet::PseudoJet& pj, const Rivet::Particles& comp){
   for (const Rivet::Particle& comp_p : comp){
     //Jets need to be within deltaR 0.75rho/pT
@@ -154,8 +144,10 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      // BCG = background mode, SGN = signal mode     
-      _mode = 0; //default to background
+      // BCG = background mode, SGN = signal mode   
+      // default to signal mode
+
+      _mode = 1; 
       if (getOption("MODE") == "BCG"){
         _mode = 0;
       }
@@ -172,8 +164,7 @@ namespace Rivet {
     	declare(recoelectrons, "SmearedElec");
 
 	    /// muons
-	    const PromptFinalState fsm(Cuts::abseta < 2.5 && Cuts::pT > 20*GeV && Cuts::abspid == PID::MUON &&
-								                 !Cuts::absetaIn(1.37, 1.52));
+	    const PromptFinalState fsm(Cuts::abseta < 2.5 && Cuts::pT > 20*GeV && Cuts::abspid == PID::MUON);
 	    declare("Muon", fsm);
       //TODO: Check this is the right smearing.
 	    SmearedParticles recomuons(fsm, MUON_EFF_ATLAS_RUN2, MUON_SMEAR_ATLAS_RUN2);
@@ -184,7 +175,11 @@ namespace Rivet {
 	    
 	    FastJets Sj(fsj, FastJets::ANTIKT, 0.4, JetAlg::Muons::NONE);
 	    declare("Sjet", Sj);
-	    SmearedJets SSj(Sj, JET_SMEAR_ATLAS_RUN2, JET_BTAG_EFFS(0.77, 1./6.2, 1./134)); // originally: (0.77, 1./6.2, 1./134),
+      // No smearing:
+	    //SmearedJets SSj(Sj, JET_SMEAR_IDENTITY, JET_BTAG_EFFS(0.77, 1./6.2, 1./134));
+      /// Energy-resolution smearing only:
+	    SmearedJets SSj(Sj, JET_SMEAR_ATLAS_RUN2, JET_BTAG_EFFS(0.77, 1./6.2, 1./134));
+      /// @todo Also look into angular smearing? Need a custom smearing function, building on the ATLAS R2
     	declare(SSj, "smearedSjet");
 
       // pTmiss
@@ -225,21 +220,24 @@ namespace Rivet {
       book(_h["PH"], "PH",55,-3,2.5);
       book(_h["Pt"], "Pt",55,-3,2.5);
 
-      // pT distribution histogram
-      book(_h["jetpT"], "jetpT", 50, 130, 2000);
+      // DNN output histograms
+      book(_h["DV"], "DV", 20, 0, 1);
+      book(_h["DH"], "DH",20, 0, 1);
+      book(_h["Dt"], "Dt",20, 0, 1);
+      book(_h["Dlight"], "Dlight",20, 0, 1);
 
       // deltaR distribution histogram -- include -1 to see how many -1 get filled
-      book(_h["Z_deltaR"], "Z_deltaR", 100,-1.2 ,6.3); 
-      book(_h["W_deltaR"], "W_deltaR", 100,-1.2 ,6.3);
-      book(_h["H_deltaR"], "H_deltaR", 100,-1.2 ,6.3);
-      book(_h["Top_deltaR"], "Top_deltaR", 100,-1.2 ,6.3);
+      // book(_h["Z_deltaR"], "Z_deltaR", 100,-1.2 ,6.3); 
+      // book(_h["W_deltaR"], "W_deltaR", 100,-1.2 ,6.3);
+      // book(_h["H_deltaR"], "H_deltaR", 100,-1.2 ,6.3);
+      // book(_h["Top_deltaR"], "Top_deltaR", 100,-1.2 ,6.3);
 
-      // discriminant functions to resolve multiple-tagged vRC jets
+      // properties of vRC jets in weird spikes...
 
-      //book(_h["V_top"], "V_top", 27, -1.6, 1.1);
-      //book(_h["V_H"], "V_H", 22, -1.6, 0.6);
-      //book(_h["H_top"], "H_top", 23, -1.1, 1.3);
-      //book(_h["V_H_top"], "V_H_top", 18, -1.2, 0.6);
+      // book(_h["jetpT"], "jetpT", 50, 130, 2000);
+      // book(_h["jetMass"], "jetMass", 50, 0, 100);
+      // book(_h["jetEta"], "jetEta", 10, -2.5, 2.5);
+      // book(_h["jetPhi"], "jetPhi", 10, 0, 6.3);
 
           
       //Find the json file
@@ -271,7 +269,7 @@ namespace Rivet {
       }
 
       Jets smeared_small_jets = apply<JetAlg>(event, "smearedSjet").jetsByPt();
-      idiscard(smeared_small_jets, Cuts::pt <= 25*GeV && Cuts::abseta >= 2.5); // mistake in </> ?? the jets should have abseta < 2.5
+      idiscard(smeared_small_jets, Cuts::pt <= 25*GeV && Cuts::abseta >= 2.5); 
 
       //Todo JVT means we lose 8% of small jets?
       //Get b-tagged jets:
@@ -297,7 +295,7 @@ namespace Rivet {
       vector<PseudoJets> NewConstits;
       naive_RC_trimmer(VRC_jets, TrimmedVRCjets, 0.05, NewConstits);
       
-      // apply pT, eta, and mass cuts
+      // pT, eta, and mass cuts
 
       PseudoJets FilteredVRCjets;
       vector<PseudoJets> FilteredNewConstits;
@@ -316,16 +314,37 @@ namespace Rivet {
         vetoEvent;
       }    
       
-      // defining signal as an input for further analysis and filling signal constits with corresponding constuituent jets
+      // defining signal as an input for further analysis and filling signal constits with corresponding constituent jets
       // for background mode: analyse all TrimmedVRCjets, for signal mode, pick the 2 highest pT and then analyse the one with higher mass
 
       PseudoJets signal; 
       vector<PseudoJets> SignalConstits;
 
+      // get the V, H, and tops from the event
+      std::vector<Particle> VHandtops;
+      getVHandtop_fromEvent(VHandtops, event); 
+      
+
       if (_mode == 0){
-        signal = FilteredVRCjets;
-        SignalConstits = FilteredNewConstits;
+
+        // input variables for the for the loop
+        double pTjet = 0;
+        double largest = 0;
+        int index = 0;
+        
+        for (int i = 0; i < VRCsize;++i){
+          pTjet = FilteredVRCjets[i].pt();
+          
+          if (pTjet >= largest){
+            largest = pTjet;
+            index = i;
+            }
+        }
+
+        signal.push_back(FilteredVRCjets[index]);
+        SignalConstits.push_back(FilteredNewConstits[index]);
       }
+      
       else if (_mode  == 1) {
 
         // input variables for the for the loop
@@ -351,72 +370,52 @@ namespace Rivet {
 
         }
 
-        if (FilteredVRCjets[index1].m() >= FilteredVRCjets[index2].m()){
+        auto it_1 = std::find_if(VHandtops.begin(), VHandtops.end(),
+                                  [&FilteredVRCjets,index1](const Particle& VHTop){return (deltaR(momentum3(VHTop.pseudojet()), momentum3(FilteredVRCjets[index1])) < 0.1);});
+
+        auto it_2 = std::find_if(VHandtops.begin(), VHandtops.end(),
+                                  [&FilteredVRCjets,index2](const Particle& VHTop){return (deltaR(momentum3(VHTop.pseudojet()), momentum3(FilteredVRCjets[index2])) < 0.1);});
+
+
+        if (FilteredVRCjets[index1].m() >= FilteredVRCjets[index2].m() && it_1 != VHandtops.end()){ 
             signal.push_back(FilteredVRCjets[index1]);
             SignalConstits.push_back(FilteredNewConstits[index1]);
         }
-        else {
+        else if (it_2 != VHandtops.end()){
           signal.push_back(FilteredVRCjets[index2]);
           SignalConstits.push_back(FilteredNewConstits[index2]);
+        }
+        else {
+          vetoEvent;
         }
 
       }
 
-      //Tag the jets in an approximation of the MCBot NN.
-
-      // get the V, H, and tops from the event
-      std::vector<Particle> VHandtops;
-      getVHandtop_fromEvent(VHandtops, event); 
       
+      // DNN tags of vRC jets
+      std::vector<DNN_Category> VRCjet_tags;
+      
+      // DNN scores (probabilities) -- output of the NN 
+      std::map<string, double> outputs;
+
       // file with the inputs for DNN
-      //std::string InputFile {"DNNinput.csv"};
+      std::string InputFile {"DNNinput_top.csv"};
 
       // input for the DNN -- into csv file
-      //std::map<string, double> scoresOut;
+      std::map<string, double> scoresOut;
 
       // file with D values
-      //std::string OutputFile {"DNNoutput.csv"}; 
+      std::string OutputFile {"DNNoutput_top.csv"};
 
-      std::vector<DNN_Category> VRCjet_tags;
-      std::map<string, double> outputs; // outputs of DNN - D values
-
-      
-      // 
 
       size_t counter=0;
       for (const PseudoJet& j : signal){ 
-
-        // checking for V,H, or top in the event & getting the deltaR
-        
-        for (const auto& p: VHandtops){
-
-          int pid = p.pid();
-          double dR = deltaR(Rivet::momentum3(j),Rivet::momentum3(p));
-          double eta_dR = 1/dr_phase_space_Phi(dR, 100); // setting etamax-etamin 2 * 2.5 for now...
-
-          // now check whether there are Z,W,H, or tops (pid = 23,24,25,6)
-          (abs(pid) == 23 ) ? (_h["Z_deltaR"]->fill(eta_dR)) : (_h["Z_deltaR"]->fill(-1));
-
-          (abs(pid) == 24 ) ? (_h["W_deltaR"]->fill(eta_dR)) : (_h["W_deltaR"]->fill(-1));
-              
-          (abs(pid) == 25) ? (_h["H_deltaR"]->fill(eta_dR)) : (_h["H_deltaR"]->fill(-1));
-
-          (abs(pid) == 6) ? (_h["Top_deltaR"]->fill(eta_dR)) : (_h["Top_deltaR"]->fill(-1));
-          
-        }
-
-        if (VHandtops.size() == 0){
-          _h["Z_deltaR"]->fill(-1);
-          _h["W_deltaR"]->fill(-1);
-          _h["H_deltaR"]->fill(-1);
-          _h["Top_deltaR"]->fill(-1);
-        } 
-
+         
         //First we need a Jets of all the constituents, that has b-tagging info. 
         Jets tagged_constituents;
         for (const PseudoJet& pj : SignalConstits[counter]){
           auto it = std::find_if(smeared_small_jets.begin(), smeared_small_jets.end(),
-                                  [&pj](Jet& j){return (deltaR(momentum3(pj), j) < 0.1);}); // -- how is this equivalent to checking for b-tagging info???
+                                  [&pj](Jet& j){return (deltaR(momentum3(pj), j) < 0.1);});
           if (it != smeared_small_jets.end()){
             tagged_constituents.push_back(*it);
           }
@@ -424,10 +423,10 @@ namespace Rivet {
             MSG_WARNING("FAILED TO FIND CONSTITUENT");
           }
         }
-        
+
         // output a csv file of inputs for the dnn
-        //_MCbottagger->dumpJetToCSV(j, tagged_constituents, scoresOut, InputFile, false);
-      
+        _MCbottagger->dumpJetToCSV(j, tagged_constituents, scoresOut, InputFile, false);
+
         // computes the D values (probabilities)
         _MCbottagger->computeScores(j, tagged_constituents, outputs);
 
@@ -438,58 +437,32 @@ namespace Rivet {
         (0.9*outputs["dnnOutput_light"]+0.05*outputs["dnnOutput_top"]+0.05*outputs["dnnOutput_V"]));
         double Ptop=log10(outputs["dnnOutput_top"]/
         (0.9*outputs["dnnOutput_light"]+0.05*outputs["dnnOutput_V"]+0.05*outputs["dnnOutput_H"]));
-        
-        // pT of a jet 
-        double pTmom = j.perp();
 
-        // fill in the histograms 
+        // fill in the P histograms 
         _h["PV"]->fill(PV);
         _h["PH"]->fill(PH);
         _h["Pt"]->fill(Ptop);
-        _h["jetpT"]->fill(pTmom);
-        
-        // discriminant functions to resolve multiple-tagged vRC jets... 
 
-        //double V_top = log10(outputs["dnnOutput_V"]/outputs["dnnOutput_top"]);
-        //double V_H = log10(outputs["dnnOutput_V"]/outputs["dnnOutput_H"]);
-        //double H_top = log10(outputs["dnnOutput_H"]/outputs["dnnOutput_top"]);
-        //double V_H_top = log10(outputs["dnnOutput_V"]/(0.5*outputs["dnnOutput_H"] + 0.5*outputs["dnnOutput_top"]));
 
-        // fill the histograms
-        //_h["V_top"]->fill(V_top);
-        //_h["V_H"]->fill(V_H);
-        //_h["H_top"]->fill(H_top);
-        //_h["V_H_top"]->fill(V_H_top);
-
+        // fill in the D histograms 
+        _h["DV"]->fill(outputs["dnnOutput_V"]);
+        _h["DH"]->fill(outputs["dnnOutput_H"]);
+        _h["Dt"]->fill(outputs["dnnOutput_top"]);
+        _h["Dlight"]->fill(outputs["dnnOutput_light"]);
 
 
         // outputs PV,PH,Ptop into a csv file
         
-        //std::ofstream file;
-        //file.open(OutputFile, std::ofstream::app);
-        //file << outputs["dnnOutput_V"] << ", " << outputs["dnnOutput_H"] << ", " << outputs["dnnOutput_top"] << ", " << outputs["dnnOutput_light"] << ",";
-        //file << "\n";
-        //file.close();
-       
+        std::ofstream file;
+        file.open(OutputFile, std::ofstream::app);
+        file << outputs["dnnOutput_V"] << ", " << outputs["dnnOutput_H"] << ", " << outputs["dnnOutput_top"] << ", " << outputs["dnnOutput_light"] << ",";
+        file << "\n";
+        file.close();
 
-        
-        
+       //Tag the jets in an approximation of the MCBot NN.
 
-        // get DNN tag
-
-        MCBot_TagType tag = _MCbottagger->tag(j,tagged_constituents); // tag includes threshold values and tie-breaks...
+        MCBot_TagType tag = _MCbottagger->tag(j,tagged_constituents);
         VRCjet_tags.push_back(static_cast<DNN_Category>(tag));
-
-        // check for higgs sample: if there are any W/Z tagged vRC jets, print its pid, mass...
-        //if (tag == MCBot_TagType::V){
-          //for (const auto& p: VHandtops){
-            //int pid = p.pid();
-            //double mass = p.mass();
-
-            //(pid == 24) ? (_h["W_mass"]->fill(mass)) : (_h["Z_mass"]->fill(mass));
-          //}
-        //}
-
       }
 
       //Preselection
@@ -516,10 +489,6 @@ namespace Rivet {
       if (smeared_bjets.size() < 2){
         vetoEvent;
       }
-
-      // p11: ...where individual jets can satisfy one or both criteria... what criteria? what jets?
-      // probably: 'some' 4 jets need to satisfy the pT criteria and 'some' two jets need to be b-tagged
-      // -- these two categories can overlap or not...
 
       //Two vRC jets tagged V or H
       int nVtags = std::count_if(VRCjet_tags.begin(), VRCjet_tags.end(), 
