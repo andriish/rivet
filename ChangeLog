@@ -165,6 +165,10 @@
 	* Add HEPTopTagger interface (since made optional, with no-build
 	example analysis)
 
+2022-06-21 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2021_I1830524 Ds+ -> K+K-pi+
+
 2022-06-19 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add CLEO_2003_I633196 D0 -> Kbar0 pi+ pi-
