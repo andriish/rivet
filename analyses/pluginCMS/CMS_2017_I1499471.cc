@@ -188,9 +188,9 @@ namespace Rivet {
             _h_Zbb_mass_bb->fill(Zbb.mass(),w);
 
             _h_Dphi_bb->fill(deltaPhi(b1,b2),w);
-	    if (deltaR(b1,b2)>0.5) {
-	      _h_DR_bb->fill(deltaR(b1,b2),w);
-	    }
+            if (deltaR(b1,b2)>0.5) {
+              _h_DR_bb->fill(deltaR(b1,b2),w);
+            }
 
             double DR_Z_b1(0.), DR_Z_b2(0.);
             if ( ee_event ) {
