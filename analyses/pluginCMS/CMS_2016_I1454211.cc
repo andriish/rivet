@@ -61,19 +61,19 @@ namespace Rivet {
       declare(FastJets(fs_jets, FastJets::CAM, 0.8), "ca8jets");
 
       if (_mode == 1) {
-	book(_hEl_topPt_parton          , "d01-x01-y01"); // dsigma/dpt(top quark), el ch
-	book(_hEl_topY_parton           , "d03-x01-y01"); // dsigma/dy(top quark), el ch
-	book(_hMu_topPt_parton          , "d05-x01-y01"); // dsigma/dpt(top quark), mu ch
-	book(_hMu_topY_parton           , "d07-x01-y01"); // dsigma/dy(top quark), mu ch
-	book(_hComb_topPt_parton        , "d09-x01-y01"); // dsigma/dpt(top quark), comb ch
-	book(_hComb_topY_parton         , "d11-x01-y01"); // dsigma/dy(top quark), comb ch
+        book(_hEl_topPt_parton          , "d01-x01-y01"); // dsigma/dpt(top quark), el ch
+        book(_hEl_topY_parton           , "d03-x01-y01"); // dsigma/dy(top quark), el ch
+        book(_hMu_topPt_parton          , "d05-x01-y01"); // dsigma/dpt(top quark), mu ch
+        book(_hMu_topY_parton           , "d07-x01-y01"); // dsigma/dy(top quark), mu ch
+        book(_hComb_topPt_parton        , "d09-x01-y01"); // dsigma/dpt(top quark), comb ch
+        book(_hComb_topY_parton         , "d11-x01-y01"); // dsigma/dy(top quark), comb ch
 
-	book(_hEl_topPt_parton_norm     , "d13-x01-y01"); // 1/sigma dsigma/dpt(top quark), el ch
-	book(_hEl_topY_parton_norm      , "d15-x01-y01"); // 1/sigma dsigma/dy(top quark), el ch
-	book(_hMu_topPt_parton_norm     , "d17-x01-y01"); // 1/sigma dsigma/dpt(top quark), mu ch
-	book(_hMu_topY_parton_norm      , "d19-x01-y01"); // 1/sigma dsigma/dy(top quark), mu ch
-	book(_hComb_topPt_parton_norm   , "d21-x01-y01"); // 1/sigma dsigma/dpt(top quark), comb ch
-	book(_hComb_topY_parton_norm    , "d23-x01-y01"); // 1/sigma dsigma/dy(top quark), comb ch
+        book(_hEl_topPt_parton_norm     , "d13-x01-y01"); // 1/sigma dsigma/dpt(top quark), el ch
+        book(_hEl_topY_parton_norm      , "d15-x01-y01"); // 1/sigma dsigma/dy(top quark), el ch
+        book(_hMu_topPt_parton_norm     , "d17-x01-y01"); // 1/sigma dsigma/dpt(top quark), mu ch
+        book(_hMu_topY_parton_norm      , "d19-x01-y01"); // 1/sigma dsigma/dy(top quark), mu ch
+        book(_hComb_topPt_parton_norm   , "d21-x01-y01"); // 1/sigma dsigma/dpt(top quark), comb ch
+        book(_hComb_topY_parton_norm    , "d23-x01-y01"); // 1/sigma dsigma/dy(top quark), comb ch
       }
 
       book(_hEl_topPt_particle        , "d02-x01-y01"); // dsigma/dpt(top jet), el ch
@@ -126,14 +126,14 @@ namespace Rivet {
       FourMomentum lepton, particleTopP4;
 
       if (partonCh == 1 && dressed_muons.dressedLeptons().size() == 1 && dressed_electrons.dressedLeptons().size() == 0) {
-	passParticleLep = true;
-	_hMu_cutflow->fill(3.); //muon at particle level
-	lepton = dressed_muons.dressedLeptons()[0].momentum();
+        passParticleLep = true;
+        _hMu_cutflow->fill(3.); //muon at particle level
+        lepton = dressed_muons.dressedLeptons()[0].momentum();
       }
       if (partonCh == 2 && dressed_muons.dressedLeptons().size() == 0 && dressed_electrons.dressedLeptons().size() == 1) {
-	passParticleLep = true;
-	_hEl_cutflow->fill(3.); //electron at particle level
-	lepton = dressed_electrons.dressedLeptons()[0].momentum();
+        passParticleLep = true;
+        _hEl_cutflow->fill(3.); //electron at particle level
+        lepton = dressed_electrons.dressedLeptons()[0].momentum();
       }
 
       if (passParticleLep) {
@@ -142,7 +142,7 @@ namespace Rivet {
         Cut jetCuts = Cuts::pt > 30*GeV && Cuts::abseta < 2.4;
         Jets genBjets, genTjets;
         int nGenBjets = 0, nGenTjets = 0;
-	
+        
         const FastJets& AK5jets = apply<FastJets>(event, "ak5jets");
         for (const Jet& jet : AK5jets.jetsByPt(jetCuts)) {
           if (deltaR(jet, lepton) > M_PI / 2.0) continue;
@@ -150,7 +150,7 @@ namespace Rivet {
           genBjets.push_back(jet);
           nGenBjets += 1;
         }
-	
+        
         const FastJets& CA8jets = apply<FastJets>(event, "ca8jets");
         for (const Jet& jet : CA8jets.jetsByPt(jetCuts)) {
           if (deltaR(jet, lepton) < M_PI / 2.0) continue;
@@ -159,99 +159,99 @@ namespace Rivet {
           genTjets.push_back(jet);
           nGenTjets += 1;
         }
-	
+        
         if (nGenBjets >=1) {
-	  if (_mode == 1) {
-	    if (partonCh == 1) _hMu_cutflow->fill(4.); // muon at parton level
-	    if (partonCh == 2) _hEl_cutflow->fill(4.); // electron at parton level
-	  }
+          if (_mode == 1) {
+            if (partonCh == 1) _hMu_cutflow->fill(4.); // muon at parton level
+            if (partonCh == 2) _hEl_cutflow->fill(4.); // electron at parton level
+          }
           if (nGenTjets >= 1) {
             passParticleTop = true;
-	    if (_mode == 1) {
-	      if (partonCh == 1) _hMu_cutflow->fill(5.); // muon at parton level
-	      if (partonCh == 2) _hEl_cutflow->fill(5.); // electron at parton level
-	    }
+            if (_mode == 1) {
+              if (partonCh == 1) _hMu_cutflow->fill(5.); // muon at parton level
+              if (partonCh == 2) _hEl_cutflow->fill(5.); // electron at parton level
+            }
             particleTopP4 = genTjets[0];
           }
         }
       }
       
-      const double weight = 1.0;	
+      const double weight = 1.0;        
       if (partonCh == 1) {
-	_nMu += weight;
+        _nMu += weight;
 
-	if (_mode == 1) {
-	  // protect against unphysical partons
-	  if (partonTopP4.E() < 0) {
-	    MSG_WARNING("Top parton with negative energy! Vetoing event. Try turning off partonic tops?");
-	    vetoEvent;
-	  }
-	  
-	  _hMu_topPt_parton->fill(partonTopP4.pT()/GeV, weight);
-	  _hMu_topPt_parton_norm->fill(partonTopP4.pT()/GeV, weight);
-	  _hComb_topPt_parton->fill(partonTopP4.pT()/GeV, weight);
-	  _hComb_topPt_parton_norm->fill(partonTopP4.pT()/GeV, weight);
-	  
-	  if (partonTopP4.pT() >= 400*GeV) {
-	    _nPassParton_mu += weight;
-	    _hMu_cutflow->fill(2.);
-	    _hMu_topY_parton->fill(partonTopP4.rapidity(), weight);
-	    _hMu_topY_parton_norm->fill(partonTopP4.rapidity(), weight);
-	    _hComb_topY_parton->fill(partonTopP4.rapidity(), weight);
-	    _hComb_topY_parton_norm->fill(partonTopP4.rapidity(), weight);
-	  }
-	}
+        if (_mode == 1) {
+          // protect against unphysical partons
+          if (partonTopP4.E() < 0) {
+            MSG_WARNING("Top parton with negative energy! Vetoing event. Try turning off partonic tops?");
+            vetoEvent;
+          }
+          
+          _hMu_topPt_parton->fill(partonTopP4.pT()/GeV, weight);
+          _hMu_topPt_parton_norm->fill(partonTopP4.pT()/GeV, weight);
+          _hComb_topPt_parton->fill(partonTopP4.pT()/GeV, weight);
+          _hComb_topPt_parton_norm->fill(partonTopP4.pT()/GeV, weight);
+          
+          if (partonTopP4.pT() >= 400*GeV) {
+            _nPassParton_mu += weight;
+            _hMu_cutflow->fill(2.);
+            _hMu_topY_parton->fill(partonTopP4.rapidity(), weight);
+            _hMu_topY_parton_norm->fill(partonTopP4.rapidity(), weight);
+            _hComb_topY_parton->fill(partonTopP4.rapidity(), weight);
+            _hComb_topY_parton_norm->fill(partonTopP4.rapidity(), weight);
+          }
+        }
          
-	if (passParticleTop) {
-	  _hMu_topPt_particle->fill(particleTopP4.pT()/GeV, weight);
-	  _hMu_topPt_particle_norm->fill(particleTopP4.pT()/GeV, weight);
-	  _hComb_topPt_particle->fill(particleTopP4.pT()/GeV, weight);
-	  _hComb_topPt_particle_norm->fill(particleTopP4.pT()/GeV, weight);
-	  
-	  if (particleTopP4.pT() >= 400*GeV) {
-	    _nPassParticle_mu += weight;
-	    _hMu_cutflow->fill(6.);
-	    _hMu_topY_particle->fill(particleTopP4.rapidity(), weight);
-	    _hMu_topY_particle_norm->fill(particleTopP4.rapidity(), weight);
-	    _hComb_topY_particle->fill(particleTopP4.rapidity(), weight);
-	    _hComb_topY_particle_norm->fill(particleTopP4.rapidity(), weight);
-	  }
-	}
+        if (passParticleTop) {
+          _hMu_topPt_particle->fill(particleTopP4.pT()/GeV, weight);
+          _hMu_topPt_particle_norm->fill(particleTopP4.pT()/GeV, weight);
+          _hComb_topPt_particle->fill(particleTopP4.pT()/GeV, weight);
+          _hComb_topPt_particle_norm->fill(particleTopP4.pT()/GeV, weight);
+          
+          if (particleTopP4.pT() >= 400*GeV) {
+            _nPassParticle_mu += weight;
+            _hMu_cutflow->fill(6.);
+            _hMu_topY_particle->fill(particleTopP4.rapidity(), weight);
+            _hMu_topY_particle_norm->fill(particleTopP4.rapidity(), weight);
+            _hComb_topY_particle->fill(particleTopP4.rapidity(), weight);
+            _hComb_topY_particle_norm->fill(particleTopP4.rapidity(), weight);
+          }
+        }
       }
 
       if (partonCh == 2){
-	_nEl += weight;
-	if (_mode == 1) {
-	  _hEl_topPt_parton->fill(partonTopP4.pT()/GeV, weight);
-	  _hEl_topPt_parton_norm->fill(partonTopP4.pT()/GeV, weight);
-	  _hComb_topPt_parton->fill(partonTopP4.pT()/GeV, weight);
-	  _hComb_topPt_parton_norm->fill(partonTopP4.pT()/GeV, weight);
-	  
-	  if (partonTopP4.pT() >= 400*GeV) {
-	    _nPassParton_el += weight;
-	    _hEl_cutflow->fill(2.);
-	    _hEl_topY_parton->fill(partonTopP4.rapidity(), weight);
-	    _hEl_topY_parton_norm->fill(partonTopP4.rapidity(), weight);
-	    _hComb_topY_parton->fill(partonTopP4.rapidity(), weight);
-	    _hComb_topY_parton_norm->fill(partonTopP4.rapidity(), weight);
-	  }
-	}
+        _nEl += weight;
+        if (_mode == 1) {
+          _hEl_topPt_parton->fill(partonTopP4.pT()/GeV, weight);
+          _hEl_topPt_parton_norm->fill(partonTopP4.pT()/GeV, weight);
+          _hComb_topPt_parton->fill(partonTopP4.pT()/GeV, weight);
+          _hComb_topPt_parton_norm->fill(partonTopP4.pT()/GeV, weight);
+          
+          if (partonTopP4.pT() >= 400*GeV) {
+            _nPassParton_el += weight;
+            _hEl_cutflow->fill(2.);
+            _hEl_topY_parton->fill(partonTopP4.rapidity(), weight);
+            _hEl_topY_parton_norm->fill(partonTopP4.rapidity(), weight);
+            _hComb_topY_parton->fill(partonTopP4.rapidity(), weight);
+            _hComb_topY_parton_norm->fill(partonTopP4.rapidity(), weight);
+          }
+        }
       
-	if (passParticleTop) {
-	  _hEl_topPt_particle->fill(particleTopP4.pT()/GeV, weight);
-	  _hEl_topPt_particle_norm->fill(particleTopP4.pT()/GeV, weight);
-	  _hComb_topPt_particle->fill(particleTopP4.pT()/GeV, weight);
-	  _hComb_topPt_particle_norm->fill(particleTopP4.pT()/GeV, weight);
-	  
-	  if (particleTopP4.pT() >= 400*GeV) {
-	    _nPassParticle_el += weight;
-	    _hEl_cutflow->fill(6.);
-	    _hEl_topY_particle->fill(particleTopP4.rapidity(), weight);
-	    _hEl_topY_particle_norm->fill(particleTopP4.rapidity(), weight);
-	    _hComb_topY_particle->fill(particleTopP4.rapidity(), weight);
-	    _hComb_topY_particle_norm->fill(particleTopP4.rapidity(), weight);
-	  }
-	}
+        if (passParticleTop) {
+          _hEl_topPt_particle->fill(particleTopP4.pT()/GeV, weight);
+          _hEl_topPt_particle_norm->fill(particleTopP4.pT()/GeV, weight);
+          _hComb_topPt_particle->fill(particleTopP4.pT()/GeV, weight);
+          _hComb_topPt_particle_norm->fill(particleTopP4.pT()/GeV, weight);
+          
+          if (particleTopP4.pT() >= 400*GeV) {
+            _nPassParticle_el += weight;
+            _hEl_cutflow->fill(6.);
+            _hEl_topY_particle->fill(particleTopP4.rapidity(), weight);
+            _hEl_topY_particle_norm->fill(particleTopP4.rapidity(), weight);
+            _hComb_topY_particle->fill(particleTopP4.rapidity(), weight);
+            _hComb_topY_particle_norm->fill(particleTopP4.rapidity(), weight);
+          }
+        }
       }
     }
     
@@ -269,14 +269,14 @@ namespace Rivet {
       scale(_hComb_topY_particle, sf);
       
       if (_mode == 1) {
-	normalize(_hMu_topPt_parton_norm); normalize(_hMu_topY_parton_norm); normalize(_hEl_topPt_parton_norm);
-	normalize(_hEl_topY_parton_norm); normalize(_hComb_topPt_parton_norm); normalize(_hComb_topY_parton_norm, 1.0, false);
-	scale(_hMu_topPt_parton, sf);
-	scale(_hEl_topPt_parton, sf);
-	scale(_hMu_topY_parton, sf);
-	scale(_hEl_topY_parton, sf);
-	scale(_hComb_topPt_parton, sf);
-	scale(_hComb_topY_parton, sf);
+        normalize(_hMu_topPt_parton_norm); normalize(_hMu_topY_parton_norm); normalize(_hEl_topPt_parton_norm);
+        normalize(_hEl_topY_parton_norm); normalize(_hComb_topPt_parton_norm); normalize(_hComb_topY_parton_norm, 1.0, false);
+        scale(_hMu_topPt_parton, sf);
+        scale(_hEl_topPt_parton, sf);
+        scale(_hMu_topY_parton, sf);
+        scale(_hEl_topY_parton, sf);
+        scale(_hComb_topPt_parton, sf);
+        scale(_hComb_topY_parton, sf);
       }
     }
 
