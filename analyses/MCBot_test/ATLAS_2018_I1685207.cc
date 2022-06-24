@@ -12,7 +12,11 @@
 #include "Rivet/Projections/PartonicTops.hh"
 #include "Rivet/Tools/MCBot_tagger.hh"
 #include "Rivet/Tools/RivetPaths.hh"
+#include "Rivet/Tools/Random.hh"
+#include "Rivet/Tools/JetSmearingFunctions.hh"
+#include "Rivet/Math/MathUtils.hh"
 #include "fastjet/contrib/VariableRPlugin.hh"
+#include "fastjet/contrib/Nsubjettiness.hh"
 #include "fastjet/tools/Filter.hh"
 #include <fstream>
 
@@ -106,29 +110,69 @@ DNN_Category getTrueDNNtag(const Rivet::PseudoJet& pj, const Rivet::Particles& c
 }
 
 
-// extra for dR checks...
+// angular smearing function: building on JET_SMEAR_ATLAS_RUN2 (copy of run 1)
+namespace Rivet {
 
-/// Integral of acos(x)
-constexpr double iacos(double x) { return sqrt(1 - x*x) - x*acos(x);}
+Jet JET_SMEAR_ANGULAR2(const Jet& j) {
+  // Jet energy resolution lookup
+  //   original -- Implemented by Matthias Danninger for GAMBIT, based roughly on
+  //   https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2015-017/
+  //   Parameterisation can be still improved, but eta dependence is minimal
+  /// @todo Also need a JES uncertainty component?
+  static const vector<double> binedges_pt = {0., 50., 70., 100., 150., 200., 1000., 10000.};
+  static const vector<double> jer = {0.145, 0.115, 0.095, 0.075, 0.07, 0.05, 0.04, 0.04}; //< note overflow value
+  const int ipt = binIndex(j.pt()/GeV, binedges_pt, true);
+  if (ipt < 0) return j;
+  const double resolution = jer.at(ipt);
 
-/// Compute eta-integrated DeltaR phase space Phi(dr, detamax)
-constexpr double dr_phase_space_Phi(double dr, double detamax) {
-if (dr == 0 || detamax == 0 || Rivet::sqr(dr) > Rivet::sqr(detamax) + Rivet::sqr(M_PI)) return 0.0;
+  // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
+  /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
+  const double fsmear = max(randnorm(1., resolution), 0.); // use this for smearing the energy...
+  const double mass = j.mass2() > 0 ? j.mass() : 0; //< numerical carefulness... is it correct to calculate the mass here? mass vs smeared energy inconsistency???
+  
+  Jet j1(Rivet::FourMomentum::mkXYZM(j.px()*fsmear, j.py()*fsmear, j.pz()*fsmear, mass));
 
-// Compute intuitive form via theta_max
-const double theta_max = dr < M_PI ? M_PI / 2.0 : asin(M_PI/dr);
-const double cos_theta_max = cos(theta_max);
-double L = (detamax - dr*cos_theta_max)*theta_max - dr*iacos(cos_theta_max);
-if (dr > detamax) L += dr*iacos(detamax/dr);
-  return dr * L;
+  // smearing in eta-phi ...
+
+  double dsmear = max(randnorm(0., 0.1), 0.);
+  double theta = rand01() * M_2_PI; // why 2/pi instead of 2pi??
+  // double theta = 2* rand01() * M_PI; // alternatively??
+    
+  
+  return Jet(FourMomentum::mkEtaPhiME(j.eta()+dsmear*cos(theta), mapAngle0To2Pi(j.phi()+dsmear*sin(theta)), j1.mass(), j1.E()));  
+}
+
+Jet JET_SMEAR_ANGULAR3(const Jet& j) {
+  // Jet energy resolution lookup
+  //   original -- Implemented by Matthias Danninger for GAMBIT, based roughly on
+  //   https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2015-017/
+  //   Parameterisation can be still improved, but eta dependence is minimal
+  /// @todo Also need a JES uncertainty component?
+  static const vector<double> binedges_pt = {0., 50., 70., 100., 150., 200., 1000., 10000.};
+  static const vector<double> jer = {0.145, 0.115, 0.095, 0.075, 0.07, 0.05, 0.04, 0.04}; //< note overflow value
+  const int ipt = binIndex(j.pt()/GeV, binedges_pt, true);
+  if (ipt < 0) return j;
+  const double resolution = jer.at(ipt);
+
+  // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
+  /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
+  const double fsmear = max(randnorm(1., resolution), 0.); // use this for smearing the energy...
+  const double mass = j.mass2() > 0 ? j.mass() : 0; //< numerical carefulness... is it correct to calculate the mass here? mass vs smeared energy inconsistency???
+  
+  Jet j1(Rivet::FourMomentum::mkXYZM(j.px()*fsmear, j.py()*fsmear, j.pz()*fsmear, mass));
+
+  // smearing in eta-phi ...
+
+  double dsmear = max(randnorm(0., 1.), 0.);
+  double theta = rand01() * M_2_PI; // why 2/pi instead of 2pi??
+  // double theta = 2* rand01() * M_PI; // alternatively??
+    
+  
+  return Jet(FourMomentum::mkEtaPhiME(j.eta()+dsmear*cos(theta), mapAngle0To2Pi(j.phi()+dsmear*sin(theta)), j1.mass(), j1.E()));  
 }
 
 
-
-namespace Rivet {
-
-
-  /// @brief Add a short analysis description here
+    /// @brief Add a short analysis description here
   class ATLAS_2018_I1685207 : public Analysis {
 
 
@@ -175,13 +219,15 @@ namespace Rivet {
 	    
 	    FastJets Sj(fsj, FastJets::ANTIKT, 0.4, JetAlg::Muons::NONE);
 	    declare("Sjet", Sj);
+      
       // No smearing:
 	    //SmearedJets SSj(Sj, JET_SMEAR_IDENTITY, JET_BTAG_EFFS(0.77, 1./6.2, 1./134));
       /// Energy-resolution smearing only:
-	    SmearedJets SSj(Sj, JET_SMEAR_ATLAS_RUN2, JET_BTAG_EFFS(0.77, 1./6.2, 1./134));
+	    //SmearedJets SSj(Sj, JET_SMEAR_ATLAS_RUN2, JET_BTAG_EFFS(0.77, 1./6.2, 1./134));
       /// @todo Also look into angular smearing? Need a custom smearing function, building on the ATLAS R2
+      SmearedJets SSj(Sj, JET_SMEAR_ANGULAR3, JET_BTAG_EFFS(0.77, 1./6.2, 1./134));
     	declare(SSj, "smearedSjet");
-
+      
       // pTmiss
       declare(VisibleFinalState(Cuts::abseta < 4.8),"vfs");
 
@@ -218,35 +264,22 @@ namespace Rivet {
       // discriminant function histograms
       book(_h["PV"], "PV",45,-3,1.5);
       book(_h["PH"], "PH",55,-3,2.5);
-      book(_h["Pt"], "Pt",55,-3,2.5);
+      book(_h["Pt"], "Pt",55,-3,2.5);      
 
-      // DNN output histograms
-      book(_h["DV"], "DV", 20, 0, 1);
-      book(_h["DH"], "DH",20, 0, 1);
-      book(_h["Dt"], "Dt",20, 0, 1);
-      book(_h["Dlight"], "Dlight",20, 0, 1);
+      // Les Houches angularity, number of constituent small-R jets
+      book(_h["LHA"],"LHA",200, 0, 1);
+      book(_h["Nconsts"],"Nconsts", 10,0,10);
+      // book(_h["tau21"], "tau21", 100, 0, 1);
+      // book(_h["tau32"], "tau32", 100, 0, 1);
+      
 
-      // deltaR distribution histogram -- include -1 to see how many -1 get filled
-      // book(_h["Z_deltaR"], "Z_deltaR", 100,-1.2 ,6.3); 
-      // book(_h["W_deltaR"], "W_deltaR", 100,-1.2 ,6.3);
-      // book(_h["H_deltaR"], "H_deltaR", 100,-1.2 ,6.3);
-      // book(_h["Top_deltaR"], "Top_deltaR", 100,-1.2 ,6.3);
-
-      // properties of vRC jets in weird spikes...
-
-      // book(_h["jetpT"], "jetpT", 50, 130, 2000);
-      // book(_h["jetMass"], "jetMass", 50, 0, 100);
-      // book(_h["jetEta"], "jetEta", 10, -2.5, 2.5);
-      // book(_h["jetPhi"], "jetPhi", 10, 0, 6.3);
-
-          
       //Find the json file
       const std::string nn_datafilename = "ATLAS_2018_I1685207.nn.json.yoda";
       //TODO: Would be nice to use the proper find syntax but there seems to be assumptions
       // about .yoda endings. Someone who understands the paths system better would do it more
       // elegantly.
       const std::string nn_datafilepath =  getDataPath()+"/Rivet/"+nn_datafilename;
-      //std::cout << nn_datafilepath << std::endl;
+      
       _MCbottagger = std::make_unique<MCBot_tagger>(MCBot_tagger(nn_datafilepath));
 
     }
@@ -267,10 +300,10 @@ namespace Rivet {
       if (smeared_muons.size() != 0){
         vetoEvent;
       }
-
+      
       Jets smeared_small_jets = apply<JetAlg>(event, "smearedSjet").jetsByPt();
       idiscard(smeared_small_jets, Cuts::pt <= 25*GeV && Cuts::abseta >= 2.5); 
-
+      
       //Todo JVT means we lose 8% of small jets?
       //Get b-tagged jets:
       const Jets smeared_bjets = filter_select(smeared_small_jets, hasBTag());
@@ -281,6 +314,7 @@ namespace Rivet {
       }
       double ETmiss = pTmiss.pT();
       
+      
       //Recluster small jets using variable R
       // rho= 315GeV, 0.4<Reff<1.2
       //TODO: probably more efficient to move after pre-selection.
@@ -288,8 +322,8 @@ namespace Rivet {
       fastjet::JetDefinition jdef(variableRplugin);
       ClusterSequence cseq(smeared_small_jets, jdef);
       PseudoJets VRC_jets = cseq.inclusive_jets();
-
-
+      
+      
       //TODO there's got to be an easier way than this mess.
       PseudoJets TrimmedVRCjets;
       vector<PseudoJets> NewConstits;
@@ -308,7 +342,7 @@ namespace Rivet {
           FilteredNewConstits.push_back(NewConstits[i]);
         }
       }
-
+      
       int VRCsize = FilteredVRCjets.size();
       if (VRCsize == 0) {
         vetoEvent;
@@ -324,7 +358,7 @@ namespace Rivet {
       std::vector<Particle> VHandtops;
       getVHandtop_fromEvent(VHandtops, event); 
       
-
+      
       if (_mode == 0){
 
         // input variables for the for the loop
@@ -392,25 +426,17 @@ namespace Rivet {
       }
 
       
+
+      
       // DNN tags of vRC jets
       std::vector<DNN_Category> VRCjet_tags;
       
       // DNN scores (probabilities) -- output of the NN 
       std::map<string, double> outputs;
-
-      // file with the inputs for DNN
-      std::string InputFile {"DNNinput_top.csv"};
-
-      // input for the DNN -- into csv file
-      std::map<string, double> scoresOut;
-
-      // file with D values
-      std::string OutputFile {"DNNoutput_top.csv"};
-
-
-      size_t counter=0;
-      for (const PseudoJet& j : signal){ 
-         
+      
+      for (size_t counter = 0; counter < signal.size(); ++counter){
+        auto& j = signal[counter];
+          
         //First we need a Jets of all the constituents, that has b-tagging info. 
         Jets tagged_constituents;
         for (const PseudoJet& pj : SignalConstits[counter]){
@@ -423,9 +449,64 @@ namespace Rivet {
             MSG_WARNING("FAILED TO FIND CONSTITUENT");
           }
         }
+        
 
-        // output a csv file of inputs for the dnn
-        _MCbottagger->dumpJetToCSV(j, tagged_constituents, scoresOut, InputFile, false);
+        // Les Houches Angularity
+        
+        double LHA_sum = 0;
+        
+        for (const PseudoJet& pj : SignalConstits[counter]){
+          double pT = pj.pt();
+          double dR = pj.squared_distance(j);
+          LHA_sum += (pT * pow(dR, 0.25)); 
+        }
+        
+        double LHA = LHA_sum/j.pt();
+        
+        _h["LHA"]->fill(LHA);
+        
+        // number of constituent jets
+
+        size_t Nconst = SignalConstits[counter].size();
+        _h["Nconsts"]->fill(Nconst);
+
+        // N-subjettiness -- which one is correct?? the second one does not work...
+        // double beta = 1; 
+        // for (const PseudoJet& pj : SignalConstits[counter]){
+        
+        // double tau21, tau32;
+        
+        // fastjet::contrib::Nsubjettiness nSub1(1, fastjet::contrib::OnePass_WTA_KT_Axes(), fastjet::contrib::UnnormalizedMeasure(beta));
+        // fastjet::contrib::Nsubjettiness nSub2(2, fastjet::contrib::OnePass_WTA_KT_Axes(), fastjet::contrib::UnnormalizedMeasure(beta));
+        // fastjet::contrib::Nsubjettiness nSub3(3, fastjet::contrib::OnePass_WTA_KT_Axes(), fastjet::contrib::UnnormalizedMeasure(beta));
+        
+        // double tau1 = nSub1.result(pj);
+        // double tau2 = nSub2.result(pj);
+        // double tau3 = nSub3.result(pj);
+        // (tau1 != 0) ? tau21 = tau2/tau1 : tau21 = -99;
+        // (tau2 != 0) ? tau32 = tau3/tau2 : tau32 = -99;
+        
+        // _h["tau21"]->fill(tau21);
+        // _h["tau32"]->fill(tau32);
+        // };
+
+        // double beta = 1;        
+        // double tau21, tau32;
+        
+        // fastjet::contrib::Nsubjettiness nSub1(1, fastjet::contrib::OnePass_WTA_KT_Axes(), fastjet::contrib::UnnormalizedMeasure(beta));
+        // fastjet::contrib::Nsubjettiness nSub2(2, fastjet::contrib::OnePass_WTA_KT_Axes(), fastjet::contrib::UnnormalizedMeasure(beta));
+        // fastjet::contrib::Nsubjettiness nSub3(3, fastjet::contrib::OnePass_WTA_KT_Axes(), fastjet::contrib::UnnormalizedMeasure(beta));
+        
+        // double tau1 = nSub1.result(j);
+        // double tau2 = nSub2.result(j);
+        // double tau3 = nSub3.result(j);
+        // (tau1 != 0) ? tau21 = tau2/tau1 : tau21 = -99;
+        // (tau2 != 0) ? tau32 = tau3/tau2 : tau32 = -99;
+        
+        // _h["tau21"]->fill(tau21);
+        // _h["tau32"]->fill(tau32);
+        
+
 
         // computes the D values (probabilities)
         _MCbottagger->computeScores(j, tagged_constituents, outputs);
@@ -443,27 +524,14 @@ namespace Rivet {
         _h["PH"]->fill(PH);
         _h["Pt"]->fill(Ptop);
 
-
-        // fill in the D histograms 
-        _h["DV"]->fill(outputs["dnnOutput_V"]);
-        _h["DH"]->fill(outputs["dnnOutput_H"]);
-        _h["Dt"]->fill(outputs["dnnOutput_top"]);
-        _h["Dlight"]->fill(outputs["dnnOutput_light"]);
-
-
-        // outputs PV,PH,Ptop into a csv file
-        
-        std::ofstream file;
-        file.open(OutputFile, std::ofstream::app);
-        file << outputs["dnnOutput_V"] << ", " << outputs["dnnOutput_H"] << ", " << outputs["dnnOutput_top"] << ", " << outputs["dnnOutput_light"] << ",";
-        file << "\n";
-        file.close();
-
+       
        //Tag the jets in an approximation of the MCBot NN.
 
         MCBot_TagType tag = _MCbottagger->tag(j,tagged_constituents);
         VRCjet_tags.push_back(static_cast<DNN_Category>(tag));
+
       }
+
 
       //Preselection
       //HT > 1250GeV
@@ -590,12 +658,37 @@ namespace Rivet {
     }
       
 
-
       /// Normalise histograms etc., after the run
       void finalize() {
         _h["PV"]->normalize(1);
         _h["PH"]->normalize(1);
         _h["Pt"]->normalize(1);
+        _h["LHA"]->normalize(1); 
+
+        // tagger efficiencies and mistag rates...
+        
+        size_t H_min = _h["PH"]->binIndexAt(0.35);
+        size_t V_min = _h["PV"]->binIndexAt(-0.2);
+        size_t Top_min = _h["Pt"]->binIndexAt(0.1);
+
+        size_t H_max = _h["PH"]->numBins();
+        size_t V_max = _h["PV"]->numBins();
+        size_t Top_max = _h["Pt"]->numBins();
+
+        double V = _h["PV"]->integralRange(V_min, V_max-1);
+        double H = _h["PH"]->integralRange(H_min, H_max-1);
+        double top = _h["Pt"]->integralRange(Top_min, Top_max-1);
+        
+        // outputs the efficiencies into a file
+
+        std::string OutputFile2 {"Eff_massive_test.csv"};
+        std::ofstream file2;
+        file2.open(OutputFile2, std::ofstream::app);
+        file2 << "V-tag efficiency: " << V << ", " << "H-tag efficiency: " << H << ", " << "Top-tag efficiency: " << top << ", ";
+        file2 << "\n";
+        file2.close();  
+
+          
 
       }
 
@@ -607,6 +700,7 @@ namespace Rivet {
       map<string, CounterPtr> _sigBins;
       map<string, CounterPtr> _valBins;
       map<string, Histo1DPtr> _h;
+      
       
       std::unique_ptr<MCBot_tagger> _MCbottagger;
       size_t _mode;
