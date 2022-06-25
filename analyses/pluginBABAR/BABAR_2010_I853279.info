@@ -12,10 +12,10 @@ References:
  - Phys.Rev.Lett. 105 (2010) 081803
 RunInfo: Any process producing D0
 Description:
-  'Measurement of Kinematic distributions  in the decays $D^0\to K^0_S\pi^+\pi^-$ and $D^0\to K^0_SK^+K^-$ by BaBar.'
-ValidationInfo:
-  'Compared Herwig events using the same model for the decay as in the paper. The data were read from the plots in the paper.
+  'Measurement of Kinematic distributions  in the decays $D^0\to K^0_S\pi^+\pi^-$ and $D^0\to K^0_SK^+K^-$ by BaBar. The data were read from the plots in the paper.
    Resolution/acceptance effects have been not unfolded. Given the agreement with the model in the paper this analysis should only be used for qualitative studies.'
+ValidationInfo:
+  'Compared Herwig events using the same model for the decay as in the paper.'
 #ReleaseTests:
 # - $A my-hepmc-prefix :MODE=some_rivet_flag
 Keywords: []
