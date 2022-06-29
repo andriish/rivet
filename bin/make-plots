@@ -1033,7 +1033,6 @@ class RatioPlot(Plot):
                 print('    ',i)
             sys.exit(1)
 
-        paneloffset = inputdata.description['PlotSizeY']
         inputdata.description.setdefault('RunningPanelYOffset', inputdata.description['PlotSizeY'])
         inputdata.description.setdefault(self.name+'SameStyle', '1')
         self.yoffset = inputdata.attr_float('RunningPanelYOffset') + inputdata.attr_float(self.name+'SizeY') 
