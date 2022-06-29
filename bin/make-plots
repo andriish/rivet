@@ -1032,11 +1032,14 @@ class RatioPlot(Plot):
             for i in inputdata.histos.keys():
                 print('    ',i)
             sys.exit(1)
-        inputdata.description.setdefault('RatioPlotYOffset', inputdata.description['PlotSizeY'])
+
+        paneloffset = inputdata.description['PlotSizeY']
+        inputdata.description.setdefault('RunningPanelYOffset', inputdata.description['PlotSizeY'])
         inputdata.description.setdefault(self.name+'SameStyle', '1')
-        self.yoffset = inputdata.attr_float('RatioPlotYOffset') + inputdata.attr_float(self.name+'SizeY')
+        self.yoffset = inputdata.attr_float('RunningPanelYOffset') + inputdata.attr_float(self.name+'SizeY') 
+        self.yoffset += inputdata.attr_float(self.name+'YOffset', 0.)
         inputdata.description['PlotStage'] = self.name
-        inputdata.description['RatioPlotYOffset'] = self.yoffset
+        inputdata.description['RunningPanelYOffset'] = self.yoffset
         inputdata.description['PlotSizeY'] = inputdata.description[self.name+'SizeY']
         inputdata.description['LogY'] = inputdata.description.get(self.name+"LogY", False)
 
