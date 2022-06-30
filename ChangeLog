@@ -147,6 +147,11 @@
 	* Add CLEO_2005_I679349 D0 -> pi+ pi- pi0
 	* Add CLEO_2012_I1094160 D0 -> KS0 K+- pi-+
 	* Add LHCB_2016_I1394391 D0 -> KS0 K+- pi-+
+=======
+2022-06-30 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2022_I2030993 D_s+ -> pi+ pi0 eta'
+>>>>>>> 1f16127f6... Add BESIII_2022_I2030993 D_s+ -> pi+ pi0 eta'
 
 2022-06-29 Peter Richardson <peter.richardson@durham.ac.uk>
 
@@ -154,7 +159,7 @@
 
 2022-06-25 Peter Richardson <peter.richardson@durham.ac.uk>
 
-	* Add BESIII_2020_I1799437 D0 -> KS0 K+K_ dalitz
+	* Add BESIII_2020_I1799437 D0 -> KS0 K+K- dalitz
 
 2022-06-24 Peter Richardson <peter.richardson@durham.ac.uk>
 
