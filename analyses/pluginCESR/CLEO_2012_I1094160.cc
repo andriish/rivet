@@ -102,7 +102,7 @@ namespace Rivet {
 	    _h_K0pim[ix]->fill(mK0pim);
 	    _h_Kppim[ix]->fill(mKppim);
 	  }
-	  _dalitz[0]->fill(mKppim,mK0pim); 
+	  _dalitz[1]->fill(mKppim,mK0pim); 
 	}
       }
     }
