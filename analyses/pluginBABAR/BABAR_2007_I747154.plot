@@ -1,12 +1,12 @@
 BEGIN PLOT /BABAR_2007_I747154/d01-x01-y01
 Title=$\pi^+\pi^0$ mass distribution in $D^0\to \pi^+\pi^-\pi^0$
-XLabel=$m^2_{\pi^+\pi^0}$ [$\mathrm{GeV}^{-2}$]
+XLabel=$m^2_{\pi^+\pi^0}$ [$\mathrm{GeV}^{2}$]
 YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m^2_{\pi^+\pi^0}$ [$\mathrm{GeV}^{-2}$]
 LogY=0
 END PLOT
 BEGIN PLOT /BABAR_2007_I747154/d01-x01-y02
 Title=$\pi^-\pi^0$ mass distribution in $D^0\to \pi^-\pi^-\pi^0$
-XLabel=$m^2_{\pi^-\pi^0}$ [$\mathrm{GeV}^{-2}$]
+XLabel=$m^2_{\pi^-\pi^0}$ [$\mathrm{GeV}^{2}$]
 YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m^2_{\pi^-\pi^0}$ [$\mathrm{GeV}^{-2}$]
 LogY=0
 END PLOT
