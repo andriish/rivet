@@ -146,6 +146,10 @@
 	* Add BESIII_2019_I1714778 D+ -> KS0 pi+pi+pi-
 	* Add BESIII_2018_I1662665 D0 -> pi0 eta eta
 
+2022-07-02 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add MC_EtaC_Dalitz eta_c dalitz decays
+
 2022-07-01 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BELLE_2020_I1785816 D0 -> K- pi+ eta
