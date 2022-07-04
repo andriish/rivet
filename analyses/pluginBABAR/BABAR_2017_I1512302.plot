@@ -1,12 +1,12 @@
 BEGIN PLOT /BABAR_2017_I1512302/d01-x01-y01
 Title=$\pi^+\pi^-$ mass distribution in $J/\psi\to \pi^+\pi^-\pi^0$
-XLabel=$m^2_{\pi^+\pi^-}$ [$\mathrm{GeV}^{-2}$]
+XLabel=$m^2_{\pi^+\pi^-}$ [$\mathrm{GeV}^{2}$]
 YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m^2_{\pi^+\pi^-}$ [$\mathrm{GeV}^{-2}$]
 LogY=0
 END PLOT
 BEGIN PLOT /BABAR_2017_I1512302/d01-x01-y02
 Title=$\pi^\pm\pi^0$ mass distribution in $J/\psi\to \pi^+\pi^-\pi^0$
-XLabel=$m^2_{\pi^\pm\pi^0}$ [$\mathrm{GeV}^{-2}$]
+XLabel=$m^2_{\pi^\pm\pi^0}$ [$\mathrm{GeV}^{2}$]
 YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m^2_{\pi^\pm\pi^0}$ [$\mathrm{GeV}^{-2}$]
 LogY=0
 END PLOT
@@ -20,21 +20,21 @@ END PLOT
 
 BEGIN PLOT /BABAR_2017_I1512302/d02-x01-y01
 Title=$K^+K^-$ mass distribution in $J/\psi\to K^+K^-\pi^0$
-XLabel=$m^2_{K^+K^-}$ [$\mathrm{GeV}^{-2}$]
+XLabel=$m^2_{K^+K^-}$ [$\mathrm{GeV}^{2}$]
 YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m^2_{K^+K^-}$ [$\mathrm{GeV}^{-2}$]
 LogY=0
 END PLOT
 BEGIN PLOT /BABAR_2017_I1512302/d02-x01-y02
 Title=$K^\pm\pi^0$ mass distribution in $J/\psi\to K^+K^-\pi^0$
-XLabel=$m^2_{K^\pm\pi^0}$ [$\mathrm{GeV}^{-2}$]
+XLabel=$m^2_{K^\pm\pi^0}$ [$\mathrm{GeV}^{2}$]
 YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m^2_{K^\pm\pi^0}$ [$\mathrm{GeV}^{-2}$]
 LogY=0
 END PLOT
 BEGIN PLOT /BABAR_2017_I1512302/dalitz_KpKmpi
-Title=Dalitz plot for $J/\psi\to \pi^+\pi^-\pi^0$
-XLabel=$m^2_{\pi^+\pi^0}$ [$\mathrm{GeV}^2$]
-YLabel=$m^2_{\pi^-\pi^0}$ [$\mathrm{GeV}^2$]
-ZLabel=$1/\Gamma{\rm d}^2 \Gamma/{\rm d}m^2_{\pi^+\pi^0}/{\rm d}m^2_{\pi^-\pi^0}$ [$\rm{GeV}^{-4}$]
+Title=Dalitz plot for $J/\psi\to K^+K^-\pi^0$
+XLabel=$m^2_{K^+\pi^0}$ [$\mathrm{GeV}^2$]
+YLabel=$m^2_{K^-\pi^0}$ [$\mathrm{GeV}^2$]
+ZLabel=$1/\Gamma{\rm d}^2 \Gamma/{\rm d}m^2_{K^+\pi^0}/{\rm d}m^2_{K^-\pi^0}$ [$\rm{GeV}^{-4}$]
 LogY=0
 END PLOT
 
