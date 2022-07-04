@@ -95,7 +95,7 @@ namespace Rivet {
 	    swap(Km,Kp);
 	    swap(pim,pip);
 	  }
-	  double mplus  = (Kp[0].momentum()  + KS0[0].momentum()).mass2();
+	  double mplus  = (Kp[0].momentum()  + pim[0].momentum()).mass2();
 	  double mminus = (KS0[0].momentum() + pim[0].momentum()).mass2();
 	  double mKK    = (Kp[0].momentum()  + KS0[0].momentum()).mass2();
 	  _h_K0Kp ->fill(mKK);

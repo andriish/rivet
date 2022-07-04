@@ -42,15 +42,15 @@ namespace Rivet {
       book(_h5_KpKm ,"h05_KpKm" ,100,0.5,2.5);
       book(_h5_Kpeta,"h05_Kpeta",100,1.0,3.0);
       book(_h5_Kmeta,"h05_Kmeta",100,1.0,3.0);
-      book(_dalitz[4], "dalitz05",50,2.,7.,50,2.,7.);
+      book(_dalitz[4], "dalitz05",50,1.,7.,50,1.,7.);
       // KS0 KS0 eta
       book(_h6_KS0KS0,"h06_KS0KS0",100,0.5,2.5);
       book(_h6_KS0eta,"h06_KS0eta",100,1.0,3.0);
-      book(_dalitz[5], "dalitz06",50,2.,7.,50,2.,7.);
+      book(_dalitz[5], "dalitz06",50,1.,7.,50,1.,7.);
       // KL0 KL0 eta
       book(_h7_KL0KL0,"h07_KL0KL0",100,0.5,2.5);
       book(_h7_KL0eta,"h07_KL0eta",100,1.0,3.0);
-      book(_dalitz[6], "dalitz07",50,2.,7.,50,2.,7.);
+      book(_dalitz[6], "dalitz07",50,1.,7.,50,1.,7.);
       // K+K- eta'
       book(_h8_KpKm ,"h08_KpKm" ,100,0.9,2.2);
       book(_h8_Kpeta,"h08_Kpeta",100,1.3,2.7);
@@ -63,7 +63,40 @@ namespace Rivet {
       // KL0 KL0 eta'
       book(_h10_KL0KL0,"h10_KL0KL0",100,0.9,2.2);
       book(_h10_KL0eta,"h10_KL0eta",100,1.3,2.7);
-      book(_dalitz[9], "dalitz10",50,1.5,6.5,50,1.5,6.5);
+      book(_dalitz[9] ,  "dalitz10",50,1.5,6.5,50,1.5,6.5);
+      // K+K- pi0
+      book(_h11_KpKm ,"h11_KpKm" ,100,0.9,2.8);
+      book(_h11_Kppi0,"h11_Kppi0",100,0.6,2.8);
+      book(_h11_Kmpi0,"h11_Kmpi0",100,0.6,2.8);
+      book(_dalitz[10],"dalitz11",50,0.3,6.5,50,0.3,6.5);
+      // KS0 KS0 pi0
+      book(_h12_KS0KS0,"h12_KS0KS0",100,0.9,2.8);
+      book(_h12_KS0pi0,"h12_KS0pi0",100,0.6,2.8);
+      book(_dalitz[11] ,"dalitz12",50,0.3,6.5,50,0.3,6.5);
+      // KL0 KL0 pi0
+      book(_h13_KL0KL0,"h13_KL0KL0",100,0.9,2.8);
+      book(_h13_KL0pi0,"h13_KL0pi0",100,0.6,2.8);
+      book(_dalitz[12] ,  "dalitz13",50,0.3,6.5,50,0.3,6.5);
+      // KS0 K+ pi-
+      book(_h14_KpKS0 ,"h14_KpKS0" ,100,0.9,2.8);
+      book(_h14_Kppim ,"h14_Kppim" ,100,0.6,2.8);
+      book(_h14_KS0pim,"h14_KS0pim",100,0.6,2.8);
+      book(_dalitz[13] ,"dalitz14",50,0.3,6.5,50,0.3,6.5);
+      // KS0 K- pi+
+      book(_h15_KmKS0 ,"h15_KmKS0" ,100,0.9,2.8);
+      book(_h15_Kmpip ,"h15_Kmpip" ,100,0.6,2.8);
+      book(_h15_KS0pip,"h15_KS0pip",100,0.6,2.8);
+      book(_dalitz[14] ,  "dalitz15",50,0.3,6.5,50,0.3,6.5);
+      // KL0 K+ pi-
+      book(_h16_KpKL0 ,"h16_KpKL0" ,100,0.9,2.8);
+      book(_h16_Kppim ,"h16_Kppim" ,100,0.6,2.8);
+      book(_h16_KL0pim,"h16_KL0pim",100,0.6,2.8);
+      book(_dalitz[15] ,"dalitz16",50,0.3,6.5,50,0.3,6.5);
+      // KL0 K- pi+
+      book(_h17_KmKL0 ,"h17_KmKL0" ,100,0.9,2.8);
+      book(_h17_Kmpip ,"h17_Kmpip" ,100,0.6,2.8);
+      book(_h17_KL0pip,"h17_KL0pip",100,0.6,2.8);
+      book(_dalitz[16] ,"dalitz17",50,0.3,6.5,50,0.3,6.5);
     }
 
     void findDecayProducts(const Particle & mother, unsigned int & nstable,
@@ -231,6 +264,76 @@ namespace Rivet {
 	  _dalitz[9]->fill(m1,m2);
 	  _dalitz[9]->fill(m2,m1);
 	}
+	// K+ K- pi0
+	else if (Km.size()==1&&Kp.size()==1&&pi0.size()==1) {
+	  double mplus  = (Kp[0].momentum()+pi0[0].momentum()).mass2();
+	  double mminus = (Km[0].momentum()+pi0[0].momentum()).mass2();
+	  double mKK    = (Kp[0].momentum()+Km [0].momentum()).mass2();
+	  _h11_KpKm->fill(sqrt(mKK));
+	  _h11_Kppi0->fill(sqrt(mplus));
+	  _h11_Kmpi0->fill(sqrt(mminus));
+	  _dalitz[10]->fill(mplus,mminus);
+	}
+	// KS0 KS0 pi0
+	else if (KS0.size()==2&&pi0.size()==1) {
+	  double mplus  = (KS0[0].momentum()+pi0[0].momentum()).mass2();
+	  double mminus = (KS0[1].momentum()+pi0[0].momentum()).mass2();
+	  double mKK    = (KS0[0].momentum()+KS0[1].momentum()).mass2();
+	  _h12_KS0KS0->fill(sqrt(mKK));
+	  _h12_KS0pi0->fill(sqrt(mplus));
+	  _h12_KS0pi0->fill(sqrt(mminus));
+	  _dalitz[11]->fill(mplus,mminus);
+	}
+	// KL0 KL0 pi0
+	else if (KL0.size()==2&&pi0.size()==1) {
+	  double mplus  = (KL0[0].momentum()+pi0[0].momentum()).mass2();
+	  double mminus = (KL0[1].momentum()+pi0[0].momentum()).mass2();
+	  double mKK    = (KL0[0].momentum()+KL0[1].momentum()).mass2();
+	  _h13_KL0KL0->fill(sqrt(mKK));
+	  _h13_KL0pi0->fill(sqrt(mplus));
+	  _h13_KL0pi0->fill(sqrt(mminus));
+	  _dalitz[12]->fill(mplus,mminus);
+	}
+	// KS0 K+ pi-
+	else if (KS0.size()==1&&Kp.size()==1&&pim.size()==1) {
+	  double mplus  = (Kp[0].momentum()+pim[0].momentum()).mass2();
+	  double mminus = (KS0[0].momentum()+pim[0].momentum()).mass2();
+	  double mKK    = (KS0[0].momentum()+Kp[0].momentum()).mass2();
+	  _h14_KpKS0->fill(sqrt(mKK));
+	  _h14_Kppim->fill(sqrt(mplus));
+	  _h14_KS0pim->fill(sqrt(mminus));
+	  _dalitz[13]->fill(mplus,mminus);
+	}
+	// KS0 K- pip
+	else if (KS0.size()==1&&Km.size()==1&&pip.size()==1) {
+	  double mplus  = (Km[0].momentum()+pip[0].momentum()).mass2();
+	  double mminus = (KS0[0].momentum()+pip[0].momentum()).mass2();
+	  double mKK    = (KS0[0].momentum()+Km[0].momentum()).mass2();
+	  _h15_KmKS0->fill(sqrt(mKK));
+	  _h15_Kmpip->fill(sqrt(mplus));
+	  _h15_KS0pip->fill(sqrt(mminus));
+	  _dalitz[14]->fill(mplus,mminus);
+	}
+	// KL0 K+ pi-
+	else if (KL0.size()==1&&Kp.size()==1&&pim.size()==1) {
+	  double mplus  = (Kp[0].momentum()+pim[0].momentum()).mass2();
+	  double mminus = (KL0[0].momentum()+pim[0].momentum()).mass2();
+	  double mKK    = (KL0[0].momentum()+Kp[0].momentum()).mass2();
+	  _h16_KpKL0->fill(sqrt(mKK));
+	  _h16_Kppim->fill(sqrt(mplus));
+	  _h16_KL0pim->fill(sqrt(mminus));
+	  _dalitz[15]->fill(mplus,mminus);
+	}
+	// KL0 K- pip
+	else if (KL0.size()==1&&Km.size()==1&&pip.size()==1) {
+	  double mplus  = (Km[0].momentum()+pip[0].momentum()).mass2();
+	  double mminus = (KL0[0].momentum()+pip[0].momentum()).mass2();
+	  double mKK    = (KL0[0].momentum()+Km[0].momentum()).mass2();
+	  _h17_KmKL0->fill(sqrt(mKK));
+	  _h17_Kmpip->fill(sqrt(mplus));
+	  _h17_KL0pip->fill(sqrt(mminus));
+	  _dalitz[16]->fill(mplus,mminus);
+	}
       }
     }
 
@@ -261,7 +364,26 @@ namespace Rivet {
       normalize(_h9_KS0eta);
       normalize(_h10_KL0KL0);
       normalize(_h10_KL0eta);
-      for(unsigned int ix=0;ix<10;++ix)
+      normalize(_h11_KpKm );
+      normalize(_h11_Kppi0);
+      normalize(_h11_Kmpi0);
+      normalize(_h12_KS0KS0);
+      normalize(_h12_KS0pi0);
+      normalize(_h13_KL0KL0);
+      normalize(_h13_KL0pi0);
+      normalize(_h14_KpKS0);
+      normalize(_h14_Kppim);
+      normalize(_h14_KS0pim);
+      normalize(_h15_KmKS0);
+      normalize(_h15_Kmpip);
+      normalize(_h15_KS0pip);
+      normalize(_h16_KpKL0);
+      normalize(_h16_Kppim);
+      normalize(_h16_KL0pim);
+      normalize(_h17_KmKL0);
+      normalize(_h17_Kmpip);
+      normalize(_h17_KL0pip);
+      for(unsigned int ix=0;ix<17;++ix)
 	normalize(_dalitz[ix]);
     }
 
@@ -280,8 +402,14 @@ namespace Rivet {
     Histo1DPtr _h8_KpKm,_h8_Kpeta,_h8_Kmeta;
     Histo1DPtr _h9_KS0KS0,_h9_KS0eta;
     Histo1DPtr _h10_KL0KL0,_h10_KL0eta;
-    
-    Histo2DPtr _dalitz[10];
+    Histo1DPtr _h11_KpKm,_h11_Kppi0,_h11_Kmpi0;
+    Histo1DPtr _h12_KS0KS0,_h12_KS0pi0;
+    Histo1DPtr _h13_KL0KL0,_h13_KL0pi0;
+    Histo1DPtr _h14_KpKS0,_h14_Kppim,_h14_KS0pim;
+    Histo1DPtr _h15_KmKS0,_h15_Kmpip,_h15_KS0pip;
+    Histo1DPtr _h16_KpKL0,_h16_Kppim,_h16_KL0pim;
+    Histo1DPtr _h17_KmKL0,_h17_Kmpip,_h17_KL0pip;
+    Histo2DPtr _dalitz[17];
     /// @}
 
 
