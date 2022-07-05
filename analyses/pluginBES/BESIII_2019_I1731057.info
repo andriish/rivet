@@ -5,7 +5,7 @@ Experiment: BESIII
 Collider: BEPC
 InspireID: 1731057
 Status: VALIDATED NOHEPDATA
-Reentrant: false
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
