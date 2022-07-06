@@ -25,7 +25,7 @@ namespace Rivet {
       book(_h_phi,1,1,2);
       book(_h_cos,1,1,3);
       book(_h_ppi,1,1,4);
-      book(_dalitz,"dalitz",50,-1,1,50,-1,1);
+      book(_dalitz,"dalitz",50,-1,1,50,-1.1,0.9);
     }
 
     void findDecayProducts(const Particle & mother, unsigned int & nstable,
@@ -57,6 +57,9 @@ namespace Rivet {
       static const std::complex<double> ii(0.,1.);
       for(const Particle& meson :
 	    apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::OMEGA)) {
+	// apply omega mass cut
+	if(abs(meson.mass()-0.78265)>0.04) continue;
+	// find decay products
       	unsigned int nstable(0);
        	Particles pip, pim, pi0;
       	findDecayProducts(meson, nstable, pip, pim, pi0);
@@ -65,12 +68,10 @@ namespace Rivet {
 	FourMomentum pp = boost.transform(pip[0].momentum());
 	FourMomentum pm = boost.transform(pim[0].momentum());
 	FourMomentum p0 = boost.transform(pi0[0].momentum());
-	// variables from eqn 1 in paper
-	double s  = (pm+pp).mass2(), t  = (pm+p0).mass2(),  u = (pp+p0).mass2();
-	double s0 = (s+t+u)/3.;
-	double Rw = 2.*meson.mass()*(meson.mass()-pi0[0].mass()-pim[0].mass()-pip[0].mass())/3.;
-	double x = (t-u)/Rw/sqrt(3.);
-	double y = (s0-s)/Rw;
+	// variables from eqn 1 in paper (use version from Eqn 2.1 of 1010.3946)
+	double Qc = meson.mass()-pi0[0].mass()-pim[0].mass()-pip[0].mass();
+	double x = sqrt(3.)*(pm.E()-pp.E())/Qc;
+	double y = 3./Qc*(p0.E()-pi0[0].mass())-1.;
 	_dalitz->fill(x,y);
 	// plot arg and phase of variable
 	std::complex<double> zz = x+ii*y;
