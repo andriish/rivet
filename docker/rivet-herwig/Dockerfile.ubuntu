@@ -66,4 +66,6 @@ RUN true \
     && echo ". /herwig/etc/bash_completion.d/rivet-completion" >> /etc/bash.bashrc
 
 WORKDIR /work
-CMD /bin/bash
+ADD rivet-exec.sh /root
+ENTRYPOINT ["/root/rivet-exec.sh"]
+CMD []
