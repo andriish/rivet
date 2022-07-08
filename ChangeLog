@@ -148,8 +148,9 @@
 
 2022-07-08 Peter Richardson <peter.richardson@durham.ac.uk>
 
-	* Add BESIII_2021_I1849747 Ds -> K+K-pi+pi0
+	* Add BESIII_2021_I1849747 D_s+ -> K+K-pi+pi0
 	* Add BESIII_2021_I1870322 D_s+ -> pi+ pi+ pi- eta
+	* Add BESIII_2019_I1712742 D_s+ -> eta, eta' semi-leptonic
 
 2022-07-07 Peter Richardson <peter.richardson@durham.ac.uk>
 
