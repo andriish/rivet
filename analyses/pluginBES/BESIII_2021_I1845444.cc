@@ -6,11 +6,11 @@ namespace Rivet {
 
 
   /// @brief  Ds -> KS0 K-pi+pi+
-  class BESIII_2021_I184544 : public Analysis {
+  class BESIII_2021_I1845444 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2021_I184544);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2021_I1845444);
 
 
     /// @name Analysis methods
@@ -110,6 +110,6 @@ namespace Rivet {
   };
 
 
-  RIVET_DECLARE_PLUGIN(BESIII_2021_I184544);
+  RIVET_DECLARE_PLUGIN(BESIII_2021_I1845444);
 
 }
