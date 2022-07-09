@@ -98,7 +98,7 @@ namespace Rivet {
       		break;
       	      }
       	    }
-      	    // fond baryon and antibaryon
+            // found baryon and antibaryon
       	    if(matched) {
 	      if(p.pid()>0) {
 		Lambda = p;
@@ -122,6 +122,8 @@ namespace Rivet {
 	  matched=true;
 	  proton=p;
 	}
+	else if(p.pid()==PID::PHOTON)
+	  vetoEvent;
       }
       if(!matched) vetoEvent;
       Particle baryon;
@@ -135,6 +137,8 @@ namespace Rivet {
 	  baryon=p;
 	  mode=1;
 	}
+	else if(p.pid()==PID::PHOTON)
+	  vetoEvent;
       }
       if(mode<0) vetoEvent;
       // boost to the Lambda rest frame

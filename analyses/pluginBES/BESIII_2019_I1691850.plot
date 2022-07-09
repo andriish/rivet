@@ -37,6 +37,7 @@ END PLOT
 BEGIN PLOT /BESIII_2019_I1691850/d02-x01-y01
 Title=$\mu$ for $\Lambda\to p^+\pi^-$ (N.B. data not corrected)
 YLabel=$\mu$
+XLabel=$\cos\theta_{\Lambda}$
 END PLOT
 
 BEGIN PLOT /BESIII_2019_I1691850/T1_n
@@ -62,6 +63,7 @@ END PLOT
 BEGIN PLOT /BESIII_2019_I1691850/d02-x01-y02
 Title=$\mu$ for $\Lambda\to n\pi^0$ (N.B. data not corrected)
 YLabel=$\mu$
+XLabel=$\cos\theta_{\Lambda}$
 END PLOT
 BEGIN PLOT /BESIII_2019_I1691850/d01-x01-y01
 Title=$\alpha_\psi$ for $J/\psi\to \Lambda^0\bar\Lambda^0$
