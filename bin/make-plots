@@ -1111,7 +1111,7 @@ class RatioPlot(Plot):
             else:
                 inputdata.description[self.name+'DrawOnly'].append(foo)
         else:
-            inputdata.description[self.name+'DrawOnly'].append(foo)
+            inputdata.description[self.name+'DrawOnly'].insert(0,foo)
         rpmode = inputdata.description.get(self.name+'Mode', 'mcdata')
         for i in inputdata.description[self.name+'DrawOnly']:
             if i!=self.refdata:
