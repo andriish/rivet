@@ -1104,14 +1104,12 @@ class RatioPlot(Plot):
     def calculate_ratios(self,inputdata):
         inputdata.ratiohistos = {}
         inputdata.ratiohistos = copy.deepcopy(inputdata.histos)
-        foo=inputdata.description[self.name+'DrawOnly'].pop(inputdata.description[self.name+'DrawOnly'].index(self.refdata))
         if inputdata.description.get(self.name+'DrawReferenceFirst', '')!='0':
+            foo=inputdata.description[self.name+'DrawOnly'].pop(inputdata.description[self.name+'DrawOnly'].index(self.refdata))
             if inputdata.histos[self.refdata].description.get('ErrorBands', '')=='1':
                 inputdata.description[self.name+'DrawOnly'].insert(0,foo)
             else:
                 inputdata.description[self.name+'DrawOnly'].append(foo)
-        else:
-            inputdata.description[self.name+'DrawOnly'].insert(0,foo)
         rpmode = inputdata.description.get(self.name+'Mode', 'mcdata')
         for i in inputdata.description[self.name+'DrawOnly']:
             if i!=self.refdata:
