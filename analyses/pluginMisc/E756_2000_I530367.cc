@@ -35,30 +35,26 @@ namespace Rivet {
       for (const Particle& Xi : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==3312)) {
 	int sign = Xi.pid()/3312;
 	if(Xi.children().size()!=2) continue;
-	Particle Lambda,pion1;
+	Particle Lambda;
 	if(Xi.children()[0].pid()==sign*3122 && 
 	   Xi.children()[1].pid()==-sign*211) {
 	  Lambda = Xi.children()[0];
-	  pion1   = Xi.children()[1];
 	}
 	else if(Xi.children()[1].pid()==sign*3122 && 
 		Xi.children()[0].pid()==-sign*211) {
 	  Lambda = Xi.children()[1];
-	  pion1   = Xi.children()[0];
 	}
 	else
 	  continue;
 	if(Lambda.children().size()!=2) continue;
-	Particle proton,pion2;
+	Particle proton;
 	if(Lambda.children()[0].pid()==sign*2212 && 
 	   Lambda.children()[1].pid()==-sign*211) {
 	  proton = Lambda.children()[0];
-	  pion2   = Lambda.children()[1];
 	}
 	else if(Lambda.children()[1].pid()==sign*2212 && 
 		Lambda.children()[0].pid()==-sign*211) {
 	  proton = Lambda.children()[1];
-	  pion2   = Lambda.children()[0];
 	}
 	else
 	  continue;
