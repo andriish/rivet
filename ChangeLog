@@ -141,6 +141,10 @@
 	* Fixed RatioPlotDrawReferenceFirst and ErrorTubeLineDash options in
 	make-plots.
 
+2022-07-10 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2018_I1662665 D0 -> pi0 eta eta
+
 2022-07-01 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BELLE_2020_I1785816 D0 -> K- pi+ eta
