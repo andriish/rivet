@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Projections/DecayedParticles.hh"
 
 namespace Rivet {
 
@@ -19,7 +20,14 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       // Initialise and register projections
-      declare(UnstableParticles(), "UFS");
+      UnstableParticles ufs = UnstableParticles(Cuts::abspid==421);
+      declare(ufs, "UFS");
+      DecayedParticles D0(ufs);
+      D0.addStable(PID::PI0);
+      D0.addStable(PID::K0S);
+      D0.addStable(PID::ETA);
+      D0.addStable(PID::ETAPRIME);
+      declare(D0, "D0");
       // histograms
       book(_h_Kppi ,1,1,1);
       book(_h_Kmpi ,1,1,2);
@@ -27,54 +35,24 @@ namespace Rivet {
       book(_dalitz, "dalitz",50,0.3,2.1,50,0.3,2.1);
     }
 
-
-    void findDecayProducts(const Particle & mother, unsigned int & nstable,
-			   Particles & pi0 , Particles & Kp, Particles & Km) {
-      for(const Particle & p : mother.children()) {
-        int id = p.pid();
-        if ( id == PID::KPLUS ) {
-       	  Kp.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::KMINUS ) {
-	  Km.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PIPLUS || id == PID::PIMINUS ||
-		 id == PID::K0S    || id == PID::K0L) {
-          ++nstable;
-        }
-	else if (id == PID::PI0) {
-	  pi0.push_back(p);
-	  ++nstable;
-	}
-	else if ( !p.children().empty() ) {
-	  findDecayProducts(p, nstable, pi0, Kp , Km);
-	}
-	else
-	  ++nstable;
-      }
-    }
-
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      for(const Particle& meson : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid== 421 )) {
-	unsigned int nstable(0);
-	Particles pi0, Kp , Km;
-	findDecayProducts(meson, nstable, pi0, Kp , Km);
-	if(nstable !=3) continue;
-	if(meson.pid()<0) {
-	  swap(Kp,Km);
-	}
-	if (Km.size()==1&&Kp.size()==1&&pi0.size()==1) {
-	  double mplus  = (Kp[0].momentum()+pi0[0].momentum()).mass2();
-	  double mminus = (Km[0].momentum()+pi0[0].momentum()).mass2();
-	  double mKK    = (Kp[0].momentum()+Km [0].momentum()).mass2();
-	  _h_KK  ->fill(mKK);
-	  _h_Kppi->fill(mplus);
-	  _h_Kmpi->fill(mminus);
-	  _dalitz->fill(mminus,mplus);
-	}
+      static const map<PdgId,unsigned int> & mode   = { { 321,1},{-321,1}, {111,1}};
+      DecayedParticles D0 = apply<DecayedParticles>(event, "D0");
+      // loop over particles
+      for(unsigned int ix=0;ix<D0.decaying().size();++ix) {
+	if( ! D0.modeMatches(ix,3,mode)  ) continue;
+	int sign = D0.decaying()[ix].pid()/421;
+	const Particles & pi0 = D0.decayProducts()[ix].at(111);
+	const Particles & Kp  = D0.decayProducts()[ix].at( sign*321);
+	const Particles & Km  = D0.decayProducts()[ix].at(-sign*321);
+	double mplus  = (Kp[0].momentum()+pi0[0].momentum()).mass2();
+	double mminus = (Km[0].momentum()+pi0[0].momentum()).mass2();
+	double mKK    = (Kp[0].momentum()+Km [0].momentum()).mass2();
+	_h_KK  ->fill(mKK);
+	_h_Kppi->fill(mplus);
+	_h_Kmpi->fill(mminus);
+	_dalitz->fill(mminus,mplus);
       }
     }
 

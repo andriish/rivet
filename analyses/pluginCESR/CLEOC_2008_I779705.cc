@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Projections/DecayedParticles.hh"
 
 namespace Rivet {
 
@@ -18,48 +19,33 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      // projections
-      declare(UnstableParticles(),"UFS");
+      // Initialise and register projections
+      UnstableParticles ufs = UnstableParticles(Cuts::abspid==421);
+      declare(ufs, "UFS");
+      DecayedParticles D0(ufs);
+      D0.addStable(PID::PI0);
+      D0.addStable(PID::K0S);
+      D0.addStable(PID::ETA);
+      D0.addStable(PID::ETAPRIME);
+      declare(D0, "D0");
       // histograms
       book(_h_eta_pi,1,1,1);
       book(_h_pi_pi ,1,1,2);
     }
-
-    void findDecay(const Particle & parent, unsigned int & nstable,
-		   Particles & pip, Particles & pim, Particles & eta) {
-      for(const Particle & p : parent.children()) {
-	if(p.pid()==PID::PIPLUS) {
-	  ++nstable;
-	  pip.push_back(p);
-	}
-	else if(p.pid()==PID::PIMINUS) {
-	  ++nstable;
-	  pim.push_back(p);
-	}
-	else if(p.pid()==PID::ETA) {
-	  ++nstable;
-	  eta.push_back(p);
-	}
-	else if(p.children().empty() || p.pid()==PID::K0S) {
-	  ++nstable;
-	}
-	else {
-	  findDecay(p,nstable,pip,pim,eta);
-	}	
-      }
-    }
     
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      for(const Particle & D0 : apply<UnstableParticles>(event,"UFS").particles(Cuts::abspid==421)) {
-	unsigned int nstable(0);
-	Particles pip, pim, eta;
-	findDecay(D0,nstable,pip,pim,eta);
-	if(nstable==3 && pip.size()==1 && pim.size()==1 && eta.size()==1) {
-	  if(D0.pid()<0) swap (pip,pim);
-	  _h_eta_pi->fill((pip[0].momentum()+eta[0].momentum()).mass());
-	  _h_pi_pi ->fill((pip[0].momentum()+pim[0].momentum()).mass());
-	}
+      static const map<PdgId,unsigned int> & mode   = { { 211,1},{-211,1}, {221,1}};
+      DecayedParticles D0 = apply<DecayedParticles>(event, "D0");
+      // loop over particles
+      for(unsigned int ix=0;ix<D0.decaying().size();++ix) {
+	if( !D0.modeMatches(ix,3,mode)  ) continue;
+	int sign = D0.decaying()[ix].pid()/421;
+	const Particles & eta = D0.decayProducts()[ix].at(221);
+	const Particles & pip = D0.decayProducts()[ix].at( sign*211);
+	const Particles & pim = D0.decayProducts()[ix].at(-sign*211);
+	_h_eta_pi->fill((pip[0].momentum()+eta[0].momentum()).mass());
+	_h_pi_pi ->fill((pip[0].momentum()+pim[0].momentum()).mass());
       }
     }
 
