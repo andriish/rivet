@@ -118,6 +118,10 @@
 	* rivet-merge -a now supports analysis specific (ANA:OPT=VAL)
 	as well as global (:OPT=VAL) analysis options
 
+2022-07-11 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add FOCUS_2003_I626320 D0 -> K-K-K+pi+
+
 2022-07-11  Christian Gutschow  <chris.g@cern.ch>
 
 	* Submission of ATLAS_2022_I2077570
