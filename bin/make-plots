@@ -1365,6 +1365,8 @@ class Legend(Described):
                                 + ', linewidth=' + drawobject.getErrorTubeLineWidth() \
                                 + ', strokeopacity=' + drawobject.getErrorTubeLineOpacity() \
                                 + ', opacity=' + drawobject.getFillOpacity())
+                    if drawobject.getErrorTubeLineDash()!='':
+                        tubeopts += (', dash=' + drawobject.getErrorTubeLineDash())
                     out += ('  \\psline[' + tubeopts + '](%s, %s)(%s, %s)\n') \
                                 %(xpos1, boxtop, xpos2, boxtop)
                     out += ('  \\psline[' + tubeopts + '](%s, %s)(%s, %s)\n') \
@@ -2324,6 +2326,8 @@ class Histogram(DrawableObject, Described):
                                     + ', linewidth=' + self.getErrorTubeLineWidth() \
                                     + ', strokeopacity=' + self.getErrorTubeLineOpacity() \
                                     + ', opacity=' + self.getFillOpacity())
+                        if self.getErrorTubeLineDash()!='':
+                            tubeopts += (', dash=' + self.getErrorTubeLineDash())
                         out += ('\psline['+tubeopts+']')
                         out += ('(' + coors.strphys2frameX(self.data[i].xmin) + ', ' \
                                     + coors.strphys2frameY(self.data[i].val-self.data[i].err[0]) + ')(' \
