@@ -34,10 +34,11 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // defind the decay mode
+      // define the decay mode
       static const map<PdgId,unsigned int> & mode   = { { 321,1}, {-321,2},{ 211,1}};
       static const map<PdgId,unsigned int> & modeCC = { {-321,1}, { 321,2},{-211,1}};
       DecayedParticles D0 = apply<DecayedParticles>(event, "D0");
+      // loop over particles
       for(unsigned int ix=0;ix<D0.decaying().size();++ix) {
 	int sign = 1;
 	if (D0.decaying()[ix].pid()>0 && D0.modeMatches(ix,4,mode)) {
@@ -48,10 +49,13 @@ namespace Rivet {
 	}
 	else
 	  continue;
-	_h[0]->fill((D0.decayProducts()[ix].at( sign*321)[0].momentum()+D0.decayProducts()[ix].at(-sign*321)[0].momentum()).mass());
-	_h[0]->fill((D0.decayProducts()[ix].at( sign*321)[0].momentum()+D0.decayProducts()[ix].at(-sign*321)[1].momentum()).mass());
-	_h[1]->fill((D0.decayProducts()[ix].at(-sign*321)[0].momentum()+D0.decayProducts()[ix].at( sign*211)[0].momentum()).mass());
-	_h[1]->fill((D0.decayProducts()[ix].at(-sign*321)[1].momentum()+D0.decayProducts()[ix].at( sign*211)[0].momentum()).mass());
+	const Particles & Kp = D0.decayProducts()[ix].at( sign*321);
+	const Particles & Km = D0.decayProducts()[ix].at(-sign*321);
+	const Particles & pip= D0.decayProducts()[ix].at( sign*211);
+	_h[0]->fill((Kp [0].momentum()+Km [0].momentum()).mass());
+	_h[0]->fill((Kp [0].momentum()+Km [1].momentum()).mass());
+	_h[1]->fill((Km [0].momentum()+pip[0].momentum()).mass());
+	_h[1]->fill((Km [1].momentum()+pip[0].momentum()).mass());
       }
     }
 
