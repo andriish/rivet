@@ -23,6 +23,7 @@ from . import ATLAS_2019_I1720438
 from . import ATLAS_2019_I1734263
 from . import ATLAS_2019_I1746286
 from . import ATLAS_2020_I1790439
+from . import ATLAS_2022_I2077570
 from . import BABAR_2001_I558091
 from . import BABAR_2005_S6181155
 from . import BABAR_2006_I731865
