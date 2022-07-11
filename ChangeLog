@@ -121,6 +121,7 @@
 2022-07-11 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add FOCUS_2003_I626320 D0 -> K-K-K+pi+
+	* Add new DecayedParticles projection to try and speed up code
 
 2022-07-11  Christian Gutschow  <chris.g@cern.ch>
 

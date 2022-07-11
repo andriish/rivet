@@ -38,6 +38,7 @@ nobase_pkginclude_HEADERS += \
   Projections/ChargedFinalState.hh \
   Projections/ChargedLeptons.hh \
   Projections/ConstLossyFinalState.hh \
+  Projections/DecayedParticles.hh \
   Projections/DirectFinalState.hh \
   Projections/DISDiffHadron.hh \
   Projections/DISFinalState.hh \
