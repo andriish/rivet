@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief e+e- -> 3(pi+pi-)pi0 below 2 GeV
   class CMD3_2019_I1720610 : public Analysis {
   public:
 
