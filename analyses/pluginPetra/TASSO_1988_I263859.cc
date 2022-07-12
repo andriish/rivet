@@ -76,20 +76,22 @@ namespace Rivet {
         const double pT = sqrt(pow(pTinS, 2) + pow(pToutS, 2));
         const double rapidityS = 0.5 * std::log((energy + momS) / (energy - momS));
 
-	pTin2sum  += sqr(pTinS);
-	pTout2sum += sqr(pToutS);
+        pTin2sum  += sqr(pTinS);
+        pTout2sum += sqr(pToutS);
 
-	_h_pTin ->fill(abs(pTinS)/GeV );
-	_h_pTout->fill(abs(pToutS)/GeV);
-	_h_pT   ->fill(pT/GeV         );
-	_h_rap  ->fill(abs(rapidityS) );
+        _h_pTin ->fill(abs(pTinS)/GeV );
+        _h_pTout->fill(abs(pToutS)/GeV);
+        _h_pT   ->fill(pT/GeV         );
+        _h_rap  ->fill(abs(rapidityS) );
 
 	
       }
       unsigned int nCharged = cfs.particles().size();
-      _h_pTin2 ->fill(pTin2sum /nCharged);
-      _h_pTout2->fill(pTout2sum/nCharged);
       _h_ncharged->fill(nCharged);
+      if (nCharged) {
+        _h_pTin2 ->fill(pTin2sum /nCharged);
+        _h_pTout2->fill(pTout2sum/nCharged);
+      }
     }
 
 
