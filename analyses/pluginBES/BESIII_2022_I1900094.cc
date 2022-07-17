@@ -66,13 +66,18 @@ namespace Rivet {
 	}
 	else
 	  continue;
+	LorentzTransform boost = LorentzTransform::mkFrameTransformFromBeta(D0.momentum().betaVec());
 	// first the phi
 	if(phi.children().size()==2 &&
 	   phi.children()[0].abspid()==PID::KPLUS &&
 	   phi.children()[1].abspid()==PID::KPLUS ) {
-	  LorentzTransform boost = LorentzTransform::mkFrameTransformFromBeta(phi.momentum().betaVec());
-	  Vector3 axis1 = boost.transform(D0.momentum()               ).p3().unit();
-	  Vector3 axis2 = boost.transform(phi.children()[0].momentum()).p3().unit();
+	  // first boost all relevant momenta to D0 rest frame
+	  FourMomentum pD0  = boost.transform(D0.momentum());
+	  FourMomentum pphi = boost.transform(phi.momentum());
+	  FourMomentum pK   = boost.transform(phi.children()[0].momentum());
+	  LorentzTransform boost2 = LorentzTransform::mkFrameTransformFromBeta(pphi.betaVec());
+	  Vector3 axis1 = boost2.transform(pD0).p3().unit();
+	  Vector3 axis2 = boost2.transform(pK ).p3().unit();
 	  _h[1]->fill(abs(axis1.dot(axis2)));
 	}
 	// then the omega
@@ -80,10 +85,14 @@ namespace Rivet {
 	Particles pip, pim, pi0;
 	findDecayProducts(omega, nstable, pip, pim, pi0);
 	if(nstable==3 && pip.size()==1 && pip.size()==1 && pi0.size()==1) {
-	  LorentzTransform boost = LorentzTransform::mkFrameTransformFromBeta(omega.momentum().betaVec());
-	  Vector3 axis = boost.transform(D0.momentum()    ).p3().unit();
-	  Vector3 pp   = boost.transform(pip[0].momentum()).p3();
-	  Vector3 pm   = boost.transform(pim[0].momentum()).p3();
+	  FourMomentum pD0    = boost.transform(D0.momentum());
+	  FourMomentum pomega = boost.transform(omega.momentum() );
+	  FourMomentum ppip   = boost.transform(pip[0].momentum());
+	  FourMomentum ppim   = boost.transform(pim[0].momentum());
+	  LorentzTransform boost2 = LorentzTransform::mkFrameTransformFromBeta(pomega.betaVec());
+	  Vector3 axis = boost2.transform(pD0).p3().unit();
+	  Vector3 pp   = boost2.transform(ppip).p3();
+	  Vector3 pm   = boost2.transform(ppim).p3();
 	  Vector3 axis2 = pp.cross(pm).unit();
 	  _h[0]->fill(abs(axis.dot(axis2)));
 	}
