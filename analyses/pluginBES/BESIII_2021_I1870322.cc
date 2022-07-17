@@ -68,6 +68,9 @@ namespace Rivet {
 	  swap(pim,pip);
 	}
 	if (eta.size()==1&&pim.size()==1&&pip.size()==2) {
+	  double metapipi[2] = {(eta[0].momentum()+pim[0].momentum()+pip[0].momentum()).mass(),
+				(eta[0].momentum()+pim[0].momentum()+pip[1].momentum()).mass()};
+	  if(metapipi[0]<GeV || metapipi[1]<GeV) continue;
 	  _h_pippip->fill((pip[0].momentum()+pip[1].momentum()).mass());
 	  _h_pippim->fill((pim[0].momentum()+pip[0].momentum()).mass());
 	  _h_pippim->fill((pim[0].momentum()+pip[1].momentum()).mass());
@@ -75,8 +78,8 @@ namespace Rivet {
 	  _h_pipeta->fill((eta[0].momentum()+pip[1].momentum()).mass());
 	  _h_pimeta->fill((eta[0].momentum()+pim[0].momentum()).mass());
 	  _h_3pi   ->fill((pim[0].momentum()+pip[0].momentum()+pip[1].momentum()).mass());
-	  _h_pippimeta->fill((eta[0].momentum()+pim[0].momentum()+pip[0].momentum()).mass());
-	  _h_pippimeta->fill((eta[0].momentum()+pim[0].momentum()+pip[1].momentum()).mass());
+	  _h_pippimeta->fill(metapipi[0]);
+	  _h_pippimeta->fill(metapipi[1]);
 	}
       }
     }
