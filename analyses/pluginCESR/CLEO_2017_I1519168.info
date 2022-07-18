@@ -10,6 +10,7 @@ Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - JHEP 05 (2017) 143
+RunInfo: Any process producing D0 mesons
 Description:
   'Measurement of the mass distributions in the decays $D^0\to \pi^+\pi^-\pi^+\pi^-$ and $D^0\to K^+K^-\pi^+\pi^-$ using data from CLEO. The data were read from the plots in the paper and therefore for some points the error bars are the size of the point. It is also not clear that any resolution effects have been unfolded.'
 ValidationInfo:
