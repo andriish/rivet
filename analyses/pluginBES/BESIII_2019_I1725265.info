@@ -10,6 +10,7 @@ Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Rev.D 99 (2019) 9, 092008
+RunInfo: Any process producing D0 mesons
 Description:
   'Measurement of the mass distributions in the decay $D^0\to K^-\pi^+\pi^0\pi^0$ by BES. The data were read from the plots in the paper and therefore for some points the error bars are the size of the point. It is also not clear that any resolution effects have been unfolded.'
 ValidationInfo:
