@@ -123,6 +123,10 @@
 	* rivet-merge -a now supports analysis specific (ANA:OPT=VAL)
 	as well as global (:OPT=VAL) analysis options
 
+2022-07-19 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2018_I1705754 D0 -> Kbar0 pi- e+ nu_e
+
 2022-07-18 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2021_I1940222 D -> K pi omega decays

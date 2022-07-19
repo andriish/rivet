@@ -12,7 +12,7 @@ References:
  - Phys.Rev.Lett. 122 (2019) 6, 061801
 RunInfo: Any process producing D_s+
 Description:
-  'Measurement of the $q^2$ spectrum in the decay $D_s^+\to K^0 e^+\nu_e$ BES-III.'
+  'Measurement of the $q^2$ spectrum in the decay $D_s^+\to K^0 e^+\nu_e$ and kinematic distributions in $D_s^+\to K^{*0} e^+\nu_e$ $q^2$ by BES-III. N.B. the plots where read from the paper and may not have been corrected for acceptance.'
 ValidationInfo:
   'Herwig 7 events using EvtGen for the decays.'
 #ReleaseTests:
