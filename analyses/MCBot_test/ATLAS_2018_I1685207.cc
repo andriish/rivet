@@ -82,34 +82,6 @@ void getVHandtop_fromEvent(std::vector<Particle>& ps, const Event& ge){
 
 }
 
-// angular smearing function: building on JET_SMEAR_ATLAS_RUN2 
-Jet JET_SMEAR_ANGULAR(const Jet& j) {
-  // Jet energy resolution lookup
-  //   original -- Implemented by Matthias Danninger for GAMBIT, based roughly on
-  //   https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2015-017/
-  //   Parameterisation can be still improved, but eta dependence is minimal
-  /// @todo Also need a JES uncertainty component?
-  static const vector<double> binedges_pt = {0., 50., 70., 100., 150., 200., 1000., 10000.};
-  static const vector<double> jer = {0.145, 0.115, 0.095, 0.075, 0.07, 0.05, 0.04, 0.04}; //< note overflow value
-  const int ipt = binIndex(j.pt()/GeV, binedges_pt, true);
-  if (ipt < 0) return j;
-  const double resolution = jer.at(ipt);
-
-  // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
-  /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
-  const double fsmear = max(randnorm(1., resolution), 0.); 
-  const double mass = j.mass2() > 0 ? j.mass() : 0; //< numerical carefulness...
-  
-  Jet j1(FourMomentum::mkXYZM(j.px()*fsmear, j.py()*fsmear, j.pz()*fsmear, mass));
-
-  // smearing in eta-phi -- customize the standard deviation in randnorm...
-  double dsmear = max(randnorm(0., 0.1), 0.);
-  double theta = rand01() * M_2_PI;
-  
-  return Jet(FourMomentum::mkEtaPhiME(j.eta()+dsmear*cos(theta), mapAngle0To2Pi(j.phi()+dsmear*sin(theta)), j1.mass(), j1.E()));  
-}
-
-
     /// @brief Add a short analysis description here
   class ATLAS_2018_I1685207 : public Analysis {
 
@@ -128,14 +100,6 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
 
       // BCG = background mode, SGN = signal mode (V, H, top)  
       // default to signal mode
-
-      _mode = 1; 
-      if (getOption("MODE") == "BCG"){
-        _mode = 0;
-      }
-      else if (getOption("MODE") == "SGN") {
-        _mode = 1;
-      }
 
       // electrons
       const PromptFinalState fse(Cuts::abseta < 2.47 && Cuts::pt > 20*GeV && 
@@ -199,14 +163,6 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       book(_valBins["HH_1t_1b"], "HH_1t_1b");
       book(_valBins["XX_2t_1b"], "XX_2t_1b");
 
-      // Histograms for distriminant functions
-      book(_h["PV"], "PV",45,-3,1.5);
-      book(_h["PH"], "PH",55,-3,2.5);
-      book(_h["Pt"], "Pt",55,-3,2.5);      
-
-      // Les Houches angularity
-      book(_h["LHA"],"LHA",200, 0, 1);
-
       //Find the json file
       const std::string nn_datafilename = "ATLAS_2018_I1685207.nn.json.yoda";
       //TODO: Would be nice to use the proper find syntax but there seems to be assumptions
@@ -221,8 +177,6 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      static int count = 0;
-      count++;
 
       Particles smeared_electrons = apply<ParticleFinder>(event, "SmearedElec").particles();
       //This is a 0-lepton analysis.
@@ -230,7 +184,7 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
         vetoEvent;
       }
       Particles smeared_muons = apply<ParticleFinder>(event, "SmearedMuon").particles();
-      //This is a 0=lepton analysis.
+      //This is a 0-lepton analysis.
       if (smeared_muons.size() != 0){
         vetoEvent;
       }
@@ -257,7 +211,6 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       ClusterSequence cseq(smeared_small_jets, jdef);
       PseudoJets VRC_jets = cseq.inclusive_jets();
     
-      
       // Trimming
       PseudoJets TrimmedVRCjets;
       vector<PseudoJets> NewConstits;
@@ -279,8 +232,7 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       int VRCsize = FilteredVRCjets.size();
       if (VRCsize == 0) {
         vetoEvent;
-      }    
-      
+      }
       
       // signal - vRC jets for further analysis with their corresponding constituent jets in SignalConstits
       PseudoJets signal; 
@@ -290,30 +242,8 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       std::vector<Particle> VHandtops;
       getVHandtop_fromEvent(VHandtops, event); 
       
-      
-      if (_mode == 0){
-
-        signal = FilteredVRCjets;
-        SignalConstits = FilteredNewConstits;
-
-      }
-      
-      else if (_mode  == 1) {
-
-        for (size_t i = 0; i < FilteredVRCjets.size(); ++i){
-          auto iterator = std::find_if(VHandtops.begin(), VHandtops.end(),
-                                  [&FilteredVRCjets, i](const Particle& VHTop){return (deltaR(momentum3(VHTop.pseudojet()), momentum3(FilteredVRCjets[i])) < 0.1);});
-          if (iterator != VHandtops.end()){ 
-            signal.push_back(FilteredVRCjets[i]);
-            SignalConstits.push_back(FilteredNewConstits[i]);
-          }
-        }
-
-        if (signal.size() == 0){
-          vetoEvent;
-        }
-
-      }
+      signal = FilteredVRCjets;
+      SignalConstits = FilteredNewConstits;
 
       // DNN tags of vRC jets
       std::vector<DNN_Category> VRCjet_tags;
@@ -337,43 +267,14 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
             MSG_WARNING("FAILED TO FIND CONSTITUENT");
           }
         }       
-
-        // Les Houches Angularity
-        
-        double LHA_sum = 0;
-        
-        for (const PseudoJet& pj : SignalConstits[counter]){
-          double pT = pj.pt();
-          double dR = pj.squared_distance(j);
-          LHA_sum += (pT * pow(dR, 0.25)); 
-        }
-        
-        double LHA = LHA_sum/j.pt();
-        
-        _h["LHA"]->fill(LHA);
         
         //computes the D values (probabilities)
         _MCbottagger->computeScores(j, tagged_constituents, outputs);
-
-        //distriminant function P for V, H, and top tagger
-        double PV=log10(outputs["dnnOutput_V"]/
-        (0.9*outputs["dnnOutput_light"]+0.05*outputs["dnnOutput_top"]+0.05*outputs["dnnOutput_H"]));
-        double PH=log10(outputs["dnnOutput_H"]/
-        (0.9*outputs["dnnOutput_light"]+0.05*outputs["dnnOutput_top"]+0.05*outputs["dnnOutput_V"]));
-        double Ptop=log10(outputs["dnnOutput_top"]/
-        (0.9*outputs["dnnOutput_light"]+0.05*outputs["dnnOutput_V"]+0.05*outputs["dnnOutput_H"]));
-
-        // fill in the P histograms 
-        _h["PV"]->fill(PV);
-        _h["PH"]->fill(PH);
-        _h["Pt"]->fill(Ptop);
 
         //Tag the jets in an approximation of the MCBot NN.
         MCBot_TagType DNNtag = _MCbottagger->tag(j,tagged_constituents);
         VRCjet_tags.push_back(static_cast<DNN_Category>(DNNtag));
       }
-
-      
       
       //Preselection
       //HT > 1250GeV
@@ -400,7 +301,7 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
         vetoEvent;
       }
     
-      //2 bjets
+      //At least 2 bjets
       if (smeared_bjets.size() < 2){
         vetoEvent;
       }
@@ -416,17 +317,12 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       if (nVtags + nHtags < 2){
         vetoEvent;
       }
-    
-
-      
-      
       
       //select signal/validation/control region.
       //TODO: The pre-selection cuts say 2 or more (v or H) tagged jets, but each signal region requires only two.
       // I also can't see some sort of tie-break procedure outlined (e.g. take tags of two highest pT jets)
+      // Unless this is what the XX bins are for?
       //Only one of SR and CR is filled (please!)
-      string SR = "";
-      string VR = "";
       //VV signal regions
       if (nVtags == 2 && nHtags == 0 && ntoptags == 0 && smeared_bjets.size() == 2){
         _sigBins["VV_0t_2b"]->fill();
@@ -475,7 +371,7 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       //MultiJet Background Uncertainty Validation Regions (2)
       //TODO: This makes no sense. They say there are two regions but define one?!?
       //Possibly involves altering nVtags? But how?!
-      //If I had to guess, by symmetry its HH_1t_2b, but this contradicts the paper. Gong with it for now...
+      //If I had to guess, by symmetry its HH_1t_2b, but this contradicts the paper. Going with it for now...
       else if (smeared_bjets.size()==2 && nHtags == 2 && ntoptags == 0 && nVtags == 0){
         _valBins["HH_0t_2b"]->fill();
       }
@@ -483,7 +379,7 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
         _valBins["HH_1t_2b"]->fill();
       }
       //Closure uncertainty validation regions (7)
-      if (nVtags == 2 && nHtags == 0 && ntoptags == 0 && smeared_bjets.size() == 1){
+      else if (nVtags == 2 && nHtags == 0 && ntoptags == 0 && smeared_bjets.size() == 1){
         _valBins["VV_0t_1b"]->fill();
       }
       else if (nVtags == 2 && nHtags == 0 && ntoptags == 1 && smeared_bjets.size() == 1) {
@@ -504,38 +400,35 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       else if (nVtags + nHtags == 2 && ntoptags >= 2 && smeared_bjets.size()==1){
         _valBins["XX_2t_1b"]->fill();
       }
+
+      //DEBUG ONLY
+      else {
+        std::cout << "WARNING, event passed preselection but belonged in no bins\n";
+        std::cout << "V, H, t, b = (" << nVtags << ", " << nHtags << ", " << ntoptags << ", " << smeared_bjets.size() << ")\n";
+      }
     }
       
 
       /// Normalise histograms etc., after the run
       void finalize() {
-        _h["PV"]->normalize(1);
-        _h["PH"]->normalize(1);
-        _h["Pt"]->normalize(1);
-        _h["LHA"]->normalize(1); 
 
-        // tagger efficiencies and mistag rates...
-        
-        size_t H_min = _h["PH"]->binIndexAt(0.35);
-        size_t V_min = _h["PV"]->binIndexAt(-0.2);
-        size_t Top_min = _h["Pt"]->binIndexAt(0.1);
+        //Shortcut for validation only:
+        std::cout << "\nSIG BINS\n";
+        std::cout << _sigBins["VV_0t_2b"]->val() << ", " << _sigBins["VV_0t_3b"]->val() << ", ";
+        std::cout << _sigBins["VV_1t_2b"]->val() << ", " << _sigBins["VV_1t_3b"]->val() << ", ";
+        std::cout << _sigBins["VH_0t_2b"]->val() << ", " << _sigBins["VH_0t_3b"]->val() << ", ";
+        std::cout << _sigBins["VH_1t_2b"]->val() << ", " << _sigBins["VH_1t_3b"]->val() << ", ";
+        std::cout << _sigBins["HH_0t_3b"]->val() << ", " << _sigBins["HH_1t_3b"]->val() << ", ";
+        std::cout << _sigBins["XX_2t_2b"]->val() << ", " << _sigBins["XX_2t_3b"]->val() << ", ";
 
-        size_t H_max = _h["PH"]->numBins();
-        size_t V_max = _h["PV"]->numBins();
-        size_t Top_max = _h["Pt"]->numBins();
-
-        double V = _h["PV"]->integralRange(V_min, V_max-1);
-        double H = _h["PH"]->integralRange(H_min, H_max-1);
-        double top = _h["Pt"]->integralRange(Top_min, Top_max-1);
-        
-        // outputs the efficiencies into a file
-
-        std::string OutputFile2 {"Efficiencies.csv"};
-        std::ofstream file2;
-        file2.open(OutputFile2, std::ofstream::app);
-        file2 << "V-tag efficiency: " << V << ", " << "H-tag efficiency: " << H << ", " << "Top-tag efficiency: " << top << ", ";
-        file2 << "\n";
-        file2.close();  
+        // scale(_h, crossSectionPerEvent() / femtobarn);
+        // std::cout << "\nSIG BINS (scaled to XS)\n";
+        // std::cout << _sigBins["VV_0t_2b"]->val() << ", " << _sigBins["VV_0t_3b"]->val() << ", ";
+        // std::cout << _sigBins["VV_1t_2b"]->val() << ", " << _sigBins["VV_1t_3b"]->val() << ", ";
+        // std::cout << _sigBins["VH_0t_2b"]->val() << ", " << _sigBins["VH_0t_3b"]->val() << ", ";
+        // std::cout << _sigBins["VH_1t_2b"]->val() << ", " << _sigBins["VH_1t_3b"]->val() << ", ";
+        // std::cout << _sigBins["HH_0t_3b"]->val() << ", " << _sigBins["HH_1t_3b"]->val() << ", ";
+        // std::cout << _sigBins["XX_2t_2b"]->val() << ", " << _sigBins["XX_2t_3b"]->val() << ", ";
       }
 
       /// @}
@@ -549,8 +442,6 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       
       
       std::unique_ptr<MCBot_tagger> _MCbottagger;
-      size_t _mode;
-
 
     };
 
