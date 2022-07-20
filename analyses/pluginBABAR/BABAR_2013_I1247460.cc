@@ -1,30 +1,29 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
 
 
   /// @brief B+ -> omega l+ nu_l
-  class BABAR_2013_I1116411 : public Analysis {
+  class BABAR_2013_I1247460 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2013_I1116411);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2013_I1247460);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
 
       // Initialise and register projections
-      declare(UnstableParticles(), "UFS");
+      declare(UnstableParticles(Cuts::pid==PID::BPLUS), "UFS");
 
       // Book histograms
       book(_h_q2 ,1, 1, 1);
-
+      book(_nB,"TMP/nB");
     }
     
     // Calculate the Q2 using mother and daughter charged lepton
@@ -46,7 +45,8 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // Get B+ Mesons
-      for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::BPLUS)) {
+      for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles()) {
+	_nB->fill();
         if (isSemileptonicDecay(p, {PID::OMEGA, PID::POSITRON, PID::NU_E}) ||
             isSemileptonicDecay(p, {PID::OMEGA, PID::ANTIMUON, PID::NU_MU})) {
             _h_q2->fill(q2(p));
@@ -57,28 +57,23 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
-      normalize(_h_q2, 1.21); // normalize to BF
-
+      // BR in units of 10^{-5}
+      scale(_h_q2,1e5/ *_nB);
     }
 
-    //@}
-
-
-  private:
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
+    CounterPtr _nB;
     Histo1DPtr _h_q2;
-    //@}
+    /// @}
 
 
   };
 
 
-  // The hook for the plugin system
-  RIVET_DECLARE_PLUGIN(BABAR_2013_I1116411);
-
+  RIVET_DECLARE_PLUGIN(BABAR_2013_I1247460);
 
 }

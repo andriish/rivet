@@ -5,5 +5,3 @@ XLabel=$q^2$~[GeV$^2$]
 LogY=0
 NormalizeToIntegral=1
 # END PLOT
-
-# ... add more histograms as you need them ...

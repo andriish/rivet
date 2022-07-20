@@ -1,10 +1,11 @@
 Name: BABAR_2013_I1116411
 Year: 2013
-Summary: Exclusive semileptonic Bplus to omega decays.
+Summary: Semi-leptonic $B^+\to\omega\ell^+\nu_ell$
 Experiment: BABAR
 Collider: PEP-II
 InspireID: 1116411
 Status: VALIDATED
+Reentrant: true
 Keywords:
  - bdecay
  - semileptonic
@@ -15,7 +16,7 @@ RunInfo:
 NumEvents: 10000
 NeedCrossSection: no
 Description:
-  'Implementation of Lorentz invariant q2 distributions ("form factor") for semileptonic Bplus decays'
+  'Implementation of Lorentz invariant $q^2$ distributions ("form factor") for semileptonic $B^+$ decays.'
 BibKey: Lees:2012mq
 BibTeX: '@article{Lees:2012mq,
       author         = "Lees, J. P. and others",
