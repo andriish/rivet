@@ -28,5 +28,5 @@ END PLOT
 BEGIN PLOT /BESIII_2018_I1705754/d01-x01-y05
 Title=$\chi$ in $D_s^+\to \bar{K}^0\pi^- e^+\nu_e$
 XLabel=$\chi$ [rad]
-YLabel=$1/\Gamma\mathrm{d}\Gamma/\mathrm{d}\cos\theta_K$ [$\mathrm{rad}^{-1}$]
+YLabel=$1/\Gamma\mathrm{d}\Gamma/\mathrm{d}\chi$ [$\mathrm{rad}^{-1}$]
 END PLOT

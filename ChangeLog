@@ -123,9 +123,10 @@
 	* rivet-merge -a now supports analysis specific (ANA:OPT=VAL)
 	as well as global (:OPT=VAL) analysis options
 
-2022-07-19 Peter Richardson <peter.richardson@durham.ac.uk>
+2022-07-20 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BABAR_2013_I1247460 B+ -> omega ell nu
+	* Add BESIII_2019_I1694530 D -> pipi ell nu
 
 2022-07-19 Peter Richardson <peter.richardson@durham.ac.uk>
 
