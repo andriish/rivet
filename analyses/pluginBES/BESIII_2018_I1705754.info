@@ -12,7 +12,7 @@ References:
  - Phys.Rev.D 99 (2019) 1, 011103
 RunInfo: Any process producing D0
 Description:
-  'Measurement of the kinematic distributions in $D^0\to \bar{K}^0\pi^- e^+\nu_e$ $q^2$ by BES-III. N.B. the plots where read from the paper and may not have been corrected for acceptance.'
+  'Measurement of the kinematic distributions in $D^0\to \bar{K}^0\pi^- e^+\nu_e$ by BES-III. N.B. the plots where read from the paper and may not have been corrected for acceptance.'
 ValidationInfo:
   'Herwig 7 events using EvtGen for the decays.'
 #ReleaseTests:

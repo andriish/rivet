@@ -126,6 +126,7 @@
 2022-07-20 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2015_I1386254 D+ -> omega ell nu
+	* Add BESIII_2016_I1411645 D+ -> K- pi+ e nu
 
 2022-07-20 Peter Richardson <peter.richardson@durham.ac.uk>
 
@@ -151,7 +152,7 @@
 
 2022-07-14 Peter Richardson <peter.richardson@durham.ac.uk>
 
-	* Add CLEO_2009_I822856 D_s+ -> pi+ pi0 omegaac.uk>
+	* Add CLEO_2009_I822856 D_s+ -> pi+ pi0 omega
 	* Add FOCUS_2004_I663820 D0 -> K+K-pi+pi-
 	* Add BESIII_2022_I1900094 D0 -> omega phi
 
