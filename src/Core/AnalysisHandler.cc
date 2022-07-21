@@ -619,6 +619,8 @@ namespace Rivet {
         YODA::read(file, aos_raw);
         for (YODA::AnalysisObject* aor : aos_raw) {
           const string& aopath = aor->path();
+          // skip everything that isn't pre-finalize
+          if ( !AOPath(aopath).isRaw() ) continue;
           bool skip = false;
           if (aopath != "") {
             if (matches.size()) {
@@ -641,6 +643,10 @@ namespace Rivet {
         MSG_WARNING("No AOs selected from file: " << file);
         continue;
       }
+      if (equiv && 2*raw_map.size() != aos_raw.size()) {
+        MSG_WARNING("Number of pre- and post-finalize AOs do not match for file: " << file);
+        continue;
+      }
 
       // merge AOs from current file into "allaos"
       mergeAOS(allaos, raw_map, allxsecs, delopts, optAnas, optKeys, optVals,
@@ -648,6 +654,11 @@ namespace Rivet {
 
     } // loop over all input files ends
     std::cout << std::endl;
+
+    if (allaos.empty()) {
+      cerr << "Insuffient pre-finalize AOs to do a reentrant run!" << endl;
+      exit(1);
+    }
 
     MSG_DEBUG("Finalize cross-section scaling ...");
     vector<double> scales(allxsecs.size(), 1.0);
@@ -696,7 +707,7 @@ namespace Rivet {
 
     map<string, double> scales;
     for (const auto& item : newaos) {
-      const string aopath = item.first;
+      const string& aopath = item.first;
       YODA::AnalysisObjectPtr ao(item.second);
       //AOPath path(ao->path());
       AOPath path(aopath);
