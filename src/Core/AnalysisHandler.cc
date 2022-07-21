@@ -564,7 +564,7 @@ namespace Rivet {
       size_t pos1 = addopt.find(":");
       size_t pos2 = addopt.find("=");
       if (pos1 == string::npos || pos2 == string::npos || pos2 < pos1) {
-        MSG_WARNING("Malformed analysis option: "+addopt+". Format as ANA:OPT=VAL");
+        MSG_WARNING("Malformed analysis option: "+addopt+". Format as :OPT=VAL or ANA:OPT=VAL");
         continue;
       }
       optAnas.push_back(addopt.substr(0, pos1));
@@ -767,7 +767,7 @@ namespace Rivet {
       }
       // ...or added
       for (size_t i = 0; i < optAnas.size(); ++i) {
-        if (path.path().find(optAnas[i]) != string::npos ) {
+        if (optAnas[i] == "" || path.path().find(optAnas[i]) != string::npos ) {
           path.setOption(optKeys[i], optVals[i]);
           path.fixOptionString();
         }

@@ -52,7 +52,8 @@ extragroup.add_argument("-e", "--equiv", dest="EQUIV", action="store_true", defa
 # TODO: could the merge- and add-options settings be specified in the info file in a MergeSettings heading?
 extragroup.add_argument("-O", "--merge-option", dest="MERGEOPTIONS", action="append",
                         default=[], help="specify an analysis option name where different options should be merged into the default analysis.")
-extragroup.add_argument("-a", "--add-option", dest="ADDOPTIONS", action="append", default=[], help="specify an analysis option in the format ANALYSIS:NAME=VALUE that should be added in the merging.")
+extragroup.add_argument("-a", "--add-option", dest="ADDOPTIONS", action="append", default=[],
+                        help="specify an analysis option in the format ANALYSIS:NAME=VALUE that should be added in the merging. Use :NAME=VALUE if the option is to be applied to all analyses.")
 extragroup.add_argument("--pwd", dest="ANALYSIS_PATH_PWD", action="store_true", default=False,
                       help="append the current directory (pwd) to the analysis/data search paths (cf. $RIVET_ANALYSIS_PATH).")
 extragroup.add_argument("-p", "--preload-file", dest="PRELOADFILE",
