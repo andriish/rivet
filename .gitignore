@@ -54,6 +54,7 @@ analyses/tmp.*.cc
 Doxyfile
 doxy/html/.*
 doxy/latex/.*
+doc/doxygen/html
 .libs
 .deps
 #Rivet.yoda
