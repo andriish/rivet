@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  ///  Measurement of prompt charm hadrons production in proton-proton Collisions at 13 TeV
+  /// @brief Measurement of prompt charm hadrons production in proton-proton Collisions at 13 TeV
   class ALICE_2022_I1868463 : public Analysis {
   public:
 
