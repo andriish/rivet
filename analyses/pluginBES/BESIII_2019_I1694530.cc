@@ -1,5 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Projections/DecayedParticles.hh"
 
 namespace Rivet {
 
@@ -73,10 +75,10 @@ namespace Rivet {
       	FourMomentum pnu = boost.transform(nue.momentum());
        	pRho = ppi2+ppim;
        	qq = pD-pRho;
-       	LorentzTransform boostRho = LorentzTransform::mkFrameTransformFromBeta(pRho);
+       	LorentzTransform boostRho = LorentzTransform::mkFrameTransformFromBeta(pRho.betaVec());
        	Vector3 axisRho = boostRho.transform(ppim).p3().unit();
 	_h[imode+2]->fill(axisRho.dot(pRho.p3().unit()));
-      	LorentzTransform boostW = LorentzTransform::mkFrameTransformFromBeta(    qq);
+      	LorentzTransform boostW = LorentzTransform::mkFrameTransformFromBeta(    qq.betaVec());
 	Vector3 axisE = boostW.transform(pe).p3().unit();
 	_h[imode+3]->fill(axisE.dot(qq.p3().unit()));
 	axisRho.setZ(0.);

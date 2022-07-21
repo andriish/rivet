@@ -107,7 +107,7 @@ namespace Rivet {
 	if(nu.size()!=1) continue;
 	LorentzTransform boost1 = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
 	FourMomentum ptau = boost1.transform(tau[0].momentum());
-	LorentzTransform boost2 = LorentzTransform::mkFrameTransformFromBeta(ptau);
+	LorentzTransform boost2 = LorentzTransform::mkFrameTransformFromBeta(ptau.betaVec());
 	// pion mode
 	if(nprod==2 && piP.size()==1) {
 	  FourMomentum pPi = boost2.transform(boost1.transform(piP[0].momentum()));

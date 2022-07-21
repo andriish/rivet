@@ -78,10 +78,10 @@ namespace Rivet {
 	  FourMomentum pnu = boost.transform(nue.momentum());
 	  pKstar = pK+ppi;
 	  qq = pD-pKstar;
-	  LorentzTransform boostK = LorentzTransform::mkFrameTransformFromBeta(pKstar);
+	  LorentzTransform boostK = LorentzTransform::mkFrameTransformFromBeta(pKstar.betaVec());
 	  Vector3 axisK = boostK.transform(pK).p3().unit();
 	  _h_Kstar[3]->fill(axisK.dot(pKstar.p3().unit()));
-	  LorentzTransform boostW = LorentzTransform::mkFrameTransformFromBeta(    qq);
+	  LorentzTransform boostW = LorentzTransform::mkFrameTransformFromBeta(    qq.betaVec());
 	  Vector3 axisE = boostW.transform(pe).p3().unit();
 	  _h_Kstar[2]->fill(axisE.dot(qq.p3().unit()));
 	  axisK.setZ(0.);
