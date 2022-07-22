@@ -118,12 +118,17 @@
 
 	* Add CLEO_2004_I654843 D0 -> pi-, K- e+ nu_e
 
+2022-07-22 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2017_I1507887 psi(2S) -> gamma chi_c
+	* Add CLEO_2009_I832707 psi(2S) -> gamma chi_c
+
 2022-07-21  Christian Gutschow  <chris.g@cern.ch>
 
 	* rivet-merge -a now supports analysis specific (ANA:OPT=VAL)
 	as well as global (:OPT=VAL) analysis options
 
-2022-07-20 Peter Richardson <peter.richardson@durham.ac.uk>
+2022-07-21 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2015_I1386254 D+ -> omega ell nu
 	* Add BESIII_2016_I1411645 D+ -> K- pi+ e nu

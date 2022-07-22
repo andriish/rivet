@@ -13,7 +13,7 @@ References:
 RunInfo: e+e- > psi(2S) 
 NeedCrossSection: no
 Beams: [e-, e+]
-Energies: [3.1]
+Energies: [3.686]
 Description:
   'Analysis of the angular distribution of the baryons, and decay products, produced in
    $e^+e^-\to \psi(2S) \to \Xi^-\bar{\Xi}^+$.
