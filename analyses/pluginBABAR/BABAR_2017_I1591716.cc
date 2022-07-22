@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief  e+e- -> KS0 K+-\pi-+ + pi0 or eta
   class BABAR_2017_I1591716 : public Analysis {
   public:
 

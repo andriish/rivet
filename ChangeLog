@@ -117,6 +117,10 @@
 
 	* Replace the distutils extension build & install with a handmade one.
 
+2022-07-22 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2022_I2120528 e+e- -> 2K 3pi
+
 2022-07-12 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add CMD3_2022_I2108984 e+e- -> KS0 Kpi pi+pi-

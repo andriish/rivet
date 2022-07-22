@@ -1,0 +1,32 @@
+Name: BABAR_2022_I2120528
+Year: 2022
+Summary:  Cross section for $e^+e^-\to K^+K^-3\pi^0$, $K^0_SK^\pm\pi^\mp2\pi^0$ and $K^0_SK^\pm\pi^\mp\pi^+\pi^-$ between threshold and 4.5 GeV
+Experiment: BABAR
+Collider: PEP-II
+InspireID: 2120528
+Status: VALIDATED NOHEPDATA
+Reentrant: false
+Authors:
+ -  Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - arXiv:2207.10340 [hep-ex]
+RunInfo: e+e- to hadrons, KS0 and pi0 should be set stable
+NeedCrossSection: yes
+Beams:  [e+,e-]
+Description:
+   'Cross sections for $e^+e^-\to K^+K^-3\pi^0$, $K^0_SK^\pm\pi^\mp2\pi^0$ and $K^0_SK^\pm\pi^\mp\pi^+\pi^-$ between threshold and 4.5 GeV using radiative events. The cross sections for a number of resonant contributions are also measured.'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BaBar:2022ahi
+BibTeX: '@article{BaBar:2022ahi,
+    collaboration = "BaBar",
+    title = "{Study of the reactions $e^+e^-\to K^+K^-\pi^0\pi^0\pi^0$, $e^+e^-\to K^{0}_{S}K^{\pm}\pi^{\mp}\pi^0\pi^0$, and $e^+e^-\to K^{0}_{S}K^{\pm}\pi^{\mp}\pi^+\pi^-$ at center-of-mass energies from threshold to 4.5 GeV using ISR}",
+    eprint = "2207.10340",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "SLAC-PUB-17694",
+    month = "7",
+    year = "2022"
+}
+'
