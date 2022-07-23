@@ -5,6 +5,7 @@ Experiment: CLEOC
 Collider: CESR
 InspireID: 769777
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:

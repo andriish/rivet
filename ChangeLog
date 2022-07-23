@@ -118,6 +118,10 @@
 	* Require FastJet version 3.4.0 -- update list of plugin libs to
 	use the single libfastjetplugins.so library.
 
+2022-07-23 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CLEO_2004_I654843 D0 -> pi-, K- e+ nu_e
+
 2022-03-29  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Replace the distutils extension build & install with a handmade one.
