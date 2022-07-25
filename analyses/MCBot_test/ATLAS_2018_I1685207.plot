@@ -9,7 +9,6 @@ END PLOT
 BEGIN PLOT /ATLAS_2018_I1685207/PV
 LogY=0
 RatioPlot = 0
-LegendXPos=0.8
 LineStyle=dashdotted
 END PLOT
 
@@ -17,13 +16,29 @@ BEGIN PLOT /ATLAS_2018_I1685207/PH
 LogY=0
 RatioPlot = 0
 LineStyle=dashdotted
-LegendXPos=0.75
 END PLOT
 
 BEGIN PLOT /ATLAS_2018_I1685207/Pt
 LogY=0
 RatioPlot =0
-LegendXPos=0.7
+LineStyle=dashdotted
+END PLOT
+
+BEGIN PLOT /ATLAS_2018_I1685207/PV_reweighted
+LogY=0
+RatioPlot = 0
+LineStyle=dashdotted
+END PLOT
+
+BEGIN PLOT /ATLAS_2018_I1685207/PH_reweighted
+LogY=0
+RatioPlot = 0
+LineStyle=dashdotted
+END PLOT
+
+BEGIN PLOT /ATLAS_2018_I1685207/Pt_reweighted
+LogY=0
+RatioPlot =0
 LineStyle=dashdotted
 END PLOT
 

@@ -19,6 +19,17 @@
 #include "fastjet/tools/Filter.hh"
 #include <fstream>
 
+
+//DEBUG ONLY
+template <typename T>
+void print_vec(const std::vector<T>& toprint){
+  std::cout << "(";
+  for (size_t i = 0; i < toprint.size() - 1; ++i){
+    std::cout << toprint[i] << ", ";
+  }
+  std::cout << toprint[toprint.size() - 1] << ")" << std::endl;
+}
+
 namespace Rivet {
 
 //trims reclustered jets by removing all subjets with pt < minpt. Does not work in place,
@@ -200,9 +211,20 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       book(_valBins["XX_2t_1b"], "XX_2t_1b");
 
       // Histograms for distriminant functions
-      book(_h["PV"], "PV",45,-3,1.5);
-      book(_h["PH"], "PH",55,-3,2.5);
-      book(_h["Pt"], "Pt",55,-3,2.5);      
+      book(_h["PV"], "PV", 45,-3,1.5);
+      book(_h["PH"], "PH", 55,-3,2.5);
+      book(_h["Pt"], "Pt", 55,-3,2.5);
+
+      book(_h["SigJet_pT"], "SigJet_pT", 15, 40, 2000 );
+      book(_s["PV_reweighted"], "PV_reweighted");
+      book(_s["PH_reweighted"], "PH_reweighted");
+      book(_s["Pt_reweighted"], "Pt_reweighted");
+      
+      //2D histos for post-hoc reweighting
+      book(_h2["PVpt"], "PVpt", 45, -3, 1.5, 15, 40, 2000);
+      book(_h2["PHpt"], "PHpt", 55, -3, 2.5, 15, 40, 2000);
+      book(_h2["Ptpt"], "Ptpt", 55, -3, 2.5, 15, 40, 2000);
+      
 
       // Les Houches angularity
       book(_h["LHA"],"LHA",200, 0, 1);
@@ -302,10 +324,17 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
 
         for (size_t i = 0; i < FilteredVRCjets.size(); ++i){
           auto iterator = std::find_if(VHandtops.begin(), VHandtops.end(),
-                                  [&FilteredVRCjets, i](const Particle& VHTop){return (deltaR(momentum3(VHTop.pseudojet()), momentum3(FilteredVRCjets[i])) < 0.1);});
+          //TODO: is there a preferred syntax for writing long ugly lambdas?
+                          [&FilteredVRCjets, i](const Particle& VHTop){
+                            //return (deltaR(momentum3(VHTop.pseudojet()), momentum3(FilteredVRCjets[i])) < 0.1);
+                            return (deltaR(momentum3(VHTop.pseudojet()), momentum3(FilteredVRCjets[i])) < 0.75*315/(FilteredVRCjets[i].pt()));
+                            });
           if (iterator != VHandtops.end()){ 
-            signal.push_back(FilteredVRCjets[i]);
-            SignalConstits.push_back(FilteredNewConstits[i]);
+            //Also only consider events where the jet pT in the 40GeV < pt < 2TeV range.
+            if (FilteredVRCjets[i].pt() > 40*GeV && FilteredVRCjets[i].pt() < 2000*GeV){
+              signal.push_back(FilteredVRCjets[i]);
+              SignalConstits.push_back(FilteredNewConstits[i]);
+            }
           }
         }
 
@@ -367,6 +396,13 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
         _h["PV"]->fill(PV);
         _h["PH"]->fill(PH);
         _h["Pt"]->fill(Ptop);
+
+        _h["SigJet_pT"]->fill(j.pt());
+
+        _h2["PVpt"]->fill(PV, j.pt());
+        _h2["PHpt"]->fill(PH, j.pt());
+        _h2["Ptpt"]->fill(Ptop, j.pt());
+
 
         //Tag the jets in an approximation of the MCBot NN.
         MCBot_TagType DNNtag = _MCbottagger->tag(j,tagged_constituents);
@@ -509,10 +545,12 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
 
       /// Normalise histograms etc., after the run
       void finalize() {
+        std::cout << __LINE__ << std::endl;
         _h["PV"]->normalize(1);
-        _h["PH"]->normalize(1);
-        _h["Pt"]->normalize(1);
-        _h["LHA"]->normalize(1); 
+        std::cout << __LINE__ << std::endl;
+        _h["PH"]->normalize(1);std::cout << __LINE__ << std::endl;
+        _h["Pt"]->normalize(1);std::cout << __LINE__ << std::endl;
+        _h["LHA"]->normalize(1); std::cout << __LINE__ << std::endl;
 
         // tagger efficiencies and mistag rates...
         
@@ -534,8 +572,59 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
         std::ofstream file2;
         file2.open(OutputFile2, std::ofstream::app);
         file2 << "V-tag efficiency: " << V << ", " << "H-tag efficiency: " << H << ", " << "Top-tag efficiency: " << top << ", ";
+        std::cout << "V-tag efficiency: " << V << ", " << "H-tag efficiency: " << H << ", " << "Top-tag efficiency: " << top << ", ";
         file2 << "\n";
         file2.close();  
+
+        std::cout << __LINE__ << std::endl;
+        _h2["PVpt"]->normalize(1);
+        std::cout << __LINE__ << std::endl;
+        _h2["PHpt"]->normalize(1);
+        std::cout << __LINE__ << std::endl;
+        _h2["Ptpt"]->normalize(1);
+        std::cout << __LINE__ << std::endl;
+
+        //Let's try out the post-hoc reweighting by pT:
+        for (const std::string Tag: {"PHpt", "PVpt", "Ptpt"}){
+          std::vector<double> PTagEdges =  _h2[Tag]-> xEdges();
+          std::vector<double> ptBinEdges = _h2[Tag]-> yEdges();
+
+          
+          std::vector<double> PTagCentres = {};
+          for (size_t i = 0; i < PTagEdges.size() - 1; ++i){
+            PTagCentres.push_back(0.5*(PTagEdges[i] + PTagEdges[i+1]));
+          }
+          std::vector<double> ptBinCentres = {};
+          for (size_t i = 0; i < ptBinEdges.size() - 1; ++i){
+            ptBinCentres.push_back(0.5*(ptBinEdges[i] + ptBinEdges[i+1]));
+          }
+
+
+          //
+          std::vector<double> pT_volumes = {};
+          for (const double pT_value : ptBinCentres){
+            double pT_volume = 0;
+            for (const double Tag_value : PTagCentres){
+              pT_volume += _h2[Tag]->binAt(Tag_value, pT_value).volume();
+            }
+            pT_volumes.push_back(pT_volume);
+          }
+
+
+          for (size_t i = 0; i < PTagCentres.size(); ++i){
+            double Area = 0;
+            for (size_t j = 0; j < ptBinCentres.size(); ++j){
+              Area += _h2[Tag]->binAt(PTagCentres[i], ptBinCentres[j]).volume() * ( abs(pT_volumes[j]) > 1e-15 ? 1./(pT_volumes[j]) : 0 );
+            }
+            //_s[string({Tag[0], Tag[1]})+"_reweighted"]->addPoint(PTagCentres[i], Area, PTagCentres[i] - PTagEdges[i], 0);
+            std::cout << string({Tag[0], Tag[1]})+"_reweighted" << std::endl;
+            std::cout << PTagCentres[i] << ", " << Area << std::endl;
+            _s[string({Tag[0], Tag[1]})+"_reweighted"]->addPoint(PTagCentres[i], Area, 5e-2, 0.0001);
+          }
+
+        }
+        
+
       }
 
       /// @}
@@ -546,6 +635,8 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       map<string, CounterPtr> _sigBins;
       map<string, CounterPtr> _valBins;
       map<string, Histo1DPtr> _h;
+      map<string, Scatter2DPtr> _s;
+      map<string, Histo2DPtr> _h2;
       
       
       std::unique_ptr<MCBot_tagger> _MCbottagger;
