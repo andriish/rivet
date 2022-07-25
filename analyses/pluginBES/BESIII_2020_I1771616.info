@@ -2,7 +2,7 @@ Name: BESIII_2020_I1771616
 Year: 2020
 Summary:  Dalitz plot analysis of $\psi(2S)\to K^+K^-\eta$
 Experiment: BESIII
-Collider: 
+Collider: BEPC
 InspireID: 1771616
 Status: VALIDATED NOHEPDATA
 Reentrant: true

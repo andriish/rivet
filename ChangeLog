@@ -118,11 +118,15 @@
 
 	* Add BESIII_2012_I1187787 eta_c -> KKpi dalitz
 
-2022-07-23 Peter Richardson <peter.richardson@durham.ac.uk>
+2022-07-25 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2019_I1709205 J/psi psi(2S) -> p pbar eta'
+
+2022-07-24 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2021_I1921801 psi(2S) -> omega KS0 KS0
 	* Add BES_2005_I689969 psi(2S) -> pi+ pi- pi0
-	* Add BES_2005_I689969 psi(2S) -> K+ K- eta
+	* Add BESIII_2020_I1771616 psi(2S) -> K+ K- eta
 
 2022-07-23 Peter Richardson <peter.richardson@durham.ac.uk>
 
