@@ -59,6 +59,7 @@ namespace Rivet {
 	  _h_Kppi0->fill(mplus);
 	  _h_Kmpi0->fill(mminus);
 	  _dalitz[1]->fill(mplus,mminus);
+	  continue;
 	}
 	else if(ETAC.decaying()[ix].mass()>2.922 && ETAC.decaying()[ix].mass()<3.039) {
 	  int sign=1;
