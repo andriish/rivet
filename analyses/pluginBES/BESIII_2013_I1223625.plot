@@ -1,17 +1,17 @@
 BEGIN PLOT /BESIII_2013_I1223625/d01-x01-y01
-Title=$p\omega$ mass distribution in $J/\psi\to p\bar{p}\omega$ (using $\omega\to\gamma\pi^+\pi^-$)
+Title=$p\omega$ mass distribution in $J/\psi\to p\bar{p}\omega$
 XLabel=$m_{p\omega}$ [$\mathrm{GeV}$]
 YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m_{p\omega}$ [$\mathrm{GeV}^{-1}$]
 LogY=0
 END PLOT
 BEGIN PLOT /BESIII_2013_I1223625/d01-x01-y02
-Title=$p\bar{p}$ mass distribution in $J/\psi\to p\bar{p}\omega$ (using $\omega\to\eta\pi^+\pi^-$)
+Title=$p\bar{p}$ mass distribution in $J/\psi\to p\bar{p}\omega$
 XLabel=$m_{p\bar{p}}$ [$\mathrm{GeV}$]
 YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m_{p\bar{p}}$ [$\mathrm{GeV}^{-1}$]
 LogY=0
 END PLOT
 BEGIN PLOT /BESIII_2013_I1223625/d01-x01-y03
-Title=$\bar{p}\omega$ mass distribution in $J/\psi\to p\bar{p}\omega$ (using $\omega\to\eta\pi^+\pi^-$)
+Title=$\bar{p}\omega$ mass distribution in $J/\psi\to p\bar{p}\omega$
 XLabel=$m_{\bar{p}\omega}$ [$\mathrm{GeV}$]
 YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m_{\bar{p}\omega}$ [$\mathrm{GeV}^{-1}$]
 LogY=0
