@@ -3,14 +3,14 @@ LogY=0
 END PLOT
 
 BEGIN PLOT /BESIII_2016_I1411645/d03-x01-y01
-Title=$\bar{K}^0\pi^-$ mass in $D^+\to K^-\pi^+ e^+\nu_e$
-XLabel=$m_{\bar{K}^0\pi^-}$~[GeV]
-YLabel=$1/\Gamma\mathrm{d}\Gamma/\mathrm{d}m_{\bar{K}^0\pi^-}$ [$\mathrm{GeV}^{-1}$]
+Title=$K^-\pi^+$ mass in $D^+\to K^-\pi^+ e^+\nu_e$
+XLabel=$m_{K^-\pi^+}$~[GeV]
+YLabel=$1/\Gamma\mathrm{d}\Gamma/\mathrm{d}m_{K^-\pi^+}$ [$\mathrm{GeV}^{-1}$]
 END PLOT
 BEGIN PLOT /BESIII_2016_I1411645/d03-x01-y02
-Title=$\bar{K}^0\pi^-$ mass in $D^+\to K^-\pi^+ e^+\nu_e$
-XLabel=$m_{\bar{K}^0\pi^-}$~[GeV]
-YLabel=$1/\Gamma\mathrm{d}\Gamma/\mathrm{d}m_{\bar{K}^0\pi^-}$ [$\mathrm{GeV}^{-1}$]
+Title=$K^-\pi^+$ mass in $D^+\to K^-\pi^+ e^+\nu_e$
+XLabel=$m_{K^-\pi^+}$~[GeV]
+YLabel=$1/\Gamma\mathrm{d}\Gamma/\mathrm{d}m_{K^-\pi^+}$ [$\mathrm{GeV}^{-1}$]
 LogY=1
 END PLOT
 BEGIN PLOT /BESIII_2016_I1411645/d03-x01-y03

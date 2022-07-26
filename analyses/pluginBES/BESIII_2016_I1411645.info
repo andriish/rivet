@@ -12,7 +12,7 @@ References:
  - Phys.Rev.D 94 (2016) 3, 032001
 RunInfo: Any process producing D+
 Description:
-  'Measurement of the kinematic distributions in $D^+\to K^-\pi^+ e^+\nu_e$ by BES-III.  N.B.  Although there is some data in HEPDATA it is not physica;l and thereforethe plots where read from the paper and may not have been corrected for acceptance.'
+  'Measurement of the kinematic distributions in $D^+\to K^-\pi^+ e^+\nu_e$ by BES-III.  N.B.  Although there is some data in HEPDATA it is not physical and therefore the data were read from the paper and may not have been corrected for acceptance.'
 ValidationInfo:
   'Herwig 7 events using EvtGen for the decays.'
 #ReleaseTests:
