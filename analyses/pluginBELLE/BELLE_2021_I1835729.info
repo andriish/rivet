@@ -14,7 +14,7 @@ RunInfo: Any process producing Xic0 mesons
 Description:
   'Measurement of the mass distributions in the decay $\Xi^0_c\to\Xi^0K^+K^-$ by BELLE. The data were read from the plots in the paper, and for many points the error bars are the size of the point. It is also not clear that any resolution effects have been unfolded.'
 ValidationInfo:
-  'Herwig 7 events using model in the paper'
+  'Herwig 7 events'
 #ReleaseTests:
 # - $A my-hepmc-prefix :MODE=some_rivet_flag
 Keywords: []
