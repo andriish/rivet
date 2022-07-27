@@ -12,7 +12,7 @@ References:
 RunInfo: e+ e- to hadrons
 Beams: [e+, e-]
 Description:
-  'Cross section for  $e^+e^-\to\eta J/\psi$ for energies between 4.178 and 4.6 GeV measured by the BESIII collaboration.'
+  'Cross section for  $e^+e^-\to\eta^\prime J/\psi$ for energies between 4.178 and 4.6 GeV measured by the BESIII collaboration.'
 ValidationInfo:
   ''
 #ReleaseTests:
