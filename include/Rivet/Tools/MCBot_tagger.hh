@@ -78,19 +78,23 @@ namespace Rivet {
 
     //Path to the json that stores the network.
     std::string _path;
+
+  public:
+    //Thresholds for individual scores.
+    //TODO: Is there a "right" way to store these? Constexpr static or soemthing?
+    // Score needs to be greater than to be tagged.
+    std::map<string, double> _threshold = {{"PV", -0.2}, {"PH", 0.35}, {"Pt", 0.1}};
+
+    //Thresholds for the double-tag tiebreaks.
+    //A score greater than threshold indicates jet should be tagged as the second
+    // of the pair of labels.
+    std::map<string, double> _tiebreak_thresholds = {{"t_V", -0.3}, {"H_V", -0.55}, {"t_H", 0.2}};
+
       
   };
 
-  //Thresholds for individual scores.
-  //TODO: Is there a "right" way to store these? Constexpr static or soemthing?
-  // Score needs to be greater than to be tagged.
-  std::map<string, double> _threshold = {{"PV", -0.2}, {"PH", 0.35}, {"Pt", 0.1}};
 
-  //Thresholds for the double-tag tiebreaks.
-  //A score greater than threshold indicates jet should be tagged as the second
-  // of the pair of labels.
-  std::map<string, double> _tiebreak_thresholds = {{"t_V", -0.3}, {"H_V", -0.55}, {"t_H", 0.2}};
-
+  
 
 
 
