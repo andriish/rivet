@@ -14,7 +14,7 @@ RunInfo: Any process producing J/psi originally e+e-
 Description:
   'Measurement of the mass distributions in the decays
    $J/\psi\to p \bar{n}\pi^-$ and $n\bar{p}\pi^+$.
-   The data were read from the plots in the paper andf may not be corrected for efficiency or background.'
+   The data were read from the plots in the paper and may not be corrected for efficiency or background.'
 #ReleaseTests:
 # - $A my-hepmc-prefix :MODE=some_rivet_flag
 Keywords: []
