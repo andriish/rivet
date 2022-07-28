@@ -69,7 +69,7 @@ namespace Rivet {
 	  findChildren(p2,nRes2,ncount2);
 	  if(ncount2!=0) continue;
 	  matched = true;
-	  for(auto const & val : nRes) {
+	  for(auto const & val : nRes2) {
 	    if(val.second!=0) {
 	      matched = false;
 	      break;

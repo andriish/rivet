@@ -6,12 +6,12 @@
 namespace Rivet {
 
 
-  /// @brief e+e- -> eta J/psi
-  class BESIII_2020_I1784442 : public Analysis {
+  /// @brief e+ e- > gamma chi_c(1,2)
+  class BESIII_2021_I1880103 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2020_I1784442);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2021_I1880103);
 
 
     /// @name Analysis methods
@@ -20,8 +20,9 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       declare(FinalState(), "FS");
-      declare(UnstableParticles(), "UFS");
-      book(_nJPsi, "TMP/JPsi");
+      declare(UnstableParticles(Cuts::pid==20443 or Cuts::pid==445), "UFS");
+      book(_nChi[0], "TMP/chi_c1");
+      book(_nChi[1], "TMP/chi_c2");
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
@@ -45,56 +46,46 @@ namespace Rivet {
 	++ntotal;
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
-      for (const Particle& p : ufs.particles(Cuts::pid==PID::JPSI)) {
+      for (const Particle& p : ufs.particles()) {
 	if(p.children().empty()) continue;
 	// find the J/psi
 	map<long,int> nRes = nCount;
 	int ncount = ntotal;
 	findChildren(p,nRes,ncount);
-	bool matched=false;
-	for (const Particle& p2 : ufs.particles(Cuts::pid==PID::ETA)) {
-	  if(p2.children().empty()) continue;
-	  bool JpsiParent=false;
-	  Particle parent=p2;
-	  while(!parent.parents().empty()) {
-	    parent=parent.parents()[0];
-	    if(parent.pid()==PID::JPSI) {
-	      JpsiParent=true;
-	      break;
-	    }
-	  }
-	  if(JpsiParent) continue;
-	  map<long,int> nRes2 = nRes;
-	  int ncount2 = ncount;
-	  findChildren(p2,nRes2,ncount2);
-	  if(ncount2!=0) continue;
-	  matched = true;
-	  for(auto const & val : nRes2) {
-	    if(val.second!=0) {
+	bool matched=true;
+	if(ncount!=0) continue;
+	for(auto const & val : nRes) {
+	  if(val.first==PID::PHOTON) {
+	    if(val.second!=1) {
 	      matched = false;
 	      break;
 	    }
 	  }
-	  if(matched) {
-	    _nJPsi->fill();
+	  else if(val.second!=0) {
+	    matched = false;
 	    break;
 	  }
 	}
-	if(matched) break;
+	if(matched) {
+	  if(p.pid()==20443)
+	    _nChi[0]->fill();
+	  else
+	    _nChi[1]->fill();
+	  break;
+	}
       }
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      double sigma = _nJPsi->val();
-      double error = _nJPsi->err();
-      sigma *= crossSection()/ sumOfWeights() /picobarn;
-      error *= crossSection()/ sumOfWeights() /picobarn;
-      for(unsigned int ihist=1;ihist<3;++ihist) {
-	Scatter2D temphisto(refData(ihist, 1, 1));
+      double fact = crossSection()/ sumOfWeights() /picobarn;
+      for(unsigned int ix=0;ix<2;++ix) {
+	double sigma = _nChi[ix]->val()*fact;
+	double error = _nChi[ix]->err()*fact;
+	Scatter2D temphisto(refData(1+ix, 1, 1));
 	Scatter2DPtr  mult;
-	book(mult, ihist, 1, 1);
+	book(mult, 1+ix, 1, 1);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();
@@ -116,13 +107,13 @@ namespace Rivet {
 
     /// @name Histograms
     /// @{
-    CounterPtr _nJPsi;
+    CounterPtr _nChi[2];
     /// @}
 
 
   };
 
 
-  RIVET_DECLARE_PLUGIN(BESIII_2020_I1784442);
+  RIVET_DECLARE_PLUGIN(BESIII_2021_I1880103);
 
 }
