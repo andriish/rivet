@@ -69,7 +69,7 @@ namespace Rivet {
 	_h[1]->fill(axisP.dot(pLambda.p3().unit()));
 	LorentzTransform boostW = LorentzTransform::mkFrameTransformFromBeta(    qq.betaVec());
 	Vector3 axisE = boostW.transform(pe).p3().unit();
-	_h[2]->fill(axisE.dot(qq.p3().unit()));
+	_h[2]->fill(-axisE.dot(qq.p3().unit()));
 	axisP.setZ(0.);
 	axisE.setZ(0.);
 	double chi = atan2(axisE.cross(axisP).dot(qq.p3().unit()), axisE.dot(axisP));
