@@ -4,11 +4,12 @@ Summary: Analysis of $\psi(2S)$ decays to $\Xi^{*-}\bar\Xi^{*+}$
 Experiment: BESIII
 Collider: BEPC
 InspireID: 1747092
-Status: VALIDATED
+Status: VALIDATED NOHEPDATA
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
- -  arXiv:1907.13041
+ - Phys.Rev.D 100 (2019) 5, 051101
 RunInfo: e+e- -> Psi(2S)
 NeedCrossSection: no
 Beams: [e-, e+]
