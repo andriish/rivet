@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief Bbar0 -> D*+ semileptonic
   class BELLE_2017_I1512299 : public Analysis {
   public:
 
@@ -91,15 +91,14 @@ namespace Rivet {
 
             // First boost all relevant momenta into the B-rest frame
             const LorentzTransform B_boost = LorentzTransform::mkFrameTransformFromBeta(pB.betaVec());
-            // Momenta in B rest frame:
-            FourMomentum lv_brest_Dstar = B_boost.transform(pDs);//lab2brest(gp_Dstar.particle.p());
-            FourMomentum lv_brest_w     = B_boost.transform(pB - pDs); //lab2brest(p_lv_w);
-            FourMomentum lv_brest_D     = B_boost.transform(pD); //lab2brest(gp_D.particle.p());
-            FourMomentum lv_brest_lep   = B_boost.transform(pl); //lab2brest(gp_lep.p());
-
-            const LorentzTransform Ds_boost = LorentzTransform::mkFrameTransformFromBeta(pDs.betaVec());
+            // Momenta in B rest frame:Ds);
+            FourMomentum lv_brest_w     = B_boost.transform(pB - pDs);
+            FourMomentum lv_brest_D     = B_boost.transform(pD);
+            FourMomentum lv_brest_lep   = B_boost.transform(pl);
+            
+            const LorentzTransform Ds_boost = LorentzTransform::mkFrameTransformFromBeta(lv_brest_Dstar.betaVec());
             FourMomentum lv_Dstarrest_D     = Ds_boost.transform(lv_brest_D);
-            const LorentzTransform W_boost  = LorentzTransform::mkFrameTransformFromBeta((pB-pDs).betaVec());
+            const LorentzTransform W_boost  = LorentzTransform::mkFrameTransformFromBeta(lv_brest_w.betaVec());
             FourMomentum lv_wrest_lep       = W_boost.transform(lv_brest_lep);
 
             double cos_thetaV = cos(lv_brest_Dstar.p3().angle(lv_Dstarrest_D.p3()));
@@ -114,16 +113,6 @@ namespace Rivet {
             if(chi < 0) chi += TWOPI;
 
             _h_chi->fill(chi);
-
-            //const LorentzTransform W_boost = LorentzTransform::mkFrameTransformFromBeta((pl+pnu).betaVec());
-            //const LorentzTransform D_boost = LorentzTransform::mkFrameTransformFromBeta((pD+ppi).betaVec());
-
-            //FourMomentum pl_t = FourMomentum(W_boost.transform(pl));
-            //FourMomentum pD_t = FourMomentum(D_boost.transform(pD));
-            //double thetal = (pl+pnu).angle(pl_t);
-            //double thetav = (pD+ppi).angle(pD_t);
-            //_h_costhv->fill(cos(thetav));
-            //_h_costhl->fill(cos(thetal));
           }
         }
       }

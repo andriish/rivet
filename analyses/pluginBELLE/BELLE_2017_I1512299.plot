@@ -1,5 +1,6 @@
 # BEGIN PLOT /BELLE_2017_I1512299/d0*
 Title=$\bar{B}_0\to D^{*+} \ell^- \bar{\nu}_\ell$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /BELLE_2017_I1512299/d01-x01-y01
