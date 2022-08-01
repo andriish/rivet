@@ -23,7 +23,6 @@ from __future__ import print_function
 import rivet, sys, os
 from rivet.plot.rivet_mkdat import rivet_mkdat
 from rivet.plot.rivet_plot import rivet_plot
-from rivet.plot.writePyScript import testPrint
 from rivet.plot.writePyScript import writePyScript
 
 rivet.util.check_python_version()
@@ -469,11 +468,12 @@ def which(program):
 num_plots = len(yaml_dicts)
 print("Making {} plots".format(num_plots))
 for i, (refFile,yaml_dict) in enumerate(yaml_dicts.items()):
+    #if "LHCB_2014_I1281685/d02-x01-y01" not in args.OUTPUTDIR+refFile: continue
+    if "ALICE" in args.OUTPUTDIR+refFile: continue # for debugging purposes..
     print("Plotting", args.OUTPUTDIR+refFile, "({}/{} remaining)".format(num_plots-i, num_plots))
-    
+     
     # writePyScript returns path of the .py script
     pyScript = writePyScript(yaml_dict, refFile, args.OUTPUTDIR)
     print(pyScript)
-    testPrint()
-    break
+    #break
     #if args.savePlots: os.system("python pyScript")
