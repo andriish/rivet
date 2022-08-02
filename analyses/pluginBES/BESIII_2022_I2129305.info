@@ -1,0 +1,31 @@
+Name: BESIII_2022_I2129305
+Year: 2022
+Summary:  Cross section for $e^+e^-\to \pi^+\pi^- D^+D^-$ between 4.19 and 4.946 GeV
+Experiment: BESIII
+Collider: BEPC
+InspireID: 2129305
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - arXiv:2208.00099 [hep-ex]
+RunInfo: e+e- to hadrons, KS0 and pi0 should be set stable
+NeedCrossSection: yes
+Beams:  [e+,e-]
+Description:
+   'Cross section for $e^+e^-\to \pi^+\pi^- D^+D^-$ between 4.19 and 4.946 GeV. The cross section for the $\psi_3(3842)$ resonant contribution is also measured.'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Ablikim:2022ozi
+BibTeX: '@article{Ablikim:2022ozi,
+    author = "Ablikim, M. and others",
+    title = "{Measurement of $e^{+}e^{-}\rightarrow\pi^{+}\pi^{-}D^{+}D^{-}$ cross sections at center-of-mass energies from 4.190 to 4.946 GeV}",
+    eprint = "2208.00099",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    month = "7",
+    year = "2022"
+}
+'
