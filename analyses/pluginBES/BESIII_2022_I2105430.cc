@@ -99,7 +99,7 @@ namespace Rivet {
 	book(tmp,3+ix,1,1);
 	barchart(_h[ix+2],tmp);
 	double step[2] = {0.0025,0.001};
-	// divide by phase space voulme
+	// divide by phase space volume
 	for(unsigned int ip=0;ip<tmp->points().size();++ip) {
 	  tmp->points()[ip].scaleY(1./phsp[ix][ip]/step[ix]);
 	}

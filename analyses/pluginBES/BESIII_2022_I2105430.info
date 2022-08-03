@@ -10,7 +10,7 @@ Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - arXiv:2207.01004 [hep-ex]
-RunInfo: Any process producing eta mesons
+RunInfo: Any process producing etaprime mesons
 NeedCrossSection: no
 Description:
   'Measurement of kinematic distributions in the decay $\eta^\prime\to\eta\pi^0\pi^0$.'
