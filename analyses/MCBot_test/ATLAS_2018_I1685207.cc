@@ -76,17 +76,19 @@ enum class DNN_Category{
 //Very rough and hacky
 //Find all Vector bosons, higgs, and tops that are not children of themselves.
 //TODO: implement as a projection?
-void getVHandtop_fromEvent(std::vector<Particle>& ps, const Event& ge){
+void getVHandtop_fromEvent(std::vector<Particle>& ps, const Event& ge, std::vector<int> wanted_pids = {6,23,24,25}){
   for (const auto& p : ge.allParticles()){
     int pid = p.pid();
     //TODO: Should there also be a status code check?
     //If its Vht, check its parents aren't the same particle to avoid including what is really the same particle many times.
-    if (abs(pid) == 23 || abs(pid) == 24 || abs(pid) == 6 || abs(pid) == 25){
-      Particles parents = p.parents();
-      auto it = std::find_if(parents.begin(), parents.end(),
-                             [pid](const Particle &p){return p.pid() == pid;});
-      if (it == parents.end()){
-        ps.push_back(p);
+    for (const int targetPID : wanted_pids){
+      if (abs(pid) == targetPID){
+        Particles parents = p.parents();
+        auto it = std::find_if(parents.begin(), parents.end(),
+                              [pid](const Particle &p){return p.pid() == pid;});
+        if (it == parents.end()){
+          ps.push_back(p);
+        }
       }
     }
   }
@@ -144,9 +146,20 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       if (getOption("MODE") == "BCG"){
         _mode = 0;
       }
-      else if (getOption("MODE") == "SGN") {
+      else if (getOption("MODE") == "SGN" || getOption("MODE") == "Higgs" ||
+              getOption("MODE") == "top" || getOption("MODE") == "Vector") {
         _mode = 1;
+        if (getOption("MODE") == "Higgs") {
+          _targetParticle = "Higgs";
+        }
+        else if (getOption("MODE") == "Vector") {
+          _targetParticle = "Vector";
+        }
+        else if (getOption("MODE") == "top") {
+          _targetParticle = "top";
+        }
       }
+
 
       // electrons
       const PromptFinalState fse(Cuts::abseta < 2.47 && Cuts::pt > 20*GeV && 
@@ -215,10 +228,32 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       book(_h["PH"], "PH", 55,-3,2.5);
       book(_h["Pt"], "Pt", 55,-3,2.5);
 
+      book(_h["Vt_discriminant"], "Vt_discriminant", 30, -1.5, 1.5);
+      book(_h["VH_discriminant"], "VH_discriminant", 30, -1.5, 1.5);
+      book(_h["Ht_discriminant"], "Ht_discriminant", 30, -1.5, 1.5);
+      book(_h["TripleDiscriminant"], "TripleDiscriminant", 30, -1.5, 1.5);
+
       book(_h["SigJet_pT"], "SigJet_pT", 15, 40, 2000 );
       book(_s["PV_reweighted"], "PV_reweighted");
       book(_s["PH_reweighted"], "PH_reweighted");
       book(_s["Pt_reweighted"], "Pt_reweighted");
+
+      //Jet Mass histograms.
+      book(_h["mVRC"], "mVRC", 60, 40, 250);
+      book(_h["mVRC_trueHiggs"], "mVRC_trueHiggs", 60, 40, 250);
+      book(_h["mVRC_trueVector"], "mVRC_trueVector", 60, 40, 250);
+      book(_h["mVRC_trueTop"], "mVRC_trueTop", 60, 40, 250);
+      book(_h["mVRC_truebkg"], "mVRC_truebkg", 60, 40, 250);
+
+      book(_h["mVRC_trueHiggsTaggedHiggs"], "mVRC_trueHiggsTaggedHiggs", 60, 40, 250);
+      book(_h["mVRC_trueVectorTaggedVector"], "mVRC_trueVectorTaggedVector", 60, 40, 250);
+      book(_h["mVRC_trueTopTaggedTop"], "mVRC_trueTopTaggedTop", 60, 40, 250);
+
+      book(_h["mVRC_truebkgTaggedHiggs"], "mVRC_truebkgTaggedHiggs", 60, 40, 250);
+      book(_h["mVRC_truebkgTaggedVector"], "mVRC_truebkgTaggedVector", 60, 40, 250);
+      book(_h["mVRC_truebkgTaggedTop"], "mVRC_truebkgTaggedTop", 60, 40, 250);
+      book(_h["mVRC_truebkgTaggedbkg"], "mVRC_truebkgTaggedbkg", 60, 40, 250);
+
       
       //2D histos for post-hoc reweighting
       book(_h2["PVpt"], "PVpt", 45, -3, 1.5, 15, 40, 2000);
@@ -235,6 +270,7 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       // about .yoda endings. Someone who understands the paths system better would do it more
       // elegantly.
       const std::string nn_datafilepath =  getDataPath()+"/Rivet/"+nn_datafilename;
+      std::cout << "Loading " << nn_datafilepath << std::endl;
       
       _MCbottagger = std::make_unique<MCBot_tagger>(MCBot_tagger(nn_datafilepath));
 
@@ -263,7 +299,6 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       //Todo JVT means we lose 8% of small jets?
       //Get b-tagged jets:
       const Jets smeared_bjets = filter_select(smeared_small_jets, hasBTag());
-
       FourMomentum pTmiss;
       for (const Particle& p : apply<VisibleFinalState>(event, "vfs").particles() ) {
         pTmiss -= p.momentum();
@@ -297,12 +332,12 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
           FilteredNewConstits.push_back(NewConstits[i]);
         }
       }
-      
+
+
       int VRCsize = FilteredVRCjets.size();
       if (VRCsize == 0) {
         vetoEvent;
       }    
-      
       
       // signal - vRC jets for further analysis with their corresponding constituent jets in SignalConstits
       PseudoJets signal; 
@@ -310,8 +345,14 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
 
       // get the V, H, and tops from the event
       std::vector<Particle> VHandtops;
-      getVHandtop_fromEvent(VHandtops, event); 
-      
+      if (_targetParticle == "Higgs")
+        getVHandtop_fromEvent(VHandtops, event, {25}); 
+      else if (_targetParticle == "Vector")
+        getVHandtop_fromEvent(VHandtops, event, {23, 24}); 
+      else if (_targetParticle == "top")
+        getVHandtop_fromEvent(VHandtops, event, {6});
+      else
+        getVHandtop_fromEvent(VHandtops, event);
       
       if (_mode == 0){
 
@@ -407,9 +448,63 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
         //Tag the jets in an approximation of the MCBot NN.
         MCBot_TagType DNNtag = _MCbottagger->tag(j,tagged_constituents);
         VRCjet_tags.push_back(static_cast<DNN_Category>(DNNtag));
+
+        //Plot the mass distribution
+        _h["mVRC"]->fill(j.m());
+        if (_targetParticle == "Higgs"){
+          _h["mVRC_trueHiggs"]->fill(j.m());
+          if (DNNtag == MCBot_TagType::H){
+            _h["mVRC_trueHiggsTaggedHiggs"]->fill(j.m());
+          }
+        } else if (_targetParticle == "Vector"){
+          _h["mVRC_trueVector"]->fill(j.m());
+          if (DNNtag == MCBot_TagType::V){
+            _h["mVRC_trueVectorTaggedVector"]->fill(j.m());
+          }
+        }
+        else if (_targetParticle == "top"){
+          _h["mVRC_trueTop"]->fill(j.m());
+          if (DNNtag == MCBot_TagType::top){
+            _h["mVRC_trueTopTaggedTop"]->fill(j.m());
+          }
+        }
+        else if (_mode == 0){
+          _h["mVRC_truebkg"]->fill(j.m());
+          if (DNNtag == MCBot_TagType::H){
+            _h["mVRC_truebkgTaggedHiggs"]->fill(j.m());
+          }
+          else if (DNNtag == MCBot_TagType::V){
+            _h["mVRC_truebkgTaggedVector"]->fill(j.m());
+          }
+          else if (DNNtag == MCBot_TagType::top){
+            _h["mVRC_truebkgTaggedTop"]->fill(j.m());
+          }
+          else {
+            _h["mVRC_truebkgTaggedbkg"]->fill(j.m());
+          }
+        }
+        //Plot discriminant function for multi-tag cases, only in the correct signal mode
+        //Case 1: is V and H tagged, not T tagged
+        if (PV > _MCbottagger->_threshold["PV"] && PH > _MCbottagger->_threshold["PH"] && Ptop < _MCbottagger->_threshold["Pt"]
+              && (_targetParticle=="Higgs" || _targetParticle=="Vector")){
+          _h["VH_discriminant"]->fill(log10(outputs["dnnOutput_V"]/outputs["dnnOutput_H"]));
+        }
+        //Case 2: is V and t tagged, not H tagged
+        if (PV > _MCbottagger->_threshold["PV"] && PH < _MCbottagger->_threshold["PH"] && Ptop > _MCbottagger->_threshold["Pt"]
+              && (_targetParticle=="top" || _targetParticle=="Vector")){
+          _h["Vt_discriminant"]->fill(log10(outputs["dnnOutput_V"]/outputs["dnnOutput_top"]));
+        }
+        //Case 3: is H and t tagged, not H tagged
+        if (PV < _MCbottagger->_threshold["PV"] && PH > _MCbottagger->_threshold["PH"] && Ptop > _MCbottagger->_threshold["Pt"]
+              && (_targetParticle=="Higgs" || _targetParticle=="top")){
+          _h["Ht_discriminant"]->fill(log10(outputs["dnnOutput_H"]/outputs["dnnOutput_top"]));
+        }
+        //Case 3: triple tagged
+        if (PV > _MCbottagger->_threshold["PV"] && PH > _MCbottagger->_threshold["PH"] && Ptop > _MCbottagger->_threshold["Pt"]){
+          _h["TripleDiscriminant"]->fill(log10(outputs["dnnOutput_V"]/outputs["dnnOutput_top"]));
+        }
       }
 
-      
       
       //Preselection
       //HT > 1250GeV
@@ -545,12 +640,55 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
 
       /// Normalise histograms etc., after the run
       void finalize() {
-        std::cout << __LINE__ << std::endl;
-        _h["PV"]->normalize(1);
-        std::cout << __LINE__ << std::endl;
-        _h["PH"]->normalize(1);std::cout << __LINE__ << std::endl;
-        _h["Pt"]->normalize(1);std::cout << __LINE__ << std::endl;
-        _h["LHA"]->normalize(1); std::cout << __LINE__ << std::endl;
+        if (_h["PV"]->integral() > 0){
+          _h["PV"]->normalize(1);
+        } if (_h["PH"]->integral() > 0){
+          _h["PH"]->normalize(1);
+        } if (_h["Pt"]->integral() > 0){
+          _h["Pt"]->normalize(1);
+        } if (_h["LHA"]->integral() > 0){
+          _h["LHA"]->normalize(1);
+        }
+        if (_h["VH_discriminant"]->integral() > 0){
+          _h["VH_discriminant"]->normalize(1);
+        } if (_h["Vt_discriminant"]->integral() > 0){
+          _h["Vt_discriminant"]->normalize(1);
+        } if (_h["Ht_discriminant"]->integral() > 0){
+          _h["Ht_discriminant"]->normalize(1);
+        } if (_h["TripleDiscriminant"]->integral() > 0){
+          _h["TripleDiscriminant"]->normalize(1);
+        }
+        if (_h["mVRC"]->integral() > 0){
+          _h["mVRC"]->normalize(1);
+        } if (_h["mVRC_trueHiggs"]->integral() > 0){
+          _h["mVRC_trueHiggs"]->normalize(1);
+        } if (_h["mVRC_trueVector"]->integral() > 0){
+          _h["mVRC_trueVector"]->normalize(1);
+        } if (_h["mVRC_trueTop"]->integral() > 0){
+          _h["mVRC_trueTop"]->normalize(1);
+        } if (_h["mVRC_truebkg"]->integral() > 0){
+          _h["mVRC_truebkg"]->normalize(1);
+        }
+        if (_h["mVRC_trueHiggsTaggedHiggs"]->integral() > 0){
+          _h["mVRC_trueHiggsTaggedHiggs"]->normalize(1);
+        } if (_h["mVRC_trueVectorTaggedVector"]->integral() > 0){
+          _h["mVRC_trueVectorTaggedVector"]->normalize(1);
+        } if (_h["mVRC_trueTopTaggedTop"]->integral() > 0){
+          _h["mVRC_trueTopTaggedTop"]->normalize(1);
+        }
+        if (_h["mVRC_truebkgTaggedHiggs"]->integral() > 0){
+          _h["mVRC_truebkgTaggedHiggs"]->normalize(1);
+        } if (_h["mVRC_truebkgTaggedVector"]->integral() > 0){
+          _h["mVRC_truebkgTaggedVector"]->normalize(1);
+        }if (_h["mVRC_truebkgTaggedTop"]->integral() > 0){
+          _h["mVRC_truebkgTaggedTop"]->normalize(1);
+        } if (_h["mVRC_truebkgTaggedbkg"]->integral() > 0){
+          _h["mVRC_truebkgTaggedbkg"]->normalize(1);
+        }
+
+
+
+
 
         // tagger efficiencies and mistag rates...
         
@@ -576,13 +714,16 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
         file2 << "\n";
         file2.close();  
 
-        std::cout << __LINE__ << std::endl;
-        _h2["PVpt"]->normalize(1);
-        std::cout << __LINE__ << std::endl;
-        _h2["PHpt"]->normalize(1);
-        std::cout << __LINE__ << std::endl;
-        _h2["Ptpt"]->normalize(1);
-        std::cout << __LINE__ << std::endl;
+        if (_h2["PVpt"]->integral() > 0){
+          _h2["PVpt"]->normalize(1);
+        }
+        if (_h2["PHpt"]->integral() > 0){
+          _h2["PHpt"]->normalize(1);
+        }
+        if (_h2["PHpt"]->integral() > 0){
+          _h2["Ptpt"]->normalize(1);
+        }
+        
 
         //Let's try out the post-hoc reweighting by pT:
         for (const std::string Tag: {"PHpt", "PVpt", "Ptpt"}){
@@ -617,8 +758,8 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
               Area += _h2[Tag]->binAt(PTagCentres[i], ptBinCentres[j]).volume() * ( abs(pT_volumes[j]) > 1e-15 ? 1./(pT_volumes[j]) : 0 );
             }
             //_s[string({Tag[0], Tag[1]})+"_reweighted"]->addPoint(PTagCentres[i], Area, PTagCentres[i] - PTagEdges[i], 0);
-            std::cout << string({Tag[0], Tag[1]})+"_reweighted" << std::endl;
-            std::cout << PTagCentres[i] << ", " << Area << std::endl;
+            // std::cout << string({Tag[0], Tag[1]})+"_reweighted" << std::endl;
+            // std::cout << PTagCentres[i] << ", " << Area << std::endl;
             _s[string({Tag[0], Tag[1]})+"_reweighted"]->addPoint(PTagCentres[i], Area, 5e-2, 0.0001);
           }
 
@@ -641,6 +782,7 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       
       std::unique_ptr<MCBot_tagger> _MCbottagger;
       size_t _mode;
+      std::string _targetParticle;
 
 
     };
