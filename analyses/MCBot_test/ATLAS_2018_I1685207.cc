@@ -60,28 +60,6 @@ enum class DNN_Category{
   bkg_tag=0
 };
 
-
-
-//Very rough and hacky
-//Find all Vector bosons, higgs, and tops that are not children of themselves.
-//TODO: implement as a projection?
-void getVHandtop_fromEvent(std::vector<Particle>& ps, const Event& ge){
-  for (const auto& p : ge.allParticles()){
-    int pid = p.pid();
-    //TODO: Should there also be a status code check?
-    //If its Vht, check its parents aren't the same particle to avoid including what is really the same particle many times.
-    if (abs(pid) == 23 || abs(pid) == 24 || abs(pid) == 6 || abs(pid) == 25){
-      Particles parents = p.parents();
-      auto it = std::find_if(parents.begin(), parents.end(),
-                             [pid](const Particle &p){return p.pid() == pid;});
-      if (it == parents.end()){
-        ps.push_back(p);
-      }
-    }
-  }
-
-}
-
     /// @brief Add a short analysis description here
   class ATLAS_2018_I1685207 : public Analysis {
 
@@ -164,7 +142,8 @@ void getVHandtop_fromEvent(std::vector<Particle>& ps, const Event& ge){
       book(_valBins["XX_2t_1b"], "XX_2t_1b");
 
       //Find the json file
-      const std::string nn_datafilename = "ATLAS_2018_I1685207.nn.json.yoda";
+      //const std::string nn_datafilename = "ATLAS_2018_I1685207.nn.json.yoda";
+      const std::string nn_datafilename = "ATLAS_2018_I1685207.btagEnriched.nn.json.yoda";
       //TODO: Would be nice to use the proper find syntax but there seems to be assumptions
       // about .yoda endings. Someone who understands the paths system better would do it more
       // elegantly.
@@ -237,10 +216,6 @@ void getVHandtop_fromEvent(std::vector<Particle>& ps, const Event& ge){
       // signal - vRC jets for further analysis with their corresponding constituent jets in SignalConstits
       PseudoJets signal; 
       vector<PseudoJets> SignalConstits;
-
-      // get the V, H, and tops from the event
-      std::vector<Particle> VHandtops;
-      getVHandtop_fromEvent(VHandtops, event); 
       
       signal = FilteredVRCjets;
       SignalConstits = FilteredNewConstits;
@@ -359,10 +334,10 @@ void getVHandtop_fromEvent(std::vector<Particle>& ps, const Event& ge){
       //XX signal regions.
       //TODO: mild inconcistency between text and table: try both == and >= and see which match better the results...
       
-      else if (nVtags + nHtags == 2 && ntoptags >= 2 && smeared_bjets.size()==2){
+      else if (nVtags + nHtags >= 2 && ntoptags >= 2 && smeared_bjets.size()==2){
         _sigBins["XX_2t_2b"]->fill();
       }
-      else if (nVtags + nHtags == 2 && ntoptags >= 2 && smeared_bjets.size()>=3){
+      else if (nVtags + nHtags >= 2 && ntoptags >= 2 && smeared_bjets.size()>=3){
         _sigBins["XX_2t_3b"]->fill();
       }
 
@@ -397,15 +372,15 @@ void getVHandtop_fromEvent(std::vector<Particle>& ps, const Event& ge){
       else if ( nVtags == 0 && nHtags == 2 && ntoptags == 1 && smeared_bjets.size() == 1){
         _valBins["HH_1t_1b"]->fill();
       }
-      else if (nVtags + nHtags == 2 && ntoptags >= 2 && smeared_bjets.size()==1){
+      else if (nVtags + nHtags >= 2 && ntoptags >= 2 && smeared_bjets.size()==1){
         _valBins["XX_2t_1b"]->fill();
       }
 
       //DEBUG ONLY
-      else {
-        std::cout << "WARNING, event passed preselection but belonged in no bins\n";
-        std::cout << "V, H, t, b = (" << nVtags << ", " << nHtags << ", " << ntoptags << ", " << smeared_bjets.size() << ")\n";
-      }
+      // else {
+      //   std::cout << "WARNING, event passed preselection but belonged in no bins\n";
+      //   std::cout << "V, H, t, b = (" << nVtags << ", " << nHtags << ", " << ntoptags << ", " << smeared_bjets.size() << ")\n";
+      // }
     }
       
 
