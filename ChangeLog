@@ -107,6 +107,10 @@
 
 2022-08-03 Peter Richardson <peter.richardson@durham.ac.uk>
 
+	* Add BESIII_2020_I1818254 chi_c -> Sigma0 pbar K+
+
+2022-08-03 Peter Richardson <peter.richardson@durham.ac.uk>
+
 	* Add BESIII_2017_I1469067 eta' -> pions
 	* Add BESIII_2015_I1376484 eta -> pions/ eta'->3pi0
 	* Add BESIII_2018_I1623555 eta' -> eta pi pi
