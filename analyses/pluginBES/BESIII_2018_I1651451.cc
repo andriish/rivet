@@ -6,12 +6,12 @@
 namespace Rivet {
 
 
-  /// @brief e+e- -> phi pi+ pi-
-  class BESIII_2021_I1997451 : public Analysis {
+  /// @brief  e+e- -> phi pi+ pi- and phi pi0 pi0
+  class BESIII_2018_I1651451 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2021_I1997451);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2018_I1651451);
 
 
     /// @name Analysis methods
@@ -23,8 +23,9 @@ namespace Rivet {
       // Initialise and register projections
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
-      // counter
-      book(_cphipippim  , "TMP/phipippim");
+      // histograms
+      for(unsigned int ix=0;ix<2;++ix)
+	book(_h[ix],1,1,ix+1);
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
@@ -37,7 +38,6 @@ namespace Rivet {
 	  findChildren(child,nRes,ncount);
       }
     }
-
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
@@ -71,7 +71,24 @@ namespace Rivet {
 	    }
 	  }
 	  if(matched) {
-	    _cphipippim->fill();
+	    _h[0]->fill(sqrtS());
+	    break;
+	  }
+	  matched = true;
+	  for(auto const & val : nRes) {
+	    if(abs(val.first)==111) {
+	      if(val.second!=2) {
+		matched = false;
+		break;
+	      }
+	    }
+	    else if(val.second!=0) {
+	      matched = false;
+	      break;
+	    }
+	  }
+	  if(matched) {
+	    _h[1]->fill(sqrtS());
 	    break;
 	  }
 	}
@@ -81,24 +98,9 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      double sigma = _cphipippim->val()* crossSection()/ sumOfWeights() /picobarn;
-      double error = _cphipippim->err()* crossSection()/ sumOfWeights() /picobarn;
-      Scatter2D temphisto(refData(1, 1, 1));
-      Scatter2DPtr  mult;
-      book(mult, 1, 1, 1);
-      for (size_t b = 0; b < temphisto.numPoints(); b++) {
-	const double x  = temphisto.point(b).x();
-	pair<double,double> ex = temphisto.point(b).xErrs();
-	pair<double,double> ex2 = ex;
-	if(ex2.first ==0.) ex2. first=0.0001;
-	if(ex2.second==0.) ex2.second=0.0001;
-	if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
-	  mult->addPoint(x, sigma, ex, make_pair(error,error));
-	}
-	else {
-	  mult->addPoint(x, 0., ex, make_pair(0.,.0));
-	}
-      }
+      double fact = crossSection()/ sumOfWeights() /picobarn;
+      for(unsigned int ix=0;ix<2;++ix)
+	scale(_h[ix],fact);
     }
 
     /// @}
@@ -106,13 +108,13 @@ namespace Rivet {
 
     /// @name Histograms
     /// @{
-    CounterPtr _cphipippim;
+    Histo1DPtr _h[2];
     /// @}
 
 
   };
 
 
-  RIVET_DECLARE_PLUGIN(BESIII_2021_I1997451);
+  RIVET_DECLARE_PLUGIN(BESIII_2018_I1651451);
 
 }

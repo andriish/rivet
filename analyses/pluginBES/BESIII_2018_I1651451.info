@@ -1,0 +1,39 @@
+Name: BESIII_2018_I1651451
+Year: 2018
+Summary: Cross Section for $e^+e^-\to\phi\pi^+\pi^-$ and $\phi\pi^0\pi^0$ at 2.125 GeV
+Experiment: BESIII
+Collider: BEPC
+InspireID: 1651451
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 99 (2019) 1, 011101
+RunInfo: e+e- to hadrons
+NeedCrossSection: yes
+Beams: [e+,e-]
+Energies: [2.125]
+Description:
+  'Measurement of the cross section for $e^+e^-\to\phi\pi^+\pi^-$ and $\phi\pi^0\pi^0$ at 2.125 GeV.'
+ValidationInfo:
+  'Herwig 7 event'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2018rdg
+BibTeX: '@article{BESIII:2018rdg,
+    author = "Ablikim, Medina and others",
+    collaboration = "BESIII",
+    title = "{Search for a strangeonium-like structure $Z_s$ decaying into $\phi \pi$ and a measurement of the cross section $e^+e^-\rightarrow\phi\pi\pi$}",
+    eprint = "1801.10384",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1103/PhysRevD.99.011101",
+    journal = "Phys. Rev. D",
+    volume = "99",
+    number = "1",
+    pages = "011101",
+    year = "2019"
+}
+'
