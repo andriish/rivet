@@ -1,0 +1,32 @@
+Name: BESIII_2022_I2050468
+Year: 2022
+Summary: Cross section for $e^+e^-\to \pi^+\pi^-\psi_2(3823)(\to\gamma\chi_{c1})$ between 4.22 and 4.70 GeV
+Experiment: BESIII
+Collider: BEPC
+InspireID: 2050468
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - arXiv:2203.05815 [hep-ex]
+RunInfo: e+e- to hadrons, KS0 and pi0 should be set stable
+NeedCrossSection: yes
+Beams:  [e+,e-]
+Description:
+   'Cross section for $e^+e^-\to \pi^+\pi^-\psi_2(3823)(\to\gamma\chi_{c1})$ between 4.22 and 4.70 GeV.'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2022yga
+BibTeX: '@article{BESIII:2022yga,
+    author = "Ablikim, M. and others",
+    collaboration = "BESIII",
+    title = "{Observation of resonance structures in $e^+e^-\to \pi^+\pi^-\psi_2(3823)$ and mass measurement of $\psi_2(3823)$}",
+    eprint = "2203.05815",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    month = "3",
+    year = "2022"
+}
+'
