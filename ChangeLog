@@ -101,14 +101,18 @@
 
 	* Hide the bundled eigen3 in a mangled RivetEigen namespace, to avoid clashes.
 
-2022-08-04  Markus Seidel  <markus.seidel@cern.ch>
+2022-08-05 Peter Richardson <peter.richardson@durham.ac.uk>
 
-	* Submission of CMS_2022_I2079374: Z pT over a wide mass range at 13 TeV
+	* Add BELLE_2021_I1841899 B+ -> phi phi K+
 
-2022-08-03 Peter Richardson <peter.richardson@durham.ac.uk>
+2022-08-04 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2020_I1818254 chi_c -> Sigma0 pbar K+
 	* Add BESIII_2017_I1511280 D0 -> K- pi+ pi+ pi-
+
+2022-08-04  Markus Seidel  <markus.seidel@cern.ch>
+
+	* Submission of CMS_2022_I2079374: Z pT over a wide mass range at 13 TeV
 
 2022-08-03 Peter Richardson <peter.richardson@durham.ac.uk>
 
