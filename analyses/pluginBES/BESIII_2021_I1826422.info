@@ -1,0 +1,36 @@
+Name: BESIII_2021_I1826422
+Year: 2021
+Summary: Cross section for $e^+e^-\to \pi^+\pi^-\pi^0\eta_c$ between 4.18 and 4.60 GeV
+Experiment: BESIII
+Collider: BEPC
+InspireID: 1826422
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 103 (2021) 3, 032006
+RunInfo: e+e- to hadrons, KS0 and pi0 should be set stable
+NeedCrossSection: yes
+Beams:  [e+,e-]
+Description:
+   'Cross section for $e^+e^-\to \pi^+\pi^-\pi^0\eta_c$ between 4.18 and 4.60 GeV'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2020tgt
+BibTeX: '@article{BESIII:2020tgt,
+    author = "Ablikim, M. and others",
+    collaboration = "BESIII",
+    title = "{Measurements of $e^+e^-\rightarrow \eta_{\rm c}\pi^+ \pi^-\pi^0$, $\eta_{\rm c}\pi^+ \pi^-$ and $\eta_{\rm c}\pi^0\gamma$ at $\sqrt{s}$ from 4.18 to 4.60\textbackslash{},GeV, and search for a $Z_{\rm c}$ state close to the $D\bar{D}$ threshold decaying to $\eta_{\rm c}\pi$ at $\sqrt{s}$ = 4.23 GeV}",
+    eprint = "2010.14415",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1103/PhysRevD.103.032006",
+    journal = "Phys. Rev. D",
+    volume = "103",
+    number = "3",
+    pages = "032006",
+    year = "2021"
+}
+'
