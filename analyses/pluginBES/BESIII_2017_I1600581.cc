@@ -6,12 +6,12 @@
 namespace Rivet {
 
 
-  /// @brief e+ e- > gamma chi_c(1,2)
-  class BESIII_2021_I1880103 : public Analysis {
+  /// @brief e+e-> gamama eta_c
+  class BESIII_2017_I1600581 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2021_I1880103);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2017_I1600581);
 
 
     /// @name Analysis methods
@@ -20,9 +20,8 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       declare(FinalState(), "FS");
-      declare(UnstableParticles(Cuts::pid==20443 or Cuts::pid==445), "UFS");
-      book(_nChi[0], "TMP/chi_c1");
-      book(_nChi[1], "TMP/chi_c2");
+      declare(UnstableParticles(Cuts::pid==441), "UFS");
+      book(_nEta, "TMP/eta_c");
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
@@ -67,10 +66,7 @@ namespace Rivet {
 	  }
 	}
 	if(matched) {
-	  if(p.pid()==20443)
-	    _nChi[0]->fill();
-	  else
-	    _nChi[1]->fill();
+	  _nEta->fill();
 	  break;
 	}
       }
@@ -80,24 +76,22 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       double fact = crossSection()/ sumOfWeights() /picobarn;
-      for(unsigned int ix=0;ix<2;++ix) {
-	double sigma = _nChi[ix]->val()*fact;
-	double error = _nChi[ix]->err()*fact;
-	Scatter2D temphisto(refData(1+ix, 1, 1));
-	Scatter2DPtr  mult;
-	book(mult, 1+ix, 1, 1);
-	for (size_t b = 0; b < temphisto.numPoints(); b++) {
-	  const double x  = temphisto.point(b).x();
-	  pair<double,double> ex = temphisto.point(b).xErrs();
-	  pair<double,double> ex2 = ex;
-	  if(ex2.first ==0.) ex2. first=0.0001;
-	  if(ex2.second==0.) ex2.second=0.0001;
-	  if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
-	    mult->addPoint(x, sigma, ex, make_pair(error,error));
-	  }
-	  else {
-	    mult->addPoint(x, 0., ex, make_pair(0.,.0));
-	  }
+      double sigma = _nEta->val()*fact;
+      double error = _nEta->err()*fact;
+      Scatter2D temphisto(refData(1, 1, 1));
+      Scatter2DPtr  mult;
+      book(mult, 1, 1, 1);
+      for (size_t b = 0; b < temphisto.numPoints(); b++) {
+	const double x  = temphisto.point(b).x();
+	pair<double,double> ex = temphisto.point(b).xErrs();
+	pair<double,double> ex2 = ex;
+	if(ex2.first ==0.) ex2. first=0.0001;
+	if(ex2.second==0.) ex2.second=0.0001;
+	if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+	  mult->addPoint(x, sigma, ex, make_pair(error,error));
+	}
+	else {
+	  mult->addPoint(x, 0., ex, make_pair(0.,.0));
 	}
       }
     }
@@ -107,13 +101,13 @@ namespace Rivet {
 
     /// @name Histograms
     /// @{
-    CounterPtr _nChi[2];
+    CounterPtr _nEta;
     /// @}
 
 
   };
 
 
-  RIVET_DECLARE_PLUGIN(BESIII_2021_I1880103);
+  RIVET_DECLARE_PLUGIN(BESIII_2017_I1600581);
 
 }

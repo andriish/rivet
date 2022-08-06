@@ -1,6 +1,5 @@
 2022-12-15  Andy Buckley  <andy.buckley@cern.ch>
 
-
 	* Allow linspace() and aspace() to make reversed edge-sets with start > end.
 	* Add powspace() and powdbnspace() uniform-spacing functions for
 	power laws, and a generic _fnspace() function for any
@@ -109,6 +108,16 @@
 
 	* Add BESIII_2022_I2050468 e+ e- > pi+ pi- psi_2
 	* Add BESIII_2021_I1826422 e+ e- > pi+ pi- pi0 eta_c
+
+2022-08-06 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2017_I1600581 e+ e- -> gamma eta_c
+
+2022-08-05 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2022_I2050468 e+ e- > pi+ pi- psi_2
+	* Add BESIII_2021_I1826422 e+ e- > pi+ pi- pi0 eta_c
+	* Add BESIII_2018_I1651451 e+ e- -> phi pi+pi-
 
 2022-08-02 Peter Richardson <peter.richardson@durham.ac.uk>
 
