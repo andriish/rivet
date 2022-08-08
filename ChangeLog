@@ -101,6 +101,10 @@
 
 	* Hide the bundled eigen3 in a mangled RivetEigen namespace, to avoid clashes.
 
+2022-08-08 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2019_I1729311 B0 -> p pbar pi0
+
 2022-08-06 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2020_I1818254 chi_c -> phi phi eta
