@@ -1,0 +1,36 @@
+Name: BESIII_2018_I1681638
+Year: 2018
+Summary: $e^+e^-\to pK^0_S\bar{n}K^-$+c.c. between 3.773 and 4.6 GeV
+Experiment: BESIII
+Collider: BEPC
+InspireID: 1681638
+Status: VALIDATED NOHEPDATA
+Reentrant: false
+Authors:
+ - Peter Richrdson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 98 (2018) 3, 032014
+RunInfo: e+ e- to hadrons 
+NeedCrossSection: yes
+Beams: [e+, e-]
+Description:
+  'Measurement of the cross section for  $e^+e^-\to pK^0_S\bar{n}K^-$+c.c., and the resonant sub-processes $\Lambda(1520)^0\bar{n}K^0_S$+c.c. and $\Lambda(1520)^0\bar{p}K^+$+c.c., for energies between 1.6 and 2 GeV by the CMD3 experiment'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2018gvg
+BibTeX: '@article{BESIII:2018gvg,
+    author = "Ablikim, Medina and others",
+    collaboration = "BESIII",
+    title = "{First measurement of $e^+ e^- \to pK^{0}_{S}\bar{n}K^{-} + c.c.$ above open charm threshold}",
+    eprint = "1807.03468",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1103/PhysRevD.98.032014",
+    journal = "Phys. Rev. D",
+    volume = "98",
+    number = "3",
+    pages = "032014",
+    year = "2018"
+}
+'

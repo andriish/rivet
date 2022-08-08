@@ -100,6 +100,10 @@
 
 	* Hide the bundled eigen3 in a mangled RivetEigen namespace, to avoid clashes.
 
+2022-08-10 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2018_I1681638 e+ e- > KS0 p nbar K-
+
 2022-08-06 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2017_I1600581 e+ e- -> gamma eta_c
