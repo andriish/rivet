@@ -2137,7 +2137,7 @@
 1734540 . Measurements of Weak Decay Asymmetries of $\Lambda_c^+\to pK_S^0$, $\Lambda\pi^+$, $\Sigma^+\pi^0$, and $\Sigma^0\pi^+$ #Fig 3 may be implementable#
 1736235 . Measurement of proton electromagnetic form factors in $e^+e^- \to p\bar{p}$ in the energy region 2.00 - 3.08 GeV #Cross section values in paper, implementable#
 1736811 X Belle II pixel detector: Performance of final DEPFET modules #detector#
-1736822 . Observation of $\eta_c\to\omega\omega$ in $J/\psi\to\gamma\omega\omega$ #Figs 5,6 in paper look implementable#
+1736822 X Observation of $\eta_c\to\omega\omega$ in $J/\psi\to\gamma\omega\omega$ #really mass and BR#
 1737255 X Search for $B^0 \to X(3872) \gamma$ #search#
 1737730 X Search for $\Omega(2012)\to K\Xi(1530) \to K\pi\Xi$ at Belle #search#
 1737850 . Study of $e^+e^- \to \pi^+ \pi^- \pi^0 \eta_c$ and evidence for $Z_c$(3900)$^\pm$ decaying into $\rho^\pm \eta_c$ #Cross section numbers in paper which are implementable#
