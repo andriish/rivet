@@ -1,8 +1,8 @@
 Name: BESIII_2019_I1722111
 Year: 2019
-Summary: 
+Summary: $\psi(2S)\to p \bar{p}\phi$
 Experiment: BESIII
-Collider:  $\psi(2S)\to p \bar{p}\phi$
+Collider: BEPC
 InspireID: 1722111
 Status: VALIDATED NOHEPDATA
 Reentrant: true
