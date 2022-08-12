@@ -101,6 +101,10 @@
 
 	* Hide the bundled eigen3 in a mangled RivetEigen namespace, to avoid clashes.
 
+2022-08-12 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2010_I879997 D+ -> K- pi+ e+ nu_e
+
 2022-08-11 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2011_I931195 psi(2S)-> chi_c correlations
