@@ -1,33 +1,33 @@
 Name: BESIII_2022_I2016785
 Year: 2022
-Summary: <A one-line informative BESIII_2022_I2016785 headline>
+Summary: Radiative $J/\psi\to\gamma \eta^\prime\eta^\prime$
 Experiment: BESIII
-Collider: <Insert the collider name>
+Collider: BEPC
 InspireID: 2016785
-Status: UNVALIDATED NOHEPDATA SINGLEWEIGHT UNPHYSICAL
-Reentrant: false
+Status: VALIDATED NOHEPDATA
+Reentrant: true
 Authors:
- - Your Name <your@email.address>
+ - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
- - 'Example: Eur.Phys.J. C76 (2016) no.7, 392'
- - 'Example: DOI:10.1140/epjc/s10052-016-4184-8'
- - 'Example: arXiv:1605.03814'
-#RunInfo: <Describe event types, cuts, and other general generator config tips.>
-#Beams: [p+, p+]
-#Energies: [[6500,6500]]
-#Luminosity_fb: 139.0
-Description:
-  'A brief description of what is measured and what it is useful for.
-   Use LaTeX for maths, e.g. $\pT > 50\;\GeV$.'
-ValidationInfo:
-  'A description of the process used to validate the Rivet code against
-  the original experimental analysis. Cut-flow tables and similar information
-  are welcome'
+ - Phys.Rev.D 105 (2022) 7, 072002
 #ReleaseTests:
 # - $A my-hepmc-prefix :MODE=some_rivet_flag
+Description:
+  'Measurement of the mass distributions in the decay $J/\psi\to\gamma \eta^\prime\eta^\prime$. The data were read from the plots in the paper. It is also not clear that any resolution effects have been unfolded.'
 Keywords: []
-BibKey: 
-BibTeX: ''
-ToDo:
- - Implement the analysis, test it, remove this ToDo, and mark as VALIDATED :-)
-
+BibKey: BESIII:2022zel
+BibTeX: '@article{BESIII:2022zel,
+    author = "Ablikim, M. and others",
+    collaboration = "BESIII",
+    title = "{Partial wave analysis of $J/\psi \rightarrow \gamma \eta^\prime \eta^\prime$}",
+    eprint = "2201.09710",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1103/PhysRevD.105.072002",
+    journal = "Phys. Rev. D",
+    volume = "105",
+    number = "7",
+    pages = "072002",
+    year = "2022"
+}
+'

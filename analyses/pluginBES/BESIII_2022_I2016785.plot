@@ -1,8 +1,12 @@
 BEGIN PLOT /BESIII_2022_I2016785/d01-x01-y01
-Title=[Insert title for histogram d01-x01-y01 here]
-XLabel=[Insert $x$-axis label for histogram d01-x01-y01 here]
-YLabel=[Insert $y$-axis label for histogram d01-x01-y01 here]
-# + any additional plot settings you might like, see make-plots documentation
+Title=$\eta^\prime\eta^\prime$ mass distribution in $J/\psi\to \gamma\eta^\prime\eta^\prime$
+XLabel=$m_{\eta^\prime\eta^\prime}$ [$\mathrm{GeV}$]
+YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m_{\eta^\prime\eta^\prime}$ [$\mathrm{GeV}^{-1}$]
+LogY=0
 END PLOT
-
-# ... add more histograms as you need them ...
+BEGIN PLOT /BESIII_2022_I2016785/d01-x01-y02
+Title=$\gamma\eta^\prime$ mass distribution in $J/\psi\to \gamma\eta^\prime\eta^\prime$
+XLabel=$m_{\gamma\eta^\prime}$ [$\mathrm{GeV}$]
+YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m_{\gamma\eta^\prime}$ [$\mathrm{GeV}^{-1}$]
+LogY=0
+END PLOT
