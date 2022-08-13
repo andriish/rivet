@@ -101,6 +101,10 @@
 
 	* Hide the bundled eigen3 in a mangled RivetEigen namespace, to avoid clashes.
 
+2022-08-13 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2014_I1280710 chi_c(1,2) -> eta' K+K-
+
 2022-08-12 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BABAR_2010_I879997 D+ -> K- pi+ e+ nu_e
