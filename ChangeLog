@@ -104,6 +104,7 @@
 2022-08-13 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2014_I1280710 chi_c(1,2) -> eta' K+K-
+	* Add BESIII_2022_I2018236 Jpsi -> gamma pi+pi-eta'
 
 2022-08-12 Peter Richardson <peter.richardson@durham.ac.uk>
 
@@ -157,7 +158,7 @@
 	* Add BESIII_2022_I2105430 eta' -> eta pi0 pi0
 	* Add BABAR_2006_I722905 D0 -> K-+ pi+- pi0
 	* Add CLEO_2007_I732065 chi_c1 -> pi+pi- eta KKpi
-	* Add BESIII_2022_I1997940 J/psi -> gamma pi+ pi- eta'
+	* Add BESIII_2022_I1997940 J/psi -> e+e- pi+ pi- eta'
 
 2022-08-01 Peter Richardson <peter.richardson@durham.ac.uk>
 

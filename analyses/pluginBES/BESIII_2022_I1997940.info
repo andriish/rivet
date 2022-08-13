@@ -1,6 +1,6 @@
 Name: BESIII_2022_I1997940
 Year: 2022
-Summary: Radiative $J/\psi\to\gamma \eta^\prime\pi^+\pi^-$ decay
+Summary: EM Dalitz $J/\psi\to e^+e^- \eta^\prime\pi^+\pi^-$ decay
 Experiment: BESIII
 Collider: BEPC
 InspireID: 1997940
@@ -12,7 +12,7 @@ References:
  - Phys.Rev.Lett. 129 (2022) 2, 022002
 RunInfo: Any process producing J/psi originally e+e-
 Description:
-  'Measurement of the hadronic mass distribution in the decay $J/\psi\to\gamma \eta^\prime\pi^+\pi^-$. The data were read from the plots in the paper. It is also not clear that any resolution effects have been unfolded.'
+  'Measurement of the hadronic mass distribution in the decay $J/\psi\to e^+e^- \eta^\prime\pi^+\pi^-$. The data were read from the plots in the paper. It is also not clear that any resolution effects have been unfolded.'
 #ReleaseTests:
 # - $A my-hepmc-prefix :MODE=some_rivet_flag
 Keywords: []

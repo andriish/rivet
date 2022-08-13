@@ -10,6 +10,7 @@ Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Rev.D 95 (2017) 3, 032002
+RunInfo : Any process producing chi_c1
 Description:
   'Measurement of the mass distributions in the decays $\chi_{c1}\to \eta\pi^+\pi^-$.
    The data were read from the plots in the paper and may not be corrected for efficiency.'

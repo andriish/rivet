@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief J/psi -> gamma eta' pi+pi-
+  /// @brief J/psi -> e+e- eta' pi+pi-
   class BESIII_2022_I1997940 : public Analysis {
   public:
 
@@ -34,11 +34,11 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      static const map<PdgId,unsigned int> & mode   = { { 211,1}, {-211,1}, { 331,1} ,{22,1} };
+      static const map<PdgId,unsigned int> & mode   = { { 211,1}, {-211,1}, { 331,1} ,{11,1}, {-11,1} };
       DecayedParticles psi = apply<DecayedParticles>(event, "psi");
       // loop over particles
       for(unsigned int ix=0;ix<psi.decaying().size();++ix) {
-	if(!psi.modeMatches(ix,4,mode)) continue;
+	if(!psi.modeMatches(ix,5,mode)) continue;
 	const Particle & eta  = psi.decayProducts()[ix].at( 331)[0];
 	const Particle & pip  = psi.decayProducts()[ix].at( 211)[0];
 	const Particle & pim  = psi.decayProducts()[ix].at(-211)[0];
