@@ -1,3 +1,8 @@
+2022-07-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Require FastJet version 3.4.0 -- update list of plugin libs to
+	use the single libfastjetplugins.so library.
+
 2022-03-29  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Replace the distutils extension build & install with a handmade one.
