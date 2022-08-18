@@ -214,17 +214,13 @@ if test -f "$FJCONFIG"; then
   fjmajor=$(echo $fjversion | cut -f1 -d.)
   fjminor=$(echo $fjversion | cut -f2 -d.)
   fjmicro=$(echo $fjversion | cut -f3 -d.)
-  if test "$fjmajor" -lt 3; then
-    AC_MSG_ERROR([FastJet version 3.0.0 or later is required])
+  if test "$fjmajor" -lt 3 -o "$fjminor" -lt 4 ; then  #< only works for v3.x
+    AC_MSG_ERROR([FastJet version 3.4.0 or later is required]) #< plugin libs chanced with 3.4.0
   fi
   FASTJETLIBADD="$($FJCONFIG --plugins --shared --libs | sed 's/\S*\/gcc\/\S*//g')"
 else
-  FASTJETLIBADD="-L$FASTJETLIBPATH -l$FASTJETLIBNAME"
-  FASTJETLIBADD="$FASTJETLIBADD -lSISConePlugin -lsiscone -lsiscone_spherical"
-  FASTJETLIBADD="$FASTJETLIBADD -lCDFConesPlugin -lD0RunIIConePlugin -lNestedDefsPlugin"
-  FASTJETLIBADD="$FASTJETLIBADD -lTrackJetPlugin -lATLASConePlugin -lCMSIterativeConePlugin"
-  FASTJETLIBADD="$FASTJETLIBADD -lEECambridgePlugin -lJadePlugin"
-fi;
+  FASTJETLIBADD="-L$FASTJETLIBPATH -l$FASTJETLIBNAME -lfastjetplugins"
+fi
 FASTJETLDFLAGS="-L$FASTJETLIBPATH"
 
 
