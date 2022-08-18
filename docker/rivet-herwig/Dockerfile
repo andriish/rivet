@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 LABEL maintainer="rivet-developers@cern.ch"
 SHELL ["/bin/bash", "-c"]
 
@@ -26,12 +26,11 @@ RUN export DEBIAN_FRONTEND=noninteractive \
       make automake autoconf libtool cmake rsync \
       git wget tar less bzip2 findutils nano file \
       zlib1g-dev \
-    && apt-get remove -y python3 \
-    && apt-get install -y python2 python2-dev \
-    && update-alternatives --install /usr/bin/python python /usr/bin/python2 2 \
-    && update-alternatives --install /usr/bin/python-config python-config /usr/bin/python2-config 2 \
-    && wget --no-verbose https://bootstrap.pypa.io/pip/2.7/get-pip.py -O get-pip.py \
-    && python2 get-pip.py \
+    && apt-get install -y python3 python3-dev python3-venv python3-wheel \
+    && update-alternatives --install /usr/bin/python python /usr/bin/python3 2 \
+    && update-alternatives --install /usr/bin/python-config python-config /usr/bin/python3-config 2 \
+    && wget --no-verbose https://bootstrap.pypa.io/pip/get-pip.py -O get-pip.py \
+    && python get-pip.py \
     && apt-get -y autoremove \
     && apt-get -y autoclean
 
@@ -39,19 +38,21 @@ ARG RIVET_VERSION
 ARG YODA_VERSION
 ARG THEPEG_VERSION
 ARG HERWIG_VERSION
+ARG LHAPDF_VERSION
 RUN export DEBIAN_FRONTEND=noninteractive \
-    && pip install virtualenv \
-    && virtualenv /herwig \
+    && python -m venv /herwig \
     && mkdir -p /herwig/etc/bash_completion.d \
     && . /herwig/bin/activate \
     && pip install Cython six \
     && cp /herwig/bin/activate{,-raw} \
     && wget https://herwig.hepforge.org/downloads/herwig-bootstrap \
     && chmod +x herwig-bootstrap \
+    && ./herwig-bootstrap --help \
     && ./herwig-bootstrap /herwig -j$(nproc --ignore=1) \
       --thepeg-version=${THEPEG_VERSION} --herwig-version=${HERWIG_VERSION} \
       --rivet-version=${RIVET_VERSION} --yoda-version=${YODA_VERSION} \
-      --without-hjets --without-madgraph \
+      --lhapdf-version=${LHAPDF_VERSION} \
+      --without-hjets \
     && rm -r /herwig/src herwig-bootstrap
     #mv herwig-bootstrap /herwig/src
 
@@ -68,4 +69,6 @@ RUN true \
     && echo ". /herwig/etc/bash_completion.d/rivet-completion" >> /etc/bash.bashrc
 
 WORKDIR /work
-CMD /bin/bash
+#ADD rivet-exec.sh /root
+#ENTRYPOINT ["/root/rivet-exec.sh"]
+#CMD []

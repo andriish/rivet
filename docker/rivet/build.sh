@@ -3,6 +3,7 @@
 set -e
 
 BUILD="docker build . -f Dockerfile"
+function xdocker { echo "docker $@"; docker "$@"; }
 
 test "$FORCE" && BUILD="$BUILD --no-cache"
 
@@ -26,7 +27,7 @@ for RIVET_BRANCH in release-3-1-x rivet-3.1.6; do
             tag="hepstore/rivet:$RIVET_VERSION-$arch"
             $BUILD --build-arg ARCH=$arch -t $tag
             if [[ "$PUSH" = 1 ]]; then
-                docker push $tag
+                xdocker push $tag
                 test "$NOSLEEP" = 1 || sleep 1m
             fi
             echo -e "\n\n\n"
@@ -36,17 +37,17 @@ for RIVET_BRANCH in release-3-1-x rivet-3.1.6; do
 done
 
 ## Convenience tags
-docker tag hepstore/rivet:$RIVET_VERSION{-ubuntu-gcc-hepmc3-py3,-hepmc3}
-docker tag hepstore/rivet:$RIVET_VERSION{-hepmc3,}
+xdocker tag hepstore/rivet:$RIVET_VERSION{-ubuntu-gcc-hepmc3-py3,-hepmc3}
+xdocker tag hepstore/rivet:$RIVET_VERSION{-hepmc3,}
 if [[ "$LATEST" = 1 ]]; then
-    docker tag hepstore/rivet:{$RIVET_VERSION,latest}
+    xdocker tag hepstore/rivet:{$RIVET_VERSION,latest}
 fi
 if [[ "$PUSH" = 1 ]]; then
-    docker push hepstore/rivet:$RIVET_VERSION
+    xdocker push hepstore/rivet:$RIVET_VERSION
     test "$NOSLEEP" = 1 || sleep 1m
-    docker push hepstore/rivet:$RIVET_VERSION-hepmc3
+    xdocker push hepstore/rivet:$RIVET_VERSION-hepmc3
     if [[ "$LATEST" = 1 ]]; then
         test "$NOSLEEP" = 1 || sleep 1m
-        docker push hepstore/rivet:latest
+        xdocker push hepstore/rivet:latest
     fi
 fi
