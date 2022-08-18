@@ -298,14 +298,14 @@ namespace Rivet {
         }
         if (_irap == 1) {
           if (_object_pz[k] == _object_e[k]) {
-            /// @todo Change to exception or assert
+            /// @todo Change to exception
             // cout << "ERROR!!! object "<<k<<" has Pz "<< _object_pz[k] <<" which is equal to E = "<< _object_e[k] <<'\n';
             return 0;
           }
           _object_eta[k]=0.5*log((_object_e[k]+_object_pz[k])/(_object_e[k]-_object_pz[k]));
         }
         if (_irap != 0 && _irap != 1) {
-          /// @todo Change to exception or assert
+          /// @todo Change to exception
           // cout << "ERROR!!!, The choice to use the rapidity y or the pseudorapidity eta is not set correctly! Change that please!" << '\n';
           return 0;
         }
@@ -354,10 +354,10 @@ namespace Rivet {
 
       if (object_px_in.size() != nin) {
         /// @todo Change to exception or assert
-        cout<<"ERROR!!! wrong dimension of 'in' momenta"<<'\n';
+        cout << "ERROR!!! wrong dimension of 'in' momenta" << endl;
         //return 0; ///< @todo Why not do this?
       }
-      const size_t nout = length - nin;
+      // const size_t nout = length - nin;
 
       if (nin < _nmnjet) {
         for (int i = 0; i < NEVTVAR; i++) {
@@ -370,17 +370,17 @@ namespace Rivet {
       if (nin >= _nmnjet) {
         double p_sum_c = 0; //GMA
         double pt_sum_c = 0;
-        double eta_cw=0;
+        // double eta_cw = 0;
         // double px_sum_in = 0;
         // double py_sum_in = 0;
         for (size_t j = 0; j < nin; j++) {
           pt_sum_c += object_pt_in[j];
           p_sum_c += sqrt(pow(object_pt_in[j],2.) + pow(object_pz_in[j], 2.0)); //GMA
-          eta_cw += object_pt_in[j]*object_eta_in[j];
+          // eta_cw += object_pt_in[j]*object_eta_in[j];
           // px_sum_in += object_px_in[j];
           // py_sum_in += object_py_in[j];
         }
-        eta_cw /= pt_sum_c;
+        // eta_cw /= pt_sum_c;
 
         // double expTerm = 0;
         // for (size_t j = 0; j < nout; j++) {
