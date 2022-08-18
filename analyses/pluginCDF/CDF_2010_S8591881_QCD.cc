@@ -92,7 +92,7 @@ namespace Rivet {
 
       size_t numOverall(0),     numToward(0),          numAway(0)  ;
       long int numTrans1(0),     numTrans2(0);
-      double ptSumOverall(0.0), ptSumToward(0.0), ptSumTrans1(0.0), ptSumTrans2(0.0), ptSumAway(0.0);
+      double ptSumToward(0.0), ptSumTrans1(0.0), ptSumTrans2(0.0), ptSumAway(0.0);
       double ptMaxOverall(0.0), ptMaxToward(0.0), ptMaxTrans1(0.0), ptMaxTrans2(0.0), ptMaxAway(0.0);
 
       // Calculate all the charged stuff
@@ -103,7 +103,6 @@ namespace Rivet {
         double rotatedphi = phi - jetphi;
         while (rotatedphi < 0) rotatedphi += 2*PI;
 
-        ptSumOverall += pT;
         ++numOverall;
         if (pT > ptMaxOverall) {
           ptMaxOverall = pT;

@@ -371,22 +371,22 @@ namespace Rivet {
         double p_sum_c = 0; //GMA
         double pt_sum_c = 0;
         double eta_cw=0;
-        double px_sum_in = 0;
-        double py_sum_in = 0;
+        // double px_sum_in = 0;
+        // double py_sum_in = 0;
         for (size_t j = 0; j < nin; j++) {
           pt_sum_c += object_pt_in[j];
           p_sum_c += sqrt(pow(object_pt_in[j],2.) + pow(object_pz_in[j], 2.0)); //GMA
           eta_cw += object_pt_in[j]*object_eta_in[j];
-          px_sum_in += object_px_in[j];
-          py_sum_in += object_py_in[j];
+          // px_sum_in += object_px_in[j];
+          // py_sum_in += object_py_in[j];
         }
         eta_cw /= pt_sum_c;
 
-        double expTerm = 0;
-        for (size_t j = 0; j < nout; j++) {
-          expTerm += object_pt_out[j] * exp(-fabs(object_eta_out[j]-eta_cw));
-        }
-        expTerm /= pt_sum_c;
+        // double expTerm = 0;
+        // for (size_t j = 0; j < nout; j++) {
+        //   expTerm += object_pt_out[j] * exp(-fabs(object_eta_out[j]-eta_cw));
+        // }
+        // expTerm /= pt_sum_c;
 
         //the central global transverse thrust centrthr is calculated
         double centrthr = 0;
@@ -587,9 +587,6 @@ namespace Rivet {
       if (((size_t) in_object_py.size()!=y3_length) ||
           ((size_t) in_object_pz.size()!=y3_length) ||
           (in_object_e.size()!=y3_length)) {
-        // cout << "ERROR!!!! Input vectors differ in size! Change that please!" << '\n';
-        // cout<<"py_size: "<<in_object_py.size()<<" ,pz_size: "<<in_object_pz.size()
-        //     <<" ,px_size: "<<in_object_px.size()<<" , E_size: "<<in_object_e.size() <<'\n';
         return 0.0;
       }
 
@@ -830,7 +827,7 @@ namespace Rivet {
       length_thrust_calc = input_px.size();
       if (input_py.size() != length_thrust_calc) {
         /// @todo Change to exception or assert
-        cout<<"ERROR in thrust calculation!!! Size of input vectors differs. Change that please!"<<'\n';
+        cout << "ERROR in thrust calculation!!! Size of input vectors differs. Change that please!" << endl;
         return thrust_values;
       }
 
@@ -901,7 +898,7 @@ namespace Rivet {
     double EventShape::_lorentz_sp(const vector<double>& a, const vector<double>& b) {
       size_t dim = (size_t) a.size();
       if (a.size()!=b.size()) {
-        cout<<"ERROR!!! Dimension of input vectors are different! Change that please!"<<'\n';
+        cout << "ERROR!!! Dimension of input vectors are different! Change that please!" << endl;
         return 0;
       } else {
         double l_dot_product=a[dim-1]*b[dim-1];

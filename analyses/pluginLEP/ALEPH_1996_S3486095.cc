@@ -161,7 +161,6 @@ namespace Rivet {
       _histHeavyJetMass->fill(hemi.scaledM2high());
 
       // Iterate over all the charged final state particles.
-      double Evis = 0.0;
       double rapt05 = 0.;
       double rapt10 = 0.;
       double rapt15 = 0.;
@@ -171,7 +170,6 @@ namespace Rivet {
         // Get momentum and energy of each particle.
         const Vector3 mom3 = p.p3();
         const double energy = p.E();
-        Evis += energy;
 
         // Scaled momenta.
         const double mom = mom3.mod();
