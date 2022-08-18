@@ -80,6 +80,8 @@ include/Rivet/Config/DummyConfig.hh
 include/Rivet/Config/RivetConfig.hh
 doc/analists
 doc/anadiff
+doc/coverage/inspire-missing.ins.json.bak
+doc/coverage/wget-log
 test/log
 test/*.log
 test/out.yoda

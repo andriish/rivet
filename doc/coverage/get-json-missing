@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
 """
 This script downloads the ins.json paper information for any papers which are
@@ -51,8 +51,16 @@ print("Read total of {} records".format(len(records)))
 ## Loop over all analyses, getting individual inspire records
 insrecs = []
 for ins, rec in anas.items():
-    import urllib2
-    from StringIO import StringIO
+    ## Get StringIO portably
+    try:
+        from io import StringIO
+    except ImportError:
+        from StringIO import StringIO
+    ## Get urllib portably
+    try:
+        import urllib.request as urlreq
+    except ImportError:
+        import urllib2 as urlreq
 
     ## Skip if we have the paper or from PDG
     if ins in records:
@@ -65,7 +73,7 @@ for ins, rec in anas.items():
     url = "https://inspirehep.net/api/literature?size=1"
     url += "&q=control_number:{}".format(ins)
     url += "&fields=titles,publication_info,dois,texkeys,keywords,arxiv_preprints,collaborations,report_numbers,external_system_identifiers,imprints,preprint_date,arxiv_eprints"
-    response = urllib2.urlopen(url, timeout=120)
+    response = urlreq.urlopen(url, timeout=120)
 
     ## Parse the response and save the search-hit info
     buf = StringIO(response.read().decode('utf-8'))
@@ -83,5 +91,5 @@ for ins, rec in anas.items():
 ## Write the output in pseudo-Inspire JSON format
 out = {"hits" : {"hits" : insrecs}}
 # with open("inspire-missing.marc.xml", "w", encoding="utf-8") as xml:
-with open("inspire-missing.ins.json", "wb") as jf:
+with open("inspire-missing.ins.json", "w") as jf:
     json.dump(out, jf, sort_keys=True)

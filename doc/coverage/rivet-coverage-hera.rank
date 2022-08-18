@@ -535,24 +535,26 @@
 1301218 ! Measurement of multijet production in $ep$ collisions at high $Q^2$ and determination of the strong coupling $\alpha _s$
 1332186 . Measurement of Dijet Production in Diffractive Deep-Inelastic ep Scattering at HERA
 1335413 X Pentaquark $\Theta^+$ search at HERMES
-1343110 . Diffractive Dijet Production with a Leading Proton in $ep$ Collisions at HERA
+1343110 ! Diffractive Dijet Production with a Leading Proton in $ep$ Collisions at HERA
 1353667 . Combination of differential D$^{∗\pm}$ cross-section measurements in deep-inelastic ep scattering at HERA  <andy.buckley@cern.ch>
 1369344 . Bose–Einstein correlations in hadron-pairs from lepto-production on nuclei ranging from hydrogen to xenon
-1372086 . Production of exclusive dijets in diffractive deep inelastic scattering at HERA
-1377206 . Combination of measurements of inclusive deep inelastic ${e^{\pm }p}$ scattering cross sections and QCD analysis of HERA data
+1372086 ! Production of exclusive dijets in diffractive deep inelastic scattering at HERA
+1377206 ? Combination of measurements of inclusive deep inelastic ${e^{\pm }p}$ scattering cross sections and QCD analysis of HERA data
 1387751 . Exclusive $\rho ^0$ meson photoproduction with a leading neutron at HERA
 1429661 . Search for QCD instanton-induced processes at HERA in the high- $\pmb {Q^2}$ domain
-1437948 . Combined QCD and electroweak analysis of HERA data
-1442358 . Limits on the effective quark radius from inclusive $ep$ scattering at HERA
+1437948 X Combined QCD and electroweak analysis of HERA data
+1442358 X Limits on the effective quark radius from inclusive $ep$ scattering at HERA
 1444882 . Search for a narrow baryonic state decaying to ${pK^0_S}$ and ${\bar{p}K^0_S}$ in deep inelastic scattering at HERA
 1496981 ! Measurement of Jet Production Cross Sections in Deep-inelastic ep Scattering at HERA
 1519830 . Measurement of $D^{*}$ production in diffractive deep inelastic scattering at HERA
 1601508 . Studies of the diffractive photoproduction of isolated photons at HERA
-1624691 . Determination of the strong coupling constant $\alpha_s(m_Z)$ in next-to-next-to-leading order QCD using H1 jet cross section measurements
+1624691 ? Determination of the strong coupling constant $\alpha_s(m_Z)$ in next-to-next-to-leading order QCD using H1 jet cross section measurements
 1642730 . Further studies of isolated photon production with a jet in deep inelastic scattering at HERA
 1649636 . Measurement of the cross-section ratio $\sigma_{\psi(2S)}/\sigma_{J/\psi(1S)}$ in deep inelastic exclusive $ep$ scattering at HERA
 1665693 . Combination and QCD analysis of charm and beauty production cross-section measurements in deep inelastic $ep$ scattering at HERA
 1676227 . Determination of electroweak parameters in polarised deep-inelastic scattering at HERA
 1719174 . Limits on contact interactions and leptoquarks at HERA
-1798511 . Measurement of Exclusive $\pi^{+}\pi^{-}$ and $\rho^0$ Meson Photoproduction at HERA
-1827840 . Measurement of charged particle multiplicity distributions in DIS at HERA and its implication to entanglement entropy of partons
+1798511 ! Measurement of Exclusive $\pi^{+}\pi^{-}$ and $\rho^0$ Meson Photoproduction at HERA
+1827840 ! Measurement of charged particle multiplicity distributions in DIS at HERA and its implication to entanglement entropy of partons
+1912842 X Measurement of Lepton-Jet Correlation in Deep-Inelastic Scattering with the H1 Detector Using Machine Learning for Unfolding
+1983005 X Impact of jet-production data on the next-to-next-to-leading-order determination of HERAPDF2.0 parton distributions
