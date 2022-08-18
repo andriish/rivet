@@ -11,7 +11,7 @@
 #ifndef EIGEN_HYPERPLANE_H
 #define EIGEN_HYPERPLANE_H
 
-namespace Eigen { 
+namespace RivetEigen { 
 
 /** \geometry_module \ingroup Geometry_Module
   *
@@ -41,7 +41,7 @@ public:
   };
   typedef _Scalar Scalar;
   typedef typename NumTraits<Scalar>::Real RealScalar;
-  typedef Eigen::Index Index; ///< \deprecated since Eigen 3.3
+  typedef RivetEigen::Index Index; ///< \deprecated since Eigen 3.3
   typedef Matrix<Scalar,AmbientDimAtCompileTime,1> VectorType;
   typedef Matrix<Scalar,Index(AmbientDimAtCompileTime)==Dynamic
                         ? Dynamic
@@ -119,7 +119,7 @@ public:
     * If the dimension of the ambient space is greater than 2, then there isn't uniqueness,
     * so an arbitrary choice is made.
     */
-  // FIXME to be consitent with the rest this could be implemented as a static Through function ??
+  // FIXME to be consistent with the rest this could be implemented as a static Through function ??
   EIGEN_DEVICE_FUNC explicit Hyperplane(const ParametrizedLine<Scalar, AmbientDimAtCompileTime>& parametrized)
   {
     normal() = parametrized.direction().unitOrthogonal();
@@ -277,6 +277,6 @@ protected:
   Coefficients m_coeffs;
 };
 
-} // end namespace Eigen
+} // end namespace RivetEigen
 
 #endif // EIGEN_HYPERPLANE_H
