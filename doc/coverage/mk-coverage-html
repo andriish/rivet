@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
 from __future__ import division, print_function
 
@@ -198,7 +198,7 @@ for iex, ex in enumerate(EXPTS):
             for ins, rec in sorted(ex_records[ex].items()):
                 rankcode = rec[-1].split()[0]
                 #rankcode = "hot"rankcodes[0] if "hot" not in rankcodes #< keep the ! marker in the file after implementation
-                # line = u"{} {} {}\n".format(ins.encode("UTF-8"), SYMBS[code], rec[3].encode("UTF-8"))
+                # line = u"{} {} {}\n".format(ins), SYMBS[code], rec[3])
                 line = u"{} {} {}".format(ins, SYMBS[rankcode], rec[0])
                 if ins in comment :
                     line += " #{}#".format(comment[ins])
@@ -207,7 +207,7 @@ for iex, ex in enumerate(EXPTS):
                     #print(ins, rec[0], assigned[ins])
                     line += "  <{}>".format(assigned[ins])
                 line += "\n"
-                rf.write(line.encode("UTF-8"))
+                rf.write(line)
 
 ## If we're just updating the ranking files, stop here
 if args.UPDATERANK:
