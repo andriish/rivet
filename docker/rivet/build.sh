@@ -6,7 +6,7 @@ BUILD="docker build . -f Dockerfile"
 
 test "$FORCE" && BUILD="$BUILD --no-cache"
 
-YODA_BRANCH=yoda-1.9.5
+YODA_BRANCH=yoda-1.9.6
 
 ## Last branch name -> latest
 for RIVET_BRANCH in release-3-1-x rivet-3.1.6; do

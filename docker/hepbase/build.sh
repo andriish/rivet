@@ -12,7 +12,7 @@ test "$TEST" && BUILD="echo $BUILD"
 # UBUNTU_IMAGE=ubuntu:22.04
 
 RIVETBS_VERSION=3.1.6
-LHAPDF_VERSION=6.5.1
+LHAPDF_VERSION=6.5.2
 
 for vhepmc in 3.2.5; do   # 2.06.11
     for tex in 0 1; do
@@ -35,11 +35,11 @@ for vhepmc in 3.2.5; do   # 2.06.11
         test "$PUSH" = 1 && docker push $tag && sleep 1m
         echo -e "\n\n\n"
 
-        echo "@@ $MSG on Ubuntu LTS 20.04 with GCC compilers"
-        tag=hepstore/hepbase-ubuntu20-gcc-hepmc${vhepmc:0:1}-py3$TEXSUFFIX
-        $BUILD . -f Dockerfile.ubuntu $GCCARGS -t $tag
-        test "$PUSH" = 1 && docker push $tag && sleep 1m
-        echo -e "\n\n\n"
+        # echo "@@ $MSG on Ubuntu LTS 20.04 with GCC compilers"
+        # tag=hepstore/hepbase-ubuntu20-gcc-hepmc${vhepmc:0:1}-py3$TEXSUFFIX
+        # $BUILD . -f Dockerfile.ubuntu $GCCARGS -t $tag
+        # test "$PUSH" = 1 && docker push $tag && sleep 1m
+        # echo -e "\n\n\n"
 
         echo "@@ $MSG on Ubuntu with clang compilers"
         tag=hepstore/hepbase-ubuntu-clang-hepmc${vhepmc:0:1}-py3$TEXSUFFIX
@@ -73,11 +73,11 @@ for vhepmc in 3.2.5; do   # 2.06.11
         # test "$PUSH" = 1 && docker push $tag && sleep 1m
         # echo -e "\n\n\n"
 
-        echo "@@ $MSG on Ubuntu with GCC compilers and Python 2"
-        tag=hepstore/hepbase-ubuntu-gcc-hepmc${vhepmc:0:1}-py2$TEXSUFFIX
-        $BUILD . -f Dockerfile.ubuntu-py2 $GCCARGS -t $tag
-        test "$PUSH" = 1 && docker push $tag && sleep 1m
-        echo -e "\n\n\n"
+        # echo "@@ $MSG on Ubuntu with GCC compilers and Python 2"
+        # tag=hepstore/hepbase-ubuntu-gcc-hepmc${vhepmc:0:1}-py2$TEXSUFFIX
+        # $BUILD . -f Dockerfile.ubuntu-py2 $GCCARGS -t $tag
+        # test "$PUSH" = 1 && docker push $tag && sleep 1m
+        # echo -e "\n\n\n"
 
     done
 done
