@@ -26,8 +26,8 @@ import os, sys
 ## Load the rivet module
 try:
     import rivet
-except:
-    # ## If rivet loading failed, try to bootstrap the Python path!
+except Exception as e:
+    ## If rivet loading failed, try to bootstrap the Python path!
     # try:
     #     # TODO: Is this a good idea? Maybe just notify the user that their PYTHONPATH is wrong?
     #     import commands
@@ -37,7 +37,6 @@ except:
     #     rivetpypath = commands.getoutput(rivetconfigpath + " --pythonpath")
     #     sys.path.append(rivetpypath)
     #     import rivet
-    # except Exception as e:
     sys.stderr.write("The rivet Python module could not be loaded: are your PYTHONPATH and (DY)LD_LIBRARY_PATH set correctly?\n")
     sys.stderr.write("Try running 'python -c \"import rivet\"' at the command line (or \"import rivet\" in a Python REPL)\n")
     sys.stderr.write("Full error message:\n{}\n".format(e))

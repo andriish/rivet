@@ -1,6 +1,10 @@
+2022-03-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Replace the distutils extension build & install with a handmade one.
+
 2022-07-21  Christian Gutschow  <chris.g@cern.ch>
 
-	* rivet-merge -a now supports analysis specific (ANA:OPT=VAL) 
+	* rivet-merge -a now supports analysis specific (ANA:OPT=VAL)
 	as well as global (:OPT=VAL) analysis options
 
 2022-07-11  Christian Gutschow  <chris.g@cern.ch>
@@ -46,6 +50,7 @@
 2022-04-06  Markus Seidel  <markus.seidel@cern.ch>
 
 	* Submission of CMS_2017_I1497519: Z boson in association with jets at 8 TeV
+>>>>>>> release-3-1-x
 
 2022-03-25  Andy Buckley  <andy.buckley@cern.ch>
 
