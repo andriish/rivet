@@ -259,9 +259,9 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       book(_h["sjet1_pt"], "sjet1_pt", 100, -0.0, 2000);
       book(_h["sjet2_pt"], "sjet2_pt", 100, -0.0, 2000);
       book(_h["sjet3_pt"], "sjet3_pt", 100, -0.0, 2000);
-      book(_h["sjet1_eta"], "sjet1_eta", 20, -5, 5);
-      book(_h["sjet2_eta"], "sjet2_eta", 20, -5, 5);
-      book(_h["sjet3_eta"], "sjet3_eta", 20, -5, 5);
+      book(_h["sjet1_eta"], "sjet1_eta", 30, -5, 5);
+      book(_h["sjet2_eta"], "sjet2_eta", 30, -5, 5);
+      book(_h["sjet3_eta"], "sjet3_eta", 30, -5, 5);
       book(_h["sjet1_E"], "sjet1_E", 100, -0.0, 2000);
       book(_h["sjet2_E"], "sjet2_E", 100, -0.0, 2000);
       book(_h["sjet3_E"], "sjet3_E", 100, -0.0, 2000);
