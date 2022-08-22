@@ -254,6 +254,18 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       book(_h["mVRC_truebkgTaggedTop"], "mVRC_truebkgTaggedTop", 60, 40, 250);
       book(_h["mVRC_truebkgTaggedbkg"], "mVRC_truebkgTaggedbkg", 60, 40, 250);
 
+      //Some interesting things to plot for debugging:
+      book(_h["VRC_numConstits"], "VRC_numConstits",{-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5});
+      book(_h["sjet1_pt"], "sjet1_pt", 100, -0.0, 2000);
+      book(_h["sjet2_pt"], "sjet2_pt", 100, -0.0, 2000);
+      book(_h["sjet3_pt"], "sjet3_pt", 100, -0.0, 2000);
+      book(_h["sjet1_eta"], "sjet1_eta", 20, -5, 5);
+      book(_h["sjet2_eta"], "sjet2_eta", 20, -5, 5);
+      book(_h["sjet3_eta"], "sjet3_eta", 20, -5, 5);
+      book(_h["sjet1_E"], "sjet1_E", 100, -0.0, 2000);
+      book(_h["sjet2_E"], "sjet2_E", 100, -0.0, 2000);
+      book(_h["sjet3_E"], "sjet3_E", 100, -0.0, 2000);
+
       
       //2D histos for post-hoc reweighting
       book(_h2["PVpt"], "PVpt", 45, -3, 1.5, 15, 40, 2000);
@@ -406,7 +418,12 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
           else {
             MSG_WARNING("FAILED TO FIND CONSTITUENT");
           }
-        }       
+        }
+
+        //We need to make sure that the tagged constituents are still pT ordered
+        //tagged_constituents.
+        isortByPt(tagged_constituents);
+
 
         // Les Houches Angularity
         
@@ -420,7 +437,7 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
         
         double LHA = LHA_sum/j.pt();
         
-        _h["LHA"]->fill(LHA);
+        
         
         //computes the D values (probabilities)
         _MCbottagger->computeScores(j, tagged_constituents, outputs);
@@ -433,6 +450,12 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
         double Ptop=log10(outputs["dnnOutput_top"]/
         (0.9*outputs["dnnOutput_light"]+0.05*outputs["dnnOutput_V"]+0.05*outputs["dnnOutput_H"]));
 
+        // if (PV < -1.3 || PV > -1.1){
+        //   vetoEvent;
+        // }
+
+        _h["LHA"]->fill(LHA);
+
         // fill in the P histograms 
         _h["PV"]->fill(PV);
         _h["PH"]->fill(PH);
@@ -444,6 +467,17 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
         _h2["PHpt"]->fill(PH, j.pt());
         _h2["Ptpt"]->fill(Ptop, j.pt());
 
+        //Fill in some extra debug info:
+        _h["VRC_numConstits"]->fill(tagged_constituents.size());
+        _h["sjet1_pt"]->fill(tagged_constituents[0].pt());
+        _h["sjet2_pt"]->fill(tagged_constituents.size() > 1 ? tagged_constituents[1].pt() : 0.);
+        _h["sjet3_pt"]->fill(tagged_constituents.size() > 2 ? tagged_constituents[2].pt() : 0.);
+        _h["sjet1_E"]->fill(tagged_constituents[0].E());
+        _h["sjet2_E"]->fill(tagged_constituents.size() > 1 ? tagged_constituents[1].E() : 0.);
+        _h["sjet3_E"]->fill(tagged_constituents.size() > 2 ? tagged_constituents[2].E() : 0.);
+        _h["sjet1_eta"]->fill(tagged_constituents[0].eta());
+        _h["sjet2_eta"]->fill(tagged_constituents.size() > 1 ? tagged_constituents[1].eta() : j.eta());
+        _h["sjet3_eta"]->fill(tagged_constituents.size() > 2 ? tagged_constituents[2].eta() : j.eta());
 
         //Tag the jets in an approximation of the MCBot NN.
         MCBot_TagType DNNtag = _MCbottagger->tag(j,tagged_constituents);
@@ -684,6 +718,27 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
           _h["mVRC_truebkgTaggedTop"]->normalize(1);
         } if (_h["mVRC_truebkgTaggedbkg"]->integral() > 0){
           _h["mVRC_truebkgTaggedbkg"]->normalize(1);
+        }
+        if (_h["VRC_numConstits"]->integral() > 0){
+          _h["VRC_numConstits"]->normalize(1);
+        } if (_h["sjet1_pt"]->integral() > 0){
+          _h["sjet1_pt"]->normalize(1);
+        } if (_h["sjet2_pt"]->integral() > 0){
+          _h["sjet2_pt"]->normalize(1);
+        } if (_h["sjet3_pt"]->integral() > 0){
+          _h["sjet3_pt"]->normalize(1);
+        } if (_h["sjet1_E"]->integral() > 0){
+          _h["sjet1_E"]->normalize(1);
+        } if (_h["sjet2_E"]->integral() > 0){
+          _h["sjet2_E"]->normalize(1);
+        } if (_h["sjet3_E"]->integral() > 0){
+          _h["sjet3_E"]->normalize(1);
+        } if (_h["sjet1_eta"]->integral() > 0){
+          _h["sjet1_eta"]->normalize(1);
+        } if (_h["sjet2_eta"]->integral() > 0){
+          _h["sjet2_eta"]->normalize(1);
+        } if (_h["sjet3_eta"]->integral() > 0){
+          _h["sjet3_eta"]->normalize(1);
         }
 
 
