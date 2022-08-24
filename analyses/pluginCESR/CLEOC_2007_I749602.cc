@@ -34,31 +34,6 @@ namespace Rivet {
       book(_dalitz, "dalitz",50,0.,1.8,50,0.0,3.1);
     }
 
-    void findDecayProducts(const Particle & mother, unsigned int & nstable,
-			   Particles & pip , Particles & pim) {
-      for(const Particle & p : mother.children()) {
-        int id = p.pid();
-        if ( id == PID::KPLUS || id == PID::KMINUS ||
-	     id == PID::K0S   || id == PID::K0L ||
-	     id == PID::PI0 ) {
-	  ++nstable;
-	}
-	else if (id == PID::PIPLUS) {
-	  pip.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PIMINUS) {
-	  pim.push_back(p);
-	  ++nstable;
-	}
-	else if ( !p.children().empty() ) {
-	  findDecayProducts(p, nstable, pip, pim);
-	}
-	else
-	  ++nstable;
-      }
-    }
-
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       static const map<PdgId,unsigned int> & mode   = { { 211,2},{-211,1}};

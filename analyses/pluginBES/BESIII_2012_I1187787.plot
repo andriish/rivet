@@ -16,7 +16,7 @@ XLabel=$m_{K^0_S\pi^\pm}$ [$\mathrm{GeV}$]
 YLabel=$1/\Gamma\mathrm{d} \Gamma/\mathrm{d}m_{K^0_S\pi^\pm}$ [$\mathrm{GeV}^{-1}$]
 LogY=0
 END PLOT
-BEGIN PLOT /BESIII_2012_I1187787/dalitz_1
+BEGIN PLOT /BESIII_2012_I1187787/dalitz
 Title=Dalitz plot for  $\eta_c\to K^0_SK^\pm\pi^\mp$
 XLabel=$m^2_{K^\pm\pi^\mp}$ [$\mathrm{GeV}^2$]
 YLabel=$m^2_{K^0_S\pi^\pm}$ [$\mathrm{GeV}^2$]

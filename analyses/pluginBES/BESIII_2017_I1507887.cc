@@ -132,7 +132,7 @@ namespace Rivet {
 	if(abs(axis.dot(dl[ix]))>0.93) vetoEvent;
 	// angle between leptons and photons
 	for(unsigned int iy=0;iy<2;++iy)
-	  if(dGamma[ix].dot(dl[iy])>cos10) vetoEvent;
+	  if(abs(dGamma[ix].dot(dl[iy]))>cos10) vetoEvent;
       }
       // type chi state
       unsigned int ichi= chi.pid()==445 ? 5 : 0;
