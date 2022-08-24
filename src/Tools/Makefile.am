@@ -16,8 +16,7 @@ libRivetTools_la_SOURCES = \
   RivetPaths.cc \
   Utils.cc \
   binreloc.c \
-  ProjectionTreePlotter.cc \
-  MCBot_tagger.cc
+  ProjectionTreePlotter.cc
 
 if ENABLE_HEPMC_3
 libRivetTools_la_SOURCES += RivetHepMC_3.cc ReaderCompressedAscii.cc WriterCompressedAscii.cc
