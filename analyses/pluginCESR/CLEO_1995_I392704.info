@@ -8,8 +8,8 @@ Status: VALIDATED
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
- - Any process producing Lambda_c baryons
-RunInfo: Phys.Lett. B350 (1995) 256-262
+ - Phys.Lett. B350 (1995) 256-262
+RunInfo: Any process producing Lambda_c baryons
 Description:
   'Measurement of the decay asymmetries in $\Lambda^+_c\to\Lambda^0\pi^+$ and $\Lambda^+_c\to\Sigma^+\pi^0$ by the CLEO experiment.
  The asymmetry parameter is extracted by fitting to normalised angular distribution. N.B. the product of the asymmetry parameters for
