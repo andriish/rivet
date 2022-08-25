@@ -26,11 +26,9 @@ namespace Rivet {
 	  for(unsigned int iy=0;iy<2;++iy)
 	    book(_h[imode][1+iy],4,1,1+iy+2*imode);
 	}
-	else {
-	  for(unsigned int iy=0;iy<3;++iy) {
-	    book(_h[imode][iy],"h_"+toString(imode+1)+"_"+toString(iy+1),10,-1,1);
-	  }
-	}
+	for(unsigned int iy=0;iy<3;++iy)
+	  for(unsigned int iz=0;iz<2;++iz)
+	    book(_c[imode][iy][iz],"TMP/C_"+toString(imode+1)+"_"+toString(iy+1)+"_"+toString(iz+1));
       }
     }
 
@@ -93,10 +91,18 @@ namespace Rivet {
 	  // calculate angle
 	  double cTheta = pp.p3().unit().dot(axis);
 	  _h[imeson][0]->fill(cTheta);
-	  if(baryon1.pid()>0)
+	  _c[imeson][0][0]->fill();
+	  _c[imeson][0][1]->fill(3.*cTheta);
+	  if(baryon1.pid()>0) {
 	    _h[imeson][1]->fill(cTheta);
-	  else
+	    _c[imeson][1][0]->fill();
+	    _c[imeson][1][1]->fill(3.*cTheta);
+	  }
+	  else {
 	    _h[imeson][2]->fill(cTheta);
+	    _c[imeson][2][0]->fill();
+	    _c[imeson][2][1]->fill(3.*cTheta);
+	  }
 	}
 	// sigma0 case
 	else {
@@ -139,30 +145,20 @@ namespace Rivet {
 	  Vector3 axis2 = pp.p3().unit();
 	  FourMomentum pp4 = boost3.transform(pp3);
 	  // calculate angle
-	  double cTheta3 = pp4.p3().unit().dot(axis);
+	  double cTheta3 = pp4.p3().unit().dot(axis2);
 	  double cTheta = cTheta2*cTheta3;
-	  _h[imeson+2][0]->fill(cTheta);
-	  if(baryon1.pid()>0)
-	    _h[imeson+2][1]->fill(cTheta);
-	  else
-	    _h[imeson+2][2]->fill(cTheta);
+	  _c[imeson+2][0][0]->fill();
+	  _c[imeson+2][0][1]->fill(-9.*cTheta);
+	  if(baryon1.pid()>0) {
+	    _c[imeson+2][1][0]->fill();
+	    _c[imeson+2][1][1]->fill(-9.*cTheta);
+	  }
+	  else {
+	    _c[imeson+2][2][0]->fill();
+	    _c[imeson+2][2][1]->fill(-9.*cTheta);
+	  }
 	}
       }
-    }
-
-    pair<double,double> calcAlpha(Histo1DPtr hist) {
-      if(hist->numEntries()==0.) return make_pair(0.,0.);
-      double sum1(0.),sum2(0.);
-      for (auto bin : hist->bins() ) {
-	double Oi = bin.area();
-	if(Oi==0.) continue;
-	double ai = 0.5*(bin.xMax()-bin.xMin());
-	double bi = 0.5*ai*(bin.xMax()+bin.xMin());
-	double Ei = bin.areaErr();
-	sum1 += sqr(bi/Ei);
-	sum2 += bi/sqr(Ei)*(Oi-ai);
-      }
-      return make_pair(sum2/sum1,sqrt(1./sum1));
     }
 
     /// Normalise histograms etc., after the run
@@ -170,8 +166,8 @@ namespace Rivet {
       pair<double,double> aLambda(0.7542,0.0022); 
       for(int imeson=0;imeson<4;++imeson) {
 	for(int iy=0;iy<3;++iy) {
-	  normalize(_h[imeson][iy]);
-	  pair<double,double> alpha = calcAlpha(_h[imeson][iy]);
+	  if(imeson<2) normalize(_h[imeson][iy]);
+	  Scatter1D R = *_c[imeson][iy][1]/ *_c[imeson][iy][0];
 	  Scatter2DPtr _h_alpha1,_h_alpha2;
 	  if(iy==0) {
 	    book(_h_alpha1,1,1+imeson,1);
@@ -181,12 +177,20 @@ namespace Rivet {
 	    book(_h_alpha1,2,1+imeson,iy);
 	    book(_h_alpha2,2,1+imeson,2+iy);
 	  }
-	  _h_alpha1->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
+	  double              rval = R.point(0).x();
+	  pair<double,double> rerr = R.point(0).xErrs();
+	  _h_alpha1->addPoint(0.5, rval, make_pair(0.5,0.5), rerr );
 	  // divide out aLambda
-	  alpha.second = alpha.first/aLambda.first*
-	    sqrt(sqr(alpha.second/alpha.first) + sqr(aLambda.second/aLambda.first));
-	  alpha.first /= aLambda.first;
-	  _h_alpha2->addPoint(0.5, alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
+	  rerr.first  = sqrt(sqr(rerr.first /rval) + sqr(aLambda.second/aLambda.first));
+	  rerr.second = sqrt(sqr(rerr.second/rval) + sqr(aLambda.second/aLambda.first));
+	  rval /= aLambda.first;
+	  rerr.first  *= rval;
+	  rerr.second *= rval;
+	  if(iy==2) {
+	    rval *=-1;
+	    swap(rerr.first,rerr.second);
+	  }
+	  _h_alpha2->addPoint(0.5, rval, make_pair(0.5,0.5), rerr );
 	}
       }
     }
@@ -196,7 +200,8 @@ namespace Rivet {
 
     /// @name Histograms
     /// @{
-    Histo1DPtr _h[4][3];
+    Histo1DPtr _h[2][3];
+    CounterPtr _c[4][3][2];
     /// @}
 
 
