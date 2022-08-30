@@ -76,6 +76,10 @@
 	* Add EXAMPLE_NTUPLE_CSV example analysis showing how to open and
 	write to a CSV ntuple file.
 
+2022-09-02 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CLEOII_1996_I404590 Xi_c+ spectrum
+
 2022-09-01  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add Analysis::analysisDataPath() and the RivetLWTNN.hh include
