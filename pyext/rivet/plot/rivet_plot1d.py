@@ -23,7 +23,7 @@ def plot_1Dhist(hist_data, hist_features, yaml_dicts, filename): #TODO filename 
     filename : str
         Name of the saved plot file.
     """
-    mpl_stylename = yaml_dicts.get('style', 'default') + '.mplstyle'
+    mpl_stylename = yaml_dicts.get('style', 'rivet') + '.mplstyle'
     plot_style = rivet.findAnalysisPlotFile(os.path.join("plot", mpl_stylename)) 
     if not os.path.isfile(plot_style):
         raise NotImplementedError('Plot style file not found.')

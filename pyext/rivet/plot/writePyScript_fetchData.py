@@ -94,21 +94,31 @@ xMins     = {[val for val in hists[0].xMins()]}
 xMaxs     = {[val for val in hists[0].xMaxs()]}
 ref_errminus = {[err[0] for err in ref_yerrs]}
 ref_errplus = {[err[1] for err in ref_yerrs]}
-ref_errbarsdown = [ref_yvals[i] - ref_errminus[i] for i in range(len(ref_yvals))]
-ref_errbarsup = [ref_yvals[i] + ref_errplus[i] for i in range(len(ref_yvals))]
+#ref_errors = [
+#  [ref_yvals[i] - ref_errminus[i] for i in range(len(ref_yvals))],
+#  [ref_yvals[i] + ref_errplus[i] for i in range(len(ref_yvals))]
+#]
+ref_errors = [ref_errminus, ref_errplus]
+
+x_errs = [
+  [abs(x_points[i] - xMins[i]) for i in range(len(x_points))],
+  [abs(xMaxs[i] - x_points[i]) for i in range(len(x_points))]
+]
+#ref_errbarsdown = [ref_yvals[i] - ref_errminus[i] for i in range(len(ref_yvals))]
+#ref_errbarsup = [ref_yvals[i] + ref_errplus[i] for i in range(len(ref_yvals))]
 """
 
     # Plot the reference histogram data
     mplCommand = """# plot the data on axes\n"""
     fnamedata = fnamedata.split('py')[0]
     if plot_ref:
+        
       mplCommand += f"""
 # ref data
-data_dots, = ax.plot(dataf.x_points, dataf.ref_yvals, 'ko', label='Data')  # Plot black dot in the middle of line
-data_hlines = ax.hlines(dataf.ref_yvals, dataf.xMins, dataf.xMaxs, 'k')  # Plot reference data as horizontal lines
+data_cross = ax.errorbar(dataf.x_points, dataf.ref_yvals, xerr=dataf.x_errs, yerr=dataf.ref_errors, fmt='o',
+  ecolor = 'black', color='black', label='Data')
 """
-      legend_handles += ['(data_dots, data_hlines)']
-      if error_bars[0]: mplCommand += """ax.vlines(dataf.x_points, (dataf.ref_errbarsdown),(dataf.ref_errbarsup), 'k')""" 
+      legend_handles += ['data_cross']
     mplCommand += """\n
 # histograms data from input yoda files"""
     # Plot MC histogram data

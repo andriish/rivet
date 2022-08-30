@@ -28,7 +28,7 @@ def _prepare_mpl(yaml_dict, plot_features, style_path):
         'figure.subplot.bottom': 0.085, 'figure.subplot.top': 0.9, 'figure.subplot.left': 0.12462526766, 'figure.subplot.right': 0.89
     }
 
-    plot_style = yaml_dict.get('style', 'default') + '.mplstyle'
+    plot_style = yaml_dict.get('style', 'rivet') + '.mplstyle'
     plt.style.use((os.path.join(style_path, plot_style), rc2d, yaml_dict.get('rcParams', {})))
     plt.rcParams['xtick.top'] = plot_features.get('XTwosidedTicks', True)
     plt.rcParams['ytick.right'] = plot_features.get('YTwosidedTicks', True)

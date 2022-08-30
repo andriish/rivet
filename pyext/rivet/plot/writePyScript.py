@@ -38,18 +38,24 @@ def writePyScript1D(hist_data, hist_features, yaml_dicts, outdir, plot_name):
   mplCommand1D = ""
   
   # set style 
-  mpl_stylename = yaml_dicts.get('style', 'default') + '.mplstyle'
+  mpl_stylename = yaml_dicts.get('style', 'rivet') + '.mplstyle'
   plot_style = rivet.findAnalysisPlotFile(os.path.join("plot", mpl_stylename)) 
   if not os.path.isfile(plot_style):
       raise NotImplementedError('Plot style file not found.')
-  if yaml_dicts.get('rcParams'):  # Apply rcParams to mpl
-      plt.style.use((plot_style, yaml_dicts.get('rcParams')))
-      mplCommand1D += f"""\n#plot style TODO remove absolute path\nplt.style.use(('{plot_style}, {yaml_dicts.get('rcParams')}'))
-"""
-  else:
-      plt.style.use(plot_style)
-      mplCommand1D += f"""\n#plot style TODO remove absolute path\nplt.style.use('{plot_style}')"""
+  
+  # place copy of plot style in out directory
+  if not os.path.isfile(os.path.join(outdir, mpl_stylename)): os.system(f"cp {plot_style} {os.path.join(outdir, mpl_stylename)}")
+  
+#if yaml_dicts.get('rcParams'):  # Apply rcParams to mpl
+  #    plt.style.use((plot_style, yaml_dicts.get('rcParams')))
+  #    mplCommand1D += f"""\n#plot style TODO remove absolute path
+#plt.style.use(('{plot_style}, {yaml_dicts.get('rcParams')}'))
+#"""
+  #else:
 
+  plt.style.use(plot_style)
+  mplCommand1D += f"""\n#plot style \nplt.style.use('{os.path.join(outdir, mpl_stylename)}')"""
+  
   plot_features = yaml_dicts.get('plot features', {})
 
   yoda_type = 'hist' if isinstance(hist_data[0], yoda.Scatter2D) else 'scatter'
@@ -142,7 +148,7 @@ ax.yaxis.set_minor_locator(mpl.ticker.LogLocator(
   
   plot_errorbars = [h.get('ErrorBars', 1) for h in hist_features]
   colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
-  mplCommand1D += f"""colors = {colors}\nax_format = {ax_format}"""
+  mplCommand1D += f"""colors = {colors}"""
 
   dataOutPyName = plot_name.strip('/').replace('-', '_') + '__data.py'
   dataOutFile = open(os.path.join(outdir, dataOutPyName), "a")

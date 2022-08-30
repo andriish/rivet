@@ -58,7 +58,7 @@ parser.add_argument("--dry-run", help="don't actually do any plotting or HTML bu
 #                    help="don't use subprocesses to render the plots in parallel -- useful for debugging")
 parser.add_argument("--pwd", dest="PATH_PWD", action="store_true", default=False,
                     help="append the current directory (pwd) to the analysis/data search paths (cf. $RIVET_ANALYSIS_PATH)")
-parser.add_argument("--style", dest="STYLE", help="Choose the plotting style", default='default')
+parser.add_argument("--style", dest="STYLE", help="Choose the plotting style", default='rivet')
 parser.add_argument("--write-files", dest="WRITE_FILES", help="Choose to write YAML files", default=True)
 
 stygroup = parser.add_argument_group("Style options")
@@ -470,6 +470,8 @@ print("Making {} plots".format(num_plots))
 for i, (refFile,yaml_dict) in enumerate(yaml_dicts.items()):
     #if "LHCB_2014_I1281685/d02-x01-y01" not in args.OUTPUTDIR+refFile: continue
     if "ALICE" in args.OUTPUTDIR+refFile: continue # for debugging purposes..
+    #if "LHCB_2014_I1281685/d04_x01_y01" not in args.OUTPUTDIR+refFile: continue
+
     print("Plotting", args.OUTPUTDIR+refFile, "({}/{} remaining)".format(num_plots-i, num_plots))
      
     # writePyScript returns path of the .py script
