@@ -96,6 +96,10 @@
 	analysis writers rather than being directly useful in compiled
 	form, into an uncompiled analyses/examples/ directory.
 
+2022-08-30 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add CLEOII_1996_I397787 Xi_c+ -> Sigma+ K- pi+
+
 2022-08-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Hide the bundled eigen3 in a mangled RivetEigen namespace, to avoid clashes.
