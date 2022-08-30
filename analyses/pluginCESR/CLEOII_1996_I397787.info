@@ -12,7 +12,7 @@ References:
  - Phys.Lett.B 365 (1996) 431-436
 RunInfo: Any process producing Xic+ mesons
 Description:
-  'Measurement of the mass distributions in the decay $\Xi_c^+\to\Sigma^+K^-\pi^+$ by CLEOII. The data were read from the plots in the paper.'
+  'Measurement of the mass distributions in the decay $\Xi_c^+\to\Sigma^+K^-\pi^+$ by CLEOII. The data were read from the plots in the paper and may not have been corrected for efficiency/acceptance.'
 ValidationInfo:
   'Herwig 7 events'
 #ReleaseTests:
