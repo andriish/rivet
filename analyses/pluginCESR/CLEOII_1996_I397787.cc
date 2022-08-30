@@ -51,8 +51,7 @@ namespace Rivet {
 	  continue;
 	const Particle & pip = XICP.decayProducts()[ix].at( sign*PID::PIPLUS)[0];
 	const Particle & Km  = XICP.decayProducts()[ix].at( sign*PID::KMINUS)[0];
-	for(unsigned int ix=0;ix<2;++ix)
-	  _h->fill((pip.momentum()+Km.momentum()).mass());
+	_h->fill((pip.momentum()+Km.momentum()).mass());
       }
     }
 
