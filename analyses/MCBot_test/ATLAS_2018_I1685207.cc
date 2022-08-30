@@ -234,6 +234,7 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       book(_h["TripleDiscriminant"], "TripleDiscriminant", 30, -1.5, 1.5);
 
       book(_h["SigJet_pT"], "SigJet_pT", 15, 40, 2000 );
+      book(_h["SigJet_pT_normed"], "SigJet_pT_normed", 15, 40, 2000 );
       book(_s["PV_reweighted"], "PV_reweighted");
       book(_s["PH_reweighted"], "PH_reweighted");
       book(_s["Pt_reweighted"], "Pt_reweighted");
@@ -462,6 +463,8 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
         _h["Pt"]->fill(Ptop);
 
         _h["SigJet_pT"]->fill(j.pt());
+        _h["SigJet_pT_normed"]->fill(j.pt());
+        
 
         _h2["PVpt"]->fill(PV, j.pt());
         _h2["PHpt"]->fill(PH, j.pt());
@@ -739,6 +742,9 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
           _h["sjet2_eta"]->normalize(1);
         } if (_h["sjet3_eta"]->integral() > 0){
           _h["sjet3_eta"]->normalize(1);
+        }
+        if (_h["SigJet_pT_normed"]->integral() > 0){
+          _h["SigJet_pT_normed"]->normalize(1);
         }
 
 
