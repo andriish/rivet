@@ -41,10 +41,10 @@ namespace Rivet {
       // loop over particles
       for(unsigned int ix=0;ix<XICP.decaying().size();++ix) {
 	int sign = 1;
-	if (XICP.decaying()[ix].pid()>0 && XICP.modeMatches(ix,4,mode)) {
+	if (XICP.decaying()[ix].pid()>0 && XICP.modeMatches(ix,3,mode)) {
 	  sign=1;
 	}
-	else if  (XICP.decaying()[ix].pid()<0 && XICP.modeMatches(ix,4,modeCC)) {
+	else if  (XICP.decaying()[ix].pid()<0 && XICP.modeMatches(ix,3,modeCC)) {
 	  sign=-1;
 	}
 	else
