@@ -45,22 +45,27 @@ def writePyScript1D(hist_data, hist_features, yaml_dicts, outdir, plot_name):
   
   # place copy of plot style in out directory
   if not os.path.isfile(os.path.join(outdir, mpl_stylename)): os.system(f"cp {plot_style} {os.path.join(outdir, mpl_stylename)}")
-  
-#if yaml_dicts.get('rcParams'):  # Apply rcParams to mpl
-  #    plt.style.use((plot_style, yaml_dicts.get('rcParams')))
-  #    mplCommand1D += f"""\n#plot style TODO remove absolute path
-#plt.style.use(('{plot_style}, {yaml_dicts.get('rcParams')}'))
-#"""
-  #else:
-
+ 
+  # set plot style 
   plt.style.use(plot_style)
   mplCommand1D += f"""\n#plot style \nplt.style.use('{os.path.join(outdir, mpl_stylename)}')"""
   
   plot_features = yaml_dicts.get('plot features', {})
 
+  mplCommand1D += f"""
+# plot metadata
+ax_xLabel = r'{plot_features.get('XLabel')}'
+ax_yLabel = r'{plot_features.get('YLabel')}'
+ax_title  = r'{plot_features.get('Title')}'
+"""
+
+  xscale = 'log' if (plot_features.get('LogX') ) else 'linear'
+  yscale = 'log' if (plot_features.get('LogY', 1) ) else 'linear'
+  mplCommand1D += f"""
+ax_xScale = '{xscale}'
+ax_yScale = '{yscale}'
+"""
   yoda_type = 'hist' if isinstance(hist_data[0], yoda.Scatter2D) else 'scatter'
-  mkRatio = plot_features.get('RatioPlot', 1) 
-  mplCommand1D += mkCanvas(mkRatio, yoda_type)
 
   # TODO there should be a cleaner way, but \textrm is generally
   # not working in math mode. Naively check if there is a regex match
@@ -72,7 +77,6 @@ def writePyScript1D(hist_data, hist_features, yaml_dicts, outdir, plot_name):
   if 'YLabel' in plot_features.keys() and re.search("^.*\$.*textrm.*\$.*$", plot_features['YLabel']):
     plot_features['YLabel'] = plot_features['YLabel'].replace("\\textrm", "\\mathrm")
 
-  
   ax_format = {}  # Stores the items for formatting the axes in a dict
   
   # Set plot lims
@@ -80,18 +84,7 @@ def writePyScript1D(hist_data, hist_features, yaml_dicts, outdir, plot_name):
       XMin = plot_features.get('XMin', min([h.xMin() for h in hist_data]))
       XMax = plot_features.get('XMax', max([h.xMax() for h in hist_data]))
       ax_format['xlim'] = (XMin, XMax)
-  
-  if mkRatio and yoda_type == 'hist': 
-    
-    # Ratio plot has y range of 0.5 to 1.5
-    RatioPlotYMin = plot_features.get('RatioPlotYMin', 0.5)
-    RatioPlotYMax = plot_features.get('RatioPlotYMax', 1.4999)  # Don't plot 1.5
-    mplCommand1D += f"""
-ax_ratio.yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.1))
-ax_ratio.set_ylabel('{plot_features.get('RatioPlotYLabel', 'MC/Data')}')
-ax_ratio.set_ylim({RatioPlotYMin}, {RatioPlotYMax})
-""" 
-  
+
   # set maximum Y value from all hist datasets 
   if yoda_type == 'scatter':
       max_ymax = max([h.points()[0].val(1) for h in hist_data])
@@ -124,6 +117,22 @@ ax_ratio.set_ylim({RatioPlotYMin}, {RatioPlotYMax})
   ax_format['ylim'] = (YMin, YMax)
   ax_format['logx'] = plot_features.get('LogX')
   ax_format['logy'] = plot_features.get('LogY', 1)
+
+  if ax_format['xlim']: mplCommand1D += f"""\nxLims = {ax_format['xlim']}"""
+  if ax_format['ylim']: mplCommand1D += f"""\nyLims = {ax_format['ylim']}"""
+ 
+  mkRatio = plot_features.get('RatioPlot', 1) 
+  mplCommand1D += mkCanvas(mkRatio, yoda_type)
+  if mkRatio and yoda_type == 'hist': 
+    # Ratio plot has y range of 0.5 to 1.5
+    RatioPlotYMin = plot_features.get('RatioPlotYMin', 0.5)
+    RatioPlotYMax = plot_features.get('RatioPlotYMax', 1.4999)  # Don't plot 1.5
+    mplCommand1D += f"""
+ax_ratio.yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.1))
+ax_ratio.set_ylabel('{plot_features.get('RatioPlotYLabel', 'MC/Data')}')
+ax_ratio.set_ylim({RatioPlotYMin}, {RatioPlotYMax})
+""" 
+    
   if ax_format['logy']:
     mplCommand1D += f"""
 ax.yaxis.set_minor_locator(mpl.ticker.LogLocator(
@@ -199,8 +208,7 @@ labels = {labels}"""
                         plot_features.get('LegendYPos', 0.97))
           mplCommand1D += f"""
 legend_pos = {legend_pos}
-ax.legend(handles, labels, loc='upper left', bbox_to_anchor=legend_pos
-)"""
+ax.legend(handles, labels, loc='upper left', bbox_to_anchor=legend_pos)"""
       if plot_features.get('LegendAlign') == 'r':
           legend_pos = (plot_features.get('LegendXPos', 0.97),
                         plot_features.get('LegendYPos', 0.97))
@@ -213,28 +221,22 @@ ax.legend(handles, labels, loc='upper right', bbox_to_anchor=legend_pos,markerfi
   # Set text labels on axes
   if plot_features.get('RatioPlot', 1) and yoda_type == 'hist':
       mplCommand1D += f"""\n
-ax_ratio.set_xlabel('{plot_features.get('XLabel')}')"""
+ax_ratio.set_xlabel(ax_xLabel)"""
   else:
       mplCommand1D += f"""\n
-ax.set_xlabel('{plot_features.get('XLabel')}')"""
+ax.set_xlabel(ax_xLabel)"""
   mplCommand1D += f"""
-ax.set_ylabel('{plot_features.get('YLabel')}', loc='top')
-ax.set_title('{plot_features.get('Title')}', loc='left')"""
-
-  if plot_features.get('RatioPlot', 1) and yoda_type == 'hist':
-      mplCommand1D += """\nfig.align_ylabels((ax, ax_ratio))"""
-
-
-  # set of useful command to tweak by user
-  xscale = 'log' if (ax_format['logx'] == 1 ) else 'linear'
-  yscale = 'log' if (ax_format['logy'] == 1 ) else 'linear'
-  mplCommand1D += f"""\n
-# a list of useful features to tweak manually
-ax.set_xscale('{xscale}')
-ax.set_yscale('{yscale}')
+ax.set_ylabel(ax_yLabel, loc='top')
+ax.set_title(ax_title, loc='left')
+ax.set_xscale(ax_xScale)
+ax.set_yscale(ax_yScale)
 """
-  if ax_format['xlim']: mplCommand1D += f"""\nax.set_xlim({ax_format['xlim']})"""
-  if ax_format['ylim']: mplCommand1D += f"""\nax.set_ylim({ax_format['ylim']})"""
+
+
+  # toggle x/y lims
+  if ax_format['xlim']: mplCommand1D += """\nax.set_xlim(xLims)"""
+  if ax_format['ylim']: mplCommand1D += """\nax.set_ylim(yLims)"""
+  if plot_features.get('RatioPlot', 1) and yoda_type == 'hist': mplCommand1D += """\n\nfig.align_ylabels((ax, ax_ratio))"""
 
   mplCommand1D += f"""
 
