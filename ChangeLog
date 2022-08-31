@@ -91,6 +91,10 @@
 	analysis writers rather than being directly useful in compiled
 	form, into an uncompiled analyses/examples/ directory.
 
+2022-08-31 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2020_I1813380 Lambda_c+ -> eta Lambda pi+
+
 2022-08-30 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add LHCB_2022_I2138845 B_c+ -> chamonium + hadrons
