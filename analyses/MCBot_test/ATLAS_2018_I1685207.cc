@@ -238,6 +238,9 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       book(_s["PV_reweighted"], "PV_reweighted");
       book(_s["PH_reweighted"], "PH_reweighted");
       book(_s["Pt_reweighted"], "Pt_reweighted");
+      book(_s["PV_bkgreweighted"], "PV_bkgreweighted");
+      book(_s["PH_bkgreweighted"], "PH_bkgreweighted");
+      book(_s["Pt_bkgreweighted"], "Pt_bkgreweighted");
 
       //Jet Mass histograms.
       book(_h["mVRC"], "mVRC", 60, 40, 250);
@@ -368,10 +371,8 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
         getVHandtop_fromEvent(VHandtops, event);
       
       if (_mode == 0){
-
         signal = FilteredVRCjets;
         SignalConstits = FilteredNewConstits;
-
       }
       
       else if (_mode  == 1) {
@@ -802,7 +803,6 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
           }
 
 
-          //
           std::vector<double> pT_volumes = {};
           for (const double pT_value : ptBinCentres){
             double pT_volume = 0;
@@ -815,13 +815,16 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
 
           for (size_t i = 0; i < PTagCentres.size(); ++i){
             double Area = 0;
+            double BkgReweightArea = 0;
             for (size_t j = 0; j < ptBinCentres.size(); ++j){
               Area += _h2[Tag]->binAt(PTagCentres[i], ptBinCentres[j]).volume() * ( abs(pT_volumes[j]) > 1e-15 ? 1./(pT_volumes[j]) : 0 );
+              BkgReweightArea += _h2[Tag]->binAt(PTagCentres[i], ptBinCentres[j]).volume() * ( abs(pT_volumes[j]) > 1e-15 ? _trueSigPtDistrib[j]/(pT_volumes[j]) : 0 );
             }
             //_s[string({Tag[0], Tag[1]})+"_reweighted"]->addPoint(PTagCentres[i], Area, PTagCentres[i] - PTagEdges[i], 0);
             // std::cout << string({Tag[0], Tag[1]})+"_reweighted" << std::endl;
             // std::cout << PTagCentres[i] << ", " << Area << std::endl;
             _s[string({Tag[0], Tag[1]})+"_reweighted"]->addPoint(PTagCentres[i], Area, 5e-2, 0.0001);
+            _s[string({Tag[0], Tag[1]})+"_bkgreweighted"]->addPoint(PTagCentres[i], BkgReweightArea, 5e-2, 0.0001);
           }
 
         }
@@ -844,6 +847,7 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       std::unique_ptr<MCBot_tagger> _MCbottagger;
       size_t _mode;
       std::string _targetParticle;
+      std::vector<double> _trueSigPtDistrib {1.826358e-04, 1.524104e-03, 2.572164e-03, 2.158310e-03, 6.498834e-04, 3.057727e-04, 1.395896e-04, 6.725965e-05, 2.747298e-05, 1.371062e-05, 6.156845e-06, 3.673411e-06, 1.241717e-06, 8.795492e-07, 2.069528e-07};
 
 
     };

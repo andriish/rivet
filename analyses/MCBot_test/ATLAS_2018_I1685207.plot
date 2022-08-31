@@ -42,6 +42,24 @@ RatioPlot =0
 LineStyle=dashdotted
 END PLOT
 
+BEGIN PLOT /ATLAS_2018_I1685207/PVbkg_reweighted
+LogY=0
+RatioPlot = 0
+LineStyle=dashdotted
+END PLOT
+
+BEGIN PLOT /ATLAS_2018_I1685207/PHbkg_reweighted
+LogY=0
+RatioPlot = 0
+LineStyle=dashdotted
+END PLOT
+
+BEGIN PLOT /ATLAS_2018_I1685207/Ptbkg_reweighted
+LogY=0
+RatioPlot =0
+LineStyle=dashdotted
+END PLOT
+
 BEGIN PLOT /ATLAS_2018_I1685207/V_top
 LogY=0
 END PLOT
