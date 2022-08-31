@@ -138,8 +138,8 @@ mc{i}, = ax.plot(dataf.x_bins, dataf.mc{i}_yvals, color='{color}', linestyle='{l
         if error_bars[i]:
             errminus = [err[0] for err in hist.yErrs()]
             errplus = [err[1] for err in hist.yErrs()]
-            mc_errbarsup = hist.yVals() - np.array(errminus)
-            mc_errbarsdown = hist.yVals() + np.array(errplus)
+            mc_errbarsdown = hist.yVals() - np.array(errminus)
+            mc_errbarsup = hist.yVals() + np.array(errplus)
             lists += f"""
 mc{i}_errbarsup = {[val for val in mc_errbarsup]}
 mc{i}_errbarsdown = {[val for val in mc_errbarsdown]}
@@ -151,15 +151,6 @@ ax.vlines(dataf.x_points, dataf.mc{i}_errbarsdown, dataf.mc{i}_errbarsup,
     mplCommand += f"""
 handles = [{', '.join(legend_handles)}]
 """
-# TODO ; set legend in main writePyScript function
-#  if legend:
-#      legend_labels = []
-#      for i, _ in enumerate(hists):
-#          if i == 0:
-#              legend_labels.append('Data')
-#          else:
-#              legend_labels.append('mc{}'.format(i))
-#      mplCommand += """\nax.legend(legend_labels)"""
     return mplCommand, lists
 
 
@@ -182,19 +173,32 @@ def getListsRatio(hists, ax=None, error_bars=True, error_bands=False,
   line_properties = LineProperties(colors, line_styles)
 
   # Define useful variables
-  #x_points = (hists[0].xMins() + hists[0].xMaxs())/2
-  #x_bins = np.append(hists[0].xMins(), hists[0].xMax())
   ref_yvals = hists[0].yVals()
+  print(type(ref_yvals))
+  print(type(hists[0].yErrs()))
 
-  # Plot the reference data
+  # Plot the reference data ratio
+  try:
+    data_errminus = np.array([err[0] for err in hists[0].yErrs()]) / ref_yvals
+    data_errplus  = np.array([err[1] for err in hists[0].yErrs()]) / ref_yvals
+  except:
+    print("Warning - no uncertainties found on the data!")
+    data_errminus = [0] * len(ref_yvals)
+    data_errplus  = [0] * len(ref_yvals)
+  lists += f"""
+ratio_ref_errminus = {[val for val in data_errminus]}
+ratio_ref_errplus =  {[val for val in data_errplus]}
+ratio_ref_errs = [ratio_ref_errminus, ratio_ref_errplus]
+""" 
   mplCommand += f"""
-{ax}.hlines(1, {hists[0].xMin()}, {hists[0].xMax()}, 'k', zorder=2)
-{ax}.plot(dataf.x_points, [1.] * len(dataf.x_points), 'ko', zorder=3)
+{ax}.errorbar(dataf.x_points, [1.] * len(dataf.x_points), xerr=dataf.x_errs , yerr=dataf.ratio_ref_errs, fmt='o',
+                    ecolor = 'black', color='black')
 """ 
   if error_bars[0]:
     data_errminus = [err[0] for err in hists[0].yErrs()]
     data_errplus = [err[1] for err in hists[0].yErrs()]
     if error_bands:
+      # TODO
       errbandminus = np.insert((ref_yvals - data_errminus)/ref_yvals, 0,
                                ((ref_yvals - data_errminus)/ref_yvals)[0])
       errbandplus = np.insert((ref_yvals + data_errplus)/ref_yvals, 0,
@@ -207,16 +211,8 @@ ratio_errbandminus = {[val for val in errbandminus]}
 {ax}.fill_between(dataf.x_bins, dataf.ratio_errbandminus, dataf.ratio_errbandplus,
                 step='pre', alpha=0.5, zorder=0)
 """
-    else:
-      lists += f"""
-ratio_errbandup = {[val for val in (ref_yvals - data_errminus)/ref_yvals]}
-ratio_errbandminus = {[val for val in (ref_yvals + data_errplus)/ref_yvals]} 
-"""
-      mplCommand += f"""
-{ax}.vlines(dataf.x_points, dataf.ratio_errbandup, dataf.ratio_errbandminus, 'k')
-"""  
 
-  # Plot the ratio data
+  # Plot the ratio histograms (MC)
   for i, hist in enumerate(hists[1:]):
     color, linestyle = next(line_properties)
     y_ratio = (np.insert(hist.yVals(), 0, hist.yVals()[0])
