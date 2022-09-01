@@ -4,13 +4,10 @@ SHELL := bash -O extglob
 PLUGIN_DIRS = $(shell ls -d $(srcdir)/plugin*)
 PLUGIN_NAMES = $(notdir $(subst plugin,,$(PLUGIN_DIRS)))
 PLUGIN_LIBS = $(patsubst %,Rivet%Analyses.so,$(PLUGIN_NAMES))
-PLUGIN_INFOFILES = $(shell ls $(abs_srcdir)/plugin*/*.info)
-PLUGIN_PLOTFILES = $(shell ls $(abs_srcdir)/plugin*/*.plot)
-PLUGIN_YODAFILES = $(shell ls $(abs_srcdir)/plugin*/*.yoda*)
-PLUGIN_DATAFILES = $(PLUGIN_INFOFILES) $(PLUGIN_PLOTFILES) $(PLUGIN_YODAFILES)
+PLUGIN_DATAFILES = $(shell ls $(abs_srcdir)/plugin*/*.*)
 
 CLEANFILES = $(PLUGIN_LIBS)
-EXTRA_DIST = $(PLUGIN_DIRS)
+EXTRA_DIST = $(PLUGIN_DIRS) examples
 
 %.so:
 	@+echo && RIVET_BUILD_BEFORE_INSTALL=1 bash $(top_builddir)/bin/rivet-build $@ $^ -I$(top_builddir)/include

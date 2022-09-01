@@ -8,7 +8,7 @@
 namespace Rivet {
 
 
-  /// @defgroup rivetpaths Rivet file searching utils
+  /// @defgroup rivetpaths Rivet file-searching utils
   ///@{
 
 
