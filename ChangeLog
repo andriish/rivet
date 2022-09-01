@@ -1,5 +1,15 @@
 2022-09-01  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add Analysis::analysisDataPath() and the RivetLWTNN.hh include
+	with convenience functions for loading of LWTNN DNNs.
+
+2022-09-01  Tomek Procter  <t.procter.1@research.gla.ac.uk>
+
+	* Add EXAMPLE_LWTNN example analysis, demonstrating use of a
+	preserved LWTNN neural network in Rivet.
+
+2022-09-01  Andy Buckley  <andy.buckley@cern.ch>
+
 	* Install more generically named files from the analysis
 	plugin/data dirs rather than limiting to the .plot, .info, .yoda*
 	set (it's ok, and maybe useful, to install the .cc files)
