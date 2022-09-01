@@ -1,3 +1,11 @@
+2022-08-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Hide the bundled eigen3 in a mangled RivetEigen namespace, to avoid clashes.
+
+2022-07-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Upgrade eigen3 and yaml-cpp bundling to remove compiler warnings.
+
 2022-07-27  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Require FastJet version 3.4.0 -- update list of plugin libs to

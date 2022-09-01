@@ -18,7 +18,7 @@ namespace Rivet {
 
     Matrix3(const Vector3& axis, const double angle) {
       const Vector3 normaxis = axis.unit();
-      _matrix = Eigen::AngleAxis<double>(angle, normaxis._vec);
+      _matrix = RivetEigen::AngleAxis<double>(angle, normaxis._vec);
     }
 
     Matrix3(const Vector3& from, const Vector3& to) {
@@ -43,7 +43,7 @@ namespace Rivet {
         _matrix = EMatrix::Identity();
       } else {
         const Vector3 normaxis = cross(from, to).unit();
-        _matrix = Eigen::AngleAxis<double>(theta, normaxis._vec);
+        _matrix = RivetEigen::AngleAxis<double>(theta, normaxis._vec);
       }
       return *this;
     }
