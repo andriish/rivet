@@ -1,3 +1,13 @@
+2022-09-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Install more generically named files from the analysis
+	plugin/data dirs rather than limiting to the .plot, .info, .yoda*
+	set (it's ok, and maybe useful, to install the .cc files)
+
+	* Move EXAMPLE_* analyses, which demonstrate functionality to
+	analysis writers rather than being directly useful in compiled
+	form, into an uncompiled analyses/examples/ directory.
+
 2022-08-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Hide the bundled eigen3 in a mangled RivetEigen namespace, to avoid clashes.
