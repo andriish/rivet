@@ -13,10 +13,8 @@
 #include <iostream>
 #include <regex>
 
-using std::cout;
-using std::cerr;
-
 namespace Rivet {
+  using namespace std;
 
 
   AnalysisHandler::AnalysisHandler(const string& runname)
@@ -84,6 +82,15 @@ namespace Rivet {
     setRunBeams(Rivet::beams(ge));
     MSG_DEBUG("Initialising the analysis handler");
     _eventNumber = ge.event_number();
+
+    // Check the environment variable to see if a bootstrap file is needed
+    /// @todo Add a proper programmatic control mechanism
+    string bootstrapfile = getEnvParam("RIVET_BOOTSTRAP_FILE", "");
+    if (!bootstrapfile.empty()) _fbootstrap = ofstream(bootstrapfile);
+
+    // Check the environment variable to see if a event stripping is needed
+    /// @todo Add a proper programmatic control mechanism
+    _stripevt = ( getEnvParam("RIVET_STRIP_HEPMC", "NOOOO") != "NOOOO" );
 
     // Assemble the weight streams to be used
     setWeightNames(ge);
@@ -156,6 +163,18 @@ namespace Rivet {
     _stage = Stage::OTHER;
     _initialised = true;
     MSG_DEBUG("Analysis handler initialised");
+
+    // Write out list of analysis objects to bootstrap file, if active
+    if (_fbootstrap.is_open()) {
+      _fbootstrap << "#";
+      for (const AnaHandle& a : analyses()) {
+        for (const auto& ao : a->analysisObjects()) {
+          _fbootstrap << " " << ao.get()->basePath();
+        }
+      }
+      _fbootstrap << endl;
+    }
+
   }
 
 
@@ -291,6 +310,13 @@ namespace Rivet {
 
     }
 
+    // Write weight names into the bootstrap file, if active
+    if (_fbootstrap.is_open()) {
+      _fbootstrap << "#";
+      for (const string& wn : _weightNames) _fbootstrap << " " << wn;
+      _fbootstrap << endl;
+    }
+
     // Done (de-)selecting weights: show useful debug messages
     MSG_DEBUG("Default weight name: \"" <<  _weightNames[_rivetDefaultWeightIdx] << "\"");
     MSG_DEBUG("Default weight index (Rivet): " << _rivetDefaultWeightIdx);
@@ -323,8 +349,7 @@ namespace Rivet {
     // Create the Rivet event wrapper
     /// @todo Filter/normalize the event here
     /// @todo Find a way to cache the env call
-    bool strip = ( getEnvParam("RIVET_STRIP_HEPMC", string("NOOOO") ) != "NOOOO" );
-    Event event(ge, _weightIndices, strip);
+    Event event(ge, _weightIndices, _stripevt);
 
     // Set the cross section based on what is reported by this event
     if (ge.cross_section())  setCrossSection(event.crossSections());
@@ -414,6 +439,18 @@ namespace Rivet {
       MSG_TRACE("AnalysisHandler::analyze(): finished pushing "
                 << a->name() << "'s objects to persistent.");
     }
+
+    // Write out bootstrap acceptances if possible
+    // @todo Only a placeholder... complete by writing out actual bin-weights from instrumented ao wrappers
+    if (_fbootstrap.is_open()) {
+      _fbootstrap << _subEventWeights.size();
+      for (const auto& sew : _subEventWeights) {
+        _fbootstrap << " " << sew;
+      }
+      _fbootstrap << endl;
+    }
+
+    // Clean up
     _subEventWeights.clear();
   }
 
@@ -694,13 +731,13 @@ namespace Rivet {
 
 
   void AnalysisHandler::mergeAOS(map<string, YODA::AnalysisObjectPtr> &allaos,
-                                 map<string, YODA::AnalysisObject*> &newaos, 
+                                 map<string, YODA::AnalysisObject*> &newaos,
                                  map<string, pair<double, double>> &allxsecs,
                                  const vector<string> &delopts,
                                  const vector<string> &optAnas,
                                  const vector<string> &optKeys,
                                  const vector<string> &optVals,
-                                 const bool equiv, 
+                                 const bool equiv,
                                  const bool overwrite_xsec,
                                  const double user_xsec) {
 
@@ -801,7 +838,7 @@ namespace Rivet {
     set<string> foundAnalyses;
     set<string> foundWeightNames;
     for (const auto& pair : allAOs) {
-      AOPath path(pair.first); 
+      AOPath path(pair.first);
       if ( path.analysisWithOptions() != "" ) {
         foundAnalyses.insert(path.analysisWithOptions());
       }

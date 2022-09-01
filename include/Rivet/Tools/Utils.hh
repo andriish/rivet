@@ -680,6 +680,11 @@ namespace Rivet {
     return env ? lexical_cast<T>(env) : fallback;
   }
 
+  // template <>
+  std::string getEnvParam(const std::string name, const char* fallback) {
+    return getEnvParam(name, string(fallback));
+  }
+
 
 }
 

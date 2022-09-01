@@ -6,8 +6,11 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/AnalysisLoader.hh"
 #include "Rivet/Tools/RivetYODA.hh"
+#include "Rivet/Tools/Utils.hh"
+#include <fstream>
 
 namespace Rivet {
+  using namespace std;
 
 
   // Forward declaration and smart pointer for Analysis
@@ -45,9 +48,9 @@ namespace Rivet {
     /// Get the number of events seen. Should only really be used by external
     /// steering code or analyses in the finalize phase.
     ///
-    /// N.B. This only reports the count for the last collapsed event group 
+    /// N.B. This only reports the count for the last collapsed event group
     /// and hence ignores any additional sub-events seen so far.
-    size_t numEvents() const { 
+    size_t numEvents() const {
       const double N = _eventCounter.get()->_getPersistent(defaultWeightIndex())->numEntries();
       return  size_t(N + 0.5 - (N<0)); // round to nearest integer
     }
@@ -361,7 +364,7 @@ namespace Rivet {
 
     /// @brief Merge the AO map @a newaos into @a allaos
     void mergeAOS(map<string, YODA::AnalysisObjectPtr> &allaos,
-                  map<string, YODA::AnalysisObject*> &newaos, 
+                  map<string, YODA::AnalysisObject*> &newaos,
                   map<string, pair<double, double>> &allxsecs,
                   const vector<string>& delopts=vector<string>(),
                   const vector<string>& optAnas=vector<string>(),
@@ -371,7 +374,7 @@ namespace Rivet {
                   const bool overwrite_xsec = false,
                   const double user_xsec = 1.0);
 
-     
+
     /// @brief A method to prepare a re-entrant run for a given set of analysis objects
     ///
     /// The @a unscale parameter multiplies fillable objects with sumW/xsec to counteract
@@ -465,8 +468,16 @@ namespace Rivet {
     /// The name of a YODA file to which Rivet periodically dumps results.
     string _dumpFile;
 
-    /// Flag to indicate periodic dumping is in progress
+    /// Flag to indicate periodic AO dumping is in progress
     bool _dumping;
+
+    /// Flag to indicate if event stripping is being used
+    bool _stripevt;
+
+    /// Flag to indicate bootstrap dumping is in progress
+    ///
+    /// @todo Add a string param to allow different AHs to dump to different filenames?
+    ofstream _fbootstrap;
 
     /// @}
 

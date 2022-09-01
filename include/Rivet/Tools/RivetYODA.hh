@@ -904,18 +904,18 @@ namespace Rivet {
     string weight() const { return _weight; }
 
     /// The weight component of the path
-    string weightComponent() const { 
+    string weightComponent() const {
       if (_weight == "")  return _weight;
       return "[" + _weight + "]";
     }
 
-    /// Is This a RAW (filling) object?
+    /// Is this a RAW (filling) object?
     bool   isRaw() const { return _raw; }
 
-    // Is This a temporary (filling) object?
+    // Is this a temporary (filling) object?
     bool   isTmp() const { return _tmp; }
 
-    /// Is This a reference object?
+    /// Is this a reference object?
     bool   isRef() const { return _ref; }
 
     /// The string describing the options passed to the analysis.
