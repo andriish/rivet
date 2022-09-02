@@ -33,9 +33,8 @@ namespace Rivet {
     }
 
     // Calculate the Q2 using mother and daughter charged lepton
-    double q2(const Particle& B) {
-      const Particle chlept = filter_select(B.children(), Cuts::pid==PID::POSITRON || Cuts::pid==PID::ANTIMUON)[0];
-      FourMomentum q = B.mom() - chlept.mom();
+    double q2(const Particle& B, int mesonID) {
+      FourMomentum q = B.mom() - filter_select(B.children(), Cuts::pid==mesonID)[0];
       return q*q;
     }
 
@@ -56,7 +55,7 @@ namespace Rivet {
 	  _nB[0]->fill();
 	  if (isSemileptonicDecay(p, {PID::PIMINUS, PID::POSITRON, PID::NU_E}) ||
 	      isSemileptonicDecay(p, {PID::PIMINUS, PID::ANTIMUON, PID::NU_MU})) {
-	    double Q2 = q2(p);
+	    double Q2 = q2(p,PID::PIMINUS);
             _h_B0_pi[0]->fill(Q2);
             _h_B0_pi[1]->fill(Q2);
 	  }
@@ -65,17 +64,17 @@ namespace Rivet {
 	  _nB[1]->fill();
 	  if (isSemileptonicDecay(p, {PID::PI0, PID::POSITRON, PID::NU_E}) ||
 	      isSemileptonicDecay(p, {PID::PI0, PID::ANTIMUON, PID::NU_MU})) {
-	    double Q2 = q2(p);
+	    double Q2 = q2(p,PID::PI0);
             _h_Bp_pi[0]->fill(Q2);
             _h_Bp_pi[1]->fill(Q2);
 	  }
 	  else if (isSemileptonicDecay(p, {PID::OMEGA, PID::POSITRON, PID::NU_E}) ||
 		   isSemileptonicDecay(p, {PID::OMEGA, PID::ANTIMUON, PID::NU_MU})) {
-            _h_omega->fill(q2(p));
+	    _h_omega->fill(q2(p,PID::OMEGA));
 	  }
 	  else if (isSemileptonicDecay(p, {PID::ETA, PID::POSITRON, PID::NU_E}) ||
 		   isSemileptonicDecay(p, {PID::ETA, PID::ANTIMUON, PID::NU_MU})) {
-            _h_eta->fill(q2(p));
+            _h_eta->fill(q2(p,PID::ETA));
 	  }
 	}
       }

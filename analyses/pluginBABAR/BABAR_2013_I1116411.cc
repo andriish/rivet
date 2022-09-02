@@ -28,9 +28,8 @@ namespace Rivet {
     }
     
     // Calculate the Q2 using mother and daughter charged lepton
-    double q2(const Particle& B) {
-      const Particle chlept = filter_select(B.children(), Cuts::pid==PID::POSITRON || Cuts::pid==PID::ANTIMUON)[0];
-      FourMomentum q = B.mom() - chlept.mom();
+    double q2(const Particle& B, int mesonID) {
+      FourMomentum q = B.mom() - filter_select(B.children(), Cuts::pid==mesonID)[0];
       return q*q;
     }
 
@@ -49,7 +48,7 @@ namespace Rivet {
       for(const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::BPLUS)) {
         if (isSemileptonicDecay(p, {PID::OMEGA, PID::POSITRON, PID::NU_E}) ||
             isSemileptonicDecay(p, {PID::OMEGA, PID::ANTIMUON, PID::NU_MU})) {
-            _h_q2->fill(q2(p));
+	  _h_q2->fill(q2(p,PID::OMEGA));
         }
       }
     }

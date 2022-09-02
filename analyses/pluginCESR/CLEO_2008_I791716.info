@@ -12,10 +12,10 @@ References:
  - Phys.Rev.D 78 (2008) 072003
 RunInfo: Any process producing D0
 Description:
-  'Kinematic distributions  in the decay $D^+\to \to K^+K^-\pi^+$'
+  'Kinematic distributions  in the decay $D^+\to \to K^+K^-\pi^+$. Resolution/acceptance effects have been not unfolded. Given the agreement with the model in the paper this analysis should only be used for qualitative studies.'
 ValidationInfo:
   'Compared Herwig events using the same model for the decay as in the paper. The data were read from the plots in the paper.
-   Resolution/acceptance effects have been not unfolded. Given the agreement with the model in the paper this analysis should only be used for qualitative studies.'
+   '
 #ReleaseTests:
 # - $A my-hepmc-prefix :MODE=some_rivet_flag
 Keywords: []
