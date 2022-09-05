@@ -1,0 +1,12 @@
+---
+title: "Merging Histograms 101"
+description: "Merging histograms with yoda-merge and rivet-merge"
+date: 2022-08-03T16:33:10+01:00
+lastmod: 2022-08-03T16:33:10+01:00
+draft: false
+images: []
+menu:
+  documentation:
+    parent: "prm"
+weight: 30
+---

@@ -1,0 +1,12 @@
+---
+title: "Installation"
+description: "Quick guide on getting RIVET set up in your system."
+date: 2022-08-03T16:33:10+01:00
+lastmod: 2022-08-03T16:33:10+01:00
+draft: false
+images: []
+menu:
+  documentation:
+    parent: "gs"
+weight: 20
+---

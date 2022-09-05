@@ -1,0 +1,13 @@
+---
+title: "First Run"
+description: "Running the first events after installing Docker."
+date: 2022-08-03T16:33:10+01:00
+lastmod: 2022-08-03T16:33:10+01:00
+draft: false
+images: []
+menu:
+  documentation:
+    parent: "gs"
+weight: 40
+---
+
