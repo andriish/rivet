@@ -1,0 +1,12 @@
+---
+title: "Use of multiweights in YODA"
+description: "Fun with multiweights when plotting with YODA files (work in progress)"
+date: 2022-08-03T16:33:10+01:00
+lastmod: 2022-08-03T16:33:10+01:00
+draft: false
+images: []
+menu:
+  documentation:
+    parent: "arp"
+weight: 60
+---
