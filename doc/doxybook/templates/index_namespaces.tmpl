@@ -1,0 +1,19 @@
+---
+{% if exists("title") -%}
+title: "{{title}}"
+{% else if exists("name") -%}
+title: "{{name}}"
+{% endif -%}
+{% if exists("summary") -%}
+summary: "{{summary}}"
+{% endif -%}
+{% include "meta" %}
+menu:
+  documentation:
+    parent: "code"
+weight: 50
+---
+
+{% include "custom_index.tmpl" %}
+
+{% include "footer" %}
