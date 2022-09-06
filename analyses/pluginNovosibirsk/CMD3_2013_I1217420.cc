@@ -63,20 +63,22 @@ namespace Rivet {
       double fact = crossSection()/nanobarn/sumOfWeights();
       double sigma = _c_all->val()*fact;
       double error = _c_all->err()*fact;
-      Scatter2D temphisto(refData(1, 1, 1));
-      Scatter2DPtr  mult;
-      book(mult, 1, 1, 1);
-      for (size_t b = 0; b < temphisto.numPoints(); b++) {
-	const double x  = temphisto.point(b).x();
-	pair<double,double> ex = temphisto.point(b).xErrs();
-	pair<double,double> ex2 = ex;
-	if(ex2.first ==0.) ex2. first=0.0001;
-	if(ex2.second==0.) ex2.second=0.0001;
-	if (inRange(sqrtS()/MeV, x-ex2.first, x+ex2.second)) {
-	  mult->addPoint(x, sigma, ex, make_pair(error,error));
-	}
-	else {
-	  mult->addPoint(x, 0., ex, make_pair(0.,.0));
+      for(unsigned int ihist=1;ihist<4;++ihist) {
+	Scatter2D temphisto(refData(1, 1,ihist));
+	Scatter2DPtr  mult;
+	book(mult, 1, 1, ihist);
+	for (size_t b = 0; b < temphisto.numPoints(); b++) {
+	  const double x  = temphisto.point(b).x();
+	  pair<double,double> ex = temphisto.point(b).xErrs();
+	  pair<double,double> ex2 = ex;
+	  if(ex2.first ==0.) ex2. first=0.0001;
+	  if(ex2.second==0.) ex2.second=0.0001;
+	  if (inRange(sqrtS()/MeV, x-ex2.first, x+ex2.second)) {
+	    mult->addPoint(x, sigma, ex, make_pair(error,error));
+	  }
+	  else {
+	    mult->addPoint(x, 0., ex, make_pair(0.,.0));
+	  }
 	}
       }
     }
