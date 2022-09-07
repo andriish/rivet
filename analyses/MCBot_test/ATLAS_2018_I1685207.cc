@@ -144,6 +144,7 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
 
       _mode = 1; 
       if (getOption("MODE") == "BCG"){
+        std::cout << "Mode = BCG" << std::endl;
         _mode = 0;
       }
       else if (getOption("MODE") == "SGN" || getOption("MODE") == "Higgs" ||
@@ -151,12 +152,18 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
         _mode = 1;
         if (getOption("MODE") == "Higgs") {
           _targetParticle = "Higgs";
+          std::cout << "Mode = SGN (Higgs)" << std::endl;
         }
         else if (getOption("MODE") == "Vector") {
           _targetParticle = "Vector";
+          std::cout << "Mode = SGN (Vector)" << std::endl;
         }
         else if (getOption("MODE") == "top") {
           _targetParticle = "top";
+          std::cout << "Mode = SGN (top)" << std::endl;
+        }
+        else {
+          std::cout << "Mode = SGN" << std::endl;
         }
       }
 
@@ -358,17 +365,6 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       // signal - vRC jets for further analysis with their corresponding constituent jets in SignalConstits
       PseudoJets signal; 
       vector<PseudoJets> SignalConstits;
-
-      // get the V, H, and tops from the event
-      std::vector<Particle> VHandtops;
-      if (_targetParticle == "Higgs")
-        getVHandtop_fromEvent(VHandtops, event, {25}); 
-      else if (_targetParticle == "Vector")
-        getVHandtop_fromEvent(VHandtops, event, {23, 24}); 
-      else if (_targetParticle == "top")
-        getVHandtop_fromEvent(VHandtops, event, {6});
-      else
-        getVHandtop_fromEvent(VHandtops, event);
       
       if (_mode == 0){
         signal = FilteredVRCjets;
@@ -377,16 +373,50 @@ Jet JET_SMEAR_ANGULAR(const Jet& j) {
       
       else if (_mode  == 1) {
 
+        // get the V, H, and tops from the event
+        std::vector<Particle> signalParticles;
+        std::vector<Particle> rejectParticles;
+        if (_targetParticle == "Higgs"){
+          getVHandtop_fromEvent(signalParticles, event, {25}); 
+          getVHandtop_fromEvent(rejectParticles, event, {6, 23, 24}); 
+        }
+        else if (_targetParticle == "Vector"){
+          getVHandtop_fromEvent(signalParticles, event, {23, 24}); 
+          getVHandtop_fromEvent(rejectParticles, event, {6, 25}); 
+        }
+        else if (_targetParticle == "top"){
+          getVHandtop_fromEvent(signalParticles, event, {6});
+          //getVHandtop_fromEvent(rejectParticles, event, {23, 24, 25}); 
+        }
+        else{
+          getVHandtop_fromEvent(signalParticles, event);
+        }
+
         for (size_t i = 0; i < FilteredVRCjets.size(); ++i){
-          auto iterator = std::find_if(VHandtops.begin(), VHandtops.end(),
+          auto iterator = std::find_if(signalParticles.begin(), signalParticles.end(),
           //TODO: is there a preferred syntax for writing long ugly lambdas?
                           [&FilteredVRCjets, i](const Particle& VHTop){
                             //return (deltaR(momentum3(VHTop.pseudojet()), momentum3(FilteredVRCjets[i])) < 0.1);
                             return (deltaR(momentum3(VHTop.pseudojet()), momentum3(FilteredVRCjets[i])) < 0.75*315/(FilteredVRCjets[i].pt()));
                             });
-          if (iterator != VHandtops.end()){ 
+          if (iterator != signalParticles.end()){ 
+            //We don't want jets with multiple tagged particles either of the correct or incorrect type in the jet:
+            auto iterator2 = std::find_if(iterator+1, signalParticles.end(),
+            //TODO: is there a preferred syntax for writing long ugly lambdas?
+                          [&FilteredVRCjets, i](const Particle& VHTop){
+                            //return (deltaR(momentum3(VHTop.pseudojet()), momentum3(FilteredVRCjets[i])) < 0.1);
+                            return (deltaR(momentum3(VHTop.pseudojet()), momentum3(FilteredVRCjets[i])) < 0.75*315/(FilteredVRCjets[i].pt()));
+                            });
+            auto iterator3 = std::find_if(rejectParticles.begin(), rejectParticles.end(),
+            //TODO: is there a preferred syntax for writing long ugly lambdas?
+                          [&FilteredVRCjets, i](const Particle& VHTop){
+                            //return (deltaR(momentum3(VHTop.pseudojet()), momentum3(FilteredVRCjets[i])) < 0.1);
+                            return (deltaR(momentum3(VHTop.pseudojet()), momentum3(FilteredVRCjets[i])) < 0.75*315/(FilteredVRCjets[i].pt()));
+                            });
+            
             //Also only consider events where the jet pT in the 40GeV < pt < 2TeV range.
-            if (FilteredVRCjets[i].pt() > 40*GeV && FilteredVRCjets[i].pt() < 2000*GeV){
+            if (FilteredVRCjets[i].pt() > 40*GeV && FilteredVRCjets[i].pt() < 2000*GeV &&
+                 iterator2 == signalParticles.end() && iterator3 == rejectParticles.end()){
               signal.push_back(FilteredVRCjets[i]);
               SignalConstits.push_back(FilteredNewConstits[i]);
             }
