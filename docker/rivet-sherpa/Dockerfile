@@ -7,12 +7,12 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && cd /usr/local \
     && git clone https://gitlab.com/openloops/OpenLoops.git \
     && cd OpenLoops && ./scons \
-    && ./openloops libinstall ppll pptt
+    && ./openloops libinstall ppln ppln_ew pptt
 
 ARG SHERPA_VERSION
 ENV PATH="${PATH}:/usr/lib64/openmpi/bin"
 RUN export DEBIAN_FRONTEND=noninteractive \
-    && apt-get install -y libtool texinfo libsqlite3-dev swig openmpi-bin libopenmpi-dev \
+    && apt-get install -y libtool texinfo texlive-metapost feynmf libsqlite3-dev swig openmpi-bin libopenmpi-dev \
     && mkdir /code && cd /code \
     && git clone -b v${SHERPA_VERSION} https://gitlab.com/sherpa-team/sherpa.git \
     && cd sherpa && autoreconf -fi \

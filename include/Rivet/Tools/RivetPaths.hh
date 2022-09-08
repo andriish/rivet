@@ -8,8 +8,8 @@
 namespace Rivet {
 
 
-  /// @defgroup rivetpaths Rivet file searching utils
-  /// @{
+  /// @defgroup rivetpaths Rivet file-searching utils
+  ///@{
 
 
   /// Convenience function for determining if a filesystem path exists

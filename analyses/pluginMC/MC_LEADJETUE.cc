@@ -7,8 +7,6 @@
 namespace Rivet {
 
 
-
-
   /// @brief MC validation analysis for underlying event in jet events
   /// @author Andy Buckley
   class MC_LEADJETUE : public Analysis {
@@ -73,8 +71,8 @@ namespace Rivet {
       // Get the final states to work with for filling the distributions
       const FinalState& cfs = apply<ChargedFinalState>(e, "CFS");
 
-      size_t   numOverall(0),     numToward(0),     numTrans1(0),     numTrans2(0),     numAway(0);
-      double ptSumOverall(0.0), ptSumToward(0.0), ptSumTrans1(0.0), ptSumTrans2(0.0), ptSumAway(0.0);
+      size_t numOverall(0), numToward(0), numTrans1(0), numTrans2(0), numAway(0);
+      double ptSumTrans1(0.0), ptSumTrans2(0.0);
       double ptMaxOverall(0.0), ptMaxToward(0.0), ptMaxTrans1(0.0), ptMaxTrans2(0.0), ptMaxAway(0.0);
 
       // Calculate all the charged stuff
@@ -84,12 +82,12 @@ namespace Rivet {
         const double phi = p.phi();
         const double rotatedphi = phi - jetphi;
 
-        ptSumOverall += pT;
+        //ptSumOverall += pT;
         ++numOverall;
         if (pT > ptMaxOverall) ptMaxOverall = pT;
 
         if (dPhi < PI/3.0) {
-          ptSumToward += pT;
+          //ptSumToward += pT;
           ++numToward;
           if (pT > ptMaxToward) ptMaxToward = pT;
         }
@@ -105,7 +103,7 @@ namespace Rivet {
           }
         }
         else {
-          ptSumAway += pT;
+          //ptSumAway += pT;
           ++numAway;
           if (pT > ptMaxAway) ptMaxAway = pT;
         }

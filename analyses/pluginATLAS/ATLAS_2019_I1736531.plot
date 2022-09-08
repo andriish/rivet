@@ -2,28 +2,23 @@
 LogY=0
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2019_I1736531/d4[6-9]
-Xlabel=$p_T$ [GeV]
-YLabel=$ 1/N_{ch} dN_{ch}/dp_T$ [GeV]
-# END PLOT
-
 # BEGIN PLOT /ATLAS_2019_I1736531/d5[0-9]
-Xlabel=$p_T$ [GeV]
+XLabel=$p_T$ [GeV]
 YLabel=$ 1/N_{ch} dN_{ch}/dp_T$ [GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1736531/d6[0-9]
-Xlabel=$p_T$ [GeV]
+XLabel=$p_T$ [GeV]
 YLabel=$ 1/N_{ch} dN_{ch}/dp_T$ [GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1736531/d7[0-9]
-Xlabel=$p_T$ [GeV]
+XLabel=$p_T$ [GeV]
 YLabel=$ 1/N_{ch} dN_{ch}/dp_T$ [GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2019_I1736531/d8[0-5]
-Xlabel=$p_T$ [GeV]
+XLabel=$p_T$ [GeV]
 YLabel=$ 1/N_{ch} dN_{ch}/dp_T$ [GeV]
 # END PLOT
 
@@ -2374,6 +2369,10 @@ Title=Away region (high thrust)
 YLabel=$<mean p_T/d\eta d\phi>$ [GeV]
 # END PLOT
 
+# BEGIN PLOT /ATLAS_2019_I1736531/d4[6-9]-*
+XLabel=$p_T$ [GeV]
+YLabel=$ 1/N_{ch} dN_{ch}/dp_T$ [GeV]
+# END PLOT
 
 
 

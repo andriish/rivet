@@ -54,21 +54,25 @@ namespace Rivet {
       const Particles& invisibles = apply<InvisibleFinalState>(event, "InvisibleFS").particlesByPt();
       const Particles& promptinvisibles = apply<InvisibleFinalState>(event, "PromptInvisibleFS").particlesByPt();
 
-      FourMomentum invsum;
-      for (const Particle& p : invisibles) {
-        invsum += p.momentum();
+      if (!invisibles.empty()) {
+        FourMomentum invsum;
+        for (const Particle& p : invisibles) {
+          invsum += p.momentum();
+        }
+        _h["pT_inv"]->fill(invsum.pT()/GeV);
+        _h["mass_inv"]->fill(invsum.mass()/GeV);
+        _h["rap_inv"]->fill(invsum.rapidity());
       }
-      _h["pT_inv"]->fill(invsum.pT()/GeV);
-      _h["mass_inv"]->fill(invsum.mass()/GeV);
-      _h["rap_inv"]->fill(invsum.rapidity());
 
-      FourMomentum promptinvsum;
-      for (const Particle& p : promptinvisibles) {
-        promptinvsum += p.momentum();
+      if (!promptinvisibles.empty()) {
+        FourMomentum promptinvsum;
+        for (const Particle& p : promptinvisibles) {
+          promptinvsum += p.momentum();
+        }
+        _h["pT_promptinv"]->fill(promptinvsum.pT()/GeV);
+        _h["mass_promptinv"]->fill(promptinvsum.mass()/GeV);
+        _h["rap_promptinv"]->fill(promptinvsum.rapidity());
       }
-      _h["pT_promptinv"]->fill(promptinvsum.pT()/GeV);
-      _h["mass_promptinv"]->fill(promptinvsum.mass()/GeV);
-      _h["rap_promptinv"]->fill(promptinvsum.rapidity());
 
     }
 

@@ -1,7 +1,19 @@
-ARG FEDORA_IMAGE=fedora:32
+ARG FEDORA_IMAGE=fedora:36
 FROM ${FEDORA_IMAGE}
 LABEL maintainer="rivet-developers@cern.ch"
 SHELL ["/bin/bash", "--login", "-c"]
+
+ARG LATEX
+RUN if test "$LATEX" = "1"; then \
+      dnf install -y \
+        texlive-latex-bin texlive-latexconfig \
+        texlive-pst-tools texlive-pst-arrow \
+        texlive-relsize texlive-cm texlive-hyphen-base \
+        texlive-dvips texlive-collection-fontsrecommended \
+        ghostscript ImageMagick; \
+      dnf clean all; \
+      texhash; \
+    fi
 
 ARG BUILD_TOOLS
 RUN true \
@@ -40,7 +52,6 @@ RUN true \
          make redhat-rpm-config cmake \
          m4 automake autoconf libtool \
          git wget tar less bzip2 findutils which nano file diffutils \
-         zlib-devel gsl-devel \
     && dnf clean all
 
 RUN true \
@@ -50,8 +61,8 @@ RUN true \
          alternatives --install /usr/bin/python-config python-config /usr/bin/python3-config 2 && \
          dnf clean all; \
        fi \
-    && wget --no-verbose https://bootstrap.pypa.io/get-pip.py -O get-pip.py \
-    && python get-pip.py \
+    #&& wget --no-verbose https://bootstrap.pypa.io/get-pip.py -O get-pip.py \
+    #&& python get-pip.py \
     && pip install matplotlib requests Cython
 
 RUN true \
@@ -60,9 +71,14 @@ RUN true \
          dnf clean all && \
          cd /usr/local && \
          wget --no-verbose https://root.cern/download/root_v6.24.06.Linux-fedora32-x86_64-gcc10.2.tar.gz -O- | tar xz && \
-         echo "source /usr/local/root/bin/thisroot.sh" > /etc/profile.d/10-cernroot && \
-         cat /etc/profile.d/10-cernroot >> /root/.bashrc; \
+         echo "source /usr/local/root/bin/thisroot.sh" > /etc/profile.d/10-cernroot.sh; \
        fi
+
+RUN true \
+    && dnf install -y \
+         zlib-devel gsl-devel \
+         hdf5-devel highfive-devel python3-h5py \
+    && dnf clean all
 
 ARG HEPMC_VERSION
 ARG RIVETBS_VERSION
@@ -72,26 +88,34 @@ RUN true \
     && chmod +x rivet-bootstrap \
     && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_YODA=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_VERSION} MAKE="make -j $(nproc --ignore=1)" ./rivet-bootstrap \
     && rm -rf /code \
-    && echo "LD_LIBRARY_PATH=\"\$LD_LIBRARY_PATH:/usr/local/lib\"" >> /etc/profile.d/05-usrlocal.sh \
-    && echo "PYTHONPATH=\"\$PYTHONPATH:$(ls /usr/local/lib*/python*/*-packages/ -d | head -1)\"" >> /etc/profile.d/05-usrlocal.sh
+
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && echo "export LD_LIBRARY_PATH=\"/usr/local/lib:$LD_LIBRARY_PATH\"" >> /etc/profile.d/05-usrlocal.sh \
+    && echo "export PYTHONPATH=\"$(for i in $(ls /usr/local/lib/python* -d); do echo -n "$i/site-packages:"; done)\$PYTHONPATH\"" >> /etc/profile.d/05-usrlocal.sh \
+    && cp /etc/bashrc /tmp/DUMMY1 \
+    && echo 'for i in /etc/profile.d/*.sh; do . $i; done' > /tmp/DUMMY2 \
+    && cat /tmp/DUMMY1 /tmp/DUMMY2 > /etc/bashrc && rm /tmp/DUMMY*
 
 ARG LHAPDF_VERSION
 RUN true \
     && mkdir /code && cd /code \
     && wget --no-verbose https://lhapdf.hepforge.org/downloads/?f=LHAPDF-${LHAPDF_VERSION}.tar.gz -O- | tar xz \
-    && cd LHAPDF-*/ && ./configure --prefix=/usr/local \
+    && cd LHAPDF-*/ \
+    && ls wrappers/python/ -l \
+    && ./configure --prefix=/usr/local \
     && make -j $(nproc --ignore=1) && make install \
+    && ls wrappers/python/build/lhapdf -l \
     && rm -r /code
 
-ARG LATEX
-RUN if test "$LATEX" = "1"; then \
-      dnf install -y \
-        texlive-latex-bin texlive-texconfig-bin texlive-pst-tools texlive-pst-arrow \
-        texlive-relsize texlive-cm texlive-hyphen-base texlive-collection-fontsrecommended \
-        ghostscript ImageMagick texlive-dvips; \
-      dnf clean all; \
-      texhash; \
-    fi
+ADD bash.bashrc.completion /etc/
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && cat /etc/bash.bashrc.completion >> /etc/bashrc \
+    && rm /etc/bash.bashrc.completion
 
-RUN echo "alias ll='ls -l'" > /etc/profile.d/ll.sh
+# TODO: move earlier
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && echo "export LD_LIBRARY_PATH=\"/usr/local/lib64:/usr/lib64:$LD_LIBRARY_PATH\"" >> /etc/profile.d/05-usrlocal.sh
+
+RUN echo "alias ll='ls -l'" > /etc/profile.d/15-aliases.sh
+
 WORKDIR /work

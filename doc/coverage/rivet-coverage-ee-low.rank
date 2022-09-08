@@ -1160,7 +1160,7 @@
 749012 X Comparison of particle production in quark and gluon fragmentation at s**(1/2) ~ 10-GeV #data not usable, eff corrections#
 749015 X Measurement of upper limits for Upsilon ---> gamma + R decays #search#
 749128 X Search for radiative decays of Upsilon(1S) into eta and eta-prime #search#
-749358 X High statistics measurement of the cross-sections of gamma gamma ---> pi+ pi- production #table with data#
+749358 . High statistics measurement of the cross-sections of gamma gamma ---> pi+ pi- production #table with data#
 749390 X Amplitude analysis of the decay D0 ---> K- K+ pi0 #not implementable#
 749602 X Dalitz plot analysis of the D+ ---> pi- pi+ pi+ decay #large backgrounds#
 749823 X Search for $B^0 \to$ phi(K+ $\pi^{-)}$ decays with large $K^{+} \pi^{-}$ invariant mass #search#
@@ -1759,7 +1759,7 @@
 1283183 . Measurement of the lepton forward-backward asymmetry in $B \rightarrow X_s \ell^+ \ell^-$ decays with a sum of exclusive modes #data in hepdata#
 1283743 . Amplitude analysis of $e^+e^- \to \Upsilon(nS) \pi^+\pi^-$ at $\sqrt{s}=10.865$~GeV #data in hepdata#
 1286317 . Antideuteron production in $\Upsilon(nS)$ decays and in $e^+e^- \to q\bar{q}$ at $\sqrt{s} \approx 10.58$ GeV #data but PDG??#
-1286898 . Study of $e^+e^−$ → $p\bar{p}$ in the vicinity of ψ(3770) #implemented#
+1286898 . Study of $e^+e^- \rightarrow p\bar{p}$ in the vicinity of $\psi(3770)$ #implemented#
 1287631 . Observation of electromagnetic Dalitz decays $J/\psi \to P e^+e^-$ #fig 4?#
 1287632 . Dalitz plot analysis of $\eta_c \to K^+ K^- \eta$ and $\eta_c \to K^+ K^- \pi^0$ in two-photon interactions #figs#
 1287920 . Cross sections for the reactions $e^+ e^-\to K_S^0 K_L^0$, $K_S^0 K_L^0 \pi^+\pi^-$, $K_S^0 K_S^0 \pi^+\pi^-$, and $K_S^0 K_S^0 K^+K^-$ from events with initial-state radiation #implemented#
@@ -2211,13 +2211,13 @@
 1800477 . Study of the process $e^+e^- \to \eta\pi^0\gamma$ in the energy range $\sqrt{s} = \textrm{1.05-2.00}$ GeV with the SND detector #implemented#
 1803329 . Upper limit on the $\eta\to\pi^{+}\pi^{-}$ branching fraction with the KLOE experiment
 1805384 X Measurement of singly Cabibbo-suppressed decays $D \to \omega \pi \pi$ #BR#
-1805771 . Model-Independent Determination of the Spin of the $\Omega^-$ and Its Polarization Alignment in $\psi(3686)\to \Omega^- \bar \Omega^+$ #implementable?#
+1805771 X Model-Independent Determination of the Spin of the $\Omega^-$ and Its Polarization Alignment in $\psi(3686)\to \Omega^- \bar \Omega^+$ #implementable?#
 1806118 . Measurement of the $e^+e^- \to K^+ K^- \pi^0$ cross section with the SND detector #implemented#
 1806546 ? Evidence for $X(3872)\rightarrow J/\psi \pi^+\pi^-$ Produced in Single-Tag Two-Photon Interactions #data but huge errors#
-1806927 . Observation of the Doubly Cabibbo-Suppressed Decay $D^+\to K^+\pi^+\pi^-\pi^0$ and Evidence for $D^+\to K^+\omega$
+1806927 X Observation of the Doubly Cabibbo-Suppressed Decay $D^+\to K^+\pi^+\pi^-\pi^0$ and Evidence for $D^+\to K^+\omega$
 1807448 ? Improved model-independent determination of the strong-phase difference between $D^{0}$ and $\bar{D}^{0}\to K^{0}_{\mathrm{S,L}}K^{+}K^{-}$ decays #implentable ?#
 1808166 X Measurements of the absolute branching fractions of $D^{0(+)}\to K\bar K\pi\pi$ decays #BR#
-1808873 . Search for Axion-Like Particles produced in $e^+e^-$ collisions at Belle II
+1808873 ? Search for Axion-Like Particles produced in $e^+e^-$ collisions at Belle II
 1809180 . First determination of the spin and parity of the charmed-strange baryon $\Xi_{c}(2970)^+$
 1809286 . Study of dynamics of the process $e^+e^-\rightarrow \pi ^+\pi ^-\pi ^0$ in the energy range 1.15–2.00 GeV #data tables and mass dists#
 1811675 X Search for the semileptonic decay $D^{0(+)}\to b_1(1235)^{-(0)} e^+\nu_e$ #search#
@@ -2227,64 +2227,116 @@
 1815814 X Study of electromagnetic decays of orbitally excited $\Xi_c$ baryons #BR#
 1817739 . Observation of a resonant structure in $e^{+}e^{-} \to \omega\eta$ and another in $e^{+}e^{-} \to \omega\pi^{0}$ at center-of-mass energies between 2.00 and 3.08 GeV #implemented#
 1818254 . Observation of the decays $\chi_{cJ}\to\Sigma^{0}\bar{p}K^{+}+{\rm c.c.}~(J=0, 1, 2)$
-1818830 . Study of BESIII trigger efficiencies with the 2018 $J/\psi$ data
-1818836 . Search for transitions from  $\Upsilon(4S)$ and $\Upsilon (5S)$ to $\eta_b(1S)$ and $\eta_b(2S)$ with emission of an $\omega$ meson
+1818830 X Study of BESIII trigger efficiencies with the 2018 $J/\psi$ data
+1818836 X Search for transitions from  $\Upsilon(4S)$ and $\Upsilon (5S)$ to $\eta_b(1S)$ and $\eta_b(2S)$ with emission of an $\omega$ meson
 1823448 . Measurement of cross section for $e^+e^-\to\Xi^-\bar{\Xi}^+$ near threshold at BESIII
-1825969 . Search for New Hadronic Decays of $h_c$ and Observation of $h_c\rightarrow K^{+}K^{-}\pi^{+}\pi^{-}\pi^{0}$
+1825969 X Search for New Hadronic Decays of $h_c$ and Observation of $h_c\rightarrow K^{+}K^{-}\pi^{+}\pi^{-}\pi^{0}$
 1826422 . Measurements of $e^+e^-\rightarrow \eta_{\rm c}\pi^+ \pi^-\pi^0$, $\eta_{\rm c}\pi^+ \pi^-$ and $\eta_{\rm c}\pi^0\gamma$ at $\sqrt{s}$ from 4.18 to 4.60\,GeV, and search for a $Z_{\rm c}$ state close to the $D\bar{D}$ threshold decaying to $\eta_{\rm c}\pi$ at $\sqrt{s}$ = 4.23 GeV
-1826787 . Search for lepton-number- and baryon-number-violating tau decays at Belle
-1827501 . Measurement of time-dependent $CP$ violation parameters in $B^0 \to K_0^SK_0^SK_0^S$ decays at Belle
+1826787 ? Search for lepton-number- and baryon-number-violating tau decays at Belle
+1827501 X Measurement of time-dependent $CP$ violation parameters in $B^0 \to K_0^SK_0^SK_0^S$ decays at Belle
 1827567 . Determination of the  $\Lambda_c^+$ spin via the reaction $e^+e^-\to\Lambda_c^+\bar\Lambda_c^-$
-1830421 . Measurement of the branching fraction of and search for a CP -violating asymmetry in $\eta' \to \pi^+ \pi^- e^+ e^-$ at BESIII
-1830518 . Observation of a Near-Threshold Structure in the $K^+$ Recoil-Mass Spectra in $e^+e^- \rightarrow K^+(D_s^-D^{*0}+D_s^{*-}D^0$)
-1830524 . Amplitude analysis and branching fraction measurement of $D_{s}^{+} \rightarrow K^{+}K^{-}\pi^{+}$
-1833702 . Search for the reaction channel $e^+e^- \rightarrow \eta_c\eta \pi^+\pi^-$ at center-of-mass energies from 4.23 to 4.60 GeV
-1834979 . Commissioning and performance of the Belle II pixel detector
-1835062 . Search for the dark photon in $B^0 \to A^{\prime} A^{\prime}$, $A^{\prime} \to e^+ e^-$, $\mu^+ \mu^-$, and $\pi^+ \pi^-$ decays at Belle
-1835071 . Search for the reaction $e^{+}e^{-} \rightarrow \chi_{cJ} \pi^+ \pi^-$ and a charmonium-like structure decaying to $\chi_{cJ}\pi ^{\pm}$ between 4.18 and 4.60 GeV
-1835521 . Observation of $\eta^\prime\rightarrow\pi^+\pi^-\mu^+\mu^-$
-1835598 . Search for the lepton number violating decay $\Sigma^{-} \to p e^{-} e^{-}$ and the rare inclusive decay $\Sigma^{-} \to \Sigma^{+} X$
-1835729 . Measurement of the resonant and nonresonant branching ratios in $\Xi_{c}^{0} \rightarrow \Xi^{0} K^+ K^-$
-1836284 . Search for the $X(2370)$ and observation of $\eta_{c}\to\eta\eta\eta^\prime$ in $J/\psi\to\gamma\eta\eta\eta^{\prime}$
+1830421 X Measurement of the branching fraction of and search for a CP -violating asymmetry in $\eta' \to \pi^+ \pi^- e^+ e^-$ at BESIII
+1830518 X Observation of a Near-Threshold Structure in the $K^+$ Recoil-Mass Spectra in $e^+e^- \rightarrow K^+(D_s^-D^{*0}+D_s^{*-}D^0$)
+1830524 X Amplitude analysis and branching fraction measurement of $D_{s}^{+} \rightarrow K^{+}K^{-}\pi^{+}$
+1833702 X Search for the reaction channel $e^+e^- \rightarrow \eta_c\eta \pi^+\pi^-$ at center-of-mass energies from 4.23 to 4.60 GeV
+1834979 X Commissioning and performance of the Belle II pixel detector
+1835062 ? Search for the dark photon in $B^0 \to A^{\prime} A^{\prime}$, $A^{\prime} \to e^+ e^-$, $\mu^+ \mu^-$, and $\pi^+ \pi^-$ decays at Belle
+1835071 ? Search for the reaction $e^{+}e^{-} \rightarrow \chi_{cJ} \pi^+ \pi^-$ and a charmonium-like structure decaying to $\chi_{cJ}\pi ^{\pm}$ between 4.18 and 4.60 GeV
+1835521 X Observation of $\eta^\prime\rightarrow\pi^+\pi^-\mu^+\mu^-$
+1835598 ? Search for the lepton number violating decay $\Sigma^{-} \to p e^{-} e^{-}$ and the rare inclusive decay $\Sigma^{-} \to \Sigma^{+} X$
+1835729 X Measurement of the resonant and nonresonant branching ratios in $\Xi_{c}^{0} \rightarrow \Xi^{0} K^+ K^-$
+1836284 X Search for the $X(2370)$ and observation of $\eta_{c}\to\eta\eta\eta^\prime$ in $J/\psi\to\gamma\eta\eta\eta^{\prime}$
 1836509 . Measurement of the Born cross sections for $e^+e^- \to \eta^\prime \pi^{+}\pi^{-}$ at center-of-mass energies between $2.00$ and $3.08$~GeV
 1837725 . Study of $e^+e^- \to 2(p\bar{p})$ at center-of-mass energies between 4.0 and 4.6 GeV
-1837968 . Measurement of the absolute branching fraction of $\Lambda_c^+\to p K^0_{\mathrm{S}}\eta$ decays
-1841899 . Measurement of branching fraction and search for $CP$ violation in $B\to \phi \phi K$
+1837968 X Measurement of the absolute branching fraction of $\Lambda_c^+\to p K^0_{\mathrm{S}}\eta$ decays
+1841899 X Measurement of branching fraction and search for $CP$ violation in $B\to \phi \phi K$
 1844229 . Study of $e^+e^- \rightarrow \pi^{0}X(3872)\gamma$ and search for $Z_c(4020)^{0}\rightarrow X(3872)\gamma$
-1844263 . Measurements of partial branching fractions of inclusive B→Xuℓ+νℓ decays with hadronic tagging
+1844263 X Measurements of partial branching fractions of inclusive B→Xuℓ+νℓ decays with hadronic tagging
 1844422 . Study of the reactions $e^+e^-\to2(\pi^+\pi^-)\pi^0\pi^0\pi^0$ and $e^+e^-\to2(\pi^+\pi^-)\pi^0\pi^0\eta$ at center-of-mass energies from threshold to 4.5 GeV using initial-state radiation
-1845444 . Amplitude analysis and branching-fraction measurement of $D^{+}_{s}\rightarrow K^{0}_{S}K^{-}\pi^{+}\pi^{+}$
-1847766 . Measurement of proton electromagnetic form factors in the time-like region using initial state radiation at BESIII
-1847767 . Search for Bs0→η′Xss¯ at Belle using a semi-inclusive method
-1847772 . Search for new decay modes of the $\psi_2(3823)$ and the process $e^+e^-\rightarrow\pi^0\pi^0\psi_2(3823)$
-1848219 . Measurements of the branching fractions of $\Lambda_c^+ \to p \eta$ and $\Lambda_c^+ \to p \pi^0$ decays at Belle
-1849123 . Recent results from KLOE at DA$\Phi$NE
-1850941 . Measurement of the $D \to K^-\pi^+\pi^+\pi^-$ and $D \to K^-\pi^+\pi^0$ coherence factors and average strong-phase differences in quantum-correlated ${D\bar{D}}$ decays
-1852254 . Measurement of branching fractions and $CP$ asymmetries for $D_s^{+} \rightarrow K^+ (\eta, \pi^0) $ and $D_s^{+} \rightarrow \pi^+ (\eta, \pi^0)$ decays at Belle
-1852814 . Search for the charged lepton flavor violating decay $J/\psi\to e\tau$
-1852819 . Search for the decay $D_s^+\to a_0(980)^0e^+\nu_e$
-1854822 . Measurements of the branching fractions of $\psi(3686)\rightarrow\bar{\Sigma}^{0}\Lambda+c.c.$ and $\chi_{cJ (J = 0,1,2)} \rightarrow \Lambda \bar{\Lambda}$
-1858485 . Measurement of the absolute branching fraction of inclusive semielectronic $D_s^+$ decays
+1845443 . Cross section measurement of $e^+e^- \to p\bar{p}\eta$ and $e^+e^- \to p\bar{p}\omega$ at center-of-mass energies between 3.773 GeV and 4.6 GeV
+1845444 X Amplitude analysis and branching-fraction measurement of $D^{+}_{s}\rightarrow K^{0}_{S}K^{-}\pi^{+}\pi^{+}$
+1847766 ? Measurement of proton electromagnetic form factors in the time-like region using initial state radiation at BESIII
+1847767 X Search for Bs0→η′Xss¯ at Belle using a semi-inclusive method
+1847772 X Search for new decay modes of the $\psi_2(3823)$ and the process $e^+e^-\rightarrow\pi^0\pi^0\psi_2(3823)$
+1848219 X Measurements of the branching fractions of $\Lambda_c^+ \to p \eta$ and $\Lambda_c^+ \to p \pi^0$ decays at Belle
+1849123 X Recent results from KLOE at DA$\Phi$NE
+1850941 X Measurement of the $D \to K^-\pi^+\pi^+\pi^-$ and $D \to K^-\pi^+\pi^0$ coherence factors and average strong-phase differences in quantum-correlated ${D\bar{D}}$ decays
+1851126 X Measurements of the branching fractions of the semileptonic decays $\Xi_{c}^{0} \to \Xi^{-} \ell^{+} \nu_{\ell}$ and the asymmetry parameter of $\Xi_{c}^{0} \to \Xi^{-} \pi^{+}$
+1852254 X Measurement of branching fractions and $CP$ asymmetries for $D_s^{+} \rightarrow K^+ (\eta, \pi^0) $ and $D_s^{+} \rightarrow \pi^+ (\eta, \pi^0)$ decays at Belle
+1852814 X Search for the charged lepton flavor violating decay $J/\psi\to e\tau$
+1852819 X Search for the decay $D_s^+\to a_0(980)^0e^+\nu_e$
+1853007 X New Features in the Electromagnetic Structure of the Neutron
+1854822 X Measurements of the branching fractions of $\psi(3686)\rightarrow\bar{\Sigma}^{0}\Lambda+c.c.$ and $\chi_{cJ (J = 0,1,2)} \rightarrow \Lambda \bar{\Lambda}$
+1857930 . Study of the process $e^{+}e^{-}\rightarrow\phi\eta$ at center-of-mass energies between 2.00 and 3.08 GeV
+1858485 X Measurement of the absolute branching fraction of inclusive semielectronic $D_s^+$ decays
 1859137 . Measurement of the energy dependence of the e$^{+}$e$^{−}$ → $ B\overline{B} $, $ B{\overline{B}}^{\ast } $ and $ {B}^{\ast }{\overline{B}}^{\ast } $ exclusive cross sections
-1863642 . Measurement of the branching fraction of leptonic decay $D_s^+\to\tau^+\nu_\tau$ via $\tau^+\to\pi^+\pi^0\bar \nu_\tau$
-1868810 . Search for Darkonium in $e^+e^-$ Collisions
-1900094 . First Measurement of Polarizations in the Decay $D^0 \to \omega \phi$
-1918563 . Search for Lepton Flavor Violation in $\Upsilon (3S)\rightarrow e^{\pm}\mu^{\mp}$
-1928958 . Search for a $CP$-odd light Higgs boson in $J/\psi \to \gamma A^0$
-1929365 . Amplitude analysis and branching fraction measurement of the decay $ {D}_s^{+} $ → π$^{+}$π$^{0}$π$^{0}$
-1940222 . Observation of $D^{0(+)}\to K^0_S\pi^{0(+)}\omega $ and improved measurement of $D^0\to K^-\pi^+\omega$
+1859248 ? Observation of a near-threshold enhancement in the $\Lambda\bar{\Lambda}$ mass spectrum from $e^+e^-\to\phi\Lambda\bar{\Lambda}$ at $\sqrt{s}$ from 3.51 to 4.60 GeV
+1859517 X Measurements of branching fractions and asymmetry parameters of $\Xi^0_c\to \Lambda\bar K^{*0}$, $\Xi^0_c\to \Sigma^0\bar K^{*0}$, and $\Xi^0_c\to \Sigma^+K^{*-}$ decays at Belle
+1863389 ? Study of γγ→γψ(2S) at Belle
+1863642 X Measurement of the branching fraction of leptonic decay $D_s^+\to\tau^+\nu_\tau$ via $\tau^+\to\pi^+\pi^0\bar \nu_\tau$
+1864775 X Probing CP symmetry and weak phases with entangled double-strange baryons
+1866051 . Cross section measurement of $e^{+}e^{-} \to K_{S}^{0}K_{L}^{0}$ at $\sqrt{s}=2.00-3.08~{GeV}$
+1866233 . Measurement of cross section for $e^{+}e^{-}\rightarrow\Xi^{0}\bar{\Xi}^{0}$ near threshold
+1867196 . Measurements of Born Cross Sections of $e^+e^-\to D_s^{*+} D_{sJ}^{-} +c.c.$
+1868810 X Search for Darkonium in $e^+e^-$ Collisions
+1868813 X Measurement of the inclusive branching fraction for  $\psi(3686)\rightarrow K_{S}^{0} + \text{anything}$
+1900094 ? First Measurement of Polarizations in the Decay $D^0 \to \omega \phi$
+1900124 . Measurement of the cross section for $e^{+}e^{-}\rightarrow\Lambda\bar\Lambda$ and evidence of the decay $\psi(3770)\rightarrow\Lambda\bar\Lambda$
+1908066 X Direct Measurement of the Branching Fractions $\mathcal B (\psi (3686)\to J/\psi X)$, and $\mathcal B (\psi (3770) \to J/\psi X)$ Observation of the State $\mathcal R(3760)$ in $e^+e^- \to J/\psi X$
+1912559 X An improved search for the electric dipole moment of the $\tau$ lepton
+1918563 ? Search for Lepton Flavor Violation in $\Upsilon (3S)\rightarrow e^{\pm}\mu^{\mp}$
+1923635 ? Search for $Z^{'} \rightarrow \mu^{+} \mu^{-}$ in the $L_\mu {-} L_\tau$ gauge-symmetric model at Belle
+1928958 ? Search for a $CP$-odd light Higgs boson in $J/\psi \to \gamma A^0$
+1929314 . Cross sections for the reactions $e^+e^-\rightarrow K^+K^-\pi^+\pi^-(\pi^0)$, $K^+K^-K^+K^-(\pi^0)$, $\pi^+\pi^-\pi^+\pi^-(\pi^0)$, $p\bar{p}\pi^+\pi^-(\pi^0)$ in the energy region between 3.773 and 4.600 GeV
+1929365 X Amplitude analysis and branching fraction measurement of the decay $D_{s}^{+} \to \pi^{+}\pi^{0}\pi^{0}$
+1933191 . Cross section measurement of $e^+e^-\rightarrow\pi^+\pi^-(3686)$ from $\sqrt{S}=4.0076$ to 4.6984 GeV
+1937349 . Study of the process $e^+e^-\to \pi^+\pi^-\pi^0$ using initial state radiation with BABAR
+1938246 X B-flavor tagging at Belle II
+1938254 X Study of the reactions $e^+e^-\to\pi^+\pi^-\pi^0\pi^0\pi^0\pi^0$ and $\pi^+\pi^-\pi^0\pi^0\pi^0\eta$ at center-of-mass energies from threshold to 4.5 GeV using initial-state radiation
+1940222 X Observation of $D^{0(+)}\to K^0_S\pi^{0(+)}\omega $ and improved measurement of $D^0\to K^-\pi^+\omega$
+1940960 . Measurement of the $e^{+}e^{-}\to\Sigma^{0}\bar{\Sigma}^{0}$ cross sections at center-of-mass energies from 2.3864 to 3.0200GeV
 1942539 . Study of the process $e^+e^- \rightarrow \eta \eta \gamma $ in the energy range $\sqrt{s} = \text{1.17--2.00 }$ GeV with the SND detector
-1951031 . Combined analysis of Belle and Belle II data to determine the CKM angle $ \phi_{3} $ using $B^+ \to D(K_{S}^0 h^- h^+) h^+$ decays
-1953586 . Search for $B^0$ meson decays into $\Lambda$ and missing energy with a hadronic tagging method at Belle
+1944124 X Search for invisible decays of the $\Lambda$ baryon
+1945692 ? Study of the decay $D_s^+\to K_S^0K_S^0\pi^+$ and observation an isovector partner to $f_0(1710)$
+1951031 X Combined analysis of Belle and Belle II data to determine the CKM angle $ \phi_{3} $ using $B^+ \to D(K_{S}^0 h^- h^+) h^+$ decays
+1953586 X Search for $B^0$ meson decays into $\Lambda$ and missing energy with a hadronic tagging method at Belle
+1959507 X Search for an Axionlike Particle in $B$ Meson Decays
+1963742 ? Precision tests of quantum mechanics and $ \mathcal{CPT} $ symmetry with entangled neutral kaons at KLOE
 1964638 . Study of $\overline{B}{}^0\rightarrow D^{+}h^{-} (h=K/\pi)$ decays at Belle
-1970528 . Measurements of the branching fractions of $\Xi_c^0 \to \Lambda K_S^0$, $\Xi_c^0 \to \Sigma^0 K_S^0$, and $\Xi_c^0 \to \Sigma^+ K^-$ decays at Belle
-1974025 . Measurement of $\Lambda$ baryon polarization in $e^+e^-\rightarrow\Lambda\bar\Lambda$ at $\sqrt{s} = 3.773$ GeV
-1979565 . Search for the decay $B_s^0\rightarrow\eta\eta$
-1984768 . Search for tetraquark states Xccs¯s¯ in Ds+Ds+(Ds*+Ds*+) final states at Belle
-1995840 . Search for a light Higgs boson in single-photon decays of $\Upsilon(1S)$ using $\Upsilon(2S) \to \pi^+ \pi^- \Upsilon(1S)$ tagging method
+1966612 X Oscillating features in the electromagnetic structure of the neutron
+1968754 X Number of $J/\psi$ events at BESIII
+1970528 X Measurements of the branching fractions of $\Xi_c^0 \to \Lambda K_S^0$, $\Xi_c^0 \to \Sigma^0 K_S^0$, and $\Xi_c^0 \to \Sigma^+ K^-$ decays at Belle
+1974025 ? Measurement of $\Lambda$ baryon polarization in $e^+e^-\rightarrow\Lambda\bar\Lambda$ at $\sqrt{s} = 3.773$ GeV
+1975806 X Measurement of the branching fraction and $CP$ asymmetry for $B\to\bar{D}^{0} \pi$ decays
+1978832 X Search for the decay $h_c\rightarrow\pi^0J/\psi$
+1979565 X Search for the decay $B_s^0\rightarrow\eta\eta$
+1984768 X Search for tetraquark states $X_{cc\bar{s}\bar{s}}$ in $D_{s}^{+}D_{s}^{+}~(D_{s}^{*+}D_{s}^{*+})$ final states at Belle
+1989527 . Cross section measurements of the $e^+e^-\to D^{*+}D^{*-}$ and $e^+e^-\to D^{*+}D^{-}$ processes at center-of-mass energies from 4.085 to 4.600 GeV
+1993935 ? First test of lepton flavor universality in the charmed baryon decays Ωc0→ω-ℓ+νℓ using data of the Belle experiment
+1995840 X Search for a light Higgs boson in single-photon decays of $\Upsilon(1S)$ using $\Upsilon(2S) \to \pi^+ \pi^- \Upsilon(1S)$ tagging method
 1996394 . Measurement of the Cross Section for $e^{+}e^{-}\to$Hadrons at Energies from 2.2324 to 3.6710 GeV
-1998668 . First Measurement of the $\Lambda_c^+ \to p \eta'$ decay
+1997451 . Measurement of cross section of $e^+ e^- \to \phi \pi^+ \pi^-$ at center-of-mass energies $\sqrt{s}$=2.0000-3.0800 GeV
+1997878 X Search for the decay $D^{0} \to \pi^{0} \nu \bar{\nu}$
+1997940 X Observation of $J/\psi$ Electromagnetic Dalitz Decays to $X(1835)$, $X(2120)$ and $X(2370)$
+1998668 X First Measurement of the $\Lambda_c^+ \to p \eta'$ decay
 1999208 . Measurement of the $e^{+}e^{-}\rightarrow\omega\pi^{0}\pi^{0}$ cross section at center-of-mass energies from 2.0 to 3.08 GeV
-2009463 . Measurement of $\mathcal B (B_s \to D_sX)$ with $B_s$ semileptonic tagging
+2001955 ! Measurement of Two-Particle Correlations of Hadrons in e+e- Collisions at Belle
+2009463 X Measurement of $\mathcal B (B_s \to D_sX)$ with $B_s$ semileptonic tagging
+2016386 X Search for charged lepton flavor violating decays of $\Upsilon(1S)$
+2016785 X Partial wave analysis of $J/\psi \rightarrow \gamma \eta' \eta'$
+2018236 X Observation of a State $X(2600)$ in the $\pi^{+}\pi^{-}\eta'$ System in the Process $J/\psi\rightarrow\gamma\pi^{+}\pi^{-}\eta'$
+2024605 X Search for$X(3872)\to\pi^0\chi_{c0}$ and $X(3872)\to\pi\pi\chi_{c0}$ at BESIII
+2033007 . Measurement of $e^{+}e^{-} \to K^{+}K^{-}\pi^{0}$ cross section and observation of a resonant structure
 2035350 . Search for baryon- and lepton-number violating decays $D^0 \rightarrow \overline{p} e^+$ and $D^0 \rightarrow pe^-$
 2038523 . Study of light scalar mesons through $D^+_s \to \pi^0\pi^0e^+ \nu_e$ and $K^0_S K^0_S e^+ \nu_e$ decays
+2039027 . Measurement of the cross section of $e^{+}e^{-}\to\eta\pi^{+}\pi^{-}$ at center-of-mass energies from 3.872 GeV to 4.700 GeV
+2039948 X Measurements of Absolute Branching Fractions of $D^0\to K_L^0\phi$, $K_L^0\eta$, $K_L^0\omega$, and $K_L^0\eta^{\prime}$
+2044820 X Measurement of the branching fraction of the doubly Cabibbo-suppressed decay $D^0\to K^+\pi^-\pi^0$ and search for $D^0\to K^+\pi^-\pi^0\pi^0$
+2047667 . Cross section measurements of the processes $e^+e^- \rightarrow \omega\pi^{0}$ and $\omega\eta$  at center-of-mass energies between 3.773 and 4.701 GeV
+2051683 X Amplitude analysis and branching fraction measurement of $D_{s}^{+} \to K^-K^+\pi^+\pi^+\pi^-$
+2056019 X Search for new hadronic decays of $h_{c}$ and observation of $h_{c}\to p\bar{p}\eta$
+2057423 X Observation of the double Dalitz decay $\eta'\to e^+e^-e^+e^-$
+2063654 X Observation of the Singly Cabibbo Suppressed Decay $\Lambda^+_c \to n \pi^+$
+2066855 X Operational experience of the Belle II pixel detector
+2088337 X Measurements of the absolute branching fractions of hadronic $D$-meson decays involving kaons and pions
+2127002 X Search for the radiative penguin decays $B^0 \rightarrow K^0_S K^0_S \gamma$ in the Belle experiment

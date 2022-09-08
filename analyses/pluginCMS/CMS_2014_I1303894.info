@@ -19,6 +19,7 @@ RunInfo:
     be achieved with 85M events.
 Beams: [p+, p+]
 Energies: [7000]
+Luminosity_fb: 5.0
 PtCuts:
   Leading muon $pT > 25 GeV$ and leading muon $|eta| < 2.1$
   Jet $pT > 30 GeV$ and $|eta| < 2.4$

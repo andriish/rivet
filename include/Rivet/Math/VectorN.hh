@@ -130,7 +130,7 @@ namespace Rivet {
     // }
 
     /// Vector
-    using EVector = Eigen::Matrix<double,N,1>;
+    using EVector = RivetEigen::Matrix<double,N,1>;
     EVector _vec;
 
   };

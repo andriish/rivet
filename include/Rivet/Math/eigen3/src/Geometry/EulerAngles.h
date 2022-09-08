@@ -10,7 +10,7 @@
 #ifndef EIGEN_EULERANGLES_H
 #define EIGEN_EULERANGLES_H
 
-namespace Eigen { 
+namespace RivetEigen { 
 
 /** \geometry_module \ingroup Geometry_Module
   *
@@ -36,9 +36,9 @@ template<typename Derived>
 EIGEN_DEVICE_FUNC inline Matrix<typename MatrixBase<Derived>::Scalar,3,1>
 MatrixBase<Derived>::eulerAngles(Index a0, Index a1, Index a2) const
 {
-  EIGEN_USING_STD_MATH(atan2)
-  EIGEN_USING_STD_MATH(sin)
-  EIGEN_USING_STD_MATH(cos)
+  EIGEN_USING_STD(atan2)
+  EIGEN_USING_STD(sin)
+  EIGEN_USING_STD(cos)
   /* Implemented from Graphics Gems IV */
   EIGEN_STATIC_ASSERT_MATRIX_SPECIFIC_SIZE(Derived,3,3)
 
@@ -109,6 +109,6 @@ MatrixBase<Derived>::eulerAngles(Index a0, Index a1, Index a2) const
   return res;
 }
 
-} // end namespace Eigen
+} // end namespace RivetEigen
 
 #endif // EIGEN_EULERANGLES_H

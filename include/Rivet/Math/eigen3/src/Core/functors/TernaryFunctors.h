@@ -10,7 +10,7 @@
 #ifndef EIGEN_TERNARY_FUNCTORS_H
 #define EIGEN_TERNARY_FUNCTORS_H
 
-namespace Eigen {
+namespace RivetEigen {
 
 namespace internal {
 
@@ -20,6 +20,6 @@ namespace internal {
 
 } // end namespace internal
 
-} // end namespace Eigen
+} // end namespace RivetEigen
 
 #endif // EIGEN_TERNARY_FUNCTORS_H
