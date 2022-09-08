@@ -7,7 +7,6 @@
 
 namespace Rivet {
 
-
   Projection::Projection()
     : _name("BaseProjection"), _isValid(true)
   {
