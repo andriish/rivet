@@ -71,6 +71,10 @@
 	* Add EXAMPLE_NTUPLE_CSV example analysis showing how to open and
 	write to a CSV ntuple file.
 
+2022-09-08 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2006_I722213 Lambda_c+ -> Lambda K+ K0S
+
 2022-09-02 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add LHCB_2014_I1309880 B_c -> J/psi p pbar pi+
