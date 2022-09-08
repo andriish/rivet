@@ -16,7 +16,7 @@
 // * Eigen/SVD
 // * Eigen/Array
 
-namespace Eigen { 
+namespace RivetEigen { 
 
 #ifndef EIGEN_PARSED_BY_DOXYGEN
 
@@ -87,8 +87,8 @@ struct umeyama_transform_matrix_type
 * \f{align*}
 *   T = \begin{bmatrix} c\mathbf{R} & \mathbf{t} \\ \mathbf{0} & 1 \end{bmatrix}
 * \f}
-* minimizing the resudiual above. This transformation is always returned as an 
-* Eigen::Matrix.
+* minimizing the residual above. This transformation is always returned as an 
+* RivetEigen::Matrix.
 */
 template <typename Derived, typename OtherDerived>
 typename internal::umeyama_transform_matrix_type<Derived, OtherDerived>::type
@@ -161,6 +161,6 @@ umeyama(const MatrixBase<Derived>& src, const MatrixBase<OtherDerived>& dst, boo
   return Rt;
 }
 
-} // end namespace Eigen
+} // end namespace RivetEigen
 
 #endif // EIGEN_UMEYAMA_H

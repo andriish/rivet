@@ -26,22 +26,21 @@ import os, sys
 ## Load the rivet module
 try:
     import rivet
-except:
+except Exception as e:
     ## If rivet loading failed, try to bootstrap the Python path!
-    try:
-        # TODO: Is this a good idea? Maybe just notify the user that their PYTHONPATH is wrong?
-        import commands
-        modname = sys.modules[__name__].__file__
-        binpath = os.path.dirname(modname)
-        rivetconfigpath = os.path.join(binpath, "rivet-config")
-        rivetpypath = commands.getoutput(rivetconfigpath + " --pythonpath")
-        sys.path.append(rivetpypath)
-        import rivet
-    except Exception as e:
-        sys.stderr.write("The rivet Python module could not be loaded: are your PYTHONPATH and (DY)LD_LIBRARY_PATH set correctly?\n")
-        sys.stderr.write("Try running 'python -c \"import rivet\"' at the command line (or \"import rivet\" in a Python REPL)\n")
-        sys.stderr.write("Full error message:\n{}\n".format(e))
-        sys.exit(5)
+    # try:
+    #     # TODO: Is this a good idea? Maybe just notify the user that their PYTHONPATH is wrong?
+    #     import commands
+    #     modname = sys.modules[__name__].__file__
+    #     binpath = os.path.dirname(modname)
+    #     rivetconfigpath = os.path.join(binpath, "rivet-config")
+    #     rivetpypath = commands.getoutput(rivetconfigpath + " --pythonpath")
+    #     sys.path.append(rivetpypath)
+    #     import rivet
+    sys.stderr.write("The rivet Python module could not be loaded: are your PYTHONPATH and (DY)LD_LIBRARY_PATH set correctly?\n")
+    sys.stderr.write("Try running 'python -c \"import rivet\"' at the command line (or \"import rivet\" in a Python REPL)\n")
+    sys.stderr.write("Full error message:\n{}\n".format(e))
+    sys.exit(5)
 
 rivet.util.check_python_version()
 rivet.util.set_process_name("rivet")
@@ -681,10 +680,12 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
 
         ## Optional event skipping
         if evtnum <= args.EVTSKIPNUM:
+            if evtnum != old_evtnum:
+              old_evtnum = evtnum
+              if evtnum % 1000 == 0:
+                  logging.info("Skipping event #%i" % evtnum)
             logging.debug("Skipping event #%i" % evtnum)
             run.readEvent();
-            if evtnum % 1000 == 0:
-                logging.info("Skipping event #%i" % evtnum)
             continue
 
         ## Only log the event number once we're actually processing

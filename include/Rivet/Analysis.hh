@@ -17,6 +17,7 @@
 #include "Rivet/Tools/RivetYODA.hh"
 #include "Rivet/Tools/Percentile.hh"
 #include "Rivet/Projections/CentralityProjection.hh"
+#include "Rivet/Tools/RivetPaths.hh"
 #include <tuple>
 
 
@@ -135,6 +136,15 @@ namespace Rivet {
     /// corresponding string is appended at the end.
     virtual std::string name() const {
       return ( (info().name().empty()) ? _defaultname : info().name() ) + _optstring;
+    }
+
+    /// @brief Get the path to a data file associated with this analysis
+    ///
+    /// The searched-for filename will be <ANANAME>.<extn> of suffix is empty/unspecified,
+    /// or <ANANAME>-<suffix>.<extn> if a non-zero suffix is specified.
+    std::string analysisDataPath(const std::string& extn, const std::string& suffix="") {
+      string filename = name() + (suffix.empty() ? "" : "-") + suffix + "." + extn;
+      return findAnalysisDataFile(filename);
     }
 
     /// Get the Inspire ID code for this analysis.

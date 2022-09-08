@@ -130,26 +130,21 @@ namespace Rivet {
 
     /// @todo Replace with barchart()
     void normalizeToSum(Histo1DPtr hist) {
-      double sum = 0.;
       for (size_t i = 0; i < hist->numBins(); ++i) {
-        sum += hist->bin(i).height();
         float width = hist->bin(i).width();
         hist->bin(i).scaleW(width != 0 ? width : 1.);
       }
-      if(hist->integral() > 0) scale(hist, 1./hist->integral());
+      if (hist->integral() > 0) scale(hist, 1./hist->integral());
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
       double norm = (sumOfWeights() != 0) ? crossSection()/femtobarn/sumOfWeights() : 1.0;
-
       scale(_h_WW_mjj   , norm);
       scale(_h_WW_mll   , norm);
       scale(_h_WW_ptlmax, norm);
       scale(_h_WZ_mjj   , norm);
-
     }
 
     //@}

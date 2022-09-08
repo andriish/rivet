@@ -23,7 +23,7 @@ AC_DEFUN([AC_CEDAR_PATH_SUBST], [
 ])
 
 
-# Declares an external package to be used. This macro will declare appropriate 
+# Declares an external package to be used. This macro will declare appropriate
 # command line switches for ./configure and corresponding environment variables
 # to define the package's prefix path, library path and include path. The
 # configure command line option switches override the corresponding environment
@@ -58,7 +58,7 @@ AC_DEFUN([AC_CEDAR_LIBRARYANDHEADERS], [
 
   ## "configure" option switches for specifying paths
   AC_ARG_WITH([cedar_safepkgname],
-              [AC_HELP_STRING(--with-@&t@cedar_safepkgname, 
+              [AS_HELP_STRING(--with-@&t@cedar_safepkgname,
                 path to cedar_PkgName @<:@$prefix and various standard locations@:>@)],
               [pkgpath=$with_@&t@cedar_safepkgname], [])
   dnl echo "DEBUG: withval=$withval, with_@&t@cedar_safepkgname=$with_@&t@cedar_safepkgname -> pkgpath=$pkgpath"
@@ -66,7 +66,7 @@ AC_DEFUN([AC_CEDAR_LIBRARYANDHEADERS], [
 
   ## Has this lib been disabled?
   #echo "DEBUG: pkgpath = $pkgpath"
-  if test x$pkgpath = xno; then 
+  if test x$pkgpath = xno; then
     AC_MSG_NOTICE(Not building against cedar_PkgName)
     AM_CONDITIONAL(WITH_@&t@cedar_SAFEPKGNAME@&t@INC, false)
     AM_CONDITIONAL(WITH_@&t@cedar_SAFEPKGNAME@&t@LIB, false)
@@ -83,7 +83,7 @@ AC_DEFUN([AC_CEDAR_LIBRARYANDHEADERS], [
       #AC_MSG_NOTICE([cedar_PkgName paths verified])
       pkggood="yes"
       $3
-    else 
+    else
       pkggood="no"
       $4
     fi
@@ -133,7 +133,7 @@ AC_DEFUN([AC_CEDAR_HEADERS], [
   ## "configure" option switches for specifying paths
   pkgpath=${cedar_SAFEPKGNAME@&t@PATH}
   AC_ARG_WITH(cedar_safepkgname,
-              AC_HELP_STRING(--with-@&t@cedar_safepkgname@&t@, 
+              AS_HELP_STRING(--with-@&t@cedar_safepkgname@&t@,
                 path to cedar_PkgName @<:@$prefix and various standard locations@:>@),
               [pkgpath=$with_@&t@cedar_safepkgname], [])
   dnl echo "DEBUG: withval=$withval, with_@&t@cedar_safepkgname=$with_@&t@cedar_safepkgname -> pkgpath=$pkgpath"
@@ -141,12 +141,12 @@ AC_DEFUN([AC_CEDAR_HEADERS], [
 
   pkgincpath=${cedar_SAFEPKGNAME@&t@INCPATH}
   AC_ARG_WITH(cedar_safepkgname@&t@-incpath,
-              AC_HELP_STRING(--with-@&t@cedar_safepkgname@&t@-incpath, 
+              AS_HELP_STRING(--with-@&t@cedar_safepkgname@&t@-incpath,
                 path to directory containing cedar_PkgName headers @<:@cedar_SAFEPKGNAME@&t@PATH/include@:>@),
               [pkgincpath=$with_@&t@cedar_safepkgname@&t@_incpath], [])
 
   ## Has this header been disabled?
-  if test x$pkgpath = xno; then 
+  if test x$pkgpath = xno; then
     AC_MSG_NOTICE(Not building against cedar_PkgName)
     $4
   else
@@ -156,7 +156,7 @@ AC_DEFUN([AC_CEDAR_HEADERS], [
 
     ## Look for include files: first build the search list...
     incpaths=""
-    if test "$pkgincpath"; then 
+    if test "$pkgincpath"; then
       incpath=`echo $pkgincpath | sed -e 's://*:/:g' -e 's:/$::'`
       incpaths="$incpath"
     else
@@ -165,7 +165,7 @@ AC_DEFUN([AC_CEDAR_HEADERS], [
         incpaths="$incpaths $incpath"
       done
     fi
-    
+
     if test "x$CEDAR_M4_DEBUG" != "x"; then
       echo "DEBUG: inc paths = $incpaths"
     fi
@@ -190,7 +190,7 @@ AC_DEFUN([AC_CEDAR_HEADERS], [
         if test -d $fullincpath; then
           pkginc=yes
           break
-        else 
+        else
           pkginc=no;
         fi
         if test x$pkginc != xno; then break; fi
@@ -226,7 +226,7 @@ AC_DEFUN([AC_CEDAR_HEADERS], [
     if test "x$pkginc" = "xyes"; then
       true
       $3
-    else 
+    else
       true
       $4
     fi
@@ -279,7 +279,7 @@ AC_DEFUN([AC_CEDAR_LIBRARY], [
 
   ## "configure" option switches for specifying paths
   AC_ARG_WITH([cedar_safepkgname],
-              [AC_HELP_STRING(--with-@&t@cedar_safepkgname, 
+              [AS_HELP_STRING(--with-@&t@cedar_safepkgname,
                 path to cedar_PkgName @<:@$prefix and various standard locations@:>@)],
               [pkgpath=$with_@&t@cedar_safepkgname], [])
 
@@ -289,16 +289,16 @@ AC_DEFUN([AC_CEDAR_LIBRARY], [
   pkglibname=${cedar_SAFEPKGNAME@&t@LIBFLAG}
 
   AC_ARG_WITH(cedar_safepkgname@&t@-libpath,
-              AC_HELP_STRING(--with-@&t@cedar_safepkgname@&t@-libpath, 
+              AS_HELP_STRING(--with-@&t@cedar_safepkgname@&t@-libpath,
                 path to directory containing cedar_PkgName library @<:@cedar_SAFEPKGNAME@&t@PATH/lib or cedar_SAFEPKGNAME@&t@PATH/lib/cedar_PkgName@:>@),
               [pkglibpath=$with_@&t@cedar_safepkgname@&t@_libpath], [])
   AC_ARG_WITH(cedar_safepkgname@&t@-libname,
-              AC_HELP_STRING(--with-@&t@cedar_safepkgname@&t@-libname,
+              AS_HELP_STRING(--with-@&t@cedar_safepkgname@&t@-libname,
                 name to be used when linking the cedar_PkgName library @<:@cedar_PkgName@:>@),
               [pkglibname=$with_@&t@cedar_safepkgname@&t@_libname], [])
 
   ## Has this lib been disabled?
-  if test x$pkgpath = xno; then 
+  if test x$pkgpath = xno; then
     AC_MSG_NOTICE(Not building against cedar_PkgName)
     $4
   else
@@ -312,9 +312,9 @@ AC_DEFUN([AC_CEDAR_LIBRARY], [
     ## Build a list of library search locations, unless specified
     libdirnames="lib"
 
-    ## Test for 64-bit mode and add lib64 as first choice 
+    ## Test for 64-bit mode and add lib64 as first choice
     ## library dir name if appropriate
-    if test -z "$UNAME"; then 
+    if test -z "$UNAME"; then
       AC_PATH_PROG(UNAME, [uname], [no])
     fi
     if test x$UNAME != xno; then
@@ -324,12 +324,12 @@ AC_DEFUN([AC_CEDAR_LIBRARY], [
     fi
 
     libpaths=""
-    if test "$pkglibpath"; then 
+    if test "$pkglibpath"; then
       libpath=`echo $pkglibpath | sed -e 's://*:/:g' -e 's:/$::'`
       libpaths="$libpath"
     else
       ## Outer loop over lib / lib64 part
-      for libdirname in $libdirnames; do 
+      for libdirname in $libdirnames; do
         ## Inner loop over base path
         for base in $pkgbases; do
           libpath=`echo "$base/$libdirname" | sed -e 's://*:/:g' -e 's:/$::'`
@@ -339,7 +339,7 @@ AC_DEFUN([AC_CEDAR_LIBRARY], [
       libpaths="$libpaths ./src"
     fi
 
-    ## Use case permuatations on the package name (mixed, all-upper and 
+    ## Use case permuatations on the package name (mixed, all-upper and
     ## all-lower), plus punctuation replacements.
     libnames="cedar_LibName cedar_LIBNAME cedar_libname"
     if test "cedar_LibName" != "cedar_LibName1"; then
@@ -356,7 +356,7 @@ AC_DEFUN([AC_CEDAR_LIBRARY], [
       libversions="-cedar_libversion cedar_libversion"
     fi
 
-    ## Look for library with various name permutations  
+    ## Look for library with various name permutations
     for libpath in $libpaths; do
       for libversion in $libversions ""; do
         for libname in $libnames; do
@@ -366,7 +366,7 @@ AC_DEFUN([AC_CEDAR_LIBRARY], [
             if test "x$CEDAR_M4_DEBUG" != "x"; then
               echo "DEBUG: Testing $testpath"
             fi
-            if test -e $testpath; then 
+            if test -e $testpath; then
               pkglib=yes
               break
             else
@@ -401,7 +401,7 @@ AC_DEFUN([AC_CEDAR_LIBRARY], [
     if test "x$pkglib" = "xyes"; then
       true
       $3
-    else 
+    else
       true
       $4
     fi

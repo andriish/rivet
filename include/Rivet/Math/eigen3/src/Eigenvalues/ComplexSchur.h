@@ -14,7 +14,7 @@
 
 #include "./HessenbergDecomposition.h"
 
-namespace Eigen { 
+namespace RivetEigen { 
 
 namespace internal {
 template<typename MatrixType, bool IsComplex> struct complex_schur_reduce_to_hessenberg;
@@ -63,7 +63,7 @@ template<typename _MatrixType> class ComplexSchur
     /** \brief Scalar type for matrices of type \p _MatrixType. */
     typedef typename MatrixType::Scalar Scalar;
     typedef typename NumTraits<Scalar>::Real RealScalar;
-    typedef Eigen::Index Index; ///< \deprecated since Eigen 3.3
+    typedef RivetEigen::Index Index; ///< \deprecated since Eigen 3.3
 
     /** \brief Complex scalar type for \p _MatrixType. 
       *
@@ -212,7 +212,7 @@ template<typename _MatrixType> class ComplexSchur
 
     /** \brief Reports whether previous computation was successful.
       *
-      * \returns \c Success if computation was succesful, \c NoConvergence otherwise.
+      * \returns \c Success if computation was successful, \c NoConvergence otherwise.
       */
     ComputationInfo info() const
     {
@@ -300,10 +300,13 @@ typename ComplexSchur<MatrixType>::ComplexScalar ComplexSchur<MatrixType>::compu
   ComplexScalar trace = t.coeff(0,0) + t.coeff(1,1);
   ComplexScalar eival1 = (trace + disc) / RealScalar(2);
   ComplexScalar eival2 = (trace - disc) / RealScalar(2);
-
-  if(numext::norm1(eival1) > numext::norm1(eival2))
+  RealScalar eival1_norm = numext::norm1(eival1);
+  RealScalar eival2_norm = numext::norm1(eival2);
+  // A division by zero can only occur if eival1==eival2==0.
+  // In this case, det==0, and all we have to do is checking that eival2_norm!=0
+  if(eival1_norm > eival2_norm)
     eival2 = det / eival1;
-  else
+  else if(eival2_norm!=RealScalar(0))
     eival1 = det / eival2;
 
   // choose the eigenvalue closest to the bottom entry of the diagonal
@@ -454,6 +457,6 @@ void ComplexSchur<MatrixType>::reduceToTriangularForm(bool computeU)
   m_matUisUptodate = computeU;
 }
 
-} // end namespace Eigen
+} // end namespace RivetEigen
 
 #endif // EIGEN_COMPLEX_SCHUR_H

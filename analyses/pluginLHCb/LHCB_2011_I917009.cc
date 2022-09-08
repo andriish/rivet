@@ -115,26 +115,20 @@ namespace Rivet {
 
     // Generate the ratio histograms
     void finalize() {
-      int dsId = dsShift + 1;
       for (size_t j = 0; j < 3; ++j) {
-        /// @todo Compactify to two one-liners
         divide(_tmphistos[j], _tmphistos[3+j], s1[j]);
         divide(_tmphistos[j], _tmphistos[6+j], s2[j]);
       }
-      dsId += 2;
       for (size_t j = 3; j < 6; ++j) {
-        /// @todo Compactify to two one-liners
         divide(_tmphistos[3*j], _tmphistos[3*j+1], s3[j-3]);
-        dsId += 1;
         divide(_tmphistos[3*j], _tmphistos[3*j+2], s4[j-3]);
-        dsId += 1;
       }
     }
 
     /// @}
 
-  private:
 
+  private:
 
     // Get particle lifetime from hardcoded data
     double getLifeTime(int pid) {

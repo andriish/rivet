@@ -11,7 +11,7 @@ rm inspire-*-$THISYEAR.*.json
 ./get-rivethd-json *.ins.json
 
 ## Refresh the missing-analyses list
-mv inspire-missing.ins.json{,.bak}
-rm inspire-missing.rhd.json
+test inspire-missing.ins.json && mv inspire-missing.ins.json{,.bak}
+rm -f inspire-missing.rhd.json
 ./get-json-missing
 ./get-rivethd-json inspire-missing.ins.json
