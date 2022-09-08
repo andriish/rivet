@@ -12,8 +12,6 @@ References:
 RunInfo: e+e- to hadrons
 NeedCrossSection: yes
 Beams: [e+,e-]
-Luminosity_fb: 
-Description:
 Description:
   'Measurement of the cross section for $e^+e^-\to n\bar{n}$ at energies between threshold and 2 GeV.'
 Keywords: 
