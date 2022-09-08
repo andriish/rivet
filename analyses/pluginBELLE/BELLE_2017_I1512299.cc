@@ -54,7 +54,7 @@ namespace Rivet {
       FourMomentum lepton, neutrino, meson, q;
       for(const Particle& c : mother.children()) {
         if (c.isNeutrino()) neutrino=c.mom();
-        if (c.isLepton() &! c.isNeutrino()) lepton =c.mom();
+        if (c.isLepton() && !c.isNeutrino()) lepton =c.mom();
         if (c.isHadron()) meson=c.mom();
       }
       q = lepton + neutrino; //no hadron before

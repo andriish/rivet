@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
 """\
 %(prog)s <file.ins.json> [<file.ins.json> ...]
@@ -30,7 +30,12 @@ del anas[""]
 
 import json
 for ifile, insfile in enumerate(args.INSFILES):
-    import urllib2, re, os
+    import re, os
+    try:
+        import urllib.request as urlreq
+    except ImportError:
+        import urllib2 as urlreq
+
 
     if ifile > 0:
         print("\n")
@@ -81,9 +86,9 @@ for ifile, insfile in enumerate(args.INSFILES):
             if not hd and args.HDTEST:
                 try:
                     hdurl = "https://hepdata.net/record/ins{}".format(ins)
-                    u = urllib2.urlopen(hdurl)
+                    u = urlreq.urlopen(hdurl)
                     hd = "ins{}".format(ins)
-                except urllib2.URLError:
+                except urlreq.URLError:
                     pass
             print("HepData:", hd)
 
@@ -97,5 +102,5 @@ for ifile, insfile in enumerate(args.INSFILES):
 
 
     ## Write out as JSON
-    with open(jsonfile, "wb") as jf:
+    with open(jsonfile, "w") as jf:
         json.dump(OUT, jf, sort_keys=True, indent=4)

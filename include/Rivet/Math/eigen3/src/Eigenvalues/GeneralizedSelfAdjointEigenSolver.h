@@ -13,7 +13,7 @@
 
 #include "./Tridiagonalization.h"
 
-namespace Eigen { 
+namespace RivetEigen { 
 
 /** \eigenvalues_module \ingroup Eigenvalues_Module
   *
@@ -121,7 +121,7 @@ class GeneralizedSelfAdjointEigenSolver : public SelfAdjointEigenSolver<_MatrixT
       *
       * \returns    Reference to \c *this
       *
-      * Accoring to \p options, this function computes eigenvalues and (if requested)
+      * According to \p options, this function computes eigenvalues and (if requested)
       * the eigenvectors of one of the following three generalized eigenproblems:
       * - \c Ax_lBx: \f$ Ax = \lambda B x \f$
       * - \c ABx_lx: \f$ ABx = \lambda x \f$
@@ -221,6 +221,6 @@ compute(const MatrixType& matA, const MatrixType& matB, int options)
   return *this;
 }
 
-} // end namespace Eigen
+} // end namespace RivetEigen
 
 #endif // EIGEN_GENERALIZEDSELFADJOINTEIGENSOLVER_H

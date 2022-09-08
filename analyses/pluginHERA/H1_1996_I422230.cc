@@ -551,9 +551,9 @@ namespace Rivet {
 
       //cout << " histo mean = " << histo_input->xMean() << " variance " << histo_input->xVariance() << endl;
       double mysumWX = 0. ;
-      double mysumW2X = 0. ;
-      double mysumWX2 = 0. ;
-      double mysumW2 = 0. ;
+      // double mysumW2X = 0. ;
+      // double mysumWX2 = 0. ;
+      // double mysumW2 = 0. ;
       double mysumW = 0. ;
 
       // cout << histo_input->name() << endl;
@@ -563,13 +563,12 @@ namespace Rivet {
         // loop to calcualte mean
         for (size_t b = 0; b < histo_input->numBins(); ++b) { // loop over points
           mysumWX  += histo_input->bin(b).height()      *  histo_input->bin(b).xMid() ;
-          mysumW2X += sqr(histo_input->bin(b).height()) *  histo_input->bin(b).xMid() ;
-          mysumWX2 += histo_input->bin(b).height()      *  sqr(histo_input->bin(b).xMid()) ;
-          mysumW2  += sqr(histo_input->bin(b).height()) ;
+          //mysumW2X += sqr(histo_input->bin(b).height()) *  histo_input->bin(b).xMid() ;
+          //mysumWX2 += histo_input->bin(b).height()      *  sqr(histo_input->bin(b).xMid()) ;
+          //mysumW2  += sqr(histo_input->bin(b).height()) ;
           mysumW   += histo_input->bin(b).height() ;
         }
         mean = mysumWX/mysumW ;
-
 
         // loop to calculate dispersion (variance)
         double var = 0.;

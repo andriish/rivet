@@ -111,25 +111,27 @@ namespace Rivet {
         const double pT = sqrt(pow(pTinS, 2) + pow(pToutS, 2));
 
         const double rapidityT = 0.5 * std::log((energy + momT) / (energy - momT));
-	double angle = sphericity.sphericityAxis().angle(p.p3())/M_PI*180.;
-	if(angle>90.) angle=180.-angle;
-	if(PID::isCharged(p.pid())) {
-	  _histScaledMom->fill(scaledMom);
-	  _histRapidityT->fill(fabs(rapidityT));
-	  _histPl       ->fill(fabs(momS)     );
-	  _histPt       ->fill(pT             );
-	  _histPt2      ->fill(sqr(pT)        );
-	  _histPtIn     ->fill(fabs(pTinS)    );
-	  _histPtOut    ->fill(fabs(pToutS)   );
-	  pTIn2  += sqr(pTinS);
-	  pTOut2 += sqr(pToutS);
-	  _histNtheta->fill(angle);
-	  ++nCharged;
-	}
-	_histEtheta->fill(angle,energy);
+        double angle = sphericity.sphericityAxis().angle(p.p3())/M_PI*180.;
+        if(angle>90.) angle=180.-angle;
+        if(PID::isCharged(p.pid())) {
+          _histScaledMom->fill(scaledMom);
+          _histRapidityT->fill(fabs(rapidityT));
+          _histPl       ->fill(fabs(momS)     );
+          _histPt       ->fill(pT             );
+          _histPt2      ->fill(sqr(pT)        );
+          _histPtIn     ->fill(fabs(pTinS)    );
+          _histPtOut    ->fill(fabs(pToutS)   );
+          pTIn2  += sqr(pTinS);
+          pTOut2 += sqr(pToutS);
+          _histNtheta->fill(angle);
+          ++nCharged;
+        }
+        _histEtheta->fill(angle,energy); 
       }
-      _histMeanPtIn2 ->fill( pTIn2/nCharged);
-      _histMeanPtOut2->fill(pTOut2/nCharged);
+      if (nCharged) {
+        _histMeanPtIn2 ->fill( pTIn2/nCharged);
+        _histMeanPtOut2->fill(pTOut2/nCharged);
+      }
     }
 
 

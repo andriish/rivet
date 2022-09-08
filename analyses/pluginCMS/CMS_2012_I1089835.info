@@ -18,6 +18,7 @@ RunInfo:
 NumEvents: 1000000
 Beams: [p+, p+]
 Energies: [7000]
+Luminosity_fb: 0.034
 NeedCrossSection: True
 Description:
  'The inclusive b-jet production cross section in pp collisions at a center-of-mass energy of 7 TeV is measured using data collected by the CMS experiment at the LHC. 
