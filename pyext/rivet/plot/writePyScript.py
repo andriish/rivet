@@ -52,12 +52,11 @@ def writePyScript1D(hist_data, hist_features, yaml_dicts, outdir, plot_name):
   
   plot_features = yaml_dicts.get('plot features', {})
 
-  mplCommand1D += f"""
+  mplCommand1D += f"""\n
 # plot metadata
 ax_xLabel = r'{plot_features.get('XLabel')}'
 ax_yLabel = r'{plot_features.get('YLabel')}'
-ax_title  = r'{plot_features.get('Title')}'
-"""
+ax_title  = r'{plot_features.get('Title')}'"""
 
   xscale = 'log' if (plot_features.get('LogX') ) else 'linear'
   yscale = 'log' if (plot_features.get('LogY', 1) ) else 'linear'
@@ -121,6 +120,21 @@ ax_yScale = '{yscale}'
   if ax_format['xlim']: mplCommand1D += f"""\nxLims = {ax_format['xlim']}"""
   if ax_format['ylim']: mplCommand1D += f"""\nyLims = {ax_format['ylim']}"""
  
+  # labels for the legend
+  labels = []
+  if plot_features.get('Legend', 1) and yoda_type == 'hist':
+      labels = [hist_features[0].get('Title', 'Data')]
+      for i, _ in enumerate(hist_data[1:]):
+          labels.append(hist_features[i+1].get('Title', 'mc{}'.format(i+1)).replace(".yoda",""))
+  if plot_features.get('Legend', 1) and yoda_type == 'scatter':
+      labels = []
+      for i, _ in enumerate(hist_data):
+          labels.append(hist_features[i].get('Title', 'mc{}'.format(i+1)).replace(".yoda",""))
+  if len(labels) > 0:
+    mplCommand1D += f"""\n
+# labels for in the legend
+labels = {labels}"""
+
   mkRatio = plot_features.get('RatioPlot', 1) 
   mplCommand1D += mkCanvas(mkRatio, yoda_type)
   if mkRatio and yoda_type == 'hist': 
@@ -163,7 +177,7 @@ ax.yaxis.set_minor_locator(mpl.ticker.LogLocator(
   dataOutFile = open(os.path.join(outdir, dataOutPyName), "a")
   print(os.path.join(outdir, dataOutPyName))
   mplCommand1D += f"""\n
-# numerical data stored in separate file
+# the numerical data is stored in a separate file
 sys.path.insert(1, './rivet-plots')
 import {dataOutPyName.split('.py')[0].replace('-', '_').replace('/', '.')} as dataf""" 
   if yoda_type == 'scatter':
@@ -179,27 +193,6 @@ import {dataOutPyName.split('.py')[0].replace('-', '_').replace('/', '.')} as da
       
   dataOutFile.close()
 
-  # Create legend
-  if plot_features.get('Legend', 1) and yoda_type == 'hist':
-      handles = [AnyObject()]
-      labels = [hist_features[0].get('Title', 'Data')]
-      for i, _ in enumerate(hist_data[1:]):
-          color = colors[i % len(colors)]
-          handles.append(mpl.lines.Line2D([], [], color=color))
-          labels.append(hist_features[i+1].get('Title', 'mc{}'.format(i+1)).replace(".yoda",""))
-      mplCommand1D += f"""\n
-# create labels for legend
-labels = {labels}"""
-  if plot_features.get('Legend', 1) and yoda_type == 'scatter':
-      handles = []
-      labels = []
-      for i, _ in enumerate(hist_data):
-          color = colors[i % len(colors)]
-          handles.append(mpl.lines.Line2D([], [], color=color))
-          labels.append(hist_features[i].get('Title', 'mc{}'.format(i+1)).replace(".yoda",""))
-      mplCommand1D += f"""\n
-# create labels for legend
-labels = {labels}"""
   
 
   if plot_features.get('Legend', 1):
@@ -208,17 +201,18 @@ labels = {labels}"""
                         plot_features.get('LegendYPos', 0.97))
           mplCommand1D += f"""
 legend_pos = {legend_pos}
-ax.legend(handles, labels, loc='upper left', bbox_to_anchor=legend_pos)"""
+ax.legend(legend_handles, labels, loc='upper left', bbox_to_anchor=legend_pos)"""
       if plot_features.get('LegendAlign') == 'r':
           legend_pos = (plot_features.get('LegendXPos', 0.97),
                         plot_features.get('LegendYPos', 0.97))
           mplCommand1D += f"""
 legend_pos = {legend_pos}
 
-ax.legend(handles, labels, loc='upper right', bbox_to_anchor=legend_pos,markerfirst=False)
+ax.legend(legend_handles, labels, loc='upper right', bbox_to_anchor=legend_pos,markerfirst=False)
 """
 
   # Set text labels on axes
+  mplCommand1D += """\n# set plot metadata as defined above"""
   if plot_features.get('RatioPlot', 1) and yoda_type == 'hist':
       mplCommand1D += f"""\n
 ax_ratio.set_xlabel(ax_xLabel)"""
@@ -229,8 +223,7 @@ ax.set_xlabel(ax_xLabel)"""
 ax.set_ylabel(ax_yLabel, loc='top')
 ax.set_title(ax_title, loc='left')
 ax.set_xscale(ax_xScale)
-ax.set_yscale(ax_yScale)
-"""
+ax.set_yscale(ax_yScale)"""
 
 
   # toggle x/y lims
