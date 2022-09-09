@@ -74,7 +74,7 @@ stygroup.add_argument("-s", "--single", dest="SINGLE", action="store_true",
 #stygroup.add_argument("--no-ratio", dest="SHOW_RATIO", action="store_false",
 #                      default=True, help="don't draw a ratio plot under each main plot.")
 stygroup.add_argument("--errs", "--mcerrs", "--mc-errs", dest="MC_ERRS", action="store_true",
-                      default=False, help="plot error bars.")
+                      default=True, help="plot error bars.")
 
 parser.add_argument("--nRatioTicks", dest="NRATIOTICKS", default=1,
                       help="Modify number of minor ticks between major ticks on ratio plot.")
