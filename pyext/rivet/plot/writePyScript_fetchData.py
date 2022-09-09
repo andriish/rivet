@@ -94,63 +94,85 @@ xMins     = {[val for val in hists[0].xMins()]}
 xMaxs     = {[val for val in hists[0].xMaxs()]}
 ref_errminus = {[err[0] for err in ref_yerrs]}
 ref_errplus = {[err[1] for err in ref_yerrs]}
-#ref_errors = [
-#  [ref_yvals[i] - ref_errminus[i] for i in range(len(ref_yvals))],
-#  [ref_yvals[i] + ref_errplus[i] for i in range(len(ref_yvals))]
-#]
 ref_errors = [ref_errminus, ref_errplus]
 
 x_errs = [
   [abs(x_points[i] - xMins[i]) for i in range(len(x_points))],
   [abs(xMaxs[i] - x_points[i]) for i in range(len(x_points))]
 ]
-#ref_errbarsdown = [ref_yvals[i] - ref_errminus[i] for i in range(len(ref_yvals))]
-#ref_errbarsup = [ref_yvals[i] + ref_errplus[i] for i in range(len(ref_yvals))]
 """
 
     # Plot the reference histogram data
-    mplCommand = """# plot the data on axes\n"""
+    mplCommand = """\n
+legend_handles = [] # keep track of handles for the legend"""
     fnamedata = fnamedata.split('py')[0]
     if plot_ref:
         
-      mplCommand += f"""
-# ref data
-data_cross = ax.errorbar(dataf.x_points, dataf.ref_yvals, xerr=dataf.x_errs, yerr=dataf.ref_errors, fmt='o',
-  ecolor = 'black', color='black', label='Data')
-"""
+      mplCommand += f"""\n
+# reference data in main panel
+data_cross = ax.errorbar(dataf.x_points, dataf.ref_yvals, xerr=dataf.x_errs, yerr=dataf.ref_errors,
+                         fmt='o', ecolor = 'black', color='black')
+legend_handles += [data_cross]"""
       legend_handles += ['data_cross']
-    mplCommand += """\n
-# histograms data from input yoda files"""
+      
     # Plot MC histogram data
+    mc_curves = []
+    mc_y_hist, mc_y_err, mc_y_up, mc_y_down, mc_styles = {}, {}, {}, {}, {}
     for i, hist in enumerate(hists):
         if plot_ref and i == 0:
             continue
         color, linestyle = next(line_properties)
-        hist_yvals = np.insert(hist.yVals(), 0, hist.yVals()[0])
-        lists += f"""
-mc{i}_yvals = {[val for val in hist_yvals]}
-"""
-        mplCommand += f"""
-mc{i}, = ax.plot(dataf.x_bins, dataf.mc{i}_yvals, color='{color}', linestyle='{linestyle}', drawstyle='steps-pre',
-        solid_joinstyle='miter', zorder={5+i})
-"""
+        zorder = 5 + i
+        hist_yvals = hist.yVals()
         legend_handles += [f'mc{i}']
-        if error_bars[i]:
-            errminus = [err[0] for err in hist.yErrs()]
-            errplus = [err[1] for err in hist.yErrs()]
-            mc_errbarsdown = hist.yVals() - np.array(errminus)
-            mc_errbarsup = hist.yVals() + np.array(errplus)
-            lists += f"""
-mc{i}_errbarsup = {[val for val in mc_errbarsup]}
-mc{i}_errbarsdown = {[val for val in mc_errbarsdown]}
+        mc_curves      += [f'mc{i}']
+        mc_y_hist[f'mc{i}'] = np.insert(hist_yvals, 0, hist_yvals[0])
+        mc_y_err[f'mc{i}'] = hist_yvals
+        mc_y_up[f'mc{i}'] = [err[1] for err in hist.yErrs()] if error_bars[i] else [0] * len(hist_yvals) 
+        mc_y_down[f'mc{i}'] = [err[0] for err in hist.yErrs()] if error_bars[i] else [0] * len(hist_yvals)
+  
+        mc_styles[f'mc{i}'] = {'color' : color, 'linestyle' : linestyle, 'zorder' : zorder}
+#        lists += f"""
+#mc{i}_yvals = {[val for val in hist_yvals]}
+#"""
+
+    # write dictionary of labels + yvalues to iterate over in executable python script
+    lists += """\nmc_y_err = {"""
+    for label, yvals in mc_y_err.items():
+      lists += f"""'{label}' : {[val for val in yvals]},\n"""
+    lists += """}\nmc_y_up = {"""
+    for label, yups in mc_y_up.items():
+      lists += f"""'{label}' : {[val for val in yups]},\n"""
+    lists += """}\nmc_y_down = {"""
+    for label, ydowns in mc_y_down.items():
+      lists += f"""'{label}' : {[val for val in ydowns]},\n"""
+    lists += """}\nmc_y_hist = {"""
+    for label, yhists in mc_y_hist.items():
+      lists += f"""'{label}' : {[val for val in yhists]},\n"""
+    lists += """}"""
+    
+    mplCommand += """\n\n# style options for mc histograms""" 
+    if len(mc_styles) == 1: mplCommand += f"""\nmc_styles = {my_styles}"""
+    else:
+      mplCommand += """\nmc_styles = {"""
+      for key, val in mc_styles.items():
+        mplCommand += f"""'{key}': {val},\n             """
+      mplCommand += """}"""
+    mplCommand += f"""\n
+# mc from input yoda files in main panel
+for label in dataf.mc_y_err.keys():
+  tmp_plot, = ax.plot(dataf.x_bins, dataf.mc_y_hist[label], color=mc_styles[label]['color'], linestyle=mc_styles[label]['linestyle'], drawstyle='steps-pre',
+        solid_joinstyle='miter', zorder=mc_styles[label]['zorder'], label=label)
+  legend_handles += [tmp_plot]
+  ax.errorbar(dataf.x_points, dataf.mc_y_err[label], color=mc_styles[label]['color'],
+              xerr=dataf.x_errs, yerr=[dataf.mc_y_down[label], dataf.mc_y_up[label]],
+              linestyle='none', 
+              zorder=mc_styles[label]['zorder'])
 """
-            mplCommand += f"""
-ax.vlines(dataf.x_points, dataf.mc{i}_errbarsdown, dataf.mc{i}_errbarsup,
-      color='{color}', zorder={5+i}, linestyle='{linestyle}')
-"""
-    mplCommand += f"""
-handles = [{', '.join(legend_handles)}]
-"""
+
+#    mplCommand += f"""
+#handles = [{', '.join(legend_handles)}]
+#"""
     return mplCommand, lists
 
 
@@ -160,7 +182,7 @@ handles = [{', '.join(legend_handles)}]
 def getListsRatio(hists, ax=None, error_bars=True, error_bands=False,
                colors=None, line_styles=['-', '--', '-.', ':'], legend=False, **kwargs):
   lists = """\n\n # lists for ratio plot"""
-  mplCommand = """\n# Plot the ratio""" 
+  #mplCommand = """\n# Plots on ratio panel""" 
   if not isinstance(hists, Sequence):  # Convert single hist object to list
     hists = [hists]
   # Convert all histogram objects to Scatter2D
@@ -174,8 +196,8 @@ def getListsRatio(hists, ax=None, error_bars=True, error_bands=False,
 
   # Define useful variables
   ref_yvals = hists[0].yVals()
-  print(type(ref_yvals))
-  print(type(hists[0].yErrs()))
+  #print(type(ref_yvals))
+  #print(type(hists[0].yErrs()))
 
   # Plot the reference data ratio
   try:
@@ -190,9 +212,10 @@ ratio_ref_errminus = {[val for val in data_errminus]}
 ratio_ref_errplus =  {[val for val in data_errplus]}
 ratio_ref_errs = [ratio_ref_errminus, ratio_ref_errplus]
 """ 
-  mplCommand += f"""
-{ax}.errorbar(dataf.x_points, [1.] * len(dataf.x_points), xerr=dataf.x_errs , yerr=dataf.ratio_ref_errs, fmt='o',
-                    ecolor = 'black', color='black')
+  mplCommand = f"""
+# reference data in ratio panel
+{ax}.errorbar(dataf.x_points, [1.] * len(dataf.x_points), xerr=dataf.x_errs , yerr=dataf.ratio_ref_errs,
+              fmt='o', ecolor = 'black', color='black')
 """ 
   if error_bars[0]:
     data_errminus = [err[0] for err in hists[0].yErrs()]
@@ -212,33 +235,50 @@ ratio_errbandminus = {[val for val in errbandminus]}
                 step='pre', alpha=0.5, zorder=0)
 """
 
+  mc_curves_ratio = []
+  mc_y_hist_ratio, mc_y_up_ratio, mc_y_down_ratio = {}, {}, {}
   # Plot the ratio histograms (MC)
   for i, hist in enumerate(hists[1:]):
     color, linestyle = next(line_properties)
     y_ratio = (np.insert(hist.yVals(), 0, hist.yVals()[0])
             / np.insert(ref_yvals, 0, ref_yvals[0]))
-    lists += f"""
-ratio_y_mc{i} = {[val for val in y_ratio]}
-"""
-    mplCommand += f"""
-{ax}.plot(dataf.x_bins, dataf.ratio_y_mc{i}, color='{color}', linestyle='{linestyle}', drawstyle='steps-pre', zorder=1,
-         solid_joinstyle='miter')
-"""
-    print(error_bars[i+1])
+    mc_y_hist_ratio[f'mc{i+1}'] = y_ratio 
+    #print(error_bars[i+1])
     if error_bars[i+1]:
       errminus = [err[0] for err in hist.yErrs()]
       errplus = [err[1] for err in hist.yErrs()]
-      lists += f"""
-ratio_y_mc{i}_errsdown = {[val for val in (hist.yVals() - errminus)/ref_yvals]}
-ratio_y_mc{i}_errsup   = {[val for val in (hist.yVals() + errplus)/ref_yvals]}
-"""
-      mplCommand += f"""
-{ax}.vlines(dataf.x_points, dataf.ratio_y_mc{i}_errsdown, dataf.ratio_y_mc{i}_errsup,
-                color='{color}', zorder=1, linestyle='{linestyle}')
+      #lists += f"""
+      mc_y_down_ratio[f'mc{i+1}'] = [val for val in (hist.yVals() - errminus)/ref_yvals]
+      mc_y_up_ratio[f'mc{i+1}']   = [val for val in (hist.yVals() + errplus)/ref_yvals]
+    else:
+      mc_y_down_ratio[f'mc{i+1}'] = mc_y_up_ratio[f'mc{i+1}'] = y_ratio # results in no error bars drawn
 
+#      mplCommand += f"""
+#{ax}.vlines(dataf.x_points, dataf.ratio_y_mc{i}_errsdown, dataf.ratio_y_mc{i}_errsup,
+#               color='{color}', zorder=1, linestyle='{linestyle}')
+#"""
+
+  # write lists to read in executable py script
+  lists += """\nmc_y_hist_ratio = {"""
+  for label, yvals in mc_y_hist_ratio.items():
+    lists += f"""'{label}' : {[val for val in yvals]},\n"""
+  lists += """}\nmc_y_up_ratio = {"""
+  for label, yups in mc_y_up_ratio.items():
+    lists += f"""'{label}' : {[val for val in yups]},\n"""
+  lists += """}\nmc_y_down_ratio = {"""
+  for label, ydowns in mc_y_down_ratio.items():
+    lists += f"""'{label}' : {[val for val in ydowns]},\n"""
+  lists += """}"""
+
+  # for loop to plot MC in ratio
+  mplCommand += f"""
+# mc from input yoda files in ratio panel
+for label,yvals in dataf.mc_y_hist_ratio.items():
+  {ax}.plot(dataf.x_bins, yvals, color=mc_styles[label]['color'], linestyle=mc_styles[label]['linestyle'], 
+            drawstyle='steps-pre', zorder=1,solid_joinstyle='miter')
+  {ax}.vlines(dataf.x_points, dataf.mc_y_down_ratio[label], dataf.mc_y_up_ratio[label],
+              color=mc_styles[label]['color'], zorder=1)
 """
-  # see mpl_tools/yoda_plot/yoda_plot1d.py -> plot_ratio function
-   
   return mplCommand, lists 
 
 
