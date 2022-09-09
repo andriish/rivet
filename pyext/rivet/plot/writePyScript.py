@@ -239,7 +239,8 @@ plt.rcParams['ytick.right'] = {plot_features.get('YTwosidedTicks', True)}
 """
   
   # temporary for debugging
-  mplCommand1D += """\nplt.show()"""
+  #mplCommand1D += """\nplt.show()"""
+  mplCommand1D += f"""\nplt.savefig('{os.path.join(outdir, plot_name.strip('/')) + '.pdf'}')"""
   return mplCommand1D
 
 def writePyScript2D():
@@ -258,8 +259,6 @@ def writePyScript(yaml_file, plot_name, outdir):
   """
     
   outPyName = os.path.join(outdir, plot_name.strip('/')) + '.py'
-  print(plot_name)
-  print(plot_name.strip('/'))
 
   # contents to write out to .py script
   mplScript = """#! /usr/bin/env python"""
