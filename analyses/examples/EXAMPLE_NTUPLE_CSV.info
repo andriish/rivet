@@ -9,6 +9,6 @@ Description:
   analysis observables for each event. The file automatically closes itself
   on conclusion of the run. This code is intended as a starting point for
   users' custom-written text-ntuple analyses. The CSVFILE analysis option
-  can be used to change the output filename from Rivet.csv.txt"
+  can be used to change the output filename from Rivet.csv."
 Options:
   - CSVFILE

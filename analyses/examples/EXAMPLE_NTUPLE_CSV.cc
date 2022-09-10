@@ -35,7 +35,7 @@ namespace Rivet {
       declare(MissingMomentum(fs), "MET");
 
       // Initialise CSV file
-      _fout = std::ofstream(getOption("CSVFILE", "Rivet.csv.txt"));
+      _fout = std::ofstream(getOption("CSVFILE", "Rivet.csv"));
       _fout << "npart"
             << "nchpart"
             << "njet"
