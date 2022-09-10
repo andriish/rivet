@@ -1,7 +1,10 @@
 #! /usr/bin/env bash
 
-# TODO: which directory is this run from?
 # TODO: also test if a YODA ref file is updated, since autobinning could have been broken
+
+## Find the project base dir
+SCRIPTDIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+PROJDIR=${CI_PROJECT_DIR:-$SCRIPTDIR/..}
 
 ## Define output as stdout or write to file
 OUTFILE=$1
@@ -24,12 +27,12 @@ function getAffectedFiles {
         echo $fn >> $CHECKEDFILES
 
         headerName=`basename ${p%.*}`
-        grep -iRl "$headerName" $CI_PROJECT_DIR/src/ $CI_PROJECT_DIR/include/ $CI_PROJECT_DIR/test/ >> $AFFECTEDFILES
+        grep -iRl "$headerName" $PROJDIR/src/ $PROJDIR/include/ $PROJDIR/test/ >> $AFFECTEDFILES
 
         echo "[INFO] $fn affects these analyses:"
         cat $AFFECTEDFILES | grep -E "^analyses/.*\.(hh$|cc)$"
         cat $AFFECTEDFILES | grep -E "^analyses/.*\.(hh$|cc)$" | while read p; do
-          echo $CI_PROJECT_DIR/$p $OUT
+          echo $PROJDIR/$p $OUT
         done
 
         > $SCANFILES
