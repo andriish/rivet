@@ -36,19 +36,19 @@ namespace Rivet {
 
       // Initialise CSV file
       _fout = std::ofstream(getOption("CSVFILE", "Rivet.csv"));
-      _fout << "npart"
-            << "nchpart"
-            << "njet"
-            << "nbjet"
-            << "j1pt"
-            << "j1eta"
-            << "nelec"
-            << "e1pt"
-            << "e1eta"
-            << "nmuon"
-            << "m1pt"
-            << "m1eta"
-            << "met" << endl;
+      writefield("npart", 5);
+      writefield("nchpart", 7);
+      writefield("njet", 5);
+      writefield("nbjet", 5);
+      writefield("j1pt", 5);
+      writefield("j1eta", 5);
+      writefield("nelec", 5);
+      writefield("e1pt", 5);
+      writefield("e1eta", 5);
+      writefield("nmuon", 5);
+      writefield("m1pt", 5);
+      writefield("m1eta", 5);
+      writefield("met", 5, "");
     }
 
 
@@ -67,16 +67,16 @@ namespace Rivet {
       double met = apply<MissingMomentum>(event, "MET").missingPt();
 
       // Write CSV row
-      writefield(particles.size(), 4);
-      writefield(chparticles.size(), 4);
-      writefield(jets.size(), 2);
-      writefield(bjets.size(), 2);
+      writefield(particles.size(), 5);
+      writefield(chparticles.size(), 7);
+      writefield(jets.size(), 5);
+      writefield(bjets.size(), 5);
       writefield(jets.size() > 0 ? jets[0].pT()/GeV : NAN, 5);
       writefield(jets.size() > 0 ? jets[0].eta()/GeV : NAN, 5);
-      writefield(elecs.size(), 2);
+      writefield(elecs.size(), 5);
       writefield(elecs.size() > 0 ? elecs[0].pT()/GeV : NAN, 5);
       writefield(elecs.size() > 0 ? elecs[0].eta()/GeV : NAN, 5);
-      writefield(muons.size(), 2);
+      writefield(muons.size(), 5);
       writefield(muons.size() > 0 ? elecs[0].pT()/GeV : NAN, 5);
       writefield(muons.size() > 0 ? elecs[0].eta()/GeV : NAN, 5);
       writefield(met, 5, "");
@@ -88,12 +88,15 @@ namespace Rivet {
 
     /// @}
 
+
+    /// Helper method for writing columns in the CSV
     template <typename T>
     void writefield(const T& x, size_t width, const string& post=", ") {
       _fout.precision(width);
       _fout << std::setw(width) << x << post;
       if (post.empty()) _fout << endl;
     }
+
 
     /// CSV output file
     std::ofstream _fout;

@@ -11,4 +11,4 @@ Description:
   users' custom-written text-ntuple analyses. The CSVFILE analysis option
   can be used to change the output filename from Rivet.csv."
 Options:
-  - CSVFILE
+ - CSVFILE=*
