@@ -413,6 +413,9 @@ analysis:
   needs: [build_ubuntu_gcc_hepmc3_py3]
   stage: webpage
   script:
+    - INSTALL_PREFIX="$CI_PROJECT_DIR/local_$ARCH"
+    - source $INSTALL_PREFIX/yodaenv.sh
+    - source $INSTALL_PREFIX/rivetenv.sh
     - ./$BUILD_PREFIX/doc/analists/mk-analysis-mdfinal
   artifacts:
     untracked: true
