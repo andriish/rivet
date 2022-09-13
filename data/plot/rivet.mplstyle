@@ -7,6 +7,7 @@ mathtext.rm: Palatino
 mathtext.bf: Palatino:bold 
 mathtext.it: Palatino:italic 
 mathtext.default: it
+text.usetex: True
 font.size: 10
 axes.titlesize: 9
 axes.labelsize: 10
