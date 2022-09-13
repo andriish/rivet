@@ -416,6 +416,7 @@ analysis:
     - INSTALL_PREFIX="$CI_PROJECT_DIR/local_$ARCH"
     - source $INSTALL_PREFIX/yodaenv.sh
     - source $INSTALL_PREFIX/rivetenv.sh
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$INSTALL_PREFIX/local_$ARCH/lib
     - ./$BUILD_PREFIX/doc/analists/mk-analysis-mdfinal
   artifacts:
     untracked: true
