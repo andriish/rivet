@@ -9,6 +9,7 @@ stages:
 - precheck
 - check
 - validate
+- webpage
 
 
 .build_template: &build_template
@@ -404,3 +405,15 @@ make_plots_fedora_gcc_hepmc3_py3:
 #     ARCH: ubuntu-gcc-hepmc2-py2
 #   needs: [check_plugin_ubuntu_gcc_hepmc2_py2]
 #   <<: *make_plots_template
+
+
+analysis:
+  variables:
+    ARCH: ubuntu-gcc-hepmc3-py3
+  needs: [build_ubuntu_gcc_hepmc3_py3]
+  stage: webpage
+  script:
+    - ./$BUILD_PREFIX/doc/analists/mk-analysis-mdfinal
+  artifacts:
+    untracked: true
+    expire_in: 2 hrs
