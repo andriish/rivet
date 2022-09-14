@@ -247,7 +247,7 @@ namespace Rivet {
 
   protected:
 
-    using EMatrix = Eigen::Matrix<double,N,N>;
+    using EMatrix = RivetEigen::Matrix<double,N,N>;
     EMatrix _matrix;
 
   };

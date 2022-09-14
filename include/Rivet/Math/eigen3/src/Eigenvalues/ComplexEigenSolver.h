@@ -14,7 +14,7 @@
 
 #include "./ComplexSchur.h"
 
-namespace Eigen { 
+namespace RivetEigen { 
 
 /** \eigenvalues_module \ingroup Eigenvalues_Module
   *
@@ -60,7 +60,7 @@ template<typename _MatrixType> class ComplexEigenSolver
     /** \brief Scalar type for matrices of type #MatrixType. */
     typedef typename MatrixType::Scalar Scalar;
     typedef typename NumTraits<Scalar>::Real RealScalar;
-    typedef Eigen::Index Index; ///< \deprecated since Eigen 3.3
+    typedef RivetEigen::Index Index; ///< \deprecated since Eigen 3.3
 
     /** \brief Complex scalar type for #MatrixType.
       *
@@ -214,7 +214,7 @@ template<typename _MatrixType> class ComplexEigenSolver
 
     /** \brief Reports whether previous computation was successful.
       *
-      * \returns \c Success if computation was succesful, \c NoConvergence otherwise.
+      * \returns \c Success if computation was successful, \c NoConvergence otherwise.
       */
     ComputationInfo info() const
     {
@@ -341,6 +341,6 @@ void ComplexEigenSolver<MatrixType>::sortEigenvalues(bool computeEigenvectors)
   }
 }
 
-} // end namespace Eigen
+} // end namespace RivetEigen
 
 #endif // EIGEN_COMPLEX_EIGEN_SOLVER_H

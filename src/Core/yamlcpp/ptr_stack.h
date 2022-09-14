@@ -12,7 +12,7 @@
 #include <vector>
 
 template <typename T>
-class ptr_stack: private RIVET_YAML::noncopyable
+class ptr_stack: private RIVET_RIVET_YAML::noncopyable
 {
 public:
 	ptr_stack() {}

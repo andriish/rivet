@@ -10,7 +10,7 @@
 #ifndef EIGEN_CONDITIONESTIMATOR_H
 #define EIGEN_CONDITIONESTIMATOR_H
 
-namespace Eigen {
+namespace RivetEigen {
 
 namespace internal {
 
@@ -160,7 +160,7 @@ rcond_estimate_helper(typename Decomposition::RealScalar matrix_norm, const Deco
 {
   typedef typename Decomposition::RealScalar RealScalar;
   eigen_assert(dec.rows() == dec.cols());
-  if (dec.rows() == 0)              return RealScalar(1);
+  if (dec.rows() == 0)              return NumTraits<RealScalar>::infinity();
   if (matrix_norm == RealScalar(0)) return RealScalar(0);
   if (dec.rows() == 1)              return RealScalar(1);
   const RealScalar inverse_matrix_norm = rcond_invmatrix_L1_norm_estimate(dec);
@@ -170,6 +170,6 @@ rcond_estimate_helper(typename Decomposition::RealScalar matrix_norm, const Deco
 
 }  // namespace internal
 
-}  // namespace Eigen
+}  // namespace RivetEigen
 
 #endif

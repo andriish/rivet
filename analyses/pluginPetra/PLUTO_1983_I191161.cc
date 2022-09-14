@@ -122,6 +122,7 @@ namespace Rivet {
             if (iy==1) {
               value = _p_sphere_pt.xMean();
               error = _p_sphere_pt.xStdErr();
+<<<<<<< HEAD
             } else if (iy==2) {
               value = _p_sphere_pt2.xMean();
               error = _p_sphere_pt2.xStdErr();
@@ -129,22 +130,30 @@ namespace Rivet {
               value = _p_sphere_sum_pt.xMean();
               error = _p_sphere_sum_pt.xStdErr();
             } else if (iy==4) {
-              value = _p_sphere_sum_pt2.xMean();
-              error = _p_sphere_sum_pt2.xStdErr();
             }
-          }
-          Scatter2D temphisto(refData(ix, 1, iy));
-          Scatter2DPtr mult;
-          book(mult, ix, 1, iy);
-          for (size_t b = 0; b < temphisto.numPoints(); b++) {
+            else if (iy==2) {
+              value = _p_sphere_pt2.xMean();
+              error = _p_sphere_pt2.xStdErr();
+            }
+            else if (iy==3) {
+              value = _p_sphere_sum_pt.xMean();
             const double x  = temphisto.point(b).x();
             pair<double,double> ex = temphisto.point(b).xErrs();
             pair<double,double> ex2 = ex;
+<<<<<<< HEAD
             if (ex2.first == 0.) ex2. first=0.0001;
             if (ex2.second == 0.) ex2.second=0.0001;
             if (inRange(_sqs, x-ex2.first, x+ex2.second)) {
               mult->addPoint(x, value, ex, make_pair(error,error));
             } else {
+=======
+            if (ex2.first ==0.) ex2. first=0.0001;
+            if (ex2.second==0.) ex2.second=0.0001;
+            if (inRange(sqs, x-ex2.first, x+ex2.second)) {
+              mult->addPoint(x, value, ex, make_pair(error,error));
+            }
+            else {
+>>>>>>> release-3-1-x
               mult->addPoint(x, 0., ex, make_pair(0.,.0));
             }
           }

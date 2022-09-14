@@ -219,14 +219,12 @@ namespace Rivet {
 
         // do the actual coputation
         double numerator = 0.0, denominator = 0.0;
-        unsigned int num = 0;
         for (const auto &c : constits){
           if (!_constitCut.pass(c)) continue;
           double pt = c.pt();
           // Note: better compute (dist^2)^(alpha/2) to avoid an extra square root
           numerator   += pow(pt, _kappa) * pow(c.squared_distance(reference_axis), 0.5*_alpha);
           denominator += pt;
-          num += 1;
         }
         if (denominator == 0) return -1;
         // the formula is only correct for the the typical angularities which satisfy either kappa==1 or alpha==0.
@@ -298,7 +296,7 @@ namespace Rivet {
 
   };
 
-  // The hook for the plugin system
+
   DECLARE_RIVET_PLUGIN(CMS_2021_I1920187_ZJET);
 
 }

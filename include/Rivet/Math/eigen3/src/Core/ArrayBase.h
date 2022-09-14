@@ -10,7 +10,7 @@
 #ifndef EIGEN_ARRAYBASE_H
 #define EIGEN_ARRAYBASE_H
 
-namespace Eigen { 
+namespace RivetEigen { 
 
 template<typename ExpressionType> class MatrixWrapper;
 
@@ -69,6 +69,7 @@ template<typename Derived> class ArrayBase
     using Base::coeff;
     using Base::coeffRef;
     using Base::lazyAssign;
+    using Base::operator-;
     using Base::operator=;
     using Base::operator+=;
     using Base::operator-=;
@@ -86,9 +87,8 @@ template<typename Derived> class ArrayBase
     typedef CwiseNullaryOp<internal::scalar_constant_op<Scalar>,PlainObject> ConstantReturnType;
 #endif // not EIGEN_PARSED_BY_DOXYGEN
 
-#define EIGEN_CURRENT_STORAGE_BASE_CLASS Eigen::ArrayBase
+#define EIGEN_CURRENT_STORAGE_BASE_CLASS RivetEigen::ArrayBase
 #define EIGEN_DOC_UNARY_ADDONS(X,Y)
-#   include "../plugins/CommonCwiseUnaryOps.h"
 #   include "../plugins/MatrixCwiseUnaryOps.h"
 #   include "../plugins/ArrayCwiseUnaryOps.h"
 #   include "../plugins/CommonCwiseBinaryOps.h"
@@ -142,7 +142,7 @@ template<typename Derived> class ArrayBase
     EIGEN_DEVICE_FUNC
     const ArrayBase<Derived>& array() const { return *this; }
 
-    /** \returns an \link Eigen::MatrixBase Matrix \endlink expression of this array
+    /** \returns an \link RivetEigen::MatrixBase Matrix \endlink expression of this array
       * \sa MatrixBase::array() */
     EIGEN_DEVICE_FUNC
     MatrixWrapper<Derived> matrix() { return MatrixWrapper<Derived>(derived()); }
@@ -153,8 +153,8 @@ template<typename Derived> class ArrayBase
 //     inline void evalTo(Dest& dst) const { dst = matrix(); }
 
   protected:
-    EIGEN_DEVICE_FUNC
-    ArrayBase() : Base() {}
+    EIGEN_DEFAULT_COPY_CONSTRUCTOR(ArrayBase)
+    EIGEN_DEFAULT_EMPTY_CONSTRUCTOR_AND_DESTRUCTOR(ArrayBase)
 
   private:
     explicit ArrayBase(Index);
@@ -221,6 +221,6 @@ ArrayBase<Derived>::operator/=(const ArrayBase<OtherDerived>& other)
   return derived();
 }
 
-} // end namespace Eigen
+} // end namespace RivetEigen
 
 #endif // EIGEN_ARRAYBASE_H

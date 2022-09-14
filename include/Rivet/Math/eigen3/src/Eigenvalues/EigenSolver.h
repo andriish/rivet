@@ -13,7 +13,7 @@
 
 #include "./RealSchur.h"
 
-namespace Eigen { 
+namespace RivetEigen { 
 
 /** \eigenvalues_module \ingroup Eigenvalues_Module
   *
@@ -79,7 +79,7 @@ template<typename _MatrixType> class EigenSolver
     /** \brief Scalar type for matrices of type #MatrixType. */
     typedef typename MatrixType::Scalar Scalar;
     typedef typename NumTraits<Scalar>::Real RealScalar;
-    typedef Eigen::Index Index; ///< \deprecated since Eigen 3.3
+    typedef RivetEigen::Index Index; ///< \deprecated since Eigen 3.3
 
     /** \brief Complex scalar type for #MatrixType. 
       *
@@ -110,7 +110,7 @@ template<typename _MatrixType> class EigenSolver
       *
       * \sa compute() for an example.
       */
-    EigenSolver() : m_eivec(), m_eivalues(), m_isInitialized(false), m_realSchur(), m_matT(), m_tmp() {}
+    EigenSolver() : m_eivec(), m_eivalues(), m_isInitialized(false), m_eigenvectorsOk(false), m_realSchur(), m_matT(), m_tmp() {}
 
     /** \brief Default constructor with memory preallocation
       *
@@ -277,7 +277,7 @@ template<typename _MatrixType> class EigenSolver
     template<typename InputType>
     EigenSolver& compute(const EigenBase<InputType>& matrix, bool computeEigenvectors = true);
 
-    /** \returns NumericalIssue if the input contains INF or NaN values or overflow occured. Returns Success otherwise. */
+    /** \returns NumericalIssue if the input contains INF or NaN values or overflow occurred. Returns Success otherwise. */
     ComputationInfo info() const
     {
       eigen_assert(m_isInitialized && "EigenSolver is not initialized.");
@@ -617,6 +617,6 @@ void EigenSolver<MatrixType>::doComputeEigenvectors()
   }
 }
 
-} // end namespace Eigen
+} // end namespace RivetEigen
 
 #endif // EIGEN_EIGENSOLVER_H

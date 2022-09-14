@@ -1,13 +1,11 @@
 // -*- C++ -*-
-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 
-using namespace std;
-
 namespace Rivet {
+
 
   // UE charged particles vs. leading jet
   class CMS_2015_PAS_FSQ_15_007 : public Analysis {
@@ -73,7 +71,7 @@ namespace Rivet {
       Particles particles = apply<ChargedFinalState>(event, "CFS").particlesByPt();
 
       int nTransverse_leadjet = 0;
-      double ptSumTransverse_leadjet = 0.;
+      // double ptSumTransverse_leadjet = 0.;
       int nTransverse1_leadjet = 0;
       double ptSumTransverse1_leadjet = 0.;
       int nTransverse2_leadjet = 0;
@@ -83,12 +81,12 @@ namespace Rivet {
       int nTransverseMax_leadjet = 0;
       double ptSumTransverseMax_leadjet = 0.;
       int nTowards_leadjet = 0;
-      double ptSumTowards_leadjet = 0.;
+      // double ptSumTowards_leadjet = 0.;
       int nAway_leadjet = 0;
-      double ptSumAway_leadjet = 0.;
+      // double ptSumAway_leadjet = 0.;
 
       int nTransverse_leadtrack = 0;
-      double ptSumTransverse_leadtrack = 0.;
+      // double ptSumTransverse_leadtrack = 0.;
       int nTransverse1_leadtrack = 0;
       double ptSumTransverse1_leadtrack = 0.;
       int nTransverse2_leadtrack = 0;
@@ -98,9 +96,9 @@ namespace Rivet {
       int nTransverseMax_leadtrack = 0;
       double ptSumTransverseMax_leadtrack = 0.;
       int nTowards_leadtrack = 0;
-      double ptSumTowards_leadtrack = 0.;
+      // double ptSumTowards_leadtrack = 0.;
       int nAway_leadtrack = 0;
-      double ptSumAway_leadtrack = 0.;
+      // double ptSumAway_leadtrack = 0.;
 
       for (const Particle& p : particles) {
         const double pT = p.pT() / GeV;
@@ -116,26 +114,26 @@ namespace Rivet {
 
           if (dphi_leadjet > PI / 3. && dphi_leadjet < PI * 2. / 3.) {  // Transverse1 region
             nTransverse_leadjet++;
-            ptSumTransverse_leadjet += pT;
+            // ptSumTransverse_leadjet += pT;
             nTransverse1_leadjet++;
             ptSumTransverse1_leadjet += pT;
           }
 
           if (dphi_leadjet < -PI / 3. && dphi_leadjet > -PI * 2. / 3.) {  // Transverse2 region
             nTransverse_leadjet++;
-            ptSumTransverse_leadjet += pT;
+            // ptSumTransverse_leadjet += pT;
             nTransverse2_leadjet++;
             ptSumTransverse2_leadjet += pT;
           }
 
           if (fabs(dphi_leadjet) < PI / 3.) {  // Toward region
             nTowards_leadjet++;
-            ptSumTowards_leadjet += pT;
+            // ptSumTowards_leadjet += pT;
           }
 
           if (fabs(dphi_leadjet) > 2. * PI / 3.) {  // Away region
             nAway_leadjet++;
-            ptSumAway_leadjet += pT;
+            // ptSumAway_leadjet += pT;
           }
 
         }  //jet found
@@ -151,31 +149,31 @@ namespace Rivet {
 
           if (dphi_leadtrack > PI / 3. && dphi_leadtrack < PI * 2. / 3.) {  // Transverse1 region
             nTransverse_leadtrack++;
-            ptSumTransverse_leadtrack += pT;
+            // ptSumTransverse_leadtrack += pT;
             nTransverse1_leadtrack++;
             ptSumTransverse1_leadtrack += pT;
           }
 
           if (dphi_leadtrack < -PI / 3. && dphi_leadtrack > -PI * 2. / 3.) {  // Transverse2 region
             nTransverse_leadtrack++;
-            ptSumTransverse_leadtrack += pT;
+            // ptSumTransverse_leadtrack += pT;
             nTransverse2_leadtrack++;
             ptSumTransverse2_leadtrack += pT;
           }
 
           if (fabs(dphi_leadtrack) < PI / 3.) {  // Toward region
             nTowards_leadtrack++;
-            ptSumTowards_leadtrack += pT;
+            // ptSumTowards_leadtrack += pT;
           }
 
           if (fabs(dphi_leadtrack) > 2. * PI / 3.) {  // Away region
             nAway_leadtrack++;
-            ptSumAway_leadtrack += pT;
+            // ptSumAway_leadtrack += pT;
           }
 
-        }  //track found
+        }  //< track found
 
-      }  //Loop over particles
+      }  //< loop over particles
 
       const double fullarea = 8. / 3. * PI;
       const double halfarea = 4. / 3. * PI;
@@ -184,9 +182,7 @@ namespace Rivet {
         if (nTransverse2_leadjet > nTransverse1_leadjet) {
           nTransverseMax_leadjet = nTransverse2_leadjet;
           nTransverseMin_leadjet = nTransverse1_leadjet;
-        }
-
-        else {
+        } else {
           nTransverseMax_leadjet = nTransverse1_leadjet;
           nTransverseMin_leadjet = nTransverse2_leadjet;
         }

@@ -3,7 +3,7 @@
 set -e
 
 RIVET_VERSION=3.1.6
-SHERPA_VERSION=2.2.11
+SHERPA_VERSION=2.2.12
 
 BUILD="docker build ."
 

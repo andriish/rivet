@@ -1032,11 +1032,13 @@ class RatioPlot(Plot):
             for i in inputdata.histos.keys():
                 print('    ',i)
             sys.exit(1)
-        inputdata.description.setdefault('RatioPlotYOffset', inputdata.description['PlotSizeY'])
+
+        inputdata.description.setdefault('RunningPanelYOffset', inputdata.description['PlotSizeY'])
         inputdata.description.setdefault(self.name+'SameStyle', '1')
-        self.yoffset = inputdata.attr_float('RatioPlotYOffset') + inputdata.attr_float(self.name+'SizeY')
+        self.yoffset = inputdata.attr_float('RunningPanelYOffset') + inputdata.attr_float(self.name+'SizeY') 
+        self.yoffset += inputdata.attr_float(self.name+'YOffset', 0.)
         inputdata.description['PlotStage'] = self.name
-        inputdata.description['RatioPlotYOffset'] = self.yoffset
+        inputdata.description['RunningPanelYOffset'] = self.yoffset
         inputdata.description['PlotSizeY'] = inputdata.description[self.name+'SizeY']
         inputdata.description['LogY'] = inputdata.description.get(self.name+"LogY", False)
 
@@ -1102,14 +1104,12 @@ class RatioPlot(Plot):
     def calculate_ratios(self,inputdata):
         inputdata.ratiohistos = {}
         inputdata.ratiohistos = copy.deepcopy(inputdata.histos)
-        foo=inputdata.description[self.name+'DrawOnly'].pop(inputdata.description[self.name+'DrawOnly'].index(self.refdata))
         if inputdata.description.get(self.name+'DrawReferenceFirst', '')!='0':
+            foo=inputdata.description[self.name+'DrawOnly'].pop(inputdata.description[self.name+'DrawOnly'].index(self.refdata))
             if inputdata.histos[self.refdata].description.get('ErrorBands', '')=='1':
                 inputdata.description[self.name+'DrawOnly'].insert(0,foo)
             else:
                 inputdata.description[self.name+'DrawOnly'].append(foo)
-        else:
-            inputdata.description[self.name+'DrawOnly'].append(foo)
         rpmode = inputdata.description.get(self.name+'Mode', 'mcdata')
         for i in inputdata.description[self.name+'DrawOnly']:
             if i!=self.refdata:
@@ -1365,6 +1365,8 @@ class Legend(Described):
                                 + ', linewidth=' + drawobject.getErrorTubeLineWidth() \
                                 + ', strokeopacity=' + drawobject.getErrorTubeLineOpacity() \
                                 + ', opacity=' + drawobject.getFillOpacity())
+                    if drawobject.getErrorTubeLineDash()!='':
+                        tubeopts += (', dash=' + drawobject.getErrorTubeLineDash())
                     out += ('  \\psline[' + tubeopts + '](%s, %s)(%s, %s)\n') \
                                 %(xpos1, boxtop, xpos2, boxtop)
                     out += ('  \\psline[' + tubeopts + '](%s, %s)(%s, %s)\n') \
@@ -2324,6 +2326,8 @@ class Histogram(DrawableObject, Described):
                                     + ', linewidth=' + self.getErrorTubeLineWidth() \
                                     + ', strokeopacity=' + self.getErrorTubeLineOpacity() \
                                     + ', opacity=' + self.getFillOpacity())
+                        if self.getErrorTubeLineDash()!='':
+                            tubeopts += (', dash=' + self.getErrorTubeLineDash())
                         out += ('\psline['+tubeopts+']')
                         out += ('(' + coors.strphys2frameX(self.data[i].xmin) + ', ' \
                                     + coors.strphys2frameY(self.data[i].val-self.data[i].err[0]) + ')(' \
