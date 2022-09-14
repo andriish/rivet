@@ -413,6 +413,7 @@ analysis:
   needs: [build_ubuntu_gcc_hepmc3_py3]
   stage: webpage
   script:
+    - BUILD_PREFIX="$CI_PROJECT_DIR"
     - INSTALL_PREFIX="$CI_PROJECT_DIR/local_$ARCH"
     - source $INSTALL_PREFIX/yodaenv.sh
     - source $INSTALL_PREFIX/rivetenv.sh
