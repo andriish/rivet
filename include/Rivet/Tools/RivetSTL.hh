@@ -10,6 +10,7 @@
 #include <memory>
 #include <functional>
 #include <ostream>
+#include <fstream>
 #include <sstream>
 // #include <tuple>
 // #include <utility>
@@ -28,6 +29,9 @@ namespace Rivet {
   using std::string;
   using std::to_string;
 
+  using std::ifstream;
+  using std::ofstream;
+
   using std::array;
   using std::vector;
   using std::list;
@@ -41,6 +45,7 @@ namespace Rivet {
   using std::unique_ptr;
   using std::shared_ptr;
   using std::make_shared;
+  using std::make_unique;
   using std::dynamic_pointer_cast;
 
   using std::initializer_list;

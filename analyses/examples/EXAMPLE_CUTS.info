@@ -1,6 +1,6 @@
 Name: EXAMPLE_CUTS
 Summary: A demo to show the new cut system in Rivet analyses
-Status: EXAMPLE
+Status: VALIDATED
 Authors:
  - David Grellscheid <david.grellscheid@durham.ac.uk>
 RunInfo:

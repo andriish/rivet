@@ -1,6 +1,6 @@
 Name: EXAMPLE_NTUPLE_CSV
 Summary: A demo to show how to write a simple CSV ntuple from Rivet
-Status: EXAMPLE_NTUPLE_CSV
+Status: VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@glasgow.ac.uk>
 Description:
