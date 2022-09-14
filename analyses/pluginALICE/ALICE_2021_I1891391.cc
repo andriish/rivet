@@ -364,14 +364,14 @@ namespace Rivet {
       for (int ipt = 0; ipt < PT_TRIGG_BINS; ++ipt) {
         string pname = "APRIMTrigg" + toString(ipt);
         trigg_h_Particles[ipt] =
-          applyProjection<ALICE::PrimaryParticles>(event,pname).particles();
+          apply<ALICE::PrimaryParticles>(event,pname).particles();
       }
       // Get trigger particles, neutral hadrons  
       Particles trigg_V0_Particles[PT_TRIGG_BINS];
       for (int ipt = 0; ipt < PT_TRIGG_BINS; ++ipt) {
         string pname = "APRIMTrigg0" + toString(ipt);
         trigg_V0_Particles[ipt] =
-          applyProjection<ALICE::PrimaryParticles>(event,pname).particles();
+          apply<ALICE::PrimaryParticles>(event,pname).particles();
       }
 
       // Get associated particles particles, charged hadrons  
@@ -379,7 +379,7 @@ namespace Rivet {
       for (int ipt = 0; ipt < PT_ASSOC_BINS; ++ipt) {
         string pname = "APRIMAssoc" + toString(ipt);
         assocParticles[ipt] =
-          applyProjection<ALICE::PrimaryParticles>(event,pname).particles();
+          apply<ALICE::PrimaryParticles>(event,pname).particles();
       }
 
       //trigger = any charged particle
