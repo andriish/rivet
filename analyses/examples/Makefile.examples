@@ -5,3 +5,6 @@ RIVETBUILD := RIVET_BUILD_BEFORE_INSTALL=1 bash $(top_builddir)/bin/rivet-build
 
 RivetLWTNN.so: EXAMPLE_LWTNN.cc
 	@+echo && $(RIVETBUILD) $@ $^ -I$(top_builddir)/include -I$(LWTNN_PREFIX)/include -L$(LWTNN_PREFIX)/lib -llwtnn
+
+RivetROOT.so: EXAMPLE_NTUPLE_ROOT.cc
+	@+echo && $(RIVETBUILD) $@ $^ `root-config --cflags --libs`

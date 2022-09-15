@@ -1,6 +1,6 @@
 Name: EXAMPLE_HEPMC_FILTER
 Summary: A demo to show how to filter events using a Rivet analysis
-Status: EXAMPLE_HEPMC_FILTER
+Status: VALIDATED
 Authors:
  - Andrii Verbytskyi <andrii.verbytskyi@mpp.mpg.de>
 RunInfo:
@@ -10,4 +10,3 @@ Description:
   "This analysis is a demonstration of using a Rivet analysis to read a
   HepMC events, apply selection cuts and write out the surviving events
   into a new HepMC file."
-

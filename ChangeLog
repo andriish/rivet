@@ -1,3 +1,8 @@
+2022-09-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add EXAMPLE_NTUPLE_ROOT example analysis showing how to open and
+	write to a ROOT ntuple file.
+
 2022-09-09  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add EXAMPLE_NTUPLE_CSV example analysis showing how to open and
