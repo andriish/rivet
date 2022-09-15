@@ -349,12 +349,16 @@ make_plots_ubuntu_clang_hepmc3_py3:
   needs: [check_plugin_ubuntu_clang_hepmc3_py3]
   <<: *make_plots_template
 
-make_plots_fedora_gcc_hepmc3_py3:
+pages:
   variables:
     ARCH: fedora-gcc-hepmc3-py3
   #only: [schedules]
   needs: [check_plugin_fedora_gcc_hepmc3_py3]
   <<: *make_plots_template
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 hrs
 
 # make_plots_ubuntu_intel_hepmc3_py3:
 #   tags: [intel-compat]
