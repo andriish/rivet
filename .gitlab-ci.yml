@@ -331,6 +331,7 @@ check_plugin_fedora_gcc_hepmc3_py3:
     when: always
     paths:
       - test_$ARCH/ttbar_test_plots
+      - public
     expire_in: 36 hrs
 
 
@@ -355,10 +356,6 @@ pages:
   #only: [schedules]
   needs: [check_plugin_fedora_gcc_hepmc3_py3]
   <<: *make_plots_template
-  artifacts:
-    paths:
-      - public
-    expire_in: 30 hrs
 
 # make_plots_ubuntu_intel_hepmc3_py3:
 #   tags: [intel-compat]
