@@ -3,6 +3,10 @@
 	* Add EXAMPLE_NTUPLE_ROOT example analysis showing how to open and
 	write to a ROOT ntuple file.
 
+2022-09-10  Markus Seidel  <markus.seidel@cern.ch>
+
+	* Add CMS_2021_I1866118: Z boson plus jets (DPS) at 13 TeV
+
 2022-09-09  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add EXAMPLE_NTUPLE_CSV example analysis showing how to open and
@@ -67,6 +71,7 @@
 2022-05-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Suppress spurious 'unused argument' warning from clang as called from rivet-build.
+
 2022-05-17  Markus Seidel  <markus.seidel@cern.ch>
 
 	* Submission of CMS_2021_I1963239: Measurement of inclusive and Mueller-Navelet dijet cross sections and their ratios at 2.76 TeV
@@ -93,7 +98,6 @@
 2022-04-06  Markus Seidel  <markus.seidel@cern.ch>
 
 	* Submission of CMS_2017_I1497519: Z boson in association with jets at 8 TeV
->>>>>>> release-3-1-x
 
 2022-03-25  Andy Buckley  <andy.buckley@cern.ch>
 
