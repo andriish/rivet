@@ -9,7 +9,7 @@
 namespace Rivet {
 
 
-  /// @brief Average pT w.r.t. thrust and sphericity axes
+  /// @brief average pT w.r.t. thrust and sphericity axes
   class PLUTO_1983_I191161 : public Analysis {
   public:
 
@@ -32,22 +32,23 @@ namespace Rivet {
       declare(thrust, "Thrust");
       const Sphericity sphericity(fs);
       declare(sphericity, "Sphericity");
-      _sqs = 1.0;
-      if      (isCompatibleWithSqrtS( 7.7*GeV)) _sqs = 7.7;
-      else if (isCompatibleWithSqrtS( 9.4*GeV)) _sqs = 9.4;
-      else if (isCompatibleWithSqrtS(12.0*GeV)) _sqs = 12.0;
-      else if (isCompatibleWithSqrtS(13.0*GeV)) _sqs = 13.0;
-      else if (isCompatibleWithSqrtS(17.0*GeV)) _sqs = 17.0;
-      else if (isCompatibleWithSqrtS(22.0*GeV)) _sqs = 22.0;
-      else if (isCompatibleWithSqrtS(27.6*GeV)) _sqs = 27.6;
-      else if (isCompatibleWithSqrtS(30.8*GeV)) _sqs = 30.8;
+
+      sqs = 1.0;
+      if (isCompatibleWithSqrtS(7.7)) sqs = 7.7;
+      else if (isCompatibleWithSqrtS(9.4)) sqs = 9.4;
+      else if (isCompatibleWithSqrtS(12.)) sqs = 12.;
+      else if (isCompatibleWithSqrtS(13.)) sqs = 13.;
+      else if (isCompatibleWithSqrtS(17.)) sqs = 17.;
+      else if (isCompatibleWithSqrtS(22.)) sqs = 22.;
+      else if (isCompatibleWithSqrtS(27.6)) sqs = 27.6;
+      else if (isCompatibleWithSqrtS(30.8)) sqs = 30.8;
       else MSG_ERROR("Beam energy " << sqrtS() << " not supported!");
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // At least 4 charged particles
+      // at least 4 charged particles
       if (apply<ChargedFinalState>(event, "CFS").particles().size()<4) vetoEvent;
       // Sphericities
       MSG_DEBUG("Calculating sphericity");
@@ -59,7 +60,7 @@ namespace Rivet {
       // needed to get the average pTs right
       Particles fsParticles;
       set<ConstGenParticlePtr> pi0;
-      for (const Particle & p : fs.particles()) {
+      for(const Particle & p : fs.particles()) {
         if ((p.pid()!=PID::PHOTON && p.abspid()!=PID::ELECTRON)|| p.parents().empty() || p.parents()[0].pid()!=PID::PI0)
           fsParticles.push_back(p);
         else {
@@ -69,7 +70,7 @@ namespace Rivet {
       }
       double pT_T_sum(0.),pT2_T_sum(0.);
       double pT_S_sum(0.),pT2_S_sum(0.);
-      for (const Particle & p : fsParticles) {
+      for(const Particle & p : fsParticles) {
         const Vector3 mom3 = p.p3();
         const double pTinT = dot(mom3, thrust.thrustMajorAxis());
         const double pToutT = dot(mom3, thrust.thrustMinorAxis());
@@ -97,11 +98,11 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      for (unsigned int ix=1; ix<3; ++ix) {
-        for (unsigned int iy=1; iy<5; ++iy) {
+      for(unsigned int ix=1;ix<3;++ix) {
+        for(unsigned int iy=1;iy<5;++iy) {
           double value = 0.0, error = 0.0;
-          if (ix == 1) {
-            if (iy == 1) {
+          if (ix==1) {
+            if (iy==1) {
               value = _p_thrust_pt.xMean();
               error = _p_thrust_pt.xStdErr();
             }
@@ -122,14 +123,6 @@ namespace Rivet {
             if (iy==1) {
               value = _p_sphere_pt.xMean();
               error = _p_sphere_pt.xStdErr();
-<<<<<<< HEAD
-            } else if (iy==2) {
-              value = _p_sphere_pt2.xMean();
-              error = _p_sphere_pt2.xStdErr();
-            } else if (iy==3) {
-              value = _p_sphere_sum_pt.xMean();
-              error = _p_sphere_sum_pt.xStdErr();
-            } else if (iy==4) {
             }
             else if (iy==2) {
               value = _p_sphere_pt2.xMean();
@@ -137,23 +130,26 @@ namespace Rivet {
             }
             else if (iy==3) {
               value = _p_sphere_sum_pt.xMean();
+              error = _p_sphere_sum_pt.xStdErr();
+            }
+            else if (iy==4) {
+              value = _p_sphere_sum_pt2.xMean();
+              error = _p_sphere_sum_pt2.xStdErr();
+            }
+          }
+          Scatter2D temphisto(refData(ix, 1, iy));
+          Scatter2DPtr mult;
+          book(mult, ix, 1, iy);
+          for (size_t b = 0; b < temphisto.numPoints(); b++) {
             const double x  = temphisto.point(b).x();
             pair<double,double> ex = temphisto.point(b).xErrs();
             pair<double,double> ex2 = ex;
-<<<<<<< HEAD
-            if (ex2.first == 0.) ex2. first=0.0001;
-            if (ex2.second == 0.) ex2.second=0.0001;
-            if (inRange(_sqs, x-ex2.first, x+ex2.second)) {
-              mult->addPoint(x, value, ex, make_pair(error,error));
-            } else {
-=======
-            if (ex2.first ==0.) ex2. first=0.0001;
+            if (ex2.first ==0.) ex2.first=0.0001;
             if (ex2.second==0.) ex2.second=0.0001;
             if (inRange(sqs, x-ex2.first, x+ex2.second)) {
               mult->addPoint(x, value, ex, make_pair(error,error));
             }
             else {
->>>>>>> release-3-1-x
               mult->addPoint(x, 0., ex, make_pair(0.,.0));
             }
           }
@@ -165,16 +161,18 @@ namespace Rivet {
 
 
     /// @name Histograms
-    /// @{
+    //@{
     YODA::Dbn1D _p_thrust_pt, _p_thrust_pt2, _p_thrust_sum_pt, _p_thrust_sum_pt2;
     YODA::Dbn1D _p_sphere_pt, _p_sphere_pt2, _p_sphere_sum_pt, _p_sphere_sum_pt2;
-    double _sqs;
-    /// @}
+    double sqs;
+    //@}
+
 
   };
 
 
-
+  // The hook for the plugin system
   RIVET_DECLARE_PLUGIN(PLUTO_1983_I191161);
+
 
 }
