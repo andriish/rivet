@@ -102,6 +102,9 @@ fi
 use_hepmc2=no
 use_hepmc3=no
 if test "${with_hepmc3+set}" = set; then
+AC_ARG_WITH([hepmc3],
+            [AS_HELP_STRING(--with-hepmc3, path to HepMC3 @<:@$prefix and various standard locations@:>@)],
+            [HEPMC3PATH=$with_hepmc3], [])
   AC_CEDAR_LIBRARYANDHEADERS([HepMC3], , [use_hepmc3=yes], [use_hepmc3=no])
   AM_CONDITIONAL(WITH_HEPMC,false)
   AM_CONDITIONAL(WITH_HEPMCINC,false)
@@ -110,6 +113,9 @@ if test "${with_hepmc3+set}" = set; then
   AM_CONDITIONAL(WITHOUT_HEPMCINC,true)
   AM_CONDITIONAL(WITHOUT_HEPMCLIB,true)
 else
+AC_ARG_WITH([hepmc],
+            [AS_HELP_STRING(--with-hepmc, path to HepMC2 @<:@$prefix and various standard locations@:>@)],
+            [HEPMCPATH=$with_hepmc], [])
   AC_CEDAR_LIBRARYANDHEADERS([HepMC], , [use_hepmc2=yes], [use_hepmc2=no])
   AM_CONDITIONAL(WITH_HEPMC3,false)
   AM_CONDITIONAL(WITH_HEPMC3INC,false)
