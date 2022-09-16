@@ -100,16 +100,16 @@ protected:
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      if ( applyProjection<FinalState>(event,"MBF").particles().empty() ||
-	   applyProjection<FinalState>(event,"MBB").particles().empty() )
+      if ( apply<FinalState>(event,"MBF").particles().empty() ||
+	   apply<FinalState>(event,"MBB").particles().empty() )
 	vetoEvent;
 
       _sumw->fill();
 
       const ChargedFinalState& parts =
-	applyProjection<ChargedFinalState>(event,"CFS");
+	apply<ChargedFinalState>(event,"CFS");
       const FinalState& forw =
-	applyProjection<FinalState>(event,"CFSF");
+	apply<FinalState>(event,"CFSF");
 
       double sumEt = 0.0;
       for( const Particle & p : forw.particles() ) sumEt += p.Et();
