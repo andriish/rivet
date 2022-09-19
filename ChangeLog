@@ -57,6 +57,10 @@
 
 	* Release 3.1.7
 
+2022-09-19 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2021_I1809180 Xi(2790)+ decay
+
 2022-09-14  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add EXAMPLE_NTUPLE_ROOT example analysis showing how to open and
