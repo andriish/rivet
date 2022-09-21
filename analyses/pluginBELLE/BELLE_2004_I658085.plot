@@ -13,7 +13,7 @@ BEGIN PLOT /BELLE_2004_I658085/d01-x01-y03
 Title=Mass of pion system in $B^0\to D^{*-}3\pi^+2\pi^-$
 END PLOT
 BEGIN PLOT /BELLE_2004_I658085/d01-x01-y04
-Title=Mass of pion system in $B^0\to \bar{D}^{*0}2\pi^+\pi^-$
+Title=Mass of pion system in $B^+\to \bar{D}^{*0}2\pi^+\pi^-$
 END PLOT
 BEGIN PLOT /BELLE_2004_I658085/d01-x01-y05
 Title=Mass of pion system in $B^0\to \bar{D}^{*0}2\pi^+2\pi^-$
