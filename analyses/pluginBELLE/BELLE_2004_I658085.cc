@@ -38,18 +38,18 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // decay modes
-      static const map<PdgId,unsigned int> & mode1   = { { -423,1}, { 211,2}, {-211,1} };
-      static const map<PdgId,unsigned int> & mode1CC = { {  423,1}, {-211,2}, { 211,1} };
-      static const map<PdgId,unsigned int> & mode2   = { { -423,1}, { 211,3}, {-211,1} };
-      static const map<PdgId,unsigned int> & mode2CC = { {  423,1}, {-211,3}, { 211,1} };
-      static const map<PdgId,unsigned int> & mode3   = { { -423,1}, { 211,3}, {-211,2} };
-      static const map<PdgId,unsigned int> & mode3CC = { {  423,1}, {-211,3}, { 211,2} };
-      static const map<PdgId,unsigned int> & mode4   = { { -413,1}, { 211,2}, {-211,1} };
-      static const map<PdgId,unsigned int> & mode4CC = { {  413,1}, {-211,2}, { 211,1} };
-      static const map<PdgId,unsigned int> & mode5   = { { -413,1}, { 211,2}, {-211,2} };
-      static const map<PdgId,unsigned int> & mode5CC = { {  413,1}, {-211,2}, { 211,2} };
-      static const map<PdgId,unsigned int> & mode6   = { { -413,1}, { 211,3}, {-211,2} };
-      static const map<PdgId,unsigned int> & mode6CC = { {  413,1}, {-211,3}, { 211,2} };
+      static const map<PdgId,unsigned int> & mode1   = { { -413,1}, { 211,2}, {-211,1} };
+      static const map<PdgId,unsigned int> & mode1CC = { {  413,1}, {-211,2}, { 211,1} };
+      static const map<PdgId,unsigned int> & mode2   = { { -413,1}, { 211,3}, {-211,1} };
+      static const map<PdgId,unsigned int> & mode2CC = { {  413,1}, {-211,3}, { 211,1} };
+      static const map<PdgId,unsigned int> & mode3   = { { -413,1}, { 211,3}, {-211,2} };
+      static const map<PdgId,unsigned int> & mode3CC = { {  413,1}, {-211,3}, { 211,2} };
+      static const map<PdgId,unsigned int> & mode4   = { { -423,1}, { 211,2}, {-211,1} };
+      static const map<PdgId,unsigned int> & mode4CC = { {  423,1}, {-211,2}, { 211,1} };
+      static const map<PdgId,unsigned int> & mode5   = { { -423,1}, { 211,2}, {-211,2} };
+      static const map<PdgId,unsigned int> & mode5CC = { {  423,1}, {-211,2}, { 211,2} };
+      static const map<PdgId,unsigned int> & mode6   = { { -423,1}, { 211,3}, {-211,2} };
+      static const map<PdgId,unsigned int> & mode6CC = { {  423,1}, {-211,3}, { 211,2} };
       // loop over particles
       DecayedParticles BB = apply<DecayedParticles>(event, "BB");
       int imode = -1;
