@@ -2,6 +2,7 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/DecayedParticles.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Projections/DecayedParticles.hh"
 
 namespace Rivet {
 
@@ -32,18 +33,15 @@ namespace Rivet {
 
     }
 
-
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      static const map<PdgId,unsigned int> & mode   = { {211,1}, {-211,1}, { 22,1} };
-      // Loop over eta' mesons
+      static const map<PdgId,unsigned int> & mode   = { { PID::PIPLUS,1}, { PID::PIMINUS ,1}, { PID::GAMMA,1}};
       DecayedParticles ETA = apply<DecayedParticles>(event, "ETA");
       // loop over particles
       for(unsigned int ix=0;ix<ETA.decaying().size();++ix) {
-	// select right decay mode
-	if ( !ETA.modeMatches(ix,3,mode)) continue;
-	const Particle & pip = ETA.decayProducts()[ix].at( 211)[0];
-	const Particle & pim = ETA.decayProducts()[ix].at(-211)[0];
+	if (!ETA.modeMatches(ix,3,mode)) continue;
+	const Particle & pip = ETA.decayProducts()[ix].at( PID::PIPLUS )[0];
+	const Particle & pim = ETA.decayProducts()[ix].at( PID::PIMINUS)[0];
 	_h_m->fill((pip.momentum()+pim.momentum()).mass());
       }
     }
