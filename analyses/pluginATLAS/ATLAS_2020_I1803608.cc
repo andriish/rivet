@@ -98,7 +98,8 @@ namespace Rivet {
         if      (_doControl && vars.Ngj  > 0 && vars.Zcent <  0.5) fillPlots(vars, CRAplots);
         else if (_doControl && vars.Ngj  > 0 && vars.Zcent >= 0.5) fillPlots(vars, CRBplots);
         else if (_doControl && vars.Ngj == 0 && vars.Zcent >= 0.5) fillPlots(vars, CRCplots);
-        else {
+
+        if ( vars.Ngj == 0 && vars.Zcent < 0.5 ) {
           fillPlots(vars, SRplots);
         }
       }
