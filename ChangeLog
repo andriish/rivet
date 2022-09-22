@@ -36,6 +36,10 @@
 
 	* Hide the bundled eigen3 in a mangled RivetEigen namespace, to avoid clashes.
 
+2022-08-04  Markus Seidel  <markus.seidel@cern.ch>
+
+	* Submission of CMS_2022_I2079374: Z pT over a wide mass range at 13 TeV
+
 2022-07-27  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Upgrade eigen3 and yaml-cpp bundling to remove compiler warnings.
