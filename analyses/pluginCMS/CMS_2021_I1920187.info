@@ -36,4 +36,4 @@ BibTeX: '@article{CMS:2021iwu,
 ReleaseTests:
  - $A LHC-13-Jets-2      :MODE=DIJET
  - $A-2 LHC-13-Jets-3    :MODE=DIJET
- - $A LHC-13-Z-mu-jets   :MODE=ZJET
+ - $A-3 LHC-13-Z-mu-jets :MODE=ZJET
