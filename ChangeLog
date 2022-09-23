@@ -1,6 +1,44 @@
+2022-09-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add EXAMPLE_NTUPLE_ROOT example analysis showing how to open and
+	write to a ROOT ntuple file.
+
+2022-09-10  Markus Seidel  <markus.seidel@cern.ch>
+
+	* Add CMS_2021_I1866118: Z boson plus jets (DPS) at 13 TeV
+
+2022-09-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add EXAMPLE_NTUPLE_CSV example analysis showing how to open and
+	write to a CSV ntuple file.
+
+2022-09-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add Analysis::analysisDataPath() and the RivetLWTNN.hh include
+	with convenience functions for loading of LWTNN DNNs.
+
+2022-09-01  Tomek Procter  <t.procter.1@research.gla.ac.uk>
+
+	* Add EXAMPLE_LWTNN example analysis, demonstrating use of a
+	preserved LWTNN neural network in Rivet.
+
+2022-09-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Install more generically named files from the analysis
+	plugin/data dirs rather than limiting to the .plot, .info, .yoda*
+	set (it's ok, and maybe useful, to install the .cc files)
+
+	* Move EXAMPLE_* analyses, which demonstrate functionality to
+	analysis writers rather than being directly useful in compiled
+	form, into an uncompiled analyses/examples/ directory.
+
 2022-08-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Hide the bundled eigen3 in a mangled RivetEigen namespace, to avoid clashes.
+
+2022-08-04  Markus Seidel  <markus.seidel@cern.ch>
+
+	* Submission of CMS_2022_I2079374: Z pT over a wide mass range at 13 TeV
 
 2022-07-27  Andy Buckley  <andy.buckley@cern.ch>
 
@@ -37,6 +75,7 @@
 2022-05-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Suppress spurious 'unused argument' warning from clang as called from rivet-build.
+
 2022-05-17  Markus Seidel  <markus.seidel@cern.ch>
 
 	* Submission of CMS_2021_I1963239: Measurement of inclusive and Mueller-Navelet dijet cross sections and their ratios at 2.76 TeV
@@ -63,7 +102,6 @@
 2022-04-06  Markus Seidel  <markus.seidel@cern.ch>
 
 	* Submission of CMS_2017_I1497519: Z boson in association with jets at 8 TeV
->>>>>>> release-3-1-x
 
 2022-03-25  Andy Buckley  <andy.buckley@cern.ch>
 

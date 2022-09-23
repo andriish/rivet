@@ -63,22 +63,22 @@ stages:
     - cat $INSTALL_PREFIX/rivetenv.sh
     - source $INSTALL_PREFIX/rivetenv.sh
     - rivet -h
-    - |
-      if [[ "$ALLANAS" != "1" ]]; then
-        ./ci/getAffectedRoutines.sh anasToCompile.txt
-        echo "==== echo analyses to compile ====="
-        cat anasToCompile.txt
-        find analyses | grep MC_TTBAR | grep cc  >> anasToCompile.txt # need at least one!
-        cat anasToCompile.txt | sort --unique > anasToCompile.tmp ; mv anasToCompile.tmp anasToCompile.txt
-        echo rivet-build `cat anasToCompile.txt`
-        RIVET_BUILD_NOCAT=1 rivet-build RivetModifiedAnas.so `cat anasToCompile.txt`
-        mkdir -p ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/lib/Rivet/.
-        mkdir -p ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/.
-        cp RivetModifiedAnas.so ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/lib/Rivet/.
-        while read p ; do cp ${p/%.cc}* ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/. ; done < anasToCompile.txt
-        rm ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/*cc
-      fi
-    - find $CI_PROJECT_DIR
+    # - |
+    #   if [[ "$ALLANAS" != "1" ]]; then
+    #     ./ci/getAffectedRoutines.sh anasToCompile.txt
+    #     echo "==== echo analyses to compile ====="
+    #     cat anasToCompile.txt
+    #     find analyses | grep MC_TTBAR | grep cc  >> anasToCompile.txt # need at least one!
+    #     cat anasToCompile.txt | sort --unique > anasToCompile.tmp ; mv anasToCompile.tmp anasToCompile.txt
+    #     echo rivet-build `cat anasToCompile.txt`
+    #     RIVET_BUILD_NOCAT=1 rivet-build RivetModifiedAnas.so `cat anasToCompile.txt`
+    #     mkdir -p ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/lib/Rivet/.
+    #     mkdir -p ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/.
+    #     cp RivetModifiedAnas.so ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/lib/Rivet/.
+    #     while read p ; do cp ${p/%.cc}* ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/. ; done < anasToCompile.txt
+    #     rm ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/*cc
+    #   fi
+    # - find $CI_PROJECT_DIR
     # - ls $CI_PROJECT_DIR
 
   artifacts:

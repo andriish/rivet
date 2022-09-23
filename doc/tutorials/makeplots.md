@@ -545,7 +545,7 @@ The `SPECIAL` sections are used to include any custom pstricks code. This is use
 An example of a `SPECIAL` section might look like this:
 
 ```
-    # BEGIN SPECIAL
+    # BEGIN SPECIAL histoName blockLabel
     \psclip{\psframe[linewidth=0, linestyle=none](0,0)(1,1)}
     \psline[linewidth=1.2pt,linecolor=red]{<-}\physicscoor(2.83,2)\physicscoor(2.83,18)
     \uput{4pt}[180]{0}\physicscoor(2.83,12){observed}

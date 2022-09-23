@@ -39,7 +39,7 @@ cmpargs = "@PYEXT_CXXFLAGS@"
 linkargs = " ".join("-L{}".format(d) for d in lookupdirs)
 linkargs += " -L@abs_top_builddir@/src/.libs" if "RIVET_LOCAL" in os.environ else "-L@prefix@/lib"
 ## This needs to be passed separately on Mac, otherwise HepMC3 library won't be found
-@ENABLE_HEPMC_3_TRUE@if platform.system() == "Darwin": linkargs += "-Wl,-rpath,@HEPMC3LIBPATH@"
+@ENABLE_HEPMC_3_TRUE@if platform.system() == "Darwin": linkargs += " -Wl,-rpath,@HEPMC3LIBPATH@"
 
 ## Library args
 @ENABLE_HEPMC_3_TRUE@libraries = ["HepMC3"]
@@ -63,6 +63,7 @@ libargs = " ".join("-l{}".format(l) for l in libraries)
 ## Python compile/link args
 pyargs = "-I" + sysconfig.get_config_var("INCLUDEPY")
 libpys = [os.path.join(sysconfig.get_config_var(ld), sysconfig.get_config_var("LDLIBRARY")) for ld in ["LIBPL", "LIBDIR"]]
+libpys.extend( glob(os.path.join(sysconfig.get_config_var("LIBPL"), "libpython*.*")) )
 libpy = None
 for lp in libpys:
     if os.path.exists(lp):
@@ -74,7 +75,7 @@ if libpy is None:
 pyargs += " " + libpy
 pyargs += " " + sysconfig.get_config_var("LIBS")
 pyargs += " " + sysconfig.get_config_var("LIBM")
-pyargs += " " + sysconfig.get_config_var("LINKFORSHARED")
+#pyargs += " " + sysconfig.get_config_var("LINKFORSHARED")
 
 
 ## Assemble the compile & link command

@@ -1,6 +1,6 @@
 Name: EXAMPLE
 Summary: A demo to show aspects of writing a Rivet analysis
-Status: EXAMPLE
+Status: VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>
 RunInfo:

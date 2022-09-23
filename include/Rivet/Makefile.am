@@ -142,12 +142,13 @@ nobase_pkginclude_HEADERS += \
   Tools/PrettyPrint.hh \
   Tools/ReaderCompressedAscii.hh \
   Tools/RHICCommon.hh \
-  Tools/RivetPaths.hh \
-  Tools/RivetSTL.hh \
   Tools/RivetFastJet.hh \
   Tools/RivetHepMC.hh \
-  Tools/RivetYODA.hh \
+  Tools/RivetLWTNN.hh  \
   Tools/RivetMT2.hh \
+  Tools/RivetPaths.hh \
+  Tools/RivetSTL.hh \
+  Tools/RivetYODA.hh \
   Tools/SmearingFunctions.hh \
   Tools/MomentumSmearingFunctions.hh \
   Tools/ParticleSmearingFunctions.hh \
