@@ -791,6 +791,39 @@ namespace Rivet {
   /// @}
 
 
+  /// @brief Check for pid membership in a list of particles
+  /// @note if abs is true, then only abs pids are checked.
+  inline bool containsPID(const Particles& parts, int id, bool abs=false) {
+    if (abs) return any(parts, HasAbsPID(id));
+    return any(parts, HasPID(id));
+  }
+
+  /// @}
+
+
+  /// @brief Check whether a particle is radiative.
+  /// @note A particle is considered radiative if (1) it has only one mother particle and (2) one of its siblings has the same pid as the mother particle.
+  inline bool isRadiative(const Particle& part) {
+    const Particles& parents = part.parents();
+    if (parents.size() != 1)
+      return false;
+
+    const Particle& mother = parents[0];
+    return ( part.pid() != mother.pid() ) && ( containsPID(mother.children(), mother.pid()) );
+  }
+
+
+  /// @brief Check whether a set of particles' decay chains can contain the requested list of pids.
+  /// @note if absolute is true, then only the absolute values of pids are compared.
+  /// @note if ignorephoton is true, then photons are ignored when searching for the set of particles.
+  bool cascadeContains
+    ( const Particles& parts
+    , const vector<int>& pids
+    , bool absolute
+    , bool ignorephoton
+    );
+
+
 }
 
 #endif

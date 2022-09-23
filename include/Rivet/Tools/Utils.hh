@@ -681,6 +681,27 @@ namespace Rivet {
   }
 
 
+
+  /// @brief Get the contents of a vector between two indices
+  ///
+  /// @ingroup utils
+  template<class T>
+  vector<T> slice(const vector<T>& v, int startidx, int endidx) {
+
+    if (startidx < 0 || endidx <= startidx || endidx >= v.size())
+      throw RangeError("Requested start or end indices incompatible with given vector");
+
+    auto start = v.begin() + startidx;
+    auto end = v.begin() + endidx;
+
+    vector<T> output(endidx - startidx);
+
+    copy(start, end, output.begin());
+
+    return output;
+  }
+
+
 }
 
 #endif
