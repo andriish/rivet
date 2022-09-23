@@ -411,6 +411,8 @@ pages:
 analysis:
   variables:
     ARCH: ubuntu-gcc-hepmc3-py3
+  image:
+    hepstore/hepbase-$ARCH-latex
   needs: [build_ubuntu_gcc_hepmc3_py3]
   stage: webpage
   script:
@@ -419,6 +421,8 @@ analysis:
     - source $INSTALL_PREFIX/yodaenv.sh
     - source $INSTALL_PREFIX/rivetenv.sh
 #    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$INSTALL_PREFIX/local_$ARCH/lib
+    - echo $LD_LIBRARY_PATH
+    - echo $INSTALL_PREFIX/local_$ARCH/lib
     - $BUILD_PREFIX/doc/analists/mk-analysis-mdfinal
   artifacts:
     untracked: true
