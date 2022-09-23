@@ -165,7 +165,6 @@ namespace Rivet {
       }
 
     private:
-      int ncrazy = 0, ntot = 0;
 
       Histo1DPtr
           _nPhotonsEl

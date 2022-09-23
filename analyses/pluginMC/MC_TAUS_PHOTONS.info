@@ -11,4 +11,7 @@ NumEvents: 10000000
 Description:
   Different observables related to the photon in radiative tau-lepton decays
 NeedCrossSection: no
-
+ReleaseTests:
+ - $A BFactory-Tau
+ - $A-2 pp-13000-Ztautau
+ - $A-3 pp-13000-Ztautau-2

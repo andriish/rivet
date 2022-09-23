@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
+#include "Rivet/Tools/ParticleUtils.hh"
 #include "Rivet/Projections/TauFinder.hh"
-#include "Decay.hh"
 
 namespace Rivet {
 
@@ -142,7 +142,7 @@ namespace Rivet {
       if (descendants.size() >= ids.size()) {
         bool decayfound = true;
         for (int id : ids) {
-          if (!contains(descendants, id, absolute))
+          if (!cascadeContains(descendants, {id}, absolute, false))
             decayfound = false;
         }
         // Do not increment counters if the specified decay products were not found
