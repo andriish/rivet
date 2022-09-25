@@ -1,11 +1,12 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Projections/DecayedParticles.hh"
 
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief psi(2S) -> eta_c e+e-
   class BESIII_2022_I2141748 : public Analysis {
   public:
 
