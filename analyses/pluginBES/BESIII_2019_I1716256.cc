@@ -44,7 +44,7 @@ namespace Rivet {
       for(unsigned int ix=0;ix<chi.decaying().size();++ix) {
 	unsigned int iloc=chi.decaying()[ix].pid()==20443 ? 0 : 1;
 	_n[iloc][0]->fill();
-	if(chi.modeMatches(ix,3,mode1)) {
+	if(chi.modeMatches(ix,2,mode1)) {
 	  _n[iloc][1]->fill();
 	}
 	else if(chi.modeMatches(ix,3,mode2)) {

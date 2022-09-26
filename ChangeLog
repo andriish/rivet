@@ -57,6 +57,10 @@
 
 	* Release 3.1.7
 
+2022-09-26 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2017_I1509920 psi(2S) -> chi_c e+ e- and chi_c -> J/psi e+e-
+
 2022-09-25 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2018_I1664315 psi(2S) -> eta' e+ e-
