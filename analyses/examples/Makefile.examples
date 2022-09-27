@@ -8,3 +8,6 @@ RivetLWTNN.so: EXAMPLE_LWTNN.cc
 
 RivetROOT.so: EXAMPLE_NTUPLE_ROOT.cc
 	@+echo && $(RIVETBUILD) $@ $^ `root-config --cflags --libs`
+
+RivetHTT.so: EXAMPLE_HTT.cc
+	@+echo && $(RIVETBUILD) $@ $^ -I$(HEPTOPTAGGER_PREFIX)/include

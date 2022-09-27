@@ -290,6 +290,10 @@ CPPFLAGS=$oldCPPFLAGS
 LIBS=$oldLIBS
 
 
+## HEPTopTagger
+# AC_CEDAR_HEADERS([HEPTopTagger], , , [AC_MSG_ERROR([HEPTopTagger is required])])
+
+
 # ## GNU Scientific Library
 # AC_SEARCH_GSL
 # AC_CEDAR_HEADERS([gsl], , , [AC_MSG_ERROR([GSL (GNU Scientific Library) is required])])
