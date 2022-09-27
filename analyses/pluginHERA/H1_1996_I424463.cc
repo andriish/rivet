@@ -22,8 +22,6 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      // Initialise and register projections
-      //declare(FinalState(Cuts::abseta < 5 && Cuts::pT > 100*MeV), "FS");
 
       // Book histograms
       declare(DISLepton(), "Lepton");
@@ -31,13 +29,6 @@ namespace Rivet {
       declare(ChargedFinalState(), "CFS");
       declare(FinalState(), "FS");
 
-
-      // Book histograms
-      // specify custom binning
-      //book(_h["XXXX"], "myh1", 20, 0.0, 100.0);
-      //book(_h["YYYY"], "myh2", logspace(20, 1e-2, 1e3));
-      //book(_h["ZZZZ"], "myh3", {0.0, 1.0, 2.0, 4.0, 8.0, 16.0});
-      // take binning from reference data using HEPData ID (digits in "d01-x01-y01" etc.)
 
       book(_NevAll, "TMP/Nev_all");
       _h_dndpt_high_eta_bin.resize(10);
@@ -66,8 +57,8 @@ namespace Rivet {
     void analyze(const Event& event) {
       // const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
       const FinalState& fs = apply<FinalState>(event, "FS");
-      const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
-      const DISLepton& dl = applyProjection<DISLepton>(event,"Lepton");
+      const DISKinematics& dk = apply<DISKinematics>(event, "Kinematics");
+      const DISLepton& dl = apply<DISLepton>(event,"Lepton");
 
       // Get the DIS kinematics
       double x  = dk.x();
@@ -77,31 +68,30 @@ namespace Rivet {
 
       // Momentum of the scattered lepton
       FourMomentum leptonMom = dl.out().momentum();
-      double enel = leptonMom.E();
+      double enel = leptonMom.E()/GeV;
       double thel = 180.-leptonMom.angle(dl.in().momentum())/degree;
 
       _NevAll -> fill() ;
 
-       // cout <<"enel/GeV = "<<enel/GeV<<", thel = "<<thel<<", y = "<<y<<", x = "<<x<<std::endl;
-       bool cut = y > 0.05 && Q2 > 5. && Q2 < 100.&& enel > 12. && W2 > 4400. && thel > 157. && thel < 173.;
-       if (!cut) vetoEvent;
+      const bool cut = y > 0.05 && Q2 > 5. && Q2 < 100.&& enel > 12. && W2 > 4400. && thel > 157. && thel < 173.;
+      if (!cut) vetoEvent;
 
-       int ibin[10] ;
-       for ( int i=0; i< 10; i++) {
-       ibin[i] = 0; }
+      int ibin[10] ;
+      for ( int i=0; i< 10; i++) {
+      ibin[i] = 0; }
 
-       if(5.<Q2&&Q2<50.&&x>0.0001&&x<0.001)    ibin[0]=1;
-       if(5.<Q2&&Q2<10.&&x>0.0001&&x<0.0002)   ibin[1]=1;
-       if(6.<Q2&&Q2<10.&&x>0.0002&&x<0.0005)   ibin[2]=1;
-       if(10.<Q2&&Q2<20.&&x>0.0002&&x<0.0005)  ibin[3]=1;
-       if(10.<Q2&&Q2<20.&&x>0.0005&&x<0.0008)  ibin[4]=1;
-       if(10.<Q2&&Q2<20.&&x>0.0008&&x<0.0015)  ibin[5]=1;
-       if(10.<Q2&&Q2<20.&&x>0.0015&&x<0.004)   ibin[6]=1;
-       if(20.<Q2&&Q2<50.&&x>0.0005&&x<0.0014)  ibin[7]=1;
-       if(20.<Q2&&Q2<50.&&x>0.0014&&x<0.003)   ibin[8]=1;
-       if(20.<Q2&&Q2<50.&&x>0.003&&x<0.01)     ibin[9]=1;
+      if(5.<Q2&&Q2<50.&&x>0.0001&&x<0.001)    ibin[0]=1;
+      if(5.<Q2&&Q2<10.&&x>0.0001&&x<0.0002)   ibin[1]=1;
+      if(6.<Q2&&Q2<10.&&x>0.0002&&x<0.0005)   ibin[2]=1;
+      if(10.<Q2&&Q2<20.&&x>0.0002&&x<0.0005)  ibin[3]=1;
+      if(10.<Q2&&Q2<20.&&x>0.0005&&x<0.0008)  ibin[4]=1;
+      if(10.<Q2&&Q2<20.&&x>0.0008&&x<0.0015)  ibin[5]=1;
+      if(10.<Q2&&Q2<20.&&x>0.0015&&x<0.004)   ibin[6]=1;
+      if(20.<Q2&&Q2<50.&&x>0.0005&&x<0.0014)  ibin[7]=1;
+      if(20.<Q2&&Q2<50.&&x>0.0014&&x<0.003)   ibin[8]=1;
+      if(20.<Q2&&Q2<50.&&x>0.003&&x<0.01)     ibin[9]=1;
 
-       for ( int i=0; i< 10; i++) { if(ibin[i]==1) _Nevt_after_cuts[i] ->fill(); }
+      for ( int i=0; i< 10; i++) { if(ibin[i]==1) _Nevt_after_cuts[i] ->fill(); }
 
       // Extract the particles other than the lepton
       Particles particles;
@@ -133,7 +123,7 @@ namespace Rivet {
          // apply safety cuts
          if (eta > -5  && eta < 10.) {
             mult = mult + 1;
-	      double pThcm =hcmMom.pT() ;
+            double pThcm =hcmMom.pT() ;
             double etahcm = hcmMom.pseudorapidity();
             // cout << " charge " << PID::charge(p.pid()) << endl;
             if (etahcm > 0. && etahcm < 2.0) {
@@ -142,10 +132,10 @@ namespace Rivet {
             if (PID::charge(p.pid()) != 0) {
               if (etahcm > 0.5 && etahcm < 1.5) {
                for ( int i=0; i< 10; i++) {
-                  if (ibin[i]==1) {
-                    _h_dndpt_low_eta_bin[i] ->fill(pThcm);
-                    if (pThcm > ptmax_low[i] ) ptmax_low[i] = pThcm;
-                    }
+                 if (ibin[i]==1) {
+                   _h_dndpt_low_eta_bin[i] ->fill(pThcm);
+                   if (pThcm > ptmax_low[i] ) ptmax_low[i] = pThcm;
+                 }
                }
 
               }
@@ -157,19 +147,18 @@ namespace Rivet {
                  }
                }
               }
-              for ( int i=0; i< 10; i++) {
-              if(ibin[i]==1) _hdndeta_bin[i] ->fill(etahcm);
-              if(ibin[i]==1 && pThcm > 1.) _hdndeta_pt1_bin[i] ->fill(etahcm);
+              for ( int i=0; i< 10; ++i) {
+                if(ibin[i]==1) _hdndeta_bin[i] ->fill(etahcm);
+                if(ibin[i]==1 && pThcm > 1.) _hdndeta_pt1_bin[i] ->fill(etahcm);
               }
            }
          }  // end of loop over the particles
       }
       int ii=0;
-      for ( int i=0; i< 10; i++) {
+      for ( int i=0; i< 10; ++i) {
          if (i != 6 && i != 9 ) {
              if( ibin[i]==1 && EtSum > 6. ) {
               _hdndptmax_low_eta_bin[ii] ->fill(ptmax_low[i]);
-               // cout << " filling ptmax " << ii << "  " <<  i << endl;
              }
             ii=ii+1;
          }
@@ -178,21 +167,20 @@ namespace Rivet {
     }
     /// Normalise histograms etc., after the run
     void finalize() {
-    cout << " All events: " << _NevAll->val() << " after cuts: "<<  _Nevt_after_cuts[0]->val() << endl;
-    cout << " cut1 events: " << _NevAll->val() << " after cuts: "<<  _Nevt_after_cuts[1]->val() << endl;
 
 
-     int ii =0;
-     for ( int i=0; i< 10; i++) {
-        if (_Nevt_after_cuts[i]->val()  != 0) {
-            scale(_h_dndpt_high_eta_bin[i], 1./ *_Nevt_after_cuts[i]);
-            scale(_h_dndpt_low_eta_bin[i], 1./ *_Nevt_after_cuts[i]);
-            scale(_hdndeta_bin[i], 1./ *_Nevt_after_cuts[i]);
-            scale(_hdndeta_pt1_bin[i], 1./ *_Nevt_after_cuts[i]); }
+      int ii =0;
+      for (int i=0; i < 10; ++i) {
+        if (_Nevt_after_cuts[i]->val() != 0) {
+          scale(_h_dndpt_high_eta_bin[i], 1./ *_Nevt_after_cuts[i]);
+          scale(_h_dndpt_low_eta_bin[i],  1./ *_Nevt_after_cuts[i]);
+          scale(_hdndeta_bin[i],          1./ *_Nevt_after_cuts[i]);
+          scale(_hdndeta_pt1_bin[i],      1./ *_Nevt_after_cuts[i]); 
+        }
         if ( i !=6 && i!=9) {
-           // if (_Nevt_after_cuts[i]->val()  != 0) scale(_hdndptmax_low_eta_bin[ii], 1./ *_Nevt_after_cuts[i]); ii=ii+1; };
-            if (_Nevt_after_cuts[i]->val()  != 0) normalize(_hdndptmax_low_eta_bin[ii]); ii=ii+1; };
-     }
+          if (_Nevt_after_cuts[i]->val()  != 0) normalize(_hdndptmax_low_eta_bin[ii]); ii=ii+1; 
+        }
+      }
     }
 
     ///@}
@@ -206,13 +194,13 @@ namespace Rivet {
     array<CounterPtr,10> _Nevt_after_cuts;
     vector<Histo1DPtr> _h_dndpt_low_eta_bin, _h_dndpt_high_eta_bin;
     vector<Histo1DPtr> _hdndeta_bin, _hdndeta_pt1_bin, _hdndptmax_low_eta_bin;
-    CounterPtr _NevAll ;
-   ///@}
+    CounterPtr _NevAll;
+    ///@}
 
 
   };
 
 
-  DECLARE_RIVET_PLUGIN(H1_1996_I424463);
+  RIVET_DECLARE_ALIASED_PLUGIN(H1_1996_I424463, H1_1997_I424463);
 
 }
