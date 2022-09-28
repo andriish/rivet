@@ -57,6 +57,12 @@
 
 	* Release 3.1.7
 
+2022-09-28 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2018_I1642436 B- -> Lambda_c+ Lambdabar_c- K-
+	* Add BELLE_2018_I1679584 Bbar0 -> Lambda_c+ Lambdabar_c- Kbar0
+	* Add BABAR_2011_I924163 Bbar0 -> Lambda_c+ Lambdabar0 K-
+
 2022-09-26 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2017_I1509920 psi(2S) -> chi_c e+ e- and chi_c -> J/psi e+e-

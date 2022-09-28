@@ -52,12 +52,12 @@ namespace Rivet {
 	}
 	else
 	  continue;
-	const Particles & Kp = DP.decayProducts()[ix].at( sign*321);
-	const Particles & Km = DP.decayProducts()[ix].at(-sign*321);
-	const Particles & pip= DP.decayProducts()[ix].at( sign*211);
-	double mminus = (Km[0].momentum()+pip[0].momentum() ).mass2();
-	double mplus  = (Kp[0].momentum()+pip[0].momentum() ).mass2();
-	double mKK    = (Kp[0].momentum()+Km[0].momentum()).mass2();
+	const Particle & Kp = DP.decayProducts()[ix].at( sign*321)[0];
+	const Particle & Km = DP.decayProducts()[ix].at(-sign*321)[0];
+	const Particle & pip= DP.decayProducts()[ix].at( sign*211)[0];
+	double mminus = (Km.momentum()+pip.momentum() ).mass2();
+	double mplus  = (Kp.momentum()+pip.momentum() ).mass2();
+	double mKK    = (Kp.momentum()+Km.momentum()).mass2();
 	_h_Kppi->fill(mplus);
 	_h_Kmpi->fill(mminus);
 	_h_KK  ->fill(mKK);
