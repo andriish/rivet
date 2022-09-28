@@ -425,5 +425,43 @@ analysis:
     - echo $INSTALL_PREFIX/local_$ARCH/lib
     - $BUILD_PREFIX/doc/analists/mk-analysis-mdfinal
   artifacts:
-    untracked: true
+    paths:
+      - "$BUILD_PREFIX/doc/analists/analysesmd"
+      - "$BUILD_PREFIX/doc/analists/analist_index.md"
+    expire_in: 2 hrs
+
+coverage:
+  variables:
+    ARCH: ubuntu-gcc-hepmc3-py3
+  image:
+    hepstore/hepbase-$ARCH-latex
+  needs: [build_ubuntu_gcc_hepmc3_py3]
+  stage: webpage
+  script:
+    - BUILD_PREFIX="$CI_PROJECT_DIR"
+    - INSTALL_PREFIX="$CI_PROJECT_DIR/local_$ARCH"
+    - source $INSTALL_PREFIX/yodaenv.sh
+    - source $INSTALL_PREFIX/rivetenv.sh
+    - $BUILD_PREFIX/doc/coverage/mk-coverage-htmls
+  artifacts:
+    paths:
+      - "$BUILD_PREFIX/doc/coverage/*.html"
+    expire_in: 2 hrs
+
+anadiff:
+  variables:
+    ARCH: ubuntu-gcc-hepmc3-py3
+  image:
+    hepstore/hepbase-$ARCH-latex
+  needs: [build_ubuntu_gcc_hepmc3_py3]
+  stage: webpage
+  script:
+    - BUILD_PREFIX="$CI_PROJECT_DIR"
+    - INSTALL_PREFIX="$CI_PROJECT_DIR/local_$ARCH"
+    - source $INSTALL_PREFIX/yodaenv.sh
+    - source $INSTALL_PREFIX/rivetenv.sh
+    - $BUILD_PREFIX/doc/anadiff/script2.sh
+  artifacts:
+    paths:
+      - "$BUILD_PREFIX/doc/anadiff/hello.md"
     expire_in: 2 hrs
