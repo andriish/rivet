@@ -424,9 +424,11 @@ analysis:
     - echo $LD_LIBRARY_PATH
     - echo $INSTALL_PREFIX/local_$ARCH/lib
     - $BUILD_PREFIX/doc/analists/mk-analysis-mdfinal
+    - ls -al doc/analists/
+    - ls -al doc/analists/analysesmd
   artifacts:
     paths:
-      - "$doc/analists/analysesmd"
+      - "doc/analists/analysesmd"
       - "doc/analists/analist_index.md"
     expire_in: 2 hrs
 
@@ -443,6 +445,7 @@ coverage:
     - source $INSTALL_PREFIX/yodaenv.sh
     - source $INSTALL_PREFIX/rivetenv.sh
     - $BUILD_PREFIX/doc/coverage/mk-coverage-htmls
+    - ls -al doc/coverage
   artifacts:
     paths:
       - "doc/coverage/*.html"
@@ -461,6 +464,7 @@ anadiff:
     - source $INSTALL_PREFIX/yodaenv.sh
     - source $INSTALL_PREFIX/rivetenv.sh
     - $BUILD_PREFIX/doc/anadiff/script2.sh
+    - ls -al doc/anadiff
   artifacts:
     paths:
       - "doc/anadiff/hello.md"
