@@ -1,3 +1,7 @@
+2022-09-28  Christian Gutschow  <chris.g@cern.ch>
+
+	* Release 3.1.7
+
 2022-06-21  Jack Araz  <andy.buckley@cern.ch>
 
 	* Add HEPTopTagger interface (since made optional, with no-build example analysis).
