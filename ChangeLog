@@ -53,6 +53,10 @@
 	str type for Python v2 and v3, eliminating many noisy and fragile
 	explicit encode()/decode() calls.
 
+2022-09-29 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2013_I1230342 B_s0 -> Lambda_c+ Lambdabar0 pi-
+
 2022-09-28  Christian Gutschow  <chris.g@cern.ch>
 
 	* Release 3.1.7
