@@ -39,6 +39,11 @@ namespace Rivet {
       }
     }
 
+    // angle cuts due regions of BES calorimeter
+    bool vetoPhoton(const double & cTheta) {
+      return cTheta>0.92 || (cTheta>0.8 && cTheta<0.86);
+    }
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // cos of 10 degress for cut
@@ -100,6 +105,8 @@ namespace Rivet {
 	gamma1 = psi2S.children()[1];
       else
 	vetoEvent;
+      // cuts on the photon
+      if(vetoPhoton(abs(axis.dot(gamma1.p3().unit())))) vetoEvent;
       // then the J/psi and second photon
       Particle JPsi,gamma2;
       if(chi.children()[0].pid()==PID::PHOTON &&
@@ -114,6 +121,8 @@ namespace Rivet {
       }
       else
 	vetoEvent;
+      // cuts on the photon
+      if(vetoPhoton(abs(axis.dot(gamma2.p3().unit())))) vetoEvent;
       // finally the leptons from J/psi decay
       if(JPsi.children().size()!=2) vetoEvent;
       if(JPsi.children()[0].pid()!=-JPsi.children()[1].pid()) vetoEvent;
