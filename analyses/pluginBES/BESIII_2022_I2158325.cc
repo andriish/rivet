@@ -7,7 +7,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief psi(2s) -> Sigma- sigmabar+
   class BESIII_2022_I2158325 : public Analysis {
   public:
 
