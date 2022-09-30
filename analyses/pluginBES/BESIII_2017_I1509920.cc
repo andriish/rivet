@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/DecayedParticles.hh"
 
 namespace Rivet {
@@ -19,6 +20,8 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
+      // Initialise and register projections
+      declare(Beam(), "Beams");
       UnstableParticles ufs = UnstableParticles(Cuts::abspid==PID::PSI2S);
       DecayedParticles psi(ufs);
       psi.addStable(20443);
@@ -37,6 +40,14 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
+      // get the axis, direction of incoming electron
+      const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
+      Vector3 axis;
+      if(beams.first.pid()>0)
+	axis = beams.first .momentum().p3().unit();
+      else
+	axis = beams.second.momentum().p3().unit();
+      // decaying particles
       static const map<PdgId,unsigned int> & mode1   = { {20443,1},{ 11,1}, { -11,1}};
       static const map<PdgId,unsigned int> & mode2   = { {  445,1},{ 11,1}, { -11,1}};
       static const map<PdgId,unsigned int> & mode3   = { {  443,1},{ 11,1}, { -11,1}};
@@ -71,15 +82,20 @@ namespace Rivet {
 	  FourMomentum qq = ep.momentum()+em.momentum();
 	  double q = qq.mass();
 	  _h[0][imode]->fill(q);
-	  // boost everything to decaying particle frame
-	  LorentzTransform boost1 = LorentzTransform::mkFrameTransformFromBeta(in.decaying()[ix].momentum().betaVec());
-	  FourMomentum pout = boost1.transform(out.momentum());
-	  FourMomentum pe   = boost1.transform(em.momentum());
-	  qq = boost1.transform(qq);
-	  Vector3 axis1 = pout.p3().unit();
-	  LorentzTransform boost2 = LorentzTransform::mkFrameTransformFromBeta(qq.betaVec());
-	  pe = boost2.transform(pe);
-	  _h[1][imode]->fill(pe.p3().unit().dot(axis1));
+	  if(iproj==0) {
+	    _h[1][imode]->fill(axis.dot((em.momentum()+ep.momentum()).p3().unit()));
+	  }
+	  else if(iproj==1) {
+	    // boost everything to decaying particle frame
+	    LorentzTransform boost1 = LorentzTransform::mkFrameTransformFromBeta(in.decaying()[ix].momentum().betaVec());
+	    FourMomentum pout = boost1.transform(out.momentum());
+	    FourMomentum pe   = boost1.transform(em.momentum());
+	    qq = boost1.transform(qq);
+	    Vector3 axis1 = pout.p3().unit();
+	    LorentzTransform boost2 = LorentzTransform::mkFrameTransformFromBeta(qq.betaVec());
+	    pe = boost2.transform(pe);
+	    _h[1][imode]->fill(pe.p3().unit().dot(axis1));
+	  }
 	}
 	++iproj;
       }
