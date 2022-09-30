@@ -56,7 +56,8 @@
 2022-09-30 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2022_I2158325 psi(2S) -> Sigma- Sigmabar+
-	* Add BESIII_2013_I1203840 psi(2s) -> pbar K+ Sigma0 and chi_c -> pbar K+ Lambda0
+	* Add BESIII_2013_I1203840 psi(2S) -> pbar K+ Sigma0 and chi_c -> pbar K+ Lambda0
+	* Add BESIII_2013_I1261765 psi(2S) -> Lambda 0 Sigmabar+- pi-+ +cc
 
 2022-09-29 Peter Richardson <peter.richardson@durham.ac.uk>
 
