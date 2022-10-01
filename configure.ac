@@ -1,6 +1,6 @@
 ## Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.71])
+AC_PREREQ([2.68])
 AC_INIT([Rivet],[3.1.7],[rivet@projects.hepforge.org],[Rivet])
 
 ## Check and block installation into the src/build dir
