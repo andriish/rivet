@@ -53,6 +53,10 @@
 	str type for Python v2 and v3, eliminating many noisy and fragile
 	explicit encode()/decode() calls.
 
+2022-10-03 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2012_I946659 B-> D(*) p pbar + pions
+
 2022-09-30 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2022_I2158325 psi(2S) -> Sigma- Sigmabar+

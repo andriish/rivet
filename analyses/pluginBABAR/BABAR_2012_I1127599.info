@@ -13,7 +13,7 @@ References:
 RunInfo: Any process producing B+-, original e+e- at Upsilon(4S)
 Description:
 'Measurements of mass distributions in $B^-\to\Sigma_c^{++}\bar{p}\pi^-\pi^-$. The data were read from the plots in the paper
- but is background subtracted and efficiency corrected.'
+ but are background subtracted and efficiency corrected.'
 ValidationInfo:
   'Herwig 7 event using EvtGen for decays'
 #ReleaseTests:
