@@ -52,6 +52,10 @@
 	* Enable Cython autoconversion from C++ strings to the appropriate
 	str type for Python v2 and v3, eliminating many noisy and fragile
 	explicit encode()/decode() calls.
+=======
+	* Add BELLE_2022_I2160445 Lambda-c+ -> p 2KS0 and p KS0 eta
+	* Add BELLE_2014_I1289224 D0 -> KS0 pi+ pi-
+>>>>>>> a5535e01a... Add BELLE_2014_I1289224 D0 -> KS0 pi+ pi-
 
 2022-10-03 Peter Richardson <peter.richardson@durham.ac.uk>
 
