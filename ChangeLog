@@ -53,9 +53,10 @@
 	str type for Python v2 and v3, eliminating many noisy and fragile
 	explicit encode()/decode() calls.
 
-2022-10-06 Peter Richardson <peter.richardson@durham.ac.uk>
+2022-10-08 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BABAR_2013_I1217425 Bbar0 -> Lambda_c+ pbar pi+ pi-
+	* Add BELLE_2016_I1408873 B -> chi_c1 and chi_c2
 
 2022-10-06 Peter Richardson <peter.richardson@durham.ac.uk>
 
