@@ -1,5 +1,3 @@
-# TODO
-
 import os
 
 import yoda
@@ -265,10 +263,10 @@ def writePyScript(yaml_file, plot_name, outdir):
 
   mplScript +='''
 """
-This script relies on Python and allows you to recreate
-the plot made with rivet-mkhtml. However now with the flexibility
-to change the plot features, for example log/lin axes,
-line colours or the position of the legend.
+This Python script creates your Rivet plots and is implicitly called
+when running rivet-mkhtml. It is written out explicitly to give the 
+option to change the plot features, such as axis-labels, line colours 
+or the position of the legend.
 """
 '''
 
