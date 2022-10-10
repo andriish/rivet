@@ -100,9 +100,6 @@ for pyfile in glob("@srcdir@/rivet/*.py"):
     shutil.copy(pyfile, "build/rivet/")
 shutil.copytree("@srcdir@/rivet/hepdatapatches", "build/rivet/hepdatapatches")
 shutil.copytree("@srcdir@/rivet/plot", "build/rivet/plot")
-shutil.copytree("@srcdir@/rivet/plot/mpl_tools", "build/rivet/plot/mpl_tools")
-shutil.copytree("@srcdir@/rivet/plot/mpl_tools/yoda_plot", "build/rivet/plot/mpl_tools/yoda_plot")
-
 
 ## Run the extension compilation in the build/rivet dir
 import subprocess
