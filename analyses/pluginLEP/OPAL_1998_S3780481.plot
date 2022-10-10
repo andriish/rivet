@@ -63,6 +63,7 @@ Title=$uds$ events mean charged multiplicity
 XLabel=
 YLabel=Multiplicity
 ShowZero=0
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /OPAL_1998_S3780481/d09-x01-y02
@@ -70,6 +71,7 @@ Title=$c$ events mean charged multiplicity
 XLabel=
 YLabel=Multiplicity
 ShowZero=0
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /OPAL_1998_S3780481/d09-x01-y03

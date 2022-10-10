@@ -1,56 +1,69 @@
 BEGIN PLOT /DELPHI_1998_I473409/d01-x01-y01
 Title=Charged Particle Multiplicity (all events)
 YLabel=$N_{\mathrm{charged}}$
+LogY=0
 END PLOT
 BEGIN PLOT /DELPHI_1998_I473409/d01-x01-y02
 Title=$\pi^\pm$ Multiplicity (all events)
 YLabel=$N_{\pi^\pm}$
+LogY=0
 END PLOT
 BEGIN PLOT /DELPHI_1998_I473409/d01-x01-y03
 Title=$K^\pm$ Multiplicity (all events)
 YLabel=$N_{K^\pm}$
+LogY=0
 END PLOT
 BEGIN PLOT /DELPHI_1998_I473409/d01-x01-y04
 Title=$p,\bar{p}$ Multiplicity (all events)
 YLabel=$N_{p,\bar{p}}$
+LogY=0
 END PLOT
 BEGIN PLOT /DELPHI_1998_I473409/d01-x01-y05
 Title=$K^\pm$,$p,\bar{p}$  Multiplicity (all events)
 YLabel=$N_{K^\pm, p, \bar{p}}$
+LogY=0
 END PLOT
 
 BEGIN PLOT /DELPHI_1998_I473409/d02-x01-y01
 Title=Charged Particle Multiplicity (bottom events)
 YLabel=$N_{\mathrm{charged}}$
+LogY=0
 END PLOT
 BEGIN PLOT /DELPHI_1998_I473409/d02-x01-y02
 Title=$\pi^\pm$ Multiplicity (bottom events)
 YLabel=$N_{\pi^\pm}$
+LogY=0
 END PLOT
 BEGIN PLOT /DELPHI_1998_I473409/d02-x01-y03
 Title=$K^\pm$ Multiplicity (bottom events)
 YLabel=$N_{K^\pm}$
+LogY=0
 END PLOT
 BEGIN PLOT /DELPHI_1998_I473409/d02-x01-y04
 Title=$p,\bar{p}$ Multiplicity (bottom events)
 YLabel=$N_{p,\bar{p}}$
+LogY=0
 END PLOT
 BEGIN PLOT /DELPHI_1998_I473409/d02-x01-y05
 Title=$K^\pm$,$p,\bar{p}$  Multiplicity (bottom events)
 YLabel=$N_{K^\pm, p, \bar{p}}$
+LogY=0
 END PLOT
 
 BEGIN PLOT /DELPHI_1998_I473409/d03-x01-y01
 Title=Charged Particle Multiplicity (light events)
 YLabel=$N_{\mathrm{charged}}$
+LogY=0
 END PLOT
 BEGIN PLOT /DELPHI_1998_I473409/d03-x01-y02
 Title=$\pi^\pm$ Multiplicity (light events)
 YLabel=$N_{\pi^\pm}$
+LogY=0
 END PLOT
 BEGIN PLOT /DELPHI_1998_I473409/d03-x01-y03
 Title=$K^\pm$ Multiplicity (light events)
 YLabel=$N_{K^\pm}$
+LogY=0
 END PLOT
 BEGIN PLOT /DELPHI_1998_I473409/d03-x01-y04
 Title=$p,\bar{p}$ Multiplicity (light events)
@@ -59,6 +72,7 @@ END PLOT
 BEGIN PLOT /DELPHI_1998_I473409/d03-x01-y05
 Title=$K^\pm$,$p,\bar{p}$  Multiplicity (light events)
 YLabel=$N_{K^\pm, p, \bar{p}}$
+LogY=0
 END PLOT
 
 BEGIN PLOT /DELPHI_1998_I473409/d04-x01-y01
