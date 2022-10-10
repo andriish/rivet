@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.59)
-AC_INIT([Rivet],[3.1.6],[rivet@projects.hepforge.org],[Rivet])
+AC_PREREQ([2.68])
+AC_INIT([Rivet],[3.1.7],[rivet@projects.hepforge.org],[Rivet])
 
 ## Check and block installation into the src/build dir
 if test "$prefix" = "$PWD"; then
@@ -61,8 +61,7 @@ AC_SUBST(RIVETCXXFLAGS)
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_DISABLE_STATIC
-AC_LIBTOOL_DLOPEN
-AC_PROG_LIBTOOL
+LT_INIT([dlopen])
 AX_EXECINFO
 AC_FUNC_STRERROR_R
 AC_CHECK_PROG([FCP], [rsync], [rsync -aq], [cp -f])
@@ -81,7 +80,7 @@ if test -f "$YODACONFIG"; then
   YODA_VERSION1=[`echo $YODA_VERSION | cut -d. -f1 | sed -e 's/\([0-9]*\).*/\1/g'`]
   YODA_VERSION2=[`echo $YODA_VERSION | cut -d. -f2 | sed -e 's/\([0-9]*\).*/\1/g'`]
   YODA_VERSION3=[`echo $YODA_VERSION | cut -d. -f3 | sed -e 's/\([0-9]*\).*/\1/g'`]
-    let YODA_VERSION_INT=YODA_VERSION1*10000+YODA_VERSION2*100+YODA_VERSION3
+  let YODA_VERSION_INT=YODA_VERSION1*10000+YODA_VERSION2*100+YODA_VERSION3
   if test $YODA_VERSION_INT -lt 10800; then
     AC_MSG_ERROR([YODA version isn't sufficient: at least version 1.8.0 required])
   fi
@@ -99,7 +98,13 @@ if test "${with_hepmc+set}" = set; then
   fi
 fi
 
+## Test for the appropriate HepMC version; at least one must work
+use_hepmc2=no
+use_hepmc3=no
 if test "${with_hepmc3+set}" = set; then
+AC_ARG_WITH([hepmc3],
+            [AS_HELP_STRING(--with-hepmc3, path to HepMC3 @<:@$prefix and various standard locations@:>@)],
+            [HEPMC3PATH=$with_hepmc3], [])
   AC_CEDAR_LIBRARYANDHEADERS([HepMC3], , [use_hepmc3=yes], [use_hepmc3=no])
   AM_CONDITIONAL(WITH_HEPMC,false)
   AM_CONDITIONAL(WITH_HEPMCINC,false)
@@ -108,6 +113,9 @@ if test "${with_hepmc3+set}" = set; then
   AM_CONDITIONAL(WITHOUT_HEPMCINC,true)
   AM_CONDITIONAL(WITHOUT_HEPMCLIB,true)
 else
+AC_ARG_WITH([hepmc],
+            [AS_HELP_STRING(--with-hepmc, path to HepMC2 @<:@$prefix and various standard locations@:>@)],
+            [HEPMCPATH=$with_hepmc], [])
   AC_CEDAR_LIBRARYANDHEADERS([HepMC], , [use_hepmc2=yes], [use_hepmc2=no])
   AM_CONDITIONAL(WITH_HEPMC3,false)
   AM_CONDITIONAL(WITH_HEPMC3INC,false)
@@ -116,11 +124,11 @@ else
   AM_CONDITIONAL(WITHOUT_HEPMC3INC,true)
   AM_CONDITIONAL(WITHOUT_HEPMC3LIB,true)
 fi
-
 if test x$use_hepmc2 = xno && test x$use_hepmc3 = xno ; then
   AC_MSG_ERROR([HepMC2 or HepMC3 is required])
 fi
 
+## Test the discovered HepMC
 rm conftest.*
 if test x$use_hepmc2 = xyes; then
 
@@ -157,7 +165,6 @@ if test x$use_hepmc2 = xyes; then
   CPPFLAGS=$oldCPPFLAGS
   HEPMCLIBNAME="-lHepMC"
   AC_SUBST(HEPMCLIBNAME)
-
 
 else
 
@@ -213,22 +220,19 @@ if test -f "$FJCONFIG"; then
   fjmajor=$(echo $fjversion | cut -f1 -d.)
   fjminor=$(echo $fjversion | cut -f2 -d.)
   fjmicro=$(echo $fjversion | cut -f3 -d.)
-  if test "$fjmajor" -lt 3; then
-    AC_MSG_ERROR([FastJet version 3.0.0 or later is required])
+  if test "$fjmajor" -lt 3 -o "$fjminor" -lt 4 ; then  #< only works for v3.x
+    AC_MSG_ERROR([FastJet version 3.4.0 or later is required]) #< plugin libs chanced with 3.4.0
   fi
   FASTJETLIBADD="$($FJCONFIG --plugins --shared --libs | sed 's/\S*\/gcc\/\S*//g')"
 else
-  FASTJETLIBADD="-L$FASTJETLIBPATH -l$FASTJETLIBNAME"
-  FASTJETLIBADD="$FASTJETLIBADD -lSISConePlugin -lsiscone -lsiscone_spherical"
-  FASTJETLIBADD="$FASTJETLIBADD -lCDFConesPlugin -lD0RunIIConePlugin -lNestedDefsPlugin"
-  FASTJETLIBADD="$FASTJETLIBADD -lTrackJetPlugin -lATLASConePlugin -lCMSIterativeConePlugin"
-  FASTJETLIBADD="$FASTJETLIBADD -lEECambridgePlugin -lJadePlugin"
-fi;
+  FASTJETLIBADD="-L$FASTJETLIBPATH -l$FASTJETLIBNAME -lfastjetplugins"
+fi
 FASTJETLDFLAGS="-L$FASTJETLIBPATH"
+
 
 ## FastJet contrib (allow paths specified separately from FJ)
 AC_ARG_WITH([fjcontrib],
-            [AC_HELP_STRING(--with-fjcontrib, path to FastJet Contrib @<:@$FASTJETPATH@:>@)], [], [])
+            [AS_HELP_STRING([--with-fjcontrib],[path to FastJet Contrib @<:@$FASTJETPATH@:>@])], [], [])
 if test -n "$with_fjcontrib"; then
   AC_MSG_NOTICE([FastJet Contrib base path given: $with_fjcontrib])
   FJCONTRIBINCPATH=$with_fjcontrib/include
@@ -286,6 +290,10 @@ CPPFLAGS=$oldCPPFLAGS
 LIBS=$oldLIBS
 
 
+## HEPTopTagger
+# AC_CEDAR_HEADERS([HEPTopTagger], , , [AC_MSG_ERROR([HEPTopTagger is required])])
+
+
 # ## GNU Scientific Library
 # AC_SEARCH_GSL
 # AC_CEDAR_HEADERS([gsl], , , [AC_MSG_ERROR([GSL (GNU Scientific Library) is required])])
@@ -297,7 +305,7 @@ LIBS=$oldLIBS
 
 ## Disable build/install of standard analyses
 AC_ARG_ENABLE([analyses],
-  [AC_HELP_STRING(--disable-analyses, [don't try to build or install standard analyses])],
+  [AS_HELP_STRING([--disable-analyses],[don't try to build or install standard analyses])],
   [], [enable_analyses=yes])
 if test x$enable_analyses != xyes; then
    AC_MSG_WARN([Not building standard Rivet analyses, by request])
@@ -310,7 +318,7 @@ dnl AC_PATH_PROG(PDFLATEX, pdflatex)
 dnl AM_CONDITIONAL(WITH_PDFLATEX, [test x$PDFLATEX != x])
 dnl ## ... unless told otherwise!
 dnl AC_ARG_ENABLE([pdfmanual],
-dnl   [AC_HELP_STRING(--enable-pdfmanual, [build and install the manual])],
+dnl   [AS_HELP_STRING([--enable-pdfmanual],[build and install the manual])],
 dnl   [], [enable_pdfmanual=no])
 dnl if test x$enable_pdfmanual = xyes; then
 dnl    AC_MSG_WARN([Building Rivet manual, by request])
@@ -320,12 +328,12 @@ AM_CONDITIONAL(WITH_PDFLATEX, [test x$PDFLATEX != x])
 AM_CONDITIONAL(ENABLE_PDFMANUAL, [test x$enable_pdfmanual = xyes])
 #
 AC_ARG_ENABLE([pdfmanual],
-  [AC_HELP_STRING(--enable-pdfmanual, [backward compatility dummy flag, no effect and deprecated])], [], [])
+  [AS_HELP_STRING([--enable-pdfmanual],[backward compatility dummy flag, no effect and deprecated])], [], [])
 
 
 ## Build Doxygen documentation if possible
 AC_ARG_ENABLE([doxygen],
-  [AC_HELP_STRING(--disable-doxygen, [don't try to make Doxygen documentation])],
+  [AS_HELP_STRING([--disable-doxygen],[don't try to make Doxygen documentation])],
   [], [enable_doxygen=yes])
 if test x$enable_doxygen = xyes; then
    AC_PATH_PROG(DOXYGEN, doxygen)
@@ -338,21 +346,23 @@ AM_CONDITIONAL(WITH_ASCIIDOC, [test x$ASCIIDOC != x])
 
 
 ## Python extension
-AC_ARG_ENABLE(pyext, [AC_HELP_STRING(--disable-pyext,
-  [don't build Python module (default=build)])],
+AC_ARG_ENABLE(pyext, [AS_HELP_STRING([--disable-pyext],[don't build Python module (default=build)])],
   [], [enable_pyext=yes])
 ## Basic Python checks
 if test x$enable_pyext == xyes; then
+  AM_PATH_PYTHON
   AX_PYTHON_DEVEL([>= '2.7.3'])
   PYTHON_FULL_VERSION=`$PYTHON -c 'from __future__ import print_function; import platform; print(platform.python_version())'`
   PYTHON_MAJOR_VERSION=`$PYTHON -c 'from __future__ import print_function; import sys; print(sys.version_info.major)'`
   AC_SUBST(PYTHON_VERSION)
   AC_SUBST(PYTHON_FULL_VERSION)
   AC_SUBST(PYTHON_MAJOR_VERSION)
-  RIVET_PYTHONPATH=`$PYTHON -c "from __future__ import print_function; import distutils.sysconfig; print(distutils.sysconfig.get_python_lib(prefix='$prefix', plat_specific=True));"`
+  #RIVET_PYTHONPATH=$pythondir
+  RIVET_PYTHONPATH=`$PYTHON -c "from __future__ import print_function; import sysconfig; print(sysconfig.get_path('platlib', 'posix_user', vars={'userbase' : '$prefix'}))"`
   AC_SUBST(RIVET_PYTHONPATH)
+  AC_MSG_NOTICE(Rivet Python lib will be installed to $RIVET_PYTHONPATH)
   if test -z "$PYTHON"; then
-    AC_MSG_ERROR([Can't build Python extension since python can't be found])
+    AC_MSG_ERROR([Can't build Python extension since Python executable can't be found])
     enable_pyext=no
   fi
   if test -z "$PYTHON_CPPFLAGS"; then
@@ -361,16 +371,6 @@ if test x$enable_pyext == xyes; then
   fi
 fi
 AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
-
-dnl
-dnl setup.py puts its build artifacts into a labelled path
-dnl this helps the test scripts to find them locally instead of
-dnl having to install first
-dnl
-RIVET_SETUP_PY_PATH=$(${PYTHON} -c 'from __future__ import print_function;
-import distutils.util as u, sys; vi=sys.version_info; print("lib.%s-%s.%s" % (u.get_platform(),vi.major, vi.minor))')
-AC_SUBST(RIVET_SETUP_PY_PATH)
-
 
 
 ## Cython checks
@@ -381,7 +381,7 @@ if test x$enable_pyext == xyes; then
     if test x$CYTHON != x; then
         AC_MSG_NOTICE([Cython >= 0.24 found at $CYTHON: Python extension source can be rebuilt (for developers)])
         # Force rebuild since we have a sufficient Cython
-        test -f pyext/rivet/core.pyx && touch pyext/rivet/core.pyx
+        for i in pyext/rivet/*.pyx; do touch $i; done
     fi
   fi
 
@@ -429,15 +429,13 @@ AX_CHECK_ZLIB
 
 
 ## Debug flag (default=-DNDEBUG, enabled=-g)
-AC_ARG_ENABLE([debug], [AC_HELP_STRING(--enable-debug,
-  [build with debugging symbols  @<:@default=no@:>@])], [], [enable_debug=no])
+AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug],[build with debugging symbols  @<:@default=no@:>@])], [], [enable_debug=no])
 if test x$enable_debug == xyes; then
   AM_CXXFLAGS="$AM_CXXFLAGS -g"
 fi
 
 ## Extra warnings flag (default=none)
-AC_ARG_ENABLE([extra-warnings], [AC_HELP_STRING(--enable-extra-warnings,
-  [build with extra compiler warnings (recommended for developers)  @<:@default=no@:>@])], [], [enable_extra_warnings=no])
+AC_ARG_ENABLE([extra-warnings], [AS_HELP_STRING([--enable-extra-warnings],[build with extra compiler warnings (recommended for developers)  @<:@default=no@:>@])], [], [enable_extra_warnings=no])
 if test x$enable_extra_warnings == xyes; then
    AC_CEDAR_CHECKCXXFLAG([-Wextra], [AM_CXXFLAGS="$AM_CXXFLAGS -Wextra "])
 fi
@@ -456,7 +454,7 @@ AC_CONFIG_FILES(src/Projections/Makefile)
 AC_CONFIG_FILES(src/AnalysisTools/Makefile)
 AC_CONFIG_FILES(analyses/Makefile)
 AC_CONFIG_FILES(test/Makefile)
-AC_CONFIG_FILES(pyext/Makefile pyext/rivet/Makefile pyext/setup.py)
+AC_CONFIG_FILES(pyext/Makefile pyext/rivet/Makefile pyext/build.py)
 AC_CONFIG_FILES(data/Makefile data/texmf/Makefile)
 AC_CONFIG_FILES(doc/Makefile doc/doxygen/Doxyfile)
 AC_CONFIG_FILES(bin/Makefile bin/rivet-config bin/rivet-build)

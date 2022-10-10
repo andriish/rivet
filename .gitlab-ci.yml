@@ -36,6 +36,7 @@ stages:
     - ./configure --prefix=$INSTALL_PREFIX
     - $MAKE
     - $MAKE install
+    - cp yodaenv.sh $INSTALL_PREFIX/
     - cd ..
     ## Build Rivet
     - autoreconf -i
@@ -46,39 +47,50 @@ stages:
     - echo $CONF
     - $CONF
     - $MAKE RIVET_BUILD_ALLCAT=1
-    - echo @$LD_LIBRARY_PATH@
+    # - echo @$LD_LIBRARY_PATH@
     - $MAKE check || (cat test/test-suite.log && false)
     - $MAKE install
-    - cp rivetenv.sh rivetenv.csh $INSTALL_PREFIX/
+    - cp rivetenv.sh $INSTALL_PREFIX/
     ## Basic testing
+    - echo "LD_LIBRARY_PATH = $LD_LIBRARY_PATH"
+    - echo "PYTHONPATH = $PYTHONPATH"
+    - python --version
+    - ls /etc/profile.d || true
+    - root-config --prefix || true
+    - cat $INSTALL_PREFIX/yodaenv.sh
+    - source $INSTALL_PREFIX/yodaenv.sh
+    - cat $INSTALL_PREFIX/rivetenv.sh
     - source $INSTALL_PREFIX/rivetenv.sh
     - rivet -h
-    - |
-      if [[ "$ALLANAS" != "1" ]]; then
-        ./ci/getAffectedRoutines.sh anasToCompile.txt
-        echo "==== echo analyses to compile ====="
-        cat anasToCompile.txt
-        find analyses | grep MC_TTBAR | grep cc  >> anasToCompile.txt # need at least one!
-        cat anasToCompile.txt | sort --unique > anasToCompile.tmp ; mv anasToCompile.tmp anasToCompile.txt
-        echo rivet-build `cat anasToCompile.txt`
-        RIVET_BUILD_NOCAT=1 rivet-build RivetModifiedAnas.so `cat anasToCompile.txt`
-        mkdir -p ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/lib/Rivet/.
-        mkdir -p ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/.
-        cp RivetModifiedAnas.so ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/lib/Rivet/.
-        while read p ; do cp ${p/%.cc}* ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/. ; done < anasToCompile.txt
-        rm ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/*cc
-      fi
-    - find $CI_PROJECT_DIR
-    - ls $CI_PROJECT_DIR
+    # - |
+    #   if [[ "$ALLANAS" != "1" ]]; then
+    #     ./ci/getAffectedRoutines.sh anasToCompile.txt
+    #     echo "==== echo analyses to compile ====="
+    #     cat anasToCompile.txt
+    #     find analyses | grep MC_TTBAR | grep cc  >> anasToCompile.txt # need at least one!
+    #     cat anasToCompile.txt | sort --unique > anasToCompile.tmp ; mv anasToCompile.tmp anasToCompile.txt
+    #     echo rivet-build `cat anasToCompile.txt`
+    #     RIVET_BUILD_NOCAT=1 rivet-build RivetModifiedAnas.so `cat anasToCompile.txt`
+    #     mkdir -p ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/lib/Rivet/.
+    #     mkdir -p ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/.
+    #     cp RivetModifiedAnas.so ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/lib/Rivet/.
+    #     while read p ; do cp ${p/%.cc}* ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/. ; done < anasToCompile.txt
+    #     rm ${CI_PROJECT_DIR}/local${PYTHON_VERSION}/share/Rivet/*cc
+    #   fi
+    # - find $CI_PROJECT_DIR
+    # - ls $CI_PROJECT_DIR
 
   artifacts:
     when: always
     paths:
-      - ${CI_PROJECT_DIR}/local_$ARCH/
-      - ${CI_PROJECT_DIR}/test_$ARCH/
-      - ${CI_PROJECT_DIR}/Make*
-      # - test/
-      # - local_$ARCH/
+      # - ${CI_PROJECT_DIR}/local_$ARCH/
+      # - ${CI_PROJECT_DIR}/test_$ARCH/
+      # - ${CI_PROJECT_DIR}/Make*
+      # - ${CI_PROJECT_DIR}/config.log
+      - config.log
+      - test/
+      - local_$ARCH/
+      - test_$ARCH/
     expire_in: 36 hrs
 
 
@@ -93,6 +105,12 @@ build_ubuntu_clang_hepmc3_py3:
     ARCH: ubuntu-clang-hepmc3-py3
   <<: *build_template
 
+build_fedora_gcc_hepmc3_py3:
+  variables:
+    ARCH: fedora-gcc-hepmc3-py3
+  #only: [schedules]
+  <<: *build_template
+
 # build_ubuntu_intel_hepmc3_py3:
 #   tags: [intel-compat]
 #   variables:
@@ -100,10 +118,11 @@ build_ubuntu_clang_hepmc3_py3:
 #   only: [schedules]
 #   <<: *build_template
 
-build_ubuntu_gcc_hepmc2_py3:
-  variables:
-    ARCH: ubuntu-gcc-hepmc2-py3
-  <<: *build_template
+
+# build_ubuntu_gcc_hepmc2_py3:
+#   variables:
+#     ARCH: ubuntu-gcc-hepmc2-py3
+#   <<: *build_template
 
 # build_ubuntu_clang_hepmc2_py3:
 #   variables:
@@ -117,17 +136,11 @@ build_ubuntu_gcc_hepmc2_py3:
 #   only: [schedules]
 #   <<: *build_template
 
-build_fedora_gcc_hepmc3_py3:
-  variables:
-    ARCH: fedora-gcc-hepmc3-py3
-  #only: [schedules]
-  <<: *build_template
-
-build_ubuntu_gcc_hepmc3_py2:
-  variables:
-    ARCH: ubuntu-gcc-hepmc3-py2
-  #only: [schedules]
-  <<: *build_template
+# build_ubuntu_gcc_hepmc3_py2:
+#   variables:
+#     ARCH: ubuntu-gcc-hepmc3-py2
+#   #only: [schedules]
+#   <<: *build_template
 
 # build_fedora_gcc_hepmc2_py3:
 #   variables:
@@ -245,6 +258,13 @@ check_plugin_ubuntu_clang_hepmc3_py3:
   needs: [build_ubuntu_clang_hepmc3_py3, get_test_hepmc]
   <<: *check_plugin_template
 
+check_plugin_fedora_gcc_hepmc3_py3:
+  variables:
+    ARCH: fedora-gcc-hepmc3-py3
+  #only: [schedules]
+  needs: [build_fedora_gcc_hepmc3_py3, get_test_hepmc]
+  <<: *check_plugin_template
+
 # check_plugin_ubuntu_intel_hepmc3_py3:
 #   tags: [intel-compat]
 #   variables:
@@ -253,11 +273,12 @@ check_plugin_ubuntu_clang_hepmc3_py3:
 #   needs: [build_ubuntu_intel_hepmc3_py3, get_test_hepmc]
 #   <<: *check_plugin_template
 
-check_plugin_ubuntu_gcc_hepmc2_py3:
-  variables:
-    ARCH: ubuntu-gcc-hepmc2-py3
-  needs: [build_ubuntu_gcc_hepmc2_py3, get_test_hepmc]
-  <<: *check_plugin_template
+
+# check_plugin_ubuntu_gcc_hepmc2_py3:
+#   variables:
+#     ARCH: ubuntu-gcc-hepmc2-py3
+#   needs: [build_ubuntu_gcc_hepmc2_py3, get_test_hepmc]
+#   <<: *check_plugin_template
 
 # check_plugin_ubuntu_clang_hepmc2_py3:
 #   variables:
@@ -265,19 +286,12 @@ check_plugin_ubuntu_gcc_hepmc2_py3:
 #   needs: [build_ubuntu_clang_hepmc2_py3, get_test_hepmc]
 #   <<: *check_plugin_template
 
-check_plugin_fedora_gcc_hepmc3_py3:
-  variables:
-    ARCH: fedora-gcc-hepmc3-py3
-  #only: [schedules]
-  needs: [build_fedora_gcc_hepmc3_py3, get_test_hepmc]
-  <<: *check_plugin_template
-
-check_plugin_ubuntu_gcc_hepmc3_py2:
-  variables:
-    ARCH: ubuntu-gcc-hepmc3-py2
-  #only: [schedules]
-  needs: [build_ubuntu_gcc_hepmc3_py2, get_test_hepmc]
-  <<: *check_plugin_template
+# check_plugin_ubuntu_gcc_hepmc3_py2:
+#   variables:
+#     ARCH: ubuntu-gcc-hepmc3-py2
+#   #only: [schedules]
+#   needs: [build_ubuntu_gcc_hepmc3_py2, get_test_hepmc]
+#   <<: *check_plugin_template
 
 # check_plugin_fedora_gcc_hepmc2_py3:
 #   variables:
@@ -301,16 +315,11 @@ check_plugin_ubuntu_gcc_hepmc3_py2:
   script:
     - INSTALL_PREFIX="$CI_PROJECT_DIR/local_$ARCH"
     - TEST_PREFIX="$CI_PROJECT_DIR/test_$ARCH"
+    - source $INSTALL_PREFIX/yodaenv.sh
     - source $INSTALL_PREFIX/rivetenv.sh
     - cd $TEST_PREFIX
     - ls /usr/local/lib64
     - echo $LD_LIBRARY_PATH
-    -  |
-       if [ ! -f "/usr/local/lib64/libHepMC3search.so.4" ]; then
-         if [ -f "/usr/local/lib64/libHepMC3search.so.3" ]; then
-           mv /usr/local/lib64/libHepMC3search.so.3 /usr/local/lib64/libHepMC3search.so.4;
-         fi
-       fi
     - rivet-mkhtml --errs -o ttbar_test_plots ttbar_test_run.yoda
   artifacts:
     when: always
@@ -339,6 +348,13 @@ make_plots_ubuntu_clang_hepmc3_py3:
   needs: [check_plugin_ubuntu_clang_hepmc3_py3]
   <<: *make_plots_template
 
+make_plots_fedora_gcc_hepmc3_py3:
+  variables:
+    ARCH: fedora-gcc-hepmc3-py3
+  #only: [schedules]
+  needs: [check_plugin_fedora_gcc_hepmc3_py3]
+  <<: *make_plots_template
+
 # make_plots_ubuntu_intel_hepmc3_py3:
 #   tags: [intel-compat]
 #   variables:
@@ -347,12 +363,13 @@ make_plots_ubuntu_clang_hepmc3_py3:
 #   needs: [check_plugin_ubuntu_intel_hepmc3_py3]
 #   <<: *make_plots_template
 
-make_plots_ubuntu_gcc_hepmc2_py3:
-  variables:
-    ARCH: ubuntu-gcc-hepmc2-py3
-  only: [schedules]
-  needs: [check_plugin_ubuntu_gcc_hepmc2_py3]
-  <<: *make_plots_template
+
+# make_plots_ubuntu_gcc_hepmc2_py3:
+#   variables:
+#     ARCH: ubuntu-gcc-hepmc2-py3
+#   only: [schedules]
+#   needs: [check_plugin_ubuntu_gcc_hepmc2_py3]
+#   <<: *make_plots_template
 
 # make_plots_ubuntu_clang_hepmc2_py3:
 #   variables:
@@ -369,19 +386,12 @@ make_plots_ubuntu_gcc_hepmc2_py3:
 #   needs: [check_plugin_ubuntu_intel_hepmc2_py3]
 #   <<: *make_plots_template
 
-make_plots_fedora_gcc_hepmc3_py3:
-  variables:
-    ARCH: fedora-gcc-hepmc3-py3
-  #only: [schedules]
-  needs: [check_plugin_fedora_gcc_hepmc3_py3]
-  <<: *make_plots_template
-
-make_plots_ubuntu_gcc_hepmc3_py2:
-  variables:
-    ARCH: ubuntu-gcc-hepmc3-py2
-  #only: [schedules]
-  needs: [check_plugin_ubuntu_gcc_hepmc3_py2]
-  <<: *make_plots_template
+# make_plots_ubuntu_gcc_hepmc3_py2:
+#   variables:
+#     ARCH: ubuntu-gcc-hepmc3-py2
+#   #only: [schedules]
+#   needs: [check_plugin_ubuntu_gcc_hepmc3_py2]
+#   <<: *make_plots_template
 
 # make_plots_fedora_gcc_hepmc2_py3:
 #   variables:

@@ -11,12 +11,15 @@
 #ifndef EIGEN_COLPIVOTINGHOUSEHOLDERQR_H
 #define EIGEN_COLPIVOTINGHOUSEHOLDERQR_H
 
-namespace Eigen {
+namespace RivetEigen {
 
 namespace internal {
 template<typename _MatrixType> struct traits<ColPivHouseholderQR<_MatrixType> >
  : traits<_MatrixType>
 {
+  typedef MatrixXpr XprKind;
+  typedef SolverStorage StorageKind;
+  typedef int StorageIndex;
   enum { Flags = 0 };
 };
 
@@ -46,20 +49,19 @@ template<typename _MatrixType> struct traits<ColPivHouseholderQR<_MatrixType> >
   * \sa MatrixBase::colPivHouseholderQr()
   */
 template<typename _MatrixType> class ColPivHouseholderQR
+        : public SolverBase<ColPivHouseholderQR<_MatrixType> >
 {
   public:
 
     typedef _MatrixType MatrixType;
+    typedef SolverBase<ColPivHouseholderQR> Base;
+    friend class SolverBase<ColPivHouseholderQR>;
+
+    EIGEN_GENERIC_PUBLIC_INTERFACE(ColPivHouseholderQR)
     enum {
-      RowsAtCompileTime = MatrixType::RowsAtCompileTime,
-      ColsAtCompileTime = MatrixType::ColsAtCompileTime,
       MaxRowsAtCompileTime = MatrixType::MaxRowsAtCompileTime,
       MaxColsAtCompileTime = MatrixType::MaxColsAtCompileTime
     };
-    typedef typename MatrixType::Scalar Scalar;
-    typedef typename MatrixType::RealScalar RealScalar;
-    // FIXME should be int
-    typedef typename MatrixType::StorageIndex StorageIndex;
     typedef typename internal::plain_diag_type<MatrixType>::type HCoeffsType;
     typedef PermutationMatrix<ColsAtCompileTime, MaxColsAtCompileTime> PermutationType;
     typedef typename internal::plain_row_type<MatrixType, Index>::type IntRowVectorType;
@@ -137,7 +139,7 @@ template<typename _MatrixType> class ColPivHouseholderQR
 
     /** \brief Constructs a QR factorization from a given matrix
       *
-      * This overloaded constructor is provided for \link InplaceDecomposition inplace decomposition \endlink when \c MatrixType is a Eigen::Ref.
+      * This overloaded constructor is provided for \link InplaceDecomposition inplace decomposition \endlink when \c MatrixType is a RivetEigen::Ref.
       *
       * \sa ColPivHouseholderQR(const EigenBase&)
       */
@@ -156,6 +158,7 @@ template<typename _MatrixType> class ColPivHouseholderQR
       computeInPlace();
     }
 
+    #ifdef EIGEN_PARSED_BY_DOXYGEN
     /** This method finds a solution x to the equation Ax=b, where A is the matrix of which
       * *this is the QR decomposition, if any exists.
       *
@@ -172,11 +175,8 @@ template<typename _MatrixType> class ColPivHouseholderQR
       */
     template<typename Rhs>
     inline const Solve<ColPivHouseholderQR, Rhs>
-    solve(const MatrixBase<Rhs>& b) const
-    {
-      eigen_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
-      return Solve<ColPivHouseholderQR, Rhs>(*this, b.derived());
-    }
+    solve(const MatrixBase<Rhs>& b) const;
+    #endif
 
     HouseholderSequenceType householderQ() const;
     HouseholderSequenceType matrixQ() const
@@ -360,8 +360,8 @@ template<typename _MatrixType> class ColPivHouseholderQR
     /** Allows to come back to the default behavior, letting Eigen use its default formula for
       * determining the threshold.
       *
-      * You should pass the special object Eigen::Default as parameter here.
-      * \code qr.setThreshold(Eigen::Default); \endcode
+      * You should pass the special object RivetEigen::Default as parameter here.
+      * \code qr.setThreshold(RivetEigen::Default); \endcode
       *
       * See the documentation of setThreshold(const RealScalar&).
       */
@@ -402,7 +402,7 @@ template<typename _MatrixType> class ColPivHouseholderQR
       */
     RealScalar maxPivot() const { return m_maxpivot; }
 
-    /** \brief Reports whether the QR factorization was succesful.
+    /** \brief Reports whether the QR factorization was successful.
       *
       * \note This function always returns \c Success. It is provided for compatibility
       * with other factorization routines.
@@ -416,8 +416,10 @@ template<typename _MatrixType> class ColPivHouseholderQR
 
     #ifndef EIGEN_PARSED_BY_DOXYGEN
     template<typename RhsType, typename DstType>
-    EIGEN_DEVICE_FUNC
     void _solve_impl(const RhsType &rhs, DstType &dst) const;
+
+    template<bool Conjugate, typename RhsType, typename DstType>
+    void _solve_impl_transposed(const RhsType &rhs, DstType &dst) const;
     #endif
 
   protected:
@@ -584,8 +586,6 @@ template<typename _MatrixType>
 template<typename RhsType, typename DstType>
 void ColPivHouseholderQR<_MatrixType>::_solve_impl(const RhsType &rhs, DstType &dst) const
 {
-  eigen_assert(rhs.rows() == rows());
-
   const Index nonzero_pivots = nonzeroPivots();
 
   if(nonzero_pivots == 0)
@@ -596,11 +596,7 @@ void ColPivHouseholderQR<_MatrixType>::_solve_impl(const RhsType &rhs, DstType &
 
   typename RhsType::PlainObject c(rhs);
 
-  // Note that the matrix Q = H_0^* H_1^*... so its inverse is Q^* = (H_0 H_1 ...)^T
-  c.applyOnTheLeft(householderSequence(m_qr, m_hCoeffs)
-                    .setLength(nonzero_pivots)
-                    .transpose()
-    );
+  c.applyOnTheLeft(householderQ().setLength(nonzero_pivots).adjoint() );
 
   m_qr.topLeftCorner(nonzero_pivots, nonzero_pivots)
       .template triangularView<Upper>()
@@ -608,6 +604,31 @@ void ColPivHouseholderQR<_MatrixType>::_solve_impl(const RhsType &rhs, DstType &
 
   for(Index i = 0; i < nonzero_pivots; ++i) dst.row(m_colsPermutation.indices().coeff(i)) = c.row(i);
   for(Index i = nonzero_pivots; i < cols(); ++i) dst.row(m_colsPermutation.indices().coeff(i)).setZero();
+}
+
+template<typename _MatrixType>
+template<bool Conjugate, typename RhsType, typename DstType>
+void ColPivHouseholderQR<_MatrixType>::_solve_impl_transposed(const RhsType &rhs, DstType &dst) const
+{
+  const Index nonzero_pivots = nonzeroPivots();
+
+  if(nonzero_pivots == 0)
+  {
+    dst.setZero();
+    return;
+  }
+
+  typename RhsType::PlainObject c(m_colsPermutation.transpose()*rhs);
+
+  m_qr.topLeftCorner(nonzero_pivots, nonzero_pivots)
+        .template triangularView<Upper>()
+        .transpose().template conjugateIf<Conjugate>()
+        .solveInPlace(c.topRows(nonzero_pivots));
+
+  dst.topRows(nonzero_pivots) = c.topRows(nonzero_pivots);
+  dst.bottomRows(rows()-nonzero_pivots).setZero();
+
+  dst.applyOnTheLeft(householderQ().setLength(nonzero_pivots).template conjugateIf<!Conjugate>() );
 }
 #endif
 
@@ -648,6 +669,6 @@ MatrixBase<Derived>::colPivHouseholderQr() const
   return ColPivHouseholderQR<PlainObject>(eval());
 }
 
-} // end namespace Eigen
+} // end namespace RivetEigen
 
 #endif // EIGEN_COLPIVOTINGHOUSEHOLDERQR_H

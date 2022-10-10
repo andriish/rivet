@@ -337,7 +337,7 @@ namespace {
       }
 
       vector< std::tuple<double,valarray<double>,double> > hfill;
-      double sumf = 0.0;
+      //double sumf = 0.0;
       auto edgit = edgeset.begin();
       double ehi = *edgit;
       while ( ++edgit != edgeset.end() ) {
@@ -359,13 +359,15 @@ namespace {
         if ( gap ) continue;
         double frac = double(nfill)/double(x.size());
         hfill.push_back( make_tuple( (ehi + elo)/2.0, sumw/frac, frac*0.5*(ehi - elo)/wsize ) );
-        sumf += ehi - elo;
+        //sumf += ehi - elo;
       }
 
-      for ( auto f : hfill )
-        for ( size_t m = 0; m < persistent.size(); ++m )
+      for (const auto& f : hfill) {
+        for (size_t m = 0; m < persistent.size(); ++m) {
+          // Note the scaling to one single fill
           persistent[m]->fill( get<0>(f), get<1>(f)[m], get<2>(f) );
-      // Note the scaling to one single fill
+        }
+      }
 
     }
 

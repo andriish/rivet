@@ -1,7 +1,18 @@
-ARG UBUNTU_IMAGE=ubuntu:20.04
+ARG UBUNTU_IMAGE=ubuntu:22.04
 FROM ${UBUNTU_IMAGE}
 LABEL maintainer="rivet-developers@cern.ch"
 SHELL ["/bin/bash", "--login", "-c"]
+
+ARG LATEX
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && if test "$LATEX" = "1"; then \
+      apt-get update -y && \
+      apt-get install -y texlive-latex-recommended texlive-fonts-recommended && \
+      apt-get install -y texlive-latex-extra texlive-pstricks imagemagick && \
+      sed -i 's/^.*policy.*coder.*none.*(PS|PDF).*//' /etc/ImageMagick-6/policy.xml && \
+      sed -i '/disable ghostscript format types/,+6d' /etc/ImageMagick-6/policy.xml && \
+      texhash; \
+    fi
 
 ARG BUILD_TOOLS
 RUN export DEBIAN_FRONTEND=noninteractive \
@@ -11,7 +22,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && if [[ "$BUILD_TOOLS" = "GCC" ]]; then \
           CXX_CMD=g++; CC_CMD=gcc; FC_CMD=gfortran; BUILD_PKGS="g++ gcc gfortran"; \
        elif [[ "$BUILD_TOOLS" = "LLVM" ]]; then \
-          CXX_CMD=clang++; CC_CMD=clang; FC_CMD=flang; BUILD_PKGS="clang flang"; \
+          CXX_CMD=clang++; CC_CMD=clang; FC_CMD=gfortran; BUILD_PKGS="clang gfortran"; \
        elif [[ "$BUILD_TOOLS" = "Intel" ]]; then \
           CXX_CMD=icpc; CC_CMD=icc; FC_CMD=ifort; BUILD_PKGS="intel-hpckit"; \
           apt-get install -y wget linux-headers-generic kmod gnupg && \
@@ -31,8 +42,8 @@ RUN export DEBIAN_FRONTEND=noninteractive \
           update-alternatives --install /usr/bin/g++ g++ $(which clang++) 2 && \
           update-alternatives --install /usr/bin/c++ c++ $(which clang++) 2 && \
           update-alternatives --install /usr/bin/gcc gcc $(which clang) 2 && \
-          update-alternatives --install /usr/bin/cc  cc  $(which clang) 2 && \
-          update-alternatives --install /usr/bin/gfortran gfortran $(which flang) 2; \
+          update-alternatives --install /usr/bin/cc  cc  $(which clang) 2; \
+       #    update-alternatives --install /usr/bin/gfortran gfortran $(which flang) 2; \
        # elif [[ "$BUILD_TOOLS" = "Intel" ]]; then \
        #    # # update-alternatives --install /usr/bin/g++ g++ $(which icpc) 2 && \
        #    # # update-alternatives --install /usr/bin/c++ c++ $(which icpc) 2 && \
@@ -43,7 +54,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y \
          make automake autoconf libtool cmake rsync \
          git wget tar less bzip2 findutils nano file \
-         zlib1g-dev libgsl-dev \
     && apt-get -y autoremove \
     && apt-get -y autoclean
 
@@ -65,10 +75,28 @@ RUN export DEBIAN_FRONTEND=noninteractive \
          apt-get install -y libxft2 libxpm4 libpthread-stubs0-dev libsqlite3-dev uuid-dev && \
          apt-get -y autoclean && \
          cd /usr/local && \
-         wget --no-verbose https://root.cern/download/root_v6.24.06.Linux-ubuntu20-x86_64-gcc9.3.tar.gz -O- | tar xz && \
-         echo "source /usr/local/root/bin/thisroot.sh" > /etc/profile.d/10-cernroot && \
-         cat /etc/profile.d/10-cernroot >> /root/.bashrc; \
+         wget --no-verbose https://root.cern/download/root_v6.26.02.Linux-ubuntu22-x86_64-gcc11.2.tar.gz -O- | tar xz && \
+         echo "source /usr/local/root/bin/thisroot.sh" > /etc/profile.d/10-cernroot.sh; \
        fi
+
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get install -y \
+         zlib1g-dev libgsl-dev \
+         libhdf5-dev h5utils hdf5-tools python3-h5py \
+    && mkdir /code && cd /code \
+    && wget https://github.com/BlueBrain/HighFive/archive/refs/tags/v2.4.1.tar.gz -O- | tar xz \
+    && mv HighFive-*/include/highfive /usr/local/include/ \
+    && rm -rf /code \
+    && apt-get -y autoremove \
+    && apt-get -y autoclean
+
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && echo "export LD_LIBRARY_PATH=\"/usr/local/lib:$LD_LIBRARY_PATH\"" >> /etc/profile.d/05-usrlocal.sh \
+    && echo "export PYTHONPATH=\"$(for i in $(ls /usr/local/lib/python* -d); do echo -n "$i/site-packages:"; done)\$PYTHONPATH\"" >> /etc/profile.d/05-usrlocal.sh \
+    && cat /etc/profile.d/05-usrlocal.sh \
+    && cp /etc/bash.bashrc /tmp/DUMMY1 \
+    && echo 'for i in /etc/profile.d/*.sh; do . $i; done' > /tmp/DUMMY2 \
+    && cat /tmp/DUMMY1 /tmp/DUMMY2 > /etc/bash.bashrc && rm /tmp/DUMMY*
 
 ARG HEPMC_VERSION
 ARG RIVETBS_VERSION
@@ -77,28 +105,31 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && wget --no-verbose https://gitlab.com/hepcedar/rivetbootstrap/raw/${RIVETBS_VERSION}/rivet-bootstrap \
     && chmod +x rivet-bootstrap \
     && INSTALL_PREFIX=/usr/local INSTALL_RIVET=0 INSTALL_YODA=0 INSTALL_CYTHON=0 HEPMC_VERSION=${HEPMC_VERSION} MAKE="make -j $(nproc --ignore=1)" ./rivet-bootstrap \
-    && rm -rf /code \
-    && echo "LD_LIBRARY_PATH=\"\$LD_LIBRARY_PATH:/usr/local/lib\"" >> /etc/profile.d/05-usrlocal.sh \
-    && echo "PYTHONPATH=\"\$PYTHONPATH:$(ls /usr/local/lib*/python*/*-packages/ -d | head -1)\"" >> /etc/profile.d/05-usrlocal.sh
+    && rm -rf /code
 
 ARG LHAPDF_VERSION
 RUN export DEBIAN_FRONTEND=noninteractive \
     && mkdir /code && cd /code \
     && wget --no-verbose https://lhapdf.hepforge.org/downloads/?f=LHAPDF-${LHAPDF_VERSION}.tar.gz -O- | tar xz \
-    && cd LHAPDF-*/ && ./configure --prefix=/usr/local \
+    && cd LHAPDF-*/ \
+    && ls wrappers/python/ -l \
+    && ./configure --prefix=/usr/local \
     && make -j $(nproc --ignore=1) && make install \
+    && ls wrappers/python/build/lhapdf -l \
     && rm -r /code
 
-ARG LATEX
+ADD bash.bashrc.completion /etc/
 RUN export DEBIAN_FRONTEND=noninteractive \
-    && if test "$LATEX" = "1"; then \
-      apt-get update -y && \
-      apt-get install -y texlive-latex-recommended texlive-fonts-recommended && \
-      apt-get install -y texlive-latex-extra texlive-pstricks imagemagick && \
-      sed -i 's/^.*policy.*coder.*none.*(PS|PDF).*//' /etc/ImageMagick-6/policy.xml && \
-      sed -i '/disable ghostscript format types/,+6d' /etc/ImageMagick-6/policy.xml && \
-      texhash; \
-    fi
+    && cat /etc/bash.bashrc.completion >> /etc/bash.bashrc \
+    && rm /etc/bash.bashrc.completion
 
-ADD bash.bashrc /etc/
+# RUN export DEBIAN_FRONTEND=noninteractive \
+#     && echo 'echo FOO' >> /etc/profile \
+#     && echo 'echo BAR' >> /etc/bash.bashrc \
+#     && echo 'echo BAZ' >> /root/.bashrc
+
+# TODO: move earlier
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && echo "export LD_LIBRARY_PATH=\"/usr/local/lib64:/usr/lib64:$LD_LIBRARY_PATH\"" >> /etc/profile.d/05-usrlocal.sh
+
 WORKDIR /work

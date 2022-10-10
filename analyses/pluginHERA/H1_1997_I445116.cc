@@ -206,7 +206,6 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
       MSG_DEBUG("Nevt Qlow " << dbl(*_Nevt_after_cuts_Qlow));
       scale(_h["xp"], 1.0/ *_Nevt_after_cuts_Qlow);
       scale(_h["xi"], 1.0/ *_Nevt_after_cuts_Qlow);
@@ -241,11 +240,14 @@ namespace Rivet {
         }
         ++iQ;
       }
-
-      const double x1 = _h["MeanTest1"]->xMean(false);
-      const double x2 = _h["MeanTest2"]->xMean(false);
-      MSG_DEBUG("Mean of low Q = " << x1);
-      MSG_DEBUG("Mean of High Q = " << x2);
+      if(_h["MeanTest1"]->numEntries(false)>0 && _h["MeanTest1"]->effNumEntries(false)>0) {
+	const double x1 = _h["MeanTest1"]->xMean(false);
+	MSG_DEBUG("Mean of low Q = " << x1);
+      }
+      if(_h["MeanTest2"]->numEntries(false)>0 && _h["MeanTest2"]->effNumEntries(false)>0) {
+	const double x2 = _h["MeanTest2"]->xMean(false);
+	MSG_DEBUG("Mean of High Q = " << x2);
+      }
     }
 
     /// @}

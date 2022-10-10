@@ -1,4 +1,5 @@
 noinst_LTLIBRARIES = libRivetProjections.la
+
 libRivetProjections_la_SOURCES = \
   Beam.cc \
   BeamThrust.cc \
@@ -53,3 +54,6 @@ libRivetProjections_la_SOURCES = \
   VisibleFinalState.cc \
   WFinder.cc \
   ZFinder.cc
+
+# libRivetProjections_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(HEPTOPTAGGERINCPATH)
+# libRivetProjections_la_SOURCES += HTT.cc

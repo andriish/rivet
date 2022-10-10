@@ -12,7 +12,6 @@ del sys
 from rivet.core import *
 __version__ = core.version()
 
-from .plot import *
 from .plotinfo import *
 from .aopaths import *
 from . import spiresbib, util

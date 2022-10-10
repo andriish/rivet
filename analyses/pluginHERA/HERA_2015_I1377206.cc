@@ -26,32 +26,30 @@ namespace Rivet {
       declare(FinalState(Cuts::abseta < 5 && Cuts::pT > 100*MeV), "FS");
       declare(DISLepton(), "Lepton");
       declare(DISKinematics(), "Kinematics");
-		
-	
+
+
       Histo1DPtr dummy;
       string beamOpt = getOption<string>("BEAM","NONE");
-      
+
       if (beamOpt == "NONE") {
         const ParticlePair& beam = beams();
-        // cout << " beam id "<< beam.first.pid() << " " << beam.second.pid() << " sqrts " << sqrtS() << endl;
-        if( beam.first.pid() == PID::POSITRON || beam.second.pid() == PID::POSITRON ) { 
+        if ( beam.first.pid() == PID::POSITRON || beam.second.pid() == PID::POSITRON ) {
           positron = true ;
-        }
-        else {
+        } else {
           positron = false ;
         }
       }
       else {
-        if( beamOpt == "EMINUS" )
+        if ( beamOpt == "EMINUS" )
           positron = false;
-        else if( beamOpt == "EPLUS" )
+        else if ( beamOpt == "EPLUS" )
           positron = true;
         else {
           MSG_ERROR("Beam option error. You have specified an unsupported beam.");
           return;
         }
       }
-        
+
       double eps = 0.01 ;
       // NC e+ p at sqrts=318
       if (isCompatibleWithSqrtS(318., eps) && positron  ) {
@@ -101,7 +99,7 @@ namespace Rivet {
         _h_sigred.add( 7000.,  9275., book(dummy,1,1,43)); // Q2=8000
         _h_sigred.add( 10000.,15000., book(dummy,1,1,44)); // Q2=12000
         _h_sigred.add( 17000.,24770., book(dummy,1,1,45)); // Q2=20000
-        _h_sigred.add( 25000.,42000., book(dummy,1,1,46)); // Q2=30000 
+        _h_sigred.add( 25000.,42000., book(dummy,1,1,46)); // Q2=30000
         // CC e+ p at sqrts=318
         // cout << " CC e+ p sqrts = " << sqrtS() << endl ;
         _h_sigred_cc.add( 280.,    325., book(dummy,6,1,1)); // Q2=300
@@ -225,8 +223,8 @@ namespace Rivet {
         _h_sigred.add( 560.,    765., book(dummy,4,1,23)); // Q2=650
         _h_sigred.add( 770.,    835., book(dummy,4,1,24)); // Q2=800
       }
-      else if (isCompatibleWithSqrtS(225., eps) && positron  ) {
-        // NC e- p at sqrts=318
+      else if (isCompatibleWithSqrtS(318., eps) && !positron  ) {
+        // NC e- p at sqrts=225
         // cout << " NC e- p sqrts = " << sqrtS() << endl ;
         _h_sigred.add( 54.,      65., book(dummy,5,1,1)); // Q2=60
         _h_sigred.add( 75.,     108., book(dummy,5,1,2)); // Q2=90
@@ -264,16 +262,6 @@ namespace Rivet {
         _h_sigred_cc.add( 20000.,42000., book(dummy,7,1,10)); // Q2=30000
 
       }
-
-/*
-        book(_hist_Q2_10, "Q2_10",100,1., 11.0);
-        book(_hist_Q2_100, "Q2_100",100,10., 100.0);
-        book(_hist_Q2_1000, "Q2_1000",100,100., 1000.0);
-        book(_hist_Q2_2000, "Q2_2000",100,800., 5000.0);
-        book(_hist_Q2_3000, "Q2_3000",100,3000., 10000.0);
-*/
-
-
     }
 
 
@@ -287,30 +275,23 @@ namespace Rivet {
       double x  = dk.x();
       double y = dk.y();
       double Q2 = dk.Q2()/GeV;
-	
+
       // Flux factor
       const double alpha = 7.29927e-3;
       // GF = 1.16638e-5 Fermi constant
       const double GF2 = 1.16638e-5*1.16638e-5;
       // MW = 80.385 W-boson mass
       const double MW2 = 80.385 * 80.385;
-/*
-	_hist_Q2_10-> fill(Q2) ;
-	_hist_Q2_100-> fill(Q2) ;
-	_hist_Q2_1000-> fill(Q2) ;
-	_hist_Q2_2000-> fill(Q2) ;
-	_hist_Q2_3000-> fill(Q2) ;
-*/
 
       if (PID::isNeutrino(dl.out().abspid()) ) {
-        // fill histo for CC      
+        // fill histo for CC
         double F = 2.0*M_PI*x/GF2 * pow((MW2 + Q2)/MW2,2);
-        _h_sigred_cc.fill(Q2,x,F); // fill histogram x,Q2 
+        _h_sigred_cc.fill(Q2,x,F); // fill histogram x,Q2
       }
-      else { 
-        // fill histo for NC      
+      else {
+        // fill histo for NC
         double F = x*pow(Q2,2.)/(2.0*M_PI*pow(alpha,2.)*(1.0+pow((1.-y),2.)));
-        _h_sigred.fill(Q2,x,F); // fill histogram x,Q2 
+        _h_sigred.fill(Q2,x,F); // fill histogram x,Q2
       }
     }
 
@@ -337,5 +318,7 @@ namespace Rivet {
 
   };
 
+
   RIVET_DECLARE_PLUGIN(HERA_2015_I1377206);
+
 }

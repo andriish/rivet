@@ -53,13 +53,6 @@ namespace Rivet {
 
       const InvisibleFinalState neutrinos(true, true);
 
-      VetoedFinalState vfs(fs);
-      vfs.addVetoOnThisFinalState(dressedelectrons);
-      vfs.addVetoOnThisFinalState(dressedmuons);
-      vfs.addVetoOnThisFinalState(neutrinos);
-      FastJets jets(vfs, FastJets::ANTIKT, 0.4, JetAlg::Muons::ALL, JetAlg::Invisibles::ALL);
-      declare(jets, "boosted_jets");
-
       VetoedFinalState vfs_res(fs);
       vfs_res.addVetoOnThisFinalState(ewdressedelectrons);
       vfs_res.addVetoOnThisFinalState(ewdressedmuons);
@@ -367,7 +360,7 @@ namespace Rivet {
       //Projections
       vector<DressedLepton> electrons = apply<DressedLeptons>(event, "dressedelectrons").dressedLeptons();
       vector<DressedLepton> muons = apply<DressedLeptons>(event, "dressedmuons").dressedLeptons();
-      const Jets& jets = apply<FastJets>(event, "boosted_jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::abseta <= 2.5);
+      const Jets& jets = apply<FastJets>(event, "resolved_jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::abseta <= 2.5);
       const FourMomentum& met = apply<MissingMomentum>(event, "MissingMomentum").missingMomentum();
 
       if (jets.size() < 2)  vetoEvent;

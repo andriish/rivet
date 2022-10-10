@@ -11,7 +11,7 @@
 #ifndef EIGEN_HESSENBERGDECOMPOSITION_H
 #define EIGEN_HESSENBERGDECOMPOSITION_H
 
-namespace Eigen { 
+namespace RivetEigen { 
 
 namespace internal {
   
@@ -71,7 +71,7 @@ template<typename _MatrixType> class HessenbergDecomposition
 
     /** \brief Scalar type for matrices of type #MatrixType. */
     typedef typename MatrixType::Scalar Scalar;
-    typedef Eigen::Index Index; ///< \deprecated since Eigen 3.3
+    typedef RivetEigen::Index Index; ///< \deprecated since Eigen 3.3
 
     /** \brief Type for vector of Householder coefficients.
       *
@@ -267,7 +267,7 @@ template<typename _MatrixType> class HessenbergDecomposition
 
   private:
 
-    typedef Matrix<Scalar, 1, Size, Options | RowMajor, 1, MaxSize> VectorType;
+    typedef Matrix<Scalar, 1, Size, int(Options) | int(RowMajor), 1, MaxSize> VectorType;
     typedef typename NumTraits<Scalar>::Real RealScalar;
     static void _compute(MatrixType& matA, CoeffVectorType& hCoeffs, VectorType& temp);
 
@@ -315,7 +315,7 @@ void HessenbergDecomposition<MatrixType>::_compute(MatrixType& matA, CoeffVector
 
     // A = A H'
     matA.rightCols(remainingSize)
-        .applyHouseholderOnTheRight(matA.col(i).tail(remainingSize-1).conjugate(), numext::conj(h), &temp.coeffRef(0));
+        .applyHouseholderOnTheRight(matA.col(i).tail(remainingSize-1), numext::conj(h), &temp.coeffRef(0));
   }
 }
 
@@ -369,6 +369,6 @@ template<typename MatrixType> struct HessenbergDecompositionMatrixHReturnType
 
 } // end namespace internal
 
-} // end namespace Eigen
+} // end namespace RivetEigen
 
 #endif // EIGEN_HESSENBERGDECOMPOSITION_H

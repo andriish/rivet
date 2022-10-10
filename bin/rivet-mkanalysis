@@ -316,7 +316,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Retrieve dressed leptons, sorted by pT
-      vector<DressedLepton> leptons = apply<DressedLeptons>(event, "leptons").dressedLeptons();
+      Particles leptons = apply<FinalState>(event, "leptons").particles();
 
       // Retrieve clustered jets, sorted by pT, with a minimum pT cut
       Jets jets = apply<FastJets>(event, "jets").jetsByPt(Cuts::pT > 30*GeV);
@@ -325,12 +325,10 @@ namespace Rivet {
       idiscardIfAnyDeltaRLess(jets, leptons, 0.2);
 
       // Select jets ghost-associated to B-hadrons with a certain fiducial selection
-      Jets bjets = filter_select(jets, [](const Jet& jet) {
-        return  jet.bTagged(Cuts::pT > 5*GeV && Cuts::abseta < 2.5);
-      });
+      Jets bjets = filter_select(jets, hasBTag(Cuts::pT > 5*GeV && Cuts::abseta < 2.5));
 
       // Veto event if there are no b-jets
-      if (bjets.empty())  vetoEvent;
+      if (bjets.empty()) vetoEvent;
 
       // Apply a missing-momentum cut
       if (apply<MissingMomentum>(event, "MET").missingPt() < 30*GeV)  vetoEvent;

@@ -4,13 +4,10 @@ SHELL := bash -O extglob
 PLUGIN_DIRS = $(shell ls -d $(srcdir)/plugin*)
 PLUGIN_NAMES = $(notdir $(subst plugin,,$(PLUGIN_DIRS)))
 PLUGIN_LIBS = $(patsubst %,Rivet%Analyses.so,$(PLUGIN_NAMES))
-PLUGIN_INFOFILES = $(shell ls $(abs_srcdir)/plugin*/*.info)
-PLUGIN_PLOTFILES = $(shell ls $(abs_srcdir)/plugin*/*.plot)
-PLUGIN_YODAFILES = $(shell ls $(abs_srcdir)/plugin*/*.yoda*)
-PLUGIN_DATAFILES = $(PLUGIN_INFOFILES) $(PLUGIN_PLOTFILES) $(PLUGIN_YODAFILES)
+PLUGIN_DATAFILES = $(shell ls $(abs_srcdir)/plugin*/*.*)
 
 CLEANFILES = $(PLUGIN_LIBS)
-EXTRA_DIST = $(PLUGIN_DIRS)
+EXTRA_DIST = $(PLUGIN_DIRS) examples
 
 %.so:
 	@+echo && RIVET_BUILD_BEFORE_INSTALL=1 bash $(top_builddir)/bin/rivet-build $@ $^ -I$(top_builddir)/include
@@ -46,7 +43,7 @@ if ENABLE_ANALYSES
 
 all-local: $(PLUGIN_LIBS) $(PLUGIN_DATAFILES)
 	mkdir -p $(builddir)/data
-	for pdir in $(abs_srcdir)/plugin*; do $(LN_S) -f $${pdir}/*.{info,plot,yoda*} $(builddir)/data; done
+	for pdir in $(abs_srcdir)/plugin*; do $(LN_S) -f $${pdir}/*.* $(builddir)/data; done
 
 install-exec-local: $(PLUGIN_LIBS)
 	$(MKDIR_P) $(DESTDIR)$(libdir)/Rivet
@@ -55,15 +52,12 @@ install-exec-local: $(PLUGIN_LIBS)
 install-data-local: $(PLUGIN_DATAFILES)
 	@echo "Installing analysis data files..."
 	$(mkdir_p) $(DESTDIR)$(pkgdatadir)
-	for pdir in $(srcdir)/plugin*; do $(FCP) $${pdir}/*.{info,plot,yoda*} $(DESTDIR)$(pkgdatadir)/; done
+	for pdir in $(srcdir)/plugin* $(srcdir)/examples; do $(FCP) $${pdir}/*.* $(DESTDIR)$(pkgdatadir)/; done
 
-# TODO: remove entire pkglibdir and pkgdatadir?
 uninstall-local:
 	cd $(DESTDIR)$(libdir) && rm -f $(PLUGIN_LIBS)
-	@echo "Uninstalling analysis data files..."
-	rm -f $(DESTDIR)$(pkglibdir)/Rivet*.so
-	rm -f $(DESTDIR)$(pkgdatadir)/*.info
-	rm -f $(DESTDIR)$(pkgdatadir)/*.plot
-	rm -f $(DESTDIR)$(pkgdatadir)/*.yoda*
+	@echo "Uninstalling analysis libraries and data files..."
+	rm -rf $(DESTDIR)$(pkglibdir)
+	rm -rf $(DESTDIR)$(pkgdatadir)
 
 endif

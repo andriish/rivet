@@ -52,8 +52,9 @@ def download_from_hepdata(inspire_id, rivet_analysis_name=None, prefix='.'):
     import tarfile, io, os, requests, gzip
 
     hdurl = 'https://hepdata.net/record/ins{}'.format(inspire_id)
-    payload = {'format': 'yoda', 'rivet': rivet_analysis_name}
-    response = requests.get(hdurl, params=payload)
+    urlparams = {'format': 'yoda', 'rivet': rivet_analysis_name}
+    headers = {'Accept': 'application/x-tar'}
+    response = requests.get(hdurl, params=urlparams, headers=headers)
     if response.history:
         print('Downloading from {}'.format(response.history[0].url))
     else:

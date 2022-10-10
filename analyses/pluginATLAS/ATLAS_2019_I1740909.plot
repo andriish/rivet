@@ -21,11 +21,6 @@ Title= Inclusive jets
 YLabel=$<N_{\textrm{ch}}>$
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2019_I1740909/d12-x*
-Title= Inclusive jets
-YLabel=$<r>$
-# END PLOT
-
 # BEGIN PLOT /ATLAS_2019_I1740909/d1[3-9]
 XLabel=$N_{\textrm{ch}}$ 
 YLabel= fraction/bin
