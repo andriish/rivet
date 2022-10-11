@@ -111,7 +111,7 @@ legend_handles = [] # keep track of handles for the legend"""
       mplCommand += f"""\n
 # reference data in main panel
 data_cross = ax.errorbar(dataf.x_points, dataf.ref_yvals, xerr=dataf.x_errs, yerr=dataf.ref_errors,
-                         fmt='o', ecolor = 'black', color='black')
+                         fmt='o', ecolor = 'black', color='black', zorder=2)
 legend_handles += [data_cross]"""
       legend_handles += ['data_cross']
       
@@ -151,7 +151,8 @@ legend_handles += [data_cross]"""
       lists += f"""'{label}' : {[val for val in yhists]},\n"""
     lists += """}"""
     
-    mplCommand += """\n\n# style options for mc histograms""" 
+    mplCommand += """\n\n# style options for mc histograms
+# starts at zorder>=5 to draw mc on top of legend""" 
     if len(mc_styles) == 1: mplCommand += f"""\nmc_styles = {my_styles}"""
     else:
       mplCommand += """\nmc_styles = {"""
