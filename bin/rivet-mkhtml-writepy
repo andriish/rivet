@@ -247,7 +247,7 @@ for configfile in args.CONFIGFILES:# TODO: Not sure if this is necessary
     if os.access(configfile, os.R_OK): 
         configfiles.append(configfile)
 
-yaml_dicts = rivet_mkdat(args.YODAFILES, args.PATH_PWD, args.REFTITLE,
+allPlotContents = rivet_mkdat(args.YODAFILES, args.PATH_PWD, args.REFTITLE,
                             args.RIVETREFS, args.PATHPATTERNS,
                             args.PATHUNPATTERNS, [os.path.abspath("../")],
                             style, configfiles,
@@ -465,17 +465,16 @@ def which(program):
 
     return None
 
-num_plots = len(yaml_dicts)
+num_plots = len(allPlotContents)
 print("Making {} plots".format(num_plots))
-for i, (refFile,yaml_dict) in enumerate(yaml_dicts.items()):
-    #if "LHCB_2014_I1281685/d02-x01-y01" not in args.OUTPUTDIR+refFile: continue
-    if "ALICE" in args.OUTPUTDIR+refFile: continue # for debugging purposes..
-    #if "LHCB_2014_I1281685/d04_x01_y01" not in args.OUTPUTDIR+refFile: continue
-
-    print("Plotting", args.OUTPUTDIR+refFile, "({}/{} remaining)".format(num_plots-i, num_plots))
+for i, (plotName,singlePlotContent) in enumerate(allPlotContents.items()):
+    #if "LHCB_2014_I1281685/d02-x01-y01" not in args.OUTPUTDIR+plotName: continue
+    if "ALICE" in args.OUTPUTDIR+plotName: continue # for debugging purposes..
+    #if "LHCB_2014_I1281685/d04_x01_y01" not in args.OUTPUTDIR+plotName: continue
+    print("Plotting", args.OUTPUTDIR+plotName, "({}/{} remaining)".format(num_plots-i, num_plots))
 
     # writePyScript returns path of the .py script
-    pyScript = writePyScript(yaml_dict, refFile, args.OUTPUTDIR)
+    pyScript = writePyScript(singlePlotContent, plotName, args.OUTPUTDIR)
     print(pyScript)
     #break
     #if args.savePlots: os.system("python pyScript")
