@@ -1,0 +1,35 @@
+Name: BESIII_2020_I1808875
+Year: 2020
+Summary: $e^+e^-\to \mu^+\mu^-$ cross section between 3.8 and 4.6 GeV
+Experiment: BESIII
+Collider: BEPC
+InspireID: 1808875
+Status: VALIDATED
+Reentrant: false
+Authors:
+ - 
+References:
+ - Phys.Rev.D 102 (2020) 112009
+RunInfo: e+ e- to mu+mu- 
+Beams: [e+, e-]
+Description:
+  ''
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2020peo
+BibTeX: '@article{BESIII:2020peo,
+    collaboration = "BESIII",
+    title = "{Measurement of cross sections for $e^{+}e^{-} \rightarrow \mu^+\mu^-$ at center-of-mass energies from 3.80 to 4.60 GeV}",
+    eprint = "2007.12872",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1103/PhysRevD.102.112009",
+    journal = "Phys. Rev. D",
+    volume = "102",
+    pages = "112009",
+    year = "2020"
+}
+'
