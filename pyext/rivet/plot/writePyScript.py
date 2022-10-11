@@ -31,8 +31,8 @@ fig, ax = plt.subplots(1, 1)"""
   
 def writePyScript1D(hist_data, hist_features, yaml_dicts, outdir, plot_name):
   """ Return Python commands to make a Rivet plot from the input parameters
-      (based on plot_1Dhist, but hiding messy bits from the user --> TODO) 
   """
+
   mplCommand1D = ""
   
   # set style 
@@ -246,7 +246,7 @@ def writePyScript2D():
   pass
 
 def writePyScript(yaml_file, plot_name, outdir):
-  """ write a python script that only relies on YODA
+  """ write an executable python script that only relies on YODA
       functionalities
   
   Parameters
@@ -296,12 +296,12 @@ import numpy as np
 
   # Ensure reference histogram is first in list since dicts are not ordered in Python 2, not needed for Python 3 
   # TODO remove since not needed for Py3?
-  for i, h in enumerate(hist_features):
-      if h.get('IsRef'):
-          if i != 0:  # Not necessary since the reference histogram is already the first element
-              hist_data.insert(0, hist_data.pop(i))
-              hist_features.insert(0, hist_features.pop(i))
-          break
+  #for i, h in enumerate(hist_features):
+  #    if h.get('IsRef'):
+  #        if i != 0:  # Not necessary since the reference histogram is already the first element
+  #            hist_data.insert(0, hist_data.pop(i))
+  #            hist_features.insert(0, hist_features.pop(i))
+  #        break
 
   if all(isinstance(h, yoda.Scatter1D) for h in hist_data) or all(isinstance(h, yoda.Scatter2D) for h in hist_data):
       mplScript += writePyScript1D(hist_data, hist_features, yaml_dicts, outdir, plot_name)
