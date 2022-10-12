@@ -10,6 +10,7 @@ Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - arXiv:2206.08554 [hep-ex]
+ - Phys.Rev.D 106 (2022) 7, 072001
 RunInfo: e+e- to hadrons
 NeedCrossSection: yes
 Beams: [e+,e-]
