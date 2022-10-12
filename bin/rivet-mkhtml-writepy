@@ -468,13 +468,16 @@ def which(program):
 num_plots = len(allPlotContents)
 print("Making {} plots".format(num_plots))
 for i, (plotName,singlePlotContent) in enumerate(allPlotContents.items()):
-    #if "LHCB_2014_I1281685/d02-x01-y01" not in args.OUTPUTDIR+plotName: continue
-    if "ALICE" in args.OUTPUTDIR+plotName: continue # for debugging purposes..
-    #if "LHCB_2014_I1281685/d04_x01_y01" not in args.OUTPUTDIR+plotName: continue
+
+    # TODO how to handle 1D scatters? Plot or ignore?
+    # ugly hack to ignore them for the moment
+    is1D=False
+    for key,val in singlePlotContent['histograms'].items():
+      if isinstance(val['yoda'], yoda.Scatter1D): is1D=True
+    if is1D:continue
+      
     print("Plotting", args.OUTPUTDIR+plotName, "({}/{} remaining)".format(num_plots-i, num_plots))
 
     # writePyScript returns path of the .py script
     pyScript = pyScriptWriter.writePyScript(singlePlotContent, plotName, args.OUTPUTDIR)
     print(pyScript)
-    #break
-    #if args.savePlots: os.system("python pyScript")
