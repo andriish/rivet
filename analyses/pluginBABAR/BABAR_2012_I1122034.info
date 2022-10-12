@@ -1,0 +1,39 @@
+Name: BABAR_2012_I1122034
+Year: 2012
+Summary: $X(3915)$ production in $\gamma\gamma\to J/\psi \omega$
+Experiment: BABAR
+Collider: PEP-II
+InspireID: 1122034
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 86 (2012) 072002
+RunInfo: e+ e- > e+ e- gamma gamma with gamma gamma -> X(3915)
+Beams: [e+,e-]
+Energies: [10.58]
+Description:
+'Measurement of the mass and angle distributions in
+ $\gamma\gamma\to J/\psi \omega$.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BaBar:2012nxg
+BibTeX: '@article{BaBar:2012nxg,
+    author = "Lees, J. P. and others",
+    collaboration = "BaBar",
+    title = "{Study of $X(3915) \to J/\psi \omega$ in two-photon collisions}",
+    eprint = "1207.2651",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "BABAR-PUB-12-001, SLAC-PUB-15179",
+    doi = "10.1103/PhysRevD.86.072002",
+    journal = "Phys. Rev. D",
+    volume = "86",
+    pages = "072002",
+    year = "2012"
+}
+'

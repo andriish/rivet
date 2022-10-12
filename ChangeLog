@@ -53,6 +53,10 @@
 	str type for Python v2 and v3, eliminating many noisy and fragile
 	explicit encode()/decode() calls.
 
+2022-10-12 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2012_I1122034 X(3815) in gamma gamma
+
 2022-10-11 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2020_I1808875 e+e- > mu+mu-
