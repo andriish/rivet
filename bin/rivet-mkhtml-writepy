@@ -23,7 +23,7 @@ from __future__ import print_function
 import rivet, sys, os
 from rivet.plot.rivet_mkdat import rivet_mkdat
 from rivet.plot.rivet_plot import rivet_plot
-from rivet.plot.writePyScript import writePyScript
+from yoda.plottools import pyScriptWriter
 
 rivet.util.check_python_version()
 rivet.util.set_process_name(os.path.basename(__file__))
@@ -474,7 +474,7 @@ for i, (plotName,singlePlotContent) in enumerate(allPlotContents.items()):
     print("Plotting", args.OUTPUTDIR+plotName, "({}/{} remaining)".format(num_plots-i, num_plots))
 
     # writePyScript returns path of the .py script
-    pyScript = writePyScript(singlePlotContent, plotName, args.OUTPUTDIR)
+    pyScript = pyScriptWriter.writePyScript(singlePlotContent, plotName, args.OUTPUTDIR)
     print(pyScript)
     #break
     #if args.savePlots: os.system("python pyScript")
