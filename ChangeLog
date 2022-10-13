@@ -1,3 +1,25 @@
+2022-09-28  Christian Gutschow  <chris.g@cern.ch>
+
+	* Release 3.1.7
+
+2022-06-21  Jack Araz  <andy.buckley@cern.ch>
+
+	* Add HEPTopTagger interface (since made optional, with no-build example analysis).
+
+2022-09-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add EXAMPLE_NTUPLE_ROOT example analysis showing how to open and
+	write to a ROOT ntuple file.
+
+2022-09-10  Markus Seidel  <markus.seidel@cern.ch>
+
+	* Add CMS_2021_I1866118: Z boson plus jets (DPS) at 13 TeV
+
+2022-09-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add EXAMPLE_NTUPLE_CSV example analysis showing how to open and
+	write to a CSV ntuple file.
+
 2022-09-01  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add Analysis::analysisDataPath() and the RivetLWTNN.hh include
@@ -21,6 +43,10 @@
 2022-08-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Hide the bundled eigen3 in a mangled RivetEigen namespace, to avoid clashes.
+
+2022-08-04  Markus Seidel  <markus.seidel@cern.ch>
+
+	* Submission of CMS_2022_I2079374: Z pT over a wide mass range at 13 TeV
 
 2022-07-27  Andy Buckley  <andy.buckley@cern.ch>
 
@@ -57,6 +83,10 @@
 2022-05-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Suppress spurious 'unused argument' warning from clang as called from rivet-build.
+2022-05-17  Markus Seidel  <markus.seidel@cern.ch>
+
+	* Submission of CMS_2021_I1963239: Measurement of inclusive and Mueller-Navelet dijet cross sections and their ratios at 2.76 TeV
+
 2022-05-17  Markus Seidel  <markus.seidel@cern.ch>
 
 	* Submission of CMS_2021_I1963239: Measurement of inclusive and Mueller-Navelet dijet cross sections and their ratios at 2.76 TeV

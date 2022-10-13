@@ -22,7 +22,8 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      // Initialise and register projections
+
+      // Book projections
       declare(DISLepton(), "Lepton");
       declare(DISKinematics(), "Kinematics");
       declare(ChargedFinalState(), "CFS");
@@ -67,7 +68,7 @@ namespace Rivet {
 
       // Momentum of the scattered lepton
       FourMomentum leptonMom = dl.out().momentum();
-      double enel = leptonMom.E();
+      double enel = leptonMom.E()/GeV;
       double thel = 180.-leptonMom.angle(dl.in().momentum())/degree;
 
       _NevAll -> fill() ;
@@ -168,8 +169,8 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      // cout << " All events: " << _NevAll->val() << " after cuts: "<<  _Nevt_after_cuts[0]->val() << endl;
-      // cout << " cut1 events: " << _NevAll->val() << " after cuts: "<<  _Nevt_after_cuts[1]->val() << endl;
+      MSG_DEBUG("All events: " << _NevAll->val() << " after cuts: "<<  _Nevt_after_cuts[0]->val());
+      MSG_DEBUG("Cut1 events: " << _NevAll->val() << " after cuts: "<<  _Nevt_after_cuts[1]->val());
       int ii = 0;
       for ( int i=0; i< 10; i++) {
         if (_Nevt_after_cuts[i]->val()  != 0) {
@@ -202,7 +203,6 @@ namespace Rivet {
   };
 
 
-
-  DECLARE_RIVET_PLUGIN(H1_1996_I424463);
+  RIVET_DECLARE_ALIASED_PLUGIN(H1_1996_I424463, H1_1997_I424463);
 
 }

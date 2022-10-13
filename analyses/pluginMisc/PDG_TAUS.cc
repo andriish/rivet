@@ -1,5 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
+#include "Rivet/Tools/ParticleUtils.hh"
 #include "Rivet/Projections/TauFinder.hh"
 
 namespace Rivet {
@@ -69,7 +70,7 @@ namespace Rivet {
         else if (prongs == 3) {
           if (analyzeDecay(tau, decay_pids["3pipipinu"], true))  _h_3prong_pipipinu->fill(1);
         }
-        else if (prongs == 5 && !any(tau.children(), HasAbsPID(310))) _h_5prong->fill(1);
+        else if (prongs == 5 && !any(tau.stableDescendants(), HasAbsPID(310))) _h_5prong->fill(1);
       }
 
       // Leptonic tau decays --- look for radiative and non-radiative 1 prong decays
@@ -101,17 +102,10 @@ namespace Rivet {
     }
 
 
-    // Short hand
-    bool contains(Particle& mother, int id, bool abs=false) {
-      if (abs) return any(mother.children(), HasAbsPID(id));
-      return any(mother.children(), HasPID(id));
-    }
-
-
     // Count charged decay products
     int countProngs(Particle mother) {
       int n_prongs = 0;
-      for(Particle p : mother.children())
+      for(Particle p : mother.stableDescendants())
         if (p.charge3()!=0) ++n_prongs;
       return n_prongs;
     }
@@ -132,16 +126,9 @@ namespace Rivet {
     }
 
 
-    bool analyzeDecay(Particle mother, vector<int> ids, bool absolute) {
-      // There is no point in looking for decays with less particles than to be analysed
-      if (mother.children().size() == ids.size()) {
-        bool decayfound = true;
-        for (int id : ids) {
-          if (!contains(mother, id, absolute)) decayfound = false;
-        }
-        return decayfound;
-      } // end of first if
-      return false;
+    bool analyzeDecay(Particle mother, const vector<int>& ids, bool absolute) {
+      const Particles parts = { mother };
+      return cascadeContains(parts, ids, absolute, true);
     }
 
 
@@ -151,20 +138,22 @@ namespace Rivet {
       // h_ratio  ... pointer to ratio histo
 
       // There is no point in looking for decays with less particles than to be analysed
-      if (mother.children().size() >= ids.size()) {
+      const Particles& descendants = mother.stableDescendants();
+      if (descendants.size() >= ids.size()) {
         bool decayfound = true;
         for (int id : ids) {
-          if (!contains(mother, id, absolute)) decayfound = false;
+          if (!cascadeContains(descendants, {id}, absolute, false))
+            decayfound = false;
         }
         // Do not increment counters if the specified decay products were not found
         if (decayfound) {
           w_incl->fill(); // the (global) weight counter for leptonic decays
-          bool radiative = any(mother.children(), HasPID(PID::PHOTON));
+          bool radiative = any(descendants, HasPID(PID::PHOTON));
 
           // Only fill the histo if there is a radiative decay
           if (radiative) {
             // Iterate over decay products to find photon with 5 MeV energy
-            for (const Particle& son : mother.children()) {
+            for (const Particle& son : mother.stableDescendants()) {
               if (son.pid() == PID::PHOTON) {
                 // Require photons to have at least 5 MeV energy in the rest frame of the tau
                 // boosted taus

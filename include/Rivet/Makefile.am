@@ -103,6 +103,7 @@ nobase_pkginclude_HEADERS += \
   Projections/VisibleFinalState.hh \
   Projections/WFinder.hh \
   Projections/ZFinder.hh
+
 ## Meta-projection convenience headers
 nobase_pkginclude_HEADERS +=   \
   Projections/FinalStates.hh \
@@ -145,6 +146,7 @@ nobase_pkginclude_HEADERS += \
   Tools/RHICCommon.hh \
   Tools/RivetFastJet.hh \
   Tools/RivetHepMC.hh \
+  Tools/RivetHTT.hh \
   Tools/RivetLWTNN.hh  \
   Tools/RivetMT2.hh \
   Tools/RivetPaths.hh \

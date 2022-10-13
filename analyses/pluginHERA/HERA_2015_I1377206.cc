@@ -43,7 +43,7 @@ namespace Rivet {
       }
 
       // Book beams-dependent histograms
-      const double eps = 0.01 ;
+      const double eps = 0.01;
       // NC e+ p at sqrts=318
       if (isCompatibleWithSqrtS(318*GeV, eps) && _positron  ) {
         _h_sigred.add( 0.1,     0.15, book(dummy,1,1,1)); // Q2=0.15
@@ -252,7 +252,6 @@ namespace Rivet {
           _h_sigred_cc.add( 20000.,42000., book(dummy,7,1,10)); // Q2=30000
         }
       }
-
     }
 
 
@@ -266,6 +265,7 @@ namespace Rivet {
       double x  = dk.x();
       double y = dk.y();
       double Q2 = dk.Q2()/GeV;
+
       // Flux factor
       const double alpha = 7.29927e-3;
       // GF = 1.16638e-5 Fermi constant
@@ -277,8 +277,7 @@ namespace Rivet {
         // fill histo for CC
         double F = 2.0*M_PI*x/GF2 * sqr((MW2 + Q2)/MW2);
         _h_sigred_cc.fill(Q2,x,F); // fill histogram x,Q2
-      }
-      else {
+      } else {
         // fill histo for NC
         double F = x*sqr(Q2)/(2.0*M_PI*sqr(alpha)*(1.0+sqr(1-y)));
         _h_sigred.fill(Q2,x,F); // fill histogram x,Q2
@@ -306,7 +305,6 @@ namespace Rivet {
     /// @}
 
   };
-
 
 
   RIVET_DECLARE_PLUGIN(HERA_2015_I1377206);

@@ -3,6 +3,10 @@
 
 #include "Rivet/Tools/Utils.hh"
 
+#include <sstream>      // std::stringstream
+#include <iostream>
+#include <iomanip>
+
 namespace Rivet {
 
 
@@ -305,7 +309,7 @@ namespace Rivet {
 
     /// Create a string representation
     string str() const {
-      stringstream ss;
+      std::stringstream ss;
       for (const Cutflow& cf : cfs)
         ss << cf << "\n\n";
       return ss.str();

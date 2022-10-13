@@ -84,7 +84,6 @@ namespace Rivet {
         _h_pT   ->fill(pT/GeV         );
         _h_rap  ->fill(abs(rapidityS) );
 
-
       }
       unsigned int nCharged = cfs.particles().size();
       _h_ncharged->fill(nCharged);
@@ -115,16 +114,14 @@ namespace Rivet {
 
     /// @name Histograms
     /// @{
-    Histo1DPtr _h_sphericity, _h_aplanarity, _h_thrust, _h_pTin2, _h_pTout2, _h_ncharged,
+    Histo1DPtr _h_sphericity, _h_aplanarity, _h_thrust,
+      _h_pTin2, _h_pTout2, _h_ncharged,
       _h_pTin, _h_pTout, _h_pT, _h_x, _h_rap;
     /// @}
-
 
   };
 
 
-  // The hook for the plugin system
   RIVET_DECLARE_PLUGIN(TASSO_1988_I263859);
-
 
 }

@@ -1,35 +1,46 @@
 #! /usr/bin/env bash
 
-# TODO: which directory is this run from?
 # TODO: also test if a YODA ref file is updated, since autobinning could have been broken
 
+## Find the project base dir
+SCRIPTDIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+PROJDIR=${CI_PROJECT_DIR:-$SCRIPTDIR/..}
+
+## Define output as stdout or write to file
 OUTFILE=$1
+if [[ -z "$OUTFILE" || "$OUTFILE" = "-" ]]; then
+    OUTFILE=/dev/stdout
+fi
+
+AFFECTEDFILES=/tmp/$$_affected.txt
+CHECKEDFILES=/tmp/$$_checked.txt
+SCANFILES=/tmp/$$_scanned.txt
 
 function getAffectedFiles {
     fn="$@";
-    if grep -Fxq "$fn" alreadyChecked.txt; then
+    if grep -Fxq "$fn" $CHECKEDFILES; then
         : #pass
         #echo "[INFO] $fn already checked, skip it"
     else
         echo "[INFO] Checking which analyses depend on $fn";
-        echo $fn > affectedFiles.txt
-        echo $fn >> alreadyChecked.txt
+        echo $fn > $AFFECTEDFILES
+        echo $fn >> $CHECKEDFILES
 
         headerName=`basename ${p%.*}`
-        grep -iRl "$headerName" $CI_PROJECT_DIR/src/ $CI_PROJECT_DIR/include/ $CI_PROJECT_DIR/test/ >> affectedFiles.txt
+        grep -iRl "$headerName" $PROJDIR/src/ $PROJDIR/include/ $PROJDIR/test/ >> $AFFECTEDFILES
 
         echo "[INFO] $fn affects these analyses:"
-        cat affectedFiles.txt | grep -E "^analyses/.*\.(hh$|cc)$"
-        cat affectedFiles.txt | grep -E "^analyses/.*\.(hh$|cc)$" | while read p; do
-          echo $CI_PROJECT_DIR/$p >> $OUTFILE
+        cat $AFFECTEDFILES | grep -E "^analyses/.*\.(hh$|cc)$"
+        cat $AFFECTEDFILES | grep -E "^analyses/.*\.(hh$|cc)$" | while read p; do
+          echo $PROJDIR/$p $OUT
         done
 
-        > filesToScan.txt
-        cat affectedFiles.txt | grep -E "^src/" >> filesToScan.txt
-        cat affectedFiles.txt | grep -E "\.hh$" >> filesToScan.txt
-        # cat filesToScan.txt
+        > $SCANFILES
+        cat $AFFECTEDFILES | grep -E "^src/" >> $SCANFILES
+        cat $AFFECTEDFILES | grep -E "\.hh$" >> $SCANFILES
+        # cat $SCANFILES
         echo "[INFO] Look recursively for '$fn' dependencies"
-        cat filesToScan.txt | while read q; do
+        cat $SCANFILES | while read q; do
             #echo "$q"
             getAffectedFiles $q
         done
@@ -39,15 +50,17 @@ function getAffectedFiles {
 
 
 > $OUTFILE
-> alreadyChecked.txt
+> $CHECKEDFILES
 
-git diff-tree --no-commit-id --name-only -r $CI_COMMIT_SHA | while read p; do
-    getAffectedFiles $p
-done
+if [[ -n "$CI_COMMIT_SHA" ]]; then
+    git diff-tree --no-commit-id --name-only -r $CI_COMMIT_SHA | while read p; do
+        getAffectedFiles $p
+    done
+fi
 sort --unique -o $OUTFILE $OUTFILE
 
 echo
 echo "Analyses to compile:"
 cat $OUTFILE
 
-rm -f alreadyChecked.txt filesToScan.txt
+rm -f $CHECKEDFILES $SCANFILES

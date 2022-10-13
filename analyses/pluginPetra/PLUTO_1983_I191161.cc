@@ -9,7 +9,7 @@
 namespace Rivet {
 
 
-  /// @brief average pT w.r.t. thrust and sphericity axes
+  /// @brief Average pT w.r.t. thrust and sphericity axes
   class PLUTO_1983_I191161 : public Analysis {
   public:
 
@@ -148,8 +148,7 @@ namespace Rivet {
             if (ex2.second==0.) ex2.second=0.0001;
             if (inRange(sqs, x-ex2.first, x+ex2.second)) {
               mult->addPoint(x, value, ex, make_pair(error,error));
-            }
-            else {
+            } else {
               mult->addPoint(x, 0., ex, make_pair(0.,.0));
             }
           }
@@ -167,12 +166,9 @@ namespace Rivet {
     double sqs;
     //@}
 
-
   };
 
 
-  // The hook for the plugin system
   RIVET_DECLARE_PLUGIN(PLUTO_1983_I191161);
-
 
 }

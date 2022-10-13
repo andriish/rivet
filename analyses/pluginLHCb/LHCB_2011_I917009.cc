@@ -8,9 +8,6 @@ namespace Rivet {
   class LHCB_2011_I917009 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    /// @{
-
     /// Constructor
     LHCB_2011_I917009()
       : Analysis("LHCB_2011_I917009"),
@@ -19,11 +16,6 @@ namespace Rivet {
         pt3_edge(2.5), rap_min(2.),
         rap_max(0.0), dsShift(0)
     {   }
-
-    /// @}
-
-
-  public:
 
     /// @name Analysis methods
     /// @{
@@ -128,6 +120,7 @@ namespace Rivet {
     /// @}
 
 
+
   private:
 
     // Get particle lifetime from hardcoded data
@@ -194,7 +187,7 @@ namespace Rivet {
     int dsShift;
 
     // Map between PDG id and particle lifetimes in seconds
-    std::map<int, double> partLftMap;
+    map<int, double> partLftMap;
 
     // Set of PDG Ids for stable particles (PDG Id <= 100 are considered stable)
     static const int stablePDGIds[205];
@@ -212,7 +205,7 @@ namespace Rivet {
     array<Scatter2DPtr,3> s1,s2,s3,s4;
     /// @}
 
-    // Fill the PDG Id to Lifetime[seconds] map
+    // Fill the PDG ID to Lifetime[seconds] map
     // Data was extracted from LHCb Particle Table through LHCb::ParticlePropertySvc
     bool fillMap(map<int, double>& m) {
       m[6] =  4.707703E-25;  m[11] =  1.E+16;  m[12] =  1.E+16;
@@ -322,7 +315,6 @@ namespace Rivet {
     9900024, 9900041, 9900042 };
 
 
-  // Hook for the plugin system
   RIVET_DECLARE_PLUGIN(LHCB_2011_I917009);
 
 }
