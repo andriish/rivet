@@ -1,4 +1,5 @@
 # cython: embedsignature=True
+# cython: c_string_type=str, c_string_encoding=ascii
 # distutils: language = c++
 
 import sys
@@ -14,7 +15,6 @@ cdef extern from "<utility>" namespace "std" nogil:
 # ## Write a string to a file
 # ## The file argument can either be a file object, filename, or special "-" reference to stdout
 # def _str_to_file(s, file_or_filename):
-#     s = s.decode('utf-8')
 #     if hasattr(file_or_filename, 'write'):
 #         file_or_filename.write(s)
 #     elif file_or_filename == "-":
@@ -49,15 +49,15 @@ cdef class AnalysisHandler:
 
     def selectMultiWeights(self, patterns=""):
         "Choose a subset of variation-weight stream names to consider, by regex pattern"
-        self._ptr.selectMultiWeights(patterns.encode('utf-8'))
+        self._ptr.selectMultiWeights(patterns)
 
     def deselectMultiWeights(self, patterns=""):
         "Choose a subset of variation-weight stream names to NOT consider, by regex pattern"
-        self._ptr.deselectMultiWeights(patterns.encode('utf-8'))
+        self._ptr.deselectMultiWeights(patterns)
 
     def setNominalWeightName(self, name=""):
         "Declare which weight-stream name to treat as the nominal [default=Nominal|Default||0]"
-        self._ptr.setNominalWeightName(name.encode('utf-8'))
+        self._ptr.setNominalWeightName(name)
 
     def setWeightCap(self, double maxWeight):
         "Set a maximum absolute weight value to use in events with anomalously high weights"
@@ -69,18 +69,18 @@ cdef class AnalysisHandler:
 
     def addAnalysis(self, name):
         "Register an analysis for execution to the AH collection, by name"
-        self._ptr.addAnalysis(name.encode('utf-8'))
+        self._ptr.addAnalysis(name)
         return self
 
     def analysisNames(self):
         "Get the list of registered analyses on this AH"
         anames = self._ptr.analysisNames()
-        return [ a.decode('utf-8') for a in anames ]
+        return [ a for a in anames ]
 
     def stdAnalysisNames(self):
         "Get the list of registered analyses on this AH, by official names only (no aliases)"
         anames = self._ptr.stdAnalysisNames()
-        return [ a.decode('utf-8') for a in anames ]
+        return [ a for a in anames ]
 
     # def analysis(self, aname):
     #     cdef c.Analysis* ptr = self._ptr.analysis(aname)
@@ -94,19 +94,19 @@ cdef class AnalysisHandler:
         "Preload histogram data from the provided file name or handle"
         cdef c.istringstream iss
         if type(name_or_stream) is str:
-            self._ptr.readData_FILE(name_or_stream.encode('utf-8'), preload)
+            self._ptr.readData_FILE(name_or_stream, preload)
         else:
             _make_iss(iss, name_or_stream)
-            self._ptr.readData_ISTR(iss, fmt.encode('utf-8'), preload)
+            self._ptr.readData_ISTR(iss, fmt, preload)
 
     def writeData(self, file_or_filename, fmt="yoda"):
         "Write histogram data to the provided file name or handle"
         cdef c.ostringstream oss
         if type(file_or_filename) is str:
-            self._ptr.writeData_FILE(file_or_filename.encode('utf-8'))
+            self._ptr.writeData_FILE(file_or_filename)
         else:
-            self._ptr.writeData_OSTR(oss, fmt.encode('utf-8'))
-            file_or_filename.write(oss.str().decode('utf-8'))
+            self._ptr.writeData_OSTR(oss, fmt)
+            file_or_filename.write(oss.str())
 
     def nominalCrossSection(self):
         "Get the current nominal cross-section value from the ongoing event run"
@@ -118,15 +118,15 @@ cdef class AnalysisHandler:
 
     def dump(self, name, period):
         "Declare to dump the current status of this AH's histograms to file every <period> events"
-        self._ptr.dump(name.encode('utf-8'), period)
+        self._ptr.dump(name, period)
 
     def mergeYodas(self, filelist, delopts, addopts, matches, unmatches, equiv):
         "Access to the API call for merging multiple YODA files correctly, including finalization. Mainly for rivet-merge"
-        filelist  = [ f.encode('utf-8') for f in filelist ]
-        delopts   = [ d.encode('utf-8') for d in delopts  ]
-        addopts   = [ d.encode('utf-8') for d in addopts ]
-        matches   = [ d.encode('utf-8') for d in matches ]
-        unmatches = [ d.encode('utf-8') for d in unmatches ]
+        filelist  = [ f for f in filelist ]
+        delopts   = [ d for d in delopts  ]
+        addopts   = [ d for d in addopts ]
+        matches   = [ d for d in matches ]
+        unmatches = [ d for d in unmatches ]
         self._ptr.mergeYodas(filelist, delopts, addopts, matches, unmatches, equiv)
 
     def merge(self, AnalysisHandler other):
@@ -160,11 +160,11 @@ cdef class Run:
 
     def init(self, name, weight=1.0):
         "Call the init() step on the AnalysisHandler and its analyses"
-        return self._ptr.init(name.encode('utf-8'), weight)
+        return self._ptr.init(name, weight)
 
     def openFile(self, name, weight=1.0):
         "Open a new event file, with an optional file-level multiplicative weight"
-        return self._ptr.openFile(name.encode('utf-8'), weight)
+        return self._ptr.openFile(name, weight)
 
     def readEvent(self):
         "Read the next event from the input event stream"
@@ -202,7 +202,7 @@ cdef class Analysis:
 
     def name(self):
         "Get the analysis-routine name"
-        return deref(self._ptr).name().decode('utf-8')
+        return deref(self._ptr).name()
 
     def requiredBeams(self):
         "Get the beam configuration required by this analysis"
@@ -215,12 +215,12 @@ cdef class Analysis:
     def keywords(self):
         "Get the list of physics keywords for this analysis"
         kws = deref(self._ptr).keywords()
-        return [ k.decode('utf-8') for k in kws ]
+        return [ k for k in kws ]
 
     def validation(self):
         "Get the validation status of this analysis"
         vld = deref(self._ptr).validation()
-        return [ k.decode('utf-8') for k in vld ]
+        return [ k for k in vld ]
 
     def reentrant(self):
         "Get whether the analysis is re-entrant, i.e. finalize() can be re-run in post-processing"
@@ -229,60 +229,60 @@ cdef class Analysis:
     def authors(self):
         "Get the list of analysis-routine authors"
         auths = deref(self._ptr).authors()
-        return [ a.decode('utf-8') for a in auths ]
+        return [ a for a in auths ]
 
     def bibKey(self):
         "Get the BibTeX bibliography key for the corresponding experiment paper"
-        return deref(self._ptr).bibKey().decode('utf-8')
+        return deref(self._ptr).bibKey()
 
     def bibTeX(self):
         "Get the BibTeX bibliography entry for the corresponding experiment paper"
-        return deref(self._ptr).bibTeX().decode('utf-8')
+        return deref(self._ptr).bibTeX()
 
     def references(self):
         "Get the list of bibliography references for this routine"
         refs = deref(self._ptr).references()
-        return [ r.decode('utf-8') for r  in refs ]
+        return [ r for r  in refs ]
 
     def collider(self):
         "Get the name of the collider on which the corresponding experimental analysis was performed"
-        return deref(self._ptr).collider().decode('utf-8')
+        return deref(self._ptr).collider()
 
     def summary(self):
         "Get a short, one-line description of the analysis"
-        return deref(self._ptr).summary().decode('utf-8')
+        return deref(self._ptr).summary()
 
     def description(self):
         "Get a long description of the analysis methods and context. Often the experimental-paper abstract"
-        return deref(self._ptr).description().decode('utf-8')
+        return deref(self._ptr).description()
 
     def experiment(self):
         "Get the name of the experiment by which the original analysis was performed"
-        return deref(self._ptr).experiment().decode('utf-8')
+        return deref(self._ptr).experiment()
 
     def inspireId(self):
         "Get the Inspire-HEP ID code of the original paper"
-        return deref(self._ptr).inspireId().decode('utf-8')
+        return deref(self._ptr).inspireId()
 
     def spiresId(self):
         "Get the SPIRES ID code of the original paper [deprecated]"
-        return deref(self._ptr).spiresId().decode('utf-8')
+        return deref(self._ptr).spiresId()
 
     def runInfo(self):
         "Get information about the MC run conditions required to use this analysis"
-        return deref(self._ptr).runInfo().decode('utf-8')
+        return deref(self._ptr).runInfo()
 
     def status(self):
         "Get the indicated usability status of this analysis routine"
-        return deref(self._ptr).status().decode('utf-8')
+        return deref(self._ptr).status()
 
     def warning(self):
         "Get any warning strings indicated for this analysis routine"
-        return deref(self._ptr).warning().decode('utf-8')
+        return deref(self._ptr).warning()
 
     def year(self):
         "Get the year in which the experimental paper was published"
-        return deref(self._ptr).year().decode('utf-8')
+        return deref(self._ptr).year()
 
     def luminosity(self):
         "Get the corresponding integrated luminosity of the experimental analysis, in picobarns"
@@ -294,19 +294,19 @@ cdef class Analysis:
 
     def refMatch(self):
         "A regex for positively filtering matching datasets from the corresponding HepData record"
-        return deref(self._ptr).refMatch().decode('utf-8')
+        return deref(self._ptr).refMatch()
 
     def refUnmatch(self):
         "A regex for negatively filtering out non-matching datasets from the corresponding HepData record"
-        return deref(self._ptr).refUnmatch().decode('utf-8')
+        return deref(self._ptr).refUnmatch()
 
     def writerDoublePrecision(self):
         "Get whether the histogram writer needs to write in double precision for a run containing this analysis"
-        return deref(self._ptr).writerDoublePrecision().decode('utf-8')
+        return deref(self._ptr).writerDoublePrecision()
 
     def refFile(self):
         "Get the name of the corresponding reference-data file"
-        return deref(self._ptr).refFile().decode('utf-8')
+        return deref(self._ptr).refFile()
 
     def refData(self, asdict=True, patterns=None, unpatterns=None):
         """\
@@ -333,33 +333,33 @@ cdef class AnalysisLoader:
     def analysisNames():
         "Get the list of available analysis names, not including aliases"
         names = c.AnalysisLoader_analysisNames()
-        return [ n.decode('utf-8') for n in names ]
+        return [ n for n in names ]
 
     @staticmethod
     def allAnalysisNames():
         "Get the list of available analysis names, including aliases"
         names = c.AnalysisLoader_allAnalysisNames()
-        return [ n.decode('utf-8') for n in names ]
+        return [ n for n in names ]
 
     @staticmethod
     def stdAnalysisNames():
         "Get the list of built-in analysis names"
         names = c.AnalysisLoader_stdAnalysisNames()
-        return [ n.decode('utf-8') for n in names ]
+        return [ n for n in names ]
 
     @staticmethod
     def analysisNameAliases():
         "Get the list of analysis-name aliases"
         anames = c.AnalysisLoader_analysisNameAliases()
-        return { a.first.decode('utf-8') : a.second.decode('utf-8') for a in anames }
+        return { a.first : a.second for a in anames }
 
     @staticmethod
     def getAnalysis(name):
         "Get a Python wrapper for a named analysis (metadata access only)"
-        try:
-          name = name.encode('utf-8')
-        except AttributeError:
-          pass
+        # try:
+        #   name = name
+        # except AttributeError:
+        #   pass
         cdef c.unique_ptr[c.Analysis] ptr = c.AnalysisLoader_getAnalysis(name)
         cdef Analysis pyobj = Analysis.__new__(Analysis)
         if not ptr:
@@ -388,80 +388,80 @@ def analysisNameAliases():
 
 def getAnalysis(name):
     "Get a Python wrapper for a named analysis (metadata access only)"
-    return AnalysisLoader.getAnalysis(name.encode('utf-8'))
+    return AnalysisLoader.getAnalysis(name)
 
 
 ## Path functions
 def getAnalysisLibPaths():
     "Get the list of paths to search for analysis plugin libraries"
     ps = c.getAnalysisLibPaths()
-    return [ p.decode('utf-8') for p in ps ]
+    return [ p for p in ps ]
 
 def setAnalysisLibPaths(xs):
     "Set the list of paths to search for analysis plugin libraries"
-    bs = [ x.encode('utf-8') for x in xs ]
+    bs = [ x for x in xs ]
     c.setAnalysisLibPaths(bs)
 
 def addAnalysisLibPath(path):
     "Add to the list of paths to search for analysis plugin libraries"
-    c.addAnalysisLibPath(path.encode('utf-8'))
+    c.addAnalysisLibPath(path)
 
 
 def setAnalysisDataPaths(xs):
     "Get the list of paths to search for analysis data files"
-    bs = [ x.encode('utf-8') for x in xs ]
+    bs = [ x for x in xs ]
     c.setAnalysisDataPaths(bs)
 
 def addAnalysisDataPath(path):
     "Add to the list of paths to search for analysis data files"
-    c.addAnalysisDataPath(path.encode('utf-8'))
+    c.addAnalysisDataPath(path)
 
 def getAnalysisDataPaths():
     "Add multiple paths to the list of paths to search for analysis data files"
     ps = c.getAnalysisDataPaths()
-    return [ p.decode('utf-8') for p in ps ]
+    return [ p for p in ps ]
 
 def findAnalysisDataFile(q):
     "Find the first match to a named analysis data file in the search paths"
-    f = c.findAnalysisDataFile(q.encode('utf-8'))
-    return f.decode('utf-8')
+    f = c.findAnalysisDataFile(q)
+    return f
 
 def getAnalysisRefPaths():
     "Get the list of paths to search for analysis reference-data files"
     ps = c.getAnalysisRefPaths()
-    return [ p.decode('utf-8') for p in ps ]
+    return [ p for p in ps ]
 
 def findAnalysisRefFile(q):
     "Find the first match to a named analysis reference-data file in the search paths"
-    f = c.findAnalysisRefFile(q.encode('utf-8'))
-    return f.decode('utf-8')
+    f = c.findAnalysisRefFile(q)
+    return f
 
 
 def getAnalysisInfoPaths():
     "Get the list of paths to search for analysis info files"
     ps = c.getAnalysisInfoPaths()
-    return [ p.decode('utf-8') for p in ps ]
+    return [ p for p in ps ]
 
 def findAnalysisInfoFile(q):
     "Find the first match to a named analysis info file in the search paths"
-    f = c.findAnalysisInfoFile(q.encode('utf-8'))
-    return f.decode('utf-8')
+    f = c.findAnalysisInfoFile(q)
+    return f
 
 def getAnalysisPlotPaths():
     "Get the list of paths to search for analysis plot-style files"
     ps = c.getAnalysisPlotPaths()
-    return [ p.decode('utf-8') for p in ps ]
+    return [ p for p in ps ]
 
 def findAnalysisPlotFile(q):
     "Find the first match to a named analysis plot-style file in the search paths"
-    f = c.findAnalysisPlotFile(q.encode('utf-8'))
-    return f.decode('utf-8')
+    f = c.findAnalysisPlotFile(q)
+    return f
 
 
 def version():
     "Get the Rivet library version"
-    return c.version().decode('utf-8')
+    return c.version()
 
 def setLogLevel(name, level):
     "Set the log level for a named logger hierarchy"
-    c.setLogLevel(name.encode('utf-8'), level)
+    c.setLogLevel(name, level)
