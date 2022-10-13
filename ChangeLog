@@ -1,3 +1,9 @@
+2022-10-13  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Enable Cython autoconversion from C++ strings to the appropriate
+	str type for Python v2 and v3, eliminating many noisy and fragile
+	explicit encode()/decode() calls.
+
 2022-09-28  Christian Gutschow  <chris.g@cern.ch>
 
 	* Release 3.1.7
