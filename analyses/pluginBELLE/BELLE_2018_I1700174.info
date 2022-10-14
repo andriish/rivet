@@ -1,0 +1,40 @@
+Name: BELLE_2018_I1700174
+Year: 2018
+Summary: Cross section for $e^+e^-\to \gamma\chi_{c1}$ at energies near 10.58 GeV
+Experiment: BELLE
+Collider: KEKB
+InspireID: 1700174
+Status: VALIDATED NOHEPDATA 
+Reentrant: false
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 98 (2018) 9, 092015
+RunInfo: e+e- to hadrons
+NeedCrossSection: yes
+Beams: [e+,e-]
+Energies: [10.52,10.58,10.867]
+Description:
+  'Measurement of the cross section for $e^+e^-\to \gamma\chi_{c1}$ at energies near 10.58 GeV'
+ValidationInfo:
+'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Belle:2018jqa
+BibTeX: '@article{Belle:2018jqa,
+    author = "Jia, S. and others",
+    collaboration = "Belle",
+    title = "{Observation of $e^+e^- \to \gamma \chi_{c1}$ and search for $e^+e^- \to \gamma \chi_{c0}, \gamma \chi_{c2},$ and $\gamma\eta_c$ at $\sqrt{s}$ near 10.6 GeV at Belle}",
+    eprint = "1810.10291",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "Belle Preprint \# 2018-22, KEK Preprint \# 2018-55",
+    doi = "10.1103/PhysRevD.98.092015",
+    journal = "Phys. Rev. D",
+    volume = "98",
+    number = "9",
+    pages = "092015",
+    year = "2018"
+}
+'

@@ -1,0 +1,41 @@
+Name: BESIII_2019_I1724671
+Year: 2019
+Summary: Cross section for $e^+e^-\to\gamma X(3872)$ between 4 and 4.6 GeV
+Experiment: BESIII
+Collider: BEPC
+InspireID: 1724671
+Status: VALIDATED NOHEPDATA
+Reentrant: false
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 122 (2019) 23, 232002
+RunInfo: e+ e- 
+Beams: [e+, e-]
+Options:
+ - PID=*
+Description:
+  'Measurement of the cross section for $e^+e^-\to\gamma X(3872)$ times the branching ratio into the $\omega J\psi$ and $J/\psi\pi^+\pi^-$ modes for $X(3872)$.
+   There is no consensus as to the nature of the $X(3872)$ $c\bar{c}$ state and therefore we taken its PDG code to be 9030443, i.e. the first unused code for an undetermined
+   spin one $c\bar{c}$ state. This can be changed using the PID option if a different code is used by the event generator performing the simulation.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2019qvy
+BibTeX: '@article{BESIII:2019qvy,
+    author = "Ablikim, M. and others",
+    collaboration = "BESIII",
+    title = "{Study of $e^+e^- \to \gamma \omega J/\psi$ and Observation of $X(3872) \to \omega J/\psi$}",
+    eprint = "1903.04695",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1103/PhysRevLett.122.232002",
+    journal = "Phys. Rev. Lett.",
+    volume = "122",
+    number = "23",
+    pages = "232002",
+    year = "2019"
+}
+'

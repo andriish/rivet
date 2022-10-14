@@ -5,6 +5,7 @@
 	power laws, and a generic _fnspace() function for any
 	transform/inverse function-pair.
 
+
 2022-12-06 Christian Gutschow  <chris.g@cern.ch>
 
 	* Fix couting of raw vs tmp histos when checking self-consistency
@@ -46,6 +47,15 @@
 2022-10-26 Tomek Procter <t.procter.1@research.gla.ac.uk>
 
 	* Extend RivetLWTNN.hh to allow use of lwt::LightweightGraph
+
+2022-10-14 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2018_I1700174 e+ e- -> gamma chi_c1
+	* Add BESIII_2019_I1724671 e+e- -> gamma X(3872)
+	* Add BESIII_2019_I1623214 e+e- -> eta Y(2175)
+	* Add BESIII_2017_I1644905 e+e- -> phi chi_c1,2
+	* Add BESIII_2017_I1607253 e+e- -> 3 phi, 2phi omega
+	* Add BESIII_2014_I1258603 e+e- -> gamma X(3872)
 
 2022-10-13  Andy Buckley  <andy.buckley@cern.ch>
 

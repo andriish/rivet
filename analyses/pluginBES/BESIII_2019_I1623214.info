@@ -1,0 +1,43 @@
+Name: BESIII_2019_I1623214
+Year: 2019
+Summary: Cross section for $e^+e^-\to \eta Y(2175)$ for energies above 3.7 GeV
+Experiment: BESIII
+Collider: BEPC
+InspireID: 1623214
+Status: VALIDATED NOHEPDATA
+Reentrant: false
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 99 (2019) 1, 012014
+RunInfo: e+ e- to hadrons
+Beams: [e+, e-]
+Options:
+ - PID=*
+Description:
+  'Measurement of the cross section for $e^+e^-\to \eta Y(2175) times the branching ratio
+   $Y(2175)\to\phi\f_0(f_0\to\pi^+\pi^-)$ for energies above 3.7 GeV. The PDG code for the $Y(2175)$ is
+  not defined but the most probable assignment is that it is the $\phi$ member of the $^3D_1$ multiplet so we take its
+  PDG code to be 30333, although
+  this can be changed using the PID option if a different code is used by the event generator performing the simulation'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2017qkh
+BibTeX: '@article{BESIII:2017qkh,
+    author = "Ablikim, Medina and others",
+    collaboration = "BESIII",
+    title = "{Observation of $e^+ e^- \to \eta Y(2175)$ at center-of-mass energies above 3.7 GeV}",
+    eprint = "1709.04323",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1103/PhysRevD.99.012014",
+    journal = "Phys. Rev. D",
+    volume = "99",
+    number = "1",
+    pages = "012014",
+    year = "2019"
+}
+'
