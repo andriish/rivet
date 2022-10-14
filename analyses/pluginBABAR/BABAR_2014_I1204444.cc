@@ -6,22 +6,22 @@
 namespace Rivet {
 
 
-  /// @brief e+ e- > pi+ pi- J/Psi
-  class BELLE_2013_I1225975 : public Analysis {
+  /// @brief e+ e- > psi(2S) pi+ pi-
+  class BABAR_2014_I1204444 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2013_I1225975);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2014_I1204444);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
       declare(FinalState(), "FS");
-      declare(UnstableParticles(Cuts::pid==443), "UFS");
-      book(_nJPsi, "TMP/jpsi");
+      declare(UnstableParticles(Cuts::pid==100443), "UFS");
+      book(_nPsi, "TMP/psi");
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
@@ -66,17 +66,16 @@ namespace Rivet {
 	  }
 	}
 	if(matched) {
-	  _nJPsi->fill();
+	  _nPsi->fill();
 	  break;
 	}
       }
     }
 
-
     /// Normalise histograms etc., after the run
     void finalize() {
-      double sigma =  _nJPsi->val();
-      double error = _nJPsi->err();
+      double sigma =  _nPsi->val();
+      double error = _nPsi->err();
       sigma *= crossSection()/ sumOfWeights() /picobarn;
       error *= crossSection()/ sumOfWeights() /picobarn; 
       Scatter2D temphisto(refData(1, 1, 1));
@@ -97,18 +96,18 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
-    CounterPtr _nJPsi;
-    //@}
+    /// @{
+    CounterPtr _nPsi;
+    /// @}
 
 
   };
 
-  // The hook for the plugin system
-  RIVET_DECLARE_PLUGIN(BELLE_2013_I1225975);
+
+  RIVET_DECLARE_PLUGIN(BABAR_2014_I1204444);
 
 }

@@ -1,0 +1,37 @@
+Name: BABAR_2012_I1107905
+Year: 2012
+Summary: Cross section for $e^+e^-\to J/\psi\pi^+\pi^-$ at energies between 3.75 and 5.5 GeV
+Experiment: BABAR
+Collider: PEP-II
+InspireID: 1107905
+Status: VALIDATED NOHEPDATA
+Reentrant: false
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 86 (2012) 051102
+RunInfo: e+ e- to hadrons
+Beams: [e+,e-]
+Description:
+  'Measurement of the cross section for $e^+e^-\to J/\psi\pi^+\pi^-$ at energies between 3.75 and 5.5 GeV using radiative return by BABAR.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BaBar:2012vyb
+BibTeX: '@article{BaBar:2012vyb,
+    author = "Lees, J. P. and others",
+    collaboration = "BaBar",
+    title = "{Study of the reaction $e^{+}e^{-} \to J/\psi\pi^{+}\pi^{-}$ via initial-state radiation at BaBar}",
+    eprint = "1204.2158",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "BABAR-PUB-08-051, SLAC-PUB-14947",
+    doi = "10.1103/PhysRevD.86.051102",
+    journal = "Phys. Rev. D",
+    volume = "86",
+    pages = "051102",
+    year = "2012"
+}
+'

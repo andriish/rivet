@@ -15,7 +15,7 @@ Beams: [e+, e-]
 Description:
   'Cross section for  $e^+e^-\to\eta J/\psi$ for energies between 3.81 and 4.60 GeV measured by the BESIII collaboration.'
 ValidationInfo:
-  ''
+  'Herwig 7 events'
 #ReleaseTests:
 # - $A my-hepmc-prefix :MODE=some_rivet_flag
 Keywords: []

@@ -6,16 +6,16 @@
 namespace Rivet {
 
 
-  /// @brief e+ e- > pi+ pi- J/Psi
-  class BELLE_2013_I1225975 : public Analysis {
+  /// @brief e+ e- > pi+ pi- J/psi
+  class BABAR_2012_I1107905 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2013_I1225975);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2012_I1107905);
 
 
     /// @name Analysis methods
-    //@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -97,18 +97,18 @@ namespace Rivet {
       }
     }
 
-    //@}
+    /// @}
 
 
     /// @name Histograms
-    //@{
+    /// @{
     CounterPtr _nJPsi;
-    //@}
+    /// @}
 
 
   };
 
-  // The hook for the plugin system
-  RIVET_DECLARE_PLUGIN(BELLE_2013_I1225975);
+
+  RIVET_DECLARE_PLUGIN(BABAR_2012_I1107905);
 
 }
